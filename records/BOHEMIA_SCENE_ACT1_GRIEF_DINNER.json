@@ -1,160 +1,185 @@
 {
-  "id": "act1_grief_dinner",
-  "title": "THE GRIEF DINNER",
-  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 2 (THE GRIEF DINNER), plus THE TABLE IS THE THROUGHLINE AND IT STAYS SACRED and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, both 7/19 Paolo, locked",
-  "note": "THE SECOND CUTSCENE, AND IT COST ONE FILE. No new engine code, no new gate machinery, no hand-placed anything: the stager reads `place`, builds the room out of the walked world's own floorplan generator, furnishes it, seats whoever the beats place and times every line off its own text. That was the whole point of the 8/12 plumbing pass, and this is the proof rather than a promise.\n\nEVERY STRUCTURAL FACT HERE IS PAOLO'S, WRITTEN 7/19: 'THE GRIEF DINNER (next day, before the burial): the surviving family sits down to a real meal and a raw, genuinely sad conversation. People crying at the table. \"I miss them so much, I can't.\" \"I hate this.\" Bohemia commits to grief most games flinch from. This is the family-conversation mechanic's first and definitive beat.'\n\nTWO OF THE LINES ARE HIS OWN, VERBATIM, and they are tagged draft:false with a source - the first non-draft words in the game. No lane may edit them. The four around them are drafted attempts he can rewrite in the WORDS tab.\n\nWHAT THIS SCENE REFUSES TO DECIDE, AND IT IS THE HARD PART: WHO SURVIVED. It places only people whose survival is already ruled somewhere - the player, the mother ('it ends saving the mother', 7/19), and the older sibling (the CHARACTER lane's cast file: 'survives and becomes a co-founder'). THE FATHER IS NOT PLACED AND IS NOT DECLARED DEAD. His fate is unruled and this scene takes no position on it; if Paolo rules that he lives, it is ONE actor beat and nothing else changes.\n\nAND IT DOES NOT BUILD THE EMPTY CHAIR. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] in his own addendum. The room has more chairs than people because a room keeps its furniture - chairs belong to the room, bodies belong to the beats - which is a fact about seating and not a claim about a casualty. The motif is his to build when he wants it.\n\nSACRED TABLE (7/19): nothing bad happens AT the table. Nobody dies here, nothing is shown here. This is the after.",
-  "place": {
-    "zone": "residential",
-    "role": "living",
-    "seed": 7,
-    "w": 24,
-    "h": 16,
-    "kit": "dining",
-    "why": "THE SAME SEED AND THE SAME ROOM AS THE COLD OPEN, on purpose. 'THE TABLE IS THE THROUGHLINE, AND IT STAYS SACRED' (7/19). Because the room comes out of a deterministic generator, asking for the same place returns literally the same table - the plumbing gets the throughline for free, where a hand-built set would have needed somebody to copy the coordinates and keep them in step forever."
+ "id": "act1_grief_dinner",
+ "title": "THE GRIEF DINNER",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 2 (THE GRIEF DINNER), plus THE TABLE IS THE THROUGHLINE AND IT STAYS SACRED and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, both 7/19 Paolo, locked",
+ "note": "THE SECOND CUTSCENE, AND IT COST ONE FILE. No new engine code, no new gate machinery, no hand-placed anything: the stager reads `place`, builds the room out of the walked world's own floorplan generator, furnishes it, seats whoever the beats place and times every line off its own text. That was the whole point of the 8/12 plumbing pass, and this is the proof rather than a promise.\n\nEVERY STRUCTURAL FACT HERE IS PAOLO'S, WRITTEN 7/19: 'THE GRIEF DINNER (next day, before the burial): the surviving family sits down to a real meal and a raw, genuinely sad conversation. People crying at the table. \"I miss them so much, I can't.\" \"I hate this.\" Bohemia commits to grief most games flinch from. This is the family-conversation mechanic's first and definitive beat.'\n\nTWO OF THE LINES ARE HIS OWN, VERBATIM, and they are tagged draft:false with a source - the first non-draft words in the game. No lane may edit them. The four around them are drafted attempts he can rewrite in the WORDS tab.\n\nWHAT THIS SCENE REFUSES TO DECIDE, AND IT IS THE HARD PART: WHO SURVIVED. It places only people whose survival is already ruled somewhere - the player, the mother ('it ends saving the mother', 7/19), and the older sibling (the CHARACTER lane's cast file: 'survives and becomes a co-founder'). THE FATHER IS NOT PLACED AND IS NOT DECLARED DEAD. His fate is unruled and this scene takes no position on it; if Paolo rules that he lives, it is ONE actor beat and nothing else changes.\n\nAND IT DOES NOT BUILD THE EMPTY CHAIR. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] in his own addendum. The room has more chairs than people because a room keeps its furniture - chairs belong to the room, bodies belong to the beats - which is a fact about seating and not a claim about a casualty. The motif is his to build when he wants it.\n\nSACRED TABLE (7/19): nothing bad happens AT the table. Nobody dies here, nothing is shown here. This is the after.",
+ "place": {
+  "zone": "residential",
+  "role": "living",
+  "seed": 7,
+  "w": 24,
+  "h": 16,
+  "kit": "dining",
+  "why": "THE SAME SEED AND THE SAME ROOM AS THE COLD OPEN, on purpose. 'THE TABLE IS THE THROUGHLINE, AND IT STAYS SACRED' (7/19). Because the room comes out of a deterministic generator, asking for the same place returns literally the same table - the plumbing gets the throughline for free, where a hand-built set would have needed somebody to copy the coordinates and keep them in step forever."
+ },
+ "beats": [
+  {
+   "kind": "set",
+   "id": "the_day_after",
+   "place": "family_table",
+   "era": "post_collapse",
+   "mood": "dingy",
+   "light": "dim_interior",
+   "beats": 3,
+   "why": "'next day, before the burial' (7/19). Same room, same table, one day on from the raid."
   },
-  "beats": [
+  {
+   "kind": "camera",
+   "id": "table_frame",
+   "framing": "table_wide",
+   "hold": true,
+   "why": "the same framing as the cold open. The camera has sat here twice now and the third time is the burial, which is somewhere else entirely."
+  },
+  {
+   "kind": "actor",
+   "id": "you_after",
+   "actor": "player",
+   "age": "adult",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "the same chair, for the third time. 'Same chair. Ten years and you still take the same chair' was the cold open's line about it."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_after",
+   "actor": "mother",
+   "at": "table_seat_mother",
+   "pose": "seated",
+   "why": "'it ends saving the MOTHER' (7/19). Her survival is the one thing beat 1 states outright, so placing her decides nothing."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_after",
+   "actor": "sibling_older",
+   "at": "table_seat_sibling_older",
+   "pose": "seated",
+   "why": "the CHARACTER lane's FAMILY_CAST rules this one already: 'survives and becomes a co-founder'. Carried, not decided here. THE FATHER IS DELIBERATELY NOT PLACED - see the note."
+  },
+  {
+   "kind": "say",
+   "id": "grief_open",
+   "speaker": "mother",
+   "text": "Eat. It's the last of the good stuff and it doesn't keep.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). The scene does NOT open on grief. It opens on a mother telling her family to eat, which is the only thing she can still do for them, and the grief arrives underneath it three lines later. EDIT FREELY.",
+   "study": [
     {
-      "kind": "set",
-      "id": "the_day_after",
-      "place": "family_table",
-      "era": "post_collapse",
-      "mood": "dingy",
-      "light": "dim_interior",
-      "beats": 3,
-      "why": "'next day, before the burial' (7/19). Same room, same table, one day on from the raid."
+     "id": "Q001.W1",
+     "title": "TRANSACTION-CARRIES-EMOTION",
+     "applied": "the corpus is blunt: do not open with 'here's a sad story', open with the errand and let the weight sneak in under the instrumental frame. So the first line of the grief dinner is about FOOD SPOILING, and every sad thing after it lands on a table somebody was trying to be practical at."
     },
     {
-      "kind": "camera",
-      "id": "table_frame",
-      "framing": "table_wide",
-      "hold": true,
-      "why": "the same framing as the cold open. The camera has sat here twice now and the third time is the burial, which is somewhere else entirely."
-    },
-    {
-      "kind": "actor",
-      "id": "you_after",
-      "actor": "player",
-      "age": "adult",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "the same chair, for the third time. 'Same chair. Ten years and you still take the same chair' was the cold open's line about it."
-    },
-    {
-      "kind": "actor",
-      "id": "mother_after",
-      "actor": "mother",
-      "at": "table_seat_mother",
-      "pose": "seated",
-      "why": "'it ends saving the MOTHER' (7/19). Her survival is the one thing beat 1 states outright, so placing her decides nothing."
-    },
-    {
-      "kind": "actor",
-      "id": "brother_after",
-      "actor": "sibling_older",
-      "at": "table_seat_sibling_older",
-      "pose": "seated",
-      "why": "the CHARACTER lane's FAMILY_CAST rules this one already: 'survives and becomes a co-founder'. Carried, not decided here. THE FATHER IS DELIBERATELY NOT PLACED - see the note."
-    },
-    {
-      "kind": "say",
-      "id": "grief_open",
-      "speaker": "mother",
-      "text": "Eat. It's the last of the good stuff and it doesn't keep.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). The scene does NOT open on grief. It opens on a mother telling her family to eat, which is the only thing she can still do for them, and the grief arrives underneath it three lines later. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W1",
-          "title": "TRANSACTION-CARRIES-EMOTION",
-          "applied": "the corpus is blunt: do not open with 'here's a sad story', open with the errand and let the weight sneak in under the instrumental frame. So the first line of the grief dinner is about FOOD SPOILING, and every sad thing after it lands on a table somebody was trying to be practical at."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "nobody_eats",
-      "beats": 4,
-      "why": "'People crying at the table' (7/19). The silence after somebody says eat, and nobody does, is the whole scene. Duration is the instrument here - Q001.W6 PEREGRINATION, pacing as emotion rather than a cutscene doing it for you."
-    },
-    {
-      "kind": "say",
-      "id": "hate_this",
-      "speaker": "sibling_older",
-      "text": "I hate this.",
-      "draft": false,
-      "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
-      "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** He wrote it into the 7/19 addendum himself as one of the two lines that define this beat. Three words, no object, no explanation of what 'this' is, which is exactly how somebody talks the day after."
-    },
-    {
-      "kind": "wait",
-      "id": "nobody_answers",
-      "beats": 4,
-      "why": "REMOVE THE ALIBI VERB, as a silence. The easy write is somebody comforting him. Nobody does, because nobody can, and the scene sits in it."
-    },
-    {
-      "kind": "say",
-      "id": "cant",
-      "speaker": "mother",
-      "text": "I miss them so much, I can't.",
-      "draft": false,
-      "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
-      "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** The sentence breaks in the middle and never finishes, which is the whole reason it works. 'Bohemia commits to grief most games flinch from' (7/19) is this line."
-    },
-    {
-      "kind": "say",
-      "id": "no_comfort",
-      "speaker": "sibling_older",
-      "text": "I know. Don't say it back to me, I know.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the answer to his mother is NOT comfort. He stops her from being comforted at him, which is a real thing people do the day after and is the opposite of what a game usually writes here. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "that node's banked rule is REMOVE THE ALIBI VERB — the game withholds the sentence that would let the pressure out. Here the CHARACTER removes it himself, out loud, which does the same job and tells you who he is becoming in one line."
-        },
-        {
-          "id": "Q022.W8",
-          "title": "THE ATTENTIVE UNEARTH THE GRIEF",
-          "applied": "the corpus rewards the player who digs into long-buried loss rather than being handed it. Nobody in this scene explains the loss to the player; it is already in the room, and the writing's whole job is to not narrate it."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "the_meal_goes_cold",
-      "beats": 5,
-      "why": "'a real meal' that nobody eats. The cold open's first line was 'It's getting cold' and it was about dinner; this silence is the same sentence with nobody left to say it."
-    },
-    {
-      "kind": "say",
-      "id": "the_ridge",
-      "speaker": "mother",
-      "text": "We go up in the morning. Wear something you don't mind ruining.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the scene ends by pointing at beat 3 (THE BURIAL ON THE RIDGE, 7/19) without doing it, and it points with a LOGISTICAL instruction rather than a sad one — clothes you can dig in. Deliberately does not say who walks up, because that is his ruling. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W6",
-          "title": "PEREGRINATION (duration AS emotion)",
-          "applied": "the corpus banks duration itself as an emotional instrument — the botchling carry is slow ON PURPOSE. This line's job is to promise the walk, so the burial's climb up the ridge arrives already weighted rather than starting cold."
-        },
-        {
-          "id": "Q012.P9",
-          "title": "W9 (regret as the answer / change costs",
-          "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
-        }
-      ]
-    },
-    {
-      "kind": "end",
-      "id": "grief_dinner_ends",
-      "why": "'THE BURIAL ON THE RIDGE (tutorial ends here)' is beat 3 and it is NOT built here — it needs the ridge, the vista and the valley reveal, which are the CITY lane's, and it is the menu/title screen besides. This scene hands control back."
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
     }
-  ]
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_eats",
+   "beats": 4,
+   "why": "'People crying at the table' (7/19). The silence after somebody says eat, and nobody does, is the whole scene. Duration is the instrument here - Q001.W6 PEREGRINATION, pacing as emotion rather than a cutscene doing it for you."
+  },
+  {
+   "kind": "say",
+   "id": "the_green_ones",
+   "speaker": "mother",
+   "text": "I picked the green ones out. Force of habit.",
+   "draft": true,
+   "why": "*** THE THIRD INSTANCE, AND THE ONE THAT BREAKS THE PATTERN. *** The rule of three (dialogue craft card 3): the child table plants it, the dingy table repeats it, and this one breaks it -- she cooked around a person who is not at the table. It never says died, or her name, or anything about the raid. It is a woman describing a small kitchen task. EXPLAIN THE HANDS, NEVER THE GHOSTS (tone research R2). This also gives the existing next line, \"I hate this\", something to be a response TO, which it did not have before. HIS SACRED-TABLE MOTIF DOES THE WORK: the 7/19 law says the empty chair carries the grief and nothing bad ever happens at the table, so the grief has to arrive as an ordinary domestic detail or it breaks his rule. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "the corpus's example is a man admiring the spot where he will be buried, a line that only lands later. Ours runs the other way and lands the earlier line: a joke about vegetables two scenes ago is what makes one sentence about a cooking habit hurt, and the player assembles that themselves with nothing pointing at it."
+    },
+    {
+     "id": "Q035.W9",
+     "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+     "applied": "\"the true horror is emotional, psychological, not splatter; it haunts because it is HUMAN.\" The raid already supplied the violence. This scene is forbidden by his own 7/19 ruling from putting blood anywhere near the table, so the loss has to be carried by a habit she cannot stop performing."
+    },
+    {
+     "id": "Q043.P7",
+     "title": "W9 (the permanent pre-game/inter-generational loss",
+     "applied": "the port of the permanent-loss opening onto a dynasty game: the loss is irreversible and the game is about who keeps living at the table afterwards. The mother still setting a place, in the smallest way available to her, is that idea at domestic scale rather than stated as a theme."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "hate_this",
+   "speaker": "sibling_older",
+   "text": "I hate this.",
+   "draft": false,
+   "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
+   "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** He wrote it into the 7/19 addendum himself as one of the two lines that define this beat. Three words, no object, no explanation of what 'this' is, which is exactly how somebody talks the day after."
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_answers",
+   "beats": 4,
+   "why": "REMOVE THE ALIBI VERB, as a silence. The easy write is somebody comforting him. Nobody does, because nobody can, and the scene sits in it."
+  },
+  {
+   "kind": "say",
+   "id": "cant",
+   "speaker": "mother",
+   "text": "I miss them so much, I can't.",
+   "draft": false,
+   "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
+   "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** The sentence breaks in the middle and never finishes, which is the whole reason it works. 'Bohemia commits to grief most games flinch from' (7/19) is this line."
+  },
+  {
+   "kind": "say",
+   "id": "no_comfort",
+   "speaker": "sibling_older",
+   "text": "I know. Don't say it back to me, I know.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the answer to his mother is NOT comfort. He stops her from being comforted at him, which is a real thing people do the day after and is the opposite of what a game usually writes here. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "that node's banked rule is REMOVE THE ALIBI VERB — the game withholds the sentence that would let the pressure out. Here the CHARACTER removes it himself, out loud, which does the same job and tells you who he is becoming in one line."
+    },
+    {
+     "id": "Q022.W8",
+     "title": "THE ATTENTIVE UNEARTH THE GRIEF",
+     "applied": "the corpus rewards the player who digs into long-buried loss rather than being handed it. Nobody in this scene explains the loss to the player; it is already in the room, and the writing's whole job is to not narrate it."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "the_meal_goes_cold",
+   "beats": 5,
+   "why": "'a real meal' that nobody eats. The cold open's first line was 'It's getting cold' and it was about dinner; this silence is the same sentence with nobody left to say it."
+  },
+  {
+   "kind": "say",
+   "id": "the_ridge",
+   "speaker": "mother",
+   "text": "We go up in the morning. Wear something you don't mind ruining.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the scene ends by pointing at beat 3 (THE BURIAL ON THE RIDGE, 7/19) without doing it, and it points with a LOGISTICAL instruction rather than a sad one — clothes you can dig in. Deliberately does not say who walks up, because that is his ruling. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q001.W6",
+     "title": "PEREGRINATION (duration AS emotion)",
+     "applied": "the corpus banks duration itself as an emotional instrument — the botchling carry is slow ON PURPOSE. This line's job is to promise the walk, so the burial's climb up the ridge arrives already weighted rather than starting cold."
+    },
+    {
+     "id": "Q012.P9",
+     "title": "W9 (regret as the answer / change costs",
+     "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
+    }
+   ]
+  },
+  {
+   "kind": "end",
+   "id": "grief_dinner_ends",
+   "why": "'THE BURIAL ON THE RIDGE (tutorial ends here)' is beat 3 and it is NOT built here — it needs the ridge, the vista and the valley reveal, which are the CITY lane's, and it is the menu/title screen besides. This scene hands control back."
+  }
+ ]
 }

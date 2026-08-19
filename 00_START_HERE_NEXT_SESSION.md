@@ -1,3 +1,67 @@
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** SHE IS IN THE ROOM TONIGHT. The
+sister who dies on night one was never in the room on the night she dies.
+TAB: CUTSCENE, press PLAY on THE MATCH-CUT OPEN, then on THE GRIEF DINNER. ***
+
+MEASURED BEFORE CHANGING A WORD: sibling_lost spoke ONE line in the entire cold
+open, as a CHILD, ten years before the night she is taken, and was staged in the
+present-day room she dies out of ZERO times. FORTY scene_gate assertions were
+green over that. His own 7/19 ruling is what makes it a bug and not a choice:
+the death happens "away from [the table], in motion, in the house", so she is
+alive at that table minutes before and the scene simply never put her there.
+That is backlog 0sc's 8/13 amendment in one sentence -- attachment before the
+death was a WATCHED match-cut and nothing else.
+
+SHIPPED (record: records/BOHEMIA_SHE_IS_IN_THE_ROOM_TONIGHT_8_19_26.md):
+she is at the table tonight. The mother names her at the child table ten years
+earlier. THE QUIRK IS HIS OWN EXISTING LINE, not an invented one -- "I'm not
+eating the green ones" was already in the file and is now a ten-year family bit,
+repeated tonight by the one person who will not survive the night, and broken at
+the grief dinner by the mother: "I picked the green ones out. Force of habit."
+Rule of three, and the third instance is his 7/19 empty-chair motif arriving as
+a kitchen detail rather than a speech, which his sacred-table ruling requires.
+
+*** THE MISTAKE WORTH KEEPING, AND IT IS THE MOST USEFUL THING IN THIS HANDOFF:
+I BUILT A SECOND PLACE TO STORE HER NAME. *** Her name flips with the player
+(7/19: the surviving sibling matches the player's gender), so I put a drafted
+pair in the scene file, built token substitution into the runtime, wired it
+through the surface, gated it, and mutation-tested it three ways. Everything
+green. THEN I SCREENSHOTTED THE SCENE and the mother's speaker label said
+DENISE. FAMILY_CAST (tools/bohemia_family_cast_patch.py) has held the family's
+drafted names since the cast shipped -- RAY, DENISE, MARCO, NINA, all
+draft:true -- and already carries this exact flip in its `survivesIf` field. My
+names were a duplicate source of truth AND the wrong strings.
+  A GREEN GATE PROVES THE THING IT CHECKS AND NOTHING ELSE. Every assertion I
+  wrote was true. Not one of them asked the only question that mattered: DOES
+  SOMEBODY ELSE ALREADY OWN THIS? Ask it before building a store for anything.
+Fixed: the scene owns no names, the surface fills the token from FAMILY_CAST,
+and the gate reads that table and asserts the join -- the same technique
+scene_gate already used to check COMBAT's encounter id.
+
+AND A SECOND, SAME SHAPE, SAME DAY: Story.prototype.apply printed b.text RAW, so
+the caption on screen would have read "{sibling_lost}. Green ones too." with the
+braces in it, while the runtime resolved perfectly and scene_gate stayed green
+because it tested the RUNTIME. VERIFY ON THE REAL SURFACE, third time this week.
+Fixed in the module, never at the two call sites.
+
+VERIFIED ON THE REAL PAGE: both player sexes played through the real Story with
+the real cast -- male hears NINA, female hears MARCO, zero page errors. Lines
+are editable in the WORDS tab, beats in the DIRECT tab.
+gates: SCENE 40 -> 54, mutation-tested FOUR ways (absent tonight -> 3 red; no
+grief payoff -> 1 red; broken resolution -> 1 red; raw b.text -> 1 red).
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. THE OTHER HALF OF 0sc's AMENDMENT IS COMBAT'S, NOT MINE. The sibling
+     TEACHING the beat (I-MOVE-YOU-MOVE, your first dance partner) and the
+     protect/assist beat live inside the family-defense encounter that lane
+     owns. "Losing them = losing your teacher" needs the teacher built. Do not
+     start it without checking who is live on combat.
+  2. THE TELL is authored, gated and NOT on the card. BohemiaQuirk.tellFor()
+     returns what you can SEE about somebody before they speak, for all 22
+     shapes. It wants a surface that is not another row on a card that already
+     has a dozen.
+  3. DEEDS AND STANDING are still not in the city at all. BOUNDARY WARNING: the
+     rich deed sources on the talk card (give / commit / answer-a-claim /
+     take-a-favour) are the FACTIONS lane's sentinels.
 COMBAT (combat-nfnki9): 8/19 (c) LATEST -- *** THREE MEN, NOT EIGHT. The encounter
 curve is in (RF4-24 + RF4-26 BUILT), and the deadshot dial stopped tinkling.
 TAB: COMBAT -- hit NEW ENCOUNTER a few times and count the bodies. ***

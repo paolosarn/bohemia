@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19i - 298 PEOPLE, 17 NAMES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19j - SHE IS IN THE ROOM TONIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21303,8 +21303,60 @@ window.CLO=(function(){
        engine/bohemia_stage.js supplies the real one (subtitle reading speed,
        quantized up to the beat). */
     this.time = opts.time || null;
+    /* WHICH SIBLING WAS LOST. The 7/19 ruling ties it to the player's gender, so
+       the SURFACE knows it and this module is told. Defaulting to 'sister' is not
+       a decision about his story -- it is the male-player case his own ruling
+       spells out first, and it only decides which drafted name prints when a
+       caller has not said. */
+    /* role -> the name to print. Supplied by whoever knows the player, because
+       WHICH sibling was lost is a fact about the save and not about the scene.
+       Empty is legal: a token then prints as itself, visibly, instead of
+       vanishing. */
+    this.names = opts.names || {};
     this.dialogue = null;
   }
+
+  /* ---- THE FAMILY'S NAMES, AND WHY THE SCENE DOES NOT OWN THEM ------------
+     Paolo's 7/19 ruling, locked: "the surviving sibling is the SAME GENDER as
+     the player. Male player -> older brother survives (sister dies); female
+     player -> older sister survives (brother dies)."
+
+     So the sibling who dies on night one is the OPPOSITE gender to the player,
+     and a line that says their name out loud cannot be one string. A scene
+     writes a TOKEN and the caller supplies the name:
+
+         text:  "{sibling_lost}. Green ones too. We do this every night."
+         Scene(scene, { names: { sibling_lost: 'NINA' } })
+
+     *** AND THE NAMES COME FROM FAMILY_CAST, WHICH ALREADY EXISTED. *** The
+     first cut of this put the drafted names in the scene file itself, and that
+     was a SECOND source of truth for a string this repo already had: the family
+     has been named since the cast shipped (RAY, DENISE, MARCO, NINA, all
+     draft:true, all in tools/bohemia_family_cast_patch.py, with survivesIf
+     carrying the same gender flip). Two places holding one name is not a
+     redundancy, it is a guarantee that the day he renames her in one of them the
+     other keeps saying the old name. Caught by SCREENSHOTTING THE SCENE and
+     reading the speaker label: the mother came back as DENISE, from a table this
+     module had never heard of.
+
+     An unknown token is left ALONE rather than blanked, because a visible
+     {sibling_lost} on screen is a bug anyone can see and a silently deleted name
+     is one nobody can. */
+  function fillNames(text, names) {
+    if (!text || text.indexOf('{') < 0) return text;
+    names = names || {};
+    return String(text).replace(/\{([a-z_]+)\}/g, function (m, role) {
+      var n = names[role];
+      return (n == null || n === '') ? m : n;
+    });
+  }
+
+  /* WHAT THE SURFACE SHOULD PRINT for this beat, names resolved. Read this
+     rather than beat.text: beat.text is the authored line WITH its tokens, and
+     printing it raw is how {sibling_lost} reaches a player's screen. */
+  Scene.prototype.lineOf = function (b) {
+    return b && b.kind === 'say' ? fillNames(b.text, this.names) : null;
+  };
 
   Scene.prototype.current = function () {
     return this.done ? null : (this.scene.beats[this.i] || null);
@@ -21366,6 +21418,11 @@ window.CLO=(function(){
     var out = {
       done: false, beat: b, playerLocked: true,
       held: this.held, needs: need,
+      /* the line WITH its names filled in, alongside the authored beat. The
+         surface prints `line`; `beat.text` stays exactly as he wrote it so the
+         WORDS tab shows him the token he can edit rather than one resolution
+         of it. */
+      line: this.lineOf(b),
       dialogue: this.dialogue ? this.dialogue.view() : null,
     };
     if (this.held >= need) { this.i++; this.held = 0; }
@@ -21392,7 +21449,8 @@ window.CLO=(function(){
 
   var API = {
     BEAT_MS: BEAT_MS, KINDS: KINDS, Scene: Scene, validate: validate,
-    beatsToMs: beatsToMs, sceneBeats: sceneBeats, VERSION: 'scene-1.0.0',
+    beatsToMs: beatsToMs, sceneBeats: sceneBeats, VERSION: 'scene-1.1.0',
+    fillNames: fillNames,
     /* SCENES SHIP EMPTY FROM THE ENGINE (contents-Paolo's). The cold open lives
        in records/ as authored canon and is loaded by the surface, so this file
        can never quietly become a place where somebody invents his story. */
@@ -22075,6 +22133,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     sibling_older: 'BROTHER', sibling_lost: 'SISTER'
   };
 
+  /* FAMILY_CAST -> {role token: NAME}. `survivesIf` is the cast's own field:
+     'always' for the parents, 'male'/'female' for the two siblings, meaning THAT
+     sibling survives when the player is that sex. So the LOST sibling is the one
+     whose survivesIf names the other sex, and no gender logic is invented here.
+     Returns {} for an empty cast, which prints the token visibly rather than
+     silently dropping a name. */
+  function famNames(cast, playerSex) {
+    var out = {}, other = (playerSex === 'female') ? 'male' : 'female';
+    (cast || []).forEach(function (m) {
+      if (!m || !m.name) return;
+      if (m.role === 'FATHER') out.father = m.name;
+      if (m.role === 'MOTHER') out.mother = m.name;
+      if (m.survivesIf === playerSex) out.sibling_older = m.name;
+      if (m.survivesIf === other) out.sibling_lost = m.name;
+    });
+    return out;
+  }
+
   function Story(opts) {
     this.o = opts || {};
     this.cv = this.o.canvas;
@@ -22083,6 +22159,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     this.set = this.o.set;
     this.scene = this.o.scene;
     this.RT = this.o.runtime;
+    /* WHOSE NAME GOES IN THE LINE. A scene writes {sibling_lost}; FAMILY_CAST
+       says who that is. 7/19, LOCKED: the surviving sibling matches the player's
+       gender, so the one taken is the opposite -- which FAMILY_CAST already
+       encodes as `survivesIf`, so this READS that flip rather than restating it.
+       ONE PLACE HOLDS THE FAMILY'S NAMES and it is the cast table; this file
+       resolves against it and owns no names of its own. */
+    this.playerSex = this.o.playerSex || 'male';
+    this.names = this.o.names || famNames(this.o.family || (root.FAMILY_CAST || []), this.playerSex);
     this.ST = this.o.stage;                 // BOH_STAGE
     this.FP = this.o.floorplan;             // BOH_FLOORPLAN
     this.paint = this.o.paintBody;
@@ -22358,7 +22442,20 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       var back = this.frames[castKey + '_BACK'] ? castKey + '_BACK' : castKey;
       this.cast[b.actor] = { key: (seat.side === 'near' ? back : castKey), clip: 'sit-chair', seat: seat };
     } else if (b.kind === 'say') {
-      this.line = { speaker: b.speaker, text: b.text || '', draft: b.draft === true, cites: b.study || [] };
+      /* *** PRINT THE RESOLVED LINE, NEVER THE AUTHORED ONE. ***
+         The scene file writes "{sibling_lost}. Green ones too." because the name
+         flips with the player. This read b.text raw, so the caption on screen
+         would have been the literal token with the braces in it -- the runtime
+         resolved it correctly and the surface printed past the answer. FOUND BY
+         READING THE DRAW PATH, not by the gate: scene_gate proved the RUNTIME
+         resolves both cases and went green while the pixels would have shown
+         braces to a player. VERIFY ON THE REAL SURFACE, again.
+         Resolved HERE, in the module, rather than at the two call sites -- a
+         copied line is a fix that only half-ships. */
+      var said = (this.RT && this.RT.fillNames)
+        ? this.RT.fillNames(b.text || '', this.names)
+        : (b.text || '');
+      this.line = { speaker: b.speaker, text: said, draft: b.draft === true, cites: b.study || [] };
       /* THE VOICE GETS THE SAME WINDOW THE CAPTION GETS, so the babble finishes
          inside the line rather than talking over the next beat. */
       if (this.o.speak) {
@@ -22389,7 +22486,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     var ST = this.ST;
     /* LINE DURATION IS READING SPEED, injected as a policy. No say beat in any
        scene file carries a hand-typed hold any more. */
-    return new this.RT.Scene(this.scene, { time: function (b) { return ST.readBeats(b.text); } });
+    return new this.RT.Scene(this.scene, { time: function (b) { return ST.readBeats(b.text); },
+                                            names: this.names });
   };
 
   Story.prototype.start = function () {
@@ -22446,749 +22544,912 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 /* THE AUTHORED SCENE, verbatim from records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json.
    It lives in records/ because it is Paolo canon, not engine code. */
 var BOHEMIA_COLD_OPEN = {
-  "id": "act1_cold_open",
-  "title": "THE MATCH-CUT OPEN",
-  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
-  "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here. LENGTHENED 8/11 after Paolo watched v1 and said \"it was short\": +3 lines (father at the table, the older sibling before the cut, the father's second half after it) and +2 holds. Every added line carries its catalogue citations per the same day's DIALOGUE ALWAYS REFERS TO THE CATALOGUE ruling. No new DECISION is taken: nobody new is placed, nobody dies, nothing is named that he reserved.",
-  "beats": [
+ "id": "act1_cold_open",
+ "title": "THE MATCH-CUT OPEN",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
+ "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here. LENGTHENED 8/11 after Paolo watched v1 and said \"it was short\": +3 lines (father at the table, the older sibling before the cut, the father's second half after it) and +2 holds. Every added line carries its catalogue citations per the same day's DIALOGUE ALWAYS REFERS TO THE CATALOGUE ruling. No new DECISION is taken: nobody new is placed, nobody dies, nothing is named that he reserved.",
+ "beats": [
+  {
+   "kind": "set",
+   "id": "before",
+   "place": "family_table",
+   "era": "pre_collapse",
+   "mood": "warm",
+   "light": "warm_interior",
+   "beats": 2,
+   "why": "'The game opens on a PRE-APOCALYPSE family dinner... the family whole, the world intact, a warm happy moment at the table.'"
+  },
+  {
+   "kind": "camera",
+   "id": "table_frame",
+   "framing": "table_wide",
+   "hold": true,
+   "why": "the framing must be IDENTICAL either side of the cut or the match-cut does not read as the same table."
+  },
+  {
+   "kind": "actor",
+   "id": "you_child",
+   "actor": "player",
+   "age": "child",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "'You are a CHILD, the family whole.'"
+  },
+  {
+   "kind": "actor",
+   "id": "father_before",
+   "actor": "father",
+   "at": "table_seat_father",
+   "pose": "seated",
+   "why": "'the family whole' at the pre-collapse table. He is the one who wakes you ten years later, so the player must have seen him whole first."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_before",
+   "actor": "mother",
+   "at": "table_seat_mother",
+   "pose": "seated",
+   "why": "'the family whole' at the pre-collapse table. The cold open ends saving her, so she is established here before she is at risk."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_before",
+   "actor": "sibling_older",
+   "at": "table_seat_sibling_older",
+   "pose": "seated",
+   "why": "the older sibling is the SAME GENDER as the player (7/19 RESOLVED); the surface picks which body from creation."
+  },
+  {
+   "kind": "actor",
+   "id": "lost_before",
+   "actor": "sibling_lost",
+   "at": "table_seat_sibling_lost",
+   "pose": "seated",
+   "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
+  },
+  {
+   "kind": "say",
+   "id": "before_table_talk",
+   "speaker": "mother",
+   "beats": 2,
+   "text": "Sit down, both of you. It's getting cold.",
+   "draft": true,
+   "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY.",
+   "study": [
     {
-      "kind": "set",
-      "id": "before",
-      "place": "family_table",
-      "era": "pre_collapse",
-      "mood": "warm",
-      "light": "warm_interior",
-      "beats": 2,
-      "why": "'The game opens on a PRE-APOCALYPSE family dinner... the family whole, the world intact, a warm happy moment at the table.'"
+     "id": "Q013.W7",
+     "title": "THE BLINDSIDE (mundane -> devastating)",
+     "applied": "the corpus is explicit that the setup's LIGHTNESS is what makes the drop land, so the opening line of the game is deliberately the least remarkable sentence in the house. A portentous first line spends the match-cut before the match-cut happens."
     },
     {
-      "kind": "camera",
-      "id": "table_frame",
-      "framing": "table_wide",
-      "hold": true,
-      "why": "the framing must be IDENTICAL either side of the cut or the match-cut does not read as the same table."
-    },
-    {
-      "kind": "actor",
-      "id": "you_child",
-      "actor": "player",
-      "age": "child",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "'You are a CHILD, the family whole.'"
-    },
-    {
-      "kind": "actor",
-      "id": "father_before",
-      "actor": "father",
-      "at": "table_seat_father",
-      "pose": "seated",
-      "why": "'the family whole' at the pre-collapse table. He is the one who wakes you ten years later, so the player must have seen him whole first."
-    },
-    {
-      "kind": "actor",
-      "id": "mother_before",
-      "actor": "mother",
-      "at": "table_seat_mother",
-      "pose": "seated",
-      "why": "'the family whole' at the pre-collapse table. The cold open ends saving her, so she is established here before she is at risk."
-    },
-    {
-      "kind": "actor",
-      "id": "brother_before",
-      "actor": "sibling_older",
-      "at": "table_seat_sibling_older",
-      "pose": "seated",
-      "why": "the older sibling is the SAME GENDER as the player (7/19 RESOLVED); the surface picks which body from creation."
-    },
-    {
-      "kind": "actor",
-      "id": "lost_before",
-      "actor": "sibling_lost",
-      "at": "table_seat_sibling_lost",
-      "pose": "seated",
-      "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
-    },
-    {
-      "kind": "say",
-      "id": "before_table_talk",
-      "speaker": "mother",
-      "beats": 2,
-      "text": "Sit down, both of you. It's getting cold.",
-      "draft": true,
-      "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q013.W7",
-          "title": "THE BLINDSIDE (mundane -> devastating)",
-          "applied": "the corpus is explicit that the setup's LIGHTNESS is what makes the drop land, so the opening line of the game is deliberately the least remarkable sentence in the house. A portentous first line spends the match-cut before the match-cut happens."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "that study's named failure is a siege-home with no domestic texture, where 'the family exists in two character models and a closet'. Food going cold and a mother counting heads IS the domestic texture, bought in one sentence before the same house gets besieged."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_child_line",
-      "speaker": "sibling_lost",
-      "beats": 2,
-      "text": "I'm not eating the green ones.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q063.W2",
-          "title": "ATTACHMENT FROM MUNDANE INTIMACY",
-          "applied": "the only bond the player will ever get with this sibling has to form in one line, and the corpus says the bond forms through quiet ordinary emotionally-available moments, the everyday IS the attachment, not melodrama. So she gets vegetables, not a goodbye."
-        },
-        {
-          "id": "Q010.W8",
-          "title": "FORESHADOW-IN-HINDSIGHT",
-          "applied": "a line that only lands LATER, so the scene plays differently in memory than in the moment. Petty refusal of a vegetable is the last ordinary thing she says, and the player only learns that afterwards, which is the entire mechanism that study describes."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "'no child's drawings' is one of the three absences that study names by hand. This is the child's drawing, in audio, and it costs six words."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_father_line",
-      "speaker": "father",
-      "beats": 2,
-      "text": "They're saying the water district's hiring again. I'll go down Monday.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W1",
-          "title": "TRANSACTION-CARRIES-EMOTION",
-          "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
-        },
-        {
-          "id": "Q069.W9",
-          "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
-          "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_brother_line",
-      "speaker": "sibling_older",
-      "beats": 2,
-      "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q043.W4",
-          "title": "AMBIENT BANTER AS CHARACTERIZATION",
-          "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
-        },
-        {
-          "id": "Q032.P4",
-          "title": "W4 (fair-play seeding — MANDATORY",
-          "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "let_it_be_warm",
-      "beats": 8,
-      "why": "the warmth has to land before it is taken, or the cut costs nothing."
-    },
-    {
-      "kind": "cut",
-      "id": "the_blink",
-      "from": "pre_collapse",
-      "to": "post_collapse",
-      "keepFraming": true,
-      "years": 10,
-      "why": "'Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are 20-something. The single cut shows the entire apocalypse without a word.' THIS BEAT IS THE WHOLE OPENING."
-    },
-    {
-      "kind": "set",
-      "id": "after",
-      "place": "family_table",
-      "era": "post_collapse",
-      "mood": "dingy",
-      "light": "dim_interior",
-      "beats": 2,
-      "why": "same place, ten years on. What the world was, what it became."
-    },
-    {
-      "kind": "actor",
-      "id": "you_adult",
-      "actor": "player",
-      "age": "adult",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "'you are 20-something' - same seat, same framing, different person."
-    },
-    {
-      "kind": "set",
-      "id": "fireworks",
-      "place": "family_table",
-      "era": "post_collapse",
-      "sky": "fireworks",
-      "beats": 2,
-      "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
-    },
-    {
-      "kind": "wait",
-      "id": "let_the_room_sit",
-      "beats": 5,
-      "why": "PAOLO 8/11 ON v1: \"it was short\". The after-room got two beats before somebody spoke. A room that has been lived in for ten years needs to be LOOKED at before it is explained, and silence is the only thing that makes a boarded window mean anything."
-    },
-    {
-      "kind": "say",
-      "id": "after_table_quiet",
-      "speaker": "sibling_older",
-      "beats": 2,
-      "text": "Same chair. Ten years and you still take the same chair.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q009.W2",
-          "title": "THE MUNDANE HOOK -> COSMIC DREAD",
-          "applied": "the ordinary frame makes the reveal land harder. The first thing said after ten years of apocalypse is about SEATING, so the player's own eye does the reveal instead of a narrator doing it for them."
-        },
-        {
-          "id": "Q068.X3",
-          "title": "EXPOSITION-HEAVY / LORE-DUMP LATE",
-          "applied": "that study's failure is unloading the world's truth in big talky chunks, and its lesson is DRIP-FEED. The collapse therefore gets zero words here. The line points at the furniture and lets the player count the chairs."
-        },
-        {
-          "id": "Q010.W9",
-          "title": "THE HAUNTED SPACE",
-          "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "father_wakes_you",
-      "speaker": "father",
-      "bq": null,
-      "text": "Up. Now. Don't turn the light on.",
-      "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
-      "draft": true,
-      "study": [
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "that node's banked rule is REMOVE THE ALIBI VERB: the game withholds the sentence that would let the pressure out. The father is given no comfort verb. He does not say it will be okay and he does not explain what is outside, because either one is a pressure valve on the scene the tutorial is about to be."
-        },
-        {
-          "id": "Q039.W3",
-          "title": "DREAD, NOT JUMPSCARES",
-          "applied": "glimpse, withhold, imply, never show the monster. The raiders are not named, counted, or described. 'Don't turn the light on' tells you they are close enough to see a window, and that is the only fact the player gets."
-        },
-        {
-          "id": "Q033.P8",
-          "title": "W7 (one crystallizing line",
-          "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "father_gives_the_order",
-      "speaker": "father",
-      "beats": 2,
-      "text": "Back door. Behind me, and don't run until I say run.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q006.W4",
-          "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
-          "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
-        },
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
-        }
-      ]
-    },
-    {
-      "kind": "handoff",
-      "id": "family_defense",
-      "to": "combat",
-      "tier": "tutorial",
-      "encounter": "cold_open",
-      "returns": true,
-      "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' NAMED TO COMBAT'S OWN CONTRACT (8/11, tools/bohemia_alpha_cold_open_patch.py): they expose startColdOpen(onEnd) with encounterId 'cold_open'. My first version said 'family_defense' and the two halves WOULD NOT HAVE MET -- two lanes building complementary pieces that never connect is this repo's most expensive recurring bug, so the gate now checks the name against theirs instead of trusting it.",
-      "call": "startColdOpen"
-    },
-    {
-      "kind": "end",
-      "id": "cold_open_ends",
-      "why": "'It ends when you save your MOTHER from a raider. The assault is INFERRED, never shown or dwelt on.' The saving beat and the sibling's death are COMBAT's and his to author; the scene returns control here rather than dramatising something he has not ruled."
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "that study's named failure is a siege-home with no domestic texture, where 'the family exists in two character models and a closet'. Food going cold and a mother counting heads IS the domestic texture, bought in one sentence before the same house gets besieged."
     }
-  ]
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_child_line",
+   "speaker": "sibling_lost",
+   "beats": 2,
+   "text": "I'm not eating the green ones.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the only bond the player will ever get with this sibling has to form in one line, and the corpus says the bond forms through quiet ordinary emotionally-available moments, the everyday IS the attachment, not melodrama. So she gets vegetables, not a goodbye."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "a line that only lands LATER, so the scene plays differently in memory than in the moment. Petty refusal of a vegetable is the last ordinary thing she says, and the player only learns that afterwards, which is the entire mechanism that study describes."
+    },
+    {
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "'no child's drawings' is one of the three absences that study names by hand. This is the child's drawing, in audio, and it costs six words."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_mother_names_her",
+   "speaker": "mother",
+   "text": "{sibling_lost}. Green ones too. We do this every night.",
+   "draft": true,
+   "why": "ATTEMPT (8/11) + backlog 0sc's 8/13 amendment, which asks for the name and one quirk surfaced BEFORE the fight. It rides the line above rather than adding a new idea: his existing \"I'm not eating the green ones\" already IS the quirk, and one tired sentence from the mother turns it into a ten-year-old family bit AND lands the name. \"We do this every night\" is the whole job -- it tells you this has a history without a word of exposition. NOTHING NEW IS DECIDED: nobody is placed who was not already at this table, and the name is a draft in `cast`. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the beat above already cites this and already got it right: the bond forms through quiet ordinary moments, so she gets vegetables and not a goodbye. What it did not have was a NAME, and an unnamed person is a role. The mother saying it while telling her to eat is the cheapest possible way to land one, because that is how a family actually uses a name."
+    },
+    {
+     "id": "Q013.W7",
+     "title": "THE BLINDSIDE (mundane -> devastating)",
+     "applied": "\"the setup's lightness makes the drop land.\" This is the setup, and it is deliberately the lightest line in the scene: a tired mother losing the same argument about vegetables she loses every night. Nothing here is allowed to be portentous or the drop stops working."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_father_line",
+   "speaker": "father",
+   "beats": 2,
+   "text": "They're saying the water district's hiring again. I'll go down Monday.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q001.W1",
+     "title": "TRANSACTION-CARRIES-EMOTION",
+     "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
+    },
+    {
+     "id": "Q069.W9",
+     "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
+     "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_brother_line",
+   "speaker": "sibling_older",
+   "beats": 2,
+   "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
+    },
+    {
+     "id": "Q032.P4",
+     "title": "W4 (fair-play seeding — MANDATORY",
+     "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "let_it_be_warm",
+   "beats": 8,
+   "why": "the warmth has to land before it is taken, or the cut costs nothing."
+  },
+  {
+   "kind": "cut",
+   "id": "the_blink",
+   "from": "pre_collapse",
+   "to": "post_collapse",
+   "keepFraming": true,
+   "years": 10,
+   "why": "'Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are 20-something. The single cut shows the entire apocalypse without a word.' THIS BEAT IS THE WHOLE OPENING."
+  },
+  {
+   "kind": "set",
+   "id": "after",
+   "place": "family_table",
+   "era": "post_collapse",
+   "mood": "dingy",
+   "light": "dim_interior",
+   "beats": 2,
+   "why": "same place, ten years on. What the world was, what it became."
+  },
+  {
+   "kind": "actor",
+   "id": "you_adult",
+   "actor": "player",
+   "age": "adult",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "'you are 20-something' - same seat, same framing, different person."
+  },
+  {
+   "kind": "actor",
+   "id": "lost_after",
+   "actor": "sibling_lost",
+   "at": "table_seat_sibling_lost",
+   "pose": "seated",
+   "why": "*** THE PERSON TAKEN TONIGHT WAS NOT IN THE ROOM TONIGHT. *** The 7/19 shape is explicit that she does not die at the table -- \"the death happens during the raid, away from it, in motion, in the house\" -- which means she is alive AT this table, minutes before, and the scene simply never staged her. The player's entire acquaintance with her was one line as a child ten years ago. This is the hole backlog 0sc's 8/13 amendment names: attachment before the death was a WATCHED match-cut and nothing else. Staging her costs no decision -- she is already established at this table and already ruled to die away from it."
+  },
+  {
+   "kind": "set",
+   "id": "fireworks",
+   "place": "family_table",
+   "era": "post_collapse",
+   "sky": "fireworks",
+   "beats": 2,
+   "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
+  },
+  {
+   "kind": "wait",
+   "id": "let_the_room_sit",
+   "beats": 5,
+   "why": "PAOLO 8/11 ON v1: \"it was short\". The after-room got two beats before somebody spoke. A room that has been lived in for ten years needs to be LOOKED at before it is explained, and silence is the only thing that makes a boarded window mean anything."
+  },
+  {
+   "kind": "say",
+   "id": "after_table_quiet",
+   "speaker": "sibling_older",
+   "beats": 2,
+   "text": "Same chair. Ten years and you still take the same chair.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q009.W2",
+     "title": "THE MUNDANE HOOK -> COSMIC DREAD",
+     "applied": "the ordinary frame makes the reveal land harder. The first thing said after ten years of apocalypse is about SEATING, so the player's own eye does the reveal instead of a narrator doing it for them."
+    },
+    {
+     "id": "Q068.X3",
+     "title": "EXPOSITION-HEAVY / LORE-DUMP LATE",
+     "applied": "that study's failure is unloading the world's truth in big talky chunks, and its lesson is DRIP-FEED. The collapse therefore gets zero words here. The line points at the furniture and lets the player count the chairs."
+    },
+    {
+     "id": "Q010.W9",
+     "title": "THE HAUNTED SPACE",
+     "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "after_green_ones",
+   "speaker": "sibling_lost",
+   "text": "There's green ones in this.",
+   "draft": true,
+   "why": "THE SAME BIT, TEN YEARS AND ONE APOCALYPSE LATER, and it is the second of three. The match-cut's whole job is showing what survived and what did not; this is a small human thing that survived, said by the one person who will not survive the night. It is funny for exactly as long as it takes to become unbearable. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q036.W7",
+     "title": "MANUFACTURED ATTACHMENT, THEN FORCED BETRAYAL (Companion Cube)",
+     "applied": "the corpus is blunt that attachment is ENGINEERED so its destruction hurts, and the tone research measured our version of the failure: before this, the player met the person who dies tonight for one line, as a child, ten years earlier. She was not in the room on the night she is taken. Now she is, and the last thing she does is be annoying about food."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "\"a line that only lands LATER; the quest plays differently in memory than in the moment.\" In the moment this is a joke about a bad dinner. After the raid it is the last ordinary thing she ever said, and the player heard it ninety seconds before it stopped being available."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "after_eat_it",
+   "speaker": "sibling_older",
+   "text": "There's nothing in it. Eat it.",
+   "draft": true,
+   "why": "ATTEMPT (8/11). The surviving sibling's only warmth toward the one who is about to be taken, and it is deliberately not warm on the surface -- flat, unbothered, the way you talk to somebody you assume will be at the table tomorrow. THE STRAIGHT MAN (dialogue craft card 4): the bit needs a normal reaction to bounce off or it is a person being quirky at nobody. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the older sibling is the one who survives and carries the whole game, so the player has to see the two of them be siblings ONCE. Not a speech: the flat unbothered correction you only give somebody you have eaten with every night of your life."
+    },
+    {
+     "id": "Q043.W9",
+     "title": "THE PERMANENT PRE-GAME LOSS",
+     "applied": "\"even heroes lose people\" is the instant-stakes move, and it only works if the people were people. This line exists so the surviving sibling is not merely a companion slot but somebody who had a sister an hour ago."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "father_wakes_you",
+   "speaker": "father",
+   "bq": null,
+   "text": "Up. Now. Don't turn the light on.",
+   "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "that node's banked rule is REMOVE THE ALIBI VERB: the game withholds the sentence that would let the pressure out. The father is given no comfort verb. He does not say it will be okay and he does not explain what is outside, because either one is a pressure valve on the scene the tutorial is about to be."
+    },
+    {
+     "id": "Q039.W3",
+     "title": "DREAD, NOT JUMPSCARES",
+     "applied": "glimpse, withhold, imply, never show the monster. The raiders are not named, counted, or described. 'Don't turn the light on' tells you they are close enough to see a window, and that is the only fact the player gets."
+    },
+    {
+     "id": "Q033.P8",
+     "title": "W7 (one crystallizing line",
+     "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "father_gives_the_order",
+   "speaker": "father",
+   "beats": 2,
+   "text": "Back door. Behind me, and don't run until I say run.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q006.W4",
+     "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
+     "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
+    },
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
+    }
+   ]
+  },
+  {
+   "kind": "handoff",
+   "id": "family_defense",
+   "to": "combat",
+   "tier": "tutorial",
+   "encounter": "cold_open",
+   "returns": true,
+   "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' NAMED TO COMBAT'S OWN CONTRACT (8/11, tools/bohemia_alpha_cold_open_patch.py): they expose startColdOpen(onEnd) with encounterId 'cold_open'. My first version said 'family_defense' and the two halves WOULD NOT HAVE MET -- two lanes building complementary pieces that never connect is this repo's most expensive recurring bug, so the gate now checks the name against theirs instead of trusting it.",
+   "call": "startColdOpen"
+  },
+  {
+   "kind": "end",
+   "id": "cold_open_ends",
+   "why": "'It ends when you save your MOTHER from a raider. The assault is INFERRED, never shown or dwelt on.' The saving beat and the sibling's death are COMBAT's and his to author; the scene returns control here rather than dramatising something he has not ruled."
+  }
+ ],
+ "castNote": "THE NAMES ARE NOT IN THIS FILE ON PURPOSE. `{sibling_lost}` is a TOKEN; the surface fills it from FAMILY_CAST (tools/bohemia_family_cast_patch.py), which has held the family's drafted names since the cast shipped -- RAY, DENISE, MARCO, NINA, every one draft:true -- and which already carries this exact gender flip in its `survivesIf` field. The first cut of this beat put its own drafted pair here and that was a SECOND source of truth for one string: the day he renames her in the cast, a copy in this file would keep saying the old name in the one scene that matters most. Edit the name in FAMILY_CAST and it changes everywhere, including here. 7/19, LOCKED: male player loses the SISTER, female player loses the BROTHER."
 };
 var BOHEMIA_CUTSCENES = [
   {file:"BOHEMIA_SCENE_ACT1_COLD_OPEN.json", title:"THE MATCH-CUT OPEN", scene:{
-  "id": "act1_cold_open",
-  "title": "THE MATCH-CUT OPEN",
-  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
-  "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here. LENGTHENED 8/11 after Paolo watched v1 and said \"it was short\": +3 lines (father at the table, the older sibling before the cut, the father's second half after it) and +2 holds. Every added line carries its catalogue citations per the same day's DIALOGUE ALWAYS REFERS TO THE CATALOGUE ruling. No new DECISION is taken: nobody new is placed, nobody dies, nothing is named that he reserved.",
-  "beats": [
+ "id": "act1_cold_open",
+ "title": "THE MATCH-CUT OPEN",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
+ "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here. LENGTHENED 8/11 after Paolo watched v1 and said \"it was short\": +3 lines (father at the table, the older sibling before the cut, the father's second half after it) and +2 holds. Every added line carries its catalogue citations per the same day's DIALOGUE ALWAYS REFERS TO THE CATALOGUE ruling. No new DECISION is taken: nobody new is placed, nobody dies, nothing is named that he reserved.",
+ "beats": [
+  {
+   "kind": "set",
+   "id": "before",
+   "place": "family_table",
+   "era": "pre_collapse",
+   "mood": "warm",
+   "light": "warm_interior",
+   "beats": 2,
+   "why": "'The game opens on a PRE-APOCALYPSE family dinner... the family whole, the world intact, a warm happy moment at the table.'"
+  },
+  {
+   "kind": "camera",
+   "id": "table_frame",
+   "framing": "table_wide",
+   "hold": true,
+   "why": "the framing must be IDENTICAL either side of the cut or the match-cut does not read as the same table."
+  },
+  {
+   "kind": "actor",
+   "id": "you_child",
+   "actor": "player",
+   "age": "child",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "'You are a CHILD, the family whole.'"
+  },
+  {
+   "kind": "actor",
+   "id": "father_before",
+   "actor": "father",
+   "at": "table_seat_father",
+   "pose": "seated",
+   "why": "'the family whole' at the pre-collapse table. He is the one who wakes you ten years later, so the player must have seen him whole first."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_before",
+   "actor": "mother",
+   "at": "table_seat_mother",
+   "pose": "seated",
+   "why": "'the family whole' at the pre-collapse table. The cold open ends saving her, so she is established here before she is at risk."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_before",
+   "actor": "sibling_older",
+   "at": "table_seat_sibling_older",
+   "pose": "seated",
+   "why": "the older sibling is the SAME GENDER as the player (7/19 RESOLVED); the surface picks which body from creation."
+  },
+  {
+   "kind": "actor",
+   "id": "lost_before",
+   "actor": "sibling_lost",
+   "at": "table_seat_sibling_lost",
+   "pose": "seated",
+   "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
+  },
+  {
+   "kind": "say",
+   "id": "before_table_talk",
+   "speaker": "mother",
+   "beats": 2,
+   "text": "Sit down, both of you. It's getting cold.",
+   "draft": true,
+   "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY.",
+   "study": [
     {
-      "kind": "set",
-      "id": "before",
-      "place": "family_table",
-      "era": "pre_collapse",
-      "mood": "warm",
-      "light": "warm_interior",
-      "beats": 2,
-      "why": "'The game opens on a PRE-APOCALYPSE family dinner... the family whole, the world intact, a warm happy moment at the table.'"
+     "id": "Q013.W7",
+     "title": "THE BLINDSIDE (mundane -> devastating)",
+     "applied": "the corpus is explicit that the setup's LIGHTNESS is what makes the drop land, so the opening line of the game is deliberately the least remarkable sentence in the house. A portentous first line spends the match-cut before the match-cut happens."
     },
     {
-      "kind": "camera",
-      "id": "table_frame",
-      "framing": "table_wide",
-      "hold": true,
-      "why": "the framing must be IDENTICAL either side of the cut or the match-cut does not read as the same table."
-    },
-    {
-      "kind": "actor",
-      "id": "you_child",
-      "actor": "player",
-      "age": "child",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "'You are a CHILD, the family whole.'"
-    },
-    {
-      "kind": "actor",
-      "id": "father_before",
-      "actor": "father",
-      "at": "table_seat_father",
-      "pose": "seated",
-      "why": "'the family whole' at the pre-collapse table. He is the one who wakes you ten years later, so the player must have seen him whole first."
-    },
-    {
-      "kind": "actor",
-      "id": "mother_before",
-      "actor": "mother",
-      "at": "table_seat_mother",
-      "pose": "seated",
-      "why": "'the family whole' at the pre-collapse table. The cold open ends saving her, so she is established here before she is at risk."
-    },
-    {
-      "kind": "actor",
-      "id": "brother_before",
-      "actor": "sibling_older",
-      "at": "table_seat_sibling_older",
-      "pose": "seated",
-      "why": "the older sibling is the SAME GENDER as the player (7/19 RESOLVED); the surface picks which body from creation."
-    },
-    {
-      "kind": "actor",
-      "id": "lost_before",
-      "actor": "sibling_lost",
-      "at": "table_seat_sibling_lost",
-      "pose": "seated",
-      "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
-    },
-    {
-      "kind": "say",
-      "id": "before_table_talk",
-      "speaker": "mother",
-      "beats": 2,
-      "text": "Sit down, both of you. It's getting cold.",
-      "draft": true,
-      "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q013.W7",
-          "title": "THE BLINDSIDE (mundane -> devastating)",
-          "applied": "the corpus is explicit that the setup's LIGHTNESS is what makes the drop land, so the opening line of the game is deliberately the least remarkable sentence in the house. A portentous first line spends the match-cut before the match-cut happens."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "that study's named failure is a siege-home with no domestic texture, where 'the family exists in two character models and a closet'. Food going cold and a mother counting heads IS the domestic texture, bought in one sentence before the same house gets besieged."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_child_line",
-      "speaker": "sibling_lost",
-      "beats": 2,
-      "text": "I'm not eating the green ones.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q063.W2",
-          "title": "ATTACHMENT FROM MUNDANE INTIMACY",
-          "applied": "the only bond the player will ever get with this sibling has to form in one line, and the corpus says the bond forms through quiet ordinary emotionally-available moments, the everyday IS the attachment, not melodrama. So she gets vegetables, not a goodbye."
-        },
-        {
-          "id": "Q010.W8",
-          "title": "FORESHADOW-IN-HINDSIGHT",
-          "applied": "a line that only lands LATER, so the scene plays differently in memory than in the moment. Petty refusal of a vegetable is the last ordinary thing she says, and the player only learns that afterwards, which is the entire mechanism that study describes."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "'no child's drawings' is one of the three absences that study names by hand. This is the child's drawing, in audio, and it costs six words."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_father_line",
-      "speaker": "father",
-      "beats": 2,
-      "text": "They're saying the water district's hiring again. I'll go down Monday.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W1",
-          "title": "TRANSACTION-CARRIES-EMOTION",
-          "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
-        },
-        {
-          "id": "Q069.W9",
-          "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
-          "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "before_brother_line",
-      "speaker": "sibling_older",
-      "beats": 2,
-      "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q043.W4",
-          "title": "AMBIENT BANTER AS CHARACTERIZATION",
-          "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
-        },
-        {
-          "id": "Q032.P4",
-          "title": "W4 (fair-play seeding — MANDATORY",
-          "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "let_it_be_warm",
-      "beats": 8,
-      "why": "the warmth has to land before it is taken, or the cut costs nothing."
-    },
-    {
-      "kind": "cut",
-      "id": "the_blink",
-      "from": "pre_collapse",
-      "to": "post_collapse",
-      "keepFraming": true,
-      "years": 10,
-      "why": "'Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are 20-something. The single cut shows the entire apocalypse without a word.' THIS BEAT IS THE WHOLE OPENING."
-    },
-    {
-      "kind": "set",
-      "id": "after",
-      "place": "family_table",
-      "era": "post_collapse",
-      "mood": "dingy",
-      "light": "dim_interior",
-      "beats": 2,
-      "why": "same place, ten years on. What the world was, what it became."
-    },
-    {
-      "kind": "actor",
-      "id": "you_adult",
-      "actor": "player",
-      "age": "adult",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "'you are 20-something' - same seat, same framing, different person."
-    },
-    {
-      "kind": "set",
-      "id": "fireworks",
-      "place": "family_table",
-      "era": "post_collapse",
-      "sky": "fireworks",
-      "beats": 2,
-      "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
-    },
-    {
-      "kind": "wait",
-      "id": "let_the_room_sit",
-      "beats": 5,
-      "why": "PAOLO 8/11 ON v1: \"it was short\". The after-room got two beats before somebody spoke. A room that has been lived in for ten years needs to be LOOKED at before it is explained, and silence is the only thing that makes a boarded window mean anything."
-    },
-    {
-      "kind": "say",
-      "id": "after_table_quiet",
-      "speaker": "sibling_older",
-      "beats": 2,
-      "text": "Same chair. Ten years and you still take the same chair.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q009.W2",
-          "title": "THE MUNDANE HOOK -> COSMIC DREAD",
-          "applied": "the ordinary frame makes the reveal land harder. The first thing said after ten years of apocalypse is about SEATING, so the player's own eye does the reveal instead of a narrator doing it for them."
-        },
-        {
-          "id": "Q068.X3",
-          "title": "EXPOSITION-HEAVY / LORE-DUMP LATE",
-          "applied": "that study's failure is unloading the world's truth in big talky chunks, and its lesson is DRIP-FEED. The collapse therefore gets zero words here. The line points at the furniture and lets the player count the chairs."
-        },
-        {
-          "id": "Q010.W9",
-          "title": "THE HAUNTED SPACE",
-          "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "father_wakes_you",
-      "speaker": "father",
-      "bq": null,
-      "text": "Up. Now. Don't turn the light on.",
-      "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
-      "draft": true,
-      "study": [
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "that node's banked rule is REMOVE THE ALIBI VERB: the game withholds the sentence that would let the pressure out. The father is given no comfort verb. He does not say it will be okay and he does not explain what is outside, because either one is a pressure valve on the scene the tutorial is about to be."
-        },
-        {
-          "id": "Q039.W3",
-          "title": "DREAD, NOT JUMPSCARES",
-          "applied": "glimpse, withhold, imply, never show the monster. The raiders are not named, counted, or described. 'Don't turn the light on' tells you they are close enough to see a window, and that is the only fact the player gets."
-        },
-        {
-          "id": "Q033.P8",
-          "title": "W7 (one crystallizing line",
-          "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
-        }
-      ]
-    },
-    {
-      "kind": "say",
-      "id": "father_gives_the_order",
-      "speaker": "father",
-      "beats": 2,
-      "text": "Back door. Behind me, and don't run until I say run.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q006.W4",
-          "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
-          "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
-        },
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
-        }
-      ]
-    },
-    {
-      "kind": "handoff",
-      "id": "family_defense",
-      "to": "combat",
-      "tier": "tutorial",
-      "encounter": "cold_open",
-      "returns": true,
-      "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' NAMED TO COMBAT'S OWN CONTRACT (8/11, tools/bohemia_alpha_cold_open_patch.py): they expose startColdOpen(onEnd) with encounterId 'cold_open'. My first version said 'family_defense' and the two halves WOULD NOT HAVE MET -- two lanes building complementary pieces that never connect is this repo's most expensive recurring bug, so the gate now checks the name against theirs instead of trusting it.",
-      "call": "startColdOpen"
-    },
-    {
-      "kind": "end",
-      "id": "cold_open_ends",
-      "why": "'It ends when you save your MOTHER from a raider. The assault is INFERRED, never shown or dwelt on.' The saving beat and the sibling's death are COMBAT's and his to author; the scene returns control here rather than dramatising something he has not ruled."
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "that study's named failure is a siege-home with no domestic texture, where 'the family exists in two character models and a closet'. Food going cold and a mother counting heads IS the domestic texture, bought in one sentence before the same house gets besieged."
     }
-  ]
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_child_line",
+   "speaker": "sibling_lost",
+   "beats": 2,
+   "text": "I'm not eating the green ones.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the only bond the player will ever get with this sibling has to form in one line, and the corpus says the bond forms through quiet ordinary emotionally-available moments, the everyday IS the attachment, not melodrama. So she gets vegetables, not a goodbye."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "a line that only lands LATER, so the scene plays differently in memory than in the moment. Petty refusal of a vegetable is the last ordinary thing she says, and the player only learns that afterwards, which is the entire mechanism that study describes."
+    },
+    {
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "'no child's drawings' is one of the three absences that study names by hand. This is the child's drawing, in audio, and it costs six words."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_mother_names_her",
+   "speaker": "mother",
+   "text": "{sibling_lost}. Green ones too. We do this every night.",
+   "draft": true,
+   "why": "ATTEMPT (8/11) + backlog 0sc's 8/13 amendment, which asks for the name and one quirk surfaced BEFORE the fight. It rides the line above rather than adding a new idea: his existing \"I'm not eating the green ones\" already IS the quirk, and one tired sentence from the mother turns it into a ten-year-old family bit AND lands the name. \"We do this every night\" is the whole job -- it tells you this has a history without a word of exposition. NOTHING NEW IS DECIDED: nobody is placed who was not already at this table, and the name is a draft in `cast`. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the beat above already cites this and already got it right: the bond forms through quiet ordinary moments, so she gets vegetables and not a goodbye. What it did not have was a NAME, and an unnamed person is a role. The mother saying it while telling her to eat is the cheapest possible way to land one, because that is how a family actually uses a name."
+    },
+    {
+     "id": "Q013.W7",
+     "title": "THE BLINDSIDE (mundane -> devastating)",
+     "applied": "\"the setup's lightness makes the drop land.\" This is the setup, and it is deliberately the lightest line in the scene: a tired mother losing the same argument about vegetables she loses every night. Nothing here is allowed to be portentous or the drop stops working."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_father_line",
+   "speaker": "father",
+   "beats": 2,
+   "text": "They're saying the water district's hiring again. I'll go down Monday.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q001.W1",
+     "title": "TRANSACTION-CARRIES-EMOTION",
+     "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
+    },
+    {
+     "id": "Q069.W9",
+     "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
+     "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "before_brother_line",
+   "speaker": "sibling_older",
+   "beats": 2,
+   "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
+    },
+    {
+     "id": "Q032.P4",
+     "title": "W4 (fair-play seeding — MANDATORY",
+     "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "let_it_be_warm",
+   "beats": 8,
+   "why": "the warmth has to land before it is taken, or the cut costs nothing."
+  },
+  {
+   "kind": "cut",
+   "id": "the_blink",
+   "from": "pre_collapse",
+   "to": "post_collapse",
+   "keepFraming": true,
+   "years": 10,
+   "why": "'Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are 20-something. The single cut shows the entire apocalypse without a word.' THIS BEAT IS THE WHOLE OPENING."
+  },
+  {
+   "kind": "set",
+   "id": "after",
+   "place": "family_table",
+   "era": "post_collapse",
+   "mood": "dingy",
+   "light": "dim_interior",
+   "beats": 2,
+   "why": "same place, ten years on. What the world was, what it became."
+  },
+  {
+   "kind": "actor",
+   "id": "you_adult",
+   "actor": "player",
+   "age": "adult",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "'you are 20-something' - same seat, same framing, different person."
+  },
+  {
+   "kind": "actor",
+   "id": "lost_after",
+   "actor": "sibling_lost",
+   "at": "table_seat_sibling_lost",
+   "pose": "seated",
+   "why": "*** THE PERSON TAKEN TONIGHT WAS NOT IN THE ROOM TONIGHT. *** The 7/19 shape is explicit that she does not die at the table -- \"the death happens during the raid, away from it, in motion, in the house\" -- which means she is alive AT this table, minutes before, and the scene simply never staged her. The player's entire acquaintance with her was one line as a child ten years ago. This is the hole backlog 0sc's 8/13 amendment names: attachment before the death was a WATCHED match-cut and nothing else. Staging her costs no decision -- she is already established at this table and already ruled to die away from it."
+  },
+  {
+   "kind": "set",
+   "id": "fireworks",
+   "place": "family_table",
+   "era": "post_collapse",
+   "sky": "fireworks",
+   "beats": 2,
+   "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
+  },
+  {
+   "kind": "wait",
+   "id": "let_the_room_sit",
+   "beats": 5,
+   "why": "PAOLO 8/11 ON v1: \"it was short\". The after-room got two beats before somebody spoke. A room that has been lived in for ten years needs to be LOOKED at before it is explained, and silence is the only thing that makes a boarded window mean anything."
+  },
+  {
+   "kind": "say",
+   "id": "after_table_quiet",
+   "speaker": "sibling_older",
+   "beats": 2,
+   "text": "Same chair. Ten years and you still take the same chair.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q009.W2",
+     "title": "THE MUNDANE HOOK -> COSMIC DREAD",
+     "applied": "the ordinary frame makes the reveal land harder. The first thing said after ten years of apocalypse is about SEATING, so the player's own eye does the reveal instead of a narrator doing it for them."
+    },
+    {
+     "id": "Q068.X3",
+     "title": "EXPOSITION-HEAVY / LORE-DUMP LATE",
+     "applied": "that study's failure is unloading the world's truth in big talky chunks, and its lesson is DRIP-FEED. The collapse therefore gets zero words here. The line points at the furniture and lets the player count the chairs."
+    },
+    {
+     "id": "Q010.W9",
+     "title": "THE HAUNTED SPACE",
+     "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "after_green_ones",
+   "speaker": "sibling_lost",
+   "text": "There's green ones in this.",
+   "draft": true,
+   "why": "THE SAME BIT, TEN YEARS AND ONE APOCALYPSE LATER, and it is the second of three. The match-cut's whole job is showing what survived and what did not; this is a small human thing that survived, said by the one person who will not survive the night. It is funny for exactly as long as it takes to become unbearable. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q036.W7",
+     "title": "MANUFACTURED ATTACHMENT, THEN FORCED BETRAYAL (Companion Cube)",
+     "applied": "the corpus is blunt that attachment is ENGINEERED so its destruction hurts, and the tone research measured our version of the failure: before this, the player met the person who dies tonight for one line, as a child, ten years earlier. She was not in the room on the night she is taken. Now she is, and the last thing she does is be annoying about food."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "\"a line that only lands LATER; the quest plays differently in memory than in the moment.\" In the moment this is a joke about a bad dinner. After the raid it is the last ordinary thing she ever said, and the player heard it ninety seconds before it stopped being available."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "after_eat_it",
+   "speaker": "sibling_older",
+   "text": "There's nothing in it. Eat it.",
+   "draft": true,
+   "why": "ATTEMPT (8/11). The surviving sibling's only warmth toward the one who is about to be taken, and it is deliberately not warm on the surface -- flat, unbothered, the way you talk to somebody you assume will be at the table tomorrow. THE STRAIGHT MAN (dialogue craft card 4): the bit needs a normal reaction to bounce off or it is a person being quirky at nobody. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the older sibling is the one who survives and carries the whole game, so the player has to see the two of them be siblings ONCE. Not a speech: the flat unbothered correction you only give somebody you have eaten with every night of your life."
+    },
+    {
+     "id": "Q043.W9",
+     "title": "THE PERMANENT PRE-GAME LOSS",
+     "applied": "\"even heroes lose people\" is the instant-stakes move, and it only works if the people were people. This line exists so the surviving sibling is not merely a companion slot but somebody who had a sister an hour ago."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "father_wakes_you",
+   "speaker": "father",
+   "bq": null,
+   "text": "Up. Now. Don't turn the light on.",
+   "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "that node's banked rule is REMOVE THE ALIBI VERB: the game withholds the sentence that would let the pressure out. The father is given no comfort verb. He does not say it will be okay and he does not explain what is outside, because either one is a pressure valve on the scene the tutorial is about to be."
+    },
+    {
+     "id": "Q039.W3",
+     "title": "DREAD, NOT JUMPSCARES",
+     "applied": "glimpse, withhold, imply, never show the monster. The raiders are not named, counted, or described. 'Don't turn the light on' tells you they are close enough to see a window, and that is the only fact the player gets."
+    },
+    {
+     "id": "Q033.P8",
+     "title": "W7 (one crystallizing line",
+     "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "father_gives_the_order",
+   "speaker": "father",
+   "beats": 2,
+   "text": "Back door. Behind me, and don't run until I say run.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q006.W4",
+     "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
+     "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
+    },
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
+    }
+   ]
+  },
+  {
+   "kind": "handoff",
+   "id": "family_defense",
+   "to": "combat",
+   "tier": "tutorial",
+   "encounter": "cold_open",
+   "returns": true,
+   "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' NAMED TO COMBAT'S OWN CONTRACT (8/11, tools/bohemia_alpha_cold_open_patch.py): they expose startColdOpen(onEnd) with encounterId 'cold_open'. My first version said 'family_defense' and the two halves WOULD NOT HAVE MET -- two lanes building complementary pieces that never connect is this repo's most expensive recurring bug, so the gate now checks the name against theirs instead of trusting it.",
+   "call": "startColdOpen"
+  },
+  {
+   "kind": "end",
+   "id": "cold_open_ends",
+   "why": "'It ends when you save your MOTHER from a raider. The assault is INFERRED, never shown or dwelt on.' The saving beat and the sibling's death are COMBAT's and his to author; the scene returns control here rather than dramatising something he has not ruled."
+  }
+ ],
+ "castNote": "THE NAMES ARE NOT IN THIS FILE ON PURPOSE. `{sibling_lost}` is a TOKEN; the surface fills it from FAMILY_CAST (tools/bohemia_family_cast_patch.py), which has held the family's drafted names since the cast shipped -- RAY, DENISE, MARCO, NINA, every one draft:true -- and which already carries this exact gender flip in its `survivesIf` field. The first cut of this beat put its own drafted pair here and that was a SECOND source of truth for one string: the day he renames her in the cast, a copy in this file would keep saying the old name in the one scene that matters most. Edit the name in FAMILY_CAST and it changes everywhere, including here. 7/19, LOCKED: male player loses the SISTER, female player loses the BROTHER."
 }},
   {file:"BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json", title:"THE GRIEF DINNER", scene:{
-  "id": "act1_grief_dinner",
-  "title": "THE GRIEF DINNER",
-  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 2 (THE GRIEF DINNER), plus THE TABLE IS THE THROUGHLINE AND IT STAYS SACRED and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, both 7/19 Paolo, locked",
-  "note": "THE SECOND CUTSCENE, AND IT COST ONE FILE. No new engine code, no new gate machinery, no hand-placed anything: the stager reads `place`, builds the room out of the walked world's own floorplan generator, furnishes it, seats whoever the beats place and times every line off its own text. That was the whole point of the 8/12 plumbing pass, and this is the proof rather than a promise.\n\nEVERY STRUCTURAL FACT HERE IS PAOLO'S, WRITTEN 7/19: 'THE GRIEF DINNER (next day, before the burial): the surviving family sits down to a real meal and a raw, genuinely sad conversation. People crying at the table. \"I miss them so much, I can't.\" \"I hate this.\" Bohemia commits to grief most games flinch from. This is the family-conversation mechanic's first and definitive beat.'\n\nTWO OF THE LINES ARE HIS OWN, VERBATIM, and they are tagged draft:false with a source - the first non-draft words in the game. No lane may edit them. The four around them are drafted attempts he can rewrite in the WORDS tab.\n\nWHAT THIS SCENE REFUSES TO DECIDE, AND IT IS THE HARD PART: WHO SURVIVED. It places only people whose survival is already ruled somewhere - the player, the mother ('it ends saving the mother', 7/19), and the older sibling (the CHARACTER lane's cast file: 'survives and becomes a co-founder'). THE FATHER IS NOT PLACED AND IS NOT DECLARED DEAD. His fate is unruled and this scene takes no position on it; if Paolo rules that he lives, it is ONE actor beat and nothing else changes.\n\nAND IT DOES NOT BUILD THE EMPTY CHAIR. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] in his own addendum. The room has more chairs than people because a room keeps its furniture - chairs belong to the room, bodies belong to the beats - which is a fact about seating and not a claim about a casualty. The motif is his to build when he wants it.\n\nSACRED TABLE (7/19): nothing bad happens AT the table. Nobody dies here, nothing is shown here. This is the after.",
-  "place": {
-    "zone": "residential",
-    "role": "living",
-    "seed": 7,
-    "w": 24,
-    "h": 16,
-    "kit": "dining",
-    "why": "THE SAME SEED AND THE SAME ROOM AS THE COLD OPEN, on purpose. 'THE TABLE IS THE THROUGHLINE, AND IT STAYS SACRED' (7/19). Because the room comes out of a deterministic generator, asking for the same place returns literally the same table - the plumbing gets the throughline for free, where a hand-built set would have needed somebody to copy the coordinates and keep them in step forever."
+ "id": "act1_grief_dinner",
+ "title": "THE GRIEF DINNER",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 2 (THE GRIEF DINNER), plus THE TABLE IS THE THROUGHLINE AND IT STAYS SACRED and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, both 7/19 Paolo, locked",
+ "note": "THE SECOND CUTSCENE, AND IT COST ONE FILE. No new engine code, no new gate machinery, no hand-placed anything: the stager reads `place`, builds the room out of the walked world's own floorplan generator, furnishes it, seats whoever the beats place and times every line off its own text. That was the whole point of the 8/12 plumbing pass, and this is the proof rather than a promise.\n\nEVERY STRUCTURAL FACT HERE IS PAOLO'S, WRITTEN 7/19: 'THE GRIEF DINNER (next day, before the burial): the surviving family sits down to a real meal and a raw, genuinely sad conversation. People crying at the table. \"I miss them so much, I can't.\" \"I hate this.\" Bohemia commits to grief most games flinch from. This is the family-conversation mechanic's first and definitive beat.'\n\nTWO OF THE LINES ARE HIS OWN, VERBATIM, and they are tagged draft:false with a source - the first non-draft words in the game. No lane may edit them. The four around them are drafted attempts he can rewrite in the WORDS tab.\n\nWHAT THIS SCENE REFUSES TO DECIDE, AND IT IS THE HARD PART: WHO SURVIVED. It places only people whose survival is already ruled somewhere - the player, the mother ('it ends saving the mother', 7/19), and the older sibling (the CHARACTER lane's cast file: 'survives and becomes a co-founder'). THE FATHER IS NOT PLACED AND IS NOT DECLARED DEAD. His fate is unruled and this scene takes no position on it; if Paolo rules that he lives, it is ONE actor beat and nothing else changes.\n\nAND IT DOES NOT BUILD THE EMPTY CHAIR. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] in his own addendum. The room has more chairs than people because a room keeps its furniture - chairs belong to the room, bodies belong to the beats - which is a fact about seating and not a claim about a casualty. The motif is his to build when he wants it.\n\nSACRED TABLE (7/19): nothing bad happens AT the table. Nobody dies here, nothing is shown here. This is the after.",
+ "place": {
+  "zone": "residential",
+  "role": "living",
+  "seed": 7,
+  "w": 24,
+  "h": 16,
+  "kit": "dining",
+  "why": "THE SAME SEED AND THE SAME ROOM AS THE COLD OPEN, on purpose. 'THE TABLE IS THE THROUGHLINE, AND IT STAYS SACRED' (7/19). Because the room comes out of a deterministic generator, asking for the same place returns literally the same table - the plumbing gets the throughline for free, where a hand-built set would have needed somebody to copy the coordinates and keep them in step forever."
+ },
+ "beats": [
+  {
+   "kind": "set",
+   "id": "the_day_after",
+   "place": "family_table",
+   "era": "post_collapse",
+   "mood": "dingy",
+   "light": "dim_interior",
+   "beats": 3,
+   "why": "'next day, before the burial' (7/19). Same room, same table, one day on from the raid."
   },
-  "beats": [
+  {
+   "kind": "camera",
+   "id": "table_frame",
+   "framing": "table_wide",
+   "hold": true,
+   "why": "the same framing as the cold open. The camera has sat here twice now and the third time is the burial, which is somewhere else entirely."
+  },
+  {
+   "kind": "actor",
+   "id": "you_after",
+   "actor": "player",
+   "age": "adult",
+   "at": "table_seat_player",
+   "pose": "seated",
+   "why": "the same chair, for the third time. 'Same chair. Ten years and you still take the same chair' was the cold open's line about it."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_after",
+   "actor": "mother",
+   "at": "table_seat_mother",
+   "pose": "seated",
+   "why": "'it ends saving the MOTHER' (7/19). Her survival is the one thing beat 1 states outright, so placing her decides nothing."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_after",
+   "actor": "sibling_older",
+   "at": "table_seat_sibling_older",
+   "pose": "seated",
+   "why": "the CHARACTER lane's FAMILY_CAST rules this one already: 'survives and becomes a co-founder'. Carried, not decided here. THE FATHER IS DELIBERATELY NOT PLACED - see the note."
+  },
+  {
+   "kind": "say",
+   "id": "grief_open",
+   "speaker": "mother",
+   "text": "Eat. It's the last of the good stuff and it doesn't keep.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule). The scene does NOT open on grief. It opens on a mother telling her family to eat, which is the only thing she can still do for them, and the grief arrives underneath it three lines later. EDIT FREELY.",
+   "study": [
     {
-      "kind": "set",
-      "id": "the_day_after",
-      "place": "family_table",
-      "era": "post_collapse",
-      "mood": "dingy",
-      "light": "dim_interior",
-      "beats": 3,
-      "why": "'next day, before the burial' (7/19). Same room, same table, one day on from the raid."
+     "id": "Q001.W1",
+     "title": "TRANSACTION-CARRIES-EMOTION",
+     "applied": "the corpus is blunt: do not open with 'here's a sad story', open with the errand and let the weight sneak in under the instrumental frame. So the first line of the grief dinner is about FOOD SPOILING, and every sad thing after it lands on a table somebody was trying to be practical at."
     },
     {
-      "kind": "camera",
-      "id": "table_frame",
-      "framing": "table_wide",
-      "hold": true,
-      "why": "the same framing as the cold open. The camera has sat here twice now and the third time is the burial, which is somewhere else entirely."
-    },
-    {
-      "kind": "actor",
-      "id": "you_after",
-      "actor": "player",
-      "age": "adult",
-      "at": "table_seat_player",
-      "pose": "seated",
-      "why": "the same chair, for the third time. 'Same chair. Ten years and you still take the same chair' was the cold open's line about it."
-    },
-    {
-      "kind": "actor",
-      "id": "mother_after",
-      "actor": "mother",
-      "at": "table_seat_mother",
-      "pose": "seated",
-      "why": "'it ends saving the MOTHER' (7/19). Her survival is the one thing beat 1 states outright, so placing her decides nothing."
-    },
-    {
-      "kind": "actor",
-      "id": "brother_after",
-      "actor": "sibling_older",
-      "at": "table_seat_sibling_older",
-      "pose": "seated",
-      "why": "the CHARACTER lane's FAMILY_CAST rules this one already: 'survives and becomes a co-founder'. Carried, not decided here. THE FATHER IS DELIBERATELY NOT PLACED - see the note."
-    },
-    {
-      "kind": "say",
-      "id": "grief_open",
-      "speaker": "mother",
-      "text": "Eat. It's the last of the good stuff and it doesn't keep.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule). The scene does NOT open on grief. It opens on a mother telling her family to eat, which is the only thing she can still do for them, and the grief arrives underneath it three lines later. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W1",
-          "title": "TRANSACTION-CARRIES-EMOTION",
-          "applied": "the corpus is blunt: do not open with 'here's a sad story', open with the errand and let the weight sneak in under the instrumental frame. So the first line of the grief dinner is about FOOD SPOILING, and every sad thing after it lands on a table somebody was trying to be practical at."
-        },
-        {
-          "id": "Q138.X8",
-          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
-          "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "nobody_eats",
-      "beats": 4,
-      "why": "'People crying at the table' (7/19). The silence after somebody says eat, and nobody does, is the whole scene. Duration is the instrument here - Q001.W6 PEREGRINATION, pacing as emotion rather than a cutscene doing it for you."
-    },
-    {
-      "kind": "say",
-      "id": "hate_this",
-      "speaker": "sibling_older",
-      "text": "I hate this.",
-      "draft": false,
-      "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
-      "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** He wrote it into the 7/19 addendum himself as one of the two lines that define this beat. Three words, no object, no explanation of what 'this' is, which is exactly how somebody talks the day after."
-    },
-    {
-      "kind": "wait",
-      "id": "nobody_answers",
-      "beats": 4,
-      "why": "REMOVE THE ALIBI VERB, as a silence. The easy write is somebody comforting him. Nobody does, because nobody can, and the scene sits in it."
-    },
-    {
-      "kind": "say",
-      "id": "cant",
-      "speaker": "mother",
-      "text": "I miss them so much, I can't.",
-      "draft": false,
-      "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
-      "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** The sentence breaks in the middle and never finishes, which is the whole reason it works. 'Bohemia commits to grief most games flinch from' (7/19) is this line."
-    },
-    {
-      "kind": "say",
-      "id": "no_comfort",
-      "speaker": "sibling_older",
-      "text": "I know. Don't say it back to me, I know.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the answer to his mother is NOT comfort. He stops her from being comforted at him, which is a real thing people do the day after and is the opposite of what a game usually writes here. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q007.N3",
-          "title": "NODE SURVIVOR_COMFORT",
-          "applied": "that node's banked rule is REMOVE THE ALIBI VERB — the game withholds the sentence that would let the pressure out. Here the CHARACTER removes it himself, out loud, which does the same job and tells you who he is becoming in one line."
-        },
-        {
-          "id": "Q022.W8",
-          "title": "THE ATTENTIVE UNEARTH THE GRIEF",
-          "applied": "the corpus rewards the player who digs into long-buried loss rather than being handed it. Nobody in this scene explains the loss to the player; it is already in the room, and the writing's whole job is to not narrate it."
-        }
-      ]
-    },
-    {
-      "kind": "wait",
-      "id": "the_meal_goes_cold",
-      "beats": 5,
-      "why": "'a real meal' that nobody eats. The cold open's first line was 'It's getting cold' and it was about dinner; this silence is the same sentence with nobody left to say it."
-    },
-    {
-      "kind": "say",
-      "id": "the_ridge",
-      "speaker": "mother",
-      "text": "We go up in the morning. Wear something you don't mind ruining.",
-      "draft": true,
-      "why": "ATTEMPT (8/11 rule): the scene ends by pointing at beat 3 (THE BURIAL ON THE RIDGE, 7/19) without doing it, and it points with a LOGISTICAL instruction rather than a sad one — clothes you can dig in. Deliberately does not say who walks up, because that is his ruling. EDIT FREELY.",
-      "study": [
-        {
-          "id": "Q001.W6",
-          "title": "PEREGRINATION (duration AS emotion)",
-          "applied": "the corpus banks duration itself as an emotional instrument — the botchling carry is slow ON PURPOSE. This line's job is to promise the walk, so the burial's climb up the ridge arrives already weighted rather than starting cold."
-        },
-        {
-          "id": "Q012.P9",
-          "title": "W9 (regret as the answer / change costs",
-          "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
-        }
-      ]
-    },
-    {
-      "kind": "end",
-      "id": "grief_dinner_ends",
-      "why": "'THE BURIAL ON THE RIDGE (tutorial ends here)' is beat 3 and it is NOT built here — it needs the ridge, the vista and the valley reveal, which are the CITY lane's, and it is the menu/title screen besides. This scene hands control back."
+     "id": "Q138.X8",
+     "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+     "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
     }
-  ]
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_eats",
+   "beats": 4,
+   "why": "'People crying at the table' (7/19). The silence after somebody says eat, and nobody does, is the whole scene. Duration is the instrument here - Q001.W6 PEREGRINATION, pacing as emotion rather than a cutscene doing it for you."
+  },
+  {
+   "kind": "say",
+   "id": "the_green_ones",
+   "speaker": "mother",
+   "text": "I picked the green ones out. Force of habit.",
+   "draft": true,
+   "why": "*** THE THIRD INSTANCE, AND THE ONE THAT BREAKS THE PATTERN. *** The rule of three (dialogue craft card 3): the child table plants it, the dingy table repeats it, and this one breaks it -- she cooked around a person who is not at the table. It never says died, or her name, or anything about the raid. It is a woman describing a small kitchen task. EXPLAIN THE HANDS, NEVER THE GHOSTS (tone research R2). This also gives the existing next line, \"I hate this\", something to be a response TO, which it did not have before. HIS SACRED-TABLE MOTIF DOES THE WORK: the 7/19 law says the empty chair carries the grief and nothing bad ever happens at the table, so the grief has to arrive as an ordinary domestic detail or it breaks his rule. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "the corpus's example is a man admiring the spot where he will be buried, a line that only lands later. Ours runs the other way and lands the earlier line: a joke about vegetables two scenes ago is what makes one sentence about a cooking habit hurt, and the player assembles that themselves with nothing pointing at it."
+    },
+    {
+     "id": "Q035.W9",
+     "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+     "applied": "\"the true horror is emotional, psychological, not splatter; it haunts because it is HUMAN.\" The raid already supplied the violence. This scene is forbidden by his own 7/19 ruling from putting blood anywhere near the table, so the loss has to be carried by a habit she cannot stop performing."
+    },
+    {
+     "id": "Q043.P7",
+     "title": "W9 (the permanent pre-game/inter-generational loss",
+     "applied": "the port of the permanent-loss opening onto a dynasty game: the loss is irreversible and the game is about who keeps living at the table afterwards. The mother still setting a place, in the smallest way available to her, is that idea at domestic scale rather than stated as a theme."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "hate_this",
+   "speaker": "sibling_older",
+   "text": "I hate this.",
+   "draft": false,
+   "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
+   "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** He wrote it into the 7/19 addendum himself as one of the two lines that define this beat. Three words, no object, no explanation of what 'this' is, which is exactly how somebody talks the day after."
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_answers",
+   "beats": 4,
+   "why": "REMOVE THE ALIBI VERB, as a silence. The easy write is somebody comforting him. Nobody does, because nobody can, and the scene sits in it."
+  },
+  {
+   "kind": "say",
+   "id": "cant",
+   "speaker": "mother",
+   "text": "I miss them so much, I can't.",
+   "draft": false,
+   "source": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md — OPENING SEQUENCE CRYSTALLIZED beat 2, Paolo's own words, quoted verbatim",
+   "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** The sentence breaks in the middle and never finishes, which is the whole reason it works. 'Bohemia commits to grief most games flinch from' (7/19) is this line."
+  },
+  {
+   "kind": "say",
+   "id": "no_comfort",
+   "speaker": "sibling_older",
+   "text": "I know. Don't say it back to me, I know.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the answer to his mother is NOT comfort. He stops her from being comforted at him, which is a real thing people do the day after and is the opposite of what a game usually writes here. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q007.N3",
+     "title": "NODE SURVIVOR_COMFORT",
+     "applied": "that node's banked rule is REMOVE THE ALIBI VERB — the game withholds the sentence that would let the pressure out. Here the CHARACTER removes it himself, out loud, which does the same job and tells you who he is becoming in one line."
+    },
+    {
+     "id": "Q022.W8",
+     "title": "THE ATTENTIVE UNEARTH THE GRIEF",
+     "applied": "the corpus rewards the player who digs into long-buried loss rather than being handed it. Nobody in this scene explains the loss to the player; it is already in the room, and the writing's whole job is to not narrate it."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "the_meal_goes_cold",
+   "beats": 5,
+   "why": "'a real meal' that nobody eats. The cold open's first line was 'It's getting cold' and it was about dinner; this silence is the same sentence with nobody left to say it."
+  },
+  {
+   "kind": "say",
+   "id": "the_ridge",
+   "speaker": "mother",
+   "text": "We go up in the morning. Wear something you don't mind ruining.",
+   "draft": true,
+   "why": "ATTEMPT (8/11 rule): the scene ends by pointing at beat 3 (THE BURIAL ON THE RIDGE, 7/19) without doing it, and it points with a LOGISTICAL instruction rather than a sad one — clothes you can dig in. Deliberately does not say who walks up, because that is his ruling. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q001.W6",
+     "title": "PEREGRINATION (duration AS emotion)",
+     "applied": "the corpus banks duration itself as an emotional instrument — the botchling carry is slow ON PURPOSE. This line's job is to promise the walk, so the burial's climb up the ridge arrives already weighted rather than starting cold."
+    },
+    {
+     "id": "Q012.P9",
+     "title": "W9 (regret as the answer / change costs",
+     "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
+    }
+   ]
+  },
+  {
+   "kind": "end",
+   "id": "grief_dinner_ends",
+   "why": "'THE BURIAL ON THE RIDGE (tutorial ends here)' is beat 3 and it is NOT built here — it needs the ridge, the vista and the valley reveal, which are the CITY lane's, and it is the menu/title screen besides. This scene hands control back."
+  }
+ ]
 }}
 ];
 

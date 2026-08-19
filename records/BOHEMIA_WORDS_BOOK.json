@@ -4,9 +4,9 @@
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
   "sources": 34,
-  "lines": 1899,
-  "cited": 1853,
-  "fingerprint": "b452e7b02d872468",
+  "lines": 1903,
+  "cited": 1857,
+  "fingerprint": "70123915b6a0916b",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -45970,6 +45970,31 @@
     },
     {
      "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#before_mother_names_her",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "before_mother_names_her",
+     "speaker": "mother",
+     "node": "before_mother_names_her",
+     "text": "{sibling_lost}. Green ones too. We do this every night.",
+     "draft": true,
+     "why": "ATTEMPT (8/11) + backlog 0sc's 8/13 amendment, which asks for the name and one quirk surfaced BEFORE the fight. It rides the line above rather than adding a new idea: his existing \"I'm not eating the green ones\" already IS the quirk, and one tired sentence from the mother turns it into a ten-year-old family bit AND lands the name. \"We do this every night\" is the whole job -- it tells you this has a history without a word of exposition. NOTHING NEW IS DECIDED: nobody is placed who was not already at this table, and the name is a draft in `cast`. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q063.W2",
+       "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+       "applied": "the beat above already cites this and already got it right: the bond forms through quiet ordinary moments, so she gets vegetables and not a goodbye. What it did not have was a NAME, and an unnamed person is a role. The mother saying it while telling her to eat is the cheapest possible way to land one, because that is how a family actually uses a name."
+      },
+      {
+       "id": "Q013.W7",
+       "title": "THE BLINDSIDE (mundane -> devastating)",
+       "applied": "\"the setup's lightness makes the drop land.\" This is the setup, and it is deliberately the lightest line in the scene: a tired mother losing the same argument about vegetables she loses every night. Nothing here is allowed to be portentous or the drop stops working."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
      "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#before_father_line",
      "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
      "beat": "before_father_line",
@@ -46043,6 +46068,56 @@
        "id": "Q010.W9",
        "title": "THE HAUNTED SPACE",
        "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#after_green_ones",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "after_green_ones",
+     "speaker": "sibling_lost",
+     "node": "after_green_ones",
+     "text": "There's green ones in this.",
+     "draft": true,
+     "why": "THE SAME BIT, TEN YEARS AND ONE APOCALYPSE LATER, and it is the second of three. The match-cut's whole job is showing what survived and what did not; this is a small human thing that survived, said by the one person who will not survive the night. It is funny for exactly as long as it takes to become unbearable. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q036.W7",
+       "title": "MANUFACTURED ATTACHMENT, THEN FORCED BETRAYAL (Companion Cube)",
+       "applied": "the corpus is blunt that attachment is ENGINEERED so its destruction hurts, and the tone research measured our version of the failure: before this, the player met the person who dies tonight for one line, as a child, ten years earlier. She was not in the room on the night she is taken. Now she is, and the last thing she does is be annoying about food."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "\"a line that only lands LATER; the quest plays differently in memory than in the moment.\" In the moment this is a joke about a bad dinner. After the raid it is the last ordinary thing she ever said, and the player heard it ninety seconds before it stopped being available."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#after_eat_it",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "after_eat_it",
+     "speaker": "sibling_older",
+     "node": "after_eat_it",
+     "text": "There's nothing in it. Eat it.",
+     "draft": true,
+     "why": "ATTEMPT (8/11). The surviving sibling's only warmth toward the one who is about to be taken, and it is deliberately not warm on the surface -- flat, unbothered, the way you talk to somebody you assume will be at the table tomorrow. THE STRAIGHT MAN (dialogue craft card 4): the bit needs a normal reaction to bounce off or it is a person being quirky at nobody. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q063.W2",
+       "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+       "applied": "the older sibling is the one who survives and carries the whole game, so the player has to see the two of them be siblings ONCE. Not a speech: the flat unbothered correction you only give somebody you have eaten with every night of your life."
+      },
+      {
+       "id": "Q043.W9",
+       "title": "THE PERMANENT PRE-GAME LOSS",
+       "applied": "\"even heroes lose people\" is the instant-stakes move, and it only works if the people were people. This line exists so the surviving sibling is not merely a companion slot but somebody who had a sister an hour ago."
       }
      ],
      "citeLevel": "line",
@@ -46131,6 +46206,36 @@
        "id": "Q138.X8",
        "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
        "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#the_green_ones",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "the_green_ones",
+     "speaker": "mother",
+     "node": "the_green_ones",
+     "text": "I picked the green ones out. Force of habit.",
+     "draft": true,
+     "why": "*** THE THIRD INSTANCE, AND THE ONE THAT BREAKS THE PATTERN. *** The rule of three (dialogue craft card 3): the child table plants it, the dingy table repeats it, and this one breaks it -- she cooked around a person who is not at the table. It never says died, or her name, or anything about the raid. It is a woman describing a small kitchen task. EXPLAIN THE HANDS, NEVER THE GHOSTS (tone research R2). This also gives the existing next line, \"I hate this\", something to be a response TO, which it did not have before. HIS SACRED-TABLE MOTIF DOES THE WORK: the 7/19 law says the empty chair carries the grief and nothing bad ever happens at the table, so the grief has to arrive as an ordinary domestic detail or it breaks his rule. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the corpus's example is a man admiring the spot where he will be buried, a line that only lands later. Ours runs the other way and lands the earlier line: a joke about vegetables two scenes ago is what makes one sentence about a cooking habit hurt, and the player assembles that themselves with nothing pointing at it."
+      },
+      {
+       "id": "Q035.W9",
+       "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+       "applied": "\"the true horror is emotional, psychological, not splatter; it haunts because it is HUMAN.\" The raid already supplied the violence. This scene is forbidden by his own 7/19 ruling from putting blood anywhere near the table, so the loss has to be carried by a habit she cannot stop performing."
+      },
+      {
+       "id": "Q043.P7",
+       "title": "W9 (the permanent pre-game/inter-generational loss",
+       "applied": "the port of the permanent-loss opening onto a dynasty game: the loss is irreversible and the game is about who keeps living at the table afterwards. The mother still setting a place, in the smallest way available to her, is that idea at domestic scale rather than stated as a theme."
       }
      ],
      "citeLevel": "line",

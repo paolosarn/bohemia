@@ -5131,6 +5131,45 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-ATTACH. [SHIPPED 8/19 - records/BOHEMIA_SHE_IS_IN_THE_ROOM_TONIGHT_8_19_26.md]
+   *** THE HALF OF 0sc's 8/13 AMENDMENT THAT IS WORDS AND STAGING. *** That
+   amendment asks for "name and one quirk surfaced before the fight
+   (draft:true)". MEASURED FIRST: sibling_lost spoke ONE line in the entire cold
+   open, as a CHILD, ten years before the night she is taken, and was staged in
+   the present-day room she dies out of ZERO times. Forty scene_gate assertions
+   were green over that. His own 7/19 ruling is what makes it a bug: the death
+   happens "away from [the table], in motion, in the house", so she is alive at
+   that table minutes before and the scene never put her there.
+   SHIPPED: she is at the table tonight; the mother names her at the child table
+   ten years earlier; the bit is HIS OWN existing line ("I'm not eating the green
+   ones") rather than an invented quirk, repeated tonight by the one person who
+   will not survive the night, and broken at the grief dinner by the mother -- "I
+   picked the green ones out. Force of habit." Rule of three, and the third
+   instance is his 7/19 empty-chair motif arriving as a kitchen detail rather
+   than a speech, which his sacred-table ruling requires.
+   *** THE MISTAKE WORTH KEEPING: I BUILT A SECOND PLACE TO STORE HER NAME. ***
+   Her name flips with the player (7/19), so I added a `cast` block to the scene,
+   token substitution to the runtime, wiring, a gate, three mutation tests. All
+   green. Then I SCREENSHOTTED IT and the mother's label said DENISE: FAMILY_CAST
+   has held the family's drafted names since the cast shipped (RAY/DENISE/MARCO/
+   NINA, all draft:true) and already carries this exact flip in `survivesIf`. My
+   names were a duplicate source of truth AND the wrong strings. A GREEN GATE
+   PROVES THE THING IT CHECKS AND NOTHING ELSE -- not one assertion asked whether
+   somebody else already owned this. The scene now owns no names; the surface
+   fills the token from FAMILY_CAST; the gate reads that table and asserts the
+   join, same technique it already uses on COMBAT's encounter id.
+   AND A SECOND, SAME SHAPE: Story.prototype.apply printed b.text RAW, so the
+   caption would have read "{sibling_lost}. Green ones too." with the braces in
+   it while the runtime resolved perfectly and the gate stayed green. Fixed in
+   the module, not at the two call sites.
+   | gate: SCENE 40 -> 54, mutation-tested four ways; verified on the real page
+   both player sexes (male hears NINA, female hears MARCO), zero page errors
+   | names + lines are drafts, he edits in WORDS and DIRECT | no (drafts).
+   STILL OPEN, AND IT IS COMBAT'S: the sibling TEACHING the beat (I-MOVE-YOU-MOVE,
+   your first dance partner) and the protect/assist beat live inside the
+   family-defense encounter that lane owns. "Losing them = losing your teacher"
+   needs the teacher built.
+
 0sc. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
    — v4 LOCKED base, newly CHEAP): SCRIPTED SCENES. The Bethesda method:
    condition met -> scene (camera move, actors posed via the rig, dialogue
