@@ -2,6 +2,16 @@
  "built": "8/8/26",
  "shots": [
   {
+   "id": "field-surgery",
+   "title": "TREATING A GUNSHOT WOUND",
+   "caption": "Your five steps, the ones you wrote at a bedside, as animations you can watch: pour the iodine, inject the lidocaine, pick the pellets out. Three clips cover all five because the needle gets used twice and boiling the tweezers is a held prop. All three put both hands in the same spot -- it is the same wound -- so what tells them apart is HOW THEY MOVE, and the bars under each row are the hand speed: the pour has a long flat stretch where the hand has stopped, the injection is one tall spike, and the tweezing shakes. ANIMATION tab, pick the clip. Also CHARACTER tab on the body.",
+   "file": "look/field-surgery.png",
+   "kb": 94.6,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_field_surgery_picture.js"
+  },
+  {
    "id": "thirteen-outfits",
    "title": "THE THIRTEEN OUTFITS",
    "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the game is DARK -- the demo opens at 06:00 -- so colour is the one channel you cannot count on. These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",

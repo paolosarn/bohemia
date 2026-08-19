@@ -1,3 +1,66 @@
+CHARACTER (character-0lurbs): 8/18 (m) LATEST -- *** YOU CAN WATCH SOMEBODY TREAT A
+GUNSHOT WOUND NOW. BACKLOG ROW FS IS CLOSED. TAB: ANIMATION (pick pour / inject /
+tweeze from the clip list), and LOOK for the picture. ***
+Record: records/BOHEMIA_FIELD_SURGERY_CLIPS_AND_THE_TWELVE_KEY_GRID_8_18_26.txt
+Gate: gates/field_surgery_gate.js, 18 claims, registered as FIELD SURGERY.
+
+His 8/13 order: "definitely we're gonna need to make animations for this and yep."
+medkit_gate has held the five goods and the five steps since 8/13 and there was
+nothing to LOOK at. Three clips cover all five, because the needle is used twice
+(lidocaine, then antibiotics) and boiling the tweezers is a held prop, not a body
+action -- which is the backlog row's own split, not a shortcut.
+
+*** THEY ARE TOLD APART BY TIMING, NOT SHAPE, AND THAT IS FORCED. *** All three put
+both hands in the same small patch in front of the body because it is the same wound.
+A wide-brim hat is worth 1.9% of a body at this rig size (measured earlier the same
+day), so small geometry does not read at all. Motion does:
+    pour     6 of 12 keyframes with the hand STOPPED, 0 reversals -- nothing else
+             in the game stops, so the stillness IS the read
+    inject   peak 6.0px in ONE keyframe, the fastest single move of the three
+    tweeze   7 direction reversals -- the only thing in the game that trembles
+
+*** THE PART EVERY LANE THAT AUTHORS A CLIP NEEDS: THE POSE GRID IS 12 KEYS PER BAR
+(POSEHOLD.keys). *** Four defects here read perfectly and measured wrong:
+ 1. THE WOUND WAS OUT OF ARM REACH. Mid-thigh is 19.1px from the shoulder; the whole
+    arm is 16px. A standing person cannot reach their own thigh, so solveIK clamped
+    and the hand hovered at hip height doing nothing, for three clips at once. Moved
+    to the forearm -- which is also the only site a long coat does not swallow, and
+    long coats dominate this wardrobe.
+ 2. THE JAB WAS SHORTER THAN A KEYFRAME. 0.06 of a bar is less than 1/12, so the
+    spike fell between keys and never rendered. Measured, the "fastest move in the
+    set" was the slowest one in it.
+ 3. THE TREMOR WAS SAMPLED AT ITS OWN ZERO CROSSINGS. sin(2*pi*6*t) at t=i/12 is
+    sin(pi*i) = 0 at EVERY key. The clip whose identity is that it shakes measured 9
+    still keys out of 12. Use cos, or a frequency the grid can carry.
+ 4. TWO OF THE THREE NEVER RETURNED HOME, so the loop seam snapped once a bar and was
+    the biggest hand move in both -- which also fooled the first version of my own
+    gate into calling the snap "the fastest move".
+RULES OF THUMB, now written into the record: shortest expressible move is 1/12 of a
+bar; land ramps ON key boundaries; a looping clip must return to its start pose.
+
+*** AND A REPO-WIDE FINDING THAT IS NOT MINE TO FIX. *** I ran the loop-closure check
+over every clip in the game as information: 31 DO NOT CLOSE. drunk 11.0px, deadeye
+5.7, cheer 5.0, run 3.2, dance 3.2, eat 3.0. Some of that is probably deliberate and
+some is the same defect I just fixed three times. The gate REPORTS it and does not
+fail on it, because those clips are not this session's work and a gate that goes red
+on somebody else's file is a gate that gets switched off. Next lane in animation: the
+measurement is already taken, you only have to decide.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER:
+ 1. RUN CONSUMES THESE CLIPS in the treat-wound sequence -- that is RUN's half of the
+    same routing (ONE SYSTEM, ONE SESSION), and medkit_gate already records the
+    treat-wound verb, the clip hook and the sound hook as deliberately absent here.
+    Do not reach across for it.
+ 2. NOBODY IN THE WORLD WEARS THE THIRTEEN FACTION OUTFITS YET, and that is not this
+    lane's call: FACTION_ASSIGN is empty and every agent is faction:null because WHICH
+    FACTION HOLDS WHICH GROUND is his ruling. The fits are ready the day it lands.
+ 3. 2X IS STILL BLOCKED ON PAINTING, NOT CODE (records/BOHEMIA_2X_WHY_THE_RIG_STAYS_
+    AT_56_8_16_26.txt). Two independent arguments for it now: headwear cannot carry
+    identity at 56 (1.9% of a body), and the 12-key grid plus a small rig means fine
+    motion has nowhere to live either.
+ 4. THE 31 CLIPS WITH OPEN LOOPS, if the lane wants a cheap sweep with a measurement
+    already in hand.
+
 PEOPLE (people-7h9sfy): 8/18 LATEST -- *** THE STREET TALKS ABOUT YOU NOW, AND
 ONLY BECAUSE OF WHAT YOU DID. TAB: RUN, go round asking people things and then
 keep walking. ***

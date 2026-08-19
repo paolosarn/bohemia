@@ -5569,6 +5569,36 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    legal; clips can land post-demo unless cheap. | clips visible on the
    real surface (ANIMATION TAB) | which step looks how = his thumb on
    the clips themselves | yes (the clip set is judgeable).
+   *** SHIPPED 8/18. ROW FS IS CLOSED. records/BOHEMIA_FIELD_SURGERY_CLIPS_AND_THE_
+   TWELVE_KEY_GRID_8_18_26.txt *** ANIMATION tab: pour / inject / tweeze, ANIMBEATS 4
+   each. Held by gates/field_surgery_gate.js (18). LOOK tab picture shows the frames
+   AND a bar chart of hand speed, because timing is the design.
+   THEY ARE TOLD APART BY TIMING, NOT SHAPE -- all three put both hands in the same
+   patch in front of the body because it is the same wound, and a wide-brim hat is
+   worth 1.9% of a body at this rig size, so small geometry does not read. pour: 6 of
+   12 keys with the hand STOPPED. inject: peak 6.0px in ONE key, the fastest single
+   move of the three. tweeze: 7 reversals, the only thing in the game that trembles.
+   *** THE PART ANY LANE AUTHORING A CLIP NEEDS: THE POSE GRID IS 12 KEYS PER BAR
+   (POSEHOLD.keys). *** Four defects here read perfectly and measured wrong:
+     1. THE WOUND WAS OUT OF ARM REACH -- mid-thigh is 19.1px from the shoulder and
+        the arm is 16px, so a standing person cannot reach their own thigh and IK just
+        clamped. Moved to the forearm, which long coats also do not swallow.
+     2. THE JAB WAS SHORTER THAN A KEYFRAME (0.06 of a bar < 1/12) so it never
+        rendered; measured, the "fastest move" was the slowest.
+     3. THE TREMOR WAS SAMPLED AT ITS OWN ZERO CROSSINGS -- sin(2*pi*6*t) at t=i/12 is
+        sin(pi*i) = 0 at every key. Use cos, or a frequency the grid can carry.
+     4. TWO CLIPS NEVER RETURNED HOME, so the loop seam snapped once a bar and was the
+        biggest hand move in both.
+   RULES OF THUMB: shortest expressible move is 1/12 bar; land ramps on key
+   boundaries; a looping clip must return to its start pose.
+   REPO-WIDE, REPORTED NOT ACTED ON: the loop-closure check was run over every clip as
+   information and 31 DO NOT CLOSE -- drunk 11.0px, deadeye 5.7, cheer 5.0, run 3.2,
+   dance 3.2, eat 3.0. Some may be deliberate. It is not failed by this gate because
+   those clips are not this session's work, and a gate that goes red on somebody
+   else's file gets switched off. Next animation lane: the measurement is already taken.
+   STILL OPEN AND NOT THIS ROW: RUN consumes the clips in the treat-wound sequence;
+   that wiring is RUN's half (ONE SYSTEM, ONE SESSION) and medkit_gate already records
+   the treat-wound verb and clip hook as deliberately absent.
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not

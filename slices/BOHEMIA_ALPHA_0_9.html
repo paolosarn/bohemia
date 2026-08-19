@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/18n - THE GROUND HAS GRAIN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/18o - YOU CAN WATCH YOURSELF PATCH UP</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4448,8 +4448,8 @@ const gL=d=>_lat(d)?fwdS(d):outL(d);
 const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
-const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4};
+const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -4468,6 +4468,30 @@ function nsGait(d,ph,k){
     foreL:iL*0.22, foreR:iR*0.22,
     armCompressL:0.25*liftR*k, armCompressR:0.25*liftL*k,
     hipOff:[0,-0.3*Math.abs(s)*k] };
+}
+/* WHERE THE WOUND IS, AND WHY IT IS NOT THE LEG. The first cut put it mid-thigh,
+   which is where you would treat a gunshot -- and it does not work, MEASURED on the
+   real rig rather than argued: the thigh sits 19.1px from the shoulder and the whole
+   arm is 16px long. A STANDING PERSON CANNOT REACH THEIR OWN MID-THIGH, which is
+   true of people too, and solveIK just clamped so the hand hovered at hip height
+   doing nothing recognisable for three clips. Two ways out: sit the character down,
+   or move the wound to a limb the hands can actually work on.
+   IT IS THE FOREARM, and that is the better answer for a second measured reason:
+   most of this valley wears a long coat (34 of 202 garments carry the structural
+   range and the long coats dominate it), and a coat SWALLOWS THE THIGH. The forearm
+   is held out in front of the body, outside the coat's silhouette, at the size he
+   actually sees a person. A wound you cannot see being treated is not an animation.
+   So: a point in front of the lower chest where you would hold your own arm to work
+   on it, derived from the rig so it follows the body dials. */
+function woundPt(d){
+  const c=chestPtRig(d), a=FACEANG[d];
+  return [c[0]+Math.cos(a)*4.0, c[1]+Math.sin(a)*4.0+3.0];
+}
+/* THE STANCE THEY SHARE: a lean in over the work and the weight settled, not the
+   deep crouch `dig` uses -- you do this sitting up, looking at your own arm. */
+function surgStance(k){
+  return {spine:0.16*k, hipOff:[0,1.2*k], legCompressL:0.10*k, legCompressR:0.08*k,
+          head:0.20*k};
 }
 const POSE={
  idle:(d,ph)=>{const m=(RUNMIR[d]?-1:1),k=SWF();return {upL:m*k*(0.05+0.03*Math.sin(ph*2*Math.PI)),upR:m*k*(-0.05-0.03*Math.sin(ph*2*Math.PI))};},  // IDLE LAW: feet NEVER move, breathing via headBob
@@ -4537,6 +4561,16 @@ const POSE={
 
  /* ===== PROMOTED 7/2/26 batch #3 verdicts ===== */
  beckon:(d,ph)=>{const c=Math.abs(Math.sin(ph*2*Math.PI));const r=gR(d);return {upR:r*0.55,foreR:r*(0.3+0.9*c),upL:gL(d)*0.1,head:0.03*c,spine:0};},
+ /* ===== THE FIELD SURGERY CLIPS (backlog row FS, his 8/13 order) ============
+    Five steps, three clips: INJECT covers lidocaine AND antibiotics, and the
+    sterilise-the-tweezers beat is a held prop rather than a body action.
+    THE WOUND IS A PLACE ON THE BODY, derived from the rig instead of guessed:
+    mid-thigh of the near leg, which is where you can actually reach to work on
+    yourself and is the biggest readable target on a 56px body.
+    WHAT SEPARATES THEM IS TIMING. All three put the hands in the same small patch
+    -- they have to, it is the same wound -- so shape cannot be the channel. Pour
+    HOLDS STILL (nothing else in the clip set does), inject is the fastest single
+    move in the set, tweeze is the only one that trembles. */
  dig:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const dn=e(0.1,0.35)*(1-e(0.6,0.9));const f=spF(d);const rL=gL(d),rR=gR(d);return {spine:f*0.45*dn,hipOff:[0,3*dn],legCompressL:0.18*dn,legCompressR:0.14*dn,upR:rR*(0.9*dn+0.1),upL:rL*(0.8*dn+0.1),foreR:rR*0.35*dn,foreL:rL*0.3*dn,head:f*0.06*dn};},
  'tired-walk':(d,ph)=>{if(headOn(d)){const g=nsGait(d,ph,0.5*SWF());g.spine=0.12;g.hipOff=[0,(g.hipOff?g.hipOff[1]:0)+1.5];g.head=0.12;return g;}const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),as=(ARMSIDE[d]||1);return {spine:spF(d)*0.16,head:spF(d)*0.14,thighR:0.3*s*m,thighL:-0.3*s*m,shinR:m*0.26*Math.max(0,-s),shinL:m*0.26*Math.max(0,s),upL:-0.16*s*m*as,upR:0.16*s*m*as,foreL:-0.2*m,foreR:-0.2*m,hipOff:[0,1.2-0.6*Math.abs(s)],legCompressL:0.08,legCompressR:0.08};},
 
@@ -4572,6 +4606,66 @@ const POSE={
 
  /* ===== PROMOTED 7/2/26 batch #7 verdicts (2) ===== */
  rage:(d,ph)=>{const tr=Math.sin(ph*8*Math.PI);const b=Math.abs(Math.sin(ph*2*Math.PI));const lat=_lat(d);const dn=lat?-fwdS(d)*0.15:outL(d)*0.2;return {armCompressL:0.14+0.03*tr,armCompressR:0.3-0.03*tr,foreL:gL(d)*0.35,foreR:gR(d)*0.6,upL:dn,upR:dn*1.5,head:spF(d)*0.1+0.03*tr,spine:spF(d)*0.08,hipOff:[tr*0.4,0.6*b],legCompressL:0.06,legCompressR:0.06};},
+ /* POUR -- tip the bottle and HOLD it there. The hold is the whole tell: a stretch
+    of keyframes where the hand has stopped, in a set where everything else moves. */
+ pour:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
+   const w=woundPt(d);
+   /* ONE CURVE, AND IT RETURNS HOME. The first cut ramped up and never came back
+      down, so the pose at phase 1 was 5px from the pose at phase 0 and the loop
+      SNAPPED every bar -- measured as the fastest hand move in the clip, which is
+      the opposite of what pour is supposed to be. Every clip here is now a function
+      that is zero at both ends by construction. */
+   const up=e(0.08,0.33)*(1-e(0.72,0.95));
+   const k=up;
+   const s=surgStance(k);
+   return Object.assign(s,{
+     ikR:[w[0]+1.1*up, w[1]-6.8*up], bendR:'auto',
+     ikL:[w[0]-2.6,    w[1]+0.8],    bendL:'auto'});},
+
+ /* INJECT -- slow in, JAB, press, slow out. The jab spans EXACTLY ONE KEYFRAME and
+    travels further than any other single-key move in these three, which is what
+    says needle instead of poke. Used twice in the procedure: the lidocaine ring
+    first, the antibiotics last. */
+ inject:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
+   const w=woundPt(d);
+   /* THE POSE GRID IS 12 KEYS PER BAR (POSEHOLD.keys), so the shortest move the
+      engine can express is 1/12 of a bar. The first cut jabbed across 0.06 -- less
+      than one key -- and MEASURED it did not exist: the spike fell between
+      keyframes and never rendered. 5/12 -> 6/12, on the boundaries. */
+   const near=e(0.08,0.4167);      /* deliberate approach, ~4 keys */
+   const jab =e(0.4167,0.5);       /* *** ONE key. the fastest move in the set *** */
+   /* THE WITHDRAW FINISHES ON THE LAST KEY (0.9167 at 12 keys), not after it. Ending
+      at 0.9583 left the retreat 86% done where the bar runs out, so the hand was still
+      1.3px out of position at the seam. Land the ramp ON a key. */
+   const out =e(0.6667,0.9167);    /* ... and a withdraw over three keys */
+   const gap=7.2-2.6*near-6.4*jab+9.0*out;   /* 7.2 at both ends: the loop closes */
+   const k=Math.max(near*0.9,1-out*0.85);
+   const s=surgStance(k);
+   return Object.assign(s,{
+     ikR:[w[0]+0.6, w[1]-gap], bendR:'auto',
+     ikL:[w[0]-2.8, w[1]+0.6], bendL:'auto'});},
+
+ /* TWEEZE -- both hands at the wound and the only tremor in the clip set: the hand
+    alternates key by key while the pellets come out, then lifts clear at the end. */
+ tweeze:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
+   const w=woundPt(d);
+   const down=e(0.05,0.25)*(1-e(0.80,0.98));
+   const work=down*(1-e(0.66,0.80));
+   /* THE LIFT HAS TO BE BACK DOWN BY THE LAST KEY, not still on its way. At 12
+      keys the last one is phase 0.9167, and a decay that finished at 0.99 left the
+      hand 4px in the air there while phase 0 has it at rest -- a 5px snap once a
+      bar, which the gate caught and reading never would. */
+   const lift=e(0.66,0.80)*(1-e(0.80,0.92));
+   /* COSINE, NOT SINE, AND SIX PER BAR. sin(2*pi*6*t) sampled at t=i/12 is sin(pi*i)
+      -- ZERO at every single keyframe. The tremor was being sampled exactly at its
+      own zero crossings and MEASURED as no tremor at all: 9 still keys out of 12.
+      cos alternates +1/-1 key by key, which is the tremor the grid can carry. */
+   const tr=Math.cos(t*2*Math.PI*6)*1.5*work;
+   const s=surgStance(Math.max(down*0.95,work));
+   return Object.assign(s,{
+     ikR:[w[0]+0.8+tr*0.45, w[1]-1.4*down+tr-5.0*lift], bendR:'auto',
+     ikL:[w[0]-2.4,         w[1]+0.4-0.4*work],         bendL:'auto'});},
+
  'crack-neck':(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const l1=e(0.1,0.25)*(1-e(0.3,0.45));const l2=e(0.55,0.7)*(1-e(0.75,0.9));return {head:0.2*l1-0.2*l2,armCompressL:0.12*l1,armCompressR:0.12*l2,spine:0.03*(l1-l2),upL:gL(d)*0.12,upR:gR(d)*0.12,hipOff:[0,0.3*(l1+l2)]};},
 };
 /* ===== CANDIDATE CLIPS batch #1 (7/2/26): thumbs-up/down review. The source

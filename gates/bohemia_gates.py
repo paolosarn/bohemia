@@ -772,6 +772,17 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('FIELD SURGERY',  ['node', 'gates/field_surgery_gate.js'],
+     'backlog row FS, his 8/13 order "we\'re gonna need to make animations for this": '
+     'three clips for the five-step gunshot treatment he wrote at a bedside. All three '
+     'put both hands in the same patch in front of the body -- it is the same wound -- '
+     'so they are separated by TIMING and timing is what is asserted: pour is the '
+     'stillest, inject owns the fastest single keyframe (the jab), tweeze is the only '
+     'thing in the game that trembles. Measured on the HAND off posedSkel, because a '
+     'whole-frame pixel diff is dominated by the body settling and reported a loop snap '
+     'as "the fastest move". It caught three defects reading could not: the wound was '
+     'out of arm reach (thigh 19.1px, arm 16px), the jab was shorter than a keyframe so '
+     'it never rendered, and the tremor was sampled exactly at its own zero crossings', False),
     ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
      'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
      'of their own, chosen by searching 880 rendered fits rather than by eye, and '
