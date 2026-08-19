@@ -12619,6 +12619,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 
 
+
+
 /* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */
 /* ==== engine/bohemia_terrain_noise.js ==== */
 /* inlined verbatim by tools/bohemia_city_terrain_patch.py -- the desert samples it, and it must be defined before the generator runs. */
@@ -12942,6 +12944,430 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
               palette: PALETTE, legend: LEGEND, notes: NOTES };
   if (typeof module !== 'undefined') module.exports = API;
   root.BohemiaDesert = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_mountain.js ==== */
+// BOHEMIA MOUNTAIN (7/26/26, WORLD lane) — THE VALLEY WALL, BUILT FOR REAL.
+//
+// 927 cells, the most numerous single thing in the valley after suburb, and every one of
+// them rendered as a flat brown square. The mountains are not scenery: they are the
+// reason Las Vegas is a bowl. They are the edge of the playable world, and the only way
+// through them is where water cut a way through first.
+//
+// REAL REFERENCE (the ranges that actually ring the valley — Spring Mountains west,
+// Frenchman and Sunrise east, McCullough south, Las Vegas Range north):
+//   grey Paleozoic LIMESTONE with sandstone at the west end: bare rock, no soil, no trees
+//     at valley elevation (the pinyon-juniper belt is far higher up)
+//   the profile is RIDGE and RAVINE: sharp crests with steep chutes cutting down between
+//     them, not rolling hills
+//   TALUS / SCREE aprons pile at the base where the cliffs shed rock
+//   ALLUVIAL FANS spread out at the mouth of every ravine onto the valley floor
+//   vegetation exists only in the drainages, where the runoff goes: dry desert shrub in
+//     the ravine bottoms, nothing on the faces
+//
+// WHAT IT MEANS FOR PLAY. The rock is SOLID and the cliff bands are solid: a body cannot
+// walk up the face. The RAVINE floors are passable. So the mountains wall the valley in
+// and the ravines are the passes, which is exactly how the real geography works and it
+// falls out of the terrain instead of being a rule bolted on top.
+//
+// CONTINUOUS: ridges and ravines are sampled from the valley-wide field
+// (bohemia_terrain_noise.js) in global coordinates, so a crest that leaves one cell
+// arrives in the next one in the right place.
+//
+// LEGEND:
+//  0 bedrock face  1 ridge crest   2 cliff band    3 talus / scree  4 ravine floor
+//  5 dry drainage  6 desert shrub  7 boulder       8 alluvial fan   9 rockfall scar
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var FIELD = 0x5EED;
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var cx = (opts.cellX || 0) * 128, cy = (opts.cellY || 0) * 128;
+    // how much of this cell is still mountain vs spilling onto the valley floor: a cell
+    // with valley neighbours carries the alluvial fan on that side.
+    var open = opts.open || [];              // directions whose neighbour is NOT mountain
+    var openSet = {};
+    open.forEach(function (d) { openSet[String(d).toUpperCase()[0]] = 1; });
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    /* THE MASSIF TERM, and why it is shaped like this. The pure noise field sometimes
+       runs low across a whole cell, which produced a "mountain" cell with no mountain
+       in it (the gate caught exactly that). A range is not noise: it is a mass that
+       rises away from the valley. So elevation gets a bias that is FULL in the interior
+       of the range and FEATHERS TO ZERO at any edge facing the valley floor. Two
+       neighbouring mountain cells share a CLOSED edge, so both compute full bias there
+       and the seam still agrees to the tile; a cell facing the flat drops to the fan
+       exactly where the flat begins. */
+    var MASSIF = 0.17, DIP = 0.13, FEATHER = 46;
+    function bias(px, py) {
+      var f = 1;
+      if (openSet.N) f = Math.min(f, py / FEATHER);
+      if (openSet.S) f = Math.min(f, (127 - py) / FEATHER);
+      if (openSet.W) f = Math.min(f, px / FEATHER);
+      if (openSet.E) f = Math.min(f, (127 - px) / FEATHER);
+      f = Math.max(0, Math.min(1, f));
+      // full massif in the interior, and a real DIP toward any edge that faces the
+      // valley, so the range grades down into its fan instead of ending in a cliff
+      // against somebody's back wall.
+      return MASSIF * f - DIP * (1 - f);
+    }
+
+    for (y = 0; y < 128; y++) {
+      var gy = cy + y;
+      for (x = 0; x < 128; x++) {
+        var gx = cx + x;
+
+        // RIDGED noise is the shape of a mountain: sharp crests, steep chutes between.
+        var h = N.ridged(FIELD + 900, gx, gy, 150, 4);
+        var detail = N.fbm(FIELD + 901, gx, gy, 18, 3);
+        var elev = h * 0.82 + detail * 0.18 + bias(x, y);
+
+        var code;
+        if (elev > 0.78) code = 1;              // the crest itself, bare and bright
+        else if (elev > 0.60) code = 0;         // bedrock face
+        else if (elev > 0.50) code = 2;         // the cliff band where the slope breaks
+        else if (elev > 0.36) code = 3;         // talus apron shed off the face
+        else code = 4;                          // ravine floor between the ridges
+
+        g[y][x] = code;
+      }
+    }
+
+    // ---- the drainage line down each ravine, and the only green in the whole cell ----
+    for (y = 0; y < 128; y++) {
+      for (x = 0; x < 128; x++) {
+        if (g[y][x] !== 4) continue;
+        var gx2 = cx + x, gy2 = cy + y;
+        var wet = N.fbm(FIELD + 902, gx2, gy2, 30, 3);
+        var low = N.ridged(FIELD + 900, gx2, gy2, 150, 4);
+        if (low < 0.24 && wet > 0.45) g[y][x] = 5;                 // the dry watercourse
+        else if (wet > 0.72 && N.hash2(FIELD + 903, gx2, gy2) < 0.35) g[y][x] = 6;  // shrub
+      }
+    }
+
+    // ---- boulders shed onto the talus, and the scars they came from ----
+    for (i = 0; i < 26; i++) {
+      var bx = Math.floor(r() * 124) + 2, by = Math.floor(r() * 124) + 2;
+      if (g[by][bx] !== 3 && g[by][bx] !== 4) continue;
+      var rad = 1 + Math.floor(r() * 2);
+      for (y = -rad; y <= rad; y++) for (x = -rad; x <= rad; x++) {
+        if (x * x + y * y > rad * rad) continue;
+        var px = bx + x, py = by + y;
+        if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+        g[py][px] = 7;
+      }
+    }
+    for (i = 0; i < 3; i++) {
+      var sx = Math.floor(r() * 110) + 9, sy = Math.floor(r() * 110) + 9;
+      if (g[sy][sx] !== 0 && g[sy][sx] !== 2) continue;
+      for (y = 0; y < 14; y++) {
+        var w = 1 + Math.floor(y / 4);
+        for (x = -w; x <= w; x++) {
+          var qx = sx + x, qy = sy + y;
+          if (qx < 0 || qy < 0 || qx > 127 || qy > 127) continue;
+          if (g[qy][qx] === 0 || g[qy][qx] === 2 || g[qy][qx] === 3) g[qy][qx] = 9;
+        }
+      }
+    }
+
+    /* ---- THE ALLUVIAL FAN. Where this cell meets the valley floor, the mountain does
+       not stop at a line: it spills. Every ravine mouth lays a fan of washed gravel out
+       onto the flat, which is why the edge of town in a desert city always sits on a
+       gentle apron rather than against a wall. */
+    var FAN = 30;
+    ['N', 'S', 'E', 'W'].forEach(function (d) {
+      if (!openSet[d]) return;
+      for (var t = 0; t < 128; t++) {
+        var depth = FAN * (0.45 + N.fbm(FIELD + 904, cx + t, cy + t, 40, 2) * 0.9);
+        for (var k = 0; k < depth; k++) {
+          var px, py;
+          if (d === 'N') { px = t; py = k; }
+          else if (d === 'S') { px = t; py = 127 - k; }
+          else if (d === 'W') { px = k; py = t; }
+          else { px = 127 - k; py = t; }
+          if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+          var cur = g[py][px];
+          if (cur === 1 || cur === 2 || cur === 0) continue;     // the crest still wins
+          g[py][px] = 8;
+        }
+      }
+    });
+
+    return { g: g, W: 128, H: 128, streets: [], gates: [], footprints: [] };
+  }
+
+  /* THE PASS TEST: a mountain cell must not be a solid wall of rock. Ravine floors,
+     drainages and fans are the ways through, and the gate proves they exist. */
+  function passableFraction(res) {
+    var g = res.g, open = 0;
+    for (var y = 0; y < 128; y++) for (var x = 0; x < 128; x++) {
+      var c = g[y][x];
+      if (c === 4 || c === 5 || c === 6 || c === 8 || c === 3) open++;
+    }
+    return open / (128 * 128);
+  }
+
+  var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#5b5346',
+    1: '#a09781', 2: '#463f36', 3: '#6e6656', 4: '#7f7666', 5: '#8b8270', 6: '#49512f',
+    7: '#57503f', 8: '#8f8570', 9: '#b5ab93'
+  };
+
+  var LEGEND = {
+    0: { name: 'bedrock face',  kind: 'structure', act1: 'bare grey limestone face, no soil on it at all', solid: true },
+    1: { name: 'ridge crest',   kind: 'structure', act1: 'the sunlit crest of the ridge, rock scoured clean', solid: true },
+    2: { name: 'cliff band',    kind: 'structure', act1: 'a cliff band where the slope breaks, unclimbable', solid: true },
+    3: { name: 'talus / scree', kind: 'ground',    act1: 'apron of loose broken rock shed off the face, slow going' },
+    4: { name: 'ravine floor',  kind: 'ground',    act1: 'the floor of a ravine between two ridges, gravel and rock' },
+    5: { name: 'dry drainage',  kind: 'ground',    act1: 'the dry watercourse down the ravine, sand and cobble' },
+    6: { name: 'desert shrub',  kind: 'tree-dead', act1: 'dry shrub in the drainage, the only living thing on the mountain', solid: false },
+    7: { name: 'boulder',       kind: 'prop',      act1: 'a boulder come down off the face, house-sized' },
+    8: { name: 'alluvial fan',  kind: 'ground',    act1: 'washed gravel fanning out where the ravine meets the flat' },
+    9: { name: 'rockfall scar', kind: 'ground',    act1: 'a fresh pale scar where the face let go' }
+  };
+
+  var NOTES = {
+    summary: 'The valley wall: ridge and ravine limestone, cliff bands, talus aprons, and alluvial fans spilling onto the flat. Solid rock walls the world in; the ravines are the only way through.',
+    reference: [
+      'The ranges that ring Las Vegas (Spring Mountains west, Frenchman and Sunrise east, McCullough south) are grey Paleozoic limestone: bare rock, no soil, and no trees at valley elevation.',
+      'The profile is RIDGE and RAVINE, sharp crests with steep chutes between them, not rolling hills. Talus aprons pile at the base where the cliffs shed rock.',
+      'Vegetation exists only in the drainages where the runoff goes.',
+      'Every ravine mouth lays an ALLUVIAL FAN onto the valley floor, which is why the edge of a desert city sits on a gentle apron and not against a wall.'
+    ],
+    layout: [
+      'Ridged noise sampled in valley coordinates gives crest, face, cliff band, talus and ravine floor by elevation, so a crest leaving one cell arrives in the next one in the right place.',
+      'Drainages run down the ravine floors, carrying the only shrub on the mountain.',
+      'Boulders sit on the talus, with pale rockfall scars on the faces above them.',
+      'Any edge whose neighbour is NOT mountain gets an alluvial fan spilling out of this cell onto the flat.'
+    ],
+    circulation: 'THIS IS THE EDGE OF THE WORLD AND IT IS MEANT TO STOP YOU. Bedrock, crest and cliff band are SOLID: no body walks up the face. Talus, ravine floors, drainages and fans are passable, so the mountains wall the valley in and the ravines are the passes. That is how the real geography works, and here it falls out of the terrain rather than being a rule bolted on top. No vehicle surface, no street, no gate.',
+    layering: 'STRUCTURE (solid, blocks): bedrock face (0), ridge crest (1), cliff band (2). GROUND (walkable, rough): talus (3), ravine floor (4), dry drainage (5), alluvial fan (8), rockfall scar (9). PROPS: boulder (7, solid), desert shrub (6, passable). No overhead, no portals. One level, and most of it is in your way.',
+    decisions: [
+      'CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped\n       flagged provisional; the moment Paolo ruled the target screen CBB this palette was\n       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside\n       its layer value bands. Road paint and the lake ring were the only things out, and\n       they were wrong on their own terms too: act-1 paint is filthy, not clean white.\n       Locked by the CONSTITUTION CONFORMANCE section of this module\'s gate.',
+      'ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and\n       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
+      'Paolo 7/26: "we need to actually build a fucking world." 927 flat brown squares was the single biggest unbuilt thing in the valley.',
+      'Solid rock plus passable ravines is a deliberate play property: the valley is a bowl with named ways through it, and nothing had to be hard-coded to make that true.',
+      'A mountain cell is a SURFACE, not a district: never territory, never an address.',
+      'No trees. At valley elevation these ranges carry none, and putting pines on them would be the exact kind of generic-desert wrongness this project keeps refusing.'
+    ]
+  };
+
+  K.register('mountain', {
+    generate: generate, body: function (c) { return c === 0 || c === 1 || c === 2; },
+    category: K.category('mountain') || 'terrain',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, passableFraction: passableFraction,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaMountain = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_water.js ==== */
+// BOHEMIA WATER (7/26/26, WORLD lane) — THE RESERVOIR, BUILT FOR REAL.
+//
+// 74 cells of the valley are water: Lake Mead and the reservoirs behind the dam. They
+// rendered as a flat blue square, which is the least true thing the map could have said,
+// because the ONE fact everybody knows about this lake is that it is going away.
+//
+// REAL REFERENCE (Lake Mead, and what a drawdown actually looks like from above):
+//   THE BATHTUB RING. Two decades of decline left a bright white mineral band on the
+//     rock, 100+ feet tall, marking where the water used to be. It is the most
+//     photographed thing in the American southwest that nobody wants to photograph.
+//   EXPOSED LAKEBED below it: cracked silt, stranded quagga-mussel shell beds, and the
+//     things the water gave back (sunken boats, a WWII-era plane, bodies in barrels)
+//   MARINAS AND RAMPS LEFT HIGH AND DRY: concrete launch ramps ending in mid-air a
+//     quarter mile from the shore, extended again and again and finally abandoned
+//   the surviving water is a narrow dead-flat sheet in the deepest channel
+//
+// In Bohemia the collapse came for the money first, so nobody extended the ramp again.
+// This tile set is the drawdown, frozen.
+//
+// CONTINUOUS: the shoreline is sampled from the valley-wide field
+// (bohemia_terrain_noise.js) in global coordinates, so the lake edge crosses cell
+// boundaries as one curve instead of a staircase of separate ideas.
+//
+// LEGEND:
+//  0 open water    1 shallow water  2 bathtub ring  3 exposed lakebed  4 cracked silt
+//  5 shell bed     6 shore rock     7 launch ramp   8 sunken boat      9 dead brush
+// 10 mooring debris
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var FIELD = 0x5EED;
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var cx = (opts.cellX || 0) * 128, cy = (opts.cellY || 0) * 128;
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    for (y = 0; y < 128; y++) {
+      var gy = cy + y;
+      for (x = 0; x < 128; x++) {
+        var gx = cx + x;
+        // ONE continuous depth field over the whole reservoir. Everything else is a
+        // band cut out of it, which is exactly how a drawdown reads on the ground.
+        var depth = N.fbm(FIELD + 600, gx, gy, 190, 4);
+        var edge = N.fbm(FIELD + 601, gx, gy, 34, 3) * 0.10;
+        var d = depth + edge;
+
+        var code;
+        if (d > 0.62) code = 0;             // what is left of the lake
+        else if (d > 0.565) code = 1;       // the shallows, silty and warm
+        else if (d > 0.545) code = 5;       // the shell beds the water left behind
+        else if (d > 0.50) code = 4;        // cracked silt just above the waterline
+        else if (d > 0.44) code = 3;        // exposed lakebed
+        else if (d > 0.40) code = 2;        // THE BATHTUB RING
+        else code = 6;                      // shore rock above the old high-water mark
+        g[y][x] = code;
+      }
+    }
+
+    // ---- dead brush colonising the exposed bed, and rock scatter on the shore ----
+    for (i = 0; i < 90; i++) {
+      var bx = Math.floor(r() * 126) + 1, by = Math.floor(r() * 126) + 1;
+      var c = g[by][bx];
+      if (c === 3 || c === 4) { if (r() < 0.5) g[by][bx] = 9; }
+      else if (c === 6 && r() < 0.35) g[by][bx] = 6;
+    }
+
+    /* ---- A LAUNCH RAMP LEFT IN MID-AIR. Where this cell holds a stretch of the old
+       shoreline, there is a concrete ramp running down from the rock, across the
+       bathtub ring, over the exposed bed, and stopping. The water it was built for is
+       somewhere off in the middle distance. Nobody extended it again. */
+    // only a cell that actually holds a stretch of the old shoreline can have a ramp,
+    // and the ramp has to be built on a column that really crosses the ring
+    var ringCols = [];
+    for (x = 6; x < 122; x++) {
+      var hasRing = false, hasBed = false;
+      for (y = 0; y < 128; y++) {
+        if (g[y][x] === 2) hasRing = true;
+        if (g[y][x] === 3 || g[y][x] === 4) hasBed = true;
+      }
+      if (hasRing && hasBed) ringCols.push(x);
+    }
+    var wantRamp = ringCols.length > 8 && N.hash2(FIELD + 602, cx, cy) < 0.75;
+    if (wantRamp) {
+      var rx = ringCols[Math.floor(N.hash2(FIELD + 603, cx, cy) * ringCols.length)];
+      var started = false, len = 0;
+      // run down the column from whichever end is dry land
+      var topDry = (g[0][rx] === 2 || g[0][rx] === 6 || g[0][rx] === 3 || g[0][rx] === 4);
+      for (var k = 0; k < 128; k++) {
+        y = topDry ? k : (127 - k);
+        var here = g[y][rx];
+        if (!started && (here === 2 || here === 6)) started = true;   // starts up on the ring
+        if (!started) continue;
+        if (here === 0 || here === 1) break;                          // never reaches water
+        for (x = -4; x <= 4; x++) {
+          var px = rx + x;
+          if (px < 0 || px > 127) continue;
+          g[y][px] = 7;
+        }
+        if (++len > 70) break;
+      }
+      // the mooring hardware and dock debris left at the top of it
+      for (i = 0; i < 10; i++) {
+        var mx = rx - 8 + Math.floor(r() * 17), my = 6 + Math.floor(r() * 26);
+        if (mx < 0 || mx > 127 || my > 127) continue;
+        if (g[my][mx] === 7) continue;
+        g[my][mx] = 10;
+      }
+    }
+
+    // ---- what the water gave back ----
+    if (N.hash2(FIELD + 604, cx + 5, cy + 5) < 0.4) {
+      var sx = 20 + Math.floor(r() * 80), sy = 20 + Math.floor(r() * 80);
+      for (y = 0; y < 5; y++) for (x = 0; x < 13; x++) {
+        var qx = sx + x, qy = sy + y;
+        if (qx > 127 || qy > 127) continue;
+        var cc = g[qy][qx];
+        if (cc === 3 || cc === 4 || cc === 5 || cc === 1) g[qy][qx] = 8;
+      }
+    }
+
+    return { g: g, W: 128, H: 128, streets: [], gates: [], footprints: [] };
+  }
+
+  var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#2c505c',
+    1: '#3c6a76', 2: '#b8b09c', 3: '#8a8069', 4: '#948a72', 5: '#a49a80', 6: '#6b6153',
+    7: '#a8a396', 8: '#5c564a', 9: '#4a5230', 10: '#6a6458'
+  };
+
+  var LEGEND = {
+    /* DEEP WATER BLOCKS (8/18). This inherited solid:false from the `water-dead` KIND
+       default, which is right for a dry ornamental basin and wrong for a reservoir: the
+       kit reads that flag as "a body may stand in this cell", so the walked surface
+       honouring it would have let him WALK OUT ONTO THE LAKE. Declared explicitly here
+       rather than special-cased in the renderer -- the tile is what knows how deep it is.
+       shallow water (1) stays walk-through ON PURPOSE: you wade the shallows, and that is
+       exactly the DISABLES ground the hazard classes are for. */
+    0:  { name: 'open water',     kind: 'water-dead', solid: true, act1: 'what is left of the reservoir, flat and dead still' },
+    1:  { name: 'shallow water',  kind: 'water-dead', act1: 'silty shallows over the drowned bed' },
+    2:  { name: 'bathtub ring',   kind: 'ground',     act1: 'the white mineral band on the rock marking where the water used to be' },
+    3:  { name: 'exposed lakebed',kind: 'ground',     act1: 'lakebed the water gave up, grey silt gone hard' },
+    4:  { name: 'cracked silt',   kind: 'ground',     act1: 'silt dried into plates and curled at the edges' },
+    5:  { name: 'shell bed',      kind: 'ground',     act1: 'a crust of stranded mussel shell, crunching underfoot' },
+    6:  { name: 'shore rock',     kind: 'ground',     act1: 'broken rock above the old high-water mark' },
+    7:  { name: 'launch ramp',    kind: 'ground',     act1: 'a concrete launch ramp running down and stopping in mid-air, a quarter mile short of the water' },
+    8:  { name: 'sunken boat',    kind: 'vehicle',    act1: 'a boat the lake gave back, hull open to the sky' },
+    9:  { name: 'dead brush',     kind: 'tree-dead',  act1: 'brush that colonised the new ground and then died too', solid: false },
+    10: { name: 'mooring debris', kind: 'prop',       act1: 'cleats, cable and dock section left where the marina was' }
+  };
+
+  var NOTES = {
+    summary: 'The reservoir in drawdown: a shrunken sheet of dead water, the white bathtub ring above it, miles of exposed lakebed, and a launch ramp that stops in mid-air.',
+    reference: [
+      'Lake Mead: two decades of decline left a bright mineral BATHTUB RING over 100 feet tall on the rock, marking where the water used to be.',
+      'Below it, exposed lakebed: cracked silt, stranded quagga-mussel shell beds, and the things the water gave back (sunken boats, a WWII plane, bodies in barrels).',
+      'Marinas and concrete launch ramps were extended again and again and finally abandoned, ending in mid-air a long way from the shore.',
+      'The surviving water sits in the deepest channel, flat and still.'
+    ],
+    layout: [
+      'One continuous depth field over the whole reservoir, sampled in valley coordinates, gives every band: open water, shallows, shell bed, cracked silt, exposed bed, bathtub ring, shore rock. The shoreline crosses cell boundaries as one curve.',
+      'Dead brush colonises the newly exposed ground; rock scatters on the shore.',
+      'Most cells that hold a stretch of old shoreline carry a launch ramp running down from the ring, across the exposed bed, and stopping short of the water, with mooring debris at the top of it.',
+      'Some cells carry what the water gave back.'
+    ],
+    circulation: 'Everything below the ring is walkable ground now, which is the whole horror of it: you can stroll a quarter mile out onto what used to be a lake. Open water and shallows are the only tiles that are not simply crossed on foot. No street, no gate, no vehicle network.',
+    layering: 'GROUND (flat, walkable): bathtub ring (2), exposed lakebed (3), cracked silt (4), shell bed (5), shore rock (6), launch ramp (7). WATER (dead, not walked): open water (0), shallows (1). PROPS: sunken boat (8, solid), mooring debris (10, solid), dead brush (9, passable). No structures, no portals, one level.',
+    decisions: [
+      'CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped\n       flagged provisional; the moment Paolo ruled the target screen CBB this palette was\n       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside\n       its layer value bands. Road paint and the lake ring were the only things out, and\n       they were wrong on their own terms too: act-1 paint is filthy, not clean white.\n       Locked by the CONSTITUTION CONFORMANCE section of this module\'s gate.',
+      'ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and\n       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
+      'Paolo 7/26: "we need to actually build a fucking world."',
+      'The drawdown IS the content. A full blue lake would be the one thing about this landscape that is not true, and the ring says more about the world than any prop could.',
+      'A water cell is a SURFACE, not a district.',
+      'Whether anyone lives down on the exposed bed is LIFE/faction canon and stays Paolo\'s call; the terrain gives them the ground and nothing more.'
+    ]
+  };
+
+  K.register('water', {
+    generate: generate, body: function (c) { return c === 8; },
+    category: K.category('water') || 'terrain',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaWater = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE DESERT DRAWS ITSELF ==== */
@@ -18574,7 +19000,7 @@ const KIT_ROAD={strip:1};
    legend fix is KEPT: `open water` now declares solid:true (it had inherited
    walk-through from the water-dead kind default, right for a dry basin and wrong for
    a reservoir), which is true whether or not it is routed. */
-const TERRAIN_KIT={desert:1, wash:1};
+const TERRAIN_KIT={desert:1, wash:1, mountain:1, water:1};
 /* __TK_E__ */
 const BW={arterial:6,strip:10,freeway:8,interchange:12,rail:2,beltway:8};   // half-widths, scaled to 128
 const RCOL={arterial:'#8a8a86',strip:'#7a7a76',freeway:'#5e5e5a',interchange:'#4a4a48',rail:'#7a6a58',beltway:'#5e5e5a'};
@@ -19195,7 +19621,14 @@ function realizeCell(gx,gy){
        the ground under it is the thing you do not, so it draws its own palette colour. It
        stays WALKABLE, which is the whole point of the layer: you pass under it. */
     if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; return c; }
-    c.g=pal; c.walk=true; return c;
+    /* __GROUND_SOLIDITY_IS_PER_TILE__ -- the same defect the PROP branch had, one
+       layer down, and my own occupancy_gate missed it because it only sampled props.
+       This set walk=true for EVERY ground-layer tile and never looked at tl.solid,
+       so `water:0 open water` -- which DECLARES solid:true because deep water blocks
+       a body -- came back 16,384 of 16,384 WALKABLE. The whole reservoir, strollable.
+       A ground tile is walkable BECAUSE ITS TILE SAYS SO, never because of its layer.
+       The gate now sweeps every layer instead of one. */
+    c.g=pal; c.walk=!tl.solid; return c;
   }
   if(m.sub){ /* CANON SUBURB codes: 0 dead 1 road 2 house 3 drive 4 wall 5 gate 6 garage 9 upper */
     const v=m.sub[ly*FN+lx];

@@ -124,7 +124,7 @@ NEW_REG = ("/* __TK_S__ */\n"
            "   legend fix is KEPT: `open water` now declares solid:true (it had inherited\n"
            "   walk-through from the water-dead kind default, right for a dry basin and wrong for\n"
            "   a reservoir), which is true whether or not it is routed. */\n"
-           "const TERRAIN_KIT={desert:1, wash:1};\n"
+           "const TERRAIN_KIT={desert:1, wash:1, mountain:1, water:1};\n"
            "/* __TK_E__ */")
 
 # EVERY FORM THIS BLOCK HAS EVER HAD, so a page written by an older revision of this tool
@@ -214,6 +214,16 @@ ZERO_NEW = '''    /* __TERRAIN_CODE_ZERO_IS_A_REAL_TILE__ -- this branch treated
     if(code===0 && !TERRAIN_KIT[d]){
       c.g=slotGround(d);'''
 
+GROUND_OLD = "    c.g=pal; c.walk=true; return c;"
+GROUND_NEW = ("    /* __GROUND_SOLIDITY_IS_PER_TILE__ -- the same defect the PROP branch had, one\n"
+              "       layer down, and my own occupancy_gate missed it because it only sampled props.\n"
+              "       This set walk=true for EVERY ground-layer tile and never looked at tl.solid,\n"
+              "       so `water:0 open water` -- which DECLARES solid:true because deep water blocks\n"
+              "       a body -- came back 16,384 of 16,384 WALKABLE. The whole reservoir, strollable.\n"
+              "       A ground tile is walkable BECAUSE ITS TILE SAYS SO, never because of its layer.\n"
+              "       The gate now sweeps every layer instead of one. */\n"
+              "    c.g=pal; c.walk=!tl.solid; return c;")
+
 refreshed = MARK in src
 _RS, _RE = '/* __TK_S__ */', '/* __TK_E__ */'
 while _RS in src:
@@ -225,7 +235,7 @@ for _legacy in LEGACY_REG:
     if _legacy in src:
         src = src.replace(_legacy, OLD_REG, 1)
 for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS), (ROCK_NEW, ROCK_OLD),
-                   (ZERO_NEW, ZERO_OLD)):
+                   (ZERO_NEW, ZERO_OLD), (GROUND_NEW, GROUND_OLD)):
     if _new in src:
         src = src.replace(_new, _old, 1)
 _a = '/* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */'
@@ -313,6 +323,10 @@ if DMARK not in src:
                        '/* inlined verbatim by tools/bohemia_city_terrain_patch.py. The banner '
                        'above is one line on purpose: it is the sync sweep\'s only door. */',
                        open(DESERT_MOD, encoding='utf-8').read(),
+                       '/* ==== engine/bohemia_mountain.js ==== */',
+                       open('engine/bohemia_mountain.js', encoding='utf-8').read(),
+                       '/* ==== engine/bohemia_water.js ==== */',
+                       open('engine/bohemia_water.js', encoding='utf-8').read(),
                        DEND])
     src = src[:di] + dblob + '\n' + src[di:]
 
@@ -335,6 +349,14 @@ if ZERO_NEW not in src:
         sys.exit('TERRAIN PATCH: could not find the code-0 early return in realizeCell. '
                  'Refusing to guess -- it decides what the most common tile in every cell is.')
     src = src.replace(ZERO_OLD, ZERO_NEW, 1)
+
+# 7) A GROUND TILE IS WALKABLE BECAUSE ITS TILE SAYS SO. See the comment in GROUND_NEW.
+if GROUND_NEW not in src:
+    if GROUND_OLD not in src:
+        sys.exit('TERRAIN PATCH: could not find the ground fallthrough in realizeCell. '
+                 'Refusing to guess -- it decides where a body may stand on every flat tile '
+                 'in the game.')
+    src = src.replace(GROUND_OLD, GROUND_NEW, 1)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('TERRAIN PATCH: %s -- desert and wash draw themselves from their own generators'

@@ -77,7 +77,7 @@ console.log('TERRAIN SURFACE GATE — the generator\'s output is what he walks o
         }
         return null;
       };
-      for (const want of ['desert', 'wash']) {
+      for (const want of ['desert', 'wash', 'mountain', 'water']) {
         const c = firstCell(want);
         if (!c) { out.types[want] = { missing: true }; continue; }
         const [tx, ty] = c;
@@ -144,14 +144,39 @@ console.log('TERRAIN SURFACE GATE — the generator\'s output is what he walks o
        'which looks exactly like never having been wired', r.noise);
 
     /* ── the generators reach the surface ── */
-    for (const t of ['desert', 'wash']) {
+    for (const t of ['desert', 'wash', 'mountain', 'water']) {
       const v = r.types[t] || {};
       ok(t + ': the cell comes from its own module, not from ten rectangles' +
          (v.hasKit ? '' : ' — hasKit:' + !!v.hasKit + ' rects:' + v.rects), v.hasKit === true);
-      ok(t + ': and there is real ground in it (' + (v.distinct || 0) + ' tile types: ' +
-         (v.top || []).join(', ') + ')', (v.distinct || 0) >= 6);
-      ok(t + ': he can still walk on most of it (' + v.walk + '/' + v.tot + ')',
-         v.walk / v.tot > 0.6);
+      /* THE FLOOR IS PER TERRAIN, because a blanket number is a number I made up. A desert
+         cell carries pavement, lag, caliche, rills, tracks, pads and curb stubs; A MOUNTAIN
+         CELL IS ROCK, and bedrock/cliff band/talus/rockfall scar/ridge crest is the whole
+         honest vocabulary of one. Demanding six of a mountain failed it for being a
+         mountain, which is the gate being wrong about the world rather than the reverse. */
+      const floor = (t === 'mountain') ? 4 : 6;
+      ok(t + ': and there is real ground in it (' + (v.distinct || 0) + ' tile types, needs ' +
+         floor + ': ' + (v.top || []).join(', ') + ')', (v.distinct || 0) >= floor);
+    }
+    /* WALKABILITY IS PER TERRAIN AND IT IS THE POINT OF EACH ONE, so it is asserted per
+       type rather than as one blanket number. A mountain that is mostly walkable is not a
+       mountain; a lake that is entirely walkable is not a lake; a desert you cannot cross
+       is not the ground between everything. */
+    {
+      const d = r.types.desert || {}, w = r.types.wash || {},
+            mt = r.types.mountain || {}, wa = r.types.water || {};
+      ok('desert: still the ground between everything (' + d.walk + '/' + d.tot + ')',
+         d.tot > 0 && d.walk / d.tot > 0.9);
+      ok('wash: its concrete structures and riprap BLOCK (' + w.walk + '/' + w.tot +
+         ') — a wash that is 100% walkable is a wash whose tiles are decoration',
+         w.tot > 0 && w.walk < w.tot && w.walk / w.tot > 0.5);
+      ok('MOUNTAIN IS A WALL WITH PASSES (' + mt.walk + '/' + mt.tot + ') — mostly solid ' +
+         'rock, and not a solid block: its own dossier and terrain_gate have said so since ' +
+         '7/26, and before 8/18 it was 0 of 16,384 on this surface',
+         mt.tot > 0 && mt.walk > 0 && mt.walk / mt.tot < 0.5);
+      ok('WATER: the drawdown lakebed is walkable and the deep water is NOT (' + wa.walk +
+         '/' + wa.tot + ') — walking out onto the exposed bed is the whole point of a lake ' +
+         'in drawdown, and walking onto the reservoir is not',
+         wa.tot > 0 && wa.walk / wa.tot > 0.3 && wa.walk / wa.tot < 0.9);
     }
     /* THE WASH MUST NOT BE A CARPET. Its concrete flood structure and riprap are solid, so
        a wash that is 100% walkable means the occupancy half never landed. */
@@ -162,13 +187,12 @@ console.log('TERRAIN SURFACE GATE — the generator\'s output is what he walks o
          w.tot > 0 && w.walk < w.tot);
     }
 
-    /* ── the exclusions are real ── */
-    for (const t of ['mountain', 'water']) {
-      const v = r.fallback[t] || {};
-      ok(t + ': still on the rectangle fallback, deliberately — so the fallback is live ' +
-         'code and the exclusion is a decision, not an accident',
-         v.hasKit === false && v.open === true);
-    }
+    /* ── nothing is on the fallback any more, and that is worth stating ──
+       All four terrain types draw themselves now. The rectangle fallback stays in the code
+       for a terrain type with no module of its own; it simply has no users today. */
+    ok('every terrain type in the valley now draws itself — none is left on the ' +
+       'ten-rectangle fallback',
+       ['desert', 'wash', 'mountain', 'water'].every(t => (r.types[t] || {}).hasKit === true));
 
     /* ── THE SEAM ── */
     if (!r.seam) {

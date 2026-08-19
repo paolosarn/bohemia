@@ -148,30 +148,48 @@ function requirePlaywright() {
 
     const r = await p.evaluate(() => {
       const out = { cells: 0, districts: 0, agree: 0, disagree: [], solidChecked: 0,
-                    solidAgree: 0, kinds: {} };
+                    solidAgree: 0, kinds: {}, solidDisagree: [], solidGround: 0 };
       const KIT = BohemiaDistrictKit, N = om.n;
+      /* COVER EVERY DISTRICT TYPE, NOT THE FIRST FORTY CELLS. The first version sampled
+         "the first 40 cells with a kit grid" and they were all ordinary districts, where no
+         GROUND tile is solid. So when the ground branch was reintroducing the walk=true bug,
+         this gate reported 0 disagreements and stayed green -- because the interesting case
+         (water:0 open water, ground AND solid) was never in the sample.
+         A COMPARISON THAT NEVER SEES THE INTERESTING CASE REPORTS AGREEMENT. One cell per
+         district TYPE now, and the coverage itself is asserted below. */
+      const typeSeen = {};
       let seen = 0;
-      for (let ty = 0; ty < N && seen < 40; ty++) for (let tx = 0; tx < N && seen < 40; tx++) {
+      for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) {
         const t = om.at(tx, ty); if (!t) continue;
+        if (typeSeen[t.district]) continue;
         let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
         if (!m.kit) continue;                        /* roads/terrain have no plot grid */
         const sp = KIT.get(m.d); if (!sp || !sp.legend) continue;
-        /* every PROP code in this district, soft and hard alike — asking only about the
-           soft ones would prove half the seam and leave the other half unwatched */
+        /* EVERY CODE, ON EVERY LAYER -- and the widening is a bug this gate MISSED.
+           It used to sweep only `prop` tiles, because that is where the first defect was.
+           On 8/18 the GROUND branch turned out to have the same bug one layer down: it set
+           walk=true for every ground tile and never looked at tl.solid, so `water:0 open
+           water` -- which DECLARES solid:true, because deep water blocks a body -- came back
+           16,384 of 16,384 WALKABLE. The whole reservoir, strollable, with this gate green.
+           A GATE SCOPED TO WHERE THE LAST BUG WAS ONLY EVER CATCHES THE LAST BUG. */
         const props = {};
         for (const cd in sp.legend) {
           const ly = KIT.tileLayer(sp.legend[cd]);
-          if (ly.layer === 'prop') props[+cd] = ly.solid;
+          if (ly.layer === 'overhead' || ly.layer === 'portal') continue;  /* pass under / go through */
+          props[+cd] = ly.solid;
         }
         if (!Object.keys(props).length) continue;
-        seen++; out.districts++;
+        typeSeen[m.d] = 1; seen++; out.districts++;
         for (let ly2 = 0; ly2 < FN; ly2++) for (let lx = 0; lx < FN; lx++) {
           const code = m.kit[ly2 * FN + lx];
           if (!(code in props)) continue;
           const solid = props[code];
           const cc = cellAt(tx * FN + lx, ty * FN + ly2);
           const walk = !!(cc && cc.walk);
-          if (solid) { out.solidChecked++; if (!walk) out.solidAgree++; }
+          if (solid && KIT.tileLayer(sp.legend[code]).layer !== 'prop') out.solidGround++;
+          if (solid) { out.solidChecked++; if (!walk) out.solidAgree++;
+            else if (out.solidDisagree.length < 8)
+              out.solidDisagree.push(m.d + ':' + code + ' ' + sp.legend[code].name); }
           else {
             out.cells++;
             if (walk) out.agree++;
@@ -186,12 +204,20 @@ function requirePlaywright() {
     console.log('       ' + r.districts + ' real district cells sampled in the real valley');
     console.log('       walk-through props : ' + r.agree + ' of ' + r.cells + ' agree');
     console.log('       solid props        : ' + r.solidAgree + ' of ' + r.solidChecked + ' agree');
-    ok('the sample actually contained walk-through prop cells (' + r.cells + ')', r.cells > 100);
+    ok('the sample actually contained walk-through cells (' + r.cells + ')', r.cells > 100);
+    /* THE COVERAGE ASSERTION, and it is the one that makes the two above mean anything.
+       A SOLID GROUND tile is the case this gate was blind to for a day: ground-layer and
+       solid at once (open water, and anything else a legend declares that way). If the
+       sample contains none of them, "0 disagreements" is a statement about the sample. */
+    ok('and it contained SOLID GROUND tiles (' + r.solidGround + ') — ground-layer and solid ' +
+       'at once, which is the exact case this gate was blind to until 8/18',
+       r.solidGround > 0);
     ok('EVERY cell the model calls walk-through, the game lets him stand on' +
        (r.disagree.length ? ' — ' + r.disagree.join(', ') : ''),
        r.cells > 0 && r.agree === r.cells);
     ok('and EVERY cell the model calls solid, the game blocks — the seam is checked in ' +
-       'both directions, so "make everything walkable" is not a way to pass this',
+       'both directions, so "make everything walkable" is not a way to pass this' +
+       (r.solidDisagree.length ? ' — ' + r.solidDisagree.join(', ') : ''),
        r.solidChecked > 0 && r.solidAgree === r.solidChecked);
     ok('no page errors while walking the valley' + (errs.length ? ' — ' + errs[0] : ''),
        errs.length === 0);
