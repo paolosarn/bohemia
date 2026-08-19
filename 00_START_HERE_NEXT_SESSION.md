@@ -1,3 +1,89 @@
+RUN (run-eak241): 8/19 (d) LATEST -- *** HIS OWN HOUSE WAS THIRTY-EIGHT CELLS
+FROM WHERE HE WOKE UP, on every single boot. TAB: RUN, the first morning. ***
+
+FOUND BY EXTENDING THE FIRST-NIGHT AUDIT into the half nobody had ever driven:
+CAN HE ACTUALLY REACH ANY OF IT? The demo gate proves the job, the payout and the
+market all WORK -- but it TELEPORTS to get to them (`city.x = h.x; city.y = h.y`)
+and CALLS offerAccept() instead of tapping it. So "the market opens" was proven
+and "he can get to the market" never was. That gap is where this was hiding.
+
+MEASURED ON A CLEAN BOOT OF THE REAL ALPHA, having touched nothing but GET UP:
+
+    LANDED    = [6205, 6271]        -> his body is in overmap cell (48,48)
+    HOME_KEY  = "2691674296:37,22"  -> his HOUSE resolved in cell (37,22)
+    home      = {4790, 2876}        -> a house 38 cells from his feet
+    phone.home.cell = {37,22}       -> and the phone pointed him at it
+
+THE THING THE WHOLE RUN IS ANCHORED ON -- the house he asked for by name on 8/11,
+"how was this a run when my house isn't labeled" -- was in a different part of the
+valley from the player. Every boot, since whenever.
+
+TRACED, NOT GUESSED. A property trap on city.x caught the write:
+    MARKERTRACE installed at x=48 y=48 MODE=human hx=6205 hy=6271
+    MARKERTRACE x 48 -> 37  @ BOHEMIA_CITY_WORLD.html:27449
+The marker starts CORRECT and agreeing with the body. Then the shell's
+BOHEMIA_GOTO_CELL handler moves it: the alpha fires cityGoToRunCell() when the RUN
+tab opens and forwards G._runCell, WHICH COMES FROM THE RUN SLICE -- A DIFFERENT
+SURFACE WITH ITS OWN PLAYER. Two surfaces, two players, one marker. homeFind()
+keyed on the marker, so the house followed the wrong man.
+
+AND THE HANDLER'S OWN COMMENT ALREADY DESCRIBES THIS BUG, HALF-FIXED. It records
+that the line used to be `MODE='city'` and "fired every time he tapped RUN and
+threw him out of his body to the overview". The MODE half was fixed 8/2. THE
+COORDINATE HALF WAS LEFT, and it has been relocating his house ever since.
+
+  tools/bohemia_his_feet_are_the_truth_patch.py
+  gates/first_night_gate.js now 28 claims (was 21)
+
+FIXED ON BOTH SIDES, because either alone leaves a live trap:
+  1. HIS FEET ARE THE TRUTH. In human mode a cell posted by another surface no
+     longer moves his marker. In CITY mode it still does -- that is exactly what
+     Paolo asked for on 7/28 ("I want that reflected when I'm in the city menu")
+     and the gate asserts it in the same breath, because a fix that broke that
+     would be a trade, not a fix.
+  2. HOME IS RESOLVED FROM WHERE THE PLAYER IS. mktHub() and mktAt() in the same
+     file already read `(MODE==='human') ? ((hx/FN)|0) : city.x`; homeFind was
+     the one asking the camera. Now all three agree, so the house stays with the
+     man even if something moves the marker again.
+  Both halves are independently mutation-tested.
+
+AFTER: house 0 cells from his feet, marker and body agree, phone points at the
+right house. Before: 38 cells.
+
+THE AUDIT NOW CARRIES THIS VIEW so nobody has to re-derive it. Run
+`node tools/bohemia_first_night_audit.js` and it prints, per boot:
+    body / marker (and says so loudly if they disagree)
+    his house, and how many cells from him
+    the market, how far, and what the phone claims
+    the job, and whether the offer names a place
+
+TWO THINGS IT SURFACED THAT ARE NOT MINE, both real:
+  - THE SWAP MEET IS 42 CELLS AWAY from where he spawns. That is placement, and
+    MAP LAW says this lane never designs layouts -- flagging it for whoever owns
+    hub placement. On day 1, with a day that ends at 22:00, "walk 42 cells" may
+    simply not be a thing he can do, and the demo cut says GET PAID -> SPEND.
+  - THE PHONE'S TWO DISTANCES ARE NOT THE SAME MEASUREMENT. The market's is
+    EUCLIDEAN (hub.dist, 38) and the vista's is MANHATTAN (44). They sit in the
+    same list looking comparable and are not. Cosmetic, but it is a number he
+    reads, so it belongs to whoever owns the phone readout.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. FINISH THE REACHABILITY HALF. The audit now measures whether he CAN get
+    there; it still does not PLAY the job on the phone by tapping, walk to the
+    building, or walk to the hub. Those three taps are the last unproven stretch
+    of the demo, and the teleport in demo_day_gate is exactly the coverage hole
+    that hid this bug. Extend the audit, do not re-derive it.
+ 2. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH, behind VOTE, LOOK,
+    WORDS, CUTSCENE and DIRECT. That is his 8/16 ruling ("the run has a lot of
+    bullshit buttons still around from the early days") one level up, and it is
+    the shell's tab order.
+ 3. CAMP is still frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+THE CONTAINER HAS NOW REWOUND THREE TURNS RUNNING, every time to the same 8/15
+snapshot on a branch called `decide`. Nothing pushed was lost. Start every turn
+with `git fetch origin main && git checkout -B <your branch> origin/main`, and
+push to your session branch BEFORE the ~100 minute suite, never after.
+
 CHARACTER (character-0lurbs): 8/19 (c) LATEST -- *** I WENT TO FIX 31 BROKEN
 ANIMATIONS AND FOUND 30 OF THEM WERE FINE. THE ONE THAT WAS REAL IS FIXED.
 TAB: ANIMATION (pick `drunk`), and LOOK for the before/after. ***

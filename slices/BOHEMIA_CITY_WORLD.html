@@ -27463,16 +27463,26 @@ function showReckoning(){
    that looks exactly like a feature quietly not working, which is what it did. */
 var HOME=null, HOME_KEY=null, LANDED=null;
 function homeFind(){
-  const key=seed+':'+city.x+','+city.y;
+  /* __HIS_FEET_ARE_THE_TRUTH__ -- FROM WHERE THE PLAYER IS, NOT WHERE THE CAMERA IS.
+     This keyed on city.x/city.y, the overmap MARKER. In human mode the marker is
+     a camera and the body is the man, and when anything moved the camera the
+     house moved with it: measured 8/19, body in cell (48,48), HOME_KEY
+     "2691674296:37,22", his house 38 cells away on a clean boot.
+     mktHub() and mktAt() in this same file already read the player's cell this
+     exact way; homeFind was the one asking the camera. Now all three agree, so
+     the house stays where the man is even if something moves the marker again. */
+  const _pcx=(MODE==='human')?((hx/FN)|0):city.x;
+  const _pcy=(MODE==='human')?((hy/FN)|0):city.y;
+  const key=seed+':'+_pcx+','+_pcy;
   if(HOME_KEY===key) return HOME;
-  const bx=city.x*FN, by=city.y*FN;
+  const bx=_pcx*FN, by=_pcy*FN;
   /* ANCHORED ON WHERE HE LANDS, NOT ON THE CENTRE OF THE CELL. Measured 8/11:
      centre-of-cell put HOME 55 cells north of the drop-in, so his own house was
      off screen the entire time he was standing in his own neighbourhood, which
      is indistinguishable from not having one. The drop-in point is itself
      deterministic (same seed -> same spiral -> same landing), so anchoring here
      keeps HOME the same house every load AND puts it in front of him. */
-  const anchor=(LANDED&&((LANDED[0]/FN)|0)===city.x&&((LANDED[1]/FN)|0)===city.y)
+  const anchor=(LANDED&&((LANDED[0]/FN)|0)===_pcx&&((LANDED[1]/FN)|0)===_pcy)
     ? LANDED : [bx+(FN>>1), by+(FN>>1)];
   const cx=anchor[0], cy=anchor[1];
   let best=null, bd=1e9;
@@ -28189,6 +28199,20 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
      same thing on both surfaces - which is the whole point. */
   if(d&&d.type==='BOHEMIA_GOTO_CELL'&&typeof d.x==='number'&&typeof d.y==='number'){
     const n=(om&&om.n)||96;
+    /* __HIS_FEET_ARE_THE_TRUTH__ -- WHILE HE IS IN HIS BODY, HIS FEET ARE THE TRUTH.
+       This cell comes from the RUN SLICE, a different surface with its own
+       player, forwarded by the shell's cityGoToRunCell() every time the RUN tab
+       opens. MEASURED 8/19 on a clean boot: the marker started at (48,48)
+       agreeing with the body, this line moved it to (37,22), and homeFind()
+       keys on the marker -- so HIS HOUSE WAS RESOLVED 38 CELLS FROM HIS FEET,
+       and the phone pointed him at it. Every boot.
+       THE COMMENT BELOW ALREADY DESCRIBES THIS BUG, HALF-FIXED: the MODE half
+       was corrected on 8/2 ("threw him out of his body to the overview"); the
+       COORDINATE half was left behind and kept relocating his house.
+       In CITY mode the marker still follows the message -- that is the case
+       Paolo asked for on 7/28 and it is untouched. */
+    if(MODE==='human'){ window.__BOH_GOTO_IGNORED=(window.__BOH_GOTO_IGNORED||0)+1;
+      try{ updHud(); }catch(_e){} return; }
     city.x=Math.max(0,Math.min(n-1,d.x|0)); city.y=Math.max(0,Math.min(n-1,d.y|0));
     /* __HUMAN_START__ (8/2): the marker moves, THE MODE IS THE PLAYER'S.
        This line used to be `MODE='city'; ...` and it was correct when RUN and

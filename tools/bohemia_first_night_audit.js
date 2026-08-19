@@ -122,6 +122,43 @@ async function beat(page, f, label) {
   let taps = 0;
   await beat(page, f, 'landed (wake card up)');
 
+  /* CAN HE ACTUALLY GET TO ANY OF IT? The demo gate proves the job, the payout
+     and the market all WORK, but it teleports to reach them (`city.x = h.x`) and
+     calls offerAccept() instead of tapping it -- so "the market opens" was
+     proven and "he can get to the market" never was. This is that half.
+     It found his house 38 cells from his feet on 8/19. */
+  const reach = await f.evaluate(() => {
+    const cell = p => p ? { x: (p.x / FN) | 0, y: (p.y / FN) | 0 } : null;
+    const body = { x: (hx / FN) | 0, y: (hy / FN) | 0 };
+    let hub = null; try { hub = mktHub(); } catch (e) { }
+    let home = null; try { home = homeFind(); } catch (e) { }
+    const st = (() => { try { return phoneState(); } catch (e) { return {}; } })();
+    const man = (a, b) => a && b ? Math.abs(a.x - b.x) + Math.abs(a.y - b.y) : null;
+    return {
+      body: body, marker: { x: city.x, y: city.y },
+      houseCell: cell(home), houseCellsAway: man(cell(home), body),
+      hubCell: hub ? { x: hub.x, y: hub.y } : null, hubCellsAway: man(hub, body),
+      phoneSaysHub: st.market ? st.market.dist : null,
+      phoneSaysVista: st.vista ? st.vista.dist : null,
+      objective: (document.getElementById('qline') || {}).textContent || '',
+      offerWhere: (typeof OFFER !== 'undefined' && OFFER) ? (OFFER.where || null) : null,
+    };
+  });
+  console.log('\n--- CAN HE GET THERE? ---');
+  console.log('  body        ' + JSON.stringify(reach.body)
+            + '   marker ' + JSON.stringify(reach.marker)
+            + (reach.body.x === reach.marker.x && reach.body.y === reach.marker.y
+               ? '  (agree)' : '  << MARKER DISAGREES WITH HIS FEET'));
+  console.log('  his house   ' + JSON.stringify(reach.houseCell)
+            + '   ' + reach.houseCellsAway + ' cells from him'
+            + (reach.houseCellsAway === 0 ? '  (same cell)' : '  << NOT WHERE HE IS'));
+  console.log('  the market  ' + JSON.stringify(reach.hubCell)
+            + '   ' + reach.hubCellsAway + ' cells away, phone says "'
+            + reach.phoneSaysHub + '"');
+  console.log('  the job     ' + (reach.objective.trim() || '(no objective yet)')
+            + '   where: ' + reach.offerWhere);
+  LEDGER.push({ n: ++shot, label: 'reachability', reach: reach });
+
   /* Tap through everything the game puts in front of him, in order, until it
      stops handing him cards. THIS IS THE MEASUREMENT: how many taps before he
      is allowed to simply be in the world. */

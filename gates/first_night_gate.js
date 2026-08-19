@@ -113,6 +113,16 @@ async function worldFrame(page) {
      /openWatch[\s\S]{0,200}?openStart\(\)/.test(acode)
      && /openNot[\s\S]{0,300}?openMarkSeen\(\)/.test(acode));
 
+  /* HIS FEET ARE THE TRUTH -- and homeFind must ask the player, not the camera.
+     mktHub() and mktAt() already read the player's cell this way; homeFind was
+     the one asking city.x, which is how the house ended up 38 cells away. */
+  ok('the fix is in the build', c.indexOf('__HIS_FEET_ARE_THE_TRUTH__') >= 0);
+  ok('homeFind resolves from the PLAYER\'s cell, not the camera marker',
+     /_pcx=\(MODE==='human'\)\?\(\(hx\/FN\)\|0\):city\.x/.test(ccode)
+     && /const key=seed\+':'\+_pcx\+','\+_pcy/.test(ccode));
+  ok('and it uses the same idiom mktHub/mktAt already used, rather than a new one',
+     /\(MODE==='human'\)\?\(\(hx\/FN\)\|0\):city\.x/.test(ccode.replace(/var cx=/g, '')));
+
   /* THE WORLD IS NOT AN OVERLAY -- the regression that hid inside the fix. */
   ok('the occlusion rule requires a declared stacking level, so the world canvas '
      + 'is never mistaken for a surface over it', /z>=1/.test(ccode.replace(/\s/g, '')));
@@ -223,6 +233,54 @@ async function worldFrame(page) {
       getComputedStyle(document.getElementById('openInvite')).display);
     ok('and it STAYS dismissed -- a later chrome report never raises a banner he '
        + 'already answered', stayGone === 'none');
+
+    /* ---- HIS HOUSE IS WHERE HE IS ------------------------------------- */
+    /* THE BUG THIS CATCHES, measured on a clean boot before it was fixed:
+         LANDED [6205,6271] -> body in cell (48,48)
+         HOME_KEY "2691674296:37,22" -> his house resolved in cell (37,22)
+       HIS OWN HOUSE WAS 38 CELLS FROM HIS FEET, every boot, and the phone
+       pointed him at it. The marker started correct and was moved by the
+       shell's BOHEMIA_GOTO_CELL, which forwards a cell from the RUN SLICE --
+       a different surface with its own player -- and homeFind() keyed on the
+       marker. Two surfaces, two players, one marker. */
+    const house = await f.evaluate(() => {
+      const h = homeFind();
+      const body = { x: (hx / FN) | 0, y: (hy / FN) | 0 };
+      return { body: body, marker: { x: city.x, y: city.y },
+               homeCell: h ? { x: (h.x / FN) | 0, y: (h.y / FN) | 0 } : null,
+               phoneHome: (phoneState() || {}).home || null,
+               key: typeof HOME_KEY !== 'undefined' ? HOME_KEY : null };
+    });
+    ok('HIS HOUSE IS IN THE CELL HE IS STANDING IN -- body ' + JSON.stringify(house.body)
+       + ', house ' + JSON.stringify(house.homeCell) + ' (it was 38 cells away)',
+       !!house.homeCell && house.homeCell.x === house.body.x
+       && house.homeCell.y === house.body.y);
+    ok('and the phone points at that same house rather than one across the valley',
+       !!house.phoneHome && !!house.phoneHome.cell
+       && house.phoneHome.cell.x === house.body.x
+       && house.phoneHome.cell.y === house.body.y);
+
+    /* WHILE HE IS IN HIS BODY, AN OUTSIDE SURFACE MAY NOT MOVE HIM. */
+    const held = await f.evaluate(() => {
+      MODE = 'human';
+      const before = { x: city.x, y: city.y };
+      window.postMessage({ type: 'BOHEMIA_GOTO_CELL', x: 3, y: 91 }, '*');
+      return new Promise(r => setTimeout(() =>
+        r({ before: before, after: { x: city.x, y: city.y } }), 350));
+    });
+    ok('a cell posted by another surface does NOT move him while he is walking '
+       + '(' + JSON.stringify(held.before) + ' -> ' + JSON.stringify(held.after) + ')',
+       held.after.x === held.before.x && held.after.y === held.before.y);
+    /* AND THE CASE PAOLO ASKED FOR IS UNTOUCHED (7/28, "I want that reflected
+       when I'm in the city menu"). A fix that broke this would be a trade, not
+       a fix, so it is asserted in the same breath. */
+    const moved = await f.evaluate(() => {
+      MODE = 'city';
+      window.postMessage({ type: 'BOHEMIA_GOTO_CELL', x: 3, y: 91 }, '*');
+      return new Promise(r => setTimeout(() => r({ x: city.x, y: city.y }), 350));
+    });
+    ok('but in the CITY MENU the marker still follows it -- Paolo 7/28 is intact',
+       moved.x === 3 && moved.y === 91);
 
     ok('no page error across the first night' + (errs.length ? ' -- ' + errs[0] : ''),
        errs.length === 0);
