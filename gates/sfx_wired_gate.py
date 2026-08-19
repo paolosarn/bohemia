@@ -222,6 +222,22 @@ const METER=`(function(){
     var el=document.querySelector('.tab[data-p="run"]'); if(el) el.click(); });
   await p.waitForTimeout(500);
 
+  /* ===== NO TWO PLAYBACKS ARE IDENTICAL, AND NONE IS A NEW SOUND (8/18) ===
+     The repetition research is blunt that there is no threshold number of
+     variants; practice randomises pitch and level per playback instead. This
+     measures the REAL spread through the shipped vary(), in BOTH directions:
+     it has to move, and it has to stay small enough that an approved sound is
+     still the sound he approved. */
+  out.vary = await p.evaluate(()=>{
+    if(typeof window.__sfxVary!=='function') return {missing:true};
+    function spread(v){ var hz=[],g=[],i,w;
+      for(i=0;i<400;i++){ w=window.__sfxVary(v); hz.push(w.hz); g.push(w.gain); }
+      return { pitch:(Math.max.apply(null,hz)/Math.min.apply(null,hz)-1)*100,
+               level:(Math.max.apply(null,g )/Math.min.apply(null,g )-1)*100 };
+    }
+    return { synth: spread(BOH_SFX.cook('shot',5)[3]),
+             inst:  spread(BOH_SFX.cook('shot_more',5)[0]) };
+  });
   out.sleepAsked = await fr.evaluate(()=>{
     var n=window.__ASKED.length;
     try{ sleepSave(); }catch(e){}
@@ -1024,6 +1040,33 @@ def main():
     print('  NOTE  %d wired moments still hold one approved variant; %d of them '
           'have a sibling batch waiting on his thumbs'
           % (len(thin), len([e for e in thin if e in sibs])))
+
+    # 7a-vi. NO TWO PLAYBACKS ARE IDENTICAL (8/18), AND NONE IS A NEW SOUND.
+    vy = d.get('vary') or {}
+    chk(not vy.get('missing'), 'the per-playback variation is gone entirely')
+    sy, iv = vy.get('synth') or {}, vy.get('inst') or {}
+    chk((sy.get('pitch') or 0) > 1,
+        'a synthesised sound plays at the SAME PITCH every time (%.2f%% spread)'
+        % (sy.get('pitch') or 0))
+    chk((sy.get('level') or 0) > 3,
+        'nothing varies the level between playbacks (%.1f%%)' % (sy.get('level') or 0))
+    # THE OTHER DIRECTION IS WHAT PROTECTS HIS VERDICTS: a wander wide enough to
+    # sound like a different candidate means his thumb no longer describes what
+    # the game plays.
+    chk((sy.get('pitch') or 0) < 8,
+        'the pitch wander is %.2f%% -- wide enough to be a different sound than '
+        'the one he approved' % (sy.get('pitch') or 0))
+    chk((sy.get('level') or 0) < 26,
+        'the level wander is %.1f%% -- past a dB it is inconsistency, not variety'
+        % (sy.get('level') or 0))
+    # HIS OWN INSTRUMENTS ARE NEVER DETUNED. bodyInstrument rounds hz to a
+    # semitone, so any nudge is nothing or a WHOLE semitone -- and a semitone on
+    # a musical voice in a 120 BPM game is a wrong note, not a variation.
+    chk((iv.get('pitch') or 0) == 0,
+        'HIS INSTRUMENTS ARE BEING DETUNED (%.2f%%). A semitone on a musical '
+        'voice is a wrong note, not variety.' % (iv.get('pitch') or 0))
+    chk((iv.get('level') or 0) > 3,
+        'his instruments never vary in level either (%.1f%%)' % (iv.get('level') or 0))
 
     # 8. doors are silent, measured the same way
     chk(d.get('door'), 'playSFX("door_open") returned something -- doors must be silent')

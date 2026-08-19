@@ -430,12 +430,51 @@ def parent_block(bank):
     }catch(e){ return false; }  /* if we cannot tell, never silence */
   }
   window.__judging=judging;
+  /* ===== NO TWO PLAYBACKS ARE IDENTICAL (8/18) =========================
+     THE RESEARCH SAYS THERE IS NO MAGIC NUMBER OF VARIANTS. Game-audio
+     practice does not beat repetition by counting samples up to some
+     threshold; it randomises PITCH AND LEVEL ON EVERY PLAYBACK, and gets far
+     more heard variation out of a small approved set than the set contains.
+     THIS COSTS HIM NOTHING, which is why it beat the alternative. Widening a
+     pool takes a batch, a ballot and his thumbs, and buys ONE moment. This
+     multiplies variety across ALL 148 candidates he has ALREADY approved --
+     the six-variant gunshot and the twelve moments still holding one alike --
+     without asking him for a single new judgement.
+
+     IT IS DELIBERATELY SMALL, because his approval is of a SOUND, not of a
+     family of sounds. +/-3%% on pitch is about half a semitone and +/-10%% on
+     level is under a decibel: audibly not-the-same-twice, nowhere near a
+     different candidate. The gate measures BOTH bounds rather than trusting
+     this comment -- it has to move, and it has to stay small.
+
+     PITCH MOVES ONLY ON THE SYNTHESIS METHODS, NEVER ON HIS INSTRUMENTS.
+     bodyInstrument converts hz to a SEMITONE and rounds it, so a 3%% nudge is
+     either nothing or a whole semitone -- and a whole semitone on one of his
+     own musical voices, in a game quantised to 120 BPM, is a WRONG NOTE rather
+     than a variation. His rack varies by LEVEL alone.
+
+     AND IT NEVER TOUCHES THE JUDGE SHEET. That surface renders candidates
+     through BOH_SFX.render directly and never comes through playSFX, so what
+     he auditions is always the exact vector he is voting on. Asserted in the
+     gate, not assumed. */
+  function vary(v){
+    if(!v) return v;
+    var w={},k; for(k in v) w[k]=v[k];
+    var lvl = 1 + (Math.random()*2-1)*0.10;      /* +/-10%%, under a dB */
+    w.gain = Math.max(0.02, Math.min(1, (v.gain||0.3) * lvl));
+    if(v.synth !== 'instrument'){
+      var pit = 1 + (Math.random()*2-1)*0.03;    /* +/-3%%, about half a semitone */
+      w.hz = Math.max(20, Math.min(18000, (v.hz||200) * pit));
+    }
+    return w;
+  }
+  window.__sfxVary=vary;   /* exposed so the gate can measure the real spread */
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;
       if(!voiceOK(ev))return null;
       var c=pick(ev); if(c==null)return null;
-      var v=vec(c[0],c[1]); if(!v)return null;
+      var v=vary(vec(c[0],c[1])); if(!v)return null;
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
