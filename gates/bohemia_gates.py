@@ -1711,6 +1711,17 @@ GATES = [
      'the LAST blit, the one the phone does: canvas box === backing store, walked world nearest, overview left smooth', True),
     ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
      'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
+    ('WALKED SURFACE', ['node', 'gates/walked_surface_gate.js'],
+     'FOUR TIMES IN ONE DAY a district module was finished, gated and dossiered while the surface Paolo '
+     'actually walks drew something else -- the Strip (no module, 204 cells), eighteen district types (module '
+     'not carried, 165 cells), the roads (module carried and IGNORED for a four-number table, 3,386 cells at '
+     '8.6%% and 17.9%% drawn) and the terrain (1,771 cells at ONE OR TWO COLOURS). EVERY GATE THAT READS engine/ '
+     'WAS GREEN THROUGH ALL FOUR, which is the point: a checker that reads the SOURCE cannot see a page that does '
+     'not read the source. This is the only gate that opens the real alpha, walks to RUN and asks THE PAGE -- '
+     'which path drew each district type and how many distinct surfaces came back, off THREE cells spread across '
+     'that type\'s footprint, because the first cell found is always a valley EDGE cell and sampling one is how '
+     'the first version of this sweep got suburb and desert wrong. The debt is NAMED, carries a written reason, '
+     'and ratchets BOTH ways: a type that gets fixed and stays on the list fails too.', True),
     ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],
      'the MAP tab: THE VALLEY AERIAL live + reachable, every generator module byte-locked to canon', False),
     ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],
