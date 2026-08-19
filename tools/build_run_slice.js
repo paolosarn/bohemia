@@ -411,6 +411,22 @@ grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
 grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
   ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw',
    'kerb_drop_n', 'kerb_drop_e', 'kerb_drop_s', 'kerb_drop_w']);
+/* TF-WORLD-010 8/19: SIGNS - the tallest thing in every district. The
+   district-named sign cells (pylon, marquee, screen tower, scoreboard,
+   blade sign, roof antenna/dish) measured 8/19 all rendered as flat generic
+   masses; these skin them - tools/tfcook/TF-WORLD-010_cook.py */
+grabPieces('banks/tileforms/TF-WORLD-010_CANDIDATES_8_19_26.json',
+  ['sign_screen_face_0', 'sign_screen_face_1', 'sign_screen_face_2',
+   'sign_screen_torn_0', 'sign_screen_torn_1', 'sign_screen_top',
+   'sign_screen_foot', 'sign_screen_edge_w', 'sign_screen_edge_e',
+   'sign_board_face_0', 'sign_board_face_1', 'sign_board_blown',
+   'sign_board_top', 'sign_board_foot', 'sign_board_edge_w', 'sign_board_edge_e',
+   'sign_marq_face_0', 'sign_marq_face_1', 'sign_marq_top',
+   'sign_marq_edge_w', 'sign_marq_edge_e',
+   'sign_pyl_face_0', 'sign_pyl_face_1', 'sign_pyl_blown_0', 'sign_pyl_blown_1',
+   'sign_pyl_top', 'sign_pyl_foot', 'sign_pyl_pole', 'sign_pyl_edge_w', 'sign_pyl_edge_e',
+   'sign_blade_w_0', 'sign_blade_w_1', 'sign_blade_e_0', 'sign_blade_e_1',
+   'sign_ant_whip', 'sign_ant_dish']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

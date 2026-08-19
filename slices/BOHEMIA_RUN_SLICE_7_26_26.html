@@ -929,6 +929,85 @@ function drawAwnform(gx,gy,X,Y,S){
   ctx.drawImage(look(im2),X,Y,S,S);
   return true;
 }
+/* TF-WORLD-010 SIGNS (8/19, board row 39, HIGH since 7/28): every district
+   gets its ONE TALL THING. The districts already NAME their sign cells and
+   every one measured 8/19 rendered as a flat generic mass. Six behaviors:
+   - RECT CABINETS (screen tower / scoreboard / marquee / pylon): the blob's
+     top edge wears the sky-lit galv cap, the bottom edge the under-shadow
+     (the pylon's shows its pole, ellipse cross-section per the 45 law), the
+     field wears the FACE - bleached, crazed, some panels torn or blown out
+     to the tubes. A marquee's bottom row keeps the letter board (its whole
+     point is the face). Outer w/e edges wear the steel frame overlay.
+   - BLADE (downtown, overhead, you pass under): ground first, then the
+     3x2-cell dead cabinet anchored at the blob's right-bottom cell so the
+     L-to-R draw loop never overpaints it; the arm points at the facade.
+   - ANTENNA/DISH (police roofs): the district's own roof tile first, then
+     the whip mast (1x1 blob, two cells tall) or the dish (2x2 blob).
+   Dead and unlit always; no readable text; no purple. */
+function signKind(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return '';
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('screen tower')>=0) return 'screen';
+  if(n.indexOf('scoreboard')>=0||n.indexOf('jumbotron')>=0) return 'board';
+  if(n.indexOf('marquee')>=0) return 'marq';
+  if(n.indexOf('pylon')>=0) return 'pyl';
+  if(n.indexOf('blade sign')>=0) return 'blade';
+  if(n.indexOf('antenna')>=0||n.indexOf('dish')>=0) return 'ant';
+  return '';
+}
+function drawSignform(gx,gy,X,Y,S){
+  var kind=signKind(gx,gy);
+  if(!kind) return false;
+  function tf(nm){var im=TILEFORM_IMG[nm];return (im&&im.complete&&im.naturalWidth)?im:null;}
+  if(kind==='blade'){
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    if(signKind(gx+1,gy)==='blade'||signKind(gx,gy+1)==='blade') return true;
+    var x0=gx; while(signKind(x0-1,gy)==='blade') x0--;
+    var y0=gy; while(signKind(gx,y0-1)==='blade') y0--;
+    var w=gx-x0+1, h=gy-y0+1;
+    var arm = civicSolidAt(x0-1,gy) ? 'w' : 'e';
+    var bim=tf('sign_blade_'+arm+'_'+th(x0,y0,2));
+    if(bim) ctx.drawImage(look(bim),X-(w-1)*S,Y-(h-1)*S,w*S,h*S);
+    return true;
+  }
+  if(kind==='ant'){
+    tput(genericTile(gx,gy),X,Y,S);
+    if(signKind(gx+1,gy)==='ant'||signKind(gx,gy+1)==='ant') return true;
+    if(signKind(gx-1,gy)==='ant'||signKind(gx,gy-1)==='ant'){
+      var dm=tf('sign_ant_dish'); if(dm) ctx.drawImage(look(dm),X-S,Y-S,2*S,2*S);
+    } else {
+      var wm=tf('sign_ant_whip'); if(wm) ctx.drawImage(look(wm),X,Y-S,S,2*S);
+    }
+    return true;
+  }
+  var up=signKind(gx,gy-1)===kind, dn=signKind(gx,gy+1)===kind;
+  var name;
+  if(!up) name='sign_'+kind+'_top';
+  else if(!dn && kind!=='marq') name='sign_'+kind+'_foot';
+  else {
+    var r=th(gx,gy,13);
+    name = kind==='screen' ? (r<2?'sign_screen_torn_'+r:'sign_screen_face_'+th(gx,gy,3))
+         : kind==='board'  ? (r===0?'sign_board_blown':'sign_board_face_'+th(gx,gy,2))
+         : kind==='pyl'    ? (r<4?'sign_pyl_blown_'+(r&1):'sign_pyl_face_'+th(gx,gy,2))
+         : 'sign_marq_face_'+th(gx,gy,2);
+  }
+  var fim=tf(name); if(!fim) return false;
+  ctx.drawImage(look(fim),X,Y,S,S);
+  if(signKind(gx-1,gy)!==kind){var ew=tf('sign_'+kind+'_edge_w'); if(ew) ctx.drawImage(look(ew),X,Y,S,S);}
+  if(signKind(gx+1,gy)!==kind){var ee=tf('sign_'+kind+'_edge_e'); if(ee) ctx.drawImage(look(ee),X,Y,S,S);}
+  /* the pylon's LEGS: one pole overlay per real leg column, never baked
+     into the foot band (first render stood a 7-wide cabinet on a
+     colonnade). One centred leg; a cabinet 6+ wide stands on two. */
+  if(kind==='pyl' && name==='sign_pyl_foot'){
+    var lx=gx; while(signKind(lx-1,gy)===kind) lx--;
+    var rx=gx; while(signKind(rx+1,gy)===kind) rx++;
+    var w2=rx-lx+1, legs = w2>=6 ? [lx+(w2>>2), rx-(w2>>2)] : [lx+(w2>>1)];
+    for(var li=0; li<legs.length; li++) if(legs[li]===gx){
+      var pim=tf('sign_pyl_pole'); if(pim) ctx.drawImage(look(pim),X,Y,S,S);
+    }
+  }
+  return true;
+}
 function drawGateform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   if(n.indexOf('gate')<0 || (n.indexOf('curb cut')<0 && n.indexOf('kerb cut')<0)) return false;
@@ -3381,6 +3460,10 @@ function draw(){
            this hook runs for suburb ground too, before the bought pool. */
         if(!body && drawAwnform(gx,gy2,X,Y,S)) continue;
         if(!body && drawGateform(gx,gy2,X,Y,S)) continue;
+        /* TF-WORLD-010 (8/19): the district-named sign cells, claimed here
+           ahead of the generic mass skins so a pylon can never fall through
+           to plain brick again */
+        if(!body && drawSignform(gx,gy2,X,Y,S)) continue;
         if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))

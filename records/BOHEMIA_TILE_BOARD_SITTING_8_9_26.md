@@ -538,3 +538,35 @@ banding untouched, verified before/after on the same lawn. The full cure is
 MORE turf variants (the bank holds 3 per stripe) - filed as cook volume.
 The audit habit is now part of the ledger: compose-and-look every few
 passes, not only piece-and-look every pass.
+
+## 8/19 TWENTY-NINTH PASS: THE SIGNS STAND UP (TF-WORLD-010, the HIGH row)
+
+The board's oldest HIGH row (7/28) shipped: EVERY DISTRICT GETS ITS TALL
+THING. Measured first - the districts have been naming their own sign
+cells all along (commercial 'pylon sign / pole', swapmeet 'market pylon
+sign', school + drivein 'marquee sign', drivein 'screen tower' at 92x25
+cells, stadium 'scoreboard / jumbotron', downtown 'blade sign' on the
+overhead layer, policestation 'roof antenna / dish') and every single one
+rendered as a flat generic brick mass. Now they draw as dead Vegas signs:
+bleached blown-out pylon cabinets on steel legs, crazed marquee letter
+boards carrying the SHADOWS of gone letters (rects, never glyphs - the
+words are Paolo's), the giant torn drive-in screen with lattice through
+the holes, the dead bulb-matrix scoreboard, blade signs jutting over the
+sidewalk, the roof dish still pointed at something. 37 pieces
+(tools/tfcook/TF-WORLD-010_cook.py), faces harvested from the approved
+signband plastics + kerb concrete, steel from galv parapet + rail plate.
+
+THE LESSON THIS PASS PAID FOR: harvest by LUMINANCE ROLE, not by
+dominance. The signband cans are the right LANGUAGE for a dead sign but
+their dominant pools are dark fascia browns - the first render's "bleached
+faces" were brown boxes. The bleached pale had to come from the street
+concrete (lifted 1.15 for sun-bleach); the cans kept their real job,
+tinting the ghost bands DARK per the family's own 8/15 rule. And the
+second render lesson: never bake a repeating element (the pole) into an
+edge-band piece - a 7-wide cabinet stood on a colonnade of seven legs
+until the pole became its own overlay placed at the real leg columns.
+
+Sweep-verified the hook claims EXACTLY the seven measured surfaces and
+nothing else. Truckstop's price pylon wires itself when one generates;
+terminal's 'schedule board / clock' from the form DOES NOT EXIST in the
+world (measured) - flagged, nothing to wire until WORLD names it.
