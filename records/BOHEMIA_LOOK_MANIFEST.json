@@ -61,11 +61,11 @@
    "caption": "The exodus road. Remains on the asphalt where people stopped walking. RUN tab.",
    "file": "look/dead-road.png",
    "at": {
-    "x": 3456,
-    "y": 3140,
+    "x": 3518,
+    "y": 3152,
     "zoom": 44
    },
-   "kb": 529.5,
+   "kb": 544.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -79,7 +79,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 487.6,
+   "kb": 193,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -89,11 +89,11 @@
    "caption": "A wider view of the same ground, so the density reads. Too many, too few, or about right is the only call needed. RUN tab.",
    "file": "look/dead-density.png",
    "at": {
-    "x": 7356,
-    "y": 8608,
+    "x": 6543,
+    "y": 3364,
     "zoom": 22
    },
-   "kb": 348.3,
+   "kb": 513.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -117,7 +117,7 @@
     "y": 2183,
     "zoom": 30
    },
-   "kb": 349.2,
+   "kb": 345.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },

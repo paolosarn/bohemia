@@ -1005,9 +1005,9 @@
   {
    "path": "engine/bohemia_arterial.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 32,
-   "hits_shown": 7,
+   "hits_shown": 32,
    "hits_loaded": 1,
    "bytes": 28759
   },
@@ -1257,9 +1257,9 @@
   {
    "path": "engine/bohemia_desert.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 32,
-   "hits_shown": 1,
+   "hits_shown": 32,
    "hits_loaded": 1,
    "bytes": 15267
   },
@@ -1383,9 +1383,9 @@
   {
    "path": "engine/bohemia_freeway.js",
    "kind": "engine",
-   "verdict": "NO TRACE",
+   "verdict": "SHOWN (all)",
    "samples": 32,
-   "hits_shown": 0,
+   "hits_shown": 32,
    "hits_loaded": 0,
    "bytes": 24574
   },
@@ -1448,7 +1448,7 @@
    "kind": "engine",
    "verdict": "SHOWN (part)",
    "samples": 32,
-   "hits_shown": 2,
+   "hits_shown": 9,
    "hits_loaded": 1,
    "bytes": 23179
   },
@@ -1662,9 +1662,9 @@
   {
    "path": "engine/bohemia_mountain.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 25,
-   "hits_shown": 1,
+   "hits_shown": 25,
    "hits_loaded": 1,
    "bytes": 13672
   },
@@ -1815,9 +1815,9 @@
   {
    "path": "engine/bohemia_rail.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 32,
-   "hits_shown": 1,
+   "hits_shown": 32,
    "hits_loaded": 1,
    "bytes": 28316
   },
@@ -2175,9 +2175,9 @@
   {
    "path": "engine/bohemia_water.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 25,
-   "hits_shown": 1,
+   "hits_shown": 25,
    "hits_loaded": 1,
    "bytes": 11585
   },
