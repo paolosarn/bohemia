@@ -87,10 +87,23 @@ patch.
 
 ## DELIBERATELY EXCLUDED, WITH DIFFERENT REASONS
 
-- **MOUNTAIN** — routing it would be an *improvement*: it is 0/256 walkable today, a solid
-  wall, while its own generator and `terrain_gate` both insist *"the mountain is a wall with
-  PASSES"* and the ravine floors are walkable. But it changes valley traversal for **927
-  cells** and deserves its own pass with its own before/after, not a ride along.
+- **MOUNTAIN** — **tried, measured, looked at, and reverted the same hour.** Before: a
+  mountain cell is **0 of 16,384 walkable** and a four-cell band 512×384 tiles wide could not
+  be entered at all — 927 cells of total wall, while its own generator is 80.4%
+  bedrock/ridge/cliff and 19.6% talus, ravine floor, dry drainage and alluvial fan, and
+  `terrain_gate` has asserted since 7/26 that *"a mountain cell is never a solid block"*.
+  Routed, it came back 0.6–20% walkable per cell with real material in it. **The content was
+  right.** Then I opened the picture: bedrock face, ridge crest and cliff band are all
+  `structure`-layer tiles, and this renderer draws structure with **building art** — so the
+  massif rendered as a checkerboard of **brickwork**.
+
+  **A gate would have passed it.** The tiles were there, the seam held, walkability went up,
+  no page errors. Every number improved. Only *looking* caught it, which is the whole content
+  of VERIFY ON THE REAL SURFACE and the reason the law says LOOK rather than MEASURE.
+
+  It needs a rock treatment for structure-layer **terrain** before it comes back — a renderer
+  and ART job, not a routing job. Kept here rather than quietly dropped, because a refusal
+  nobody recorded is indistinguishable from never having tried.
 - **WATER** — its legend declares `open water` non-solid, because its kind is `water-dead`
   which the kit layers as ground. Routing it would let him **walk out onto the lake**. That
   is a misdeclaration in the water legend and the fix belongs there — deep water blocks —
@@ -108,6 +121,20 @@ registers 57 of 66.** The nine absent are `suburb` (its own realizer, deliberate
 (`desert`, `mountain`, `water`) — every one handled by a dedicated path rather than missing.
 The real gap was narrower and sharper than the number I gave, and it is the one this record
 is about.
+
+---
+## AND THE TOOL BROKE THE PAGE ONCE, IN A WAY THIS REPO HAS SEEN BEFORE
+
+The patch reversed its own edits by matching the **new** text verbatim so it could re-run.
+Then I edited one comment line inside that text. The file's older form stopped matching, the
+reversal silently did nothing, and the forward pass inserted a **second** `const TERRAIN_KIT`
+— *"Identifier 'TERRAIN_KIT' has already been declared"*, whole page dead.
+
+That is the payday orphan (8/15) in a different coat: **a reversal that matches on content
+breaks the day the content changes.** The registry edit now carries its own delimiters and is
+cut by *marker*, with a `LEGACY_REG` list of every form it has ever had so a page written by
+an older revision of the tool can still be reversed — the same pattern
+`bohemia_city_payday_patch.py` uses for exactly this reason.
 
 ---
 **Fix:** `tools/bohemia_city_terrain_patch.py` · **Gate:** `gates/terrain_surface_gate.js`

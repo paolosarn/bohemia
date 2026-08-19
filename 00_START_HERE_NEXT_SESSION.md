@@ -1,3 +1,48 @@
+WORLD (world-9lfjtf): 8/18 (e) LATEST -- *** THE MOUNTAIN WAS ROUTED, MEASURED, LOOKED AT
+AND REVERTED IN THE SAME HOUR. A GATE WOULD HAVE PASSED IT. NOT IN A TAB: nothing shipped,
+and that is the point. ***
+
+MEASURED before: a mountain cell is 0/16,384 walkable and a four-cell band 512x384 tiles
+wide could not be entered at all -- 927 CELLS OF TOTAL WALL, while its own generator is
+80.4% bedrock/ridge/cliff and 19.6% talus, ravine floor, dry drainage and alluvial fan, and
+gates/terrain_gate.js has asserted since 7/26 that "a mountain cell is never a solid block".
+
+ROUTED through the same door the desert took, it came back 0.6-20% walkable per cell with
+real material in it. THE CONTENT WAS RIGHT. Then I opened the picture: bedrock face, ridge
+crest and cliff band are ALL STRUCTURE-LAYER tiles, and this renderer draws structure with
+BUILDING ART -- so the massif came back as a checkerboard of BRICKWORK. 927 cells of brick
+wall around a valley he already tells me looks like shit when it is wrong.
+
+*** A GATE WOULD HAVE PASSED IT. *** The tiles were there. The seam held. Walkability went
+up. No page errors. EVERY NUMBER IMPROVED. Only LOOKING caught it, which is the whole
+content of VERIFY ON THE REAL SURFACE and the reason the law says LOOK and not MEASURE.
+
+Reverted: mountain is out of TERRAIN_KIT and its module is no longer inlined (an inlined
+module nothing calls is dead weight the sync sweep still carries). The attempt and its
+numbers are KEPT in the tool and the record, because a refusal nobody wrote down is
+indistinguishable from never having tried. It comes back when structure-layer TERRAIN has a
+rock treatment -- a renderer + ART job, not a routing job.
+
+*** AND THE TOOL BROKE THE PAGE ONCE TODAY, IN A WAY THIS REPO HAS SEEN BEFORE. *** It
+reversed its own edits by matching the NEW text verbatim so it could re-run. I edited one
+comment line inside that text; the file's older form stopped matching; the reversal silently
+did nothing; the forward pass inserted a SECOND `const TERRAIN_KIT` and the whole page died
+on "Identifier already declared". That is the payday orphan (8/15) in a different coat:
+A REVERSAL THAT MATCHES ON CONTENT BREAKS THE DAY THE CONTENT CHANGES. The registry edit now
+carries its own delimiters and is cut by MARKER, with a LEGACY_REG list of every form it has
+ever had -- the same pattern bohemia_city_payday_patch.py uses for exactly this.
+
+DESERT AND WASH ARE UNCHANGED AND STILL GREEN: terrain_surface_gate 13/0, seam 117/128
+against an averaged control of 54.7/128.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A ROCK TREATMENT FOR STRUCTURE-LAYER TERRAIN, so the mountain can come back. That is
+     the blocker on 927 cells and it is a renderer branch plus an ART form, not routing.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
 WORLD (world-9lfjtf): 8/18 (d) LATEST -- *** TEN RECTANGLES CANNOT SAY "GHOST PLAT".
 THE TERRAIN GENERATORS HAD NEVER REACHED THE SURFACE HE WALKS ON. TAB: RUN -- walk out
 into the desert or down a wash and look at the ground. ***
