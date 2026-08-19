@@ -237,6 +237,25 @@ GATES = [
      'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
      'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
      'where the overlook is and never places it', True),
+    ('FIRST NIGHT',    ['node', 'gates/first_night_gate.js'],
+     'THE FIRST NIGHT HAD NEVER BEEN PLAYED AS A SEQUENCE. Nine beats land in the player\'s '
+     'first twenty minutes -- cold open, wake, the job on the phone, the offer, the market, '
+     'the reckoning, the install line, the day 2 wake, the vista -- each built by a different '
+     'turn against its own gate, and every one of those gates was GREEN. The bug was in the '
+     'space between them: measured on the real alpha, the shell\'s cold-open banner covered '
+     'page y 40-127 and the city\'s own toolbar sits at 89-120, so MUSIC, save, the builder '
+     'drawer and PHONE -- unread badge lit -- were ENTIRELY underneath it, on the morning the '
+     'wake card says "Something came in on your phone overnight". THE JOB COMES IN ON THE '
+     'PHONE, so the demo\'s core loop was blocked at minute one by the story hook, and neither '
+     'beat won: the family-at-the-table hook was a thin bar losing to a big gold GET UP button. '
+     'The offset is now REPORTED BY THE CITY and never typed in the shell (which cannot read '
+     'into the iframe on file:// anyway), and the banner STANDS DOWN entirely while a city '
+     'surface is open -- because the first cut only moved it below the toolbar and the phone '
+     'SCREEN then ran 115-844 under a banner at 121-208, which is moving a bug, not fixing it. '
+     'It TAPS the phone through the shell rather than comparing rectangles. Mutation-tested '
+     'both ways: restore the overlap and the tap stops opening the phone; drop the z-index '
+     'clause and the world canvas counts as an overlay, which suppresses the cold open '
+     'permanently -- the regression that hid INSIDE the fix, caught by measuring after', True),
     ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
      'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
      'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '

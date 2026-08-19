@@ -1,3 +1,127 @@
+RUN (run-eak241): 8/19 LATEST -- *** THE COLD OPEN WAS SITTING ON THE PHONE.
+The story hook was covering the job. TAB: RUN, the first morning. ***
+
+WHAT THIS TURN ACTUALLY WAS: the first night PLAYED AS A SEQUENCE, which nobody
+had ever done. Nine beats now land in the player's first twenty minutes -- cold
+open, wake, the job on the phone, the offer, the market, the reckoning, the
+install line, the day 2 wake, the vista -- and each was built by a different turn
+against its own gate. EVERY ONE OF THOSE GATES WAS GREEN. The bug was in the
+space between them, which is the space no gate was watching.
+
+MEASURED ON THE REAL ALPHA, after one tap on the splash:
+
+    #openInvite (the shell's cold-open banner)   page y   40 -> 127
+    the city's own toolbar                       page y   89 -> 120
+
+The toolbar was ENTIRELY INSIDE the banner. Covered: MUSIC, save, the builder
+drawer, and PHONE WITH ITS UNREAD BADGE LIT -- on the morning the wake card says
+"Something came in on your phone overnight. THE METER READER." THE JOB COMES IN
+ON THE PHONE. The demo's core loop was blocked at minute one, by the story hook,
+and it did not clear on its own: WATCH and NOT NOW are both real answers, so an
+unanswered invite sat on the toolbar for the whole first day.
+
+AND NEITHER BEAT WON. The cold open is the family, the table, ten years ago --
+the emotional hook of the whole game -- reduced to a thin bar competing with a
+big gold GET UP button in the middle of the screen. The research on openings is
+blunt about what stacking teaches: a player who gets overlapping interruptions in
+the first minutes calibrates to "this game will keep interrupting me".
+
+  tools/bohemia_cold_open_clears_the_toolbar_patch.py
+  gates/first_night_gate.js, 20 claims, registered as FIRST NIGHT
+  tools/bohemia_first_night_audit.js -- the method, kept: it drives the real
+    alpha, taps only what a player can tap, and prints every interruption in
+    order with a screenshot per beat. Re-run it before touching the opening.
+
+THE FIX IS DERIVED AND IT TOOK TWO CORRECTIONS, BOTH CAUGHT BY MEASURING AFTER:
+  1. The city REPORTS ITS OWN CHROME ({bohemiaCityChrome:{top,busy}}) and the
+     shell positions the banner from that. The shell may not type a pixel height
+     for another document's toolbar -- it cannot even read into the iframe on
+     file://, which is how every gate runs, and a hardcoded 88 is this same bug
+     one commit later. Rides the bridge repaired on 8/15.
+  2. MOVING IT BELOW THE TOOLBAR WAS ONLY HALF, AND I SHIPPED THAT HALF FIRST.
+     Measured again: the phone SCREEN then ran 115-844 with the banner at
+     121-208, so the top ninety pixels of the job list were still under it.
+     Clearing a button and covering the surface behind it is moving a bug. The
+     banner now STANDS DOWN entirely while any city surface is open, and comes
+     back when it closes.
+  3. AND THE OCCLUSION RULE MATCHED THE WORLD. First cut counted #cv, the world
+     canvas, 94% of the viewport -- which suppressed the cold open PERMANENTLY.
+     That is a worse bug than the one being fixed, shipped inside the fix. Now
+     an overlay must declare a z-index, which is what an overlay IS; the world is
+     painted at the bottom of the stack and declares none.
+  4. AND IT MUST NOT WAIT ON THE CITY'S LOAD. Holding the banner back until the
+     report arrived LOOKED principled -- no number, no guess -- and the pixels
+     landed right, so MY OWN GATE WENT GREEN ON IT. Then the full suite ran and
+     OPENING_GATE, another lane's, went red on "TAPPING RUN WITH NO DAY IN
+     PROGRESS OFFERS THE OPENING". Measured: the report arrives 8.5 SECONDS after
+     the RUN tap, because the city is a 2.3MB document that has to boot, so the
+     story hook sat invisible for eight seconds. Before the city exists there is
+     no toolbar to cover, so the banner opens where it always did and DROPS to
+     the reported line on arrival. THE FIX WAS TO EARN THE TIMING, NOT TO LOOSEN
+     SOMEBODY ELSE'S GATE -- fix the target, never the ruler.
+  5. AND STANDING DOWN IS FOR SURFACES THAT REPLACE THE SCREEN, NOT SCRIMS. The
+     day card is rgba(6,5,4,.86) -- a modal over the world, centred well below
+     the banner's band, and the two have always coexisted. Counting it meant the
+     card is up the instant a run starts, so the cold open was NEVER OFFERED AT
+     ALL. The phone is #070605, fully opaque: it replaces the screen and is read
+     from the top, so a banner on it is the same bug in a new place. Alpha is the
+     honest discriminator and it is a property, not a list.
+  Corrections 1, 3, 4 and 5 are all mutation-tested in the gate, so none of them
+  can come back quietly.
+
+THE GATE TAPS THE PHONE rather than comparing rectangles. With the overlap
+restored the tap stops opening the phone, which is the only proof that matters.
+
+*** AND A SECOND FIND, IN MY LANE, ALREADY RED ON MAIN BEFORE I STARTED. ***
+home_screen_gate was 16/2 on origin/main. `<div id="standalonenote">` had been
+DELETED FROM THE SPLASH by 9a2151f while the script that fills it stayed. That
+notice is what stops a player who installs to his home screen from seeing an
+empty valley and concluding his save was destroyed (iOS gives a home-screen app
+its own storage, separate from Safari).
+THIS IS THE SECOND TIME THE SAME ELEMENT HAS BEEN DROPPED BY A REBASE -- the
+element's own comment records the first, on 8/17. It sits inches from
+#buildstamp, the hottest conflict region in the repo, and the failure is SILENT
+BY CONSTRUCTION: the script does `if(!el) return`, so a missing element looks
+exactly like a player who does not need the notice and every source check stays
+green. Re-placing it a third time is the third round of the same loss, so THE
+SCRIPT NOW CREATES THE ELEMENT WHEN IT IS GONE.
+  tools/bohemia_standalone_note_survives_a_rebase_patch.py -> 18/0
+
+A NOTE FOR EVERY LANE, because it is costing real work: 9a2151f also knocked the
+build stamp BACKWARDS, from 8/18m to 8/18f. A stamp that goes backwards makes the
+resolver's "bump past main's letter" hand you a letter Paolo has already seen on a
+different build, which is the exact confusion the stamp law exists to prevent.
+When you resolve the stamp, check the letter against the DATE'S HISTORY, not just
+against whatever main currently says. And run the resolver WITH your headline:
+`python3 tools/bohemia_resolve_ship_conflicts.py "MY HEADLINE"` -- bare, it
+defaults to the word SHIP and stamps that.
+
+THE CONTAINER ATE THE TREE AGAIN, twice now. Mid-session the git object store
+rewound to an 8/15 snapshot, 150 commits behind, on a branch from three days
+back. Nothing pushed was lost. ORIGIN IS THE MEMORY, not the container: commit
+and push to your session branch BEFORE starting the ~100 minute suite, never
+after.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE REST OF THE FIRST-NIGHT SEQUENCE, now that there is a harness for it. The
+    audit currently walks splash -> wake -> nightfall -> day 2 -> vista. It does
+    NOT yet play the job on the phone, the offer, or the market, and those three
+    are where the remaining seams between lanes will be. Extend the audit, do not
+    re-derive it.
+ 2. THE TAB BAR IS IN FRONT OF THE PLAYER. The RUN tab is SIXTH, behind VOTE,
+    LOOK, WORDS, CUTSCENE and DIRECT -- five builder surfaces he has to scroll
+    past to reach the game. That is his 8/16 ruling ("the run has a lot of
+    bullshit buttons still around from the early days") applied one level up, and
+    it is the shell's tab order, not the city's, so it needs whoever owns the
+    shell.
+ 3. CAMP is still frozen twice over (7/26 survival-mechanics freeze + backlog 1z).
+    DO NOT FIND A LEGAL WAY TO SHIP IT.
+
+STILL NOT MINE, still open: rerolling leaves the old valley's day/quest/purse/
+market standing; arterial 20.4% and freeway 36.5% content against floors of 45.1%
+and 45.8% (WORLD, and the honest answer to "is the procedural world 10/10" is
+still no in those two district types).
+
 COMBAT (combat-nfnki9): 8/19 (a) LATEST -- *** BREAK THE LINE AND THE GUNS GO OFF.
 RF4-52, MACHINE 4 OF THE NINE, IS BUILT. TAB: COMBAT -- put a rock between you and
 them. Machines 1, 3 and 4 are now done. ***

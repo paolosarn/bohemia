@@ -26415,6 +26415,93 @@ function citySnapshot(){
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
     market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
 }
+/* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
+   The shell floats the cold-open invite over this iframe and it was landing ON
+   the toolbar: measured 8/19, the banner covered page y 40-127 and this toolbar
+   sits at 89-120, so MUSIC, save, the builder drawer and PHONE -- unread badge
+   lit, on the morning the wake card says "something came in on your phone" --
+   were all underneath it. The job comes in on the phone, so that is the demo's
+   core loop blocked at minute one.
+   THE SHELL CANNOT MEASURE THIS ITSELF. Cross-frame DOM access is blocked on
+   file:// (opaque origins), which is how every gate runs, and the toolbar's
+   height is the city's business anyway -- it moves with the font and the notch.
+   A hardcoded 88 in the shell is the same class of mistake as the bug.
+   So this posts the one number the shell needs, on boot and whenever the layout
+   can have changed. It rides the bridge repaired on 8/15. */
+/* AND IT REPORTS WHEN TO STAND DOWN ENTIRELY. Moving the banner below the
+   toolbar was only half the fix and the first cut shipped that half: measured,
+   the phone SCREEN then ran page 115-844 while the banner sat at 121-208, so
+   the top ninety pixels of the phone -- the job list, on the morning the job
+   arrives -- were still underneath it. Clearing one button and covering the
+   surface behind it is moving a bug, not fixing one.
+   OCCLUSION IS DERIVED, NOT A LIST OF SURFACE NAMES. Anything visible that
+   covers most of the viewport AND DECLARES A STACKING LEVEL counts, so the
+   phone, the market, a day card and whatever a later lane adds are all handled
+   with no edit here -- the same reason the 8/15 bridge guard tests for a
+   bohemia* key instead of naming seven messages.
+   THE z-index CLAUSE IS LOAD-BEARING AND IT COST ME A ROUND. Without it the
+   first cut matched #cv -- THE WORLD CANVAS ITSELF, 94% of the viewport -- so
+   the banner was suppressed permanently and the cold open would simply never
+   have appeared: a worse bug than the one being fixed, shipped inside the fix.
+   Caught by measuring after the change rather than assuming, then derived
+   properly: the world is painted at the bottom of the stack (#cv declares no
+   z-index at all) and anything drawn OVER it must declare one to get there.
+   That is a property of what an overlay IS, not a list of which ones exist. */
+function cityOccluded(){
+  try{
+    var W=innerWidth, H=innerHeight, els=document.body.getElementsByTagName('*');
+    for(var i=0;i<els.length;i++){
+      var e=els[i], s=getComputedStyle(e);
+      if(s.position!=='fixed'&&s.position!=='absolute') continue;
+      if(s.display==='none'||s.visibility==='hidden'||+s.opacity===0) continue;
+      var z=parseInt(s.zIndex,10);
+      if(!(z>=1)) continue;               /* the world sits at the bottom, not over it */
+      /* AND IT MUST REPLACE THE SCREEN, NOT DIM IT. An OPAQUE panel (the phone,
+         #070605) is a surface the player reads and taps at the top, so a banner
+         floating on it is the same bug in a new place. A SCRIM (the day card,
+         rgba(6,5,4,.86)) is a modal over the world with its content centred well
+         below the banner's band -- they have always coexisted and the banner is
+         not what was wrong with that pairing.
+         WITHOUT THIS CLAUSE the day card counts, and the day card is up the
+         instant a run starts, so the cold open is never offered at all --
+         opening_gate (another lane's) went red on exactly that and was right.
+         Alpha is the honest discriminator here and it is a property, not a list:
+         replaces-the-screen vs dims-the-screen. */
+      var bg=s.backgroundColor||'', al=bg.match(/^rgba\(.*,\s*([0-9.]+)\s*\)$/);
+      if(al && parseFloat(al[1])<1) continue;
+      if(bg==='transparent'||bg==='rgba(0, 0, 0, 0)') continue;
+      var r=e.getBoundingClientRect();
+      if(r.width*r.height >= W*H*0.4) return true;
+    }
+  }catch(_e){}
+  return false;
+}
+var _chromeLast='';
+function reportChrome(){
+  try{
+    if(!(window.parent&&window.parent!==window)) return;
+    var tb=document.getElementById('topbar');
+    if(!tb) return;
+    var r=tb.getBoundingClientRect();
+    if(!(r.height>0)) return;
+    var msg={top:Math.ceil(r.bottom),busy:cityOccluded()};
+    var key=msg.top+'/'+msg.busy;
+    if(key===_chromeLast) return;      /* only ever posts on a real change */
+    _chromeLast=key;
+    window.parent.postMessage({bohemiaCityChrome:msg},'*');
+  }catch(_e){}
+}
+try{
+  window.addEventListener('resize',function(){ setTimeout(reportChrome,60); });
+  window.addEventListener('orientationchange',function(){ setTimeout(reportChrome,240); });
+  /* more than once on boot on purpose: fonts land late and the first rect can be
+     short, and a banner parked one line too high is the whole bug again. */
+  setTimeout(reportChrome,120); setTimeout(reportChrome,600); setTimeout(reportChrome,1800);
+  /* A POLL, and it is the honest tool here. Surfaces open from a dozen places
+     and hooking each one is the list this deliberately avoids; the check is a
+     few rects and it posts NOTHING unless the answer changed. */
+  setInterval(reportChrome,400);
+}catch(_e){}
 function reportState(){
   if(_svT)return; _svT=setTimeout(()=>{ _svT=null;
     try{ if(window.parent&&window.parent!==window)
