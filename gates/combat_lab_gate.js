@@ -444,8 +444,16 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   ok('SMART CAM: frames the living, tightens on kills, pinch drives for 5s',
     demo.includes('V26 SMART CAM') && demo.includes('G._camTouchAt') &&
     demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
-  ok('playtest defaults to 8 enemies',
-    demo.includes('numEnemies:8,') && demo.includes('<button class="nb on" data-n="8">8</button>'));
+  /* V167 RE-POINTED, AND THE OLD CHECK WAS PINNING THE BUG. "Defaults to 8" was
+     written as a convenience for the playtest and quietly became the whole game:
+     RF4-24 measured 8.0 per fight, min 8, max 8, across 40 arenas, which by RF4's
+     own notes is BOSS SIZING every single time. The default is the CURVE now, and
+     8 is still one tap away in the same row. */
+  ok('V167 the playtest defaults to the ENCOUNTER CURVE, and boss sizing is still one tap away rather than the only thing there is',
+    demo.includes('<button class="nb on" id="ncurve">CURVE</button>') &&
+    demo.includes('<button class="nb" data-n="8">8</button>') &&
+    /if\(G\.encCurve!==false\)G\.numEnemies=rollEncounterSize\(\);/.test(demo) &&
+    /G\.encCurve=false; G\.numEnemies=\+b\.dataset\.n;/.test(demo));
   ok('TARGETING AUTO/MANUAL: threat-ordered auto (v28), manual CHOOSE NEXT pause, taps only pick victims',
     demo.includes('V28 THREAT ORDER') && demo.includes("G.targetMode==='manual'") &&
     demo.includes("setRead('CHOOSE NEXT'") && demo.includes('V26 MANUAL CHAIN') &&
@@ -590,9 +598,14 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   // v39: "MAKE COMBAT FUNNER" -- streak momentum + a real ranged specialist
   ok('V39 SNIPER ARCHETYPE: one real ranged specialist can spawn in bigger fights, always far, never the close guy, hits far harder than a GOON',
     demo.includes("sniper:{n:'SNIPER',hp:45, acc:0.72, dmg:[32,48]") &&
-    demo.includes('let sniperIdx=-1; if(N>=4)') &&
+    /* V167 RE-POINTED: N>=3, not N>=4, because RF4-37 says there is "almost
+       always a highest priority target" and a three-man fight with no back line
+       has nothing to prioritise. And the slot is filled by composeRoster now
+       rather than by overwriting an index, so the assertion moved from "this
+       index gets overwritten" to "the worst man is swapped onto the back slot". */
+    demo.includes('let sniperIdx=-1; if(N>=3)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
-    demo.includes("if(i===sniperIdx)arch='sniper';") &&
+    /_roster\[sniperIdx\]=_roster\[_pi\]/.test(demo) &&
     /* V160 RE-POINTED. He was parked at 90% of the arena radius -- measured 29
        tiles against 17.5 of sight -- on the stated grounds that "he is the
        reason the board is this big". That reason RETIRED with the research:
@@ -4596,6 +4609,120 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       !!hoarder && !!spender && hoarder.every(v => v <= 3) &&
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
+
+/* ===== V166 THE DIAL STOPS TINKLING (Paolo 8/19, a ruling) =======
+   "when i leave or enter the deadshot dial theres like a glass bottle noise i
+    hate that."
+   HOOKED AND MEASURED rather than guessed: every voice in the frame was wrapped
+   and opening the dial logged sfxAsk(casing) then tone(680)+tone(340). Two bugs
+   wearing one complaint. */
+  /* THE STRUCTURAL HALF ONLY. The first write of this asserted BOTH that the cue
+     left the raise and that it now rides sndShot, by string -- and a mutation
+     that changed `try{ sfxAsk('casing'); }` to `if(0){ sfxAsk('casing'); }` left
+     the gate GREEN, because the words were all still there and only the
+     behaviour had gone. The positive half is MEASURED in the browser by
+     fight_moves_you_gate, where the cue can actually be heard firing. */
+  ok('V166 THE BRASS IS NOT AT THE RAISE ANY MORE. Opening the dial is bringing the gun UP -- the shot happens later, when he hits the green -- so a casing was tinking off the concrete before a round had left the barrel',
+    !/spendRound\(\);[^]{0,160}sfxAsk\('casing'\)/.test(demo));
+
+  ok('V166 AND THE LAST BARE UI BEEP IN THE FILE IS GONE. sndAccent was tone(680,triangle)+tone(340,sine) -- two PURE tones an octave apart with no noise floor, gone inside a tenth of a second, which is a glass ping by construction. V75 diagnosed this exact disease three lines above it ("a UI beep sitting outside the music"), fixed sndBeat and sndHeroTick, and left this one',
+    !/function sndAccent\(\)\{ tone\(680/.test(demo) &&
+    /function sndAccent\(\)\{ try\{ const f=owSong\(\); drumV\(\(f\.kit&&f\.kit\.k\)\|\|'punchk'/.test(demo));
+
+  { /* AND THE THREE DIAL VOICES STAY TELLABLE APART. Routing the accent into the
+       band is only right if it does not become the beat tick: three cues that
+       sound identical are worse than one that sounds wrong. */
+    /* grabbed by OFFSET, not by a closing-brace regex: these three span one,
+       three and two lines respectively, and a regex that assumed one line read
+       sndAccent as empty and failed a claim that was actually true. */
+    const grabFn = (n) => { const i = demo.indexOf('function ' + n + '(){');
+      if (i < 0) return '';
+      const j = demo.indexOf('\nfunction ', i + 1);          /* stop at the NEXT function, not at a
+                                                              fixed width: a 420-char window ran off
+                                                              the end of sndBeat into sndHeroTick and
+                                                              read its KICK as sndBeat's, failing a
+                                                              claim that was true. Twice this week a
+                                                              checker's window has been the broken
+                                                              thing, not the code under it. */
+      return demo.slice(i, j < 0 ? i + 420 : j); };
+    const voices = ['sndBeat', 'sndHeroTick', 'sndAccent'].map(grabFn);
+    ok('V166 THE THREE DIAL VOICES ARE STILL DISTINCT: the beat tick is the song\'s HAT, beat one is its KICK plus HAT, and the kill window is its KICK alone. Three cues that sound the same would be worse than one that sounds wrong',
+      voices.every(v => v.length > 0) &&
+      /f\.kit&&f\.kit\.h/.test(voices[0]) && !/f\.kit\.k/.test(voices[0]) &&
+      /f\.kit\.k/.test(voices[1]) && /f\.kit\.h/.test(voices[1]) &&
+      /f\.kit&&f\.kit\.k/.test(voices[2]) && !/f\.kit\.h/.test(voices[2]));
+    ok('V166 AND EVEN THE FALLBACK STOPS BEING A CHIME: no song, no glass -- one low square instead of a triangle-and-sine pair',
+      /catch\(_e\)\{ tone\(190,0\.06,0\.05,'square'\); \}/.test(voices[2]));
+  }
+
+/* ===== V167 THE ENCOUNTER CURVE (RF4-24, RF4-26) ==================
+   Paolo 8/19: "its still not feeling like rogue fable 4 bro."
+   RF4-24 is the ONLY three-star row in the teardown and it measured the worst
+   number in the file: 8.0 per fight, min 8, max 8, INSIDE RF4's BAND 0 OF 40.
+   His own design notes reserve 7+ for BOSS FIGHTS and say fights above 5-6
+   "devolve into messy kiting and choke-point abuse" -- which is RF4's designer
+   describing, in advance, the exact fight Paolo keeps reporting. */
+  ok('V167 THE SIZE IS ROLLED, NOT CONSTANT, and off the ARENA\'S OWN DICE so a seed still reproduces a fight exactly',
+    demo.includes('const ENC_SIZES=[3,4,5,6];') &&
+    demo.includes('function rollEncounterSize()') &&
+    /if\(G\.encCurve!==false\)G\.numEnemies=rollEncounterSize\(\);/.test(demo));
+
+  { /* THE BAND, RUN. RF4's own rule is 3-4 typical with 5-6 very hard and
+       anything above reserved, so the distribution has to actually land there
+       rather than merely be declared. */
+    const a = demo.indexOf('const ENC_SIZES=');
+    const src = a > 0 ? demo.slice(a, demo.indexOf('function composeRoster', a)) : '';
+    let mean = 0, lo = 99, hi = 0, ok34 = 0;
+    try {
+      const roll = new Function(src + '; return rollEncounterSize;')();
+      let s = 0;
+      for (let i = 0; i < 4000; i++) { const v = roll(); s += v; lo = Math.min(lo, v); hi = Math.max(hi, v); if (v <= 4) ok34++; }
+      mean = s / 4000;
+    } catch (e) {}
+    ok('V167 AND IT LANDS IN RF4\'s BAND: 4000 rolls, mean ' + mean.toFixed(2) + ', min ' + lo + ', max ' + hi
+      + ', and ' + (100 * ok34 / 4000).toFixed(0) + '% are the "typical 3-4" his notes name',
+      lo === 3 && hi === 6 && mean > 3.6 && mean < 4.8 && ok34 / 4000 > 0.55);
+  }
+
+  { /* THE SPINE, RUN AT EVERY SIZE. This is the check that would have caught the
+       trap: shrinking N alone would have DELETED the sniper below 4 and the
+       machine below 5, so a small fight degrades to goons and a stick -- fewer
+       AND blander AND easier, which is exactly what he was afraid of. */
+    const a = demo.indexOf('function composeRoster(N){');
+    const src = a > 0 ? demo.slice(a, demo.indexOf('function setupEnemies', a)) : '';
+    let rows = [];
+    try {
+      const compose = new Function('G', src + '; return composeRoster;')({ meleeMix: 1 });
+      rows = [3, 4, 5, 6, 8].map(n => ({ n, r: compose(n) }));
+    } catch (e) {}
+    const everySizeHasAWorstMan = rows.length === 5 && rows.every(x => x.r.filter(v => v === 'sniper').length === 1);
+    const everySizeIsMixed = rows.length === 5 && rows.every(x => new Set(x.r).size >= 3);
+    const rightLength = rows.length === 5 && rows.every(x => x.r.length === x.n);
+    ok('V167 EVERY SIZE HAS EXACTLY ONE WORST MAN, which is RF4-37\'s missing precondition: you cannot have a priority target in a crowd of eight interchangeable goons, there is nothing to prioritise'
+      + (rows.length ? '   3 -> ' + rows[0].r.join('/') : ''),
+      everySizeHasAWorstMan);
+    ok('V167 AND EVERY SIZE IS A MIXED GROUP (RF4-26), three kinds of body or more, at 3 as well as at 8 -- a three-man fight is three different problems from three directions, not two goons and a stick',
+      everySizeIsMixed && rightLength);
+    let noneAtZero = false;
+    try {
+      const off = new Function('G', src + '; return composeRoster;')({ meleeMix: 0 });
+      const pack = new Function('G', src + '; return composeRoster;')({ meleeMix: 2 });
+      noneAtZero = off(6).every(v => !['shiv', 'bat', 'spear'].includes(v)) &&
+                   pack(6).filter(v => ['shiv', 'bat', 'spear'].includes(v)).length >
+                   rows[3].r.filter(v => ['shiv', 'bat', 'spear'].includes(v)).length;
+    } catch (e) {}
+    ok('V167 AND HIS 7/19 MELEE MIX STILL RULES THE BLADES: OFF really means none and PACK really means more. A recipe that quietly ignored a ruling he already made would be the worst kind of tidy-up',
+      noneAtZero);
+  }
+
+  ok('V167 HE CAN STILL DIRECT IT (8/12): CURVE is a button beside 1/3/5/8, pinning a number turns the curve off, and the boss sizing he has played for weeks is one tap away rather than deleted',
+    /_cb\.classList\.add\('on'\); G\.encCurve=true;/.test(demo) &&
+    /G\.encCurve=false; G\.numEnemies=\+b\.dataset\.n;/.test(demo));
+
+  ok('V167 AND THE DROP IS DECLARED, NOT HIDDEN. Half the guns is half the incoming fire and no shuffling of archetypes closes that: measured 6.36 HP per turn at a pinned 8 against 3.74 on the curve, 8 deaths in 24 against 2. The only lever that would close it is making each enemy hit harder, and NO DAMAGE BEFORE THE DIAL forbids setting a damage number. It is written down where the next session will find it rather than left to be discovered',
+    /HALF THE GUNS IS HALF THE INCOMING FIRE/.test(
+      require('fs').readFileSync(require('path').join(__dirname, '..', 'tools', 'bohemia_combat_the_encounter_curve_patch.py'), 'utf8')) &&
+    require('fs').existsSync(require('path').join(__dirname, '..', 'records', 'BOHEMIA_COMBAT_THE_ENCOUNTER_CURVE_8_19_26.md')));
 
 /* ===== V165 VISION IS THE MASTER SWITCH (RF4-52, machine 4) ======
    "Pick ONE variable that as many enemy systems as possible depend on. Then

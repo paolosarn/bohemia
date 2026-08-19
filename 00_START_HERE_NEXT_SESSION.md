@@ -1,3 +1,68 @@
+COMBAT (combat-nfnki9): 8/19 (c) LATEST -- *** THREE MEN, NOT EIGHT. The encounter
+curve is in (RF4-24 + RF4-26 BUILT), and the deadshot dial stopped tinkling.
+TAB: COMBAT -- hit NEW ENCOUNTER a few times and count the bodies. ***
+Records: BOHEMIA_COMBAT_THE_ENCOUNTER_CURVE_8_19_26.md
+         BOHEMIA_COMBAT_THE_DIAL_STOPS_TINKLING_8_19_26.md
+         BOHEMIA_FOR_THE_LAB_THE_ENCOUNTER_CURVE_LANDED_8_19_26.md
+Gates:   combat_lab 855/0  |  fight_moves_you 26/0  |  rf4_teardown 92/2 ON PURPOSE
+
+*** THE HEADLINE, AND IT IS THE ANSWER TO "IT STILL DOESN'T FEEL LIKE RF4":
+EVERY FIGHT IN THIS GAME HAS BEEN BOSS-FIGHT SIZING, FOREVER, BECAUSE OF ONE
+BUTTON. *** RF4-24 is the only THREE-STAR row in the teardown and it measured 8.0
+per fight, min 8, max 8, INSIDE RF4's BAND 0 OF 40. The cause: `8` has carried the
+`on` class in the demo FOES row since it was written. RF4's own designer notes
+reserve 7+ for BOSS FIGHTS and say fights above 5-6 "devolve into MESSY KITING AND
+CHOKE-POINT ABUSE" -- which is RF4's designer describing, in advance, the exact
+fight Paolo keeps reporting. Now 4.3 per fight, min 3, max 6, 40 OF 40 in band.
+
+AND FEWER ONLY WORKED BECAUSE THE GROUPS GOT COMPOSED. Rosters were modular
+arithmetic on the slot index and EVERY rule was gated on N being big (N>=5 for the
+machine, N>=4 for the sniper), so shrinking N alone would have DELETED the
+interesting bodies from small fights -- fewer AND blander AND easier. There is a
+spine at every size now: one sniper on the back slot, a SEC-BOT at 4+, a blade at
+3+, goons for the rest. 60/60 fights have a priority target, 60/60 have 3+ kinds.
+
+*** AND I MEASURED THAT IT GOT EASIER AND SHIPPED IT SAYING SO. *** 6.36 HP per
+turn at a pinned 8 against 3.74 on the curve; 8 deaths in 24 against 2; turns per
+fight barely moved so it is not a short-fight illusion. Paolo's old line -- "I am
+really concerned how easy this game could be unless I throw 8+ enemies at a
+player" -- was RIGHT. Half the guns is half the incoming fire and no shuffling of
+archetypes closes it. The only lever that would is per-enemy damage, which NO
+DAMAGE BEFORE THE DIAL forbids outright, and RF4's real compensator is ATTRITION
+ACROSS A FLOOR, not a crowd in one room. If he plays it and it reads easy, the
+answer is NOT eight bodies again, it is attrition -- and that is a run-lane
+conversation, not a combat one.
+
+THE TWO RF4-GATE REDS ARE DESIGNED AND ARE THE LAB'S TO CLEAR. Their gate header
+says in as many words that it "goes red when COMBAT lands the encounter curve".
+C2/C3 assert the BOHEMIA TODAY cell still says 8.0 / 0-of-40. I WROTE THE NEW
+NUMBERS INTO THAT CELL AND G3 CAUGHT ME AND WAS RIGHT: the column rule gives
+COMBAT the STATUS column and nothing else. Reverted the prose, set STATUS only,
+left the reds standing as the signal, filed the numbers for them.
+
+*** THE FINDING ANY LANE CAN USE: A STRING CHECK CANNOT TELL A CALL FROM A CORPSE.
+My first gate for the casing asserted by string that the cue had moved onto the
+shot. A mutation changing `try{ sfxAsk('casing'); }` to `if(0){ sfxAsk('casing'); }`
+left it GREEN -- every word still present, only the behaviour gone. Anything you
+are asserting about whether code RUNS has to be run, not read. It is measured in
+the browser now and the mutation goes red. ***
+(And twice this week a CHECKER'S WINDOW was the broken thing, not the code: a
+420-char grab ran off the end of one function into the next and failed a claim
+that was true.)
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (RF4 LIFT routes machines 1,3,4,7,8,9 here;
+1, 3, 4 BUILT, and RF4-24/26 now too):
+ 1. RF4-37 THE PRIORITY TARGET, OTHER HALF. Every fight now HAS a worst man at the
+    back -- that was only the precondition. What is missing is making him WORTH
+    CROSSING THE ROOM FOR, so ignoring him costs you. RF4's whole core puzzle.
+ 2. MACHINE 7 -- PUBLISHED DETERMINISTIC AI. Read the rules on the surface so he
+    can plan instead of learning by dying. Worth much more now that vision and the
+    curve made the rules worth knowing.
+ 3. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL rather than damage.
+ 4. THE FIGHT HALF OF MACHINE 6 -- terrain kills. Terrain PROPERTIES are WORLD's.
+ 5. MACHINE 8 -- BOUNDED DAMAGE VARIANCE. BLOCKED BY LAW, not by work. Do not start.
+ 6. NOT MINE, FLAGGED AGAIN: manufacturing walls (RF4-52's second half) and
+    "liquids block sprinting" (RF4-51's) are both half terrain = WORLD.
 RUN (run-eak241): 8/19 (d) LATEST -- *** HIS OWN HOUSE WAS THIRTY-EIGHT CELLS
 FROM WHERE HE WOKE UP, on every single boot. TAB: RUN, the first morning. ***
 

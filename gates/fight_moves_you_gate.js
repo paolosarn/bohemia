@@ -448,6 +448,46 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '): the 3-5 second rush, which is the realistic form of the capture\'s "enemies never spot a sprinting player" -- they are not blinded, you were simply only up for less time than acquiring takes',
     vis.sprint.held > 0 && vis.sprint.after === 0);
 
+  /* ===== V166 THE DIAL STOPS TINKLING, HEARD RATHER THAN READ ==========
+     Paolo 8/19: "when i leave or enter the deadshot dial theres like a glass
+     bottle noise i hate that."
+     THE LAB GATE CANNOT PROVE THIS AND IT TRIED. Its first version asserted by
+     string that the casing had moved onto the shot, and a mutation that changed
+     `try{ sfxAsk('casing'); }` to `if(0){ sfxAsk('casing'); }` left it GREEN --
+     every word still present, only the behaviour gone. So the claim is made
+     where the cue can actually be heard: hook every voice in the frame, open the
+     dial, and listen. */
+  const dial = await frame.evaluate(() => {
+    const log = [];
+    const wrap = (n) => { const fn = window[n]; if (typeof fn !== 'function') return false;
+      window[n] = function (...a) { log.push(n + '(' + String(a[0]) + ')'); return fn.apply(this, a); }; return true; };
+    ['sfxAsk', 'tone', 'drumV'].forEach(wrap);
+    BohemiaArena.set(3); setupCombat(); G.phase = 'cover';
+    const take = () => { const v = log.slice(); log.length = 0; return v; };
+    take();
+    try { enterAim(false); } catch (e) {}
+    const onRaise = take();
+    try { sndShot(); } catch (e) {}
+    const onShot = take();
+    try { sndAccent(); } catch (e) {}
+    const onAccent = take();
+    return { onRaise, onShot, onAccent };
+  });
+
+  ok('V166 RAISING THE GUN THROWS NO BRASS: opening the dial fires nothing at all ('
+    + (dial.onRaise.length ? dial.onRaise.join(', ') : 'silent')
+    + '). It used to eject a casing before a single round had left the barrel',
+    !dial.onRaise.some(v => v.indexOf('casing') >= 0));
+
+  ok('V166 AND THE SHOT DOES: the casing rides sndShot, the one door every shot in the file goes through ('
+    + dial.onShot.join(', ') + ')',
+    dial.onShot.some(v => v.indexOf('casing') >= 0));
+
+  ok('V166 THE KILL-WINDOW CUE IS THE BAND, NOT A BEEP: it plays a drum out of the song\'s own kit and not a bare oscillator ('
+    + dial.onAccent.join(', ') + '). Two pure tones an octave apart with no noise floor is a glass ping by construction, and V75 already named that disease about this cue\'s twin',
+    dial.onAccent.some(v => v.indexOf('drumV') >= 0) &&
+    !dial.onAccent.some(v => v.indexOf('tone(') >= 0));
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
