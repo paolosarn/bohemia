@@ -5636,12 +5636,19 @@ perimeter IS the building and where `jail` already ships a walled secure yard wi
 four guard towers, approved since 7/19. ONE CUT IN THE WIRE (Paolo 8/1: never locked
 in a district). One word from him kills it.
 
-*** A DIVERGENCE THE NEXT SESSION SHOULD KNOW ABOUT, found by censusing twice and
-getting two answers: a raw buildOvermap puts `fort` at (40,23) and `dam` at (9,89);
-THE WORLD MODEL SAYS `arterial` and `airbase` there and puts the dam at (89,85). The
-CITY PAGE -- the surface the player walks -- uses the raw overmap. So the walked
-surface and the model that quests and factions read DISAGREE about where at least
-two landmarks are. Not fixed, not guessed at, named on purpose. ***
+*** THE DIVERGENCE I REPORTED YESTERDAY WAS MY OWN BUG, AND IT IS WITHDRAWN.
+I claimed the walked surface and the world model disagree about where the fort and
+the dam are. FALSE, and it reached main. I censused with world('bohemia'), and
+world() read `seed=(seed>>>0)||1` -- 'bohemia'>>>0 is 0, so it fell to SEED 1 and
+built a COMPLETELY DIFFERENT VALLEY: measured after, 43.8% of cells a different
+district. With the seed passed as a NUMBER the two maps are IDENTICAL, 0 of 9,216
+cells apart; the fort is at (40,23) and the dam at (9,89)-(10,90) in both, which is
+what the five modules were built for. The bug was never in the map, it was in a
+function that accepted nonsense and answered anyway -- and the one seed is written
+as the TEXT `bohemia` in every law and every handoff, so every caller writing the
+obvious thing got a different world in silence. FIXED: world() hashes text with the
+same function the walked surface uses, a number still works, no argument falls back
+to the ONE seed, and anything else THROWS. Held by world_gate.js (4 new checks). ***
 
 WHAT IS LEFT IS NINE CELLS AND THEY ARE ALL HIS: sphere (4), luxor, strat, sign (the
 Welcome sign), highroller, springs -- named REAL Las Vegas landmarks whose identity

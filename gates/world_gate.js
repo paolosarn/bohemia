@@ -209,6 +209,33 @@ ok('findDistricts (custom predicate) runs without throwing', Array.isArray(custo
 const w3 = world(12345);
 ok('location query is deterministic (same seed -> same district count)', w.districtsOfType('suburb').length === w3.districtsOfType('suburb').length);
 
+/* ONE SEED, ONE VALLEY, HOWEVER IT IS SPELLED (8/19).
+   world() used to read `seed=(seed>>>0)||1`, so 'bohemia' -- the way the one seed is
+   written in every law, every handoff and this repo's own docs -- became 0, then 1, and
+   built a DIFFERENT VALLEY in silence: 43.8% of cells a different district, suburb where
+   the arterial is. It cost a FALSE FINDING that reached main ("the walked surface and the
+   world model disagree about where the fort and the dam are"), and nothing in the machine
+   could have caught it, because both halves were internally consistent and only the
+   comparison between them was wrong.
+   A SILENT FALLBACK TO A DIFFERENT WORLD IS WORSE THAN A CRASH: a crash gets fixed the
+   same hour. */
+{
+  const OMX = require('../engine/bohemia_overmap.js');
+  const ONE = 2691674296;
+  const rawMap = OMX.buildOvermap(ONE);
+  const cmp = (ww) => { let d = 0;
+    for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+      const a = rawMap.at(x, y), b = ww.at(x, y);
+      if ((a ? a.district : null) !== (b ? b.district : null)) d++; }
+    return d; };
+  ok('the seed as TEXT builds the same valley as the seed as a NUMBER', cmp(world('bohemia')) === 0);
+  ok('the seed as a NUMBER builds the walked surface own map', cmp(world(ONE)) === 0);
+  ok('no seed at all falls back to the ONE seed, never to 1', cmp(world()) === 0);
+  let threw = false;
+  try { world({}); } catch (e) { threw = true; }
+  ok('a seed that is neither THROWS rather than quietly building another world', threw);
+}
+
 console.log('WORLD MODEL GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
   scanned + ' plots, ' + withBuildings + ' with buildings)');
 process.exit(fail ? 1 : 0);

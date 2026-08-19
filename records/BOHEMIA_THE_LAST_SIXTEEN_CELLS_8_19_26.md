@@ -46,17 +46,28 @@ sense (Paolo 8/1: *"make sure I cant be locked in any certain district ever agai
 
 ---
 
-## A DIVERGENCE WORTH KNOWING ABOUT
+## ~~A DIVERGENCE WORTH KNOWING ABOUT~~ — **WITHDRAWN 8/19. IT WAS MY OWN BUG.**
 
-Censusing the landmarks twice gave two different answers. A raw `buildOvermap` puts `fort`
-at (40,23) and `dam` at (9,89); **the world model says `arterial` and `airbase`** at those
-cells and puts the dam at (89,85). The city page — the surface the player walks — uses the
-raw overmap, so the two disagree about where at least two landmarks are.
+**This section originally claimed the walked surface and the world model disagree about
+where the fort and the dam are. That is false, and I shipped it to main as a discovery.**
 
-Not fixed here and not guessed at: it is a real inconsistency between the walked surface and
-the model that quests and factions read, and naming it is worth more than a rushed patch.
+I censused the landmarks with `world('bohemia')`. `world()` read
+`seed = (seed>>>0) || 1`, and `'bohemia'>>>0` is **0** — so it fell through to **seed 1**
+and built a completely different valley. Not a degraded one: measured afterwards, **43.8%
+of cells came back a different district**, suburb where the arterial is, mountain where the
+solar farm is. Passing the seed as a **number**, the two maps are **identical — 0 of 9,216
+cells apart**. The fort is at (40,23) and the dam at (9,89)–(10,90) in both, which is where
+this file's five modules were built for.
 
----
+**The bug was never in the map. It was in a function that accepted nonsense and answered
+anyway** — and the one seed is written as the TEXT `bohemia` everywhere in the laws, the
+handoff and this repo's own docs, so every caller writing the obvious thing got a different
+world in silence.
+
+Fixed: `world()` hashes text with the same function the walked surface uses, so
+`world('bohemia')` and the page build one valley; a number still works; and anything else
+**throws**, because a silent fallback to a different world is worse than a crash — a crash
+gets fixed the same hour. Held by `world_gate.js`.
 
 ## WHAT IS LEFT IS NINE CELLS AND THEY ARE ALL PAOLO'S
 

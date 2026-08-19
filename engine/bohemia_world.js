@@ -550,8 +550,33 @@
     return best;
   }
 
+  /* THE SEED IS THE WHOLE VALLEY, SO A BAD ONE MUST NOT BE SURVIVABLE (8/19).
+     This read `seed=(seed>>>0)||1`, and `'bohemia'>>>0` is 0, so ANY caller passing the
+     seed as TEXT -- which is how the one seed is written everywhere in the laws, the
+     handoff and this repo's own docs -- silently got SEED 1 and a COMPLETELY DIFFERENT
+     VALLEY. Not a degraded one: measured, 43.8% of cells came back a different district,
+     suburb where the arterial is, mountain where the solar farm is.
+     IT COST ME A FALSE FINDING. I censused the landmarks with world('bohemia'), got a map
+     that disagreed with the page about where the fort and the dam are, and shipped
+     "the walked surface and the world model disagree" to main as a discovery. With the
+     seed passed as a NUMBER the two are identical, 0 of 9,216 cells apart. The bug was
+     never in the map; it was in a function that accepted nonsense and answered anyway.
+     So it now HASHES text with the same function the walked surface uses (so
+     world('bohemia') and the page build one valley, which is what everyone writing that
+     line already assumed), and THROWS on anything that is neither. A silent fallback to a
+     different world is worse than a crash, because a crash gets fixed the same hour. */
+  function hashSeedText(str){ str=String(str);
+    var h=1779033703^str.length;
+    for(var i=0;i<str.length;i++){ h=Math.imul(h^str.charCodeAt(i),3432918353); h=(h<<13)|(h>>>19); }
+    h=Math.imul(h^(h>>>16),2246822507); h=Math.imul(h^(h>>>13),3266489909);
+    return (h^(h>>>16))>>>0; }
   function world(seed){
-    seed=(seed>>>0)||1;
+    if(typeof seed==='string'){ seed=hashSeedText(seed); }
+    else if(typeof seed==='number'&&isFinite(seed)){ seed=seed>>>0; }
+    else if(seed==null){ seed=hashSeedText('bohemia'); }
+    else throw new TypeError('bohemia_world.world(): seed must be a number or a string, got '+
+      (typeof seed)+' -- a silent fallback here builds a DIFFERENT VALLEY, so it is a throw');
+    if(!seed) seed=1;
     var m = OM.buildOvermap(seed);
     var landlockConnect = (function(){
       var mand=buildLandlockConnect(m), cosmetic=buildCosmeticConnect(m), out={};
