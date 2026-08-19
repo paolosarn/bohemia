@@ -570,3 +570,29 @@ Sweep-verified the hook claims EXACTLY the seven measured surfaces and
 nothing else. Truckstop's price pylon wires itself when one generates;
 terminal's 'schedule board / clock' from the form DOES NOT EXIST in the
 world (measured) - flagged, nothing to wire until WORLD names it.
+
+## 8/19 THIRTIETH PASS: THE PANELS GET THEIR JOINTS (TF-RUN-005)
+
+The other 7/28 HIGH row closed the same day as the signs. The tilt-up
+field has been live on the civic and industrial masses since 8/3, but it
+read as a repeating texture - and the form's own spec said the whole
+asset is the JOINT RHYTHM: "big blank fields punctuated by joints, NOT a
+repeating texture." Eleven overlay pieces now ride the approved field: a
+caulked joint every 4-6 columns (rhythm rolled per building, phase locked
+to the flood-filled mass anchor), the poured cap as its own top course
+(the orange starter parapet now dies on tilt-up masses too, the way the
+CMU cap killed it on block masses), the plinth with efflorescence bloom
+at grade, sparse rain weeps (dry aging - dust, UV, streak, never green),
+and the rare boarded punched window in weathered sf_boarded ply. Every
+grey harvested from the field tiles themselves.
+
+THE BUG THE FIRST RENDER CAUGHT: the payload shipped the new td/tdef
+tilt-up flags and the page found ZERO tilt-up masses - because the
+slice's CIVIC_SKIN decoder copies KNOWN KEYS ONLY, and a payload field
+does not exist until the decoder learns it. One line. The lesson joins
+the grab-before-replace law: the pipe has TWO ends, and adding a field to
+the sender is half a wiring.
+
+Verified live: warehouse (joints, boards, plinth bloom), jail (cap
+course), medical. Painted-tan colorway and rain-wet darkening stay
+future volume (colorways and weather, not new forms).

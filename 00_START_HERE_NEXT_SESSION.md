@@ -827,35 +827,37 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/19 (a) LATEST -- *** THE SIGNS STAND UP: TF-WORLD-010,
-the board's oldest HIGH row (7/28), COOKED AND WIRED - every district's
-ONE TALL THING. Seven world-named sign surfaces that all rendered as flat
-brick masses now draw as dead Vegas signs: the commercial pylon (blown-out
-cabinet on steel legs), swapmeet market pylon, school + drive-in marquees
-(letter SHADOWS, never glyphs), the drive-in's giant torn screen tower,
-the stadium's dead bulb-matrix scoreboard, downtown blade signs on the
-pass-under layer, police roof antennas + dish. 37 pieces, faces harvested
-from the approved signband plastics + kerb concrete, steel from galv
-parapet + rail plate. Fourteenth wired family, card in the ART tab.
-Sweep-verified: the hook claims EXACTLY the seven measured surfaces.
-Truckstop's price pylon self-wires when one generates; terminal's
-'schedule board / clock' from the form DOES NOT EXIST in the world
-(measured 8/19) - WORLD would have to name it first.
-Two craft lessons paid for: harvest by LUMINANCE ROLE not dominance (the
-signband cans' dominant pools are dark browns - first render's "bleached"
-faces were brown boxes; the pale came from street concrete lifted 1.15),
-and never bake a repeating element into an edge-band piece (a 7-wide
-cabinet stood on a colonnade of 7 baked-in poles until the pole became
-its own overlay at the real leg columns). ***
-Remaining open board rows for this lane: TF-RUN-005 tilt-up skin;
-TF-LAB-001 camp deployed (CAMP IS FROZEN TWICE OVER - do not touch).
-Blocked-outside list unchanged (re-probed 8/19 after THE STRIP IS BUILT:
-strip/casino/freeway/speedway/resort/minigp/ballpark still all "(reserved
-landmark ground)"); deck slab + stairs banks still wait on COMBAT wiring.
-Base-red flags NOT mine, proven on clean origin/main: art_45
-(hero-candidates bank), reusefirst (3 patch files, other lanes), taste
-(2 RUN-lane factories).
-Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-ninth pass)
+ART (f3eu53): 8/19 (b) LATEST -- *** BOTH 7/28 HIGH ROWS CLOSED IN ONE DAY.
+(a) THE SIGNS STAND UP: TF-WORLD-010 wired - seven world-named sign
+surfaces (pylons, marquees, screen tower, scoreboard, blade signs, roof
+antennas/dish) draw as dead Vegas signs; sweep-verified exactly those
+seven; truckstop self-wires when one generates; terminal 'schedule board'
+does not exist in the world (measured) - WORLD would have to name it.
+(b) THE PANELS GET THEIR JOINTS: TF-RUN-005 wired - the tilt-up masses
+(warehouse, jail, medical, downtown podium, convention...) draw the panel
+language on the live 8/3 field: caulked joint every 4-6 columns phase
+locked per mass, poured cap replacing the orange starter parapet, plinth
+with efflorescence bloom, dry rain weeps, rare boarded punched windows.
+Fifteenth wired family; both cards in the ART tab.
+PIPE LESSON (paid twice now): the slice's CIVIC_SKIN decoder copies KNOWN
+KEYS ONLY - the new td/tdef flags shipped and the page saw zero tilt-up
+masses until the decoder learned the keys. Adding a field to the sender
+is half a wiring; grab-before-replace was the same lesson's other half.
+CRAFT LESSONS from the signs: harvest by LUMINANCE ROLE not dominance
+(dark signband cans made "bleached" faces brown; the pale came from
+street concrete lifted 1.15), and never bake a repeating element into an
+edge piece (7-wide pylon stood on a 7-leg colonnade until the pole became
+its own overlay). ***
+Remaining for this lane: TF-LAB-001 camp deployed is FROZEN TWICE OVER -
+do not touch. Board rows for ART are otherwise CLEAR; next is volume
+(tan tilt-up colorway, more turf variants) and the re-probe cadence on
+the blocked-outside list (strip/casino/freeway/speedway/resort/minigp/
+ballpark all still "(reserved landmark ground)" 8/19; trailer awnings,
+crossings, clarifier, deep_wet, gutter inlets still parked on WORLD/
+occupancy/weather; deck slab + stairs banks still wait on COMBAT).
+Base-red flags NOT mine, proven on clean origin/main: art_45 (hero bank),
+reusefirst (3 other-lane patch files), taste (2 RUN-lane factories).
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29 + 30)
 
 WORLD (world-9lfjtf): 8/18 (a) LATEST -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
 

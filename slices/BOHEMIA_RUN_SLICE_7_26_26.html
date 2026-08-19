@@ -1144,6 +1144,7 @@ var CIVIC_SKIN = { d:{}, def:[], roof:[], bd:{}, bdef:[] };
   Object.keys(CIVIC_SKIN_B64.d||{}).forEach(function(k){ CIVIC_SKIN.d[k]=mk(CIVIC_SKIN_B64.d[k]); });
   CIVIC_SKIN.def=mk(CIVIC_SKIN_B64.def); CIVIC_SKIN.roof=mk(CIVIC_SKIN_B64.roof);
   CIVIC_SKIN.bd=(CIVIC_SKIN_B64.bd)||{}; CIVIC_SKIN.bdef=(CIVIC_SKIN_B64.bdef)||[];
+  CIVIC_SKIN.td=(CIVIC_SKIN_B64.td)||{}; CIVIC_SKIN.tdef=(CIVIC_SKIN_B64.tdef)||[];
 })();
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
@@ -2532,6 +2533,17 @@ function civicIsBlockMass(gx,gy){
         ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
   return !!flags[h%pool.length];
 }
+/* TF-RUN-005 (8/19): is this mass wearing the TILT-UP field? Same re-run of
+   the civicImg hash as the CMU test, against the td/tdef flags. */
+function civicIsTiltupMass(gx,gy){
+  var pool=civicPool('W'); if(!pool||!pool.length) return false;
+  var flags=(CIVIC_SKIN.d[CELLNAME])?((CIVIC_SKIN.td||{})[CELLNAME]||[]):(CIVIC_SKIN.tdef||[]);
+  if(!flags||!flags.length) return false;
+  var mk2=_civicMassKey(gx,gy);
+  var h=(Math.imul(mk2[0],2654435761)^Math.imul(mk2[1],40503)
+        ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
+  return !!flags[h%pool.length];
+}
 function civicImg(kind,gx,gy){
   var pool=civicPool(kind); if(!pool||!pool.length) return null;
   /* ONE MATERIAL PER BUILDING: the seed is the 8x8-cell block plus the district and
@@ -2584,6 +2596,30 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     }
   }
   ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
+  /* TF-RUN-005 (8/19): THE PANEL LANGUAGE. The tilt-up field has been live
+     since 8/3 and it read as a repeating texture, which is exactly what the
+     form said the material must never be: real tilt-up is BIG BLANK FIELDS
+     PUNCTUATED BY JOINTS. So on a tilt-up mass: a caulked joint every 4-6
+     columns (rhythm chosen per mass, phase locked to the mass anchor so a
+     building's joints never swim), the poured CAP as its own top course
+     (the orange starter parapet dies here, the way the CMU cap killed it on
+     block masses), the PLINTH with its efflorescence bloom at grade, rain
+     WEEPS down the field, and the rare boarded punched window mid-wall.
+     Dry aging only - dust, UV and streak, never green. */
+  if(k==='W' && civicIsTiltupMass(gx,gy)){
+    function tov(nm){ var o=TILEFORM_IMG[nm];
+      if(o&&o.complete&&o.naturalWidth) ctx.drawImage(look(o),X,Y,S,S); }
+    var mk4=_civicMassKey(gx,gy);
+    var mh4=(Math.imul(mk4[0],2654435761)^Math.imul(mk4[1],40503))>>>0;
+    var topT = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);
+    var botT = !civicSolidAt(gx,gy+1);
+    var jw = 4 + (mh4 % 3);
+    if((((gx-mk4[0])%jw)+jw)%jw===jw-1) tov('tu_joint_'+th(gx,0,2));
+    if(!topT && !botT && th(gx,gy,19)===0) tov('tu_board_'+th(gx,0,2));
+    else if(!topT && th(gx+3,gy,6)===0) tov('tu_streak_'+th(gx,gy,3));
+    if(botT) tov('tu_base_'+th(gx,gy,2));
+    if(topT){ tov('tu_parapet_'+th(gx,gy,2)); return true; }
+  }
   /* VOLUME (8/15): THE DEAD MECHANICAL ON THE FLAT ROOFS. The RTUs are
      multi-cell art (88x86, 132x90) drawn at the same uniform scale as every
      tile - no resample - anchored at the RIGHT-BOTTOM cell of their footprint
