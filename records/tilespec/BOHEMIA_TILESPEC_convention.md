@@ -32,19 +32,22 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | apron | ground | the cracked concrete apron between the halls, weeds in every joint | ground | no | — | 2569 |
+| 0 | `dead-dirt (kit ground)` | apron | ground | the cracked concrete apron between the halls, weeds in every joint | ground | no | — | 1703 |
 | 1 | `#3f3d38` | service drive | drive | the truck marshalling drive along the dock wall (car-drivable) | ground | no | — | 1397 |
-| 2 | `#726a5b` | exhibit hall | building | an exhibit hall: a column-free box the size of a city block, blind on three sides | structure | yes | the hall floor: acres of sealed concrete under a dead ceiling grid, booth numbers still taped down | 6296 |
+| 2 | `#726a5b` | exhibit hall | building | an exhibit hall: a column-free box the size of a city block, blind on three sides | structure | yes | the hall floor: acres of sealed concrete under a dead ceiling grid, booth numbers still taped down | 2628 |
 | 3 | `#4a4030` | dry planter | tree-dead | a planter gone to dust | prop | no | — | 5 |
 | 4 | `#8a8072` | hall roof plant | structure | the roof plant field: air handlers and duct runs the length of the hall | structure | yes | — | 1680 |
 | 5 | `#c2a86a` | drive entrance | gate | the curb cut off the street, no barrier | portal | no | — | — |
-| 6 | `#8e8a80` | concourse | building | the glazed concourse spine threading the halls, most panes starred | structure | yes | the concourse: a long glass corridor, registration counters shoved aside | 368 |
+| 6 | `#8e8a80` | concourse | building | the glazed concourse spine threading the halls, most panes starred | structure | yes | the concourse: a long glass corridor, registration counters shoved aside | 332 |
 | 7 | `#5f5a52` | dock apron | ground | the dock apron, oil-black where the trailers stood | ground | no | — | 768 |
 | 8 | `#2e2a24` | dock door | portal | a roll-up dock door standing open onto the hall floor | portal | no | — | 154 |
 | 9 | `#8f8676` | pole light | prop | a yard light on its stem, head dark | prop | yes | — | 12 |
 | 10 | `#55555f` | abandoned trailer | vehicle | a semi-trailer left backed into its dock | prop | yes | — | 183 |
 | 11 | `#c9c1aa` | lane marking | marking | faded dock lane numbers | ground | no | — | 20 |
 | 12 | `#a49a86` | entry plaza | walk | the entry plaza pavers, drifted with grit | ground | no | — | 2932 |
+| 13 | `#b8b4a4` | hall skylight | structure | a skylight band punched through the hall roof, most panes starred and one gone through | structure | yes | — | 864 |
+| 14 | `#6d6552` | rock lag | ground | rock lag and hardpan through the apron, the desert coming back where nothing is parked | ground | no | — | 866 |
+| 15 | `#7e7566` | west hall | building | the newer hall: the same column-free box, built decades later and taller, with a curved roof instead of a flat one | structure | yes | the west hall floor: newer concrete, a higher ceiling, and the same acres of nothing | 2840 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

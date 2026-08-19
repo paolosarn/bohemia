@@ -33,7 +33,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | compound dirt | ground | the graded dirt of the compound, nothing growing on it | ground | no | — | 7071 |
+| 0 | `dead-dirt (kit ground)` | compound dirt | ground | the graded dirt of the compound, nothing growing on it | ground | no | — | 1456 |
 | 1 | `#3f3d38` | service road | drive | the perimeter service road and the sally-port lane (car-drivable) | ground | no | — | 1826 |
 | 2 | `#7a7264` | housing unit | building | a housing unit: a long single-storey block with a slot window every cell | structure | yes | a dayroom with two tiers of cell doors around it, every door standing open | 2492 |
 | 3 | `#4a4030` | dead scrub | tree-dead | dead scrub against the wire | prop | no | — | 8 |
@@ -46,6 +46,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#55555f` | abandoned vehicle | vehicle | a transport van left in the sally port | prop | yes | — | 12 |
 | 11 | `#5f5a52` | services core | building | the services core: kitchen, laundry and infirmary in one block at the middle | structure | yes | the core: steam kettles cold, the infirmary cabinets emptied first | 296 |
 | 12 | `#9a9184` | administration | building | the administration building, OUTSIDE the wire | structure | yes | admin: a counter, a visitor bench, and files pulled out onto the floor | 336 |
+| 13 | `#8a7f66` | outside ground | ground | the desert outside the wire — never graded, never walked, creosote coming back into it | ground | no | — | 3110 |
+| 14 | `#75694f` | rock lag | ground | rock lag and creosote in patches outside the wire, the desert taking it back | ground | no | — | 2505 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

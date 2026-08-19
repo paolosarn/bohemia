@@ -32,7 +32,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | infield dirt | ground | the infield: packed dirt and dead scrub inside the circuit | ground | no | — | 8873 |
+| 0 | `dead-dirt (kit ground)` | infield dirt | ground | the infield: packed dirt and dead scrub inside the circuit | ground | no | — | 3721 |
 | 1 | `#3a3a42` | circuit | drive | the kart circuit itself, seal-coated asphalt gone grey and rubber-streaked | ground | no | — | 4393 |
 | 2 | `#7a7264` | paddock building | building | the paddock building behind the pits | structure | yes | the paddock: kart stands, a tyre rack and a bench with the tools gone | 647 |
 | 3 | `#4a4030` | dead scrub | tree-dead | dead scrub through the infield | prop | no | — | 8 |
@@ -45,6 +45,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#55555f` | abandoned kart | vehicle | a kart left where it stopped, bodywork cracked | prop | yes | — | 30 |
 | 11 | `#c9c1aa` | start line | marking | the start line and grid boxes, worn to ghosts | ground | no | — | 12 |
 | 12 | `#7d4a3a` | tyre barrier | fence | a tyre wall on the outside of the turn, stacked and strapped, some burst | structure | yes | — | 1560 |
+| 13 | `#7f7560` | outfield | ground | the ground outside the circuit, never sealed — dirt, scrub and the odd tyre that got away | ground | no | — | 3455 |
+| 14 | `#6b6350` | rock lag | ground | rock lag through the outfield where nothing was ever graded | ground | no | — | 1697 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

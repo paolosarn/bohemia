@@ -32,19 +32,21 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | canyon rock | ground | bare canyon rock, blasted flat where the works needed it | ground | no | — | 5592 |
+| 0 | `dead-dirt (kit ground)` | canyon rock | ground | bare canyon rock, blasted flat where the works needed it | ground | no | — | 1545 |
 | 1 | `#3f3d38` | crest road | drive | the two-lane road across the dam crest (car-drivable) | ground | no | — | 239 |
 | 2 | `#9a948a` | dam wall | building | the arch-gravity wall itself, a concrete curve wedged into the canyon | structure | yes | a gallery inside the dam: wet concrete, a walkway, and the hum that is not there any more | 1356 |
-| 3 | `#3a5a72` | reservoir | water | what is left of the reservoir, a long way below the white mineral ring it used to reach | ground | no | — | 5296 |
+| 3 | `#3a5a72` | reservoir | water | what is left of the reservoir, a long way below the white mineral ring it used to reach | ground | no | — | 3977 |
 | 4 | `#8e8880` | intake tower | building | an intake tower standing out of the water on its own plinth | structure | yes | the tower head: a gantry, a dead hoist, and the shaft going straight down | 528 |
 | 5 | `#c2a86a` | road entrance | gate | where the crest road meets the canyon road | portal | no | — | 48 |
 | 6 | `#6f6a60` | spillway | ground | a spillway: a concrete funnel cut into the canyon wall, dry for twenty years | ground | no | — | 784 |
-| 7 | `#b6ae9c` | bathtub ring | ground | the bathtub ring — the white mineral band the water left on the rock as it dropped | ground | no | — | 208 |
+| 7 | `#b6ae9c` | bathtub ring | ground | the bathtub ring — the white mineral band the water left on the rock as it dropped | ground | no | — | 1527 |
 | 8 | `#2e2a24` | gallery door | portal | a steel door into the dam gallery, standing open | portal | no | — | 18 |
 | 9 | `#8f8676` | transmission tower | prop | a transmission tower marching up the canyon wall, lines down | prop | yes | — | 120 |
 | 10 | `#55555f` | abandoned vehicle | vehicle | a car left on the crest where the road closed | prop | yes | — | 15 |
 | 11 | `#5a5346` | powerhouse | building | the powerhouse in its U at the toe of the dam | structure | yes | the generator hall: a row of housings the size of rooms, every one silent | 828 |
 | 12 | `#4a4a54` | tailrace | water | the tailrace below the powerhouse, a slow green channel | ground | no | — | 1352 |
+| 13 | `#655c4c` | talus apron | ground | the talus apron below the works — broken rock the blasting left, tipped down the canyon side | ground | no | — | 1804 |
+| 14 | `#8a8076` | pale rock band | ground | a pale band in the canyon rock where the strata change, running out of the wall | ground | no | — | 2243 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

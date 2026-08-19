@@ -144,6 +144,47 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
   ok('every named debt carries a written reason' + (noReason.length ? ' -> ' + noReason.join(', ') : ''),
      noReason.length === 0);
 
+  /* CAN YOU ACTUALLY GET ANYWHERE? Paolo 8/1, LOCKED: "the streets have to touch the
+     streets bro... make sure I cant be locked in any certain district ever again."
+     NOTHING HAS EVER ASKED THE WALKED SURFACE THIS, and on 8/19 the answer was THREE CELLS
+     OF 9,216. bohemia_arterial.js's band table ended `if (b <= ROW) return 8` -- the block
+     wall -- and with WALK = SET = 63 and ROW = 64 that is EXACTLY ONE COLUMN: the west edge
+     of every arterial cell, a one-tile wall 128 tiles tall down all 2,434 of them. You could
+     not cross a street westward anywhere in the game.
+     IT WAS INVISIBLE FOR EIGHT DAYS because the walked surface drew streets from its own
+     four-number table until 8/18; routing them through their real module is what made the
+     bug reachable, and this check is what found it. 3 cells -> 7,616 (82.6%).
+     THE FLOOR ONLY RISES. Mountain, freeway and walled subdivisions are legitimately not
+     walkable, so this is not 100% and should not be -- but it may never fall. */
+  const REACH_FLOOR = 75;
+  const reach = await fr.evaluate(() => {
+    const FN = 128, N = 96;
+    const walkAt = (gx, gy) => { let c = null; try { c = realizeCell(gx, gy); } catch (e) { return false; }
+      return !!(c && c.walk !== false); };
+    const crossable = (ax, ay, bx, by) => {
+      if (ax === bx) { const y = (by > ay) ? (ay * FN + FN - 1) : (ay * FN);
+        const y2 = (by > ay) ? (by * FN) : (by * FN + FN - 1);
+        for (let i = 0; i < FN; i += 2) if (walkAt(ax * FN + i, y) && walkAt(ax * FN + i, y2)) return true;
+        return false; }
+      const x = (bx > ax) ? (ax * FN + FN - 1) : (ax * FN);
+      const x2 = (bx > ax) ? (bx * FN) : (bx * FN + FN - 1);
+      for (let i = 0; i < FN; i += 2) if (walkAt(x, ay * FN + i) && walkAt(x2, ay * FN + i)) return true;
+      return false; };
+    const sx = Math.max(0, Math.min(N - 1, (hx / FN) | 0)), sy = Math.max(0, Math.min(N - 1, (hy / FN) | 0));
+    const seen = new Set([sx + ',' + sy]); const q = [[sx, sy]]; let h = 0;
+    const D = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    while (h < q.length) { const [cx, cy] = q[h++];
+      for (const [dx, dy] of D) { const nx = cx + dx, ny = cy + dy, k = nx + ',' + ny;
+        if (nx < 0 || ny < 0 || nx >= N || ny >= N || seen.has(k)) continue;
+        if (!crossable(cx, cy, nx, ny)) continue;
+        seen.add(k); q.push([nx, ny]); } }
+    return { pct: +(100 * seen.size / (N * N)).toFixed(1), cells: seen.size };
+  });
+  ok('YOU CAN WALK OUT OF WHERE YOU SPAWN: at least ' + REACH_FLOOR + '% of the valley is '
+     + 'reachable on foot from the player start (measured ' + reach.pct + '%, ' + reach.cells + ' cells)',
+     reach.pct >= REACH_FLOOR);
+  console.log('  reachable on foot from spawn: ' + reach.cells + ' cells (' + reach.pct + '%)');
+
   const reached = rows.filter(r => !r.paths.includes('FALLBACK'))
     .reduce((a, r) => a + r.n, 0);
   const total = rows.reduce((a, r) => a + r.n, 0);

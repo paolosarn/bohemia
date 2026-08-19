@@ -12747,7 +12747,23 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     if (b <= AMEN) return 7;
     if (b <= WALK) return 6;
     if (b <= SET) return 7;   // margin, not a setback -- and never a wall (Paolo 8/11)
-    if (b <= ROW) return 8;
+    /* AND THE LAST TILE IS WALK, NOT WALL (8/19). This read `if (b <= ROW) return 8`, and
+       with WALK = SET = 63 and ROW = 64 that is EXACTLY ONE COLUMN -- b === 64, which is
+       ox === -64, THE WEST EDGE OF EVERY ARTERIAL CELL. A one-tile block wall, 128 tiles
+       tall, down the west side of all 2,434 of them.
+       It contradicted this module's own comment forty lines up -- "AND NO BLOCK WALL. A
+       street is public ground all the way to the boundary" -- which is Paolo 8/11: "THE
+       STREETS DONT HAVE WALLS." The 8/11 pass widened ROW from 63 to 64 to kill a one-tile
+       DIRT seam between neighbouring road cells and left this row behind, so the seam
+       became a WALL instead of a gap.
+       IT WAS INVISIBLE UNTIL 8/18, when the walked surface stopped drawing streets from its
+       own four-number table and started drawing them from this module. Measured after that:
+       flooding the valley from the player's spawn reached THREE CELLS OF 9,216, because you
+       cannot cross a street westward anywhere in the game. Paolo 8/1, LOCKED: "the streets
+       have to touch the streets bro... make sure I cant be locked in any certain district
+       ever again."
+       The sidewalk runs to the boundary. That is all this line ever needed to say. */
+    if (b <= ROW) return 6;
     return 0;
   }
 
@@ -17741,8 +17757,33 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     return best;
   }
 
+  /* THE SEED IS THE WHOLE VALLEY, SO A BAD ONE MUST NOT BE SURVIVABLE (8/19).
+     This read `seed=(seed>>>0)||1`, and `'bohemia'>>>0` is 0, so ANY caller passing the
+     seed as TEXT -- which is how the one seed is written everywhere in the laws, the
+     handoff and this repo's own docs -- silently got SEED 1 and a COMPLETELY DIFFERENT
+     VALLEY. Not a degraded one: measured, 43.8% of cells came back a different district,
+     suburb where the arterial is, mountain where the solar farm is.
+     IT COST ME A FALSE FINDING. I censused the landmarks with world('bohemia'), got a map
+     that disagreed with the page about where the fort and the dam are, and shipped
+     "the walked surface and the world model disagree" to main as a discovery. With the
+     seed passed as a NUMBER the two are identical, 0 of 9,216 cells apart. The bug was
+     never in the map; it was in a function that accepted nonsense and answered anyway.
+     So it now HASHES text with the same function the walked surface uses (so
+     world('bohemia') and the page build one valley, which is what everyone writing that
+     line already assumed), and THROWS on anything that is neither. A silent fallback to a
+     different world is worse than a crash, because a crash gets fixed the same hour. */
+  function hashSeedText(str){ str=String(str);
+    var h=1779033703^str.length;
+    for(var i=0;i<str.length;i++){ h=Math.imul(h^str.charCodeAt(i),3432918353); h=(h<<13)|(h>>>19); }
+    h=Math.imul(h^(h>>>16),2246822507); h=Math.imul(h^(h>>>13),3266489909);
+    return (h^(h>>>16))>>>0; }
   function world(seed){
-    seed=(seed>>>0)||1;
+    if(typeof seed==='string'){ seed=hashSeedText(seed); }
+    else if(typeof seed==='number'&&isFinite(seed)){ seed=seed>>>0; }
+    else if(seed==null){ seed=hashSeedText('bohemia'); }
+    else throw new TypeError('bohemia_world.world(): seed must be a number or a string, got '+
+      (typeof seed)+' -- a silent fallback here builds a DIFFERENT VALLEY, so it is a throw');
+    if(!seed) seed=1;
     var m = OM.buildOvermap(seed);
     var landlockConnect = (function(){
       var mand=buildLandlockConnect(m), cosmetic=buildCosmeticConnect(m), out={};

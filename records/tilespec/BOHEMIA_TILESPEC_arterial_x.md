@@ -49,9 +49,9 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | 944 |
 | 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 350 |
 | 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 8 |
-| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 528 |
+| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 529 |
 | 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 681 |
-| 8 | `#7a7266` | block wall | structure | six foot CMU block wall backing the tract, tagged and chipped | structure | yes | — | 1 |
+| 8 | `#7a7266` | block wall | structure | six foot CMU block wall backing the tract, tagged and chipped | structure | yes | — | — |
 | 9 | `#8f8676` | streetlight | prop | cobra-head streetlight on the amenity strip, head dark | prop | yes | — | 4 |
 | 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | 2 |
 | 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | 5 |

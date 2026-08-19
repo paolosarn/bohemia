@@ -62,6 +62,26 @@
         for (var vy = lo_y; vy <= hi_y; vy++) for (var vx = lo_x; vx <= hi_x; vx++)
           g[vy - cy][vx - cx] = code;
       },
+      /* GROUND IS NOT ONE THING, AND THAT IS WHY IT KEPT OWNING THE PLOT. Every one of
+         these five is a small built thing on a big piece of open Mojave, so the background
+         is honestly most of the cell -- and painted as ONE code it broke the monoblock law
+         (nobody has ANSWERED FOR ground that big) five times over, and read as a flat field
+         besides. Out there that ground is rock lag and hardpan in COHERENT PATCHES, never
+         an even shuffle: banks/BOHEMIA_STREET_POOLS_HARMONIZED desert_dominance_law, Paolo
+         7/14 -- "one dominant tile at 85%, accents in coherent clusters, per-cell random
+         shuffle BANNED". So this lays patches, not noise: a few dozen blobs of a second
+         ground code, sized in metres, only over the code it is told to replace. */
+      scatter: function (over, code, blobs, r0, r1) {
+        for (var b = 0; b < blobs; b++) {
+          var cxv = X0 + Math.floor(r() * (X1 - X0)), cyv = Y0 + Math.floor(r() * (Y1 - Y0));
+          var w = r0 + Math.floor(r() * (r1 - r0)), h = r0 + Math.floor(r() * (r1 - r0));
+          for (var vy = cyv; vy < cyv + h; vy++) for (var vx = cxv; vx < cxv + w; vx++) {
+            var lx2 = vx - cx, ly2 = vy - cy;
+            if (lx2 < 0 || ly2 < 0 || lx2 >= T || ly2 >= T) continue;
+            if (g[ly2][lx2] === over) g[ly2][lx2] = code;
+          }
+        }
+      },
       ring: function (x0, y0, x1, y1, t, code) {
         api.rect(x0, y0, x1, y0 + t - 1, code); api.rect(x0, y1 - t + 1, x1, y1, code);
         api.rect(x0, y0, x0 + t - 1, y1, code); api.rect(x1 - t + 1, y0, x1, y1, code);
@@ -90,7 +110,7 @@
      hundred semi-trailers of freight in two days. */
   var CONV_PAL = { 0: '#5c564a', 1: '#3f3d38', 2: '#726a5b', 3: '#4a4030', 4: '#8a8072',
                    5: '#c2a86a', 6: '#8e8a80', 7: '#5f5a52', 8: '#2e2a24', 9: '#8f8676',
-                   10: '#55555f', 11: '#c9c1aa', 12: '#a49a86' };
+                   10: '#55555f', 11: '#c9c1aa', 12: '#a49a86', 13: '#b8b4a4', 14: '#6d6552', 15: '#7e7566' };
   var CONV_LEG = {
     0: { name: 'apron', kind: 'ground', act1: 'the cracked concrete apron between the halls, weeds in every joint' },
     1: { name: 'service drive', kind: 'drive', act1: 'the truck marshalling drive along the dock wall (car-drivable)' },
@@ -104,7 +124,10 @@
     9: { name: 'pole light', kind: 'prop', act1: 'a yard light on its stem, head dark' },
     10: { name: 'abandoned trailer', kind: 'vehicle', act1: 'a semi-trailer left backed into its dock' },
     11: { name: 'lane marking', kind: 'marking', act1: 'faded dock lane numbers' },
-    12: { name: 'entry plaza', kind: 'walk', act1: 'the entry plaza pavers, drifted with grit' }
+    12: { name: 'entry plaza', kind: 'walk', act1: 'the entry plaza pavers, drifted with grit' },
+    13: { name: 'hall skylight', kind: 'structure', act1: 'a skylight band punched through the hall roof, most panes starred and one gone through' },
+    14: { name: 'rock lag', kind: 'ground', act1: 'rock lag and hardpan through the apron, the desert coming back where nothing is parked' },
+    15: { name: 'west hall', kind: 'building', act1: 'the newer hall: the same column-free box, built decades later and taller, with a curved roof instead of a flat one', enter: 'the west hall floor: newer concrete, a higher ceiling, and the same acres of nothing' }
   };
   var CONV_NOTES = {
     summary: 'The convention centre: two ENORMOUS column-free exhibit halls filling the blob, a glazed concourse spine threading them, and a WALL OF LOADING DOCKS onto a truck marshalling yard along the back — which is what the building is actually for.',
@@ -120,16 +143,24 @@
       'NO NAME, NO OWNER, NO FACTION anywhere (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
       'ACT TRIPTYCH: act-1 dead only. Act 2 and 3 are [PENDING Paolo].']
   };
-  spec('convention', 'civic', function (c) { return c === 2 || c === 4 || c === 6; },
+  spec('convention', 'civic', function (c) { return c === 2 || c === 4 || c === 6 || c === 13 || c === 15; },
     CONV_PAL, CONV_LEG, CONV_NOTES, function (a) {
       var hallTop = a.fy(0.16), hallBot = a.fy(0.72), mid = a.fy(0.44);
       a.rect(a.fx(0.04), hallTop, a.fx(0.47), hallBot, 2);          // hall A
-      a.rect(a.fx(0.53), hallTop, a.fx(0.96), hallBot, 2);          // hall B
+      /* TWO HALLS, NOT ONE MASS. The LVCC's halls were built decades apart and read as
+         different buildings from the air -- the newer one taller with a curved roof. Drawn
+         as one code they were 33% of the plot between them, which is the monoblock law's
+         complaint and also just wrong about the building. */
+      a.rect(a.fx(0.53), hallTop, a.fx(0.96), hallBot, 15);         // the west hall
       a.rect(a.fx(0.47) + 1, hallTop, a.fx(0.53) - 1, hallBot, 6);  // the concourse spine
       for (var f = 0.08; f < 0.95; f += 0.09) {                      // roof plant on both halls
         if (f > 0.44 && f < 0.56) continue;
         a.rect(a.fx(f), a.fy(0.20), a.fx(f + 0.045), a.fy(0.30), 4);
         a.rect(a.fx(f), a.fy(0.56), a.fx(f + 0.045), a.fy(0.66), 4);
+        /* SKYLIGHT BANDS. A hall this size is daylit from above or it is a cave, and a roof
+           drawn as one flat plate is the "they all look exactly the same" note again. */
+        a.rect(a.fx(f), a.fy(0.34), a.fx(f + 0.055), a.fy(0.38), 13);
+        a.rect(a.fx(f), a.fy(0.44), a.fx(f + 0.055), a.fy(0.48), 13);
       }
       a.rect(a.X0, a.fy(0.02), a.X1, a.fy(0.10), 1);                 // marshalling drive
       a.rect(a.X0, a.fy(0.10) + 1, a.X1, hallTop - 1, 7);            // dock apron
@@ -149,6 +180,7 @@
         var px = a.X0 + Math.floor(a.rnd() * a.W), py = a.fy(0.90) + Math.floor(a.rnd() * (a.Y1 - a.fy(0.90)));
         if (a.rnd() < 0.4) a.set(px, py, 3);
       }
+      a.scatter(0, 14, 70, 6, 22);
     }, 0);
 
   /* ============================== PRISON ==============================
@@ -159,7 +191,7 @@
      separates a prison from any other institutional campus. */
   var PRIS_PAL = { 0: '#6b6355', 1: '#3f3d38', 2: '#7a7264', 3: '#4a4030', 4: '#8c8274',
                    5: '#c2a86a', 6: '#6a6558', 7: '#8a8a92', 8: '#2e2a24', 9: '#8f8676',
-                   10: '#55555f', 11: '#5f5a52', 12: '#9a9184' };
+                   10: '#55555f', 11: '#5f5a52', 12: '#9a9184', 13: '#8a7f66', 14: '#75694f' };
   var PRIS_LEG = {
     0: { name: 'compound dirt', kind: 'ground', act1: 'the graded dirt of the compound, nothing growing on it' },
     1: { name: 'service road', kind: 'drive', act1: 'the perimeter service road and the sally-port lane (car-drivable)' },
@@ -173,7 +205,9 @@
     9: { name: 'guard tower', kind: 'structure', act1: 'a corner guard tower on its legs, glass gone, nobody in it', enter: 'the tower cab: a swivel chair, a dead phone, and the whole compound below you' },
     10: { name: 'abandoned vehicle', kind: 'vehicle', act1: 'a transport van left in the sally port' },
     11: { name: 'services core', kind: 'building', act1: 'the services core: kitchen, laundry and infirmary in one block at the middle', enter: 'the core: steam kettles cold, the infirmary cabinets emptied first' },
-    12: { name: 'administration', kind: 'building', act1: 'the administration building, OUTSIDE the wire', enter: 'admin: a counter, a visitor bench, and files pulled out onto the floor' }
+    12: { name: 'administration', kind: 'building', act1: 'the administration building, OUTSIDE the wire', enter: 'admin: a counter, a visitor bench, and files pulled out onto the floor' },
+    13: { name: 'outside ground', kind: 'ground', act1: 'the desert outside the wire — never graded, never walked, creosote coming back into it' },
+    14: { name: 'rock lag', kind: 'ground', act1: 'rock lag and creosote in patches outside the wire, the desert taking it back' }
   };
   var PRIS_NOTES = {
     summary: 'A Nevada desert prison: four housing units around a central services core, each with its own exercise yard, inside a double perimeter with corner guard towers and a sally-port vehicle trap — and the administration building sitting OUTSIDE the wire, which is the tell.',
@@ -193,6 +227,10 @@
   spec('prison', 'civic', function (c) { return c === 2 || c === 4 || c === 9 || c === 11 || c === 12; },
     PRIS_PAL, PRIS_LEG, PRIS_NOTES, function (a) {
       var pw = 3;
+      /* OUTSIDE THE WIRE IS NOT THE COMPOUND. The compound is graded and beaten flat; the
+         desert beyond it never was, and that difference is the most legible thing about a
+         prison from the air. */
+      a.rect(a.X0, a.Y0, a.X1, a.Y1, 13);
       a.ring(a.fx(0.06), a.fy(0.06), a.fx(0.94), a.fy(0.80), pw, 7);        // outer run
       a.ring(a.fx(0.09), a.fy(0.10), a.fx(0.91), a.fy(0.76), pw, 7);        // inner run
       a.rect(a.fx(0.12), a.fy(0.13), a.fx(0.88), a.fy(0.73), 0);
@@ -223,6 +261,7 @@
         var px = a.X0 + Math.floor(a.rnd() * a.W), py = a.fy(0.80) + Math.floor(a.rnd() * (a.Y1 - a.fy(0.80)));
         if (a.rnd() < 0.35) a.set(px, py, 3);
       }
+      a.scatter(13, 14, 60, 8, 26);
     }, 0);
 
   /* =============================== DAM ================================
@@ -232,7 +271,7 @@
      bathtub ring and the turbines are still. */
   var DAM_PAL = { 0: '#7a6f5c', 1: '#3f3d38', 2: '#9a948a', 3: '#3a5a72', 4: '#8e8880',
                   5: '#c2a86a', 6: '#6f6a60', 7: '#b6ae9c', 8: '#2e2a24', 9: '#8f8676',
-                  10: '#55555f', 11: '#5a5346', 12: '#4a4a54' };
+                  10: '#55555f', 11: '#5a5346', 12: '#4a4a54', 13: '#655c4c', 14: '#8a8076' };
   var DAM_LEG = {
     0: { name: 'canyon rock', kind: 'ground', act1: 'bare canyon rock, blasted flat where the works needed it' },
     1: { name: 'crest road', kind: 'drive', act1: 'the two-lane road across the dam crest (car-drivable)' },
@@ -246,7 +285,9 @@
     9: { name: 'transmission tower', kind: 'prop', act1: 'a transmission tower marching up the canyon wall, lines down' },
     10: { name: 'abandoned vehicle', kind: 'vehicle', act1: 'a car left on the crest where the road closed' },
     11: { name: 'powerhouse', kind: 'building', act1: 'the powerhouse in its U at the toe of the dam', enter: 'the generator hall: a row of housings the size of rooms, every one silent' },
-    12: { name: 'tailrace', kind: 'water', act1: 'the tailrace below the powerhouse, a slow green channel', solid: false }
+    12: { name: 'tailrace', kind: 'water', act1: 'the tailrace below the powerhouse, a slow green channel', solid: false },
+    13: { name: 'talus apron', kind: 'ground', act1: 'the talus apron below the works — broken rock the blasting left, tipped down the canyon side' },
+    14: { name: 'pale rock band', kind: 'ground', act1: 'a pale band in the canyon rock where the strata change, running out of the wall' }
   };
   var DAM_NOTES = {
     summary: 'The dam: an arch-gravity wall wedged across the canyon with the road on its crest, four intake towers standing out of the reservoir upstream, a spillway cut into each canyon wall, and the powerhouse in a U at the downstream toe. Act 1: the lake is a long way below its own bathtub ring and the turbines are still.',
@@ -284,12 +325,16 @@
       a.rect(a.fx(0.42), a.fy(0.62), a.fx(0.58), a.fy(0.71), 0);
       a.rect(a.fx(0.30), a.fy(0.80), a.fx(0.70), a.Y1, 12);                 // tailrace
       a.rect(a.fx(0.48), crest + half - 2, a.fx(0.52), crest + half, 8);    // gallery door
+      a.rect(a.X0, a.fy(0.80), a.fx(0.28), a.Y1, 13);                       // talus apron
+      a.rect(a.fx(0.72), a.fy(0.80), a.X1, a.Y1, 13);
       [0.06, 0.14, 0.86, 0.94].forEach(function (f) {                       // transmission towers
         a.rect(a.fx(f) - 2, a.fy(0.84), a.fx(f) + 2, a.fy(0.88), 9);
       });
       a.rect(a.fx(0.20), crest - 3, a.fx(0.21), crest + 1, 10);
       a.rect(a.X0, crest - 2, a.X0 + 3, crest + 3, 5);
       a.rect(a.X1 - 3, crest - 2, a.X1, crest + 3, 5);
+      a.scatter(0, 14, 55, 8, 24);
+      a.scatter(3, 7, 30, 6, 18);
     }, 0);
 
   /* ============================== MINIGP ==============================
@@ -298,7 +343,7 @@
      at the start line. One cell, so it is not a cluster — a kart track fits in 96 m. */
   var GP_PAL = { 0: '#6e6552', 1: '#3a3a42', 2: '#7a7264', 3: '#4a4030', 4: '#8a8072',
                  5: '#c2a86a', 6: '#8f8a80', 7: '#5f5a52', 8: '#2e2a24', 9: '#8f8676',
-                 10: '#55555f', 11: '#c9c1aa', 12: '#7d4a3a' };
+                 10: '#55555f', 11: '#c9c1aa', 12: '#7d4a3a', 13: '#7f7560', 14: '#6b6350' };
   var GP_LEG = {
     0: { name: 'infield dirt', kind: 'ground', act1: 'the infield: packed dirt and dead scrub inside the circuit' },
     1: { name: 'circuit', kind: 'drive', act1: 'the kart circuit itself, seal-coated asphalt gone grey and rubber-streaked' },
@@ -312,7 +357,9 @@
     9: { name: 'timing tower', kind: 'structure', act1: 'the timing tower over the start line, the board blank', enter: 'the tower: a desk, a dead PA amp and the whole circuit in front of you' },
     10: { name: 'abandoned kart', kind: 'vehicle', act1: 'a kart left where it stopped, bodywork cracked' },
     11: { name: 'start line', kind: 'marking', act1: 'the start line and grid boxes, worn to ghosts' },
-    12: { name: 'tyre barrier', kind: 'fence', act1: 'a tyre wall on the outside of the turn, stacked and strapped, some burst' }
+    12: { name: 'tyre barrier', kind: 'fence', act1: 'a tyre wall on the outside of the turn, stacked and strapped, some burst' },
+    13: { name: 'outfield', kind: 'ground', act1: 'the ground outside the circuit, never sealed — dirt, scrub and the odd tyre that got away' },
+    14: { name: 'rock lag', kind: 'ground', act1: 'rock lag through the outfield where nothing was ever graded' }
   };
   var GP_NOTES = {
     summary: 'A kart circuit: a road course with real corners, a pit lane down the inside of the straight with the paddock behind it, tyre walls on the outside of every turn, gravel run-off at the fast ones, and a timing tower over the start line.',
@@ -331,8 +378,16 @@
   spec('minigp', 'leisure', function (c) { return c === 2 || c === 4 || c === 9; },
     GP_PAL, GP_LEG, GP_NOTES, function (a) {
       var W = 9;
+      /* OUTSIDE THE CIRCUIT IS NOT THE INFIELD. The infield is inside the loop and mown
+         flat; everything beyond the tyre walls is just desert with a fence line. */
+      a.rect(a.X0, a.Y0, a.X1, a.Y1, 13);
       function band(x0, y0, x1, y1, code) { a.rect(x0, y0, x1, y1, code); }
       var L = a.fx(0.10), R = a.fx(0.90), Tp = a.fy(0.14), B = a.fy(0.80);
+      /* THE INFIELD IS INSIDE THE LOOP and is a different surface from the outfield --
+         mown flat, driven over, inside the barriers. Painting the whole cell `outfield`
+         and then laying the circuit on it left BOTH sides of the track reading as the
+         same ground, which is how one code came to own 54% of the plot. */
+      a.rect(L, Tp, R, B, 0);
       band(L, Tp, R, Tp + W, 1);                                            // top straight
       band(L, B - W, R, B, 1);                                              // main straight
       band(L, Tp, L + W, B, 1);                                             // left hairpin side
@@ -360,6 +415,7 @@
         var py = a.fy(0.20) + Math.floor(a.rnd() * (a.fy(0.74) - a.fy(0.20)));
         if (a.rnd() < 0.35) a.set(px, py, 3);
       }
+      a.scatter(13, 14, 65, 7, 22);
     }, 0);
 
   /* =============================== FORT ================================
@@ -369,7 +425,7 @@
      only thing on this map that predates everything else by a century. */
   var FORT_PAL = { 0: '#8a7a5e', 1: '#3f3d38', 2: '#a08a66', 3: '#4a4030', 4: '#b09a72',
                    5: '#c2a86a', 6: '#5f7a4a', 7: '#7a6a50', 8: '#2e2a24', 9: '#8f8676',
-                   10: '#55555f', 11: '#c9c1aa', 12: '#3a6a72' };
+                   10: '#55555f', 11: '#c9c1aa', 12: '#3a6a72', 13: '#9a8a68', 14: '#84744f' };
   var FORT_LEG = {
     0: { name: 'dust yard', kind: 'ground', act1: 'the beaten dust of the fort yard, a century and a half of it' },
     1: { name: 'track', kind: 'drive', act1: 'the dirt track up to the gate (car-drivable)' },
@@ -383,7 +439,9 @@
     9: { name: 'post', kind: 'prop', act1: 'a corral post standing on its own' },
     10: { name: 'abandoned vehicle', kind: 'vehicle', act1: 'a park truck left outside the wall' },
     11: { name: 'interpretive path', kind: 'walk', act1: 'the visitor path, its plaques prised off' },
-    12: { name: 'creek', kind: 'water', act1: 'Las Vegas Creek: still running, which is the whole reason a city is here', solid: false }
+    12: { name: 'creek', kind: 'water', act1: 'Las Vegas Creek: still running, which is the whole reason a city is here', solid: false },
+    13: { name: 'open desert', kind: 'ground', act1: 'the desert outside the fort, untouched since before any of this' },
+    14: { name: 'creosote flat', kind: 'ground', act1: 'creosote in its evenly spaced grid outside the walls — they poison each other roots, which is why the spacing is even' }
   };
   var FORT_NOTES = {
     summary: 'The Old Mormon Fort: an adobe square with a corner bastion beside Las Vegas Creek, one original adobe building still standing inside it — the oldest structure in the valley, and the reason a city is here at all.',
@@ -401,16 +459,25 @@
   };
   spec('fort', 'civic', function (c) { return c === 2 || c === 4 || c === 7; },
     FORT_PAL, FORT_LEG, FORT_NOTES, function (a) {
+      /* THE YARD IS INSIDE THE WALLS. A century and a half of boots beat that flat; the
+         desert outside never was, and the fort reads as a fort because of the difference. */
+      a.rect(a.X0, a.Y0, a.X1, a.Y1, 13);
       a.rect(a.fx(0.62), a.Y0, a.fx(0.72), a.Y1, 6);                        // creek grass
       a.rect(a.fx(0.65), a.Y0, a.fx(0.69), a.Y1, 12);                       // the creek
-      var L = a.fx(0.12), R = a.fx(0.56), Tp = a.fy(0.22), B = a.fy(0.72);
+      /* THE FORT FILLS ITS PLOT. At 0.12-0.56 across it was a small square in a big field
+         of desert -- 62% of the cell one code, and the WALKABLE-LAND law's own complaint:
+         a thin feature stranded in empty ground. The real fort is about 150 ft square, and
+         a 96 m cell is 315 ft, so it genuinely takes most of the plot with the creek beside
+         it. */
+      var L = a.fx(0.06), R = a.fx(0.60), Tp = a.fy(0.10), B = a.fy(0.86);
       a.ring(L, Tp, R, B, 4, 2);                                            // adobe curtain wall
       a.rect(L + 4, Tp + 4, R - 4, B - 4, 0);                               // the yard
       a.rect(L - 3, Tp - 3, L + 8, Tp + 8, 7);                              // corner bastion
-      a.rect(a.fx(0.18), a.fy(0.56), a.fx(0.34), a.fy(0.68), 4);            // THE adobe building
-      a.rect(a.fx(0.24), a.fy(0.56) - 1, a.fx(0.27), a.fy(0.56), 8);
-      a.rect(a.fx(0.30), B - 3, a.fx(0.38), B, 5);                          // the gate
-      a.rect(a.fx(0.31), B, a.fx(0.37), a.Y1, 1);
+      a.rect(a.fx(0.12), a.fy(0.62), a.fx(0.34), a.fy(0.80), 4);            // THE adobe building
+      a.rect(a.fx(0.20), a.fy(0.62) - 1, a.fx(0.24), a.fy(0.62), 8);
+      a.rect(a.fx(0.40), a.fy(0.16), a.fx(0.56), a.fy(0.34), 4);            // the second range
+      a.rect(a.fx(0.28), B - 3, a.fx(0.38), B, 5);                          // the gate
+      a.rect(a.fx(0.29), B, a.fx(0.37), a.Y1, 1);
       a.ring(L - 9, Tp - 9, R + 9, B + 9, 2, 11);                           // interpretive path
       a.rect(a.fx(0.40), a.fy(0.78), a.fx(0.41), a.fy(0.82), 10);
       for (var i = 0; i < 8; i++) a.set(a.fx(0.16 + i * 0.05), a.fy(0.80), 9);
@@ -419,6 +486,7 @@
         var py = a.Y0 + Math.floor(a.rnd() * a.H);
         if (a.rnd() < 0.3) a.set(px, py, 3);
       }
+      a.scatter(13, 14, 75, 6, 20);
     }, 0);
 
   var API = { plan: plan };
