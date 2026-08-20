@@ -22502,11 +22502,32 @@ function stepOnce(di){
    is one line here rather than a guess at the call site. Falls back to dirt,
    which is the dead-world default everywhere that is not paved. */
 function __surfaceOf(c){
+  /* THE GROUND GOT FINER (8/20). This knew three surfaces -- asphalt, gravel,
+     dirt -- and lumped concrete, sidewalk, walk and slab in WITH asphalt. Paolo
+     approved step_concrete, step_sand and step_wood in his 270-thumb sweep on
+     8/12 and had NEVER HEARD ANY OF THEM in the game, because the six-surface
+     classifier written that day (sfxGround) lives in the RUN slice and the city
+     is what he actually walks -- he asked for the city in the run tab on 7/28.
+     So every sidewalk and every interior floor played the roadway footstep.
+     The rules below are PORTED from sfxGround, not reinvented: that function is
+     the one carrying his ruling and the reasoning for the order.
+     ORDER IS THE SPEC. The more specific name wins, and the road test runs
+     before the concrete test because a drivable surface is asphalt whatever the
+     tile happens to be called.
+     SAFE BY CONSTRUCTION: the parent maps 'step_'+surface and then falls back
+     with `if(!APPROVED[ev]) ev='step_dirt'`, so a surface with no approved sound
+     plays the one it played before rather than going silent.
+     step_glass and step_metal are deliberately absent -- he killed all ten, and
+     there is no glass or metal ground to report. */
   var n = (c && (c.name || c.tile || '') + '').toLowerCase();
-  if(/asphalt|road|street|lane|driveway|apron|concrete|sidewalk|walk|pavement|parking|slab/.test(n)) {
-    return /gravel/.test(n) ? 'gravel' : 'asphalt';
-  }
-  if(/gravel|ballast|rock|caliche|hardpan|lag/.test(n)) return 'gravel';
+  if(/gravel|ballast|caliche|hardpan|lag|shoulder/.test(n)) return 'gravel';
+  if(/asphalt|roadway|road|street|lane|driveway|highway|parking|lot/.test(n))
+    return 'asphalt';
+  if(/wood|board|plank|porch|deck|parquet|boardwalk/.test(n)) return 'wood';
+  if(/sidewalk|walk|concrete|apron|pad|slab|platform|court|patio|curb|floor/.test(n))
+    return 'concrete';
+  if(/sand|dune|wash|desert|scrub|playa/.test(n)) return 'sand';
+  if(/rock/.test(n)) return 'gravel';
   return 'dirt';
 }
 

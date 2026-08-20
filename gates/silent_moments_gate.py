@@ -308,6 +308,34 @@ def main():
     for e in ('gone_quiet', 'hands_pass', 'dog_calls', 'sign_alive', 'mag_home'):
         ok('SFX-09: %s is wired' % e, e in called)
 
+    # ---- 6. THE GROUND HE WALKS REPORTS WHAT IT IS ---------------------
+    # APPROVED-BUT-UNUSED, on the most-walked surfaces in the game. There were
+    # two ground classifiers: sfxGround() in the RUN slice knew six surfaces,
+    # and __surfaceOf() in the CITY WORLD knew three and lumped concrete,
+    # sidewalk and slab in WITH asphalt. The city is the one he walks -- he asked
+    # for the city in the run tab on 7/28 -- so step_concrete, step_sand and
+    # step_wood, all approved in his 270-thumb sweep, had never made a sound and
+    # every sidewalk played the roadway footstep.
+    city = 'slices/BOHEMIA_CITY_WORLD.html'
+    if os.path.exists(city):
+        csrc = open(city, encoding='utf8').read()
+        i = csrc.find('function __surfaceOf')
+        blk = csrc[i:csrc.find('}', csrc.find('return', i))] if i >= 0 else ''
+        ok('the city world still has a ground classifier', bool(blk))
+        # every surface it can report must be one the bank can answer, or the
+        # parent's fallback silently swallows it
+        for surf in ('concrete', 'sand', 'wood'):
+            ok("the ground he walks can report '%s' (it could not before 8/20)"
+               % surf, ("'%s'" % surf) in csrc[i:i + 2000])
+        ok('and the roadway test still runs before the concrete test, so a '
+           'drivable surface is asphalt whatever the tile is called',
+           csrc[i:i + 2000].find('asphalt|roadway') <
+           csrc[i:i + 2000].find('sidewalk|walk|concrete'))
+        bank2 = json.load(open(BANK, encoding='utf8'))
+        for e in ('step_concrete', 'step_sand', 'step_wood'):
+            ok('%s is approved AND now reachable (%d candidates)'
+               % (e, len(bank2.get(e) or [])), bool(bank2.get(e)))
+
     ok('the page threw nothing: %s' % (d.get('errs') or 'clean'), not d.get('errs'))
 
     print('  %d passed, %d FAILED' % (P, F))
