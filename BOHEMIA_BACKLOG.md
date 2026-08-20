@@ -1135,6 +1135,27 @@ RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+ICONS. *** HIS VERDICT LANDED 8/20 — 1 YES, 6 CBB, 2 KILLED (record:
+   records/BOHEMIA_VERDICT_DISTRICT_MAP_ICONS_8_20_26.txt).
+   FORT IS APPROVED: volume unlocked, variants of the approved vector are
+   legal, and nothing about fort goes back to him.
+   SIX SHIP FROZEN — strip, strip_x, minigp, dam, prison, convention. Not
+   re-cooked, not re-thumbed, not re-surfaced. They get fixed later only
+   if someone is already in that file for another reason.
+   CASINO AND RESORT ARE DEAD, graveyarded, and DO NOT RECOOK THEM. THE
+   POST-MORTEM SAYS IT IS NOT AN ART FAILURE: the WORLD lane had already
+   found the cause five days earlier in its own commit title (17b1d49c,
+   8/15) — "THE STRIP AND THE RESORTS DO NOT EXIST AS PLACES, THAT IS WHY
+   THEY HAVE NO ART." An icon is a portrait of a place; those two places
+   have no footprint, no interior and no purpose, so the only reference
+   available was real Las Vegas, which is the one thing this game is not.
+   THE RULE THAT COMES OUT OF IT, AND IT BINDS THIS LANE: **DO NOT COOK AN
+   ICON FOR A PLACE THAT DOES NOT EXIST YET.** The icon is downstream of
+   the design, and cooking it first produces a picture with nothing behind
+   it — which he can feel even when he cannot name it.
+   THE SPLIT THAT PROVES THE DIAGNOSIS: strip and strip_x SURVIVED as CBB
+   in the same sitting. The Strip as a SHAPE reads. The institution inside
+   it is empty. ***
 RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
    laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6): LOOK
    (gates/look_gate.js), which reads the alpha, the city world and
@@ -1844,6 +1865,28 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+PLACES. *** HIS THUMB JUST CONFIRMED YOUR OWN 8/15 FINDING, AND THE TWO
+   DEAD ICONS ARE YOURS, NOT ART'S (8/20 — records/BOHEMIA_VERDICT_
+   DISTRICT_MAP_ICONS_8_20_26.txt). He killed exactly CASINO and RESORT
+   out of nine district map icons and passed the other seven. Your own
+   commit title from five days earlier said why: 17b1d49c, "THE STRIP AND
+   THE RESORTS DO NOT EXIST AS PLACES — THAT IS WHY THEY HAVE NO ART."
+   The two most Vegas things on the board were killed by the man who set
+   the game in Vegas, and it was never about the pixels.
+   THE JOB: MAKE THE STRIP AND THE RESORTS EXIST AS PLACES — footprint,
+   interior, purpose, and what a player actually does there TEN YEARS
+   AFTER THE MONEY DIED. That last clause is the whole design problem: a
+   casino with no money in the world is not a casino, it is a very large
+   room full of machines that do nothing, and deciding what it IS now is
+   the interesting part. Until that exists, ART is blocked from recooking
+   either icon and has been told so.
+   NOTE THE SPLIT, it points where to start: strip and strip_x SURVIVED
+   as COULD BE BETTER. The Strip as a SHAPE already reads — it is the
+   INSTITUTION inside it that is empty.
+   | the Strip and at least one resort exist as real places with
+   footprint, interior and purpose, visible on the walked surface | what
+   they ARE now is canon-shaped, so draft the attempt and let him correct
+   it (8/11 attempt law: words get an attempt, decisions wait) | yes. ***
 REDS. *** FOUR OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 by
    evidence — laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6. Nobody owned
    these, which is why they have stayed red.)

@@ -36281,3 +36281,27 @@ names it, proves it, and cannot be defeated by guessing vocabulary. Grep
 for behaviour only after the gate index comes back empty. The gate index
 is the repo's own record of what is real, and this session was ignoring
 it while telling every other lane to verify on the real surface. ***
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/20 (d) — VERDICT LANDED: DISTRICT MAP ICONS. 1 YES
+(fort), 6 COULD BE BETTER (strip, strip_x, minigp, dam, prison,
+convention), 2 NO (casino, resort). Record:
+records/BOHEMIA_VERDICT_DISTRICT_MAP_ICONS_8_20_26.txt. Both kills are in
+gates/bohemia_graveyard.txt with post-mortems. FORT unlocks volume; the
+six ship FROZEN and are not re-surfaced.
+*** THE TWO KILLS ARE NOT AN ART FAILURE, AND THE WORLD LANE HAD ALREADY
+DIAGNOSED THEM FIVE DAYS EARLIER IN ITS OWN COMMIT TITLE (17b1d49c,
+8/15): "THE STRIP AND THE RESORTS DO NOT EXIST AS PLACES — THAT IS WHY
+THEY HAVE NO ART." He killed exactly the two icons that depict places
+nobody has designed. An icon is a portrait of a place; with no footprint,
+no interior and no purpose, the only reference left was real Las Vegas,
+which is the one thing this game is not. ***
+THE RULE OUT OF IT, ROUTED TO ART: DO NOT COOK AN ICON FOR A PLACE THAT
+DOES NOT EXIST YET. The icon is downstream of the design.
+ROUTED TO WORLD (new item PLACES): make the Strip and the resorts exist —
+footprint, interior, purpose, and what a player does there TEN YEARS
+AFTER THE MONEY DIED, which is the actual design problem (a casino with
+no money is a very large room full of machines that do nothing).
+THE SPLIT THAT PROVES THE DIAGNOSIS: strip and strip_x SURVIVED as CBB in
+the same sitting. The Strip as a SHAPE reads; the INSTITUTION inside it
+is empty.
