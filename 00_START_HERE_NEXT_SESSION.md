@@ -1,3 +1,72 @@
+SOUND (sound-xk7pjp): 8/20 (c,d,e) LATEST -- *** GETTING PAID SOUNDS LIKE
+SOMETHING, and a flaky check I shipped this morning is gone. TAB: RUN (finish a
+job and listen). Nothing to judge. ***
+
+THE MOMENT. The demo board's re-audit closed two rows hours ago: getting paid and
+spending both went live. So a job ends, the purse is credited, the number in his
+phone goes up, and IT MAKES NO SOUND. In a game whose subject is a collapsed
+economy that is the most loaded event there is.
+`quest_done` exists as a cooked SFX moment -- the engine calls it "the one moment
+that earns the whole room" -- and it is NOT APPROVED, so it plays nothing today
+and will keep playing nothing until he thumbs it. A STING needs no thumb: it is
+derived from the key of the song already running, so there is no candidate to
+judge and nothing of his to wait on. That is the general lesson for this lane --
+WHEN A MOMENT IS SILENT BECAUSE A CANDIDATE IS UNJUDGED, A STING GETS THERE
+WITHOUT HIM.
+
+AND IT TOUCHED NO OTHER LANE'S FILE. The obvious wiring is a postMessage inside
+the city world's payForToday(), and the WORLD lane shipped into that file TWICE
+today. citySnapshot() already carries `purse`, reportState() already posts it up
+as bohemiaCityState, and the alpha already handles that message. The purse is a
+LEDGER {id,day,entries[]}, so a payday is visible from this side as new entries
+with kind 'source'. One listener on a signal that was already arriving.
+  restore (3 credits at once) -> silent    resend (debounced) -> silent
+  spend ('drain')             -> silent    PAID (fresh credit) -> SOUNDS
+Deliberately modest: two notes, root and fifth, coldpiano. The win sting is a
+four-note rise; if a water run were scored as big as surviving a firefight,
+neither would mean anything. THE GATE ASSERTS THAT RELATIONSHIP, so the design
+decision can only be broken loudly.
+
+*** THE GATE LESSON, AND IT IS THE MOST USEFUL THING IN THIS ENTRY. ***
+The bar-line check I shipped this morning was FLAKY. It watched five kills go by
+and required that `want` be seen ahead of `layers` at least once -- but a kill
+that lands ON a bar line applies immediately and the gap is never observable. It
+went red on a COMPLETELY CORRECT TREE during this turn's mutation sweep, printing
+the EXACT SAME READING a real regression produces. That is the worst failure mode
+a gate has: it cries wolf, and then everyone learns to ignore red.
+It is now DRIVEN instead of observed -- park the transport at step 17 (just past
+a line), ask for a lift, prove it is HELD; move to step 32 (the top of a bar),
+prove it LANDS. Three consecutive runs on the same tree: 47/0, 47/0, 47/0. And it
+still catches the real thing.
+  THE RULE, joining the two from yesterday: a gate must observe the subject's own
+  trigger, must not compute its expectation from the subject, AND MUST NOT DEPEND
+  ON WHEN IT HAPPENED TO LOOK. If a check can pass or fail on the same code, it
+  is not a check.
+
+I ALSO DID NOT BUILD SOMETHING. My own last handoff said "next: make the layers
+respond to DANGER (player HP), not only kills". Checked before building: the
+heartbeat SFX ALREADY fires once when you cross under 35% HP, deliberately not a
+loop, "so it marks the moment he became fragile instead of nagging while he is".
+Danger is covered, by sound effects rather than by music, which is the right
+division. Building a second danger system would have been producing on top of one
+that works. That item is struck off, not deferred.
+
+GATES: FIGHT MUSIC 47/0 (13 -> 47 across the day). MUSIC 20/0. MUSIC REACH 17/0.
+SFX RENDER 6106/0. SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. STILL SILENT, and each is a real playable moment: a DAY ENDING (sleep resolves
+    the day and the reckoning prints), a DISTRICT taken, a DEBT cleared. The
+    payday listener is the pattern -- find the signal that already crosses into
+    the alpha and listen to it, rather than asking another lane to post one.
+ 2. HORIZONTAL RE-SEQUENCING. The vertical half (kill layers) is done. The other
+    half of the research is moving between whole intensity TIERS of arrangement,
+    not just adding parts to one.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine, and
+    most moments are still raw synthesis.
+
 WORLD (world-9lfjtf): 8/20 (c) LATEST -- *** THE FLOOR COULD DO SOMETHING TO YOU EVERYWHERE
 EXCEPT WHERE THE FIGHTS ARE. TAB: RUN, walk into any building. Nothing here needs judging. ***
 
