@@ -137,14 +137,24 @@ is indistinguishable from an oversight.
    districts is a `prop`, which the walked surface blocks — so the single most
    classic piece of unstable ground in any game cannot be stood on here. A
    ground-layer rubble tile is the fix and it is a district-generator job.
-2. **THE REAL LETHAL DROPS ARE MODELLED AS WALLS.** `quarry:7 bench lip / crest`,
+2. **[CLOSED 8/20 — `records/BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md`]** All three are
+   VOIDS now, plus `gypsum:7` which gap 3 was blocking: a third occupancy state that does
+   not block and cannot be walked into. 2,405 real cells in the valley, KILLS membership
+   4 tiles/3 districts → 8/7. **THE DIAGNOSIS BELOW WAS INCOMPLETE**: making them voids was
+   necessary and was not the hard part. The hazard sweep admitted a tile only if a body
+   could STAND on it, so all four matched the KILLS rule BY NAME and were classified as
+   nothing — the lethal class was gated on standability, and a body that is knocked into a
+   hole is by definition somewhere it could not have walked.
+   ~~**THE REAL LETHAL DROPS ARE MODELLED AS WALLS.** `quarry:7 bench lip / crest`,~~
    `intake:13 intake shaft / main` and `reclaim:6 crusted pond centre` are the three
    most genuinely fatal pieces of ground in this valley and all three are `structure`
    tiles — you bump into them instead of falling in. Making them voids changes
    occupancy in three districts and needs its own pass with its own gate.
-3. **ONE CODE, TWO THINGS.** `gypsum:7` means both "the crest of a bench" (a lethal
-   edge) and "the shell of the storage dome" (a roof). One code cannot carry two
-   occupancies. Split it in the gypsum generator.
+3. **[CLOSED 8/20]** ~~**ONE CODE, TWO THINGS.** `gypsum:7` means both "the crest of a
+   bench" (a lethal edge) and "the shell of the storage dome" (a roof).~~ The dome shell is
+   **code 15** now (360 cells, still solid, still not lethal) and 7 is the bench lip alone.
+   The KILLS rule's `/dome shell/i` veto still exists and is finally FREE: it used to throw
+   away the lip along with the roof, and now it stops a roof being lethal and nothing else.
 4. **THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE DOES.** Measured on the
    running page: the city world's kit registers 35 of the engine's 66 types, and
    only 5 of the 21 hazard districts are among them. Every hazard in the other 16

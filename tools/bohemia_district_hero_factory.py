@@ -1244,10 +1244,15 @@ def build_minigp(P):
           'py': _dark(PADDOCK, 0.95), 'nx': _dark(PADDOCK), 'ny': _dark(PADDOCK)})     # paddock
     s.box((7.6, 9.6, 0), (1.6, 1.6, 6.2), {'top': _dark(TOWER, 1.15), 'px': _win(TOWER, 1, 3, 5, 0.35),
           'py': _win(TOWER, 1, 3, 2, 0.35), 'nx': _dark(TOWER, 0.9), 'ny': _dark(TOWER, 0.9)})
-    /* A KART IS NOT A CAR, so it does not go through _vehicle at all. That helper enforces
-       ONE CANON car/bus/trailer size across every hero (vehicle_size_gate) and it is right
-       to -- but a racing kart is 1.8 m long and drawing it at car size would be a lie about
-       the only vehicle on this site. Boxes, at the size the thing actually is. */
+    # A KART IS NOT A CAR, so it does not go through _vehicle at all. That helper enforces
+    # ONE CANON car/bus/trailer size across every hero (vehicle_size_gate) and it is right
+    # to -- but a racing kart is 1.8 m long and drawing it at car size would be a lie about
+    # the only vehicle on this site. Boxes, at the size the thing actually is.
+    # (8/20: this comment shipped in JS block syntax on 8/19 and THIS FILE HAS NOT PARSED
+    #  SINCE. The biggest pixel-making tool in the repo, dead for a day, and nothing said
+    #  so -- a tool nobody runs in a gate is a tool that can break silently. TOOLS RUN
+    #  (gate #219) is meant to catch exactly this and it times out at 600s, so it caught
+    #  nothing. Flagged by the CHARACTER lane, who bisected it to 53a981c.)
     for kx in (3.0, 4.6, 6.2):
         s.box((kx, 7.15, 0), (1.1, 0.6, 0.32), {'top': _dark(KART, 1.1), 'px': _dark(KART, 0.9),
               'py': _dark(KART, 0.9), 'nx': _dark(KART, 0.85), 'ny': _dark(KART, 0.85)})

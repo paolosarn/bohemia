@@ -194,7 +194,14 @@
         /\bpit road\b/i,                           /* speedway: a road named "pit" */
         /\bdry water hazard\b/i,                   /* golf: a pond bed, ankle deep */
         /\bwash bay\b/i,                           /* truckstop: a building */
-        /\bdome shell\b/i                          /* gypsum 7 means TWO things — below */
+        /\bdome shell\b/i                          /* gypsum's storage dome, a shotcrete
+                                                      hemisphere. THIS VETO USED TO COST
+                                                      SOMETHING (8/20): the dome shell and
+                                                      the bench lip shared code 7, so
+                                                      vetoing the roof also threw away the
+                                                      lethal edge. The dome is code 15 now
+                                                      and the veto is free -- it stops a
+                                                      roof being lethal and nothing else. */
       ]
     },
     {
@@ -260,8 +267,45 @@
     if (!K || typeof K.tileLayer !== 'function') return true;
     var ly = K.tileLayer(entry);
     if (!ly) return true;
+    if (ly['void']) return false;          /* nothing STANDS in a hole -- see enterable() */
     if (ly.solid) return false;
     return ly.layer === 'ground' || ly.layer === 'prop';
+  }
+
+  /* ENTERABLE, WHICH IS NOT THE SAME QUESTION AS STANDABLE, AND THE GAP BETWEEN THEM IS
+     WHERE THIS WHOLE FEATURE LIVES. (8/20.)
+
+     The sweep used to admit a tile only if a body could STAND on it, which is right for
+     every class but the one that matters most. KILLS is defined by his own clause -- "an
+     enemy KNOCKED or CHARGING in dies outright" -- and a body that is knocked in is, by
+     definition, in a place it could not have walked to. So gating the lethal class on
+     standability excluded exactly the tiles the lethal class exists for.
+
+     MEASURED before this: `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and
+     `reclaim:6 crusted pond centre` all matched the KILLS rule by name and ALL THREE WERE
+     CLASSIFIED AS NOTHING, because they are structure-layer and structure does not stand.
+     The rule was right, the tiles were right, and the gate between them threw all three
+     away in silence. The three most lethal pieces of ground in the valley were inert.
+
+     So membership asks: can a body BE HERE, by any means? Standing on it, or being put in
+     it. A void answers yes to the second and no to the first, which is precisely what a
+     hole is. */
+  function enterable(kit, entry) {
+    var K = kit || root.BohemiaDistrictKit ||
+            (HASREQ ? require('./bohemia_district_kit.js') : null);
+    if (!K || typeof K.tileLayer !== 'function') return true;
+    var ly = K.tileLayer(entry);
+    if (!ly) return true;
+    if (ly['void']) return true;           /* you cannot walk in; you can be put in */
+    return standable(kit, entry);
+  }
+
+  function isVoid(kit, entry) {
+    var K = kit || root.BohemiaDistrictKit ||
+            (HASREQ ? require('./bohemia_district_kit.js') : null);
+    if (!K || typeof K.tileLayer !== 'function') return false;
+    var ly = K.tileLayer(entry);
+    return !!(ly && ly['void']);
   }
 
   /* ── DELIBERATE NON-MEMBERS ──────────────────────────────────────────────────
@@ -304,7 +348,9 @@
      DISABLES outranks AMPLIFIES, so a crusted pond that is both a trap and bad
      footing is a trap. A cell can never carry two classes. */
   function classOf(legendEntry, kit) {
-    if (!standable(kit, legendEntry)) return null;
+    /* ENTERABLE, NOT STANDABLE (8/20). A body in a hole got there by being put there, so
+       gating the lethal class on standability threw away the three tiles it exists for. */
+    if (!enterable(kit, legendEntry)) return null;
     for (var i = 0; i < RULES.length; i++) {
       if (ruleHits(RULES[i], legendEntry)) return RULES[i].cls;
     }
@@ -375,6 +421,11 @@
     CLASSES: CLASSES, RULES: RULES, DIALS: DIALS, UNCLASSIFIED: UNCLASSIFIED,
     NO_RULING: NO_RULING,
     classOf: classOf, classify: classify, sweep: sweep, ruleFor: ruleFor,
+    /* THE THIRD OCCUPANCY STATE (8/20). standable = a body may stand here.
+       enterable = a body may BE here by any means, standing or put. isVoid = the
+       gap between them, which is a hole. Combat reads isVoid to know that a
+       knockback into this cell is a kill and not a bump. */
+    standable: standable, enterable: enterable, isVoid: isVoid,
     dialFor: dialFor,
     killsOnEntry: killsOnEntry, physicalTakenMult: physicalTakenMult,
     canSprint: canSprint, deniesOn: deniesOn

@@ -200,6 +200,35 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    id: 'the-hole',
+    title: 'THE HOLE: ground you can be thrown into',
+    caption: 'The crest of a quarry bench. Until 8/20 this was a WALL -- the deepest hole in the valley was something you bounced off. It is a void now: you cannot walk into it, it does not stop a body thrown at it, and being knocked in is fatal. Drawn darker than the rock it is cut from, because a drop reads as a floor at a different value. RUN tab.',
+    /* FIND A REAL VOID, NOT A QUARRY. The subject is the tile, so the search is for the
+       tile: walk the valley for a district whose legend declares a void, then find a cell
+       of that district that actually EMITS it. A shot framed on a quarry that happens to
+       have no bench crest in view would photograph the feature by not showing it.
+       om.n, never a typed 96 (MAP BOUND ratchet). */
+    find: `(() => {
+      const K = BohemiaDistrictKit;
+      const voidCodes = {};
+      for (const d of K.types()) {
+        const sp = K.get(d); if (!sp || !sp.legend) continue;
+        for (const c in sp.legend) if (K.tileLayer(sp.legend[c])['void']) {
+          (voidCodes[d] = voidCodes[d] || []).push(+c);
+        }
+      }
+      for (let ty = 0; ty < om.n; ty++) for (let tx = 0; tx < om.n; tx++) {
+        const t = om.at(tx, ty); if (!t || !voidCodes[t.district]) continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        const want = voidCodes[t.district];
+        for (let ly = 0; ly < FN; ly++) for (let lx = 0; lx < FN; lx++) {
+          if (want.indexOf(m.kit[ly*FN + lx]) < 0) continue;
+          return { hx: tx*FN + lx, hy: ty*FN + ly, zoom: 30 };
+        }
+      } return null; })()`,
+  },
+  {
     id: 'dead-pit',
     title: 'THE PIT: the cemetery',
     caption: 'They stopped digging graves and dug one hole. The cemetery is a dumping pit now, about 34 bodies in a single heap. RUN tab.',

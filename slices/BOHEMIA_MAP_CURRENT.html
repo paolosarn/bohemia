@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:a422074024d78350335f025d640e2d77 -->
+<!-- engine-md5:engine/bohemia_district_kit.js:e3d62372abf30c734c78868ccfe96654 -->
 <!-- engine-md5:engine/bohemia_suburb.js:07dd23c762a2849e5030a9f46173f46f -->
 <!-- engine-md5:engine/bohemia_commercial.js:19bf8d0f1e02c001ca4c836c52f55aa8 -->
 <!-- engine-md5:engine/bohemia_industrial.js:8baebb1d5c34ae13b1fda3bb0526d321 -->
@@ -60,7 +60,7 @@
 <!-- engine-md5:engine/bohemia_floorplan.js:c305ceef4aa3d9e2e0ef1812a0c7b1bc -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_utility.js:1e6fa593fc9611216c9673e25d28b923 -->
+<!-- engine-md5:engine/bohemia_utility.js:82585b5d60860efa3d5e29673c6f9778 -->
 <!-- engine-md5:engine/bohemia_rooms.js:22bc9a94d23596d77c83183ea1f50ae0 -->
 <!-- engine-md5:engine/bohemia_world.js:2b339b81db356701d46187b767aeab69 -->
 <!-- engine-md5:engine/bohemia_valleymap.js:36a0564d30ad03bd11f7a383d301adc4 -->
@@ -368,8 +368,38 @@
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
     vehicle:{layer:'prop',solid:true}, gate:{layer:'portal',solid:false}, overhead:{layer:'overhead',solid:false}, portal:{layer:'portal',solid:false}
   };
+  /* A HOLE IS NOT A WALL AND IT IS NOT A FLOOR (8/20, WORLD lane).
+     Until today every tile in the valley was one of two things: something you stand on, or
+     something you bump into. That is two states, and the three most genuinely lethal pieces
+     of ground in this world need a THIRD.
+
+     `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and `reclaim:6 crusted
+     pond centre` are a quarry edge, a shaft down to the tunnel, and a crust that will not
+     hold you. All three were `kind:'structure'`, which defaults SOLID, so the game modelled
+     the deepest hole in the valley as a wall you bounce off. MEASURED before this: zero
+     tiles in sixty-six legends declared structure-and-not-solid, so nothing anywhere was
+     using this encoding and nothing downstream could be relying on it.
+
+     THE THIRD STATE IS A VOID, and it is defined by what it does to a BODY:
+       solid    NO  -- it does not stop you. A hole cannot block anything.
+       walkable NO  -- pathing refuses it. You do not stroll into a shaft by accident,
+                       and nothing that walks will ever choose to.
+     Which is exactly the shape of the FORCED ENTRY rule the hazard classes already carry
+     (his own "knocked or charging in"): CONSENT is the test, not depth. Walking in is not
+     something the game lets you do; being put in is, and that is the one that kills.
+
+     DECLARED, NEVER DERIVED. It would have been cheaper to say "structure that does not
+     block IS a hole" -- zero tiles collide, it would work today. It is also a trap: the
+     first author who writes a knee-high wall as structure+solid:false silently digs a pit
+     under it, and nothing would ever say so. A hole is a thing somebody MEANT, so it is
+     written down: `void:true` in the legend entry. */
   function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
-    return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
+    var isVoid = !!(entry && entry['void']);
+    return { layer: (entry&&entry.layer)||d.layer,
+             /* a void never blocks, whatever its kind would have defaulted to */
+             solid: isVoid ? false : ((entry&&entry.solid!=null)?entry.solid:d.solid),
+             'void': isVoid,
+             enter: (entry&&entry.enter)||null }; }
 
   // ROOFS AND DOORS (Paolo 7/30-31). He circled three objects on the school plot and asked
   // WHAT THEY WERE. All three were flat colour rectangles, which is the Pocket City bar
@@ -12814,7 +12844,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       G.rect(px0-6,64,px0+22,66,13);
       if(p.dome){                                                // PABCO's monolithic storage dome
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 17, 6);
-        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 7);
+        /* ONE CODE CANNOT CARRY TWO OCCUPANCIES (8/20). This drew the dome SHELL as code 7,
+           and in the pit layout code 7 is the BENCH LIP -- the crest of a cut face. One is a
+           hemisphere of shotcrete you bump into; the other is an edge you go over. They are
+           opposites, they shared a number, and the tile could therefore be neither: the
+           KILLS rule had to veto /dome shell/i by name to stop a roof being lethal, which
+           also vetoed the lip. The shell is code 15 now and 7 is the lip alone, so both can
+           finally be what they are. */
+        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 15);
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 5, 14);
         G.rect(Math.round(W*0.20)-18,Math.round(H*0.78)+18,Math.round(W*0.20)+18,Math.round(H*0.78)+20,13);
       }
@@ -13100,7 +13137,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            4:['quarry floor','ground','the blasted floor of a bench, white rock dust over everything'],
            5:['gate','gate','the quarry gate off the street, amber curb'],
            6:['rock bench','structure','a cut bench of limestone, the drill lines still visible up its face'],
-           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it'],
+           /* VOID (8/20): the crest of a cut face is the edge you go over, not a wall you
+              bounce off. Modelled as solid structure it was the opposite of what it is. */
+           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the bottom of the pit, gone the colour of the rock'],
            9:['pole light','prop','a yard light over the crusher, head dark, on a plant that used to run three shifts'],
            10:['shot rock / stockpile','prop','a cone of graded stone, or shot rock left where the last round dropped it'],
@@ -13115,7 +13154,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 
     gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
-           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478'},
+           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478',
+           /* the shotcrete shell: greyer than the raw gypsum around it, because it is
+              concrete on a site where everything else is white rock and white dust */
+           15:'#b6b2a8'},
       leg:{0:['desert dead-ground','ground','bare Mojave outside the mine line, and the white dust reaches a long way past it'],
            1:['haul road','drive','the haul road off the quarry face down to the plant (drivable)'],
            2:['building (mill / board plant)','building','the mill building — the Raymond mills inside it silent, the board line cold'],
@@ -13123,14 +13165,17 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            4:['quarry floor','ground','the white working floor, gypsum dust over every surface on the site'],
            5:['gate','gate','the plant gate off the street, amber curb'],
            6:['gypsum bench','structure','a cut bench of raw gypsum, so pale it reads white at any hour'],
-           7:['bench lip / dome shell','structure','the crest of a bench — or the shell of the storage dome, a hemisphere of shotcrete'],
+           /* VOID (8/20), and it could not become one until the dome moved off this code. */
+           7:['bench lip / crest','structure','the crest of a bench of raw gypsum, the edge crumbling white where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust'],
            9:['pole light','prop','a plant yard light, head dark, on a site that made its own power and still went out'],
            10:['stockpile','prop','a cone of milled rock waiting for a calciner that stopped'],
            11:['marking','marking','faded hazard paint on the mill floor'],
            12:['perimeter fence','structure','the plant fence, which stops at the quarry line because nobody fences a cliff'],
            13:['conveyor run','structure','the mobile conveyor that carried ore straight from the quarry into the plant'],
-           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome']},
+           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome'],
+           /* THE DOME GETS ITS OWN CODE (8/20). It used to share 7 with the bench lip. */
+           15:['dome shell','structure','the shell of the monolithic storage dome, a hemisphere of shotcrete over rebar, the one curved roof in the valley']},
       sum:'A gypsum works: a white quarry face cut in benches, a mobile conveyor straight into the mill, and the monolithic storage dome that is the one hemisphere in the valley.',
       ref:['PABCO Gypsum, Las Vegas: a 4,000 acre complex holding the gypsum mine, ore processing and the wallboard plant together.',
            'A mobile conveyor belt moves the ore from the quarry directly into processing; the gypsum passes through Raymond IMP mills before calcination and storage.',
@@ -13220,7 +13265,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            10:['valve vault cover','prop','a valve vault cover, a bollard, a level gauge'],
            11:['marking','marking','elevation marks painted on the intake face — the record of the drop'],
            12:['perimeter fence','structure','the works fence, running down the shore and stopping short of where the water is now'],
-           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house'],
+           /* VOID (8/20): a shaft down to the tunnel is the single most literal hole in the
+              valley. It was a wall. See the void note in engine/bohemia_district_kit.js. */
+           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house',{'void':true}],
            14:['standpipe','structure','the standpipe beside the surge tank, the last vertical before the water']},
       sum:'A lake intake: the intake structure standing in shrunken water below a white bathtub ring, a shaft down to the tunnel, and a pump house pushing it uphill toward the valley.',
       ref:['Lake Mead intake works: the valley draws its water from a lake whose surface has dropped far enough to leave a white mineral bathtub ring on the rock above it.',
@@ -13327,7 +13374,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            3:['dead brush','tree-dead','reed and brush gone dry on a berm, rooted in what the pond beside it used to carry'],
            4:['berm road surface','ground','the graded top of a berm between two ponds'],
            5:['gate','gate','the plant gate off the street, amber curb'],
-           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust'],
+           /* VOID (8/20): its own act-1 line says it -- "hard enough to walk on and not
+              hard enough to trust". That is a floor that gives way, which is a hole with a
+              lid on it, and it was modelled as a solid wall. */
+           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust',{'void':true}],
            7:['pond berm','structure','the earth berm holding one pond off the next'],
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],

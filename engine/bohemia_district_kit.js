@@ -280,8 +280,38 @@
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
     vehicle:{layer:'prop',solid:true}, gate:{layer:'portal',solid:false}, overhead:{layer:'overhead',solid:false}, portal:{layer:'portal',solid:false}
   };
+  /* A HOLE IS NOT A WALL AND IT IS NOT A FLOOR (8/20, WORLD lane).
+     Until today every tile in the valley was one of two things: something you stand on, or
+     something you bump into. That is two states, and the three most genuinely lethal pieces
+     of ground in this world need a THIRD.
+
+     `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and `reclaim:6 crusted
+     pond centre` are a quarry edge, a shaft down to the tunnel, and a crust that will not
+     hold you. All three were `kind:'structure'`, which defaults SOLID, so the game modelled
+     the deepest hole in the valley as a wall you bounce off. MEASURED before this: zero
+     tiles in sixty-six legends declared structure-and-not-solid, so nothing anywhere was
+     using this encoding and nothing downstream could be relying on it.
+
+     THE THIRD STATE IS A VOID, and it is defined by what it does to a BODY:
+       solid    NO  -- it does not stop you. A hole cannot block anything.
+       walkable NO  -- pathing refuses it. You do not stroll into a shaft by accident,
+                       and nothing that walks will ever choose to.
+     Which is exactly the shape of the FORCED ENTRY rule the hazard classes already carry
+     (his own "knocked or charging in"): CONSENT is the test, not depth. Walking in is not
+     something the game lets you do; being put in is, and that is the one that kills.
+
+     DECLARED, NEVER DERIVED. It would have been cheaper to say "structure that does not
+     block IS a hole" -- zero tiles collide, it would work today. It is also a trap: the
+     first author who writes a knee-high wall as structure+solid:false silently digs a pit
+     under it, and nothing would ever say so. A hole is a thing somebody MEANT, so it is
+     written down: `void:true` in the legend entry. */
   function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
-    return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
+    var isVoid = !!(entry && entry['void']);
+    return { layer: (entry&&entry.layer)||d.layer,
+             /* a void never blocks, whatever its kind would have defaulted to */
+             solid: isVoid ? false : ((entry&&entry.solid!=null)?entry.solid:d.solid),
+             'void': isVoid,
+             enter: (entry&&entry.enter)||null }; }
 
   // ROOFS AND DOORS (Paolo 7/30-31). He circled three objects on the school plot and asked
   // WHAT THEY WERE. All three were flat colour rectangles, which is the Pocket City bar

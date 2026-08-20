@@ -189,14 +189,54 @@ console.log('\nA FLOOR HAZARD MUST BE FLOOR (the rule the running page corrected
   const portalNamedLikeAPit = { name: 'sewer tunnel mouth', kind: 'portal', act1: 'x' };
   ok('a PORTAL is a door, not a drop — going through one is the intent',
      H.classOf(portalNamedLikeAPit, K) === null);
-  let bad = [];
+  /* THIS ASSERTION USED TO SAY "STANDS ON", AND ON 8/20 THAT BECAME THE WRONG QUESTION.
+     It demanded every classified tile be non-solid AND on a layer a body stands on, which
+     was exactly right while the world had two states (floor, wall) and became wrong the
+     moment it had three. A VOID -- quarry:7, gypsum:7, intake:13, reclaim:6 -- is a hole:
+     you cannot stand in it, and the whole reason it is classified is that you can be PUT
+     in it. Gating on standability threw away the four tiles the lethal class exists for.
+     THE REPLACEMENT IS STRICTLY STRONGER, not looser. It still refuses anything solid, it
+     still refuses any layer a body cannot occupy, and it now ALSO asserts that every void
+     is non-solid, non-standable and lethal — three claims where there was one. Loosening a
+     gate to admit new work is how a gate stops meaning anything; this admits the new state
+     and then pins it down harder than the old rule pinned the old one. */
+  let bad = [], voids = [], voidBad = [];
   for (const d in sweep) for (const c in sweep[d]) {
-    const ly = K.tileLayer(K.get(d).legend[c]);
+    const e = K.get(d).legend[c], ly = K.tileLayer(e);
+    if (ly['void']) {
+      voids.push(d + ':' + c);
+      /* a hole may not block, may not be stood on, and may not be anything but lethal */
+      if (ly.solid) voidBad.push(d + ':' + c + ' (a void that BLOCKS)');
+      if (H.standable(K, e)) voidBad.push(d + ':' + c + ' (a void you can STAND in)');
+      if (!H.enterable(K, e)) voidBad.push(d + ':' + c + ' (a void nothing can enter)');
+      if (H.classOf(e, K) !== 'KILLS')
+        voidBad.push(d + ':' + c + ' (a void classed ' + H.classOf(e, K) + ', not KILLS)');
+      continue;
+    }
     if (ly.solid || (ly.layer !== 'ground' && ly.layer !== 'prop'))
       bad.push(d + ':' + c + ' (' + ly.layer + (ly.solid ? ' solid' : '') + ')');
   }
-  ok('EVERY classified tile in the whole valley is NON-SOLID and on a layer a body ' +
+  ok('EVERY classified tile that is not a void is NON-SOLID and on a layer a body ' +
      'actually stands on' + (bad.length ? ' — ' + bad.join(', ') : ''), bad.length === 0);
+  ok('the valley has real VOIDS — a hole is a third occupancy state, not a wall (' +
+     voids.length + ': ' + voids.join(', ') + ')', voids.length >= 4);
+  ok('and EVERY void does not block, cannot be stood in, can be entered, and KILLS' +
+     (voidBad.length ? ' — ' + voidBad.join(', ') : ''), voidBad.length === 0);
+
+  /* THE COLLISION THAT MADE THIS NECESSARY, machine-held so it cannot come back:
+     gypsum:7 meant "bench lip" AND "dome shell" — an edge you go over and a roof you bump
+     into, sharing one number, so the tile could be neither. */
+  const gy = K.get('gypsum');
+  ok('gypsum:7 is the bench lip ALONE — one code cannot carry two occupancies',
+     gy && /bench lip/i.test(gy.legend[7].name) && !/dome shell/i.test(gy.legend[7].name));
+  ok('and the dome shell has a code of its own, still solid, still not lethal',
+     gy && gy.legend[15] && /dome shell/i.test(gy.legend[15].name) &&
+     K.tileLayer(gy.legend[15]).solid && H.classOf(gy.legend[15], K) === null);
+  let domeCells = 0;
+  try { const g = gy.generate(11, { streets: ['S'] }).g;
+        for (const r of g) for (const v of r) if (v === 15) domeCells++; } catch (e) {}
+  ok('and the dome is actually DRAWN on that code, not just declared (' + domeCells +
+     ' cells) — a split nobody emits is a rename', domeCells > 50);
 }
 
 /* ── 7. A MENTION IS NOT A USE ─────────────────────────────────────────────────

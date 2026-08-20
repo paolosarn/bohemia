@@ -81,9 +81,18 @@ if not os.path.exists(WORLD):
     sys.exit('OCCUPANCY PATCH: %s is not here.' % WORLD)
 src = open(WORLD, encoding='utf-8').read()
 
-if MARK in src:
-    print('OCCUPANCY PATCH: already applied.')
-    sys.exit(0)
+# RE-RUNNABLE, AND IT WAS NOT UNTIL 8/20. This said `if MARK in src: already applied; exit`,
+# so from the moment it first landed in a commit its output FROZE: every later edit to this
+# file would silently do nothing to the page while the tool reported success. Its sibling
+# tools/bohemia_city_fightroom_patch.py had the identical bug and it cost a real edit -- a
+# character added to the combat payload, run, reported applied, and not on the surface.
+# This one is a pure REPLACEMENT of an anchor that still exists, so reversing is exact and a
+# failed reversal cannot duplicate anything: the anchor would simply be missing and the tool
+# exits loud below. Never add an INSERT here without giving it delimiters and cutting by
+# marker -- a reversal that matches on content breaks the day the content changes.
+refreshed = MARK in src
+if NEW in src:
+    src = src.replace(NEW, OLD, 1)
 if OLD not in src:
     sys.exit('OCCUPANCY PATCH: could not find the prop branch of realizeCell. Refusing to '
              'guess -- this is the ONE line that decides whether a body may stand on a prop '
@@ -91,6 +100,7 @@ if OLD not in src:
 
 src = src.replace(OLD, NEW, 1)
 open(WORLD, 'w', encoding='utf-8').write(src)
-print('OCCUPANCY PATCH: the walked surface now honours the kit\'s per-tile `solid` flag')
+print('OCCUPANCY PATCH: %s -- the walked surface honours the kit\'s per-tile `solid` flag'
+      % ('REFRESHED' if refreshed else 'applied'))
 print('    48 declarations were being discarded; 15 were misdeclared and were corrected')
 print('    in their own legends, so 33 brush/litter/stake tiles genuinely open up')

@@ -148,7 +148,8 @@ function requirePlaywright() {
 
     const r = await p.evaluate(() => {
       const out = { cells: 0, districts: 0, agree: 0, disagree: [], solidChecked: 0,
-                    solidAgree: 0, kinds: {}, solidDisagree: [], solidGround: 0 };
+                    solidAgree: 0, kinds: {}, solidDisagree: [], solidGround: 0,
+                    voidChecked: 0, voidAgree: 0, voidDisagree: [], voidBy: {}, voidLit: [] };
       const KIT = BohemiaDistrictKit, N = om.n;
       /* COVER EVERY DISTRICT TYPE, NOT THE FIRST FORTY CELLS. The first version sampled
          "the first 40 cells with a kit grid" and they were all ordinary districts, where no
@@ -172,20 +173,54 @@ function requirePlaywright() {
            water` -- which DECLARES solid:true, because deep water blocks a body -- came back
            16,384 of 16,384 WALKABLE. The whole reservoir, strollable, with this gate green.
            A GATE SCOPED TO WHERE THE LAST BUG WAS ONLY EVER CATCHES THE LAST BUG. */
+        /* AND A THIRD STATE, 8/20. This map used to hold one boolean per code, because the
+           world had two answers: solid (you bump) or not (you walk). A VOID is neither --
+           it does not block AND it is not walkable -- so a boolean could only ever describe
+           it wrongly, and the honest bug is that this gate would have called every hole in
+           the valley a disagreement. Two booleans, three states. */
         const props = {};
         for (const cd in sp.legend) {
           const ly = KIT.tileLayer(sp.legend[cd]);
           if (ly.layer === 'overhead' || ly.layer === 'portal') continue;  /* pass under / go through */
-          props[+cd] = ly.solid;
+          props[+cd] = { solid: ly.solid, isVoid: !!ly['void'] };
         }
         if (!Object.keys(props).length) continue;
         typeSeen[m.d] = 1; seen++; out.districts++;
         for (let ly2 = 0; ly2 < FN; ly2++) for (let lx = 0; lx < FN; lx++) {
           const code = m.kit[ly2 * FN + lx];
           if (!(code in props)) continue;
-          const solid = props[code];
+          const solid = props[code].solid;
           const cc = cellAt(tx * FN + lx, ty * FN + ly2);
           const walk = !!(cc && cc.walk);
+          /* A VOID IS CHECKED AGAINST BOTH OF ITS CLAIMS, not one. It must refuse a body
+             (walk false) AND say out loud that it is a hole (void true), because those are
+             two different promises to two different consumers: pathing reads the first,
+             combat reads the second. A cell that refuses you but never says why is
+             indistinguishable from a wall, which is the bug this whole pass exists to end. */
+          if (props[code].isVoid) {
+            out.voidChecked++;
+            /* NAME THE TILES, not just the count. A bare number cannot be checked against
+               anything: "2,405 voids" is equally consistent with the four real drops and
+               with some legend accidentally declaring half a district a hole. */
+            out.voidBy[m.d + ':' + code] = (out.voidBy[m.d + ':' + code] || 0) + 1;
+            /* AND IT HAS TO LOOK LIKE A HOLE, NOT JUST BEHAVE LIKE ONE. The mountain taught
+               this the hard way on 8/18: every flag was correct, every number was green, and
+               927 cells rendered as brickwork. A void draws on the GROUND channel at a
+               DARKER value than the tile's own palette colour, so it reads as floor that
+               dropped away rather than as a mass that rose. Checked here because the flags
+               and the picture are two different claims and only one of them is what he sees. */
+            const lum = h => { const m2 = /^#([0-9a-f]{6})$/i.exec(String(h || '')); if (!m2) return null;
+              const n = parseInt(m2[1], 16); return ((n>>16&255) + (n>>8&255) + (n&255)) / 3; };
+            const palL = lum(sp.palette && sp.palette[code]), gotL = lum(cc && cc.g);
+            if (palL !== null && (gotL === null || gotL >= palL))
+              out.voidLit.push(m.d + ':' + code + ' (drawn ' + (cc && cc.g) + ', not darker than ' +
+                (sp.palette && sp.palette[code]) + ')');
+            if (!walk && cc && cc['void'] === true) out.voidAgree++;
+            else if (out.voidDisagree.length < 8)
+              out.voidDisagree.push(m.d + ':' + code + ' ' + sp.legend[code].name +
+                ' (walk=' + walk + ', void=' + (cc && cc['void'] === true) + ')');
+            continue;
+          }
           if (solid && KIT.tileLayer(sp.legend[code]).layer !== 'prop') out.solidGround++;
           if (solid) { out.solidChecked++; if (!walk) out.solidAgree++;
             else if (out.solidDisagree.length < 8)
@@ -219,6 +254,23 @@ function requirePlaywright() {
        'both directions, so "make everything walkable" is not a way to pass this' +
        (r.solidDisagree.length ? ' — ' + r.solidDisagree.join(', ') : ''),
        r.solidChecked > 0 && r.solidAgree === r.solidChecked);
+    /* THE THIRD STATE, ON THE GLASS (8/20). The same coverage discipline as above, because
+       the same trap is available: a void assertion that never meets a void is a green tick
+       for nothing. quarry, gypsum, intake and reclaim all exist in the seed valley, so if
+       this count is zero something upstream stopped emitting holes and the two claims below
+       are vacuous. */
+    console.log('       voids              : ' + r.voidAgree + ' of ' + r.voidChecked + ' agree  [' +
+                Object.keys(r.voidBy).map(k => k + ' x' + r.voidBy[k]).join(', ') + ']');
+    ok('the sample actually contained VOIDS (' + r.voidChecked + ') — the four lethal drops ' +
+       'are real cells in the real valley, not four lines in a legend', r.voidChecked > 0);
+    ok('and EVERY void refuses a body AND says it is a hole — a cell that refuses you ' +
+       'without saying why is indistinguishable from a wall, which is the bug this ends' +
+       (r.voidDisagree.length ? ' — ' + r.voidDisagree.join(', ') : ''),
+       r.voidChecked > 0 && r.voidAgree === r.voidChecked);
+    ok('and every void is DRAWN darker than the rock it is cut from — a hole that is not '
+       + 'darker is a hole he cannot see, which is how the mountain shipped as brickwork'
+       + (r.voidLit.length ? ' — ' + r.voidLit.slice(0, 4).join(', ') : ''),
+       r.voidChecked > 0 && r.voidLit.length === 0);
     ok('no page errors while walking the valley' + (errs.length ? ' — ' + errs[0] : ''),
        errs.length === 0);
     await browser.close();

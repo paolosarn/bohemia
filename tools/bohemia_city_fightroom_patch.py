@@ -104,8 +104,18 @@ function cityFightRoom(fp,f){
            exists it is already wired rather than needing another seam. */
         var hz='.';
         try{ if(typeof BohemiaHazard!=='undefined'&&c.terrain){
-          var k=BohemiaHazard.classOf(c.terrain,(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:null);
-          hz=(k==='KILLS')?'K':(k==='AMPLIFIES')?'A':(k==='DISABLES')?'D':'.'; } }catch(_e){}
+          var KK=(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:null;
+          var k=BohemiaHazard.classOf(c.terrain,KK);
+          hz=(k==='KILLS')?'K':(k==='AMPLIFIES')?'A':(k==='DISABLES')?'D':'.';
+          /* 'V' OUTRANKS 'K' AND THE DIFFERENCE IS NOT COSMETIC (8/20). Both kill on forced
+             entry, but a K is ground a body can walk onto and choose to stand on, and a V
+             is a HOLE -- it cannot be pathed into at all, and it does not stop a body that
+             is thrown at it. Told apart, a push into a V is a kill and a push into a wall
+             beside it is a bump; conflated, combat would either path somebody into a shaft
+             or treat the shaft as a wall, and those are the only two ways to get this
+             wrong. So the payload says which it is instead of making combat infer it. */
+          if(BohemiaHazard.isVoid && BohemiaHazard.isVoid(KK,c.terrain)) hz='V';
+        } }catch(_e){}
         ground+=hz;
         if(isDoor) doors.push([x,y]);
       }
@@ -123,6 +133,9 @@ function cityFightRoom(fp,f){
       cover:{'.':'nothing','C':'chest-to-head: blocks the body AND the line of sight',
              l:'knee-to-waist: blocks the body, NEVER the line of sight (there is no crouch)'},
       ground:{'.':'nothing','K':'kills outright on FORCED entry only (knocked or charging in)',
+              V:'a VOID -- a hole. Kills on forced entry like K, and unlike K it cannot be '
+                +'walked into at all and does not block a body thrown into it. Never path '
+                +'anything here; a push into it is a kill, not a bump.',
               A:'+50% physical damage taken (unstable footing)',
               D:'no sprinting and no movement abilities (standing liquid)'},
       order:'row-major, w characters per row'
@@ -137,9 +150,42 @@ if not os.path.exists(WORLD):
     sys.exit('FIGHT ROOM: %s is not here.' % WORLD)
 src = open(WORLD, encoding='utf-8').read()
 
-if MARK in src:
-    print('FIGHT ROOM: already applied.')
-    sys.exit(0)
+# RE-RUNNABLE, AND IT WAS NOT UNTIL 8/20. This said `if MARK in src: print("already
+# applied"); exit(0)`, which means that from the moment it first landed in a commit it could
+# NEVER be refreshed: every later edit to the payload silently did nothing to the page while
+# the tool cheerfully reported success. That is how the 'V' void character was added to the
+# ground channel, run, reported applied, and was not on the surface at all.
+# A PATCH TOOL THAT CANNOT RE-RUN IS A TOOL WHOSE OUTPUT FREEZES AT WHATEVER IT WAS THE DAY
+# IT SHIPPED, and the freeze is invisible because the tool keeps saying the right thing. So
+# every edit is REVERSED first and the inserted block is CUT BY MARKER (never by content --
+# a reversal that matches on content breaks the day the content changes, which is how the
+# terrain patch killed this page once on 8/18).
+FN_S, FN_E = '/* __FR_S__ */', '/* __FR_E__ */'
+refreshed = MARK in src
+if NEW in src:
+    src = src.replace(NEW, OLD, 1)
+while FN_S in src:
+    _i = src.find(FN_S); _j = src.find(FN_E, _i)
+    if _j < 0:
+        sys.exit('FIGHT ROOM: the room-reader block has a start and no end. Refusing to '
+                 'guess where it stops -- an orphaned half would leave a STALE reader later '
+                 'in the file, where the browser runs it and the fresh one is dead code.')
+    src = src[:_i] + src[_j + len(FN_E):]
+
+# THE LEGACY FORM, WHICH IS WHAT MADE THIS URGENT. Every page written before 8/20 carries
+# this block with NO delimiters, because the tool that wrote it could never re-run and so had
+# no reason to mark where its own work stopped. Cutting only the marked form leaves the old
+# copy in place and appends a second `function cityFightRoom` -- MEASURED: two definitions in
+# one file, the browser running the LAST one, which is not necessarily the fresh one.
+# The legacy block is exactly: the banner, through to the anchor it was inserted in front of.
+_LEG = '/* ==== __THE_FIGHT_GETS_THE_ROOM__ ===='
+while _LEG in src:
+    _i = src.find(_LEG); _j = src.find(FN_ANCHOR, _i)
+    if _j < 0:
+        sys.exit('FIGHT ROOM: found a legacy room-reader block with no anchor after it. '
+                 'Refusing to guess where it ends.')
+    src = src[:_i] + src[_j:]
+
 if OLD not in src:
     sys.exit('FIGHT ROOM: could not find the encounter handoff. Refusing to guess -- this is '
              'the ONE message that tells combat what it is fighting in, and a wrong edit '
@@ -150,7 +196,7 @@ if i < 0:
 
 src = src.replace(OLD, NEW, 1)
 i = src.find(FN_ANCHOR)
-src = src[:i] + FN + src[i:]
+src = src[:i] + FN_S + '\n' + FN + FN_E + '\n' + src[i:]
 
 # AND THE MEASURE HAS TO BE ON THE PAGE. engine/bohemia_retreat.js was never inlined here --
 # it was written as a node-side gate measure -- so the first run of this produced a payload

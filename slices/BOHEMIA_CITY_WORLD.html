@@ -27,6 +27,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
+
+
 /* ==== footing readout css ==== */
 /* THE FOOTING READOUT, DIRECTLY UNDER THE TOP BAR, and that position is the whole
    reason this comment exists. It was at bottom-left first, and a screenshot of the real
@@ -149,6 +152,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 <div id="hud"><span id="hmode">CITY MODE</span><span id="hclock">DAY 1 · 08:00</span><span id="hslot"></span></div>
 <div id="stage">
   <canvas id="cv"></canvas>
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
@@ -5253,8 +5259,38 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
     vehicle:{layer:'prop',solid:true}, gate:{layer:'portal',solid:false}, overhead:{layer:'overhead',solid:false}, portal:{layer:'portal',solid:false}
   };
+  /* A HOLE IS NOT A WALL AND IT IS NOT A FLOOR (8/20, WORLD lane).
+     Until today every tile in the valley was one of two things: something you stand on, or
+     something you bump into. That is two states, and the three most genuinely lethal pieces
+     of ground in this world need a THIRD.
+
+     `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and `reclaim:6 crusted
+     pond centre` are a quarry edge, a shaft down to the tunnel, and a crust that will not
+     hold you. All three were `kind:'structure'`, which defaults SOLID, so the game modelled
+     the deepest hole in the valley as a wall you bounce off. MEASURED before this: zero
+     tiles in sixty-six legends declared structure-and-not-solid, so nothing anywhere was
+     using this encoding and nothing downstream could be relying on it.
+
+     THE THIRD STATE IS A VOID, and it is defined by what it does to a BODY:
+       solid    NO  -- it does not stop you. A hole cannot block anything.
+       walkable NO  -- pathing refuses it. You do not stroll into a shaft by accident,
+                       and nothing that walks will ever choose to.
+     Which is exactly the shape of the FORCED ENTRY rule the hazard classes already carry
+     (his own "knocked or charging in"): CONSENT is the test, not depth. Walking in is not
+     something the game lets you do; being put in is, and that is the one that kills.
+
+     DECLARED, NEVER DERIVED. It would have been cheaper to say "structure that does not
+     block IS a hole" -- zero tiles collide, it would work today. It is also a trap: the
+     first author who writes a knee-high wall as structure+solid:false silently digs a pit
+     under it, and nothing would ever say so. A hole is a thing somebody MEANT, so it is
+     written down: `void:true` in the legend entry. */
   function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
-    return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
+    var isVoid = !!(entry && entry['void']);
+    return { layer: (entry&&entry.layer)||d.layer,
+             /* a void never blocks, whatever its kind would have defaulted to */
+             solid: isVoid ? false : ((entry&&entry.solid!=null)?entry.solid:d.solid),
+             'void': isVoid,
+             enter: (entry&&entry.enter)||null }; }
 
   // ROOFS AND DOORS (Paolo 7/30-31). He circled three objects on the school plot and asked
   // WHAT THEY WERE. All three were flat colour rectangles, which is the Pocket City bar
@@ -5670,7 +5706,14 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
         /\bpit road\b/i,                           /* speedway: a road named "pit" */
         /\bdry water hazard\b/i,                   /* golf: a pond bed, ankle deep */
         /\bwash bay\b/i,                           /* truckstop: a building */
-        /\bdome shell\b/i                          /* gypsum 7 means TWO things — below */
+        /\bdome shell\b/i                          /* gypsum's storage dome, a shotcrete
+                                                      hemisphere. THIS VETO USED TO COST
+                                                      SOMETHING (8/20): the dome shell and
+                                                      the bench lip shared code 7, so
+                                                      vetoing the roof also threw away the
+                                                      lethal edge. The dome is code 15 now
+                                                      and the veto is free -- it stops a
+                                                      roof being lethal and nothing else. */
       ]
     },
     {
@@ -5736,8 +5779,45 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     if (!K || typeof K.tileLayer !== 'function') return true;
     var ly = K.tileLayer(entry);
     if (!ly) return true;
+    if (ly['void']) return false;          /* nothing STANDS in a hole -- see enterable() */
     if (ly.solid) return false;
     return ly.layer === 'ground' || ly.layer === 'prop';
+  }
+
+  /* ENTERABLE, WHICH IS NOT THE SAME QUESTION AS STANDABLE, AND THE GAP BETWEEN THEM IS
+     WHERE THIS WHOLE FEATURE LIVES. (8/20.)
+
+     The sweep used to admit a tile only if a body could STAND on it, which is right for
+     every class but the one that matters most. KILLS is defined by his own clause -- "an
+     enemy KNOCKED or CHARGING in dies outright" -- and a body that is knocked in is, by
+     definition, in a place it could not have walked to. So gating the lethal class on
+     standability excluded exactly the tiles the lethal class exists for.
+
+     MEASURED before this: `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and
+     `reclaim:6 crusted pond centre` all matched the KILLS rule by name and ALL THREE WERE
+     CLASSIFIED AS NOTHING, because they are structure-layer and structure does not stand.
+     The rule was right, the tiles were right, and the gate between them threw all three
+     away in silence. The three most lethal pieces of ground in the valley were inert.
+
+     So membership asks: can a body BE HERE, by any means? Standing on it, or being put in
+     it. A void answers yes to the second and no to the first, which is precisely what a
+     hole is. */
+  function enterable(kit, entry) {
+    var K = kit || root.BohemiaDistrictKit ||
+            (HASREQ ? require('./bohemia_district_kit.js') : null);
+    if (!K || typeof K.tileLayer !== 'function') return true;
+    var ly = K.tileLayer(entry);
+    if (!ly) return true;
+    if (ly['void']) return true;           /* you cannot walk in; you can be put in */
+    return standable(kit, entry);
+  }
+
+  function isVoid(kit, entry) {
+    var K = kit || root.BohemiaDistrictKit ||
+            (HASREQ ? require('./bohemia_district_kit.js') : null);
+    if (!K || typeof K.tileLayer !== 'function') return false;
+    var ly = K.tileLayer(entry);
+    return !!(ly && ly['void']);
   }
 
   /* ── DELIBERATE NON-MEMBERS ──────────────────────────────────────────────────
@@ -5780,7 +5860,9 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      DISABLES outranks AMPLIFIES, so a crusted pond that is both a trap and bad
      footing is a trap. A cell can never carry two classes. */
   function classOf(legendEntry, kit) {
-    if (!standable(kit, legendEntry)) return null;
+    /* ENTERABLE, NOT STANDABLE (8/20). A body in a hole got there by being put there, so
+       gating the lethal class on standability threw away the three tiles it exists for. */
+    if (!enterable(kit, legendEntry)) return null;
     for (var i = 0; i < RULES.length; i++) {
       if (ruleHits(RULES[i], legendEntry)) return RULES[i].cls;
     }
@@ -5851,6 +5933,11 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     CLASSES: CLASSES, RULES: RULES, DIALS: DIALS, UNCLASSIFIED: UNCLASSIFIED,
     NO_RULING: NO_RULING,
     classOf: classOf, classify: classify, sweep: sweep, ruleFor: ruleFor,
+    /* THE THIRD OCCUPANCY STATE (8/20). standable = a body may stand here.
+       enterable = a body may BE here by any means, standing or put. isVoid = the
+       gap between them, which is a hole. Combat reads isVoid to know that a
+       knockback into this cell is a kill and not a bump. */
+    standable: standable, enterable: enterable, isVoid: isVoid,
     dialFor: dialFor,
     killsOnEntry: killsOnEntry, physicalTakenMult: physicalTakenMult,
     canSprint: canSprint, deniesOn: deniesOn
@@ -5860,6 +5947,12 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE FLOOR CAN DO SOMETHING TO YOU ==== */
+
+
+
+
+
+
 
 
 
@@ -14605,7 +14698,14 @@ const BEAT=500; // 120BPM law
       G.rect(px0-6,64,px0+22,66,13);
       if(p.dome){                                                // PABCO's monolithic storage dome
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 17, 6);
-        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 7);
+        /* ONE CODE CANNOT CARRY TWO OCCUPANCIES (8/20). This drew the dome SHELL as code 7,
+           and in the pit layout code 7 is the BENCH LIP -- the crest of a cut face. One is a
+           hemisphere of shotcrete you bump into; the other is an edge you go over. They are
+           opposites, they shared a number, and the tile could therefore be neither: the
+           KILLS rule had to veto /dome shell/i by name to stop a roof being lethal, which
+           also vetoed the lip. The shell is code 15 now and 7 is the lip alone, so both can
+           finally be what they are. */
+        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 15);
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 5, 14);
         G.rect(Math.round(W*0.20)-18,Math.round(H*0.78)+18,Math.round(W*0.20)+18,Math.round(H*0.78)+20,13);
       }
@@ -14891,7 +14991,9 @@ const BEAT=500; // 120BPM law
            4:['quarry floor','ground','the blasted floor of a bench, white rock dust over everything'],
            5:['gate','gate','the quarry gate off the street, amber curb'],
            6:['rock bench','structure','a cut bench of limestone, the drill lines still visible up its face'],
-           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it'],
+           /* VOID (8/20): the crest of a cut face is the edge you go over, not a wall you
+              bounce off. Modelled as solid structure it was the opposite of what it is. */
+           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the bottom of the pit, gone the colour of the rock'],
            9:['pole light','prop','a yard light over the crusher, head dark, on a plant that used to run three shifts'],
            10:['shot rock / stockpile','prop','a cone of graded stone, or shot rock left where the last round dropped it'],
@@ -14906,7 +15008,10 @@ const BEAT=500; // 120BPM law
 
     gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
-           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478'},
+           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478',
+           /* the shotcrete shell: greyer than the raw gypsum around it, because it is
+              concrete on a site where everything else is white rock and white dust */
+           15:'#b6b2a8'},
       leg:{0:['desert dead-ground','ground','bare Mojave outside the mine line, and the white dust reaches a long way past it'],
            1:['haul road','drive','the haul road off the quarry face down to the plant (drivable)'],
            2:['building (mill / board plant)','building','the mill building — the Raymond mills inside it silent, the board line cold'],
@@ -14914,14 +15019,17 @@ const BEAT=500; // 120BPM law
            4:['quarry floor','ground','the white working floor, gypsum dust over every surface on the site'],
            5:['gate','gate','the plant gate off the street, amber curb'],
            6:['gypsum bench','structure','a cut bench of raw gypsum, so pale it reads white at any hour'],
-           7:['bench lip / dome shell','structure','the crest of a bench — or the shell of the storage dome, a hemisphere of shotcrete'],
+           /* VOID (8/20), and it could not become one until the dome moved off this code. */
+           7:['bench lip / crest','structure','the crest of a bench of raw gypsum, the edge crumbling white where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust'],
            9:['pole light','prop','a plant yard light, head dark, on a site that made its own power and still went out'],
            10:['stockpile','prop','a cone of milled rock waiting for a calciner that stopped'],
            11:['marking','marking','faded hazard paint on the mill floor'],
            12:['perimeter fence','structure','the plant fence, which stops at the quarry line because nobody fences a cliff'],
            13:['conveyor run','structure','the mobile conveyor that carried ore straight from the quarry into the plant'],
-           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome']},
+           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome'],
+           /* THE DOME GETS ITS OWN CODE (8/20). It used to share 7 with the bench lip. */
+           15:['dome shell','structure','the shell of the monolithic storage dome, a hemisphere of shotcrete over rebar, the one curved roof in the valley']},
       sum:'A gypsum works: a white quarry face cut in benches, a mobile conveyor straight into the mill, and the monolithic storage dome that is the one hemisphere in the valley.',
       ref:['PABCO Gypsum, Las Vegas: a 4,000 acre complex holding the gypsum mine, ore processing and the wallboard plant together.',
            'A mobile conveyor belt moves the ore from the quarry directly into processing; the gypsum passes through Raymond IMP mills before calcination and storage.',
@@ -15011,7 +15119,9 @@ const BEAT=500; // 120BPM law
            10:['valve vault cover','prop','a valve vault cover, a bollard, a level gauge'],
            11:['marking','marking','elevation marks painted on the intake face — the record of the drop'],
            12:['perimeter fence','structure','the works fence, running down the shore and stopping short of where the water is now'],
-           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house'],
+           /* VOID (8/20): a shaft down to the tunnel is the single most literal hole in the
+              valley. It was a wall. See the void note in engine/bohemia_district_kit.js. */
+           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house',{'void':true}],
            14:['standpipe','structure','the standpipe beside the surge tank, the last vertical before the water']},
       sum:'A lake intake: the intake structure standing in shrunken water below a white bathtub ring, a shaft down to the tunnel, and a pump house pushing it uphill toward the valley.',
       ref:['Lake Mead intake works: the valley draws its water from a lake whose surface has dropped far enough to leave a white mineral bathtub ring on the rock above it.',
@@ -15118,7 +15228,10 @@ const BEAT=500; // 120BPM law
            3:['dead brush','tree-dead','reed and brush gone dry on a berm, rooted in what the pond beside it used to carry'],
            4:['berm road surface','ground','the graded top of a berm between two ponds'],
            5:['gate','gate','the plant gate off the street, amber curb'],
-           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust'],
+           /* VOID (8/20): its own act-1 line says it -- "hard enough to walk on and not
+              hard enough to trust". That is a floor that gives way, which is a hole with a
+              lid on it, and it was modelled as a solid wall. */
+           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust',{'void':true}],
            7:['pond berm','structure','the earth berm holding one pond off the next'],
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
@@ -21657,6 +21770,20 @@ function tileMeta(tx,ty){
   return m;
 }
 // ONE CELL of the world, pure function of global fine coords + seed
+
+
+/* __VOID_SHADE_S__ */
+/* __A_HOLE_IS_NOT_A_WALL__ -- the shade a void draws at. Not a new colour and not a
+   palette entry: the tile's OWN colour taken down in value, so a hole in white gypsum still
+   reads as gypsum and a hole in limestone still reads as limestone. One material, two
+   values, which is how a drop reads from above without any new art. */
+function __voidShade(col){
+  var m=/^#([0-9a-f]{6})$/i.exec(String(col||'')); if(!m) return '#241f19';
+  var n=parseInt(m[1],16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, k=0.34;
+  var h=function(v){ v=Math.max(0,Math.round(v*k)); return (v<16?'0':'')+v.toString(16); };
+  return '#'+h(r)+h(g)+h(b);
+}
+/* __VOID_SHADE_E__ */
 function realizeCell(gx,gy){
   if(gx<0||gy<0||gx>=WORLD_F||gy>=WORLD_F)return null;
   const tx=(gx/FN)|0, ty=(gy/FN)|0, lx=gx-tx*FN, ly=gy-ty*FN;
@@ -21736,6 +21863,22 @@ function realizeCell(gx,gy){
     const spec=m.kitSpec, entry=spec&&spec.legend&&spec.legend[code];
     const tl=BohemiaDistrictKit.tileLayer(entry);
     const pal=(spec&&spec.palette&&spec.palette[code])||'#98948a';
+    /* __A_HOLE_IS_NOT_A_WALL__ -- THIS BRANCH RUNS BEFORE THE STRUCTURE BRANCH ON PURPOSE.
+       Every void in the valley is declared kind:'structure' (a quarry bench crest, a shaft,
+       a crusted pond centre), so the structure branch below would swallow all four and draw
+       the deepest holes in the world as masses you bump into -- which is what it did until
+       today, and which is the exact opposite of what they are.
+       A void draws on the GROUND channel at a DARKER value than its own palette colour, so
+       it reads as floor that dropped away rather than something that rose. That is the ART
+       ask from records/BOHEMIA_THE_FLOOR_CAN_KILL_YOU_8_18_26.md ("a rim, a shadow line, a
+       floor at a different value") answered as far as a renderer can answer it; the rim
+       itself is pixels and is still ART's.
+       walk stays FALSE -- nothing walks into a shaft by choice -- and `void` rides on the
+       cell so COMBAT can tell a bump from a kill. What a knockback DOES here is combat's
+       ruling, not this file's. */
+    if(tl['void']){
+      c.g=__voidShade(pal); c.walk=false; c['void']=true; c.gArtPool=null; return c;
+    }
     if(tl.layer==='structure'){
       c.s=pal; c.walk=false;
       /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile
@@ -22136,6 +22279,9 @@ function __surfaceOf(c){
   if(/gravel|ballast|rock|caliche|hardpan|lag/.test(n)) return 'gravel';
   return 'dirt';
 }
+
+
+
 
 
 
@@ -29269,6 +29415,9 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
 // carry walled rooms becomes one open plate with a perimeter entrance.
 
 
+
+
+
 /* ==== WHAT IS IN THE ROOM (inlined verbatim) ==== */
 /* ==== engine/bohemia_furnish.js ==== */
 /* inlined verbatim by tools/bohemia_city_furnish_patch.py. The banner above is one line on purpose: see the note in that tool. */
@@ -29958,70 +30107,7 @@ function cityFightCount(){
   var f=INSIDE.foot, area=Math.max(1,(f.w|0)*(f.h|0));
   var n=Math.round(FIGHT_MIN+(FIGHT_MAX-FIGHT_MIN)*Math.min(1,area/144));
   return Math.max(FIGHT_MIN,Math.min(FIGHT_MAX,n)); }
-/* ==== __THE_FIGHT_GETS_THE_ROOM__ ====================================================
-   THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. The encounter handoff described the room as
-   `{w, h, zone}` -- two numbers and a label -- and its own comment said why: walls as cover
-   and doorways as chokepoints "belong to the teardown spec, WHICH DOES NOT EXIST". It exists
-   now (records/BOHEMIA_RF4_TEARDOWN_SPEC.md, 8/18), so this is the seam that was left.
 
-   It is also the purest form of the thing the RF4 lift §6 warns about: this lane spent a day
-   making the floor mean something -- cover you can get behind, ground that kills or slows,
-   a measured retreat guarantee -- and at the moment a fight starts, combat got a BOX. Every
-   one of those systems was invisible exactly where it was built to matter.
-
-   ONE CHARACTER PER CELL, row-major, because this crosses postMessage. THE LEGEND RIDES IN
-   THE PAYLOAD: combat never has to guess what a character means, and a change here cannot
-   silently mean something else on the other side.
-
-   THIS IS NOT COMBAT CODE. It decides nothing about the fight. COMBAT owns what to do with
-   cover, chokepoints and a retreat number; WORLD owns making the room legible. Seam only. */
-function cityFightRoom(fp,f){
-  var out={w:(fp&&fp.W)||f.w, h:(fp&&fp.H)||f.h, zone:INSIDE.zone||null};
-  try{
-    if(!fp||!fp.grid) return out;
-    var floor='',cover='',ground='',doors=[],x,y;
-    for(y=0;y<fp.H;y++){
-      for(x=0;x<fp.W;x++){
-        var c=fp.grid[y][x]||{};
-        var isDoor=(c.door===true||c.g==='door');
-        /* FLOOR: a body may stand here. Furniture blocks, walls block, doorways do not. */
-        var blocked=(c.furn&&(c.furn.cls==='cover'||c.furn.cls==='low')) ||
-                    (c.g==='wall'&&!isDoor);
-        floor+=blocked?'#':((c.g==='floor'||isDoor||c.kind==='stair')?'.':'#');
-        /* COVER: only chest-to-head hides you. A low piece blocks the body and NEVER the
-           look, because there is no crouch in this game and a sofa cannot hide you. */
-        cover+=(c.furn?(c.furn.cls==='cover'?'C':(c.furn.cls==='low'?'l':'.')):'.');
-        /* GROUND: the hazard classes. Interiors carry none today -- the channel ships
-           anyway so combat reads ONE shape indoors and out, and the day an outdoor fight
-           exists it is already wired rather than needing another seam. */
-        var hz='.';
-        try{ if(typeof BohemiaHazard!=='undefined'&&c.terrain){
-          var k=BohemiaHazard.classOf(c.terrain,(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:null);
-          hz=(k==='KILLS')?'K':(k==='AMPLIFIES')?'A':(k==='DISABLES')?'D':'.'; } }catch(_e){}
-        ground+=hz;
-        if(isDoor) doors.push([x,y]);
-      }
-    }
-    out.floor=floor; out.cover=cover; out.ground=ground; out.doors=doors;
-    /* THE RETREAT OBLIGATION, MEASURED FOR THIS ACTUAL ROOM. The single most useful number
-       combat can be handed: can every cell reach somewhere it cannot be seen from. */
-    try{ if(typeof BohemiaRetreat!=='undefined'){
-      var m=BohemiaRetreat.measure(fp);
-      out.retreat={ok:!!m.ok, cells:m.cells, stranded:m.noBreak.length, worst:m.worst,
-                   loops:m.loops, pinches:m.pinches};
-    } }catch(_e){}
-    out.legend={
-      floor:{'.':'a body may stand here','#':'blocked'},
-      cover:{'.':'nothing','C':'chest-to-head: blocks the body AND the line of sight',
-             l:'knee-to-waist: blocks the body, NEVER the line of sight (there is no crouch)'},
-      ground:{'.':'nothing','K':'kills outright on FORCED entry only (knocked or charging in)',
-              A:'+50% physical damage taken (unstable footing)',
-              D:'no sprinting and no movement abilities (standing liquid)'},
-      order:'row-major, w characters per row'
-    };
-  }catch(_e){}
-  return out;
-}
 /* ==== THE RETREAT MEASURE (inlined verbatim) ==== */
 /* ==== engine/bohemia_retreat.js ==== */
 /* inlined verbatim by tools/bohemia_city_fightroom_patch.py -- the encounter payload carries the retreat obligation for the actual room, so it has to be measurable HERE and not only in a gate. */
@@ -30296,6 +30382,86 @@ function cityFightRoom(fp,f){
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE RETREAT MEASURE ==== */
+
+/* __FR_S__ */
+/* ==== __THE_FIGHT_GETS_THE_ROOM__ ====================================================
+   THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. The encounter handoff described the room as
+   `{w, h, zone}` -- two numbers and a label -- and its own comment said why: walls as cover
+   and doorways as chokepoints "belong to the teardown spec, WHICH DOES NOT EXIST". It exists
+   now (records/BOHEMIA_RF4_TEARDOWN_SPEC.md, 8/18), so this is the seam that was left.
+
+   It is also the purest form of the thing the RF4 lift §6 warns about: this lane spent a day
+   making the floor mean something -- cover you can get behind, ground that kills or slows,
+   a measured retreat guarantee -- and at the moment a fight starts, combat got a BOX. Every
+   one of those systems was invisible exactly where it was built to matter.
+
+   ONE CHARACTER PER CELL, row-major, because this crosses postMessage. THE LEGEND RIDES IN
+   THE PAYLOAD: combat never has to guess what a character means, and a change here cannot
+   silently mean something else on the other side.
+
+   THIS IS NOT COMBAT CODE. It decides nothing about the fight. COMBAT owns what to do with
+   cover, chokepoints and a retreat number; WORLD owns making the room legible. Seam only. */
+function cityFightRoom(fp,f){
+  var out={w:(fp&&fp.W)||f.w, h:(fp&&fp.H)||f.h, zone:INSIDE.zone||null};
+  try{
+    if(!fp||!fp.grid) return out;
+    var floor='',cover='',ground='',doors=[],x,y;
+    for(y=0;y<fp.H;y++){
+      for(x=0;x<fp.W;x++){
+        var c=fp.grid[y][x]||{};
+        var isDoor=(c.door===true||c.g==='door');
+        /* FLOOR: a body may stand here. Furniture blocks, walls block, doorways do not. */
+        var blocked=(c.furn&&(c.furn.cls==='cover'||c.furn.cls==='low')) ||
+                    (c.g==='wall'&&!isDoor);
+        floor+=blocked?'#':((c.g==='floor'||isDoor||c.kind==='stair')?'.':'#');
+        /* COVER: only chest-to-head hides you. A low piece blocks the body and NEVER the
+           look, because there is no crouch in this game and a sofa cannot hide you. */
+        cover+=(c.furn?(c.furn.cls==='cover'?'C':(c.furn.cls==='low'?'l':'.')):'.');
+        /* GROUND: the hazard classes. Interiors carry none today -- the channel ships
+           anyway so combat reads ONE shape indoors and out, and the day an outdoor fight
+           exists it is already wired rather than needing another seam. */
+        var hz='.';
+        try{ if(typeof BohemiaHazard!=='undefined'&&c.terrain){
+          var KK=(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:null;
+          var k=BohemiaHazard.classOf(c.terrain,KK);
+          hz=(k==='KILLS')?'K':(k==='AMPLIFIES')?'A':(k==='DISABLES')?'D':'.';
+          /* 'V' OUTRANKS 'K' AND THE DIFFERENCE IS NOT COSMETIC (8/20). Both kill on forced
+             entry, but a K is ground a body can walk onto and choose to stand on, and a V
+             is a HOLE -- it cannot be pathed into at all, and it does not stop a body that
+             is thrown at it. Told apart, a push into a V is a kill and a push into a wall
+             beside it is a bump; conflated, combat would either path somebody into a shaft
+             or treat the shaft as a wall, and those are the only two ways to get this
+             wrong. So the payload says which it is instead of making combat infer it. */
+          if(BohemiaHazard.isVoid && BohemiaHazard.isVoid(KK,c.terrain)) hz='V';
+        } }catch(_e){}
+        ground+=hz;
+        if(isDoor) doors.push([x,y]);
+      }
+    }
+    out.floor=floor; out.cover=cover; out.ground=ground; out.doors=doors;
+    /* THE RETREAT OBLIGATION, MEASURED FOR THIS ACTUAL ROOM. The single most useful number
+       combat can be handed: can every cell reach somewhere it cannot be seen from. */
+    try{ if(typeof BohemiaRetreat!=='undefined'){
+      var m=BohemiaRetreat.measure(fp);
+      out.retreat={ok:!!m.ok, cells:m.cells, stranded:m.noBreak.length, worst:m.worst,
+                   loops:m.loops, pinches:m.pinches};
+    } }catch(_e){}
+    out.legend={
+      floor:{'.':'a body may stand here','#':'blocked'},
+      cover:{'.':'nothing','C':'chest-to-head: blocks the body AND the line of sight',
+             l:'knee-to-waist: blocks the body, NEVER the line of sight (there is no crouch)'},
+      ground:{'.':'nothing','K':'kills outright on FORCED entry only (knocked or charging in)',
+              V:'a VOID -- a hole. Kills on forced entry like K, and unlike K it cannot be '
+                +'walked into at all and does not block a body thrown into it. Never path '
+                +'anything here; a push into it is a kill, not a bump.',
+              A:'+50% physical damage taken (unstable footing)',
+              D:'no sprinting and no movement abilities (standing liquid)'},
+      order:'row-major, w characters per row'
+    };
+  }catch(_e){}
+  return out;
+}
+/* __FR_E__ */
 function cityFightOnEnter(){
   if(!INSIDE||!cityFightRoll())return false;
   if(!(window.parent&&window.parent!==window))return false;
@@ -30504,6 +30670,9 @@ function renderInside(){
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
     }
   }
+
+
+
 
 
 /* ==== __FURNITURE_PASS__ -- what you can get behind ==== */

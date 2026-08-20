@@ -147,7 +147,7 @@
     "y": 2183,
     "zoom": 30
    },
-   "kb": 217,
+   "kb": 243.1,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -175,7 +175,7 @@
     "y": 900,
     "zoom": 26
    },
-   "kb": 141.4,
+   "kb": 144.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -239,6 +239,20 @@
    "stamp": "8/19/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_vision_picture.js"
+  },
+  {
+   "id": "the-hole",
+   "title": "THE HOLE: ground you can be thrown into",
+   "caption": "The crest of a quarry bench. Until 8/20 this was a WALL -- the deepest hole in the valley was something you bounced off. It is a void now: you cannot walk into it, it does not stop a body thrown at it, and being knocked in is fatal. Drawn darker than the rock it is cut from, because a drop reads as a floor at a different value. RUN tab.",
+   "file": "look/the-hole.png",
+   "at": {
+    "x": 2706,
+    "y": 5280,
+    "zoom": 30
+   },
+   "kb": 235.8,
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   }
  ]
 }

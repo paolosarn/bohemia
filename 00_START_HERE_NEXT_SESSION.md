@@ -1,3 +1,61 @@
+WORLD (world-9lfjtf): 8/20 (b) LATEST -- *** THE DEEPEST HOLES IN THE VALLEY WERE WALLS YOU
+BOUNCED OFF. TABS: RUN (walk a quarry rim or a reclaim pond), LOOK (the picture is called
+THE HOLE). Nothing here needs judging. ***
+
+The world had TWO answers for a tile -- you stand on it, or you bump into it -- and the four
+most genuinely lethal pieces of ground in it needed a THIRD:
+
+    quarry:7   bench lip / crest      the top of a cut face
+    gypsum:7   bench lip / crest      the same, in raw white gypsum
+    intake:13  intake shaft / main    the shaft down to the tunnel
+    reclaim:6  crusted pond centre    "hard enough to walk on and not hard enough to trust"
+
+All four were kind:'structure', which DEFAULTS SOLID, so the game modelled the deepest holes
+in the valley as walls. AND IT COST THE WHOLE FEATURE, not just the tiles: the hazard sweep
+admitted a tile only if a body could STAND on it, and his own KILLS clause is "an enemy
+KNOCKED or CHARGING in dies outright" -- a body that is knocked in is BY DEFINITION somewhere
+it could not have walked. So all four matched the KILLS rule BY NAME and all four were
+classified as NOTHING. The rule was right, the tiles were right, and the gate between them
+threw them away in silence.
+
+THE THIRD STATE IS A VOID: does not block (a body thrown at it goes in), cannot be walked
+into (nothing paths there by choice). CONSENT is the test, not depth, which is his own rule.
+
+    KILLS membership   4 tiles / 3 districts  ->  8 tiles / 7 districts
+    voids in the world 0                      ->  2,405 CELLS, all behaving
+                       (reclaim:6 x1683, intake:13 x355, quarry:7 x207, gypsum:7 x160)
+
+Every one is checked against THREE claims because they are three promises to three readers:
+it refuses a body (pathing), it SAYS it is a hole (combat -- a cell that refuses you without
+saying why is indistinguishable from a wall), and it is DRAWN DARKER than the rock it is cut
+from (him). That third one exists because of the mountain on 8/18: every flag correct, every
+number green, 927 cells rendering as brickwork. Both mutations bite.
+
+FOR COMBAT: the fight-room ground channel gains 'V', and V outranks K on purpose. Both kill
+on forced entry; a K is ground you can choose to stand on, a V cannot be pathed into at all
+and does not stop a body thrown at it. Conflate them and you either path somebody into a
+shaft or treat the shaft as a wall. WHAT A KNOCKBACK DOES THERE IS YOURS, not mine.
+
+AND gypsum:7 meant TWO THINGS -- bench lip AND dome shell, an edge you go over and a
+hemisphere you bump into, sharing one number, so it could be neither. Dome is code 15 now.
+
+  records/BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md   the finding
+  tools/bohemia_city_void_patch.py                  on the surface
+  gates/hazard_gate.js 74 · gates/occupancy_gate.js 16 · both mutation-confirmed
+
+*** AND TWO OF MY OWN PATCH TOOLS COULD NOT RE-RUN, WHICH IS THE SAME DISEASE AS 8/20 (a). ***
+bohemia_city_fightroom_patch.py and bohemia_city_occupancy_patch.py both opened with
+`if MARK in src: print("already applied"); exit(0)`. From the moment each landed in a commit
+its output FROZE: every later edit did nothing to the page while the tool reported SUCCESS.
+Not hypothetical -- the 'V' character was added, the tool run, it said applied, and it was
+not on the surface. Both reverse properly now, and the fight-room one also cuts the LEGACY
+unmarked block, because cutting only the marked form left the old copy and produced TWO
+`function cityFightRoom` definitions in one file with the browser running the last.
+If you write a patch tool: reverse-then-apply, cut inserts BY MARKER, and keep every
+historical form of an inserted block so an older page can still be reversed.
+
+WORLD (world-9lfjtf): 8/20 (a) -- *** SEVENTEEN ENGINE MODULES ON THE WALKED PAGE
+
 CHARACTER (character-0lurbs): 8/20 (a) LATEST -- *** ONE OF THE FLEET'S 29 REDS WAS
 MINE AND IT IS CLEARED. AND A TOOL IN ANOTHER LANE DOES NOT PARSE AT ALL. ***
 NO TAB, and no build stamp bump: nothing player-facing moved this turn, on purpose.
@@ -188,13 +246,35 @@ count is cross-checked against the standable cells in the map, two independent c
 room. Flatten cover into one character and it goes red; make the map forget that furniture
 blocks and it names the coordinates.
 
+*** FOR THE OTHER WORLD SESSION (landmarks/roads) -- MEASURED, NOT FIXED, BECAUSE IT IS
+YOUR MODULE AND YOU ARE ACTIVELY IN IT. *** gates/drive_network_gate.js is RED and the debt
+ratchet went BACKWARDS (disconnected 22 -> 25, hairline 4 -> 5). All five regressions are the
+five districts engine/bohemia_landmarks.js shipped on 8/19, none of which were held to the
+7/31 RULE NUMBER ONE. Measured at seed 11, streets ['S'], drive-surface components:
+
+    convention   99.7% reachable   5 components, 2 slivers of 2 tiles stranded
+    fort         52.9% reachable   2 components: 99 (touches edge) + 88 STRANDED
+    prison        9.6% reachable   2 components: 1650 STRANDED + 176 (touches edge)
+                                   -- the whole service road is cut off from the street
+    dam           0.0% reachable   239 tiles, ONE component, touches NO edge, and 0% of its
+                                   lanes are wide enough to drive (the crest road is 1 tile)
+    minigp        0.0% reachable   4941 tiles (circuit + pit lane), touches NO edge at all
+
+A dam crest road and a racing circuit are private surfaces, but a car still has to GET to
+them -- a paddock gate, an abutment access road -- so all five are genuine, not excusable as
+"a runway is not reached from a kerb". I did not touch them: ONE SYSTEM, ONE SESSION, and
+fixing them means designing access roads inside a module you shipped yesterday.
+
 WHAT COMES NEXT FOR THIS LANE, in order:
+  0. THE VALLEY STILL HAS NO WALKABLE RUBBLE FIELD (gap 1 of the 8/18 hazard record, the
+     last one still open). Every rubble/debris tile in six districts is a PROP, and the
+     AMPLIFIES class exists for exactly that ground. A ground-layer rubble tile is a
+     district-generator job and it is MINE.
   1. THE HAZARD CHANNEL IS EMPTY INDOORS because floorplans carry no terrain. When an
      OUTDOOR fight exists, the ground channel wants the district's hazard classes -- the
      wiring is already shaped for it, it just has nothing to say inside a house.
-  2. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
-     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
-  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  2. [DONE 8/20 (b)] the fatal drops are VOIDS now -- see the top of this file.
+  3. [DONE 8/20 (b)] gypsum:7 split; the dome shell is code 15.
   4. THE ROADS ARE THE LAST PARAMETRIC SURFACE -- arterial/freeway/rail/interchange still
      draw from a four-number XSEC table, the way terrain drew from ten rectangles until
      yesterday. NOT MINE: it is the other WORLD session's ground (they did the Strip 8/18).
