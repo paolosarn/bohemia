@@ -102,13 +102,32 @@ const iSep = src.indexOf('_SEPMAP');
 /* the CALL is what must come last inside buildFrame; the definition can live
    anywhere. `if(CHAR_OUTLINE.on && !_noOutline)` is that call site. */
 const iPass = src.indexOf('if(CHAR_OUTLINE.on');
-const iRet = src.indexOf('  return {px,CW,CH};');
+/* FIND THE RETURN, DO NOT SPELL IT (8/20). This was `indexOf('  return
+   {px,CW,CH};')` -- an exact literal, two leading spaces and all -- so when
+   buildFrame started returning `{px,CW,CH,grid}` (additive, documented, another
+   lane's work, and correct) indexOf came back -1 and a true clause reported
+   false. Same shape as the four CRAFT LAW clauses that went red at the 4X hair
+   refactor: the ruler was reading characters, not behaviour. Match the RETURN,
+   whatever it carries. */
+const mRet = src.slice(iPass).match(/\n\s*return\s*\{[^{}]*\};/);
+const iRet = mRet ? iPass + mRet.index : -1;
 ok('the outline runs AFTER the final floater cull, so it never outlines a dead speck',
   iFloater > 0 && iPass > iFloater);
 ok('the outline runs AFTER the limb separation line, so nothing composites over it',
   iSep > 0 && iPass > iSep);
-ok('the outline is the LAST thing before the frame is returned',
-  iRet > iPass && (iRet - iPass) < 2200);
+/* AND THE CLAUSE IS THE INVARIANT, NOT A BYTE BUDGET. It used to be
+   `(iRet - iPass) < 2200` -- a distance, which passes for any 2,199 bytes of
+   whatever, including a compositing pass that would draw straight over the
+   border. What "LAST thing" actually means is that NOTHING EXECUTES between the
+   outline call and the return. So strip the comments and check there is nothing
+   left. A doc block may grow to any length; a statement may not appear at all. */
+const between = iRet > iPass
+  ? src.slice(src.indexOf('\n', iPass), iRet)
+      .replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '').trim()
+  : 'THE RETURN WAS NOT FOUND';
+ok('the outline is the LAST thing before the frame is returned -- nothing '
+  + 'executes after it' + (between ? ' (found: ' + between.slice(0, 90) + ')' : ''),
+  iRet > iPass && between === '');
 
 /* ---- the tool ---------------------------------------------------------- */
 ok('the patch tool anchors the flag on buildFrame, not on RIGID',

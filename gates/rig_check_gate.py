@@ -38,6 +38,8 @@ THE THREE THINGS IT LOCKS, matching the law's own numbered clauses:
 import glob
 import os
 import re
+import json
+import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
@@ -193,8 +195,15 @@ def balanced(s, i):
     return s[i:]
 
 
+# SEE THROUGH A WRAPPER CALL (8/20, RUN lane, red sweep). This scanned for
+# `const NAME = {`, so the moment the rig was wrapped -- `const BAKED=RIG2X({...})`,
+# the 2X pass, additive and shape-preserving -- BAKED became invisible to the scan
+# and "no third anatomy" reported `found: BAKED_EDITS`. The rig was fine; the ruler
+# could not see it. Fifth gate today red at a legitimate refactor rather than at a
+# regression, and the craft law's own words apply: FIX THE RULER, NEVER THE TARGET.
+# An optional single call wrapper is allowed; the body it wraps is still the body.
 bodies = []
-for m in re.finditer(r'(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*\{', src):
+for m in re.finditer(r'(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:[A-Za-z_$][\w$]*\()?\s*\{', src):
     obj = balanced(src, src.index('{', m.start()))
     if len(sig.findall(obj)) >= 5 and coord.search(obj):
         bodies.append(m.group(1))
@@ -205,10 +214,11 @@ check('ONE painted rig, plus his edits ON it -- no third anatomy',
       'found: %s' % ', '.join(sorted(set(bodies))))
 
 # the rig itself is whole
-m = re.search(r'const BAKED=(\{.*?\});?\n', src, re.S)
+# ...and the same wrapper here, for the same reason.
+m = re.search(r'const BAKED=\s*(?:[A-Za-z_$][\w$]*\()?\s*(\{)', src)
 check('BAKED is present in the alpha', bool(m))
 if m:
-    baked = m.group(1)
+    baked = balanced(src, m.start(1))
     check('BAKED.pose carries all 8 facings',
           len(re.findall(r'"(?:S|SE|E|NE|N|NW|W|SW)"\s*:', baked)) >= 8)
     for j in ['neck', 'shL', 'shR', 'handL', 'handR', 'headTop', 'footA', 'footB']:
@@ -240,6 +250,61 @@ check('and BAKED is never overwritten by the resolved package',
       not re.search(r'\bBAKED\s*=\s*(?:BODY_PKG|BOH_BODYVAR|BOH_AGE)\b', src))
 check('the rest grid the art was painted at is BAKED.skeleton',
       bool(re.search(r'skeleton\s*:\s*BAKED\.skeleton', src)))
+
+# ---------------------------------------------------------------------------
+# THE WRAPPER THE RIG NOW WEARS HAS TO BE HARMLESS, AND NOTHING CHECKED THAT.
+# RIG LAW: "Paolo's painted regions are SACROSANCT: never reshape, mesh, mirror,
+# or 'fix' region geometry. Ever." BAKED is now `RIG2X({...})` -- a scaler that
+# runs over every painted pixel of his rig on every boot -- and there was no
+# gate on it at all. A transform that quietly dropped, merged or re-ordered a
+# region would be the single worst thing that could happen to this repo's art
+# and the suite would have said nothing.
+#
+# So RUN IT. Not a regex over RIG2X's source -- the whole lesson of today's
+# sweep is that reading characters is not checking behaviour. Feed it a rig
+# whose answer is known by hand and compare every pixel.
+_rig2x = re.search(r'function RIG2X_dblList[\s\S]*?\nfunction RIG2X\(baked\)\{[\s\S]*?\n\}', src)
+check('the rig scaler RIG2X is findable to run', bool(_rig2x))
+if _rig2x:
+    probe = _rig2x.group(0) + """
+    const IN = { W:4, H:4, layers:{ S:{ '1':[0,5], '2':[10] } },
+                 skeleton:{ S:{ shL:[1,2] } }, pose:{ S:{ shL:[3,1] } },
+                 layerOverride:'keepme', swingAmt:7 };
+    const OUT = RIG2X(IN);
+    const dbl = i => { const x=i%4, y=(i/4)|0, X=x*2, Y=y*2;
+      return [Y*8+X, Y*8+X+1, (Y+1)*8+X, (Y+1)*8+X+1]; };
+    const want1 = [].concat(dbl(0), dbl(5)), want2 = dbl(10);
+    const got1 = OUT.layers.S['1'], got2 = OUT.layers.S['2'];
+    const same = (a,b) => a.length===b.length && a.every((v,i)=>v===b[i]);
+    console.log(JSON.stringify({
+      dims:      OUT.W===8 && OUT.H===8,
+      /* EVERY painted pixel becomes exactly its own 2x2 block: none dropped,
+         none merged, none moved to another region, order preserved */
+      shape:     same(got1, want1) && same(got2, want2),
+      /* and the regions stay SEPARATE -- a scaler that let region 1 and region
+         2 bleed into each other would be reshaping his painted art */
+      disjoint:  got1.every(v => !got2.includes(v)),
+      count:     got1.length === 2*4 && got2.length === 1*4,
+      joints:    OUT.skeleton.S.shL[0]===2 && OUT.skeleton.S.shL[1]===4
+                 && OUT.pose.S.shL[0]===6 && OUT.pose.S.shL[1]===2,
+      /* it must carry his dials through untouched rather than defaulting them */
+      carries:   OUT.layerOverride==='keepme' && OUT.swingAmt===7,
+    }));
+    """
+    try:
+        r = subprocess.run(['node', '-e', probe], capture_output=True, text=True, timeout=60)
+        got = json.loads(r.stdout.strip().split('\n')[-1])
+    except Exception as _e:
+        got = {'ran': False, 'why': str(_e)}
+    check('RIG2X SCALES HIS PAINTED ART AND RESHAPES NOTHING -- proved by running '
+          'it on a rig whose answer is known by hand, never by reading its source',
+          got.get('shape') and got.get('disjoint') and got.get('count')
+          and got.get('dims'), str(got))
+    check('...and it doubles the skeleton and the pose with it, so the joints '
+          'still land on the same anatomy',
+          bool(got.get('joints')), str(got))
+    check('...and it carries his dials through instead of defaulting them',
+          bool(got.get('carries')), str(got))
 
 print('=== %d passed / %d failed ===' % (passed, len(failed)))
 if failed:
