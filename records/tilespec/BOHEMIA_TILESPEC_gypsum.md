@@ -40,7 +40,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 4 | `#9a9282` | quarry floor | ground | the white working floor, gypsum dust over every surface on the site | ground | no | — | 3658 |
 | 5 | `#c79a3f` | gate | gate | the plant gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#c2b9a4` | gypsum bench | structure | a cut bench of raw gypsum, so pale it reads white at any hour | structure | yes | — | 1216 |
-| 7 | `#d2cab6` | bench lip / dome shell | structure | the crest of a bench — or the shell of the storage dome, a hemisphere of shotcrete | structure | yes | — | 520 |
+| 7 | `#d2cab6` | bench lip / crest | structure | the crest of a bench of raw gypsum, the edge crumbling white where nobody has scaled it | structure | no | — | 160 |
 | 8 | `#3f8076` | pit water | water-dead | water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust | ground | no | — | 1682 |
 | 9 | `#8f8676` | pole light | prop | a plant yard light, head dark, on a site that made its own power and still went out | prop | yes | — | 3 |
 | 10 | `#a89f8c` | stockpile | prop | a cone of milled rock waiting for a calciner that stopped | prop | yes | — | 2960 |
@@ -48,6 +48,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | perimeter fence | structure | the plant fence, which stops at the quarry line because nobody fences a cliff | structure | yes | — | 405 |
 | 13 | `#6b6154` | conveyor run | structure | the mobile conveyor that carried ore straight from the quarry into the plant | structure | yes | — | 364 |
 | 14 | `#8a8478` | calciner stack / dome crown | structure | the calciner stack, and the crown vent at the top of the storage dome | structure | yes | — | 180 |
+| 15 | `#b6b2a8` | dome shell | structure | the shell of the monolithic storage dome, a hemisphere of shotcrete over rebar, the one curved roof in the valley | structure | yes | — | 360 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

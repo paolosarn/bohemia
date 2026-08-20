@@ -42,7 +42,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [cityhall](tilespec/BOHEMIA_TILESPEC_cityhall.md) | civic | 28 | yes |
 | [battery](tilespec/BOHEMIA_TILESPEC_battery.md) | infrastructure | 14 | yes |
 | [terminal](tilespec/BOHEMIA_TILESPEC_terminal.md) | infrastructure | 23 | yes |
-| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 18 | yes |
+| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 17 | yes |
 | [freeway](tilespec/BOHEMIA_TILESPEC_freeway.md) | infrastructure | 18 | yes |
 | [desert](tilespec/BOHEMIA_TILESPEC_desert.md) | terrain | 14 | yes |
 | [mountain](tilespec/BOHEMIA_TILESPEC_mountain.md) | terrain | 10 | — |
@@ -56,7 +56,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [ballpark](tilespec/BOHEMIA_TILESPEC_ballpark.md) | leisure | 15 | yes |
 | [airbase](tilespec/BOHEMIA_TILESPEC_airbase.md) | infrastructure | 18 | yes |
 | [arsenal](tilespec/BOHEMIA_TILESPEC_arsenal.md) | industrial | 15 | yes |
-| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 18 | yes |
+| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 17 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
 | [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 16 | yes |
 | [convention](tilespec/BOHEMIA_TILESPEC_convention.md) | civic | 16 | yes |
@@ -65,7 +65,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [fort](tilespec/BOHEMIA_TILESPEC_fort.md) | civic | 15 | yes |
 | [fueldepot](tilespec/BOHEMIA_TILESPEC_fueldepot.md) | industrial | 15 | yes |
 | [granary](tilespec/BOHEMIA_TILESPEC_granary.md) | industrial | 15 | yes |
-| [gypsum](tilespec/BOHEMIA_TILESPEC_gypsum.md) | infrastructure | 15 | yes |
+| [gypsum](tilespec/BOHEMIA_TILESPEC_gypsum.md) | infrastructure | 16 | yes |
 | [intake](tilespec/BOHEMIA_TILESPEC_intake.md) | infrastructure | 15 | yes |
 | [minigp](tilespec/BOHEMIA_TILESPEC_minigp.md) | leisure | 15 | yes |
 | [prison](tilespec/BOHEMIA_TILESPEC_prison.md) | civic | 15 | yes |

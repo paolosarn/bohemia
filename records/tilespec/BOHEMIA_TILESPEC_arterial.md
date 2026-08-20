@@ -21,7 +21,7 @@ GENERATED from `engine/bohemia_arterial.js` (NOTES + LEGEND + PALETTE) — do no
 Traffic runs through on every connected direction (proven cell-edge to cell-edge by the gate). Pedestrians get a continuous DETACHED sidewalk that wraps every corner and crosses at the marked crosswalks; the walk is unbroken across the cell, so a body can walk from any district on one side to any district on the other.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.
+GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the bus stop shelter (13), the only mass on the cell -- the block wall was retired 8/20 under the 8/11 ruling that streets do not have walls. PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. There is no hard edge: the corridor is public ground out to the cell boundary, which is exactly where the next parcel begins, so a body can always cross.
 
 ### Decisions & rulings
 - CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
@@ -48,18 +48,17 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 436 |
 | 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | — |
 | 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 550 |
-| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 440 |
-| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 2530 |
-| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 1319 |
-| 8 | `#7a7266` | block wall | structure | six foot CMU block wall backing the tract, tagged and chipped | structure | yes | — | — |
+| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 428 |
+| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 1203 |
+| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 2605 |
 | 9 | `#8f8676` | streetlight | prop | cobra-head streetlight on the amenity strip, head dark | prop | yes | — | 1 |
-| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | — |
-| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | — |
+| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | 2 |
+| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | 32 |
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm on the corner, every head dark | prop | yes | — | — |
-| 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | — |
+| 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | 7 |
 | 14 | `#55555f` | dead car | vehicle | a car left at the curb, tyres flat, glass gone | prop | yes | — | — |
 | 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
-| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | — |
+| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | 12 |
 | 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

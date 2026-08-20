@@ -45,7 +45,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#a39a86` | valve vault cover | prop | a valve vault cover, a bollard, a level gauge | prop | yes | — | 936 |
 | 11 | `#c9c1aa` | marking | marking | elevation marks painted on the intake face — the record of the drop | ground | no | — | 32 |
 | 12 | `#6a6a72` | perimeter fence | structure | the works fence, running down the shore and stopping short of where the water is now | structure | yes | — | 455 |
-| 13 | `#7f776a` | intake shaft / main | structure | the shaft down to the tunnel, and the main leaving the pump house | structure | yes | — | 355 |
+| 13 | `#7f776a` | intake shaft / main | structure | the shaft down to the tunnel, and the main leaving the pump house | structure | no | — | 355 |
 | 14 | `#8a8478` | standpipe | structure | the standpipe beside the surge tank, the last vertical before the water | structure | yes | — | 75 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

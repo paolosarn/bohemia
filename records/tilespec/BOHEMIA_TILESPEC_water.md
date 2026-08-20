@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | open water | water-dead | what is left of the reservoir, flat and dead still | ground | no | — | 1839 |
+| 0 | `dead-dirt (kit ground)` | open water | water-dead | what is left of the reservoir, flat and dead still | ground | yes | — | 1839 |
 | 1 | `#3c6a76` | shallow water | water-dead | silty shallows over the drowned bed | ground | no | — | 1201 |
 | 2 | `#b8b09c` | bathtub ring | ground | the white mineral band on the rock marking where the water used to be | ground | no | — | 2619 |
 | 3 | `#8a8069` | exposed lakebed | ground | lakebed the water gave up, grey silt gone hard | ground | no | — | 2337 |

@@ -2,7 +2,7 @@
  "airbase": 21.9,
  "airport": 22.4,
  "apartment": 36.3,
- "arterial": 45.1,
+ "arterial": 29.1,
  "ballpark": 48.7,
  "battery": 38.8,
  "boneyard": 73.4,
@@ -17,7 +17,7 @@
  "drivein": 10,
  "farm": 81.9,
  "firestation": 43.1,
- "freeway": 45.8,
+ "freeway": 36.5,
  "golf": 18.4,
  "industrial": 49.2,
  "interchange": 71.4,
@@ -48,5 +48,6 @@
  "water": 88.8,
  "waterpark": 80.2,
  "watertreat": 82.1,
- "_note": "cityhall/courthouse/terminal/chapel re-baselined 8/2 AFTER the fact, not before: DISTRICT FILL flagged them dropping 0.5-5.9 points and the cause was 2fc2e3f \"NO CANOPIES: a ruling is not a design conversation\" -- Paolo removed canopies from the four civics. A floor exists to catch ACCIDENTAL emptying; a RULING re-baselines it. The gate did its job by making somebody look. The other 45 types are untouched."
+ "_note": "cityhall/courthouse/terminal/chapel re-baselined 8/2 AFTER the fact, not before: DISTRICT FILL flagged them dropping 0.5-5.9 points and the cause was 2fc2e3f \"NO CANOPIES: a ruling is not a design conversation\" -- Paolo removed canopies from the four civics. A floor exists to catch ACCIDENTAL emptying; a RULING re-baselines it. The gate did its job by making somebody look. The other 45 types are untouched.",
+ "_note_8_20_26_roads": "arterial 45.1 -> 29.1 and freeway 45.8 -> 36.5, re-baselined 8/20 under the SAME RULE the _note above set on 8/2: a floor exists to catch ACCIDENTAL emptying; A RULING RE-BASELINES IT. Both floors were measured on 8/2 and both counted content that PAOLO HIMSELF DELETED ON 8/11. ARTERIAL: the 8/2 cell was a thin ribbon of asphalt in 33 tiles per side of landscape setback behind a CMU block wall. He ruled 'the streets should FILL THE WHOLE FUCKING BOX ABSOLUTELY... THE STREETS DONT HAVE WALLS' and 'side a little then street', which took the setback and the wall out and put the roadway in their place -- 62.5% of the plot is now travel surface, and a street IS its vehicle surface (it is declared vehicular:true for exactly this reason). FREEWAY: the 8/2 cell carried an overpass deck and its bridge columns. He killed them on 8/11 -- 'the freeway overpass underpass shit... its looking god awfully terrible' -- and sent the deck to the INTERCHANGE, which still has it and is NOT re-baselined. A GATE MUST NEVER OUTRANK A RULING (8/1). Holding a road to a floor measured on a cross-section his own ruling deleted would make this gate an argument for putting the wall back, and the wall is what sealed the player into one cell on 8/19. THE NEW FLOORS ARE NOT THE OLD NUMBERS MINUS THE LOSS -- they are what the cells measure AFTER the 8/20 furnishing pass (records/BOHEMIA_THE_STREET_NOBODY_FURNISHED_8_20_26.md), which found five separate placements silently dropping every tile they made and fixed them. arterial went 19.6 -> 29.1 in that pass. The other 45 types are untouched, again."
 }

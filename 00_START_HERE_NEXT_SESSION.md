@@ -7960,7 +7960,75 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (a) LATEST -- *** THE COLOUR WAS NEVER THE BUG. FIVE
+WORLD (city-1eztay): 8/20 (b) LATEST -- *** THE STREET NOBODY FURNISHED. THE MOST
+WALKED CELL IN THE GAME HAD TWO OBJECTS ON IT, AND SIX PLACEMENTS WERE SILENTLY
+MAKING NOTHING. ***
+Tab: RUN (walk any mile-grid street). Also the top-down grid:
+      records/target/BOHEMIA_GRID_arterial.png
+Gates: DISTRICT FILL was one of the fleet's 29 reds. GREEN (53/0). New gate
+       LEGEND KEPT green (4/0). walked surface / tilespec / truncation / walkable
+       / landlocked / district kit all still green. City page RESYNCED, so the
+       walked surface actually carries this.
+
+The arterial is 2,434 of the valley's 9,216 cells, the grid every district fronts
+onto. Its legend declares EIGHTEEN kinds of tile; the generator was emitting SEVEN.
+No power poles, no street trees, no bus stop, no storm drain, no dead car, and not
+one inch of the yellow turn-pocket line -- the only yellow the LINE COLOR LAW allows
+on a street. All of that code EXISTED and RAN and produced nothing, for nine days.
+
+*** THE FINDING ANY LANE CAN USE, AND IT IS THE SAME ONE AS THE BLOCK WALL: A
+CONSTANT MOVED AND ITS DEPENDENTS STAYED BEHIND. *** Paolo 8/11 "the streets should
+FILL THE WHOLE FUCKING BOX" widened the pavement. That pushed BOX to 46 and squeezed
+the amenity band from 47..63 to 47..52, and then:
+  poles + trees  placed at offsets 56-61, which WAS setback and IS NOW SIDEWALK.
+                 put() only writes over the amenity code, so 100% were computed,
+                 handed over and dropped.
+  streetlights   guarded by |t-C| <= BOX -- a JUNCTION guard on a cell with no
+                 junction. BOX 46 eats 93 of 128 rows. That is where the two came from.
+                 The lane-striping loop FORTY LINES UP was already fixed for exactly
+                 this, with the comment "ONLY IF THERE IS ONE." The fix did not travel.
+  bus stop       range 26..85, guard needs <18 or >110. THE RANGE AND THE GUARD DO
+  dead car       range 20..99, guard needs <14 or >114.  NOT INTERSECT. Not rare --
+  turn pocket    needs ">= 47 and <= 30".                impossible, every seed, forever.
+A dead branch that USED TO BE LIVE is worse than one that never was: the code reads
+as working and the legend keeps promising what it makes.
+
+AND THE SIDEWALK WAS NINE METRES WIDE -- 18% of the cell, wider than two travel
+lanes, blank. A Clark County detached walk is FIVE FEET and nothing above ground may
+stand on it; the width belongs to the parkway, where the trees and poles are required
+to be. AMEN 52/WALK 63 -> AMEN 58/WALK 64: a 9 m planted parkway, a 4.5 m walk. That
+is also what he actually asked for -- "SIDE A LITTLE, THEN STREET" -- and 9 m of
+concrete is not "a little". Content 19.6% -> 29.0%.
+
+WHY DISTRICT FILL WENT GREEN, AND IT IS NOT THE FURNITURE (140 tiles cannot move a
+percentage). Both floors were measured 8/2 and both counted content HE DELETED ON
+8/11 -- arterial's setback and wall, freeway's overpass deck and columns ("its
+looking god awfully terrible"). The baseline file already carried the rule from the
+last time: "A floor exists to catch ACCIDENTAL emptying; a RULING re-baselines it."
+A GATE MUST NEVER OUTRANK A RULING. New floors are the post-furnishing numbers so
+they still ratchet. INTERCHANGE keeps its deck and is NOT re-baselined.
+
+The block wall (code 8) is DELETED from the arterial legend/palette/body/layering --
+leaving an entry called "block wall" in a STREET legend is an invitation to put back
+the thing that cut the reachable valley to 3 cells of 9,216.
+
+*** NEW GATE, AND IT HAS 55 MORE OF THESE WAITING: gates/legend_kept_gate.js ***
+Every tile a district DECLARES it must MAKE. Registry-wide: 55 of 1,071 declared
+tiles across 28 legend families are promises the world does not keep (mountain
+declares a ravine floor, boulders and an alluvial fan and builds none; the airport
+declares jet bridges and parks nothing). Ratcheted -- the debt may only SHRINK, and
+fixing one and leaving it listed FAILS TOO. Two things it is careful about, because
+a checker that cannot tell a mention from a use is the broken one: LEGENDS ARE SHARED
+(arterial+arterial_x are one legend; judged as a family, which took 82 findings down
+to 57) and CLUSTER MODES (a synthetic 3x3 block walked window by window, or the
+airport terminal never appears). The debt list says which of three things each entry
+is, because they have three different fixes: a ruling retired it (DELETE the legend
+entry, do not place the tile), the 0 safety floor (unplaced IS the success case), or
+a real unbuilt promise.
+Record: records/BOHEMIA_THE_STREET_NOBODY_FURNISHED_8_20_26.md
+Gate:   gates/legend_kept_gate.js
+
+WORLD (city-1eztay): 8/20 (a) -- *** THE COLOUR WAS NEVER THE BUG. FIVE
 DISTRICT ICONS YOU COULD NOT SEE ON THE MAP, AND THREE DIFFERENT REASONS. ***
 Tab: MAP (the valley aerial) and anywhere a district icon draws.
 Gates: SQUINT and HUE were 2 of the 29 reds in yesterday's full audit. BOTH GREEN.
