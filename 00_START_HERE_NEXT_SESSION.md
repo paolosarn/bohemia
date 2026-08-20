@@ -1,3 +1,68 @@
+SOUND (sound-xk7pjp): 8/20 (a,b) LATEST -- *** THE FIGHT BUILDS AS YOU KILL. A
+five-style intensity system Paolo commissioned on 7/3 that NOTHING IN THE GAME
+HAD EVER SWITCHED ON. TAB: RUN (get in a fight and kill two, then four).
+Nothing to judge. ***
+
+MUS.playStep has gated a second and third tier of arrangement behind sk>=2 and
+sk>=4 since 7/3, one intensification style per faction (drive/stabs/melody/
+drums/bassrise), built for his ruling: "the progression of four kills all sound
+like the same progression". The MUSIC tab even carries the control, labelled
+KILL LAYERS: CALM / 2 KILLS / 4 KILLS.
+
+THAT BUTTON WAS THE ONLY WRITER OF MUS.layers IN THE WHOLE ALPHA. One assignment,
+in that click handler, nothing else anywhere. So MUS.layers was 0 for the whole
+of every fight ever played and every fight ran flat, first shot to last. TENTH
+time this fleet has found that exact shape: a finished system, a published seam,
+no caller.
+
+NOW: BOHEMIA_SHOT_RESULT already carries outcome:'killshot'. Two kills lift to
+layer 2, four to layer 4 -- his own button's thresholds -- reset to CALM on
+encounter start AND on settle. THE LIFT LANDS ON THE BAR LINE (a part appearing
+mid-bar reads as a mistake, not as intensity), using the same pend/apply shape
+CITYMUS already uses.
+
+*** THE MEASUREMENT LESSON OF THIS TURN, and it is the useful part. ***
+I measured it wrong first. Rendering two bars per layer and comparing RMS gave
+differences of 1-3% -- about 0.25 dB, under the just-noticeable threshold -- which
+read like the whole lift was inaudible and nearly sent me changing working code.
+THE RULER WAS WRONG, not the feature: the parts that come in at higher layers are
+quiet hats, chips and clicks that add DENSITY, not loudness, which is exactly what
+vertical layering is FOR. Counting the parts that actually fire is exact and it is
+unambiguous:
+    VOLUNTEERS (drive)   19 ->  39 ->  63     (+232%)
+    NETWORK    (drive)   39 ->  59 ->  87
+    CHURCH     (melody)  11 ->  21 ->  29
+    REDS       (drums)   23 ->  29 ->  37     taiko at 2, ride+clap at 4
+    all 13 factions thicken at BOTH thresholds, no exceptions.
+WHEN A MEASUREMENT SAYS A THING IS BROKEN, CHECK THE RULER BEFORE THE THING.
+
+gates/fight_music_gate.py is now 38 checks (was 13 this morning). It plays a
+fight, kills five things, counts the parts, and its probe wraps synthV/drumV and
+PUTS THEM BACK in a finally. Mutation-proved three more ways this turn: cut the
+killshot wire -> 3 legs red; drop the bar-line hold -> the quantisation leg red;
+never reset -> the calm leg red.
+
+STALE BLOCKER CLOSED: records/BOHEMIA_SOUND_DEMO_BLOCKERS_8_9_26.md still listed
+"MENU MUSIC: does the front splash play?" as waiting on Paolo. It shipped 8/19.
+It was written the same day EVERYTHING IS A THUMB landed and is exactly the shape
+that law killed. Four blockers remain and ALL FOUR ARE HIS EAR on cooked
+candidates, not decisions -- so NOTHING IN THIS LANE BLOCKS THE DEMO.
+
+GATES: FIGHT MUSIC 38/0. MUSIC 20/0. MUSIC REACH 17/0. SFX RENDER 6106/0.
+SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0. ALPHA LOADS 20/0.
+FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE LAYERS ONLY GO UP. Nothing brings them down inside a long fight, and
+    nothing responds to DANGER (player HP, hostiles remaining) -- only to kills.
+    The research's other half is horizontal re-sequencing between intensity
+    tiers; the vertical half is now done.
+ 2. NO STING OUTSIDE COMBAT. Win and loss are done. A quest completing, a
+    district taken, a debt cleared all still pass in silence. `quest_done` is a
+    cooked SFX moment that is NOT APPROVED, so it plays nothing at all today.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine.
+
 RUN (run-eak241): 8/20 (k) LATEST -- *** THE WHOLE FIRST DAY IS PLAYABLE BY HAND
 NOW, AND NOTHING IS CALLED FOR HIM. Wake, take the job on the phone, walk to your
 own house, go in, choose, finish. TAB: RUN. ***
