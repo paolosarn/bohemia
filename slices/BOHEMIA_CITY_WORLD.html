@@ -35202,20 +35202,28 @@ function ctOpenClaim(fid){
    rest of the terms. Set once per card draw so the two cannot disagree. */
 var CT_NOTES_FOLDED = false;
 function ctNote(txt){ return (CT_NOTES_FOLDED || !txt) ? '' : ctRow('', txt); }
-function ctClaimRows(body, rule, fid, given){
-  if(typeof BohemiaClaim === 'undefined' || !rule || !fid) return body;
+/* __CITY_WORSTCARD__ -- IS THERE A CLAIM, AND OPEN ONE IF THE RUNG SAYS SO.
+   Lifted verbatim out of ctClaimRows because the terms fold needs the same
+   answer SIX ROWS EARLIER, and the first version asked a different question
+   (a pure read) and therefore always got null on the card that mattered.
+   ONE PLACE DECIDES. ctOpenClaim is already guarded by !openOf, so calling this
+   from higher up the same render opens nothing that was not about to open. */
+function ctClaimEnsure(rule, fid, given){
+  if(typeof BohemiaClaim === 'undefined' || !rule || !fid) return null;
   var sv = ctBelongSave(), day = (T && T.day) || 1;
   var c = BohemiaClaim.claimFor(rule, given, day, sv);
-  if(!c){
-    var idx = -1, bar = BohemiaBelonging.bargain(rule, given);
-    if(bar && bar.rung)
-      for(var i=0;i<BohemiaBelonging.RUNGS.length;i++)
-        if(BohemiaBelonging.RUNGS[i].word === bar.rung.word) idx = i;
-    if(idx >= BohemiaClaim.TRIGGER_RUNG && !BohemiaClaim.openOf(sv, rule.key))
-      ctOpenClaim(rule.key);
-    c = BohemiaClaim.claimFor(rule, given, day, sv);
-    if(!c) return body;
-  }
+  if(c) return c;
+  var idx = -1, bar = BohemiaBelonging.bargain(rule, given);
+  if(bar && bar.rung)
+    for(var i=0;i<BohemiaBelonging.RUNGS.length;i++)
+      if(BohemiaBelonging.RUNGS[i].word === bar.rung.word) idx = i;
+  if(idx >= BohemiaClaim.TRIGGER_RUNG && !BohemiaClaim.openOf(sv, rule.key))
+    ctOpenClaim(rule.key);
+  return BohemiaClaim.claimFor(rule, given, day, sv);
+}
+function ctClaimRows(body, rule, fid, given){
+  var c = ctClaimEnsure(rule, fid, given);   /* __CITY_WORSTCARD__ */
+  if(!c) return body;
   body += ctRow(c.ask, c.what);
   body += ctNote(c.askNote);          /* __CITY_NOTESFOLD__ */
   body += ctRow(c.dueWord, c.dueNote || 'TODAY.');
@@ -35579,7 +35587,8 @@ function ctDraw(){
          killed three things in this function already and order is a fact. */
       var ctFoldWant = bar.wantWord;
       try {
-        var ctFoldClaim = ctClaimOf(bRule, BohemiaBelonging.gaveOf(bState.sv, ctFid));
+        var ctFoldClaim = ctClaimEnsure(bRule, ctFid,
+                            BohemiaBelonging.gaveOf(bState.sv, ctFid));
         if(ctFoldClaim && String(ctFoldClaim.what) === String(bar.wantWord))
           ctFoldWant = null;
       } catch(_e){}

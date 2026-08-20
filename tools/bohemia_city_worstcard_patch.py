@@ -127,11 +127,20 @@ NEW_OWING = """  /* """ + MARKER + """ -- AND THIS ROW IS A NOTE BY ITS OWN NAME
 # redundant half -- the label THEIR TERMS plus the underlined affordance already
 # say exactly what is behind the fold.
 #
-# IT FAILS SAFE. ctClaimOf is a pure read of (rule, gave) with no side effects,
-# but ctClaimRows can OPEN a claim that was not open yet -- so this early read can
-# answer "no claim" for a row that later appears. When that happens the word stays
-# and nothing is lost; the only cost is a duplicate that was there before. It can
-# never remove a word the card then fails to print.
+# AND THE FIRST VERSION OF THIS WAS A FAIL-SAFE THAT ALWAYS FAILED.
+# It read ctClaimOf() -- a pure read -- and documented that ctClaimRows can OPEN a
+# claim that was not open yet, so an early read might answer "no claim" and keep
+# the word. That was written as a rare edge. Measured on the worst card: IT IS THE
+# ONLY PATH. The claim on that card is opened BY ctClaimRows, which runs after the
+# fold row, so the early read answered null every single time and the dedupe never
+# once fired. A18 caught it, and the honest fix is the code and not the claim.
+#
+# ONE PLACE DECIDES. ctClaimEnsure() is the get-or-open step lifted verbatim out of
+# ctClaimRows, which now calls it too -- so the fold row and the claim row can
+# never hold different opinions about whether there is a claim. ctOpenClaim is
+# already guarded by !openOf, so running it a few lines earlier in the same render
+# opens nothing that was not about to open anyway.
+# A "FAIL-SAFE" NOBODY MEASURED IS JUST A BRANCH YOU HAVE NOT READ.
 OLD_FOLDROW = """          + '<div class="k">THEIR TERMS</div><div class="v">'
           + '<span style="text-decoration:underline">' + bar.wantWord
           + ' &middot; tap to read</span></div></div>';"""
@@ -150,7 +159,8 @@ NEW_FOLDIF = """      /* """ + MARKER + """ -- is the live claim about to say th
          killed three things in this function already and order is a fact. */
       var ctFoldWant = bar.wantWord;
       try {
-        var ctFoldClaim = ctClaimOf(bRule, BohemiaBelonging.gaveOf(bState.sv, ctFid));
+        var ctFoldClaim = ctClaimEnsure(bRule, ctFid,
+                            BohemiaBelonging.gaveOf(bState.sv, ctFid));
         if(ctFoldClaim && String(ctFoldClaim.what) === String(bar.wantWord))
           ctFoldWant = null;
       } catch(_e){}
@@ -188,6 +198,49 @@ NEW_RUNG = """      /* """ + MARKER + """ -- ...and not when THE WALL is about t
              ? (' \\u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));"""
 
 
+# ---- 3b. ONE PLACE DECIDES WHETHER THERE IS A CLAIM -----------------------
+# Lifted verbatim out of ctClaimRows so the fold row and the claim row cannot
+# disagree. Same law as ctGiveCapped and BohemiaBelonging.record: one writer, one
+# answer. The three-spellings bug has bitten this codebase four times and it is
+# always the same shape -- two callers each deciding the same thing for themselves.
+OLD_ENSURE = """function ctClaimRows(body, rule, fid, given){
+  if(typeof BohemiaClaim === 'undefined' || !rule || !fid) return body;
+  var sv = ctBelongSave(), day = (T && T.day) || 1;
+  var c = BohemiaClaim.claimFor(rule, given, day, sv);
+  if(!c){
+    var idx = -1, bar = BohemiaBelonging.bargain(rule, given);
+    if(bar && bar.rung)
+      for(var i=0;i<BohemiaBelonging.RUNGS.length;i++)
+        if(BohemiaBelonging.RUNGS[i].word === bar.rung.word) idx = i;
+    if(idx >= BohemiaClaim.TRIGGER_RUNG && !BohemiaClaim.openOf(sv, rule.key))
+      ctOpenClaim(rule.key);
+    c = BohemiaClaim.claimFor(rule, given, day, sv);
+    if(!c) return body;
+  }"""
+NEW_ENSURE = """/* """ + MARKER + """ -- IS THERE A CLAIM, AND OPEN ONE IF THE RUNG SAYS SO.
+   Lifted verbatim out of ctClaimRows because the terms fold needs the same
+   answer SIX ROWS EARLIER, and the first version asked a different question
+   (a pure read) and therefore always got null on the card that mattered.
+   ONE PLACE DECIDES. ctOpenClaim is already guarded by !openOf, so calling this
+   from higher up the same render opens nothing that was not about to open. */
+function ctClaimEnsure(rule, fid, given){
+  if(typeof BohemiaClaim === 'undefined' || !rule || !fid) return null;
+  var sv = ctBelongSave(), day = (T && T.day) || 1;
+  var c = BohemiaClaim.claimFor(rule, given, day, sv);
+  if(c) return c;
+  var idx = -1, bar = BohemiaBelonging.bargain(rule, given);
+  if(bar && bar.rung)
+    for(var i=0;i<BohemiaBelonging.RUNGS.length;i++)
+      if(BohemiaBelonging.RUNGS[i].word === bar.rung.word) idx = i;
+  if(idx >= BohemiaClaim.TRIGGER_RUNG && !BohemiaClaim.openOf(sv, rule.key))
+    ctOpenClaim(rule.key);
+  return BohemiaClaim.claimFor(rule, given, day, sv);
+}
+function ctClaimRows(body, rule, fid, given){
+  var c = ctClaimEnsure(rule, fid, given);   /* """ + MARKER + """ */
+  if(!c) return body;"""
+
+
 def main():
     if not os.path.exists(CITY):
         sys.exit('FAIL: ' + CITY + ' not found')
@@ -198,6 +251,7 @@ def main():
     for old, new, what in ((OLD_TER, NEW_TER, 'the tertius call'),
                            (OLD_HEAR, NEW_HEAR, 'the empty-heard row'),
                            (OLD_OWING, NEW_OWING, 'the owing note'),
+                           (OLD_ENSURE, NEW_ENSURE, 'the claim head'),
                            (OLD_FOLDIF, NEW_FOLDIF, 'the fold condition'),
                            (OLD_FOLDROW, NEW_FOLDROW, 'the fold row'),
                            (OLD_RUNG, NEW_RUNG, 'the rung row')):
