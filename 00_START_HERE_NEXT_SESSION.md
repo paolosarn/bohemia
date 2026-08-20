@@ -1,3 +1,72 @@
+SOUND (sound-xk7pjp): 8/20 (f,g) LATEST -- *** THIRTY OF THE NINETY-TWO GAME
+MOMENTS MAKE NO SOUND. He killed every candidate for all of them, twice, AND NOT
+ONE OF THEM HAD A CALLER. TAB: RUN. Nothing to judge. ***
+
+    92 moments | 50 have an approved sound | 42 make none
+      7 DELIBERATELY DEAD (replaced by a newer id -- silence is correct)
+      5 waived to a verb that does not exist yet
+     30 REAL, PLAYABLE MOMENTS THAT MAKE NO SOUND
+
+Pairing each with its second-round replacement leaves TWELVE distinct moments.
+The verdicts, counted out of records/BOHEMIA_SFX_VERDICT_*.txt:
+    clear/clear_still 0 UP 65 DOWN | talk_start/turn_to_you 0/60
+    go_inside/cross_in 0/60 | quest_done/done_ring 0/60 | reload/mag_clack 0/55
+    breath/breath_out 0/55 | money/cash_count 0/55 | neon_buzz/neon_hum 0/55
+    dog_far/dog_cry 0/55 | step_glass/glass_crunch 0/55 | step_metal/deck_ring 0/55
+Two full rounds, ten candidates each, not one yes.
+
+*** AND NOT ONE HAD A WIRE. *** Grepped the alpha, the combat module and the city
+world for a call on any of those twenty-two ids: NOTHING, ANYWHERE. Broken at
+BOTH ends. If he approved a THE FIGHT IS OVER tomorrow it would still be silent,
+and it would look like a bad sound instead of a missing wire.
+
+I DID NOT COOK A THIRD ROUND -- two rejections end a feature for the session and
+that is what STOP PRODUCING is named after. I shipped the half that needs no
+thumb: THE CALLERS.
+  clear/clear_still -> the end of a fight
+  money/cash_count  -> a purse CREDIT (beside PAYSTING, which already sees it)
+  neon/dog          -> the rare outdoor ambience rotation, guarded exactly the
+                       way generator and wind_gust already were
+EVERY ONE IS A NO-OP TODAY BY DESIGN and the gate asserts it: play() is
+"unjudged = silent". Nothing sounds until he says yes; the day he does it works.
+
+NAMED FOR OTHER LANES so nobody re-derives it: go_inside + talk_start (city world
+/ dialogue runtime), reload (combat module), breath (needs a stamina signal that
+may not exist), step_glass + step_metal (the surface already in BOHEMIA_STEP).
+
+gates/silent_moments_gate.py (14 checks, REGISTERED) counts the silent moments
+every run with a CEILING not an equality -- the number going DOWN is the point of
+the lane, only a quiet increase is a defect -- and proves the wires by SPYING ON
+playSFX through a real encounter and a real state message. Its ambience leg is a
+SOURCE check and SAYS SO: AMB is inside a closure no probe can reach, and a check
+that cannot see its subject must admit which it is rather than quietly test
+nothing. Mutation-proved both ways.
+
+*** A BAD RULER NEARLY COST ME TWICE TODAY. *** This morning: RMS said the kill
+layers were inaudible (they add density, not loudness -- count the PARTS). This
+evening: my probe said the ambience rotation did not name the dog -- it reads
+AMB.pick.toString(), AMB is in a closure, the lookup threw, the catch returned ''
+and a regex on '' is false. Both times the patch was fine and the INSTRUMENT was
+broken. WHEN A MEASUREMENT SAYS A THING IS BROKEN, CHECK THE RULER FIRST.
+
+GATES: SILENT MOMENTS 14/0 (new). FIGHT MUSIC 47/0. SFX WIRED 842/0. SFX RENDER
+6106/0. MUSIC 20/0. MUSIC REACH 17/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** THE ONE DECISION WORTH HIS BREATH: TWELVE MOMENTS HAVE DIED TWICE AND
+    BOTH ROUNDS WERE RAW SYNTHESIS. *** Every moment that got an INSTRUMENT-backed
+    replacement lived -- miss -> miss_past (0/45 then 20 UP / 0 DOWN), round_land
+    -> dirt_take, nerve_break -> will_goes, wake_up -> come_up. Instruments run
+    48% approval against ~30% for raw synthesis, on his own thumbs. These twelve
+    have NEVER been offered one. That is not a third guess at the same thing, it
+    is the first application of the source that works -- but it IS a third round,
+    so it wants a deliberate decision rather than a tired one at the end of a
+    long session. THAT IS THE TOP ITEM.
+ 2. HORIZONTAL RE-SEQUENCING. The vertical half (kill layers) is done; moving
+    between whole intensity TIERS is the other half of the research.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+
 CHARACTER (character-0lurbs): 8/20 (b) LATEST -- *** A SECOND FLEET RED CLEARED, AND
 IT WAS CAUSED BY ONE SENTENCE I WROTE IN A COMMENT. *** #204 DRESS, now 46/0.
 NO TAB and no build stamp bump: nothing player-facing moved, on purpose.
