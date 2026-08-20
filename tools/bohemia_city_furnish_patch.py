@@ -88,31 +88,26 @@ for a_m, b_m, what in ((MARK, ENDMARK, 'module'), (DRAW_MARK, DRAW_END, 'draw pa
 # '/* ==== engine/x.js ==== */' on ONE line. A wrapped banner is an OPT-OUT from the
 # ENGINE SYNC LAW, not a style choice -- ten modules on this page sat outside the sweep
 # that way and one drifted a full week (8/15, and banner_gate.js exists because of it).
-# LAND AFTER THE WHOLE FLOORPLAN MODULE, NEVER BEFORE ITS BODY (8/20, WORLD lane).
-# This anchored on 'const BOH_FLOORPLAN=(function(){' and inserted BEFORE it -- which is
-# the line where that module's COMMENT HEADER ends and its CODE begins. So every run of
-# this tool cut engine/bohemia_floorplan.js in half and dropped 34,850 bytes of two other
-# modules into the wound. Nothing broke: both halves are top-level and the declaration is
-# intact, which is exactly why it survived. What died was BYTE-IDENTITY, and byte-identity
-# is the whole of the ENGINE SYNC LAW -- a sync sweep that cannot see a module split in
-# two is not enforcing anything. It took out four gates at once (INTERIORS, BANNER, QUEST
-# PLACEMENT and the resync tool's own UNRECOGNISED line) and the RUN lane had to write
-# tools/bohemia_unsplit_floorplan_patch.py to clean up after it. That tool fixes the
-# damage; this line is why the damage kept coming back.
-#
-# THE FIX IS TO ANCHOR ON THE MODULE, NOT ON A LINE INSIDE IT. Finding the canonical file
-# whole and landing past its end cannot split anything, and if the page is ALREADY split
-# the find fails and this refuses instead of making it worse -- which is the right answer,
-# because there is a tool for that and guessing is how this started.
-CANON = os.path.join(REPO, 'engine/bohemia_floorplan.js') if 'REPO' in dir() else 'engine/bohemia_floorplan.js'
-FLOORPLAN_SRC = open(CANON, encoding='utf-8').read()
-i = src.find(FLOORPLAN_SRC)
+# AND THE ANCHOR MUST BE THE MODULE, NOT ITS FIRST LINE OF CODE. This read
+# `const BOH_FLOORPLAN=(function(){` and inserted BEFORE it -- which is the point
+# immediately after the floorplan's comment header, so the furnish module landed
+# INSIDE the floorplan and CUT IT IN HALF. Measured 8/20: the city held the
+# floorplan's first 1,466 bytes at one address and its remaining 13,906 at
+# another, 34,850 bytes of two other modules between them. Everything still RAN
+# -- both halves are top-level -- so nothing looked broken; what died was
+# byte-identity, which is the whole of the ENGINE SYNC LAW, and it took INTERIORS,
+# QUEST PLACEMENT and BANNER red with it. Twice, because fixing the page without
+# fixing this tool just waits for the next run.
+# The furnisher still lands BEFORE the floorplan (it must be defined before
+# inEnter), it just lands before the WHOLE module now instead of inside it.
+_FP_CANON = open('engine/bohemia_floorplan.js', encoding='utf-8').read()
+i = src.find(_FP_CANON)
 if i < 0:
-    sys.exit('FURNISH PATCH: engine/bohemia_floorplan.js is not in the page as ONE '
-             'contiguous body, so there is no safe boundary to land after. Run '
-             'tools/bohemia_unsplit_floorplan_patch.py first. (Refusing to guess: '
-             'guessing an insertion point inside a module is what split it.)')
-i += len(FLOORPLAN_SRC)
+    ANCHOR = 'const BOH_FLOORPLAN=(function(){'
+    i = src.find(ANCHOR)
+if i < 0:
+    sys.exit('FURNISH PATCH: could not find the floorplan module to inline beside. The '
+             'furnisher stamps onto a plate the floorplan makes, so it cannot land first.')
 
 blob = [MARK,
         '/* ==== %s ==== */' % MODULE,
