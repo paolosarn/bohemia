@@ -1,3 +1,79 @@
+SOUND (sound-xk7pjp): 8/19 (q,r) LATEST -- *** THE MUSIC DID NOT KNOW YOU WERE IN
+A FIGHT. The street shuffle took the score back MID-COMBAT, and one fight in
+fourteen was played by the studio's blank scratch patch. TAB: RUN. Nothing to
+judge. ***
+
+MEASURED, NOT READ. Tapped in, let the opening hand over to the streets, called
+startColdOpen -- THE COLD OPEN, the first fight in the game, the demo's opening:
+
+    BEFORE THE FIGHT   city:true   THE WIND LEARNS WORDS
+    IN THE FIGHT       city:true   HOMELESS
+    AFTER 64 BARS      city:true   TWO COINS FOR THE FERRYMAN     <-- mid-fight
+
+(1) NOBODY OWNED THE MUSIC DURING A FIGHT. CITYMUS.on stayed TRUE and its
+    watchdog kept running while combat drove the SAME transport, so at the end
+    of a 64-bar pass (128s, which any real fight outlasts) the street shuffle
+    picked an overworld song and took the music back. Two systems, one clock,
+    neither aware of the other.
+(2) THE FIGHT COULD BE THE SCRATCH PATCH. combat's pickRandomFaction draws
+    uniformly across FACTIONS and FACTIONS[0] is CUSTOM -- the studio's blank
+    sandbox slot, motif 'plain', osc + pluck. Not a song anybody wrote. The very
+    first probe run drew exactly that. Also unweighted by his verdicts.
+
+THE RESEARCH CHANGED THE DESIGN. I would have made both transitions symmetric.
+Practitioner consensus is that they are NOT: IMMEDIATE going in (danger is now;
+making the player wait for a bar line to learn they are being shot at is
+information arriving late), a musical END coming out (leaving is not an
+emergency; a hard cut to calm reads cheap), and never redundant-switch so
+back-to-back fights cannot machine-gun the score. Every piece of that machinery
+already existed here -- 120 BPM quantisation, and CITYMUS already turning its
+time-of-day pool on an 8-bar phrase.
+
+  tools/bohemia_fight_music_patch.py -> FIGHTMUS.enter/leave/realFaction
+  enter() STANDS DOWN, does not STOP: combat swaps the song in place on the
+  running clock and that was always right. Silencing there would cut the music at
+  the instant the fight starts, a worse artefact than the bug.
+  realFaction() redraws the scratch slot alpha-side, NOT in the combat module,
+  because combat uses that index for its PALETTE too and the palette is not this
+  lane's to move.
+
+MEASURED AFTER: streets THE WIND LEARNS WORDS -> fight VOLUNTEERS (city off) ->
+past the 64-bar pass STILL VOLUNTEERS -> the frame the fight settles STILL
+VOLUNTEERS (not a cut) -> four seconds later, on the phrase, TWO COINS FOR THE
+FERRYMAN. 200 redraws of the scratch slot: 13 factions, zero CUSTOM, zero buried.
+
+gates/fight_music_gate.py (13 checks, REGISTERED in bohemia_gates.py) PLAYS A
+FIGHT. A static check for "is FIGHTMUS.enter called" goes green the moment the
+call site exists and says nothing about whether the shuffle actually let go,
+which is the whole bug. Mutation-proved three ways: delete the stand-down ->
+4/5/8 red; let CUSTOM back in -> 10 red; stand down and never stand back up ->
+7/8 red. Restored 13/0.
+
+TWO THINGS I CHECKED THAT ARE CLEAN, so nobody re-checks them:
+ * The 8 songs buried on 8/19 did NOT collapse an overworld pool. DAY 5, NIGHT 9,
+   DUSK/DAWN 2 -- all playable, all canon. (DUSK/DAWN being 2 is old and known;
+   no-repeat-back-to-back means it strictly alternates.)
+ * SFX RENDER is 6106/0 on current main. THE FLEET'S COMPLETE-GATE-PICTURE TABLE
+   (records/BOHEMIA_THE_FIRST_COMPLETE_GATE_PICTURE_8_19_26.md) LISTS IT RED at
+   row 153 -- that sharded run predates the fix that landed at 20:56. Any lane
+   reading that table should treat 153 as green.
+
+GATES: FIGHT MUSIC 13/0 (new). MUSIC 20/0. MUSIC REACH 17/0. SFX RENDER 6106/0.
+SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0. ALPHA LOADS 20/0. FRONT
+DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. COMBAT MUSIC HAS NO INTENSITY. It picks one faction song and plays it flat
+    for the whole fight. The research names the next rung: vertical layering (add
+    a drum/lead layer as the fight escalates) or horizontal re-sequencing between
+    intensity tiers. The engine's klay/layers machinery is already there.
+ 2. NO STINGER ANYWHERE. Nothing musical marks a kill, a win, or a loss -- the
+    single cheapest emotional beat in game audio and the game has none.
+ 3. The MENU pool is 4 and three are brand new (8/19). If he hates them it
+    collapses to one; widen before that.
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine. More
+    moments should be built on his rack rather than raw synthesis.
+
 PEOPLE (people-7h9sfy): 8/20 LATEST -- *** THE RAID RUNS. The sibling can
 finally die in the played game. TAB: RUN on a fresh device -- the opening plays
 the cold open, hands you into the COMBAT tab for the raid, and comes back for
