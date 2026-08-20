@@ -167,8 +167,13 @@ const W = require(path.join(ROOT, 'engine/bohemia_world.js'));
 const world = W.world('bohemia');          // THE ONE SEED (CLAUDE.md), never a fresh one
 
 const cellsOf = {};
-for (let y = 0; y < 96; y++) {
-  for (let x = 0; x < 96; x++) {
+/* THE VALLEY SAYS HOW BIG IT IS. A typed 96 here is the bug MAP BOUND exists to
+   stop -- its law: "nothing that scans the valley may decide for itself how big the
+   valley is", written after a typed `y < 48` cost a 4.25x population error AND the
+   cross-check built to catch it carried the same line. Read off the world. */
+const _N = world.n;
+for (let y = 0; y < _N; y++) {
+  for (let x = 0; x < _N; x++) {
     const c = world.at(x, y);
     if (!c || !c.district) continue;
     (cellsOf[c.district] = cellsOf[c.district] || []).push([x, y]);

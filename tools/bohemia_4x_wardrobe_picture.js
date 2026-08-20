@@ -73,7 +73,11 @@ const ROWS = [
   ['FLANNEL',   'genTop',   { sleeves: 'long', pattern: 'plaid' }, 'S', 0.20, 0.74],
   ['TRENCH',    'genCoat',  { len: 0.86, dir: 'S' }, 'S', 0.20, 0.74],
   ['CORNROWS',  'genHair',  { name: 'CORNROWS', vol: 1, side: 0.62, front: 0.22, tex: 'locs' }, 'S', 0.02, 0.34],
-  ['LOW FADE',  'genHair',  { name: 'LOW FADE', vol: 0, side: 0.58, front: 0.20, fade: 4 }, 'S', 0.02, 0.34],
+  /* LOW FADE IS DEAD AND STAYS DEAD (graveyard, 8/1/26: "density-skip fade.
+     Holes, not hair. Replaced by the skin-TINT mechanism"). It was still being
+     drawn into this picture, which is a live reference to a buried thing --
+     GRAVEYARD IS FINAL, and the graveyard gate is what noticed once the suite
+     started finishing. The replacement mechanism is the tint, not a row here. */
 ];
 const RAMP = { dk: [72, 54, 38], mid: [124, 96, 66], lt: [168, 136, 96], mid2: [98, 76, 54], sole: [44, 34, 24] };
 

@@ -153,7 +153,7 @@ ok('the interior door is cut into the side the exterior actually opens on' +
 // They exposed floorplan() but no interior(), so the one uniform question every consumer
 // asks threw on them. Enterable is enterable EVERYWHERE or the rung has a hole in it.
 let lmCells = 0, lmBuildings = 0, lmNoInterior = 0, lmDimBad = null;
-for (let y = 0; y < 96 && lmCells < 25; y++) for (let x = 0; x < 96 && lmCells < 25; x++) {
+for (let y = 0, _N = w.n; y < _N && lmCells < 25; y++) for (let x = 0; x < _N && lmCells < 25; x++) {
   const c = w.at(x, y); if (!c) continue;
   const p = w.plot(x, y);
   if (!p || typeof p.tileInfo === 'function' || !p.buildings || !p.buildings.length) continue;  // NON-factory only
@@ -224,7 +224,7 @@ ok('location query is deterministic (same seed -> same district count)', w.distr
   const ONE = 2691674296;
   const rawMap = OMX.buildOvermap(ONE);
   const cmp = (ww) => { let d = 0;
-    for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+    for (let y = 0, _N = rawMap.n || w.n; y < _N; y++) for (let x = 0; x < _N; x++) {
       const a = rawMap.at(x, y), b = ww.at(x, y);
       if ((a ? a.district : null) !== (b ? b.district : null)) d++; }
     return d; };
