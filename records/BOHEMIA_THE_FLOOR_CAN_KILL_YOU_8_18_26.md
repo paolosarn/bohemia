@@ -20,12 +20,12 @@ district's own LEGEND. Author a drained pool into a new district next month and 
 is lethal ground that afternoon, with no edit anywhere. The gate proves that by
 mutating a legend and watching the class follow, in both directions.
 
-**66 registered district types swept → 26 hazard tiles in 21 districts.**
+**71 registered district types swept → 31 hazard tiles in 22 districts.**
 
 | class | what the floor does (his words) | tiles | districts |
 |---|---|---|---|
-| **KILLS** | pits — an enemy knocked or charging in dies outright | 4 | 3 |
-| **AMPLIFIES** | unstable ground — +50% physical damage taken, and the tip is two-part: avoid standing on it while LEADING ENEMIES ONTO IT | 14 | 12 |
+| **KILLS** | pits — an enemy knocked or charging in dies outright | 8 | 7 |
+| **AMPLIFIES** | unstable ground — +50% physical damage taken, and the tip is two-part: avoid standing on it while LEADING ENEMIES ONTO IT | 15 | 13 |
 | **DISABLES** | liquids switch OFF sprinting and movement abilities | 8 | 8 |
 | **FAVOURS** | cursed floor heals undead — terrain reading becomes mandatory, not optional | 0 | 0 |
 | **DENIES** | standing on a body prevents its resurrection; the floor stays contested after the kill | 0 | 0 |
@@ -39,6 +39,10 @@ _A HARD-BOTTOMED VOID WITH A RIM. Concrete or rock under it, a lip around it, an
 | district | code | tile | kind | the act-1 material it was authored as |
 |---|---|---|---|---|
 | apartment | 8 | **drained pool** | water-dead | a drained pool, cracked plaster shell, dead leaves at the bottom |
+| gypsum | 7 | **bench lip / crest** | structure | the crest of a bench of raw gypsum, the edge crumbling white where nobody has scaled it |
+| intake | 13 | **intake shaft / main** | structure | the shaft down to the tunnel, and the main leaving the pump house |
+| quarry | 7 | **bench lip / crest** | structure | the crest of the bench, loose rock along the edge where nobody has scaled it |
+| reclaim | 6 | **crusted pond centre** | structure | the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust |
 | waterpark | 6 | **drained wave pool** | water-dead | the wave pool, drained, cracked plaster, a beach-entry zigzag edge |
 | waterpark | 9 | **splash pool** | water-dead | the drained splash pool at a slide's base, cracked |
 | watertreat | 7 | **aeration / filter basin** | ground | a drained aeration basin / filter cell — cracked floor, walls water-stained dark |
@@ -65,6 +69,7 @@ _FOOTING YOU CANNOT SET. Loose, shifting or piled ground: you cannot brace, so y
 | district | code | tile | kind | the act-1 material it was authored as |
 |---|---|---|---|---|
 | casino | 3 | **debris / dead planting** | tree-dead | what got dragged out of the building and left in the alley, and dead planting gone to dust |
+| dam | 13 | **talus apron** | ground | the talus apron below the works — broken rock the blasting left, tipped down the canyon side |
 | freeway | 15 | **rubble / debris** | prop | blown tyre, bumper, glass and drift across the lanes |
 | freeway | 16 | **rail ballast** | ground | the railway ballast running out from under the bridge, in the daylight between the abutments |
 | interchange | 15 | **rubble / debris** | prop | blown tyre, bumper, glass and drift across the lanes |
@@ -88,19 +93,24 @@ class SHOULD be is his call and that table ships empty.
 |---|---|---|
 | apartment | KILLS | 1.98% |
 | casino | AMPLIFIES | 0.12% |
+| dam | AMPLIFIES | 11.01% |
 | datafort | DISABLES | 1.10% |
 | freeway | AMPLIFIES | 0.22% |
 | gypsum | DISABLES | 10.27% |
+| gypsum | KILLS | 0.98% |
 | intake | DISABLES | 16.94% |
+| intake | KILLS | 2.17% |
 | interchange | AMPLIFIES | 3.55% |
 | landfill | AMPLIFIES | 3.70% |
 | landfill | DISABLES | 5.15% |
 | mountain | AMPLIFIES | 2.82% |
 | pumpstation | DISABLES | 12.24% |
 | quarry | DISABLES | 11.20% |
+| quarry | KILLS | 1.26% |
 | rail | AMPLIFIES | 15.69% |
 | railyard | AMPLIFIES | 43.74% |
 | reclaim | DISABLES | 16.72% |
+| reclaim | KILLS | 10.27% |
 | stadium | AMPLIFIES | 0.97% |
 | storage | AMPLIFIES | 0.02% |
 | swapmeet | AMPLIFIES | 0.20% |
@@ -131,36 +141,41 @@ is indistinguishable from an oversight.
 - **cable trench (arsenal:13, battery:13, substation:13)** — Covered. The material says so in all three. An uncovered one would be a textbook pit, and if that variant is ever authored it classifies itself.
 - **exposed lakebed (water:3, intake:4)** — Cracked hard silt, walked on for a reason — this is the ground the drawdown gave back, and the whole point of it is that you can walk out onto it. Real Lake Mead bathtub-ring ground is firm, not sucking mud.
 
-## THE GAPS THIS FOUND IN THE WORLD ITSELF (WORLD lane, next)
+## THE GAPS THIS FOUND IN THE WORLD ITSELF — ALL FOUR NOW CLOSED (8/20)
 
-1. **THE VALLEY HAS NO WALKABLE RUBBLE FIELD.** Every rubble/debris tile in six
-   districts is a `prop`, which the walked surface blocks — so the single most
-   classic piece of unstable ground in any game cannot be stood on here. A
-   ground-layer rubble tile is the fix and it is a district-generator job.
-2. **[CLOSED 8/20 — `records/BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md`]** All three are
-   VOIDS now, plus `gypsum:7` which gap 3 was blocking: a third occupancy state that does
-   not block and cannot be walked into. 2,405 real cells in the valley, KILLS membership
-   4 tiles/3 districts → 8/7. **THE DIAGNOSIS BELOW WAS INCOMPLETE**: making them voids was
-   necessary and was not the hard part. The hazard sweep admitted a tile only if a body
-   could STAND on it, so all four matched the KILLS rule BY NAME and were classified as
-   nothing — the lethal class was gated on standability, and a body that is knocked into a
-   hole is by definition somewhere it could not have walked.
-   ~~**THE REAL LETHAL DROPS ARE MODELLED AS WALLS.** `quarry:7 bench lip / crest`,~~
-   `intake:13 intake shaft / main` and `reclaim:6 crusted pond centre` are the three
-   most genuinely fatal pieces of ground in this valley and all three are `structure`
-   tiles — you bump into them instead of falling in. Making them voids changes
-   occupancy in three districts and needs its own pass with its own gate.
-3. **[CLOSED 8/20]** ~~**ONE CODE, TWO THINGS.** `gypsum:7` means both "the crest of a
-   bench" (a lethal edge) and "the shell of the storage dome" (a roof).~~ The dome shell is
-   **code 15** now (360 cells, still solid, still not lethal) and 7 is the bench lip alone.
-   The KILLS rule's `/dome shell/i` veto still exists and is finally FREE: it used to throw
-   away the lip along with the roof, and now it stops a roof being lethal and nothing else.
-4. **THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE DOES.** Measured on the
-   running page: the city world's kit registers 35 of the engine's 66 types, and
-   only 5 of the 21 hazard districts are among them. Every hazard in the other 16
-   exists in the engine and cannot be walked on. That is not a hazard problem, it is
-   a district-registration gap on the one surface he plays, and it caps far more
-   than this feature.
+Kept rather than deleted, because a gap that was closed and a gap that was never
+real look identical once the text is gone, and two of these were closed by finding
+out the diagnosis was wrong rather than by doing the work it asked for.
+
+1. **~~THE VALLEY HAS NO WALKABLE RUBBLE FIELD.~~ CLOSED — and it was never true.**
+   The rubble was declared walk-through in the legends all along and the walked
+   surface was discarding all 48 such declarations one line before they reached him
+   (the PROP OCCUPANCY fix, 8/18). Re-measured 8/20: **14 walkable loose-ground tiles**
+   — 7 ground-layer, 7 walk-through props, all AMPLIFIES. The 9 that still block are a
+   scrap pile, a debris rack, a screen tower: things that SHOULD block.
+2. **~~THE REAL LETHAL DROPS ARE MODELLED AS WALLS.~~ CLOSED 8/20** —
+   records/BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md. All four are VOIDS now (a third
+   occupancy state: does not block, cannot be walked into), 2,405 cells in the valley.
+   THE DIAGNOSIS ABOVE WAS INCOMPLETE: making them voids was necessary and was not the
+   hard part. The sweep admitted a tile only if a body could STAND on it, so all four
+   matched the KILLS rule BY NAME and were classified as nothing — and a body knocked
+   into a hole is by definition somewhere it could not have walked.
+3. **~~ONE CODE, TWO THINGS.~~ CLOSED 8/20.** The gypsum dome shell is code 15 now
+   (360 cells, still solid, still not lethal) and 7 is the bench lip alone. The KILLS
+   rule's `/dome shell/i` veto still exists and is finally FREE: it used to throw away
+   the lip along with the roof.
+4. **~~THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE DOES.~~ CLOSED.**
+   Re-measured on the running page 8/20: the city world's kit registers **71 of the engine's 71** types.
+   The 9 district types in the valley it cannot build are either a
+   different code path (suburb, estate and gated go through __subGrid — 2,582 cells of
+   suburb build fine) or the landmark names reserved for Paolo. The number in this
+   line was wrong twice before it was counted: it said 35, then 57.
+
+**AND THE ONE THIS FEATURE HAD NOT REACHED AT ALL, now also closed:** every hazard
+above is OUTDOORS, and every fight in this game happens indoors. Interiors carried no
+terrain whatsoever until 8/20 — see records/BOHEMIA_THE_FLOOR_INDOORS_8_20_26.md and
+engine/bohemia_interior_ground.js, which invents no vocabulary: its materials are named
+so the rules above classify them with no new rule.
 
 ## THE ART ASK (hazard tile forms — ART lane, per §6 of the lift)
 

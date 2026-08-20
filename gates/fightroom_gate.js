@@ -90,6 +90,8 @@ console.log('FIGHT ROOM GATE — the fight gets the room, not its dimensions\n')
         cover: (room.cover || '').split('').filter(c => c === 'C').length,
         low: (room.cover || '').split('').filter(c => c === 'l').length,
         groundLen: (room.ground || '').length,
+        groundHaz: (room.ground || '').split('').filter(c => c !== '.').length,
+        groundKinds: Array.from(new Set((room.ground || '').split('').filter(c => c !== '.'))).join(''),
         doors: (room.doors || []).length,
         retreat: room.retreat || null,
         legend: Object.keys(room.legend || {})
@@ -119,6 +121,18 @@ console.log('FIGHT ROOM GATE — the fight gets the room, not its dimensions\n')
        ') — anything else is describing a different room', R.floorLen === R.w * R.h);
     ok('and the ground channel is the same shape, so combat reads ONE geometry (' +
        R.groundLen + ')', R.groundLen === R.w * R.h);
+    /* AND IT IS NOT ALL DOTS, WHICH IT WAS UNTIL 8/20. This gate shipped on 8/19 checking
+       the ground channel's LENGTH and never its CONTENT, so it was green through a channel
+       that was 320 dots in every room of every fight -- the exact shape of a gate that
+       checks its own side of a seam nobody is standing on. Interiors carried no terrain at
+       all until engine/bohemia_interior_ground.js; now a real room the player walked into
+       has real ground in it, and a regression that empties it again goes red here instead
+       of passing quietly on a length. */
+    console.log('       ground channel: ' + R.groundHaz + ' of ' + R.groundLen +
+                ' cells carry something  [' + (R.groundKinds || '-') + ']');
+    ok('and the ground channel is NOT ALL DOTS — the room he walked into has real ground ' +
+       'in it (' + R.groundHaz + ' cells, kinds: ' + (R.groundKinds || 'none') + ')',
+       R.groundHaz > 0);
 
     /* 2. it agrees with his feet */
     ok('EVERY cell of the map agrees with inPassable() — the thing that actually decides ' +

@@ -1,3 +1,93 @@
+WORLD (world-9lfjtf): 8/20 (c) LATEST -- *** THE FLOOR COULD DO SOMETHING TO YOU EVERYWHERE
+EXCEPT WHERE THE FIGHTS ARE. TAB: RUN, walk into any building. Nothing here needs judging. ***
+
+FOR THE COMBAT LANE, THIS IS THE ONE TO READ. Since 8/18 this lane has read 31 hazard tiles
+out of 22 district legends and this morning gave four of them a third occupancy state. ALL OF
+IT OUTDOORS. Every fight in this game starts by walking through a door.
+
+MEASURED before a line of it was written: an interior cell carried g/room/door/role/furn and
+NOTHING ELSE. Zero cells in any interior in the game had EVER carried terrain, so the fight
+payload's ground channel was 252 dots for a 21x12 house, every room, every fight. The one
+system built to make a room feel alive was switched off in every room a fight happens in.
+And fightroom_gate was GREEN through all of it, because it checked the channel's LENGTH and
+never its CONTENT -- a gate standing on its own side of a seam nobody was standing on, for
+the fourth time this week.
+
+IT INVENTS NO VOCABULARY, and that is the design rather than a nicety. The three materials
+are named so the EXISTING hazard rules classify them, with no new rule and no edit to the
+classifier:
+    standing water          -> DISABLES   (the rule that already read a pumpstation gland)
+    fallen ceiling rubble   -> AMPLIFIES  (the rule that already read freeway rubble)
+    lift shaft              -> KILLS, and a VOID (the rule that already read an intake shaft)
+A dead building has the same three things a dead quarry has: liquid you can walk into,
+footing you cannot set, and a hole.
+
+WHERE IT GOES IS DERIVED, AND THE PROOF IS THAT NOBODY TYPED THE NUMBERS. A ceiling comes
+down where it is SPANNING -- a cell two or more tiles from every wall has no wall carrying
+the deck above it -- so there is NO ROOM LIST AT ALL. The result:
+    residential 2.2%   office 2.1%   retail 3.4%   landmark 4.8%   WAREHOUSE 7.7%
+A warehouse ends up three times more damaged than a house because its ceiling spans further.
+That gradient is an output. The gate asserts the ORDERING, never the values, and SPREAD (his
+dial) ships empty.
+
+*** THE VALLEY IS BONE DRY, AND FINDING THAT OUT WAS THE MOST USEFUL THING HERE. *** The
+first cut put standing water in every bath, kitchen and breakroom -- that is where the
+plumbing is, and the derivation was sound. Then I read what it produced: 34 TILES OF STANDING
+WATER IN A HOUSE, every seed. The number was the small problem. This is Las Vegas ten years
+later: the driest major city in the United States, ~100 mm of rain a year, single-digit
+summer humidity. Water in an unroofed building here is gone in a season, and what is left is
+THE TIDE LINE, not the pool. So the material stays DEFINED (a flooded plant room is one entry
+in SPREAD) and is PLACED NOWHERE, with the reason written into the module rather than deleted
+so nobody re-derives puddles. DISABLES has no indoor presence and saying so beats flooding
+the valley to fill a column.
+
+  records/BOHEMIA_THE_FLOOR_INDOORS_8_20_26.md      the finding
+  engine/bohemia_interior_ground.js                 spec + generator
+  tools/bohemia_city_interior_ground_patch.py       on the surface
+  gates/interior_ground_gate.js 21 (four mutations) + gates/fightroom_gate.js 13
+
+*** TWO THINGS I GOT WRONG, BOTH CAUGHT BY MEASURING, AND THE SECOND IS THE BETTER LESSON. ***
+1. MOST OF THIS GROUND DOES NOT BLOCK ANYTHING. I copied the furniture module's connectivity
+   guard verbatim -- flood-fill the room, every stamped cell an obstacle -- and 22 of 64
+   plates came back with the floor CUT IN TWO, while the same plates furnished alone came
+   back 0 of 64. Rubble is AMPLIFIES and water is DISABLES: ground-layer, not solid, YOU WALK
+   ON BOTH. That is what those classes ARE. The one thing that does block is a VOID, and a
+   void is a hole in the PLATE, not the room -- a room-local check cannot see the corridor it
+   just sealed. My gate had the identical error, which is the only reason it surfaced.
+2. A GATE THAT ASKS THE THING IT IS JUDGING WHAT THE ANSWER SHOULD BE IS NOT A GATE. The lift
+   rule read `G.NO_LIFT[z]` -- the target's own table as its own ruler -- so emptying NO_LIFT
+   put lifts in houses AND switched off the test in one edit. Confirmed GREEN THROUGH THE BUG
+   by mutation. Fixed by naming the zones, and the fix exposed a second layer: the mutation
+   STILL passed, because a residential plan has no `service` room and could never get a lift
+   however the rule was written. The zone the rule actually protects is `default`, the one
+   zone my test list left out. A REFUSAL TESTED ONLY WHERE IT CANNOT FIRE IS NOT TESTED.
+
+AND THE FOUR GAPS THE 8/18 HAZARD RECORD LEFT OPEN ARE ALL CLOSED. Two of them closed by
+finding the diagnosis was WRONG rather than by doing the work they asked for:
+  1. "THE VALLEY HAS NO WALKABLE RUBBLE FIELD" -- never true. The rubble was declared
+     walk-through all along and the surface was discarding all 48 declarations one line
+     before they reached him (fixed 8/18). Re-measured: 14 walkable loose-ground tiles.
+  2 + 3. the lethal drops and gypsum:7 -- closed 8/20 (b), voids and code 15.
+  4. "THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE" -- closed. It registers
+     70 of 71. The 9 it cannot build are a different code path (suburb/estate/gated go
+     through __subGrid, 2,582 cells of suburb build fine) or names reserved for Paolo.
+     That line said 35, then 57, before anybody counted it.
+The gaps text lives in tools/bohemia_hazard_sheet.js, NOT in the .md it writes -- I
+hand-edited the generated file yesterday and the edit silently reverted on the next run,
+which is the same disease as 8/20 (a). Edit the generator.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. THE ART ASK IS THE ONLY THING THIS FEATURE STILL WANTS, and it is unchanged from 8/18:
+     loose ground that READS as loose, and a drop that READS as a drop. Everything is on the
+     glass and classified; what is missing is one visual mark per class at walking zoom.
+  2. Interior hazard is AMPLIFIES + the shaft only. If he ever rules that somewhere still
+     takes water, SPREAD.water is one entry.
+  3. NOT MINE and still red: gates/drive_network_gate.js. The debt ratchet went BACKWARDS
+     (22->25, 4->5) and all five regressions are the landmark districts the other WORLD
+     session shipped 8/19 -- prison 9.6% reachable (1,650 tiles of service road stranded),
+     dam 0%, minigp 0% (the whole circuit), fort 52.9%, convention 99.7%. Numbers in the
+     8/20 (a) block below.
+
 PEOPLE (people-7h9sfy): 8/20 LATEST -- *** WHAT YOU NOTICE ABOUT SOMEBODY BEFORE
 EITHER OF YOU SPEAKS. TAB: RUN -- walk up to anybody and read the line above the
 movement pad. ***
