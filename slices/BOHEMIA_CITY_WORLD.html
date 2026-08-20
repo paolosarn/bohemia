@@ -34800,7 +34800,7 @@ function ctFavourRows(body, rule, given){
   if(!a) return body;
   if(a.can){
     body += ctRow(a.word, a.what);
-    if(a.note) body += ctRow('', a.note);
+    body += ctNote(a.note);           /* __CITY_NOTESFOLD__ */
   } else if(a.why){
     /* THE REFUSAL IS A ROW, NOT AN ABSENCE. "they will never give anybody
        anything" and "they do not know you well enough yet" are different facts
@@ -34889,6 +34889,15 @@ function ctOpenClaim(fid){
 }
 /* THEY ASK WHEN YOU WALK INTO THEM. No tick, no timer, no roll -- the ask can
    never arrive somewhere you are not standing to answer it. */
+/* __CITY_NOTESFOLD__ -- AN EXPLAINER IS AN OUTFIT FACT, SO IT FOLDS.
+   ctRow('', ...) is this card's own long-standing mark for "the sentence that
+   explains the row above". Every such sentence is identical on every member of
+   the outfit forever, which is exactly the test the 8/18 terms fold applies.
+   The HEADLINE never folds (cardfold A5: the live question always stays); only
+   the explanation does, and one tap on "tap to read" brings it back with the
+   rest of the terms. Set once per card draw so the two cannot disagree. */
+var CT_NOTES_FOLDED = false;
+function ctNote(txt){ return (CT_NOTES_FOLDED || !txt) ? '' : ctRow('', txt); }
 function ctClaimRows(body, rule, fid, given){
   if(typeof BohemiaClaim === 'undefined' || !rule || !fid) return body;
   var sv = ctBelongSave(), day = (T && T.day) || 1;
@@ -34904,7 +34913,7 @@ function ctClaimRows(body, rule, fid, given){
     if(!c) return body;
   }
   body += ctRow(c.ask, c.what);
-  body += ctRow('', c.askNote);
+  body += ctNote(c.askNote);          /* __CITY_NOTESFOLD__ */
   body += ctRow(c.dueWord, c.dueNote || 'TODAY.');
   /* __CITY_COLLECT__ -- and WHY they are asking again so soon. Without this row
      the bypass is invisible: the player just sees an outfit that will not leave
@@ -34948,6 +34957,65 @@ function ctSideCost(fid, nextState){
 function ctSideCostWords(list){
   return list.map(function(c){ return c.faction + ' -' + c.lose; }).join(', ');
 }
+/* __CITY_THIRDPARTY__ -- WHO CAN INTRODUCE YOU, AND WHO YOU OVERHEARD IT FROM.
+   engine/bohemia_ties.js answered these on 8/12 and the CITY never asked. Ported
+   from BOHEMIA_RUN_SLICE_7_26_26.html's introStateFor/tieLedgerSets, which wired
+   the same three calls to a surface that is not the game.
+   THE KEY SPACES RECONCILE AND IT WAS MEASURED: the ledger is keyed
+   'P:city:'+a.__id and the graph is keyed ctVKey(a)=a.__vid, so the sets are
+   built by walking the roster once and asking the ledger about each row. */
+function ctTieSets(roster){
+  var met={}, known={};
+  for(var i=0;i<roster.length;i++){
+    var a=roster[i], lk='P:city:'+a.__id, k=ctVKey(a);
+    if(!CT_MET.get(lk)) continue;
+    met[k]=1;
+    if(CT_MET.asked(lk)) known[k]=1;        /* you know what to CALL them */
+  }
+  return { met:met, known:known };
+}
+/* the roster row for the person whose card is open, matched on the id the record
+   already carries. Returns null rather than guessing. */
+function ctTieRow(p, roster){
+  for(var i=0;i<roster.length;i++) if(roster[i].__id === p.id) return roster[i];
+  return null;
+}
+function ctIntroThird(p, fid){
+  var out = { vouched:false, overheard:false, onward:0 };
+  if(typeof BohemiaTies === 'undefined' || !fid) return out;
+  try {
+    var roster = ctValleyRoster(), me = ctTieRow(p, roster);
+    if(!me) return out;
+    var key = ctVKey(me), cell = ctCell(), sets = ctTieSets(roster);
+    /* MOB: a third person supplies the name and that person is VOUCHING, so the
+       voucher must be somebody whose name you know and who is in the same
+       outfit. Both conditions live in the organ, not here. */
+    out.vouchedBy   = BohemiaTies.vouchFor(key, roster, cell,
+                        { keyOf:ctVKey, known:sets.known });
+    /* REMNANTS: weaker on purpose. You only have to have MET the other soldier,
+       not to know what to call them -- overhearing costs the speaker nothing. */
+    out.overheardBy = BohemiaTies.overheardFrom(key, roster, cell,
+                        { keyOf:ctVKey, met:sets.met });
+    /* COLORFUL: "introduced onward to three people". Counted, never named -- you
+       do not learn three strangers' names by being told they exist. */
+    out.onward      = BohemiaTies.onwardFrom(key, roster, cell,
+                        { keyOf:ctVKey, n:3, met:sets.met }).length;
+    out.vouched   = !!out.vouchedBy;
+    out.overheard = !!out.overheardBy;
+  } catch(_e){}
+  return out;
+}
+/* the introducer in words: their name if you have it, and how you know them. */
+function ctIntroWho(t, roster){
+  if(!t) return null;
+  var name=null;
+  try {
+    for(var i=0;i<roster.length;i++) if(ctVKey(roster[i])===t.by){
+      name = BohemiaPeople.generatedName('P:city:'+roster[i].__id); break; }
+  } catch(_e){}
+  var via = BohemiaTies.viaWords(t.via);
+  return (name ? name.toUpperCase() : 'SOMEBODY') + (via ? ' \u00b7 YOU ' + via : '');
+}
 /* __CITY_VALLEYKEY__ -- THE VALLEY-UNIQUE KEY, IN ONE PLACE.
    Falls back to a.id so a roster built by anything else still works, but on the
    valley roster this is what makes two people with the same name two people. */
@@ -34986,8 +35054,8 @@ function ctHearRows(body, fid){
   var ctCost = (ctNext && ctNext.moved) ? ctSideCost(fid, ctNext.state) : [];
   if(ctCost.length){
     body += ctRow('AND IT COSTS YOU', ctSideCostWords(ctCost));
-    body += ctRow('', 'They are not your enemies. They just heard you picked '
-      + 'somebody, and it was not them.');
+    body += ctNote('They are not your enemies. They just heard you picked '
+      + 'somebody, and it was not them.');  /* __CITY_NOTESFOLD__ */
   } else if(ctNext && ctNext.moved){
     /* THE STRUCTURAL HOLE, PAYING OUT IN A NUMBER. Burt/Simmel: standing where
        your outfits have no line to each other means nobody hears it as fact. */
@@ -35013,7 +35081,32 @@ function ctIntroRows(body, intro, fid){
   if(m.blocked) body += ctRow('WILL NOT SAY', m.blocked);
   if(m.cost) body += ctRow('AND', m.cost);
   if(m.remembers) body += ctRow('AND', 'THEY WILL NOT FORGET YOU');
-  if(!m.isName && m.next && m.explain) body += ctRow('HOW YOU GET THE REST', m.next);
+  /* __CITY_ASKCOST__ -- AND WHAT ASKING COSTS, before he asks, on the row
+     that already answers this question -- and the whole row folds with the rest
+     of the outfit's terms, because that is what it is.
+     BohemiaIntros.askOutcome has returned this cost since 8/11 and had ZERO
+     CALLERS: the seventh time this week an organ computed something nothing
+     applied, and the first found by SWEEPING for the shape rather than tripping
+     over it. Three of the sixteen charge for a direct ask (CARTEL a smile and a
+     redirect forever, MOB a small permanent mark, ANARCHISTS an insult); the
+     other thirteen are free, which is exactly why it stayed invisible.
+     THE CONSEQUENCE IS PRINTED BEFORE THE BUTTON, NEVER AFTER (8/15): with the
+     Mob this IS the decision, because the whole mechanic is that you are meant
+     to wait to be introduced. NOTHING IS INVENTED -- a "permanent mark" is not a
+     stat this repo has, and minting one would be canon he did not rule. */
+  var ctIntroFolded = false;
+  try { ctIntroFolded = ctTermsFolded(ctEverDealt(ctBelongSave(), fid) ? 1 : 0); }
+  catch(_e){}
+  if(!m.isName && m.next && m.explain && !ctIntroFolded){
+    var ctRest = m.next;
+    try {
+      if(!(intro && intro.st && intro.st.asked)){
+        var ctAC = (BohemiaIntros.askOutcome(intro.rule, intro.ctx, intro.st)||{}).cost;
+        if(ctAC) ctRest += '  ·  ASKING COSTS: ' + ctAC;
+      }
+    } catch(_e){}
+    body += ctRow('HOW YOU GET THE REST', ctRest);
+  }
   return body;
 }
 
@@ -35030,17 +35123,72 @@ function ctDraw(){
      sixteen different answers his dossiers give. Decided HERE, at the row's own
      source, so the card can never carry two answers to one question. */
   var ctFid = (typeof ctFactionOf==='function') ? ctFactionOf(p) : null;
+  /* __CITY_NOTESFOLD__ -- ONE ANSWER PER CARD DRAW. Read here, above every row
+     builder that asks it, because a flag set halfway down would fold some
+     explainers and not others on the same card. Same history test the terms
+     fold uses (__CITY_HISTORY__), never a second idea of the same fact. */
+  CT_NOTES_FOLDED = false;
+  try {
+    CT_NOTES_FOLDED = !!ctFid
+      && ctTermsFolded(ctEverDealt(ctBelongSave(), ctFid) ? 1 : 0);
+  } catch(_e){}
   var ctIntro = null;
   if(typeof BohemiaIntros !== 'undefined'){
     var iRule = BohemiaIntros.ruleOf(ctFid);
     var iCtx  = { full: BohemiaPeople.generatedName(who.key),
                   trade: BohemiaPeople.ROLE_WORDS[who.role]||null, work:null };
-    var iSt   = { asked: CT_MET.asked(who.key) };
+    /* __CITY_THIRDPARTY__ -- AND THE OTHER FOUR CONDITIONS earned() SWITCHES ON.
+       This line used to be the whole state, so `vouched`, `overheard`,
+       `standing` and `honest` were permanently false and FIVE of his sixteen
+       outfits could never get past the first rung of their own mechanic. The
+       organs answering all four have existed since 8/11-8/13; nothing here is
+       new and nothing here is a threshold I chose. */
+    var iTh   = ctIntroThird(p, ctFid);
+    var iSt   = { asked:     CT_MET.asked(who.key),
+                  /* HOMELESS: they ask where you sleep. The ledger has carried
+                     the honest/lied bits since 8/13 and the CITY never set or
+                     read them -- only the old run slice did. */
+                  honest:    CT_MET.honest(who.key),
+                  /* BLUES: "the personal name arrives only once you have done
+                     something the group has an opinion about". Belonging IS the
+                     city's standing, and ctEverDealt is the same history test
+                     the terms fold uses -- not a second idea of the same fact. */
+                  standing:  (typeof ctEverDealt==='function' && ctFid)
+                               ? ctEverDealt(ctBelongSave(), ctFid) : false,
+                  vouched:   iTh.vouched,
+                  overheard: iTh.overheard,
+                  onward:    iTh.onward,
+                  vouchedBy: iTh.vouchedBy,
+                  overheardBy: iTh.overheardBy };
     ctIntro = { rule:iRule, ctx:iCtx, st:iSt, m:BohemiaIntros.meeting(iRule, iCtx, iSt) };
   }
   var nameRow = ctIntro ? ctIntroName(ctIntro, CT_MET.asked(who.key))
                         : ['NAME', nm?nm:'YOU HAVE NOT ASKED'];
-  body+=ctRow(nameRow[0], nameRow[1]);
+  /* __CITY_NAMEDUPE__ -- AND THE HEADING ABOVE IS ALREADY THE NAME.
+     Same test the TRADE row two rows down has used since 8/18, same reason: A
+     DUPLICATE IS NOT DISCLOSURE. The heading becomes the name the moment you
+     know it, so this row repeats it verbatim -- on exactly the cards that are
+     fullest, because knowing the name is what turns the quirk row on too.
+     Every other state this row can be in (KNOWN AS, THEY USED YOURS, NOBODY HAS
+     INTRODUCED YOU, YOU ASKED AND DID NOT GET IT, YOU HAVE NOT ASKED) sits under
+     a heading that is the TRADE word, so nothing is repeated and nothing here
+     drops it. */
+  var ctHeadWord = nm ? nm.toUpperCase() : BohemiaPeople.headingOf(who);
+  if(String(nameRow[1]).toUpperCase() !== String(ctHeadWord).toUpperCase())
+    body+=ctRow(nameRow[0], nameRow[1]);
+  /* __CITY_THIRDPARTY__ -- AND WHOSE WORD IT WAS. A vouch that does not name the
+     person who staked something is a flag flipping, and the introducer's name is
+     one you already earned, so printing it gives nothing away.
+     draft:true -- a real attempt, his to edit. */
+  try {
+    if(ctIntro && (ctIntro.st.vouchedBy || ctIntro.st.overheardBy)){
+      var ctTR = ctValleyRoster();
+      if(ctIntro.st.vouchedBy)
+        body += ctRow('WHO PUT YOU ON', ctIntroWho(ctIntro.st.vouchedBy, ctTR));
+      else
+        body += ctRow('YOU HEARD IT FROM', ctIntroWho(ctIntro.st.overheardBy, ctTR));
+    }
+  } catch(_e){}
   /* __CITY_QUIRK__ -- ONE THING THAT IS THEIRS, and it is the reason the
      sibling's death is allowed to land later: a character nobody laughed with
      is a character nobody mourns (tone research R1). It sits under NAME because
@@ -35178,7 +35326,7 @@ function ctDraw(){
         body += ctRow('THE WALL', ctWall.room + ' MORE AND TURNING UP STOPS WORKING');
       }
       var why = BohemiaBelonging.noActBecause(bRule, bState.st);
-      if(why) body += ctRow('', why);
+      body += ctNote(why);            /* __CITY_NOTESFOLD__ */
       /* __CITY_NOLADDER__ -- and what the rule actually is, so a player meeting
          one of these does not read a blank as a bug. Verbatim from his dossier
          ("To know whether you are safe to be around ... it never stops
@@ -35251,6 +35399,16 @@ function ctDraw(){
          + 'Ask about ' + askOpts[ai] + '</button>';
   }
   if(ctBtn) body+='<button id="ctask">'+ctBtn+'</button>';
+  /* __CITY_THIRDPARTY__ -- THE OTHER MOVE. The Homeless do not ask your name, they
+     ask WHERE YOU SLEEP, and answering it honestly is the unlock -- so it has to
+     be pressable or the mechanic is decoration. answerFor() has returned this
+     button since 8/11 and the only surface that ever rendered it was the old run
+     slice. The label and the effect are BOTH the organ's; nothing is chosen here,
+     and the lie is deliberately not offered because the organ does not offer one. */
+  var ctAns = null;
+  try { ctAns = ctIntro && BohemiaIntros.answerFor(ctIntro.rule, ctIntro.ctx, ctIntro.st); }
+  catch(_e){}
+  if(ctAns) body+='<button id="ctanswer">'+ctAns.label+'</button>';
   /* __CITY_FAVOUR__ -- ctFavIsAct is set above, with ctAct. It is NOT
      re-declared here: `var` hoists, so a second `var x = false` at this line
      would run AFTER the assignment above and clobber it back to false, and the
@@ -35290,6 +35448,14 @@ function ctDraw(){
         window.parent.postMessage({ type: 'BOHEMIA_VOICE',
           speaker: 'city:' + (who.key || ''), text: qkS }, '*');
     } catch (_e) {}
+    ctDraw(); render(); });
+  /* __CITY_THIRDPARTY__ -- and the answer is remembered the way asking is.
+     CT_MET.answer() writes BOTH bits (answered, honest); the second one has
+     existed since 8/13 precisely so "has not answered" and "answered and lied"
+     stop being the same state. */
+  var ansB=document.getElementById('ctanswer');
+  if(ansB) ansB.addEventListener('click',function(){
+    CT_MET.answer(who.key, T.day||1, true); ctSave();
     ctDraw(); render(); });
   /* __ASK_ABOUT__ -- bound here with every other card button, so there is
      one place that knows how this card responds to a press. */
