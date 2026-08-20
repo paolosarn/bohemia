@@ -1,3 +1,66 @@
+WORLD (world-9lfjtf): 8/20 (g) LATEST -- *** I PUBLISHED A FALSE CLAIM THIS AFTERNOON AND
+THIS IS THE RETRACTION. No tab changes. Nothing here needs judging. ***
+
+WHAT I SHIPPED IN 8/20 (f): "his harmonized street bank reaches NO ROAD IN THE VALLEY --
+44,376 road ground cells sampled, ZERO mapping to an approved street tile."
+
+IT IS FALSE. Measured properly across 192,512 ground cells in 22 district types:
+
+    cell.gArtPool (a pool NAMED on the cell)  145,128 hits
+        hyard 90,962 | street 52,904 | side 1,262
+    SA_MAP[cell.g] (a COLOUR lookup)            3,171 hits
+        street 2,907 | side 264
+    neither (plain generated colour)           44,213
+
+In arterial and freeway districts specifically, 7,228 of 14,336 sampled ground cells wear
+`street` and 863 wear `side`. HIS BANK REACHES THE ROADS ABUNDANTLY AND ALWAYS DID.
+
+TWO INSTRUMENTATION ERRORS, BOTH MINE, IN ONE GATE:
+ 1. I COUNTED THE WRONG OBJECT. saTex() blits the approved Image into a canvas ONCE per
+    (pool,variant), caches the canvas and returns THE CANVAS -- so after first use the
+    renderer draws a cache entry my counter could not recognise, and the cache was already
+    warm when the sweep began. Eight working pools looked silent. Hence "3 of 21 draw".
+ 2. I ASKED ONE OF TWO DOORS. SA_MAP is a COLOUR lookup and genuinely returns nothing on
+    road cells. The live door is gArtPool, an EXPLICIT POOL NAMED ON THE CELL. I got a null
+    from the legacy door and reported the art missing.
+
+A NULL FROM ONE LOOKUP IS NOT A FACT ABOUT THE WORLD. I wrote "a probe that checks one room
+and reports the house empty is the same disease as the bug it hunts" INTO THAT VERY FILE,
+caught myself doing it twice while building it, then did it a third time and shipped it. A
+NEGATIVE RESULT DESERVES THE SAME SCEPTICISM AS A POSITIVE ONE, and I gave it none because
+it was exciting. If you are about to report that something big is missing: find the OTHER
+door first, and check what your instrument can actually see.
+
+WHAT IS STILL TRUE AND WORTH HAVING. The finding that started it is unchanged: his 348
+traffic signal sprites were LOADED, CORRECT AND DRAWING NOWHERE for weeks while the check
+that said "his sprites are LOADED in the browser" stayed green. So the gate counts REQUESTS
+now, not draws:
+    SPRITES (heroes, signals) counted at the draw -- blitted directly, never re-wrapped.
+        heroes 3,664 draws, 60/60 loaded | signals 6 draws (zero this morning)
+    POOLS counted at the saTex() REQUEST -- door-independent and cache-independent.
+        8 of 21 in active use: street side hroof hwall hwindow hboarded hdoor hyard
+13 POOLS ARE NEVER REQUESTED ONCE and that part is real: roof wallface wallwin perimeter
+pocket_v pocket_h cross_ns cross_ew lane_h lane_v shoulder median_h median_v. Several are
+PLAUSIBLY superseded (the pocket/crossing/lane/median set predates the roads drawing
+themselves) -- but "plausibly" is a guess and guessing is what produced the retraction
+above. Named and ratcheted so the question stays visible for whoever owns the streets.
+
+MUTATIONS: point the signal code back at the old flag and the gate fails on "TRAFFIC SIGNALS
+arrive (0 draws)" -- the exact historical regression. Close BOTH doors on `street` and the
+ratchet fails 14/13. Closing only ONE door does not trip it, which is correct -- and my first
+attempt closed one door, did not bite, and THAT WAS THE EVIDENCE I SHOULD HAVE FOLLOWED
+instead of publishing.
+
+  records/BOHEMIA_LOADED_IS_NOT_ARRIVED_8_20_26.md   corrected in place, retraction first
+  gates/approved_art_arrives_gate.js                 7 checks, two mutations confirmed
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. The 13 never-requested pools are the one open art question and they are the STREETS
+     lane's to answer: superseded, or a door somebody forgot to open?
+  2. ROAD CELLS (the arterial block wall) and drive_network (22->25 ratchet, five landmark
+     districts) are still the other WORLD session's, unchanged.
+  3. A hand-painted hazard tile bank is still ART's if he wants one.
+
 RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES. 393 OF 393, ZERO
 UNRUN. It was 217 of 379 and a fifty-minute wall. ***
 

@@ -1224,10 +1224,14 @@ GATES = [
      'the check that said "his sprites are LOADED in the browser" stayed green. This counts '
      'the actual draws of every approved pool across 58 renders of the walked surface AND the '
      'city view, hooking every canvas context because street art bakes into per-chunk '
-     'canvases. The pools that are silent today are NAMED and may only shrink -- including '
-     'the roadway bank, which reaches ZERO of 44,376 sampled road cells since the roads '
-     'started drawing themselves. It is the machine the STREETS ARE THE HARMONIZED POOL law '
-     '(7/31, LOCKED) never had', False),
+     'canvases. CORRECTED THE SAME DAY: the first version counted the raw approved Image, '
+     'but saTex() blits it into a CACHED CANVAS once and returns that, so eight working '
+     'pools looked silent on a warm cache -- and it asked SA_MAP (a colour lookup) when the '
+     'live door is gArtPool (a pool named on the cell), got a null and reported the street '
+     'bank missing from the roads. Measured properly, 52,904 street + 1,262 side cells wear '
+     'his bank. It counts REQUESTS now, which no cache and no choice of door can fool. 8 of '
+     '21 pools are in use and 13 are never asked for at all, named and ratcheted. It is the '
+     'machine the STREETS ARE THE HARMONIZED POOL law (7/31, LOCKED) never had', False),
     ('FURNISH',        ['node', 'gates/furnish_gate.js'],
      'WHAT IS IN THE ROOM, AND THEREFORE WHAT YOU CAN GET BEHIND -- the second half of a '
      'number this lane published the same morning. RETREAT measured the RF4 lift sec 6 '

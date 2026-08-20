@@ -46,26 +46,40 @@ function requirePlaywright() {
   return require('playwright');
 }
 
-/* ── THE NAMED SILENCE, measured 8/20 ────────────────────────────────────────────────────
-   Every one of these is APPROVED ART, LOADED IN THE BROWSER, DRAWING NOWHERE. The list may
-   only shrink. Each entry is a real question somebody has to answer, not a blanket excuse.
+/* ── THE NAMED SILENCE, measured 8/20, AND THE FIRST VERSION OF THIS LIST WAS WRONG ────
+   I shipped this gate saying "3 of 21 pools draw" and that his harmonized street bank
+   "reaches ZERO of 44,376 road cells". BOTH WERE MY INSTRUMENTATION, NOT THE GAME.
 
-   THE BIG ONE, AND IT IS NOT MINE TO FIX: the roadway pools. Street art is chosen by GROUND
-   COLOUR through SA_MAP, whose keys are the old parametric street colours (#8a8a86,
-   #7a7a76, #5e5e5a, #4a4a48, #c8c4b8 ...). Since A ROAD WITH ITS OWN MODULE DRAWS ITSELF
-   (8/18-8/19) the roads emit their generator's own palette instead (#33333c, #6a5f47,
-   #8a8a92, #a09a8a ...). MEASURED: 44,376 road ground cells sampled across 24 road cells,
-   and ZERO of them map to an approved street tile. His harmonized 7/14 bank reaches no road
-   in the valley. That is the STREETS ARE THE HARMONIZED POOL law failing valley-wide and in
-   silence, and the fix is a mapping from each new road tile to the bank pool it should
-   wear -- which is a decision for whoever authored those road tiles, not for me to guess.
-   Handed over with these numbers rather than reached into: ONE SYSTEM, ONE SESSION. */
+   WHAT I DID WRONG, TWICE, IN ONE GATE:
+   1. I counted drawImage calls carrying the raw approved Image. saTex() blits that Image
+      into a canvas ONCE per (pool,variant), caches the canvas, and returns THE CANVAS -- so
+      after first use the renderer draws a cache entry my counter could not recognise. The
+      texture cache was already warm when the sweep began, so eight working pools looked
+      silent and the three that happened to be first-used during the sweep looked like the
+      only survivors.
+   2. I asked SA_MAP[cell.g] -- a COLOUR lookup -- got null everywhere, and concluded the
+      art was unreachable. There are TWO doors and SA_MAP is the legacy one. The live door
+      is `cell.gArtPool`, an explicit pool named on the cell. MEASURED PROPERLY: of 14,336
+      sampled ground cells in arterial/freeway districts, 7,228 wear `street` and 863 wear
+      `side`. His bank reaches the roads perfectly well.
+   I wrote "a probe that checks one room and reports the house empty is the same disease as
+   the bug it hunts" in this very file, and then did it again. The lesson is not that probes
+   are hard; it is that A NULL FROM ONE LOOKUP IS NOT A FACT ABOUT THE WORLD.
+
+   SO IT COUNTS REQUESTS NOW. Every call to saTex(pool) is the renderer ASKING for that
+   pool, which is door-independent and cache-independent: it cannot be fooled by a warm
+   cache or by which of two lookups is live. That is the honest question -- "does anything
+   in this game ever ask for this art".
+
+   WHAT IS ACTUALLY SILENT (13 pools, never requested once across 58 renders of 36 district
+   types plus the city view). These are real: nothing in the game asks for them. Some are
+   almost certainly superseded (the pocket/cross/lane/median set predates the roads drawing
+   themselves from their own modules), which is a question for whoever owns the streets, not
+   a bug I can fix by guessing. Named so it is visible, ratcheted so it may only shrink. */
 const SILENT_DEBT = new Set([
-  /* roadway + kerb, unreachable since the roads started drawing themselves (NOT MINE) */
-  'street', 'side', 'shoulder', 'cross_ns', 'cross_ew', 'pocket_v', 'pocket_h',
-  'median_h', 'median_v', 'lane_h', 'lane_v',
-  /* building skins: reached through other lookups, not seen in this sweep's viewports */
-  'roof', 'wallface', 'wallwin', 'perimeter', 'hroof', 'hwall', 'hwindow',
+  'roof', 'wallface', 'wallwin', 'perimeter',
+  'pocket_v', 'pocket_h', 'cross_ns', 'cross_ew',
+  'lane_h', 'lane_v', 'shoulder', 'median_h', 'median_v',
 ]);
 
 console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the screen\n');
@@ -89,18 +103,25 @@ console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the scre
       const out = { drew: {}, declared: [], heroTotal: 0, heroLoaded: 0, heroDrew: 0,
                     sigTotal: 0, sigDrew: 0, samples: 0, city: 0, districts: 0 };
       const label = new Map();
-      for (const k in SA_TILES) { out.declared.push(k); (SA_IMG[k] || []).forEach(im => label.set(im, k)); }
+      for (const k in SA_TILES) out.declared.push(k);
       for (const k in HERO_IMG) { out.heroTotal++;
         if (HERO_IMG[k].complete && HERO_IMG[k].naturalWidth) out.heroLoaded++;
         label.set(HERO_IMG[k], '@hero'); }
       for (const k in SIG_IMG) { out.sigTotal++; label.set(SIG_IMG[k], '@signal'); }
-      if (typeof LAMP_IMG !== 'undefined') LAMP_IMG.forEach(im => label.set(im, '@lamp'));
 
-      /* EVERY CONTEXT, not just the visible canvas — street art bakes into chunk canvases. */
+      /* SPRITES are counted at the draw, because they are blitted directly and never
+         re-wrapped. POOLS are counted at the REQUEST, because saTex caches a canvas and the
+         raw Image is only ever drawn once -- counting draws there measures the cache, not
+         the game. Two different questions, two different instruments, on purpose. */
       const proto = CanvasRenderingContext2D.prototype, od = proto.drawImage;
       proto.drawImage = function (img, ...a) {
         const L = label.get(img); if (L) out.drew[L] = (out.drew[L] || 0) + 1;
         return od.call(this, img, ...a);
+      };
+      const origSa = window.saTex;
+      window.saTex = function (pool, variant) {
+        out.drew[pool] = (out.drew[pool] || 0) + 1;
+        return origSa(pool, variant);
       };
       const seen = {};
       for (let ty = 2; ty < om.n - 2 && out.samples < 160; ty += 3)
@@ -113,9 +134,9 @@ console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the scre
           try { render(); } catch (e) {}
           out.samples++;
         }
-      /* BOTH SURFACES: the heroes live on the CITY tab, not the walked one. */
       try { if (typeof renderCity === 'function') { renderCity(); out.city = 1; } } catch (e) {}
       proto.drawImage = od;
+      window.saTex = origSa;
       out.heroDrew = out.drew['@hero'] || 0;
       out.sigDrew = out.drew['@signal'] || 0;
       return out;
