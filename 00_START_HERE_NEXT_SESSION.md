@@ -1,3 +1,56 @@
+SOUND (sound-xk7pjp): 8/20 (r,s,t,u) LATEST -- *** 40 SOUNDS ARE WAITING FOR HIM,
+AND THEY WERE CARDS 93 TO 100 OF 100. TAB: MUSIC, the SFX board -- now cards 1 to
+8. ***
+
+He asked "do you have new sounds for me to judge?" and I verified it on the
+shipped sheet instead of asserting it.
+  THE ROOM GOES QUIET | THE MAG SEATS | IT CHANGES HANDS | A DOG, OUT THERE
+  THE SIGN IS STILL ON | YOUR LUNGS CATCH UP | MORE SAND | MORE BOARDS
+All 40 render 0.17-0.31 (none below the judgeable floor, none silent, no page
+errors). Tapping one fires ONLY that sound -- the judge-quiet checks from his
+8/16 complaint are still green.
+
+*** THE THING THAT WOULD HAVE COST HIM THE SESSION. *** Those 8 cards sat at
+positions 93-100 OF 100. The sheet opened on ninety-two CLOSED cards and the only
+work he could do was underneath all of them. The rule was already right and had
+been since 8/1 -- his words, "I shouldn't be having a scroll for five fucking
+minutes", and the code comment literally says "the page opens on exactly the work
+that is left" -- but the list was walked in DECLARATION order and a new batch is
+declared at the END. Technically visible, practically buried: the exact shape of
+"I didn't see the new sound effect".
+FIXED in tools/bohemia_sfx_factory.py: undecided sort FIRST, decided after,
+declaration order preserved inside each group so nothing else shuffles under him.
+No verdict changed, no sound changed -- only what he meets first. Measured again:
+cards 1 through 8.
+
+*** SIXTH RULER MISTAKE THIS WEEK, CAUGHT BEFORE REPORTING. *** My first probe
+said all 100 cards were OPEN and the collapse was broken. It tested row
+visibility; the sheet closes a card by setting display:none on the card BODY,
+which is what sfx_wired_gate already measures. Re-measured its way: 8 open, 92
+shut, exactly as designed. Running tally of bad instruments: RMS on the kill
+layers, a closure lookup on the ambience, the two-point pitch model (x3), a
+checker searching a haystack holding its own answer key, a grep of the wrong
+file, and now a visibility test on the wrong element. CHECK THE RULER FIRST.
+
+GATES: SFX RENDER 6626/0 (500 candidates). SFX WIRED 853/0. VERDICT-FROZEN 6/0.
+SILENT MOMENTS 29/0. INSTRUMENT 15/0. ALPHA LOADS 20/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** WAIT FOR HIS 40 VERDICTS BEFORE TOUCHING THE PITCH MODEL. *** The
+    two-point calibration (INST_VOICE at semi -24 and +12 only) has mispredicted
+    THREE voices -- ghostvox and breathpad 5x quiet on 8/19, sweeppad a click on
+    8/20. The fix is a third row at semi -6 and the measure tool already freezes
+    existing rows, so only the new row needs reading (~72 voices x 5 steps, 6-8
+    min). BUT IT RE-TUNES EVERY INSTRUMENT SOUND HE HAS APPROVED, so running it
+    while 40 candidates await his thumb would move the ground under his own
+    verdicts. Do it the moment his sweep lands, with a deliberate re-record.
+ 2. Whatever he approves out of the 40 unlocks volume (APPROVAL UNLOCKS VOLUME)
+    and expires the step_wood waiver in sfx_wired_gate automatically.
+ 3. go_inside has a real trigger nobody has used: the `inside` flag crosses to
+    the parent every 4s -- watch it flip, same shape as PAYSTING.
+ 4. HORIZONTAL RE-SEQUENCING between music intensity tiers; the vertical half
+    (kill layers) is done.
+
 CHARACTER (character-0lurbs): 8/20 (e) LATEST -- *** THE CHARACTER IS FOUR TIMES
 THE PIXELS. HE SHIPPED IT BY SAYING "IT LOOKS EXACTLY THE SAME DUMBASS". ***
 
