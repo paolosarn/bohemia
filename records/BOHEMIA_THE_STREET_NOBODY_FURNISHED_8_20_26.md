@@ -143,10 +143,45 @@ describe the world that exists.
 A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. Every tile a district **declares**, it must
 **make**.
 
-Across the whole registry: **55 of 1,071 declared tiles, in 28 legend families, are
-promises the world does not keep.** mountain declares a ravine floor, a dry drainage,
-boulders and an alluvial fan and builds none of them. The airport declares jet bridges
-and dead airliners and parks nothing.
+> ## CORRECTION, 8/20, same day — THE NUMBER IN THIS SECTION WAS WRONG AND SO WAS ITS
+> ## HEADLINE EXAMPLE.
+>
+> This shipped saying **55** codes, and named the **mountain** as the worst case:
+> *"declares a ravine floor, a dry drainage, boulders and an alluvial fan and builds
+> none of them."* **The mountain builds all five.** So does the desert, the rail's
+> level crossing, the freeway's rail underpass, and the suburb's gate.
+>
+> The gate was not running the modes those districts are really generated under. A
+> district is built under **four** opts contracts, and the first version of this gate
+> knew about two:
+>
+> - `cellX` / `cellY` — where in the valley the cell sits. Terrain samples a
+>   valley-wide field in global coordinates, so without these the mountain builds a
+>   different, poorer cell with no ravine and no fan.
+> - `open` — which neighbours are *not* mountain, which is what decides whether the
+>   alluvial fan spills onto the flat at all.
+> - `cross` / `same` / `rail` — **direction lists, not booleans.** I passed
+>   `cross: true`. The generator reads `cross.indexOf('E')`, which throws on a
+>   boolean, the try/catch swallowed it, and the entire mode silently produced
+>   nothing. **Eight false findings from one wrong type.**
+> - `gated` — the suburb's gate is a WEALTH flag (GATED IS RICH, Paolo 8/1), and a
+>   plain `suburb` is *supposed* never to build one. Its own legend says so in the
+>   entry text.
+>
+> **The true number is 40, across 24 families.** The modes are now derived by scanning
+> what the engine modules actually read off `opts`, rather than hand-listed.
+>
+> This is the exact bug this gate exists to catch, committed by the gate, on the day it
+> shipped: **a checker that does not exercise the real mode reports the real thing as
+> broken.** It is also the second time this session I published a finding before
+> checking it against the surface it describes. The honesty check inside the gate
+> ("every code still named in DEBT is still really unplaced") is what caught it, which
+> is the one good part of the story.
+
+Across the whole registry: **40 of 1,071 declared tiles, in 24 legend families, are
+promises the world does not keep.** The airport declares jet bridges, dead airliners
+and a revetment and parks nothing. Eight separate districts declare a `marking` code
+and never paint a line.
 
 Two things the gate is careful about, because *a checker that cannot tell a mention from
 a use is the broken one* (8/1):
@@ -156,10 +191,8 @@ a use is the broken one* (8/1):
    defect. So the unit is the **legend**, not the type — a code passes if any type
    sharing that legend emits it. That distinction alone was the difference between 82
    findings and 57.
-2. **Modes.** Seven street configs *plus* a synthetic 3x3 cluster block walked window by
-   window, because a cluster district lays its runway in valley coordinates and each cell
-   copies its own window. Generate it without bounds and of course the terminal never
-   appears.
+2. **Modes.** All four opts contracts, derived from source rather than guessed, and in
+   the right *shapes* — see the correction above for what happened when they were not.
 
 Ratcheted like squint and hue: the debt is named and may only shrink, and **fixing one
 and leaving it listed fails too** — a debt list that lies about being paid hides the next

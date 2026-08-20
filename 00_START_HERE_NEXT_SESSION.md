@@ -9888,7 +9888,57 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (b) LATEST -- *** THE STREET NOBODY FURNISHED. THE MOST
+WORLD (city-1eztay): 8/20 (c) LATEST -- *** LAS VEGAS BOULEVARD HAD NO
+INTERSECTIONS. 81 CELLS, 7.8 KM, NOT ONE CROSSWALK AND NOT ONE PEDESTRIAN BRIDGE. ***
+Tab: RUN (walk the Strip). Grid: records/target/BOHEMIA_GRID_strip_x.png
+Gates: LEGEND KEPT 5/0, walked surface 9/0, district fill 53/0, tilespec, truncation.
+City page RESYNCED.
+
+    strip cells: 81      strip_x cells: 0
+
+The crossing type was registered 8/18, generates correctly, is dossiered, and was
+NEVER ONCE SELECTED. THREE BUGS STACKED, all mine:
+ 1. THE DISPATCHER WAS HARD-CODED TO ONE ROAD. kitRoadType() opened with
+    `if(d!=='arterial') return d;` so strip_x could never be returned. Any road may
+    now have a <type>_x sibling.
+ 2. THE STRIP NEVER READ THE WORLD'S OWN ANSWER. freeway and rail read
+    `opts.same || opts.links || opts.streets`; the Strip read only links/streets, so
+    sameLinks -- the world's real computation -- was thrown away.
+ 3. *** AND THIS ONE SILENTLY UNDID THE 8/18 FIX: THE CORRIDOR AXIS TEST WAS DEFEATED
+    BY THE BOULEVARD'S OWN WIDTH. *** The Strip runs TWO CELLS ABREAST, so a cell's
+    `same` holds its continuation ahead and behind PLUS ITS SIBLING HALF to the side --
+    in the seed valley `same=[N,S,E]`. The test asked "is there ANY leg on this axis",
+    which for that cell answers YES ON BOTH, so every cross street was rejected as
+    running along the boulevard. A CORRIDOR RUNS ON THE AXIS IT ENTERS AND LEAVES BY --
+    BOTH LEGS. A SIBLING IS ONE LEG. `vert = hasN && hasS` instead of `||`.
+ 4. and a cross leg was never added to the cell's own pavement, so coverH() stayed
+    false and the crosswalk was painted on ground that was not roadway. An
+    intersection with no road arriving at it is a painted rumour.
+CHECKED THAT THE 8/18 BUG DID NOT COME BACK (it once made 78 of 81 cells a junction):
+12 cells with a crosswalk, 12 with a bridge, matching the 12 the world says have real
+cross legs. About one intersection every 670 m.
+
+*** AND A CORRECTION TO YESTERDAY, WHICH IS THE BIGGER LESSON. legend_kept_gate
+SHIPPED SAYING 55 AND NAMING THE MOUNTAIN, AND IT GOT ITS OWN ANSWER WRONG THREE
+TIMES IN ONE DAY, EACH TIME BY GUESSING ITS INPUTS: ***
+  v1  no cellX/cellY, no open -> "the mountain builds no ravine, drainage, shrub,
+      boulder or fan". IT BUILDS ALL FIVE.
+  v2  passed cross:true -> the generator reads cross.indexOf('E'), it THREW, the
+      try/catch ate it, the whole mode made nothing. EIGHT FALSE FINDINGS FROM ONE
+      WRONG TYPE (the rail's level crossing, the freeway's rail underpass).
+  v3  a synthetic 3x3 cluster block -> "the airport parks no airliners". The airfield
+      lays stands with `st = A0+90; st < A1-120; st += 150`, an EMPTY RANGE on 3x3.
+      On its real blobs the family builds 18 OF 18.
+THE FIX: THE GATE NOW BUILDS THE REAL VALLEY FROM THE ONE SEED and reads the cells the
+player walks, 30 sampled per type. There is exactly one input that cannot be wrong
+about the modes and it is the world itself. A SYNTHESISED INPUT IS A GUESS WEARING A
+LAB COAT. True registry figure: 41, now 34 after the Strip.
+The one thing that worked as designed: the gate's own honesty check (every code named
+in DEBT must STILL really be unplaced) is what caught all three wrong versions. A
+ratchet that only checks one direction would have let them ship quietly.
+Record: records/BOHEMIA_THE_BOULEVARD_WITH_NO_INTERSECTIONS_8_20_26.md
+
+WORLD (city-1eztay): 8/20 (b) -- *** THE STREET NOBODY FURNISHED. THE MOST
 WALKED CELL IN THE GAME HAD TWO OBJECTS ON IT, AND SIX PLACEMENTS WERE SILENTLY
 MAKING NOTHING. ***
 Tab: RUN (walk any mile-grid street). Also the top-down grid:
@@ -9940,11 +9990,28 @@ The block wall (code 8) is DELETED from the arterial legend/palette/body/layerin
 leaving an entry called "block wall" in a STREET legend is an invitation to put back
 the thing that cut the reachable valley to 3 cells of 9,216.
 
-*** NEW GATE, AND IT HAS 55 MORE OF THESE WAITING: gates/legend_kept_gate.js ***
-Every tile a district DECLARES it must MAKE. Registry-wide: 55 of 1,071 declared
-tiles across 28 legend families are promises the world does not keep (mountain
-declares a ravine floor, boulders and an alluvial fan and builds none; the airport
-declares jet bridges and parks nothing). Ratcheted -- the debt may only SHRINK, and
+*** NEW GATE, AND IT HAS 40 MORE OF THESE WAITING: gates/legend_kept_gate.js ***
+*** CORRECTED 8/20 SAME DAY -- THIS SHIPPED SAYING 55 AND NAMING THE MOUNTAIN, AND
+BOTH WERE WRONG. The mountain builds all five of the tiles I said it did not; so do
+the desert, the rail's level crossing, the freeway's rail underpass and the suburb's
+gate. The gate was not running the modes those districts are really generated under.
+A district is built under FOUR opts contracts and the first version knew two:
+cellX/cellY (terrain samples a valley-wide field in GLOBAL coords, so without them
+the mountain builds a poorer cell with no ravine and no fan), open (which neighbours
+are not mountain), cross/same/rail (DIRECTION LISTS, NOT BOOLEANS -- I passed
+cross:true, the generator reads cross.indexOf('E'), it threw, the try/catch ate it,
+and the whole mode silently made nothing: EIGHT FALSE FINDINGS FROM ONE WRONG TYPE),
+and gated (a WEALTH flag -- GATED IS RICH, 8/1 -- a plain suburb is SUPPOSED never to
+build one, and its own legend entry says so). True number: 40 across 24 families.
+Modes are now DERIVED by scanning what the modules actually read off opts.
+THIS IS THE BUG THE GATE EXISTS TO CATCH, COMMITTED BY THE GATE, ON ITS SHIP DAY: a
+checker that does not exercise the real mode reports the real thing as broken. The
+gate's own honesty check ("every code named in DEBT is still really unplaced") is
+what caught it. ***
+Every tile a district DECLARES it must MAKE. Registry-wide: 40 of 1,071 declared
+tiles across 24 legend families are promises the world does not keep (the airport
+declares jet bridges, dead airliners and a revetment and parks nothing; EIGHT
+districts declare a `marking` code and never paint a line). Ratcheted -- the debt may only SHRINK, and
 fixing one and leaving it listed FAILS TOO. Two things it is careful about, because
 a checker that cannot tell a mention from a use is the broken one: LEGENDS ARE SHARED
 (arterial+arterial_x are one legend; judged as a family, which took 82 findings down

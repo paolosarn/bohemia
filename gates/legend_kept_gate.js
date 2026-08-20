@@ -44,13 +44,27 @@
         and neither is a defect. So the unit here is the LEGEND, not the type: a code
         passes if ANY type sharing that legend emits it. Measured, this alone was the
         difference between 82 findings and 57, before today's six fixes took it to 55.
-     2. MODES. Six street configs plus the 4-way, plus a synthetic 3x3 cluster block
-        walked window by window, because a cluster district lays its runway or its
-        stack in VALLEY coordinates and each cell copies its own window — generate it
-        without bounds and of course the terminal never appears.
+     2. MODES, AND THIS GATE ALREADY GOT IT WRONG ONCE. Districts are generated
+        under FOUR different opts contracts, derived from what the modules actually
+        read rather than guessed:
+          streets/links      47 modules   which edges are road
+          cellX/cellY        8 modules    where in the valley this cell is (terrain
+                                          samples a valley-wide field in global coords)
+          open               mountain     which neighbours are NOT mountain
+          bounds/approach/fx/fy  3        cluster blocks laid in valley coordinates
+        THE FIRST VERSION OF THIS GATE HAD ONLY THE FIRST AND LAST, and it reported the
+        MOUNTAIN as declaring a ravine floor, a dry drainage, boulders and an alluvial
+        fan and building none of them. It builds all four. They only appear when the
+        cell is told where it is and which of its neighbours is valley floor -- exactly
+        the mode the gate was not running. Six codes across two families were false,
+        and they went out in a shipped debt list saying the world did not keep its
+        promises. The checker was the thing not keeping its promise.
+        That is the bug this whole gate exists to catch, committed BY the gate, which
+        is worth leaving written down: A CHECKER THAT DOES NOT EXERCISE THE REAL MODE
+        REPORTS THE REAL THING AS BROKEN.
 
-   RATCHET, like squint, hue and icon, and for the same reason: 55 codes across 28
-   legend families are still unplaced after today's arterial fixes and a gate that goes red on day one is a comment
+   RATCHET, like squint, hue and icon, and for the same reason: 34 codes across 23
+   legend families are unplaced in the valley the player actually walks and a gate that goes red on day one is a comment
    nobody can act on. The debt is NAMED below and may only SHRINK. Fixing one and
    leaving it listed fails too — a debt list that lies about being paid is worse than
    no list, because it hides the next regression behind a name that is already there.
@@ -73,71 +87,116 @@ const ok = (n, c, d) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n + (d 
    Three different things are on this list and they have three different fixes, so the
    next session should read before reaching for the generator:
 
-     a) A RULING RETIRED THE FEATURE. freeway's overpass deck and bridge columns are
-        here because Paolo killed them on 8/11 -- "the freeway overpass underpass
-        shit... its looking god awfully terrible" -- and sent the deck to the
-        INTERCHANGE, which still builds it. THE FIX IS TO DELETE THE LEGEND ENTRY, not
-        to place the tile. Placing it would undo his ruling. (arterial's block wall was
-        on this list at 09:00 and was deleted the same way by noon.)
+     a) A RULING RETIRED THE FEATURE. Nothing is on this list for that reason right
+        now, and the entry is kept because it is the one case where THE FIX IS TO
+        DELETE THE LEGEND ENTRY, not to place the tile -- placing it would undo the
+        ruling. arterial's block wall was handled exactly that way on 8/20.
      b) THE CODE IS A SAFETY FLOOR. `0` is the value K.grid() fills with, so several
         legends name it for the case where a generator leaves a hole; a legend entry
         for 0 that never appears is the SUCCESS case, not a defect. Left listed rather
         than special-cased, because special-casing 0 would hide a generator that really
         did leave the cell empty.
-     c) IT IS A REAL UNBUILT PROMISE. Everything else. mountain declares a ravine
-        floor, a dry drainage, boulders and an alluvial fan and builds none of them;
-        the airport declares jet bridges and dead airliners and parks nothing. These
-        are the arterial's bug wearing a different hat, and they are what this list is
-        for.                                                                          */
+     c) IT IS A REAL UNBUILT PROMISE. Everything else. The airport declares jet
+        bridges, dead airliners and a revetment and parks nothing; the rail declares a
+        level crossing with a gate arm and never builds one. These are the arterial's
+        bug wearing a different hat, and they are what this list is for.
+
+   MOUNTAIN AND DESERT WERE ON THIS LIST AND WERE NEVER BROKEN. The first version of
+   this gate did not run the terrain contract (cellX/cellY/open), so it reported the
+   mountain as declaring a ravine floor, a dry drainage, a desert shrub, boulders and
+   an alluvial fan and building none of them. It builds all five. Removed 8/20, the day
+   after they were wrongly added, by the honesty check below -- which is the check
+   earning its keep on its author. 55 -> 49.                                          */
 const DEBT = {
-  'airbase+airport': [7, 10, 11, 12, 17],
-  'freeway':         [0, 12, 13, 16, 17],
-  'mountain':        [4, 5, 6, 7, 8],
-  'reservoir':       [9, 11, 14],
-  'arsenal':         [11, 13, 14],
-  'basin':           [11, 13, 14],
-  'rail':            [12, 13, 14],
-  'watertreat':      [3, 11],
-  'substation':      [3, 11],
-  'fueldepot':       [9, 14],
-  'reclaim':         [11, 14],
-  'radio':           [6, 11],
-  'interchange':     [2, 14],
-  'strip+strip_x':   [0, 16],
-  'arterial+arterial_x': [0],
-  'suburb':          [5],
-  'industrial':      [0],
-  'boneyard':        [9],
-  'railyard':        [3],
-  'quarry':          [11],
-  'gypsum':          [11],
-  'jail':            [3],
-  'downtown':        [0],
-  'warehouse':       [10],
-  'desert':          [8],
-  'resort':          [9],
-  'casino':          [7],
-  'convention':      [5],
+  'strip+strip_x':       [16],
+  'arsenal':             [11, 13, 14],
+  'basin':               [11, 13, 14],
+  'reservoir':           [9, 11, 14],
+  'freeway':             [16, 17],
+  'radio':               [6, 11],
+  'reclaim':             [11, 14],
+  'substation':          [3, 11],
+  'watertreat':          [3, 11],
+  'boneyard':            [9],
+  'casino':              [7],
+  'convention':          [5],
+  'downtown':            [0],
+  'gypsum':              [11],
+  'industrial':          [0],
+  'interchange':         [14],
+  'jail':                [3],
+  'mountain':            [6],
+  'quarry':              [11],
+  'railyard':            [3],
+  'resort':              [9],
+  'suburb':              [5],
+  'warehouse':           [10],
 };
 
-/* EVERY MODE A DISTRICT REALLY HAS. Six street configs, the 4-way, and a synthetic
-   3x3 cluster block walked window by window (a cluster district lays its content in
-   VALLEY coordinates against the blob bounds, and each cell copies its own window). */
-function modes() {
-  const out = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W'], ['N', 'S', 'E', 'W']]
-    .map(c => ({ streets: c }));
-  for (let fy = 0; fy < 3; fy++) {
-    for (let fx = 0; fx < 3; fx++) {
-      out.push({
-        streets: ['S'], fx: fx, fy: fy,
-        bounds: { x0: 0, x1: 2, y0: 0, y1: 2, cells: 9 },
-        approach: { n: [0, 1, 2], s: [0, 1, 2], e: [0, 1, 2], w: [0, 1, 2] },
-      });
-    }
+/* IT GENERATES THE REAL WORLD. NOT SYNTHETIC MODES -- THE ACTUAL VALLEY.
+
+   THIS GATE GOT ITS OWN ANSWER WRONG THREE TIMES IN A DAY BY GUESSING ITS INPUTS, and
+   the third time is why it now works this way. A district is generated under FOUR opts
+   contracts (streets/links, cellX/cellY, open, bounds/approach/fx/fy) plus variant flags
+   (cross/same/rail as DIRECTION LISTS, gated, kind, access, spanThrough), and every one
+   of them has to be not just PRESENT but the right SHAPE and the right SIZE:
+
+     v1  did not pass cellX/cellY or open, and reported the MOUNTAIN as declaring a
+         ravine floor, a dry drainage, a desert shrub, boulders and an alluvial fan and
+         building none of them. It builds all five.
+     v2  passed `cross: true`. The generator reads `cross.indexOf('E')`, which throws on
+         a boolean, the try/catch swallowed it, and the whole mode silently made nothing.
+         EIGHT false findings from one wrong type -- the rail's level crossing and the
+         freeway's rail underpass among them.
+     v3  passed a synthetic 3x3 cluster block. The airfield lays its stands with
+         `for (st = A0 + 90; st < A1 - 120; st += 150)`, and on a 3x3 block that range is
+         empty -- so it reported the airport as declaring jet bridges, dead airliners, a
+         revetment and a hangar and parking none of them. On its REAL blobs the family
+         builds 18 of 18.
+
+   Every one of those was the gate calling a working district broken, which is the exact
+   failure its own care note warns about, three times over. There is only one input that
+   cannot be wrong about the modes, and it is THE WORLD ITSELF: build the valley from the
+   ONE SEED and read the cells the player actually walks. That is VERIFY ON THE REAL
+   SURFACE (7/18) applied to the generator instead of to a picture.
+
+   SAMPLED, because a full 9,216-cell sweep is ~137s and this has to live in the suite.
+   Up to CAP cells per district type, spread evenly through that type's cells so the
+   sample crosses different blobs, different street configs and different neighbours. A
+   type with fewer than CAP cells is swept whole. */
+const CAP = 30;
+
+const W = require(path.join(ROOT, 'engine/bohemia_world.js'));
+const world = W.world('bohemia');          // THE ONE SEED (CLAUDE.md), never a fresh one
+
+const cellsOf = {};
+for (let y = 0; y < 96; y++) {
+  for (let x = 0; x < 96; x++) {
+    const c = world.at(x, y);
+    if (!c || !c.district) continue;
+    (cellsOf[c.district] = cellsOf[c.district] || []).push([x, y]);
   }
-  return out;
 }
-const SEEDS = [7, 2654435761, 40503];
+ok('the valley generated and every cell has a district ('
+  + Object.values(cellsOf).reduce((a, b) => a + b.length, 0) + ' cells, '
+  + Object.keys(cellsOf).length + ' types)',
+  Object.values(cellsOf).reduce((a, b) => a + b.length, 0) > 9000);
+
+// what each TYPE actually emits, read off the real generated plots
+const usedByType = {};
+for (const [type, cells] of Object.entries(cellsOf)) {
+  const used = new Set();
+  const step = Math.max(1, Math.floor(cells.length / CAP));
+  for (let i = 0; i < cells.length; i += step) {
+    const [x, y] = cells[i];
+    let p = null;
+    try { p = world.plot(x, y); } catch (e) { continue; }
+    const g = p && p.block && p.block.grid;
+    if (!g) continue;
+    for (const row of g) for (const v of row) used.add(v);
+  }
+  usedByType[type] = used;
+}
 
 // group the registry by the legend OBJECT itself, so siblings that share one legend
 // are judged together (see care note 1 above)
@@ -156,17 +215,11 @@ for (const [legend, types] of families) {
   const name = types.slice().sort().join('+');
   const used = new Set();
   for (const t of types) {
-    const spec = K.get(t);
-    for (const o of modes()) {
-      for (const sd of SEEDS) {
-        try {
-          const r = spec.generate(sd, JSON.parse(JSON.stringify(o)));
-          if (!r || !r.g) continue;
-          for (const row of r.g) for (const v of row) used.add(v);
-        } catch (e) { /* a generator that throws is another gate's problem */ }
-      }
-    }
+    for (const v of (usedByType[t] || [])) used.add(v);
   }
+  // a registered type that never appears in the valley cannot be judged: say so rather
+  // than calling all of its tiles unbuilt (that is the v3 mistake with the volume up)
+  if (!types.some(t => cellsOf[t] && cellsOf[t].length)) continue;
   const codes = Object.keys(legend).map(Number).sort((a, b) => a - b);
   declared += codes.length;
   const never = codes.filter(c => !used.has(c));

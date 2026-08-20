@@ -14134,17 +14134,45 @@ const BEAT=500; // 120BPM law
                 not stop halfway. This is the halves working together. */
   function generate(seed, opts) {
     opts = opts || {};
-    var links = opts.links || opts.streets || ['N', 'S'];
+    /* `same` FIRST, and it was missing (8/20). The world hands a road cell `sameLinks`
+       and `crossLinks`, and freeway and rail both read `opts.same || opts.links || ...`.
+       This one read only links/streets, so the corridor axis was taken from whatever a
+       caller happened to pass and the world's own answer was ignored. */
+    var links = opts.same || opts.links || opts.streets || ['N', 'S'];
     var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
     if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
     var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
-    var vert = hasN || hasS, horiz = hasE || hasW;
     var xset = {}; (opts.cross || []).forEach(function (d) { xset[String(d).toUpperCase()[0]] = 1; });
+
+    /* THE CORRIDOR AXIS IS THE AXIS WITH BOTH LEGS, NOT EITHER LEG (8/20). This is the
+       other half of the two-cells-wide problem described above, and it silently undid
+       the 8/18 fix: because the boulevard runs two abreast, a cell's `same` set holds
+       its continuation AHEAD and BEHIND plus its SIBLING HALF to the side -- in the seed
+       valley, `same = [N, S, E]`. The old test asked "is there any leg on this axis",
+       which for that cell answers YES on both axes, so the filter below rejected every
+       cross street as "along the boulevard" and NOT ONE OF THE 81 CELLS EVER BUILT A
+       JUNCTION. Twelve of them have a real cross street and the world computes them
+       correctly; they were thrown away here.
+       A corridor RUNS on the axis it enters and leaves by -- both legs. A sibling is one
+       leg. That distinction is the whole difference. */
+    var vert = hasN && hasS, horiz = hasE && hasW;
+    if (!vert && !horiz) { vert = hasN || hasS; horiz = !vert && (hasE || hasW); }
     /* a cross street only counts if it comes in ACROSS the boulevard, not along it */
     var xLegs = ['N', 'S', 'E', 'W'].filter(function (d) {
       if (!xset[d]) return false;
       return (d === 'N' || d === 'S') ? !vert : !horiz;
     });
+    /* AND THE CROSSING ARM HAS TO BE PAVED. A cross leg that never enters `set` is a
+       junction with no road arriving at it: coverH() stays false on that axis, so the
+       approach, its crosswalk and its stop bar are all drawn onto ground that is not
+       roadway and none of them survive. The cross street is part of this cell's
+       pavement, which is what makes it an intersection rather than a painted rumour. */
+    xLegs.forEach(function (d) {
+      set[d] = 1;
+      if (d === 'N') hasN = true; else if (d === 'S') hasS = true;
+      else if (d === 'E') hasE = true; else hasW = true;
+    });
+    if (xLegs.length) { horiz = hasE || hasW; vert = hasN || hasS; }
     /* NO CALLER, OLD BEHAVIOUR. A caller that knows nothing about cross streets (the
        standalone dossier, the icon, a gate) still gets the crossing anatomy off a
        four-leg mask, exactly as before, so nothing that already worked changes. */
@@ -21479,9 +21507,19 @@ const KIT_TERRAIN={desert:1,mountain:1,water:1,wash:1};
    RUN and `arterial_x` the CROSSING (Paolo 8/11: "2 DIFFERENT ITEMS AND ICONS!!") -- so the
    page has to choose, because the district name alone cannot say which one this cell is.
    A cross street on the other axis makes it a crossing; anything else is a run. */
+/* THE CROSSING SPLIT WAS HARD-CODED TO ONE ROAD (8/20). This read
+   `if(d!=='arterial') return d;`, so `strip_x` -- registered on 8/18, with its
+   crosswalks, its signal masts, its stop bars and the ENCLOSED PEDESTRIAN BRIDGES
+   that are the single most recognisable thing about Las Vegas Boulevard -- could
+   never be selected. Measured: 0 strip_x cells in the valley, while the world
+   computes real cross legs for 12 of the Strip's 81. Seven point eight kilometres
+   of boulevard with not one intersection on it.
+   Any road type may now have a `<type>_x` sibling; it is used when the world says
+   this cell has a cross street, and ignored when no such type is registered. */
 function kitRoadType(d,legs){
-  if(d!=='arterial') return d;
-  return (legs&&legs.cross&&legs.cross.length)?'arterial_x':'arterial';
+  if(!(legs&&legs.cross&&legs.cross.length)) return d;
+  var x=d+'_x';
+  return (typeof BohemiaDistrictKit!=='undefined'&&BohemiaDistrictKit.get(x))?x:d;
 }
 const BW={arterial:6,strip:10,freeway:8,interchange:12,rail:2,beltway:8};   // half-widths, scaled to 128
 const RCOL={arterial:'#8a8a86',strip:'#7a7a76',freeway:'#5e5e5a',interchange:'#4a4a48',rail:'#7a6a58',beltway:'#5e5e5a'};
