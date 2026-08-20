@@ -707,6 +707,110 @@ function requirePlaywright() {
       reach2.cells != null && reach2.affiliated > 0,
       JSON.stringify(reach2));
 
+    /* ---- H. THE ONLY THING THAT MOVES WHILE HE IS DOING SOMETHING ELSE ----
+       `grep neglectFor` returned a definition, a re-export, and NOTHING ELSE.
+       Zero callers on the walked surface -- the FIFTH time this exact shape has
+       turned up in this stack (give() the wall, the favour nobody collected, the
+       cost that cost nothing, the ladder with no rungs), and this one I wrote
+       myself. The organ computed the upkeep on a commitment and nothing charged
+       it.
+
+       IT IS THE ONLY THING IN THE WHOLE STACK THAT MOVES WITHOUT A BUTTON. The
+       further in you are, the more a quiet week costs: nothing said out loud
+       costs nothing, taking a side costs one a day, burning a bridge costs two.
+       Stage index, derived, never typed. */
+    const neg = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const bases = ctBases() || {};
+          let who = null, fid = null;
+          for (const b of Object.values(bases)) {
+            hx = b.x * FN + 2; hy = b.y * FN + 2;
+            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
+            if (who) break;
+          }
+          if (!who) return { nobody: true };
+          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          const sv = ctBelongSave();
+          sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
+          sv.meta.commit = {}; sv.meta.neglectDay = {};
+          const r = { fid };
+          /* NOTHING SAID OUT LOUD COSTS NOTHING TO NEGLECT. */
+          for (let i = 0; i < 6; i++) BohemiaBelonging.record(sv, fid, 0);
+          r.uncommittedBefore = BohemiaBelonging.gaveOf(sv, fid);
+          ctNeglectFor(sv, T.day); DAY.nextDay(); daySync();
+          r.uncommittedAfter = BohemiaBelonging.gaveOf(sv, fid);
+
+          BohemiaCommitment.setState(sv, fid, 'sided');
+          r.perDay = BohemiaCommitment.neglectFor(BohemiaCommitment.stateOf(sv, fid)) | 0;
+          r.quiet = [];
+          for (let d = 0; d < 3; d++) {
+            ctNeglectFor(sv, T.day); DAY.nextDay(); daySync();
+            r.quiet.push(BohemiaBelonging.gaveOf(sv, fid));
+          }
+          /* A DAY YOU TURNED UP IS NOT A DAY YOU NEGLECTED THEM. */
+          BohemiaBelonging.record(sv, fid, T.day);
+          const b1 = BohemiaBelonging.gaveOf(sv, fid);
+          ctNeglectFor(sv, T.day);
+          r.turnedUp = { before: b1, after: BohemiaBelonging.gaveOf(sv, fid) };
+          /* AND THE HOOK RUNS OFF A CARD CALLBACK, SO IT MUST SURVIVE FIRING TWICE. */
+          DAY.nextDay(); daySync();
+          const b2 = BohemiaBelonging.gaveOf(sv, fid);
+          ctNeglectFor(sv, T.day); ctNeglectFor(sv, T.day);
+          r.twice = { before: b2, after: BohemiaBelonging.gaveOf(sv, fid) };
+          /* AND IT CANNOT DRIVE ANYBODY BELOW A STRANGER. */
+          for (let d = 0; d < 12; d++) { ctNeglectFor(sv, T.day); DAY.nextDay(); daySync(); }
+          r.floor = BohemiaBelonging.gaveOf(sv, fid);
+          /* AND THE CARD SAYS IT BEFORE IT EVER HAPPENS.
+             WALK BACK TO THEM FIRST. The twelve day-rolls above moved the PLAYER
+             (waking up relocates him; they stay where they live), so by here
+             nobody is adjacent and ctOpen() correctly closes on an empty card --
+             which is this lane's own 8/20 fix, and this probe forgot it one
+             screenful after writing it. */
+          sv.meta.gave = {}; for (let i = 0; i < 6; i++) BohemiaBelonging.record(sv, fid, 0);
+          BohemiaCommitment.setState(sv, fid, 'sided');
+          const back = ctAt(who); hx = back[0] + 1; hy = back[1];
+          ctSawCell(); ctClose(); ctOpen();
+          r.card = document.getElementById('ctcard').innerText;
+          return r;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('H1 NOTHING SAID OUT LOUD COSTS NOTHING TO NEGLECT — you promised nobody '
+      + 'anything, so there is nothing to be charged for',
+      neg.uncommittedAfter === neg.uncommittedBefore,
+      JSON.stringify({ before: neg.uncommittedBefore, after: neg.uncommittedAfter }));
+
+    ok('H2 …but once you have TAKEN A SIDE, a quiet day costs you. This is the '
+      + 'only thing in the whole stack that moves while he is doing something '
+      + 'else, and neglectFor had ZERO CALLERS until now',
+      neg.perDay > 0 && neg.quiet.length === 3
+      && neg.quiet[0] > neg.quiet[1] && neg.quiet[1] > neg.quiet[2],
+      JSON.stringify({ perDay: neg.perDay, quietDays: neg.quiet }));
+
+    ok('H3 …and a day you TURNED UP is not a day you neglected them. Charging '
+      + 'somebody for a day they showed up is the fastest way to make showing up '
+      + 'feel pointless',
+      neg.turnedUp.after === neg.turnedUp.before, JSON.stringify(neg.turnedUp));
+
+    ok('H4 …and it charges ONCE. The hook runs off a card callback, and a hook '
+      + 'that can fire twice is a double charge nobody can see',
+      neg.twice.before - neg.twice.after === neg.perDay, JSON.stringify(neg.twice));
+
+    ok('H5 …and it cannot drive anybody below a stranger, however long he stays '
+      + 'away. Twelve quiet days and the floor holds',
+      neg.floor === 0, 'after twelve quiet days: ' + neg.floor);
+
+    ok('H6 AND HE CAN SEE IT COMING. The consequence is printed before the '
+      + 'button, never after (8/15) — a cost that only ever arrives overnight, '
+      + 'unannounced, is a punishment',
+      /A QUIET DAY COSTS/.test(neg.card || ''),
+      JSON.stringify((neg.card || '').slice(0, 200)));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

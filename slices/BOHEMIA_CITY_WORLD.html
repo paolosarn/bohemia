@@ -28340,7 +28340,12 @@ function showReckoning(){
      Here the tap that dismisses it is the SLEEP tap he was making anyway. */
   if(s.day===1 && installShouldAsk()) h+=installLine();
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
-  cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
+  cardShow(h,function(){ cardHide();
+    /* __CITY_NEGLECT__ -- charge the upkeep for the day that is ending, BEFORE
+       the rollover, because the check is "did you turn up TODAY" and after
+       nextDay() today is a different number. */
+    try { ctNeglectFor(ctBelongSave(), (T && T.day) || 1); } catch(_e){}
+    DAY.nextDay(); daySync(); _lastDistrict=null;
     showWake(); updHud(); render(); reportState(); });
 }
 
@@ -34441,6 +34446,33 @@ function ctClaimWindow(){
    nine presses took you to 9 against a ceiling of 5 with no commitment made.
    Every writer that can RAISE the count goes through here now, so a third
    caller cannot reopen it by accident. */
+/* __CITY_NEGLECT__ -- THE UPKEEP ON A COMMITMENT.
+   neglectFor() has been in BohemiaCommitment since 8/15 with ZERO CALLERS: the
+   organ computed what a quiet day costs and nothing ever charged it. Fifth time
+   this exact shape has turned up in this stack, and this one I wrote myself.
+   Charged for the day that JUST ENDED -- a day cannot be neglected until it is
+   over -- once per outfit, through the single writer, which clamps at zero. */
+function ctNeglectFor(sv, dayEnded){
+  if(typeof BohemiaCommitment === 'undefined' || typeof BohemiaBelonging === 'undefined')
+    return [];
+  var out = [], rules = BohemiaBelonging.RULES || {};
+  var done = (sv.meta.neglectDay || (sv.meta.neglectDay = {}));
+  for(var k in rules){
+    /* ONCE PER DAY PER OUTFIT. A hook that can run twice is a double charge
+       nobody can see, and this one runs off a card callback. */
+    if((done[k]|0) >= dayEnded) continue;
+    var st = BohemiaCommitment.stateOf(sv, k);
+    var cost = BohemiaCommitment.neglectFor(st)|0;
+    if(cost <= 0) continue;                       /* nothing said, nothing owed */
+    if(BohemiaBelonging.gaveDayOf(sv, k) === dayEnded) { done[k] = dayEnded; continue; }
+    var before = BohemiaBelonging.gaveOf(sv, k);
+    if(before <= 0) { done[k] = dayEnded; continue; }
+    var after = BohemiaBelonging.adjust(sv, k, -cost);
+    done[k] = dayEnded;
+    if(after !== before) out.push({ faction:k, lost:before-after, now:after });
+  }
+  return out;
+}
 function ctGiveCapped(sv, fid){
   if(typeof BohemiaCommitment === 'undefined')
     return BohemiaBelonging.record(sv, fid, (T && T.day) || 1);
@@ -34697,7 +34729,20 @@ function ctDraw(){
       if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
-      if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
+      /* __CITY_NEGLECT__ -- AND WHAT A QUIET DAY COSTS, on the row that
+         owns it, before it ever happens. THE CONSEQUENCE IS PRINTED BEFORE THE
+         BUTTON, NEVER AFTER (8/15): a cost that only arrives overnight,
+         unannounced, is a punishment. Only when non-zero -- printing "this
+         costs you nothing" is noise. */
+      if(ctWall && ctWall.state !== 'none'){
+        var ctNegW = ctWall.word;
+        try {
+          var ctNeg = BohemiaCommitment.neglectFor(
+                        BohemiaCommitment.stateOf(bState.sv, ctFid))|0;
+          if(ctNeg > 0) ctNegW += ' · A QUIET DAY COSTS ' + ctNeg;
+        } catch(_e){}
+        body += ctRow('HOW FAR IN', ctNegW);
+      }
       /* __CITY_CLAIM__ -- and what THEY want from you now, which only exists
          once they count you. It sits under YOU ARE because it is the consequence
          of that line, not a separate feature. */
