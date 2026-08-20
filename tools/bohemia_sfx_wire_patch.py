@@ -83,8 +83,8 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_17_26.json'   # 8/17: he judged all 460
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_17_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_20_26.json'   # 8/20: he judged all 500
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_20_26.txt'
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'

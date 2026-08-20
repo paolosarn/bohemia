@@ -99,7 +99,10 @@ NEW_MONEY = """        if(fresh[i]&&fresh[i].kind==='source'&&fresh[i].amount>0)
           /* AND THE MONEY ITSELF (8/20). The sting is the feeling; `money` is
              the sound of the thing happening, and it is one of the twelve
              moments that had no caller at all. Silent until approved. */
-          try{ if(window.playSFX){ playSFX('money'); playSFX('cash_count'); } }catch(e2){}
+          /* 8/20: `money` and `cash_count` are DEAD -- there is no paper and
+             there are no coins, coins get melted into resource parts. What
+             moves is PARTS. See laws/BOHEMIA_ADDENDUM_NO_PAPER_NO_COINS. */
+          try{ if(window.playSFX)playSFX('parts_pass'); }catch(e2){}
           return;                                   /* one payday is ONE sound */
         }"""
 

@@ -1,0 +1,267 @@
+{
+"air_day": [
+0,
+1,
+2,
+3,
+4
+],
+"air_inside": [
+0,
+1,
+2,
+3,
+4
+],
+"air_night": [
+0,
+1,
+2,
+3,
+4
+],
+"block": [
+2
+],
+"boots_go": [
+0,
+4
+],
+"casing": [
+0
+],
+"cloth_on": [
+1,
+4
+],
+"come_up": [
+0,
+1,
+2,
+4
+],
+"cover_more": [
+0,
+3
+],
+"demolish": [
+0,
+2,
+4
+],
+"dirt_take": [
+0,
+1,
+2,
+3,
+4
+],
+"door_drag": [
+0
+],
+"drink": [
+0,
+1,
+2,
+3,
+4
+],
+"dry_fire": [
+1
+],
+"eat": [
+2
+],
+"generator": [
+0,
+1,
+2,
+3
+],
+"heartbeat": [
+0,
+1,
+3
+],
+"hit": [
+2,
+4
+],
+"hit_more": [
+0
+],
+"hurt": [
+2
+],
+"hurt_more": [
+0,
+1,
+2,
+3,
+4
+],
+"kill": [
+0,
+1,
+2,
+3,
+4
+],
+"lungs_burn": [
+4
+],
+"mag_home": [
+4
+],
+"melee_hit": [
+0,
+2,
+3,
+4
+],
+"miss_past": [
+0,
+1,
+2,
+3,
+4
+],
+"phone_buzz": [
+2,
+4
+],
+"pickup": [
+0,
+1,
+2,
+3,
+4
+],
+"power_on": [
+0,
+4
+],
+"sand_more": [
+0,
+2,
+3
+],
+"save_chime": [
+0,
+1,
+2,
+3,
+4
+],
+"set_down": [
+2,
+3
+],
+"shot": [
+3
+],
+"shot_more": [
+0,
+1,
+2,
+3,
+4
+],
+"sign_alive": [
+4
+],
+"sleep_sink": [
+0,
+1,
+2,
+3,
+4
+],
+"step_asphalt": [
+0,
+1,
+2,
+3,
+4
+],
+"step_concrete": [
+2
+],
+"step_dirt": [
+0,
+1,
+2,
+3,
+4
+],
+"step_gravel": [
+0,
+1,
+2,
+3,
+4
+],
+"step_sand": [
+4
+],
+"step_wood": [
+2,
+4
+],
+"stone_bite": [
+4
+],
+"swing_air": [
+2,
+3
+],
+"tape_pull": [
+1,
+4
+],
+"time_pass": [
+0,
+1,
+2,
+3,
+4
+],
+"ui_back": [
+2,
+3,
+4
+],
+"ui_deny": [
+0,
+2,
+4
+],
+"ui_tap": [
+1,
+2,
+3
+],
+"vital_deep": [
+0,
+2,
+4
+],
+"walk_more": [
+0,
+2,
+4
+],
+"went_down": [
+4
+],
+"will_goes": [
+2
+],
+"wind_gust": [
+0,
+1
+],
+"wood_more": [
+0
+]
+}

@@ -811,7 +811,7 @@ const BOH_SFX = (function () {
     { ev: 'build_place', label: 'IT GOES DOWN',   why: 'a thing you decided on lands on the map and is now real' },
     { ev: 'demolish',    label: 'IT COMES APART', why: 'you took something down. it should cost you something to hear' },
     { ev: 'deed',        label: 'YOU OWN IT NOW', why: 'the deed lands. ownership is the whole spine of the game' },
-    { ev: 'money',       label: 'MONEY MOVES',    why: 'cash changes hands. in a post-economic valley this is never neutral' },
+    { ev: 'money',       label: 'MONEY MOVES [DEAD 8/20 -- NO CASH]',    why: 'cash changes hands. in a post-economic valley this is never neutral' },
     { ev: 'power_on',    label: 'THE BLOCK LIGHTS', why: 'the grid takes a block. LIGHT IS TERRITORY, so this is a territorial sound' },
 
     /* ---- E. THE VALLEY MOVES. The three air beds are the silence; these are
@@ -864,7 +864,7 @@ const BOH_SFX = (function () {
     { ev: 'tape_pull',    label: 'YOU PATCH YOURSELF UP',   why: 'cloth and tape dragging apart. friction, slow and close, with no attack anywhere in it' },
     { ev: 'set_down',     label: 'IT GOES DOWN',            why: 'the weight arriving and settling. a low landing with the grit of it, not a chime' },
     { ev: 'deed_stamp',   label: 'YOU OWN IT NOW',          why: 'ownership lands like a stamp and rings after. clean and inharmonic, the FF cursor grown up' },
-    { ev: 'cash_count',   label: 'MONEY MOVES',             why: 'paper and coin counted off. many small events, never one tone' },
+    { ev: 'cash_count',   label: 'MONEY MOVES [DEAD 8/20 -- NO CASH]',             why: 'paper and coin counted off. many small events, never one tone' },
     { ev: 'neon_hum',     label: 'NEON, STILL LIT',         why: 'gas and current, which is electrical and never a struck body. the 12% that has power' },
     { ev: 'dog_cry',      label: 'A DOG, FAR OFF',          why: 'a cry with the air of the distance in it. the only other living thing you can hear' },
     { ev: 'cloth_on',     label: 'CLOTHES GO ON',           why: 'fabric moving over a body. friction, quiet, and over before you place it' },
@@ -946,7 +946,7 @@ const BOH_SFX = (function () {
        answer to a moment that died twice as raw synthesis. ---- */
     { ev: 'gone_quiet',  label: 'THE ROOM GOES QUIET',   why: 'everyone is down and the air comes back. clear died 0 of 65 as synthesis and was never once offered an instrument' },
     { ev: 'mag_home',    label: 'THE MAG SEATS',         why: 'three metal parts finding each other. the beat where you cannot shoot, and the player has to HEAR it' },
-    { ev: 'hands_pass',  label: 'IT CHANGES HANDS',      why: 'paper and coin counted off. in a post-economic valley money moving is never nothing' },
+    { ev: 'hands_pass',  label: 'IT CHANGES HANDS [DEAD 8/20 -- NO CASH]',      why: 'paper and coin counted off. in a post-economic valley money moving is never nothing' },
     { ev: 'dog_calls',   label: 'A DOG, OUT THERE',      why: 'the only other living thing you can hear, with the air of the distance in it' },
     { ev: 'sign_alive',  label: 'THE SIGN IS STILL ON',  why: 'the 12% that has power. gas and current, which is electrical and never a struck body' },
     { ev: 'lungs_burn',  label: 'YOUR LUNGS CATCH UP',   why: 'you ran too far. turbulence through a throat, with no body in it at all' },
@@ -955,6 +955,12 @@ const BOH_SFX = (function () {
        step is the MACHINE GUN, and bare desert falls through to sand. ---- */
     { ev: 'sand_more',   label: 'MORE SAND',             why: 'step_sand.0 is ONE sample, and the ground classifier returns sand for any unnamed tile -- which is most of the open valley' },
     { ev: 'wood_more',   label: 'MORE BOARDS',           why: 'step_wood has two samples for every porch, deck and floorboard in the game' },
+    /* ---- 8/20: THERE IS NO PAPER AND THERE ARE NO COINS (Paolo, on the
+       hands_pass.4 line). money, cash_count and hands_pass are dead for their
+       BRIEF, not their sound -- fifteen candidates across three sources, all
+       cooked to be paper and coin in a world that has neither. This is the
+       moment written from what actually moves. ---- */
+    { ev: 'parts_pass',  label: 'PARTS CHANGE HANDS',    why: 'resource parts, metal with mass, handed over or tipped out. what actually moves when something changes hands in this valley' },
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -2369,6 +2375,24 @@ const BOH_SFX = (function () {
               dark: [1200, 2400], bright: [0.78, 1.2] },
       instSets: ['templeblock', 'spoonclack', 'claves', 'rimshotr', 'marimba'],
       hitSets: [[0], [0], [0], [0], [0]]
+    },
+
+    parts_pass: {
+      /* METAL WITH MASS, SEVERAL PIECES, NO RING. The dead versions were a till:
+         bright, small, counted, one event per coin. This is the opposite -- low,
+         gritty, uneven, and it lands rather than chimes. Same weight-and-grit
+         family as `set_down`, which he approved. */
+      base: { synth: 'instrument', inst: 'boneplate', mat: 'metal', hz: 132,
+              modes: 5, bright: 0.62, decay: 0.1875, damp: 2.3, warble: 0.5,
+              atk: 0, trans: 0.6, transHz: 1800, transQ: 1.1, grit: 0.7,
+              gritHz: 1200, space: 0.16, room: 0.1875, refl: 1, dark: 1400,
+              width: 0.5, drive: 0.14, mkup: 0.86, gain: 0.32,
+              hits: [0, 0.0625, 0.1875] },
+      jit:  { hz: [104, 190], decay: [0.125, 0.3125], width: [0.4, 0.66],
+              dark: [1000, 2100], grit: [0.55, 0.85] },
+      instSets: ['boneplate', 'ratchet', 'anvil', 'reelclick', 'ironstep'],
+      hitSets: [[0, 0.0625, 0.1875], [0, 0.125], [0, 0.0625, 0.125, 0.25],
+                [0, 0.1875], [0, 0.0625, 0.25]]
     },
     walk_more: {
       base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 140,

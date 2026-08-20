@@ -40,8 +40,25 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_17_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_17_26.txt'
+#
+# 8/20: AND IT DRIFTED ANYWAY, exactly the way that comment warned about. He
+# swept all 500, the wire tool moved to the 8/20 bank, this gate stayed on 8/17,
+# and it failed claiming "the bank holds 148 but he thumbed 155 UP" -- reporting
+# a stale ALPHA when the alpha was correct and the RULER was two banks behind.
+# Writing the filename down twice is what made that possible, so it is no longer
+# written down twice: the gate now READS the wire tool's constant. There is one
+# name for the bank in this repo and the tool that bakes it owns it.
+def _wire_const(name):
+    src = open('tools/bohemia_sfx_wire_patch.py', encoding='utf8').read()
+    m = re.search(r"^%s = '([^']+)'" % name, src, re.M)
+    if not m:
+        raise SystemExit('the wire tool no longer declares %s -- this gate '
+                         'cannot know which bank the game actually plays' % name)
+    return m.group(1)
+
+
+BANK = _wire_const('BANK')
+VERDICT = _wire_const('VERDICT')
 
 JS = r"""
 /* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
@@ -755,6 +772,24 @@ def main():
         'the bank holds %d sounds but he thumbed %d UP across every verdict file'
         % (sum(len(v) for v in bank.values()), len(ups)))
 
+    # 2b. THE BAKED BANK IS THE BANK (8/20). Everything above this line checks a
+    #     FILE. The game does not read that file -- the wire tool bakes a copy of
+    #     it into the alpha as `var APPROVED={...}`, and if the build order slips
+    #     (the factory wipes the parent wire block, so running it AFTER the wire
+    #     tool reverts the bank) the file is perfect and the game plays a bank
+    #     from a previous sweep. VERIFY ON THE REAL SURFACE: compare his thumbs
+    #     to the bytes that ship, not to the bytes on disk beside them.
+    alpha_txt = open(ALPHA, encoding='utf8').read()
+    bm = re.search(r'var APPROVED=(\{.*?\});', alpha_txt, re.S)
+    chk(bool(bm), 'the alpha bakes no approved bank at all -- the game is deaf')
+    if bm:
+        baked = json.loads(bm.group(1))
+        nb, nf = sum(len(v) for v in baked.values()), sum(len(v) for v in bank.values())
+        chk(baked == bank,
+            'the alpha ships %d approved sounds but %s holds %d -- the build ran '
+            'out of order (the factory wipes the wire block, so the wire tool '
+            'must run LAST) and he is playing an older sweep' % (nb, BANK, nf))
+
     # 7b. COMBAT PLAYS HIS SOUNDS (Paolo 7/31: "make sure any of the combat
     #     sound effects you made you put them into the combat too"). Combat is a
     #     srcdoc iframe carried as base64 in the alpha, so read it the way it
@@ -1278,13 +1313,56 @@ def main():
     # these grew on 8/12 -- the ambience gained a pick() that can return the gust
     # or the generator, and the ground classifier went from three surfaces to six
     # -- and a 200-character window silently stopped containing the answer.
-    AMB = "this.kind = d.inside ?"
-    amb_line = ''
-    if AMB in alpha_src:
-        amb_line = alpha_src[alpha_src.index(AMB):alpha_src.index(AMB) + 1400]
-    ground = ''
-    if 'function sfxGround(' in run:
-        ground = run[run.index('function sfxGround('):][:2200]
+    #
+    # 8/20: AND IT HAPPENED AGAIN, because bumping 200 to 1400 only bought time.
+    # SFX-09 added the instrument-backed sign and dog to the SAME chooser, which
+    # pushed `return 'sign_alive'` to 2421 characters past the anchor -- so the
+    # gate reported "HE APPROVED THIS AND NOTHING CAN PLAY IT" about a sound that
+    # was wired, playable, and three lines below where it stopped reading. That
+    # is the ruler being wrong about the game, and the third time this week.
+    # A MAGIC NUMBER IS NOT A BOUNDARY. Read to the CLOSING BRACE instead: the
+    # chooser can now grow to any size and the window grows with it, because the
+    # code's own structure is what says where it ends.
+    def _block(src, anchor):
+        """anchor -> the end of the brace-balanced block it opens. Quote- and
+        comment-aware, because `pick()` is full of apostrophes ("what you hear
+        when nothing is happening") and of '{' inside strings would end it
+        early -- a counter that cannot tell code from prose is the broken one."""
+        if anchor not in src:
+            return ''
+        i = src.index(anchor)
+        j = src.index('{', i)
+        d, k, n = 0, j, len(src)
+        q = None
+        while k < n:
+            c = src[k]
+            if q:
+                if c == '\\':
+                    k += 2
+                    continue
+                if c == q:
+                    q = None
+            elif c in '\'"`':
+                q = c
+            elif c == '/' and k + 1 < n and src[k + 1] == '*':
+                e = src.find('*/', k + 2)
+                k = (e + 2) if e > 0 else n
+                continue
+            elif c == '/' and k + 1 < n and src[k + 1] == '/':
+                e = src.find('\n', k)
+                k = (e + 1) if e > 0 else n
+                continue
+            elif c == '{':
+                d += 1
+            elif c == '}':
+                d -= 1
+                if d == 0:
+                    return src[i:k + 1]
+            k += 1
+        return src[i:]           # unbalanced: read to the end rather than lie
+
+    amb_line = _block(alpha_src, 'var AMB={')
+    ground = _block(run, 'function sfxGround(')
 
     def wired(ev):
         """Every shape a real request for `ev` can take. A MENTION IS NOT A USE:
@@ -1368,6 +1446,13 @@ def main():
         'cloth_on':  ('equip() exists in the inventory module with ZERO callers '
                       '-- checked, not assumed. No surface dresses anybody yet',
                       'run', "verb:'equip'"),
+        'lungs_burn': ('his brief is "you ran too far" and THERE IS NO RUNNING '
+                       '-- free movement is one fixed SPEED=0.34 with no sprint '
+                       'key, no stamina and no exertion anywhere in the build. '
+                       'Checked, not assumed. Wiring it would mean inventing a '
+                       'stamina system out of the SOUND lane, which is not this '
+                       "lane's to invent",
+                       'run', "verb:'sprint'"),
     }
     _src = {'run': run, 'combat': demo, 'alpha': alpha_src}
     expired = []
