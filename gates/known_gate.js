@@ -111,11 +111,13 @@ function pw() {
     await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     await SETTLE(page, 500);
-    await page.evaluate(() => {
+    const _runTab = await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
-      if (t) t.click();
+      if (!t) return false;
+      t.click(); return true;
     });
+    ok('the RUN tab exists in the alpha and was tapped', _runTab === true);
     await SETTLE(page, 16000);
     for (const f of page.frames()) {
       try { if (await f.evaluate(() => typeof LANDED !== 'undefined' && typeof knownLoad === 'function')) return f; }

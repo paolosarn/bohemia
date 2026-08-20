@@ -81,11 +81,13 @@ function pw() {
     await SETTLE(page, 400);
   }
   async function tapRun(page) {
-    await page.evaluate(() => {
+    const _runTab = await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
-      if (t) t.click();
+      if (!t) return false;
+      t.click(); return true;
     });
+    ok('the RUN tab exists in the alpha and was tapped', _runTab === true);
   }
   /* PIXELS, not a style attribute. A display:flex on an empty canvas is not an
      opening; the claim is that somebody SEES the family at the table. */

@@ -49,10 +49,15 @@ const TABLE = path.join(ROOT, 'records', 'BOHEMIA_BONE_SCALE_TABLE.json');
   await page.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
     { waitUntil: 'load', timeout: 240000 });
   await page.waitForTimeout(6000);
-  await page.evaluate(() => {
+  const _runTab = await page.evaluate(() => {
+    /* NEVER SWALLOW A MISSING TAB (ONE WORLD TAB). This is a TOOL, so there is no
+       ok() to fail -- and a tool that quietly draws the wrong picture because the
+       tab moved is worse than one that stops. It stops. */
     const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
-    if (t) t.click();
+    if (!t) return false;
+    t.click(); return true;
   });
+  if (!_runTab) throw new Error('the RUN tab is not in the alpha -- refusing to draw off the wrong surface');
   await page.waitForTimeout(14000);
 
   const inner = page.frames().find(f => /CITY_WORLD/.test(f.url()));

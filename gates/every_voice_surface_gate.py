@@ -112,7 +112,11 @@ const pw = pwmod();
   await p.waitForTimeout(900);
   // THE RUN TAB SHOWS THE CITY PANEL. Worth stating because it is why the first
   // probe found nothing: there is no data-p="city", the run tab maps to it.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  const _runTab = await p.evaluate(() => {
+    const t = document.querySelector('.tab[data-p="run"]');
+    if (!t) return false;
+    t.click(); return true; });
+  if (!_runTab) throw new Error('the RUN tab is not in the alpha');
   await p.waitForTimeout(12000);
 
   const out = { frames: p.frames().map(f => f.url().split('/').pop()) };
@@ -164,8 +168,17 @@ const pw = pwmod();
   // ---- THE COLD OPEN: press PLAY THE OPEN and listen -------------------
   // The demo's first fifteen seconds, and it was silent until 8/11. Driven by
   // the real button, like everything else here.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="cutscene"], .tab[data-p="story"]');
-    if (t) t.click(); });
+  // NEVER SWALLOW A MISSING TAB (ONE WORLD TAB): a tab that is gone must be loud.
+  const _csTab = await p.evaluate(() => {
+    /* CUTSCENE only. The old selector also reached for a `story` tab, and there is
+       no STORY tab in the alpha -- the seventeen are anim art char city clothes
+       combat cutscene direct life look map music rig run slice vote words. A
+       fallback to a tab that does not exist is a dead branch that reads like
+       resilience. */
+    const t = document.querySelector('.tab[data-p="cutscene"]');
+    if (!t) return false;
+    t.click(); return true; });
+  if (!_csTab) throw new Error('the CUTSCENE tab is not in the alpha');
   await p.waitForTimeout(2500);
   await p.evaluate(() => { window.__spoke = []; });
   out.storyPressed = await p.evaluate(() => {

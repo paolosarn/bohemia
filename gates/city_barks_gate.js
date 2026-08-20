@@ -66,11 +66,16 @@ function pw() {
   await SETTLE(page, 3400);
   await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
   await SETTLE(page, 500);
-  await page.evaluate(() => {
+  const _runTab = await page.evaluate(() => {
+    /* NEVER SWALLOW A MISSING TAB. `if (t) t.click()` reports GREEN when the
+             tab is gone -- four gates did exactly that and read green for weeks,
+             which is why ONE WORLD TAB forbids the shape. Say so instead. */
     const t = Array.from(document.querySelectorAll('.tab'))
       .find(e => (e.textContent || '').trim() === 'RUN');
-    if (t) t.click();
+    if (!t) return false;
+    t.click(); return true;
   });
+  ok('the RUN tab exists in the alpha and was tapped', _runTab === true);
   await SETTLE(page, 16000);
 
   let city = null;

@@ -443,10 +443,15 @@ async function restoreShellChrome(shell) {
     if (f) { f.click(); const t = document.getElementById('fronttap'); if (t) t.click(); }
   });
   await shell.waitForTimeout(3000);
-  await shell.evaluate(() => {
+  const _runTab = await shell.evaluate(() => {
+    /* NEVER SWALLOW A MISSING TAB (ONE WORLD TAB). A TOOL has no ok() to fail, and
+       a tool that quietly shoots the wrong surface because the tab moved is worse
+       than one that stops. It stops. */
     const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
-    if (t) t.click();
+    if (!t) return false;
+    t.click(); return true;
   });
+  if (!_runTab) throw new Error('the RUN tab is not in the alpha -- refusing to shoot the wrong surface');
   await shell.waitForTimeout(14000);
   const ctx = shell.frames().find(f => /CITY_WORLD/.test(f.url()));
   if (!ctx) { console.log('LOOK: the alpha never opened the world frame. No pictures taken.'); process.exit(1); }

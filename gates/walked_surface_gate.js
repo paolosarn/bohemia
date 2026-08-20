@@ -73,11 +73,15 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
   await page.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
     { waitUntil: 'load', timeout: 240000 });
   await SETTLE(page, 5000);
-  await page.evaluate(() => {
+  const _runTab = await page.evaluate(() => {
     const f = document.querySelector('#front, #fronttap'); if (f) f.click();
+    /* NEVER SWALLOW A MISSING TAB (ONE WORLD TAB): `if (t) t.click()` reports
+       GREEN when the tab is gone, which is how gates read green for weeks. */
     const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
-    if (t) t.click();
+    if (!t) return false;
+    t.click(); return true;
   });
+  ok('the RUN tab exists in the alpha and was tapped', _runTab === true);
   await SETTLE(page, 16000);
   const fr = page.frames().find(f => /CITY_WORLD/.test(f.url()));
   ok('the alpha opens the world on the RUN tab', !!fr);
