@@ -5260,6 +5260,38 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0t-TELL. [SHIPPED 8/20] *** WHAT YOU NOTICE ABOUT SOMEBODY BEFORE EITHER OF YOU
+   SPEAKS. *** bohemia_quirk.js has carried a TELL for all 22 shapes since 8/19 --
+   third-person, no dialogue -- and tellFor() had never been called by anything a
+   player could see. Ninth time this lane has closed that shape.
+   THE HOLE MEASURED: standing next to anybody on the walked surface, the ENTIRE
+   text on screen was the one button, and the button says their TRADE. Eighty-eight
+   people on a settlement block and every one of them the word SCAVENGER. Now each
+   is somebody doing something specific ("does not read clocks", "straightens what
+   is already straight") for one line, above the movement pad, TAB: RUN.
+   A TELL IS NOT A NAME, so YOU HAVE TO ASK (7/31) is untouched: nameOf() still
+   returns null for a stranger and the tell never prints one. You can watch
+   somebody straighten what is already straight without being introduced, and
+   noticing it is how you decide to talk to them at all -- so the tell shows for a
+   STRANGER and the name still does not. Read through qkOf(), so what you notice
+   at a glance is the same person you meet on the card and nobody on the street
+   shares a tell.
+   *** THE POSITION IS MEASURED, NOT CHOSEN, AND THE FIRST CUT FAILED. *** At
+   bottom:112 it ran straight THROUGH the movement pad -- unreadable, and sitting
+   on taps meant for the pad. Caught by SCREENSHOTTING it; no assertion existed
+   that could have. Measured the real HUD (nav owns x198-378 below y618; the
+   note/rung/bike stack owns the bottom-left below y714), found the clear band,
+   and the overlap is now an ASSERTION with the boxes printed in it.
+   THREE GATE BUGS FIXED ON THE WAY, all test-state pollution rather than feature
+   faults: the probe inherited an OPEN CARD from earlier assertions (ctVerb
+   correctly hides everything when a card is up); it compared against the person
+   it WALKED TO instead of the one ctAdjacent() PICKED; and it measured a stranger
+   on a block where an earlier assertion had already asked twelve people their
+   names. A probe that inherits another probe's state measures that state.
+   | gate: QUIRK 32 -> 38, mutation-tested two ways (put it back over the pad ->
+   red with the boxes; stop it reaching the surface -> 3 red) | no decision taken
+   | no (drafts).
+
 0sc-RAID. [SHIPPED 8/20 - records/BOHEMIA_THE_RAID_RUNS_8_20_26.md]
    *** THE RAID RUNS. The sibling can finally die in the played game. *** For
    twelve days startColdOpen(onEnd) had ONE occurrence in the alpha, its own

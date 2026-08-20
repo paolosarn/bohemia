@@ -423,7 +423,88 @@ function blockKeys(seed) {
       + cache.nb + ' people), a cache keyed only on the cell hands back the old crowd',
       cache.sameObject === false && cache.na !== cache.nb);
 
-    ok('B18 nothing threw while he met them', errs.length === 0, errs.slice(0, 3).join(' | '));
+    /* ---- THE TELL, ON THE WALKED SURFACE (8/20) -------------------------
+       tellFor() shipped authored and gated on 8/19 and nothing a player could
+       see ever called it. Standing next to anybody, the entire text on screen
+       was the button, and the button says their TRADE: eighty-eight people on a
+       block and every one of them the word SCAVENGER. */
+    const tellNear = await city.evaluate(() => {
+      /* CLOSE THE CARD FIRST. ctVerb hides the button AND the tell whenever a
+         card is open, which is correct behaviour and which the assertions above
+         leave switched on -- they open cards and never close them. A probe that
+         inherits another probe's state measures that state, not the feature. */
+      try { ctClose(); } catch (_e) { CT_OPEN = null; }
+      /* AND MAKE THEM STRANGERS AGAIN. B13 asks a dozen people their names to
+         prove the refusal path, so by here the block is full of acquaintances
+         and the stranger case cannot be measured. Resetting the met-ledger is
+         how this asserts the LAW (a stranger has a tell and no name) instead of
+         asserting whatever the assertions above happened to leave behind. */
+      try { CT_MET = BohemiaPeople.makeLedger(null); } catch (_e) {}
+      const all = ctEveryone();
+      for (let i = 0; i < all.length; i++) {
+        const w = ctPerson(all[i]);
+        /* stand next to them the way the probe that FOUND this bug did: off the
+           person's own home, +1 on both axes. ctAt() is where they are THIS
+           minute and the schedule may have them elsewhere. */
+        if (!all[i] || !all[i].home) continue;
+        hx = all[i].home[0] + 1; hy = all[i].home[1] + 1;
+        render(); ctVerb();
+        const t = document.getElementById('cttell');
+        if (t && getComputedStyle(t).display !== 'none') {
+          /* WHO THE VERB IS ACTUALLY DESCRIBING. Standing beside all[i]'s house
+             does not guarantee all[i] is the nearest body -- a neighbour can be
+             closer, and ctAdjacent() is the one that decides. Comparing against
+             the person I walked TO instead of the person the surface PICKED is
+             how this went red while the feature was correct. */
+          const adj = ctAdjacent();
+          const w2 = adj ? ctPerson(adj) : w;
+          const q = qkOf(w2.key);
+          return { text: t.textContent, want: q && q.tell,
+                   asked: !!(CT_MET && CT_MET.asked(w2.key)),
+                   named: !!BohemiaPeople.nameOf(w2),
+                   box: (r => [Math.round(r.x), Math.round(r.y), Math.round(r.right), Math.round(r.bottom)])(t.getBoundingClientRect()),
+                   pad: (() => { const n = document.getElementById('nav');
+                     if (!n) return null; const r = n.getBoundingClientRect();
+                     return [Math.round(r.x), Math.round(r.y), Math.round(r.right), Math.round(r.bottom)]; })(),
+                   events: getComputedStyle(t).pointerEvents };
+        }
+      }
+      return null;
+    });
+    ok('B19 the TELL reaches the walked surface — what you notice about somebody ' +
+      'before either of you speaks', !!(tellNear && tellNear.text));
+    ok('B20 and it is THIS person\'s tell, from the block-de-collided spread',
+      !!tellNear && tellNear.text === tellNear.want, tellNear && tellNear.text);
+    /* A TELL IS NOT A NAME. YOU HAVE TO ASK (7/31) governs the name and nothing
+       else: you can watch somebody straighten what is already straight without
+       being introduced. */
+    ok('B21 a STRANGER has a tell and still has no name — the 7/31 law is untouched',
+      !!tellNear && tellNear.asked === false && tellNear.named === false);
+    /* *** THE GEOMETRY, BECAUSE THE FIRST CUT FAILED IT. *** bottom:112 put the
+       line straight through the movement pad: unreadable, and sitting on taps
+       meant for the pad. Caught by SCREENSHOTTING it, not by any assertion that
+       existed. Now it is an assertion. */
+    ok('B22 the tell does not overlap the movement pad (tell ' +
+      (tellNear && tellNear.box ? tellNear.box.join(',') : '?') + ' vs pad ' +
+      (tellNear && tellNear.pad ? tellNear.pad.join(',') : 'none') + ')',
+      !!tellNear && (!tellNear.pad ||
+        tellNear.box[3] <= tellNear.pad[1] || tellNear.box[1] >= tellNear.pad[3] ||
+        tellNear.box[2] <= tellNear.pad[0] || tellNear.box[0] >= tellNear.pad[2]));
+    ok('B23 and it can never swallow a press whatever the HUD does under it',
+      !!tellNear && tellNear.events === 'none');
+    /* IT GOES AWAY. A caption about a person who is not there is a lie. */
+    const tellGone = await city.evaluate(() => {
+      hx = 4; hy = 4;                          /* nobody adjacent out here */
+      render(); ctVerb();
+      const t = document.getElementById('cttell');
+      const b = document.getElementById('cttalk');
+      return { tell: t ? getComputedStyle(t).display : null,
+               verb: b ? getComputedStyle(b).display : null };
+    });
+    ok('B24 with nobody beside you the tell disappears, like the button',
+      !!tellGone && tellGone.tell === 'none' && tellGone.verb === 'none');
+
+    ok('B25 nothing threw while he met them', errs.length === 0, errs.slice(0, 3).join(' | '));
   } finally {
     await b.close();
   }

@@ -1,3 +1,58 @@
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** WHAT YOU NOTICE ABOUT SOMEBODY BEFORE
+EITHER OF YOU SPEAKS. TAB: RUN -- walk up to anybody and read the line above the
+movement pad. ***
+
+bohemia_quirk.js has carried a TELL for all 22 shapes since 8/19 (third person,
+no dialogue) and tellFor() had never once been called by anything a player could
+see. NINTH time this lane has closed that shape.
+
+THE HOLE, MEASURED: standing next to anybody on the walked surface, the ENTIRE
+text on screen was the one button, and the button says their TRADE. Eighty-eight
+people on a settlement block and every one of them the word SCAVENGER. Now each
+one is somebody doing something specific.
+
+A TELL IS NOT A NAME, so YOU HAVE TO ASK (7/31) is untouched: nameOf() still
+returns null for a stranger and the tell never prints one. You can watch somebody
+straighten what is already straight without being introduced, and noticing it is
+how you decide to talk to them at all -- so the tell shows for a STRANGER while
+the name still does not. It reads through qkOf(), the block-de-collided answer,
+so what you notice at a glance is the same person you meet on the card and nobody
+on the street shares a tell.
+
+*** THE POSITION IS MEASURED, NOT CHOSEN, AND THE FIRST CUT FAILED IT. *** At
+bottom:112 the line ran straight THROUGH the movement pad: unreadable, and
+sitting on taps meant for the pad. Caught by SCREENSHOTTING it -- no assertion
+existed that could have. Measured the real HUD (nav owns x198-378 below y618; the
+note/rung/bike stack owns the bottom-left below y714), found the clear band above
+y618, and THE OVERLAP IS NOW AN ASSERTION with the boxes printed in it.
+
+THREE GATE BUGS FIXED ON THE WAY, every one test-state pollution rather than a
+feature fault, and the lesson is one line: A PROBE THAT INHERITS ANOTHER PROBE'S
+STATE MEASURES THAT STATE.
+  1. it inherited an OPEN CARD from earlier assertions, and ctVerb correctly
+     hides the button AND the tell whenever a card is up;
+  2. it compared against the person it WALKED TO instead of the one
+     ctAdjacent() actually PICKED (a neighbour can be closer);
+  3. it measured "a stranger" on a block where an earlier assertion had already
+     asked twelve people their names, so it reset the met-ledger and asserted
+     the LAW instead of the leftovers.
+
+gates: QUIRK 32 -> 38, mutation-tested two ways.
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** COLD_OPEN.cast IS [] AND COLD_OPEN.place IS null. NOBODY IS BEHIND YOU
+     IN THE DEFENCE. *** [PENDING Paolo] since 8/8, but his 7/19 law rules both
+     ("defending the home room to room... it ends saving the mother"). The raid
+     RUNS now, so this is visible instead of academic. COMBAT's.
+  2. THE RIDGE EXTERIOR. Money shot, title screen and last frame of the tutorial
+     are one image and it does not exist; the burial plays its words over an
+     honest empty frame that says so. ART's.
+  3. BIND THE BURIAL TO THE REAL VISTA OVERLOOK so the grave and the money shot
+     are one place. RUN's day loop.
+  4. DEEDS AND STANDING are still not in the city at all -- two modules that know
+     what the player was SEEN doing, absent from the surface he plays. MINE, but
+     the rich deed sources on the talk card are the FACTIONS lane's sentinels, so
+     check who is live before starting.
 SOUND (sound-xk7pjp): 8/20 (a,b) LATEST -- *** THE FIGHT BUILDS AS YOU KILL. A
 five-style intensity system Paolo commissioned on 7/3 that NOTHING IN THE GAME
 HAD EVER SWITCHED ON. TAB: RUN (get in a fight and kill two, then four).
