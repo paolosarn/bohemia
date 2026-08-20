@@ -1,3 +1,60 @@
+CHARACTER (character-0lurbs): 8/20 (b) LATEST -- *** A SECOND FLEET RED CLEARED, AND
+IT WAS CAUSED BY ONE SENTENCE I WROTE IN A COMMENT. *** #204 DRESS, now 46/0.
+NO TAB and no build stamp bump: nothing player-facing moved, on purpose.
+Record: records/BOHEMIA_A_SECOND_RED_CAUSED_BY_A_SENTENCE_I_WROTE_8_20_26.txt
+
+DRESS said "bank is FRESH: 236 banked === 237 canon in the alpha" -- i.e. a garment
+exists in the game that was never banked. The wardrobe is this lane's, so I went to
+find which garment. THERE ISN'T ONE. The count is of the STRING st:'canon' across a
+4 MB file, and of its 237 occurrences 236 are real garments -- exactly the bank -- and
+ONE is a sentence in a comment I wrote on 8/17 above the city cast: "Every garment
+here is st:'canon' and already exists".
+
+*** THE GATE HAD BEEN CONTRADICTING ITSELF AND NOBODY LOOKED. *** DRESS also checks
+"every canon garment in the alpha is in the bank BY NAME" and that was GREEN the whole
+time. So it was reporting the bank stale AND every garment present. When two checks in
+one file disagree the specific one beats the counting one -- and a red nobody has
+triaged is a red nobody reads.
+Fixed the RULER: block comments are stripped before counting (237 -> exactly 236,
+nothing else touched). Rewording my comment would have gone green in ten seconds and
+left the same landmine for the next person who writes about the wardrobe.
+Mutation-tested both ways and it names the culprit each time: remove a garment from the
+bank -> red naming FIELD SHORTALLS; add a real unbanked canon garment -> red naming it.
+
+*** THE PATTERN IS WORTH MORE THAN EITHER FIX, AND EVERY LANE SHOULD CHECK ITS OWN. ***
+This is the THIRD mention-counted-as-a-use defect in two days, across three gates:
+  8/19 REUSE FIRST swept a tool as "drawing" because its DOCSTRING said putImageData
+       (it is a CSS class flip that draws nothing)
+  8/19 REUSE FIRST read `REUSE CHECK (REUSE-FIRST, Paolo 7/22):` as ABSENT, wanting
+       the colon adjacent
+  8/20 DRESS counted a sentence about the wardrobe as a garment
+All three are grep-shaped checks over files that contain BOTH code and prose about
+that code. This repo writes unusually thorough comments -- that is a strength, and it
+guarantees any gate that greps a whole file will eventually be fooled by its own
+documentation. IF YOUR GATE GREPS A SOURCE FILE, STRIP THE PROSE FIRST.
+
+AND THE OTHER LESSON, TWICE PROVEN NOW: A GATE'S NAME DOES NOT TELL YOU WHOSE FAILURE
+IT IS. Neither REUSE FIRST nor DRESS sounds character-lane; both were. The 8/19 fleet
+picture (29 red) is explicitly a BASELINE nobody has triaged -- two of them are now
+cleared by this lane, both in under an hour, neither changing a pixel. IF YOU HAVE A
+QUIET TURN, TRIAGE A RED AGAINST YOUR OWN FILES BEFORE BUILDING ANYTHING.
+
+WHAT I CHECKED AND DELIBERATELY LEFT ALONE:
+  #354 TASTE  wants a TASTE CHECK block in bohemia_exchange_factory.py and
+              bohemia_quirk_factory.py -- other lanes' content, and writing their
+              taste notes would be writing their canon.
+  #356 ART 45 a roofline in banks/BOHEMIA_DISTRICT_HERO_CANDIDATES reads as a flat
+              rectangle instead of an iso diamond. ART lane.
+  THE HERO FACTORY STILL DOES NOT PARSE (reported 8/20a, tools/bohemia_district_hero_
+  factory.py line 1247, broke in 53a981c). Still open, still not mine.
+
+WHAT COMES NEXT FOR THIS LANE:
+ 1. MORE OF THE 29, TRIAGED AGAINST OUR OWN FILES. That is two for two on quiet turns.
+ 2. STILL BLOCKED AND STILL NOT MINE: faction ground assignment (his ruling), painting
+    the rig at 112 (his call, not code), RUN wiring the field surgery clips (theirs).
+ 3. No unblocked content work I would defend building. The wardrobe delivers exactly
+    what the game needs and I have measured that twice.
+
 SOUND (sound-xk7pjp): 8/20 (c,d,e) LATEST -- *** GETTING PAID SOUNDS LIKE
 SOMETHING, and a flaky check I shipped this morning is gone. TAB: RUN (finish a
 job and listen). Nothing to judge. ***

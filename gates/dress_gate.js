@@ -27,7 +27,21 @@ const wardrobe = D.parse(text);
 ok('bank exists + parses (' + wardrobe.length + ' items)', wardrobe.length > 0);
 
 // freshness against the clothing factory's live truth
-const alpha = fs.readFileSync(ALPHA, 'utf8');
+const alphaRaw = fs.readFileSync(ALPHA, 'utf8');
+/* A MENTION IS NOT A GARMENT (8/20). This counted every occurrence of the string
+   st:'canon' in a 4 MB file and called the number "canon in the alpha", so the
+   moment somebody WROTE ABOUT the wardrobe in a comment -- "every garment here is
+   st:'canon' and already exists", a note above the city cast, written by the
+   CHARACTER lane on 8/17 -- the count went to 237 against a bank of 236 and this
+   gate reported the bank as STALE. It was not. The bank is exact: 236 entries, 236
+   garments. A whole fleet red, produced by one sentence of prose.
+   A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1), and this
+   file's own next comment already said A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS.
+   Block comments are stripped before counting; measured, that moves the number from
+   237 to exactly 236 and touches nothing else. Rewording my comment would have gone
+   green too and would have left the next person to write about the wardrobe holding
+   the same landmine. */
+const alpha = alphaRaw.replace(/\/\*[\s\S]*?\*\//g, '');
 const live = (alpha.match(/st:'canon'/g) || []).length;
 ok('bank is FRESH: ' + wardrobe.length + ' banked === ' + live + ' canon in the alpha', wardrobe.length === live);
 /* A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS (8/4/26).

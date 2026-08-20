@@ -1,0 +1,86 @@
+BOHEMIA -- A SECOND FLEET RED, CAUSED BY A SENTENCE I WROTE
+CHARACTER lane, 8/20/26.
+
+#204 DRESS -- CLEARED, 46/0.
+
+WHAT IT WAS SAYING
+------------------
+    FAIL: bank is FRESH: 236 banked === 237 canon in the alpha
+
+Read plainly: a garment exists in the game that was never written into the wardrobe
+bank. The wardrobe is this lane's, so the first job was to find which garment.
+
+THERE ISN'T ONE. THE BANK IS EXACT.
+-----------------------------------
+The count is of the STRING `st:'canon'` across a 4 MB file. Of its 237 occurrences:
+
+    236   real garment entries -- which is the bank's 236, precisely
+      1   a sentence in a COMMENT
+
+and the comment is mine, written 8/17 in the note above the city cast:
+
+    "Every garment here is st:'canon' and already exists"
+
+A whole fleet red, produced by one sentence of prose about the wardrobe.
+
+THE GATE WAS ALREADY CONTRADICTING ITSELF AND NOBODY LOOKED
+-----------------------------------------------------------
+DRESS has a SECOND check -- "every canon garment in the alpha is in the bank BY NAME"
+-- and it was GREEN the whole time. So the gate was simultaneously reporting that the
+bank was stale and that every single garment was in it. When two checks in one file
+disagree, one of them is wrong, and the specific one beats the counting one. That
+contradiction sat in a red gate for days because a red nobody has triaged is a red
+nobody reads.
+
+THE FIX IS THE RULER, AND IT IS THE SAME LAW AS YESTERDAY
+---------------------------------------------------------
+A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1). Block
+comments are stripped before counting. Measured: that moves the number from 237 to
+exactly 236 and touches nothing else in the file.
+This gate's own next comment already said A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS
+(8/4). The alarm was working; nobody had done the diagnosis.
+
+I COULD HAVE REWORDED MY COMMENT. It would have gone green in ten seconds and left
+the next person who writes about the wardrobe holding the same landmine. Fixing the
+target instead of the ruler is how a gate becomes a thing people route around.
+
+MUTATION-TESTED BOTH DIRECTIONS, and it names the culprit each time:
+    remove a garment from the bank      -> red: "235 banked === 236 canon"
+                                           + "MISSING: FIELD SHORTALLS"
+    add a real unbanked canon garment   -> red: "236 banked === 237 canon"
+                                           + "MISSING: ZZ PROBE COAT"
+
+*** THE PATTERN, WHICH IS WORTH MORE THAN EITHER FIX ***
+--------------------------------------------------------
+This is the THIRD mention-counted-as-a-use defect found in two days, in three
+different gates:
+    8/19  REUSE FIRST  swept a tool as "drawing" because its DOCSTRING said
+                       putImageData. The tool is a CSS class flip that draws nothing.
+    8/19  REUSE FIRST  read `REUSE CHECK (REUSE-FIRST, Paolo 7/22):` as ABSENT
+                       because it wanted the colon adjacent to the words.
+    8/20  DRESS        counted a sentence about the wardrobe as a garment.
+All three were grep-shaped checks over a file that contains BOTH code and prose about
+that code. This repo writes unusually thorough comments -- that is a strength, and it
+means any gate that greps the whole file will eventually be fooled by its own
+documentation. IF YOUR GATE GREPS A SOURCE FILE, STRIP THE PROSE FIRST.
+
+TWO OF THE 29 ARE NOW CLEARED, BOTH BY THIS LANE, BOTH WITHOUT CHANGING A PIXEL.
+The 8/19 fleet picture is a baseline nobody had triaged; both of these took under an
+hour. Neither gate's name suggested a character-lane cause, which is the other lesson:
+A GATE'S NAME DOES NOT TELL YOU WHOSE FAILURE IT IS.
+
+WHAT I CHECKED AND LEFT ALONE
+-----------------------------
+  #354 TASTE   fails on bohemia_exchange_factory.py and bohemia_quirk_factory.py
+               wanting a TASTE CHECK block. Those are other lanes' content and
+               writing their taste notes would be writing their canon.
+  #356 ART 45  fails on banks/BOHEMIA_DISTRICT_HERO_CANDIDATES -- a roofline that
+               reads as a flat rectangle instead of an iso diamond. ART lane.
+  The hero factory parse break reported 8/19 is still open and still not mine.
+
+WHERE HE SEES THIS
+------------------
+Nowhere, and that is right: no player-facing pixel changed and the build stamp is
+deliberately not bumped.
+
+  node gates/dress_gate.js        46/0
