@@ -374,6 +374,80 @@ function requirePlaywright() {
       ok('C4 the valley has somebody from an outfit with an act to compare', false);
     }
 
+    /* ---- E. AND WHAT HAPPENS WHEN YOU ANSWER THEM -------------------------
+       THE ARC ABOVE WALKS UP TO "THEY ARE ASKING YOU" AND STOPS. Nobody has ever
+       answered. And the answer is the whole point of the claim (Portes 1998,
+       excess claims on group members): saying YES buys you NOTHING, because
+       meeting an obligation is the RENT on being counted and not a rung; saying
+       NO costs you the standing that made you worth asking in the first place.
+       That asymmetry is the first thing a kind edit would break, and it has
+       never once been driven through the two buttons on the card.
+
+       Both answers are walked from the SAME state on a fresh page each time, so
+       "yes buys nothing" and "no costs you" are compared against each other and
+       not against two different histories. */
+    async function answerClaim(said) {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate((say) => {
+          const bases = ctBases() || {};
+          let who = null, fid = null;
+          for (const b of Object.values(bases)) {
+            hx = b.x * FN + 2; hy = b.y * FN + 2;
+            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
+            if (who) break;
+          }
+          if (!who) return { nobody: true };
+          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          const sv = ctBelongSave();
+          sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+          /* COUNTED, so they are entitled to ask. Built through the real writer,
+             never by poking the save -- that is how the probe lied about the
+             debt earlier in this same file. */
+          for (let i = 0; i < 6; i++) BohemiaBelonging.record(sv, fid, 0);
+          ctSawCell(); ctClose(); ctOpen();
+          const before = { gave: BohemiaBelonging.gaveOf(sv, fid),
+                           rung: (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf(fid),
+                                  BohemiaBelonging.gaveOf(sv, fid)).rung || {}).word };
+          const btn = document.getElementById(say === 'yes' ? 'ctclaimyes' : 'ctclaimno');
+          const asked = /THEY ARE ASKING YOU/.test(document.getElementById('ctcard').innerText);
+          if (btn) btn.click();
+          ctClose(); ctOpen();
+          return { fid, asked, hadButton: !!btn, before,
+                   after: { gave: BohemiaBelonging.gaveOf(sv, fid),
+                            rung: (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf(fid),
+                                   BohemiaBelonging.gaveOf(sv, fid)).rung || {}).word } };
+        }, said);
+      } finally { await pg.close(); }
+    }
+
+    const yes = await answerClaim('yes');
+    const no  = await answerClaim('no');
+
+    ok('E1 once they COUNT you they really do ask, and there are two buttons to '
+      + 'answer with — the claim is a decision on the card, not a row of text',
+      yes.asked === true && yes.hadButton === true && no.hadButton === true,
+      JSON.stringify({ yes: yes.hadButton, no: no.hadButton, asked: yes.asked }));
+
+    ok('E2 SAYING YES BUYS YOU NOTHING. Meeting an obligation is the RENT on '
+      + 'being counted, not a rung — and that is the first thing a kind edit '
+      + 'would break',
+      yes.after && yes.after.gave <= yes.before.gave,
+      JSON.stringify({ before: yes.before, after: yes.after }));
+
+    ok('E3 …and SAYING NO COSTS YOU the standing that made you worth asking. '
+      + 'Being inside is a relationship that makes demands, and refusing one has '
+      + 'a price or it was never a demand',
+      no.after && no.after.gave < no.before.gave,
+      JSON.stringify({ before: no.before, after: no.after }));
+
+    ok('E4 …and the two answers genuinely differ. If yes and no left you in the '
+      + 'same place the choice would be decoration',
+      yes.after && no.after && yes.after.gave !== no.after.gave,
+      JSON.stringify({ yes: yes.after, no: no.after }));
+
     /* ---- D. EVERY ACT A PLAYER CAN PRESS, PRESSED -------------------------
        THE ARC ABOVE WALKS ONE OUTFIT. There are FIVE distinct acts across the
        sixteen -- information, debt, presence, legibility, labour -- and until

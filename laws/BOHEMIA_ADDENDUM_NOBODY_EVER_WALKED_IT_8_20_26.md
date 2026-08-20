@@ -171,6 +171,25 @@ The data alone cannot separate *"`character` has no act by design"* from
 It is small and has been stable since 8/12. Mutation-proven: remove one from the
 table the page actually uses and two claims go red.
 
+## 4d. AND NOBODY HAD EVER ANSWERED THEM
+
+The walk went as far as *"THEY ARE ASKING YOU"* and stopped. **Nobody had ever
+pressed either answer.** And the answer is the entire point of the claim
+(Portes 1998, excess claims on group members):
+
+> **Saying YES buys you NOTHING** — meeting an obligation is the **rent** on
+> being counted, not a rung.
+> **Saying NO costs you the standing that made you worth asking** in the first
+> place.
+
+**That asymmetry is the first thing a kind edit would break**, and it had never
+once been driven through the two buttons on the card.
+
+Both answers are now walked **from the same state, on a fresh page each**, so
+*yes buys nothing* and *no costs you* are compared against **each other** rather
+than against two different histories. Both mutations bite: pay the player for
+saying yes and E2 goes red; make refusal free and E3 and E4 do.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
