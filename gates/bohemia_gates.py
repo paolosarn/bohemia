@@ -2874,12 +2874,24 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
             rc2, out2 = run(ent[1])
             if rc2 == 0:
                 load_flakes.append(nm)
-                print('  %-15s WAS LOAD, NOT TRUTH -- green when run alone' % nm,
+                # DO NOT NAME A CAUSE YOU DID NOT MEASURE (8/20). This said
+                # "WAS LOAD, NOT TRUTH", which is a CONCLUSION about WHY the
+                # gate changed its mind, and the re-run measures no such thing.
+                # Caught red-handed: during the 8/20 red sweep this line
+                # reported eight gates as load flakes when they were green
+                # because the tree had been FIXED underneath the run. Load is
+                # the usual reason and it is worth naming as a suspect -- it is
+                # not a finding. Same disease as every ruler cleared today:
+                # claiming something nothing checked.
+                print('  %-15s GREEN WHEN RUN ALONE -- not counted (usually load, '
+                      'but a changed tree does this too)' % nm,
                       flush=True)
             else:
                 confirmed.append(nm)
         if load_flakes:
-            print('  %d RED(S) WERE THE BOX, NOT THE BUILD: %s'
+            # same correction as above: this named a cause the re-run never
+            # measured. It reports WHAT HAPPENED and leaves WHY to the reader.
+            print('  %d RED(S) DID NOT REPRODUCE ALONE: %s'
                   % (len(load_flakes), ', '.join(load_flakes)), flush=True)
         failed = confirmed
     print('=' * 78)

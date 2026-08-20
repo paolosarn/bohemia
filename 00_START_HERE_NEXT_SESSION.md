@@ -1,3 +1,6 @@
+RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES, AND THE REDS ARE
+MOSTLY BLIND RULERS, NOT BROKEN GAME. ***
+
 CHARACTER (character-0lurbs): 8/20 (f) LATEST -- *** I PUBLISHED A BUG THAT DOES NOT
 EXIST AND THEN WENT TO FIX IT. THERE IS NO JAW DEBT. ***
 
@@ -162,81 +165,148 @@ RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES AND THE REDS ARE BEING
 CLEARED. 393/393 zero unrun, and ten gates taken green this pass. ***
 
 THE SUITE ITSELF IS DONE (fixes 1, 2, 3 all landed):
-  393 of 393 gates, zero unrun, ~40 min including the confirm-alone pass.
+  401 of 401 gates, ZERO unrun, including the confirm-alone pass.
   Was 217 of 379 and a fifty-minute wall.
-  --pure runs the 252 browserless gates as a pre-ship check.
+  --pure runs the browserless gates as a pre-ship check.
   A RED UNDER LOAD IS RE-RUN ALONE before it counts, so the suite cannot invent
-  one. It has caught four so far: CITY BORDER, THE CROWD, THE RUN, RUN BEAT,
-  RENDER PIXEL -- all "the box, not the build".
+  one.
 
-*** TEN GATES TAKEN GREEN, and one of them was a root cause worth the whole day. ***
+*** AND THE RUNNER WAS OVERSUBSCRIBING THE BOX BY HALF, WHICH IS WHY IT KEPT
+    INVENTING THEM. *** Its own comment said "pure gates get all the cores and
+    browsers get half". The code did not do that: a browser gate held ONLY the
+    browser semaphore, so a four-core container ran JOBS pure PLUS BROWSER_JOBS
+    browser at once -- four and two -- aimed squarely at the gates that MEASURE
+    TIME. The file had already written down what that costs ("oversubscribe the
+    box and they fail for LOAD rather than for truth") and then paid it every
+    run. FIGHT MUSIC and FIRST NIGHT both came up red in the pack and green
+    alone today, and the confirm pass bought a second full run of each to find
+    out. A browser gate now takes a browser slot AND a core.
+    THE CLAIM IS MEASURED NOW, NOT ASSERTED: BOHEMIA_SUITE_TRACE logs each gate
+    in and out of the box and SUITE HONESTY A17/A18 compute the PEAK. That
+    comment was wrong for as long as the runner has existed and nothing noticed,
+    because the WORDS were right and the NESTING was not -- a regex passes
+    happily on that. Mutation-tested: reverting the one line turns both red.
 
-A PATCH TOOL WAS CUTTING A MODULE IN HALF, EVERY RUN.
-  tools/bohemia_city_furnish_patch.py anchored on `const BOH_FLOORPLAN=(function(){`
-  -- the floorplan's first line of CODE -- and inserted BEFORE it, which is the
-  point right after that module's comment header. So the furnish module landed
-  INSIDE the floorplan: 1,466 bytes of it at one address, the other 13,906 at
-  another, 34,850 bytes of two modules in between.
-  EVERYTHING STILL RAN. Both halves are top-level and the declaration is intact,
-  which is exactly why it survived -- nothing was broken, only sliced. What died
-  was byte-identity, which is the whole of the ENGINE SYNC LAW, and it took
-  INTERIORS, QUEST PLACEMENT and BANNER red while the resync keeper reported the
-  module "UNRECOGNISED -- neither canon nor any of the last 40 revisions".
-  I rejoined the page once and IT CAME BACK, which is the tell: fixing the page
-  without fixing the tool just waits for the tool's next run. The anchor is the
-  MODULE now, not its first line of code.
-    tools/bohemia_unsplit_floorplan_patch.py  (the page, idempotent)
-    tools/bohemia_city_furnish_patch.py       (the cause)
+*** THE PATTERN OF THIS WHOLE SWEEP: SEVEN OF THE REDS I CLEARED WERE GATES
+    READING CHARACTERS INSTEAD OF BEHAVIOUR, AND THREE OF THOSE WENT RED AT A
+    CORRECT CHANGE. *** Not one was a broken game. Write this down because it
+    will happen again the next time anything is refactored:
 
-ONE WORLD TAB: 13 REDS -> 0. Eleven files carried `if (t) t.click()` next to a
-  tab lookup. A tab that moved makes that a NO-OP, the gate carries on against
-  whatever surface is showing, AND IT REPORTS GREEN -- the same disease as an
-  unrun gate reading green. Fixed to the model dayloop already sets: the click
-  returns whether it found the tab and the caller says so. Tools THROW instead,
-  because a tool that quietly shoots the wrong surface is worse than one that
-  stops. A dead `.tab[data-p="story"]` fallback came out with it -- there is no
-  STORY tab in the alpha.
+  CRAFT LAW 35/4 -> 39/0. The 4X hair pass rewrote every hair distance from
+    PIXELS to CELLS of S=CW/56, so `(x-hMn)` became `((x-hMn)/S)|0` and four
+    TRUE clauses reported false. This gate had done it to itself twice before
+    and SAYS SO in its own comments ("pin the behaviour", "THIS PINNED THE
+    BROKEN FIX"), and the law it enforces contains the rule it kept breaking: A
+    CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE. It now
+    LIFTS each expression out of the alpha, compiles it and RUNS it over a sweep
+    of head widths, scales and coordinates. Stricter, not looser -- the old
+    check passed on a file that merely contained the right characters, and its
+    first version pinned the broken fix and shipped. Mutation-tested four ways.
 
-A FOURTH WRONG RULER ON BANNER. It reported "asking x7, exchanges x3, people x2"
-  -- seven copies of a module the page holds ONE of. Two holes, both in the
-  fingerprint: a JSON `"applied":` citation string is DATA, not a body (so it was
-  counting citations), and a fingerprint must be unique INSIDE its own module too
-  (people's line appears twice in canon, so one copy counts as two). That gate's
-  header already documented three previous wrong rulers.
+  RIG CHECK 195/2 -> 208/0. The rig is now `const BAKED=RIG2X({...})`. The scan
+    looked for `const NAME = {`, so BAKED went INVISIBLE. That was not two reds,
+    IT WAS NINE: seven more claims downstream were being silently skipped
+    because BAKED could not be found. And the wrapper itself had NO GATE AT ALL
+    -- a scaler running over every painted pixel of his rig on every boot, under
+    a law that says his painted regions are sacrosanct. It now RUNS RIG2X on a
+    rig whose answer is known by hand: every painted pixel becomes its own 2x2
+    block, regions stay disjoint, order preserved, skeleton and pose double with
+    it. Mutation-tested: dropping one pixel of four is caught.
 
-  ALSO GREEN NOW: GRAVEYARD (a buried hairstyle, LOW FADE, was still being drawn
-  -- the dead stay dead), MAP BOUND (three files had grown a typed `96`; the
-  valley says how big it is), WORLD MODEL, WALKED SURFACE, QUEST PLACEMENT (a
-  stale generated judge page that named its own fix), TASTE (three text factories
-  had no documented TASTE CHECK -- they emit words, never pixels, and now say so
-  and name the words rules they DO inherit).
+  CHAR OUTLINE 34/1 -> 35/0. `indexOf('  return {px,CW,CH};')`, exact literal,
+    two leading spaces and all. buildFrame started returning {px,CW,CH,grid} and
+    it came back -1. Worse, the clause was `(iRet - iPass) < 2200` -- a BYTE
+    BUDGET, which passes for any 2,199 bytes of anything, INCLUDING a
+    compositing pass drawing over the border. It now requires that NOTHING
+    EXECUTES between the outline call and the return, and names the offender.
+    Mutation-tested: the old budget passed the same mutation happily.
 
-  AND I BROKE A TARGET WHILE FIXING A RULER, which is the thing MAP BOUND is
-  about: the walked-surface loop runs INSIDE the page via frame.evaluate, so
-  reaching for the node-side `world` handle crashed it 29/0 -> 2/1. In the
-  browser the valley is `om`. Caught by running it instead of assuming.
+  COMBAT LAB 885/3 -> 888/0. Three faults: BAKED again; a 700-character window
+    from `function doReload(){` to `endTurnReturn(false);` that a five-line
+    comment outgrew (it reads the FUNCTION and checks its LAST STATEMENT now);
+    and the one worth remembering --
+    *** A RECORDED HOLE FIRED AT THE THING IT EXISTED TO GET BUILT. *** The
+    clause said "RECORDED, NOT FIXED: in the overworld the kill ladder is
+    unreachable, the ONLY writer of MUS.layers is the studio preview buttons",
+    and pinned it by asserting exactly ONE assignment. Somebody built KILLMUS,
+    a second assignment appeared, and the gate reported the FIX as a FAILURE.
+    A RECORDED HOLE IS A TRIPWIRE, NOT A LOCK. It now asserts the fixed state
+    and pins what the fix must keep doing: his own 7/3 rungs, the lift landing
+    at the TOP OF A BAR, a reset to calm per fight.
 
-*** THE HONEST PART: THE RED COUNT IS A MOVING TARGET, AND THAT IS NOT AN EXCUSE,
-IT IS THE INSTRUMENT WORKING. *** It was 22 when I started, I cleared ten, and the
-next full run measured 29 -- because main moved ~20 commits underneath and some of
-the fleet's new work is red. Nine lanes ship faster than one lane can sweep. What
-changed today is that the reds are now VISIBLE AND NAMED instead of hidden behind
-165 gates that never ran.
+  ROAD CELLS 42/1 -> 45/0. Same disease, sharpest case. It asserted "the
+    arterial block wall blocks" -- a tile PAOLO'S OWN RULING DELETED ("THE
+    STREETS DONT HAVE WALLS", 8/11) after one surviving column SEALED THE PLAYER
+    INTO A SINGLE CELL (flooding from spawn reached 3 tiles of 9,216). WORLD
+    carrying out his ruling turned the gate red, and the gate was arguing for
+    the wall. A GATE MUST NEVER OUTRANK A RULING. Flipped into the tripwire that
+    matters: code 8 stays empty, no arterial tile is a wall under any OTHER
+    number (a renumbered wall is the same wall), and no full column is solid so
+    it can never seal him in again.
 
-WHAT IS LEFT, AND IT HAS OWNERS (sweep law section 6). Mostly content and art
-judgments that are not this lane's to make:
-  ART/CHARACTER  ART 45, TASTE(now green), HERO WIRE, TARGET MATCH, CANVAS MEMORY,
-                 CHAR OUTLINE, OUTFITS 13, CAST SHAPES, RIG CHECK, MOTION VISIBLE
-  WORLD          DRIVE NETWORK, ROAD CELLS, NAV CLUSTER, TILE FORM, FRESH DOORS
-  SOUNDS         SONG LOCK (his 46 approved songs changed), SFX DIVERSITY,
-                 VOICE SURFACES
-  PEOPLE         INVISIBLE SCHEDULE, DIALOGUE CATALOGUE
-  COMBAT         COMBAT LAB, FIELD SURGERY, RF4 TEARDOWN
-  RUN            OPENING (the cold open draws 0 lit samples -- arrived with main,
-                 verified by reverting my edit and getting the identical failure),
-                 DEMO, CRAFT LAW, TOOLS RUN
-THE RULE ATTACHED THERE NOW BITES: a red with an owner gets fixed or gets a
-written line saying why it is legitimately red.
+  FIRST NIGHT 53/0 in both places now. Green alone, red in the pack, and its
+    crash SWALLOWED THE TALLY -- one line about a null, no way to tell whether it
+    died at claim 3 or claim 50. Three faults: it was timing on a guess (now
+    polls, and polls for state:'attached', because playwright's DEFAULT 'visible'
+    cost it fifteen claims in one edit -- the button is tappable, the frame just
+    never lays it out); a downstream null (DQ.serialize().state is null when no
+    job was taken) that DETONATED instead of going red, taking twelve claims with
+    it; and a crash handler that printed no tally. Fault 2 is what made fault 1
+    invisible and fault 3 is why nobody could tell.
+
+TWO REDS WERE REAL AND NEITHER WAS A BROKEN GAME:
+
+  SONG LOCK 19/1 -> 20/0. RED SINCE 8/19 AND NOBODY NOTICED, because the suite
+    was dying two thirds of the way through and a gate that never runs reads
+    exactly like a green one. Two MUSIC commits moved MLOOPS and neither
+    re-locked: 9cf5a719 removed eight songs he had killed, 05371f62 added three
+    menu songs. VERIFIED AT SONG GRANULARITY BEFORE RECORDING ANYTHING: 132
+    entries -> 127, all eight removals are in the graveyard, and ALTERED IS
+    EMPTY -- every surviving song byte-identical. Re-locked with that finding
+    written into the manifest note; the diff confirms only MLOOPS moved.
+
+  DIALOGUE CATALOGUE 60/2 -> 62/0. The WORDS tab bake was stale against its
+    sources, so drafted lines existed in the game he could not reach to edit --
+    which is the entire point of that law. Re-ran tools/bohemia_words_book.py;
+    only the fingerprint moved (same 1910 lines, same 1864 cited).
+
+ALSO GREEN, no work needed, they cleared as main moved: OPENING 24/0, DEMO 23/0,
+TOOLS RUN 8/0, JUDGE SURFACE 28/0, FIGHT MUSIC 47/0.
+
+*** THE REDS THAT ARE LEFT ARE REAL CONTENT, AND THEY BELONG TO OTHER LANES.
+    Per the sweep law, each gets a written line rather than me editing another
+    lane's system: ***
+  MOTION VISIBLE (ANIMATION)  headshot and headshot-2: the silhouette WIDENS as
+      the body goes flat (that claim passes) but the top of the sprite drops
+      0px on every one of 7 samples. The body is moving and the topmost row
+      never is. Real, measured, and it is the ragdoll's own clip.
+  CAST SHAPES (CHARACTER)     silhouette variety mean 0.074 against a 0.085
+      floor -- the cast is not varied enough as a whole.
+  OUTFITS 13 (CHARACTER)      closest pair Blues/Remnants 0.0199 against 0.035;
+      board mean 0.071 against 0.090. STRUCTURE-NOT-COLOR: this needs new
+      garment SHAPES, and a recolour will not move it.
+  FIELD SURGERY (COMBAT)      tweeze returns to where it started (gap 2.24px) so
+      the bar does not snap; POUR is not the stillest of the three.
+  DRIVE NETWORK (WORLD)       the ratchet is doing its job: the disconnected debt
+      GREW 22 -> 25 and the hairline debt 4 -> 5. Five districts have drive
+      surface a car cannot reach -- convention 99.7%, prison 9.6%, dam 0.0%,
+      minigp 0.0%, fort 52.9% reachable; dam has 0% of its lanes wide enough to
+      drive. This is district layout and MAP LAW, so it is WORLD's to design.
+  FRESH DOORS (SOUNDS)        opening a real door in the real run sounds his
+      approved drag ZERO times (want exactly once, matched on the vector
+      signature).
+  SFX DIVERSITY / VOICE SURFACES / WHAT YOU HEARD (SOUNDS) -- not diagnosed this
+      pass; they are that lane's assertions and that lane is live.
+
+THE RULE FROM THE SWEEP LAW STILL BINDS: a red with an owner gets fixed or gets
+a written line saying why it is legitimately red. The lines above are that.
+
+NEXT FOR THIS LANE:
+ 1. The demo P0s. The suite work is finished and was only ever the thing in
+    front of them.
+ 2. If another refactor lands, EXPECT THIS AGAIN. The tell is a gate going red
+    in the same turn something legitimate changed shape. Check the ruler before
+    you touch the target -- seven times out of nine today, the ruler was wrong.
 
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
