@@ -1624,6 +1624,17 @@ GATES = [
      "ALPHA and taps the TAB: somebody stands by the spawn, you walk up, the one button names their "
      "trade, the card says YOU HAVE NOT ASKED, asking names them, the button calls them by it, the "
      "name is over their head, and it survives a reload", True),
+    ('CITY MEMORY',    ['node', 'gates/city_memory_gate.js'],
+     "engine/bohemia_memory.js is the witness organ -- minds hold sightings, familiarity slows "
+     "forgetting, clarity decays as 0.5^(age/halflife) -- and memory_gate has proved all of it green "
+     "since 7/19. It was in ZERO player-reachable files, and engine/bohemia_standing.js on top of it "
+     "was too: 45 green assertions about people remembering you, and nobody in the game who had ever "
+     "remembered anything. The city itself wrote the finding into a comment on 8/18 and nothing acted "
+     "on it. This drives the ALPHA, taps the RUN tab, and proves the organ is RUNNING: somebody "
+     "witnesses you at boot, a witness is somebody the render actually DREW and inside SEE_RANGE "
+     "(measured by placing a body out of range, not by hoping the world provides one), the throttle "
+     "never spends a minute it recorded nothing in, recognition fades back to nothing so a stranger "
+     "becomes a stranger again, and A RECOGNITION IS NEVER A NAME", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
