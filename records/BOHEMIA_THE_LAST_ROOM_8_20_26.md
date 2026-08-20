@@ -1,8 +1,11 @@
 # THE LAST ROOM (8/20/26, PEOPLE lane, backlog 0sc)
 
-## WHERE TO SEE IT: the **CUTSCENE** tab, chip 2, THE LAST ROOM. In the game it
-## plays the moment the raid ends, before the next morning. Lines editable in the
-## **WORDS** tab, beats in the **DIRECT** tab.
+## WHERE TO SEE IT: the **CUTSCENE** tab, the fourth chip, THE LAST ROOM. In the
+## game it plays the moment the raid ends, before the next morning. Lines editable
+## in the **WORDS** tab, beats in the **DIRECT** tab.
+## (This line said "chip 2" and was wrong -- the picker builds itself from the
+## scene files in filename order, so the position moves whenever a scene is added.
+## Measured on the real alpha: it is the fourth.)
 
 ---
 
@@ -69,11 +72,28 @@ from making it.
 **No casualty is authored.** The loss is his, ruled 7/19, and pacifism never
 saves her either way — that was already canon before this scene existed.
 
-## THE ART IS NOT THERE AND THE FRAME SAYS SO
+## THE ART WAS NEVER MISSING. THE POSE WAS. (amended 8/20, same day)
 
-`needsArt: "the house after the raid, lights out, a door standing open"`. Same
-honest empty frame the ridge burial gets: the words play, on the beat, over a
-panel that names what is missing instead of drawing the wrong room.
+This section originally read "the art is not there and the frame says so", with
+`needsArt: "the house after the raid, lights out, a door standing open"` and the
+honest empty frame the ridge burial gets. **That was wrong, and it was wrong in
+an expensive direction: it declared a picture missing that had existed since
+8/9.** This scene happens in the family's own house four minutes after the raid,
+and the cold open has been drawing that exact post-collapse interior all along.
+
+What was actually missing was not a picture. It was **the ability to put a body
+in a room standing up.** Every actor beat has always carried a `pose`, and the
+surface posed every single one of them `sit-chair`, because the only scene that
+had ever existed was a dinner table. Reusing the house would have sat three
+people down to dinner in the room they had just fought through, so the scene
+invented a place called `house_after` and called its art outstanding instead.
+
+`bohemia_stage.js` has carried `Seating.stand()` since it was written, with
+**zero callers**. Eleventh built-and-gated-and-unreachable capability this lane
+has found. Standing is wired now, the scene is set in `family_table`, and
+`needsArt` is gone: it plays in the house, lantern lit, three people on their
+feet. **A CAPABILITY NOBODY CALLS LOOKS EXACTLY LIKE A MISSING FEATURE, and the
+cheaper mistake is always to go build the feature again.**
 
 ## THE MACHINE
 

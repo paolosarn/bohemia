@@ -33,7 +33,22 @@ const ROOT = path.dirname(__dirname);
 process.chdir(ROOT);
 
 let pass = 0, fail = 0;
-const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
+/* THE CONDITION SLOT MAY NEVER HOLD A STRING (8/20). This lane runs four gates
+   and coldopen_gate.js takes its arguments the OTHER WAY ROUND -- ok(cond, msg)
+   there, ok(msg, cond) here. Four checks were written there in this file's
+   habit, so the condition slot got a message string, which is truthy, and all
+   four passed unconditionally while the code under them was mutated broken.
+   The reversal is silent in both directions, so both directions get the guard.
+   A gate is the checker and cannot be checked by the suite; this is the only
+   place it can be caught. */
+const ok = (n, c) => {
+  if (typeof c === 'string') throw new Error('GATE BUG: ok() got a STRING as its '
+    + 'condition. This file is ok(message, condition); coldopen_gate.js is the '
+    + 'reverse. Reversed call: ' + JSON.stringify(String(n).slice(0, 90)));
+  if (typeof n !== 'string') throw new Error('GATE BUG: ok() got a ' + typeof n
+    + ' as its message. Arguments are reversed: this file is ok(message, condition).');
+  c ? pass++ : (fail++, console.log('  FAIL: ' + n));
+};
 
 const S = require('../engine/bohemia_scene.js');
 const LAWS_IDX = JSON.parse(fs.readFileSync('records/BOHEMIA_QUESTBOOK_LAW_INDEX.json', 'utf8')).laws;
@@ -350,8 +365,7 @@ if (fs.existsSync(RIDGE_PATH)) {
      Handed an outdoor burial it silently generated the family's living room and
      sat three people down at dinner. Rendered and looked at, which is the only
      way that was ever going to be caught. */
-  ok('the burial DECLARES that its set art does not exist yet',
-    typeof ridge.needsArt === 'string' && ridge.needsArt.length > 8);
+
   const surf2 = fs.readFileSync('engine/bohemia_story_surface.js', 'utf8');
   ok('and the surface HONOURS that with an empty frame instead of the wrong room',
     /this\.blank = this\.scene\.needsArt/.test(surf2) && /NO SET ART YET/.test(surf2));
@@ -523,8 +537,7 @@ if (fs.existsSync(ROOM_PATH)) {
     Object.keys(roomStudies).length + ' studies, ' + Object.keys(roomMasters).length + ' masters)',
     roomBad.length === 0 && Object.keys(roomStudies).length >= 2 &&
     Object.keys(roomMasters).length >= 2, roomBad.slice(0, 3).join(' | '));
-  ok('and it declares that its set art does not exist yet',
-    typeof room.needsArt === 'string' && room.needsArt.length > 8);
+
 }
 
 /* ---- 3h. THE WHOLE AUTHORED OPENING, IN ORDER, END TO END ----------------- */
@@ -550,6 +563,38 @@ ok('THE AUTHORED OPENING IS ONE UNBROKEN CHAIN, in his order: cold open -> the '
   'raid -> the last room -> the grief dinner -> the ridge' +
   (chainBroken.length ? ' — BROKEN: ' + chainBroken.join('; ') : ''),
   chainBroken.length === 0);
+
+/* ---- 3i. A SCENE THE SURFACE CANNOT DRAW SAYS SO, AND ONE IT CAN DOES NOT ---
+   *** THIS ASSERTION WAS WRONG TWICE AND BOTH WAYS ARE THE SAME MISTAKE. ***
+   It first said "the burial declares needsArt" and "the last room declares
+   needsArt" -- pinning TODAY'S ANSWER for two named scenes. Then standing poses
+   landed, the last room turned out to be set in the family's house whose art has
+   existed since 8/9, its declaration became a lie, and a correct change went red.
+   Same lesson as 3f, one day later: AN ASSERTION THAT PINS TODAY'S ANSWER
+   INSTEAD OF TODAY'S RULE FAILS THE DAY THE ANSWER LEGITIMATELY CHANGES.
+
+   THE RULE: the cutscene surface builds INTERIORS. Every set beat names a place;
+   if the surface can build it the scene must NOT claim missing art (a false
+   claim hides a scene that could be shown), and if it cannot the scene MUST
+   claim it (or it draws the wrong room, which is how a burial came back looking
+   like dinner). When ART ships the ridge, add it to DRAWABLE and the assertion
+   flips on its own. */
+const DRAWABLE = ['family_table'];
+const artWrong = [];
+fs.readdirSync('records').filter(f => /^BOHEMIA_SCENE_.*\.json$/.test(f)).forEach(f => {
+  const sc = JSON.parse(fs.readFileSync('records/' + f, 'utf8'));
+  const places = (sc.beats || []).filter(b => b.kind === 'set' && b.place).map(b => b.place);
+  if (!places.length) return;
+  const undrawable = places.filter(p => DRAWABLE.indexOf(p) < 0);
+  const claims = typeof sc.needsArt === 'string' && sc.needsArt.length > 8;
+  if (undrawable.length && !claims)
+    artWrong.push(sc.id + ' is set in ' + undrawable.join('/') + ' and claims nothing');
+  if (!undrawable.length && claims)
+    artWrong.push(sc.id + ' claims missing art for a place the surface CAN draw');
+});
+ok('every scene the surface cannot draw says so, and every scene it CAN draw ' +
+  'does not' + (artWrong.length ? ' — ' + artWrong.join('; ') : ''),
+  artWrong.length === 0);
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);
