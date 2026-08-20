@@ -1,3 +1,65 @@
+WORLD (world-9lfjtf): 8/20 (f) LATEST -- *** HIS APPROVED STREET ART REACHES ZERO OF 44,376
+ROAD CELLS, AND NOTHING WAS EVER GOING TO SAY SO. No tab changes; this is a gate and a
+finding. Nothing here needs judging. ***
+
+THIS MORNING his 348 traffic signal sprites turned out to be LOADED, CORRECT AND DRAWING
+NOWHERE for weeks, while the check that said "his sprites are LOADED in the browser" stayed
+green the whole time. THAT IS NOT A ONE-OFF, IT IS A SHAPE: every art pool is reached through
+a LOOKUP (a colour, a flag, a district name), and when the thing it keys on changes
+underneath it the art stops appearing and nothing goes red.
+
+So: a gate that hooks drawImage and COUNTS REAL DRAWS across 58 renders of the walked surface
+over 36 district types, plus the CITY view.
+
+    district heroes   3,664 draws   60/60 loaded
+    traffic signals       6 draws   (zero this morning)
+    street/building     3 of 21 pools draw
+
+*** THE BIG ONE, AND IT IS NOT MINE TO FIX. *** Street art is chosen by GROUND COLOUR through
+SA_MAP, whose keys are the old parametric street colours (#8a8a86, #7a7a76, #5e5e5a,
+#4a4a48, #c8c4b8). Since A ROAD WITH ITS OWN MODULE DRAWS ITSELF (8/18-8/19) the roads emit
+their generator's own palette instead (#33333c, #6a5f47, #8a8a92, #a09a8a).
+MEASURED: 44,376 road ground cells sampled across 24 road cells, ZERO mapping to an approved
+street tile. His harmonized 7/14 bank -- roadway, kerb, shoulder, crossings, medians, lane
+markings -- reaches NO ROAD IN THE VALLEY. That is STREETS ARE THE HARMONIZED POOL (7/31,
+LOCKED) failing valley-wide in silence.
+I DID NOT FIX IT. The fix is a mapping from each new road tile to the bank pool it should
+wear, and that is a decision for whoever authored those road tiles. Handed over with the
+numbers rather than guessed at: ONE SYSTEM, ONE SESSION.
+
+THE GATE IS THE MACHINE THAT LAW NEVER HAD (a law without a machine gate is not enforced --
+proven 7/16, six of nine gated laws already broken). RATCHET, not a cliff: the 18 silent
+pools are NAMED and may only shrink. Both mutations bite and the first is the EXACT
+historical regression -- point the signal code back at the old flag and this gate fails on
+"his 7/17 TRAFFIC SIGNALS arrive (0 draws)". IT WOULD HAVE CAUGHT THE SIGNAL LOSS THE DAY IT
+HAPPENED.
+
+  records/BOHEMIA_LOADED_IS_NOT_ARRIVED_8_20_26.md
+  gates/approved_art_arrives_gate.js   7 checks, two mutations confirmed
+
+*** MY OWN METHOD WAS WRONG TWICE BEFORE IT WAS RIGHT, and both would have produced
+confident false findings. *** (1) I hooked only the VISIBLE canvas; street art bakes into
+per-chunk canvases, a different context, so the first sweep reported zero for pools that were
+fine. (2) I swept only the walked surface and got "60 district heroes loaded, 0 DRAWN" -- the
+heroes are drawn by renderCity(), the CITY tab, not render(). They were never missing; I was
+looking in the wrong room, and I nearly shipped it as a 60-sprite catastrophe. A PROBE THAT
+CHECKS ONE ROOM AND REPORTS THE HOUSE EMPTY IS THE SAME DISEASE AS THE BUG IT HUNTS.
+
+*** AND THREE OF MY OWN GATES WERE NOT IN THE SUITE. *** Found while registering this one.
+interior_ground_gate.js and hazard_look_gate.js (both 8/20, both mine) were NEVER added to
+the table in gates/bohemia_gates.py, so they had only ever run because I ran them by hand.
+They would never have run again after this session ended. A GATE THAT IS NOT IN THE TABLE IS
+A GATE NOBODY RUNS -- the same silence it was written to end. All three are registered now
+and verified THROUGH THE RUNNER, not just standalone. If you write a gate, grep the table.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. THE ROADWAY BANK MAPPING is the biggest open thing in the world right now and it is the
+     other WORLD session's: 44,376 cells wearing generator colours instead of his approved
+     street tiles. Numbers above.
+  2. ROAD CELLS (the arterial block wall) and drive_network (22->25 ratchet, five landmark
+     districts) are also theirs, unchanged from 8/20 (e).
+  3. A hand-painted hazard tile bank is still ART's if he wants one.
+
 SOUND (sound-xk7pjp): 8/20 (n,o) LATEST -- *** THE SIDEWALK STOPPED SOUNDING LIKE
 A ROAD. Three sounds he APPROVED had never once played, on the ground he covers
 most. TAB: RUN (walk from a lot onto a sidewalk, then indoors). Nothing to

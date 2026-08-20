@@ -1198,6 +1198,36 @@ GATES = [
      'half that made the fix safe -- honouring the flag exposed twelve dead trees and two '
      'hard objects declared walk-through, which would have shipped a player walking through '
      'tree trunks, so A TRUNK BLOCKS is asserted by name', False),
+    # REGISTERED 8/20, AND THE THREE BELOW HAD BEEN RUNNING ONLY BY HAND. A gate that is not
+    # in this table is a gate nobody runs, which is the same silence it was written to end.
+    ('INTERIOR GROUND', ['node', 'gates/interior_ground_gate.js'],
+     'THE FLOOR CAN DO SOMETHING TO YOU EVERYWHERE EXCEPT WHERE THE FIGHTS ARE. Interiors '
+     'carried NO terrain at all until 8/20 -- an interior cell held g/room/door/role/furn and '
+     'nothing else, so the fight payload ground channel was 252 dots for every room in every '
+     'fight, and every fight in this game starts by walking through a door. Ceiling rubble '
+     'falls where the span is longest and a lift shaft opens in a building that would have '
+     'had one, both derived from the room rather than from a rate: a warehouse comes out 7.7% '
+     'damaged and a house 2.2% and nobody typed either number. Almost every check is a '
+     'REFUSAL (never in a doorway, never under furniture, never cutting the floor in two, '
+     'never a hole behind a door, never a lift in a bungalow) and all four mutate red', False),
+    ('HAZARD LOOK',    ['node', 'gates/hazard_look_gate.js'],
+     'DANGEROUS GROUND HAS TO LOOK DANGEROUS (RF4 lift 2.6: never explain something the floor '
+     'could have shown). For three days the floor could kill, slow or amplify and every hazard '
+     'tile drew as FLAT COLOUR, with a line of text in the corner as the only tell. This gate '
+     'reads the BAKED PIXELS, not the data -- every flag was already correct while the picture '
+     'was byte-identical, so a gate asserting "the class is on the cell" would have been green '
+     'through a feature that did not exist. Measured on the glass: loose ground is visible by '
+     'TEXTURE, a drop by TEXTURE and VALUE, standing water by VALUE', False),
+    ('ART ARRIVES',    ['node', 'gates/approved_art_arrives_gate.js'],
+     'LOADED IS NOT THE SAME AS ON THE SCREEN, and nothing had ever asked the second question. '
+     'His 348 traffic signal sprites were loaded, correct and drawing NOWHERE for weeks while '
+     'the check that said "his sprites are LOADED in the browser" stayed green. This counts '
+     'the actual draws of every approved pool across 58 renders of the walked surface AND the '
+     'city view, hooking every canvas context because street art bakes into per-chunk '
+     'canvases. The pools that are silent today are NAMED and may only shrink -- including '
+     'the roadway bank, which reaches ZERO of 44,376 sampled road cells since the roads '
+     'started drawing themselves. It is the machine the STREETS ARE THE HARMONIZED POOL law '
+     '(7/31, LOCKED) never had', False),
     ('FURNISH',        ['node', 'gates/furnish_gate.js'],
      'WHAT IS IN THE ROOM, AND THEREFORE WHAT YOU CAN GET BEHIND -- the second half of a '
      'number this lane published the same morning. RETREAT measured the RF4 lift sec 6 '
