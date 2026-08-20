@@ -2917,8 +2917,57 @@ the cure for something I never reproduced would be shipping a false finding.
 
 FACTION ARC 24 -> 28 claims.
 
-NEXT FOR THIS LANE (decided, not asked): THE SIXTEEN NAME MECHANICS have never
-been walked. Every outfit does something different when you ask its members their
+*** THE SIXTEEN NAME MECHANICS ARE WALKED NOW, and the card matches the organ on
+all eight outfits reachable: *** CARTEL gives nothing ever, TRADES gives "WATCH"
+(a trade, not a name) until you hire them twice, VOLUNTEERS hand it over
+instantly, HOMELESS have no button at all (they ask where you sleep), and
+NETWORK/REDS/COLORFUL already know yours.
+AND I ALMOST SHIPPED A FALSE FINDING ABOUT THE MOB. The first pass picked a
+person, walked to them, opened the card, and labelled the result with THAT
+PERSON'S faction -- but ctOpen() shows whoever is actually NEAREST. It reported
+the Mob handing over a full name to a direct ask, flat against its anchor ("YOU
+ARE INTRODUCED, YOU DO NOT ASK"), and I was one step from writing the wiring up
+as broken. IT IS NOT. THE CARD WAS SOMEBODY ELSE'S.
+  A PROBE THAT DECIDES WHO IT IS LOOKING AT CAN BE WRONG ABOUT WHAT IT SAW.
+The card's own RUNS WITH row is the subject now, never my pick.
+
+*** AND HERE IS THE NUMBER THAT DECIDES WHETHER ANY OF THIS IS IN THE DEMO. ***
+Measured on a COLD START, which is the state a player is actually in:
+    spawn cell                                 [48,48]
+    nearest person who runs with anybody       18 cells (Mob)
+    nearest base                               29 cells (Colorful)
+    PEOPLE NEARER THAN THAT FIRST ONE          24
+    affiliated in the valley                   32 of 298
+YOU CAN MEET TWENTY-FOUR PEOPLE BEFORE YOU MEET ONE WHO BELONGS TO ANYTHING. The
+faction stack is finished and verified -- 43 claims walk the whole journey -- and
+a short session can plausibly contain zero contact with any of it.
+I DID NOT TUNE ANYTHING. Raising REACH_CELLS to cover the spawn would affiliate
+somebody with a base 29 cells away, contradicting the Kalyvas control-decays-with-
+distance model the pick is built on: it buys a number and costs the model. Moving
+a base is MAP LAW. Raising AFFILIATED_RATE does nothing because REACH is the
+binding constraint, not the roll.
+faction_arc part G measures it on a cold start EVERY RUN and prints it, and is
+deliberately NOT a ratchet -- a gate that reds when he moves a base would be a
+gate outranking a ruling. It asserts only that the number EXISTS.
+AND THE FIRST VERSION OF THAT MEASUREMENT WAS WRONG: it read ctCell() on the page
+the walk had used, which was standing AT the Volunteers base, and said 4 cells. A
+measurement of "where he starts" taken after you have walked him somewhere is a
+measurement of nothing. It runs on its own fresh page now.
+Record: records/BOHEMIA_TWENTY_FOUR_STRANGERS_FIRST_8_20_26.md
+
+FACTION ARC 42 -> 43 claims.
+
+NEXT FOR THIS LANE (decided, not asked): THE THREE WAYS THE 18 CELLS CLOSE ARE
+ALL SOMEBODY ELSE'S -- a base nearer spawn (MAP LAW), a denser valley (WORLD), or
+A REASON TO WALK EIGHTEEN CELLS (QUESTS/RUN), and the third is the cheapest and
+needs no world change at all. So this lane's own next job is the last unwalked
+piece it owns: THE COMMITMENT CONSEQUENCES. Taking a side is walked, but `burned`
+-- the stage that cannot be walked back -- has never been reached by anybody, and
+neither has NEGLECT, the cost of not turning up, which is the only thing in the
+stack that moves while the player is doing something else.
+
+--- superseded note, kept for the trail ---
+THE SIXTEEN NAME MECHANICS had never been walked. Every outfit does something different when you ask its members their
 name (the 8/11 introductions organ, 46 gated claims) and every one of those
 claims is STRUCTURAL -- the rule resolves, the anchor holds, the signature is
 distinct. NOT ONE presses the button on a real member of a real outfit and reads

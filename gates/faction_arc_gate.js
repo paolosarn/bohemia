@@ -637,6 +637,75 @@ function requirePlaywright() {
                        pressed: kinds, unreachable: reach.unreachable,
                        basesWithNobody: reach.emptyBases }));
 
+    /* ---- G. HOW FAR IS ANY OF THIS FROM WHERE HE STARTS -------------------
+       EVERYTHING ABOVE IS VERIFIED AND NONE OF IT IS NEAR THE SPAWN. This lane
+       has spent a week proving the faction stack works; that is worth nothing if
+       a player never meets anybody who runs with anybody. So the distance is
+       MEASURED AND PRINTED ON EVERY RUN rather than left as a thing somebody
+       remembers.
+
+       IT IS DELIBERATELY NOT A RATCHET. Base placement is MAP LAW and his alone,
+       and REACH_CELLS / AFFILIATED_RATE are [PENDING Paolo] -- a gate that goes
+       red when he moves a base would be a gate outranking a ruling, which this
+       repo has a law against. The only thing asserted is that the number EXISTS:
+       somewhere in the valley there is somebody affiliated, reachable. That is
+       the state the game was silently in for thirteen days when the answer was
+       "nobody, anywhere". */
+    /* ON ITS OWN FRESH PAGE. The first version read ctCell() on the page the
+       walk had been using, which by then was standing AT the Volunteers base --
+       it reported the nearest affiliated person as 4 cells away when the real
+       answer from a cold start is 18. A measurement of "where he starts" taken
+       after you have walked him somewhere is a measurement of nothing. */
+    const spawnPage = await browser.newPage({ viewport: VIEW });
+    await spawnPage.goto('file://' + CITY);
+    await spawnPage.waitForTimeout(6000);
+    const reach2 = await spawnPage.evaluate(() => {
+      const cell0 = ctCell(), roster = ctValleyRoster(), bases = ctBases() || {};
+      const cellOf = (a) => {
+        const s = (a.home && a.home.building) || '';
+        if (typeof s !== 'string' || s.indexOf(',') < 0) return null;
+        const xy = s.split(',');
+        return [Math.floor(+xy[0] / FN), Math.floor(+xy[1] / FN)];
+      };
+      let best = null, bestD = Infinity;
+      const ranked = [];
+      roster.forEach(a => {
+        const c = cellOf(a); if (!c) return;
+        const d = Math.abs(c[0] - cell0[0]) + Math.abs(c[1] - cell0[1]);
+        ranked.push({ f: a.faction || null, d });
+        if (a.faction && d < bestD) { bestD = d; best = a.faction; }
+      });
+      ranked.sort((x, y) => x.d - y.d);
+      let bd = Infinity, bn = null;
+      for (const [n, v] of Object.entries(bases)) {
+        const d = Math.abs(v.x - cell0[0]) + Math.abs(v.y - cell0[1]);
+        if (d < bd) { bd = d; bn = n; }
+      }
+      return { spawn: cell0, people: roster.length,
+               affiliated: roster.filter(a => a.faction).length,
+               nearestAffiliated: best, cells: bestD === Infinity ? null : bestD,
+               nearestBase: bn, baseCells: bd === Infinity ? null : bd,
+               strangersFirst: ranked.findIndex(r => r.f) };
+    });
+
+    await spawnPage.close();
+
+    console.log('\n  FROM WHERE HE STARTS (' + JSON.stringify(reach2.spawn) + '):');
+    console.log('    nearest person who runs with anybody : ' + reach2.cells
+      + ' cells (' + reach2.nearestAffiliated + ')');
+    console.log('    nearest base                         : ' + reach2.baseCells
+      + ' cells (' + reach2.nearestBase + ')');
+    console.log('    people nearer than that first one    : ' + reach2.strangersFirst);
+    console.log('    affiliated in the valley             : ' + reach2.affiliated
+      + ' of ' + reach2.people + '\n');
+
+    ok('G1 SOMEWHERE IN THE VALLEY THERE IS SOMEBODY WHO RUNS WITH SOMEBODY, and '
+      + 'the walk from the spawn to them is a real number rather than infinity. '
+      + '"Nobody in Las Vegas runs with anybody" is the state the game was '
+      + 'silently in for thirteen days',
+      reach2.cells != null && reach2.affiliated > 0,
+      JSON.stringify(reach2));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
