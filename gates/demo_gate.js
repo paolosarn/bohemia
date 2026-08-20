@@ -37,6 +37,7 @@
    link is good'.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -66,7 +67,7 @@ function pw() {
   await page.goto('file://' + ALPHA);
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.waitForTimeout(3400);
+  await SETTLE(page, 3400);
 
   /* ---- 1. THE DOOR ------------------------------------------------------- */
   {
@@ -76,7 +77,7 @@ function pw() {
     });
     ok('the link opens on the front screen', front.there && front.shown);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(600);
+    await SETTLE(page, 600);
     ok('and TAP TO ENTER lets you in', await page.evaluate(() => {
       const f = document.getElementById('front');
       return !f || getComputedStyle(f).display === 'none';
@@ -93,7 +94,7 @@ function pw() {
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     const invite = await page.evaluate(() => {
       const i = document.getElementById('openInvite');
       if (!i || getComputedStyle(i).display === 'none') return null;
@@ -103,7 +104,7 @@ function pw() {
     ok('tapping RUN on a fresh phone OFFERS the opening', !!invite && invite.w > 80,
       JSON.stringify(invite));
     await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
-    await page.waitForTimeout(10000);
+    await SETTLE(page, 10000);
     const playing = await page.evaluate(() => {
       const w = document.getElementById('openWrap'), c = document.getElementById('openCv');
       if (!w || getComputedStyle(w).display === 'none') return null;
@@ -122,7 +123,7 @@ function pw() {
     /* however it ends, it must put you in the day. This is the stranding check
        and it is the one that would ruin a demo in front of a person. */
     await page.evaluate(() => { const s = document.getElementById('openSkip'); if (s) s.click(); });
-    await page.waitForTimeout(1600);
+    await SETTLE(page, 1600);
     ok('and it hands you the day rather than stranding you on a black screen',
       await page.evaluate(() => {
         const w = document.getElementById('openWrap');
@@ -149,7 +150,7 @@ function pw() {
     ok('the surface that owns the day is loaded inside the link',
       !!fr, page.frames().map(f => f.url().slice(-26)).join(','));
     if (fr) {
-      await page.waitForTimeout(2500);
+      await SETTLE(page, 2500);
       const day = await fr.evaluate(() => {
         const card = document.getElementById('daycardIn');
         const txt = card ? (card.textContent || '') : '';
@@ -181,18 +182,18 @@ function pw() {
         await fr.evaluate(() => ((document.getElementById('qline') || {}).textContent || '') === ''));
 
       await fr.click('#daycardIn .dcgo');            // GET UP
-      await page.waitForTimeout(900);
+      await SETTLE(page, 900);
       ok('GET UP is a real button and it wakes the day',
         await fr.evaluate(() => (typeof DAY !== 'undefined' && DAY) ? DAY.phase === 'awake' : false));
 
       await fr.click('#phonebtn');                   // the phone, in his pocket
-      await page.waitForTimeout(7000);               // NETWORK OS boots
+      await SETTLE(page, 7000);               // NETWORK OS boots
       const slot = await fr.$('#phoneslot');
       const box = slot ? await slot.boundingBox() : null;
       ok('tapping PHONE opens it', !!box && box.height > 100);
       if (box) {                                     // TAP TO UNLOCK
         await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.9);
-        await page.waitForTimeout(2200);
+        await SETTLE(page, 2200);
       }
 
       /* ASK EVERY FRAME WHICH ONE HAS THE BUTTON. Two frames answer to the run's
@@ -221,7 +222,7 @@ function pw() {
           });
           if (t) t.click();
         });
-        await page.waitForTimeout(1800);
+        await SETTLE(page, 1800);
       }
       const took = await fr.evaluate(() => ({
         hud: (document.getElementById('qline') || {}).textContent || '',

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* FIGHT ROOM GATE (8/19/26, WORLD lane) — THE FIGHT GETS THE ROOM, NOT ITS DIMENSIONS.
  *
  * `__CITY_FIGHT__` made the door the fight on the walked surface. The handoff it posted to
@@ -59,7 +60,7 @@ console.log('FIGHT ROOM GATE — the fight gets the room, not its dimensions\n')
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3500);
+    await SETTLE(p, 3500);
     await p.evaluate(() => { try { cardHide(); } catch (e) {} });
 
     const r = await p.evaluate(() => {

@@ -27,6 +27,7 @@
      6. and, on a real browser, walking STARTS AUDIO NODES -- measured, not read
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -104,12 +105,12 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
       wrap(window.AudioBufferSourceNode && AudioBufferSourceNode.prototype, 'start');
     });
     await page.goto('file://' + ALPHA);
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.evaluate(() => {
       document.querySelectorAll('#splash,.splash').forEach(s => s.style.display = 'none');
       const t = document.querySelector('[data-p="run"]'); if(!t) throw new Error('that tab is not in the bar'); t.click();
     });
-    await page.waitForTimeout(3500);
+    await SETTLE(page, 3500);
 
     const before = await page.evaluate(() => window.__SOUNDS);
     await page.evaluate(async () => {
@@ -119,7 +120,7 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
         await new Promise(r => setTimeout(r, 250));
       }
     });
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
     const after = await page.evaluate(() => window.__SOUNDS);
 
     ok('WALKING MAKES A SOUND: audio nodes started (' + before + ' -> ' + after + ')',

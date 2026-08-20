@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ===========================================================================
    ONE WORLD TAB GATE — Paolo 8/2, LOCKED.
 
@@ -142,9 +143,9 @@ function sweepNavigators(BAR) {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1200);
+  await SETTLE(page, 1200);
 
   const bar = await page.evaluate(() => [...document.querySelectorAll('.tab')].map(t => t.dataset.p));
   ok('the tab bar carries no CITY button (' + bar.join(',') + ')', bar.indexOf('city') < 0);
@@ -152,7 +153,7 @@ function sweepNavigators(BAR) {
   sweepNavigators(new Set(bar));
 
   await page.click('.tab[data-p="run"]');
-  await page.waitForTimeout(14000);
+  await SETTLE(page, 14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('TAPPING RUN REACHES THE WORLD FRAME', !!f);
 

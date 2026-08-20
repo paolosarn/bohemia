@@ -40,6 +40,7 @@
       would be writing his world for him.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -126,15 +127,15 @@ function pw() {
     await page.goto('file://' + ALPHA);
     await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
     await page.reload();
-    await page.waitForTimeout(3400);
+    await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(16000);
+    await SETTLE(page, 16000);
 
     let city = null;
     for (const f of page.frames()) {
@@ -145,7 +146,7 @@ function pw() {
     if (!city) throw new Error('no city frame');
 
     await city.evaluate(() => { if (MODE !== 'human') { swapMode(); HC = HZOOM; } render(); });
-    await page.waitForTimeout(2200);
+    await SETTLE(page, 2200);
     const found = await city.evaluate(() => {
       BohemiaPopulation.setDial(20);
       const NB = BohemiaPopulation.NB;
@@ -161,7 +162,7 @@ function pw() {
       return false;
     });
     ok('B2 there is a settlement with somebody to ask', found);
-    await page.waitForTimeout(2000);
+    await SETTLE(page, 2000);
 
     /* B3: AN EMPTY LOG OFFERS NOTHING. You cannot ask about what you never
        heard, which is the whole reason listening is worth anything. */

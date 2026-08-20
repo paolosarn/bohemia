@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — ALPHA LOADS GATE (7/30/26). FACTORY LAW: new law, new gate, same turn.
 //
 // WHY THIS EXISTS. On 7/30 the ONE alpha went to main COMPLETELY DEAD. Every
@@ -108,7 +109,7 @@ ok('the law records that the cheapness IS the point (a guard you skip is not a g
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2500);
+  await SETTLE(pg, 2500);
   const alive = await pg.evaluate(() => ({
     BAKED: typeof BAKED !== 'undefined',
     drawChar: typeof drawChar !== 'undefined',

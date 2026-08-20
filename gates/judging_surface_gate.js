@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — JUDGING SURFACE + WARDROBE GATE (7/31/26). FACTORY LAW: new machinery
 // ships with its own gate, same turn.
 //
@@ -49,14 +50,14 @@ ok('cough is back to its pre-session coefficients (2 rejections = stop)',
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2200);
+  await SETTLE(pg, 2200);
   ok('the alpha loads with zero page errors' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   if (errs.length) { await b.close(); done(); }
 
   await pg.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   await pg.evaluate(() => { const t = [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char'); if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
-  await pg.waitForTimeout(1000);
+  await SETTLE(pg, 1000);
 
   const st = await pg.evaluate(() => ({
     skel: G.showSkel,
@@ -117,7 +118,7 @@ ok('cough is back to its pre-session coefficients (2 rejections = stop)',
 
   /* 1. AUTO-SPIN really advances the facing */
   const d0 = await pg.evaluate(() => G.dir);
-  await pg.waitForTimeout(2300);
+  await SETTLE(pg, 2300);
   const d1 = await pg.evaluate(() => G.dir);
   ok(`AUTO-SPIN advances the facing on its own (${d0} -> ${d1})`, d0 !== d1);
 

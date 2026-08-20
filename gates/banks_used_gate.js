@@ -34,6 +34,7 @@
  *   node gates/banks_used_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
@@ -121,7 +122,7 @@ const PROBE = `(() => {
     await page.addInitScript(PROBE);
     await page.goto('file://' + RUN, { waitUntil: 'load', timeout: 180000 });
     await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 180000 });
-    await page.waitForTimeout(6000);          // let every bank finish decoding
+    await SETTLE(page, 6000);          // let every bank finish decoding
 
     res = await page.evaluate(() => {
       const tag = (arr, name) => { let n = 0; try { (arr || []).forEach(o => {

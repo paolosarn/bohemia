@@ -32,6 +32,7 @@
  *   node gates/mandate_face_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -76,7 +77,7 @@ ok('the roster is READ off his belonging registry, never typed into the UI -- a 
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3000);
+    await SETTLE(p, 3000);
 
     ok('the STANDING button is really there on the walked page', await p.locator('#rungbtn').count() === 1);
 
@@ -85,7 +86,7 @@ ok('the roster is READ off his belonging registry, never typed into the UI -- a 
     const read = async () => {
       await p.evaluate(() => { try { cardHide(); } catch (e) {} });
       await p.evaluate(() => document.getElementById('rungbtn').click());
-      await p.waitForTimeout(150);
+      await SETTLE(p, 150);
       return p.locator('#daycardIn').innerText();
     };
     /* Warm factions through DQ.shared.faction, which is where Runtime._remember puts what

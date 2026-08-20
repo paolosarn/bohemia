@@ -41,6 +41,7 @@
      node gates/art_tab_gate.js
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -110,9 +111,9 @@ ok('the screenshots render as PIXELS, not smoothed', /image-rendering:pixelated/
   const errs = [];
   p.on('pageerror', e => errs.push(e.message));
   await p.goto('file://' + ALPHA);
-  await p.waitForTimeout(6000);
+  await SETTLE(p, 6000);
   await p.click('#front');                    /* the splash, the way he does */
-  await p.waitForTimeout(1200);
+  await SETTLE(p, 1200);
 
   const seen = await p.evaluate(() => {
     const t = document.querySelector('.tab[data-p="art"]');
@@ -121,7 +122,7 @@ ok('the screenshots render as PIXELS, not smoothed', /image-rendering:pixelated/
   ok('the ART tab is actually on screen and tappable', seen);
 
   await p.click('.tab[data-p="art"]');
-  await p.waitForTimeout(3000);
+  await SETTLE(p, 3000);
 
   const wired = await p.evaluate(() => {
     const pan = document.getElementById('p-art');
@@ -137,8 +138,8 @@ ok('the screenshots render as PIXELS, not smoothed', /image-rendering:pixelated/
 
   if (f) {
     /* scroll it the way a thumb would, so every lazy picture is asked for */
-    for (let i = 0; i < 12; i++) { await f.evaluate(() => window.scrollBy(0, 700)); await p.waitForTimeout(250); }
-    await p.waitForTimeout(1500);
+    for (let i = 0; i < 12; i++) { await f.evaluate(() => window.scrollBy(0, 700)); await SETTLE(p, 250); }
+    await SETTLE(p, 1500);
     const inner = await f.evaluate(() => ({
       cards: document.querySelectorAll('.card').length,
       broken: [...document.querySelectorAll('img')]
@@ -156,22 +157,22 @@ ok('the screenshots render as PIXELS, not smoothed', /image-rendering:pixelated/
     /* THE FLIP IS THE WHOLE INTERACTION. If tapping does not change the picture,
        there is no A/B and he cannot judge a grade at all. */
     await f.evaluate(() => window.scrollTo(0, 0));
-    await p.waitForTimeout(500);
+    await SETTLE(p, 500);
     const before = await f.evaluate(() => document.getElementById('flag_look').textContent);
     await f.click('.shotwrap.ab');
-    await p.waitForTimeout(400);
+    await SETTLE(p, 400);
     const after = await f.evaluate(() => document.getElementById('flag_look').textContent);
     ok('tapping the picture FLIPS it (' + before + ' -> ' + after + ')', before !== after);
 
     /* and a thumb has to stick, or the export is empty */
     await f.click('.thumb.up[data-card="look"]');
-    await p.waitForTimeout(300);
+    await SETTLE(p, 300);
     ok('a thumb sticks when tapped',
        await f.evaluate(() => document.querySelector('.thumb.up[data-card="look"]').classList.contains('on')));
 
     /* the dial has to move, because the number is the ruling being asked for */
     await f.evaluate(() => document.querySelector('.dialbtn[data-k="0.55"]').click());
-    await p.waitForTimeout(300);
+    await SETTLE(p, 300);
     ok('the grime dial moves when tapped',
        await f.evaluate(() => document.getElementById('flag_grime').textContent.indexOf('DIRTY') >= 0));
   }

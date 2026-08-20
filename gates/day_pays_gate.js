@@ -29,6 +29,7 @@
      5. a day's pay rides the save, because pay that dies with the tab is not pay
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -107,9 +108,9 @@ const DECLARES = ['@QUEST t_pay  A Job That Says What It Pays', '@ACT 1',
   pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
   await pg.$eval('#daycardIn .dcgo', el => el.click());
-  await pg.waitForTimeout(250);
+  await SETTLE(pg, 250);
 
   const day = await pg.evaluate(() => {
     offerAccept();
@@ -131,7 +132,7 @@ const DECLARES = ['@QUEST t_pay  A Job That Says What It Pays', '@ACT 1',
 
   /* and the phone carries the balance, so a purse is a thing he can look at */
   await pg.$eval('#daycardIn .dcgo', el => el.click());       /* SLEEP -> DAY 2 */
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   const st = await pg.evaluate(() => {
     const s = phoneState();
     return { purse: s.purse, hasPurse: !!s.purse };

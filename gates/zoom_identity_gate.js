@@ -42,6 +42,7 @@
  *   node gates/zoom_identity_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -76,9 +77,9 @@ ok('the game OPENS on a rung where a person is still somebody (HC=' + HC +
   const errs = [];
   page.on('pageerror', e => errs.push(e.message.slice(0, 120)));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(4500);
+  await SETTLE(page, 4500);
 
   const R = await page.evaluate(() => {
     const looks = (window.FACTION_LOOKS || []);

@@ -27,6 +27,7 @@
    Run: node gates/city_cast_gate.js
    Registered in gates/bohemia_gates.py as CITY CAST. */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
@@ -53,9 +54,9 @@ function requirePlaywright() {
     await page.goto('file://' + ALPHA);
     await page.waitForSelector('#front', { timeout: 40000 });
     await page.click('#front');
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
     await page.click('.tab[data-p="run"]');
-    await page.waitForTimeout(22000);
+    await SETTLE(page, 22000);
 
     const fr = await page.$('#cityFrame');
     ok('B1 the RUN tab shows the city frame', !!fr);

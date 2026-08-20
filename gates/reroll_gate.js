@@ -35,6 +35,7 @@
    house he can find.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -58,15 +59,15 @@ function pw() {
   await page.goto('file://' + ALPHA);
   await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
   await page.reload();
-  await page.waitForTimeout(3400);
+  await SETTLE(page, 3400);
   await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-  await page.waitForTimeout(500);
+  await SETTLE(page, 500);
   await page.evaluate(() => {
     const t = Array.from(document.querySelectorAll('.tab'))
       .find(e => (e.textContent || '').trim() === 'RUN');
     if (t) t.click();
   });
-  await page.waitForTimeout(16000);
+  await SETTLE(page, 16000);
 
   let city = null;
   for (const f of page.frames()) {
@@ -84,7 +85,7 @@ function pw() {
   const runs = [];
   for (let n = 0; n < 5; n++) {
     await city.evaluate(() => { document.getElementById('reroll').click(); });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     /* the state derived from the OLD world must be gone the instant it is
        replaced -- checked BEFORE walking, because that is when it went stale */
     const cleared = await city.evaluate(() => ({
@@ -98,7 +99,7 @@ function pw() {
        fixed" while this read 8/8 green.
        A gate that performs the missing step is testing itself. Press, wait, and
        look -- nothing else. */
-    await page.waitForTimeout(2600);
+    await SETTLE(page, 2600);
     let s = null;
     {
       s = await city.evaluate(() => ({

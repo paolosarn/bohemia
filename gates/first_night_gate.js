@@ -48,6 +48,7 @@
         player the game will keep interrupting him. Day 1 costs ONE tap.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -65,7 +66,7 @@ async function worldFrame(page) {
   for (let i = 0; i < 90; i++) {
     const f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
     if (f) return f;
-    await page.waitForTimeout(250);
+    await SETTLE(page, 250);
   }
   return null;
 }
@@ -191,15 +192,15 @@ async function worldFrame(page) {
     page.on('pageerror', e => errs.push(e.message));
     await page.route(/^https?:/, r => r.abort());
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.evaluate(() => document.getElementById('front').click());
-    await page.waitForTimeout(4000);
+    await SETTLE(page, 4000);
 
     const f = await worldFrame(page);
     ok('the walked world is up in the RUN tab', !!f);
     if (!f) { await b.close(); done(); }
 
-    for (let i = 0; i < 80; i++) { if (await f.$('#daycardIn .dcgo')) break; await page.waitForTimeout(250); }
+    for (let i = 0; i < 80; i++) { if (await f.$('#daycardIn .dcgo')) break; await SETTLE(page, 250); }
 
     /* ONE TAP TO PLAY */
     let taps = 0;
@@ -212,7 +213,7 @@ async function worldFrame(page) {
       if (!up) break;
       await f.$eval('#daycardIn .dcgo', el => el.click());
       taps++;
-      await page.waitForTimeout(900);
+      await SETTLE(page, 900);
     }
     ok('DAY 1 COSTS ONE TAP before he is standing in the world (' + taps + ')', taps === 1);
 
@@ -242,7 +243,7 @@ async function worldFrame(page) {
 
     /* THE TRUE TEST: tap it through the shell and see the phone open. */
     await page.mouse.click((ph.left + ph.right) / 2, (ph.top + ph.bottom) / 2 + frTop);
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     const open1 = await f.evaluate(() => {
       const p = document.getElementById('phonewrap');
       return !!p && getComputedStyle(p).display !== 'none';
@@ -261,7 +262,7 @@ async function worldFrame(page) {
     /* AND IT COMES BACK */
     await f.evaluate(() => { const c = document.getElementById('phoneclose');
       if (c) c.click(); else phoneClose(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     const invBack = await page.evaluate(() => {
       const e = document.getElementById('openInvite');
       return { display: getComputedStyle(e).display, busy: window.CITY_BUSY };
@@ -271,14 +272,14 @@ async function worldFrame(page) {
 
     /* NOT NOW still works and is still an answer */
     await page.evaluate(() => document.getElementById('openNot').click());
-    await page.waitForTimeout(600);
+    await SETTLE(page, 600);
     const gone = await page.evaluate(() => {
       const e = document.getElementById('openInvite');
       return { display: getComputedStyle(e).display, want: e.dataset.want };
     });
     ok('NOT NOW still dismisses it', gone.display === 'none');
     /* and a later chrome report must not resurrect a dismissed banner */
-    await page.waitForTimeout(1400);
+    await SETTLE(page, 1400);
     const stayGone = await page.evaluate(() =>
       getComputedStyle(document.getElementById('openInvite')).display);
     ok('and it STAYS dismissed -- a later chrome report never raises a banner he '
@@ -299,7 +300,7 @@ async function worldFrame(page) {
           if (!t) return false; t.click(); return true;
         });
         ok('the job has a TAKE IT he can actually tap', hit === true);
-        await page.waitForTimeout(1800);
+        await SETTLE(page, 1800);
         const now = await f.evaluate(() => ({ taken: !!OFFER_TAKEN,
           obj: (document.getElementById('qline') || {}).textContent || '' }));
         ok('TAPPING IT IN THE PHONE TAKES THE JOB, across the frame boundary',
@@ -308,7 +309,7 @@ async function worldFrame(page) {
            now.obj.trim() !== '');
       }
       await f.evaluate(() => { try { phoneClose(); } catch (e) { } });
-      await page.waitForTimeout(600);
+      await SETTLE(page, 600);
     }
 
     /* ---- HIS HOUSE IS WHERE HE IS ------------------------------------- */

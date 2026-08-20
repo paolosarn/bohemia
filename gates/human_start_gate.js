@@ -30,6 +30,7 @@
    Run: node gates/human_start_gate.js
    Registered in gates/bohemia_gates.py as HUMAN START. */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -62,13 +63,13 @@ function requirePlaywright() {
     await page.goto('file://' + ALPHA);
     await page.waitForSelector('#front', { timeout: 40000 });
     await page.click('#front');
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
     await page.click('.tab[data-p="run"]');
 
     /* WAIT LONG ENOUGH FOR THE MESSAGES THAT USED TO UNDO IT. The alpha posts
        the player sprite and GOTO_CELL after the frame boots; a check that ran
        before those landed would have passed on the broken build too. */
-    await page.waitForTimeout(20000);
+    await SETTLE(page, 20000);
 
     const fr = await page.$('#cityFrame');
     ok('R1 the RUN tab really shows the city frame (this is the surface he plays)',

@@ -28,6 +28,7 @@
    printed every run so the residual is visible instead of quietly forgotten.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const CITY_APP = require('./bohemia_city_app.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -49,16 +50,16 @@ const FLOOR_MASSES = 60;   // reading: 74 -- so coverage cannot be "won" by dele
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     /* ONE WORLD TAB LAW: a tab click may NEVER swallow its own failure. */
     await page.evaluate(() => { const t = document.querySelector('[data-p="run"]');
       if (!t) throw new Error('THE RUN TAB IS GONE from the alpha tab bar');
       t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */

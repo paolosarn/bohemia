@@ -26,6 +26,7 @@
    the bought sidewalk, footsteps): tileInfo must actually carry room/roof.
    =========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -184,7 +185,7 @@ ok('rooms are deterministic from the seed', cmpDone && same);
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.goto('file://' + RUN);
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     const probe = await page.evaluate(() => {
       const out = { rooms: typeof BOH_ROOMS !== 'undefined', world: typeof BohemiaWorld !== 'undefined',
                     indoorCells: 0, outdoorCells: 0, wired: false };

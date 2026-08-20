@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* OCCUPANCY GATE (8/18/26, WORLD lane) — THE GAME AND THE MODEL MUST AGREE ABOUT EVERY
  * TILE, AND UNTIL TODAY NOTHING HAD EVER ASKED.
  *
@@ -144,7 +145,7 @@ function requirePlaywright() {
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3500);
+    await SETTLE(p, 3500);
 
     const r = await p.evaluate(() => {
       const out = { cells: 0, districts: 0, agree: 0, disagree: [], solidChecked: 0,

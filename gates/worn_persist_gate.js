@@ -22,6 +22,7 @@
  *   node gates/worn_persist_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
@@ -41,11 +42,11 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
   const boot = async () => {
     await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.click('#front').catch(() => {});
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     await page.click('.tab[data-p="char"]');
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
   };
   const worn = () => page.evaluate(() => JSON.stringify(window.G_WORN || {}));
 
@@ -73,13 +74,13 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const b = document.getElementById('charFit');
     if (b) b.click();
   });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   const fit = await worn();
   const nSlots = Object.keys(JSON.parse(fit)).length;
   ok('SHUFFLE FIT actually dresses him (' + nSlots + ' slots filled) — not a dead button', nSlots >= 2);
 
-  await page.click('.tab[data-p="clothes"]'); await page.waitForTimeout(2500);
-  await page.click('.tab[data-p="char"]');    await page.waitForTimeout(2500);
+  await page.click('.tab[data-p="clothes"]'); await SETTLE(page, 2500);
+  await page.click('.tab[data-p="char"]');    await SETTLE(page, 2500);
   ok('the fit survives a TAB ROUND-TRIP', (await worn()) === fit);
 
   await boot();

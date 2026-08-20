@@ -27,6 +27,7 @@
         -- a fix that accepts everything is not a fix
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -71,9 +72,9 @@ ok('the city posts untyped bohemia* messages (' + SENT.join(', ') + ')', SENT.le
     page.on('pageerror', e => errs.push(e.message));
     await page.route(/^https?:/, r => r.abort());
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2000);
+    await SETTLE(page, 2000);
     await page.evaluate(() => { document.getElementById('front').click(); });
-    await page.waitForTimeout(2000);
+    await SETTLE(page, 2000);
 
     /* ---- 2. every handler the alpha declares is ROUTED untyped ----------- */
     const routed = await page.evaluate(keys => {

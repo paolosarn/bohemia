@@ -53,6 +53,7 @@
  *   node gates/loop_seam_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
@@ -76,9 +77,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const errs = [];
   page.on('pageerror', e => errs.push(e.message.slice(0, 120)));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(4000);
+  await SETTLE(page, 4000);
 
   const R = await page.evaluate(() => {
     const K = (typeof FRAME_CACHE !== 'undefined' && FRAME_CACHE.buckets) || 24;

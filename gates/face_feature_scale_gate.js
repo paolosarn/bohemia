@@ -23,6 +23,7 @@
  *   node gates/face_feature_scale_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
@@ -36,9 +37,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1500);
+  await SETTLE(page, 1500);
 
   const R = await page.evaluate(() => {
     if (typeof renderFace !== 'function') return { err: 'renderFace missing' };

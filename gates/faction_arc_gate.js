@@ -53,6 +53,7 @@
    node gates/faction_arc_gate.js
    ============================================================================ */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
@@ -82,7 +83,7 @@ function requirePlaywright() {
 
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
 
     const arc = await page.evaluate(() => {
       /* ---- FIND A REAL ONE. No stub. If the valley has nobody who runs with
@@ -390,7 +391,7 @@ function requirePlaywright() {
       const pg = await browser.newPage({ viewport: VIEW });
       try {
         await pg.goto('file://' + CITY);
-        await pg.waitForTimeout(6000);
+        await SETTLE(pg, 6000);
         return await pg.evaluate((say) => {
           const bases = ctBases() || {};
           let who = null, fid = null;

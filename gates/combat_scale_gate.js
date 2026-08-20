@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ===== COMBAT SCALE GATE (8/11/26) — THE GATE FOR THE GIANTS =====
    Paolo, on what I shipped: "are you fucking for real like you're going to
    stretch the fucking map so the characters look like fucking Giants on the
@@ -38,16 +39,16 @@ function ok(name, cond, detail) {
   const errs = [];
   p.on('pageerror', e => errs.push('PAGEERROR ' + e.message));
   await p.goto('file://' + path.resolve(process.argv[2] || 'slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load', timeout: 120000 });
-  await p.waitForTimeout(9000);
-  await p.mouse.click(215, 450); await p.waitForTimeout(2500);
-  await p.mouse.click(215, 450); await p.waitForTimeout(2500);
+  await SETTLE(p, 9000);
+  await p.mouse.click(215, 450); await SETTLE(p, 2500);
+  await p.mouse.click(215, 450); await SETTLE(p, 2500);
   await p.evaluate(() => { document.querySelector('[data-p="combat"]').click(); });
-  await p.waitForTimeout(7000);
+  await SETTLE(p, 7000);
   const f = p.frames().find(x => x.name() === 'combatFrame');
   if (!f) { console.log('  FAIL no combatFrame'); await b.close(); process.exit(1); }
   const box = await (await p.$('#p-combat')).boundingBox();
   await p.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
-  await p.waitForTimeout(4500);
+  await SETTLE(p, 4500);
 
   const R = await f.evaluate(() => {
     const cv = document.querySelector('canvas');

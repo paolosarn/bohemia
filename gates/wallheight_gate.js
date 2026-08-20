@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA THREE-TILE WALL GATE (7/27/26) — Paolo's two asks, measured in a real
  * frame instead of read out of the source.
  *
@@ -60,15 +61,15 @@ const PROBE = `(() => {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.addInitScript(PROBE);
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1200);
+  await SETTLE(page, 1200);
   /* THE CITY TAB IS GONE (Paolo 8/2): "there's no point in having a city tab
      anymore". Both buttons opened the same panel since 7/28, so the world is
      reached through RUN now. Navigating by a button the user does not have is
      a gate testing a surface nobody can reach. */
   await page.click('.tab[data-p="run"]');
-  await page.waitForTimeout(14000);
+  await SETTLE(page, 14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   if (!f) { console.log('  FAIL: the CITY frame never loaded'); process.exit(1); }
 

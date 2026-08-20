@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ============================================================================
    THE DOOR IS THE FIGHT (RF4-C first deliverable, 8/17/26, COMBAT lane)
 
@@ -39,14 +40,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   page.on('pageerror', e => errors.push(String(e && e.stack || e)));
 
   await page.goto('file://' + ALPHA);
-  await page.waitForTimeout(9000);
-  await page.mouse.click(215, 450); await page.waitForTimeout(2500);
-  await page.mouse.click(215, 450); await page.waitForTimeout(2500);
+  await SETTLE(page, 9000);
+  await page.mouse.click(215, 450); await SETTLE(page, 2500);
+  await page.mouse.click(215, 450); await SETTLE(page, 2500);
 
   /* the city, opened the way his thumb opens it. THE WALKED SURFACE IS BEHIND
      THE RUN TAB -- there is no data-p="city" tab; the shell maps run -> p-city. */
   await page.click('[data-p="run"]');
-  await page.waitForTimeout(12000);
+  await SETTLE(page, 12000);
 
   const cityFrame = page.frames().find(f => {
     try { return /BOHEMIA_CITY_WORLD/.test(f.url()) || f.name() === 'cityFrame'; } catch (e) { return false; }
@@ -99,7 +100,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     INSIDE = __was;
     return { fired, foot: found };
   });
-  await page.waitForTimeout(600);
+  await SETTLE(page, 600);
   posted.seen = await page.evaluate(() => window.__ENTRY_SEEN);
 
   ok('the city has the shipped trigger on it at all', !posted.missing);
@@ -137,7 +138,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     INSIDE = __was;
     return { tried, entered, last };
   });
-  await page.waitForTimeout(600);
+  await SETTLE(page, 600);
   const doorSeen = await page.evaluate(() => window.__ENTRY_SEEN);
   ok('WALKING THROUGH A REAL DOOR, via the shipped inEnter, starts the fight -- not just calling the trigger by hand'
     + ' (' + throughDoor.entered + ' real entries out of ' + throughDoor.tried + ' footprints)',

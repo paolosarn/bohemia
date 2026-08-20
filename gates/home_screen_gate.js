@@ -34,6 +34,7 @@
    notice that fires at a returning player is worse than no notice.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -127,7 +128,7 @@ ok('and it opens without browser chrome on older phones too',
       await pg.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
       await pg.evaluate(() => { try { localStorage.clear(); } catch (e) { } });
       await pg.reload({ waitUntil: 'load', timeout: 180000 });
-      await pg.waitForTimeout(3000);
+      await SETTLE(pg, 3000);
       const r = await pg.evaluate(() => {
         const el = document.getElementById('standalonenote');
         return { shown: !!el && getComputedStyle(el).display !== 'none',
@@ -148,13 +149,13 @@ ok('and it opens without browser chrome on older phones too',
         try { Object.defineProperty(window.navigator, 'standalone', { get: () => true }); } catch (e) { }
       });
       await pg.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-      await pg.waitForTimeout(2000);
+      await SETTLE(pg, 2000);
       await pg.evaluate(() => {
         CITYSAVE.save({ v: 1, seed: 2691674296, day: 4, min: 700, hx: 10, hy: 10,
                         cx: 3, cy: 3, mode: 'city', loop: null, quest: null });
       });
       await pg.reload({ waitUntil: 'load', timeout: 180000 });
-      await pg.waitForTimeout(3000);
+      await SETTLE(pg, 3000);
       const r = await pg.evaluate(() => {
         const el = document.getElementById('standalonenote');
         return { shown: !!el && getComputedStyle(el).display !== 'none',
@@ -171,7 +172,7 @@ ok('and it opens without browser chrome on older phones too',
       await pg.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
       await pg.evaluate(() => { try { localStorage.clear(); } catch (e) { } });
       await pg.reload({ waitUntil: 'load', timeout: 180000 });
-      await pg.waitForTimeout(3000);
+      await SETTLE(pg, 3000);
       const shown = await pg.evaluate(() => {
         const el = document.getElementById('standalonenote');
         return !!el && getComputedStyle(el).display !== 'none';

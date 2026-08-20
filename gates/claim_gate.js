@@ -22,6 +22,7 @@
    node gates/claim_gate.js
    ============================================================================ */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -257,7 +258,7 @@ async function partF() {
   page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const out = await page.evaluate(() => {
       /* NO STUB — a real affiliated person or nothing. Last turn's lesson. */
       const bases = ctBases() || {};

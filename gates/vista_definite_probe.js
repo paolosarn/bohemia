@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* SMOOTH BUT DEFINITE — the measurement behind Paolo's 8/11 ruling.
  * Opens the vista on the REAL page and prints the overview's edge energy and its
  * composite filter. Kept as its own file so vista_gate.js stays synchronous and
@@ -9,7 +10,7 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await p.goto('file://' + path.resolve(__dirname, '../slices/BOHEMIA_CITY_WORLD.html'),
     { waitUntil: 'load', timeout: 240000 });
-  await p.waitForTimeout(8000);
+  await SETTLE(p, 8000);
   const r = await p.evaluate(() => {
     if (!window.__VISTA || !window.__VISTA.open()) return null;
     const c = document.getElementById('cv'), x = c.getContext('2d');

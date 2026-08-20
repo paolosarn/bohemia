@@ -21,6 +21,7 @@
         world shimmers as he walks and a wall stops reading as a wall.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -36,15 +37,15 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     await page.evaluate(() => { const t = document.querySelector('[data-p="run"]');
       if (!t) throw new Error('THE RUN TAB IS GONE from the alpha tab bar');
       t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* USE THE SHARED PREDICATE. This line used to carry its own copy of the
          regex, and it was the last one in the fleet still doing so -- the exact
          "shadow" gates/bohemia_city_app.js warns about. It cost real time on

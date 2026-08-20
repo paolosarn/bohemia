@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ============================================================================
    OPENING GATE (8/14/26, PEOPLE lane)
 
@@ -64,7 +65,7 @@ function pw() {
       localStorage.removeItem('bohemia.save.v1');
     }));
     await page.reload();
-    await page.waitForTimeout(3200);
+    await SETTLE(page, 3200);
     return { page, errs };
   }
   /* ENTER THE WAY A PERSON ENTERS. The first cut clicked the RUN tab straight
@@ -77,7 +78,7 @@ function pw() {
   });
   async function enter(page) {
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(400);
+    await SETTLE(page, 400);
   }
   async function tapRun(page) {
     await page.evaluate(() => {
@@ -128,7 +129,7 @@ function pw() {
        captions advancing, and the human looking at the splash the whole time. */
     ok('the front screen is still up before anybody enters', await frontUp(page));
     await tapRun(page);
-    await page.waitForTimeout(5000);
+    await SETTLE(page, 5000);
     ok('THE OPENING DOES NOT BURN THROUGH BEHIND THE SPLASH — it waits for the door',
       !(await shown(page)), 'a scene nobody can see is a scene that did not happen');
     ok('and it does not even OFFER itself from behind the splash',
@@ -138,7 +139,7 @@ function pw() {
       }));
     await enter(page);
     await tapRun(page);
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     /* IT INVITES, IT DOES NOT AMBUSH. Auto-playing on a tab tap trampled three
        other lanes' gates (NAV CLUSTER lost the canvas, both voice gates lost
        their utterance counts) and was wrong for him anyway on a sixteen-tab
@@ -153,7 +154,7 @@ function pw() {
     ok('and it has NOT seized the screen — the run is playable underneath',
       !(await shown(page)), 'a cutscene that takes the screen because you changed tabs is a thing you learn to dread');
     await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
-    await page.waitForTimeout(9000);
+    await SETTLE(page, 9000);
     ok('TAPPING WATCH PLAYS THE OPENING', await shown(page));
     const lit = await painted(page);
     ok('and it is DRAWING — the family is on screen, not an empty canvas (' + lit + ' lit samples)',
@@ -181,7 +182,7 @@ function pw() {
        could report the claims above it. A gate that dies instead of failing
        tells you nothing about the other fifteen things it was going to check. */
     await page.evaluate(() => { const s = document.getElementById('openSkip'); if (s) s.click(); });
-    await page.waitForTimeout(1600);
+    await SETTLE(page, 1600);
     ok('SKIP puts you in the day — nobody is ever stranded on a black rectangle',
       !(await shown(page)));
     ok('and skipping counts as seen, so it does not ambush you again on the next tab tap',
@@ -201,7 +202,7 @@ function pw() {
     });
     await enter(page);
     await tapRun(page);
-    await page.waitForTimeout(4500);
+    await SETTLE(page, 4500);
     const inv = p => p.evaluate(() => {
       const i = document.getElementById('openInvite');
       return !!i && getComputedStyle(i).display !== 'none';
@@ -217,7 +218,7 @@ function pw() {
     });
     await enter(page);
     await tapRun(page);
-    await page.waitForTimeout(4500);
+    await SETTLE(page, 4500);
     ok('and somebody who has already seen it is never asked again',
       !(await shown(page)) && !(await page.evaluate(() => {
         const i = document.getElementById('openInvite');
@@ -252,7 +253,7 @@ function pw() {
     }, MINE);
     ok('a directed edit can be planted the way the DIRECT tab plants one', planted);
     await page.reload();
-    await page.waitForTimeout(3200);
+    await SETTLE(page, 3200);
     /* DIRECT may key its store differently; read what the page itself resolves */
     const resolves = await page.evaluate(() => {
       try {

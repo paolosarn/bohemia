@@ -45,6 +45,7 @@
    live. It is NOT exempt from the one-way-door rule, because no control is.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -100,14 +101,14 @@ function pw() {
     page.on('pageerror', e => errs.push(e.message));
     await page.route(/^https?:/, r => r.abort());
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.evaluate(() => { const s = document.getElementById('openSkip'); if (s) s.click(); });
 
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(2000);
+      await SETTLE(page, 2000);
       f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
       if (f && await f.evaluate(() => typeof DAY !== 'undefined'
           && document.getElementById('cv').width > 300).catch(() => false)) break;
@@ -117,14 +118,14 @@ function pw() {
     if (!f) { await browser.close(); done(); }
 
     /* START A REAL RUN: get up, take the job, stand in your own body. */
-    for (let i = 0; i < 60; i++) { if (await f.$('#daycardIn .dcgo')) break; await page.waitForTimeout(250); }
+    for (let i = 0; i < 60; i++) { if (await f.$('#daycardIn .dcgo')) break; await SETTLE(page, 250); }
     await f.$eval('#daycardIn .dcgo', el => el.click());
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     await f.evaluate(() => {
       offerAccept();
       if (MODE !== 'human' && typeof swapMode === 'function') swapMode();
     });
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
 
     const before = await f.evaluate(() => ({
       seed: seed, mode: MODE,
@@ -174,7 +175,7 @@ function pw() {
         try { el.click(); } catch (e) { }
         return { seed: seed, mode: MODE };
       }, id);
-      await page.waitForTimeout(300);
+      await SETTLE(page, 300);
       if (!after) continue;
       if (after.seed !== before.seed)
         damage.push(id + ' CHANGED THE VALLEY (' + before.seed + ' -> ' + after.seed + ')');
@@ -186,7 +187,7 @@ function pw() {
         return { seed: seed, mode: MODE,
                  home: (function () { try { const h = homeFind(); return h ? h.cell : null; } catch (e) { return null; } })() };
       }, id);
-      await page.waitForTimeout(300);
+      await SETTLE(page, 300);
       if (!back.home) damage.push(id + ' DESTROYED HIS HOME');
       if (back.seed !== before.seed) damage.push(id + ' left him in another valley');
       if (back.mode !== 'human')
@@ -197,7 +198,7 @@ function pw() {
       await f.evaluate(() => {
         try { if (MODE !== 'human' && typeof swapMode === 'function') swapMode(); } catch (e) { }
       });
-      await page.waitForTimeout(400);
+      await SETTLE(page, 400);
     }
     ok('NOTHING IN THE TOOLBAR IS A ONE-WAY DOOR OUT OF HIS RUN -- not one control '
        + 'changes the valley, deletes his house, or leaves him out of his body'
@@ -206,7 +207,7 @@ function pw() {
 
     /* ---- 3. and the save still holds HIS valley ------------------------- */
     await f.evaluate(() => { try { reportState(); } catch (e) { } });
-    await page.waitForTimeout(1400);
+    await SETTLE(page, 1400);
     const saved = await page.evaluate(() => {
       const l = CITYSAVE.load(); return l && l.data ? l.data.seed : null;
     });

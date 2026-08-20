@@ -37,6 +37,7 @@
         save still loads. That is the scenario, performed, not asserted.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -79,7 +80,7 @@ function pw() {
     await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
     for (let i = 0; i < 120; i++) {
       if (await pg.evaluate(() => typeof migrateCity === 'function').catch(() => false)) break;
-      await pg.waitForTimeout(200);
+      await SETTLE(pg, 200);
     }
     ok('the migrator is live on the walked surface',
        await pg.evaluate(() => typeof migrateCity === 'function'));

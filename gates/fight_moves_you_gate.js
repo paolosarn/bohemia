@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ============================================================================
    THE FIGHT HAS TO MOVE YOU (Paolo 8/15/26, LOCKED, demo-critical)
 
@@ -50,11 +51,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   page.on('pageerror', e => errors.push(String(e)));
 
   await page.goto('file://' + ALPHA);
-  await page.waitForTimeout(9000);
-  await page.mouse.click(215, 450); await page.waitForTimeout(2500);
-  await page.mouse.click(215, 450); await page.waitForTimeout(2500);
-  await page.click('[data-p="combat"]'); await page.waitForTimeout(7000);
-  await page.mouse.click(215, 450); await page.waitForTimeout(5000);
+  await SETTLE(page, 9000);
+  await page.mouse.click(215, 450); await SETTLE(page, 2500);
+  await page.mouse.click(215, 450); await SETTLE(page, 2500);
+  await page.click('[data-p="combat"]'); await SETTLE(page, 7000);
+  await page.mouse.click(215, 450); await SETTLE(page, 5000);
 
   const frame = page.frames().find(f => f.name() === 'combatFrame');
   if (!frame) {

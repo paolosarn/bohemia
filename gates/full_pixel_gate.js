@@ -24,6 +24,7 @@
    is the only place either defect is visible. VERIFY ON THE REAL SURFACE.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const fs = require('fs');
 const ROOT = path.join(__dirname, '..');
@@ -59,7 +60,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     page.on('pageerror', e => errs.push(e.message));
     await page.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'));
     await page.waitForFunction(() => window.__RUN_READY === true, { timeout: 120000 });
-    await page.waitForTimeout(800);
+    await SETTLE(page, 800);
 
     const m = await page.evaluate(() => {
       const cv = document.querySelector('canvas');

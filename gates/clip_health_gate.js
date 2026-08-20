@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — CLIP HEALTH GATE (8/2/26). Every clip, every facing, real phases.
 //
 // Paolo names animations as the next big block of work. Before building on top of
@@ -27,7 +28,7 @@ const done = () => { console.log(`\n=== CLIP HEALTH GATE: ${p} passed, ${f} fail
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2400);
+  await SETTLE(pg, 2400);
   ok('the alpha loads with zero page errors' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   if (errs.length) { await b.close(); done(); }
 

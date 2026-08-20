@@ -38,6 +38,7 @@
       thing that broke was a SHARED RESOLVER and nothing owned it.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -117,7 +118,7 @@ const CEILING_MS = 12000;
       if (await pg.evaluate(() => typeof om !== 'undefined' && typeof cellAt !== 'undefined'
                                 && typeof DAY !== 'undefined')) { ready = Date.now() - t0; break; }
     } catch (e) {}
-    await pg.waitForTimeout(50);
+    await SETTLE(pg, 50);
   }
   await b.close();
 

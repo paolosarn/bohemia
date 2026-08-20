@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ============================================================================
    REACTION REACH GATE (8/13/26, PEOPLE lane)
 
@@ -52,7 +53,7 @@ function pw() {
   const errs = [];
   page.on('pageerror', e => errs.push(String(e.message).slice(0, 160)));
   await page.goto('file://' + RUN);
-  await page.waitForTimeout(6000);
+  await SETTLE(page, 6000);
 
   const r = await page.evaluate(() => {
     const out = { steps: [] };

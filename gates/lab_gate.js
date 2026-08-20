@@ -40,6 +40,7 @@
    Requires playwright (installed globally in this environment).
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -2695,7 +2696,7 @@ async function shotValheim(page) {
 
       if (em.shot) {
         await em.shot.setup(page);
-        await page.waitForTimeout(300);
+        await SETTLE(page, 300);
         const shot = path.join(PROOF_DIR, em.shot.name);
         await page.screenshot({ path: shot });
         ok('C1 ' + em.id + ': proof screenshot written', fs.existsSync(shot) && fs.statSync(shot).size > 8000);

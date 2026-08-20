@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA TOUCH GUARD GATE (7/27/26) — the phone must not be allowed to eat the
  * controls.
  *
@@ -118,9 +119,9 @@ const READ = sel => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1500);
+  await SETTLE(page, 1500);
 
   // the shell: the tab bar he taps to change surface
   const tab = await page.evaluate(READ, '.tab');
@@ -143,7 +144,7 @@ const READ = sel => {
      reached through RUN now. Navigating by a button the user does not have is
      a gate testing a surface nobody can reach. */
   await page.click('.tab[data-p="run"]');
-  await page.waitForTimeout(14000);
+  await SETTLE(page, 14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY frame is reachable', !!f);
   if (f) {

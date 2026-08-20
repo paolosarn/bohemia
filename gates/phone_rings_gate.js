@@ -32,6 +32,7 @@
         own words. The teeth stay.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -69,7 +70,7 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
     pg.on('pageerror', e => errs.push(e.message));
     await pg.route(/^https?:/, r => r.abort());
     await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
     return { b, pg, errs };
   }
   async function openPhone(pg) {
@@ -78,9 +79,9 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
     for (let i = 0; i < 80; i++) {
       fr = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
       if (fr) { try { if (await fr.evaluate(() => typeof LIVE !== 'undefined')) break; } catch (e) {} }
-      await pg.waitForTimeout(500);
+      await SETTLE(pg, 500);
     }
-    await pg.waitForTimeout(1200);
+    await SETTLE(pg, 1200);
     return fr;
   }
 
@@ -100,7 +101,7 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
     ok('the offer really rang', wake.rang >= 1);
 
     await pg.$eval('#daycardIn .dcgo', el => el.click());
-    await pg.waitForTimeout(300);
+    await SETTLE(pg, 300);
     const fr = await openPhone(pg);
     ok('the phone opens', !!fr);
     const off = fr ? await fr.evaluate(() => ({
@@ -118,7 +119,7 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
     }
 
     await fr.evaluate(() => document.querySelector('.lv-take').click());
-    await pg.waitForTimeout(700);
+    await SETTLE(pg, 700);
     const after = await pg.evaluate(() => ({
       taken: window.__OFFER_TAKEN || 0,
       qline: document.getElementById('qline').textContent,
@@ -149,7 +150,7 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
   {
     const { b, pg, errs } = await boot();
     await pg.$eval('#daycardIn .dcgo', el => el.click());
-    await pg.waitForTimeout(300);
+    await SETTLE(pg, 300);
     const night = await pg.evaluate(() => {
       advance(20 * 60);                       /* walk the whole day out, job untouched */
       return { taken: window.__OFFER_TAKEN || 0, out: DQ.outcome(),

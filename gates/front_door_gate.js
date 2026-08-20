@@ -26,6 +26,7 @@
    node gates/front_door_gate.js
    ============================================================================ */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
@@ -55,7 +56,7 @@ function requirePlaywright() {
 
   try {
     await page.goto('file://' + ALPHA);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
 
     const front = await page.evaluate(() => {
       const f = document.getElementById('front');
@@ -74,7 +75,7 @@ function requirePlaywright() {
 
     /* THE ONLY GESTURE A PLAYER CAN MAKE. */
     await page.locator('#front').click();
-    await page.waitForTimeout(9000);
+    await SETTLE(page, 9000);
 
     const after = await page.evaluate(() => ({
       tab: (document.querySelector('.tab.on') || {}).dataset

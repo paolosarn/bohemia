@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — CLOTHES FACING GATE (8/1/26). FACTORY LAW: new machinery, own gate.
 //
 // Paolo 8/1: "I'm very concerned that the back of many outfits look like the
@@ -40,11 +41,11 @@ ok('and restores it in a finally (the CLOTHES preview owns this variable)',
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2200);
+  await SETTLE(pg, 2200);
   ok('the alpha loads with zero page errors' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   if (errs.length) { await b.close(); done(); }
   await pg.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-  await pg.waitForTimeout(500);
+  await SETTLE(pg, 500);
 
   const R = await pg.evaluate(() => {
     const keepW = window.G_WORN, keepE = G.equipped;

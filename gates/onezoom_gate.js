@@ -30,6 +30,7 @@
         8/11, and that must not come back through a different door)
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -63,9 +64,9 @@ const done = () => { console.log('ONE ZOOM GATE: ' + pass + ' passed, ' + fail +
   pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-  for (let i = 0; i < 90; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+  for (let i = 0; i < 90; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
   const g0 = await pg.$('#daycardIn .dcgo');
-  if (g0) { await pg.$eval('#daycardIn .dcgo', el => el.click()); await pg.waitForTimeout(300); }
+  if (g0) { await pg.$eval('#daycardIn .dcgo', el => el.click()); await SETTLE(pg, 300); }
 
   const trip = await pg.evaluate(() => {
     const tag = () => SKY ? ('SKY:' + skyBand())
@@ -147,7 +148,7 @@ const done = () => { console.log('ONE ZOOM GATE: ' + pass + ' passed, ' + fail +
     window.postMessage({ bohemiaPhoneGo: { x: tx, y: ty } }, '*');
     return { before: before, want: [tx, ty] };
   });
-  await pg.waitForTimeout(300);
+  await SETTLE(pg, 300);
   const after = await pg.evaluate(() => ({ hx: hx, hy: hy, cx: city.x, cy: city.y,
                                            got: window.__PHONE_GO || 0, sky: SKY }));
   ok('GO on the phone moves the run\'s camera to the cell he tapped',

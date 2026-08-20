@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — THE CROWD GATE (7/31/26). FACTORY LAW: new machinery, own gate,
 // same turn.
 //
@@ -63,14 +64,14 @@ ok('it restores his look in a finally block (an exception must not strand him as
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2200);
+  await SETTLE(pg, 2200);
   ok('the alpha loads with zero page errors' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   if (errs.length) { await b.close(); done(); }
 
   await pg.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   await pg.evaluate(() => { const t = [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char'); if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
-  await pg.waitForTimeout(1600);
+  await SETTLE(pg, 1600);
 
   /* one shared helper: read a canvas as a compact signature + ink count */
   const READ = `(cv) => { const x = cv.getContext('2d');

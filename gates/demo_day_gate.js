@@ -57,6 +57,7 @@
    the demo is how a board row gets marked closed while the game still stops.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -78,7 +79,7 @@ function pw() {
 /* find the city frame and wait until the world is actually up in it */
 async function worldFrame(page, tries) {
   for (let i = 0; i < (tries || 20); i++) {
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     const f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
     if (!f) continue;
     const up = await f.evaluate(() =>
@@ -107,7 +108,7 @@ async function worldFrame(page, tries) {
 
   try {
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
 
     /* ---- 1. THE GAME IS THE FIRST THING (row 7) ------------------------- */
     await page.evaluate(() => {
@@ -115,7 +116,7 @@ async function worldFrame(page, tries) {
       if (!f) throw new Error('THE FRONT SPLASH IS GONE from the alpha');
       f.click();
     });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     const opened = await page.evaluate(() => {
       const on = document.querySelector('.panel.on');
       const tab = document.querySelector('.tab.on');
@@ -136,7 +137,7 @@ async function worldFrame(page, tries) {
     /* the wake card. A player taps GET UP; so does this. */
     for (let i = 0; i < 60; i++) {
       if (await f.$('#daycardIn .dcgo')) break;
-      await page.waitForTimeout(250);
+      await SETTLE(page, 250);
     }
     const wake = await f.evaluate(() => ({
       day: DAY.day, phase: DAY.phase,
@@ -148,7 +149,7 @@ async function worldFrame(page, tries) {
     ok('and the day starts with NO objective -- the job has to arrive, not be handed over',
        wake.objective.trim() === '');
     await f.$eval('#daycardIn .dcgo', el => el.click());
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
 
     /* the phone rang. A player opens the phone and takes the job. */
     const rang = await f.evaluate(() => ({
@@ -158,7 +159,7 @@ async function worldFrame(page, tries) {
     ok('THE PHONE RANG overnight and is showing it (' + JSON.stringify(rang.badge) + ')',
        rang.offer === true && rang.taken === false && rang.badge === '1');
     await f.evaluate(() => { document.getElementById('phonebtn').click(); });
-    await page.waitForTimeout(400);
+    await SETTLE(page, 400);
     const took = await f.evaluate(() => {
       const r = offerAccept();
       return { r: r, objective: (document.getElementById('qline') || {}).textContent || '',
@@ -176,7 +177,7 @@ async function worldFrame(page, tries) {
        skipped the payout entirely and the gate reported the game broken when it
        was the gate that was not playing. Touch only what a player can touch. */
     await f.evaluate(() => { dayEnteredBuilding('a dark house'); });
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     const choice = await f.evaluate(() => ({
       buttons: [...document.querySelectorAll('#daycardIn .dcbtn')].map(b => b.textContent.trim()),
       card: (document.getElementById('daycardIn') || {}).textContent || ''
@@ -188,7 +189,7 @@ async function worldFrame(page, tries) {
       if (!b.length) throw new Error('the choice card has no options to tap');
       b[b.length - 1].click();                      /* TAPPED, like a player */
     });
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     const resolved = await f.evaluate(() => ({ done: DQ.done(), outcome: DQ.outcome() }));
     ok('tapping the option RESOLVES it to the quest author\'s own outcome ('
        + resolved.outcome + ')', resolved.done === true && !!resolved.outcome);
@@ -239,7 +240,7 @@ async function worldFrame(page, tries) {
 
     /* ---- SLEEP -> DAY 2 ------------------------------------------------- */
     await f.evaluate(() => { document.getElementById('sleepbtn').click(); });
-    await page.waitForTimeout(400);
+    await SETTLE(page, 400);
     const reck = await f.evaluate(() => ({
       card: (document.getElementById('daycardIn') || {}).textContent || '',
       phase: DAY.phase
@@ -253,7 +254,7 @@ async function worldFrame(page, tries) {
        flush covers the shorter case and is what the __ONE_SNAPSHOT__ fix
        repaired; this waits for the ordinary path on purpose, so both are
        exercised across the gate rather than only the fast one. */
-    await page.waitForTimeout(1400);
+    await SETTLE(page, 1400);
     const d2 = await f.evaluate(() => ({
       day: DAY.day, bal: purseBalances(),
       stocks: MKT_LEDGER ? MKT_LEDGER.stocks.water : null,
@@ -263,9 +264,9 @@ async function worldFrame(page, tries) {
 
     /* ---- 3. IT SURVIVES THE TAB ----------------------------------------- */
     await page.reload({ waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     await page.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
     const f2 = await worldFrame(page);
     ok('the world comes back up after a full reload', !!f2);
     if (f2) {

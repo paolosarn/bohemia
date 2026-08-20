@@ -32,6 +32,7 @@
    Requires playwright (installed globally in this environment).
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -101,7 +102,7 @@ async function tapThroughDoor(page, d, wasInside) {
     await tapStep(page, d);
     const st = await page.evaluate(() => window.__RUN.state());
     if ((st.mode === 'int') !== wasInside) return true;      // we went through
-    await page.waitForTimeout(120);
+    await SETTLE(page, 120);
   }
   return false;
 }
@@ -233,7 +234,7 @@ async function playRun(browser, fork) {
     await page.click('#opts button:nth-child(1)');   // "Put it back. Nobody hears it."
     await page.click('#opts button:nth-child(1)');   // "Just fixed a line."
   }
-  await page.waitForTimeout(400);
+  await SETTLE(page, 400);
   rep.afterResolve = await page.evaluate(() => window.__RUN.state());
   rep.encounters = await page.evaluate(() => window.__GATE_ENCOUNTERS);
 
@@ -352,7 +353,7 @@ async function saveRun(browser) {
   await page.click('#act');
   await page.click('#opts button:nth-child(4)');   // cut the tap -> it goes loud
   await page.click('#opts button:nth-child(1)');
-  await page.waitForTimeout(900);
+  await SETTLE(page, 900);
   out.afterDeath = await page.evaluate(() => window.__RUN.state());
   out.deathLandedOnSave = out.afterDeath.px === beforeFight.px && out.afterDeath.py === beforeFight.py;
   await page.close();
@@ -397,7 +398,7 @@ async function alphaRun() {
         return !!(w && getComputedStyle(w).display !== 'none');
       });
       if (up) break;
-      await page.waitForTimeout(100);
+      await SETTLE(page, 100);
     }
     await page.evaluate(() => {
       const s = document.getElementById('openSkip');
@@ -405,7 +406,7 @@ async function alphaRun() {
       const w = document.getElementById('openWrap');
       if (w) w.style.display = 'none';   /* belt: SKIP hides it, this proves it gone */
     });
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as
        a TAB - no tap reaches it, and that is the ruling. But it is still WIRED into
        the shell: the baked-body cast, the saves and the combat handoff all still
@@ -437,7 +438,7 @@ async function alphaRun() {
       const rf = document.getElementById('runFrame');
       if (rf) { rf.style.width = '100%'; rf.style.height = '100%'; }
     });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     /* ATTACHED, NOT VISIBLE (Paolo 7/28: "Can you put the city in the run tab?").
        The RUN tab now routes to the city panel, so the run slice's iframe is
        loaded and live but no longer on screen. Every assertion below still runs
@@ -478,7 +479,7 @@ async function alphaRun() {
     out.reach = await run.evaluate(() => window.__RUN.reach());
     out.verbHome = await run.evaluate(() => window.__RUN.verb());
     await run.click('#act');                       // the verb at home is SLEEP
-    await run.waitForTimeout(500);
+    await SETTLE(run, 500);
     out.sleepResolve = await run.evaluate(() => window.__RUN.lastResolve());
     out.savesAfterSleep = await run.evaluate(() => window.__RUN.saves());
     /* the SAME button becomes the doorway when you stand in it */
@@ -513,7 +514,7 @@ async function alphaRun() {
         const o = await run.evaluate(() => window.__RUN.drawOffset());
         out.feel[m] = Math.abs(o.x) + Math.abs(o.y);
         await tapStep(run, [-safe[0], -safe[1]]);   // step back, exactly
-        await run.waitForTimeout(60);
+        await SETTLE(run, 60);
       }
       await run.evaluate(() => window.__RUN.setWalkMode('GRID'));
     }
@@ -531,10 +532,10 @@ async function alphaRun() {
       const after = await run.evaluate(() => window.__RUN.state());
       out.doorBlocked = (after.mode === 'int' && before.mode === 'int' &&
                          after.px === before.px && after.py === before.py);
-      await run.waitForTimeout(300);
+      await SETTLE(run, 300);
       const mid = await run.evaluate(() => window.__RUN.doors());
       out.doorMidFrame = Math.max(0, ...Object.keys(mid.state).map(k => mid.state[k].f));
-      await run.waitForTimeout(900);
+      await SETTLE(run, 900);
       const done = await run.evaluate(() => window.__RUN.doors());
       out.doorEndFrame = Math.max(0, ...Object.keys(done.state).map(k => done.state[k].f));
     }
@@ -543,9 +544,9 @@ async function alphaRun() {
        step already kicked it on (that tap is the gesture a browser needs), so
        prove the whole round trip: on after walking, off on tap, on again. */
     out.musicAfterWalk = await run.evaluate(() => window.__RUN.music());
-    await run.click('#mus'); await run.waitForTimeout(400);
+    await run.click('#mus'); await SETTLE(run, 400);
     out.musicOff = await run.evaluate(() => window.__RUN.music());
-    await run.click('#mus'); await run.waitForTimeout(400);
+    await run.click('#mus'); await SETTLE(run, 400);
     out.musicOn = await run.evaluate(() => window.__RUN.music());
 
     /* OFF MEANS SILENT (Paolo 7/27: "i press the music button off and the music

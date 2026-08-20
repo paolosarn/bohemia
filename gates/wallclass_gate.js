@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA WALL CLASS GATE (7/27/26) — the WALL TAXONOMY, enforced in the DRAW
  * and not just in the bank.
  *
@@ -80,15 +81,15 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1200);
+  await SETTLE(page, 1200);
   /* THE CITY TAB IS GONE (Paolo 8/2): "there's no point in having a city tab
      anymore". Both buttons opened the same panel since 7/28, so the world is
      reached through RUN now. Navigating by a button the user does not have is
      a gate testing a surface nobody can reach. */
   await page.click('.tab[data-p="run"]');
-  await page.waitForTimeout(14000);
+  await SETTLE(page, 14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY frame is reachable', !!f);
   if (!f) { console.log('WALL CLASS GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed'); await browser.close(); process.exit(1); }
@@ -273,7 +274,7 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   runPage.on('pageerror', e => runErr.push(String(e).slice(0, 160)));
   await runPage.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'),
     { waitUntil: 'load', timeout: 180000 });
-  await runPage.waitForTimeout(8000);
+  await SETTLE(runPage, 8000);
   /* ASK FOR THE WALL, NOT FOR ONE SPELLING OF IT (8/7).
      This asserted PERIM_B64.length === tan.length and had been RED FOR DAYS over a
      wall that is present, cooked and approved. On 8/2 a lane REPLACED the 7/14 pool

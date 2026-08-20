@@ -24,6 +24,7 @@
  *   node gates/durable_save_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -77,7 +78,7 @@ ok('it stores nothing itself — no setItem inside the durability block',
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
     await page.waitForSelector('#front', { timeout: 60000 });
     await page.click('#front').catch(() => { });
-    await page.waitForTimeout(2500);
+    await SETTLE(page, 2500);
 
     const st = await page.evaluate(async () => {
       const out = { flag: window.__BOH_DURABLE || null };

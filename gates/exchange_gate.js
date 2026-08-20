@@ -51,6 +51,7 @@
       almost every player. Exchanges are additive or they are a regression.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -206,15 +207,15 @@ function pw() {
     await page.goto('file://' + ALPHA);
     await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
     await page.reload();
-    await page.waitForTimeout(3400);
+    await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(16000);
+    await SETTLE(page, 16000);
 
     /* ASK A FRAME WHAT IT CAN DO, NEVER MATCH ITS URL. */
     let city = null;
@@ -230,7 +231,7 @@ function pw() {
         && BohemiaExchanges.count >= 24));
 
     await city.evaluate(() => { if (MODE !== 'human') { swapMode(); HC = HZOOM; } render(); });
-    await page.waitForTimeout(2400);
+    await SETTLE(page, 2400);
 
     /* B3: STAND WHERE PEOPLE ACTUALLY ARE. His 7/29 zone ruling makes a spread
        neighbourhood one household per subdivision by design, so a pair lives in
@@ -250,9 +251,9 @@ function pw() {
       return null;
     });
     ok('B3 there is a settlement with people in it to overhear', !!found);
-    await page.waitForTimeout(2400);
+    await SETTLE(page, 2400);
     await city.evaluate(() => render());
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
 
     const drew = await city.evaluate(() => BARK_DREW.length);
     ok('B4 the street really has a crowd on it (' + drew + ' bodies blitted)', drew >= 4);
@@ -274,7 +275,7 @@ function pw() {
         txt: BARK.text || '', id: XCH.id, on: XCH.on
       }));
       if (s.who && (!said.length || said[said.length - 1].txt !== s.txt)) said.push(s);
-      await page.waitForTimeout(700);
+      await SETTLE(page, 700);
     }
     ok('B6 the street spoke at all (' + said.length + ' lines)', said.length >= 3,
       JSON.stringify(said.slice(0, 2)));
@@ -362,14 +363,14 @@ function pw() {
       BARK.p = null; BARK.until = 0; BARK.next = 0;
       render();
     });
-    await page.waitForTimeout(2200);
+    await SETTLE(page, 2200);
 
     const beforeIds = [];
     for (let i = 0; i < 34; i++) {
       await city.evaluate(() => render());
       const id = await city.evaluate(() => XCH.id);
       if (id && beforeIds.indexOf(id) < 0) beforeIds.push(id);
-      await page.waitForTimeout(280);
+      await SETTLE(page, 280);
     }
     ok('B12 before he has asked anybody anything, nobody discusses him ('
       + beforeIds.length + ' conversations heard)',
@@ -404,7 +405,7 @@ function pw() {
       await city.evaluate(() => render());
       const id = await city.evaluate(() => XCH.id);
       if (id && afterIds.indexOf(id) < 0) afterIds.push(id);
-      await page.waitForTimeout(280);
+      await SETTLE(page, 280);
       if (afterIds.some(id => id.indexOf('you-') === 0)) break;
     }
     ok('B14 once he has gone round asking, the street talks about him ('

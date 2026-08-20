@@ -25,6 +25,7 @@
    node gates/commitment_gate.js
    ============================================================================ */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -269,7 +270,7 @@ async function partD() {
   page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const out = await page.evaluate(() => {
       /* NO STUB. The previous version of this probe replaced window.ctFactionOf
          with a function returning 'Church' — and that is exactly how this lane
@@ -368,7 +369,7 @@ async function partWall() {
   page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const out = await page.evaluate(() => {
       /* THE CLAIM THAT DID NOT EXIST UNTIL 8/18, AND ITS ABSENCE COST THREE
          SHIPS. Part A proves give() clamps -- true, and the city never called
@@ -655,7 +656,7 @@ async function partH() {
   page.on('pageerror', e => errs.push(e.message));
   try {
     await page.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'));
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const m = await page.evaluate(() => {
       hx = 1026; hy = 8322;                 /* the Reds base: where it showed */
       const roster = ctValleyRoster(), cell = ctCell();

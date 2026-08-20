@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA CITY PEOPLE GATE (7/29/26) — measured ON THE REAL SURFACE.
  *
  * gates/zone_map_gate.js proves the CENSUS is right. It cannot prove anybody is
@@ -42,9 +43,9 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
   const errs = [];
   p.on('pageerror', e => errs.push(e.message));
   await p.goto('file://' + path.resolve('slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load', timeout: 300000 });
-  await p.waitForTimeout(12000);
+  await SETTLE(p, 12000);
   await p.mouse.click(195, 420);                       /* the real splash: TAP TO ENTER */
-  await p.waitForTimeout(6000);
+  await SETTLE(p, 6000);
   await p.evaluate(() => {
     /* THE CITY TAB IS GONE (Paolo 8/2). It found the tab by its TEXT, which is
        why the data-p sweep did not catch it. The world is reached through RUN;
@@ -52,7 +53,7 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
       const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'RUN');
     if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click();
   });
-  await p.waitForTimeout(22000);
+  await SETTLE(p, 22000);
 
   const f = p.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY tab really mounts its frame', !!f);

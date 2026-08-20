@@ -36,6 +36,7 @@
  * Registered in gates/bohemia_gates.py as COLD OPEN.
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -186,9 +187,9 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
     const errs = [];
     page.on('pageerror', function (e) { errs.push(String(e.message)); });
     await page.goto('file://' + path.join(ROOT, ALPHA_PATH), { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3500);
+    await SETTLE(page, 3500);
     await page.evaluate(function () { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
 
     const tapped = await page.evaluate(function () {
       const t = document.querySelector('.tab[data-p="cutscene"]');

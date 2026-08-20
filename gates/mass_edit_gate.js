@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA MASS EDIT GATE (7/29/26) — Paolo's condition, measured.
  *
  *   "sure just make sure you do the coding right so when its time to mass edit
@@ -128,9 +129,9 @@ ok('every archetype is one of the four agents.js defines',
   const pg = await b.newPage({ viewport: { width: 390, height: 844 } });
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + path.resolve('slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load', timeout: 300000 });
-  await pg.waitForTimeout(12000);
+  await SETTLE(pg, 12000);
   await pg.mouse.click(195, 420);
-  await pg.waitForTimeout(6000);
+  await SETTLE(pg, 6000);
   await pg.evaluate(() => {
     /* THE CITY TAB IS GONE (Paolo 8/2). It found the tab by its TEXT, which is
        why the data-p sweep did not catch it. The world is reached through RUN;
@@ -138,7 +139,7 @@ ok('every archetype is one of the four agents.js defines',
       const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'RUN');
     if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click();
   });
-  await pg.waitForTimeout(22000);
+  await SETTLE(pg, 22000);
   const f = pg.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY tab mounts its frame', !!f);
 

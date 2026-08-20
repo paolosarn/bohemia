@@ -23,6 +23,7 @@
    passes because the whole frame moved is caught too.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const CITY_APP = require('./bohemia_city_app.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -79,9 +80,9 @@ function cityBlob(_a){ const x = require('./bohemia_city_app.js').read(); return
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     /* ONE WORLD TAB LAW: a tab click may NEVER swallow its own failure. A missing
        RUN tab used to mean this gate quietly probed the wrong surface and failed
        thirty seconds later, nowhere near the cause. */
@@ -90,7 +91,7 @@ function cityBlob(_a){ const x = require('./bohemia_city_app.js').read(); return
       t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */

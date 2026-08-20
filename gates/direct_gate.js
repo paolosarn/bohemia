@@ -31,6 +31,7 @@
  * Registered in gates/bohemia_gates.py as DIRECT.
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -76,15 +77,15 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
     const errs = [];
     page.on('pageerror', e => errs.push(String(e.message)));
     await page.goto('file://' + path.join(ROOT, ALPHA), { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3500);
+    await SETTLE(page, 3500);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1200);
+    await SETTLE(page, 1200);
     const tapped = await page.evaluate(() => {
       const t = document.querySelector('.tab[data-p="direct"]');
       if (!t) return false; t.click(); return true;
     });
     ok(tapped, 'the DIRECT tab is tappable in the running alpha');
-    await page.waitForTimeout(900);
+    await SETTLE(page, 900);
 
     /* ---- SEE ---- */
     const seen = await page.evaluate(() => ({

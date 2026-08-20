@@ -22,6 +22,7 @@
         adds a cost to living a day without Paolo ruling it, this goes red.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const BQ = require(path.join(ROOT, 'engine/bohemia_bq.js'));
@@ -195,7 +196,7 @@ for (const spec of DQ.DAYS) {
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + CITY, { waitUntil: 'load' });
-  await pg.waitForTimeout(3000);
+  await SETTLE(pg, 3000);
 
   const boot = await pg.evaluate(() => ({
     alive: typeof DAY !== 'undefined' && typeof DQ !== 'undefined',
@@ -219,9 +220,9 @@ for (const spec of DQ.DAYS) {
 
   // GET UP, take the job, then walk into a dark building the way the game does
   await pg.click('#daycardIn .dcgo');
-  await pg.waitForTimeout(120);
+  await SETTLE(pg, 120);
   await pg.evaluate(() => offerAccept());
-  await pg.waitForTimeout(200);
+  await SETTLE(pg, 200);
   ok('once taken, the live objective is on the HUD',
      await pg.evaluate(() => /Find why the block browns out/.test(document.getElementById('qline').textContent)));
   const played = await pg.evaluate(() => {
@@ -293,7 +294,7 @@ for (const spec of DQ.DAYS) {
   const errs2 = [];
   pg2.on('pageerror', e => errs2.push(e.message));
   await pg2.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load' });
-  await pg2.waitForTimeout(2000);
+  await SETTLE(pg2, 2000);
   const tapped = await pg2.evaluate(() => {
     const t = [...document.querySelectorAll('[data-p]')].find(x => x.dataset.p === 'run');
     if (!t) return false;               // NEVER swallow a missing tab: four gates
@@ -322,7 +323,7 @@ for (const spec of DQ.DAYS) {
         if (await f.evaluate(() => typeof DAY !== 'undefined'
               && !!document.querySelector('#daycard.on'))) break;
       } catch (e) {} }
-      await pg2.waitForTimeout(1000);
+      await SETTLE(pg2, 1000);
     }
     /* the frame is a separate ORIGIN under file://, so reaching in from the page
        throws SecurityError. Playwright's frame handle crosses it, which is the

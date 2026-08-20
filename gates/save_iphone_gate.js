@@ -18,6 +18,7 @@
    promising it never would.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const Save = require(path.join(ROOT, 'engine/bohemia_save.js'));
@@ -275,7 +276,7 @@ const mk = (store, extra) => Save.make(Object.assign({ store, ios: true, standal
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load' });
-  await pg.waitForTimeout(2500);
+  await SETTLE(pg, 2500);
 
   const live = await pg.evaluate(() => {
     const out = { has: typeof CITYSAVE !== 'undefined' };

@@ -30,6 +30,7 @@
         backlog entry that said "doesn't progress as I walk".
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -75,13 +76,13 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
 
   for (let i = 0; i < 90; i++) {
     if (await pg.$('#daycardIn .dcgo')) break;
-    await pg.waitForTimeout(200);
+    await SETTLE(pg, 200);
   }
   const woke = await pg.$('#daycardIn .dcgo');
   ok('the day opens with a WAKE card (the loop is alive here too)', !!woke);
   if (!woke) { await b.close(); done(); }
   await pg.click('#daycardIn .dcgo');                 // GET UP
-  await pg.waitForTimeout(300);
+  await SETTLE(pg, 300);
   /* DROP IN, and then WAIT FOR IT TO ACTUALLY HAPPEN. The mode button runs a
      460ms zoom transition and only flips MODE partway through, so a fixed sleep
      measured the city view and every human-only pass (the HOME label among them)
@@ -90,7 +91,7 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   for (let i = 0; i < 30; i++) {
     if (await pg.evaluate(() => MODE === 'human')) break;
     await pg.evaluate(() => { const m = document.getElementById('mode'); if (m) m.click(); });
-    await pg.waitForTimeout(700);
+    await SETTLE(pg, 700);
   }
   ok('DROP IN actually puts him in the walked world',
      await pg.evaluate(() => MODE === 'human'));
@@ -141,14 +142,14 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
      intercepts pointer events, so a coordinate click waits forever for a hint to
      fade. This still fires the real listener on the real button. */
   await pg.$eval('#sleepbtn', el => el.click());
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   const slept = await pg.evaluate(() => ({
     phase: DAY.phase, card: !!document.querySelector('#daycard.on')
   }));
   ok('sleeping ends the day and raises the reckoning',
      slept.phase === 'ended' && slept.card === true);
   await pg.$eval('#daycardIn .dcgo', el => el.click());   /* SLEEP -> DAY 2 */
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   await pg.evaluate(() => render());
   const day2 = await pg.evaluate(() => {
     const h = homeFind();
@@ -182,13 +183,13 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   /* the day-2 wake card is up by now, so dismiss it before reaching the topbar --
      and use the element's own click for the same #note reason as above. */
   const g2 = await pg.$('#daycardIn .dcgo');
-  if (g2) { await pg.$eval('#daycardIn .dcgo', el => el.click()); await pg.waitForTimeout(300); }
+  if (g2) { await pg.$eval('#daycardIn .dcgo', el => el.click()); await SETTLE(pg, 300); }
   await pg.$eval('#phonebtn', el => el.click());
   let fr = null;
   for (let i = 0; i < 80; i++) {
     fr = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
     if (fr) { try { if (await fr.evaluate(() => typeof LIVE !== 'undefined')) break; } catch (e) {} }
-    await pg.waitForTimeout(500);
+    await SETTLE(pg, 500);
   }
   ok('tapping PHONE opens the phone, in the run', !!fr);
   const bar = await pg.evaluate(() => ({
@@ -198,7 +199,7 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   ok('the phone is actually on screen', bar.on === true && bar.vis === true);
 
   if (fr) {
-    await pg.waitForTimeout(1200);
+    await SETTLE(pg, 1200);
     const live = await fr.evaluate(() => ({
       live: LIVE,
       strip: (document.querySelector('.live-strip') || {}).textContent || '',

@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* THE WALKED SURFACE GATE (8/18/26, WORLD lane).
  *
  * FOUR TIMES IN ONE DAY the same bug: a district's engine module is finished, gated and
@@ -71,13 +72,13 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
   page.on('pageerror', e => errs.push(String(e).slice(0, 140)));
   await page.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
     { waitUntil: 'load', timeout: 240000 });
-  await page.waitForTimeout(5000);
+  await SETTLE(page, 5000);
   await page.evaluate(() => {
     const f = document.querySelector('#front, #fronttap'); if (f) f.click();
     const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
     if (t) t.click();
   });
-  await page.waitForTimeout(16000);
+  await SETTLE(page, 16000);
   const fr = page.frames().find(f => /CITY_WORLD/.test(f.url()));
   ok('the alpha opens the world on the RUN tab', !!fr);
   if (!fr) return report(browser);

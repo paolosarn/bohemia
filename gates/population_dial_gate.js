@@ -49,6 +49,7 @@
    what it drew, or a getBoundingClientRect off the live panel.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -107,15 +108,15 @@ function pw() {
     await page.goto('file://' + ALPHA);
     await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
     await page.reload();
-    await page.waitForTimeout(3400);
+    await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(16000);
+    await SETTLE(page, 16000);
 
     /* ASK A FRAME WHAT IT CAN DO, NEVER MATCH ITS URL. .find() on a url pattern
        returned the wrong frame once and blinded fourteen gates. */
@@ -129,7 +130,7 @@ function pw() {
 
     /* out onto the street: peoplePass draws nobody until there is a body */
     await city.evaluate(() => { if (MODE !== 'human') { swapMode(); HC = HZOOM; } render(); });
-    await page.waitForTimeout(2600);
+    await SETTLE(page, 2600);
 
     ok('B2 the handle is IN THE TAB he plays -- a chip beside REROLL',
       await city.evaluate(() => !!document.getElementById('popbtn')));
@@ -159,7 +160,7 @@ function pw() {
        chip can land on another one. */
     await city.evaluate(() => { const t = document.getElementById('devtray');
       if (t && !t.classList.contains('on')) document.getElementById('devbtn').click(); });
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     const overlaps = await city.evaluate(() => {
       const r = Array.from(document.getElementById('devtray').children)
         .map(c => { const b = c.getBoundingClientRect(); return { id: c.id, b }; });
@@ -179,9 +180,9 @@ function pw() {
        the real surface -- display:flex is not visible and neither is a 0x0 box,
        so this reads the rect. */
     await city.evaluate(() => document.getElementById('devbtn').click());
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     await city.evaluate(() => document.getElementById('popbtn').click());
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     const box = await city.evaluate(() => {
       const w = document.getElementById('popwrap');
       const r = w.getBoundingClientRect();
@@ -212,7 +213,7 @@ function pw() {
     /* ---- C. AND IT MOVES THE WORLD, counted in blitted bodies ------------- */
     const drewAt = async (v) => {
       await city.evaluate(val => { BohemiaPopulation.setDial(val); render(); }, v);
-      await page.waitForTimeout(2400);
+      await SETTLE(page, 2400);
       return await city.evaluate(() => { render(); return BARK_DREW.length; });
     };
 
@@ -234,7 +235,7 @@ function pw() {
       return null;
     });
     ok('C1 the valley actually has a settlement to stand in', !!found);
-    await page.waitForTimeout(2400);
+    await SETTLE(page, 2400);
 
     const zero = await drewAt(0);
     const one = await drewAt(1);

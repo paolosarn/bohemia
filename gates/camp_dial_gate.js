@@ -29,6 +29,7 @@
    Requires playwright (installed globally in this environment).
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -873,7 +874,7 @@ ok('A31 the page cites the engine files its scale came from',
       L.hurt('bullet');
       L.thaw();
     });
-    await page.waitForTimeout(300);
+    await SETTLE(page, 300);
     const PROOF_DIR = process.env.CAMP_GATE_PROOF_DIR
       ? path.resolve(ROOT, process.env.CAMP_GATE_PROOF_DIR) : require('os').tmpdir();
     const shot = path.join(PROOF_DIR, 'BOHEMIA_MOBILE_CAMP_PROOF_7_27_26.png');

@@ -18,6 +18,7 @@
    Run: node gates/city_talk_gate.js
    Registered in gates/bohemia_gates.py as CITY TALK. */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
@@ -38,9 +39,9 @@ async function openRunTab(page) {
   await page.goto('file://' + ALPHA);
   await page.waitForSelector('#front', { timeout: 40000 });
   await page.click('#front');
-  await page.waitForTimeout(1200);
+  await SETTLE(page, 1200);
   await page.click('.tab[data-p="run"]');
-  await page.waitForTimeout(20000);
+  await SETTLE(page, 20000);
   const fr = await page.$('#cityFrame');
   return fr ? await fr.contentFrame() : null;
 }

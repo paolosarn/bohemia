@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* HAZARD GATE (8/18/26, WORLD lane) — THE FLOOR CAN DO SOMETHING TO YOU.
  *
  * Paolo 8/17, LOCKED: "THE WORLD HAS TO FEEL MORE ALIVE."
@@ -312,7 +313,7 @@ function requirePlaywright() {
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3000);
+    await SETTLE(p, 3000);
     await p.evaluate(() => { try { cardHide(); } catch (e) {} });
 
     const base = await p.evaluate(() => ({

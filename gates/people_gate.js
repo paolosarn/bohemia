@@ -45,6 +45,7 @@
    Requires playwright (installed globally in this environment).
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -420,7 +421,7 @@ async function tapThroughDoor(page, d, wasInside) {
     await tap(page, d);
     const st = await page.evaluate(() => window.__RUN.state());
     if ((st.mode === 'int') !== wasInside) return true;
-    await page.waitForTimeout(120);
+    await SETTLE(page, 120);
   }
   return false;
 }
@@ -497,7 +498,7 @@ async function partC() {
 
     /* the cast the parent alpha would have posted, stood in for (see header) */
     await page.evaluate(c => window.postMessage(c, '*'), synthCast());
-    await page.waitForTimeout(150);
+    await SETTLE(page, 150);
     const looks = await page.evaluate(() => window.__RUN.people() && window.__RUN.people().looks);
     ok('C1 the run has a cast to draw faces from', looks === CAST_COLOURS.length);
 

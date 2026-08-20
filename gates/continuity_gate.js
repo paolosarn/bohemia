@@ -37,6 +37,7 @@
         call, never a private preview path.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -140,13 +141,13 @@ for (const f of FILES) SRC[f] = fs.readFileSync(path.join(ROOT, 'quests/bq', f +
   pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
 
   ok('the phone BUZZES when the job comes in',
      (await pg.evaluate(() => window.__BUZZED || 0)) >= 1);
 
   await pg.$eval('#daycardIn .dcgo', el => el.click());
-  await pg.waitForTimeout(250);
+  await SETTLE(pg, 250);
 
   /* day one: nobody knows you */
   const day1phone = await (async () => {
@@ -155,13 +156,13 @@ for (const f of FILES) SRC[f] = fs.readFileSync(path.join(ROOT, 'quests/bq', f +
     for (let i = 0; i < 80; i++) {
       fr = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
       if (fr) { try { if (await fr.evaluate(() => typeof LIVE !== 'undefined')) break; } catch (e) {} }
-      await pg.waitForTimeout(500);
+      await SETTLE(pg, 500);
     }
-    await pg.waitForTimeout(1200);
+    await SETTLE(pg, 1200);
     const t = fr ? await fr.evaluate(() =>
       [...document.querySelectorAll('.live-strip')].map(x => x.textContent).join(' | ')) : '';
     await pg.$eval('#phoneclose', el => el.click());
-    await pg.waitForTimeout(200);
+    await SETTLE(pg, 200);
     return { fr, t };
   })();
   ok('AN EMPTY LEDGER IS NOT AN ERROR, IT IS DAY ONE, and it says so',
@@ -174,16 +175,16 @@ for (const f of FILES) SRC[f] = fs.readFileSync(path.join(ROOT, 'quests/bq', f +
     DQ.resolve(31);
     advance(20 * 60);
   });
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   await pg.$eval('#daycardIn .dcgo', el => el.click());        /* SLEEP -> DAY 2 */
-  await pg.waitForTimeout(500);
+  await SETTLE(pg, 500);
   const day = await pg.evaluate(() => DAY.day);
   ok('day 2 begins', day === 2);
   await pg.$eval('#daycardIn .dcgo', el => el.click());        /* GET UP */
-  await pg.waitForTimeout(250);
+  await SETTLE(pg, 250);
 
   await pg.$eval('#phonebtn', el => el.click());
-  await pg.waitForTimeout(1500);
+  await SETTLE(pg, 1500);
   const fr2 = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
   const seen = fr2 ? await fr2.evaluate(() => ({
     text: [...document.querySelectorAll('.live-strip')].map(x => x.textContent).join(' | '),

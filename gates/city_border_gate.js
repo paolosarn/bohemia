@@ -27,6 +27,7 @@
  *   node gates/city_border_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
@@ -110,9 +111,9 @@ async function measure(fr, C, how) {
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(11000);
+  await SETTLE(page, 11000);
 
   const fr = page.frames().find(f => f.url().includes('CITY_WORLD'));
   ok('the city surface is up (this gate measures the GAME, not the workbench)', !!fr);

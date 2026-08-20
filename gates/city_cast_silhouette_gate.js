@@ -25,6 +25,7 @@
  *   node gates/city_cast_silhouette_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
@@ -89,9 +90,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(12000);
+  await SETTLE(page, 12000);
 
   const fr = page.frames().find(f => f.url().includes('CITY_WORLD'));
   ok('the city surface is up — this measures the cast the GAME received, not a ' +

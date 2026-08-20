@@ -35,6 +35,7 @@
         lane reports it and never places it.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -78,7 +79,7 @@ function pw() {
     pg.on('pageerror', e => errs.push(e.message));
     await pg.route(/^https?:/, r => r.abort());
     await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
 
     /* the overlook is a real place, derived, before anything is played */
     const where = await pg.evaluate(() => {
@@ -99,15 +100,15 @@ function pw() {
 
     /* PLAY DAY 1 THROUGH TO SLEEP, by tapping, and wake into day 2 */
     await pg.$eval('#daycardIn .dcgo', el => el.click());
-    await pg.waitForTimeout(250);
+    await SETTLE(pg, 250);
     await pg.evaluate(() => { document.getElementById('sleepbtn').click(); });
-    await pg.waitForTimeout(400);
+    await SETTLE(pg, 400);
     await pg.$eval('#daycardIn .dcgo', el => el.click());      /* SLEEP -> DAY 2 */
-    await pg.waitForTimeout(600);
+    await SETTLE(pg, 600);
     const armedNotYet = await pg.evaluate(() => window.__VISTA.isOpen());
     ok('the DAY 2 card comes up FIRST and the valley waits behind it', armedNotYet === false);
     await pg.$eval('#daycardIn .dcgo', el => el.click());      /* GET UP */
-    await pg.waitForTimeout(1400);
+    await SETTLE(pg, 1400);
 
     const d2 = await pg.evaluate(() => ({ day: DAY.day, open: window.__VISTA.isOpen(),
                                           beat: window.__VISTA_BEAT || 0, seen: VISTA_SEEN,
@@ -124,7 +125,7 @@ function pw() {
 
     /* dismissible, and spent */
     await pg.evaluate(() => { window.__VISTA.close(); });
-    await pg.waitForTimeout(200);
+    await SETTLE(pg, 200);
     const after = await pg.evaluate(() => ({ open: window.__VISTA.isOpen(), seen: VISTA_SEEN }));
     ok('he can leave it', after.open === false);
     ok('and it is spent, so it never ambushes him again', after.seen === true);

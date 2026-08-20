@@ -38,6 +38,7 @@
    that owns the world, and reads the canvas.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -62,15 +63,15 @@ function pw() {
   /* seen already, so the opening does not sit over the street we are measuring */
   await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
   await page.reload();
-  await page.waitForTimeout(3400);
+  await SETTLE(page, 3400);
   await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-  await page.waitForTimeout(500);
+  await SETTLE(page, 500);
   await page.evaluate(() => {
     const t = Array.from(document.querySelectorAll('.tab'))
       .find(e => (e.textContent || '').trim() === 'RUN');
     if (t) t.click();
   });
-  await page.waitForTimeout(16000);
+  await SETTLE(page, 16000);
 
   let city = null;
   for (const f of page.frames()) {
@@ -86,9 +87,9 @@ function pw() {
     await city.evaluate(() => !!PLAYER_CV));
 
   await city.evaluate(() => { const g2 = document.querySelector('#daycardIn .dcgo'); if (g2) g2.click(); });
-  await page.waitForTimeout(500);
+  await SETTLE(page, 500);
   await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
-  await page.waitForTimeout(700);
+  await SETTLE(page, 700);
 
   const r = await city.evaluate(() => {
     const out = {};

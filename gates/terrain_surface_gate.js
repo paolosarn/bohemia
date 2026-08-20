@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* TERRAIN SURFACE GATE (8/18/26, WORLD lane) — THE GENERATOR'S OUTPUT IS WHAT HE WALKS ON.
  *
  * gates/terrain_gate.js has been green since 7/26 on the desert, the mountain and the lake:
@@ -65,7 +66,7 @@ console.log('TERRAIN SURFACE GATE — the generator\'s output is what he walks o
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3500);
+    await SETTLE(p, 3500);
 
     const r = await p.evaluate(() => {
       const out = { types: {}, seam: null, fallback: {}, noise: typeof BohemiaTerrainNoise !== 'undefined' };

@@ -27,6 +27,7 @@
  *   node gates/sky_touch_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -75,7 +76,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3000);
+    await SETTLE(p, 3000);
     await p.evaluate(() => { try { cardHide(); } catch (e) {} });
     const cdp = await ctx.newCDPSession(p);
     const touch = (type, tp) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: tp });
@@ -97,7 +98,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
                                 { x: 300 - i * 7, y: 400, id: 2 }]);
     }
     await touch('touchEnd', []);
-    await p.waitForTimeout(250);
+    await SETTLE(p, 250);
 
     const up = await p.evaluate(() => ({
       u: SKYU, band: skyBand(), inSky: SKY, renders: window.__r - window.__r0,
@@ -123,7 +124,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
                                 { x: 216 + i * 7, y: 400, id: 2 }]);
     }
     await touch('touchEnd', []);
-    await p.waitForTimeout(250);
+    await SETTLE(p, 250);
     ok('and pinching the other way rides back DOWN and lands him in the valley, so one ' +
        'gesture carries him both directions',
        await p.evaluate(() => !SKY && SKYU === 0));
@@ -132,7 +133,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
     await p.evaluate(() => { skyEnter(); window.__sel = JSON.stringify((typeof CB !== 'undefined' && CB) ? CB.sel : null); });
     await touch('touchStart', [{ x: 195, y: 300, id: 1 }]);
     await touch('touchEnd', []);
-    await p.waitForTimeout(200);
+    await SETTLE(p, 200);
     ok('a tap at the moon does NOT select an invisible city plot underneath it',
        await p.evaluate(() => JSON.stringify((typeof CB !== 'undefined' && CB) ? CB.sel : null) === window.__sel));
 
@@ -148,7 +149,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
        realistic thumb-and-forefinger pinches, with nothing pre-set. */
     {
       await p.goto('file://' + path.join(ROOT, PAGE));
-      await p.waitForTimeout(2500);
+      await SETTLE(p, 2500);
       await p.evaluate(() => { try { cardHide(); } catch (e) {} });
       const start = await p.evaluate(() => ({ mode: MODE, sky: SKY }));
       ok('the journey starts where the player starts: on foot, no sky, nothing pre-set',
@@ -166,7 +167,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
           await touch('touchMove', [{ x: cx - h, y: cy, id: 1 }, { x: cx + h, y: cy, id: 2 }]);
         }
         await touch('touchEnd', []);
-        await p.waitForTimeout(220);
+        await SETTLE(p, 220);
       };
 
       let pinches = 0, reached = false;
@@ -201,7 +202,7 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
           await touch('touchMove', [{ x: cx - h, y: cy, id: 1 }, { x: cx + h, y: cy, id: 2 }]);
         }
         await touch('touchEnd', []);
-        await p.waitForTimeout(220);
+        await SETTLE(p, 220);
       };
 
       let back = 0, home = false, zooms = [];

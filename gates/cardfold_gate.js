@@ -23,6 +23,7 @@
    node gates/cardfold_gate.js
    ============================================================================ */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -51,7 +52,7 @@ async function tapTarget() {
   const page = await browser.newPage({ viewport: VIEW, hasTouch: true, isMobile: true });
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const found = await page.evaluate(() => {
       const bases = ctBases() || {};
       let who = null, fid = null;
@@ -82,7 +83,7 @@ async function tapTarget() {
 
     const before = await page.evaluate(() => document.getElementById('ctcard').innerText);
     await page.locator('#ctterms').tap();      /* a real touch, not a synthetic click */
-    await page.waitForTimeout(400);
+    await SETTLE(page, 400);
     const after = await page.evaluate(() => document.getElementById('ctcard').innerText);
     ok('A11 …and a real TOUCH opens it, not just a synthetic click — "the handler '
       + 'is bound" and "a person can reach it" are different facts',
@@ -101,7 +102,7 @@ async function tapTarget() {
   page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
   try {
     await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
+    await SETTLE(page, 6000);
     const out = await page.evaluate(() => {
       /* NO STUB — a real affiliated person or nothing. */
       const bases = ctBases() || {};

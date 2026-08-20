@@ -41,6 +41,7 @@
       row gated on a successful name would have left them that way.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const fs = require('fs');
 const ROOT = path.join(__dirname, '..');
@@ -237,15 +238,15 @@ function blockKeys(seed) {
     await page.goto('file://' + ALPHA);
     await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
     await page.reload();
-    await page.waitForTimeout(3400);
+    await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(16000);
+    await SETTLE(page, 16000);
 
     /* ASK THE FRAME WHAT IT CAN DO, never match its URL. */
     let city = null;
@@ -260,7 +261,7 @@ function blockKeys(seed) {
     if (!city) throw new Error('no city frame');
 
     await city.evaluate(() => { if (MODE !== 'human') { swapMode(); HC = HZOOM; } render(); });
-    await page.waitForTimeout(2200);
+    await SETTLE(page, 2200);
 
     const found = await city.evaluate(() => {
       BohemiaPopulation.setDial(20);
@@ -277,7 +278,7 @@ function blockKeys(seed) {
       return false;
     });
     ok('B2 there is a settlement with somebody to meet', found);
-    await page.waitForTimeout(2000);
+    await SETTLE(page, 2000);
 
     /* B3: A STRANGER HAS NOT SPOKEN TO YOU. YOU HAVE TO ASK (7/31). */
     const cold = await city.evaluate(() => {

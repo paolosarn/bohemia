@@ -63,6 +63,7 @@
  *   node gates/frame_budget_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
 process.chdir(ROOT);
@@ -98,7 +99,7 @@ function requirePlaywright() {
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3000);
+    await SETTLE(p, 3000);
     await p.evaluate(() => { try { cardHide(); } catch (e) {} });
     const cdp = await ctx.newCDPSession(p);
     const touch = (t, tp) => cdp.send('Input.dispatchTouchEvent', { type: t, touchPoints: tp });
@@ -128,7 +129,7 @@ function requirePlaywright() {
                                 { x: 250 + i * 5, y: 400, id: 2 }]);
     }
     await touch('touchEnd', []);
-    await p.waitForTimeout(250);
+    await SETTLE(p, 250);
 
     const m = await p.evaluate(([n]) => {
       const r = window.__r - window.__r0;
@@ -156,7 +157,7 @@ function requirePlaywright() {
                                   { x: 230 + i * 8, y: 400, id: 2 }]);
       }
       await touch('touchEnd', []);
-      await p.waitForTimeout(250);
+      await SETTLE(p, 250);
       const zin = await p.evaluate(() => ({ z: HZOOM, onStop: HLEVELS.indexOf(HZOOM) >= 0 }));
       ok('the zoom still LANDS ON A PIXEL-TRUE STOP after coalescing the paint (' + start.z +
          ' -> ' + zin.z + ') -- fewer redraws must never mean a softer zoom', zin.onStop);
@@ -169,7 +170,7 @@ function requirePlaywright() {
                                     { x: 300 - i * 7, y: 400, id: 2 }]);
         }
         await touch('touchEnd', []);
-        await p.waitForTimeout(150);
+        await SETTLE(p, 150);
         crossed = await p.evaluate(() => MODE === 'city');
       }
       ok('and pinching out still CROSSES THE SEAM into the city builder, which is his 8/2 ' +
@@ -191,7 +192,7 @@ function requirePlaywright() {
         return h;
       });
       await p.evaluate(() => { if (MODE !== 'human' && typeof swapMode === 'function') swapMode(); });
-      await p.waitForTimeout(600);
+      await SETTLE(p, 600);
       const before = await shot();
       await touch('touchStart', [{ x: 170, y: 400, id: 1 }, { x: 230, y: 400, id: 2 }]);
       for (let i = 1; i <= 14; i++) {
@@ -199,7 +200,7 @@ function requirePlaywright() {
                                   { x: 230 + i * 8, y: 400, id: 2 }]);
       }
       await touch('touchEnd', []);
-      await p.waitForTimeout(400);
+      await SETTLE(p, 400);
       const after = await shot();
       ok('the canvas is not frozen -- it still repaints across a gesture', before !== after);
     }
@@ -214,7 +215,7 @@ function requirePlaywright() {
        because somebody finally counted. A GAUGE THAT ONLY LOOKS WHERE THE APP HAPPENS TO
        OPEN IS HALF A GAUGE. */
     await p.evaluate(() => { if (MODE !== 'city' && typeof swapMode === 'function') swapMode(); });
-    await p.waitForTimeout(1200);
+    await SETTLE(p, 1200);
     ok('the gauge reaches the CITY BUILDER too, not just the view the page opens in',
        await p.evaluate(() => MODE) === 'city');
 
@@ -226,7 +227,7 @@ function requirePlaywright() {
       await touch('touchStart', pts(0));
       for (let i = 1; i <= MOVES; i++) await touch('touchMove', pts(i));
       await touch('touchEnd', []);
-      await p.waitForTimeout(250);
+      await SETTLE(p, 250);
       const r = await p.evaluate(([n]) => {
         const c = window.__r - window.__r0;
         return { per: +(c / n).toFixed(2), renders: c,
@@ -265,7 +266,7 @@ function requirePlaywright() {
     await p.evaluate(() => {
       if (MODE !== 'human' && typeof swapMode === 'function') swapMode();
     });
-    await p.waitForTimeout(1400);
+    await SETTLE(p, 1400);
     await p.evaluate(() => {
       window.__f = 0; window.__inFrame = 0; window.__dupes = 0; window.__paints = 0;
       const raf = window.requestAnimationFrame;
@@ -283,7 +284,7 @@ function requirePlaywright() {
         const el = document.querySelector('#pad .pb');
         if (el) el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
       });
-      await p.waitForTimeout(140);
+      await SETTLE(p, 140);
     }
     const walk = await p.evaluate(() => ({ frames: window.__f, paints: window.__paints,
                                            dupes: window.__dupes }));
@@ -316,13 +317,13 @@ function requirePlaywright() {
       BohemiaVista.overlook = function () { window.__ov++; return o.apply(this, arguments); };
       if (MODE !== 'human' && typeof swapMode === 'function') swapMode();
     });
-    await p.waitForTimeout(1200);
+    await SETTLE(p, 1200);
     for (let i = 0; i < 8; i++) {
       await p.evaluate(() => {
         const el = document.querySelector('#pad .pb');
         if (el) el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
       });
-      await p.waitForTimeout(120);
+      await SETTLE(p, 120);
     }
     /* AND THE COUNT IS TAKEN FROM vistaWhere() DIRECTLY, not from walking, because
        vistaCheck() short-circuits once the vista has been seen -- so counting during steps

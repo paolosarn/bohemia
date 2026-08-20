@@ -25,6 +25,7 @@
  *   node gates/family_anim_gate.js
  */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -52,11 +53,11 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1500);
+  await SETTLE(page, 1500);
   await page.click('.tab[data-p="char"]');
-  await page.waitForTimeout(7000);
+  await SETTLE(page, 7000);
 
   const shot = () => page.evaluate(() =>
     [...document.querySelectorAll('#familyCast .famBody')].map(c => c.toDataURL()));
@@ -66,7 +67,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   ok('all four cast bodies are on the character screen (' + roles.join(',') + ')', roles.length === 4);
 
   const frames = [];
-  for (let i = 0; i < 8; i++) { frames.push(await shot()); await page.waitForTimeout(320); }
+  for (let i = 0; i < 8; i++) { frames.push(await shot()); await SETTLE(page, 320); }
 
   /* ---- 1. they actually move ---- */
   const idleCounts = roles.map((r, i) => new Set(frames.map(f => f[i])).size);
@@ -88,9 +89,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
   /* ---- 3. the picker reaches the bodies ---- */
   await page.evaluate(() => { const s = document.querySelector('.famClip'); s.value = 'walk'; s.onchange(); });
-  await page.waitForTimeout(3000);
+  await SETTLE(page, 3000);
   const walked = [];
-  for (let i = 0; i < 4; i++) { walked.push(await shot()); await page.waitForTimeout(320); }
+  for (let i = 0; i < 4; i++) { walked.push(await shot()); await SETTLE(page, 320); }
   const changed = roles.filter((r, i) => walked[0][i] !== frames[0][i]).length;
   ok('changing the clip changes WHAT THEY DRAW (' + changed + '/4 members differ from idle) — ' +
      'not just what the select says', changed >= 3);

@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* BOHEMIA NAV CLUSTER GATE (7/27/26) — one movement UI across the whole game,
  * measured in a real browser at iPhone-portrait size.
  *
@@ -59,9 +60,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-  await page.waitForTimeout(2500);
+  await SETTLE(page, 2500);
   await page.click('#front').catch(() => {});
-  await page.waitForTimeout(1200);
+  await SETTLE(page, 1200);
   await page.click('.tab[data-p="run"]');
   /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as a
      TAB, but it is still wired into the shell and what this gate measures is still
@@ -74,7 +75,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
     const r = document.getElementById('p-run'); if (r) r.classList.add('on');
   }).catch(() => {});
-  await page.waitForTimeout(22000);
+  await SETTLE(page, 22000);
   const f = page.frames().find(fr => fr.name() === 'runFrame');
   ok('the RUN tab really loads inside the alpha', !!f);
   if (!f) { console.log('NAV CLUSTER GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed'); await browser.close(); process.exit(1); }

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* FURNISH GATE (8/18/26, WORLD lane) — what is in the room, and therefore what you can
  * get behind.
  *
@@ -238,7 +239,7 @@ function requirePlaywright() {
     const errs = [];
     p.on('pageerror', e => errs.push(String(e)));
     await p.goto('file://' + path.join(ROOT, PAGE));
-    await p.waitForTimeout(3500);
+    await SETTLE(p, 3500);
     await p.evaluate(() => { try { cardHide(); } catch (e) {} });
 
     const r = await p.evaluate(() => {

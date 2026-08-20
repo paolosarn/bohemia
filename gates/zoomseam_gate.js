@@ -9,6 +9,7 @@
    MODE changed -- both directions -- and that the zoom law still holds.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const CITY_APP = require('./bohemia_city_app.js');
 const path = require('path');
 const ALPHA = path.join(path.dirname(__dirname), 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -23,16 +24,16 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     // a tab that is not there must SAY SO (one_world_tab_gate, 8/2): `if (t)`
     // swallowed the miss, and a swallowed click fails 30s later on the wrong surface
     await page.evaluate(() => { const t = document.querySelector('[data-p="run"]');
       if (!t) throw new Error('that tab is not in the bar'); t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */

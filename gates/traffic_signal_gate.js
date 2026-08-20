@@ -15,6 +15,7 @@
    intersection, counting draws that use HIS image objects.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const CITY_APP = require('./bohemia_city_app.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -58,13 +59,13 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
     await page.goto('file://' + ALPHA);
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(1500);
+    await SETTLE(page, 1500);
     await page.evaluate(() => { const t = document.querySelector('[data-p="run"]'); if(!t) throw new Error('that tab is not in the bar'); t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */

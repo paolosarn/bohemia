@@ -23,6 +23,7 @@
    constant can be read; a blit ratio has to be earned.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -95,14 +96,14 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
     await page.goto('file://' + ALPHA);
-    await page.waitForTimeout(3000);
+    await SETTLE(page, 3000);
     /* ELEMENT CLICKS, NOT COORDINATES. The splash is dismissed by its own
        element and the world is opened from the RUN tab -- the CITY tab is hidden
        in the shipped alpha, so a gate that navigates by clicking `.tab[data-p=
        "city"]` waits forever on an unclickable element. That is what the RUN tab
        mapping to the city panel means in practice. */
     await page.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-    await page.waitForTimeout(2000);
+    await SETTLE(page, 2000);
     const opened = await page.evaluate(() => {
       const t = document.querySelector('[data-p="run"]'); if (!t) return false; t.click(); return true;
     });
@@ -110,7 +111,7 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
 
     let f = null;
     for (let i = 0; i < 14; i++) {
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */
@@ -136,7 +137,7 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
     if (f) {
       await f.evaluate(() => { const b = document.getElementById('mode');
         if (typeof MODE !== 'undefined' && MODE !== 'human' && b) b.click(); });
-      await page.waitForTimeout(3000);
+      await SETTLE(page, 3000);
       const r = await f.evaluate(() => {
         const c = document.getElementById('cv'), ctx = c.getContext('2d');
         const seen = new Map(); const orig = ctx.drawImage.bind(ctx);

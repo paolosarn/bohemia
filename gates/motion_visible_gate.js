@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — MOTION VISIBLE GATE (7/30/26). FACTORY LAW: new law, new gate, same turn.
 //
 // Paolo 7/30: "we gotta COOK ... 11 months of motion not bitching and complaining."
@@ -58,7 +59,7 @@ const FLOOR = {
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2000);
+  await SETTLE(pg, 2000);
   if (errs.length) {
     console.log('  > FAIL the alpha raised a page error: ' + errs[0]);
     await b.close();

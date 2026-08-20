@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ===== COMBAT RUNS: THE GATE THAT WOULD HAVE CAUGHT THE BLACK SCREEN =====
    Paolo, 8/2, with a screenshot of a black screen and one red line:
      ERR ReferenceError: Cannot access 'DIAL_GONE' before initialization.
@@ -23,16 +24,16 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
   const path=require('path');
   const TARGET=path.resolve(process.argv[2]||'slices/BOHEMIA_ALPHA_0_9.html');
   await p.goto('file://'+TARGET,{waitUntil:'load',timeout:120000});
-  await p.waitForTimeout(9000);
-  await p.mouse.click(215,450); await p.waitForTimeout(2500);
-  await p.mouse.click(215,450); await p.waitForTimeout(2500);
+  await SETTLE(p, 9000);
+  await p.mouse.click(215,450); await SETTLE(p, 2500);
+  await p.mouse.click(215,450); await SETTLE(p, 2500);
   await p.evaluate(()=>{const t=document.querySelector('[data-p="combat"]');if(!t) throw new Error('that tab is not in the bar'); t.click();});
-  await p.waitForTimeout(7000);
+  await SETTLE(p, 7000);
   const f=p.frames().find(x=>x.name()==='combatFrame');
   if(!f){ console.log(JSON.stringify({ok:false,why:'no combatFrame',errs})); await b.close(); return; }
   const box=await (await p.$('#p-combat')).boundingBox();
   await p.mouse.click(box.x+box.width/2,box.y+box.height/2);
-  await p.waitForTimeout(5000);
+  await SETTLE(p, 5000);
   // drive REAL frames through every phase the dial has
   const R=await f.evaluate(async()=>{
     const O={frames:0};

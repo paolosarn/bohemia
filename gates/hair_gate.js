@@ -1,3 +1,4 @@
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 // BOHEMIA — HAIR GATE (8/1/26). FACTORY LAW: new machinery, own gate, same turn.
 //
 // Paolo 8/1: "cook me a hairstyles ... so I can thumbs up and thumbs it down all
@@ -56,13 +57,13 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
   const errs = [];
   pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
-  await pg.waitForTimeout(2200);
+  await SETTLE(pg, 2200);
   ok('the alpha loads with zero page errors' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   if (errs.length) { await b.close(); done(); }
   await pg.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
-  await pg.waitForTimeout(400);
+  await SETTLE(pg, 400);
   await pg.evaluate(() => { const t = [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char'); if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
-  await pg.waitForTimeout(1800);
+  await SETTLE(pg, 1800);
 
   const R = await pg.evaluate(() => {
     const DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];

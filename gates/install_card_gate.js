@@ -40,6 +40,7 @@
         is findable and editable, and nothing here is a number.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -106,13 +107,13 @@ const code = src.replace(/\/\*[\s\S]*?\*\//g, '');   /* prose must never satisfy
     pg.on('pageerror', e => errs.push(e.message));
     await pg.route(/^https?:/, r => r.abort());
     await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+    for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
 
     /* play day 1 to sleep, by tapping */
     await pg.$eval('#daycardIn .dcgo', el => el.click());     /* GET UP, day 1 */
-    await pg.waitForTimeout(250);
+    await SETTLE(pg, 250);
     await pg.evaluate(() => { document.getElementById('sleepbtn').click(); });
-    await pg.waitForTimeout(500);
+    await SETTLE(pg, 500);
 
     const reck = await pg.evaluate(() => {
       const el = document.getElementById('daycardIn');
@@ -132,7 +133,7 @@ const code = src.replace(/\/\*[\s\S]*?\*\//g, '');   /* prose must never satisfy
 
     /* ONE TAP STILL LANDS ON DAY 2 */
     await pg.$eval('#daycardIn .dcgo', el => el.click());
-    await pg.waitForTimeout(600);
+    await SETTLE(pg, 600);
     const d2 = await pg.evaluate(() => ({ day: DAY.day,
       text: (document.getElementById('daycardIn') || {}).innerText || '' }));
     ok('ONE TAP AND HE IS ON DAY 2 -- the ask added no step to his night (day '

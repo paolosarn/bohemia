@@ -35,6 +35,7 @@
       question it leaves open.
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -107,15 +108,15 @@ function pw() {
     await page.goto('file://' + ALPHA);
     await page.evaluate(() => localStorage.setItem('bohemia.opening.seen.v1', '1'));
     await page.reload();
-    await page.waitForTimeout(3400);
+    await SETTLE(page, 3400);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await page.waitForTimeout(500);
+    await SETTLE(page, 500);
     await page.evaluate(() => {
       const t = Array.from(document.querySelectorAll('.tab'))
         .find(e => (e.textContent || '').trim() === 'RUN');
       if (t) t.click();
     });
-    await page.waitForTimeout(16000);
+    await SETTLE(page, 16000);
     for (const f of page.frames()) {
       try { if (await f.evaluate(() => typeof LANDED !== 'undefined' && typeof knownLoad === 'function')) return f; }
       catch (_e) {}
@@ -129,7 +130,7 @@ function pw() {
     if (!city) throw new Error('no city frame');
 
     await city.evaluate(() => { if (MODE !== 'human') { swapMode(); HC = HZOOM; } render(); });
-    await page.waitForTimeout(2200);
+    await SETTLE(page, 2200);
 
     /* stand where people are: a spread neighbourhood is one household per
        subdivision BY HIS 7/29 RULING, so a conversation lives in a settlement */
@@ -148,7 +149,7 @@ function pw() {
       return false;
     });
     ok('B2 there is a settlement to stand in', found);
-    await page.waitForTimeout(2200);
+    await SETTLE(page, 2200);
 
     ok('B3 the log starts empty', await city.evaluate(() => knownLoad().count()) === 0);
 
@@ -179,7 +180,7 @@ function pw() {
        bounded distance and stops the moment the claim is satisfied. */
     for (let i = 0; i < 260; i++) {
       await city.evaluate(() => render());
-      await page.waitForTimeout(260);
+      await SETTLE(page, 260);
       if (i % 10 === 9) {
         const n = await city.evaluate(() => knownLoad().count());
         if (n >= 2) break;

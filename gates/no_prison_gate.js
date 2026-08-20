@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 /* ===========================================================================
    NO PRISON GATE — Paolo 8/1, and he was locked in a suburb when he said it.
 
@@ -259,11 +260,11 @@ const RUN_FILE = path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html');
   {
     const p2 = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await p2.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'));
-    await p2.waitForTimeout(2500);
+    await SETTLE(p2, 2500);
     await p2.click('#front').catch(() => {});
-    await p2.waitForTimeout(1200);
+    await SETTLE(p2, 1200);
     await p2.click('.tab[data-p="run"]');
-    await p2.waitForTimeout(14000);
+    await SETTLE(p2, 14000);
     const cf = p2.frames().find(fr => fr.name() === 'cityFrame');
     ok('D the frame he actually plays is reachable', !!cf);
     if (cf) {

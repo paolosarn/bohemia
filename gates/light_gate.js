@@ -52,6 +52,7 @@
      node gates/light_gate.js
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -217,8 +218,8 @@ const MEASURE = function(){
   p.on('pageerror', e => { died = e.message; });
   await p.goto('file://' + RUN);
   await p.waitForFunction(() => window.__RUN && window.__RUN.state, null, { timeout: 60000 });
-  await p.waitForTimeout(4000);
-  for (let i = 0; i < 3; i++) { await p.mouse.click(195, 620); await p.waitForTimeout(700); }
+  await SETTLE(p, 4000);
+  for (let i = 0; i < 3; i++) { await p.mouse.click(195, 620); await SETTLE(p, 700); }
 
   const home = await p.evaluate(() => {
     const i = window.__RUN.interior(), s = window.__RUN.state();
@@ -230,7 +231,7 @@ const MEASURE = function(){
   const KEY = { '1,0': 'ArrowRight', '-1,0': 'ArrowLeft', '0,1': 'ArrowDown', '0,-1': 'ArrowUp' };
   if (home && home.door) {
     for (const s of bfs(home.pass, home.at, home.door)) {
-      await p.keyboard.press(KEY[s[0] + ',' + s[1]]); await p.waitForTimeout(45);
+      await p.keyboard.press(KEY[s[0] + ',' + s[1]]); await SETTLE(p, 45);
       if ((await p.evaluate(() => window.__RUN.state().mode)) !== 'int') break;
     }
     for (let i = 0; i < 8; i++) {
@@ -239,11 +240,11 @@ const MEASURE = function(){
       const dx = Math.sign(home.door[0] - c.px), dy = Math.sign(home.door[1] - c.py);
       await p.keyboard.press(dx ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft')
                                 : (dy > 0 ? 'ArrowDown' : dy < 0 ? 'ArrowUp' : 'ArrowDown'));
-      await p.waitForTimeout(520);
+      await SETTLE(p, 520);
     }
   }
-  for (let i = 0; i < 3; i++) { await p.keyboard.press('ArrowDown'); await p.waitForTimeout(140); }
-  await p.waitForTimeout(1000);
+  for (let i = 0; i < 3; i++) { await p.keyboard.press('ArrowDown'); await SETTLE(p, 140); }
+  await SETTLE(p, 1000);
 
   const st = await p.evaluate(() => window.__RUN.state());
   ok('the shot is OUTSIDE, where the world is (a bedroom proves nothing)', st.mode !== 'int');
@@ -269,9 +270,9 @@ const MEASURE = function(){
       for (const k2 in _skinLit) delete _skinLit[k2];
       try { draw(); } catch (_e) {}
     }, on);
-    await p.waitForTimeout(900);
+    await SETTLE(p, 900);
     await p.evaluate(() => { try { draw(); } catch (_e) {} });
-    await p.waitForTimeout(300);
+    await SETTLE(p, 300);
     return await p.evaluate(MEASURE);
   }
   const A = await frame(false), B = await frame(true);

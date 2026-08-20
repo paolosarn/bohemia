@@ -31,6 +31,7 @@
         on every reload
    ========================================================================== */
 'use strict';
+const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -126,9 +127,9 @@ const done = () => { console.log('MARKET GATE: ' + pass + ' passed, ' + fail + '
   pg.on('pageerror', e => errs.push(e.message));
   await pg.route(/^https?:/, r => r.abort());
   await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
-  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
+  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await SETTLE(pg, 200); }
   await pg.$eval('#daycardIn .dcgo', el => el.click());
-  await pg.waitForTimeout(250);
+  await SETTLE(pg, 250);
 
   /* A MARKET IS A PLACE. Where he wakes up is not a swap meet, so there is no button. */
   const away = await pg.evaluate(() => {
@@ -214,9 +215,9 @@ const done = () => { console.log('MARKET GATE: ' + pass + ' passed, ' + fail + '
     const pg2 = await b.newPage({ viewport: { width: 390, height: 844 } });
     await pg2.route(/^https?:/, r => r.abort());
     await pg2.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
-    await pg2.waitForTimeout(2500);
+    await SETTLE(pg2, 2500);
     await pg2.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
-    await pg2.waitForTimeout(1200);
+    await SETTLE(pg2, 1200);
     await pg2.evaluate(() => {
       const t = document.querySelector('[data-p="run"]');
       if (!t) throw new Error('THE RUN TAB IS GONE from the alpha tab bar');
@@ -224,7 +225,7 @@ const done = () => { console.log('MARKET GATE: ' + pass + ' passed, ' + fail + '
     });
     let fr = null;
     for (let i = 0; i < 20; i++) {
-      await pg2.waitForTimeout(2500);
+      await SETTLE(pg2, 2500);
       fr = pg2.frames().find(f2 => CITY_APP.isFrame(f2, pg2));
       if (!fr) continue;
       const up = await fr.evaluate(() => typeof mktHub === 'function' && typeof om !== 'undefined'
