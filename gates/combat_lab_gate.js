@@ -4722,6 +4722,9 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
    The BEHAVIOUR -- the page a player actually reads, and whether it says what
    the game does -- is measured in a real browser by fight_moves_you_gate. What
    is pinned here is the shape and the two disciplines that keep it honest. */
+  ok('V169 RF4-65 (A -- EXPLICIT MECHANICAL: "bulleted, numeric, states keys and percentages") IS WHAT THE OPEN BOOK PAGE IS, and this is the claim that HOLDS that row. It was marked BUILT for four days while no gate anywhere named it -- found 8/20 by counting which BUILT rows any gate actually cites, which is REUSE-FIRST turned on the spec itself: a citation is a claim the machine can check, never a name-drop',
+    /openBookLines/.test(demo) && /L\.push\('A GUN NEEDS '/.test(demo));
+
   ok('V169 EVERY NUMBER IS INTERPOLATED FROM THE CONSTANT THAT GOVERNS THE BEHAVIOUR, never typed beside it. A published rule that can drift from the code is not stale, it is a LIE told to the player who trusted it',
     /L\.push\('A GUN NEEDS '\+ACQ_TURNS\+' TURNS ON YOU/.test(demo) &&
     /L\.push\('YOU SEE '\+SIGHT_TILES\+' TILES\. NOTHING SHOOTS PAST '\+REACH_CEIL/.test(demo) &&

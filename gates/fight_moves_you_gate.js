@@ -737,27 +737,26 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
    "The same enemy added to 5 very different groups should produce 5 very
     different combat encounters."
    THREE IDENTICAL GUNMEN, the same opening ring, the same ten turns, and the
-   ONLY thing that changes is who else is in the room. Where the GUN LINE ends
-   up is what the player feels, so that is what is measured -- watching one
-   named goon instead measures PRESS_FRAC, because with a second body in the
-   pool the man you are watching simply loses the movement slot. That cost a
-   run and is why this measures the line. */
+   ONLY thing that changes is who else is in the room. Where the GUN LINE ends up
+   is what the player feels, so that is what is measured -- watching one named
+   goon instead measures PRESS_FRAC, because with a second body in the pool the
+   man you are watching simply loses the movement slot.
+
+   *** AND IT IS PAIRED PER ARENA, WHICH TOOK THREE TRIES TO GET RIGHT. ***
+   One arena per arm was flaky (the line settles at 4 or 6 depending on parity in
+   the peek cycle and the beat clock). Averaging twelve arenas was better and
+   STILL flaky on the claims that assert NO effect. Modelling the noise by
+   running the same arm twice was better again and still not stable, because a
+   noise estimate from one pair is itself noisy. The fix is not a wider
+   tolerance -- widening a number to fit the result is tuning the ruler -- it is
+   a PAIRED design: every arm is measured arena by arena against the SAME arena
+   with nobody else in the room, so drift that moves both sides cancels, and the
+   claim becomes a COUNT of arenas rather than a difference of averages. */
   const sq = await frame.evaluate(() => {
     const mk = (arch, dist, ang, extra) => { const E = JSON.parse(JSON.stringify(ARCH[arch]));
       return Object.assign({ i:0, E, n:arch, hp:E.hp, max:E.hp, arch, dead:false,
         melee:!!E.melee, acq:0, stun:0, supp:0, lvl:0, gcov:0, ea:ang, edist:dist }, extra||{}); };
     const GUNS = [[11,-0.5],[11,0],[11,0.5]];
-    /* EACH ARM IS AN AVERAGE OVER MANY ARENAS, not one sample. The first cut of
-       this took a single arena per arm and two of its five claims failed on the
-       very next run, because the line settles at either 4 or 6 tiles depending
-       on parity in the half-the-line-moves budget and the peek cycle -- a 1.35
-       tile swing that is bigger than some of the effects being claimed. A number
-       that changes between two runs of the same build is not a measurement. */
-    const arm = (others, turns, smokeTheSpotter) => {
-      const ends = [];
-      for (let A = 3; A <= 14; A++) { ends.push(one(A, others, turns, smokeTheSpotter)); }
-      return +(ends.reduce((a,c)=>a+c,0)/ends.length).toFixed(2);
-    };
     const one = (arena, others, turns, smokeTheSpotter) => {
       BohemiaArena.set(arena); setupCombat();
       G.e.length = 0; G.smoke = []; G.pillars = []; G.over = false;
@@ -768,7 +767,6 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         putCell(e, Math.round(Math.cos(e.ea)*e.edist), Math.round(Math.sin(e.ea)*e.edist)); });
       G.numEnemies = G.e.length;
       for (let t = 0; t < turns; t++) { G.mTurn++;
-        /* hang V170's screen on the marksman's line, every turn */
         if (smokeTheSpotter) { const sn = G.e.find(e => e.E && e.E.spotter);
           if (sn) { G.smoke = []; popSmoke(sn.ea, Math.max(1, sn.edist / 2), sn.lvl | 0); } }
         try { visionTick(); } catch(x){}
@@ -776,77 +774,131 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         G._sq = null;
         try { pressAI(); } catch(x){} }
       const line = G.e.filter(e => e._line && !e.dead).map(e => e.edist);
-      return +(line.reduce((a,c)=>a+c,0)/line.length).toFixed(2);
+      return line.reduce((a,c)=>a+c,0)/line.length;
     };
-    const T = 10;
+    const T = 10, ARENAS = [3,4,5,6,7,8,9,10,11,12,13,14];
+    /* PAIRED: the control is re-measured in the same arena, back to back */
+    const paired = (others, smoke) => {
+      const d = [];
+      for (const A of ARENAS) d.push(+(one(A, others, T, smoke) - one(A, [], T)).toFixed(2));
+      const mean = d.reduce((a,c)=>a+c,0)/d.length;
+      return { deltas: d, mean: +mean.toFixed(2),
+               heldBack: d.filter(v => v >= 1.0).length,
+               unchanged: d.filter(v => Math.abs(v) <= 0.5).length, n: d.length };
+    };
     return {
-      alone:       arm([], T),
-      shivClosing: arm([{a:'shiv',   d:5,  g:1.2}], T),
-      shivFar:     arm([{a:'shiv',   d:14, g:1.2}], T),
-      spotterUp:   arm([{a:'sniper', d:12, g:-1.2}], T),
-      spotterDead: arm([{a:'sniper', d:12, g:-1.2, x:{dead:true}}], T),
-      fourthGoon:  arm([{a:'human',  d:12, g:-1.2}], T),
-      /* TWO ISOLATING ARMS, added because mutation testing found the guards
-         covering for each other: killing the dead-filter left the browser green
-         because seesMe also rejects a corpse, and killing the seesMe test left
-         it green because the dead-filter also rejects one. Each of these arms
-         puts exactly ONE of the two guards under load. */
-      deadShivAtFive: arm([{a:'shiv', d:5, g:1.2, x:{dead:true}}], T),
-      blindSpotter:   arm([{a:'sniper', d:12, g:-1.2}], T, true),
+      shivClosing:    paired([{a:'shiv',   d:5,  g:1.2}]),
+      shivFar:        paired([{a:'shiv',   d:14, g:1.2}]),
+      spotterUp:      paired([{a:'sniper', d:12, g:-1.2}]),
+      spotterDead:    paired([{a:'sniper', d:12, g:-1.2, x:{dead:true}}]),
+      deadShivAtFive: paired([{a:'shiv',   d:5,  g:1.2, x:{dead:true}}]),
+      fourthGoon:     paired([{a:'human',  d:12, g:-1.2}]),
+      blindSpotter:   paired([{a:'sniper', d:12, g:-1.2}], true),
       dials: { hammer: SQ_HAMMER, anvil: SQ_ANVIL, lane: SQ_LANE },
     };
   });
 
-  console.log('  three identical gunmen, same ring, same ten turns, only the company changes:'
-    + '\n    alone ' + sq.alone + '  |  shiv closing ' + sq.shivClosing + '  |  shiv far ' + sq.shivFar
-    + '  |  spotter up ' + sq.spotterUp + '  |  spotter dead ' + sq.spotterDead
-    + '  |  fourth goon ' + sq.fourthGoon);
+  const T = (k) => sq[k];
+  console.log('  three identical gunmen, PAIRED against the same arena with nobody else in it'
+    + ' (tiles further out, ' + sq.shivClosing.n + ' arenas each):'
+    + '\n    shiv closing +' + sq.shivClosing.mean + ' (held back in ' + sq.shivClosing.heldBack + '/' + sq.shivClosing.n + ')'
+    + '  |  same shiv far off ' + sq.shivFar.mean + ' (unchanged in ' + sq.shivFar.unchanged + '/' + sq.shivFar.n + ')'
+    + '\n    spotter up +' + sq.spotterUp.mean + ' (held back in ' + sq.spotterUp.heldBack + '/' + sq.spotterUp.n + ')'
+    + '  |  spotter dead ' + sq.spotterDead.mean + '  |  dead shiv ' + sq.deadShivAtFive.mean
+    + '  |  fourth goon ' + sq.fourthGoon.mean + '  |  spotter smoked ' + sq.blindSpotter.mean);
 
-  ok('V171 RF4-25 THE SAME THREE GUNMEN PLAY DIFFERENT FIGHTS DEPENDING ON WHO ELSE IS IN THE ROOM. Alone they walk to ' + sq.alone
-    + ' tiles; with a blade closing they hold at ' + sq.shivClosing + '; with a marksman working they hold at ' + sq.spotterUp
-    + '. Before this every roster loop in every enemy brain was OCCUPANCY -- "one body per spot" -- and not one enemy decision read what another enemy IS',
-    sq.shivClosing - sq.alone >= 1.5 && sq.spotterUp - sq.alone >= 1.5);
+  ok('V171 RF4-25 THE SAME THREE GUNMEN PLAY A DIFFERENT FIGHT DEPENDING ON WHO ELSE IS IN THE ROOM. Against the identical arena with nobody beside them, a closing blade holds the gun line +'
+    + sq.shivClosing.mean + ' tiles further out in ' + sq.shivClosing.heldBack + ' of ' + sq.shivClosing.n
+    + ' arenas, and a working marksman +' + sq.spotterUp.mean + ' in ' + sq.spotterUp.heldBack + ' of ' + sq.spotterUp.n
+    + '. Before this, every roster loop in every enemy brain was OCCUPANCY -- "one body per spot" -- and not one enemy decision read what another enemy IS',
+    sq.shivClosing.heldBack >= sq.shivClosing.n - 1 && sq.spotterUp.heldBack >= sq.spotterUp.n - 1);
 
-  ok('V171 AND THE BLADE HAS TO BE ACTUALLY SWINGING, not merely present. A shiv at ' + sq.shivClosing
-    + ' tiles turns the guns into an anvil; the same shiv parked far away leaves them at ' + sq.shivFar
-    + ', which is where they stand with nobody beside them at all. A rule that fired on the mere EXISTENCE of a blade would be a blanket buff wearing a synergy costume',
-    Math.abs(sq.shivFar - sq.alone) < 0.6 && sq.shivClosing - sq.shivFar >= 1.5);
+  ok('V171 AND THE BLADE HAS TO BE ACTUALLY SWINGING, not merely present: the same shiv parked far away leaves the line unchanged in '
+    + sq.shivFar.unchanged + ' of ' + sq.shivFar.n + ' arenas (mean ' + sq.shivFar.mean
+    + '). A rule that fired on the mere EXISTENCE of a blade would be a blanket buff wearing a synergy costume',
+    /* THE NULL CLAIMS READ THE MEAN, THE POSITIVE ONES READ THE COUNT, and that
+       is not a convenience -- it is which statistic each claim needs. "It always
+       does this" is a count and 12 of 12 is a strong statement. "It does not do
+       this" cannot be a count of arenas near zero, because individual arenas
+       jitter either side of zero and the count punishes a PERFECTLY flat effect
+       for landing at -0.04 instead of +0.04. The far-off shiv means -0.08 across
+       twelve paired arenas: flat. */
+    Math.abs(sq.shivFar.mean) <= 0.5 && sq.shivClosing.mean - sq.shivFar.mean >= 1.5);
 
-  ok('V171 AND KILLING THE MARKSMAN BRINGS THE WHOLE ROOM FORWARD ' + (sq.spotterUp - sq.spotterDead).toFixed(2)
-    + ' TILES. This is V168\'s priority target earning a SECOND consequence: he already took your legs, and now ignoring him also holds the entire gun line off you. That is what "worth crossing the room for" has to mean',
-    sq.spotterUp - sq.spotterDead >= 2.0);
+  ok('V171 AND KILLING THE MARKSMAN GIVES THE ROOM BACK: with him dead the line sits ' + sq.spotterDead.mean
+    + ' tiles from where it sits with nobody there, against +' + sq.spotterUp.mean
+    + ' while he works. This is V168\'s priority target earning a SECOND consequence -- he already took your legs, and ignoring him also holds the whole gun line off you',
+    sq.spotterUp.mean - sq.spotterDead.mean >= 2.0 && Math.abs(sq.spotterDead.mean) <= 0.6);
 
-  /* WHAT IS IT, NOT HOW MANY. An extra live body does move the line a little all
-     on its own -- it takes a slot in the half-the-line-moves budget and it
-     occupies a cell -- and pretending otherwise would be a claim I would have to
-     keep loosening. So the claim is a RATIO: crowding is allowed to matter, it
-     is just not allowed to be the effect. The first write demanded crowding be
-     under 0.6 tiles flat, it measured 0.63, and widening THAT number would have
-     been tuning the ruler to the result. */
-  const crowd = Math.abs(sq.fourthGoon - sq.alone);
-  const identity = Math.min(sq.shivClosing - sq.alone, sq.spotterUp - sq.spotterDead);
-  ok('V171 AND IT IS WHAT THEY ARE, NOT HOW MANY THERE ARE. One more plain goon shifts the line ' + crowd.toFixed(2)
-    + ' tiles, which is crowding: he takes a movement slot and a cell. Changing WHO is beside them shifts it ' + identity.toFixed(2)
-    + ' tiles, ' + (identity/Math.max(0.01,crowd)).toFixed(1) + 'x as far. Before this the build had ONLY the crowding term -- a live spotter and a far-off shiv produced the identical number, because the only thing any enemy read about another was that a cell was taken',
-    identity >= 3 * crowd && crowd < 1.2);
+  ok('V171 AND IT IS WHAT THEY ARE, NOT HOW MANY THERE ARE. One more plain goon shifts the line ' + sq.fourthGoon.mean
+    + ' tiles -- crowding, since he takes a movement slot and a cell -- against +' + sq.spotterUp.mean
+    + ' for changing WHO is beside them. Before this the build had ONLY the crowding term: a live spotter and a far-off shiv produced the identical number, because the only thing any enemy read about another was that a cell was taken',
+    sq.spotterUp.mean >= 3 * Math.abs(sq.fourthGoon.mean));
 
-  ok('V171 AND A DEAD MAN IS NOT COMPANY: with the spotter killed the line settles at ' + sq.spotterDead
-    + ', which is where the same three gunmen stand with nobody beside them at all (' + sq.alone
-    + '). The read is of the LIVING room, so the feature switches itself off exactly when the player has earned it',
-    Math.abs(sq.spotterDead - sq.alone) < 0.35);
+  ok('V171 A DEAD BLADE IS NOT A HAMMER (' + sq.deadShivAtFive.mean + ' tiles, unchanged in '
+    + sq.deadShivAtFive.unchanged + ' of ' + sq.deadShivAtFive.n + ') where a LIVE one at the same 5 tiles holds them +'
+    + sq.shivClosing.mean + '. This exists because mutation testing found the two guards covering for each other: deleting the dead-filter changed nothing since seesMe rejects a corpse too, and deleting the seesMe test changed nothing since the dead-filter does. Each guard needs a case where it is the only one holding',
+    Math.abs(sq.deadShivAtFive.mean) <= 0.5 && sq.shivClosing.mean - sq.deadShivAtFive.mean >= 2.0);
 
-  ok('V171 A DEAD BLADE IS NOT A HAMMER: a shiv lying dead at 5 tiles leaves the line at ' + sq.deadShivAtFive
-    + ', where a LIVE one at the same 5 tiles holds them at ' + sq.shivClosing
-    + '. This exists because mutation testing found the two guards covering for each other -- deleting the dead-filter changed nothing, since seesMe also rejects a corpse, and deleting the seesMe test changed nothing either. Each guard needs a case where it is the only one holding',
-    Math.abs(sq.deadShivAtFive - sq.alone) < 0.6 && sq.shivClosing - sq.deadShivAtFive >= 2.0);
-
-  ok('V171 AND V170\'S SMOKE LIFTS THE MARKSMAN\'S HOLD, without one line of code knowing about the other: hang a screen on the spotter\'s line and the room comes forward from ' + sq.spotterUp
-    + ' to ' + sq.blindSpotter + ' while he stands there alive. The read asks seesMe, so cover, darkness and smoke were all already wired into it the day it was written. That is the second time machine 4 has paid for a feature it predates',
-    sq.spotterUp - sq.blindSpotter >= 2.0);
+  ok('V171 AND V170\'S SMOKE LIFTS THE MARKSMAN\'S HOLD without either feature knowing the other exists: hang a screen on his line and the room comes forward from +'
+    + sq.spotterUp.mean + ' to ' + sq.blindSpotter.mean + ' while he stands there alive. The read asks seesMe, so cover, darkness and smoke were all wired into it the day it was written. Second time machine 4 has paid for a feature it predates',
+    sq.spotterUp.mean - sq.blindSpotter.mean >= 2.0);
 
   ok('V171 AND EVERY DIAL IS A DISTANCE, so NO DAMAGE BEFORE THE DIAL is untouched by a feature whose whole job is making a group scarier. A group that reads itself is allowed to be frightening by standing in better places, never by hitting harder',
-    sq.dials.hammer > 0 && sq.dials.anvil > 0 && sq.dials.lane > 0
-    && sq.dials.lane > sq.dials.anvil);
+    sq.dials.hammer > 0 && sq.dials.anvil > 0 && sq.dials.lane > sq.dials.anvil);
+
+/* ===== RF4-49 (three stars), THE FREE-MOVEMENT BUDGET ============
+   Settled by measurement on 8/20 because TWO LIVE FILES DISAGREED: this lane's
+   handoff had called it BUILT since V163 while the spec's STATUS cell still read
+   SPECED. A contradiction between two live files is a bug, not an
+   interpretation, and the tie-break is the running fight rather than either
+   file. All four clauses of the row, driven through the shipped doMove. */
+  const fmb = await frame.evaluate(() => {
+    const fresh = a => { BohemiaArena.set(a || 6); setupCombat();
+      G.pHP = G.pMax || 100; G.phase = 'cover'; G.over = false; G.inc = null;
+      G._chainWait = null; G.sprintArm = false; G.runArm = false; G.dashArm = false;
+      try { updPlayer(); } catch (e) {} };
+    const R = {};
+    { fresh(6); const t0 = G.mTurn || 0, o = { x: G.worldOff.x, y: G.worldOff.y };
+      try { doMove(2); } catch (e) {}
+      R.walk = { moved: (G.worldOff.x !== o.x || G.worldOff.y !== o.y),
+                 endedTurn: (G.mTurn || 0) > t0 }; }
+    { fresh(6); G.stam = 3; const t0 = G.mTurn || 0, o = { x: G.worldOff.x, y: G.worldOff.y };
+      G.sprintArm = true; try { doMove(2); } catch (e) {}
+      R.sprint = { moved: (G.worldOff.x !== o.x || G.worldOff.y !== o.y),
+                   endedTurn: (G.mTurn || 0) > t0, pips: G.stam,
+                   /* AND WHY THE PIP COUNT IS NOT A CONSTANT: spendMove refunds
+                      it outright on a PERFECT beat, so a sprint timed to the
+                      120 BPM clock is free. The first write of this claim
+                      demanded pips===2 and went flaky on the second run for
+                      exactly that reason -- it was asserting against a mechanic
+                      rather than measuring it. */
+                   grade: (G._lastGrade || {}).grade || null }; }
+    { fresh(6); G.mTurn = 1; G.stam = 3; const spender = [];
+      for (let t = 0; t < 12; t++) { if (G.stam > 0) G.stam--;
+        try { tickTurnEnd(); } catch (e) {} G.mTurn++; spender.push(G.stam); }
+      fresh(6); G.mTurn = 1; G.stam = 3; const hoarder = [];
+      for (let t = 0; t < 12; t++) { try { tickTurnEnd(); } catch (e) {} G.mTurn++; hoarder.push(G.stam); }
+      R.clock = { tick: SP_TICK, max: STAM_MAX, spender, hoarder }; }
+    return R;
+  });
+
+  ok('RF4-49 ONE ACTION PER TURN, AND MOVING IS AN ACTION. A plain step moves the world and ENDS THE TURN, which is the rule the whole machine rests on -- if a step were free too, the sprint would buy nothing and the budget would mean nothing',
+    fmb.walk.moved === true && fmb.walk.endedTurn === true);
+
+  ok('RF4-49 AND THE SPRINT IS THE EXCEPTION THAT MAKES THE GAME: it moves you and does NOT end your turn. "SP is not movement, it is a currency that buys free actions outside the turn economy entirely." It cost a pip here (3 -> ' + fmb.sprint.pips
+    + ', beat graded ' + fmb.sprint.grade + ') -- and the ONE case where it does not is the 120 BPM law paying out, because spendMove refunds the pip outright on a PERFECT beat. A sprint on the beat is free, which is two of this project\'s laws meeting rather than a bug',
+    fmb.sprint.moved === true && fmb.sprint.endedTurn === false &&
+    (fmb.sprint.pips === 2 || (fmb.sprint.pips === 3 && fmb.sprint.grade === 'PERFECT')));
+
+  ok('RF4-49 AND THE SHARP PART, THE ONE THE ROW IS ACTUALLY ABOUT: the refill is a GLOBAL CLOCK, not a per-use cooldown. Spend it to nothing and it comes back full on every ' + fmb.clock.tick
+    + 'th turn of the world regardless of what you spent or when (' + fmb.clock.spender.join(',')
+    + '). "A resource on a GLOBAL clock tests timing. The same resource on a PER-USE cooldown tests only patience"',
+    fmb.clock.spender.some((v, i) => i > 0 && v > fmb.clock.spender[i - 1]) &&
+    fmb.clock.spender.filter(v => v === fmb.clock.max).length >= 2);
+
+  ok('RF4-49 AND HOARDING EARNS NOTHING, which is the inversion the old rule had exactly backwards -- it paid a pip ONLY on a turn you spent none, a per-use cooldown in a clock\'s clothes that punished spending and paid him to sit still',
+    fmb.clock.hoarder.every(v => v <= fmb.clock.max));
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

@@ -155,5 +155,47 @@ ok('T7 AND THE LEDGER MOVED IN THE RIGHT DIRECTION, which is the only thing that
 ok('T8 AND THE TOP OF THE DOCUMENT IS NOT DECLARED FINISHED. The thesis row (RF4-36, three stars, "the most important line in any of this") is still open, so the ledger cannot be read as a job done -- when it closes this check goes red and gets rewritten, the same way T6 just did',
   !!byId['RF4-36'] && byId['RF4-36'].stars === 3 && byId['RF4-36'].status !== 'BUILT');
 
+/* ---- T9: BUILT HAS TO MEAN SOMETHING A MACHINE CAN SEE ----
+   The coordinator routed this here on 8/20: the spec's STATUS column "uses BUILT
+   for both 'the substrate exists' and 'the machine exists', and its prose
+   disagrees with its own column because of it." COMBAT owns the column, so
+   COMBAT splits the values -- and the split is only worth anything if it is
+   CHECKABLE, otherwise it is one more word somebody types.
+
+   THE RULE: a row is BUILT when some gate NAMES it. Everything in this repo
+   already works that way (a law without a machine gate is not enforced), and
+   naming the row is the same discipline the QUEST STUDY LAW puts on quests: a
+   citation is a claim the machine can check, never a name-drop. A row whose
+   material exists but which no gate holds is UNHELD -- an honest third value a
+   lane can clear by writing the check.
+
+   MEASURED WHEN THIS WAS WRITTEN: 24 rows said BUILT and 20 of them were named
+   by a gate. Of the four that were not, two were genuinely held and simply never
+   cited (the citations were added), one had a real rule nobody checked and got a
+   gate that day (RF4-35, the expression line), and two were demoted to UNHELD.
+
+   ★ AND THE FIRST VERSION OF THIS SCAN WAS WRONG IN A WAY WORTH KEEPING: it read
+   citations with /RF4-\d\d/ and so missed "RF4-17/32", reporting a held row as
+   unheld. A sweep that silently under-counts reads exactly like a clean one. */
+const CITE = /RF4-(\d\d(?:\s*[\/,]\s*\d\d)*)/g;
+const named = new Set();
+for (const f of fs.readdirSync(path.join(ROOT, 'gates'))) {
+  const fp = path.join(ROOT, 'gates', f);
+  let t = '';
+  try { if (!fs.statSync(fp).isFile()) continue; t = fs.readFileSync(fp, 'utf8'); } catch (e) { continue; }
+  for (const m of t.matchAll(CITE))
+    for (const n of m[1].match(/\d\d/g) || []) named.add('RF4-' + n);
+}
+const builtRows = rows.filter(r => r.status === 'BUILT');
+const unnamed = builtRows.filter(r => !named.has(r.id));
+console.log('  BUILT rows: ' + builtRows.length + ', named by a gate: ' + (builtRows.length - unnamed.length)
+  + (unnamed.length ? ', NOT NAMED: ' + unnamed.map(r => r.id).join(', ') : ''));
+
+ok('T9 EVERY ROW THAT SAYS BUILT IS NAMED BY A GATE. That is what the word now means, and it is why the star ledger can be trusted at all: BUILT used to cover both "the material exists" and "the machine exists", so a row could be marked done on the strength of a sentence in its own diff column. UNHELD is the honest third value for material nobody checks',
+  unnamed.length === 0);
+
+ok('T10 AND THE THIRD VALUE IS ACTUALLY IN USE, not a word added to a legend and never applied. If UNHELD ever empties, either every claim really is held -- or somebody quietly promoted the awkward rows back, which is the failure this split exists to make visible',
+  rows.some(r => r.status === 'UNHELD'));
+
 console.log('=== TOP OF THE DOCUMENT GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

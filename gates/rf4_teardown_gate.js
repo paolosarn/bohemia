@@ -72,7 +72,15 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
 
   /* every item must carry exactly one of the three statuses the law names */
   const rows = spec.split('\n').filter(l => /\*\*RF4-\d\d\*\*/.test(l) && l.startsWith('|'));
-  const STAT = /\|\s*(SPECED|BUILT|DIFFERS-ON-PURPOSE)\s*\|?\s*$/;
+  /* V171+ 8/20: A FOURTH VALUE, AND COMBAT OWNS THIS COLUMN. The coordinator
+     found the column using BUILT for BOTH "the substrate exists" AND "the
+     machine exists", with the spec's own prose disagreeing with it as a result,
+     and routed the split to COMBAT (which owns STATUS; LAB owns the prose).
+     UNHELD means the material is in the build and NO GATE HOLDS THE ROW'S RULE.
+     It is enforced from the other side by top_of_the_document_gate T9: every
+     row that says BUILT must be NAMED by some gate, so BUILT can no longer be
+     awarded by a sentence in a row's own diff column. */
+  const STAT = /\|\s*(SPECED|BUILT|UNHELD|DIFFERS-ON-PURPOSE)\s*\|?\s*$/;
   const bad = rows.filter(l => !STAT.test(l.trim()));
   ok(`A6 every numbered row ends in a STATUS the law defines (${rows.length} rows)`
      + (bad.length ? ' -> ' + bad.length + ' missing' : ''),
