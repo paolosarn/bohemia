@@ -5851,6 +5851,39 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
+P0-PROFILE. *** EAST AND WEST HAIR IS BROKEN ACROSS THE BOARD, HIS WORDS,
+   AND YOUR OWN GATE ALREADY SAID SO. TOP OF THIS LANE'S QUEUE; ALL HAIR
+   WORK WAITS BEHIND IT (8/20 — records/BOHEMIA_VERDICT_HAIR_ROUND4_
+   8_20_26.txt). Paolo, round 4: "You really need to tell the character
+   chat that EAST AND WEST HAIRSTYLES LOOK LIKE ABSOLUTE DOG SHIT ACROSS
+   THE BOARD."
+   HE KILLED 13 OF 15 JUDGED — an 87% kill rate — and named the cause in
+   the same breath. ACROSS THE BOARD means it is not thirteen taste
+   calls, it is ONE RENDER DEFECT JUDGED THIRTEEN TIMES.
+   *** AND IT WAS ALREADY ON RECORD IN YOUR OWN GATE. gates/hair_gate.js,
+   in its own comment: "the PROFILE is where a mohawk's ridge, a
+   ponytail's tail and a fringe's depth actually read, AND IT IS WHERE
+   THE STRIP BUG I RECORDED STILL LIVES." The defect was documented,
+   written into the gate's own reasoning, and never fixed — and then
+   fifteen hairstyles were judged through it. ***
+   THE KILLS STAND. GRAVEYARD IS FINAL, all thirteen are buried, and
+   nothing here re-opens a verdict or asks him to look again. This item
+   is about the NEXT round, not the last one.
+   *** HARD HOLD: THE 21 UNJUDGED STYLES DO NOT GO TO A BALLOT until the
+   E/W facings render correctly. *** Putting 21 more in front of him
+   through a view he has just called dog shit spends the scarcest thing
+   in this project on a bug we already knew about. Per the 8/16 rule: a
+   bad keep rate indicts the GENERATOR, and if it cannot produce
+   candidates worth judging, THAT is the finding and the generator is the
+   turn's work.
+   NOTE ON THE FOUR FADES in that held list (LOW/HIGH/SHAVED FADE, FADED
+   CROP): the fade-to-skin blend IS BUILT (his 8/1 law, "BUILT 8/1/26").
+   CLAUDE.md's summary line still said [UNBUILT] — stale, corrected 8/20.
+   They are held by the E/W defect like everything else, not by the fade.
+   | the profile view fixed and PROVEN on the real surface, all eight
+   facings, before any style is shown to him again | — | yes, but ONE
+   HEAD FIRST: show him a single style in profile and let him say the
+   view is fixed before anything else is queued. ***
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never
