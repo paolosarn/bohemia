@@ -448,6 +448,80 @@ function requirePlaywright() {
       yes.after && no.after && yes.after.gave !== no.after.gave,
       JSON.stringify({ yes: yes.after, no: no.after }));
 
+    /* ---- F. THE SIXTEEN NAME MECHANICS, PRESSED ---------------------------
+       Every outfit does something DIFFERENT when you ask its members their name
+       -- that is the 8/11 introductions organ, 46 gated claims -- and every one
+       of those claims is STRUCTURAL: the rule resolves, the anchor holds, the
+       signatures are distinct. NOT ONE pressed the button on a real member of a
+       real outfit and read what came back. That is exactly the shape that hid
+       four bugs this week.
+
+       AND THIS PART NEARLY SHIPPED A FALSE FINDING, which is why it is written
+       the way it is. A first pass picked a person, moved next to them, opened the
+       card, and labelled the result with THAT PERSON'S faction -- but ctOpen()
+       shows whoever is actually NEAREST, which is not always who you picked. It
+       reported that the Mob hands over a full name to a direct ask, flatly
+       against its own anchor ("YOU ARE INTRODUCED, YOU DO NOT ASK"). It does not.
+       The card was somebody else's.
+       SO THE CARD'S OWN `RUNS WITH` ROW IS THE SUBJECT, never my pick. A probe
+       that decides who it is looking at can be wrong about what it saw. */
+    const names = await page.evaluate(() => {
+      const bases = ctBases() || {}, seen = {};
+      const row = (k) => {
+        const rows = [...document.querySelectorAll('#ctcard .r')];
+        const r = rows.find(x => { const kk = x.querySelector('.k');
+                                   return kk && kk.textContent.trim() === k; });
+        return r ? r.querySelector('.v').textContent.trim() : null;
+      };
+      const nameRow = () => row('NAME') || row('KNOWN AS');
+      for (const b of Object.values(bases)) {
+        for (const d of [2, 4, 6, 8, 10, 12]) {
+          hx = b.x * FN + d; hy = b.y * FN + d;
+          for (const q of ctEveryone()) {
+            const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+            ctSawCell(); ctClose(); ctOpen();
+            const fid = row('RUNS WITH');           /* the CARD's answer, not mine */
+            if (!fid || seen[fid]) { ctClose(); continue; }
+            const rule = BohemiaIntros.ruleOf(fid);
+            const ctx = { full: 'X Y', trade: 'WATCH' }, st = { asked: false };
+            const rec = { organButton: BohemiaIntros.buttonFor(rule, ctx, st),
+                          organGives: (BohemiaIntros.askOutcome(rule, ctx, st) || {}).got,
+                          ruleNext: rule.next,
+                          cardRest: row('HOW YOU GET THE REST'),
+                          cardButton: (document.getElementById('ctask') || {}).textContent || null,
+                          before: nameRow() };
+            const btn = document.getElementById('ctask');
+            if (btn) btn.click();
+            ctClose(); ctOpen();
+            rec.after = nameRow();
+            seen[fid] = rec; ctClose();
+          }
+        }
+      }
+      return seen;
+    });
+
+    const outfits = Object.keys(names).sort();
+    ok('F1 the name button was pressed on a real member of several different '
+      + 'outfits — not one outfit called sixteen',
+      outfits.length >= 4, 'outfits met: ' + JSON.stringify(outfits));
+
+    for (const f of outfits) {
+      const n = names[f];
+      ok('F2 ' + f + '\'s name mechanic on the card IS its authored one: the '
+        + 'button the organ names is the button drawn, and what the ask returns '
+        + 'is what the organ says it returns ("' + n.organGives + '")',
+        n.cardButton === n.organButton
+        && (n.organGives === 'nothing' ? n.after === n.before : n.after !== n.before),
+        JSON.stringify(n));
+
+      if (n.cardRest !== null)
+        ok('F3 ' + f + ' tells the player HOW TO GET THE REST in its own words, '
+          + 'verbatim from the rule rather than a generic line',
+          n.cardRest === n.ruleNext,
+          JSON.stringify({ card: n.cardRest, rule: n.ruleNext }));
+    }
+
     /* ---- D. EVERY ACT A PLAYER CAN PRESS, PRESSED -------------------------
        THE ARC ABOVE WALKS ONE OUTFIT. There are FIVE distinct acts across the
        sixteen -- information, debt, presence, legibility, labour -- and until

@@ -190,6 +190,45 @@ Both answers are now walked **from the same state, on a fresh page each**, so
 than against two different histories. Both mutations bite: pay the player for
 saying yes and E2 goes red; make refusal free and E3 and E4 do.
 
+## 4e. THE SIXTEEN NAME MECHANICS, PRESSED — AND A FALSE FINDING I ALMOST SHIPPED
+
+Every outfit does something different when you ask its members their name. That
+organ has **46 gated claims**, and every one is **structural** — the rule
+resolves, the anchor holds, the signatures are distinct. **Not one pressed the
+button on a real member of a real outfit and read what came back.**
+
+Pressed now, and the card matches the organ on all eight outfits reachable:
+
+| outfit | asking gives you | how you get the rest |
+|---|---|---|
+| CARTEL | nothing, and the card already says *"THEY USED YOURS. YOU NEVER GAVE IT."* | **NOTHING. EVER.** |
+| TRADES | **"WATCH"** — a trade, not a name | HIRE THEM TWICE |
+| VOLUNTEERS | the name, instantly | ASK. IT ARRIVES INSTANTLY AND WITHOUT CEREMONY. |
+| HOMELESS | no button at all | ANSWER WHERE YOU SLEEP, HONESTLY |
+| NETWORK / REDS / COLORFUL | already known — they offer it | *nothing to earn* |
+
+### AND I ALMOST SHIPPED A FALSE FINDING ABOUT THE MOB
+
+The first pass picked a person, moved next to them, opened the card, and labelled
+the result with **that person's** faction. But `ctOpen()` shows whoever is
+actually **nearest**, which is not always who you picked.
+
+It reported that **the Mob hands over a full name to a direct ask** — flatly
+against its own anchor, *"YOU ARE INTRODUCED, YOU DO NOT ASK."* I had the organ's
+answer in front of me (`buttonFor` → **"Ask anyway"**, `askOutcome` → *nothing*,
+plus *"A SMALL PERMANENT MARK AGAINST YOU"*) and was one step from writing up the
+wiring as broken.
+
+**It is not. The card was somebody else's.**
+
+> **A PROBE THAT DECIDES WHO IT IS LOOKING AT CAN BE WRONG ABOUT WHAT IT SAW.**
+> The card's own `RUNS WITH` row is the subject now, never my pick.
+
+That is the same class as the three-spellings bug earlier in this same gate:
+**read the answer from the thing under test, not from the notes you kept beside
+it.** Mutation-proven: make the card ignore the organ and use one uniform button,
+and five claims go red.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
