@@ -81,28 +81,61 @@ THE RE-BLESS: FOUR GATES, AND NOT ONE NUMBER LOOSENED
     edge, which a row-only scan never could. Mutation: draw the border 2px and both
     checks fire.
 
-*** THE ONE THAT IS A FINDING, NOT A RE-BLESS ***
---------------------------------------------------
-HEAD FOLLOWS RIG pinned "total deviation 13, worst row 3" -- counts of 56-space
-pixels. The honest reading at 112 is 64 and 4, and the interesting part is WHY.
+*** THE ONE I CALLED A FINDING -- AND IT WAS WRONG. CORRECTED SAME DAY. ***
+------------------------------------------------------------------------
+WHAT I WROTE HERE FIRST, AND IT IS NOT TRUE:
 
-Measured in 56-equivalent cells, row by row, the chin went from
+    "the chin went from rig 4 game 4 to rig 4 game 6 purely by removing the
+     smoothing. THE SKINNER WAS ALWAYS DRAWING THE CHIN THAT WIDE."
 
-    rig 4, game 4   (exactly right)      ->      rig 4, game 6   (two cells wide)
+I read HEAD FOLLOWS RIG's ratchet moving 13 -> 64 across the flip, converted it to
+56-equivalent cells, saw the chin row go from exact to two cells wide, and published
+a claim about the skinner. Then I went to fix the skinner and measured what the
+ratchet was actually comparing.
 
-purely by removing the smoothing. THE SKINNER WAS ALWAYS DRAWING THE CHIN THAT WIDE.
-Scale2x was trimming the corner off it, so the ratchet had been measuring a
-smoothed head and calling it fidelity. The pin was flattered.
+IT COMPARES THE RIG'S PAINTED **FACE** (part 2) AGAINST EVERY SKIN-COLOURED PIXEL ON
+THE ROW. Those are different regions. The drawn row also holds the **HEAD** (part 1),
+which is wider than the face everywhere except the cheekbones, and on the chin rows
+the **NECK** (part 3) as well. All three are skin. Measured row by row on the real
+frame, every single "deviation" is exactly accounted for:
 
-So the ratchet is a RATIO now -- deviation over the rig's own width -- which is the
-same number at any resolution and never needs re-blessing again:
+    y12..y29    drawn skin == posed HEAD+FACE          to the pixel
+    y30..y31    drawn skin == posed HEAD+FACE+NECK     to the pixel
+    UNEXPLAINED PIXELS: ZERO
 
-    0.171 at 56   ->   0.211 at 112, the first honest reading
+THERE IS NO JAW DEBT. THERE NEVER WAS. It was the head being wider than the face,
+which is anatomy. And what moved across the flip was not the skinner: it was how much
+of the HEAD EDGE got counted once Scale2x stopped rounding corners off it.
 
-Both green under the new pin, and the extra 0.04 is the corner the upscaler used to
-erase. This gate is now the instrument that says WHERE "his head renders as a box"
-actually lives: the chin, and the row under the mouth. Fix the skinner there and the
-number falls. Mutation: pin it at the old 0.171 and it fires, naming the percentage.
+A RULER COMPARING TWO DIFFERENT REGIONS CANNOT BE REPAIRED BY RESCALING IT, which is
+exactly what I did in the first pass -- I turned a pixel count into a ratio, made it
+resolution-free, mutation-tested it, and it was a beautifully calibrated instrument
+pointed at the wrong thing. Scale-free and wrong is still wrong.
+
+WHAT IT ASSERTS NOW IS LIKE-FOR-LIKE AND EXACT: the POSED head+face silhouette, row
+for row, IS the rig's head+face silhouette -- same regions, same space, read off part
+ids so no colour heuristic can confuse it, and on ALL EIGHT FACINGS instead of one.
+
+    S:0  SE:0  E:0  NE:0  N:0  NW:0  W:0  SW:0      total deviation 0
+
+The renderer reproduces his painted head exactly. So the ratchet is pinned at ZERO
+and can never be loosened by anybody. Mutation: widen the posed head by one cell on
+facing S and it fires, naming the facing and the amount.
+
+SAMPLED AT THE REST PHASE ON PURPOSE. At a moving phase the skinner is SUPPOSED to
+deform the head -- the bob, the turn -- so demanding it equal the rest rig mid-stride
+would be asserting that animation does not happen. For the record, at ph=0.37 the
+deviation is 12-44 per facing, and that is the animation working.
+
+AND THE PIXELS ARE STILL CHECKED, by the jaw-edge tone assertion the gate already
+had: on the rows his art puts the dark anatomy index on, is the EDGE pixel darker
+than the pixel beside it? That is the check that caught the real 8/11 bug, it is
+about what the renderer PAINTS, and it is untouched.
+
+THE COST OF THE ORIGINAL MISTAKE, said plainly: a false claim about the most
+dangerous code in the repo, published in a commit message, a record, the backlog and
+the handoff, where the next session would have found it and gone hunting a bug that
+does not exist. The commit message cannot be edited; this record supersedes it.
 
 *** AND THE MEMORY, WHICH IS THE ONE THING STILL WRONG ***
 -----------------------------------------------------------

@@ -1,0 +1,118 @@
+BOHEMIA -- I PUBLISHED A BUG THAT DOES NOT EXIST, AND WENT TO FIX IT
+CHARACTER lane, 8/20/26. A correction, and the ruler behind it.
+
+WHAT I WROTE THIS MORNING, IN A COMMIT, A RECORD, THE BACKLOG AND THE HANDOFF
+-----------------------------------------------------------------------------
+    "the chin went from rig 4 game 4 to rig 4 game 6 purely by removing the
+     smoothing. THE SKINNER WAS ALWAYS DRAWING THE CHIN THAT WIDE."
+
+IT IS NOT TRUE. There is no jaw debt. There never was one.
+
+HOW I GOT THERE, BECAUSE THE ROUTE IS THE LESSON
+------------------------------------------------
+HEAD FOLLOWS RIG is a ratchet: it pins how far the drawn head strays from the rig
+and lets that number only shrink. Across the 112 flip it moved 13 -> 64. I converted
+both to 56-equivalent cells, found the chin row had gone from exact to two cells
+wide, reasoned that Scale2x had been rounding that corner off and hiding it, and
+published a claim about THE SKINNER -- which RIG LAW names the most dangerous code
+in the repo.
+
+Then I went to fix it, and started by asking what the ratchet actually compares.
+
+IT COMPARES THE RIG'S PAINTED **FACE** AGAINST EVERY SKIN-COLOURED PIXEL ON THE ROW
+------------------------------------------------------------------------------------
+Part 2 is the face. The drawn row also carries part 1, the HEAD, which is wider than
+the face everywhere except the cheekbones -- and on the chin rows part 3, the NECK.
+All three are skin. Measured on the real frame, row by row:
+
+    row   rig(face)   posed(head+face)   +neck   drawn skin   verdict
+    y12       12            16             16        16       skin == head+face EXACTLY
+    y14       16            20             20        20       skin == head+face EXACTLY
+    y20       20            20             20        20       skin == head+face EXACTLY
+    y28       12            16             16        16       skin == head+face EXACTLY
+    y30        8             8             12        12       skin == head+face+NECK exactly
+    ...
+    UNEXPLAINED PIXELS, ACROSS EVERY ROW: ZERO
+
+Every "deviation" the ratchet has ever reported is the head being wider than the
+face. Anatomy, not error. And what moved across the flip was not the skinner: it was
+how much of the HEAD EDGE got counted once the upscaler stopped rounding corners off
+it.
+
+*** A RULER COMPARING TWO DIFFERENT REGIONS CANNOT BE REPAIRED BY RESCALING IT ***
+-----------------------------------------------------------------------------------
+That is the part worth keeping. My first pass this morning DID improve that gate: I
+turned a pixel count into a ratio so it would read the same at any resolution, wrote
+the reasoning out, and mutation-tested it in both directions. It was a well-built,
+carefully calibrated instrument pointed at the wrong thing, and every one of those
+good habits made the wrong answer MORE convincing, not less. Scale-free and wrong is
+still wrong.
+
+The tell I walked past: the numbers were suspiciously tidy. Every deviating row was
+off by exactly 4 at 112 and the zero rows stayed exactly zero. A real skinner defect
+does not come out constant across the whole face; a REGION MISMATCH does, because it
+is just one region minus another.
+
+WHAT THE GATE ASSERTS NOW
+-------------------------
+Like-for-like, and it costs nothing to state because it is exact:
+
+    THE POSED HEAD+FACE SILHOUETTE, ROW FOR ROW, IS THE RIG'S HEAD+FACE SILHOUETTE
+
+Same regions. Same space. Read off PART IDS, so no colour heuristic can confuse a
+neck for a jaw. And on ALL EIGHT FACINGS instead of the one it used to check:
+
+    S:0  SE:0  E:0  NE:0  N:0  NW:0  W:0  SW:0        total deviation 0
+
+The renderer reproduces his painted head exactly. Pinned at ZERO, which is a ratchet
+nobody can loosen. Mutation: widen the posed head by one cell on facing S and it
+fires, naming the facing and the amount (S:20).
+
+SAMPLED AT THE REST PHASE ON PURPOSE. At a moving phase the skinner is SUPPOSED to
+deform the head -- the bob, the turn -- so demanding it match the rest rig mid-stride
+would be asserting that animation does not happen. Measured for the record: at
+ph=0.37 the deviation is 12-44 per facing, and that is the animation working.
+
+THE PIXELS ARE STILL CHECKED. The gate's jaw-EDGE tone assertion is untouched: on the
+rows his art puts the dark anatomy index on, is the edge pixel darker than the one
+beside it? That is about what the renderer PAINTS, and it is the check that caught
+the real 8/11 bug.
+
+WHAT THIS COST, SAID PLAINLY
+----------------------------
+A false claim about the most dangerous code in the repo, published in four places,
+where the next session would have found it and gone hunting a bug that does not
+exist. The commit message cannot be edited; the record, the backlog row and the
+handoff are corrected, and the backlog now says DO NOT GO HUNTING A CHIN BUG in
+those words.
+
+THAT IS FOUR WRONG RULERS IN THREE DAYS, all the same shape:
+    8/19  REUSE FIRST  read a DOCSTRING mentioning putImageData as a tool that draws
+    8/20  DRESS        counted a SENTENCE about the wardrobe as a garment
+    8/20  PAGES        summed a surface the workflow stopped publishing weeks ago
+    8/20  BORDER       measured along a raster row, so a diagonal tread read as an
+                       8px border the moment corner-rounding came off
+    8/20  HEAD         compared a FACE to a HEAD and called the difference a debt
+THE COMMON FORM: the checker and the thing checked are in different units, different
+regions, or different files, and nothing in the machine notices because the number
+still looks like a number. WHEN A RATCHET MOVES, ASK WHAT IT COMPARES BEFORE YOU ASK
+WHAT BROKE.
+
+ALSO DONE THIS TURN
+-------------------
+  wear() -- the salvage scuffing -- hashed the RAW PIXEL INDEX, so at 112 each of the
+  four sub-pixels of a cell got its own coin flip and a worn coat read as television
+  static instead of cloth. It hashes the CELL now. Proved identical at 56 by
+  measurement, not assertion: 4,184 pixels across four scuff amounts, 0 different.
+  That was the last per-pixel hash left in the wardrobe path.
+
+  THE LOOK TAB WAS RED ON MAIN AND UNCLEARABLE BY ANYBODY. Twelve city pictures had
+  gone stale (the WORLD lane edited the city today) and NONE of them recorded a
+  `shooter`, so the gate could only say "NO SHOOTER RECORDED -- add one" and no lane
+  knew the command. All seventeen shots that tool takes now name it, and the twelve
+  were retaken. Seven CHARACTER pictures were genuinely stale too -- the character is
+  four times the pixels since this morning -- and those were retaken from their own
+  shooters.
+
+  node gates/head_follows_rig_gate.js   5/0   deviation 0 on all 8 facings
+  node gates/look_gate.js              24/0   27 pictures, none stale

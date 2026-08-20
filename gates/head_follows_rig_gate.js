@@ -60,8 +60,38 @@ const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
    RATCHET STILL ONLY SHRINKS, and it is now the instrument that says WHERE the "his
    head renders as a box" finding actually lives: the chin, and the row under the
    mouth. Fix the skinner there and this number falls. */
-const PINNED_RATIO = 0.211;   // sum|game-rig| / sum(rig width), scale-free (only ever shrinks)
-const PINNED_WORSTR = 0.50;   // the worst single row's error as a fraction of that row's rig width
+/* *** CORRECTED 8/20, SECOND PASS: THIS RATCHET NEVER MEASURED WHAT IT CLAIMED. ***
+   It compared the width of the rig's painted FACE region (part 2) against EVERY
+   SKIN-COLOURED PIXEL on the row. Those are different regions. The drawn row also
+   contains the HEAD (part 1), which is wider than the face everywhere except the
+   cheekbones, and on the chin rows the NECK (part 3) as well -- all three are skin.
+   Measured, row by row, every single "deviation" is exactly accounted for:
+
+       y12..y29   drawn skin == posed HEAD+FACE, to the pixel
+       y30..y31   drawn skin == posed HEAD+FACE+NECK, to the pixel
+       UNEXPLAINED PIXELS: ZERO
+
+   So the "jaw debt" was the head being wider than the face. Anatomy, not error.
+   AND IT TOOK ME WITH IT: earlier today I read the same ruler moving 13 -> 64 across
+   the 112 flip and wrote down "the skinner was always drawing the chin two cells too
+   wide, Scale2x was hiding it". THAT IS WRONG and it is corrected in
+   records/BOHEMIA_THE_FLIP_SHIPPED_BECAUSE_HE_COULD_NOT_SEE_IT_8_20_26.txt. What
+   actually moved was how much of the HEAD edge got counted once the upscaler stopped
+   rounding corners off it. A ruler comparing two different regions cannot be repaired
+   by rescaling it, which is what I did the first time.
+
+   WHAT IT ASSERTS NOW IS LIKE-FOR-LIKE AND EXACT: the posed head+face silhouette,
+   row for row, IS the rig's head+face silhouette. Same regions, same space, and
+   measured on ALL EIGHT FACINGS instead of one. That is what "the head follows the
+   rig" means, and the renderer passes it at ZERO on every facing, so the ratchet is
+   pinned at zero and cannot be loosened by anybody, ever.
+   SAMPLED AT THE REST PHASE ON PURPOSE: at a moving phase the skinner is SUPPOSED to
+   deform the head (the bob, the turn), so demanding it equal the rest rig mid-stride
+   would be asserting that animation does not happen. Measured for the record: at
+   ph=0.37 the deviation is 12-44 per facing, which is the animation working.
+   THE PIXELS ARE STILL CHECKED -- by the jaw-edge tone assertion below, which is
+   about what the renderer PAINTS and is the check that caught the real 8/11 bug. */
+const PINNED_POSE_DEV = 0;    // posed head+face vs rig head+face, per row, all 8 facings
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
@@ -80,7 +110,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     if (typeof BAKED === 'undefined' || !BAKED.layers || !BAKED.layers.S) return { err: 'no BAKED.layers.S' };
     /* the rig's painted FACE, per row */
     const rig = {};
-    for (const i of (BAKED.layers.S['2'] || [])) {
+    for (const i of (BAKED.layers.S['1'] || []).concat(BAKED.layers.S['2'] || [])) {
       const x = i % BAKED.W, y = (i / BAKED.W) | 0;
       const a = rig[y] || (rig[y] = { a: 99, b: -1 });
       if (x < a.a) a.a = x; if (x > a.b) a.b = x;
@@ -102,22 +132,34 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const _SC = PL / (BAKED.W || 56);
     const at = (x, y) => { const i = ((y * _SC) * PL + (x * _SC)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
     const isSkin = c => c && SK.some(r => Math.abs(c[0] - r[0]) + Math.abs(c[1] - r[1]) + Math.abs(c[2] - r[2]) < 40);
+    /* THE POSED HEAD IS THE RIG'S HEAD, on every facing. Compare the SAME regions
+       (head + face) in the SAME space (the posed part grid the renderer composes
+       from), row for row. No colour heuristic can confuse this: it reads part ids. */
     const rows = [];
     let total = 0, worst = 0, worstY = -1, rigSum = 0, worstR = 0;
-    for (const ys of Object.keys(rig).map(Number).sort((a, b) => a - b)) {
-      /* *** SCAN THE WHOLE CHARACTER. *** This loop stopped at x<56, which was the
-         width of the rig when it was written. At a 112 rig the head sits around
-         x=40..75, so the ruler walked off its own measurement halfway across his
-         face and reported the skin as HALF as wide as the rig paints it -- 20 vs
-         10, every row, which reads exactly like a catastrophic regression and is
-         nothing but a tape measure that stops at 56. */
-      let a = 99, b = -1;
-      for (let x = 0; x < BAKED.W; x++) if (isSkin(at(x, ys))) { if (x < a) a = x; if (x > b) b = x; }
-      if (b < 0) continue;
-      const rw = rig[ys].b - rig[ys].a + 1, gw = b - a + 1, dv = Math.abs(gw - rw);
-      rows.push({ y: ys, rig: rw, game: gw, d: dv, r: dv / Math.max(1, rw) });
-      total += dv; rigSum += rw;
-      if (dv / Math.max(1, rw) > worstR) { worstR = dv / Math.max(1, rw); worst = dv; worstY = ys; }
+    const perFacing = [];
+    for (const fd of ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']) {
+      const fr = {};
+      for (const i of (BAKED.layers[fd]['1'] || []).concat(BAKED.layers[fd]['2'] || [])) {
+        const x = i % BAKED.W, y = (i / BAKED.W) | 0;
+        const a = fr[y] || (fr[y] = { a: 1e9, b: -1 });
+        if (x < a.a) a.a = x; if (x > a.b) a.b = x;
+      }
+      let ff = null; try { ff = buildFrame(fd, 'idle', 0); } catch (e) {}
+      if (!ff) { perFacing.push({ d: fd, rows: 0, dev: -1 }); continue; }
+      let dev = 0, n = 0;
+      for (const ys of Object.keys(fr).map(Number).sort((a, b) => a - b)) {
+        let a = 1e9, b = -1;
+        for (let x = 0; x < ff.CW; x++) { const v = ff.grid[ys * ff.CW + x];
+          if (v === 1 || v === 2) { if (x < a) a = x; if (x > b) b = x; } }
+        if (b < a) continue;
+        const rw = fr[ys].b - fr[ys].a + 1, gw = b - a + 1, dv = Math.abs(gw - rw);
+        dev += dv; n++;
+        if (fd === 'S') { rows.push({ y: ys, rig: rw, game: gw, d: dv });
+          total += dv; rigSum += rw;
+          if (dv > worst) { worst = dv; worstY = ys; } }
+      }
+      perFacing.push({ d: fd, rows: n, dev: dev });
     }
     /* THE EDGE ITSELF, because the width ruler above is BLIND TO IT. The fix was
        a TONE, not a geometry change: the head/face now takes the darker anatomy
@@ -152,6 +194,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     }
     return { rows: rows, total: total, worst: worst, worstY: worstY,
              ratio: total / Math.max(1, rigSum), worstR: worstR, rigSum: rigSum,
+             perFacing: perFacing, poseDev: perFacing.reduce((a, f) => a + Math.max(0, f.dev), 0),
              rigRows: Object.keys(rig).length, edged: edged, checked: checked };
   });
 
@@ -163,19 +206,15 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
   ok('his painted face is readable off the rig (' + R.rigRows + ' rows)', R.rigRows >= 8);
   ok('the head was measured against the rig at all (' + R.rows.length + ' comparable rows)', R.rows.length >= 8);
-  ok('THE JAW DEBT ONLY SHRINKS: the face is off by ' + (R.ratio * 100).toFixed(1) +
-     '% of its own width (' + R.total + 'px over ' + R.rigSum + 'px of rig, pinned at ' +
-     (PINNED_RATIO * 100).toFixed(1) + '%) — nobody may make the head follow his rig ' +
-     'LESS well than it does today, at any resolution',
-     R.ratio <= PINNED_RATIO + 1e-9);
-  ok('THE WORST ROW ONLY SHRINKS: y' + R.worstY + ' is ' + (R.worstR * 100).toFixed(0) +
-     '% too wide (' + R.worst + 'px on a ' + (R.rows.find(q => q.y === R.worstY) || {}).rig +
-     'px row, pinned at ' + (PINNED_WORSTR * 100).toFixed(0) + '%) — this is the flat shelf ' +
-     'under the mouth he circled', R.worstR <= PINNED_WORSTR + 1e-9);
-  if (R.ratio < PINNED_RATIO - 1e-9 || R.worstR < PINNED_WORSTR - 1e-9)
-    console.log('  *** THE HEAD FOLLOWS THE RIG BETTER THAN THE PIN. Lower PINNED_RATIO to ' +
-      R.ratio.toFixed(3) + ' and PINNED_WORSTR to ' + R.worstR.toFixed(2) +
-      ' in this file so it can never slide back. ***');
+  const badF = (R.perFacing || []).filter(f => f.dev !== 0);
+  ok('*** THE POSED HEAD IS HIS RIG\'S HEAD, ROW FOR ROW, ON ALL EIGHT FACINGS *** (' +
+     (R.perFacing || []).map(f => f.d + ':' + f.dev).join(' ') + ') — total deviation ' +
+     R.poseDev + ', pinned at ' + PINNED_POSE_DEV + ' and it may never rise',
+     R.poseDev <= PINNED_POSE_DEV);
+  ok('every facing was actually compared, none silently skipped (' +
+     (R.perFacing || []).map(f => f.rows).join('/') + ' rows)',
+     (R.perFacing || []).length === 8 && (R.perFacing || []).every(f => f.rows >= 8));
+  if (badF.length) console.log('  facings that drifted: ' + badF.map(f => f.d + ' by ' + f.dev).join(', '));
 
   /* THE JAW LINE EXISTS AT ALL. Before 8/11 the head was the ONE body part
      excluded from the border test (`if (g !== 0)`, and GROUP puts head and face in

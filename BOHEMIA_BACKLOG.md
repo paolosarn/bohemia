@@ -6148,12 +6148,18 @@ RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
    (the RULER was wrong -- it measured along a raster row, which on a diagonal reads
    a staircase tread as an 8px border once Scale2x stops rounding corners; it takes
    the smaller of both axes now, which is stricter).
-   AND ONE REAL FINDING, NOT A RE-BLESS -- HEAD FOLLOWS RIG. Its pin was FLATTERED:
-   in 56-equivalent cells the chin went from "exactly right" to "two cells wide"
-   purely by removing the smoothing, so THE SKINNER WAS ALWAYS DRAWING IT THAT WIDE
-   and Scale2x was trimming the corner. The ratchet is a RATIO now (0.171 -> 0.211
-   of the face's own width), scale-free forever, and it is the instrument that says
-   where "the head is a box" actually lives: the chin and the row under the mouth.
+   AND ONE I CALLED A FINDING THAT WAS WRONG, CORRECTED THE SAME DAY -- HEAD FOLLOWS
+   RIG. I published "the skinner was always drawing the chin two cells too wide".
+   IT IS NOT TRUE. That ratchet compared the rig's painted FACE (part 2) against
+   EVERY SKIN-COLOURED PIXEL on the row, which also holds the HEAD (part 1, wider
+   than the face everywhere but the cheekbones) and, on the chin rows, the NECK.
+   Measured: y12-y29 drawn == posed HEAD+FACE to the pixel, y30-y31 == HEAD+FACE+
+   NECK to the pixel, ZERO unexplained. There is no jaw debt and there never was.
+   A RULER COMPARING TWO DIFFERENT REGIONS CANNOT BE REPAIRED BY RESCALING IT, which
+   is what I did first -- made it a ratio, scale-free, mutation-tested, and pointed
+   at the wrong thing. It asserts like-for-like now: the POSED head+face silhouette
+   IS the rig's, row for row, read off PART IDS, on ALL EIGHT FACINGS, deviation 0
+   on every one, pinned at zero and unloosenable. DO NOT GO HUNTING A CHIN BUG.
    MEMORY, measured as this row demanded: a PLAYER holds 25.4 MB and RUN adds ZERO.
    The CLOTHES tab quadrupled (25 -> 96.8 MB) because it keeps a live canvas per
    garment; off-screen canvases release their backing store now, 96.8 -> 2.4 MB, so

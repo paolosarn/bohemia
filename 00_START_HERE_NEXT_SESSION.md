@@ -1,3 +1,66 @@
+CHARACTER (character-0lurbs): 8/20 (f) LATEST -- *** I PUBLISHED A BUG THAT DOES NOT
+EXIST AND THEN WENT TO FIX IT. THERE IS NO JAW DEBT. ***
+
+This morning I wrote, in a commit and a record and this file: "the skinner was always
+drawing the chin two cells too wide, Scale2x was hiding it." IT IS NOT TRUE.
+
+HEAD FOLLOWS RIG compares the rig's painted FACE (part 2) against EVERY SKIN-COLOURED
+PIXEL on the row. The row also carries the HEAD (part 1, wider than the face
+everywhere but the cheekbones) and, on the chin rows, the NECK. All three are skin.
+Measured row by row on the real frame:
+    y12-y29   drawn skin == posed HEAD+FACE        to the pixel
+    y30-y31   drawn skin == posed HEAD+FACE+NECK   to the pixel
+    UNEXPLAINED PIXELS: ZERO
+Every deviation it has ever reported is the head being wider than the face. Anatomy.
+
+*** A RULER COMPARING TWO DIFFERENT REGIONS CANNOT BE REPAIRED BY RESCALING IT. ***
+My first pass DID improve that gate -- turned a pixel count into a resolution-free
+ratio, wrote out the reasoning, mutation-tested both directions. A well-built
+instrument pointed at the wrong thing, and every good habit made the wrong answer
+more convincing. The tell I walked past: every deviating row was off by EXACTLY 4 and
+every zero row stayed exactly zero. A real defect is not constant across a face; a
+region mismatch is, because it is one region minus another.
+
+IT ASSERTS LIKE-FOR-LIKE NOW, and it is exact: the POSED head+face silhouette, row
+for row, IS the rig's -- same regions, same space, read off PART IDS, on ALL EIGHT
+FACINGS instead of one.  S:0 SE:0 E:0 NE:0 N:0 NW:0 W:0 SW:0, total 0, PINNED AT ZERO
+and unloosenable. Mutation: widen the posed head one cell on S and it fires naming
+the facing. Sampled at the REST phase on purpose -- at ph=0.37 deviation is 12-44,
+which is the animation working, not a bug.
+DO NOT GO HUNTING A CHIN BUG. Correction:
+records/BOHEMIA_THERE_IS_NO_JAW_DEBT_AND_THERE_NEVER_WAS_8_20_26.txt
+
+THAT IS FIVE WRONG RULERS IN THREE DAYS (reuse-first read a docstring as code; dress
+counted a sentence as a garment; pages summed a surface we stopped publishing;
+border measured a diagonal along a raster row; head compared a face to a head). THE
+COMMON FORM: checker and checked are in different units, regions or files, and
+nothing notices because the number still looks like a number. WHEN A RATCHET MOVES,
+ASK WHAT IT COMPARES BEFORE YOU ASK WHAT BROKE.
+
+ALSO SHIPPED
+  wear() hashed the RAW PIXEL INDEX, so at 112 each sub-pixel got its own coin flip
+  and a salvaged coat read as television static. Hashes the CELL now; proved
+  identical at 56 by measurement (4,184 pixels, 4 scuff amounts, 0 different). Last
+  per-pixel hash in the wardrobe path.
+
+  THE LOOK TAB WAS RED ON MAIN AND NOBODY COULD CLEAR IT: twelve city pictures went
+  stale when the WORLD lane edited the city, and none recorded a `shooter`, so the
+  gate could only say "NO SHOOTER RECORDED". All seventeen shots that tool takes now
+  name it and the twelve were retaken. Seven CHARACTER pictures were genuinely stale
+  (the character is 4x since this morning) and were retaken too. 24/0, 27 pictures.
+
+NEXT IN THIS LANE
+  - STEP (5) of row 2X is open and is the headline now: real authored detail per
+    garment and hairstyle at 112, plus the fade-blends-into-skin-tone item his
+    hair-and-shape law marks [UNBUILT]. Normal cooks, his normal thumbs.
+  - CANVAS MEMORY is still red and still NOT this lane's: 104 full-resolution images
+    decode to 850 MB (VOTE 69 / 633 MB, ART 27 / 209 MB), byte-identical before and
+    after the flip. Quantizing cannot help -- decoded cost is w*h*4 whatever the file
+    weighs. It needs smaller DIMENSIONS.
+  - #354 TASTE and #356 ART 45 remain red and remain other lanes' content.
+
+---
+
 WORLD (world-9lfjtf): 8/20 (j) LATEST -- *** THE CROSSWALK GAP I REPORTED DOES NOT EXIST,
 AND THE GATE THAT AGREED WITH ME WAS MEASURING ITS OWN BLIND SPOT. No tab changes. ***
 
