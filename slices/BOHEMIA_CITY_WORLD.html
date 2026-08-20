@@ -35223,7 +35223,13 @@ function ctClaimRows(body, rule, fid, given){
      the bypass is invisible: the player just sees an outfit that will not leave
      them alone and cannot tell it is the free thing they took, which is the one
      fact that would have made it a decision. */
-  if(BohemiaClaim.WORDS.owing && ctOwedTo(rule.key) > 0)
+  /* __CITY_WORSTCARD__ -- AND THIS ROW IS A NOTE BY ITS OWN NAME. Both halves
+     are global constants (WORDS.owing / WORDS.owing_note), identical on every
+     person of every outfit forever, which is the fold's own test. It explains WHY
+     the ask came early; the live fact -- that you owe, and how much -- is on the
+     YOU OWE THEM row directly below and is untouched. It only had a LABEL rather
+     than an empty one, which is the sole reason __CITY_NOTESFOLD__ missed it. */
+  if(BohemiaClaim.WORDS.owing && ctOwedTo(rule.key) > 0 && !CT_NOTES_FOLDED)
     body += ctRow(BohemiaClaim.WORDS.owing, BohemiaClaim.WORDS.owing_note);
   return body;
 }
@@ -35346,15 +35352,23 @@ function ctHearRows(body, fid){
      so returning first would have killed this row in exactly the case it is most
      about: the game would announce that both sides can see you and say nothing
      at all when you are the only route between them. */
+  var ctTer = null;      /* __CITY_WORSTCARD__ -- read again below */
   try {
-    var ctTer = BohemiaCommitment.tertius(ctStandings(), heard);
+    ctTer = BohemiaCommitment.tertius(ctStandings(), heard);
     if(ctTer){
       body += ctRow('YOUR POSITION', ctTer.word);
       body += ctNote(ctTer.note);
     }
   } catch(_e){}
   if(!heard.length){
-    body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT IN THIS VALLEY HAS A LINE TO THEM.');
+    /* __CITY_WORSTCARD__ -- ...unless YOUR POSITION just said it. Tertius answers
+       GAUDENS on exactly the condition that makes this row say NOBODY, because an
+       empty `heard` IS the structural hole -- so printing both is one fact twice,
+       and the position row is the better half: it says what the fact MEANS rather
+       than restating the graph. A DUPLICATE IS NOT DISCLOSURE (8/18). This row
+       stays wherever tertius has nothing to say, which is most of the game. */
+    if(!ctTer)
+      body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT IN THIS VALLEY HAS A LINE TO THEM.');
     return body;
   }
   var fact=[], rumour=[];
@@ -35560,6 +35574,15 @@ function ctDraw(){
          use-before-assign class has bitten this file. Order is a fact. */
       /* __CITY_HISTORY__ -- folded on HISTORY, not on the count. A player
          whose standing decayed to nothing has still read these terms. */
+      /* __CITY_WORSTCARD__ -- is the live claim about to say the want word?
+         Read HERE, above the row that uses it: `var` hoisting has silently
+         killed three things in this function already and order is a fact. */
+      var ctFoldWant = bar.wantWord;
+      try {
+        var ctFoldClaim = ctClaimOf(bRule, BohemiaBelonging.gaveOf(bState.sv, ctFid));
+        if(ctFoldClaim && String(ctFoldClaim.what) === String(bar.wantWord))
+          ctFoldWant = null;
+      } catch(_e){}
       if(ctTermsFolded(ctEverDealt(bState.sv, ctFid) ? 1 : 0)){
         /* THE WHOLE ROW IS THE TAP TARGET, NOT THE WORDS. Measured on a real
            touch page: the underlined span alone is 153x14px, and Apple's HIG
@@ -35568,8 +35591,13 @@ function ctDraw(){
            the underline stays as the thing that says it is tappable. */
         body += '<div class="r" id="ctterms" style="cursor:pointer;padding:15px 0;margin-top:0">'
           + '<div class="k">THEIR TERMS</div><div class="v">'
-          + '<span style="text-decoration:underline">' + bar.wantWord
-          + ' &middot; tap to read</span></div></div>';
+          + '<span style="text-decoration:underline">'
+          /* __CITY_WORSTCARD__ -- ...unless the live claim is already saying it.
+             See the note in tools/bohemia_city_worstcard_patch.py: A5 keeps the
+             live question, so the SUMMARY is the redundant half. Fails safe --
+             an early read that misses a claim keeps the word. */
+          + (ctFoldWant ? ctFoldWant + ' &middot; ' : '')
+          + 'tap to read</span></div></div>';
       } else {
         body += ctRow('THEY WANT', bar.wantWord);
         if(bar.holds) body += ctRow('THEY HOLD', bar.holds.split('.')[0]);
@@ -35607,7 +35635,16 @@ function ctDraw(){
         body += ctRow('YOU ARE', 'NOT A STRANGER, AND NOT MUCH ELSE. THEY KNOW '
           + 'WHAT YOU DID AND THEY KNOW YOU STOPPED.');
       }
-      else if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
+      /* __CITY_WORSTCARD__ -- ...and not when THE WALL is about to say it.
+         At a blocking wall ctWall.reaches IS the rung word, and this row has
+         already dropped its progress clause because turning up buys nothing
+         there -- so it says one word the wall row then repeats inside a fuller
+         sentence. A DUPLICATE IS NOT DISCLOSURE. Guarded on the words actually
+         matching, so a future wall that reaches somewhere else keeps both. */
+      else if(bar.rung && ctLadder
+              && !(ctWall && ctWall.atWall && ctWall.blocks
+                   && String(ctWall.reaches) === String(bar.rung.word)))
+        body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
       /* __CITY_NEGLECT__ -- AND WHAT A QUIET DAY COSTS, on the row that

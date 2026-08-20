@@ -140,7 +140,21 @@ async function busiestReachable() {
       R.forEach(a => { CT_MET.meet('P:city:' + a.__id, 1); CT_MET.ask('P:city:' + a.__id, 1); });
       const fid = ctFactionOf(rec), sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
-      sv.meta.gave[fid] = 6; sv.meta.owed[fid] = 3; sv.meta.commit[fid] = 'sided';
+      /* AND THE WORST CASE IS AT THE **WALL**, WHICH THIS ALSO USED TO MISS.
+         gave 6 against the sided ceiling of 9 is mid-climb: no wall row, no pass
+         note, no hear row, no position row. Measured four states on one person:
+             gave 6, sided, owing                    734px  87%
+             at the sided-wall, no other standing    799px  95%   <- already over
+             AT THE sided-WALL + other standing      838px  99%   <- the real worst
+         The 95% line is the one that matters: the card was through the bar at the
+         wall BEFORE tertius existed and nothing had ever stood there. Fixing a bar
+         by adding the case that just bit you, instead of asking what the maximum
+         is, leaves the neighbour. THE WALL IS WHERE EVERY SYSTEM IS ON AT ONCE. */
+      sv.meta.gave[fid] = 9; sv.meta.owed[fid] = 3; sv.meta.commit[fid] = 'sided';
+      /* real standing with a SECOND outfit, so the position row is on too */
+      const other = R.map(a => String(a.faction || '').toUpperCase())
+                     .filter(f => f && f !== String(fid).toUpperCase())[0];
+      if (other) for (let i = 0; i < 3; i++) BohemiaBelonging.record(sv, other, 0);
       ctSawCell(); ctClose(); ctOpen();
       const c = document.getElementById('ctcard');
       const snap = () => ({ px: Math.round(c.getBoundingClientRect().height),
@@ -156,12 +170,32 @@ async function busiestReachable() {
         false, out.skip);
       return;
     }
-    ok('A12 the busiest card the game can reach — INCLUDING a vouch, which A1 never '
-      + 'stands close enough to see — still FITS on the phone',
+    ok('A12 the FULLEST state the game can reach — at the wall, committed, owing, '
+      + 'vouched for, and standing with a second outfit, which is every system on '
+      + 'the card at once — still FITS on the phone',
       out.folded.px < VIEW.height * 0.90,
       out.folded.px + 'px of ' + VIEW.height + ' ('
       + Math.round(100 * out.folded.px / VIEW.height) + '%)'
-      + ' — it was 833px / 99% the day the vouch shipped');
+      + ' — 838px / 99% before the four duplicate rows came off');
+
+    ok('A17 …and that card really is AT THE WALL with a second standing, so A12 is '
+      + 'measuring the maximum rather than a comfortable state that happens to '
+      + 'pass. A bar that does not measure the worst case is not a bar',
+      /THE WALL/.test(out.folded.text) && /YOUR POSITION/.test(out.folded.text),
+      JSON.stringify({ wall: /THE WALL/.test(out.folded.text),
+                       position: /YOUR POSITION/.test(out.folded.text),
+                       vouch: /WHO PUT YOU ON/.test(out.folded.text) }));
+
+    ok('A18 …and nothing on it is printed twice. Four rows repeated something the '
+      + 'card already said — the position and the hear row, the owing note, the '
+      + 'fold summary and the live claim, and YOU ARE against the wall row — and '
+      + 'a duplicate is not disclosure',
+      !/YOUR POSITION[\s\S]*NOBODY\. NO OUTFIT/.test(out.folded.text)
+      && !(function () {
+        const m = out.folded.text.match(/THEY ARE ASKING YOU\n([^\n]*)/);
+        return !!(m && out.folded.text.indexOf(m[1] + ' · tap to read') >= 0);
+      })(),
+      JSON.stringify(out.folded.text.split('\n').slice(0, 30)));
     /* THE HEADLINE IS LIVE, THE EXPLANATION IS THE OUTFIT'S. */
     ok('A13 an explainer folds with the outfit\'s terms while the headline it '
       + 'explains stays on the card — what is asked and what is on offer are '
