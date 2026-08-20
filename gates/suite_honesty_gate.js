@@ -228,6 +228,57 @@ ok('A9 …and a filtered run NEVER says ALL GATES GREEN — it says how many of 
   }
 }
 
+/* ---- 6b. THE BOX IS NOT OVERSUBSCRIBED, AND THIS MEASURES IT ---------------- */
+/* THE COMMENT SAID ONE THING AND THE CODE DID ANOTHER, for as long as the
+   parallel runner has existed. The runner's own words were "pure gates get all
+   the cores and browsers get half" -- but a browser gate held ONLY the browser
+   semaphore, so a four-core container ran JOBS pure PLUS BROWSER_JOBS browser
+   at the same time: four and two, fifty percent oversubscribed, for exactly the
+   gates that MEASURE TIME. The runner had even written down what that costs
+   ("oversubscribe the box and they fail for LOAD rather than for truth") and
+   then paid it anyway: FIGHT MUSIC and FIRST NIGHT both came up red in the run
+   and green alone, and the confirm-alone pass bought a second full run of each
+   to discover it.
+
+   SO THIS CLAIM DOES NOT READ THE SOURCE. It hands the runner a trace file,
+   runs real gates with a known cap, and computes the PEAK number that were ever
+   inside the box at the same instant. A regex would have passed happily on the
+   broken version -- the words were right, the nesting was not. */
+{
+  const os = require('os');
+  const TRACE = path.join(os.tmpdir(), 'bohemia_suite_trace_' + process.pid + '.tsv');
+  try { fs.unlinkSync(TRACE); } catch (e) { }
+  /* cheap, pure, and there are more of them than there are slots, so the cap is
+     the only thing that can hold the peak down */
+  /* --dry-run, because this gate runs INSIDE the suite and ONE SUITE AT A TIME
+     holds the lock -- a real nested run is refused by design, which is what the
+     first version of this claim discovered by getting an empty trace. Dry is
+     enough: the scheduler, the semaphores and the trace are the same code on
+     both paths, and trace mode deliberately holds each slot so occupancy is
+     observable rather than a coin flip. */
+  const JOBS = 2;
+  const r = runSuite({ BOHEMIA_SUITE_TRACE: TRACE, BOHEMIA_JOBS: String(JOBS), BOHEMIA_BROWSER_JOBS: '1' },
+    ['--dry-run']);
+  let peak = 0, cur = 0, rows = 0;
+  try {
+    const ev = fs.readFileSync(TRACE, 'utf8').trim().split('\n').filter(Boolean)
+      .map(l => l.split('\t')).map(c => ({ ev: c[0], t: Number(c[1]) }))
+      .sort((a, b) => a.t - b.t || (a.ev === 'OUT' ? -1 : 1));
+    rows = ev.length;
+    for (const e of ev) { cur += (e.ev === 'IN' ? 1 : -1); if (cur > peak) peak = cur; }
+  } catch (e) { rows = 0; }
+  try { fs.unlinkSync(TRACE); } catch (e) { }
+  ok('A17 THE RUNNER TELLS THE TRUTH ABOUT HOW MANY GATES IT RUNS AT ONCE — '
+    + 'measured by tracing real gates in and out of the box, never by reading '
+    + 'the comment that was wrong for months',
+    rows > 0 && peak > 0 && peak <= JOBS, JSON.stringify({ peak, cap: JOBS, rows, code: r.code }));
+  /* and it must actually REACH the cap, or the measurement proves nothing: a
+     runner that accidentally serialised everything would also report peak <= 2 */
+  ok('A18 …and it really does run them in parallel, so A17 is a ceiling that was '
+    + 'actually touched and not a suite that quietly went single-file',
+    peak === JOBS, JSON.stringify({ peak, cap: JOBS }));
+}
+
 /* ---- 7. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
 ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',

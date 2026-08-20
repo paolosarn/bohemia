@@ -2402,6 +2402,7 @@ SUITE_BUDGET = int(os.environ.get('BOHEMIA_SUITE_BUDGET', '2700'))
 # run alone. Those gates measure TIME. Oversubscribe the box and they fail for
 # LOAD rather than for truth, and A SUITE THAT INVENTS REDS IS WORSE THAN A SLOW
 # ONE. So pure gates get all the cores and browsers get half, both tunable.
+import contextlib
 import threading
 
 _CPUS = os.cpu_count() or 4
@@ -2719,12 +2720,43 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
     stop = threading.Event()
     sem_pure = threading.Semaphore(max(1, JOBS))
     sem_browser = threading.Semaphore(max(1, BROWSER_JOBS))
+    # a do-nothing slot, so the pure path is the SAME two-context statement as
+    # the browser path and cannot drift out of sync with it
+    _NULLSEM = contextlib.nullcontext()
+    # A CLAIM IN A COMMENT IS NOT ENFORCED. The line above says total concurrency
+    # is now JOBS; this is how a gate can CHECK that instead of taking my word.
+    # Off unless a path is handed in, so a normal run writes nothing.
+    _trace_path = os.environ.get('BOHEMIA_SUITE_TRACE')
+    _trace_lock = threading.Lock()
+
+    def _trace(ev, nm):
+        if not _trace_path:
+            return
+        with _trace_lock:
+            with open(_trace_path, 'a', encoding='utf8') as fh:
+                fh.write('%s\t%.6f\t%s\n' % (ev, time.time(), nm))
 
     def one(item):
         i, name, argv, what = item
         heavy = is_browser_gate(argv)
-        sem = sem_browser if heavy else sem_pure
-        with sem:
+        # A BROWSER GATE TAKES A CORE **AND** A BROWSER SLOT (8/20). The comment
+        # above says "pure gates get all the cores and browsers get half", and
+        # that is not what the code did: a browser gate held ONLY the browser
+        # semaphore, so the box could run JOBS pure + BROWSER_JOBS browser at
+        # once -- 4 + 2 on a four-core container. Fifty percent oversubscribed,
+        # for exactly the gates that MEASURE TIME.
+        #
+        # That is the failure this file already warned about in its own words --
+        # "oversubscribe the box and they fail for LOAD rather than for truth" --
+        # and it kept happening: FIGHT MUSIC ("lands at the top of the next bar,
+        # want 2, layers 0") and FIRST NIGHT both came up red in the run and
+        # green alone, and the confirm-alone pass paid for a second full run of
+        # each to find that out.
+        #
+        # Nesting is deadlock-free by ORDER: browser takes browser-then-core and
+        # pure takes core only, so a pure gate never waits on a browser slot and
+        # there is no cycle to close. Total concurrency is now JOBS, full stop.
+        with (sem_browser if heavy else _NULLSEM), sem_pure:
             # THE BUDGET STOPS DISPATCH, NOT EXECUTION. A gate already running is
             # allowed to finish and answer; cutting it mid-sentence would turn a
             # real verdict into silence, which is the bug this whole sweep is
@@ -2737,10 +2769,25 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
             with lock:
                 dispatched.add(i)
             t = time.time()
-            if dry:
-                rc, out = 0, ''
-            else:
-                rc, out = run(argv)
+            _trace('IN', name)
+            try:
+                if dry:
+                    rc, out = 0, ''
+                    # TRACE MODE HOLDS THE SLOT ON PURPOSE. A dry gate's body is
+                    # a nanosecond long, so two threads would essentially never
+                    # be observed inside the box at once and a concurrency
+                    # measurement would be a coin flip -- and a flaky claim is
+                    # worse than no claim. Tracing is an off-by-default
+                    # diagnostic whose entire job is to make occupancy visible,
+                    # so in trace mode a dry gate occupies its slot long enough
+                    # to be seen. Costs nothing on a normal run: _trace_path is
+                    # None and this branch never executes.
+                    if _trace_path:
+                        time.sleep(0.01)
+                else:
+                    rc, out = run(argv)
+            finally:
+                _trace('OUT', name)
             with lock:
                 results[i] = (name, what, rc == 0, out, time.time() - t)
 
