@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20p - THE STREET NOBODY FURNISHED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20e - GETTING PAID SOUNDS LIKE SOMETHING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7821,6 +7821,10 @@ function combatMsgIn(d){
   }
   if(d.bohemiaCityState!==undefined){
     CITYSAVE.save(d.bohemiaCityState);
+    /* AND THE MUSIC HEARS A PAYDAY (8/20). This snapshot already carries the
+       purse ledger, so being paid is visible from here without the city world
+       having to say anything. See PAYSTING. */
+    try{ if(window.PAYSTING)PAYSTING.onState(d.bohemiaCityState); }catch(_e){}
     return true;
   }
   if(d.bohemiaCitySaveQuery!==undefined){
@@ -12328,7 +12332,12 @@ const STING={
     win:  { v:'glasshope', g:0.20, sd:0.16, oct:12,
             n:[[0,0],[7,2],[12,4],[19,7]] },     /* rising, and it keeps rising */
     loss: { v:'subboom',   g:0.26, sd:0.34, oct:-12,
-            n:[[12,0],[7,4],[0,9]] }             /* falling, and it lands heavy */
+            n:[[12,0],[7,4],[0,9]] },            /* falling, and it lands heavy */
+    /* GETTING PAID (8/20). Deliberately the smallest of the three: two notes,
+       root and fifth, no octave. A water run in a dead valley is not a boss
+       kill, and if it were scored like one then neither would mean anything. */
+    paid: { v:'coldpiano', g:0.20, sd:0.22, oct:0,
+            n:[[0,0],[7,3]] }
   },
   /* the next BEAT is four 16th-steps of grid away at most */
   when(){
@@ -12374,6 +12383,44 @@ const STING={
   }
 };
 window.STING=STING;
+/* ===== PAYSTING (8/20/26) -- GETTING PAID SOUNDS LIKE SOMETHING ==========
+   A job ends, the purse is credited, the number in his phone goes up, and it
+   makes no sound. In a game whose whole subject is a collapsed economy, money
+   arriving is the most loaded event there is.
+
+   IT READS A SIGNAL THAT ALREADY ARRIVES. The city world posts its whole state
+   up here as bohemiaCityState for the autosave, and that snapshot carries the
+   purse -- which is a LEDGER, {id, day, entries[]}, not a total. So a payday is
+   visible from this side as new entries with kind 'source'. Nothing had to be
+   added to the city world, which belongs to another lane and shipped into today.
+
+   THE THREE FALSE POSITIVES IT REFUSES, because a sting that fires wrongly is
+   worse than one that never fires:
+     a RESTORE hands over a whole ledger at once -- the first snapshot of a
+       session is the baseline and never sounds;
+     SPENDING appends 'drain' entries -- losing money gets no flourish;
+     the report is DEBOUNCED and re-fires the same state -- only growth counts. */
+const PAYSTING={
+  seen:null,                      /* how many entries we had last time */
+  onState(st){
+    try{
+      var e=(st&&st.purse&&st.purse.entries)||null;
+      if(!e||!e.length){ if(st&&st.purse)this.seen=0; return; }
+      if(this.seen===null){ this.seen=e.length; return; }   /* the baseline never sounds */
+      if(e.length<=this.seen){ this.seen=e.length; return; } /* debounce, or a load */
+      var fresh=e.slice(this.seen);
+      this.seen=e.length;
+      for(var i=0;i<fresh.length;i++){
+        if(fresh[i]&&fresh[i].kind==='source'&&fresh[i].amount>0){
+          if(window.STING)STING.play('paid');
+          return;                                   /* one payday is ONE sound */
+        }
+      }
+    }catch(err){}
+  }
+};
+window.PAYSTING=PAYSTING;
+
 /* ===== KILLMUS (8/20/26) -- THE FIGHT INTENSIFIES AS YOU KILL ============
    MUS.playStep has gated a second and third tier of arrangement behind
    `sk>=2` and `sk>=4` since 7/3, with a different intensification style per

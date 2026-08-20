@@ -52,7 +52,16 @@ WHAT IT ASSERTS, all of it off a real running transport:
                                    RMS is the wrong ruler here, because the parts
                                    that come in are quiet hats and chips that add
                                    density, not loudness.
-  8. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
+  8. GETTING PAID SOUNDS TOO       and it refuses the three false positives that
+                                   would make it worse than silence: a restored
+                                   save (a whole ledger at once), a re-fired
+                                   snapshot (the report is debounced), and
+                                   SPENDING. Money leaving does not get a
+                                   flourish. It is also asserted to be SMALLER
+                                   than the fight-win sting, which is the design
+                                   decision written down: a water run in a dead
+                                   valley is not a boss kill.
+  9. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
                                    sandbox slot (motif 'plain', osc + pluck).
                                    Combat drew it uniformly, so one fight in
                                    fourteen was scored by a patch nobody wrote.
@@ -178,6 +187,30 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       r.atStart={kills:KILLMUS.kills,layers:MUS.layers};
       for(let k=1;k<=5;k++){ fire(); await wait(1500);
         r.steps.push({kills:KILLMUS.kills,want:KILLMUS.want,layers:MUS.layers}); }
+
+      // ---- THE BAR LINE, TESTED ON PURPOSE RATHER THAN CAUGHT IN PASSING.
+      // The first version of this check just watched the five kills above and
+      // asserted that `want` was seen ahead of `layers` at least once. That is
+      // TIMING-DEPENDENT: a kill that happens to land on a bar line applies
+      // immediately and the gap is never observable, so the check could go red
+      // on completely correct code -- and it did, on a restored tree, with the
+      // exact same reading a real regression produced. A flaky gate is worse
+      // than no gate, because it teaches everyone to ignore red.
+      // Driven instead: park the transport just PAST a bar line, ask for a
+      // lift, and prove it is held; then put the transport ON a bar line and
+      // prove it lands.
+      r.held=null; r.landed=null;
+      try{
+        KILLMUS.reset();
+        MUS.step=17;                       // 17 % 16 = 1: just past the line
+        KILLMUS.kills=1; KILLMUS.killed();  // -> 2 kills, wants layer 2
+        await wait(400);
+        r.held={step:MUS.step%16, want:KILLMUS.want, layers:MUS.layers};
+        MUS.step=32;                       // 32 % 16 = 0: the top of a bar
+        await wait(400);
+        r.landed={want:KILLMUS.want, layers:MUS.layers};
+      }catch(e){ r.barErr=String(e); }
+      KILLMUS.reset();
       // AND THE PARTS REALLY THICKEN. Exact, not a signal guess: wrap the two
       // voice dispatchers, run two bars per layer, count the calls. Restored in
       // a finally -- a probe that mutates the surface puts it back.
@@ -205,6 +238,40 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
                  drumOK:typeof window.drumV==='function'};
       KILLMUS.reset();
       r.afterReset={kills:KILLMUS.kills,layers:MUS.layers};
+      return r;
+    });
+
+    // ---- THE PAYDAY STING -----------------------------------------------
+    out.pay=await p.evaluate(async()=>{
+      if(typeof PAYSTING==='undefined'||typeof STING==='undefined') return {missing:true};
+      const r={steps:[]};
+      const E=(kind,amount)=>({currency:'water',amount,kind,reason:'x',ref:'q',day:1});
+      const snap=e=>({purse:{id:'player',day:1,entries:e}});
+      const wait=ms=>new Promise(z=>setTimeout(z,ms));
+      const step=async(label,st)=>{ const before=STING.last;
+        window.postMessage({bohemiaCityState:st},'*'); await wait(450);
+        r.steps.push({label,fired:STING.last>before}); };
+      PAYSTING.seen=null;
+      await step('restore', snap([E('source',5),E('source',3),E('source',2)]));
+      await step('resend',  snap([E('source',5),E('source',3),E('source',2)]));
+      await step('spend',   snap([E('source',5),E('source',3),E('source',2),E('drain',-4)]));
+      STING.last=0;
+      await step('paid',    snap([E('source',5),E('source',3),E('source',2),E('drain',-4),E('source',9)]));
+      // and the figure itself makes audio
+      const SR=44100, SV=window.synthV, stepDur=0.125;
+      async function fig(which,root){
+        const F=STING.FIG[which]; if(!F)return null;
+        const OAC=new OfflineAudioContext(1,Math.ceil(SR*4),SR);
+        const bus=OAC.createGain(); bus.gain.value=1; bus.connect(OAC.destination);
+        for(const nn of F.n)
+          try{ SV(F.v,OAC,bus,x=>110*Math.pow(2,x/12),F.sd,root+F.oct+nn[0]-55,0.05+nn[1]*stepDur,F.g); }catch(e){}
+        const d=(await OAC.startRendering()).getChannelData(0);
+        let pk=0; for(let i=0;i<d.length;i++){const a=Math.abs(d[i]); if(a>pk)pk=a;}
+        return {peak:+pk.toFixed(4), notes:F.n.length, span:Math.max(...F.n.map(x=>x[1])),
+                uniq:new Set(F.n.map(x=>x[1])).size, voice:F.v};
+      }
+      r.paidFig=await fig('paid',45);
+      r.winFig =await fig('win',45);
       return r;
     });
 
@@ -353,10 +420,16 @@ def main():
         ok('two kills lift the arrangement to layer 2, four to layer 4 '
            '(layers after each kill: %s)' % got,
            len(got) == 5 and got[-1] == 4 and 2 in got and got.index(2) >= 1)
-        ok('the lift WAITS for the bar line rather than landing mid-bar '
-           '(want ran ahead of layers at least once: %s)'
-           % [(x['want'], x['layers']) for x in st],
-           any(x['want'] != x['layers'] for x in st))
+        # DRIVEN, not observed in passing. See the note in the browser leg:
+        # watching the five kills above for a gap is timing-dependent and went
+        # red on correct code.
+        held, landed = kl.get('held') or {}, kl.get('landed') or {}
+        ok('the lift is HELD when the transport is mid-bar (step%%16=%s, want %s, '
+           'layers %s)' % (held.get('step'), held.get('want'), held.get('layers')),
+           held.get('want') == 2 and held.get('layers') == 0)
+        ok('and LANDS at the top of the next bar (want %s, layers %s)'
+           % (landed.get('want'), landed.get('layers')),
+           landed.get('layers') == 2)
         ok('the fight settling puts it back to CALM (%s)'
            % (kl.get('afterReset') or {}).get('layers'),
            (kl.get('afterReset') or {}).get('layers') == 0)
@@ -376,6 +449,30 @@ def main():
                lift >= 20)
         pb = kl.get('putBack') or {}
         ok('the probe put the voice dispatchers back', pb.get('synthOK') and pb.get('drumOK'))
+
+    # ---- THE PAYDAY STING -----------------------------------------------
+    pay = d.get('pay') or {}
+    ok('getting paid reaches the music (PAYSTING)', not pay.get('missing'))
+    if not pay.get('missing'):
+        by = {x['label']: x['fired'] for x in (pay.get('steps') or [])}
+        ok('a RESTORED save does not sting for every credit ever earned',
+           by.get('restore') is False)
+        ok('a re-fired snapshot does not sting twice (the report is debounced)',
+           by.get('resend') is False)
+        ok('SPENDING does not sting -- money leaving gets no flourish',
+           by.get('spend') is False)
+        ok('but being PAID does sting', by.get('paid') is True)
+        pf, wf = pay.get('paidFig') or {}, pay.get('winFig') or {}
+        ok('the payday sting SOUNDS (%s, peak %.3f)' % (pf.get('voice'), pf.get('peak') or 0),
+           (pf.get('peak') or 0) > 0.05)
+        ok('it is a phrase, not one note (%s notes at %s positions)'
+           % (pf.get('notes'), pf.get('uniq')),
+           (pf.get('notes') or 0) >= 2 and pf.get('uniq') == pf.get('notes'))
+        # THE DESIGN DECISION, WRITTEN DOWN AS A CHECK. If a water run were
+        # scored as big as surviving a firefight, neither would mean anything.
+        ok('a payday is DELIBERATELY smaller than surviving a fight '
+           '(%s notes vs %s)' % (pf.get('notes'), wf.get('notes')),
+           (pf.get('notes') or 9) < (wf.get('notes') or 0))
 
     draws = d.get('draws') or {}
     ok('200 redraws of the scratch slot never land on CUSTOM (%s)'
