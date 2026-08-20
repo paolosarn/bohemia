@@ -295,10 +295,29 @@ async function worldFrame(page) {
       if (pf) {
         const b4 = await f.evaluate(() => ({ taken: !!OFFER_TAKEN,
           obj: (document.getElementById('qline') || {}).textContent || '' }));
-        const hit = await pf.evaluate(() => {
-          const t = document.querySelector('.lv-take');
-          if (!t) return false; t.click(); return true;
-        });
+        /* WAIT FOR THE BUTTON, DO NOT ASSUME THE SETTLE WAS LONG ENOUGH (8/20).
+           This gate is green alone and went red inside the parallel suite: under
+           CPU contention the phone frame had not finished painting its job list
+           when the settle hit its ceiling, `.lv-take` was null, and the three
+           claims after it fell over -- then the whole gate CRASHED on the next
+           evaluate and abandoned its remaining twenty. A load flake is a real
+           flake: it means the check was timing on a guess. So poll for the
+           button the way the sleep fix says to, with a ceiling that still fails
+           honestly if it truly never arrives. */
+        let hit = false;
+        try {
+          /* state:'attached', NOT the default 'visible'. Measured 8/20: the
+             default cost this gate fifteen claims in one edit. The button is in
+             the phone frame's list and the tap works, but playwright's default
+             wants a laid-out visible box and this frame does not give it one --
+             so waitForSelector timed out on an element querySelector finds
+             instantly. The condition I need is "it exists to be tapped". */
+          await pf.waitForSelector('.lv-take', { state: 'attached', timeout: 8000 });
+          hit = await pf.evaluate(() => {
+            const t = document.querySelector('.lv-take');
+            if (!t) return false; t.click(); return true;
+          });
+        } catch (e) { hit = false; }
         ok('the job has a TAKE IT he can actually tap', hit === true);
         await SETTLE(page, 1800);
         const now = await f.evaluate(() => ({ taken: !!OFFER_TAKEN,
@@ -437,8 +456,12 @@ async function worldFrame(page) {
        dayEnteredBuilding() directly. Here he tapped GET UP, tapped PHONE, tapped
        TAKE IT, walked to his own door and crossed it -- and the quest's own
        choice card is what met him on the other side. */
+    /* `.state` IS NULL WHEN NO JOB WAS TAKEN, and reading .stage off it threw --
+       which killed the gate outright and abandoned the twelve claims after it.
+       The step BEFORE this one is the thing that failed in that case; this one
+       should say so, not detonate. Default the stage and let the claim be red. */
     const job = await f.evaluate(() => ({
-      stage: DQ.serialize().state.stage,
+      stage: ((DQ.serialize() || {}).state || {}).stage || null,
       cardUp: (() => { const c = document.getElementById('daycard');
         return !!(c && getComputedStyle(c).display !== 'none'); })(),
       options: [...document.querySelectorAll('#daycardIn .dcbtn')].map(b => b.innerText.trim().split('\n')[0]),
@@ -534,4 +557,15 @@ async function worldFrame(page) {
        errs.length === 0);
   } finally { await b.close(); }
   done();
-})().catch(e => { console.log('FIRST NIGHT GATE CRASHED: ' + e.message); process.exit(1); });
+})().catch(e => {
+  /* A CRASH MUST STILL FILE ITS REPORT (8/20). When this fell over inside the
+     parallel suite it printed one line about a null and swallowed the tally, so
+     the log could not say whether it died at claim 3 or claim 50 -- and a check
+     whose result you cannot read is the same failure as a check that never ran.
+     Print how far it got and name the step that killed it. */
+  console.log('  > FAIL the first night ran end to end without throwing -- ' + e.message);
+  fail++;
+  console.log('FIRST NIGHT GATE: ' + pass + ' passed, ' + fail + ' failed (CRASHED after claim '
+    + (pass + fail - 1) + ', the rest never ran)');
+  process.exit(1);
+});
