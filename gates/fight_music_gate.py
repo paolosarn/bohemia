@@ -133,7 +133,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     out.justEnded=await snap();
 
     out.returned=null;
-    for(const w of [4000,5000,7000,9000,12000]){
+    for(const w of [4000,5000,7000,9000,12000,15000]){
       await p.waitForTimeout(w);
       const s=await snap();
       if(s.city){ out.returned=s; break; }
@@ -345,6 +345,12 @@ def main():
        'it settles (%s)' % je.get('now'), je.get('now') == inf.get('now'))
 
     ret = d.get('returned') or {}
+    # ONE FLAKE SEEN, 8/20: this leg failed once in five runs and passed the
+    # other four. The wait ladder gives the return up to 36s of headless time,
+    # and a phrase is 128 steps -- which is 16s at real tempo but longer under a
+    # loaded offline clock, so a slow machine can run out of ladder. If it flakes
+    # again the fix is more ladder, NOT a weaker assertion: the thing being
+    # measured is whether the streets come back at all.
     ok('but the streets DO come back within a phrase (%s)'
        % (ret.get('now') or 'they never came back'),
        bool(ret.get('city')) and bool(ret.get('playing')))

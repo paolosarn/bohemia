@@ -920,6 +920,12 @@ def parent_block(bank):
       if(r<0.44 && (A.neon_hum||[]).length) return 'neon_hum';
       if(r<0.50 && (A.dog_far||[]).length) return 'dog_far';
       if(r<0.50 && (A.dog_cry||[]).length) return 'dog_cry';
+      /* SFX-09 (8/20): the instrument-backed versions of the same two moments,
+         built on voices he WROTE for them -- neonsign, neontube, neonrelic for
+         the sign; dobrowail, harmonicawail, shofar for the dog. Same guard, so
+         an unapproved name is skipped and the bed plays. */
+      if(r<0.44 && (A.sign_alive||[]).length) return 'sign_alive';
+      if(r<0.50 && (A.dog_calls||[]).length) return 'dog_calls';
       return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },
