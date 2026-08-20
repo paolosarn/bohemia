@@ -10,6 +10,55 @@
 And they share ONE root cause, below.
 
 =============================================================================
+## RE-AUDIT 8/20 — 188 COMMITS LATER. SCORE IS NOW **8 CLOSED · 4 PARTIAL ·
+## 1 OPEN**, AND THE DEMO IS THREE THINGS AWAY.
+=============================================================================
+Measured against the current tree, not remembered. What moved:
+- **ROW 11 THE VISTA — CLOSED.** It had ZERO callers on 8/14. It has one
+  now: the day loop arms it on day 2 (`VISTA_ARMED` at CITY:28333) and
+  calls `window.__VISTA.open()` at :28348. The money shot happens to the
+  player instead of waiting on a rim tile.
+- **ROW 1 — GET PAID AND SPEND ARE BOTH LIVE.** The bridge that was
+  "built and never called" is called: `BohemiaPayday.payForQuest(...)` at
+  CITY:28760, outside the module body. And spending works too —
+  `nearestHub` at :28782, `BohemiaPayday.buy(...)` at :28854. His
+  EVERYTHING-COSTS-ONE ruling is what unblocked it.
+- **ROW 6 — THE 8/13 AMENDMENT SHIPPED.** A `.webmanifest` exists and the
+  alpha carries apple/manifest tags. The home-screen install is real, so
+  the save-eviction fix is on the surface.
+- **ROW 2 — 18 wired-family proof shots**, up from 12.
+- **ROW 9 — the demo gate exists** (`gates/demo_gate.js`, plus
+  `demo_day_gate.js` — the two-gates collision, kept deliberately).
+WHAT IS STILL TRUE, AND IT IS SHORT:
+- **ROW 7 IS STILL OPEN AND IT IS STILL THE CHEAPEST BIG WIN.** The alpha
+  still boots on the CHARACTER workbench: `<div class="tab on"
+  data-p="char">` and `<div class="panel on" id="p-char">`. Five days
+  flagged, unmoved. A friend tapping the link still lands on a dev tool.
+- **ROW 3 — WALKING IS STILL SILENT.** Re-measured: the city world sends
+  exactly ONE sfx message, `phone_buzz` at :28113, and has ZERO footstep
+  code. The alpha has the receiver (`bohemiaCitySfx` -> playSFX at :7797)
+  and nothing sends it a step. His 97 approved sounds still do not play
+  when he walks. (Credit where due: the lane that wrote "IT IS ON THE
+  REAL ONE NOW" was PEOPLE moving the person card, not SOUNDS moving
+  footsteps — real work, different row.)
+- **ROW 1's LAST TWO: the FIGHT and CAMP.** No combat entry on the walked
+  surface (the `startEncounter` hits in the city are comments, :30150 and
+  :30519). CAMP remains unbuilt and remains CUTTABLE from the demo.
+=============================================================================
+## WHAT COMES AFTER — THE SHORTEST PATH TO A FRIEND PLAYING
+=============================================================================
+1. **RUN P0-DOOR** — open on the game, route splash -> cold open -> day.
+   Hours of work, changes everything a stranger sees.
+2. **SOUNDS P0-WALK** — send a step event from the city; the bank, the
+   classifier and the parent-side player all already exist.
+3. **COMBAT RF4-LIFT** — the free-movement budget, and the indoor fight
+   entry that closes row 1's fight half in the same job.
+4. Then the closed playtest protocol: friends round, revise, fresh eyes.
+CUT FROM THE DEMO, STATED SO NOBODY BUILDS THEM: camp, quests 4-5, the
+healing montage, the field-surgery animation set.
+
+
+=============================================================================
 ## THE ROOT CAUSE: THE GAME MOVED HOUSE AND HALF THE WIRING STAYED BEHIND
 =============================================================================
 THE ALPHA HAS TWO WALK SURFACES AND ONLY ONE IS VISIBLE.

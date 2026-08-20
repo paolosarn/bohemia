@@ -21,6 +21,19 @@
 ## as the harvest source and its PRELOAD gets dropped once migration
 ## lands, which is most of the time-to-first-play problem gone for free.
 ## If Paolo rules the other way the board flips — say so and it flips. ***
+## *** RE-AUDITED 8/20, 188 COMMITS LATER: 8 CLOSED / 4 PARTIAL / 1 OPEN.
+## THE DEMO IS THREE THINGS AWAY, IN THIS ORDER —
+##   1. RUN P0-DOOR   the alpha still boots on the CHARACTER workbench
+##   2. SOUNDS P0-WALK  the city sends ONE sfx message (phone_buzz) and
+##      has zero footstep code, so his 97 approved sounds are silent when
+##      he walks; the receiver already exists in the alpha
+##   3. COMBAT RF4-LIFT  the movement budget AND the indoor fight entry,
+##      which is also row 1's missing fight half
+## CLOSED SINCE 8/14: the VISTA now has a caller and fires on day 2; GET
+## PAID and SPEND are both live (his EVERYTHING-COSTS-ONE ruling unblocked
+## them); the home-screen manifest shipped; 18 wired families; the demo
+## gate exists. CAMP stays CUT. Full evidence:
+## records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md ***
 ## SCOPE IS RULED, NOT PENDING (corrected 8/14 — this banner still said
 ## "pending Paolo" ten days after he ruled it, which is exactly the stale
 ## record the shelf audit exists to catch): THE ORIGIN + ONE GOOD DAY —

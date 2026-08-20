@@ -25669,3 +25669,31 @@ ORDER INSIDE RUN: the SLEEP FIX first (22.7 min, mechanical, zero
 assertions changed, most of the clock back in one sitting), then P0-DOOR
 / P0-SAVE / the fight entry resume; the shared-browser and fast-lane
 fixes land whenever this lane next needs them.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/20 — DEMO BOARD RE-AUDITED AGAINST THE TREE, 188
+COMMITS AFTER it was last touched. SCORE 5/7/1 -> **8 CLOSED, 4 PARTIAL,
+1 OPEN**. Evidence in records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md.
+CLOSED SINCE: THE VISTA (it had ZERO callers on 8/14; the day loop now
+arms it on day 2 at CITY:28333 and calls __VISTA.open() at :28348 — the
+money shot happens TO the player now); GET PAID **and** SPEND (the bridge
+that was "built and never called" is called at :28760, nearestHub :28782,
+buy :28854 — his EVERYTHING COSTS ONE ruling is what unblocked it); the
+HOME-SCREEN MANIFEST from the 8/13 sweep shipped; 18 wired-family proof
+shots, up from 12; the demo gate exists.
+THE DEMO IS THREE THINGS AWAY, IN ORDER:
+ 1. RUN P0-DOOR — still open, five days flagged, unmoved. The alpha still
+    boots on the CHARACTER workbench (`class="tab on" data-p="char"`), so
+    a friend tapping the one link lands on a dev tool. Cheapest big win
+    on the board and it has not moved.
+ 2. SOUNDS P0-WALK — RE-MEASURED AND STILL TRUE: the city world sends
+    exactly ONE sfx message (phone_buzz, :28113) and has ZERO footstep
+    code, while the alpha's receiver sits ready at :7797. His 97 approved
+    sounds still do not play when he walks. NOTE FOR FAIRNESS: the commit
+    reading "IT IS ON THE REAL ONE NOW" was PEOPLE moving the person card
+    to the city — real work, different row, not this.
+ 3. COMBAT RF4-LIFT — the free-movement budget plus the indoor fight
+    entry, which is also row 1's missing fight half. The startEncounter
+    hits in the city are comments (:30150, :30519), not calls.
+CAMP stays CUT from the demo, along with quests 4-5, the healing montage
+and the field-surgery animations.
