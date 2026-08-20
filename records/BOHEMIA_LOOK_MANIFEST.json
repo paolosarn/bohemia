@@ -285,19 +285,19 @@
   {
    "id": "wardrobe-4x",
    "title": "THE WARDROBE AT 4X: what four times the pixels buys the clothes",
-   "caption": "Twelve garments and two hairstyles, drawn twice at the same size on screen. LEFT is the way the 2x plan was going to ship them -- generated at 56 and doubled into 2x2 squares, chunky cloth on a sharp body. RIGHT is the same garment composed natively, so a strap, a fold, a plaid and a cornrow can each carry four times the detail. Nothing in the game looks different today: the rig is still 56 and 1,744 pinned hashes prove not one pixel of what you play moved. This is what lands the day the rig doubles. The body under both halves is your own 56 rig doubled, because repainting the rig at 112 is your call. CLOTHES tab is where you wear them; this picture lives in the LOOK tab.",
+   "caption": "Twelve garments and two hairstyles, drawn twice at the same size on screen. LEFT is the way the 2x plan was going to ship them: generated at 56 and doubled into 2x2 squares, chunky cloth on a sharp body. RIGHT is the same garment composed natively, so a strap, a fold, a plaid and a cornrow each carry four times the detail. As of 8/20 the right-hand column is what the game draws: the rig is flipped and the wardrobe was made resolution-native the same day. CLOTHES tab is where you wear them; this picture lives in the LOOK tab.",
    "file": "look/wardrobe-4x.png",
-   "kb": 127.4,
+   "kb": 126.6,
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_4x_wardrobe_picture.js"
   },
   {
    "id": "the-box",
-   "title": "IS THIS A DEALBREAKER? the 4x character, side by side",
-   "caption": "The whole 4x flip has been built and switched off since 8/16 for one reason, and it was my judgement, not yours: composing natively removes the corner-rounding the upscaler was doing for free, so the head comes out a bit more square, and that reads against your own no-straight-lines rule. You have never actually been shown it. Left is what you see today, right is what native 4x gives you, same art, same size, same clothes. They differ on 5.9% of him, 11% of that on the head. 40% of the difference is clothes and hair, which is code I fix for free; the rest is your paint. If you can live with the right column, 4x ships. LOOK tab.",
+   "title": "IT LOOKS EXACTLY THE SAME: the 4x flip, before and after",
+   "caption": "You looked at this and said it looks exactly the same, and you were right, so it shipped. The whole 112 flip had been built and switched off since 8/16 on my judgement that the head came out too square without the upscaler rounding its corners. Measured, the two columns differ on 5.9% of him and only 11% of that is on the head. Left is every build before 8/20, right is what you are playing now: the character is composed at four times the pixels, the upscaler is off, and the black border is one true pixel instead of a doubled one. Your painted art is untouched and still hashes byte for byte. LOOK tab.",
    "file": "look/the-box.png",
-   "kb": 63.8,
+   "kb": 66.6,
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_2x_box_picture.js"

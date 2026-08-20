@@ -1,0 +1,186 @@
+BOHEMIA -- THE CHARACTER IS FOUR TIMES THE PIXELS. HE SHIPPED IT BY NOT SEEING IT.
+CHARACTER lane, 8/20/26.
+
+HIS WORDS
+---------
+    "IT LOOKS EXACTLY THE SAME DUMBASS"
+
+That is the ruling, and it is the right one. I had built a picture to prove a
+difference and it proved the opposite.
+
+WHAT HAD BEEN BLOCKING IT
+-------------------------
+Row 2X's headline -- Paolo 8/14, "the character models need twice as many pixels" --
+had steps 1 through 4 built, proved and DORMANT since 8/16 for one reason I wrote
+down myself: composing natively at 112 removes the corner-rounding Scale2x was
+manufacturing, so his head renders as a box, and that walks into his own LOCKED law
+"no straight lines". True. Also a JUDGEMENT, made on his behalf, about pixels he had
+never been shown -- which is the approvals queue coming back through the side door
+that EVERYTHING IS A THUMB (8/9) killed.
+
+He looked. He could not see it. So it shipped.
+
+AND THE PICTURE WAS HONEST, WHICH I CHECKED BEFORE TREATING IT AS A VERDICT
+--------------------------------------------------------------------------
+"Looks the same" has two readings and one of them is "your picture is broken". So
+the PNG was decoded and the two columns compared pixel for pixel in the head row:
+
+    976 of 30,752 displayed pixels differ -- 3.2%
+
+A real difference, correctly called nothing. The measurement beside it says the same
+thing from the other end: 5.90% of the lit body differs, and only 11% of that is on
+the head. THIRTY PIXELS ON A FACE were holding the headline.
+
+WHAT SHIPPED
+------------
+`python3 tools/bohemia_2x_flip.py --flip`. Every seam was already in place; the flip
+wraps his rig in the load-time doubler and RIG_RS becomes 2.
+  - the frame composes at 112 NATIVELY; Scale2x is off, which DELETES per-frame work
+  - the black border is ONE TRUE PIXEL (median 1 on all eight facings, measured)
+  - his painted art is UNTOUCHED: rig_no_drift still hashes the literal byte for byte
+
+TWO THINGS THE FLIP TOOL ITSELF GOT WRONG, AND BOTH REFUSED TO WRITE
+--------------------------------------------------------------------
+1. IT WOULD HAVE UNDONE THIS MORNING'S WARDROBE WORK. The tool's garment seam edit
+   inserts a block-doubler -- hand the generators a grid downsampled back to 56 and
+   stamp their output as squares. That was the deferral Paolo named from outside the
+   code the same morning, and it is now retired and replaced with an ASSERTION: if
+   the native seam ever disappears the tool refuses to flip rather than silently
+   reinstating the old one.
+2. FOUR SEAMS REPORTED AS MISSING WERE ALREADY DONE. They had been re-written later
+   with a `typeof BAKED` guard, so the tool's exact-text matchers found ZERO of
+   either form and it refused. A tool that cannot recognise its own finished work
+   reports a MISS for a job that is complete. Matchers updated to the current shape.
+
+The refusal in both cases is the tool working. It writes nothing unless every edit
+matches exactly once.
+
+THE RE-BLESS: FOUR GATES, AND NOT ONE NUMBER LOOSENED
+------------------------------------------------------
+  ALPHA LOADS + RIG NO-DRIFT -- both looked for `const BAKED={`. After the flip the
+    literal is WRAPPED (`const BAKED=RIG2X({...})`), so both reported HIS RIG AS
+    MISSING on a build where it is present and doubled. Regex accepts either form;
+    the 25,000-char floor and the sha256 pin on his painted pixels are unchanged.
+
+  CANVAS SCALE -- the CLOTHES previews were a 168 and a 56 content box around what is
+    now a 112 sprite: x1.5 and x0.5, and x4.5 and x1.5 on a dpr-3 phone. A dead half
+    device pixel on the surfaces garments are JUDGED on. Boxes resized to 224 and 112
+    content; cloBig's pin moved x3 -> x2 because x3 of a 56 sprite and x2 of a 112
+    sprite are THE SAME SIZE ON SCREEN. The claim -- a whole number, never a fraction
+    -- is untouched.
+
+  BORDER -- and this one was the ruler, not the border. It walked RIGHT from the
+    silhouette and called that run the thickness. On a horizontal edge that is the
+    same thing; on a DIAGONAL it measures the width of a staircase tread. It never
+    showed up before because Scale2x was rounding every diagonal corner off, so
+    treads were 1-2px. Removing that rounding -- the entire point of the flip -- made
+    the same one-pixel border read as 8 on a shoulder. Verified: the run sat wholly
+    over BACKGROUND cells, the median stayed 1 on all eight facings, gaps stayed 0,
+    and "only the border moved" stayed 0 mismatches. It measures BOTH AXES and takes
+    the smaller now, which is STRICTER -- it also catches a fat border on a vertical
+    edge, which a row-only scan never could. Mutation: draw the border 2px and both
+    checks fire.
+
+*** THE ONE THAT IS A FINDING, NOT A RE-BLESS ***
+--------------------------------------------------
+HEAD FOLLOWS RIG pinned "total deviation 13, worst row 3" -- counts of 56-space
+pixels. The honest reading at 112 is 64 and 4, and the interesting part is WHY.
+
+Measured in 56-equivalent cells, row by row, the chin went from
+
+    rig 4, game 4   (exactly right)      ->      rig 4, game 6   (two cells wide)
+
+purely by removing the smoothing. THE SKINNER WAS ALWAYS DRAWING THE CHIN THAT WIDE.
+Scale2x was trimming the corner off it, so the ratchet had been measuring a
+smoothed head and calling it fidelity. The pin was flattered.
+
+So the ratchet is a RATIO now -- deviation over the rig's own width -- which is the
+same number at any resolution and never needs re-blessing again:
+
+    0.171 at 56   ->   0.211 at 112, the first honest reading
+
+Both green under the new pin, and the extra 0.04 is the corner the upscaler used to
+erase. This gate is now the instrument that says WHERE "his head renders as a box"
+actually lives: the chin, and the row under the mouth. Fix the skinner there and the
+number falls. Mutation: pin it at the old 0.171 and it fires, naming the percentage.
+
+*** AND THE MEMORY, WHICH IS THE ONE THING STILL WRONG ***
+-----------------------------------------------------------
+Row 2X said to measure 4x the pixels against the 224 MB iOS ceiling. Done, and the
+answer splits three ways.
+
+WHAT A PLAYER HOLDS IS FINE: 25.4 MB loaded, and the RUN tab adds ZERO. The flip
+does not move the number for anyone who opens the link and plays.
+
+WHAT I BROKE AND FIXED: the CLOTHES tab builds a live preview plus an 8-pose strip
+for every garment in the catalogue -- 258 of them -- and each canvas' backing store
+went 56x56x4 to 112x112x4. Measured: 25 MB before the flip, 96.8 MB after. The tab
+has always refused to RENDER what is off screen and never let go of the pixels.
+Off-screen canvases now release their backing store and the render path re-allocates
+on the way back in, which it already did.
+
+    CLOTHES tab   96.8 MB  ->  2.4 MB
+    whole build   1,188 MB ->  1,093 MB  (canvases 164 MB -> 64 MB)
+
+So this turn IMPROVES the worst case by ~100 MB while doubling the character.
+
+WHAT IS STILL BROKEN AND IS NOT MINE. The gate is RED, and it was red before I
+touched anything -- it has been passing on a STALE MEASUREMENT FILE, and its own
+NOTE says so on every run ("measured before the latest change to ... ALPHA"). A
+fresh probe on the build that shipped this morning reads 1,188 MB, 530% of the iOS
+floor. The cause, hunted down frame by frame:
+
+    69 images in the VOTE tab    632.7 MB decoded
+    27 images in the ART tab     209.2 MB decoded
+     2 images in the LOOK tab      8.3 MB
+     6 images in the LIFE tab      0.7 MB
+    ---------------------------------------
+    104 images                   850.8 MB
+
+Ninety-six full-resolution art boards, ~8 MB each once decoded. That figure is
+BYTE-IDENTICAL before and after the flip, so none of it is the rig or the wardrobe.
+Quantizing the files does not help: decoded cost is width x height x 4 whatever the
+PNG weighs. The fix is smaller DIMENSIONS or thumbnails, and that is ART/VOTE
+content, not this lane's to resample.
+
+I am shipping with that red rather than restoring the stale file to buy a green,
+because a green bought by a measurement you know is wrong is worse than the red --
+which is a rule this repo already wrote down.
+
+AND ONE MORE RULER THE FLIP EXPOSED: THE CROWD BOARD
+-----------------------------------------------------
+CROWD's determinism check -- "redrawing the same crowd gives byte-identical pixels
+(no dice in the render path)" -- started failing, intermittently, only after the
+flip. Pre-flip: green twice. Post-flip: green, green, red, red, red.
+
+IT IS NOT DICE. Measured directly: twelve citizens redrawn FOUR TIMES in a row are
+byte-identical every time, once the board has actually finished its first paint. The
+check read the canvases, called crowdRefresh() and compared -- and if the first paint
+was still in flight, "before" was a HALF-DRAWN BOARD and the refresh that followed
+finished it. A stopwatch started too early, not a random number.
+
+It went from rare to frequent because a 112 frame is FOUR TIMES THE WORK, so twelve
+of them take four times as long and the race that was always there now usually wins.
+The gate settles on the BOARD (two consecutive identical reads, all twelve canvases
+allocated) instead of on a clock. Four runs green. Mutation: put a real
+Math.random() in the crowd's draw call and it fires exactly as it should.
+
+THE HONEST COST BURIED IN THAT: the first crowd paint IS slower now. Twelve
+characters at four times the pixels is four times the composition work, one time, on
+a workbench tab. Nothing in the RUN path pays it, and Scale2x coming off gives back
+per-frame work on every character the game draws.
+
+WHERE HE SEES IT
+----------------
+Everywhere. Every character in the game is composed at 112 now. The LOOK tab picture
+"IT LOOKS EXACTLY THE SAME" is re-labelled to what it became: left is every build
+before today, right is what he is playing.
+CLOTHES tab: the previews are bigger and whole-scaled, and the garments in them were
+made resolution-native this morning, so they arrive sharp instead of block-doubled.
+
+  python3 tools/bohemia_2x_flip.py --flip      (--unflip round-trips to the same bytes)
+  node gates/border_gate.js            6/0   median 1px, all 8 facings
+  node gates/head_follows_rig_gate.js  5/0   scale-free ratchet, 0.211
+  node gates/canvas_scale_gate.js     53/0
+  node gates/clothes_4x_gate.js       12/0   448/448 shapes, 1,744 hashes
+  python3 gates/rig_no_drift_gate.py  23/0   his painted pixels, byte for byte

@@ -52,7 +52,15 @@ const src = fs.readFileSync(ALPHA, 'utf8');
 /* Sizes are floors well under the real values, so legitimate edits pass and a
    deletion or truncation cannot. These three are what the bad merge ate. */
 const BLOCKS = [
-  ['BAKED',      /^const BAKED=\{.*\};?$/m,      25000, "Paolo's painted rig package (RIG LAW)"],
+  /* 2X RE-BLESS (8/20): once the rig is flipped the literal is WRAPPED --
+     `const BAKED=RIG2X({...})` -- so an anchored `const BAKED={` matched nothing and
+     this reported his rig as MISSING on a build where it is present and doubled.
+     The regex accepts either form, because the claim is "the rig package is here and
+     is not truncated", not "it is spelled the way it was in August".
+     NOTHING IS WEAKENED: the 25,000-char floor is unchanged and still measures the
+     literal itself, and the runtime checks below still require BAKED to be defined
+     with all 8 facings. */
+  ['BAKED',      /^const BAKED\s*=\s*(?:RIG2X\()?\{.*$/m,  25000, "Paolo's painted rig package (RIG LAW)"],
   ['RIG_B64',    /^const RIG_B64='[^']+';?$/m,  100000, 'the embedded rig tool'],
   ['COMBAT_B64', /^const COMBAT_B64='[^']+';?$/m, 900000, 'the embedded combat slice'],
 ];

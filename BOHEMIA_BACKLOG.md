@@ -6049,6 +6049,46 @@ RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
    The pipeline is ready the day the art is; the flip is one call.
    Full finding + every measurement:
    records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt ***
+   *** ROW 2X IS CLOSED. HE LOOKED AT THE BOX AND SAID "IT LOOKS EXACTLY THE SAME
+   DUMBASS", SO STEPS 1-4 SHIPPED 8/20. ***
+   The blocker above was a JUDGEMENT I made on his behalf about pixels he had never
+   been shown. He was shown them (LOOK tab, the before/after this row has owed since
+   8/14), could not see the difference, and that is the ruling. Verified the picture
+   was honest before treating it as one: 976 of 30,752 displayed head pixels differ,
+   3.2% -- a real difference, correctly called nothing. Thirty pixels on a face were
+   holding the headline.
+   SHIPPED: the frame composes at 112 NATIVELY, Scale2x is off (which deletes
+   per-frame work rather than adding any), and the black border is ONE TRUE PIXEL --
+   median 1 on all eight facings. His painted art is untouched; rig_no_drift still
+   hashes the literal byte for byte.
+   TWO THINGS THE FLIP TOOL GOT WRONG AND BOTH REFUSED TO WRITE: it would have
+   re-inserted the block-doubling garment seam and undone the same morning's
+   resolution-native wardrobe (now retired and replaced with an assertion), and four
+   seams it reported MISSING were already applied in a later `typeof BAKED` form.
+   RE-BLESSED, NOTHING LOOSENED: ALPHA LOADS + RIG NO-DRIFT (the literal is WRAPPED
+   now, so `const BAKED={` matched nothing and both reported HIS RIG AS MISSING);
+   CANVAS SCALE (the CLOTHES boxes were x1.5 and x0.5 around a 112 sprite -- resized,
+   and cloBig re-pinned x3 -> x2 because they are the same size on screen); BORDER
+   (the RULER was wrong -- it measured along a raster row, which on a diagonal reads
+   a staircase tread as an 8px border once Scale2x stops rounding corners; it takes
+   the smaller of both axes now, which is stricter).
+   AND ONE REAL FINDING, NOT A RE-BLESS -- HEAD FOLLOWS RIG. Its pin was FLATTERED:
+   in 56-equivalent cells the chin went from "exactly right" to "two cells wide"
+   purely by removing the smoothing, so THE SKINNER WAS ALWAYS DRAWING IT THAT WIDE
+   and Scale2x was trimming the corner. The ratchet is a RATIO now (0.171 -> 0.211
+   of the face's own width), scale-free forever, and it is the instrument that says
+   where "the head is a box" actually lives: the chin and the row under the mouth.
+   MEMORY, measured as this row demanded: a PLAYER holds 25.4 MB and RUN adds ZERO.
+   The CLOTHES tab quadrupled (25 -> 96.8 MB) because it keeps a live canvas per
+   garment; off-screen canvases release their backing store now, 96.8 -> 2.4 MB, so
+   the whole build went 1,188 -> 1,093 MB. STILL RED AND NOT THIS LANE'S: 104
+   full-resolution images in the VOTE (633 MB) and ART (209 MB) tabs, byte-identical
+   before and after the flip. Quantizing does not help -- decoded cost is w*h*4
+   whatever the file weighs. It needs smaller DIMENSIONS. See row for ART/VOTE.
+   records/BOHEMIA_THE_FLIP_SHIPPED_BECAUSE_HE_COULD_NOT_SEE_IT_8_20_26.txt
+   WHAT REMAINS OF STEP (5): authoring real detail per item, now that there is
+   somewhere to put it -- and the fade-blends-into-skin-tone item the hair-and-shape
+   law marks [UNBUILT] is possible from today. Normal cooks, his normal thumbs. ***
    *** AMENDED AGAIN 8/20, AND THIS ONE UNPARKS THE ROW. TWO THINGS. ***
    (A) THE WARDROBE HALF OF STEP (5) IS DONE AND IT WAS NOT IN THIS ROW AT ALL.
    tools/bohemia_2x_flip.py's own docstring left the garment generators at 56 to be

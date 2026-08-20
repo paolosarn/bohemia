@@ -79,7 +79,13 @@ def check(name, ok, detail=''):
 print('=== RIG NO-DRIFT GATE ===')
 
 src = open(ALPHA, encoding='utf8').read()
-m = re.search(r'^const BAKED=(\{.*?\});?$', src, re.M)
+# 2X RE-BLESS (8/20): after the flip the literal is WRAPPED -- `const BAKED=RIG2X({...})`
+# -- and an anchored `const BAKED=(\{...\});` matched nothing, so this reported his rig
+# as ABSENT on a build where it is present and doubled. The optional wrapper is accepted;
+# the sha256 pin below still hashes THE LITERAL HE PAINTED, byte for byte, which is the
+# claim. Nothing is weakened: RIG2X only wraps at load, it never edits the literal, and
+# --unflip round-trips to the same bytes.
+m = re.search(r'^const BAKED=(?:RIG2X\()?(\{.*?\})\)?;?$', src, re.M)
 check('BAKED is present in the alpha', bool(m))
 if not m:
     print('=== %d passed / %d failed ===' % (passed, len(failed)))
