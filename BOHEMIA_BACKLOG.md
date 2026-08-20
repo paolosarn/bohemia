@@ -5215,6 +5215,42 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-RAID. [SHIPPED 8/20 - records/BOHEMIA_THE_RAID_RUNS_8_20_26.md]
+   *** THE RAID RUNS. The sibling can finally die in the played game. *** For
+   twelve days startColdOpen(onEnd) had ONE occurrence in the alpha, its own
+   definition, zero callers -- so the game went warm dinner -> cut -> "get to the
+   back door" -> you wake up on day 1 and get a job, the grief dinner mourned
+   nothing and the burial buried nobody, with every gate green.
+   THIS LANE TOOK IT AFTER FLAGGING IT TWICE, and checked the boundary again
+   first: P0-DOOR row 10 claims the surface switch for RUN but its line reference
+   (ALPHA:21436-21438, "calls the fight WITHOUT switching tabs") is STALE -- that
+   region is wardrobe code now and no such call exists anywhere, because there is
+   no call. Nothing needed inventing either: cityEncounterIn() has done this
+   exact dance for weeks and its own comment says a second handoff path is "the
+   duplicate-system mistake this repo keeps paying for", so this MIRRORS it,
+   calls the seam COMBAT published by the name THE SCENE declares (scene_gate has
+   asserted those two names match since 8/11), and switches with showTabPanel,
+   the alpha's own switcher. No combat code, no encounter spec, no dials touched.
+   IT FAILS SAFE: no seam, no switcher, or a throw, and the opening ends exactly
+   as it did before. The demo cannot be worse off than before this existed.
+   *** AND THE BUG I SHIPPED AND CAUGHT BY DRIVING IT: *** the raid fired
+   correctly and the RESUME was broken -- openContinue read the cold open's
+   handoff, saw to:'combat', found nothing to chain, and ended the opening, so
+   the grief dinner would never have played AFTER the fight. returns:true said
+   control comes back and named nothing to come back TO. It would have shipped
+   green, and the reason is worth keeping: UNTIL THIS TURN THE RAID HAD NEVER RUN
+   AT ALL, so the resume path had never once been reached. A code path downstream
+   of something that never executes cannot be caught by a gate that does not
+   execute it either. Fixed with data: a handoff says `then`, and his law puts
+   THE GRIEF DINNER there in those words.
+   | gate: SCENE 77 -> 86, mutation-tested two ways; full chain driven on the
+   real page | no decision taken | no.
+   STILL MISSING AND NOW VISIBLE: COLD_OPEN.cast is [] and COLD_OPEN.place is
+   null ([PENDING Paolo] since 8/8, but his 7/19 law rules both) -- NOBODY IS
+   BEHIND YOU IN THE DEFENCE, and the raid running is what makes that matter.
+   COMBAT's. The ridge exterior is ART's. Binding the burial to the real vista
+   overlook is RUN's.
+
 0sc-SEQ. [SHIPPED 8/19 - records/BOHEMIA_THE_RAID_HAS_NO_CALLER_8_19_26.md]
    *** THE FINDING FIRST, BECAUSE IT IS THE DEMO'S BIGGEST HOLE AND IT IS NOT
    THIS LANE'S TO CLOSE: `grep -n "startColdOpen(" slices/BOHEMIA_ALPHA_0_9.html`

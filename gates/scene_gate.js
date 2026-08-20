@@ -367,7 +367,7 @@ const ALPHA_SRC = fs.existsSync('slices/BOHEMIA_ALPHA_0_9.html')
 ok('the opening runner reads what a scene says comes next',
   /function openNext\(/.test(ALPHA_SRC));
 ok('and every scene of the sequence is played by the SAME code path (openPlay)',
-  /function openPlay\(/.test(ALPHA_SRC) && /openPlay\(openSceneById\(h\.scene\)\)/.test(ALPHA_SRC));
+  /function openPlay\(/.test(ALPHA_SRC) && /openHandoff[^]{0,900}return openPlay\(nxt\)/.test(ALPHA_SRC));
 ok('every scene it plays gets HIS DIRECT edits, not only the first one',
   /function openDirected\(/.test(ALPHA_SRC));
 
@@ -401,6 +401,45 @@ if (fs.existsSync(GRIEF_PATH)) {
   ok('and the two scenes after the cut actually say so (' + (g3.when || '?') + ' / ' +
     (r3.when || '?') + ')', !!g3.when && !!r3.when);
 }
+
+/* ---- 3f. THE RAID ACTUALLY RUNS NOW (8/20) --------------------------------
+   startColdOpen(onEnd) sat in the alpha from 8/8 with exactly ONE occurrence,
+   its own definition. The family-defense encounter -- the combat tutorial, the
+   raid, the scene the sibling is killed in -- had never been played from
+   anywhere, so the game went warm dinner -> cut -> "get to the back door" ->
+   wake up on day 1 and get a job. The death the whole opening is built on did
+   not happen, which made the grief dinner mourn nothing and the burial bury
+   nobody. Twelve days, every gate green. */
+ok('the opening HONOURS a combat handoff instead of ending on it',
+  /function openHandoff\(/.test(ALPHA_SRC) && /function openRaid\(/.test(ALPHA_SRC));
+ok('and it calls the seam by the name THE SCENE declares, never a hardcoded one',
+  /window\[h\.call\]/.test(ALPHA_SRC) && !/openRaid[^]{0,400}startColdOpen\(/.test(ALPHA_SRC));
+ok('it switches the surface with the alpha\'s OWN switcher, not a second one',
+  /showTabPanel\('combat'\)/.test(ALPHA_SRC) && /showTabPanel\('run'\)/.test(ALPHA_SRC));
+ok('IT FAILS SAFE: no seam, no switcher, or a throw, and the opening just ends ' +
+  'the way it did before', /typeof fn !== 'function'\) return false/.test(ALPHA_SRC) &&
+  /typeof showTabPanel !== 'function'\) return false/.test(ALPHA_SRC));
+ok('and it does not invent a second handoff path — cityEncounterIn\'s shape is ' +
+  'cited and mirrored', /cityEncounterIn/.test(ALPHA_SRC));
+
+/* *** A returns:true HANDOFF THAT NAMES NOTHING TO RETURN TO STOPS ON SUCCESS. ***
+   Found by driving it: the raid fired, and the resume read the cold open's
+   handoff, saw to:'combat', found nothing to chain, and ended the opening. The
+   grief dinner would never have played AFTER the fight -- and it would have
+   shipped green, because until this turn the raid had never run far enough for
+   the resume path to be reached at all. */
+const hoff = cold.beats.find(b => b.kind === 'handoff');
+ok('the cold open\'s handoff names what plays when the raid comes back (then: ' +
+  ((hoff && hoff.then) || 'NOTHING') + ')', !!(hoff && hoff.returns === true && hoff.then));
+ok('and that scene really exists in the catalogue',
+  !!(hoff && hoff.then) && fs.existsSync(GRIEF_PATH) &&
+  JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8')).id === hoff.then);
+ok('openContinue reads `then`, so resuming from a fight goes somewhere',
+  /h\.then \|\|/.test(ALPHA_SRC));
+/* every returns:true handoff, not just this one */
+const dangling = cold.beats.filter(b => b.kind === 'handoff' && b.returns === true && !b.then);
+ok('no handoff promises to return and names nowhere to return to',
+  dangling.length === 0, dangling.map(b => b.id).join(' '));
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);

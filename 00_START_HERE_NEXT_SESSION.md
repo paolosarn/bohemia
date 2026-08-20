@@ -1,3 +1,69 @@
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** THE RAID RUNS. The sibling can
+finally die in the played game. TAB: RUN on a fresh device -- the opening plays
+the cold open, hands you into the COMBAT tab for the raid, and comes back for
+the grief dinner and the burial on the ridge. ***
+
+FOR TWELVE DAYS startColdOpen(onEnd) had ONE occurrence in the alpha, its own
+definition, and ZERO callers. So the game went warm dinner -> the cut -> "get to
+the back door" -> you wake up on day 1 and get a job. The death the entire
+opening is built on did not happen, the grief dinner mourned nothing and the
+burial buried nobody. Every gate green the whole time.
+
+THIS LANE FLAGGED IT TWICE AND THEN TOOK IT, after re-checking the boundary:
+  - P0-DOOR row 10 nominally claims the surface switch for RUN, but its line
+    reference (ALPHA:21436-21438, "calls the fight WITHOUT switching tabs") is
+    STALE -- that region is wardrobe code now, and no such call exists anywhere,
+    because there is no call at all.
+  - Nothing needed inventing: cityEncounterIn() has done this exact dance for
+    weeks (show the panel, ensure the frame, wait, start the encounter) and its
+    OWN comment says why a second one would be wrong -- "a second handoff path is
+    the duplicate-system mistake this repo keeps paying for". So this mirrors it.
+  - Every piece was already published: COMBAT exposed startColdOpen(onEnd) for a
+    scene to name, my scene names it, scene_gate has asserted those two names
+    match since 8/11, showTabPanel is the alpha's own switcher, and
+    enc.onEnd(enc.outcome) already fires when a fight settles.
+No combat code, no encounter spec, no dials touched. IT FAILS SAFE: no seam, no
+switcher, or a throw, and the opening ends exactly the way it did before.
+
+*** THE BUG I SHIPPED AND CAUGHT BY DRIVING IT, AND THE LESSON IS THE POINT: ***
+the raid fired correctly and the RESUME was broken. openContinue read the cold
+open's handoff, saw to:'combat', found nothing to chain, and ended the opening --
+the grief dinner would never have played AFTER the fight. returns:true said
+control comes back and named nothing to come back TO.
+  IT WOULD HAVE SHIPPED GREEN. Until this turn the raid had NEVER RUN AT ALL, so
+  the resume path had never once been reached. A CODE PATH DOWNSTREAM OF
+  SOMETHING THAT NEVER EXECUTES CANNOT BE CAUGHT BY A GATE THAT DOES NOT EXECUTE
+  IT EITHER. The only reason it surfaced is that driving the real surface finally
+  got that far.
+Fixed with data rather than a special case: a handoff says `then` -- what plays
+when it comes back. His law puts THE GRIEF DINNER there, in those words.
+
+gates: SCENE 77 -> 86, mutation-tested two ways. Full chain driven on the real
+page: cold open -> showTabPanel:combat -> startColdOpen called -> resume ->
+act1_grief_dinner -> act1_ridge_burial. Zero page errors.
+
+ALSO CONFIRMED THIS TURN: none of the 29 reds on the fleet's first complete gate
+picture (8479625, 386/386 run in shards) is a PEOPLE gate. This lane is clean on
+that baseline. That sharding came out of the suite-timeout finding this lane
+filed on 8/19, acted on within a day.
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** COLD_OPEN.cast IS [] AND COLD_OPEN.place IS null. NOBODY IS BEHIND YOU
+     IN THE DEFENCE. *** Marked [PENDING Paolo] since 8/8, but his 7/19 law rules
+     both ("defending the home room to room... it ends saving the mother"), so
+     the marker is stale the way the demo-scope banner was until 8/14. The raid
+     running is exactly what makes this matter now instead of being academic.
+     COMBAT's.
+  2. THE RIDGE EXTERIOR. Money shot, title screen and last frame of the tutorial
+     are one image and it does not exist; the burial plays its words over an
+     honest empty frame that says so. ART's.
+  3. BIND THE BURIAL TO THE REAL VISTA OVERLOOK so the grave and the money shot
+     are one place rather than two views of the same valley. RUN's day loop.
+  4. THE TELL is authored, gated and still on no surface (BohemiaQuirk.tellFor(),
+     all 22 shapes). MINE.
+  5. DEEDS AND STANDING still absent from the city. Boundary: the rich deed
+     sources on the talk card are the FACTIONS lane's sentinels. MINE, carefully.
+
 PEOPLE (people-7h9sfy): 8/19 LATEST -- *** THE RAID HAS NO CALLER. The sibling
 never dies in the played game. TAB: CUTSCENE plays all three beats; RUN plays
 only the first and stops before the raid, on purpose. ***

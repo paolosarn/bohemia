@@ -169,8 +169,18 @@ function openNext(sc){
 function openContinue(fromId){
   var sc = fromId ? openSceneById(fromId) : (OPEN_PLAYER && OPEN_PLAYER.scene);
   var h = openNext(sc);
-  if(!h || h.to !== 'scene' || !h.scene) return false;
-  var nxt = openSceneById(h.scene);
+  if(!h) return false;
+  /* `then` is what plays when a handoff COMES BACK; `scene` is what a
+     scene-to-scene handoff goes straight to. The first cut read only `scene`,
+     so resuming from the raid looked at a handoff whose target was COMBAT,
+     found nothing to chain, and ended the opening -- the grief dinner would
+     never have played after the fight. It went unnoticed because until this
+     turn the raid had never run at all, so the resume path had never been
+     reached. A returns:true handoff that names nothing to return to is a
+     sequence that stops on success. */
+  var want = h.then || (h.to === 'scene' ? h.scene : null);
+  if(!want) return false;
+  var nxt = openSceneById(want);
   if(!nxt) return false;
   return openPlay(nxt);
 }
@@ -295,6 +305,84 @@ function openStart(){
   });
 }
 
+/* ---- WHAT A SCENE HANDS OFF TO ------------------------------------------
+   Returns true if it has taken responsibility for what happens next. False
+   means nothing follows and the opening is over -- the caller ends it, so a
+   handoff this cannot honour can never silently look like a finished sequence.
+
+   *** THE RAID HAD NO CALLER FOR TWELVE DAYS. *** startColdOpen(onEnd) has been
+   sitting in the alpha since 8/8 with exactly one occurrence -- its own
+   definition. The family-defense encounter is the combat tutorial, the raid, and
+   the scene the sibling is killed in, and it had never been played from
+   anywhere: the game went warm dinner -> cut -> "get to the back door" -> you
+   wake up on day 1 and get a job. The death the whole opening is built on did
+   not happen, which made the grief dinner mourn nothing and the burial bury
+   nobody.
+
+   IT DOES NOT INVENT A HANDOFF PATH. cityEncounterIn() has done this exact
+   dance for weeks -- show the combat panel, make sure the frame exists, wait for
+   it, then start the encounter -- and its own comment says why a second one
+   would be wrong: "A second handoff path is the duplicate-system mistake this
+   repo keeps paying for." So this mirrors that shape, calls the function COMBAT
+   published for the scene to name, and switches the surface with showTabPanel,
+   which is the alpha's own public switcher.
+
+   IT FAILS SAFE. No seam, no tab, or a throw anywhere in it, and this returns
+   false so the opening simply ends the way it did yesterday. The demo can never
+   be worse off than before this existed. */
+function openHandoff(h, fromId){
+  if(!h) return false;
+  if(h.to === 'scene' && h.scene){
+    var nxt = openSceneById(h.scene);
+    if(!nxt) return false;
+    return openPlay(nxt);
+  }
+  if(h.to === 'combat' && h.call) return openRaid(h, fromId);
+  return false;
+}
+
+/* the fight is not a cutscene, so the overlay stands down for it and the
+   sequence resumes when the encounter settles. */
+function openRaid(h, fromId){
+  var fn = (typeof window !== 'undefined') ? window[h.call] : null;
+  if(typeof fn !== 'function') return false;
+  if(typeof showTabPanel !== 'function') return false;
+  openHideOverlay();
+  openMarkSeen();               /* he has seen the opening; it must not replay */
+  OPEN_RUNNING = false;
+  var resumed = false;
+  function resume(){
+    if(resumed) return; resumed = true;
+    try{ showTabPanel('run'); }catch(_e){}
+    setTimeout(function(){
+      try{ if(!openContinue(fromId)) openDone(); }catch(_e){ openDone(); }
+    }, 500);
+  }
+  try {
+    showTabPanel('combat');
+    /* the frame may not exist yet; clicking the tab is what builds it, and the
+       generic data-src promoter runs off the same click. Same order
+       cityEncounterIn uses, for the same reason. */
+    var tab = document.querySelector('.tab[data-p=combat]');
+    if(!document.getElementById('combatFrame') && tab) tab.click();
+    var fr = document.getElementById('combatFrame');
+    var go = function(){ try{ fn(resume); }catch(_e){ resume(); } };
+    if(!fr) { go(); return true; }
+    if(fr.contentDocument && fr.contentDocument.readyState === 'complete') setTimeout(go, 250);
+    else fr.addEventListener('load', function(){ setTimeout(go, 250); });
+    return true;
+  } catch(_e){ return false; }
+}
+
+/* fade the overlay WITHOUT ending the sequence. openDone does this and also
+   marks the opening finished; the raid needs only the first half. */
+function openHideOverlay(){
+  var w=document.getElementById('openWrap'); if(!w) return;
+  try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
+  w.style.transition='opacity .45s'; w.style.opacity='0';
+  setTimeout(function(){ w.style.display='none'; w.style.opacity='1'; w.style.transition=''; }, 460);
+}
+
 /* PLAY ONE SCENE OF THE SEQUENCE. Pulled out of openStart so the second and
    third beats are played by exactly the same code as the first -- a sequence
    whose later scenes go through a different path is a sequence where only the
@@ -319,11 +407,7 @@ function openPlay(sc){
     onEnd:function(s){
       openCaption(s,true);
       var h=openNext(sc);
-      if(h && h.to==='scene' && h.scene && openSceneById(h.scene)){
-        setTimeout(function(){ openPlay(openSceneById(h.scene)); }, 900);
-        return;
-      }
-      setTimeout(openDone, 900);
+      setTimeout(function(){ if(!openHandoff(h, sc.id)) openDone(); }, 900);
     }
   });
   if(typeof CUT_FRAMES!=='undefined' && CUT_FRAMES) OPEN_PLAYER.frames=CUT_FRAMES;
