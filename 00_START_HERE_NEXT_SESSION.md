@@ -1,3 +1,62 @@
+COMBAT (combat-nfnki9): 8/19 (q) LATEST -- *** THE RULES ARE AN OPEN BOOK.
+RF4-55 (machine 7), RF4-65 and RF4-68 BUILT. TAB: COMBAT, the SETTINGS panel,
+top section: THE OPEN BOOK. ***
+Record: records/BOHEMIA_COMBAT_THE_OPEN_BOOK_8_19_26.md
+Tool:   tools/bohemia_combat_the_open_book_patch.py (v169, idempotent)
+Gates:  combat_lab 864/0 | fight_moves_you 33/0 | rf4_teardown 92/2 STILL LAB'S
+
+"Deterministic AI plus published rules equals A GAME ABOUT KNOWLEDGE. Hidden AI
+plus randomness equals a game about adaptation. These are opposite promises and a
+game has to pick one." The determinism was already ours (locked in June, armor 0
+on every body). THE PUBLISHING WAS MISSING: five mechanics shipped in four days
+and not one of their numbers was written anywhere a player could see it.
+
+THE HARD PART IS WHAT IS NOT ON THE PAGE. RF4-68 is a PROCEDURE, not a taste:
+"tell them what they cannot derive, hint at what they could, SHOW them what the
+room can demonstrate, NEVER EXPLAIN SOMETHING THE FLOOR COULD HAVE SHOWN." So the
+orthogonal machine, cover killing the guns, and the spotter's pin are all ABSENT
+ON PURPOSE -- the floor teaches all three -- and a gate FAILS THE BUILD if any of
+them leaks onto the page. Everything on a rules page is what makes nobody read it.
+
+EVERY NUMBER IS READ FROM THE LIVE CONSTANT, NONE TYPED. A published rule that can
+drift from the code is worse than none: it is not stale, it is a LIE told to the
+player who trusted it. The gun band goes through the SAME TWO DOORS the fight uses
+(effRange/maxRange, which took an optional multiplier so the page can ask for the
+RULE instead of tonight's weather) -- writing the clamp out a second time in the
+book would BE the drift.
+
+*** THE FINDING ANY LANE CAN USE, AND IT IS THE THIRD MEASUREMENT MISTAKE THIS
+WEEK: A CONSISTENCY CHECK IS NOT A TRUTH CHECK. *** My first gate was fully green
+while the panel read "RIFLE best inside 20, cannot reach past 8" -- an effective
+range LARGER than the gun's own maximum, printed under a headline saying nothing
+shoots past 16. It passed because it compared the page to THE SAME FUNCTION THE
+PAGE HAD USED TO BUILD ITSELF. Two things agreeing proves nothing when one is
+derived from the other. The fix is a check that reads the OUTPUT ALONE and asks
+whether it can possibly be true (no gun best-inside further than it can reach, no
+gun past the ceiling the same page states). If you generate something and then
+check it, CHECK IT AGAINST SOMETHING THAT DID NOT GENERATE IT.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (RF4 LIFT routes machines 1,3,4,7,8,9
+here; 1, 3, 4, 7 BUILT, plus RF4-24, 26, 37, 65, 68):
+ 1. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL, NOT DAMAGE. "Almost nothing in
+    the status list is about dealing damage." The spotter's pin (V168) is the
+    game's first turn denial and it is a hand-built special case; machine 9 is
+    the general system it should be an instance of. RF4's own example is the
+    sleep bomb doing FIVE jobs at once (blocks line of sight, plugs a corridor
+    with a body, cancels a buff, blocks cloud attacks, cleanses) -- which is the
+    same "one thing many systems read" shape as machine 4. Strongest item left.
+ 2. THE FIGHT HALF OF MACHINE 6 -- terrain kills. Terrain PROPERTIES are WORLD's.
+ 3. MACHINE 8 -- BOUNDED DAMAGE VARIANCE (50-100%). BLOCKED BY LAW, not by work:
+    NO DAMAGE BEFORE THE DIAL. Do not start it.
+ 4. AND THE OBLIGATION V169 INHERITS: determinism "buys depth on first contact
+    and SPENDS IT OVER TIME, so new deterministic rules must keep arriving."
+    Every future rule a player cannot derive goes on the OPEN BOOK page. It is
+    not a row that closes.
+ 5. STILL OPEN, NOT A COMBAT PROBLEM: the curve made fights less lethal one for
+    one (6.36 HP/turn at a pinned 8 vs 3.74). The compensator is ATTRITION ACROSS
+    A RUN, which does not exist in a standalone arena. If he says it plays easy,
+    that is the answer, not eight bodies again.
+
 SOUND (sound-xk7pjp): 8/19 (s,t) -- *** THE STING. Winning and dying had NOTHING
 musical on them. Now they play a figure in the key of whatever song is running.
 TAB: RUN (win or lose a fight and listen). Nothing to judge. ***
