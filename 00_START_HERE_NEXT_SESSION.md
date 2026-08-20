@@ -1,3 +1,75 @@
+RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
+50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
+
+THE DELIVERABLE, MEASURED, BOTH ENDS:
+
+                        BEFORE            AFTER
+  gates run             217 of 379        258 of 393
+  wall clock            ~3000s (50 min)   2711s (45.2 min)
+  per gate              13.8s             10.5s   (the suite's own figure)
+  never ran             162               135
+  share of the table    57.3%             65.6%
+
++41 gates against a table that GREW by 14 while I worked. About 24% off the
+per-gate clock. AND IT IS NOT ENOUGH: the runner's own arithmetic at the bottom
+of the run says this build needs ~4129s against a 2700s budget. FIX 1 ALONE
+CANNOT MAKE THE SUITE FINISH, which is what the sweep law predicted by putting
+fix 2 second rather than calling fix 1 sufficient.
+
+WHAT WAS DONE. 399 fixed sleeps in 108 gates/*.js, 19.7 minutes of ceiling,
+replaced with a condition:
+    await pg.waitForTimeout(2500)  ->  await SETTLE(pg, 2500)
+  gates/bohemia_settle.js             the helper
+  tools/bohemia_kill_fixed_sleeps.py  the rewrite, with --check
+
+MEASURED FIRST, because the shape decided the design. Of the 399 sleeps, 162 sit
+after a click, 86 after a goto, 38 after an evaluate, 6 after a reload -- and in
+nearly every case the NEXT line is an evaluate reading whatever the sleep waited
+for. They are all one sentence: "give the page long enough to finish reacting to
+what I just did." THAT SENTENCE HAS A CONDITION and it does not need to know what
+the gate checks: THE PAGE HAS STOPPED CHANGING.
+
+THE CONTRACT IS CONSERVATIVE ON PURPOSE:
+  - THE OLD NUMBER IS A CEILING IT CAN NEVER EXCEED. Worst case is exactly the
+    old behaviour; no gate can get slower.
+  - A 120ms floor, so it cannot mistake "the handler has not started yet" for
+    "finished".
+  - STILLNESS IS MEASURED OVER A BEAT: 600ms, because BEAT is 0.5s under the 120
+    BPM law, so nothing driven by the beat can hide inside the window. That number
+    is the repo's own law, not a taste call.
+  - When it cannot see (cross-origin frame, detached page, navigation mid-poll)
+    it sleeps out the remaining budget. A helper that turned an error into an
+    early return would be a gate that lies.
+  - ZERO ASSERTIONS CHANGED, which the sweep law names as the point of fix 1.
+
+SPOT-MEASURED, same pass counts both sides:
+    opening       59s -> 54s (20/20)      population dial  42s -> 24s (21/21)
+    exchange      62s -> 50s (31/31)      wall class       39s -> 20s (24/24)
+
+IT CAUGHT ITSELF ONCE: the first pass put the require ABOVE `#!/usr/bin/env node`
+in nine executable gates, so node parsed the shebang as code. Checking that every
+gates/*.js still PARSES before trusting anything is what found it -- the rewrite
+tool now keeps a shebang on line 1 and says why.
+
+THE 13 REDS THIS RUN are the standing set: DISTRICT FILL, TRAFFIC SIGNAL, DRIVE
+NETWORK, VOTE TAB, VOICE SURFACES, FRESH DOORS, MIX, SONG LOCK, DRESS, ROAD
+CELLS, TOOLS RUN, BANNER, QUEST PLACEMENT. MIX is the only name new to this lane
+and it is NOT from the conversion: my commit does not touch gates/mix_gate.py,
+and running it against HEAD~1 is red too (its failure COUNT drifts 1<->2 between
+runs because it samples an audio duck envelope, which is worth someone knowing).
+
+WHAT COMES NEXT ON THE SUITE, and the law already ordered it:
+ 1. FIX 2 -- ONE BROWSER, NOT NINETY-FOUR. This is now the whole remaining gap.
+    94 gates each cold-launch chromium and boot a 3.8MB alpha before their first
+    assertion; at ~10.5s a gate that boot IS the 10.5s. Hand each gate an
+    isolated CONTEXT off one warm process. Nothing a gate asserts changes.
+ 2. FIX 3 -- the --fast filter over the ~256 gates that never touch a browser.
+    A filter over what exists, not new work.
+ 3. AND 3.7 MINUTES OF SLEEPS SURVIVE, measured: 101 calls across 17 gates/*.py
+    that EMBED javascript run through node. Same disease, different shape; the
+    .js rewrite cannot see inside a Python string and was not allowed to guess.
+ BUT THE ORDER IS HIS: fixes 2 and 3 wait behind this lane's demo P0s.
+
 SOUND (sound-xk7pjp): 8/20 (f,g) LATEST -- *** THIRTY OF THE NINETY-TWO GAME
 MOMENTS MAKE NO SOUND. He killed every candidate for all of them, twice, AND NOT
 ONE OF THEM HAD A CALLER. TAB: RUN. Nothing to judge. ***
