@@ -93,11 +93,11 @@ const OUT = path.join(REPO, 'slices/look/the-box.png');
     cx.fillStyle = '#f0e6d4'; cx.font = 'bold 30px monospace';
     cx.fillText('IS THIS A DEALBREAKER?', PAD, 42);
     cx.font = '17px monospace'; cx.fillStyle = '#b8ab95';
-    cx.fillText('left is what you see today. right is what 4x actually gives you.', PAD, 72);
-    cx.fillText('same art, same size. right is sharper and a bit more square.', PAD, 94);
+    cx.fillText('you looked at this and said it looks exactly the same. you were right,', PAD, 72);
+    cx.fillText('so the right column shipped. left is every build before 8/20.', PAD, 94);
     cx.font = 'bold 17px monospace';
-    cx.fillStyle = '#c98a6a'; cx.fillText('TODAY', LBL + PAD, HDR - 10);
-    cx.fillStyle = '#8fc07a'; cx.fillText('NATIVE 4X', LBL + PAD + wOf(ROWS[0]) + PAD, HDR - 10);
+    cx.fillStyle = '#c98a6a'; cx.fillText('BEFORE', LBL + PAD, HDR - 10);
+    cx.fillStyle = '#8fc07a'; cx.fillText('NOW, SHIPPED', LBL + PAD + wOf(ROWS[0]) + PAD, HDR - 10);
 
     const blit = (buf, N, dx, dy, y0, y1, z) => {
       const im = cx.createImageData(N, N), D = im.data;
@@ -126,8 +126,8 @@ const OUT = path.join(REPO, 'slices/look/the-box.png');
     }
     if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
     cx.fillStyle = '#6f6455'; cx.font = '13px monospace';
-    cx.fillText('the two differ on 5.9% of him. 40% of that is clothes, which i fix in code for free;', PAD, cv.height - 34);
-    cx.fillText('the rest is your paint. if you can live with the right column, 4x ships tomorrow.', PAD, cv.height - 16);
+    cx.fillText('they differ on 5.9% of him and you could not see it, which is the whole answer.', PAD, cv.height - 34);
+    cx.fillText('the character is four times the pixels now. the border is one true pixel.', PAD, cv.height - 16);
     return cv.toDataURL('image/png').split(',')[1];
   });
 

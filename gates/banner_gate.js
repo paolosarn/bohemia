@@ -106,6 +106,26 @@ ENGINE.forEach(f => { BODIES[f] = fs.readFileSync(path.join('engine', f), 'utf8'
 function longLines(f) {
   return BODIES[f].split('\n').map(l => l.trim())
     .filter(l => l.length > 40 && !/^[/*=\-_.#\s]+$/.test(l) && !/^\/\*\s*[=\-]{6,}/.test(l))
+    /* 4. AND A FOURTH WRONG RULER, FOUND 8/20 WHEN THE SUITE FINALLY FINISHED AND THIS
+          GATE COULD BE READ: it reported "bohemia_asking.js x7, bohemia_exchanges.js x3,
+          bohemia_people.js x2" and NONE of them were real. Two separate holes, both in
+          the fingerprint rather than in the page:
+            (a) A DATA LINE IS NOT A BODY. asking's longest unique line was a JSON
+                `"applied": "many diegetic paths to the same knowledge..."` -- a QUEST
+                STUDY citation. Those strings live in quest data all over the page, so
+                the count was counting CITATIONS, not copies. A line that begins with a
+                quote is prose or data, never a module body.
+            (b) A FINGERPRINT MUST BE UNIQUE INSIDE ITS OWN MODULE TOO. people's line
+                appears TWICE in canon (once in ask:, once in answer:), so one inlined
+                copy counts as two and the number can never mean "copies" at all.
+          Verified after: with both conditions the whole engine reports ZERO doubles,
+          every module still gets a signature, and the three bundles are still detected.
+          FIX THE RULER, NEVER THE TARGET -- for the fourth time on this one gate, and
+          every one of those four would have sent somebody hunting a bug that is not
+          there. Believing this one would have meant "deduplicate seven copies of asking"
+          when the page holds exactly one. */
+    .filter(l => !/^["']/.test(l))
+    .filter(l => BODIES[f].split(l).length - 1 === 1)
     .sort((a, b) => b.length - a.length);
 }
 const LONG = {};

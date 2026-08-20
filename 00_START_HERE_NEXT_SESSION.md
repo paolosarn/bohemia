@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
 Nothing here needs judging. ***
@@ -55,6 +56,137 @@ WHAT COMES NEXT FOR THIS LANE:
   1. Crosswalk PLACEMENT (above) -- the other WORLD session's, art is ready.
   2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
   3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
+=======
+SOUND (sound-xk7pjp): 8/20 (r,s,t,u) LATEST -- *** 40 SOUNDS ARE WAITING FOR HIM,
+AND THEY WERE CARDS 93 TO 100 OF 100. TAB: MUSIC, the SFX board -- now cards 1 to
+8. ***
+
+He asked "do you have new sounds for me to judge?" and I verified it on the
+shipped sheet instead of asserting it.
+  THE ROOM GOES QUIET | THE MAG SEATS | IT CHANGES HANDS | A DOG, OUT THERE
+  THE SIGN IS STILL ON | YOUR LUNGS CATCH UP | MORE SAND | MORE BOARDS
+All 40 render 0.17-0.31 (none below the judgeable floor, none silent, no page
+errors). Tapping one fires ONLY that sound -- the judge-quiet checks from his
+8/16 complaint are still green.
+
+*** THE THING THAT WOULD HAVE COST HIM THE SESSION. *** Those 8 cards sat at
+positions 93-100 OF 100. The sheet opened on ninety-two CLOSED cards and the only
+work he could do was underneath all of them. The rule was already right and had
+been since 8/1 -- his words, "I shouldn't be having a scroll for five fucking
+minutes", and the code comment literally says "the page opens on exactly the work
+that is left" -- but the list was walked in DECLARATION order and a new batch is
+declared at the END. Technically visible, practically buried: the exact shape of
+"I didn't see the new sound effect".
+FIXED in tools/bohemia_sfx_factory.py: undecided sort FIRST, decided after,
+declaration order preserved inside each group so nothing else shuffles under him.
+No verdict changed, no sound changed -- only what he meets first. Measured again:
+cards 1 through 8.
+
+*** SIXTH RULER MISTAKE THIS WEEK, CAUGHT BEFORE REPORTING. *** My first probe
+said all 100 cards were OPEN and the collapse was broken. It tested row
+visibility; the sheet closes a card by setting display:none on the card BODY,
+which is what sfx_wired_gate already measures. Re-measured its way: 8 open, 92
+shut, exactly as designed. Running tally of bad instruments: RMS on the kill
+layers, a closure lookup on the ambience, the two-point pitch model (x3), a
+checker searching a haystack holding its own answer key, a grep of the wrong
+file, and now a visibility test on the wrong element. CHECK THE RULER FIRST.
+
+GATES: SFX RENDER 6626/0 (500 candidates). SFX WIRED 853/0. VERDICT-FROZEN 6/0.
+SILENT MOMENTS 29/0. INSTRUMENT 15/0. ALPHA LOADS 20/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** WAIT FOR HIS 40 VERDICTS BEFORE TOUCHING THE PITCH MODEL. *** The
+    two-point calibration (INST_VOICE at semi -24 and +12 only) has mispredicted
+    THREE voices -- ghostvox and breathpad 5x quiet on 8/19, sweeppad a click on
+    8/20. The fix is a third row at semi -6 and the measure tool already freezes
+    existing rows, so only the new row needs reading (~72 voices x 5 steps, 6-8
+    min). BUT IT RE-TUNES EVERY INSTRUMENT SOUND HE HAS APPROVED, so running it
+    while 40 candidates await his thumb would move the ground under his own
+    verdicts. Do it the moment his sweep lands, with a deliberate re-record.
+ 2. Whatever he approves out of the 40 unlocks volume (APPROVAL UNLOCKS VOLUME)
+    and expires the step_wood waiver in sfx_wired_gate automatically.
+ 3. go_inside has a real trigger nobody has used: the `inside` flag crosses to
+    the parent every 4s -- watch it flip, same shape as PAYSTING.
+ 4. HORIZONTAL RE-SEQUENCING between music intensity tiers; the vertical half
+    (kill layers) is done.
+
+CHARACTER (character-0lurbs): 8/20 (e) LATEST -- *** THE CHARACTER IS FOUR TIMES
+THE PIXELS. HE SHIPPED IT BY SAYING "IT LOOKS EXACTLY THE SAME DUMBASS". ***
+
+He was right, and that was the whole answer. Row 2X had steps 1-4 built, proved and
+DORMANT since 8/16 on ONE sentence I wrote myself -- "at 112 native his head renders
+as a box" -- which is true and was also a JUDGEMENT made on his behalf about pixels
+he had never been shown. He was shown them, could not see a difference, and it
+shipped. Thirty pixels on a face were holding the headline.
+VERIFIED THE PICTURE WAS HONEST BEFORE TREATING IT AS A RULING: 976 of 30,752
+displayed head pixels differ, 3.2%. A real difference, correctly called nothing.
+
+SHIPPED (`python3 tools/bohemia_2x_flip.py --flip`):
+  - the frame composes at 112 NATIVELY; Scale2x is OFF, which deletes per-frame work
+  - the black border is ONE TRUE PIXEL, median 1 on all eight facings
+  - his painted art untouched -- rig_no_drift still hashes the literal byte for byte
+  - the wardrobe was made resolution-native the same morning, so garments arrive
+    sharp instead of block-doubled (which is what the old plan would have shipped)
+
+THE FLIP TOOL GOT TWO THINGS WRONG AND REFUSED TO WRITE BOTH TIMES (it working):
+  1. it would have RE-INSERTED the block-doubling garment seam and undone the
+     morning's 4x wardrobe. Retired, replaced with an ASSERTION -- if the native
+     seam ever vanishes it refuses to flip rather than silently reverting.
+  2. four seams it called MISSING were already applied in a later `typeof BAKED`
+     form. A tool that cannot recognise its own finished work reports a MISS.
+
+RE-BLESSED, NOTHING LOOSENED (all mutation-tested):
+  ALPHA LOADS + RIG NO-DRIFT  the literal is WRAPPED now, so `const BAKED={` matched
+                              nothing and both said HIS RIG IS MISSING on a build
+                              where it is present and doubled
+  CANVAS SCALE                CLOTHES boxes were x1.5 and x0.5 around a 112 sprite
+                              (x4.5 and x1.5 on the glass). Resized; cloBig re-pinned
+                              x3 -> x2 because those are the SAME SIZE on screen
+  BORDER                      THE RULER WAS WRONG: it measured along a raster row, so
+                              on a diagonal it read a staircase tread as an 8px
+                              border once Scale2x stopped rounding corners. Takes the
+                              smaller of BOTH axes now -- stricter, not looser
+  CROWD                       not dice: it compared a HALF-DRAWN board. Settles on the
+                              board, not a clock. 4 runs green
+
+*** THE ONE THAT IS A FINDING, NOT A RE-BLESS: HEAD FOLLOWS RIG. ***
+Its pin was FLATTERED. In 56-equivalent cells the chin went from "exactly right"
+(rig 4, game 4) to "two cells wide" (rig 4, game 6) purely by removing the smoothing
+-- THE SKINNER WAS ALWAYS DRAWING IT THAT WIDE and Scale2x was trimming the corner
+off. The ratchet is a RATIO now (deviation over the rig's own width): 0.171 at 56,
+0.211 at 112, scale-free forever, never needs re-blessing again. It is the instrument
+that says where "the head is a box" actually lives: THE CHIN AND THE ROW UNDER THE
+MOUTH. Fix the skinner there and the number falls.
+
+MEMORY, measured as row 2X demanded:
+  a PLAYER holds 25.4 MB and the RUN tab adds ZERO. The flip costs the game nothing.
+  the CLOTHES tab quadrupled (25 -> 96.8 MB): it keeps a live canvas per garment for
+    258 garments and never let go of the pixels, only of the painting. Off-screen
+    canvases release their backing store now: 96.8 -> 2.4 MB, whole build 1,188 ->
+    1,093 MB. So this turn IMPROVED the worst case by ~100 MB while doubling the rig.
+  *** STILL RED AND NOT THIS LANE'S -- THE ONE THING WORTH SOMEBODY'S NEXT TURN ***
+    104 full-resolution images decode to 850 MB: VOTE 69 imgs / 633 MB, ART 27 imgs
+    / 209 MB. BYTE-IDENTICAL before and after the flip, so none of it is the rig.
+    QUANTIZING DOES NOT HELP -- decoded cost is w*h*4 whatever the PNG weighs; it
+    needs smaller DIMENSIONS or thumbnails. The gate had been GREEN ONLY ON A STALE
+    MEASUREMENT FILE (its own NOTE says so every run). I re-took it rather than keep
+    a green I know is a lie.
+
+  records/BOHEMIA_THE_FLIP_SHIPPED_BECAUSE_HE_COULD_NOT_SEE_IT_8_20_26.txt
+  LOOK tab: "IT LOOKS EXACTLY THE SAME" -- re-labelled to what it became, left is
+  every build before today, right is what he is playing.
+
+NEXT IN THIS LANE:
+  - STEP (5) IS OPEN FOR THE FIRST TIME: real detail per garment/hairstyle, now that
+    there is somewhere to put it. The fade-blends-into-skin-tone item the
+    hair-and-shape law marks [UNBUILT] is possible from today.
+  - the CHIN. head_follows_rig now points at it precisely; it is skinner work and
+    RIG LAW makes that the most dangerous code in the repo, so measure first.
+  - wear()/scuff still hash per PIXEL (alpha ~21833); at 112 that is noise, not
+    cloth. Same cell-hash fix the tatter already took.
+
+---
+>>>>>>> origin/main
 
 SOUND (sound-xk7pjp): 8/20 (p,q) LATEST -- *** SAND STOPPED MACHINE-GUNNING. My
 own last ship made three surfaces audible and two of them had ONE sample. TAB:
@@ -11209,6 +11341,15 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (a) LATEST -- *** THE LAWNS WERE GRAVEL: a new
+empty-queue instrument (rank the world name inventory minus every claimed
+name) found 24,000 cells of lawn drawing as gravel - the whole cemetery,
+the golf rough, the fire station and campus lawns. Fixed with ZERO new
+pixels: the approved turf, mow-banded for lawns, per-cell shuffled for
+the rough (placement kills the stripe read). Verified live both ways.
+Daily re-probe: all twelve landmark grounds still reserved. Record:
+sitting pass 37. Earlier 8/21: TF-ART-019 grid kit (substation machines).
+PREVIOUS:
 ART (f3eu53): 8/21 (a) LATEST -- *** THE GRID HAS ITS MACHINES:
 TF-ART-019 filed, cooked, wired in one turn - the substation's transformer
 bays (6x8-cell body: tank, fins, bushings), switchgear lattice, OVERHEAD

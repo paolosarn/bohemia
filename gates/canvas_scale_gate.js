@@ -121,7 +121,11 @@ if (walked) {
 const CHAR_SURFACES = [
   ['char',    'charCv',     3, 'the character preview'],
   ['char',    'portraitCv', 2, 'the portrait he taps to edit the face'],
-  ['clothes', 'cloBig',     3, 'the big clothing preview'],
+  /* 2X RE-BLESS (8/20): x3 of a 56 sprite and x2 of a 112 sprite are the SAME size on
+     screen. The claim this row makes is "a whole number, never a fraction", and that is
+     untouched -- only which whole number. Re-pinned, not relaxed: x2 is still asserted
+     exactly, and the glass check below still demands an integer device scale. */
+  ['clothes', 'cloBig',     2, 'the big clothing preview'],
   ['clothes', 'cloCv',      1, 'the clothing strip tiles'],
   ['anim',    'g8_0',       1, 'the 8-facing gallery — the surface animations are JUDGED on'],
   ['anim',    'g8_4',       1, 'the 8-facing gallery (S)'],

@@ -228,7 +228,23 @@ UI = r"""
      one green line saying what he decided. Only the undecided ones are open, so
      the page opens on exactly the work that is left. */
   var CARDS=[];
-  BOH_SFX.EVENTS.forEach(function(E){
+  /* AND THE WORK THAT IS LEFT COMES FIRST (8/20). The rule above has been right
+     since 8/1 -- "I shouldn't be having a scroll for five fucking minutes" --
+     but the list was walked in DECLARATION order, and a new batch is declared at
+     the END. Measured on the shipped sheet: the eight moments waiting for him
+     were cards 93 to 100 of 100, so the page opened on ninety-two closed cards
+     and the only thing he could actually do was below all of them. Technically
+     visible, practically buried, which is exactly how "I didn't see the new
+     sound effect" happens.
+     Undecided first, decided after, DECLARATION ORDER PRESERVED INSIDE EACH
+     GROUP so nothing else shuffles under him. This changes no verdict and no
+     sound; it is only what he meets first. */
+  var _ORDER=BOH_SFX.EVENTS.slice().sort(function(a,b){
+    var da=SJ.done(a.ev)?1:0, db=SJ.done(b.ev)?1:0;
+    if(da!==db) return da-db;
+    return BOH_SFX.EVENTS.indexOf(a)-BOH_SFX.EVENTS.indexOf(b);
+  });
+  _ORDER.forEach(function(E){
    var card=el('div'); card.className='sfxCard';
    var done=SJ.done(E.ev), ups=SJ.ups(E.ev);
    var isOpen=(SJ.open[E.ev]!==undefined)?!!SJ.open[E.ev]:!done;

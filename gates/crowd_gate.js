@@ -125,6 +125,24 @@ ok('it restores his look in a finally block (an exception must not strand him as
   ok(`and no two people share a HEAD (${r1.heads}/12 distinct heads)`, r1.heads >= 11);
   ok('the board reports what it drew (' + r1.stat.slice(0, 60) + ')', /people/.test(r1.stat));
 
+  /* WAIT FOR THE FIRST PAINT TO FINISH BEFORE JUDGING DETERMINISM (fixed 8/20).
+     The board paints twelve citizens synchronously off a setTimeout, and this check
+     read the canvases, called crowdRefresh() and compared. If the first paint was
+     still in flight the "before" snapshot was a HALF-DRAWN BOARD, and the refresh
+     that followed finished it -- which is not dice in the render path, it is a
+     stopwatch started too early. It went from rare to frequent the day the rig
+     doubled, because a 112 frame is four times the work: measured, twelve citizens
+     redrawn four times in a row are byte-identical every time once the board has
+     actually settled. So settle on the BOARD, not on a clock. */
+  await pg.waitForFunction(() => {
+    const h = document.getElementById('crowdBoard'); if (!h) return false;
+    const cs = [...h.querySelectorAll('canvas')]; if (cs.length !== 12) return false;
+    const sig = cs.map(c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+      let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 8) n++; return n; }).join(',');
+    const was = window.__crowdSettleSig; window.__crowdSettleSig = sig;
+    return was === sig && cs.every(c => c.width > 0);
+  }, { timeout: 20000, polling: 250 }).catch(() => {});
+
   /* DETERMINISM, on the canvas: same page, redrawn, identical pixels. */
   const r2 = await pg.evaluate((READ) => {
     const read = eval(READ);

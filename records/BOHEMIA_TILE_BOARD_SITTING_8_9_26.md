@@ -796,3 +796,23 @@ bigger than the screen's margin.
 
 Verified live standing at a bay (the transformer whole in frame) and in
 the container rows. Nineteenth wired family.
+
+## 8/21 THIRTY-SEVENTH PASS: THE LAWNS WERE GRAVEL (24,000 cells found by ranking)
+
+New instrument for the empty-queue days: rank the full world name
+inventory by count, minus every name a wired family or the ground vocab
+claims - whatever tops the list is the biggest lie still standing. The
+first run found 24,000 cells of LAWN drawing as gravel yard: 'memorial
+lawn' x9993 (the whole cemetery), 'dead rough' x9751 (the golf course),
+'dead lawn' x4590 (fire station) + 'dead lawn (campus ground)' x4209 -
+none matched any ground rule, all fell to the final yard fallback.
+
+The fix cost ZERO new pixels: the approved TF-ART-005 turf. The mown
+lawns (cemetery, station, campus) wear the row-locked mow banding; the
+golf ROUGH uses the same pieces with the a/b pair and variant shuffled
+PER CELL, which kills the mow read - placement, not a recook, makes
+patchy unmown rough out of striped lawn pieces. Verified live: the
+cemetery reads as a dead memorial lawn with the graves sitting in it,
+the rough reads wild against the fairway. Exact-name predicates only.
+Daily re-probe first, same turn: all twelve landmark grounds still
+reserved, trailer awnings still unnamed, no crossings.

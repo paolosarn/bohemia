@@ -87,7 +87,11 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
 
   const rows = await fr.evaluate(() => {
     const cells = {};
-    for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+    /* THE VALLEY SAYS HOW BIG IT IS -- and INSIDE the page that is `om`, not the
+       node-side world handle. The first cut of this reached for `world` here and
+       crashed with ReferenceError, because this loop runs in the BROWSER. */
+    for (let y = 0, _N = (typeof om !== 'undefined' && om.n) ? om.n : 96; y < _N; y++)
+      for (let x = 0; x < _N; x++) {
       const c = om.at(x, y); if (!c) continue;
       (cells[c.district] = cells[c.district] || []).push([x, y]);
     }

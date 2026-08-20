@@ -126,21 +126,27 @@ SEAMS = [
      "  const CW = (typeof BAKED !== 'undefined' && BAKED.W) || 56,\n"
      "        CH = (typeof BAKED !== 'undefined' && BAKED.H) || 56;\n"),
 
+    # *** THESE FOUR WERE LATER RE-WRITTEN WITH A `typeof BAKED` GUARD (found 8/20).
+    # They were applied long ago and then hardened, so the tool's original matchers
+    # found ZERO of either form and it refused to flip -- correctly, but for a reason
+    # that had nothing to do with the rig. A tool that cannot recognise its own
+    # finished work reports a MISS for a job that is DONE. The `new` string is what
+    # the file actually says today, so the already-applied branch catches them. ***
     ('the skinner grid reads the rig',
      "const CW = 56, CH = 56, NP = 12;",
-     "const CW = BAKED.W, CH = BAKED.H, NP = 12;"),
+     "const CW = (typeof BAKED!=='undefined'&&BAKED.W)||56, CH = (typeof BAKED!=='undefined'&&BAKED.H)||56, NP = 12;"),
 
     ('CLOTHES_FIT is measured in rig space',
      "  const _CW = 56;",
-     "  const _CW = BAKED.W;"),
+     "  const _CW = (typeof BAKED!=='undefined'&&BAKED.W)||56;"),
 
     ('dressBackLimb reads the rig',
      "  const CW=56,CH=56, SK=SKINNERS[d];",
-     "  const CW=BAKED.W,CH=BAKED.H, SK=SKINNERS[d];"),
+     "  const CW=(typeof BAKED!=='undefined'&&BAKED.W)||56,CH=(typeof BAKED!=='undefined'&&BAKED.H)||56, SK=SKINNERS[d];"),
 
     ('buildFrame composes at rig resolution',
      "  const CW=56,CH=56;\n",
-     "  const CW=BAKED.W,CH=BAKED.H;\n"),
+     "  const CW=(typeof BAKED!=='undefined'&&BAKED.W)||56,CH=(typeof BAKED!=='undefined'&&BAKED.H)||56;\n"),
 
     # ---- the head bob is a PHYSICAL distance, not a pixel count ----
     ('the head bob is the same physical dip at either resolution',
@@ -220,30 +226,19 @@ SEAMS = [
         restCol[_py2*CW+_px2]=_pc;}}"""),
 
     # ---- THE GARMENT SEAM: the helper, declared once, above the FIRST preview call ----
-    ('the garment seam exists (the 258 garments keep their own 56 grid)',
-     """  /* GARMENT PREVIEW RUNS LAST -- the clothing factory paints AFTER the skin-detail""",
-     """  /* ===== 2X -- THE GARMENT SEAM ==========================================
-     Every garment in the CLO catalogue is gen(grid,CW,CH) -> {index: colour}, and
-     all 258 of them are dense 56-space pixel geometry. They are NOT rewritten and
-     they are not touched: the part-id grid is handed to them at 56 exactly as
-     before, and what they hand back is stamped as RIG_RS x RIG_RS blocks. THREE
-     call sites use it -- the preview runs both before and after the PD layers, and
-     then the worn loop.
-     They come out SHARPER than they used to, not softer: a block-double keeps hard
-     pixel edges where Scale2x was rounding their corners for them.
-     At RIG_RS===1 every line here is the identity, deliberately -- that is how the
-     seam was verified in isolation before the rig doubled. */
-  const _gw=(CW/RIG_RS)|0, _gh=(CH/RIG_RS)|0;
-  const _gsrc=(RIG_RS===1)?grid:(function(){const o=new grid.constructor(_gw*_gh);
-    for(let y=0;y<_gh;y++)for(let x=0;x<_gw;x++)o[y*_gw+x]=grid[(y*RIG_RS)*CW+(x*RIG_RS)];
-    return o;})();
-  const _stampG=function(out){ if(!out)return;
-    if(RIG_RS===1){for(const gi in out){const i=+gi;if(i>=0&&i<px.length)px[i]=out[gi];}return;}
-    for(const gi in out){const j=+gi;if(j<0||j>=_gw*_gh)continue;
-      const gx=(j%_gw)*RIG_RS,gy=((j/_gw)|0)*RIG_RS,c=out[gi];
-      for(let dy=0;dy<RIG_RS;dy++)for(let dx=0;dx<RIG_RS;dx++){
-        const x=gx+dx,y=gy+dy; if(x<CW&&y<CH)px[y*CW+x]=c;}}};
-  /* GARMENT PREVIEW RUNS LAST -- the clothing factory paints AFTER the skin-detail"""),
+    # *** THE GARMENT SEAM IS NATIVE AS OF 8/20 AND THIS EDIT IS RETIRED. ***
+    # It used to insert a block-doubler here: hand the generators a grid downsampled
+    # back to 56 and stamp their output as RIG_RS x RIG_RS squares. That was a
+    # deliberate deferral and Paolo named it from outside the code the same morning
+    # ("remake all the clothes and hairs with the 4x pixels we now have in mind"):
+    # it puts CHUNKY CLOTHES ON A SHARP BODY. All 13 generators draw natively now
+    # (gates/clothes_4x_gate.js, 448/448 shapes on 8 facings), so the seam hands them
+    # the real grid and stamps 1:1.
+    # LEFT IN AS AN ASSERTION, NOT DELETED: if the native seam ever disappears this
+    # goes MISS and refuses to flip, rather than silently reinstating the old one.
+    ('the garment seam is NATIVE (the generators draw at the rig\'s own size)',
+     "  const _gw=(CW/RIG_RS)|0, _gh=(CH/RIG_RS)|0;",
+     "  const _gw=CW, _gh=CH, _gsrc=grid;"),
 
     ('what he is wearing goes through the same seam',
      """      let out=null; try{ out=gg.gen(grid,CW,CH); }catch(e){}

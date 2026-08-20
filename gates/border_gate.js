@@ -70,15 +70,38 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
           return Math.abs(c[0]-r[0]) + Math.abs(c[1]-r[1]) + Math.abs(c[2]-r[2]) < 60; });
 
         /* 1 -- the border where it meets SKIN, never where it meets his black coat */
+        /* THICKNESS IS PERPENDICULAR TO THE EDGE, NOT ALONG A RASTER ROW (fixed 8/20,
+           when the rig went native at 112). This walked RIGHT from the silhouette and
+           called the length of that run the border's thickness. On a HORIZONTAL edge
+           that is the same thing. On a DIAGONAL it is not: the scan crosses the edge
+           obliquely and measures the width of a staircase tread.
+           It never showed up before because Scale2x was rounding every diagonal
+           corner, so treads were one or two pixels wide. Composing natively at 112
+           removes that rounding -- which is the entire point of the flip -- and the
+           same one-pixel border on a shoulder read as 8. Measured: the run sits
+           wholly over BACKGROUND cells at row 31, the median stayed 1 on all eight
+           facings, gaps stayed 0, and "only the border moved" stayed 0 mismatches.
+           A one-axis ruler cannot measure a diagonal, so the ruler is wrong.
+           THE FIX MEASURES BOTH AXES AND TAKES THE SMALLER. Through a diagonal tread
+           the vertical run is 1 while the horizontal is 8; through a genuinely fat
+           border both are fat. This is STRICTER, not looser -- it also catches a fat
+           border on a vertical edge, which the old row-only scan could not see. */
+        const runAt = (x, y, dx, dy) => { let r = 0;
+          while (x + r*dx >= 0 && x + r*dx < W && y + r*dy >= 0 && y + r*dy < H &&
+                 isBorder((y + r*dy)*W + (x + r*dx))) r++;
+          return r; };
         const runs = [];
         for (let y = 0; y < H; y++) {
           let skin = 0; for (let x = 0; x < W; x++) if (isSkin(y*W+x)) skin++;
           if (skin < 3) continue;
           let x = 0; while (x < W && !A(y*W+x)) x++;
           if (x >= W) continue;
-          let r = 0; while (x + r < W && isBorder(y*W+x+r)) r++;
+          const r = runAt(x, y, 1, 0);
           if (!r || !isSkin(y*W+x+r)) continue;
-          runs.push(r);
+          /* the same border pixel, measured down and up: the thinnest way through it
+             is its real thickness */
+          const vert = runAt(x, y, 0, 1) + runAt(x, y, 0, -1) - 1;
+          runs.push(Math.max(1, Math.min(r, vert)));
         }
         runs.sort((a, b) => a - b);
         const med = runs.length ? runs[runs.length >> 1] : 0;

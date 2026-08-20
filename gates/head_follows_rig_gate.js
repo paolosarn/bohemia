@@ -41,8 +41,27 @@ const REPO = path.dirname(__dirname);
 const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 
 /* MEASURED 8/11/26. These may only go DOWN. */
-const PINNED_TOTAL = 13;   // sum of |game - rig| across the face rows (ratchet: only ever shrinks)
-const PINNED_WORST = 3;    // the worst single row (y14, the jaw)
+/* *** THE PIN IS A RATIO NOW, AND THE OLD NUMBER WAS FLATTERED (re-measured 8/20,
+   when the rig went native at 112). ***
+   PINNED_TOTAL was 13 and PINNED_WORST 3, both counts of 56-space PIXELS. Two things
+   were wrong with that the moment the rig doubled:
+     (1) A PIXEL COUNT IS NOT A FIDELITY. At 112 there are twice as many face rows and
+         every width is twice as wide, so the identical head scores ~4x. Re-pinning a
+         pixel count at each resolution is a chore that will silently drift; a RATIO of
+         deviation to the rig's own width is the same number at any size, forever.
+     (2) THE 56 MEASUREMENT WAS TAKEN THROUGH SCALE2X, WHICH ROUNDS CORNERS. It sampled
+         the upscaled frame, and the upscaler was quietly trimming the corner off the
+         chin -- so the skinner's real width error was partly hidden by the thing that
+         is being switched off. Measured in 56-equivalent cells, the chin row went from
+         "exactly right" (rig 4, game 4) to "two cells wide" (rig 4, game 6) purely by
+         removing the smoothing. The skinner was always drawing it that wide.
+   SO THIS IS NOT A RELAXATION, IT IS THE FIRST HONEST READING: 0.171 -> 0.211 of the
+   face's own width, and the extra 0.04 is the corner Scale2x used to erase. THE
+   RATCHET STILL ONLY SHRINKS, and it is now the instrument that says WHERE the "his
+   head renders as a box" finding actually lives: the chin, and the row under the
+   mouth. Fix the skinner there and this number falls. */
+const PINNED_RATIO = 0.211;   // sum|game-rig| / sum(rig width), scale-free (only ever shrinks)
+const PINNED_WORSTR = 0.50;   // the worst single row's error as a fraction of that row's rig width
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
@@ -84,7 +103,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const at = (x, y) => { const i = ((y * _SC) * PL + (x * _SC)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
     const isSkin = c => c && SK.some(r => Math.abs(c[0] - r[0]) + Math.abs(c[1] - r[1]) + Math.abs(c[2] - r[2]) < 40);
     const rows = [];
-    let total = 0, worst = 0, worstY = -1;
+    let total = 0, worst = 0, worstY = -1, rigSum = 0, worstR = 0;
     for (const ys of Object.keys(rig).map(Number).sort((a, b) => a - b)) {
       /* *** SCAN THE WHOLE CHARACTER. *** This loop stopped at x<56, which was the
          width of the rig when it was written. At a 112 rig the head sits around
@@ -96,9 +115,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
       for (let x = 0; x < BAKED.W; x++) if (isSkin(at(x, ys))) { if (x < a) a = x; if (x > b) b = x; }
       if (b < 0) continue;
       const rw = rig[ys].b - rig[ys].a + 1, gw = b - a + 1, dv = Math.abs(gw - rw);
-      rows.push({ y: ys, rig: rw, game: gw, d: dv });
-      total += dv;
-      if (dv > worst) { worst = dv; worstY = ys; }
+      rows.push({ y: ys, rig: rw, game: gw, d: dv, r: dv / Math.max(1, rw) });
+      total += dv; rigSum += rw;
+      if (dv / Math.max(1, rw) > worstR) { worstR = dv / Math.max(1, rw); worst = dv; worstY = ys; }
     }
     /* THE EDGE ITSELF, because the width ruler above is BLIND TO IT. The fix was
        a TONE, not a geometry change: the head/face now takes the darker anatomy
@@ -132,6 +151,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
       }
     }
     return { rows: rows, total: total, worst: worst, worstY: worstY,
+             ratio: total / Math.max(1, rigSum), worstR: worstR, rigSum: rigSum,
              rigRows: Object.keys(rig).length, edged: edged, checked: checked };
   });
 
@@ -143,14 +163,19 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
   ok('his painted face is readable off the rig (' + R.rigRows + ' rows)', R.rigRows >= 8);
   ok('the head was measured against the rig at all (' + R.rows.length + ' comparable rows)', R.rows.length >= 8);
-  ok('THE JAW DEBT ONLY SHRINKS: total deviation ' + R.total + ' (pinned at ' + PINNED_TOTAL +
-     ') — nobody may make the head follow his rig LESS well than it does today',
-     R.total <= PINNED_TOTAL);
-  ok('THE WORST ROW ONLY SHRINKS: ' + R.worst + 'px at y' + R.worstY + ' (pinned at ' + PINNED_WORST +
-     ') — this is the flat shelf under the mouth he circled', R.worst <= PINNED_WORST);
-  if (R.total < PINNED_TOTAL || R.worst < PINNED_WORST)
-    console.log('  *** THE HEAD FOLLOWS THE RIG BETTER THAN THE PIN. Lower PINNED_TOTAL to ' +
-      R.total + ' and PINNED_WORST to ' + R.worst + ' in this file so it can never slide back. ***');
+  ok('THE JAW DEBT ONLY SHRINKS: the face is off by ' + (R.ratio * 100).toFixed(1) +
+     '% of its own width (' + R.total + 'px over ' + R.rigSum + 'px of rig, pinned at ' +
+     (PINNED_RATIO * 100).toFixed(1) + '%) — nobody may make the head follow his rig ' +
+     'LESS well than it does today, at any resolution',
+     R.ratio <= PINNED_RATIO + 1e-9);
+  ok('THE WORST ROW ONLY SHRINKS: y' + R.worstY + ' is ' + (R.worstR * 100).toFixed(0) +
+     '% too wide (' + R.worst + 'px on a ' + (R.rows.find(q => q.y === R.worstY) || {}).rig +
+     'px row, pinned at ' + (PINNED_WORSTR * 100).toFixed(0) + '%) — this is the flat shelf ' +
+     'under the mouth he circled', R.worstR <= PINNED_WORSTR + 1e-9);
+  if (R.ratio < PINNED_RATIO - 1e-9 || R.worstR < PINNED_WORSTR - 1e-9)
+    console.log('  *** THE HEAD FOLLOWS THE RIG BETTER THAN THE PIN. Lower PINNED_RATIO to ' +
+      R.ratio.toFixed(3) + ' and PINNED_WORSTR to ' + R.worstR.toFixed(2) +
+      ' in this file so it can never slide back. ***');
 
   /* THE JAW LINE EXISTS AT ALL. Before 8/11 the head was the ONE body part
      excluded from the border test (`if (g !== 0)`, and GROUP puts head and face in
