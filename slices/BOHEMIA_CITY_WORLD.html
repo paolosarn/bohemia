@@ -34672,6 +34672,23 @@ function ctClaimWindow(){
    this exact shape has turned up in this stack, and this one I wrote myself.
    Charged for the day that JUST ENDED -- a day cannot be neglected until it is
    over -- once per outfit, through the single writer, which clamps at zero. */
+/* __CITY_HISTORY__ -- HAVE YOU EVER DEALT WITH THESE PEOPLE?
+   A COUNT IS NOT A MEMORY. Until neglect (8/20) `gave` only went up, so `gave>0`
+   was a safe proxy for this -- and two things leaned on it. The day the count
+   could fall, both broke: a player who had burned a bridge and then stayed away
+   was called A STRANGER and handed the outfit's terms as if they had never met.
+   Both facts below already exist and neither can be drained, because adjust()
+   only ever touches the count. */
+function ctEverDealt(sv, fid){
+  if(!fid || typeof BohemiaBelonging === 'undefined') return false;
+  try {
+    if(BohemiaBelonging.gaveOf(sv, fid) > 0) return true;
+    if(BohemiaBelonging.gaveDayOf(sv, fid) != null) return true;
+    if(typeof BohemiaCommitment !== 'undefined'
+       && BohemiaCommitment.stateOf(sv, fid) !== 'none') return true;
+  } catch(_e){}
+  return false;
+}
 function ctNeglectFor(sv, dayEnded){
   if(typeof BohemiaCommitment === 'undefined' || typeof BohemiaBelonging === 'undefined')
     return [];
@@ -34911,7 +34928,9 @@ function ctDraw(){
          further DOWN this function, so `var` hoisting left it undefined at this
          point and the fold silently never fired -- the third time this exact
          use-before-assign class has bitten this file. Order is a fact. */
-      if(ctTermsFolded(BohemiaBelonging.gaveOf(bState.sv, ctFid))){
+      /* __CITY_HISTORY__ -- folded on HISTORY, not on the count. A player
+         whose standing decayed to nothing has still read these terms. */
+      if(ctTermsFolded(ctEverDealt(bState.sv, ctFid) ? 1 : 0)){
         /* THE WHOLE ROW IS THE TAP TARGET, NOT THE WORDS. Measured on a real
            touch page: the underlined span alone is 153x14px, and Apple's HIG
            minimum is 44x44. Playwright's tap() hits dead centre and passed;
@@ -34946,7 +34965,19 @@ function ctDraw(){
          progress toward one. "1 MORE TO SOMEBODY WHO SHOWED UP" on a card with
          no button is a promise the player cannot act on. */
       var ctLadder = ctHasLadder(bRule);
-      if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
+      /* __CITY_HISTORY__ -- AND SOMEBODY WHO BURNED A BRIDGE FOR THEM IS
+         NOT A STRANGER. RUNGS[0] means "they have no reason to think about you",
+         which is false the moment you have ever acted for them -- and after
+         neglect the count can say stranger while the history says otherwise.
+         The NUMBER is untouched: their standing really has decayed and the rest
+         of the card still says so. It is the WORD that was lying.
+         draft:true -- a real attempt, his to edit. */
+      if(bar.rung && ctLadder && ctEverDealt(bState.sv, ctFid)
+         && bar.rung.key === 'stranger'){
+        body += ctRow('YOU ARE', 'NOT A STRANGER, AND NOT MUCH ELSE. THEY KNOW '
+          + 'WHAT YOU DID AND THEY KNOW YOU STOPPED.');
+      }
+      else if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
       /* __CITY_NEGLECT__ -- AND WHAT A QUIET DAY COSTS, on the row that

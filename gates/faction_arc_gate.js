@@ -811,6 +811,101 @@ function requirePlaywright() {
       /A QUIET DAY COSTS/.test(neg.card || ''),
       JSON.stringify((neg.card || '').slice(0, 200)));
 
+    /* ---- J. THE DEEPEST STATE, AND WHAT A COUNT CANNOT REMEMBER ----------
+       `burned` -- "you cost yourself somewhere else to be here, this is the one
+       that cannot be walked back" -- had never been reached by anybody. And
+       reaching it exposed something I broke YESTERDAY with the thing I shipped
+       yesterday: until neglect existed `gave` only went UP, so `gave > 0` was a
+       safe proxy for "you have dealt with these people", and two things leaned
+       on it. The day the count could fall, both broke. */
+    const deep = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const bases = ctBases() || {};
+          let who = null, fid = null;
+          for (const b of Object.values(bases)) {
+            hx = b.x * FN + 2; hy = b.y * FN + 2;
+            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
+            if (who) break;
+          }
+          if (!who) return { nobody: true };
+          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          const sv = ctBelongSave();
+          sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
+          sv.meta.commit = {}; sv.meta.neglectDay = {};
+          const walkBack = () => { const c = ctAt(who); hx = c[0] + 1; hy = c[1]; ctClose(); ctOpen(); };
+          ctSawCell(); ctOpen();
+          const r = { fid, offers: [] };
+          /* CLIMB THE WHOLE LADDER BY PLAYING -- no setState anywhere. */
+          for (let round = 0; round < 3; round++) {
+            let n = 0;
+            while (n < 15) {
+              const was = BohemiaBelonging.gaveOf(sv, fid);
+              const btn = document.getElementById('ctgive') || document.getElementById('ctfavour');
+              if (!btn) break;
+              btn.click(); ctClose(); ctOpen(); n++;
+              if (BohemiaBelonging.gaveOf(sv, fid) === was) break;
+              DAY.nextDay(); daySync(); walkBack();
+            }
+            const c = document.getElementById('ctcommit');
+            r.offers.push({ state: BohemiaCommitment.stateOf(sv, fid),
+                            offered: c ? c.textContent : null });
+            if (!c) break;
+            c.click(); ctClose(); ctOpen();
+          }
+          r.deepest = BohemiaCommitment.stateOf(sv, fid);
+          r.rungAtDeepest = (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf(fid),
+                              BohemiaBelonging.gaveOf(sv, fid)).rung || {}).word;
+          /* NOW STAY AWAY UNTIL THE COUNT IS GONE. */
+          for (let d = 0; d < 20; d++) { ctNeglectFor(sv, T.day); DAY.nextDay(); daySync(); }
+          walkBack();
+          r.drainedGave = BohemiaBelonging.gaveOf(sv, fid);
+          r.drainedState = BohemiaCommitment.stateOf(sv, fid);
+          r.card = document.getElementById('ctcard').innerText;
+          return r;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('J1 THE DEEPEST STATE IS REACHABLE BY PLAYING. none -> sided -> burned, '
+      + 'each one offered by the card at the wall, no setState anywhere. Nobody '
+      + 'had ever reached it',
+      deep.deepest === 'burned',
+      JSON.stringify(deep.offers));
+
+    ok('J2 …and the ladder actually lands you INSIDE, which is what the third '
+      + 'commitment buys and the only thing turning up can never reach',
+      deep.rungAtDeepest === 'INSIDE', 'rung at burned: ' + deep.rungAtDeepest);
+
+    ok('J3 …and there is nothing after it. "The one that cannot be walked back" '
+      + 'is the end of the road, not a fourth thing to grind toward',
+      deep.offers.length >= 3 && deep.offers[2].offered === null,
+      JSON.stringify(deep.offers));
+
+    ok('J4 A COUNT IS NOT A MEMORY. Stay away long enough and the standing is '
+      + 'gone — but somebody who BURNED A BRIDGE for them is never called A '
+      + 'STRANGER, whose own note is "they have no reason to think about you". '
+      + 'That was true until neglect made the count fall, which I shipped the '
+      + 'day before this claim',
+      deep.drainedGave === 0 && deep.drainedState === 'burned'
+      /* THE ROW, NOT THE SUBSTRING. The first cut forbade "A STRANGER" anywhere
+         on the card -- and the correct replacement line begins "NOT A STRANGER",
+         so the claim failed on the very text that fixes it. Assert the RUNG ROW
+         is not the bare stranger word. */
+      && !/YOU ARE\nA STRANGER/.test(deep.card)
+      && /THEY KNOW WHAT YOU DID/.test(deep.card),
+      JSON.stringify({ gave: deep.drainedGave, state: deep.drainedState,
+                       card: (deep.card || '').slice(0, 220) }));
+
+    ok('J5 …and the terms stay FOLDED on history rather than on the count. A '
+      + 'player whose standing decayed has still read them, and handing them '
+      + 'back is the same lie one row up',
+      /tap to read/i.test(deep.card || ''),
+      JSON.stringify((deep.card || '').slice(0, 200)));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

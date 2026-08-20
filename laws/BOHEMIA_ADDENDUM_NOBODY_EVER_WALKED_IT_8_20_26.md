@@ -275,6 +275,63 @@ HOW FAR IN    YOU TOOK A SIDE · A QUIET DAY COSTS 1
 Three mutations bite: never charge it and H2/H4/H5 go red; charge it on a day he
 turned up and H3 does; drop the once-a-day stamp and H4 does.
 
+## 4g. THE DEEPEST STATE, AND WHAT A COUNT CANNOT REMEMBER
+
+`burned` — *"you cost yourself somewhere else to be here, this is the one that
+cannot be walked back"* — **had never been reached by anybody.** It is now walked
+by playing, no `setState` anywhere:
+
+```
+none   gave 5 at ceiling 5    card offers  "Say you are with them"   -> sided
+sided  gave 9 at ceiling 9    card offers  "Burn a bridge for them"  -> burned
+burned no ceiling             card offers  nothing further           -> INSIDE
+```
+
+The third commitment is the only thing that reaches **INSIDE**, and there is
+nothing after it — the end of the road, not a fourth thing to grind toward.
+
+### AND REACHING IT EXPOSED SOMETHING I BROKE THE DAY BEFORE
+
+Until neglect existed, `gave` only ever went **up**. So `gave > 0` was a perfectly
+safe proxy for *"you have dealt with these people"*, and two things leaned on it:
+the terms fold (8/18), and `RUNGS[0]` — **"A STRANGER"**, whose own note reads
+*"They have no reason to think about you."*
+
+**Neglect made the count fall, and both proxies broke the same day.** Measured —
+commit all the way to `burned`, then stay away twenty days:
+
+```
+gave=0  state=burned
+YOU ARE      A STRANGER · 1 MORE TO SOMEBODY WHO SHOWED UP
+HOW FAR IN   YOU BURNED A BRIDGE · A QUIET DAY COSTS 2
+THEY WANT / THEY HOLD / PAID IN / CAREFUL      (the full terms, again)
+```
+
+**You burned a bridge for these people and the game calls you a stranger**, and
+hands you their terms as though you had never met. Each half is individually
+correct and together they are nonsense.
+
+> **A COUNT IS NOT A MEMORY.** *"How much are you worth to them right now"* and
+> *"have you ever dealt with them"* are different questions, and the second one
+> already had its own answers in the save — `gaveDayOf` and the commitment state —
+> **both of which survive neglect, because `adjust` only ever touches the count.**
+
+The **number is untouched**: their standing really has decayed and the rest of the
+card still says so. It was the **word** that was lying. It reads now:
+
+```
+YOU ARE      NOT A STRANGER, AND NOT MUCH ELSE. THEY KNOW WHAT YOU DID
+             AND THEY KNOW YOU STOPPED.
+HOW FAR IN   YOU BURNED A BRIDGE · A QUIET DAY COSTS 2
+THEIR TERMS  YOU, OWING · tap to read
+```
+
+**And the first version of the claim was wrong in the funniest possible way:** it
+forbade the string *"A STRANGER"* anywhere on the card, so it failed on the very
+line that fixes it — *"**NOT** A STRANGER"*. It asserts the rung **row** now, not
+a substring. Both mutations bite: make history a count again and J4/J5 go red;
+restore the bare stranger word and J4 does.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
