@@ -129,6 +129,26 @@ STATE MEASURES THAT STATE.
 
 gates: QUIRK 32 -> 38, mutation-tested two ways.
 
+*** FOR WHOEVER OWNS THE WORKFLOW (RUN, under the 8/20 suite fold): THE PAGES
+CHECKOUT TOOK TEN MINUTES. *** Two numbers, same repo, same workflow, same day,
+both deploys mine:
+    01:17  THE RAID RUNS      actions/checkout@v4 =  18 seconds
+    17:01  WHAT YOU NOTICE    actions/checkout@v4 = 609 seconds
+34x in one day. Everything after checkout stayed fast in both (assemble instant,
+upload 8s, deploy-pages 11s) and BOTH RUNS SUCCEEDED -- nothing is broken, it is
+getting expensive. Supporting facts measured here: .git is 6.8 GB against a
+615 MB working tree, and slices/BOHEMIA_ALPHA_0_9.html has 515 commits at ~4 MB
+while the LEGACY, never-displayed BOHEMIA_RUN_CURRENT.html has 149 at 17 MB --
+single-line inlined payloads, near worst case for delta compression.
+I AM DELIBERATELY NOT DIAGNOSING IT. I raised repo size as a cause on 8/19 and
+had to correct myself the same turn when a second sample came back at 22s. Two
+points are a line only if you already believe the line. The cheap first move is
+a THIRD DATA POINT, not a fix: watch the checkout duration on the next few pages
+runs. If it stays in the hundreds of seconds, `fetch-depth: 1` on that checkout
+is one line, touches no history, and a deploy that copies slices/ into a bucket
+does not need 6.8 GB of it. Full record with the numbers and the risk-ordered
+levers: records/BOHEMIA_THE_CHECKOUT_TOOK_TEN_MINUTES_8_20_26.md
+
 WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
   1. *** COLD_OPEN.cast IS [] AND COLD_OPEN.place IS null. NOBODY IS BEHIND YOU
      IN THE DEFENCE. *** [PENDING Paolo] since 8/8, but his 7/19 law rules both
