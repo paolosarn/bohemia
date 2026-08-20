@@ -295,6 +295,70 @@ WHAT COMES NEXT FOR THIS LANE:
   1. Crosswalk PLACEMENT (above) -- the other WORLD session's, art is ready.
   2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
   3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
+SOUND (sound-xk7pjp): 8/20 (v) LATEST -- *** HE SWEPT ALL 500 AND RULED ON THE
+ECONOMY WHILE HE DID IT. TAB: MUSIC (the SFX board is clear). Nothing to judge. ***
+
+Paolo, written on the hands_pass.4 verdict line:
+
+    "THERE IS NO PAPER NO COINS COINS GET MELTED DOWN TO RESOURCE PARTS
+     WHAT DONT U UNDERSTAND"
+
+That is not a note about a sound, it is WHAT THE ECONOMY IS, and it agrees with canon
+standing since 7/8 (medicine, electricity, resources). Locked in
+laws/BOHEMIA_ADDENDUM_NO_PAPER_NO_COINS_8_20_26.md. ANY LANE writing a transaction --
+quest reward, trade, purse, shop, bribe, debt -- writes it in those three. Nobody hands
+anybody a bill. If a UI or a line of dialogue says cash or coins it is wrong.
+
+THE MONEY MOMENT DIED FIFTEEN FOR FIFTEEN and the synthesis was never the problem.
+money, cash_count and hands_pass each got five candidates from three different sound
+sources, and every one was cooked to be paper and coin in a world that has neither -- so
+the better it was at being what it was asked to be, the more wrong it was. All three are
+dead for their BRIEF. THE LESSON: a moment that dies across MULTIPLE SOURCES is a brief
+that does not describe his world, not a cooking failure. I re-cooked it twice before
+asking what it actually is. Replaced by `parts_pass`: metal with mass, several pieces,
+handed or tipped rather than counted, no ring and no chime.
+
+HIS THUMBS ARE DERIVED NOW, NOT HAND-BUILT. tools/bohemia_sfx_bank_from_verdict.py reads
+the verdict file and writes the bank, validating every thumb against what the engine
+actually cooks. Bank 148 -> 155 (lungs_burn, mag_home, sand_more[0,2,3], sign_alive,
+wood_more). A hand-built bank is how a thumb goes missing.
+
+*** THREE RULERS WERE WRONG ABOUT A CORRECT GAME. This keeps happening and it is now the
+top failure mode in this lane -- read this before you trust any gate here. ***
+  1. sfx_wired_gate HARDCODED the bank filename, with a comment directly above it warning
+     that the wire and the gate must read the same file. It drifted anyway and reported a
+     STALE ALPHA when the alpha was right and the gate was two sweeps behind. It reads the
+     wire tool's own constant now.
+  2. The ambience chooser was read through a FIXED 1400-CHARACTER WINDOW. SFX-09 pushed
+     sign_alive to 2421 chars past the anchor, so the gate said "NOTHING CAN PLAY THIS"
+     about a sound wired three lines below where it stopped reading. Same bug at 200 chars
+     on 8/12; the fix then was to bump the number, which only reschedules it. It reads to
+     the CLOSING BRACE now, quote- and comment-aware.
+  3. My own probe for the baked bank assumed the object literal and the window assignment
+     were one statement, and printed "could not find the baked bank" about a correct build.
+     CHECK THE RULER FIRST. I nearly re-ran a whole build over it.
+
+AND THE CHECK THAT WOULD CATCH A REAL ONE: every bank check in that gate was comparing his
+thumbs to a FILE ON DISK, and the game does not read that file -- the wire tool bakes a
+copy into the alpha. Out-of-order build (the factory WIPES the parent wire block, so the
+wire tool must run LAST) = perfect file, older sweep in his ears. The baked bytes are
+compared to the bank directly now. Proved by knocking the baked copy back a sweep.
+
+  no_cash_gate       10 passed, 0 FAILED   (new, every check mutation-proved)
+  sfx_wired_gate    907 passed, 0 FAILED
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. THE THIRD PITCH ROW at semi -6. The INST_VOICE grid is a TWO-POINT model (-24, +12)
+     and it has MISPREDICTED 3 of 44 voices. This is the top engineering defect. It needs
+     its own turn because it RE-TUNES every approved instrument sound, so it needs a
+     deliberate fingerprint re-record -- do not do it as a side effect of something else.
+  2. `go_inside` has a real unused trigger: the `inside` flag already crosses to the parent
+     every 4s and nothing plays the moment.
+  3. lungs_burn is WAIVED, not wired -- his brief is "you ran too far" and THERE IS NO
+     RUNNING (one fixed SPEED=0.34, no sprint key, no stamina). Checked, not assumed.
+     Wiring it means inventing a stamina system, which is not this lane's to invent. The
+     waiver expires by itself the moment verb:'sprint' appears in the run.
+
 SOUND (sound-xk7pjp): 8/20 (r,s,t,u) LATEST -- *** 40 SOUNDS ARE WAITING FOR HIM,
 AND THEY WERE CARDS 93 TO 100 OF 100. TAB: MUSIC, the SFX board -- now cards 1 to
 8. ***
