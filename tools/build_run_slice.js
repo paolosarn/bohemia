@@ -432,6 +432,10 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
 /* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
    riding the bought gravel on every plant service lane -
    tools/tfcook/TF-ART-016_lane_cook.py */
+/* VOLUME 8/21: the gypsum stockpiles (x3015, found by the inventory
+   ranking) - tools/tfcook/TF-ART-015_stockpile_cook.py */
+grabPieces('banks/tileforms/TF-ART-015_STOCKPILE_VOLUME_8_21_26.json',
+  ['gyp_pile_0', 'gyp_pile_1', 'gyp_pile_2']);
 grabPieces('banks/tileforms/TF-ART-016_LANE_VOLUME_8_20_26.json',
   ['lane_track_h_0', 'lane_track_h_1', 'lane_track_v_0', 'lane_track_v_1']);
 /* TF-ART-019 8/21: THE GRID KIT - the substation's transformer bays,

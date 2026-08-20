@@ -13469,6 +13469,15 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (b) LATEST -- *** RANKING PAYS AGAIN: the waterpark
+sun deck (x8364) was gravel, wears the bought concrete now (verified
+numerically); the gypsum stockpiles (x3015) cooked as near-white mineral
+mounds (white from the approved pale, lifted). Sitting pass 38. Next in
+the ranking queue: 'guy wire' (radio), 'pond water' (reclaim - FLAGGED,
+not decided: a dead plant's ponds could be dry silt but reclaim's
+plant-status canon is not ruled; parked for WORLD/weather), 'vacant
+parcel' (downtown). Landmark grounds still reserved as of the 8/21 probe.
+PREVIOUS (a):
 ART (f3eu53): 8/21 (a) LATEST -- *** THE LAWNS WERE GRAVEL: a new
 empty-queue instrument (rank the world name inventory minus every claimed
 name) found 24,000 cells of lawn drawing as gravel - the whole cemetery,

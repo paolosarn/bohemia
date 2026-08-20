@@ -816,3 +816,16 @@ cemetery reads as a dead memorial lawn with the graves sitting in it,
 the rough reads wild against the fairway. Exact-name predicates only.
 Daily re-probe first, same turn: all twelve landmark grounds still
 reserved, trailer awnings still unnamed, no crossings.
+
+## 8/21 THIRTY-EIGHTH PASS: THE SUN DECK AND THE STOCKPILES (the ranking pays again)
+
+Two more from the inventory ranking. The waterpark's SUN DECK (x8364, the
+single biggest name at the park) matched no ground rule and drew gravel -
+a pool deck is poured concrete, so it wears his bought walk pool now,
+zero new pixels, verified numerically on the live frame (deck mean RGB
+137/125/109 = the concrete family, against gravel's 179/148/102). And the
+gypsum plant's STOCKPILES (x3015) cooked as the palest thing in the
+valley - near-white mineral mounds, lit crests and shaded feet, conveyor
+ridge lines, the white derived from the approved pale concrete lifted,
+never invented. Verified live: the piles cluster by the quarry exactly
+like a working plant's product yard that nobody ever hauled away.

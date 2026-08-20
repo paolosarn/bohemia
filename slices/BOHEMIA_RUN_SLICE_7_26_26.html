@@ -1135,6 +1135,21 @@ function drawSolarform(gx,gy,X,Y,S){
     if(ih) ctx.drawImage(look(ih),X,Y,S,S);
     return true;
   }
+  if(n==='sun deck'){
+    /* MEASURED 8/21 (the ranking instrument): the waterpark's 8,364 sun
+       deck cells matched no ground rule and drew gravel. A pool deck is
+       poured concrete - his bought pool, nothing new. */
+    if(!drawBought('walk',gx,gy,X,Y,S)) tput('concrete_0',X,Y,S);
+    return true;
+  }
+  if(n==='stockpile'){
+    /* the gypsum plant's product piles (x3015): near-white mineral mounds
+       on the worked ground, white derived from the approved pale concrete */
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    var gp=tf('gyp_pile_'+th(gx,gy,3));
+    if(gp) ctx.drawImage(look(gp),X,Y,S,S);
+    return true;
+  }
   if(n==='gravel access road' || n==='access road'){
     /* MEMBER 5, the folded one (8/20): the O&M two-track. The lane draws
        its own bought gravel first (the same base the field cells lay),
