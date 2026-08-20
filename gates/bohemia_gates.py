@@ -36,6 +36,14 @@ GATES = [
     # studio's blank scratch patch. This gate PLAYS A FIGHT rather than grepping
     # for a function name, because a static check goes green the moment a call
     # site exists and says nothing about whether the shuffle actually let go.
+    # 8/20: 30 of the 92 game moments make NO SOUND, every one of them shown to
+    # him and thumbed down twice, and not one of them had a CALLER anywhere in
+    # the build -- so an approval would still have been silent and would have
+    # looked like a bad sound rather than a missing wire. This counts them and
+    # holds the wires this lane could reach.
+    ('SILENT MOMENTS',  ['python3', 'gates/silent_moments_gate.py'],
+     'the moments that make no sound are counted, and the ones this lane can '
+     'reach have a caller waiting for the day they are approved', False),
     ('FIGHT MUSIC',    ['python3', 'gates/fight_music_gate.py'],
      'the music knows when you are in a fight: the streets stand down, hold '
      'past a 64-bar pass, and come back on a phrase boundary -- and a fight is '

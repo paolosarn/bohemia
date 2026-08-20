@@ -908,6 +908,18 @@ def parent_block(bank):
       var r=Math.random();
       if(r<0.125 && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
+      /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
+         his own briefs say "far off" and "the 12% that has power" -- and both
+         are among the twelve moments that had no caller anywhere in the build.
+         The guard is the same one the two above use: an unapproved name is
+         skipped and the bed plays, so this costs nothing until he says yes.
+         RARER THAN THE WEATHER, in that order: a lit sign is a place, and a dog
+         is the only other living thing you can hear, so it is the rarest of the
+         four on purpose. */
+      if(r<0.44 && (A.neon_buzz||[]).length) return 'neon_buzz';
+      if(r<0.44 && (A.neon_hum||[]).length) return 'neon_hum';
+      if(r<0.50 && (A.dog_far||[]).length) return 'dog_far';
+      if(r<0.50 && (A.dog_cry||[]).length) return 'dog_cry';
       return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },

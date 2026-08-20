@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20e - GETTING PAID SOUNDS LIKE SOMETHING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20g - THIRTY MOMENTS MAKE NO SOUND</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7893,6 +7893,13 @@ function combatMsgIn(d){
       try{ if(window.STING)STING.play(enc.victory?'win':'loss'); }catch(_e){}
       /* the fight is over, so the arrangement comes back down */
       try{ if(window.KILLMUS)KILLMUS.reset(); }catch(_e){}
+      /* AND THE ROOM GOES QUIET (8/20). `clear` is one of twelve moments with
+         no approved sound AND no caller anywhere -- broken at both ends, so an
+         approval would still have been silent and would have looked like a bad
+         sound. Silent today (unjudged = silent); works the day he says yes.
+         Its sibling id is tried too, because both rounds died and either could
+         be the one that lives. */
+      try{ if(window.playSFX){ playSFX('clear'); playSFX('clear_still'); } }catch(_e){}
       /* AND THE STREETS COME BACK, at the next 8-bar phrase and never inside
          the cooldown, so two fights in a row stay ONE musical event. */
       try{ if(window.FIGHTMUS)FIGHTMUS.leave(); }catch(_e){}
@@ -12413,6 +12420,10 @@ const PAYSTING={
       for(var i=0;i<fresh.length;i++){
         if(fresh[i]&&fresh[i].kind==='source'&&fresh[i].amount>0){
           if(window.STING)STING.play('paid');
+          /* AND THE MONEY ITSELF (8/20). The sting is the feeling; `money` is
+             the sound of the thing happening, and it is one of the twelve
+             moments that had no caller at all. Silent until approved. */
+          try{ if(window.playSFX){ playSFX('money'); playSFX('cash_count'); } }catch(e2){}
           return;                                   /* one payday is ONE sound */
         }
       }
@@ -16665,6 +16676,18 @@ drawLogoBig();requestAnimationFrame(loop);
       var r=Math.random();
       if(r<0.125 && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
+      /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
+         his own briefs say "far off" and "the 12% that has power" -- and both
+         are among the twelve moments that had no caller anywhere in the build.
+         The guard is the same one the two above use: an unapproved name is
+         skipped and the bed plays, so this costs nothing until he says yes.
+         RARER THAN THE WEATHER, in that order: a lit sign is a place, and a dog
+         is the only other living thing you can hear, so it is the rarest of the
+         four on purpose. */
+      if(r<0.44 && (A.neon_buzz||[]).length) return 'neon_buzz';
+      if(r<0.44 && (A.neon_hum||[]).length) return 'neon_hum';
+      if(r<0.50 && (A.dog_far||[]).length) return 'dog_far';
+      if(r<0.50 && (A.dog_cry||[]).length) return 'dog_cry';
       return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },
