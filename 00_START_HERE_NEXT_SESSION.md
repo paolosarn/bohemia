@@ -3302,6 +3302,16 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/20 (a) LATEST -- *** THE PREDICATE AUDIT: yesterday's
+tennis-court bug treated as a CLASS - all 26 name predicates across every
+wired family swept against the full 414-name world inventory. One true
+finding (terminal's rooftop solar array drew ducts; draws flat solar
+glass now, verified live), one documented false positive (storefront
+walk is guarded by pipeline ORDER - the bought-ground pass claims first;
+an audit must read the chain, not just the regex), the rest exact.
+Blocked landmark grounds re-probed 8/20: all still reserved; WORLD's
+99.9% was the overmap. ***
+PREVIOUS (e):
 ART (f3eu53): 8/19 (e) LATEST -- *** FIVE FAMILIES IN ONE DAY AND THE LANE
 QUEUE IS EMPTY. The fifth: TF-ART-007 civic remainders, corrected by
 measurement (the world's courthouse is PRECAST - it names its own joints,
@@ -3319,7 +3329,7 @@ Remaining in the lane queue: TF-ART-007 civic stone (MEASURE FIRST - the
 8/3 civic system may already answer its WHY, same as RUN-005's was
 half-answered). CAMP (TF-LAB-001) stays FROZEN TWICE OVER - do not touch.
 Blocked-outside + base-red lists unchanged from (c).
-Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-33)
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-34)
 
 PREVIOUS (c) ENTRY:
 ART (f3eu53): 8/19 (c) LATEST -- *** THREE HIGH ROWS IN ONE DAY. The third:

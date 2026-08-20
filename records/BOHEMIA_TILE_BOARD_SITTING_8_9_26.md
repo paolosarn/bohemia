@@ -674,3 +674,30 @@ what pixel-forensics could not. When a fix changes nothing twice, the
 thing you are staring at is not the thing that is wrong. And the audit
 lesson: a substring predicate is a claim about EVERY name in the world,
 so it must be swept against every name in the world the day it ships.
+
+## 8/20 THIRTY-FOURTH PASS: THE PREDICATE AUDIT (the tennis-court bug's whole class)
+
+Yesterday's courthouse bug was a CLASS, not an incident, so this pass
+swept it: every NAMEG substring predicate in every wired family (26
+predicates across rail, roof, storefront, awning, gate, sign, solar,
+civic, turf, pool, fence) cross-checked against the full inventory of
+the walked world's names (414 distinct names, all districts).
+
+RESULT: one true finding, one false positive, the rest clean.
+- TRUE: the terminal's 'rooftop solar array' matched the roof family's
+  'rooftop' duct branch and drew random ducts on a LEED solar roof.
+  Fixed: it draws the solar family's own glass laid flat now, claimed
+  before the duct branch. Verified live on the terminal roof.
+- FALSE POSITIVE, documented so nobody re-chases it: commercial's
+  'storefront walk' (a ground sidewalk) matches the storefront glass
+  predicate, but the pipeline's ORDER is the guard - the bought-ground
+  pass claims and continues before the structure hooks can reach it. A
+  predicate audit must read the chain, not just the regex.
+- The fence 'wall' exclusion, the gate two-token test, and every
+  single-site name (screen tower, scoreboard, blade sign, precast joint,
+  arcade columns, oculus...) matched exactly their intended cells.
+
+ALSO RE-PROBED (the standing cadence): strip / casino / freeway /
+speedway / resort / minigp / ballpark are ALL still 16,384 cells of
+"(reserved landmark ground)" - WORLD's 99.9%-built ship was the overmap,
+not these interiors. The blocked-outside list stands unchanged.

@@ -1085,6 +1085,16 @@ function drawCivNamed(gx,gy,X,Y,S){
 function drawSolarform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   function tf(nm){var im=TILEFORM_IMG[nm];return (im&&im.complete&&im.naturalWidth)?im:null;}
+  if(n.indexOf('rooftop solar array')>=0){
+    /* PREDICATE SWEEP 8/20: the terminal's LEED roof array reached the
+       generic duct branch ('rooftop' substring) and drew random ducts.
+       A flat roof-mount array is the solar family's own glass, laid flat:
+       no back rail, no under-slot, just the panel field. */
+    var rim=tf('sol_r'+(1+(gy&1))+'_p'+(((gx%3)+3)%3));
+    if(!rim) return false;
+    ctx.drawImage(look(rim),X,Y,S,S);
+    return true;
+  }
   if(n.indexOf('solar panel')>=0){
     function isPan(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
       return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('solar panel')>=0; }
