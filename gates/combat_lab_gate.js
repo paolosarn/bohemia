@@ -4626,6 +4626,41 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V174 YOU CAN SHOOT THE CAR (Paolo 8/20) ====================
+   The BEHAVIOUR is measured by fight_moves_you_gate with a real mouse click on
+   the real canvas, because the feature IS the tap. What is pinned here is the
+   shape, and above all WHERE THE DOOR SITS. */
+  ok('V174 THE VERB EXISTS AT ALL. He asked "how do i shoot a car?" and the honest answer was that he could not: carHeat had exactly two callers in the whole file -- a round of THEIRS that your cover ate (V108) and your grenade landing inside CAR_BLAST (V104) -- and neither one was him pointing a gun at it. Everything else was already built: the tank part, the climbing heat, the rim that reddens, the bloom on the fuel end and cookOff\'s entire payoff. A complete mechanic with no door into it, and he found the missing door by trying to walk through it',
+    /function shootCar\(P\)\{/.test(demo) && /function carAtTile\(tx,ty\)\{/.test(demo));
+
+  ok('V174 AND THE DOOR IS THE TAP HE ALREADY HAS, not a new button. The field tap already places cover on a ring cell, already picks a man and already gets eaten by an armed grenade; a car was the one thing on the board you could see, walk behind, hide from and not touch. It reuses tapTile -- the same tap-to-world conversion the grenade has used since V104 -- rather than a second hit test that could disagree with it',
+    /const t4=tapTile\(x,y\);/.test(demo) && !/id="shootcar"/.test(demo));
+
+  ok('V174 AND IT GOES LAST IN THE TAP, so a tap on a man is always a man and this only ever claims a tap nothing else wanted. It runs in AUTO as well as MANUAL because it is not overriding the game\'s choice of WHO to shoot -- V35\'s auto rule exists so a curious tap cannot silently re-pick your victim, and this picks nobody',
+    demo.indexOf("const t4=tapTile(x,y);") > demo.indexOf("setRead('TARGET: '+e.n") &&
+    /* AND THERE IS EXACTLY ONE DOOR. Mutation testing put a SECOND car check in
+       ahead of the men and both gates stayed green: the ordering claim used
+       indexOf, which happily found the surviving later copy and reported the
+       order correct while a duplicate sat in front of it deciding every tap
+       first. Ordering is only meaningful when there is one of the thing being
+       ordered. carAtTile may appear twice in the whole file -- its definition
+       and its single use. */
+    (demo.match(/carAtTile\(/g) || []).length === 2);
+
+  ok('V174 THE TANK IS DECLARED, NOT DERIVED: a body round is CAR_SHOT_HEAT and the fuel end is CAR_TANK_HEAT, sat next to CAR_COOK in the same [DIAL] family V108 opened, so the whole feature adds no damage, accuracy or hp number anywhere. NO DAMAGE BEFORE THE DIAL survives a new verb',
+    /const CAR_SHOT_HEAT=1;/.test(demo) && /const CAR_TANK_HEAT=4;/.test(demo) &&
+    /carHeat\(P\.car, P\.tank\?CAR_TANK_HEAT:CAR_SHOT_HEAT\);/.test(demo));
+
+  ok('V174 AND IT NEVER ROLLS TO HIT. A car is a stationary object the size of a car; the dial is for people. A miss chance here would be the fight teaching that its own scenery dodges',
+    /function shootCar\(P\)\{[\s\S]{0,1200}?carHeat\(P\.car,/.test(demo) &&
+    !/function shootCar\(P\)\{[\s\S]{0,1200}?Math\.random\(\)</.test(demo));
+
+  ok('V174 AND IT IS SYMMETRIC WITH V170: smoke between you and the car refuses the shot for the same reason it refuses a man. You cannot shoot what you cannot see, and the screen you made is a screen you are standing behind too',
+    /smokeBetween\(q\[0\],q\[1\],P\.lvl\|0\)/.test(demo));
+
+  ok('V174 AND THE VERB IS ON THE OPEN BOOK while WHICH END TO HIT IS NOT. RF4-68 says never explain what the floor could have shown, and the floor has been drawing the heat, the glowing tank end and the explosion since V108 -- but an affordance nobody tries is invisible, which is exactly how this one went missing. The book states that the tap exists and lets the glow say the rest',
+    /YOU CAN SHOOT A CAR: TAP IT\./.test(demo));
+
 /* ===== V173 THE MAN WHO KEEPS LEAVING (RF4-38, two stars) ========
    "Backliners maintain line-of-sight and range with at least one ALLY while
     biased AGAINST being close to, or in line-of-sight of, the PLAYER."

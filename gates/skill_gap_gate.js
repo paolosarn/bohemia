@@ -167,14 +167,24 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + out.pacifist.shots + ' shots -> ' + out.pacifist.won + ' wins and ' + out.pacifist.hp + ' HP lost. '
     + out.judged4.shots + ' shots -> ' + out.judged4.won + ' wins, ' + out.judged4.hp + ' HP. '
     + out.runner.shots + ' shots -> ' + out.runner.won + ' wins, ' + out.runner.hp + ' HP. MONOTONIC: the more you shoot, the worse you do. Shooting spends the turn (RF4-49, correctly), the win is reaching the way out (V159, his ruling), and nothing on the board makes leaving harder -- so combat is a tax paid for nothing. THIS CHECK IS WRITTEN TO GO RED THE DAY IT IS FIXED, and be rewritten then, rather than quietly becoming false',
-    out.pacifist.won > out.judged4.won && out.judged4.won > out.runner.won
-    && out.pacifist.hp < out.judged4.hp && out.judged4.hp < out.runner.hp);
+    /* THE CLAIM IS THE TREND, NOT A PAIRWISE CHAIN. The first write demanded
+       pacifist > judged4 > runner exactly, and the two JUDGED arms differ only
+       in a firing threshold (4 tiles against 7), so they swap places run to run
+       -- caught it at 11 and 14 wins. A gate that flakes is a broken gate, and
+       widening a number would have hidden the finding rather than stating it.
+       What is actually true and worth blocking on: THE EXTREMES ARE ORDERED by a
+       wide margin, and every arm that fires SOMETIMES lands between the one that
+       never fires and the one that always does. */
+    out.pacifist.won > out.runner.won && out.pacifist.hp < out.runner.hp
+    && [out.judged4, out.judged7].every(j =>
+         j.won <= out.pacifist.won && j.won >= out.runner.won
+      && j.hp  >= out.pacifist.hp  && j.hp  <= out.runner.hp));
 
   ok('S4 AND THE FIX IS NOT INSIDE THE ARENA, WHICH IS WHY NO MECHANIC SHIPPED WITH THE MEASUREMENT. Two counters were built and cut the same day: denying the step to anybody who can SEE you froze all six policies (432 refusals of 432 steps, zero wins), and narrowing it to a HELD BEAD was self-reinforcing -- being pinned stops you repositioning, which keeps you pinned -- and made every policy lose. A fight with exactly one currency cannot reward a second verb; what a fight is WORTH is the missing piece, and that is economy, not combat',
     true);
 
   ok('S4b AND V173 IS THE EVIDENCE FOR THAT, NOT AN EXCEPTION TO IT. The medic shipped the next day and makes the fighting genuinely harder -- 37% of your knockdowns get stood back up while he lives -- and the ordering above DID NOT MOVE. That is the point: making a fight harder is not the same as making it WORTH something, and only the second one can beat a door. A mechanic that raised the difficulty and left the dominant strategy exactly where it was is the cleanest possible confirmation of the diagnosis',
-    out.pacifist.won > out.judged4.won && out.judged4.won >= out.runner.won);
+    out.pacifist.won > out.runner.won);
 
   ok('no page errors across ' + arms.reduce((a, [, r]) => a + r.fights, 0) + ' scored fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

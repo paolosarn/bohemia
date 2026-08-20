@@ -1057,6 +1057,116 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' rosters). A support archetype nobody meets is a paragraph in a spec',
     med.rosters.inRoster >= 10);
 
+
+/* ===== V174 YOU CAN SHOOT THE CAR (Paolo 8/20: "how do i shoot a car?") ====
+   He asked, and the honest answer was that he could not: carHeat had two callers
+   in the whole file, a round of THEIRS your cover ate and your grenade landing
+   beside it. Everything else was already built -- the tank part, the climbing
+   heat, the rim that reddens, the bloom on the fuel end, and cookOff's entire
+   payoff -- with no door into it.
+   THIS IS DRIVEN BY A REAL MOUSE CLICK ON THE REAL CANVAS, because the feature
+   IS the tap. Calling shootCar() from here would prove the function works and
+   say nothing about whether anybody can reach it, which is the exact bug being
+   fixed. */
+  /* WHERE IS THE CAR ON SCREEN, RIGHT NOW.
+     Recomputed immediately before every click, and aimed at the MIDDLE of the
+     car rather than one cell, because the view will not hold still: the auto
+     frame (G._uzE) is refloored every frame to keep every body on screen, and
+     the aim camera glides after a shot. A screen point computed once measured
+     4 -> 4 -> 4, and a point recomputed but aimed at a single cell measured
+     0 -> 0 -> 4, both of them the harness missing a parked car rather than the
+     game refusing a shot. That the view moves is CORRECT -- a player watches it
+     move -- so the harness retries instead of demanding the game hold still.
+     Which cell gets hit is not this arm's claim; carRules below measures the
+     body/tank split directly. This one asks only: does a real mouse click on a
+     real car put a round into it. */
+  const carAim = () => frame.evaluate(() => {
+    const cs = (G.pillars||[]).filter(P => P.car && !P.burnt);
+    if (!cs.length) return null;
+    const cid = cs[0].car, mine = cs.filter(P => P.car === cid);
+    const tk = mine.find(P => P.tank) || mine[0];
+    const tq = pXY(tk), dx = 6 - tq[0], dy = 0 - tq[1];
+    for (const P of mine) { const q = pXY(P), nx = q[0]+dx, ny = q[1]+dy;
+      P.ea = Math.atan2(ny, nx); P.edist = Math.hypot(nx, ny); }
+    G.phase='cover'; G.inc=null; G._chainWait=null; G.over=false;
+    G.pHP = G.pMax || 100; G.smoke = [];
+    let sx=0, sy=0;
+    for (const P of mine) { const q = pXY(P); sx+=q[0]; sy+=q[1]; }
+    sx/=mine.length; sy/=mine.length;
+    const cv = document.getElementById('cv'), F = G._field;
+    if (!cv || !F) return null;
+    const ux = F.cx + sx*F.ring, uy = F.cy + sy*F.ring;
+    const W = cv.width, H = cv.height, eff = uzEff();
+    const rx = (ux - W/2)*eff + W/2 + G.userPan.x;
+    const ry = (uy - H/2)*eff + H/2 + G.userPan.y;
+    const r = cv.getBoundingClientRect();
+    return { cid, px: r.left + rx*(r.width/W), py: r.top + ry*(r.height/H) };
+  });
+
+  await frame.evaluate(() => { BohemiaArena.set(4); setupCombat();
+    G.pHP = G.pMax || 100; G.phase='cover'; G.over=false; G.inc=null;
+    G.smoke=[]; G._carHeat={}; G._carBurnt={}; });
+
+  let carTaps = { hits: [], attempts: 0, burnt: false, smoke: 0 };
+  { const fEl = await frame.frameElement();
+    const box = await fEl.boundingBox();
+    let last = 0;
+    for (let a = 0; a < 12 && !carTaps.burnt; a++) {
+      const spot = await carAim();
+      if (!spot) break;
+      carTaps.attempts++;
+      await page.mouse.click(box.x + spot.px, box.y + spot.py);
+      await page.waitForTimeout(1200);
+      const st = await frame.evaluate(c => ({
+        heat: (G._carHeat||{})[c] || 0,
+        burnt: !!(G._carBurnt||{})[c],
+        smoke: (G.smoke||[]).length }), spot.cid);
+      if (st.heat > last) { carTaps.hits.push(st.heat); last = st.heat; }
+      if (st.burnt) { carTaps.burnt = true; carTaps.smoke = st.smoke; }
+    } }
+
+  const carRules = await frame.evaluate(() => {
+    const R = {};
+    const setup = () => { BohemiaArena.set(4); setupCombat();
+      G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
+      G.smoke=[]; G._carHeat={}; G._carBurnt={}; };
+    setup();
+    { const cells = (G.pillars||[]).filter(P => P.car);
+      const body = cells.find(P => !P.tank);
+      if (body) { body.edist = 3; shootCar(body);
+        R.body = (G._carHeat||{})[body.car] || 0; } }
+    setup();
+    { const t = (G.pillars||[]).filter(P => P.car).find(P => P.tank);
+      if (t) { t.edist = 3; shootCar(t); R.tank = (G._carHeat||{})[t.car] || 0;
+        t.edist = 99; R.tooFarRefused = (shootCar(t) === false);
+        t.edist = 3; popSmoke(t.ea, t.edist*0.5, t.lvl|0);
+        R.smokeRefused = (shootCar(t) === false); } }
+    try { buildOpenBook(); } catch(e){}
+    const el = document.getElementById('openbook');
+    R.onTheBook = (el ? el.textContent : '').includes('YOU CAN SHOOT A CAR');
+    return R;
+  });
+
+  console.log('  real mouse clicks on the car: ' + carTaps.attempts + ' attempts, heat went '
+    + carTaps.hits.join(' -> ') + (carTaps.burnt ? '  COOKED, smoke ' + carTaps.smoke : '  never cooked')
+    + '   (body hit ' + carRules.body + ', tank hit ' + carRules.tank + ')');
+
+  ok('V174 *** A REAL MOUSE CLICK ON A REAL CAR PUTS A ROUND INTO IT, AND ENOUGH OF THEM COOK IT. *** He asked "how do i shoot a car?" on 8/20 and the answer was that he could not -- carHeat had two callers in the entire file and neither was him pointing a gun. Heat climbed ' + carTaps.hits.join(' -> ')
+    + ' over ' + carTaps.attempts + ' clicks and the tank went. Driven by page.mouse.click on the canvas, because THE FEATURE IS THE TAP: calling shootCar() from a gate proves the function works and says nothing about whether anybody can reach it, which is the exact bug being fixed',
+    carTaps.hits.length >= 3 && carTaps.burnt === true);
+
+  ok('V174 AND THE COOKED CAR THROWS THE SMOKE, so the click reaches all the way through to V170\'s screen rather than merely incrementing a counter: ' + carTaps.smoke + ' cloud on the board',
+    carTaps.smoke > 0);
+
+  ok('V174 AND THE TANK IS THE WHOLE SKILL IN IT: a round into the body is worth ' + carRules.body + ' and one into the fuel end is worth ' + carRules.tank + ', so three in the boot cook it and ten in the bonnet barely do. The game has been drawing which end is which since V108 -- a rim that reddens and a bloom on the tank end and nowhere else -- so what you need to know is ON THE FIELD and not in a menu (RF4-02). Aim at the glow',
+    carRules.tank >= 3 * carRules.body && carRules.body > 0);
+
+  ok('V174 AND IT REFUSES WHAT IT SHOULD: past your reach, and through V170\'s smoke. The smoke rule is the symmetric one -- you cannot shoot what you cannot see, and the screen you made is a screen you are standing behind too',
+    carRules.tooFarRefused === true && carRules.smokeRefused === true);
+
+  ok('V174 AND THE VERB IS ON THE OPEN BOOK, which is the one thing here the floor genuinely cannot show. RF4-68 says never explain what the floor could have shown, and the floor shows the heat, the glowing end and the explosion -- but an affordance nobody tries is invisible, which is exactly how this one went missing for as long as it did',
+    carRules.onTheBook === true);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
