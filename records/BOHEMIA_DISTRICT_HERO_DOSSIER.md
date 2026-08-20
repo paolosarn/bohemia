@@ -554,7 +554,7 @@ _Kart circuit — matched: a closed LOOP that comes back to itself, which no oth
 - timing tower — over the start line, board blank (code 9 "timing tower")
 - karts — left on the grid where they stopped (code 10 "abandoned kart")
 
-## FORT  (1724x1393, anchor 836,1292)
+## FORT  (1724x1486, anchor 836,1292)
 _Old Mormon Fort — matched: an ADOBE SQUARE with a bastion at one corner, on Las Vegas Creek. The only walled courtyard in the valley and the only thing you can see INTO over a low wall, which is what makes it read at map zoom against sixty districts of roofs. The original adobe building stands inside it. 1855, and the spring beside it is the reason a city is here at all._
 
 - adobe curtain wall — the square, low enough to see into (code 2 "adobe wall")
@@ -693,7 +693,7 @@ _DATA FORT_
 - guard house -- at the gate with its door, glass still intact, which on this site is the tell (code 2 "building (guard house)")
 - microwave masts -- on the roofline (code 14 "microwave mast")
 
-## BASIN  (1724x1045, anchor 895,1277)
+## BASIN  (1724x1085, anchor 895,1277)
 _DETENTION BASIN_
 
 - the bowl -- four SQUARED rings stepping down, so it reads made and not eroded (code 6 "side slope", code 7 "embankment crest")

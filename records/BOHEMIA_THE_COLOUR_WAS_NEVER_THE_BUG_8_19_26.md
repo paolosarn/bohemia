@@ -177,6 +177,40 @@ session's scratch directory is a harness the next person rebuilds from nothing. 
 is an EARLY WARNING and it says so in its own output — it cannot pass anything, the
 real bank and the two gates remain the only authority.
 
+## THE FIX THAT BROKE A THIRD GATE, AND THE ABSURD OBJECT UNDERNEATH IT
+
+Lowering the basin berm to its real height dropped its tallest mass to 4.0 m and
+turned `big_icons_gate` red — and that gate turned out to be the more interesting
+one, because of *what* had been holding the old icon over the bar.
+
+**A seven-metre staff gauge on a 3.4-metre berm.** A staff gauge measures the depth
+of water the basin can hold; at 7.2 m it was reading a flood the basin would have
+spilled over its own crest long before. That absurd object was the only thing
+clearing the height floor. The gate was not being satisfied, it was being *fooled* —
+by exactly the "forcing a tower onto it would be a lie" failure its own
+`LOW_BY_NATURE` list exists to prevent.
+
+So the gauge came down to 4.0 m to match the berm, and the height comes from the
+structure a real basin genuinely stands up: **the outlet is a drop-inlet riser
+tower, not a box.** A basin sized to a 100-year storm discharges through a vertical
+concrete riser with the low-flow orifice at its foot and a trash rack up the face,
+and Clark County's larger basins carry them several metres proud of the pond floor.
+It stands IN the pond at the low point, because on the berm it would be draining the
+embankment.
+
+`fort` failed the same check at 4.2 m, and that one was a real drawing error: its
+**bastion barely cleared its own curtain wall**, which is a lookout that cannot look
+out. The Mormon Fort's corner tower stood well clear of the 14-foot adobe walls. Two
+storeys now, 5.6 m, set back, with a parapet.
+
+Both districts are still under the 6 m general floor and both are now named in
+`LOW_BY_NATURE` with their reasons — a detention basin's subject is a *hole* and the
+fort is a single-storey 1855 adobe stockade. Named, never silently exempt, and they
+still clear the 4.5 m floor that list carries.
+
+And the riser's trash rack went on the **+y face**, because it had been drawn on -y
+first. The bug in this document, in the same file, an hour later.
+
 ## THE LESSON, FOR THE NEXT SESSION
 
 **A colour gate can fail for a geometry reason, and it will not tell you.** When an

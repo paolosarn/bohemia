@@ -105,6 +105,21 @@ LOW_BY_NATURE = {
     # is lanes, barrier, guardrail and sound wall -- flat by nature, which is what a freeway
     # between interchanges actually is.
     'freeway',
+    # 8/19: THE DETENTION BASIN AND THE OLD FORT, and both are the same argument the six
+    # above make. A basin's subject is a HOLE -- Clark County Regional Flood Control builds
+    # them with 3:1 side slopes and a berm barely a metre over natural grade, because
+    # steeper will not hold in this soil and cannot be mowed or driven on. Everything on one
+    # is low on purpose: the O&M shed, the outlet riser, the staff gauge. The old icon
+    # cleared this floor only by carrying a SEVEN-METRE staff gauge over a 3.4 m berm, a
+    # gauge reading a flood the basin would have spilled long before -- which is the exact
+    # "forcing a tower onto it would be a lie" this list exists to prevent, except the lie
+    # had already been told and the gate was the thing being fooled.
+    'basin',
+    # And the fort is a single-storey 1855 ADOBE STOCKADE. Its real walls are about 4.3 m
+    # and its corner bastion is the tallest thing on the site; a second storey on it would
+    # be a lie about the oldest building in the valley. It is the one walled square here,
+    # which is its identity -- not its height.
+    'fort',
 }
 
 small, empty, squat = [], [], []

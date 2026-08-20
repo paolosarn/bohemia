@@ -7671,7 +7671,76 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/19 (b) LATEST -- *** THE LAST ROAD. EVERY ROAD IN THE VALLEY
+WORLD (city-1eztay): 8/20 (a) LATEST -- *** THE COLOUR WAS NEVER THE BUG. FIVE
+DISTRICT ICONS YOU COULD NOT SEE ON THE MAP, AND THREE DIFFERENT REASONS. ***
+Tab: MAP (the valley aerial) and anywhere a district icon draws.
+Gates: SQUINT and HUE were 2 of the 29 reds in yesterday's full audit. BOTH GREEN.
+  squint 3 passed 1 failed -> 4/0        hue 3 passed 1 failed -> 4/0
+
+hue had named policestation(1) stadium(1) cemetery(1) basin(1) -- ONE hue family
+each -- and squint had named radio at 1% ink, since 7/29. Proven pre-existing first
+(baseline worktree, byte-identical lists; the set went 64 -> 69 districts this
+session without either list moving), so this is old debt, not my new landmarks.
+
+*** THE FINDING ANY LANE CAN USE: ABSENT AND DESATURATED ARE DIFFERENT DISEASES,
+AND A COLOUR GATE CANNOT TELL YOU WHICH. *** Before touching a palette I counted
+pixels where green beat both other channels. The stadium field (#5b6a44) and the
+basin channel (#4c8450) came back ZERO. Not dark, not washed out: NOT THERE. Every
+previous fix had repainted a surface nobody could see, which is a fix you can ship
+forever while the gate stays red -- and the note in build_policestation is a record
+of somebody doing exactly that.
+
+AND THE SECOND ONE, WHICH I DID TO MYSELF: THREE ICONS FAILED THE SAME GATE FOR
+THREE UNRELATED REASONS. I found one plausible mechanism, believed it covered all
+of them, wrote it up as fact, and spent a full 85-minute bake on it before looking
+at a render. It was wrong on two of three.
+  basin          nested SOLID boxes -- a nested box HAS A TOP FACE, so the outer
+                 tier roofed over everything inside. The "rectangular hole" in that
+                 builder's own docstring has never once rendered. A HOLE IS 4 BARS.
+  stadium        _draw_ground lays the pad from z=-0.5 up 0.55, top face at z=+0.05,
+                 and the field was drawn 0.02..0.08 STRADDLING IT. Z-buffer coin
+                 toss, pad won. Field sits at 0.10 now. That is the entire fix.
+  policestation  its only colour was on the -Y FACE. This projection shows a box's
+                 top, +x and +y and NOTHING ELSE. Invisible since the day it was
+                 written, under a source comment claiming it was the fix.
+
+*** AND THE TOOL THAT MADE IT POSSIBLE, USE IT BEFORE YOU TOUCH ANY HERO:
+tools/bohemia_hero_one.py *** The full bake is 85 MINUTES. This bakes ONE hero in
+main()'s exact dressing order and prints the same two numbers the gates do, in
+seconds. It is FAITHFUL AND THAT IS CHECKABLE: run the pre-8/19 radio through it
+and it reports 1%, the same figure squint_gate reported off the real 1724px bank.
+Four guesses became four experiments. It is an EARLY WARNING and says so -- it
+cannot pass anything, the bank and the two gates stay the only authority.
+
+Geometry that is also truer, kept: a seating bowl RAKES (six stacked rings, growing
+inner radius) which is why you can see a real stadium's field from the air; a
+detention basin is EXCAVATED with 3:1 slopes and a ~1 m berm, not walled at 3.4 m;
+a guyed broadcast mast is a 1.5 m LATTICE hung with microwave drums, not a 0.38 m
+post, and an antenna site is a FARM (four masts). Every colour used was already in
+that district's own engine palette and had simply never been drawn.
+
+AND THE THIRD GATE MY OWN FIX BROKE, WHICH WAS THE MOST INTERESTING ONE. Lowering
+the basin berm to its real height dropped its tallest mass to 4.0 and turned BIG
+ICONS red. What had been holding the old icon over the bar was A SEVEN-METRE STAFF
+GAUGE ON A 3.4 M BERM -- a gauge reading a flood the basin would have spilled long
+before. The gate was not being satisfied, it was being FOOLED, by exactly the
+"forcing a tower onto it would be a lie" failure its own LOW_BY_NATURE list exists
+to prevent. Height now comes from the thing a real basin does stand up: a DROP-INLET
+RISER TOWER with a trash rack, standing IN the pond at the low point (on the berm it
+would be draining the embankment). fort failed the same check at 4.2 and that was a
+real error -- its BASTION BARELY CLEARED ITS OWN CURTAIN WALL, a lookout that cannot
+look out. Two storeys now. Both are named in LOW_BY_NATURE with reasons and both
+clear the 4.5 floor that list carries. BIG ICONS was red at main anyway, for a worse
+reason: the factory did not even parse (line 1247, a JavaScript comment block in a
+Python file). 0 passed 1 failed -> 6 passed 0 failed.
+
+STILL RED AND NOT MINE, all proved by running them both ways: ART 45 and REUSE
+FIRST are byte-identical at the baseline; RENDER PIXEL fails at 0.6% with MY bank
+AND with the pre-change bank swapped in, so it is not the icons.
+Record: records/BOHEMIA_THE_COLOUR_WAS_NEVER_THE_BUG_8_19_26.md
+Tool:   tools/bohemia_hero_one.py
+
+WORLD (city-1eztay): 8/19 (b) -- *** THE LAST ROAD. EVERY ROAD IN THE VALLEY
 IS NOW DRAWN BY ITS OWN MODULE, AND THE NOT-ROUTED DEBT LIST IS EMPTY. ***
 Tab: RUN. Gate: WALKED SURFACE.
   arterial  8.6% -> 100%     strip 20.7% -> 100%     freeway 17.9% -> 85.4%

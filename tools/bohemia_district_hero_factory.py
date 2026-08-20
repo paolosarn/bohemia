@@ -1276,9 +1276,18 @@ def build_fort(P):
                              (-1.2, -0.6, 0.9, 11.0), (9.9, -0.6, 0.9, 11.0)):
         s.box((wx, wy, 0), (ww, wh, 2.6), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 0.94),
               'py': _dark(WALL, 1.02), 'nx': _dark(WALL, 0.88), 'ny': _dark(WALL, 0.88)})
+    # THE BASTION IS TWO STOREYS, which is the whole point of a bastion: it has to see over
+    # its own curtain wall and shoot along it. The Mormon Fort's corner tower stood well
+    # clear of the 14-foot adobe walls, and at 4.2 m this one barely cleared a 2.6 m wall --
+    # a lookout that cannot look out. 5.6 m, with the upper stage set back, so the icon's
+    # one vertical is the one the building actually had.
     s.box((-1.6, -1.0, 0), (2.4, 2.4, 4.2), {'top': _dark(BASTION, 1.12),              # THE BASTION
           'px': _win(BASTION, 2, 1, 4, 0.3), 'py': _win(BASTION, 2, 1, 7, 0.3),
           'nx': _dark(BASTION, 0.9), 'ny': _dark(BASTION, 0.9)})
+    s.box((-1.35, -0.75, 4.2), (1.9, 1.9, 1.4), {'top': _dark(BASTION, 1.2),           # its upper stage
+          'px': _win(BASTION, 1, 1, 6, 0.3), 'py': _win(BASTION, 1, 1, 9, 0.3),
+          'nx': _dark(BASTION, 0.94), 'ny': _dark(BASTION, 0.94)})
+    s.box((-1.55, -0.95, 5.6), (2.3, 2.3, 0.22), {'c': _dark(BASTION, 1.28)['c']})     # its parapet
     s.box((0.6, 6.2, 0), (4.2, 2.6, 3.0), {'top': _dark(ADOBE, 1.06),                  # THE adobe building
           'px': _win(ADOBE, 3, 1, 5, 0.22), 'py': _dark(ADOBE, 0.95),
           'nx': _dark(ADOBE, 0.92), 'ny': _dark(ADOBE, 0.92)})
@@ -3835,11 +3844,25 @@ def build_basin(P):
               'nx': _dark(TRICKLE, 0.9), 'ny': _dark(TRICKLE, 0.76)})
     s.box((4.4, -2.4, 0.08), (4.0, 2.4, 0.05), {'c': TRICKLE})                           # and what leaves the
     s.box((5.4, -3.1, 0.08), (2.2, 1.0, 0.05), {'c': _dark(TRICKLE, 1.18)['c']})         # orifice, out on the apron
-    s.box((5.0, 0.9, 0), (2.4, 1.8, 2.4), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
-          'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE OUTLET BOX
-    s.box((5.8, 0.8, 0.2), (0.9, 0.2, 0.9), {'c': (26, 28, 30)})                           # its orifice
+    # THE OUTLET IS A DROP-INLET RISER TOWER, not a box. A basin sized to a 100-year storm
+    # discharges through a vertical concrete riser standing proud of the pond floor, with
+    # the low-flow orifice at its foot and a trash rack up the face -- Clark County's larger
+    # basins carry them several metres tall, and it is the one thing on a detention site
+    # that legitimately stands up. It was drawn as a 2.4 m box, which is why the only
+    # element clearing the icon-height bar was a SEVEN-METRE staff gauge on a 3.4 m berm:
+    # a gauge reading a flood the basin would have spilled long before. The absurd object
+    # was carrying the icon. The real one carries it now.
+    # It stands IN THE POND at the low point, which is where a drop inlet goes -- on the
+    # berm it would be draining the embankment. And its orifice and rack are on the +Y
+    # face, because this projection shows a box's top, +x and +y and nothing else: the
+    # same face the police station lost its only colour behind.
+    s.box((5.2, 3.6, 0), (2.4, 1.8, 4.9), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
+          'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE RISER TOWER
+    s.box((5.0, 3.4, 4.9), (2.8, 2.2, 0.3), {'top': _dark(CREST, 1.26), 'px': _dark(CREST, 1.08),
+          'py': _dark(CREST, 0.9), 'nx': _dark(CREST, 1.08), 'ny': _dark(CREST, 0.9)})     # its rack collar
+    s.box((5.9, 5.32, 0.18), (0.9, 0.16, 0.95), {'c': (26, 28, 30)})                       # the low-flow orifice
     for i in range(5):
-        s.box((5.2 + i * 0.45, 0.72, 0.2), (0.12, 0.12, 1.1), {'c': _dark(CREST, 0.7)['c']})  # the debris rack
+        s.box((5.4 + i * 0.45, 5.42, 0.18), (0.12, 0.12, 4.4), {'c': _dark(CREST, 0.7)['c']})  # the trash rack
     s.box((8.6, 0.55, 0.72), (2.6, 0.95, 0.42), {'top': _dark(SLOPE, 1.06), 'px': _dark(SLOPE, 0.94),
           'py': _dark(SLOPE, 0.8), 'nx': _dark(SLOPE, 0.94), 'ny': _dark(SLOPE, 0.8)})     # THE SPILLWAY notch,
     # cut DOWN THROUGH the crest rather than floating over it -- an emergency spillway is a
