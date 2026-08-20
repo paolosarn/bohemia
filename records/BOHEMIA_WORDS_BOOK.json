@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 35,
-  "lines": 1908,
-  "cited": 1862,
-  "fingerprint": "13c72c65551b34c9",
+  "sources": 36,
+  "lines": 1910,
+  "cited": 1864,
+  "fingerprint": "38d4323bf7fb6b69",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -46451,6 +46451,64 @@
      ],
      "citeLevel": "line",
      "title": "THE BURIAL ON THE RIDGE"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json",
+   "title": "THE LAST ROOM",
+   "kind": "scene",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json#where_is_she",
+     "src": "records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json",
+     "beat": "where_is_she",
+     "speaker": "mother",
+     "node": "where_is_she",
+     "text": "Where's {sibling_lost}.",
+     "draft": true,
+     "why": "NO QUESTION MARK, on purpose -- she is not asking, she is already reading the room and the sentence is coming out anyway. The token is filled from FAMILY_CAST, so a male player hears NINA and a female player hears MARCO (7/19, the lost sibling is the opposite gender to the player). EDIT FREELY, but keep it short.",
+     "cites": [
+      {
+       "id": "Q035.W9",
+       "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+       "applied": "the corpus is explicit that the horror is emotional and not splatter. There is no body in this scene, no wound described, and no death shown -- his 7/19 ruling put the death away from here, in motion, in the house. All this room contains is a woman asking a question she already knows the answer to."
+      },
+      {
+       "id": "Q013.W7",
+       "title": "THE BLINDSIDE (mundane -> devastating)",
+       "applied": "\"the setup's lightness makes the drop land.\" Ninety seconds ago she was being told to eat the green ones. The whole cold open was built to make four words about her whereabouts unbearable, and this is where that bill comes due."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE LAST ROOM"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json#dont_go_back_in",
+     "src": "records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json",
+     "beat": "dont_go_back_in",
+     "speaker": "sibling_older",
+     "node": "dont_go_back_in",
+     "text": "Don't go back in there.",
+     "draft": true,
+     "why": "THE ANSWER THAT IS NOT AN ANSWER, and it does three jobs in five words: it confirms it without the word, it tells you the older sibling SAW it, and it is an act of protection from somebody who has just decided they are the one who handles things now. That is the co-founder of the city being born. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q080.W8",
+       "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+       "applied": "the corpus's example disproves a god's claim about humanity SILENTLY, by what people do. Nobody in this room says died, or her name, or anything about what happened. One person stops another from walking down a hallway."
+      },
+      {
+       "id": "Q043.P7",
+       "title": "W9 (the permanent pre-game/inter-generational loss",
+       "applied": "permanent loss for instant stakes in a game about a bloodline. The line is the surviving sibling taking a role they will hold for the rest of the game, in the same breath as the family losing the other one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE LAST ROOM"
     }
    ]
   },

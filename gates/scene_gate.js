@@ -431,15 +431,125 @@ ok('and it does not invent a second handoff path — cityEncounterIn\'s shape is
 const hoff = cold.beats.find(b => b.kind === 'handoff');
 ok('the cold open\'s handoff names what plays when the raid comes back (then: ' +
   ((hoff && hoff.then) || 'NOTHING') + ')', !!(hoff && hoff.returns === true && hoff.then));
-ok('and that scene really exists in the catalogue',
-  !!(hoff && hoff.then) && fs.existsSync(GRIEF_PATH) &&
-  JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8')).id === hoff.then);
+/* WHICH scene it returns into is allowed to change -- it did, on 8/20, when the
+   end of beat 1 was written and the raid started returning into THE LAST ROOM
+   instead of straight to the next day. So this asserts the target RESOLVES, and
+   3h below asserts the whole order. Pinning a filename here made a correct
+   change look like a regression. */
+const thenFile = fs.readdirSync('records')
+  .filter(f => /^BOHEMIA_SCENE_.*\.json$/.test(f))
+  .find(f => JSON.parse(fs.readFileSync('records/' + f, 'utf8')).id === (hoff && hoff.then));
+ok('and that scene really exists in the catalogue (' + (thenFile || 'NOT FOUND') + ')',
+  !!(hoff && hoff.then) && !!thenFile);
 ok('openContinue reads `then`, so resuming from a fight goes somewhere',
   /h\.then \|\|/.test(ALPHA_SRC));
 /* every returns:true handoff, not just this one */
 const dangling = cold.beats.filter(b => b.kind === 'handoff' && b.returns === true && !b.then);
 ok('no handoff promises to return and names nowhere to return to',
   dangling.length === 0, dangling.map(b => b.id).join(' '));
+
+/* ---- 3g. THE END OF BEAT 1, WHICH HIS SENTENCE NAMES AND NOTHING PLAYED ---
+   His crystallized beat 1 is not "the fight". It is "defending the home room to
+   room, A SIBLING IS KILLED, IT ENDS SAVING THE MOTHER" -- and the
+   implementation ended when the last hostile dropped. The clause the whole demo
+   is about had nothing behind it: you never reached her, and the person who was
+   taken was simply absent from the next scene.
+   THIS IS NOT A FOURTH BEAT. His law crystallizes three and this lane does not
+   get to make it four; THE LAST ROOM is the back half of the first one, and it
+   hands on to the grief dinner itself. */
+const ROOM_PATH = 'records/BOHEMIA_SCENE_ACT1_THE_LAST_ROOM.json';
+ok('the end of beat 1 exists', fs.existsSync(ROOM_PATH));
+if (fs.existsSync(ROOM_PATH)) {
+  const room = JSON.parse(fs.readFileSync(ROOM_PATH, 'utf8'));
+  ok('it is a legal scene', S.validate(room).length === 0);
+  const rc = (room.cites || '').match(/laws\/[A-Za-z0-9_./]+\.md/);
+  ok('and it cites the ruling, on disk', !!rc && fs.existsSync(rc[0]));
+  ok('it cites the CLAUSE it exists for, verbatim from his law',
+    /ENDS SAVING THE MOTHER/i.test(room.cites || '') || /ENDS SAVING THE MOTHER/i.test(room.note || ''));
+
+  /* IT IS THE RAID'S RETURN, not something spliced into the chain. */
+  ok('THE RAID RETURNS INTO IT — it is the back half of beat 1',
+    !!hoff && hoff.then === room.id);
+  const rh = (room.beats || []).find(b => b.kind === 'handoff');
+  ok('and it hands on to THE GRIEF DINNER, keeping his three-beat order',
+    !!rh && rh.scene === 'act1_grief_dinner' && rh.returns === false);
+
+  /* *** THE MOTHER IS THE POINT OF IT. *** */
+  ok('the mother is in the room — the clause is "it ends SAVING THE MOTHER"',
+    (room.beats || []).some(b => b.kind === 'actor' && b.actor === 'mother'));
+
+  /* *** AND THE DEATH IS NOT STAGED. *** His 7/19 ruling puts it "during the
+     raid, away from [the table], in motion, in the house", so it has already
+     happened when this starts. A scene that showed it would be overwriting a
+     ruling with a picture. */
+  ok('no casualty is authored here either',
+    !(room.beats || []).some(b => b.dies === true || b.casualty || b.kills ||
+      (b.kind === 'actor' && b.state === 'dead')));
+  ok('and the LOST SIBLING is not staged in this room — she is already gone, ' +
+    'away from here, exactly where his ruling put her',
+    !(room.beats || []).some(b => b.kind === 'actor' && b.actor === 'sibling_lost'));
+
+  /* NOBODY SAYS THE WORD. */
+  const rSays = (room.beats || []).filter(b => b.kind === 'say');
+  ok('it speaks (' + rSays.length + ' lines), every one a tagged draft',
+    rSays.length >= 2 && rSays.every(b => b.text && b.draft === true));
+  ok('and NOBODY SAYS THE WORD — no line says died, dead, killed or gone',
+    rSays.every(b => !/\b(died|dead|death|killed|murdered|gone)\b/i.test(b.text || '')));
+  /* THE ANSWER IS SILENCE. The longest hold in the scene sits between the
+     question and the thing that is not an answer. */
+  const qi = room.beats.findIndex(b => b.kind === 'say' && /\{sibling_lost\}/.test(b.text || ''));
+  ok('the mother asks once, BY NAME, and the token resolves from FAMILY_CAST',
+    qi >= 0 && !room.cast);
+  const after = room.beats.slice(qi + 1);
+  const holdAfter = after.find(b => b.kind === 'wait');
+  const holds = room.beats.filter(b => b.kind === 'wait').map(b => b.beats | 0);
+  ok('and the answer is SILENCE — the longest hold in the scene follows the ' +
+    'question (' + (holdAfter ? holdAfter.beats : 0) + ' beats vs ' +
+    Math.max.apply(null, holds.concat(0)) + ' max)',
+    !!holdAfter && holdAfter.beats === Math.max.apply(null, holds));
+
+  const roomStudies = {}, roomMasters = {}, roomBad = [];
+  rSays.forEach(b => {
+    if (!b.study || b.study.length < 2) { roomBad.push(b.id + ' (<2)'); return; }
+    b.study.forEach(c => {
+      const e = LAWS_IDX[c.id];
+      if (!e) { roomBad.push(b.id + ' -> ' + c.id + ' unresolved'); return; }
+      if (String(e.title).trim() !== String(c.title).trim()) roomBad.push(b.id + ' -> ' + c.id);
+      if (String(c.applied || '').trim().length < 40) roomBad.push(b.id + ' thin');
+      roomStudies[e.study] = 1; roomMasters[e.kind] = 1;
+    });
+  });
+  ok('every line cites the catalogue, verbatim, applied (' +
+    Object.keys(roomStudies).length + ' studies, ' + Object.keys(roomMasters).length + ' masters)',
+    roomBad.length === 0 && Object.keys(roomStudies).length >= 2 &&
+    Object.keys(roomMasters).length >= 2, roomBad.slice(0, 3).join(' | '));
+  ok('and it declares that its set art does not exist yet',
+    typeof room.needsArt === 'string' && room.needsArt.length > 8);
+}
+
+/* ---- 3h. THE WHOLE AUTHORED OPENING, IN ORDER, END TO END ----------------- */
+const CHAIN = [
+  ['act1_cold_open', 'records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json'],
+  ['act1_the_last_room', ROOM_PATH],
+  ['act1_grief_dinner', GRIEF_PATH],
+  ['act1_ridge_burial', RIDGE_PATH],
+];
+const chainBroken = [];
+for (let i = 0; i < CHAIN.length; i++) {
+  const [id, pth] = CHAIN[i];
+  if (!fs.existsSync(pth)) { chainBroken.push(id + ' missing'); continue; }
+  const sc = JSON.parse(fs.readFileSync(pth, 'utf8'));
+  if (sc.id !== id) chainBroken.push(pth + ' is ' + sc.id);
+  const h = (sc.beats || []).find(b => b.kind === 'handoff');
+  const next = CHAIN[i + 1] && CHAIN[i + 1][0];
+  if (!next) continue;
+  const goes = h && (h.then || h.scene);
+  if (goes !== next) chainBroken.push(id + ' -> ' + goes + ', expected ' + next);
+}
+ok('THE AUTHORED OPENING IS ONE UNBROKEN CHAIN, in his order: cold open -> the ' +
+  'raid -> the last room -> the grief dinner -> the ridge' +
+  (chainBroken.length ? ' — BROKEN: ' + chainBroken.join('; ') : ''),
+  chainBroken.length === 0);
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);

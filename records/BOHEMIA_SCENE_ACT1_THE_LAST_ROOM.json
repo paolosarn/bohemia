@@ -1,0 +1,116 @@
+{
+ "id": "act1_the_last_room",
+ "title": "THE LAST ROOM",
+ "needsArt": "the house after the raid, lights out, a door standing open",
+ "when": "four minutes later",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID), the clause \"a sibling is killed, IT ENDS SAVING THE MOTHER\", plus THE TABLE IS THE THROUGHLINE (the death happens \"during the raid, away from it, in motion, in the house\")",
+ "note": "*** THIS IS NOT A FOURTH BEAT. IT IS THE END OF THE FIRST ONE. *** His law crystallizes the opening as THREE beats and this lane does not get to make it four. But beat 1 is not \"the fight\" -- his own sentence is \"defending the home room to room, A SIBLING IS KILLED, IT ENDS SAVING THE MOTHER\", and the implementation ended when the last hostile dropped. The clause that names what the whole demo is about was the part with nothing behind it. THE DEATH IS NOT STAGED HERE and must not be: his ruling puts it \"during the raid, away from [the table], in motion, in the house\", so it has already happened when this starts. What this stages is the two things his sentence does name -- reaching the mother, and the person who is not with you. NOBODY SAYS THE WORD. The mother asks once and the answer is not an answer. STRUCTURE IS STILL HIS: no casualty is authored here (the loss is his, ruled 7/19, and pacifism never saves her either way), nobody new is placed, and whether the FATHER is standing in this room is NOT decided -- no scene has resolved his status and the DIRECT tab is where that ruling gets made, one actor beat.",
+ "beats": [
+  {
+   "kind": "set",
+   "id": "after_the_raid",
+   "place": "house_after",
+   "era": "post_collapse",
+   "mood": "after",
+   "light": "none",
+   "beats": 3,
+   "why": "the same house, minutes later, the power still out. NO ART EXISTS for it and the frame says so rather than drawing the wrong room -- same honest empty frame the ridge gets."
+  },
+  {
+   "kind": "actor",
+   "id": "you_after_raid",
+   "actor": "player",
+   "age": "adult",
+   "at": "doorway",
+   "pose": "standing",
+   "why": "you came through the house room to room; this is the last one."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_saved",
+   "actor": "mother",
+   "at": "corner",
+   "pose": "standing",
+   "why": "\"IT ENDS SAVING THE MOTHER\" (7/19). She is the reason the fight had a direction, and until now the sentence had nothing behind it."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_after_raid",
+   "actor": "sibling_older",
+   "at": "doorway",
+   "pose": "standing",
+   "why": "the surviving sibling, who was with you. WHETHER THE FATHER IS IN THIS ROOM IS NOT DECIDED HERE -- his status is unresolved by every scene, it is Paolo's ruling, and adding an actor beat in the DIRECT tab is how it gets made."
+  },
+  {
+   "kind": "wait",
+   "id": "she_is_alive",
+   "beats": 5,
+   "why": "*** THE BEAT HIS SENTENCE ASKS FOR AND THE GAME NEVER PLAYED. *** You reach her. Nobody speaks for two and a half seconds. The relief lands first, on its own, because it has to land before the other thing does."
+  },
+  {
+   "kind": "say",
+   "id": "where_is_she",
+   "speaker": "mother",
+   "draft": true,
+   "text": "Where's {sibling_lost}.",
+   "why": "NO QUESTION MARK, on purpose -- she is not asking, she is already reading the room and the sentence is coming out anyway. The token is filled from FAMILY_CAST, so a male player hears NINA and a female player hears MARCO (7/19, the lost sibling is the opposite gender to the player). EDIT FREELY, but keep it short.",
+   "study": [
+    {
+     "id": "Q035.W9",
+     "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+     "applied": "the corpus is explicit that the horror is emotional and not splatter. There is no body in this scene, no wound described, and no death shown -- his 7/19 ruling put the death away from here, in motion, in the house. All this room contains is a woman asking a question she already knows the answer to."
+    },
+    {
+     "id": "Q013.W7",
+     "title": "THE BLINDSIDE (mundane -> devastating)",
+     "applied": "\"the setup's lightness makes the drop land.\" Ninety seconds ago she was being told to eat the green ones. The whole cold open was built to make four words about her whereabouts unbearable, and this is where that bill comes due."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_answers",
+   "beats": 6,
+   "why": "THE LONGEST HOLD IN THE OPENING, and it is silence. Three seconds of nobody answering is the answer. A line here would be the game explaining a thing the room has already said."
+  },
+  {
+   "kind": "say",
+   "id": "dont_go_back_in",
+   "speaker": "sibling_older",
+   "draft": true,
+   "text": "Don't go back in there.",
+   "why": "THE ANSWER THAT IS NOT AN ANSWER, and it does three jobs in five words: it confirms it without the word, it tells you the older sibling SAW it, and it is an act of protection from somebody who has just decided they are the one who handles things now. That is the co-founder of the city being born. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q080.W8",
+     "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+     "applied": "the corpus's example disproves a god's claim about humanity SILENTLY, by what people do. Nobody in this room says died, or her name, or anything about what happened. One person stops another from walking down a hallway."
+    },
+    {
+     "id": "Q043.P7",
+     "title": "W9 (the permanent pre-game/inter-generational loss",
+     "applied": "permanent loss for instant stakes in a game about a bloodline. The line is the surviving sibling taking a role they will hold for the rest of the game, in the same breath as the family losing the other one."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "and_that_is_the_night",
+   "beats": 4,
+   "why": "the raid is over. His law hands the next beat to THE GRIEF DINNER, next day."
+  },
+  {
+   "kind": "handoff",
+   "id": "to_the_morning",
+   "to": "scene",
+   "scene": "act1_grief_dinner",
+   "returns": false,
+   "why": "beat 1 ends here and beat 2 is the grief dinner, in his own crystallized order. returns:false -- nothing comes back to this room, which is the point of it."
+  },
+  {
+   "kind": "end",
+   "id": "last_room_ends",
+   "why": "control returns if nothing follows."
+  }
+ ]
+}

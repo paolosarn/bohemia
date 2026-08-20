@@ -1,3 +1,64 @@
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** HIS SENTENCE FOR BEAT 1 HAS THREE
+CLAUSES AND THE GAME PLAYED ONE. THE LAST ROOM. TAB: CUTSCENE, chip 2; in the
+game it plays the moment the raid ends. ***
+
+7/19, verbatim: "defending the home room to room, A SIBLING IS KILLED, IT ENDS
+SAVING THE MOTHER." The implementation ended when the last hostile dropped. You
+never reached her, and the person who was taken was simply ABSENT from the next
+scene: you win the fight, the screen changes, and the next thing you see is a
+dinner table the following evening with one fewer chair, having been told
+nothing. THE RAID ONLY STARTED RUNNING YESTERDAY, so that gap became reachable
+for the first time -- and what it reached was nothing.
+
+NOT A FOURTH BEAT. His law crystallizes THREE and this lane does not get to make
+it four. THE LAST ROOM is the back half of the first one -- the raid's `then`
+target -- and it hands on to THE GRIEF DINNER itself:
+    cold open --combat--> THE RAID --then--> the last room --> grief dinner --> the ridge
+
+TWO LINES AND A SILENCE:
+    mother          Where's NINA.          (no question mark; she is not asking)
+    (three seconds of nobody answering -- the longest hold in the scene, asserted)
+    sibling_older   Don't go back in there.
+Five words that confirm it without the word, tell you the older sibling SAW it,
+and are the co-founder of the city being born. NOBODY SAYS died/dead/killed/gone.
+
+WHAT IT REFUSES TO DO: the death is NOT staged, and staging it would overwrite a
+ruling with a picture -- his law puts it "during the raid, away from [the table],
+in motion, in the house". The lost sibling is not an actor in this room and the
+gate asserts she is not. The FATHER's presence is STILL not decided: his ruling,
+and the DIRECT tab is one actor beat from making it.
+
+gates: SCENE 86 -> 102, mutation-tested three ways.
+
+*** AND A LESSON ABOUT MY OWN GATES: *** 3f pinned the raid's return target to
+the grief dinner BY FILENAME, so a legitimate change looked like a regression.
+AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S RULE FAILS THE DAY THE
+ANSWER LEGITIMATELY CHANGES. It now asserts the target RESOLVES, and a new 3h
+asserts the whole chain order end to end.
+
+*** SHARPER THAN "COLD_OPEN.cast IS EMPTY", AND IT CHANGES WHOSE JOB IT IS: ***
+measured inside the combat frame, placeHoldLine(spec) reads ONLY spec.holdLine.
+The frame has NO CONCEPT of people or a place behind you at all -- cast and place
+are consumed by nothing. So filling them would be data nothing reads (the exact
+hook-that-never-fires failure). It is not a content fill this lane could do, it
+is a feature COMBAT would have to build.
+
+WHAT COMES NEXT -- and per the 8/20 coordinator re-audit the demo is TWO things
+away, NEITHER of them this lane's:
+  1. WALKING IS SILENT. The city sends exactly ONE sfx message and has ZERO
+     footstep code, while 97 approved sounds sit unplayed. SOUNDS.
+  2. NO FIGHT ON THE WALKED SURFACE -- the startEncounter hits in the city are
+     comments. RUN + COMBAT. (The COLD OPEN raid is wired and runs; this is the
+     other one.)
+  3. TWO MISSING PICTURES, both ART's: the ridge exterior (money shot + title
+     screen + last frame of the tutorial, one image) and the house-after. Both
+     scenes play their words over an honest frame that names what is missing.
+  4. THIS LANE'S OWN NEXT: DEEDS AND STANDING are still absent from the city (0
+     occurrences, ~18 days). Two modules that know what the player was SEEN
+     doing. BOUNDARY: the rich deed sources on the talk card are the FACTIONS
+     lane's sentinels and THEY ARE LIVE (they corrected row 7 today), so check
+     before starting. bohemia_memory.js is also absent, so it is 3+ modules and
+     a corpus, not a wiring job.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
 50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
 

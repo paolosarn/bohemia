@@ -5299,6 +5299,42 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-ROOM. [SHIPPED 8/20 - records/BOHEMIA_THE_LAST_ROOM_8_20_26.md]
+   *** HIS SENTENCE FOR BEAT 1 HAS THREE CLAUSES AND THE GAME PLAYED ONE. ***
+   7/19, verbatim: "defending the home room to room, A SIBLING IS KILLED, IT ENDS
+   SAVING THE MOTHER." The implementation ended when the last hostile dropped.
+   You never reached her, and the person who was taken was simply ABSENT from the
+   next scene -- you win the fight, the screen changes, and the next thing you see
+   is a dinner table the following evening with one fewer chair, having been told
+   nothing. The raid only started running yesterday, so this gap became reachable
+   for the first time and what it reached was nothing.
+   NOT A FOURTH BEAT: his law crystallizes THREE and this lane does not get to
+   make it four. THE LAST ROOM is the back half of the first -- the raid's `then`
+   target -- and it hands on to THE GRIEF DINNER itself, so his order stands:
+   cold open -> THE RAID -> the last room -> grief dinner -> the ridge.
+   TWO LINES AND A SILENCE. You reach her first and nobody speaks for two and a
+   half seconds, because the relief has to land before the other thing does. Then
+   "Where's {sibling_lost}." -- no question mark, she is not asking -- three
+   seconds of nobody answering, and "Don't go back in there," which confirms it
+   without the word, says the older sibling SAW it, and is the co-founder of the
+   city being born. NOBODY SAYS died/dead/killed/gone, asserted.
+   WHAT IT REFUSES TO DO: the death is NOT staged and staging it would overwrite
+   a ruling with a picture -- his law puts it "during the raid, away from [the
+   table], in motion, in the house", so the lost sibling is not an actor in this
+   room and the gate asserts she is not. The FATHER's presence is still not
+   decided (his ruling; DIRECT tab, one actor beat). No casualty authored.
+   | gate: SCENE 86 -> 102, mutation-tested three ways (stage the death -> 2 red;
+   say the word -> 1 red; skip it -> 2 red) | no decision taken | no (drafts).
+   AND ONE OF MY OWN ASSERTIONS HAD TO BE GENERALISED RATHER THAN SATISFIED: 3f
+   pinned the raid's return target to the grief dinner BY FILENAME, so a correct
+   change looked like a regression. AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD
+   OF TODAY'S RULE FAILS THE DAY THE ANSWER LEGITIMATELY CHANGES.
+   SHARPER THAN "COLD_OPEN.cast IS EMPTY", measured in the combat frame:
+   placeHoldLine(spec) reads ONLY spec.holdLine. The frame has no concept of
+   people or a place behind you at all, so filling cast/place would put data into
+   something nothing reads. It is not a content fill, it is a feature COMBAT
+   would have to build.
+
 0t-TELL. [SHIPPED 8/20] *** WHAT YOU NOTICE ABOUT SOMEBODY BEFORE EITHER OF YOU
    SPEAKS. *** bohemia_quirk.js has carried a TELL for all 22 shapes since 8/19 --
    third-person, no dialogue -- and tellFor() had never been called by anything a
