@@ -63,7 +63,7 @@
         is worth leaving written down: A CHECKER THAT DOES NOT EXERCISE THE REAL MODE
         REPORTS THE REAL THING AS BROKEN.
 
-   RATCHET, like squint, hue and icon, and for the same reason: 34 codes across 23
+   RATCHET, like squint, hue and icon, and for the same reason: 31 codes across 20
    legend families are unplaced in the valley the player actually walks and a gate that goes red on day one is a comment
    nobody can act on. The debt is NAMED below and may only SHRINK. Fixing one and
    leaving it listed fails too — a debt list that lies about being paid is worse than
@@ -108,7 +108,6 @@ const ok = (n, c, d) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n + (d 
    after they were wrongly added, by the honesty check below -- which is the check
    earning its keep on its author. 55 -> 49.                                          */
 const DEBT = {
-  'strip+strip_x':       [16],
   'arsenal':             [11, 13, 14],
   'basin':               [11, 13, 14],
   'reservoir':           [9, 11, 14],
@@ -125,11 +124,9 @@ const DEBT = {
   'industrial':          [0],
   'interchange':         [14],
   'jail':                [3],
-  'mountain':            [6],
   'quarry':              [11],
   'railyard':            [3],
   'resort':              [9],
-  'suburb':              [5],
   'warehouse':           [10],
 };
 
@@ -182,44 +179,51 @@ ok('the valley generated and every cell has a district ('
   + Object.keys(cellsOf).length + ' types)',
   Object.values(cellsOf).reduce((a, b) => a + b.length, 0) > 9000);
 
-// what each TYPE actually emits, read off the real generated plots
-const usedByType = {};
+/* GROUPED BY THE LEGEND THE WORLD ACTUALLY USED, not by the registry (8/20, and this
+   is the FOURTH input mistake this gate has made in two days).
+
+   The registry is `K.types()`. The valley is not the registry. `gated` and `estate` are
+   real districts on 49 cells of the seed valley and neither is a registered kit type --
+   the world routes them through the suburb module with `opts.district`. Walking
+   K.types() to build the families therefore COMPUTED those 49 cells' tiles and then
+   dropped them on the floor, and the gate reported that the suburb family declares a
+   `gate` and never builds one.
+
+   ALL 49 BUILD ONE. What it had actually found was GATED IS RICH working exactly as
+   Paolo ruled it on 8/1: a plain `suburb` is walled and never gated, and the gate lives
+   on the communities that were rich enough to buy one.
+
+   So the unit is now the legend object THE PLOT ITSELF CARRIES. Every legend the world
+   really uses is judged against what the world really built with it, and a district
+   that exists without being registered cannot fall through the gap. Same correction as
+   the other three, one level further down: stop asking a model of the world, ask the
+   world. */
+const famUsed = new Map();      // legend object -> Set of codes actually emitted
+const famNames = new Map();     // legend object -> Set of district names using it
 for (const [type, cells] of Object.entries(cellsOf)) {
-  const used = new Set();
   const step = Math.max(1, Math.floor(cells.length / CAP));
   for (let i = 0; i < cells.length; i += step) {
     const [x, y] = cells[i];
     let p = null;
     try { p = world.plot(x, y); } catch (e) { continue; }
     const g = p && p.block && p.block.grid;
-    if (!g) continue;
+    const legend = p && p.legend;
+    if (!g || !legend) continue;
+    if (!famUsed.has(legend)) { famUsed.set(legend, new Set()); famNames.set(legend, new Set()); }
+    famNames.get(legend).add(type);
+    const used = famUsed.get(legend);
     for (const row of g) for (const v of row) used.add(v);
   }
-  usedByType[type] = used;
 }
-
-// group the registry by the legend OBJECT itself, so siblings that share one legend
-// are judged together (see care note 1 above)
-const families = new Map();
-for (const t of K.types()) {
-  const spec = K.get(t);
-  if (!spec || !spec.legend || typeof spec.generate !== 'function') continue;
-  if (!families.has(spec.legend)) families.set(spec.legend, []);
-  families.get(spec.legend).push(t);
-}
-ok('the district registry has legends to check (' + families.size + ' families)', families.size > 20);
+ok('every sampled cell carried a legend to judge (' + famUsed.size + ' legends in use)',
+  famUsed.size > 20);
 
 const found = {};          // family name -> codes declared but never emitted
+const legendOf = {};       // family name -> its legend, for printing tile names
 let declared = 0, unplaced = 0;
-for (const [legend, types] of families) {
-  const name = types.slice().sort().join('+');
-  const used = new Set();
-  for (const t of types) {
-    for (const v of (usedByType[t] || [])) used.add(v);
-  }
-  // a registered type that never appears in the valley cannot be judged: say so rather
-  // than calling all of its tiles unbuilt (that is the v3 mistake with the volume up)
-  if (!types.some(t => cellsOf[t] && cellsOf[t].length)) continue;
+for (const [legend, used] of famUsed) {
+  const name = [...famNames.get(legend)].sort().join('+');
+  legendOf[name] = legend;
   const codes = Object.keys(legend).map(Number).sort((a, b) => a - b);
   declared += codes.length;
   const never = codes.filter(c => !used.has(c));
@@ -251,13 +255,14 @@ ok('the debt list is honest: every code still named in DEBT is still really unpl
   !stale.length, stale.slice(0, 8).join(' '));
 
 // 3. AND THE LIST CANNOT BE PADDED WITH FAMILIES THAT DO NOT EXIST.
-const ghosts = Object.keys(DEBT).filter(f => !f.split('+').every(t => K.get(t)));
-ok('every family named in DEBT is a real registered district', !ghosts.length, ghosts.join(' '));
+const observed = new Set(Object.keys(legendOf));
+const ghosts = Object.keys(DEBT).filter(f => !observed.has(f));
+ok('every family named in DEBT is a legend the valley actually uses', !ghosts.length, ghosts.join(' '));
 
 const worst = Object.entries(found).sort((a, b) => b[1].length - a[1].length).slice(0, 6);
 console.log('\n  DECLARED BUT NEVER BUILT, worst families:');
 for (const [fam, codes] of worst) {
-  const legend = K.get(fam.split('+')[0]).legend;
+  const legend = legendOf[fam];
   console.log('    ' + fam.padEnd(22) + codes.map(c => c + '=' + legend[c].name).join(', '));
 }
 console.log('    ' + unplaced + ' of ' + declared + ' declared tiles across '

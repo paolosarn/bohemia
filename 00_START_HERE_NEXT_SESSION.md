@@ -11602,7 +11602,60 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (c) LATEST -- *** LAS VEGAS BOULEVARD HAD NO
+WORLD (city-1eztay): 8/20 (d) LATEST -- *** THE ONLY LIVING THING ON THE MOUNTAIN
+DID NOT EXIST. 927 CELLS, A TENTH OF THE VALLEY, ZERO SHRUBS. ***
+Tab: RUN (walk into any range, find a wash). Gates: LEGEND KEPT 5/0 + 6 others green.
+City page RESYNCED.
+
+    ravine floor  4,009 tiles in 17/60 real cells
+    dry drainage  4,406 tiles in 15/60
+    desert shrub      0 tiles in  0/60      <- the legend calls it "the only living
+                                               thing on the mountain"
+THE BRANCH COULD NOT BE REACHED: `if (low<0.24 && wet>0.45) drainage; else if (wet>0.72
+&& hash<0.35) shrub`. A tile could only be shrub if it was wet enough to be a
+watercourse AND THEN WASN'T ONE. Everything passing wet>0.72 also passes wet>0.45, so
+the line above always took it. Structurally starved, not rare.
+AND THE PLACEMENT WAS BACKWARDS ANYWAY, which is why it was not a threshold nudge. The
+module's own header says "vegetation exists only in the drainages, where the runoff
+goes" and the code planted shrubs on ravine floor that specifically WAS NOT drainage.
+A Mojave dry wash is where the vegetation IS: the community "typically occurs along the
+BANKS, but may occur within the channel", "sparse and patchy" -- catclaw, cheesebush,
+desert willow, drought-hardy natives that outlive anyone watering them, which is why
+they are ALIVE in act 1 when every planted palm in the valley is dead. Now: walk the
+channel, plant its banks, thinner in the bed (a flood scours the channel), collected
+first and applied after so a new shrub is not read as a bank for the next one.
+    363 shrub tiles in 14/60 cells, and 15/60 have a wash. Only where the water is.
+
+AND THE STRIP HAD NO DRAINS: the only inlet code fired at junction corners only, on one
+exact tile per corner that had to already be curb, so all 81 cells had ZERO. This
+valley floods hard enough that Clark County built the flood-control district half the
+basins in this game belong to. Now 412 tiles, 1.7 inlets per cell, in 76/81, at the
+~90-120 m a real curb inlet is spaced at.
+
+*** THE FOURTH CORRECTION TO legend_kept_gate IN TWO DAYS, AND THE LAST STRUCTURAL ONE.
+IT GROUPED BY THE REGISTRY, AND THE VALLEY IS NOT THE REGISTRY. *** `gated` and
+`estate` are real districts on 49 cells and NEITHER IS A REGISTERED KIT TYPE -- the
+world routes both through the suburb module via opts.district. Building families by
+walking K.types() computed those 49 cells and DROPPED THEM ON THE FLOOR, so the gate
+reported that the suburb family declares a `gate` and never builds one. ALL 49 BUILD
+ONE. What it had found was GATED IS RICH (Paolo 8/1) WORKING EXACTLY AS RULED -- a
+plain suburb is walled and never gated. The gate was reporting a law being obeyed as a
+defect. The unit is now THE LEGEND OBJECT THE PLOT ITSELF CARRIES, so a district that
+exists without being registered cannot fall through the gap.
+FOUR WRONG ANSWERS, ONE CAUSE, NEVER THE CHECKING LOGIC: the hard part of a gate is not
+what it asserts, it is WHAT IT ASSERTS IT AGAINST. What kept it honest was the check
+that runs the ratchet BACKWARDS (every code named in DEBT must STILL really be
+unplaced) -- all four were over-reporting, and over-reporting never trips a floor.
+Registry: 33 -> 31 across 20 families.
+FLEET-WIDE, NOT MINE, BUT SOMEBODY SHOULD OWN IT: PAGES PUBLISH is RED on a size
+ceiling -- "the published surface is under 260 MB (measured 271 MB)". Byte-identical at
+origin/main, so it is not a regression from any one lane; the published surface has
+simply grown past its own cap. The deploy is still succeeding, so this is a warning
+shot rather than an outage, but the cap exists because a 496 MB copy is what made Pages
+time out three commits in a row on 8/6.
+Record: records/BOHEMIA_THE_ONLY_LIVING_THING_8_20_26.md
+
+WORLD (city-1eztay): 8/20 (c) -- *** LAS VEGAS BOULEVARD HAD NO
 INTERSECTIONS. 81 CELLS, 7.8 KM, NOT ONE CROSSWALK AND NOT ONE PEDESTRIAN BRIDGE. ***
 Tab: RUN (walk the Strip). Grid: records/target/BOHEMIA_GRID_strip_x.png
 Gates: LEGEND KEPT 5/0, walked surface 9/0, district fill 53/0, tilespec, truncation.

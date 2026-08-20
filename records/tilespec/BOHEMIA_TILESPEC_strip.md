@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 652 |
 | 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, worn down to ghosts of bars | ground | no | — | — |
 | 4 | `#5f5f4a` | palm median | ground | the wide landscaped median down the middle of the boulevard, irrigation dead, gravel and dust | ground | no | — | 1906 |
-| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt packed in it, the promenade starting right off the back of it | ground | no | — | 512 |
+| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt packed in it, the promenade starting right off the back of it | ground | no | — | 506 |
 | 6 | `#8a8a92` | promenade | walk | the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line | ground | no | — | 2035 |
 | 7 | `#4a4030` | planter | tree-dead | a tree well cut into the promenade, the tree gone, the pit full of grit and trash | prop | no | — | 19 |
 | 9 | `#8f8676` | streetlight | prop | a boulevard light standard on the promenade, head dark | prop | yes | — | 9 |
@@ -51,7 +51,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm reaching out over the lanes, every head dark | prop | yes | — | — |
 | 14 | `#55555f` | dead car | vehicle | a car left in the lane where the traffic stopped, tyres flat, glass gone | prop | yes | — | — |
 | 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
-| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | — |
+| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | 6 |
 | 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
 | 18 | `#7c8390` | pedestrian bridge | overhead | the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped | overhead | no | — | — |
 | 19 | `#6d7280` | bridge tower | structure | the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight | structure | yes | the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street | — |
