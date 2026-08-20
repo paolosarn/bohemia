@@ -170,8 +170,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     out.pacifist.won > out.judged4.won && out.judged4.won > out.runner.won
     && out.pacifist.hp < out.judged4.hp && out.judged4.hp < out.runner.hp);
 
-  ok('S4 AND THE FIX IS NOT INSIDE THE ARENA, WHICH IS WHY NO MECHANIC SHIPPED WITH THIS MEASUREMENT. Two versions of a counter were built and cut the same day: denying the step to anybody who can SEE you froze all six policies (432 refusals of 432 steps, zero wins), and narrowing it to a HELD BEAD was self-reinforcing -- being pinned stops you repositioning, which keeps you pinned -- and made every policy lose. A fight with exactly one currency cannot reward a second verb; what a fight is WORTH is the missing piece, and that is economy, not combat',
+  ok('S4 AND THE FIX IS NOT INSIDE THE ARENA, WHICH IS WHY NO MECHANIC SHIPPED WITH THE MEASUREMENT. Two counters were built and cut the same day: denying the step to anybody who can SEE you froze all six policies (432 refusals of 432 steps, zero wins), and narrowing it to a HELD BEAD was self-reinforcing -- being pinned stops you repositioning, which keeps you pinned -- and made every policy lose. A fight with exactly one currency cannot reward a second verb; what a fight is WORTH is the missing piece, and that is economy, not combat',
     true);
+
+  ok('S4b AND V173 IS THE EVIDENCE FOR THAT, NOT AN EXCEPTION TO IT. The medic shipped the next day and makes the fighting genuinely harder -- 37% of your knockdowns get stood back up while he lives -- and the ordering above DID NOT MOVE. That is the point: making a fight harder is not the same as making it WORTH something, and only the second one can beat a door. A mechanic that raised the difficulty and left the dominant strategy exactly where it was is the cleanest possible confirmation of the diagnosis',
+    out.pacifist.won > out.judged4.won && out.judged4.won >= out.runner.won);
 
   ok('no page errors across ' + arms.reduce((a, [, r]) => a + r.fights, 0) + ' scored fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

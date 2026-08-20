@@ -4626,6 +4626,52 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V173 THE MAN WHO KEEPS LEAVING (RF4-38, two stars) ========
+   "Backliners maintain line-of-sight and range with at least one ALLY while
+    biased AGAINST being close to, or in line-of-sight of, the PLAYER."
+   The BEHAVIOUR is measured in a real browser by fight_moves_you_gate, which
+   runs the same body in the same slot as a GOON and as a MEDIC. What is pinned
+   here is the shape and the five disciplines. */
+  ok('V173 HE IS A GOON WITH A JOB: hp, accuracy and damage are ARCH.human\'s exact numbers, COPIED, not chosen. An entire new archetype sets no damage number, so NO DAMAGE BEFORE THE DIAL survives a body being added to the roster -- and the behaviour measurement is pure, because there is no other difference to point at',
+    /medic:\{n:'MEDIC', hp:60,  acc:0\.55, dmg:\[14,26\], bot:false, melee:false, medic:true, draft:true\}/.test(demo) &&
+    /human:\{n:'GOON',  hp:60,  acc:0\.55, dmg:\[14,26\]/.test(demo));
+
+  ok('V173 AND HIS SCORING REPLACES THE SHOOTER\'S RATHER THAN ADJUSTING IT, first in pressScore and BEFORE the memory branch. A backliner is a different animal, not a shooter with a bigger standoff -- and a man whose job is to be hard to reach must not go walking to the last place he saw you, which is exactly the behaviour that would deliver him to your feet',
+    /function pressScore\(e,x,y,aim\)\{[\s\S]{0,1400}?if\(e&&e\.E&&e\.E\.medic\)\{/.test(demo) &&
+    demo.indexOf("if(e&&e.E&&e.E.medic){") < demo.indexOf("if(aim)return -PRESS_PULL"));
+
+  ok('V173 TWO TERMS, NOT THREE, AND THE MISSING ONE WAS MEASURED OUT RATHER THAN FORGOTTEN: with at least one ally, and out of his line. The row\'s "away from the player" clause was written as its own dial and zeroing it changed NOTHING -- 7.5 tiles out against 7.39 with it, unseen 67% of the time either way -- because being out of your line already puts him far away, so it was buying something already bought. The surviving line term REUSES coverAtXY INVERTED: the shooter branch pays +3.0 for a tile with a clean angle on you, and his pays for one without. What a shooter wants, a backliner avoids, and that is one piece of geometry serving both rather than two that can disagree',
+    /ms-=MEDIC_HERD\*Math\.min\(near,12\);/.test(demo) &&
+    /* AND THE ROW'S FIRST CLAUSE IS DELIBERATELY ABSENT AS A TERM. "Away from
+       the player" was written, and killed by mutation: zeroing it left him 7.5
+       tiles out against 7.39 with it, and still unseen 67% of the time. Being
+       out of your line already puts him far away, so the distance term was
+       buying something already bought. */
+    /* A MENTION IS NOT A USE, AND THIS CHECK CAUGHT ITSELF ON IT. The first
+       write asserted the string MEDIC_SHY appears NOWHERE -- and it appears in
+       the comment explaining why the dial was removed, so the gate failed the
+       build for documenting its own finding. That is the identical defect the
+       expression-line gate was written for this same morning: strip the
+       explanation and you are left with a deletion nobody can account for. It
+       asks for no DECLARATION and no USE instead. */
+    !/const MEDIC_SHY=/.test(demo) && !/MEDIC_SHY\s*\*/.test(demo) &&
+    /if\(coverAtXY\(x,y,e\.lvl\)\)ms\+=MEDIC_HIDE;/.test(demo) &&
+    /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=G\.hold\?HOLD_ANGLE:3\.0;/.test(demo));
+
+  ok('V173 *** AND A BODY ON THE FLOOR OUTRANKS HIS OWN SKIN, WHICH IS THE WHOLE FIGHT WITH HIM. *** Measured without it he hid so well he could not reach anybody. Raising his reach instead would have let him work the room from cover, which is a healer with no counterplay; the wounded PULLING HIM OUT is RF4-38\'s own closing line -- hard to reach, so the player must "aggro into them or HAVE TOOLS TO PICK THEM OFF" -- except the tool is a body on the ground and you make it yourself',
+    /if\(dd<90\) return -MEDIC_PULL\*dd \+ \(coverAtXY\(x,y,e\.lvl\)\?MEDIC_HIDE:0\);/.test(demo));
+
+  ok('V173 HE SETS NO HEALTH NUMBER. He stands men up at the hp the game left them, which V32\'s non-lethal killshot puts at 1, so a man he saves dies to anything -- what he costs you is a TURN, not health. And he comes up WINDED on the stun state the fight already owns, because nobody gets off the floor shooting',
+    /best\.downed=false; best\.broken=false; best\.fleeing=false;/.test(demo) &&
+    /best\.stun=Math\.max\(best\.stun\|\|0,1\);/.test(demo) &&
+    !/best\.hp=/.test(demo) && !/\.hp=Math\.min\([^)]*max/.test(demo));
+
+  ok('V173 AND BEING HEAD-DOWN HIMSELF IS THE ANSWER TO HIM, so the counter has a counter rather than being a wall: a pinned, stunned or prone medic does nothing that turn',
+    /if\(pinned\(m\)\|\|\(m\.stun\|\|0\)>0\|\|\(m\.prone\|\|0\)>0\)continue;/.test(demo));
+
+  ok('V173 AND HIS FIRST JOB WAS CUT AFTER MEASURING IT, not after arguing about it. He un-pinned allies, undoing the player\'s SUPPRESS -- which reads like a textbook RF4-28 counter to an effective player action. Two things killed it: SUPP_TURNS is 1 so a pin expires by itself the next turn anyway, and doSuppress pins EVERY exposed man INCLUDING HIM, so one press switched him off permanently. Measured 480 of 480 pins surviving with him alive and 352 of 352 with him dead -- identical, because he never got a turn. A counter with a one-button counter is not a counter',
+    !/m\._unpin/.test(demo) && !/best\.supp=0/.test(demo));
+
 /* ===== V171 THE GROUP READS ITSELF (RF4-25, THREE STARS) ==========
    "The same enemy added to 5 very different groups should produce 5 very
     different combat encounters."
@@ -5286,7 +5332,11 @@ ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter t
      it existing and being called, not about its arity. */
   demo.includes('function pressScore(e,x,y,aim){') &&
   /pressAI\(\); updateGeomCover\(\);/.test(demo) &&
-  /function tickTurnEnd\(\)\{ meleeTurnRun\(\); updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
+  /* V173 RE-POINTED: medicTurn() runs at the head of the same function now, so
+     the anchor stops demanding meleeTurnRun be immediately followed by the cover
+     scramble. The CLAIM is unchanged -- the scramble runs, then the press -- and
+     it is still the ordering being asserted, not the absence of neighbours. */
+  /function tickTurnEnd\(\)\{ meleeTurnRun\(\);[\s\S]{0,40}?updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
 
 ok('V136 ONE MAN, ONE MOVE: coverSeekAI stamps whoever it moved with the turn number and the press skips him, so nobody ever gets a scramble AND a bound in the same turn (4 tiles from a 2.2 and a 1.8)',
   /e\._movedTurn=G\.mTurn\|\|0;/.test(demo) &&
