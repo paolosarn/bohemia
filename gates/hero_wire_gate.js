@@ -47,6 +47,34 @@ if (dec) {
     ok(d + ': sprite embedded as PNG data URI', dec.indexOf('"' + d + '":"data:image/png;base64,') >= 0);
     ok(d + ': anchor bx/by embedded', new RegExp('"' + d + '":\\{"bx":\\d+,"by":\\d+\\}').test(dec));
   }
+  /* AND IT HAS TO BE *THE* SPRITE, NOT JUST *A* SPRITE (8/21).
+     Everything above asks whether something is wired. Nothing asked whether what is
+     wired is what the bank holds -- so the map drew a 451 px cityhall from before
+     Paolo's 8/2 "biggest as fuck" pass while the bank held the 1,724 px master, and
+     this gate was 143/143 green the whole time. Three weeks of icon work never reached
+     the map: the stadium's field, the basin's hole, the police shield, the radio masts,
+     nine entire districts. A wire tool that is not re-run is indistinguishable from one
+     that was, unless somebody checks.
+     The wire embeds HERO_FROM: a digest of the bank entry each map copy was resampled
+     from. Recompute it here and the answer is exact. (The map copy is deliberately a
+     RESAMPLE -- 256 px against a 47 px draw -- so the bytes cannot be compared, only
+     their provenance.) */
+  const crypto = require('crypto');
+  const fm = dec.match(/var HERO_FROM=(\{.*?\});/);
+  ok('the wire records which bank master each map sprite came from (HERO_FROM)', !!fm);
+  if (fm) {
+    let stale = [];
+    let FROM = {};
+    try { FROM = JSON.parse(fm[1]); } catch (e) { /* reported by the parse check above */ }
+    for (const h of bank.heroes) {
+      const want = crypto.createHash('sha1').update(h.b64).digest('hex').slice(0, 12);
+      if (FROM[h.district] !== want) stale.push(h.district);
+    }
+    ok('EVERY wired sprite was resampled from the CURRENT bank master -- a wire tool that '
+       + 'was never re-run looks exactly like one that was (' + (bank.heroes.length - stale.length)
+       + '/' + bank.heroes.length + ' current)', !stale.length,
+       stale.length ? '  -- stale on the map: ' + stale.slice(0, 8).join(', ') : '');
+  }
   // the pre-wire battery block painted a live-GREEN stripe (#48c858) — DEAD WORLD LAW.
   ok('no dead-world green stripe in the battery city tile', dec.indexOf("g.fillStyle='#48c858'") < 0);
 }

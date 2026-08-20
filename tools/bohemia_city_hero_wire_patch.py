@@ -45,8 +45,54 @@ def main():
     bank = json.load(open(BANK))
     heroes = {h['district']: h for h in bank['heroes']}
     districts = sorted(heroes)
-    src = {d: 'data:image/png;base64,' + heroes[d]['b64'] for d in districts}
-    anch = {d: {'bx': heroes[d]['bx'], 'by': heroes[d]['by']} for d in districts}
+    # ---- THE MAP DRAWS THESE AT FORTY-SEVEN PIXELS (8/21, WORLD lane) ----------
+    # This embedded the hero PNGs AT BAKE SIZE, which is 1,748 px square since Paolo's
+    # 8/2 "BIGGEST AS FUCK" pass. MEASURED on the real page: the city view's tile is
+    # TW0 = 18 px and zoomBounds caps CZOOM at 2.6, so the widest a district hero is
+    # EVER drawn is 18 * 2.6 = 47 CSS pixels. On a 3x phone that is ~141 device pixels.
+    #
+    # So the wire was shipping a 1,748 px sprite to paint 47 -- about 1,400x the pixels
+    # anyone can see -- 69 times. It took slices/BOHEMIA_CITY_TILES.js from 29 MB to
+    # 58 MB the moment the last nine districts were wired, and that file is DOWNLOADED
+    # BY THE PLAYER before the map draws. Time-to-first-play is the known problem on the
+    # demo board; this was 56 MB of it, and it was self-inflicted.
+    #
+    # 256 px wide keeps 1.8x headroom over the worst case (141 device px) and throws
+    # away nothing anybody can resolve. The BAKE stays 1,748 -- the bank is the master
+    # and the judging surfaces still show it full size. Only the MAP COPY is resampled,
+    # which is what a mipmap is and why every renderer has them.
+    from PIL import Image                      # noqa: PLC0415
+    import io as _io                           # noqa: PLC0415
+    MAP_W = 256
+    # AND A DIGEST OF THE MASTER EACH MAP COPY CAME FROM (8/21). Without one, nothing
+    # anywhere could tell a wired sprite from a STALE wired sprite -- and main's map was
+    # drawing 451 px cityhall art from before Paolo's 8/2 "biggest as fuck" pass while the
+    # bank held the 1,724 px master. Three weeks of icon work (the stadium's field, the
+    # basin's hole, the police shield, the radio masts, nine whole new districts) sat in
+    # the bank and never reached the map, because this tool had not been re-run and the
+    # gate only ever asked whether A sprite was present, never whether it was THE sprite.
+    import hashlib                            # noqa: PLC0415
+    src, anch, plate, frm = {}, {}, {}, {}
+    for d in districts:
+        raw = base64.b64decode(heroes[d]['b64'])
+        im = Image.open(_io.BytesIO(raw)).convert('RGBA')
+        k = min(1.0, float(MAP_W) / im.width)
+        if k < 1.0:
+            im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))),
+                           Image.LANCZOS)
+        buf = _io.BytesIO()
+        im.save(buf, 'PNG', optimize=True)
+        src[d] = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode('ascii')
+        # THE ANCHOR IS IN PIXELS, SO IT SCALES WITH THEM. An unscaled bx/by against a
+        # resampled sprite plants every icon in the wrong place, which is the obvious
+        # way to get this wrong and is why it is one line away from the resize.
+        anch[d] = {'bx': int(round(heroes[d]['bx'] * k)), 'by': int(round(heroes[d]['by'] * k))}
+        # AND THE PLATE, MEASURED NOT ASSUMED. drawHero derived it as naturalWidth-28,
+        # where 28 is the two 14 px margins bake() leaves. Those margins are resampled
+        # too, so the constant is wrong the moment the sprite is scaled -- carry the real
+        # number per district instead of a magic one that is only right at one size.
+        plate[d] = max(1, int(round((heroes[d]['w'] - 28) * k)))
+        frm[d] = hashlib.sha1(heroes[d]['b64'].encode('ascii')).hexdigest()[:12]
 
     # THE CITY MOVED, AND IT ALSO STOPPED BEING BASE64. The payload-wall pass put the city
     # app in its own file with its source INLINE. So this handles both shapes: a CITY_B64
@@ -99,18 +145,58 @@ def main():
     block = (
         "/*HERO_WIRE_START*/\n"
         "var HERO_ANCH=" + json.dumps(anch, separators=(',', ':')) + ";\n"
+        # the real plate width per district, so drawHero never assumes a bake size
+        "var HERO_PLATE=" + json.dumps(plate, separators=(',', ':')) + ";\n"
+        # which bank master each map copy was resampled from, so staleness is checkable
+        "var HERO_FROM=" + json.dumps(frm, separators=(',', ':')) + ";\n"
         + src_line +
         "var HERO_IMG={};(function(){for(var k in HERO_SRC){var im=new Image();im.src=HERO_SRC[k];HERO_IMG[k]=im;}})();\n"
         "function drawHero(name,p){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;"
-        "var plate=im.naturalWidth-28,sc=TW/plate,a=HERO_ANCH[name];"
+        "var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW/plate,a=HERO_ANCH[name];"
         "g.drawImage(im,p.sx-a.bx*sc,p.sy+TH/2-a.by*sc,im.naturalWidth*sc,im.naturalHeight*sc);return true;}\n"
         "/*HERO_WIRE_END*/\n"
     )
-    dec = re.sub(r"/\*HERO_WIRE_START\*/.*?/\*HERO_WIRE_END\*/\n", "", dec, flags=re.S)  # strip old
-    anchor = "function renderCity(){"
-    if anchor not in dec:
-        print('renderCity not found'); sys.exit(1)
-    dec = dec.replace(anchor, block + anchor, 1)
+    # ---- NEVER REGENERATE THE REGION. UPDATE THE DATA IN IT. (8/21, WORLD lane) ----
+    # This did `re.sub(HERO_WIRE_START .*? HERO_WIRE_END, "")` and wrote a fresh block.
+    # That is fine exactly once. By 8/21 the block had ACQUIRED 6,100 characters of other
+    # lanes' work -- the 8/15 street-facing mirror (Paolo: "recognize which direction a
+    # street should be going... and make it face that way"), `function overpassAt`, and a
+    # drawHero that had grown a THIRD ARGUMENT for the flip. Re-running this tool deleted
+    # all of it and left the page throwing `ReferenceError: overpassAt is not defined`.
+    # Caught by walked_surface_gate before it shipped, and only because I re-ran the gates
+    # instead of trusting a green from before the change.
+    #
+    # This is the third time in two days a tool has destroyed or split a region it does
+    # not own (the furnish patch cut the floorplan in half; the interior-ground patch
+    # inherited the bad anchor). THE RULE THAT COMES OUT OF IT: a patch tool may CREATE a
+    # region and may UPDATE THE DECLARATIONS IT WRITES, but it may never re-emit the whole
+    # region, because it cannot know what else has moved in since.
+    def _set_line(text, name, payload, after=None):
+        """Replace `var NAME=...;` on its own line, or add it after `after`."""
+        line = 'var %s=%s;' % (name, payload)
+        pat = re.compile(r'^var %s=.*;$' % re.escape(name), re.M)
+        if pat.search(text):
+            return pat.sub(lambda _m: line, text, count=1)
+        if after:
+            ap = re.compile(r'^(var %s=.*;)$' % re.escape(after), re.M)
+            if ap.search(text):
+                return ap.sub(lambda m: m.group(1) + '\n' + line, text, count=1)
+        return text
+
+    if '/*HERO_WIRE_START*/' in dec:
+        dec = _set_line(dec, 'HERO_ANCH', json.dumps(anch, separators=(',', ':')))
+        dec = _set_line(dec, 'HERO_PLATE', json.dumps(plate, separators=(',', ':')), after='HERO_ANCH')
+        dec = _set_line(dec, 'HERO_FROM', json.dumps(frm, separators=(',', ':')), after='HERO_PLATE')
+        # teach whatever drawHero is there now to use the real plate. Idempotent: after the
+        # swap the old spelling is gone, so a second run is a no-op. Everything else in that
+        # function -- the flip, the facing, anything a later lane adds -- is left alone.
+        dec = dec.replace('var plate=im.naturalWidth-28,',
+                          'var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),')
+    else:
+        anchor = "function renderCity(){"
+        if anchor not in dec:
+            print('renderCity not found'); sys.exit(1)
+        dec = dec.replace(anchor, block + anchor, 1)
 
     # ---- 2. guard the render switch (idempotent). Older builds may have per-case
     #         drawHero wraps from the first version; the guard supersedes them

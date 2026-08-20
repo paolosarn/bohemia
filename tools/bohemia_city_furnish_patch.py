@@ -103,6 +103,18 @@ for a_m, b_m, what in ((MARK, ENDMARK, 'module'), (DRAW_MARK, DRAW_END, 'draw pa
 _FP_CANON = open('engine/bohemia_floorplan.js', encoding='utf-8').read()
 i = src.find(_FP_CANON)
 if i < 0:
+    # THE FALLBACK IS A RECOVERY PATH, AND IT CANNOT FIX WHAT IT LANDS IN (added 8/21,
+    # WORLD lane, measured rather than assumed: a page was split artificially, this tool
+    # was run against it, and it came back with the page STILL SPLIT and said nothing).
+    # Reaching here means the floorplan is ALREADY in halves, so the whole-module anchor
+    # above found nothing and we are about to land on its first line of code again --
+    # which is where this bug lives. It does not make anything worse (still one copy) but
+    # it silently PERPETUATES the split, and the next person gets INTERIORS, BANNER and
+    # QUEST PLACEMENT red with no clue why. Say it out loud instead; there is a tool.
+    print('  FURNISH PATCH WARNING: engine/bohemia_floorplan.js is NOT contiguous in the '
+          'page, so this is landing on the old inside-the-module anchor and the split '
+          'will still be there afterwards. Run tools/bohemia_unsplit_floorplan_patch.py, '
+          'then run this again.')
     ANCHOR = 'const BOH_FLOORPLAN=(function(){'
     i = src.find(ANCHOR)
 if i < 0:

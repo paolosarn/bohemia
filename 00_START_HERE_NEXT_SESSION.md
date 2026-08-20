@@ -20430,7 +20430,59 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (f) LATEST -- *** FOUR FOR FOUR: EVERY RED GATE I HAVE
+WORLD (city-1eztay): 8/21 (a) LATEST -- *** THE MAP WAS DRAWING THREE-WEEK-OLD ART,
+AND NINE DISTRICTS WERE NOT ON IT AT ALL. ***
+Tab: MAP / the city view. Gates: HERO WIRE 143 red -> 145/0, walked surface 10/0.
+
+HERO WIRE was red on exactly the nine districts I built this week (casino convention
+dam fort minigp prison resort strip strip_x): icons baked, gated, sitting in the bank,
+and the city drew a crude coloured block because WIRING IS A SEPARATE STEP I never ran.
+Running tools/bohemia_city_hero_wire_patch.py fixed that. What it EXPOSED is the story.
+
+*** THE SIXTY THAT WERE WIRED HAD BEEN DRAWING PRE-8/2 ART THE WHOLE TIME. ***
+    ON MAIN  wired cityhall = (451, 383)
+    BANK     master cityhall = (1724, 1744)
+451 px is the bake from BEFORE Paolo's "biggest as fuck" pass -- so the map never got
+that ruling, and never got any icon work from this week either (the stadium's field,
+the basin's hole, the police shield, the radio masts, the cemetery pool). All of it in
+the bank, none of it on the map. AND HERO_WIRE WAS 143/143 GREEN THROUGHOUT, because
+every check asks whether A sprite is wired and none asked whether it was THE sprite.
+A wire tool that was never re-run looks exactly like one that was.
+
+AND WIRING AT BAKE SIZE WOULD HAVE SHIPPED 30 MB. First run took CITY_TILES.js from
+29 MB to 58 MB -- a file THE PLAYER DOWNLOADS before the map draws. Then I measured
+what the map draws them at: TW0=18 and zoomBounds caps CZOOM at 2.6, so 18*2.6 = 47
+CSS PIXELS is the widest a hero is EVER drawn (~141 device px on a 3x phone). The wire
+was shipping a 1,748 px sprite to paint 47. Map copy is resampled to 256 px now; all 69
+cost 2.83 MB; file back to 28 MB, same as main, with nine more districts and CURRENT
+art. The BAKE stays 1,748 -- the bank is the master, only the map copy is resampled,
+which is what a mipmap is.
+Two constants died: drawHero derived the plate as naturalWidth-28 (28 = the two 14 px
+bake margins, correct at exactly one sprite size) -> HERO_PLATE, measured per district.
+And HERO_FROM is a digest of the master each map copy came from, so STALENESS IS NOW
+A THING A MACHINE CAN SEE -- hero_wire_gate recomputes it and fails by name.
+
+*** AND THE PART THAT NEARLY SHIPPED A BROKEN GAME, WHICH IS THE THIRD TIME IN TWO
+DAYS: *** the wire REGENERATED its whole /*HERO_WIRE_START*/../*HERO_WIRE_END*/ region.
+Fine exactly once. By 8/21 that block had ACQUIRED 6,100 CHARACTERS OF OTHER LANES'
+WORK -- the 8/15 street-facing mirror, `function overpassAt`, and a drawHero that had
+grown a THIRD ARGUMENT for the flip. Re-running deleted all of it and the page threw
+ReferenceError: overpassAt is not defined. walked_surface_gate caught it, and only
+because I re-ran the gates after my change instead of trusting the green from ten
+minutes earlier.
+THE RULE THAT COMES OUT OF IT (furnish cut the floorplan in half, interior-ground
+inherited that anchor, now this): A PATCH TOOL MAY CREATE A REGION AND MAY UPDATE THE
+DECLARATIONS IT WRITES. IT MAY NEVER RE-EMIT THE WHOLE REGION, because it cannot know
+what else has moved in since. The wire now edits HERO_ANCH/HERO_PLATE/HERO_FROM in
+place and swaps ONE expression inside whatever drawHero it finds; run it three times
+and the page is byte-identical and both gates green.
+
+"IS IT WIRED" AND "IS IT THE RIGHT THING WIRED" ARE DIFFERENT QUESTIONS AND ONLY ONE
+WAS BEING ASKED. The tell was two numbers that should have been the same -- 451 and
+1,724 -- in files nobody diffs.
+Record: records/BOHEMIA_THE_MAP_WAS_SHOWING_OLD_ART_8_21_26.md
+
+WORLD (city-1eztay): 8/20 (f) -- *** FOUR FOR FOUR: EVERY RED GATE I HAVE
 OPENED THIS WEEK WAS A RULER, NOT A DEFECT. TOOLS RUN AND ART 45 GREEN. ***
 Gates: TOOLS RUN 8/0 in 15s (it had not returned a verdict in WEEKS), ART 45 8/0.
 
