@@ -98,9 +98,46 @@
         var wet = N.fbm(FIELD + 902, gx2, gy2, 30, 3);
         var low = N.ridged(FIELD + 900, gx2, gy2, 150, 4);
         if (low < 0.24 && wet > 0.45) g[y][x] = 5;                 // the dry watercourse
-        else if (wet > 0.72 && N.hash2(FIELD + 903, gx2, gy2) < 0.35) g[y][x] = 6;  // shrub
       }
     }
+
+    /* THE SHRUB GROWS ON THE BANK OF THE WASH, NOT ON THE DRY FLOOR AWAY FROM IT (8/20).
+       This was `else if (wet > 0.72 && hash < 0.35)` hanging off the drainage test above,
+       which meant a tile could only be shrub if it was wet enough to be a watercourse and
+       then WASN'T one. Measured across 60 real mountain cells of the seed valley: 4,406
+       drainage tiles, 4,009 ravine-floor tiles, and ZERO SHRUBS. Not rare -- the branch
+       is nearly unreachable, because almost everything wet enough to pass wet > 0.72 also
+       passes `low < 0.24 && wet > 0.45` and is taken by the line above it. 927 cells, a
+       tenth of the valley, and the legend's "the only living thing on the mountain" was
+       a promise about a tile that has never existed.
+
+       AND THE REAL PLACEMENT IS THE OTHER WAY ROUND ANYWAY, which is why this is not
+       just a threshold nudge. A Mojave desert dry wash is where the vegetation IS -- it
+       is the one place on a bare limestone range that gets runoff -- and the standard
+       description of the community is that it 'typically occurs along the BANKS, but may
+       occur within the channel', 'sparse and patchy' (catclaw acacia, cheesebush, desert
+       willow: drought-hardy natives that outlive anyone watering them, which is why they
+       are alive in act 1 when every planted palm in the valley is dead).
+
+       So: walk the channel and plant its BANKS, patchy, with a few in the bed itself.
+       Collected first and applied after, because growing a shrub onto a tile and then
+       reading that tile as a bank for the next one spreads a thicket up the hill. */
+    var bank = [];
+    for (y = 1; y < 127; y++) {
+      for (x = 1; x < 127; x++) {
+        if (g[y][x] !== 4 && g[y][x] !== 5) continue;
+        var chan = 0;
+        for (var dy = -1; dy <= 1; dy++) {
+          for (var dx = -1; dx <= 1; dx++) if (g[y + dy][x + dx] === 5) chan++;
+        }
+        if (!chan) continue;
+        var inBed = (g[y][x] === 5);
+        // patchy, and thinner in the bed than on its banks: a flood scours the channel
+        var pr = N.hash2(FIELD + 903, cx + x, cy + y);
+        if (pr < (inBed ? 0.06 : 0.20)) bank.push([x, y]);
+      }
+    }
+    for (i = 0; i < bank.length; i++) g[bank[i][1]][bank[i][0]] = 6;
 
     // ---- boulders shed onto the talus, and the scars they came from ----
     for (i = 0; i < 26; i++) {
@@ -180,7 +217,7 @@
     3: { name: 'talus / scree', kind: 'ground',    act1: 'apron of loose broken rock shed off the face, slow going' },
     4: { name: 'ravine floor',  kind: 'ground',    act1: 'the floor of a ravine between two ridges, gravel and rock' },
     5: { name: 'dry drainage',  kind: 'ground',    act1: 'the dry watercourse down the ravine, sand and cobble' },
-    6: { name: 'desert shrub',  kind: 'tree-dead', act1: 'dry shrub in the drainage, the only living thing on the mountain', solid: false },
+    6: { name: 'desert shrub',  kind: 'tree-dead', act1: 'catclaw and cheesebush on the bank of the wash, the only living thing on the mountain', solid: false },
     7: { name: 'boulder',       kind: 'prop',      act1: 'a boulder come down off the face, house-sized' },
     8: { name: 'alluvial fan',  kind: 'ground',    act1: 'washed gravel fanning out where the ravine meets the flat' },
     9: { name: 'rockfall scar', kind: 'ground',    act1: 'a fresh pale scar where the face let go' }
@@ -196,7 +233,7 @@
     ],
     layout: [
       'Ridged noise sampled in valley coordinates gives crest, face, cliff band, talus and ravine floor by elevation, so a crest leaving one cell arrives in the next one in the right place.',
-      'Drainages run down the ravine floors, carrying the only shrub on the mountain.',
+      'Drainages run down the ravine floors; the only shrub on the mountain grows on their banks, which is the one ground up here that gets runoff.',
       'Boulders sit on the talus, with pale rockfall scars on the faces above them.',
       'Any edge whose neighbour is NOT mountain gets an alluvial fan spilling out of this cell onto the flat.'
     ],

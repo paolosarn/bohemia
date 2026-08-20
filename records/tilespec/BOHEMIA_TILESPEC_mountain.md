@@ -14,7 +14,7 @@ GENERATED from `engine/bohemia_mountain.js` (NOTES + LEGEND + PALETTE) — do no
 
 ### Layout — what is where
 - Ridged noise sampled in valley coordinates gives crest, face, cliff band, talus and ravine floor by elevation, so a crest leaving one cell arrives in the next one in the right place.
-- Drainages run down the ravine floors, carrying the only shrub on the mountain.
+- Drainages run down the ravine floors; the only shrub on the mountain grows on their banks, which is the one ground up here that gets runoff.
 - Boulders sit on the talus, with pale rockfall scars on the faces above them.
 - Any edge whose neighbour is NOT mountain gets an alluvial fan spilling out of this cell onto the flat.
 
@@ -49,7 +49,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 3 | `#6e6656` | talus / scree | ground | apron of loose broken rock shed off the face, slow going | ground | no | — | 462 |
 | 4 | `#7f7666` | ravine floor | ground | the floor of a ravine between two ridges, gravel and rock | ground | no | — | — |
 | 5 | `#8b8270` | dry drainage | ground | the dry watercourse down the ravine, sand and cobble | ground | no | — | — |
-| 6 | `#49512f` | desert shrub | tree-dead | dry shrub in the drainage, the only living thing on the mountain | prop | no | — | — |
+| 6 | `#49512f` | desert shrub | tree-dead | catclaw and cheesebush on the bank of the wash, the only living thing on the mountain | prop | no | — | — |
 | 7 | `#57503f` | boulder | prop | a boulder come down off the face, house-sized | prop | yes | — | — |
 | 8 | `#8f8570` | alluvial fan | ground | washed gravel fanning out where the ravine meets the flat | ground | no | — | — |
 | 9 | `#b5ab93` | rockfall scar | ground | a fresh pale scar where the face let go | ground | no | — | 234 |

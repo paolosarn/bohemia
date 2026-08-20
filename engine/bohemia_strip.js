@@ -376,6 +376,32 @@
       }
     }
 
+    /* STORM INLETS DOWN THE WHOLE CORRIDOR, not only at four corner tiles (8/20).
+       The block above is the only inlet code on the Strip and it fires solely at a
+       junction, on one exact tile per corner that has to already be curb -- so across
+       all 81 cells of the boulevard the flood system had ZERO inlets in it. This valley
+       floods hard enough that Clark County built the regional flood-control district
+       that half the basins in this game belong to; a boulevard with no inlet on it has
+       never seen a monsoon. Roughly one per side per cell, in the gutter band, which is
+       where the water actually goes. Same fix and same reasoning as the arterial's. */
+    function inletsAlong(alongAxis, coverFn) {
+      for (var q2 = 30; q2 < 128; q2 += 108) {   // ~81 m, the real curb-inlet spacing
+        if (!coverFn(q2 - C)) continue;
+        if (xing && Math.abs(q2 - C) <= BOX) continue;
+        [-1, 1].forEach(function (side) {
+          for (var d3 = 0; d3 < 3; d3++) {
+            var off = side * CURB;
+            var px2 = alongAxis === 'v' ? C + off : q2 + d3;
+            var py2 = alongAxis === 'v' ? q2 + d3 : C + off;
+            if (px2 < 0 || py2 < 0 || px2 > 127 || py2 > 127) continue;
+            if (g[py2][px2] === 5) g[py2][px2] = 16;
+          }
+        });
+      }
+    }
+    if (vert) inletsAlong('v', coverV);
+    if (horiz) inletsAlong('h', coverH);
+
     // ---- 4. the promenade, dressed (act-1 DEAD) --------------------------------
     // PLANTERS punched into the promenade rather than laid as a band: out there the walk
     // is one continuous surface with tree wells and pots cut into it, not a lawn strip.
