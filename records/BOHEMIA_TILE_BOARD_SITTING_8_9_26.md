@@ -723,3 +723,23 @@ highroller, luxor, sphere - WORLD's), trailer awnings still unnamed
 reclaim 'inlet header' x171 - noted for a future volume pass, no banked
 piece covers it. THE CADENCE LESSON, now proven twice in two days: a
 "no sites" measurement is a snapshot, not a fact.
+
+## 8/20 THIRTY-FIFTH PASS: SECOND COMPOSITION AUDIT + THE RECLAIM HEADERS
+
+The first audit (pass 28) walked thirteen families; six more landed since
+and nobody had looked at them TOGETHER. This pass walked eight districts
+where the new work stacks: drive-in (signs + screen + lot), commercial
+(pylon + lamps + stalls), solar (ranks + fence + gravel), battery (racks
++ containers), courthouse (joints + coping + plaza), chapel (columns +
+stained glass + court ground), stadium (scoreboard + yard lines + turf),
+storage (inner corners + gates). VERDICT: COMPOSED - no regression found.
+Two taste notes filed, not fixed (SPIRIT calls, not bugs): the drive-in
+screen's per-tile panel grid reads faintly graph-papery at distance, and
+the commercial pylon's blown-panel density sits at the busy end. Both
+stay as-is unless Paolo reacts.
+
+And the 8/20 re-probe's one new name shipped same pass: the reclaim
+plant's INLET HEADERS (x171) draw as dead galvanised distribution
+manifolds - ellipse-section barrels with lit crests, bolted flanges with
+their rust streaks, riser stubs to grade. Verified live: three long
+header runs crossing the reclaim yard, unmistakably a water plant now.

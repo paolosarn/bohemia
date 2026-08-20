@@ -1115,6 +1115,14 @@ function drawSolarform(gx,gy,X,Y,S){
     if(bx) ctx.drawImage(look(bx),X-S,Y-S,2*S,2*S);
     return true;
   }
+  if(n.indexOf('inlet header')>=0){
+    /* the reclaim plant's distribution manifold (measured 8/20, x171):
+       ground first, then the dead galv header with its riser and flanges */
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    var ih=tf('inlet_header_'+th(gx,gy,2));
+    if(ih) ctx.drawImage(look(ih),X,Y,S,S);
+    return true;
+  }
   if(n.indexOf('inverter / transformer rack')>=0){
     var rk=tf('bat_rack_dead_'+(th(gx,gy,7)===0?1:0));
     if(!rk) return false;

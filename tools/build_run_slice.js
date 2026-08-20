@@ -425,6 +425,10 @@ grabPieces('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
   ['sol_r0_p0', 'sol_r0_p1', 'sol_r0_p2', 'sol_r1_p0', 'sol_r1_p1', 'sol_r1_p2',
    'sol_r2_p0', 'sol_r2_p1', 'sol_r2_p2', 'sol_r3_p0', 'sol_r3_p1', 'sol_r3_p2',
    'sol_end_w', 'sol_end_e', 'sol_inv_box', 'bat_rack_dead_0', 'bat_rack_dead_1']);
+/* VOLUME 8/20: the reclaim plant's inlet headers (x171, the one new name
+   the 8/20 re-probe surfaced) - tools/tfcook/TF-ART-016_inlet_cook.py */
+grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
+  ['inlet_header_0', 'inlet_header_1']);
 /* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
    (outside corners with the bead hairline, window/boarded reveals) that
    ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.

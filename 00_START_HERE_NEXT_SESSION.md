@@ -5434,6 +5434,14 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/20 (b) LATEST -- *** SECOND COMPOSITION AUDIT: eight
+districts walked with the six new families stacked; verdict COMPOSED, no
+regression. Two taste notes filed (drive-in screen grid slightly
+graph-papery at distance; pylon blown-panel density busy) - SPIRIT calls
+left for Paolo's eye, not bugs. And the re-probe's one new name shipped:
+reclaim INLET HEADERS x171 draw as dead galv manifolds (flanges, risers,
+rust at the bolts). Record: sitting pass 35.
+PREVIOUS (a):
 ART (f3eu53): 8/20 (a) LATEST -- *** THE PREDICATE AUDIT: yesterday's
 tennis-court bug treated as a CLASS - all 26 name predicates across every
 wired family swept against the full 414-name world inventory. One true
