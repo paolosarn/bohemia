@@ -1441,6 +1441,16 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER. NOT ANOTHER MACHINE:
     right question to ask of our fight" for three weeks. That number IS the
     flatness, stated. One harness, no design, and it is the baseline every later
     claim gets compared against.
+    AND IN THE SAME PASS, SPLIT THE SPEC'S STATUS VALUES -- routed here by the
+    coordinator the same day, because that column uses BUILT for BOTH "the
+    substrate exists" AND "the machine exists" and its own prose disagrees with
+    it. COMBAT owns the column. This does not soften the star count above, it
+    SHARPENS it: some of the 18 unstarred BUILT rows are substrate, so the real
+    starred-vs-unstarred gap is at best what I measured and probably worse.
+    (IT RIDES ITEM 1 RATHER THAN LEADING IT. Making it item 0 put a bookkeeping
+    fix at the top of the list and top_of_the_document_gate.js FAILED THE BUILD
+    for it -- "the next item names NO RF4 ROW AT ALL" -- one turn after I wrote
+    the gate. The fix was to REORDER, not to widen the ruler.)
  2. BUILD RF4-25 (three stars), ENEMIES READING EACH OTHER. Not a new archetype
     and not a new button: the existing five types looking at each other before
     they decide. The sniper holds while the blades close; the blades push while

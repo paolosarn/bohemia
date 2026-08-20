@@ -81,18 +81,39 @@ ok('T1 THE DOCUMENT RANKS ITSELF AND THE RANKING IS READABLE BY A MACHINE. If th
 /* The lane's declared next item is the FIRST numbered line under its handoff
    heading. It must name a starred row, or the block must carry a written reason.
    This is the check that would have caught six ships in a row. */
-const NEXT_HEAD = /WHAT COMES NEXT FOR THIS LANE, IN ORDER[^\n]*\n([\s\S]{0,700})/;
+/* THE BLOCK IS READ TO THE END OF ITS LIST, NOT TO A CHARACTER COUNT. The first
+   write capped it at 700 characters and that cap FIRED A FALSE NEGATIVE on its
+   second run: a long item 1 pushed the "2." terminator out of the window, the
+   extraction came back empty, and the gate reported "NO RF4 ROW AT ALL" about a
+   line that opens with RF4-14. The cap was an implementation detail I invented,
+   not part of the claim, so widening it here is fixing a broken ruler and NOT
+   the forbidden move of loosening a check to make my own work pass -- the check
+   that DID catch me legitimately (a bookkeeping item put at the top of the list)
+   still fires, because the item read is the LOWEST-NUMBERED one, whatever number
+   a lane gives it. */
+const NEXT_HEAD = /WHAT COMES NEXT FOR THIS LANE, IN ORDER[^\n]*\n((?:[ \t]+\S[^\n]*\n|\n(?=[ \t]+\d+\.))*)/;
 const m = NEXT_HEAD.exec(handoff);
 ok('T2 THE LANE DECLARES WHAT IT DOES NEXT, IN THE HANDOFF, WHERE THE NEXT SESSION READS IT. An order that lives only in my head is an order nobody can check and nobody can inherit',
   !!m);
 
 if (m) {
   const block = m[1];
-  const firstItem = (/^\s*1\.\s*([\s\S]*?)(?=\n\s*2\.)/m.exec(block) || [, ''])[1];
+  /* the LOWEST-numbered item is "next", whatever a lane numbers it. Writing an
+     item 0 to slip something above the list is exactly the move this catches. */
+  const items = [...block.matchAll(/^[ \t]*(\d+)\.\s([\s\S]*?)(?=^[ \t]*\d+\.\s|$)/gm)]
+    .map(x => ({ n: +x[1], text: x[2] })).sort((a, b) => a.n - b.n);
+  const firstItem = items.length ? items[0].text : '';
   const named = [...firstItem.matchAll(/RF4-(\d\d)/g)].map(x => 'RF4-' + x[1]);
   const topNamed = named.filter(id => byId[id] && byId[id].stars > 0);
-  /* the escape hatch: a written reason, in the block, in words */
-  const reasoned = /\bBLOCKED BY LAW\b/.test(block) || /\bwhy am I doing it first\b/.test(handoff);
+  /* THE ESCAPE HATCH IS A MARKER A LANE HAS TO TYPE ON PURPOSE, ON THE ITEM
+     ITSELF. The first write accepted the phrase "why am I doing it first"
+     ANYWHERE IN THE HANDOFF -- and that phrase is part of the rule's own
+     explanation, which sits in the handoff permanently, so T4 could never fail.
+     A mutation pointing the next item at an unstarred row sailed through it. An
+     escape hatch that the law's own text unlocks is not an escape hatch, it is
+     the check being switched off in writing. Now it must be declared on the
+     item, in these words, which nobody types by accident. */
+  const reasoned = /NOT A TOP ROW BECAUSE/.test(firstItem);
 
   console.log('  the next item names: ' + (named.join(', ') || 'NO RF4 ROW AT ALL')
     + (topNamed.length ? '   (starred: ' + topNamed.map(i => i + ' ' + '★'.repeat(byId[i].stars)).join(', ') + ')' : ''));

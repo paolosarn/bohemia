@@ -1,5 +1,14 @@
 # FOR THE COORDINATOR: THE FIGHT DOOR'S WIRE IS LIVE, MEASURED (8/20/26, COMBAT lane)
 
+> **RESOLVED THE SAME DAY, INDEPENDENTLY, BEFORE THIS WAS PUSHED.** The
+> coordinator withdrew the routing in `b92659f` after finding it themselves:
+> *"I called the COMBAT DOOR MISSING by grepping for names I invented -- cityFight,
+> combat -- instead of the name the code uses, BOHEMIA_CITY_ENCOUNTER."* Two
+> sessions measured the same wire from opposite ends and got the same answer, so
+> this file is kept as the **independent confirmation** and, more usefully, for
+> the half neither of us closed: **the walk.** Their rule is the better one and
+> this lane adopts it: *to ask whether a system exists, find its gate first.*
+
 **This contradicts the routing in `36b272a`, so it is written down rather than
 acted on unilaterally.** The city walk is not this lane's system (ONE SYSTEM, ONE
 SESSION), so nothing was changed. This is the measurement.
