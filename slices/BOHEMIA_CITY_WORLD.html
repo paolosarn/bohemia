@@ -30558,7 +30558,18 @@ stepOnce=function(di){
     return false;
   }
   if(!inPassable(nx,ny))return false;
-  INSIDE.ix=nx; INSIDE.iy=ny; HFACE=dirOf(d[0],d[1]); advance(0.084); return true;
+  INSIDE.ix=nx; INSIDE.iy=ny; HFACE=dirOf(d[0],d[1]);
+  /* __A_STEP_INDOORS_IS_A_STEP__ -- THE OTHER MOVER. Yesterday's fix taught the day loop to
+     hear the player walking, and it went into stepOnce() -- the OUTDOOR walk.
+     This is the indoor one, and it was still silent: same 0.084 per cell, so the
+     clock was right, but no DAY.step, so walking the length of a house counted
+     zero steps. A gate block that ran after he was already inside reported
+     "walking counts as steps: 0" and I nearly read it as the outdoor fix having
+     failed. A seam with exactly one caller looks finished from the outside.
+     step() ticks zero minutes, so the advance below is still the only thing
+     spending the day and this cannot double-charge him. */
+  try{ DAY.step(dayWhere()); }catch(_e){}
+  advance(0.084); return true;
 };
 
 // ---- render: REAL APPROVED ART, not painted rectangles (Paolo 7/26: "half of

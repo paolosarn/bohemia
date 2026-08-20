@@ -430,6 +430,68 @@ async function worldFrame(page) {
     ok('AND HIS OWN HOUSE IS NOT AN AMBUSH -- the odds are untouched, the house is '
        + 'exempt (skipped ' + went.skippedHome + ')', went.skippedHome >= 1);
 
+    /* ---- AND HE CAN FINISH THE JOB, BY HAND ---------------------------- */
+    /* THE WHOLE DEMO LOOP, WITH NOTHING CALLED FOR HIM. Every earlier proof of
+       this beat went through demo_day_gate, which calls offerAccept() and
+       dayEnteredBuilding() directly. Here he tapped GET UP, tapped PHONE, tapped
+       TAKE IT, walked to his own door and crossed it -- and the quest's own
+       choice card is what met him on the other side. */
+    const job = await f.evaluate(() => ({
+      stage: DQ.serialize().state.stage,
+      cardUp: (() => { const c = document.getElementById('daycard');
+        return !!(c && getComputedStyle(c).display !== 'none'); })(),
+      options: [...document.querySelectorAll('#daycardIn .dcbtn')].map(b => b.innerText.trim().split('\n')[0]),
+      indoorStepsBefore: DAY.summary().steps,
+    }));
+    ok('WALKING IN RAISES THE QUEST\'S OWN CHOICE CARD (' + job.options.join('/') + ')',
+       job.cardUp === true && job.options.length >= 2);
+
+    /* A STEP INDOORS IS STILL A STEP. Yesterday's fix went into the OUTDOOR
+       mover; the interior one ticks the same 0.084 and never called DAY.step, so
+       walking the length of a house counted zero. */
+    const indoor = await f.evaluate(async () => {
+      const before = DAY.summary().steps;
+      const press = i => new Promise(res => {
+        const p = document.querySelectorAll('#pad .pb')[i];
+        p.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true }));
+        setTimeout(() => { p.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); res(); }, 560);
+      });
+      for (const k of [0, 2, 4, 6, 1, 3]) await press(k);
+      return { before: before, after: DAY.summary().steps, inside: !!INSIDE };
+    });
+    ok('A STEP INDOORS IS STILL A STEP -- the interior mover counts too now ('
+       + (indoor.after - indoor.before) + ' walking around inside)',
+       indoor.after > indoor.before);
+
+    /* TAPPED THROUGH TO A RESOLUTION, and the payout is honest. */
+    const done = await f.evaluate(async () => {
+      const bs = document.querySelectorAll('#daycardIn .dcbtn');
+      if (!bs.length) return { err: 'no options to tap' };
+      const before = purseBalances();
+      bs[0].click();
+      await new Promise(r => setTimeout(r, 900));
+      return { before: before, after: purseBalances(), done: DQ.done(), outcome: DQ.outcome(),
+               tags: DQ.tags ? DQ.tags() : null,
+               paid: window.__PAID || 0,
+               refused: (typeof PAY_REFUSED !== 'undefined') ? PAY_REFUSED : null,
+               objective: (document.getElementById('qline') || {}).textContent || '',
+               cardStillUp: (() => { const c = document.getElementById('daycard');
+                 return !!(c && getComputedStyle(c).display !== 'none'); })() };
+    });
+    ok('TAPPING AN OPTION RESOLVES IT to the quest author\'s own outcome ('
+       + done.outcome + (done.tags ? ', tagged ' + done.tags.join('/') : '') + ')',
+       done.done === true && !!done.outcome);
+    ok('the card gets out of his way afterwards', done.cardStillUp === false);
+    ok('and the objective line says so ("' + String(done.objective).trim().slice(0, 30) + '")',
+       /DONE/i.test(done.objective || ''));
+    /* THE PAYOUT IS ALLOWED TO BE NOTHING, AND MUST NEVER BE INVENTED. What a
+       day's work pays is Paolo's ruling (EVERYTHING COSTS ONE, 8/15), so the
+       honest outcomes are "paid" or a NAMED refusal -- never a number nobody
+       ruled. This asserts the refusal is named rather than silent. */
+    ok('FINISHING THE JOB REACHES THE PURSE, and with nothing ruled it pays NOTHING '
+       + 'rather than inventing a number (' + (done.paid ? 'paid' : done.refused) + ')',
+       done.paid >= 1 || done.refused === 'NO_RULING');
+
     /* ---- AND THAT WALK SPENT THE DAY ---------------------------------- */
     /* THE ASSERTION IS MADE OVER THE WALK TO HIS DOOR rather than a separate
        stroll, because that walk is already real outdoor movement driven by real

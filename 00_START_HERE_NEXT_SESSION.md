@@ -1,3 +1,76 @@
+RUN (run-eak241): 8/20 (k) LATEST -- *** THE WHOLE FIRST DAY IS PLAYABLE BY HAND
+NOW, AND NOTHING IS CALLED FOR HIM. Wake, take the job on the phone, walk to your
+own house, go in, choose, finish. TAB: RUN. ***
+
+TWO ITEMS OFF THIS LANE'S OWN LIST. One was a real bug, and the other turned out
+to be WORKING -- which is a result, not a wasted turn, and it is now nailed down
+so it cannot quietly stop working.
+
+*** 1. A STEP INDOORS WAS NOT A STEP. ***
+Yesterday's fix taught the day loop to hear the player walking. It went into ONE
+mover. There are two: stepOnce() outdoors, and the interior mover, which ticks
+the same 0.084 per cell (so the clock was right) and never called DAY.step -- so
+walking the length of a house counted ZERO steps. A gate block that happened to
+run after he was already inside reported "walking counts as steps: 0" and I
+nearly read it as yesterday's outdoor fix having failed. It had not. A SEAM WITH
+EXACTLY ONE CALLER LOOKS FINISHED FROM THE OUTSIDE.
+  tools/bohemia_a_step_indoors_is_a_step_patch.py  (mutation-tested)
+
+*** 2. THE JOB CAN BE FINISHED BY HAND, AND IT ALREADY COULD. ***
+Every previous proof of this beat went through demo_day_gate, which CALLS
+offerAccept() and dayEnteredBuilding() directly. Driven by taps instead, on the
+real alpha, touching only what a player can touch:
+
+    tap GET UP
+    tap PHONE -> tap TAKE IT      -> "Find why the block browns out", stage 10
+    walk 15 cells to his own door -> INSIDE, stage 20, 15 steps counted
+    the quest's OWN choice card:  QUIET / NOTABLE / RECKLESS, the author's words
+    tap QUIET                     -> done, outcome COMPLETE, tagged "quiet"
+    the card closes, qline reads  -> "DONE - The Meter Reader"
+    the purse                     -> paid nothing, refused NO_RULING
+
+THE REFUSAL IS THE CORRECT ANSWER, not a bug: what a day's work pays is his
+ruling (EVERYTHING COSTS ONE, 8/15), and the game says who has not ruled instead
+of inventing a number. The gate asserts the refusal is NAMED rather than silent.
+
+  gates/first_night_gate.js now 53 claims (was 47). The first day is asserted
+  end to end by player-touchable actions only, so no part of it can go quiet
+  without a red gate.
+
+ALSO REGENERATED, NOT MINE BUT FREE TO FIX: slices/BOHEMIA_RUN_CURRENT.html was
+STALE against its own generator before this turn started -- run_gate's "regenerating
+via tools/build_run_slice.js changes nothing" was red on plain origin/main, checked
+by stashing my commit and rebuilding. A generated file whose own gate demands it be
+current is maintenance, not design, so it is rebuilt here: RUN GATE 126/0. THE
+FOUR-COMMAND RULE is what catches this -- any engine edit stales the city inline
+copies, the run slice, the census and the LOOK pictures, and the run slice is the
+one that gets forgotten because it is 17MB and usually a no-op.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE SECOND DAY. Everything above is DAY 1. Day 2 opens a different job (THE
+    BACK DOOR) and nobody has ever played it by hand -- and day 2 is also where
+    the vista fires, so it is the busiest morning in the game. Same harness,
+    one day later.
+ 2. HE IS NEVER TOLD WHERE TO GO. The objective reads "Find why the block browns
+    out" and the offer carries no location; the quest fired because he walked
+    into A building, any building. That is fine for one quest and will not hold
+    for a second. A quest that names a place needs the place to be findable --
+    and the phone already carries where the market and the overlook are, so the
+    channel exists. Worth measuring before building anything.
+ 3. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH behind VOTE, LOOK, WORDS,
+    CUTSCENE, DIRECT. His 8/16 ruling one level up; the shell owns tab order.
+ 4. CAMP is frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+STILL NOT MINE: swap meet 42 cells from spawn (placement, MAP LAW); the phone's
+market distance is Euclidean while the vista's is Manhattan; arterial 20.4% /
+freeway 36.5% content against 45% floors (WORLD); entering ANY building is a 35%
+firefight and that is ten times more reachable since yesterday (COMBAT's dial,
+untouched).
+
+THE SUITE NO LONGER FITS ONE RUN. It enforces a 2700s budget and tells you to
+shard: `python3 gates/bohemia_gates.py --shard 1/3` (then 2/3, 3/3). Three shards
+this turn: 9 + 6 + 11 red, every name verified as another lane's or pre-existing.
+
 RUN (run-eak241): 8/20 (d) LATEST -- *** THE VALLEY WAS SEALED. 2,334 building
 cells around the spawn, TWO you could walk into -- and his own front door was one
 of the eighteen the game refused. TAB: RUN, walk to your house. ***

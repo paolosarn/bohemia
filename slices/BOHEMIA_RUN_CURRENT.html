@@ -5083,8 +5083,38 @@ root.BQRuntime=API;
     panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
     vehicle:{layer:'prop',solid:true}, gate:{layer:'portal',solid:false}, overhead:{layer:'overhead',solid:false}, portal:{layer:'portal',solid:false}
   };
+  /* A HOLE IS NOT A WALL AND IT IS NOT A FLOOR (8/20, WORLD lane).
+     Until today every tile in the valley was one of two things: something you stand on, or
+     something you bump into. That is two states, and the three most genuinely lethal pieces
+     of ground in this world need a THIRD.
+
+     `quarry:7 bench lip / crest`, `intake:13 intake shaft / main` and `reclaim:6 crusted
+     pond centre` are a quarry edge, a shaft down to the tunnel, and a crust that will not
+     hold you. All three were `kind:'structure'`, which defaults SOLID, so the game modelled
+     the deepest hole in the valley as a wall you bounce off. MEASURED before this: zero
+     tiles in sixty-six legends declared structure-and-not-solid, so nothing anywhere was
+     using this encoding and nothing downstream could be relying on it.
+
+     THE THIRD STATE IS A VOID, and it is defined by what it does to a BODY:
+       solid    NO  -- it does not stop you. A hole cannot block anything.
+       walkable NO  -- pathing refuses it. You do not stroll into a shaft by accident,
+                       and nothing that walks will ever choose to.
+     Which is exactly the shape of the FORCED ENTRY rule the hazard classes already carry
+     (his own "knocked or charging in"): CONSENT is the test, not depth. Walking in is not
+     something the game lets you do; being put in is, and that is the one that kills.
+
+     DECLARED, NEVER DERIVED. It would have been cheaper to say "structure that does not
+     block IS a hole" -- zero tiles collide, it would work today. It is also a trap: the
+     first author who writes a knee-high wall as structure+solid:false silently digs a pit
+     under it, and nothing would ever say so. A hole is a thing somebody MEANT, so it is
+     written down: `void:true` in the legend entry. */
   function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
-    return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
+    var isVoid = !!(entry && entry['void']);
+    return { layer: (entry&&entry.layer)||d.layer,
+             /* a void never blocks, whatever its kind would have defaulted to */
+             solid: isVoid ? false : ((entry&&entry.solid!=null)?entry.solid:d.solid),
+             'void': isVoid,
+             enter: (entry&&entry.enter)||null }; }
 
   // ROOFS AND DOORS (Paolo 7/30-31). He circled three objects on the school plot and asked
   // WHAT THEY WERE. All three were flat colour rectangles, which is the Pocket City bar
@@ -5935,7 +5965,7 @@ root.BQRuntime=API;
     0:{name:'dead-ground',        kind:'ground',   act1:'bare cracked dirt at the property line'},
     1:{name:'lot asphalt',        kind:'drive',    act1:'the cracked parking field and its drive aisles, weeds up every joint (car-drivable)'},
     2:{name:'store',              kind:'building', act1:'concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out', enter:'retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead lot tree in its island, gone to stick', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead lot tree in its island, gone to stick', solid:true},
     4:{name:'landscape island',   kind:'ground',   act1:'a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up'},
     5:{name:'curb cut / gate',    kind:'gate',     act1:'the driveway curb cut off the street, amber paint gone chalky'},
     6:{name:'storefront walk',    kind:'walk',     act1:'the covered concrete walk along the shopfronts, cracked, glass underfoot'},
@@ -7036,7 +7066,7 @@ root.BQRuntime=API;
     9:{name:'tee box',            kind:'ground',    act1:'a level tee pad, markers toppled, turf dead'},
     10:{name:'flagstick / pin',   kind:'prop',       act1:'a leaning flagstick in the cup, the flag a bleached rag'},
     11:{name:'driving-range mat / target',kind:'prop',act1:'a rubber range mat / a downrange yardage target, weathered'},
-    12:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead ornamental tree dotting the rough', solid:false},
+    12:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead ornamental tree dotting the rough', solid:true},
     13:{name:'abandoned golf cart',kind:'vehicle',   act1:'a golf cart left in the lot, tyres flat, dust-caked'}
   };
   var NOTES={
@@ -7290,7 +7320,7 @@ root.BQRuntime=API;
     10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car or big rig left at a pump / in a stall, tyres flat, dust-caked'},
     11:{name:'parking / truck stall marking',kind:'marking',act1:'faded stall paint — customer parking + the long pull-through big-rig stalls'},
     12:{name:'concrete pad / sidewalk',kind:'ground',act1:'the light concrete fuel-court pad (poured under the canopy for spill resistance) + the store sidewalk, cracked'},
-    13:{name:'dead landscaping planter',kind:'prop', act1:'a curb planter island gone to dead weed — the landscaping that once broke up the lot', solid:false}
+    13:{name:'dead landscaping planter',kind:'prop', act1:'a curb planter island gone to dead weed — the landscaping that once broke up the lot', solid:true}
   };
   var NOTES={
     summary:'A dead highway truck stop / gas station — an overhead fuel canopy on columns over dry rusted pump islands on a light concrete pad, a boarded store + diner with a sidewalk + parking rows, a dead wash bay, long pull-through big-rig parking, dead landscaping planters, a blank price pylon, all on a cracked drivable forecourt.',
@@ -7588,7 +7618,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the campus edge (setback)'},
     1:{name:'pavement / drive',   kind:'drive',     act1:'cracked pavement — the student lot, bus loop and staff parking (car-drivable)'},
     2:{name:'academic building',  kind:'building',  act1:'the two-storey classroom spine and its wings, maroon roof faded, windows out, doors chained', enter:'high school interior: a double-loaded classroom corridor with lockers down both walls, offices and labs off it'},
-    3:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead campus tree gone to stick', solid:false},
+    3:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead campus tree gone to stick', solid:true},
     4:{name:'dead lawn (campus ground)',kind:'ground',act1:'the dead campus lawn — brown grass and weeds between everything'},
     5:{name:'gate / entrance',    kind:'gate',      act1:'the campus drive entrance off the street, amber curb'},
     6:{name:'field (dead turf)',  kind:'ground',    act1:'the dead football field inside the track — brown, cracked, the yard lines ghosted'},
@@ -7869,7 +7899,7 @@ root.BQRuntime=API;
     9:{name:'pole light',         kind:'prop',       act1:'a market pole light, head dark'},
     10:{name:'abandoned car',     kind:'vehicle',    act1:'a car left in the gravel lot, tyres flat, dust-caked'},
     11:{name:'parking marking',   kind:'marking',    act1:'faded stall paint / row markers in the gravel lot'},
-    12:{name:'map kiosk / dead planter',kind:'prop', act1:'the you-are-here map kiosk / a dead planter at the market mouth', solid:false},
+    12:{name:'map kiosk / dead planter',kind:'prop', act1:'the you-are-here map kiosk / a dead planter at the market mouth', solid:true},
     13:{name:'stall canopy / tent (red)',kind:'overhead',act1:'a faded red vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it)'},
     14:{name:'stall canopy / tent (teal)',kind:'overhead',act1:'a faded teal vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it)'}
   };
@@ -8546,7 +8576,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot',        kind:'drive',    act1:'the library lot and its service drive — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'library / museum',   kind:'building', act1:'sandstone and concrete geometry — Predock built this valley a landmark out of a drum, a tower and two long low wings, and the sandstone is still the colour of the desert it was matched to', enter:'library interior: the drum is one round room under a dead oculus, the reading wing is stacks and tables to the clerestory, the museum wing is three floors of stripped gallery'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead courtyard tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead courtyard tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'forecourt ground',   kind:'ground',   act1:'the unpaved forecourt — decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
     6:{name:'stall marking',      kind:'marking',  act1:'the painted stall ticks across the lot, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'},
@@ -9025,7 +9055,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the churchyard edge (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the small church parking + drop-off drive (car-drivable)'},
     2:{name:'building (church)',  kind:'building',   act1:'the cruciform church — stone walls, roof steep, doors chained', enter:'church interior: the narthex, the long nave of pews to the altar at the apse, the transept chapels off the crossing'},
-    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'memorial court',     kind:'ground',     act1:'the walled memorial court — decomposed granite raked once, now hardpan split by weeds. Not a lawn: in this ground you do not dig graves, you build a wall and fill it'},
     5:{name:'gate',               kind:'gate',       act1:'the churchyard entrance off the street, amber curb'},
     6:{name:'bell tower',         kind:'structure',  act1:'the bell tower flanking the entrance, tall, the bell silent, a cross finial atop', solid:true},
@@ -9228,7 +9258,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot',        kind:'drive',    act1:'the public lot and the secure yard floor — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'courthouse',         kind:'building', act1:'beige limestone and precast panel, an L wrapped round its own plaza, blast-rated walls that outlived the government that ordered them', enter:'courthouse interior: the rotunda lobby under the dead dome, the screening hall, courtrooms and jury suites stacked up both legs, holding cells behind the sally port'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead setback tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead setback tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'blast setback',      kind:'ground',   act1:'the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the public lot, amber paint gone chalky'},
     6:{name:'precast panel joint',kind:'structure',act1:'the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs'},
@@ -9436,7 +9466,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'farm road',          kind:'drive',      act1:'the dirt farm road — a truck/tractor reaches the farmstead from the gate (drivable)'},
     2:{name:'building (farmhouse/shed)',kind:'building',act1:'the farmhouse / equipment shed, weathered clapboard, windows dark', enter:'farmhouse interior: kitchen + rooms up front, the mud room + the shed\'s equipment bay off the yard'},
-    3:{name:'windbreak tree',     kind:'tree-dead',  act1:'a dead windbreak tree lining the road / field edge', solid:false},
+    3:{name:'windbreak tree',     kind:'tree-dead',  act1:'a dead windbreak tree lining the road / field edge', solid:true},
     4:{name:'field soil',         kind:'ground',     act1:'cracked dry field soil / a bare fallow patch'},
     5:{name:'gate',               kind:'gate',       act1:'the farm gate off the street, amber curb, a cattle grid'},
     6:{name:'silo',               kind:'structure',  act1:'a grain silo, corrugated steel, empty + rusting', solid:true},
@@ -9657,7 +9687,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt where the block ends and nobody ever built the next one'},
     1:{name:'mid-block alley',    kind:'drive',    act1:'the service alley cut through the middle of the block — the townsite platted two rows of lots back-to-back onto it, so this is where every delivery, dumpster and back door on the block has always been (car-drivable, and it runs through to the street at both ends)'},
     2:{name:'podium / retail base',kind:'building',act1:'the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above', enter:'podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley'},
-    3:{name:'street tree',        kind:'tree-dead',act1:'a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up', solid:false},
+    3:{name:'street tree',        kind:'tree-dead',act1:'a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up', solid:true},
     4:{name:'vacant parcel',      kind:'ground',   act1:'the parcel where a building came down and nothing replaced it — hardpan dirt and broken slab, its old footprint still printed in the ground, sun-bleached to the colour of everything else out here. NOT GRASS: nothing is watering downtown Las Vegas'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the block entrance off the street, amber kerb paint gone chalky'},
     6:{name:'tower (blue glass)', kind:'building', act1:'an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not', enter:'tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair'},
@@ -10477,7 +10507,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot / deck', kind:'drive',    act1:'the visitor lot, the aisle and the deck floor above it — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'city hall',          kind:'building', act1:'sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down', enter:'city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'forecourt hardpan',  kind:'ground',   act1:'decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
     6:{name:'solar panel',        kind:'structure',act1:'a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under', solid:true},
@@ -10803,7 +10833,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'apron / drive / lot',kind:'drive',    act1:'the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable)'},
     2:{name:'head house',         kind:'building', act1:'the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it', enter:'terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
     6:{name:'rooftop solar array',kind:'structure',act1:'the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads', solid:true},
@@ -16493,7 +16523,14 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
       G.rect(px0-6,64,px0+22,66,13);
       if(p.dome){                                                // PABCO's monolithic storage dome
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 17, 6);
-        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 7);
+        /* ONE CODE CANNOT CARRY TWO OCCUPANCIES (8/20). This drew the dome SHELL as code 7,
+           and in the pit layout code 7 is the BENCH LIP -- the crest of a cut face. One is a
+           hemisphere of shotcrete you bump into; the other is an edge you go over. They are
+           opposites, they shared a number, and the tile could therefore be neither: the
+           KILLS rule had to veto /dome shell/i by name to stop a roof being lethal, which
+           also vetoed the lip. The shell is code 15 now and 7 is the lip alone, so both can
+           finally be what they are. */
+        G.disc(Math.round(W*0.20), Math.round(H*0.78), 12, 15);
         G.disc(Math.round(W*0.20), Math.round(H*0.78), 5, 14);
         G.rect(Math.round(W*0.20)-18,Math.round(H*0.78)+18,Math.round(W*0.20)+18,Math.round(H*0.78)+20,13);
       }
@@ -16779,7 +16816,9 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            4:['quarry floor','ground','the blasted floor of a bench, white rock dust over everything'],
            5:['gate','gate','the quarry gate off the street, amber curb'],
            6:['rock bench','structure','a cut bench of limestone, the drill lines still visible up its face'],
-           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it'],
+           /* VOID (8/20): the crest of a cut face is the edge you go over, not a wall you
+              bounce off. Modelled as solid structure it was the opposite of what it is. */
+           7:['bench lip / crest','structure','the crest of the bench, loose rock along the edge where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the bottom of the pit, gone the colour of the rock'],
            9:['pole light','prop','a yard light over the crusher, head dark, on a plant that used to run three shifts'],
            10:['shot rock / stockpile','prop','a cone of graded stone, or shot rock left where the last round dropped it'],
@@ -16794,7 +16833,10 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
 
     gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
-           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478'},
+           8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478',
+           /* the shotcrete shell: greyer than the raw gypsum around it, because it is
+              concrete on a site where everything else is white rock and white dust */
+           15:'#b6b2a8'},
       leg:{0:['desert dead-ground','ground','bare Mojave outside the mine line, and the white dust reaches a long way past it'],
            1:['haul road','drive','the haul road off the quarry face down to the plant (drivable)'],
            2:['building (mill / board plant)','building','the mill building — the Raymond mills inside it silent, the board line cold'],
@@ -16802,14 +16844,17 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            4:['quarry floor','ground','the white working floor, gypsum dust over every surface on the site'],
            5:['gate','gate','the plant gate off the street, amber curb'],
            6:['gypsum bench','structure','a cut bench of raw gypsum, so pale it reads white at any hour'],
-           7:['bench lip / dome shell','structure','the crest of a bench — or the shell of the storage dome, a hemisphere of shotcrete'],
+           /* VOID (8/20), and it could not become one until the dome moved off this code. */
+           7:['bench lip / crest','structure','the crest of a bench of raw gypsum, the edge crumbling white where nobody has scaled it',{'void':true}],
            8:['pit water','water-dead','water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust'],
            9:['pole light','prop','a plant yard light, head dark, on a site that made its own power and still went out'],
            10:['stockpile','prop','a cone of milled rock waiting for a calciner that stopped'],
            11:['marking','marking','faded hazard paint on the mill floor'],
            12:['perimeter fence','structure','the plant fence, which stops at the quarry line because nobody fences a cliff'],
            13:['conveyor run','structure','the mobile conveyor that carried ore straight from the quarry into the plant'],
-           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome']},
+           14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome'],
+           /* THE DOME GETS ITS OWN CODE (8/20). It used to share 7 with the bench lip. */
+           15:['dome shell','structure','the shell of the monolithic storage dome, a hemisphere of shotcrete over rebar, the one curved roof in the valley']},
       sum:'A gypsum works: a white quarry face cut in benches, a mobile conveyor straight into the mill, and the monolithic storage dome that is the one hemisphere in the valley.',
       ref:['PABCO Gypsum, Las Vegas: a 4,000 acre complex holding the gypsum mine, ore processing and the wallboard plant together.',
            'A mobile conveyor belt moves the ore from the quarry directly into processing; the gypsum passes through Raymond IMP mills before calcination and storage.',
@@ -16899,7 +16944,9 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            10:['valve vault cover','prop','a valve vault cover, a bollard, a level gauge'],
            11:['marking','marking','elevation marks painted on the intake face — the record of the drop'],
            12:['perimeter fence','structure','the works fence, running down the shore and stopping short of where the water is now'],
-           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house'],
+           /* VOID (8/20): a shaft down to the tunnel is the single most literal hole in the
+              valley. It was a wall. See the void note in engine/bohemia_district_kit.js. */
+           13:['intake shaft / main','structure','the shaft down to the tunnel, and the main leaving the pump house',{'void':true}],
            14:['standpipe','structure','the standpipe beside the surge tank, the last vertical before the water']},
       sum:'A lake intake: the intake structure standing in shrunken water below a white bathtub ring, a shaft down to the tunnel, and a pump house pushing it uphill toward the valley.',
       ref:['Lake Mead intake works: the valley draws its water from a lake whose surface has dropped far enough to leave a white mineral bathtub ring on the rock above it.',
@@ -17006,7 +17053,10 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            3:['dead brush','tree-dead','reed and brush gone dry on a berm, rooted in what the pond beside it used to carry'],
            4:['berm road surface','ground','the graded top of a berm between two ponds'],
            5:['gate','gate','the plant gate off the street, amber curb'],
-           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust'],
+           /* VOID (8/20): its own act-1 line says it -- "hard enough to walk on and not
+              hard enough to trust". That is a floor that gives way, which is a hole with a
+              lid on it, and it was modelled as a solid wall. */
+           6:['crusted pond centre','structure','the crust in the middle of a pond, dried hard enough to walk on and not hard enough to trust',{'void':true}],
            7:['pond berm','structure','the earth berm holding one pond off the next'],
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
