@@ -22236,7 +22236,11 @@ function stepOnce(di){
          cell, deletes the fallback and a wall becomes simply solid. */
       if(c&&!c.walk&&c.enter&&typeof inEnter==='function'){
         if(massHasDoor(nx,ny)){
-          if(c.artPool_face==='hdoor'||c.portal){
+          /* __A_DOOR_IS_A_DOOR__ -- the SAME predicate massHasDoor counted with.
+             This read `c.artPool_face==='hdoor'||c.portal` while the guard also
+             counted doorW/doorE, so every house whose door is a doorW/doorE was
+             sealed by its own door. */
+          if(isDoorCell(c)){
             if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
           }
           /* it has a door and this is not it: a wall, and a wall stops you */
@@ -30000,6 +30004,26 @@ function inPortalFootprint(gx,gy){
    actually bumps a solid enterable cell -- never per frame -- and it is memoised
    per mass, so walking the length of a wall scans once, not once per step. */
 const MASSDOOR=new Map();
+/* __A_DOOR_IS_A_DOOR__ -- WHAT COUNTS AS A DOOR, IN ONE PLACE.
+   THE BUG THIS KILLS: massHasDoor counted FOUR markers (hdoor, portal+enter,
+   doorW, doorE) and the walk's admission test honoured TWO (hdoor, portal). So a
+   house whose door is a doorW/doorE made the guard say "this building HAS a
+   door", which flips the walk into its strict branch -- and then nothing could
+   satisfy the strict test, because the walk could not see the marker the guard
+   had just counted. THE GUARD LOCKED THE DOOR AND THREW AWAY THE KEY.
+   MEASURED 8/19 in a 129x129 sweep around the spawn: 2,334 cells belong to
+   enterable buildings and TWO could be walked into. Counted by marker: 2 hdoor,
+   0 portals, 9 doorW, 9 doorE -- eighteen real doors refused. The nearest
+   refused one is at (6219,6256), which is HIS OWN HOUSE.
+   The 8/2 comment's safety net ("A BUILDING THAT HAS NO DOOR IS UNCHANGED") is
+   reached only when this returns false, and it never returned false, so the net
+   was dead code and the sealing it was written to prevent happened anyway.
+   THE 8/2 RULE IS UNTOUCHED: a building with a door is still enterable ONLY
+   through its door. This just lets the walk recognise the doors the world model
+   already has, and a fifth marker is now one line instead of a month. */
+function isDoorCell(c){
+  return !!(c && (c.artPool_face==='hdoor' || (c.portal&&c.enter) || c.doorW || c.doorE));
+}
 function massHasDoor(gx,gy){
   const f=inFootprint(gx,gy); if(!f)return false;
   const k=f.x+','+f.y+','+f.w+','+f.h;
@@ -30007,7 +30031,7 @@ function massHasDoor(gx,gy){
   let has=false;
   for(let y=f.y;y<f.y+f.h&&!has;y++)for(let x=f.x;x<f.x+f.w;x++){
     const c=cellAt(x,y); if(!c)continue;
-    if(c.artPool_face==='hdoor'||(c.portal&&c.enter)||c.doorW||c.doorE){ has=true; break; }
+    if(isDoorCell(c)){ has=true; break; }
   }
   MASSDOOR.set(k,has); return has;
 }
@@ -30093,6 +30117,31 @@ var FIGHT_MIN=2, FIGHT_MAX=5;   /* [DIALS, draft:true] how many of them, and the
 function cityFightRoll(){
   if(!INSIDE||!INSIDE.foot)return false;
   var f=INSIDE.foot;
+  /* __NOT_YOUR_OWN_HOUSE__ -- THE HOUSE THE RUN CALLS HIS IS NEVER AN AMBUSH.
+     MEASURED 8/19: walked through his own front door on the first morning and
+     the screen came up WAIT / SUPPRESS / RIFLE / ENGAGE with a firing line
+     across a street, while the readout underneath still read "inside the garage
+     interior". The roll is DETERMINISTIC off the footprint hash -- deliberately,
+     so a building cannot be farmed by walking in and out -- so his house is not
+     unlucky once, IT IS A FIREFIGHT FOREVER. Same seed, same house, every run.
+     AND TODAY MADE IT BITE: before the door fix that ships with this, two doors
+     in the whole neighbourhood could be walked through and this roll almost
+     never ran. Now twenty can, his own among them, 29 cells from where he wakes.
+     THE ODDS ARE NOT TOUCHED. FIGHT_ODDS stays exactly where the combat lane set
+     it and every other building in the valley behaves identically; this is a
+     first-night sequencing rule, not a combat change.
+     DERIVED FROM HOME, so it follows the house rather than naming a cell: reroll
+     the valley and whatever the run then calls his house is the exempt one. */
+  try{
+    var _h=homeFind();
+    if(_h){
+      var _hf=inFootprint(_h.x,_h.y);
+      if(_hf&&_hf.x===f.x&&_hf.y===f.y&&_hf.w===f.w&&_hf.h===f.h){
+        window.__FIGHT_SKIPPED_HOME=(window.__FIGHT_SKIPPED_HOME||0)+1;
+        return false;
+      }
+    }
+  }catch(_e){}
   var h=(Math.imul(f.x,2246822519)^Math.imul(f.y,3266489917)^Math.imul(f.w*31+f.h,668265263))>>>0;
   return ((h%1000)/1000)<FIGHT_ODDS; }
 /* HOW MANY OF THEM, DERIVED FROM THE ROOM RATHER THAN PICKED. A bigger room

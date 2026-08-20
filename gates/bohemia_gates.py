@@ -278,7 +278,22 @@ GATES = [
      '"0h lived - 16h given back": not a quiet day, a day that could not be spent. It walks '
      'the real pad with real pointer holds in eight directions (a wall ended the first cut '
      'after six cells and would have reported the clock broken for the wrong reason) and '
-     'asserts the clock moved, the steps counted and the district ledger recorded it', True),
+     'asserts the clock moved, the steps counted and the district ledger recorded it. '
+     'AND THE LAST UNPROVEN STRETCH IS DRIVEN NOW: he TAKES THE JOB by tapping TAKE IT in '
+     'the phone frame (demo_day_gate calls offerAccept() directly, so the cross-frame path '
+     'had never been tapped) and WALKS THROUGH HIS OWN FRONT DOOR. That found the valley '
+     'sealed: 2,334 cells around the spawn belong to enterable buildings and TWO could be '
+     'walked into, because massHasDoor counted FOUR door markers (hdoor, portal+enter, '
+     'doorW, doorE) while the walk admitted through TWO -- so a house whose door is a doorW '
+     'made the guard say "this building HAS a door", flipping the walk to its strict branch, '
+     'which then could not see the marker the guard had just counted. THE GUARD LOCKED THE '
+     'DOOR AND THREW AWAY THE KEY, and his own front door 29 cells away was one of the '
+     'eighteen refused. One predicate now, so the two halves cannot disagree: 20 doors '
+     'reachable, nearest 29 cells. AND WALKING IN STARTED A GUNFIGHT -- the fight roll is '
+     'DETERMINISTIC off the footprint, so his house was not unlucky once, it was a firefight '
+     'FOREVER; the odds are untouched and the house is exempt. The path is a BFS standing in '
+     'for a player\'s eyes but every move is a real pointer hold at a FULL BEAT, because '
+     'movement is beat-quantised and a 220ms press lands nothing', True),
     ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
      'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
      'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '

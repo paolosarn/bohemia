@@ -1,3 +1,112 @@
+RUN (run-eak241): 8/20 (d) LATEST -- *** THE VALLEY WAS SEALED. 2,334 building
+cells around the spawn, TWO you could walk into -- and his own front door was one
+of the eighteen the game refused. TAB: RUN, walk to your house. ***
+
+FOUND BY DRIVING THE LAST UNPROVEN STRETCH: taking the job by TAPPING it and
+walking INTO a building. demo_day_gate calls dayEnteredBuilding() directly and
+teleports to the market, so "the job beat works" was proven and "A BODY CAN CROSS
+A THRESHOLD" never was.
+
+FIRST, THE GOOD NEWS, MEASURED: tapping TAKE IT in the phone genuinely works.
+Objective "Find why the block browns out" arrives in the city, badge clears,
+quest reaches stage 10, zero errors. The cross-frame path is sound.
+
+THEN THE SWEEP, 129x129 CELLS AROUND WHERE HE WAKES UP:
+    2,334 cells belong to enterable buildings
+        2 of them could be walked into
+       63 cells to the nearest one
+
+WHY: Paolo's 8/2 door rule is implemented in two halves that disagree.
+    massHasDoor()  counts FOUR markers:  hdoor, portal+enter, doorW, doorE
+    the walk       admitted through TWO: hdoor, portal
+A house whose door is a doorW/doorE makes the guard say "this building HAS a
+door", which flips the walk into its strict branch -- "it has a door and this is
+not it: a wall stops you" -- and then NOTHING satisfies the strict test, because
+the walk cannot see the marker the guard just counted. THE GUARD LOCKS THE DOOR
+AND THROWS AWAY THE KEY. Counted around spawn: 2 hdoor, 0 portals, 9 doorW, 9
+doorE. Eighteen real doors refused, two honoured.
+AND THE NEAREST REFUSED DOOR IS AT (6219,6256), WHICH IS HIS OWN HOUSE -- the one
+this lane spent yesterday putting back in the cell he wakes up in.
+The 8/2 comment's own safety net ("A BUILDING THAT HAS NO DOOR IS UNCHANGED")
+only fires when massHasDoor is FALSE, and it was TRUE for all 2,334 cells. Dead
+code, and the sealing it was written to prevent happened anyway.
+  tools/bohemia_a_door_is_a_door_patch.py  -> one predicate both halves call
+  20 doors reachable now, nearest 29 cells. The 8/2 rule is UNTOUCHED: a building
+  with a door is still enterable only through its door.
+
+*** THEN I WALKED THROUGH THE DOOR AND LOOKED, AND IT WAS A GUNFIGHT. ***
+The readout said "inside the garage interior: 1-2 car bays, junk shelves, a door
+into the house". The SCREEN said WAIT / SUPPRESS / HAND-PEEK / RIFLE / GREN 2 /
+ENGAGE with a firing line across STREET #60025.
+__CITY_FIGHT__ ("THE DOOR IS THE FIGHT") is deliberate and it is not mine, and
+its 0.35 is tagged [DIAL, draft:true] exactly as it should be. WHAT IS WRONG IS
+WHICH BUILDING: the roll is DETERMINISTIC off the footprint hash -- on purpose,
+so a door cannot be farmed -- so HIS HOUSE IS NOT UNLUCKY ONCE, IT IS A FIREFIGHT
+FOREVER. Same seed, same house, every run.
+AND TODAY MADE IT BITE: before the door fix, two doors in the neighbourhood could
+be walked through and the roll almost never ran. Now twenty can.
+  tools/bohemia_not_your_own_house_patch.py -> the house the run calls his is
+  never an ambush. FIGHT_ODDS is untouched, every other building is identical,
+  and the exemption is derived from HOME so it follows the house through a reroll.
+
+AFTER: he wakes, taps TAKE IT, walks fourteen cells and stands INSIDE his own
+house -- "21x12 - 5 ROOMS - DAY 1 - 06:01 - INSIDE - RESIDENTIAL", a real room,
+the day loop recording `entered`. Screenshotted, not inferred.
+
+  gates/first_night_gate.js now 47 claims (was 38). Both fixes mutation-tested.
+
+THREE THINGS THE HARNESS TAUGHT ME, worth keeping:
+  - MOVEMENT IS BEAT-QUANTISED at 120 BPM. A 220ms pad press lands NOTHING. My
+    first path walk did 8 steps of a 14-step route and looked exactly like the
+    door refusing him. Presses must be a full beat (560ms here).
+  - A GREEDY WALKER IS NOT A PLAYER. It stalls on any wall and stops five cells
+    short of a front door. The gate uses a BFS over walkable cells as a stand-in
+    for eyes, and every move is still a real pointer hold on the real pad.
+  - MY OWN PROBE CARRIED A HAND-COPY OF THE DOOR RULE and kept reporting 2 usable
+    doors after the fix. A probe that re-implements the rule it is measuring is
+    the same disease as the bug. It calls isDoorCell() now.
+  - AND ORDER MATTERS IN THE GATE: homeFind is per-cell, so the door walk must run
+    before any free walking carries him out of his home cell; and step counting
+    must be measured on OUTDOOR walking, because the interior mover does not
+    count steps (a block that ran indoors reported "walking counts 0" for the
+    wrong reason).
+
+*** A REBASE DROPPED A SHIPPED FIX AGAIN, THIRD TIME, AND THE GATE IS THE ONLY
+REASON ANYONE KNOWS. *** Rebasing this turn onto 42 commits of main silently lost
+the ALPHA half of __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ while the CITY half
+survived, so the cold-open banner went straight back over the phone -- measured
+on the merged tree, banner 40-127 against a phone button at 89-120, the exact bug
+from two days ago, live again. first_night_gate went 36/8 and named it; nothing
+else would have. Re-running the patch tool restored it (they are idempotent, which
+is the whole reason they are tools and not hand edits).
+THE PATTERN: this is the THIRD shipped change of mine that a rebase has deleted
+out of slices/BOHEMIA_ALPHA_0_9.html -- <div id="standalonenote"> twice (8/17,
+8/19) and this. That file is edited by every lane on every ship and conflict
+resolution there loses work silently. TWO THINGS THAT ACTUALLY HELP: keep the fix
+in an IDEMPOTENT patch tool so recovery is one command, and own a gate that
+DRIVES THE REAL SURFACE, because a source-level check would have passed here (the
+city half was present and the tool file was untouched).
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE INTERIOR MOVER DOES NOT COUNT STEPS. Outdoor walking now spends the day
+    and counts steps; walking around inside a building spends time (advance
+    0.084) but never calls DAY.step. Small, and it is the same seam as yesterday.
+ 2. FINISH THE JOB BY HAND. He can now take it and walk into a building; the
+    quest's own choice card on entering the RIGHT building, tapped through to a
+    resolution and a payout, is still only proven by demo_day_gate calling it.
+ 3. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH behind VOTE, LOOK, WORDS,
+    CUTSCENE, DIRECT. His 8/16 ruling one level up; the shell owns tab order.
+ 4. CAMP is frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+FOR THE COMBAT LANE, NOT ACTED ON: entering ANY building is a 35% firefight and
+that is now reachable ten times more often than it was this morning. Worth
+knowing before he plays it; the dial is yours and I did not move it.
+
+STILL NOT MINE: swap meet 42 cells from spawn (placement, MAP LAW); the phone's
+market distance is Euclidean while the vista's is Manhattan; arterial 20.4% /
+freeway 36.5% content against 45% floors (WORLD).
+
+
 WORLD (world-9lfjtf): 8/20 (b) LATEST -- *** THE DEEPEST HOLES IN THE VALLEY WERE WALLS YOU
 BOUNCED OFF. TABS: RUN (walk a quarry rim or a reclaim pond), LOOK (the picture is called
 THE HOLE). Nothing here needs judging. ***

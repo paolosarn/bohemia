@@ -284,6 +284,33 @@ async function worldFrame(page) {
     ok('and it STAYS dismissed -- a later chrome report never raises a banner he '
        + 'already answered', stayGone === 'none');
 
+    /* ---- HE TAKES THE JOB BY TAPPING IT, NOT BY CALLING IT ------------- */
+    /* demo_day_gate calls offerAccept() directly, so the CROSS-FRAME path --
+       phone iframe -> city -> day loop -- had never been driven by a tap. It is
+       the same class of seam as the shell/city bridge that was dead for weeks. */
+    {
+      const pf = page.frames().find(fr => /CURRENT_SLICE/.test(fr.url()));
+      ok('the phone screen is really up as its own frame', !!pf);
+      if (pf) {
+        const b4 = await f.evaluate(() => ({ taken: !!OFFER_TAKEN,
+          obj: (document.getElementById('qline') || {}).textContent || '' }));
+        const hit = await pf.evaluate(() => {
+          const t = document.querySelector('.lv-take');
+          if (!t) return false; t.click(); return true;
+        });
+        ok('the job has a TAKE IT he can actually tap', hit === true);
+        await page.waitForTimeout(1800);
+        const now = await f.evaluate(() => ({ taken: !!OFFER_TAKEN,
+          obj: (document.getElementById('qline') || {}).textContent || '' }));
+        ok('TAPPING IT IN THE PHONE TAKES THE JOB, across the frame boundary',
+           b4.taken === false && now.taken === true);
+        ok('and an objective arrives in the city ("' + now.obj.trim().slice(0, 38) + '")',
+           now.obj.trim() !== '');
+      }
+      await f.evaluate(() => { try { phoneClose(); } catch (e) { } });
+      await page.waitForTimeout(600);
+    }
+
     /* ---- HIS HOUSE IS WHERE HE IS ------------------------------------- */
     /* THE BUG THIS CATCHES, measured on a clean boot before it was fixed:
          LANDED [6205,6271] -> body in cell (48,48)
@@ -310,35 +337,113 @@ async function worldFrame(page) {
        && house.phoneHome.cell.x === house.body.x
        && house.phoneHome.cell.y === house.body.y);
 
-    /* ---- AND HE CAN SPEND THE DAY BY WALKING --------------------------- */
-    /* THE ASSERTION THAT WOULD HAVE CAUGHT IT, and it has to be a real pointer
-       hold on the real pad: calling advance() proves the engine, not the game.
-       Eight directions in turn so a wall can never end the test early -- the
-       first cut held one direction, hit a fence after six cells, and would have
-       reported "the clock does not move" for the wrong reason. */
-    const walked = await f.evaluate(async () => {
-      const before = { min: DAY.min, steps: DAY.summary().steps };
-      for (const di of [0, 2, 4, 6, 1, 3, 5, 7, 0, 2, 4, 6]) {
-        const p = document.querySelectorAll('#pad .pb')[di];
-        if (!p) continue;
-        p.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true }));
-        await new Promise(r => setTimeout(() => {
-          p.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); r();
-        }, 1200));
+    /* ---- AND HE CAN GET INTO A BUILDING BY WALKING --------------------- */
+    /* THE COVERAGE HOLE THIS FILLS: demo_day_gate calls dayEnteredBuilding()
+       directly, so "the job beat works" was proven and "a body can cross a
+       threshold" never was. Measured 8/19 in a 129x129 sweep around the spawn:
+       2,334 cells belong to enterable buildings and TWO could be walked into.
+       massHasDoor counted FOUR door markers (hdoor, portal+enter, doorW, doorE)
+       and the walk admitted through TWO -- so a house whose door is a doorW made
+       the guard say "this building HAS a door", flipping the walk to its strict
+       branch, which then could not see the marker the guard had just counted.
+       THE GUARD LOCKED THE DOOR AND THREW AWAY THE KEY. His own front door was
+       one of the eighteen refused. */
+    const doors = await f.evaluate(() => {
+      const R = 48; let enter = 0, usable = 0, nearest = null;
+      for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) {
+        const c = cellAt(hx + dx, hy + dy); if (!c || !c.enter) continue;
+        enter++;
+        let hd = false; try { hd = massHasDoor(hx + dx, hy + dy); } catch (e) { }
+        if (hd ? isDoorCell(c) : true) {
+          usable++;
+          const d = Math.abs(dx) + Math.abs(dy);
+          if (!nearest || d < nearest.d) nearest = { d: d };
+        }
       }
-      return { before: before, after: { min: DAY.min, steps: DAY.summary().steps },
-               districts: DAY.summary().districts };
+      return { enter: enter, usable: usable, nearest: nearest };
     });
-    const gotSteps = walked.after.steps - walked.before.steps;
-    const gotMins = walked.after.min - walked.before.min;
+    ok('WHAT COUNTS AS A DOOR IS ONE PREDICATE, so the guard and the walk cannot '
+       + 'disagree (' + doors.usable + ' of ' + doors.enter + ' building cells admit '
+       + 'him, it was 2)', doors.usable > 2);
+    ok('and there is a door he can actually reach ('
+       + (doors.nearest ? doors.nearest.d + ' cells' : 'NONE') + ')',
+       !!doors.nearest && doors.nearest.d < 48);
+
+    /* WALKED IN, BY HAND. A BFS over walkable cells stands in for a player's
+       eyes; every move is a real pointer hold on the real pad. The presses are a
+       FULL BEAT: movement is beat-quantised at 120 BPM, and a first cut at 220ms
+       landed 8 steps of a 14-step path and looked like the door refusing him. */
+    const went = await f.evaluate(async () => {
+      const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+      const press = i => new Promise(res => {
+        const p = document.querySelectorAll('#pad .pb')[i];
+        p.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true }));
+        setTimeout(() => { p.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); res(); }, 560);
+      });
+      const h = homeFind(); if (!h) return { err: 'no home' };
+      const goal = { x: h.x, y: h.y };
+      const dayBefore = { steps: DAY.summary().steps, min: DAY.min };
+      const key = (x, y) => x + ',' + y, prev = new Map(), seen = new Set([key(hx, hy)]);
+      let q = [[hx, hy]], found = null, iter = 0;
+      while (q.length && !found && iter++ < 40000) {
+        const [cx, cy] = q.shift();
+        for (const [dx, dy] of DIRS) {
+          const nx = cx + dx, ny = cy + dy, k = key(nx, ny);
+          if (seen.has(k)) continue;
+          if (Math.abs(nx - hx) > 90 || Math.abs(ny - hy) > 90) continue;
+          if (Math.max(Math.abs(nx - goal.x), Math.abs(ny - goal.y)) <= 1) { prev.set(k, [cx, cy]); found = [nx, ny]; break; }
+          const c = cellAt(nx, ny); if (!c || !c.walk) continue;
+          seen.add(k); prev.set(k, [cx, cy]); q.push([nx, ny]);
+        }
+      }
+      if (!found) return { err: 'no walkable path to his own door' };
+      const path = []; let cur = found;
+      while (cur && key(cur[0], cur[1]) !== key(hx, hy)) { path.push(cur); cur = prev.get(key(cur[0], cur[1])); }
+      path.reverse();
+      for (const [px, py] of path) {
+        if (typeof INSIDE !== 'undefined' && INSIDE) break;
+        const k = DIRS.findIndex(d => d[0] === Math.sign(px - hx) && d[1] === Math.sign(py - hy));
+        if (k >= 0) await press(k);
+      }
+      if (!(typeof INSIDE !== 'undefined' && INSIDE)) {
+        const k = DIRS.findIndex(d => d[0] === Math.sign(goal.x - hx) && d[1] === Math.sign(goal.y - hy));
+        if (k >= 0) { await press(k); await press(k); }
+      }
+      return { inside: (typeof INSIDE !== 'undefined' && !!INSIDE),
+               label: (typeof INSIDE !== 'undefined' && INSIDE) ? String(INSIDE.label) : null,
+               entered: DAY.summary().entered,
+               dayBefore: dayBefore,
+               dayAfter: { steps: DAY.summary().steps, min: DAY.min },
+               districts: DAY.summary().districts,
+               fight: !!(window.__CITY_FIGHT_ON || (typeof CFIGHT !== 'undefined' && CFIGHT)),
+               skippedHome: window.__FIGHT_SKIPPED_HOME || 0 };
+    });
+    ok('HE CAN WALK THROUGH HIS OWN FRONT DOOR -- by hand, on the real pad'
+       + (went.err ? ' -- ' + went.err : ' (' + String(went.label).slice(0, 42) + ')'),
+       went.inside === true);
+    ok('and the day loop records that he went in, so the reckoning can say so',
+       Array.isArray(went.entered) && went.entered.length > 0);
+    /* NOT YOUR OWN HOUSE. The fight roll is deterministic off the footprint, so
+       his house was not unlucky once -- it was a firefight forever. Screenshotted
+       it: WAIT / SUPPRESS / RIFLE / ENGAGE over a street, while the readout still
+       said "inside the garage interior". */
+    ok('AND HIS OWN HOUSE IS NOT AN AMBUSH -- the odds are untouched, the house is '
+       + 'exempt (skipped ' + went.skippedHome + ')', went.skippedHome >= 1);
+
+    /* ---- AND THAT WALK SPENT THE DAY ---------------------------------- */
+    /* THE ASSERTION IS MADE OVER THE WALK TO HIS DOOR rather than a separate
+       stroll, because that walk is already real outdoor movement driven by real
+       pointer holds. A separate block ran AFTER he was indoors, where the
+       interior mover does not count steps, and reported "walking counts 0" for
+       entirely the wrong reason. */
+    const gotSteps = went.dayAfter ? went.dayAfter.steps - went.dayBefore.steps : 0;
+    const gotMins = went.dayAfter ? went.dayAfter.min - went.dayBefore.min : 0;
     ok('WALKING COUNTS AS STEPS on the surface he plays (' + gotSteps + ', it was '
        + 'always 0 because DAY.step had no caller)', gotSteps > 0);
-    ok('AND WALKING SPENDS THE DAY (' + gotMins + ' minutes, it was always 0 because '
+    ok('AND WALKING SPENDS THE DAY (' + gotMins + ' minute(s); it was always 0 because '
        + '`mins | 0` truncated every 0.084 tick to nothing)', gotMins > 0);
-    ok('and the district ledger records where that time actually went ('
-       + JSON.stringify(walked.districts) + ')',
-       Array.isArray(walked.districts) && walked.districts.length > 0
-       && walked.districts.some(d => d.mins > 0));
+    ok('and the district ledger records where that time actually went',
+       Array.isArray(went.districts) && went.districts.some(d => d.mins > 0));
 
     /* WHILE HE IS IN HIS BODY, AN OUTSIDE SURFACE MAY NOT MOVE HIM. */
     const held = await f.evaluate(() => {
