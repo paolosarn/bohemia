@@ -17822,7 +17822,60 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (e) LATEST -- *** TWO OF THE FLEET'S 29 RED GATES WERE
+WORLD (city-1eztay): 8/20 (f) LATEST -- *** FOUR FOR FOUR: EVERY RED GATE I HAVE
+OPENED THIS WEEK WAS A RULER, NOT A DEFECT. TOOLS RUN AND ART 45 GREEN. ***
+Gates: TOOLS RUN 8/0 in 15s (it had not returned a verdict in WEEKS), ART 45 8/0.
+
+*** TOOLS RUN IS THE META-GATE -- it parses every tool and every gate in the repo --
+AND IT COULD NEVER FINISH. *** Its section 4 checks the hero bank is reproducible BY
+SHELLING OUT TO THE FACTORY AND REBAKING ALL 69 HEROES. That bake takes EIGHTY-FIVE
+MINUTES. The suite budget is 600 SECONDS. And section 4 runs LAST, so it killed
+sections 1-3 with it: the one-second parse checks, the ones this gate was created for,
+never got to report. The audit called it red with "times out at 600s" -- that is not
+red, it is UNMEASURED, which is worse, because red at least tells you something.
+ITS FOUNDING DEFECT RECURRED WHILE IT WAS BLIND: on 8/19 the hero factory sat on main
+for a day with a JAVASCRIPT COMMENT BLOCK IN A PYTHON FILE, unparseable, while the
+gate written to catch exactly that was timing out trying to render art.
+FIX: make the claim on GEOMETRY, not pixels. Building every hero's SCENE runs every
+builder for real (catches a syntax error, an import error, any builder that throws --
+the whole class) in 1.8s for all 69. Full rebake still available behind
+BOHEMIA_FULL_BAKE=1. AND it gained a check it should always have had, now that it is
+cheap: THE BANK HOLDS AN ICON FOR EVERY DISTRICT THE FACTORY CAN BUILD, and nothing it
+cannot -- which catches the real thing that happened this week, five landmark builders
+(convention/prison/dam/minigp/fort) living in the factory while main's bank held 64
+icons and every icon gate happily measured the 64 it could see.
+
+ART 45 demanded the roofline widen 15% within the TOP 18 ROWS. The sprite it judges
+measures 617, 619, 621 ... 649, 651 -- EXACTLY 2 PX PER ROW, PERFECTLY MONOTONIC, which
+IS a clean 2:1 iso roof edge and is exactly what the law asks for (a flat-90 reads 617,
+617, 617). But 18 rows of a correct taper on a 1,748 px sprite buys +34 px = 5.5%
+against a bar calibrated when heroes were a few hundred px tall. A FIXED PIXEL WINDOW
+IS A SIZE TEST WEARING THE CLOTHES OF A SHAPE TEST. Now measured as a RATE (an iso
+roofline descends at the projection slope so its width grows row by row; a flat-90 edge
+grows 0), which cannot break again when somebody scales the art.
+
+*** AND BOTH BREAKS HAVE THE SAME CAUSE, WHICH NOBODY CONNECTED: PAOLO'S 8/2 "BIGGEST
+AS FUCK" PASS took the icons to 1,748 px. That one ruling broke TWO gates in two
+different ways -- one by making a fixed window too small, one by making a bake too slow
+-- and neither was noticed as a consequence of it. ***
+
+THE TALLY, asking "is this gate measuring what it says it measures":
+  BANNER     ruler -- counted a quest citation's 7 occurrences as 7 copies of a module
+  INTERIORS  ruler -- a module cut in half by a neighbour's insert, every byte present
+  ART 45     ruler -- an 18-row window on a sprite that grew 5x
+  TOOLS RUN  ruler -- 85 minutes of rendering inside a 600-second budget
+FOUR FOR FOUR. And my own legend_kept_gate made the same class of mistake FOUR TIMES IN
+TWO DAYS before it was right. THE FLEET BOARD SAYS 29 RED AND PLANS WORK AGAINST IT; if
+a real share of those are rulers, that board is partly a list of things wrong with the
+MEASURING, not with the game. Cheapest possible check before touching a line of the
+thing a red gate accuses: READ WHAT IT ACTUALLY MEASURES, AND ASK WHAT CHANGED SINCE
+THE NUMBER IN IT WAS CHOSEN.
+All four fixes NEGATIVE-CONTROLLED (synthetic flat-90 sprite caught; JS comment block
+in a Python tool caught at file:line; a district with no baked icon caught by both new
+checks; everything reverted, back to green).
+Record: records/BOHEMIA_THE_GATE_THAT_COULD_NEVER_FINISH_8_20_26.md
+
+WORLD (city-1eztay): 8/20 (e) -- *** TWO OF THE FLEET'S 29 RED GATES WERE
 LYING. INTERIORS AND BANNER ARE GREEN AND NEITHER WAS RED AT THE GAME'S FAULT. ***
 Tab: RUN (step inside any building). Gates: INTERIORS 42/0, BANNER 14/0.
 

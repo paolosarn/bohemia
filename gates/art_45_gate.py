@@ -95,12 +95,35 @@ def check_building(bank, a):
     rows = np.where(op.any(axis=1))[0]
     cols = np.where(op.any(axis=0))[0]
     top, bot = int(rows[0]), int(rows[-1])
-    # 1. diamond top
-    win = op[top:top + 18]
-    widths = win.sum(axis=1)
+    # 1. DIAMOND TOP, MEASURED AS A SLOPE AND NOT INSIDE A FIXED WINDOW (8/20).
+    #
+    # This read `win = op[top:top + 18]` and demanded the widest of those 18 rows be
+    # 15% wider than the top row. That is a SIZE-DEPENDENT test wearing the clothes of
+    # a shape test, and it went red the day the sprites grew.
+    #
+    # MEASURED on the district hero bank, whose first sprite (cityhall) it judges:
+    #     top 18 row widths = 617, 619, 621, 623 ... 649, 651
+    # EXACTLY two pixels per row, perfectly monotonic, which is the signature of a
+    # clean 2:1 iso roof edge and is precisely what this law asks for. A flat-90
+    # rectangle reads 617, 617, 617. But the sprite is 1,748 px wide since Paolo's 8/2
+    # "BIGGEST AS FUCK" pass, so 18 rows of a correct taper buys only +34 px -- 5.5%,
+    # against a 15% bar calibrated when these heroes were a few hundred pixels tall.
+    # The art was right, the roof was a diamond, and the ruler was measuring the first
+    # one percent of it.
+    #
+    # SO MEASURE THE THING THE LAW ACTUALLY DESCRIBES: an iso roofline DESCENDS at the
+    # projection's own slope, so its width GROWS steadily row by row. A flat-90 roof
+    # edge is horizontal and its width does not grow at all. Rate, not window, and the
+    # answer no longer changes when somebody scales the art.
+    span = max(12, min(int((bot - top) * 0.05) + 1, 96))   # a slice of the mass, not a fixed 18
+    widths = op[top:top + span].sum(axis=1)
     wi = int(widths.argmax())
-    chk(widths[wi] > widths[0] * 1.15,
-        '%s: roofline top row is as wide as its widest row (flat-90 rectangle, not an iso diamond)' % bank)
+    gain = (float(widths.max()) - float(widths[0])) / max(1, span - 1)   # px of width per row
+    rising = int(np.sum(np.diff(widths.astype(int)) > 0))
+    chk(gain >= 1.2 and rising >= (span - 1) * 0.6,
+        '%s: the roofline does not TAPER like an iso edge (%.2f px of width per row over %d rows, '
+        '%d of %d rows widening). A 2:1 iso roof gains ~2 px a row; a flat-90 rectangle gains 0'
+        % (bank, gain, span, rising, span - 1))
     chk(wi > 0,
         '%s: roof widest row IS the very top row (no diamond top face)' % bank)
     # 2. two-toned walls: a 3/4 iso mass is lit on its RIGHT face, shadowed on its
@@ -133,9 +156,9 @@ def check_building(bank, a):
     chk(avg > base * 0.08,
         '%s: walls show no right-lit / left-shadow direction (avg right-left = %.1f on base %.0f): flat side-on, not 3/4'
         % (bank, avg, base))
-    print('  %s: iso-diamond roof (widest row %d below the top point, %d vs %d px wide), '
-          'per-row light-direction +%.1f on base %.0f' % (bank.split('/')[-1], wi,
-          widths[wi], widths[0], avg, base))
+    print('  %s: iso-diamond roof (+%.2f px/row over %d rows, %d -> %d px wide), '
+          'per-row light-direction +%.1f on base %.0f' % (bank.split('/')[-1], gain, span,
+          widths[0], widths.max(), avg, base))
 
 
 def main():
