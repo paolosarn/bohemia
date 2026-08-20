@@ -1123,6 +1123,20 @@ function drawSolarform(gx,gy,X,Y,S){
     if(ih) ctx.drawImage(look(ih),X,Y,S,S);
     return true;
   }
+  if(n==='gravel access road' || n==='access road'){
+    /* MEMBER 5, the folded one (8/20): the O&M two-track. The lane draws
+       its own bought gravel first (the same base the field cells lay),
+       then the compacted wheel ruts and pale crown ride it - axis picked
+       from the lane's own continuation, both at a junction. */
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    function isLane(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      var l2=String(NAMEG[y2][x2]||'').toLowerCase();
+      return l2==='gravel access road'||l2==='access road'; }
+    var hRun=isLane(gx-1,gy)||isLane(gx+1,gy), vRun=isLane(gx,gy-1)||isLane(gx,gy+1);
+    if(hRun){var lh=tf('lane_track_h_'+th(0,gy,2)); if(lh) ctx.drawImage(look(lh),X,Y,S,S);}
+    if(vRun||!hRun){var lv=tf('lane_track_v_'+th(gx,0,2)); if(lv) ctx.drawImage(look(lv),X,Y,S,S);}
+    return true;
+  }
   if(n.indexOf('inverter / transformer rack')>=0){
     var rk=tf('bat_rack_dead_'+(th(gx,gy,7)===0?1:0));
     if(!rk) return false;

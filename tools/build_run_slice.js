@@ -429,6 +429,11 @@ grabPieces('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
    the 8/20 re-probe surfaced) - tools/tfcook/TF-ART-016_inlet_cook.py */
 grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
   ['inlet_header_0', 'inlet_header_1']);
+/* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
+   riding the bought gravel on every plant service lane -
+   tools/tfcook/TF-ART-016_lane_cook.py */
+grabPieces('banks/tileforms/TF-ART-016_LANE_VOLUME_8_20_26.json',
+  ['lane_track_h_0', 'lane_track_h_1', 'lane_track_v_0', 'lane_track_v_1']);
 /* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
    (outside corners with the bead hairline, window/boarded reveals) that
    ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.

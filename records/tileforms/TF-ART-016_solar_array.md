@@ -599,8 +599,11 @@
   dead-glass sub-states sol_glass_browned + sol_glass_crumb - no stripped
   block exists in this seed; they wait in the bank for one. The gravel
   lane member FOLDED into the approved yard gravel exactly as section B
-  predicted (the bought pool already draws it; a wheel-track dressing is
-  future volume, not a second gravel family). Glass value target harvested
+  predicted - and the dressing itself SHIPPED 8/20: the two-track wheel
+  ruts + pale crown ride the bought gravel on every plant service lane
+  (tools/tfcook/TF-ART-016_lane_cook.py), values derived from the yard
+  gravel itself. The reclaim INLET HEADERS (x171, the 8/20 re-probe's new
+  name) shipped the same day. Every member of this form is now live. Glass value target harvested
   from the approved wall_window, steel from the approved galv parapet,
   rust from the approved rail plate. Verified live standing in the solar
   rank aisles and among the battery racks. Cook:

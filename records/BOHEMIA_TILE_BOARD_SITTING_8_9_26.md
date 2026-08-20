@@ -743,3 +743,27 @@ plant's INLET HEADERS (x171) draw as dead galvanised distribution
 manifolds - ellipse-section barrels with lit crests, bolted flanges with
 their rust streaks, riser stubs to grade. Verified live: three long
 header runs crossing the reclaim yard, unmistakably a water plant now.
+
+## 8/20 THIRTY-SIXTH PASS: THE SERVICE LANES REMEMBER THE TRUCKS
+
+TF-ART-016's fifth member, the one the form itself folded into the
+approved gravel, shipped as the dressing it promised to be: every plant
+service lane (solar 'gravel access road' x8989, battery / substation /
+reclaim 'access road') draws its two compacted WHEEL TRACKS and the pale
+crown between them, riding the bought yard gravel - rut and crown values
+derived from that gravel itself so the dressing can never step off its
+ground. Axis read from the lane's own continuation, both at junctions.
+Verified at the solar aisles: the dead cars sit on the ruts. Compacted
+caliche does not heal; the trucks are thirty years gone and the lane
+still remembers them. Daily re-probe first, same turn: all landmark
+grounds STILL reserved (the Strip work was signals, not ground naming).
+
+ADDENDUM TO PASS 36, same turn: THE CAP BLEW AND THE DIET RAN. Mid-ship
+the publish gate went red - 271 MB against the 260 cap (the surface grew
+27 MB in a day under the fleet's pace). The proven diet ran: thirty raw
+screenshot/proof PNGs across the published surface quantized to 256
+colours (27 MB freed, 245/260 with headroom). THREE FILES WERE QUANTIZED
+AND THEN RESTORED BYTE-EXACT ON REVIEW: the TARGET front-face reference,
+the graveyarded TARGET B, and PAL_FROZEN - a measurement reference or a
+frozen palette record is not a screenshot, and dieting one would bend the
+ruler the gates measure with. texture_match re-run green after restore.
