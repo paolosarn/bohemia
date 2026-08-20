@@ -648,3 +648,29 @@ The gravel-lane member folded into the approved yard gravel exactly as
 the form predicted. Glass value from the approved wall_window, steel from
 the galv parapet, rust from the rail plate. Verified standing in the
 ranks and among the racks. Seventeenth wired family.
+
+## 8/19 THIRTY-THIRD PASS: THE CIVIC REMAINDERS, AND THE TENNIS-COURT COURTHOUSE
+
+Fifth family of the day, and the lane's own queue is now EMPTY. TF-ART-007
+asked for 1920s cut stone; the walked world built MODERN civic - the
+courthouse names 748 'precast panel joint' cells (Clark County builds
+precast) and the terminal is curtain wall. The measurement corrected the
+form: the material half was answered 8/3; what shipped is what the world
+names - courthouse joints (REUSING the shipped TF-RUN-005 tu_joint,
+borrowed-material so a 1-wide joint line never rolls its own), chapel
+arcade columns + stained glass, dead glazing on dome / clerestory /
+oculus / curtain wall.
+
+AND THE CONFESSION, on the record where it belongs: the courthouse was
+BLUE because MY 8/15 court-lines pass matched the substring 'court'.
+Courthouse, memorial court, truck court, courtyard, food court, three
+forecourts - nearly 8,000 cells across five-plus districts wearing
+basketball acrylic for four days, and the 8/18 composition audit missed
+it because it only walked the sport districts. courtAt() is a positive
+sport-name predicate now. THE DEBUG LESSON: three renders were spent
+asking "why are my joints red" - the white-probe build (paint the branch
+solid white in a throwaway page, one screenshot) answered in one shot
+what pixel-forensics could not. When a fix changes nothing twice, the
+thing you are staring at is not the thing that is wrong. And the audit
+lesson: a substring predicate is a claim about EVERY name in the world,
+so it must be swept against every name in the world the day it ships.

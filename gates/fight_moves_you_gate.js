@@ -590,6 +590,57 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     spot.pinnedFirst === true && spot.aliveBehindStone === true
     && spot.pinnedBehindStone === false && spot.sprintBack === 1);
 
+  /* ===== V169 THE OPEN BOOK, READ OFF THE REAL PANEL ===================
+     RF4-55 machine 7: "deterministic AI plus published rules equals a game about
+     KNOWLEDGE." The determinism was already ours; the publishing was missing.
+     A published rule that can drift from the code is worse than none, because it
+     is not stale, it is a LIE told to the player who trusted it -- so this reads
+     the text a player would read and checks it against the live constants. */
+  const book = await frame.evaluate(() => {
+    const d = document.getElementById('openbook');
+    return { txt: d ? d.textContent : '', present: !!d,
+      want: { acq: ACQ_TURNS, sight: SIGHT_TILES, reach: REACH_CEIL, shout: SHOUT_TILES,
+              sp: SP_TICK, lo: ENC_SIZES[0], hi: ENC_SIZES[ENC_SIZES.length - 1],
+              guns: Object.keys(WEAPON_RANGE).map(k => [k, effRange(WEAPON_RANGE[k], 1), maxRange(WEAPON_RANGE[k], 1)])
+                      .concat([['sniper', effRange(SNIPER_RANGE, 1), maxRange(SNIPER_RANGE, 1)]]) } };
+  });
+  {
+    const t = book.txt, w = book.want, has = (x) => t.indexOf(x) >= 0;
+    const numbersMatch = has('NEEDS ' + w.acq + ' TURNS') && has('SEE ' + w.sight + ' TILES')
+      && has('PAST ' + w.reach + '.') && has('WITHIN ' + w.shout + ' TILES')
+      && has('EVERY ' + w.sp + 'TH TURN') && has(w.lo + ' TO ' + w.hi + ' BODIES')
+      && w.guns.every(g => has('best inside ' + g[1] + ', cannot reach past ' + g[2]));
+    ok('V169 THE PAGE EXISTS AND EVERY NUMBER ON IT IS THE LIVE CONSTANT, not a typed copy: '
+      + 'the acquisition turns, sight, the reach ceiling, every gun\'s band, the shout, the speed parity and the encounter band',
+      book.present && numbersMatch);
+
+    /* THE CHECK THAT IS NOT A TAUTOLOGY, and the reason it exists. The first
+       version of this gate compared the page to the same function the page had
+       used to build itself -- so it passed, in full, while the panel read
+       "RIFLE best inside 20, cannot reach past 8": an effective range larger
+       than the gun's own maximum, printed under a headline saying nothing
+       shoots past 16, because raw eff was being set beside a NIGHT-SCALED max.
+       A CONSISTENCY CHECK IS NOT A TRUTH CHECK. This one reads the page ALONE
+       and asks whether what it says can possibly be true. */
+    const rows = [...t.matchAll(/best inside (\d+(?:\.\d+)?), cannot reach past (\d+(?:\.\d+)?)/g)]
+                   .map(m2 => [+m2[1], +m2[2]]);
+    const ceil = +(t.match(/NOTHING SHOOTS PAST (\d+)/) || [0, 0])[1];
+    ok('V169 AND THE PAGE MAKES SENSE ON ITS OWN TERMS: ' + rows.length + ' guns, not one of them "best inside" '
+      + 'further than it can reach, and not one reaching past the ceiling the same page states ('
+      + ceil + '). Read the page, not the variable it came from',
+      rows.length >= 5 && ceil > 0 && rows.every(r => r[0] <= r[1] && r[1] <= ceil));
+
+    /* RF4-68 IS A PROCEDURE: never explain something the floor could have shown */
+    const told = [['the heavy is orthogonal', /orthogonal|four neighbours|cut a corner/i],
+                  ['cover turns the guns off', /cover (stops|turns|kills)/i],
+                  ['the spotter pin', /spotter/i]];
+    const leaked = told.filter(([, re]) => re.test(t)).map(([n]) => n);
+    ok('V169 AND IT LEAVES OUT WHAT THE FLOOR TEACHES (RF4-68: "never explain something the floor could have shown"). '
+      + 'The orthogonal machine, cover killing the guns and the spotter\'s pin are all absent on purpose'
+      + (leaked.length ? ' -- LEAKED: ' + leaked.join(', ') : ''),
+      leaked.length === 0);
+  }
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

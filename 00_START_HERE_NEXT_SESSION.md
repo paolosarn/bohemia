@@ -530,6 +530,401 @@ WHAT COMES NEXT FOR THIS LANE, in order:
 
 FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
 
+
+COMBAT (combat-nfnki9): 8/19 (q) LATEST -- *** THE RULES ARE AN OPEN BOOK.
+RF4-55 (machine 7), RF4-65 and RF4-68 BUILT. TAB: COMBAT, the SETTINGS panel,
+top section: THE OPEN BOOK. ***
+Record: records/BOHEMIA_COMBAT_THE_OPEN_BOOK_8_19_26.md
+Tool:   tools/bohemia_combat_the_open_book_patch.py (v169, idempotent)
+Gates:  combat_lab 864/0 | fight_moves_you 33/0 | rf4_teardown 92/2 STILL LAB'S
+
+"Deterministic AI plus published rules equals A GAME ABOUT KNOWLEDGE. Hidden AI
+plus randomness equals a game about adaptation. These are opposite promises and a
+game has to pick one." The determinism was already ours (locked in June, armor 0
+on every body). THE PUBLISHING WAS MISSING: five mechanics shipped in four days
+and not one of their numbers was written anywhere a player could see it.
+
+THE HARD PART IS WHAT IS NOT ON THE PAGE. RF4-68 is a PROCEDURE, not a taste:
+"tell them what they cannot derive, hint at what they could, SHOW them what the
+room can demonstrate, NEVER EXPLAIN SOMETHING THE FLOOR COULD HAVE SHOWN." So the
+orthogonal machine, cover killing the guns, and the spotter's pin are all ABSENT
+ON PURPOSE -- the floor teaches all three -- and a gate FAILS THE BUILD if any of
+them leaks onto the page. Everything on a rules page is what makes nobody read it.
+
+EVERY NUMBER IS READ FROM THE LIVE CONSTANT, NONE TYPED. A published rule that can
+drift from the code is worse than none: it is not stale, it is a LIE told to the
+player who trusted it. The gun band goes through the SAME TWO DOORS the fight uses
+(effRange/maxRange, which took an optional multiplier so the page can ask for the
+RULE instead of tonight's weather) -- writing the clamp out a second time in the
+book would BE the drift.
+
+*** THE FINDING ANY LANE CAN USE, AND IT IS THE THIRD MEASUREMENT MISTAKE THIS
+WEEK: A CONSISTENCY CHECK IS NOT A TRUTH CHECK. *** My first gate was fully green
+while the panel read "RIFLE best inside 20, cannot reach past 8" -- an effective
+range LARGER than the gun's own maximum, printed under a headline saying nothing
+shoots past 16. It passed because it compared the page to THE SAME FUNCTION THE
+PAGE HAD USED TO BUILD ITSELF. Two things agreeing proves nothing when one is
+derived from the other. The fix is a check that reads the OUTPUT ALONE and asks
+whether it can possibly be true (no gun best-inside further than it can reach, no
+gun past the ceiling the same page states). If you generate something and then
+check it, CHECK IT AGAINST SOMETHING THAT DID NOT GENERATE IT.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (RF4 LIFT routes machines 1,3,4,7,8,9
+here; 1, 3, 4, 7 BUILT, plus RF4-24, 26, 37, 65, 68):
+ 1. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL, NOT DAMAGE. "Almost nothing in
+    the status list is about dealing damage." The spotter's pin (V168) is the
+    game's first turn denial and it is a hand-built special case; machine 9 is
+    the general system it should be an instance of. RF4's own example is the
+    sleep bomb doing FIVE jobs at once (blocks line of sight, plugs a corridor
+    with a body, cancels a buff, blocks cloud attacks, cleanses) -- which is the
+    same "one thing many systems read" shape as machine 4. Strongest item left.
+ 2. THE FIGHT HALF OF MACHINE 6 -- terrain kills. Terrain PROPERTIES are WORLD's.
+ 3. MACHINE 8 -- BOUNDED DAMAGE VARIANCE (50-100%). BLOCKED BY LAW, not by work:
+    NO DAMAGE BEFORE THE DIAL. Do not start it.
+ 4. AND THE OBLIGATION V169 INHERITS: determinism "buys depth on first contact
+    and SPENDS IT OVER TIME, so new deterministic rules must keep arriving."
+    Every future rule a player cannot derive goes on the OPEN BOOK page. It is
+    not a row that closes.
+ 5. STILL OPEN, NOT A COMBAT PROBLEM: the curve made fights less lethal one for
+    one (6.36 HP/turn at a pinned 8 vs 3.74). The compensator is ATTRITION ACROSS
+    A RUN, which does not exist in a standalone arena. If he says it plays easy,
+    that is the answer, not eight bodies again.
+
+SOUND (sound-xk7pjp): 8/19 (s,t) -- *** THE STING. Winning and dying had NOTHING
+musical on them. Now they play a figure in the key of whatever song is running.
+TAB: RUN (win or lose a fight and listen). Nothing to judge. ***
+
+CHECKED BEFORE CLAIMING: the alpha had no stinger of any kind. The four matches
+for "fanfare" are a VOICE NAME inside one song, not a system. `kill` and
+`went_down` are approved and wired, but a body hitting the floor is INFORMATION.
+
+IT HAS NO KEY OF ITS OWN, ON PURPOSE. 127 songs across 15 roots means a stinger
+written in one key is out of tune with nearly all of them, and a sting that
+fights the score is worse than no sting. STING reads the root of whatever is
+playing and builds from intervals off it -- rising root/fifth/octave/octave+fifth
+for a win, falling octave/fifth/root for a loss. Consonant in every scale in the
+file, major or minor, which is WHY THERE IS NO THIRD IN IT. Lands on the next
+BEAT (120 BPM law; worst case half a second). Its own bus so MUS.stop() ducking
+the music master cannot swallow it. Voices reused: glasshope, subboom.
+
+MEASURED AS AUDIO:
+  win  windows  0.195 . 0.209 . 0.220 . . 0.201   scheduled steps 0,2,4,7
+  loss windows  0.311 . . . 0.327 . . . . 0.301   scheduled steps 0,4,9
+  win pitches   123.5 -> 185.3 -> 250.0 -> 370.6 Hz  = ratios 1.500 / 2.024 / 3.001
+Rendering the FIRST note alone decays to 0.008 by step 2, which is how we know
+the later peaks are later NOTES and not the first one ringing on.
+
+*** TWO GATE LESSONS, BOTH FROM MUTATING MY OWN FIRST DRAFT. This is the third
+and fourth time this exact family has bitten this repo. ***
+ 1. THE SHAPE CHECK READ ITS ANSWER KEY OFF THE SUBJECT. It pulled the expected
+    step list out of STING.FIG itself, so collapsing every note onto step 0 --
+    turning a phrase into one blurt -- collapsed the EXPECTATION too and the
+    check passed. A check that derives its expectation from the thing it tests
+    CANNOT FAIL. It now asserts the figure independently.
+ 2. IT PROVED THE THING WORKED, NOT THAT IT WAS WIRED. Every sting leg called
+    STING.play() itself, so deleting the call site in the combat-end handler
+    sailed straight through. STING.last is now watched across a real
+    BOHEMIA_COMBAT_END.
+ THE RULE THAT COVERS BOTH: a gate must observe the SUBJECT'S OWN TRIGGER and
+ must not compute its expectation from the subject.
+
+GATES: FIGHT MUSIC 27/0 (13 -> 27 this turn). MUSIC 20/0. MUSIC REACH 17/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0. SFX WIRED 842/0.
+SFX RENDER 6106/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. COMBAT MUSIC HAS NO INTENSITY. One faction song, played flat for the whole
+    fight. The research names the next rung: vertical layering (a drum/lead
+    layer added as the fight escalates) or horizontal re-sequencing between
+    intensity tiers. The engine's klay/layers machinery already exists.
+ 2. NO STING ANYWHERE ELSE. Win and loss are done; a quest completing, a
+    district taken, a level of debt cleared all still pass in silence.
+    `quest_done` is a cooked SFX moment that is NOT APPROVED, so it plays
+    nothing at all today.
+ 3. The MENU pool is 4 and three are brand new (8/19). If he hates them it
+    collapses to one.
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine.
+
+SOUND (sound-xk7pjp): 8/19 (q,r) LATEST -- *** THE MUSIC DID NOT KNOW YOU WERE IN
+A FIGHT. The street shuffle took the score back MID-COMBAT, and one fight in
+fourteen was played by the studio's blank scratch patch. TAB: RUN. Nothing to
+judge. ***
+
+MEASURED, NOT READ. Tapped in, let the opening hand over to the streets, called
+startColdOpen -- THE COLD OPEN, the first fight in the game, the demo's opening:
+
+    BEFORE THE FIGHT   city:true   THE WIND LEARNS WORDS
+    IN THE FIGHT       city:true   HOMELESS
+    AFTER 64 BARS      city:true   TWO COINS FOR THE FERRYMAN     <-- mid-fight
+
+(1) NOBODY OWNED THE MUSIC DURING A FIGHT. CITYMUS.on stayed TRUE and its
+    watchdog kept running while combat drove the SAME transport, so at the end
+    of a 64-bar pass (128s, which any real fight outlasts) the street shuffle
+    picked an overworld song and took the music back. Two systems, one clock,
+    neither aware of the other.
+(2) THE FIGHT COULD BE THE SCRATCH PATCH. combat's pickRandomFaction draws
+    uniformly across FACTIONS and FACTIONS[0] is CUSTOM -- the studio's blank
+    sandbox slot, motif 'plain', osc + pluck. Not a song anybody wrote. The very
+    first probe run drew exactly that. Also unweighted by his verdicts.
+
+THE RESEARCH CHANGED THE DESIGN. I would have made both transitions symmetric.
+Practitioner consensus is that they are NOT: IMMEDIATE going in (danger is now;
+making the player wait for a bar line to learn they are being shot at is
+information arriving late), a musical END coming out (leaving is not an
+emergency; a hard cut to calm reads cheap), and never redundant-switch so
+back-to-back fights cannot machine-gun the score. Every piece of that machinery
+already existed here -- 120 BPM quantisation, and CITYMUS already turning its
+time-of-day pool on an 8-bar phrase.
+
+  tools/bohemia_fight_music_patch.py -> FIGHTMUS.enter/leave/realFaction
+  enter() STANDS DOWN, does not STOP: combat swaps the song in place on the
+  running clock and that was always right. Silencing there would cut the music at
+  the instant the fight starts, a worse artefact than the bug.
+  realFaction() redraws the scratch slot alpha-side, NOT in the combat module,
+  because combat uses that index for its PALETTE too and the palette is not this
+  lane's to move.
+
+MEASURED AFTER: streets THE WIND LEARNS WORDS -> fight VOLUNTEERS (city off) ->
+past the 64-bar pass STILL VOLUNTEERS -> the frame the fight settles STILL
+VOLUNTEERS (not a cut) -> four seconds later, on the phrase, TWO COINS FOR THE
+FERRYMAN. 200 redraws of the scratch slot: 13 factions, zero CUSTOM, zero buried.
+
+gates/fight_music_gate.py (13 checks, REGISTERED in bohemia_gates.py) PLAYS A
+FIGHT. A static check for "is FIGHTMUS.enter called" goes green the moment the
+call site exists and says nothing about whether the shuffle actually let go,
+which is the whole bug. Mutation-proved three ways: delete the stand-down ->
+4/5/8 red; let CUSTOM back in -> 10 red; stand down and never stand back up ->
+7/8 red. Restored 13/0.
+
+TWO THINGS I CHECKED THAT ARE CLEAN, so nobody re-checks them:
+ * The 8 songs buried on 8/19 did NOT collapse an overworld pool. DAY 5, NIGHT 9,
+   DUSK/DAWN 2 -- all playable, all canon. (DUSK/DAWN being 2 is old and known;
+   no-repeat-back-to-back means it strictly alternates.)
+ * SFX RENDER is 6106/0 on current main. THE FLEET'S COMPLETE-GATE-PICTURE TABLE
+   (records/BOHEMIA_THE_FIRST_COMPLETE_GATE_PICTURE_8_19_26.md) LISTS IT RED at
+   row 153 -- that sharded run predates the fix that landed at 20:56. Any lane
+   reading that table should treat 153 as green.
+
+GATES: FIGHT MUSIC 13/0 (new). MUSIC 20/0. MUSIC REACH 17/0. SFX RENDER 6106/0.
+SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0. ALPHA LOADS 20/0. FRONT
+DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. COMBAT MUSIC HAS NO INTENSITY. It picks one faction song and plays it flat
+    for the whole fight. The research names the next rung: vertical layering (add
+    a drum/lead layer as the fight escalates) or horizontal re-sequencing between
+    intensity tiers. The engine's klay/layers machinery is already there.
+ 2. NO STINGER ANYWHERE. Nothing musical marks a kill, a win, or a loss -- the
+    single cheapest emotional beat in game audio and the game has none.
+ 3. The MENU pool is 4 and three are brand new (8/19). If he hates them it
+    collapses to one; widen before that.
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine. More
+    moments should be built on his rack rather than raw synthesis.
+
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** THE RAID RUNS. The sibling can
+finally die in the played game. TAB: RUN on a fresh device -- the opening plays
+the cold open, hands you into the COMBAT tab for the raid, and comes back for
+the grief dinner and the burial on the ridge. ***
+
+FOR TWELVE DAYS startColdOpen(onEnd) had ONE occurrence in the alpha, its own
+definition, and ZERO callers. So the game went warm dinner -> the cut -> "get to
+the back door" -> you wake up on day 1 and get a job. The death the entire
+opening is built on did not happen, the grief dinner mourned nothing and the
+burial buried nobody. Every gate green the whole time.
+
+THIS LANE FLAGGED IT TWICE AND THEN TOOK IT, after re-checking the boundary:
+  - P0-DOOR row 10 nominally claims the surface switch for RUN, but its line
+    reference (ALPHA:21436-21438, "calls the fight WITHOUT switching tabs") is
+    STALE -- that region is wardrobe code now, and no such call exists anywhere,
+    because there is no call at all.
+  - Nothing needed inventing: cityEncounterIn() has done this exact dance for
+    weeks (show the panel, ensure the frame, wait, start the encounter) and its
+    OWN comment says why a second one would be wrong -- "a second handoff path is
+    the duplicate-system mistake this repo keeps paying for". So this mirrors it.
+  - Every piece was already published: COMBAT exposed startColdOpen(onEnd) for a
+    scene to name, my scene names it, scene_gate has asserted those two names
+    match since 8/11, showTabPanel is the alpha's own switcher, and
+    enc.onEnd(enc.outcome) already fires when a fight settles.
+No combat code, no encounter spec, no dials touched. IT FAILS SAFE: no seam, no
+switcher, or a throw, and the opening ends exactly the way it did before.
+
+*** THE BUG I SHIPPED AND CAUGHT BY DRIVING IT, AND THE LESSON IS THE POINT: ***
+the raid fired correctly and the RESUME was broken. openContinue read the cold
+open's handoff, saw to:'combat', found nothing to chain, and ended the opening --
+the grief dinner would never have played AFTER the fight. returns:true said
+control comes back and named nothing to come back TO.
+  IT WOULD HAVE SHIPPED GREEN. Until this turn the raid had NEVER RUN AT ALL, so
+  the resume path had never once been reached. A CODE PATH DOWNSTREAM OF
+  SOMETHING THAT NEVER EXECUTES CANNOT BE CAUGHT BY A GATE THAT DOES NOT EXECUTE
+  IT EITHER. The only reason it surfaced is that driving the real surface finally
+  got that far.
+Fixed with data rather than a special case: a handoff says `then` -- what plays
+when it comes back. His law puts THE GRIEF DINNER there, in those words.
+
+gates: SCENE 77 -> 86, mutation-tested two ways. Full chain driven on the real
+page: cold open -> showTabPanel:combat -> startColdOpen called -> resume ->
+act1_grief_dinner -> act1_ridge_burial. Zero page errors.
+
+ALSO CONFIRMED THIS TURN: none of the 29 reds on the fleet's first complete gate
+picture (8479625, 386/386 run in shards) is a PEOPLE gate. This lane is clean on
+that baseline. That sharding came out of the suite-timeout finding this lane
+filed on 8/19, acted on within a day.
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** COLD_OPEN.cast IS [] AND COLD_OPEN.place IS null. NOBODY IS BEHIND YOU
+     IN THE DEFENCE. *** Marked [PENDING Paolo] since 8/8, but his 7/19 law rules
+     both ("defending the home room to room... it ends saving the mother"), so
+     the marker is stale the way the demo-scope banner was until 8/14. The raid
+     running is exactly what makes this matter now instead of being academic.
+     COMBAT's.
+  2. THE RIDGE EXTERIOR. Money shot, title screen and last frame of the tutorial
+     are one image and it does not exist; the burial plays its words over an
+     honest empty frame that says so. ART's.
+  3. BIND THE BURIAL TO THE REAL VISTA OVERLOOK so the grave and the money shot
+     are one place rather than two views of the same valley. RUN's day loop.
+  4. THE TELL is authored, gated and still on no surface (BohemiaQuirk.tellFor(),
+     all 22 shapes). MINE.
+  5. DEEDS AND STANDING still absent from the city. Boundary: the rich deed
+     sources on the talk card are the FACTIONS lane's sentinels. MINE, carefully.
+
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** THE RAID HAS NO CALLER. The sibling
+never dies in the played game. TAB: CUTSCENE plays all three beats; RUN plays
+only the first and stops before the raid, on purpose. ***
+
+MEASURED, ONE COMMAND:
+    $ grep -n "startColdOpen(" slices/BOHEMIA_ALPHA_0_9.html
+    7983:function startColdOpen(onEnd){ return startEncounter(coldOpenSpec(onEnd)); }
+ONE OCCURRENCE. ITS OWN DEFINITION. ZERO CALLERS.
+
+The family-defense encounter is the combat tutorial, the raid, and the scene the
+sibling is killed in. It has never been played from anywhere. So the game as it
+boots is: the warm dinner, the cut, the father says get to the back door, AND
+THEN YOU WAKE UP ON DAY 1 AND GET A JOB. The death does not happen. The premise
+of the entire demo is absent from the demo.
+
+IT EXPLAINS THREE THINGS AT ONCE: COLD_OPEN.cast being empty never mattered
+because the defence never runs; the grief dinner grieves a death that did not
+occur; and the burial shipped an hour earlier buries somebody the player never
+saw die. This is the EIGHTH instance of this lane's most expensive recurring
+shape -- built, gated, published seam, zero callers. The vista was this. The
+payday bridge was this. The barks were this. Every piece is real and nothing is
+joined.
+
+SHIPPED, the half that IS this lane's (record: records/BOHEMIA_THE_RAID_HAS_NO_
+CALLER_8_19_26.md): his law says the three beats "fuse into ONE UNBROKEN
+SEQUENCE" and the opening runner played scene 1 and called openDone, so beats 2
+and 3 had never happened in the played game -- chips in a dev tab. The runner
+now reads what a scene says comes next, out of the scene's own handoff beat:
+    act1_cold_open     ->  combat:startColdOpen
+    act1_grief_dinner  ->  scene:act1_ridge_burial
+    act1_ridge_burial  ->  END
+Proved on the real page: started at the grief dinner, the burial followed on its
+own, zero page errors.
+
+*** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+Auto-advancing past the combat handoff would seat the family down to mourn
+somebody the player watched walk to the back door ninety seconds earlier and
+never saw again. That is worse than stopping AND IT WOULD HAVE LOOKED LIKE A
+FEATURE. openContinue() is the published seam for whoever wires the fight.
+
+WHY THE FIGHT WAS NOT WIRED HERE, and check this before you decide to do it:
+  1. startEncounter posts to the combat frame WITHOUT switching the visible
+     surface, so calling it from the opening runs the raid behind the cutscene
+     canvas. That is backlog P0-DOOR row 10, already written down and already
+     claimed by RUN: "switch the surface with the handoff."
+  2. COMBAT shipped encounter work the same day (THREE MEN, NOT EIGHT).
+Using their published entry point is fair. Choreographing the tab switch, the
+overlay teardown and the return, in a demo path another lane is mid-flight on,
+is not.
+
+ALSO FIXED: the opening caption was hardcoded pre_collapse ? "BEFORE" : "TEN
+YEARS LATER" (the same bug the CUTSCENE tab had), so the morning after the raid
+read "ten years later" on both surfaces; scenes say `when` now. And openScene
+applied his DIRECT edits to the OPENER ONLY -- the day a second scene played,
+canon would have quietly shipped over the top of his rewrites.
+
+gates: SCENE 69 -> 77, mutation-tested two ways.
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** WIRE THE RAID (RUN + COMBAT). *** Without it there is no death, and
+     without the death the grief dinner, the burial, the vista and the whole
+     dynasty premise are decoration. One call to a function that already exists,
+     plus the surface switch P0-DOOR row 10 already scopes.
+  2. COLD_OPEN.cast is [] and COLD_OPEN.place is null, [PENDING Paolo] since
+     8/8 -- but his 7/19 law rules both. Stale marker. (COMBAT.)
+  3. The ridge exterior: money shot, title screen and last frame of the tutorial
+     are one image and it does not exist. (ART.)
+  4. THE TELL is authored, gated, still on no surface (BohemiaQuirk.tellFor()).
+  5. DEEDS AND STANDING still absent from the city. Boundary: the rich deed
+     sources on the talk card are the FACTIONS lane's sentinels.
+
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** BEAT 3 OF HIS LOCKED OPENING EXISTED
+ONLY IN THE LAW. The burial on the ridge is built. TAB: CUTSCENE, third chip,
+THE BURIAL ON THE RIDGE. The picture is not there yet and the frame says so. ***
+
+His 7/19 law does not call the opening a sketch, it calls it CRYSTALLIZED and
+lists three beats: NIGHT RAID, GRIEF DINNER, BURIAL ON THE RIDGE ("tutorial ends
+here"). Scenes 1 and 2 shipped 8/9-8/11. Scene 3 was never built, and scene 2
+ends with the mother saying "We go up in the morning" with nothing to go up to.
+WORSE THAN MISSING, INVERTED: the vista already ships and already plays on the
+day 2 morning with NO grave and NO family in it, so the demo showed the player
+Bohemia's beauty completely unbound from the loss. His ruling is the opposite --
+"the first time you ever see Bohemia's beauty, you see it through tears, over a
+fresh grave... you can never take that view again without the grave in the
+foreground" -- and THE RIDGE = THE MENU / TITLE SCREEN is locked on top of it.
+
+SHIPPED (record: records/BOHEMIA_THE_BURIAL_ON_THE_RIDGE_8_19_26.md): 15 beats,
+5 drafted cited lines, 21 seconds. The valley reveal is SILENT for six beats,
+because his match-cut shows the whole apocalypse "without a word" and the valley
+gets the same respect. Grief arrives as labour, not a speech. Two small memories
+that are deliberately NOT the green-ones bit, since that ran its three instances
+and a fourth would cheapen the grief-dinner one. And the load-bearing line:
+"Everything we build down there, {sibling_lost} is up here looking at it" -- the
+first time anybody says the family will BUILD something, said over a grave, which
+turns the title screen into a promise somebody made out loud. The grief dinner
+hands off to it (returns:false, his law ends the tutorial there), so the authored
+opening is finally one unbroken chain.
+
+*** THE PICTURE WAS WRONG AND I ALMOST SHIPPED IT. READ THIS ONE. ***
+The cutscene surface builds an INTERIOR and only an interior: wall tiles, floor,
+baseboard, window, table, and bodies posed sit-chair in seats derived from the
+furniture. Handed an outdoor burial it DID NOT FAIL. It silently generated the
+family's living room and sat three people down at the dinner table for a burial
+on a hilltop. Every gate green. Caught by rendering it and looking at it.
+  A burial drawn as dinner is not a placeholder, it is a lie about the beat.
+  Drawing the wrong room would have been the easy green.
+So a scene now DECLARES what it cannot be drawn as (`needsArt`) and the surface
+REFUSES to draw it wrong, returning an honest frame: NO SET ART YET / RIDGE
+EXTERIOR, THE VALLEY BELOW, A FRESH GRAVE / THE WORDS PLAY; THE PICTURE IS
+OUTSTANDING. The captions still play in order on the beat, which is what the tab
+is for while art is owed, and the gap is now visible to whoever can close it.
+
+ALSO FIXED, same frame: the state caption was hardcoded to
+`pre_collapse ? "before" : "ten years later"`, so the morning after the raid was
+captioned "ten years later". A scene says `when` it is now.
+
+gates: SCENE 54 -> 69, mutation-tested three ways (break the chain -> 2 red; talk
+over the reveal -> 2 red; let the surface draw the wrong room -> 1 red).
+
+WHAT COMES NEXT, in order:
+  1. *** THE RIDGE EXTERIOR IS THE DEMO'S BIGGEST MISSING PICTURE AND IT IS
+     ART'S. *** The money shot, the title screen and the last frame of the
+     tutorial are all the same image, and none of them exists.
+  2. BIND THE SCENE TO THE REAL VISTA OVERLOOK so the burial and the vista are
+     one place rather than two views of the same valley. The vista's caller is
+     the day loop, which is RUN's, so this is a joint and not a solo.
+  3. *** FOR COMBAT, NOT TOUCHED BY THIS LANE: NOBODY IS BEHIND YOU IN THE FIGHT
+     YOU ARE TOLD TO DEFEND. *** COLD_OPEN.cast is [] and COLD_OPEN.place is
+     null, both marked [PENDING Paolo] since 8/8 -- but his 7/19 law rules both
+     ("defending the home room to room... a sibling is killed, it ends saving the
+     mother"), so that marker is STALE exactly the way the demo-scope banner was
+     until 8/14. There is nothing to lose in the encounter the whole opening is
+     built around losing somebody in. LEFT ALONE ON PURPOSE: combat shipped
+     encounter work the same day and it is their system.
+  4. THE TELL is authored, gated and still not on any surface
+     (BohemiaQuirk.tellFor(), all 22 shapes).
+  5. DEEDS AND STANDING are still not in the city at all. Boundary warning: the
+     rich deed sources on the talk card are the FACTIONS lane's sentinels.
 SOUND (sound-xk7pjp): 8/19 (n,o,p) LATEST -- *** THE MUSIC SHIPPED OFF, A SONG HE
 KILLED ON 7/8 WAS PLAYING IN THE STREETS, AND THE INSTRUMENT BRIDGE WAS WRONG IN
 FOUR WAYS. TABS: RUN (you hear it the second you tap in), MUSIC (the three new
@@ -1838,7 +2233,117 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     the HEM. 34 of 202 garments carry the whole structural range. A new garment should
     occupy a silhouette nobody has -- not another colourway, and not another long coat.
 
-FACTIONS (factions-ovkjpf): 8/19 (i) LATEST -- *** THE GATE SUITE WAS GIVING UP
+FACTIONS (factions-ovkjpf): 8/20 LATEST -- *** NOBODY HAD EVER WALKED THE WHOLE
+FACTION JOURNEY. NINE GATES, ALL GREEN, FOUR TIMES BROKEN. Now one gate walks it
+end to end, and doing it found two more bugs on the first try.
+TAB: CITY -- walk up to somebody who runs with an outfit and go the whole way. ***
+
+THE FACTION STACK HAS NINE GATES AND EVERY ONE VERIFIES A LAYER -- the organ
+clamps, the card displays, the rule derives, the save round-trips. EVERY ONE WAS
+GREEN WHILE THE STACK WAS BROKEN, FOUR TIMES:
+  8/15  factionOf was not a function -> ZERO of 166 people ran with anybody, for
+        thirteen days
+  8/18  BohemiaCommitment.give() was called ZERO times on the walked surface ->
+        nine presses reached 9 against a ceiling of 5
+  8/18  the favour opened an account and NOTHING EVER COLLECTED IT
+  8/19  `burned` said "you cost yourself somewhere else to be here" and nothing
+        anywhere cost you anything anywhere else
+THE ORGAN WAS VERIFIED AND THE WIRING WAS NOT, four times, and each time the thing
+that found it was a person driving the real card by hand. NO CLAIM ANYWHERE
+PLAYED THE ARC.
+
+THE LAW: A STACK OF VERIFIED LAYERS IS NOT A VERIFIED JOURNEY. Any system a
+player moves THROUGH needs one claim that travels the whole distance, in order,
+through the controls he actually presses, asserting every step MOVES something.
+Gate: faction_arc_gate.js, 13 claims. meet -> ask their name -> read their terms
+-> do what they want -> hit THE WALL -> take a side -> climb further -> take what
+they offer -> OWE them -> get asked. Real affiliated person, no stub, and it
+FAILS rather than skips if the valley has nobody -- "nobody in Las Vegas runs
+with anybody" is the exact state the game was silently in, and a gate that shrugs
+at it is how that happened.
+Law: laws/BOHEMIA_ADDENDUM_NOBODY_EVER_WALKED_IT_8_20_26.md
+
+*** AND WALKING IT FOUND TWO THINGS ON THE FIRST TRY. ***
+1. THE CARD STAYED OPEN ON SOMEBODY WHO WAS NO LONGER THERE. ctVerb() runs on
+   EVERY render and early-returns the moment a card is open, so it manages the
+   TALK button and never asked whether that person was still next to you. The
+   card was opened by TALK and closed ONLY by GO -- you could walk the entire
+   valley with somebody's card up and their buttons live. Worse on a day roll,
+   because WAKING UP MOVES THE PLAYER:
+       day 1  me [10246,2268]  them [10245,2268]  adjacent TRUE
+       day 2  me [10293,2248]  them [10245,2268]  adjacent FALSE, card VISIBLE
+   Same family as the 8/18 wall: a control on screen that does not do what the
+   screen says. There it could not move anything; here it moved THE WRONG
+   PERSON'S standing. Fixed in the one place that already runs on movement.
+2. TURNING UP IS ONCE A DAY and that is the design ("YOU ALREADY DID TODAY. COME
+   BACK TOMORROW.") -- you cannot buy your way in by pressing a button. So the
+   walk SLEEPS AND GOES BACK TO FIND THEM, because that is what playing is.
+
+TWO THINGS THE GATE ADMITS ABOUT ITSELF, in its own header:
+  - It CANNOT tell the clamp from the button suppression: two mechanisms enforce
+    the ceiling and either alone stops the climb, so the mutation actually run
+    removes BOTH (the exact 8/18 bug) and reds B5 and B8. The clamp alone is
+    proved by commitment_gate Ez6. AN ARC GATE TESTS THE JOURNEY; IT IS NOT A
+    SUBSTITUTE FOR THE MECHANISM GATES.
+  - Its own first draft read sv.meta.owed directly and reported 0 while the real
+    debt was 6 -- the three-spellings bug, SEVENTH time in this lane, written by
+    the person who fixed the other six.
+
+GATES: FACTION ARC 13/13 (new), COMMITMENT 72/72, CARD FOLD 11/11, CLAIM 45/45,
+FAVOUR 31/31, BELONGING 58/58, INTRODUCTIONS 46/46, WALKED SURFACE 9/9. And the
+ctVerb change was checked against every other lane that draws on this card:
+CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35, ASKING 21/21, WHAT YOU HEARD
+19/19, QUIRK 32/32, STREET EXCHANGE 31/31.
+
+*** AND THEN WALKING THE OTHER ECONOMIES FOUND A THIRD SURFACE LIE. *** The arc
+first walked the Cartel (they-give-first, wants:debt) which is 4 of 16 outfits.
+The other twelve had never been driven at all. On a real COLORFUL member:
+    RUNS WITH   COLORFUL
+    THEY WANT   WHAT YOU ARE
+    YOU ARE     A STRANGER - 1 MORE TO SOMEBODY WHO SHOWED UP
+    THE WALL    5 MORE AND TURNING UP STOPS WORKING
+                NOTHING TO PRESS. THEY ARE STILL DECIDING WHAT YOU ARE.
+    buttons     NONE AT ALL
+ONE MORE WHAT? FIVE MORE OF WHAT? Third time this week the same disease: A
+SURFACE DESCRIBING A MECHANISM THE PLAYER CANNOT REACH.
+
+AND THE MISSING ACT IS NOT THE BUG -- HIS OWN DOSSIERS SAY SO. Two outfits want
+`character` and ACTS has no entry for it. That looked like a hole until I read
+what he wrote:
+  THE COLORFUL   "To know whether you are safe to be around. That is the whole
+                  assessment and IT NEVER STOPS RUNNING."
+  SOCIAL FORCES  "Recruits, and specifically recruits who are frightened. They
+                  approach AFTER something bad has happened to you, NEVER BEFORE."
+CHARACTER IS NOT SOMETHING YOU DO, IT IS SOMETHING THEY READ OFF YOU. Neither
+describes a task. A "prove your character" button would be inventing canon in the
+two places he was most careful, so THE ENTRY STAYS MISSING and the CARD stops
+promising a climb -- no rung, no wall, and it says the real rule instead.
+THE DISTINCTION IS THE WHOLE FIX: noActBecause already separates a PERMANENT
+absence from a TEMPORARY block ("YOU ALREADY DID TODAY"), and only the permanent
+one silences the ladder. Both mutations bite: restore the false ladder and C1-C3
+go red, silence everybody's ladder and B6 does.
+
+ALSO MEASURED, not a bug: 13 of 16 outfits are playable across five acts
+(information, debt, presence, legibility, labour). The Amalgamation's "nothing"
+is deliberate canon and correctly gated. And there is a base called "Custom"
+whose faction is not one of the sixteen -- it falls through to NOBODY IN
+PARTICULAR and DEGRADES CLEANLY (runs-with row, ask-their-name, no terms, no
+crash), so it is noted and not touched: base placement is MAP LAW.
+
+GATES: FACTION ARC 17/17 (was 13, +4 for the ladder), COMMITMENT 72/72, CARD FOLD
+11/11, CLAIM 45/45, FAVOUR 31/31, BELONGING 58/58, INTRODUCTIONS 46/46, WALKED
+SURFACE 9/9, CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35.
+
+NEXT FOR THIS LANE (decided, not asked): the arc now walks ONE outfit of each
+kind, but only ONE. Eleven you-give-first outfits share a code path and differ in
+what they want (information / labour / presence / legibility), and the arc has
+driven exactly one of them. The cheap, high-yield next step is to walk one outfit
+PER ACT KIND -- five journeys, not sixteen -- because an act nobody has pressed
+is the shape of every bug this week.
+
+---
+
+FACTIONS (factions-ovkjpf): 8/19 (i) -- *** THE GATE SUITE WAS GIVING UP
 TWO THIRDS OF THE WAY THROUGH AND LOOKING LIKE IT PASSED. Fixed, plus the
 45-MINUTE ORPHAN underneath it. TAB: none, this is the machine that guards every
 tab. ***
@@ -2358,22 +2863,24 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/19 (d) LATEST -- *** FOUR FAMILIES IN ONE DAY. The fourth:
-TF-ART-016 SOLAR/BATTERY (TF-RUN-007 merged in as the form ordered) - the
-solar farm was stucco squares on dirt, it is ranked near-black panel
-tables now (back rail / glass / front lip over the under-slot, read off
-the world's own 4-deep table geometry), pads carry their pad-mount
-cabinets, the battery yard's racks are the DEAD half (cold, one in seven
-gutted, oil at the foot). Dead-glass sub-states BANKED (no stripped block
-in this seed). Busbar lesson: dotted lines at tile pitch read as stipple
-- the banned thing - use faint continuous lines.
+ART (f3eu53): 8/19 (e) LATEST -- *** FIVE FAMILIES IN ONE DAY AND THE LANE
+QUEUE IS EMPTY. The fifth: TF-ART-007 civic remainders, corrected by
+measurement (the world's courthouse is PRECAST - it names its own joints,
+which REUSE the shipped tu_joint; chapel arcade columns + stained glass;
+dead glazing on dome/clerestory/oculus/curtain wall). AND A VALLEY-WIDE
+BUG KILLED, mine: the 8/15 court pass matched substring 'court' - the
+courthouse, memorial court, truck court, courtyard, food court and every
+forecourt (~8,000 cells) wore basketball acrylic for four days. courtAt
+is a positive sport-name list now. Lessons in the sitting record pass 33
+(the white-probe debug trick; sweep a substring predicate against every
+world name the day it ships).
 EARLIER TODAY: TF-WORLD-010 signs, TF-RUN-005 tilt-up joints, TF-ART-017
 thickness (details below). Seventeen wired families, all in the ART tab.
 Remaining in the lane queue: TF-ART-007 civic stone (MEASURE FIRST - the
 8/3 civic system may already answer its WHY, same as RUN-005's was
 half-answered). CAMP (TF-LAB-001) stays FROZEN TWICE OVER - do not touch.
 Blocked-outside + base-red lists unchanged from (c).
-Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-32)
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-33)
 
 PREVIOUS (c) ENTRY:
 ART (f3eu53): 8/19 (c) LATEST -- *** THREE HIGH ROWS IN ONE DAY. The third:
@@ -24699,3 +25206,23 @@ fail with identical counts — these are standing reds. A red with an owner
 gets fixed or gets a written reason; a red with no owner is invisible.
 FIFTH INSTANCE THIS MONTH of the same family: we instrument what we built
 and not what actually runs.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/19 (b) — THE GATES LANE IS FOLDED INTO RUN, SAME DAY.
+Paolo: "I'll just do it in the run then." He did not want to carry
+another chat and he is right that a lane costs the remembering. THERE IS
+NO GATES LANE — the doctrine lane word is reverted (with a note so nobody
+re-creates it off the 8/19 sweep law), and the suite is now RUN P0-SUITE.
+IT FITS RUN'S CHARTER WITHOUT STRETCHING IT: this lane INTEGRATES WHAT
+THE FLEET BUILT, and the suite is the fleet's only shared instrument.
+RUN owns bohemia_gates.py, the harness, the runner and the fast lane; it
+does NOT own individual gates' assertions, which stay with the lane whose
+law they enforce, and the eight reds are already assigned out (WORLD 4,
+SOUNDS 2, CHARACTER 1, ART 1).
+THE ORIGINAL FINDING IS UNCHANGED AND IS WHY IT IS ALL WRITTEN DOWN: the
+suite rotted because it belonged to NOBODY. OWNERSHIP was the fix; a new
+chat was only one way to get one, and it was the expensive way.
+ORDER INSIDE RUN: the SLEEP FIX first (22.7 min, mechanical, zero
+assertions changed, most of the clock back in one sitting), then P0-DOOR
+/ P0-SAVE / the fight entry resume; the shared-browser and fast-lane
+fixes land whenever this lane next needs them.

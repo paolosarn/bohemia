@@ -1345,6 +1345,58 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
+   do it in the run then" — folding the one-day-old GATES lane in rather
+   than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
+   §5 amended.) THIS LANE OWNS gates/bohemia_gates.py, the harness, the
+   runner, the fast lane and THE HEALTH OF THE SUITE AS A SYSTEM. It does
+   NOT own individual gates' assertions — those stay with the lane whose
+   law they enforce, and the eight reds are already assigned out (WORLD 4,
+   SOUNDS 2, CHARACTER 1, ART 1). It fits this lane's charter: RUN
+   INTEGRATES WHAT THE FLEET BUILT, and the suite is the fleet's only
+   shared instrument.
+   ORDER AGAINST THE OTHER P0s: the SLEEP FIX (1) comes FIRST because it
+   is mechanical, changes zero assertions, and buys back most of the
+   clock in one sitting — after that, P0-DOOR / P0-SAVE / the fight entry
+   resume, and (2) and (3) can land whenever this lane next needs them.
+, AND SILENCE READS AS GREEN. FIRST
+   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
+   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
+   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
+   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
+   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
+   UNRUN AND SILENT every time, and every lane ships on a partial run
+   without knowing which part it missed.
+   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
+   PER CHECK, not check count. Deleting coverage to make the clock would
+   trade the only thing keeping nine parallel lanes honest for a green
+   light that means less than the red one did.
+   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
+       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
+       guess that got tuned upward until it stopped flaking, so it is
+       always far longer than the real wait. Replace with CONDITIONS
+       (waitForFunction / waitForSelector / poll for the state the check
+       needs). COPY gates/dayloop_gate.js, which already does it right and
+       says so: "POLL, do not guess. Measured 8/11: the city frame's
+       script does not execute immediately."
+   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
+       hand each gate an isolated CONTEXT (or a fresh tab against the warm
+       process) instead of a cold boot. Gates that genuinely need a virgin
+       profile DECLARE it and pay for it; everything else shares. Changes
+       how a gate gets a page, never what it asserts.
+   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
+       browser gates leaves roughly 256 gates that never touch a browser.
+       The fast lane is a FILTER, not new work: tag every gate BROWSER or
+       PURE and give the runner a --fast mode. THAT becomes every lane's
+       pre-ship check, every turn, under a minute. The full suite becomes
+       the once-before-a-ship run, and it will finish once (1) and (2)
+       land.
+   | the full suite completes inside the clock, and --fast runs the pure
+   set in under a minute, both measured and written into the record |
+   — | no (machinery). ***
+1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
+   slowest thing is a number and not a hunch. A suite nobody has timed is
+   how this happened.
 P0-SAVE. *** THE SAVE SURVIVES THE PHONE AND NOT US — WIRE THE MIGRATION
    CHAIN BEFORE THE FRIENDS ROUND (sweep 12 catch, 8/15 — records/
    BOHEMIA_RESEARCH_THE_SAVE_SURVIVES_THE_PHONE_NOT_US_8_15_26.md).
@@ -5195,6 +5247,133 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-RAID. [SHIPPED 8/20 - records/BOHEMIA_THE_RAID_RUNS_8_20_26.md]
+   *** THE RAID RUNS. The sibling can finally die in the played game. *** For
+   twelve days startColdOpen(onEnd) had ONE occurrence in the alpha, its own
+   definition, zero callers -- so the game went warm dinner -> cut -> "get to the
+   back door" -> you wake up on day 1 and get a job, the grief dinner mourned
+   nothing and the burial buried nobody, with every gate green.
+   THIS LANE TOOK IT AFTER FLAGGING IT TWICE, and checked the boundary again
+   first: P0-DOOR row 10 claims the surface switch for RUN but its line reference
+   (ALPHA:21436-21438, "calls the fight WITHOUT switching tabs") is STALE -- that
+   region is wardrobe code now and no such call exists anywhere, because there is
+   no call. Nothing needed inventing either: cityEncounterIn() has done this
+   exact dance for weeks and its own comment says a second handoff path is "the
+   duplicate-system mistake this repo keeps paying for", so this MIRRORS it,
+   calls the seam COMBAT published by the name THE SCENE declares (scene_gate has
+   asserted those two names match since 8/11), and switches with showTabPanel,
+   the alpha's own switcher. No combat code, no encounter spec, no dials touched.
+   IT FAILS SAFE: no seam, no switcher, or a throw, and the opening ends exactly
+   as it did before. The demo cannot be worse off than before this existed.
+   *** AND THE BUG I SHIPPED AND CAUGHT BY DRIVING IT: *** the raid fired
+   correctly and the RESUME was broken -- openContinue read the cold open's
+   handoff, saw to:'combat', found nothing to chain, and ended the opening, so
+   the grief dinner would never have played AFTER the fight. returns:true said
+   control comes back and named nothing to come back TO. It would have shipped
+   green, and the reason is worth keeping: UNTIL THIS TURN THE RAID HAD NEVER RUN
+   AT ALL, so the resume path had never once been reached. A code path downstream
+   of something that never executes cannot be caught by a gate that does not
+   execute it either. Fixed with data: a handoff says `then`, and his law puts
+   THE GRIEF DINNER there in those words.
+   | gate: SCENE 77 -> 86, mutation-tested two ways; full chain driven on the
+   real page | no decision taken | no.
+   STILL MISSING AND NOW VISIBLE: COLD_OPEN.cast is [] and COLD_OPEN.place is
+   null ([PENDING Paolo] since 8/8, but his 7/19 law rules both) -- NOBODY IS
+   BEHIND YOU IN THE DEFENCE, and the raid running is what makes that matter.
+   COMBAT's. The ridge exterior is ART's. Binding the burial to the real vista
+   overlook is RUN's.
+
+0sc-SEQ. [SHIPPED 8/19 - records/BOHEMIA_THE_RAID_HAS_NO_CALLER_8_19_26.md]
+   *** THE FINDING FIRST, BECAUSE IT IS THE DEMO'S BIGGEST HOLE AND IT IS NOT
+   THIS LANE'S TO CLOSE: `grep -n "startColdOpen(" slices/BOHEMIA_ALPHA_0_9.html`
+   RETURNS ONE LINE, ITS OWN DEFINITION. ZERO CALLERS. *** The family-defense
+   encounter -- the combat tutorial, the raid, the scene the sibling is killed in
+   -- has never been played from anywhere. So the game as it boots is: warm
+   dinner, the cut, the father says get to the back door, AND THEN YOU WAKE UP ON
+   DAY 1 AND GET A JOB. The sibling's death does not happen. The premise of the
+   entire demo is absent from the demo.
+   IT EXPLAINS THREE THINGS AT ONCE: COLD_OPEN.cast being [] never mattered
+   because the defence never runs; the grief dinner grieves a death that did not
+   occur; and the burial shipped an hour earlier buries somebody the player never
+   saw die. Eighth instance of this lane's most expensive recurring shape: built,
+   gated, published seam, zero callers (the vista was this, the payday bridge was
+   this, the barks were this).
+   SHIPPED, and it is the half that IS this lane's: his law says the three beats
+   "fuse into ONE UNBROKEN SEQUENCE" and the opening runner played scene 1 then
+   called openDone, so beats 2 and 3 had never happened in the played game --
+   chips in a dev tab. The runner now reads what a scene says comes next out of
+   its own handoff beat (cold open -> combat:startColdOpen; grief dinner ->
+   scene:ridge burial; burial -> END). Proved on the real page: started at the
+   grief dinner, the burial followed on its own, zero page errors.
+   *** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+   Auto-advancing past the combat handoff would seat the family down to mourn
+   somebody the player watched walk to the back door ninety seconds earlier and
+   never saw again -- worse than stopping, and it would have looked like a
+   feature. openContinue() is the published seam for whoever wires the fight,
+   the same courtesy COMBAT did this lane by exposing startColdOpen(onEnd).
+   WHY THE FIGHT WAS NOT WIRED HERE: startEncounter posts to the combat frame
+   WITHOUT switching the visible surface, so calling it from the opening runs the
+   raid behind the cutscene canvas -- which is backlog P0-DOOR row 10, already
+   written down and already claimed by RUN ("switch the surface with the
+   handoff") -- and COMBAT shipped encounter work the same day.
+   ALSO: the opening caption was hardcoded pre_collapse ? "BEFORE" : "TEN YEARS
+   LATER" (same bug the tab had), so the morning after the raid read "ten years
+   later"; scenes say `when` now. AND openScene applied his DIRECT edits to the
+   OPENER ONLY, so the day a second scene played, canon would have quietly
+   shipped over the top of his rewrites.
+   | gate: SCENE 69 -> 77, mutation-tested two ways | no decision taken | no.
+   *** WHAT THIS COSTS UNTIL SOMEBODY WIRES IT: everything downstream of the
+   death is decoration. RUN + COMBAT own the one call plus the surface switch. ***
+
+0sc-RIDGE. [SHIPPED 8/19 - records/BOHEMIA_THE_BURIAL_ON_THE_RIDGE_8_19_26.md]
+   *** BEAT 3 OF HIS LOCKED OPENING EXISTED ONLY IN THE LAW. *** 7/19 calls the
+   sequence CRYSTALLIZED and lists three: NIGHT RAID, GRIEF DINNER, BURIAL ON THE
+   RIDGE ("tutorial ends here"). Scenes 1 and 2 shipped 8/9-8/11; scene 3 was
+   never built, and scene 2 ended with the mother saying "We go up in the
+   morning" with nothing to go up to. WORSE: the vista ships and plays on the day
+   2 morning with NO grave and NO family, so the demo showed Bohemia's beauty
+   completely unbound from the loss -- his thesis exactly backwards ("the first
+   time you ever see Bohemia's beauty, you see it through tears, over a fresh
+   grave... you can never take that view again without the grave in the
+   foreground"), and the ridge is also the locked MENU/TITLE SCREEN view.
+   SHIPPED: 15 beats, 5 drafted cited lines, 21s. The valley reveal is SILENT (6
+   beats, nobody talks over it -- his match-cut shows the apocalypse "without a
+   word" and the valley gets the same). Grief arrives as labour ("Ground's harder
+   than it looks up here." / "Then we take turns.") Two small memories that are
+   deliberately NOT the green-ones bit, since that ran its three and a fourth
+   would cheapen the grief-dinner one. And the load-bearing line: "Everything we
+   build down there, {sibling_lost} is up here looking at it" -- the first time
+   anybody says the family will BUILD something, said over a grave, which turns
+   the title screen into a promise. The grief dinner now hands off to it,
+   returns:false, so the authored opening is one unbroken chain.
+   *** THE PICTURE WAS WRONG AND I ALMOST SHIPPED IT. *** The cutscene surface
+   builds an INTERIOR only -- walls, floor, baseboard, window, table, bodies
+   posed sit-chair. Handed an outdoor burial it did not fail: it silently
+   generated the family's living room and SAT THREE PEOPLE DOWN AT THE DINNER
+   TABLE for a burial on a hilltop, with every gate green. Caught by rendering
+   and looking. A scene now DECLARES what it cannot be drawn as and the surface
+   refuses to draw it wrong, returning an honest frame that reads NO SET ART YET
+   / RIDGE EXTERIOR, THE VALLEY BELOW, A FRESH GRAVE / THE WORDS PLAY; THE
+   PICTURE IS OUTSTANDING. The words still play on the beat.
+   ALSO: the state caption was hardcoded pre_collapse ? "before" : "ten years
+   later", so the morning after the raid was captioned "ten years later". A scene
+   says `when` it is now.
+   | gate: SCENE 54 -> 69, mutation-tested three ways; rendered and looked at
+   | father's presence on the hill NOT decided (DIRECT tab), no casualty authored
+   | no (drafts).
+   *** THE RIDGE EXTERIOR IS NOW THE DEMO'S BIGGEST MISSING PICTURE AND IT IS
+   ART'S: *** money shot, title screen and last frame of the tutorial are all the
+   same image. Second joint, with RUN: bind this scene to the real vista overlook
+   so the burial and the vista are one place rather than two views of the valley.
+   AND A FINDING THIS LANE DID NOT TOUCH, FOR COMBAT: COLD_OPEN.cast is [] and
+   COLD_OPEN.place is null, both marked [PENDING Paolo] since 8/8 -- but his 7/19
+   law rules both ("defending the home room to room... it ends saving the
+   mother"), so that marker is stale exactly the way the demo-scope banner was.
+   NOBODY IS BEHIND YOU in the fight you are told to defend, which means there is
+   nothing to lose in the encounter the whole opening is built around losing
+   somebody in. Not touched because COMBAT shipped encounter work the same day
+   and it is their system.
+
 0sc-ATTACH. [SHIPPED 8/19 - records/BOHEMIA_SHE_IS_IN_THE_ROOM_TONIGHT_8_19_26.md]
    *** THE HALF OF 0sc's 8/13 AMENDMENT THAT IS WORDS AND STAGING. *** That
    amendment asks for "name and one quirk surfaced before the fight
@@ -5998,51 +6177,6 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
-## GATES  (NEW DEDICATED LANE, coordinator 8/19 on Paolo's ruling —
-## laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md. First word "gates". Owns
-## gates/bohemia_gates.py, the harness, the runner, the fast lane, and
-## THE HEALTH OF THE SUITE AS A SYSTEM. It does NOT own individual gates'
-## assertions — those stay with the lane whose law they enforce. The
-## suite had no owner because it is not any lane's system, and a thing
-## that belongs to nobody rots exactly the way this did.)
-0. *** THE SUITE CANNOT FINISH, AND SILENCE READS AS GREEN. FIRST
-   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
-   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
-   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
-   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
-   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
-   UNRUN AND SILENT every time, and every lane ships on a partial run
-   without knowing which part it missed.
-   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
-   PER CHECK, not check count. Deleting coverage to make the clock would
-   trade the only thing keeping nine parallel lanes honest for a green
-   light that means less than the red one did.
-   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
-       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
-       guess that got tuned upward until it stopped flaking, so it is
-       always far longer than the real wait. Replace with CONDITIONS
-       (waitForFunction / waitForSelector / poll for the state the check
-       needs). COPY gates/dayloop_gate.js, which already does it right and
-       says so: "POLL, do not guess. Measured 8/11: the city frame's
-       script does not execute immediately."
-   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
-       hand each gate an isolated CONTEXT (or a fresh tab against the warm
-       process) instead of a cold boot. Gates that genuinely need a virgin
-       profile DECLARE it and pay for it; everything else shares. Changes
-       how a gate gets a page, never what it asserts.
-   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
-       browser gates leaves roughly 256 gates that never touch a browser.
-       The fast lane is a FILTER, not new work: tag every gate BROWSER or
-       PURE and give the runner a --fast mode. THAT becomes every lane's
-       pre-ship check, every turn, under a minute. The full suite becomes
-       the once-before-a-ship run, and it will finish once (1) and (2)
-       land.
-   | the full suite completes inside the clock, and --fast runs the pure
-   set in under a minute, both measured and written into the record |
-   — | no (machinery). ***
-1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
-   slowest thing is a number and not a hunch. A suite nobody has timed is
-   how this happened.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 -8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,

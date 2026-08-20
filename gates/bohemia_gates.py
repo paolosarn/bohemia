@@ -29,6 +29,17 @@ GATES = [
     # 8/4: the gate that asks the only question he cares about -- CAN I HEAR IT?
     ('MUSIC REACH',    ['node', 'gates/music_reach_gate.js'],
      'every category he tagged has something that can actually play it', False),
+    # 8/19: measured on the shipped alpha -- the street shuffle took the music
+    # back 64 bars into the COLD OPEN, the first fight in the game, because
+    # CITYMUS.on stayed true while combat drove the same transport. And combat
+    # drew its song uniformly from a list whose first entry is CUSTOM, the
+    # studio's blank scratch patch. This gate PLAYS A FIGHT rather than grepping
+    # for a function name, because a static check goes green the moment a call
+    # site exists and says nothing about whether the shuffle actually let go.
+    ('FIGHT MUSIC',    ['python3', 'gates/fight_music_gate.py'],
+     'the music knows when you are in a fight: the streets stand down, hold '
+     'past a 64-bar pass, and come back on a phrase boundary -- and a fight is '
+     'never scored by the studio scratch patch', False),
     ('SETUP HOOK',     ['python3', 'gates/setup_hook_gate.py'],
      'a fresh container installs its own gate image stack and never blocks the session doing it', False),
     ('SHIPPED TRUTH', ['node', 'gates/shipped_truth_gate.js'],
@@ -1686,6 +1697,53 @@ GATES = [
      "you can never clear is a sentence not a relationship. The card says THEY ARE NOT "
      "WAITING so the player can trace it to the free thing they took. Neither organ touches "
      "the other's save -- a number in, a number out, asserted", False),
+    ('FACTION ARC',    ['node', 'gates/faction_arc_gate.js'],
+     "NINE GATES COVER THIS STACK AND EVERY ONE OF THEM VERIFIES A LAYER -- the organ "
+     "clamps, the card displays, the rule derives, the save round-trips -- and every one "
+     "was GREEN while the stack was broken, four separate times: factionOf was not a "
+     "function so ZERO of 166 people ran with anybody for thirteen days (8/15); "
+     "BohemiaCommitment.give() was called ZERO times on the walked surface so nine presses "
+     "took you to 9 against a ceiling of 5 (8/18); the favour opened an account and NOTHING "
+     "EVER COLLECTED IT (8/18); and `burned` said 'you cost yourself somewhere else to be "
+     "here' while nothing anywhere cost you anything anywhere else (8/19). THE ORGAN WAS "
+     "VERIFIED AND THE WIRING WAS NOT, four times, and each time the thing that found it was "
+     "a person driving the real card by hand. NO CLAIM ANYWHERE PLAYED THE ARC. So this "
+     "does: it finds a REAL affiliated person on the REAL city page (no stub, and it FAILS "
+     "rather than skips if it cannot, because 'nobody in Las Vegas runs with anybody' is the "
+     "exact state the game was silently in) and walks meet -> ask their name -> read their "
+     "terms -> do what they want -> hit THE WALL -> take a side -> climb further -> take "
+     "what they offer -> OWE them -> get asked. Every step is a real button, in order, and "
+     "every step must MOVE something. AND WALKING IT FOUND TWO THINGS ON THE FIRST TRY. (1) "
+     "The card is opened by TALK and closed ONLY by GO: ctVerb runs on every render and "
+     "never asked whether the open card's person was still there, so you could walk the "
+     "whole valley with somebody's card up and their buttons live -- and waking up MOVES THE "
+     "PLAYER (day 1 me [10246,2268], day 2 me [10293,2248]) while they stay where they live, "
+     "so every day rollover left a card open on somebody forty cells away. Same family as "
+     "the 8/18 wall: a control on screen that does not do what the screen says. There it "
+     "could not move anything; here it moved the WRONG PERSON'S standing. (2) Turning up is "
+     "ONCE A DAY by design, so the walk sleeps and goes back to find them -- a gate that "
+     "hammers one day is testing a game nobody plays. HONEST LIMIT IN ITS OWN HEADER: B5 "
+     "cannot tell the clamp from the button suppression because either alone stops the climb "
+     "at the ceiling, so removing BOTH is the mutation that was actually run; the clamp "
+     "alone is proved by commitment_gate Ez6. And the probe's own first draft read "
+     "sv.meta.owed directly and reported 0 while the real debt was 6 -- the three-spellings "
+     "bug, seventh time in this lane, written by the person who fixed the other six. *** AND "
+     "THEN WALKING THE OTHER ECONOMIES FOUND A THIRD SURFACE LIE. *** The arc first walked "
+     "the Cartel (they-give-first, wants:debt) which is 4 of 16 outfits; the other twelve had "
+     "never been driven. On a real Colorful member: NO BUTTONS AT ALL, and either side of "
+     "\'NOTHING TO PRESS\' the card printed \'1 MORE TO SOMEBODY WHO SHOWED UP\' and \'5 MORE "
+     "AND TURNING UP STOPS WORKING\'. One more WHAT? Third time this week the same disease: a "
+     "surface describing a mechanism the player cannot reach. AND THE MISSING ACT IS NOT THE "
+     "BUG -- two outfits want `character` and his own dossiers say why there is no button: "
+     "THE COLORFUL \'to know whether you are safe to be around ... it never stops running\', "
+     "THE SOCIAL FORCES \'recruits who are frightened, they approach AFTER something bad has "
+     "happened to you\'. CHARACTER IS NOT SOMETHING YOU DO, IT IS SOMETHING THEY READ OFF "
+     "YOU, so a prove-your-character button would be inventing canon in the two places he was "
+     "most careful. The entry stays missing and the CARD stops promising a climb, saying the "
+     "real rule instead. The distinction is the whole fix: noActBecause already separates a "
+     "PERMANENT absence from a TEMPORARY block, and only the permanent one silences the "
+     "ladder. Both mutations bite -- restore the false ladder and C1-C3 go red, silence "
+     "everybody\'s ladder and B6 does", False),
     ('CARD FOLD',      ['node', 'gates/cardfold_gate.js'],
      "THE PERSON CARD BECAME THE PHONE. Five systems write rows onto it now (the name, the "
      "bargain, the wall, the claim, the favour) and nobody owned the total: MEASURED at iPhone "

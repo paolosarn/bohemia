@@ -26,6 +26,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 /* ==== footing readout css ==== */
 /* THE FOOTING READOUT, DIRECTLY UNDER THE TOP BAR, and that position is the whole
    reason this comment exists. It was at bottom-left first, and a screenshot of the real
@@ -148,6 +149,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 <div id="hud"><span id="hmode">CITY MODE</span><span id="hclock">DAY 1 · 08:00</span><span id="hslot"></span></div>
 <div id="stage">
   <canvas id="cv"></canvas>
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
@@ -5858,6 +5860,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE FLOOR CAN DO SOMETHING TO YOU ==== */
+
+
 
 
 
@@ -22138,6 +22142,7 @@ function __surfaceOf(c){
 
 
 
+
 /* ==== __FLOOR_DOES_SOMETHING__ -- what is under his feet ==== */
 /* WHAT IS UNDER HIS FEET, and it asks the page's OWN plumbing rather than growing a
    second copy of it. tileMeta() resolves the cell, deadLegendFor() resolves the legend
@@ -29263,6 +29268,7 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
 // plate instead of the plate growing to fit the grammar, and a sliver too thin to
 // carry walled rooms becomes one open plate with a perimeter entrance.
 
+
 /* ==== WHAT IS IN THE ROOM (inlined verbatim) ==== */
 /* ==== engine/bohemia_furnish.js ==== */
 /* inlined verbatim by tools/bohemia_city_furnish_patch.py. The banner above is one line on purpose: see the note in that tool. */
@@ -30498,6 +30504,7 @@ function renderInside(){
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
     }
   }
+
 
 /* ==== __FURNITURE_PASS__ -- what you can get behind ==== */
   /* WHAT YOU CAN GET BEHIND, DRAWN AS A VOLUME RATHER THAN AS ART -- on purpose, and
@@ -33336,6 +33343,21 @@ function ctBelongSave(){
   if(!window.__CT_BELONG) window.__CT_BELONG = { meta:{} };
   return window.__CT_BELONG;
 }
+/* __CITY_NOLADDER__ -- IS THERE A LADDER HERE AT ALL?
+   Asked with an IDEALISED state -- nothing given today, standing on their
+   ground, something to tell them -- so the answer is about the OUTFIT and not
+   about this moment. A `no` here means no act exists at any state, which is
+   true of the two outfits that want `character`: his own dossiers describe an
+   assessment they run on you ("to know whether you are safe to be around ... it
+   never stops running"), never a task you perform. A `yes` with no button today
+   is a different thing entirely and keeps its ladder. */
+function ctHasLadder(rule){
+  if(typeof BohemiaBelonging === 'undefined' || !rule) return false;
+  try {
+    return !!BohemiaBelonging.actFor(rule, { gaveToday:false, onTheirGround:true,
+                                             somethingToTell:true });
+  } catch(_e){ return false; }
+}
 function ctActState(fid){
   var B = BohemiaBelonging, sv = ctBelongSave();
   var g = null;
@@ -33517,7 +33539,17 @@ function qkLine(key){
 function ctRow(k,v){ return '<div class="r"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
 function ctOpen(){
   CT_TERMS_OPEN = false;   /* __CITY_CARDFOLD__: each card opens folded */
-  var p=ctAdjacent(); if(!p) return;
+  /* __CITY_STALECARD__ -- IF THERE IS NOBODY TO SHOW, CLOSE IT.
+     This used to `return`, which left the PREVIOUS person's card standing --
+     their name, their outfit, their terms, and buttons that still fired against
+     the old fid. Measured: waking up moves the PLAYER (day 1 me [10246,2268],
+     day 2 me [10293,2248]) while the person stays where they live, so after any
+     day rollover the card was open on somebody forty cells away.
+     Same family as the 8/18 wall: a control on screen that does not do what the
+     screen says. There it could not move anything; here it moved the WRONG
+     PERSON'S standing. There is no "somebody will close it later" -- this
+     function IS the later. */
+  var p=ctAdjacent(); if(!p){ ctClose(); return; }
   CT_OPEN=p; ctDraw();
   /* THE PERSON YOU JUST MET HAS A VOICE (8/11, SOUNDS lane). A MEETING speaks;
      a redraw does not, which is why this is here and not in ctDraw. The parent
@@ -33915,7 +33947,11 @@ function ctDraw(){
         var cSt = BohemiaCommitment.stateOf(bState.sv, ctFid);
         ctWall = BohemiaCommitment.wallOf(cSt, ctGave);
       }
-      if(bar.rung) body += ctRow('YOU ARE', bar.rung.word
+      /* __CITY_NOLADDER__ -- no act at any state means no ladder, so no
+         progress toward one. "1 MORE TO SOMEBODY WHO SHOWED UP" on a card with
+         no button is a promise the player cannot act on. */
+      var ctLadder = ctHasLadder(bRule);
+      if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
       if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
@@ -33937,16 +33973,26 @@ function ctDraw(){
          left it undefined at the first button that reads it and the suppression
          would have silently never fired. */
 
-      if(ctWall && ctWall.atWall && ctWall.blocks){
+      /* __CITY_NOLADDER__ -- and no wall either. A wall is the end of a
+         road, and there is no road. */
+      if(ctLadder && ctWall && ctWall.atWall && ctWall.blocks){
         body += ctRow('THE WALL', 'TURNING UP GETS YOU NO FURTHER THAN '
           + ctWall.reaches + '. ' + ctWall.blocks + ' IS NOT FOR SALE.');
         if(ctWall.passNote) body += ctRow('TO PASS IT', ctWall.passNote);
         body = ctHearRows(body, ctFid);
-      } else if(ctWall && ctWall.blocks && ctWall.room !== Infinity){
+      } else if(ctLadder && ctWall && ctWall.blocks && ctWall.room !== Infinity){
         body += ctRow('THE WALL', ctWall.room + ' MORE AND TURNING UP STOPS WORKING');
       }
       var why = BohemiaBelonging.noActBecause(bRule, bState.st);
       if(why) body += ctRow('', why);
+      /* __CITY_NOLADDER__ -- and what the rule actually is, so a player meeting
+         one of these does not read a blank as a bug. Verbatim from his dossier
+         ("To know whether you are safe to be around ... it never stops
+         running"), tagged draft so every word stays editable. */
+      if(!ctLadder && bRule.wants && bRule.wants !== 'nothing')
+        body += ctRow('HOW IT WORKS WITH THEM',
+          'YOU DO NOT CLIMB WITH THESE. THEY ARE WORKING OUT WHETHER YOU ARE '
+          + 'SAFE TO BE AROUND, AND THAT NEVER STOPS RUNNING.');
       if(bState.ground && !bState.ground.on){
         var gdx = bState.ground.base.x-ctCell()[0], gdy = bState.ground.base.y-ctCell()[1];
         body += ctRow('THEIR GROUND', bState.ground.dist+' CELLS '
@@ -34141,6 +34187,13 @@ function ctClose(){ CT_OPEN=null;
    CONTEXTUAL VERB and not a menu. */
 function ctVerb(){
   var b=document.getElementById('cttalk'); if(!b) return;
+  /* __CITY_STALECARD__ -- YOU CANNOT TALK TO SOMEBODY YOU HAVE WALKED AWAY FROM.
+     This ran on every render and never asked whether the open card's person was
+     still next to you, so the card was opened by TALK and closed ONLY by GO: you
+     could walk the entire valley with somebody's card up and their buttons live.
+     This is the one place that already runs on movement, so the check belongs
+     here -- no new hook, no new listener. */
+  if(CT_OPEN && MODE==='human' && !ctAdjacent()){ ctClose(); return; }
   if(CT_OPEN || MODE!=='human'){ b.style.display='none'; return; }
   var p=ctAdjacent();
   if(!p){ b.style.display='none'; window.__CT_VERB=null; return; }

@@ -411,6 +411,12 @@ grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
 grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
   ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw',
    'kerb_drop_n', 'kerb_drop_e', 'kerb_drop_s', 'kerb_drop_w']);
+/* TF-ART-007 8/19 (corrected by measurement - the walked courthouse is
+   PRECAST and names its own joints, which reuse the shipped tu_joint):
+   the chapel's arcade columns, dead civic glazing, the stained glass -
+   tools/tfcook/TF-ART-007_cook.py */
+grabPieces('banks/tileforms/TF-ART-007_CANDIDATES_8_19_26.json',
+  ['civ_column_0', 'glz_dead_0', 'glz_dead_1', 'glz_stained_0']);
 /* TF-ART-016 8/19 (TF-RUN-007 merged in): the power districts - panel
    tables (4 rows x 3 phases), table ends, the pad-mount cabinet, the dead
    battery racks - tools/tfcook/TF-ART-016_cook.py. The dead-panel glass

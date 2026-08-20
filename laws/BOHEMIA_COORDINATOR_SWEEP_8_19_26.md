@@ -77,17 +77,28 @@ runs the pure set. That is the pre-ship check for every lane, every turn.
 The full suite then becomes the thing you run once before a ship, and it
 will actually finish once fixes 1 and 2 land.
 
-## 5. NOBODY OWNS THE SUITE, SO THE SUITE BECOMES A LANE
+## 5. NOBODY OWNED THE SUITE — NOW RUN DOES
 This is the root cause of everything above, and it is the coordinator's
 call to make. The suite is not a lane's system, so under ONE SYSTEM ONE
 SESSION it belongs to nobody, and a thing that belongs to nobody rots
 exactly this way — the same dropped-stitch pattern as the ownerless crowd
 gate and the vista with no caller.
-**A NEW LANE EXISTS AS OF TODAY: GATES. First word "gates".** It owns
-gates/bohemia_gates.py, the harness, the runner, the fast lane, and the
-health of the suite as a system. It does NOT own individual gates'
-assertions — those stay with the lane whose law they enforce. Its first
-session is fixes 1-3 in that order.
+**AMENDED THE SAME DAY BY PAOLO: "I'll just do it in the run then."**
+The GATES lane existed for about an hour and is FOLDED INTO RUN. He did
+not want to carry another chat, and he is right that the cost of a lane
+is remembering it exists.
+**THE SUITE IS RUN'S, under RUN P0-SUITE.** It fits that lane's charter
+without stretching it: RUN INTEGRATES WHAT THE FLEET BUILT, and the suite
+is the fleet's only shared instrument. RUN owns bohemia_gates.py, the
+harness, the runner and the fast lane; it does NOT own individual gates'
+assertions, which stay with the lane whose law they enforce.
+THE ORIGINAL POINT STILL STANDS AND IS WHY THIS IS WRITTEN DOWN: the
+suite rotted because it belonged to NOBODY. Ownership was the fix, not
+the lane. A named owner was the requirement; a new chat was only one way
+to get one, and it was the more expensive way.
+ORDER: the SLEEP FIX goes first — mechanical, zero assertions changed,
+most of the clock back in one sitting — then RUN's demo P0s resume, and
+fixes 2 and 3 land whenever this lane next needs them.
 
 ## 6. THE EIGHT REDS NOW HAVE OWNERS
 Assigned by EVIDENCE — what each gate actually reads — not by guess.

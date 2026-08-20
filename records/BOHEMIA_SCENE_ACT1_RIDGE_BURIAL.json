@@ -1,0 +1,182 @@
+{
+ "id": "act1_ridge_burial",
+ "title": "THE BURIAL ON THE RIDGE",
+ "needsArt": "ridge exterior, the valley below, a fresh grave",
+ "when": "the next morning",
+ "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 3 (THE BURIAL ON THE RIDGE, \"tutorial ends here\"), plus THE RIDGE = THE MENU / TITLE SCREEN and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, all 7/19 Paolo, locked",
+ "note": "BEAT 3 OF HIS THREE-BEAT OPENING, AND IT WAS THE ONLY ONE NOT BUILT. His law calls the sequence CRYSTALLIZED and lists it: 1 NIGHT RAID, 2 THE GRIEF DINNER, 3 THE BURIAL ON THE RIDGE. Scenes 1 and 2 shipped 8/9-8/11; scene 2 ends with the mother saying \"We go up in the morning\" and the game had nothing to go up to. His law is unusually specific about what this beat is FOR: \"the first full-scope reveal of the whole valley... the first time you ever see Bohemia's beauty, you see it through tears, over a fresh grave. The city's beauty is bound to loss from the first frame.\" The vista already ships and already plays, and it plays with NO grave and NO family, which is the thesis exactly backwards. ALWAYS MAKE AN ATTEMPT (8/11): every line is a real attempt, draft:true, edit them all. STRUCTURE IS STILL HIS: nobody new is placed, nothing is decided about the father (his status is not resolved by any scene and is not resolved here -- add or remove him in the DIRECT tab), and no casualty is authored. THE CAST IS TAKEN FROM THE GRIEF DINNER rather than chosen: the same three people who sat down the night before climb the hill.",
+ "beats": [
+  {
+   "kind": "set",
+   "id": "the_ridge",
+   "place": "ridge",
+   "era": "post_collapse",
+   "mood": "cold_bright",
+   "light": "open_sky",
+   "beats": 3,
+   "why": "\"the family climbs a beautiful ridge overlooking Bohemia\" (7/19). Morning, the day after the grief dinner, which is where the mother said they were going. NO RIDGE ART EXISTS YET and that is named out loud rather than hidden: this scene plays its words on whatever the surface can draw, and the ridge exterior is the ART lane's to cook."
+  },
+  {
+   "kind": "actor",
+   "id": "you_at_the_grave",
+   "actor": "player",
+   "age": "adult",
+   "at": "grave_side",
+   "pose": "standing",
+   "why": "\"the family ... buries the sibling together\" (7/19). The player digs; this is not watched."
+  },
+  {
+   "kind": "actor",
+   "id": "mother_at_the_grave",
+   "actor": "mother",
+   "at": "grave_side",
+   "pose": "standing",
+   "why": "she is at the grief dinner the night before and she is the one who said \"we go up in the morning\", so she is the one who brought them here. No new placement is made."
+  },
+  {
+   "kind": "actor",
+   "id": "brother_at_the_grave",
+   "actor": "sibling_older",
+   "at": "grave_side",
+   "pose": "standing",
+   "why": "the surviving sibling, same three people who sat at the grief dinner. WHETHER THE FATHER IS ON THIS HILL IS NOT DECIDED HERE -- no scene has resolved his status, it is his ruling, and adding an actor beat in the DIRECT tab is how it gets made."
+  },
+  {
+   "kind": "camera",
+   "id": "the_whole_valley",
+   "framing": "valley_wide",
+   "hold": true,
+   "beats": 4,
+   "why": "\"ALSO the first full-scope reveal of the whole valley (the BotW vista)\" (7/19). The widest frame in the opening, and it is the first time the player sees what the game is about."
+  },
+  {
+   "kind": "wait",
+   "id": "nobody_says_anything",
+   "beats": 6,
+   "why": "*** THE THESIS BEAT, AND IT IS SILENT ON PURPOSE. *** His match-cut shows the whole apocalypse \"without a word\"; the valley gets the same respect. Six beats is three seconds of nobody talking over the most beautiful thing in the game, standing at a grave. A line here would be the game telling the player how to feel about the view, which is the one thing that would break it."
+  },
+  {
+   "kind": "say",
+   "id": "ground_is_hard",
+   "speaker": "sibling_older",
+   "draft": true,
+   "text": "Ground's harder than it looks up here.",
+   "why": "GRIEF ARRIVES AS LABOUR. The first words after the valley are about digging, because that is what people actually say, and because the alternative is a speech. It also tells you they are doing this themselves, with hands, which is the whole tone of the game. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q080.W8",
+     "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+     "applied": "the corpus's example disproves a god's claim about humanity SILENTLY, by what people do rather than what they announce. The reveal of the valley is followed by a complaint about soil. Nobody in this scene ever says what the view means, and that is why it means something."
+    },
+    {
+     "id": "Q035.W9",
+     "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+     "applied": "\"psychological, not splatter; it haunts because it is HUMAN.\" There is no body on screen and no wound described anywhere in this scene. There is a hole being dug by hand in hard ground, which is the most physical grief gets to be here."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "we_take_turns",
+   "speaker": "mother",
+   "draft": true,
+   "text": "Then we take turns.",
+   "why": "four words, and they are the founding of the dynasty. She does not comfort anybody, she organises them. That is who survives an apocalypse and it is who starts a city. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q073.W6",
+     "title": "THE TURN IS A QUIET CONVERSATION",
+     "applied": "\"a nun telling him he was kind is the axis of a 60-hour game, not a set-piece.\" The whole hundred-year city-builder turns on a woman on a hill saying they will take turns with a shovel, and the scene never marks it as important."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW and asks for texture and small warmth so the grimness is endurable. The warmth in this scene is not comfort, it is competence: somebody is still making a plan."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "the_work",
+   "beats": 6,
+   "why": "they dig. Three seconds of it, unremarked, so the scene has a middle that is work rather than dialogue."
+  },
+  {
+   "kind": "say",
+   "id": "she_hated_the_walk",
+   "speaker": "sibling_older",
+   "draft": true,
+   "text": "Halfway up, {sibling_lost} would have sat down and refused to move.",
+   "why": "THE FIRST OF TWO SMALL MEMORIES, and deliberately NOT the green-ones bit -- that ran its three instances and a fourth would cheapen the one at the grief dinner. This is a different ordinary thing about her, which is what having known somebody sounds like. The name is a token; FAMILY_CAST fills it, because the lost sibling's gender flips with the player (7/19). NO PRONOUNS in either memory line, on purpose. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q063.W2",
+     "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+     "applied": "the bond is built and now spent through quiet ordinary detail. What survives of a person here is that they were annoying on hills, which is more of a person than any eulogy the scene could write."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "\"the quest plays differently in memory than in the moment.\" The cold open spent three lines making her a specific irritating human so that one line about a walk has somebody in it. This is the interest being collected."
+    }
+   ]
+  },
+  {
+   "kind": "say",
+   "id": "you_always_did",
+   "speaker": "mother",
+   "draft": true,
+   "text": "And you'd have carried {sibling_lost} the rest of the way. You always did.",
+   "why": "the second memory, and it is about the SURVIVING sibling rather than the dead one -- the player learns something new about the person who is going to be with them for the whole game, in the same breath as losing the other. Said flatly, not fondly. EDIT FREELY.",
+   "study": [
+    {
+     "id": "Q043.P7",
+     "title": "W9 (the permanent pre-game/inter-generational loss",
+     "applied": "the corpus uses permanent loss for instant stakes in a game about a bloodline. This line is the bloodline continuing: one child is in the ground and the mother is telling the other one who they have always been."
+    },
+    {
+     "id": "Q073.W6",
+     "title": "THE TURN IS A QUIET CONVERSATION",
+     "applied": "the small scene that turns everything. The surviving sibling becomes a co-founder of the city, and the only characterisation the opening ever gives them is that they used to carry somebody up a hill."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "the_quiet",
+   "beats": 4,
+   "why": "let the two memories sit before the last line. The pause is what makes the last line read as a decision rather than a sentiment."
+  },
+  {
+   "kind": "say",
+   "id": "looking_at_it",
+   "speaker": "mother",
+   "draft": true,
+   "text": "Everything we build down there, {sibling_lost} is up here looking at it.",
+   "why": "*** THE RULING, MADE INTO ONE SENTENCE. *** 7/19: \"the first time you ever see Bohemia's beauty, you see it through tears, over a fresh grave. The city's beauty is bound to loss from the first frame, and you can never take that view again without the grave in the foreground.\" And: THE RIDGE = THE MENU / TITLE SCREEN, forever, upgrading per act. This line is the hinge between the two: it is the first time anybody says the family is going to BUILD something, it is said over a grave, and it makes the title screen a promise somebody made out loud. EDIT FREELY, but this is the load-bearing one.",
+   "study": [
+    {
+     "id": "Q023.W4",
+     "title": "ENVIRONMENTAL STORYTELLING",
+     "applied": "\"the space testifies.\" The corpus wants places to narrate wordlessly, and this line does not describe the valley at all -- it assigns it a witness. Every future return to this overlook, and every boot of the game, is the space testifying because of one sentence said here."
+    },
+    {
+     "id": "Q080.W8",
+     "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+     "applied": "the game's entire premise arrives as a mother saying something small to her remaining children on a hill. No music cue is asked for, no camera move, nobody agrees with her, and the scene ends four beats later."
+    }
+   ]
+  },
+  {
+   "kind": "wait",
+   "id": "and_that_is_the_tutorial",
+   "beats": 4,
+   "why": "\"THE BURIAL ON THE RIDGE (tutorial ends here)\" (7/19). The opening does not end on a line, it ends on the view, which is the image the player keeps."
+  },
+  {
+   "kind": "end",
+   "id": "burial_ends",
+   "why": "control returns. His law ends the tutorial here, so this is the last beat of the authored opening and everything after it is the game."
+  }
+ ]
+}

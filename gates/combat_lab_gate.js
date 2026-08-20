@@ -3176,11 +3176,15 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
        byte-identical inside it -- R.max*rangeMult() is untouched -- so V98's law
        is unchanged; it is now wrapped by a ceiling that binds in daylight and
        does not bind after dark, which is exactly the right way round. */
-    /function maxRange\(R\)\{ return Math\.min\(REACH_CEIL, Math\.max\(PT_BLANK\+2, R\.max\*rangeMult\(\)\)\); \}/.test(demo) &&
+    /* V169 RE-POINTED: maxRange takes an OPTIONAL multiplier now, so the OPEN
+       BOOK can ask it for the rule instead of tonight's weather. V98's law is
+       still byte-identical -- with no argument it is rangeMult(), exactly as
+       before -- and the ceiling still wraps it. */
+    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(REACH_CEIL, Math\.max\(PT_BLANK\+2, R\.max\*k\)\); \}/.test(demo) &&
     /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
 
   ok('V160 THE CEILING IS ONE DOOR: every reach in the game -- yours, theirs, the sniper\'s and the V151 floor that hands him the edge over the field -- comes through maxRange, so a number added anywhere else cannot route around sight. His V151 ruling still stands underneath it: he outranges the field, he just cannot outrange his own eyes',
-    (demo.match(/function maxRange\(R\)\{/g) || []).length === 1 &&
+    (demo.match(/function maxRange\(R,mult\)\{/g) || []).length === 1 &&
     /Math\.min\(REACH_CEIL,/.test(demo) &&
     /function inHisRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(foeRange\(e\)\); \}/.test(demo));
 
@@ -4610,6 +4614,31 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V169 THE OPEN BOOK (RF4-55, machine 7) ====================
+   "Deterministic AI plus published rules equals A GAME ABOUT KNOWLEDGE."
+   The BEHAVIOUR -- the page a player actually reads, and whether it says what
+   the game does -- is measured in a real browser by fight_moves_you_gate. What
+   is pinned here is the shape and the two disciplines that keep it honest. */
+  ok('V169 EVERY NUMBER IS INTERPOLATED FROM THE CONSTANT THAT GOVERNS THE BEHAVIOUR, never typed beside it. A published rule that can drift from the code is not stale, it is a LIE told to the player who trusted it',
+    /L\.push\('A GUN NEEDS '\+ACQ_TURNS\+' TURNS ON YOU/.test(demo) &&
+    /L\.push\('YOU SEE '\+SIGHT_TILES\+' TILES\. NOTHING SHOOTS PAST '\+REACH_CEIL/.test(demo) &&
+    /L\.push\('A MAN WHO SEES YOU TELLS EVERYONE WITHIN '\+SHOUT_TILES\+' TILES/.test(demo) &&
+    /L\.push\('SPEED REFILLS EVERY '\+SP_TICK\+'TH TURN/.test(demo) &&
+    /ENC_SIZES\[0\]\+' TO '\+ENC_SIZES\[ENC_SIZES\.length-1\]/.test(demo) &&
+    /for\(const k of Object\.keys\(WEAPON_RANGE\)\)L\.push\(gun\(k,WEAPON_RANGE\[k\]\)\);/.test(demo));
+
+  ok('V169 AND THE GUN BAND GOES THROUGH THE SAME TWO DOORS THE FIGHT USES, asked with the night multiplier set aside so the page states the RULE rather than tonight\'s weather. Writing the clamp out a second time here would BE the drift this feature exists to prevent',
+    /const gun=\(k,R\)=>.*effRange\(R,1\).*maxRange\(R,1\)/.test(demo) &&
+    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult;/.test(demo) &&
+    /function effRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult;/.test(demo));
+
+  ok('V169 RF4-68 IS A PROCEDURE, NOT A PREFERENCE: "tell them what they cannot derive, hint at what they could, SHOW them what the room can demonstrate, never explain something the floor could have shown." The three mechanics the floor already teaches are absent from the page and the reason is written where the next session will read it',
+    /NEVER EXPLAIN SOMETHING THE FLOOR/.test(demo) &&
+    !/openBookLines[\s\S]{0,1800}orthogonal/i.test(demo));
+
+  ok('V169 AND THE STANDING OBLIGATION IS RECORDED, from RF4-55\'s own column: determinism "buys depth on first contact and SPENDS IT OVER TIME", so publishing is not a row that closes -- every future rule a player cannot derive belongs on this page',
+    /SPENDS IT OVER TIME/.test(demo) && /new deterministic rules must keep\s*\n?\s*arriving/.test(demo));
+
 /* ===== V168 THE SPOTTER (RF4-37, the other half) =================
    "PRIORITY TARGETS ARE THE CORE PUZZLE... ignore the nearest enemies and
    manoeuvre into position to kill the Priority-Target who is often hiding in the
@@ -4882,7 +4911,10 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
        either of them can ever be at. RUN, not read: a gun cannot want to fight
        further than it can shoot. */
     const grab = (name) => {
-      const a = demo.indexOf('function ' + name + '(R){');
+      /* V169: the signature gained an optional multiplier, so the grab looks
+         for the NAME and an open paren rather than an exact argument list --
+         which is what it was always actually trying to find. */
+      const a = demo.indexOf('function ' + name + '(R');
       return a > 0 ? demo.slice(a, demo.indexOf('}', demo.indexOf('return', a)) + 1) : '';
     };
     /* BOTH doors, because effRange is only meaningful as the one that cannot

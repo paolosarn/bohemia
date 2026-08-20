@@ -36,6 +36,7 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 const S = require('../engine/bohemia_scene.js');
+const LAWS_IDX = JSON.parse(fs.readFileSync('records/BOHEMIA_QUESTBOOK_LAW_INDEX.json', 'utf8')).laws;
 const RT = require('../engine/bohemia_quest_runtime.js');
 const BQ = require('../engine/bohemia_bq.js');
 const parseBQ = BQ.parse || Object.values(BQ).find(v => typeof v === 'function');
@@ -271,6 +272,174 @@ ok('the story surface RESOLVES the line rather than printing the authored token'
   /fillNames\(b\.text/.test(surf) && !/text: b\.text \|\| ''/.test(surf));
 ok('and it takes the family\'s names from FAMILY_CAST, owning none itself',
   /FAMILY_CAST/.test(surf) && /survivesIf/.test(surf));
+
+/* ---- 3d. BEAT 3 OF HIS LOCKED OPENING: THE BURIAL ON THE RIDGE (8/19) -----
+   His 7/19 law calls the sequence CRYSTALLIZED and lists three beats: NIGHT
+   RAID, THE GRIEF DINNER, THE BURIAL ON THE RIDGE ("tutorial ends here").
+   Scenes 1 and 2 shipped 8/9-8/11. Beat 3 was never built, and scene 2 ended
+   with the mother saying "We go up in the morning" -- a promise the game had
+   nothing to keep. Meanwhile the vista shipped and plays with NO grave and NO
+   family, which is his thesis exactly backwards: "the first time you ever see
+   Bohemia's beauty, you see it through tears, over a fresh grave." */
+const RIDGE_PATH = 'records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json';
+ok('beat 3 of the locked opening sequence exists at all', fs.existsSync(RIDGE_PATH));
+if (fs.existsSync(RIDGE_PATH)) {
+  const ridge = JSON.parse(fs.readFileSync(RIDGE_PATH, 'utf8'));
+  ok('the burial is a legal scene', S.validate(ridge).length === 0);
+  const rCite = (ridge.cites || '').match(/laws\/[A-Za-z0-9_./]+\.md/);
+  ok('and it cites the ruling it was authored from, on disk',
+    !!rCite && fs.existsSync(rCite[0]));
+
+  /* THE CHAIN. A scene nothing leads to is the vista's own bug wearing a
+     different hat: built, armed, zero callers. */
+  const grief2 = JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8'));
+  const link = (grief2.beats || []).find(b => b.kind === 'handoff' && b.scene === ridge.id);
+  ok('THE GRIEF DINNER LEADS TO IT — the opening is one unbroken chain, 1 -> 2 -> 3',
+    !!link);
+  ok('and the tutorial ends there rather than coming back (his law: "tutorial ends here")',
+    !!link && link.returns === false);
+
+  /* THE REVEAL IS WORDLESS. His match-cut shows the apocalypse "without a word";
+     the valley gets the same. A line over the reveal is the game telling the
+     player how to feel about the view. */
+  const rb = ridge.beats;
+  const camAt = rb.findIndex(b => b.kind === 'camera');
+  const firstSay = rb.findIndex(b => b.kind === 'say');
+  ok('the full-scope valley reveal exists as its own framing beat', camAt >= 0);
+  ok('and NOBODY SPEAKS OVER IT — the reveal is silent, then people talk',
+    camAt >= 0 && firstSay > camAt &&
+    rb.slice(camAt, firstSay).some(b => b.kind === 'wait' && b.beats >= 4));
+
+  /* THE RULE OF THREE IS SPENT. The green-ones bit ran plant/repeat/break across
+     the first two scenes. A fourth instance here would cheapen the one that
+     lands at the grief dinner. */
+  ok('the green-ones bit is NOT called back a fourth time — three was the joke',
+    !rb.some(b => b.kind === 'say' && /green ones/i.test(b.text || '')));
+
+  /* WORDS: drafted, cited, no filler, spanning the corpus. */
+  const rSays = rb.filter(b => b.kind === 'say');
+  ok('the burial speaks (' + rSays.length + ' lines), every one a tagged draft',
+    rSays.length >= 3 && rSays.every(b => b.text && b.draft === true));
+  const rStudies = {}, rMasters = {}, rBad = [];
+  rSays.forEach(b => {
+    if (!b.study || b.study.length < 2) { rBad.push(b.id + ' (<2)'); return; }
+    b.study.forEach(c => {
+      const e = LAWS_IDX[c.id];
+      if (!e) { rBad.push(b.id + ' -> ' + c.id + ' unresolved'); return; }
+      if (String(e.title).trim() !== String(c.title).trim()) rBad.push(b.id + ' -> ' + c.id + ' not verbatim');
+      if (String(c.applied || '').trim().length < 40) rBad.push(b.id + ' -> ' + c.id + ' thin');
+      rStudies[e.study] = 1; rMasters[e.kind] = 1;
+    });
+  });
+  ok('every burial line cites the catalogue, verbatim, applied (' +
+    Object.keys(rStudies).length + ' studies, ' + Object.keys(rMasters).length + ' masters)',
+    rBad.length === 0 && Object.keys(rStudies).length >= 2 && Object.keys(rMasters).length >= 2,
+    rBad.slice(0, 3).join(' | '));
+
+  /* STRUCTURE IS STILL HIS. */
+  ok('the burial decides no casualty either',
+    !rb.some(b => b.dies === true || b.casualty || b.kills || (b.kind === 'actor' && b.state === 'dead')));
+  ok('and it does not resolve whether the father is on that hill — his call, and ' +
+    'the DIRECT tab is where it gets made',
+    !rb.some(b => b.kind === 'actor' && b.actor === 'father'));
+  ok('her name comes from the same one place (the token, not a copy)',
+    rb.some(b => b.kind === 'say' && /\{sibling_lost\}/.test(b.text || '')) && !ridge.cast);
+
+  /* *** AND IT MUST NOT BE DRAWN WRONG. *** The cutscene surface builds an
+     INTERIOR -- walls, floor, baseboard, window, table, bodies posed sit-chair.
+     Handed an outdoor burial it silently generated the family's living room and
+     sat three people down at dinner. Rendered and looked at, which is the only
+     way that was ever going to be caught. */
+  ok('the burial DECLARES that its set art does not exist yet',
+    typeof ridge.needsArt === 'string' && ridge.needsArt.length > 8);
+  const surf2 = fs.readFileSync('engine/bohemia_story_surface.js', 'utf8');
+  ok('and the surface HONOURS that with an empty frame instead of the wrong room',
+    /this\.blank = this\.scene\.needsArt/.test(surf2) && /NO SET ART YET/.test(surf2));
+}
+
+/* ---- 3e. THE OPENING IS A SEQUENCE, AND IT PLAYED ONE THIRD OF ONE (8/19) --
+   His law: "The pieces fuse into ONE UNBROKEN SEQUENCE: 1. NIGHT RAID ...
+   2. THE GRIEF DINNER ... 3. THE BURIAL ON THE RIDGE (tutorial ends here)."
+   The opening runner played scene 1 and called openDone, so beats 2 and 3 had
+   never happened in the played game -- they were chips in a dev tab. */
+const ALPHA_SRC = fs.existsSync('slices/BOHEMIA_ALPHA_0_9.html')
+  ? fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8') : '';
+ok('the opening runner reads what a scene says comes next',
+  /function openNext\(/.test(ALPHA_SRC));
+ok('and every scene of the sequence is played by the SAME code path (openPlay)',
+  /function openPlay\(/.test(ALPHA_SRC) && /openHandoff[^]{0,900}return openPlay\(nxt\)/.test(ALPHA_SRC));
+ok('every scene it plays gets HIS DIRECT edits, not only the first one',
+  /function openDirected\(/.test(ALPHA_SRC));
+
+/* *** THE ONE THAT MATTERS: IT MUST NOT SKIP THE RAID. *** The cold open hands
+   off to COMBAT, where the sibling is taken. MEASURED 8/19: startColdOpen has
+   exactly ONE occurrence in the alpha -- its own definition -- and ZERO callers,
+   so the raid has never been played from anywhere and the death the entire
+   opening is built on does not happen in the played game. Auto-advancing past a
+   combat handoff would seat the family at the grief dinner mourning somebody the
+   player never saw die, which is worse than stopping. */
+ok('a handoff to another SCENE chains, and anything else stops the sequence',
+  /h\.to *=== *'scene'/.test(ALPHA_SRC) && !/h\.to *!== *'scene'[^]{0,80}openPlay/.test(ALPHA_SRC));
+ok('and there is a published seam to resume it once the raid is wired (openContinue)',
+  /function openContinue\(/.test(ALPHA_SRC));
+
+/* THE COMBAT SEAM IS REAL BUT UNCALLED, and that is the demo's biggest hole.
+   This asserts the seam EXISTS (so the chain is wireable) without asserting it
+   is called, because it is not, and a gate that lies about that helps nobody. */
+const callers = (ALPHA_SRC.match(/startColdOpen\(/g) || []).length;
+ok('the raid COMBAT published is still callable by name (' + callers + ' occurrence' +
+  (callers === 1 ? ', its definition only — NOBODY CALLS IT, the raid never plays' : 's') + ')',
+  /function startColdOpen\(/.test(ALPHA_SRC));
+
+/* A SCENE SAYS WHEN IT IS. The caption was hardcoded to two values, so the
+   morning after the raid was captioned "ten years later" on both surfaces. */
+ok('a scene can say WHEN it is, and both surfaces read it',
+  /scene\.when/.test(ALPHA_SRC) && (ALPHA_SRC.match(/\.when/g) || []).length >= 2);
+if (fs.existsSync(GRIEF_PATH)) {
+  const g3 = JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8'));
+  const r3 = fs.existsSync(RIDGE_PATH) ? JSON.parse(fs.readFileSync(RIDGE_PATH, 'utf8')) : {};
+  ok('and the two scenes after the cut actually say so (' + (g3.when || '?') + ' / ' +
+    (r3.when || '?') + ')', !!g3.when && !!r3.when);
+}
+
+/* ---- 3f. THE RAID ACTUALLY RUNS NOW (8/20) --------------------------------
+   startColdOpen(onEnd) sat in the alpha from 8/8 with exactly ONE occurrence,
+   its own definition. The family-defense encounter -- the combat tutorial, the
+   raid, the scene the sibling is killed in -- had never been played from
+   anywhere, so the game went warm dinner -> cut -> "get to the back door" ->
+   wake up on day 1 and get a job. The death the whole opening is built on did
+   not happen, which made the grief dinner mourn nothing and the burial bury
+   nobody. Twelve days, every gate green. */
+ok('the opening HONOURS a combat handoff instead of ending on it',
+  /function openHandoff\(/.test(ALPHA_SRC) && /function openRaid\(/.test(ALPHA_SRC));
+ok('and it calls the seam by the name THE SCENE declares, never a hardcoded one',
+  /window\[h\.call\]/.test(ALPHA_SRC) && !/openRaid[^]{0,400}startColdOpen\(/.test(ALPHA_SRC));
+ok('it switches the surface with the alpha\'s OWN switcher, not a second one',
+  /showTabPanel\('combat'\)/.test(ALPHA_SRC) && /showTabPanel\('run'\)/.test(ALPHA_SRC));
+ok('IT FAILS SAFE: no seam, no switcher, or a throw, and the opening just ends ' +
+  'the way it did before', /typeof fn !== 'function'\) return false/.test(ALPHA_SRC) &&
+  /typeof showTabPanel !== 'function'\) return false/.test(ALPHA_SRC));
+ok('and it does not invent a second handoff path — cityEncounterIn\'s shape is ' +
+  'cited and mirrored', /cityEncounterIn/.test(ALPHA_SRC));
+
+/* *** A returns:true HANDOFF THAT NAMES NOTHING TO RETURN TO STOPS ON SUCCESS. ***
+   Found by driving it: the raid fired, and the resume read the cold open's
+   handoff, saw to:'combat', found nothing to chain, and ended the opening. The
+   grief dinner would never have played AFTER the fight -- and it would have
+   shipped green, because until this turn the raid had never run far enough for
+   the resume path to be reached at all. */
+const hoff = cold.beats.find(b => b.kind === 'handoff');
+ok('the cold open\'s handoff names what plays when the raid comes back (then: ' +
+  ((hoff && hoff.then) || 'NOTHING') + ')', !!(hoff && hoff.returns === true && hoff.then));
+ok('and that scene really exists in the catalogue',
+  !!(hoff && hoff.then) && fs.existsSync(GRIEF_PATH) &&
+  JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8')).id === hoff.then);
+ok('openContinue reads `then`, so resuming from a fight goes somewhere',
+  /h\.then \|\|/.test(ALPHA_SRC));
+/* every returns:true handoff, not just this one */
+const dangling = cold.beats.filter(b => b.kind === 'handoff' && b.returns === true && !b.then);
+ok('no handoff promises to return and names nowhere to return to',
+  dangling.length === 0, dangling.map(b => b.id).join(' '));
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);

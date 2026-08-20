@@ -113,11 +113,76 @@ function openWhich(){
 }
 function openScene(){
   var c = openWhich(); if(!c) return null;
-  var id = 'scene:' + c.scene.id;
-  /* HIS VERSION FIRST. DIR is the DIRECT tab's store; it only has a row for a
-     scene he has actually touched, so canon is the honest default. */
-  try { if(typeof DIR !== 'undefined' && DIR && DIR[id]) return DIR[id]; } catch(_e){}
-  return c.scene;
+  return openDirected(c.scene);
+}
+/* HIS VERSION FIRST. DIR is the DIRECT tab's store; it only has a row for a
+   scene he has actually touched, so canon is the honest default. Pulled out of
+   openScene so EVERY scene the sequence plays gets his edits, not only the
+   first one -- the day this played a second scene, a version that only
+   respected DIRECT for the opener would have quietly shipped canon over the
+   top of his rewrites. */
+function openDirected(sc){
+  if(!sc) return null;
+  try { if(typeof DIR !== 'undefined' && DIR && DIR['scene:' + sc.id]) return DIR['scene:' + sc.id]; }
+  catch(_e){}
+  return sc;
+}
+function openSceneById(id){
+  var all = (typeof BOHEMIA_CUTSCENES !== 'undefined') ? BOHEMIA_CUTSCENES : [];
+  for(var i=0;i<all.length;i++) if(all[i] && all[i].scene && all[i].scene.id === id)
+    return openDirected(all[i].scene);
+  return null;
+}
+
+/* ---- THE OPENING IS A SEQUENCE, NOT A SCENE -----------------------------
+   *** HIS LAW CALLS IT ONE UNBROKEN SEQUENCE AND THIS PLAYED ONE THIRD OF IT. ***
+   laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md: "The pieces fuse into
+   one unbroken sequence: 1. NIGHT RAID ... 2. THE GRIEF DINNER ... 3. THE
+   BURIAL ON THE RIDGE (tutorial ends here)." This runner played scene 1 and
+   called openDone, so beats 2 and 3 have never happened in the played game --
+   they existed only as chips in a dev tab.
+
+   A scene says what follows it, in its own handoff beat, and this now READS
+   that instead of assuming there is nothing after.
+
+   *** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+   The cold open hands off to COMBAT (the raid, where the sibling is taken).
+   MEASURED 8/19: startColdOpen has exactly ONE occurrence in the alpha, its own
+   definition, and ZERO callers -- so the raid has never been played from
+   anywhere, which is why the death the whole opening is built on does not
+   happen in the played game. Advancing past a combat handoff would seat the
+   family at the grief dinner mourning somebody the player never saw die, which
+   is worse than stopping. So the sequence pauses at a handoff it cannot make,
+   and openContinue() is the published seam for whoever wires the fight to
+   resume it -- the same courtesy COMBAT did this lane by exposing
+   startColdOpen(onEnd) for the scene to name. */
+function openNext(sc){
+  if(!sc || !sc.beats) return null;
+  for(var i=0;i<sc.beats.length;i++){
+    var b = sc.beats[i];
+    if(b && b.kind === 'handoff') return b;
+  }
+  return null;
+}
+/* resume the authored sequence after whatever the handoff went out to. Safe to
+   call with nothing pending; safe to call twice. */
+function openContinue(fromId){
+  var sc = fromId ? openSceneById(fromId) : (OPEN_PLAYER && OPEN_PLAYER.scene);
+  var h = openNext(sc);
+  if(!h) return false;
+  /* `then` is what plays when a handoff COMES BACK; `scene` is what a
+     scene-to-scene handoff goes straight to. The first cut read only `scene`,
+     so resuming from the raid looked at a handoff whose target was COMBAT,
+     found nothing to chain, and ended the opening -- the grief dinner would
+     never have played after the fight. It went unnoticed because until this
+     turn the raid had never run at all, so the resume path had never been
+     reached. A returns:true handoff that names nothing to return to is a
+     sequence that stops on success. */
+  var want = h.then || (h.to === 'scene' ? h.scene : null);
+  if(!want) return false;
+  var nxt = openSceneById(want);
+  if(!nxt) return false;
+  return openPlay(nxt);
 }
 
 /* *** A FRESH PLAYER ALREADY HAS A SAVE, AND THAT IS NOT A BUG. *** The first
@@ -158,7 +223,7 @@ function openCaption(s, ended){
   var L = s && s.line;
   if(!L || !L.text){
     cap.innerHTML='<span style="color:#6f6552;letter-spacing:2px">'+
-      ((s && s.era==='pre_collapse') ? 'BEFORE' : 'TEN YEARS LATER')+'</span>';
+      (((s && s.scene && s.scene.when) ? String(s.scene.when).toUpperCase() : null) || ((s && s.era==='pre_collapse') ? 'BEFORE' : 'TEN YEARS LATER'))+'</span>';
     return;
   }
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
@@ -236,20 +301,122 @@ function openStart(){
   cutBoot(function(){
     var sc=openScene();
     if(!sc){ openDone(); return; }
-    OPEN_PLAYER=new BohemiaStorySurface.Story({
-      canvas:cv, set:BohemiaColdOpenSet, scene:sc, runtime:BohemiaScene,
-      stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
-      paintBody:cutPaintBody, speak:cutVoice,
-      onBeat:function(r,s){ openCaption(s); },
-      onEnd:function(s){ openCaption(s,true); setTimeout(openDone, 900); }
-    });
-    if(typeof CUT_FRAMES!=='undefined' && CUT_FRAMES) OPEN_PLAYER.frames=CUT_FRAMES;
-    OPEN_PLAYER.loadTiles(function(){
-      function go(){ try{ OPEN_PLAYER.start(); }catch(_e){ openDone(); } }
-      if(OPEN_PLAYER.frames && Object.keys(OPEN_PLAYER.frames).length) go();
-      else OPEN_PLAYER.bake(go);
-    });
+    openPlay(sc);
   });
+}
+
+/* ---- WHAT A SCENE HANDS OFF TO ------------------------------------------
+   Returns true if it has taken responsibility for what happens next. False
+   means nothing follows and the opening is over -- the caller ends it, so a
+   handoff this cannot honour can never silently look like a finished sequence.
+
+   *** THE RAID HAD NO CALLER FOR TWELVE DAYS. *** startColdOpen(onEnd) has been
+   sitting in the alpha since 8/8 with exactly one occurrence -- its own
+   definition. The family-defense encounter is the combat tutorial, the raid, and
+   the scene the sibling is killed in, and it had never been played from
+   anywhere: the game went warm dinner -> cut -> "get to the back door" -> you
+   wake up on day 1 and get a job. The death the whole opening is built on did
+   not happen, which made the grief dinner mourn nothing and the burial bury
+   nobody.
+
+   IT DOES NOT INVENT A HANDOFF PATH. cityEncounterIn() has done this exact
+   dance for weeks -- show the combat panel, make sure the frame exists, wait for
+   it, then start the encounter -- and its own comment says why a second one
+   would be wrong: "A second handoff path is the duplicate-system mistake this
+   repo keeps paying for." So this mirrors that shape, calls the function COMBAT
+   published for the scene to name, and switches the surface with showTabPanel,
+   which is the alpha's own public switcher.
+
+   IT FAILS SAFE. No seam, no tab, or a throw anywhere in it, and this returns
+   false so the opening simply ends the way it did yesterday. The demo can never
+   be worse off than before this existed. */
+function openHandoff(h, fromId){
+  if(!h) return false;
+  if(h.to === 'scene' && h.scene){
+    var nxt = openSceneById(h.scene);
+    if(!nxt) return false;
+    return openPlay(nxt);
+  }
+  if(h.to === 'combat' && h.call) return openRaid(h, fromId);
+  return false;
+}
+
+/* the fight is not a cutscene, so the overlay stands down for it and the
+   sequence resumes when the encounter settles. */
+function openRaid(h, fromId){
+  var fn = (typeof window !== 'undefined') ? window[h.call] : null;
+  if(typeof fn !== 'function') return false;
+  if(typeof showTabPanel !== 'function') return false;
+  openHideOverlay();
+  openMarkSeen();               /* he has seen the opening; it must not replay */
+  OPEN_RUNNING = false;
+  var resumed = false;
+  function resume(){
+    if(resumed) return; resumed = true;
+    try{ showTabPanel('run'); }catch(_e){}
+    setTimeout(function(){
+      try{ if(!openContinue(fromId)) openDone(); }catch(_e){ openDone(); }
+    }, 500);
+  }
+  try {
+    showTabPanel('combat');
+    /* the frame may not exist yet; clicking the tab is what builds it, and the
+       generic data-src promoter runs off the same click. Same order
+       cityEncounterIn uses, for the same reason. */
+    var tab = document.querySelector('.tab[data-p=combat]');
+    if(!document.getElementById('combatFrame') && tab) tab.click();
+    var fr = document.getElementById('combatFrame');
+    var go = function(){ try{ fn(resume); }catch(_e){ resume(); } };
+    if(!fr) { go(); return true; }
+    if(fr.contentDocument && fr.contentDocument.readyState === 'complete') setTimeout(go, 250);
+    else fr.addEventListener('load', function(){ setTimeout(go, 250); });
+    return true;
+  } catch(_e){ return false; }
+}
+
+/* fade the overlay WITHOUT ending the sequence. openDone does this and also
+   marks the opening finished; the raid needs only the first half. */
+function openHideOverlay(){
+  var w=document.getElementById('openWrap'); if(!w) return;
+  try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
+  w.style.transition='opacity .45s'; w.style.opacity='0';
+  setTimeout(function(){ w.style.display='none'; w.style.opacity='1'; w.style.transition=''; }, 460);
+}
+
+/* PLAY ONE SCENE OF THE SEQUENCE. Pulled out of openStart so the second and
+   third beats are played by exactly the same code as the first -- a sequence
+   whose later scenes go through a different path is a sequence where only the
+   first one is really tested. */
+function openPlay(sc){
+  var cv=document.getElementById('openCv');
+  if(!sc || !cv) { openDone(); return false; }
+  try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
+  OPEN_RUNNING=true;
+  var w=document.getElementById('openWrap');
+  if(w) w.style.display='flex';
+  OPEN_PLAYER=new BohemiaStorySurface.Story({
+    canvas:cv, set:BohemiaColdOpenSet, scene:sc, runtime:BohemiaScene,
+    stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
+    paintBody:cutPaintBody, speak:cutVoice,
+    playerSex:(typeof G!=='undefined' && G && G.sex) ? G.sex : 'male',
+    onBeat:function(r,s){ openCaption(s); },
+    /* THE SEQUENCE DECIDES WHAT HAPPENS AT THE END, NOT THE SCENE. If the
+       scene that just finished names another SCENE, play it. If it hands off
+       to something this runner cannot call -- the raid -- stop here rather
+       than skipping to a grief dinner for a death nobody watched. */
+    onEnd:function(s){
+      openCaption(s,true);
+      var h=openNext(sc);
+      setTimeout(function(){ if(!openHandoff(h, sc.id)) openDone(); }, 900);
+    }
+  });
+  if(typeof CUT_FRAMES!=='undefined' && CUT_FRAMES) OPEN_PLAYER.frames=CUT_FRAMES;
+  OPEN_PLAYER.loadTiles(function(){
+    function go(){ try{ OPEN_PLAYER.start(); }catch(_e){ openDone(); } }
+    if(OPEN_PLAYER.frames && Object.keys(OPEN_PLAYER.frames).length) go();
+    else OPEN_PLAYER.bake(go);
+  });
+  return true;
 }
 
 /* *** IT INVITES, IT DOES NOT AMBUSH -- AND THAT IS A DESIGN FIX, NOT A TEST FIX.
