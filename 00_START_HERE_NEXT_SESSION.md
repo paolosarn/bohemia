@@ -1060,90 +1060,91 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/20 LATEST -- *** NOBODY IN THIS GAME HAD EVER REMEMBERED
-SEEING YOU. THEY DO NOW. TAB: RUN -- walk up to anybody and the line above the
-movement pad starts with what they remember of you. ***
+PEOPLE (people-7h9sfy): 8/21 LATEST -- *** THE NUMBER MOVED AND NOBODY HAD SEEN
+ANYTHING. THEY SEE IT NOW, AND THEY TELL EACH OTHER. TAB: RUN -- answer a claim,
+then walk up to somebody who was standing there. The first row of their card says
+SAW. Somebody who was not there, later, says HEARD. ***
 
-engine/bohemia_memory.js is the witness organ: minds hold sightings, familiarity
-slows forgetting, clarity decays as 0.5^(age/halflife), deterministic. Written
-7/19, TEN GREEN CLAIMS in memory_gate for a month. engine/bohemia_standing.js
-sits on top of it, 344 lines, THIRTY-FIVE more green claims. Measured 8/20:
-NEITHER APPEARS IN ANY FILE A PLAYER CAN REACH. Forty-five green assertions about
-people remembering you, and not one person in the game who had ever remembered
-anything. Twelfth built-and-gated-and-unreachable capability this lane has closed.
+engine/bohemia_deeds.js names the flaw in its own opening paragraph, 8/6: "the
+faction standing got applied godlike -- the number moved, valley-wide, instantly,
+and NOBODY HAD SEEN ANYTHING. So today a back-yard handshake and a public
+humiliation in front of a whole block are worth the same." THE CITY WAS COMMITTING
+EXACTLY THAT: you answer a claim to a person's face on a street,
+BohemiaBelonging.adjust moves a valley-wide number, the whole outfit knows
+instantly, and the man standing next to you knows nothing.
+engine/bohemia_standing.js was built for this input on 8/2 -- witness, opinion,
+gossip, hearsay decay, generational inheritance, 35 green claims -- and had no
+caller anywhere. Yesterday this lane wired the witness ORGAN so people can SEE
+you; this wires the DEED, so what they see you DO is a thing they hold and pass on.
 
-*** AND THE GAME HAD ALREADY WRITTEN THE FINDING DOWN. *** xchWorld's own comment,
-dated 8/18: "bohemia_deeds.js and bohemia_standing.js both exist in engine/ and
-NEITHER IS IN THIS FILE (measured 8/18: zero occurrences)". Measured correctly,
-recorded accurately, substituted around with a counter of doors knocked, and left
-true for two days. A FINDING RECORDED IN A COMMENT IS NOT A FINDING FIXED.
+ON THE CARD, first row, sitting directly above "NAME: YOU HAVE NOT ASKED":
+    SAW    watched you turn an outfit down
+A STRANGER WHOSE NAME YOU HAVE NEVER ASKED HAS ALREADY WATCHED YOU DO SOMETHING.
+It leads because it is the only part of the card that is different because of what
+you have DONE; every row below it is true of them on any day.
 
-WHO CAN SEE YOU IS WHO THE GAME ACTUALLY DREW. Witnesses come off BARK_DREW, the
-list peoplePass fills with the bodies it really blitted, positions included. A
-second visibility calculation is a second answer and the two drift; worse, it can
-credit a sighting to somebody who is not on screen.
+AND IT TRAVELS. Measured on the real surface:
+    stood next to you          hops=0   SAW    watched you turn an outfit down
+    sixty cells away           nothing  (no row at all)
+    45 min beside the witness  hops=1   HEARD  heard you turned an outfit down
+In most games every NPC knows everything the instant it happens with no route the
+news could have taken. Here there is a route and the card shows which end of it
+you are looking at.
 
-A RECOGNITION IS NOT A NAME. YOU HAVE TO ASK (7/31) is untouched -- nameOf still
-returns null for a stranger and nothing here prints one. A face is not a name, and
-that gap is exactly the difference between a crowd and a neighbourhood.
+THE WINDOW IS COUNTED IN GAME MINUTES, NOT FRAMES, and that is not a detail.
+Counting frames would mean two neighbours could only talk while the PLAYER stood
+watching them -- wrong about the world and unreachable in practice, because the
+player walks twelve cells a game-minute so 45 minutes of watching is five hundred
+cells of staring at the same two people. Elapsed clock time between passes is
+credited instead. TOGETHER MEANS CONVERSATIONAL DISTANCE (2 cells), NOT SEE_RANGE
+(9): you can watch something happen from nine tiles away, you cannot swap news
+from there. A pair that separates loses its accumulated time rather than banking
+it, which stops two people who merely pass each other daily from eventually
+counting as having had a long conversation.
 
-THE FOUR STATES, measured by winding the REAL clock on the REAL surface:
-    0h   clarity 1.000   has seen you before
-    12h  clarity 0.707   has seen you before
-    20h  clarity 0.561   half-remembers you
-    67h  clarity 0.146   almost places you
-    far enough, below 0.05      NOTHING. A STRANGER AGAIN.
-That last row is the redemption path New Vegas never had (its reputation can only
-be buried, never removed), and a mutation making recognition permanent goes red.
-FAMILIARITY IS A SEPARATE AXIS and counts ENCOUNTERS not frames -- walking past
-somebody for an hour is one encounter; three separate meetings reads "knows you by
-now". All four phrases are DRAFT, in one table (CT_KNOWS), his to rewrite.
+*** WHAT A DEED IS WORTH IS STILL HIS AND THAT IS WHY IT SHIPS EMPTY. ***
+DEED_WEIGHT is blank ("NOTHING IS IN HERE and nothing in this file invents a
+row"), opinionOf returns 0, standingOf returns NEUTRAL, and THE GATE ASSERTS BOTH
+STAY THAT WAY -- if it ever stops being zero without a ruling, some lane invented
+a number he did not give. That is also why the card reads the deed LEDGER instead
+of becauseOf(): becauseOf is a JUDGEMENT query and filters on force, so it returns
+nothing at all while the table is empty, but "he watched you refuse" is a FACT and
+it is true today. The moment he rules ONE row, opinion, standing rungs and the
+faction's whole view of you light up on this same data with NO wiring changed.
 
-DELIBERATELY NOT HERE: no opinion, gossip or standing rung (those are
-bohemia_standing on top of this organ and they need DEEDS), and no mechanical
-bonus for being known, because what recognition is WORTH is a dial.
+THE BOUNDARY IS ASSERTED, NOT PROMISED. Claims, belonging and commitment are the
+FACTIONS lane's (last live 8/18). Nothing here changes what a claim COSTS, who may
+ask, or how belonging moves, and A5 of the gate asserts their adjust() line is
+intact and unchanged. This adds one sentence to the world: AND THESE SPECIFIC
+PEOPLE SAW YOU DO IT.
 
-THREE THINGS THIS GOT WRONG FIRST, all three worth keeping:
-  - A THROTTLE THAT MARKS THE WORK DONE BEFORE DOING IT IS A DROPPED FRAME WITH A
-    RECEIPT. The pass runs once per game-minute and marked the minute BEFORE
-    reading the roster. peoplePass returns early while the sprite bakes, so the
-    boot render left BARK_DREW empty, recorded nobody, and burned the minute --
-    the neighbour TWO CELLS AWAY never saw you until you had walked twelve cells
-    away, which is out of his sight. Found by measuring, not reading.
-  - A WHOLE-REGION REPLACE IS A DELETE PLUS AN INSERT AND I WROTE ONLY THE INSERT.
-    The refresh branch re-appended the store: second run +105 lines, third the
-    same again. Caught by running the tool THREE TIMES and comparing md5. That is
-    now how this tool is checked.
-  - AN ASSERTION THE SCENARIO NEVER EXERCISES PROVES NOTHING. "Nobody outside
-    SEE_RANGE ever witnessed anything" stayed GREEN with the range check DELETED,
-    because only one body is drawn at boot and it is already two cells away. The
-    gate now PLACES a body out of range and one in it and reads the rule off what
-    happens to them. Same family as the threshold bigger than the room.
+THE KIND DOES NOT CARRY THE OUTFIT, on purpose: claim:met / claim:refused, never
+claim:refused:REDS. He weighs an ACT once; a kind per faction grows his table with
+the roster, and a bystander outside that outfit only knows you turned somebody
+down anyway, which is what the words say. All words are DRAFT, in one table
+(CT_DEED_WORDS).
 
-MEASURED AND WORTH KNOWING: 298 people in the valley, 298 distinct record ids,
-ZERO collisions -- so p.id is safe as a mind key. The __CITY_VALLEYKEY__ comment
-warning about shared ids is about the AGENT id from ctAgent, a different id. Both
-comments are right about different things; I measured rather than picking one.
-
-gates: CITY MEMORY 23/0 (new, registered 302 of 400), city_talk 18, city_people 18,
-memory 10, standing 35, quirk 38 -- all green alongside the WORLD lane's sidewalk
-and mob work in the same file. Tool idempotent, md5-identical over three runs.
-Mutation-proved four ways with arrival verified in the file under test each time.
-records/BOHEMIA_THE_BLOCK_KNOWS_YOUR_FACE_8_20_26.md
+gates: CITY DEEDS 20/0 (new, registered 303 of 402), CITY MEMORY 23, city_talk 18,
+standing 35, memory 10 -- all green on the merged tree. Tool idempotent on the
+FIRST try, md5-identical over three runs (the memory tool shipped with the
+delete-half-missing bug yesterday, so this one carried the region marker from the
+start). Mutation-proved three ways with arrival verified in the file under test
+each time: gossip with no window -> 2 red; witness everyone regardless of distance
+-> 4 red, including SAW and HEARD collapsing into the SAME SENTENCE; fire the deed
+on an unresolved claim -> 1 red.
+records/BOHEMIA_THE_NUMBER_MOVED_AND_NOBODY_SAW_8_20_26.md
 
 WHAT COMES NEXT:
-  1. *** DEEDS. THIS LANE'S, AND IT IS THE NEXT ONE. *** The organ now records
-     that people SAW you. It cannot record what they saw you DO, because the
-     walked city has no act big enough to judge. bohemia_standing.js is written,
-     gated and waiting for exactly that input, and bohemia_deeds.js already turns
-     a quest outcome into an audience via the corpus's own #quiet/#reckless tags.
-     BOUNDARY: commitments and the wall are the FACTIONS lane's (their
-     __CITY_STANDING__ / whoHears block); they were last live 8/19. The witness
-     organ and the memory key are this lane's.
-  2. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
+  1. *** THE THIRD ACT WORTH JUDGING. THIS LANE'S. *** Claims and commitments are
+     wired. The other real choice on that card is the FAVOUR -- asking somebody
+     for something -- and it is one ctDeed() line once somebody decides whether
+     ASKING is a deed at all. Beyond that: bohemia_deeds.js can make a deed LOUDER
+     or quieter from a quest's own #quiet/#reckless tag (reach and hops read from
+     his CLOUT_WEIGHTS), and nothing on the walked surface carries a tag yet.
+  2. *** THE DIAL, AND IT IS HIS. *** One DEED_WEIGHT row turns all of this from
+     "they remember" into "they judge". Nothing should invent it.
+  3. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
-  3. NO FIGHT ON THE WALKED SURFACE -- the startEncounter hits in the city are
-     comments. RUN + COMBAT.
   4. THE RIDGE EXTERIOR -- the one genuinely missing picture, and the only scene
      still carrying an honest needsArt. ART's.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
