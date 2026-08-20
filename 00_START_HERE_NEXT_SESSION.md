@@ -36362,3 +36362,29 @@ no money is a very large room full of machines that do nothing).
 THE SPLIT THAT PROVES THE DIAGNOSIS: strip and strip_x SURVIVED as CBB in
 the same sitting. The Strip as a SHAPE reads; the INSTITUTION inside it
 is empty.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/20 (e) — HAIR ROUND 4: 2 KEEP, 13 KILL, 21 UNJUDGED,
+AND HIS NOTE IS THE WHOLE FINDING. Record: records/BOHEMIA_VERDICT_HAIR_
+ROUND4_8_20_26.txt; all 13 kills in the graveyard with one shared
+post-mortem. KEEP: TEMPLE TAPER, SHAG.
+HIS WORDS: "east and west hairstyles look like absolute dog shit ACROSS
+THE BOARD." He killed 13 of 15 judged — 87% — and named the cause in the
+same breath. ACROSS THE BOARD means ONE RENDER DEFECT JUDGED THIRTEEN
+TIMES, not thirteen taste calls.
+*** AND IT WAS ALREADY IN THE CHARACTER LANE'S OWN GATE. gates/hair_gate
+.js says, unprompted: "the PROFILE is where a mohawk's ridge, a
+ponytail's tail and a fringe's depth actually read, AND IT IS WHERE THE
+STRIP BUG I RECORDED STILL LIVES." Documented, written into the gate's
+reasoning, never fixed — then fifteen styles were judged through it. ***
+THE KILLS STAND (graveyard is final, notes are rulings; nothing re-opens
+a verdict). ROUTED: CHARACTER P0-PROFILE, top of that lane's queue, all
+hair behind it. HARD HOLD ON THE 21 UNJUDGED — no ballot until E/W
+renders right, per the 8/16 rule that a bad keep rate indicts the
+GENERATOR and not his taste. When it is fixed, show him ONE head in
+profile and let him confirm the view before anything else is queued.
+ALSO CORRECTED: CLAUDE.md's hair-law summary tagged the fade-to-skin
+blend [UNBUILT]; the 8/1 law says BUILT 8/1/26 (a density ramp in the
+same texSkip that draws a cornrow). Stale line in the file every session
+reads first — fixed, and the four fades are held by the E/W defect like
+everything else, not by the fade.

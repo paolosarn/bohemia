@@ -1,0 +1,68 @@
+BOHEMIA — VERDICT: HAIR, ROUND 4 (Paolo, 8/20/26)
+
+KEEP (2):   TEMPLE TAPER · SHAG
+KILL (13):  SUN CROP · DUSK SHAG · ASH SWEEP · SALT CROWN · BUZZ CUT ·
+            CROP · SLICK BACK · BOWL CUT · FRINGE · SHOULDER LENGTH ·
+            LONG LOOSE · WOLF CUT · GREY WISPS
+UNJUDGED (21): LOW FADE · HIGH FADE · FADED CROP · DESERT CURL ·
+            RIDGE STRIP · SHAVED FADE · FLATTOP · POMPADOUR · SIDE PART ·
+            CHIN BOB · MULLET · MOHAWK · LIBERTY SPIKES · HAIR AFRO ·
+            HIGH TOP · HAIR LOCS · CORNROWS · BRAIDED TAIL · PONYTAIL ·
+            TOP KNOT · LOW BUN
+
+HIS NOTE, VERBATIM, AND IT IS THE WHOLE FINDING:
+  "You really need to tell the character chat that east and west
+   hairstyles look like absolute dog shit across the board"
+
+================================================================
+THE KILLS STAND. THE DIAGNOSIS IS SEPARATE.
+================================================================
+All 13 kills are FINAL and graveyarded. GRAVEYARD IS FINAL, no remakes,
+and nothing here re-opens a verdict or asks him to look again. NOTES ARE
+RULINGS: what he said, he said.
+What follows is not an appeal. It is why the NEXT round must not happen
+the same way.
+
+================================================================
+ACROSS THE BOARD MEANS IT IS NOT THE HAIRSTYLES
+================================================================
+He killed 13 of 15 judged — an 87% kill rate — and told us in the same
+breath that the failure is IN TWO SPECIFIC FACINGS, in every style at
+once. That is not fifteen taste calls. That is one render defect being
+judged fifteen times.
+**AND IT WAS ALREADY ON RECORD.** gates/hair_gate.js says it in its own
+comment, unprompted:
+  "the PROFILE is where a mohawk's ridge, a ponytail's tail and a
+   fringe's depth actually read, AND IT IS WHERE THE STRIP BUG I
+   RECORDED STILL LIVES."
+The CHARACTER lane documented a profile-view defect, wrote it into the
+gate's own reasoning, and it was never fixed. He then judged fifteen
+hairstyles through it.
+This is the SWEEP-14 rule landing exactly where it was aimed: **a bad
+keep rate is a statement about the GENERATOR, not about his taste.** He
+has now named the generator defect himself, in plain words.
+
+================================================================
+THE HARD HOLD — THE 21 UNJUDGED DO NOT GO TO A BALLOT
+================================================================
+No hair ballot happens until the east and west facings render correctly.
+Putting 21 more styles in front of him through a view he has just called
+dog shit would spend 21 of the scarcest thing in this project on a bug we
+already know about. The 8/16 rule stands: if the generator cannot produce
+candidates worth judging, THAT is the finding, and the turn's work is the
+generator.
+NOTE ON THE FOUR FADES in the unjudged list (LOW FADE, HIGH FADE, SHAVED
+FADE, FADED CROP): the fade-to-skin blend IS built (his 8/1 law, "BUILT
+8/1/26", a density ramp in the same texSkip that draws a cornrow, capped
+so it never becomes plain skin). CLAUDE.md's one-line summary still tags
+it [UNBUILT] — stale, corrected this turn. They are not blocked by the
+fade; they are blocked by the same E/W defect as everything else.
+
+================================================================
+ROUTING
+================================================================
+- CHARACTER, P0: fix the east and west facings. His words, and your own
+  gate already names the profile strip bug. Everything hair waits behind
+  this, including the 21 unjudged.
+- NOTHING GOES BACK TO PAOLO until a profile view exists that he has not
+  already called dog shit.
