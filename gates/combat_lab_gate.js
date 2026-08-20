@@ -53,8 +53,13 @@ const alpha = fs.readFileSync(ALPHA, 'utf8');
     const n = (alpha.match(new RegExp('const ' + b + "='", 'g')) || []).length;
     ok('THE ALPHA STILL HAS ITS BLOBS: ' + b + ' is declared exactly once (got ' + n + ')', n === 1);
   }
+  /* SEE THROUGH THE WRAPPER (8/20). `const BAKED=\{` stopped matching the day the
+     rig was wrapped as `const BAKED=RIG2X({...})` -- the 2X pass, additive and
+     proved shape-preserving by rig_check_gate -- so a declaration that is right
+     there, exactly once, counted as zero. Third gate today blinded by the same
+     refactor. The invariant is ONE declaration, not one spelling of it. */
   ok('THE ALPHA STILL HAS ITS BLOBS: BAKED, the rig pose data the render base is built from, is declared exactly once',
-    (alpha.match(/const BAKED=\{/g) || []).length === 1);
+    (alpha.match(/const BAKED=\s*(?:[A-Za-z_$][\w$]*\()?\s*\{/g) || []).length === 1);
   /* the city's replacement invariant: it left the alpha, so it has to be THERE */
   ok('THE CITY LEFT THE ALPHA ON PURPOSE AND STILL HAS TO EXIST: CITY_B64 was 35.76 MB of one line and is now a sibling page, so the alpha must point at a file that is really on disk (the split saved the project from a hard GitHub limit ~43 days out)',
     !/const CITY_B64='/.test(alpha) &&
@@ -1943,13 +1948,41 @@ ok('and the app really does hold his OVERWORLD assignments (>= the 7/19 floor of
       netKick / songs.length >= 2 && netHat / songs.length >= 5);
   }
 
-  /* THE DEAD PATH IN THE OVERWORLD, recorded so it cannot be forgotten. It is
-     NOT fixed here: what drives intensity out there is lore and Paolo's call. */
+  /* IT GOT FIXED, AND THE GATE REPORTED THE FIX AS A FAILURE (8/20, RUN lane).
+     This clause recorded a dead path -- "the ONLY thing in the build that ever
+     assigns MUS.layers is the studio preview buttons" -- and pinned it by
+     asserting there was exactly ONE assignment. Then somebody built the caller,
+     a second assignment appeared, and a true clause went red at the very thing
+     it existed to get built. That is A GATE OUTRANKING A RULING, which the
+     craft law names as its own failure mode, and craft_law_gate logged six of
+     them in a single day.
+
+     A RECORDED HOLE IS A TRIPWIRE, NOT A LOCK. Firing was correct; staying
+     wired to "still broken" was not. So the claim now asserts the FIXED state,
+     and it will fire again if the caller is ever removed -- which is the job it
+     was actually hired for. */
   {
     const mus = alpha.indexOf('const MUS={');
-    const assigns = (alpha.match(/MUS\.layers\s*=/g) || []).length;
-    ok('RECORDED, NOT FIXED: in the overworld the kill ladder is unreachable -- MUS.layers starts at 0 and the ONLY thing in the build that ever assigns it is the studio preview buttons, so the four melody-klay creepers can never bloom out there. The driver is lore and Paolo has not ruled it',
-      mus > 0 && alpha.includes('layers:0') && assigns === 1);
+    const km = alpha.indexOf('const KILLMUS={');
+    ok('THE KILL LADDER REACHES THE OVERWORLD: MUS.layers still starts at 0, but '
+      + 'the studio preview buttons are no longer its only writer -- KILLMUS is the '
+      + 'caller, so the melody-klay creepers can bloom in a real fight and not just '
+      + 'under a preview button',
+      mus > 0 && alpha.includes('layers:0') && km > 0 && /window\.KILLMUS\s*=\s*KILLMUS/.test(alpha));
+    /* HIS OWN THRESHOLDS, IN HIS OWN NUMBERS -- 7/3, hats at 2 kills, bass at 4.
+       MECHANISM-MINE / CONTENTS-PAOLO'S: the ladder is mechanism, the rungs are
+       his, and a gate is the only thing that keeps somebody from re-tuning them. */
+    ok('...on HIS 7/3 rungs and nobody else\'s: 4 kills and 2 kills, counted down',
+      /TIERS:\[\[4,4\],\[2,2\],\[0,0\]\]/.test(alpha));
+    /* AND IT LANDS ON THE BAR LINE. A part that arrives halfway through a bar
+       does not read as the music intensifying, it reads as a mistake. */
+    ok('...and it lands the lift at the TOP OF A BAR rather than the instant of '
+      + 'the kill, so intensifying reads as music and not as a glitch',
+      /\(m\.step%16\)===0/.test(alpha));
+    /* and a new fight starts from calm, or the ladder only ever goes up */
+    ok('...and a fresh fight resets it to calm, so the ladder is per-fight and '
+      + 'never a level the run just accumulates',
+      /reset\(\)\{[\s\S]{0,200}?MUS\.layers=0/.test(alpha));
   }
 }
 
@@ -5294,8 +5327,30 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /txt=canReload\(\)\?'RELOAD':\(_altLoaded\?\('SWAP TO '\+_al\.toUpperCase\(\)\):'GO GET ROUNDS'\)/.test(demo) &&
     /if\(canReload\(\)\)return doReload\(\);/.test(demo));
 
+  /* A BYTE BUDGET IS NOT AN INVARIANT (8/20, RUN lane). This was
+     `function doReload(){[\s\S]{0,700}endTurnReturn(false); }` -- a 700-character
+     window -- and on 8/20 somebody added a five-line comment inside doReload
+     about the mag seating. The function still ends the turn; the body just got
+     longer than the window, and a true clause reported false. Widening the
+     number would only move the same tripwire further out, so read the FUNCTION
+     and check its LAST STATEMENT. That is what "costs the turn" means, and it
+     stays true at any length. */
+  const fnBody = (name, src) => {
+    const i = src.indexOf('function ' + name + '(');
+    if (i < 0) return null;
+    let d = 0;
+    for (let k = src.indexOf('{', i); k < src.length; k++) {
+      if (src[k] === '{') d++;
+      else if (src[k] === '}' && --d === 0) return src.slice(i, k + 1);
+    }
+    return null;
+  };
+  const _reload = fnBody('doReload', demo);
+  const _lastStmt = (_reload || '')
+    .replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '')
+    .trim().replace(/\}$/, '').trim().split(/;\s*/).filter(Boolean).pop();
   ok('V157 AND THE RELOAD COSTS THE TURN, exactly like the swap, so scarcity is a decision and never a free button',
-    /function doReload\(\)\{[\s\S]{0,700}endTurnReturn\(false\); \}/.test(demo));
+    !!_reload && _lastStmt === 'endTurnReturn(false)', 'last statement: ' + _lastStmt);
 
   ok('V157 HE CAN SEE WHAT HE HAS LEFT, on the readout he already reads for range -- a resource he cannot see is one he cannot plan around, and this one decides whether he can stay where he is',
     demo.includes('function updAmmoRead(){') &&
