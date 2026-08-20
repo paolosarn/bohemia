@@ -1,3 +1,54 @@
+WORLD (world-9lfjtf): 8/20 (j) LATEST -- *** THE CROSSWALK GAP I REPORTED DOES NOT EXIST,
+AND THE GATE THAT AGREED WITH ME WAS MEASURING ITS OWN BLIND SPOT. No tab changes. ***
+
+I SHIPPED THIS IN 8/20 (h): "the arterial emits ZERO crosswalks... there is not one marked
+crossing in the valley." FALSE. Crossings are emitted, exactly where crossings belong:
+
+    arterial_x  (the INTERSECTION variant)   960 tiles
+    medical                                  643
+    strip                                    368
+    rail                                      79
+    arterial    (plain mid-block run)           0   <- the only one I tested
+
+A plain length of arterial between two junctions SHOULD have no crossing on it. The
+crossings live on arterial_x, the intersection piece, WHICH I NEVER TESTED. I measured one
+variant of one district, found a zero, and generalised it to the whole valley. Confirmed on
+the page: cross_ns is requested 1,993 times in a proper sweep. THERE WAS NEVER A CROSSWALK
+GAP. I INVENTED ONE.
+
+*** AND THE GATE AGREED WITH ME BECAUSE IT SHARED MY BLIND SPOT. *** approved_art_arrives
+listed cross_ns AND perimeter (his 13 approved border walls) as never requested. Both were
+working the whole time. THE SWEEP RENDERED ONE VIEWPOINT PER DISTRICT -- the centre of the
+cell -- and a perimeter wall or a kerb can sit anywhere in a 128-tile plot that does not fit
+in a phone-sized viewport. Re-measured with FIVE viewpoints per cell:
+
+    perimeter        0  ->  22,089
+    cross_ns         0  ->   1,993
+    traffic signals  6 draws -> 99 draws
+
+THE SWEEP'S COVERAGE WAS THE THING BEING MEASURED and I published its shortfall as a fact
+about the game. THIRD TIME IN TWO DAYS that my instrument, not the world, was the broken
+part (the other two: counting a cached canvas instead of the image, and asking the dead one
+of two lookups). THE RULE: A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE
+SHOWN THE INSTRUMENT COULD HAVE SEEN A POSITIVE ONE. Before reporting that something is
+missing, prove your probe can see it when it IS there.
+
+GENUINELY NEVER REQUESTED, after honest coverage (8): roof wallface wallwin pocket_v
+pocket_h shoulder median_h median_v -- all plausibly superseded by the roads drawing
+themselves, and "plausibly" stays a question rather than a conclusion. Plus lane_v and
+cross_ew, byte-identical duplicates the renderer deliberately never asks for (it takes the
+authored member and turns it a quarter turn).
+
+  gates/approved_art_arrives_gate.js   five viewpoints per cell, corrected debt list
+  records/BOHEMIA_PROPER_SIDEWALKS_8_20_26.md   corrected in place
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. The 8 genuinely unused pools: superseded, or a door somebody forgot to open? That is a
+     real question and it is the streets lane's to answer.
+  2. ROAD CELLS (arterial block wall) and drive_network (22->25) are still the other WORLD
+     session's, unchanged.
+  3. MEASURE AT THE SPAWN FIRST, and sweep with enough coverage to have seen the answer.
+
 WORLD (world-9lfjtf): 8/20 (i) LATEST -- *** THE SUBURB HAS ALWAYS HAD SIDEWALKS AND THE
 RENDERER DID NOT KNOW WHAT THEY WERE. TAB: RUN, the street you wake up on. ***
 

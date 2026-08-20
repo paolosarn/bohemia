@@ -46,54 +46,35 @@ function requirePlaywright() {
   return require('playwright');
 }
 
-/* ── THE NAMED SILENCE, measured 8/20, AND THE FIRST VERSION OF THIS LIST WAS WRONG ────
-   I shipped this gate saying "3 of 21 pools draw" and that his harmonized street bank
-   "reaches ZERO of 44,376 road cells". BOTH WERE MY INSTRUMENTATION, NOT THE GAME.
+/* ── THE NAMED SILENCE, AND THE FIRST TWO VERSIONS OF THIS LIST WERE BOTH WRONG ────────
+   V1 counted drawImage calls carrying the raw approved Image. saTex() blits that Image into
+   a canvas ONCE per (pool,variant), caches the canvas and returns THE CANVAS, so on a warm
+   cache eight working pools looked silent. Corrected to count REQUESTS.
+   V2 counted requests correctly and STILL named live pools as silent, because THE SWEEP
+   RENDERED ONE VIEWPOINT PER DISTRICT -- the centre of the cell. A perimeter wall, a kerb
+   or a door can sit anywhere in a 128-tile plot, and one centred phone-sized viewport sees
+   a fraction of it. MEASURED with five viewpoints per cell instead of one:
+       perimeter   0 -> 22,089     his 13 approved border walls, called silent
+       cross_ns    0 ->  1,993     the crossing bars, called silent
+   Both were working the whole time. THE SWEEP\'S COVERAGE WAS THE THING BEING MEASURED, and
+   I published its shortfall as a fact about the game -- the third time in two days that my
+   instrument, not the world, was the broken part. A NEGATIVE RESULT IS A CLAIM ABOUT YOUR
+   INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT COULD HAVE SEEN A POSITIVE ONE.
+   So the sweep renders FIVE points per cell now (four corners and the centre), and what
+   follows is what survives that.
 
-   WHAT I DID WRONG, TWICE, IN ONE GATE:
-   1. I counted drawImage calls carrying the raw approved Image. saTex() blits that Image
-      into a canvas ONCE per (pool,variant), caches the canvas, and returns THE CANVAS -- so
-      after first use the renderer draws a cache entry my counter could not recognise. The
-      texture cache was already warm when the sweep began, so eight working pools looked
-      silent and the three that happened to be first-used during the sweep looked like the
-      only survivors.
-   2. I asked SA_MAP[cell.g] -- a COLOUR lookup -- got null everywhere, and concluded the
-      art was unreachable. There are TWO doors and SA_MAP is the legacy one. The live door
-      is `cell.gArtPool`, an explicit pool named on the cell. MEASURED PROPERLY: of 14,336
-      sampled ground cells in arterial/freeway districts, 7,228 wear `street` and 863 wear
-      `side`. His bank reaches the roads perfectly well.
-   I wrote "a probe that checks one room and reports the house empty is the same disease as
-   the bug it hunts" in this very file, and then did it again. The lesson is not that probes
-   are hard; it is that A NULL FROM ONE LOOKUP IS NOT A FACT ABOUT THE WORLD.
-
-   SO IT COUNTS REQUESTS NOW. Every call to saTex(pool) is the renderer ASKING for that
-   pool, which is door-independent and cache-independent: it cannot be fooled by a warm
-   cache or by which of two lookups is live. That is the honest question -- "does anything
-   in this game ever ask for this art".
-
-   WHAT IS ACTUALLY SILENT (13 pools, never requested once across 58 renders of 36 district
-   types plus the city view). These are real: nothing in the game asks for them. Some are
-   almost certainly superseded (the pocket/cross/lane/median set predates the roads drawing
-   themselves from their own modules), which is a question for whoever owns the streets, not
-   a bug I can fix by guessing. Named so it is visible, ratcheted so it may only shrink. */
-/* 8/20, SHRUNK BY TWO: lane_h and lane_v came off this list when the kerb and lane line
-   were wired to the tiles his bank has had since 7/14 (Paolo: "Dont forget the proper
-   sidewalks too" -- records/BOHEMIA_PROPER_SIDEWALKS_8_20_26.md). They were unreachable
-   because the renderer picked the marking pools by HARD-CODED COLOUR and the roads had
-   started emitting their own palette: a lookup keyed on a value that moved, the same shape
-   as the traffic signals. cross_ns/cross_ew stay named because the arterial generator
-   emits ZERO crosswalks -- the art is ready and the layout is not, and that is road
-   layout, not art. */
+   GENUINELY NEVER REQUESTED (8). Each is a real question for whoever owns the streets --
+   most look superseded by the roads drawing themselves from their own modules -- but
+   "superseded" is a guess and guessing is what produced the two retractions above. */
 const SILENT_DEBT = new Set([
-  'roof', 'wallface', 'wallwin', 'perimeter',
-  'pocket_v', 'pocket_h', 'cross_ns', 'cross_ew',
-  'shoulder', 'median_h', 'median_v',
-  /* lane_v is a BYTE-IDENTICAL DUPLICATE of lane_h and is deliberately never asked for:
-     the renderer requests the authored member and rotates it a quarter turn, so fetching
-     the twin would warm a second cache entry for the same pixels. Named rather than
-     silently excused, because "unused because it is a duplicate" and "unused because it
-     is orphaned" look identical from outside. */
-  'lane_v',
+  'roof', 'wallface', 'wallwin',
+  'pocket_v', 'pocket_h', 'shoulder', 'median_h', 'median_v',
+  /* AND TWO THAT ARE SILENT ON PURPOSE. lane_v and cross_ew are BYTE-IDENTICAL duplicates
+     of lane_h and cross_ns: the renderer asks for the authored member and turns it a
+     quarter turn, so fetching the twin would warm a second cache entry for one picture.
+     Named rather than quietly excused, because "unused because duplicate" and "unused
+     because orphaned" look identical from outside. */
+  'lane_v', 'cross_ew',
 ]);
 
 console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the screen\n');
@@ -138,15 +119,21 @@ console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the scre
         return origSa(pool, variant);
       };
       const seen = {};
-      for (let ty = 2; ty < om.n - 2 && out.samples < 160; ty += 3)
-        for (let tx = 2; tx < om.n - 2 && out.samples < 160; tx += 3) {
+      /* FIVE VIEWPOINTS PER CELL, NOT ONE. The previous version rendered the CENTRE of each
+         district and reported everything it did not happen to see as silent -- which named
+         his 13 approved perimeter walls and the crossing bars as dead art when both were
+         working. A 128-tile plot does not fit in a phone-sized viewport. */
+      for (let ty = 2; ty < om.n - 2 && out.samples < 700; ty += 2)
+        for (let tx = 2; tx < om.n - 2 && out.samples < 700; tx += 2) {
           const t = om.at(tx, ty); if (!t) continue;
-          if ((seen[t.district] || 0) >= 2) continue;
+          if ((seen[t.district] || 0) >= 3) continue;
           if (!seen[t.district]) out.districts++;
           seen[t.district] = (seen[t.district] || 0) + 1;
-          hx = tx * FN + (FN >> 1); hy = ty * FN + (FN >> 1);
-          try { render(); } catch (e) {}
-          out.samples++;
+          for (const [ox, oy] of [[8, 8], [FN - 8, 8], [8, FN - 8], [FN - 8, FN - 8], [FN >> 1, FN >> 1]]) {
+            hx = tx * FN + ox; hy = ty * FN + oy;
+            try { render(); } catch (e) {}
+            out.samples++;
+          }
         }
       try { if (typeof renderCity === 'function') { renderCity(); out.city = 1; } } catch (e) {}
       proto.drawImage = od;

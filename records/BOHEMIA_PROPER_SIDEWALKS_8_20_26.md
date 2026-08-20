@@ -77,12 +77,54 @@ rule `tallTex` already follows, because a per-frame rotate is a transform in the
 - **`lane_h` / `lane_v`** joined the live pools — the never-requested list went **13 → 11**,
   and the ratchet held
 
-## WHAT THIS DOES NOT DO
+## WHAT I SAID THIS DOES NOT DO — AND THE CLAIM WAS FALSE
 
-**It does not place a single crosswalk.** Code 3 is declared in the arterial legend and the
-generator emits **zero** in every leg configuration tested (`{S}`, `{S, cross:E}`, `{S,E}`).
-Placing crossings is **road layout** and belongs to the session that owns the road
-generators. The zebra art is sitting in the bank, judged, ready for the day they land.
+**I shipped this:** *"It does not place a single crosswalk. Code 3 is declared in the
+arterial legend and the generator emits zero... There is not one marked crossing in the
+valley."*
+
+**Wrong.** Crossings are emitted, and they are emitted exactly where a crossing belongs:
+
+| district | crosswalk tiles emitted |
+|---|---|
+| `arterial_x` (the **intersection** variant) | **960** |
+| `medical` | 643 |
+| `strip` | 368 |
+| `rail` | 79 |
+| `arterial` (plain mid-block run) | 0 |
+
+A plain length of arterial between two junctions **should** have no crossing on it. The
+crossings live on `arterial_x`, the intersection piece — which I never tested. I measured
+one variant of one district, found a zero, and generalised it to the whole valley.
+
+Confirmed on the running page: `cross_ns` is requested **1,993 times** in a proper sweep.
+**There was never a crosswalk gap. I invented one.**
+
+## AND THE GATE THAT AGREED WITH ME WAS MEASURING ITS OWN BLIND SPOT
+
+`approved_art_arrives_gate.js` listed `cross_ns` **and** `perimeter` — his 13 approved
+border walls — as never requested. Both were working the whole time. The sweep rendered
+**one viewpoint per district**, the centre of the cell, and a perimeter wall or a kerb can
+sit anywhere in a 128-tile plot that does not fit in a phone-sized viewport.
+
+Re-measured with **five** viewpoints per cell:
+
+| pool | one viewpoint | five viewpoints |
+|---|---|---|
+| `perimeter` | 0 | **22,089** |
+| `cross_ns` | 0 | **1,993** |
+| traffic signals | 6 draws | **99 draws** |
+
+**The sweep's coverage was the thing being measured, and I published its shortfall as a
+fact about the game.** Third time in two days that my instrument, not the world, was the
+broken part. The rule that comes out of it: **a negative result is a claim about your
+instrument until you have shown the instrument could have seen a positive one.**
+
+Genuinely never requested, after honest coverage: `roof`, `wallface`, `wallwin`,
+`pocket_v`, `pocket_h`, `shoulder`, `median_h`, `median_v` — eight, all plausibly
+superseded by the roads drawing themselves, and "plausibly" is left as a question rather
+than a conclusion. Plus `lane_v` and `cross_ew`, which are byte-identical duplicates the
+renderer deliberately never asks for.
 
 ---
 **On the surface:** `tools/bohemia_city_proper_sidewalks_patch.py` · **Gate:**
