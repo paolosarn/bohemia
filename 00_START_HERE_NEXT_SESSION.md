@@ -626,67 +626,103 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/20 LATEST -- *** HIS SENTENCE FOR BEAT 1 HAS THREE
-CLAUSES AND THE GAME PLAYED ONE. THE LAST ROOM. TAB: CUTSCENE, chip 2; in the
-game it plays the moment the raid ends. ***
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** FOUR OF MY ASSERTIONS COULD NOT FAIL,
+AND THEN THE PICTURE FOUND A FIFTH BUG ALL OF THEM MISSED. TAB: CUTSCENE, the
+FOURTH chip, THE LAST ROOM -- three people STANDING in the family's house, on the
+floor rather than on the chairs. ***
 
-7/19, verbatim: "defending the home room to room, A SIBLING IS KILLED, IT ENDS
-SAVING THE MOTHER." The implementation ended when the last hostile dropped. You
-never reached her, and the person who was taken was simply ABSENT from the next
-scene: you win the fight, the screen changes, and the next thing you see is a
-dinner table the following evening with one fewer chair, having been told
-nothing. THE RAID ONLY STARTED RUNNING YESTERDAY, so that gap became reachable
-for the first time -- and what it reached was nothing.
+THE GATE SAID 44 PASSED 0 FAILED AND FOUR WERE DECORATION. coldopen_gate.js is
+ok(CONDITION, message). The other three gates this lane owns -- scene_gate,
+quirk_gate, attempt_gate -- are ok(MESSAGE, condition). Four new standing checks
+were written in the habit of the three and landed in the one, so the condition
+slot got a message string. A non-empty string is truthy. All four passed
+unconditionally, over code that had been deliberately broken.
 
-NOT A FOURTH BEAT. His law crystallizes THREE and this lane does not get to make
-it four. THE LAST ROOM is the back half of the first one -- the raid's `then`
-target -- and it hands on to THE GRIEF DINNER itself:
-    cold open --combat--> THE RAID --then--> the last room --> grief dinner --> the ridge
+HOW IT WAS CAUGHT: THE MUTATION DID NOT BITE. `var standing = false;` left the
+gate green. The comfortable explanation was that the mutation never reached the
+alpha the gate loads, so the test was re-run with a PROOF step wedged in:
+    PROOF mutation is in the alpha under test: 1
+    COLD OPEN GATE: 44 passed, 0 failed
+Demonstrably present, gate did not care. A MUTATION TEST THAT DOES NOT PROVE THE
+MUTATION ARRIVED IS TESTING THE ORIGINAL CODE. That proof line is permanent now.
 
-TWO LINES AND A SILENCE:
-    mother          Where's NINA.          (no question mark; she is not asking)
-    (three seconds of nobody answering -- the longest hold in the scene, asserted)
-    sibling_older   Don't go back in there.
-Five words that confirm it without the word, tell you the older sibling SAW it,
-and are the co-founder of the city being born. NOBODY SAYS died/dead/killed/gone.
+THE FIX IS NOT THE FOUR CALLS -- that leaves the trap armed for the fifth. The
+SLOT DEFENDS ITSELF in all four gates: a string in the condition slot throws, a
+non-string in the message slot throws, both directions, proved by reversing a
+real call in scene_gate. A GATE CANNOT BE CHECKED BY THE GATE SUITE, IT IS THE
+CHECKER -- inside ok() is the only place this is catchable.
 
-WHAT IT REFUSES TO DO: the death is NOT staged, and staging it would overwrite a
-ruling with a picture -- his law puts it "during the raid, away from [the table],
-in motion, in the house". The lost sibling is not an actor in this room and the
-gate asserts she is not. The FATHER's presence is STILL not decided: his ruling,
-and the DIRECT tab is one actor beat from making it.
+SWEPT ALL 310 GATES BEFORE TOUCHING ANYTHING OUTSIDE THIS LANE: zero vacuous
+calls anywhere else. Two flagged files were the sweeper's own template-literal
+parsing, checked by eye and cleared. My bug, not repo rot; the other 306 untouched.
 
-gates: SCENE 86 -> 102, mutation-tested three ways.
+THEN THE THIRD ASSERTION WAS WRONG ON ITS MERITS. "They stand where the camera is
+looking" asked ONE Manhattan distance against a constant 8 -- and the living room
+is 10x9, so the room's own far corner, the exact wrong answer it exists to catch,
+measured 7. THE THRESHOLD WAS LARGER THAN THE ROOM. Measured both ways on the real
+alpha: correct dx 0/0/2 dy 1/2/0, corner default dx 4/4/3 dy 3/2/3. Rewritten as
+per-axis containment in the focus RECT plus one cell of spill -- a margin that
+scales with the scene's geometry. Third time this lane has hit that family.
 
-*** AND A LESSON ABOUT MY OWN GATES: *** 3f pinned the raid's return target to
-the grief dinner BY FILENAME, so a legitimate change looked like a regression.
-AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S RULE FAILS THE DAY THE
-ANSWER LEGITIMATELY CHANGES. It now asserts the target RESOLVES, and a new 3h
-asserts the whole chain order end to end.
+AND THEN THE SCREENSHOT FOUND WHAT FIVE GREEN ASSERTIONS COULD NOT: two of the
+three were STANDING ON THE DINING CHAIRS. Seating.stand() takes the nearest free
+non-solid cell and a chair is both; the check meant to notice asked whether they
+were near the CAMERA, and a chair is extremely near the camera. Fixed in
+Seating.stand() not the scene (standing on furniture is wrong for every caller):
+floor first, seat cells only if nothing else is free. A PREFERENCE NOT A
+PROHIBITION -- in an all-furniture room standing on a chair beats vanishing, same
+reason sit() already falls back to standing. Sixth assertion added, counts stand
+bodies whose cell is in furn.seats.
 
-*** SHARPER THAN "COLD_OPEN.cast IS EMPTY", AND IT CHANGES WHOSE JOB IT IS: ***
+THE LAST ROOM'S needsArt WAS WRONG, AND EXPENSIVELY. It declared the house-after
+picture missing when that interior has been drawn since 8/9. What was missing was
+THE POSE, not the picture: the surface posed every actor sit-chair because the
+only scene that had ever existed was a dinner table, so reusing the house would
+have sat three people down to dinner in the room they just fought through.
+bohemia_stage.js has carried Seating.stand() with ZERO CALLERS the whole time --
+eleventh built-and-gated-and-unreachable capability this lane has found. A
+CAPABILITY NOBODY CALLS LOOKS EXACTLY LIKE A MISSING FEATURE, and the cheap
+mistake is to go build the feature again. It now plays in family_table, lantern
+lit, three people on their feet.
+
+MUTATION-PROVED FIVE WAYS, each with arrival verified in the alpha before running:
+    nobody ever stands            -> 1 red (0 standing, 3 seated)
+    focus RECT where a CELL wanted-> 2 red (0/3 placed, the silent-vanish bug)
+    no standing clip baked        -> 1 red (4 seated-only)
+    stand at the default corner   -> 1 red (2 off-focus)
+    let stand() take chairs again -> 1 red (2 on furniture, of 8 seat cells)
+
+AND ONE THAT COST WORK: undoing a one-line test mutation with `git checkout
+gates/coldopen_gate.js` DELETED EVERY UNCOMMITTED LINE IN THAT FILE -- the whole
+standing block, the guard, the four corrections. git checkout <file> IS NOT AN
+UNDO, IT IS A RESTORE FROM HEAD, and it does not know which of your lines you
+meant. Same family as the 8/17 whole-region replace that ate another lane's work.
+Every mutation since is backed up to scratch and restored by copy.
+
+gates: COLD OPEN 44 -> 45, SCENE 101, STAGE 42, QUIRK 38, ATTEMPT 15. All green
+on the merged tree. records/BOHEMIA_FOUR_ASSERTIONS_THAT_COULD_NOT_FAIL_8_20_26.md
+
+*** STILL SHARPER THAN "COLD_OPEN.cast IS EMPTY", AND IT CHANGES WHOSE JOB IT IS:
 measured inside the combat frame, placeHoldLine(spec) reads ONLY spec.holdLine.
-The frame has NO CONCEPT of people or a place behind you at all -- cast and place
-are consumed by nothing. So filling them would be data nothing reads (the exact
-hook-that-never-fires failure). It is not a content fill this lane could do, it
-is a feature COMBAT would have to build.
+The frame has NO CONCEPT of people or a place behind you -- cast and place are
+consumed by nothing. Filling them would be data nothing reads. Not a content fill
+this lane could do; a feature COMBAT would have to build.
 
-WHAT COMES NEXT -- and per the 8/20 coordinator re-audit the demo is TWO things
-away, NEITHER of them this lane's:
+WHAT COMES NEXT -- the first three are NOT this lane's:
   1. WALKING IS SILENT. The city sends exactly ONE sfx message and has ZERO
      footstep code, while 97 approved sounds sit unplayed. SOUNDS.
   2. NO FIGHT ON THE WALKED SURFACE -- the startEncounter hits in the city are
      comments. RUN + COMBAT. (The COLD OPEN raid is wired and runs; this is the
      other one.)
-  3. TWO MISSING PICTURES, both ART's: the ridge exterior (money shot + title
-     screen + last frame of the tutorial, one image) and the house-after. Both
-     scenes play their words over an honest frame that names what is missing.
+  3. ONE MISSING PICTURE, ART's: the ridge exterior (money shot + title screen +
+     last frame of the tutorial, one image). It is now the ONLY scene still
+     carrying an honest needsArt -- the house-after turned out not to be missing.
   4. THIS LANE'S OWN NEXT: DEEDS AND STANDING are still absent from the city (0
      occurrences, ~18 days). Two modules that know what the player was SEEN
      doing. BOUNDARY: the rich deed sources on the talk card are the FACTIONS
-     lane's sentinels and THEY ARE LIVE (they corrected row 7 today), so check
-     before starting. bohemia_memory.js is also absent, so it is 3+ modules and
-     a corpus, not a wiring job.
+     lane's sentinels and THEY ARE LIVE, so check before starting.
+     bohemia_memory.js is also absent, so it is 3+ modules and a corpus, not a
+     wiring job.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
 50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
 
