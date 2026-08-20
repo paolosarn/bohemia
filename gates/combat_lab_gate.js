@@ -4628,8 +4628,15 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
 /* ===== V170 THE SMOKE (RF4-57, machine 9) ========================
    "ONE ITEM WITH FIVE GEOMETRY-DEPENDENT USES BEATS FIVE ITEMS WITH ONE USE
-   EACH." A burning car -- something the fight already rewards you for shooting
-   -- throws a screen, and because V165 made SIGHT the master switch, six
+   EACH." A burning car throws a screen, and because V165 made SIGHT the master
+   switch, six
+   *** AND THE DELIVERY LINE HERE WAS A LIE, CORRECTED 8/20 THE SAME DAY. It
+   said "something the fight already rewards you for shooting." Paolo asked HOW
+   DO I SHOOT A CAR and the answer is YOU CANNOT: carHeat has exactly two
+   callers, a round of THEIRS that the car you are hiding behind ate, and your
+   own grenade. There is no shoot-the-car verb in the build. Every argument
+   underneath that sentence -- "no new button", "he learns it doing what he was
+   going to do anyway" -- was resting on a verb I never checked existed. ***
    systems inherit it without one of them being edited.
    The BEHAVIOUR (the wall, its life, its anchor, the delivery, the symmetry and
    the pin lifting) is measured in a real browser by fight_moves_you_gate, and
@@ -4650,7 +4657,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
   ok('V170 IT IS A WALL, NOT A CHEAT BUTTON -- and the symmetry is ONE LINE in the player\'s own targeting, not a second system that could drift out of step with the enemy\'s. Smoke that blinded only them would be a win button with a circle drawn on it, and playing 24 fights twice says cooking a car COSTS more health, not less',
     /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)&&!smokeAt\(e\)\);/.test(demo));
 
-  ok('V170 NO NEW BUTTON, AND THAT IS A GRAVEYARD RULING BEING OBEYED, not a shortcut. THE COOK (the grenade fuse minigame) is dead by "NO REMAKE OF THE FUSE BAR. EVER." -- so the screen is delivered by cookOff, the burning car the fight already pays you to shoot, and the player learns it by doing the thing he was going to do anyway',
+  ok('V170 NO NEW BUTTON, AND THAT IS A GRAVEYARD RULING BEING OBEYED, not a shortcut. THE COOK (the grenade fuse minigame) is dead by "NO REMAKE OF THE FUSE BAR. EVER." -- so the screen is delivered by cookOff. WHAT REACHES IT IS A GRENADE OR THEIR ROUNDS EATING YOUR COVER, and there is NO way to shoot a car -- which means "he learns it by doing what he was going to do anyway" was never true and the feature is one verb short of reachable',
     /popSmoke\(Math\.atan2\(by,bx\),Math\.hypot\(bx,by\),cells\[0\]\?\(cells\[0\]\.lvl\|0\):0\)/.test(demo) &&
     !/id="?nsmoke/.test(demo) && !/SMOKE<\/button>/.test(demo));
 

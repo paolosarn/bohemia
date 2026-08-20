@@ -717,7 +717,15 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
 
   ok('V170 A BURNING CAR MAKES IT, through the shipped cookOff and with NO NEW BUTTON ('
     + smk.cars.made + ' of ' + smk.cars.tried + ' arenas with a car). The grenade fuse minigame is in the graveyard; '
-    + 'this is a wall you make by SHOOTING something the game already rewards you for shooting',
+    /* AND THE SENTENCE THAT USED TO BE HERE WAS FALSE. It read "a wall you make
+       by SHOOTING something the game already rewards you for shooting" and
+       Paolo answered it with the only question that matters: HOW DO I SHOOT A
+       CAR. You cannot. Checked: carHeat has exactly two callers -- a round of
+       THEIRS that the car you are hiding behind ate, and your own grenade. The
+       player has no way to shoot a car at all, so the delivery I shipped is a
+       grenade or a passive, and I described a verb that does not exist. A claim
+       about the surface is worth nothing until somebody stands on it. */
+    + 'delivered by grenade or by their rounds eating the car you hide behind -- NOT by shooting it, which the player cannot do',
     smk.cars.tried > 10 && smk.cars.made === smk.cars.tried);
 
   ok('V170 AND THE SPOTTER\'S PIN LIFTS THROUGH IT while he stands there alive and unharmed -- the sixth system, '

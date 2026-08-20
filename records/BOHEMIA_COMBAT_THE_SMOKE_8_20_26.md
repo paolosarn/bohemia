@@ -59,9 +59,26 @@ and it charges you health for them. That is a tool, not a get-out.
 THE COOK (the grenade fuse minigame, v124) is dead: *"bro what fucking minigame
 was that im so confused?"* — **NO REMAKE OF THE FUSE BAR. EVER.**
 
-So the screen is delivered by `cookOff`, the burning car the fight already pays
-you to shoot. The player learns the mechanic by doing the thing he was already
-going to do, and the game grows a deep new verb without growing a control.
+So the screen is delivered by `cookOff`, the burning car.
+
+### AND THAT PARAGRAPH WAS FALSE, CORRECTED THE SAME DAY
+
+Paolo read this and asked the only question that mattered: **"how do i shoot a
+car?"** You cannot. `carHeat` has exactly **two** callers in the whole build:
+
+1. a round of **theirs** that the car **you are hiding behind** ate
+2. **your own grenade** (2 per fight)
+
+There is no shoot-the-car verb and there never was. So "no new button" was true
+and worthless: the screen is reachable by a scarce consumable or by standing
+still and being shot at, and I shipped it describing an action the player cannot
+take. **The gate I wrote asserted the same false sentence**, which is a gate
+marking its own homework in the most literal way available.
+
+The verb is not being built in this turn, because the same message carried a
+third rejection of the whole lane's direction, and STOP PRODUCING says the
+correct response to that is to stop and name the blocker, not to patch the
+attempt. See `records/BOHEMIA_COMBAT_I_BUILT_THE_BOTTOM_OF_HIS_DOCUMENT_8_20_26.md`.
 
 ## MEASURED, IN A REAL BROWSER
 - **the wall**: sees `true` → `false`, volley pool 1 → 0, player pool 1 → 0, the
