@@ -76,10 +76,24 @@ function requirePlaywright() {
    almost certainly superseded (the pocket/cross/lane/median set predates the roads drawing
    themselves from their own modules), which is a question for whoever owns the streets, not
    a bug I can fix by guessing. Named so it is visible, ratcheted so it may only shrink. */
+/* 8/20, SHRUNK BY TWO: lane_h and lane_v came off this list when the kerb and lane line
+   were wired to the tiles his bank has had since 7/14 (Paolo: "Dont forget the proper
+   sidewalks too" -- records/BOHEMIA_PROPER_SIDEWALKS_8_20_26.md). They were unreachable
+   because the renderer picked the marking pools by HARD-CODED COLOUR and the roads had
+   started emitting their own palette: a lookup keyed on a value that moved, the same shape
+   as the traffic signals. cross_ns/cross_ew stay named because the arterial generator
+   emits ZERO crosswalks -- the art is ready and the layout is not, and that is road
+   layout, not art. */
 const SILENT_DEBT = new Set([
   'roof', 'wallface', 'wallwin', 'perimeter',
   'pocket_v', 'pocket_h', 'cross_ns', 'cross_ew',
-  'lane_h', 'lane_v', 'shoulder', 'median_h', 'median_v',
+  'shoulder', 'median_h', 'median_v',
+  /* lane_v is a BYTE-IDENTICAL DUPLICATE of lane_h and is deliberately never asked for:
+     the renderer requests the authored member and rotates it a quarter turn, so fetching
+     the twin would warm a second cache entry for the same pixels. Named rather than
+     silently excused, because "unused because it is a duplicate" and "unused because it
+     is orphaned" look identical from outside. */
+  'lane_v',
 ]);
 
 console.log('APPROVED ART ARRIVES GATE — loaded is not the same as on the screen\n');

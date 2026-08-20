@@ -301,6 +301,20 @@
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_2x_box_picture.js"
+  },
+  {
+   "id": "the-proper-sidewalk",
+   "title": "THE KERB AND THE LANE LINE",
+   "caption": "You said do not forget the proper sidewalks. The sidewalk surface was already your good concrete, but the KERB beside it was wearing the house-yard dirt pool and the LANE LINE was wearing blank asphalt, so the road had no line on it. Both now wear the tiles you approved on 7/14: pale concrete with the panel joints for the kerb, and the thirty-year washed white line for the lane. RUN tab, stand on any big road.",
+   "file": "look/the-proper-sidewalk.png",
+   "at": {
+    "x": 2347,
+    "y": 774,
+    "zoom": 26
+   },
+   "kb": 180.6,
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   }
  ]
 }

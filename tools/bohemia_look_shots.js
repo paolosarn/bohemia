@@ -212,6 +212,33 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    id: 'the-proper-sidewalk',
+    title: 'THE KERB AND THE LANE LINE',
+    caption: 'You said do not forget the proper sidewalks. The sidewalk surface was already your good concrete, but the KERB beside it was wearing the house-yard dirt pool and the LANE LINE was wearing blank asphalt, so the road had no line on it. Both now wear the tiles you approved on 7/14: pale concrete with the panel joints for the kerb, and the thirty-year washed white line for the lane. RUN tab, stand on any big road.',
+    find: `(() => {
+      /* STAND ON A KERB, not just anywhere on a road: the whole point is the join between
+         the walk, the kerb and the lane, so the camera has to be where all three meet. */
+      for (let ty = 6; ty < om.n - 6; ty++) for (let tx = 6; tx < om.n - 6; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'arterial') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        const sp = BohemiaDistrictKit.get('arterial');
+        let kerb = -1;
+        for (const c in sp.legend) if (/curb|gutter/i.test(sp.legend[c].name)) kerb = +c;
+        if (kerb < 0) return null;
+        /* CENTRE ON THE PAINT. The first cut stood ON the kerb at zoom 16 and the road
+           filled half the frame with no line in it -- a picture of half the fix. The second
+           tried to find a kerb and a lane line on the SAME ROW and missed everywhere,
+           because the markings run along the road rather than across it. At this zoom the
+           whole cross-section is in frame from the lane line, so stand on the paint. */
+        let lane = -1;
+        for (const c in sp.legend) if (/lane line/i.test(sp.legend[c].name)) lane = +c;
+        for (let ly = 6; ly < FN - 6; ly++) for (let lx = 6; lx < FN - 6; lx++)
+          if (m.kit[ly * FN + lx] === lane)
+            return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 26 };
+      } return null; })()`,
+  },
+  {
     id: 'the-bad-footing',
     title: 'GROUND YOU CANNOT SET YOUR FEET ON',
     caption: 'Loose ground: ballast, talus, rubble drift. Standing here you cannot brace, so everything physical hits you harder -- and the tip cuts both ways, because you can lead somebody else onto it. Until 8/20 this drew as flat colour and the only thing that told you it was dangerous was a line of text in the corner. Now the floor says it: broken chips, four values, no two pieces alike. RUN tab.',

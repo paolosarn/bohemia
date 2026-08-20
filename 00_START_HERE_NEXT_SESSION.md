@@ -1,3 +1,61 @@
+WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
+TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
+Nothing here needs judging. ***
+
+Paolo 8/20: "Dont forget the proper sidewalks too."
+
+THE SIDEWALK SURFACE WAS ALREADY RIGHT. Measured on 12 real arterial cells (196,608 tiles)
+before touching anything -- the walk itself has been wearing his good `side` concrete all
+along (16,868 tiles). What was wrong is everything that makes it PROPER:
+
+    curb + gutter    6,000 tiles  ->  hyard    THE HOUSE-YARD DIRT POOL, ON A KERB
+    white lane line  6,240 tiles  ->  street   PLAIN ASPHALT, SO NO LINE AT ALL
+    crosswalk            0 tiles           NEVER EMITTED, ANYWHERE IN THE VALLEY
+
+His bank has had the right tile for every one since 7/14. OPENED IT AND LOOKED (rendered to
+PNG, per REUSE-FIRST): side = pale concrete with scored panel joints and weeds in the
+cracks; lane_div = the 30-year washed white line; median = the DOUBLE-YELLOW CENTRE LINE;
+cross = a real zebra. LOOKING IS WHY THE RAISED MEDIAN WAS LEFT ALONE: pools.median is road
+PAINT, and a raised median is a kerbed planting island -- wiring one to the other on a
+matching name would have painted road markings onto a flower bed.
+
+WHY IT WAS UNREACHABLE: THE SIGNAL BUG AGAIN. The renderer picked the marking pools by
+HARD-CODED COLOUR (#b8a040, #d8d4c4) from the old parametric streets. Since the roads draw
+themselves from their own modules they emit their own palette (lane #b3ab97, kerb #6b6b74),
+so four approved pools could never be requested. A LOOKUP KEYED ON A VALUE THAT MOVED --
+identical in shape to m.road going false and taking 348 signal sprites off 274
+intersections. It maps by the tile's LEGEND NAME now, which is the world's own notion of
+what a tile is and does not move when somebody repaints a palette.
+
+*** AND THE ORIENTED PAIRS WERE A LIE. *** Wired up, the lane line ran ACROSS a north-south
+road: ladder rungs. The suffix looked wrong so I swapped it AND GOT A PIXEL-IDENTICAL
+SCREENSHOT. That was the tell. lane_h and lane_v in SA_TILES are BYTE-IDENTICAL, and so are
+cross_ns and cross_ew -- rendered all four and looked. The bank ships an orientation_table
+saying which tiles are authored NS and must be rot90 for an EW road, and whoever built
+SA_TILES DUPLICATED them instead of rotating one copy, so the pair existed in NAME ONLY.
+Fixed at use: request the authored member, turn it a quarter turn, cache per (pool,variant)
+-- the derive-once-blit-forever rule tallTex already follows, because a per-frame rotate is
+a transform in the hot path.
+
+RESULT: 6,000 kerb tiles moved off house-yard dirt onto his jointed concrete; the lane line
+runs ALONG the road as one continuous washed stripe; lane_h joined the live pools and the
+never-requested ratchet went 13 -> 12.
+
+  records/BOHEMIA_PROPER_SIDEWALKS_8_20_26.md      the finding
+  tools/bohemia_city_proper_sidewalks_patch.py     on the surface
+
+*** WHAT I DID NOT DO, AND SOMEBODY SHOULD: THE ARTERIAL EMITS ZERO CROSSWALKS. *** Code 3
+is declared in its legend and the generator places none in any leg configuration tested
+({S}, {S,cross:E}, {S,E}). There is not one marked crossing in the valley. That is ROAD
+LAYOUT and belongs to the session that owns the road generators; his zebra art is judged and
+sitting in the bank ready for the day they land. cross_ns/cross_ew stay on the named-silence
+list for exactly that reason.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. Crosswalk PLACEMENT (above) -- the other WORLD session's, art is ready.
+  2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
+  3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
+
 SOUND (sound-xk7pjp): 8/20 (p,q) LATEST -- *** SAND STOPPED MACHINE-GUNNING. My
 own last ship made three surfaces audible and two of them had ONE sample. TAB:
 RUN (walk the open desert). Nothing to judge. ***

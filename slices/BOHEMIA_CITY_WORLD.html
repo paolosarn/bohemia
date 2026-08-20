@@ -38,6 +38,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 /* ==== footing readout css ==== */
 /* THE FOOTING READOUT, DIRECTLY UNDER THE TOP BAR, and that position is the whole
    reason this comment exists. It was at bottom-left first, and a screenshot of the real
@@ -160,6 +161,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 <div id="hud"><span id="hmode">CITY MODE</span><span id="hclock">DAY 1 · 08:00</span><span id="hslot"></span></div>
 <div id="stage">
   <canvas id="cv"></canvas>
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
@@ -5963,6 +5965,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE FLOOR CAN DO SOMETHING TO YOU ==== */
+
+
 
 
 
@@ -22066,6 +22070,7 @@ function tileMeta(tx,ty){
 
 
 
+
 /* __VOID_SHADE_S__ */
 /* __A_HOLE_IS_NOT_A_WALL__ -- the shade a void draws at. Not a new colour and not a
    palette entry: the tile's OWN colour taken down in value, so a hole in white gypsum still
@@ -22303,9 +22308,38 @@ function realizeCell(gx,gy){
        approved -- this only stops throwing them away. */
     if(tl.layer==='ground'||tl.layer==='overhead'){
       const _k=entry&&entry.kind;
-      const _pool=(_k==='drive'||_k==='marking')?'street'
+      /* __PROPER_SIDEWALKS__ -- Paolo 8/20: "Dont forget the proper sidewalks too."
+         THIS TABLE IS WHERE A TILE PICKS ITS APPROVED ART, and it was too coarse in two
+         places that are exactly what makes a sidewalk read as proper.
+         MEASURED on 12 real arterial cells (196,608 tiles) before touching it:
+             curb + gutter    6,000 tiles  ->  hyard   THE HOUSE-YARD POOL, ON A KERB
+             white lane line  6,240 tiles  ->  street  PLAIN ASPHALT, SO NO LINE AT ALL
+         Both fall out of `kind` alone: a kerb is kind 'ground', so it landed in the
+         catch-all with dirt yards; a lane line is kind 'marking', so it got the roadway
+         pool with no paint on it. The SURFACE was never the problem -- the sidewalk itself
+         has been wearing his `side` pool (16,868 tiles) all along.
+         His bank has had the right tile for both since 7/14, judged, sitting unused:
+         pools.lane_div (the 30-year washed white line) and pools.side (pale concrete with
+         scored panel joints and weeds in the cracks).
+         KIND IS THE COARSE ANSWER AND THE NAME IS THE EXACT ONE. The legend already says
+         "curb + gutter" and "white lane line" in plain words, which is the world's own
+         notion of what the tile is; it does not move when somebody repaints a palette,
+         which is precisely how the marking pools got orphaned in the first place. */
+      let _pool=(_k==='drive'||_k==='marking')?'street'
                  :(_k==='walk'||_k==='gate')?'side'
                  :(_k==='water')?null:'hyard';
+      const _nm=String((entry&&entry.name)||'').toLowerCase();
+      /* A KERB IS CONCRETE. It is poured with the walk and it weathers with it, so it
+         wears the walk's pool -- not the dirt pool a house yard uses. */
+      if(/\bcurbs?\b|\bkerbs?\b|gutter/.test(_nm)) _pool='side';
+      /* A MARKING IS PAINT, AND THE PAINT IS THE POINT. `street` is bare asphalt: giving
+         it to a lane line draws a road with no line on it. These pools are ORIENTED, so
+         the pool name is left for the pass that can see this cell's neighbours. */
+      else if(_k==='marking'){
+        if(/lane line|lane marking/.test(_nm)) { c.markPool='lane'; _pool=null; }
+        else if(/crosswalk|crossing/.test(_nm)) { c.markPool='cross'; _pool=null; }
+        else if(/centre line|center line|double.?yellow/.test(_nm)) { c.markPool='median'; _pool=null; }
+      }
       /* ONE DOMINANT TILE, ACCENTS IN COHERENT CLUSTERS, AND PER-CELL RANDOM SHUFFLE IS
          BANNED -- banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26 desert_dominance_law,
          Paolo 7/14: "too much diversity with the desert tiles." My first cut hashed the
@@ -22608,6 +22642,7 @@ function __surfaceOf(c){
   if(/rock/.test(n)) return 'gravel';
   return 'dirt';
 }
+
 
 
 
@@ -23503,6 +23538,23 @@ for(const k in SA_TILES){ SA_IMG[k]=SA_TILES[k].map(b=>{ SA_LEFT++;
 function saFlush(){ try{ _texCache.clear();
   for(const [,v] of chunkCache){ if(v&&v.cv)recycleCv(v); }
   render(); }catch(e){} }
+/* __PROPER_SIDEWALKS__ -- A QUARTER TURN, CACHED. The oriented pairs in SA_TILES are
+   byte-identical (rendered both and looked), so the rotation the bank's orientation_table
+   calls for has to happen at use. One canvas per (pool,variant) forever after -- the same
+   derive-once-blit-forever rule tallTex already follows, because a per-frame rotate is a
+   transform in the hot path and the render contract does not allow that. */
+const __ROTCV=new Map();
+function __rotTex(pool,variant){
+  const k=pool+'|'+variant;
+  if(__ROTCV.has(k)) return __ROTCV.get(k);
+  const src=saTex(pool,variant);
+  if(!src){ __ROTCV.set(k,null); return null; }
+  const w=src.width||TPX, h=src.height||TPX;
+  const c2=document.createElement('canvas'); c2.width=h; c2.height=w;
+  const x=c2.getContext('2d'); x.imageSmoothingEnabled=false;
+  x.translate(h/2,w/2); x.rotate(Math.PI/2); x.drawImage(src,-w/2,-h/2);
+  __ROTCV.set(k,c2); return c2;
+}
 function saTex(pool,variant){ const arr=SA_IMG[pool]; if(!arr)return null;
   /* __HARMONIZED_STREETS__ -- WEATHER RARITY (Paolo 7/14, carried with the tiles per
      clause 3 of the 7/31 streets law: consuming the bank while ignoring the
@@ -23605,6 +23657,7 @@ function recycleCv(ch){ if(!ch||!ch.cv)return;
   else { try{ch.cv.width=1;ch.cv.height=1;}catch(_e){} }   /* release the iOS buffer */
   ch.cv=null; ch.lamps=null;
 }
+
 
 
 
@@ -23760,7 +23813,36 @@ function chunkCanvas(cx,cy){
     const c=ch2.cells[y*CHK+i2]; if(!c)continue;
     const gx=(cx<<4)+i2, gy=(cy<<4)+y;
     const v=(OM.hash2(gx,gy,404))&3;                    // 4 variants per kind
-    let _gt=null; if(c.g==='#b8a040'||c.g==='#d8d4c4'){ const _u=cellAt(gx,gy-1),_d=cellAt(gx,gy+1); const _vert=(_u&&_u.g===c.g)||(_d&&_d.g===c.g); const _pool=(c.g==='#b8a040')?(_vert?'median_v':'median_h'):(_vert?'lane_v':'lane_h'); _gt=saTex(_pool,v); } if(!_gt&&c.gArtPool){ const _ht=saTex(c.gArtPool,c.gArtVariant); if(_ht)_gt=_ht; }
+    let _gt=null;
+    /* __PROPER_SIDEWALKS__ -- a marking runs ALONG its road, so which rotation it wears is
+       a question about its neighbours, and this is the only pass that can see them. What
+       changed is what it asks: `c.markPool`, set from the tile's own legend name, instead
+       of a hard-coded colour that stopped existing when the roads started drawing
+       themselves.
+       AND THE ROTATION HAS TO HAPPEN HERE, because the _h/_v pairs in SA_TILES ARE
+       BYTE-IDENTICAL. Rendered both and looked: lane_h and lane_v are the same tile with a
+       HORIZONTAL line, and cross_ns/cross_ew are the same tile with VERTICAL bars. The
+       bank ships an `orientation_table` saying which tiles are authored NS and must be
+       rot90 for an EW road, and whoever built SA_TILES duplicated them instead of rotating
+       one copy -- so the pair existed in NAME ONLY and asking for the other member changed
+       nothing. Measured by swapping the suffix and getting a pixel-identical screenshot.
+       So the line ran ACROSS a north-south road: ladder rungs, not a lane line. */
+    if(c.markPool){
+      const _u=cellAt(gx,gy-1),_d=cellAt(gx,gy+1);
+      const _vert=(_u&&_u.markPool===c.markPool)||(_d&&_d.markPool===c.markPool);
+      /* ALWAYS ASK FOR THE AUTHORED MEMBER AND ROTATE. The _h/_v pair is byte-identical,
+         so requesting "the other one" fetches the same pixels and means nothing; the only
+         real difference is the quarter turn. Asking for one and turning it also keeps the
+         cache honest -- two names for one tile would warm two entries for one picture. */
+      const _sfx=(c.markPool==='cross')?'_ns':'_h';
+      /* lane/median are authored with the line running EAST-WEST, so a NORTH-SOUTH road
+         needs them turned a quarter turn. cross is authored with its bars already running
+         north-south, which is what a crossing over a north-south road wants, so it turns
+         in the opposite case. */
+      const _rot=(c.markPool==='cross')?!_vert:_vert;   /* authored EW; a NS road turns it */
+      _gt=_rot?__rotTex(c.markPool+_sfx,v):saTex(c.markPool+_sfx,v);
+    }
+    if(!_gt&&(c.g==='#b8a040'||c.g==='#d8d4c4')){ const _u=cellAt(gx,gy-1),_d=cellAt(gx,gy+1); const _vert=(_u&&_u.g===c.g)||(_d&&_d.g===c.g); const _pool=(c.g==='#b8a040')?(_vert?'median_v':'median_h'):(_vert?'lane_v':'lane_h'); _gt=saTex(_pool,v); } if(!_gt&&c.gArtPool){ const _ht=saTex(c.gArtPool,c.gArtVariant); if(_ht)_gt=_ht; }
     x.drawImage(_gt||texFor(c.g,false,v),i2*TPX,y*TPX);
     /* __DANGEROUS_GROUND_LOOKS_DANGEROUS__ -- and if this ground does something to a body,
        it says so in the picture instead of in a text readout in the corner (§2.6: never
@@ -29905,277 +29987,6 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
 // The plate is now EXACTLY the footprint, always; the GRAMMAR shrinks to fit the
 // plate instead of the plate growing to fit the grammar, and a sliver too thin to
 // carry walled rooms becomes one open plate with a perimeter entrance.
-const BOH_FLOORPLAN=(function(){
-  function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
-  // zone -> ordered room roles (public first) + minimum room dimension
-  const ZONES={
-    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
-    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
-    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
-    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
-    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
-    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
-    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
-    // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
-    // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
-    // silently falling through to the nameless 'default' grammar — 46 buildings
-    // whose recorded dossiers describe real rooms (golf: "pro shop + bag room up
-    // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
-    // the projection room behind"; stadium: "the ring corridor under the stands,
-    // boarded concession windows + restrooms"). Roles read off those dossiers.
-    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
-    'default':  {roles:['room','room','service'],minRoom:4},
-  };
-  // union-find for the door spanning tree
-  function UF(n){const p=Array.from({length:n},(_,i)=>i);
-    const find=i=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;};
-    return {find,union:(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb){p[ra]=rb;return true;}return false;}};}
-
-  // ONE PLATE = ONE FLOOR. This is the original generator, renamed and otherwise
-  // untouched, because everything in the engine already reads what it returns and a
-  // rewrite here would be a rewrite of the whole enterable rung.
-  function plate(seed,W,H,opts){
-    const o=opts||{}; const r=rng(seed);
-    const Z=ZONES[o.zone]||ZONES['default'];
-    const entrance=o.entrance||'S';   // street-facing side
-    // THE PLATE IS THE FOOTPRINT. Never padded, never clamped, never resized.
-    W=Math.max(1,W|0); H=Math.max(1,H|0);
-    // the GRAMMAR bends instead: a room can never be asked to be bigger than the
-    // walled interior it has to live in.
-    const minR=Math.max(1,Math.min(o.minRoom||Z.minRoom,Math.min(W-2,H-2)));
-    const rooms=[],doors=[];
-    const grid=[];
-    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
-    const carve=(x,y)=>{if(x<0||y<0||x>=W||y>=H)return;const c=grid[y][x];if(c.door)return;c.g='door';c.door=true;doors.push([x,y]);};
-    const perimeterDoor=()=>{ // the entrance, on the requested side, mid-edge
-      if(entrance==='N')carve(W>>1,0);
-      else if(entrance==='W')carve(0,H>>1);
-      else if(entrance==='E')carve(W-1,H>>1);
-      else carve(W>>1,H-1);
-    };
-    const zoneRooms=()=>{ // roles by distance from the entrance room (public near door)
-      const front=rooms.__front||0;
-      const order=[...rooms.keys()].sort((a,b)=>{
-        const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
-        const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
-        return da-db;});
-      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
-        rooms[ri].role=role;
-        for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
-    };
-
-    // SLIVER PLATE (7/26): a footprint under 3 cells on either axis — a storage
-    // unit row seen edge-on, a 1-wide farm strip, a thin utility shed. There is
-    // no room left over once you spend a cell per side on wall, so the plate IS
-    // the room: one open space, entrance cut straight through its perimeter.
-    // Exactly W x H, like every other interior in this engine.
-    if(W<3||H<3){
-      rooms.push({x:0,y:0,w:W,h:H});
-      for(let y=0;y<H;y++)for(let x=0;x<W;x++){grid[y][x].g='floor';grid[y][x].room=0;}
-      perimeterDoor();
-      zoneRooms();
-      return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
-        sliver:true,pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
-    }
-
-    // 1) BSP the interior (inside a 1-cell perimeter wall)
-    (function split(x,y,w,h,depth){
-      const canH=w>=minR*2+1, canV=h>=minR*2+1;
-      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){if(w>0&&h>0)rooms.push({x,y,w,h});return;}
-      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
-      // the cut lands so BOTH halves are >= minR. The old formula
-      // (minR + rand(span-2*minR-1) + 1) could hand the right half minR-1 cells,
-      // and at minR=1 it handed it ZERO — an empty room nothing can ever reach.
-      if(horiz){const cut=minR+((r()*(w-2*minR))|0); split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
-      else     {const cut=minR+((r()*(h-2*minR))|0); split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
-    })(1,1,W-2,H-2,0);
-    // 2) paint grid: everything wall, then stamp room floors
-    rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
-    // 3) door graph: find wall cells separating two rooms, carve a spanning tree
-    const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
-    const pairKey=(a,b)=>Math.min(a,b)+','+Math.max(a,b);
-    const cand={};   // "a,b" -> [door cells]
-    for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
-      if(grid[y][x].g!=='wall')continue;
-      const hz=[at(x-1,y),at(x+1,y)], vt=[at(x,y-1),at(x,y+1)];
-      for(const [c0,c1] of [hz,vt]){
-        if(c0&&c1&&c0.room>=0&&c1.room>=0&&c0.room!==c1.room){
-          (cand[pairKey(c0.room,c1.room)]=cand[pairKey(c0.room,c1.room)]||[]).push([x,y]);
-        }
-      }
-    }
-    const uf=UF(rooms.length);
-    const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
-    for(const k of pairs){const [a,b]=k.split(',').map(Number);
-      if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
-    // a few loop doors so it is not a strict tree (still fully reachable)
-    for(const k of pairs){if(r()<0.18){const cells=cand[k];const c=cells[(r()*cells.length)|0];if(!grid[c[1]][c[0]].door)carve(...c);}}
-    // 4) street entrance: a perimeter door on `entrance` side into the front room
-    const front=(()=>{ // room whose edge touches the entrance side, nearest the middle
-      let best=null,bd=1e9;const midX=W/2,midY=H/2;
-      rooms.forEach((rm,i)=>{let touches,d;
-        if(entrance==='S'){touches=(rm.y+rm.h===H-1);d=Math.abs(rm.x+rm.w/2-midX);}
-        else if(entrance==='N'){touches=(rm.y===1);d=Math.abs(rm.x+rm.w/2-midX);}
-        else if(entrance==='W'){touches=(rm.x===1);d=Math.abs(rm.y+rm.h/2-midY);}
-        else {touches=(rm.x+rm.w===W-1);d=Math.abs(rm.y+rm.h/2-midY);}
-        if(touches&&d<bd){bd=d;best=i;}});
-      return best==null?0:best;})();
-    const fr=rooms[front];
-    if(entrance==='S')carve(Math.min(W-1,fr.x+(fr.w>>1)),H-1);
-    else if(entrance==='N')carve(Math.min(W-1,fr.x+(fr.w>>1)),0);
-    else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
-    else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
-    // 5) zoning: role by distance from the entrance room (public near door)
-    rooms.__front=front; zoneRooms(); delete rooms.__front;
-    return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
-      pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
-  }
-
-  /* ===================================================================================
-   * VERTICALITY, THE ENGINE HALF (8/7/26, WORLD lane).
-   *
-   * Paolo's stated direction is two-and-three-storey buildings with climbable stairs.
-   * What existed: floor/wall/door and NOTHING ELSE. `story:2` was computed by the suburb
-   * generator, carried faithfully through the world model, and then DIED UNUSED at the
-   * bottom rung -- every two-storey house in the valley had exactly one floor inside it.
-   * bohemia_garage.js already generates real 2-6 deck structures with ramps and stair
-   * cores that nothing renders and nothing walks. The generation was never the missing
-   * half; the FLOORPLAN was.
-   *
-   * WHAT A STORY IS HERE: another full plate. INTERIOR-MATCHES-EXTERIOR (Paolo 7/19,
-   * LOCKED, "not having it any other way") applies per level -- every floor of a building
-   * is EXACTLY the footprint w x h, never clamped, never grown. Decks and levels are a
-   * separate axis; each one still equals the footprint.
-   *
-   * THE STAIR IS THE ONLY WAY UP, and it is placed where BOTH plates already have floor.
-   * That is the whole trick and it is derived, not authored: generate the upper plate
-   * first, intersect the two floor sets, and put the stair in the middle of the biggest
-   * shared room. A stair chosen on one floor and forced through the other is how you get
-   * a staircase arriving inside a wall.
-   *
-   * BACKWARDS COMPATIBLE ON PURPOSE, and this is not timidity -- world_gate, interiors_gate
-   * and the run all read `.grid`, `.rooms` and `.doors` off the returned object today. The
-   * ground floor IS the returned object, exactly as before; the stack hangs off it as
-   * `.levels`. And a stair cell keeps `g:'floor'` and gains `kind:'stair'` rather than
-   * replacing g, because every consumer in the repo tests `g==='floor'||g==='door'` for
-   * passability and a new g value would have made stairs IMPASSABLE the day they shipped.
-   *
-   * NO STREET DOOR UPSTAIRS. An upper plate's perimeter door is removed -- a door on the
-   * second storey opening onto thin air is exactly the class of thing this repo keeps
-   * shipping and then finding in a render. Rooms up there stay mutually reachable because
-   * the door graph is a spanning tree over rooms, which never depended on the street door.
-   */
-  function floorCells(P){
-    const out=[];
-    for(let y=0;y<P.H;y++)for(let x=0;x<P.W;x++){
-      const c=P.grid[y][x];
-      if(c.g==='floor'&&c.room>=0) out.push([x,y,c.room]);
-    }
-    return out;
-  }
-  function sealPerimeterDoors(P){
-    // an upper floor has no street entrance. Put its perimeter doors back to wall.
-    const keep=[];
-    for(const d of P.doors){
-      const [x,y]=d;
-      if(x===0||y===0||x===P.W-1||y===P.H-1){ const c=P.grid[y][x]; c.g='wall'; c.door=false; c.room=-1; }
-      else keep.push(d);
-    }
-    P.doors=keep; P.meta.doors=keep.length; P.meta.entrance=null;
-  }
-  function sharedStair(lower,upper){
-    // cells that are FLOOR on both plates; pick the one deepest inside the biggest
-    // shared room, so the stair is never jammed against a wall or across a doorway.
-    const up=new Set(floorCells(upper).map(c=>c[0]+','+c[1]));
-    const both=floorCells(lower).filter(c=>up.has(c[0]+','+c[1]));
-    if(!both.length) return null;
-    const byRoom={};
-    for(const c of both){ (byRoom[c[2]]=byRoom[c[2]]||[]).push(c); }
-    let best=null,bn=0;
-    for(const k in byRoom) if(byRoom[k].length>bn){bn=byRoom[k].length;best=byRoom[k];}
-    // the cell of that set with the most room-neighbours also in the set = its middle
-    const inSet=new Set(best.map(c=>c[0]+','+c[1]));
-    let pick=best[0],pn=-1;
-    for(const c of best){
-      let n=0;
-      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]])
-        if(inSet.has((c[0]+dx)+','+(c[1]+dy))) n++;
-      if(n>pn){pn=n;pick=c;}
-    }
-    return pick;
-  }
-  function generate(seed,W,H,opts){
-    const o=opts||{};
-    const stories=Math.max(1,Math.min(6,(o.stories|0)||1));
-    const ground=plate(seed,W,H,o);
-    // A FLOORPLAN HAS TO STAY JSON-SERIALISABLE. `levels=[ground]` made level 0 a pointer
-    // back to the object holding the array, and floorplan_gate died on
-    // "Converting circular structure to JSON" the first time it ran. Anything that
-    // serialises an interior -- a save, a payload, a gate comparing two plans -- would have
-    // died the same way. So level 0 is a VIEW: the same grid, rooms and doors arrays by
-    // reference (no copy, no second source of truth), in an object that does not contain
-    // the level list. The cycle is gone and the identity of the data is not.
-    const view=P=>({W:P.W,H:P.H,grid:P.grid,rooms:P.rooms,doors:P.doors,meta:P.meta});
-    ground.levels=[view(ground)];
-    ground.stairs=[];
-    ground.meta.stories=1;
-    if(stories<2){ ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking'); return ground; }
-
-    for(let L=1;L<stories;L++){
-      // a different seed per level or every floor is the same floor
-      const up=plate((seed>>>0)+L*7919,W,H,o);
-      sealPerimeterDoors(up);
-      const cell=sharedStair(ground.levels[L-1],up);
-      if(!cell) break;                      // no shared floor: this building stops here
-      const [sx,sy]=cell;
-      const below=ground.levels[L-1].grid[sy][sx], above=up.grid[sy][sx];
-      below.kind='stair'; below.stair={dir:'up',to:L};
-      above.kind='stair'; above.stair={dir:'down',to:L-1};
-      up.meta.level=L;
-      ground.levels.push(up);
-      ground.stairs.push({x:sx,y:sy,from:L-1,to:L});
-    }
-    ground.meta.stories=ground.levels.length;
-    ground.meta.stairs=ground.stairs.length;
-    ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking');
-    return ground;
-  }
-
-  return {generate,plate,ZONES};
-})();
-if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
-
-
-/* MOVED HERE 8/20 (WORLD lane). This block was spliced BETWEEN the header comment
-   and the body of engine/bohemia_floorplan.js, which left that module
-   non-contiguous: exactly one copy of BOH_FLOORPLAN existed and the body was
-   verbatim, so ENGINE SYNC was never really violated, but interiors_gate asserts
-   `city.includes(<the whole file>)` and a module cut in half cannot satisfy that.
-   Nothing here changed except where it sits, and after the floorplan is the safer
-   side of it anyway: this code can now rely on BOH_FLOORPLAN already existing.
-   The anchor in tools/bohemia_city_interior_ground_patch.py is fixed to match, so
-   re-running that patch lands it here instead of back inside the module. */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==== THE FLOOR INDOORS (inlined verbatim) ==== */
 /* ==== engine/bohemia_interior_ground.js ==== */
 /* inlined verbatim by tools/bohemia_city_interior_ground_patch.py -- the banner above is one line on purpose: it is the ENGINE SYNC sweep's only door, and a wrapped banner is an opt-out. */
@@ -30791,6 +30602,279 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end WHAT IS IN THE ROOM ==== */
+const BOH_FLOORPLAN=(function(){
+  function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
+  // zone -> ordered room roles (public first) + minimum room dimension
+  const ZONES={
+    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
+    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
+    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
+    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
+    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
+    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
+    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
+    // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
+    // silently falling through to the nameless 'default' grammar — 46 buildings
+    // whose recorded dossiers describe real rooms (golf: "pro shop + bag room up
+    // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
+    // the projection room behind"; stadium: "the ring corridor under the stands,
+    // boarded concession windows + restrooms"). Roles read off those dossiers.
+    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
+    'default':  {roles:['room','room','service'],minRoom:4},
+  };
+  // union-find for the door spanning tree
+  function UF(n){const p=Array.from({length:n},(_,i)=>i);
+    const find=i=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;};
+    return {find,union:(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb){p[ra]=rb;return true;}return false;}};}
+
+  // ONE PLATE = ONE FLOOR. This is the original generator, renamed and otherwise
+  // untouched, because everything in the engine already reads what it returns and a
+  // rewrite here would be a rewrite of the whole enterable rung.
+  function plate(seed,W,H,opts){
+    const o=opts||{}; const r=rng(seed);
+    const Z=ZONES[o.zone]||ZONES['default'];
+    const entrance=o.entrance||'S';   // street-facing side
+    // THE PLATE IS THE FOOTPRINT. Never padded, never clamped, never resized.
+    W=Math.max(1,W|0); H=Math.max(1,H|0);
+    // the GRAMMAR bends instead: a room can never be asked to be bigger than the
+    // walled interior it has to live in.
+    const minR=Math.max(1,Math.min(o.minRoom||Z.minRoom,Math.min(W-2,H-2)));
+    const rooms=[],doors=[];
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
+    const carve=(x,y)=>{if(x<0||y<0||x>=W||y>=H)return;const c=grid[y][x];if(c.door)return;c.g='door';c.door=true;doors.push([x,y]);};
+    const perimeterDoor=()=>{ // the entrance, on the requested side, mid-edge
+      if(entrance==='N')carve(W>>1,0);
+      else if(entrance==='W')carve(0,H>>1);
+      else if(entrance==='E')carve(W-1,H>>1);
+      else carve(W>>1,H-1);
+    };
+    const zoneRooms=()=>{ // roles by distance from the entrance room (public near door)
+      const front=rooms.__front||0;
+      const order=[...rooms.keys()].sort((a,b)=>{
+        const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
+        const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
+        return da-db;});
+      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+        rooms[ri].role=role;
+        for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    };
+
+    // SLIVER PLATE (7/26): a footprint under 3 cells on either axis — a storage
+    // unit row seen edge-on, a 1-wide farm strip, a thin utility shed. There is
+    // no room left over once you spend a cell per side on wall, so the plate IS
+    // the room: one open space, entrance cut straight through its perimeter.
+    // Exactly W x H, like every other interior in this engine.
+    if(W<3||H<3){
+      rooms.push({x:0,y:0,w:W,h:H});
+      for(let y=0;y<H;y++)for(let x=0;x<W;x++){grid[y][x].g='floor';grid[y][x].room=0;}
+      perimeterDoor();
+      zoneRooms();
+      return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+        sliver:true,pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+    }
+
+    // 1) BSP the interior (inside a 1-cell perimeter wall)
+    (function split(x,y,w,h,depth){
+      const canH=w>=minR*2+1, canV=h>=minR*2+1;
+      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){if(w>0&&h>0)rooms.push({x,y,w,h});return;}
+      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
+      // the cut lands so BOTH halves are >= minR. The old formula
+      // (minR + rand(span-2*minR-1) + 1) could hand the right half minR-1 cells,
+      // and at minR=1 it handed it ZERO — an empty room nothing can ever reach.
+      if(horiz){const cut=minR+((r()*(w-2*minR))|0); split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
+      else     {const cut=minR+((r()*(h-2*minR))|0); split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
+    })(1,1,W-2,H-2,0);
+    // 2) paint grid: everything wall, then stamp room floors
+    rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
+    // 3) door graph: find wall cells separating two rooms, carve a spanning tree
+    const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
+    const pairKey=(a,b)=>Math.min(a,b)+','+Math.max(a,b);
+    const cand={};   // "a,b" -> [door cells]
+    for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
+      if(grid[y][x].g!=='wall')continue;
+      const hz=[at(x-1,y),at(x+1,y)], vt=[at(x,y-1),at(x,y+1)];
+      for(const [c0,c1] of [hz,vt]){
+        if(c0&&c1&&c0.room>=0&&c1.room>=0&&c0.room!==c1.room){
+          (cand[pairKey(c0.room,c1.room)]=cand[pairKey(c0.room,c1.room)]||[]).push([x,y]);
+        }
+      }
+    }
+    const uf=UF(rooms.length);
+    const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
+    for(const k of pairs){const [a,b]=k.split(',').map(Number);
+      if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
+    // a few loop doors so it is not a strict tree (still fully reachable)
+    for(const k of pairs){if(r()<0.18){const cells=cand[k];const c=cells[(r()*cells.length)|0];if(!grid[c[1]][c[0]].door)carve(...c);}}
+    // 4) street entrance: a perimeter door on `entrance` side into the front room
+    const front=(()=>{ // room whose edge touches the entrance side, nearest the middle
+      let best=null,bd=1e9;const midX=W/2,midY=H/2;
+      rooms.forEach((rm,i)=>{let touches,d;
+        if(entrance==='S'){touches=(rm.y+rm.h===H-1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='N'){touches=(rm.y===1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='W'){touches=(rm.x===1);d=Math.abs(rm.y+rm.h/2-midY);}
+        else {touches=(rm.x+rm.w===W-1);d=Math.abs(rm.y+rm.h/2-midY);}
+        if(touches&&d<bd){bd=d;best=i;}});
+      return best==null?0:best;})();
+    const fr=rooms[front];
+    if(entrance==='S')carve(Math.min(W-1,fr.x+(fr.w>>1)),H-1);
+    else if(entrance==='N')carve(Math.min(W-1,fr.x+(fr.w>>1)),0);
+    else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
+    else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
+    // 5) zoning: role by distance from the entrance room (public near door)
+    rooms.__front=front; zoneRooms(); delete rooms.__front;
+    return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+      pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+  }
+
+  /* ===================================================================================
+   * VERTICALITY, THE ENGINE HALF (8/7/26, WORLD lane).
+   *
+   * Paolo's stated direction is two-and-three-storey buildings with climbable stairs.
+   * What existed: floor/wall/door and NOTHING ELSE. `story:2` was computed by the suburb
+   * generator, carried faithfully through the world model, and then DIED UNUSED at the
+   * bottom rung -- every two-storey house in the valley had exactly one floor inside it.
+   * bohemia_garage.js already generates real 2-6 deck structures with ramps and stair
+   * cores that nothing renders and nothing walks. The generation was never the missing
+   * half; the FLOORPLAN was.
+   *
+   * WHAT A STORY IS HERE: another full plate. INTERIOR-MATCHES-EXTERIOR (Paolo 7/19,
+   * LOCKED, "not having it any other way") applies per level -- every floor of a building
+   * is EXACTLY the footprint w x h, never clamped, never grown. Decks and levels are a
+   * separate axis; each one still equals the footprint.
+   *
+   * THE STAIR IS THE ONLY WAY UP, and it is placed where BOTH plates already have floor.
+   * That is the whole trick and it is derived, not authored: generate the upper plate
+   * first, intersect the two floor sets, and put the stair in the middle of the biggest
+   * shared room. A stair chosen on one floor and forced through the other is how you get
+   * a staircase arriving inside a wall.
+   *
+   * BACKWARDS COMPATIBLE ON PURPOSE, and this is not timidity -- world_gate, interiors_gate
+   * and the run all read `.grid`, `.rooms` and `.doors` off the returned object today. The
+   * ground floor IS the returned object, exactly as before; the stack hangs off it as
+   * `.levels`. And a stair cell keeps `g:'floor'` and gains `kind:'stair'` rather than
+   * replacing g, because every consumer in the repo tests `g==='floor'||g==='door'` for
+   * passability and a new g value would have made stairs IMPASSABLE the day they shipped.
+   *
+   * NO STREET DOOR UPSTAIRS. An upper plate's perimeter door is removed -- a door on the
+   * second storey opening onto thin air is exactly the class of thing this repo keeps
+   * shipping and then finding in a render. Rooms up there stay mutually reachable because
+   * the door graph is a spanning tree over rooms, which never depended on the street door.
+   */
+  function floorCells(P){
+    const out=[];
+    for(let y=0;y<P.H;y++)for(let x=0;x<P.W;x++){
+      const c=P.grid[y][x];
+      if(c.g==='floor'&&c.room>=0) out.push([x,y,c.room]);
+    }
+    return out;
+  }
+  function sealPerimeterDoors(P){
+    // an upper floor has no street entrance. Put its perimeter doors back to wall.
+    const keep=[];
+    for(const d of P.doors){
+      const [x,y]=d;
+      if(x===0||y===0||x===P.W-1||y===P.H-1){ const c=P.grid[y][x]; c.g='wall'; c.door=false; c.room=-1; }
+      else keep.push(d);
+    }
+    P.doors=keep; P.meta.doors=keep.length; P.meta.entrance=null;
+  }
+  function sharedStair(lower,upper){
+    // cells that are FLOOR on both plates; pick the one deepest inside the biggest
+    // shared room, so the stair is never jammed against a wall or across a doorway.
+    const up=new Set(floorCells(upper).map(c=>c[0]+','+c[1]));
+    const both=floorCells(lower).filter(c=>up.has(c[0]+','+c[1]));
+    if(!both.length) return null;
+    const byRoom={};
+    for(const c of both){ (byRoom[c[2]]=byRoom[c[2]]||[]).push(c); }
+    let best=null,bn=0;
+    for(const k in byRoom) if(byRoom[k].length>bn){bn=byRoom[k].length;best=byRoom[k];}
+    // the cell of that set with the most room-neighbours also in the set = its middle
+    const inSet=new Set(best.map(c=>c[0]+','+c[1]));
+    let pick=best[0],pn=-1;
+    for(const c of best){
+      let n=0;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]])
+        if(inSet.has((c[0]+dx)+','+(c[1]+dy))) n++;
+      if(n>pn){pn=n;pick=c;}
+    }
+    return pick;
+  }
+  function generate(seed,W,H,opts){
+    const o=opts||{};
+    const stories=Math.max(1,Math.min(6,(o.stories|0)||1));
+    const ground=plate(seed,W,H,o);
+    // A FLOORPLAN HAS TO STAY JSON-SERIALISABLE. `levels=[ground]` made level 0 a pointer
+    // back to the object holding the array, and floorplan_gate died on
+    // "Converting circular structure to JSON" the first time it ran. Anything that
+    // serialises an interior -- a save, a payload, a gate comparing two plans -- would have
+    // died the same way. So level 0 is a VIEW: the same grid, rooms and doors arrays by
+    // reference (no copy, no second source of truth), in an object that does not contain
+    // the level list. The cycle is gone and the identity of the data is not.
+    const view=P=>({W:P.W,H:P.H,grid:P.grid,rooms:P.rooms,doors:P.doors,meta:P.meta});
+    ground.levels=[view(ground)];
+    ground.stairs=[];
+    ground.meta.stories=1;
+    if(stories<2){ ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking'); return ground; }
+
+    for(let L=1;L<stories;L++){
+      // a different seed per level or every floor is the same floor
+      const up=plate((seed>>>0)+L*7919,W,H,o);
+      sealPerimeterDoors(up);
+      const cell=sharedStair(ground.levels[L-1],up);
+      if(!cell) break;                      // no shared floor: this building stops here
+      const [sx,sy]=cell;
+      const below=ground.levels[L-1].grid[sy][sx], above=up.grid[sy][sx];
+      below.kind='stair'; below.stair={dir:'up',to:L};
+      above.kind='stair'; above.stair={dir:'down',to:L-1};
+      up.meta.level=L;
+      ground.levels.push(up);
+      ground.stairs.push({x:sx,y:sy,from:L-1,to:L});
+    }
+    ground.meta.stories=ground.levels.length;
+    ground.meta.stairs=ground.stairs.length;
+    ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking');
+    return ground;
+  }
+
+  return {generate,plate,ZONES};
+})();
+if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
+
+
+/* MOVED HERE 8/20 (WORLD lane). This block was spliced BETWEEN the header comment
+   and the body of engine/bohemia_floorplan.js, which left that module
+   non-contiguous: exactly one copy of BOH_FLOORPLAN existed and the body was
+   verbatim, so ENGINE SYNC was never really violated, but interiors_gate asserts
+   `city.includes(<the whole file>)` and a module cut in half cannot satisfy that.
+   Nothing here changed except where it sits, and after the floorplan is the safer
+   side of it anyway: this code can now rely on BOH_FLOORPLAN already existing.
+   The anchor in tools/bohemia_city_interior_ground_patch.py is fixed to match, so
+   re-running that patch lands it here instead of back inside the module. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // district -> interior room grammar, transcribed from bohemia_world.js's DISTGEN
@@ -31303,6 +31387,7 @@ function cityFightCount(){
 
 
 
+
 /* __FR_S__ */
 /* ==== __THE_FIGHT_GETS_THE_ROOM__ ====================================================
    THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. The encounter handoff described the room as
@@ -31601,6 +31686,7 @@ function renderInside(){
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
     }
   }
+
 
 
 
