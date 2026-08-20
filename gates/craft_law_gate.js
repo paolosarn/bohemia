@@ -94,13 +94,57 @@ ok('clause 4 in code: two pixels of hair to one of skin (ropes)',
   /if\(tex==='locs'\)\s*return \(_ph%3===2\)/.test(src));
 ok('clause 4 in code: the same ratio on the weave, not just the ropes',
   /if\(tex==='braid'\)\s*return \(\(_ph%3===2\)&&\(_pq%3===2\)\)/.test(src));
-ok('clause 4 in code: the phase is anchored to the HEAD, not the moving row start',
-  /_ph=prof\?\(y-hTop\):\(x-hMn\)/.test(src) && !/\(x-mn\)%3/.test(src));
-ok('clause 4 in code: and the pattern ROTATES with the view (rows run the right way in profile)',
-  /_pq=prof\?\(x-hMn\):\(y-hTop\)/.test(src));
+/* PIN THE BEHAVIOUR, NOT THE CHARACTERS (8/20, RUN lane). These four clauses
+   used to be regexes over the source, and the 4X hair pass turned every hair
+   distance from PIXELS into CELLS of S=CW/56 -- so `(x-hMn)` became
+   `((x-hMn)/S)|0` and four true clauses reported false. Third time this gate has
+   done that to itself; it says so twice in its own comments ("pin the
+   behaviour", "THIS PINNED THE BROKEN FIX") and the law it enforces says A
+   CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE. A regex over
+   source can only ever see mentions. So the clauses now LIFT the expression out
+   of the alpha, compile it, and run it. Stricter, not looser: the old check
+   passed on a file that merely contained the right characters. */
+const grab = (re, what) => { const m = src.match(re); if (!m) { f++; console.log('  > FAIL cannot find ' + what + ' in the alpha'); } return m; };
+const fn = (expr, args) => Function(...args, 'return (' + expr + ');');
+/* A THROW IS A FAIL, NEVER A CRASH. Mutation-tested 8/20: re-anchoring the phase
+   to `mn` (the exact bug clause 4 exists for) made the lifted expression
+   reference a name that is not a parameter, and the gate DIED -- taking the
+   thirty claims after it down with it. A gate that stops reporting is the same
+   family as the suite that stopped finishing: silence reads as green. So every
+   lifted expression runs inside `probe`, which turns any throw into a red line
+   and lets the rest of the law be checked. */
+const probe = (name, body) => { try { ok(name, body()); } catch (e) { f++; console.log('  > FAIL ' + name + ' [threw: ' + e.message + ']'); } };
 
-ok('clause 5 in code: the head centre floors instead of rounding',
-  /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
+const mPh = grab(/var _ph=([^,]+), _pq=([^;]+);/, 'the hair texture phase');
+const phaseRun = () => {
+  const A = ['prof', 'x', 'y', 'hTop', 'hMn', 'S'];
+  const ph = fn(mPh[1], A), pq = fn(mPh[2], A);
+  let anchored = true, flat = true, rotates = true;
+  for (const S of [1, 2, 4]) for (const hMn of [0, 7, 22]) for (const hTop of [0, 5, 19]) {
+    /* the phase must READ ZERO at the head's own edge -- that is what "anchored
+       to the head" means, and the bug it replaced read zero at the row start,
+       which moves every row. */
+    if (ph(0, hMn, hTop + 9, hTop, hMn, S) !== 0) anchored = false;
+    if (ph(1, hMn + 9, hTop, hTop, hMn, S) !== 0) anchored = false;
+    for (let d = 0; d < 24; d++) {
+      /* and it must not move at all along the OTHER axis, or the stripe bends */
+      if (ph(0, hMn + 5, hTop + d, hTop, hMn, S) !== ph(0, hMn + 5, hTop, hTop, hMn, S)) flat = false;
+      if (ph(1, hMn + d, hTop + 5, hTop, hMn, S) !== ph(1, hMn, hTop + 5, hTop, hMn, S)) flat = false;
+      /* ROTATION: in profile the quadrature phase is the front-view phase and
+         vice versa, so cornrows band the other way when you look along them */
+      if (pq(1, hMn + d, hTop, hTop, hMn, S) !== ph(0, hMn + d, hTop, hTop, hMn, S)) rotates = false;
+      if (pq(0, hMn, hTop + d, hTop, hMn, S) !== ph(1, hMn, hTop + d, hTop, hMn, S)) rotates = false;
+    }
+  }
+  return { anchored: anchored && flat && !/\bmn\b/.test(mPh[1]) && !/\bmn\b/.test(mPh[2]), rotates };
+};
+if (mPh) {
+  probe('clause 4 in code: the phase is anchored to the HEAD, not the moving row start',
+    () => phaseRun().anchored);
+  probe('clause 4 in code: and the pattern ROTATES with the view (rows run the right way in profile)',
+    () => phaseRun().rotates);
+}
+
 /* THIS PINNED THE BROKEN FIX. It asserted the strip centred via
    Math.floor((s[0]+s[1])/2) -- which is exactly the implementation he killed three
    styles over. Flooring an even-width head's centre lands the strip half a pixel
@@ -109,9 +153,40 @@ ok('clause 5 in code: the head centre floors instead of rounding',
    an odd strip cannot centre on an even head. Now both edges come off the DOUBLED
    centre, so the strip's parity follows the head's. Measured after: 0.0 offset on
    every front and back facing. */
-ok('clause 5 in code: a strip takes its parity from the head, so the centre is exact',
-  /var _d2=s\[0\]\+s\[1\];/.test(src)
-  && /mn=Math\.ceil\(_d2\/2\)-strip; mx=Math\.floor\(_d2\/2\)\+strip;/.test(src));
+const mCx = grab(/var hH=Math\.max\(1,hBot-hTop\), hcx=([^,]+), hcxR=/, "the hair's head centre");
+if (mCx) probe('clause 5 in code: the head centre floors instead of rounding', () => {
+  const hcx = fn(mCx[1], ['hMn', 'hMx', 'S']);
+  let exact = true, cellCentred = true;
+  for (let w = 3; w <= 40; w++) for (const hMn of [0, 6, 22]) {
+    const hMx = hMn + w - 1;
+    /* AT S===1 THIS IS THE LITERAL THE OLD REGEX WANTED, verified by arithmetic:
+       floor, never round. Math.round breaks .5 upward and puts the mohawk one
+       pixel right of centre, forever, which is the note that made this clause. */
+    if (hcx(hMn, hMx, 1) !== Math.floor((hMn + hMx) / 2)) exact = false;
+    for (const S of [2, 4]) {
+      /* above S===1 the centre is a CELL, and the cell's own centre must sit on
+         the head's centre within the half pixel an integer grid allows */
+      if (Math.abs((hcx(hMn, hMx, S) + (S - 1) / 2) - (hMn + hMx) / 2) > S / 2) cellCentred = false;
+    }
+  }
+  return exact && cellCentred;
+});
+
+const mStrip = grab(/var _d2=s\[0\]\+s\[1\];\s*mn=([^;]+); mx=([^;]+);/, 'the strip edges');
+if (mStrip) probe('clause 5 in code: a strip takes its parity from the head, so the centre is exact', () => {
+  const A = ['_d2', 'strip', 'S'];
+  const lo = fn(mStrip[1], A), hi = fn(mStrip[2], A);
+  let parity = true;
+  for (let a = 0; a < 40; a++) for (let w = 1; w <= 24; w++) for (let strip = 1; strip <= 6; strip++) for (const S of [1, 2, 4]) {
+    const b = a + w - 1, d2 = a + b;
+    /* THE WHOLE CLAUSE IN ONE LINE: the strip's centre is the head's centre,
+       exactly, whatever the two widths' parities are. An odd strip cannot centre
+       on an even head, so the strip is the one that gives -- both edges come off
+       the DOUBLED centre so mn+mx lands back on s[0]+s[1] every time. */
+    if (lo(d2, strip, S) + hi(d2, strip, S) !== d2) parity = false;
+  }
+  return parity;
+});
 ok('clause 5: the profile-view gap is recorded as KNOWN and unfixed, not hidden',
   /KNOWN, MEASURED, NOT FIXED/.test(src));
 ok('clause 7 in code: a long style widens its curtain below the jaw',
