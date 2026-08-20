@@ -4020,6 +4020,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+RF4-DOOR. *** STOP BUILDING MACHINES FOR ONE TURN AND BUILD THE DOOR
+   (coordinator 8/20, on Paolo asking "i needed your help to turn the
+   combat into rogue fable 4 and it hasnt done that yet?")
+   THE WORK IS REAL AND IT IS LANDING — VERIFIED IN THE COMBAT BLOB, not
+   read off commit subjects: RF4-08 machine 1, THE FREE-MOVEMENT BUDGET,
+   is in at V163 and quotes his own synthesis on the global-clock regen;
+   RF4-37 THE SPOTTER is in at V168 (priority targets, the man who never
+   fires); SMOKE landed vision-gating today, 31 references. Three of the
+   nine machines, and they are the right three.
+   *** AND HE CANNOT REACH ANY OF IT. *** MEASURED THIS TURN: the city
+   world — the surface he actually walks — NEVER asks for a fight (zero
+   fight postMessages) and the alpha has NO listener for one.
+   `runEncounterIn` exists at ALPHA:7697 and is reached only from the
+   legacy run slice nobody displays. SO EVERY RF4 MACHINE THIS LANE
+   BUILDS LIVES IN THE COMBAT TAB — A ROOM HE HAS TO GO FIND — AND NEVER
+   IN THE GAME HE PLAYS. That is why it does not feel like RF4 yet. The
+   machines are not missing. The DOOR is.
+   SIXTH INSTANCE OF THE SAME DISEASE this month (sound wired to a hidden
+   slice, payday never called, the vista with no caller, 22 of 30
+   integrated rows proving themselves on the wrong app, a migration chain
+   wired to nothing). THE LANE IS NOT AT FAULT — it was told to build the
+   machines. It is being told now that THE ORDER CHANGED: THE ENTRY
+   OUTRANKS THE NEXT MACHINE.
+   DO THIS FIRST, BEFORE MACHINE 3 OR ANY OTHER: WALK INTO A DOOR, FIGHT
+   IN THE ROOM. The city posts a fight request, the alpha listens and
+   calls runEncounterIn, and THE SURFACE SWITCHES so the player is
+   looking at the fight — the cold open's handoff has the same defect
+   (ALPHA:21436 calls the fight without switching tabs), so fix both with
+   one move. Interiors are already real dimensioned spaces
+   (INTERIOR-MATCHES-EXTERIOR), portals are already typed by the tilespec,
+   cover already gates LOS.
+   IT PAYS TWICE: it closes demo row 1's fight half, AND it is the only
+   thing that lets him FEEL the three machines already built.
+   GATE IT WITH A JOURNEY TEST (SHARED -7), never a piece test: walk to a
+   door on the real surface, enter, fight, come back out. A piece test is
+   exactly what let this sit while the machines piled up.
+   | he walks into a building and a fight starts, on the real walked
+   surface, gated end to end | — | YES, and it is the judgeable he has
+   been waiting for since 8/15. ***
 SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
    records/BOHEMIA_RF4_TEARDOWN_SPEC.md, gate gates/rf4_teardown_gate.js, 94 checks.)
    68 numbered items, each SPECED / BUILT / DIFFERS-ON-PURPOSE. CITE ITEM NUMBERS IN

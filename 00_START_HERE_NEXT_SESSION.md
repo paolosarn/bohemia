@@ -26329,3 +26329,28 @@ THE DEMO IS THREE THINGS AWAY, IN ORDER:
     hits in the city are comments (:30150, :30519), not calls.
 CAMP stays CUT from the demo, along with quests 4-5, the healing montage
 and the field-surgery animations.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/20 (b) — HE ASKED WHY THE COMBAT IS NOT RF4 YET, AND
+THE ANSWER IS THE DOOR, NOT THE MACHINES. Verified in the combat blob
+rather than off commit subjects: RF4-08 THE FREE-MOVEMENT BUDGET is in at
+V163 quoting his own synthesis on the global-clock regen; RF4-37 THE
+SPOTTER at V168; SMOKE landed vision-gating today. Three of nine machines,
+the right three, all real.
+*** AND HE CANNOT REACH ANY OF THEM. *** Measured: the city world never
+asks for a fight (zero fight postMessages), the alpha has no listener,
+and runEncounterIn (ALPHA:7697) is reached only from the legacy run slice
+nobody displays. Every RF4 machine lives in the COMBAT TAB, a room he has
+to go find. SIXTH instance this month of built-but-unreachable.
+ROUTED: COMBAT RF4-DOOR, placed ABOVE all further machine work — walk
+into a door, fight in the room, and THE SURFACE SWITCHES (the cold open's
+handoff has the same defect at ALPHA:21436, fix both with one move).
+Journey-gated, never a piece test.
+AND THE COORDINATOR WAS CORRECTED TODAY, CORRECTLY: the 8/20 re-audit
+called ROW 7 / P0-DOOR open off a SOURCE-READ of the markup. Another lane
+TAPPED THE SPLASH like a player and found the runtime overrides it — tab
+RUN, panel p-city, DAY 1 offered. The row was steering the fleet's #1
+priority at something already done. VERIFY ON THE REAL SURFACE (7/18)
+applies to this session too, and a source-read is not a measurement.
+Board corrected by that lane; the demo is now TWO things away — sound on
+the walk, and this door.
