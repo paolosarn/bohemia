@@ -642,6 +642,88 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       leaked.length === 0);
   }
 
+  /* ===== V170 THE SMOKE, DRIVEN ON THE SHIPPED SYSTEMS =================
+     RF4-57 machine 9: "status effects are TURN DENIAL AND BOARD EDITING, not
+     damage... ONE ITEM WITH FIVE GEOMETRY-DEPENDENT USES BEATS FIVE ITEMS WITH
+     ONE USE EACH." One object goes into seesMe and six systems inherit it. */
+  const smk = await frame.evaluate(() => {
+    const R = {};
+    const rig = () => {
+      BohemiaArena.set(2); setupCombat();
+      G.e.length = 0; G.pillars = []; G.smoke = []; G.over = false; G.mTurn = 1;
+      const E = JSON.parse(JSON.stringify(ARCH.human));
+      const e = { i: 0, E, n: 'T', hp: 60, max: 60, arch: 'human', dead: false, melee: false,
+                  acq: 0, stun: 0, supp: 0, lvl: 0, gcov: 0, ea: 0, edist: 8 };
+      putCell(e, 8, 0); G.e.push(e); G.numEnemies = 1; return e;
+    };
+    { const e = rig(); try { visionTick(); } catch (x) {}
+      const b4 = { sees: seesMe(e), pool: modePool().length, volley: exposedToMe().length };
+      popSmoke(0, 4, 0); try { visionTick(); } catch (x) {}
+      R.wall = { b4, after: { sees: seesMe(e), pool: modePool().length,
+                              volley: exposedToMe().length, aimsAtMemory: !!knownXY(e) } }; }
+    { const e = rig(); popSmoke(0, 4, 0); const seq = [];
+      for (let t = 0; t < SMOKE_TURNS + 2; t++) { try { visionTick(); } catch (x) {}
+        seq.push(seesMe(e) ? 1 : 0); G.mTurn++; }
+      R.life = { turns: SMOKE_TURNS, seq, leftOver: (G.smoke || []).length }; }
+    { rig(); popSmoke(0, 4, 0); const a = pXY(G.smoke[0]);
+      for (let k = 0; k < 3; k++) worldShift(1, 0);
+      const b2 = pXY(G.smoke[0]);
+      R.anchored = +Math.hypot(b2[0] - a[0], b2[1] - a[1]).toFixed(2); }
+    { let made = 0, tried = 0;
+      for (let a = 1; a <= 30; a++) {
+        BohemiaArena.set(a); setupCombat(); G.mTurn = 1; G.smoke = [];
+        const cid = ((G.pillars || []).find(P => P.car) || {}).car;
+        if (!cid) continue; tried++;
+        try { carHeat(cid, 999); } catch (x) {}
+        if ((G.smoke || []).length) made++; }
+      R.cars = { tried, made }; }
+    { BohemiaArena.set(1); setupCombat(); G.pillars = []; G.smoke = []; G.mTurn = 1;
+      const sn = (G.e || []).find(e => e && e.E && e.E.spotter);
+      if (sn) { sn.dead = false; sn.stun = 0; sn.prone = 0; sn.lvl = 0; putCell(sn, 6, 0);
+        try { visionTick(); } catch (x) {}
+        const first = spotterOnMe();
+        popSmoke(0, 3, 0); try { visionTick(); } catch (x) {}
+        R.pin = { first, alive: !sn.dead, through: spotterOnMe() }; } }
+    return R;
+  });
+
+  ok('V170 ONE OBJECT, AND THE ENEMY SYSTEMS ALL GO DARK THROUGH IT: he had a line and a bead was possible ('
+    + smk.wall.b4.volley + ' in the volley pool); with a screen on the line he sees nothing, the volley pool is '
+    + smk.wall.after.volley + ' and the blind man presses at a MEMORY instead of at the player',
+    smk.wall.b4.sees === true && smk.wall.after.sees === false
+    && smk.wall.after.volley === 0 && smk.wall.after.aimsAtMemory === true);
+
+  ok('V170 AND IT IS A WALL, NOT A CHEAT BUTTON: the player\'s own target pool goes '
+    + smk.wall.b4.pool + ' -> ' + smk.wall.after.pool + ' through the same screen. Smoke that blinded only the enemy '
+    + 'would be a win button with a circle drawn on it',
+    smk.wall.b4.pool > 0 && smk.wall.after.pool === 0);
+
+  ok('V170 IT THINS AND DIES ON THE TURN CLOCK (' + smk.life.turns + ' turns blind, then sight comes back, '
+    + smk.life.leftOver + ' clouds left on the board). A screen that never lifted would be a wall, not a tool',
+    /* AND THE NUMBER IS BOUNDED IN ABSOLUTE TERMS, not against itself. The first
+       write of this asked the page how long its own smoke lasts and then checked
+       the smoke lasted that long -- so setting the dial to 999 turns left it
+       GREEN, and a screen standing for the whole run is precisely the "wall, not
+       a tool" this claim says it is not. Consistency is not truth; that is the
+       same trap the OPEN BOOK page fell into and it caught me twice. */
+    smk.life.turns >= 2 && smk.life.turns <= 12
+    && smk.life.seq.slice(0, smk.life.turns).every(v => v === 0)
+    && smk.life.seq.slice(smk.life.turns).every(v => v === 1)
+    && smk.life.leftOver === 0);
+
+  ok('V170 AND IT HANGS OVER ITS OWN TILES: three tiles of walking leave it ' + smk.anchored
+    + ' tiles behind him. A cloud that travelled with the player would be a blindfold he wears, not a screen he made',
+    smk.anchored >= 2.9 && smk.anchored <= 3.1);
+
+  ok('V170 A BURNING CAR MAKES IT, through the shipped cookOff and with NO NEW BUTTON ('
+    + smk.cars.made + ' of ' + smk.cars.tried + ' arenas with a car). The grenade fuse minigame is in the graveyard; '
+    + 'this is a wall you make by SHOOTING something the game already rewards you for shooting',
+    smk.cars.tried > 10 && smk.cars.made === smk.cars.tried);
+
+  ok('V170 AND THE SPOTTER\'S PIN LIFTS THROUGH IT while he stands there alive and unharmed -- the sixth system, '
+    + 'inherited without a line of its own because V168 asks seesMe too',
+    smk.pin && smk.pin.first === true && smk.pin.alive === true && smk.pin.through === false);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

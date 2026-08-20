@@ -241,7 +241,13 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
    predicate the game ignores. A measurement that does not touch the code path
    the player touches is not evidence. Second time this week; the giants first. */
 ok('V141 RANGE IS A FILTER ON WHO YOU CAN FIGHT, AND IT IS SYMMETRIC: my reach bounds my TARGETS (modePool), his reach bounds his THREAT (exposedToMe, posExposed). Those three predicates decide the whole fight and not one of them knew range existed',
-  /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)\);/.test(demo) &&
+  /* V170 RE-POINTED: modePool's filter gained a second clause (a screen on the
+     line hides a man from the PLAYER too, which is what makes the smoke a wall
+     rather than a cheat button). The CLAIM is unchanged -- my reach still bounds
+     my targets -- so the anchor stops at the reach test instead of at the
+     closing bracket, and no longer breaks every time that filter learns
+     something new. */
+  /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)/.test(demo) &&
   /* V165 RE-POINTED: exposedToMe now carries the vision gate too, so the reach
      test is no longer the last thing on the line. The CLAIM is unchanged and is
      still that his reach bounds his threat -- what moved is where the closing
@@ -3608,7 +3614,13 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('if(G._carFire&&G._carFire.length){'));
 
   ok('V108 AND A NEW LOT IS COLD METAL: the heat book, the burnt book and the fire fx are rebuilt with the cars, so nothing survives a fight it did not belong to (the exact class of bug v107 fixed for the grenade)',
-    demo.includes('G._cars=placed.length; G._carHeat={}; G._carBurnt={}; G._carFire=[]; }'));
+    /* V170 RE-POINTED: the same rebuild line now also clears the air (G.smoke),
+       which is this claim being OBEYED by a new list rather than broken -- a
+       screen left standing from the last lot is exactly the bug named here. The
+       claim is unchanged; the anchor stops demanding that the car books are the
+       LAST thing reset. */
+    /G\._cars=placed\.length; G\._carHeat=\{\}; G\._carBurnt=\{\}; G\._carFire=\[\];/.test(demo) &&
+    /G\._carFire=\[\]; G\.smoke=\[\]; \}/.test(demo));
 
   /* ===== 43. V109 THE DEATH READS FROM THE HIT ======================== */
   ok('V109 THE FALL IS INHERITED, NOT ROLLED (Paolo: "all of it has to be translated from the type of headshot they got"). The old line said the opposite OUT LOUD -- "THE SHUFFLE: which way they fall is rolled, never inherited" -- in six separate places, each with its own dice. One function now, and every site asks it',
@@ -4613,6 +4625,50 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       !!hoarder && !!spender && hoarder.every(v => v <= 3) &&
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
+
+/* ===== V170 THE SMOKE (RF4-57, machine 9) ========================
+   "ONE ITEM WITH FIVE GEOMETRY-DEPENDENT USES BEATS FIVE ITEMS WITH ONE USE
+   EACH." A burning car -- something the fight already rewards you for shooting
+   -- throws a screen, and because V165 made SIGHT the master switch, six
+   systems inherit it without one of them being edited.
+   The BEHAVIOUR (the wall, its life, its anchor, the delivery, the symmetry and
+   the pin lifting) is measured in a real browser by fight_moves_you_gate, and
+   whether it is a WIN BUTTON was measured by playing 24 fights twice. What is
+   pinned here is the shape, and the four disciplines that keep it honest. */
+  ok('V170 THE SCREEN GOES THROUGH THE ONE DOOR, which is the whole reason six systems changed and none of them were touched: smokeAt is asked inside seesMe and NOWHERE ELSE on the enemy side. Six copies of "is there smoke" in six systems is five future places to forget it',
+    /function seesMe\(e\)\{[\s\S]{0,420}?if\(smokeAt\(e\)\)return false;/.test(demo) &&
+    /* THREE MENTIONS IN THE WHOLE FILE: the definition, the one ask inside
+       seesMe, and the player's own targeting filter (the symmetry). If a fourth
+       ever appears, a system started asking about smoke directly instead of
+       asking whether the man can SEE -- which is machine 4 coming apart. */
+    (demo.match(/smokeAt\(/g) || []).length === 3);
+
+  ok('V170 AND A WALL OF SMOKE IS ANSWERED BY THE SAME MATHS AS A WALL OF STONE. segNear is the segment-to-circle test the cover geometry has always used; a screen is a circle on the line, so there is no second geometry to disagree with the first one',
+    /function smokeBetween\(x,y,lvl\)\{[\s\S]{0,300}?segNear\(0,0,x,y,q\[0\],q\[1\],S\.r\|\|SMOKE_R\)/.test(demo) &&
+    /if\(\(S\.lvl\|0\)!==\(lvl\|0\)\)continue;/.test(demo));
+
+  ok('V170 IT IS A WALL, NOT A CHEAT BUTTON -- and the symmetry is ONE LINE in the player\'s own targeting, not a second system that could drift out of step with the enemy\'s. Smoke that blinded only them would be a win button with a circle drawn on it, and playing 24 fights twice says cooking a car COSTS more health, not less',
+    /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)&&!smokeAt\(e\)\);/.test(demo));
+
+  ok('V170 NO NEW BUTTON, AND THAT IS A GRAVEYARD RULING BEING OBEYED, not a shortcut. THE COOK (the grenade fuse minigame) is dead by "NO REMAKE OF THE FUSE BAR. EVER." -- so the screen is delivered by cookOff, the burning car the fight already pays you to shoot, and the player learns it by doing the thing he was going to do anyway',
+    /popSmoke\(Math\.atan2\(by,bx\),Math\.hypot\(bx,by\),cells\[0\]\?\(cells\[0\]\.lvl\|0\):0\)/.test(demo) &&
+    !/id="?nsmoke/.test(demo) && !/SMOKE<\/button>/.test(demo));
+
+  ok('V170 A THING THAT CHANGES WHAT EVERYBODY CAN SEE AND CANNOT ITSELF BE SEEN IS A BUG WEARING A FEATURE\'S CLOTHES: it is drawn, world-anchored on the same path the car fire uses, and it THINS as it ages so its remaining life is legible without a number on it. The first draft was a pale grey smudge on the real screen and was changed after LOOKING at it',
+    /for\(const S of G\.smoke\)\{ if\(!smokeAlive\(S\)\)continue;/.test(demo) &&
+    /const left=1-\(\(\(G\.mTurn\|\|0\)-\(S\.born\|\|0\)\)\/SMOKE_TURNS\);/.test(demo) &&
+    /rgba\(26,23,21/.test(demo));
+
+  ok('V170 AND IT IS BOUNDED IN EVERY DIRECTION A LEAK COULD OPEN: it dies on the turn clock, dead clouds are swept out of the list every tick, the list itself is capped, and a new lot starts with clear air. A screen that never lifted would be a wall the player built around himself',
+    /const SMOKE_TURNS=6;/.test(demo) &&
+    /if\(G\.smoke&&G\.smoke\.length\)G\.smoke=G\.smoke\.filter\(smokeAlive\);/.test(demo) &&
+    /if\(G\.smoke\.length>8\)G\.smoke\.shift\(\);/.test(demo) &&
+    /G\.smoke=\[\]; \}   \/\* V170: new lot, clear air/.test(demo));
+
+  ok('V170 NO DAMAGE BEFORE THE DIAL, obeyed by a feature that had every excuse to break it: a burning car is the most natural place in the game to add a damage-over-time tick, and it adds NONE. Both dials are marked [DIAL] and both are about VISION -- how wide the screen is and how long it stands',
+    /const SMOKE_R=2\.4;       \/\* \[DIAL\] tiles of screen a burning car throws \*\//.test(demo) &&
+    /const SMOKE_TURNS=6;     \/\* \[DIAL\] how long it stands before it thins to nothing \*\//.test(demo) &&
+    !/smoke[\s\S]{0,120}applyDamage/i.test(demo));
 
 /* ===== V169 THE OPEN BOOK (RF4-55, machine 7) ====================
    "Deterministic AI plus published rules equals A GAME ABOUT KNOWLEDGE."
