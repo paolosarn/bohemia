@@ -1,0 +1,97 @@
+BOHEMIA -- THE FLEET-BLOCKING SIZE RED WAS THE RULER, NOT THE REPO
+CHARACTER lane, 8/20/26. PAGES PUBLISH: 14/1 -> 18/0.
+
+WHAT IT WAS SAYING, TO EVERY LANE
+---------------------------------
+    FAIL: the published surface is under 260 MB (measured 271 MB)
+
+Read plainly: the site has grown past the size that killed three Pages builds on 8/6,
+and the next deploy is at risk. Every lane hits this on every ship, and I hit it twice
+in one turn, so I went to trim it.
+
+THERE IS NOTHING TO TRIM. THE SITE IS 230 MB.
+---------------------------------------------
+.github/workflows/pages.yml assembles the published site BY HAND:
+
+    mkdir -p _site/records
+    cp -r slices        _site/slices
+    cp -r engine        _site/engine
+    cp -r records/target _site/records/target
+    touch _site/.nojekyll
+
+`.nojekyll` means JEKYLL NEVER RUNS. So `_config.yml` -- which the gate was reading as
+the source of truth -- governs nothing whatsoever about the deploy. Three explicit
+copies do, and they come to 230.4 MB, comfortably under the 260 cap.
+
+The 41 MB difference is real and it was never published: records/tileforms_proofs
+(18 MB), the valley aerial svg (5 MB), the words book, the questbook index, a dozen
+records subfolders and three loose PNGs in the repo root. `_config.yml`'s exclude list
+KEPT all of it on paper. The workflow has never copied a byte of it.
+
+AND THE DEPLOY IS NOT REMOTELY AT RISK. Measured on run 445, my own push:
+    assemble the published site   0 seconds
+    whole job, checkout to live   41 seconds
+The cap exists because b09f3ab spent THIRTY MINUTES copying 496 MB and timed out. That
+is a real failure and the cap should stay; it just was not happening.
+
+WHY THE BINDING COULD NOT SEE IT, WHICH IS THE REUSABLE PART
+-----------------------------------------------------------
+This gate already had a drift check -- "every folder _config.yml KEEPS is copied by the
+workflow" -- and it was GREEN the whole time. It tested:
+
+    new RegExp('cp -r\\s+' + d + '(\\s|/)').test(wf)
+
+for d = "records". The line `cp -r records/target _site/records/target` matches. A copy
+of ONE SUBFOLDER satisfied a test for "the folder is copied", so the config could claim
+41 MB the workflow never touched and nothing anywhere went red.
+A CHECKER THAT CANNOT TELL A PART FROM THE WHOLE IS THE BROKEN ONE (8/1).
+
+THE FIX, AND IT IS STRICTER THAN WHAT IT REPLACES
+-------------------------------------------------
+  1. THE SIZE CHECK MEASURES THE COPY LIST. It parses `cp -r X _site/` out of the
+     workflow and sums exactly those paths, because that is the byte count the deploy
+     step moves. Cap unchanged at 260 MB.
+  2. THE REFERENCE CHECK ASKS THE PRODUCTION QUESTION FIRST -- "does the workflow copy
+     a folder containing this?" -- instead of consulting an exclude list that no longer
+     runs. Asking the old way after fix (1) reported 36 LIVE references as dropped.
+  3. A NEW CHECK: no folder may be HALF published. If the config keeps a parent and the
+     workflow copies only a subfolder, that is named and it is red.
+  4. THE LEGITIMATE CARVE-OUT is the other way round and is now understood: the config
+     EXCLUDES records/ and the workflow copies records/target BY NAME. Both lists agree
+     the parent does not ship, and the exception is written in the config where the next
+     person will read it.
+  5. `_config.yml` now says what is true -- one `records/` exclude with the carve-out
+     spelled out, replacing five subfolder entries that let the other 41 MB through.
+
+NOT ONE BYTE WAS DELETED, and that is deliberate: a green bought by deleted evidence is
+worse than the red, which is a rule this repo already learned.
+
+MUTATION-TESTED THREE WAYS, and it names the culprit each time:
+    workflow stops copying records/target  -> red: the ART tab's 36 refs are unpublished
+    config keeps a folder half-copied      -> red: "records (only records/target)"
+    somebody adds banks/ to the copy list  -> red: 524 MB, AND the contradiction
+The third one is the failure the cap was written for, and it now bites on the real
+number instead of a fictional one.
+
+WHOSE THIS WAS
+--------------
+Not this lane's, strictly -- pages is nobody's lane. It was red on main for every
+session's ship and the fix is a ruler correction with zero change to what deploys, so
+I took it rather than reporting the same number a third time. The deploy behaviour is
+byte-identical: the workflow was not touched.
+
+AND IT ALREADY COST ANOTHER LANE REAL WORK, WHICH IS THE POINT
+--------------------------------------------------------------
+While this was being measured, a6badce8 (WORLD/ART) hit the same red mid-ship and did
+the honest thing a red asks for: quantized thirty raw screenshot PNGs for "27 MB of
+air", carefully restoring the target references and the frozen palette record
+byte-exact because a ruler is not a screenshot. Good work, correctly done, spent on a
+number that was wrong -- the site was never over the cap.
+
+That is what a wrong ruler costs: not a bug in the product, but somebody else's hour.
+It is also exactly what a gate is FOR, so this is not a criticism of that lane; they
+trusted the machine, which is the whole contract. Their trim stands (a smaller repo is
+still a smaller repo) and it composes with this fix -- measured on the merge, the
+published surface is now 204 MB with 56 MB of headroom.
+
+  node gates/pages_publish_gate.js     18/0   (204 MB / 260 MB after both changes)

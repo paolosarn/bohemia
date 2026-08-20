@@ -291,6 +291,16 @@
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_4x_wardrobe_picture.js"
+  },
+  {
+   "id": "the-box",
+   "title": "IS THIS A DEALBREAKER? the 4x character, side by side",
+   "caption": "The whole 4x flip has been built and switched off since 8/16 for one reason, and it was my judgement, not yours: composing natively removes the corner-rounding the upscaler was doing for free, so the head comes out a bit more square, and that reads against your own no-straight-lines rule. You have never actually been shown it. Left is what you see today, right is what native 4x gives you, same art, same size, same clothes. They differ on 5.9% of him, 11% of that on the head. 40% of the difference is clothes and hair, which is code I fix for free; the rest is your paint. If you can live with the right column, 4x ships. LOOK tab.",
+   "file": "look/the-box.png",
+   "kb": 63.8,
+   "stamp": "8/20/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_2x_box_picture.js"
   }
  ]
 }
