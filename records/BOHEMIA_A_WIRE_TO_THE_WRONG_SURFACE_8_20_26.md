@@ -136,6 +136,21 @@ THE HEADLINE IS LIVE, THE EXPLANATION IS THE OUTFIT'S    810 -> 734  (87%)
 
 **A trim has to be re-argued every time somebody adds a row. A rule generalises.**
 
+### AND THE MUTATION THAT DID NOT BITE IS THE ONE WORTH READING
+
+Five mutations, each with a written prediction before running. Four were right.
+The fifth — **restore the duplicate NAME row** — I predicted would red A12, and it
+did not: **15 passed, 0 failed with the duplicate back in.** The explainer fold
+had already bought so much headroom that ~23px no longer crosses the bar.
+
+> **A RULE DESERVES ITS OWN CLAIM, NOT A SIDE-EFFECT OF A PIXEL BUDGET.** A height
+> check catches a duplicate only by accident, and only until the next row lands.
+
+**Report the mutant that survived.** A mutation suite where every mutant
+conveniently dies is a suite nobody learned anything from. The survivor is the
+only one that told me something I did not already believe — and if I had not run
+it, the commit message would have shipped a claim that was simply false.
+
 And the bar itself was wrong: `cardfold_gate` A1 stands next to whoever is
 affiliated and **nearest**, which is almost never somebody who can be vouched for,
 so the worst case sat **outside the measurement that exists to hold the card to

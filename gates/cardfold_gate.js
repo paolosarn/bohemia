@@ -176,6 +176,24 @@ async function busiestReachable() {
       + 'quietly measuring an ordinary one',
       /WHO PUT YOU ON/.test(out.folded.text),
       JSON.stringify(out.folded.text.split('\n').slice(0, 4)));
+    /* A RULE DESERVES ITS OWN CLAIM, NOT A SIDE-EFFECT OF A PIXEL BUDGET.
+       I shipped the NAME dedupe expecting A12 to hold it, and the mutation test
+       said otherwise: restore the duplicate row and A12 STAYS GREEN, because the
+       explainer fold had already bought enough headroom that ~23px no longer
+       crosses the bar. The claim I wrote about my own mutation was wrong.
+       A HEIGHT CHECK CATCHES A DUPLICATE ONLY BY ACCIDENT, and only until the
+       next row lands. This asserts the rule directly, the way A8 already does
+       for the TRADE row -- same defect, same card, same test. */
+    const head = (out.folded.text.split('\n')[0] || '').trim();
+    const esc = head.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    ok('A16 the NAME row no longer repeats the heading verbatim either. The '
+      + 'heading BECOMES the name once you know it, so the row under it said the '
+      + 'same thing twice on exactly the fullest cards — the identical defect A8 '
+      + 'was written for, one row higher up',
+      !!head && !(new RegExp('(^|\\n)NAME\\s*\\n\\s*' + esc + '\\s*(\\n|$)', 'i'))
+        .test(out.folded.text),
+      JSON.stringify({ heading: head, first: out.folded.text.split('\n').slice(0, 4) }));
+
     ok('A15 nothing threw while measuring the busiest card', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

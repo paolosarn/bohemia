@@ -4172,7 +4172,15 @@ GATES: FACTION ARC 66/0 (parts A-L, the whole journey on the real page, no stubs
 | CARD FOLD 15/0 | plus the rest of the suite green.
 Mutation-proved five ways: revert iSt to one field -> L1/L2/L3/L5/L7 red; drop the
 answer button -> L4/L5/L6 red; drop WHO PUT YOU ON -> L3/A14 red; unfold the
-explainers -> A12/A13 red; restore the duplicate NAME row -> A12 red.
+explainers -> A12/A13 red; restore the duplicate NAME row -> A16 red.
+*** AND THE FIFTH MUTATION CAUGHT ME, NOT THE CODE. *** I predicted the duplicate
+NAME row would red A12 and IT DID NOT -- 15/0 with the duplicate restored,
+because the explainer fold had already bought so much headroom that ~23px no
+longer crosses the bar. A HEIGHT CHECK CATCHES A DUPLICATE ONLY BY ACCIDENT, and
+only until the next row lands. A RULE DESERVES ITS OWN CLAIM, NOT A SIDE-EFFECT
+OF A PIXEL BUDGET: A16 now asserts it directly, the way A8 already does for the
+TRADE row one row lower. Written down because the mutation test is only worth
+anything if you report the one that did not bite.
 
 Law:   laws/BOHEMIA_ADDENDUM_NOBODY_EVER_WALKED_IT_8_20_26.md (sec 4h, 4i)
 Tools: bohemia_city_asking_cost_patch.py | bohemia_city_thirdparty_patch.py |

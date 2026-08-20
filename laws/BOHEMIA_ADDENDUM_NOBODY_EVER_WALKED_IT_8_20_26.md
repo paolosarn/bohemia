@@ -483,6 +483,23 @@ need three trims, it needed the two rules it was already halfway to having:
 
 A trim has to be re-argued every time somebody adds a row. **A rule generalises.**
 
+### AND THE FIFTH MUTATION CAUGHT ME, NOT THE CODE
+
+Five mutations, and I wrote down what each one would do before running them. Four
+were right. The fifth — **restore the duplicate NAME row** — I predicted would red
+A12, and it did not: **15 passed, 0 failed, with the duplicate back in.** The
+explainer fold had already bought so much headroom that ~23px no longer crosses
+the bar.
+
+> **A RULE DESERVES ITS OWN CLAIM, NOT A SIDE-EFFECT OF A PIXEL BUDGET.** A height
+> check catches a duplicate only by accident, and only until the next row lands.
+> A16 asserts it directly now, the way A8 already does for the TRADE row one row
+> lower down — same defect, same card, same test.
+
+**Report the mutation that did not bite.** A mutation suite where every mutant
+conveniently dies is a suite nobody learned anything from, and the one that
+survives is the only one that told me something I did not already believe.
+
 And the bar itself was wrong: A1 stands next to whoever is affiliated and nearest,
 which is almost never somebody who can be vouched for, so **the worst case was
 outside the measurement that exists to hold the card to the phone.** A12 now
