@@ -792,6 +792,18 @@ function drawTurfform(gx,gy,X,Y,S){
        the mowing); the colour variant now shuffles per 4-cell block so the
        repeat dies at field scale. */
     name='turf_stripe_'+((gy%2===0)?'a':'b')+th(gx>>2,gy>>1,3);
+  } else if(n==='dead lawn' || n==='dead lawn (campus ground)' || n==='memorial lawn'){
+    /* MEASURED 8/21: these three lawn names matched NO ground rule and fell
+       to the final fallback - nineteen thousand cells of cemetery, fire
+       station and campus LAWN drawing as gravel yard. A lawn is mown, so it
+       wears the approved dead turf with its row-locked mow banding. Exact
+       names only (the predicate-audit law). */
+    name='turf_stripe_'+((gy%2===0)?'a':'b')+th(gx>>2,gy>>1,3);
+  } else if(n==='dead rough'){
+    /* the golf rough is the same approved turf UNMOWN: the a/b pair and the
+       variant shuffle PER CELL, which kills the mow read - placement, not a
+       recook, makes patchy rough out of striped lawn pieces */
+    name='turf_stripe_'+(th(gx,gy,2)===0?'a':'b')+th(gx,gy,3);
   } else if(courtAt(gx,gy)){
     var ck='';
     if(!courtAt(gx,gy-1)) ck+='N';

@@ -11228,6 +11228,15 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (a) LATEST -- *** THE LAWNS WERE GRAVEL: a new
+empty-queue instrument (rank the world name inventory minus every claimed
+name) found 24,000 cells of lawn drawing as gravel - the whole cemetery,
+the golf rough, the fire station and campus lawns. Fixed with ZERO new
+pixels: the approved turf, mow-banded for lawns, per-cell shuffled for
+the rough (placement kills the stripe read). Verified live both ways.
+Daily re-probe: all twelve landmark grounds still reserved. Record:
+sitting pass 37. Earlier 8/21: TF-ART-019 grid kit (substation machines).
+PREVIOUS:
 ART (f3eu53): 8/21 (a) LATEST -- *** THE GRID HAS ITS MACHINES:
 TF-ART-019 filed, cooked, wired in one turn - the substation's transformer
 bays (6x8-cell body: tank, fins, bushings), switchgear lattice, OVERHEAD
