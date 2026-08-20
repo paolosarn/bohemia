@@ -1288,12 +1288,22 @@ function requirePlaywright() {
       + 'nobody has a line, and AN EMPTY `heard` IS THE STRUCTURAL HOLE — so a row '
       + 'appended after it would print only when you are exposed and stay silent '
       + 'when you are the only route, which is the worst way to be wrong',
+      /* THE PROOF CHANGED SHAPE BECAUSE THE CARD DID, AND THE CLAIM DID NOT.
+         The first version asserted BOTH rows on one card -- the position row
+         beside the NOBODY row the early return emits. Then __CITY_WORSTCARD__
+         deliberately suppressed the NOBODY row on exactly these cards, because
+         "you are the only route between them" and "nobody has a line to them"
+         are one fact twice (A18 holds that separately). So the old evidence is
+         gone by design and this went red on its own.
+         THE CLAIM IS UNCHANGED AND STILL PROVABLE. On a gaudens card `heard` is
+         EMPTY, so a row below the early return would never print at all --
+         YOUR POSITION being there IS the proof it ran first. And the mutation
+         still bites for the same reason: move the block down and ctTer is
+         undefined at the `if(!ctTer)` guard, so the NOBODY row comes back and
+         the position row vanishes. Both halves flip. */
       tert.organ && tert.organ.key === 'gaudens'
-        /* the proof: BOTH rows on one card. The NOBODY row is emitted by the
-           early return itself, so seeing the position row beside it is proof
-           the position row ran BEFORE that return. */
         ? (/YOUR POSITION/.test(tert.folded || '')
-           && /NOBODY\. NO OUTFIT/.test(tert.folded || ''))
+           && !/NOBODY\. NO OUTFIT/.test(tert.folded || ''))
         : /YOUR POSITION/.test(tert.folded || ''),
       JSON.stringify({ key: tert.organ && tert.organ.key,
                        sawEmptyHeardRow: /NOBODY\. NO OUTFIT/.test(tert.folded || ''),
@@ -1326,6 +1336,129 @@ function requirePlaywright() {
                            + 'same-outfit by definition. WORK is the only possible bridge, '
                            + 'and with 32 affiliated of 298 it never pairs two affiliated '
                            + 'people from different outfits. WORLD/density, not this lane.' }));
+
+    /* ---- N. THE COLORFUL'S SCREENING, AND WHAT THE GRAPH LETS IT PAY -----
+       "Answer it well and you are introduced onward to three people; answer it
+       badly and you are still treated kindly and never introduced to anybody."
+       st.onward was COUNTED from the morning and nothing ever SPENT it.
+       An answer is good when you name somebody THEY ACTUALLY KNOW -- the
+       gatekeeper literature's legitimacy signal, checkable against the
+       community's own graph, and every ingredient already in the save. */
+    const onw = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const R = ctValleyRoster(), cell = ctCell(), out = {};
+          /* THE MEASURED CEILING ON THE REWARD, before anything is pressed. */
+          const deg = BohemiaTies.degrees(R, cell, ctVKey);
+          const vals = Object.values(deg);
+          out.people = vals.length;
+          out.knowNobody = vals.filter(n => n === 0).length;
+          out.meanDegree = +(vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(2);
+          out.couldOpenThree = vals.filter(n => n >= 3).length;
+          const best = Object.keys(deg).sort((a, b) => deg[b] - deg[a])[0];
+          out.bestDegree = deg[best] | 0;
+          out.bestOpens = BohemiaTies.onwardFrom(best, R, cell,
+                            { keyOf: ctVKey, n: 3, met: {} }).length;
+          out.colorful = R.filter(a => String(a.faction || '').toUpperCase() === 'COLORFUL')
+                          .map(a => deg[ctVKey(a)] | 0);
+          /* NOW PRESS IT ON A REAL COLORFUL MEMBER. */
+          const goStandBy = (row) => {
+            const q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+            hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
+            const rec = ctEveryone().filter(x => x.id === row.__id)[0];
+            if (!rec) return null;
+            const at = ctAt(rec);
+            for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              hx = at[0] + d[0]; hy = at[1] + d[1];
+              const a = ctAdjacent(); if (a && a.id === rec.id) return rec;
+            }
+            return null;
+          };
+          for (const c of R.filter(a => String(a.faction || '').toUpperCase() === 'COLORFUL')) {
+            const rec = goStandBy(c); if (!rec || !ctFactionOf(rec)) continue;
+            ctClose(); ctOpen();
+            out.aloneAlways = !!document.getElementById('ctalone');
+            out.cameBefore = !!document.getElementById('ctcame');
+            const me = ctTieRow(rec, R);
+            const ties = BohemiaTies.tiesOf(ctVKey(me), R, cell, ctVKey);
+            if (!ties.length) continue;
+            const friend = R.filter(z => ctVKey(z) === ties[0].key)[0];
+            CT_MET.meet('P:city:' + friend.__id, 1);
+            CT_MET.ask('P:city:' + friend.__id, 1);
+            ctClose(); ctOpen();
+            const cb = document.getElementById('ctcame');
+            out.cameAfter = cb ? cb.textContent : null;
+            if (!cb) continue;
+            const before = Object.keys(CT_MET.serialize()).length;
+            cb.click();
+            out.opened = Object.keys(CT_MET.serialize()).length - before;
+            out.answered = CT_MET.answered('P:city:' + rec.id);
+            out.honest = CT_MET.honest('P:city:' + rec.id);
+            ctClose(); ctOpen();
+            const t = document.getElementById('ctcard').innerText;
+            out.row = (t.match(/THEY ASKED YOU\n([^\n]*)/) || [])[1] || '';
+            out.gone = !document.getElementById('ctcame')
+                    && !document.getElementById('ctalone');
+            out.px = Math.round(document.getElementById('ctcard').getBoundingClientRect().height);
+            break;
+          }
+          return out;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('N1 THE COLORFUL\'S SECOND QUESTION CAN BE ANSWERED. st.onward was counted '
+      + 'on the card from the morning and nothing ever spent it — the tenth time '
+      + 'this week an organ computed something nothing applied',
+      !!onw.cameAfter && /Say you came with /.test(onw.cameAfter || ''),
+      JSON.stringify({ button: onw.cameAfter }));
+
+    ok('N2 …and the good answer is one THEY CAN CHECK. Before you know anybody '
+      + 'they are tied to there is nobody to name and the button is absent; learn '
+      + 'ONE of their acquaintances\' names and it appears. "Who sent you" is a '
+      + 'legitimacy signal — its whole value is that it can be verified against '
+      + 'the community\'s own graph',
+      onw.cameBefore === false && !!onw.cameAfter,
+      JSON.stringify({ before: onw.cameBefore, after: onw.cameAfter }));
+
+    ok('N3 …and the BAD answer is always on offer. "Still treated kindly and never '
+      + 'introduced to anybody" is his own ending for it, and a screening you '
+      + 'cannot fail is not a screening',
+      onw.aloneAlways === true, JSON.stringify({ alone: onw.aloneAlways }));
+
+    ok('N4 …answering is remembered on the two bits the ledger already had, and '
+      + 'the question closes for good — it is asked ONCE',
+      onw.answered === true && onw.honest === true && onw.gone === true,
+      JSON.stringify({ answered: onw.answered, honest: onw.honest, closed: onw.gone }));
+
+    ok('N5 …and the card says WHAT YOU DID, not what it bought. The first cut read '
+      + '"YOU ANSWERED, AND THEY OPENED DOORS" on a card where MEASURED nothing '
+      + 'opened — the save holds two bits and those are the only two things a row '
+      + 'reading the save is entitled to claim',
+      /YOU GAVE THEM A NAME THEY KNEW/.test(onw.row || '')
+      && !/OPENED DOORS/.test(onw.row || ''),
+      JSON.stringify({ row: onw.row }));
+
+    /* AND THE MEASURED CEILING, NAMED RATHER THAN ASSUMED -- same discipline as
+       L9 and M5. The machinery either opens what the graph allows or it is
+       broken, and THAT is the falsifiable half. */
+    ok('N6 the reward is bounded by the tie graph and the gate reports the real '
+      + 'numbers: the best-connected person in the valley opens exactly what '
+      + 'their degree allows. If the graph offers three and the machinery opens '
+      + 'fewer, that is a bug and this goes red',
+      onw.bestOpens === Math.min(3, onw.bestDegree | 0),
+      JSON.stringify({ peopleInValley: onw.people, knowNobodyAtAll: onw.knowNobody,
+                       meanAcquaintances: onw.meanDegree,
+                       couldOpenThree: onw.couldOpenThree,
+                       bestConnected: onw.bestDegree, bestOpens: onw.bestOpens,
+                       colorfulDegrees: onw.colorful,
+                       note: '199 of 298 know NOBODY and both Colorful know ONE, so the '
+                           + 'outfit whose dossier promises three can never pay more than '
+                           + 'one. Same root cause as M5: homesIn() seats one person per '
+                           + 'cell so the home focus groups nobody. WORLD/density.' }));
 
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));

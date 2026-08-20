@@ -596,6 +596,88 @@ gate **M5** — and M5 is falsifiable rather than decorative: if cross-outfit ti
 ever exist while `whoHears` still returns zero lines, the two disagree and it goes
 red.
 
+## 4k. THE TENTH, AND THE LAST ONE IN THIS SYSTEM
+
+`st.onward` was **counted** on the card's state from the morning this lane wired
+the third-party conditions, and **nothing ever spent it.** His Colorful dossier:
+
+> *"NAMES BOTH WAYS IN THE FIRST BREATH, AND THEN THE SECOND QUESTION IS WHO YOU
+> CAME WITH. That question is the actual screening and the name was the small
+> talk. Answer it **well** and you are introduced onward to three people; answer
+> it **badly** and you are still treated kindly and never introduced to anybody."*
+
+The effect is his, verbatim and complete. The one word he did not define is
+**well** — and that is mechanism, not canon, so it gets built from what the world
+already knows and he corrects it by playing.
+
+### AN ANSWER IS GOOD IF THEY CAN CHECK IT
+
+**Grounded, not invented.** The gatekeeper literature is unusually specific.
+Gould & Fernandez's brokerage typology puts the **gatekeeper** in charge of
+incoming access to their *own* group; the chain-referral and ethnographic-access
+work finds the same person acting as **sponsor and gatekeeper at once**, and names
+what is being exchanged:
+
+> *"Gatekeepers exchange reputational endorsement, temporarily extending their own
+> moral standing to the newcomer by vouching for trustworthiness."*
+>
+> *"Trust circulates as reputational currency grounded in kinship, friendship and
+> shared networks"* — which is exactly why **"who sent you"** is the question. The
+> answer is a **legitimacy signal**, and its whole value is that it can be
+> **verified against the community's own graph.**
+
+So: an answer is good when you name **somebody they actually know**. Not somebody
+important, not the right outfit — somebody with a real tie to the person in front
+of you, whose name **you went and earned**. Every ingredient was already in the
+save and nothing here rolls a die.
+
+### AND IT MAKES THE STACK FEED ITSELF
+
+This is why it was worth building rather than left as a counted number. To answer
+the Colorful well you must first have **met people and learned names** — which is
+the entire introductions system, the vouch, the overheard first name, the honest
+answer. The reward is **three more people**, which is more names, which is more
+good answers.
+
+**Granovetter 1973 is the sharp end of it.** The three you are handed are the
+Colorful's **strongest** ties and therefore **your weak ones** — a different
+cluster, which is precisely where the value of an introduction lives. That also
+settles something that looked like a bug: `onwardFrom` picking the strongest is
+**right**, not lazy. Your word only carries with people who actually trust you;
+you cannot introduce somebody to an acquaintance you barely have.
+
+### WHAT IT DELIBERATELY DOES NOT DO
+
+- **No new save field.** `answered` and `honest` have meant exactly this since
+  8/13 — you answered, and it held up.
+- **It does not hand you three names.** `onwardFrom`'s own note: *"Counted, never
+  named — you do not learn three strangers' names by being told they exist."* They
+  become people you have **met**; what they are called is still theirs to give
+  under their own outfit's rule. An introduction that skipped the sixteen
+  mechanics would undo the system it is built on.
+- **The bad answer is real.** *"Say you came on your own"* is offered **always**
+  and ends the screening for good, kindly, exactly as he wrote it. **A screening
+  you cannot fail is not a screening.**
+
+### AND A GATE OF MINE WENT RED FROM A CHANGE I MADE ON PURPOSE
+
+M3 proved *"the position row runs before the early return"* by asserting **both**
+rows on one card — the position row beside the `NOBODY` row the early return
+emits. Then `__CITY_WORSTCARD__` **deliberately suppressed** that `NOBODY` row,
+because *"you are the only route between them"* and *"nobody has a line to them"*
+are one fact twice. The evidence vanished by design and M3 went red on its own.
+
+> **A GATE CAN GO RED BECAUSE ITS EVIDENCE MOVED, NOT BECAUSE ITS CLAIM BROKE.**
+> The two look identical from the failure line, and only one of them is fixed by
+> touching the gate. The test is whether the claim is still **provable another
+> way** — if it is not, the code is wrong and the gate is right.
+
+Here it was still provable, and more directly: on a *gaudens* card `heard` is
+**empty**, so a row below the early return would never print at all. `YOUR
+POSITION` being there **is** the proof. And the mutation still bites for the same
+reason — move the block down and `ctTer` is undefined at the `if(!ctTer)` guard,
+so the `NOBODY` row returns and the position row vanishes. **Both halves flip.**
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not

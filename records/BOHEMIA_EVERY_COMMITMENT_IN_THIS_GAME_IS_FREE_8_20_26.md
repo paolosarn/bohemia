@@ -74,6 +74,37 @@ rather than a free bonus — can never happen.
    essentially never holds two affiliated people from *different* outfits. Zero
    is not surprising here; it is what the arithmetic predicts.
 
+## 3b. AND THE HEADLINE NUMBER, MEASURED AFTERWARDS
+
+Wiring the Colorful's screening (*"answer it well and you are introduced onward to
+three people"*) forced the same question about the tie graph as a whole, so it got
+counted properly:
+
+```
+HOW MANY PEOPLE EACH PERSON KNOWS   (whole valley, 298 people)
+  knows  0:  199 people        <-- TWO THIRDS OF THE VALLEY KNOW NOBODY
+  knows  1:   49
+  knows  2:   31
+  knows  3:    3
+  knows  4:    7
+  knows  5:    1
+  knows  7:    5
+  knows  8:    3
+  mean 0.71   max 8
+  people who could introduce you onward to THREE:  19 of 298
+
+THE COLORFUL, whose dossier promises three:   knows 1   ·   knows 1
+```
+
+> **199 of 298 people in Las Vegas have no acquaintances at all.** That is not a
+> settlement, and it is the same single cause as everything in section 3: with one
+> person per roof the home focus — the strongest tie there is — groups nobody, so
+> almost every tie in the valley has to come from a shared workplace.
+
+**The machinery is fine and that was checked separately:** the best-connected
+person in the valley opens exactly the three his canon promises. The outfit whose
+entire mechanic is introducing you onward simply has nobody to introduce.
+
 ## 4. WHAT WOULD ACTUALLY FIX IT (whoever owns these)
 
 Any **one** of these unblocks the entire half of the system. None of them belong

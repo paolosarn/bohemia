@@ -199,10 +199,19 @@ NEW_ASKS = """  /* """ + MARKER + """ -- and how it went, ON THE ROW THAT ASKED 
   if(m.asks){
     var ctAskV = m.asks;
     try {
+      /* IT SAYS WHAT YOU DID, NOT WHAT IT BOUGHT, AND THE FIRST CUT DID NOT.
+         It read "YOU ANSWERED, AND THEY OPENED DOORS" on a card where MEASURED
+         nothing opened -- 2 people met before, 2 after -- because this Colorful
+         had exactly ONE acquaintance and it was the person I had just named.
+         The mechanism was right and the sentence was a lie, which is the exact
+         disease this whole lane has spent the day removing. The save holds two
+         bits (you answered; it held up) and those are the only two things a row
+         reading the save is entitled to say. What it actually BOUGHT is spoken
+         out loud at the moment it happens, where the real count is in hand. */
       if(typeof CT_MET !== 'undefined' && ctOnwardKey && CT_MET.answered(ctOnwardKey))
         ctAskV += CT_MET.honest(ctOnwardKey)
-          ? '  \\u00b7  YOU ANSWERED, AND THEY OPENED DOORS'
-          : '  \\u00b7  YOU ANSWERED. THEY WERE KIND ABOUT IT.';
+          ? '  \\u00b7  YOU GAVE THEM A NAME THEY KNEW'
+          : '  \\u00b7  YOU CAME ON YOUR OWN, AND THEY LEFT IT THERE';
     } catch(_e){}
     body += ctRow('THEY ASKED YOU', ctAskV);
   }"""

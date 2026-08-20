@@ -35787,6 +35787,57 @@ function ctTieRow(p, roster){
   for(var i=0;i<roster.length;i++) if(roster[i].__id === p.id) return roster[i];
   return null;
 }
+/* __CITY_ONWARD__ -- WHO YOU CAME WITH, AND WHETHER THEY CAN CHECK IT.
+   The Colorful ask one screening question and the answer is a LEGITIMACY SIGNAL:
+   its whole value is that it can be verified against their own network. So a
+   good answer names somebody THEY are acquainted with and whose name YOU went
+   and earned. Both facts are already in the save; nothing here rolls a die.
+   Returns the strongest such person, or null when you have nobody to name -- and
+   null is a real answer, not a gap. */
+function ctOnwardWho(p, fid){
+  if(typeof BohemiaTies === 'undefined' || !fid) return null;
+  try {
+    var roster = ctValleyRoster(), me = ctTieRow(p, roster);
+    if(!me) return null;
+    var ties = BohemiaTies.tiesOf(ctVKey(me), roster, ctCell(), ctVKey);
+    for(var i=0;i<ties.length;i++){
+      for(var j=0;j<roster.length;j++){
+        if(ctVKey(roster[j]) !== ties[i].key) continue;
+        var lk = 'P:city:' + roster[j].__id;
+        /* their NAME, not just their face: a stranger's word is not a referral */
+        if(!CT_MET.asked(lk)) break;
+        return { key:lk, via:ties[i].via,
+                 name:BohemiaPeople.generatedName(lk) };
+      }
+    }
+  } catch(_e){}
+  return null;
+}
+/* AND WHAT ANSWERING WELL BUYS: his three, marked MET and nothing more.
+   onwardFrom's own note -- "Counted, never named" -- so they become people you
+   have met and what they are called is still theirs to give under their own
+   outfit's rule. An introduction that skipped the sixteen mechanics would undo
+   the system it is built on. */
+function ctOnwardOpen(p, fid){
+  var opened = [];
+  if(typeof BohemiaTies === 'undefined') return opened;
+  try {
+    var roster = ctValleyRoster(), me = ctTieRow(p, roster);
+    if(!me) return opened;
+    var sets = ctTieSets(roster);
+    var three = BohemiaTies.onwardFrom(ctVKey(me), roster, ctCell(),
+                  { keyOf:ctVKey, n:3, met:sets.met });
+    for(var i=0;i<three.length;i++){
+      for(var j=0;j<roster.length;j++){
+        if(ctVKey(roster[j]) !== three[i].key) continue;
+        CT_MET.meet('P:city:' + roster[j].__id, (T && T.day) || 1);
+        opened.push(roster[j].__id);
+        break;
+      }
+    }
+  } catch(_e){}
+  return opened;
+}
 function ctIntroThird(p, fid){
   var out = { vouched:false, overheard:false, onward:0 };
   if(typeof BohemiaTies === 'undefined' || !fid) return out;
@@ -35912,10 +35963,31 @@ function ctIntroName(intro, asked){
   return ['NAME', asked ? 'YOU ASKED. YOU DID NOT GET IT.' : 'YOU HAVE NOT ASKED'];
 }
 /* the rest of what the introduction knows, appended after the city's own rows. */
-function ctIntroRows(body, intro, fid){
-  var m = (intro && intro.m) || {};
+function ctIntroRows(body, intro, fid, ctOnwardKey){
+  var m = (intro && intro.m) || {};   /* __CITY_ONWARD__ -- key for the outcome */
   if(fid) body += ctRow('RUNS WITH', String(fid).toUpperCase());
-  if(m.asks) body += ctRow('THEY ASKED YOU', m.asks);
+  /* __CITY_ONWARD__ -- and how it went, ON THE ROW THAT ASKED IT.
+     The person card has no headroom (this lane, three times in three days), and
+     the outcome of a question belongs to the question. draft:true. */
+  if(m.asks){
+    var ctAskV = m.asks;
+    try {
+      /* IT SAYS WHAT YOU DID, NOT WHAT IT BOUGHT, AND THE FIRST CUT DID NOT.
+         It read "YOU ANSWERED, AND THEY OPENED DOORS" on a card where MEASURED
+         nothing opened -- 2 people met before, 2 after -- because this Colorful
+         had exactly ONE acquaintance and it was the person I had just named.
+         The mechanism was right and the sentence was a lie, which is the exact
+         disease this whole lane has spent the day removing. The save holds two
+         bits (you answered; it held up) and those are the only two things a row
+         reading the save is entitled to say. What it actually BOUGHT is spoken
+         out loud at the moment it happens, where the real count is in hand. */
+      if(typeof CT_MET !== 'undefined' && ctOnwardKey && CT_MET.answered(ctOnwardKey))
+        ctAskV += CT_MET.honest(ctOnwardKey)
+          ? '  \u00b7  YOU GAVE THEM A NAME THEY KNEW'
+          : '  \u00b7  YOU CAME ON YOUR OWN, AND THEY LEFT IT THERE';
+    } catch(_e){}
+    body += ctRow('THEY ASKED YOU', ctAskV);
+  }
   if(m.blocked) body += ctRow('WILL NOT SAY', m.blocked);
   if(m.cost) body += ctRow('AND', m.cost);
   if(m.remembers) body += ctRow('AND', 'THEY WILL NOT FORGET YOU');
@@ -36066,7 +36138,7 @@ function ctDraw(){
   body+=ctRow('RIGHT NOW', BohemiaPeople.nowLineOf(who, T.min|0) ||
                            (ctAt(p)[0]===p.home[0]?'Standing outside':'Out on the block'));
   body+=ctRow('YOU HAVE MET', met&&met.times>1?(met.times+' TIMES'):'FIRST TIME');
-  body = ctIntroRows(body, ctIntro, ctFid);
+  body = ctIntroRows(body, ctIntro, ctFid, who.key);   /* __CITY_ONWARD__ */
   var ctBtn = ctIntro ? BohemiaIntros.buttonFor(ctIntro.rule, ctIntro.ctx, ctIntro.st)
                       : (nm ? null : 'Ask their name');
   var ctAct = null;
@@ -36282,6 +36354,24 @@ function ctDraw(){
   try { ctAns = ctIntro && BohemiaIntros.answerFor(ctIntro.rule, ctIntro.ctx, ctIntro.st); }
   catch(_e){}
   if(ctAns) body+='<button id="ctanswer">'+ctAns.label+'</button>';
+  /* __CITY_ONWARD__ -- THE COLORFUL'S SECOND QUESTION IS THE SCREENING, and
+     st.onward has been counted on this card since this morning with nothing
+     spending it. Offered once, and only while it is still open.
+     BOTH ANSWERS ALWAYS -- a screening you cannot fail is not a screening, and
+     "still treated kindly and never introduced to anybody" is his ending for it.
+     draft:true on every word. */
+  var ctOnwardName = null;
+  try {
+    if(ctIntro && ctIntro.m && ctIntro.m.asks && (ctIntro.rule.opens|0) > 0
+       && !CT_MET.answered(who.key)){
+      var ctOW = ctOnwardWho(p, ctFid);
+      ctOnwardName = ctOW && ctOW.name;
+      if(ctOnwardName)
+        body += '<button id="ctcame" data-who="' + ctOW.key + '">'
+             + 'Say you came with ' + ctOnwardName + '</button>';
+      body += '<button id="ctalone">Say you came on your own</button>';
+    }
+  } catch(_e){}
   /* __CITY_FAVOUR__ -- ctFavIsAct is set above, with ctAct. It is NOT
      re-declared here: `var` hoists, so a second `var x = false` at this line
      would run AFTER the assignment above and clobber it back to false, and the
@@ -36326,6 +36416,34 @@ function ctDraw(){
      CT_MET.answer() writes BOTH bits (answered, honest); the second one has
      existed since 8/13 precisely so "has not answered" and "answered and lied"
      stop being the same state. */
+  /* __CITY_ONWARD__ -- and what each answer does. The GOOD one spends
+     st.onward: three people you have not met become people you have. The BAD one
+     closes the screening for good, kindly, which is his own ending for it.
+     Both write the SAME two ledger bits the Homeless answer uses (answered +
+     honest), so one place decides what has happened between you and a person. */
+  var cameB=document.getElementById('ctcame');
+  if(cameB) cameB.addEventListener('click',function(){
+    var got = ctOnwardOpen(p, ctFid);
+    CT_MET.answer(who.key, T.day||1, true); ctSave();
+    try {
+      if(window.parent && window.parent !== window)
+        window.parent.postMessage({ type:'BOHEMIA_VOICE',
+          speaker:'city:'+(who.key||''),
+          text: got.length
+            ? 'Oh, them. Then you should know a few more people.'
+            : 'Small valley. You already know everyone worth knowing.' }, '*');
+    } catch(_e){}
+    ctDraw(); render(); });
+  var aloneB=document.getElementById('ctalone');
+  if(aloneB) aloneB.addEventListener('click',function(){
+    CT_MET.answer(who.key, T.day||1, false); ctSave();
+    try {
+      if(window.parent && window.parent !== window)
+        window.parent.postMessage({ type:'BOHEMIA_VOICE',
+          speaker:'city:'+(who.key||''),
+          text: 'On your own. That happens.' }, '*');
+    } catch(_e){}
+    ctDraw(); render(); });
   var ansB=document.getElementById('ctanswer');
   if(ansB) ansB.addEventListener('click',function(){
     CT_MET.answer(who.key, T.day||1, true); ctSave();
