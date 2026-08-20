@@ -39,7 +39,20 @@ WHAT IT ASSERTS, all of it off a real running transport:
                                    asserted: a stinger that renders to one blurt
                                    would pass any check that only asks "did it
                                    make a noise".
-  7. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
+  7. THE FIGHT INTENSIFIES         MUS.playStep has gated a second and third
+                                   tier of arrangement behind sk>=2 and sk>=4
+                                   since 7/3, one style per faction, built for
+                                   Paolo's ruling that "the progression of four
+                                   kills all sound like the same progression".
+                                   The only writer of MUS.layers in the whole
+                                   alpha was a BUTTON in the studio, so the game
+                                   never set it and every fight ever played ran
+                                   flat. Proved by killing things and by
+                                   COUNTING THE PARTS that fire at each layer --
+                                   RMS is the wrong ruler here, because the parts
+                                   that come in are quiet hats and chips that add
+                                   density, not loudness.
+  8. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
                                    sandbox slot (motif 'plain', osc + pluck).
                                    Combat drew it uniformly, so one fight in
                                    fourteen was scored by a patch nobody wrote.
@@ -151,6 +164,47 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       r.root=(MUS.fac()||{}).root;
       r.fired=STING.play('win');                     // live, on the running transport
       r.refused=STING.play('win');                   // and refuses a burst
+      return r;
+    });
+
+    // ---- THE KILL LAYERS -------------------------------------------------
+    out.kill=await p.evaluate(async()=>{
+      if(typeof KILLMUS==='undefined') return {missing:true};
+      const r={steps:[]};
+      const fire=()=>window.postMessage({type:'BOHEMIA_SHOT_RESULT',outcome:'killshot',
+        zone:'kill',greedMult:1,patMeta:{pat:0,pkg:0,weapon:'x',target:'t',eid:0,angleOff:0}},'*');
+      const wait=ms=>new Promise(z=>setTimeout(z,ms));
+      KILLMUS.reset();
+      r.atStart={kills:KILLMUS.kills,layers:MUS.layers};
+      for(let k=1;k<=5;k++){ fire(); await wait(1500);
+        r.steps.push({kills:KILLMUS.kills,want:KILLMUS.want,layers:MUS.layers}); }
+      // AND THE PARTS REALLY THICKEN. Exact, not a signal guess: wrap the two
+      // voice dispatchers, run two bars per layer, count the calls. Restored in
+      // a finally -- a probe that mutates the surface puts it back.
+      const SR=44100;
+      async function bar(fi,layers){
+        const kAC=MUS.AC,kM=MUS.MAST,kL=MUS.layers,kC=MUS.cur;
+        const rs=window.synthV, rd=window.drumV; let n=0;
+        try{
+          window.synthV=function(){n++;}; window.drumV=function(){n++;};
+          const OAC=new OfflineAudioContext(1,Math.ceil(SR*0.2),SR);
+          const M=OAC.createGain(); M.connect(OAC.destination);
+          MUS.AC=OAC; MUS.MAST=M; MUS.layers=layers; MUS.cur=fi;
+          const sd=MUS.stepDur();
+          for(let s=0;s<32;s++){ try{ MUS.playStep(s%16,0.05+s*sd,MUS.songCtx(s)); }catch(e){} }
+          return n;
+        } finally { window.synthV=rs; window.drumV=rd;
+          MUS.AC=kAC; MUS.MAST=kM; MUS.layers=kL; MUS.cur=kC; }
+      }
+      r.parts=[];
+      for(let fi=1;fi<MFACTIONS.length;fi++){
+        r.parts.push({n:MFACTIONS[fi].n, klay:MFACTIONS[fi].klay,
+          L0:await bar(fi,0), L2:await bar(fi,2), L4:await bar(fi,4)});
+      }
+      r.putBack={synthOK:typeof window.synthV==='function',
+                 drumOK:typeof window.drumV==='function'};
+      KILLMUS.reset();
+      r.afterReset={kills:KILLMUS.kills,layers:MUS.layers};
       return r;
     });
 
@@ -283,6 +337,45 @@ def main():
            len(ratios) == 3 and all(abs(r - x) < 0.04 for r, x in zip(ratios, want)))
         ok('the sting fires on a live transport', sg.get('fired') is True)
         ok('and refuses a second one inside its own gap', sg.get('refused') is False)
+
+    # ---- THE KILL LAYERS -------------------------------------------------
+    kl = d.get('kill') or {}
+    ok('the kill layers are driven by the game (KILLMUS)', not kl.get('missing'))
+    if not kl.get('missing'):
+        st = kl.get('steps') or []
+        ok('a fight starts CALM (layers %s)' % (kl.get('atStart') or {}).get('layers'),
+           (kl.get('atStart') or {}).get('layers') == 0)
+        ok('a killshot is COUNTED (%s)' % [x['kills'] for x in st],
+           [x['kills'] for x in st] == [1, 2, 3, 4, 5])
+        # HIS OWN BUTTON'S THRESHOLDS: CALM / 2 KILLS / 4 KILLS
+        got = [x['layers'] for x in st]
+        ok('one kill is still CALM (%s)' % got[:1], got and got[0] == 0)
+        ok('two kills lift the arrangement to layer 2, four to layer 4 '
+           '(layers after each kill: %s)' % got,
+           len(got) == 5 and got[-1] == 4 and 2 in got and got.index(2) >= 1)
+        ok('the lift WAITS for the bar line rather than landing mid-bar '
+           '(want ran ahead of layers at least once: %s)'
+           % [(x['want'], x['layers']) for x in st],
+           any(x['want'] != x['layers'] for x in st))
+        ok('the fight settling puts it back to CALM (%s)'
+           % (kl.get('afterReset') or {}).get('layers'),
+           (kl.get('afterReset') or {}).get('layers') == 0)
+        # AND THE ARRANGEMENT REALLY THICKENS, every faction, both thresholds
+        parts = kl.get('parts') or []
+        flat2 = [x['n'] for x in parts if x['L2'] <= x['L0']]
+        flat4 = [x['n'] for x in parts if x['L4'] <= x['L2']]
+        ok('EVERY faction adds parts at 2 kills (%s)'
+           % (', '.join(flat2) or '%d factions, all thicken' % len(parts)), not flat2)
+        ok('EVERY faction adds parts again at 4 kills (%s)'
+           % (', '.join(flat4) or 'all thicken'), not flat4)
+        if parts:
+            worst = min(parts, key=lambda x: (x['L4'] - x['L0']) / max(x['L0'], 1))
+            lift = 100.0 * (worst['L4'] - worst['L0']) / max(worst['L0'], 1)
+            ok('the quietest lift is still a real one (%s %s: %d -> %d parts, '
+               '+%.0f%%)' % (worst['n'], worst['klay'], worst['L0'], worst['L4'], lift),
+               lift >= 20)
+        pb = kl.get('putBack') or {}
+        ok('the probe put the voice dispatchers back', pb.get('synthOK') and pb.get('drumOK'))
 
     draws = d.get('draws') or {}
     ok('200 redraws of the scratch slot never land on CUSTOM (%s)'

@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20l - FIVE ICONS YOU COULD NOT SEE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20b - THE FIGHT BUILDS AS YOU KILL</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7887,6 +7887,8 @@ function combatMsgIn(d){
          has had nothing musical on them at all. In the key of whatever is
          playing, on the next beat. See STING. */
       try{ if(window.STING)STING.play(enc.victory?'win':'loss'); }catch(_e){}
+      /* the fight is over, so the arrangement comes back down */
+      try{ if(window.KILLMUS)KILLMUS.reset(); }catch(_e){}
       /* AND THE STREETS COME BACK, at the next 8-bar phrase and never inside
          the cooldown, so two fights in a row stay ONE musical event. */
       try{ if(window.FIGHTMUS)FIGHTMUS.leave(); }catch(_e){}
@@ -7910,6 +7912,10 @@ function combatMsgIn(d){
     return true;
   }
   if(d.type==='BOHEMIA_SHOT_RESULT'){
+    /* THE MUSIC HEARS IT (8/20). A killshot lifts the arrangement at the top of
+       the next bar. See KILLMUS: the layers have existed since 7/3 and nothing
+       in the game had ever set them. */
+    try{ if(d.outcome==='killshot'&&window.KILLMUS)KILLMUS.killed(); }catch(_e){}
     if(!CSHOT)CSHOT=CBRIDGE.beginShot({shooter:'player',target:d.patMeta&&d.patMeta.target,weapon:d.patMeta&&d.patMeta.weapon,packageId:d.patMeta&&d.patMeta.pkg});
     CBRIDGE.resolve(CSHOT.shotId,{outcome:d.outcome,zone:d.zone,greedMult:d.greedMult,patMeta:d.patMeta});
     CSHOT=null;
@@ -8034,6 +8040,8 @@ function startEncounter(spec){
      FIGHTMUS: without this the overworld shuffle takes the music back 64 bars
      into any fight, measured on the cold open. */
   try{ if(window.FIGHTMUS)FIGHTMUS.enter(); }catch(_e){}
+  /* and every fight starts CALM, whatever the last one ended on */
+  try{ if(window.KILLMUS)KILLMUS.reset(); }catch(_e){}
   combatPost({type:'BOHEMIA_ENCOUNTER',packageId:G.encounter.packageId,roster:roster,
     playerHP:G.encounter.playerHP,encounterId:ctx.encounterId,questId:ctx.questId,stepId:ctx.stepId,
     objective:ctx.objective,faction:ctx.faction,reason:ctx.reason,mercy:ctx.mercy,
@@ -12366,6 +12374,53 @@ const STING={
   }
 };
 window.STING=STING;
+/* ===== KILLMUS (8/20/26) -- THE FIGHT INTENSIFIES AS YOU KILL ============
+   MUS.playStep has gated a second and third tier of arrangement behind
+   `sk>=2` and `sk>=4` since 7/3, with a different intensification style per
+   faction (drive / stabs / melody / drums / bassrise), built for Paolo's own
+   ruling: "the progression of four kills all sound like the same progression".
+   The MUSIC tab even carries the control, labelled KILL LAYERS: CALM / 2 KILLS
+   / 4 KILLS.
+   THAT BUTTON WAS THE ONLY WRITER OF MUS.layers IN THE WHOLE ALPHA. The game
+   never set it, so every fight ever played ran at the base arrangement, flat,
+   first shot to last. This is the caller.
+
+   IT LANDS ON THE BAR LINE. A part that appears halfway through a bar does not
+   read as the music intensifying, it reads as a mistake. The lift is held and
+   applied at the top of the next bar -- at most two seconds at 120 BPM, and
+   the same pend/apply shape CITYMUS already uses for its time-of-day turn. */
+const KILLMUS={
+  kills:0, want:0, watch:null,
+  /* his own button's thresholds, in his own words */
+  TIERS:[[4,4],[2,2],[0,0]],
+  tierFor(k){ for(var i=0;i<this.TIERS.length;i++) if(k>=this.TIERS[i][0])return this.TIERS[i][1]; return 0; },
+  reset(){ this.kills=0; this.want=0;
+    if(this.watch){clearInterval(this.watch); this.watch=null;}
+    try{ MUS.layers=0; }catch(e){} },
+  killed(){
+    this.kills++;
+    var w=this.tierFor(this.kills);
+    if(w===this.want)return;                       /* already heading there */
+    this.want=w;
+    this.arm();
+  },
+  arm(){
+    if(this.watch)return;
+    this.watch=setInterval(()=>{
+      var m; try{ m=MUS; }catch(e){ return; }
+      if(!m){ return; }
+      if(m.layers===KILLMUS.want){
+        clearInterval(KILLMUS.watch); KILLMUS.watch=null; return; }
+      /* THE TOP OF A BAR. 16 steps to a bar; if the transport is not running
+         there is no bar to wait for, so it takes effect immediately. */
+      if(!m.playing || (m.step%16)===0){
+        m.layers=KILLMUS.want;
+        clearInterval(KILLMUS.watch); KILLMUS.watch=null;
+      } },60);
+  }
+};
+window.KILLMUS=KILLMUS;
+
 
 
    /* same-origin iframes call this DIRECTLY inside the tap gesture, keeping the audio-activation stack alive (iOS law) */
