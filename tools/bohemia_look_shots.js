@@ -200,6 +200,47 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    id: 'the-bad-footing',
+    title: 'GROUND YOU CANNOT SET YOUR FEET ON',
+    caption: 'Loose ground: ballast, talus, rubble drift. Standing here you cannot brace, so everything physical hits you harder -- and the tip cuts both ways, because you can lead somebody else onto it. Until 8/20 this drew as flat colour and the only thing that told you it was dangerous was a line of text in the corner. Now the floor says it: broken chips, four values, no two pieces alike. RUN tab.',
+    find: `(() => {
+      const K = BohemiaDistrictKit;
+      const want = {};
+      for (const d of K.types()) {
+        const sp = K.get(d); if (!sp || !sp.legend) continue;
+        for (const c in sp.legend)
+          if (BohemiaHazard.classOf(sp.legend[c], K) === 'AMPLIFIES') (want[d] = want[d] || []).push(+c);
+      }
+      /* CENTRE ON A HAZARD CELL, AND ON THE DENSEST ONE. Two wrong framings before this,
+         both found by taking the picture and looking at it rather than by reading:
+         the first took the first match anywhere and landed on the top row of the map, so
+         four fifths of the frame was off-map blue; the second took the CENTROID of the
+         patch, and the centroid of a scattered set is not in the set -- it put the camera
+         on a loading pad in a rail yard with the ballast off screen. So: score every
+         hazard cell by how many hazard cells sit in the 5x5 around it, and stand on the
+         winner. That is the one place the frame is actually full of the thing. */
+      let pick = null, best = -1;
+      for (let ty = 6; ty < om.n - 6; ty++) for (let tx = 6; tx < om.n - 6; tx++) {
+        const t = om.at(tx, ty); if (!t || !want[t.district]) continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        const hit = new Uint8Array(FN * FN);
+        let any = 0;
+        for (let i = 0; i < FN * FN; i++)
+          if (want[t.district].indexOf(m.kit[i]) >= 0) { hit[i] = 1; any++; }
+        if (any < 40) continue;
+        for (let ly = 2; ly < FN - 2; ly++) for (let lx = 2; lx < FN - 2; lx++) {
+          if (!hit[ly * FN + lx]) continue;
+          let n = 0;
+          for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++)
+            if (hit[(ly + dy) * FN + lx + dx]) n++;
+          if (n > best) { best = n; pick = { hx: tx*FN + lx, hy: ty*FN + ly, zoom: 22 }; }
+        }
+        if (best >= 25) return pick;      /* a solid 5x5 of it -- cannot do better */
+      }
+      return pick; })()`,
+  },
+  {
     id: 'the-hole',
     title: 'THE HOLE: ground you can be thrown into',
     caption: 'The crest of a quarry bench. Until 8/20 this was a WALL -- the deepest hole in the valley was something you bounced off. It is a void now: you cannot walk into it, it does not stop a body thrown at it, and being knocked in is fatal. Drawn darker than the rock it is cut from, because a drop reads as a floor at a different value. RUN tab.',

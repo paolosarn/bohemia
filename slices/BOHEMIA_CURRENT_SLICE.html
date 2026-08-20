@@ -12696,11 +12696,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 //   8 ft outside shoulder / bike lane, curb and gutter
 //   DETACHED sidewalk set behind an amenity strip (the Sun Belt norm, not a
 //     curb-attached walk), streetlights in the amenity zone
-//   a landscape setback behind the walk, then the 6 ft CMU BLOCK WALL that backs
-//     every residential tract in the valley
-//   overhead distribution poles down the setback, signal mast arms at the corners
-// So the built corridor here is 85 tiles (64 m) wall to wall inside a 128-tile
-// (96 m) cell, which leaves the honest dirt shoulder the neighbouring cell shares.
+//   overhead distribution poles down the parkway, signal mast arms at the corners
+// AND NO BLOCK WALL AND NO SETBACK (Paolo 8/11, "THE STREETS DONT HAVE WALLS" and "the
+// streets should FILL THE WHOLE FUCKING BOX"). The deep landscape setback belongs to the
+// PARCEL NEXT DOOR, not to the street, so the corridor fills the whole 128-tile (96 m)
+// cell edge to edge: median, six lanes each way to the curb, then a 9 m planted parkway
+// carrying the trees and the poles, then a 4.5 m detached walk out to the boundary.
 //
 // LAWS HELD: SIDEWALK SANCTITY (a continuous walk wraps every corner; nothing but
 // street furniture stands on it). LINE COLOR (Paolo 7/13): YELLOW separates opposing
@@ -12712,7 +12713,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 //
 // LEGEND:
 //  0 dirt shoulder  1 asphalt roadway  2 white lane line  3 crosswalk  4 raised median
-//  5 curb+gutter    6 sidewalk         7 landscape strip  8 block wall 9 streetlight
+//  5 curb+gutter    6 sidewalk         7 parkway          [8 RETIRED]  9 streetlight
 // 10 power pole    11 dead palm/shrub 12 signal mast     13 bus stop  14 dead car
 // 15 stop bar      16 storm drain     17 yellow turn-pocket line
 (function (root) {
@@ -12756,19 +12757,38 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var MEDIAN = 2;      // 0..2   raised median island
   var PAVE = 44;       // 3..44  6 travel lanes + turn lanes + parking + shoulder
   var CURB = 46;       // 45..46 curb + gutter
-  var AMEN = 52;       // 47..52 amenity strip (streetlights live here)
-  // SIDE A LITTLE, THEN STREET (Paolo 8/11, his words exactly): "THE STREET WILL TAKE UP
-  // THE full fucking square not just most of it... side a little then street!" The walk
-  // runs to the cell boundary and there is no margin behind it at all -- the neighbouring
-  // district's own edge is what starts on the other side of the line.
-  var WALK = 63;       // 53..63 DETACHED sidewalk, out to the cell edge
-  var SET = 63;        // no margin: the street owns the cell
+  // THE SURPLUS WIDTH BELONGS TO THE PARKWAY, NOT TO THE SIDEWALK (8/20).
+  // The 8/11 rewrite deleted the deep setback and ran the walk to the cell boundary,
+  // which was right about the boundary and wrong about what fills it: AMEN 52 / WALK 63
+  // gave the amenity strip 6 tiles (4.5 m) and the SIDEWALK TWELVE (9 m). Nine metres
+  // of blank concrete per side, wider than two travel lanes, 2,944 tiles -- 18% of the
+  // whole cell -- and it is the biggest single thing you look at on the most-walked
+  // cell type in the game. A detached walk in Clark County is FIVE FEET (1.5 m) and the
+  // standard is explicit that nothing above ground stands on it; the width goes to the
+  // parkway, which is where the trees, the poles and the lights are required to be.
+  // It is also what Paolo asked for in the first place -- "SIDE A LITTLE, THEN STREET"
+  // (8/11): a 9 m sidewalk is not "a little", it is the widest single band outside the
+  // roadway. Major Vegas arterials carry 10-20 ft of landscaped parkway and a narrow
+  // meandering walk behind it, so the surplus goes where the real one puts it.
+  var AMEN = 58;       // 47..58 PARKWAY, 12 tiles / 9 m: trees, poles, lights, stops
+  var WALK = 64;       // 59..64 DETACHED sidewalk, 6 tiles / 4.5 m, out to the cell edge
+  var SET = 64;        // no margin: the street owns the cell
   // AND NO BLOCK WALL. A street is public ground all the way to the boundary, so the
   // neighbouring district's own edge starts exactly where this cell stops.
 
   var LANE_A = 8, LANE_B = 13;   // white lane lines between same-direction lanes
   var EDGE = 21;                 // solid white edge line
-  var POCKET = 30;               // the median opens this far out from the box: turn pocket
+  /* THE LEFT-TURN POCKET, AND THE SIXTH GUARD THAT COULD NOT BE TRUE (8/20).
+     pocket() skips any row outside `oa >= BOX + 1 && oa <= POCKET`. BOX is 46 and POCKET
+     was 30, so that condition reads "at least 47 and at most 30" -- EMPTY, at every seed,
+     on every cell, since the day BOX grew with the pavement on 8/11. The yellow
+     turn-pocket line is the only YELLOW on the whole street (LINE COLOR LAW, Paolo 7/13:
+     yellow separates opposing DIRECTION and lives nowhere else here) and it has not been
+     drawn once in nine days.
+     A real left-turn bay is 150 ft of storage plus a 120 ft taper, call it 270 ft; 60
+     tiles is 45 m, a conservative read of that, and it now starts where the intersection
+     box ends instead of 16 tiles inside it. */
+  var POCKET = 106;              // = BOX + 60: the bay runs 45 m back from the junction
 
   function bandCode(b) {
     if (b <= MEDIAN) return 4;
@@ -12924,32 +12944,104 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       ['N', 'S', 'E', 'W'].forEach(function (d) { if (set[d]) approach(d); });
     }
 
-    // ---- 3. street furniture (act-1 DEAD) --------------------------------------
+    /* ---- 3. street furniture (act-1 DEAD) -------------------------------------
+       AND FOR NINE DAYS THERE WAS NONE OF IT (8/20). This block ran every bake and
+       placed almost nothing: a 96 x 96 m arterial cell -- the most-walked cell type
+       in the game, 2,434 of the valley's 9,216 -- carried TWO OBJECTS. Eleven of
+       this module's eighteen legend codes were never emitted once. The dossier
+       promised a street and the generator made an empty slab.
+
+       THREE SEPARATE CAUSES, all the same shape, and it is the shape that keeps
+       biting this file: A CONSTANT MOVED AND ITS DEPENDENTS STAYED BEHIND.
+
+       (a) THE POLES AND THE TREES WERE THROWN AT THE SIDEWALK. put() only writes
+           over code 7, the amenity strip, which the 8/11 "streets fill the box"
+           rewrite narrowed to offsets 47..52. The poles were placed at SET-2 = 61
+           and the palms at AMEN+4.. = 56..61, which were deep landscape SETBACK
+           before that rewrite and are SIDEWALK after it. bandCode(61) is 6. So
+           every pole and every tree was computed, handed to put(), and silently
+           dropped -- 100% of them, every bake since 8/11.
+       (b) THE LIGHTS WERE CLIPPED BY A JUNCTION THAT IS NOT THERE. `if
+           (Math.abs(t - C) <= BOX) continue` skips the intersection box, but BOX is
+           46, so it skips t = 18..110 -- 93 of 128 rows -- leaving exactly t = 6 and
+           t = 126. Two lights. On a RUN cell there is no junction to keep clear.
+           This is the IDENTICAL bug the lane-striping loop forty lines up was
+           already fixed for, with the comment "NEVER STRIPE THROUGH THE JUNCTION --
+           BUT ONLY IF THERE IS ONE." The fix did not travel down the file.
+       (c) NOBODY EVER PLACED THE REST. bus stop, dead car and storm drain inlet
+           have legend entries and act-1 flavour text written for them and no code
+           anywhere that emits them on a run.
+
+       THE SPACINGS ARE REAL, not eyeballed. Sources: Clark County Fire hydrant
+       guideline (arterials of 4+ lanes over 30,000 vpd) and standard roadway
+       lighting practice, cross-checked 8/20:
+         streetlights   350-500 ft between successive heads, STAGGERED on alternate
+                        sides, "approximately every other utility pole"
+         power poles    consequently ~175-250 ft, so every other pole carries a head
+         street trees   20-30 ft on centre in the amenity zone (Clark County requires
+                        the zone planted; in act 1 most of them are dead or gone)
+         bus stops      RTC arterial stops run about a quarter mile, so roughly one
+                        cell in four has one -- seeded, not on every cell
+       And nothing above ground stands on the walk itself: Clark County is explicit
+       that the 5 ft sidewalk stays clear and the furniture lives in the amenity
+       zone. That is now also the only band put() can reach, which is the correct
+       accident.
+       TILE = 0.75 m, so 1 ft = 0.4 tiles and the cell is 128 tiles = 96 m.        */
     function put(px, py, code, over) {
       if (px < 0 || py < 0 || px > 127 || py > 127) return;
       var c = g[py][px];
       if (over ? over(c) : (c === 7)) g[py][px] = code;
     }
     var onWalkable = function (c) { return c === 7; };
+    // the amenity strip, in offsets: the one band that legally holds furniture
+    var AM0 = CURB + 1, AM1 = AMEN;
+    function amenityOffset(k) {                 // deterministic spot inside the strip
+      return AM0 + (k % (AM1 - AM0 + 1));
+    }
+    // A JUNCTION ONLY BLOCKS THINGS IF THERE IS ONE (see (b) above).
+    function inJunction(oa) { return vert && horiz && Math.abs(oa) <= BOX; }
 
-    // streetlights in the amenity strip, staggered down each arm
     function furnishArm(alongAxis, coverFn) {
-      for (var t = 6; t < 128; t += 20) {
-        if (!coverFn(t - C)) continue;
-        if (Math.abs(t - C) <= BOX) continue;
-        var s = ((t / 20) | 0) % 2 ? AMEN : -AMEN;
-        put(alongAxis === 'v' ? C + s : t, alongAxis === 'v' ? t : C + s, 9, onWalkable);
+      function place(t, side, code, k) {
+        var s = side * amenityOffset(k);
+        put(alongAxis === 'v' ? C + s : t, alongAxis === 'v' ? t : C + s, code, onWalkable);
       }
-      for (var u = 12; u < 128; u += 18) {                        // overhead distribution poles
-        if (!coverFn(u - C)) continue;
-        var s2 = ((u / 26) | 0) % 2 ? SET - 2 : -(SET - 2);
-        put(alongAxis === 'v' ? C + s2 : u, alongAxis === 'v' ? u : C + s2, 10, onWalkable);
+      // POWER POLES: ~175 ft = 71 tiles per side, both sides, offset from each other
+      // so the two runs of overhead do not line up across the road.
+      var pi = 0;
+      for (var u = 10; u < 128; u += 71, pi++) {
+        if (!coverFn(u - C) || inJunction(u - C)) continue;
+        place(u, -1, 10, 1);
+        var u2 = u + 35;                                    // the opposite side, half a span on
+        if (u2 < 128 && coverFn(u2 - C) && !inJunction(u2 - C)) place(u2, 1, 10, 1);
       }
-      for (var v = 4; v < 128; v += 4) {                          // dead palms + shrubs, clumped
-        if (!coverFn(v - C)) continue;
-        if (r() > 0.62) continue;
-        var s3 = (r() < 0.5 ? 1 : -1) * (AMEN + 4 + Math.floor(r() * (SET - AMEN - 5)));
-        put(alongAxis === 'v' ? C + s3 : v, alongAxis === 'v' ? v : C + s3, 11, onWalkable);
+      // STREETLIGHTS on every other pole (~350 ft), STAGGERED. The phase is taken from
+      // the cell seed so consecutive cells continue the alternation instead of every
+      // cell in the valley starting its stagger on the same side.
+      var phase = (seed >>> 3) & 1;
+      var li = 0;
+      for (var t2 = 10 + (phase ? 35 : 0); t2 < 128; t2 += 142, li++) {
+        if (!coverFn(t2 - C) || inJunction(t2 - C)) continue;
+        place(t2, (li + phase) % 2 ? 1 : -1, 9, 5);
+      }
+      // and the mid-cell head, so a 96 m cell is not lit by one lamp at its corner
+      var tm = 10 + (phase ? 35 : 0) + 71;
+      if (tm < 128 && coverFn(tm - C) && !inJunction(tm - C)) place(tm, (phase ? -1 : 1), 9, 5);
+      // STREET TREES: 20-30 ft on centre = 11 tiles, which is what Clark County requires
+      // the parkway planted at. A palm base with its skirt, or an oleander clump, is
+      // 1.5-2 m across -- so each one is a CLUMP of tiles, not a pixel. Act 1 keeps about
+      // half of them; the rest are stumps and gaps, which is what a street nobody waters
+      // looks like after ten years.
+      for (var v = 4; v < 128; v += 11) {
+        if (!coverFn(v - C) || inJunction(v - C)) continue;
+        [-1, 1].forEach(function (side) {
+          if (r() > 0.55) return;
+          var t0 = v + (side > 0 ? 5 : 0);
+          var k0 = 2 + ((v / 11) | 0) % 6;                  // its spot across the parkway
+          for (var a = 0; a < 2; a++) for (var b2 = 0; b2 < 2; b2++) {
+            place(t0 + a, side, 11, k0 + b2);
+          }
+        });
       }
     }
     if (vert) furnishArm('v', coverV);
@@ -12968,29 +13060,74 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       });
     }
 
-    // ONE bus stop per cell, deterministic: a pad cut into the sidewalk plus a shelter
-    if (vert || horiz) {
-      var bAxis = vert ? 'v' : 'h', bt = 26 + Math.floor(r() * 60);
+    /* THE BUS STOP AND THE DEAD CAR: GUARDS THAT COULD NEVER BE TRUE (8/20).
+       Both of these were written, both ran every bake, and neither ever placed a
+       single tile -- for a sharper version of the same fault as the streetlights.
+
+         bus stop   bt = 26 + rnd*60  ->  26..85,  guarded by |bt - 64| > BOX(46),
+                    which needs bt < 18 or bt > 110. The range and the guard DO NOT
+                    INTERSECT. Not "rare": impossible, at every seed, forever.
+         dead car   ct = 20 + rnd*80  ->  20..99,  guarded by |ct - 64| > BOX + 4,
+                    which needs ct < 14 or ct > 114. Same.
+
+       When BOX was small the two ranges overlapped and these worked. BOX grew with
+       the pavement on 8/11 (to 46, so the guard now swallows 93 of 128 rows) and the
+       ranges were never revisited. A dead branch that USED to be live is worse than
+       one that never was, because the code reads as working and the legend keeps
+       promising what it makes.
+
+       And a run has NO JUNCTION TO AVOID, so the guard is inJunction() now, like
+       everything else in this block. On a run they may sit anywhere.               */
+    // BUS STOP: RTC runs arterial stops at about a quarter mile, so roughly one cell
+    // in four carries one -- seeded off the cell, not placed on every block.
+    if ((vert || horiz) && ((seed >>> 5) & 3) === 0) {
+      var bAxis = vert ? 'v' : 'h', bt = 20 + Math.floor(r() * 88);
       var bs = (r() < 0.5 ? 1 : -1) * WALK;
-      if (Math.abs(bt - C) > BOX) {
+      if (!inJunction(bt - C) && (bAxis === 'v' ? coverV(bt - C) : coverH(bt - C))) {
         for (i = -3; i <= 3; i++) {
-          var px2 = bAxis === 'v' ? C + bs : bt + i, py2 = bAxis === 'v' ? bt + i : C + bs;
-          put(px2, py2, 13, function (c) { return c === 6 || c === 7; });
+          for (var bb = 0; bb < 2; bb++) {                    // a pad two tiles deep
+            var boff = bs > 0 ? bs - bb : bs + bb;
+            var px2 = bAxis === 'v' ? C + boff : bt + i, py2 = bAxis === 'v' ? bt + i : C + boff;
+            put(px2, py2, 13, function (c) { return c === 6 || c === 7; });
+          }
         }
       }
     }
 
-    // a car left dead at the curb, on the shoulder, some cells only
+    // A CAR LEFT DEAD AT THE CURB, in the parking lane, on most cells but not all.
     if (r() < 0.6) {
-      var cAxis = vert ? 'v' : 'h', ct = 20 + Math.floor(r() * 80);
+      var cAxis = vert ? 'v' : 'h', ct = 14 + Math.floor(r() * 100);
       var cs = (r() < 0.5 ? 1 : -1) * (PAVE - 2);
-      if (Math.abs(ct - C) > BOX + 4) {
-        for (i = 0; i < 3; i++) for (var j = 0; j < 2; j++) {
-          var px3 = cAxis === 'v' ? C + cs + j : ct + i, py3 = cAxis === 'v' ? ct + i : C + cs + j;
+      if (!inJunction(ct - C) && (cAxis === 'v' ? coverV(ct - C) : coverH(ct - C))) {
+        // 4.5 m x 1.8 m: six tiles by two, the canon car size laid on the asphalt
+        for (i = 0; i < 6; i++) for (var j = 0; j < 2; j++) {
+          var coff = cs > 0 ? cs - j : cs + j;
+          var px3 = cAxis === 'v' ? C + coff : ct + i, py3 = cAxis === 'v' ? ct + i : C + coff;
           if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
         }
       }
     }
+
+    /* STORM DRAIN INLETS DOWN THE RUN, not only at the corners. Curb inlets sit at the
+       low points and ahead of every crossing, and this valley floods hard enough that
+       the flood-control district is the reason half the basins in the game exist -- an
+       arterial with no inlet on it is a street that has never seen a monsoon. Roughly
+       one per side per cell, in the gutter band where the water actually goes. */
+    function inletsAlong(alongAxis, coverFn) {
+      for (var q = 30; q < 128; q += 62) {
+        if (!coverFn(q - C) || inJunction(q - C)) continue;
+        [-1, 1].forEach(function (side) {
+          for (var d = 0; d < 3; d++) {                        // a 2.25 m grate at the curb
+            var off = side * CURB;
+            var px4 = alongAxis === 'v' ? C + off : q + d, py4 = alongAxis === 'v' ? q + d : C + off;
+            if (px4 < 0 || py4 < 0 || px4 > 127 || py4 > 127) continue;
+            if (g[py4][px4] === 5) g[py4][px4] = 16;
+          }
+        });
+      }
+    }
+    if (vert) inletsAlong('v', coverV);
+    if (horiz) inletsAlong('h', coverH);
 
     /* ---- ACCESS. The wall was sealing the city out of its own street. A tract wall
        is not continuous in real life and it cannot be here: every edge that faces a
@@ -13043,7 +13180,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
-    7: '#6a5f47', 8: '#7a7266', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
+    7: '#6a5f47', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
     13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a'
   };
 
@@ -13056,7 +13193,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     5:  { name: 'curb + gutter',      kind: 'ground',   act1: 'concrete curb and gutter, silt and dead leaves packed in it' },
     6:  { name: 'sidewalk',           kind: 'walk',     act1: 'detached concrete sidewalk, cracked and lifted at the joints' },
     7:  { name: 'landscape strip',    kind: 'ground',   act1: 'decomposed granite amenity and setback strip, irrigation long dead' },
-    8:  { name: 'block wall',         kind: 'structure',act1: 'six foot CMU block wall backing the tract, tagged and chipped' },
+    /* CODE 8, THE BLOCK WALL, IS RETIRED (8/20) AND ITS NUMBER IS LEFT EMPTY ON PURPOSE.
+       Paolo 8/11: "THE STREETS DONT HAVE WALLS." The band that drew it went on 8/11 and
+       the one column that survived that pass sealed the player into a single cell until
+       8/19 -- flooding the valley from spawn reached THREE of 9,216 tiles. Leaving a
+       legend entry called 'block wall' on a STREET type is an open invitation to put it
+       back, and the dossier is supposed to describe the world that exists. Gone. */
     9:  { name: 'streetlight',        kind: 'prop',     act1: 'cobra-head streetlight on the amenity strip, head dark' },
     10: { name: 'power pole',         kind: 'prop',     act1: 'overhead distribution pole down the setback, lines sagging' },
     11: { name: 'dead palm / shrub',  kind: 'tree-dead',act1: 'dead palm stump and dry oleander left in the setback' },
@@ -13082,7 +13224,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       'Street furniture is act-1 dead: cobra-head lights out, signal heads dark, dead palms in the setback, a car left at the curb, silt in the storm inlets.'
     ],
     circulation: 'Traffic runs through on every connected direction (proven cell-edge to cell-edge by the gate). Pedestrians get a continuous DETACHED sidewalk that wraps every corner and crosses at the marked crosswalks; the walk is unbroken across the cell, so a body can walk from any district on one side to any district on the other.',
-    layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.',
+    layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the bus stop shelter (13), the only mass on the cell -- the block wall was retired 8/20 under the 8/11 ruling that streets do not have walls. PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. There is no hard edge: the corridor is public ground out to the cell boundary, which is exactly where the next parcel begins, so a body can always cross.',
     decisions: [
       'CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped\n       flagged provisional; the moment Paolo ruled the target screen CBB this palette was\n       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside\n       its layer value bands. Road paint and the lake ring were the only things out, and\n       they were wrong on their own terms too: act-1 paint is filthy, not clean white.\n       Locked by the CONSTITUTION CONFORMANCE section of this module\'s gate.',
       'ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and\n       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
@@ -13127,7 +13269,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       o.streets = o.links;
       return generate(seed, o);
     },
-    body: function (c) { return c === 8 || c === 13; },
+    body: function (c) { return c === 13; },   // wall retired 8/20; the shelter is the only mass
     category: K.category('arterial') || 'infrastructure',
     palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
   });
@@ -13142,7 +13284,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       o.streets = o.links;
       return generate(seed, o);
     },
-    body: function (c) { return c === 8 || c === 13; },
+    body: function (c) { return c === 13; },   // wall retired 8/20; the shelter is the only mass
     category: K.category('arterial_x') || 'infrastructure',
     palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
   });

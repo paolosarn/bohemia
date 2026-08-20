@@ -1,3 +1,70 @@
+WORLD (world-9lfjtf): 8/20 (d) LATEST -- *** THE FLOOR COULD KILL YOU AND IT COULD NOT TELL
+YOU. TABS: RUN (walk a rail yard or a reclaim pond), LOOK (THE BAD FOOTING, THE HOLE).
+Nothing here needs judging. ***
+
+Three days of work made the ground mean something: 31 hazard tiles in 22 districts, a third
+occupancy state for the four real holes, ceiling rubble and lift shafts indoors. EVERY ONE OF
+THEM DREW AS FLAT COLOUR. Loose ballast you cannot brace on was the same picture as the
+concrete beside it, and the only thing on screen that said the floor was dangerous was A LINE
+OF TEXT IN THE CORNER -- the system explaining itself because the picture could not (§2.6:
+never explain something the floor could have shown).
+
+THREE FORMS, CHOSEN BY THE DERIVED CLASS, so a drained pool authored next month looks lethal
+the same afternoon with no edit here:
+    LOOSE  angular chips, four sizes, four values, no two alike, no regular spacing
+    WET    a translucent dark blue-shifted wash with uneven scum and a lighter rim, and
+           NO highlight in the middle (a shine reads as a swimming pool)
+    DROP   a bright near lip and a hard far shadow, only where the neighbour is not a hole
+
+*** THE GATE READS THE BAKED PIXELS, AND THAT IS THE WHOLE POINT. *** Every flag was ALREADY
+CORRECT before a mark was drawn -- c.haz was stamped on all 29 hazard tiles on the surface
+and the picture was byte-identical. A gate asserting "the class is on the cell" would have
+been green through a feature that did not exist. So it bakes a real chunk and reads the RGBA:
+
+    plain ground   broken 2.7%   lum 122
+    AMPLIFIES      broken 7.6%   lum 120   visible by TEXTURE
+    KILLS          broken 8.3%   lum  50   visible by TEXTURE + VALUE
+    DISABLES       broken 2.5%   lum  85   visible by VALUE
+
+  records/BOHEMIA_DANGEROUS_GROUND_LOOKS_DANGEROUS_8_20_26.md   the finding
+  tools/bohemia_city_hazard_look_patch.py                       on the surface
+  gates/hazard_look_gate.js   6 checks, two mutations confirmed
+
+*** THREE THINGS THE PIXELS TOLD ME THAT READING THE CODE DID NOT. ***
+1. THE CHIPS WERE INVISIBLE ON HALF THE VALLEY. The first cut multiplied the base colour by
+   0.62..1.42 -- fine on tan desert, INVISIBLE on railyard ballast, because multiplying a
+   dark grey by anything near 1 gives another dark grey on a tile that is already dark and
+   already textured. The step is ABSOLUTE now and its direction comes from the base's own
+   luminance: dark ground gets lighter chips, light ground gets darker ones.
+2. THE WET MARK WAS WIPING THE GROUND. It filled the tile flat and measured 0.0% broken-up
+   against 2.7% for ordinary dirt -- a clean sheet of colour with the material underneath
+   erased, which is the one thing the ask forbids by name (wet WITHOUT reading as clean).
+   AND I HAD LOOKED AT THE PICTURE, read the flat teal as "water", and moved on. The pixels
+   disagreed with my eye. It is a translucent wash now.
+3. MY OWN GATE'S FIRST CLAIM WOULD HAVE MADE WATER LOOK LIKE GRAVEL. It demanded every class
+   be MORE BROKEN UP than ordinary ground. Right for loose rock, wrong for a liquid: standing
+   water IS smoother than the dirt around it, and that is what water is. Chasing that number
+   meant adding texture to a puddle to satisfy a gate -- the GOODHART GUARD in its purest
+   form. The claim is now the one always meant: VISIBLY DIFFERENT, BY TEXTURE OR BY VALUE.
+
+AND THE FRAMING OF THE PICTURE WAS WRONG TWICE, both found by taking it and looking:
+the first finder took the first match anywhere and landed on the top row of the map (four
+fifths off-map blue); the second took the CENTROID of the patch, and the centroid of a
+scattered set is not in the set -- it put the camera on a loading pad with the ballast off
+screen. It now scores every hazard cell by how many hazard cells sit in the 5x5 around it and
+stands on the densest one.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. A HAND-PAINTED HAZARD BANK IS STILL ART'S if he wants one. This is derived and honest
+     and it is not painted pixels. Both banks were opened and neither holds ground hazard:
+     the street pool is 30-year road wash, the prop pool's `cover` family is jersey barriers
+     and sandbags (objects ON ground, not ground).
+  2. SPREAD.water is one entry if he ever rules that somewhere indoors still takes water.
+  3. NOT MINE and still red: gates/drive_network_gate.js -- the debt ratchet went BACKWARDS
+     (22->25, 4->5) on the five landmark districts the other WORLD session shipped 8/19.
+     Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
+
+
 PEOPLE (people-7h9sfy): 8/20 LATEST -- *** HIS SENTENCE FOR BEAT 1 HAS THREE
 CLAUSES AND THE GAME PLAYED ONE. THE LAST ROOM. TAB: CUTSCENE, chip 2; in the
 game it plays the moment the raid ends. ***
