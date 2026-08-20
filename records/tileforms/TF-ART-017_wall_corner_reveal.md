@@ -509,9 +509,18 @@
   * parapet_corner STRUCK from this form - TF-ART-012 shipped the full
     WANG-16 coping ring on 8/11; 012 owns it, resolved by the record.
   * rake_corner HELD with TF-CITY-001 (unshipped) - judged together later.
-  * cor_in_l / cor_in_r cooked and BANKED, not wired - no live concave
-    site measured yet (inert-hook rule: a branch that cannot fire is not a
-    feature).
+  * cor_in_l / cor_in_r: WIRED 8/20 (second slice). The 8/19 "no live
+    concave site" measurement went stale within a day - the valley
+    finished building and the 8/20 re-probe found reentrant sites in
+    THIRTY-FIVE districts (gypsum 255, radio 189, stadium 172, medical
+    and the pumpstation 154, boneyard 150...). The wiring reads the
+    pocket: a mass edge whose open side has mass wrapping past it above
+    or below is a wind eddy, not an open-air arris - it wears the
+    deepened shade wedge with silt at its foot instead of the lit
+    outside-corner return. Verified live at the storage unit rows.
+    THE CADENCE LESSON: a "no sites" measurement is a snapshot, not a
+    fact - the re-probe cadence exists because the world grows under
+    every parked branch.
   * the suburb DOORS keep their reveal for a later pass - they are Paolo's
     animated clip-bank art drawn in a LATER overlay pass; a reveal cooked
     here would be painted over. Garage jambs stay TF-CITY-003's.

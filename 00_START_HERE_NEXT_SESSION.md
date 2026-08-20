@@ -5359,6 +5359,16 @@ an audit must read the chain, not just the regex), the rest exact.
 Blocked landmark grounds re-probed 8/20: all still reserved; WORLD's
 99.9% was the overmap. ***
 PREVIOUS (e):
+ART (f3eu53): 8/20 (a) LATEST -- *** THE INNER CORNERS LAND: the 8/19
+"no concave sites" measurement went stale in a DAY - the finished valley
+holds reentrant sites in 35 districts, and the banked cor_in pieces are
+wired (pocket edges read as wind-eddy shade + silt, not open-air arris).
+Parked list re-probed same sweep: ALL landmark grounds still reserved
+(WORLD), trailer awnings still unnamed, no crossings, no clarifier; new
+name noted: reclaim 'inlet header' x171 (no banked piece, future volume).
+Cadence lesson proven twice in two days: a no-sites measurement is a
+snapshot, not a fact. Record: sitting pass 34.
+PREVIOUS (e):
 ART (f3eu53): 8/19 (e) LATEST -- *** FIVE FAMILIES IN ONE DAY AND THE LANE
 QUEUE IS EMPTY. The fifth: TF-ART-007 civic remainders, corrected by
 measurement (the world's courthouse is PRECAST - it names its own joints,
