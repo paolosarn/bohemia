@@ -286,7 +286,7 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
       return out;
     });
     ok(!posed.missing && posed.standing >= 3 && posed.seated === 0,
-      'a scene can put people ON THEIR FEET — pose is honoured, not ignored ('
+      'a scene can put people ON THEIR FEET, pose honoured not ignored ('
       + posed.standing + ' standing, ' + posed.seated + ' seated)');
     /* *** NOBODY IS EVER DROPPED. *** Seating.stand() returns null when it cannot
        place somebody, and the first cut just `return`ed -- so passing it a focus
@@ -295,7 +295,7 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
        is a thing you can see; a body that is not there is not. */
     ok(!posed.missing && posed.placed === posed.wanted,
       'and EVERY actor beat puts somebody in the room (' + posed.placed + '/'
-      + posed.wanted + ') — a placement that fails sits them down, never drops them');
+      + posed.wanted + '), a placement that fails sits them down, never drops them');
     /* IN FRAME. stand() defaults to the room's bottom-right corner, which put all
        three outside the camera with one shoulder showing. */
     ok(!posed.missing && posed.offFocus === 0,
