@@ -430,7 +430,7 @@ grabPieces('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
    ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.
    cor_in_* stay banked until a live concave site is measured. */
 grabPieces('banks/tileforms/TF-ART-017_CANDIDATES_8_19_26.json',
-  ['cor_out_l', 'cor_out_r', 'rev_window', 'rev_boarded']);
+  ['cor_out_l', 'cor_out_r', 'cor_in_l', 'cor_in_r', 'rev_window', 'rev_boarded']);
 /* TF-RUN-005 8/19: the tilt-up panel language - the joint rhythm, cap,
    plinth, rain streaks and boarded windows that make the live tilt-up
    field read as lifted panels - tools/tfcook/TF-RUN-005_cook.py */

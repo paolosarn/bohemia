@@ -701,3 +701,25 @@ ALSO RE-PROBED (the standing cadence): strip / casino / freeway /
 speedway / resort / minigp / ballpark are ALL still 16,384 cells of
 "(reserved landmark ground)" - WORLD's 99.9%-built ship was the overmap,
 not these interiors. The blocked-outside list stands unchanged.
+
+## 8/20 THIRTY-FOURTH PASS: THE INNER CORNERS LAND, AND THE PARKED LIST RE-PROBED
+
+The re-probe cadence paid immediately: the 8/19 "no live concave site"
+measurement went stale within a DAY. The valley finished building and the
+8/20 sweep found reentrant corner sites in THIRTY-FIVE districts (gypsum
+255, radio 189, stadium 172, medical + pumpstation 154, boneyard 150,
+granary 121, arsenal 115...). The banked cor_in pieces wired: a mass edge
+whose open side is a POCKET (mass wrapping past the opening above or
+below) is a wind eddy, not an open-air arris - it wears the deepened
+shade wedge with silt at its foot instead of the lit outside-corner
+return. Verified at the storage unit rows. TF-ART-017's "the inner
+corner is the trap" piece is done.
+
+THE REST OF THE PARKED LIST, re-probed same sweep, all still parked:
+every reserved landmark ground still one name deep (strip, casino,
+freeway, speedway, resort, minigp, ballpark, interchange, strat,
+highroller, luxor, sphere - WORLD's), trailer awnings still unnamed
+(WORLD's), no crossing cells, no clarifier. ONE new name surfaced:
+reclaim 'inlet header' x171 - noted for a future volume pass, no banked
+piece covers it. THE CADENCE LESSON, now proven twice in two days: a
+"no sites" measurement is a snapshot, not a fact.

@@ -2799,10 +2799,21 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
   /* TF-ART-017 (8/19): the civic masses get their thickness from the same
      value-geometry pieces as the houses - a mass edge with open air past it
      is an outside corner, and the overlay rides whatever material the mass
-     drew (tilt-up, corrugate, brick, stone) unchanged. */
-  if(!civicSolidAt(gx-1,gy)){ var c17l=TILEFORM_IMG['cor_out_l'];
+     drew (tilt-up, corrugate, brick, stone) unchanged.
+     SECOND SLICE (8/20): THE INNER CORNER, the piece the form called the
+     trap. Re-probed after the valley finished building: thirty-five
+     districts hold real reentrant sites now (gypsum 255, radio 189,
+     stadium 172...), so the banked cor_in pieces wire: an edge whose open
+     side is a POCKET (the mass wraps past the opening above or below) is
+     a wind eddy, not an open-air arris - it reads as the deepened shade
+     wedge with silt drifted into its foot, the darkest surface outdoors. */
+  if(!civicSolidAt(gx-1,gy)){
+    var pocketL = civicSolidAt(gx-1,gy-1) || civicSolidAt(gx-1,gy+1);
+    var c17l=TILEFORM_IMG[pocketL?'cor_in_l':'cor_out_l'];
     if(c17l&&c17l.complete&&c17l.naturalWidth) ctx.drawImage(look(c17l),X,Y,S,S); }
-  if(!civicSolidAt(gx+1,gy)){ var c17r=TILEFORM_IMG['cor_out_r'];
+  if(!civicSolidAt(gx+1,gy)){
+    var pocketR = civicSolidAt(gx+1,gy-1) || civicSolidAt(gx+1,gy+1);
+    var c17r=TILEFORM_IMG[pocketR?'cor_in_r':'cor_out_r'];
     if(c17r&&c17r.complete&&c17r.naturalWidth) ctx.drawImage(look(c17r),X,Y,S,S); }
   /* VOLUME (8/14): TF-ART-013 SKIRTS. A mobile home sits on piers and wears a
      skirt at the base - the panel band overlays the LOWER part of the bottom
