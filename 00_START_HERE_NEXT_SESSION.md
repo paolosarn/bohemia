@@ -1,3 +1,61 @@
+SOUND (sound-xk7pjp): 8/20 (p,q) LATEST -- *** SAND STOPPED MACHINE-GUNNING. My
+own last ship made three surfaces audible and two of them had ONE sample. TAB:
+RUN (walk the open desert). Nothing to judge. ***
+
+Yesterday's ground fix let step_concrete/sand/wood play for the first time. That
+created a defect one layer down:
+    asphalt 5 | gravel 5 | dirt 5 | concrete 1 (+3 walk_more) | SAND 1 | WOOD 2
+and the classifier returns 'sand' for ANY unnamed tile, which is most of the open
+valley -- so the most-walked ground in the game after asphalt was firing ONE
+sample every step. A FIX THAT CREATES A DEFECT ONE LAYER DOWN IS HALF A FIX.
+
+1. SAND BORROWS THE DIRT, TODAY. Six variants instead of one, entirely out of
+   sounds he already approved. Dirt is the same ground with less grain. The
+   borrow costs nothing when sand_more is approved; the pool just widens.
+2. SFX-10: sand_more + wood_more, 5 each, on his rack (48% vs 30%). Odd pools on
+   purpose -- an even pool locks to the phrasing and everything here is 120 BPM.
+   `knock`, `rim`, `wood`, `brim` all looked perfect for boards and ALL RENDER
+   SILENT (drumV kinds, not synthV). Measuring is the only reason they are out.
+3. *** THE WIRE TOOL COULD NOT RUN AND IT WAS MY FAULT FROM THE DAY BEFORE. ***
+   "not enough arguments for format string" -- I wrote a comment containing
+   "the 12% that has power" inside a %-formatted block. It crashed the same way
+   on a CLEAN TREE, so it was not the new edit. The alpha had been patched
+   directly at the time, so the damage was invisible: the tool that OWNS the
+   whole parent-side sound wire was unrunnable and the next lane would have hit
+   it cold. ANY LITERAL % IN parent_block MUST BE %%.
+
+THE GATE TOOK THREE TRIES TO BECOME HONEST, and the failures are the lesson:
+  a. it named THREE surfaces because three were all that existed. Now six.
+  b. v1 PRINTED A WAIVER AND FAILED ANYWAY -- a gate saying two opposite things
+     at once. A named waiver now PASSES and prints why.
+  c. v2 kept its own hardcoded {step_sand:(...)} dict, so deleting the real
+     sibling entry changed nothing and it stayed GREEN on a tree where sand was
+     back to one sample. Same family as a checker searching a haystack that
+     contains its own answer key. It reads the LIVE pool off the shipped build.
+  d. new leg: the shipped pool must MATCH WHAT THE WIRE TOOL DECLARES -- catches
+     an edit never re-applied, or a parent block clobbered by a rebase.
+
+GATES: SFX RENDER 6626/0 (500 candidates, deliberately re-recorded). SFX WIRED
+853/0. VERDICT-FROZEN 6/0 (nothing he judged moved). SILENT MOMENTS 29/0.
+INSTRUMENT 15/0. ALPHA LOADS 20/0. SHIPPED TRUTH 41/0. FRONT DOOR 8/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** THE TWO-POINT PITCH MODEL IS THE TOP ITEM AND IT HAS NOW MISPREDICTED
+    THREE TIMES. *** INST_VOICE calibrates each borrowed voice at TWO semitones,
+    -24 and +12, and interpolates straight between them. Voices that dip in the
+    middle get driven wrong: ghostvox and breathpad came out 5x quiet (8/19),
+    sweeppad came out a CLICK today and was swapped for guiro rather than fixing
+    the model. The fix is a third row at semi -6: the tool already freezes
+    existing rows, so only the NEW row needs measuring (72 voices x 5 steps,
+    roughly 6-8 minutes). BUT IT MOVES EVERY INSTRUMENT SOUND HE HAS ALREADY
+    APPROVED, so it needs a deliberate fingerprint re-record and its own turn.
+    Do it first thing, not at the end of a session.
+ 2. step_wood is still 2 and WAIVED BY NAME in sfx_wired_gate; the waiver expires
+    by itself the moment one wood_more candidate is approved.
+ 3. go_inside has a real trigger nobody has used: the `inside` flag already
+    crosses to the parent every 4s -- watch it flip, same shape as PAYSTING.
+ 4. HORIZONTAL RE-SEQUENCING between intensity tiers. The vertical half is done.
+
 WORLD (world-9lfjtf): 8/20 (g) LATEST -- *** I PUBLISHED A FALSE CLAIM THIS AFTERNOON AND
 THIS IS THE RETRACTION. No tab changes. Nothing here needs judging. ***
 
