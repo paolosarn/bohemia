@@ -4103,7 +4103,103 @@ WHAT COMES NEXT FOR THIS LANE, in order:
   4. The walked surface's kit registers 35 of the engine's 62 district types, so 10 of the
      15 hazard districts cannot be reached at all. That caps far more than these features.
 
-FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
+FACTIONS (factions-ovkjpf): 8/20 (d) LATEST -- *** FIVE OF HIS SIXTEEN OUTFITS
+COULD NEVER HAND OVER A NAME ON THE SURFACE HE WALKS. Four of them can now.
+TAB: CITY -- walk up to somebody who runs with an outfit. Nothing to judge. ***
+
+THE SHAPE THIS LANE KEEPS FINDING, for the SEVENTH and EIGHTH time this week:
+AN ORGAN COMPUTES SOMETHING AND NOTHING ON THE WALKED SURFACE CALLS IT. Six of
+those were found by tripping over them. These two were found by SWEEPING for the
+shape on purpose -- counting the call sites of every function this lane exports.
+
+  BohemiaIntros.askOutcome              0 CALLERS  -> what asking a name COSTS
+  BohemiaTies.overheardFrom/onwardFrom  0 CALLERS  -> anywhere in the repo, at all
+
+1. WHAT ASKING COSTS, BEFORE HE ASKS. Three of the sixteen charge for a direct
+   ask (CARTEL "a smile and a redirect, every time, forever", MOB "a small
+   permanent mark", ANARCHISTS "an insult, once"); thirteen are free, which is
+   why it stayed invisible. THE ROW EXISTED AND ANSWERED THE WRONG QUESTION:
+   `if(m.cost) ctRow('AND', m.cost)` is meeting().cost, EMPTY before you ask and
+   filled in after. The card could always say what asking DID cost and never what
+   it WOULD. Nothing invented: "a permanent mark" is not a stat this repo has.
+
+2. FIVE EARN-CONDITIONS NOTHING EVER SET. BohemiaIntros.earned() switches on
+   eight; the city filled exactly one (`var iSt = { asked: ... }`). So MOB
+   (vouch), REMNANTS (overheard), BLUES (standing), HOMELESS (honesty) and TRADES
+   (work) could never get past the first rung of their own dossier's mechanic.
+   *** AND FOUR OF THE FIVE WIRES WERE ALREADY WRITTEN -- ON BOHEMIA_RUN_SLICE_
+   7_26_26.html, A SURFACE THAT IS NOT THE GAME. *** engine/bohemia_ties.js was
+   built 8/12 for exactly this (Feld 1981 foci + Dunbar layers), answerFor()
+   shipped 8/11, the ledger's honest/lied bits 8/13. The city got none of it.
+   A WIRE TO THE WRONG SURFACE IS NOT A WIRE.
+   The Mob card now reads, with no ask, which is their anchor verbatim:
+       MALACHI BETANCOURT
+       WHO PUT YOU ON   PERLA BONILLA - YOU RUN WITH THE SAME OUTFIT
+   And the Homeless finally ask you where you sleep and take an answer.
+
+NOT WIRED, NAMED NOT FAKED: TRADES earns its name with hires>=2 and THE CITY HAS
+NO HIRING. Minting one would invent an economy in the exact place his dossier is
+most specific. st.hires stays 0, the card keeps saying HIRE THEM TWICE in his
+words, and gate L8 names the gap. [expires when a hire verb appears]
+AND TWO CANNOT FIRE FOR A POPULATION REASON, NOT A WIRING ONE: ONE Remnant in
+the whole valley (nobody to overhear it from) and ZERO Blues. L9 states that as a
+claim that can actually fail -- if the graph ever produces a third party out of a
+one-member outfit, it goes red.
+
+*** THE PROCESS FINDING WORTH STEALING: MEASURE, DO NOT REASON, ABOUT PIXELS. ***
+I argued IN WRITING that the vouch row was height-neutral (HOW YOU GET THE REST
+empties exactly when WHO PUT YOU ON appears). It sounded airtight. MEASURED: 833px
+of 844, NINETY-NINE PERCENT -- because earning the name also turns the quirk row
+on, so the card gains two and loses one. A good argument about a measurable thing
+is still not a measurement. Third time this lane added a row to this card and
+went red, first time the argument was any good.
+AND THE FIX WAS TWO RULES, NOT THREE TRIMS (trimming three unrelated rows until
+the number goes green is fitting content to the ruler in a different coat):
+  A DUPLICATE IS NOT DISCLOSURE -- the heading BECOMES the name, so the NAME row
+    under it repeats it verbatim on exactly the fullest cards. Identical defect
+    the TRADE row was fixed for on 8/18, identical test.            833 -> 810
+  THE HEADLINE IS LIVE, THE EXPLANATION IS THE OUTFIT'S -- ctRow('', ...) has been
+    this card's mark for "the sentence explaining the row above" in four systems,
+    and every one is identical on every member of that outfit forever, which is
+    word for word the fold's own test. They were simply outside it.  810 -> 734 (87%)
+AND THE BAR ITSELF WAS WRONG: cardfold A1 stands next to whoever is affiliated and
+NEAREST, which is almost never somebody who can be vouched for, so the worst case
+was outside the measurement that exists to hold the card to the phone. A12
+constructs it deliberately now. A BAR THAT DOES NOT MEASURE THE WORST CASE IS NOT
+A BAR.
+
+GATES: FACTION ARC 66/0 (parts A-L, the whole journey on the real page, no stubs)
+| CARD FOLD 15/0 | plus the rest of the suite green.
+Mutation-proved five ways: revert iSt to one field -> L1/L2/L3/L5/L7 red; drop the
+answer button -> L4/L5/L6 red; drop WHO PUT YOU ON -> L3/A14 red; unfold the
+explainers -> A12/A13 red; restore the duplicate NAME row -> A12 red.
+
+Law:   laws/BOHEMIA_ADDENDUM_NOBODY_EVER_WALKED_IT_8_20_26.md (sec 4h, 4i)
+Tools: bohemia_city_asking_cost_patch.py | bohemia_city_thirdparty_patch.py |
+       bohemia_city_namededupe_patch.py | bohemia_city_notesfold_patch.py
+       (all idempotent, all MARKER-guarded)
+
+NEXT FOR THIS LANE, in order:
+ 1. COLORFUL'S ONWARD. onwardFrom() is wired and COUNTED (st.onward) but nothing
+    SPENDS it. His canon: "answer it well and you are introduced onward to three
+    people; answer it badly and you are still treated kindly and never introduced
+    to anybody." The count is on the card's state and the three introductions are
+    not granted. The words for the second question ("WHO YOU CAME WITH") get a
+    draft attempt under ALWAYS MAKE AN ATTEMPT; the EFFECT is already his canon.
+ 2. RUN THE SWEEP AS A GATE. Seven instances in a week says the machine, not my
+    attention, should be catching this. gates/sfx_wired_gate.py and
+    silent_moments_gate are the shape to copy: every exported function is REACHED
+    by the walked surface, another module, or carries a written reason it is not.
+    KNOWN BLIND SPOT TO FIX FIRST: my first sweep reported BohemiaTies as 0-called
+    and it was WRONG -- the module is passed as a VALUE ({ties:BohemiaTies}) into
+    whoHears, so a textual Global.fn( count is a lie. Checked before claiming;
+    that one would have been a false finding.
+ 3. THE STANDING FINDINGS THAT ARE NOT MINE: 32 affiliated of 298; nobody in the
+    valley shares a roof (298 people, 298 distinct home coordinates); three bases
+    (Anarchists, Blues, Church) have ZERO members so `presence` is unreachable;
+    nearest affiliated person is 18 cells from spawn with 24 strangers nearer.
+    MAP LAW / density / [PENDING Paolo].
+
 
 
 COMBAT (combat-nfnki9): 8/20 (y) LATEST -- *** WHAT "BUILT" MEANS. The ledger I
@@ -8599,7 +8695,7 @@ WHAT COMES NEXT FOR THIS LANE, in order:
   4. The walked surface's kit registers 35 of the engine's 62 district types, so 10 of the
      15 hazard districts cannot be reached at all. That caps far more than these features.
 
-FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
+FACTIONS (factions-ovkjpf): see the FACTIONS block higher up this file (8/20 (d)) -- this was a duplicated stub of the same heading and is not a second lane.
 
 
 COMBAT (combat-nfnki9): 8/20 (q) LATEST -- *** THE SMOKE. A burning car throws a

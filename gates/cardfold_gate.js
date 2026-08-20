@@ -92,6 +92,95 @@ async function tapTarget() {
   } finally { await browser.close(); }
 }
 
+/* THE BUSIEST CARD THE GAME CAN REACH IS BUSIER THAN A1 THOUGHT (8/20).
+   A1 stands next to whoever is affiliated and nearest, and that person is almost
+   never somebody who can be VOUCHED for -- so the WHO PUT YOU ON row the Mob
+   wiring added was outside the measurement that is supposed to hold the card to
+   the phone. Measured the day it shipped: 833px of 844, 99%, while A1 was green.
+
+   A BAR THAT DOES NOT MEASURE THE WORST CASE IS NOT A BAR. This stands next to a
+   Mob member who HAS a same-outfit acquaintance, marks the whole valley met AND
+   named (a state a player reaches by walking around), and puts them at the top of
+   the ladder, owing, committed. That is every system on the card at once. */
+async function busiestReachable() {
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errors = [];
+  page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 6000);
+    const out = await page.evaluate(() => {
+      const R = ctValleyRoster();
+      /* NO STUB: a real Mob member with a real same-outfit tie, or nothing. */
+      let target = null;
+      for (const m of R.filter(a => String(a.faction || '').toUpperCase() === 'MOB')) {
+        const ties = BohemiaTies.tiesOf(ctVKey(m), R, ctCell(), ctVKey);
+        if (ties.some(t => {
+          const w = R.filter(a => ctVKey(a) === t.key)[0];
+          return w && String(w.faction || '').toUpperCase() === 'MOB';
+        })) { target = m; break; }
+      }
+      if (!target) return { skip: 'no Mob member in the valley has a Mob acquaintance' };
+      const parts = String(target.__id).split(':'), span = BohemiaPopulation.NB * FN;
+      hx = (+parts[0]) * span + 4; hy = (+parts[1]) * span + 4;
+      CT_SPAWN = null; ctSpawn();
+      const rec = ctEveryone().filter(q => q.id === target.__id)[0];
+      if (!rec) return { skip: 'the target is not on their own block' };
+      /* PROVE IT IS THEM. ctOpen shows whoever is NEAREST, which has produced a
+         false finding in this lane before. */
+      const at = ctAt(rec); let placed = false;
+      for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        hx = at[0] + d[0]; hy = at[1] + d[1];
+        const adj = ctAdjacent();
+        if (adj && adj.id === rec.id) { placed = true; break; }
+      }
+      if (!placed) return { skip: 'could not stand next to the target' };
+      R.forEach(a => { CT_MET.meet('P:city:' + a.__id, 1); CT_MET.ask('P:city:' + a.__id, 1); });
+      const fid = ctFactionOf(rec), sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+      sv.meta.gave[fid] = 6; sv.meta.owed[fid] = 3; sv.meta.commit[fid] = 'sided';
+      ctSawCell(); ctClose(); ctOpen();
+      const c = document.getElementById('ctcard');
+      const snap = () => ({ px: Math.round(c.getBoundingClientRect().height),
+                            rows: c.querySelectorAll('.r').length, text: c.innerText });
+      const folded = snap();
+      const tt = document.getElementById('ctterms');
+      if (tt) tt.click();
+      return { fid, folded, opened: snap() };
+    });
+
+    if (out.skip) {
+      ok('A12 the busiest card the game can reach — INCLUDING a vouch — still fits',
+        false, out.skip);
+      return;
+    }
+    ok('A12 the busiest card the game can reach — INCLUDING a vouch, which A1 never '
+      + 'stands close enough to see — still FITS on the phone',
+      out.folded.px < VIEW.height * 0.90,
+      out.folded.px + 'px of ' + VIEW.height + ' ('
+      + Math.round(100 * out.folded.px / VIEW.height) + '%)'
+      + ' — it was 833px / 99% the day the vouch shipped');
+    /* THE HEADLINE IS LIVE, THE EXPLANATION IS THE OUTFIT'S. */
+    ok('A13 an explainer folds with the outfit\'s terms while the headline it '
+      + 'explains stays on the card — what is asked and what is on offer are '
+      + 'never hidden, only the sentence saying how that works',
+      /THEY ARE ASKING YOU/.test(out.folded.text)
+      && !/Not offering\. Asking\./.test(out.folded.text)
+      && /Not offering\. Asking\./.test(out.opened.text),
+      JSON.stringify({ headlineFolded: /THEY ARE ASKING YOU/.test(out.folded.text),
+                       noteFolded: !/Not offering\. Asking\./.test(out.folded.text),
+                       noteBackOnTap: /Not offering\. Asking\./.test(out.opened.text) }));
+    ok('A14 the vouch is actually on the card being measured, so A12 is not '
+      + 'quietly measuring an ordinary one',
+      /WHO PUT YOU ON/.test(out.folded.text),
+      JSON.stringify(out.folded.text.split('\n').slice(0, 4)));
+    ok('A15 nothing threw while measuring the busiest card', errors.length === 0,
+      errors.slice(0, 3).join(' | '));
+  } finally { await browser.close(); }
+}
+
 (async function main() {
   console.log('CARD FOLD GATE — the card fits, and nothing is lost\n');
 
@@ -192,6 +281,9 @@ async function tapTarget() {
        different facts, and only one of them is the game. */
     await tapTarget();
   } finally { await browser.close(); }
+
+  /* 7. AND THE WORST CASE, WHICH A1 CANNOT REACH FROM WHERE IT STANDS. */
+  await busiestReachable();
 
   console.log('\nCARD FOLD GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);

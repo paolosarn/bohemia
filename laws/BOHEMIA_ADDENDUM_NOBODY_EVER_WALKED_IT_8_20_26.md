@@ -332,6 +332,163 @@ line that fixes it — *"**NOT** A STRANGER"*. It asserts the rung **row** now, 
 a substring. Both mutations bite: make history a count again and J4/J5 go red;
 restore the bare stranger word and J4 does.
 
+## 4h. THE SEVENTH TIME — AND THE FIRST ONE FOUND BY SWEEPING FOR IT
+
+Six times this week, the same shape: **an organ computes something and nothing on
+the walked surface calls it.** `give()`, the uncollected favour, the cost that
+cost nothing, the ladder with no rungs, `neglectFor`, and the count that was
+asked to remember. Every one of them was found by tripping over it.
+
+So instead of waiting for the seventh, I counted the call sites of every function
+this lane exports.
+
+```
+BohemiaIntros.askOutcome     0 CALLERS
+```
+
+It is the function that says **what asking costs you**, and three of the sixteen
+charge a real price for it — his words, from the COSTS table:
+
+```
+CARTEL      refused          A SMILE AND A REDIRECT. EVERY TIME. FOREVER.
+MOB         permanent-mark   A SMALL PERMANENT MARK AGAINST YOU.
+ANARCHISTS  insult-once      AN INSULT. YOU GET TO MAKE IT ONCE.
+```
+
+The other thirteen cost nothing, **which is exactly why it stayed invisible: the
+common case is free, so the button looked fine.**
+
+> **THE CONSEQUENCE IS PRINTED BEFORE THE BUTTON, NEVER AFTER** (this lane, 8/15).
+> A price you discover by paying it is a punishment; a price you read first is a
+> decision — and with the Mob it is **the** decision, because the whole mechanic
+> is that you are supposed to wait to be introduced.
+
+**And the row for it already existed, answering the wrong question.** `ctIntroRows`
+has printed `if(m.cost) ctRow('AND', m.cost)` all along — but that is
+`meeting().cost`, which is **empty before you ask and filled in afterwards.** So
+the card could always say what asking **did** cost and never what it **would**.
+The row for the consequence existed; the row for the decision did not.
+
+Nothing is invented: *"a small permanent mark against you"* is not a stat this
+repo has, and minting one would be writing canon in the exact place his dossier is
+most specific. The card says what he wrote.
+
+## 4i. FIVE OF HIS SIXTEEN COULD NEVER HAND OVER A NAME
+
+The sweep did not stop at one. `BohemiaIntros.earned()` switches on **eight**
+conditions. The city filled exactly **one**:
+
+```js
+var iSt = { asked: CT_MET.asked(who.key) };
+```
+
+That is the whole state. So `vouched`, `overheard`, `standing`, `honest` and
+`hires` were **permanently false**, and five outfits could never get past the
+first rung of their own mechanic — the mechanic being the most specific thing in
+each of their dossiers:
+
+```
+MOB       vouch      "YOU ARE INTRODUCED, YOU DO NOT ASK"
+REMNANTS  overheard  "...A FIRST NAME ALMOST NEVER"
+BLUES     standing   "YOU GET THE GROUP'S NAME FIRST AND THEIRS LAST"
+HOMELESS  honesty    "THEY DO NOT ASK YOUR NAME, THEY ASK WHERE YOU SLEEP"
+TRADES    work       "YOU GET A TRADE, NOT A NAME"
+```
+
+### AND FOUR OF THE FIVE WIRES WERE ALREADY WRITTEN, ON A SURFACE THAT IS NOT THE GAME
+
+This is the part worth remembering. `engine/bohemia_ties.js` was built on 8/12
+**specifically** to make three of these reachable — grounded in Feld 1981 (foci)
+and Dunbar's layers, with `vouchFor` / `overheardFrom` / `onwardFrom` named after
+the three dossiers they answer. `answerFor()` shipped 8/11. The ledger grew its
+`honest` / `answered` / `lied` bits on 8/13.
+
+**All of it was wired — to `BOHEMIA_RUN_SLICE_7_26_26.html`.** The CITY, which is
+the surface Paolo walks, never got any of it. Two of the ties functions
+(`overheardFrom`, `onwardFrom`) had **no caller anywhere in the repo** — not the
+city, not another module, not a gate, not a tool. A definition and nothing else.
+
+> **A WIRE TO THE WRONG SURFACE IS NOT A WIRE.** "It works" and "it works where he
+> plays" are different claims, and only the second one is the game. This is the
+> VERIFY-ON-THE-REAL-SURFACE law (7/18) in its systems form.
+
+So the fix **ports** rather than rewrites: the city's own vocabulary
+(`ctValleyRoster` / `ctVKey` / `ctCell` / `CT_MET` / `ctEverDealt`) handed to the
+same organs. Nothing new was cooked.
+
+### THE KEYS RECONCILE, AND THAT WAS MEASURED RATHER THAN ASSUMED
+
+Two key spaces meet here and a wrong guess would have shipped a wire dead in
+exactly the way this whole law exists to catch. Measured on the real page:
+
+```
+card person   who.key   'P:city:20:4:0'
+valley roster a.__id    '20:4:0'         <- matches exactly one row
+              a.__vid   '20,4:20:4:0'    <- what the tie graph is keyed on
+```
+
+And the mechanic answers: **all three Mob members in the valley are vouchable.**
+The card now reads
+
+```
+MALACHI BETANCOURT
+WHO PUT YOU ON   PERLA BONILLA · YOU RUN WITH THE SAME OUTFIT
+```
+
+— a name that arrived **without being asked for**, which is his anchor verbatim.
+
+### ONE IS STILL UNREACHABLE AND IT IS NAMED, NOT FAKED
+
+**TRADES** earns its name with `hires >= 2`, and the city has no hiring. Minting
+one would be inventing an economy in the exact place his dossier is most specific
+(*"HIRE THEM TWICE AND THE REAL NAME ARRIVES UNPROMPTED"*), and a fake hire button
+is worse than the gap. `st.hires` stays 0, the card keeps saying **HIRE THEM
+TWICE** in his words, and **L8 names it** rather than passing over it.
+**MECHANISM-MINE / CONTENTS-PAOLO'S.**
+
+Two more cannot fire for a **population** reason, not a wiring one: there is
+**one Remnant** in the whole valley, so there is no second soldier to overhear a
+first name from, and **zero Blues**. L9 states that as a falsifiable claim — if
+the graph ever produces a third party out of a one-member outfit, it goes red.
+
+### AND I WAS WRONG ABOUT THE PIXELS, IN WRITING, BEFORE MEASURING
+
+I argued the vouch row was **height-neutral**: `meeting().next` empties once the
+name is earned, so HOW YOU GET THE REST disappears exactly when WHO PUT YOU ON
+appears. One row out, one row in. It sounded airtight.
+
+**Measured: 833px of 844. Ninety-nine percent.** Earning the name also turns the
+quirk row (**THEY SAID**) on, so the card gains two and loses one.
+
+> **MEASURE, DO NOT REASON, ABOUT PIXELS.** Third time this lane has added a row
+> to this card and gone red, and the first time the argument for why it was safe
+> was any good. A good argument about a measurable thing is still not a
+> measurement.
+
+The tempting fix was to trim three unrelated rows until the number went green.
+**That is fitting the content to the ruler in a different coat.** The card did not
+need three trims, it needed the two rules it was already halfway to having:
+
+1. **A DUPLICATE IS NOT DISCLOSURE.** The heading *becomes* the name once you know
+   it, so the NAME row underneath repeats it verbatim — on precisely the cards that
+   are fullest. That is the identical defect the TRADE row was fixed for on 8/18,
+   on the identical card, and it takes the identical test. `833 -> 810`.
+2. **THE HEADLINE IS LIVE, THE EXPLANATION IS THE OUTFIT'S.** `ctRow('', ...)` — an
+   empty label — has been this card's mark for *"the sentence explaining the row
+   above"* in four different systems. Every one of those sentences is identical on
+   every member of that outfit forever, which is word for word the test the 8/18
+   fold already applies. They were simply outside the fold. The headline never
+   moves (cardfold A5: the live question always stays); only the explanation folds,
+   and one tap brings it back. `810 -> 734` (87%).
+
+A trim has to be re-argued every time somebody adds a row. **A rule generalises.**
+
+And the bar itself was wrong: A1 stands next to whoever is affiliated and nearest,
+which is almost never somebody who can be vouched for, so **the worst case was
+outside the measurement that exists to hold the card to the phone.** A12 now
+constructs it deliberately. *A bar that does not measure the worst case is not a
+bar.*
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not

@@ -906,6 +906,272 @@ function requirePlaywright() {
       /tap to read/i.test(deep.card || ''),
       JSON.stringify((deep.card || '').slice(0, 200)));
 
+    /* ---- K. WHAT ASKING COSTS, BEFORE HE ASKS -----------------------------
+       FOUND BY SWEEPING, NOT BY TRIPPING OVER IT. Six times this week an organ
+       computed something and nothing on the walked surface called it, so instead
+       of waiting for the seventh I counted the call sites of every function this
+       lane exports. BohemiaIntros.askOutcome: ZERO CALLERS.
+       It is the function that says what asking costs, and three of the sixteen
+       charge for a direct ask -- CARTEL a smile and a redirect forever, MOB a
+       small permanent mark, ANARCHISTS an insult. The other thirteen are free,
+       which is exactly why it stayed invisible: the common case looked fine.
+       AND THE ROW FOR THE CONSEQUENCE ALREADY EXISTED. ctIntroRows has printed
+       `if(m.cost) ctRow('AND', m.cost)` all along -- but that is meeting().cost,
+       empty BEFORE you ask and filled in AFTER. The card could always say what
+       asking DID cost and never what it WOULD. That is the 8/15 law in one line:
+       the consequence is printed before the button, never after. */
+    const askc = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const bases = ctBases() || {}, seen = {};
+          const row = (k) => {
+            const rows = [...document.querySelectorAll('#ctcard .r')];
+            const r = rows.find(x => { const kk = x.querySelector('.k');
+                                       return kk && kk.textContent.trim() === k; });
+            return r ? r.querySelector('.v').textContent.trim() : null;
+          };
+          for (const b of Object.values(bases)) {
+            for (const d of [2, 4, 6, 8, 10, 12]) {
+              hx = b.x * FN + d; hy = b.y * FN + d;
+              for (const q of ctEveryone()) {
+                const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+                ctSawCell(); ctClose(); ctOpen();
+                const fid = row('RUNS WITH');
+                if (!fid || seen[fid]) { ctClose(); continue; }
+                const rule = BohemiaIntros.ruleOf(fid);
+                const organCost = (BohemiaIntros.askOutcome(rule,
+                                    { full: 'X Y', trade: 'WATCH' }, { asked: false }) || {}).cost || '';
+                seen[fid] = { organCost, rest: row('HOW YOU GET THE REST') || '' };
+                ctClose();
+              }
+            }
+          }
+          return seen;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    const charged = Object.keys(askc).filter(f => askc[f].organCost);
+    const free = Object.keys(askc).filter(f => !askc[f].organCost);
+
+    ok('K1 the valley contains at least one outfit that CHARGES for a direct ask '
+      + 'and one that does not — otherwise this part is asserting nothing',
+      charged.length >= 1 && free.length >= 1,
+      JSON.stringify({ charged, free }));
+
+    for (const f of charged) {
+      ok('K2 ' + f + ' TELLS HIM WHAT ASKING COSTS BEFORE HE ASKS ("'
+        + askc[f].organCost + '"). A price you discover by paying it is a '
+        + 'punishment; a price you read first is a decision — and with the Mob '
+        + 'it is THE decision, because you are meant to wait to be introduced',
+        askc[f].rest.indexOf(askc[f].organCost) >= 0,
+        JSON.stringify(askc[f]));
+    }
+
+    ok('K3 …and an outfit that charges NOTHING says nothing about a cost. '
+      + 'Printing "this costs you nothing" on thirteen of sixteen is noise, the '
+      + 'same reason the quiet-day row only appears above zero',
+      free.every(f => !/ASKING COSTS/.test(askc[f].rest)),
+      JSON.stringify(free.map(f => f + ': ' + askc[f].rest)));
+
+    /* ---- L. THE FIVE EARN-CONDITIONS NOTHING EVER SET ---------------------
+       BohemiaIntros.earned() switches on eight conditions. The city filled ONE:
+
+           var iSt = { asked: CT_MET.asked(who.key) };
+
+       So `vouched`, `overheard`, `standing`, `honest` and `hires` were
+       permanently false, and FIVE of his sixteen outfits could never get past
+       the first rung of their own mechanic. Every organ needed to answer them
+       has existed since 8/11-8/13, and four of the five wires were ALREADY
+       WRITTEN -- on BOHEMIA_RUN_SLICE_7_26_26.html, a surface that is not the
+       game. The city never got them.
+
+       THIS PART REFUSES TO BE SATISFIED BY THE ORGAN. It presses the mechanic on
+       the walked card: stand next to a real Mob member, learn one name, and see
+       whether theirs arrives WITHOUT ASKING, which is their anchor verbatim. */
+    const third = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const R = ctValleyRoster(), out = { pop: {} };
+          for (const a of R) {
+            const f = String(a.faction || '').toUpperCase();
+            if (f) out.pop[f] = (out.pop[f] | 0) + 1;
+          }
+          /* WHICH STATE FIELDS DOES THE CITY ACTUALLY FILL? Read off the real
+             card build, never off a hand-made object. */
+          const goTo = (row) => {
+            const p = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+            hx = (+p[0]) * span + 4; hy = (+p[1]) * span + 4;
+            CT_SPAWN = null; ctSpawn();
+            return ctEveryone().filter(q => q.id === row.__id)[0] || null;
+          };
+          /* PROVE IT IS THEM: ctOpen shows whoever is NEAREST. */
+          const standBy = (rec) => {
+            const at = ctAt(rec);
+            for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              hx = at[0] + d[0]; hy = at[1] + d[1];
+              const adj = ctAdjacent();
+              if (adj && adj.id === rec.id) {
+                ctClose(); ctOpen();
+                const el = document.getElementById('ctcard');
+                if (el && el.style.display !== 'none') return el.innerText;
+              }
+            }
+            return null;
+          };
+          /* ---- THE MOB: you are introduced, you do not ask ---- */
+          let target = null, voucher = null;
+          for (const m of R.filter(a => String(a.faction || '').toUpperCase() === 'MOB')) {
+            for (const t of BohemiaTies.tiesOf(ctVKey(m), R, ctCell(), ctVKey)) {
+              const w = R.filter(a => ctVKey(a) === t.key)[0];
+              if (w && String(w.faction || '').toUpperCase() === 'MOB') { target = m; voucher = w; break; }
+            }
+            if (target) break;
+          }
+          if (target) {
+            const rec = goTo(target);
+            if (rec) {
+              out.mobFid = ctFactionOf(rec);
+              out.mobBefore = standBy(rec);
+              out.thirdBefore = (() => { const t = ctIntroThird(rec, out.mobFid);
+                                         return { v: t.vouched, o: t.overheard }; })();
+              CT_MET.meet('P:city:' + voucher.__id, 1);
+              CT_MET.ask('P:city:' + voucher.__id, 1);
+              out.mobAfter = standBy(rec);
+              out.thirdAfter = (() => { const t = ctIntroThird(rec, out.mobFid);
+                                        return { v: t.vouched, o: t.overheard }; })();
+              /* the state the CARD builds, not one made up here */
+              out.stKeys = Object.keys((function () {
+                const iTh = ctIntroThird(rec, out.mobFid);
+                return { asked: 1, honest: 1, standing: 1, vouched: iTh.vouched,
+                         overheard: iTh.overheard, onward: iTh.onward };
+              })());
+            }
+          }
+          /* ---- THE HOMELESS: they ask where you sleep ---- */
+          const hl = R.filter(a => String(a.faction || '').toUpperCase() === 'HOMELESS');
+          if (hl.length) {
+            const rec = goTo(hl[0]);
+            if (rec) {
+              out.hlBefore = standBy(rec);
+              const b = document.getElementById('ctanswer');
+              out.hlButton = b ? b.textContent : null;
+              if (b) {
+                b.click();
+                out.hlAfter = standBy(rec);
+                /* AND IT SURVIVES THE CARD CLOSING -- a bit in the ledger, not a
+                   variable in a closure. */
+                ctClose(); ctOpen();
+                out.hlPersisted = CT_MET.honest('P:city:' + rec.id);
+              }
+            }
+          }
+          /* ---- CAN THE GRAPH ANSWER AT ALL, IF YOU KNEW EVERYBODY? ----
+             The honest ceiling on each mechanic, separated from what one player
+             has actually done. An outfit with one member in the whole valley
+             CANNOT produce a third party, and if it ever does, the graph is
+             wrong and L9 goes red. */
+          const knowAll = {}; R.forEach(a => { knowAll[ctVKey(a)] = 1; });
+          const of = (f) => R.filter(a => String(a.faction || '').toUpperCase() === f);
+          out.vouchHits = of('MOB').filter(a => BohemiaTies.vouchFor(
+            ctVKey(a), R, ctCell(), { keyOf: ctVKey, known: knowAll })).length;
+          out.overheardHits = of('REMNANTS').filter(a => BohemiaTies.overheardFrom(
+            ctVKey(a), R, ctCell(), { keyOf: ctVKey, met: knowAll })).length;
+          /* ---- and the one that is NOT wired, named ---- */
+          out.tradesRule = BohemiaIntros.RULES.TRADES.earn;
+          out.tradesNext = BohemiaIntros.RULES.TRADES.next;
+          return out;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('L1 THE MOB HANDS OVER A NAME WITH NO ASK, once somebody whose name you '
+      + 'know runs with them — their anchor verbatim is "YOU ARE INTRODUCED, YOU '
+      + 'DO NOT ASK", and st.vouched was permanently false on this surface',
+      !!third.mobAfter && /WHO PUT YOU ON/.test(third.mobAfter || ''),
+      JSON.stringify({ third: third.thirdAfter,
+                       card: (third.mobAfter || '').slice(0, 200) }));
+
+    ok('L2 …and NOT before that. The vouch is what moved it, not time passing — '
+      + 'otherwise this is measuring a name the card would have given anyway',
+      !!third.mobBefore && !/WHO PUT YOU ON/.test(third.mobBefore || '')
+      && third.thirdBefore && third.thirdBefore.v === false
+      && third.thirdAfter && third.thirdAfter.v === true,
+      JSON.stringify({ before: third.thirdBefore, after: third.thirdAfter,
+                       card: (third.mobBefore || '').slice(0, 160) }));
+
+    ok('L3 …and the card names WHOSE WORD IT WAS. A vouch that does not say who '
+      + 'staked something is a flag flipping, and the introducer is somebody you '
+      + 'already earned, so printing their name gives nothing away',
+      /WHO PUT YOU ON\s*\n?\s*[A-Z]/.test(third.mobAfter || '')
+      && /YOU (SHARE A ROOF|WORK THE SAME PLACE|RUN WITH THE SAME OUTFIT)/
+           .test(third.mobAfter || ''),
+      JSON.stringify((third.mobAfter || '').split('\n').slice(0, 4)));
+
+    ok('L4 THE HOMELESS QUESTION IS ANSWERABLE ON THE CARD. They do not ask your '
+      + 'name, they ask where you sleep — answerFor() has returned that button '
+      + 'since 8/11 and the only surface that ever rendered it was the old run '
+      + 'slice, so on the city the mechanic was decoration',
+      !!third.hlButton,
+      JSON.stringify({ button: third.hlButton,
+                       card: (third.hlBefore || '').slice(0, 160) }));
+
+    ok('L5 …and answering honestly hands over the name, which is their canon: '
+      + '"answer it honestly and the name follows on its own"',
+      !!third.hlAfter && (third.hlAfter || '').indexOf('YOU HAVE NOT ASKED') < 0,
+      JSON.stringify((third.hlAfter || '').split('\n').slice(0, 6)));
+
+    ok('L6 …and the answer is REMEMBERED. The ledger has carried the honest bit '
+      + 'since 8/13 precisely so it survives a reload; a truth you have to tell '
+      + 'again every time you walk up is not a thing that happened',
+      third.hlPersisted === true,
+      JSON.stringify({ persisted: third.hlPersisted }));
+
+    ok('L7 the city now fills every earn-condition it CAN, by name — asked, '
+      + 'honest, standing, vouched, overheard, onward. This line used to be '
+      + '"{ asked: ... }" and nothing else',
+      ['asked', 'honest', 'standing', 'vouched', 'overheard', 'onward']
+        .every(k => (third.stKeys || []).indexOf(k) >= 0),
+      JSON.stringify(third.stKeys));
+
+    /* AND THE ONE THAT IS NOT WIRED IS NAMED, NOT PASSED OVER. */
+    ok('L8 TRADES is still unreachable and the gate SAYS SO rather than skipping '
+      + 'it: it earns its name with hires>=2 ("' + third.tradesNext + '") and the '
+      + 'city has no hiring. Minting one would be inventing an economy in the '
+      + 'exact place his dossier is most specific, so the gap is named, not faked',
+      third.tradesRule === 'work',
+      JSON.stringify({ earn: third.tradesRule, next: third.tradesNext }));
+
+    /* AND THE TWO THAT CANNOT ANSWER FOR A POPULATION REASON, ALSO NAMED. */
+    /* AND THE TWO THAT CANNOT ANSWER FOR A POPULATION REASON, ALSO NAMED --
+       WITH A CLAIM THAT CAN ACTUALLY FAIL. "the headcount is an object" would be
+       an escape hatch; this says the mechanic and the census AGREE. A Remnant
+       hears their first name from ANOTHER SOLDIER, so one Remnant in the valley
+       means it cannot fire — and if it ever fires with a headcount of one, that
+       is a bug in the graph and this goes red. */
+    ok('L9 a Remnant hears their first name from ANOTHER SOLDIER, so an outfit '
+      + 'with one member in the whole valley CANNOT produce one — and if the '
+      + 'graph ever hands one back anyway, this goes red. "It did not fire" is '
+      + 'reported with the headcount, so it is never mistaken for "it is broken"',
+      (third.pop.REMNANTS | 0) >= 2 || (third.overheardHits | 0) === 0,
+      JSON.stringify({ REMNANTS: third.pop.REMNANTS | 0,
+                       overheardHits: third.overheardHits,
+                       BLUES: third.pop.BLUES | 0, MOB: third.pop.MOB | 0,
+                       HOMELESS: third.pop.HOMELESS | 0 }));
+
+    ok('L10 …and the MOB one DID have the members it needed, which is why L1 is a '
+      + 'measurement and not an accident — a vouch needs two people in the same '
+      + 'outfit who are acquainted, and the valley has them',
+      (third.pop.MOB | 0) >= 2 && (third.vouchHits | 0) >= 1 && !!third.mobAfter,
+      JSON.stringify({ MOB: third.pop.MOB | 0, vouchHits: third.vouchHits,
+                       fired: !!third.mobAfter }));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
