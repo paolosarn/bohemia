@@ -6313,6 +6313,61 @@ Tools: bohemia_city_asking_cost_patch.py | bohemia_city_thirdparty_patch.py |
        bohemia_city_namededupe_patch.py | bohemia_city_notesfold_patch.py
        (all idempotent, all MARKER-guarded)
 
+*** AND THEN THE SWEEP, RUN AGAIN, PRODUCED A NINTH -- THE PAYOFF OF THE WHOLE
+SYSTEM. BohemiaCommitment.tertius: 0 CALLERS since the wall shipped. ***
+Burt/Simmel TERTIUS GAUDENS -- two outfits with no line to each other means you
+span a structural hole and you are THE ONLY ROUTE BETWEEN THEM. The 2024 TERTIUS
+DOLENS correction is what makes it a game: connect them and the identical
+position COSTS you, because both sides can see the other half of what you are
+doing. Same behaviour, opposite sign, decided by the graph and not by you. Until
+this wire, standing with the Cartel and standing with the Mob were two numbers on
+two different cards and the game had no opinion about holding both.
+
+AND MY FIRST PLACEMENT WAS DEAD ON EXACTLY THE HALF THAT MATTERS. ctHearRows
+early-returns when nobody has a line -- and AN EMPTY `heard` IS THE STRUCTURAL
+HOLE. So the row printed only when you were EXPOSED and stayed silent when you
+were THE ONLY ROUTE. Measured: organ said YOU ARE THE ONLY ROUTE BETWEEN THEM,
+card said nothing. A ROW ADDED AFTER AN EARLY RETURN IS NOT ADDED -- same family
+as the border pass that was individually correct and sat in the wrong place in
+the pipeline (8/16). Reading the function does not find it; running it does.
+M3 proves the fix by asserting BOTH rows on one card, because the NOBODY row is
+emitted by the early return itself.
+
+*** THE BIG ONE, AND IT IS NOT THIS LANE'S: EVERY COMMITMENT IN THIS GAME IS
+CURRENTLY FREE. *** The dolens branch never fired for ANY of the 110 outfit
+pairs, so I counted the graph instead of guessing:
+
+    affiliated                          32 of 298
+    ties between two affiliated people     106
+       same outfit                         106
+       CROSSING AN OUTFIT LINE               0
+    whoHears lines in the whole valley       0
+    foci shared by 2+:   home 0   work 34   faction 8
+
+WHO WILL HEAR / WILL HEAR IT AS FACT / AND IT COSTS YOU / tertius DOLENS are all
+structurally unreachable. Saying out loud that you are with somebody has no
+downside anywhere in the valley. THREE STACKED CAUSES:
+  1. THE VALLEY HAS NO HOUSEHOLDS. homesIn() takes ONE fine cell per person, so
+     298 people have 298 homes and the HOME focus (the strongest tie in Feld and
+     the one that most naturally crosses an outfit line) groups nobody. CHECKED
+     SPECIFICALLY: this is NOT a keying bug in bohemia_ties -- a bug of exactly
+     that shape was found and fixed on 8/15 and the same conclusion would have
+     been wrong twice. The adapter reports the world faithfully.
+  2. A FACTION TIE IS SAME-OUTFIT BY DEFINITION, so it can never bridge.
+  3. WORK IS THE ONLY POSSIBLE BRIDGE, and 32-of-298 never pairs two affiliated
+     people from different outfits. Zero is what the arithmetic predicts.
+ANY ONE OF THESE UNBLOCKS THE WHOLE HALF: households (biggest lever by far --
+Feld's home focus is a clique under Dunbar's support-clique layer of 5, so every
+household makes everyone in it acquainted), the AFFILIATED_RATE dial, or the
+three empty bases. All WORLD / [PENDING Paolo].
+Record: records/BOHEMIA_EVERY_COMMITMENT_IN_THIS_GAME_IS_FREE_8_20_26.md
+Held by M5, which is falsifiable rather than decorative: if cross-outfit ties
+ever exist while whoHears still returns zero lines, the two disagree and it reds.
+
+GATES AFTER THE SECOND PIECE: FACTION ARC 71/0 (parts A-M) | CARD FOLD 16/0.
+Tool: tools/bohemia_city_tertius_patch.py | tools/bohemia_organ_reach.js (the
+sweep -- run it before writing any new organ; it found the 7th, 8th and 9th).
+
 NEXT FOR THIS LANE, in order:
  1. COLORFUL'S ONWARD. onwardFrom() is wired and COUNTED (st.onward) but nothing
     SPENDS it. His canon: "answer it well and you are introduced onward to three
@@ -6320,14 +6375,23 @@ NEXT FOR THIS LANE, in order:
     to anybody." The count is on the card's state and the three introductions are
     not granted. The words for the second question ("WHO YOU CAME WITH") get a
     draft attempt under ALWAYS MAKE AN ATTEMPT; the EFFECT is already his canon.
- 2. RUN THE SWEEP AS A GATE. Seven instances in a week says the machine, not my
-    attention, should be catching this. gates/sfx_wired_gate.py and
-    silent_moments_gate are the shape to copy: every exported function is REACHED
-    by the walked surface, another module, or carries a written reason it is not.
-    KNOWN BLIND SPOT TO FIX FIRST: my first sweep reported BohemiaTies as 0-called
-    and it was WRONG -- the module is passed as a VALUE ({ties:BohemiaTies}) into
-    whoHears, so a textual Global.fn( count is a lie. Checked before claiming;
-    that one would have been a false finding.
+    RESEARCH ALREADY DONE, use it: the Colorful are the GATEKEEPER broker in the
+    Gould/Fernandez typology -- the broker who controls incoming access to their
+    own group and doubles as SPONSOR (chain-referral literature). And the three
+    they open are the player's WEAK TIES even though they are the Colorful's
+    STRONG ones, which is exactly Granovetter 1973 and is why onwardFrom picking
+    the three STRONGEST is right, not a bug: your word only carries with people
+    who actually trust you.
+ 2. RUN THE SWEEP AS A GATE. NINE instances in a week says the machine, not my
+    attention, should be catching this. tools/bohemia_organ_reach.js is written
+    and honest; gates/sfx_wired_gate.py and silent_moments_gate are the shape to
+    copy. It currently reports 2 left: BohemiaCommitment.states (introspection)
+    and BohemiaPeople.peopleOf (PEOPLE's module, not mine).
+    KNOWN BLIND SPOT, ALREADY HANDLED, DO NOT REGRESS IT: the first sweep
+    reported BohemiaTies as 0-called and it was WRONG -- the module is passed as
+    a VALUE ({ties:BohemiaTies}) into whoHears, so a textual Global.fn( count is
+    a lie. A SWEEP THAT CANNOT TELL AN INJECTED MODULE FROM A DEAD ONE IS THE
+    BROKEN THING. Checked before claiming; it would have been a false finding.
  3. THE STANDING FINDINGS THAT ARE NOT MINE: 32 affiliated of 298; nobody in the
     valley shares a roof (298 people, 298 distinct home coordinates); three bases
     (Anarchists, Blues, Church) have ZERO members so `presence` is unreachable;
