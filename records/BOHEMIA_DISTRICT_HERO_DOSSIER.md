@@ -143,7 +143,7 @@ _Fire station — matched: quarters + a bay block with RED apparatus doors + a H
 - fire engine (canon BUS) — a RED rig pulled onto the apron (code 8 "fire engine")
 - staff car (canon CAR) — an abandoned staff car (code 10); the paved apron/drive (code 1)
 
-## POLICESTATION  (1724x1488, anchor 874,1286)
+## POLICESTATION  (1724x1503, anchor 874,1286)
 _Police station — matched: a station building + a SALLY PORT + a PATROL-CAR fleet + an impound wreck + a roof antenna + a fence._
 
 - station building — the main station mass (code 2 "building (station)"), windows + a door
@@ -512,6 +512,57 @@ _Downtown casino — matched, and its whole job is to NOT be the Strip resort. F
 - self-park deck — open plates on the alley, where the car belongs downtown (code 8 "self-park deck")
 - abandoned car — left in the valet lane (code 10 "abandoned vehicle")
 
+## CONVENTION  (1724x1282, anchor 874,1290)
+_Convention centre — matched to the walkable district: TWO ENORMOUS COLUMN-FREE BOXES, which is what the building is from a mile up. The older hall flat-roofed and the newer WEST HALL taller beside it (the LVCC's halls were built decades apart and read as different buildings), a glazed CONCOURSE spine threading them, roof plant and SKYLIGHT bands the only texture on the roofs, and the WALL OF LOADING DOCKS with the trailers still backed into it — because a hall's real job is swallowing a hundred semi-trailers of freight in two days._
+
+- exhibit hall — the older column-free box, flat-roofed and blind (code 2 "exhibit hall")
+- west hall — the newer box beside it, taller, built decades later (code 15 "west hall")
+- concourse — the glazed spine threading the halls, the only glass on the building (code 6 "concourse")
+- roof plant + skylight bands — the only texture on a hall roof (code 4, code 13 "hall skylight")
+- dock wall — roll-up doors along the back with trailers still backed in (code 8 "dock door", code 10 "abandoned trailer")
+- entry plaza — the pavers on the street frontage, no canopy over them (code 12 "entry plaza")
+
+## PRISON  (1724x1435, anchor 874,1290)
+_Prison — matched, and the silhouette is not a building, it is a PERIMETER WITH TOWERS ON IT. A double wire ringing the compound with a GUARD TOWER standing above everything at each of the four corners, four low housing units and their exercise yards inside it, the services core between them, and the ADMINISTRATION BLOCK OUTSIDE THE LINE — which is the tell that separates a prison from any other institutional campus. Nevada desert facility (High Desert / Southern Desert, Indian Springs)._
+
+- double perimeter — two wire runs ringing the compound (code 7 "perimeter fence")
+- guard towers — one at each corner, standing above everything (code 9 "guard tower")
+- housing units — four low blocks with a slot window per cell (code 2 "housing unit")
+- exercise yards — one per unit, packed dirt (code 6 "exercise yard")
+- services core — kitchen, laundry and infirmary in one block at the middle (code 11 "services core")
+- administration — OUTSIDE the wire, which is the tell (code 12 "administration")
+- transport van — left where it stopped (code 10 "abandoned vehicle")
+
+## DAM  (1724x1494, anchor 874,1291)
+_Dam — matched, and nothing else in the valley is a CURVE HOLDING BACK A LAKE. The arch-gravity wall wedged across the canyon bowing upstream, the reservoir stacked behind it with the white BATHTUB RING where the water used to reach, FOUR INTAKE TOWERS standing out of the water, a spillway cut into each canyon wall, the POWERHOUSE in its U at the downstream toe with the tailrace below, and transmission towers climbing the walls at angles nothing else is built at. Hoover._
+
+- the arch wall — bowing upstream across the canyon, the vertical event (code 2 "dam wall")
+- reservoir + bathtub ring — the lake and the white mineral band it used to reach (code 3, code 7 "bathtub ring")
+- intake towers — four of them standing out of the water (code 4 "intake tower")
+- spillways — a concrete funnel cut into each canyon wall (code 6 "spillway")
+- powerhouse — the U at the downstream toe (code 11 "powerhouse")
+- tailrace — the channel below it (code 12 "tailrace")
+- transmission towers — climbing the canyon walls (code 9 "transmission tower")
+
+## MINIGP  (1724x1074, anchor 874,1288)
+_Kart circuit — matched: a closed LOOP that comes back to itself, which no other district in the valley is. The course with its infield kink, the TYRE WALL running the whole outside of it, the pit lane down the inside of the main straight with the paddock behind, the TIMING TOWER over the start line, and the karts left on the grid._
+
+- the circuit — a closed loop with an infield kink (code 1 "circuit")
+- tyre wall — running the whole outside of the loop (code 12 "tyre barrier")
+- pit lane — down the inside of the main straight (code 6 "pit lane")
+- paddock — behind the pits, roller door open (code 2 "paddock building", code 8 "paddock door")
+- timing tower — over the start line, board blank (code 9 "timing tower")
+- karts — left on the grid where they stopped (code 10 "abandoned kart")
+
+## FORT  (1724x1393, anchor 836,1292)
+_Old Mormon Fort — matched: an ADOBE SQUARE with a bastion at one corner, on Las Vegas Creek. The only walled courtyard in the valley and the only thing you can see INTO over a low wall, which is what makes it read at map zoom against sixty districts of roofs. The original adobe building stands inside it. 1855, and the spring beside it is the reason a city is here at all._
+
+- adobe curtain wall — the square, low enough to see into (code 2 "adobe wall")
+- bastion — higher than the wall, at one corner (code 7 "bastion")
+- the adobe building — THE original, oldest standing structure in the valley (code 4 "adobe building")
+- the creek — Las Vegas Creek and the only living grass in the valley beside it (code 12 "creek", code 6 "creek grass")
+- interpretive path — looping the outside, plaques prised off (code 11 "interpretive path")
+
 ## STRIP  (1724x1304, anchor 870,1311)
 _Las Vegas Boulevard — THE RUN, and it is a street cell, not a lot: eight lanes filling the cell end to end, the wide LANDSCAPED PALM MEDIAN down the middle (the county lifted those palms out during construction and re-planted them — the median is not decoration, it is the street), the PROMENADE at the back of curb running out to the property line on both sides with no amenity strip and NO WALL, a marquee pylon at the building face, and the ENCLOSED PEDESTRIAN BRIDGE flying over the traffic on its two stair towers. The bridge is the tell: nothing else in the valley has one._
 
@@ -642,7 +693,7 @@ _DATA FORT_
 - guard house -- at the gate with its door, glass still intact, which on this site is the tell (code 2 "building (guard house)")
 - microwave masts -- on the roofline (code 14 "microwave mast")
 
-## BASIN  (1724x1220, anchor 895,1277)
+## BASIN  (1724x1045, anchor 895,1277)
 _DETENTION BASIN_
 
 - the bowl -- four SQUARED rings stepping down, so it reads made and not eroded (code 6 "side slope", code 7 "embankment crest")
@@ -666,7 +717,7 @@ _RECLAMATION PONDS_
 - blower house -- with its door (code 2 "building (blower / control)")
 - vent stack -- on the blower house (code 14 "vent stack")
 
-## RADIO  (1724x1680, anchor 874,1287)
+## RADIO  (1724x1737, anchor 874,1289)
 _ANTENNA FARM_
 
 - three guyed masts -- the tallest of them 15.5 m in icon scale, and the tallest thing in the whole hero set (code 14 "guyed mast")

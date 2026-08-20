@@ -1872,6 +1872,7 @@ def build_firestation(P):
 # ---------------------------------------------------------------- POLICE STATION
 def build_policestation(P):
     STN, SALLY, PATROL, IMPOUND, ANT, FENCE = P[2], P[6], P[7], P[8], P[10], P[12]
+    SHIELD, XERIC = P[13], P[3]   # the district's OWN unused palette entries, not new colour
     s = Scene()
     _ground(s, (-3, -3, 15, 15), drive=(-3, 7, 15, 12), groundc=(96, 96, 100), lotc=(56, 56, 64))
     s.box((-2, -1, 0), (9, 6, 6.0), {'top': _dark(STN, 0.9), 'px': _win(STN, 6, 4, 4),
@@ -1890,6 +1891,33 @@ def build_policestation(P):
           'py': _dark(PATROL, 1.0), 'px': _dark(PATROL, 0.9),
           'nx': _dark(PATROL), 'ny': _dark(PATROL)})                                    # signage band
     s.box((8.2, -0.7, 4.4), (1.6, 0.3, 0.3), {'c': _dark(IMPOUND, 1.1)['c']})           # canopy light bar
+    # AND IT MEASURED MONOCHROME ANYWAY, FOR TWO REASONS AT ONCE (8/19).
+    #
+    # First, the band is painted in PATROL, and PATROL is palette entry 7: #cfcfc6, NEAR
+    # WHITE. A grey stripe on a grey building is not a second hue family.
+    #
+    # Second, and this is the one that matters for every builder in this file: THE BAND IS
+    # ON THE -Y FACE, WHICH THE CAMERA CANNOT SEE. This projection puts the eye off +x/+y,
+    # so a box shows its TOP, its +x face and its +y face and nothing else. Everything the
+    # note above put on -y to fix the missing fleet colour was drawn correctly, shaded
+    # correctly, and then hidden behind the building it was bolted to. It has been invisible
+    # since the day it was written. (Left in place: it is the back of the station, and the
+    # back of a station has signage on it too.)
+    #
+    # So the department colour goes on the faces that FACE THE VIEWER. Neither of these
+    # leaves with the fleet, because neither is a car:
+    #   the lit SHIELD over the +x entry, which is the department's own gold
+    #   the XERISCAPE strip along the +y frontage, which is what Vegas plants instead of lawn
+    # Both are entries already in this district's own engine palette (13 and 3). No new colour.
+    s.box((6.94, 0.6, 4.55), (0.30, 4.0, 1.05), {'top': _dark(SHIELD, 1.14),
+          'px': _dark(SHIELD, 1.08), 'py': _dark(SHIELD, 0.94),
+          'nx': _dark(SHIELD), 'ny': _dark(SHIELD)})                                    # THE LIT SHIELD, +x
+    s.box((6.98, 1.2, 3.35), (0.16, 2.6, 0.5), {'c': _dark(SHIELD, 0.86)['c']})         # the address plate
+    for bx in (-1.6, 0.8, 3.2):                                                         # THE XERISCAPE STRIP,
+        s.box((bx, 5.05, 0), (2.0, 0.9, 0.35), {'top': _dark(XERIC, 1.18),              # frontage only: nothing
+               'px': _dark(XERIC, 1.02), 'py': _dark(XERIC, 0.9),                       # rings the plot (8/16)
+               'nx': _dark(XERIC), 'ny': _dark(XERIC)})
+        s.box((bx + 0.6, 5.25, 0.35), (0.6, 0.6, 0.85), {'c': _dark(XERIC, 1.24)['c']})  # a desert shrub in it
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 6.5), (-2.5, 6.5)]:
         _fence_box(s, (fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.0), {'c': FENCE})
     return s, 6.6
@@ -1918,11 +1946,30 @@ def build_stadium(P):
     FACADE, BOWL, SCORE, LIGHT, FIELD, CARC = P[2], P[6], P[9], P[12], P[4], P[11]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), lot=(-3, 11, 15, 15), groundc=(96, 94, 88), lotc=(52, 52, 60))
-    s.prism(6, 4, 0.02, 5.4, 0.06, 22, {'c': _dark(FIELD, 0.9)['c']})                   # the field oval
-    # A BOWL IS A RING. It only read as one while the prism cap was broken and its holes
-    # let the field show through; a closed cap turned the whole icon into one flat disc and
-    # the HUE gate caught it as monochrome the same turn the cap was repaired.
-    s.prism(6, 4, 0, 6.9, 6.4, 26, {'c': FACADE}, {'c': _dark(BOWL, 1.05)['c']}, inner=4.8)
+    # THE FIELD, LIFTED CLEAR OF THE GROUND PAD. _draw_ground() lays the pad as a box from
+    # z=-0.5 up 0.55, so the pad's own top face is at z=+0.05 -- and the field was drawn at
+    # z=0.02..0.08, straddling it. Two coplanar-ish surfaces 0.03 apart is a coin toss in
+    # the z-buffer, and the pad won across most of the disc. Sitting the field at 0.10 costs
+    # nothing anyone can see and makes it unambiguous.
+    s.prism(6, 4, 0.10, 5.0, 0.06, 22, {'c': _dark(FIELD, 0.9)['c']})                   # the field oval
+    s.prism(6, 4, 0.16, 2.9, 0.05, 20, {'c': _dark(FIELD, 1.14)['c']})                  # the worn centre of it
+    # A BOWL RAKES, IT IS NOT A CYLINDER (8/19). The previous pass made this a RING with a
+    # constant 4.8 m opening and 6.4 m of DEAD VERTICAL inner wall -- and a vertical wall
+    # 6.4 m high projects 6.4 units UP the screen at this iso, while the whole 10 m field
+    # only spans 5. So the near wall covered the field completely: measured, not one green
+    # pixel of it survived into the sprite, and the hue gate has been calling this icon
+    # monochrome ever since. The colour was never the bug. THE GEOMETRY WAS.
+    #
+    # A real seating bowl is a RAKE: rows climb outward as they rise (~30 deg at the top
+    # deck), so the opening WIDENS with height and the far stand is what you look across.
+    # Built as stacked rings whose inner radius grows with z, that is both the true shape
+    # and the reason you can see the field at all from an oblique aerial.
+    for i in range(6):
+        z = i * 1.05
+        s.prism(6, 4, z, 5.9 + i * 0.20, 1.06, 26, {'c': FACADE},
+                {'c': _dark(BOWL, 1.05 - i * 0.02)['c']}, inner=4.35 + i * 0.42)
+    s.prism(6, 4, 6.30, 7.05, 0.34, 26, {'c': _dark(FACADE, 0.9)['c']},
+            {'c': _dark(BOWL, 1.16)['c']}, inner=6.32)                                  # the rim / press ring
     for (lx, ly) in [(0.4, -1.2), (11.6, -1.2), (0.4, 9.2), (11.6, 9.2)]:
         s.box((lx - 0.12, ly - 0.12, 0), (0.24, 0.24, 9.2), {'c': LIGHT})               # light-tower mast
         s.box((lx - 0.55, ly - 0.55, 9.2), (1.1, 1.1, 0.6), {'c': tuple(min(255, int(c * 1.12)) for c in LIGHT)})
@@ -2704,6 +2751,7 @@ def build_cemetery(P):
     the air -- a grid of small pale marks, which is why the walkable plot carries 917 of
     them. The obelisk gives the plot its one vertical."""
     MAUS, STONE, OBEL, CHAPEL, COLUM, TREE = P[7], P[6], P[11], P[2], P[8], P[3]
+    POOL = P[9]   # the district's own unused palette entry, not a new colour
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(112, 108, 92), lotc=(60, 60, 62))
     s.box((3.6, 3.0, 0), (5.2, 4.4, 5.0), {'top': _dark(MAUS, 0.9), 'px': _dark(MAUS, 1.0),
@@ -2714,10 +2762,22 @@ def build_cemetery(P):
     _door_face(s, (3.6, 3.0, 0), (5.2, 4.4, 5.0), width=1.3, ztop=2.4)
     for gy in (-2.0, -0.6, 0.8, 8.8, 10.2, 11.6, 13.0):                                   # THE HEADSTONE FIELD
         for gx in range(11):
-            s.box((-2.0 + gx * 1.42, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
+            hx = -2.0 + gx * 1.42
+            if 3.6 <= hx <= 8.8 and 8.2 <= gy <= 10.6:                                    # nobody is buried in
+                continue                                                                  # the reflecting pool
+            s.box((hx, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
     for gy in (2.4, 4.0, 5.6, 7.2):
         for gx in (0, 1, 7, 8, 9, 10):
             s.box((-2.0 + gx * 1.42, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
+    # THE REFLECTING POOL. Every memorial park in this valley has one at the mausoleum
+    # entry, and it is the only reason a cemetery is not entirely stone-coloured -- which
+    # is exactly what hue_gate measured this icon as: ONE family, 3% chromatic, mud. The
+    # water is palette entry 9, already in the engine module and previously never drawn.
+    # It sits in front of the colonnade because that is where the approach walk ends.
+    s.box((3.9, 8.4, 0), (4.6, 2.0, 0.22), {'top': _dark(MAUS, 1.1), 'px': _dark(MAUS, 0.98),
+          'py': _dark(MAUS, 0.84), 'nx': _dark(MAUS, 0.98), 'ny': _dark(MAUS, 0.84)})     # its coping
+    s.box((4.2, 8.65, 0.12), (4.0, 1.5, 0.08), {'c': POOL})                               # THE WATER
+    s.box((5.9, 9.15, 0.20), (0.5, 0.5, 0.55), {'c': _dark(POOL, 1.3)['c']})              # the dry jet head
     s.box((10.6, 5.0, 0), (1.3, 1.3, 1.0), {'c': _dark(OBEL, 0.9)['c']})                  # THE OBELISK
     s.box((10.85, 5.25, 1.0), (0.8, 0.8, 5.6), {'c': OBEL})
     s.prism(11.25, 5.65, 6.6, 0.55, 0.9, 4, {'c': _dark(OBEL, 1.15)['c']})
@@ -3735,30 +3795,64 @@ def build_basin(P):
     SHED, SLOPE, CREST, TRICKLE, GAUGE = P[2], P[6], P[7], P[8], P[14]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(112, 104, 82), lotc=(88, 82, 66))
-    # the embankment: four squared rings stepping down, so the hole reads as made not eroded
-    for i, (ins, z) in enumerate([(0.0, 3.4), (1.1, 2.5), (2.2, 1.6), (3.3, 0.7)]):
-        s.box((-0.4 + ins, 0.6 + ins, 0), (12.4 - ins * 2, 10.4 - ins * 2, z),
-              {'top': _dark(SLOPE, 1.12 - i * 0.05), 'px': _dark(CREST, 1.0 - i * 0.04),
-               'py': _dark(CREST, 0.84 - i * 0.03), 'nx': _dark(CREST, 1.0 - i * 0.04),
-               'ny': _dark(CREST, 0.84 - i * 0.03)})
-    s.box((3.4, 4.6, 0.68), (5.0, 3.2, 0.1), {'c': _dark(SLOPE, 0.86)['c']})               # the silt floor
-    s.box((3.8, 4.9, 0.78), (4.2, 0.9, 0.06), {'c': TRICKLE})                             # THE LOW-FLOW TRICKLE
-    s.box((5.4, 2.6, 0.78), (1.4, 2.4, 0.06), {'c': TRICKLE})                             # down to the orifice
-    s.box((4.4, -2.4, 0.06), (4.0, 2.4, 0.06), {'c': TRICKLE})                           # and what leaves the
-    s.box((5.4, -3.1, 0.06), (2.2, 1.0, 0.06), {'c': _dark(TRICKLE, 1.18)['c']})         # orifice, out on the apron
+    # THE EMBANKMENT, AND THE HOLE THAT WAS NEVER THERE (8/19). This was written as four
+    # NESTED SOLID BOXES stepping down -- and a nested solid box has a TOP FACE, so the
+    # outermost tier roofed over everything inside it. The "rectangular hole" in the
+    # docstring above has never once been rendered: the icon has always been a flat-topped
+    # MOUND, and every pixel of the green low-flow channel inside it was under that lid.
+    # That is why hue_gate has read this district as monochrome since 7/29. The colour was
+    # never the bug and neither was the crest height. THERE WAS NO HOLE.
+    #
+    # A HOLE IS FOUR BARS, NOT A SMALLER BLOCK. Each tier is now a picture frame -- south,
+    # north, west, east -- so the middle is genuinely open all the way down to the floor.
+    #
+    # And the section is the real one while we are here. Clark County Regional Flood Control
+    # builds these with 3:1 and 4:1 side slopes and a berm barely a metre over natural grade,
+    # because steeper will not hold in this soil and cannot be mowed or driven on. So the
+    # crest is 1.25 m, not 3.4, and the steps run wide and shallow.
+    for i, (ins, z) in enumerate([(0.0, 1.25), (1.2, 0.82), (2.4, 0.42)]):
+        bx0, by0 = -0.4 + ins, 0.6 + ins
+        bw, bh = 12.4 - ins * 2, 10.4 - ins * 2
+        BAR = 1.2
+        mat = {'top': _dark(SLOPE, 1.12 - i * 0.06), 'px': _dark(CREST, 1.0 - i * 0.05),
+               'py': _dark(CREST, 0.84 - i * 0.04), 'nx': _dark(CREST, 1.0 - i * 0.05),
+               'ny': _dark(CREST, 0.84 - i * 0.04)}
+        s.box((bx0, by0, 0), (bw, BAR, z), mat)                                            # south bar
+        s.box((bx0, by0 + bh - BAR, 0), (bw, BAR, z), mat)                                 # north bar
+        s.box((bx0, by0 + BAR, 0), (BAR, bh - BAR * 2, z), mat)                            # west bar
+        s.box((bx0 + bw - BAR, by0 + BAR, 0), (BAR, bh - BAR * 2, z), mat)                 # east bar
+    # THE FLOOR OF IT, which no version of this icon has ever shown. Hole: x 2.0..9.6,
+    # y 3.0..8.6, and it sits just clear of the ground pad's own top face at z=0.05.
+    s.box((2.0, 3.0, 0.06), (7.6, 5.6, 0.05), {'c': _dark(SLOPE, 0.86)['c']})              # the silt floor
+    # THE LOW-FLOW CHANNEL. A basin that is dry 360 days a year still carries a trickle
+    # line, and it is the one living-coloured thing on the site: algae and salt cedar take
+    # the wet strip and nothing in this plot is green except the water's own path.
+    s.box((2.4, 5.4, 0.12), (6.6, 1.0, 0.05), {'c': TRICKLE})                              # THE LOW-FLOW TRICKLE
+    s.box((5.2, 3.0, 0.12), (1.2, 2.5, 0.05), {'c': TRICKLE})                              # down to the orifice
+    for (cx, cy) in [(2.6, 4.9), (4.4, 6.5), (6.8, 4.8), (8.4, 6.4)]:                      # THE SALT CEDAR,
+        s.box((cx, cy, 0.12), (0.55, 0.55, 0.28), {'top': _dark(TRICKLE, 1.06),            # rooted along the wet
+              'px': _dark(TRICKLE, 0.9), 'py': _dark(TRICKLE, 0.76),                       # strip and nowhere else
+              'nx': _dark(TRICKLE, 0.9), 'ny': _dark(TRICKLE, 0.76)})
+    s.box((4.4, -2.4, 0.08), (4.0, 2.4, 0.05), {'c': TRICKLE})                           # and what leaves the
+    s.box((5.4, -3.1, 0.08), (2.2, 1.0, 0.05), {'c': _dark(TRICKLE, 1.18)['c']})         # orifice, out on the apron
     s.box((5.0, 0.9, 0), (2.4, 1.8, 2.4), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
           'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE OUTLET BOX
     s.box((5.8, 0.8, 0.2), (0.9, 0.2, 0.9), {'c': (26, 28, 30)})                           # its orifice
     for i in range(5):
         s.box((5.2 + i * 0.45, 0.72, 0.2), (0.12, 0.12, 1.1), {'c': _dark(CREST, 0.7)['c']})  # the debris rack
-    s.box((8.6, 0.6, 2.0), (2.6, 0.9, 0.5), {'top': _dark(SLOPE, 1.06), 'px': _dark(SLOPE, 0.94),
-          'py': _dark(SLOPE, 0.8), 'nx': _dark(SLOPE, 0.94), 'ny': _dark(SLOPE, 0.8)})     # THE SPILLWAY notch
+    s.box((8.6, 0.55, 0.72), (2.6, 0.95, 0.42), {'top': _dark(SLOPE, 1.06), 'px': _dark(SLOPE, 0.94),
+          'py': _dark(SLOPE, 0.8), 'nx': _dark(SLOPE, 0.94), 'ny': _dark(SLOPE, 0.8)})     # THE SPILLWAY notch,
+    # cut DOWN THROUGH the crest rather than floating over it -- an emergency spillway is a
+    # low place in the berm, which is the whole idea, and it only reads as one now the berm
+    # is the height a real one is.
     s.box((-1.6, 9.4, 0), (3.0, 2.2, 2.4), {'top': _dark(SHED, 0.9), 'px': _win(SHED, 2, 2, 13),
           'py': _dark(SHED, 0.86), 'nx': _dark(SHED), 'ny': _dark(SHED)})                  # the O&M shed
     _door_face(s, (-1.6, 9.4, 0), (3.0, 2.2, 2.4), width=1.0, ztop=1.9)
-    s.box((11.2, 9.6, 0), (0.34, 0.34, 7.2), {'c': _dark(GAUGE, 0.94)['c']})               # THE STAGE GAUGE
+    s.box((11.2, 9.6, 0), (0.34, 0.34, 4.0), {'c': _dark(GAUGE, 0.94)['c']})               # THE STAGE GAUGE,
     for gz in range(1, 7):                                                                 # its foot marks,
-        s.box((11.14, 9.54, gz * 1.1), (0.46, 0.46, 0.12), {'c': _dark(CREST, 1.18)['c']}) # read from the crest
+        s.box((11.14, 9.54, gz * 0.62), (0.46, 0.46, 0.10), {'c': _dark(CREST, 1.18)['c']})  # read from the crest
+    # scaled with the berm: a staff gauge measures the depth of water the basin can hold, so
+    # a 7 m gauge on a 1.25 m berm was reading a flood the basin would have long since spilled.
     return s, 5.8
 
 
@@ -3792,31 +3886,67 @@ def build_reclaim(P):
 
 
 def build_radio(P):
-    """engine/bohemia_utility.js radio: MOSTLY AIR. A guyed mast has to put its anchors a
-    long way from its base, so an antenna site is a very tall thin thing with almost
-    nothing around it -- and that emptiness is the recognition, not a flaw in the drawing.
-    Black Mountain carries ten of them on the ridge above Henderson."""
+    """engine/bohemia_utility.js radio: A LATTICE, NOT A NEEDLE. Black Mountain carries ten
+    masts on the ridge above Henderson, and the thing to get right about them is that a
+    guyed broadcast mast is a TRIANGULAR TRUSS about a metre and a half across the face,
+    hung with microwave drums -- 2 to 3 m parabolas in radomes, stacked at three or four
+    levels because every site backhauls to the next one down the ridge. It is not a pole.
+
+    IT WAS DRAWN AS A POLE, AND THAT WAS MEASURABLE (8/19). At 0.38 m square it covered ONE
+    PERCENT of its own silhouette at map zoom -- squint_gate's floor is 10% and its whole
+    point is that a landmark you cannot see is not a landmark. The old docstring argued the
+    emptiness WAS the recognition. It is not: the emptiness is what a pole looks like when
+    it should have been a truss, and the real structure is both bigger and more honest."""
     HUT, ANCHOR, PLATE, GUY, MAST = P[2], P[6], P[7], P[8], P[14]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(104, 100, 86), lotc=(84, 82, 70))
     import math as _m
-    for (mx, my, hgt, gr) in [(4.4, 5.6, 15.5, 4.2), (9.8, 3.0, 11.0, 3.2), (1.4, 9.8, 8.5, 2.6)]:
+    # FOUR MASTS, NOT THREE. Black Mountain carries about ten on one ridge and Arden more,
+    # because every broadcaster, every public-safety net and every carrier wants the same
+    # high ground -- an antenna site is a FARM, and one more mast is both truer to that and
+    # the margin this icon needs over the squint floor (measured 13% with three, and a
+    # landmark should not clear its bar by three points).
+    for (mx, my, hgt, gr) in [(4.4, 5.6, 15.5, 4.2), (9.8, 3.0, 11.0, 3.2),
+                              (1.4, 9.8, 8.5, 2.6), (10.4, 9.2, 13.0, 3.6)]:
         for k in range(3):
             a = (k * 120 + 20) * _m.pi / 180.0
             ax, ay = mx + gr * _m.cos(a), my + gr * _m.sin(a)
             s.box((ax - 0.28, ay - 0.28, 0), (0.56, 0.56, 0.62), {'top': _dark(ANCHOR, 1.14),
                   'px': _dark(ANCHOR, 1.0), 'py': _dark(ANCHOR, 0.84),
                   'nx': _dark(ANCHOR, 1.0), 'ny': _dark(ANCHOR, 0.84)})                    # THE ANCHOR BLOCK
-            for t in range(1, 7):                                                          # THE GUY, climbing
-                f = t / 7.0
+            for t in range(1, 9):                                                          # THE GUY, climbing
+                f = t / 9.0
                 s.box((ax + (mx - ax) * f, ay + (my - ay) * f, hgt * f * 0.92),
-                      (0.09, 0.09, 0.09), {'c': GUY})
-        s.box((mx - 0.5, my - 0.5, 0), (1.0, 1.0, 0.3), {'c': _dark(PLATE, 1.0)['c']})      # its base plate
-        s.box((mx - 0.19, my - 0.19, 0.3), (0.38, 0.38, hgt), {'top': _dark(MAST, 1.16),
-              'px': _dark(MAST, 1.02), 'py': _dark(MAST, 0.8),
-              'nx': _dark(MAST, 1.02), 'ny': _dark(MAST, 0.8)})                            # THE MAST
-        for lz in range(3, int(hgt), 3):
-            s.box((mx - 0.34, my - 0.34, lz), (0.68, 0.68, 0.12), {'c': _dark(MAST, 0.78)['c']})
+                      (0.13, 0.13, 0.13), {'c': GUY})
+        s.box((mx - 0.8, my - 0.8, 0), (1.6, 1.6, 0.32), {'c': _dark(PLATE, 1.0)['c']})     # its base plate
+        # THE TRUSS: three legs on a 1.5 m triangle, cross-braced every 1.4 m. Three thin
+        # verticals plus horizontal lacing is what a lattice actually is, and together they
+        # read at map zoom as one solid mast where a single 0.38 m post read as nothing.
+        FACE = 0.78
+        legs = [(mx + FACE * _m.cos(t * 2 * _m.pi / 3 + 0.4),
+                 my + FACE * _m.sin(t * 2 * _m.pi / 3 + 0.4)) for t in range(3)]
+        for (lxp, lyp) in legs:
+            s.box((lxp - 0.15, lyp - 0.15, 0.32), (0.30, 0.30, hgt), {'top': _dark(MAST, 1.16),
+                  'px': _dark(MAST, 1.02), 'py': _dark(MAST, 0.8),
+                  'nx': _dark(MAST, 1.02), 'ny': _dark(MAST, 0.8)})                        # THE LEGS
+        nb = max(2, int(hgt / 2.6))
+        for b in range(nb):                                                                # the lacing: FRAMES,
+            bz = 0.32 + (b + 0.5) * (hgt / nb)                                             # not slabs. Solid plates
+            for (ex, ey, ew, eh) in [(-FACE - 0.1, -FACE - 0.1, FACE * 2 + 0.2, 0.2),      # every 1.4 m read as a
+                                     (-FACE - 0.1, FACE - 0.1, FACE * 2 + 0.2, 0.2),       # stack of pagoda roofs,
+                                     (-FACE - 0.1, -FACE + 0.1, 0.2, FACE * 2 - 0.2),      # which is not a truss.
+                                     (FACE - 0.1, -FACE + 0.1, 0.2, FACE * 2 - 0.2)]:
+                s.box((mx + ex, my + ey, bz), (ew, eh, 0.14),
+                      {'top': _dark(MAST, 0.9), 'px': _dark(MAST, 0.84), 'py': _dark(MAST, 0.7),
+                       'nx': _dark(MAST, 0.84), 'ny': _dark(MAST, 0.7)})
+        # THE MICROWAVE DRUMS. Every commercial site on the ridge backhauls to the next one,
+        # so the dishes are stacked -- and they are the widest thing on the mast by far.
+        for di, (dz, drad) in enumerate([(hgt * 0.30, 1.30), (hgt * 0.46, 1.15),
+                                         (hgt * 0.63, 0.95), (hgt * 0.82, 0.72)]):
+            s.prism(mx, my, dz, drad, drad * 1.5, 14, {'c': _dark(PLATE, 0.94)['c']},
+                    {'c': _dark(PLATE, 1.12)['c']})
+        s.box((mx - 0.45, my - 0.45, hgt + 0.32), (0.9, 0.9, 1.3), {'c': _dark(MAST, 1.2)['c']})  # top bay
+        s.box((mx - 0.22, my - 0.22, hgt + 1.62), (0.44, 0.44, 0.5), {'c': _dark(GUY, 1.3)['c']})  # the beacon
     s.box((6.4, 10.8, 0), (3.6, 2.4, 2.6), {'top': _dark(HUT, 0.9), 'px': _win(HUT, 3, 2, 15),
           'py': _dark(HUT, 0.86), 'nx': _dark(HUT), 'ny': _dark(HUT)})                     # the transmitter building
     _door_face(s, (6.4, 10.8, 0), (3.6, 2.4, 2.6), width=1.0, ztop=2.0)
