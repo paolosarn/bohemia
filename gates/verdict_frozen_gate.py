@@ -53,6 +53,16 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 STORE = 'records/BOHEMIA_SFX_VERDICT_FINGERPRINTS.json'
+# THE ONLY DOOR OUT OF A FROZEN VERDICT (8/19). A judged sound sometimes HAS to
+# change -- on 8/19 four candidates turned out to be built on two voices Paolo
+# had graveyarded on 7/19 ("Do not re-add"), which also happened to render
+# SILENT through this engine, so his thumbs were sitting on sounds with no body
+# in them. Refusing forever would have meant shipping a retired voice; allowing
+# it quietly would have meant his verdict drifting under him, which is the exact
+# thing this gate exists to stop. So the exception is a COMMITTED FILE with a
+# written reason per id, and the gate reads it, names every line in its output
+# every run, and refuses any drift that is not in it.
+REOPEN = 'records/BOHEMIA_SFX_VERDICT_REOPENED.txt'
 
 DERIVE = r'''
 const path=require('path');
@@ -117,15 +127,33 @@ def main():
     if os.path.exists(STORE):
         old = json.load(open(STORE))
 
+    # a line is `id | date | swap | why`, and the why has to be real
+    reopened = {}
+    if os.path.exists(REOPEN):
+        for ln in open(REOPEN, encoding='utf8'):
+            if '|' not in ln or ln.lstrip().startswith('#'):
+                continue
+            head = ln.split('|')[0].strip()
+            if re.match(r'^[a-z_]+\.[0-9]+$', head) and len(ln.split('|')) >= 4:
+                reopened[head] = ln.split('|', 3)[3].strip()
+
     # ---- THE ONE THAT MATTERS -------------------------------------------
     # Only ids he has ACTUALLY JUDGED are frozen. Everything else is free.
-    drifted, vanished = [], []
+    drifted, vanished, excused = [], [], []
     for cid in sorted(judged):
         if cid not in now:
             vanished.append(cid)
             continue
         if cid in old and old[cid] != now[cid]:
-            drifted.append(cid)
+            (excused if cid in reopened else drifted).append(cid)
+
+    if excused:
+        print('  NOTE  %d judged sounds were REOPENED ON THE RECORD (%s). Each '
+              'one is a thumb he spent that no longer points at what he heard, '
+              'and each carries a written reason in %s:'
+              % (len(excused), ', '.join(excused), REOPEN))
+        for cid in excused:
+            print('          %-14s %s' % (cid, reopened[cid][:96]))
 
     ok('NO SOUND HE HAS JUDGED HAS CHANGED (%s)'
        % (', '.join(drifted[:6]) + (' +%d more' % (len(drifted) - 6) if len(drifted) > 6 else '')
@@ -165,7 +193,7 @@ def main():
     if bless:
         merged = dict(old)
         for cid, fp in now.items():
-            if cid in old and cid in judged and old[cid] != fp:
+            if cid in old and cid in judged and old[cid] != fp and cid not in reopened:
                 continue  # never quietly re-bless a judged drift
             merged[cid] = fp
         json.dump(merged, open(STORE, 'w'), indent=0, sort_keys=True)

@@ -50,6 +50,14 @@ const DISTRICTS = [
   { name: 'casino',     mod: require('../engine/bohemia_casino.js') },
   { name: 'strip',      mod: require('../engine/bohemia_strip.js') },
 ];
+/* THE LAST FIVE (8/19) are a BUNDLE -- one file registering convention / prison / dam /
+   minigp / fort -- so they are pulled from the registry by name the way the twelve utility
+   landmarks are, rather than from a module export that does not exist per type. */
+require('../engine/bohemia_landmarks.js');
+for (const n of ['convention', 'prison', 'dam', 'minigp', 'fort']) {
+  const sp = K.get(n);
+  if (sp) DISTRICTS.push({ name: n, mod: sp });
+}
 
 for (const d of DISTRICTS) {
   const L = d.mod.legend, P = d.mod.palette || {}, NT = d.mod.notes;

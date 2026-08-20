@@ -41,6 +41,32 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'the-terms-fold',
+    title: 'THE CARD FITS AGAIN',
+    caption: 'Five different systems write onto a person now and the card had quietly grown to 96 percent of your screen -- one more thing and it would have run off the bottom. So the stuff that is true of the WHOLE outfit and never changes (what they want, what they hold, what they pay in) collapses to one line the moment you have done anything for them, because you have already read it. Tap that line and it all comes back. Down to 84 percent. CITY tab, tap somebody you have helped.',
+    keep: '#ctcard',
+    open: `(() => {
+      const bases = ctBases() || {}; let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x*FN + 2; hy = b.y*FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return null;
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+      /* MEET THEM FOR REAL FIRST. Setting gave=6 on somebody the card also calls
+         FIRST TIME is a picture that contradicts itself, and only looking at the
+         rendered pixels catches that. ctOpen() is what counts a meeting. */
+      ctSawCell(); ctOpen();
+      for (let i = 0; i < 3; i++) { ctClose(); ctOpen(); }
+      sv.meta.gave[fid] = 6; sv.meta.owed[fid] = 3; sv.meta.commit[fid] = 'sided';
+      ctClose(); ctOpen();
+      return { card: true, fid: fid };
+    })()`,
+  },
+  {
     id: 'the-collection',
     title: 'THEY ARE NOT WAITING',
     caption: 'This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.',

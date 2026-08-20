@@ -17,7 +17,7 @@ research record lives in this file's commit and the coordinator's findings.
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
   "combat" / "character" / "sounds" / "people" / "art" / "lab" /
-  "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session
+  "gates" / "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session
   opened with it replies one line and stops). That word both assigns the
   lane and means GO.
   ("sounds" added 7/29 by Paolo — "i should just make a dedicated sounds
@@ -26,7 +26,17 @@ Paolo never writes task prompts. His words to any session:
   ("people" added 7/29 off Paolo's big-missing dispatch — "IM SURE SOME
   CHATS YOU CAN ASSIGN THIS WORK TOO". Owns the human half nobody owned:
   dialogue, NPC identity, faction standing, the companion social layer.
-  "npcs" and "factions" resolve to the same lane.) A fresh session that can't match its first word to a
+  "npcs" and "factions" resolve to the same lane.)
+  ("gates" added 8/19 by the coordinator on Paolo's ruling that the suite
+  is broken and NOBODY OWNS IT — laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md.
+  The suite is not any lane's system, so under ONE SYSTEM ONE SESSION it
+  belonged to nobody and rotted: 379 registered gates, dead at 217 on a
+  fifty-minute clock, 165 unrun and SILENT every run, and silence reads
+  exactly like green. This lane owns gates/bohemia_gates.py, the harness,
+  the runner, the fast lane and the HEALTH OF THE SUITE AS A SYSTEM. It
+  does NOT own individual gates' assertions — those stay with the lane
+  whose law they enforce. "suite" and "tests" resolve to the same lane.)
+  A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
   execute THE GO PROCEDURE (§2). The word carries zero information except

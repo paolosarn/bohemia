@@ -110,6 +110,16 @@ CITES = {
     'rote':   ('Q030.X3', 'REPETITION',
                'vary it so it stays fresh, not rote. The runtime spends a pair\'s pool before '
                'it repeats anything, and the gate fails on a repeat.'),
+    'witness': ('Q062.P6', 'W6 (external validation / the witness makes it real',
+               'a moment is validated by a WITNESS, turning a possible rumour into shared '
+               'truth. So an exchange about the player splits on whether one of the two has '
+               'ACTUALLY MET HIM: a witness states it, a second-hand teller hedges.'),
+    'seen':   ('Q003.W8', 'THE WITNESS WHO KNOWS',
+               'the one who has SEEN it carries a different weight to the one who has only '
+               'been told. What people say about you turns on which of those they are.'),
+    'echo':   ('Q007.W10', 'CROSS-SYSTEM CONSEQUENCE',
+               'the deed echoes into the wider game. Going round asking questions is a deed: '
+               'it costs you the quiet you had, and the street starts saying so.'),
     'even':   ('Q043.X4', 'CONTENT FRONT-LOADED / UNEVEN',
                'spread the characterisation so nothing is a stub. Every kind here ships at '
                'least four exchanges or the factory refuses to write.'),
@@ -335,6 +345,54 @@ EX = [
              "I look at everybody every day.",
              "Not like that you do not.",
              "Somebody came through twice and did not buy anything either time."]),
+    # ---- AND THEY TALK ABOUT YOU ------------------------------------------
+    # `about='you'` fires only when the world says it is TRUE: you really have
+    # been going round asking. `needs` names the counter and the threshold, and
+    # `witness` splits on whether one of the two has actually met you -- a
+    # witness states it flat, a second-hand teller hedges (Q062.P6, Q003.W8).
+    dict(id='you-asking-heard', kind='about', about='you', needs=('asked', 2),
+         witness='heard', who=('any', 'any'), join=1, leaks=False,
+         cites=['witness', 'echo'], turns=[
+             "Somebody has been going round asking about the water.",
+             "Asking who?",
+             "Anybody who will stand still. Not from here, whoever it is.",
+             "Then they will run out of people who stand still."]),
+    dict(id='you-asking-seen', kind='about', about='you', needs=('asked', 2),
+         witness='seen', who=('any', 'any'), join=1, leaks=False,
+         cites=['seen', 'echo'], turns=[
+             "That one asked me about the pressure.",
+             "What did you tell them?",
+             "What everybody knows. They already knew it.",
+             "So they were checking whether you would say it."]),
+    dict(id='you-doors-heard', kind='about', about='you', needs=('known', 4),
+         witness='heard', who=('any', 'any'), join=2, leaks=False,
+         cites=['witness', 'echo'], turns=[
+             "How many doors is that now?",
+             "Six that I have counted. Same street twice.",
+             "Nobody walks a street twice by accident.",
+             "They do if they are counting something themselves."]),
+    dict(id='you-doors-seen', kind='about', about='you', needs=('known', 4),
+         witness='seen', who=('any', 'any'), join=1, leaks=False,
+         cites=['seen', 'echo'], turns=[
+             "They came to me first.",
+             "They came to me second, then.",
+             "Did you give them anything?",
+             "I gave them what I give everybody. It is what they asked after that I am still thinking about."]),
+    dict(id='you-names-heard', kind='about', about='you', needs=('names', 2),
+         witness='heard', who=('any', 'any'), join=1, leaks=False,
+         cites=['witness', 'atmos'], turns=[
+             "They have been taking names.",
+             "Taking them where?",
+             "Nowhere. Just taking them. That is the part I do not like.",
+             "A name is the one thing you cannot hand back after."]),
+    dict(id='you-names-seen', kind='about', about='you', needs=('names', 2),
+         witness='seen', who=('any', 'any'), join=2, leaks=False,
+         cites=['seen', 'atmos'], turns=[
+             "They asked me what I am called.",
+             "Did you tell them?",
+             "I did. And they said it back to me, once, like they were putting it somewhere.",
+             "Then it is somewhere."]),
+
     dict(id='street-asking', kind='social', who=('any', 'any'), join=1, leaks=True, subject='names',
          implies='Somebody was asking which one you were, and already knew where you live.',
          
@@ -405,6 +463,12 @@ def main():
             raise SystemExit('%s has %d turns, must be 4' % (x['id'], len(x['turns'])))
         if not (1 <= x['join'] <= 2):
             raise SystemExit('%s joins at %d; you never hear the opener' % (x['id'], x['join']))
+        if x.get('about') and not (x.get('needs') and x.get('witness')):
+            raise SystemExit('%s is about the player and names no condition or witness '
+                             'state. An exchange about you that fires when it is not TRUE '
+                             'is the world lying about itself.' % x['id'])
+        if x.get('witness') not in (None, 'seen', 'heard'):
+            raise SystemExit('%s has witness=%r; only seen/heard exist' % (x['id'], x['witness']))
         if x['leaks'] and not (x.get('subject') and x.get('implies')):
             raise SystemExit('%s claims to leak and names no subject or question. '
                              'Q001.P8 rewards the LISTENER: a leak with nothing '
@@ -446,6 +510,9 @@ def main():
             'leaks': x['leaks'],
             'subject': x.get('subject'),
             'implies': x.get('implies'),
+            'about': x.get('about'),
+            'needs': list(x['needs']) if x.get('needs') else None,
+            'witness': x.get('witness'),
             'draft': True,
             'study': [{'id': CITES[c][0], 'title': CITES[c][1], 'applied': CITES[c][2]}
                       for c in x['cites']],
@@ -538,12 +605,41 @@ def main():
     return out;
   }
 
+  /* IS THIS ONE TRUE RIGHT NOW? An exchange with no `about` is always true --
+     two people discussing the water need no permission. An exchange ABOUT THE
+     PLAYER is only true once the world says so: the counter it names has passed
+     its threshold, AND the witness state matches whether either speaker has
+     actually met him. AN EXCHANGE ABOUT YOU THAT FIRES WHEN IT IS NOT TRUE IS
+     THE WORLD LYING ABOUT ITSELF, which is worse than saying nothing. */
+  function trueNow(x, ctx) {
+    if (!x.about) return true;
+    if (!ctx || !ctx.world) return false;
+    if (!x.needs) return false;
+    var have = ctx.world[x.needs[0]];
+    if (!(typeof have === 'number' && have >= x.needs[1])) return false;
+    return !x.witness || x.witness === ctx.witness;
+  }
+  function eligible(pool, ctx) {
+    var out = [];
+    for (var i = 0; i < pool.length; i++) if (trueNow(pool[i], ctx)) out.push(pool[i]);
+    return out;
+  }
+
   /* Q030.X3 REPETITION, enforced rather than hoped for: a pair works through
      its whole pool before anything comes round again. `spent` is the caller's
      own set of ids already heard from this pair. */
-  function nextFor(pairKey, ra, rb, spent, salt) {
-    var pool = forPair(ra, rb);
+  function nextFor(pairKey, ra, rb, spent, salt, ctx) {
+    var pool = eligible(forPair(ra, rb), ctx);
     if (!pool.length) return null;
+    /* THE WORLD TALKS ABOUT YOU BEFORE IT TALKS ABOUT THE WATER, but only while
+       it is still news: once a pair has spent its about-you lines they go back
+       to the pressure and the shift, which is how it stays a moment rather than
+       a state you are stuck in. */
+    var about = [];
+    for (var q = 0; q < pool.length; q++) {
+      if (pool[q].about && !(spent && spent[pool[q].id])) about.push(pool[q]);
+    }
+    if (about.length) pool = about;
     var fresh = [];
     for (var i = 0; i < pool.length; i++) {
       if (!spent || !spent[pool[i].id]) fresh.push(pool[i]);
@@ -589,6 +685,7 @@ def main():
     VERSION: '8.17.26',
     EXCHANGES: EXCHANGES,
     forPair: forPair, nextFor: nextFor, heard: heard, fits: fits,
+    trueNow: trueNow, eligible: eligible,
     leaksOf: leaksOf,
     count: EXCHANGES.length
   };

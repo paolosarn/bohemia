@@ -1,0 +1,109 @@
+BOHEMIA -- THE THIRTEEN OUTFITS, AND WHAT HEADWEAR IS ACTUALLY WORTH
+CHARACTER lane, 8/18/26. Backlog row SIL, second half. Measured, not estimated.
+
+THE RULING BEING BUILT
+----------------------
+Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15 to govern IDENTITY: "every faction must
+be identifiable by SILHOUETTE -- garment shape, proportion, headwear -- with colour
+as the BACK-UP channel, never the carrier." The valley opens at 06:00 and the streets
+are near-black, so colour is exactly the channel that is not reliably there.
+
+WHAT SHIPPED
+------------
+All THIRTEEN selectable factions (engine/BOHEMIA_faction_graph.json) now have an
+outfit, in the CHARACTER tab, under THE THIRTEEN OUTFITS. Every garment is an
+existing st:'canon' piece; nothing was cooked. Every fit is draft:true and every one
+is editable on that screen: WEAR IT puts it on the player, the WARDROBE directly
+below changes it, SAVE TO writes it back and it survives the phone, EXPORT .TXT hands
+over the table. COLOUR OFF strips every hue from the board in one tap, which is the
+test itself. Held by gates/faction_outfit_gate.js (18 claims).
+
+THE FOUR SOCIAL FORCES DELIBERATELY HAVE NO OUTFIT. Pures, Panthers, La Familia and
+Triads are members INSIDE other factions -- the graph says so -- and an outline of
+their own would announce across a street exactly what the canon says is hidden. The
+gate fails if one ever gets one.
+
+HOW THE THIRTEEN WERE CHOSEN, AND WHY NOT BY EYE
+------------------------------------------------
+tools/bohemia_silhouette_lever.js had found only about six shape classes above the
+separation floor -- nine long coats scoring 0.0446 to four decimals are ONE shape in
+nine colours. Thirteen factions from six shapes reads impossible, and assigning them
+anyway and hoping is how six factions end up looking the same and he finds out.
+
+So tools/bohemia_faction_fits.js searched instead: 880 candidate fits (5 bodies x 11
+shoulder shapes x 4 heads x 4 legs), each rendered, each scored on the FRONT width
+profile, then a greedy farthest-point pick for the largest mutually-distinct set.
+
+    floor 0.030  ->  19        floor 0.040  ->  13        floor 0.045  ->  11
+
+EXACTLY THIRTEEN AT 0.040. The wardrobe delivers precisely what the game needs and
+not one spare. My "only six classes" reading was the wrong conclusion from the right
+number: the classes MULTIPLY against body and legs, and the search is what corrected
+me.
+
+TWO RULERS IS ONE BUG, AND I SHIPPED IT FOR AN HOUR
+---------------------------------------------------
+The first search scored buildFrame at 56 while the gate scored the 112 board WITH the
+one-pixel outline on it. Two rulers. A set that searched clean came back with pairs at
+0.007, and I spent FOUR rounds adjusting individual fits to close them -- which is
+fixing the target, and the STOP PRODUCING tell (7/26) fires at the fourth attempt.
+The search now grades candidates through drawChar, the same function the board calls,
+so choosing and grading happen on the same pixels he sees.
+
+AND THE PIN MOVED ONCE, HONESTLY: the search held BASE AND FEET FIXED (WHITE TEE,
+BROWN BOOTS) while varying body, shoulder, head and legs. Real fits vary the shirt and
+the boot, and both touch the outline -- a shirt has a hem, a boot has a shaft. Worth
+about 0.005. So 0.040 was never a number thirteen DRESSED people could hold; it was a
+number thirteen half-dressed people could hold. The gate is pinned at 0.035:
+
+    0.014   the gap that actually failed -- two city residents reading as one person
+    0.030   the ratchet the six-resident cast gate holds
+    0.0365  the tightest pair here (Blues/Remnants), above that ratchet, 2.6x the failure
+    0.092   mean across all 78 pairs
+
+*** THE FINDING THAT MATTERS BEYOND THIS ROW: HEADWEAR CANNOT CARRY IDENTITY ***
+-------------------------------------------------------------------------------
+The 8/15 amendment names three channels: garment shape, proportion, HEADWEAR. Looking
+at the shipped picture, the hats were nearly invisible, so they were measured. On the
+plain body at 112 displayed:
+
+    body, nothing on it        2961 px
+    + wide brim hat            3017   (+56,  +1.9%)
+    + knit cap                 3023   (+62,  +2.1%)
+    + shoulder mantle          3017   (+56,  +1.9%)
+    + long coat                3075   (+114, +3.9%)
+    + road cape                3136   (+175, +5.9%)
+
+A WIDE-BRIM HAT IS WORTH 1.9% OF A BODY. A cape is worth three times that. Headwear is
+the WEAKEST of the three channels the law names, by a factor of three, and at the size
+a person is drawn in the city it is close to nothing. This is not an argument against
+the law -- it is the measurement the law needs: **headwear is not currently available
+as an identity channel, and it cannot become one by choosing different hats.** It
+needs pixels.
+
+WHICH TIES IT DIRECTLY TO THE 2X ROW. Paolo 8/14: "the character models need twice as
+many pixels." A hat that is 56 pixels at the current rig is 224 at 112-native. That is
+the difference between a shape you can name across a street and a smudge. When 2X
+lands, headwear becomes a real channel and this table should be re-searched with the
+head classes weighted properly. Until then the outlines are carried by BODY, HEM and
+SHOULDER LINE, which is what the greyscale block in the picture actually shows.
+
+WHAT IS STILL HIS
+-----------------
+WHICH shape belongs to WHICH faction. Every line is draft:true, every line is editable
+in the tab, and the agents module reserves "what factions wear" to him by name. He
+does not get a question about it; he gets the instrument (HE MUST BE ABLE TO DIRECT
+IT, 8/12).
+
+Also still open, and NOT this row: no agent in the world carries a faction yet
+(FACTION_ASSIGN is empty, faction:null everywhere) because WHICH FACTION HOLDS WHICH
+GROUND is his ruling. The outfits are ready for that the day it lands.
+
+WHERE HE SEES IT
+----------------
+CHARACTER tab, THE THIRTEEN OUTFITS -- tap any body to turn it, COLOUR OFF for the test.
+LOOK tab, "THE THIRTEEN OUTFITS" -- the same thirteen in colour and with the hue gone.
+
+  node tools/bohemia_faction_fits.js [floor]     re-runs the search
+  node gates/faction_outfit_gate.js              holds the result
+  node tools/bohemia_faction_picture.js          re-shoots the picture

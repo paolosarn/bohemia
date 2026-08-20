@@ -165,6 +165,113 @@ ok('the casualty is still NOT decided here — no beat carries a death (structur
 ok('every beat still records WHY it exists, quoting the ruling it came from',
   cold.beats.every(b => typeof b.why === 'string' && b.why.length > 10));
 
+/* ---- 3b. THE PERSON WHO DIES TONIGHT IS IN THE ROOM TONIGHT (8/19) --------
+   Backlog 0sc's 8/13 amendment, off the PLAYED-ATTACHMENT research: "attachment
+   before the sibling's death is a 13.5s WATCHED match-cut ... the death needs
+   PLAYED attachment ... name and one quirk surfaced before the fight
+   (draft:true)". Tone research R1, finding 1: A CHARACTER NOBODY LAUGHED WITH IS
+   A CHARACTER NOBODY MOURNS.
+
+   MEASURED ON THE SCENE FILE BEFORE THIS SECTION WAS WRITTEN: sibling_lost was
+   staged ONLY at the pre-collapse table and had ONE line, as a child, ten years
+   before the night she is taken. She was not in the room on the night she dies.
+   Every other assertion in this file was green.
+
+   His own 7/19 ruling is what makes that a bug rather than a choice: "the death
+   happens during the raid, away from [the table], in motion, in the house." She
+   is alive at that table minutes before. The scene simply never put her there. */
+const lostBefore = cold.beats.filter(b => b.kind === 'actor' && b.actor === 'sibling_lost');
+const cutAt = cold.beats.findIndex(b => b.kind === 'cut');
+ok('the sibling who is taken is staged on BOTH sides of the cut — she is alive at ' +
+  'this table minutes before the raid, and a person the player never met cannot be mourned',
+  lostBefore.some(b => cold.beats.indexOf(b) < cutAt) &&
+  lostBefore.some(b => cold.beats.indexOf(b) > cutAt));
+const lostSays = says.filter(b => b.speaker === 'sibling_lost');
+ok('and she SPEAKS on both sides of the cut (' + lostSays.length + ' lines) — one line as a ' +
+  'child ten years earlier is a photograph, not an acquaintance',
+  lostSays.some(b => cold.beats.indexOf(b) < cutAt) &&
+  lostSays.some(b => cold.beats.indexOf(b) > cutAt));
+
+/* THE QUIRK IS ONE QUIRK, AND IT IS THE SAME ONE TWICE. Dialogue craft card 2:
+   ONE quirk, played deep, not a spread of traits. The bit is his own existing
+   line ("I'm not eating the green ones") rather than something invented for her,
+   which is REUSE-FIRST applied to words. */
+const bit = /green ones/i;
+ok('her ONE quirk is the same bit on both sides of the cut, not two different traits',
+  lostSays.filter(b => bit.test(b.text || '')).length >= 2);
+
+/* AND IT PAYS OFF AT THE GRIEF DINNER. Rule of three: plant, repeat, break. The
+   third instance is the mother performing the habit for somebody who is not
+   there, which is his 7/19 empty-chair motif in one domestic sentence. */
+const GRIEF_PATH = 'records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json';
+if (fs.existsSync(GRIEF_PATH)) {
+  const grief = JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8'));
+  const payoff = (grief.beats || []).filter(b => b.kind === 'say' && bit.test(b.text || ''));
+  ok('the bit PAYS OFF at the grief dinner — a joke with two instances and no third is ' +
+    'a joke, and the third is what makes the empty chair hurt', payoff.length >= 1);
+  ok('and the payoff never says the word — his 7/19 table stays sacred, so the grief ' +
+    'arrives as a kitchen habit and not as a speech about death',
+    payoff.every(b => !/\b(died|dead|death|killed|gone forever)\b/i.test(b.text || '')));
+}
+
+/* ---- 3c. SHE HAS A NAME, AND IT COMES FROM THE ONE PLACE NAMES LIVE -------
+   7/19, RESOLVED: "the surviving sibling is the SAME GENDER as the player. Male
+   player -> older brother survives (sister dies); female player -> older sister
+   survives (brother dies)." So a line saying her name cannot be one string.
+
+   *** THE FIRST CUT OF THIS SECTION ASSERTED THE WRONG THING AND WAS GREEN. ***
+   It put a drafted name pair in the scene file and checked THAT. Screenshotting
+   the scene is what caught it: the mother's speaker label came back DENISE, from
+   FAMILY_CAST -- a table that has held the family's drafted names since the cast
+   shipped, complete with this exact gender flip in `survivesIf`. Two places
+   holding one name is not redundancy, it is a promise that renaming her in one
+   leaves the other saying the old name. So the scene owns NO names now, and this
+   asserts the join instead. Same technique this file already uses to check the
+   combat handoff: read the OTHER lane's table and compare. */
+const FAM_SRC = 'tools/bohemia_family_cast_patch.py';
+ok('the family cast table exists to take names from', fs.existsSync(FAM_SRC));
+const famSrc = fs.existsSync(FAM_SRC) ? fs.readFileSync(FAM_SRC, 'utf8') : '';
+const famRows = [...famSrc.matchAll(/role:'([A-Z]+)',\s*age:'[a-z]+',\s*name:'([A-Z]+)'\s*,\s*draft:true,\s*survivesIf:'([a-z]+)'/g)]
+  .map(m => ({ role: m[1], name: m[2], survivesIf: m[3] }));
+ok('and it really names the whole family, all drafts (' + famRows.map(r => r.name).join(', ') + ')',
+  famRows.length === 4 && famRows.every(r => r.name.length > 1));
+const lostFor = sex => (famRows.find(r => r.survivesIf === (sex === 'female' ? 'male' : 'female')) || {}).name;
+ok('the cast already encodes HIS flip, so nothing here reinvents it (male player loses ' +
+  lostFor('male') + ', female loses ' + lostFor('female') + ')',
+  !!lostFor('male') && !!lostFor('female') && lostFor('male') !== lostFor('female'));
+
+ok('the scene file carries NO names of its own — one source of truth',
+  !cold.cast && typeof cold.castNote === 'string' && /FAMILY_CAST/.test(cold.castNote));
+
+/* THE TOKEN MUST ACTUALLY RESOLVE ON THE SURFACE. A line that reaches a player
+   reading "{sibling_lost}. Green ones too." is worse than no name at all. */
+const named = cold.beats.filter(b => b.kind === 'say' && /\{[a-z_]+\}/.test(b.text || ''));
+ok('at least one line actually says her name out loud (' + named.length + ')', named.length > 0);
+['male', 'female'].forEach(sex => {
+  const want = lostFor(sex);
+  const pl = new S.Scene(cold, { names: { sibling_lost: want } });
+  let bad = 0, saw = 0;
+  for (let n = 0; n < 4000 && !pl.done; n++) {
+    const st = pl.step();
+    if (st.beat && st.beat.kind === 'say' && /\{[a-z_]+\}/.test(st.beat.text || '')) {
+      saw++;
+      if (!st.line || /\{[a-z_]+\}/.test(st.line) || st.line.indexOf(want) < 0) bad++;
+    }
+  }
+  ok('a ' + sex + ' player hears the right name from the cast — ' + want + ' (' + saw +
+    ' lines, ' + bad + ' wrong)', saw > 0 && bad === 0);
+});
+
+/* AND THE SURFACE HAS TO PRINT THE RESOLVED ONE. The runtime resolving correctly
+   while the draw path prints beat.text raw is a green gate over a caption full of
+   braces, and that is exactly what the first cut did. */
+const SURF = 'engine/bohemia_story_surface.js';
+const surf = fs.existsSync(SURF) ? fs.readFileSync(SURF, 'utf8') : '';
+ok('the story surface RESOLVES the line rather than printing the authored token',
+  /fillNames\(b\.text/.test(surf) && !/text: b\.text \|\| ''/.test(surf));
+ok('and it takes the family\'s names from FAMILY_CAST, owning none itself',
+  /FAMILY_CAST/.test(surf) && /survivesIf/.test(surf));
+
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);
 const run = player.playAll();

@@ -161,6 +161,32 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: RUN lane (0b district-material survey, 7/28)
-  | DATE: 7/28/26 | PRIORITY: HIGH
-- BOARD ROW #: 12 | VERDICT: —
+- STATUS: COOKED AND WIRED (8/19/26) | REQUESTED BY: RUN lane (0b district-material
+  survey, 7/28) | DATE: 7/28/26 | PRIORITY: HIGH
+- BOARD ROW #: 12 | VERDICT: shipped under EVERYTHING IS A THUMB (8/9)
+- WIRED 8/19/26: the form's WHY was half-answered on 8/3 - the civic system
+  put the approved tilt-up FIELD on these masses (recorded as passed in the
+  8/1 ninety-tile sweep; the texture bank's PENDING field is stale against
+  that recorded ruling, and the material has run sixteen days live under
+  CORRECT-AFTER without correction). What shipped today is the form's own
+  headline requirement, the PANEL LANGUAGE: "big blank fields punctuated by
+  joints, NOT a repeating texture." A tilt-up mass now draws a caulked
+  JOINT every 4-6 columns (rhythm rolled per mass, phase locked to the
+  flood-filled mass anchor so a building's joints never swim), the poured
+  CAP as its own top course (the orange starter parapet dies on tilt-up
+  masses the way the CMU cap killed it on block masses), the PLINTH with
+  efflorescence bloom at grade, sparse rain WEEPS (dry aging only - dust,
+  UV, streak, never green), and a rare boarded punched window mid-wall
+  (plywood harvested from the approved sf_boarded ply). Greys all harvested
+  from the field tiles themselves so every overlay sits in the panel's own
+  value band. Cook: tools/tfcook/TF-RUN-005_cook.py (11 pieces). Bank:
+  banks/tileforms/TF-RUN-005_CANDIDATES_8_19_26.json. Wiring: td/tdef
+  tilt-up flags shipped beside the civic bd flags; civicIsTiltupMass +
+  the panel pass in drawCivicSkin. THE BUG THE FIRST RENDER CAUGHT: the
+  slice's CIVIC_SKIN decoder copies KNOWN KEYS ONLY, so the new td/tdef
+  flags silently never reached the page (0 tilt-up masses found) until the
+  decoder learned them - a payload field does not exist until the decoder
+  copies it. Verified live: warehouse (joints + boards + plinth), jail
+  (cap course + joint), medical. Card: records/target/ART_WIRED_TF-RUN-005.png
+  (ART tab). Colorway note: the painted-tan civic colorway stays future
+  volume; the wet/rain darkening belongs to the weather pass.

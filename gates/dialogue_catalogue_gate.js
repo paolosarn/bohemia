@@ -105,7 +105,7 @@ var reactFile = fs.existsSync('records/BOHEMIA_REACTIONS.json') ? ['records/BOHE
    124 lines he cannot edit. Discovery is BY CONTENT now, on both sides,
    independently stated, so a new dialogue file is picked up the day it lands
    and the two lists cannot silently drift apart. */
-var CONTAINERS = ['barks', 'reactions', 'exchanges', 'asking'];
+var CONTAINERS = ['barks', 'reactions', 'exchanges', 'asking', 'quirks'];
 var lineFiles = fs.readdirSync('records').sort().filter(function (f) {
   if (!/^BOHEMIA_.*\.json$/.test(f)) return false;
   if (/^BOHEMIA_SCENE_/.test(f)) return false;
@@ -334,6 +334,41 @@ if (fs.existsSync('records/BOHEMIA_ASKING.json')) {
     (askBad.length ? ' — ' + askBad.slice(0, 3).join(', ') : ''));
 }
 
+/* ONE THING THAT IS THEIRS (8/19). Two spoken registers plus a tell per shape,
+   every one of them a drafted word he has not approved. The two registers are
+   the same person in different light, so the pair is checked as a pair: the
+   moment they stop being the same trait it is a mode switch, not a quirk. */
+var qkN = 0, qkNounN = 0, qkBad = [], qkSame = [], qkStudies = {}, qkMasters = {};
+if (fs.existsSync('records/BOHEMIA_QUIRKS.json')) {
+  var QJ = JSON.parse(fs.readFileSync('records/BOHEMIA_QUIRKS.json', 'utf8'));
+  (QJ.quirks || []).forEach(function (q) {
+    qkN += 3;                                  /* tell + lit + dark */
+    if (!q.draft) qkBad.push(q.id + ' not tagged draft');
+    if (String(q.lit || '').trim() === String(q.dark || '').trim()) qkSame.push(q.id);
+    if (!q.study || q.study.length < 2) { qkBad.push(q.id + ' (<2 studies)'); return; }
+    q.study.forEach(function (c) {
+      var e = LAWS[c.id];
+      if (!e) { qkBad.push(q.id + ' -> ' + c.id + ' unresolved'); return; }
+      if (String(e.title || '').trim() !== String(c.title || '').trim())
+        qkBad.push(q.id + ' -> ' + c.id + ' not verbatim');
+      if (String(c.applied || '').trim().length < 40) qkBad.push(q.id + ' -> ' + c.id + ' thin');
+      qkStudies[e.study] = 1; qkMasters[e.kind] = 1;
+    });
+  });
+  qkNounN = Object.keys(QJ.specifics || {})
+    .reduce(function (n, k) { return n + QJ.specifics[k].length; }, 0);
+  var qkNouns = qkNounN;
+  ok(qkN >= 45, 'EVERY PERSON CARRIES ONE THING THAT IS THEIRS (' + qkN +
+    ' authored strings + ' + qkNouns + ' nouns across ' + (QJ.quirks || []).length +
+    ' shapes) — a character nobody laughed with is a character nobody mourns');
+  ok(qkBad.length === 0 && Object.keys(qkStudies).length >= 2 &&
+    Object.keys(qkMasters).length >= 2,
+    'every quirk cites the catalogue, verbatim, applied' +
+    (qkBad.length ? ' — ' + qkBad.slice(0, 3).join(', ') : ''));
+  ok(qkSame.length === 0, 'THE LIGHT CHANGES WHAT THEY SAY: no quirk reads the same ' +
+    'in the dark as in the light' + (qkSame.length ? ' — ' + qkSame.join(', ') : ''));
+}
+
 var xchN = 0, xchUncited = [], xchBadId = [], xchBadTitle = [], xchThin = [], xchHeard = [];
 if (fs.existsSync('records/BOHEMIA_EXCHANGES.json')) {
   var XJ = JSON.parse(fs.readFileSync('records/BOHEMIA_EXCHANGES.json', 'utf8'));
@@ -458,7 +493,10 @@ if (BOOK) {
       else if (/^@OBJ\s+\d+\s+"/.test(ln)) mine++;
     });
   });
-  mine += barkN + reactN + xchN + askN;   /* ambient lines, reactions and the
+  mine += barkN + reactN + xchN + askN + qkN + qkNounN;   /* ambient lines, reactions, the
+     quirks (a tell and BOTH registers per shape, plus every noun a line is
+     built on -- he cannot edit "a folded pool towel" if only the sentence
+     around it is on the page) and the
      two-person exchanges are all in the book too. ALL FOUR turns of an
      exchange count, including the opening line the player never hears: he
      cannot edit what the second line is answering if he cannot see it. */

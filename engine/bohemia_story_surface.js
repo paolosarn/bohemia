@@ -56,6 +56,24 @@
     sibling_older: 'BROTHER', sibling_lost: 'SISTER'
   };
 
+  /* FAMILY_CAST -> {role token: NAME}. `survivesIf` is the cast's own field:
+     'always' for the parents, 'male'/'female' for the two siblings, meaning THAT
+     sibling survives when the player is that sex. So the LOST sibling is the one
+     whose survivesIf names the other sex, and no gender logic is invented here.
+     Returns {} for an empty cast, which prints the token visibly rather than
+     silently dropping a name. */
+  function famNames(cast, playerSex) {
+    var out = {}, other = (playerSex === 'female') ? 'male' : 'female';
+    (cast || []).forEach(function (m) {
+      if (!m || !m.name) return;
+      if (m.role === 'FATHER') out.father = m.name;
+      if (m.role === 'MOTHER') out.mother = m.name;
+      if (m.survivesIf === playerSex) out.sibling_older = m.name;
+      if (m.survivesIf === other) out.sibling_lost = m.name;
+    });
+    return out;
+  }
+
   function Story(opts) {
     this.o = opts || {};
     this.cv = this.o.canvas;
@@ -64,6 +82,14 @@
     this.set = this.o.set;
     this.scene = this.o.scene;
     this.RT = this.o.runtime;
+    /* WHOSE NAME GOES IN THE LINE. A scene writes {sibling_lost}; FAMILY_CAST
+       says who that is. 7/19, LOCKED: the surviving sibling matches the player's
+       gender, so the one taken is the opposite -- which FAMILY_CAST already
+       encodes as `survivesIf`, so this READS that flip rather than restating it.
+       ONE PLACE HOLDS THE FAMILY'S NAMES and it is the cast table; this file
+       resolves against it and owns no names of its own. */
+    this.playerSex = this.o.playerSex || 'male';
+    this.names = this.o.names || famNames(this.o.family || (root.FAMILY_CAST || []), this.playerSex);
     this.ST = this.o.stage;                 // BOH_STAGE
     this.FP = this.o.floorplan;             // BOH_FLOORPLAN
     this.paint = this.o.paintBody;
@@ -339,7 +365,20 @@
       var back = this.frames[castKey + '_BACK'] ? castKey + '_BACK' : castKey;
       this.cast[b.actor] = { key: (seat.side === 'near' ? back : castKey), clip: 'sit-chair', seat: seat };
     } else if (b.kind === 'say') {
-      this.line = { speaker: b.speaker, text: b.text || '', draft: b.draft === true, cites: b.study || [] };
+      /* *** PRINT THE RESOLVED LINE, NEVER THE AUTHORED ONE. ***
+         The scene file writes "{sibling_lost}. Green ones too." because the name
+         flips with the player. This read b.text raw, so the caption on screen
+         would have been the literal token with the braces in it -- the runtime
+         resolved it correctly and the surface printed past the answer. FOUND BY
+         READING THE DRAW PATH, not by the gate: scene_gate proved the RUNTIME
+         resolves both cases and went green while the pixels would have shown
+         braces to a player. VERIFY ON THE REAL SURFACE, again.
+         Resolved HERE, in the module, rather than at the two call sites -- a
+         copied line is a fix that only half-ships. */
+      var said = (this.RT && this.RT.fillNames)
+        ? this.RT.fillNames(b.text || '', this.names)
+        : (b.text || '');
+      this.line = { speaker: b.speaker, text: said, draft: b.draft === true, cites: b.study || [] };
       /* THE VOICE GETS THE SAME WINDOW THE CAPTION GETS, so the babble finishes
          inside the line rather than talking over the next beat. */
       if (this.o.speak) {
@@ -370,7 +409,8 @@
     var ST = this.ST;
     /* LINE DURATION IS READING SPEED, injected as a policy. No say beat in any
        scene file carries a hand-typed hold any more. */
-    return new this.RT.Scene(this.scene, { time: function (b) { return ST.readBeats(b.text); } });
+    return new this.RT.Scene(this.scene, { time: function (b) { return ST.readBeats(b.text); },
+                                            names: this.names });
   };
 
   Story.prototype.start = function () {

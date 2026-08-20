@@ -113,8 +113,60 @@
        engine/bohemia_stage.js supplies the real one (subtitle reading speed,
        quantized up to the beat). */
     this.time = opts.time || null;
+    /* WHICH SIBLING WAS LOST. The 7/19 ruling ties it to the player's gender, so
+       the SURFACE knows it and this module is told. Defaulting to 'sister' is not
+       a decision about his story -- it is the male-player case his own ruling
+       spells out first, and it only decides which drafted name prints when a
+       caller has not said. */
+    /* role -> the name to print. Supplied by whoever knows the player, because
+       WHICH sibling was lost is a fact about the save and not about the scene.
+       Empty is legal: a token then prints as itself, visibly, instead of
+       vanishing. */
+    this.names = opts.names || {};
     this.dialogue = null;
   }
+
+  /* ---- THE FAMILY'S NAMES, AND WHY THE SCENE DOES NOT OWN THEM ------------
+     Paolo's 7/19 ruling, locked: "the surviving sibling is the SAME GENDER as
+     the player. Male player -> older brother survives (sister dies); female
+     player -> older sister survives (brother dies)."
+
+     So the sibling who dies on night one is the OPPOSITE gender to the player,
+     and a line that says their name out loud cannot be one string. A scene
+     writes a TOKEN and the caller supplies the name:
+
+         text:  "{sibling_lost}. Green ones too. We do this every night."
+         Scene(scene, { names: { sibling_lost: 'NINA' } })
+
+     *** AND THE NAMES COME FROM FAMILY_CAST, WHICH ALREADY EXISTED. *** The
+     first cut of this put the drafted names in the scene file itself, and that
+     was a SECOND source of truth for a string this repo already had: the family
+     has been named since the cast shipped (RAY, DENISE, MARCO, NINA, all
+     draft:true, all in tools/bohemia_family_cast_patch.py, with survivesIf
+     carrying the same gender flip). Two places holding one name is not a
+     redundancy, it is a guarantee that the day he renames her in one of them the
+     other keeps saying the old name. Caught by SCREENSHOTTING THE SCENE and
+     reading the speaker label: the mother came back as DENISE, from a table this
+     module had never heard of.
+
+     An unknown token is left ALONE rather than blanked, because a visible
+     {sibling_lost} on screen is a bug anyone can see and a silently deleted name
+     is one nobody can. */
+  function fillNames(text, names) {
+    if (!text || text.indexOf('{') < 0) return text;
+    names = names || {};
+    return String(text).replace(/\{([a-z_]+)\}/g, function (m, role) {
+      var n = names[role];
+      return (n == null || n === '') ? m : n;
+    });
+  }
+
+  /* WHAT THE SURFACE SHOULD PRINT for this beat, names resolved. Read this
+     rather than beat.text: beat.text is the authored line WITH its tokens, and
+     printing it raw is how {sibling_lost} reaches a player's screen. */
+  Scene.prototype.lineOf = function (b) {
+    return b && b.kind === 'say' ? fillNames(b.text, this.names) : null;
+  };
 
   Scene.prototype.current = function () {
     return this.done ? null : (this.scene.beats[this.i] || null);
@@ -176,6 +228,11 @@
     var out = {
       done: false, beat: b, playerLocked: true,
       held: this.held, needs: need,
+      /* the line WITH its names filled in, alongside the authored beat. The
+         surface prints `line`; `beat.text` stays exactly as he wrote it so the
+         WORDS tab shows him the token he can edit rather than one resolution
+         of it. */
+      line: this.lineOf(b),
       dialogue: this.dialogue ? this.dialogue.view() : null,
     };
     if (this.held >= need) { this.i++; this.held = 0; }
@@ -202,7 +259,8 @@
 
   var API = {
     BEAT_MS: BEAT_MS, KINDS: KINDS, Scene: Scene, validate: validate,
-    beatsToMs: beatsToMs, sceneBeats: sceneBeats, VERSION: 'scene-1.0.0',
+    beatsToMs: beatsToMs, sceneBeats: sceneBeats, VERSION: 'scene-1.1.0',
+    fillNames: fillNames,
     /* SCENES SHIP EMPTY FROM THE ENGINE (contents-Paolo's). The cold open lives
        in records/ as authored canon and is loaded by the surface, so this file
        can never quietly become a place where somebody invents his story. */

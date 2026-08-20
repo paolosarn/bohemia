@@ -178,6 +178,18 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: RUN lane (0b district-material survey, 7/28)
-  | DATE: 7/28/26 | PRIORITY: MED
+- STATUS: MERGED INTO TF-ART-016 (8/19/26) | REQUESTED BY: RUN lane (0b
+  district-material survey, 7/28) | DATE: 7/28/26 | PRIORITY: MED
+- MERGE RECORD 8/19/26 (the merge TF-ART-016 section B ordered before any
+  cook): TF-ART-016 is the surviving form - it carries the measured pixel
+  budget and the corrected glass physics (tempered glass laminated to EVA
+  goes to a milky granular crumb held in place, NEVER a spiderweb - the
+  "spiderweb fracture" clause here is corrected by the merge). This form's
+  FROZEN-TRACKER story hook survives INTO 016: the controllers died and the
+  rows stopped at different angles and never moved again - a placement
+  hook, not an animation. The see-over-the-rows clause here LOSES to the
+  district dossier's own locked layering ruling ("waist-to-head-high racks,
+  block movement, you route BETWEEN them on the gravel roads") - the
+  dossier is canon, this clause was not. Cook + wiring live under
+  TF-ART-016: tools/tfcook/TF-ART-016_cook.py.
 - BOARD ROW #: 14 | VERDICT: —

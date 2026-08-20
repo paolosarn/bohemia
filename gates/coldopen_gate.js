@@ -237,10 +237,25 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
            and went red the moment the father was correctly drawn speaking; a
            threshold standing in for a rule is a gate measuring the wrong thing.) */
         unasked: (function () {
-          var allowed = { player: 1, PLAYER_child: 1, PLAYER_adult: 1 }, bad = [];
+          /* WHO IS ALLOWED IN THE ROOM IS A PROPERTY OF THE WHOLE POST-CUT
+             SEGMENT, NOT OF THE BEATS SO FAR. This built `allowed` as it walked,
+             so a body was legal only if it had ALREADY spoken by the time it was
+             staged -- and an actor must be placed BEFORE they can say anything,
+             so the rule was unsatisfiable for any speaker after the first.
+             Caught 8/19 when the lost sibling was correctly staged at the table
+             she is taken from: she has a line four beats later and the gate
+             still called her an unasked body.
+             THE RULING IS UNCHANGED and is the whole point of this check -- who
+             survived ten years is Paolo's call, and a helpful renderer carrying
+             the family across the cut would have made it for him. A body that
+             speaks NOWHERE after the cut still fails, which is the case that
+             was ever really at risk. */
           var CAST = BohemiaStorySurface.ROLE_TO_CAST;
+          var allowed = { player: 1, PLAYER_child: 1, PLAYER_adult: 1 }, bad = [];
           log.slice(cutAt).forEach(function (r) {
             if (r.speaker) { allowed[r.speaker] = 1; if (CAST[r.speaker]) allowed[CAST[r.speaker]] = 1; }
+          });
+          log.slice(cutAt).forEach(function (r) {
             (r.who || []).forEach(function (k) { if (!allowed[k]) bad.push(k); });
           });
           return bad.filter(function (v, i, a) { return a.indexOf(v) === i; });

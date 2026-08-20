@@ -1122,6 +1122,20 @@ RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6): LOOK
+   (gates/look_gate.js), which reads the alpha, the city world and
+   BOHEMIA_LOOK_CURRENT.html — the LOOK tab, this lane's own surface.
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | green, or a written reason it is legitimately red | — | no. ***
 -1. PACK INTAKE — SHELVED/OPTIONAL (Paolo 7/28: "I need YOU to make tiles,
    just not dogshit" — AI authorship is the production path under the
    quality harness; this intake activates ONLY if he ever uploads packs)
@@ -1765,6 +1779,24 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+REDS. *** FOUR OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 by
+   evidence — laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6. Nobody owned
+   these, which is why they have stayed red.)
+     DISTRICT FILL   reads engine/bohemia_district_kit.js + bohemia_world.js
+     ROAD CELLS      gates/roadcell_gate.js
+     TRAFFIC SIGNAL  the alpha's intersections and signals, your street work
+     VOTE TAB        its own header says "(8/7/26, WORLD lane)"
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | each of the four green, or a written reason it is legitimately red |
+   — | no. ***
 ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed one: 62
    district generators had been authoring drained pools, talus aprons, leachate ponds and
    standing pit water for weeks and NOTHING EVER TOLD THE GAME ANY OF IT WAS DANGEROUS. A
@@ -1784,8 +1816,9 @@ ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed
    most classic unstable ground there is cannot be stood on; (b) the three genuinely fatal
    drops (quarry:7 bench crest, intake:13 shaft, reclaim:6 crusted pond) are STRUCTURE
    tiles — you bump into them instead of falling in; (c) gypsum:7 means two different
-   things and cannot carry two occupancies; (d) the walked surface's kit registers 35 of
-   62 district types so 10 of the 15 hazard districts cannot be reached at all. And the
+   things and cannot carry two occupancies; (d) the walked surface's kit registers 57 of
+   66 district types (COUNTED 8/19 — this line said "35 of 62" for a day and both numbers
+   were wrong; the real reach is much better than the note claimed). And the
    RETREAT OBLIGATION (machine 2) IS ALSO DONE, same turn: engine/bohemia_retreat.js +
    gates/retreat_gate.js (18 checks) + records/BOHEMIA_A_ROOM_YOU_CAN_BACK_OUT_OF_8_18_26.md.
    Measured across 9 zones x 6 seeds x 9 footprints, a CLEAN BREAK at 20x16: below it every
@@ -5108,7 +5141,47 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    garble. Ask, never fill. | one judge sheet, all factions side by side |
    standing ledger (below) is the mechanism half, ships empty regardless |
    yes (the dossiers ARE the judgeable).
-0t. THE ATTACHMENT PATTERN (tone research R1, 8/12 — records/BOHEMIA_TONE_
+0t. [SHIPPED 8/19 — records/BOHEMIA_ONE_THING_THAT_IS_THEIRS_8_19_26.md]
+   *** EVERY PERSON IN THE VALLEY NOW CARRIES ONE THING THAT IS THEIRS, AND YOU
+   MEET IT WHEN YOU ASK THEIR NAME. *** 22 shapes x 40 typed nouns = 304 distinct
+   quirks, each authored TWICE as the SAME person (608 utterances from 106
+   authored pieces), all draft:true and editable in the WORDS tab. Delivered on
+   the talk card in the RUN tab, directly under NAME, because R1 named the
+   ask-their-name beat as the slot: "what a stranger says when you ask their name
+   is where Undertale would put the first laugh."
+   THE IDEA, not the volume: benign violation theory says funny and scary are ONE
+   DIAL, and the valley already owned that dial physically. Lit register = the
+   joke; dark register = the SAME trait, SAME object, SAME human, with the safety
+   taken out. Never a different quirk and never a mode switch. Walking (or waiting
+   for night) between them IS the tone transition R1 asked for, at zero new
+   systems.
+   *** THE FINDING THAT MATTERS: IT WAS ABOUT TO SHIP BACKWARDS AND EVERY GATE WAS
+   GREEN. *** The register was decided by dayDark() (is this block on a live
+   circuit). Driving the real walked surface measured 358 of 9,216 valley tiles
+   live (3.9%) and 131 of 5,007 people living on one (2.6%): 97.4% of every
+   conversation in the game would have played the DREAD line and the joke, the
+   whole reason the feature exists, would have been unreachable. Nothing upstream
+   was wrong; every check was asking the same wrong question. A DIAL SOLDERED TO
+   ONE END IS NOT A DIAL. Fixed with the renderer's OWN test (isNight() AND not
+   live) rather than a second definition of dark, because an unpowered lot at noon
+   is a lot -- and LIGHT=TERRITORY was always about the night. Re-measured: lit at
+   07/10/13/16, dark at 19/22/02.
+   ALSO FIXED, both caught by machine not by eye: template substitution has no
+   grammar (the grammar contract is now in the SPEC and checked across all 608
+   renderings), and a probabilistic distinctness guarantee is not one (304 combos
+   drawn 32 times is a birthday problem -- measured 1.63 duplicate pairs per block,
+   worst 7; spreadOver() makes it exact at 0.00 while moving only 5.3% of people).
+   AND THE ROW LANDS WHEN THE NAME DOES NOT: six of the sixteen introductions
+   refuse a name, and under the old card that made a third of the valley
+   unmeetable -- you pressed the only social button the game has and got nothing.
+   | gate: ONE THING THAT IS THEIRS, 32 assertions (18 driving the real alpha in a
+   real browser), mutation-tested three ways; DIALOGUE CATALOGUE 59 -> 62 | words =
+   drafts, he edits live in WORDS | no (drafts).
+   STILL OPEN OFF THIS ROW: the TELL (what you can SEE about somebody before they
+   speak) is authored, gated and reachable via tellFor(), and is NOT on the card
+   yet -- it wants a surface that is not another row.
+
+0t-ORIGINAL. THE ATTACHMENT PATTERN (tone research R1, 8/12 — records/BOHEMIA_TONE_
    RESEARCH_R1_8_12_26.md; Paolo's tone canon: Undertale/Deltarune/F&H/
    Termina — funny, uncanny, traumatizing, fun): EVERY character, named or
    generic, carries ONE endearing or funny surface reachable through
@@ -5122,6 +5195,45 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-ATTACH. [SHIPPED 8/19 - records/BOHEMIA_SHE_IS_IN_THE_ROOM_TONIGHT_8_19_26.md]
+   *** THE HALF OF 0sc's 8/13 AMENDMENT THAT IS WORDS AND STAGING. *** That
+   amendment asks for "name and one quirk surfaced before the fight
+   (draft:true)". MEASURED FIRST: sibling_lost spoke ONE line in the entire cold
+   open, as a CHILD, ten years before the night she is taken, and was staged in
+   the present-day room she dies out of ZERO times. Forty scene_gate assertions
+   were green over that. His own 7/19 ruling is what makes it a bug: the death
+   happens "away from [the table], in motion, in the house", so she is alive at
+   that table minutes before and the scene never put her there.
+   SHIPPED: she is at the table tonight; the mother names her at the child table
+   ten years earlier; the bit is HIS OWN existing line ("I'm not eating the green
+   ones") rather than an invented quirk, repeated tonight by the one person who
+   will not survive the night, and broken at the grief dinner by the mother -- "I
+   picked the green ones out. Force of habit." Rule of three, and the third
+   instance is his 7/19 empty-chair motif arriving as a kitchen detail rather
+   than a speech, which his sacred-table ruling requires.
+   *** THE MISTAKE WORTH KEEPING: I BUILT A SECOND PLACE TO STORE HER NAME. ***
+   Her name flips with the player (7/19), so I added a `cast` block to the scene,
+   token substitution to the runtime, wiring, a gate, three mutation tests. All
+   green. Then I SCREENSHOTTED IT and the mother's label said DENISE: FAMILY_CAST
+   has held the family's drafted names since the cast shipped (RAY/DENISE/MARCO/
+   NINA, all draft:true) and already carries this exact flip in `survivesIf`. My
+   names were a duplicate source of truth AND the wrong strings. A GREEN GATE
+   PROVES THE THING IT CHECKS AND NOTHING ELSE -- not one assertion asked whether
+   somebody else already owned this. The scene now owns no names; the surface
+   fills the token from FAMILY_CAST; the gate reads that table and asserts the
+   join, same technique it already uses on COMBAT's encounter id.
+   AND A SECOND, SAME SHAPE: Story.prototype.apply printed b.text RAW, so the
+   caption would have read "{sibling_lost}. Green ones too." with the braces in
+   it while the runtime resolved perfectly and the gate stayed green. Fixed in
+   the module, not at the two call sites.
+   | gate: SCENE 40 -> 54, mutation-tested four ways; verified on the real page
+   both player sexes (male hears NINA, female hears MARCO), zero page errors
+   | names + lines are drafts, he edits in WORDS and DIRECT | no (drafts).
+   STILL OPEN, AND IT IS COMBAT'S: the sibling TEACHING the beat (I-MOVE-YOU-MOVE,
+   your first dance partner) and the protect/assist beat live inside the
+   family-defense encounter that lane owns. "Losing them = losing your teacher"
+   needs the teacher built.
+
 0sc. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
    — v4 LOCKED base, newly CHEAP): SCRIPTED SCENES. The Bethesda method:
    condition met -> scene (camera move, actors posed via the rig, dialogue
@@ -5256,6 +5368,21 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+REDS. *** TWO OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6):
+     SFX RENDER  gates/sfx_render_gate.py — real audio in a real browser
+     RUN BEAT    gates/run_beat_gate.py — "the run is on the SONG'S clock";
+                 you own the clock, RUN co-signs the consumer side
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | both green, or a written reason each is legitimately red | — | no. ***
 P0-WALK. *** THE APPROVED SOUNDS ARE WIRED TO A SURFACE THE PLAYER NEVER
    SEES. TOP OF THIS LANE'S QUEUE, DEMO-BLOCKING (8/14 coordinator audit —
    records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 3). Nothing is wrong
@@ -5420,6 +5547,71 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    faction half of this row is built, RUN THE LEVER FIRST and assign from the top
    of the ranking. Pins ratcheted 0.010->0.030 / 0.070->0.085 so this cannot
    regress quietly. FACTIONS ARE STILL OWED; the city cast is done.
+   *** AND THE CLAIM HAS A LIMIT, MEASURED 8/19 -- records/BOHEMIA_WHEN_A_PERSON_
+   STOPS_BEING_SOMEBODY_8_19_26.txt, gates/zoom_identity_gate.js (7 claims). ***
+   Every "they tell each other apart" number in this row was measured at 112px, which
+   is ONE of the FOUR sizes the city draws a body at (the ladder: 224 / 112 / 56 / 28,
+   blitted 1:1, never fractional). Measured on the rungs below, closest pair:
+        112px  0.036   the pin the build holds is 0.035
+         56px  0.0150  the gap that ACTUALLY failed once was 0.014
+         28px  0.0144
+   IDENTITY DOES NOT SURVIVE BEING ZOOMED OUT, and no garment fixes a 25px body. The
+   good news is the demo is unaffected: `let HC=44` is the default walk zoom and maps
+   to the 112 rung. THE DESIGN CONSEQUENCE, for whoever needs it: anything the player
+   must RECOGNISE at a wide zoom -- which faction holds a street, a person he is
+   looking for -- needs a channel that is NOT the silhouette (a marker, a name, colour,
+   or the camera being closer). The gate does not fail on the limit, because a gate red
+   on physics gets switched off; it fails if the OPENING ZOOM ever drops below the 112
+   rung, which is a one-character regression that would otherwise be silent.
+   ALSO CORRECTED: I had been writing "the demo opens at 06:00 and the streets are
+   near-black". The game's own isNight() is 19:00-06:00, so 06:00 is exactly when night
+   ENDS. The darkness argument still stands but for the RIGHT reason -- only ~4% of
+   cells have live power (the city's own measurement), so most streets are unlit
+   whatever the clock says. The captions are fixed.
+   *** SECOND HALF SHIPPED 8/18 -- ALL THIRTEEN FACTIONS HAVE AN OUTLINE. ROW SIL IS
+   CLOSED. records/BOHEMIA_THIRTEEN_OUTFITS_AND_WHAT_HEADWEAR_IS_WORTH_8_18_26.txt ***
+   CHARACTER tab, THE THIRTEEN OUTFITS. Held by gates/faction_outfit_gate.js (18).
+   NOT PICKED BY EYE: tools/bohemia_faction_fits.js rendered 880 candidate fits
+   (5 bodies x 11 shoulder shapes x 4 heads x 4 legs) and greedily searched for the
+   largest mutually-distinct set -- 19 at floor 0.030, EXACTLY 13 at 0.040, 11 at
+   0.045. The wardrobe delivers precisely what the game needs and not one spare, and
+   that killed my own earlier "only six shape classes" reading: the classes MULTIPLY
+   against body and legs.
+   THE FOUR SOCIAL FORCES GET NOTHING, ON PURPOSE. Pures/Panthers/La Familia/Triads
+   are members INSIDE other factions; an outline of their own would announce what the
+   canon says is hidden. The gate fails if one ever gets one.
+   *** AND THE FINDING THAT REACHES PAST THIS ROW: HEADWEAR CANNOT CARRY IDENTITY. ***
+   The 8/15 amendment names three channels -- garment shape, proportion, HEADWEAR.
+   Measured on the real 112 render: a wide-brim hat adds 56px to a 2,961px body
+   (+1.9%); a knit cap +2.1%; a long coat +3.9%; a cape +5.9%. HEADWEAR IS THE WEAKEST
+   CHANNEL BY A FACTOR OF THREE and no choice of hat fixes it -- it needs PIXELS. That
+   ties straight to row 2X: a 56px hat becomes 224px at 112-native. Re-search this
+   table with head classes weighted properly the day 2X lands; until then the outlines
+   are carried by BODY, HEM and SHOULDER LINE.
+   TWO PROCESS LESSONS, both paid for: (1) CHOOSE AND GRADE ON THE SAME RULER. The
+   search scored buildFrame at 56 while the gate scored the 112 board with the outline
+   on it, so a clean set came back with pairs at 0.007 and I spent four rounds fixing
+   individual fits, which is fixing the target. (2) BASE AND FEET ARE NOT FREE -- a
+   shirt hem and a boot shaft are part of the outline, worth about 0.005, which is why
+   the pin is 0.035 and not the 0.040 the search reported.
+   STILL OPEN AND NOT THIS ROW: no agent in the world carries a faction yet
+   (FACTION_ASSIGN empty, faction:null everywhere) because WHICH FACTION HOLDS WHICH
+   GROUND is his ruling. The outfits are ready the day it lands.
+RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6): DRESS
+   (gates/dress_gate.js), which reads engine/bohemia_dress.js and
+   bohemia_agents.js — agents wearing ONLY the canon wardrobe. Clothing is
+   this lane per its own charter.
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | green, or a written reason it is legitimately red | — | no. ***
 2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
    cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
    THIS LANE'S QUEUE. His words: "the character models need twice as many
@@ -5571,6 +5763,52 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    legal; clips can land post-demo unless cheap. | clips visible on the
    real surface (ANIMATION TAB) | which step looks how = his thumb on
    the clips themselves | yes (the clip set is judgeable).
+   *** SHIPPED 8/18. ROW FS IS CLOSED. records/BOHEMIA_FIELD_SURGERY_CLIPS_AND_THE_
+   TWELVE_KEY_GRID_8_18_26.txt *** ANIMATION tab: pour / inject / tweeze, ANIMBEATS 4
+   each. Held by gates/field_surgery_gate.js (18). LOOK tab picture shows the frames
+   AND a bar chart of hand speed, because timing is the design.
+   THEY ARE TOLD APART BY TIMING, NOT SHAPE -- all three put both hands in the same
+   patch in front of the body because it is the same wound, and a wide-brim hat is
+   worth 1.9% of a body at this rig size, so small geometry does not read. pour: 6 of
+   12 keys with the hand STOPPED. inject: peak 6.0px in ONE key, the fastest single
+   move of the three. tweeze: 7 reversals, the only thing in the game that trembles.
+   *** THE PART ANY LANE AUTHORING A CLIP NEEDS: THE POSE GRID IS 12 KEYS PER BAR
+   (POSEHOLD.keys). *** Four defects here read perfectly and measured wrong:
+     1. THE WOUND WAS OUT OF ARM REACH -- mid-thigh is 19.1px from the shoulder and
+        the arm is 16px, so a standing person cannot reach their own thigh and IK just
+        clamped. Moved to the forearm, which long coats also do not swallow.
+     2. THE JAB WAS SHORTER THAN A KEYFRAME (0.06 of a bar < 1/12) so it never
+        rendered; measured, the "fastest move" was the slowest.
+     3. THE TREMOR WAS SAMPLED AT ITS OWN ZERO CROSSINGS -- sin(2*pi*6*t) at t=i/12 is
+        sin(pi*i) = 0 at every key. Use cos, or a frequency the grid can carry.
+     4. TWO CLIPS NEVER RETURNED HOME, so the loop seam snapped once a bar and was the
+        biggest hand move in both.
+   RULES OF THUMB: shortest expressible move is 1/12 bar; land ramps on key
+   boundaries; a looping clip must return to its start pose.
+   *** THE "31 CLIPS DO NOT CLOSE" I FILED HERE THE SAME DAY WAS WRONG, AND IT WAS MY
+   NUMBER -- CORRECTED BELOW, DO NOT ACT ON IT. *** It measured hand travel in
+   rig-space, which says nothing about whether anybody would see it: a 3px hand offset
+   at the seam is invisible in a clip whose normal motion is 2,000 pixels a frame.
+   Measured on the RENDERED FRAME as a ratio against the biggest move each clip already
+   makes: 102 OF 103 CYCLIC CLIPS FLOW. One snapped -- `drunk` -- and it is fixed.
+   The sweep I was recommending would have been 31 fixes to 30 clips that were fine.
+   records/BOHEMIA_WHICH_ANIMATIONS_JERK_8_18_26.txt; gates/loop_seam_gate.js holds it.
+   *** AND THE ONE THAT WAS REAL IS FIXED: `drunk` teleported sideways once a bar and
+   had since it was written. *** Its sway term was sin(ph*PI+1.3) while EVERY sibling
+   term in the same line uses ph*2*PI -- half the frequency, so it started the bar at
+   +0.96 and ended at -0.96, flipping sign at the wrap. It drives hipOff, so the hips
+   moved 3.5px sideways in one frame, every two seconds. Measured seam ratio 1.72 ->
+   0.40; the body's centre used to do its entire 12.5px of travel in the single frame
+   at the restart, and now does 0.3px there. The 1.3 radian offset is KEPT on purpose:
+   the sway being out of phase with the steps is the whole staggering read, and only
+   the frequency was wrong. LOOK tab, "THE DRUNK WALK JUMPED EVERY TWO SECONDS".
+   NEW FLEET NET: gates/loop_seam_gate.js (7 claims, registered as LOOP SEAM) now
+   holds every cyclic clip in the game at a seam ratio under 1.20, so no lane can ship
+   a clip that snaps. Mutation-tested by putting the half-period sway back: red at
+   1.72, naming drunk.
+   STILL OPEN AND NOT THIS ROW: RUN consumes the clips in the treat-wound sequence;
+   that wiring is RUN's half (ONE SYSTEM, ONE SESSION) and medkit_gate already records
+   the treat-wound verb and clip hook as deliberately absent.
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
@@ -5759,6 +5997,52 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    aired_the_method, killed_the_token, walked_them_out, owes_the_cartel,
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
+
+## GATES  (NEW DEDICATED LANE, coordinator 8/19 on Paolo's ruling —
+## laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md. First word "gates". Owns
+## gates/bohemia_gates.py, the harness, the runner, the fast lane, and
+## THE HEALTH OF THE SUITE AS A SYSTEM. It does NOT own individual gates'
+## assertions — those stay with the lane whose law they enforce. The
+## suite had no owner because it is not any lane's system, and a thing
+## that belongs to nobody rots exactly the way this did.)
+0. *** THE SUITE CANNOT FINISH, AND SILENCE READS AS GREEN. FIRST
+   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
+   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
+   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
+   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
+   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
+   UNRUN AND SILENT every time, and every lane ships on a partial run
+   without knowing which part it missed.
+   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
+   PER CHECK, not check count. Deleting coverage to make the clock would
+   trade the only thing keeping nine parallel lanes honest for a green
+   light that means less than the red one did.
+   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
+       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
+       guess that got tuned upward until it stopped flaking, so it is
+       always far longer than the real wait. Replace with CONDITIONS
+       (waitForFunction / waitForSelector / poll for the state the check
+       needs). COPY gates/dayloop_gate.js, which already does it right and
+       says so: "POLL, do not guess. Measured 8/11: the city frame's
+       script does not execute immediately."
+   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
+       hand each gate an isolated CONTEXT (or a fresh tab against the warm
+       process) instead of a cold boot. Gates that genuinely need a virgin
+       profile DECLARE it and pay for it; everything else shares. Changes
+       how a gate gets a page, never what it asserts.
+   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
+       browser gates leaves roughly 256 gates that never touch a browser.
+       The fast lane is a FILTER, not new work: tag every gate BROWSER or
+       PURE and give the runner a --fast mode. THAT becomes every lane's
+       pre-ship check, every turn, under a minute. The full suite becomes
+       the once-before-a-ship run, and it will finish once (1) and (2)
+       land.
+   | the full suite completes inside the clock, and --fast runs the pure
+   set in under a minute, both measured and written into the record |
+   — | no (machinery). ***
+1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
+   slowest thing is a number and not a hunch. A suite nobody has timed is
+   how this happened.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 -8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,

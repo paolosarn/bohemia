@@ -242,7 +242,11 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
    the player touches is not evidence. Second time this week; the giants first. */
 ok('V141 RANGE IS A FILTER ON WHO YOU CAN FIGHT, AND IT IS SYMMETRIC: my reach bounds my TARGETS (modePool), his reach bounds his THREAT (exposedToMe, posExposed). Those three predicates decide the whole fight and not one of them knew range existed',
   /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)\);/.test(demo) &&
-  /function exposedToMe\(\)\{[^}]*inHisRange\(e\)\)/.test(demo) &&
+  /* V165 RE-POINTED: exposedToMe now carries the vision gate too, so the reach
+     test is no longer the last thing on the line. The CLAIM is unchanged and is
+     still that his reach bounds his threat -- what moved is where the closing
+     bracket sits. */
+  /function exposedToMe\(\)\{[^}]*inHisRange\(e\)/.test(demo) &&
   /function posExposed\(\)\{[^}]*inHisRange\(e\)\)/.test(demo));
 
 ok('V141 AND A BLOCKED SHOT EXPLAINS ITSELF: an unresponsive button is a bug to the person holding the phone however correct the rule behind it is. The button reads OUT OF RANGE, and popping is refused with the only two numbers that matter -- how far the nearest man is and how far this gun goes',
@@ -440,8 +444,16 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   ok('SMART CAM: frames the living, tightens on kills, pinch drives for 5s',
     demo.includes('V26 SMART CAM') && demo.includes('G._camTouchAt') &&
     demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
-  ok('playtest defaults to 8 enemies',
-    demo.includes('numEnemies:8,') && demo.includes('<button class="nb on" data-n="8">8</button>'));
+  /* V167 RE-POINTED, AND THE OLD CHECK WAS PINNING THE BUG. "Defaults to 8" was
+     written as a convenience for the playtest and quietly became the whole game:
+     RF4-24 measured 8.0 per fight, min 8, max 8, across 40 arenas, which by RF4's
+     own notes is BOSS SIZING every single time. The default is the CURVE now, and
+     8 is still one tap away in the same row. */
+  ok('V167 the playtest defaults to the ENCOUNTER CURVE, and boss sizing is still one tap away rather than the only thing there is',
+    demo.includes('<button class="nb on" id="ncurve">CURVE</button>') &&
+    demo.includes('<button class="nb" data-n="8">8</button>') &&
+    /if\(G\.encCurve!==false\)G\.numEnemies=rollEncounterSize\(\);/.test(demo) &&
+    /G\.encCurve=false; G\.numEnemies=\+b\.dataset\.n;/.test(demo));
   ok('TARGETING AUTO/MANUAL: threat-ordered auto (v28), manual CHOOSE NEXT pause, taps only pick victims',
     demo.includes('V28 THREAT ORDER') && demo.includes("G.targetMode==='manual'") &&
     demo.includes("setRead('CHOOSE NEXT'") && demo.includes('V26 MANUAL CHAIN') &&
@@ -586,9 +598,14 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   // v39: "MAKE COMBAT FUNNER" -- streak momentum + a real ranged specialist
   ok('V39 SNIPER ARCHETYPE: one real ranged specialist can spawn in bigger fights, always far, never the close guy, hits far harder than a GOON',
     demo.includes("sniper:{n:'SNIPER',hp:45, acc:0.72, dmg:[32,48]") &&
-    demo.includes('let sniperIdx=-1; if(N>=4)') &&
+    /* V167 RE-POINTED: N>=3, not N>=4, because RF4-37 says there is "almost
+       always a highest priority target" and a three-man fight with no back line
+       has nothing to prioritise. And the slot is filled by composeRoster now
+       rather than by overwriting an index, so the assertion moved from "this
+       index gets overwritten" to "the worst man is swapped onto the back slot". */
+    demo.includes('let sniperIdx=-1; if(N>=3)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
-    demo.includes("if(i===sniperIdx)arch='sniper';") &&
+    /_roster\[sniperIdx\]=_roster\[_pi\]/.test(demo) &&
     /* V160 RE-POINTED. He was parked at 90% of the arena radius -- measured 29
        tiles against 17.5 of sight -- on the stated grounds that "he is the
        reason the board is this big". That reason RETIRED with the research:
@@ -4593,6 +4610,318 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V168 THE SPOTTER (RF4-37, the other half) =================
+   "PRIORITY TARGETS ARE THE CORE PUZZLE... ignore the nearest enemies and
+   manoeuvre into position to kill the Priority-Target who is often hiding in the
+   back." Its diff column named exactly one gap: WHAT IS MISSING IS A TARGET
+   WORTH CROSSING THE ROOM FOR. V167 guaranteed one exists and put him at the
+   back; this makes ignoring him cost something.
+   The BEHAVIOUR is measured on the shipped doMove by fight_moves_you_gate. What
+   is pinned here is the shape, and the reason it is THIS mechanic. */
+  ok('V168 THE ROLE IS DECLARED beside every other identity number, and no damage number is touched: his hp, acc and dmg are exactly what they were',
+    /sniper:\{n:'SNIPER',hp:45, acc:0\.72, dmg:\[32,48\], bot:false, melee:false, spotter:true\}/.test(demo));
+
+  ok('V168 AND HE TAKES THE FREE MOVE, WHICH IS WHAT THE FIGHT IS ABOUT. V159 made reaching the way out the win condition and V163 made the sprint the one move that does not cost a turn, so the marksman\'s real job -- denying movement -- lands on exactly that. Walking is untouched',
+    /if\(_sprinting&&spotterOnMe\(\)\)\{ setRead\('PINNED BY THE SPOTTER'/.test(demo) &&
+    /if\(_sprinting&&\(G\.stam\|\|0\)<1\)\{ setRead\('NO STAMINA'/.test(demo));
+
+  ok('V168 THERE ARE TWO ANSWERS, and the second one needs no new geometry: spotterOnMe asks seesMe, which already requires a clear line, so stepping behind stone lifts the pin while he stands there alive',
+    /function spotterOnMe\(\)\{ return \(G\.e\|\|\[\]\)\.some\(e=>e&&e\.E&&e\.E\.spotter&&seesMe\(e\)\); \}/.test(demo) &&
+    /* AND NO SECOND OPINION ABOUT DEATH. It carried a `!e.dead` at first and a
+       mutation deleting it changed nothing, because seesMe already rejects the
+       dead on its first line. A guard that cannot fail is not caution, it is a
+       duplicate rule waiting to disagree with the one that matters. */
+    !/e&&!e\.dead&&e\.E&&e\.E\.spotter/.test(demo));
+
+  ok('V168 AND THE FIRST VERSION WAS CUT RATHER THAN SHIPPED AS FLAVOUR. Giving his SHOUT infinite reach measured 22.5% of turns with the board blind against a 20.8% control -- inside the noise, because a long shout only matters when he is the ONLY man who can see you and in a group of three to six somebody else almost always can. A DEAD DIAL IS WORSE THAN NO DIAL',
+    !/function shoutReach\(/.test(demo) &&
+    /if\(Math\.hypot\(sx,sy\)<=SHOUT_TILES\)\{ markSeen\(e\); e\.told=true; break; \}/.test(demo));
+
+  ok('V168 AND HE CAN TELL WHY, WITHOUT THE GAME GROWING A TUTORIAL ARROW: the readout he already reads names the problem and both halves of the answer, and only when it is true',
+    /setRead\('PINNED BY THE SPOTTER','break his line or put him down'/.test(demo));
+
+/* ===== V166 THE DIAL STOPS TINKLING (Paolo 8/19, a ruling) =======
+   "when i leave or enter the deadshot dial theres like a glass bottle noise i
+    hate that."
+   HOOKED AND MEASURED rather than guessed: every voice in the frame was wrapped
+   and opening the dial logged sfxAsk(casing) then tone(680)+tone(340). Two bugs
+   wearing one complaint. */
+  /* THE STRUCTURAL HALF ONLY. The first write of this asserted BOTH that the cue
+     left the raise and that it now rides sndShot, by string -- and a mutation
+     that changed `try{ sfxAsk('casing'); }` to `if(0){ sfxAsk('casing'); }` left
+     the gate GREEN, because the words were all still there and only the
+     behaviour had gone. The positive half is MEASURED in the browser by
+     fight_moves_you_gate, where the cue can actually be heard firing. */
+  ok('V166 THE BRASS IS NOT AT THE RAISE ANY MORE. Opening the dial is bringing the gun UP -- the shot happens later, when he hits the green -- so a casing was tinking off the concrete before a round had left the barrel',
+    !/spendRound\(\);[^]{0,160}sfxAsk\('casing'\)/.test(demo));
+
+  ok('V166 AND THE LAST BARE UI BEEP IN THE FILE IS GONE. sndAccent was tone(680,triangle)+tone(340,sine) -- two PURE tones an octave apart with no noise floor, gone inside a tenth of a second, which is a glass ping by construction. V75 diagnosed this exact disease three lines above it ("a UI beep sitting outside the music"), fixed sndBeat and sndHeroTick, and left this one',
+    !/function sndAccent\(\)\{ tone\(680/.test(demo) &&
+    /function sndAccent\(\)\{ try\{ const f=owSong\(\); drumV\(\(f\.kit&&f\.kit\.k\)\|\|'punchk'/.test(demo));
+
+  { /* AND THE THREE DIAL VOICES STAY TELLABLE APART. Routing the accent into the
+       band is only right if it does not become the beat tick: three cues that
+       sound identical are worse than one that sounds wrong. */
+    /* grabbed by OFFSET, not by a closing-brace regex: these three span one,
+       three and two lines respectively, and a regex that assumed one line read
+       sndAccent as empty and failed a claim that was actually true. */
+    const grabFn = (n) => { const i = demo.indexOf('function ' + n + '(){');
+      if (i < 0) return '';
+      const j = demo.indexOf('\nfunction ', i + 1);          /* stop at the NEXT function, not at a
+                                                              fixed width: a 420-char window ran off
+                                                              the end of sndBeat into sndHeroTick and
+                                                              read its KICK as sndBeat's, failing a
+                                                              claim that was true. Twice this week a
+                                                              checker's window has been the broken
+                                                              thing, not the code under it. */
+      return demo.slice(i, j < 0 ? i + 420 : j); };
+    const voices = ['sndBeat', 'sndHeroTick', 'sndAccent'].map(grabFn);
+    ok('V166 THE THREE DIAL VOICES ARE STILL DISTINCT: the beat tick is the song\'s HAT, beat one is its KICK plus HAT, and the kill window is its KICK alone. Three cues that sound the same would be worse than one that sounds wrong',
+      voices.every(v => v.length > 0) &&
+      /f\.kit&&f\.kit\.h/.test(voices[0]) && !/f\.kit\.k/.test(voices[0]) &&
+      /f\.kit\.k/.test(voices[1]) && /f\.kit\.h/.test(voices[1]) &&
+      /f\.kit&&f\.kit\.k/.test(voices[2]) && !/f\.kit\.h/.test(voices[2]));
+    ok('V166 AND EVEN THE FALLBACK STOPS BEING A CHIME: no song, no glass -- one low square instead of a triangle-and-sine pair',
+      /catch\(_e\)\{ tone\(190,0\.06,0\.05,'square'\); \}/.test(voices[2]));
+  }
+
+/* ===== V167 THE ENCOUNTER CURVE (RF4-24, RF4-26) ==================
+   Paolo 8/19: "its still not feeling like rogue fable 4 bro."
+   RF4-24 is the ONLY three-star row in the teardown and it measured the worst
+   number in the file: 8.0 per fight, min 8, max 8, INSIDE RF4's BAND 0 OF 40.
+   His own design notes reserve 7+ for BOSS FIGHTS and say fights above 5-6
+   "devolve into messy kiting and choke-point abuse" -- which is RF4's designer
+   describing, in advance, the exact fight Paolo keeps reporting. */
+  ok('V167 THE SIZE IS ROLLED, NOT CONSTANT, and off the ARENA\'S OWN DICE so a seed still reproduces a fight exactly',
+    demo.includes('const ENC_SIZES=[3,4,5,6];') &&
+    demo.includes('function rollEncounterSize()') &&
+    /if\(G\.encCurve!==false\)G\.numEnemies=rollEncounterSize\(\);/.test(demo));
+
+  { /* THE BAND, RUN. RF4's own rule is 3-4 typical with 5-6 very hard and
+       anything above reserved, so the distribution has to actually land there
+       rather than merely be declared. */
+    const a = demo.indexOf('const ENC_SIZES=');
+    const src = a > 0 ? demo.slice(a, demo.indexOf('function composeRoster', a)) : '';
+    let mean = 0, lo = 99, hi = 0, ok34 = 0;
+    try {
+      const roll = new Function(src + '; return rollEncounterSize;')();
+      let s = 0;
+      for (let i = 0; i < 4000; i++) { const v = roll(); s += v; lo = Math.min(lo, v); hi = Math.max(hi, v); if (v <= 4) ok34++; }
+      mean = s / 4000;
+    } catch (e) {}
+    ok('V167 AND IT LANDS IN RF4\'s BAND: 4000 rolls, mean ' + mean.toFixed(2) + ', min ' + lo + ', max ' + hi
+      + ', and ' + (100 * ok34 / 4000).toFixed(0) + '% are the "typical 3-4" his notes name',
+      lo === 3 && hi === 6 && mean > 3.6 && mean < 4.8 && ok34 / 4000 > 0.55);
+  }
+
+  { /* THE SPINE, RUN AT EVERY SIZE. This is the check that would have caught the
+       trap: shrinking N alone would have DELETED the sniper below 4 and the
+       machine below 5, so a small fight degrades to goons and a stick -- fewer
+       AND blander AND easier, which is exactly what he was afraid of. */
+    const a = demo.indexOf('function composeRoster(N){');
+    const src = a > 0 ? demo.slice(a, demo.indexOf('function setupEnemies', a)) : '';
+    let rows = [];
+    try {
+      const compose = new Function('G', src + '; return composeRoster;')({ meleeMix: 1 });
+      rows = [3, 4, 5, 6, 8].map(n => ({ n, r: compose(n) }));
+    } catch (e) {}
+    const everySizeHasAWorstMan = rows.length === 5 && rows.every(x => x.r.filter(v => v === 'sniper').length === 1);
+    const everySizeIsMixed = rows.length === 5 && rows.every(x => new Set(x.r).size >= 3);
+    const rightLength = rows.length === 5 && rows.every(x => x.r.length === x.n);
+    ok('V167 EVERY SIZE HAS EXACTLY ONE WORST MAN, which is RF4-37\'s missing precondition: you cannot have a priority target in a crowd of eight interchangeable goons, there is nothing to prioritise'
+      + (rows.length ? '   3 -> ' + rows[0].r.join('/') : ''),
+      everySizeHasAWorstMan);
+    ok('V167 AND EVERY SIZE IS A MIXED GROUP (RF4-26), three kinds of body or more, at 3 as well as at 8 -- a three-man fight is three different problems from three directions, not two goons and a stick',
+      everySizeIsMixed && rightLength);
+    let noneAtZero = false;
+    try {
+      const off = new Function('G', src + '; return composeRoster;')({ meleeMix: 0 });
+      const pack = new Function('G', src + '; return composeRoster;')({ meleeMix: 2 });
+      noneAtZero = off(6).every(v => !['shiv', 'bat', 'spear'].includes(v)) &&
+                   pack(6).filter(v => ['shiv', 'bat', 'spear'].includes(v)).length >
+                   rows[3].r.filter(v => ['shiv', 'bat', 'spear'].includes(v)).length;
+    } catch (e) {}
+    ok('V167 AND HIS 7/19 MELEE MIX STILL RULES THE BLADES: OFF really means none and PACK really means more. A recipe that quietly ignored a ruling he already made would be the worst kind of tidy-up',
+      noneAtZero);
+  }
+
+  ok('V167 HE CAN STILL DIRECT IT (8/12): CURVE is a button beside 1/3/5/8, pinning a number turns the curve off, and the boss sizing he has played for weeks is one tap away rather than deleted',
+    /_cb\.classList\.add\('on'\); G\.encCurve=true;/.test(demo) &&
+    /G\.encCurve=false; G\.numEnemies=\+b\.dataset\.n;/.test(demo));
+
+  ok('V167 AND THE DROP IS DECLARED, NOT HIDDEN. Half the guns is half the incoming fire and no shuffling of archetypes closes that: measured 6.36 HP per turn at a pinned 8 against 3.74 on the curve, 8 deaths in 24 against 2. The only lever that would close it is making each enemy hit harder, and NO DAMAGE BEFORE THE DIAL forbids setting a damage number. It is written down where the next session will find it rather than left to be discovered',
+    /HALF THE GUNS IS HALF THE INCOMING FIRE/.test(
+      require('fs').readFileSync(require('path').join(__dirname, '..', 'tools', 'bohemia_combat_the_encounter_curve_patch.py'), 'utf8')) &&
+    require('fs').existsSync(require('path').join(__dirname, '..', 'records', 'BOHEMIA_COMBAT_THE_ENCOUNTER_CURVE_8_19_26.md')));
+
+/* ===== V165 VISION IS THE MASTER SWITCH (RF4-52, machine 4) ======
+   "Pick ONE variable that as many enemy systems as possible depend on. Then
+    give the player tools to control that variable. You get combinatorial depth
+    without writing combinatorial content."
+   The BEHAVIOUR is measured on the real fight by fight_moves_you_gate. What is
+   pinned here is the thing that makes it worth anything: that it really is ONE
+   variable, that FIVE systems read it, and that NOTHING computes its own. */
+  ok('V165 THERE IS ONE VARIABLE AND IT IS A FUNCTION, not a flag anybody can set: seesMe(e) asks the same four questions every time -- is he able to look, is he on my deck, is he inside the end of his own eyes, and is there stone in the way',
+    /function seesMe\(e\)\{/.test(demo) &&
+    /if\(\(e\.lvl\|0\)!==myLvl\(\)\)return false;/.test(demo) &&
+    /if\(\(e\.edist\|\|0\)>SIGHT_TILES\)return false;/.test(demo) &&
+    /return !myConcealAgainst\(e\.ea,e\.edist,e\.lvl\); \}/.test(demo));
+
+  { /* FIVE SYSTEMS, COUNTED. The spec's whole argument is the FAN-OUT -- one
+       wall turning off many things at once -- so a check that only proved the
+       function exists would be proving the cheapest part. Each of these is a
+       different decision site in the file, and each reads the ONE variable. */
+    const sites = [
+      ['acquisition, the two-turn red line', /\(peeking\(e\)\|\|firing\(e\)\)&&seesMe\(e\);/],
+      ['ranged fire, the volley pool',       /function exposedToMe\(\)\{[^}]*&&seesMe\(e\)\)/],
+      ['the press, where a man walks',       /const _aim=seesMe\(e\)\?null:knownXY\(e\);/],
+      ['cover seek, running for stone',      /if\(!seesMe\(e\)\)continue;/],
+      ['the shout, telling the others',      /if\(seesMe\(e\)\)\{ markSeen\(e\); seers\.push\(e\); \}/],
+    ];
+    const missing = sites.filter(s => !s[1].test(demo)).map(s => s[0]);
+    ok('V165 AND FIVE SEPARATE ENEMY SYSTEMS READ IT -- ' + sites.map(s => s[0]).join('; ')
+      + (missing.length ? '   MISSING: ' + missing.join(', ') : ''),
+      missing.length === 0);
+  }
+
+  ok('V165 AND NOBODY ROLLS THEIR OWN. A second copy of "can he see me" is how one variable quietly becomes five that disagree, which is the exact failure the spec exists to prevent',
+    (demo.match(/myConcealAgainst\(e\.ea,e\.edist,e\.lvl\)/g) || []).length === 1);
+
+  ok('V165 THE MEMORY IS WORLD STATE, carried by worldShift beside the pillars, the blood and the way out. V137 already wrote down why in this same file: a thing that moves WITH you is your own position wearing a disguise, and an LKP like that is a no-op that measures perfectly green',
+    /for\(const e of \(G\.e\|\|\[\]\)\)if\(e&&e\.lkp\)mv\(e\.lkp,0\.02\);/.test(demo) &&
+    /function markSeen\(e\)\{/.test(demo));
+
+  ok('V165 SIGHT BEATS MEMORY, MEMORY BEATS NOTHING: a man who can see you presses at YOU, a man who cannot presses at where he last saw you, and a man who has never seen you holds his ground instead of wandering the lot',
+    /if\(seesMe\(e\)\)return \[0,0\];/.test(demo) &&
+    /if\(e&&e\.lkp\)return pXY\(e\.lkp\);/.test(demo) &&
+    /if\(!seesMe\(e\)&&!_aim\)continue;/.test(demo));
+
+  ok('V165 AND A BLIND MAN SCORES A TILE BY EXACTLY ONE THING -- how much closer it puts him to that memory. An angle on you, a standoff from you and a rock that covers you from him are all terms about a man he can SEE, and not one of them means anything when he does not know where you are',
+    /if\(aim\)return -PRESS_PULL\*Math\.hypot\(x-aim\[0\],y-aim\[1\]\);/.test(demo));
+
+  ok('V165 THE SEARCHING STANDOFF IS REUSED, NOT INVENTED: at PRESS_STANDOFF 3.2 a searching man would stop three tiles short of the tile he is walking to and circle it forever, so he uses HOLD_PASS -- V137\'s own number for a man running an objective rather than shopping for a firing angle',
+    /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+    !/const SEARCH_STANDOFF=/.test(demo));
+
+  ok('V165 VISION RESOLVES BEFORE THE BEAD, because the bead reads it. Run it after and every man on the board spends his turn acting on last turn\'s eyes',
+    demo.indexOf('try{ visionTick(); }catch(_e){}') < demo.indexOf('const bead=e.stun<=0') &&
+    demo.indexOf('try{ visionTick(); }catch(_e){}') > 0);
+
+  { /* THE 3-5 SECOND RUSH, AND THE ONE PLACE THE CAPTURE WAS NOT IMPORTED.
+       "Enemies never spot a sprinting player at all" is backwards for a game of
+       guns -- movement is the single thing most likely to get you SEEN. The
+       mechanic underneath it is real: the 3-5 second rush is the US Army's
+       individual movement technique, and the window is that size because it is
+       SHORTER THAN ACQUIRING TAKES. So the sprint does not blind anybody. It
+       means you were only up for less time than a bead needs, which lands
+       exactly on the two-turn red line this game has had since 7/19. */
+    ok('V165 A SPRINT DROPS EVERY BEAD, line or no line -- the 3-5 second rush, which is the REALISTIC form of the capture\'s "enemies never spot a sprinting player" and reaches the same outcome through a mechanism that is true',
+      /if\(_sprinting\)\{ if\(acquired\(e2\)\)_broke\+\+; e2\.acq=0; continue; \}/.test(demo) &&
+      /3-5 SECOND RUSH/.test(demo));
+    ok('V165 AND WALKING IS STILL NOT SPRINTING: a plain step only breaks the beads whose LINE you actually broke, which is Paolo\'s 7/19 ruling and is untouched',
+      /if\(myConcealAgainst\(e2\.ea,e2\.edist,e2\.lvl\)\)\{ if\(acquired\(e2\)\)_broke\+\+; e2\.acq=0; \} \}/.test(demo));
+  }
+
+  ok('V165 AND HE CAN SEE IT HAPPEN, or it does not exist: the moment the last pair of eyes comes off you the readout says THEY LOST YOU in those words, and short of that it says how many men are hunting a memory. A mechanic working and unreadable is the same as not working',
+    /setRead\('THEY LOST YOU'/.test(demo) &&
+    /setRead\('PARTLY LOST'/.test(demo) &&
+    /function blindHunters\(\)\{/.test(demo));
+
+  ok('V165 MANUFACTURING WALLS IS FLAGGED AND NOT BUILT: the spec\'s steam, sleep bombs and cloud walls are a second feature and half of it is terrain, which is WORLD\'s system. The variable has to exist before there is anything worth giving him tools to control',
+    !/function makeSteam\(|function cloudWall\(|function sleepBomb\(/.test(demo));
+
+/* ===== V164 MOVEMENT ASYMMETRY (RF4-51, machine 3) ===============
+   "Slow enemies move ORTHOGONALLY ONLY; you move DIAGONALLY -- every diagonal
+   step costs them more than it costs you, so you generate distance out of pure
+   geometry with NO RESOURCE SPENT."
+   The BEHAVIOUR is measured on the shipped mover by fight_moves_you_gate (96
+   chases, two arms, one difference). What is pinned here is the shape, the two
+   arithmetic bugs it uncovered, and the CLAIM itself -- run as pure geometry,
+   because a mechanic nobody has checked the maths of is a hope. */
+  ok('V164 THE IDENTITY IS DECLARED, NOT DERIVED: `ortho` sits on the archetype next to hp and acc, so which bodies are slow is one word to change and is visible where every other identity number is. Deriving it from a threshold on hp would be authoring canon behind a formula',
+    /bot:\s*\{n:'SEC-BOT'[^}]*ortho:true\}/.test(demo) &&
+    !/ortho:\s*(e\.|hp|E\.hp|\()/.test(demo));
+
+  ok('V164 AND THE SLOW SET IS THE FAST SET FILTERED, never a second table -- two copies of a rule always drift apart, and the whole mechanic is that these two lists differ by exactly the diagonals',
+    demo.includes('const PRESS_CELLS_ORTHO=PRESS_CELLS.filter(c=>c[0]===0||c[1]===0);') &&
+    /for\(const off of \(\(e\.E&&e\.E\.ortho\)\?PRESS_CELLS_ORTHO:PRESS_CELLS\)\)/.test(demo));
+
+  { /* THE CLAIM, AS GEOMETRY. He flees on a diagonal; a chaser that may only
+       take cardinals cannot answer both axes in one turn, so the gap opens by a
+       tile a turn while an eight-way chaser holds it flat. No game state, no
+       scorer, no arena -- just the shape the whole feature rests on. */
+    const run = (ortho) => {
+      const SET = ortho ? [[0,-1],[1,0],[0,1],[-1,0]]
+                        : [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      let x = 6, y = 6;                                  /* he is at the origin */
+      for (let t = 0; t < 8; t++) {
+        x += 1; y += 1;                                  /* he runs diagonally away */
+        let best = null, bd = Infinity;                  /* the chaser closes as hard as it can */
+        for (const o of SET) {
+          const d = Math.hypot(x + o[0], y + o[1]);
+          if (d < bd) { bd = d; best = o; }
+        }
+        x += best[0]; y += best[1];
+      }
+      return Math.hypot(x, y);
+    };
+    const slow = run(true), fast = run(false);
+    ok('V164 THE CLAIM IS TRUE AS GEOMETRY BEFORE IT IS TRUE AS CODE: over eight diagonal strides a cardinals-only chaser ends '
+      + slow.toFixed(1) + ' tiles out against the eight-way chaser\'s ' + fast.toFixed(1)
+      + ' -- distance manufactured with no resource spent, which is the entire spec row',
+      slow - fast >= 3 && fast <= 9);
+  }
+
+/* ===== AND THE TWO ARITHMETIC BUGS IT UNCOVERED ===================
+   The first cut of the mechanic shipped a STATUE. Halving a body's neighbours
+   did not cause that; it exposed two numbers that had been quietly wrong. */
+  { /* V160 (mine, 8/16) shrank every gun's MAX to the sight ceiling and left the
+       EFF column exactly where it was, so the rifle wanted to fight at 20 tiles
+       and the sniper at 30 on a board that stops at 16 -- and pressScore's whole
+       progress gradient is max(0,d-eff), which is then zero at every distance
+       either of them can ever be at. RUN, not read: a gun cannot want to fight
+       further than it can shoot. */
+    const grab = (name) => {
+      const a = demo.indexOf('function ' + name + '(R){');
+      return a > 0 ? demo.slice(a, demo.indexOf('}', demo.indexOf('return', a)) + 1) : '';
+    };
+    /* BOTH doors, because effRange is only meaningful as the one that cannot
+       overshoot maxRange -- running it against a stub would be marking my own
+       homework with a ruler I drew */
+    const src = grab('maxRange') + '\n' + grab('effRange');
+    let rifle = null, sniper = null, pistol = null, dark = null;
+    try {
+      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
+        src + '; return effRange;')(16, 4, () => 1);
+      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
+        src + '; return effRange;')(16, 4, () => 0.5);
+      rifle = f({ eff: 20, max: 16 }); sniper = f({ eff: 30, max: 16 });
+      pistol = f({ eff: 6, max: 12 }); dark = fDark({ eff: 20, max: 16 });
+    } catch (e) {}
+    ok('V164 EFF GOES THROUGH THE SAME DOOR MAX ALREADY GOES THROUGH: a rifle written eff:20 on a 16-tile board wants to fight at ' + rifle
+      + ' and a sniper written eff:30 at ' + sniper + ', so the progress gradient is live instead of dead by construction',
+      rifle === 16 && sniper === 16);
+    ok('V164 AND NO NUMBER WAS PICKED TO MAKE IT MEASURE WELL -- the clamp takes each gun to its OWN max and no further, so a pistol written eff:6 max:12 is untouched at ' + pistol + ' and the existing order survives',
+      pistol === 6);
+    ok('V164 AND THE DARK SHRINKS WHERE A GUN WANTS TO FIGHT EXACTLY AS IT SHRINKS WHERE IT CAN: at half range the same rifle wants ' + dark + ' tiles, not 20',
+      dark === 8);
+    ok('V164 AND NOTHING READS THE RAW EFF FOR A MOVEMENT DECISION ANY MORE',
+      !/Math\.max\(0,d-R\.eff\)/.test(demo));
+  }
+
+  { /* AND THE BAR A STEP HAS TO CLEAR WAS HIGHER THAN A STEP. Progress is worth
+       PRESS_PULL/mx per tile: 0.183 to a 12-tile pistol and 0.1375 to a 16-tile
+       rifle, against a flat 0.18 typed in. The pistol cleared it by two
+       thousandths; the rifle never could, at any distance, ever. */
+    ok('V164 THE MOVE-WORTH BAR IS DERIVED OFF THE PULL, not typed beside it -- two loose numbers in a relationship drift apart the first day somebody moves a range',
+      demo.includes('const PRESS_PULL=2.2;') &&
+      demo.includes('const PRESS_WORTH=0.5*PRESS_PULL/REACH_CEIL;') &&
+      /s-=PRESS_PULL\*Math\.max\(0,d-effRange\(R\)\)\/mx;/.test(demo));
+    const pull = 2.2, ceil = 16, worth = 0.5 * pull / ceil;
+    ok('V164 AND IT MEANS ONE PLAIN THING -- HALF A TILE OF REAL PROGRESS -- so every gun in the game can clear it with ONE step, which is the least a movement threshold can do and still be a threshold. The old flat 0.18 was a wall to anything reaching past 12 tiles',
+      worth < pull / ceil && 0.18 > pull / ceil && worth < 0.18);
+  }
+
 /* ===== V162 THE FIGHT IS ON THE GRID ==============================
    Paolo 8/17: "we really need this shit to play exactly like rogue fable four
    right now."
@@ -4814,7 +5143,10 @@ ok('V135 MECHANISM MINE, CONTENTS HIS, AND THE CONTENTS SHIP EMPTY: who the fami
 ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter to the nearest rock exactly once and then `if(e.gcov)continue;` froze him there for the rest of the fight. Only the 7/19 blades ever advanced. pressAI is the other half, and it runs on the turn AFTER the scramble so a man caught in the open still gets his stone first',
   demo.includes('V136 THEY COME FOR YOU') &&
   demo.includes('function pressAI(){') &&
-  demo.includes('function pressScore(e,x,y){') &&
+  /* V165 RE-POINTED: pressScore takes a fourth argument now -- the tile a BLIND
+     man is walking to. The function is the same function and this claim is about
+     it existing and being called, not about its arity. */
+  demo.includes('function pressScore(e,x,y,aim){') &&
   /pressAI\(\); updateGeomCover\(\);/.test(demo) &&
   /function tickTurnEnd\(\)\{ meleeTurnRun\(\); updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
 
@@ -4837,8 +5169,15 @@ ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer c
    saturates near 9.6 tiles, so out on a 16-tile board the gradient was FLAT:
    movers/turn fell 1.93 -> 0.42 and they closed 0.61 tiles in six turns. The
    board got bigger and the fight got emptier. Gated so it cannot come back. */
+/* V164 RE-POINTED, AND THIS CHECK WAS GUARDING THE BROKEN VERSION. It swore
+   "both terms are monotonic at every distance, so there is no flat stretch to
+   stall in" while pinning the literal `d-R.eff`, and from V160 onward that term
+   was structurally zero for the rifle (eff 20) and the sniper (eff 30) on a
+   board that stops at 16. The check could not tell, because it was reading the
+   words rather than the arithmetic. It now pins the EFF-THROUGH-ONE-DOOR form,
+   and the V164 block above RUNS the clamp instead of trusting it. */
 ok('V138 THE PRESS READS **HIS** GUN, NEVER MINE: a man wants to be inside HIS OWN effective range, and past his own max he is holding a brick -- the worst tile on the board to stand on. Both terms are monotonic at every distance, so there is no flat stretch to stall in (the V137 cliff lesson, applied before it could bite twice)',
-  /s-=2\.2\*Math\.max\(0,d-R\.eff\)\/mx;/.test(demo) &&
+  /s-=PRESS_PULL\*Math\.max\(0,d-effRange\(R\)\)\/mx;/.test(demo) &&
   /if\(d>mx\)s-=2\.5;/.test(demo) &&
   !/s\+=2\.2\*\(distT\(\{edist:e\.edist\}\)-distT\(\{edist:d\}\)\)/.test(demo));
 
@@ -4850,7 +5189,11 @@ ok('V136 FIRE AND MOVEMENT, NOT A CAVALRY CHARGE: at most half the line bounds i
 ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a shooter\'s distance so nobody walks into your lap, and no candidate tile is ever inside a pillar or on top of another body',
   /const PRESS_STANDOFF=3\.2;/.test(demo) &&
   /if\(Math\.hypot\(nx,ny\)<standoff-0\.01\)continue;/.test(demo) &&
-  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /* V165 RE-POINTED: a THIRD case joins the two. A man searching for somebody he
+     cannot see keeps no firing distance from him, so he uses the same HOLD_PASS
+     V137 already wrote for a man running an objective. Both original numbers are
+     untouched and both original cases still read exactly as they did. */
+  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
@@ -4861,7 +5204,11 @@ ok('V136 A MOVE HAS TO BE WORTH SOMETHING: PRESS_WORTH is the margin a tile must
      under it. A man moves ONE CELL now, so the cap is the cell itself and the
      constant is DELETED rather than left declared and unread -- a dead dial is
      worse than no dial, because the next session tunes it and nothing happens. */
-  /const PRESS_WORTH=0\.18;/.test(demo) &&
+  /* V164 RE-POINTED AGAIN, and the margin is no longer a typed number: 0.18 was
+     higher than a single tile of progress for any gun reaching past 12 tiles, so
+     for the rifle and the sniper it was not a margin, it was a wall. It is
+     derived off the pull now and means half a tile of real progress. */
+  /const PRESS_WORTH=0\.5\*PRESS_PULL\/REACH_CEIL;/.test(demo) &&
   /const PRESS_CELLS=\[\[0,-1\],\[1,-1\],\[1,0\],\[1,1\],\[0,1\],\[-1,1\],\[-1,0\],\[-1,-1\]\];/.test(demo) &&
   !/const PRESS_STEP=/.test(demo));
 
@@ -4925,7 +5272,9 @@ ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives 
      man at a fractional radius and knocked him straight back off the grid -- is
      replaced by putCell. Same law, same numbers, legal position. */
   /const HOLD_PASS=1\.8;/.test(demo) &&
-  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /* V165 RE-POINTED: same line, same numbers, one more case on it -- a searching
+     man is running an objective in exactly the sense V137 meant. */
+  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /putCell\(e,Math\.round\(p\.x\),Math\.round\(p\.y\)\); snapBody\(e\);/.test(demo));
 
 ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',

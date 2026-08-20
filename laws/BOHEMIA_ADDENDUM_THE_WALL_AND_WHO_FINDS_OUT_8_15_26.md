@@ -154,6 +154,20 @@ Different questions, but they overlap on the words "standing" and "word
 travels", and **both now carry a `RUNGS` table**. FLAGGED FOR CONSOLIDATION —
 not merged blind on the turn I found it.
 
+> **CORRECTED 8/18/26 — THE FLAG WAS WRONG AND IT WAS MINE. DO NOT CONSOLIDATE.**
+> It was a NAME COLLISION read as a duplicate mechanism, and the evidence against
+> it is the table three lines above this paragraph, which I also wrote. Measured:
+> the two tables share **zero words**, standing goes negative and belonging
+> cannot, and fed the same number they **disagree on every input** — `3` is
+> USEFUL in one and FWU in the other. You can be INSIDE an outfit and still be
+> somebody a given member thinks badly of; **one table cannot hold that state.**
+> Merging them would not tidy anything, it would silently rewrite both systems'
+> answers. Fenced by `commitment_gate.js` **part F** (6 claims, read-only).
+> Full evidence: `records/BOHEMIA_THE_TWO_RUNGS_TABLES_ARE_NOT_A_DUPLICATE_8_18_26.md`
+>
+> **A SHARED IDENTIFIER IS NOT A SHARED MECHANISM, AND A FLAG IS A HYPOTHESIS,
+> NOT A WORK ORDER.**
+
 ## 8. THE LAW
 
 **1. A LADDER GETS A WALL, OR IT IS A PROGRESS BAR.** Repeating one act must run

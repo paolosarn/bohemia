@@ -352,9 +352,40 @@ function sndSwing(){ var n=_now2(); if(n-_swgAt<200)return; _swgAt=n;
 
 
 def wire_melee(demo):
-    """melee_hit and swing_air, on the branch that already tells them apart."""
-    if "sfxAsk('melee_hit')" in demo:
+    """melee_hit and swing_air, on the branch that already tells them apart.
+
+    IDEMPOTENCY IS CHECKED ON THE DEFINITION, NOT THE CALL SITE (8/18 fix).
+    sndMelee/sndSwing are inserted INSIDE the block this tool re-injects
+    wholesale, and their CALL SITE is not. So a second run of this tool deleted
+    the two functions and left the calls pointing at nothing -- and the old
+    check, which looked only for the call, saw "already wired" and never put
+    them back. Combat would have thrown on every melee.
+    Same two-tools-one-seam defect that once deleted the acoustic spaces. The
+    rule that catches it: an idempotency check must test the thing this tool
+    can DESTROY, never the thing it cannot.
+    """
+    # THE MARKER MUST BE ONE THE RE-INJECT CANNOT EAT (8/18, second fix).
+    # The first version tested for sfxAsk('melee_hit'), which lives INSIDE
+    # sndMelee's body -- and that body sits inside the block this tool replaces
+    # wholesale. So after a re-inject BOTH the definition and the marker were
+    # gone, have_call read False, and control fell to the branch that looks for
+    # the untouched strike branch, which no longer matched because the CALL was
+    # already patched in. The tool could never re-run and said so with a message
+    # that pointed at the wrong thing.
+    # The call site `sndMelee();` at the strike branch is outside the block and
+    # therefore survives. That is the honest marker.
+    have_call = 'sndMelee();' in demo
+    have_def = 'function sndMelee(' in demo
+    if have_call and have_def:
         return demo, True
+    if have_call and not have_def:
+        # the re-inject ate the helpers; put them back and leave the call alone
+        anchor = "var _blkAt=0;"
+        if demo.count(anchor) != 1:
+            print('FAIL: cannot find the sound layer to restore the melee helpers')
+            return demo, False
+        print('  restored sndMelee/sndSwing (the re-inject had eaten them)')
+        return demo.replace(anchor, MEL_FNS + anchor, 1), True
     if demo.count(MEL_OLD) != 1:
         print('FAIL: the melee strike branch is not present exactly once (%d)'
               % demo.count(MEL_OLD))

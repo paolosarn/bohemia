@@ -538,3 +538,113 @@ banding untouched, verified before/after on the same lawn. The full cure is
 MORE turf variants (the bank holds 3 per stripe) - filed as cook volume.
 The audit habit is now part of the ledger: compose-and-look every few
 passes, not only piece-and-look every pass.
+
+## 8/19 TWENTY-NINTH PASS: THE SIGNS STAND UP (TF-WORLD-010, the HIGH row)
+
+The board's oldest HIGH row (7/28) shipped: EVERY DISTRICT GETS ITS TALL
+THING. Measured first - the districts have been naming their own sign
+cells all along (commercial 'pylon sign / pole', swapmeet 'market pylon
+sign', school + drivein 'marquee sign', drivein 'screen tower' at 92x25
+cells, stadium 'scoreboard / jumbotron', downtown 'blade sign' on the
+overhead layer, policestation 'roof antenna / dish') and every single one
+rendered as a flat generic brick mass. Now they draw as dead Vegas signs:
+bleached blown-out pylon cabinets on steel legs, crazed marquee letter
+boards carrying the SHADOWS of gone letters (rects, never glyphs - the
+words are Paolo's), the giant torn drive-in screen with lattice through
+the holes, the dead bulb-matrix scoreboard, blade signs jutting over the
+sidewalk, the roof dish still pointed at something. 37 pieces
+(tools/tfcook/TF-WORLD-010_cook.py), faces harvested from the approved
+signband plastics + kerb concrete, steel from galv parapet + rail plate.
+
+THE LESSON THIS PASS PAID FOR: harvest by LUMINANCE ROLE, not by
+dominance. The signband cans are the right LANGUAGE for a dead sign but
+their dominant pools are dark fascia browns - the first render's "bleached
+faces" were brown boxes. The bleached pale had to come from the street
+concrete (lifted 1.15 for sun-bleach); the cans kept their real job,
+tinting the ghost bands DARK per the family's own 8/15 rule. And the
+second render lesson: never bake a repeating element (the pole) into an
+edge-band piece - a 7-wide cabinet stood on a colonnade of seven legs
+until the pole became its own overlay placed at the real leg columns.
+
+Sweep-verified the hook claims EXACTLY the seven measured surfaces and
+nothing else. Truckstop's price pylon wires itself when one generates;
+terminal's 'schedule board / clock' from the form DOES NOT EXIST in the
+world (measured) - flagged, nothing to wire until WORLD names it.
+
+## 8/19 THIRTIETH PASS: THE PANELS GET THEIR JOINTS (TF-RUN-005)
+
+The other 7/28 HIGH row closed the same day as the signs. The tilt-up
+field has been live on the civic and industrial masses since 8/3, but it
+read as a repeating texture - and the form's own spec said the whole
+asset is the JOINT RHYTHM: "big blank fields punctuated by joints, NOT a
+repeating texture." Eleven overlay pieces now ride the approved field: a
+caulked joint every 4-6 columns (rhythm rolled per building, phase locked
+to the flood-filled mass anchor), the poured cap as its own top course
+(the orange starter parapet now dies on tilt-up masses too, the way the
+CMU cap killed it on block masses), the plinth with efflorescence bloom
+at grade, sparse rain weeps (dry aging - dust, UV, streak, never green),
+and the rare boarded punched window in weathered sf_boarded ply. Every
+grey harvested from the field tiles themselves.
+
+THE BUG THE FIRST RENDER CAUGHT: the payload shipped the new td/tdef
+tilt-up flags and the page found ZERO tilt-up masses - because the
+slice's CIVIC_SKIN decoder copies KNOWN KEYS ONLY, and a payload field
+does not exist until the decoder learns it. One line. The lesson joins
+the grab-before-replace law: the pipe has TWO ends, and adding a field to
+the sender is half a wiring.
+
+Verified live: warehouse (joints, boards, plinth bloom), jail (cap
+course), medical. Painted-tan colorway and rain-wet darkening stay
+future volume (colorways and weather, not new forms).
+
+## 8/19 THIRTY-FIRST PASS: THE BUILDINGS GET THEIR THICKNESS (TF-ART-017, first slice)
+
+The lane's own HIGH form: every building was a cardboard flat - ends that
+never turned, windows that were pictures. The insight that made it
+shippable in one pass is the form's own light law taken literally: "the
+corner is a VALUE STEP between two planes and nothing else." So the six
+pieces are pure luminance overlays (RGBA light/shade, no colour of their
+own) that ride WHATEVER material sits underneath - all fifteen approved
+house skins and every civic material get thickness from ONE set, no
+30-colourway explosion, STRUCTURE-NOT-COLOR at its purest.
+
+Wired: the suburb end cells and every civic mass edge wear the outside
+corners (12px return at the measured Clark County wall thickness, the
+bead's dead-straight rust hairline on the arris); the suburb windows and
+boarded openings wear their reveals (opening rects MEASURED off the
+approved starter tiles; shaded jamb / lit jamb / darkest soffit / lit
+sill / sill-corner weeps only).
+
+Verified by reshooting the IDENTICAL jail site before and after: the
+pixel diff is column-localised exactly at the mass edge bands. Scope
+resolutions recorded in the form: parapet corner struck (TF-ART-012
+shipped it 8/11 - the overlap resolved by the record, not by a question);
+rake corner held with TF-CITY-001; concave corners cooked and BANKED (no
+live concave site measured - inert-hook rule); the doors stay untouched
+(Paolo's animated clip-bank art in a later pass owns that surface).
+
+## 8/19 THIRTY-SECOND PASS: THE POWER DISTRICTS READ AS POWER (TF-ART-016 + the ordered merge)
+
+Fourth family of the day. The form's own section B ordered a MERGE with
+TF-RUN-007 before any cook, and the merge is now on the record: 016
+survives with 007's frozen-tracker hook; 007's spiderweb-fracture clause
+corrected (laminated tempered glass crumbs milky and stays put); 007's
+see-over-the-rows clause loses to the dossier's locked layering ruling.
+
+MEASURED FIRST: solar's tables are 27/36 cells x exactly 4 deep, pads in
+3x4 blobs, and the battery yard has NO panel cells - so the canon
+two-state split (solar eerily maintained / battery dead) lands with no
+invented placement at all: maintained panels + pads at solar, dead racks
+at battery, dead-glass sub-states BANKED until a stripped block exists.
+
+The wiring reads the world's own geometry: a panel cell's ROW in its
+table is the count of panel cells above it - back rail, glass, glass,
+front-lip-over-under-slot - with the module frame on the phase column and
+table ends wearing the torque-tube stub. One render iteration: the first
+busbars were dotted columns and read as stipple (the banned thing);
+they are two faint continuous lines now.
+
+The gravel-lane member folded into the approved yard gravel exactly as
+the form predicted. Glass value from the approved wall_window, steel from
+the galv parapet, rust from the rail plate. Verified standing in the
+ranks and among the racks. Seventeenth wired family.

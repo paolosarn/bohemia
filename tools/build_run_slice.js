@@ -411,6 +411,43 @@ grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
 grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
   ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw',
    'kerb_drop_n', 'kerb_drop_e', 'kerb_drop_s', 'kerb_drop_w']);
+/* TF-ART-016 8/19 (TF-RUN-007 merged in): the power districts - panel
+   tables (4 rows x 3 phases), table ends, the pad-mount cabinet, the dead
+   battery racks - tools/tfcook/TF-ART-016_cook.py. The dead-panel glass
+   states (browned, crumb) stay BANKED: no stripped block exists yet. */
+grabPieces('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+  ['sol_r0_p0', 'sol_r0_p1', 'sol_r0_p2', 'sol_r1_p0', 'sol_r1_p1', 'sol_r1_p2',
+   'sol_r2_p0', 'sol_r2_p1', 'sol_r2_p2', 'sol_r3_p0', 'sol_r3_p1', 'sol_r3_p2',
+   'sol_end_w', 'sol_end_e', 'sol_inv_box', 'bat_rack_dead_0', 'bat_rack_dead_1']);
+/* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
+   (outside corners with the bead hairline, window/boarded reveals) that
+   ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.
+   cor_in_* stay banked until a live concave site is measured. */
+grabPieces('banks/tileforms/TF-ART-017_CANDIDATES_8_19_26.json',
+  ['cor_out_l', 'cor_out_r', 'rev_window', 'rev_boarded']);
+/* TF-RUN-005 8/19: the tilt-up panel language - the joint rhythm, cap,
+   plinth, rain streaks and boarded windows that make the live tilt-up
+   field read as lifted panels - tools/tfcook/TF-RUN-005_cook.py */
+grabPieces('banks/tileforms/TF-RUN-005_CANDIDATES_8_19_26.json',
+  ['tu_joint_0', 'tu_joint_1', 'tu_parapet_0', 'tu_parapet_1',
+   'tu_base_0', 'tu_base_1', 'tu_streak_0', 'tu_streak_1', 'tu_streak_2',
+   'tu_board_0', 'tu_board_1']);
+/* TF-WORLD-010 8/19: SIGNS - the tallest thing in every district. The
+   district-named sign cells (pylon, marquee, screen tower, scoreboard,
+   blade sign, roof antenna/dish) measured 8/19 all rendered as flat generic
+   masses; these skin them - tools/tfcook/TF-WORLD-010_cook.py */
+grabPieces('banks/tileforms/TF-WORLD-010_CANDIDATES_8_19_26.json',
+  ['sign_screen_face_0', 'sign_screen_face_1', 'sign_screen_face_2',
+   'sign_screen_torn_0', 'sign_screen_torn_1', 'sign_screen_top',
+   'sign_screen_foot', 'sign_screen_edge_w', 'sign_screen_edge_e',
+   'sign_board_face_0', 'sign_board_face_1', 'sign_board_blown',
+   'sign_board_top', 'sign_board_foot', 'sign_board_edge_w', 'sign_board_edge_e',
+   'sign_marq_face_0', 'sign_marq_face_1', 'sign_marq_top',
+   'sign_marq_edge_w', 'sign_marq_edge_e',
+   'sign_pyl_face_0', 'sign_pyl_face_1', 'sign_pyl_blown_0', 'sign_pyl_blown_1',
+   'sign_pyl_top', 'sign_pyl_foot', 'sign_pyl_pole', 'sign_pyl_edge_w', 'sign_pyl_edge_e',
+   'sign_blade_w_0', 'sign_blade_w_1', 'sign_blade_e_0', 'sign_blade_e_1',
+   'sign_ant_whip', 'sign_ant_dish']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('
@@ -638,9 +675,20 @@ console.log('  TILEFORMS: TF-ART-012 fields replace the civic roof pool (ring an
    section). The cap beam is the top course of a BLOCK-material wall and the vent
    block a sparse mid-wall cell - the bd/bdef flags tell the page which masses
    drew a block material. */
+/* TF-RUN-005 8/19: which pool slots are TILT-UP, so the page can hang the
+   panel language (joints, cap, plinth, streaks, boards) on exactly the
+   masses that drew the tilt-up field. Extras pushed onto the pools after
+   the CIVIC map (corrugate, ghost brick, park colourways, burned) are
+   never tilt-up, and an absent flag reads falsy, so no padding is needed. */
+var civicTilt = {};
+civicOrder.forEach(function (d) {
+  civicTilt[d] = CIVIC[d].map(function (id) { return id === 'tiltup_concrete'; });
+});
 var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: civicRoofPool,
                      bd: civicBlock,
-                     bdef: CIVIC_DEFAULT.map(function (id) { return id.indexOf('block_') === 0; }) };
+                     bdef: CIVIC_DEFAULT.map(function (id) { return id.indexOf('block_') === 0; }),
+                     td: civicTilt,
+                     tdef: CIVIC_DEFAULT.map(function (id) { return id === 'tiltup_concrete'; }) };
 if (html.indexOf('__CIVIC_SKIN_JSON__') < 0) throw new Error('missing __CIVIC_SKIN_JSON__ placeholder');
 html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
 console.log('  DISTRICT MATERIALS: ' + civicOrder.length + ' district types mapped to real '

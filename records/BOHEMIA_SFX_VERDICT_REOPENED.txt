@@ -1,0 +1,33 @@
+BOHEMIA — SOUNDS HE JUDGED THAT HAD TO BE REOPENED
+==================================================
+Every line here is a thumb Paolo already spent that no longer points at the
+sound he heard. verdict_frozen_gate.py REFUSES to re-bless a judged candidate
+unless its id appears below with a reason, so this file is the only door, it is
+committed, and it is permanent: nothing ever gets removed from it. The gate
+prints every line of it on every run, so a reopening can never go quiet.
+
+The bar for a line here is deliberately brutal. "I found a better voice" is not
+a reason. "It was illegal, or it was broken" is. One line per id, four fields,
+and the reason stays on the one line so the gate can read it back.
+
+FORMAT:  id | date | what he heard -> what he gets now | why it could not stand
+
+will_goes.2 | 8/19/26 | ironlung -> chapelbreath | ironlung was GRAVEYARDED 7/19/26 with "Do not re-add", and it is also one of two voices that render SILENT through this engine's gain -- so his only UP on this moment was given to a transient with no instrument behind it
+will_goes.3 | 8/19/26 | throatsong -> ghostvox | throatsong was GRAVEYARDED 7/19/26 with "Do not re-add", same silent-through-a-gain behaviour -- he voted this DOWN and he was voting down silence
+hurt_more.2 | 8/19/26 | ironlung -> chapelbreath | same retired voice, same silence; he voted UP on a sound with no body in it
+hurt_more.4 | 8/19/26 | throatsong -> ghostvox | same retired voice, same silence; he voted UP on a sound with no body in it
+
+HOW IT HAPPENED. Nothing in the machine checked a voice NAME against
+gates/bohemia_graveyard.txt, so SFX-07 and SFX-08 borrowed two voices Paolo had
+killed on 7/19 and shipped them into moments he then judged. The measurement
+tool was also reading each voice on a clean wire instead of through the gain and
+panner the engine actually plays it through, so a voice that dies in that path
+measured perfectly healthy. Both holes are closed: instrument_gate.py now sweeps
+every borrowed name against the registry, and
+tools/bohemia_sfx_instrument_measure.py measures on the engine's own path.
+
+WHAT IT COST HIM, PLAINLY: three of the sounds he approved on 8/17 were
+approvals of a sound with no instrument in it. They now play a live breath voice
+at a level the render gate can measure. He has not heard the new ones. Per
+EVERYTHING IS A THUMB they are NOT queued for his approval -- they are in the
+game, and he corrects them if he hates them.

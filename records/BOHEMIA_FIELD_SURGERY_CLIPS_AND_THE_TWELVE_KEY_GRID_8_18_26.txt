@@ -1,0 +1,107 @@
+BOHEMIA -- THE FIELD SURGERY CLIPS, AND WHAT THE POSE GRID WILL AND WILL NOT CARRY
+CHARACTER lane, 8/18/26. Backlog row FS. Measured, not estimated.
+
+THE ORDER
+---------
+Paolo 8/13, direct: "definitely we're gonna need to make animations for this and yep"
+(laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md sections 7-8). The procedure
+is HIS and he wrote it at a bedside: pour povidone iodine cut with sterile water,
+inject lidocaine around the wound, sterilise the tweezers in boiling water, pick the
+pellets out, inject antibiotics. gates/medkit_gate.js already held the five goods and
+the five steps. There was nothing to look at.
+
+WHAT SHIPPED
+------------
+Three clips -- pour, inject, tweeze -- covering all five steps, because INJECT is used
+twice (lidocaine, then antibiotics) and the sterilise beat is a held prop rather than
+a body action. That split is the backlog row's own, not a shortcut. All three are
+ANIMBEATS 4: one full bar, two seconds, the pace of somebody being careful.
+ANIMATION tab, pick the clip. LOOK tab, "TREATING A GUNSHOT WOUND".
+Held by gates/field_surgery_gate.js (18 claims).
+
+THEY ARE TOLD APART BY TIMING, NOT BY SHAPE
+-------------------------------------------
+All three put both hands in the same small patch in front of the body. They have to --
+it is the same wound. So WHERE the hands are cannot be the channel, and that is not a
+guess: a wide-brim hat is worth 1.9% of a body's pixels at this rig size (measured the
+same day, records/BOHEMIA_THIRTEEN_OUTFITS_AND_WHAT_HEADWEAR_IS_WORTH_8_18_26.txt).
+Small geometry does not read. Motion does.
+
+    pour     6 of 12 keyframes with the hand STOPPED, 0 reversals, peak 3.2px
+             -- the stillness is the tell, and nothing else in the set stops
+    inject   peak 6.0px in ONE keyframe, the fastest single move of the three
+             -- slow approach, jab, press, slow withdraw
+    tweeze   7 direction reversals, only 3 still keys
+             -- the only thing in the game that trembles
+
+FOUR DEFECTS, EVERY ONE OF WHICH READ CORRECTLY AND MEASURED WRONG
+------------------------------------------------------------------
+1. THE WOUND WAS OUT OF ARM REACH. The first cut treated a wound mid-thigh, which is
+   where you would treat a gunshot. Measured on the real rig: the thigh sits 19.1px
+   from the shoulder and the whole arm is 16px. A STANDING PERSON CANNOT REACH THEIR
+   OWN MID-THIGH -- which is true of people too -- so solveIK clamped and the hand
+   hovered at hip height doing nothing recognisable, for three clips at once.
+   THE SITE IS THE FOREARM NOW, and that is the better answer for a second measured
+   reason: the long coats that dominate this wardrobe SWALLOW THE THIGH. The forearm
+   is held out in front, outside the coat's silhouette. A wound you cannot see being
+   treated is not an animation.
+
+2. THE JAB WAS SHORTER THAN A KEYFRAME. POSEHOLD.keys is 12, so 1/12 of a bar is the
+   shortest move this engine can express. The jab spanned 0.06 of a bar -- less than
+   one key -- and it did not exist: the spike fell between keyframes and never
+   rendered. Measured, the "fastest move in the clip set" was the SLOWEST. It now
+   spans exactly one key, 5/12 to 6/12, on the boundaries.
+
+3. THE TREMOR WAS SAMPLED AT ITS OWN ZERO CROSSINGS. sin(2*pi*6*t) evaluated at
+   t = i/12 is sin(pi*i), which is ZERO at every single keyframe. The clip whose whole
+   identity is that it shakes measured 9 still keys out of 12. cos alternates +1/-1
+   key by key instead, which is the tremor the grid can actually carry.
+
+4. TWO OF THE THREE NEVER RETURNED HOME. A cyclic clip whose pose at phase 1 differs
+   from its pose at phase 0 SNAPS once per bar. Pour ended 5px from where it started
+   and inject 7px, so the loop seam was the biggest hand move in both -- which is also
+   how the first version of the gate got fooled into calling it "the fastest move".
+
+*** THE GENERAL LESSON, AND IT IS FOR ANY LANE THAT AUTHORS A CLIP ***
+----------------------------------------------------------------------
+THE POSE GRID IS 12 KEYS PER BAR. Design to it, not against it:
+  - the shortest expressible move is 1/12 of a bar; anything briefer may not exist
+  - land ramps ON key boundaries (multiples of 1/12) or they finish between frames
+  - an oscillation must be a frequency the grid can sample -- 6/bar with a cosine
+    alternates cleanly; 6/bar with a sine is invisible; 7/bar is noise
+  - a looping clip must return to its start pose, or it snaps once a bar
+
+*** CORRECTED 8/18, LATER THE SAME DAY: THE "31 CLIPS" ABOVE IS WRONG AND IT WAS MY
+NUMBER. *** It measured HAND TRAVEL IN RIG-SPACE, which says nothing about whether
+anybody would see it: a 3px hand offset at the seam is invisible in a clip whose
+normal motion is 2,000 pixels a frame. Measured on the RENDERED FRAME instead, as a
+ratio against the biggest move each clip already makes:
+    102 OF 103 CYCLIC CLIPS FLOW. ONE snaps -- `drunk`, and it is now fixed.
+The sweep I was recommending would have been 31 fixes to 30 clips that were fine.
+Full measurement: records/BOHEMIA_WHICH_ANIMATIONS_JERK_8_18_26.txt, held by
+gates/loop_seam_gate.js.
+
+AND THE ORIGINAL CLAIM, KEPT SO THE CORRECTION HAS SOMETHING TO POINT AT:
+ the loop-closure check was run
+over every clip in the game as information. 31 OF THEM DO NOT CLOSE, some badly --
+drunk 11.0px, deadeye 5.7, cheer 5.0, run 3.2, dance 3.2, eat 3.0. Some of that may be
+deliberate and some is the same defect found here. It is NOT failed by this gate,
+because those clips belong to work this session did not do and a gate that goes red on
+somebody else's file is a gate that gets switched off. It is written down here so the
+next lane to touch animation can decide, with the measurement already taken.
+
+WHAT IS STILL OPEN
+------------------
+RUN consumes these in the treat-wound sequence. That wiring is RUN's half of the same
+routing (ONE SYSTEM, ONE SESSION) and medkit_gate already records that the treat-wound
+verb, the clip hook and the sound hook are deliberately absent here.
+Which step looks how is HIS thumb on the clips themselves, per the backlog row.
+
+WHERE HE SEES IT
+----------------
+ANIMATION tab -- pick pour, inject or tweeze from the clip list.
+LOOK tab -- "TREATING A GUNSHOT WOUND", the frames plus a bar chart of hand speed.
+
+  node gates/field_surgery_gate.js               holds it
+  node tools/bohemia_field_surgery_picture.js    re-shoots the picture
+  python3 tools/bohemia_field_surgery_clips.py   the idempotent patch that installs them

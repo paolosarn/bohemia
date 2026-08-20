@@ -99,6 +99,34 @@ function xchPick(){
   return best;
 }
 
+/* WHAT THE WORLD CURRENTLY KNOWS ABOUT THE PLAYER, in counters the city really
+   keeps. bohemia_deeds.js and bohemia_standing.js both exist in engine/ and
+   NEITHER IS IN THIS FILE (measured 8/18: zero occurrences), so what he was SEEN
+   doing is not askable here yet. What IS here is how many doors he has knocked
+   on, how many names he has taken, and how many subjects he has gone round
+   asking about -- and going round asking IS a deed. */
+function xchWorld(){
+  var asked = {}, n = 0;
+  try {
+    for (var k in ASK_DONE) for (var sub in ASK_DONE[k]) {
+      if (!asked[sub]) { asked[sub] = 1; n++; }
+    }
+  } catch (_e) {}
+  var known = 0, names = 0;
+  try { known = CT_MET.known() | 0; names = CT_MET.namesKnown() | 0; } catch (_e) {}
+  return { asked: n, known: known, names: names };
+}
+/* HAS EITHER OF THEM ACTUALLY MET HIM? Q062.P6: a witness turns a rumour into
+   shared truth, so the two of them speak differently depending on which they
+   are. CT_MET is keyed the way ctPerson keys it, not the way the population
+   module does -- getting that wrong would make every pair a stranger forever. */
+function xchWitness(a, b){
+  try {
+    if (CT_MET.get('P:city:' + a.id) || CT_MET.get('P:city:' + b.id)) return 'seen';
+  } catch (_e) {}
+  return 'heard';
+}
+
 function xchKey(a, b){
   var ka = String(a.key || a.id || 'a'), kb = String(b.key || b.id || 'b');
   return ka < kb ? ka + '|' + kb : kb + '|' + ka;
@@ -115,7 +143,8 @@ function xchStart(now){
   var x;
   try {
     x = BohemiaExchanges.nextFor(key, a.archetype || 'any', b.archetype || 'any',
-                                 XCH.spent, Math.floor(now / 1000) | 0);
+                                 XCH.spent, Math.floor(now / 1000) | 0,
+                                 { world: xchWorld(), witness: xchWitness(a, b) });
   } catch (_e) { return false; }
   if (!x) return false;
   var heard;

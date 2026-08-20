@@ -233,6 +233,290 @@ const BOH_SFX = (function () {
     return o;
   }
 
+  /* ---- WHAT HIS RACK ACTUALLY DOES (8/19, MEASURED) --------------------
+     Every voice this engine borrows from the music studio, rendered off the
+     REAL rack in the REAL alpha and measured down to -50 dB, on a 2x2 grid of
+     the two things that turn out to change what a voice does:
+
+       name: [ sec  @ semi -24, step 0.10 |  sec  @ semi -24, step 0.60,
+               sec  @ semi +12, step 0.10 |  sec  @ semi +12, step 0.60,
+               peak @ semi -24, step 0.10 |  peak @ semi -24, step 0.60,
+               peak @ semi +12, step 0.10 |  peak @ semi +12, step 0.60 ]
+
+     THREE THINGS THIS TABLE SAYS THAT NOBODY HAD LOOKED AT. First, HALF HIS
+     RACK IGNORES THE STEP: `templeblock` is 45 ms whether you ask for 100 ms or
+     600, `udu` is 99 ms, `washboard` is 42 ms -- they are one-shots with their
+     own built-in length, and the other half (`dawnpad`, `bottle`, `ironstep`)
+     stretch with it linearly, out to six seconds. Second, THEY ARE NOT THE SAME
+     LOUDNESS, and not close: `boneplate` peaks at 0.03 where `taiko` peaks at
+     0.53 off the same bank at the same drive, a 17x spread. Driving them all at
+     one g0 -- which is what the first bridge did -- is why 27 candidates landed
+     outside the judgeable band. Paolo would have been picking whichever one he
+     could HEAR. Third, BOTH OF THOSE ALSO MOVE WITH PITCH: `edenmist` peaks 7x
+     higher two octaves up, `boneplate` is half as long an octave up. That third
+     one is why a first table indexed on the step alone still left four
+     candidates too quiet to judge and one that was a click.
+     Bilinear between the four corners, held inside them at the edges.
+     This is calibration data, not content: nothing here is a decision about
+     what anything sounds like, it is a ruler held up to his own instruments.
+     Regenerate with tools/bohemia_sfx_instrument_measure.py --write. */
+  var INST_VOICE = {
+    anvil:         [0.025, 0.069, 0.128, 0.269, 0.565,
+                    0.025, 0.070, 0.134, 0.265, 0.536,
+                    0.1599, 0.1801, 0.1832, 0.1556, 0.1244,
+                    0.1989, 0.1682, 0.1559, 0.1629, 0.1572],
+    boneplate:     [0.040, 0.082, 0.172, 0.285, 0.400,
+                    0.036, 0.060, 0.088, 0.097, 0.122,
+                    0.0047, 0.0090, 0.0070, 0.0123, 0.0113,
+                    0.0336, 0.0484, 0.0518, 0.0626, 0.0642],
+    bones:         [0.143, 0.143, 0.143, 0.143, 0.143,
+                    0.144, 0.144, 0.144, 0.144, 0.144,
+                    0.0913, 0.0913, 0.0913, 0.0913, 0.0913,
+                    0.1105, 0.1105, 0.1105, 0.1105, 0.1105],
+    bottle:        [0.068, 0.175, 0.325, 0.657, 1.312,
+                    0.069, 0.175, 0.329, 0.658, 1.315,
+                    0.2331, 0.2538, 0.2550, 0.2550, 0.2550,
+                    0.2550, 0.2550, 0.2550, 0.2550, 0.2550],
+    cabasa:        [0.027, 0.028, 0.029, 0.028, 0.027,
+                    0.027, 0.028, 0.028, 0.029, 0.029,
+                    0.0952, 0.0566, 0.0662, 0.0710, 0.0734,
+                    0.0773, 0.0718, 0.0782, 0.0611, 0.0667],
+    capacitor:     [0.144, 0.144, 0.144, 0.144, 0.144,
+                    0.142, 0.142, 0.142, 0.142, 0.142,
+                    0.1327, 0.1327, 0.1327, 0.1327, 0.1327,
+                    0.1338, 0.1338, 0.1338, 0.1338, 0.1338],
+    cellring:      [0.320, 0.320, 0.320, 0.320, 0.320,
+                    0.320, 0.320, 0.320, 0.320, 0.320,
+                    0.1200, 0.1200, 0.1200, 0.1200, 0.1200,
+                    0.1200, 0.1200, 0.1200, 0.1200, 0.1200],
+    chapelbreath:  [0.230, 0.565, 1.107, 1.968, 4.665,
+                    0.149, 0.606, 1.173, 2.125, 4.629,
+                    0.0040, 0.0059, 0.0062, 0.0068, 0.0135,
+                    0.0066, 0.0060, 0.0065, 0.0075, 0.0129],
+    coin:          [0.226, 0.226, 0.226, 0.226, 0.226,
+                    0.221, 0.221, 0.221, 0.221, 0.221,
+                    0.1525, 0.1525, 0.1525, 0.1525, 0.1525,
+                    0.1760, 0.1760, 0.1760, 0.1760, 0.1760],
+    dawnpad:       [0.165, 1.063, 2.061, 3.848, 6.248,
+                    0.465, 1.128, 2.061, 3.848, 6.248,
+                    0.2314, 0.1565, 0.1567, 0.1571, 0.2602,
+                    0.0349, 0.2294, 0.2308, 0.3264, 0.3512],
+    dawnwash:      [0.336, 0.902, 1.702, 3.389, 6.244,
+                    0.236, 0.711, 1.697, 3.260, 6.239,
+                    0.0405, 0.0438, 0.0470, 0.0518, 0.0630,
+                    0.0456, 0.0492, 0.0542, 0.0525, 0.0534],
+    dropkick:      [0.076, 0.076, 0.076, 0.076, 0.076,
+                    0.085, 0.085, 0.085, 0.085, 0.085,
+                    0.3463, 0.3463, 0.3463, 0.3463, 0.3463,
+                    0.3463, 0.3463, 0.3463, 0.3463, 0.3463],
+    edenmist:      [0.375, 0.996, 1.860, 3.719, 6.247,
+                    0.371, 0.993, 1.856, 3.715, 6.249,
+                    0.0057, 0.0086, 0.0096, 0.0110, 0.0113,
+                    0.0626, 0.0729, 0.0760, 0.0779, 0.0779],
+    formantvox:    [0.017, 0.148, 0.292, 0.601, 1.218,
+                    0.016, 0.164, 0.307, 0.618, 1.236,
+                    0.0240, 0.0704, 0.0704, 0.0704, 0.0704,
+                    0.0437, 0.0437, 0.0437, 0.0437, 0.0437],
+    ghostvox:      [0.114, 0.111, 0.172, 1.001, 2.029,
+                    0.044, 0.116, 0.173, 1.017, 2.033,
+                    0.0096, 0.0107, 0.0294, 0.0295, 0.0295,
+                    0.0176, 0.0212, 0.0230, 0.0242, 0.0242],
+    glassbottle:   [0.548, 0.548, 0.548, 0.548, 0.548,
+                    0.542, 0.542, 0.542, 0.542, 0.542,
+                    0.2060, 0.2060, 0.2060, 0.2060, 0.2060,
+                    0.2401, 0.2401, 0.2401, 0.2401, 0.2401],
+    glassdrop:     [0.317, 0.317, 0.317, 0.317, 0.317,
+                    0.318, 0.318, 0.318, 0.318, 0.318,
+                    0.1485, 0.1485, 0.1485, 0.1485, 0.1485,
+                    0.1485, 0.1485, 0.1485, 0.1485, 0.1485],
+    guiro:         [0.150, 0.150, 0.150, 0.150, 0.150,
+                    0.150, 0.150, 0.150, 0.150, 0.150,
+                    0.1253, 0.1129, 0.1172, 0.1061, 0.1111,
+                    0.1106, 0.1132, 0.1148, 0.1058, 0.1093],
+    heartbeatsub:  [0.394, 0.394, 0.394, 0.394, 0.394,
+                    0.388, 0.388, 0.388, 0.388, 0.388,
+                    0.1486, 0.1486, 0.1486, 0.1486, 0.1486,
+                    0.2001, 0.2001, 0.2001, 0.2001, 0.2001],
+    holdbreath:    [0.108, 0.288, 0.492, 0.963, 2.958,
+                    0.095, 0.416, 0.476, 0.979, 2.859,
+                    0.0712, 0.0652, 0.0634, 0.0518, 0.0508,
+                    0.0539, 0.0247, 0.0778, 0.0742, 0.0792],
+    ironheart:     [0.033, 0.086, 0.172, 0.338, 0.683,
+                    0.033, 0.092, 0.172, 0.346, 0.692,
+                    0.0862, 0.1794, 0.1794, 0.1794, 0.1794,
+                    0.1709, 0.1735, 0.1735, 0.1735, 0.1735],
+    ironstep:      [0.036, 0.087, 0.158, 0.337, 0.664,
+                    0.037, 0.098, 0.184, 0.362, 0.703,
+                    0.0757, 0.1272, 0.1601, 0.1807, 0.1915,
+                    0.0667, 0.0736, 0.0752, 0.0830, 0.1021],
+    meterclick:    [0.035, 0.073, 0.125, 0.237, 0.463,
+                    0.035, 0.073, 0.125, 0.238, 0.463,
+                    0.0861, 0.0851, 0.0886, 0.0862, 0.0851,
+                    0.0916, 0.0854, 0.0889, 0.0865, 0.0854],
+    onebreath:     [0.107, 0.245, 0.446, 0.902, 1.833,
+                    0.107, 0.243, 0.457, 0.923, 1.830,
+                    0.1216, 0.1430, 0.1647, 0.1662, 0.1693,
+                    0.1070, 0.1171, 0.1209, 0.1246, 0.1358],
+    paperlung:     [0.038, 0.095, 0.177, 0.355, 0.687,
+                    0.035, 0.089, 0.177, 0.352, 0.695,
+                    0.0032, 0.0050, 0.0071, 0.0055, 0.0074,
+                    0.0189, 0.0254, 0.0203, 0.0218, 0.0254],
+    pickscrape:    [0.012, 0.033, 0.061, 0.119, 0.247,
+                    0.011, 0.030, 0.057, 0.113, 0.222,
+                    0.0295, 0.0248, 0.0362, 0.0396, 0.0459,
+                    0.0261, 0.0360, 0.0374, 0.0510, 0.0532],
+    riveter:       [0.020, 0.051, 0.103, 0.210, 0.426,
+                    0.022, 0.058, 0.108, 0.213, 0.426,
+                    0.1430, 0.1430, 0.1434, 0.1538, 0.1593,
+                    0.1546, 0.1553, 0.1568, 0.1575, 0.1609],
+    rubblelight:   [0.136, 0.352, 1.847, 3.711, 6.234,
+                    0.132, 0.314, 1.770, 3.545, 6.246,
+                    0.0084, 0.0116, 0.0139, 0.0126, 0.0142,
+                    0.0721, 0.0812, 0.0813, 0.0813, 0.0813],
+    rubboard:      [0.159, 0.159, 0.159, 0.159, 0.159,
+                    0.159, 0.159, 0.159, 0.159, 0.159,
+                    0.0898, 0.1043, 0.1053, 0.1078, 0.1117,
+                    0.0976, 0.0897, 0.1021, 0.0911, 0.0950],
+    scrapchime:    [0.100, 0.215, 0.289, 0.555, 1.078,
+                    0.056, 0.147, 0.269, 0.557, 1.113,
+                    0.0846, 0.0954, 0.1190, 0.1372, 0.1679,
+                    0.1438, 0.1730, 0.1809, 0.1854, 0.1876],
+    shardglass:    [0.040, 0.104, 0.195, 0.390, 0.781,
+                    0.030, 0.077, 0.144, 0.289, 0.573,
+                    0.0055, 0.0055, 0.0068, 0.0081, 0.0089,
+                    0.1864, 0.1935, 0.2034, 0.2089, 0.2116],
+    shatterspark:  [0.010, 0.025, 0.047, 0.093, 0.186,
+                    0.009, 0.026, 0.047, 0.094, 0.188,
+                    0.1676, 0.1676, 0.1677, 0.1679, 0.1696,
+                    0.1706, 0.1706, 0.1706, 0.1736, 0.1754],
+    solarhum:      [0.036, 0.096, 0.567, 1.148, 2.311,
+                    0.036, 0.096, 0.576, 1.155, 2.312,
+                    0.0637, 0.1496, 0.1502, 0.1502, 0.1502,
+                    0.1345, 0.1440, 0.1502, 0.1502, 0.1502],
+    spoonclack:    [0.065, 0.065, 0.065, 0.065, 0.065,
+                    0.065, 0.065, 0.065, 0.065, 0.065,
+                    0.1217, 0.1217, 0.1217, 0.1217, 0.1217,
+                    0.1217, 0.1217, 0.1217, 0.1217, 0.1217],
+    stillair:      [0.479, 1.310, 2.441, 3.848, 6.247,
+                    0.492, 1.312, 2.459, 3.849, 6.249,
+                    0.0432, 0.0425, 0.0476, 0.0476, 0.0476,
+                    0.0489, 0.0505, 0.0525, 0.0525, 0.0525],
+    subboom:       [0.038, 0.115, 0.198, 0.417, 0.830,
+                    0.047, 0.116, 0.212, 0.423, 0.840,
+                    0.4084, 0.4142, 0.4020, 0.3928, 0.3884,
+                    0.3861, 0.4121, 0.4100, 0.4113, 0.4165],
+    taiko:         [0.043, 0.118, 0.216, 0.438, 0.882,
+                    0.043, 0.118, 0.216, 0.438, 0.893,
+                    0.4856, 0.5293, 0.5561, 0.5310, 0.5478,
+                    0.4980, 0.5337, 0.5364, 0.5462, 0.5293],
+    templeblock:   [0.046, 0.046, 0.046, 0.046, 0.046,
+                    0.046, 0.046, 0.046, 0.046, 0.046,
+                    0.1955, 0.1955, 0.1955, 0.1955, 0.1955,
+                    0.1955, 0.1955, 0.1955, 0.1955, 0.1955],
+    thunderdrum:   [0.023, 0.063, 0.112, 0.210, 0.417,
+                    0.022, 0.062, 0.097, 0.200, 0.415,
+                    0.0177, 0.0354, 0.0519, 0.0615, 0.0620,
+                    0.0207, 0.0263, 0.0681, 0.0544, 0.0584],
+    ticker:        [0.066, 0.066, 0.066, 0.066, 0.066,
+                    0.066, 0.066, 0.066, 0.066, 0.066,
+                    0.1137, 0.1137, 0.1137, 0.1137, 0.1137,
+                    0.1141, 0.1141, 0.1141, 0.1141, 0.1141],
+    timbale:       [0.078, 0.078, 0.078, 0.078, 0.078,
+                    0.072, 0.072, 0.072, 0.072, 0.072,
+                    0.0447, 0.0447, 0.0447, 0.0447, 0.0447,
+                    0.0685, 0.0685, 0.0685, 0.0685, 0.0685],
+    timpani:       [0.047, 0.133, 0.259, 0.530, 1.075,
+                    0.054, 0.143, 0.270, 0.538, 1.077,
+                    0.4229, 0.4375, 0.4436, 0.4461, 0.4477,
+                    0.4227, 0.4431, 0.4426, 0.4469, 0.4502],
+    udu:           [0.099, 0.099, 0.099, 0.099, 0.099,
+                    0.100, 0.100, 0.100, 0.100, 0.100,
+                    0.3193, 0.3193, 0.3193, 0.3193, 0.3193,
+                    0.3193, 0.3193, 0.3193, 0.3193, 0.3193],
+    washboard:     [0.042, 0.042, 0.042, 0.042, 0.042,
+                    0.042, 0.042, 0.042, 0.042, 0.042,
+                    0.0670, 0.0670, 0.0670, 0.0670, 0.0670,
+                    0.0670, 0.0670, 0.0670, 0.0670, 0.0670]
+  };
+  /* No SFX is longer than a bar and a quarter. His pads run six seconds, which
+     is a piece of music, not a game sound: the wake-up swell gets cut to this
+     and faded, it does not get to hold the beat grid open. */
+  var INST_MAX_BEATS = 2.5;
+  /* THE VOICE ARRIVES AT THIS PEAK, whatever it is. The recipe's own
+     gain x mkup still rides on top, so the mix ladder between loud and quiet
+     moments survives -- only the 17x accident between one borrowed voice and
+     the next is taken out. Held under 1.0 because the saturator downstream is
+     defined over -1..1 and PINS past it (the lesson already written into
+     render()). */
+  var INST_VREF = 0.75;
+  /* the grid the table was measured on. Each voice is four rows of INST_SD
+     numbers: seconds at the low semitone, seconds at the high one, then peak
+     at the low semitone and peak at the high one. */
+  var INST_SD = [0.03, 0.08, 0.15, 0.30, 0.60], INST_SEMI = [-24, 12];
+  var INST_N = INST_SD.length;
+  /* the step this engine hands his rack, for a given vector */
+  function instStep(v) { return Math.max(0.03, v.decay * BEAT); }
+  /* PIECEWISE, NOT ONE STRAIGHT LINE. `ironlung` sits at 0.20 s until a step of
+     0.20 and then jumps to 1.40 s -- a single line through the two ends of that
+     predicts 0.56 s where the truth is 0.19, and since the engine INVERTS this
+     curve to fit a voice into its window, that error comes back as a sound a
+     fifth of the length it declared. */
+  function instRow(e, base, sd) {
+    if (sd <= INST_SD[0]) return e[base];
+    for (var i = 1; i < INST_N; i++) {
+      if (sd <= INST_SD[i]) {
+        var f = (sd - INST_SD[i - 1]) / (INST_SD[i] - INST_SD[i - 1]);
+        return e[base + i - 1] + (e[base + i] - e[base + i - 1]) * f;
+      }
+    }
+    return e[base + INST_N - 1];
+  }
+  function instAt(name, sd, semi, base) {
+    var e = INST_VOICE[name];
+    if (!e) return null;
+    var w = clamp((semi - INST_SEMI[0]) / (INST_SEMI[1] - INST_SEMI[0]), 0, 1);
+    var lo = instRow(e, base, sd), hi = instRow(e, base + INST_N, sd);
+    return lo + (hi - lo) * w;
+  }
+  function instSec(name, sd, semi) {
+    var s = instAt(name, sd, semi, 0);
+    return (s == null) ? sd * 1.4 : Math.max(0.02, s);   /* unmeasured: guess */
+  }
+  function instPeak(name, sd, semi) {
+    var p = instAt(name, sd, semi, 2 * INST_N);
+    return (p != null && p > 0.002) ? p : 0.15;
+  }
+  /* THE PADS DO NOT GET GUILLOTINED. `edenmist` takes 1.24 s just to reach its
+     own peak and INST_MAX_BEATS closes the note at 1.25, so cutting it where it
+     stands handed Paolo a swell that was chopped a hair before the loudest part
+     of itself -- measured at 0.085 against a judgeable floor of 0.15. Instead
+     the STEP is solved backwards from the room available, so a long voice plays
+     a SHORTER version of its whole shape rather than the front of a long one.
+     A voice whose length does not follow the step (half the rack) has nothing
+     to solve, and says so by returning its default. */
+  function instStepFor(name, want, semi) {
+    var e = INST_VOICE[name];
+    if (!e) return clamp(want / 1.4, 0.03, 2);
+    var a = instSec(name, INST_SD[0], semi);
+    var b = instSec(name, INST_SD[INST_N - 1], semi);
+    if (Math.abs(b - a) < 0.004) return null;            /* fixed-length voice */
+    if (want <= a) return INST_SD[0];
+    if (want >= b) return INST_SD[INST_N - 1];
+    for (var i = 1; i < INST_N; i++) {
+      var p = instSec(name, INST_SD[i - 1], semi);
+      var n = instSec(name, INST_SD[i], semi);
+      if (want <= n && n - p > 1e-4) {
+        return INST_SD[i - 1] + (INST_SD[i] - INST_SD[i - 1]) * (want - p) / (n - p);
+      }
+    }
+    return INST_SD[INST_N - 1];
+  }
+  /* the absolute wall-clock instant the sound in flight is over. render() sets
+     it, bodyInstrument reads it. Synchronous scheduling, one render at a time,
+     so a module-level handoff is safe -- and it is the only way an instrument
+     body can know where the NOTE ends rather than where ITS OWN hit ends. */
+  var INST_CUT = null;
+
   /* THE WHOLE AUDIBLE LIFE. The room is triggered at the SAME instant as the
      strike, not after it -- so the sound lasts as long as the LONGER of the two,
      never their sum. The first version added them, which overstated every
@@ -242,6 +526,24 @@ const BOH_SFX = (function () {
      against, so it has to be the truth. */
   function beatsOf(v) {
     var body = q(v.atk + v.decay);
+    /* HIS RACK RINGS LONGER THAN ITS DECAY, AND EVERY VOICE RINGS DIFFERENTLY
+       (8/19). bodyInstrument hands synthV a step duration of decay*BEAT, but
+       his voices do NOT all obey it: `templeblock` is 45 ms no matter what you
+       ask for, `dawnpad` is six seconds. A recipe that declares `decay` alone
+       was therefore LYING ABOUT ITS OWN LENGTH in both directions at once --
+       sfx_render failed 20 candidates for outliving their spec and 9 more for
+       being "a click" inside it, off the SAME wrong number. A single fudge
+       multiplier cannot fix that, because there is no multiplier that is right
+       for a 45 ms woodblock and a 6 s pad.
+       SO THE NUMBER IS MEASURED, NOT GUESSED (VERIFY ON THE REAL SURFACE):
+       INST_VOICE holds every borrowed voice's real audible length, rendered
+       off his own rack. THE DECLARATION FOLLOWS THE BODY, never the other way
+       round -- shortening the sound to fit the number would have been changing
+       what he approved to make a gate go green. */
+    if (v.synth === 'instrument') {
+      body = q(Math.min(INST_MAX_BEATS,
+                        v.atk + instSec(v.inst, instStep(v), semiOf(v.hz)) / BEAT + 0.03));
+    }
     var tail = (v.space > 0.02) ? q(v.room) : 0;
     return q(Math.max(body, tail)) + Math.max.apply(null, v.hits);
   }
@@ -1641,7 +1943,16 @@ const BOH_SFX = (function () {
               width: 0.5, drive: 0.08, mkup: 0.9, gain: 0.4 },
       jit:  { hz: [74, 130], decay: [0.375, 0.625], width: [0.4, 0.64],
               dark: [900, 1700] },
-      instSets: ['onebreath', 'holdbreath', 'ironlung', 'throatsong',
+      /* GRAVEYARD IS FINAL (8/19). `ironlung` and `throatsong` were both
+         retired with their songs on 7/19 -- "Do not re-add" is written next to
+         each of them in gates/bohemia_graveyard.txt -- and I borrowed them
+         anyway, because nothing in the machine was checking a voice NAME
+         against the registry. They also happened to be the two voices that
+         render SILENT through this engine's own gain, so what Paolo thumbed on
+         these two slots was a transient and a reflection with no body behind
+         them. `chapelbreath` and `ghostvox` are the live breath voices that
+         take their places. Gate: instrument_gate.py now sweeps every name. */
+      instSets: ['onebreath', 'holdbreath', 'chapelbreath', 'ghostvox',
                  'formantvox']
     },
     come_up: {
@@ -1717,8 +2028,10 @@ const BOH_SFX = (function () {
               width: 0.32, drive: 0.18, mkup: 0.86, gain: 0.36 },
       jit:  { hz: [54, 96], decay: [0.1875, 0.375], width: [0.28, 0.5],
               dark: [620, 1200] },
-      instSets: ['heartbeatsub', 'subboom', 'ironlung', 'paperlung',
-                 'throatsong']
+      /* same 8/19 graveyard sweep: `ironlung` and `throatsong` were retired
+         7/19 and had to come out of here too. */
+      instSets: ['heartbeatsub', 'subboom', 'chapelbreath', 'paperlung',
+                 'ghostvox']
     },
     hit_more: {
       base: { synth: 'instrument', inst: 'boneplate', mat: 'bone', hz: 165,
@@ -2192,7 +2505,18 @@ const BOH_SFX = (function () {
     g.gain.linearRampToValueAtTime(0, t + A + ring + 0.005);
     slip.connect(slipG); slipG.connect(g.gain);
     src.connect(bp); bp.connect(g);
-    panTo(AC, g, clamp(v.pan - v.width * 0.2, -1, 1), dest);
+    /* THE OFFSET MUST NOT BE ABLE TO CANCEL THE PAN (8/19). This always pushed
+       LEFT by a fifth of the width, and for `wake_up.2` -- pan 0.169, width
+       0.809 -- the two happened to land within 0.007 of each other, so that one
+       candidate came out dead centre and sfx_render failed it as a point source
+       while its four siblings were fine. It is arithmetic, not taste: any fixed
+       one-directional offset can zero out somebody's pan eventually. Anything
+       that would end up in the middle gets pushed back out to the same side it
+       was already leaning; every other candidate is untouched, which is why
+       this is the fix rather than reversing the offset for half the bank. */
+    var fp = v.pan - v.width * 0.2;
+    if (Math.abs(fp) < 0.08) fp = (fp < 0 || (fp === 0 && v.pan <= 0)) ? -0.08 : 0.08;
+    panTo(AC, g, clamp(fp, -1, 1), dest);
     slip.start(t); slip.stop(t + A + ring + 0.02);
     src.start(t); src.stop(t + A + ring + 0.02);
     hold.push(slip); hold.push(src);
@@ -2241,7 +2565,7 @@ const BOH_SFX = (function () {
      HE WAS POINTING AT A REUSE-FIRST VIOLATION THAT HAD BEEN RUNNING SINCE
      7/29 AND NOBODY HAD MEASURED. The alpha carries a music studio whose
      voice rack, synthV(), holds SIX HUNDRED AND TWO named instruments --
-     splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
+     splinterbell, ashchoir, farbell, chapelbreath, glassrequiem, mournhorn,
      evictionbell, dustbowlguitar, on and on -- and every song he has ever
      called fire is built out of them. This engine had never called one. Five
      raw synthesis primitives, eighty moments, four hundred candidates, and
@@ -2288,22 +2612,84 @@ const BOH_SFX = (function () {
          : (typeof synthV !== 'undefined') ? synthV : null;
     } catch (e) { SV = null; }
     if (!SV || !v.inst) return t;
-    var sd   = Math.max(0.03, v.decay * BEAT);
+    var sd   = instStep(v);
     var semi = semiOf(v.hz);
     var hzFn = function (x) { return REF_HZ * Math.pow(2, x / 12); };
-    /* HIS RACK IS CALIBRATED AROUND g0 ~0.05-0.13 (read off the studio's own
-       call sites), and this engine's gain runs 0.18-0.72. Mapping into HIS
-       range rather than pushing his voices at ours is the whole point of
-       borrowing them: a voice driven three times as hard as the song drives
-       it is not the voice he approved. */
-    var g0 = clamp(amp * v.gain * 0.42, 0.01, 0.22);
-    var n = (v.hits && v.hits.length) ? v.hits.length : 1;
-    for (var i = 0; i < n; i++) {
-      var off = (v.hits && v.hits.length) ? v.hits[i] * BEAT : 0;
-      try { SV(v.inst, AC, dest, hzFn, sd, semi, t + off, g0); } catch (e) {}
+
+    /* LOUD ENOUGH TO JUDGE, AND ALL AT THE SAME LOUDNESS (8/19). The first
+       bridge mapped into his rack's own g0 range (~0.05-0.13, read off the
+       studio's call sites) so a borrowed voice was never driven harder than the
+       song drives it. Correct instinct, wrong result twice over: 27 candidates
+       landed outside the judgeable band of 0.15-0.85, and worse, they landed
+       all over it -- `taiko` came out 17x louder than `boneplate` from the SAME
+       bank at the SAME g0. On the board he would have been picking whichever
+       one he could HEAR rather than whichever one he liked.
+       So the drive is solved backwards from the measured peak: whatever the
+       voice is, it arrives at INST_VREF. The recipe's own gain x mkup still
+       rides on top downstream, so a punch still outranks a UI tick.
+       THE FIX IS HERE AND NOT IN THE RECIPE ON PURPOSE: `gain` is part of the
+       cooked vector and verdict_frozen_gate freezes it, so touching it would
+       reassign every thumb he has already spent on these. This is ENGINE
+       BEHAVIOUR -- the vector is byte-identical and the sound simply arrives
+       at a level he can judge. */
+    /* ONE VOICE PER STRIKE, NOT ONE PER STRIKE PER HIT (8/19). render() already
+       walks v.hits and calls strike() once per hit; this walked v.hits AGAIN
+       inside each of those calls, so a 3-hit recipe fired NINE voices and the
+       last of them started a beat and a half after the note was over. That is
+       most of what sfx_render was reporting as "outlives its own beats" on
+       panel_tick and boots_go. A body renders ONE body. */
+    var win = Math.min(instSec(v.inst, sd, semi), INST_MAX_BEATS * BEAT);
+    /* AND NOTHING GETS PAST THE NOTE. room() re-strikes the body a few tens of
+       ms late for its reflections, and a voice whose length does not scale with
+       the step (half his rack) comes back the SAME length from that later
+       start -- so the reflection, not the body, is what hangs over the end.
+       INST_CUT is the render's own spec'd end; past it there is silence, which
+       is the SCREECH LAW enforced at the only place that can enforce it. */
+    if (INST_CUT != null) win = Math.min(win, Math.max(0.02, INST_CUT - t));
+    /* if the voice is longer than the window it has, SHRINK IT rather than cut it */
+    if (instSec(v.inst, sd, semi) > win + 0.004) {
+      var fit = instStepFor(v.inst, win, semi);
+      if (fit != null) sd = fit;
     }
-    var last = (v.hits && v.hits.length) ? v.hits[n - 1] * BEAT : 0;
-    return t + last + sd * 2.4;
+    var end = t + win;
+
+    var g0 = clamp(amp * 0.30 * INST_VREF / instPeak(v.inst, sd, semi), 0.004, 60);
+
+    /* THE BORROWED VOICE OBEYS THIS ENGINE'S ENVELOPE. His rack rings on its
+       own schedule -- it was written for music, where a pad holding through the
+       next bar is the point. A game sound may not do that, so the voice goes
+       through a gain that CLOSES, and everything past the note is silence.
+       AND IT PUTS THE VOICE IN THE ROOM. Routed through panTo it finally has a
+       position: 50 candidates were failing dead-mono because the bridge
+       connected straight to the bus, so every borrowed voice came out as a
+       point source in the exact middle of his head -- the one thing FFX
+       explicitly moved away from. The placement is the vector's own declared
+       `width`, which is what that field has always meant, and the SIDE is
+       seeded off the id so it is the same every time he hears it. */
+    var seed = hashStr(String(v.id || v.ev || '') + '|' + v.inst);
+    var side = (seed & 1) ? 1 : -1;
+    var ig = AC.createGain();
+    ig.gain.setValueAtTime(1, t);
+    ig.gain.setValueAtTime(1, Math.max(t + 0.001, end - 0.018));
+    ig.gain.linearRampToValueAtTime(0, end);
+    panTo(AC, ig, clamp(v.pan + side * Math.max(0.14, v.width * 0.42), -1, 1), dest);
+
+    /* SEEDED, NOT RANDOM -- the same law the particle cloud already lives
+       under, applied to somebody else's code. Several of his voices (`anvil`,
+       `rubboard`, `guiro`, `cabasa`, `thunderdrum`) draw from Math.random
+       internally, which is fine in a song and fatal here: sfx_render measured
+       one of them rendering 161% of its own peak differently the second time.
+       A candidate he thumbed has to be the candidate that plays, so Math.random
+       is swapped for this vector's own stream across the call and put straight
+       back. Restored in a finally: it is the page's Math.random, not ours. */
+    var mr = Math.random;
+    var draw = rng(seed);
+    try {
+      Math.random = function () { return draw(); };
+      try { SV(v.inst, AC, ig, hzFn, sd, semi, t, g0); } catch (e) {}
+    } finally { Math.random = mr; }
+
+    return end;
   }
   /* A3. Chosen because his rack's own call sites pass semitone offsets in
      roughly -55..+12 around it, so a Hz in this engine's legal range converts
@@ -2486,13 +2872,17 @@ const BOH_SFX = (function () {
     }
 
     var hold = [], last = t0;
-    for (var i = 0; i < v.hits.length; i++) {
-      var t = t0 + v.hits[i] * BEAT;
-      var e = strike(v, AC, bus, t, 1, hold);
-      if (e > last) last = e;
-      var r = room(v, AC, bus, t, hold);
-      if (r > last) last = r;
-    }
+    var prevCut = INST_CUT;
+    INST_CUT = t0 + beatsOf(v) * BEAT;
+    try {
+      for (var i = 0; i < v.hits.length; i++) {
+        var t = t0 + v.hits[i] * BEAT;
+        var e = strike(v, AC, bus, t, 1, hold);
+        if (e > last) last = e;
+        var r = room(v, AC, bus, t, hold);
+        if (r > last) last = r;
+      }
+    } finally { INST_CUT = prevCut; }
 
     /* NOTHING OUTLIVES ITSELF. Realtime only: an OfflineAudioContext renders
        faster than the wall clock, so a wall-clock timer would tear the graph

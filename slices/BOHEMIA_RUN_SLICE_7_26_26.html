@@ -929,6 +929,130 @@ function drawAwnform(gx,gy,X,Y,S){
   ctx.drawImage(look(im2),X,Y,S,S);
   return true;
 }
+/* TF-WORLD-010 SIGNS (8/19, board row 39, HIGH since 7/28): every district
+   gets its ONE TALL THING. The districts already NAME their sign cells and
+   every one measured 8/19 rendered as a flat generic mass. Six behaviors:
+   - RECT CABINETS (screen tower / scoreboard / marquee / pylon): the blob's
+     top edge wears the sky-lit galv cap, the bottom edge the under-shadow
+     (the pylon's shows its pole, ellipse cross-section per the 45 law), the
+     field wears the FACE - bleached, crazed, some panels torn or blown out
+     to the tubes. A marquee's bottom row keeps the letter board (its whole
+     point is the face). Outer w/e edges wear the steel frame overlay.
+   - BLADE (downtown, overhead, you pass under): ground first, then the
+     3x2-cell dead cabinet anchored at the blob's right-bottom cell so the
+     L-to-R draw loop never overpaints it; the arm points at the facade.
+   - ANTENNA/DISH (police roofs): the district's own roof tile first, then
+     the whip mast (1x1 blob, two cells tall) or the dish (2x2 blob).
+   Dead and unlit always; no readable text; no purple. */
+function signKind(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return '';
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('screen tower')>=0) return 'screen';
+  if(n.indexOf('scoreboard')>=0||n.indexOf('jumbotron')>=0) return 'board';
+  if(n.indexOf('marquee')>=0) return 'marq';
+  if(n.indexOf('pylon')>=0) return 'pyl';
+  if(n.indexOf('blade sign')>=0) return 'blade';
+  if(n.indexOf('antenna')>=0||n.indexOf('dish')>=0) return 'ant';
+  return '';
+}
+function drawSignform(gx,gy,X,Y,S){
+  var kind=signKind(gx,gy);
+  if(!kind) return false;
+  function tf(nm){var im=TILEFORM_IMG[nm];return (im&&im.complete&&im.naturalWidth)?im:null;}
+  if(kind==='blade'){
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    if(signKind(gx+1,gy)==='blade'||signKind(gx,gy+1)==='blade') return true;
+    var x0=gx; while(signKind(x0-1,gy)==='blade') x0--;
+    var y0=gy; while(signKind(gx,y0-1)==='blade') y0--;
+    var w=gx-x0+1, h=gy-y0+1;
+    var arm = civicSolidAt(x0-1,gy) ? 'w' : 'e';
+    var bim=tf('sign_blade_'+arm+'_'+th(x0,y0,2));
+    if(bim) ctx.drawImage(look(bim),X-(w-1)*S,Y-(h-1)*S,w*S,h*S);
+    return true;
+  }
+  if(kind==='ant'){
+    tput(genericTile(gx,gy),X,Y,S);
+    if(signKind(gx+1,gy)==='ant'||signKind(gx,gy+1)==='ant') return true;
+    if(signKind(gx-1,gy)==='ant'||signKind(gx,gy-1)==='ant'){
+      var dm=tf('sign_ant_dish'); if(dm) ctx.drawImage(look(dm),X-S,Y-S,2*S,2*S);
+    } else {
+      var wm=tf('sign_ant_whip'); if(wm) ctx.drawImage(look(wm),X,Y-S,S,2*S);
+    }
+    return true;
+  }
+  var up=signKind(gx,gy-1)===kind, dn=signKind(gx,gy+1)===kind;
+  var name;
+  if(!up) name='sign_'+kind+'_top';
+  else if(!dn && kind!=='marq') name='sign_'+kind+'_foot';
+  else {
+    var r=th(gx,gy,13);
+    name = kind==='screen' ? (r<2?'sign_screen_torn_'+r:'sign_screen_face_'+th(gx,gy,3))
+         : kind==='board'  ? (r===0?'sign_board_blown':'sign_board_face_'+th(gx,gy,2))
+         : kind==='pyl'    ? (r<4?'sign_pyl_blown_'+(r&1):'sign_pyl_face_'+th(gx,gy,2))
+         : 'sign_marq_face_'+th(gx,gy,2);
+  }
+  var fim=tf(name); if(!fim) return false;
+  ctx.drawImage(look(fim),X,Y,S,S);
+  if(signKind(gx-1,gy)!==kind){var ew=tf('sign_'+kind+'_edge_w'); if(ew) ctx.drawImage(look(ew),X,Y,S,S);}
+  if(signKind(gx+1,gy)!==kind){var ee=tf('sign_'+kind+'_edge_e'); if(ee) ctx.drawImage(look(ee),X,Y,S,S);}
+  /* the pylon's LEGS: one pole overlay per real leg column, never baked
+     into the foot band (first render stood a 7-wide cabinet on a
+     colonnade). One centred leg; a cabinet 6+ wide stands on two. */
+  if(kind==='pyl' && name==='sign_pyl_foot'){
+    var lx=gx; while(signKind(lx-1,gy)===kind) lx--;
+    var rx=gx; while(signKind(rx+1,gy)===kind) rx++;
+    var w2=rx-lx+1, legs = w2>=6 ? [lx+(w2>>2), rx-(w2>>2)] : [lx+(w2>>1)];
+    for(var li=0; li<legs.length; li++) if(legs[li]===gx){
+      var pim=tf('sign_pyl_pole'); if(pim) ctx.drawImage(look(pim),X,Y,S,S);
+    }
+  }
+  return true;
+}
+/* TF-ART-016 SOLAR / BATTERY YARD (8/19, TF-RUN-007 merged in): the power
+   districts read as POWER now. Measured: solar's panel tables are always
+   4 cells deep, so a panel cell's ROW in its table is the count of panel
+   cells above it - row 0 wears the high galv back rail, rows 1-2 the dark
+   glass field (module frame on the phase column, two faint busbars), row 3
+   the lit front lip over the darkest under-slot in the district. Table
+   ends get the torque-tube stub with its rusted cut face. MAINTAINED here
+   by canon (CLUSTERED POWER: eerily perfect - even dust haze, nothing
+   sagging). The inverter pads pour their bought concrete slab and stand
+   the pad-mount cabinet at the blob's anchor. The battery yard's racks
+   are the DEAD half: cold cabinets, one in seven hanging open, oil at the
+   foot. Dead-panel glass states stay BANKED - no stripped block exists in
+   this world yet. */
+function drawSolarform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  function tf(nm){var im=TILEFORM_IMG[nm];return (im&&im.complete&&im.naturalWidth)?im:null;}
+  if(n.indexOf('solar panel')>=0){
+    function isPan(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('solar panel')>=0; }
+    var row=0; while(row<3 && isPan(gx,gy-1-row)) row++;
+    var im1=tf('sol_r'+row+'_p'+(((gx%3)+3)%3));
+    if(!im1) return false;
+    ctx.drawImage(look(im1),X,Y,S,S);
+    if(!isPan(gx-1,gy)){var ew=tf('sol_end_w'); if(ew) ctx.drawImage(look(ew),X,Y,S,S);}
+    if(!isPan(gx+1,gy)){var ee=tf('sol_end_e'); if(ee) ctx.drawImage(look(ee),X,Y,S,S);}
+    return true;
+  }
+  if(n.indexOf('inverter / transformer pad')>=0){
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    function isPad(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('inverter / transformer pad')>=0; }
+    if(isPad(gx+1,gy)||isPad(gx,gy+1)) return true;
+    var bx=tf('sol_inv_box');
+    if(bx) ctx.drawImage(look(bx),X-S,Y-S,2*S,2*S);
+    return true;
+  }
+  if(n.indexOf('inverter / transformer rack')>=0){
+    var rk=tf('bat_rack_dead_'+(th(gx,gy,7)===0?1:0));
+    if(!rk) return false;
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    ctx.drawImage(look(rk),X,Y,S,S);
+    return true;
+  }
+  return false;
+}
 function drawGateform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   if(n.indexOf('gate')<0 || (n.indexOf('curb cut')<0 && n.indexOf('kerb cut')<0)) return false;
@@ -1065,6 +1189,7 @@ var CIVIC_SKIN = { d:{}, def:[], roof:[], bd:{}, bdef:[] };
   Object.keys(CIVIC_SKIN_B64.d||{}).forEach(function(k){ CIVIC_SKIN.d[k]=mk(CIVIC_SKIN_B64.d[k]); });
   CIVIC_SKIN.def=mk(CIVIC_SKIN_B64.def); CIVIC_SKIN.roof=mk(CIVIC_SKIN_B64.roof);
   CIVIC_SKIN.bd=(CIVIC_SKIN_B64.bd)||{}; CIVIC_SKIN.bdef=(CIVIC_SKIN_B64.bdef)||[];
+  CIVIC_SKIN.td=(CIVIC_SKIN_B64.td)||{}; CIVIC_SKIN.tdef=(CIVIC_SKIN_B64.tdef)||[];
 })();
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
@@ -2368,6 +2493,19 @@ function litSkin(im,mul){
   }
   return c;
 }
+/* TF-ART-017 (8/19): THE THICKNESS. The joinery pieces are pure VALUE
+   overlays (the form's own light law: a corner is a value step between two
+   planes and nothing else), so ONE set rides every approved skin and every
+   civic material - no colourway explosion. On a house: the end cells become
+   real outside corners (a 12px return plane past the arris, the bead's
+   dead-straight rust hairline on it), and a window becomes a HOLE (shaded
+   left jamb, lit right jamb, the soffit as the darkest band, sill weeps).
+   The doors stay untouched - they are his animated clip-bank art in a later
+   pass. */
+function joinery(nm,X,Y,S){
+  var o=TILEFORM_IMG[nm];
+  if(o&&o.complete&&o.naturalWidth) ctx.drawImage(look(o),X,Y,S,S);
+}
 function drawSkin(id,gx,gy,X,Y,S){
   var ov=OPENING_IMG[id];
   if(ov){
@@ -2379,13 +2517,21 @@ function drawSkin(id,gx,gy,X,Y,S){
       var w=skinImg('W',gx,gy);
       if(w) ctx.drawImage(look(w),X,Y,S,S);
     }
-    if(ov.complete&&ov.naturalWidth){ ctx.drawImage(look(ov),X,Y,S,S); return true; }
+    if(ov.complete&&ov.naturalWidth){
+      ctx.drawImage(look(ov),X,Y,S,S);
+      if(id==='wall_window') joinery('rev_window',X,Y,S);
+      else if(id==='wall_boarded') joinery('rev_boarded',X,Y,S);
+      return true;
+    }
     return !!OPEN_ON_WALL[id];
   }
   var k=SKIN_FIELD[id]; if(!k) return false;
   var im=skinImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
-  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S); return true;
+  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
+  if(id==='wall_end_l') joinery('cor_out_l',X,Y,S);
+  else if(id==='wall_end_r') joinery('cor_out_r',X,Y,S);
+  return true;
 }
 /* ===========================================================================
    EVERY BUILDING IN THE VALLEY THAT IS NOT A HOUSE (8/3).
@@ -2453,6 +2599,17 @@ function civicIsBlockMass(gx,gy){
         ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
   return !!flags[h%pool.length];
 }
+/* TF-RUN-005 (8/19): is this mass wearing the TILT-UP field? Same re-run of
+   the civicImg hash as the CMU test, against the td/tdef flags. */
+function civicIsTiltupMass(gx,gy){
+  var pool=civicPool('W'); if(!pool||!pool.length) return false;
+  var flags=(CIVIC_SKIN.d[CELLNAME])?((CIVIC_SKIN.td||{})[CELLNAME]||[]):(CIVIC_SKIN.tdef||[]);
+  if(!flags||!flags.length) return false;
+  var mk2=_civicMassKey(gx,gy);
+  var h=(Math.imul(mk2[0],2654435761)^Math.imul(mk2[1],40503)
+        ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
+  return !!flags[h%pool.length];
+}
 function civicImg(kind,gx,gy){
   var pool=civicPool(kind); if(!pool||!pool.length) return null;
   /* ONE MATERIAL PER BUILDING: the seed is the 8x8-cell block plus the district and
@@ -2505,6 +2662,30 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     }
   }
   ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
+  /* TF-RUN-005 (8/19): THE PANEL LANGUAGE. The tilt-up field has been live
+     since 8/3 and it read as a repeating texture, which is exactly what the
+     form said the material must never be: real tilt-up is BIG BLANK FIELDS
+     PUNCTUATED BY JOINTS. So on a tilt-up mass: a caulked joint every 4-6
+     columns (rhythm chosen per mass, phase locked to the mass anchor so a
+     building's joints never swim), the poured CAP as its own top course
+     (the orange starter parapet dies here, the way the CMU cap killed it on
+     block masses), the PLINTH with its efflorescence bloom at grade, rain
+     WEEPS down the field, and the rare boarded punched window mid-wall.
+     Dry aging only - dust, UV and streak, never green. */
+  if(k==='W' && civicIsTiltupMass(gx,gy)){
+    function tov(nm){ var o=TILEFORM_IMG[nm];
+      if(o&&o.complete&&o.naturalWidth) ctx.drawImage(look(o),X,Y,S,S); }
+    var mk4=_civicMassKey(gx,gy);
+    var mh4=(Math.imul(mk4[0],2654435761)^Math.imul(mk4[1],40503))>>>0;
+    var topT = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);
+    var botT = !civicSolidAt(gx,gy+1);
+    var jw = 4 + (mh4 % 3);
+    if((((gx-mk4[0])%jw)+jw)%jw===jw-1) tov('tu_joint_'+th(gx,0,2));
+    if(!topT && !botT && th(gx,gy,19)===0) tov('tu_board_'+th(gx,0,2));
+    else if(!topT && th(gx+3,gy,6)===0) tov('tu_streak_'+th(gx,gy,3));
+    if(botT) tov('tu_base_'+th(gx,gy,2));
+    if(topT){ tov('tu_parapet_'+th(gx,gy,2)); return true; }
+  }
   /* VOLUME (8/15): THE DEAD MECHANICAL ON THE FLAT ROOFS. The RTUs are
      multi-cell art (88x86, 132x90) drawn at the same uniform scale as every
      tile - no resample - anchored at the RIGHT-BOTTOM cell of their footprint
@@ -2544,6 +2725,14 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     }
   }
   if(k!=='W') return true;
+  /* TF-ART-017 (8/19): the civic masses get their thickness from the same
+     value-geometry pieces as the houses - a mass edge with open air past it
+     is an outside corner, and the overlay rides whatever material the mass
+     drew (tilt-up, corrugate, brick, stone) unchanged. */
+  if(!civicSolidAt(gx-1,gy)){ var c17l=TILEFORM_IMG['cor_out_l'];
+    if(c17l&&c17l.complete&&c17l.naturalWidth) ctx.drawImage(look(c17l),X,Y,S,S); }
+  if(!civicSolidAt(gx+1,gy)){ var c17r=TILEFORM_IMG['cor_out_r'];
+    if(c17r&&c17r.complete&&c17r.naturalWidth) ctx.drawImage(look(c17r),X,Y,S,S); }
   /* VOLUME (8/14): TF-ART-013 SKIRTS. A mobile home sits on piers and wears a
      skirt at the base - the panel band overlays the LOWER part of the bottom
      row so the siding still reads above it. Every trailer-district mass gets
@@ -3381,6 +3570,14 @@ function draw(){
            this hook runs for suburb ground too, before the bought pool. */
         if(!body && drawAwnform(gx,gy2,X,Y,S)) continue;
         if(!body && drawGateform(gx,gy2,X,Y,S)) continue;
+        /* TF-WORLD-010 (8/19): the district-named sign cells, claimed here
+           ahead of the generic mass skins so a pylon can never fall through
+           to plain brick again */
+        if(!body && drawSignform(gx,gy2,X,Y,S)) continue;
+        /* TF-ART-016 (8/19): the power districts' own named cells - panel
+           tables, inverter pads, dead battery racks - claimed ahead of the
+           generic mass skins for the same reason */
+        if(!body && drawSolarform(gx,gy2,X,Y,S)) continue;
         if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))

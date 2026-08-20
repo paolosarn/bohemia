@@ -351,9 +351,39 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
   }
   const combatish = touched.split('\n').filter(f =>
     /^engine\/|^slices\/.*\.html$/.test(f.trim()) && f.trim());
-  ok('G3 ★ LAB\'s diff touches NO engine module and NO slice'
-     + (combatish.length ? ' -> ' + combatish.join(', ') : ''),
-     combatish.length === 0);
+  /* ★ AND G3 HAD A SECOND HOLE, THE OPPOSITE ONE: it forbade the thing the law
+     REQUIRES. The column rule gives STATUS to COMBAT ("LAB does not move a
+     status to BUILT"), and COMBAT is by definition the lane that edits slices --
+     so the moment COMBAT marked an item BUILT, this went red for doing its job.
+     A gate must never outrank a ruling, so it now tests the REAL invariant:
+     LAB-OWNED COLUMNS AND CODE MUST NOT MOVE TOGETHER. A status-only edit beside
+     a slice change is COMBAT doing exactly what it was told; anything touching
+     the RF4 MECHANIC / SOURCE / BOHEMIA TODAY columns beside code is the seam
+     crossing this exists to catch. Same intent, correct scope.
+     RESTORED FROM HISTORY 8/18 (commit 35bd2b9), NOT REWRITTEN. Main's own
+     commit c2cceed filed this as a rebase casualty and said in as many words
+     that the next lane to trip it should recover the LAB's version rather than
+     write a third one. This is that recovery, byte for byte. */
+  const rowKey = l => (l.match(/\*\*RF4-(\d\d)\*\*/) || [])[1];
+  const nonStatus = l => l.split('|').slice(0, -2).join('|');
+  let labEdit = false, labWhy = '';
+  try {
+    const was = execSync('git show origin/main:' + SPEC, { cwd: ROOT }).toString();
+    const wasRows = {}, nowRows = {};
+    was.split('\n').forEach(l => { const k = rowKey(l); if (k) wasRows[k] = l; });
+    spec.split('\n').forEach(l => { const k = rowKey(l); if (k) nowRows[k] = l; });
+    for (const k of Object.keys(nowRows)) {
+      if (!wasRows[k]) { labEdit = true; labWhy = 'new row RF4-' + k; break; }
+      if (nonStatus(wasRows[k]) !== nonStatus(nowRows[k])) {
+        labEdit = true; labWhy = 'RF4-' + k + ' changed outside the STATUS column'; break; }
+    }
+    /* prose outside the table is LAB's too */
+    const strip = t => t.split('\n').filter(l => !rowKey(l)).join('\n');
+    if (!labEdit && strip(was) !== strip(spec)) { labEdit = true; labWhy = 'spec prose changed'; }
+  } catch (e) { labEdit = true; labWhy = 'could not read the spec at origin/main'; }
+  ok('G3 ★ LAB\'s columns and combat code never move together'
+     + (labEdit && combatish.length ? ' -> ' + labWhy + ' beside ' + combatish.join(', ') : ''),
+     !(labEdit && combatish.length));
   ok('G4 the expression line is honoured: no RF4 name is adopted as a Bohemia name',
      /never as Bohemia names/i.test(flat) && /GAME MECHANICS AND SYSTEMS ARE NOT COPYRIGHTABLE/i
        .test(fs.readFileSync(path.join(ROOT, LAW), 'utf8').replace(/\s+/g, ' ')));

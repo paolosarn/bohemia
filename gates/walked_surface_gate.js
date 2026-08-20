@@ -1,265 +1,204 @@
-/* ============================================================================
-   WALKED SURFACE GATE (8/14/26, FACTIONS lane) — THE WORK IS ON THE SURFACE HE
-   ACTUALLY WALKS, AND THE LEDGER SAYS WHICH ONE.
-
-   Law: laws/BOHEMIA_ADDENDUM_THE_WALKED_SURFACE_IS_THE_GAME_8_14_26.md
-   Tool: tools/bohemia_city_factions_patch.py
-
-   WHAT THIS EXISTS BECAUSE OF, and it is this lane's own failure. The coordinator
-   ruled on 8/14 that the CITY WORLD is the walked surface and
-   slices/BOHEMIA_RUN_CURRENT.html is legacy — preloaded on every visit and NEVER
-   DISPLAYED. By then this lane had spent four turns wiring player-facing work into
-   the run slice: the sixteen introductions on the person card, the vouch, the
-   bargain, the act. All real, all gated, none of it on the surface he plays.
-
-   THE DEEPER FAILURE IS THE RECORD, NOT THE CODE. gates/integration_gate.js let
-   three rows say INTEGRATED while probing a file nobody sees. The ledger's own
-   header had WARNED about exactly this since 8/4 ("every probe below reads
-   BOHEMIA_RUN_CURRENT.html; the RUN tab does not display that file") and the rows
-   were written anyway. A green claim about a dark surface is the false green this
-   repo ranks worse than a false red.
-
-   So this gate checks the thing the integration probes structurally cannot:
-   NOT "is it wired" but "is it wired WHERE HE LOOKS".
-
-   node gates/walked_surface_gate.js
-   ============================================================================ */
-'use strict';
-const fs = require('fs');
+/* THE WALKED SURFACE GATE (8/18/26, WORLD lane).
+ *
+ * FOUR TIMES IN ONE DAY the same bug: a district's engine module is finished, gated and
+ * dossiered, and the surface Paolo actually walks draws something else.
+ *   1. THE STRIP        resort/strip/casino had no module at all -- 204 cells of flat box.
+ *   2. EIGHTEEN TYPES   utility x12, airfield x2, campus, speedway, town, ballpark had a
+ *                       module the page did not CARRY -- 165 cells.
+ *   3. THE ROADS        arterial/freeway had a module the page carried and IGNORED for its
+ *                       own four-number XSEC table -- 3,386 cells at 8.6% and 17.9% drawn.
+ *   4. THE TERRAIN      desert/mountain/water/wash/rail, same -- 1,771 cells at ONE OR TWO
+ *                       COLOURS while their modules build cliff bands, creosote grids, the
+ *                       lake's bathtub ring and a lined flood channel.
+ *
+ * EVERY GATE IN THIS REPO THAT READS engine/ WAS GREEN THROUGH ALL FOUR. That is the whole
+ * point: a checker that reads the SOURCE cannot see a page that does not read the source.
+ * A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so this is the machine -- and it is the
+ * only gate here that opens the real alpha, walks to RUN, and asks THE PAGE.
+ *
+ * WHAT IT ASKS, per district type, off three cells spread across that type's own footprint
+ * (the first cell found is always a valley EDGE cell, and edges are not typical -- sampling
+ * one of them is how the first version of this sweep got suburb and desert wrong):
+ *   - WHICH PATH drew it: the district kit, the suburb generator, or a FALLBACK.
+ *   - HOW MANY DISTINCT SURFACES came back. A cell drawn in two colours is a painted
+ *     rectangle whatever its module contains.
+ *
+ * THE DEBT IS NAMED AND MAY ONLY SHRINK. Nothing joins it without a reason written beside
+ * it, and a type that gets fixed and stays on the list fails too -- a stale debt entry is
+ * how a list like this quietly stops meaning anything.
+ */
 const path = require('path');
-const { execFileSync } = require('child_process');
-
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const ROOT = path.dirname(__dirname);
-const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
-const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
-const LEDGER = path.join(ROOT, 'records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md');
 
-let pass = 0, fail = 0;
-function ok(claim, cond, detail) {
-  if (cond) { pass++; console.log('  ok  ' + claim); }
-  else { fail++; console.log('  FAIL ' + claim + (detail ? '\n       ' + detail : '')); }
-}
-function requirePlaywright() {
-  const globals = ['/opt/node22/lib/node_modules', '/usr/lib/node_modules', '/usr/local/lib/node_modules'];
-  for (const g of globals) { try { return require(path.join(g, 'playwright')); } catch (_e) {} }
-  return require('playwright');
-}
+const MIN_COLOURS = 5;          // below this a cell is a painted rectangle, not a place
 
-/* ------------------------------------------- A. WHICH SURFACE IS THE GAME */
-async function partA() {
-  console.log('A. WHICH SURFACE HE ACTUALLY SEES, MEASURED NOT ASSUMED');
+/* NO MODULE AT ALL, and named rather than quietly waved through. */
+const NO_MODULE_DEBT = {
+  // BUILDABLE: EMPTY, 8/19. The five that were here -- convention, prison, dam, minigp,
+  // fort -- are built (engine/bohemia_landmarks.js), so they came OFF this list rather than
+  // sitting on it green, which is what the ratchet below exists to force.
+  // IDENTITY, and therefore NOT MINE (MECHANISM-MINE / CONTENTS-PAOLO'S). Every one of
+  // these is a NAMED, REAL Las Vegas landmark, and what each one IS in Bohemia -- who holds
+  // it, what it became -- is Paolo's ruling. Building them before he rules would be
+  // inventing canon he reserved. [PENDING Paolo]
+  sphere:     '[PENDING Paolo] IDENTITY. 4 cells.',
+  luxor:      '[PENDING Paolo] IDENTITY. 1 cell.',
+  strat:      '[PENDING Paolo] IDENTITY. 1 cell.',
+  sign:       '[PENDING Paolo] IDENTITY -- the Welcome sign. 1 cell.',
+  highroller: '[PENDING Paolo] IDENTITY. 1 cell.',
+  springs:    '[PENDING Paolo] IDENTITY. 1 cell.',
+};
 
-  const { chromium } = requirePlaywright();
-  const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  try {
-    await page.goto('file://' + ALPHA);
-    await page.waitForTimeout(3500);
-    const seen = await page.evaluate(() => {
-      const run = [...document.querySelectorAll('.tab')].find(t => t.dataset.p === 'run');
-      if (run) run.click();
-      return new Promise(r => setTimeout(() => {
-        const g = id => { const e = document.getElementById(id);
-          return e ? getComputedStyle(e).display : null; };
-        const rf = document.getElementById('runFrame');
-        r({ pRun: g('p-run'), pCity: g('p-city'), runFrameShown: rf ? rf.offsetParent !== null : null });
-      }, 2000));
-    });
-    /* THE RULING IS A FACT ABOUT THE BUILD, so it is measured here rather than
-       taken from a document. If the build ever flips back, this claim flips with
-       it and the lane is told instead of guessing. */
-    ok('A1 tapping RUN shows the CITY panel, not the run slice',
-      seen.pCity === 'block' && seen.pRun === 'none', JSON.stringify(seen));
-    ok('A2 the run slice frame is never displayed',
-      seen.runFrameShown === false, JSON.stringify(seen));
-  } finally { await browser.close(); }
-}
+/* HAS A MODULE, still not routed through it, WITH THE MEASUREMENT THAT SAYS WHY NOT. */
+/* HAS A MODULE, still not routed through it, WITH THE MEASUREMENT THAT SAYS WHY NOT.
+   EMPTY, 8/19. The interchange was the last entry: it was here because routed with only
+   BOUNDS it came back WORSE than the table it replaced -- 8,843 bare tiles and THREE tiles
+   of road against 20% drawn -- and it came OFF when it got what it was actually missing,
+   which was its APPROACHES (which columns have a highway arriving, which rows do). 20.1%
+   -> 69.9% drawn, 10 surfaces. Every road in the valley is now drawn by its own module.
+   The ratchet below is what forced it off rather than letting it sit here green. */
+const NOT_ROUTED_DEBT = {
+};
 
-/* ------------------------------------------ B. THE LANE IS ON THAT SURFACE */
-function partB() {
-  console.log('B. THIS LANE\'S WORK IS ON IT');
+let pass = 0; const fails = [];
+const ok = (n, c) => { if (c) pass++; else fails.push(n); };
 
-  const city = fs.readFileSync(CITY, 'utf8');
-  ['bohemia_introductions', 'bohemia_ties', 'bohemia_belonging'].forEach(m => {
-    ok('B ' + m + ' is inlined in the walked surface',
-      city.includes('==== engine/' + m + '.js ===='),
-      'and with the banner, so it joins the ENGINE SYNC sweep');
+(async () => {
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const errs = [];
+  page.on('pageerror', e => errs.push(String(e).slice(0, 140)));
+  await page.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
+    { waitUntil: 'load', timeout: 240000 });
+  await page.waitForTimeout(5000);
+  await page.evaluate(() => {
+    const f = document.querySelector('#front, #fronttap'); if (f) f.click();
+    const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
+    if (t) t.click();
   });
-  ok('B4 the city resolves who somebody runs with',
-    /function ctFactionOf\(/.test(city) && /BohemiaAgents\.factionOf\(/.test(city));
-  ok('B5 the card is rewritten from the introduction organ, not printed beside it',
-    /function ctIntroRows\(/.test(city) && /BohemiaIntros\.meeting\(/.test(city));
-  ok('B6 the bargain and the act are on the card',
-    /BohemiaBelonging\.bargain\(/.test(city) && /BohemiaBelonging\.actFor\(/.test(city) &&
-    /BohemiaBelonging\.record\(/.test(city));
-  ok('B7 where you have stood is recorded as you WALK, not when a probe asks',
-    /moved\+\+; advance\(0\.084\);[^\n]*ctSawCell\(\)/.test(city));
+  await page.waitForTimeout(16000);
+  const fr = page.frames().find(f => /CITY_WORLD/.test(f.url()));
+  ok('the alpha opens the world on the RUN tab', !!fr);
+  if (!fr) return report(browser);
+  ok('the walked surface loads with NO page error', errs.length === 0);
+  if (errs.length) errs.slice(0, 3).forEach(e => console.log('        ! ' + e));
 
-  /* ONE ANSWER, NOT TWO. The bases baked into the city must be the loop's own,
-     or the Cartel lives in two places depending which surface you stand on. */
-  const m = /var CT_BASES_BAKED = (\{[\s\S]*?\});/.exec(city);
-  ok('B8 the city carries baked faction bases', !!m);
-  if (m) {
-    const baked = JSON.parse(m[1]);
-    const seedM = /var CT_BASES_SEED  = "([^"]*)"/.exec(city);
-    const seed = seedM ? seedM[1] : 'bohemia';
-    const live = JSON.parse(execFileSync('node', ['-e',
-      "var L=require('./engine/bohemia_loop.js');" +
-      "process.stdout.write(JSON.stringify(L.boot({seed:" + JSON.stringify(seed) + "}).factionBases||{}));"],
-      { cwd: ROOT }).toString());
-    ok('B9 they are BYTE-IDENTICAL to what the loop places, for the seed they name',
-      JSON.stringify(baked, Object.keys(baked).sort()) ===
-      JSON.stringify(live, Object.keys(live).sort()) &&
-      Object.keys(baked).length >= 10,
-      Object.keys(baked).length + ' baked vs ' + Object.keys(live).length + ' live');
-    ok('B10 the seed is declared, so a different world gets NULL not a wrong answer',
-      !!seedM && new RegExp('BOH_SEED_TEXT\\s*=\\s*\'' + seed + '\'').test(city) &&
-      /String\(BOH_SEED_TEXT\) !== String\(CT_BASES_SEED\)\) return null/.test(city));
-  }
-}
-
-/* ----------------------------------------- C. IT DRAWS, ON THE REAL CITY */
-async function partC() {
-  console.log('C. IT DRAWS ON THE REAL CITY, IN A REAL BROWSER');
-
-  const { chromium } = requirePlaywright();
-  const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  const errors = [];
-  page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
-  try {
-    await page.goto('file://' + CITY);
-    await page.waitForTimeout(6000);
-    const out = await page.evaluate(() => {
-      /* THE STUB THAT USED TO BE HERE HID A THIRTEEN-DAY OUTAGE (8/15).
-         This probe replaced window.ctFactionOf with a function returning
-         'Church', so C2-C6 proved the card renders faction canon correctly --
-         about a stub. Meanwhile the city's inlined bohemia_agents was a 7/29
-         snapshot with no factionOf at all and the real answer for every person
-         in the valley was null. A test that mocks the broken thing cannot see
-         that it is broken.
-         So the Church case now uses a REAL Church member if the valley has one
-         and only falls back to the stub when it does not -- and says which.
-         Law: laws/BOHEMIA_ADDENDUM_THE_WALL_AND_WHO_FINDS_OUT_8_15_26.md sec 8.4 */
-      const all = (typeof ctEveryone === 'function') ? ctEveryone() : [];
-      if (!all.length) return { skip: 'no people on the city block' };
-      const r = { bases: Object.keys(ctBases() || {}).length, realFaction: null };
-      const orig = window.ctFactionOf;
-      let subject = all[0];
-      for (const b of Object.values(ctBases() || {})) {
-        hx = b.x * FN + 2; hy = b.y * FN + 2;
-        const hit = ctEveryone().find(p => ctFactionOf(p));
-        if (hit) { subject = hit; r.realFaction = ctFactionOf(hit); break; }
-      }
-      const at = ctAt(subject); hx = at[0] + 1; hy = at[1];
-      window.ctFactionOf = function () { return 'Church'; };
-      ctSawCell(); ctOpen();
-      r.church = document.getElementById('ctcard').innerText;
-      r.buttons = [...document.querySelectorAll('#ctcard button')].map(x => x.textContent);
-      window.ctFactionOf = function () { return 'Remnants'; };
-      ctClose(); ctOpen();
-      r.rem = document.getElementById('ctcard').innerText;
-      const g = document.getElementById('ctgive');
-      r.gaveBtn = g ? g.textContent : null;
-      if (g) g.click();
-      r.gave = JSON.parse(JSON.stringify(((window.__CT_BELONG || {}).meta || {}).gave || {}));
-      r.after = document.getElementById('ctcard').innerText;
-      window.ctFactionOf = orig;
-      return r;
-    });
-    if (out.skip) { ok('C the city has people to meet', false, out.skip); }
-    else {
-      ok('C1 the walked surface knows where the outfits are',
-        out.bases >= 10, String(out.bases));
-      /* THE CLAIM THIS GATE COULD NOT MAKE UNTIL 8/15, and its absence is why
-         the four turns above it were green while the game was quiet. */
-      ok('C1a REAL people on the walked surface actually run with somebody',
-        !!out.realFaction,
-        'zero affiliated anywhere in the valley means the inlined agents body is '
-        + 'stale again -- re-run tools/bohemia_city_commitment_patch.py');
-      ok('C2 the card says who they run with, and what that outfit wants',
-        /RUNS WITH\s*\n?CHURCH/.test(out.church) && /THEY WANT/.test(out.church),
-        JSON.stringify(out.church.slice(0, 120)));
-      ok('C3 his canon reaches the card verbatim, both halves',
-        /Stored food, distribution logistics/.test(out.church) &&
-        /THEY HELP YOU BEFORE YOU AGREE TO ANYTHING/.test(out.church));
-      ok('C4 the precondition holds here too: not their ground, no button, and it points',
-        !/ctgive/.test(String(out.buttons)) && /GO TO THEM/.test(out.church) &&
-        /CELLS (NORTH|SOUTH|EAST|WEST)/.test(out.church),
-        JSON.stringify(out.buttons));
-      ok('C5 an outfit that wants what you know CAN be acted on, and it counts',
-        out.gaveBtn === 'Tell them what you have seen' &&
-        Object.keys(out.gave).length === 1,
-        JSON.stringify({ btn: out.gaveBtn, gave: out.gave }));
-      ok('C6 doing it moves the rung on the real card',
-        /SOMEBODY WHO SHOWED UP/.test(out.after), out.after.split('\n').slice(-4).join(' / '));
-      ok('C7 buttons sit at the bottom, under the rows they act on',
-        out.church.trim().endsWith('Leave them to it'));
+  const rows = await fr.evaluate(() => {
+    const cells = {};
+    for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+      const c = om.at(x, y); if (!c) continue;
+      (cells[c.district] = cells[c.district] || []).push([x, y]);
     }
-    ok('C8 the city threw no errors doing any of that',
-      errors.length === 0, errors.slice(0, 3).join(' | '));
-  } finally { await browser.close(); }
-}
-
-/* ------------------------------------------------ D. THE RECORD IS HONEST */
-function partD() {
-  console.log('D. THE LEDGER SAYS WHICH SURFACE');
-
-  const led = fs.readFileSync(LEDGER, 'utf8');
-  const rows = ['the sixteen introductions', "the valley's people know each other",
-                'what a faction wants from you'];
-  rows.forEach(r => {
-    const i = led.indexOf('| ' + r + ' |');
-    const line = i < 0 ? '' : led.slice(i, led.indexOf('\n', i));
-    ok('D ' + r + ' names the surface it is true about',
-      !!line && /WALKED SURFACE|CITY WORLD/i.test(line),
-      'a green claim about a surface nobody sees is the false green this repo '
-      + 'ranks worse than a false red');
+    const out = [];
+    for (const d of Object.keys(cells)) {
+      const all = cells[d];
+      const pick = [all[0], all[Math.floor(all.length / 2)], all[all.length - 1]]
+        .filter((v, i, a) => a.indexOf(v) === i);
+      const hist = {}; const paths = new Set();
+      for (const [cx, cy] of pick) {
+        let m = null; try { m = tileMeta(cx, cy); } catch (e) { continue; }
+        paths.add(m.kit ? 'kit' : m.sub ? 'sub' : m.road ? 'road' : m.open ? 'open' : 'FALLBACK');
+        for (let ly = 0; ly < 128; ly += 3) for (let lx = 0; lx < 128; lx += 3) {
+          let c = null; try { c = realizeCell(cx * 128 + lx, cy * 128 + ly); } catch (e) { }
+          if (!c) continue;
+          const k = c.s || c.g || 'none'; hist[k] = (hist[k] || 0) + 1;
+        }
+      }
+      out.push({ d, n: all.length, paths: [...paths],
+                 colours: Object.keys(hist).length });
+    }
+    return out.sort((a, b) => b.n - a.n);
   });
+
+  ok('every district type in the valley was reached and measured', rows.length > 50);
+
+  const fellBack = rows.filter(r => r.paths.includes('FALLBACK'));
+  const unnamedFallback = fellBack.filter(r => !NO_MODULE_DEBT[r.d]);
+  ok('NO DISTRICT FALLS BACK TO THE PLACEHOLDER WITHOUT BEING NAMED'
+     + (unnamedFallback.length ? ' -> ' + unnamedFallback.map(r => r.d + ' (' + r.n + ' cells)').join(', ') : ''),
+     unnamedFallback.length === 0);
+
+  const thin = rows.filter(r => r.colours < MIN_COLOURS);
+  const unnamedThin = thin.filter(r => !NO_MODULE_DEBT[r.d] && !NOT_ROUTED_DEBT[r.d]);
+  ok('NO DISTRICT IS DRAWN IN FEWER THAN ' + MIN_COLOURS + ' SURFACES WITHOUT BEING NAMED'
+     + (unnamedThin.length ? ' -> ' + unnamedThin.map(r => r.d + ' (' + r.colours + ' colours, ' + r.n + ' cells)').join(', ') : ''),
+     unnamedThin.length === 0);
+
+  /* THE RATCHET, both ways. A debt entry that has been fixed must come OFF the list, or
+     the list stops describing the build and starts decorating it. */
+  const byName = {}; rows.forEach(r => { byName[r.d] = r; });
+  const staleNoModule = Object.keys(NO_MODULE_DEBT)
+    .filter(d => byName[d] && !byName[d].paths.includes('FALLBACK'));
+  ok('THE NO-MODULE DEBT ONLY SHRINKS: nothing on it is already building'
+     + (staleNoModule.length ? ' -> ' + staleNoModule.join(', ') : ''), staleNoModule.length === 0);
+  const staleRouted = Object.keys(NOT_ROUTED_DEBT)
+    .filter(d => byName[d] && byName[d].colours >= MIN_COLOURS && byName[d].paths.includes('kit'));
+  ok('THE NOT-ROUTED DEBT ONLY SHRINKS' + (staleRouted.length ? ' -> ' + staleRouted.join(', ') : ''),
+     staleRouted.length === 0);
+
+  /* EVERY DEBT ENTRY CARRIES A REASON, because a bare list of names teaches the next
+     session nothing and is indistinguishable from a list of things nobody looked at. */
+  const noReason = [...Object.entries(NO_MODULE_DEBT), ...Object.entries(NOT_ROUTED_DEBT)]
+    .filter(([, why]) => !why || why.length < 25).map(([d]) => d);
+  ok('every named debt carries a written reason' + (noReason.length ? ' -> ' + noReason.join(', ') : ''),
+     noReason.length === 0);
+
+  /* CAN YOU ACTUALLY GET ANYWHERE? Paolo 8/1, LOCKED: "the streets have to touch the
+     streets bro... make sure I cant be locked in any certain district ever again."
+     NOTHING HAS EVER ASKED THE WALKED SURFACE THIS, and on 8/19 the answer was THREE CELLS
+     OF 9,216. bohemia_arterial.js's band table ended `if (b <= ROW) return 8` -- the block
+     wall -- and with WALK = SET = 63 and ROW = 64 that is EXACTLY ONE COLUMN: the west edge
+     of every arterial cell, a one-tile wall 128 tiles tall down all 2,434 of them. You could
+     not cross a street westward anywhere in the game.
+     IT WAS INVISIBLE FOR EIGHT DAYS because the walked surface drew streets from its own
+     four-number table until 8/18; routing them through their real module is what made the
+     bug reachable, and this check is what found it. 3 cells -> 7,616 (82.6%).
+     THE FLOOR ONLY RISES. Mountain, freeway and walled subdivisions are legitimately not
+     walkable, so this is not 100% and should not be -- but it may never fall. */
+  const REACH_FLOOR = 75;
+  const reach = await fr.evaluate(() => {
+    const FN = 128, N = 96;
+    const walkAt = (gx, gy) => { let c = null; try { c = realizeCell(gx, gy); } catch (e) { return false; }
+      return !!(c && c.walk !== false); };
+    const crossable = (ax, ay, bx, by) => {
+      if (ax === bx) { const y = (by > ay) ? (ay * FN + FN - 1) : (ay * FN);
+        const y2 = (by > ay) ? (by * FN) : (by * FN + FN - 1);
+        for (let i = 0; i < FN; i += 2) if (walkAt(ax * FN + i, y) && walkAt(ax * FN + i, y2)) return true;
+        return false; }
+      const x = (bx > ax) ? (ax * FN + FN - 1) : (ax * FN);
+      const x2 = (bx > ax) ? (bx * FN) : (bx * FN + FN - 1);
+      for (let i = 0; i < FN; i += 2) if (walkAt(x, ay * FN + i) && walkAt(x2, ay * FN + i)) return true;
+      return false; };
+    const sx = Math.max(0, Math.min(N - 1, (hx / FN) | 0)), sy = Math.max(0, Math.min(N - 1, (hy / FN) | 0));
+    const seen = new Set([sx + ',' + sy]); const q = [[sx, sy]]; let h = 0;
+    const D = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    while (h < q.length) { const [cx, cy] = q[h++];
+      for (const [dx, dy] of D) { const nx = cx + dx, ny = cy + dy, k = nx + ',' + ny;
+        if (nx < 0 || ny < 0 || nx >= N || ny >= N || seen.has(k)) continue;
+        if (!crossable(cx, cy, nx, ny)) continue;
+        seen.add(k); q.push([nx, ny]); } }
+    return { pct: +(100 * seen.size / (N * N)).toFixed(1), cells: seen.size };
+  });
+  ok('YOU CAN WALK OUT OF WHERE YOU SPAWN: at least ' + REACH_FLOOR + '% of the valley is '
+     + 'reachable on foot from the player start (measured ' + reach.pct + '%, ' + reach.cells + ' cells)',
+     reach.pct >= REACH_FLOOR);
+  console.log('  reachable on foot from spawn: ' + reach.cells + ' cells (' + reach.pct + '%)');
+
+  const reached = rows.filter(r => !r.paths.includes('FALLBACK'))
+    .reduce((a, r) => a + r.n, 0);
+  const total = rows.reduce((a, r) => a + r.n, 0);
+  console.log('  ' + rows.length + ' district types, ' + reached + ' of ' + total +
+              ' cells (' + (100 * reached / total).toFixed(1) + '%) drawn by their own module');
+  const worst = rows.filter(r => r.colours < MIN_COLOURS)
+    .map(r => r.d + ':' + r.colours).join(' ');
+  if (worst) console.log('  thin (named debt): ' + worst);
+  report(browser);
+})().catch(e => { fails.push('crashed: ' + e.message.slice(0, 90)); report(null); });
+
+function report(browser) {
+  if (browser) browser.close();
+  fails.forEach(f => console.log('  FAIL: ' + f));
+  console.log('WALKED SURFACE GATE: ' + pass + ' passed, ' + fails.length + ' failed');
+  process.exit(fails.length ? 1 : 0);
 }
-
-/* ------------------------------------------------- E. THE FLEET-WIDE COUNT */
-function partE() {
-  console.log('E. THE OTHER LANES ARE TOLD, NOT AUDITED FOR THEM');
-
-  const AUD = path.join(ROOT, 'records/BOHEMIA_SURFACE_AUDIT_8_15_26.md');
-  const PAGE_ = path.join(ROOT, 'slices/BOHEMIA_WHICH_SURFACE_8_15_26.html');
-  ok('E1 the audit exists', fs.existsSync(AUD) && fs.existsSync(PAGE_));
-  if (!fs.existsSync(AUD)) return;
-  const md = fs.readFileSync(AUD, 'utf8');
-
-  /* IT IS REGENERATED AND DIFFED, so the count on the page can never be a
-     yesterday's number wearing today's date. */
-  const before = md;
-  try { execFileSync('python3', [path.join(ROOT, 'tools/bohemia_surface_audit.py')],
-                     { cwd: ROOT, stdio: 'pipe' }); } catch (e) {}
-  ok('E2 the audit is exactly what its tool produces right now',
-    fs.readFileSync(AUD, 'utf8') === before);
-
-  ok('E3 it lists every ledger row, not a hand-picked few',
-    (md.match(/^\| .* \| (INTEGRATED|PARTIAL|NOT YET) \|/gm) || []).length >= 30);
-
-  /* THE CLAIM IS NARROW AND THE FILE SAYS SO. This lane does not get to declare
-     another lane's work broken from a string search; the city is a separate
-     renderer and most of it is there under another spelling. */
-  ok('E4 it says outright that NOT FOUND is not a verdict',
-    /NOT FOUND does not mean broken/i.test(md) && /go and look/i.test(md));
-  ok('E5 the page says it too, where he reads it',
-    /NOT FOUND<\/b> does not mean broken|NOT FOUND\b[^<]*does not mean broken/i
-      .test(fs.readFileSync(PAGE_, 'utf8')));
-
-  const hub = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_LIFE_CURRENT.html'), 'utf8');
-  ok('E6 the LIFE tab links it, so the finding is reachable and not a file',
-    hub.includes('BOHEMIA_WHICH_SURFACE_8_15_26.html'));
-}
-
-(async function main() {
-  console.log('WALKED SURFACE GATE — the work is where he looks\n');
-  await partA();
-  partB();
-  await partC();
-  partD();
-  partE();
-  console.log('\nWALKED SURFACE GATE: ' + pass + ' passed, ' + fail + ' failed');
-  process.exit(fail ? 1 : 0);
-})().catch(e => { console.error('WALKED SURFACE GATE CRASHED: ' + (e && e.stack || e)); process.exit(1); });

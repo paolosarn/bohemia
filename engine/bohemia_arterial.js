@@ -99,7 +99,23 @@
     if (b <= AMEN) return 7;
     if (b <= WALK) return 6;
     if (b <= SET) return 7;   // margin, not a setback -- and never a wall (Paolo 8/11)
-    if (b <= ROW) return 8;
+    /* AND THE LAST TILE IS WALK, NOT WALL (8/19). This read `if (b <= ROW) return 8`, and
+       with WALK = SET = 63 and ROW = 64 that is EXACTLY ONE COLUMN -- b === 64, which is
+       ox === -64, THE WEST EDGE OF EVERY ARTERIAL CELL. A one-tile block wall, 128 tiles
+       tall, down the west side of all 2,434 of them.
+       It contradicted this module's own comment forty lines up -- "AND NO BLOCK WALL. A
+       street is public ground all the way to the boundary" -- which is Paolo 8/11: "THE
+       STREETS DONT HAVE WALLS." The 8/11 pass widened ROW from 63 to 64 to kill a one-tile
+       DIRT seam between neighbouring road cells and left this row behind, so the seam
+       became a WALL instead of a gap.
+       IT WAS INVISIBLE UNTIL 8/18, when the walked surface stopped drawing streets from its
+       own four-number table and started drawing them from this module. Measured after that:
+       flooding the valley from the player's spawn reached THREE CELLS OF 9,216, because you
+       cannot cross a street westward anywhere in the game. Paolo 8/1, LOCKED: "the streets
+       have to touch the streets bro... make sure I cant be locked in any certain district
+       ever again."
+       The sidewalk runs to the boundary. That is all this line ever needed to say. */
+    if (b <= ROW) return 6;
     return 0;
   }
 

@@ -138,5 +138,28 @@
 - [ ] Caption JSON parses and matches C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: WORLD | DATE: 7/28/26 | PRIORITY: HIGH
-- BOARD ROW #: 39 | VERDICT: —
+- STATUS: COOKED AND WIRED (8/19/26) | REQUESTED BY: WORLD | DATE: 7/28/26 | PRIORITY: HIGH
+- BOARD ROW #: 39 | VERDICT: shipped under EVERYTHING IS A THUMB (8/9)
+- WIRED 8/19/26: measured first on the walked world - the districts name
+  their own sign cells and every one rendered as a flat generic mass. Seven
+  surfaces now draw: commercial 'pylon sign / pole' (bleached cabinet, ~1 in
+  3 panels blown out to the bare tubes, standing on steel legs - one leg,
+  two on cabinets 6+ wide), swapmeet 'market pylon sign', school + drivein
+  'marquee sign' (crazed letter boards, letter SHADOWS never glyphs),
+  drivein 'screen tower' (92x25 cells - the giant torn bleached screen,
+  lattice through the holes), stadium 'scoreboard / jumbotron' (dead bulb
+  matrix), downtown 'blade sign' (3x2 overhead blobs on mounting arms, you
+  pass under), policestation 'roof antenna / dish' (1x1 whips + 2x2 dish).
+  Faces harvested from the approved signband plastics + kerb concrete
+  (first render lesson: the sb cans' dominant pools are the dark fascia
+  browns - a face harvested from them reads as a brown box; the bleached
+  pale had to come from the street concrete, lifted), steel from galv
+  parapet + rail plate. Cook: tools/tfcook/TF-WORLD-010_cook.py (37
+  pieces). Bank: banks/tileforms/TF-WORLD-010_CANDIDATES_8_19_26.json.
+  Wiring: drawSignform in the run slice, claimed ahead of the generic mass
+  skins; sweep-verified it claims EXACTLY the seven measured surfaces and
+  nothing else. Truckstop 'pylon / price sign' wires through the same
+  branch when a truckstop generates (none in this seed). The terminal
+  'schedule board / clock' the form expected DOES NOT EXIST in the world -
+  terminal names no such cell (measured 8/19); nothing to wire until WORLD
+  names one. Card: records/target/ART_WIRED_TF-WORLD-010.png (ART tab).

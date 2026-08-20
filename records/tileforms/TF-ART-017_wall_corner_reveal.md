@@ -479,7 +479,39 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
-  | DATE: 7/29/26 | PRIORITY: HIGH
+- STATUS: COOKED AND WIRED (first slice, 8/19/26) | REQUESTED BY: ART lane
+  (own queue, breaking down board row 7) | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 97 (the ART block's reserved 90-99 range for the ten row-7
-  breakdown forms; row 26 was already TF-ART-007's) | VERDICT: —
+  breakdown forms; row 26 was already TF-ART-007's) | VERDICT: shipped under
+  EVERYTHING IS A THUMB (8/9)
+- WIRED 8/19/26, FIRST SLICE - the pieces are PURE VALUE GEOMETRY (the
+  form's own light law: "the corner is a VALUE STEP between two planes and
+  nothing else"), cooked as RGBA luminance overlays that ride every
+  approved material unchanged, so ONE set serves all fifteen house skins
+  and every civic material with no colourway explosion (STRUCTURE-NOT-COLOR
+  in its purest form). Live now:
+  * cor_out_l / cor_out_r on the suburb house end cells (bodyTile's
+    wall_end_l/r slots) and on every civic mass edge column: a 12px return
+    plane at the measured wall thickness, the value step at the arris, and
+    the BEAD - the dead-straight 1px rust hairline with its 2-3px bleed fan
+    (rust harvested from the approved rail steel).
+  * rev_window / rev_boarded on the suburb openings: opening rects MEASURED
+    off the approved starter tiles (window x10..33 y12..29); shaded left
+    jamb, lit right jamb, the SOFFIT as the darkest band, lit sill, and the
+    sill-corner weeps - the only streaks a Vegas wall gets.
+  Verified on the real surface: reshot the identical jail site before and
+  after - the diff is column-localised exactly at the mass edges (159k px,
+  concentrated in the edge column bands), and the suburb home shows the
+  window soffits and sill weeps. Cook: tools/tfcook/TF-ART-017_cook.py
+  (6 pieces). Bank: banks/tileforms/TF-ART-017_CANDIDATES_8_19_26.json.
+  Card: records/target/ART_WIRED_TF-ART-017.png (before | after).
+- SCOPE RESOLUTIONS RECORDED (the two overlaps section B flagged):
+  * parapet_corner STRUCK from this form - TF-ART-012 shipped the full
+    WANG-16 coping ring on 8/11; 012 owns it, resolved by the record.
+  * rake_corner HELD with TF-CITY-001 (unshipped) - judged together later.
+  * cor_in_l / cor_in_r cooked and BANKED, not wired - no live concave
+    site measured yet (inert-hook rule: a branch that cannot fire is not a
+    feature).
+  * the suburb DOORS keep their reveal for a later pass - they are Paolo's
+    animated clip-bank art drawn in a LATER overlay pass; a reveal cooked
+    here would be painted over. Garage jambs stay TF-CITY-003's.

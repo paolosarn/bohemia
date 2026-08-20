@@ -2,9 +2,49 @@
  "built": "8/8/26",
  "shots": [
   {
+   "id": "zoom-identity",
+   "title": "WHEN A PERSON STOPS BEING SOMEBODY",
+   "caption": "I proved the thirteen faction outfits tell each other apart -- and I proved it at ONE of the four sizes this game draws a person at. This is the other two. At the zoom you actually walk around in they are thirteen people. One zoom out they are already closer together than the gap that once made two neighbours read as the same guy, and zoomed right out the body is twenty-five pixels tall and they are a crowd. That is not something a wider coat fixes; it is a limit worth knowing. What it means in practice: anything you need to RECOGNISE from far away -- whose street this is, somebody you are looking for -- needs something other than the outline. CHARACTER tab for the outfits themselves; this is what they look like from the CITY.",
+   "file": "look/zoom-identity.png",
+   "kb": 94.9,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/19/26",
+   "shooter": "node tools/bohemia_zoom_picture.js"
+  },
+  {
+   "id": "the-drunk-seam",
+   "title": "THE DRUNK WALK JUMPED EVERY TWO SECONDS",
+   "caption": "The drunk walk teleported sideways every two seconds and had done since it was written: one number in its maths ran at half the speed of everything beside it, so it ended each loop on the opposite side from where it started. The line under each row is the body's real centre, measured off the drawn pixels. Before, the whole 12.5px of movement happened in ONE frame, at the restart. After, the step across the restart is 0.3px. I found it by checking every animation in the game for the same defect -- 102 of the 103 were already fine, which is the more useful half of the answer. ANIMATION tab, pick drunk.",
+   "file": "look/the-drunk-seam.png",
+   "kb": 88.4,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_drunk_picture.js"
+  },
+  {
+   "id": "field-surgery",
+   "title": "TREATING A GUNSHOT WOUND",
+   "caption": "Your five steps, the ones you wrote at a bedside, as animations you can watch: pour the iodine, inject the lidocaine, pick the pellets out. Three clips cover all five because the needle gets used twice and boiling the tweezers is a held prop. All three put both hands in the same spot -- it is the same wound -- so what tells them apart is HOW THEY MOVE, and the bars under each row are the hand speed: the pour has a long flat stretch where the hand has stopped, the injection is one tall spike, and the tweezing shakes. ANIMATION tab, pick the clip. Also CHARACTER tab on the body.",
+   "file": "look/field-surgery.png",
+   "kb": 94.6,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_field_surgery_picture.js"
+  },
+  {
+   "id": "thirteen-outfits",
+   "title": "THE THIRTEEN OUTFITS",
+   "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the valley goes DARK: night runs 19:00 to 06:00, and only about 4% of the map has live power, so most streets have no light even by day. Colour is the one channel you cannot count on. (I had been saying the demo OPENS in the dark -- it does not, 06:00 is exactly when night ends. Corrected.) These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
+   "file": "look/thirteen-outfits.png",
+   "kb": 103.5,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_faction_picture.js"
+  },
+  {
    "id": "six-neighbours",
    "title": "THE SIX PEOPLE ON YOUR STREET",
-   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
+   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley goes DARK: night runs 19:00 to 06:00 and only about 4% of the map has live power, so colour is the one channel you cannot count on (06:00 itself is when night ENDS -- I had that wrong and it is corrected). They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
    "file": "look/six-neighbours.png",
    "kb": 59.4,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
@@ -41,7 +81,7 @@
     "y": 3434,
     "zoom": 44
    },
-   "kb": 311.3,
+   "kb": 334.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -51,11 +91,11 @@
    "caption": "The exodus road. Remains on the asphalt where people stopped walking. RUN tab.",
    "file": "look/dead-road.png",
    "at": {
-    "x": 3456,
-    "y": 3140,
+    "x": 3518,
+    "y": 3152,
     "zoom": 44
    },
-   "kb": 529.5,
+   "kb": 212,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -69,7 +109,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 487.6,
+   "kb": 193,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -79,11 +119,11 @@
    "caption": "A wider view of the same ground, so the density reads. Too many, too few, or about right is the only call needed. RUN tab.",
    "file": "look/dead-density.png",
    "at": {
-    "x": 7356,
-    "y": 8608,
+    "x": 6543,
+    "y": 3364,
     "zoom": 22
    },
-   "kb": 348.3,
+   "kb": 224.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -107,7 +147,7 @@
     "y": 2183,
     "zoom": 30
    },
-   "kb": 349.2,
+   "kb": 217,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -121,7 +161,7 @@
     "y": 4309,
     "zoom": 30
    },
-   "kb": 500.1,
+   "kb": 177,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -135,7 +175,7 @@
     "y": 900,
     "zoom": 26
    },
-   "kb": 182.6,
+   "kb": 141.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -145,7 +185,7 @@
    "caption": "Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.",
    "file": "look/the-wall.png",
    "at": null,
-   "kb": 215.1,
+   "kb": 204.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -155,7 +195,7 @@
    "caption": "Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.",
    "file": "look/the-claim.png",
    "at": null,
-   "kb": 217.9,
+   "kb": 211.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -165,7 +205,7 @@
    "caption": "The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.",
    "file": "look/the-favour.png",
    "at": null,
-   "kb": 204.5,
+   "kb": 203,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -175,9 +215,30 @@
    "caption": "This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.",
    "file": "look/the-collection.png",
    "at": null,
-   "kb": 223.4,
+   "kb": 218.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "the-terms-fold",
+   "title": "THE CARD FITS AGAIN",
+   "caption": "Five different systems write onto a person now and the card had quietly grown to 96 percent of your screen -- one more thing and it would have run off the bottom. So the stuff that is true of the WHOLE outfit and never changes (what they want, what they hold, what they pay in) collapses to one line the moment you have done anything for them, because you have already read it. Tap that line and it all comes back. Down to 84 percent. CITY tab, tap somebody you have helped.",
+   "file": "look/the-terms-fold.png",
+   "at": null,
+   "kb": 228.3,
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "they-lost-you",
+   "title": "THEY LOST YOU",
+   "caption": "Put stone between you and them and the guns do not miss, they turn OFF. One thing decides it -- whether a man can actually see you -- and five separate systems ask it: whether he can hold a bead, whether he may shoot, where he walks, whether he runs for cover, and whether he shouts. A man who loses you walks to WHERE YOU WERE, not to where you are. And the one who can still see you tells everyone within eight tiles, so he is the one worth shooting first. COMBAT tab.",
+   "file": "look/they-lost-you.png",
+   "at": null,
+   "kb": 2117,
+   "stamp": "8/19/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_vision_picture.js"
   }
  ]
 }

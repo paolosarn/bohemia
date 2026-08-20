@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 90 |
-| SHOWN (part) | 12 | 17 |
+| SHOWN (all) | 1 | 98 |
+| SHOWN (part) | 12 | 12 |
 | LOADED ONLY | 18 | 8 |
-| NO TRACE | 73 | 13 |
+| NO TRACE | 73 | 12 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **104** | **143** |
+| **total** | **104** | **145** |
 
-**300.6 MB of 304.0 MB** sampled does not reach the shown surface.
+**300.6 MB of 304.1 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -62,7 +62,7 @@ verbatim.
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
 | `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
-| `engine/bohemia_world.js` | engine | 0.06 |
+| `engine/bohemia_world.js` | engine | 0.07 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `engine/bohemia_standing.js` | engine | 0.02 |
@@ -122,7 +122,6 @@ verbatim.
 | `banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt` | bank | 0.05 |
 | `banks/BOHEMIA_TILECAT_BROWN_7_10_26.txt` | bank | 0.03 |
 | `banks/BOHEMIA_DEMO_VERDICTS_7_10_26.txt` | bank | 0.03 |
-| `engine/bohemia_freeway.js` | engine | 0.02 |
 | `banks/BOHEMIA_ACT_PLACEMENT_MASTER_7_10_26.txt` | bank | 0.02 |
 | `banks/BOHEMIA_TILECAT_NEUTRAL_7_10_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_TILECAT_GOLD_7_10_26.txt` | bank | 0.01 |
@@ -136,8 +135,9 @@ verbatim.
 | `banks/BOHEMIA_TILECAT_REDMAG_7_10_26.txt` | bank | 0.01 |
 | `engine/bohemia_light_registry.js` | engine | 0.01 |
 | `engine/bohemia_prop_scale.js` | engine | 0.01 |
+| `banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt` | bank | 0.01 |
 
-*(26 more, see the .json)*
+*(25 more, see the .json)*
 
 ## REACHES HIM
 
@@ -146,6 +146,7 @@ verbatim.
 | `banks/BOHEMIA_MUSIC_REPO.txt` | bank | 32/32 |
 | `engine/bohemia_airfield.js` | engine | 32/32 |
 | `engine/bohemia_apartment.js` | engine | 32/32 |
+| `engine/bohemia_arterial.js` | engine | 32/32 |
 | `engine/bohemia_ballpark.js` | engine | 32/32 |
 | `engine/bohemia_battery.js` | engine | 32/32 |
 | `engine/bohemia_belonging.js` | engine | 32/32 |
@@ -157,20 +158,24 @@ verbatim.
 | `engine/bohemia_cityhall.js` | engine | 32/32 |
 | `engine/bohemia_commercial.js` | engine | 32/32 |
 | `engine/bohemia_courthouse.js` | engine | 32/32 |
+| `engine/bohemia_desert.js` | engine | 32/32 |
 | `engine/bohemia_district_kit.js` | engine | 32/32 |
 | `engine/bohemia_downtown.js` | engine | 32/32 |
 | `engine/bohemia_drivein.js` | engine | 32/32 |
 | `engine/bohemia_farm.js` | engine | 32/32 |
 | `engine/bohemia_firestation.js` | engine | 32/32 |
+| `engine/bohemia_freeway.js` | engine | 32/32 |
 | `engine/bohemia_golf.js` | engine | 32/32 |
 | `engine/bohemia_introductions.js` | engine | 32/32 |
 | `engine/bohemia_landfill.js` | engine | 32/32 |
+| `engine/bohemia_landmarks.js` | engine | 32/32 |
 | `engine/bohemia_library.js` | engine | 32/32 |
 | `engine/bohemia_mall.js` | engine | 32/32 |
 | `engine/bohemia_medical.js` | engine | 32/32 |
 | `engine/bohemia_overmap.js` | engine | 32/32 |
 | `engine/bohemia_park.js` | engine | 32/32 |
 | `engine/bohemia_policestation.js` | engine | 32/32 |
+| `engine/bohemia_rail.js` | engine | 32/32 |
 | `engine/bohemia_railyard.js` | engine | 32/32 |
 | `engine/bohemia_resort.js` | engine | 32/32 |
 | `engine/bohemia_school.js` | engine | 32/32 |
@@ -196,10 +201,5 @@ verbatim.
 | `engine/bohemia_jail.js` | engine | 30/30 |
 | `engine/bohemia_solar.js` | engine | 29/29 |
 | `engine/bohemia_industrial.js` | engine | 26/26 |
-| `engine/bohemia_coldopen_set.js` | engine | 24/24 |
-| `engine/bohemia_bq.js` | engine | 22/22 |
-| `engine/bohemia_resolve.js` | engine | 20/20 |
-| `banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt` | bank | 18/23 |
-| `engine/bohemia_asking.js` | engine | 16/16 |
-| `engine/bohemia_floorplan.js` | engine | 15/15 |
-| `engine/bohemia_daycycle.js` | engine | 14/14 |
+| `engine/bohemia_mountain.js` | engine | 25/25 |
+| `engine/bohemia_water.js` | engine | 25/25 |

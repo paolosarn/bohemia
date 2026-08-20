@@ -237,6 +237,55 @@ GATES = [
      'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
      'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
      'where the overlook is and never places it', True),
+    ('FIRST NIGHT',    ['node', 'gates/first_night_gate.js'],
+     'THE FIRST NIGHT HAD NEVER BEEN PLAYED AS A SEQUENCE. Nine beats land in the player\'s '
+     'first twenty minutes -- cold open, wake, the job on the phone, the offer, the market, '
+     'the reckoning, the install line, the day 2 wake, the vista -- each built by a different '
+     'turn against its own gate, and every one of those gates was GREEN. The bug was in the '
+     'space between them: measured on the real alpha, the shell\'s cold-open banner covered '
+     'page y 40-127 and the city\'s own toolbar sits at 89-120, so MUSIC, save, the builder '
+     'drawer and PHONE -- unread badge lit -- were ENTIRELY underneath it, on the morning the '
+     'wake card says "Something came in on your phone overnight". THE JOB COMES IN ON THE '
+     'PHONE, so the demo\'s core loop was blocked at minute one by the story hook, and neither '
+     'beat won: the family-at-the-table hook was a thin bar losing to a big gold GET UP button. '
+     'The offset is now REPORTED BY THE CITY and never typed in the shell (which cannot read '
+     'into the iframe on file:// anyway), and the banner STANDS DOWN entirely while a city '
+     'surface is open -- because the first cut only moved it below the toolbar and the phone '
+     'SCREEN then ran 115-844 under a banner at 121-208, which is moving a bug, not fixing it. '
+     'It TAPS the phone through the shell rather than comparing rectangles. Mutation-tested '
+     'both ways: restore the overlap and the tap stops opening the phone; drop the z-index '
+     'clause and the world canvas counts as an overlay, which suppresses the cold open '
+     'permanently -- the regression that hid INSIDE the fix, caught by measuring after. '
+     'IT NOW ALSO HOLDS THE TWO THINGS THE REACHABILITY HALF FOUND. (a) HIS HOUSE WAS 38 '
+     'CELLS FROM HIS FEET on every boot: the shell forwards a cell from the RUN SLICE (a '
+     'different surface with its own player) and homeFind keyed on that marker, so the one '
+     'thing the run is anchored on sat across the valley. (b) THE DAY COULD NOT BE SPENT BY '
+     'PLAYING: bohemia_dayloop tick did `mins = Math.max(0, mins | 0)`, the walk ticks 0.084 '
+     'min per cell, and 0.084|0 is 0 -- every step ever taken was discarded, each call '
+     'truncating independently so the remainder could never accumulate. DAY.step had NO '
+     'CALLER at all, so "N steps" was always 0 too. That is why the reckoning always read '
+     '"0h lived - 16h given back": not a quiet day, a day that could not be spent. It walks '
+     'the real pad with real pointer holds in eight directions (a wall ended the first cut '
+     'after six cells and would have reported the clock broken for the wrong reason) and '
+     'asserts the clock moved, the steps counted and the district ledger recorded it', True),
+    ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
+     'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
+     'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '
+     'EXISTS -- grep -c "ADD TO HOME" was 0 across both surfaces. On the platform he demos '
+     'on there is no other channel: beforeinstallprompt has never existed in Safari (WebKit '
+     '255716) and Chrome and Edge on iOS are Safari underneath, so iOS gets a sentence from '
+     'us or it gets nothing. AND THE STAKE IS THE SAVE -- iOS does NOT share localStorage '
+     'between Safari and a home-screen app, so the run he is in does not travel with him, '
+     'which is why the ask lands at the end of DAY 1 when he has the least to lose. IT IS A '
+     'LINE ON THE RECKONING, NOT A CARD, AND THAT WAS A CORRECTION: the first cut was its '
+     'own modal and took THREE of my own gates red (vista_beat 14/5, dayloop 56/1, demo_day '
+     '21/3) because the first night became reckoning -> install -> wake -> GET UP -> vista, '
+     'five modals, four before he plays day two. So the SHAPE is asserted, not just the '
+     'presence: the reckoning must still have EXACTLY ONE BUTTON and one tap must still land '
+     'on DAY 2. The iOS 26 detail is pinned too, because it is the one claim in the copy that '
+     'rots: Safari moved Share out of the toolbar, so the instruction names the ELLIPSIS. '
+     'Mutation-tested both ways -- strip the caller and the row\'s original state goes red, '
+     'add a second button and the cost-him-nothing assertion goes red', True),
     ('HOME SCREEN',    ['node', 'gates/home_screen_gate.js'],
      'DEMO BOARD row 6, the half open since 8/13: manifest + apple metas + icon, and the '
      'board\'s own evidence was a grep returning 0, 0 and 0 across every surface. He demos '
@@ -754,6 +803,50 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('ZOOM IDENTITY',  ['node', 'gates/zoom_identity_gate.js'],
+     'the game must OPEN at a zoom where people are still people. Every claim this '
+     'lane has made about telling thirteen factions apart was measured at 112px, one '
+     'of the FOUR sizes the city draws a body at. Measured on the rungs below it: the '
+     'closest pair is 0.036 at 112, 0.0150 at 56 and 0.0144 at 28 -- and the gap that '
+     'once ACTUALLY failed was 0.014. Identity does not survive being zoomed out, and '
+     'no coat fixes a 25px body. So this does NOT fail on the limit (a gate red on '
+     'physics gets switched off, and takes the real checks in the same file with it); '
+     'it fails on LOSING THE GOOD RUNG -- `let HC=44` maps to 112, and one character '
+     'dropping it under 32 would quietly turn the whole cast back into crowd with '
+     'nothing going red. Reads the ladder out of the city source rather than '
+     'restating it, so it cannot pass by agreeing with a drifted copy', False),
+    ('LOOP SEAM',      ['node', 'gates/loop_seam_gate.js'],
+     'no animation jerks once a bar: a cyclic clip whose LAST rendered frame does not '
+     'lead back into its FIRST snaps at the wrap forever. Scored as a RATIO -- pixels '
+     'changing at the wrap over the biggest change between any two neighbouring frames '
+     '-- so `run` is not called broken for moving a lot. TWO EARLIER RULERS WERE WRONG '
+     'AND BOTH LOOKED FINE: hand travel in rig-space claimed 31 clips were broken when '
+     '102 of 103 were already fine, and a median denominator gave `run` a ratio of 2617 '
+     'because POSEHOLD holds each pose for a whole key so every second step is exactly '
+     'zero. It found the one real defect in the game: drunk`s sway ran at HALF the '
+     'frequency of every sibling term and flipped sign at the wrap, teleporting the hips '
+     '3.5px sideways every two seconds since it was written', False),
+    ('FIELD SURGERY',  ['node', 'gates/field_surgery_gate.js'],
+     'backlog row FS, his 8/13 order "we\'re gonna need to make animations for this": '
+     'three clips for the five-step gunshot treatment he wrote at a bedside. All three '
+     'put both hands in the same patch in front of the body -- it is the same wound -- '
+     'so they are separated by TIMING and timing is what is asserted: pour is the '
+     'stillest, inject owns the fastest single keyframe (the jab), tweeze is the only '
+     'thing in the game that trembles. Measured on the HAND off posedSkel, because a '
+     'whole-frame pixel diff is dominated by the body settling and reported a loop snap '
+     'as "the fastest move". It caught three defects reading could not: the wound was '
+     'out of arm reach (thigh 19.1px, arm 16px), the jab was shorter than a keyframe so '
+     'it never rendered, and the tremor was sampled exactly at its own zero crossings', False),
+    ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
+     'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
+     'of their own, chosen by searching 880 rendered fits rather than by eye, and '
+     'the four groups that hide inside other factions deliberately have none. Scored '
+     'on the width profile with colour and size discarded, on the same 112 pixels he '
+     'sees -- choosing on one ruler and grading on another produced pairs at 0.007 '
+     'and four rounds of tweaking the wrong thing. It also holds the INSTRUMENT '
+     '(HE MUST BE ABLE TO DIRECT IT, 8/12): WEAR IT, SAVE TO, COLOUR OFF, EXPORT, '
+     'because what factions wear is reserved to him by name and a question is not a '
+     'tool', False),
     ('CAST SHAPES',    ['node', 'gates/city_cast_silhouette_gate.js'],
      'STRUCTURE-NOT-COLOR (7/19, amended 8/15 to govern IDENTITY) + Paolo 8/3 "have '
      'it not be a copy of me": the six city residents were the player body in the '
@@ -1234,6 +1327,26 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('ONE THING THAT IS THEIRS', ['node', 'gates/quirk_gate.js'],
+     'Every person in the valley was interchangeable: 58 BUCKET lines (every Blue says the '
+     'same five sentences) and 19 player-reactions, and ZERO things belonging to one human. '
+     'Tone research R1 finding 1: A CHARACTER NOBODY LAUGHED WITH IS A CHARACTER NOBODY '
+     'MOURNS -- the demo kills the sibling and that cannot land in a valley nobody has been '
+     'charmed by. R1 named the slot exactly ("what a stranger says when you ask their name is '
+     'where Undertale would put the first laugh") and the slot had been shipped and EMPTY '
+     'since 7/31. Now 22 shapes x 40 typed nouns = 304 quirks, each authored TWICE AS THE '
+     'SAME PERSON: benign violation theory says funny and scary are ONE DIAL (a violation '
+     'appraised as SAFE), so the lit register is the joke and the dark one is the same trait '
+     'with the safety taken out. *** IT WAS ABOUT TO SHIP BACKWARDS AND ONLY THE REAL SURFACE '
+     'KNEW: *** the register asked dayDark() alone, and driving the walked world measured 358 '
+     'of 9,216 tiles live (3.9%) and 131 of 5,007 people on one (2.6%) -- 97.4% of every '
+     'conversation would have been the DREAD line and the joke would have been unreachable, '
+     'with every gate green because every gate asked the same wrong question. A DIAL SOLDERED '
+     'TO ONE END IS NOT A DIAL. The fix is the renderer\'s own test (isNight() AND not live), '
+     'because an unpowered lot at noon is a lot. Also holds the GRAMMAR CONTRACT (all 608 '
+     'renderings: no noun opens a sentence, after the first build shipped "Mine\'s the same '
+     'as his was. a slot handle snapped off at the base"), and NOBODY ON A STREET SHARES A '
+     'BIT (measured 1.63 duplicate pairs per block -> 0.00, moving only 5.3% of people)', False),
     ('ASKING', ['node', 'gates/asking_gate.js'],
      'The overheard-fact log shipped READ-ONLY: eleven true things about this valley and no '
      'way to do anything with any of them. Q018.W3 THE RUMOR WEB asks for a thread to PULL, '
@@ -1573,6 +1686,40 @@ GATES = [
      "you can never clear is a sentence not a relationship. The card says THEY ARE NOT "
      "WAITING so the player can trace it to the free thing they took. Neither organ touches "
      "the other's save -- a number in, a number out, asserted", False),
+    ('CARD FOLD',      ['node', 'gates/cardfold_gate.js'],
+     "THE PERSON CARD BECAME THE PHONE. Five systems write rows onto it now (the name, the "
+     "bargain, the wall, the claim, the favour) and nobody owned the total: MEASURED at iPhone "
+     "portrait, 22 rows and 808px of an 844px screen -- 96%% -- and the sixth system overflows "
+     "it. Nielsen 2006 (progressive disclosure) and Cowan 2001 (the real working-memory limit is "
+     "about FOUR chunks, not seven) give the rule, but the DATA gives the answer to WHAT folds: "
+     "THEY WANT / THEY HOLD / PAID IN / CAREFUL are IDENTICAL on every member of that outfit "
+     "forever, so they are a fact about the OUTFIT and you read terms once -- re-printing them on "
+     "the ninth Church member is wallpaper with a high word count. They fold the moment you have "
+     "any standing at all (gave > 0), which is exactly the moment you have demonstrably already "
+     "acted on those terms: read off state that already exists, so NO new save field and NO new "
+     "dial. 96%% -> 84%% at the busiest state the game can reach. THE TWO THINGS A NAME-GREP "
+     "CANNOT DO and this does: it MEASURES THE REAL CARD IN A REAL BROWSER at 390x844 against a "
+     "real affiliated person with no stub, and it PROVES NOTHING WAS DELETED -- progressive "
+     "disclosure is DEFER, never DROP, and unreachable information is this repo's own named "
+     "disease (the 8/9 authored-but-unread gate, written by this lane). All nine claims are "
+     "mutation-proven: killing the fold reds four, turning DEFER into DROP reds the one that "
+     "exists for it, restoring the duplicate row reds the last. A first meeting still shows the "
+     "terms in full because you cannot have read what you were never shown, and the next card "
+     "opens folded again so one tap never changes the rule. *** AND THEN THE REAL SURFACE "
+     "CAUGHT WHAT NINE GREEN CLAIMS COULD NOT. *** All nine passed while the tap target was "
+     "153x14px: every one of them opened the fold with .click() or an element tap, which "
+     "lands DEAD CENTRE every time, and a thumb on a real phone does not. Apple's HIG has "
+     "said 44x44 since 2013 and Material says 48dp for the same physical reason -- a "
+     "fingertip contact patch is about 10mm. The whole ROW is the target now (332x46) and "
+     "A10/A11 measure the BOX on a real touch page and open it with a REAL TAP, because THE "
+     "HANDLER IS BOUND and A PERSON CAN REACH IT ARE DIFFERENT FACTS and only one of them is "
+     "the game -- a synthetic click is the touch-target equivalent of a gate that mocks the "
+     "thing it tests. Cost 2 points of screen (84%% -> 86%%), which is the correct trade. "
+     "Two other things only the rendered pixels caught, both after the gate was green: the "
+     "fold said \'tap to read THE REST\' one row under the Cartel\'s \'HOW YOU GET THE REST "
+     "-> NOTHING. EVER.\', and the commitment row was labelled \'YOU HAVE\' four rows under "
+     "\'YOU HAVE MET\' so it read as a truncated duplicate. Neither row is wrong on its own; "
+     "both collisions exist only once they are neighbours", False),
     ('COMMITMENT',     ['node', 'gates/commitment_gate.js'],
      "A LADDER WITH NO WALL IS A PROGRESS BAR. The 8/12 ladder went stranger to inside and you "
      "could climb all of it by pressing one button ten times, and no other outfit ever heard. The "
@@ -1597,7 +1744,66 @@ GATES = [
      "Restored from git the same turn. My reuse check swept for a CALLER of makeCeiling and "
      "never asked whether a module for this already existed. The two now coexist with the "
      "boundary written into both: standing is what people THINK of you from deeds they SAW; "
-     "commitment is how far IN you are with an outfit", False),
+     "commitment is how far IN you are with an outfit. *** EXTENDED 8/18: THE WALL WAS A SIGN "
+     "AND NOT A FENCE, FOR THREE DAYS. *** BohemiaCommitment.give() -- the clamp this whole gate "
+     "exists to prove -- was called ZERO times on the walked surface. The act button went "
+     "straight to BohemiaBelonging.record(), which has no ceiling at all: measured on the real "
+     "card, nine presses reached gave 9 against a ceiling of 5 with the state still 'none' and "
+     "the row still reading COUNTED. You walked through the wall while the card told you it was "
+     "there. WHY THE EXISTING CLAIMS MISSED IT is the part worth keeping -- part A proved the "
+     "organ clamps (true, and nothing called it) and part D proved the card DISPLAYS the wall "
+     "(also true). NO CLAIM ANYWHERE PRESSED THE ACT BUTTON PAST THE WALL ON THE REAL SURFACE. "
+     "Same shape as the stale-agents outage one level down: the organ was verified, the wiring "
+     "was not, and 'the card shows the right thing' was mistaken for 'the thing is enforced'. "
+     "Fixed belt and braces -- the button is not offered at the wall (a button that does nothing "
+     "tells the player the wall is soft) AND both writers go through ONE clamped helper so a "
+     "third caller cannot quietly reopen it. AND THE FIRST VERSION OF THIS CHECK WAS ITSELF A "
+     "LIE: hiding the button did all the work, so it passed with the clamp gutted. Ez6 presses "
+     "the writer directly with no button in the way, and it was mutation-proven by gutting the "
+     "clamp and watching exactly that claim go red. *** PARTS G AND H, 8/19: THE STAGE "
+     "CALLED `burned` HAS SAID \'YOU COST YOURSELF SOMEWHERE ELSE TO BE HERE\' SINCE 8/15 AND "
+     "NOTHING EVER COST YOU ANYWHERE ELSE -- adjust() was only ever called on the outfit in "
+     "front of you, while whoHears walked the graph and the card printed WHO WILL HEAR and "
+     "then nothing happened to any of them. Coser / Lipset & Rokkan supply the shape and it "
+     "needs NO rivalry table, which is what keeps it legal: a tie to one side is a liability "
+     "with EVERY other side, not only declared enemies, and that generalised liability IS the "
+     "mechanism by which cross-cutting ties damp conflict. So no outfit is named in the organ "
+     "(asserted). A rumour cannot cost you and that is read off LANDING\'s own shipped words "
+     "(\'they will not hear exactly what\'); you cannot fall below a stranger; the amount is "
+     "the STAGE INDEX, derived like neglect and never typed. Printed BEFORE the button, per "
+     "this lane\'s own 8/15 rule 2 -- a cost you find out afterwards is a punishment, a cost "
+     "you read first is a decision. *** AND BUILDING IT FOUND SOMETHING MUCH WORSE. *** The "
+     "card reported TRADES hearing a Reds commitment through a FACTION focus at one hop, "
+     "which cannot happen (F:REDS and F:TRADES do not match). Measured: 298 people in the "
+     "valley roster answered to SEVENTEEN NAMES -- bohemia_population numbers people PER "
+     "NEIGHBOURHOOD and the roster concatenates every neighbourhood, so \'H1-1\' stood in for "
+     "~140 real people across NINE outfits, byKey kept whichever came last and seen[] skipped "
+     "the other sixteen. THE SOCIAL GRAPH OF THE VALLEY WAS LARGELY FICTION. Why no claim "
+     "caught it is the part that generalises: every who-hears assertion tested SHAPE, and "
+     "COLLISIONS ADD EDGES RATHER THAN REMOVE THEM, so nothing ever looked empty. Nobody "
+     "asked whether two people with the same name were the same person. The foci were never "
+     "wrong (real valley coordinates); only the keys collided, so the fix is four lines "
+     "through the keyOf whoHears has always accepted, and engine/ is untouched. AND THE FIX "
+     "EMPTIED THE FEATURE, WHICH IS THE FINDING: with real keys nobody hears anything, "
+     "because 32 affiliated people live in 32 different buildings and NO TWO OF THEM SHARE A "
+     "SETTING AT ALL. I did not widen the tie rule to make it look alive -- that is the same "
+     "fiction chosen on purpose. The density dials are his and already flagged. H3 asserts "
+     "CONSISTENCY rather than emptiness, so it holds in both worlds. *** AND PART F KILLS THIS LANE'S "
+     "OWN NEXT JOB. *** The 8/15 law flagged bohemia_standing's RUNGS and "
+     "bohemia_belonging's RUNGS FOR CONSOLIDATION as the last duplicate mechanism in "
+     "the lane, and it sat in the handoff as NEXT for four days. IT IS A NAME "
+     "COLLISION, and the evidence was three lines above my own flag in my own law: a "
+     "table saying the two modules answer different questions. Measured -- they share "
+     "ZERO words, standing goes negative and belonging cannot, and fed the same number "
+     "they disagree on EVERY input (3 is USEFUL to one and FWU to the other). The "
+     "argument that settles it is expressiveness, not taste: you can be INSIDE the "
+     "Cartel and still be somebody a given member thinks badly of, both true at once "
+     "and both load-bearing, and ONE TABLE CANNOT HOLD THAT STATE. A consolidation "
+     "would silently rewrite both systems' answers rather than tidy them. Six claims "
+     "fence it, READ-ONLY against the other lane's module because this lane already "
+     "overwrote bohemia_standing.js once by accident and renaming their public field "
+     "is theirs to decide. A SHARED IDENTIFIER IS NOT A SHARED MECHANISM, AND A FLAG "
+     "IS A HYPOTHESIS, NOT A WORK ORDER", False),
     ('BELONGING',      ['node', 'gates/belonging_gate.js'],
      "THE DOOR HAD NOTHING BEHIND IT. Two turns built sixteen ways to learn a faction member's "
      "name and a lock that makes the Mob wait for somebody inside to vouch -- and then you were "
@@ -1766,6 +1972,17 @@ GATES = [
      'the LAST blit, the one the phone does: canvas box === backing store, walked world nearest, overview left smooth', True),
     ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
      'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
+    ('WALKED SURFACE', ['node', 'gates/walked_surface_gate.js'],
+     'FOUR TIMES IN ONE DAY a district module was finished, gated and dossiered while the surface Paolo '
+     'actually walks drew something else -- the Strip (no module, 204 cells), eighteen district types (module '
+     'not carried, 165 cells), the roads (module carried and IGNORED for a four-number table, 3,386 cells at '
+     '8.6%% and 17.9%% drawn) and the terrain (1,771 cells at ONE OR TWO COLOURS). EVERY GATE THAT READS engine/ '
+     'WAS GREEN THROUGH ALL FOUR, which is the point: a checker that reads the SOURCE cannot see a page that does '
+     'not read the source. This is the only gate that opens the real alpha, walks to RUN and asks THE PAGE -- '
+     'which path drew each district type and how many distinct surfaces came back, off THREE cells spread across '
+     'that type\'s footprint, because the first cell found is always a valley EDGE cell and sampling one is how '
+     'the first version of this sweep got suburb and desert wrong. The debt is NAMED, carries a written reason, '
+     'and ratchets BOTH ways: a type that gets fixed and stays on the list fails too.', True),
     ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],
      'the MAP tab: THE VALLEY AERIAL live + reachable, every generator module byte-locked to canon', False),
     ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],
@@ -1954,16 +2171,108 @@ GATES = [
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],
      'purple is the Amalgamation alone', True),
+    ('SUITE HONESTY',  ['node', 'gates/suite_honesty_gate.js'],
+     "SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN. A LAW WITHOUT A MACHINE GATE IS "
+     "NOT ENFORCED makes this suite the net and 'green or it does not ship' the rule -- and "
+     "on 8/19 the WORLD lane measured it running 217 of 382 gates before the container clock "
+     "killed it, which this lane then hit twice in one session. Every lane was shipping on a "
+     "PARTIAL run and could not tell which part it missed, because a run that trails off "
+     "mid-table ends on a pass. THE ROOT CAUSE, MEASURED: the per-gate cap was 1800s and "
+     "TOOLS RUN spends all of it (bohemia_district_hero_factory.py takes 31 MINUTES), so ONE "
+     "gate ate thirty of the ~fifty minutes a container survives. The verdict is identical "
+     "either way -- a timeout is a failure -- so the extra 23 minutes bought nothing except "
+     "the last third of the table never running. Now: a 600s cap (the longest HEALTHY gate "
+     "measured is 61s, so two orders of margin), a whole-suite budget that makes the run "
+     "STOP ITSELF WHILE IT CAN STILL SPEAK, an unrun list printed BY NAME, exit 1 on an "
+     "unfinished run because an unrun gate has held nothing, a [n/total] counter on every "
+     "line so a killed run's last line says how far it got, and --only so a lane can use the "
+     "runner's lock and table check instead of calling gates by hand. A FILTERED RUN NEVER "
+     "SAYS ALL GATES GREEN EITHER -- same lie as silence, smaller. This gate RUNS THE RUNNER "
+     "in a child process and reads what it actually prints and exits with, because 'the code "
+     "has an unrun list' and 'the run says so' are different facts. It drives --dry-run, "
+     "which walks the table and executes nothing, so ONE SUITE AT A TIME (7/30) is untouched "
+     "for every run that actually runs something. *** AND A SECOND BUG UNDER IT: A TIMED-OUT "
+     "GATE WAS NOT ACTUALLY STOPPING. *** subprocess.run(timeout=) kills the CHILD it started "
+     "and nothing else, so TOOLS RUN's hero factory KEPT RUNNING after the gate was declared "
+     "dead -- caught at FORTY-FIVE MINUTES, burning a core beside every gate that ran after "
+     "it, which means every timing downstream of a timeout was inflated by a process nobody "
+     "could see. Each gate now runs in its own process GROUP and a timeout kills the group; "
+     "proven both ways in a temp dir before the claim was written. *** AND THE ARITHMETIC SAYS "
+     "TRIMMING CANNOT CLOSE THE GAP. *** With both fixed the suite ran 236 gates in 2748s and "
+     "named the 150 that never ran -- honest, and still unfinished. That is ~11.6s a gate, so "
+     "386 need ~75 minutes and a container survives ~50; TOOLS RUN's whole 600s is a third of "
+     "a 25-minute gap. So --shard i/n, interleaved so each shard gets a fair mix rather than "
+     "one inheriting every browser gate. THE CLAIM THAT MATTERS IS COVERAGE, NOT SPEED: a "
+     "scheme that drops or double-runs a gate is WORSE than none because it looks complete, so "
+     "the gate counts the union and the multiplicity against a full run instead of trusting "
+     "the arithmetic. A sharded run never says ALL GATES GREEN either, and a malformed --shard "
+     "refuses rather than quietly running the wrong set. Every mutation bites: swallow the "
+     "unrun exit code (A6), restore the 1800s cap (A1), kill the child instead of the group "
+     "(A11), drop a gate from a shard (A12), overlap the shards (A13)", False),
 ]
 
+# THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
+# Measured: TOOLS RUN runs bohemia_district_hero_factory.py, which took 31 MINUTES
+# and then hit the old 1800s cap -- so ONE gate ate thirty of the ~fifty minutes a
+# container survives, and the suite never reached the last third of the table. The
+# verdict is identical either way (a timeout is a failure), so the only thing the
+# extra 23 minutes bought was the rest of the suite not running.
+# A GATE THAT CANNOT ANSWER IN TEN MINUTES IS BROKEN AS A SHIP GATE WHETHER IT
+# PASSES OR NOT -- every ship in this repo waits behind it. The longest HEALTHY
+# gate measured is 61s, so this is two orders of margin, not a squeeze.
+GATE_CAP = int(os.environ.get('BOHEMIA_GATE_CAP', '600'))
+# and the whole-suite budget, so a run that cannot finish says so ITSELF rather
+# than being killed mid-sentence by the container and reading like silence.
+SUITE_BUDGET = int(os.environ.get('BOHEMIA_SUITE_BUDGET', '2700'))
+
+
 def run(argv):
+    """A TIMED-OUT GATE HAS TO ACTUALLY STOP, AND subprocess.run DOES NOT DO THAT.
+
+    MEASURED 8/19, and it is the reason the suite was slower than the sum of its
+    parts: subprocess.run(timeout=...) kills the CHILD it started and nothing
+    else. TOOLS RUN spawns bohemia_district_hero_factory.py, so when the gate was
+    killed at its cap the FACTORY KEPT RUNNING -- caught at FORTY-FIVE MINUTES,
+    long after the gate that started it was declared timed out, burning a core
+    alongside every gate that ran after it. Every timing downstream of a timeout
+    was inflated by a process nobody could see.
+
+    So each gate gets its own PROCESS GROUP (start_new_session) and a timeout
+    kills the GROUP. A gate that is over is over, including whatever it spawned.
+    """
     try:
-        p = subprocess.run(argv, capture_output=True, text=True, timeout=1800)
-        return p.returncode, (p.stdout or '') + (p.stderr or '')
+        p = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             text=True, start_new_session=True)
     except FileNotFoundError:
         return 127, 'gate file missing: ' + argv[-1]
+    try:
+        out, err = p.communicate(timeout=GATE_CAP)
+        return p.returncode, (out or '') + (err or '')
     except subprocess.TimeoutExpired:
-        return 124, 'timed out'
+        _kill_group(p)
+        out, err = '', ''
+        try:
+            out, err = p.communicate(timeout=10)
+        except Exception:
+            pass
+        return 124, ((out or '') + (err or '')
+                     + '\ntimed out after %ds (BOHEMIA_GATE_CAP) and the whole '
+                       'process GROUP was killed. A gate that cannot answer in '
+                       'that long is broken as a ship gate whether it would pass '
+                       'or not -- every ship waits behind it.' % GATE_CAP)
+
+
+def _kill_group(p):
+    """Kill the gate AND anything it spawned. Without the group kill an orphaned
+    grandchild outlives the whole suite (measured: 45 minutes)."""
+    import signal
+    try:
+        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+    except (ProcessLookupError, PermissionError, OSError):
+        try:
+            p.kill()
+        except Exception:
+            pass
 
 def summarize(name, out):
     """One line that says what actually happened, not just pass/fail."""
@@ -2057,10 +2366,41 @@ def drop_lock():
 def main():
     fast = '--fast' in sys.argv
     strict = '--strict' in sys.argv
+    dry = '--dry-run' in sys.argv
+    # --shard i/n
+    shard = None
+    if '--shard' in sys.argv:
+        j = sys.argv.index('--shard')
+        if j + 1 < len(sys.argv) and '/' in sys.argv[j + 1]:
+            a, b = sys.argv[j + 1].split('/', 1)
+            try:
+                a, b = int(a), int(b)
+            except ValueError:
+                a = b = 0
+            if b > 0 and 1 <= a <= b:
+                shard = (a, b)
+        if not shard:
+            print('  --shard wants i/n, like --shard 1/2 (1-based). Nothing ran.')
+            return 1
+    # --only <substring>: run just the gates whose NAME matches. Every lane is
+    # already doing this by hand because the suite stopped finishing; doing it
+    # through the runner keeps the lock, the deps check and the table check.
+    only = None
+    if '--only' in sys.argv:
+        i = sys.argv.index('--only')
+        if i + 1 < len(sys.argv):
+            only = sys.argv[i + 1]
+    # THE LOCK IS FOR RUNS THAT EXECUTE GATES. A dry run rebuilds nothing, drives
+    # no browser and writes no slice, so there is nothing for a second one to
+    # corrupt -- and taking the lock would make it unusable from inside a suite,
+    # which is the only place it is needed. ONE SUITE AT A TIME (7/30) is
+    # untouched for every run that actually runs something.
+    if dry:
+        return _run_all(fast, strict, only, dry=True, shard=shard)
     if not take_lock():
         return 1
     try:
-        return _run_all(fast, strict)
+        return _run_all(fast, strict, only, shard=shard)
     finally:
         drop_lock()
 
@@ -2094,7 +2434,7 @@ def _check_table():
     return False
 
 
-def _run_all(fast, strict):
+def _run_all(fast, strict, only=None, dry=False, shard=None):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
@@ -2103,16 +2443,58 @@ def _run_all(fast, strict):
     deps_check()
     failed = []
     t0 = time.time()
-    for name, argv, what, slow in GATES:
+    total = len(GATES)
+    unrun = []                 # the whole point: what never got a turn
+    ran = 0
+    for i, (name, argv, what, slow) in enumerate(GATES):
         if fast and slow:
             print('  %-15s SKIP     %s' % (name, what))
             continue
+        # SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN (8/19). The suite
+        # stopped finishing -- 217 of 382 and then the container clock -- so every
+        # lane was shipping on a partial run and could not tell which part it
+        # missed. Now the run STOPS ITSELF while it can still speak, and names
+        # every gate it did not reach.
+        if only and only.upper() not in name.upper():
+            continue
+        # --shard i/n: THE SUITE IS BIGGER THAN A CONTAINER'S LIFETIME AND THAT IS
+        # NOT GOING TO STOP BEING TRUE. Measured 8/19: 236 gates in 2748s, i.e.
+        # ~11.6s a gate, so all 386 need ~75 minutes and a container survives ~50.
+        # Trimming one slow gate cannot close a 25-minute gap. Two shards each
+        # finish comfortably and together cover the table EXACTLY ONCE -- a
+        # complete, honest answer in two runs instead of a partial one in one.
+        # Interleaved (i % n) rather than blocked, so each shard gets a fair mix
+        # of fast and slow gates instead of one shard inheriting all the browsers.
+        if shard and (i % shard[1]) != (shard[0] - 1):
+            continue
+        if time.time() - t0 > SUITE_BUDGET:
+            # THE UNRUN LIST MUST OBEY THE SAME FILTERS THE RUN DOES. First
+            # version took GATES[i:] wholesale, so a `--shard 1/2` run reported
+            # 62 unrun when it only ever owned about 31 -- it was counting the
+            # OTHER shard's gates as things it had failed to reach. A number that
+            # reads like a fact and is not one is the exact disease this whole
+            # gate exists to kill, and it shipped inside the fix for it.
+            unrun = [g[0] for j, g in enumerate(GATES[i:], start=i)
+                     if not (fast and g[3])
+                     and not (only and only.upper() not in g[0].upper())
+                     and not (shard and (j % shard[1]) != (shard[0] - 1))]
+            break
         t = time.time()
-        rc, out = run(argv)
+        # --dry-run WALKS THE TABLE AND EXECUTES NOTHING. It exists so the
+        # ACCOUNTING -- the budget stop, the unrun list, the exit code, the
+        # --only summary -- can be verified by a gate without a second suite
+        # rebuilding slices underneath the first one. It never reports on a
+        # gate's contents, only on the run's own bookkeeping.
+        if dry:
+            rc, out = 0, ''
+        else:
+            rc, out = run(argv)
         ok = (rc == 0)
         if not ok:
             failed.append(name)
-        print('  %-15s %-8s %-38s %5.1fs' % (name, 'GREEN' if ok else 'FAIL', what, time.time() - t))
+        print('  [%3d/%3d] %-15s %-8s %-30s %5.1fs'
+              % (i + 1, total, name, 'GREEN' if ok else 'FAIL', what[:30], time.time() - t))
+        ran += 1
         s = summarize(name, out)
         if s:
             print('                   %s' % s[:88])
@@ -2123,8 +2505,53 @@ def _run_all(fast, strict):
     print('=' * 78)
     if failed:
         print('  %d GATE(S) FAILED: %s   (%.0fs)' % (len(failed), ', '.join(failed), time.time() - t0))
-    else:
-        print('  ALL GATES GREEN   (%.0fs)' % (time.time() - t0))
+    elif not unrun:
+        # AND IT SAYS HOW MANY. "ALL GATES GREEN" after --only ran one gate is
+        # the same lie as silence about an unrun one.
+        if only:
+            print('  %d of %d GATE(S) GREEN -- filtered by --only %s. THE REST DID '
+                  'NOT RUN AND HELD NOTHING.   (%.0fs)'
+                  % (ran, total, only, time.time() - t0))
+        elif shard:
+            print('  %d of %d GATE(S) GREEN -- SHARD %d OF %d. THE OTHER SHARD(S) '
+                  'DID NOT RUN AND HELD NOTHING; run them to cover the table.   (%.0fs)'
+                  % (ran, total, shard[0], shard[1], time.time() - t0))
+        else:
+            print('  ALL %d GATES GREEN   (%.0fs)' % (ran, time.time() - t0))
+    # AND THE HALF THAT WAS MISSING. An unrun gate has held nothing, so a run
+    # with unrun gates is NEVER a pass -- it is an unfinished run, and it says
+    # so by name and by count rather than trailing off.
+    if unrun:
+        print('  %d GATE(S) NEVER RAN -- the suite hit its %ds budget with %d left.'
+              % (len(unrun), SUITE_BUDGET, len(unrun)))
+        print('  NOT GREEN AND NOT RED: UNFINISHED. These held nothing this run:')
+        for j in range(0, len(unrun), 6):
+            print('    ' + ', '.join(unrun[j:j + 6]))
+        # AND IT WORKS OUT THE SHARD COUNT ITSELF, from what this run just
+        # measured, rather than leaving the next person to guess. Two shards was
+        # MY guess and it was wrong: shard 1/2 owns 193 gates and reached 162.
+        done = ran or 1
+        rate = (time.time() - t0) / done                 # seconds per gate, measured
+        owned = done + len(unrun)
+        need = rate * owned
+        # THE RATE IS A SAMPLE, AND NOT A RANDOM ONE -- it is whichever gates
+        # happened to run before the clock, and the slow ones are clustered (one
+        # gate alone is 600s). Measured both ways on 8/19: a full run averaged
+        # 11.6s a gate, while shard 1/2 averaged 16.7s because it held TOOLS RUN.
+        # So this leaves real headroom rather than dividing exactly, and says
+        # AT LEAST. Advice that is optimistic here costs somebody a whole
+        # container to find out.
+        want = max(2, -(-int(need * 100) // int(SUITE_BUDGET * 60)))
+        print('  MEASURED THIS RUN: %.1fs a gate, so this run\'s %d gates need '
+              '~%.0fs against a %ds budget.' % (rate, owned, need, SUITE_BUDGET))
+        print('  AT LEAST %d SHARD(S) -- the rate is a sample of whichever gates '
+              'ran, and the slow ones cluster, so this leaves headroom:' % want)
+        print('  ' + '  '.join(
+            'python3 gates/bohemia_gates.py --shard %d/%d' % (k + 1, want)
+            for k in range(min(want, 4))) + ('  ...' if want > 4 else ''))
+        print('  Or run one directly: python3 gates/bohemia_gates.py --only <name>')
+    if unrun:
+        return 1
     return 1 if (failed and strict) else 0
 
 if __name__ == '__main__':

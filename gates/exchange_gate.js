@@ -128,7 +128,12 @@ function pw() {
     stubs.map(s => s[0]).join(' '));
 
   /* A8: Q030.X3 REPETITION -- a pair spends its pool before anything repeats. */
-  const pool = X.forPair('worker', 'watch');
+  /* COUNT AGAINST WHAT nextFor REALLY DRAWS FROM. forPair is the whole table for
+     a pair; nextFor draws from the ELIGIBLE subset, and with no context the
+     about-the-player exchanges are correctly excluded. Using the bigger number
+     made this demand more unique draws than the pool can hold, which is the gate
+     being wrong rather than the code. */
+  const pool = X.eligible(X.forPair('worker', 'watch'), null);
   const spent = {}, drawn = [];
   for (let i = 0; i < pool.length; i++) {
     const x = X.nextFor('a|b', 'worker', 'watch', spent, i);
@@ -145,6 +150,50 @@ function pw() {
   /* A10: some of them REWARD THE LISTENER (Q001.P8) -- a fact said nowhere else. */
   const leaks = EX.filter(x => x.leaks).length;
   ok('A10 some exchanges reward the listener with a real thread (' + leaks + ')', leaks >= 6);
+
+  /* ---- A11..A16: AND THEY TALK ABOUT YOU, BUT ONLY WHEN IT IS TRUE ------
+     Q062.P6 "the witness makes it real": an exchange about the player splits on
+     whether either speaker has ACTUALLY MET HIM. Q007.W10 CROSS-SYSTEM
+     CONSEQUENCE: going round asking questions is a deed and the street starts
+     saying so. AN EXCHANGE ABOUT YOU THAT FIRES WHEN IT IS NOT TRUE IS THE
+     WORLD LYING ABOUT ITSELF, which is worse than saying nothing. */
+  const about = EX.filter(x => x.about);
+  ok('A11 the world can talk about the player (' + about.length + ' exchanges)',
+    about.length >= 4);
+
+  const unconditioned = about.filter(x => !x.needs || !x.witness);
+  ok('A12 every one names a condition AND a witness state (' + unconditioned.length
+    + ' do not)', unconditioned.length === 0, unconditioned.map(x => x.id).join(' '));
+
+  /* A13: WITH NO CONTEXT AT ALL, NOT ONE OF THEM IS ELIGIBLE. A fresh player who
+     has done nothing must never overhear the street discussing him. */
+  const anyPool = X.forPair('any', 'any');
+  ok('A13 a player who has done nothing is never talked about',
+    X.eligible(anyPool, null).every(x => !x.about)
+    && X.eligible(anyPool, { world: { asked: 0, known: 0, names: 0 }, witness: 'heard' })
+      .every(x => !x.about));
+
+  /* A14: cross the threshold and it becomes true. */
+  const asked3 = X.eligible(anyPool, { world: { asked: 3, known: 0, names: 0 }, witness: 'heard' })
+    .filter(x => x.about);
+  ok('A14 going round asking makes it true (' + asked3.map(x => x.id).join(', ') + ')',
+    asked3.length >= 1 && asked3.every(x => x.witness === 'heard'));
+
+  /* A15: THE WITNESS SPLIT IS REAL. The same world, the same counters, and a
+     different pair: one of whom has met him. Different lines, every time. */
+  const seenSide = X.eligible(anyPool, { world: { asked: 3, known: 5, names: 3 }, witness: 'seen' })
+    .filter(x => x.about);
+  ok('A15 a witness and a second-hand teller do not say the same thing ('
+    + seenSide.length + ' seen vs ' + asked3.length + ' heard)',
+    seenSide.length >= 1 && seenSide.every(x => x.witness === 'seen')
+    && seenSide.every(x => asked3.indexOf(x) < 0));
+
+  /* A16: and the world talks about HIM before it talks about the water, while
+     it is still news -- otherwise the moment never surfaces at all. */
+  const pref = X.nextFor('p|q', 'any', 'any', {}, 1,
+    { world: { asked: 3, known: 0, names: 0 }, witness: 'heard' });
+  ok('A16 while it is news, it comes up before the water does (' + (pref && pref.id) + ')',
+    !!pref && !!pref.about);
 
   /* ---- B. THE STREET, through the one link ------------------------------ */
   const { chromium } = pw();
@@ -300,7 +349,69 @@ function pw() {
     ok('B11 with nobody to talk to, one person still speaks (' + solo.lines
       + ' solo lines, ' + solo.drew + ' drawn)', solo.lines >= 1);
 
-    ok('B12 nothing threw while the street talked', errs.length === 0,
+    /* B12: ON THE REAL STREET -- silent about him before, talking after. This is
+       the whole claim, driven by rendering rather than by calling the picker. */
+    /* PUT THE PEOPLE BACK. B11 sets the dial to 1 to prove the solo bark still
+       fires with nobody to talk to, and left there it means no pairs, which is
+       exactly what a conversation needs. Caught by this section failing with one
+       lonely exchange in sixty renders. */
+    await city.evaluate(() => {
+      BohemiaPopulation.setDial(20);
+      try { chunkCache.clear(); metaCache.clear(); __subCache.clear(); } catch (_e) {}
+      XCH.on = false; XCH.spent = {}; XCH.key = '';
+      BARK.p = null; BARK.until = 0; BARK.next = 0;
+      render();
+    });
+    await page.waitForTimeout(2200);
+
+    const beforeIds = [];
+    for (let i = 0; i < 34; i++) {
+      await city.evaluate(() => render());
+      const id = await city.evaluate(() => XCH.id);
+      if (id && beforeIds.indexOf(id) < 0) beforeIds.push(id);
+      await page.waitForTimeout(280);
+    }
+    ok('B12 before he has asked anybody anything, nobody discusses him ('
+      + beforeIds.length + ' conversations heard)',
+      beforeIds.length > 0 && beforeIds.every(id => id.indexOf('you-') !== 0),
+      beforeIds.join(' '));
+
+    const w = await city.evaluate(() => {
+      BohemiaExchanges.EXCHANGES.filter(e => e.leaks).slice(0, 4)
+        .forEach(x => knownHeard(x, x.turns[3]));
+      /* STAND NEXT TO SOMEBODY FIRST. ctAdjacent() is adjacency-only by design
+         (you talk to somebody you could touch), and after a long render loop the
+         player is not guaranteed to be beside anyone. The gate moves him, the
+         same way it moved him into the settlement. */
+      let p = ctAdjacent();
+      if (!p && BARK_DREW.length) {
+        hx = BARK_DREW[0].at[0] + 1; hy = BARK_DREW[0].at[1];
+        render();
+        p = ctAdjacent();
+      }
+      if (!p) return { asked: -1, known: -1, names: -1 };
+      const who = ctPerson(p);
+      ['water', 'power', 'the hill'].forEach(s => askAbout(who, who.key, s));
+      XCH.on = false; XCH.spent = {}; XCH.key = '';
+      BARK.p = null; BARK.until = 0; BARK.next = 0;
+      return xchWorld();
+    });
+    ok('B13 the world counts what he has been doing (' + JSON.stringify(w) + ')',
+      w.asked >= 2);
+
+    const afterIds = [];
+    for (let i = 0; i < 60; i++) {
+      await city.evaluate(() => render());
+      const id = await city.evaluate(() => XCH.id);
+      if (id && afterIds.indexOf(id) < 0) afterIds.push(id);
+      await page.waitForTimeout(280);
+      if (afterIds.some(id => id.indexOf('you-') === 0)) break;
+    }
+    ok('B14 once he has gone round asking, the street talks about him ('
+      + afterIds.join(', ') + ')',
+      afterIds.some(id => id.indexOf('you-') === 0), afterIds.join(' '));
+
+    ok('B15 nothing threw while the street talked', errs.length === 0,
       errs.slice(0, 3).join(' | '));
   } finally {
     await b.close();

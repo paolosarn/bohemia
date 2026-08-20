@@ -1133,6 +1133,157 @@ def build_strip_x(P):
     return _strip_body(P, crossing=True)
 
 
+# ---------------------------------------------------------------- CONVENTION
+def build_convention(P):
+    """engine/bohemia_landmarks.js: what says CONVENTION CENTRE from a mile up is TWO
+    ENORMOUS COLUMN-FREE BOXES and a wall of loading docks. Not a facade -- the halls ARE
+    the building, blind on three sides, and the only texture on them is roof plant."""
+    HALL, WEST, ROOF, SKY, CONC = P[2], P[15], P[4], P[13], P[6]
+    DOCK, TRAILERC, PLAZA = P[8], P[10], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[0], lotc=P[7])
+    s.box((-2.4, 1.0, 0), (7.4, 9.0, 5.2), {'top': _dark(ROOF, 0.95), 'px': _win(HALL, 4, 2, 4, 0.1),
+          'py': _dark(HALL, 0.96), 'nx': _dark(HALL), 'ny': _dark(HALL)})            # hall A
+    s.box((5.6, 1.0, 0), (7.6, 9.0, 6.4), {'top': _dark(ROOF, 0.95), 'px': _win(WEST, 4, 2, 8, 0.1),
+          'py': _dark(WEST, 0.96), 'nx': _dark(WEST), 'ny': _dark(WEST)})            # the west hall, taller
+    s.box((4.6, 1.0, 0), (1.2, 9.0, 6.9), {'top': _dark(CONC, 1.1), 'px': _win(CONC, 2, 4, 3, 0.34),
+          'py': _win(CONC, 1, 4, 6, 0.34), 'nx': _win(CONC, 1, 4, 9, 0.34), 'ny': _dark(CONC)})
+    for hx_ in (-1.6, 1.0, 6.6, 9.4):
+        s.box((hx_, 2.0, 5.2 if hx_ < 4 else 6.4), (2.0, 1.6, 0.7), {'c': _dark(ROOF, 1.12)['c']})
+        s.box((hx_, 5.4, 5.2 if hx_ < 4 else 6.4), (2.2, 1.0, 0.22), {'c': SKY})
+    for dy in (1.6, 3.4, 5.2, 7.0, 8.8):                                             # the dock wall
+        s.box((-2.5, dy, 0), (0.18, 1.2, 2.4), {'c': DOCK})
+        if dy in (1.6, 5.2, 8.8): _vehicle(s, -4.2, dy + 0.3, TRAILER, TRAILERC, along='x')
+    s.box((-2.4, 10.2, 0.02), (15.6, 2.4, 0.06), {'c': PLAZA})
+    _door_face(s, (-2.4, 1.0, 0), (7.4, 9.0, 5.2), width=2.0, ztop=2.6)
+    return s, 7.1
+
+
+# ---------------------------------------------------------------- PRISON
+def build_prison(P):
+    """engine/bohemia_landmarks.js: the silhouette of a prison is not a building, it is a
+    PERIMETER WITH TOWERS ON IT. Four low housing units inside a double wire, a tower at
+    each corner standing above everything, and the admin block outside the line."""
+    UNIT, ROOF, CORE, ADMIN = P[2], P[4], P[11], P[12]
+    FENCE, TOWER, YARD, VANC = P[7], P[9], P[6], P[10]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[13], lotc=P[1])
+    s.box((-1.6, -1.6, 0.02), (14.0, 12.0, 0.05), {'c': _dark(P[0], 1.02)['c']})
+    for r_ in (0.0, 0.8):                                                            # the double wire
+        for seg in ((-1.6 + r_, -1.6 + r_, 14.0 - 2 * r_, 0.22),
+                    (-1.6 + r_, 10.2 - r_, 14.0 - 2 * r_, 0.22),
+                    (-1.6 + r_, -1.6 + r_, 0.22, 12.0 - 2 * r_),
+                    (12.2 - r_, -1.6 + r_, 0.22, 12.0 - 2 * r_)):
+            s.box((seg[0], seg[1], 0), (seg[2], seg[3], 2.2), {'c': _dark(FENCE, 0.95)['c']})
+    for (ux, uy) in ((0.4, 0.6), (7.0, 0.6), (0.4, 6.2), (7.0, 6.2)):                # housing units
+        s.box((ux, uy, 0), (5.0, 2.6, 3.2), {'top': _dark(ROOF, 0.95), 'px': _win(UNIT, 8, 1, 5, 0.1),
+              'py': _dark(UNIT, 0.96), 'nx': _dark(UNIT), 'ny': _dark(UNIT)})
+        s.box((ux + 0.4, uy + 3.0, 0.02), (4.2, 2.2, 0.05), {'c': YARD})
+        _door_face(s, (ux, uy, 0), (5.0, 2.6, 3.2), width=0.8, ztop=1.8)
+    s.box((5.6, 3.4, 0), (1.4, 5.0, 4.0), {'top': _dark(CORE, 0.9), 'px': _win(CORE, 1, 3, 7),
+          'py': _win(CORE, 4, 3, 2), 'nx': _dark(CORE), 'ny': _dark(CORE)})           # services core
+    for (tx, ty) in ((-1.9, -1.9), (12.2, -1.9), (-1.9, 10.2), (12.2, 10.2)):        # THE TOWERS
+        s.box((tx, ty, 0), (1.5, 1.5, 7.4), {'top': _dark(TOWER, 1.15), 'px': _win(TOWER, 1, 1, 4, 0.4),
+              'py': _win(TOWER, 1, 1, 8, 0.4), 'nx': _dark(TOWER, 0.9), 'ny': _dark(TOWER, 0.9)})
+    s.box((6.4, 11.0, 0), (4.4, 2.0, 3.0), {'top': _dark(ADMIN, 0.9), 'px': _win(ADMIN, 4, 2, 3),
+          'py': _win(ADMIN, 2, 2, 9), 'nx': _dark(ADMIN), 'ny': _dark(ADMIN)})        # OUTSIDE the wire
+    _vehicle(s, 3.4, 11.4, CAR, VANC, along='x')
+    return s, 7.9
+
+
+# ---------------------------------------------------------------- DAM
+def build_dam(P):
+    """engine/bohemia_landmarks.js: an arch-gravity wall wedged across a canyon, with the
+    reservoir stacked behind it and the powerhouse in a U at the toe. Nothing else in the
+    valley is a CURVE holding back a lake, which is the whole icon."""
+    WALL, WATER, RING, ROCK = P[2], P[3], P[7], P[0]
+    TOWER, HOUSE, TAIL, SPILL, LINE = P[4], P[11], P[12], P[6], P[9]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=ROCK, lotc=P[1])
+    s.box((-3, -3, 0.02), (17, 6.2, 0.06), {'c': WATER})                              # the reservoir
+    s.box((-3, 3.0, 0.06), (17, 0.7, 0.10), {'c': RING})                              # the bathtub ring
+    for i in range(13):                                                               # THE ARCH
+        t = i / 12.0
+        bow = math.sin(t * math.pi) * 1.5
+        s.box((-2.4 + i * 1.28, 3.7 - bow, 0), (1.30, 1.7, 9.4),
+              {'top': _dark(WALL, 1.08), 'px': _dark(WALL, 0.92), 'py': _dark(WALL, 1.02),
+               'nx': _dark(WALL, 0.86), 'ny': _dark(WALL, 0.86)})
+    for f in (-0.6, 2.6, 7.4, 10.6):                                                  # intake towers
+        s.box((f, 1.0, 0), (1.3, 1.3, 11.2), {'top': _dark(TOWER, 1.15), 'px': _dark(TOWER, 0.9),
+              'py': _dark(TOWER, 0.9), 'nx': _dark(TOWER, 0.9), 'ny': _dark(TOWER, 0.9)})
+    s.box((-3, 5.6, 0.02), (2.6, 3.4, 0.10), {'c': SPILL})                            # spillways
+    s.box((11.6, 5.6, 0.02), (2.6, 3.4, 0.10), {'c': SPILL})
+    s.box((2.2, 6.2, 0), (6.4, 2.6, 3.4), {'top': _dark(HOUSE, 0.92), 'px': _win(HOUSE, 6, 2, 5),
+          'py': _dark(HOUSE, 0.94), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE)})           # powerhouse
+    s.box((2.2, 9.4, 0.02), (6.4, 3.0, 0.06), {'c': TAIL})                             # tailrace
+    for f2 in (-2.0, 12.4):                                                            # transmission
+        s.box((f2, 10.0, 0), (0.28, 0.28, 6.0), {'c': LINE})
+        s.box((f2 - 0.7, 9.9, 5.2), (1.7, 0.24, 0.24), {'c': LINE})
+    _door_face(s, (2.2, 6.2, 0), (6.4, 2.6, 3.4), width=1.0, ztop=1.8)
+    return s, 11.9
+
+
+# ---------------------------------------------------------------- MINIGP
+def build_minigp(P):
+    """engine/bohemia_landmarks.js: a closed LOOP with a tyre wall round the outside of it
+    and a timing tower over the start line. The loop is the icon -- nothing else in the
+    valley is a ribbon that comes back to itself."""
+    TRACK, PIT, TYRE, PADDOCK, ROOF, TOWER, KART = P[1], P[6], P[12], P[2], P[4], P[9], P[10]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[13], lotc=P[0])
+    for (bx, by, bw, bh) in ((-1.4, -1.0, 13.0, 1.5), (-1.4, 8.4, 13.0, 1.5),
+                             (-1.4, -1.0, 1.5, 10.9), (10.1, -1.0, 1.5, 10.9)):
+        s.box((bx, by, 0.02), (bw, bh, 0.07), {'c': TRACK})                            # the loop
+    s.box((2.6, 2.4, 0.02), (1.5, 6.0, 0.07), {'c': TRACK})                            # infield kink
+    s.box((2.6, 2.4, 0.02), (5.2, 1.5, 0.07), {'c': TRACK})
+    s.box((0.4, 6.8, 0.03), (9.4, 1.2, 0.08), {'c': PIT})                              # pit lane
+    for (tx, ty, tw, th) in ((-2.2, -1.8, 14.6, 0.5), (-2.2, 10.0, 14.6, 0.5),
+                             (-2.2, -1.8, 0.5, 12.3), (11.9, -1.8, 0.5, 12.3)):
+        s.box((tx, ty, 0), (tw, th, 0.9), {'c': TYRE})                                 # tyre walls
+    s.box((0.4, 10.8, 0), (6.4, 2.0, 2.8), {'top': _dark(ROOF, 0.95), 'px': _win(PADDOCK, 5, 2, 4),
+          'py': _dark(PADDOCK, 0.95), 'nx': _dark(PADDOCK), 'ny': _dark(PADDOCK)})     # paddock
+    s.box((7.6, 9.6, 0), (1.6, 1.6, 6.2), {'top': _dark(TOWER, 1.15), 'px': _win(TOWER, 1, 3, 5, 0.35),
+          'py': _win(TOWER, 1, 3, 2, 0.35), 'nx': _dark(TOWER, 0.9), 'ny': _dark(TOWER, 0.9)})
+    /* A KART IS NOT A CAR, so it does not go through _vehicle at all. That helper enforces
+       ONE CANON car/bus/trailer size across every hero (vehicle_size_gate) and it is right
+       to -- but a racing kart is 1.8 m long and drawing it at car size would be a lie about
+       the only vehicle on this site. Boxes, at the size the thing actually is. */
+    for kx in (3.0, 4.6, 6.2):
+        s.box((kx, 7.15, 0), (1.1, 0.6, 0.32), {'top': _dark(KART, 1.1), 'px': _dark(KART, 0.9),
+              'py': _dark(KART, 0.9), 'nx': _dark(KART, 0.85), 'ny': _dark(KART, 0.85)})
+        s.box((kx + 0.35, 7.28, 0.32), (0.4, 0.34, 0.30), {'c': _dark(KART, 0.75)['c']})
+    _door_face(s, (0.4, 10.8, 0), (6.4, 2.0, 2.8), width=1.0, ztop=1.8)
+    return s, 6.4
+
+
+# ---------------------------------------------------------------- FORT
+def build_fort(P):
+    """engine/bohemia_landmarks.js: an ADOBE SQUARE with a bastion at one corner, on the
+    creek. The oldest thing in the valley and the only walled square in it -- a courtyard
+    you can see into over a low wall, which nothing else here is."""
+    WALL, ADOBE, BASTION, CREEK, GRASS, YARD, PATH = P[2], P[4], P[7], P[12], P[6], P[0], P[11]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[13], lotc=P[1])
+    s.box((11.4, -3, 0.02), (1.9, 17, 0.06), {'c': GRASS})                             # the creek
+    s.box((11.9, -3, 0.03), (0.9, 17, 0.07), {'c': CREEK})
+    s.box((-1.2, -0.6, 0.02), (12.0, 11.0, 0.05), {'c': YARD})                         # the yard
+    for (wx, wy, ww, wh) in ((-1.2, -0.6, 12.0, 0.9), (-1.2, 9.5, 12.0, 0.9),
+                             (-1.2, -0.6, 0.9, 11.0), (9.9, -0.6, 0.9, 11.0)):
+        s.box((wx, wy, 0), (ww, wh, 2.6), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 0.94),
+              'py': _dark(WALL, 1.02), 'nx': _dark(WALL, 0.88), 'ny': _dark(WALL, 0.88)})
+    s.box((-1.6, -1.0, 0), (2.4, 2.4, 4.2), {'top': _dark(BASTION, 1.12),              # THE BASTION
+          'px': _win(BASTION, 2, 1, 4, 0.3), 'py': _win(BASTION, 2, 1, 7, 0.3),
+          'nx': _dark(BASTION, 0.9), 'ny': _dark(BASTION, 0.9)})
+    s.box((0.6, 6.2, 0), (4.2, 2.6, 3.0), {'top': _dark(ADOBE, 1.06),                  # THE adobe building
+          'px': _win(ADOBE, 3, 1, 5, 0.22), 'py': _dark(ADOBE, 0.95),
+          'nx': _dark(ADOBE, 0.92), 'ny': _dark(ADOBE, 0.92)})
+    s.box((6.0, 1.2, 0), (3.4, 2.2, 2.8), {'top': _dark(ADOBE, 1.04), 'px': _win(ADOBE, 2, 1, 8, 0.22),
+          'py': _dark(ADOBE, 0.95), 'nx': _dark(ADOBE, 0.92), 'ny': _dark(ADOBE, 0.92)})
+    s.box((-1.8, 10.6, 0.02), (12.6, 0.7, 0.06), {'c': PATH})
+    _door_face(s, (0.6, 6.2, 0), (4.2, 2.6, 3.0), width=0.9, ztop=1.8)
+    return s, 4.6
+
+
 # ---------------------------------------------------------------- INDUSTRIAL
 def build_industrial(P):
     WARE, DOCK, OFFICE, GUARD, TRAILERC, DRIVE = P[2], P[4], P[6], P[11], P[9], P[1]
@@ -3757,6 +3908,9 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           # because the hero factory reads a district's palette LIVE off its engine module
           # and these three had no module. They have one now.
           'resort': build_resort, 'casino': build_casino,
+          # THE LAST FIVE (8/19): the buildable end of walked_surface_gate's debt.
+          'convention': build_convention, 'prison': build_prison, 'dam': build_dam,
+          'minigp': build_minigp, 'fort': build_fort,
           'strip': build_strip, 'strip_x': build_strip_x,
           'mountain': build_mountain, 'desert': build_desert, 'water': build_water}
 
@@ -3818,6 +3972,11 @@ LABEL = {
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'apartment': 'Garden apartments — matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence.',
     'arterial': 'Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run.',
+    'convention': 'Convention centre — matched to the walkable district: TWO ENORMOUS COLUMN-FREE BOXES, which is what the building is from a mile up. The older hall flat-roofed and the newer WEST HALL taller beside it (the LVCC\'s halls were built decades apart and read as different buildings), a glazed CONCOURSE spine threading them, roof plant and SKYLIGHT bands the only texture on the roofs, and the WALL OF LOADING DOCKS with the trailers still backed into it — because a hall\'s real job is swallowing a hundred semi-trailers of freight in two days.',
+    'prison': 'Prison — matched, and the silhouette is not a building, it is a PERIMETER WITH TOWERS ON IT. A double wire ringing the compound with a GUARD TOWER standing above everything at each of the four corners, four low housing units and their exercise yards inside it, the services core between them, and the ADMINISTRATION BLOCK OUTSIDE THE LINE — which is the tell that separates a prison from any other institutional campus. Nevada desert facility (High Desert / Southern Desert, Indian Springs).',
+    'dam': 'Dam — matched, and nothing else in the valley is a CURVE HOLDING BACK A LAKE. The arch-gravity wall wedged across the canyon bowing upstream, the reservoir stacked behind it with the white BATHTUB RING where the water used to reach, FOUR INTAKE TOWERS standing out of the water, a spillway cut into each canyon wall, the POWERHOUSE in its U at the downstream toe with the tailrace below, and transmission towers climbing the walls at angles nothing else is built at. Hoover.',
+    'minigp': 'Kart circuit — matched: a closed LOOP that comes back to itself, which no other district in the valley is. The course with its infield kink, the TYRE WALL running the whole outside of it, the pit lane down the inside of the main straight with the paddock behind, the TIMING TOWER over the start line, and the karts left on the grid.',
+    'fort': 'Old Mormon Fort — matched: an ADOBE SQUARE with a bastion at one corner, on Las Vegas Creek. The only walled courtyard in the valley and the only thing you can see INTO over a low wall, which is what makes it read at map zoom against sixty districts of roofs. The original adobe building stands inside it. 1855, and the spring beside it is the reason a city is here at all.',
     'resort': 'Strip mega-resort — matched to the walkable district: PODIUM + TOWER, off real Las Vegas site plans (Encore/Wynn, Paris Las Vegas, Circa). A low podium filling the block wall to wall with the casino floor, roof plant and SKYLIGHTS over it, and ONE ENORMOUS GUEST TOWER standing on it — a long thin double-loaded slab, the tallest thing in the valley — plus the COLONNADED ARRIVAL -- a double row of piers down the drive and a raised entry platform at the doors, which is what replaced the porte cochere when Paolo banned canopies on 8/2 -- the open-deck parking garage on one end and the DRY POOL basin behind. No fence, no wall, no bollards anywhere (Paolo 8/16): the podium meeting the sidewalk is the edge, which is what the real building does.',
     'casino': 'Downtown casino — matched, and its whole job is to NOT be the Strip resort. Fremont Street: NO SETBACK, one enormous LOW WIDE floor meeting the pavement on a block platted before anybody parked a car, a SLENDER HOTEL WING on the back rather than a tower across the front, and THE FRONTAGE IS SIGN — MARQUEE PYLONS floor to roof, the brightest things on the block, with the marquee band running between them ABOVE the doors -- never out over the pavement, because Paolo banned canopies on 8/2 and the Fremont canopy is still a canopy. The car is banished to a self-park deck on the alley. Marquee faces BLANK: whose casino it is stays Paolo\'s.',
     'strip': 'Las Vegas Boulevard — THE RUN, and it is a street cell, not a lot: eight lanes filling the cell end to end, the wide LANDSCAPED PALM MEDIAN down the middle (the county lifted those palms out during construction and re-planted them — the median is not decoration, it is the street), the PROMENADE at the back of curb running out to the property line on both sides with no amenity strip and NO WALL, a marquee pylon at the building face, and the ENCLOSED PEDESTRIAN BRIDGE flying over the traffic on its two stair towers. The bridge is the tell: nothing else in the valley has one.',
@@ -4018,6 +4177,47 @@ PARTS = {
         'promenade — wrapping the corners (code 6 "promenade")',
         'marquee pylon — at the building face (code 20 "marquee pylon")',
         'dead cars — in the lanes (code 14 "dead car")',
+    ],
+    'convention': [
+        'exhibit hall — the older column-free box, flat-roofed and blind (code 2 "exhibit hall")',
+        'west hall — the newer box beside it, taller, built decades later (code 15 "west hall")',
+        'concourse — the glazed spine threading the halls, the only glass on the building (code 6 "concourse")',
+        'roof plant + skylight bands — the only texture on a hall roof (code 4, code 13 "hall skylight")',
+        'dock wall — roll-up doors along the back with trailers still backed in (code 8 "dock door", code 10 "abandoned trailer")',
+        'entry plaza — the pavers on the street frontage, no canopy over them (code 12 "entry plaza")',
+    ],
+    'prison': [
+        'double perimeter — two wire runs ringing the compound (code 7 "perimeter fence")',
+        'guard towers — one at each corner, standing above everything (code 9 "guard tower")',
+        'housing units — four low blocks with a slot window per cell (code 2 "housing unit")',
+        'exercise yards — one per unit, packed dirt (code 6 "exercise yard")',
+        'services core — kitchen, laundry and infirmary in one block at the middle (code 11 "services core")',
+        'administration — OUTSIDE the wire, which is the tell (code 12 "administration")',
+        'transport van — left where it stopped (code 10 "abandoned vehicle")',
+    ],
+    'dam': [
+        'the arch wall — bowing upstream across the canyon, the vertical event (code 2 "dam wall")',
+        'reservoir + bathtub ring — the lake and the white mineral band it used to reach (code 3, code 7 "bathtub ring")',
+        'intake towers — four of them standing out of the water (code 4 "intake tower")',
+        'spillways — a concrete funnel cut into each canyon wall (code 6 "spillway")',
+        'powerhouse — the U at the downstream toe (code 11 "powerhouse")',
+        'tailrace — the channel below it (code 12 "tailrace")',
+        'transmission towers — climbing the canyon walls (code 9 "transmission tower")',
+    ],
+    'minigp': [
+        'the circuit — a closed loop with an infield kink (code 1 "circuit")',
+        'tyre wall — running the whole outside of the loop (code 12 "tyre barrier")',
+        'pit lane — down the inside of the main straight (code 6 "pit lane")',
+        'paddock — behind the pits, roller door open (code 2 "paddock building", code 8 "paddock door")',
+        'timing tower — over the start line, board blank (code 9 "timing tower")',
+        'karts — left on the grid where they stopped (code 10 "abandoned kart")',
+    ],
+    'fort': [
+        'adobe curtain wall — the square, low enough to see into (code 2 "adobe wall")',
+        'bastion — higher than the wall, at one corner (code 7 "bastion")',
+        'the adobe building — THE original, oldest standing structure in the valley (code 4 "adobe building")',
+        'the creek — Las Vegas Creek and the only living grass in the valley beside it (code 12 "creek", code 6 "creek grass")',
+        'interpretive path — looping the outside, plaques prised off (code 11 "interpretive path")',
     ],
     'arterial': [
         'roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")',

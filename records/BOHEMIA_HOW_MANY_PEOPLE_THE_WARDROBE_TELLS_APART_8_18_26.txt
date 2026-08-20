@@ -1,0 +1,27 @@
+BOHEMIA -- HOW MANY PEOPLE THIS WARDROBE CAN TELL APART
+CHARACTER lane, 8/18/26. Measured, not estimated.
+
+  candidates measured   880  (5 bodies x 11 shoulder shapes x 4 heads x 4 legs)
+  separation floor      0.040  (the ratchet city_cast_silhouette_gate holds)
+  FACTIONS THAT NEED A SHAPE   13 selectable (engine/BOHEMIA_faction_graph.json)
+
+  *** DISTINGUISHABLE SET FOUND: 13 ***
+  closest pair in it    0.0417   broad/midcoat/none/trousers / broad/splittail/knit/trousers
+
+  body     shoulder    head        legs
+  broad    mantle      brim        trousers
+  small    longcoat    knit        skirt
+  lanky    splittail   knit        trousers
+  broad    midcoat     none        trousers
+  small    mantle      none        skirt
+  tall     mantle      knit        trousers
+  tall     longcoat    none        trousers
+  small    cape        knit        trousers
+  broad    bare        knit        trousers
+  lanky    cape        none        skirt
+  tall     bare        none        trousers
+  small    bare        none        trousers
+  broad    splittail   knit        trousers
+
+  THIRTEEN IS REACHABLE. Every selectable faction can have an outline of its
+  own out of clothes that already exist -- no cook is owed for the assignment.

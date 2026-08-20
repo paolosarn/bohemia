@@ -220,7 +220,7 @@ def parse_barks(path):
 
 # WHAT MAKES A records/ JSON A DIALOGUE FILE: a top-level container of lines.
 # Routed BY CONTENT, so a new one is picked up the day it lands.
-CONTAINERS = ('barks', 'reactions', 'exchanges', 'asking')
+CONTAINERS = ('barks', 'reactions', 'exchanges', 'asking', 'quirks')
 
 
 def parse_asking(path):
@@ -249,6 +249,43 @@ def parse_asking(path):
                     'title': 'WHAT THEY TELL YOU WHEN YOU ASK'})
     return {'src': rel, 'title': 'WHAT THEY TELL YOU WHEN YOU ASK', 'kind': 'asking',
             'cites': [], 'lines': out}
+
+
+def parse_quirks(path):
+    """ONE THING THAT IS THEIRS. Two lines per shape, because the SAME person
+    says the lit one on a powered block and the dark one at night off the grid,
+    and he cannot edit a pair if he can only see half of it. The TELL is here
+    too: it is third-person narration rather than speech, but it is still words
+    nobody approved, and the WORDS tab is where unapproved words live.
+
+    THE SLOT IS LEFT UNFILLED ON PURPOSE. A line is authored once and rendered
+    against 12 to 16 nouns; listing all 304 renderings would bury the 44 real
+    lines he actually edits under three hundred near-duplicates. The noun pool
+    ships as its own rows at the end so every word is still reachable."""
+    with open(path, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+    TITLE = 'ONE THING THAT IS THEIRS'
+    out = []
+    for q in d.get('quirks', []):
+        base = {'kind': 'quirk', 'src': rel, 'speaker': 'any',
+                'draft': q.get('draft') is True, 'cites': q.get('study') or [],
+                'citeLevel': 'line', 'title': TITLE}
+        out.append(dict(base, id=rel + '#' + q['id'] + '.tell', speaker='(what you see)',
+                        node=q['id'] + ' (the tell, third person)', text=q.get('tell') or ''))
+        out.append(dict(base, id=rel + '#' + q['id'] + '.lit',
+                        node=q['id'] + ' (asked in the light)', text=q.get('lit') or ''))
+        out.append(dict(base, id=rel + '#' + q['id'] + '.dark',
+                        node=q['id'] + ' (asked in the dark, SAME person)',
+                        text=q.get('dark') or ''))
+    for kind, pool in (d.get('specifics') or {}).items():
+        for i, n in enumerate(pool):
+            out.append({'kind': 'quirk', 'src': rel, 'speaker': '(' + kind + ')',
+                        'id': rel + '#noun:' + kind + ':' + str(i),
+                        'node': 'the specific noun a line is built on',
+                        'text': n, 'draft': True, 'cites': [], 'citeLevel': 'line',
+                        'title': TITLE})
+    return {'src': rel, 'title': TITLE, 'kind': 'quirks', 'cites': [], 'lines': out}
 
 
 def parse_exchanges(path):
@@ -337,6 +374,8 @@ def harvest():
             books.append(parse_exchanges(p))
         elif p.endswith('BOHEMIA_ASKING.json'):
             books.append(parse_asking(p))
+        elif p.endswith('BOHEMIA_QUIRKS.json'):
+            books.append(parse_quirks(p))
         else:
             books.append(parse_scene(p))
     return books

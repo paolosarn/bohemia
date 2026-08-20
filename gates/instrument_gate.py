@@ -42,6 +42,18 @@ in another file is worth nothing until you call it:
                                      in his studio, forever.
   6. SCREECH LAW HOLDS               borrowing the rack adds no delay and no
                                      convolver to the game
+  7. NOTHING DEAD COMES BACK         no recipe borrows a voice Paolo retired.
+                                     ADDED 8/19 because it had already happened:
+                                     `ironlung` and `throatsong` were both
+                                     graveyarded on 7/19 with "Do not re-add"
+                                     written next to them, and SFX-07/08 put
+                                     them in four candidates he then thumbed.
+                                     GRAVEYARD IS FINAL had no machine behind
+                                     it for voice NAMES, so a dead thing walked
+                                     straight back into the game. The check
+                                     reads uses, never mentions: a comment
+                                     explaining why a voice died is not the
+                                     voice coming back.
 
 Run from repo root:  python3 gates/instrument_gate.py
 """
@@ -181,6 +193,29 @@ def main():
        'createDelay' not in rack)
     ok('borrowing the rack adds NO convolver to the game (SCREECH LAW)',
        'createConvolver' not in rack)
+
+    # ---- 7. GRAVEYARD IS FINAL, FOR VOICES ---------------------------------
+    # Registry lines look like:
+    #   n:'LAST BREATH OF THE ORGAN' | 7/19/26 | DOWN ... ironlung voice retired
+    # A voice is DEAD only where the registry says the VOICE was retired --
+    # several songs died with an explicit "voice LIVES" note next to them, and
+    # reading those as deaths would be the checker that cannot tell a mention
+    # from a use, which CLAUDE.md names as the broken one.
+    gy = open('gates/bohemia_graveyard.txt', encoding='utf8').read()
+    retired = set()
+    for m in re.finditer(r'\b([a-z][a-z0-9]{2,})\s+voice\s+retired', gy):
+        retired.add(m.group(1))
+    ok('the graveyard registry names retired voices at all (%d found)'
+       % len(retired), len(retired) >= 2)
+    used = set()
+    for m in re.finditer(r'instSets:\s*\[(.*?)\]', eng, re.S):
+        used |= set(re.findall(r"'([a-z0-9]+)'", m.group(1)))
+    for m in re.finditer(r"inst:\s*'([a-z0-9]+)'", eng):
+        used.add(m.group(1))
+    walking = sorted(used & retired)
+    ok('no recipe borrows a voice Paolo retired -- GRAVEYARD IS FINAL (%s)'
+       % (', '.join(walking) or '%d voices in use, all alive' % len(used)),
+       not walking)
 
     # ---- the surface legs --------------------------------------------------
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as fh:

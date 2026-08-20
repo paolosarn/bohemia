@@ -87,6 +87,10 @@
   // (Strip podium+tower / the boulevard itself / a no-setback downtown floor).
   var RES= HASREQ ? require('./bohemia_resort.js')          : (typeof BohemiaResort!=='undefined'?BohemiaResort:root.BohemiaResort);
   var CAS= HASREQ ? require('./bohemia_casino.js')          : (typeof BohemiaCasino!=='undefined'?BohemiaCasino:root.BohemiaCasino);
+  // THE LAST FIVE (8/19): convention / prison / dam / minigp / fort. Every one is a
+  // CLUSTER -- one blob spanning 1 to 6 cells -- so they lay out in valley coordinates and
+  // each cell copies its window, the airfield's pattern.
+  var LMK= HASREQ ? require('./bohemia_landmarks.js')      : (typeof BohemiaLandmarks!=='undefined'?BohemiaLandmarks:root.BohemiaLandmarks);
   var STR= HASREQ ? require('./bohemia_strip.js')           : (typeof BohemiaStrip!=='undefined'?BohemiaStrip:root.BohemiaStrip);
 
   // THE FACTORY (Paolo 7/18): a district TYPE -> its generator. Adding a district is now
@@ -140,6 +144,11 @@
     // GAMING & RESORT (8/18): the two gaming PLOTS. `strip` is the boulevard itself and is
     // a SURFACE, not a district — it is in SURFACEGEN below, with the roads it belongs to.
     resort:     { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
+    convention: { mod:KIT.get('convention'), foot:function(r){return r.footprints;}, zone:'civic', cluster:true },
+    prison:     { mod:KIT.get('prison'),     foot:function(r){return r.footprints;}, zone:'institutional', cluster:true },
+    dam:        { mod:KIT.get('dam'),        foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    minigp:     { mod:KIT.get('minigp'),     foot:function(r){return r.footprints;}, zone:'leisure', cluster:true },
+    fort:       { mod:KIT.get('fort'),       foot:function(r){return r.footprints;}, zone:'civic', cluster:true },
     casino:     { mod:CAS, foot:function(r){return r.footprints;},           zone:'leisure' },
     // THE TWELVE UTILITY LANDMARKS (8/5). Every one of these was already SITED by the
     // overmap with real geography behind it (Sloan quarry, the granary on the rail line,
@@ -541,8 +550,33 @@
     return best;
   }
 
+  /* THE SEED IS THE WHOLE VALLEY, SO A BAD ONE MUST NOT BE SURVIVABLE (8/19).
+     This read `seed=(seed>>>0)||1`, and `'bohemia'>>>0` is 0, so ANY caller passing the
+     seed as TEXT -- which is how the one seed is written everywhere in the laws, the
+     handoff and this repo's own docs -- silently got SEED 1 and a COMPLETELY DIFFERENT
+     VALLEY. Not a degraded one: measured, 43.8% of cells came back a different district,
+     suburb where the arterial is, mountain where the solar farm is.
+     IT COST ME A FALSE FINDING. I censused the landmarks with world('bohemia'), got a map
+     that disagreed with the page about where the fort and the dam are, and shipped
+     "the walked surface and the world model disagree" to main as a discovery. With the
+     seed passed as a NUMBER the two are identical, 0 of 9,216 cells apart. The bug was
+     never in the map; it was in a function that accepted nonsense and answered anyway.
+     So it now HASHES text with the same function the walked surface uses (so
+     world('bohemia') and the page build one valley, which is what everyone writing that
+     line already assumed), and THROWS on anything that is neither. A silent fallback to a
+     different world is worse than a crash, because a crash gets fixed the same hour. */
+  function hashSeedText(str){ str=String(str);
+    var h=1779033703^str.length;
+    for(var i=0;i<str.length;i++){ h=Math.imul(h^str.charCodeAt(i),3432918353); h=(h<<13)|(h>>>19); }
+    h=Math.imul(h^(h>>>16),2246822507); h=Math.imul(h^(h>>>13),3266489909);
+    return (h^(h>>>16))>>>0; }
   function world(seed){
-    seed=(seed>>>0)||1;
+    if(typeof seed==='string'){ seed=hashSeedText(seed); }
+    else if(typeof seed==='number'&&isFinite(seed)){ seed=seed>>>0; }
+    else if(seed==null){ seed=hashSeedText('bohemia'); }
+    else throw new TypeError('bohemia_world.world(): seed must be a number or a string, got '+
+      (typeof seed)+' -- a silent fallback here builds a DIFFERENT VALLEY, so it is a throw');
+    if(!seed) seed=1;
     var m = OM.buildOvermap(seed);
     var landlockConnect = (function(){
       var mand=buildLandlockConnect(m), cosmetic=buildCosmeticConnect(m), out={};
@@ -603,8 +637,16 @@
            on every residential cell in the valley from 7/14 to 8/1.
            ONE ARGUMENT, exactly the shape `streets` already had. Every other
            generator ignores it; the ones that care read it. */
-        var gres=dg.mod.generate(cell.seed>>>0,
-          {cw:1,ch:1,streets:streets,district:cell.district});
+        /* A CLUSTER DISTRICT IS A BLOB, NOT A CELL (8/19). A convention centre is 288 m
+           across and a cell is 96 m, so handed only its own cell it builds a whole small
+           convention centre -- and the 3x2 blob becomes SIX of them in a row. That is the
+           defect the airfield fixed on 7/26 and the Strip on 8/18. These five lay out in
+           VALLEY coordinates against the bounds of the whole blob and each cell copies its
+           own window, so the seams line up by construction. */
+        var _co = {cw:1,ch:1,streets:streets,district:cell.district};
+        if(dg.cluster){ _co.bounds=clusterBoundsOf(m,x,y,cell.district);
+                        _co.cellX=x; _co.cellY=y; _co.kind=cell.district; }
+        var gres=dg.mod.generate(cell.seed>>>0, _co);
         var feet=dg.foot(gres)||[];
         // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass

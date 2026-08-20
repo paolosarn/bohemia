@@ -82,8 +82,8 @@ function ctClaimOf(rule, given){
 ''' + HELPERS_ANCHOR
 
 # ---- the rows, right after the wall so the ask leads the bargain ----------
-OLD_WALL = """      if(ctWall && ctWall.state !== 'none') body += ctRow('YOU HAVE', ctWall.word);"""
-NEW_WALL = """      if(ctWall && ctWall.state !== 'none') body += ctRow('YOU HAVE', ctWall.word);
+OLD_WALL = """      if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);"""
+NEW_WALL = """      if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
       /* """ + MARKER + """ -- and what THEY want from you now, which only exists
          once they count you. It sits under YOU ARE because it is the consequence
          of that line, not a separate feature. */
