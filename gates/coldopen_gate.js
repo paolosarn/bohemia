@@ -49,7 +49,34 @@ function pw() {
 }
 
 let pass = 0, fail = 0;
-function ok(c, m) { if (c) { pass++; } else { fail++; console.log('  FAIL: ' + m); } }
+/* *** AN ASSERTION WITH ITS ARGUMENTS BACKWARDS IS NOT AN ASSERTION. ***
+   8/20: four new checks were written here as ok(message, condition) because
+   THIS LANE'S OTHER THREE GATES TAKE THEM IN THAT ORDER -- scene_gate,
+   quirk_gate and attempt_gate are all `ok(name, cond)` and this file alone is
+   `ok(cond, msg)`. The condition slot therefore received a non-empty string,
+   which is truthy, so all four passed unconditionally. They reported 44/0 and
+   proved nothing: a deliberate mutation that stopped every actor standing up
+   was inlined into the real alpha, verified present there, and the gate stayed
+   green.
+   Correcting the four calls is half the fix and the worse half, because the
+   next person writes the fifth one. So the SLOT DEFENDS ITSELF: a condition
+   that arrives as a string is a reversed call, and a message that arrives as a
+   boolean is the same mistake seen from the other end. Both throw, loudly,
+   instead of counting as a pass. A gate cannot be checked by the gate suite --
+   it IS the checker -- so the only place this class of bug can be caught is
+   inside ok() itself. */
+function ok(c, m) {
+  if (typeof c === 'string') {
+    throw new Error('GATE BUG: ok() got a STRING as its condition. This file is '
+      + 'ok(condition, message); the lane\'s other gates are ok(message, condition). '
+      + 'Reversed call: ' + JSON.stringify(c.slice(0, 90)));
+  }
+  if (typeof m !== 'string') {
+    throw new Error('GATE BUG: ok() got a ' + typeof m + ' as its message. '
+      + 'Arguments are reversed: this file is ok(condition, message).');
+  }
+  if (c) { pass++; } else { fail++; console.log('  FAIL: ' + m); }
+}
 
 const ALPHA_PATH = 'slices/BOHEMIA_ALPHA_0_9.html';
 const alpha = fs.readFileSync(ALPHA_PATH, 'utf8');
@@ -196,6 +223,95 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
       if (!t) return false; t.click(); return true;
     });
     ok(tapped, 'the CUTSCENE tab is tappable in the running alpha');
+
+    /* ---- STANDING UP (8/20) -----------------------------------------------
+       *** THE SURFACE COULD ONLY SEAT PEOPLE AT FURNITURE, AND NOTHING SAID SO. ***
+       Every actor beat has always carried a `pose` and every one of them was
+       posed sit-chair anyway, because the only scene that existed was a dinner
+       table. The first render of the ridge burial came back as three people
+       SITTING AT A TABLE on a hilltop, and the last room could not reuse the
+       family's house -- whose art has existed since 8/9 -- without seating three
+       people down to dinner in the room they had just fought through.
+       bohemia_stage.js has had Seating.stand() the whole time with zero callers.
+       Tenth built-and-unreachable capability this lane has found. */
+    const posed = await page.evaluate(function () {
+      var room = null;
+      for (var i = 0; i < (window.BOHEMIA_CUTSCENES || []).length; i++)
+        if (BOHEMIA_CUTSCENES[i].scene.id === 'act1_the_last_room')
+          room = BOHEMIA_CUTSCENES[i].scene;
+      if (!room) return { missing: true };
+      var st = new BohemiaStorySurface.Story({
+        canvas: document.createElement('canvas'),
+        set: BohemiaColdOpenSet, scene: room, runtime: BohemiaScene,
+        stage: BOH_STAGE, floorplan: BOH_FLOORPLAN,
+        paintBody: function () { return {}; }
+      });
+      st.playAll();
+      var want = (room.beats || []).filter(function (b) { return b.kind === 'actor'; });
+      var got = Object.keys(st.cast || {});
+      var out = { wanted: want.length, placed: got.length, standing: 0, seated: 0,
+                  offFocus: 0, onFurniture: 0 };
+      /* *** A THRESHOLD BIGGER THAN THE ROOM CANNOT FAIL. ***
+         The first cut of this asked one Manhattan number against a constant 8,
+         and the living room is 10x9 -- so the room's OWN far corner, the exact
+         wrong answer this check exists to catch, measured 7 and passed.
+         Mutation-proved: standing everybody at stand()'s default corner left the
+         gate green. MEASURED, both ways, on the real alpha: correct placement
+         lands dx 0/0/2 dy 1/2/0, the corner default lands dx 4/4/3 dy 3/2/3.
+         The focus is a RECT, so the test is per-axis containment inside it, plus
+         ONE cell of spill -- Seating.stand() marks each cell taken and steps to
+         the next-nearest free one, so a fifth body legitimately sits a cell
+         proud of a small focus. That margin is a RULE that scales with the
+         scene's own geometry, not a number that happens to fit today's room. */
+      var f = st.focus || {};
+      var fx = f.x + (f.w || 0) / 2, fy = f.y + (f.h || 0) / 2;
+      var mx = (f.w || 0) / 2 + 1, my = (f.h || 0) / 2 + 1;
+      out.focus = { x: f.x, y: f.y, w: f.w, h: f.h };
+      /* *** AND THEY ARE NOT STANDING ON THE CHAIRS. *** The two checks above
+         both passed on a render where the mother stood on the far chair and the
+         player on the near one, inside the table's footprint -- because a chair
+         is free, non-solid, and extremely near the camera. Found by looking at
+         the picture. `stand` plus a cell that is in furn.seats is the exact
+         failure, so that is what is counted. */
+      var seatCell = {};
+      (st.furn && st.furn.seats || []).forEach(function (s) { seatCell[s.cx + ',' + s.cy] = 1; });
+      out.seats = Object.keys(seatCell).length;
+      got.forEach(function (k) {
+        var w = st.cast[k];
+        if (w.stand) out.standing++; else out.seated++;
+        if (w.seat && (Math.abs(w.seat.cx - fx) > mx || Math.abs(w.seat.cy - fy) > my))
+          out.offFocus++;
+        if (w.stand && w.seat && seatCell[w.seat.cx + ',' + w.seat.cy]) out.onFurniture++;
+      });
+      return out;
+    });
+    ok(!posed.missing && posed.standing >= 3 && posed.seated === 0,
+      'a scene can put people ON THEIR FEET, pose honoured not ignored ('
+      + posed.standing + ' standing, ' + posed.seated + ' seated)');
+    /* *** NOBODY IS EVER DROPPED. *** Seating.stand() returns null when it cannot
+       place somebody, and the first cut just `return`ed -- so passing it a focus
+       RECT where it wanted a CELL made every distance NaN and EVERY ACTOR
+       SILENTLY VANISHED from the scene. It never threw. A body in the wrong pose
+       is a thing you can see; a body that is not there is not. */
+    ok(!posed.missing && posed.placed === posed.wanted,
+      'and EVERY actor beat puts somebody in the room (' + posed.placed + '/'
+      + posed.wanted + '), a placement that fails sits them down, never drops them');
+    /* IN FRAME. stand() defaults to the room's bottom-right corner, which put all
+       three outside the camera with one shoulder showing. */
+    ok(!posed.missing && posed.offFocus === 0,
+      'and they stand where the CAMERA IS LOOKING, not in the far corner ('
+      + posed.offFocus + ' off-focus, focus ' + JSON.stringify(posed.focus) + ')');
+    /* ON THE FLOOR, NOT ON THE FURNITURE. Both checks above went green over a
+       render with two people standing on the dining chairs. */
+    ok(!posed.missing && posed.onFurniture === 0,
+      'and they stand ON THE FLOOR, never on the chairs (' + posed.onFurniture
+      + ' on furniture, of ' + posed.seats + ' seat cells)');
+    /* the standing clip has to exist for everyone, or a stood-up body falls back
+       to whatever frame happens to be first in its set. */
+    const surfSrc = fs.readFileSync('engine/bohemia_story_surface.js', 'utf8');
+    const seatedOnly = (surfSrc.match(/clips: \['sit-chair', 'talk'\]/g) || []).length;
+    ok(seatedOnly === 0, 'every family member bakes a standing clip ('
+      + seatedOnly + ' still seated-only)');
 
     /* headless replay first: cheap, and it answers the two structural claims
        without waiting on wall clock. */

@@ -36,7 +36,18 @@ const ROOT = path.dirname(__dirname);
 process.chdir(ROOT);
 
 let pass = 0, fail = 0;
-const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
+/* THE CONDITION SLOT MAY NEVER HOLD A STRING (8/20). See the note in
+   gates/scene_gate.js: this lane's gates do not agree on argument order, a
+   reversed call is truthy in both directions, and four of them shipped green
+   over deliberately broken code before the guard existed. */
+const ok = (n, c) => {
+  if (typeof c === 'string') throw new Error('GATE BUG: ok() got a STRING as its '
+    + 'condition. This file is ok(message, condition). Reversed call: '
+    + JSON.stringify(String(n).slice(0, 90)));
+  if (typeof n !== 'string') throw new Error('GATE BUG: ok() got a ' + typeof n
+    + ' as its message. Arguments are reversed: this file is ok(message, condition).');
+  c ? pass++ : (fail++, console.log('  FAIL: ' + n));
+};
 
 const LAW = 'laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md';
 

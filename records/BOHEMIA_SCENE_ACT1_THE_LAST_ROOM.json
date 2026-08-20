@@ -1,7 +1,6 @@
 {
  "id": "act1_the_last_room",
  "title": "THE LAST ROOM",
- "needsArt": "the house after the raid, lights out, a door standing open",
  "when": "four minutes later",
  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID), the clause \"a sibling is killed, IT ENDS SAVING THE MOTHER\", plus THE TABLE IS THE THROUGHLINE (the death happens \"during the raid, away from it, in motion, in the house\")",
  "note": "*** THIS IS NOT A FOURTH BEAT. IT IS THE END OF THE FIRST ONE. *** His law crystallizes the opening as THREE beats and this lane does not get to make it four. But beat 1 is not \"the fight\" -- his own sentence is \"defending the home room to room, A SIBLING IS KILLED, IT ENDS SAVING THE MOTHER\", and the implementation ended when the last hostile dropped. The clause that names what the whole demo is about was the part with nothing behind it. THE DEATH IS NOT STAGED HERE and must not be: his ruling puts it \"during the raid, away from [the table], in motion, in the house\", so it has already happened when this starts. What this stages is the two things his sentence does name -- reaching the mother, and the person who is not with you. NOBODY SAYS THE WORD. The mother asks once and the answer is not an answer. STRUCTURE IS STILL HIS: no casualty is authored here (the loss is his, ruled 7/19, and pacifism never saves her either way), nobody new is placed, and whether the FATHER is standing in this room is NOT decided -- no scene has resolved his status and the DIRECT tab is where that ruling gets made, one actor beat.",
@@ -9,12 +8,12 @@
   {
    "kind": "set",
    "id": "after_the_raid",
-   "place": "house_after",
+   "place": "family_table",
    "era": "post_collapse",
    "mood": "after",
-   "light": "none",
+   "light": "dim_interior",
    "beats": 3,
-   "why": "the same house, minutes later, the power still out. NO ART EXISTS for it and the frame says so rather than drawing the wrong room -- same honest empty frame the ridge gets."
+   "why": "THE HOUSE IT IS ALREADY SET IN, AND THE ART ALREADY EXISTED. The first cut invented a place called `house_after` and declared its art missing -- but this scene happens in the family's house minutes after the raid, and the cold open has been drawing that exact post-collapse interior since 8/9. What was actually missing was not a picture, it was the ability to put people in it STANDING: the surface posed everybody sit-chair, so reusing the house would have sat three people down to dinner in the room they had just fought through. Standing is wired now (bohemia_stage's Seating.stand had existed all along with no callers), so the house is simply reused. REUSE-FIRST, and the honest empty frame is not needed here after all."
   },
   {
    "kind": "actor",

@@ -135,7 +135,10 @@
     this.h = this.ST.house(this.place, this.FP);
     if (!this.h) this.h = { room: { x: 0, y: 0, w: 8, h: 6, role: 'room' } };
     this.furn = this.ST.furnish(this.h.room, this.place.kit || 'dining');
-    this.cam = this.ST.camera(this.h.room, { w: W, h: H }, this.ST.focusOf(this.furn, this.h.room));
+    /* WHERE THE CAMERA IS LOOKING, kept so standing bodies can be placed near it
+       rather than wherever Seating.stand() defaults to. */
+    this.focus = this.ST.focusOf(this.furn, this.h.room);
+    this.cam = this.ST.camera(this.h.room, { w: W, h: H }, this.focus);
     this.seating = new this.ST.Seating(this.h.room, this.furn);
     /* the window sits on the back wall over the middle of the room — derived
        from the room, not typed. */
@@ -163,13 +166,21 @@
   Story.prototype.bake = function (done) {
     var self = this;
     var want = [
-      { key: 'MOTHER',      role: 'MOTHER',  dir: 'S',  clips: ['sit-chair', 'talk'] },
-      { key: 'SISTER',      role: 'SISTER',  dir: 'S',  clips: ['sit-chair', 'talk'] },
-      { key: 'BROTHER',     role: 'BROTHER', dir: 'S',  clips: ['sit-chair', 'talk'] },
+      /* EVERY MEMBER BAKES A STANDING CLIP TOO (8/20). Only the FATHER ever had
+         `idle`, because the only scene that existed was a table and the only
+         thing anybody did at it was sit. The moment a scene happened somewhere
+         other than dinner -- the last room after the raid, the burial on the
+         ridge -- every body in it was still posed sit-chair, which is why the
+         first cut of the burial rendered three people SITTING AT A TABLE on a
+         hilltop. Another clip off an already-installed rig costs ~0.6ms; that
+         is the whole price of a family that can stand up. */
+      { key: 'MOTHER',      role: 'MOTHER',  dir: 'S',  clips: ['sit-chair', 'talk', 'idle'] },
+      { key: 'SISTER',      role: 'SISTER',  dir: 'S',  clips: ['sit-chair', 'talk', 'idle'] },
+      { key: 'BROTHER',     role: 'BROTHER', dir: 'S',  clips: ['sit-chair', 'talk', 'idle'] },
       { key: 'FATHER',      role: 'FATHER',  dir: 'SW', clips: ['idle', 'talk'] },
-      { key: 'FATHER_BACK', role: 'FATHER',  dir: 'NW', clips: ['sit-chair', 'talk'] },
-      { key: 'PLAYER_child', role: null, age: 'child', dir: 'NE', clips: ['sit-chair'] },
-      { key: 'PLAYER_adult', role: null, age: 'adult', dir: 'NE', clips: ['sit-chair'] }
+      { key: 'FATHER_BACK', role: 'FATHER',  dir: 'NW', clips: ['sit-chair', 'talk', 'idle'] },
+      { key: 'PLAYER_child', role: null, age: 'child', dir: 'NE', clips: ['sit-chair', 'idle'] },
+      { key: 'PLAYER_adult', role: null, age: 'adult', dir: 'NE', clips: ['sit-chair', 'idle'] }
     ];
     var i = 0;
     function next() {
@@ -330,7 +341,11 @@
       var who = self.cast[k];
       if (!who || !who.seat) return;
       list.push({ d: who.seat.cy, z: 1, go: function () {
-        self.body(who.key, 'sit-chair', who.seat, who.clip === 'talk');
+        /* draw them in the pose they were PLACED in. Hardcoding sit-chair here
+           was the other half of the same bug: even once a body stood up, the
+           draw list sat it back down. */
+        self.body(who.key, who.clip === 'talk' ? 'talk' : (who.stand ? 'idle' : 'sit-chair'),
+                  who.seat, who.clip === 'talk');
       } });
     });
     if (this.standing && this.standing.seat) {
@@ -393,10 +408,39 @@
         ? ((b.age === 'child') ? 'PLAYER_child' : 'PLAYER_adult')
         : (ROLE_TO_CAST[b.actor] || null);
       if (!castKey) return;
-      var seat = this.seating.sit(b.actor, wanted);
+      /* *** THE BEAT SAYS WHETHER THEY ARE SITTING, AND THIS IGNORED IT. ***
+         Every actor beat carries a `pose` and every one of them was seated
+         anyway, because the only scene that existed was a dinner table.
+         bohemia_stage.js has had Seating.stand() the whole time -- it finds the
+         nearest free non-solid cell -- and nothing had ever called it. Tenth
+         time this lane has found a built, gated capability with zero callers. */
+      var standing = b.pose && b.pose !== 'seated';
+      /* *** STAND THEM WHERE THE CAMERA IS LOOKING, AND MIND THE UNITS. ***
+         Seating.stand(actor, near) falls back to the room's BOTTOM-RIGHT CORNER
+         when `near` is null, so the first cut put all three in the far corner
+         with two of them outside the frame -- one shoulder at the edge.
+         The second cut passed focusOf() straight in and EVERYBODY VANISHED:
+         focusOf returns a RECT {x,y,w,h} and stand() wants a CELL {cx,cy}, so
+         every distance came out NaN, no cell ever won, stand() returned null and
+         the actor was dropped without a word. Both caught by looking at the
+         picture; neither would ever have thrown.
+         So: the centre cell of the focus rect, and a body that cannot be stood
+         up SITS rather than disappearing -- somebody in the wrong pose is a
+         thing you can see and fix, somebody missing is not. */
+      var f = this.focus || {};
+      var near = (typeof f.x === 'number')
+        ? { cx: Math.round(f.x + (f.w || 0) / 2), cy: Math.round(f.y + (f.h || 0) / 2) }
+        : null;
+      var seat = standing ? (this.seating.stand(b.actor, near) || this.seating.sit(b.actor, wanted))
+                          : this.seating.sit(b.actor, wanted);
       if (!seat) return;
+      if (standing && seat.side !== 'stand') standing = false;   /* it sat after all */
       var back = this.frames[castKey + '_BACK'] ? castKey + '_BACK' : castKey;
-      this.cast[b.actor] = { key: (seat.side === 'near' ? back : castKey), clip: 'sit-chair', seat: seat };
+      this.cast[b.actor] = {
+        key: (!standing && seat.side === 'near') ? back : castKey,
+        clip: standing ? 'idle' : 'sit-chair',
+        stand: !!standing,
+        seat: seat };
     } else if (b.kind === 'say') {
       /* *** PRINT THE RESOLVED LINE, NEVER THE AUTHORED ONE. ***
          The scene file writes "{sibling_lost}. Green ones too." because the name
@@ -428,7 +472,11 @@
         var s2 = this.seating.stand(b.speaker, t ? { cx: t.cx + t.w, cy: t.cy + t.h } : null);
         if (s2) this.standing = { key: ROLE_TO_CAST[b.speaker], clip: 'talk', seat: s2 };
       }
-      Object.keys(this.cast).forEach(function (k) { if (k !== b.speaker) self.cast[k].clip = 'sit-chair'; });
+      Object.keys(this.cast).forEach(function (k) {
+        /* back to THEIR pose, not to sitting. Restoring everyone to sit-chair
+           put standing people back in chairs the moment somebody else spoke. */
+        if (k !== b.speaker) self.cast[k].clip = self.cast[k].stand ? 'idle' : 'sit-chair';
+      });
       if (this.standing && this.standing.key !== ROLE_TO_CAST[b.speaker]) this.standing.clip = 'idle';
     } else if (b.kind === 'handoff') {
       this.handoff = { to: b.to, encounter: b.encounter, call: b.call };

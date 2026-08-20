@@ -48,7 +48,16 @@ const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
 
 let pass = 0, fail = 0;
+/* THE CONDITION SLOT MAY NEVER HOLD A STRING (8/20). See the note in
+   gates/scene_gate.js: this lane's gates do not agree on argument order, a
+   reversed call is truthy in both directions, and four of them shipped green
+   over deliberately broken code before the guard existed. */
 const ok = (n, c, note) => {
+  if (typeof c === 'string') throw new Error('GATE BUG: ok() got a STRING as its '
+    + 'condition. This file is ok(message, condition, note). Reversed call: '
+    + JSON.stringify(String(n).slice(0, 90)));
+  if (typeof n !== 'string') throw new Error('GATE BUG: ok() got a ' + typeof n
+    + ' as its message. Arguments are reversed: this file is ok(message, condition, note).');
   if (c) { pass++; } else { fail++; console.log('  > FAIL ' + n + (note ? '  [' + note + ']' : '')); }
 };
 function pw() {

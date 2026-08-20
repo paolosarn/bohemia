@@ -206,16 +206,38 @@
     return s;
   };
   /* somebody on their feet still takes a cell, and still may not take a solid
-     one -- that is the case v1 could not express at all. */
+     one -- that is the case v1 could not express at all.
+     *** AND THEY DO NOT STAND ON THE FURNITURE. *** (8/20) A chair is neither
+     solid nor taken, so the nearest-free-cell search picked chairs first every
+     time: THE LAST ROOM rendered with the mother standing on the far chair and
+     the player standing on the near one, both inside the table's footprint.
+     The gate could not see it -- the check that existed asked whether they were
+     near the CAMERA, and a chair is extremely near the camera. It was found by
+     LOOKING AT THE PICTURE, which is the fourth time on this surface.
+     A PREFERENCE, NOT A PROHIBITION: seat cells are searched only after the
+     open floor is exhausted, for the same reason sit() falls back to standing --
+     in a room that is all furniture, standing on a chair still beats vanishing,
+     and a body in a strange place is a thing you can see and fix while a body
+     that is not there is not. */
   Seating.prototype.stand = function (actorId, near) {
     if (this.byActor[actorId]) return this.byActor[actorId];
-    var r = this.room, best = null, bd = 1e9;
+    var r = this.room;
+    var isSeat = {};
+    for (var i = 0; i < this.seats.length; i++) isSeat[key(this.seats[i].cx, this.seats[i].cy)] = 1;
     var tx = near ? near.cx : r.x + r.w - 1, ty = near ? near.cy : r.y + r.h - 1;
-    for (var y = r.y; y < r.y + r.h; y++) for (var x = r.x; x < r.x + r.w; x++) {
-      if (this.taken[key(x, y)] || this.solid[key(x, y)]) continue;
-      var d = Math.abs(x - tx) + Math.abs(y - ty);
-      if (d < bd) { bd = d; best = { id: 'stand:' + x + ':' + y, cx: x, cy: y, face: 'SW', side: 'stand' }; }
+    var self = this;
+    function nearest(allowSeats) {
+      var best = null, bd = 1e9;
+      for (var y = r.y; y < r.y + r.h; y++) for (var x = r.x; x < r.x + r.w; x++) {
+        var k = key(x, y);
+        if (self.taken[k] || self.solid[k]) continue;
+        if (!allowSeats && isSeat[k]) continue;
+        var d = Math.abs(x - tx) + Math.abs(y - ty);
+        if (d < bd) { bd = d; best = { id: 'stand:' + x + ':' + y, cx: x, cy: y, face: 'SW', side: 'stand' }; }
+      }
+      return best;
     }
+    var best = nearest(false) || nearest(true);
     if (!best) return null;
     this.taken[key(best.cx, best.cy)] = actorId;
     this.byActor[actorId] = best;
