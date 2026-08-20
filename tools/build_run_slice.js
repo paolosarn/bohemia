@@ -434,6 +434,14 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
    tools/tfcook/TF-ART-016_lane_cook.py */
 grabPieces('banks/tileforms/TF-ART-016_LANE_VOLUME_8_20_26.json',
   ['lane_track_h_0', 'lane_track_h_1', 'lane_track_v_0', 'lane_track_v_1']);
+/* TF-ART-019 8/21: THE GRID KIT - the substation's transformer bays,
+   switchgear lattice, overhead busbars and insulators (maintained, the
+   NETWORK's half of CLUSTERED POWER) + the battery yard's container banks
+   (dead) - tools/tfcook/TF-ART-019_cook.py */
+grabPieces('banks/tileforms/TF-ART-019_CANDIDATES_8_21_26.json',
+  ['xf_body', 'swg_post_v', 'swg_post_h', 'bus_over_h', 'bus_over_v',
+   'ins_pin', 'bat_lid_a', 'bat_lid_b', 'bat_seam', 'bat_end_w', 'bat_end_e',
+   'hvac_pack']);
 /* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
    (outside corners with the bead hairline, window/boarded reveals) that
    ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.

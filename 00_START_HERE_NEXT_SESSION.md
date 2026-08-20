@@ -10989,6 +10989,16 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (a) LATEST -- *** THE GRID HAS ITS MACHINES:
+TF-ART-019 filed, cooked, wired in one turn - the substation's transformer
+bays (6x8-cell body: tank, fins, bushings), switchgear lattice, OVERHEAD
+sagging busbars, insulators (all MAINTAINED - the network's eerily perfect
+half), and the battery yard's container banks subdivided into real
+40-foot container rows (dead, streaked, stopped fans). Nineteenth wired
+family. THE ANCHOR LESSON: a big multi-cell prop must draw as a MOSAIC
+(each cell blits its own slice off the blob's bbox) - a single anchor cell
+dies off-screen, and on a 19x20 bay it usually is. Record: sitting pass 37.
+PREVIOUS (b):
 ART (f3eu53): 8/20 (b) LATEST -- *** SECOND COMPOSITION AUDIT: eight
 districts walked with the six new families stacked; verdict COMPOSED, no
 regression. Two taste notes filed (drive-in screen grid slightly

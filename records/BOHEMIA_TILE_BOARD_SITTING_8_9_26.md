@@ -767,3 +767,32 @@ AND THEN RESTORED BYTE-EXACT ON REVIEW: the TARGET front-face reference,
 the graveyarded TARGET B, and PAL_FROZEN - a measurement reference or a
 frozen palette record is not a screenshot, and dieting one would bend the
 ruler the gates measure with. texture_match re-run green after restore.
+
+## 8/21 THIRTY-SEVENTH PASS: THE GRID HAS ITS MACHINES (TF-ART-019)
+
+The post-board gap sweep's two biggest unclaimed surfaces measured and
+shipped as one kit. Geometry first: the substation lays 'transformer'
+x1547 in 19x20 BAYS (real firewall spacing - one transformer each), the
+switchgear as a thin lattice grid, the busbars OVERHEAD and non-solid
+(the world already ruled you walk under them); the battery yard lays
+'battery container' x3360 in 14x16 BANKS, and 14 cells is 10.5 m - a
+40-foot container EXACTLY - so a bank is five containers side by side
+and the art SUBDIVIDES what the world merged (lid, lid, seam rows).
+
+Twelve pieces: the 6x8-cell transformer body (tank, fin banks, three
+porcelain bushing stacks, conservator, clean pad shadow - MAINTAINED,
+the network's eerily perfect half), lattice posts, sagging overhead
+conductors with disc insulators, pedestal insulators, container lids
+with lit rims, seam slots, locking-bar door ends, and the dead HVAC
+pack with its stopped fan.
+
+THE ANCHOR LESSON, paid on the first render: a multi-cell prop drawn
+once from an anchor cell DIES when that anchor scrolls off-screen, and
+on a 19x20 bay the anchor usually IS off-screen. The fix is the MOSAIC:
+every bay cell blits its own 44px slice of the body image, positioned
+off the bay's own bbox - partial visibility and draw order can never
+lose it. That pattern supersedes right-bottom anchoring for any prop
+bigger than the screen's margin.
+
+Verified live standing at a bay (the transformer whole in frame) and in
+the container rows. Nineteenth wired family.

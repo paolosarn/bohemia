@@ -1144,6 +1144,83 @@ function drawSolarform(gx,gy,X,Y,S){
     ctx.drawImage(look(rk),X,Y,S,S);
     return true;
   }
+  /* TF-ART-019 THE GRID KIT (8/21, measured first): the substation's bays,
+     lattice, overhead busbars and insulators, and the battery yard's
+     container banks - the two districts that ARE the grid stop rendering
+     as flat slabs. Substation MAINTAINED (the NETWORK is eerily perfect);
+     battery DEAD by its own dossier. */
+  if(n==='transformer'){
+    /* a 19x20 BAY is one transformer on its pad. MEASURED (first render):
+       a single-anchor draw dies when the anchor cell scrolls off-screen -
+       on a bay this big the anchor usually IS off-screen. So the body is
+       drawn as a MOSAIC: every bay cell blits its own 44px slice of the
+       6x8-cell body image, positioned off the bay's own bbox, so partial
+       visibility and draw order can never lose it. */
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    function isXf(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='transformer'; }
+    var x0=gx, x1=gx, y0=gy, y1=gy, g2;
+    for(g2=0; g2<24 && isXf(x0-1,gy); g2++) x0--;
+    for(g2=0; g2<24 && isXf(x1+1,gy); g2++) x1++;
+    for(g2=0; g2<24 && isXf(gx,y0-1); g2++) y0--;
+    for(g2=0; g2<24 && isXf(gx,y1+1); g2++) y1++;
+    var body=tf('xf_body');
+    if(body){
+      var bx0=x0+(((x1-x0+1)-6)>>1), by0=y0+(((y1-y0+1)-8)>>1);
+      var sx2=(gx-bx0)*44, sy2=(gy-by0)*44;
+      if(sx2>=0 && sy2>=0 && sx2<264 && sy2<352)
+        ctx.drawImage(look(body),sx2,sy2,44,44,X,Y,S,S);
+    }
+    return true;
+  }
+  if(n==='switchgear structure'){
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    function isSw(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='switchgear structure'; }
+    var horiz = isSw(gx-1,gy)||isSw(gx+1,gy);
+    var sw=tf('swg_post_'+(horiz?'h':'v'));
+    if(sw) ctx.drawImage(look(sw),X,Y,S,S);
+    return true;
+  }
+  if(n.indexOf('busbar')>=0){
+    /* OVERHEAD, non-solid: ground first, then the sagging conductors */
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    function isBus(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('busbar')>=0; }
+    var bh2 = isBus(gx-1,gy)||isBus(gx+1,gy);
+    var bo=tf('bus_over_'+(bh2?'h':'v'));
+    if(bo) ctx.drawImage(look(bo),X,Y,S,S);
+    return true;
+  }
+  if(n.indexOf('insulator')>=0){
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    var ip=tf('ins_pin'); if(ip) ctx.drawImage(look(ip),X,Y,S,S);
+    return true;
+  }
+  if(n==='battery container'){
+    /* a 14x16 BANK is five 40-foot containers side by side: the art
+       subdivides what the world merged - rows of 3 (lid, lid, seam) with
+       door ends at the bank's x edges */
+    function isCt(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='battery container'; }
+    var cy0=gy; while(isCt(gx,cy0-1)) cy0--;
+    var row=((gy-cy0)%3+3)%3;
+    var im3=tf(row===2?'bat_seam':(row===0?'bat_lid_a':'bat_lid_b'));
+    if(!im3) return false;
+    ctx.drawImage(look(im3),X,Y,S,S);
+    if(row!==2){
+      if(!isCt(gx-1,gy)){var ew2=tf('bat_end_w'); if(ew2) ctx.drawImage(look(ew2),X,Y,S,S);}
+      if(!isCt(gx+1,gy)){var ee2=tf('bat_end_e'); if(ee2) ctx.drawImage(look(ee2),X,Y,S,S);}
+    }
+    return true;
+  }
+  if(n.indexOf('hvac')>=0 && n.indexOf('thermal')>=0){
+    var hv=tf('hvac_pack');
+    if(!hv) return false;
+    tput(genericTile(gx,gy),X,Y,S);
+    ctx.drawImage(look(hv),X,Y,S,S);
+    return true;
+  }
   return false;
 }
 function drawGateform(gx,gy,X,Y,S){
