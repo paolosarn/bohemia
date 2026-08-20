@@ -279,6 +279,56 @@ ok('A9 …and a filtered run NEVER says ALL GATES GREEN — it says how many of 
     peak === JOBS, JSON.stringify({ peak, cap: JOBS }));
 }
 
+/* ---- 6c. RED MEANS RED, ALL THE WAY OUT TO THE EXIT CODE -------------------- */
+/* THE SUITE EXITED 0 WITH NINETEEN CONFIRMED RED GATES. Measured on the 8/20
+   sweep, in this repo, on a full run: "19 GATE(S) FAILED: ... EXIT=0". The
+   exit code was `1 if (failed and strict) else 0` and --strict was OPT-IN, so
+   anything reading the exit code -- a script, a CI step, a pre-ship check, an
+   `&&` in a shell -- was told a nineteen-red suite had passed.
+
+   AND IT WAS BACKWARDS AGAINST A6, four claims up this same file: an UNRUN gate
+   already exits 1, because an unfinished run is not a pass. A gate that RAN AND
+   FAILED exited 0. The weaker signal was taken more seriously than the stronger
+   one. CLAUDE.md has said "green or it does not ship" the whole time.
+
+   TESTED BY RUNNING THE SCHEDULER, not by reading the ternary: the probe imports
+   the runner, replaces its table with two gates and its runner with one that
+   always fails, and reads what _run_all RETURNS. It calls _run_all directly for
+   the same reason A17 uses --dry-run -- this gate runs inside the suite, and
+   ONE SUITE AT A TIME refuses a real nested run. */
+{
+  const os2 = require('os');
+  const dir = fs.mkdtempSync(path.join(os2.tmpdir(), 'bohgx-'));
+  const probe = path.join(dir, 'exitprobe.py');
+  fs.writeFileSync(probe,
+    'import sys, importlib.util, io, contextlib\n'
+    + 'spec=importlib.util.spec_from_file_location("bg", ' + JSON.stringify(RUNNER) + ')\n'
+    + 'm=importlib.util.module_from_spec(spec); sys.argv=["x"]; spec.loader.exec_module(m)\n'
+    + 'm.GATES=[("ALWAYS RED",["true"],"a gate that fails",False),\n'
+    + '         ("ALSO RED",["true"],"another that fails",False)]\n'
+    + 'm.run=lambda argv: (1, "boom")\n'
+    + 'buf=io.StringIO()\n'
+    + 'with contextlib.redirect_stdout(buf): d=m._run_all(False, False)\n'
+    + 'with contextlib.redirect_stdout(buf): l=m._run_all(False, False, lenient=True)\n'
+    + 'with contextlib.redirect_stdout(buf): st=m._run_all(False, True)\n'
+    + 'print("DEFAULT=%s LENIENT=%s STRICT=%s" % (d, l, st))\n');
+  let res = '';
+  try {
+    res = execFileSync('python3', [probe], { cwd: ROOT, encoding: 'utf8', timeout: 180000 });
+  } catch (e) { res = String((e.stdout || '') + (e.stderr || '')); }
+  const m = res.match(/DEFAULT=(\d+) LENIENT=(\d+) STRICT=(\d+)/);
+  ok('A19 A FAILING SUITE EXITS NON-ZERO BY DEFAULT — it exited 0 with nineteen '
+    + 'confirmed reds on 8/20, while an UNRUN gate already exited 1, so the '
+    + 'weaker signal was taken more seriously than the stronger one',
+    !!m && m[1] === '1', res.trim() || 'probe produced nothing');
+  ok('A19 …and --strict still means the same thing, so nothing that already '
+    + 'typed it changes behaviour', !!m && m[3] === '1', res.trim());
+  ok('A19 …and --lenient is the deliberate, typed way to ask for exit 0 anyway, '
+    + 'because removing the escape hatch entirely is how people stop running the '
+    + 'suite at all', !!m && m[2] === '0', res.trim());
+  try { fs.rmSync(dir, { recursive: true, force: true }); } catch (_e) { }
+}
+
 /* ---- 7. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
 ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',

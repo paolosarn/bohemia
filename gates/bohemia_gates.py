@@ -8,7 +8,7 @@ about: laws enforced by memory are not enforced.
 
   python3 bohemia_gates.py            # everything
   python3 bohemia_gates.py --fast     # skip the pixel sweeps (~2s vs ~4min)
-  python3 bohemia_gates.py --strict   # exit 1 if any gate fails
+  python3 bohemia_gates.py --lenient  # exit 0 even if gates fail (--strict is now the default)
 
 Run it before any absorption, any wrap, and after any engine edit. Green or it
 does not ship.
@@ -2585,7 +2585,25 @@ def main():
     # 249 of 393 gates never launch a browser; this runs those and nothing else,
     # which is the pre-ship check every lane can afford every turn.
     pure = '--pure' in sys.argv
+    # A FAILING SUITE MUST EXIT NON-ZERO, AND FOR MONTHS IT DID NOT (8/20).
+    # The exit code was `1 if (failed and strict) else 0`, and --strict was
+    # OPT-IN -- so a plain run with NINETEEN CONFIRMED RED GATES exited 0.
+    # Measured on this very sweep: 19 GATE(S) FAILED, EXIT=0. Anything reading
+    # the exit code -- a script, a CI step, a lane's pre-ship check, `&&` in a
+    # shell -- was told the suite passed.
+    #
+    # AND IT WAS BACKWARDS AGAINST THIS FILE'S OWN RULE. An UNRUN gate already
+    # exits 1 ("an unfinished run is not a pass", SUITE HONESTY A6). A gate that
+    # RAN AND FAILED exited 0. The weaker signal was treated more seriously than
+    # the stronger one, which is the whole silence-reads-as-green disease with
+    # the polarity reversed.
+    #
+    # CLAUDE.md has said "green or it does not ship" the entire time. So red is
+    # now the default answer to red. --strict still parses and is now what the
+    # suite always does; --lenient is the deliberate, visible way to ask for the
+    # old behaviour, and it has to be typed.
     strict = '--strict' in sys.argv
+    lenient = '--lenient' in sys.argv
     dry = '--dry-run' in sys.argv
     # --shard i/n
     shard = None
@@ -2616,11 +2634,11 @@ def main():
     # which is the only place it is needed. ONE SUITE AT A TIME (7/30) is
     # untouched for every run that actually runs something.
     if dry:
-        return _run_all(fast, strict, only, dry=True, shard=shard, pure=pure)
+        return _run_all(fast, strict, only, dry=True, shard=shard, pure=pure, lenient=lenient)
     if not take_lock():
         return 1
     try:
-        return _run_all(fast, strict, only, shard=shard, pure=pure)
+        return _run_all(fast, strict, only, shard=shard, pure=pure, lenient=lenient)
     finally:
         drop_lock()
 
@@ -2678,7 +2696,7 @@ def _check_table():
     return False
 
 
-def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
+def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient=False):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
@@ -2944,7 +2962,7 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
         print('  Or run one directly: python3 gates/bohemia_gates.py --only <name>')
     if unrun:
         return 1
-    return 1 if (failed and strict) else 0
+    return 1 if (failed and not lenient) else 0
 
 if __name__ == '__main__':
     sys.exit(main())
