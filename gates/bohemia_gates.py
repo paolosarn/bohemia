@@ -797,6 +797,9 @@ GATES = [
      'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
     ('CLOTH STRUCT',   ['node', 'gates/structure_gate.js'],
      'structure-not-color: jacket/poncho/tall-boot/rolled/gear are real shapes', False),
+    ('CLOTHES 4X',     ['node', 'gates/clothes_4x_gate.js'],
+     'every garment and hairstyle keeps its proportions when the rig doubles, on all 8 facings -- '
+     'and not one pixel of the 56 wardrobe he plays today moved (1,744 pinned hashes)', False),
     ('SHADING SEP',    ['node', 'gates/shading_separation_gate.js'],
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],

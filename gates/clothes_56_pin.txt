@@ -1,0 +1,1748 @@
+# CLOTHES 56 PIN -- one sha256 per (facing, garment). Regenerating this file
+# says "the wardrobe Paolo plays CHANGED ON PURPOSE". Never regenerate to clear a
+# red; a red here means a 4x edit moved a pixel in today's build, which is a bug,
+# not a stale pin. Rewrite with: node gates/clothes_4x_gate.js --pin
+S|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+S|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+S|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+S|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+S|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+S|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+S|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+S|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+S|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+S|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+S|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+S|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+S|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+S|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+S|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+S|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|3e38d93e16ed426e
+S|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|4348717bb9b2ce1d
+S|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|575f7a6c9692778c
+S|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+S|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+S|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+S|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+S|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+S|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+S|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+S|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+S|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+S|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+S|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+S|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+S|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+S|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+S|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+S|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|86f206594d589707
+S|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|e5eff5d30f4f8c5b
+S|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|421895cf5a430329
+S|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+S|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+S|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+S|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+S|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+S|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+S|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+S|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+S|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+S|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+S|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+S|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+S|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+S|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+S|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+S|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|686548c6a1867703
+S|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|14b5c82b77fa4dae
+S|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|f0b36410d5fcfdbb
+S|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+S|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+S|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+S|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+S|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+S|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+S|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+S|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+S|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+S|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+S|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+S|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+S|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+S|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+S|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+S|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|2e45e8debfe84503
+S|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|9ee359b3820237cf
+S|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|f3f068829be96225
+S|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+S|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+S|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|e9dedd49ba0f3b52
+S|genPants|{}|34966be7b8ff976a
+S|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+S|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+S|genPants|{"cut":"longskirt"}|829d1f92594b2894
+S|genShoes|{}|972601867e58b3ba
+S|genShoes|{"shaft":"tall"}|fc0a4f17cc2de8f7
+S|genCoat|{"dir":"S","len":0.86}|51e3cc23b00ab17f
+S|genCoat|{"dir":"S","len":0.6}|7a6fb5e1a52785c7
+S|genCoat|{"dir":"S","jacket":true}|46ef3e9e9676f494
+S|genCoat|{"dir":"S","vest":true}|9cffe97baaa5fb04
+S|genCoat|{"dir":"S","split":true,"len":0.9}|2d8ed1942fed832b
+S|genCoat|{"dir":"S","open":2}|24e0458ca43cac76
+S|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+S|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+S|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+S|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+S|genHat|{"kind":"cap","fit":"dome"}|876aeb3cd59f40d4
+S|genHat|{"kind":"cap","fit":"dome","slouch":true}|876aeb3cd59f40d4
+S|genHat|{"kind":"cap","fit":"skull"}|7e226d69a9888a37
+S|genHat|{"kind":"cap","fit":"skull","slouch":true}|7e226d69a9888a37
+S|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+S|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+S|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+S|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+S|genHat|{"kind":"wrap","fit":"dome"}|968330286be73dbc
+S|genHat|{"kind":"wrap","fit":"dome","slouch":true}|968330286be73dbc
+S|genHat|{"kind":"wrap","fit":"skull"}|968330286be73dbc
+S|genHat|{"kind":"wrap","fit":"skull","slouch":true}|968330286be73dbc
+S|genGear|{"kind":"bandolier"}|ca755ac95395a500
+S|genGear|{"kind":"bracers"}|2956aba235590d8b
+S|genGear|{"kind":"chestplate"}|88cda50c98aa0d60
+S|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+S|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+S|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+S|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+S|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+S|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+S|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+S|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+S|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+S|genGear|{"kind":"suspenders"}|a1894b8c19065345
+S|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+S|genAcc|{"kind":"bandana"}|b4b9118296d4ed37
+S|genAcc|{"kind":"bandana","tail":"long"}|b4b9118296d4ed37
+S|genAcc|{"kind":"belt"}|d9891cc66f2a998d
+S|genAcc|{"kind":"belt","tail":"long"}|d9891cc66f2a998d
+S|genAcc|{"kind":"gasmask"}|824317a08fbef685
+S|genAcc|{"kind":"gasmask","tail":"long"}|824317a08fbef685
+S|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+S|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+S|genAcc|{"kind":"helm"}|55e1da849971dfde
+S|genAcc|{"kind":"helm","tail":"long"}|55e1da849971dfde
+S|genAcc|{"kind":"mask"}|3b74b7b2d7707191
+S|genAcc|{"kind":"mask","tail":"long"}|3b74b7b2d7707191
+S|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+S|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+S|genAcc|{"kind":"scarf"}|10e940502d2f558a
+S|genAcc|{"kind":"scarf","tail":"long"}|af406a580042b342
+S|genAcc|{"kind":"shades"}|7ce1273938a58a83
+S|genAcc|{"kind":"shades","tail":"long"}|7ce1273938a58a83
+S|genAcc|{"kind":"shemagh"}|b9eb062a1fb8a6ad
+S|genAcc|{"kind":"shemagh","tail":"long"}|b9eb062a1fb8a6ad
+S|genBag|{"kind":"backpack"}|0ab9ace3e4bebe71
+S|genBag|{"kind":"bedroll"}|f015ca2aa01b5b6e
+S|genBag|{"kind":"quiver"}|de515509abbcd914
+S|genBag|{"kind":"satchel"}|dfd44be0e23746ab
+S|genCape|{}|2aac082ee7b16e8a
+S|genCape|{"mantle":true}|3bd4a57ff365eb5d
+S|genPoncho|{}|e51060b5447bcc20
+S|genPoncho|{"hood":true}|fa7c632f1425f464
+S|genApron|{}|603d5cb053f3cdd0
+S|genApron|{"bibless":true}|826aa22dc6713ba3
+S|genCoverall|{}|f6b1f80d9ab8cea4
+S|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|16e9e864388111cc
+S|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|02a2fa0354215f53
+S|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|853eb9b04cf7ad32
+S|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|2060fa02700de58a
+S|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|8e39700408486e2f
+S|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|024621e0d094075c
+S|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|0531362e8b8d959c
+S|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|3692e0c8a1b0bed0
+S|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|d499fdf543a5be7f
+S|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|bd35a44aff6b7203
+S|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|9bf971429c36eaff
+S|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|ad6e2fce513b559b
+S|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|03b09e118ee0d5a9
+S|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|d504d7d7a4303c7b
+S|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|5170a9b6545fd68c
+S|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|d208ab1ed47c2ae0
+S|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|600648bfc4e47e26
+S|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|7bb16319b854bbe7
+S|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|c473c40606525987
+S|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|b70e6431ecbe7ff0
+S|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|b745b24ef4c10a60
+S|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|cb4ea94cf0255ecd
+S|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|af6362109fd0cbc9
+S|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|bb5feed38fe3edd1
+S|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|eda5e9f004685f73
+S|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|d01a145328b5c20c
+S|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|09413dd0f64202e5
+S|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|1efcb09e517c7bc5
+S|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|a8c8ee5fe1d40c6b
+S|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|f970f706b5c7d27d
+S|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|fe73f859512808df
+S|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|e4f4379d04823ee0
+S|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|1864a6a8fef31931
+S|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|444dbb95d1211f7f
+S|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|a622549ddd9c7125
+S|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|4709317e6ebc2e1a
+S|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|4f28e4e1d48bdc15
+S|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|beb6a51f51033352
+S|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|b531c273946c2626
+S|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|e75280f2c5f12e0e
+S|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|3ed84e796a85090e
+S|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|55cbc2a9386532b4
+S|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|704b74eaba665782
+S|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|b2689b18db0ac730
+S|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|b36c1c7de73634c0
+S|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|e8d68758a6c51848
+S|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|e1175d45970813d0
+S|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|c30a67d04ee1f652
+S|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|db97d121fcc2d232
+S|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|90d187722463a620
+S|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|29195c21c719cc1a
+S|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|3aa56a3c3a6f8229
+S|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|14216b9a69502599
+S|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|ee03490a092df5d9
+S|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|02ac039ef553b25a
+S|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|232344d16a8ec095
+S|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|939f71056d016964
+S|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|8e6cbe4400ba025a
+S|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|1d1420947e189971
+S|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|751161ec2dba6fb3
+S|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|e2c8c4929d191d37
+S|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|c6fdb973e9b6d7ba
+S|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|562aacff69356b1d
+S|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|3f8115b7f9f35315
+S|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|ceeaa36d90f0eb26
+S|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|d5a33a35c8f7ce49
+S|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|db52b1f348f4cc8a
+S|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|4129a8ea667bccb9
+S|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|dd2d44fa0b0884f3
+S|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|e7e04e58681ba601
+SE|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+SE|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+SE|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+SE|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+SE|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+SE|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+SE|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+SE|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+SE|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+SE|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+SE|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+SE|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+SE|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+SE|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+SE|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+SE|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|3e38d93e16ed426e
+SE|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|4348717bb9b2ce1d
+SE|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|575f7a6c9692778c
+SE|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+SE|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+SE|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+SE|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+SE|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+SE|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+SE|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+SE|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+SE|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+SE|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+SE|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+SE|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+SE|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+SE|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+SE|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+SE|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|86f206594d589707
+SE|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|e5eff5d30f4f8c5b
+SE|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|421895cf5a430329
+SE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+SE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+SE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+SE|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+SE|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+SE|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+SE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+SE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+SE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+SE|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+SE|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+SE|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+SE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+SE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+SE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+SE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|686548c6a1867703
+SE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|14b5c82b77fa4dae
+SE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|f0b36410d5fcfdbb
+SE|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+SE|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+SE|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+SE|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+SE|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+SE|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+SE|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+SE|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+SE|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+SE|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+SE|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+SE|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+SE|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+SE|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+SE|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+SE|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|2e45e8debfe84503
+SE|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|9ee359b3820237cf
+SE|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|f3f068829be96225
+SE|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+SE|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+SE|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|e9dedd49ba0f3b52
+SE|genPants|{}|34966be7b8ff976a
+SE|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+SE|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+SE|genPants|{"cut":"longskirt"}|829d1f92594b2894
+SE|genShoes|{}|972601867e58b3ba
+SE|genShoes|{"shaft":"tall"}|fc0a4f17cc2de8f7
+SE|genCoat|{"dir":"S","len":0.86}|51e3cc23b00ab17f
+SE|genCoat|{"dir":"S","len":0.6}|7a6fb5e1a52785c7
+SE|genCoat|{"dir":"S","jacket":true}|46ef3e9e9676f494
+SE|genCoat|{"dir":"S","vest":true}|9cffe97baaa5fb04
+SE|genCoat|{"dir":"S","split":true,"len":0.9}|2d8ed1942fed832b
+SE|genCoat|{"dir":"S","open":2}|24e0458ca43cac76
+SE|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+SE|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+SE|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+SE|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+SE|genHat|{"kind":"cap","fit":"dome"}|876aeb3cd59f40d4
+SE|genHat|{"kind":"cap","fit":"dome","slouch":true}|876aeb3cd59f40d4
+SE|genHat|{"kind":"cap","fit":"skull"}|7e226d69a9888a37
+SE|genHat|{"kind":"cap","fit":"skull","slouch":true}|7e226d69a9888a37
+SE|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+SE|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+SE|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+SE|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+SE|genHat|{"kind":"wrap","fit":"dome"}|968330286be73dbc
+SE|genHat|{"kind":"wrap","fit":"dome","slouch":true}|968330286be73dbc
+SE|genHat|{"kind":"wrap","fit":"skull"}|968330286be73dbc
+SE|genHat|{"kind":"wrap","fit":"skull","slouch":true}|968330286be73dbc
+SE|genGear|{"kind":"bandolier"}|ca755ac95395a500
+SE|genGear|{"kind":"bracers"}|2956aba235590d8b
+SE|genGear|{"kind":"chestplate"}|88cda50c98aa0d60
+SE|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+SE|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+SE|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+SE|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+SE|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+SE|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+SE|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+SE|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+SE|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+SE|genGear|{"kind":"suspenders"}|a1894b8c19065345
+SE|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+SE|genAcc|{"kind":"bandana"}|b4b9118296d4ed37
+SE|genAcc|{"kind":"bandana","tail":"long"}|b4b9118296d4ed37
+SE|genAcc|{"kind":"belt"}|d9891cc66f2a998d
+SE|genAcc|{"kind":"belt","tail":"long"}|d9891cc66f2a998d
+SE|genAcc|{"kind":"gasmask"}|824317a08fbef685
+SE|genAcc|{"kind":"gasmask","tail":"long"}|824317a08fbef685
+SE|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+SE|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+SE|genAcc|{"kind":"helm"}|55e1da849971dfde
+SE|genAcc|{"kind":"helm","tail":"long"}|55e1da849971dfde
+SE|genAcc|{"kind":"mask"}|3b74b7b2d7707191
+SE|genAcc|{"kind":"mask","tail":"long"}|3b74b7b2d7707191
+SE|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+SE|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+SE|genAcc|{"kind":"scarf"}|10e940502d2f558a
+SE|genAcc|{"kind":"scarf","tail":"long"}|af406a580042b342
+SE|genAcc|{"kind":"shades"}|7ce1273938a58a83
+SE|genAcc|{"kind":"shades","tail":"long"}|7ce1273938a58a83
+SE|genAcc|{"kind":"shemagh"}|b9eb062a1fb8a6ad
+SE|genAcc|{"kind":"shemagh","tail":"long"}|b9eb062a1fb8a6ad
+SE|genBag|{"kind":"backpack"}|0ab9ace3e4bebe71
+SE|genBag|{"kind":"bedroll"}|f015ca2aa01b5b6e
+SE|genBag|{"kind":"quiver"}|de515509abbcd914
+SE|genBag|{"kind":"satchel"}|dfd44be0e23746ab
+SE|genCape|{}|2aac082ee7b16e8a
+SE|genCape|{"mantle":true}|3bd4a57ff365eb5d
+SE|genPoncho|{}|e51060b5447bcc20
+SE|genPoncho|{"hood":true}|fa7c632f1425f464
+SE|genApron|{}|603d5cb053f3cdd0
+SE|genApron|{"bibless":true}|826aa22dc6713ba3
+SE|genCoverall|{}|f6b1f80d9ab8cea4
+SE|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|16e9e864388111cc
+SE|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|02a2fa0354215f53
+SE|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|853eb9b04cf7ad32
+SE|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|2060fa02700de58a
+SE|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|8e39700408486e2f
+SE|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|024621e0d094075c
+SE|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|0531362e8b8d959c
+SE|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|3692e0c8a1b0bed0
+SE|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|d499fdf543a5be7f
+SE|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|bd35a44aff6b7203
+SE|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|9bf971429c36eaff
+SE|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|ad6e2fce513b559b
+SE|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|03b09e118ee0d5a9
+SE|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|d504d7d7a4303c7b
+SE|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|5170a9b6545fd68c
+SE|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|d208ab1ed47c2ae0
+SE|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|600648bfc4e47e26
+SE|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|7bb16319b854bbe7
+SE|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|c473c40606525987
+SE|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|b70e6431ecbe7ff0
+SE|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|b745b24ef4c10a60
+SE|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|cb4ea94cf0255ecd
+SE|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|af6362109fd0cbc9
+SE|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|bb5feed38fe3edd1
+SE|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|eda5e9f004685f73
+SE|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|d01a145328b5c20c
+SE|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|09413dd0f64202e5
+SE|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|1efcb09e517c7bc5
+SE|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|a8c8ee5fe1d40c6b
+SE|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|f970f706b5c7d27d
+SE|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|fe73f859512808df
+SE|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|e4f4379d04823ee0
+SE|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|1864a6a8fef31931
+SE|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|444dbb95d1211f7f
+SE|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|a622549ddd9c7125
+SE|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|4709317e6ebc2e1a
+SE|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|4f28e4e1d48bdc15
+SE|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|beb6a51f51033352
+SE|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|b531c273946c2626
+SE|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|e75280f2c5f12e0e
+SE|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|3ed84e796a85090e
+SE|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|55cbc2a9386532b4
+SE|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|704b74eaba665782
+SE|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|b2689b18db0ac730
+SE|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|b36c1c7de73634c0
+SE|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|e8d68758a6c51848
+SE|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|e1175d45970813d0
+SE|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|c30a67d04ee1f652
+SE|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|db97d121fcc2d232
+SE|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|90d187722463a620
+SE|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|29195c21c719cc1a
+SE|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|3aa56a3c3a6f8229
+SE|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|14216b9a69502599
+SE|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|ee03490a092df5d9
+SE|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|02ac039ef553b25a
+SE|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|232344d16a8ec095
+SE|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|939f71056d016964
+SE|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|8e6cbe4400ba025a
+SE|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|1d1420947e189971
+SE|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|751161ec2dba6fb3
+SE|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|e2c8c4929d191d37
+SE|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|c6fdb973e9b6d7ba
+SE|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|562aacff69356b1d
+SE|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|3f8115b7f9f35315
+SE|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|ceeaa36d90f0eb26
+SE|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|d5a33a35c8f7ce49
+SE|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|db52b1f348f4cc8a
+SE|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|4129a8ea667bccb9
+SE|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|dd2d44fa0b0884f3
+SE|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|e7e04e58681ba601
+E|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+E|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+E|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+E|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+E|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+E|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+E|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+E|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+E|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+E|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+E|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+E|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+E|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+E|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+E|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+E|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|87ca2bf932402ecf
+E|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|385c6695b92b893f
+E|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|826d6d7a1caa54ac
+E|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+E|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+E|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+E|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+E|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+E|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+E|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+E|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+E|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+E|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+E|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+E|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+E|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+E|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+E|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+E|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|f7933081b68c4ec5
+E|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|4e262f691f0633da
+E|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|88fcab5f914e50ba
+E|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+E|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+E|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+E|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+E|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+E|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+E|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+E|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+E|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+E|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+E|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+E|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+E|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+E|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+E|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+E|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|b5984ff71c47529a
+E|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|94f919da7d372b17
+E|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|ab655eadc19808f0
+E|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+E|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+E|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+E|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+E|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+E|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+E|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+E|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+E|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+E|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+E|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+E|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+E|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+E|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+E|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+E|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|f9492cdebcbb4471
+E|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|c10361ee85453200
+E|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|749738c889c328ae
+E|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+E|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+E|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|e9dedd49ba0f3b52
+E|genPants|{}|34966be7b8ff976a
+E|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+E|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+E|genPants|{"cut":"longskirt"}|829d1f92594b2894
+E|genShoes|{}|972601867e58b3ba
+E|genShoes|{"shaft":"tall"}|fc0a4f17cc2de8f7
+E|genCoat|{"dir":"S","len":0.86}|8e50350477c1871a
+E|genCoat|{"dir":"S","len":0.6}|3353d38bbbfa1c06
+E|genCoat|{"dir":"S","jacket":true}|a74b4e1c55527ad9
+E|genCoat|{"dir":"S","vest":true}|57f2323a11e6442d
+E|genCoat|{"dir":"S","split":true,"len":0.9}|5f7e6a866fd9f21b
+E|genCoat|{"dir":"S","open":2}|8e50350477c1871a
+E|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+E|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+E|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+E|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+E|genHat|{"kind":"cap","fit":"dome"}|6719d152fb569f04
+E|genHat|{"kind":"cap","fit":"dome","slouch":true}|6719d152fb569f04
+E|genHat|{"kind":"cap","fit":"skull"}|2f5d9fd6c71f8616
+E|genHat|{"kind":"cap","fit":"skull","slouch":true}|2f5d9fd6c71f8616
+E|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+E|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+E|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+E|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+E|genHat|{"kind":"wrap","fit":"dome"}|8f05549f53b36cf2
+E|genHat|{"kind":"wrap","fit":"dome","slouch":true}|8f05549f53b36cf2
+E|genHat|{"kind":"wrap","fit":"skull"}|8f05549f53b36cf2
+E|genHat|{"kind":"wrap","fit":"skull","slouch":true}|8f05549f53b36cf2
+E|genGear|{"kind":"bandolier"}|ca755ac95395a500
+E|genGear|{"kind":"bracers"}|2956aba235590d8b
+E|genGear|{"kind":"chestplate"}|88cda50c98aa0d60
+E|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+E|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+E|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+E|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+E|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+E|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+E|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+E|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+E|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+E|genGear|{"kind":"suspenders"}|31915cd8fa1c617c
+E|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+E|genAcc|{"kind":"bandana"}|b4b9118296d4ed37
+E|genAcc|{"kind":"bandana","tail":"long"}|b4b9118296d4ed37
+E|genAcc|{"kind":"belt"}|76560fd12bc50840
+E|genAcc|{"kind":"belt","tail":"long"}|76560fd12bc50840
+E|genAcc|{"kind":"gasmask"}|87a3d7bf7b6b343b
+E|genAcc|{"kind":"gasmask","tail":"long"}|87a3d7bf7b6b343b
+E|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+E|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+E|genAcc|{"kind":"helm"}|55e1da849971dfde
+E|genAcc|{"kind":"helm","tail":"long"}|55e1da849971dfde
+E|genAcc|{"kind":"mask"}|a49c816e22ce21b7
+E|genAcc|{"kind":"mask","tail":"long"}|a49c816e22ce21b7
+E|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+E|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+E|genAcc|{"kind":"scarf"}|84a3d3ce7e736ce4
+E|genAcc|{"kind":"scarf","tail":"long"}|84a3d3ce7e736ce4
+E|genAcc|{"kind":"shades"}|ad3116428d7d6cf8
+E|genAcc|{"kind":"shades","tail":"long"}|ad3116428d7d6cf8
+E|genAcc|{"kind":"shemagh"}|77cdc6c7ceffedc2
+E|genAcc|{"kind":"shemagh","tail":"long"}|77cdc6c7ceffedc2
+E|genBag|{"kind":"backpack"}|93e12e1510a2e188
+E|genBag|{"kind":"bedroll"}|282354d775b5fa17
+E|genBag|{"kind":"quiver"}|7fae1500b9886bbe
+E|genBag|{"kind":"satchel"}|c1692db793557839
+E|genCape|{}|4a43acf821cca6ab
+E|genCape|{"mantle":true}|bf04fbc2fb0c5697
+E|genPoncho|{}|5cd97b03b19f5711
+E|genPoncho|{"hood":true}|0240ce12aa1cc44a
+E|genApron|{}|bbdcba59e705c727
+E|genApron|{"bibless":true}|6c7467c6f8573455
+E|genCoverall|{}|43b4213c84f73639
+E|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|03ce5224c75f98c8
+E|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|8a638516f6ad9c75
+E|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|63ef6cd1c6fc2c72
+E|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|328be76cc100bb4e
+E|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|862162ee74242c91
+E|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|6a292199dd8ab08a
+E|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|81f59956df3fe80b
+E|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|466dc820442f4266
+E|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|5d799cd9eab53d4e
+E|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|5d6838b5ae76c501
+E|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|c45cf48241abdf6c
+E|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|1925b608bcabe9c8
+E|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|da6ae528610c1701
+E|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|ebf2a56341a1989e
+E|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|16d26716c3bc80dc
+E|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|dcbc28d5253dd92b
+E|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|204832c90ab59f39
+E|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|e235a9d16d6b662c
+E|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|5cbd1adb7d488e73
+E|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|8afc67a02e97ed44
+E|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|09fbc0f0d478c08e
+E|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|e1f28ec7480fecf5
+E|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|b2ebe434d2112093
+E|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|6d9061727e2e32fd
+E|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|5a3a77f46653f499
+E|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|513f895cdf526be2
+E|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|40358df1132857a2
+E|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|02d697aeab11b99b
+E|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|4bc75bc04b689c6d
+E|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|2cd355f693f5fd02
+E|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|65e6211857c1fd39
+E|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|0bc4e386eb484b30
+E|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|a9a345af750eeca9
+E|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|ce703a71a0b686a0
+E|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|c45a8c93cec86b5c
+E|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|3b9b3614849eb146
+E|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|49367b2d67b2c847
+E|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|0d8f906772650c71
+E|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|5884ba10545a95b6
+E|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|5524f3c6ff1b5b35
+E|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|cfc2a2458c68825e
+E|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|8e16d86d56a56c80
+E|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|d0ca703c6382c18b
+E|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|b4113fe301423b57
+E|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|4397844326ff84fd
+E|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|2fcd9df02aa6fdc1
+E|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|368f9f967a5ad188
+E|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|d98fbddaabda7d37
+E|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|887beebf95e66ad5
+E|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|3571ff7489e84a50
+E|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|d37bc64faf17d209
+E|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|dcf69cd568431987
+E|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|3a524ee3c1743287
+E|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|40368f9682e90b07
+E|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|4fdd260aa358ea67
+E|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|f3e428eb0afa4abf
+E|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|39c14a31d5d41123
+E|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|3fc4d2bcde3b0b80
+E|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|747a0a982e03dfed
+E|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|aaffae0c41c223f7
+E|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|d59018259c83457a
+E|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|f0bb3446dcd0d9ef
+E|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|1842be450214897d
+E|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|1842be450214897d
+E|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|8ce6e7a3331c095a
+E|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|ce71f4f2fe5aac82
+E|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|2df246aa96d9e4ef
+E|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|df4e3b83d4ab491d
+E|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|225f3049ab276f8f
+E|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|8d8a830c02774019
+NE|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+NE|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+NE|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+NE|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+NE|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+NE|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+NE|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+NE|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+NE|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+NE|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+NE|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+NE|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+NE|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+NE|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+NE|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+NE|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|c53a23f9fb32fcb4
+NE|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|5a1a12fd2c2e2e1b
+NE|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|5fe3ef145b18ec7e
+NE|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+NE|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+NE|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+NE|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+NE|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+NE|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+NE|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+NE|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+NE|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+NE|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+NE|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+NE|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+NE|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+NE|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+NE|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+NE|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|07f1c411441d1c4d
+NE|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|06f5a4e43fa31cd9
+NE|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|bbac19742c494f1b
+NE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+NE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+NE|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+NE|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+NE|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+NE|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+NE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+NE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+NE|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+NE|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+NE|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+NE|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+NE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+NE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+NE|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+NE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|492b90f3a8552511
+NE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|5d16e42ef9bc5e95
+NE|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|ba424534b67e0563
+NE|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+NE|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+NE|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+NE|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+NE|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+NE|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+NE|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+NE|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+NE|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+NE|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+NE|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+NE|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+NE|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+NE|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+NE|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+NE|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|356aa8589368ef6d
+NE|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|dc692465c990d7c2
+NE|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|e36625fdf40605f6
+NE|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+NE|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+NE|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|58152ae3d7390578
+NE|genPants|{}|34966be7b8ff976a
+NE|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+NE|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+NE|genPants|{"cut":"longskirt"}|829d1f92594b2894
+NE|genShoes|{}|14265e05640d2881
+NE|genShoes|{"shaft":"tall"}|8a597605c66aa5e5
+NE|genCoat|{"dir":"S","len":0.86}|8e50350477c1871a
+NE|genCoat|{"dir":"S","len":0.6}|3353d38bbbfa1c06
+NE|genCoat|{"dir":"S","jacket":true}|a74b4e1c55527ad9
+NE|genCoat|{"dir":"S","vest":true}|57f2323a11e6442d
+NE|genCoat|{"dir":"S","split":true,"len":0.9}|ddfe9356abc6b9de
+NE|genCoat|{"dir":"S","open":2}|8e50350477c1871a
+NE|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+NE|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+NE|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+NE|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+NE|genHat|{"kind":"cap","fit":"dome"}|63c6d9cfe49c6120
+NE|genHat|{"kind":"cap","fit":"dome","slouch":true}|63c6d9cfe49c6120
+NE|genHat|{"kind":"cap","fit":"skull"}|4307d3c694328b5c
+NE|genHat|{"kind":"cap","fit":"skull","slouch":true}|4307d3c694328b5c
+NE|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+NE|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+NE|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+NE|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+NE|genHat|{"kind":"wrap","fit":"dome"}|e2e4d50a899c2a45
+NE|genHat|{"kind":"wrap","fit":"dome","slouch":true}|e2e4d50a899c2a45
+NE|genHat|{"kind":"wrap","fit":"skull"}|e2e4d50a899c2a45
+NE|genHat|{"kind":"wrap","fit":"skull","slouch":true}|e2e4d50a899c2a45
+NE|genGear|{"kind":"bandolier"}|ca755ac95395a500
+NE|genGear|{"kind":"bracers"}|2956aba235590d8b
+NE|genGear|{"kind":"chestplate"}|58af8405634da5d1
+NE|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+NE|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+NE|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+NE|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+NE|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+NE|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+NE|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+NE|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+NE|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+NE|genGear|{"kind":"suspenders"}|82126a7fb69ba436
+NE|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+NE|genAcc|{"kind":"bandana"}|41647007ea4af253
+NE|genAcc|{"kind":"bandana","tail":"long"}|41647007ea4af253
+NE|genAcc|{"kind":"belt"}|76560fd12bc50840
+NE|genAcc|{"kind":"belt","tail":"long"}|76560fd12bc50840
+NE|genAcc|{"kind":"gasmask"}|92977fac63b5fc41
+NE|genAcc|{"kind":"gasmask","tail":"long"}|92977fac63b5fc41
+NE|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+NE|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+NE|genAcc|{"kind":"helm"}|e859490aae0f5dbd
+NE|genAcc|{"kind":"helm","tail":"long"}|e859490aae0f5dbd
+NE|genAcc|{"kind":"mask"}|6d4208dd31e95d16
+NE|genAcc|{"kind":"mask","tail":"long"}|6d4208dd31e95d16
+NE|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+NE|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+NE|genAcc|{"kind":"scarf"}|8dc29ae1a29f0aef
+NE|genAcc|{"kind":"scarf","tail":"long"}|5e2ae7607d557ed2
+NE|genAcc|{"kind":"shades"}|e3b0c44298fc1c14
+NE|genAcc|{"kind":"shades","tail":"long"}|e3b0c44298fc1c14
+NE|genAcc|{"kind":"shemagh"}|6aba050853683965
+NE|genAcc|{"kind":"shemagh","tail":"long"}|6aba050853683965
+NE|genBag|{"kind":"backpack"}|822119afc122f8bd
+NE|genBag|{"kind":"bedroll"}|533f6d347d6623a5
+NE|genBag|{"kind":"quiver"}|bee85c3a526302b6
+NE|genBag|{"kind":"satchel"}|56ee586e06c7da36
+NE|genCape|{}|b11448de65eb8277
+NE|genCape|{"mantle":true}|832af63c703a4cb2
+NE|genPoncho|{}|5cd97b03b19f5711
+NE|genPoncho|{"hood":true}|a73f110995504b1d
+NE|genApron|{}|bf8d68f920699c4d
+NE|genApron|{"bibless":true}|faa82ac059c1e919
+NE|genCoverall|{}|43b4213c84f73639
+NE|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|d1ddc496f675cc8a
+NE|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|41400ed570a447bc
+NE|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|19b1a2921aea7a10
+NE|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|b64ef0c78f754eba
+NE|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|efaa5bc27043814a
+NE|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|f1ce3974e6917148
+NE|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|7d044b08df35fc68
+NE|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|401c65656e73dd74
+NE|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|29b40f393562e49d
+NE|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|fe26c7e9de871de6
+NE|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|67503b7783533ec6
+NE|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|0e26eaba81d21881
+NE|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|6fd9be9b8cdd77d5
+NE|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|ec50174643a25ca2
+NE|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|166901b450f1f6ae
+NE|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|4123130175169f65
+NE|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|2e6b8599c4dcba04
+NE|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|ef51be623d05b1e5
+NE|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|93f55a1a2823d3d3
+NE|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|99ccf85d48213e69
+NE|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|c69e619f339d0801
+NE|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|53b9e7a1ef1372c7
+NE|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|c203516d45914196
+NE|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|5ad14def53fd7e1f
+NE|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|0f127822ab5a71c2
+NE|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|e21de80083f77c8b
+NE|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|79b1723738f3912d
+NE|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|df26e54475e02a97
+NE|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|be0b39c2b32f1459
+NE|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|aafcd2d3ad5f317d
+NE|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|1804f93ae2a0a0e4
+NE|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|59f9ab5a6abe0497
+NE|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|3d56c46e1fdf1ce6
+NE|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|f8823a86546d2ce6
+NE|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|d9d307335f69036e
+NE|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|bc08bb94998355b8
+NE|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|c86944f4b9b987d8
+NE|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|e91abbdb34fef52e
+NE|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|4174a6c63cda63bc
+NE|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|525462c699d73b94
+NE|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|ec52f57205635b52
+NE|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|4f5b35ff921e52fd
+NE|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|811f90d5183f54d6
+NE|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|af1a03346af0d5d9
+NE|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|56fda15da98741bc
+NE|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|c518767c8872cadc
+NE|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|f43f6bcb07bb22c9
+NE|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|e6917da24076b6ce
+NE|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|861a026a67637af5
+NE|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|a743dd282e589252
+NE|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|d58646b30350e6a9
+NE|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|000bf1149580692d
+NE|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|d01b32d8e8b2aa98
+NE|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|b28a49aa597ecc24
+NE|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|f5234bd1049dfe07
+NE|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|453a36cf7566e207
+NE|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|fff329344ffaf21b
+NE|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|a6a0d30cda0a3292
+NE|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|732a46ab754c08af
+NE|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|62eb1dc508c6ea73
+NE|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|65695de9eb62f6ab
+NE|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|abc469d3e1d2118a
+NE|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
+NE|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
+NE|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|87238b6fa2036ae2
+NE|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|a2e5ff889376cf3d
+NE|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|bcde3593b0ca38b8
+NE|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|668fdf7c71265d45
+NE|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|5a1ebcd5e516add6
+NE|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|6ac60106875673df
+N|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+N|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+N|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+N|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+N|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+N|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+N|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+N|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+N|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+N|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+N|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+N|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+N|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+N|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+N|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+N|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|c53a23f9fb32fcb4
+N|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|5a1a12fd2c2e2e1b
+N|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|5fe3ef145b18ec7e
+N|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+N|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+N|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+N|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+N|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+N|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+N|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+N|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+N|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+N|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+N|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+N|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+N|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+N|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+N|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+N|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|07f1c411441d1c4d
+N|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|06f5a4e43fa31cd9
+N|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|bbac19742c494f1b
+N|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+N|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+N|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+N|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+N|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+N|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+N|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+N|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+N|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+N|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+N|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+N|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+N|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+N|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+N|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+N|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|492b90f3a8552511
+N|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|5d16e42ef9bc5e95
+N|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|ba424534b67e0563
+N|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+N|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+N|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+N|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+N|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+N|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+N|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+N|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+N|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+N|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+N|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+N|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+N|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+N|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+N|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+N|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|356aa8589368ef6d
+N|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|dc692465c990d7c2
+N|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|e36625fdf40605f6
+N|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+N|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+N|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|58152ae3d7390578
+N|genPants|{}|34966be7b8ff976a
+N|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+N|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+N|genPants|{"cut":"longskirt"}|829d1f92594b2894
+N|genShoes|{}|14265e05640d2881
+N|genShoes|{"shaft":"tall"}|8a597605c66aa5e5
+N|genCoat|{"dir":"S","len":0.86}|8e50350477c1871a
+N|genCoat|{"dir":"S","len":0.6}|3353d38bbbfa1c06
+N|genCoat|{"dir":"S","jacket":true}|a74b4e1c55527ad9
+N|genCoat|{"dir":"S","vest":true}|57f2323a11e6442d
+N|genCoat|{"dir":"S","split":true,"len":0.9}|ddfe9356abc6b9de
+N|genCoat|{"dir":"S","open":2}|8e50350477c1871a
+N|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+N|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+N|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+N|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+N|genHat|{"kind":"cap","fit":"dome"}|63c6d9cfe49c6120
+N|genHat|{"kind":"cap","fit":"dome","slouch":true}|63c6d9cfe49c6120
+N|genHat|{"kind":"cap","fit":"skull"}|4307d3c694328b5c
+N|genHat|{"kind":"cap","fit":"skull","slouch":true}|4307d3c694328b5c
+N|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+N|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+N|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+N|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+N|genHat|{"kind":"wrap","fit":"dome"}|e2e4d50a899c2a45
+N|genHat|{"kind":"wrap","fit":"dome","slouch":true}|e2e4d50a899c2a45
+N|genHat|{"kind":"wrap","fit":"skull"}|e2e4d50a899c2a45
+N|genHat|{"kind":"wrap","fit":"skull","slouch":true}|e2e4d50a899c2a45
+N|genGear|{"kind":"bandolier"}|ca755ac95395a500
+N|genGear|{"kind":"bracers"}|2956aba235590d8b
+N|genGear|{"kind":"chestplate"}|58af8405634da5d1
+N|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+N|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+N|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+N|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+N|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+N|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+N|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+N|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+N|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+N|genGear|{"kind":"suspenders"}|82126a7fb69ba436
+N|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+N|genAcc|{"kind":"bandana"}|41647007ea4af253
+N|genAcc|{"kind":"bandana","tail":"long"}|41647007ea4af253
+N|genAcc|{"kind":"belt"}|76560fd12bc50840
+N|genAcc|{"kind":"belt","tail":"long"}|76560fd12bc50840
+N|genAcc|{"kind":"gasmask"}|92977fac63b5fc41
+N|genAcc|{"kind":"gasmask","tail":"long"}|92977fac63b5fc41
+N|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+N|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+N|genAcc|{"kind":"helm"}|e859490aae0f5dbd
+N|genAcc|{"kind":"helm","tail":"long"}|e859490aae0f5dbd
+N|genAcc|{"kind":"mask"}|6d4208dd31e95d16
+N|genAcc|{"kind":"mask","tail":"long"}|6d4208dd31e95d16
+N|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+N|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+N|genAcc|{"kind":"scarf"}|8dc29ae1a29f0aef
+N|genAcc|{"kind":"scarf","tail":"long"}|5e2ae7607d557ed2
+N|genAcc|{"kind":"shades"}|e3b0c44298fc1c14
+N|genAcc|{"kind":"shades","tail":"long"}|e3b0c44298fc1c14
+N|genAcc|{"kind":"shemagh"}|6aba050853683965
+N|genAcc|{"kind":"shemagh","tail":"long"}|6aba050853683965
+N|genBag|{"kind":"backpack"}|822119afc122f8bd
+N|genBag|{"kind":"bedroll"}|533f6d347d6623a5
+N|genBag|{"kind":"quiver"}|bee85c3a526302b6
+N|genBag|{"kind":"satchel"}|56ee586e06c7da36
+N|genCape|{}|b11448de65eb8277
+N|genCape|{"mantle":true}|832af63c703a4cb2
+N|genPoncho|{}|5cd97b03b19f5711
+N|genPoncho|{"hood":true}|a73f110995504b1d
+N|genApron|{}|bf8d68f920699c4d
+N|genApron|{"bibless":true}|faa82ac059c1e919
+N|genCoverall|{}|43b4213c84f73639
+N|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|d1ddc496f675cc8a
+N|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|41400ed570a447bc
+N|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|19b1a2921aea7a10
+N|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|b64ef0c78f754eba
+N|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|efaa5bc27043814a
+N|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|f1ce3974e6917148
+N|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|7d044b08df35fc68
+N|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|401c65656e73dd74
+N|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|29b40f393562e49d
+N|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|fe26c7e9de871de6
+N|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|67503b7783533ec6
+N|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|0e26eaba81d21881
+N|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|6fd9be9b8cdd77d5
+N|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|ec50174643a25ca2
+N|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|166901b450f1f6ae
+N|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|4123130175169f65
+N|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|2e6b8599c4dcba04
+N|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|ef51be623d05b1e5
+N|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|93f55a1a2823d3d3
+N|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|99ccf85d48213e69
+N|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|c69e619f339d0801
+N|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|53b9e7a1ef1372c7
+N|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|c203516d45914196
+N|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|5ad14def53fd7e1f
+N|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|0f127822ab5a71c2
+N|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|e21de80083f77c8b
+N|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|79b1723738f3912d
+N|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|df26e54475e02a97
+N|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|be0b39c2b32f1459
+N|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|aafcd2d3ad5f317d
+N|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|1804f93ae2a0a0e4
+N|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|59f9ab5a6abe0497
+N|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|3d56c46e1fdf1ce6
+N|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|f8823a86546d2ce6
+N|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|d9d307335f69036e
+N|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|bc08bb94998355b8
+N|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|c86944f4b9b987d8
+N|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|e91abbdb34fef52e
+N|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|4174a6c63cda63bc
+N|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|525462c699d73b94
+N|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|ec52f57205635b52
+N|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|4f5b35ff921e52fd
+N|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|811f90d5183f54d6
+N|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|af1a03346af0d5d9
+N|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|56fda15da98741bc
+N|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|c518767c8872cadc
+N|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|f43f6bcb07bb22c9
+N|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|e6917da24076b6ce
+N|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|861a026a67637af5
+N|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|a743dd282e589252
+N|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|d58646b30350e6a9
+N|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|000bf1149580692d
+N|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|d01b32d8e8b2aa98
+N|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|b28a49aa597ecc24
+N|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|f5234bd1049dfe07
+N|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|453a36cf7566e207
+N|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|fff329344ffaf21b
+N|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|a6a0d30cda0a3292
+N|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|732a46ab754c08af
+N|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|62eb1dc508c6ea73
+N|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|65695de9eb62f6ab
+N|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|abc469d3e1d2118a
+N|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
+N|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
+N|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|87238b6fa2036ae2
+N|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|a2e5ff889376cf3d
+N|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|bcde3593b0ca38b8
+N|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|668fdf7c71265d45
+N|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|5a1ebcd5e516add6
+N|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|6ac60106875673df
+NW|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+NW|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+NW|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+NW|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+NW|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+NW|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+NW|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+NW|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+NW|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+NW|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+NW|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+NW|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+NW|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+NW|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+NW|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+NW|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|c53a23f9fb32fcb4
+NW|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|5a1a12fd2c2e2e1b
+NW|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|5fe3ef145b18ec7e
+NW|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+NW|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+NW|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+NW|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+NW|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+NW|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+NW|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+NW|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+NW|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+NW|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+NW|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+NW|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+NW|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+NW|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+NW|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+NW|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|07f1c411441d1c4d
+NW|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|06f5a4e43fa31cd9
+NW|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|bbac19742c494f1b
+NW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+NW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+NW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+NW|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+NW|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+NW|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+NW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+NW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+NW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+NW|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+NW|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+NW|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+NW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+NW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+NW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+NW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|492b90f3a8552511
+NW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|5d16e42ef9bc5e95
+NW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|ba424534b67e0563
+NW|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+NW|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+NW|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+NW|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+NW|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+NW|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+NW|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+NW|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+NW|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+NW|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+NW|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+NW|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+NW|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+NW|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+NW|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+NW|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|356aa8589368ef6d
+NW|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|dc692465c990d7c2
+NW|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|e36625fdf40605f6
+NW|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+NW|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+NW|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|58152ae3d7390578
+NW|genPants|{}|34966be7b8ff976a
+NW|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+NW|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+NW|genPants|{"cut":"longskirt"}|829d1f92594b2894
+NW|genShoes|{}|14265e05640d2881
+NW|genShoes|{"shaft":"tall"}|8a597605c66aa5e5
+NW|genCoat|{"dir":"S","len":0.86}|8e50350477c1871a
+NW|genCoat|{"dir":"S","len":0.6}|3353d38bbbfa1c06
+NW|genCoat|{"dir":"S","jacket":true}|a74b4e1c55527ad9
+NW|genCoat|{"dir":"S","vest":true}|57f2323a11e6442d
+NW|genCoat|{"dir":"S","split":true,"len":0.9}|ddfe9356abc6b9de
+NW|genCoat|{"dir":"S","open":2}|8e50350477c1871a
+NW|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+NW|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+NW|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+NW|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+NW|genHat|{"kind":"cap","fit":"dome"}|63c6d9cfe49c6120
+NW|genHat|{"kind":"cap","fit":"dome","slouch":true}|63c6d9cfe49c6120
+NW|genHat|{"kind":"cap","fit":"skull"}|4307d3c694328b5c
+NW|genHat|{"kind":"cap","fit":"skull","slouch":true}|4307d3c694328b5c
+NW|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+NW|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+NW|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+NW|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+NW|genHat|{"kind":"wrap","fit":"dome"}|e2e4d50a899c2a45
+NW|genHat|{"kind":"wrap","fit":"dome","slouch":true}|e2e4d50a899c2a45
+NW|genHat|{"kind":"wrap","fit":"skull"}|e2e4d50a899c2a45
+NW|genHat|{"kind":"wrap","fit":"skull","slouch":true}|e2e4d50a899c2a45
+NW|genGear|{"kind":"bandolier"}|ca755ac95395a500
+NW|genGear|{"kind":"bracers"}|2956aba235590d8b
+NW|genGear|{"kind":"chestplate"}|58af8405634da5d1
+NW|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+NW|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+NW|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+NW|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+NW|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+NW|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+NW|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+NW|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+NW|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+NW|genGear|{"kind":"suspenders"}|82126a7fb69ba436
+NW|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+NW|genAcc|{"kind":"bandana"}|41647007ea4af253
+NW|genAcc|{"kind":"bandana","tail":"long"}|41647007ea4af253
+NW|genAcc|{"kind":"belt"}|76560fd12bc50840
+NW|genAcc|{"kind":"belt","tail":"long"}|76560fd12bc50840
+NW|genAcc|{"kind":"gasmask"}|92977fac63b5fc41
+NW|genAcc|{"kind":"gasmask","tail":"long"}|92977fac63b5fc41
+NW|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+NW|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+NW|genAcc|{"kind":"helm"}|e859490aae0f5dbd
+NW|genAcc|{"kind":"helm","tail":"long"}|e859490aae0f5dbd
+NW|genAcc|{"kind":"mask"}|6d4208dd31e95d16
+NW|genAcc|{"kind":"mask","tail":"long"}|6d4208dd31e95d16
+NW|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+NW|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+NW|genAcc|{"kind":"scarf"}|8dc29ae1a29f0aef
+NW|genAcc|{"kind":"scarf","tail":"long"}|5e2ae7607d557ed2
+NW|genAcc|{"kind":"shades"}|e3b0c44298fc1c14
+NW|genAcc|{"kind":"shades","tail":"long"}|e3b0c44298fc1c14
+NW|genAcc|{"kind":"shemagh"}|6aba050853683965
+NW|genAcc|{"kind":"shemagh","tail":"long"}|6aba050853683965
+NW|genBag|{"kind":"backpack"}|822119afc122f8bd
+NW|genBag|{"kind":"bedroll"}|533f6d347d6623a5
+NW|genBag|{"kind":"quiver"}|bee85c3a526302b6
+NW|genBag|{"kind":"satchel"}|56ee586e06c7da36
+NW|genCape|{}|b11448de65eb8277
+NW|genCape|{"mantle":true}|832af63c703a4cb2
+NW|genPoncho|{}|5cd97b03b19f5711
+NW|genPoncho|{"hood":true}|a73f110995504b1d
+NW|genApron|{}|bf8d68f920699c4d
+NW|genApron|{"bibless":true}|faa82ac059c1e919
+NW|genCoverall|{}|43b4213c84f73639
+NW|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|d1ddc496f675cc8a
+NW|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|41400ed570a447bc
+NW|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|19b1a2921aea7a10
+NW|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|b64ef0c78f754eba
+NW|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|efaa5bc27043814a
+NW|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|f1ce3974e6917148
+NW|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|7d044b08df35fc68
+NW|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|401c65656e73dd74
+NW|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|29b40f393562e49d
+NW|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|fe26c7e9de871de6
+NW|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|67503b7783533ec6
+NW|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|0e26eaba81d21881
+NW|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|6fd9be9b8cdd77d5
+NW|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|ec50174643a25ca2
+NW|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|166901b450f1f6ae
+NW|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|4123130175169f65
+NW|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|2e6b8599c4dcba04
+NW|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|ef51be623d05b1e5
+NW|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|93f55a1a2823d3d3
+NW|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|99ccf85d48213e69
+NW|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|c69e619f339d0801
+NW|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|53b9e7a1ef1372c7
+NW|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|c203516d45914196
+NW|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|5ad14def53fd7e1f
+NW|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|0f127822ab5a71c2
+NW|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|e21de80083f77c8b
+NW|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|79b1723738f3912d
+NW|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|df26e54475e02a97
+NW|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|be0b39c2b32f1459
+NW|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|aafcd2d3ad5f317d
+NW|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|1804f93ae2a0a0e4
+NW|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|59f9ab5a6abe0497
+NW|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|3d56c46e1fdf1ce6
+NW|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|f8823a86546d2ce6
+NW|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|d9d307335f69036e
+NW|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|bc08bb94998355b8
+NW|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|c86944f4b9b987d8
+NW|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|e91abbdb34fef52e
+NW|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|4174a6c63cda63bc
+NW|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|525462c699d73b94
+NW|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|ec52f57205635b52
+NW|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|4f5b35ff921e52fd
+NW|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|811f90d5183f54d6
+NW|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|af1a03346af0d5d9
+NW|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|56fda15da98741bc
+NW|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|c518767c8872cadc
+NW|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|f43f6bcb07bb22c9
+NW|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|e6917da24076b6ce
+NW|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|861a026a67637af5
+NW|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|a743dd282e589252
+NW|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|d58646b30350e6a9
+NW|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|000bf1149580692d
+NW|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|d01b32d8e8b2aa98
+NW|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|b28a49aa597ecc24
+NW|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|f5234bd1049dfe07
+NW|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|453a36cf7566e207
+NW|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|fff329344ffaf21b
+NW|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|a6a0d30cda0a3292
+NW|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|732a46ab754c08af
+NW|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|62eb1dc508c6ea73
+NW|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|65695de9eb62f6ab
+NW|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|abc469d3e1d2118a
+NW|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
+NW|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
+NW|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|87238b6fa2036ae2
+NW|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|a2e5ff889376cf3d
+NW|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|bcde3593b0ca38b8
+NW|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|668fdf7c71265d45
+NW|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|5a1ebcd5e516add6
+NW|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|6ac60106875673df
+W|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+W|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+W|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+W|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+W|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+W|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+W|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+W|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+W|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+W|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+W|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+W|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+W|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+W|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+W|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+W|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|87ca2bf932402ecf
+W|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|385c6695b92b893f
+W|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|826d6d7a1caa54ac
+W|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+W|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+W|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+W|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+W|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+W|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+W|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+W|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+W|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+W|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+W|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+W|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+W|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+W|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+W|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+W|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|f7933081b68c4ec5
+W|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|4e262f691f0633da
+W|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|88fcab5f914e50ba
+W|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+W|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+W|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+W|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+W|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+W|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+W|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+W|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+W|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+W|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+W|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+W|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+W|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+W|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+W|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+W|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|b5984ff71c47529a
+W|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|94f919da7d372b17
+W|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|ab655eadc19808f0
+W|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+W|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+W|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+W|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+W|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+W|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+W|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+W|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+W|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+W|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+W|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+W|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+W|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+W|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+W|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+W|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|f9492cdebcbb4471
+W|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|c10361ee85453200
+W|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|749738c889c328ae
+W|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+W|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+W|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|e9dedd49ba0f3b52
+W|genPants|{}|34966be7b8ff976a
+W|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+W|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+W|genPants|{"cut":"longskirt"}|829d1f92594b2894
+W|genShoes|{}|972601867e58b3ba
+W|genShoes|{"shaft":"tall"}|fc0a4f17cc2de8f7
+W|genCoat|{"dir":"S","len":0.86}|8e50350477c1871a
+W|genCoat|{"dir":"S","len":0.6}|3353d38bbbfa1c06
+W|genCoat|{"dir":"S","jacket":true}|a74b4e1c55527ad9
+W|genCoat|{"dir":"S","vest":true}|57f2323a11e6442d
+W|genCoat|{"dir":"S","split":true,"len":0.9}|5f7e6a866fd9f21b
+W|genCoat|{"dir":"S","open":2}|8e50350477c1871a
+W|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+W|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+W|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+W|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+W|genHat|{"kind":"cap","fit":"dome"}|6719d152fb569f04
+W|genHat|{"kind":"cap","fit":"dome","slouch":true}|6719d152fb569f04
+W|genHat|{"kind":"cap","fit":"skull"}|2f5d9fd6c71f8616
+W|genHat|{"kind":"cap","fit":"skull","slouch":true}|2f5d9fd6c71f8616
+W|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+W|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+W|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+W|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+W|genHat|{"kind":"wrap","fit":"dome"}|8f05549f53b36cf2
+W|genHat|{"kind":"wrap","fit":"dome","slouch":true}|8f05549f53b36cf2
+W|genHat|{"kind":"wrap","fit":"skull"}|8f05549f53b36cf2
+W|genHat|{"kind":"wrap","fit":"skull","slouch":true}|8f05549f53b36cf2
+W|genGear|{"kind":"bandolier"}|ca755ac95395a500
+W|genGear|{"kind":"bracers"}|2956aba235590d8b
+W|genGear|{"kind":"chestplate"}|88cda50c98aa0d60
+W|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+W|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+W|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+W|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+W|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+W|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+W|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+W|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+W|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+W|genGear|{"kind":"suspenders"}|31915cd8fa1c617c
+W|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+W|genAcc|{"kind":"bandana"}|b4b9118296d4ed37
+W|genAcc|{"kind":"bandana","tail":"long"}|b4b9118296d4ed37
+W|genAcc|{"kind":"belt"}|76560fd12bc50840
+W|genAcc|{"kind":"belt","tail":"long"}|76560fd12bc50840
+W|genAcc|{"kind":"gasmask"}|2978d274f5ca4342
+W|genAcc|{"kind":"gasmask","tail":"long"}|2978d274f5ca4342
+W|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+W|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+W|genAcc|{"kind":"helm"}|55e1da849971dfde
+W|genAcc|{"kind":"helm","tail":"long"}|55e1da849971dfde
+W|genAcc|{"kind":"mask"}|a49c816e22ce21b7
+W|genAcc|{"kind":"mask","tail":"long"}|a49c816e22ce21b7
+W|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+W|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+W|genAcc|{"kind":"scarf"}|84a3d3ce7e736ce4
+W|genAcc|{"kind":"scarf","tail":"long"}|84a3d3ce7e736ce4
+W|genAcc|{"kind":"shades"}|ad3116428d7d6cf8
+W|genAcc|{"kind":"shades","tail":"long"}|ad3116428d7d6cf8
+W|genAcc|{"kind":"shemagh"}|77cdc6c7ceffedc2
+W|genAcc|{"kind":"shemagh","tail":"long"}|77cdc6c7ceffedc2
+W|genBag|{"kind":"backpack"}|93e12e1510a2e188
+W|genBag|{"kind":"bedroll"}|282354d775b5fa17
+W|genBag|{"kind":"quiver"}|f57f6333c0ee2b33
+W|genBag|{"kind":"satchel"}|c1692db793557839
+W|genCape|{}|4a43acf821cca6ab
+W|genCape|{"mantle":true}|bf04fbc2fb0c5697
+W|genPoncho|{}|5cd97b03b19f5711
+W|genPoncho|{"hood":true}|0240ce12aa1cc44a
+W|genApron|{}|bbdcba59e705c727
+W|genApron|{"bibless":true}|6c7467c6f8573455
+W|genCoverall|{}|43b4213c84f73639
+W|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|03ce5224c75f98c8
+W|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|8a638516f6ad9c75
+W|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|63ef6cd1c6fc2c72
+W|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|328be76cc100bb4e
+W|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|862162ee74242c91
+W|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|6a292199dd8ab08a
+W|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|81f59956df3fe80b
+W|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|466dc820442f4266
+W|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|5d799cd9eab53d4e
+W|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|5d6838b5ae76c501
+W|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|c45cf48241abdf6c
+W|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|1925b608bcabe9c8
+W|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|da6ae528610c1701
+W|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|ebf2a56341a1989e
+W|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|16d26716c3bc80dc
+W|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|dcbc28d5253dd92b
+W|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|204832c90ab59f39
+W|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|e235a9d16d6b662c
+W|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|5cbd1adb7d488e73
+W|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|8afc67a02e97ed44
+W|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|09fbc0f0d478c08e
+W|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|e1f28ec7480fecf5
+W|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|b2ebe434d2112093
+W|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|6d9061727e2e32fd
+W|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|5a3a77f46653f499
+W|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|513f895cdf526be2
+W|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|40358df1132857a2
+W|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|02d697aeab11b99b
+W|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|4bc75bc04b689c6d
+W|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|2cd355f693f5fd02
+W|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|65e6211857c1fd39
+W|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|0bc4e386eb484b30
+W|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|a9a345af750eeca9
+W|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|ce703a71a0b686a0
+W|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|c45a8c93cec86b5c
+W|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|3b9b3614849eb146
+W|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|49367b2d67b2c847
+W|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|0d8f906772650c71
+W|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|5884ba10545a95b6
+W|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|5524f3c6ff1b5b35
+W|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|cfc2a2458c68825e
+W|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|8e16d86d56a56c80
+W|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|d0ca703c6382c18b
+W|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|b4113fe301423b57
+W|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|4397844326ff84fd
+W|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|2fcd9df02aa6fdc1
+W|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|368f9f967a5ad188
+W|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|d98fbddaabda7d37
+W|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|887beebf95e66ad5
+W|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|3571ff7489e84a50
+W|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|d37bc64faf17d209
+W|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|dcf69cd568431987
+W|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|3a524ee3c1743287
+W|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|40368f9682e90b07
+W|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|4fdd260aa358ea67
+W|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|f3e428eb0afa4abf
+W|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|39c14a31d5d41123
+W|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|3fc4d2bcde3b0b80
+W|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|747a0a982e03dfed
+W|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|aaffae0c41c223f7
+W|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|d59018259c83457a
+W|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|f0bb3446dcd0d9ef
+W|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|1842be450214897d
+W|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|1842be450214897d
+W|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|8ce6e7a3331c095a
+W|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|ce71f4f2fe5aac82
+W|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|2df246aa96d9e4ef
+W|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|df4e3b83d4ab491d
+W|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|225f3049ab276f8f
+W|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|8d8a830c02774019
+SW|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
+SW|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
+SW|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
+SW|genTop|{"sleeves":"long","neck":"v","pattern":"solid"}|6ac2e3b172d0314f
+SW|genTop|{"sleeves":"long","neck":"v","pattern":"plaid"}|3ea8f358fb881fbc
+SW|genTop|{"sleeves":"long","neck":"v","pattern":"stripe"}|f65bfba3076b3b28
+SW|genTop|{"sleeves":"long","neck":"henley","pattern":"solid"}|645cad1677547030
+SW|genTop|{"sleeves":"long","neck":"henley","pattern":"plaid"}|0b99a0f66b7c59d8
+SW|genTop|{"sleeves":"long","neck":"henley","pattern":"stripe"}|bf52354ca81fb808
+SW|genTop|{"sleeves":"long","neck":"button","pattern":"solid"}|6b38bb2bc5841463
+SW|genTop|{"sleeves":"long","neck":"button","pattern":"plaid"}|1e6a5883d68c6985
+SW|genTop|{"sleeves":"long","neck":"button","pattern":"stripe"}|22b6cb3aac8b49b4
+SW|genTop|{"sleeves":"long","neck":"turtle","pattern":"solid"}|06e86574fbf28dc5
+SW|genTop|{"sleeves":"long","neck":"turtle","pattern":"plaid"}|d0d69e48cbea3003
+SW|genTop|{"sleeves":"long","neck":"turtle","pattern":"stripe"}|a4f4067f0342caf7
+SW|genTop|{"sleeves":"long","neck":"hood","pattern":"solid"}|3e38d93e16ed426e
+SW|genTop|{"sleeves":"long","neck":"hood","pattern":"plaid"}|4348717bb9b2ce1d
+SW|genTop|{"sleeves":"long","neck":"hood","pattern":"stripe"}|575f7a6c9692778c
+SW|genTop|{"sleeves":"short","neck":"crew","pattern":"solid"}|e85d3669418344db
+SW|genTop|{"sleeves":"short","neck":"crew","pattern":"plaid"}|d8ce27abb97c31e8
+SW|genTop|{"sleeves":"short","neck":"crew","pattern":"stripe"}|b098f4cbeb145ac1
+SW|genTop|{"sleeves":"short","neck":"v","pattern":"solid"}|5b9df510a6a47ebd
+SW|genTop|{"sleeves":"short","neck":"v","pattern":"plaid"}|b667e5c8728d480a
+SW|genTop|{"sleeves":"short","neck":"v","pattern":"stripe"}|e23075a975d7b5e2
+SW|genTop|{"sleeves":"short","neck":"henley","pattern":"solid"}|be23beeb752f6f74
+SW|genTop|{"sleeves":"short","neck":"henley","pattern":"plaid"}|db3a1be3fb5ec41c
+SW|genTop|{"sleeves":"short","neck":"henley","pattern":"stripe"}|302f9d8d09d55fda
+SW|genTop|{"sleeves":"short","neck":"button","pattern":"solid"}|5a8447154a7760ad
+SW|genTop|{"sleeves":"short","neck":"button","pattern":"plaid"}|9af80802cc3cd68f
+SW|genTop|{"sleeves":"short","neck":"button","pattern":"stripe"}|e54f307aa60fad09
+SW|genTop|{"sleeves":"short","neck":"turtle","pattern":"solid"}|3b5dfe0346a4548a
+SW|genTop|{"sleeves":"short","neck":"turtle","pattern":"plaid"}|116e2332d64dea17
+SW|genTop|{"sleeves":"short","neck":"turtle","pattern":"stripe"}|4b8b94496680f889
+SW|genTop|{"sleeves":"short","neck":"hood","pattern":"solid"}|86f206594d589707
+SW|genTop|{"sleeves":"short","neck":"hood","pattern":"plaid"}|e5eff5d30f4f8c5b
+SW|genTop|{"sleeves":"short","neck":"hood","pattern":"stripe"}|421895cf5a430329
+SW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"solid"}|e0df71173a60747b
+SW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"plaid"}|d3d635bef27e8816
+SW|genTop|{"sleeves":"rolled","neck":"crew","pattern":"stripe"}|7b1fd904f6254a79
+SW|genTop|{"sleeves":"rolled","neck":"v","pattern":"solid"}|39bae5c8cbea03cb
+SW|genTop|{"sleeves":"rolled","neck":"v","pattern":"plaid"}|b1e1a432b69e9182
+SW|genTop|{"sleeves":"rolled","neck":"v","pattern":"stripe"}|1ce88508844b808c
+SW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"solid"}|808494d53685eff7
+SW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"plaid"}|61ef229539a24818
+SW|genTop|{"sleeves":"rolled","neck":"henley","pattern":"stripe"}|7832cfde5602f961
+SW|genTop|{"sleeves":"rolled","neck":"button","pattern":"solid"}|f78f59aaa01f888e
+SW|genTop|{"sleeves":"rolled","neck":"button","pattern":"plaid"}|73f4487120eb901c
+SW|genTop|{"sleeves":"rolled","neck":"button","pattern":"stripe"}|377d0826ae67f043
+SW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"solid"}|b2b55cbbaf982abd
+SW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"plaid"}|ad8c03866d75006a
+SW|genTop|{"sleeves":"rolled","neck":"turtle","pattern":"stripe"}|b7e2fe4ec8d6c47d
+SW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"solid"}|686548c6a1867703
+SW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"plaid"}|14b5c82b77fa4dae
+SW|genTop|{"sleeves":"rolled","neck":"hood","pattern":"stripe"}|f0b36410d5fcfdbb
+SW|genTop|{"sleeves":"none","neck":"crew","pattern":"solid"}|88382d352370bcb7
+SW|genTop|{"sleeves":"none","neck":"crew","pattern":"plaid"}|e5b7391006f23d5f
+SW|genTop|{"sleeves":"none","neck":"crew","pattern":"stripe"}|e1c4689e8002c2df
+SW|genTop|{"sleeves":"none","neck":"v","pattern":"solid"}|e547dfcb09f6cd1c
+SW|genTop|{"sleeves":"none","neck":"v","pattern":"plaid"}|45a41ae62ff9ef62
+SW|genTop|{"sleeves":"none","neck":"v","pattern":"stripe"}|7d66788a1383dbff
+SW|genTop|{"sleeves":"none","neck":"henley","pattern":"solid"}|fc69b1f24f9e9896
+SW|genTop|{"sleeves":"none","neck":"henley","pattern":"plaid"}|43f5691eb5e2eac8
+SW|genTop|{"sleeves":"none","neck":"henley","pattern":"stripe"}|d9ecb06f89268054
+SW|genTop|{"sleeves":"none","neck":"button","pattern":"solid"}|df33e9526b7d03e3
+SW|genTop|{"sleeves":"none","neck":"button","pattern":"plaid"}|a962c27b795ee893
+SW|genTop|{"sleeves":"none","neck":"button","pattern":"stripe"}|987b1ba23ca93025
+SW|genTop|{"sleeves":"none","neck":"turtle","pattern":"solid"}|edee434affa6c7dd
+SW|genTop|{"sleeves":"none","neck":"turtle","pattern":"plaid"}|2ac4942203b5dad0
+SW|genTop|{"sleeves":"none","neck":"turtle","pattern":"stripe"}|ca7d1dfd284fa44a
+SW|genTop|{"sleeves":"none","neck":"hood","pattern":"solid"}|2e45e8debfe84503
+SW|genTop|{"sleeves":"none","neck":"hood","pattern":"plaid"}|9ee359b3820237cf
+SW|genTop|{"sleeves":"none","neck":"hood","pattern":"stripe"}|f3f068829be96225
+SW|genTop|{"sleeves":"short","pocket":true}|2490fd232c447605
+SW|genTop|{"sleeves":"short","tatter":true}|7363d79566bb79f6
+SW|genTop|{"sleeves":"long","neck":"hood","hoodUp":true}|e9dedd49ba0f3b52
+SW|genPants|{}|34966be7b8ff976a
+SW|genPants|{"cut":"short"}|bfcd0a1dd1e970d1
+SW|genPants|{"cut":"skirt"}|a5d7de7cf399b7f2
+SW|genPants|{"cut":"longskirt"}|829d1f92594b2894
+SW|genShoes|{}|972601867e58b3ba
+SW|genShoes|{"shaft":"tall"}|fc0a4f17cc2de8f7
+SW|genCoat|{"dir":"S","len":0.86}|51e3cc23b00ab17f
+SW|genCoat|{"dir":"S","len":0.6}|7a6fb5e1a52785c7
+SW|genCoat|{"dir":"S","jacket":true}|46ef3e9e9676f494
+SW|genCoat|{"dir":"S","vest":true}|9cffe97baaa5fb04
+SW|genCoat|{"dir":"S","split":true,"len":0.9}|2d8ed1942fed832b
+SW|genCoat|{"dir":"S","open":2}|24e0458ca43cac76
+SW|genHat|{"kind":"beanie","fit":"dome"}|63c6d9cfe49c6120
+SW|genHat|{"kind":"beanie","fit":"dome","slouch":true}|63c6d9cfe49c6120
+SW|genHat|{"kind":"beanie","fit":"skull"}|4307d3c694328b5c
+SW|genHat|{"kind":"beanie","fit":"skull","slouch":true}|4307d3c694328b5c
+SW|genHat|{"kind":"cap","fit":"dome"}|876aeb3cd59f40d4
+SW|genHat|{"kind":"cap","fit":"dome","slouch":true}|876aeb3cd59f40d4
+SW|genHat|{"kind":"cap","fit":"skull"}|7e226d69a9888a37
+SW|genHat|{"kind":"cap","fit":"skull","slouch":true}|7e226d69a9888a37
+SW|genHat|{"kind":"brim","fit":"dome"}|8ca8b0366cc90f59
+SW|genHat|{"kind":"brim","fit":"dome","slouch":true}|8ca8b0366cc90f59
+SW|genHat|{"kind":"brim","fit":"skull"}|8ca8b0366cc90f59
+SW|genHat|{"kind":"brim","fit":"skull","slouch":true}|8ca8b0366cc90f59
+SW|genHat|{"kind":"wrap","fit":"dome"}|968330286be73dbc
+SW|genHat|{"kind":"wrap","fit":"dome","slouch":true}|968330286be73dbc
+SW|genHat|{"kind":"wrap","fit":"skull"}|968330286be73dbc
+SW|genHat|{"kind":"wrap","fit":"skull","slouch":true}|968330286be73dbc
+SW|genGear|{"kind":"bandolier"}|ca755ac95395a500
+SW|genGear|{"kind":"bracers"}|2956aba235590d8b
+SW|genGear|{"kind":"chestplate"}|88cda50c98aa0d60
+SW|genGear|{"kind":"chestrig"}|9adef2e8ff4744bf
+SW|genGear|{"kind":"elbowpads"}|eaf5b46e05b3a482
+SW|genGear|{"kind":"gorget"}|cd34f958b90ae6a7
+SW|genGear|{"kind":"holster"}|bcbf8e3c4464ad0b
+SW|genGear|{"kind":"kneepads"}|97b0e952c196ee6f
+SW|genGear|{"kind":"legwraps"}|d765c9893d8ba7fe
+SW|genGear|{"kind":"pauldron"}|59c6cb6d1b54cc07
+SW|genGear|{"kind":"shinguards"}|a9de0608f35aecbc
+SW|genGear|{"kind":"shoulderroll"}|13f21d3d05c76381
+SW|genGear|{"kind":"suspenders"}|a1894b8c19065345
+SW|genGear|{"kind":"toolbelt"}|33451b15b6faca18
+SW|genAcc|{"kind":"bandana"}|b4b9118296d4ed37
+SW|genAcc|{"kind":"bandana","tail":"long"}|b4b9118296d4ed37
+SW|genAcc|{"kind":"belt"}|d9891cc66f2a998d
+SW|genAcc|{"kind":"belt","tail":"long"}|d9891cc66f2a998d
+SW|genAcc|{"kind":"gasmask"}|824317a08fbef685
+SW|genAcc|{"kind":"gasmask","tail":"long"}|824317a08fbef685
+SW|genAcc|{"kind":"gloves"}|a8ddd8b01c47d7b7
+SW|genAcc|{"kind":"gloves","tail":"long"}|a8ddd8b01c47d7b7
+SW|genAcc|{"kind":"helm"}|55e1da849971dfde
+SW|genAcc|{"kind":"helm","tail":"long"}|55e1da849971dfde
+SW|genAcc|{"kind":"mask"}|3b74b7b2d7707191
+SW|genAcc|{"kind":"mask","tail":"long"}|3b74b7b2d7707191
+SW|genAcc|{"kind":"sash"}|6e1bd3e89c0d2c35
+SW|genAcc|{"kind":"sash","tail":"long"}|6e1bd3e89c0d2c35
+SW|genAcc|{"kind":"scarf"}|10e940502d2f558a
+SW|genAcc|{"kind":"scarf","tail":"long"}|af406a580042b342
+SW|genAcc|{"kind":"shades"}|7ce1273938a58a83
+SW|genAcc|{"kind":"shades","tail":"long"}|7ce1273938a58a83
+SW|genAcc|{"kind":"shemagh"}|b9eb062a1fb8a6ad
+SW|genAcc|{"kind":"shemagh","tail":"long"}|b9eb062a1fb8a6ad
+SW|genBag|{"kind":"backpack"}|0ab9ace3e4bebe71
+SW|genBag|{"kind":"bedroll"}|f015ca2aa01b5b6e
+SW|genBag|{"kind":"quiver"}|de515509abbcd914
+SW|genBag|{"kind":"satchel"}|dfd44be0e23746ab
+SW|genCape|{}|2aac082ee7b16e8a
+SW|genCape|{"mantle":true}|3bd4a57ff365eb5d
+SW|genPoncho|{}|e51060b5447bcc20
+SW|genPoncho|{"hood":true}|fa7c632f1425f464
+SW|genApron|{}|603d5cb053f3cdd0
+SW|genApron|{"bibless":true}|826aa22dc6713ba3
+SW|genCoverall|{}|f6b1f80d9ab8cea4
+SW|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|16e9e864388111cc
+SW|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|02a2fa0354215f53
+SW|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|853eb9b04cf7ad32
+SW|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|2060fa02700de58a
+SW|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|8e39700408486e2f
+SW|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|024621e0d094075c
+SW|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|0531362e8b8d959c
+SW|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|3692e0c8a1b0bed0
+SW|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|d499fdf543a5be7f
+SW|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|bd35a44aff6b7203
+SW|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|9bf971429c36eaff
+SW|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|ad6e2fce513b559b
+SW|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|03b09e118ee0d5a9
+SW|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|d504d7d7a4303c7b
+SW|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|5170a9b6545fd68c
+SW|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|d208ab1ed47c2ae0
+SW|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|600648bfc4e47e26
+SW|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|7bb16319b854bbe7
+SW|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|c473c40606525987
+SW|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|b70e6431ecbe7ff0
+SW|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|b745b24ef4c10a60
+SW|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|cb4ea94cf0255ecd
+SW|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|af6362109fd0cbc9
+SW|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|bb5feed38fe3edd1
+SW|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|eda5e9f004685f73
+SW|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|d01a145328b5c20c
+SW|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|09413dd0f64202e5
+SW|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|1efcb09e517c7bc5
+SW|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|a8c8ee5fe1d40c6b
+SW|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|f970f706b5c7d27d
+SW|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|fe73f859512808df
+SW|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|e4f4379d04823ee0
+SW|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|1864a6a8fef31931
+SW|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|444dbb95d1211f7f
+SW|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|a622549ddd9c7125
+SW|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|4709317e6ebc2e1a
+SW|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|4f28e4e1d48bdc15
+SW|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|beb6a51f51033352
+SW|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|b531c273946c2626
+SW|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|e75280f2c5f12e0e
+SW|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|3ed84e796a85090e
+SW|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|55cbc2a9386532b4
+SW|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|704b74eaba665782
+SW|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|b2689b18db0ac730
+SW|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|b36c1c7de73634c0
+SW|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|e8d68758a6c51848
+SW|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|e1175d45970813d0
+SW|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|c30a67d04ee1f652
+SW|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|db97d121fcc2d232
+SW|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|90d187722463a620
+SW|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|29195c21c719cc1a
+SW|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|3aa56a3c3a6f8229
+SW|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|14216b9a69502599
+SW|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|ee03490a092df5d9
+SW|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|02ac039ef553b25a
+SW|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|232344d16a8ec095
+SW|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|939f71056d016964
+SW|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|8e6cbe4400ba025a
+SW|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|1d1420947e189971
+SW|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|751161ec2dba6fb3
+SW|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|e2c8c4929d191d37
+SW|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|c6fdb973e9b6d7ba
+SW|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|562aacff69356b1d
+SW|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|3f8115b7f9f35315
+SW|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|ceeaa36d90f0eb26
+SW|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|d5a33a35c8f7ce49
+SW|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|db52b1f348f4cc8a
+SW|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|4129a8ea667bccb9
+SW|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|dd2d44fa0b0884f3
+SW|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|e7e04e58681ba601

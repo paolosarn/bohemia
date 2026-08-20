@@ -22,8 +22,13 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const body = grab('genAcc');
-ok('genAcc found in the alpha', !!body);
+/* 4X (8/20): the generators now share two helpers -- rsc() (the resolution scalar,
+   derived from CW) and fr() (a fraction of a body span measured in CELLS). Any
+   harness that lifts a generator out of the alpha must lift its dependencies with
+   it, or every gen() throws "rsc is not defined" and this gate reports a WARDROBE
+   failure for a HARNESS one. Fix the ruler, never the target (8/1). */
+const body = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genAcc'].map(grab).filter(Boolean).join('\n');
+ok('genAcc found in the alpha', /function genAcc\(/.test(body));
 function makeGen(dir) {
   try { return new Function('CW', 'CH', 'curDir', body + '\nreturn genAcc;')(56, 56, dir); }
   catch (e) { console.log('  eval error: ' + e.message); return null; }

@@ -1,0 +1,164 @@
+BOHEMIA -- HE ASKED FOR THE CLOTHES AT 4X AND HE WAS RIGHT ABOUT THE WRONG THING
+CHARACTER lane, 8/20/26.
+
+HIS WORDS
+---------
+    "i need you to remake all the clothes and hairs with the 4x pixels we now have
+     in mind is that okay?"
+
+THE PREMISE IS WRONG. WE DO NOT HAVE THE 4X PIXELS.
+---------------------------------------------------
+    const RIG_RS = (BAKED.W / 56) | 0;      // BAKED.W is 56, so RIG_RS is 1
+
+The rig is 56 native and always has been. tools/bohemia_2x_flip.py can double his
+painted rig for real -- 5,248 cells to 20,992 -- and the whole 112 pipeline is
+built and proved seam by seam, but it is DORMANT, and the reason is recorded in
+records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt: his art holds 56x56 of
+information, and composing natively at 112 removes the corner-rounding Scale2x was
+silently doing, so the head renders as a BOX -- straight into his own 8/1 law, "no
+straight lines". Twice the pixels means PAINTING at 112, and that is his hand and
+his call.
+
+THE INSTINCT IS EXACTLY RIGHT, AND IT NAMED THE ONE THING THE PLAN DEFERRED.
+----------------------------------------------------------------------------
+From the 2X flip tool's own docstring, written before this:
+
+    CLO GENERATORS (56) LEFT AT 56 and block-doubled AT THE gen() SEAM.
+
+So the plan on the table gave the BODY four times the pixels and handed the
+clothes the same 56-space geometry stamped as 2x2 squares. Chunky clothes on a
+sharp body. He caught that before it shipped, from the outside, without reading a
+line of it.
+
+AND IT IS WORSE THAN CHUNKY -- MEASURED, BEFORE ANY OF THIS LANDED.
+-------------------------------------------------------------------
+Hand the generators the real 112 grid with nothing else changed and they do not
+merely look coarse. They come out the WRONG SIZE, because every hardcoded pixel
+distance stays put while the body doubles around it. Coverage as a fraction of
+what the garment should occupy:
+
+    genBag bedroll     0.25      the roll never grows at all (x1.00, ideal x4)
+    genBag backpack    0.29
+    genBag satchel     0.37
+    genAcc sash        0.39
+    genGear pauldron   0.44
+    genCape            0.45
+    genAcc scarf       0.48
+    genGear kneepads   0.50      every "0.50" is ONE dimension hardcoded
+    genAcc belt        0.50
+    genGear chestrig   0.51
+    genApron           0.55
+    genHair crop       0.83      hair fared better but not well
+    genHat brim        0.82
+    genPants           0.88
+    ...
+    genTop / genCoat / genCoverall   ~1.00   the only three that read the body
+                                             for every distance already
+
+10 of 41 cases scaled. 31 did not.
+
+WHAT WAS ACTUALLY DONE
+----------------------
+Not 228 images redrawn. 236 of 237 canon garments and ALL 36 hairstyles are
+GENERATED, by 13 functions totalling 1,213 lines. Hair is generated too -- every
+`layer:'hair'` entry calls genHair -- so both halves of what he asked for are
+code, not art.
+
+Every pixel DISTANCE in those 13 functions now reads a scalar derived from the
+grid it was handed:
+
+    function rsc(){ var s=(CW/56)|0; return s<1?1:s; }
+
+and every generator opens `var S=rsc()`. Part ids, ramp keys and colour indices
+are NOT distances and do not scale -- that is the whole classification, and there
+were 752 integer literals to sort. Sorting them by eye would have been a guess, so
+the method was measure-fix-measure, one generator at a time, until the pixels
+agreed.
+
+THE THREE MISTAKES THE MEASUREMENT CAUGHT, WHICH READING WOULD NOT HAVE
+------------------------------------------------------------------------
+1. AN INCLUSIVE BOUND IS OFF BY S-1. `yy>=tb-4` is FIVE rows, not four. Scaling
+   the 4 gives nine rows at 112 where the waist needs ten, and the garment
+   silently creeps. Same bug in eight places (the shoe shaft, the hat line, the
+   skirt cut, the hair's brow ceiling).
+2. A FRACTION OF A SPAN IS A CELL COUNT. Every generator places features as
+   anchor + round(span * fraction) -- the knee at 45% of the leg, the eye line at
+   35% of the face. At 112 the same span is 2n+1 pixels rather than 2n, so the
+   rounding lands on a DIFFERENT cell. The dust mask started two rows below his
+   mouth. Fixed once, in a shared helper, across all 23 sites:
+       function fr(a,b,f){ var S=rsc(); return Math.round(((b-a+1)/S-1)*f)*S; }
+3. A MAX EDGE IS THE BOTTOM OF ITS CELL, NOT THE TOP. tMx and tb are the last
+   pixel of a cell, so "one column in from the hip" starts S-1 earlier. Getting
+   this backwards put the satchel inside its own rim.
+
+None of the three is visible in the source. All three are obvious in the numbers.
+
+*** THE CLAIM THAT MATTERS MOST IS THE ONE ABOUT TODAY ***
+----------------------------------------------------------
+At RIG_RS===1 every line of this is meant to be the identity. ASSERTING that is
+worthless -- so it is measured: 218 option sets x 8 facings = 1,744 outputs,
+compared pixel for pixel and colour for colour against the previous commit.
+
+    AT 56, OLD vs NEW: 1744 identical, 0 DIFFERENT, 0 errors
+
+The first pass was NOT identical, and that is the point. It silently moved a
+satchel three pixels, put a light row on a mohawk spike, shifted a ponytail a row
+down the back, and dropped the inner rim off both coverall chest pockets. Nineteen
+pixels, in a build nobody would have looked at twice. Every one of them was
+invisible to the 4x measurement and every one would have shipped.
+VERIFY ON THE REAL SURFACE (7/18): an identity you assert is not an identity you
+measured.
+
+THE GATE, AND THE HOLE IT HAD
+-----------------------------
+gates/clothes_4x_gate.js holds both claims at once, plus the wiring.
+Mutation-tested four ways, and the FIRST version failed one of them:
+
+    put back one hardcoded distance (the backpack body)   -> STAYED GREEN
+    move one pixel of today's 56 build (the belt buckle)  -> red, names it
+    restore the old downsampling seam                     -> red, names it
+    strip the scalar out of genCape                       -> red, names it
+
+The backpack's body only draws FROM BEHIND. Claim 1 was running facing S alone,
+so it could not see the majority of the code it claimed to cover -- nineteen
+generators branch on curDir. Fixed to all 8 facings (448 comparisons), and the
+mutation now goes red on N, NE and NW and names the garment.
+A GATE THAT CANNOT SEE THE FAILURE IT EXISTS TO CATCH IS THE BROKEN ONE (8/1).
+
+WHAT THE GATE STILL CANNOT SEE, said plainly
+--------------------------------------------
+Coverage and bounding boxes are GEOMETRY. A pass that recolours pixels without
+moving them -- a rim, a seam, a lit top row -- is invisible to claim 1. Those were
+converted by reading, and they are frozen by the 1,744 hashes, but the 4x half
+does not prove them. A count is a smoke alarm, not a diagnosis (8/4).
+
+WHAT MOVED, AND WHAT DELIBERATELY DID NOT
+-----------------------------------------
+MOVED: the 13 generators; bshade (the shared volume-shading kernel -- a 1px lit
+top edge at 56 must be S px, or every garment in the wardrobe loses its form the
+moment the body sharpens); the garment seam, which now hands the generators the
+real grid instead of downsampling to 56 and block-stamping; and the CLO module's
+CW/CH, which were pinned at 56 and so pinned the whole wardrobe there.
+
+DID NOT MOVE, ON PURPOSE: the 24-grid PD layers and his skin-detail brush still
+stamp as RIG_RS blocks. They are PAINTED pixels -- his -- and inventing detail he
+did not paint is a RIG LAW violation, not an upgrade. Only the generated half went
+native. The gate asserts both halves stay the way they are.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE WARDROBE AT 4X" -- twelve garments and two hairstyles drawn twice
+at the same size on screen, block-doubled on the left and native on the right, on
+his own rig, from the alpha's own generators. The difference is a strap, a fold, a
+plaid and a cornrow carrying four times the detail.
+CLOTHES tab is where he wears them, and nothing there looks different today, which
+is the 1,744 hashes doing their job.
+Shooter: node tools/bohemia_4x_wardrobe_picture.js
+
+WHAT IS STILL HIS, AND I AM NOT TOUCHING IT
+-------------------------------------------
+Repainting the rig at 112. RIG LAW makes his painted regions sacrosanct and
+rig_nodrift pins 5,246 of them by sha256. The wardrobe is now ready for that day
+and costs nothing until it comes; the day itself is his hand.
+
+  node gates/clothes_4x_gate.js      12/0   (448/448 shapes scale, 1,744 hashes)

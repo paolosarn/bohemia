@@ -26,7 +26,12 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
+/* 4X (8/20): the generators now share two helpers -- rsc() (the resolution scalar,
+   derived from CW) and fr() (a fraction of a body span measured in CELLS). Any
+   harness that lifts a generator out of the alpha must lift its dependencies with
+   it, or every gen() throws "rsc is not defined" and this gate reports a WARDROBE
+   failure for a HARNESS one. Fix the ruler, never the target (8/1). */
+const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
 const bodies = NAMES.map(grab);
 ok('all seven generators + helpers found in the alpha', bodies.every(Boolean));
 const makeG = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genPants,genCoat,genShoes,genPoncho,genGear,genBag,genApron};')(56, 56, dir); } catch (e) { console.log('  eval error: ' + e.message); return null; } };
@@ -160,7 +165,7 @@ if (G) {
   ok('the freshest canon batch stays visible (NEW IN CANON section)', src.indexOf('NEW IN CANON') >= 0 && /fresh:true/.test(src.slice(src.indexOf('var GARMENTS='), src.indexOf('];', src.indexOf('var GARMENTS=')))));
 
   // WAVE 5 (the shortcut's first run): shemagh / bracers / holster / trailing scarf
-  const NAMES2 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
+  const NAMES2 = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
   const bodies2 = NAMES2.map(grab);
   const makeA = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies2.join('\n') + '\nreturn {genAcc,genGear};')(56, 56, dir); } catch (e) { console.log('  eval2: ' + e.message); return null; } };
   const A = makeA('S'), AN = makeA('N'), AE = makeA('E');
@@ -228,7 +233,7 @@ if (G) {
   ok('wave-4 candidates ship (hoods toggleable everywhere)', /hoodUp:CLO_HOODUP/.test(gbAll()) && /hood:CLO_HOODUP/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()) && /hoodDefaultUp:true/.test(gbAll()));
 
   // WAVE 6: coveralls / split-tail duster / cape / bandolier -- four new shapes
-  const NAMES3 = ['mix', 'bshade', 'ext', 'pExt', 'genCoat', 'genCoverall', 'genCape', 'genGear'];
+  const NAMES3 = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genCoat', 'genCoverall', 'genCape', 'genGear'];
   const bodies3 = NAMES3.map(grab);
   ok('wave-6 generators found (genCoverall + genCape are real machinery)', bodies3.every(Boolean));
   const makeW6 = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies3.join('\n') + '\nreturn {genCoat,genCoverall,genCape,genGear};')(56, 56, dir); } catch (e) { console.log('  eval3: ' + e.message); return null; } };
@@ -393,7 +398,7 @@ if (G) {
   }
   ok('wave-2 candidates ship (gorget/bibless apron/shortalls)', /kind:'gorget'/.test(gbAll()) && /bibless:true/.test(gbAll()) && /short:true/.test(gbAll()));
 
-  function G2A(dir) { const NAMES7 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
+  function G2A(dir) { const NAMES7 = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
     return new Function('CW', 'CH', 'curDir', NAMES7.map(grab).join('\n') + '\nreturn {genAcc,genGear};')(56, 56, dir); }
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }

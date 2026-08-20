@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20v - HIS SIGNALS ARE BACK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20w - CLOTHES AND HAIR AT 4X</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6456,27 +6456,32 @@ function buildFrame(d,clip,ph,_noOutline){
       if(grid[si]&&GROUP[grid[si]]!==undefined){let c=sramp[SKIN_DETAIL[d][idx]]||sramp[2];
         if(grid[si]===3)c=[Math.round(c[0]*0.9),Math.round(c[1]*0.9),Math.round(c[2]*0.9)];   // NECK SHADOW LAW holds under detail
         px[si]=c;}}}
-  /* ===== 2X -- THE GARMENT SEAM ==========================================
-     Every garment in the CLO catalogue is gen(grid,CW,CH) -> {index: colour}, and
-     all 258 of them are dense 56-space pixel geometry. They are NOT rewritten and
-     they are not touched: the part-id grid is handed to them at 56 exactly as
-     before, and what they hand back is stamped as RIG_RS x RIG_RS blocks. THREE
-     call sites use it -- the preview runs both before and after the PD layers, and
-     then the worn loop.
-     They come out SHARPER than they used to, not softer: a block-double keeps hard
-     pixel edges where Scale2x was rounding their corners for them.
-     At RIG_RS===1 every line here is the identity, deliberately -- that is how the
-     seam was verified in isolation before the rig doubled. */
-  const _gw=(CW/RIG_RS)|0, _gh=(CH/RIG_RS)|0;
-  const _gsrc=(RIG_RS===1)?grid:(function(){const o=new grid.constructor(_gw*_gh);
-    for(let y=0;y<_gh;y++)for(let x=0;x<_gw;x++)o[y*_gw+x]=grid[(y*RIG_RS)*CW+(x*RIG_RS)];
-    return o;})();
+  /* ===== 4X -- THE GARMENT SEAM (rewritten 8/20/26) =======================
+     WHAT THIS USED TO DO, AND WHY IT IS GONE. The 2X plan downsampled the part-id
+     grid back to 56, ran the garment there, and stamped its output as RIG_RS x
+     RIG_RS blocks. That was a deliberate deferral, written down in
+     tools/bohemia_2x_flip.py: "CLO GENERATORS (56) LEFT AT 56 and block-doubled AT
+     THE gen() SEAM ... Doubling the data would buy zero detail." True of the PD
+     layers, which are stored art. NOT true of the generators, which are CODE that
+     reads the body -- they can draw at any resolution, they were just never asked
+     to. Under the old seam a 112 rig wore 56 clothes: chunky garments on a sharp
+     body, which is the exact thing Paolo named on 8/20.
+
+     WHAT IT DOES NOW: hands the generators the REAL grid at its real size and
+     stamps what comes back 1:1. Every distance inside them is written n*S off
+     rsc(), so a hem, a strap, a cornrow and a fade all come out at full
+     resolution instead of doubled squares.
+
+     THE PD LAYERS STILL BLOCK-DOUBLE, and that is still right: they are 24-grid
+     PAINTED pixels (Paolo's), and inventing detail he did not paint would violate
+     RIG LAW. Only the generated half moves.
+
+     At RIG_RS===1 every line here is the identity -- measured, not asserted:
+     gates/clothes_4x_gate.js runs all 13 generators over 218 option sets x 8
+     facings against the previous commit and requires 0 differing pixels. */
+  const _gw=CW, _gh=CH, _gsrc=grid;
   const _stampG=function(out){ if(!out)return;
-    if(RIG_RS===1){for(const gi in out){const i=+gi;if(i>=0&&i<px.length)px[i]=out[gi];}return;}
-    for(const gi in out){const j=+gi;if(j<0||j>=_gw*_gh)continue;
-      const gx=(j%_gw)*RIG_RS,gy=((j/_gw)|0)*RIG_RS,c=out[gi];
-      for(let dy=0;dy<RIG_RS;dy++)for(let dx=0;dx<RIG_RS;dx++){
-        const x=gx+dx,y=gy+dy; if(x<CW&&y<CH)px[y*CW+x]=c;}}};
+    for(const gi in out){const i=+gi;if(i>=0&&i<px.length)px[i]=out[gi];}};
   /* GARMENT PREVIEW RUNS LAST -- the clothing factory paints AFTER the skin-detail
      pass, so a hood/collar covering the neck is never repainted back to skin (Paolo:
      "you keep adding skin textures to the hoodie"). This was the bug: skin-detail
@@ -6884,7 +6889,12 @@ function buildFrame(d,clip,ph,_noOutline){
      every measurement tool still see the true silhouette.
      ========================================================================= */
   if(CHAR_OUTLINE.on && !_noOutline) applyCharOutline(px,CW,CH);
-  return {px,CW,CH};
+  /* `grid` rides along read-only (8/20): the deformed PART-ID grid is what every
+     garment generator actually consumes, and nothing outside this function could
+     see it -- so a picture of the wardrobe had to be drawn on a mannequin instead
+     of on him. VERIFY ON THE REAL SURFACE (7/18) needs the real surface to be
+     reachable. Additive: no caller reads this key, and nothing here mutates. */
+  return {px,CW,CH,grid};
 }
 /* THE BORDER, AS A PASS THAT CAN RUN AT THE SIZE HE ACTUALLY SEES (Paolo 8/14:
    "the black border has to be thinner, like half as thin").
@@ -20324,7 +20334,12 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 </style>
 <script>
 window.CLO=(function(){
-  var CW=56,CH=56,DIRS=['S','SE','E','NE','N','NW','W','SW'];
+  /* 4X: THE GARMENT GRID IS THE RIG'S GRID. This was a hard 56 and the generators
+     read it as a free variable, so pinning it here pinned the whole wardrobe to 56
+     no matter what the rig did. Derived from BAKED so it can never disagree with
+     the body (same source as RIG_RS); the ||56 keeps it honest if BAKED moves. */
+  var CW=(typeof BAKED!=='undefined'&&BAKED.W)||56, CH=(typeof BAKED!=='undefined'&&BAKED.H)||56;
+  var DIRS=['S','SE','E','NE','N','NW','W','SW'];
   /* ---- palettes: dk shade / mid body / lt sky-lit top (45 LAW + sky-top-light) ---- */
   var RED={dk:[96,40,38],mid:[150,60,54],lt:[190,88,78]};
   var WHT={dk:[172,168,160],mid:[212,208,200],lt:[244,242,236]};
@@ -20403,8 +20418,50 @@ window.CLO=(function(){
     r+=(l-r)*ds; g+=(l-g)*ds; b+=(l-b)*ds;                 /* desaturate 25% (hue kept) */
     r+=(AMB[0]-r)*k; g+=(AMB[1]-g)*k; b+=(AMB[2]-b)*k;     /* 16% toward the scene's ambient */
     return [r|0,g|0,b|0]; }
-  /* base form shading: sky-lit top edge, 2nd-row highlight for volume, dark bottom+sides */
-  function bshade(inG,x,y,r){ if(!inG(x,y-1))return r.lt; if(!inG(x,y-2))return r.lt; if(!inG(x,y+1))return r.dk; if(!inG(x-1,y)||!inG(x+1,y))return r.dk; return r.mid; }
+  /* ===== 4X -- THE GARMENT RESOLUTION SCALAR (8/20/26) ======================
+     Paolo 8/20: "i need you to remake all the clothes and hairs with the 4x
+     pixels we now have in mind."
+
+     WHAT WAS ACTUALLY THERE. tools/bohemia_2x_flip.py doubles HIS painted rig
+     for real (5,248 cells -> 20,992) and then says, in its own docstring:
+     "CLO GENERATORS (56) LEFT AT 56 and block-doubled AT THE gen() SEAM."
+     So the plan on the table gave the BODY four times the pixels and handed the
+     clothes the same 56-space geometry stamped as 2x2 blocks -- chunky clothes
+     on a sharp body. He named that gap before it shipped.
+
+     WHY IT CANNOT JUST BE UNPLUGGED. Hand the generators the real 112 grid with
+     no other change and they do not merely look wrong, they come out the WRONG
+     SIZE: measured, a backpack keeps its absolute pixel size (covering 29% of
+     the body fraction it used to), a cape/gear/belt/scarf/apron lands at ~50%
+     -- every hardcoded pixel distance stays put while the body doubles around
+     it. Only the generators that read the body for every distance (genTop,
+     genCoat, genCoverall) survived unchanged.
+
+     THE FIX IS ONE NUMBER, DERIVED, NEVER TYPED. Every generator takes
+     var S=rsc() and every pixel DISTANCE is written n*S. Part ids, ramp keys
+     and colour indices are NOT distances and never scale -- that is the whole
+     classification, and the meter below is what proves each one landed:
+     gates/clothes_4x_gate.js runs every garment against a 56 body and the same
+     body doubled and asserts the NORMALISED geometry is identical.
+     At S===1 every line is the identity, deliberately. */
+  function rsc(){ var s=(CW/56)|0; return s<1?1:s; }
+  /* 4X -- A FRACTION OF A BODY SPAN IS A CELL COUNT, NOT A PIXEL COUNT. Every
+     generator places its features with anchor + Math.round(span*frac): the knee at
+     45% of the leg, the eye line at 35% of the face. Scaling nothing here still
+     goes wrong, because at 112 the same span is 2n+1 pixels rather than 2n, so the
+     rounding falls on a DIFFERENT cell than it did at 56 -- measured: the dust
+     mask lost two rows of face and the bandana's fold line moved. fr() does the
+     arithmetic in CELLS and scales the answer back, so the feature lands on the
+     same cell of the body at every resolution. Identity at S===1, by construction. */
+  function fr(a,b,f){ var S=rsc(); return Math.round(((b-a+1)/S-1)*f)*S; }
+  /* base form shading: sky-lit top edge, 2nd-row highlight for volume, dark bottom+sides.
+     4X: the lit top band is TWO rows at 56 and must be 2*S rows at any scale, or every
+     garment in the wardrobe loses its volume the moment the body sharpens. */
+  function bshade(inG,x,y,r){ var S=rsc(),k;
+    for(k=1;k<=2*S;k++){ if(!inG(x,y-k))return r.lt; }
+    for(k=1;k<=S;k++){ if(!inG(x,y+k))return r.dk; }
+    for(k=1;k<=S;k++){ if(!inG(x-k,y)||!inG(x+k,y))return r.dk; }
+    return r.mid; }
   function ext(w){var mnY=1e9,mxY=-1,cT={},cB={};for(var k in w){var i=+k,x=i%CW,y=(i/CW)|0;if(y<mnY)mnY=y;if(y>mxY)mxY=y;if(cT[x]===undefined||y<cT[x])cT[x]=y;if(cB[x]===undefined||y>cB[x])cB[x]=y;}return {mnY:mnY,mxY:mxY,cT:cT,cB:cB};}
   function pExt(g,pid){var mn=1e9,mx=-1;for(var i=0;i<g.length;i++)if(g[i]===pid){var y=(i/CW)|0;if(y<mn)mn=y;if(y>mx)mx=y;}return {mn:mn,mx:mx};}
   /* TOP: crew neck done RIGHT (Paolo 7/18: "you thought a collarbone was a
@@ -20416,7 +20473,7 @@ window.CLO=(function(){
      shirt -- I want DIVERSE LOOKS, not recolors"). Structural variety, not just
      palette: pattern (solid/plaid/stripe), neck (crew/v/henley/button/hood),
      sleeves (long/short/none), optional pocket. A flannel now reads as a flannel. */
-  function genTop(g,opt){ var r=opt.ramp,i;
+  function genTop(g,opt){ var r=opt.ramp,i,S=rsc();
     var sleeves=(opt.sleeves===true?'long':opt.sleeves===false?'none':(opt.sleeves||'long'));
     var neck=opt.neck||'crew', pat=opt.pattern||'solid', pocket=!!opt.pocket;
     var tatter=!!opt.tatter;   /* STRUCTURE wave 2 (7/19): ragged hem/cuffs -- pixels torn OUT of the silhouette, not a color */
@@ -20424,33 +20481,35 @@ window.CLO=(function(){
     var aL=pExt(g,5),aR=pExt(g,6);
     /* STRUCTURE-NOT-COLOR (Paolo 7/19): 'rolled' = a REAL third sleeve length,
        cut mid-forearm with a light rolled-cuff bulge. Shape, not paint. */
-    var scutL=(sleeves==='short')?aL.mn+Math.round((aL.mx-aL.mn)*0.45):(sleeves==='rolled')?aL.mn+Math.round((aL.mx-aL.mn)*0.68):aL.mx;
-    var scutR=(sleeves==='short')?aR.mn+Math.round((aR.mx-aR.mn)*0.45):(sleeves==='rolled')?aR.mn+Math.round((aR.mx-aR.mn)*0.68):aR.mx;
+    var scutL=(sleeves==='short')?aL.mn+fr(aL.mn,aL.mx,0.45):(sleeves==='rolled')?aL.mn+fr(aL.mn,aL.mx,0.68):aL.mx;
+    var scutR=(sleeves==='short')?aR.mn+fr(aR.mn,aR.mx,0.45):(sleeves==='rolled')?aR.mn+fr(aR.mn,aR.mx,0.68):aR.mx;
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0;
       if(p===4)w[i]=1;
       else if(p===5&&sleeves!=='none'&&y<=scutL)w[i]=1;
       else if(p===6&&sleeves!=='none'&&y<=scutR)w[i]=1; }
     var inG=function(x,y){return !!w[y*CW+x];}, E=ext(w), o={}, k;
-    var sx=0,sc=0,ttop=CH,tb=-1; for(k in w){var q=+k; if(g[q]===4){var qx=q%CW,qy=(q/CW)|0; sx+=qx;sc++; if(qy<ttop)ttop=qy; if(qy>tb)tb=qy;}} var cx=sc?Math.round(sx/sc):(CW>>1);
-    function patc(c,x,y){ if(pat==='plaid'){ var vx=(((x-cx)%5)+5)%5, hy=(((y-ttop)%5)+5)%5, vs=vx<2, hs=hy<1;
+    var sx=0,sc=0,ttop=CH,tb=-1; for(k in w){var q=+k; if(g[q]===4){var qx=q%CW,qy=(q/CW)|0; sx+=qx;sc++; if(qy<ttop)ttop=qy; if(qy>tb)tb=qy;}} var cx=sc?Math.round(sx/sc):(CW>>1), cxL=cx-((S-1)>>1);
+    function patc(c,x,y){ if(pat==='plaid'){ var vx=(((x-cx)%(5*S))+5*S)%(5*S), hy=(((y-ttop)%(5*S))+5*S)%(5*S), vs=vx<2*S, hs=hy<S;
         if(vs&&hs)return r.dk; if(vs)return mix(c,0.78); if(hs)return mix(c,0.88); return c; }
-      if(pat==='stripe'){ return (Math.floor((y-ttop)/2)%2)?mix(c,0.8):c; } return c; }
+      if(pat==='stripe'){ return (Math.floor((y-ttop)/(2*S))%2)?mix(c,0.8):c; } return c; }
     for(k in w){var ii=+k,x=ii%CW,y=(ii/CW)|0,p=g[ii],c=patc(bshade(inG,x,y,r),x,y);
-      if(tatter){ var edge=(p===4&&y>=tb-1)||(p===5&&y>=scutL-1)||(p===6&&y>=scutR-1);
-        if(edge){ if((((ii*2654435761)>>>0)%3)===0)continue;             /* torn out: skin/under shows through the rags */
+      if(tatter){ var edge=(p===4&&y>=tb-(2*S-1))||(p===5&&y>=scutL-(2*S-1))||(p===6&&y>=scutR-(2*S-1));
+        /* 4X: hash the CELL, not the pixel. Hashing the raw index at 112 tears
+           single sub-pixels and the rag reads as noise instead of cloth. */
+        if(edge){ if((((((((y/S)|0)*CW+((x/S)|0))*2654435761))>>>0)%3)===0)continue;   /* torn out: skin/under shows through the rags */
           c=r.dk; } }                                                    /* what survives the tear hangs dark */
       if(p===4&&nOK){ var topY=E.cT[x], dn=y-ttop;
-        if(neck==='v'){ if(Math.abs(x-cx)<=dn&&dn<4){continue;}                    /* V-neck skin opening */
-          if(Math.abs(x-cx)===dn+1&&dn<4)c=r.dk; }                                 /* V rib */
-        else if(neck==='hood'||neck==='turtle'){ if(x>=nMnX-2&&x<=nMxX+2&&y<=topY+1)c=r.dk; }   /* HOOD/TURTLE: the collar FILLS the neck hole -- no skin carve. (The carve below was THE skin patch Paolo kept circling, in every facing.) */
+        if(neck==='v'){ if(Math.abs(x-cx)<=dn&&dn<4*S){continue;}                  /* V-neck skin opening */
+          if(Math.abs(x-cx)>dn&&Math.abs(x-cx)<=dn+S&&dn<4*S)c=r.dk; }              /* V rib */
+        else if(neck==='hood'||neck==='turtle'){ if(x>=nMnX-2*S&&x<=nMxX+2*S&&y<topY+2*S)c=r.dk; }   /* HOOD/TURTLE: the collar FILLS the neck hole -- no skin carve. (The carve below was THE skin patch Paolo kept circling, in every facing.) */
         else { if(x>=nMnX&&x<=nMxX&&y<=topY)continue;                              /* crew/henley/button: small neck hole, skin shows (intentional for shirts) */
-          if(x>=nMnX-1&&x<=nMxX+1&&y<=topY+1)c=r.dk; }
-        if(neck==='henley'&&x===cx&&y>topY&&y<=topY+5)c=(y%2)?r.dk:mix(r.dk,0.6);   /* short placket + buttons */
-        if(neck==='button'){ if(x===cx)c=(y%3===0)?mix(r.dk,0.55):mix(r.dk,0.85);   /* full placket + buttons */
-          if(y<=topY+1&&Math.abs(x-cx)>=1&&Math.abs(x-cx)<=3)c=r.dk; }              /* fold-down collar lapels */
-        if(pocket&&y>=tb-4&&y<=tb-1&&Math.abs(x-cx)<=3)c=(y===tb-4)?r.dk:mix(c,0.9); /* kangaroo pocket */ }
-      if(p===5){ if(sleeves==='long'&&y>=aL.mx-1)c=r.dk; else if(sleeves==='short'&&y>=scutL-1)c=r.dk; else if(sleeves==='rolled'&&y>=scutL-1)c=r.lt; }  /* cuff / short hem / rolled bulge */
-      if(p===6){ if(sleeves==='long'&&y>=aR.mx-1)c=r.dk; else if(sleeves==='short'&&y>=scutR-1)c=r.dk; else if(sleeves==='rolled'&&y>=scutR-1)c=r.lt; }
+          if(x>=nMnX-S&&x<=nMxX+S&&y<topY+2*S)c=r.dk; }
+        if(neck==='henley'&&x>=cxL&&x<cxL+S&&y>topY&&y<topY+6*S)c=((((y/S)|0)%2)?r.dk:mix(r.dk,0.6));   /* short placket + buttons */
+        if(neck==='button'){ if(x>=cxL&&x<cxL+S)c=((((y/S)|0)%3===0)?mix(r.dk,0.55):mix(r.dk,0.85));    /* full placket + buttons */
+          if(y<topY+2*S&&Math.abs(x-cx)>=S&&Math.abs(x-cx)<4*S)c=r.dk; }            /* fold-down collar lapels */
+        if(pocket&&y>tb-5*S&&y<=tb-S&&x>=cx-3*S&&x<cx+4*S)c=(y<=tb-4*S)?r.dk:mix(c,0.9); /* kangaroo pocket */ }
+      if(p===5){ if(sleeves==='long'&&y>=aL.mx-(2*S-1))c=r.dk; else if(sleeves==='short'&&y>=scutL-(2*S-1))c=r.dk; else if(sleeves==='rolled'&&y>=scutL-(2*S-1))c=r.lt; }  /* cuff / short hem / rolled bulge */
+      if(p===6){ if(sleeves==='long'&&y>=aR.mx-(2*S-1))c=r.dk; else if(sleeves==='short'&&y>=scutR-(2*S-1))c=r.dk; else if(sleeves==='rolled'&&y>=scutR-(2*S-1))c=r.lt; }
       o[ii]=c; }
     if(neck==='turtle'){ for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.dk; }   /* TURTLENECK: the high rolled collar wraps the whole neck, every facing */
     /* HOOD = REAL GEOMETRY, not paint (Paolo 7/18: "a hood is additional pixels
@@ -20515,7 +20574,7 @@ window.CLO=(function(){
     }
     return o; }
   /* PANTS: waistband + belt line, fly, side seams, rolled hem cuffs */
-  function genPants(g,opt){ var r=opt.ramp,i,tb=-1; for(i=0;i<g.length;i++)if(g[i]===4){var y=(i/CW)|0;if(y>tb)tb=y;}
+  function genPants(g,opt){ var r=opt.ramp,i,S=rsc(),tb=-1; for(i=0;i<g.length;i++)if(g[i]===4){var y=(i/CW)|0;if(y>tb)tb=y;}
     var le=pExt(g,9),re=pExt(g,10);
     /* SHORTS (Paolo's own spec, day one: "if you have shorts maybe they cut off
        the knee") -- cut:'short' ends the legs at the knee, bare shins below */
@@ -20526,23 +20585,23 @@ window.CLO=(function(){
     var isSkirt=(opt.cut==='skirt'||opt.cut==='longskirt');
     /* LONG SKIRT (7/20, wave 7): the wrap panel falls to the ANKLE -- a real
        third length on the leg rail (knee shorts / mid-shin wrap / ankle). */
-    var cutY=isShort?legT+Math.round((legB-legT)*0.42):(opt.cut==='longskirt')?legB-1:isSkirt?legT+Math.round((legB-legT)*0.72):1e9;
-    var w={}; for(i=0;i<g.length;i++){var p=g[i],yy=(i/CW)|0; if((p===9||p===10)&&yy<=cutY)w[i]=1; else if(p===4&&yy>=tb-4)w[i]=1;}
+    var cutY=isShort?legT+fr(legT,legB,0.42)+S-1:(opt.cut==='longskirt')?legB-S:isSkirt?legT+fr(legT,legB,0.72)+S-1:1e9;
+    var w={}; for(i=0;i<g.length;i++){var p=g[i],yy=(i/CW)|0; if((p===9||p===10)&&yy<=cutY)w[i]=1; else if(p===4&&yy>tb-5*S)w[i]=1;}   /* 4X: FIVE waist rows at 56, so 5*S rows -- `>=tb-4` is inclusive and scaling the 4 loses a row */
     if(isSkirt){ var mnX=CW,mxX=-1; for(i=0;i<g.length;i++){var pS=g[i]; if(pS===9||pS===10){var xS=i%CW; if(xS<mnX)mnX=xS; if(xS>mxX)mxX=xS;}}
-      if(mxX>=0)for(var yS=legT;yS<=cutY;yS++)for(var xS2=mnX-1;xS2<=mxX+1;xS2++){ if(xS2<0||xS2>=CW)continue; var gvS=g[yS*CW+xS2]; if(gvS===0||gvS===9||gvS===10)w[yS*CW+xS2]=1; } }   /* the panel spans the gap + a px past each side */
+      if(mxX>=0)for(var yS=legT;yS<=cutY;yS++)for(var xS2=mnX-S;xS2<=mxX+S;xS2++){ if(xS2<0||xS2>=CW)continue; var gvS=g[yS*CW+xS2]; if(gvS===0||gvS===9||gvS===10)w[yS*CW+xS2]=1; } }   /* the panel spans the gap + a px past each side */
     var inG=function(x,y){return !!w[y*CW+x];}, E=ext(w), o={}, k;
     var wb=E.mnY;
-    var fx=0,fc=0; for(k in w){var q=+k;if((q/CW|0)<=wb+3){fx+=q%CW;fc++;}} var cx=fc?Math.round(fx/fc):(CW>>1);
+    var fx=0,fc=0; for(k in w){var q=+k;if((q/CW|0)<=wb+3*S){fx+=q%CW;fc++;}} var cx=fc?Math.round(fx/fc):(CW>>1);
     for(k in w){var ii=+k,x=ii%CW,y=(ii/CW)|0,p=g[ii],c=bshade(inG,x,y,r);
-      if(y<=wb+2)c=(y===wb+1?mix(r.dk,0.55):r.dk);                       /* waistband + belt */
-      else if(!isSkirt&&x===cx&&y<=wb+7)c=mix(r.dk,0.7);                 /* fly (not on a skirt) */
-      if(isShort){ if((p===9||p===10)&&y>=cutY-0)c=r.dk; }               /* shorts hem at the knee */
-      else if(isSkirt&&y>wb+2){ if(!inG(x,y+1))c=r.dk;                   /* skirt hem */
+      if(y<wb+3*S)c=((y>=wb+S&&y<wb+2*S)?mix(r.dk,0.55):r.dk);           /* waistband + belt (3 rows at 56, 3*S always) */
+      else if(!isSkirt&&x>=cx&&x<cx+S&&y<wb+8*S)c=mix(r.dk,0.7);         /* fly (not on a skirt) */
+      if(isShort){ if((p===9||p===10)&&y>=cutY-(S-1))c=r.dk; }           /* shorts hem at the knee */
+      else if(isSkirt&&y>=wb+3*S){ if(!inG(x,y+1))c=r.dk;                /* skirt hem */
         else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;                         /* panel side seams */
-        else if((((x-cx)-(y-wb))%6+6)%6===0)c=mix(r.dk,0.75);            /* the wrap's diagonal overlap fold */
+        else if(((((x-cx)-(y-wb))%(6*S))+6*S)%(6*S)<S)c=mix(r.dk,0.75);  /* the wrap's diagonal overlap fold: 6px pitch at 56 */
         else if(x<cx)c=r.lt; }                                           /* 45-degree: sky-lit side */
-      else { if(p===9&&y>=le.mx-1)c=r.lt;                                /* rolled hem L */
-        if(p===10&&y>=re.mx-1)c=r.lt; }                                  /* rolled hem R */
+      else { if(p===9&&y>=le.mx-(2*S-1))c=r.lt;                          /* rolled hem L */
+        if(p===10&&y>=re.mx-(2*S-1))c=r.lt; }                            /* rolled hem R */
       o[ii]=c; }
     return o; }
   /* SHOES: dark sole, light midsole, laces on the tongue, ankle collar */
@@ -20550,7 +20609,11 @@ window.CLO=(function(){
     /* TALL SHAFT (7/19, structure-not-color): shaft:'tall' runs the boot leather
        UP THE SHIN -- a knee-high boot is a different garment, not a colorway.
        Regular shoes grab 1-2 ankle rows; tall boots take ~6 rows of shin. */
-    var tall=(opt.shaft==='tall'), rise=tall?6:1;
+    var S=rsc();
+    /* 4X: count the ROWS the shaft occupies, not the offset. `>=lb-rise` is
+       inclusive, so rise=1 is TWO rows -- scaling the offset gives 3 rows at S=2
+       where the boot needs 4, and the shoe quietly shrinks up the shin. */
+    var tall=(opt.shaft==='tall'), riseRows=(tall?7:2)*S, rise=riseRows-1;
     /* RAMP FALLBACKS (7/19, caught on the real surface): cloth palettes have no
        .sole/.mid2 -- an undefined color detonates the whole frame the moment
        the wear pass lands on a sole pixel (probabilistic per facing: S looked
@@ -20571,23 +20634,31 @@ window.CLO=(function(){
       for(var q=0;q<g.length;q++) if(g[q]===pid){ var xq=q%CW; if(xq<a)a=xq; if(xq>b)b=xq; }
       ob.mnX=(b<0?0:a); ob.mxX=(b<0?0:b); });
     for(k in w){var ii=+k,x=ii%CW,y=(ii/CW)|0,p=g[ii],c=bshade(inG,x,y,r);
-      if(!inG(x,y+1))c=soleC;                                            /* sole */
-      else if(!inG(x,y+2))c=r.lt;                                        /* midsole stripe */
+      /* HOW FAR OFF THE GROUND THIS PIXEL IS. Sole and midsole are one row each at
+         56 and must be S rows each at any scale, so measure the depth instead of
+         probing a fixed +1/+2. */
+      var db=0; while(db<3*S&&inG(x,y+db+1))db++;
+      if(db<S)c=soleC;                                                   /* sole */
+      else if(db<2*S)c=r.lt;                                             /* midsole stripe */
       else if((p===11||p===12)){ var ft=(p===11?fL.mn:fR.mn);
         var fx=(p===11?fL:fR);
         if(shBack){
           /* THE HEEL COUNTER: the stiffened cup round the heel reads as a darker
              band exactly where the tongue sits from the front -- so the same rows
              that carry laces on a front facing carry the counter on a back one. */
-          if(y<=ft+2)c=r.dk;
+          if(y<ft+3*S)c=r.dk;
           /* THE HEEL SEAM, ONE PIXEL. His 8/1 rule, said twice: "the difference is
-             just one pixel not like two or three". At 56px a 2px seam is a stripe. */
-          if(x===Math.floor((fx.mnX+fx.mxX)/2)&&y<=ft+3)c=midC;
+             just one pixel not like two or three". At 56px a 2px seam is a stripe.
+             4X: one 56-pixel of WIDTH is what he ruled on, so the band is S wide --
+             holding it at a literal 1 on a 112 rig would halve the seam he approved.
+             Centred by FLOOR, never round (HOW HAIR AND SHAPE WORK, 8/1). */
+          var seamX=fx.mnX+(((fx.mxX-fx.mnX+1)-S)>>1);
+          if(x>=seamX&&x<seamX+S&&y<ft+4*S)c=midC;
         }
-        else if(!tall&&y<=ft+2&&(y%2===0))c=r.lt;
-        else if(!tall&&y<=ft+2)c=midC; } /* laces on tongue (low shoes only; a tall boot is smooth leather) */
+        else if(!tall&&y<ft+3*S&&((y%(2*S))<S))c=r.lt;
+        else if(!tall&&y<ft+3*S)c=midC; } /* laces on tongue (low shoes only; a tall boot is smooth leather) */
       else if(p===9||p===10){ var lt2=lb[p]-rise;
-        if(tall)c=(y===lt2)?r.lt:(y===lt2+1)?r.dk:bshade(inG,x,y,r);     /* shaft: light fold-over cuff + dark seam, then leather */
+        if(tall)c=(y<lt2+S)?r.lt:(y<lt2+2*S)?r.dk:bshade(inG,x,y,r);     /* shaft: light fold-over cuff + dark seam, then leather */
         else c=midC; }                                                   /* ankle collar (padded) */
       o[ii]=c; }
     return o; }
@@ -20596,7 +20667,7 @@ window.CLO=(function(){
      and it NEVER touches the face or the body -- only skull pixels + background.
      kinds: beanie (knit dome + cuff) / cap (crown + directional brim) /
      brim (wide flat ring, all facings) / wrap (low band + back knot). */
-  function genHat(g,opt){ var r=opt.ramp,kind=opt.kind||'beanie',i;
+  function genHat(g,opt){ var r=opt.ramp,kind=opt.kind||'beanie',i,S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;
     for(i=0;i<g.length;i++){var p=g[i]; if(p===1||p===2){var x=i%CW,y=(i/CW)|0; if(x<hMn)hMn=x; if(x>hMx)hMx=x; if(y<hTop)hTop=y; if(y>hBot)hBot=y;}}
     if(hMx<0)return {};
@@ -20604,8 +20675,10 @@ window.CLO=(function(){
     var fcx=fsc?fsx/fsc:0;
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW');
-    var hcx=Math.round((hMn+hMx)/2), hH=hBot-hTop, o={};
-    var band=hTop+Math.round(hH*0.3);
+    var hcx=Math.round((hMn+hMx)/2), hcxL=hcx-((S-1)>>1), hH=hBot-hTop, o={};
+    /* INCLUSIVE BOUND: every loop below runs `y<=band`, so band is the LAST row of
+       the hat, and fr() lands on the first row of its cell -- +S-1 takes the last. */
+    var band=hTop+fr(hTop,hBot,0.3)+S-1;
     /* THE HAT LINE (Paolo 7/18: "the durag I have already established... will be
        the borders of any sort of hat or beanie"). The durag -- his painted canon
        headwear -- rules how far south ANY hat may travel, per facing: HAT_MAX_Y
@@ -20615,7 +20688,7 @@ window.CLO=(function(){
     var gd2=(typeof MIRROR!=='undefined'&&MIRROR[dir])?MIRROR[dir]:dir, hl=band;
     if(typeof HAT_MAX_Y!=='undefined'&&HAT_MAX_Y[gd2]!=null&&typeof BAKED!=='undefined'&&BAKED.layers[gd2]){
       var rt=99; ['1','2'].forEach(function(pid){var L=BAKED.layers[gd2][pid]; if(L)for(var li=0;li<L.length;li++){var ry=(L[li]/56)|0; if(ry<rt)rt=ry;}});
-      if(rt<99)hl=hTop+(HAT_MAX_Y[gd2]-rt); }
+      if(rt<99)hl=hTop+(HAT_MAX_Y[gd2]-rt*S); }   /* HAT_MAX_Y is RIG space, rt is 56 space -- scale rt or the durag line lands at half depth */
     /* UNIFORM WEAR DEPTH (Paolo 7/19: "why are the beanies in the back longer
        than the other parts of the head?"). The durag line is DEEPER from behind
        (a durag wraps toward the nape) -- but a beanie's cuff is a LEVEL band, so
@@ -20626,7 +20699,7 @@ window.CLO=(function(){
     if(typeof HAT_MAX_Y!=='undefined'&&typeof BAKED!=='undefined'){ var ds=[];
       for(var dk2 in HAT_MAX_Y){ var L2=BAKED.layers[dk2]; if(!L2)continue; var rt2=99;
         ['1','2'].forEach(function(pid2){var LL=L2[pid2]; if(LL)for(var lj=0;lj<LL.length;lj++){var ry2=(LL[lj]/56)|0; if(ry2<rt2)rt2=ry2;}});
-        if(rt2<99)ds.push(HAT_MAX_Y[dk2]-rt2); }
+        if(rt2<99)ds.push(HAT_MAX_Y[dk2]-rt2*S); }
       if(ds.length)uD=Math.min.apply(null,ds); }
     var hlWear=(uD!=null)?hTop+uD:band;
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return; if(y>hl)return;   /* NOTHING below the hat line, ever (SLOT_CONTACT law) */
@@ -20645,30 +20718,33 @@ window.CLO=(function(){
     var fit=opt.fit||'dome', wMn=CW,wMx=-1;
     for(var wy=hTop;wy<=Math.min(hl,hBot);wy++){var ws=span(wy); if(ws){if(ws[0]<wMn)wMn=ws[0]; if(ws[1]>wMx)wMx=ws[1];}}
     var rowSpan=function(y,isTop){ if(fit==='skull'||wMx<0)return span(Math.max(y,hTop));
-      return isTop?[wMn+1,wMx-1]:[wMn,wMx]; };
+      return isTop?[wMn+S,wMx-S]:[wMn,wMx]; };
+    var hrow=function(y0,x0,x1,col){ for(var hy=0;hy<S;hy++)for(var hx2=x0;hx2<=x1;hx2++)put(hx2,y0-hy,col); };   /* 4X: a one-row rim is S rows, drawn UPWARD so it never crosses the hat line */
     if(kind==='beanie'){ var bBot=(opt.slouch&&back)?hl:hlWear;       /* level cuff -- unless SLOUCH, which deliberately rides low on the back of the skull */                                    /* the knit cap fills the durag border exactly: down to the hat line, deeper from behind */
-      for(var y1=hTop-1;y1<=bBot;y1++){ var s1=rowSpan(y1,y1===hTop-1); if(!s1)continue;
-        for(var x1=s1[0];x1<=s1[1];x1++) put(x1,y1, y1===bBot?r.dk : (x1===s1[0]||x1===s1[1])?r.dk:r.mid); } }   /* NO bright top band (Paolo: it read as a cartoon propeller cap) -- solid crown, dark edges + cuff */
+      for(var y1=hTop-S;y1<=bBot;y1++){ var s1=rowSpan(y1,y1<hTop); if(!s1)continue;
+        for(var x1=s1[0];x1<=s1[1];x1++) put(x1,y1, y1>bBot-S?r.dk : (x1<s1[0]+S||x1>s1[1]-S)?r.dk:r.mid); } }   /* NO bright top band (Paolo: it read as a cartoon propeller cap) -- solid crown, dark edges + cuff */
     else if(kind==='cap'){ var cBot=hlWear;                          /* level crown edge, every facing */                                  /* crown to the hat line; the brim rides the line itself */
-      for(var y2=hTop-1;y2<cBot;y2++){ var s2=rowSpan(y2,y2===hTop-1); if(!s2)continue;
-        for(var x2=s2[0];x2<=s2[1];x2++) put(x2,y2, (x2===s2[0]||x2===s2[1])?r.dk:r.mid); }   /* same: no light band on the crown */
+      for(var y2=hTop-S;y2<cBot;y2++){ var s2=rowSpan(y2,y2<hTop); if(!s2)continue;
+        for(var x2=s2[0];x2<=s2[1];x2++) put(x2,y2, (x2<s2[0]+S||x2>s2[1]-S)?r.dk:r.mid); }   /* same: no light band on the crown */
       var sB=(fit==='dome'&&wMx>=0)?[wMn,wMx]:(span(Math.min(cBot,hBot))||span(hTop));
-      if(front){ for(var xb=sB[0]-1;xb<=sB[1]+1;xb++) put(xb,cBot,r.dk); }                 /* front: the brim line across the brow, poking past the head */
+      if(front){ hrow(cBot,sB[0]-S,sB[1]+S,r.dk); }                                        /* front: the brim line across the brow, poking past the head */
       else if(!back){ var bs=(fcx>hcx)?1:-1;                                               /* profile: the brim juts toward the facing */
-        for(var xb2=sB[0];xb2<=sB[1];xb2++) put(xb2,cBot,r.dk);
-        for(var d1=1;d1<=3;d1++) put((bs>0?sB[1]:sB[0])+bs*d1, cBot, r.dk); }
-      else { for(var xb3=sB[0];xb3<=sB[1];xb3++) put(xb3,cBot,r.dk); } }                   /* back: the crown edge along the line */
+        hrow(cBot,sB[0],sB[1],r.dk);
+        for(var d1=1;d1<=3*S;d1++) hrow(cBot,(bs>0?sB[1]:sB[0])+bs*d1,(bs>0?sB[1]:sB[0])+bs*d1,r.dk); }
+      else { hrow(cBot,sB[0],sB[1],r.dk); } }                                              /* back: the crown edge along the line */
     else if(kind==='brim'){ var wBot=band;
-      for(var y3=hTop-1;y3<wBot;y3++){ var s3=span(Math.max(y3,hTop)); if(!s3)continue;
-        for(var x3=s3[0];x3<=s3[1];x3++) put(x3,y3, y3===hTop-1?r.lt : (x3===s3[0]||x3===s3[1])?r.dk:r.mid); }
+      for(var y3=hTop-S;y3<wBot;y3++){ var s3=span(Math.max(y3,hTop)); if(!s3)continue;
+        for(var x3=s3[0];x3<=s3[1];x3++) put(x3,y3, y3<hTop?r.lt : (x3<s3[0]+S||x3>s3[1]-S)?r.dk:r.mid); }
       var sW=span(wBot)||span(hTop);
-      for(var xw=sW[0]-2;xw<=sW[1]+2;xw++) put(xw,wBot,r.dk); }                            /* the wide flat ring reads from every angle */
-    else if(kind==='wrap'){ var rBot=Math.max(hTop+1,band-1);
+      hrow(wBot,sW[0]-2*S,sW[1]+2*S,r.dk); }                                               /* the wide flat ring reads from every angle */
+    else if(kind==='wrap'){ var rBot=Math.max(hTop+S,band-S);
       for(var y4=hTop;y4<=rBot;y4++){ var s4=span(y4); if(!s4)continue;
-        for(var x4=s4[0];x4<=s4[1];x4++) put(x4,y4, y4===rBot?r.dk : (x4===s4[0]||x4===s4[1])?r.dk:r.mid); }
-      if(back){ put(hcx,rBot+1,r.dk); put(hcx-1,rBot+2,r.mid); put(hcx+1,rBot+2,r.mid); }  /* the knot + tails hang at the back of the skull */
+        for(var x4=s4[0];x4<=s4[1];x4++) put(x4,y4, y4>rBot-S?r.dk : (x4<s4[0]+S||x4>s4[1]-S)?r.dk:r.mid); }
+      if(back){ for(var kr=0;kr<S;kr++)for(var kc=0;kc<S;kc++){ put(hcxL+kc,rBot+1+kr,r.dk);
+          put(hcxL-S+kc,rBot+S+1+kr,r.mid); put(hcxL+S+kc,rBot+S+1+kr,r.mid); } }          /* the knot + tails hang at the back of the skull */
       else if(!front){ var ks=(fcx>hcx)?-1:1; var sK=span(rBot)||span(hTop);
-        put((ks>0?sK[1]:sK[0]),rBot+1,r.dk); } }
+        var kx3=(ks>0?sK[1]-S+1:sK[0]);
+        for(var kr2=0;kr2<S;kr2++)for(var kc2=0;kc2<S;kc2++)put(kx3+kc2,rBot+1+kr2,r.dk); } }
     return o; }
   /* ACCESSORIES (7/19): the last missing wardrobe category (~16% of the target).
      Five types, each ZONE-LOCKED (it can only touch its own body region) and
@@ -20695,7 +20771,7 @@ window.CLO=(function(){
      STRUCTURE-NOT-COLOR: these are silhouettes. The ramp only makes them
      visible. ===== */
   function genHair(g,opt){
-    var r=opt.ramp,i,o={};
+    var r=opt.ramp,i,o={},S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;
     for(i=0;i<g.length;i++){var p=g[i]; if(p===1||p===2){var x=i%CW,y=(i/CW)|0;
       if(x<hMn)hMn=x; if(x>hMx)hMx=x; if(y<hTop)hTop=y; if(y>hBot)hBot=y;}}
@@ -20712,21 +20788,30 @@ window.CLO=(function(){
        right so please fix that." */
     var fsx=0,fsc2=0; for(var fi=0;fi<g.length;fi++)if(g[fi]===2){fsx+=fi%CW;fsc2++;}
     var fcx=fsc2?fsx/fsc2:0;
-    var hH=Math.max(1,hBot-hTop), hcx=Math.floor((hMn+hMx)/2);
+    /* CENTRE WHAT SHOULD BE CENTRAL (HOW HAIR AND SHAPE WORK, 8/1). floor((mn+mx)/2)
+       is the S===1 form of "the left column of the centre CELL"; written this way it
+       stays true at 112, where a plain floor drifts a pixel right on odd-width heads
+       -- exactly the failure he caught on the mohawk. */
+    var hH=Math.max(1,hBot-hTop), hcx=hMn+(((hMx-hMn+1)-S)>>1), hcxR=hcx+S-1;
     /* a deterministic wobble: same style + same row = same offset, forever, so an
        NPC never shimmers between frames. "a lot about hair is about just the little
        off shapes that it makes ... I'm seeing you make like a lot of straight lines
        and that's not realistic at all." */
     var _wseed=0, _wn=(opt.name||'');
     for(var _wi=0;_wi<_wn.length;_wi++){_wseed=(Math.imul(_wseed^_wn.charCodeAt(_wi),16777619))>>>0;}
-    var wob=function(y,side){ var h=(Math.imul((_wseed^(y*2654435761))>>>0,2246822507))>>>0;
-      return ((h>>>(side?7:17))&3)===0 ? 1 : 0; };
+    /* THE WOBBLE IS PER ROW OF HAIR, NOT PER PIXEL ROW. Hashing the raw y at 112
+       gives every sub-row its own jitter and the edge turns to static instead of
+       "little off shapes" -- and the amount it moves by is a hair's width, so S. */
+    var wob=function(y,side){ var h=(Math.imul((_wseed^((((y/S)|0))*2654435761))>>>0,2246822507))>>>0;
+      return ((h>>>(side?7:17))&3)===0 ? S : 0; };
     var span=function(y){ var mn=CW,mx=-1; for(var x=0;x<CW;x++){var gv=g[y*CW+x];
       if(gv===1||gv===2){if(x<mn)mn=x;if(x>mx)mx=x;}} return mx<0?null:[mn,mx]; };
     /* THE BROW CEILING. On a front facing the eyes are the top of the painted
        face region; hair stops ABOVE them, always, whatever the style asks for. */
-    var brow=(fsc&&front)?Math.max(hTop+1,fTop+1):hTop+Math.round(hH*0.34);
-    var frontLine=Math.min(brow, hTop+Math.round(hH*(opt.front!=null?opt.front:0.22)));
+    var brow=(fsc&&front)?Math.max(hTop+S,fTop+S):hTop+fr(hTop,hBot,0.34);
+    /* INCLUSIVE: put() tests `y<=frontLine`, so it is the LAST row hair may cross
+       the forehead on -- take the bottom of the cell fr() lands on. */
+    var frontLine=Math.min(brow+S-1, hTop+fr(hTop,hBot,(opt.front!=null?opt.front:0.22))+S-1);
     var vol=opt.vol||0, sideF=(opt.side!=null?opt.side:0.62), flare=opt.flare||0;
     var backEx=(back||!front)?(opt.back||0):0, strip=opt.strip||0, tie=opt.tie||null, tex=opt.tex||'solid';
     /* THE BACK IS THE WHOLE SKULL (Paolo 8/1, "that's the first thing"). sideF was
@@ -20742,7 +20827,7 @@ window.CLO=(function(){
        the way either: you see the whole side of the head, and hair covers it to the
        hairline. So profile joins back, and the brow ceiling in put() still protects
        the eye rows on the facings that actually show eyes. */
-    var sideBot=(back||prof)?hBot:(hTop+Math.round(hH*sideF));
+    var sideBot=(back||prof)?hBot:(hTop+fr(hTop,hBot,sideF)+S-1);
     /* ONE TEXTURE FUNCTION, SHARED BY BOTH DRAWING PATHS (Paolo 8/1: "The cornrows
        is not one pixel of skin two pixels of hair what's wrong with you?" and then
        "I'm sure that will help you not just for cornrows ... hairstyles with fades
@@ -20768,7 +20853,7 @@ window.CLO=(function(){
        it is a DENSITY ramp, so it lives in the SAME texSkip on the same
        head-anchored phase -- which is what stops it scattering into noise. It
        blends into SKIN by skipping: the body's own colour shows, per citizen. */
-    var fadeRows=opt.fade||0, fadeBot=back?hBot:(hTop+Math.round(hH*sideF));
+    var fadeRows=(opt.fade||0)*S, fadeBot=back?hBot:(hTop+fr(hTop,hBot,sideF)+S-1);
     var texSkip=function(x,y){
       /* A PATTERN ROTATES WITH THE VIEW (Paolo 8/2: "prime example with the
          cornrows and the mohawk ... you really aren't doing it from a good eastern
@@ -20776,7 +20861,10 @@ window.CLO=(function(){
          front or back you look ACROSS them: vertical stripes. From the SIDE you look
          ALONG them: HORIZONTAL BANDS. The phase was on X for every facing, so the
          profile drew rows running the wrong way across a head seen side-on. */
-      var _ph=prof?(y-hTop):(x-hMn), _pq=prof?(x-hMn):(y-hTop);
+      /* 4X: the 2:1 ratio is TWO HAIRS to ONE PARTING (Paolo 8/1, exact), so the
+         phase counts hairs -- cells -- not pixels. Counting pixels at 112 halves
+         every cornrow and the whole head goes back to "closer to a comb". */
+      var _ph=((prof?(y-hTop):(x-hMn))/S)|0, _pq=((prof?(x-hMn):(y-hTop))/S)|0;
       if(tex==='locs')  return (_ph%3===2);                     /* 2 hair : 1 skin */
       if(tex==='braid') return ((_ph%3===2)&&(_pq%3===2));
       return false; };
@@ -20832,8 +20920,8 @@ window.CLO=(function(){
          chest. */
       o[hi]=col; };
     /* --- the mass ------------------------------------------------------- */
-    var topRow=hTop-vol, _spikeTop=(opt.spiky&&opt.strip)?1:0;
-    if(strip&&prof)topRow=hTop-Math.max(3,vol+3);   /* the crest has real height lengthwise */
+    var topRow=hTop-vol*S, _spikeTop=(opt.spiky&&opt.strip)?S:0;
+    if(strip&&prof)topRow=hTop-Math.max(3*S,(vol+3)*S);   /* the crest has real height lengthwise */
     for(var y=topRow-_spikeTop;y<=sideBot+backEx;y++){
       var s=span(Math.max(hTop,Math.min(y,hBot)));
       if(!s)continue;
@@ -20859,9 +20947,9 @@ window.CLO=(function(){
            silhouette he named, and it was measurable the whole time against art
            already in this repo.
            A rule from the internet does not outrank the reference he painted. */
-        var _th=prof?2:0;
+        var _th=prof?2*S:0;
         if(_th){ mn-=(_bias<0?_th:0); mx+=(_bias>0?_th:0); } }
-      if(y<hTop){ mn+=1; mx-=1; }                                  /* the crown tapers as it rises */
+      if(y<hTop){ mn+=S; mx-=S; }                                  /* the crown tapers as it rises */
       var grow=Math.round(flare*Math.max(0,y-hTop));
       mn-=grow; mx+=grow;
       /* KNOWN, MEASURED, NOT FIXED -- and deliberately not guessed at again. In
@@ -20882,8 +20970,8 @@ window.CLO=(function(){
         if(y<hTop){
           /* NOT A RECTANGLE (Paolo 8/2: "like a rectangle on someone's head"). A real
              crest is shorter at brow and nape, tallest over the crown. */
-          var _up=hTop-y, _in=Math.max(0,_up-1);
-          mn=s[0]-1+_in; mx=s[1]+1-_in;
+          var _up=hTop-y, _in=Math.max(0,_up-S);
+          mn=s[0]-S+_in; mx=s[1]+S-_in;
           if(mx<mn)continue;
         } else continue;
       } else if(strip){
@@ -20902,18 +20990,18 @@ window.CLO=(function(){
            one. On an even head the strip comes out even, on an odd head odd, and in
            both cases its centre is exactly the head's. */
         var _d2=s[0]+s[1];
-        mn=Math.ceil(_d2/2)-strip; mx=Math.floor(_d2/2)+strip; }
+        mn=Math.ceil(_d2/2)-strip*S; mx=Math.floor(_d2/2)+strip*S; }
       if(y>hBot){                                                  /* past the jaw: the fall narrows */
-        var t=y-hBot; mn+=Math.min(2,(t/3)|0); mx-=Math.min(2,(t/3)|0);
+        var t=y-hBot, _nw=Math.min(2*S,((t/(3*S))|0)*S); mn+=_nw; mx-=_nw;
         /* THE FALL HANGS BEHIND THE HEAD, NOT DOWN THE MIDDLE (Paolo 8/2). Below the
            jaw it narrowed symmetrically toward the sprite centre. From the front the
            back of the head IS the centre; in PROFILE it is at one EDGE, so a centred
            fall hangs down the face. Same mistake as the strip. */
-        if(prof){ var _fw=Math.max(2,Math.round((s[1]-s[0]+1)*0.55));
+        if(prof){ var _fw=Math.max(2*S,Math.round((s[1]-s[0]+1)*0.55));
           if(_bias<0){ mx=mn+_fw; } else { mn=mx-_fw; } } }
       /* THE NAPE (Paolo 8/1): hair does not end in a straight horizontal line at the
          jaw, it comes to a nape. From behind, the last two rows draw in toward centre. */
-      if(back&&y>=hBot-1&&y<=hBot){ var _nd=(y-(hBot-1))+1; mn+=_nd; mx-=_nd; }
+      if(back&&y>hBot-2*S&&y<=hBot){ var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
       if(!strip){ mn-=wob(y,0); mx+=wob(y,1); }                    /* NO STRAIGHT LINES */
       if(front&&y>frontLine){
         /* front facing, below the front line: the mass is only at the SIDES --
@@ -20926,16 +21014,16 @@ window.CLO=(function(){
            hairstyles even from the front I would like to see you know a couple pixels
            of hair ... even if it is in the back of the head." Below the jaw a style
            with real back length widens its curtains instead of tapering away. */
-        var w=Math.max(1,Math.round((fs[1]-fs[0]+1)*0.22));
-        if((opt.back||0)>=3&&y>hBot) w+=1;
+        var w=Math.max(S,Math.round((fs[1]-fs[0]+1)*0.22));
+        if((opt.back||0)>=3&&y>hBot) w+=S;
         /* THE CURTAINS CARRY THE TEXTURE TOO. A textured style also needs a
            curtain wide enough for a 2:1 run to physically exist -- at 1px there is
            no ratio to express, only a line. */
-        var cw=(tex==='solid')?w:Math.max(3,w);
+        var cw=(tex==='solid')?w:Math.max(3*S,w);
         for(var xl=mn;xl<fs[0]+cw;xl++){ if(texSkip(xl,y))continue;
-          put(xl,y,(xl===mn)?r.dk:r.mid); }
+          put(xl,y,(xl<mn+S)?r.dk:r.mid); }
         for(var xr=fs[1]-cw+1;xr<=mx;xr++){ if(texSkip(xr,y))continue;
-          put(xr,y,(xr===mx)?r.dk:r.mid); }
+          put(xr,y,(xr>mx-S)?r.dk:r.mid); }
         continue; }
       for(var x=mn;x<=mx;x++){
         /* ONE PIXEL, NOT THREE (Paolo 8/1, said twice): "the difference is just one
@@ -20971,21 +21059,24 @@ window.CLO=(function(){
            texture uses, so the spikes line up with the skull instead of wandering. */
         /* SPIKES ADD, THEY DO NOT SUBTRACT: skipping columns gutted the ridge
            into two prongs. A spike is HEIGHT ABOVE it. */
-        if(opt.spiky&&strip&&y<topRow&&((x-hMn)%2===0))continue;
-        var edge=(x===mn||x===mx||y===topRow);
-        put(x,y, skinTint(edge?r.dk : (y===topRow+1?r.lt:r.mid), x, y)); } }
+        if(opt.spiky&&strip&&y<topRow&&((((x-hMn)/S)|0)%2===0))continue;
+        var edge=(x<mn+S||x>mx-S||(y>=topRow&&y<topRow+S));
+        put(x,y, skinTint(edge?r.dk : ((y>=topRow+S&&y<topRow+2*S)?r.lt:r.mid), x, y)); } }
     /* --- the tie: a bound mass reads as an ornament plus a fall ---------- */
     if(tie){
-      var tx=hcx, ty=hTop+Math.round(hH*0.2);
-      if(tie==='top'){ for(var by=topRow-3;by<topRow;by++)for(var bx=hcx-2;bx<=hcx+2;bx++)
-          put(bx,by,(bx===hcx-2||bx===hcx+2||by===topRow-3)?r.dk:r.mid); }
-      else if(tie==='bun'&&!front){ for(var uy=ty;uy<ty+5;uy++)for(var ux=hcx-3;ux<=hcx+3;ux++)
-          put(ux,uy,(ux===hcx-3||ux===hcx+3)?r.dk:r.mid); }
-      else if(tie==='pony'&&!front){ var pl=Math.round(hH*1.2);
-        for(var py=hBot;py<hBot+pl;py++){ var pw=(py<hBot+2)?2:1;
-          for(var px=tx-pw;px<=tx+pw;px++) put(px,py,(px===tx-pw||px===tx+pw)?r.dk:r.mid); } } }
+      var tx=hcx, ty=hTop+fr(hTop,hBot,0.2);
+      if(tie==='top'){ for(var by=topRow-3*S;by<topRow;by++)for(var bx=hcx-2*S;bx<hcxR+2*S+1;bx++)
+          put(bx,by,(bx<hcx-S||bx>hcxR+S||by<topRow-2*S)?r.dk:r.mid); }
+      else if(tie==='bun'&&!front){ for(var uy=ty;uy<ty+5*S;uy++)for(var ux=hcx-3*S;ux<hcxR+3*S+1;ux++)
+          put(ux,uy,(ux<hcx-2*S||ux>hcxR+2*S)?r.dk:r.mid); }
+      else if(tie==='pony'&&!front){ var pl=fr(hTop,hBot,1.2);
+        for(var py=hBot;py<hBot+pl;py++){ var pw=(py<hBot+2*S)?2*S:S;
+          for(var px=tx-pw;px<hcxR+pw+1;px++) put(px,py,(px<tx-pw+S||px>hcxR+pw-S)?r.dk:r.mid); } } }
     return o; }
-  function genAcc(g,opt){ var r=opt.ramp,kind=opt.kind,i;
+  function genAcc(g,opt){ var r=opt.ramp,kind=opt.kind,i,S=rsc();
+    /* 4X: `inw`/`outw` step in CELLS, not pixels. A face edge (fMx/fBot) is the
+       OUTERMOST pixel of its cell, so "one column inward" is S pixels wide and
+       starts S-1 earlier -- stepping by 1 puts a 112 lens inside its own rim. */
     if(kind==='gasmask'){ /* wave 7: FULL-FACE mask -- covers the eyes too
        (the dust mask's below-the-eyes law stays its own; this is a different
        garment class). Round lenses read at the eye line, a filter snout
@@ -20995,9 +21086,10 @@ window.CLO=(function(){
       if(fMx<0)return o9;
       var dirG=(typeof curDir!=='undefined')?curDir:'S';
       var backG=(dirG==='N'||dirG==='NE'||dirG==='NW');
-      var eyeY=fTop+Math.round((fBot-fTop)*0.35), fcx=Math.round((fMn+fMx)/2);
+      var eyeY=fTop+fr(fTop,fBot,0.35), fcx=Math.round((fMn+fMx)/2);
       var GLNT=[142,152,136];                                              /* glass glint: the lenses must READ */
-      if(backG){ for(i=0;i<g.length;i++)if(g[i]===1){var yb2=(i/CW)|0; if(yb2===eyeY||yb2===eyeY+1)o9[i]=r.dk;}   /* the strap wraps the skull */
+      var fcxL=fcx-((S-1)>>1);
+      if(backG){ for(i=0;i<g.length;i++)if(g[i]===1){var yb2=(i/CW)|0; if(yb2>=eyeY&&yb2<eyeY+2*S)o9[i]=r.dk;}   /* the strap wraps the skull */
         for(i=0;i<g.length;i++)if(g[i]===2)o9[i]=r.mid;                   /* no skin slits from behind */
         return o9; }
       if(dirG==='E'||dirG==='W'){ /* PROFILE v2 (Paolo 7/21: "gas masks have to
@@ -21006,31 +21098,34 @@ window.CLO=(function(){
          FORWARD off the jaw past the silhouette, the strap running back
          across the skull. */
         var sgn=(dirG==='E')?1:-1, lead=(dirG==='E')?fMx:fMn;
+        var inw=function(k){ return (sgn>0)?(lead-(k+1)*S+1):(lead+k*S); };
         for(i=0;i<g.length;i++)if(g[i]===2){ var xe=i%CW,ye=(i/CW)|0, cp=r.mid;
-          if(ye===fTop||xe===lead)cp=r.dk;                                 /* rim: brow line + leading edge */
-          if(ye>=fBot-1)cp=r.dk;                                           /* jaw seal */
+          if(ye<fTop+S||Math.abs(xe-lead)<S)cp=r.dk;                       /* rim: brow line + leading edge */
+          if(ye>fBot-2*S)cp=r.dk;                                          /* jaw seal */
           o9[i]=cp; }
-        var li=eyeY*CW+(lead-sgn);                                         /* the ONE profile lens, just off the leading edge */
-        if(li>=0&&li<g.length)o9[li]=GLNT;
-        var li2=eyeY*CW+(lead-2*sgn); if(li2>=0&&li2<g.length)o9[li2]=r.dk;   /* lens housing ring */
-        var my=fBot-1;                                                     /* the canister drives FORWARD off the jaw */
-        for(var dx9=1;dx9<=3;dx9++)for(var dy9=-1;dy9<=1;dy9++){
+        var l1=inw(1),l2=inw(2);
+        for(var lr=0;lr<S;lr++)for(var lc=0;lc<S;lc++){                    /* the ONE profile lens, just off the leading edge */
+          var li=(eyeY+lr)*CW+l1+lc; if(li>=0&&li<g.length)o9[li]=GLNT;
+          var li2=(eyeY+lr)*CW+l2+lc; if(li2>=0&&li2<g.length)o9[li2]=r.dk; }   /* lens housing ring */
+        var my=fBot-2*S+1;                                                 /* the canister drives FORWARD off the jaw */
+        for(var dx9=1;dx9<=3*S;dx9++)for(var dy9=-S;dy9<2*S;dy9++){
           var xs=lead+sgn*dx9, ys=my+dy9; if(xs<0||xs>=CW||ys<0||ys>=CH)continue;
           var is9=ys*CW+xs; if(g[is9]!==0&&g[is9]!==3)continue;
-          o9[is9]=(dx9===3||dy9!==0)?r.dk:r.mid; }
+          o9[is9]=(dx9>2*S||dy9<0||dy9>=S)?r.dk:r.mid; }
         for(i=0;i<g.length;i++)if(g[i]===1){ var yh8=(i/CW)|0;             /* the strap runs BACK across the skull */
-          if(yh8===eyeY)o9[i]=r.dk; }
+          if(yh8>=eyeY&&yh8<eyeY+S)o9[i]=r.dk; }
         return o9; }
       for(i=0;i<g.length;i++)if(g[i]===2){ var xg=i%CW,yg=(i/CW)|0, c9=r.mid;
-        if(xg===fMn||xg===fMx||yg===fTop)c9=r.dk;                          /* mask rim */
-        if(yg>=fBot-1)c9=r.dk;                                             /* the jaw seal */
+        if(xg<fMn+S||xg>fMx-S||yg<fTop+S)c9=r.dk;                          /* mask rim */
+        if(yg>fBot-2*S)c9=r.dk;                                            /* the jaw seal */
         o9[i]=c9; }
-      var lL9=eyeY*CW+(fcx-2),lR9=eyeY*CW+(fcx+2);                         /* the lenses, glass-bright */
-      if(g[lL9]===2)o9[lL9]=GLNT; if(g[lR9]===2)o9[lR9]=GLNT;
-      if(g[eyeY*CW+fcx]===2)o9[eyeY*CW+fcx]=r.dk;                          /* the nose bridge between them */
-      for(var yS9=fBot+1;yS9<=fBot+2;yS9++)for(var xS9=fcx-1;xS9<=fcx+1;xS9++){   /* the filter snout hangs below the jaw */
-        var i9=yS9*CW+xS9; if(i9>=0&&i9<g.length&&(g[i9]===0||g[i9]===3))o9[i9]=(yS9===fBot+2||xS9!==fcx)?r.dk:r.mid; }
-      for(i=0;i<g.length;i++)if(g[i]===1){var yh9=(i/CW)|0; if(yh9===eyeY&&o9[i]===undefined)o9[i]=r.dk;}   /* strap to the ears */
+      for(var gr=0;gr<S;gr++)for(var gc=0;gc<S;gc++){                      /* the lenses, glass-bright */
+        var lL9=(eyeY+gr)*CW+(fcxL-2*S)+gc,lR9=(eyeY+gr)*CW+(fcxL+2*S)+gc;
+        if(g[lL9]===2)o9[lL9]=GLNT; if(g[lR9]===2)o9[lR9]=GLNT;
+        var nb=(eyeY+gr)*CW+fcxL+gc; if(g[nb]===2)o9[nb]=r.dk; }           /* the nose bridge between them */
+      for(var yS9=fBot+1;yS9<=fBot+2*S;yS9++)for(var xS9=fcxL-S;xS9<fcxL+2*S;xS9++){   /* the filter snout hangs below the jaw */
+        var i9=yS9*CW+xS9; if(i9>=0&&i9<g.length&&(g[i9]===0||g[i9]===3))o9[i9]=(yS9>fBot+S||xS9<fcxL||xS9>=fcxL+S)?r.dk:r.mid; }
+      for(i=0;i<g.length;i++)if(g[i]===1){var yh9=(i/CW)|0; if(yh9>=eyeY&&yh9<eyeY+S&&o9[i]===undefined)o9[i]=r.dk;}   /* strap to the ears */
       return o9; }
     if(kind==='sash'){ /* wave 8: a HIP SASH -- cloth tied at the waist, knot on
        one hip, a fringed tail hanging down the leg. The belt is a line; this
@@ -21040,12 +21135,12 @@ window.CLO=(function(){
       if(tbW<0)return oS;
       for(var xw2=0;xw2<CW;xw2++){ if(g[tbW*CW+xw2]===4){if(xw2<mnW)mnW=xw2;if(xw2>mxW)mxW=xw2;} }
       for(i=0;i<g.length;i++)if(g[i]===4){ var xs2=i%CW,ys2=(i/CW)|0;
-        if(ys2===tbW||ys2===tbW-1)oS[i]=(ys2===tbW-1)?mix(r.mid,0.85):r.mid; }   /* the wrapped band */
-      var kx=mxW-1;                                                        /* knot on the hip */
-      oS[(tbW-1)*CW+kx]=r.dk; oS[tbW*CW+kx]=r.dk;
-      for(var yt=tbW+1;yt<=tbW+6;yt++){ var wob=((yt%2)?0:1);              /* the hanging tail sways off the hip */
-        for(var xt=kx-1+wob;xt<=kx+wob;xt++){ if(xt<0||xt>=CW)continue; var it=yt*CW+xt;
-          var gvT=g[it]; if(gvT===0||gvT===9||gvT===10)oS[it]=(yt===tbW+6)?(((xt+yt)%2)?r.dk:r.mid):((xt===kx-1+wob)?r.dk:r.mid); } }
+        if(ys2>tbW-2*S)oS[i]=(ys2<=tbW-S)?mix(r.mid,0.85):r.mid; }         /* the wrapped band */
+      var kx=mxW-2*S+1;                                                    /* knot on the hip (one CELL in from the hip edge) */
+      for(var ky2=tbW-2*S+1;ky2<=tbW;ky2++)for(var kc=0;kc<S;kc++)oS[ky2*CW+kx+kc]=r.dk;
+      for(var yt=tbW+1;yt<=tbW+6*S;yt++){ var wob=((((yt/S)|0)%2)?0:S);    /* the hanging tail sways off the hip */
+        for(var xt=kx-S+wob;xt<kx+wob+S;xt++){ if(xt<0||xt>=CW)continue; var it=yt*CW+xt;
+          var gvT=g[it]; if(gvT===0||gvT===9||gvT===10)oS[it]=(yt>tbW+5*S)?(((((xt/S)|0)+((yt/S)|0))%2)?r.dk:r.mid):((xt<kx+wob)?r.dk:r.mid); } }
       return oS; }
     if(kind==='bandana'){ /* wave 8: the outlaw triangle -- covers below the
        eyes like the dust mask LAW requires, but hangs to a POINT over the
@@ -21054,38 +21149,38 @@ window.CLO=(function(){
       for(i=0;i<g.length;i++)if(g[i]===2){var xB3=i%CW,yB4=(i/CW)|0;if(xB3<fMnB)fMnB=xB3;if(xB3>fMxB)fMxB=xB3;if(yB4<fTopB)fTopB=yB4;if(yB4>fBotB)fBotB=yB4;}
       if(fMxB<0)return oB;
       var dirB2=(typeof curDir!=='undefined')?curDir:'S';
-      var eyeB=fTopB+Math.round((fBotB-fTopB)*0.35), fcxB=Math.round((fMnB+fMxB)/2);
+      var eyeB=fTopB+fr(fTopB,fBotB,0.35), fcxB=Math.round((fMnB+fMxB)/2);
       if(dirB2==='N'||dirB2==='NE'||dirB2==='NW'){                          /* from behind: the knot + tails */
-        for(i=0;i<g.length;i++)if(g[i]===1||g[i]===2){var yk=(i/CW)|0; if(yk===eyeB+1||yk===eyeB+2)oB[i]=(yk===eyeB+1)?r.dk:r.mid;}   /* the tied band wraps the skull */
-        for(var yk3=eyeB+3;yk3<=eyeB+6;yk3++){ for(var xk=fcxB;xk<=fcxB+1;xk++){ var ik=yk3*CW+xk;   /* the hanging knot tails */
-          if(ik<g.length&&(g[ik]===1||g[ik]===2||g[ik]===3||g[ik]===0))oB[ik]=(yk3===eyeB+6)?r.dk:r.mid; } }
+        for(i=0;i<g.length;i++)if(g[i]===1||g[i]===2){var yk=(i/CW)|0; if(yk>=eyeB+S&&yk<eyeB+3*S)oB[i]=(yk<eyeB+2*S)?r.dk:r.mid;}   /* the tied band wraps the skull */
+        for(var yk3=eyeB+3*S;yk3<eyeB+7*S;yk3++){ for(var xk=fcxB;xk<fcxB+2*S;xk++){ var ik=yk3*CW+xk;   /* the hanging knot tails */
+          if(ik<g.length&&(g[ik]===1||g[ik]===2||g[ik]===3||g[ik]===0))oB[ik]=(yk3>=eyeB+6*S)?r.dk:r.mid; } }
         return oB; }
       for(i=0;i<g.length;i++)if(g[i]===2){ var xb4=i%CW,yb5=(i/CW)|0;
-        if(yb5>eyeB)oB[i]=(yb5===eyeB+1)?r.dk:r.mid; }                     /* below the eyes: the law holds */
-      var t0B=fBotB+1, half=Math.max(1,Math.round((fMxB-fMnB)/2)-1);       /* the triangle point falls past the chin */
-      for(var dp=0;dp<=2;dp++){ var yp2=t0B+dp, hw2=Math.max(0,half-dp);
+        if(yb5>=eyeB+S)oB[i]=(yb5<eyeB+2*S)?r.dk:r.mid; }                  /* below the eyes: the law holds */
+      var t0B=fBotB+1, half=Math.max(S,Math.round((fMxB-fMnB)/2)-S);       /* the triangle point falls past the chin */
+      for(var dp=0;dp<3*S;dp++){ var yp2=t0B+dp, hw2=Math.max(0,half-((dp/S)|0)*S);
         for(var xp2=fcxB-hw2;xp2<=fcxB+hw2;xp2++){ if(xp2<0||xp2>=CW)continue; var ip2=yp2*CW+xp2;
           if(ip2>=g.length)continue; var gvB=g[ip2];
-          if(gvB===0||gvB===3)oB[ip2]=(dp===2||xp2===fcxB-hw2||xp2===fcxB+hw2)?r.dk:r.mid; } }
+          if(gvB===0||gvB===3)oB[ip2]=(dp>=2*S||xp2<fcxB-hw2+S||xp2>fcxB+hw2-S)?r.dk:r.mid; } }
       return oB; }
     if(kind==='helm'){ /* wave 8: SCRAP HELM -- a rigid dome over the whole
        skull with a nape guard and an EYE SLIT, the shemagh's slit law in
        metal. Rivets read along the brow. */
       var oH={},eTop=CH,eBot=-1;
       for(i=0;i<g.length;i++)if(g[i]===2){var yH=(i/CW)|0;if(yH<eTop)eTop=yH;if(yH>eBot)eBot=yH;}
-      var eyeH=eTop+Math.round((eBot-eTop)*0.35);
+      var eyeH=eTop+fr(eTop,eBot,0.35);
       var dirH=(typeof curDir!=='undefined')?curDir:'S';
       var backH=(dirH==='N'||dirH==='NE'||dirH==='NW');
       var hTop2=CH; for(i=0;i<g.length;i++)if(g[i]===1){var yH2=(i/CW)|0;if(yH2<hTop2)hTop2=yH2;}
-      for(i=0;i<g.length;i++)if(g[i]===1){ var xH=i%CW,yH3=(i/CW)|0, cH=r.mid;
-        if(yH3===hTop2)cH=r.lt;                                            /* crown catches the sky */
-        if(yH3===eyeH-1&&((xH%3)===1))cH=r.dk;                             /* rivet row above the slit */
-        if(g[i+1]===0||g[i-1]===0)cH=r.dk;                                 /* dome rim */
+      for(i=0;i<g.length;i++)if(g[i]===1){ var xH=i%CW,yH3=(i/CW)|0, cH=r.mid, hd;
+        if(yH3<hTop2+S)cH=r.lt;                                            /* crown catches the sky */
+        if(yH3>=eyeH-S&&yH3<eyeH&&((((xH/S)|0)%3)===1))cH=r.dk;            /* rivet row above the slit */
+        for(hd=1;hd<=S;hd++){ if(g[i+hd]===0||g[i-hd]===0){cH=r.dk;break;} }   /* dome rim */
         oH[i]=cH; }
       for(i=0;i<g.length;i++)if(g[i]===2){ var yH4=(i/CW)|0;
         if(backH){ oH[i]=r.mid; continue; }                                /* no skin from behind */
-        if(yH4===eyeH)continue;                                            /* THE SLIT stays open */
-        oH[i]=(yH4===eyeH-1||yH4===eyeH+1)?r.dk:r.mid; }                   /* slit edges read as cut metal */
+        if(yH4>=eyeH&&yH4<eyeH+S)continue;                                 /* THE SLIT stays open */
+        oH[i]=((yH4>=eyeH-S&&yH4<eyeH)||(yH4>=eyeH+S&&yH4<eyeH+2*S))?r.dk:r.mid; }   /* slit edges read as cut metal */
       for(i=0;i<g.length;i++)if(g[i]===3&&backH)oH[i]=r.mid;               /* nape guard from behind */
       return oH; }
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1,fMn=CW,fMx=-1,fTopY=CH,fBotY=-1;
@@ -21100,44 +21195,51 @@ window.CLO=(function(){
     var fw={},wmax=0; for(i=0;i<g.length;i++)if(g[i]===2){var fyw=(i/CW)|0; fw[fyw]=(fw[fyw]||0)+1; if(fw[fyw]>wmax)wmax=fw[fyw];}
     var eyeA=CH,eyeB=-1; for(var fk in fw){ if(fw[fk]===wmax){var fyn=+fk; if(fyn<eyeA)eyeA=fyn; if(fyn>eyeB)eyeB=fyn;} }
     if(eyeB<0){ eyeA=hTop+Math.round(hH*0.42); eyeB=eyeA; }
-    if(eyeB-eyeA>2){ var mid2=Math.round((eyeA+eyeB)/2); eyeA=mid2-1; eyeB=mid2; }
+    /* 4X: clamp the eye band in CELLS. Scaling the pixel form put the band half a
+       cell low at 112 and the dust mask started two rows beneath his mouth. */
+    var cA=(eyeA/S)|0, cB=(eyeB/S)|0;
+    if(cB-cA>2){ var mid2=Math.round((cA+cB)/2); eyeA=(mid2-1)*S; eyeB=mid2*S+S-1; }
     var eyeY=eyeA, mouthY=eyeB+1;
     var nMn=CW,nMx=-1; for(i=0;i<g.length;i++)if(g[i]===3){var xn=i%CW;if(xn<nMn)nMn=xn;if(xn>nMx)nMx=xn;}
     var tTop=CH,tb=-1,tMn=CW,tMx=-1; for(i=0;i<g.length;i++)if(g[i]===4){var xt=i%CW,yt=(i/CW)|0;if(yt<tTop)tTop=yt;if(yt>tb)tb=yt;if(xt<tMn)tMn=xt;if(xt>tMx)tMx=xt;}
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW'), prof=(dir==='E'||dir==='W');
-    var o={}, hcx=Math.round((hMn+hMx)/2);
+    var o={}, hcx=Math.round((hMn+hMx)/2), hcxL=hcx-((S-1)>>1);
     var fsx=0,fsc=0; for(i=0;i<g.length;i++)if(g[i]===2){fsx+=i%CW;fsc++;} var fcx=fsc?fsx/fsc:hcx;
     if(kind==='shemagh'){ /* STRUCTURE wave 5: the full desert wrap -- skull +
          neck + lower face in ONE cloth, an open slit ONLY at the eye rows.
          From behind the cloth layers over everything (no-skin-slits law). */
       for(i=0;i<g.length;i++)if(g[i]===1){var xs1=i%CW,ys1=(i/CW)|0;
-        o[i]=(xs1===hMn||xs1===hMx||ys1===hTop)?r.dk:(ys1<=hTop+2?r.lt:r.mid);}
+        o[i]=(xs1<hMn+S||xs1>hMx-S||ys1<hTop+S)?r.dk:(ys1<hTop+3*S?r.lt:r.mid);}
       for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.mid;
       for(i=0;i<g.length;i++)if(g[i]===2){var ys2=(i/CW)|0;
         if(!back&&ys2>=eyeA&&ys2<=eyeB)continue;                          /* the eye slit stays open (front/profile) */
-        o[i]=(ys2===eyeB+1||ys2===eyeA-1)?r.dk:r.mid;}
-      if(front){ for(var td=2;td<=5;td++){var idt=(tTop+td)*CW+(hcx+1); if(g[idt]===4)o[idt]=(td===5)?r.dk:r.mid;} }
-      else if(prof){ var bs9=(fcx>hcx)?-1:1; for(var tp=1;tp<=3;tp++){var ipt=(tTop+tp)*CW+(hcx+bs9*2); if(ipt>=0&&ipt<g.length&&(g[ipt]===4||g[ipt]===0))o[ipt]=(tp===3)?r.dk:r.mid;} }
+        o[i]=((ys2>eyeB&&ys2<=eyeB+S)||(ys2>=eyeA-S&&ys2<eyeA))?r.dk:r.mid;}
+      if(front){ for(var td=2*S;td<6*S;td++)for(var tc=0;tc<S;tc++){var idt=(tTop+td)*CW+(hcxL+S+tc); if(g[idt]===4)o[idt]=(td>=5*S)?r.dk:r.mid;} }
+      else if(prof){ var bs9=(fcx>hcx)?-1:1; for(var tp=S;tp<4*S;tp++)for(var pc=0;pc<S;pc++){var ipt=(tTop+tp)*CW+(hcxL+bs9*2*S+pc); if(ipt>=0&&ipt<g.length&&(g[ipt]===4||g[ipt]===0))o[ipt]=(tp>=3*S)?r.dk:r.mid;} }
       return o; }
     if(kind==='scarf'){                                                  /* a wrapped BUNDLE at the neck: neck covered + a two-row ring across the collar, tail per facing */
       var tEnd=(opt.tail==='long')?9:4, fEnd=(opt.tail==='long')?7:3;    /* TRAILING (wave 5): the long scarf's tail falls to the waist */
       for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.mid;
-      for(var yr=tTop;yr<=tTop+1;yr++)for(var xr=nMn-2;xr<=nMx+2;xr++){ if(xr<0||xr>=CW)continue; var ir=yr*CW+xr;
-        if(g[ir]===4)o[ir]=(xr<=nMn-2||xr>=nMx+2||yr===tTop+1)?r.dk:r.mid; }
-      if(back){ for(var t2=2;t2<=tEnd;t2++){var it=(tTop+t2)*CW+hcx; if(g[it]===4)o[it]=(t2===tEnd)?r.dk:r.mid;
-          var it3=(tTop+t2)*CW+hcx-1; if(t2<tEnd&&g[it3]===4)o[it3]=r.mid;} }                                             /* tail down the back */
-      else if(front){ for(var t3=2;t3<=fEnd;t3++){var if2=(tTop+t3)*CW+(hcx-1); if(g[if2]===4)o[if2]=(t3===fEnd)?r.dk:r.mid;} }  /* short drape on the chest */
-      else { var bsX=(fcx>hcx)?-1:1; var ip=(tTop+1)*CW+(hcx+bsX); if(ip>=0&&ip<g.length&&g[ip]===4)o[ip]=r.mid;
-        var ip2=(tTop+2)*CW+(hcx+bsX); if(ip2>=0&&ip2<g.length&&g[ip2]===4)o[ip2]=r.dk; }                             /* tail behind, in profile */
+      for(var yr=tTop;yr<tTop+2*S;yr++)for(var xr=nMn-2*S;xr<=nMx+2*S;xr++){ if(xr<0||xr>=CW)continue; var ir=yr*CW+xr;
+        if(g[ir]===4)o[ir]=(xr<nMn-S||xr>nMx+S||yr>=tTop+S)?r.dk:r.mid; }
+      if(back){ for(var t2=2*S;t2<(tEnd+1)*S;t2++)for(var bc=0;bc<S;bc++){var it=(tTop+t2)*CW+hcxL+bc; if(g[it]===4)o[it]=(t2>=tEnd*S)?r.dk:r.mid;
+          var it3=(tTop+t2)*CW+hcxL-S+bc; if(t2<tEnd*S&&g[it3]===4)o[it3]=r.mid;} }                                       /* tail down the back */
+      else if(front){ for(var t3=2*S;t3<(fEnd+1)*S;t3++)for(var fc2=0;fc2<S;fc2++){var if2=(tTop+t3)*CW+(hcxL-S+fc2); if(g[if2]===4)o[if2]=(t3>=fEnd*S)?r.dk:r.mid;} }  /* short drape on the chest */
+      else { var bsX=(fcx>hcx)?-1:1;
+        for(var tq=S;tq<3*S;tq++)for(var qc=0;qc<S;qc++){ var ip=(tTop+tq)*CW+(hcxL+bsX*S+qc);
+          if(ip>=0&&ip<g.length&&g[ip]===4)o[ip]=(tq>=2*S)?r.dk:r.mid; } }                                            /* tail behind, in profile */
       return o; }
     if(kind==='mask'){                                                   /* dust bandana: nose+mouth down, NEVER at/above the eyes */
       if(!back){ for(i=0;i<g.length;i++){var pm=g[i],xm=i%CW,ym=(i/CW)|0;
-        if((pm===1||pm===2)&&ym>=mouthY&&ym<=hBot)o[i]=(ym===mouthY)?r.dk:((xm<=hMn+0||xm>=hMx-0)?r.dk:r.mid); } }
-      if(!front){ var ky=Math.min(hBot,mouthY+1);                        /* the tied knot at the back of the skull */
-        if(back){ o[ky*CW+hcx]=r.dk; var kt1=(ky+1)*CW+(hcx-1), kt2=(ky+1)*CW+(hcx+1);
-          if(g[kt1]===1||g[kt1]===0)o[kt1]=r.mid; if(g[kt2]===1||g[kt2]===0)o[kt2]=r.mid; }
-        else { var bs2=(fcx>hcx)?-1:1, kx=hcx+bs2*3; if(kx>=0&&kx<CW){o[ky*CW+kx]=r.dk; if(ky+1<CH)o[(ky+1)*CW+kx]=r.mid;} } }
+        if((pm===1||pm===2)&&ym>=mouthY&&ym<=hBot)o[i]=(ym<mouthY+S)?r.dk:((xm<hMn+S||xm>hMx-S)?r.dk:r.mid); } }
+      if(!front){ var ky=Math.min(hBot,mouthY+S);                        /* the tied knot at the back of the skull */
+        if(back){ for(var kr=0;kr<S;kr++)for(var kc2=0;kc2<S;kc2++){ o[(ky+kr)*CW+hcxL+kc2]=r.dk;
+            var kt1=(ky+S+kr)*CW+(hcxL-S+kc2), kt2=(ky+S+kr)*CW+(hcxL+S+kc2);
+            if(g[kt1]===1||g[kt1]===0)o[kt1]=r.mid; if(g[kt2]===1||g[kt2]===0)o[kt2]=r.mid; } }
+        else { var bs2=(fcx>hcx)?-1:1, kx=hcxL+bs2*3*S;
+          for(var mr=0;mr<S;mr++)for(var mc=0;mc<S;mc++){ if(kx+mc<0||kx+mc>=CW)continue;
+            o[(ky+mr)*CW+kx+mc]=r.dk; if(ky+S+mr<CH)o[(ky+S+mr)*CW+kx+mc]=r.mid; } } }
       return o; }
     if(kind==='shades'){ if(back)return o;                               /* invisible from behind */
       /* SHADES v2 (post-calibration): anchor to the TRUE eyes -- the facial
@@ -21157,35 +21259,39 @@ window.CLO=(function(){
          a 2-row LENS BAND spanning the FULL head width -- edge to edge, so the
          arms visibly reach the ears -- and in profile a lens block on the
          leading edge with the arm running back along the head to the ear. */
-      var bandB=Math.max(eyeB,eyeA+1);
+      var bandB=Math.max(eyeB,eyeA+2*S-1);
       var spanH=function(y){ var mn=CW,mx=-1; for(var x=0;x<CW;x++){var gv=g[y*CW+x]; if(gv===1||gv===2){if(x<mn)mn=x;if(x>mx)mx=x;}} return mx<0?null:[mn,mx]; };
       if(prof){ var lead=(fcx>hcx)?1:-1;
         /* the arm STOPS AT THE EAR (Paolo 7/19: touching the back of the head
            reads as goggles) -- the back ~30% of the head stays bare */
-        var sA=spanH(eyeA); if(sA){ var wA=sA[1]-sA[0]+1, earGap=Math.max(2,Math.round(wA*0.3));
+        var sA=spanH(eyeA); if(sA){ var wA=sA[1]-sA[0]+1, earGap=Math.max(2*S,Math.round((wA/S)*0.3)*S);   /* 30% of the head measured in CELLS, or the arm loses a column at 112 */
           var aA=(lead>0)?sA[0]+earGap:sA[0], aB=(lead>0)?sA[1]:sA[1]-earGap;
-          for(var xa=aA;xa<=aB;xa++){var ia=eyeA*CW+xa; if(g[ia]===1||g[ia]===2)o[ia]=r.dk;} }
+          for(var ar=0;ar<S;ar++)for(var xa=aA;xa<=aB;xa++){var ia=(eyeA+ar)*CW+xa; if(g[ia]===1||g[ia]===2)o[ia]=r.dk;} }
         for(var yq=eyeA;yq<=bandB;yq++){ var sq=spanH(yq); if(!sq)continue;
-          var lA=(lead>0)?Math.max(sq[0],sq[1]-2):sq[0], lB=(lead>0)?sq[1]:Math.min(sq[1],sq[0]+2);
+          var lA=(lead>0)?Math.max(sq[0],sq[1]-3*S+1):sq[0], lB=(lead>0)?sq[1]:Math.min(sq[1],sq[0]+3*S-1);
           for(var xq=lA;xq<=lB;xq++){var iq=yq*CW+xq; if(g[iq]===1||g[iq]===2)o[iq]=r.dk;} }                                        /* the lens block on the leading edge */
       } else {
         /* front/3-4: TWO LENSES (Paolo 7/19: "a little slit where the nose goes,
            like real shades") -- the top row is the connected frame bridge, the
            bottom row splits at the calibrated nose position */
-        var nOff=(typeof faceOffset!=='undefined')?faceOffset(dir,'nose'):null, nx=Math.round(fcx)+((nOff&&nOff[0])||0);
+        var nOff=(typeof faceOffset!=='undefined')?faceOffset(dir,'nose'):null, nx=Math.round(fcx)+((nOff&&nOff[0])||0)-((S-1)>>1);
         for(var yb3=eyeA;yb3<=bandB;yb3++){ var sb3=spanH(yb3); if(!sb3)continue;
-          for(var xb5=sb3[0];xb5<=sb3[1];xb5++){ if(yb3>eyeA&&xb5===nx)continue;                                                   /* the nose slit */
+          for(var xb5=sb3[0];xb5<=sb3[1];xb5++){ if(yb3>=eyeA+S&&xb5>=nx&&xb5<nx+S)continue;                                       /* the nose slit */
             var ib=yb3*CW+xb5; if(g[ib]===1||g[ib]===2)o[ib]=r.dk;} }
-        var gl1=eyeA*CW+Math.round(fcx)-2, gl2=eyeA*CW+Math.round(fcx)+2;                                                          /* a glint per lens so it reads as glass, not a blindfold */
-        if(o[gl1]!==undefined)o[gl1]=r.mid; if(o[gl2]!==undefined)o[gl2]=r.mid;
+        var gcx=Math.round(fcx)-((S-1)>>1);                                                                                        /* a glint per lens so it reads as glass, not a blindfold */
+        for(var er=0;er<S;er++)for(var ec=0;ec<S;ec++){
+          var gl1=(eyeA+er)*CW+gcx-2*S+ec, gl2=(eyeA+er)*CW+gcx+2*S+ec;
+          if(o[gl1]!==undefined)o[gl1]=r.mid; if(o[gl2]!==undefined)o[gl2]=r.mid; }
       }
       return o; }
     if(kind==='gloves'){ for(i=0;i<g.length;i++){var pg2=g[i]; if(pg2!==7&&pg2!==8)continue;
-      var gl=g[i-1],gr=g[i+1],gu=g[i-CW],gd=g[i+CW];
-      var edge=!((gl===7||gl===8)&&(gr===7||gr===8)&&(gu===7||gu===8)&&(gd===7||gd===8));
+      var edge=false; for(var ed=1;ed<=S;ed++){
+        var gl=g[i-ed],gr2=g[i+ed],gu=g[i-ed*CW],gd=g[i+ed*CW];
+        if(!((gl===7||gl===8)&&(gr2===7||gr2===8)&&(gu===7||gu===8)&&(gd===7||gd===8))){edge=true;break;} }
       o[i]=edge?r.dk:r.mid; } return o; }
-    if(kind==='belt'){ for(i=0;i<g.length;i++)if(g[i]===4){var yb2=(i/CW)|0; if(yb2>=tb-1&&yb2<=tb)o[i]=r.dk;}
-      if(front){var bk=(tb-1)*CW+Math.round((tMn+tMx)/2); if(g[bk]===4)o[bk]=r.lt;}       /* the buckle catches light, front only */
+    if(kind==='belt'){ for(i=0;i<g.length;i++)if(g[i]===4){var yb2=(i/CW)|0; if(yb2>tb-2*S)o[i]=r.dk;}
+      if(front){var bcx=Math.round((tMn+tMx)/2)-((S-1)>>1);                              /* the buckle catches light, front only */
+        for(var br=0;br<S;br++)for(var bc2=0;bc2<S;bc2++){var bk=(tb-2*S+1+br)*CW+bcx+bc2; if(g[bk]===4)o[bk]=r.lt;} }
       return o; }
     return o; }
   /* COAT v3 — OPEN-FRONT LAW (Paolo 7/18, LOCKED): "if it's a jacket or a
@@ -21194,21 +21300,21 @@ window.CLO=(function(){
      flaps with an OPEN column down the center; the opening paints nothing, so the
      under-layer (shirt over pants, composed by previewGen) shows through. The two
      flaps get dark inner edges (the lapels). Still drapes A-line to the ankle. */
-  function genCoat(g,opt){ var r=opt.ramp,i, ohw=(opt.open||1);          /* opening half-width: 2*ohw+1 columns stay open */
+  function genCoat(g,opt){ var r=opt.ramp,i,S=rsc(), ohw=(opt.open||1)*S;   /* opening half-width: 2*ohw+1 columns stay open */
     var nMnX=1e9,nMxX=-1; for(i=0;i<g.length;i++)if(g[i]===3){var x=i%CW;if(x<nMnX)nMnX=x;if(x>nMxX)nMxX=x;} var nOK=(nMxX>=0);
     var tb=-1,ttop=CH,sx=0,sc=0; for(i=0;i<g.length;i++)if(g[i]===4){var xx0=i%CW,yy=(i/CW)|0;if(yy>tb)tb=yy;if(yy<ttop)ttop=yy;sx+=xx0;sc++;}
     var cx=sc?Math.round(sx/sc):(CW>>1);
     /* a COAT stays closed at the collar (top 3 rows) before the slit; a VEST
        hangs FULLY open -- no sternum bridge (Paolo 7/19: the connecting piece
        mid-chest on the denim vest read as a strange strap) */
-    var openTop=opt.vest?ttop-1:ttop+3;
+    var openTop=opt.vest?ttop-S:ttop+3*S;
     var le=pExt(g,9),re=pExt(g,10), legTop=Math.min(le.mn,re.mn), legBot=Math.max(le.mx,re.mx);
-    var hemY=legTop+Math.round((legBot-legTop)*(opt.len||0.86));
+    var hemY=legTop+fr(legTop,legBot,(opt.len||0.86))+S-1;
     /* the open front only exists when you FACE the front. From the side/back a
        trenchcoat is a SOLID silhouette -- a slit down a profile = wrong (Paolo). */
     var dir=(typeof curDir!=='undefined')?curDir:((opt&&opt.dir)||'S');
     var frontFacing=(dir==='S'||dir==='SE'||dir==='SW');
-    var isOpen=function(x,y){ return frontFacing && Math.abs(x-cx)<=ohw && y>openTop; };
+    var isOpen=function(x,y){ return frontFacing && x>=cx-ohw && x<cx+ohw+S && y>openTop; };
     /* body flaps: torso (+arms, unless a VEST which is sleeveless) minus the slit */
     var vest=!!opt.vest, jacket=!!opt.jacket;   /* JACKET (7/19, structure-not-color): sleeves + open front like a coat, but the hem STOPS at the waist -- no skirt. A real different garment, not a short coat recolor. */
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0,x=i%CW;
@@ -21216,16 +21322,16 @@ window.CLO=(function(){
     /* skirt: A-line panel hip-width -> flared, minus the slit. A vest has NO skirt
        (ends at the waist), so the shirt sleeves + pants show -- still open-front. */
     var hipMn=CW,hipMx=-1; for(var hx=0;hx<CW;hx++){ if(g[tb*CW+hx]===4){if(hx<hipMn)hipMn=hx;if(hx>hipMx)hipMx=hx;} }
-    if(hipMx<0){hipMn=cx-3;hipMx=cx+3;}
-    var halfW=Math.max(3,Math.ceil((hipMx-hipMn)/2)+1), span=hemY-tb+1, skirt={};
+    if(hipMx<0){hipMn=cx-3*S;hipMx=cx+3*S;}
+    var halfW=Math.max(3*S,Math.ceil((hipMx-hipMn)/2)+S), span=hemY-tb+1, skirt={};
     /* SPLIT-TAIL (wave 6, structure-not-color): a riding vent up the back of
        the skirt -- on back views the tail splits at center, widening to the
        hem, so the duster reads as a real different silhouette in motion. */
     var backV=(dir==='N'||dir==='NE'||dir==='NW');
     var ventY=opt.split?tb+Math.round(span*0.35):1e9;
-    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemY;y2++){ var hw=halfW+Math.round((y2-tb)/span*3);
+    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemY;y2++){ var hw=halfW+Math.round((y2-tb)/span*3*S);
       for(var xx=cx-hw;xx<=cx+hw;xx++){ if(xx<0||xx>=CW)continue; if(isOpen(xx,y2))continue;
-        if(opt.split&&backV&&y2>ventY&&Math.abs(xx-cx)<=Math.round((y2-ventY)/(hemY-ventY+1)*3))continue;   /* the vent */
+        if(opt.split&&backV&&y2>ventY&&Math.abs(xx-cx)<=Math.round((y2-ventY)/(hemY-ventY+1)*3*S))continue;   /* the vent */
         skirt[y2*CW+xx]=1; } }
     var E=ext(w);
     var inG=function(x,y){var idx=y*CW+x; return !!w[idx]||!!skirt[idx];};
@@ -21234,17 +21340,19 @@ window.CLO=(function(){
     for(k in w){var ii=+k,bx=ii%CW,by=(ii/CW)|0,p=g[ii],c=bshade(inG,bx,by,r);
       if(p===4&&nOK){ var topY=E.cT[bx];
         if(bx>=nMnX&&bx<=nMxX&&by<=topY)continue;                        /* neck opening */
-        if(bx>=nMnX-2&&bx<=nMxX+2&&by<=topY+2)c=r.dk; }                  /* tall collar (closed) */
-      if(p===5&&by>=aL.mx-1)c=r.dk;                                      /* cuff */
-      if(p===6&&by>=aR.mx-1)c=r.dk;                                      /* cuff */
-      if(frontFacing&&p===4&&Math.abs(bx-cx)===ohw+1&&by>openTop)c=r.dk; /* lapel: dark inner edge of each flap (front views only) */
-      if(jacket&&p===4&&by>=tb-1)c=r.dk;                                 /* jacket: ribbed waist hem band */
+        if(bx>=nMnX-2*S&&bx<=nMxX+2*S&&by<topY+3*S)c=r.dk; }             /* tall collar (closed) */
+      if(p===5&&by>=aL.mx-(2*S-1))c=r.dk;                                /* cuff */
+      if(p===6&&by>=aR.mx-(2*S-1))c=r.dk;                                /* cuff */
+      if(frontFacing&&p===4&&((bx>=cx-ohw-S&&bx<cx-ohw)||(bx>=cx+ohw+S&&bx<cx+ohw+2*S))&&by>openTop)c=r.dk; /* lapel: dark inner edge of each flap (front views only) */
+      if(jacket&&p===4&&by>tb-2*S)c=r.dk;                                /* jacket: ribbed waist hem band */
       o[ii]=c; }
     /* skirt flaps */
-    for(k in skirt){ var jj=+k,jx=jj%CW,jy=(jj/CW)|0, c2=r.mid;
-      if(!inG(jx-1,jy)||!inG(jx+1,jy))c2=r.dk;                           /* panel side + inner-slit edges */
-      else if(!inG(jx,jy+1))c2=r.dk;                                     /* hem */
-      else if(((jx-cx)%4+4)%4===2)c2=mix(r.mid,0.8);                     /* cloth-fold shadow */
+    for(k in skirt){ var jj=+k,jx=jj%CW,jy=(jj/CW)|0, c2=r.mid, sq;
+      var sSide=false; for(sq=1;sq<=S;sq++){ if(!inG(jx-sq,jy)||!inG(jx+sq,jy))sSide=true; }
+      var sb=0; while(sb<S&&inG(jx,jy+sb+1))sb++;
+      if(sSide)c2=r.dk;                                                  /* panel side + inner-slit edges */
+      else if(sb<S)c2=r.dk;                                              /* hem */
+      else if(((((jx-cx)%(4*S))+4*S)%(4*S))>=2*S&&((((jx-cx)%(4*S))+4*S)%(4*S))<3*S)c2=mix(r.mid,0.8);   /* cloth-fold shadow, 4px pitch at 56 */
       else if(jx<cx)c2=r.lt;                                             /* sky-lit side */
       o[jj]=c2; }
     return o; }
@@ -21259,24 +21367,25 @@ window.CLO=(function(){
     for(i=0;i<g.length;i++)if(g[i]===4){var x=i%CW,y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;if(x<tMn)tMn=x;if(x>tMx)tMx=x;sx+=x;sc++;}
     var cx=sc?Math.round(sx/sc):(CW>>1);
     var le=pExt(g,9),re=pExt(g,10), legTop=Math.min(le.mn,re.mn), legBot=Math.max(le.mx,re.mx);
-    var hemY=Math.min(CH-1, tb+3+Math.round((legBot-legTop)*0.1));
+    var S=rsc();
+    var hemY=Math.min(CH-1, tb+3*S+fr(legTop,legBot,0.1));
     /* TIGHT PONCHO (Paolo 7/20: "tighter on the body... it was moving pretty
        big, and you can never see the arms"): the drape hugs the torso -- one
        pixel past it, never over the arms below the shoulder cap -- so arm
        animation reads through every clip and the silhouette stops ballooning. */
-    var span=hemY-ttop, wide=Math.ceil((tMx-tMn)/2)+1;
+    var span=hemY-ttop, wide=Math.ceil((tMx-tMn)/2)+S;
     var w={};
     for(var y2=ttop;y2<=hemY;y2++){ var t2=(y2-ttop)/span;
       /* the drape COVERS THE SHOULDERS from the first row (7/19, caught on the
          real surface: a narrow top left the under-shirt's shoulders poking out
          like backpack straps) -- starts arm-wide, peaks past the elbows, then
          tapers to the point */
-      var hw=(t2<0.45)?Math.round((wide-1)+1*(t2/0.45)) : Math.round(wide-(wide-2)*((t2-0.45)/0.55));
+      var hw=(t2<0.45)?Math.round((wide-S)+S*(t2/0.45)) : Math.round(wide-(wide-2*S)*((t2-0.45)/0.55));
       for(var xx=cx-hw;xx<=cx+hw;xx++){ if(xx<0||xx>=CW)continue; var gv=g[y2*CW+xx];
         if(gv===1||gv===2)continue;                                      /* never the head/face */
-        if((gv===5||gv===6)&&y2>ttop+2)continue;                         /* ARMS FREE below the shoulder cap (Paolo 7/20) */
+        if((gv===5||gv===6)&&y2>=ttop+3*S)continue;                      /* ARMS FREE below the shoulder cap (Paolo 7/20) */
         if(gv===7||gv===8)continue;                                      /* hands always free */
-        if((gv===9||gv===10)&&y2>tb+1&&Math.abs(xx-cx)<=1)continue;      /* keep the inner leg gap readable at the point */
+        if((gv===9||gv===10)&&y2>tb+S&&xx>=cx-S&&xx<cx+2*S)continue;     /* keep the inner leg gap readable at the point */
         w[y2*CW+xx]=1; } }
     for(i=0;i<g.length;i++)if(g[i]===3)w[i]=1;                           /* the neck is WRAPPED -- no skin seam, every facing */
     var inG=function(x,y){return !!w[y*CW+x];}, o={},k;
@@ -21284,42 +21393,45 @@ window.CLO=(function(){
       var hMnP=CW,hMxP=-1,hTopP=CH;
       for(i=0;i<g.length;i++)if(g[i]===1){var xp=i%CW,yp=(i/CW)|0;if(xp<hMnP)hMnP=xp;if(xp>hMxP)hMxP=xp;if(yp<hTopP)hTopP=yp;}
       for(i=0;i<g.length;i++)if(g[i]===1){var xp2=i%CW,yp2=(i/CW)|0;
-        o[i]=(xp2===hMnP||xp2===hMxP||yp2===hTopP)?r.dk:(yp2<=hTopP+2?r.lt:r.mid);}
-      for(i=0;i<g.length;i++)if(g[i]===1){
-        if(g[i+1]===2||g[i-1]===2||g[i+CW]===2||g[i-CW]===2)o[i]=r.dk;}
+        o[i]=(xp2<hMnP+S||xp2>hMxP-S||yp2<hTopP+S)?r.dk:(yp2<hTopP+3*S?r.lt:r.mid);}
+      for(i=0;i<g.length;i++)if(g[i]===1){ for(var nd=1;nd<=S;nd++){
+        if(g[i+nd]===2||g[i-nd]===2||g[i+nd*CW]===2||g[i-nd*CW]===2){o[i]=r.dk;break;} } }
       var dirP=(typeof curDir!=='undefined')?curDir:'S';
       if(dirP==='N'||dirP==='NE'||dirP==='NW'){                          /* no skin slits from behind (Paolo 7/20) */
         for(i=0;i<g.length;i++)if(g[i]===2)o[i]=r.mid; }
       var fBotP=-1; for(i=0;i<g.length;i++)if(g[i]===1||g[i]===2){var yfp=(i/CW)|0;if(yfp>fBotP)fBotP=yfp;}
       for(i=0;i<g.length;i++){ if(g[i]!==0)continue; var yo2=(i/CW)|0;   /* the hood shell outline, front included */
-        if(yo2>fBotP+1)continue;
-        if(g[i+1]===1||g[i-1]===1||g[i+CW]===1||g[i-CW]===1||g[i+1]===2||g[i-1]===2)o[i]=r.mid; } }
+        if(yo2>fBotP+S)continue;
+        for(var od=1;od<=S;od++){
+          if(g[i+od]===1||g[i-od]===1||g[i+od*CW]===1||g[i-od*CW]===1||g[i+od]===2||g[i-od]===2){o[i]=r.mid;break;} } } }
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW');
     for(k in w){ var ii=+k,x2=ii%CW,y3=(ii/CW)|0, c=r.mid;
       if(g[ii]===3){ o[ii]=r.dk; continue; }                             /* rolled neck fabric */
-      if(!inG(x2,y3+1))c=((x2+y3)%2)?r.dk:r.mid;                         /* fringed hem */
-      else if(!inG(x2-1,y3)||!inG(x2+1,y3))c=r.dk;                       /* drape edges */
-      else if(front&&Math.abs(Math.abs(x2-cx)-((y3-ttop)>>1))<1&&y3<ttop+10)c=mix(r.mid,0.8);  /* fold lines radiating off the neck */
-      else if(!front&&((x2-cx+((y3-ttop)>>2))%5===0))c=mix(r.mid,0.82);  /* back/side: hanging drape folds */
-      else if(x2<cx-1)c=r.lt;                                            /* 45-degree: sky-lit flank */
+      var pb=0; while(pb<2*S&&inG(x2,y3+pb+1))pb++;
+      var pside=false; for(var pq=1;pq<=S;pq++){ if(!inG(x2-pq,y3)||!inG(x2+pq,y3))pside=true; }
+      if(pb<S)c=((((x2/S)|0)+((y3/S)|0))%2)?r.dk:r.mid;                  /* fringed hem: the dither is a FABRIC scale, so it steps in S-blocks */
+      else if(pside)c=r.dk;                                              /* drape edges */
+      else if(front&&Math.abs(Math.abs(x2-cx)-((y3-ttop)>>1))<S&&y3<ttop+10*S)c=mix(r.mid,0.8);  /* fold lines radiating off the neck */
+      else if(!front&&(((((x2-cx+((y3-ttop)>>2))%(5*S))+5*S)%(5*S))<S))c=mix(r.mid,0.82);  /* back/side: hanging drape folds, 5px pitch at 56 */
+      else if(x2<cx-S)c=r.lt;                                            /* 45-degree: sky-lit flank */
       o[ii]=c; }
     return o; }
   /* GEAR (7/19, STRUCTURE-NOT-COLOR): scavenger equipment -- kneepads, a
      one-shoulder scrap pauldron, a diagonal chest rig with pouches. New
      category, new zones; worn OVER clothes (drawn additively like accessories). */
-  function genGear(g,opt){ var r=opt.ramp,kind=opt.kind,i,o={};
+  function genGear(g,opt){ var r=opt.ramp,kind=opt.kind,i,o={},S=rsc();
     if(kind==='kneepads'){ var le=pExt(g,9),re=pExt(g,10);
       [[9,le],[10,re]].forEach(function(pr){ var p=pr[0],E2=pr[1]; if(E2.mx<0)return;
-        var knee=E2.mn+Math.round((E2.mx-E2.mn)*0.45);
+        var knee=E2.mn+fr(E2.mn,E2.mx,0.45);
         for(i=0;i<g.length;i++)if(g[i]===p){ var y=(i/CW)|0;
-          if(y>=knee-1&&y<=knee+2)o[i]=(y===knee-1||y===knee+2)?r.dk:(y===knee)?r.lt:r.mid; } });  /* strap edges, scuffed cap */
+          if(y>=knee-S&&y<knee+3*S)o[i]=(y<knee||y>=knee+2*S)?r.dk:(y<knee+S)?r.lt:r.mid; } });  /* strap edges, scuffed cap */
       return o; }
     if(kind==='shinguards'){ var leS=pExt(g,9),reS=pExt(g,10);           /* wave 3: strapped plates down both shins */
       [[9,leS],[10,reS]].forEach(function(pr2){ var p3=pr2[0],E3=pr2[1]; if(E3.mx<0)return;
-        var top3=E3.mn+Math.round((E3.mx-E3.mn)*0.6);
+        var top3=E3.mn+fr(E3.mn,E3.mx,0.6);
         for(i=0;i<g.length;i++)if(g[i]===p3){ var y7=(i/CW)|0;
-          if(y7>=top3&&y7<=E3.mx-1)o[i]=(y7===top3||y7===E3.mx-1)?r.dk:((y7-top3)%2?r.mid:r.lt); } });
+          if(y7>=top3&&y7<=E3.mx-S)o[i]=(y7<top3+S||y7>E3.mx-2*S)?r.dk:(((((y7-top3)/S)|0)%2)?r.mid:r.lt); } });
       return o; }
     if(kind==='chestplate'){ var tbC=-1,ttC=CH,sxC=0,scC=0;              /* wave 4: a scavenged armor plate over the chest, X harness on the back */
       for(i=0;i<g.length;i++)if(g[i]===4){var yC=(i/CW)|0;if(yC>tbC)tbC=yC;if(yC<ttC)ttC=yC;sxC+=i%CW;scC++;}
@@ -21327,75 +21439,76 @@ window.CLO=(function(){
       var backC=(dirC==='N'||dirC==='NE'||dirC==='NW');
       for(i=0;i<g.length;i++)if(g[i]===4){ var xC=i%CW,yC2=(i/CW)|0;
         if(backC){ var tC=(yC2-ttC)/((tbC-ttC)||1);
-          var offC=Math.round(3*(1-Math.abs(tC*2-1)));
-          if(xC===cxC-offC||xC===cxC+offC)o[i]=r.dk; continue; }         /* the X straps crossing the back */
-        if(yC2>=ttC+2&&yC2<=tbC-5&&Math.abs(xC-cxC)<=3){
-          var eC=(Math.abs(xC-cxC)===3||yC2===ttC+2||yC2===tbC-5);
-          o[i]=eC?r.dk:(yC2<=ttC+4?r.lt:r.mid); } }                      /* the plate: lit collar edge, dark rim */
+          var offC=Math.round(3*(1-Math.abs(tC*2-1)))*S;
+          if((xC>=cxC-offC&&xC<cxC-offC+S)||(xC>=cxC+offC&&xC<cxC+offC+S))o[i]=r.dk; continue; }   /* the X straps crossing the back */
+        if(yC2>=ttC+2*S&&yC2<=tbC-5*S&&xC>=cxC-3*S&&xC<cxC+4*S){
+          var eC=(xC<cxC-2*S||xC>=cxC+3*S||yC2<ttC+3*S||yC2>tbC-6*S);
+          o[i]=eC?r.dk:(yC2<ttC+5*S?r.lt:r.mid); } }                     /* the plate: lit collar edge, dark rim */
       return o; }
     if(kind==='bracers'){ var aLB=pExt(g,5),aRB=pExt(g,6);               /* wave 5: forearm guards, both arms */
       [[5,aLB],[6,aRB]].forEach(function(pr4){ var p5=pr4[0],E5=pr4[1]; if(E5.mx<0)return;
-        var b0=E5.mn+Math.round((E5.mx-E5.mn)*0.55), b1=E5.mn+Math.round((E5.mx-E5.mn)*0.85);
+        var b0=E5.mn+fr(E5.mn,E5.mx,0.55), b1=E5.mn+fr(E5.mn,E5.mx,0.85)+S-1;   /* b1 is an INCLUSIVE bottom: take the last row of the cell */
         for(i=0;i<g.length;i++)if(g[i]===p5){ var y8=(i/CW)|0;
-          if(y8>=b0&&y8<=b1)o[i]=(y8===b0||y8===b1)?r.dk:((y8-b0)%2?r.mid:r.lt); } });
+          if(y8>=b0&&y8<=b1)o[i]=(y8<b0+S||y8>b1-S)?r.dk:(((((y8-b0)/S)|0)%2)?r.mid:r.lt); } });
       return o; }
     if(kind==='holster'){ var reH=pExt(g,10); if(reH.mx<0)return o;      /* wave 5: thigh rig on one leg + hip strap */
       var tbH=-1,sxH=0,scH=0; for(i=0;i<g.length;i++)if(g[i]===4){var yH=(i/CW)|0;if(yH>tbH)tbH=yH;sxH+=i%CW;scH++;}
       var cxH=scH?Math.round(sxH/scH):(CW>>1);
-      var hs0=reH.mn+Math.round((reH.mx-reH.mn)*0.12), hs1=hs0+3;
+      var hs0=reH.mn+fr(reH.mn,reH.mx,0.12), hs1=hs0+3*S;
       for(i=0;i<g.length;i++)if(g[i]===10){ var yh=(i/CW)|0;
-        if(yh===hs0||yh===hs1)o[i]=r.dk;
-        else if(yh>hs0&&yh<hs1){ var rEdge=(g[i+1]!==10);
+        if((yh>=hs0&&yh<hs0+S)||(yh>=hs1&&yh<hs1+S))o[i]=r.dk;
+        else if(yh>=hs0+S&&yh<hs1){ var rEdge=(g[i+S]!==10);
           o[i]=rEdge?r.lt:r.mid; } }
-      for(i=0;i<g.length;i++)if(g[i]===4){ var yH2=(i/CW)|0,xH2=i%CW; if(yH2===tbH&&xH2>cxH)o[i]=r.dk; }
+      for(i=0;i<g.length;i++)if(g[i]===4){ var yH2=(i/CW)|0,xH2=i%CW; if(yH2>tbH-S&&xH2>cxH)o[i]=r.dk; }
       return o; }
     if(kind==='pauldron'){ var aR2=pExt(g,6); if(aR2.mx<0)return o;      /* one shoulder: the RIGHT arm's top rows + the torso corner it meets */
-      var top=aR2.mn, lim=top+4;
+      var top=aR2.mn, lim=top+4*S;
       for(i=0;i<g.length;i++){ var p2=g[i],x3=i%CW,y4=(i/CW)|0;
-        if(p2===6&&y4<=lim)o[i]=(y4===lim)?r.dk:(y4===top)?r.lt:r.mid;   /* plate: lit top edge, dark lower rim */
-        if(p2===4&&y4<=top+2){ var nearArm=false; for(var dd=1;dd<=2;dd++)if(g[y4*CW+(x3+dd)]===6||g[y4*CW+(x3-dd)]===6)nearArm=true;
-          if(nearArm)o[i]=(y4===top+2)?r.dk:r.mid; } }                   /* the strap lip onto the torso */
+        if(p2===6&&y4<lim+S)o[i]=(y4>=lim)?r.dk:(y4<top+S)?r.lt:r.mid;   /* plate: lit top edge, dark lower rim */
+        if(p2===4&&y4<top+3*S){ var nearArm=false; for(var dd=1;dd<=2*S;dd++)if(g[y4*CW+(x3+dd)]===6||g[y4*CW+(x3-dd)]===6)nearArm=true;
+          if(nearArm)o[i]=(y4>=top+2*S)?r.dk:r.mid; } }                  /* the strap lip onto the torso */
       return o; }
     if(kind==='suspenders'){ var tbS=-1,ttS=CH,sxS=0,scS=0;
       for(i=0;i<g.length;i++)if(g[i]===4){var yS=(i/CW)|0;if(yS>tbS)tbS=yS;if(yS<ttS)ttS=yS;sxS+=i%CW;scS++;}
       var cxS=scS?Math.round(sxS/scS):(CW>>1), dirS=(typeof curDir!=='undefined')?curDir:'S';
       var backS=(dirS==='N'||dirS==='NE'||dirS==='NW'), profS=(dirS==='E'||dirS==='W');
       for(i=0;i<g.length;i++)if(g[i]===4){ var xS=i%CW,yS2=(i/CW)|0, tS=(yS2-ttS)/((tbS-ttS)||1);
-        if(profS){ if(yS2<=ttS+1&&Math.abs(xS-cxS)<=1)o[i]=r.dk; continue; }        /* profile: the strap crossing the shoulder */
-        var off=backS?Math.max(1,Math.round(3*(1-tS))):3;                            /* back: the Y -- straps converge to the crossback */
-        if(xS===cxS-off||xS===cxS+off)o[i]=r.dk;
-        if(!backS&&(xS===cxS-off||xS===cxS+off)&&yS2>=tbS-1)o[i]=r.lt;               /* front: waist buttons */
-        if(backS&&tS>0.6&&xS===cxS)o[i]=r.dk; }                                      /* back: the single spine strap below the cross */
+        if(profS){ if(yS2<ttS+2*S&&xS>=cxS-S&&xS<cxS+2*S)o[i]=r.dk; continue; }    /* profile: the strap crossing the shoulder */
+        var off=backS?Math.max(S,Math.round(3*S*(1-tS))):3*S;                        /* back: the Y -- straps converge to the crossback */
+        var onStrap=((xS>=cxS-off&&xS<cxS-off+S)||(xS>=cxS+off&&xS<cxS+off+S));
+        if(onStrap)o[i]=r.dk;
+        if(!backS&&onStrap&&yS2>tbS-2*S)o[i]=r.lt;                                   /* front: waist buttons */
+        if(backS&&tS>0.6&&xS>=cxS-((S-1)>>1)&&xS<cxS-((S-1)>>1)+S)o[i]=r.dk; }       /* back: the single spine strap below the cross */
       return o; }
     if(kind==='elbowpads'){ /* wave 8: the kneepads' upstairs sibling -- strapped
        caps on BOTH elbows, arm zone only. */
       var eL=pExt(g,5),eR=pExt(g,6);
       [[5,eL],[6,eR]].forEach(function(pr){ var p=pr[0],E2=pr[1]; if(E2.mx<0)return;
-        var el=E2.mn+Math.round((E2.mx-E2.mn)*0.45);
+        var el=E2.mn+fr(E2.mn,E2.mx,0.45);
         for(i=0;i<g.length;i++)if(g[i]===p){ var y=(i/CW)|0;
-          if(y>=el-1&&y<=el+2)o[i]=(y===el-1||y===el+2)?r.dk:(y===el)?r.lt:r.mid; } });
+          if(y>=el-S&&y<el+3*S)o[i]=(y<el||y>=el+2*S)?r.dk:(y<el+S)?r.lt:r.mid; } });
       return o; }
     if(kind==='legwraps'){ /* wave 8: field puttees -- cloth wrapped shin to knee
        on BOTH legs, the diagonal winding readable. Cloth, not the shin guards'
        plates. */
       var lw=pExt(g,9),rw=pExt(g,10);
       [[9,lw],[10,rw]].forEach(function(pr){ var p=pr[0],E2=pr[1]; if(E2.mx<0)return;
-        var top=E2.mn+Math.round((E2.mx-E2.mn)*0.5);
+        var top=E2.mn+fr(E2.mn,E2.mx,0.5);
         for(i=0;i<g.length;i++)if(g[i]===p){ var x=i%CW,y=(i/CW)|0;
-          if(y>=top){ o[i]=(((x+y)%3)===0)?mix(r.mid,0.78):(y===top||y===E2.mx)?r.dk:r.mid; } } });
+          if(y>=top){ o[i]=((((((x/S)|0)+((y/S)|0))%3)===0))?mix(r.mid,0.78):(y<top+S||y>E2.mx-S)?r.dk:r.mid; } } });
       return o; }
     if(kind==='shoulderroll'){ /* wave 8: a BLANKET ROLL slung shoulder to hip --
        thick (3px) where the bandolier is a strap, woven texture, tied ends. */
       var tbR=-1,ttR=CH,mnR=CW,mxR=-1;
       for(i=0;i<g.length;i++)if(g[i]===4){var xR=i%CW,yR=(i/CW)|0;if(yR>tbR)tbR=yR;if(yR<ttR)ttR=yR;if(xR<mnR)mnR=xR;if(xR>mxR)mxR=xR;}
       if(tbR<0)return o;
-      var x0=mxR-1,y0=ttR+1,x1=mnR+1,y1=tbR-1;                             /* the OTHER diagonal from the bandolier */
+      var x0=mxR-S,y0=ttR+S,x1=mnR+S,y1=tbR-S;                             /* the OTHER diagonal from the bandolier */
       for(i=0;i<g.length;i++)if(g[i]===4){ var xr=i%CW,yr=(i/CW)|0;
         var t=(yr-y0)/((y1-y0)||1); if(t<0||t>1)continue;
         var lx=Math.round(x0+(x1-x0)*t), dxr=xr-lx;
-        if(dxr>=-2&&dxr<=2){ o[i]=(Math.abs(dxr)===2)?r.dk:(((xr+yr)%2)?r.mid:mix(r.mid,0.85)); } }   /* woven roll, THICK */
+        if(dxr>=-2*S&&dxr<3*S){ o[i]=(dxr<-S||dxr>=2*S)?r.dk:(((((xr/S)|0)+((yr/S)|0))%2)?r.mid:mix(r.mid,0.85)); } }   /* woven roll, THICK */
       for(i=0;i<g.length;i++)if(g[i]===4){ var xr2=i%CW,yr2=(i/CW)|0;      /* tied ends at shoulder + hip */
-        if((yr2<=y0+1&&Math.abs(xr2-x0)<=1)||(yr2>=y1-1&&Math.abs(xr2-x1)<=1))o[i]=r.dk; }
+        if((yr2<y0+2*S&&xr2>=x0-S&&xr2<x0+2*S)||(yr2>y1-2*S&&xr2>=x1-S&&xr2<x1+2*S))o[i]=r.dk; }
       return o; }
     if(kind==='toolbelt'){ /* wave 7: the working waist -- a heavy belt with
        POUCHES HANGING off it onto the hips, front and back. The plain belt
@@ -21403,15 +21516,15 @@ window.CLO=(function(){
       var tbT=-1; for(i=0;i<g.length;i++)if(g[i]===4){var yT=(i/CW)|0;if(yT>tbT)tbT=yT;}
       if(tbT<0)return o;
       var mnT=CW,mxT=-1; for(var xT=0;xT<CW;xT++){ if(g[tbT*CW+xT]===4){if(xT<mnT)mnT=xT;if(xT>mxT)mxT=xT;} }
-      var cxT=Math.round((mnT+mxT)/2);
+      var cxT=Math.round((mnT+mxT)/2), cxTL=cxT-((S-1)>>1);
       for(i=0;i<g.length;i++)if(g[i]===4){ var xb2=i%CW,yb3=(i/CW)|0;
-        if(yb3===tbT||yb3===tbT-1)o[i]=(yb3===tbT-1)?r.dk:r.mid;           /* the heavy belt */
-        if(yb3===tbT&&xb2===cxT)o[i]=r.lt; }                               /* the buckle */
-      var hangs=[[mnT,mnT+2],[mxT-2,mxT]];                                 /* a pouch on each hip */
+        if(yb3>tbT-2*S)o[i]=(yb3<=tbT-S)?r.dk:r.mid;                       /* the heavy belt */
+        if(yb3>tbT-S&&xb2>=cxTL&&xb2<cxTL+S)o[i]=r.lt; }                   /* the buckle */
+      var hangs=[[mnT,mnT+3*S-1],[mxT-3*S+1,mxT]];                         /* a pouch on each hip */
       for(var hI=0;hI<hangs.length;hI++){ var h0=hangs[hI][0],h1=hangs[hI][1];
-        for(var yP=tbT+1;yP<=tbT+4;yP++)for(var xP=h0;xP<=h1;xP++){ var iP=yP*CW+xP;
+        for(var yP=tbT+1;yP<=tbT+4*S;yP++)for(var xP=h0;xP<=h1;xP++){ var iP=yP*CW+xP;   /* tbT is the BOTTOM pixel of its cell, so the pouch starts at +1 and runs 4 cells */
           if(iP<0||iP>=g.length)continue; var gvP=g[iP];
-          if(gvP===9||gvP===10||gvP===0)o[iP]=(yP===tbT+4||xP===h0||xP===h1)?r.dk:r.mid; } }
+          if(gvP===9||gvP===10||gvP===0)o[iP]=(yP>tbT+3*S||xP<h0+S||xP>h1-S)?r.dk:r.mid; } }
       return o; }
     if(kind==='bandolier'){ /* wave 6: ONE diagonal shell belt, left shoulder
        to right hip, brass studs riding the strap, ammo pouch at the low end.
@@ -21420,22 +21533,24 @@ window.CLO=(function(){
       var tbB=-1,ttB=CH,mnB=CW,mxB=-1;
       for(i=0;i<g.length;i++)if(g[i]===4){var xB2=i%CW,yB2=(i/CW)|0;if(yB2>tbB)tbB=yB2;if(yB2<ttB)ttB=yB2;if(xB2<mnB)mnB=xB2;if(xB2>mxB)mxB=xB2;}
       if(tbB<0)return o;
-      var x0=mnB+1,y0=ttB+1,x1=mxB-1,y1=tbB-1;
+      var x0=mnB+S,y0=ttB+S,x1=mxB-S,y1=tbB-S;
       for(i=0;i<g.length;i++)if(g[i]===4){ var xb=i%CW,yb=(i/CW)|0;
         var t=(yb-y0)/((y1-y0)||1); if(t<0||t>1)continue;
-        var lx=Math.round(x0+(x1-x0)*t), dxb=xb-lx;
-        if(dxb>=-1&&dxb<=1){ o[i]=(dxb===0&&((yb-y0)%3===1))?r.lt:(dxb!==0?r.dk:r.mid); } }  /* strap edges dk, brass shells every 3rd row */
+        var lx=Math.round(x0+(x1-x0)*t), dxb=xb-lx, onCore=(dxb>=0&&dxb<S);
+        if(dxb>=-S&&dxb<2*S){ o[i]=(onCore&&((((yb-y0)/S)|0)%3===1))?r.lt:(!onCore?r.dk:r.mid); } }  /* strap edges dk, brass shells every 3rd row */
+      var py0=y1-3*S+1,px0=x1-3*S,px1=x1-S;
       for(i=0;i<g.length;i++)if(g[i]===4){ var xp3=i%CW,yp3=(i/CW)|0;      /* the pouch at the hip end */
-        if(yp3>=y1-2&&yp3<=y1&&xp3>=x1-3&&xp3<=x1-1)o[i]=(yp3===y1-2||yp3===y1||xp3===x1-3||xp3===x1-1)?r.dk:r.mid; }
+        if(yp3>=py0&&yp3<=y1&&xp3>=px0&&xp3<=px1)
+          o[i]=(yp3<py0+S||yp3>y1-S||xp3<px0+S||xp3>px1-S)?r.dk:r.mid; }
       return o; }
     if(kind==='chestrig'){ var tb2=-1,tt2=CH,sx2=0,sc2=0;
       for(i=0;i<g.length;i++)if(g[i]===4){var y5=(i/CW)|0;if(y5>tb2)tb2=y5;if(y5<tt2)tt2=y5;sx2+=i%CW;sc2++;}
       var cx2=sc2?Math.round(sx2/sc2):(CW>>1), h=tb2-tt2;
       for(i=0;i<g.length;i++)if(g[i]===4){ var x6=i%CW,y6=(i/CW)|0, t3=(y6-tt2)/(h||1);
-        var strapX=Math.round(cx2+3-6*t3);                               /* the diagonal strap: right shoulder down to left hip */
-        if(Math.abs(x6-strapX)<=1)o[i]=(x6===strapX)?r.mid:r.dk;
-        if(t3>0.35&&t3<0.75&&x6>=cx2-4&&x6<=cx2-2)o[i]=(t3<0.45||t3>0.65)?r.dk:r.lt;   /* pouch, left chest */
-        if(t3>0.4&&t3<0.7&&x6>=cx2+2&&x6<=cx2+3)o[i]=(t3<0.48||t3>0.62)?r.dk:r.mid; }  /* small pouch, right */
+        var strapX=Math.round(cx2+3*S-6*S*t3);                           /* the diagonal strap: right shoulder down to left hip */
+        if(x6>=strapX-S&&x6<strapX+2*S)o[i]=((x6>=strapX&&x6<strapX+S)?r.mid:r.dk);
+        if(t3>0.35&&t3<0.75&&x6>=cx2-4*S&&x6<cx2-S)o[i]=(t3<0.45||t3>0.65)?r.dk:r.lt;  /* pouch, left chest */
+        if(t3>0.4&&t3<0.7&&x6>=cx2+2*S&&x6<cx2+4*S)o[i]=(t3<0.48||t3>0.62)?r.dk:r.mid; }  /* small pouch, right */
       return o; }
     if(kind==='gorget'){ /* MARATHON WAVE 2 (7/25/26): a narrow throat-guard ring
        at the base of the neck -- a genuinely different zone from the chestplate
@@ -21443,15 +21558,19 @@ window.CLO=(function(){
        only). Neck band + the collar lip it laps onto the torso top. */
       var ttGo=CH; for(i=0;i<g.length;i++)if(g[i]===4){var yGo=(i/CW)|0; if(yGo<ttGo)ttGo=yGo;}
       for(i=0;i<g.length;i++){ var pGo=g[i],yGo2=(i/CW)|0;
-        if(pGo===3)o[i]=(yGo2<=ttGo-1)?r.lt:r.dk;                       /* the neck band: lit top rim, dark below */
-        else if(pGo===4&&yGo2<=ttGo+1)o[i]=r.mid; }                     /* the collar lip it laps onto the torso */
+        if(pGo===3)o[i]=(yGo2<=ttGo-S)?r.lt:r.dk;                       /* the neck band: lit top rim, dark below */
+        else if(pGo===4&&yGo2<ttGo+2*S)o[i]=r.mid; }                    /* the collar lip it laps onto the torso */
       return o; }
     return o; }
   /* BAGS (7/19, STRUCTURE wave 2): a new carried-equipment class on a new
      'back' layer. Directional like the hood: the pack LIVES on the back --
      full body from behind, protruding from the back edge in profile, straps
      only from the front. */
-  function genBag(g,opt){ var r=opt.ramp,kind=opt.kind||'backpack',i,o={};
+  function genBag(g,opt){ var r=opt.ramp,kind=opt.kind||'backpack',i,o={},S=rsc();
+    /* 4X, THE OFF-BY-(S-1) THAT EATS A ROW. A body MAX edge (tMx, tb) is the RIGHT
+       or BOTTOM pixel of its cell, so at S=2 the cell it belongs to starts S-1
+       earlier. Offsets measured off a max edge use the cell's LEFT/TOP corner or
+       every band comes out one sub-pixel short and the whole bag creeps inward. */
     if(kind==='quiver'){ /* v2 (Paolo 7/21: "THE QUIVER COULD BE BETTER DO IT
        AGAIN"): a REAL capped tube high on the back -- 3px wide, leather seam,
        a dark mouth at the top, and THREE fletched arrows fanning out past the
@@ -21464,32 +21583,33 @@ window.CLO=(function(){
       var backQ=(dirQ==='N'||dirQ==='NE'||dirQ==='NW');
       var latQ=(dirQ==='E'||dirQ==='W');
       var FLETCH=[168,84,58];                                              /* fletching feathers: they must READ */
-      var x0=mxQ-2,y0=ttQ,x1=Math.round((mnQ+mxQ)/2),y1=ttQ+Math.round((tbQ-ttQ)*0.65);
+      var mxQL=mxQ-(S-1);
+      var x0=mxQL-2*S,y0=ttQ,x1=Math.round((mnQ+mxQ)/2),y1=ttQ+fr(ttQ,tbQ,0.65);
       var tips=function(tx,ty){ /* three arrows fanning from the mouth */
         var arr=[[0,-1],[-1,-2],[1,-2],[0,-3],[-2,-3],[2,-3]];
-        for(var a2=0;a2<arr.length;a2++){ var xA=tx+arr[a2][0],yA=ty+arr[a2][1];
+        for(var a2=0;a2<arr.length;a2++)for(var sy=0;sy<S;sy++)for(var sx2=0;sx2<S;sx2++){
+          var xA=tx+arr[a2][0]*S+sx2,yA=ty+arr[a2][1]*S+sy;
           if(xA<0||xA>=CW||yA<0)continue; var iA=yA*CW+xA;
           if(iA>=0&&iA<g.length&&(g[iA]===0||g[iA]===1))o[iA]=(arr[a2][1]<=-3)?FLETCH:r.lt; } };   /* shafts light, feathers rust */
       if(backQ){ for(i=0;i<g.length;i++)if(g[i]===4){ var xq=i%CW,yq=(i/CW)|0;
           var t=(yq-y0)/((y1-y0)||1); if(t<0||t>1)continue;
           var lx=Math.round(x0+(x1-x0)*t), dq=xq-lx;
-          if(dq>=-1&&dq<=1){ o[i]=(Math.abs(dq)===1)?r.dk:((yq===y0||yq===y0+1)?r.dk:(((yq-y0)%4===2)?mix(r.mid,0.8):r.mid)); } }   /* tube, banded leather, dark mouth */
-        var capI=y1*CW+x1; if(capI<g.length&&o[capI]!==undefined)o[capI]=r.dk;   /* the base cap */
-        tips(mxQ,y0); }
+          if(dq>=-S&&dq<2*S){ o[i]=((dq<0||dq>=S))?r.dk:((yq<y0+2*S)?r.dk:(((((yq-y0)/S)|0)%4===2)?mix(r.mid,0.8):r.mid)); } }   /* tube, banded leather, dark mouth */
+        for(var cs=0;cs<S;cs++){ var capI=y1*CW+x1+cs; if(capI<g.length&&o[capI]!==undefined)o[capI]=r.dk; }   /* the base cap */
+        tips(mxQL,y0); }
       else if(latQ){ var lead=(dirQ==='E')?mxQ:mnQ, sgn2=(dirQ==='E')?-1:1;   /* the tube trails the BACK edge */
-        for(var yE=ttQ;yE<=ttQ+Math.round((tbQ-ttQ)*0.6);yE++){ var bx1=lead+((dirQ==='E')?-99:99);
+        for(var yE=ttQ;yE<=ttQ+fr(ttQ,tbQ,0.6);yE++){
           var eX2=-1; if(dirQ==='E'){ for(var t3=0;t3<CW;t3++){ if(g[yE*CW+t3]===4){eX2=t3;break;} } }
           else { for(var t4=CW-1;t4>=0;t4--){ if(g[yE*CW+t4]===4){eX2=t4;break;} } }
           if(eX2<0)continue;
-          var b1=eX2+sgn2,b2=eX2+2*sgn2;
-          if(b1>=0&&b1<CW&&!g[yE*CW+b1])o[yE*CW+b1]=(yE===ttQ)?r.dk:r.mid;
-          if(b2>=0&&b2<CW&&!g[yE*CW+b2])o[yE*CW+b2]=r.dk; }
-        tips(((dirQ==='E')?mnQ:mxQ)+sgn2,ttQ); }
+          for(var qd=1;qd<=2*S;qd++){ var bq=eX2+sgn2*qd; if(bq<0||bq>=CW||g[yE*CW+bq])continue;
+            o[yE*CW+bq]=(qd>S)?r.dk:((yE<ttQ+S)?r.dk:r.mid); } }
+        tips(((dirQ==='E')?mnQ:mxQ-(S-1))+sgn2*S,ttQ); }
       else { for(i=0;i<g.length;i++)if(g[i]===4){ var xq2=i%CW,yq2=(i/CW)|0;   /* front: the chest strap */
           var t2=(yq2-y0)/((y1-y0)||1); if(t2<0||t2>1)continue;
           var lx2=Math.round(x1+(x0-x1)*t2), dq2=xq2-lx2;
-          if(dq2>=0&&dq2<=1)o[i]=(dq2===1)?r.dk:r.mid; }
-        tips(mxQ,y0); }
+          if(dq2>=0&&dq2<2*S)o[i]=(dq2>=S)?r.dk:r.mid; }
+        tips(mxQL,y0); }
       return o; }
     var tb=-1,ttop=CH,sx=0,sc=0,tMn=CW,tMx=-1;
     for(i=0;i<g.length;i++)if(g[i]===4){var x=i%CW,y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;if(x<tMn)tMn=x;if(x>tMx)tMx=x;sx+=x;sc++;}
@@ -21499,55 +21619,61 @@ window.CLO=(function(){
     var fsx=0,fsc=0; for(i=0;i<g.length;i++)if(g[i]===2){fsx+=i%CW;fsc++;} var fcx=fsc?fsx/fsc:cx;
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return; var gv=g[y*CW+x]; if(gv===1||gv===2)return; o[y*CW+x]=col; };
     if(kind==='backpack'){
-      if(back){ for(var yy=ttop+1;yy<=ttop+10;yy++)for(var xx=cx-4;xx<=cx+4;xx++){   /* the pack body, seen square-on */
-          var e2=(xx===cx-4||xx===cx+4||yy===ttop+1||yy===ttop+10);
-          put(xx,yy,e2?r.dk:(yy<=ttop+3?r.lt:r.mid)); }
-        for(var xf=cx-2;xf<=cx+2;xf++)put(xf,ttop+6,r.dk);                            /* the flap seam */
+      if(back){ var by0=ttop+S,by1=by0+10*S,bx0=cx-4*S,bx1=bx0+9*S;                  /* the pack body, seen square-on */
+        for(var yy=by0;yy<by1;yy++)for(var xx=bx0;xx<bx1;xx++){
+          var e2=(xx<bx0+S||xx>=bx1-S||yy<by0+S||yy>=by1-S);
+          put(xx,yy,e2?r.dk:(yy<by0+3*S?r.lt:r.mid)); }
+        for(var xf=cx-2*S;xf<cx+3*S;xf++)for(var fs2=0;fs2<S;fs2++)put(xf,ttop+6*S+fs2,r.dk);   /* the flap seam */
       } else if(prof){ var bs=(fcx>cx)?-1:1;                                          /* protrude from the BACK edge (hood pattern) -- outside the WHOLE silhouette, arms included */
-        for(var yp=ttop+1;yp<=ttop+9;yp++){ var edgeX=-1;
+        var py0=ttop+S,py1=py0+9*S;
+        for(var yp=py0;yp<py1;yp++){ var edgeX=-1;
           if(bs<0){ for(var s1=0;s1<CW;s1++){ if(g[yp*CW+s1]>0){edgeX=s1;break;} } }
           else { for(var s2=CW-1;s2>=0;s2--){ if(g[yp*CW+s2]>0){edgeX=s2;break;} } }
-          if(edgeX<0)continue; var depth=(yp>=ttop+3&&yp<=ttop+7)?4:3;
+          if(edgeX<0)continue; var depth=((yp>=ttop+3*S&&yp<ttop+8*S)?4:3)*S;
           for(var d=1;d<=depth;d++){ var px=edgeX+bs*d; if(px<0||px>=CW)continue;
             if(g[yp*CW+px]!==0)continue;                                              /* the pack hangs in clear air behind the body */
-            o[yp*CW+px]=(d===depth||yp===ttop+1||yp===ttop+9)?r.dk:r.mid; } }
+            o[yp*CW+px]=(d>depth-S||yp<py0+S||yp>=py1-S)?r.dk:r.mid; } }
       } else { /* FRONT: REAL over-the-shoulder straps (Paolo's canon note 7/19:
            "the straps next to the arms from the shoulders had to be a lot
            better") -- 2px webbing hugging the torso edge beside each arm,
            anchored at the shoulder line, dark outer + lit inner edge, chest
            buckle. NOTES ARE RULINGS: rebuilt same turn, no re-thumb. */
         for(i=0;i<g.length;i++)if(g[i]===4){ var xa=i%CW,ya=(i/CW)|0;
-          var lo=xa-tMn, ro=tMx-xa;
-          if(ya<=tb-2&&(lo===1||lo===2||ro===1||ro===2)){
-            o[i]=(lo===2||ro===2)?r.mid:r.dk;                                         /* outer dark webbing, inner lit edge */
-            if(ya===ttop+5&&(lo===1||ro===1))o[i]=r.lt; } }                           /* the chest buckles */
-        for(var yk=ttop+1;yk<=ttop+8;yk++){ put(tMn-1,yk,r.dk); put(tMx+1,yk,r.dk); } }  /* the pack edges peeking past the shoulders */
+          var lo=xa-tMn, ro=tMx-xa, loOn=(lo>=S&&lo<3*S), roOn=(ro>=S&&ro<3*S);
+          if(ya<=tb-2*S&&(loOn||roOn)){
+            o[i]=((lo>=2*S&&lo<3*S)||(ro>=2*S&&ro<3*S))?r.mid:r.dk;                   /* outer dark webbing, inner lit edge */
+            if(ya>=ttop+5*S&&ya<ttop+6*S&&((lo>=S&&lo<2*S)||(ro>=S&&ro<2*S)))o[i]=r.lt; } }   /* the chest buckles */
+        for(var yk=ttop+S;yk<ttop+9*S;yk++)for(var ek=1;ek<=S;ek++){ put(tMn-ek,yk,r.dk); put(tMx+ek,yk,r.dk); } }  /* the pack edges peeking past the shoulders */
       return o; }
     if(kind==='bedroll'){                                                             /* wave 3: a rolled blanket ACROSS the upper back, tied at both ends */
-      if(back){ for(var yy2=ttop;yy2<=ttop+3;yy2++)for(var xx2=tMn-2;xx2<=tMx+2;xx2++){
-          var ee=(xx2<=tMn-1||xx2>=tMx+1||yy2===ttop||yy2===ttop+3);
-          put(xx2,yy2,ee?r.dk:(yy2===ttop+1?r.lt:r.mid)); }
-        for(var yt=ttop;yt<=ttop+3;yt++){ put(tMn+1,yt,r.dk); put(tMx-1,yt,r.dk); }   /* the end ties */
+      if(back){ for(var yy2=ttop;yy2<ttop+4*S;yy2++)for(var xx2=tMn-2*S;xx2<=tMx+2*S;xx2++){
+          var ee=(xx2<tMn||xx2>tMx||yy2<ttop+S||yy2>=ttop+3*S);
+          put(xx2,yy2,ee?r.dk:(yy2<ttop+2*S?r.lt:r.mid)); }
+        for(var yt=ttop;yt<ttop+4*S;yt++)for(var et=0;et<S;et++){ put(tMn+S+et,yt,r.dk); put(tMx-2*S+1+et,yt,r.dk); }   /* the end ties */
       } else if(prof){ var bs2=(fcx>cx)?-1:1;
-        for(var yr=ttop;yr<=ttop+3;yr++){ var eX2=-1;
+        for(var yr=ttop;yr<ttop+4*S;yr++){ var eX2=-1;
           if(bs2<0){ for(var u1=0;u1<CW;u1++){ if(g[yr*CW+u1]>0){eX2=u1;break;} } }
           else { for(var u2=CW-1;u2>=0;u2--){ if(g[yr*CW+u2]>0){eX2=u2;break;} } }
           if(eX2<0)continue;
-          for(var dd2=1;dd2<=3;dd2++){ var px2=eX2+bs2*dd2; if(px2<0||px2>=CW)continue; if(g[yr*CW+px2]!==0)continue;
-            o[yr*CW+px2]=(dd2===3||yr===ttop||yr===ttop+3)?r.dk:r.mid; } }
-      } else { for(var xf2=tMn-2;xf2<=tMx+2;xf2++){                                   /* front: the roll's ends peek past both shoulders */
-          if(xf2>=tMn+2&&xf2<=tMx-2)continue;
-          put(xf2,ttop-1,r.mid); put(xf2,ttop,(xf2<=tMn||xf2>=tMx)?r.dk:r.mid); } }
+          for(var dd2=1;dd2<=3*S;dd2++){ var px2=eX2+bs2*dd2; if(px2<0||px2>=CW)continue; if(g[yr*CW+px2]!==0)continue;
+            o[yr*CW+px2]=(dd2>2*S||yr<ttop+S||yr>=ttop+3*S)?r.dk:r.mid; } }
+      } else { for(var xf2=tMn-2*S;xf2<=tMx+2*S;xf2++){                               /* front: the roll's ends peek past both shoulders */
+          if(xf2>=tMn+2*S&&xf2<=tMx-2*S)continue;
+          for(var rl=1;rl<=S;rl++)put(xf2,ttop-rl,r.mid);
+          for(var rl2=0;rl2<S;rl2++)put(xf2,ttop+rl2,(xf2<tMn+S||xf2>tMx-S)?r.dk:r.mid); } }
       return o; }
     if(kind==='satchel'){                                                             /* hip bag + cross-body strap, every facing */
-      var hy=tb-2, side=prof?((fcx>cx)?tMx+1:tMn-1):(back?tMx+1:tMn-1);   /* BACK VIEW MIRRORS THE HIP (8/1): a bag on his right hip is on the other side of the screen from behind */
-      for(var yb=hy-1;yb<=hy+3;yb++)for(var xb=side-2;xb<=side+2;xb++){
-        var eb=(xb===side-2||xb===side+2||yb===hy-1||yb===hy+3);
-        put(xb,yb,eb?r.dk:(yb===hy?r.lt:r.mid)); }                                    /* the bag box, flap lit */
+      var tbL=tb-(S-1), tMxL=tMx-(S-1);
+      var hy=tbL-2*S, onR=prof?(fcx>cx):!back?false:true;
+      var bx0b=onR?(tMxL-2*S+1):(tMn-3*S), by0b=hy-S;                      /* BACK VIEW MIRRORS THE HIP (8/1): a bag on his right hip is on the other side of the screen from behind */
+      var bx1b=bx0b+5*S, by1b=by0b+5*S, side=onR?(tMx+S):(tMn-S);
+      for(var yb=by0b;yb<by1b;yb++)for(var xb=bx0b;xb<bx1b;xb++){
+        var eb=(xb<bx0b+S||xb>=bx1b-S||yb<by0b+S||yb>=by1b-S);
+        put(xb,yb,eb?r.dk:((yb>=hy&&yb<hy+S)?r.lt:r.mid)); }                           /* the bag box, flap lit */
       if(!prof)for(i=0;i<g.length;i++)if(g[i]===4){ var xs=i%CW,ys=(i/CW)|0, ts=(ys-ttop)/((tb-ttop)||1);
-        var _s0=back?cx-3:cx+3;                                             /* the strap crosses the OTHER shoulder from behind */
+        var _s0=back?cx-3*S:cx+3*S;                                         /* the strap crosses the OTHER shoulder from behind */
         var strapX=Math.round(_s0-(_s0-(side))*ts*0.9);
-        if(Math.abs(xs-strapX)<=0)o[i]=r.dk; }                                        /* the cross-body strap */
+        if(xs>=strapX&&xs<strapX+S)o[i]=r.dk; }                                       /* the cross-body strap */
       return o; }
     return o; }
   /* APRON (7/19, STRUCTURE wave 2): a front PANEL garment -- chest bib + skirt
@@ -21558,43 +21684,48 @@ window.CLO=(function(){
        and neck loop entirely -- a waist-tied skirt only (the bartender/vendor
        cut), a genuinely shorter silhouette than the smith's full bib apron,
        not a recolor of it. */
-    var bibless=!!opt.bibless;
+    var bibless=!!opt.bibless,S=rsc();
     var tb=-1,ttop=CH,sx=0,sc=0; for(i=0;i<g.length;i++)if(g[i]===4){var y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;sx+=i%CW;sc++;}
     var cx=sc?Math.round(sx/sc):(CW>>1);
+    /* 4X: a feature that is ONE column wide at 56 is S columns at any scale, and it
+       stays centred on cx -- floor, never round (HOW HAIR AND SHAPE WORK, 8/1). */
+    var cxL=cx-((S-1)>>1);
     var le=pExt(g,9),re=pExt(g,10), legT=Math.min(le.mn,re.mn);
-    var hemY=legT+Math.round(((Math.max(le.mx,re.mx))-legT)*0.5);
-    var tieY=bibless?tb:tb-3;
+    var hemY=legT+fr(legT,Math.max(le.mx,re.mx),0.5)+S-1;
+    var tieY=bibless?(tb-S+1):(tb-4*S+1);   /* tb is the BOTTOM pixel of its cell; a tie is S rows ABOVE it, not below */
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW');
     if(back){ for(i=0;i<g.length;i++)if(g[i]===4){ var xB=i%CW,yB=(i/CW)|0;
-        if(yB===tieY)o[i]=r.dk;                                          /* the waist tie */
-        if(xB===cx&&yB>tieY&&yB<=tb)o[i]=r.dk; }                         /* the hanging knot */
-      if(!bibless)for(i=0;i<g.length;i++)if(g[i]===3&&(i%CW)===cx)o[i]=r.dk;   /* the neck loop, from behind (bib only) */
+        if(yB>=tieY&&yB<tieY+S)o[i]=r.dk;                                /* the waist tie */
+        if(xB>=cxL&&xB<cxL+S&&yB>=tieY+S&&yB<=tb)o[i]=r.dk; }            /* the hanging knot */
+      if(!bibless)for(i=0;i<g.length;i++)if(g[i]===3){var xN=i%CW; if(xN>=cxL&&xN<cxL+S)o[i]=r.dk;}   /* the neck loop, from behind (bib only) */
       return o; }
     if(!front){ /* profile: the panel reads as its edge line down the front of the body */
       var fsx3=0,fsc3=0; for(i=0;i<g.length;i++)if(g[i]===2){fsx3+=i%CW;fsc3++;} var fcx3=fsc3?fsx3/fsc3:cx;
       var fs=(fcx3>cx)?1:-1;
-      for(var yE=(bibless?tb:ttop+3);yE<=hemY;yE++){ var eX=-1;
+      for(var yE=(bibless?(tb-S+1):(ttop+3*S));yE<=hemY;yE++){ var eX=-1;   /* tb is a BOTTOM edge: start at the TOP of its cell */
         if(fs>0){ for(var t1=CW-1;t1>=0;t1--){var gv=g[yE*CW+t1]; if(gv===4||gv===9||gv===10){eX=t1;break;}} }
         else { for(var t2=0;t2<CW;t2++){var gv2=g[yE*CW+t2]; if(gv2===4||gv2===9||gv2===10){eX=t2;break;}} }
-        if(eX>=0){ o[yE*CW+eX]=r.mid; if(yE===tieY)o[yE*CW+eX]=r.dk; } }
+        if(eX>=0){ for(var eS=0;eS<S;eS++){ var eP=eX-fs*eS; if(eP<0||eP>=CW)continue;
+            o[yE*CW+eP]=(yE>=tieY&&yE<tieY+S)?r.dk:r.mid; } } }          /* the edge line is S wide, drawn INWARD so it stays on the body */
       return o; }
     for(i=0;i<g.length;i++){ var p2=g[i],x2=i%CW,y2=(i/CW)|0;             /* FRONT: bib + skirt panel (or skirt-only for bibless) */
-      var half=(y2<=tb)?3:4;
-      var torsoOn=(!bibless&&p2===4&&y2>=ttop+3);
+      var hw=((y2<=tb)?3:4)*S;
+      var torsoOn=(!bibless&&p2===4&&y2>=ttop+3*S);
       if(torsoOn||((p2===9||p2===10)&&y2<=hemY)){
-        if(Math.abs(x2-cx)<=half){ var eF=(Math.abs(x2-cx)===half)||y2===hemY;
-          o[i]=eF?r.dk:((y2===tieY)?r.dk:(x2<cx?r.lt:r.mid)); } } }       /* waist tie crosses the panel; 45: sky-lit side */
-    if(!bibless)for(i=0;i<g.length;i++)if(g[i]===3){ var x3=i%CW; if(Math.abs(x3-cx)<=2&&(x3===cx-2||x3===cx+2))o[i]=r.dk; }  /* neck loop straps (bib only) */
+        if(x2>=cx-hw&&x2<cx+hw+S){ var eF=(x2<cx-hw+S)||(x2>=cx+hw)||(y2>hemY-S);
+          o[i]=eF?r.dk:((y2>=tieY&&y2<tieY+S)?r.dk:(x2<cx?r.lt:r.mid)); } } }   /* waist tie crosses the panel; 45: sky-lit side */
+    if(!bibless)for(i=0;i<g.length;i++)if(g[i]===3){ var x3=i%CW;
+      if((x3>=cx-2*S&&x3<cx-2*S+S)||(x3>=cx+2*S&&x3<cx+2*S+S))o[i]=r.dk; }  /* neck loop straps (bib only) */
     return o; }
   /* COVERALLS (wave 6, STRUCTURE-NOT-COLOR): a genuinely new garment class --
      ONE PIECE from collar to ankle cuff. Torso, sleeves and legs are a single
      connected suit: front zip line, chest patch pockets, cinched waist band,
      cuffed wrists and ankles. Not a shirt plus pants recolor; the seams say
      workwear. */
-  function genCoverall(g,opt){ var r=opt.ramp,i,o={};
+  function genCoverall(g,opt){ var r=opt.ramp,i,o={},S=rsc();
     var tb=-1,ttop=CH,sx=0,sc=0; for(i=0;i<g.length;i++)if(g[i]===4){var y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;sx+=i%CW;sc++;}
-    var cx=sc?Math.round(sx/sc):(CW>>1);
+    var cx=sc?Math.round(sx/sc):(CW>>1), cxL=cx-((S-1)>>1);
     var aL=pExt(g,5),aR=pExt(g,6),sL=pExt(g,11),sR=pExt(g,12);
     var ankle=Math.max(sL.mx,sR.mx);
     /* BIB OVERALLS (7/20, wave 7): the workwear sibling -- full legs, but the
@@ -21611,13 +21742,13 @@ window.CLO=(function(){
     if(bib){ var dirB=(typeof curDir!=='undefined')?curDir:'S';
       var backB=(dirB==='N'||dirB==='NE'||dirB==='NW');
       for(i=0;i<g.length;i++)if(g[i]===4){ var xb=i%CW,yb=(i/CW)|0;
-        if(yb>=tb)w[i]=1;                                                /* the waist row */
-        else if(!backB&&yb>=ttop+4&&Math.abs(xb-cx)<=2)w[i]=1;           /* the bib panel */
-        else if(Math.abs(xb-cx)===3&&yb<(backB?tb:ttop+4))w[i]=1; } }    /* the straps climb the shoulders */
+        if(yb>tb-S)w[i]=1;                                               /* the waist row */
+        else if(!backB&&yb>=ttop+4*S&&xb>=cx-2*S&&xb<cx+3*S)w[i]=1;      /* the bib panel */
+        else if(((xb>=cx-3*S&&xb<cx-2*S)||(xb>=cx+3*S&&xb<cx+4*S))&&yb<(backB?tb:ttop+4*S))w[i]=1; } }   /* the straps climb the shoulders */
     var kneeL=-1,kneeR=-1;
     if(short){ var leK=pExt(g,9),reK=pExt(g,10);
-      kneeL=leK.mx>=0?leK.mn+Math.round((leK.mx-leK.mn)*0.55):CH;
-      kneeR=reK.mx>=0?reK.mn+Math.round((reK.mx-reK.mn)*0.55):CH;
+      kneeL=leK.mx>=0?leK.mn+fr(leK.mn,leK.mx,0.55)+S-1:CH;
+      kneeR=reK.mx>=0?reK.mn+fr(reK.mn,reK.mx,0.55)+S-1:CH;
       var w2={}; for(var kk in w){ var iik=+kk,pk=g[iik],yk=(iik/CW)|0;
         if(pk===11||pk===12)continue;                                    /* no feet cuffs at all -- the leg ends above them */
         if(pk===9&&yk>kneeL)continue; if(pk===10&&yk>kneeR)continue;
@@ -21626,18 +21757,20 @@ window.CLO=(function(){
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW');
     var k; for(k in w){ var ii=+k,bx=ii%CW,by=(ii/CW)|0,p=g[ii],c=bshade(inG,bx,by,r);
-      if(bib&&p===4){ if(by<ttop+4||Math.abs(bx-cx)>=2)c=r.dk;             /* straps + bib edges */
-        if(front&&by===ttop+4&&Math.abs(bx-cx)===1)c=r.lt;                 /* the bib buttons */
+      if(bib&&p===4){ if(by<ttop+4*S||bx<cx-2*S+S||bx>=cx+2*S)c=r.dk;      /* straps + bib edges */
+        if(front&&by>=ttop+4*S&&by<ttop+5*S&&((bx>=cx-S&&bx<cx)||(bx>=cx+S&&bx<cx+2*S)))c=r.lt;   /* the bib buttons */
         o[ii]=c; continue; }
-      if(front&&p===4&&bx===cx&&by>ttop+1)c=r.dk;                          /* the front zip */
-      if(front&&p===4&&by>=ttop+6&&by<=ttop+8&&(Math.abs(bx-(cx-3))<=1||Math.abs(bx-(cx+3))<=1)){
-        c=(by===ttop+6||by===ttop+8||Math.abs(bx-(cx-3))===1&&bx<cx||Math.abs(bx-(cx+3))===1&&bx>cx)?r.dk:c; } /* chest patch pockets */
-      if(p===4&&(by===tb||by===tb-1))c=r.dk;                               /* cinched waist band */
-      if(p===5&&by>=aL.mx-1)c=r.dk;                                        /* wrist cuffs */
-      if(p===6&&by>=aR.mx-1)c=r.dk;
-      if(!short&&(p===11||p===12)&&by>=ankle-1)c=r.dk;                     /* ankle cuffs (full-length only) */
-      if(short&&p===9&&by>=kneeL-1)c=r.dk;                                 /* knee hem (shortalls) */
-      if(short&&p===10&&by>=kneeR-1)c=r.dk;
+      if(front&&p===4&&bx>=cxL&&bx<cxL+S&&by>ttop+S)c=r.dk;                /* the front zip */
+      if(front&&p===4&&by>=ttop+6*S&&by<ttop+9*S&&((bx>=cx-4*S&&bx<cx-S)||(bx>=cx+2*S&&bx<cx+5*S))){
+        c=(by<ttop+7*S||by>=ttop+8*S                                     /* a patch pocket is rimmed on BOTH sides, not just the outer one */
+           ||(bx>=cx-4*S&&bx<cx-3*S)||(bx>=cx-2*S&&bx<cx-S)
+           ||(bx>=cx+2*S&&bx<cx+3*S)||(bx>=cx+4*S&&bx<cx+5*S))?r.dk:c; } /* chest patch pockets */
+      if(p===4&&by>tb-2*S)c=r.dk;                                          /* cinched waist band */
+      if(p===5&&by>=aL.mx-(2*S-1))c=r.dk;                                  /* wrist cuffs */
+      if(p===6&&by>=aR.mx-(2*S-1))c=r.dk;
+      if(!short&&(p===11||p===12)&&by>=ankle-(2*S-1))c=r.dk;               /* ankle cuffs (full-length only) */
+      if(short&&p===9&&by>=kneeL-(2*S-1))c=r.dk;                           /* knee hem (shortalls) */
+      if(short&&p===10&&by>=kneeR-(2*S-1))c=r.dk;
       o[ii]=c; }
     return o; }
   /* CAPE (wave 6, STRUCTURE-NOT-COLOR): the inverse of the open coat -- the
@@ -21646,52 +21779,54 @@ window.CLO=(function(){
      one full hanging panel to the knee with vertical folds. In profile: the
      drape trails off the back edge. Real pixels into the background, like the
      poncho before it. */
-  function genCape(g,opt){ var r=opt.ramp,i,o={};
+  function genCape(g,opt){ var r=opt.ramp,i,o={},S=rsc();
     var tb=-1,ttop=CH,sx=0,sc=0,tMn=CW,tMx=-1;
     for(i=0;i<g.length;i++)if(g[i]===4){var x=i%CW,y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;if(x<tMn)tMn=x;if(x>tMx)tMx=x;sx+=x;sc++;}
     var cx=sc?Math.round(sx/sc):(CW>>1);
     var le=pExt(g,9),re=pExt(g,10), legT=Math.min(le.mn,re.mn), legB=Math.max(le.mx,re.mx);
     /* SHOULDER MANTLE (wave 8): opt.mantle stops the drape at the mid-back --
        a real second length on the cape rail, same law as the boot shaft. */
-    var hemY=opt.mantle?(ttop+Math.round((tb-ttop)*0.45)):Math.min(CH-1,legT+Math.round((legB-legT)*0.55));
+    var hemY=Math.min(CH-1,(opt.mantle?(ttop+fr(ttop,tb,0.45)):(legT+fr(legT,legB,0.55)))+S-1);
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW');
     if(back){ /* the full drape: covers the body and a widening panel of background */
       var w={};
-      for(var y2=ttop;y2<=hemY;y2++){ var hw=Math.ceil((tMx-tMn)/2)+1+((y2>tb)?1:0);
+      for(var y2=ttop;y2<=hemY;y2++){ var hw=Math.ceil((((tMx-tMn+1)/S)-1)/2)*S+S+((y2>tb)?S:0);   /* half a body span is a CELL count: ceil on the raw pixel span rounds differently at 112 */
         for(var xx=cx-hw;xx<=cx+hw;xx++){ if(xx<0||xx>=CW)continue; var gv=g[y2*CW+xx];
           if(gv===1||gv===2||gv===7||gv===8)continue;                      /* never head/face/hands */
           w[y2*CW+xx]=1; } }
       var inG=function(x,y){return !!w[y*CW+x];};
-      for(var k2 in w){ var jj=+k2,jx=jj%CW,jy=(jj/CW)|0, c2=r.mid;
-        if(!inG(jx,jy+1))c2=r.dk;                                          /* straight hem */
-        else if(!inG(jx-1,jy)||!inG(jx+1,jy))c2=r.dk;                      /* side edges */
-        else if(((jx-cx+8)%4)===0)c2=mix(r.mid,0.82);                      /* hanging folds */
-        else if(jx<cx-1)c2=r.lt;                                           /* 45: sky-lit flank */
+      for(var k2 in w){ var jj=+k2,jx=jj%CW,jy=(jj/CW)|0, c2=r.mid, q1;
+        var jb=0; while(jb<2*S&&inG(jx,jy+jb+1))jb++;
+        var jside=false; for(q1=1;q1<=S;q1++){ if(!inG(jx-q1,jy)||!inG(jx+q1,jy))jside=true; }
+        if(jb<S)c2=r.dk;                                                   /* straight hem */
+        else if(jside)c2=r.dk;                                             /* side edges */
+        else if(((((jx-cx+8*S)%(4*S))+4*S)%(4*S))<S)c2=mix(r.mid,0.82);    /* hanging folds: 4px pitch at 56 */
+        else if(jx<cx-S)c2=r.lt;                                           /* 45: sky-lit flank */
         o[jj]=c2; }
       for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.dk;                        /* collar wrap */
       return o; }
     /* shoulder cap, every non-back facing */
     for(i=0;i<g.length;i++){ var p3=g[i],y3=(i/CW)|0;
-      if(p3===4&&y3<=ttop+1)o[i]=(y3===ttop)?r.lt:r.mid;
-      if((p3===5||p3===6)&&y3<=ttop+2)o[i]=r.mid; }                        /* cap rolls over the shoulder tops */
-    if(front){ for(i=0;i<g.length;i++)if(g[i]===3){ var xc=i%CW; if(Math.abs(xc-cx)<=1)o[i]=r.dk; }  /* the clasp at the throat */
+      if(p3===4&&y3<ttop+2*S)o[i]=(y3<ttop+S)?r.lt:r.mid;
+      if((p3===5||p3===6)&&y3<ttop+3*S)o[i]=r.mid; }                       /* cap rolls over the shoulder tops */
+    if(front){ for(i=0;i<g.length;i++)if(g[i]===3){ var xc=i%CW; if(xc>=cx-S&&xc<cx+2*S)o[i]=r.dk; }  /* the clasp at the throat */
       /* the drape peeks past the body silhouette on both sides */
-      for(var yF=ttop+1;yF<=hemY;yF++){ var mn=CW,mx=-1;
+      for(var yF=ttop+S;yF<=hemY;yF++){ var mn=CW,mx=-1;
         for(var xF=0;xF<CW;xF++){ var gv2=g[yF*CW+xF]; if(gv2&&gv2!==7&&gv2!==8){ if(xF<mn)mn=xF; if(xF>mx)mx=xF; } }
         if(mx<0)continue;
-        if(mn-1>=0&&!g[yF*CW+mn-1])o[yF*CW+mn-1]=(yF===hemY)?r.dk:r.mid;
-        if(mx+1<CW&&!g[yF*CW+mx+1])o[yF*CW+mx+1]=(yF===hemY)?r.dk:mix(r.mid,0.85); } }
+        for(var q2=1;q2<=S;q2++){
+          var pL=mn-q2; if(pL>=0&&!g[yF*CW+pL])o[yF*CW+pL]=(yF>hemY-S)?r.dk:r.mid;
+          var pR=mx+q2; if(pR<CW&&!g[yF*CW+pR])o[yF*CW+pR]=(yF>hemY-S)?r.dk:mix(r.mid,0.85); } } }
     else { /* profile: the drape trails off the back edge of the body */
       var fsx=0,fsc=0; for(i=0;i<g.length;i++)if(g[i]===2){fsx+=i%CW;fsc++;} var fcx=fsc?fsx/fsc:cx;
       var ts=(fcx>cx)?-1:1;                                               /* trailing side = away from the face */
-      for(var yP=ttop+1;yP<=hemY;yP++){ var eX=-1;
+      for(var yP=ttop+S;yP<=hemY;yP++){ var eX=-1;
         if(ts>0){ for(var t1=CW-1;t1>=0;t1--){ if(g[yP*CW+t1]){eX=t1;break;} } }
         else { for(var t2=0;t2<CW;t2++){ if(g[yP*CW+t2]){eX=t2;break;} } }
         if(eX<0)continue;
-        var b1=eX+ts,b2=eX+2*ts;
-        if(b1>=0&&b1<CW&&!g[yP*CW+b1])o[yP*CW+b1]=r.mid;
-        if(b2>=0&&b2<CW&&!g[yP*CW+b2])o[yP*CW+b2]=(yP===hemY)?r.dk:mix(r.mid,0.82); } }
+        for(var d3=1;d3<=2*S;d3++){ var pX=eX+ts*d3; if(pX<0||pX>=CW||g[yP*CW+pX])continue;
+          o[yP*CW+pX]=(d3<=S)?r.mid:((yP>hemY-S)?r.dk:mix(r.mid,0.82)); } } }
     return o; }
   /* WEAR: deterministic salvage scuffing — darken a fraction of pixels toward dk
      so a garment reads scavenged/dusty, not box-fresh. amt = percent scuffed. */

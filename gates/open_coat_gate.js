@@ -24,7 +24,12 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genCoat'];
+/* 4X (8/20): the generators now share two helpers -- rsc() (the resolution scalar,
+   derived from CW) and fr() (a fraction of a body span measured in CELLS). Any
+   harness that lifts a generator out of the alpha must lift its dependencies with
+   it, or every gen() throws "rsc is not defined" and this gate reports a WARDROBE
+   failure for a HARNESS one. Fix the ruler, never the target (8/1). */
+const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genCoat'];
 const bodies = NAMES.map(grab);
 ok('genCoat + pure helpers found in the alpha', bodies.every(Boolean));
 
