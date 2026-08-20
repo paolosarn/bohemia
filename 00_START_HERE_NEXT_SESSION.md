@@ -1,3 +1,63 @@
+SOUND (sound-xk7pjp): 8/20 (l,m) LATEST -- *** I DID THE EXACT THING I HAD
+DOCUMENTED THE DAY BEFORE. SFX-09 shipped six moments with NO CALLERS. They have
+callers now, and there is finally a gate that catches it. TAB: MUSIC (30
+candidates open expanded), RUN. Nothing needs judging. ***
+
+On 8/20 I counted thirty moments that make no sound, found NOT ONE HAD A CALLER,
+wrote it up as the defect this lane keeps finding -- then cooked SFX-09 and
+shipped six MORE with no callers. Every one of gone_quiet, mag_home, hands_pass,
+dog_calls, sign_alive, lungs_burn had exactly ONE reference in the build and it
+was its own recipe.
+A COOK WITHOUT A CALLER IS NOT A SHIPPED SOUND. It is a candidate on a sheet.
+
+WIRED: gone_quiet -> end of a fight (beside `clear`) | hands_pass -> a purse
+credit (beside `money`) | dog_calls + sign_alive -> the rare ambience rotation |
+mag_home -> doReload() in the combat module, a real function with a real trigger
+that already calls audio().
+NOT WIRED, NAMED NOT FAKED: lungs_burn. OUT OF BREATH needs a sprint and THERE IS
+NO SPRINT VERB IN THE RUN -- the only matches in the city world are a liquids
+effect that would DISABLE a sprint that does not exist. Wiring it to walking
+would be a lie about what the sound means. [expires when a sprint verb appears]
+
+*** THE GATE THAT WOULD HAVE CAUGHT ME (silent_moments_gate, now 21 checks):
+EVERY COOKED MOMENT HAS A CALLER OR A WRITTEN REASON NOT TO. *** Three things it
+taught me while I wrote it:
+ 1. MY FIRST PREDICATE WAS TOO LITERAL -- it looked for sfx('id') and failed
+    nineteen REAL moments, because footsteps are chosen by SURFACE
+    (`sfx('step_'+surface)`) and ambience by a rotation that RETURNS a name.
+    Neither is a literal call site and both are genuine callers.
+ 2. THE HAYSTACK CONTAINED THE ANSWER KEY. The engine is inlined verbatim in the
+    alpha and names every id in its OWN EVENTS and RECIPE tables, so leaving it
+    in made every moment look called and the check tested NOTHING. Cut out now.
+    FOURTH TIME IN THREE DAYS a checker nearly passed on its own subject.
+ 3. IT FOUND ONE I DID NOT KNOW ABOUT: `door_clack`, cooked, unapproved, unwired.
+    That is a RULING not an oversight -- he killed all five door_clack candidates
+    in the same export where door_drag.0 lived, and the reasoning is written at
+    the door wire: playing the drag backwards for the close puts a sound on a
+    moment he ruled has none. The gate forced me to go find that. Recorded.
+Mutation-proved: delete the gone_quiet wire and two legs go red.
+
+ALSO: fight_music_gate flaked ONCE in five runs (the streets-come-back leg). NOT
+weakened -- the wait ladder was too short for a loaded headless clock so it got
+another rung, plus a note that if it flakes again the fix is MORE LADDER and
+never a softer assertion. Four consecutive clean runs after.
+
+GATES: SILENT MOMENTS 21/0. SFX RENDER 6496/0. SFX WIRED 842/0. VERDICT-FROZEN
+6/0. FIGHT MUSIC 47/0. INSTRUMENT 15/0. MUSIC 20/0. MUSIC REACH 17/0. ALPHA LOADS
+20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE OTHER SIX SILENT MOMENTS -- talk_start, go_inside, step_glass,
+    step_metal, quest_done, breath -- same treatment as SFX-09 and for the same
+    reason: both their rounds were raw synthesis and they have never once been
+    offered an instrument. AND WIRE THEM IN THE SAME TURN. Three of those live
+    in other lanes' files (city world interiors, the dialogue runtime).
+ 2. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. Built
+    and one line (INST_SEMI) from being on; turning it on alone moves 460
+    candidates he has ruled on, so it never goes alone.
+ 3. HORIZONTAL RE-SEQUENCING between intensity tiers -- the other half of the
+    adaptive-music research. The vertical half (kill layers) is done.
+
 SOUND (sound-xk7pjp): 8/20 (h..k) LATEST -- *** SFX-09: SIX SILENT MOMENTS GET HIS
 RACK, AND THE CALIBRATION IS NOW AS FROZEN AS HIS VERDICTS. TABS: MUSIC (the six
 new moments open EXPANDED, 30 candidates), RUN. Nothing needs judging to ship. ***
