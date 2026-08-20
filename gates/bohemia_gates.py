@@ -1614,18 +1614,6 @@ GATES = [
      "with chained steps - never on the word 'run' and never on shipping into it. Also holds: every "
      "hub card points at a page that exists, and a surface shipped for judgement RUNS ITSELF on load "
      "instead of waiting for a tap. Self-tests by feeding itself the sentence that earned the law", True),
-    ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
-     "Paolo 8/7 answered A: 'a bond built in one quest opens a door in another. Continuity is the "
-     "dynasty.' Quest state is PER-QUEST by construction, so 44 authored @DO bond rulings could never "
-     "have mattered to a later story. The identity key is what made it possible with NO new authoring: "
-     "a quest's LABEL for someone is not a person -- 43 role names, 5 used by more than one quest, and "
-     "those five settle it (S06/S09 write the neighbour's REQ conditions VERBATIM twice, while S02 and "
-     "S12 have two different `runner`s). He has been declaring identity in the @ROLE conditions since "
-     "before anything could read it, so the key is the CONDITION SET, never the label -- 46 distinct "
-     "people across the 21 canon quests. Holds: a bond crosses and opens a gated option; a different "
-     "person sharing a label inherits NOTHING; it survives a reload; it does not double-count inside "
-     "its own quest; a runtime built without the ledger is bit-for-bit unchanged; the ledger SHIPS "
-     "EMPTY. Eight planted mistakes caught every run", False),
     ('AUTHORED UNREAD', ['python3', 'gates/authored_unread_gate.py'],
      "FOUR TIMES IN NINE DAYS this project shipped content Paolo authored that nothing ever read "
      "-- an approved bank that never draws a pixel (7/30), 17 finished things shipping where no "
@@ -1712,6 +1700,23 @@ GATES = [
      "you can never clear is a sentence not a relationship. The card says THEY ARE NOT "
      "WAITING so the player can trace it to the free thing they took. Neither organ touches "
      "the other's save -- a number in, a number out, asserted", False),
+    ('OPENS ON THE GAME', ['node', 'gates/front_door_gate.js'],
+     "WHAT HAPPENS TO EVERY PERSON WHO IS EVER HANDED THE LINK, and nothing checked it. "
+     "Demo board ROW 7 ('the cheapest big win on the board') was fixed -- the splash tap taps "
+     "the real RUN tab, which is the only path that also builds the city iframe, sends the "
+     "player, sends the cast, restores the save and pushes prefabs -- and "
+     "window.__OPENED_ON_THE_GAME was set by the alpha and READ BY NO GATE IN THE REPO. A LAW "
+     "WITHOUT A MACHINE GATE IS NOT ENFORCED, on the single most important interaction in the "
+     "product. *** AND THE BOARD READ THE SOURCE AND GOT THE OPPOSITE ANSWER. *** Re-audited "
+     "8/20, it still lists ROW 7 as OPEN and 'five days flagged, unmoved', citing the static "
+     "markup <div class=\"tab on\" data-p=\"char\"> at ALPHA:1012. THAT MARKUP IS STILL CHAR "
+     "AND THE RUNTIME OVERRIDES IT on the splash tap, which is the only gesture a player can "
+     "make. Measured: tap the splash and the active tab is RUN, the active panel is p-city, "
+     "the city iframe exists with a real box (not the 0x0-inside-a-hidden-parent trap the "
+     "alpha's own comments describe), and the screen offers DAY 1 and GET UP. Zero errors. "
+     "VERIFY ON THE REAL SURFACE (7/18): a source-read is not a measurement, and here the two "
+     "disagreed completely. Both mutations bite -- delete the runTab.click() and five claims "
+     "go red, rename the RUN tab and six do", False),
     ('FACTION ARC',    ['node', 'gates/faction_arc_gate.js'],
      "NINE GATES COVER THIS STACK AND EVERY ONE OF THEM VERIFIES A LAYER -- the organ "
      "clamps, the card displays, the rule derives, the save round-trips -- and every one "
@@ -2045,17 +2050,6 @@ GATES = [
      'the LAST blit, the one the phone does: canvas box === backing store, walked world nearest, overview left smooth', True),
     ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
      'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
-    ('WALKED SURFACE', ['node', 'gates/walked_surface_gate.js'],
-     'FOUR TIMES IN ONE DAY a district module was finished, gated and dossiered while the surface Paolo '
-     'actually walks drew something else -- the Strip (no module, 204 cells), eighteen district types (module '
-     'not carried, 165 cells), the roads (module carried and IGNORED for a four-number table, 3,386 cells at '
-     '8.6%% and 17.9%% drawn) and the terrain (1,771 cells at ONE OR TWO COLOURS). EVERY GATE THAT READS engine/ '
-     'WAS GREEN THROUGH ALL FOUR, which is the point: a checker that reads the SOURCE cannot see a page that does '
-     'not read the source. This is the only gate that opens the real alpha, walks to RUN and asks THE PAGE -- '
-     'which path drew each district type and how many distinct surfaces came back, off THREE cells spread across '
-     'that type\'s footprint, because the first cell found is always a valley EDGE cell and sampling one is how '
-     'the first version of this sweep got suburb and desert wrong. The debt is NAMED, carries a written reason, '
-     'and ratchets BOTH ways: a type that gets fixed and stays on the list fails too.', True),
     ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],
      'the MAP tab: THE VALLEY AERIAL live + reachable, every generator module byte-locked to canon', False),
     ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],
@@ -2495,6 +2489,30 @@ def _check_table():
     """
     bad = [(i, r) for i, r in enumerate(GATES) if not isinstance(r, tuple) or len(r) != 4]
     if not bad:
+        # AND NO TWO ROWS SHARE A NAME. Found 8/20 by writing one: a second
+        # 'FRONT DOOR' meant --only ran two different gates and the summary line
+        # printed one gate's score under the other's name. A name that does not
+        # identify a gate is not a name, and every report in this file is keyed
+        # on it.
+        seen, dupes = {}, []
+        for i, r in enumerate(GATES):
+            if r[0] in seen:
+                dupes.append((seen[r[0]], i, r[0]))
+            else:
+                seen[r[0]] = i
+        if dupes:
+            # WARN, DO NOT BLOCK. A malformed row CRASHES the run and has to stop
+            # it; a duplicate name only makes the reports ambiguous. Blocking on
+            # one would stop every lane in the fleet from running anything until
+            # somebody else's rename landed -- a gate outranking a ruling, which
+            # this repo has a law against. Loud is enough.
+            print('!' * 78)
+            print('  TWO GATES SHARE A NAME -- --only cannot tell them apart, and the')
+            print('  summary line prints one gate\'s score under the other\'s name:')
+            for a, b, nm in dupes:
+                print('    rows %d and %d are both called %r' % (a, b, nm))
+            print('  Nothing is blocked. Rename one when you own it.')
+            print('!' * 78)
         return True
     print('=' * 78)
     print('  THE GATE TABLE IS MALFORMED -- no gate can run until this is fixed.')

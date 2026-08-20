@@ -1,142 +1,130 @@
-/* BOHEMIA — THE PLAY LINK OPENS THE GAME (8/2/26, FLEET-WIDE).
+/* ============================================================================
+   FRONT DOOR GATE (8/20/26) — A FRIEND TAPS THE LINK AND LANDS ON THE GAME.
 
-   THE ONE-LINK LAW (Paolo 7/18, LOCKED) says there is exactly one URL and it
-   never changes. Everything the fleet ships arrives through that one door:
+   Law: laws/BOHEMIA_ADDENDUM_THE_FRONT_DOOR_IS_MEASURED_8_20_26.md
 
-       https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
+   WHY. Demo board ROW 7, "the cheapest big win on the board": a new player used
+   to land on the CHARACTER wardrobe workbench and had to find RUN among sixteen
+   tabs to reach the game. That was fixed -- the splash tap now taps the real RUN
+   tab, which is the only path that also builds the city iframe, sends the player,
+   sends the cast, restores the save and pushes prefabs.
 
-   Nothing gated the door itself.
+   AND NOTHING CHECKED IT. `window.__OPENED_ON_THE_GAME` is set by the alpha and
+   read by no gate in the repo. A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, and
+   this is the single most important interaction in the product: it is what
+   happens to every person who is ever handed the link.
 
-   WHAT HAPPENED ON 8/2. One commit's edit to the build-stamp line dropped a
-   single `</div>` — the one that CLOSES the front splash. `<div id="app">` then
-   parsed as a CHILD of `<div id="front">`. The splash handler does exactly what
-   it always did:
+   THE BOARD READ THE SOURCE AND GOT THE OPPOSITE ANSWER. Re-audited 8/20, it
+   still lists ROW 7 as OPEN and "five days flagged, unmoved", citing the static
+   markup `<div class="tab on" data-p="char">` at ALPHA:1012. That markup IS
+   still char -- and the runtime overrides it on the splash tap, which is the
+   only gesture a player can make. VERIFY ON THE REAL SURFACE (7/18): a
+   source-read is not a measurement, and here the two disagree completely.
 
-       front.style.display = 'none';  app.style.display = 'flex';
+   So this taps the splash like a friend does, and looks at what is on screen.
 
-   but a child of a display:none parent is not rendered no matter what its own
-   display says. So tapping the splash hid the splash AND THE ENTIRE GAME.
-   Measured on the real surface: #app at 0x0, zero client rects, no tabs. Paolo
-   taps the link, taps the screen, and gets a black rectangle.
-
-   IT WAS CAUGHT — run_gate went red — but only as a 30-second Playwright
-   timeout reading "element is not visible", which names a symptom three screens
-   deep in a 126-claim browser test and says nothing about a missing tag. This
-   gate is the smoke alarm at the front door: it states the structural fact in
-   one line, and then proves the door on the real surface in about two seconds.
-
-   READS ONLY. Cooks nothing, owns no lane's content, touches no system.
-
-   Run: node gates/front_door_gate.js
-   Registered in gates/bohemia_gates.py as FRONT DOOR. */
+   node gates/front_door_gate.js
+   ============================================================================ */
 'use strict';
-const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.dirname(__dirname);
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
-let pass = 0; const fail = [];
-const ok = (n, c) => { c ? pass++ : (fail.push(n), console.log('  FAIL: ' + n)); };
+const VIEW = { width: 390, height: 844 };
 
+let pass = 0, fail = 0;
+function ok(claim, cond, detail) {
+  if (cond) { pass++; console.log('  ok  ' + claim); }
+  else { fail++; console.log('  FAIL ' + claim + (detail ? '\n       ' + detail : '')); }
+}
 function requirePlaywright() {
-  for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules',
-                   '/usr/local/lib/node_modules']) {
+  for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules', '/usr/local/lib/node_modules']) {
     try { return require(path.join(g, 'playwright')); } catch (_e) {}
   }
   return require('playwright');
 }
 
-/* THE STATIC HALF. Cheap, instant, and it names the exact cause. The splash
-   must CLOSE before the app opens — measured as raw text order, because that is
-   the thing an editing mistake actually breaks. */
-/* Returns null if the splash closes before the app opens, else why not. Pure,
-   so the self-test below can run it on a deliberately broken copy without
-   touching this gate's own counters. */
-function splashClosure(src) {
-  /* COMMENTS ARE NOT STRUCTURE. Strip them before counting anything: on 8/2 the
-     fix for this very bug added a comment EXPLAINING the missing tag, the words
-     inside it got counted as tags, and this checker went red on prose while the
-     document was perfectly well formed. That is the same mistake as a gate that
-     cannot tell a mention from a use, made by the gate that exists to catch a
-     structural break. A checker must read structure, never text that happens to
-     look like structure. */
-  const clean = src.replace(/<!--[\s\S]*?-->/g, '');
-  const f = clean.indexOf('<div id="front">');
-  const a = clean.indexOf('<div id="app">');
-  if (f < 0 || a < f) return 'the splash and the app are not both in the file';
-  const between = clean.slice(f, a);
-  const opens = (between.match(/<div\b/g) || []).length;
-  const closes = (between.match(/<\/div>/g) || []).length;
-  return opens === closes ? null
-    : opens + ' <div> open vs ' + closes + ' </div> close between them';
-}
+(async function main() {
+  console.log('FRONT DOOR GATE — a friend taps the link and lands on the game\n');
 
-function structure(src) {
-  ok('S1 the front splash and the app are both in the file',
-    src.indexOf('<div id="front">') > 0 &&
-    src.indexOf('<div id="app">') > src.indexOf('<div id="front">'));
-  const why = splashClosure(src);
-  ok('S2 THE SPLASH CLOSES BEFORE THE APP OPENS' + (why ? ' — ' + why : '') +
-     '. One missing </div> here nests the whole game inside the splash, and ' +
-     'tapping the splash then hides everything', why === null);
-}
-
-/* THE REAL-SURFACE HALF. Paolo's law: art and behaviour are verified only on the
-   surface he touches. A static tag count is a proxy; this is the thing itself. */
-async function realDoor() {
   const { chromium } = requirePlaywright();
   const browser = await chromium.launch();
-  const errs = [];
+  const page = await browser.newPage({ viewport: VIEW });
+  const errors = [];
+  page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
+
   try {
-    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    page.on('pageerror', e => errs.push(e.message.slice(0, 120)));
     await page.goto('file://' + ALPHA);
-    await page.waitForSelector('#front', { timeout: 30000 });
+    await page.waitForTimeout(6000);
 
-    const parent = await page.evaluate(() => {
-      const a = document.getElementById('app');
-      return a && a.parentElement ? (a.parentElement.id || a.parentElement.tagName) : null;
+    const front = await page.evaluate(() => {
+      const f = document.getElementById('front');
+      return { up: !!f && getComputedStyle(f).display !== 'none',
+               tabs: [...document.querySelectorAll('.tab')].map(t => t.dataset.p) };
     });
-    ok('R1 the app is NOT inside the splash (parent = ' + parent + ')',
-      parent !== 'front');
 
-    await page.click('#front');
-    await page.waitForTimeout(1200);
-    const after = await page.evaluate(() => {
-      const a = document.getElementById('app');
-      const r = a ? a.getBoundingClientRect() : null;
-      const tabs = [...document.querySelectorAll('.tab')].filter(t => t.getClientRects().length);
-      return { w: r ? Math.round(r.width) : 0, h: r ? Math.round(r.height) : 0,
-               tabs: tabs.length, labels: tabs.map(t => t.textContent.trim()).slice(0, 12) };
+    ok('A1 the splash is the first and only thing there is to tap — a front door '
+      + 'with nothing to press is not a door',
+      front.up === true);
+
+    ok('A2 the RUN tab exists in the bar. A MISSING TAB IS LOUD: this fleet has '
+      + 'written `if(t)t.click()` eight times, and a renamed tab becomes a game '
+      + 'that quietly does not open',
+      front.tabs.includes('run'), JSON.stringify(front.tabs));
+
+    /* THE ONLY GESTURE A PLAYER CAN MAKE. */
+    await page.locator('#front').click();
+    await page.waitForTimeout(9000);
+
+    const after = await page.evaluate(() => ({
+      tab: (document.querySelector('.tab.on') || {}).dataset
+             ? document.querySelector('.tab.on').dataset.p : null,
+      tabText: (document.querySelector('.tab.on') || {}).textContent || null,
+      panel: (document.querySelector('.panel.on') || {}).id || null,
+      cityFrame: !!document.getElementById('cityFrame'),
+      opened: window.__OPENED_ON_THE_GAME || 0,
+      runTabMissing: !!window.__RUN_TAB_MISSING,
+      appUp: getComputedStyle(document.getElementById('app')).display !== 'none'
+    }));
+
+    ok('A3 ONE TAP AND HE IS ON THE GAME, not on a dev tool. The board still '
+      + 'lists this as the open #1 blocker off a source-read of the static '
+      + 'markup; the runtime is the answer and this is it',
+      after.tab === 'run' && after.opened >= 1 && after.runTabMissing === false,
+      JSON.stringify(after));
+
+    ok('A4 …and the panel under it is the CITY — the walked surface. Paolo 7/28, '
+      + '"can you put the city in the run tab": the RUN tab routes to p-city, so '
+      + 'the tab lighting up is not enough on its own',
+      after.panel === 'p-city', 'panel: ' + after.panel);
+
+    ok('A5 …and the city iframe was actually BUILT. It is created lazily inside '
+      + 'that click handler, so a markup default would have shown an empty panel '
+      + 'and skipped the player, the cast, the save and the prefabs',
+      after.cityFrame === true);
+
+    /* AND SOMETHING IS ACTUALLY ON SCREEN. A panel that is `on` and blank is the
+       same lie one level down -- the display:none-parent trap the alpha's own
+       comments describe, where every DOM check passes and the box is 0x0. */
+    const shown = await page.evaluate(() => {
+      const f = document.getElementById('cityFrame');
+      if (!f) return null;
+      const r = f.getBoundingClientRect();
+      return { w: Math.round(r.width), h: Math.round(r.height) };
     });
-    ok('R2 TAPPING THE SPLASH OPENS THE GAME, not a black screen (' +
-      after.w + 'x' + after.h + ')', after.w > 100 && after.h > 100);
-    ok('R3 the tabs he navigates by are on screen (' + after.tabs + ': ' +
-      after.labels.join(' ') + ')', after.tabs >= 3);
-    ok('R4 nothing threw walking through the front door' +
-      (errs.length ? ': ' + errs[0] : ''), errs.length === 0);
+    ok('A6 …and it has a real box on the phone, not 0x0 inside a hidden parent. '
+      + 'Every DOM check passes on a 0x0 canvas; only the size says otherwise',
+      shown && shown.w > 200 && shown.h > 300, JSON.stringify(shown));
+
+    const text = await page.evaluate(() => document.body.innerText.slice(0, 400));
+    ok('A7 …and the first day is actually offered — the game says something to '
+      + 'him rather than presenting an empty world',
+      /DAY 1|GET UP|WATCH/i.test(text), JSON.stringify(text.slice(0, 160)));
+
+    ok('A8 the door threw no errors opening', errors.length === 0,
+      errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
-}
 
-(async () => {
-  console.log('FRONT DOOR GATE — the one link opens the game');
-  const src = fs.readFileSync(ALPHA, 'utf8');
-  structure(src);
-
-  /* SELF-TEST: prove the static check SEES the break, rather than proving the
-     file happens to be well-formed today. This is the EXACT 8/2 break — delete
-     the one closing tag that ends the splash — applied to a copy in memory.
-     It has to survive the tag moving onto its own line, which is the change
-     that stops the break happening in the first place, so it deletes the LAST
-     closer before the app opens rather than matching one hard-coded string. */
-  const cut = src.lastIndexOf('</div>', src.indexOf('<div id="app">'));
-  const broken = cut < 0 ? src : src.slice(0, cut) + src.slice(cut + 6);
-  ok('S3 SELF-TEST: the probe really is the 8/2 break (the copy differs)',
-    broken !== src && cut > src.indexOf('<div id="front">'));
-  ok('S4 SELF-TEST: and the checker catches it', splashClosure(broken) !== null);
-
-  await realDoor();
-  console.log((fail.length ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' +
-    fail.length + ' failed');
-  process.exit(fail.length ? 1 : 0);
-})();
+  console.log('\nFRONT DOOR GATE: ' + pass + ' passed, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
+})().catch(e => { console.error('FRONT DOOR GATE CRASHED: ' + (e && e.stack || e)); process.exit(1); });

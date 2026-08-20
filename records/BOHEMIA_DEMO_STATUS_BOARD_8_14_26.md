@@ -12,6 +12,12 @@ And they share ONE root cause, below.
 =============================================================================
 ## RE-AUDIT 8/20 — 188 COMMITS LATER. SCORE IS NOW **8 CLOSED · 4 PARTIAL ·
 ## 1 OPEN**, AND THE DEMO IS THREE THINGS AWAY.
+## *** CORRECTED SAME DAY, ON THE REAL SURFACE: ROW 7 / P0-DOOR IS CLOSED,
+## SO IT IS **9 CLOSED** AND **TWO** THINGS AWAY. The re-audit called it open
+## off a SOURCE-READ of the static markup; tapping the splash -- the only
+## gesture a player can make -- lands on tab RUN, panel p-city, city iframe
+## built, DAY 1 offered, zero errors. VERIFY ON THE REAL SURFACE (7/18).
+## Gated now as OPENS ON THE GAME; it was ungated before. See ROW 7. ***
 =============================================================================
 Measured against the current tree, not remembered. What moved:
 - **ROW 11 THE VISTA — CLOSED.** It had ZERO callers on 8/14. It has one
@@ -30,10 +36,34 @@ Measured against the current tree, not remembered. What moved:
 - **ROW 9 — the demo gate exists** (`gates/demo_gate.js`, plus
   `demo_day_gate.js` — the two-gates collision, kept deliberately).
 WHAT IS STILL TRUE, AND IT IS SHORT:
-- **ROW 7 IS STILL OPEN AND IT IS STILL THE CHEAPEST BIG WIN.** The alpha
-  still boots on the CHARACTER workbench: `<div class="tab on"
-  data-p="char">` and `<div class="panel on" id="p-char">`. Five days
-  flagged, unmoved. A friend tapping the link still lands on a dev tool.
+- **ROW 7 IS CLOSED. CORRECTED 8/20 BY THE FACTIONS LANE, ON THE REAL
+  SURFACE.** The 8/20 re-audit called it open off a SOURCE-READ of the
+  static markup, and the markup really does still say `data-p="char"` at
+  ALPHA:1012 -- but **the runtime overrides it on the splash tap, which is
+  the only gesture a player can make.**
+  MEASURED, tapping `#front` exactly as a friend would:
+      before the tap   tab CHARACTER, panel p-char, splash up
+      after  the tap   tab RUN, panel p-city, cityFrame BUILT,
+                       __OPENED_ON_THE_GAME=1, zero errors
+      on screen        "DAY 1 BEGINS BEFORE THE DAY" / WATCH / NOT NOW,
+                       then DAY 1 06:00, THE METER READER, GET UP,
+                       the movement pad and BIKE
+  The fix has been in the alpha for some time, named to this row, in the
+  `#front` click handler: it TAPS THE REAL RUN TAB rather than setting a
+  class, because the city iframe is built lazily inside that handler --
+  which also sends the player, sends the cast, restores the save and pushes
+  prefabs. A markup default would have shown an empty panel and skipped all
+  five, which is exactly why the markup was left alone.
+  **VERIFY ON THE REAL SURFACE (7/18): a source-read is not a measurement,
+  and here the two disagreed completely.** The row was steering the fleet's
+  #1 priority at something already done.
+  AND IT IS GATED NOW, which it was not: `window.__OPENED_ON_THE_GAME` was
+  set by the alpha and read by NO gate in the repo. `gates/front_door_gate.js`
+  (registered as OPENS ON THE GAME) taps the splash and checks the tab, the
+  panel, that the iframe was built, that its box is not 0x0 inside a hidden
+  parent, and that the first day is actually offered. Both mutations bite:
+  delete the runTab.click() and five claims go red; rename the RUN tab and
+  six do.
 - **ROW 3 — WALKING IS STILL SILENT.** Re-measured: the city world sends
   exactly ONE sfx message, `phone_buzz` at :28113, and has ZERO footstep
   code. The alpha has the receiver (`bohemiaCitySfx` -> playSFX at :7797)
@@ -47,8 +77,10 @@ WHAT IS STILL TRUE, AND IT IS SHORT:
 =============================================================================
 ## WHAT COMES AFTER — THE SHORTEST PATH TO A FRIEND PLAYING
 =============================================================================
-1. **RUN P0-DOOR** — open on the game, route splash -> cold open -> day.
-   Hours of work, changes everything a stranger sees.
+1. ~~**RUN P0-DOOR**~~ — **DONE, corrected 8/20 by measurement.** Tapping the
+   splash lands on the game (tab RUN, panel p-city, DAY 1 offered) and the
+   cold open is offered right there as "DAY 1 BEGINS BEFORE THE DAY / WATCH /
+   NOT NOW". Gated as OPENS ON THE GAME. **The next item is now #2.**
 2. **SOUNDS P0-WALK** — send a step event from the city; the bank, the
    classifier and the parent-side player all already exist.
 3. **COMBAT RF4-LIFT** — the free-movement budget, and the indoor fight
