@@ -59,7 +59,25 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_17_26.json'
+
+
+# 8/20: THE BANK FILENAME IS NOT WRITTEN DOWN TWICE. This gate carried a
+# hardcoded 'banks/BOHEMIA_SFX_APPROVED_8_17_26.json' -- the identical defect
+# found in sfx_wired_gate the same day, where the wire tool moved to the 8/20
+# bank after his 500-thumb sweep and the gate kept grading against a bank two
+# sweeps old. A stale ruler reports a stale GAME, which is the most expensive
+# kind of wrong: it sends you rebuilding something that was already correct.
+# The tool that BAKES the bank owns its name; every gate reads it from there.
+def _wire_const(name):
+    src = open('tools/bohemia_sfx_wire_patch.py', encoding='utf8').read()
+    m = re.search(r"^%s = '([^']+)'" % name, src, re.M)
+    if not m:
+        raise SystemExit('the wire tool no longer declares %s -- this gate '
+                         'cannot know which bank the game actually plays' % name)
+    return m.group(1)
+
+
+BANK = _wire_const('BANK')
 
 # moments whose caller this lane owns and has wired
 WIRED = ['clear', 'clear_still', 'money', 'cash_count']
@@ -206,8 +224,13 @@ def main():
     pd = d.get('onPayday') or []
     ok('ENDING A FIGHT calls the room-goes-quiet sound (%s)' % (fe or 'nothing'),
        'clear' in fe and 'clear_still' in fe)
-    ok('A PURSE CREDIT calls the money sound (%s)' % (pd or 'nothing'),
-       'money' in pd and 'cash_count' in pd)
+    # 8/20: THIS CHECK USED TO DEMAND THE MONEY SOUND, AND HIS RULING KILLED IT.
+    # "THERE IS NO PAPER NO COINS COINS GET MELTED DOWN TO RESOURCE PARTS." A
+    # GATE MUST NEVER OUTRANK A RULING -- the wire was repointed to parts_pass
+    # the same turn, and a checker still holding the old world would have read
+    # as "the purse is broken" forever. What a purse credit plays is PARTS.
+    ok('A PURSE CREDIT calls the PARTS sound, because there is no paper and '
+       'there are no coins (%s)' % (pd or 'nothing'), 'parts_pass' in pd)
     ok('the probe put playSFX back', d.get('putBack'))
 
     app = d.get('approved') or {}
@@ -233,6 +256,42 @@ def main():
            % e, ("A.%s||[]" % e) in blk)
     ok('and it still names the two that were already there',
        'A.generator||[]' in blk and 'A.wind_gust||[]' in blk)
+
+    # ---- 4b. THE THRESHOLD IS THE MOMENT (8/20) -------------------------
+    # YOU STEP INSIDE died 10 for 10 across go_inside and cross_in, and the
+    # brief was right the whole time: "the ROOM is the sound, not the door."
+    # A room is a STATE, not an event -- you hear it by the air CHANGING, and
+    # air_inside/air_day/air_night are already approved. What was broken was
+    # WHEN: `where` learns you are indoors within 4s but `tick` only fires on a
+    # 40-to-95 second gap, so the room arrived up to a minute and a half late
+    # and read as weather. The crossing ARMS the clock now.
+    #
+    # THIS IS A SOURCE CHECK AND IT SAYS SO, same as the rotation above: AMB is
+    # inside a closure and no probe can reach it. What it CAN do is refuse to
+    # accept a mention for a use, so every needle here is a statement that does
+    # something, not the word 'inside' appearing somewhere.
+    w = src.find('where:function(d){')
+    wblk = src[w:src.find('gap:function()', w)] if w >= 0 else ''
+    ok('the ambience `where` was found in the shipped alpha', bool(wblk))
+    ok('a crossing is detected by comparing against the PREVIOUS inside state, '
+       'not by the flag merely being true',
+       'var was=this.inside' in wblk and 'was!==this.inside' in wblk)
+    ok('the first report after load is not treated as a crossing, so no bed '
+       'slams over the splash', 'was!==undefined' in wblk)
+    ok('standing in a doorway cannot stutter the air: a crossing inside six '
+       'seconds of the last one is ignored',
+       'this.crossed' in wblk and '6000' in wblk)
+    ok('a crossing ARMS the clock instead of waiting out the 40-to-95s gap',
+       'this.next = 1' in wblk)
+    ok('and it forces the BED, so stepping outside hands you the outside air',
+       'this.forceBed = true' in wblk)
+    # and the other half: tick must actually HONOUR it. Arming without honouring
+    # would play a dog at the threshold, which is the bug this half prevents.
+    ok('tick honours forceBed instead of calling pick() at a crossing',
+       'this.forceBed ? (this.forceBed=false, this.kind) : this.pick()' in src)
+    _bank = json.load(open(BANK, encoding='utf8'))
+    ok('the air the crossing plays is approved on every side of it',
+       all(_bank.get(e) for e in ('air_inside', 'air_day', 'air_night')))
 
     # ---- 5. EVERY COOKED MOMENT HAS A CALLER ---------------------------
     # THE LEG THAT WOULD HAVE CAUGHT ME. On 8/20 I counted thirty moments with no
@@ -286,6 +345,13 @@ def main():
         'miss', 'vital', 'clear', 'sleep', 'swing', 'money', 'neon_buzz',
         'dog_far', 'round_land', 'cover_chew', 'car_heat', 'man_moves',
         'nerve_break', 'wake_up', 'panel_tick', 'brass_more',
+        # 8/20: THE CASH IDS, AND THEY ARE HERE BY RULING, NOT BY OVERSIGHT.
+        # "THERE IS NO PAPER NO COINS COINS GET MELTED DOWN TO RESOURCE PARTS."
+        # money was already on this list; cash_count and hands_pass join it
+        # because their wire was REPOINTED to parts_pass the same turn he ruled.
+        # A caller for either would now be the bug. See
+        # laws/BOHEMIA_ADDENDUM_NO_PAPER_NO_COINS_8_20_26.md
+        'cash_count', 'hands_pass',
     }
     eng = open('engine/bohemia_sfx.js', encoding='utf8').read()
     allev = [e for e, _ in re.findall(r"\{ ev: '([a-z_]+)',\s*label: '([^']*)'", eng)]
@@ -305,8 +371,17 @@ def main():
           % (len(called), len(allev), len(NO_CALLER_OK & set(allev))))
     ok('EVERY COOKED MOMENT HAS A CALLER or a written reason not to (%s)'
        % (', '.join(orphan) or 'no orphans'), not orphan)
-    for e in ('gone_quiet', 'hands_pass', 'dog_calls', 'sign_alive', 'mag_home'):
+    # hands_pass is DELIBERATELY absent from this list as of 8/20: SFX-09 wired
+    # it, and then he ruled that the moment it was built for does not exist in
+    # his world. A GATE MUST NEVER OUTRANK A RULING, so the check follows the
+    # ruling rather than the batch it shipped in. parts_pass takes its place --
+    # same moment, written from what actually changes hands.
+    for e in ('gone_quiet', 'parts_pass', 'dog_calls', 'sign_alive', 'mag_home'):
         ok('SFX-09: %s is wired' % e, e in called)
+    ok('and NOTHING calls a dead cash id any more (%s)'
+       % (', '.join(x for x in ('money', 'cash_count', 'hands_pass')
+                    if x in called) or 'none of the three'),
+       not any(x in called for x in ('money', 'cash_count', 'hands_pass')))
 
     # ---- 6. THE GROUND HE WALKS REPORTS WHAT IT IS ---------------------
     # APPROVED-BUT-UNUSED, on the most-walked surfaces in the game. There were

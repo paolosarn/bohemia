@@ -901,8 +901,41 @@ def parent_block(bank):
     kind:null, next:0, bus:null, seen:0,
     where:function(d){
       this.seen=Date.now();
+      var was=this.inside, t=Date.now();
       this.inside = !!d.inside;
       this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+      /* ---- THE THRESHOLD IS THE MOMENT (8/20) ------------------------------
+         YOU STEP INSIDE was offered to him TEN TIMES under two ids and all ten
+         died. His own brief said why, and it was right all along: "crossing
+         into a building. the ROOM is the sound, not the door." Every candidate
+         still tried to be a ONE-SHOT SAMPLE of a room, which is a thing that
+         does not exist -- a room is not an event, it is a STATE, and you hear
+         it by the air CHANGING.
+
+         The air was already correct and already approved: air_inside, air_day
+         and air_night are all his, all five candidates each. What was broken is
+         WHEN. `where` learns you are indoors within four seconds, but `tick`
+         only plays on a 40-to-95 second gap, so the air of a room arrived up to
+         A MINUTE AND A HALF after you walked into it -- long enough that it
+         reads as random weather instead of as the building you are standing in.
+         The crossing itself was silent, which is exactly the moment ten dead
+         candidates were cooked to fill.
+
+         So the crossing ARMS the clock instead of waiting for it. Same sounds,
+         same bed, same mix -- the only change is that the room arrives when you
+         enter it. This is the money lesson again, one moment over: a brief that
+         dies across every source is describing the wrong KIND of thing, and no
+         eleventh candidate was ever going to fix it.
+
+         TWO GUARDS. `was===undefined` is the first report after load, not a
+         crossing, and firing there would slam a bed over the splash. And a
+         player standing in a doorway flickers the flag, so a crossing inside
+         six seconds of the last one is ignored -- the air cannot stutter. ---- */
+      if(was!==undefined && was!==this.inside && t-(this.crossed||0) > 6000){
+        this.crossed = t;
+        this.next = 1;        /* truthy, and long past: the next tick plays */
+        this.forceBed = true; /* the AIR, never a dog: see tick */
+      }
     },
     /* THE RARE THING THAT BREAKS THE EMPTINESS (8/12). His 270-thumb sweep
        approved A GUST COMES THROUGH (2 of 5) and A GENERATOR, SOMEWHERE (4 of
@@ -973,7 +1006,12 @@ def parent_block(bank):
              to the MUSIC master, because MUS.stop() ducks it to zero. */
           this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
-        var ev=this.pick();
+        /* A CROSSING IS THE AIR, NOT AN EVENT (8/20). pick() can hand back a
+           gust, a generator, a lit sign or a dog, which is right for an idle
+           tick and WRONG for the moment you walk through a door: stepping out
+           of a building has to give you the outside AIR, or the crossing reads
+           as a coincidence instead of as the room changing. */
+        var ev = this.forceBed ? (this.forceBed=false, this.kind) : this.pick();
         /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
            generator is "somewhere", a dog is "far off", a gust comes "through".
            All three arrived dead centre at full level, which is the one thing
