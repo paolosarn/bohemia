@@ -109,6 +109,44 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
-  | DATE: 7/28/26 | PRIORITY: MED
-- BOARD ROW #: 16 | VERDICT: —
+- STATUS: COOKED AND WIRED (8/19/26, corrected by measurement) | REQUESTED
+  BY: ART lane (own queue, breaking down board row 7) | DATE: 7/28/26
+  | PRIORITY: MED
+- BOARD ROW #: 16 | VERDICT: shipped under EVERYTHING IS A THUMB (8/9)
+- WIRED 8/19/26, AND THE FORM'S PREMISE WAS CORRECTED BY THE WALKED WORLD:
+  this form asked for 1920s cut stone, but the districts the world built
+  are MODERN - the courthouse names its own 'precast panel joint' x748
+  (Clark County builds precast, and the dossier drew the joints), the
+  terminal is curtain wall. The material half of the WHY was answered on
+  8/3 by the civic material system. What shipped today is what the world
+  NAMES and nothing drew:
+  * courthouse precast joints - REUSED the shipped TF-RUN-005 tu_joint on
+    the mass's own material (borrowed from the nearest panel cell so a
+    1-wide joint line never rolls its own material).
+  * chapel 'arcade columns' x66 - pale stone barrels, ellipse cross-
+    section per the 45 law, verified standing in the arcade.
+  * chapel 'stained glass' x62 - dead leaded panels, muted amber/teal/
+    oxblood at glass values, unlit, no purple.
+  * 'dome glazing' x149 / 'clerestory glazing' x627 / 'oculus ring' x509 /
+    'curtain wall glazing' x476 - dead civic glazing, dark panes in thin
+    mullion grids, glass value from the approved wall_window target.
+  Cook: tools/tfcook/TF-ART-007_cook.py (4 pieces + 2 reused). Bank:
+  banks/tileforms/TF-ART-007_CANDIDATES_8_19_26.json. Card:
+  records/target/ART_WIRED_TF-ART-007.png.
+- THE BUG THIS PASS UNMASKED (fixed same turn, fleet-visible): the
+  courthouse was TEAL because the 8/15 court-lines pass matched the
+  substring 'court' - the COURTHOUSE, the chapel's memorial court, the
+  industrial truck court, the library courtyard, the mall food court and
+  every forecourt (nearly 8,000 cells across five-plus districts) were
+  wearing blue tennis acrylic, and the 8/18 composition audit missed it
+  because it only walked the sport districts. courtAt() is a POSITIVE
+  sport-name predicate now ('basketball/tennis/volleyball/pickleball/
+  handball/sport court' + 'court / field marking'). Three renders were
+  spent chasing "why are my joints red" before the white-probe build
+  proved the red was the joint branch itself sitting inside a building
+  that had never shown its true material - the lesson is the old one:
+  when a fix changes nothing twice, the thing you are staring at is not
+  the thing that is wrong.
+- Still true to the original form and NOT shipped (no world sites): grand
+  steps, cornice band as a distinct course, the lit territorial variant
+  (LIGHT=TERRITORY needs a Paolo ruling on who holds the courthouse).

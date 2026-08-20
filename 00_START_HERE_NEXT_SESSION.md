@@ -2106,22 +2106,24 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/19 (d) LATEST -- *** FOUR FAMILIES IN ONE DAY. The fourth:
-TF-ART-016 SOLAR/BATTERY (TF-RUN-007 merged in as the form ordered) - the
-solar farm was stucco squares on dirt, it is ranked near-black panel
-tables now (back rail / glass / front lip over the under-slot, read off
-the world's own 4-deep table geometry), pads carry their pad-mount
-cabinets, the battery yard's racks are the DEAD half (cold, one in seven
-gutted, oil at the foot). Dead-glass sub-states BANKED (no stripped block
-in this seed). Busbar lesson: dotted lines at tile pitch read as stipple
-- the banned thing - use faint continuous lines.
+ART (f3eu53): 8/19 (e) LATEST -- *** FIVE FAMILIES IN ONE DAY AND THE LANE
+QUEUE IS EMPTY. The fifth: TF-ART-007 civic remainders, corrected by
+measurement (the world's courthouse is PRECAST - it names its own joints,
+which REUSE the shipped tu_joint; chapel arcade columns + stained glass;
+dead glazing on dome/clerestory/oculus/curtain wall). AND A VALLEY-WIDE
+BUG KILLED, mine: the 8/15 court pass matched substring 'court' - the
+courthouse, memorial court, truck court, courtyard, food court and every
+forecourt (~8,000 cells) wore basketball acrylic for four days. courtAt
+is a positive sport-name list now. Lessons in the sitting record pass 33
+(the white-probe debug trick; sweep a substring predicate against every
+world name the day it ships).
 EARLIER TODAY: TF-WORLD-010 signs, TF-RUN-005 tilt-up joints, TF-ART-017
 thickness (details below). Seventeen wired families, all in the ART tab.
 Remaining in the lane queue: TF-ART-007 civic stone (MEASURE FIRST - the
 8/3 civic system may already answer its WHY, same as RUN-005's was
 half-answered). CAMP (TF-LAB-001) stays FROZEN TWICE OVER - do not touch.
 Blocked-outside + base-red lists unchanged from (c).
-Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-32)
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-33)
 
 PREVIOUS (c) ENTRY:
 ART (f3eu53): 8/19 (c) LATEST -- *** THREE HIGH ROWS IN ONE DAY. The third:
