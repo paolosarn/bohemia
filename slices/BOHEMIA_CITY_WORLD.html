@@ -32749,7 +32749,17 @@ function qkLine(key){
 function ctRow(k,v){ return '<div class="r"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
 function ctOpen(){
   CT_TERMS_OPEN = false;   /* __CITY_CARDFOLD__: each card opens folded */
-  var p=ctAdjacent(); if(!p) return;
+  /* __CITY_STALECARD__ -- IF THERE IS NOBODY TO SHOW, CLOSE IT.
+     This used to `return`, which left the PREVIOUS person's card standing --
+     their name, their outfit, their terms, and buttons that still fired against
+     the old fid. Measured: waking up moves the PLAYER (day 1 me [10246,2268],
+     day 2 me [10293,2248]) while the person stays where they live, so after any
+     day rollover the card was open on somebody forty cells away.
+     Same family as the 8/18 wall: a control on screen that does not do what the
+     screen says. There it could not move anything; here it moved the WRONG
+     PERSON'S standing. There is no "somebody will close it later" -- this
+     function IS the later. */
+  var p=ctAdjacent(); if(!p){ ctClose(); return; }
   CT_OPEN=p; ctDraw();
   /* THE PERSON YOU JUST MET HAS A VOICE (8/11, SOUNDS lane). A MEETING speaks;
      a redraw does not, which is why this is here and not in ctDraw. The parent
@@ -33373,6 +33383,13 @@ function ctClose(){ CT_OPEN=null;
    CONTEXTUAL VERB and not a menu. */
 function ctVerb(){
   var b=document.getElementById('cttalk'); if(!b) return;
+  /* __CITY_STALECARD__ -- YOU CANNOT TALK TO SOMEBODY YOU HAVE WALKED AWAY FROM.
+     This ran on every render and never asked whether the open card's person was
+     still next to you, so the card was opened by TALK and closed ONLY by GO: you
+     could walk the entire valley with somebody's card up and their buttons live.
+     This is the one place that already runs on movement, so the check belongs
+     here -- no new hook, no new listener. */
+  if(CT_OPEN && MODE==='human' && !ctAdjacent()){ ctClose(); return; }
   if(CT_OPEN || MODE!=='human'){ b.style.display='none'; return; }
   var p=ctAdjacent();
   if(!p){ b.style.display='none'; window.__CT_VERB=null; return; }

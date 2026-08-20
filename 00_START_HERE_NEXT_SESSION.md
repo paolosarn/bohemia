@@ -1586,7 +1586,77 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     the HEM. 34 of 202 garments carry the whole structural range. A new garment should
     occupy a silhouette nobody has -- not another colourway, and not another long coat.
 
-FACTIONS (factions-ovkjpf): 8/19 (i) LATEST -- *** THE GATE SUITE WAS GIVING UP
+FACTIONS (factions-ovkjpf): 8/20 LATEST -- *** NOBODY HAD EVER WALKED THE WHOLE
+FACTION JOURNEY. NINE GATES, ALL GREEN, FOUR TIMES BROKEN. Now one gate walks it
+end to end, and doing it found two more bugs on the first try.
+TAB: CITY -- walk up to somebody who runs with an outfit and go the whole way. ***
+
+THE FACTION STACK HAS NINE GATES AND EVERY ONE VERIFIES A LAYER -- the organ
+clamps, the card displays, the rule derives, the save round-trips. EVERY ONE WAS
+GREEN WHILE THE STACK WAS BROKEN, FOUR TIMES:
+  8/15  factionOf was not a function -> ZERO of 166 people ran with anybody, for
+        thirteen days
+  8/18  BohemiaCommitment.give() was called ZERO times on the walked surface ->
+        nine presses reached 9 against a ceiling of 5
+  8/18  the favour opened an account and NOTHING EVER COLLECTED IT
+  8/19  `burned` said "you cost yourself somewhere else to be here" and nothing
+        anywhere cost you anything anywhere else
+THE ORGAN WAS VERIFIED AND THE WIRING WAS NOT, four times, and each time the thing
+that found it was a person driving the real card by hand. NO CLAIM ANYWHERE
+PLAYED THE ARC.
+
+THE LAW: A STACK OF VERIFIED LAYERS IS NOT A VERIFIED JOURNEY. Any system a
+player moves THROUGH needs one claim that travels the whole distance, in order,
+through the controls he actually presses, asserting every step MOVES something.
+Gate: faction_arc_gate.js, 13 claims. meet -> ask their name -> read their terms
+-> do what they want -> hit THE WALL -> take a side -> climb further -> take what
+they offer -> OWE them -> get asked. Real affiliated person, no stub, and it
+FAILS rather than skips if the valley has nobody -- "nobody in Las Vegas runs
+with anybody" is the exact state the game was silently in, and a gate that shrugs
+at it is how that happened.
+Law: laws/BOHEMIA_ADDENDUM_NOBODY_EVER_WALKED_IT_8_20_26.md
+
+*** AND WALKING IT FOUND TWO THINGS ON THE FIRST TRY. ***
+1. THE CARD STAYED OPEN ON SOMEBODY WHO WAS NO LONGER THERE. ctVerb() runs on
+   EVERY render and early-returns the moment a card is open, so it manages the
+   TALK button and never asked whether that person was still next to you. The
+   card was opened by TALK and closed ONLY by GO -- you could walk the entire
+   valley with somebody's card up and their buttons live. Worse on a day roll,
+   because WAKING UP MOVES THE PLAYER:
+       day 1  me [10246,2268]  them [10245,2268]  adjacent TRUE
+       day 2  me [10293,2248]  them [10245,2268]  adjacent FALSE, card VISIBLE
+   Same family as the 8/18 wall: a control on screen that does not do what the
+   screen says. There it could not move anything; here it moved THE WRONG
+   PERSON'S standing. Fixed in the one place that already runs on movement.
+2. TURNING UP IS ONCE A DAY and that is the design ("YOU ALREADY DID TODAY. COME
+   BACK TOMORROW.") -- you cannot buy your way in by pressing a button. So the
+   walk SLEEPS AND GOES BACK TO FIND THEM, because that is what playing is.
+
+TWO THINGS THE GATE ADMITS ABOUT ITSELF, in its own header:
+  - It CANNOT tell the clamp from the button suppression: two mechanisms enforce
+    the ceiling and either alone stops the climb, so the mutation actually run
+    removes BOTH (the exact 8/18 bug) and reds B5 and B8. The clamp alone is
+    proved by commitment_gate Ez6. AN ARC GATE TESTS THE JOURNEY; IT IS NOT A
+    SUBSTITUTE FOR THE MECHANISM GATES.
+  - Its own first draft read sv.meta.owed directly and reported 0 while the real
+    debt was 6 -- the three-spellings bug, SEVENTH time in this lane, written by
+    the person who fixed the other six.
+
+GATES: FACTION ARC 13/13 (new), COMMITMENT 72/72, CARD FOLD 11/11, CLAIM 45/45,
+FAVOUR 31/31, BELONGING 58/58, INTRODUCTIONS 46/46, WALKED SURFACE 9/9. And the
+ctVerb change was checked against every other lane that draws on this card:
+CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35, ASKING 21/21, WHAT YOU HEARD
+19/19, QUIRK 32/32, STREET EXCHANGE 31/31.
+
+NEXT FOR THIS LANE (decided, not asked): the arc walks with a DEBT outfit (the
+Cartel, the first affiliated person in the valley). The other two economies --
+you-give-first, and the outfit that gives nothing to anybody ever -- have never
+been walked at all, and they are different journeys, not the same one with
+different words.
+
+---
+
+FACTIONS (factions-ovkjpf): 8/19 (i) -- *** THE GATE SUITE WAS GIVING UP
 TWO THIRDS OF THE WAY THROUGH AND LOOKING LIKE IT PASSED. Fixed, plus the
 45-MINUTE ORPHAN underneath it. TAB: none, this is the machine that guards every
 tab. ***
