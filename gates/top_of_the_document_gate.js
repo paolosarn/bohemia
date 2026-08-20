@@ -132,14 +132,28 @@ ok('T5 THE FINDING IS WRITTEN DOWN WHERE THE NEXT SESSION TRIPS OVER IT, with th
   /BOHEMIA_COMBAT_I_BUILT_THE_BOTTOM_OF_HIS_DOCUMENT_8_20_26/.test(handoff));
 
 /* ---- and the specific claim the finding rests on, re-derived rather than quoted ---- */
-ok('T6 AND THE ANSWER TO "WHY DOES IT FEEL FLAT" IS STILL SITTING UNBUILT IN HIS OWN DOCUMENT. RF4-25 (three stars) says enemies must read each other, and our own diff column already answered the complaint: "5 real types exist and NONE OF THEM READ EACH OTHER. This is the actual answer to why the fight feels flat." When it is built this check goes red and gets rewritten, rather than quietly becoming false',
-  !!byId['RF4-25'] && byId['RF4-25'].stars === 3 && byId['RF4-25'].status === 'SPECED' &&
+/* T6 DID ITS JOB BY GOING RED. It was written on 8/20 as "RF4-25 is still
+   SPECED", with the note: "when it is built this check goes red and gets
+   rewritten, rather than quietly becoming false." It went red the same day, on
+   the commit that built it. A check that expires loudly is the only kind worth
+   writing about work in progress. What it holds now is the OTHER half -- that
+   the row which answered his complaint is built, and that the ledger the finding
+   rests on actually moved. */
+ok('T6 THE THREE-STAR ROW THAT ANSWERED HIS COMPLAINT IS BUILT. RF4-25 -- "the same enemy added to 5 very different groups should produce 5 very different combat encounters" -- whose own diff column read "5 real types exist and none of them read each other. This is the actual answer to why the fight feels flat"',
+  !!byId['RF4-25'] && byId['RF4-25'].stars === 3 && byId['RF4-25'].status === 'BUILT' &&
   /\bnone of them read each other\b/.test(spec));
-/* AND THE CASE MATTERED. The first write of T6 searched for it in CAPITALS,
-   because that is how I had written it into my own record -- and the spec says
-   it in lower case. The gate went red on my misquote, which is the gate working:
-   a verbatim quote that is not verbatim is the same defect as a number typed
-   beside the constant instead of read from it. */
+
+/* AND THE CASE MATTERED. The first write of T6 searched for that sentence in
+   CAPITALS, because that is how I had written it into my own record -- and the
+   spec says it in lower case. The gate went red on my misquote, which is the
+   gate working: a verbatim quote that is not verbatim is the same defect as a
+   number typed beside the constant instead of read from it. */
+
+ok('T7 AND THE LEDGER MOVED IN THE RIGHT DIRECTION, which is the only thing that makes the finding more than a story. On 8/20 it was 2 starred rows built against 18 unstarred; a lane that "took the note on board" and then built three more unstarred rows would read exactly the same as one that did not',
+  built(starred) >= 4);
+
+ok('T8 AND THE TOP OF THE DOCUMENT IS NOT DECLARED FINISHED. The thesis row (RF4-36, three stars, "the most important line in any of this") is still open, so the ledger cannot be read as a job done -- when it closes this check goes red and gets rewritten, the same way T6 just did',
+  !!byId['RF4-36'] && byId['RF4-36'].stars === 3 && byId['RF4-36'].status !== 'BUILT');
 
 console.log('=== TOP OF THE DOCUMENT GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

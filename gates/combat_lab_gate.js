@@ -3620,7 +3620,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
        claim is unchanged; the anchor stops demanding that the car books are the
        LAST thing reset. */
     /G\._cars=placed\.length; G\._carHeat=\{\}; G\._carBurnt=\{\}; G\._carFire=\[\];/.test(demo) &&
-    /G\._carFire=\[\]; G\.smoke=\[\]; \}/.test(demo));
+    /G\._carFire=\[\]; G\.smoke=\[\];/.test(demo));
 
   /* ===== 43. V109 THE DEATH READS FROM THE HIT ======================== */
   ok('V109 THE FALL IS INHERITED, NOT ROLLED (Paolo: "all of it has to be translated from the type of headshot they got"). The old line said the opposite OUT LOUD -- "THE SHUFFLE: which way they fall is rolled, never inherited" -- in six separate places, each with its own dice. One function now, and every site asks it',
@@ -4626,6 +4626,46 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V171 THE GROUP READS ITSELF (RF4-25, THREE STARS) ==========
+   "The same enemy added to 5 very different groups should produce 5 very
+    different combat encounters."
+   THE FIRST THREE-STAR ROW THIS LANE HAS BUILT, and it exists because on 8/20
+   Paolo said the combat "is not even close" for the third time in three days
+   and I finally counted the stars on his document: two of the ten starred rows
+   were built and eighteen of the fifty unstarred ones were. RF4-25's own diff
+   column had already answered him -- "5 real types exist and none of them read
+   each other. This is the actual answer to why the fight feels flat."
+   The BEHAVIOUR is measured in a real browser by fight_moves_you_gate, which
+   runs three identical gunmen through six different companies. What is pinned
+   here is the shape and the four disciplines. */
+  ok('V171 THE ROSTER IS READ ONCE AND CACHED ON THE TURN, in one function, and the brains ASK it rather than each rolling their own. Six copies of "what is the group doing" would be five future places to forget it, which is precisely what machine 4 exists to prevent -- this is that discipline applied to the roster instead of to sight',
+    /function squadRead\(\)\{[\s\S]{0,200}?if\(G\._sq&&G\._sq\.t===t\)return G\._sq;/.test(demo) &&
+    /* TWO: the definition and the ONE place that asks. It was three until the
+       third rule was cut, and this number is the check that a fourth ask never
+       quietly appears in some other brain. */
+    (demo.match(/squadRead\(\)/g) || []).length === 2);
+
+  ok('V171 AND IT LANDS ON THE ONE NUMBER THAT ALREADY DECIDED HOW CLOSE A MAN WILL GET. pressAI\'s `standoff` was already the single variable governing that, so the group\'s read modulates it and writes no new geometry of its own. A second distance rule beside the first one is how two copies of a rule start disagreeing',
+    /let standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+    /if\(_sq\.bladeClosing\)standoff=Math\.max\(standoff,SQ_ANVIL\);/.test(demo) &&
+    /if\(_sq\.marksmanUp&&!\(e\.E&&e\.E\.spotter\)\)standoff=Math\.max\(standoff,SQ_LANE\);/.test(demo));
+
+  ok('V171 IT READS THE LIVING ROOM, not the roster it started with. Both conditions go through the predicates the fight already owns -- a blade must be CLOSING (within SQ_HAMMER, not merely present) and the marksman must be able to SEE you (seesMe, so cover and V170\'s smoke both switch him off) -- so the feature turns itself off exactly when the player has earned it',
+    /const bladeClosing=live\.some\(e=>e\.melee&&\(e\.edist\|\|99\)<=SQ_HAMMER\);/.test(demo) &&
+    /const marksmanUp=live\.some\(e=>e\.E&&e\.E\.spotter&&seesMe\(e\)\);/.test(demo) &&
+    /const live=\(G\.e\|\|\[\]\)\.filter\(e=>e&&!e\.dead&&!e\.downed&&!e\.broken&&!e\.fleeing\);/.test(demo));
+
+  ok('V171 EVERY DIAL IS A DISTANCE AND THEY SIT OUTSIDE WHERE HE ALREADY STANDS -- which had to be MEASURED, not assumed. A lone goon settles at 6.0 tiles, his gun\'s effective range, so the first cut of these numbers (anvil 5.0, lane 6.5) moved nothing at all: three arms, one behaviour. A DEAD DIAL IS WORSE THAN NO DIAL, and that is the second time V168\'s lesson has had to be learned by playing it rather than reading it',
+    /const SQ_HAMMER=6\.0;/.test(demo) && /const SQ_ANVIL=8\.5;/.test(demo) &&
+    /const SQ_LANE=9\.5;/.test(demo) &&
+    !/SQ_(ANVIL|LANE|HAMMER)[^\n]*dmg/i.test(demo));
+
+  ok('V171 AND A THIRD RULE WAS CUT RATHER THAN SHIPPED AS FLAVOUR. "A man does not give up stone for open ground unless a friendly has a bead on you" was written, wired and measured over 20 arenas: 30 cover-leaving steps with it and 29 to 31 without, in every arm. It was not mis-gated -- somebody holds a bead on 12.2% of real turns, so it was armed on the other 88% -- it simply never changed a decision, because the standoff rules already decide where these men stand. Shipping it would have made the measured parts less believable',
+    !/beadOnYou/.test(demo) && !/THE ADVANCE UNDER COVERING FIRE/.test(demo));
+
+  ok('V171 AND THE GROUP FORGETS WHEN THE LOT DOES: the cache is cleared with the cars and the air, so a read from the last fight can never survive into the next one',
+    /G\.smoke=\[\]; G\._sq=null; \}   \/\* V171: and the group forgets \*\//.test(demo));
+
 /* ===== V170 THE SMOKE (RF4-57, machine 9) ========================
    "ONE ITEM WITH FIVE GEOMETRY-DEPENDENT USES BEATS FIVE ITEMS WITH ONE USE
    EACH." A burning car throws a screen, and because V165 made SIGHT the master
@@ -4670,7 +4710,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /const SMOKE_TURNS=6;/.test(demo) &&
     /if\(G\.smoke&&G\.smoke\.length\)G\.smoke=G\.smoke\.filter\(smokeAlive\);/.test(demo) &&
     /if\(G\.smoke\.length>8\)G\.smoke\.shift\(\);/.test(demo) &&
-    /G\.smoke=\[\]; \}   \/\* V170: new lot, clear air/.test(demo));
+    /G\.smoke=\[\];[^\n]*V170: new lot, clear air/.test(demo));
 
   ok('V170 NO DAMAGE BEFORE THE DIAL, obeyed by a feature that had every excuse to break it: a burning car is the most natural place in the game to add a damage-over-time tick, and it adds NONE. Both dials are marked [DIAL] and both are about VISION -- how wide the screen is and how long it stands',
     /const SMOKE_R=2\.4;       \/\* \[DIAL\] tiles of screen a burning car throws \*\//.test(demo) &&
@@ -4892,7 +4932,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /if\(aim\)return -PRESS_PULL\*Math\.hypot\(x-aim\[0\],y-aim\[1\]\);/.test(demo));
 
   ok('V165 THE SEARCHING STANDOFF IS REUSED, NOT INVENTED: at PRESS_STANDOFF 3.2 a searching man would stop three tiles short of the tile he is walking to and circle it forever, so he uses HOLD_PASS -- V137\'s own number for a man running an objective rather than shopping for a firing angle',
-    /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+    /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
     !/const SEARCH_STANDOFF=/.test(demo));
 
   ok('V165 VISION RESOLVES BEFORE THE BEAD, because the bead reads it. Run it after and every man on the board spends his turn acting on last turn\'s eyes',
@@ -5288,7 +5328,7 @@ ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a sho
      cannot see keeps no firing distance from him, so he uses the same HOLD_PASS
      V137 already wrote for a man running an objective. Both original numbers are
      untouched and both original cases still read exactly as they did. */
-  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
@@ -5369,7 +5409,7 @@ ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives 
   /const HOLD_PASS=1\.8;/.test(demo) &&
   /* V165 RE-POINTED: same line, same numbers, one more case on it -- a searching
      man is running an objective in exactly the sense V137 meant. */
-  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /putCell\(e,Math\.round\(p\.x\),Math\.round\(p\.y\)\); snapBody\(e\);/.test(demo));
 
 ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',

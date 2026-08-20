@@ -732,6 +732,122 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + 'inherited without a line of its own because V168 asks seesMe too',
     smk.pin && smk.pin.first === true && smk.pin.alive === true && smk.pin.through === false);
 
+
+/* ===== V171 THE GROUP READS ITSELF (RF4-25, three stars) ==========
+   "The same enemy added to 5 very different groups should produce 5 very
+    different combat encounters."
+   THREE IDENTICAL GUNMEN, the same opening ring, the same ten turns, and the
+   ONLY thing that changes is who else is in the room. Where the GUN LINE ends
+   up is what the player feels, so that is what is measured -- watching one
+   named goon instead measures PRESS_FRAC, because with a second body in the
+   pool the man you are watching simply loses the movement slot. That cost a
+   run and is why this measures the line. */
+  const sq = await frame.evaluate(() => {
+    const mk = (arch, dist, ang, extra) => { const E = JSON.parse(JSON.stringify(ARCH[arch]));
+      return Object.assign({ i:0, E, n:arch, hp:E.hp, max:E.hp, arch, dead:false,
+        melee:!!E.melee, acq:0, stun:0, supp:0, lvl:0, gcov:0, ea:ang, edist:dist }, extra||{}); };
+    const GUNS = [[11,-0.5],[11,0],[11,0.5]];
+    /* EACH ARM IS AN AVERAGE OVER MANY ARENAS, not one sample. The first cut of
+       this took a single arena per arm and two of its five claims failed on the
+       very next run, because the line settles at either 4 or 6 tiles depending
+       on parity in the half-the-line-moves budget and the peek cycle -- a 1.35
+       tile swing that is bigger than some of the effects being claimed. A number
+       that changes between two runs of the same build is not a measurement. */
+    const arm = (others, turns, smokeTheSpotter) => {
+      const ends = [];
+      for (let A = 3; A <= 14; A++) { ends.push(one(A, others, turns, smokeTheSpotter)); }
+      return +(ends.reduce((a,c)=>a+c,0)/ends.length).toFixed(2);
+    };
+    const one = (arena, others, turns, smokeTheSpotter) => {
+      BohemiaArena.set(arena); setupCombat();
+      G.e.length = 0; G.smoke = []; G.pillars = []; G.over = false;
+      G.pHP = G.pMax || 100; G.inc = null; G.mTurn = 1; G.hold = null;
+      GUNS.forEach(g => { const e = mk('human', g[0], g[1]); e._line = true; G.e.push(e); });
+      (others||[]).forEach(o => G.e.push(mk(o.a, o.d, o.g, o.x)));
+      G.e.forEach((e,i) => { e.i = i;
+        putCell(e, Math.round(Math.cos(e.ea)*e.edist), Math.round(Math.sin(e.ea)*e.edist)); });
+      G.numEnemies = G.e.length;
+      for (let t = 0; t < turns; t++) { G.mTurn++;
+        /* hang V170's screen on the marksman's line, every turn */
+        if (smokeTheSpotter) { const sn = G.e.find(e => e.E && e.E.spotter);
+          if (sn) { G.smoke = []; popSmoke(sn.ea, Math.max(1, sn.edist / 2), sn.lvl | 0); } }
+        try { visionTick(); } catch(x){}
+        G.e.forEach(x => { if (seesMe(x)) markSeen(x); });
+        G._sq = null;
+        try { pressAI(); } catch(x){} }
+      const line = G.e.filter(e => e._line && !e.dead).map(e => e.edist);
+      return +(line.reduce((a,c)=>a+c,0)/line.length).toFixed(2);
+    };
+    const T = 10;
+    return {
+      alone:       arm([], T),
+      shivClosing: arm([{a:'shiv',   d:5,  g:1.2}], T),
+      shivFar:     arm([{a:'shiv',   d:14, g:1.2}], T),
+      spotterUp:   arm([{a:'sniper', d:12, g:-1.2}], T),
+      spotterDead: arm([{a:'sniper', d:12, g:-1.2, x:{dead:true}}], T),
+      fourthGoon:  arm([{a:'human',  d:12, g:-1.2}], T),
+      /* TWO ISOLATING ARMS, added because mutation testing found the guards
+         covering for each other: killing the dead-filter left the browser green
+         because seesMe also rejects a corpse, and killing the seesMe test left
+         it green because the dead-filter also rejects one. Each of these arms
+         puts exactly ONE of the two guards under load. */
+      deadShivAtFive: arm([{a:'shiv', d:5, g:1.2, x:{dead:true}}], T),
+      blindSpotter:   arm([{a:'sniper', d:12, g:-1.2}], T, true),
+      dials: { hammer: SQ_HAMMER, anvil: SQ_ANVIL, lane: SQ_LANE },
+    };
+  });
+
+  console.log('  three identical gunmen, same ring, same ten turns, only the company changes:'
+    + '\n    alone ' + sq.alone + '  |  shiv closing ' + sq.shivClosing + '  |  shiv far ' + sq.shivFar
+    + '  |  spotter up ' + sq.spotterUp + '  |  spotter dead ' + sq.spotterDead
+    + '  |  fourth goon ' + sq.fourthGoon);
+
+  ok('V171 RF4-25 THE SAME THREE GUNMEN PLAY DIFFERENT FIGHTS DEPENDING ON WHO ELSE IS IN THE ROOM. Alone they walk to ' + sq.alone
+    + ' tiles; with a blade closing they hold at ' + sq.shivClosing + '; with a marksman working they hold at ' + sq.spotterUp
+    + '. Before this every roster loop in every enemy brain was OCCUPANCY -- "one body per spot" -- and not one enemy decision read what another enemy IS',
+    sq.shivClosing - sq.alone >= 1.5 && sq.spotterUp - sq.alone >= 1.5);
+
+  ok('V171 AND THE BLADE HAS TO BE ACTUALLY SWINGING, not merely present. A shiv at ' + sq.shivClosing
+    + ' tiles turns the guns into an anvil; the same shiv parked far away leaves them at ' + sq.shivFar
+    + ', which is where they stand with nobody beside them at all. A rule that fired on the mere EXISTENCE of a blade would be a blanket buff wearing a synergy costume',
+    Math.abs(sq.shivFar - sq.alone) < 0.6 && sq.shivClosing - sq.shivFar >= 1.5);
+
+  ok('V171 AND KILLING THE MARKSMAN BRINGS THE WHOLE ROOM FORWARD ' + (sq.spotterUp - sq.spotterDead).toFixed(2)
+    + ' TILES. This is V168\'s priority target earning a SECOND consequence: he already took your legs, and now ignoring him also holds the entire gun line off you. That is what "worth crossing the room for" has to mean',
+    sq.spotterUp - sq.spotterDead >= 2.0);
+
+  /* WHAT IS IT, NOT HOW MANY. An extra live body does move the line a little all
+     on its own -- it takes a slot in the half-the-line-moves budget and it
+     occupies a cell -- and pretending otherwise would be a claim I would have to
+     keep loosening. So the claim is a RATIO: crowding is allowed to matter, it
+     is just not allowed to be the effect. The first write demanded crowding be
+     under 0.6 tiles flat, it measured 0.63, and widening THAT number would have
+     been tuning the ruler to the result. */
+  const crowd = Math.abs(sq.fourthGoon - sq.alone);
+  const identity = Math.min(sq.shivClosing - sq.alone, sq.spotterUp - sq.spotterDead);
+  ok('V171 AND IT IS WHAT THEY ARE, NOT HOW MANY THERE ARE. One more plain goon shifts the line ' + crowd.toFixed(2)
+    + ' tiles, which is crowding: he takes a movement slot and a cell. Changing WHO is beside them shifts it ' + identity.toFixed(2)
+    + ' tiles, ' + (identity/Math.max(0.01,crowd)).toFixed(1) + 'x as far. Before this the build had ONLY the crowding term -- a live spotter and a far-off shiv produced the identical number, because the only thing any enemy read about another was that a cell was taken',
+    identity >= 3 * crowd && crowd < 1.2);
+
+  ok('V171 AND A DEAD MAN IS NOT COMPANY: with the spotter killed the line settles at ' + sq.spotterDead
+    + ', which is where the same three gunmen stand with nobody beside them at all (' + sq.alone
+    + '). The read is of the LIVING room, so the feature switches itself off exactly when the player has earned it',
+    Math.abs(sq.spotterDead - sq.alone) < 0.35);
+
+  ok('V171 A DEAD BLADE IS NOT A HAMMER: a shiv lying dead at 5 tiles leaves the line at ' + sq.deadShivAtFive
+    + ', where a LIVE one at the same 5 tiles holds them at ' + sq.shivClosing
+    + '. This exists because mutation testing found the two guards covering for each other -- deleting the dead-filter changed nothing, since seesMe also rejects a corpse, and deleting the seesMe test changed nothing either. Each guard needs a case where it is the only one holding',
+    Math.abs(sq.deadShivAtFive - sq.alone) < 0.6 && sq.shivClosing - sq.deadShivAtFive >= 2.0);
+
+  ok('V171 AND V170\'S SMOKE LIFTS THE MARKSMAN\'S HOLD, without one line of code knowing about the other: hang a screen on the spotter\'s line and the room comes forward from ' + sq.spotterUp
+    + ' to ' + sq.blindSpotter + ' while he stands there alive. The read asks seesMe, so cover, darkness and smoke were all already wired into it the day it was written. That is the second time machine 4 has paid for a feature it predates',
+    sq.spotterUp - sq.blindSpotter >= 2.0);
+
+  ok('V171 AND EVERY DIAL IS A DISTANCE, so NO DAMAGE BEFORE THE DIAL is untouched by a feature whose whole job is making a group scarier. A group that reads itself is allowed to be frightening by standing in better places, never by hitting harder',
+    sq.dials.hammer > 0 && sq.dials.anvil > 0 && sq.dials.lane > 0
+    && sq.dials.lane > sq.dials.anvil);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
