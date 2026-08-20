@@ -1,3 +1,83 @@
+RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES AND THE REDS ARE BEING
+CLEARED. 393/393 zero unrun, and ten gates taken green this pass. ***
+
+THE SUITE ITSELF IS DONE (fixes 1, 2, 3 all landed):
+  393 of 393 gates, zero unrun, ~40 min including the confirm-alone pass.
+  Was 217 of 379 and a fifty-minute wall.
+  --pure runs the 252 browserless gates as a pre-ship check.
+  A RED UNDER LOAD IS RE-RUN ALONE before it counts, so the suite cannot invent
+  one. It has caught four so far: CITY BORDER, THE CROWD, THE RUN, RUN BEAT,
+  RENDER PIXEL -- all "the box, not the build".
+
+*** TEN GATES TAKEN GREEN, and one of them was a root cause worth the whole day. ***
+
+A PATCH TOOL WAS CUTTING A MODULE IN HALF, EVERY RUN.
+  tools/bohemia_city_furnish_patch.py anchored on `const BOH_FLOORPLAN=(function(){`
+  -- the floorplan's first line of CODE -- and inserted BEFORE it, which is the
+  point right after that module's comment header. So the furnish module landed
+  INSIDE the floorplan: 1,466 bytes of it at one address, the other 13,906 at
+  another, 34,850 bytes of two modules in between.
+  EVERYTHING STILL RAN. Both halves are top-level and the declaration is intact,
+  which is exactly why it survived -- nothing was broken, only sliced. What died
+  was byte-identity, which is the whole of the ENGINE SYNC LAW, and it took
+  INTERIORS, QUEST PLACEMENT and BANNER red while the resync keeper reported the
+  module "UNRECOGNISED -- neither canon nor any of the last 40 revisions".
+  I rejoined the page once and IT CAME BACK, which is the tell: fixing the page
+  without fixing the tool just waits for the tool's next run. The anchor is the
+  MODULE now, not its first line of code.
+    tools/bohemia_unsplit_floorplan_patch.py  (the page, idempotent)
+    tools/bohemia_city_furnish_patch.py       (the cause)
+
+ONE WORLD TAB: 13 REDS -> 0. Eleven files carried `if (t) t.click()` next to a
+  tab lookup. A tab that moved makes that a NO-OP, the gate carries on against
+  whatever surface is showing, AND IT REPORTS GREEN -- the same disease as an
+  unrun gate reading green. Fixed to the model dayloop already sets: the click
+  returns whether it found the tab and the caller says so. Tools THROW instead,
+  because a tool that quietly shoots the wrong surface is worse than one that
+  stops. A dead `.tab[data-p="story"]` fallback came out with it -- there is no
+  STORY tab in the alpha.
+
+A FOURTH WRONG RULER ON BANNER. It reported "asking x7, exchanges x3, people x2"
+  -- seven copies of a module the page holds ONE of. Two holes, both in the
+  fingerprint: a JSON `"applied":` citation string is DATA, not a body (so it was
+  counting citations), and a fingerprint must be unique INSIDE its own module too
+  (people's line appears twice in canon, so one copy counts as two). That gate's
+  header already documented three previous wrong rulers.
+
+  ALSO GREEN NOW: GRAVEYARD (a buried hairstyle, LOW FADE, was still being drawn
+  -- the dead stay dead), MAP BOUND (three files had grown a typed `96`; the
+  valley says how big it is), WORLD MODEL, WALKED SURFACE, QUEST PLACEMENT (a
+  stale generated judge page that named its own fix), TASTE (three text factories
+  had no documented TASTE CHECK -- they emit words, never pixels, and now say so
+  and name the words rules they DO inherit).
+
+  AND I BROKE A TARGET WHILE FIXING A RULER, which is the thing MAP BOUND is
+  about: the walked-surface loop runs INSIDE the page via frame.evaluate, so
+  reaching for the node-side `world` handle crashed it 29/0 -> 2/1. In the
+  browser the valley is `om`. Caught by running it instead of assuming.
+
+*** THE HONEST PART: THE RED COUNT IS A MOVING TARGET, AND THAT IS NOT AN EXCUSE,
+IT IS THE INSTRUMENT WORKING. *** It was 22 when I started, I cleared ten, and the
+next full run measured 29 -- because main moved ~20 commits underneath and some of
+the fleet's new work is red. Nine lanes ship faster than one lane can sweep. What
+changed today is that the reds are now VISIBLE AND NAMED instead of hidden behind
+165 gates that never ran.
+
+WHAT IS LEFT, AND IT HAS OWNERS (sweep law section 6). Mostly content and art
+judgments that are not this lane's to make:
+  ART/CHARACTER  ART 45, TASTE(now green), HERO WIRE, TARGET MATCH, CANVAS MEMORY,
+                 CHAR OUTLINE, OUTFITS 13, CAST SHAPES, RIG CHECK, MOTION VISIBLE
+  WORLD          DRIVE NETWORK, ROAD CELLS, NAV CLUSTER, TILE FORM, FRESH DOORS
+  SOUNDS         SONG LOCK (his 46 approved songs changed), SFX DIVERSITY,
+                 VOICE SURFACES
+  PEOPLE         INVISIBLE SCHEDULE, DIALOGUE CATALOGUE
+  COMBAT         COMBAT LAB, FIELD SURGERY, RF4 TEARDOWN
+  RUN            OPENING (the cold open draws 0 lit samples -- arrived with main,
+                 verified by reverting my edit and getting the identical failure),
+                 DEMO, CRAFT LAW, TOOLS RUN
+THE RULE ATTACHED THERE NOW BITES: a red with an owner gets fixed or gets a
+written line saying why it is legitimately red.
+
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
 Nothing here needs judging. ***
