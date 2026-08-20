@@ -200,6 +200,18 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    id: 'the-signals-are-back',
+    title: 'HIS SIGNALS, BACK ON THE INTERSECTIONS',
+    caption: 'The 348-sprite traffic signal set you approved on 7/17 stopped appearing anywhere the day the roads started drawing themselves from their own modules. One flag meant BOTH "this cell is a road" AND "draw it the old way", so turning the second off turned the first off with it, and 274 real intersections lost their signals in silence. Measured at zero draws; here they are. RUN tab.',
+    find: `(() => {
+      for (let ty = 4; ty < om.n - 4; ty++) for (let tx = 4; tx < om.n - 4; tx++) {
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.isRoad) continue;
+        if (!((m.N || m.S) && (m.E || m.W))) continue;
+        return { hx: tx*FN + (FN >> 1), hy: ty*FN + (FN >> 1), zoom: 26 };
+      } return null; })()`,
+  },
+  {
     id: 'the-bad-footing',
     title: 'GROUND YOU CANNOT SET YOUR FEET ON',
     caption: 'Loose ground: ballast, talus, rubble drift. Standing here you cannot brace, so everything physical hits you harder -- and the tip cuts both ways, because you can lead somebody else onto it. Until 8/20 this drew as flat colour and the only thing that told you it was dangerous was a line of text in the corner. Now the floor says it: broken chips, four values, no two pieces alike. RUN tab.',

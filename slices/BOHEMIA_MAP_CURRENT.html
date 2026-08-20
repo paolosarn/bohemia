@@ -53,7 +53,7 @@
 <!-- engine-md5:engine/bohemia_water.js:691c023741c0c226cc450c1438b8ab40 -->
 <!-- engine-md5:engine/bohemia_resort.js:ae973be63f4bda6eeae1f34ad42c3ce5 -->
 <!-- engine-md5:engine/bohemia_casino.js:d709e2aabe16b9e44d54ec19ae952c4d -->
-<!-- engine-md5:engine/bohemia_strip.js:a7765053469bf503d0cbde6115579d07 -->
+<!-- engine-md5:engine/bohemia_strip.js:ddab854d98e97d50578b28079e9aade8 -->
 <!-- engine-md5:engine/bohemia_overmap.js:92225d2e508114dff78dd74b79e429d9 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
@@ -10340,17 +10340,45 @@
                 not stop halfway. This is the halves working together. */
   function generate(seed, opts) {
     opts = opts || {};
-    var links = opts.links || opts.streets || ['N', 'S'];
+    /* `same` FIRST, and it was missing (8/20). The world hands a road cell `sameLinks`
+       and `crossLinks`, and freeway and rail both read `opts.same || opts.links || ...`.
+       This one read only links/streets, so the corridor axis was taken from whatever a
+       caller happened to pass and the world's own answer was ignored. */
+    var links = opts.same || opts.links || opts.streets || ['N', 'S'];
     var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
     if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
     var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
-    var vert = hasN || hasS, horiz = hasE || hasW;
     var xset = {}; (opts.cross || []).forEach(function (d) { xset[String(d).toUpperCase()[0]] = 1; });
+
+    /* THE CORRIDOR AXIS IS THE AXIS WITH BOTH LEGS, NOT EITHER LEG (8/20). This is the
+       other half of the two-cells-wide problem described above, and it silently undid
+       the 8/18 fix: because the boulevard runs two abreast, a cell's `same` set holds
+       its continuation AHEAD and BEHIND plus its SIBLING HALF to the side -- in the seed
+       valley, `same = [N, S, E]`. The old test asked "is there any leg on this axis",
+       which for that cell answers YES on both axes, so the filter below rejected every
+       cross street as "along the boulevard" and NOT ONE OF THE 81 CELLS EVER BUILT A
+       JUNCTION. Twelve of them have a real cross street and the world computes them
+       correctly; they were thrown away here.
+       A corridor RUNS on the axis it enters and leaves by -- both legs. A sibling is one
+       leg. That distinction is the whole difference. */
+    var vert = hasN && hasS, horiz = hasE && hasW;
+    if (!vert && !horiz) { vert = hasN || hasS; horiz = !vert && (hasE || hasW); }
     /* a cross street only counts if it comes in ACROSS the boulevard, not along it */
     var xLegs = ['N', 'S', 'E', 'W'].filter(function (d) {
       if (!xset[d]) return false;
       return (d === 'N' || d === 'S') ? !vert : !horiz;
     });
+    /* AND THE CROSSING ARM HAS TO BE PAVED. A cross leg that never enters `set` is a
+       junction with no road arriving at it: coverH() stays false on that axis, so the
+       approach, its crosswalk and its stop bar are all drawn onto ground that is not
+       roadway and none of them survive. The cross street is part of this cell's
+       pavement, which is what makes it an intersection rather than a painted rumour. */
+    xLegs.forEach(function (d) {
+      set[d] = 1;
+      if (d === 'N') hasN = true; else if (d === 'S') hasS = true;
+      else if (d === 'E') hasE = true; else hasW = true;
+    });
+    if (xLegs.length) { horiz = hasE || hasW; vert = hasN || hasS; }
     /* NO CALLER, OLD BEHAVIOUR. A caller that knows nothing about cross streets (the
        standalone dossier, the icon, a gate) still gets the crossing anatomy off a
        four-leg mask, exactly as before, so nothing that already worked changes. */

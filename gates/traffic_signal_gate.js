@@ -85,7 +85,14 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
         let found = null;
         for (let ty = 0; ty < 40 && !found; ty++) for (let tx = 0; tx < 40 && !found; tx++) {
           const mm = tileMeta(tx, ty);
-          if (mm && mm.road && (mm.N || mm.S) && (mm.E || mm.W)) { out.inter++; found = [tx, ty]; }
+          /* isRoad, NOT road (8/20). `m.road` was doing two jobs -- "this cell IS a road"
+             and "draw it with the parametric drawer" -- and when roads started drawing
+             themselves from their own modules the routing turned the instruction off, which
+             took identity with it. MEASURED: 568 road cells, 0 with m.road true, 274 real
+             intersections. THIS PROBE WAS ASKING THE QUESTION THAT HAD STOPPED MEANING
+             ANYTHING, so it found no intersection, never moved the camera to one, and then
+             correctly reported that no signal was drawn. Two failures, one wrong question. */
+          if (mm && mm.isRoad && (mm.N || mm.S) && (mm.E || mm.W)) { out.inter++; found = [tx, ty]; }
         }
         if (found) { hx = found[0] * FN + (FN >> 1); hy = found[1] * FN + (FN >> 1); }
         const set = new Set(); for (const k in SIG_IMG) set.add(SIG_IMG[k]);

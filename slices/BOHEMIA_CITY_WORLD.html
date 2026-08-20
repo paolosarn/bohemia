@@ -34,6 +34,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 /* ==== footing readout css ==== */
 /* THE FOOTING READOUT, DIRECTLY UNDER THE TOP BAR, and that position is the whole
    reason this comment exists. It was at bottom-left first, and a screenshot of the real
@@ -156,6 +157,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 <div id="hud"><span id="hmode">CITY MODE</span><span id="hclock">DAY 1 · 08:00</span><span id="hslot"></span></div>
 <div id="stage">
   <canvas id="cv"></canvas>
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
@@ -5955,6 +5957,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE FLOOR CAN DO SOMETHING TO YOU ==== */
+
+
 
 
 
@@ -21870,6 +21874,17 @@ function tileMeta(tx,ty){
   const t=om.at(tx,ty)||{district:'desert',quality:0.5,seed:(tx*7919+ty*104729)|1};
   const d=t.district, r=OM.rng(t.seed), q=t.quality!==undefined?t.quality:0.6;
   m={t,d,q,road:!!RD[d],open:!!OPEN[d],vx:-1,hz:-1,rects:[],lot:null};
+  /* __A_ROAD_IS_STILL_A_ROAD__ -- `road` above is doing TWO jobs: it says this cell
+     IS a road (identity, straight off RD[]) and it says DRAW IT PARAMETRICALLY
+     (instruction). When a road got its own module the routing correctly turned the
+     instruction off with `m.road=false`, and every road in the valley stopped being
+     a road as far as everything downstream could tell. MEASURED: 568 road cells, 0
+     with m.road true, 274 real intersections, and his 348-sprite signal set drawing
+     ZERO times. A flag that answers two questions answers neither the day they
+     diverge -- the same shape as gypsum:7 meaning a bench lip AND a dome shell.
+     So identity gets its own flag and NOTHING ever clears it. `road` keeps its
+     instruction meaning exactly as the road lanes use it. */
+  m.isRoad=!!RD[d];
   if(m.road){ // neighbor road mask decides the band shape (edge-matching law)
     const nb=[om.at(tx,ty-1),om.at(tx,ty+1),om.at(tx-1,ty),om.at(tx+1,ty)];
     m.N=!!(nb[0]&&RD[nb[0].district]); m.S=!!(nb[1]&&RD[nb[1].district]);
@@ -21966,6 +21981,7 @@ function tileMeta(tx,ty){
   return m;
 }
 // ONE CELL of the world, pure function of global fine coords + seed
+
 
 
 
@@ -22493,6 +22509,7 @@ function __surfaceOf(c){
   if(/gravel|ballast|rock|caliche|hardpan|lag/.test(n)) return 'gravel';
   return 'dirt';
 }
+
 
 
 
@@ -23358,7 +23375,11 @@ function sigPass(ox,oy,C){
        vertical neighbour AND a horizontal one. tileMeta already computes
        exactly those four booleans for the edge-matching law, so this reuses
        the city's own notion of the road network instead of inventing one. */
-    if(!mm.road||!((mm.N||mm.S)&&(mm.E||mm.W)))continue;
+    /* __A_ROAD_IS_STILL_A_ROAD__ -- `isRoad`, not `road`. This wants to know whether
+       the cell IS a road, not whether the parametric drawer is the one drawing it,
+       and asking the second question is why his signals vanished from 274
+       intersections the day the roads started drawing themselves. */
+    if(!mm.isRoad||!((mm.N||mm.S)&&(mm.E||mm.W)))continue;
     const cgx=tx*FN+(FN>>1), cgy=ty*FN+(FN>>1);
     const lanes=Math.max(1,Math.min(3,Math.round((mm.q!==undefined?mm.q:0.6)*3)));
     const key=sigPick(cgx,cgy,lanes); if(!key)continue;
@@ -23482,6 +23503,7 @@ function recycleCv(ch){ if(!ch||!ch.cv)return;
   else { try{ch.cv.width=1;ch.cv.height=1;}catch(_e){} }   /* release the iOS buffer */
   ch.cv=null; ch.lamps=null;
 }
+
 
 
 /* __HZ_FORMS_S__ */
@@ -29790,6 +29812,8 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
 
 
 
+
+
 /* ==== THE FLOOR INDOORS (inlined verbatim) ==== */
 /* ==== engine/bohemia_interior_ground.js ==== */
 /* inlined verbatim by tools/bohemia_city_interior_ground_patch.py -- the banner above is one line on purpose: it is the ENGINE SYNC sweep's only door, and a wrapped banner is an opt-out. */
@@ -31152,6 +31176,7 @@ function cityFightCount(){
 
 
 
+
 /* __FR_S__ */
 /* ==== __THE_FIGHT_GETS_THE_ROOM__ ====================================================
    THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. The encounter handoff described the room as
@@ -31450,6 +31475,7 @@ function renderInside(){
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
     }
   }
+
 
 
 

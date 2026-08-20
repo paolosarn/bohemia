@@ -1,3 +1,72 @@
+WORLD (world-9lfjtf): 8/20 (e) LATEST -- *** HIS 348 TRAFFIC SIGNAL SPRITES WERE DRAWING
+ZERO TIMES AT 274 REAL INTERSECTIONS. TABS: RUN (any big crossing), LOOK (HIS SIGNALS, BACK
+ON THE INTERSECTIONS), VOTE (9 heroes he could not reach). Nothing here needs judging. ***
+
+TWO OF THE FOUR REDS THE COORDINATOR ASSIGNED THIS LANE ON 8/19 ARE CLOSED. A third was
+already fixed by the other WORLD session. The fourth is theirs and is named at the bottom.
+
+--- TRAFFIC SIGNAL: ONE FLAG WAS CARRYING TWO MEANINGS ---------------------------
+Measured on the running page, 40x40 cells:
+    road-district cells (arterial 375, freeway 193)   568
+    cells where m.road is TRUE                          0
+    intersections found using m.road                    0
+    intersections found using the DISTRICT TYPE       274
+    signal sprites drawn                                0
+
+THE SPRITES WERE NEVER MISSING. The gate's own "his sprites are LOADED in the browser" check
+had been GREEN the whole time. They were loaded, correct, and asked to draw at a set of
+intersections that had become empty.
+
+`m.road` meant BOTH "this cell IS a road" (identity, born as road:!!RD[d]) AND "draw it with
+the parametric XSEC drawer" (instruction). Then A ROAD WITH ITS OWN MODULE DRAWS ITSELF
+(8/18-8/19): the routing correctly turns the drawer off with `m.road=false`, and every road
+in the valley stopped being a road as far as everything downstream could tell.
+
+sigPass is the victim and ITS OWN COMMENT SAYS WHY IT TRUSTED THE FLAG: "tileMeta already
+computes exactly those four booleans ... so this reuses the city's own notion of the road
+network instead of inventing one." THAT WAS RIGHT. Reusing the world's own notion is what
+this repo asks for everywhere. The notion was then repurposed underneath it. This is
+gypsum:7 in another system: A FLAG THAT ANSWERS TWO QUESTIONS ANSWERS NEITHER THE DAY THEY
+DIVERGE.
+
+THE FIX IS ADDITIVE AND CHANGES NO ROAD PIXEL: `m.isRoad` is set once at construction from
+the same registry and NOTHING ever clears it; sigPass asks isRoad. `m.road` keeps its
+instruction meaning exactly as the road lanes use it. No road generator, cross section or
+registry was edited. Revert sigPass and the gate goes back to 0 draws -- confirmed.
+
+AND THE GATE WAS ASKING THE SAME WRONG QUESTION. Both its failures came from ONE of them: it
+scanned for an intersection with mm.road, found none, never moved the camera to one, and
+then correctly reported no signal drawn. Two failures, one wrong question.
+
+I CHECKED HOW FAR THE COLLISION WENT AND IT STOPPED THERE. Two other places ask m.road as an
+identity question (the dead-content legend and the pit sweep). Their comment says "roads and
+bare ground both come out of tileMeta with no plot grid", which WAS true and is not any
+more. MEASURED rather than assumed: 40 of 40 sampled road cells place dead content, 559
+items, every one 'ok'. They fall through to the road's own legend now, which is better --
+bodies sit against the road's real tiles. Nothing to fix, and saying so is the point: an
+unchecked consumer is indistinguishable from a broken one.
+
+--- VOTE TAB: 9 OF HIS HEROES HAD NO DOOR ---------------------------------------
+resort, casino, convention, prison, dam, minigp, fort, strip, strip_x had art in
+banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt and were not on the page: it had not been
+regenerated since those districts shipped. `python3 tools/bohemia_vote_tab.py`. 21/0.
+They are in the VOTE tab whenever he feels like opening it -- NOT a queue, per EVERYTHING IS
+A THUMB (8/9).
+
+  records/BOHEMIA_A_ROAD_IS_STILL_A_ROAD_8_20_26.md   the finding
+  tools/bohemia_city_signal_road_patch.py             on the surface
+  gates/traffic_signal_gate.js 11 (mutation confirmed) + gates/vote_tab_gate.js 21
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. ROAD CELLS is the last of the four and IT IS NOT MINE: it fails on "the arterial block
+     wall blocks", which is the other WORLD session's active work (their 8/19 commit is
+     literally the wall down the west side of every street). Named, not touched.
+  2. gates/drive_network_gate.js, same session: the debt ratchet went BACKWARDS (22->25,
+     4->5) on the five landmark districts shipped 8/19. Prison 9.6% reachable, dam 0%,
+     minigp 0%, fort 52.9%, convention 99.7%. Component sizes in the 8/20 (a) block.
+  3. A hand-painted hazard tile bank is still ART's if he wants one; what shipped 8/20 (d)
+     is derived and covers tiles authored next month.
+
 SOUND (sound-xk7pjp): 8/20 (l,m) LATEST -- *** I DID THE EXACT THING I HAD
 DOCUMENTED THE DAY BEFORE. SFX-09 shipped six moments with NO CALLERS. They have
 callers now, and there is finally a gate that catches it. TAB: MUSIC (30

@@ -1,5 +1,5 @@
 {
- "built": "8/20/26",
+ "built": "8/8/26",
  "shots": [
   {
    "id": "zoom-identity",
@@ -265,6 +265,20 @@
     "zoom": 22
    },
    "kb": 414.7,
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "the-signals-are-back",
+   "title": "HIS SIGNALS, BACK ON THE INTERSECTIONS",
+   "caption": "The 348-sprite traffic signal set you approved on 7/17 stopped appearing anywhere the day the roads started drawing themselves from their own modules. One flag meant BOTH \"this cell is a road\" AND \"draw it the old way\", so turning the second off turned the first off with it, and 274 real intersections lost their signals in silence. Measured at zero draws; here they are. RUN tab.",
+   "file": "look/the-signals-are-back.png",
+   "at": {
+    "x": 9792,
+    "y": 576,
+    "zoom": 26
+   },
+   "kb": 404.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   }
