@@ -13545,7 +13545,59 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/20 (d) LATEST -- *** THE ONLY LIVING THING ON THE MOUNTAIN
+WORLD (city-1eztay): 8/20 (e) LATEST -- *** TWO OF THE FLEET'S 29 RED GATES WERE
+LYING. INTERIORS AND BANNER ARE GREEN AND NEITHER WAS RED AT THE GAME'S FAULT. ***
+Tab: RUN (step inside any building). Gates: INTERIORS 42/0, BANNER 14/0.
+
+BANNER said: "DOUBLED: bohemia_asking.js x7, bohemia_exchanges.js x3,
+bohemia_people.js x2" -- a stale second copy later in the file that WINS at runtime.
+That is a real bug class and it really happened once (the orphaned payday block).
+IT HAD NOT HAPPENED HERE. The gate identifies a module by a SIGNATURE: a long line
+found in no PEER module. It then counts that line in the page. But a line can be
+unique among peers and still occur SEVERAL TIMES INSIDE ITS OWN FILE:
+   asking     a QUEST STUDY `"applied": "many diegetic paths..."` citation   x7
+   exchanges  another `"applied":` citation                                  x3
+   people     `var r = m[key] || (m[key] = { times: 1, ...`                  x2
+SEVEN, THREE, TWO -- exactly the counts it reported. All three are inlined ONCE; both
+people.js hits sit under the SAME BANNER 1,357 bytes apart. Two of the three
+signatures are not even code, they are `applied:` lines, which the QUEST STUDY LAW
+says are SUPPOSED to recur. Somebody could have spent a day deleting quest citations
+to make this gate green and the game would have been strictly worse.
+FIX: one line -- a signature must occur exactly ONCE in its own file too.
+This gate had ALREADY recorded making this mistake once ("shared boilerplate matched
+and invented debt"). Same mistake, other axis: uniqueness ACROSS files, never WITHIN.
+
+INTERIORS said engine/bohemia_floorplan.js was not inlined byte-identical. There was
+exactly ONE copy of BOH_FLOORPLAN and its body was verbatim. Another lane's FLOOR
+INDOORS patch anchors on the furniture banner and inserts before it -- and that banner
+sat BETWEEN THE FLOORPLAN'S HEADER COMMENT AND ITS BODY, so 34,850 bytes of a
+different module were spliced into the middle of floorplan.js. Moved out whole and
+unchanged to AFTER the floorplan body (the safer side: that code can now rely on
+BOH_FLOORPLAN existing). Their patch tool re-runs cleanly against the new position.
+*** AND THAT IS WHY THE SYNC SWEEP HAD BEEN BLIND TO IT FOR DAYS: *** the resync tool
+cuts a module by its banner and stops at the NEXT banner, so the cut held only the
+header, failed its sanity check, and printed "UNRECOGNISED (neither canon nor any of
+the last 40 revisions)" every run. A MODULE THE SYNC SWEEP CANNOT SEE IS A MODULE THAT
+DRIFTS SILENTLY -- the exact class that cost us the arterial's furniture and the
+Strip's intersections this week. Now: 91 embedded, 91 fresh, nothing to do.
+
+*** AND THE THING I FINALLY DID RIGHT, WHICH IS THE WHOLE LESSON: BOTH FIXES WERE
+NEGATIVE-CONTROLLED. *** Injected a real painted surface -> both interior checks fail.
+Injected a real second copy of bohemia_people.js -> BANNER catches it x2. Reverted,
+re-ran, green. That step's ABSENCE is what produced four wrong versions of
+legend_kept_gate in two days. A GATE THAT GOES GREEN AFTER A CHANGE HAS TOLD YOU
+NOTHING UNTIL YOU HAVE WATCHED IT GO RED FOR THE RIGHT REASON.
+Also raised the interior solid-fill cap 4 -> 5 (legitimate: the wall is drawn in TWO
+COURSES to the DOOR LAW's proportion, so its not-yet-decoded fallback is written
+twice) AND added the rule the count was only ever a proxy for -- every solid fill must
+be the plate black or inside a pool-miss fallback branch -- so raising the number
+again cannot smuggle a painted surface in.
+
+WHEN A GATE GOES RED THE FIRST QUESTION IS NOT "WHAT DID I BREAK", IT IS "IS THIS GATE
+MEASURING WHAT IT SAYS IT MEASURES". Four times this week the answer was no.
+Record: records/BOHEMIA_TWO_GATES_THAT_WERE_LYING_8_20_26.md
+
+WORLD (city-1eztay): 8/20 (d) -- *** THE ONLY LIVING THING ON THE MOUNTAIN
 DID NOT EXIST. 927 CELLS, A TENTH OF THE VALLEY, ZERO SHRUBS. ***
 Tab: RUN (walk into any range, find a wash). Gates: LEGEND KEPT 5/0 + 6 others green.
 City page RESYNCED.

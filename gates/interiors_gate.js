@@ -136,9 +136,40 @@ ok('the interior NEVER samples the raw un-swept cut corpus (TP_TILES/TP_IMG)',
 // flat fills are allowed ONLY as a fallback when a pool image has not loaded yet,
 // plus the shading passes. A renderer that fills more than that is painting again.
 const fills = (inside.match(/g\.fillStyle=['"]#/g) || []).length;
-// the four legal solid fills: the black behind the plate, the floor and wall
-// fallbacks for a pool image that has not decoded yet, and the no-sprite body.
-ok('no painted surfaces: solid colours only as load fallbacks (' + fills + ')', fills <= 4);
+/* FIVE, NOT FOUR (8/20). The cap was written when the wall was drawn as ONE course,
+   and the wall is TWO -- "doors are always two tiles tall" (DOOR LAW, Paolo 7/26) and
+   the wall is built to the door's proportion, so its not-yet-decoded fallback is
+   legitimately written twice, once per course. Counting it as a fifth painted surface
+   was the gate being off by one against a correct change, not the renderer painting.
+   THE FIVE, ALL OF THEM ACCOUNTED FOR:
+     #0d0b09  the black behind the plate
+     #8f8878  the FLOOR pool has not decoded yet
+     #463d33  the WALL pool has not decoded yet -- upper course
+     #463d33  the WALL pool has not decoded yet -- lower course
+     #e8e0d4  a body with no sprite
+   A COUNT IS A PROXY, so the real rule is asserted below it: every one of these must
+   be the plate black or sit inside a `if(!inBlit(...))` / `else` fallback branch. A
+   sixth fill that is a genuine painted surface fails that check even if somebody
+   raises this number, which is the point -- the number alone is a thing anyone can
+   edit, and the shape is not. */
+ok('no painted surfaces: solid colours only as load fallbacks (' + fills + ')', fills <= 5);
+const painted = [];
+for (const m of inside.matchAll(/g\.fillStyle=['"](#[0-9a-fA-F]+)['"]/g)) {
+  const before = inside.slice(Math.max(0, m.index - 220), m.index);
+  /* THE FILL HAS TO OPEN A BLOCK, and that block has to be a miss on a pool blit or
+     the else of one. Matched on the two facts rather than on a full paren-balanced
+     parse: `inBlit(pool, inPatch(x, y, pool.length), ...)` nests parentheses, so a
+     lazy `\([^)]*\)` stops at the first close and reports a real fallback as a
+     painted surface -- which it did, on its first run, on all three wall and floor
+     fallbacks. Cheap regex, expensive lesson, twice this week. */
+  const opensBlock = /\{\s*$/.test(before);
+  const isFallback = opensBlock && (/!inBlit\(/.test(before) || /\belse\s*\{\s*$/.test(before));
+  const isPlate = /cv\.width,\s*cv\.height/.test(inside.slice(m.index, m.index + 90));
+  if (!isFallback && !isPlate) painted.push(m[1]);
+}
+ok('and every solid fill is either the plate black or a not-yet-decoded fallback, so '
+  + 'raising the count above cannot smuggle a painted surface in',
+  !painted.length, painted.join(' '));
 ok('zero purple anywhere in the interior render (PURPLE RESERVATION)',
   !/#[89a-f][0-9a-f]{1}[0-9a-f]{2}[89a-f][0-9a-f]/i.test('') && !/purple|#[0-9a-f]*(80|9|a)[0-9a-f]?0?ff/i.test(inside));
 

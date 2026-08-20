@@ -128,8 +128,33 @@ const BUNDLE = {};
 ENGINE.forEach(h => { BUNDLE[h] = ENGINE.some(g => containsModule(h, g)); });
 const bundles = ENGINE.filter(f => BUNDLE[f]);
 
+/* A SIGNATURE MUST BE UNIQUE INSIDE ITS OWN FILE TOO, NOT ONLY AGAINST ITS PEERS
+   (8/20). This picked a line no PEER module contained and then the duplicate check
+   below counted how many times it appears in the page, calling anything above one a
+   second inlined copy. But a line can be unique among peers and still occur several
+   times WITHIN ITS OWN MODULE -- and then one honest inline reports as many.
+
+   MEASURED, and the numbers are the tell:
+     asking     signature = a QUEST STUDY `"applied": "many diegetic paths..."`
+                citation, which that module carries SEVEN times -> reported x7
+     exchanges  another `"applied":` citation, carried THREE times     -> reported x3
+     people     `var r = m[key] || (m[key] = { times: 1, ... }` twice   -> reported x2
+   Seven, three, two. Exactly the counts it called duplicated modules. All three are
+   inlined ONCE; both people.js hits in the page sit under the SAME banner, 1,357 bytes
+   apart. There was never a shadowing copy.
+
+   This gate already recorded doing this once -- "the list was captured from the
+   ruler's SECOND draft, before signatures were checked for uniqueness, so shared
+   boilerplate matched and invented debt". Same mistake, other axis. FIX THE RULER,
+   NEVER THE TARGET (8/1). */
+function occurrences(hay, needle) {
+  let n = 0, i = 0;
+  while ((i = hay.indexOf(needle, i)) >= 0) { n++; i += needle.length; }
+  return n;
+}
 function signature(f) {
   for (const l of LONG[f]) {
+    if (occurrences(BODIES[f], l) !== 1) continue;  // must identify ONE place, not a motif
     let shared = false;
     for (const g of ENGINE) {
       if (g === f || BUNDLE[g]) continue;          // a bundle is not a peer
