@@ -2334,12 +2334,60 @@ GATES: FACTION ARC 17/17 (was 13, +4 for the ladder), COMMITMENT 72/72, CARD FOL
 11/11, CLAIM 45/45, FAVOUR 31/31, BELONGING 58/58, INTRODUCTIONS 46/46, WALKED
 SURFACE 9/9, CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35.
 
-NEXT FOR THIS LANE (decided, not asked): the arc now walks ONE outfit of each
-kind, but only ONE. Eleven you-give-first outfits share a code path and differ in
-what they want (information / labour / presence / legibility), and the arc has
-driven exactly one of them. The cheap, high-yield next step is to walk one outfit
-PER ACT KIND -- five journeys, not sixteen -- because an act nobody has pressed
-is the shape of every bug this week.
+*** EVERY ACT A PLAYER CAN PRESS IS PRESSED NOW, AND ONE OF THEM NOBODY CAN. ***
+There are FIVE acts across the sixteen and until this turn EXACTLY ONE had ever
+been pressed on the walked surface. Now, each on a real member, each moving the
+count:
+    debt         Cartel     "Take what they are offering"
+    information  Homeless   "Tell them what you have seen"
+    labour       Trades     "Give them an hour of it"
+    legibility   Network    "Let them write you down"
+AND THE FIFTH CANNOT BE REACHED BY ANYBODY:
+    acts with members: debt 10, information 3, character 2, legibility 7, labour 7
+    NOT REACHABLE:     presence -- bases with nobody: Anarchists, Blues, Church
+THREE BASES STAND IN THE VALLEY WITH ZERO MEMBERS and they are precisely the
+three `presence` outfits, so "Show up for them" cannot be pressed by any player
+anywhere. Placement + density (MAP LAW, and the REACH_CELLS / AFFILIATED_RATE
+dials already [PENDING Paolo]), so THE GATE NAMES IT RATHER THAN FAILING ON IT --
+same rule the suite learned about unrun gates on 8/19.
+
+AND MY FIRST VERSION OF THAT CHECK HAD AN ESCAPE HATCH. Deleting `labour` from
+the ACTS table made its claim VANISH rather than fail: 22 passed, 0 failed, one
+fewer claim, no red. SILENCE READING AS COVERAGE, in my own gate, one turn after
+writing the law about it. The data cannot separate "character has no act BY
+DESIGN" from "labour lost its act BY REGRESSION", so the set of five is PINNED BY
+NAME. Mutation-proven against the table the PAGE uses, not the engine file --
+mutating the engine file alone changes nothing the gate reads.
+
+*** AND NOBODY HAD EVER ANSWERED THEM. *** The walk went as far as "THEY ARE
+ASKING YOU" and stopped. Neither answer had ever been pressed, and the answer is
+the whole point of the claim (Portes 1998):
+    SAYING YES BUYS YOU NOTHING -- meeting an obligation is the RENT on being
+      counted, not a rung.
+    SAYING NO COSTS YOU the standing that made you worth asking.
+That asymmetry is the first thing a kind edit would break. Both answers are now
+walked FROM THE SAME STATE on a fresh page each, so they are compared against
+each other and not against two different histories. Both mutations bite: pay for
+a yes and E2 reds, make refusal free and E3+E4 do.
+
+A GUARD ON THE RESYNC TOOL, described honestly because THE CAUSE IS NOT PROVEN. A
+mutation cycle left BOHEMIA_CITY_WORLD.html 1,159 lines shorter (1159 deletions,
+0 insertions) and the only tool that had written to it was
+bohemia_city_module_resync.py. git checkout restored it. I COULD NOT REPRODUCE
+IT -- re-running the same edit resyncs cleanly, delta 0. So the guard is NOT the
+fix for that incident; it guards the only path in that tool that GUESSES where a
+module body ends, refusing a cut more than twice the module's size. Calling it
+the cure for something I never reproduced would be shipping a false finding.
+
+FACTION ARC 24 -> 28 claims.
+
+NEXT FOR THIS LANE (decided, not asked): THE SIXTEEN NAME MECHANICS have never
+been walked. Every outfit does something different when you ask its members their
+name (the 8/11 introductions organ, 46 gated claims) and every one of those
+claims is STRUCTURAL -- the rule resolves, the anchor holds, the signature is
+distinct. NOT ONE presses the button on a real member of a real outfit and reads
+what comes back. That is exactly the shape that hid four bugs this week, and it
+is sixteen presses.
 
 ---
 
