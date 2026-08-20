@@ -25234,6 +25234,462 @@ function ctKnowsMe(id){
 }
 /* ==== /__CITY_MEMORY__ store ==== */
 
+/* ==== engine/bohemia_standing.js (THE DEED LEDGER, inlined verbatim) ==== */
+// BOHEMIA STANDING — reputation that has to TRAVEL (8/2/26, PEOPLE lane)
+//
+// Paolo thumbed all twelve faction gaps WANT on 8/2. This is gap 3, and it was the
+// one the research called the documented failure of the entire genre: in most games
+// every NPC instantly knows what you did, anywhere, with no route the news could
+// possibly have taken. The researched fix, from the 2024 FDG faction-systems paper
+// and the NPC belief-formation literature, is that reputation should spread from
+// WITNESSES - people remember what they personally saw, tell each other, form their
+// own subjective opinion, and the story distorts as it goes.
+//
+// WE ALREADY HAD THE HARD HALF. bohemia_memory.js is a real witness organ: minds
+// hold sightings, familiarity slows forgetting, clarity decays as 0.5^(age/halflife),
+// and it is deterministic. What it had no concept of was a DEED, an OPINION, or one
+// person TELLING ANOTHER. That is all this module adds.
+//
+// ===== THE FOUR RULES, AND WHAT EACH ONE BUYS =====
+//
+// 1. A DEED IS WITNESSED, NEVER ANNOUNCED. witness() only records for minds that
+//    were actually near enough to see. Nobody across the valley learns anything.
+//
+// 2. AN OPINION IS DERIVED, NEVER STORED. opinionOf() re-computes from the deeds a
+//    mind still remembers, each weighted by its CLARITY RIGHT NOW. There is no score
+//    to save, so there is nothing to migrate and nothing to desync.
+//    *** THIS IS ALSO THE REDEMPTION PATH, FOR FREE. *** The most-cited flaw in New
+//    Vegas's reputation is that it can never be removed, only buried under a bigger
+//    opposite number - there is no honest road back from hated. Here memories FADE,
+//    so time alone softens what you did, and being seen doing better in front of
+//    enough people is the fast way. Gap 4 falls out of gap 3's mechanism.
+//
+// 3. HEARSAY IS WEAKER THAN EYESIGHT AND IT RUNS OUT. gossip() moves a deed between
+//    two people who are actually together, at a penalty per retelling, with a hop
+//    limit. So news genuinely travels - a street at a time - and a thing everyone
+//    half-heard is worth less than a thing one person watched.
+//
+// 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS. standingOf() averages the opinions of
+//    the people who actually belong to it. There is no faction ledger anywhere,
+//    which is the whole point: BUILD THE WORLD (7/31) turned "a standing ledger"
+//    off, and this is not one. Nothing is stored, nothing is authored, and a
+//    faction's disposition is an emergent reading of what its people saw.
+//    Zero-sum (gap 7) falls out too: a deed the Cartel watched moves the Cartel and
+//    nobody else, because nobody else was standing there.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter:
+//   DEED_WEIGHT SHIPS EMPTY. What counts as a deed and what it is worth to whom is
+//   his ruling and it has not been made. With an empty table every opinion is
+//   exactly 0 and every standing is NEUTRAL - the module is inert until he rules,
+//   and the gate asserts that. The MECHANISM (witnessing, decay, gossip, hops,
+//   aggregation) is mine. No faction is named anywhere in this file.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+  var MEM = HASREQ ? require('./bohemia_memory.js')
+                   : (root.BohemiaMemory||null);
+
+  // ---- CONTENTS-PAOLO'S: EMPTY ---------------------------------------------
+  // deedKind -> weight. Positive is a good turn, negative is a wrong done.
+  // NOTHING IS IN HERE and nothing in this file invents a row. Until he rules,
+  // opinionOf() returns 0 for everybody and standingOf() returns NEUTRAL.
+  var DEED_WEIGHT={};
+
+  // ---- MECHANISM, and every constant is argued ------------------------------
+  var SEE_RANGE=9;        // tiles. You have to be able to SEE it to have seen it.
+                          // 9 is the block-scale sightline the agent sim already
+                          // uses for "somebody is near you", not a new number.
+  var HEARSAY_LOSS=0.55;  // a retold deed keeps 55% of its force. Two hops and it is
+                          // a third as convincing as watching it, which is about the
+                          // right shape for "I heard that..." versus "I was there".
+  var MAX_HOPS=2;         // eyewitness -> told -> told. After that it stops, and that
+                          // is what makes news travel at the speed of PEOPLE instead
+                          // of teleporting. Without a hop cap a rumour reaches the
+                          // whole valley in one sim day and we are back where we
+                          // started.
+  var GOSSIP_WINDOW=45;   // minutes two people must be co-located to talk at all
+  /* HOW LONG A THING IS STILL WORTH TELLING - and this was the SECOND bug the demo
+     page found in an hour. GOSSIP_WINDOW was documented as a co-location window and
+     then used as a STALENESS window (turn-d.turn > GOSSIP_WINDOW*24), which made news
+     untellable after EIGHTEEN HOURS. A day-step is 1440 minutes, so on any normal
+     clock gossip could never fire even once - the module's whole third rule was dead
+     and every unit test passed, because they all gossiped within minutes of the deed.
+     ONE CONSTANT WAS DOING TWO JOBS AND THE SECOND JOB WAS WRONG. Split, and named
+     for what it actually is: people retell a striking thing for weeks, not overnight. */
+  var NEWS_LIFE=14*24*60; // a fortnight before somebody stops bringing it up unasked
+  var MIN_FORCE=0.02;     // below this a memory is not worth carrying
+
+  /* ---- A DEED IS NOT A FACE, AND THIS WAS A REAL BUG ----------------------
+     Found the day it shipped, by BUILDING THE VISIBLE VERSION. On screen a serious
+     wrong was worth -0.05 after three days and the whole system looked broken.
+     The cause: opinions were decaying on bohemia_memory's SIGHTING half-life, which
+     is twelve hours - correct for "did you see that guy walk past", absurd for "that
+     man burned my neighbour's house down". Reputation that evaporates in two days is
+     not reputation.
+     GROUNDED, and it is the well-documented asymmetry: routine observations fade on
+     the ordinary curve, while SIGNIFICANT events are held far longer and far more
+     vividly - the flashbulb effect. You forget a stranger's face by tomorrow. You
+     remember what somebody did to your family for years.
+     SO A DEED CARRIES ITS OWN CLOCK, and the bigger it was the longer it holds:
+     a base of three weeks, multiplied by the size of the thing. Sightings are
+     untouched - bohemia_memory still owns those and nothing about missing-persons
+     changed.
+     THE LESSON, which is why the demo page exists at all: this was invisible in
+     every unit test, because a test asserts "it went down" and it HAD gone down. It
+     took looking at it to see it had gone down to nothing. */
+  var DEED_HALFLIFE=21*24*60;   // three weeks for an ordinary deed
+  function deedHalflife(w){
+    return DEED_HALFLIFE * (1 + Math.log(1+Math.abs(w||1))/Math.LN2);
+  }
+
+  function makeLedgerFreeMind(mind){
+    // a mind gains ONE array. No score, no totals, no per-faction anything.
+    if(!mind.deeds) mind.deeds=[];
+    return mind;
+  }
+
+  /* ---- 1. A DEED IS WITNESSED ---------------------------------------------
+     Records into every mind that could actually see it. Returns how many people
+     saw, which is the honest answer to "did anybody notice?"
+
+     opts (8/6, all OPTIONAL and every default is the old behaviour exactly, so
+     nothing that already called this changes):
+       range    how far THIS deed carries. A back-yard handshake and a public
+                humiliation are not seen by the same number of people, and until
+                bohemia_deeds.js existed nothing in the game could say so.
+                Defaults to SEE_RANGE.
+       maxHops  how many retellings THIS deed earns, carried ON the deed so
+                gossip() can honour it. This is what finally makes the module's
+                own generational law true instead of decorative: inherit() only
+                carries a deed with hops>0, so a deed that never earned a
+                retelling really does die with the people who watched it.
+                Defaults to MAX_HOPS.
+       only     a predicate on the witness's owner id. One act can mean opposite
+                things to two factions and nothing at all to a third; this is how
+                the third one correctly remembers nothing. Defaults to everybody. */
+  function witness(minds, turn, actorId, deedKind, x, y, where, opts){
+    opts = opts || {};
+    var range = (opts.range==null) ? SEE_RANGE : opts.range;
+    var mh    = opts.maxHops;
+    var only  = opts.only;
+    var n=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m || m.owner===actorId) continue;          // you do not witness yourself
+      if(only && !only(m.owner)) continue;           // it did not mean anything to them
+      var p=where && where(m.owner);
+      if(!p) continue;
+      if(Math.abs(p.x-x)+Math.abs(p.y-y) > range) continue;
+      makeLedgerFreeMind(m);
+      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0};
+      if(mh!=null) d.maxHops=mh;
+      m.deeds.push(d);
+      if(m.deeds.length>(m.cap||64)) m.deeds.shift();
+      n++;
+    }
+    return n;
+  }
+
+  /* ---- 2. AN OPINION IS DERIVED -------------------------------------------
+     Re-computed every time from what is still remembered. Weight x clarity-now x
+     hearsay-loss. Nothing stored means nothing to migrate and nothing to desync. */
+  function forceOf(mind, d, now){
+    var w=DEED_WEIGHT[d.kind];
+    if(w==null) return 0;                            // unruled deed = weightless
+    /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
+    var age=Math.max(0, (now|0)-(d.turn|0));
+    var c=Math.pow(0.5, age/deedHalflife(w));
+    var f=w * c * Math.pow(HEARSAY_LOSS, d.hops||0) * Math.pow(GEN_LOSS, d.inherited||0);
+    return Math.abs(f)<MIN_FORCE ? 0 : f;
+  }
+  function opinionOf(mind, actorId, now){
+    if(!mind || !mind.deeds) return 0;
+    var t=0;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor!==actorId) continue;
+      t+=forceOf(mind, d, now);
+    }
+    return t;
+  }
+
+  /* ---- 3. HEARSAY IS WEAKER AND IT RUNS OUT -------------------------------
+     Two people who are actually together swap what the other has not heard. A
+     retold deed costs a hop; past MAX_HOPS it stops dead. */
+  function gossip(mindA, mindB, turn){
+    if(!mindA||!mindB||mindA===mindB) return 0;
+    makeLedgerFreeMind(mindA); makeLedgerFreeMind(mindB);
+    var moved=0;
+    [[mindA,mindB],[mindB,mindA]].forEach(function(pair){
+      var from=pair[0], to=pair[1];
+      for(var i=0;i<from.deeds.length;i++){
+        var d=from.deeds[i];
+        /* the story has run its course. A deed may carry its OWN budget (set by
+           bohemia_deeds.js from the quest's clout tag) — a thing people cannot
+           stop repeating outlives a thing mentioned once. MAX_HOPS when it doesn't. */
+        if((d.hops||0)>=(d.maxHops==null?MAX_HOPS:d.maxHops)) continue;
+        if(d.actor===to.owner) continue;             // nobody gossips to your face
+        if(turn-d.turn>NEWS_LIFE) continue;          // nobody volunteers ancient news
+        var known=false;
+        for(var j=0;j<to.deeds.length;j++){
+          var e=to.deeds[j];
+          if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
+        }
+        if(known) continue;
+        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1};
+        if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
+        if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
+        if(d.of) r.of=d.of;
+        to.deeds.push(r);
+        if(to.deeds.length>(to.cap||64)) to.deeds.shift();
+        moved++;
+      }
+    });
+    return moved;
+  }
+
+  /* ---- 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS ---------------------------
+     No ledger. The average of what its people actually think, and if none of its
+     people have seen you, it has no view of you at all. */
+  var RUNGS=[['HOSTILE',-3],['COLD',-1],['NEUTRAL',1],['WARM',3],['FWU',1e9]];
+  function rungFor(v){
+    for(var i=0;i<RUNGS.length;i++) if(v<RUNGS[i][1]) return RUNGS[i][0];
+    return 'FWU';
+  }
+  function standingOf(minds, faction, actorId, now, factionOfOwner){
+    var sum=0, n=0, seen=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m) continue;
+      if(factionOfOwner(m.owner)!==faction) continue;
+      n++;
+      var o=opinionOf(m, actorId, now);
+      if(o!==0) seen++;
+      sum+=o;
+    }
+    var avg=n? sum/n : 0;
+    return {faction:faction, value:avg, rung:rungFor(avg), members:n, whoSaw:seen};
+  }
+
+  /* WHY ANYBODY FEELS THAT WAY, which is gap 10's actual content: a standing the
+     player cannot read is a standing they cannot play around. Returns the specific
+     remembered deeds driving it, strongest first, and whether each was watched or
+     merely heard. */
+  function becauseOf(minds, faction, actorId, now, factionOfOwner, limit){
+    var out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m||!m.deeds||factionOfOwner(m.owner)!==faction) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId) continue;
+        var f=forceOf(m, d, now);
+        if(!f) continue;
+        out.push({who:m.owner, kind:d.kind, turn:d.turn, force:f,
+                  heard:(d.hops||0)>0, hops:d.hops||0});
+      }
+    }
+    out.sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+    return out.slice(0, limit||5);
+  }
+
+
+  /* ---- 5. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ------------------
+     (8/2/26. The thing the twelve-gap list did not have, and the game's own premise.)
+
+     Bohemia is not a game about a hero, it is a FAMILY ACROSS THREE GENERATIONS AND
+     A HUNDRED YEARS (story master), and the handoff happens WHEN THE STORY SAYS SO,
+     never because somebody died (DEATH IS A RELOAD, 7/26). So there is a moment,
+     already canon, when the valley stops judging you and starts judging your child.
+
+     NOBODY HAD ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. It is the most
+     obvious question the dynasty premise raises and it was not on the gap list, not
+     in the GDD, not in any backlog.
+
+     GROUNDED, and this is the real anthropology rather than a vibe: in stateless
+     societies a family is treated as a CORPORATE ENTITY whose reputation carries its
+     economic viability and social standing; lineages run ten and twelve generations
+     deep, and ostracism does the work that fines and prisons do elsewhere. You are
+     born owing what your father owed. That is not a fantasy mechanic, it is how
+     reputation has worked for most of human history and it is exactly the register
+     of a valley with no courts.
+
+     *** AND THE ORGAN ALREADY MODELLED IT WITHOUT ANYBODY NOTICING. *** Thirty years
+     pass. EVERY PERSON WHO WATCHED YOU DO ANYTHING IS DEAD. The only trace of your
+     life is what got REPEATED - the deeds that travelled, hop by hop, into somebody
+     who is still alive. So the rule writes itself and it is the honest one:
+
+       A QUIET GOOD DEED DIES WITH THE WITNESS.
+       A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+
+     That is why gossip had to exist before this could. Nothing here is a new system;
+     it is what the witness organ was always going to do if you ran the clock forward.
+
+     THE LIFE LESSON UNDERNEATH, and the game never says it out loud: you inherit
+     goodwill you did not earn and debts you did not run up, and neither one is fair. */
+  var GEN_LOSS=0.45;      // what crosses a generation. Less than half, so a legend
+                          // needs to have been LOUD to survive one, and by the third
+                          // generation only the very loudest thing your grandfather
+                          // did still registers at all - which is the arc the story
+                          // master already describes.
+  function inherit(minds, parentId, childId, turn){
+    var carried=0, died=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      var keep=[];
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==parentId){ keep.push(d); continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
+        if(!(d.hops>0)){ died++; continue; }
+        keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
+                   hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
+        carried++;
+      }
+      m.deeds=keep;
+    }
+    return {carried:carried, died:died};
+  }
+
+  /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
+     cannot hear is a legend that is not doing any work. */
+  function legendOf(minds, actorId, now){
+    var by={};
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId||!d.inherited) continue;
+        var f=forceOf(m,d,now);
+        if(!f) continue;
+        var k=d.kind;
+        if(!by[k]) by[k]={kind:k, tellers:0, force:0, generations:d.inherited, of:d.of};
+        by[k].tellers++; by[k].force+=f;
+        by[k].generations=Math.max(by[k].generations, d.inherited);
+      }
+    }
+    return Object.keys(by).map(function(k){return by[k];})
+      .sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+  }
+
+  var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
+    MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
+    witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
+    becauseOf:becauseOf, rungFor:rungFor,
+    inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
+    DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
+  if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ==== /engine/bohemia_standing.js (THE DEED LEDGER) ==== */
+/* __CITY_DEEDS__ -- SOMEBODY DID SOMETHING AND THE PEOPLE THERE SAW IT.
+   The witness set is the render's own BARK_DREW, exactly as ctWitnessPass reads
+   it: who can see you is who the game actually drew, never a second calculation
+   that could disagree with the picture.
+   RANGE AND HOPS ARE THE MODULE'S DEFAULTS ON PURPOSE. bohemia_deeds.js can make
+   a deed louder or quieter from a quest's own #quiet/#reckless tag, but a claim
+   answered on the street carries no such tag and inventing one would be picking a
+   number that is his. Default sightline, default two retellings. */
+function ctDeed(kind){
+  if (typeof BohemiaStanding === 'undefined' || typeof BohemiaMemory === 'undefined')
+    return 0;
+  var now = ctMinuteNow();
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var pos = {}, minds = [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i]; if (!d || !d.p || !d.at) continue;
+    pos[d.p.id] = { x: d.at[0], y: d.at[1] };
+    minds.push(ctMind(d.p.id));
+  }
+  var n = 0;
+  try {
+    n = BohemiaStanding.witness(minds, now, '@', kind, hx, hy,
+                                function (owner) { return pos[owner] || null; });
+  } catch (_e) { return 0; }
+  if (n) ctMindSave();
+  return n;
+}
+
+/* __CITY_DEEDS__ -- AND THEN THEY TELL EACH OTHER.
+   *** THE WINDOW IS COUNTED IN GAME MINUTES, NOT IN FRAMES. ***
+   bohemia_standing's own constant is GOSSIP_WINDOW: minutes two people must be
+   co-located before they talk at all. Counting frames instead would mean two
+   neighbours could only ever talk while the PLAYER stood watching them, which is
+   both wrong about the world and unreachable in practice: the player walks twelve
+   cells a game-minute, so forty-five minutes of watching is five hundred cells of
+   staring at the same two people. Elapsed clock time between passes is credited
+   instead, so walking away for three hours does not stop anybody talking.
+   TOGETHER MEANS CONVERSATIONAL DISTANCE, NOT SIGHTLINE. SEE_RANGE is nine tiles
+   because that is how far you can SEE something happen; you cannot swap news with
+   somebody nine tiles away. Two cells is arm's length plus one.
+   A pair that separates loses its accumulated time rather than banking it, which
+   is what stops two people who pass each other daily from eventually counting as
+   having had a long conversation. */
+var CT_TOGETHER = {}, CT_GOSSIP_MIN = -1;
+function ctGossipPass(){
+  if (typeof BohemiaStanding === 'undefined') return 0;
+  var now = ctMinuteNow();
+  if (CT_GOSSIP_MIN < 0) { CT_GOSSIP_MIN = now; return 0; }
+  var dt = now - CT_GOSSIP_MIN;
+  if (dt <= 0) return 0;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  if (!drew.length) return 0;             /* nothing drawn yet: retry, keep the clock */
+  CT_GOSSIP_MIN = now;
+  var W = BohemiaStanding.GOSSIP_WINDOW, moved = 0, alive = {};
+  for (var i = 0; i < drew.length; i++) for (var k = i + 1; k < drew.length; k++) {
+    var a = drew[i], b = drew[k];
+    if (!a || !b || !a.p || !b.p || !a.at || !b.at) continue;
+    if (Math.abs(a.at[0] - b.at[0]) + Math.abs(a.at[1] - b.at[1]) > 2) continue;
+    var ka = String(a.p.id), kb = String(b.p.id);
+    var key = ka < kb ? ka + '|' + kb : kb + '|' + ka;
+    alive[key] = 1;
+    CT_TOGETHER[key] = (CT_TOGETHER[key] || 0) + dt;
+    if (CT_TOGETHER[key] >= W) {
+      try { moved += BohemiaStanding.gossip(ctMind(ka), ctMind(kb), now); } catch (_e) {}
+      CT_TOGETHER[key] = 0;
+    }
+  }
+  for (var key2 in CT_TOGETHER) if (!alive[key2]) delete CT_TOGETHER[key2];
+  if (moved) ctMindSave();
+  return moved;
+}
+
+/* __CITY_DEEDS__ -- WHAT THIS PERSON KNOWS ABOUT YOU, and whether they were there.
+   *** READ OFF THE LEDGER, NOT THROUGH becauseOf(). *** becauseOf is a JUDGEMENT
+   query: it computes force and drops anything weightless, so while DEED_WEIGHT is
+   deliberately empty it returns nothing at all. But "he watched you refuse" is a
+   FACT, not a judgement, and it is true today. The moment Paolo rules a weight,
+   opinionOf and standingOf light up on this same data with no wiring changed.
+   NEWEST FIRST, and seeing beats hearing at equal age: what somebody witnessed
+   themselves is the thing they would lead with. */
+var CT_DEED_WORDS = {
+  'claim:met':     { saw: 'watched you come through for an outfit',      /* draft */
+                     heard: 'heard you came through for an outfit' },    /* draft */
+  'claim:refused': { saw: 'watched you turn an outfit down',             /* draft */
+                     heard: 'heard you turned an outfit down' },         /* draft */
+  'commit':        { saw: 'watched you throw in with an outfit',         /* draft */
+                     heard: 'heard you threw in with an outfit' }        /* draft */
+};
+function ctKnownDeeds(id, limit){
+  var m = CT_MINDS[id];
+  if (!m || !m.deeds || !m.deeds.length) return [];
+  var out = [];
+  for (var i = m.deeds.length - 1; i >= 0; i--) {
+    var d = m.deeds[i];
+    if (d.actor !== '@') continue;
+    var w = CT_DEED_WORDS[d.kind]; if (!w) continue;
+    var heard = (d.hops || 0) > 0;
+    out.push({ kind: d.kind, turn: d.turn, hops: d.hops || 0, heard: heard,
+               say: heard ? w.heard : w.saw });
+  }
+  out.sort(function (a, b) {
+    if (a.heard !== b.heard) return a.heard ? 1 : -1;   /* seeing leads hearing */
+    return b.turn - a.turn;                             /* then newest first */
+  });
+  return out.slice(0, limit || 2);
+}
+/* ==== /__CITY_DEEDS__ store ==== */
+
+
 /* ==== engine/bohemia_asking.js (ASKING, 8/17) ==== */
 // BOHEMIA ASKING -- what somebody tells you when you ask about what you heard
 // (8/17/26, PEOPLE lane). GENERATED by tools/bohemia_asking_factory.py.
@@ -28209,6 +28665,7 @@ function renderHuman(){
      same facade you are, and the front pass then covers everybody equally. */
   peoplePass(ox,oy,C);
   try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */
+  try{ ctGossipPass(); }catch(_e){}    /* __CITY_DEEDS__ */
   try{ barkPass(ox,oy,C); }catch(_e){}   /* __CITY_BARKS__ */
   sigPass(ox,oy,C);   /* __TRAFFIC_SIGNALS__ */
   ewDoorPass(ox,oy,C);   /* __EW_FACING_DOORS__ */
@@ -35499,6 +35956,17 @@ function ctDraw(){
   var at=ctAt(p);
   var card=document.getElementById('ctcard');
   var body='<div class="who">'+(nm?nm.toUpperCase():BohemiaPeople.headingOf(who))+'</div>';
+  /* __CITY_DEEDS__ -- WHAT THEY KNOW ABOUT YOU, and whether they were there.
+     Leads the card for the same reason the recognition leads the tell: it is the
+     only part that is true of you and them TOGETHER, and the only part that is
+     different because of what you have done. A person who knows nothing about
+     you gets no row at all rather than an empty one -- a blank labelled row
+     reads as a broken feature, and silence is the honest answer. */
+  try {
+    var kd = ctKnownDeeds(p.id, 2);
+    for (var kdi = 0; kdi < kd.length; kdi++)
+      body += ctRow(kd[kdi].heard ? 'HEARD' : 'SAW', kd[kdi].say);
+  } catch(_e){}
   /* __CITY_FACTIONS__ -- THE SIXTEEN INTRODUCTIONS DECIDE THIS ROW. The city's own
      answer was the uniform one (asked, therefore named); the organ knows the
      sixteen different answers his dossiers give. Decided HERE, at the row's own
@@ -35906,6 +36374,17 @@ function ctDraw(){
        how two ladders start disagreeing, which this lane has now fixed six
        times. */
     if(r.answered && r.delta) BohemiaBelonging.adjust(sv, ctFid, r.delta);
+    /* __CITY_DEEDS__ -- AND THE PEOPLE STANDING THERE SAW YOU DO IT.
+       The adjust() above is the FACTIONS lane's and is untouched; what was
+       missing is that it moved a valley-wide number while nobody had observed
+       anything, which is the exact failure bohemia_deeds.js was written to name.
+       ONLY WHEN IT WAS REALLY ANSWERED: a claim that did not resolve is not a
+       thing anybody watched you do.
+       THE KIND DOES NOT CARRY THE OUTFIT ON PURPOSE. Paolo weighs an ACT once;
+       a kind per faction would make his DEED_WEIGHT table grow with the roster,
+       and a bystander who is not in that outfit only knows that you turned
+       somebody down anyway. */
+    if(r.answered) try{ ctDeed(said==='yes' ? 'claim:met' : 'claim:refused'); }catch(_e){}
     advance(60);
     ctDraw(); render();
   }
@@ -35927,6 +36406,10 @@ function ctDraw(){
       var ctPaid = ctSideCost(ctFid, r.state);
       for(var ci=0; ci<ctPaid.length; ci++)
         BohemiaBelonging.adjust(sv, ctPaid[ci].faction, -ctPaid[ci].lose);
+      /* __CITY_DEEDS__ -- throwing in with an outfit is the loudest thing you can
+         do on this street, and it was equally unobserved. Inside the `moved`
+         branch: a commitment that did not move is not a deed. */
+      try{ ctDeed('commit'); }catch(_e){}
     }
     advance(60);
     ctDraw(); render();

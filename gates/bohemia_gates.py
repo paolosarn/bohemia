@@ -1635,6 +1635,17 @@ GATES = [
      "(measured by placing a body out of range, not by hoping the world provides one), the throttle "
      "never spends a minute it recorded nothing in, recognition fades back to nothing so a stranger "
      "becomes a stranger again, and A RECOGNITION IS NEVER A NAME", True),
+    ('CITY DEEDS',     ['node', 'gates/city_deeds_gate.js'],
+     "engine/bohemia_deeds.js names this flaw in its own opening paragraph: 'the faction standing got "
+     "applied godlike -- the number moved, valley-wide, instantly, and NOBODY HAD SEEN ANYTHING'. The "
+     "city was committing exactly that: you answer a claim to somebody's face, BohemiaBelonging moves "
+     "a valley-wide number, and not one person in Las Vegas observed a thing. bohemia_standing.js was "
+     "built for this input on 8/2 with 35 green claims and had no caller. This proves the ledger is "
+     "FED from a real choice on the tab he taps and that what it holds TRAVELS: a claim answered is "
+     "witnessed by people actually near (measured by placing somebody sixty cells away, not by hoping "
+     "the world provides one), two people together for the module's own 45-minute window swap it at a "
+     "hop, it does NOT move before the window, SAW reads differently from HEARD, nobody gossips to "
+     "your face, and DEED_WEIGHT is STILL EMPTY because what a deed is WORTH is Paolo's dial", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
