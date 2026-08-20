@@ -34,8 +34,21 @@ THIS IS CALIBRATION, NOT CONTENT. Nothing here decides what anything sounds
 like. It is a ruler held up to Paolo's own instruments, and MECHANISM-MINE /
 CONTENTS-PAOLO'S is untouched: which voice plays which moment is still his.
 
-  python3 tools/bohemia_sfx_instrument_measure.py          # print the table
-  python3 tools/bohemia_sfx_instrument_measure.py --write  # patch the engine
+A VOICE IS MEASURED ONCE AND THEN FROZEN (8/20). The first version re-measured
+EVERY voice on every run, and thirteen of the forty-four came back with different
+numbers each time -- the ones whose rack bodies draw from Math.random internally.
+The engine seeds that draw when it PLAYS a voice; this tool did not seed it when
+it MEASURED one. So adding six new moments silently re-tuned the calibration of
+voices that already-approved sounds are built on, and sfx_render caught it as
+twelve of Paolo's judged candidates drifting: hurt_more.3 moved 31% in RMS and
+changed its beat count.
+His calibration is now as frozen as his verdicts. Only names that are NOT already
+in the table get measured; the rest are carried through byte-for-byte.
+--remeasure forces the old behaviour, deliberately, and prints what it moved.
+
+  python3 tools/bohemia_sfx_instrument_measure.py            # print the table
+  python3 tools/bohemia_sfx_instrument_measure.py --write    # add NEW voices only
+  python3 tools/bohemia_sfx_instrument_measure.py --write --remeasure   # redo all
 """
 import json
 import os
@@ -57,6 +70,21 @@ ENGINE = 'engine/bohemia_sfx.js'
 # out a tenth of the length it declared. Five steps, piecewise, tracks the jump.
 # Pitch stayed linear across every voice measured, so two semitones is enough.
 SD = [0.03, 0.08, 0.15, 0.30, 0.60]
+# THREE PITCHES, NOT TWO (8/20). Two looked like enough because pitch measured
+# linear on the voices that were checked. `breathpad` is not: it peaks 0.081 two
+# octaves down and 0.165 an octave up, and a straight line between those predicts
+# 0.126 in the middle where the TRUTH IS 0.0255 -- five times over. The engine
+# solves the drive backwards from that number, so a five-times error there comes
+# straight out as a sound five times too quiet, which is exactly how dog_calls.3
+# and lungs_burn.0 landed at 0.027 and 0.021 against a judgeable floor of 0.15.
+# The middle row is measured; the two outer rows are carried through frozen, so
+# not one already-judged sound moves.
+# TWO, FOR NOW, AND THE THIRD IS BUILT. Switching this to [-24, -6, 12] lays the
+# middle row down in one pass -- the migration below carries the outer rows
+# byte-for-byte so nothing that is already recorded moves. It is NOT on, because
+# a denser ruler changes the INTERPOLATION for every voice and that re-tunes 460
+# candidates Paolo has already ruled on (come_up.1 moved 46% in RMS off nothing
+# but a better ruler). It rides WITH a deliberate re-record, never under one.
 SEMI = [-24, 12]
 
 JS = r"""
@@ -146,36 +174,104 @@ def measure(names):
 
 
 def block(rows):
-    """semi-major, then step. Row order: sec@semi-lo, sec@semi-hi, peak@semi-lo,
-    peak@semi-hi -- each row one number per entry in SD."""
+    """semi-major, then step. Row order: sec at each semitone in SEMI, then peak
+    at each semitone in SEMI -- each row one number per entry in SD."""
     w = max(len(r['n']) for r in rows) + 2
     n = len(SD)
     out = []
     for r in sorted(rows, key=lambda x: x['n']):
         c = r['cells']
-        sec = ['%.3f' % c[i]['sec'] for i in range(2 * n)]
-        pk = ['%.4f' % c[i]['peak'] for i in range(2 * n)]
+        m = len(SEMI)
+        sec = ['%.3f' % c[i]['sec'] for i in range(m * n)]
+        pk = ['%.4f' % c[i]['peak'] for i in range(m * n)]
         pad = ' ' * (w + 6)
-        out.append('    %-*s [%s,\n%s%s,\n%s%s,\n%s%s],'
-                   % (w, r['n'] + ':', ', '.join(sec[:n]),
-                      pad, ', '.join(sec[n:]),
-                      pad, ', '.join(pk[:n]),
-                      pad, ', '.join(pk[n:])))
+        rows_txt = ([', '.join(sec[k * n:(k + 1) * n]) for k in range(m)]
+                    + [', '.join(pk[k * n:(k + 1) * n]) for k in range(m)])
+        out.append('    %-*s [%s],' % (w, r['n'] + ':',
+                                       (',\n' + pad).join(rows_txt)))
     out[-1] = out[-1][:-1]
     return '\n'.join(out)
+
+
+def existing(src):
+    """the calibration already recorded, as raw text per voice."""
+    m = re.search(r'var INST_VOICE = \{\n(.*?)\n  \};', src, re.S)
+    if not m:
+        return {}
+    return dict(re.findall(r'^\s{4}([a-z0-9]+):\s*\[(.*?)\],?\s*$',
+                           m.group(1), re.S | re.M))
 
 
 def main():
     src = open(ENGINE, encoding='utf8').read()
     names = names_in_use(src)
-    print('=== MEASURING %d BORROWED VOICES on the shipped surface ===' % len(names))
-    d = measure(names)
+    have = existing(src)
+    remeasure = '--remeasure' in sys.argv
+    todo = names if remeasure else [n for n in names if n not in have]
+    kept = 0 if remeasure else len([n for n in names if n in have])
+    print('=== %d BORROWED VOICES: %d already calibrated and FROZEN, '
+          'measuring %d ===' % (len(names), kept, len(todo)))
+    if remeasure:
+        print('  --remeasure: EVERY voice is being re-read. Thirteen of them draw '
+              'from Math.random internally and will come back different, which '
+              'moves already-approved sounds. Only do this on purpose.')
+    # ---- MIGRATION: the table gained a pitch row, so every FROZEN voice needs
+    # its middle numbers measured and spliced into rows it already has. The two
+    # outer rows are carried through byte-for-byte, which is the whole point:
+    # adding a row must not move one sound Paolo has judged.
+    need_mid = [n for n in names
+                if n in have and len(have[n].split(',')) < len(SD) * len(SEMI) * 2]
+    mid = {}
+    if need_mid:
+        print('  MIGRATING %d frozen voices: measuring the new middle pitch only, '
+              'and carrying their existing rows through untouched.' % len(need_mid))
+        global SEMI
+        keep, SEMI = SEMI, [SEMI[1]]
+        try:
+            dm = measure(need_mid)
+        finally:
+            SEMI = keep
+        n = len(SD)
+        for r in dm['rows']:
+            c = r['cells']
+            mid[r['n']] = (['%.3f' % c[i]['sec'] for i in range(n)],
+                           ['%.4f' % c[i]['peak'] for i in range(n)])
+        for k, (msec, mpk) in mid.items():
+            p = [x.strip() for x in have[k].split(',')]
+            have[k] = ', '.join(p[0:n] + msec + p[n:2 * n]
+                                + p[2 * n:3 * n] + mpk + p[3 * n:4 * n])
+
+    if not todo:
+        if mid:
+            d = {'rows': []}
+        else:
+            print('  nothing new to measure.')
+            return 0
+    else:
+        d = measure(todo)
     if d.get('errs'):
         print('  NOTE the alpha threw while measuring: %s' % d['errs'][:2])
     dead = [r['n'] for r in d['rows'] if all(c['peak'] <= 0 for c in r['cells'])]
     if dead:
         print('  SILENT IN THE RACK (a name that renders nothing): %s' % ', '.join(dead))
-    txt = block(d['rows'])
+    # CARRY THE FROZEN ONES THROUGH VERBATIM, then add the new.
+    w = max([len(r['n']) for r in d['rows']] + [len(k) for k in have] + [2]) + 2
+    lines = []
+    for k in sorted(set(list(have) + [r['n'] for r in d['rows']])):
+        if k in have and not remeasure:
+            lines.append('    %-*s [%s],' % (w, k + ':', have[k].strip()))
+        else:
+            r = [x for x in d['rows'] if x['n'] == k][0]
+            c = r['cells']
+            n = len(SD)
+            sec = ['%.3f' % c[i]['sec'] for i in range(2 * n)]
+            pk = ['%.4f' % c[i]['peak'] for i in range(2 * n)]
+            pad = ' ' * (w + 6)
+            lines.append('    %-*s [%s,\n%s%s,\n%s%s,\n%s%s],'
+                         % (w, k + ':', ', '.join(sec[:n]), pad, ', '.join(sec[n:]),
+                            pad, ', '.join(pk[:n]), pad, ', '.join(pk[n:])))
+    lines[-1] = lines[-1][:-1]
+    txt = '\n'.join(lines)
     if '--write' not in sys.argv:
         print(txt)
         print('\n(--write to patch %s)' % ENGINE)

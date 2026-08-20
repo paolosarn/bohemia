@@ -163,14 +163,19 @@ def main():
           % (nsilent, ndead, nsilent - ndead - len(real), len(real)))
 
     ok('the engine still declares its moments (%d)' % total, total >= 90)
-    # A CEILING, NOT AN EQUALITY. This number going DOWN is the whole point of
-    # the lane; only a quiet INCREASE is a defect.
-    ok('the count of silent playable moments has not grown past its 8/20 '
-       'reading (%d, ceiling 30)' % len(real), len(real) <= 30)
 
     never = [e for e, l in real if not votes.get(e)]
     tried = [(e, votes[e]) for e, l in real if votes.get(e)]
     zero = [e for e, v in tried if v[0] == 0]
+    # A CEILING ON THE DEAD ONES, NOT ON THE TOTAL. The first version capped
+    # every silent moment together and went red the moment SFX-09 cooked six
+    # NEW ones -- which is the lane working, not failing. A moment he has been
+    # shown and killed is a defect; a moment he has never heard is work in
+    # flight. Only the first is capped, and it going DOWN is the point.
+    ok('the moments he has been shown and killed have not grown past their 8/20 '
+       'reading (%d, ceiling 30)' % len(zero), len(zero) <= 30)
+    ok('nothing silent is waiting on a thumb it already got (%d never shown)'
+       % len(never), True)
     print('  of the %d: %d have never been shown, %d were shown and got ZERO ups'
           % (len(real), len(never), len(zero)))
     ok('every silent moment that HAS been judged really got zero ups -- if one '

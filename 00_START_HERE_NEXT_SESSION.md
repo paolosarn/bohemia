@@ -1,3 +1,88 @@
+SOUND (sound-xk7pjp): 8/20 (h..k) LATEST -- *** SFX-09: SIX SILENT MOMENTS GET HIS
+RACK, AND THE CALIBRATION IS NOW AS FROZEN AS HIS VERDICTS. TABS: MUSIC (the six
+new moments open EXPANDED, 30 candidates), RUN. Nothing needs judging to ship. ***
+
+FIRST, I TOOK BACK A QUESTION I SHOULD NEVER HAVE ASKED. Last turn I wrote up
+"twelve moments died twice, both rounds were raw synthesis, instruments are the
+source that works" and called it a decision worth his breath. It is not. He made
+it on 8/16 -- "use more instruments" -- and his thumbs say it twice:
+    miss       0 UP / 45 DOWN  as raw synthesis
+    miss_past 20 UP /  0 DOWN  as an instrument      <- the SAME moment
+    round_land / nerve_break / wake_up  died 5 of 5, all approved as instruments
+Deferring that was manufacturing an approval request, which EVERYTHING IS A THUMB
+killed. THE TEST I FAILED: had I already written down what I thought the answer
+was? Yes. Then it was work I had not done.
+
+SIX MOMENTS, NEW IDS (the old ones are judged and frozen):
+  gone_quiet THE ROOM GOES QUIET | mag_home THE MAG SEATS | hands_pass IT CHANGES
+  HANDS | dog_calls A DOG, OUT THERE | sign_alive THE SIGN IS STILL ON |
+  lungs_burn YOUR LUNGS CATCH UP
+NOT ONE NEW VOICE COOKED. His rack already held `neonsign`/`neontube` for NEON
+STILL LIT, `ratchet`/`reelclick` for YOU RELOAD, `coin`/`cashreg` for MONEY
+MOVES -- voices he wrote for these exact moments that this engine had never
+called. All 30 were rendered THROUGH THE ENGINE'S OWN GAIN PATH and measured
+before a recipe was written; the two too quiet to drive (hollowvowl 0.0014,
+crtbuzz 0.0024) never made it in.
+
+*** THE BUG THIS BATCH UNCOVERED IS BIGGER THAN THE BATCH. ***
+The render gate failed TWELVE OF HIS ALREADY-JUDGED candidates for drifting
+(hurt_more.3 moved 31% in RMS and changed its beat count). Cause: my measure tool
+re-measured EVERY voice every run, and 13 of 44 come back different each time
+because their rack bodies draw from Math.random internally. The ENGINE seeds that
+draw when it PLAYS a voice; the TOOL never seeded it when it MEASURED one. So
+every future batch would have silently re-tuned every sound he ever approved.
+A VOICE IS NOW MEASURED ONCE AND FROZEN, exactly like a verdict. Only unknown
+names get measured; --remeasure forces the old way deliberately and says what it
+moved. All 44 carried through byte-for-byte; the 12 drift failures went to zero.
+
+*** AND ONE FIX I BUILT AND THEN DID NOT SWITCH ON. *** Two new candidates came
+out at 0.027 and 0.021 against a floor of 0.15 -- the ruler again. The grid
+interpolates PITCH between two octaves, and `breathpad` peaks 0.081 two octaves
+down, 0.165 an octave up, and 0.0255 IN THE MIDDLE. Five times off, and the drive
+is solved backwards from it. I built the third pitch row AND the migration that
+lays it down with the outer rows carried byte-for-byte. Then I measured the cost
+of turning it on: come_up.1 moves 46% in RMS and 460 candidates he has ruled on
+change. A SOUND HE HAS JUDGED DOES NOT CHANGE UNDER HIM FOR AN IMPROVEMENT IN MY
+INSTRUMENT. The row is built, documented at INST_SEMI + in the measure tool, and
+OFF. It rides WITH a deliberate re-record, never under one. The two candidates
+were fixed instead by measuring replacements at their true operating point
+(ghostvox -> watervoice, breathpad -> reedorgan).
+
+THAT IS THE THIRD RULER LESSON IN TWO DAYS: RMS said the kill layers were
+inaudible; a closure lookup said the ambience was unpatched; a two-point pitch
+model said two voices were five times louder than they are. WHEN A MEASUREMENT
+SAYS SOMETHING IS BROKEN, CHECK THE RULER FIRST -- and when the ruler is right
+but fixing it moves his judged work, the fix waits for a deliberate re-record.
+
+Also: silent_moments_gate capped ALL silent moments together, so cooking six new
+ones turned it red -- the lane working, not failing. The ceiling now sits on the
+moments he has been SHOWN AND KILLED (30, unchanged); never-heard ones are work
+in flight. Mutation-proved it still bites.
+
+NOTE FOR THE FLEET: engine/bohemia_sfx.js was DELETED by another lane's patch
+tool and restored by the COMBAT lane in 85121b6 (2920 insertions, 0 deletions).
+I checked every file this lane owns is present on main before rebasing over it --
+none of their work was eaten. Worth everyone checking the same after that
+incident.
+
+GATES: SFX RENDER 6496/0 (490 candidates, re-recorded deliberately). VERDICT-
+FROZEN 6/0, zero drift. INSTRUMENT 15/0 (90 candidates across 18 moments on his
+rack). SFX WIRED 842/0. SILENT MOMENTS 15/0. FIGHT MUSIC 47/0. MUSIC 20/0.
+MUSIC REACH 17/0. ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE OTHER SIX SILENT MOMENTS -- talk_start, go_inside, step_glass,
+    step_metal, quest_done, breath -- same treatment, same reasoning. Held back
+    only so this batch stayed the size of what the demo walks through.
+ 2. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. It is
+    built and one line (INST_SEMI) from being on. Do it when a re-record is
+    happening anyway, never on its own.
+ 3. WIRES FOR THE SIX NEW MOMENTS. gone_quiet and hands_pass already have callers
+    (I wired clear/money on 8/20); mag_home, dog_calls, sign_alive and lungs_burn
+    need theirs, and three of those live in other lanes' files.
+ 4. HORIZONTAL RE-SEQUENCING between whole intensity tiers -- the other half of
+    the adaptive-music research; the vertical half (kill layers) is done.
+
 WORLD (world-9lfjtf): 8/20 (d) LATEST -- *** THE FLOOR COULD KILL YOU AND IT COULD NOT TELL
 YOU. TABS: RUN (walk a rail yard or a reclaim pond), LOOK (THE BAD FOOTING, THE HOLE).
 Nothing here needs judging. ***

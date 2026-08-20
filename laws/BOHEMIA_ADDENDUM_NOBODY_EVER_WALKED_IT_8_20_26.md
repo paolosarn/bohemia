@@ -229,6 +229,52 @@ That is the same class as the three-spellings bug earlier in this same gate:
 it.** Mutation-proven: make the card ignore the organ and use one uniform button,
 and five claims go red.
 
+## 4f. THE FIFTH TIME, AND THIS ONE I WROTE MYSELF
+
+```
+grep neglectFor  ->  a definition, a re-export, and NOTHING ELSE.
+```
+
+**Zero callers on the walked surface.** Same as `give()` (the wall, 8/18), the
+favour nobody collected (8/18), the cost that cost nothing (8/19), the ladder
+with no rungs (8/20). **The organ computes it and nothing applies it** — five
+times now, in a system this lane built.
+
+**NEGLECT IS THE ONLY THING IN THE WHOLE STACK THAT MOVES WHILE HE IS DOING
+SOMETHING ELSE.** Everything else waits for a button. This is the upkeep on a
+commitment, charged for a day you did not turn up, and the amount is the stage
+index: nothing said out loud costs nothing, taking a side costs one a day,
+burning a bridge costs two. Derived, never typed.
+
+It fires at the **one** place a day turns over — the sleep card's callback — and
+charges for the day that **just ended**, because a day cannot be neglected until
+it is over. Once per outfit, stamped, because a hook that runs off a card callback
+can fire twice and a double charge is invisible. Through `adjust`, the single
+writer, which clamps at zero: **twelve quiet days and the floor holds.**
+
+And **he can see it coming** — the consequence is printed before the button, never
+after (8/15). A cost that only ever arrives overnight, unannounced, is a
+punishment.
+
+### AND I BROKE MY OWN FOUR-DAY-OLD LAW ON THE FIRST TRY
+
+The first cut gave it **its own row**, and the busiest card went to **767px of
+844 — 91%**, straight through the 90% bar `cardfold_gate` holds.
+
+> **EVERY LANE THAT ADDS A ROW TO A SHARED SURFACE OWNS THE TOTAL, NOT JUST THE
+> ROW** — this lane's own law, written 8/18, broken by me on 8/20.
+
+It lives on the commitment row now, which is where it belonged anyway: the upkeep
+is a **property of the commitment**, meaningless without it and changing when it
+changes. One row, one thought:
+
+```
+HOW FAR IN    YOU TOOK A SIDE · A QUIET DAY COSTS 1
+```
+
+Three mutations bite: never charge it and H2/H4/H5 go red; charge it on a day he
+turned up and H3 does; drop the once-a-day stamp and H4 does.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
