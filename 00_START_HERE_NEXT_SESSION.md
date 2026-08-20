@@ -1,3 +1,67 @@
+CHARACTER (character-0lurbs): 8/20 (a) LATEST -- *** ONE OF THE FLEET'S 29 REDS WAS
+MINE AND IT IS CLEARED. AND A TOOL IN ANOTHER LANE DOES NOT PARSE AT ALL. ***
+NO TAB, and no build stamp bump: nothing player-facing moved this turn, on purpose.
+Record: records/BOHEMIA_A_RED_THAT_WAS_MINE_AND_A_TOOL_THAT_DOES_NOT_PARSE_8_20_26.txt
+
+*** READ THIS FIRST IF YOU ARE THE WORLD OR ART LANE ***
+    tools/bohemia_district_hero_factory.py DOES NOT PARSE.
+    line 1247: a JS block comment (/* ... */) is sitting in a Python file.
+    line 1245 also looks unclosed: `'px': _win(TOWER, 1, 3, 5, 0.3` with no bracket.
+    BISECTED: broke in 53a981c (8/19, "YOU COULD NOT LEAVE THE BLOCK YOU SPAWN IN").
+    Every commit before that parses. The biggest pixel-making tool in the repo has
+    been unable to run for a day.
+LIKELY (and I did not prove it, confirm before believing me): #364 HERO WIRE fails on
+`resort` and `casino` -- the two new Strip districts -- with "sprite embedded as PNG
+data URI". Those heroes come out of this factory. A factory that cannot parse cannot
+cook them.
+HOW I FOUND IT, AND A CORRECTION I MADE TO MYSELF BEFORE SHIPPING: a plain sweep --
+py_compile every tools/*.py and gates/*.py, node --check every .js, 380 files in
+seconds. I first wrote that nobody could know because #219 TOOLS RUN times out at 600s
+reproducing the hero factory (31 min, per the 8/19 record). SOMEBODY HAS SINCE BOUNDED
+IT: TOOLS RUN now finishes in 16.7 SECONDS and names this exact file, with a check
+labelled "THE HERO FACTORY ACTUALLY RUNS (this is the check that was missing)". So the
+fleet already reports it and my sweep only agrees. What I add is the BISECT (53a981c),
+the second defect behind the first (line 1245), and the likely HERO WIRE link.
+I did NOT fix the factory: 1,200 lines in another lane's system, and ONE SYSTEM ONE
+SESSION is worth more than a fast win.
+
+WHAT I DID FIX -- #343 REUSE FIRST, NOW 151/0.
+It failed on four files and ALL FOUR WERE CHARACTER-LANE TOOLS. The 8/19 fleet picture
+is explicitly a BASELINE and not a triage, so no red in it is attributed; the first
+useful thing any lane can do with that record is check which of the 29 is its own.
+Two genuinely lacked a REUSE CHECK block and now carry real ones (family_cast_patch:
+zero garment pixels, four dial sets on the one rig, and the only thing it draws is a
+render-time contact shadow, which SHADOWS ARE SEPARATE sanctions; family_anim_patch:
+zero pixels, it bakes famPaintBody's own output and blits it).
+TWO WERE THE RULER, and the gate's own header quotes the law that catches them:
+ 1. A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1). It decided
+    a tool "draws" by searching the WHOLE FILE -- docstring included -- for fillRect /
+    putImageData. bohemia_sun_mode_char_patch.py is a CSS class flip that draws nothing
+    and merely EXPLAINS putImageData in prose, and for that sentence it was held to the
+    art-cooking law. The module docstring is stripped before the test now. EMBEDDED JS
+    IS NOT stripped, because these patch tools inject drawing code as string literals
+    and that is a real use.
+ 2. THE MARKER, NOT ITS PUNCTUATION. The regex wanted the colon immediately after the
+    words, so `REUSE CHECK (REUSE-FIRST, Paolo 7/22):` read as ABSENT. Citing the law
+    you are complying with is this repo's own habit and the gate was failing files for
+    it. The heading must still be ONE LINE -- mine wrapped at first and stayed red,
+    which is the same line-wrapping trap look_gate documented.
+MUTATION-TESTED THREE WAYS, all correct: delete a real block -> red; a NEW patch tool
+that draws in CODE with no block -> red (no hole opened); a tool that mentions drawing
+only in PROSE -> correctly not swept.
+
+WHAT COMES NEXT FOR THIS LANE:
+ 1. CHECK THE 29 AGAINST YOUR OWN WORK BEFORE BUILDING ANYTHING. That record is a
+    baseline nobody has triaged. One of them was mine and it took twenty minutes.
+    #219 TOOLS RUN and #343 REUSE FIRST are the two that silently accumulate other
+    people's debt, so they are worth re-running by hand even when the suite is long.
+ 2. STILL BLOCKED AND STILL NOT MINE: faction ground assignment (his ruling), painting
+    the rig at 112 (his call, not code -- records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_
+    8_16_26.txt), RUN wiring the field surgery clips (theirs).
+ 3. The lane has no unblocked content work I would defend building. Three turns running
+    the honest answer has been to measure something nobody had measured rather than add
+    to a wardrobe that already delivers what the game needs.
+
 WORLD (world-9lfjtf): 8/20 (a) LATEST -- *** SEVENTEEN ENGINE MODULES ON THE WALKED PAGE
 WERE STALE COPIES, AND MY WHOLE DAY OF LEGEND FIXES WAS SILENTLY REVERTED IN ALL OF THEM.
 TABS: RUN (the valley edge, the lakebed), MAP. Nothing here needs judging. ***

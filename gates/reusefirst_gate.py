@@ -15,6 +15,7 @@ exists in writing.
 
   python3 gates/reusefirst_gate.py
 """
+import ast
 import glob
 import os
 import re
@@ -45,7 +46,27 @@ print('=== REUSE-FIRST GATE ===')
 # floors and walls as flat hex fills while 9,127 judged tiles sat unused in the
 # same file. Any tool that DRAWS answers to the law, whatever it is named.
 DRAWS = re.compile(r'fillRect|drawImage|fillStyle|createImageData|putImageData')
-patchers = [f for f in glob.glob('tools/*_patch.py') if DRAWS.search(open(f, encoding='utf8').read())]
+# 8/20 HOLE CLOSED, and it is THIS GATE'S OWN LAW turned on itself: A CHECKER THAT
+# CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1). The DRAWS test read the
+# WHOLE FILE, so a tool was swept for the word `putImageData` appearing in its
+# DOCSTRING. bohemia_sun_mode_char_patch.py is a CSS class flip that draws nothing
+# whatsoever -- it only explains, in prose, why an element's background shows through
+# a putImageData with alpha 0 -- and it was being held to the art-cooking law and
+# reported as failing it. A gate that demands a REUSE CHECK from a file that cooks no
+# pixels is not being strict, it is being wrong, and its red teaches everybody that
+# this gate's reds are noise.
+# The module docstring is stripped before the test; EMBEDDED JS IS NOT. These patch
+# tools inject drawing code as string literals, which is a USE and still sweeps --
+# bohemia_family_cast_patch.py draws a shadow ellipse that way and is still caught.
+def _draws_in_code(path):
+    src = open(path, encoding='utf8').read()
+    try:
+        doc = ast.get_docstring(ast.parse(src)) or ''
+    except SyntaxError:
+        doc = ''
+    body = src.replace(doc, '', 1) if doc else src
+    return bool(DRAWS.search(body))
+patchers = [f for f in glob.glob('tools/*_patch.py') if _draws_in_code(f)]
 # 8/16 HOLE CLOSED (found by the ART lane checking its own cook was swept and
 # finding SILENCE): the glob was tools/*_cook*.py, top level only, so the
 # entire tools/tfcook/ directory - fourteen family cooks and every volume
@@ -61,7 +82,14 @@ check('drawing patch tools are swept too (the 7/26 hole)', len(patchers) > 0, '%
 for f in files:
     src = open(f, encoding='utf8').read()
     name = os.path.basename(f)
-    m = re.search(r'REUSE CHECK:(.*?)(?:\n\s*\n|"""|\Z)', src, re.S)
+    # THE MARKER, NOT ITS PUNCTUATION (8/20). This demanded the colon IMMEDIATELY
+    # after the words, so a block headed `REUSE CHECK (REUSE-FIRST, Paolo 7/22):`
+    # -- a thorough one, naming what it opened and why -- was reported as ABSENT.
+    # Citing the law you are complying with is the repo's own habit, and the gate
+    # was failing files for it. NOTHING IS WEAKENED: a file with no block at all
+    # still fails, and every bank claimed inside the block is still opened-and-
+    # verified below. Only the attribution in the heading is tolerated.
+    m = re.search(r'REUSE CHECK[^\n:]{0,80}:(.*?)(?:\n\s*\n|"""|\Z)', src, re.S)
     check('%s carries a REUSE CHECK block' % name, bool(m))
     if not m:
         continue

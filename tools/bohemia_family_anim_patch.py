@@ -31,6 +31,17 @@ list. Not a curated shortlist -- MECHANISM-MINE / CONTENTS-PAOLO'S, and which
 animations are worth showing the family in is a content call that is his. Tap-to-
 turn per card still works and now re-bakes that card's strip in the new facing.
 
+REUSE CHECK (REUSE-FIRST, Paolo 7/22):
+  Added 8/20 -- it was missing and the fleet gate was right to say so.
+  COOKS ZERO GRAPHIC PIXELS. Every frame in every filmstrip is produced by
+  famPaintBody -- the alpha's own painter, on the one painted rig, wearing the same
+  canon wardrobe the cast already had. This file adds no art; it BAKES what the
+  renderer already draws so the row can animate without four rig rebuilds a frame,
+  and then only blits the pre-baked frame.
+  It authors no clip either: the picker carries the FULL canon CLIPS list rather
+  than a shortlist, so the motion is the animation lane's existing vocabulary.
+  No banks/ tile is opened because none applies: nothing here makes a tile.
+
     python3 tools/bohemia_family_anim_patch.py
 """
 import sys

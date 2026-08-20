@@ -95,6 +95,21 @@ wiped, and one painted AFTER would sit on top of the body. A separate element is
 the only place a shadow can live where it is both visible and provably not in the
 garment's pixels. The gate asserts the sprite canvas carries no shadow.
 
+REUSE CHECK (REUSE-FIRST, Paolo 7/22):
+  Added 8/20 -- it was missing and the fleet gate was right to say so.
+  COOKS ZERO GARMENT OR BODY PIXELS. Every one of the four is BODYVAR dials on the
+  ONE painted rig, dressed entirely out of the alpha's existing GARMENTS catalogue
+  (st:'canon' only, asserted by gates/family_cast_gate.js) -- no shape, colourway or
+  hair is authored here. The bank that applies is the wardrobe itself and it is used
+  by NAME, not copied.
+  THE ONE THING IT DOES DRAW is the contact shadow: a radial-gradient ellipse on its
+  OWN canvas element. That is deliberate and it is not asset art -- SHADOWS ARE
+  SEPARATE (Paolo 7/26) makes shading a render-time layer that is never baked into
+  a sprite's pixels, and the separate element is the only place it can be visible
+  AND provably outside the garment's pixels (drawChar ends in putImageData, which
+  would wipe a shadow drawn before the body and cover one drawn after).
+  No banks/ tile is opened because none applies: nothing here makes a tile.
+
     python3 tools/bohemia_family_cast_patch.py
 """
 import sys
