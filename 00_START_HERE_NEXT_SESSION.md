@@ -1,3 +1,58 @@
+SOUND (sound-xk7pjp): 8/19 (s,t) -- *** THE STING. Winning and dying had NOTHING
+musical on them. Now they play a figure in the key of whatever song is running.
+TAB: RUN (win or lose a fight and listen). Nothing to judge. ***
+
+CHECKED BEFORE CLAIMING: the alpha had no stinger of any kind. The four matches
+for "fanfare" are a VOICE NAME inside one song, not a system. `kill` and
+`went_down` are approved and wired, but a body hitting the floor is INFORMATION.
+
+IT HAS NO KEY OF ITS OWN, ON PURPOSE. 127 songs across 15 roots means a stinger
+written in one key is out of tune with nearly all of them, and a sting that
+fights the score is worse than no sting. STING reads the root of whatever is
+playing and builds from intervals off it -- rising root/fifth/octave/octave+fifth
+for a win, falling octave/fifth/root for a loss. Consonant in every scale in the
+file, major or minor, which is WHY THERE IS NO THIRD IN IT. Lands on the next
+BEAT (120 BPM law; worst case half a second). Its own bus so MUS.stop() ducking
+the music master cannot swallow it. Voices reused: glasshope, subboom.
+
+MEASURED AS AUDIO:
+  win  windows  0.195 . 0.209 . 0.220 . . 0.201   scheduled steps 0,2,4,7
+  loss windows  0.311 . . . 0.327 . . . . 0.301   scheduled steps 0,4,9
+  win pitches   123.5 -> 185.3 -> 250.0 -> 370.6 Hz  = ratios 1.500 / 2.024 / 3.001
+Rendering the FIRST note alone decays to 0.008 by step 2, which is how we know
+the later peaks are later NOTES and not the first one ringing on.
+
+*** TWO GATE LESSONS, BOTH FROM MUTATING MY OWN FIRST DRAFT. This is the third
+and fourth time this exact family has bitten this repo. ***
+ 1. THE SHAPE CHECK READ ITS ANSWER KEY OFF THE SUBJECT. It pulled the expected
+    step list out of STING.FIG itself, so collapsing every note onto step 0 --
+    turning a phrase into one blurt -- collapsed the EXPECTATION too and the
+    check passed. A check that derives its expectation from the thing it tests
+    CANNOT FAIL. It now asserts the figure independently.
+ 2. IT PROVED THE THING WORKED, NOT THAT IT WAS WIRED. Every sting leg called
+    STING.play() itself, so deleting the call site in the combat-end handler
+    sailed straight through. STING.last is now watched across a real
+    BOHEMIA_COMBAT_END.
+ THE RULE THAT COVERS BOTH: a gate must observe the SUBJECT'S OWN TRIGGER and
+ must not compute its expectation from the subject.
+
+GATES: FIGHT MUSIC 27/0 (13 -> 27 this turn). MUSIC 20/0. MUSIC REACH 17/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0. SFX WIRED 842/0.
+SFX RENDER 6106/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. COMBAT MUSIC HAS NO INTENSITY. One faction song, played flat for the whole
+    fight. The research names the next rung: vertical layering (a drum/lead
+    layer added as the fight escalates) or horizontal re-sequencing between
+    intensity tiers. The engine's klay/layers machinery already exists.
+ 2. NO STING ANYWHERE ELSE. Win and loss are done; a quest completing, a
+    district taken, a level of debt cleared all still pass in silence.
+    `quest_done` is a cooked SFX moment that is NOT APPROVED, so it plays
+    nothing at all today.
+ 3. The MENU pool is 4 and three are brand new (8/19). If he hates them it
+    collapses to one.
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine.
+
 SOUND (sound-xk7pjp): 8/19 (q,r) LATEST -- *** THE MUSIC DID NOT KNOW YOU WERE IN
 A FIGHT. The street shuffle took the score back MID-COMBAT, and one fight in
 fourteen was played by the studio's blank scratch patch. TAB: RUN. Nothing to
