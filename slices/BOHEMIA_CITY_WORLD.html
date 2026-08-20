@@ -32568,6 +32568,21 @@ function ctBelongSave(){
   if(!window.__CT_BELONG) window.__CT_BELONG = { meta:{} };
   return window.__CT_BELONG;
 }
+/* __CITY_NOLADDER__ -- IS THERE A LADDER HERE AT ALL?
+   Asked with an IDEALISED state -- nothing given today, standing on their
+   ground, something to tell them -- so the answer is about the OUTFIT and not
+   about this moment. A `no` here means no act exists at any state, which is
+   true of the two outfits that want `character`: his own dossiers describe an
+   assessment they run on you ("to know whether you are safe to be around ... it
+   never stops running"), never a task you perform. A `yes` with no button today
+   is a different thing entirely and keeps its ladder. */
+function ctHasLadder(rule){
+  if(typeof BohemiaBelonging === 'undefined' || !rule) return false;
+  try {
+    return !!BohemiaBelonging.actFor(rule, { gaveToday:false, onTheirGround:true,
+                                             somethingToTell:true });
+  } catch(_e){ return false; }
+}
 function ctActState(fid){
   var B = BohemiaBelonging, sv = ctBelongSave();
   var g = null;
@@ -33157,7 +33172,11 @@ function ctDraw(){
         var cSt = BohemiaCommitment.stateOf(bState.sv, ctFid);
         ctWall = BohemiaCommitment.wallOf(cSt, ctGave);
       }
-      if(bar.rung) body += ctRow('YOU ARE', bar.rung.word
+      /* __CITY_NOLADDER__ -- no act at any state means no ladder, so no
+         progress toward one. "1 MORE TO SOMEBODY WHO SHOWED UP" on a card with
+         no button is a promise the player cannot act on. */
+      var ctLadder = ctHasLadder(bRule);
+      if(bar.rung && ctLadder) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
       if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
@@ -33179,16 +33198,26 @@ function ctDraw(){
          left it undefined at the first button that reads it and the suppression
          would have silently never fired. */
 
-      if(ctWall && ctWall.atWall && ctWall.blocks){
+      /* __CITY_NOLADDER__ -- and no wall either. A wall is the end of a
+         road, and there is no road. */
+      if(ctLadder && ctWall && ctWall.atWall && ctWall.blocks){
         body += ctRow('THE WALL', 'TURNING UP GETS YOU NO FURTHER THAN '
           + ctWall.reaches + '. ' + ctWall.blocks + ' IS NOT FOR SALE.');
         if(ctWall.passNote) body += ctRow('TO PASS IT', ctWall.passNote);
         body = ctHearRows(body, ctFid);
-      } else if(ctWall && ctWall.blocks && ctWall.room !== Infinity){
+      } else if(ctLadder && ctWall && ctWall.blocks && ctWall.room !== Infinity){
         body += ctRow('THE WALL', ctWall.room + ' MORE AND TURNING UP STOPS WORKING');
       }
       var why = BohemiaBelonging.noActBecause(bRule, bState.st);
       if(why) body += ctRow('', why);
+      /* __CITY_NOLADDER__ -- and what the rule actually is, so a player meeting
+         one of these does not read a blank as a bug. Verbatim from his dossier
+         ("To know whether you are safe to be around ... it never stops
+         running"), tagged draft so every word stays editable. */
+      if(!ctLadder && bRule.wants && bRule.wants !== 'nothing')
+        body += ctRow('HOW IT WORKS WITH THEM',
+          'YOU DO NOT CLIMB WITH THESE. THEY ARE WORKING OUT WHETHER YOU ARE '
+          + 'SAFE TO BE AROUND, AND THAT NEVER STOPS RUNNING.');
       if(bState.ground && !bState.ground.on){
         var gdx = bState.ground.base.x-ctCell()[0], gdy = bState.ground.base.y-ctCell()[1];
         body += ctRow('THEIR GROUND', bState.ground.dist+' CELLS '

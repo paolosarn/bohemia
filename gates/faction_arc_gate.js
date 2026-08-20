@@ -296,6 +296,84 @@ function requirePlaywright() {
         JSON.stringify(arc.steps.map(s => s.name + ':' + (s.did ? 'ok' : 'DEAD'))));
     }
 
+    /* ---- C. AN OUTFIT WITH NO LADDER PROMISES NO CLIMB --------------------
+       TWO OF THE SIXTEEN WANT `character` AND THERE IS NO ACT FOR IT -- and
+       reading his dossiers says the missing act is CORRECT, not a hole:
+         THE COLORFUL   "To know whether you are safe to be around. That is the
+                         whole assessment and IT NEVER STOPS RUNNING."
+         SOCIAL FORCES  "Recruits, and specifically recruits who are frightened.
+                         They approach AFTER something bad has happened to you."
+       Neither describes a task. Character is not something you DO, it is
+       something they READ OFF YOU, so a "prove your character" button would be
+       inventing canon in the two places he was most careful.
+       WHAT WAS WRONG WAS THE CARD. Measured on a real Colorful member: no
+       buttons at all, and either side of "NOTHING TO PRESS" it printed
+       "1 MORE TO SOMEBODY WHO SHOWED UP" and "5 MORE AND TURNING UP STOPS
+       WORKING". One more WHAT? Third time this week the same disease: A SURFACE
+       DESCRIBING A MECHANISM THE PLAYER CANNOT REACH. */
+    const ladder = await page.evaluate(() => {
+      const bases = ctBases() || {};
+      let noAct = null, withAct = null;
+      for (const b of Object.values(bases)) {
+        for (const d of [2, 5, 8]) {
+          hx = b.x * FN + d; hy = b.y * FN + d;
+          for (const q of ctEveryone()) {
+            const f = ctFactionOf(q); if (!f) continue;
+            const rule = BohemiaBelonging.ruleOf(f);
+            if (!rule || !rule.wants || rule.wants === 'nothing') continue;
+            const slot = ctHasLadder(rule) ? 'withAct' : 'noAct';
+            if (slot === 'noAct' && noAct) continue;
+            if (slot === 'withAct' && withAct) continue;
+            const at = ctAt(q); const keepx = hx, keepy = hy;
+            hx = at[0] + 1; hy = at[1];
+            const sv = ctBelongSave();
+            sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+            ctSawCell(); ctClose(); ctOpen();
+            const card = document.getElementById('ctcard');
+            const rec = { fid: f, wants: rule.wants,
+                          text: card ? card.innerText : '',
+                          buttons: ['ctask','ctgive','ctfavour','ctcommit']
+                                     .filter(x => !!document.getElementById(x)) };
+            if (slot === 'noAct') noAct = rec; else withAct = rec;
+            ctClose(); hx = keepx; hy = keepy;
+          }
+          if (noAct && withAct) break;
+        }
+        if (noAct && withAct) break;
+      }
+      return { noAct, withAct };
+    });
+
+    if (ladder.noAct) {
+      ok('C1 an outfit with NO ACT AT ANY STATE does not print a rung you cannot '
+        + 'climb to. "1 MORE TO SOMEBODY WHO SHOWED UP" on a card with no button '
+        + 'is one more WHAT',
+        !/\d+ MORE TO /.test(ladder.noAct.text),
+        ladder.noAct.fid + ' (' + ladder.noAct.wants + '): '
+        + JSON.stringify(ladder.noAct.text.slice(0, 200)));
+
+      ok('C2 …and prints no WALL either. A wall is the end of a road, and there '
+        + 'is no road',
+        !/TURNING UP STOPS WORKING/.test(ladder.noAct.text));
+
+      ok('C3 …and SAYS what the rule actually is, so a player meeting one does '
+        + 'not read the blank as a bug — his own dossier, that the assessment '
+        + 'never stops running',
+        /YOU DO NOT CLIMB WITH THESE/.test(ladder.noAct.text));
+    } else {
+      ok('C1 the valley has somebody from an outfit with no act to compare', false);
+    }
+
+    if (ladder.withAct) {
+      ok('C4 …and an outfit that DOES have an act still shows its ladder. The '
+        + 'silence is for outfits with no rungs, never for one you simply have '
+        + 'not visited today',
+        /YOU ARE/.test(ladder.withAct.text),
+        ladder.withAct.fid + ' (' + ladder.withAct.wants + ')');
+    } else {
+      ok('C4 the valley has somebody from an outfit with an act to compare', false);
+    }
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

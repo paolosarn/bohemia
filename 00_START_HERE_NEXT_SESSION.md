@@ -1703,11 +1703,51 @@ ctVerb change was checked against every other lane that draws on this card:
 CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35, ASKING 21/21, WHAT YOU HEARD
 19/19, QUIRK 32/32, STREET EXCHANGE 31/31.
 
-NEXT FOR THIS LANE (decided, not asked): the arc walks with a DEBT outfit (the
-Cartel, the first affiliated person in the valley). The other two economies --
-you-give-first, and the outfit that gives nothing to anybody ever -- have never
-been walked at all, and they are different journeys, not the same one with
-different words.
+*** AND THEN WALKING THE OTHER ECONOMIES FOUND A THIRD SURFACE LIE. *** The arc
+first walked the Cartel (they-give-first, wants:debt) which is 4 of 16 outfits.
+The other twelve had never been driven at all. On a real COLORFUL member:
+    RUNS WITH   COLORFUL
+    THEY WANT   WHAT YOU ARE
+    YOU ARE     A STRANGER - 1 MORE TO SOMEBODY WHO SHOWED UP
+    THE WALL    5 MORE AND TURNING UP STOPS WORKING
+                NOTHING TO PRESS. THEY ARE STILL DECIDING WHAT YOU ARE.
+    buttons     NONE AT ALL
+ONE MORE WHAT? FIVE MORE OF WHAT? Third time this week the same disease: A
+SURFACE DESCRIBING A MECHANISM THE PLAYER CANNOT REACH.
+
+AND THE MISSING ACT IS NOT THE BUG -- HIS OWN DOSSIERS SAY SO. Two outfits want
+`character` and ACTS has no entry for it. That looked like a hole until I read
+what he wrote:
+  THE COLORFUL   "To know whether you are safe to be around. That is the whole
+                  assessment and IT NEVER STOPS RUNNING."
+  SOCIAL FORCES  "Recruits, and specifically recruits who are frightened. They
+                  approach AFTER something bad has happened to you, NEVER BEFORE."
+CHARACTER IS NOT SOMETHING YOU DO, IT IS SOMETHING THEY READ OFF YOU. Neither
+describes a task. A "prove your character" button would be inventing canon in the
+two places he was most careful, so THE ENTRY STAYS MISSING and the CARD stops
+promising a climb -- no rung, no wall, and it says the real rule instead.
+THE DISTINCTION IS THE WHOLE FIX: noActBecause already separates a PERMANENT
+absence from a TEMPORARY block ("YOU ALREADY DID TODAY"), and only the permanent
+one silences the ladder. Both mutations bite: restore the false ladder and C1-C3
+go red, silence everybody's ladder and B6 does.
+
+ALSO MEASURED, not a bug: 13 of 16 outfits are playable across five acts
+(information, debt, presence, legibility, labour). The Amalgamation's "nothing"
+is deliberate canon and correctly gated. And there is a base called "Custom"
+whose faction is not one of the sixteen -- it falls through to NOBODY IN
+PARTICULAR and DEGRADES CLEANLY (runs-with row, ask-their-name, no terms, no
+crash), so it is noted and not touched: base placement is MAP LAW.
+
+GATES: FACTION ARC 17/17 (was 13, +4 for the ladder), COMMITMENT 72/72, CARD FOLD
+11/11, CLAIM 45/45, FAVOUR 31/31, BELONGING 58/58, INTRODUCTIONS 46/46, WALKED
+SURFACE 9/9, CITY TALK 18/18, PEOPLE 158/158, STANDING 35/35.
+
+NEXT FOR THIS LANE (decided, not asked): the arc now walks ONE outfit of each
+kind, but only ONE. Eleven you-give-first outfits share a code path and differ in
+what they want (information / labour / presence / legibility), and the arc has
+driven exactly one of them. The cheap, high-yield next step is to walk one outfit
+PER ACT KIND -- five journeys, not sixteen -- because an act nobody has pressed
+is the shape of every bug this week.
 
 ---
 

@@ -79,6 +79,55 @@ somebody rediscovering it.
 Seventh time in this lane, written by the person who fixed the other six.
 Accessors exist because the key has one spelling and it is not the display name.
 
+## 4b. AND THEN WALKING THE OTHER ECONOMIES FOUND A THIRD ONE
+
+The arc first walked with the **Cartel** — `they-give-first`, `wants:debt`. That
+is **4 of 16** outfits. The other twelve had never been driven at all.
+
+Walking a `you-give-first` outfit found this, on a real Colorful member:
+
+```
+RUNS WITH   COLORFUL
+THEY WANT   WHAT YOU ARE
+YOU ARE     A STRANGER · 1 MORE TO SOMEBODY WHO SHOWED UP
+THE WALL    5 MORE AND TURNING UP STOPS WORKING
+            NOTHING TO PRESS. THEY ARE STILL DECIDING WHAT YOU ARE.
+buttons     NONE AT ALL
+```
+
+**One more WHAT? Five more of WHAT?** There is no button on that card.
+
+**Third time this week, the same disease: A SURFACE THAT DESCRIBES A MECHANISM
+THE PLAYER CANNOT REACH.** 8/18 it was a wall that was a sign. 8/20 it was a card
+open on somebody who had walked away. Here it is a progress bar for a ladder with
+no rungs.
+
+### AND THE MISSING ACT IS NOT THE BUG — HIS OWN DOSSIERS SAY SO
+
+Two outfits want `character` and `ACTS` has no entry for it. That looked like a
+hole until I read what he wrote:
+
+> **THE COLORFUL** — *"To know whether you are safe to be around. That is the
+> whole assessment and **it never stops running**, and passing it is worth more
+> than any faction's standing."*
+>
+> **THE SOCIAL FORCES** — *"Recruits, and specifically recruits who are
+> frightened. They approach **after** something bad has happened to you, **never
+> before**."*
+
+**CHARACTER IS NOT SOMETHING YOU DO. IT IS SOMETHING THEY READ OFF YOU.** Neither
+dossier describes a task; both describe an assessment run on you, on their
+schedule. A "prove your character" button would be inventing canon in the two
+places he was most careful, so **the missing entry is correct** and stays missing.
+
+What was wrong was the card. An outfit with **no act at any state** now prints no
+rung and no wall, and says the real rule instead. The distinction is the whole
+patch: `noActBecause` already separates a **permanent** absence from a
+**temporary** block, and only the permanent one silences the ladder — an outfit
+you simply have not visited today still has a climb and still says so. Both
+mutations bite: restoring the false ladder reds C1–C3, and over-correcting by
+silencing everybody reds B6.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
