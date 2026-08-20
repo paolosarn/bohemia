@@ -196,7 +196,40 @@ for (const [name, mod, res] of [
   ok('the bridge columns are solid structure', col.solid === true);
   ok('the sound wall blocks', K.tileLayer(FWY.legend[8]).solid === true);
   ok('the median barrier blocks', K.tileLayer(FWY.legend[4]).solid === true);
-  ok('the arterial block wall blocks', K.tileLayer(ART.legend[8]).solid === true);
+  /* THIS DEMANDED A TILE HIS OWN RULING DELETED (8/20, RUN lane, red sweep).
+     Paolo 8/11: "THE STREETS DONT HAVE WALLS." The arterial's code 8 block wall
+     was retired on 8/20 and its number left empty on purpose, because the one
+     column that survived the 8/11 pass SEALED THE PLAYER INTO A SINGLE CELL --
+     flooding the valley from spawn reached three tiles out of 9,216. This clause
+     kept asserting that the wall exists and blocks, so WORLD carrying out his
+     ruling turned the gate red. A GATE MUST NEVER OUTRANK A RULING.
+
+     And the invariant flips with it. What matters now is not that a wall blocks;
+     it is that a wall never comes BACK -- GRAVEYARD IS FINAL, and this
+     particular corpse could wall him in again. So the claim is the tripwire:
+     code 8 stays empty and nothing on a STREET type is a wall. */
+  ok('THE STREETS DO NOT HAVE WALLS (Paolo 8/11) -- the arterial block wall was '
+    + 'retired after one surviving column sealed the player into a single cell, '
+    + 'and its legend code stays empty so nothing can put it back by number',
+    ART.legend[8] === undefined && ART.palette[8] === undefined);
+  ok('...and no arterial tile is a wall under any other number either, because a '
+    + 'renumbered wall is the same wall',
+    !Object.keys(ART.legend).some(k => /\bwall\b/i.test(ART.legend[k].name)));
+  /* AND IT MUST STILL BE WALKABLE OUT OF, which is the thing the wall broke.
+     A retired legend entry is bookkeeping; a cell you can leave is the point. */
+  {
+    const g = ART.generate(5, { links: ['N', 'S', 'E', 'W'] }).g;
+    const solidTiles = Object.keys(ART.legend).filter(k => K.tileLayer(ART.legend[k]).solid === true);
+    const N = Math.round(Math.sqrt(g.length));
+    let sealed = 0;
+    for (let x = 0; x < N; x++) {
+      const col = [];
+      for (let y = 0; y < N; y++) col.push(String(g[y * N + x]));
+      if (col.every(v => solidTiles.indexOf(v) >= 0)) sealed++;
+    }
+    ok('...and no full column of the arterial cell is solid, so it can never seal '
+      + 'him in the way the block wall did (' + sealed + ' sealed columns)', sealed === 0);
+  }
   ok('the arterial sidewalk does not block', K.tileLayer(ART.legend[6]).solid === false);
   ok('the raised median is steppable, not a blocker', K.tileLayer(ART.legend[4]).solid === false);
   const withDeck = counts(FWY.generate(5, { same: ['N', 'S'], cross: ['E', 'W'] }).g);
