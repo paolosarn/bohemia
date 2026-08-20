@@ -755,12 +755,6 @@ def main():
         'the bank holds %d sounds but he thumbed %d UP across every verdict file'
         % (sum(len(v) for v in bank.values()), len(ups)))
 
-    # 3. sets, not singles, where he approved more than one
-    for ev in ('step_dirt', 'step_asphalt', 'step_gravel'):
-        chk(len(bank.get(ev, [])) >= 3,
-            '%s kept only %d approved sounds -- a walk would machine-gun'
-            % (ev, len(bank.get(ev, []))))
-
     # 7b. COMBAT PLAYS HIS SOUNDS (Paolo 7/31: "make sure any of the combat
     #     sound effects you made you put them into the combat too"). Combat is a
     #     srcdoc iframe carried as base64 in the alpha, so read it the way it
@@ -1402,6 +1396,61 @@ def main():
         if extra:
             print('  POOL  %-14s draws from %d variants across %s'
                   % (moment, n, ', '.join([moment] + extra)))
+    # ---- SETS, NOT SINGLES, ON EVERY SURFACE THE GAME CAN REPORT ---------
+    # This used to name three surfaces, because three were all the city's ground
+    # classifier could return. On 8/20 it learned concrete, sand and wood, which
+    # finally let sounds he approved on 8/12 play -- and in the same stroke put
+    # them in reach of the MACHINE GUN: step_sand had ONE approved sample and
+    # the classifier returns 'sand' for any unnamed tile, most of the valley.
+    # IT READS THE LIVE POOL, NOT A LIST IN THIS FILE. The first version carried
+    # its own hardcoded {step_sand: (...)} dict, so deleting the real sibling
+    # entry in the wire tool changed nothing and the check stayed green on a
+    # tree where sand was back to one sample. A gate that keeps its own copy of
+    # the answer is not measuring anything. `pools` above is what the SHIPPED
+    # build actually resolves.
+    for ev in ('step_dirt', 'step_asphalt', 'step_gravel',
+               'step_concrete', 'step_sand', 'step_wood'):
+        got = len(pools.get(ev) or bank.get(ev, []))
+        if got >= 3:
+            chk(True, '')
+            continue
+        # WAIVED means WAIVED: a named waiver PASSES and prints why, and dies by
+        # itself the moment the pool can answer.
+        sib = sorted({c.rsplit('.', 1)[0] for c in (pools.get(ev) or [])} - {ev})
+        eng_src = open('engine/bohemia_sfx.js', encoding='utf8').read()
+        cooked = ("ev: '%s_more'" % ev.replace('step_', '')) in eng_src
+        if cooked:
+            chk(True, '')
+            print('  WAIVED: %s draws from %d (%s) -- its sibling batch is '
+                  'cooked and unjudged. Expires by itself the moment one of '
+                  'its pool is approved.'
+                  % (ev, got, ', '.join([ev] + sib) if sib else ev))
+        else:
+            chk(False, '%s draws from only %d approved sounds -- a walk would '
+                       'machine-gun' % (ev, got))
+
+    # ---- THE BUILD DOES WHAT THE TOOL SAYS -------------------------------
+    # The waiver above excuses a thin pool while its sibling batch is unjudged,
+    # and that is right -- but it would also have excused somebody DELETING a
+    # borrow the tool declares, which is a real change to what he hears. So the
+    # declared sibling map and the shipped pool are compared directly. This is
+    # what catches an edit that never got re-applied, or a parent block that got
+    # clobbered by a rebase.
+    wsrc = open('tools/bohemia_sfx_wire_patch.py', encoding='utf8').read()
+    mm = re.search(r'SIBLINGS\s*=\s*\{(.*?)\n  \}', wsrc, re.S)
+    if mm:
+        declared = {}
+        for k, v in re.findall(r"(\w+)\s*:\s*\[([^\]]*)\]", mm.group(1)):
+            declared[k] = [x.strip().strip("'") for x in v.split(',') if x.strip()]
+        for moment, sibs in sorted(declared.items()):
+            live = {c.rsplit('.', 1)[0] for c in (pools.get(moment) or [])}
+            # only siblings that actually HAVE approved sounds can show up
+            want = {x for x in sibs if bank.get(x)}
+            chk(want <= live,
+                'the shipped pool for %s is missing %s, which the wire tool '
+                'declares -- the build is not doing what the tool says'
+                % (moment, sorted(want - live)))
+
     silent = sorted(ev for ev in bank if not wired(ev) and ev not in sib_wired)
     unexpected = [ev for ev in silent if ev not in WAIVED]
     chk(not unexpected,

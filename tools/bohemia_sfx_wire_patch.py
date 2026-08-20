@@ -147,7 +147,21 @@ def parent_block(bank):
     hit:           ['hit_more'],
     casing:        ['brass_more'],
     block:         ['cover_more'],
-    step_concrete: ['walk_more']
+    step_concrete: ['walk_more'],
+    /* SFX-10 (8/20). The 8/20 ground fix made step_sand and step_wood reachable
+       for the first time, and they had ONE and TWO approved variants -- while
+       the classifier returns 'sand' for any unnamed tile, which is most of the
+       open valley. One sample under every step is the MACHINE GUN. These pools
+       are the other half of that fix. */
+    /* AND SAND BORROWS THE DIRT UNTIL ITS OWN POOL FILLS. sand_more is cooked
+       but unjudged, so today step_sand would still be ONE sample under the
+       most-walked ground in the game -- the classifier returns 'sand' for any
+       unnamed tile. Dirt is the same ground with less grain in it and it has
+       five approved sounds, so borrowing it is the nearest true thing rather
+       than a placeholder. The borrow costs nothing the day sand_more is
+       approved: the pool simply gets wider. */
+    step_sand: ['sand_more', 'step_dirt'],
+    step_wood: ['wood_more']
   };      /* moment -> extra event ids that also feed it */
   window.__sfxSiblings=SIBLINGS;
   function poolOf(ev){
@@ -909,7 +923,7 @@ def parent_block(bank):
       if(r<0.125 && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
       /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
-         his own briefs say "far off" and "the 12% that has power" -- and both
+         his own briefs say "far off" and "the 12%% that has power" -- and both
          are among the twelve moments that had no caller anywhere in the build.
          The guard is the same one the two above use: an unapproved name is
          skipped and the bed plays, so this costs nothing until he says yes.

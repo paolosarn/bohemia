@@ -285,6 +285,10 @@ const BOH_SFX = (function () {
                      0.041, 0.160, 0.266, 1.352, 2.680,
                      0.0811, 0.1368, 0.1109, 0.0836, 0.0849,
                      0.0867, 0.0908, 0.1641, 0.1553, 0.1645],
+    brushkit:       [0.058, 0.056, 0.059, 0.059, 0.056,
+                     0.056, 0.055, 0.058, 0.057, 0.059,
+                     0.0746, 0.0860, 0.0766, 0.0748, 0.0960,
+                     0.0999, 0.0899, 0.0798, 0.0827, 0.0756],
     cabasa:         [0.027, 0.028, 0.029, 0.028, 0.027,
                      0.027, 0.028, 0.028, 0.029, 0.029,
                      0.0952, 0.0566, 0.0662, 0.0710, 0.0734,
@@ -309,6 +313,10 @@ const BOH_SFX = (function () {
                      0.029, 0.078, 0.145, 0.290, 0.580,
                      0.1285, 0.1288, 0.1289, 0.1304, 0.1325,
                      0.1285, 0.1288, 0.1311, 0.1331, 0.1341],
+    claves:         [0.023, 0.023, 0.023, 0.023, 0.023,
+                     0.023, 0.023, 0.023, 0.023, 0.023,
+                     0.1741, 0.1741, 0.1741, 0.1741, 0.1741,
+                     0.1741, 0.1741, 0.1741, 0.1741, 0.1741],
     coin:           [0.226, 0.226, 0.226, 0.226, 0.226,
                      0.221, 0.221, 0.221, 0.221, 0.221,
                      0.1525, 0.1525, 0.1525, 0.1525, 0.1525,
@@ -389,6 +397,10 @@ const BOH_SFX = (function () {
                      0.031, 0.058, 0.108, 0.219, 0.442,
                      0.1138, 0.1132, 0.1301, 0.1197, 0.1243,
                      0.1347, 0.1200, 0.1356, 0.1207, 0.1144],
+    marimba:        [0.220, 0.220, 0.220, 0.220, 0.220,
+                     0.217, 0.217, 0.217, 0.217, 0.217,
+                     0.2753, 0.2753, 0.2753, 0.2753, 0.2753,
+                     0.3274, 0.3274, 0.3274, 0.3274, 0.3274],
     meterclick:     [0.035, 0.073, 0.125, 0.237, 0.463,
                      0.035, 0.073, 0.125, 0.238, 0.463,
                      0.0861, 0.0851, 0.0886, 0.0862, 0.0851,
@@ -433,6 +445,10 @@ const BOH_SFX = (function () {
                      0.116, 0.116, 0.116, 0.116, 0.116,
                      0.1137, 0.1137, 0.1137, 0.1137, 0.1137,
                      0.1141, 0.1141, 0.1141, 0.1141, 0.1141],
+    rimshotr:       [0.015, 0.014, 0.014, 0.014, 0.015,
+                     0.014, 0.014, 0.015, 0.015, 0.014,
+                     0.1980, 0.2589, 0.2530, 0.2522, 0.1990,
+                     0.2444, 0.2636, 0.2295, 0.2046, 0.2575],
     riveter:        [0.020, 0.051, 0.103, 0.210, 0.426,
                      0.022, 0.058, 0.108, 0.213, 0.426,
                      0.1430, 0.1430, 0.1434, 0.1538, 0.1593,
@@ -469,6 +485,10 @@ const BOH_SFX = (function () {
                      0.042, 0.112, 0.212, 0.422, 0.842,
                      0.0346, 0.0332, 0.0339, 0.0353, 0.0354,
                      0.0324, 0.0351, 0.0324, 0.0343, 0.0353],
+    sodahiss:       [0.029, 0.081, 0.145, 0.290, 0.582,
+                     0.030, 0.076, 0.148, 0.286, 0.562,
+                     0.2013, 0.1684, 0.1967, 0.2092, 0.2195,
+                     0.1933, 0.1955, 0.1961, 0.2328, 0.2629],
     solarhum:       [0.036, 0.096, 0.567, 1.148, 2.311,
                      0.036, 0.096, 0.576, 1.155, 2.312,
                      0.0637, 0.1496, 0.1502, 0.1502, 0.1502,
@@ -489,6 +509,10 @@ const BOH_SFX = (function () {
                      0.047, 0.116, 0.212, 0.423, 0.840,
                      0.4084, 0.4142, 0.4020, 0.3928, 0.3884,
                      0.3861, 0.4121, 0.4100, 0.4113, 0.4165],
+    sweeppad:       [0.050, 0.108, 0.912, 1.853, 3.662,
+                     0.050, 0.107, 0.893, 1.782, 3.549,
+                     0.0779, 0.1418, 0.1379, 0.1560, 0.2120,
+                     0.0741, 0.1492, 0.1822, 0.1954, 0.1956],
     taiko:          [0.043, 0.118, 0.216, 0.438, 0.882,
                      0.043, 0.118, 0.216, 0.438, 0.893,
                      0.4856, 0.5293, 0.5561, 0.5310, 0.5478,
@@ -926,6 +950,11 @@ const BOH_SFX = (function () {
     { ev: 'dog_calls',   label: 'A DOG, OUT THERE',      why: 'the only other living thing you can hear, with the air of the distance in it' },
     { ev: 'sign_alive',  label: 'THE SIGN IS STILL ON',  why: 'the 12% that has power. gas and current, which is electrical and never a struck body' },
     { ev: 'lungs_burn',  label: 'YOUR LUNGS CATCH UP',   why: 'you ran too far. turbulence through a throat, with no body in it at all' },
+    /* ---- batch SFX-10 (8/20): siblings for the two surfaces that became
+       reachable on 8/20 and had one sample each. A single sample under every
+       step is the MACHINE GUN, and bare desert falls through to sand. ---- */
+    { ev: 'sand_more',   label: 'MORE SAND',             why: 'step_sand.0 is ONE sample, and the ground classifier returns sand for any unnamed tile -- which is most of the open valley' },
+    { ev: 'wood_more',   label: 'MORE BOARDS',           why: 'step_wood has two samples for every porch, deck and floorboard in the game' },
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -2292,6 +2321,54 @@ const BOH_SFX = (function () {
       instSets: ['reedorgan', 'chapelbreath', 'holdbreath', 'onebreath',
                  'paperlung'],
       hitSets: [[0, 0.4375], [0, 0.5], [0], [0, 0.375], [0, 0.5625]]
+    },
+
+    /* ================= BATCH SFX-10 (8/20/26) ==========================
+       Sibling pools for step_sand and step_wood, built on his rack because the
+       instrument source runs 48% approval against 30% for raw synthesis and
+       both existing recipes are raw synthesis. Every voice was rendered at the
+       REAL footstep point -- sd 0.05, the recipe's own semitone -- before it
+       was written here; `knock`, `rim`, `wood` and `brim` all looked right for
+       boards and all render SILENT through synthV, because they are drumV
+       kinds. Measuring is the only reason they are not in this file. */
+    sand_more: {
+      /* SAND HAS NO RING. Grain, a short hiss, and nothing that sustains -- so
+         the decay is tiny, the room is off, and the grit is nearly all of it. */
+      base: { synth: 'instrument', inst: 'cabasa', mat: 'ash', hz: 74,
+              modes: 4, bright: 0.42, decay: 0.09375, damp: 2.4, warble: 0.25,
+              atk: 0, trans: 0.5, transHz: 780, transQ: 0.7, grit: 0.9,
+              gritHz: 520, space: 0.05, room: 0.0625, refl: 0, dark: 620,
+              width: 0.32, drive: 0.07, mkup: 0.9, gain: 0.3 },
+      /* THE NOTE HAS TO BE LONGER THAN THE VOICE. decay jit started at 0.0625,
+         which quantises to a 1/16-beat window of 31 ms, and `sweeppad` needs 83
+         at this step -- so it was cut to a click. A footstep is short, not
+         shorter than the thing making it. */
+      jit:  { hz: [58, 102], decay: [0.09375, 0.1875], width: [0.24, 0.44],
+              dark: [460, 900], grit: [0.8, 1] },
+      /* `sweeppad` was here and came out a CLICK: the calibration grid predicts its
+         peak from two semitones, -24 and +12, and this recipe sits at about -18
+         where the straight line between them overshoots by roughly 2.6x. Third
+         time that two-point pitch model has mispredicted a voice. `guiro` is
+         measured accurate at this operating point. The model is the real bug and
+         it is written up as the top item; fixing it moves every instrument sound
+         he has already approved, so it wants a deliberate re-record, not a
+         late-session bolt-on. */
+      instSets: ['cabasa', 'washboard', 'brushkit', 'sodahiss', 'guiro'],
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    wood_more: {
+      /* A BOARD UNDER A BOOT. Brighter and shorter than the materials that die
+         in his sweeps -- the door post-mortem's own prescription, which the
+         existing step_wood recipe already carries in its comment. */
+      base: { synth: 'instrument', inst: 'templeblock', mat: 'wood', hz: 116,
+              modes: 5, bright: 0.95, decay: 0.09375, damp: 2.2, warble: 0.6,
+              atk: 0, trans: 0.7, transHz: 2800, transQ: 1.3, grit: 0.26,
+              gritHz: 1600, space: 0.1, room: 0.125, refl: 1, dark: 1600,
+              width: 0.44, drive: 0.09, mkup: 0.88, gain: 0.31 },
+      jit:  { hz: [95, 160], decay: [0.0625, 0.125], width: [0.34, 0.58],
+              dark: [1200, 2400], bright: [0.78, 1.2] },
+      instSets: ['templeblock', 'spoonclack', 'claves', 'rimshotr', 'marimba'],
+      hitSets: [[0], [0], [0], [0], [0]]
     },
     walk_more: {
       base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 140,

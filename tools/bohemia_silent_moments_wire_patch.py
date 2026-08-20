@@ -112,7 +112,7 @@ OLD_AMB = """      if(r<0.125 && (A.generator||[]).length) return 'generator';
 NEW_AMB = """      if(r<0.125 && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
       /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
-         his own briefs say "far off" and "the 12% that has power" -- and both
+         his own briefs say "far off" and "the 12%% that has power" -- and both
          are among the twelve moments that had no caller anywhere in the build.
          The guard is the same one the two above use: an unapproved name is
          skipped and the bed plays, so this costs nothing until he says yes.
