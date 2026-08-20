@@ -32,7 +32,14 @@ WHAT IT ASSERTS, all of it off a real running transport:
   5. BUT THE STREETS DO COME BACK  within one phrase, CITYMUS owns it again. A
                                    stand-down that never stands back up would
                                    pass check 4 and leave the valley silent.
-  6. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
+  6. WINNING SOUNDS LIKE SOMETHING the sting fires on the outcome, in the key of
+                                   whatever song is playing, and its notes land
+                                   on the beats it scheduled them on. Measured
+                                   as WINDOWED ENERGY and as PITCH RATIOS, not
+                                   asserted: a stinger that renders to one blurt
+                                   would pass any check that only asks "did it
+                                   make a noise".
+  7. NEVER THE SCRATCH PATCH       FACTIONS[0] is CUSTOM, the studio's blank
                                    sandbox slot (motif 'plain', osc + pluck).
                                    Combat drew it uniformly, so one fight in
                                    fourteen was scored by a patch nobody wrote.
@@ -92,9 +99,15 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     await p.waitForTimeout(3000);
     out.past64=await snap();
 
+    // WATCH THE STING ACROSS THE REAL OUTCOME. Calling STING.play() directly
+    // proves the sting WORKS; it proves nothing about it being WIRED, and
+    // deleting the call site in the combat-end handler would sail past a gate
+    // that only ever calls it itself. STING.last is the observable.
+    out.stingBefore=await p.evaluate(()=>(typeof STING!=='undefined')?STING.last:-1);
     await p.evaluate(()=>{ window.postMessage({type:'BOHEMIA_COMBAT_END',victory:true,
       kills:2,playerHP:80,dead:2,spared:0,fled:0,alive:0,turns:5},'*'); });
     await p.waitForTimeout(1200);
+    out.stingAfter=await p.evaluate(()=>(typeof STING!=='undefined')?STING.last:-1);
     out.justEnded=await snap();
 
     out.returned=null;
@@ -104,6 +117,42 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       if(s.city){ out.returned=s; break; }
       out.stillHeld=s;
     }
+
+    // ---- THE STING, measured as audio -----------------------------------
+    out.sting=await p.evaluate(async()=>{
+      if(typeof STING==='undefined') return {missing:true};
+      const SR=44100, SV=window.synthV, step=0.125, r={};
+      async function windows(which, root){
+        const F=STING.FIG[which];
+        const OAC=new OfflineAudioContext(1,Math.ceil(SR*4),SR);
+        const bus=OAC.createGain(); bus.gain.value=1; bus.connect(OAC.destination);
+        for(const nn of F.n)
+          try{ SV(F.v,OAC,bus,x=>110*Math.pow(2,x/12),F.sd,root+F.oct+nn[0]-55,0.05+nn[1]*step,F.g); }catch(e){}
+        const d=(await OAC.startRendering()).getChannelData(0);
+        const w=[];
+        for(let k=0;k<12;k++){ const a=Math.floor((0.05+k*step)*SR), z=Math.floor((0.05+(k+1)*step)*SR);
+          let pk=0; for(let i=a;i<z&&i<d.length;i++){const v=Math.abs(d[i]); if(v>pk)pk=v;}
+          w.push(+pk.toFixed(4)); }
+        return {w, steps:F.n.map(x=>x[1]), voice:F.v};
+      }
+      async function hzOf(which,root,idx){
+        const F=STING.FIG[which];
+        const OAC=new OfflineAudioContext(1,Math.ceil(SR*1.2),SR);
+        const g=OAC.createGain(); g.gain.value=1; g.connect(OAC.destination);
+        try{ SV(F.v,OAC,g,x=>110*Math.pow(2,x/12),F.sd,root+F.oct+F.n[idx][0]-55,0.02,F.g); }catch(e){}
+        const d=(await OAC.startRendering()).getChannelData(0);
+        let zc=0; const a=Math.floor(0.03*SR), z=Math.floor(0.20*SR);
+        for(let i=a+1;i<z;i++) if((d[i]>=0)!==(d[i-1]>=0))zc++;
+        return +(zc/2/((z-a)/SR)).toFixed(1);
+      }
+      r.win=await windows('win',45); r.loss=await windows('loss',45);
+      r.winOther=await windows('win',38);            // a different key still sounds
+      r.hz=[]; for(let i=0;i<STING.FIG.win.n.length;i++) r.hz.push(await hzOf('win',45,i));
+      r.root=(MUS.fac()||{}).root;
+      r.fired=STING.play('win');                     // live, on the running transport
+      r.refused=STING.play('win');                   // and refuses a burst
+      return r;
+    });
 
     out.draws=await p.evaluate(()=>{ const c={};
       for(let i=0;i<200;i++){ const k=FIGHTMUS.realFaction(0);
@@ -180,6 +229,60 @@ def main():
        bool(ret.get('city')) and bool(ret.get('playing')))
     ok('and the returned song is a street song, not the fight song (%s)'
        % ret.get('now'), ret.get('now') and ret.get('now') != inf.get('now'))
+
+    # ---- THE STING ------------------------------------------------------
+    sg = d.get('sting') or {}
+    ok('the sting exists at all', not sg.get('missing'))
+    # WIRED, not merely present. This is the leg that goes red if somebody
+    # deletes the call in the combat-end handler, which every other sting check
+    # here would happily survive.
+    ok('WINNING A FIGHT ACTUALLY FIRES THE STING (STING.last %s -> %s)'
+       % (d.get('stingBefore'), d.get('stingAfter')),
+       isinstance(d.get('stingAfter'), (int, float))
+       and isinstance(d.get('stingBefore'), (int, float))
+       and d['stingAfter'] > d['stingBefore'])
+    if not sg.get('missing'):
+        for which in ('win', 'loss'):
+            fig = sg.get(which) or {}
+            w, steps = fig.get('w') or [], fig.get('steps') or []
+            ok('the %s sting SOUNDS (%s, peak %.3f)'
+               % (which, fig.get('voice'), max(w or [0])), max(w or [0]) > 0.05)
+            # ---- THE SHAPE IS ASSERTED INDEPENDENTLY, NOT READ OFF THE FIGURE.
+            # The first version of this check pulled its expected step list out
+            # of STING.FIG itself, so collapsing every note onto step 0 -- which
+            # turns a phrase into one blurt -- made the EXPECTATION collapse too
+            # and the check sailed through. Caught by mutating it. A check that
+            # reads its answer key off the thing it is testing cannot fail. The
+            # claim is about the FIGURE: three or more notes, at distinct
+            # positions, spread across at least half a bar.
+            uniq = sorted(set(steps))
+            ok('the %s sting is a PHRASE, not one blurt (%d notes at %d distinct '
+               'positions, spanning %d steps)'
+               % (which, len(steps), len(uniq), (max(uniq) - min(uniq)) if uniq else 0),
+               len(steps) >= 3 and len(uniq) == len(steps)
+               and uniq and (max(uniq) - min(uniq)) >= 4)
+            # and each of those positions is a real onset in the rendered audio
+            hit = [w[i] for i in uniq if i < len(w)]
+            rest = [w[i] for i in range(len(w)) if i not in uniq]
+            ok('every note of the %s sting lands on the beat it was scheduled '
+               'for (%s at steps %s)' % (which, [round(x, 3) for x in hit], uniq),
+               len(hit) == len(uniq) and all(h > 0.05 for h in hit))
+            ok('the %s sting does not smear across the bar (loudest gap %.3f vs '
+               'quietest note %.3f)' % (which, max(rest or [0]), min(hit or [0])),
+               not rest or max(rest) < min(hit or [1]))
+        ok('the sting transposes: a song in another key still sounds (%.3f)'
+           % max((sg.get('winOther') or {}).get('w') or [0]),
+           max((sg.get('winOther') or {}).get('w') or [0]) > 0.05)
+        # AND IT IS THE INTERVAL IT CLAIMS. Ratios, not note names: a table of
+        # semitones can be right and the synth still hand back something else.
+        hz = sg.get('hz') or []
+        ratios = [round(h / hz[0], 3) for h in hz[1:]] if len(hz) > 1 and hz[0] else []
+        want = [1.5, 2.0, 3.0]
+        ok('the win sting really is root/fifth/octave/octave+fifth (measured '
+           'ratios %s)' % ratios,
+           len(ratios) == 3 and all(abs(r - x) < 0.04 for r, x in zip(ratios, want)))
+        ok('the sting fires on a live transport', sg.get('fired') is True)
+        ok('and refuses a second one inside its own gap', sg.get('refused') is False)
 
     draws = d.get('draws') or {}
     ok('200 redraws of the scratch slot never land on CUSTOM (%s)'
