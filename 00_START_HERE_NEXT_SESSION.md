@@ -1,3 +1,80 @@
+RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES. 393 OF 393, ZERO
+UNRUN. It was 217 of 379 and a fifty-minute wall. ***
+
+                        WAS               NOW
+  gates run             217 of 379        393 of 393   <- all of them
+  never ran             162               ZERO
+  wall clock            ~3000s, killed    2564s, finished
+  per gate              13.8s             ~4.5s in the pack
+
+THREE FIXES, IN THE ORDER THE SWEEP LAW ASKED FOR.
+
+FIX 1 -- THE SLEEPS. 399 fixed waits in 108 gates/*.js, 19.7 minutes of ceiling,
+replaced with a condition (gates/bohemia_settle.js). The old number stays as a
+CEILING it can never exceed, so worst case is exactly the old behaviour. Stillness
+is measured over 600ms because BEAT is 0.5s under the 120 BPM law -- nothing
+driven by the beat can hide inside the window. That alone took the run to 258/393
+in 45 minutes, and then the runner's own arithmetic said the truth: ~4129s of work
+against a 2700s budget. PER-GATE TRIMMING WAS NEVER GOING TO CLOSE A GAP THAT BIG.
+
+FIX 2 -- PARALLEL, NOT ONE WARM BROWSER. The sweep asked for a single browser
+shared by 94 gates; this overlaps separate ones instead, for the same clock at a
+fraction of the risk. Sharing a browser means sharing a page or a profile, and
+the moment two gates share state the suite lies in a NEW way -- a gate green
+because another gate warmed something is exactly what this sweep exists to kill.
+Processes stay separate; they just stop queueing.
+  PURE gates    -> all cores      (BOHEMIA_JOBS)
+  BROWSER gates -> half           (BOHEMIA_BROWSER_JOBS)
+because gates that measure TIME fail for LOAD when the box is oversubscribed --
+measured on this lane's own box a week ago, when one orphaned core made RUN BEAT
+report 3.112 beats per second instead of 2.
+
+FIX 3 -- `--pure`, THE BROWSERLESS TIER. 249 of 393 gates never touch a browser.
+A filter over what exists, not new work. NOT named --fast on purpose: --fast
+already means "skip the rows flagged slow" here, and quietly redefining a flag
+other lanes already type is how a tool starts lying about what it did.
+
+*** AND THE PART THAT MATTERS MOST: A RED UNDER LOAD IS NOT A VERDICT. ***
+The first full parallel run proved the risk instead of theorising about it --
+CITY BORDER and THE CROWD failed in the pack and passed alone. THE SUITE WAS
+INVENTING REDS, which is the same class of lie as an unrun gate reading green,
+pointing the other way. So every failure is now RE-RUN ALONE with nothing else on
+the box, and THAT is the verdict. The definitive run caught two: THE CROWD and
+THE RUN, both "the box, not the build". It costs a quiet re-run per red and buys
+back the one thing parallelism could have taken: THE RIGHT TO BELIEVE A RED. This
+is the discipline this lane applied by hand all month, moved into the runner so
+nobody has to remember it.
+
+A REGRESSION I WROTE AND CAUGHT: the first parallel cut buffered the whole report
+and printed it after every thread joined, so a run killed at minute forty would
+have said NOTHING AT ALL -- the original bug of this entire sweep in a new
+costume. Found by watching a run sit silent for ten minutes. Results stream in
+table order now, the moment each gate and everything above it has answered.
+
+NOT ONE ASSERTION CHANGED, across all three fixes (sweep law section 7).
+
+*** 24 CONFIRMED REDS, AND THAT NUMBER GOING UP IS THE POINT. ***
+It was 13 when the suite could only reach 258. The other eleven were always
+there; 135 gates were simply never asked. Silence read as green, exactly as the
+law said.
+  TRAFFIC SIGNAL, DRIVE NETWORK, VOTE TAB, VOICE SURFACES, MIX, SONG LOCK,
+  COMBAT LAB, ROAD CELLS, ONE MAP, TOOLS RUN, BANNER, QUEST PLACEMENT,
+  CURRENT SLICE, WHAT YOU HEARD, MAP BOUND, ONE WORLD TAB, INVISIBLE SCHEDULE,
+  NAV CLUSTER, INTERIORS, MAP TAB, TASTE, ART 45, HERO WIRE, RF4 TEARDOWN
+Sweep section 6 already assigns owners for several. THE RULE ATTACHED THERE NOW
+BITES: a red with an owner gets fixed or gets a written line saying why it is
+legitimately red.
+
+WHAT COMES NEXT ON THE SUITE:
+ 1. THE 24 REDS ARE NOW VISIBLE AND OWNED. That is the whole reason the suite
+    had to finish, and it is where the next suite session goes.
+ 2. 3.7 MINUTES OF SLEEPS SURVIVE, measured: 101 calls across 17 gates/*.py that
+    EMBED javascript run through node. Same disease, different shape; the .js
+    rewrite cannot see inside a Python string and was not allowed to guess.
+ 3. THE CONFIRM-ALONE PASS COSTS ~790s AT 26 REDS and shrinks as reds get fixed.
+    If the red count ever grows instead, that pass is the first thing to bound.
+
+
 WORLD (world-9lfjtf): 8/20 (f) LATEST -- *** HIS APPROVED STREET ART REACHES ZERO OF 44,376
 ROAD CELLS, AND NOTHING WAS EVER GOING TO SAY SO. No tab changes; this is a gate and a
 finding. Nothing here needs judging. ***
