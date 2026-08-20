@@ -2618,10 +2618,24 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     his call -- not another combat mechanic. Two counters are already dead and
     V173 proved a good new mechanic does not move it. DO NOT BUILD A THIRD
     COUNTER INSIDE THE ARENA.
- 2. RF4-54 TERRAIN KILLS (two stars). Now the natural next build: V174 just made
-    the environment something you can SHOOT, and terrain kills are the other half
-    of RF4-19. WORLD put hazards into interior fight rooms and the room already
-    rides the wire into combat UNREAD.
+ 2. RF4-54 TERRAIN KILLS (two stars). The natural next build -- V174 just made the
+    environment something you can SHOOT, and terrain kills are the other half of
+    RF4-19 -- BUT CHECKED, AND IT IS A WIRE JOB FIRST.
+    *** CORRECTION TO WHAT THIS HANDOFF SAID BEFORE: the room does NOT ride the
+    wire into combat "unread". IT DOES NOT RIDE THE WIRE AT ALL. *** Read
+    enter() in the combat blob: a BOHEMIA_ENCOUNTER carries playerHP, roster,
+    defend, and the difficulty package (encounterId/questId/stepId/packageId).
+    THERE IS NO TERRAIN FIELD, so there is nothing sitting there unread and
+    nothing to switch on. Somebody has to put ground on the bus.
+    THE SUBSTRATE IS REAL AND IT IS WORLD'S, LANDED 8/20: engine/
+    bohemia_interior_ground.js now has a `hazard` kind, and records/
+    BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md names four genuinely lethal tiles
+    (quarry:7 and gypsum:7 bench lips, intake:13 shaft, reclaim:6 crusted pond)
+    that used to be modelled as WALLS YOU BOUNCE OFF. So the hole exists in the
+    world and the fight cannot see it.
+    ONE SYSTEM ONE SESSION: the wire's combat end is this lane's, the ground is
+    WORLD's. Do the combat end (accept and read a hazard list) and say so rather
+    than reaching into their files.
  3. RF4-53 THREE-LAYER AWARENESS (stealth as a fight-start trigger). V165's
     vision is the substrate and it is already measured.
  4. RF4-45 / RF4-31 BUILD VARIETY. Untouched by this lane so far.
