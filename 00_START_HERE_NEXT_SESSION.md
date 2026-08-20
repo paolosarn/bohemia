@@ -1,3 +1,69 @@
+SOUND (sound-xk7pjp): 8/20 (n,o) LATEST -- *** THE SIDEWALK STOPPED SOUNDING LIKE
+A ROAD. Three sounds he APPROVED had never once played, on the ground he covers
+most. TAB: RUN (walk from a lot onto a sidewalk, then indoors). Nothing to
+judge. ***
+
+I set out to cook the next six silent moments and found something better first.
+
+THERE ARE TWO GROUND CLASSIFIERS IN THIS REPO:
+  sfxGround()   in the RUN slice. Six surfaces. Written 8/12 for exactly this --
+                its comment says "a sidewalk, a motel floor and deep desert sand
+                all came out as the same footstep he had already heard."
+  __surfaceOf() in BOHEMIA_CITY_WORLD.html. THREE, and it lumps concrete,
+                sidewalk, walk and slab in WITH asphalt.
+AND THE CITY IS THE ONE HE WALKS -- he asked for the city in the run tab on 7/28.
+So step_concrete, step_sand and step_wood (all approved in the 270-thumb sweep)
+had NEVER MADE A SOUND, and every sidewalk and interior floor played the roadway
+footstep. Eight days audible.
+
+Fixed in ONE function, rules PORTED from sfxGround not reinvented. ORDER IS THE
+SPEC: the road test runs before the concrete test, because a drivable surface is
+asphalt whatever the tile is called. Nothing else changed BY CONSTRUCTION -- the
+parent already does `if(!APPROVED[ev]) ev='step_dirt'`, so an unbacked surface
+plays what it played before instead of going silent.
+Measured on the real city surface, 12 tile names, ZERO mismatches; and end to end
+in the alpha all six resolve to sounds he approved.
+
+*** WHAT I DID NOT DO, AND WHY IT IS THE POINT. *** I checked TRIGGERS BEFORE
+COOKING and three of the six moments cannot fire at all:
+  step_glass / step_metal  there is no glass or metal ground for the run to
+                           report, and he killed all ten candidates anyway
+  breath / breath_out      needs a sprint verb; there is none in the run
+Cooking those would be cooking sounds that can never play -- the mistake I fixed
+yesterday. A TRIGGER CHECK BEFORE A COOK IS NOW THE ORDER OF WORK.
+
+*** AND THE RULER ALMOST GOT ME AGAIN, FIFTH TIME IN FOUR DAYS. *** My first
+measurement grepped BOHEMIA_CITY_WORLD.html for sfxGround, found zero, and I was
+one step from reporting the 8/12 classifier as DELETED FROM THE BUILD. It is not
+deleted. It lives in the run slice and I grepped the wrong file. The running
+tally: RMS said the kill layers were inaudible; a closure lookup said the
+ambience was unpatched; a two-point pitch model said two voices were five times
+louder than they are; a checker searched a haystack containing its own answer
+key; and now a grep of the wrong file. CHECK THE RULER FIRST, EVERY TIME.
+
+GATE: silent_moments_gate grew EIGHT legs for the ground (the city can report
+concrete/sand/wood, the road test still precedes concrete, all three approved and
+reachable). Mutation-proved twice: delete the wood rule -> red; put concrete
+before the road -> red. Now 29 checks.
+
+GATES: SILENT MOMENTS 29/0. SFX RENDER 6496/0. SFX WIRED 842/0. VERDICT-FROZEN
+6/0. FIGHT MUSIC 47/0. INSTRUMENT 15/0. MUSIC 20/0. MUSIC REACH 17/0. ALPHA LOADS
+20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** step_concrete, step_sand and step_wood have ONE, ONE and TWO approved
+    candidates. *** They are now the most-heard footsteps in the game after
+    asphalt, and a single sample repeated is the MACHINE GUN defect this lane
+    already has a law about. They want siblings the way step_concrete already has
+    walk_more. THAT IS THE TOP ITEM and it is a cook with a proven trigger.
+ 2. THE OTHER THREE SILENT MOMENTS WITH REAL TRIGGERS: go_inside (the `inside`
+    flag already crosses to the parent every 4s -- watch it flip, same shape as
+    PAYSTING), talk_start and quest_done (triggers NOT yet found; look before
+    cooking).
+ 3. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. Built
+    and one line (INST_SEMI) from being on.
+ 4. HORIZONTAL RE-SEQUENCING between intensity tiers. The vertical half is done.
+
 CHARACTER (character-0lurbs): 8/20 (c) LATEST -- *** HE ASKED FOR THE CLOTHES AT
 4X. HIS PREMISE WAS WRONG AND HE NAMED THE EXACT THING THE 2X PLAN DEFERRED. ***
 
