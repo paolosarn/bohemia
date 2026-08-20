@@ -374,6 +374,121 @@ function requirePlaywright() {
       ok('C4 the valley has somebody from an outfit with an act to compare', false);
     }
 
+    /* ---- D. EVERY ACT A PLAYER CAN PRESS, PRESSED -------------------------
+       THE ARC ABOVE WALKS ONE OUTFIT. There are FIVE distinct acts across the
+       sixteen -- information, debt, presence, legibility, labour -- and until
+       this part existed, exactly ONE of them had ever been pressed on the walked
+       surface. An act nobody has pressed is the shape of every bug this week:
+       the wall that was a sign, the favour nobody collected, the cost that cost
+       nothing, the ladder with no rungs. All four were live code that no claim
+       had ever driven.
+
+       This does not re-walk the whole journey for each -- that is B1..B12's job
+       and it would be five times the runtime for the same evidence. It asserts
+       the ONE thing an act must do: PRESSING IT MOVES THE COUNT. */
+    const acts = await page.evaluate(() => {
+      const bases = ctBases() || {};
+      const found = {};
+      for (const b of Object.values(bases)) {
+        for (const d of [2, 5, 8, 11]) {
+          hx = b.x * FN + d; hy = b.y * FN + d;
+          for (const q of ctEveryone()) {
+            const f = ctFactionOf(q); if (!f) continue;
+            const rule = BohemiaBelonging.ruleOf(f);
+            if (!rule || !rule.wants || rule.wants === 'nothing') continue;
+            if (found[rule.wants]) continue;
+            if (!ctHasLadder(rule)) { found[rule.wants] = { fid: f, noLadder: true }; continue; }
+            const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+            const sv = ctBelongSave();
+            sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+            ctSawCell(); ctClose(); ctOpen();
+            const before = BohemiaBelonging.gaveOf(sv, f);
+            const btn = document.getElementById('ctgive') || document.getElementById('ctfavour');
+            const label = btn ? btn.textContent : null;
+            if (btn) btn.click();
+            ctClose(); ctOpen();
+            found[rule.wants] = { fid: f, firstMove: rule.firstMove, label,
+                                  hadButton: !!btn, before,
+                                  after: BohemiaBelonging.gaveOf(sv, f) };
+            ctClose();
+          }
+        }
+      }
+      return found;
+    });
+
+    const kinds = Object.keys(acts).filter(k => !acts[k].noLadder).sort();
+    ok('D1 the valley actually contains outfits wanting more than one thing — '
+      + 'otherwise this part is testing one act and calling it five',
+      kinds.length >= 3, 'reachable acts: ' + JSON.stringify(kinds));
+
+    for (const k of kinds) {
+      const a = acts[k];
+      ok('D2 pressing the act for `' + k + '` MOVES THE COUNT (' + a.fid + ', '
+        + a.firstMove + ', "' + a.label + '"). Until this part existed exactly '
+        + 'one of the five acts had ever been pressed on the walked surface, and '
+        + 'every bug this week was live code no claim had driven',
+        a.hadButton === true && a.after > a.before,
+        JSON.stringify({ fid: a.fid, button: a.label, before: a.before, after: a.after }));
+    }
+
+    /* AND IT NAMES WHAT IT COULD NOT REACH, because silence about an untested
+       act reads exactly like coverage -- the same lesson the gate suite learned
+       on 8/19 about unrun gates. */
+    const reach = await page.evaluate(() => {
+      const roster = ctValleyRoster(), bases = ctBases() || {};
+      const people = {};
+      roster.forEach(a => { if (a.faction) people[a.faction] = (people[a.faction] || 0) + 1; });
+      const wantsWithPeople = {}, emptyBases = [];
+      for (const name of Object.keys(bases)) if (!people[name]) emptyBases.push(name);
+      for (const f of Object.keys(people)) {
+        const r = BohemiaBelonging.ruleOf(f);
+        if (r && r.wants) wantsWithPeople[r.wants] = (wantsWithPeople[r.wants] || 0) + people[f];
+      }
+      const allWants = {};
+      for (const k of Object.keys(BohemiaBelonging.RULES || {})) {
+        const r = BohemiaBelonging.RULES[k];
+        if (r.wants && r.wants !== 'nothing') allWants[r.wants] = true;
+      }
+      return { emptyBases, wantsWithPeople,
+               unreachable: Object.keys(allWants).filter(w => !wantsWithPeople[w]).sort(),
+               affiliated: roster.filter(a => a.faction).length, people: roster.length };
+    });
+
+    console.log('  (acts with members: ' + JSON.stringify(reach.wantsWithPeople) + ')');
+    if (reach.unreachable.length)
+      console.log('  (NOT REACHABLE IN THIS VALLEY: ' + reach.unreachable.join(', ')
+        + ' — bases with nobody: ' + reach.emptyBases.join(', ') + ')');
+
+    /* AND THE SET OF ACTS IS PINNED, because the first version of D3 had an
+       ESCAPE HATCH and a mutation walked straight through it: deleting `labour`
+       from the ACTS table made its D2 claim VANISH rather than fail, and D3
+       accepted the outfit as legitimately actless. 22 passed, 0 failed, one
+       fewer claim, no red. THAT IS SILENCE READING AS COVERAGE -- the exact
+       disease this gate and the 8/19 suite work both exist to kill, in my own
+       gate, one turn after writing the law about it.
+       The data alone cannot separate "character has no act BY DESIGN" (his
+       dossiers) from "labour lost its act BY REGRESSION", so the set is named
+       here. It is five, it is small, and it has been stable since 8/12. */
+    const EXPECTED_ACTS = ['debt', 'information', 'labour', 'legibility', 'presence'];
+    const haveActs = await page.evaluate(() =>
+      Object.keys((BohemiaBelonging.ACTS) || {}).sort());
+    ok('D2b THE SET OF ACTS IS EXACTLY THE FIVE. A claim that can disappear is '
+      + 'not a claim: deleting one from the table made its D2 vanish silently, '
+      + 'so the set is pinned rather than inferred from whatever survives',
+      JSON.stringify(haveActs) === JSON.stringify(EXPECTED_ACTS),
+      'have ' + JSON.stringify(haveActs) + ' want ' + JSON.stringify(EXPECTED_ACTS));
+
+    ok('D3 every act that HAS members in the valley was pressed above — the '
+      + 'coverage is measured against the world, not assumed, so an act nobody '
+      + 'can reach is NAMED rather than silently skipped',
+      Object.keys(reach.wantsWithPeople).sort()
+        .every(w => kinds.includes(w) || (acts[w] && acts[w].noLadder
+                                          && !EXPECTED_ACTS.includes(w))),
+      JSON.stringify({ withMembers: Object.keys(reach.wantsWithPeople).sort(),
+                       pressed: kinds, unreachable: reach.unreachable,
+                       basesWithNobody: reach.emptyBases }));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

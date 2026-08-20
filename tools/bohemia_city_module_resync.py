@@ -94,6 +94,30 @@ for p in mods:
                 j = len(decoded)
             cand = decoded[i:j + 1]
             tail = 'root.Bohemia'
+            # A CUT THAT IS TWICE THE MODULE IS NOT THE MODULE. (8/20/26.)
+            # This fallback is the only path that GUESSES where a body ends -- the
+            # other two match a known string. If the closing banner is missing or
+            # renamed, `j` runs on past this module and `cand` swallows whatever
+            # follows, and the tail-count guard alone can wave that through when
+            # the swallowed modules happen not to use `root.Bohemia`.
+            # WHY IT WAS ADDED, STATED HONESTLY BECAUSE THE CAUSE IS NOT PROVEN:
+            # on 8/20 a mutation cycle left BOHEMIA_CITY_WORLD.html -- the file the
+            # whole game is played in -- 1,159 LINES SHORTER, with the working tree
+            # showing 1159 deletions and 0 insertions, and the only tool that had
+            # written to it was this one. `git checkout` restored it.
+            # I COULD NOT REPRODUCE IT. Re-running the same one-line edit through
+            # this tool resyncs cleanly, delta 0. So this guard is NOT presented as
+            # the fix for that incident -- it is the guard for the only path here
+            # that GUESSES where a body ends, which is the only place a write can
+            # be catastrophically larger than intended. Calling it the cure for
+            # something I never reproduced would be shipping a false finding.
+            oversize = len(cand) > len(canon) * 2 + 2000
+            if oversize:
+                print('  REFUSING: the banner cut for %s is %d bytes against a '
+                      '%d byte module -- that is not one module, it is this one '
+                      'plus whatever follows it. Its closing banner is missing '
+                      'or renamed. NOTHING WAS WRITTEN.' % (p, len(cand), len(canon)))
+                sys.exit(3)
             if canon.count(tail) > 0 and cand.count(tail) == canon.count(tail):
                 hit = cand
     if hit is None:

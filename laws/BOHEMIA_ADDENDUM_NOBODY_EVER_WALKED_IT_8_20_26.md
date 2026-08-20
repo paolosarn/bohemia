@@ -128,6 +128,49 @@ you simply have not visited today still has a climb and still says so. Both
 mutations bite: restoring the false ladder reds C1–C3, and over-correcting by
 silencing everybody reds B6.
 
+## 4c. EVERY ACT A PLAYER CAN PRESS, PRESSED — AND THE ONE NOBODY CAN
+
+There are **five** distinct acts across the sixteen outfits, and until this part
+existed **exactly one** had ever been pressed on the walked surface. An act nobody
+has pressed is the shape of every bug this week: the wall that was a sign, the
+favour nobody collected, the cost that cost nothing, the ladder with no rungs —
+all four were live code no claim had ever driven.
+
+Pressed, each on a real member, each moving the count:
+
+| act | outfit | button |
+|---|---|---|
+| debt | Cartel | "Take what they are offering" |
+| information | Homeless | "Tell them what you have seen" |
+| labour | Trades | "Give them an hour of it" |
+| legibility | Network | "Let them write you down" |
+
+**And the fifth cannot be reached by anybody.** Measured across the whole valley:
+
+```
+acts with members: debt 10 · information 3 · character 2 · legibility 7 · labour 7
+NOT REACHABLE:     presence — bases with nobody: Anarchists, Blues, Church
+```
+
+**Three bases stand in the valley with zero members, and they are precisely the
+three `presence` outfits.** So one of the five acts — *"Show up for them"* —
+cannot be pressed by any player anywhere. That is a placement and density fact
+(MAP LAW, and the `REACH_CELLS` / `AFFILIATED_RATE` dials that are already
+[PENDING Paolo]), not a defect in the act, so **the gate names it rather than
+failing on it** — the same rule the suite learned about unrun gates on 8/19.
+
+### AND MY FIRST VERSION OF THAT CHECK HAD AN ESCAPE HATCH
+
+Deleting `labour` from the ACTS table made its claim **vanish rather than fail**:
+22 passed, 0 failed, one fewer claim, no red. **That is silence reading as
+coverage — the exact disease this gate and the 8/19 suite work both exist to
+kill — in my own gate, one turn after writing the law about it.**
+
+The data alone cannot separate *"`character` has no act by design"* from
+*"`labour` lost its act by regression"*, so **the set of five is pinned by name**.
+It is small and has been stable since 8/12. Mutation-proven: remove one from the
+table the page actually uses and two claims go red.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
