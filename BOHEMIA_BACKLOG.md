@@ -1345,6 +1345,58 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
+   do it in the run then" — folding the one-day-old GATES lane in rather
+   than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
+   §5 amended.) THIS LANE OWNS gates/bohemia_gates.py, the harness, the
+   runner, the fast lane and THE HEALTH OF THE SUITE AS A SYSTEM. It does
+   NOT own individual gates' assertions — those stay with the lane whose
+   law they enforce, and the eight reds are already assigned out (WORLD 4,
+   SOUNDS 2, CHARACTER 1, ART 1). It fits this lane's charter: RUN
+   INTEGRATES WHAT THE FLEET BUILT, and the suite is the fleet's only
+   shared instrument.
+   ORDER AGAINST THE OTHER P0s: the SLEEP FIX (1) comes FIRST because it
+   is mechanical, changes zero assertions, and buys back most of the
+   clock in one sitting — after that, P0-DOOR / P0-SAVE / the fight entry
+   resume, and (2) and (3) can land whenever this lane next needs them.
+, AND SILENCE READS AS GREEN. FIRST
+   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
+   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
+   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
+   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
+   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
+   UNRUN AND SILENT every time, and every lane ships on a partial run
+   without knowing which part it missed.
+   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
+   PER CHECK, not check count. Deleting coverage to make the clock would
+   trade the only thing keeping nine parallel lanes honest for a green
+   light that means less than the red one did.
+   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
+       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
+       guess that got tuned upward until it stopped flaking, so it is
+       always far longer than the real wait. Replace with CONDITIONS
+       (waitForFunction / waitForSelector / poll for the state the check
+       needs). COPY gates/dayloop_gate.js, which already does it right and
+       says so: "POLL, do not guess. Measured 8/11: the city frame's
+       script does not execute immediately."
+   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
+       hand each gate an isolated CONTEXT (or a fresh tab against the warm
+       process) instead of a cold boot. Gates that genuinely need a virgin
+       profile DECLARE it and pay for it; everything else shares. Changes
+       how a gate gets a page, never what it asserts.
+   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
+       browser gates leaves roughly 256 gates that never touch a browser.
+       The fast lane is a FILTER, not new work: tag every gate BROWSER or
+       PURE and give the runner a --fast mode. THAT becomes every lane's
+       pre-ship check, every turn, under a minute. The full suite becomes
+       the once-before-a-ship run, and it will finish once (1) and (2)
+       land.
+   | the full suite completes inside the clock, and --fast runs the pure
+   set in under a minute, both measured and written into the record |
+   — | no (machinery). ***
+1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
+   slowest thing is a number and not a hunch. A suite nobody has timed is
+   how this happened.
 P0-SAVE. *** THE SAVE SURVIVES THE PHONE AND NOT US — WIRE THE MIGRATION
    CHAIN BEFORE THE FRIENDS ROUND (sweep 12 catch, 8/15 — records/
    BOHEMIA_RESEARCH_THE_SAVE_SURVIVES_THE_PHONE_NOT_US_8_15_26.md).
@@ -5966,51 +6018,6 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
-## GATES  (NEW DEDICATED LANE, coordinator 8/19 on Paolo's ruling —
-## laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md. First word "gates". Owns
-## gates/bohemia_gates.py, the harness, the runner, the fast lane, and
-## THE HEALTH OF THE SUITE AS A SYSTEM. It does NOT own individual gates'
-## assertions — those stay with the lane whose law they enforce. The
-## suite had no owner because it is not any lane's system, and a thing
-## that belongs to nobody rots exactly the way this did.)
-0. *** THE SUITE CANNOT FINISH, AND SILENCE READS AS GREEN. FIRST
-   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
-   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
-   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
-   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
-   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
-   UNRUN AND SILENT every time, and every lane ships on a partial run
-   without knowing which part it missed.
-   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
-   PER CHECK, not check count. Deleting coverage to make the clock would
-   trade the only thing keeping nine parallel lanes honest for a green
-   light that means less than the red one did.
-   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
-       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
-       guess that got tuned upward until it stopped flaking, so it is
-       always far longer than the real wait. Replace with CONDITIONS
-       (waitForFunction / waitForSelector / poll for the state the check
-       needs). COPY gates/dayloop_gate.js, which already does it right and
-       says so: "POLL, do not guess. Measured 8/11: the city frame's
-       script does not execute immediately."
-   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
-       hand each gate an isolated CONTEXT (or a fresh tab against the warm
-       process) instead of a cold boot. Gates that genuinely need a virgin
-       profile DECLARE it and pay for it; everything else shares. Changes
-       how a gate gets a page, never what it asserts.
-   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
-       browser gates leaves roughly 256 gates that never touch a browser.
-       The fast lane is a FILTER, not new work: tag every gate BROWSER or
-       PURE and give the runner a --fast mode. THAT becomes every lane's
-       pre-ship check, every turn, under a minute. The full suite becomes
-       the once-before-a-ship run, and it will finish once (1) and (2)
-       land.
-   | the full suite completes inside the clock, and --fast runs the pure
-   set in under a minute, both measured and written into the record |
-   — | no (machinery). ***
-1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
-   slowest thing is a number and not a hunch. A suite nobody has timed is
-   how this happened.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 -8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,

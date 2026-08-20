@@ -24167,3 +24167,23 @@ fail with identical counts — these are standing reds. A red with an owner
 gets fixed or gets a written reason; a red with no owner is invisible.
 FIFTH INSTANCE THIS MONTH of the same family: we instrument what we built
 and not what actually runs.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/19 (b) — THE GATES LANE IS FOLDED INTO RUN, SAME DAY.
+Paolo: "I'll just do it in the run then." He did not want to carry
+another chat and he is right that a lane costs the remembering. THERE IS
+NO GATES LANE — the doctrine lane word is reverted (with a note so nobody
+re-creates it off the 8/19 sweep law), and the suite is now RUN P0-SUITE.
+IT FITS RUN'S CHARTER WITHOUT STRETCHING IT: this lane INTEGRATES WHAT
+THE FLEET BUILT, and the suite is the fleet's only shared instrument.
+RUN owns bohemia_gates.py, the harness, the runner and the fast lane; it
+does NOT own individual gates' assertions, which stay with the lane whose
+law they enforce, and the eight reds are already assigned out (WORLD 4,
+SOUNDS 2, CHARACTER 1, ART 1).
+THE ORIGINAL FINDING IS UNCHANGED AND IS WHY IT IS ALL WRITTEN DOWN: the
+suite rotted because it belonged to NOBODY. OWNERSHIP was the fix; a new
+chat was only one way to get one, and it was the expensive way.
+ORDER INSIDE RUN: the SLEEP FIX first (22.7 min, mechanical, zero
+assertions changed, most of the clock back in one sitting), then P0-DOOR
+/ P0-SAVE / the fight entry resume; the shared-browser and fast-lane
+fixes land whenever this lane next needs them.
