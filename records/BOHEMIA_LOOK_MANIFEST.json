@@ -2,6 +2,14 @@
  "built": "8/8/26",
  "shots": [
   {
+   "id": "the-spawn-sidewalk",
+   "title": "THE SIDEWALK WHERE YOU SPAWN",
+   "caption": "You sent a picture of your own spawn and the sidewalk was flat dirt. It was never missing: the suburb has laid sidewalks since it was written and the renderer had no case for that tile code, so all 3,347 of them fell through to the dead-dirt default. They wear your approved concrete now. RUN tab, it is the street you wake up on.",
+   "file": "look/the-spawn-sidewalk.png",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "stamp": "8/20/26"
+  },
+  {
    "id": "zoom-identity",
    "title": "WHEN A PERSON STOPS BEING SOMEBODY",
    "caption": "I proved the thirteen faction outfits tell each other apart -- and I proved it at ONE of the four sizes this game draws a person at. This is the other two. At the zoom you actually walk around in they are thirteen people. One zoom out they are already closer together than the gap that once made two neighbours read as the same guy, and zoomed right out the body is twenty-five pixels tall and they are a crowd. That is not something a wider coat fixes; it is a limit worth knowing. What it means in practice: anything you need to RECOGNISE from far away -- whose street this is, somebody you are looking for -- needs something other than the outline. CHARACTER tab for the outfits themselves; this is what they look like from the CITY.",

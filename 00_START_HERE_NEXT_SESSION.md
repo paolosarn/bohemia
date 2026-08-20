@@ -1,3 +1,49 @@
+WORLD (world-9lfjtf): 8/20 (i) LATEST -- *** THE SUBURB HAS ALWAYS HAD SIDEWALKS AND THE
+RENDERER DID NOT KNOW WHAT THEY WERE. TAB: RUN, the street you wake up on. ***
+
+Paolo sent a screenshot of HIS OWN SPAWN: "the sidewalk is still dog shit what is wrong with
+you?" He was right, and my 8/20 (h) fix was IN THE WRONG DISTRICT. I mapped the kerb and the
+lane line for the ARTERIAL, measured it, photographed it and shipped it -- and the place he
+spawns is a SUBURB, which does not go through the kit path at all. It goes through `m.sub`.
+NOTHING I DID TOUCHED IT. I checked one room and reported the house fixed, which is the
+exact failure I had written a warning about twice the same day.
+
+MEASURED AT HIS SPAWN (6205,6271), the nine cells around it:
+    sub code  0  28,177  dead-ground (yard)  #8a7a5e  pool hyard
+    sub code  1  13,447  road                #8a8a86  pool -     (SA_MAP -> street, fine)
+    sub code 10   3,347  SIDEWALK            #8a7a5e  pool -     <-- painted as BARE EARTH
+    sub code  3   1,660  driveway            #c8c4b8  pool -
+
+*** NOTHING WAS MISSING. *** The suburb generator has laid sidewalks since it was written
+(layWalks -> walk:10), its own legend calls code 10 'sidewalk' and describes it as "cracked
+concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints" -- a word-for-word
+description of pools.side in his harmonized bank -- and BUILT WORLD LAW clause D1 requires
+the walk to exist at all ("continuous public ground between the kerb and the private lot").
+THE RENDERER'S SUBURB BRANCH JUST HAD NO CASE FOR CODE 10. Its own comment lists what it
+knows: "0 dead 1 road 2 house 3 drive 4 wall 5 gate 6 garage 9 upper". Ten is not in it, so
+every sidewalk in every suburb fell through to the dead-dirt default at the top of the
+branch. One `else if` that had never been written.
+
+THIRD TIME IN TWO DAYS THE FAULT WAS A CONSUMER THAT DID NOT KNOW ABOUT SOMETHING THE WORLD
+HAD BEEN PRODUCING ALL ALONG: 17 stale inlined modules on the walked page, `m.road` going
+false and taking 348 signal sprites off 274 intersections, and now a tile code the renderer
+never learned. WHEN SOMETHING LOOKS MISSING, CHECK WHETHER IT IS BEING PRODUCED AND DROPPED
+BEFORE YOU BUILD IT AGAIN.
+
+  tools/bohemia_city_suburb_sidewalk_patch.py   one branch, per-plot variant (never per cell)
+  Picture: THE SIDEWALK WHERE YOU SPAWN, in the LOOK tab.
+
+AND THE LESSON ABOUT MY OWN MEASURING, WHICH IS THE ONE WORTH KEEPING: I measured ARTERIALS
+because that is where I went looking, and never once asked what district he actually spawns
+in. A fix verified somewhere he never stands is not verified. MEASURE AT THE SPAWN FIRST --
+it is the one place in the valley he is guaranteed to see.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. Crosswalk PLACEMENT: the arterial emits ZERO. Art is judged and ready in the bank.
+     Road layout, so it is the other WORLD session's.
+  2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
+  3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
+
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
 Nothing here needs judging. ***
