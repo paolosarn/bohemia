@@ -2336,6 +2336,68 @@ GATE_CAP = int(os.environ.get('BOHEMIA_GATE_CAP', '600'))
 SUITE_BUDGET = int(os.environ.get('BOHEMIA_SUITE_BUDGET', '2700'))
 
 
+# ---------------------------------------------------------------------------
+# __THE_SUITE_RUNS_IN_PARALLEL__ -- P0-SUITE FIX 2 (8/20/26, RUN lane).
+#
+# Fix 1 (the sleeps) took the run from 217/379 in 50 minutes to 258/393 in 45,
+# and then the runner's own arithmetic said the truth: ~4129s of work against a
+# 2700s budget. NO AMOUNT OF PER-GATE TRIMMING CLOSES A GAP THAT SIZE. What is
+# left is 132 gates that each cold-launch chromium and boot a 3.8MB alpha --
+# ONE AT A TIME, on a box with four cores sitting idle.
+#
+# The sweep asked for one warm browser shared by 94 gates. This overlaps them
+# instead, which buys the same clock at a fraction of the risk: sharing a browser
+# means sharing a page or a profile, and the moment two gates share state the
+# suite starts lying in a NEW way -- a gate that passes because another gate
+# warmed something is exactly the "green for the wrong reason" disease this whole
+# sweep exists to kill. Separate processes stay separate. They just stop queueing.
+#
+# BROWSER GATES GET A NARROWER LANE, AND THAT IS MEASURED, NOT CAUTIOUS. Earlier
+# in this lane's own session one orphaned factory burning a single core made RUN
+# BEAT report "one second of wall clock moved the run 3.112 beats, not 2", and
+# ZOOM SEAM, WALKED SURFACE and THE CROWD went red in the same run and green when
+# run alone. Those gates measure TIME. Oversubscribe the box and they fail for
+# LOAD rather than for truth, and A SUITE THAT INVENTS REDS IS WORSE THAN A SLOW
+# ONE. So pure gates get all the cores and browsers get half, both tunable.
+import threading
+
+_CPUS = os.cpu_count() or 4
+JOBS = int(os.environ.get('BOHEMIA_JOBS', str(_CPUS)))
+BROWSER_JOBS = int(os.environ.get('BOHEMIA_BROWSER_JOBS', str(max(1, _CPUS // 2))))
+
+_ISBROWSER = {}
+
+
+def is_browser_gate(argv):
+    """DERIVED, NEVER A LIST: a gate is a browser gate if its own file says so.
+
+    A hand-kept list would be right today and wrong at the next gate anybody
+    writes -- the same reasoning as the postMessage guard testing for a key
+    shape and the door test asking one predicate. Unknown shapes are treated as
+    heavy, because the cost of guessing wrong that way is a slower run and the
+    cost of guessing wrong the other way is a false red.
+    """
+    path = None
+    for a in argv:
+        if isinstance(a, str) and a.startswith('gates/') \
+                and (a.endswith('.js') or a.endswith('.py')):
+            path = a
+            break
+    if not path:
+        return True
+    hit = _ISBROWSER.get(path)
+    if hit is not None:
+        return hit
+    try:
+        with open(path, encoding='utf8', errors='replace') as fh:
+            t = fh.read()
+        hit = ('playwright' in t) or ('chromium' in t)
+    except Exception:
+        hit = True
+    _ISBROWSER[path] = hit
+    return hit
+
+
 def run(argv):
     """A TIMED-OUT GATE HAS TO ACTUALLY STOP, AND subprocess.run DOES NOT DO THAT.
 
@@ -2475,6 +2537,10 @@ def drop_lock():
 
 def main():
     fast = '--fast' in sys.argv
+    # __THE_SUITE_RUNS_IN_PARALLEL__ -- the browserless tier (sweep fix 3).
+    # 249 of 393 gates never launch a browser; this runs those and nothing else,
+    # which is the pre-ship check every lane can afford every turn.
+    pure = '--pure' in sys.argv
     strict = '--strict' in sys.argv
     dry = '--dry-run' in sys.argv
     # --shard i/n
@@ -2506,11 +2572,11 @@ def main():
     # which is the only place it is needed. ONE SUITE AT A TIME (7/30) is
     # untouched for every run that actually runs something.
     if dry:
-        return _run_all(fast, strict, only, dry=True, shard=shard)
+        return _run_all(fast, strict, only, dry=True, shard=shard, pure=pure)
     if not take_lock():
         return 1
     try:
-        return _run_all(fast, strict, only, shard=shard)
+        return _run_all(fast, strict, only, shard=shard, pure=pure)
     finally:
         drop_lock()
 
@@ -2568,7 +2634,7 @@ def _check_table():
     return False
 
 
-def _run_all(fast, strict, only=None, dry=False, shard=None):
+def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
@@ -2580,62 +2646,152 @@ def _run_all(fast, strict, only=None, dry=False, shard=None):
     total = len(GATES)
     unrun = []                 # the whole point: what never got a turn
     ran = 0
+    # __THE_SUITE_RUNS_IN_PARALLEL__ -- the work list first, then the pool.
+    # THE FILTERS ARE APPLIED EXACTLY ONCE, HERE, and the unrun list is built
+    # from the SAME list the run dispatches from. The serial version rebuilt the
+    # filter predicate a second time to compute unrun and got it wrong once
+    # already (it counted the other shard's gates as unreached); deriving both
+    # from one list means they cannot disagree again.
+    work = []
     for i, (name, argv, what, slow) in enumerate(GATES):
         if fast and slow:
             print('  %-15s SKIP     %s' % (name, what))
             continue
-        # SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN (8/19). The suite
-        # stopped finishing -- 217 of 382 and then the container clock -- so every
-        # lane was shipping on a partial run and could not tell which part it
-        # missed. Now the run STOPS ITSELF while it can still speak, and names
-        # every gate it did not reach.
         if only and only.upper() not in name.upper():
             continue
-        # --shard i/n: THE SUITE IS BIGGER THAN A CONTAINER'S LIFETIME AND THAT IS
-        # NOT GOING TO STOP BEING TRUE. Measured 8/19: 236 gates in 2748s, i.e.
-        # ~11.6s a gate, so all 386 need ~75 minutes and a container survives ~50.
-        # Trimming one slow gate cannot close a 25-minute gap. Two shards each
-        # finish comfortably and together cover the table EXACTLY ONCE -- a
-        # complete, honest answer in two runs instead of a partial one in one.
-        # Interleaved (i % n) rather than blocked, so each shard gets a fair mix
-        # of fast and slow gates instead of one shard inheriting all the browsers.
         if shard and (i % shard[1]) != (shard[0] - 1):
             continue
-        if time.time() - t0 > SUITE_BUDGET:
-            # THE UNRUN LIST MUST OBEY THE SAME FILTERS THE RUN DOES. First
-            # version took GATES[i:] wholesale, so a `--shard 1/2` run reported
-            # 62 unrun when it only ever owned about 31 -- it was counting the
-            # OTHER shard's gates as things it had failed to reach. A number that
-            # reads like a fact and is not one is the exact disease this whole
-            # gate exists to kill, and it shipped inside the fix for it.
-            unrun = [g[0] for j, g in enumerate(GATES[i:], start=i)
-                     if not (fast and g[3])
-                     and not (only and only.upper() not in g[0].upper())
-                     and not (shard and (j % shard[1]) != (shard[0] - 1))]
-            break
-        t = time.time()
-        # --dry-run WALKS THE TABLE AND EXECUTES NOTHING. It exists so the
-        # ACCOUNTING -- the budget stop, the unrun list, the exit code, the
-        # --only summary -- can be verified by a gate without a second suite
-        # rebuilding slices underneath the first one. It never reports on a
-        # gate's contents, only on the run's own bookkeeping.
-        if dry:
-            rc, out = 0, ''
-        else:
-            rc, out = run(argv)
-        ok = (rc == 0)
-        if not ok:
-            failed.append(name)
+        # --pure: THE BROWSERLESS TIER (sweep fix 3). A FILTER over what exists,
+        # not new work -- 249 of 393 gates never touch a browser. NOT named
+        # --fast on purpose: --fast already means "skip the rows flagged slow"
+        # in this runner, and silently redefining a flag other lanes already
+        # type is how a tool starts lying about what it did.
+        if pure and is_browser_gate(argv):
+            continue
+        work.append((i, name, argv, what))
+
+    results = {}
+    lock = threading.Lock()
+    dispatched = set()
+    stop = threading.Event()
+    sem_pure = threading.Semaphore(max(1, JOBS))
+    sem_browser = threading.Semaphore(max(1, BROWSER_JOBS))
+
+    def one(item):
+        i, name, argv, what = item
+        heavy = is_browser_gate(argv)
+        sem = sem_browser if heavy else sem_pure
+        with sem:
+            # THE BUDGET STOPS DISPATCH, NOT EXECUTION. A gate already running is
+            # allowed to finish and answer; cutting it mid-sentence would turn a
+            # real verdict into silence, which is the bug this whole sweep is
+            # about. Anything never started is named in the unrun list instead.
+            if stop.is_set():
+                return
+            if time.time() - t0 > SUITE_BUDGET:
+                stop.set()
+                return
+            with lock:
+                dispatched.add(i)
+            t = time.time()
+            if dry:
+                rc, out = 0, ''
+            else:
+                rc, out = run(argv)
+            with lock:
+                results[i] = (name, what, rc == 0, out, time.time() - t)
+
+    # THE REPORT IS STILL IN TABLE ORDER, AND IT STILL STREAMS. Results arrive
+    # out of order because that is what parallel means, and that stays an
+    # implementation detail. But a report that only prints once every thread has
+    # joined is a report the container can eat WHOLE -- which is THE ORIGINAL BUG
+    # OF THIS ENTIRE SWEEP wearing a new costume: a run killed at minute forty
+    # would say nothing at all instead of saying how far it got. Caught by
+    # watching a parallel run sit silent for ten minutes. So a gate prints the
+    # moment it, and everything above it in the table, has answered.
+    def emit(idx, nm, wh, okk, outp, secs):
         print('  [%3d/%3d] %-15s %-8s %-30s %5.1fs'
-              % (i + 1, total, name, 'GREEN' if ok else 'FAIL', what[:30], time.time() - t))
-        ran += 1
-        s = summarize(name, out)
-        if s:
-            print('                   %s' % s[:88])
-        if not ok:
-            for line in out.split('\n'):
+              % (idx + 1, total, nm, 'GREEN' if okk else 'FAIL', wh[:30], secs),
+              flush=True)
+        sm = summarize(nm, outp)
+        if sm:
+            print('                   %s' % sm[:88], flush=True)
+        if not okk:
+            for line in outp.split('\n'):
                 if 'FAIL' in line or 'VIOLAT' in line or 'Error' in line:
-                    print('                   > %s' % line.strip()[:88])
+                    print('                   > %s' % line.strip()[:88], flush=True)
+
+    state = {'nxt': 0, 'ran': 0}
+
+    def drain(final=False):
+        with lock:
+            while state['nxt'] < len(work):
+                idx = work[state['nxt']][0]
+                if idx not in results:
+                    if not final:
+                        break
+                    unrun.append(work[state['nxt']][1])
+                    state['nxt'] += 1
+                    continue
+                nm, wh, okk, outp, secs = results[idx]
+                if not okk:
+                    failed.append(nm)
+                emit(idx, nm, wh, okk, outp, secs)
+                state['ran'] += 1
+                state['nxt'] += 1
+
+    threads = []
+    for item in work:
+        th = threading.Thread(target=one, args=(item,), daemon=True)
+        th.start()
+        threads.append(th)
+        # Threads are cheap but a thousand pending Popens are not: hold the line
+        # at a few times the widest lane so the queue stays a queue, and drain
+        # the printer while waiting so output keeps moving.
+        while sum(1 for x in threads if x.is_alive()) > (JOBS + BROWSER_JOBS) * 3:
+            drain()
+            time.sleep(0.05)
+    for th in threads:
+        th.join()
+    drain(final=True)
+    ran = state['ran']
+
+    # A RED UNDER LOAD IS NOT A VERDICT YET.
+    # Running four gates at once is what makes the suite finish, and it is also
+    # what can make a TIMING gate fail for load rather than for truth. Measured
+    # on the first full parallel run: CITY BORDER and THE CROWD failed in the
+    # pack and passed alone. That is the suite inventing a red, and an invented
+    # red is worse than a slow suite -- it is the same class of lie as an unrun
+    # gate reading green, pointing the other way.
+    # So every failure is RE-RUN ALONE, with nothing else on the box, and THAT
+    # is the verdict. It costs one quiet re-run per red (~28 gates, a couple of
+    # minutes) and it buys back the one thing parallelism could have taken: the
+    # right to believe a red. This is the discipline this lane was already
+    # applying by hand all month -- "run it alone to see if it is load" -- moved
+    # into the runner so nobody has to remember it.
+    if failed and not dry:
+        print('  ' + '-' * 74, flush=True)
+        print('  CONFIRMING %d RED(S) ALONE -- a gate that failed in the pack may '
+              'have failed for LOAD, and the suite may not invent a red.'
+              % len(failed), flush=True)
+        by_name = {nm: (idx, a, w) for idx, nm, a, w in work}
+        confirmed, load_flakes = [], []
+        for nm in list(failed):
+            ent = by_name.get(nm)
+            if not ent:
+                confirmed.append(nm)
+                continue
+            rc2, out2 = run(ent[1])
+            if rc2 == 0:
+                load_flakes.append(nm)
+                print('  %-15s WAS LOAD, NOT TRUTH -- green when run alone' % nm,
+                      flush=True)
+            else:
+                confirmed.append(nm)
+        if load_flakes:
+            print('  %d RED(S) WERE THE BOX, NOT THE BUILD: %s'
+                  % (len(load_flakes), ', '.join(load_flakes)), flush=True)
+        failed = confirmed
     print('=' * 78)
     if failed:
         print('  %d GATE(S) FAILED: %s   (%.0fs)' % (len(failed), ', '.join(failed), time.time() - t0))
