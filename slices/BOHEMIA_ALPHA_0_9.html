@@ -7835,6 +7835,8 @@ function combatMsgIn(d){
        purse ledger, so being paid is visible from here without the city world
        having to say anything. See PAYSTING. */
     try{ if(window.PAYSTING)PAYSTING.onState(d.bohemiaCityState); }catch(_e){}
+    /* 8/20: and the job finishing. Same message, same diff-the-state pattern. */
+    try{ if(window.QUESTSTING)QUESTSTING.onState(d.bohemiaCityState); }catch(_e){}
     return true;
   }
   if(d.bohemiaCitySaveQuery!==undefined){
@@ -12357,7 +12359,17 @@ const STING={
        root and fifth, no octave. A water run in a dead valley is not a boss
        kill, and if it were scored like one then neither would mean anything. */
     paid: { v:'coldpiano', g:0.20, sd:0.22, oct:0,
-            n:[[0,0],[7,3]] }
+            n:[[0,0],[7,3]] },
+    /* IT IS DONE (8/20). Twenty candidates died as SOUND EFFECTS on this
+       moment, and his own brief says why: "the one moment that earns the whole
+       room" needs a key and a length, which a one-shot does not have.
+       A PLAGAL CADENCE -- the fourth resolving to the root, landing on root and
+       octave together. Plagal settles instead of celebrating, which is the
+       right feeling for finishing a job in a dead valley; `win` keeps triumph,
+       or neither of them means anything. `bell` measured rms 0.020 / peak 0.219
+       through the real synthV before it was chosen. */
+    done: { v:'bell',      g:0.20, sd:0.34, oct:0,
+            n:[[5,0],[0,2],[0,5],[12,5]] }
   },
   /* the next BEAT is four 16th-steps of grid away at most */
   when(){
@@ -12448,6 +12460,52 @@ const PAYSTING={
   }
 };
 window.PAYSTING=PAYSTING;
+
+/* ===== QUESTSTING (8/20/26) -- FINISHING A JOB SOUNDS LIKE SOMETHING =====
+   IT IS DONE went 0 UP / 20 DOWN across quest_done and done_ring, and it was
+   never a synthesis failure: it was a MUSICAL CUE filed as a sound effect. See
+   records/BOHEMIA_THE_BRIEF_WAS_WRONG_NINE_MORE_8_20_26.md.
+
+   IT READS STATE IT IS ALREADY BEING HANDED. The city posts bohemiaCityState
+   every 800ms and citySnapshot() carries quest:DQ.serialize(), which carries
+   state.done and state.outcome. So this hears a quest finish by DIFFING, the
+   same way PAYSTING hears a payday -- no edit to the run, no edit to the city
+   world, nobody else's system touched.
+
+   THE BASELINE NEVER SOUNDS, same rule as PAYSTING: loading a save whose quest
+   is already finished is not the moment of finishing it, and a sting on reload
+   would be a lie. The first report only records where we are. And the id is
+   part of the identity, so finishing DAY TWO's quest still sounds even though
+   `done` was already true for day one's. */
+const QUESTSTING={
+  seen:null,                       /* 'questid|done' as of the last report */
+  key(q){
+    try{
+      if(!q) return null;
+      var id=q.id||(q.state&&q.state.id)||'?';
+      var st=q.state||{};
+      return id+'|'+(st.done?'1':'0')+'|'+(st.outcome||'');
+    }catch(e){ return null; }
+  },
+  onState(st){
+    try{
+      var q=st&&st.quest; if(!q) return;
+      var k=this.key(q); if(k===null) return;
+      if(this.seen===null){ this.seen=k; return; }   /* the baseline never sounds */
+      if(k===this.seen) return;
+      var was=this.seen; this.seen=k;
+      /* only a transition INTO done, on the SAME quest, is the moment */
+      var a=was.split('|'), b=k.split('|');
+      if(a[0]!==b[0]) return;                        /* a different job entirely */
+      if(a[1]==='1'||b[1]!=='1') return;             /* was already done, or still is not */
+      if(!window.STING) return;
+      /* FAILING A JOB AND LOSING A FIGHT ARE THE SAME SHAPE OF MOMENT, and
+         `loss` is already built, already measured and already his. */
+      STING.play((b[2]==='COMPLETE')?'done':'loss');
+    }catch(err){}
+  }
+};
+window.QUESTSTING=QUESTSTING;
 
 /* ===== KILLMUS (8/20/26) -- THE FIGHT INTENSIFIES AS YOU KILL ============
    MUS.playStep has gated a second and third tier of arrangement behind

@@ -44,6 +44,13 @@ GATES = [
     ('SILENT MOMENTS',  ['python3', 'gates/silent_moments_gate.py'],
      'the moments that make no sound are counted, and the ones this lane can '
      'reach have a caller waiting for the day they are approved', False),
+    ('STING AUDIBLE',  ['python3', 'gates/sting_audible_gate.py'],
+     'every musical sting actually makes a sound, MEASURED through the real '
+     'synthV rather than read: a graveyarded or drumV voice name renders a '
+     'silent gain and every other check stays green (ironlung, throatsong, '
+     'knock/rim/wood/brim). Plus QUESTSTING driven through a real quest '
+     'transition, so finishing a job is heard and reloading a finished save '
+     'is not', True),
     ('FIGHT MUSIC',    ['python3', 'gates/fight_music_gate.py'],
      'the music knows when you are in a fight: the streets stand down, hold '
      'past a 64-bar pass, and come back on a phrase boundary -- and a fight is '
