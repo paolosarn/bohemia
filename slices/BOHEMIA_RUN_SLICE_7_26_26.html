@@ -1135,6 +1135,37 @@ function drawSolarform(gx,gy,X,Y,S){
     if(ih) ctx.drawImage(look(ih),X,Y,S,S);
     return true;
   }
+  if(n==='seating / stands (the bowl)' || n==='bleachers'){
+    /* MEASURED 8/21: the stadium bowl (x2499, its biggest surface) and the
+       school bleachers (x303) fell to the generic wall mass. A stand is
+       RAKED ROWS - bench over shadow over tread, rows running parallel to
+       the field edge (axis from the blob's own continuation), an aisle
+       stair strip every seventh column. Metal benches at the school (its
+       own legend says metal bleachers), neutral warm grey concrete rake at
+       the bowl - never purple, per the stadium dossier. */
+    var metal = (n==='bleachers');
+    function isSeat(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      var s2=String(NAMEG[y2][x2]||'').toLowerCase();
+      return s2==='seating / stands (the bowl)'||s2==='bleachers'; }
+    var hRun=(isSeat(gx-1,gy)?1:0)+(isSeat(gx+1,gy)?1:0);
+    var vRun=(isSeat(gx,gy-1)?1:0)+(isSeat(gx,gy+1)?1:0);
+    var axis = hRun>=vRun ? 'h' : 'v';
+    var along = axis==='h' ? gx : gy;
+    var rowsIm=tf((metal?'bleach_rows_':'seat_rows_')+axis+'_'+th(axis==='h'?gy:gx,0,2));
+    if(!rowsIm) return false;
+    ctx.drawImage(look(rowsIm),X,Y,S,S);
+    if((along%7)===3){
+      /* the aisle stair strip rides ON the rows (first render: an aisle
+         painted alone left its cell's flanks black) */
+      var ai=tf('seat_aisle_'+axis); if(ai) ctx.drawImage(look(ai),X,Y,S,S);
+    }
+    return true;
+  }
+  if(n==='concourse (loop under the stands)'){
+    /* the loop under the bowl is poured concrete, not gravel */
+    if(!drawBought('walk',gx,gy,X,Y,S)) tput('concrete_0',X,Y,S);
+    return true;
+  }
   if(n==='sun deck'){
     /* MEASURED 8/21 (the ranking instrument): the waterpark's 8,364 sun
        deck cells matched no ground rule and drew gravel. A pool deck is

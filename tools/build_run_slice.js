@@ -432,6 +432,12 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
 /* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
    riding the bought gravel on every plant service lane -
    tools/tfcook/TF-ART-016_lane_cook.py */
+/* VOLUME 8/21: the stadium bowl's raked seating + the school's metal
+   bleachers + aisle stairs - tools/tfcook/TF-ART-005_seating_cook.py */
+grabPieces('banks/tileforms/TF-ART-005_SEATING_VOLUME_8_21_26.json',
+  ['seat_rows_h_0', 'seat_rows_h_1', 'seat_rows_v_0', 'seat_rows_v_1',
+   'bleach_rows_h_0', 'bleach_rows_h_1', 'bleach_rows_v_0', 'bleach_rows_v_1',
+   'seat_aisle_h', 'seat_aisle_v']);
 /* VOLUME 8/21: the gypsum stockpiles (x3015, found by the inventory
    ranking) - tools/tfcook/TF-ART-015_stockpile_cook.py */
 grabPieces('banks/tileforms/TF-ART-015_STOCKPILE_VOLUME_8_21_26.json',

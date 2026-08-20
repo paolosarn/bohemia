@@ -13519,6 +13519,14 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (c) LATEST -- *** THE BOWL GETS ITS SEATS: the
+stadium's biggest surface (2,499 seating cells) + the school bleachers
+draw as raked bench rows with aisle stairs; the concourse pours concrete.
+Aisle lesson: an overlay that replaces a cell paints the WHOLE cell or
+rides on something that does. Sitting pass 39. Ranking queue next:
+'guy wire' (radio), 'vacant parcel' (plausible as-is), 'pond water'
+(FLAGGED for WORLD/weather - plant-status canon unruled).
+PREVIOUS (b):
 ART (f3eu53): 8/21 (b) LATEST -- *** RANKING PAYS AGAIN: the waterpark
 sun deck (x8364) was gravel, wears the bought concrete now (verified
 numerically); the gypsum stockpiles (x3015) cooked as near-white mineral

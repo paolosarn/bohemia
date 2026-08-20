@@ -840,3 +840,19 @@ THIS RE-PROVES is already written on this very file from the last two
 times another lane did it: the gate's EXIT CODE is the gate; a pipe that
 greps a gate's text can bless a failure. My ship flow now asserts exit
 codes. Filed here because the record is for MY failures too.
+
+## 8/21 THIRTY-NINTH PASS: THE BOWL GETS ITS SEATS
+
+The stadium's single biggest surface - 2,499 cells of 'seating / stands
+(the bowl)' - and the school's 303 metal bleachers were falling to the
+generic wall mass. They draw as RAKED ROWS now: bench top over its own
+shadow over the tread, rows running parallel to the field edge (axis
+from the blob's own continuation), a pale aisle stair strip every
+seventh column, the odd missing plank showing the dark understructure.
+Metal benches at the school per its own legend; neutral warm grey at the
+bowl per the stadium dossier (never purple). The concourse loop under
+the stands (x1315) pours its bought concrete instead of gravel. One
+render iteration: the first aisle cells painted only their strip and
+left their flanks BLACK - an overlay that replaces a cell must paint the
+whole cell or ride on something that does. Verified live: the bowl wraps
+the dead scoreboard in bench rows now, weeds in the concourse.
