@@ -46,11 +46,15 @@ exclude:
   - gates/          # the regression machines
   - laws/           # the law masters
   - quests/         # .bq canon quest sources (inlined into the slice at build time)
-  - records/refs/           # 30 MB of reference imagery
-  - records/judgecards/     # 3.9 MB of verdict cards
-  - records/tilespec/       # the district dossiers
-  - records/tileforms/
-  - records/zeromorph/
+  - records/       # NOT PUBLISHED, with ONE carve-out: .github/workflows/pages.yml
+                   # copies records/target by name (the ART tab loads its target
+                   # screens from there). This used to name five subfolders and
+                   # KEEP the rest, which meant 41 MB -- tileforms_proofs, the
+                   # valley aerial, the words book, the questbook index -- was
+                   # published by this list while the workflow never copied a byte
+                   # of it. Corrected 8/20: the workflow is the source of truth,
+                   # this file agrees with it, and pages_publish_gate.js now fails
+                   # if a folder is HALF published (kept here, partly copied there).
   - reference/      # third-party study corpora (Rogue Fable school, 8/17) — reference
                     # only, cited by records/, and NEVER published: not ours to serve
   - "*.md"          # CLAUDE.md, the handoff, the backlog, the masters

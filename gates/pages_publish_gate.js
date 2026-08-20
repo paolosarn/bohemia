@@ -61,6 +61,42 @@ function excluded(p) {
 
 ok('slices/ itself is never excluded', !excluded('slices/BOHEMIA_ALPHA_0_9.html'));
 
+/* ---- WHAT ACTUALLY SHIPS IS THE WORKFLOW'S COPY LIST, NOT THIS CONFIG (fixed 8/20)
+   THE GATE WAS MEASURING A SURFACE THAT STOPPED BEING PUBLISHED. This file's check 3
+   summed everything _config.yml's exclude list KEEPS -- 271 MB -- and went red against
+   its own 260 MB cap. But .github/workflows/pages.yml assembles the site by hand:
+
+       mkdir -p _site/records
+       cp -r slices _site/slices
+       cp -r engine _site/engine
+       cp -r records/target _site/records/target
+       touch _site/.nojekyll
+
+   `.nojekyll` means JEKYLL NEVER RUNS, so the exclude list governs nothing about the
+   deploy; three explicit copies do. The real published surface is 230 MB and the last
+   deploy assembled it in ZERO seconds and finished in 41 -- nowhere near the 30-minute
+   timeout this cap exists to prevent.
+
+   THE OLD BINDING COULD NOT SEE IT, and that is the reusable part: it asked "is every
+   kept folder copied?" with `cp -r records(\s|/)`, which a copy of records/TARGET
+   satisfies. A partial copy read as a whole one, so the config believed it published
+   all of records/ while the workflow took one subfolder of it. A CHECKER THAT CANNOT
+   TELL A PART FROM THE WHOLE IS THE BROKEN ONE (8/1).
+
+   NOTHING IS WEAKENED: the cap is unchanged at 260 MB, the reference check is STRICTER
+   (a ref now has to land inside a copied folder, which is the production question, not
+   just survive an exclude list that no longer runs), and the drift binding below now
+   names a partial copy instead of accepting it. */
+const WFP = '.github/workflows/pages.yml';
+const wfSrc = fs.existsSync(WFP) ? fs.readFileSync(WFP, 'utf8') : '';
+const COPIED = [...wfSrc.matchAll(/cp -r\s+([A-Za-z0-9_/.-]+)\s+_site\//g)].map(m => m[1].replace(/\/$/, ''));
+ok('the workflow names what it publishes (' + (COPIED.join(', ') || 'NOTHING') + ')', COPIED.length > 0);
+const missingSrc = COPIED.filter(c => !fs.existsSync(c));
+ok('every folder the workflow copies exists on disk' +
+   (missingSrc.length ? ' — ' + missingSrc.join(', ') : ''), missingSrc.length === 0);
+/* a path ships iff it sits inside one of those copies */
+function shipped(p) { return COPIED.some(c => p === c || p.startsWith(c + '/')); }
+
 // ---- 1 + 2: every outward reference from a slice still resolves AND still ships -----
 const slices = fs.readdirSync('slices').filter(f => f.endsWith('.html'));
 ok('slices/ has pages in it (' + slices.length + ')', slices.length > 0);
@@ -73,9 +109,15 @@ for (const f of slices) {
   while ((m = REF.exec(txt))) {
     const rel = path.posix.normalize(path.posix.join('slices', m[1]));
     refs++;
-    const hit = excluded(rel);
-    if (hit) dropped.push(f + ' -> ' + rel + '  (excluded by "' + hit + '")');
-    else if (!fs.existsSync(rel)) missing.push(f + ' -> ' + rel);
+    /* THE PRODUCTION QUESTION IS "DOES THE WORKFLOW COPY IT", and that is asked FIRST.
+       An exclude entry higher up the tree is not a verdict when the workflow names a
+       subfolder underneath it -- records/ is excluded and records/target is copied by
+       name, so the ART tab's screens do ship. Reading the exclude list first reported
+       36 live references as dropped. */
+    if (shipped(rel)) { if (!fs.existsSync(rel)) missing.push(f + ' -> ' + rel); }
+    else { const hit = excluded(rel);
+      dropped.push(f + ' -> ' + rel + (hit ? '  (excluded by "' + hit + '")'
+                                            : '  (the workflow copies no folder containing it)')); }
   }
 }
 ok('every outward reference from a slice is still PUBLISHED (' + refs + ' checked)' +
@@ -91,21 +133,23 @@ ok('every outward reference from a slice EXISTS on disk' +
 const CAP_MB = 260;   // the published tree may not exceed this; b09f3ab died at ~496
 function dirSize(p) {
   let n = 0;
+  let st; try { st = fs.statSync(p); } catch (_) { return 0; }
+  if (st.isFile()) return st.size;
   for (const e of fs.readdirSync(p, { withFileTypes: true })) {
     const full = path.posix.join(p, e.name);
     if (e.name === '.git') continue;
-    if (excluded(full) || excluded(full + '/')) continue;
     if (e.isDirectory()) n += dirSize(full);
     else if (e.isFile()) { try { n += fs.statSync(full).size; } catch (_) {} }
   }
   return n;
 }
-const mb = dirSize('.') / (1024 * 1024);
+/* MEASURE THE COPIES. This is the byte count the deploy step actually moves. */
+const mb = COPIED.reduce((a, c) => a + dirSize(c), 0) / (1024 * 1024);
 ok('the published surface is under ' + CAP_MB + ' MB (measured ' + mb.toFixed(0) + ' MB)', mb <= CAP_MB);
 
 // ---- 4: the ONE-LINK LAW's own page is in the published set ------------------------
 const LINK = 'slices/BOHEMIA_ALPHA_0_9.html';
-ok('the one canonical alpha is published', fs.existsSync(LINK) && !excluded(LINK));
+ok('the one canonical alpha is published', fs.existsSync(LINK) && shipped(LINK));
 
 // ---- 5: THE DEPLOY WORKFLOW, and it must not become a second source of truth --------
 // Measured 8/6, AFTER the size fix landed: FIVE consecutive Pages builds cancelled, each
@@ -131,12 +175,35 @@ if (fs.existsSync(WF)) {
     .filter(e => e.isDirectory() && !['.git', '.github', 'node_modules', '_site'].includes(e.name))
     .map(e => e.name);
   const kept = TOP.filter(d => !excluded(d + '/') && !excluded(d));
-  const notCopied = kept.filter(d => !new RegExp('cp -r\\s+' + d + '(\\s|/)').test(wf));
+  /* A PARTIAL COPY IS NOT A COPY. `cp -r records/target` used to satisfy a test for
+     "records is copied", so the config could claim to publish 41 MB the workflow never
+     touched and nothing went red. Name it: either the whole folder is copied, or the
+     config must exclude the parts that are not. */
+  const whole = kept.filter(d => COPIED.includes(d));
+  const partial = kept.filter(d => !COPIED.includes(d) && COPIED.some(c => c.startsWith(d + '/')));
+  const notCopied = kept.filter(d => !whole.includes(d) && !partial.includes(d));
+  /* THE LEGITIMATE CARVE-OUT is the other way round: the config EXCLUDES the parent
+     and the workflow copies one named subfolder back (records/ excluded, records/target
+     copied). That is honest -- both lists agree the parent does not ship. What is NOT
+     honest is a parent the config KEEPS with only a subfolder copied, because then the
+     config is publishing everything else on paper and nothing in fact. */
   ok('every folder _config.yml KEEPS is copied by the workflow' +
      (notCopied.length ? ' — ' + notCopied.join(', ') : ''), notCopied.length === 0);
+  ok('no folder is HALF published — the config keeps it and the workflow takes one subfolder' +
+     (partial.length ? ' — ' + partial.map(d => d + ' (only ' +
+        COPIED.filter(c => c.startsWith(d + '/')).join(', ') + ')').join('; ') : ''),
+     partial.length === 0);
 
-  const copies = [...wf.matchAll(/cp -r\s+([A-Za-z0-9_/.-]+)\s/g)].map(m => m[1].replace(/\/$/, ''));
-  const contradicted = copies.filter(c => excluded(c) || excluded(c + '/'));
+  const copies = COPIED;
+  const contradicted = copies.filter(c => {
+    const e = excluded(c) || excluded(c + '/');
+    if (!e) return false;
+    /* a carve-out: the exclude is a PARENT of the copy, so the workflow is naming an
+       exception the config already accounts for. A same-or-deeper exclude is a real
+       contradiction -- the config forbids exactly the thing being copied. */
+    const ee = e.replace(/\/$/, '');
+    return !(c.startsWith(ee + '/'));
+  });
   ok('the workflow copies nothing _config.yml EXCLUDES' +
      (contradicted.length ? ' — ' + contradicted.join(', ') : ''), contradicted.length === 0);
 

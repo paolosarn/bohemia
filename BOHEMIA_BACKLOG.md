@@ -6049,6 +6049,32 @@ RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
    The pipeline is ready the day the art is; the flip is one call.
    Full finding + every measurement:
    records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt ***
+   *** AMENDED AGAIN 8/20, AND THIS ONE UNPARKS THE ROW. TWO THINGS. ***
+   (A) THE WARDROBE HALF OF STEP (5) IS DONE AND IT WAS NOT IN THIS ROW AT ALL.
+   tools/bohemia_2x_flip.py's own docstring left the garment generators at 56 to be
+   block-doubled at the gen() seam, so the flip would have put CHUNKY CLOTHES ON A
+   SHARP BODY -- and worse: measured, handing them the 112 grid unchanged makes
+   garments the WRONG SIZE (bedroll 0.25 of what it should cover, backpack 0.29,
+   cape/belt/gear/scarf ~0.50). All 13 generators are resolution-native now: 448/448
+   shapes keep their proportions on all 8 facings, and 1,744 pinned hashes prove not
+   one pixel of the 56 wardrobe moved. Paolo asked for this from outside the code on
+   8/20 ("remake all the clothes and hairs with the 4x pixels we now have in mind")
+   and he was naming a gap the plan had written down and deferred.
+   gates/clothes_4x_gate.js | records/BOHEMIA_THE_CLOTHES_AND_HAIR_ARE_RESOLUTION_NATIVE_8_20_26.txt
+   (B) "HIS HEAD RENDERS AS A BOX" WAS TRUE AND UNDIFFERENTIATED, AND IT PARKED THIS
+   ROW ON MY JUDGEMENT RATHER THAN HIS. Measured on the real rig, all 8 facings
+   (records/BOHEMIA_HOW_MUCH_OF_THE_BOX_IS_HIS_8_20_26.txt):
+       5.90% of the lit body differs between today and native 4x
+         11% of that difference is on the head or face
+       9.8 / 40 / 52%  of it is MINE to author -- bare / everyday / fully kitted
+   A garment pixel is code. The more dressed a body is, the less of the box is his
+   paint, and nobody in this game is naked. AND THE ROW'S OWN JUDGEABLE, owed since
+   8/14 and never drawn, is now in the LOOK tab: "IS THIS A DEALBREAKER?" -- head,
+   profile, back and whole body, today on the left and native 4x on the right, same
+   size, same clothes. He has still never been asked whether the box bothers him.
+   If it does not, steps 1-4 flip and the generator rounding is a normal cook after.
+   NOT AUTHORED YET, ON PURPOSE: building the rounding before he looks would be the
+   fourth version of an unasked-for feature (STOP PRODUCING). ***
 FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    we're gonna need to make animations for this and yep" — laws/BOHEMIA_
    ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): one clip set for the

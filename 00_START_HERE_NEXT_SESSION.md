@@ -60,6 +60,71 @@ WHAT COMES NEXT FOR THIS LANE:
      districts) are also theirs, unchanged from 8/20 (e).
   3. A hand-painted hazard tile bank is still ART's if he wants one.
 
+CHARACTER (character-0lurbs): 8/20 (d) LATEST -- *** THE 4X BLOCKER WAS MY
+JUDGEMENT, NOT HIS, AND HE HAS NEVER BEEN SHOWN IT. NOW HE CAN LOOK. ***
+
+Row 2X has been parked since 8/16 on one sentence: "AT 112 NATIVE HIS HEAD RENDERS
+AS A BOX", therefore the rest is PAINT, therefore it waits for Paolo. True, and it
+still smuggled in a verdict -- I decided the box was unacceptable on his behalf, and
+the 4x headline he asked for on 8/14 AND AGAIN ON 8/20 has been sitting behind my
+opinion of pixels he has never seen. That is the approvals queue through the side
+door, which EVERYTHING IS A THUMB killed.
+
+MEASURED IT INSTEAD (tools/bohemia_2x_box_measure.js, real rig, all 8 facings):
+    5.90%   of the lit body differs between today and native 4x
+      11%   of that difference is on the head or face -- the box is mostly NOT the head
+    9.8 / 40 / 52%   of it is MINE to author -- bare / everyday / fully kitted
+THE LAST LINE IS THE FINDING. A garment pixel is CODE, and as of this morning all 13
+generators draw natively at any resolution. So a rounded corner on a shirt, a boot, a
+coat or a hairstyle is a thing I write, not a thing he paints -- and the more dressed
+a character is, the less of the box is his problem. Nobody in this game is naked.
+records/BOHEMIA_HOW_MUCH_OF_THE_BOX_IS_HIS_8_20_26.txt
+
+AND THE ROW'S OWN JUDGEABLE, OWED SINCE 8/14 AND NEVER DRAWN, IS NOW IN THE LOOK TAB:
+"IS THIS A DEALBREAKER?" -- head, profile, back and whole body, today on the left and
+native 4x on the right, same size, same clothes.
+  node tools/bohemia_2x_box_picture.js
+
+DELIBERATELY NOT BUILT: the generator rounding. It is dormant until the flip and
+building it before he looks is the fourth version of an unasked-for feature
+(STOP PRODUCING). If he says the right column is fine, steps 1-4 flip and the
+rounding is a normal cook after. If not, the measurement says which pixels are worth
+his hand and which are mine.
+
+*** AND THE FLEET-BLOCKING SIZE RED IS CLEARED: IT WAS THE RULER. ***
+PAGES PUBLISH said "271 MB / 260 MB cap" on every lane's ship. The site is 230 MB.
+.github/workflows/pages.yml assembles _site by hand and touches .nojekyll, so JEKYLL
+NEVER RUNS and _config.yml -- which the gate read as the source of truth -- governs
+nothing about the deploy. Three explicit cp -r lines do. The 41 MB gap (tileforms_
+proofs, the valley aerial, the words book, the questbook index) was KEPT on paper and
+never copied. Measured on my own deploy: assembly 0 seconds, whole job 41 seconds.
+WHY THE DRIFT CHECK MISSED IT: it tested `cp -r records(\s|/)` for "is records
+copied", and `cp -r records/target` matches. A PART read as the WHOLE.
+FIXED, AND STRICTER: the size check measures the workflow's copy list; the reference
+check asks "does the workflow copy it" before consulting an exclude list that no
+longer runs (asking the old way after the fix reported 36 LIVE refs as dropped); a
+new check fails a HALF-published folder; and the legitimate carve-out (records/
+excluded, records/target copied by name) is understood and written into the config.
+Cap unchanged at 260. Not one byte deleted. Deploy behaviour byte-identical.
+Mutation-tested 3 ways, names the culprit each time -- including 524 MB when somebody
+adds banks/ back, which is the failure the cap was written for.
+  node gates/pages_publish_gate.js   18/0   (230 MB / 260 MB)
+  records/BOHEMIA_THE_SIZE_CAP_WAS_MEASURING_A_SITE_WE_STOPPED_PUBLISHING_8_20_26.txt
+
+NEXT IN THIS LANE:
+  - IF HE SAYS THE BOX IS FINE: flip steps 1-4 (`python3 tools/bohemia_2x_flip.py
+    --flip`), re-bless the gate numbers per records/BOHEMIA_2X_GATE_REBLESS_
+    CHECKLIST_8_15_26.txt, then author generator rounding as a normal cook.
+  - IF HE SAYS IT IS NOT: the measurement above says the head/face is only 11% of it,
+    so the repaint ask is far smaller than "the rig".
+  - EITHER WAY, STILL OWED: wear()/scuff hash per PIXEL (alpha ~21833) and the PD
+    FACIAL layer block-doubles. The first is mine and is the same cell-hash fix the
+    tatter already took; the second is his painted art and stays block-doubled under
+    RIG LAW -- worth measuring how visible it is beside native cloth.
+  - #354 TASTE and #356 ART 45 are still red on the fleet, still other lanes' content.
+
+---
+
 SOUND (sound-xk7pjp): 8/20 (n,o) LATEST -- *** THE SIDEWALK STOPPED SOUNDING LIKE
 A ROAD. Three sounds he APPROVED had never once played, on the ground he covers
 most. TAB: RUN (walk from a lot onto a sidewalk, then indoors). Nothing to
