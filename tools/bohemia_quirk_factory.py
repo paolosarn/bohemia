@@ -68,6 +68,13 @@ is his ruling and none is made here -- not one person is named, and not one
 establishment is named either, because which casinos still stand is map canon
 and map canon is his. The nouns are things, not brands.
 
+TASTE CHECK: this factory emits WORDS, never pixels -- one true thing per person --
+and opens no art bank, so the taste rules about value bands, grime and dead glass
+have nothing here to hold. The half it does inherit: a quirk is a REAL attempt
+tagged draft:true and editable in the WORDS tab, never a placeholder and never
+invented outside the corpus. Named rather than skipped, because a silent "does not
+apply" is the opt-out this check exists to catch.
+
 REUSE CHECK (REUSE-FIRST, Paolo 7/22 -- the words half):
   opened, in code, and used:
     records/BOHEMIA_QUESTBOOK_LAW_INDEX.json -- 152 quests, 3,672 findings.

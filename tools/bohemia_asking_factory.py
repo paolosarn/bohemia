@@ -54,6 +54,15 @@ MECHANISM-MINE, WORDS AS AMENDED 8/11: every line is a REAL ATTEMPT, written as
 if it ships, draft:true, editable in the WORDS tab. NO PROPER NAMES. Nobody
 explains the collapse (Q056.W8).
 
+TASTE CHECK: this factory emits WORDS, never pixels -- it writes the asking
+table into engine/bohemia_asking.js and opens no art bank, so the taste rules
+about value bands, grime and dead glass have nothing here to hold. What it DOES
+inherit is the words half of the same discipline: every line ships as a real
+attempt tagged draft:true (ALWAYS MAKE AN ATTEMPT, 8/11) and cites the corpus it
+was built from (DIALOGUE ALWAYS REFERS TO THE CATALOGUE, 8/11) rather than being
+invented at the keyboard. Saying "not applicable" and stopping would be the
+opt-out this check exists to catch, which is why the inheritance is named.
+
 REUSE CHECK: cooks WORDS, not pixels.
   looked at: records/BOHEMIA_QUESTBOOK_LAW_INDEX.json -- every citation resolved
     at build time and its title compared VERBATIM; a typo refuses the write.

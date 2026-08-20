@@ -58,6 +58,14 @@ REAL ATTEMPT, written as if it ships, tagged draft:true, editable in the WORDS
 tab. NO PROPER NAMES: who anybody IS is still his ruling and none is made here.
 No numbers, no dials, no map facts he has not ruled.
 
+TASTE CHECK: this factory emits WORDS, never pixels -- two people talking to each
+other -- and opens no art bank to cook from, so the visual taste rules (value
+bands, grime pass, dead glass) have nothing here to hold. It inherits the words
+half instead: every authored line is a real attempt tagged draft:true so Paolo
+can edit it in the WORDS tab, and it cites the quest corpus rather than inventing
+voice at the keyboard. Named rather than waved away, because "not applicable" is
+exactly the opt-out this check exists to catch.
+
 REUSE CHECK: cooks WORDS, not pixels, so no banks/ tile applies. The words half
 of REUSE-FIRST does:
   looked at: records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (152 quests, 3,672

@@ -1,0 +1,65 @@
+BOHEMIA — VERDICT: DISTRICT MAP ICONS (Paolo, 8/20/26, VOTE tab)
+9 judged this sitting, 60 already judged before it.
+
+  strip_x      COULD BE BETTER
+  strip        COULD BE BETTER
+  fort         YES
+  minigp       COULD BE BETTER
+  dam          COULD BE BETTER
+  prison       COULD BE BETTER
+  convention   COULD BE BETTER
+  casino       NO
+  resort       NO
+
+TALLY: 1 YES · 6 COULD BE BETTER · 2 NO.
+
+WHAT EACH VERDICT MEANS (VERDICT WORKFLOW, standing):
+- YES unlocks VOLUME. FORT is approved: variants of the approved vector are
+  now legal, and nothing about fort goes back to him.
+- COULD BE BETTER SHIPS FROZEN. All six ship as they are, wired, in the
+  game. They are not re-cooked, not re-thumbed, and not re-surfaced. They
+  get fixed later, when someone is already in that file for another reason.
+- NO IS FINAL. casino and resort are GRAVEYARDED. GRAVEYARD IS FINAL: no
+  remakes, no touch-ups, no "one more pass". A fresh cook may answer the
+  dead slot, and the post-mortem below says what a fresh cook must not
+  repeat.
+
+================================================================
+POST-MORTEM — CASINO AND RESORT, AND WHY IT IS NOT AN ART FAILURE
+================================================================
+The two kills are the two most Vegas things on the board, judged by the
+man who set the game in Vegas. That is not a coincidence and it is not
+about the pixels.
+THE WORLD LANE ALREADY FOUND THE CAUSE, FIVE DAYS EARLIER, IN ITS OWN
+COMMIT TITLE (17b1d49c, 8/15):
+    "THE STRIP AND THE RESORTS DO NOT EXIST AS PLACES —
+     THAT IS WHY THEY HAVE NO ART"
+An icon is a portrait of a place. Every other icon in this batch depicts
+something the world has actually built: a fort, a dam, a prison, a
+convention hall, a go-kart track. CASINO and RESORT depict places that
+have never been designed — no footprint, no interior, no what-it-is-for.
+So the artist was drawing a logo for a building nobody has built, and the
+only available reference was the real Las Vegas, which is the one thing
+this game is not (ours is ten years after the money died).
+THE LESSON, AND IT IS THE ONE TO CARRY: **DO NOT COOK AN ICON FOR A PLACE
+THAT DOES NOT EXIST YET.** The icon is downstream of the design. Cooking
+it first produces a picture with nothing behind it, and he can feel that
+even when he cannot name it — which is exactly what "NO" means here.
+WHAT A FRESH COOK MUST NOT REPEAT: it must not be attempted at all until
+the Strip and the resorts EXIST AS PLACES in the world — footprint,
+interior, purpose, what a player does there ten years after the crash.
+When they exist, the icon will have something to be a portrait of.
+NOTE ON THE STRIP ICONS THAT SURVIVED: strip and strip_x came back COULD
+BE BETTER, not NO. So the Strip as a SHAPE reads; the CASINO as a
+building does not. That is a useful split and it points the same way —
+the silhouette of the place is fine, the institution inside it is empty.
+
+================================================================
+ROUTING
+================================================================
+- ART: fort is APPROVED — volume unlocked, variants legal. The six CBB
+  ship frozen and are not re-opened. Do NOT recook casino or resort.
+- WORLD: the two kills are yours, not ART's. THE STRIP AND THE RESORTS
+  NEED TO EXIST AS PLACES before either icon can be attempted again —
+  your own 8/15 finding, now confirmed by his thumb.
+- Nothing here goes back to Paolo. Six frozen, one approved, two dead.
