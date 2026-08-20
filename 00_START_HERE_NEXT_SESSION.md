@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 WORLD (world-9lfjtf): 8/20 (i) LATEST -- *** THE SUBURB HAS ALWAYS HAD SIDEWALKS AND THE
 RENDERER DID NOT KNOW WHAT THEY WERE. TAB: RUN, the street you wake up on. ***
 
@@ -44,7 +43,7 @@ WHAT COMES NEXT FOR THIS LANE:
      Road layout, so it is the other WORLD session's.
   2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
   3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
-=======
+
 RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES AND THE REDS ARE BEING
 CLEARED. 393/393 zero unrun, and ten gates taken green this pass. ***
 
@@ -124,7 +123,6 @@ judgments that are not this lane's to make:
                  DEMO, CRAFT LAW, TOOLS RUN
 THE RULE ATTACHED THERE NOW BITES: a red with an owner gets fixed or gets a
 written line saying why it is legitimately red.
->>>>>>> origin/main
 
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
