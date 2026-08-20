@@ -1172,6 +1172,161 @@ function requirePlaywright() {
       JSON.stringify({ MOB: third.pop.MOB | 0, vouchHits: third.vouchHits,
                        fired: !!third.mobAfter }));
 
+    /* ---- M. TWO STANDINGS ARE A POSITION, AND IT HAS A SIGN --------------
+       BohemiaCommitment.tertius() had ZERO CALLERS since the wall shipped --
+       the ninth instance this week, and the one that turns the faction system
+       from a set of separate ladders into a map of where you stand.
+
+       Burt/Simmel TERTIUS GAUDENS: two outfits with no line to each other means
+       you span a structural hole and you are the only route between them. The
+       2024 TERTIUS DOLENS correction is what makes it a game: connect them and
+       the identical position costs you, because both sides can see the other
+       half of what you are doing.
+
+       AND THE FIRST PLACEMENT WAS DEAD ON THE HALF THAT MATTERS. ctHearRows
+       early-returns when `heard` is empty, and an empty `heard` IS the
+       structural hole -- so appending the row after that return printed it only
+       when you were EXPOSED and never when you were the only route. Measured on
+       the real card: organ said YOU ARE THE ONLY ROUTE BETWEEN THEM, card said
+       nothing. A ROW ADDED AFTER AN EARLY RETURN IS NOT ADDED. */
+    const tert = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const R = ctValleyRoster(), out = { pop: {} };
+          for (const a of R) { const f = String(a.faction || '').toUpperCase();
+                               if (f) out.pop[f] = (out.pop[f] | 0) + 1; }
+          const names = Object.keys(out.pop);
+          /* THE MEASURED CEILING ON THE WHOLE CROSS-OUTFIT HALF OF THE SYSTEM.
+             A line between two outfits needs two acquainted people in different
+             outfits. Counted here rather than assumed. */
+          out.crossTies = 0; out.sameTies = 0;
+          for (const a of R.filter(x => x.faction)) {
+            for (const t of BohemiaTies.tiesOf(ctVKey(a), R, ctCell(), ctVKey)) {
+              const w = R.filter(z => ctVKey(z) === t.key)[0];
+              if (!w || !w.faction) continue;
+              if (String(w.faction).toUpperCase() === String(a.faction).toUpperCase()) out.sameTies++;
+              else out.crossTies++;
+            }
+          }
+          out.lines = 0;
+          for (const f of names) {
+            try { out.lines += (BohemiaCommitment.whoHears(f, R, ctCell(),
+                    { ties: BohemiaTies, keyOf: ctVKey }) || []).length; } catch (_e) {}
+          }
+          /* the three foci, so the CAUSE is named and not guessed at */
+          const foci = { home: {}, work: {}, faction: {} };
+          R.forEach(a => { const f = BohemiaTies.fociOf(a, ctCell());
+            for (const k in foci) if (f[k]) foci[k][f[k]] = (foci[k][f[k]] | 0) + 1; });
+          out.shared = {};
+          for (const k in foci) out.shared[k] = Object.values(foci[k]).filter(n => n > 1).length;
+
+          /* NOW DRIVE THE REAL CARD to a wall while standing with somebody else. */
+          const goStandBy = (row) => {
+            const q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+            hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
+            const rec = ctEveryone().filter(x => x.id === row.__id)[0];
+            if (!rec) return null;
+            const at = ctAt(rec);
+            for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              hx = at[0] + d[0]; hy = at[1] + d[1];
+              const adj = ctAdjacent();
+              if (adj && adj.id === rec.id) return rec;
+            }
+            return null;
+          };
+          for (const f of names) {
+            const row = R.filter(a => String(a.faction || '').toUpperCase() === f)[0];
+            const other = names.filter(n => n !== f)[0];
+            if (!row || !other) continue;
+            const rec = goStandBy(row); if (!rec) continue;
+            const fid = ctFactionOf(rec); if (!fid) continue;
+            const sv = ctBelongSave();
+            sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+            for (let i = 0; i < 5; i++) BohemiaBelonging.record(sv, fid, 0);
+            for (let i = 0; i < 3; i++) BohemiaBelonging.record(sv, other, 0);
+            ctSawCell(); ctClose(); ctOpen();
+            const el = document.getElementById('ctcard');
+            if (!el || el.style.display === 'none') continue;
+            let organ = null;
+            try {
+              const heard = BohemiaCommitment.whoHears(fid, R, ctCell(),
+                              { ties: BohemiaTies, keyOf: ctVKey });
+              organ = BohemiaCommitment.tertius(ctStandings(), heard);
+            } catch (_e) {}
+            if (!organ) continue;
+            out.fid = fid; out.other = other; out.organ = organ;
+            out.folded = el.innerText;
+            out.px = Math.round(el.getBoundingClientRect().height);
+            const tt = document.getElementById('ctterms');
+            if (tt) tt.click();
+            out.opened = document.getElementById('ctcard').innerText;
+            break;
+          }
+          return out;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('M1 STANDING WITH TWO OUTFITS IS A POSITION AND THE CARD SAYS WHICH ONE. '
+      + 'BohemiaCommitment.tertius had zero callers since the wall shipped — '
+      + 'Burt/Simmel structural holes, and the 2024 tertius dolens correction '
+      + 'that gives the identical position the opposite sign',
+      !!tert.organ && /YOUR POSITION/.test(tert.folded || ''),
+      JSON.stringify({ organ: tert.organ && tert.organ.key,
+                       row: ((tert.folded || '').match(/YOUR POSITION\n([^\n]*)/) || [])[1] }));
+
+    ok('M2 …and the card says exactly what the ORGAN says, word for word. It is '
+      + 'computed from the `heard` ctHearRows already built, never a second '
+      + 'whoHears — two calls are two opinions about one graph',
+      !!(tert.organ && (tert.folded || '').indexOf(tert.organ.word) >= 0),
+      JSON.stringify({ organ: tert.organ && tert.organ.word }));
+
+    ok('M3 …and it survives the early return. ctHearRows returns immediately when '
+      + 'nobody has a line, and AN EMPTY `heard` IS THE STRUCTURAL HOLE — so a row '
+      + 'appended after it would print only when you are exposed and stay silent '
+      + 'when you are the only route, which is the worst way to be wrong',
+      tert.organ && tert.organ.key === 'gaudens'
+        /* the proof: BOTH rows on one card. The NOBODY row is emitted by the
+           early return itself, so seeing the position row beside it is proof
+           the position row ran BEFORE that return. */
+        ? (/YOUR POSITION/.test(tert.folded || '')
+           && /NOBODY\. NO OUTFIT/.test(tert.folded || ''))
+        : /YOUR POSITION/.test(tert.folded || ''),
+      JSON.stringify({ key: tert.organ && tert.organ.key,
+                       sawEmptyHeardRow: /NOBODY\. NO OUTFIT/.test(tert.folded || ''),
+                       sawPosition: /YOUR POSITION/.test(tert.folded || '') }));
+
+    ok('M4 …and the explanation folds with the outfit\'s terms while the position '
+      + 'itself stays on the card',
+      /YOUR POSITION/.test(tert.folded || '')
+      && !!(tert.organ && (tert.folded || '').indexOf(tert.organ.note) < 0)
+      && !!(tert.organ && (tert.opened || '').indexOf(tert.organ.note) >= 0),
+      JSON.stringify({ noteFolded: !!(tert.organ && (tert.folded || '').indexOf(tert.organ.note) < 0),
+                       noteBackOnTap: !!(tert.organ && (tert.opened || '').indexOf(tert.organ.note) >= 0) }));
+
+    /* THE MEASURED CEILING, STATED SO NOBODY BELIEVES THE OTHER HALF WORKS.
+       This is NOT a claim my lane can make pass by writing code: it reports a
+       fact about the WORLD's density and placement. What it CAN catch is the two
+       being inconsistent with each other. */
+    ok('M5 the cross-outfit half of the system is reported with its real numbers '
+      + 'rather than assumed to work: whoHears can only answer when two acquainted '
+      + 'people are in DIFFERENT outfits, and the tie graph either has such pairs '
+      + 'or it does not. If there are cross-outfit ties and still zero lines, the '
+      + 'two disagree and that is a bug',
+      (tert.crossTies | 0) === 0 ? (tert.lines | 0) === 0 : (tert.lines | 0) > 0,
+      JSON.stringify({ tiesBetweenAffiliated: (tert.sameTies | 0) + (tert.crossTies | 0),
+                       sameOutfit: tert.sameTies, crossingAnOutfitLine: tert.crossTies,
+                       whoHearsLinesInTheWholeValley: tert.lines,
+                       fociSharedByTwoOrMore: tert.shared,
+                       note: 'home is shared by 0 because homesIn() seats ONE person per '
+                           + 'fine cell — the valley has no households. faction ties are '
+                           + 'same-outfit by definition. WORK is the only possible bridge, '
+                           + 'and with 32 affiliated of 298 it never pairs two affiliated '
+                           + 'people from different outfits. WORLD/density, not this lane.' }));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

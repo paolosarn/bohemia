@@ -35330,6 +35330,29 @@ function ctHearRows(body, fid){
   try { heard = BohemiaCommitment.whoHears(fid, ctValleyRoster(), ctCell(),
                   /* __CITY_VALLEYKEY__ */ {ties:BohemiaTies, keyOf:ctVKey}); }
   catch(_e){ return body; }
+  /* __CITY_TERTIUS__ -- AND WHAT POSITION THAT PUTS YOU IN.
+     BohemiaCommitment.tertius() has had ZERO CALLERS since the wall shipped: the
+     ninth time this week an organ computed something nothing applied, and the
+     one that turns two separate standings into a place to stand.
+     Burt/Simmel TERTIUS GAUDENS -- two outfits with no line to each other means
+     you span a structural hole and you are the only route between them. The 2024
+     TERTIUS DOLENS correction is what makes it a game: connect them and the
+     identical position costs you instead, because both sides can see the other
+     half of what you are doing. Same behaviour, opposite sign, decided by the
+     graph and not by you.
+     Computed from the `heard` THIS function already built, never a second
+     whoHears -- two calls are two opinions about one graph.
+     ABOVE THE EARLY RETURN ON PURPOSE. An empty `heard` IS the structural hole,
+     so returning first would have killed this row in exactly the case it is most
+     about: the game would announce that both sides can see you and say nothing
+     at all when you are the only route between them. */
+  try {
+    var ctTer = BohemiaCommitment.tertius(ctStandings(), heard);
+    if(ctTer){
+      body += ctRow('YOUR POSITION', ctTer.word);
+      body += ctNote(ctTer.note);
+    }
+  } catch(_e){}
   if(!heard.length){
     body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT IN THIS VALLEY HAS A LINE TO THEM.');
     return body;

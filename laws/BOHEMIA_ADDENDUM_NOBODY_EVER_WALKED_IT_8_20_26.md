@@ -506,6 +506,96 @@ outside the measurement that exists to hold the card to the phone.** A12 now
 constructs it deliberately. *A bar that does not measure the worst case is not a
 bar.*
 
+## 4j. THE NINTH, AND IT IS THE PAYOFF OF THE WHOLE SYSTEM
+
+```
+node tools/bohemia_organ_reach.js  ->  BohemiaCommitment.tertius   0 CALLERS
+```
+
+The sweep, run again after the eighth fix, immediately produced a ninth — and
+this one is not a detail. It is the moment the faction system stops being a set
+of separate ladders and becomes **a map of where you stand.**
+
+**TERTIUS GAUDENS** — *the third who benefits* (Simmel; Burt's structural holes).
+If the two outfits you stand with have **no line to each other**, you span a
+structural hole: you are the only route between them, neither side can see the
+other half of what you are doing, and the position is worth more than either
+standing on its own.
+
+**TERTIUS DOLENS** — *the third who suffers* (2024). If they **are** connected,
+the identical position **costs** you. Same behaviour, same two standings,
+opposite sign, decided entirely by a fact about the graph rather than about you.
+
+Until this wire, standing with the Cartel and standing with the Mob were two
+numbers on two different cards and the game never once had an opinion about
+holding both.
+
+### AND MY FIRST PLACEMENT WAS DEAD ON EXACTLY THE HALF THAT MATTERS
+
+`ctHearRows` early-returns when nobody has a line:
+
+```js
+if(!heard.length){
+  body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT ... HAS A LINE TO THEM.');
+  return body;                       // <-- I appended my row after this
+}
+```
+
+**An empty `heard` IS the structural hole.** It is the literal definition of
+tertius gaudens. So the row printed only when you were **exposed** and stayed
+silent when you were **the only route** — the worst available way to be wrong,
+because the game would warn you about the bad half and hide the good half.
+
+Measured on the real card: organ said *YOU ARE THE ONLY ROUTE BETWEEN THEM*, card
+said nothing at all.
+
+> **A ROW ADDED AFTER AN EARLY RETURN IS NOT ADDED.** Same family as the border
+> pass that was individually correct and sat in the wrong place in the pipeline
+> (8/16): reading the function does not find it, running it does.
+
+M3 proves the fix by asserting **both rows on one card** — the NOBODY row is
+emitted by the early return itself, so seeing the position row beside it is proof
+the position row ran first.
+
+### AND MEASURING IT FOUND SOMETHING MUCH BIGGER, WHICH IS NOT MINE
+
+The dolens branch never fired. Not for one pair — **for none of the 110 pairs in
+the valley.** So I counted the graph instead of guessing:
+
+```
+affiliated                                    32 of 298
+ties between two affiliated people           106
+   same outfit                               106
+   CROSSING AN OUTFIT LINE                     0
+whoHears lines in the entire valley            0
+
+foci shared by two or more people:  home 0   work 34   faction 8
+```
+
+**Every outfit hears about every other outfit from nobody.** Which means the whole
+cross-cutting-cleavage half of the design — *WHO WILL HEAR*, *WILL HEAR IT AS
+FACT*, *AND IT COSTS YOU*, and tertius **dolens** — is structurally unreachable.
+**Every commitment in this game is currently free.**
+
+The cause is precise, and it is three facts stacked:
+
+1. **THE VALLEY HAS NO HOUSEHOLDS.** `homesIn()` walks a scatter and takes one
+   fine cell per person, so 298 people have 298 homes. The home focus — the
+   strongest tie in Feld's scheme and the one that most naturally crosses an
+   outfit line — can never group anybody. *This is not a keying bug in
+   `bohemia_ties`; the adapter reports the world faithfully and the world has one
+   person per roof.*
+2. **A FACTION TIE IS SAME-OUTFIT BY DEFINITION**, so it can never bridge.
+3. **WORK IS THE ONLY POSSIBLE BRIDGE**, and with 32 affiliated of 298 a shared
+   workplace never happens to hold two affiliated people from *different* outfits.
+
+**NOT THIS LANE'S TO FIX.** Households are the population/world model; the
+affiliation rate is a dial that is already `[PENDING Paolo]`. Inventing either
+would be writing world canon he reserved. So it is **named**, with its numbers, in
+gate **M5** — and M5 is falsifiable rather than decorative: if cross-outfit ties
+ever exist while `whoHears` still returns zero lines, the two disagree and it goes
+red.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not
