@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
 Nothing here needs judging. ***
@@ -56,7 +55,6 @@ WHAT COMES NEXT FOR THIS LANE:
   1. Crosswalk PLACEMENT (above) -- the other WORLD session's, art is ready.
   2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
   3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
-=======
 SOUND (sound-xk7pjp): 8/20 (r,s,t,u) LATEST -- *** 40 SOUNDS ARE WAITING FOR HIM,
 AND THEY WERE CARDS 93 TO 100 OF 100. TAB: MUSIC, the SFX board -- now cards 1 to
 8. ***
@@ -186,7 +184,6 @@ NEXT IN THIS LANE:
     cloth. Same cell-hash fix the tatter already took.
 
 ---
->>>>>>> origin/main
 
 SOUND (sound-xk7pjp): 8/20 (p,q) LATEST -- *** SAND STOPPED MACHINE-GUNNING. My
 own last ship made three surfaces audible and two of them had ONE sample. TAB:
@@ -937,103 +934,92 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/20 LATEST -- *** FOUR OF MY ASSERTIONS COULD NOT FAIL,
-AND THEN THE PICTURE FOUND A FIFTH BUG ALL OF THEM MISSED. TAB: CUTSCENE, the
-FOURTH chip, THE LAST ROOM -- three people STANDING in the family's house, on the
-floor rather than on the chairs. ***
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** NOBODY IN THIS GAME HAD EVER REMEMBERED
+SEEING YOU. THEY DO NOW. TAB: RUN -- walk up to anybody and the line above the
+movement pad starts with what they remember of you. ***
 
-THE GATE SAID 44 PASSED 0 FAILED AND FOUR WERE DECORATION. coldopen_gate.js is
-ok(CONDITION, message). The other three gates this lane owns -- scene_gate,
-quirk_gate, attempt_gate -- are ok(MESSAGE, condition). Four new standing checks
-were written in the habit of the three and landed in the one, so the condition
-slot got a message string. A non-empty string is truthy. All four passed
-unconditionally, over code that had been deliberately broken.
+engine/bohemia_memory.js is the witness organ: minds hold sightings, familiarity
+slows forgetting, clarity decays as 0.5^(age/halflife), deterministic. Written
+7/19, TEN GREEN CLAIMS in memory_gate for a month. engine/bohemia_standing.js
+sits on top of it, 344 lines, THIRTY-FIVE more green claims. Measured 8/20:
+NEITHER APPEARS IN ANY FILE A PLAYER CAN REACH. Forty-five green assertions about
+people remembering you, and not one person in the game who had ever remembered
+anything. Twelfth built-and-gated-and-unreachable capability this lane has closed.
 
-HOW IT WAS CAUGHT: THE MUTATION DID NOT BITE. `var standing = false;` left the
-gate green. The comfortable explanation was that the mutation never reached the
-alpha the gate loads, so the test was re-run with a PROOF step wedged in:
-    PROOF mutation is in the alpha under test: 1
-    COLD OPEN GATE: 44 passed, 0 failed
-Demonstrably present, gate did not care. A MUTATION TEST THAT DOES NOT PROVE THE
-MUTATION ARRIVED IS TESTING THE ORIGINAL CODE. That proof line is permanent now.
+*** AND THE GAME HAD ALREADY WRITTEN THE FINDING DOWN. *** xchWorld's own comment,
+dated 8/18: "bohemia_deeds.js and bohemia_standing.js both exist in engine/ and
+NEITHER IS IN THIS FILE (measured 8/18: zero occurrences)". Measured correctly,
+recorded accurately, substituted around with a counter of doors knocked, and left
+true for two days. A FINDING RECORDED IN A COMMENT IS NOT A FINDING FIXED.
 
-THE FIX IS NOT THE FOUR CALLS -- that leaves the trap armed for the fifth. The
-SLOT DEFENDS ITSELF in all four gates: a string in the condition slot throws, a
-non-string in the message slot throws, both directions, proved by reversing a
-real call in scene_gate. A GATE CANNOT BE CHECKED BY THE GATE SUITE, IT IS THE
-CHECKER -- inside ok() is the only place this is catchable.
+WHO CAN SEE YOU IS WHO THE GAME ACTUALLY DREW. Witnesses come off BARK_DREW, the
+list peoplePass fills with the bodies it really blitted, positions included. A
+second visibility calculation is a second answer and the two drift; worse, it can
+credit a sighting to somebody who is not on screen.
 
-SWEPT ALL 310 GATES BEFORE TOUCHING ANYTHING OUTSIDE THIS LANE: zero vacuous
-calls anywhere else. Two flagged files were the sweeper's own template-literal
-parsing, checked by eye and cleared. My bug, not repo rot; the other 306 untouched.
+A RECOGNITION IS NOT A NAME. YOU HAVE TO ASK (7/31) is untouched -- nameOf still
+returns null for a stranger and nothing here prints one. A face is not a name, and
+that gap is exactly the difference between a crowd and a neighbourhood.
 
-THEN THE THIRD ASSERTION WAS WRONG ON ITS MERITS. "They stand where the camera is
-looking" asked ONE Manhattan distance against a constant 8 -- and the living room
-is 10x9, so the room's own far corner, the exact wrong answer it exists to catch,
-measured 7. THE THRESHOLD WAS LARGER THAN THE ROOM. Measured both ways on the real
-alpha: correct dx 0/0/2 dy 1/2/0, corner default dx 4/4/3 dy 3/2/3. Rewritten as
-per-axis containment in the focus RECT plus one cell of spill -- a margin that
-scales with the scene's geometry. Third time this lane has hit that family.
+THE FOUR STATES, measured by winding the REAL clock on the REAL surface:
+    0h   clarity 1.000   has seen you before
+    12h  clarity 0.707   has seen you before
+    20h  clarity 0.561   half-remembers you
+    67h  clarity 0.146   almost places you
+    far enough, below 0.05      NOTHING. A STRANGER AGAIN.
+That last row is the redemption path New Vegas never had (its reputation can only
+be buried, never removed), and a mutation making recognition permanent goes red.
+FAMILIARITY IS A SEPARATE AXIS and counts ENCOUNTERS not frames -- walking past
+somebody for an hour is one encounter; three separate meetings reads "knows you by
+now". All four phrases are DRAFT, in one table (CT_KNOWS), his to rewrite.
 
-AND THEN THE SCREENSHOT FOUND WHAT FIVE GREEN ASSERTIONS COULD NOT: two of the
-three were STANDING ON THE DINING CHAIRS. Seating.stand() takes the nearest free
-non-solid cell and a chair is both; the check meant to notice asked whether they
-were near the CAMERA, and a chair is extremely near the camera. Fixed in
-Seating.stand() not the scene (standing on furniture is wrong for every caller):
-floor first, seat cells only if nothing else is free. A PREFERENCE NOT A
-PROHIBITION -- in an all-furniture room standing on a chair beats vanishing, same
-reason sit() already falls back to standing. Sixth assertion added, counts stand
-bodies whose cell is in furn.seats.
+DELIBERATELY NOT HERE: no opinion, gossip or standing rung (those are
+bohemia_standing on top of this organ and they need DEEDS), and no mechanical
+bonus for being known, because what recognition is WORTH is a dial.
 
-THE LAST ROOM'S needsArt WAS WRONG, AND EXPENSIVELY. It declared the house-after
-picture missing when that interior has been drawn since 8/9. What was missing was
-THE POSE, not the picture: the surface posed every actor sit-chair because the
-only scene that had ever existed was a dinner table, so reusing the house would
-have sat three people down to dinner in the room they just fought through.
-bohemia_stage.js has carried Seating.stand() with ZERO CALLERS the whole time --
-eleventh built-and-gated-and-unreachable capability this lane has found. A
-CAPABILITY NOBODY CALLS LOOKS EXACTLY LIKE A MISSING FEATURE, and the cheap
-mistake is to go build the feature again. It now plays in family_table, lantern
-lit, three people on their feet.
+THREE THINGS THIS GOT WRONG FIRST, all three worth keeping:
+  - A THROTTLE THAT MARKS THE WORK DONE BEFORE DOING IT IS A DROPPED FRAME WITH A
+    RECEIPT. The pass runs once per game-minute and marked the minute BEFORE
+    reading the roster. peoplePass returns early while the sprite bakes, so the
+    boot render left BARK_DREW empty, recorded nobody, and burned the minute --
+    the neighbour TWO CELLS AWAY never saw you until you had walked twelve cells
+    away, which is out of his sight. Found by measuring, not reading.
+  - A WHOLE-REGION REPLACE IS A DELETE PLUS AN INSERT AND I WROTE ONLY THE INSERT.
+    The refresh branch re-appended the store: second run +105 lines, third the
+    same again. Caught by running the tool THREE TIMES and comparing md5. That is
+    now how this tool is checked.
+  - AN ASSERTION THE SCENARIO NEVER EXERCISES PROVES NOTHING. "Nobody outside
+    SEE_RANGE ever witnessed anything" stayed GREEN with the range check DELETED,
+    because only one body is drawn at boot and it is already two cells away. The
+    gate now PLACES a body out of range and one in it and reads the rule off what
+    happens to them. Same family as the threshold bigger than the room.
 
-MUTATION-PROVED FIVE WAYS, each with arrival verified in the alpha before running:
-    nobody ever stands            -> 1 red (0 standing, 3 seated)
-    focus RECT where a CELL wanted-> 2 red (0/3 placed, the silent-vanish bug)
-    no standing clip baked        -> 1 red (4 seated-only)
-    stand at the default corner   -> 1 red (2 off-focus)
-    let stand() take chairs again -> 1 red (2 on furniture, of 8 seat cells)
+MEASURED AND WORTH KNOWING: 298 people in the valley, 298 distinct record ids,
+ZERO collisions -- so p.id is safe as a mind key. The __CITY_VALLEYKEY__ comment
+warning about shared ids is about the AGENT id from ctAgent, a different id. Both
+comments are right about different things; I measured rather than picking one.
 
-AND ONE THAT COST WORK: undoing a one-line test mutation with `git checkout
-gates/coldopen_gate.js` DELETED EVERY UNCOMMITTED LINE IN THAT FILE -- the whole
-standing block, the guard, the four corrections. git checkout <file> IS NOT AN
-UNDO, IT IS A RESTORE FROM HEAD, and it does not know which of your lines you
-meant. Same family as the 8/17 whole-region replace that ate another lane's work.
-Every mutation since is backed up to scratch and restored by copy.
+gates: CITY MEMORY 23/0 (new, registered 302 of 400), city_talk 18, city_people 18,
+memory 10, standing 35, quirk 38 -- all green alongside the WORLD lane's sidewalk
+and mob work in the same file. Tool idempotent, md5-identical over three runs.
+Mutation-proved four ways with arrival verified in the file under test each time.
+records/BOHEMIA_THE_BLOCK_KNOWS_YOUR_FACE_8_20_26.md
 
-gates: COLD OPEN 44 -> 45, SCENE 101, STAGE 42, QUIRK 38, ATTEMPT 15. All green
-on the merged tree. records/BOHEMIA_FOUR_ASSERTIONS_THAT_COULD_NOT_FAIL_8_20_26.md
-
-*** STILL SHARPER THAN "COLD_OPEN.cast IS EMPTY", AND IT CHANGES WHOSE JOB IT IS:
-measured inside the combat frame, placeHoldLine(spec) reads ONLY spec.holdLine.
-The frame has NO CONCEPT of people or a place behind you -- cast and place are
-consumed by nothing. Filling them would be data nothing reads. Not a content fill
-this lane could do; a feature COMBAT would have to build.
-
-WHAT COMES NEXT -- the first three are NOT this lane's:
-  1. WALKING IS SILENT. The city sends exactly ONE sfx message and has ZERO
-     footstep code, while 97 approved sounds sit unplayed. SOUNDS.
-  2. NO FIGHT ON THE WALKED SURFACE -- the startEncounter hits in the city are
-     comments. RUN + COMBAT. (The COLD OPEN raid is wired and runs; this is the
-     other one.)
-  3. ONE MISSING PICTURE, ART's: the ridge exterior (money shot + title screen +
-     last frame of the tutorial, one image). It is now the ONLY scene still
-     carrying an honest needsArt -- the house-after turned out not to be missing.
-  4. THIS LANE'S OWN NEXT: DEEDS AND STANDING are still absent from the city (0
-     occurrences, ~18 days). Two modules that know what the player was SEEN
-     doing. BOUNDARY: the rich deed sources on the talk card are the FACTIONS
-     lane's sentinels and THEY ARE LIVE, so check before starting.
-     bohemia_memory.js is also absent, so it is 3+ modules and a corpus, not a
-     wiring job.
+WHAT COMES NEXT:
+  1. *** DEEDS. THIS LANE'S, AND IT IS THE NEXT ONE. *** The organ now records
+     that people SAW you. It cannot record what they saw you DO, because the
+     walked city has no act big enough to judge. bohemia_standing.js is written,
+     gated and waiting for exactly that input, and bohemia_deeds.js already turns
+     a quest outcome into an audience via the corpus's own #quiet/#reckless tags.
+     BOUNDARY: commitments and the wall are the FACTIONS lane's (their
+     __CITY_STANDING__ / whoHears block); they were last live 8/19. The witness
+     organ and the memory key are this lane's.
+  2. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
+     unplayed. SOUNDS.
+  3. NO FIGHT ON THE WALKED SURFACE -- the startEncounter hits in the city are
+     comments. RUN + COMBAT.
+  4. THE RIDGE EXTERIOR -- the one genuinely missing picture, and the only scene
+     still carrying an honest needsArt. ART's.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
 50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
 

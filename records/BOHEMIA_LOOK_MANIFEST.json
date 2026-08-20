@@ -294,8 +294,8 @@
   },
   {
    "id": "the-box",
-   "title": "IT LOOKS EXACTLY THE SAME: the 4x flip, before and after",
-   "caption": "You looked at this and said it looks exactly the same, and you were right, so it shipped. The whole 112 flip had been built and switched off since 8/16 on my judgement that the head came out too square without the upscaler rounding its corners. Measured, the two columns differ on 5.9% of him and only 11% of that is on the head. Left is every build before 8/20, right is what you are playing now: the character is composed at four times the pixels, the upscaler is off, and the black border is one true pixel instead of a doubled one. Your painted art is untouched and still hashes byte for byte. LOOK tab.",
+   "title": "IS THIS A DEALBREAKER? the 4x character, side by side",
+   "caption": "The whole 4x flip has been built and switched off since 8/16 for one reason, and it was my judgement, not yours: composing natively removes the corner-rounding the upscaler was doing for free, so the head comes out a bit more square, and that reads against your own no-straight-lines rule. You have never actually been shown it. Left is what you see today, right is what native 4x gives you, same art, same size, same clothes. They differ on 5.9% of him, 11% of that on the head. 40% of the difference is clothes and hair, which is code I fix for free; the rest is your paint. If you can live with the right column, 4x ships. LOOK tab.",
    "file": "look/the-box.png",
    "kb": 66.6,
    "stamp": "8/20/26",
