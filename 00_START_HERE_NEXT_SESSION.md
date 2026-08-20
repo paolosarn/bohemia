@@ -9022,25 +9022,69 @@ GATES AFTER THE SECOND PIECE: FACTION ARC 71/0 (parts A-M) | CARD FOLD 16/0.
 Tool: tools/bohemia_city_tertius_patch.py | tools/bohemia_organ_reach.js (the
 sweep -- run it before writing any new organ; it found the 7th, 8th and 9th).
 
+*** AND THE TENTH AND LAST ONE IS DONE: THE COLORFUL SCREEN YOU NOW. ***
+st.onward was COUNTED on the card from the morning and nothing ever SPENT it.
+His canon: "the second question is WHO YOU CAME WITH. That question is the actual
+screening and the name was the small talk. Answer it WELL and you are introduced
+onward to three people; answer it BADLY and you are still treated kindly and
+never introduced to anybody."
+THE ONE WORD HE DID NOT DEFINE IS "WELL", and that is mechanism. GROUNDED: Gould
+& Fernandez's brokerage typology puts the GATEKEEPER in charge of incoming access
+to their own group; the chain-referral work finds the same person acting as
+SPONSOR at once, exchanging REPUTATIONAL ENDORSEMENT -- extending their own
+standing to the newcomer. Trust in bounded communities is reputational currency
+grounded in shared networks, which is why "who sent you" is THE question: the
+answer is a LEGITIMACY SIGNAL whose value is that it can be CHECKED against the
+community's own graph. So a good answer names somebody THEY know, whose name YOU
+went and earned. And Granovetter 1973 settles what looked like a bug: onwardFrom
+picking the STRONGEST three is right, because they are the Colorful's strong ties
+and therefore YOUR weak ones -- your word only carries with people who trust you.
+THE STACK NOW FEEDS ITSELF: answering well needs names, the reward is more names.
+Gate: part N (N1-N6). 77/0. Mutation-proved: no came-button -> N1/N2/N4/N5 red;
+no alone-button -> N3 red.
+
+*** AND THE FIRST CUT TOLD HIM A LIE, CAUGHT BEFORE SHIPPING. *** The row read
+"YOU ANSWERED, AND THEY OPENED DOORS" on a card where MEASURED nothing opened --
+2 met before, 2 after -- because that Colorful had ONE acquaintance and it was
+the person I had just named. The save holds two bits (you answered; it held up)
+and THOSE ARE THE ONLY TWO THINGS A ROW READING THE SAVE IS ENTITLED TO SAY. What
+it actually BOUGHT is spoken aloud where the real count is in hand. N5 holds it.
+
+*** THE HEADLINE NUMBER FOR THE WHOLE DENSITY FINDING, measured chasing that: ***
+
+    HOW MANY PEOPLE EACH PERSON KNOWS (298 people)
+      knows 0: 199   <-- TWO THIRDS OF THE VALLEY KNOW NOBODY AT ALL
+      knows 1:  49   knows 2: 31   knows 3: 3   knows 4: 7
+      knows 5:   1   knows 7:  5   knows 8: 3
+      mean 0.71   max 8   able to open THREE: 19 of 298
+    THE COLORFUL, whose dossier promises three:  knows 1 · knows 1
+
+The outfit whose entire mechanic is introducing you onward HAS NOBODY TO
+INTRODUCE. THE MACHINERY IS FINE and that was checked separately -- the
+best-connected person opens exactly the three his canon promises, and N6 is
+falsifiable on precisely that. Same single cause as M5: one person per roof means
+the home focus, the strongest tie there is, groups nobody. WORLD / [PENDING].
+
+*** A GATE CAN GO RED BECAUSE ITS EVIDENCE MOVED, NOT BECAUSE ITS CLAIM BROKE. ***
+M3 proved "the position row runs before the early return" by asserting BOTH rows
+on one card -- then __CITY_WORSTCARD__ deliberately suppressed the NOBODY row as
+a duplicate and the evidence vanished BY DESIGN. The two look identical from the
+failure line. THE TEST: is the claim still provable another way? If not, the code
+is wrong and the gate is right. Here it was, and more directly.
+
+AND TWO MUTATION RUNS SILENTLY DID NOT RUN: the script searched for a literal
+'·' where the file stores the escape '·', so the assert threw, the gate ran
+against UNBROKEN code and reported 77/0 -- a green that proved nothing. A MUTATION
+THAT DID NOT APPLY LOOKS EXACTLY LIKE A MUTATION THAT DID NOT BITE. Assert the
+anchor count, and prefer a unique PHRASE over anything with punctuation in it.
+
 NEXT FOR THIS LANE, in order:
- 1. COLORFUL'S ONWARD. onwardFrom() is wired and COUNTED (st.onward) but nothing
-    SPENDS it. His canon: "answer it well and you are introduced onward to three
-    people; answer it badly and you are still treated kindly and never introduced
-    to anybody." The count is on the card's state and the three introductions are
-    not granted. The words for the second question ("WHO YOU CAME WITH") get a
-    draft attempt under ALWAYS MAKE AN ATTEMPT; the EFFECT is already his canon.
-    RESEARCH ALREADY DONE, use it: the Colorful are the GATEKEEPER broker in the
-    Gould/Fernandez typology -- the broker who controls incoming access to their
-    own group and doubles as SPONSOR (chain-referral literature). And the three
-    they open are the player's WEAK TIES even though they are the Colorful's
-    STRONG ones, which is exactly Granovetter 1973 and is why onwardFrom picking
-    the three STRONGEST is right, not a bug: your word only carries with people
-    who actually trust you.
- 2. RUN THE SWEEP AS A GATE. NINE instances in a week says the machine, not my
+ 1. RUN THE SWEEP AS A GATE. TEN instances in a week says the machine, not my
     attention, should be catching this. tools/bohemia_organ_reach.js is written
     and honest; gates/sfx_wired_gate.py and silent_moments_gate are the shape to
     copy. It currently reports 2 left: BohemiaCommitment.states (introspection)
-    and BohemiaPeople.peopleOf (PEOPLE's module, not mine).
+    and BohemiaPeople.peopleOf (PEOPLE's module, not mine). EVERY organ this
+    lane owns now has a caller on the surface he walks.
     KNOWN BLIND SPOT, ALREADY HANDLED, DO NOT REGRESS IT: the first sweep
     reported BohemiaTies as 0-called and it was WRONG -- the module is passed as
     a VALUE ({ties:BohemiaTies}) into whoHears, so a textual Global.fn( count is
