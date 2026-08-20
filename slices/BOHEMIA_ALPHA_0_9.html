@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20c - THE RAID RUNS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19r - THE MUSIC KNOWS YOURE IN A FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7883,6 +7883,9 @@ function combatMsgIn(d){
         questId:d.questId||(enc.ctx&&enc.ctx.questId)||null,
         stepId:d.stepId||(enc.ctx&&enc.ctx.stepId)||null};
       G.lastEncounter=enc.outcome;
+      /* AND THE STREETS COME BACK, at the next 8-bar phrase and never inside
+         the cooldown, so two fights in a row stay ONE musical event. */
+      try{ if(window.FIGHTMUS)FIGHTMUS.leave(); }catch(_e){}
       if(enc.onEnd)try{enc.onEnd(enc.outcome);}catch(_e){}
     }
     G.combatLog.push({t:Date.now(),outcome:d.victory?'encounter-won':'encounter-lost',kills:d.kills,hp:d.playerHP,recorded:true});
@@ -8023,6 +8026,10 @@ function startEncounter(spec){
     kills:0,over:false,settled:false,victory:null,result:null,outcome:null,
     playerHP:(typeof spec.playerHP==='number')?spec.playerHP:100,startedAt:Date.now(),
     onEnd:(typeof spec.onEnd==='function')?spec.onEnd:null};
+  /* THE STREETS STAND DOWN (8/19). Immediate, because danger is now. See
+     FIGHTMUS: without this the overworld shuffle takes the music back 64 bars
+     into any fight, measured on the cold open. */
+  try{ if(window.FIGHTMUS)FIGHTMUS.enter(); }catch(_e){}
   combatPost({type:'BOHEMIA_ENCOUNTER',packageId:G.encounter.packageId,roster:roster,
     playerHP:G.encounter.playerHP,encounterId:ctx.encounterId,questId:ctx.questId,stepId:ctx.stepId,
     objective:ctx.objective,faction:ctx.faction,reason:ctx.reason,mercy:ctx.mercy,
@@ -12202,6 +12209,91 @@ const MENUMUS={on:false,watch:null,
     if(fr&&fr.contentWindow)try{fr.contentWindow.postMessage({bohemiaCityMusicState:{on:on,now:now}},'*');}catch(e){} }
 };
 window.MENUMUS=MENUMUS;
+/* ===== FIGHTMUS (8/19/26) -- THE MUSIC KNOWS WHEN YOU ARE IN A FIGHT ======
+   MEASURED on the real alpha before this existed: tap in, let the opening hand
+   over to the streets, call startColdOpen -- the first fight in the game --
+   and 64 bars later the STREET SHUFFLE takes the music back mid-fight, because
+   CITYMUS.on was still true and its watchdog was still running while combat
+   drove the same transport. Two systems, one clock, neither aware of the other.
+   THE TRANSITIONS ARE ASYMMETRIC ON PURPOSE, which is the practitioner
+   consensus and not what I would have guessed: IMMEDIATE going in, because
+   danger is now and making the player wait for a bar line to learn they are
+   being shot at is information arriving late; a PHRASE END coming out, because
+   leaving a fight is not an emergency and a hard cut back to calm reads cheap.
+   8 bars is the unit CITYMUS already turns its time-of-day pool on, so this is
+   the engine's own quantisation applied to a transition nobody had written.
+   NOTHING IS STOPPED AND NOTHING RESTARTS. Combat swaps the song in place on
+   the running clock and that was always right; the only thing that changes is
+   that the shuffle can no longer reach in and take it back. */
+const FIGHTMUS={
+  on:false, watch:null, cameBack:0, cityWas:false,
+  PHRASE:128,                              /* 8 bars x 16 steps */
+  COOLDOWN:6000,                           /* no redundant switch between fights */
+  enter(){
+    /* the opening is over the moment a fight starts, and it does NOT get to
+       hand off to the streets on its way out -- that hand-off is what would
+       start the shuffle underneath the fight. */
+    try{ if(window.MENUMUS&&MENUMUS.on){ MENUMUS.on=false;
+      if(MENUMUS.watch){clearInterval(MENUMUS.watch); MENUMUS.watch=null;} } }catch(e){}
+    if(this.on)return;
+    this.on=true;
+    if(this.watch){clearInterval(this.watch); this.watch=null;}
+    try{
+      this.cityWas=!!CITYMUS.on;
+      /* STAND DOWN, do not STOP. Silencing here would cut the music the player
+         is already hearing at the exact instant the fight starts, which is a
+         worse artefact than the bug being fixed. */
+      CITYMUS.on=false; CITYMUS.pend=false; CITYMUS.pendAt=null;
+      if(CITYMUS.watch){clearInterval(CITYMUS.watch); CITYMUS.watch=null;}
+    }catch(e){}
+  },
+  leave(){
+    if(!this.on)return;
+    this.on=false;
+    if(!this.cityWas)return;               /* the streets were not playing; nothing to give back */
+    const now=Date.now();
+    if(now<this.cameBack+this.COOLDOWN)return;   /* two fights in a row is ONE musical event */
+    if(this.watch){clearInterval(this.watch); this.watch=null;}
+    /* AT THE NEXT PHRASE, not on the frame the last hostile drops. */
+    const from=(typeof MUS!=='undefined')?MUS.step:0;
+    const at=(Math.floor(from/this.PHRASE)+1)*this.PHRASE;
+    this.watch=setInterval(()=>{
+      if(FIGHTMUS.on){ clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null; return; }
+      let s=0; try{ s=MUS.step; }catch(e){}
+      /* a song change resets step to 0, so a wrapped clock counts as arrived */
+      if(s>=at||s<from){
+        clearInterval(FIGHTMUS.watch); FIGHTMUS.watch=null;
+        FIGHTMUS.cameBack=Date.now();
+        try{ CITYMUS.startShuffle(); }catch(e){}
+      } },250);
+  },
+  /* NOT THE SCRATCH PATCH (8/19). Combat's pickRandomFaction draws uniformly
+     across FACTIONS and FACTIONS[0] is CUSTOM -- the studio's blank sandbox
+     slot, motif 'plain', osc and pluck. It is not a song anybody wrote, and one
+     fight in fourteen was being scored by it. Redrawn here rather than in the
+     combat module because combat uses that index for its PALETTE as well, and
+     the palette is not this lane's to move.
+     THE REDRAW CHOOSES NOTHING FOR HIM: same weighting as the street shuffle,
+     canon 8x, unjudged 4x, a song he buried never. */
+  realFaction(i){
+    try{
+      if(i!==0||typeof MFACTIONS==='undefined')return i;
+      const cs=[];
+      for(let k=1;k<MFACTIONS.length;k++){
+        const v=MUS.V[MFACTIONS[k].n+'#1'];
+        if(v===0)continue;
+        cs.push([k, v===2?8:4]);
+      }
+      if(!cs.length)return i;
+      let t=0; for(const c of cs)t+=c[1];
+      let r=Math.random()*t;
+      for(const c of cs){ r-=c[1]; if(r<=0)return c[0]; }
+      return cs[0][0];
+    }catch(e){ return i; }
+  }
+};
+window.FIGHTMUS=FIGHTMUS;
+
    /* same-origin iframes call this DIRECTLY inside the tap gesture, keeping the audio-activation stack alive (iOS law) */
 /* ---- CITYSAVE (7/7/26): SUSPEND SAVE, one slot, auto-overwrite, resume
    only. Backend PROBED at boot per the iOS STORAGE LAW (7/2 research):
@@ -13335,7 +13427,10 @@ function buildUI(){
          seconds after entry and reports a faction from its rotation with no
          fight in progress, which used to reassign whatever was playing. */
       if(window.MENUMUS&&MENUMUS.on)return;
-      MUS.cur=ev.data.bohemiaFactionPicked; MUS.userPicked=true; MUS._audit=false;   /* ONE TRUTH: combat's pick IS the studio's pick -- but combat picking must NOT freeze its own pool rotation (7/19) */
+      /* NEVER THE SCRATCH PATCH (8/19). See FIGHTMUS.realFaction. */
+      MUS.cur=(window.FIGHTMUS?FIGHTMUS.realFaction(ev.data.bohemiaFactionPicked)
+                              :ev.data.bohemiaFactionPicked);
+      MUS.userPicked=true; MUS._audit=false;   /* ONE TRUTH: combat's pick IS the studio's pick -- but combat picking must NOT freeze its own pool rotation (7/19) */
       document.querySelectorAll('.mus-play').forEach(b=>b.textContent='PLAY'); return; }
     if(ev&&ev.data&&combatMsgIn(ev.data))return;   /* COMBAT BRIDGE route */
     const d=ev&&ev.data&&ev.data.bohemiaExport;if(!d)return;

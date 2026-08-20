@@ -29,6 +29,17 @@ GATES = [
     # 8/4: the gate that asks the only question he cares about -- CAN I HEAR IT?
     ('MUSIC REACH',    ['node', 'gates/music_reach_gate.js'],
      'every category he tagged has something that can actually play it', False),
+    # 8/19: measured on the shipped alpha -- the street shuffle took the music
+    # back 64 bars into the COLD OPEN, the first fight in the game, because
+    # CITYMUS.on stayed true while combat drove the same transport. And combat
+    # drew its song uniformly from a list whose first entry is CUSTOM, the
+    # studio's blank scratch patch. This gate PLAYS A FIGHT rather than grepping
+    # for a function name, because a static check goes green the moment a call
+    # site exists and says nothing about whether the shuffle actually let go.
+    ('FIGHT MUSIC',    ['python3', 'gates/fight_music_gate.py'],
+     'the music knows when you are in a fight: the streets stand down, hold '
+     'past a 64-bar pass, and come back on a phrase boundary -- and a fight is '
+     'never scored by the studio scratch patch', False),
     ('SETUP HOOK',     ['python3', 'gates/setup_hook_gate.py'],
      'a fresh container installs its own gate image stack and never blocks the session doing it', False),
     ('SHIPPED TRUTH', ['node', 'gates/shipped_truth_gate.js'],
