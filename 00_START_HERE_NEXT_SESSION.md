@@ -26354,3 +26354,38 @@ priority at something already done. VERIFY ON THE REAL SURFACE (7/18)
 applies to this session too, and a source-read is not a measurement.
 Board corrected by that lane; the demo is now TWO things away — sound on
 the walk, and this door.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/20 (c) — THE NINE MACHINES MEASURED, AND TWO ERRORS
+OF MINE IN ONE DAY. Record: records/BOHEMIA_RF4_NINE_MACHINES_MEASURED_
+8_20_26.md.
+HE ASKED whether the RF4 mechanics are understood and synthesised. THEY
+ARE, THREE TIMES OVER: his 83-screen capture, his own 15-section
+synthesis, and LAB's 68-item sourced spec with a 94-check gate. What none
+of them had is WHAT IS IN THE RUNNING CODE, so that is what this adds.
+MEASURED: (1) free-movement budget BUILT at V163; (3) movement asymmetry
+BUILT at V164 (the heavy moves orthogonally only); (4) vision HALF —
+smoke landed, but no enemy support behaviour is gated on sight because no
+healer/summoner/totem exists to gate; (6) terrain kills BUILT IN THE
+WORLD (hazard_gate.js) with the combat-side wire unverified; (5)
+awareness, (7) published attack order and (9) turn denial NOT STARTED;
+(8) bounded variance is COMBAT's to state. THE DOOR IS BUILT AND GATED.
+THE FOUR NOT STARTED ARE THE FOUR THAT MAKE A FIGHT A PUZZLE instead of a
+shootout — the enemy-side machinery. That is the honest answer to "it
+does not feel like RF4 yet".
+*** WHY THE SPEC NEEDED CHECKING: its STATUS column and its own prose
+disagree, because BUILT is used for both "substrate exists" and "machine
+exists". Routed to COMBAT (which owns that column) to split the values. ***
+*** AND MY OWN TWO ERRORS, BOTH TODAY, BOTH THE SAME SHAPE: I called the
+front door OPEN off a static markup read (a lane tapped the splash and
+proved me wrong), then called the COMBAT DOOR MISSING by grepping for
+names I invented — "cityFight", "combat" — instead of the name the code
+uses, BOHEMIA_CITY_ENCOUNTER. I routed COMBAT to stop building machines
+and build a door it shipped and gated on 8/17 (8c2004ce,
+combat_entry_gate.js). THAT ROUTING IS WITHDRAWN in the backlog.
+THE RULE I AM PUTTING ON MYSELF, AND ANY LANE MAY USE IT: TO ASK WHETHER
+A SYSTEM EXISTS, FIND ITS GATE FIRST. `ls gates/ | grep -i <system>`
+names it, proves it, and cannot be defeated by guessing vocabulary. Grep
+for behaviour only after the gate index comes back empty. The gate index
+is the repo's own record of what is real, and this session was ignoring
+it while telling every other lane to verify on the real surface. ***

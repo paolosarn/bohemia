@@ -4020,45 +4020,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
-RF4-DOOR. *** STOP BUILDING MACHINES FOR ONE TURN AND BUILD THE DOOR
-   (coordinator 8/20, on Paolo asking "i needed your help to turn the
-   combat into rogue fable 4 and it hasnt done that yet?")
-   THE WORK IS REAL AND IT IS LANDING — VERIFIED IN THE COMBAT BLOB, not
-   read off commit subjects: RF4-08 machine 1, THE FREE-MOVEMENT BUDGET,
-   is in at V163 and quotes his own synthesis on the global-clock regen;
-   RF4-37 THE SPOTTER is in at V168 (priority targets, the man who never
-   fires); SMOKE landed vision-gating today, 31 references. Three of the
-   nine machines, and they are the right three.
-   *** AND HE CANNOT REACH ANY OF IT. *** MEASURED THIS TURN: the city
-   world — the surface he actually walks — NEVER asks for a fight (zero
-   fight postMessages) and the alpha has NO listener for one.
-   `runEncounterIn` exists at ALPHA:7697 and is reached only from the
-   legacy run slice nobody displays. SO EVERY RF4 MACHINE THIS LANE
-   BUILDS LIVES IN THE COMBAT TAB — A ROOM HE HAS TO GO FIND — AND NEVER
-   IN THE GAME HE PLAYS. That is why it does not feel like RF4 yet. The
-   machines are not missing. The DOOR is.
-   SIXTH INSTANCE OF THE SAME DISEASE this month (sound wired to a hidden
-   slice, payday never called, the vista with no caller, 22 of 30
-   integrated rows proving themselves on the wrong app, a migration chain
-   wired to nothing). THE LANE IS NOT AT FAULT — it was told to build the
-   machines. It is being told now that THE ORDER CHANGED: THE ENTRY
-   OUTRANKS THE NEXT MACHINE.
-   DO THIS FIRST, BEFORE MACHINE 3 OR ANY OTHER: WALK INTO A DOOR, FIGHT
-   IN THE ROOM. The city posts a fight request, the alpha listens and
-   calls runEncounterIn, and THE SURFACE SWITCHES so the player is
-   looking at the fight — the cold open's handoff has the same defect
-   (ALPHA:21436 calls the fight without switching tabs), so fix both with
-   one move. Interiors are already real dimensioned spaces
-   (INTERIOR-MATCHES-EXTERIOR), portals are already typed by the tilespec,
-   cover already gates LOS.
-   IT PAYS TWICE: it closes demo row 1's fight half, AND it is the only
-   thing that lets him FEEL the three machines already built.
-   GATE IT WITH A JOURNEY TEST (SHARED -7), never a piece test: walk to a
-   door on the real surface, enter, fight, come back out. A piece test is
-   exactly what let this sit while the machines piled up.
-   | he walks into a building and a fight starts, on the real walked
-   surface, gated end to end | — | YES, and it is the judgeable he has
-   been waiting for since 8/15. ***
+RF4-DOOR. *** WITHDRAWN THE SAME DAY BY THE COORDINATOR — THE DOOR IS
+   ALREADY BUILT AND I WAS WRONG. On 8/20 I routed this above all machine
+   work, telling this lane to stop and build a combat entry. IT SHIPPED
+   ON 8/17, in this lane's own commit 8c2004ce THE DOOR IS THE FIGHT: the
+   city posts `BOHEMIA_CITY_ENCOUNTER` from `inEnter()`, the alpha
+   listens, and `gates/combat_entry_gate.js` is registered and proves it.
+   MY ERROR, AND ITS ROOT CAUSE: I grepped for names I INVENTED
+   ("cityFight", "bohemiaCityFight", "combat") instead of the name the
+   code uses, found nothing, and reported a built system as missing.
+   Second time in two days — the 8/20 board did the same to ROW 7 by
+   reading static markup instead of tapping the splash.
+   THE RULE I AM PUTTING ON MYSELF, AND ANY LANE MAY USE IT: **TO ASK
+   WHETHER A SYSTEM EXISTS, FIND ITS GATE FIRST.** A gate names the
+   system, proves it, and cannot be missed by guessing vocabulary.
+   `ls gates/ | grep -i combat` would have answered this in one command
+   and did, the moment I tried it. Grep for behaviour only AFTER the gate
+   index says nothing.
+   NOTHING IS ASKED OF THIS LANE BY THIS ITEM. Carry on with the machines
+   in the order the spec sets. ***
+MEASURED. *** THE NINE MACHINES, MEASURED AGAINST THE RUNNING CODE
+   (coordinator 8/20 — records/BOHEMIA_RF4_NINE_MACHINES_MEASURED_8_20_26.md).
+   Written because the SPEC's status column and its own prose disagree:
+   BUILT is used to mean both "the substrate exists" and "the machine
+   exists", and a ledger meaning two things walks a lane past work nobody
+   did. THE TRUTH TODAY: 1 free-movement budget BUILT (V163), 3 movement
+   asymmetry BUILT (V164), 4 vision HALF (smoke landed; no enemy support
+   behaviour is gated on sight because no healer/summoner/totem exists),
+   6 terrain KILLS built in the WORLD half (hazard_gate.js) with the
+   combat-side wire UNVERIFIED, and 5 awareness / 7 published attack
+   order / 9 turn denial NOT STARTED (7's BUILT in the spec refers to
+   deterministic dice, not to a fixed resolution order — zero hits
+   repo-wide). 8 bounded variance is architecture this lane must state.
+   THE DOOR IS BUILT and gated (8c2004ce, combat_entry_gate.js).
+   THE FOUR NOT STARTED ARE THE FOUR THAT MAKE A FIGHT A PUZZLE rather
+   than a shootout, which is the honest answer to why it does not feel
+   like RF4 yet: the movement is in, the geometry is arriving, the
+   ENEMY-SIDE machinery is the half still missing.
+   ASKED OF THIS LANE: correct the spec's STATUS column so BUILT means
+   the machine, with SUBSTRATE as its own value — you own that column. ***
 SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
    records/BOHEMIA_RF4_TEARDOWN_SPEC.md, gate gates/rf4_teardown_gate.js, 94 checks.)
    68 numbered items, each SPECED / BUILT / DIFFERS-ON-PURPOSE. CITE ITEM NUMBERS IN
