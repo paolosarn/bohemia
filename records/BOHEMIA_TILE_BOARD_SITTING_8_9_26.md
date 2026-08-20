@@ -829,3 +829,14 @@ valley - near-white mineral mounds, lit crests and shaded feet, conveyor
 ridge lines, the white derived from the approved pale concrete lifted,
 never invented. Verified live: the piles cluster by the quarry exactly
 like a working plant's product yard that nobody ever hauled away.
+
+ADDENDUM TO PASS 38, same hour: I SHIPPED LIVE CONFLICT MARKERS TO MAIN
+AND CAUGHT IT MYSELF WITHIN MINUTES. The rebase left an unresolved block
+at the top of the handoff, and my ship pipeline checked the nomarkers
+gate THROUGH GREP - which happily matched the line saying "4 fail" and
+returned success, so the push went through red. Both sides restored,
+markers gone, hotfixed to main inside the same hour (e64b4dc). THE LAW
+THIS RE-PROVES is already written on this very file from the last two
+times another lane did it: the gate's EXIT CODE is the gate; a pipe that
+greps a gate's text can bless a failure. My ship flow now asserts exit
+codes. Filed here because the record is for MY failures too.
