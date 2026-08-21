@@ -678,6 +678,74 @@ POSITION` being there **is** the proof. And the mutation still bites for the sam
 reason — move the block down and `ctTer` is undefined at the `if(!ctTer)` guard,
 so the `NOBODY` row returns and the position row vanishes. **Both halves flip.**
 
+## 4l. AND NOW THE MACHINE CATCHES IT, NOT MY ATTENTION
+
+Ten instances in one week, **nine of them found by tripping over them.** That is
+not a run of bad luck, it is a missing gate. *A law without a machine gate is not
+enforced.*
+
+`gates/organ_reach_gate.js` **shells out to the existing tool** rather than
+re-implementing its tiering, because a second copy of a sweep is two opinions
+about one repo — the exact defect this lane spent the week removing.
+
+**FOUR RULES, AND THE ALLOWLIST IS CHECKED IN BOTH DIRECTIONS:**
+
+1. **Nothing anywhere is a defect** — no exemption possible.
+2. **Off the surface needs a written reason**, so *"built for the machine"* and
+   *"built and forgotten"* stop looking identical.
+3. **A declared helper that later gets wired must be deleted from the list.**
+4. **An entry for a function that no longer exists is rot.**
+
+> Rules 3 and 4 are why this is a gate and not a checklist. **An allowlist checked
+> in one direction is a place to hide things; checked in both, it is a ledger that
+> has to stay true.**
+
+### IT CAUGHT ITS AUTHOR THREE TIMES ON ITS FIRST DAY
+
+**A reason too thin to be a reason.** My own entry read *"PEOPLE's module, not
+this lane's. Same."* The gate holds declared reasons to a minimum length for the
+same purpose REUSE-FIRST holds tools to a reuse check: *a claim nobody can read is
+a claim nobody can check.*
+
+**A caller the sweep cannot see.** J6 called `require(...).states()`, which the
+sweep — which looks for `BohemiaCommitment.states(` — cannot match. **An organ the
+sweep cannot see is one somebody deletes as dead in six months.** Bind the global
+and call it the way the sweep reads it.
+
+**And the real one: A COMMENT IS NOT A CALLER.**
+
+The tool's own docstring warns *THE HAYSTACK CONTAINS THE ANSWER KEY* — for the
+**surface**, where pages inline the engine verbatim. The **gates/tools tier had no
+such protection at all.** So when I wrote, in a comment explaining the sweep:
+
+```
+the sweep counts reach by looking for `BohemiaCommitment.states(`
+```
+
+**that sentence became the only caller `states()` had.** Deleting its real call
+left the gate green. *A green that proves nothing is worse than a red.*
+
+> **THE FIX IS THE RULER, NOT THE TARGET.** *"Do not write the pattern in a
+> comment"* is not a rule anybody can keep. A sweep that cannot tell code from
+> prose is the broken thing.
+
+### AND THE FIX'S FIRST CUT WAS TOO GREEDY, WHICH READING BEAT BELIEVING
+
+Stripping comments made three functions go dead in one step. **I read them instead
+of believing them** — all three had real callers, inside `.py` patch tools, whose
+**JS payloads live in triple-quoted strings** my Python docstring-strip had eaten.
+
+The distinction that matters: **the module docstring is prose; every other triple-
+quoted block is code waiting to be written into the city.** Only the leading
+docstring goes now.
+
+That the failure was *loud* is not luck — it was chosen. A textual strip can
+**undercount but never overcount**, and:
+
+> **UNDERCOUNTING FAILS LOUD** (a real caller looks dead, somebody investigates).
+> **OVERCOUNTING FAILS SILENT** — which is the failure that had just happened.
+> When a ruler must be wrong, make it wrong in the direction that gets noticed.
+
 ## 5. IT FAILS RATHER THAN SKIPS
 
 If the valley has nobody who runs with anybody, this gate **fails**. It does not

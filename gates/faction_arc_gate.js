@@ -906,6 +906,32 @@ function requirePlaywright() {
       /tap to read/i.test(deep.card || ''),
       JSON.stringify((deep.card || '').slice(0, 200)));
 
+    /* J6 PINS THE CANON **AND** MAKES THE ORGAN AGREE WITH IT.
+       J1 asserts the deepest state reached by playing is 'burned' — a hardcoded
+       word, and that is correct: it pins what he ruled. But BohemiaCommitment
+       publishes the same ladder through states(), and until now NOTHING ANYWHERE
+       called it (the reach sweep's only remaining orphan in this lane).
+       Reading states() INSTEAD of the literal would be weaker, not stronger — a
+       fourth stage would silently satisfy it. So this asserts BOTH: the literal
+       ladder is his, and the organ's own answer matches it exactly. Add a stage
+       and this goes red while J1 stays green, which is the drift J1 cannot see. */
+    const LADDER = ['none', 'sided', 'burned'];
+    let published = null;
+    /* BOUND TO THE GLOBAL NAME ON PURPOSE, not called off the require()
+       expression. tools/bohemia_organ_reach.js counts reach by looking for
+       `BohemiaCommitment.states(`, so `require(...).states()` is a caller the
+       sweep cannot see — and an organ the sweep cannot see is one somebody
+       deletes as dead six months from now. Call it the way the sweep reads it. */
+    const BohemiaCommitment = require(path.join(ROOT, 'engine/bohemia_commitment.js'));
+    try { published = BohemiaCommitment.states(); } catch (_e) {}
+    ok('J6 …and the ladder the ORGAN publishes is the same three his dossier '
+      + 'names — none, sided, burned, and nothing after it. J1 pins the word by '
+      + 'hand, which is right; this catches the drift J1 cannot see, because a '
+      + 'fourth stage would satisfy a check that just read the organ',
+      !!published && published.length === LADDER.length
+        && published.every((s, i) => s === LADDER[i]),
+      JSON.stringify({ published, expected: LADDER }));
+
     /* ---- K. WHAT ASKING COSTS, BEFORE HE ASKS -----------------------------
        FOUND BY SWEEPING, NOT BY TRIPPING OVER IT. Six times this week an organ
        computed something and nothing on the walked surface called it, so instead

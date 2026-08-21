@@ -121,6 +121,65 @@ function grepCount(pattern, globs) {
   } catch (_e) { return 0; }
 }
 
+/* ---- A COMMENT IS NOT A CALLER -------------------------------------------
+   THE HAYSTACK CONTAINS THE ANSWER KEY, AGAIN, AND THIS TIME IN MY OWN GATE.
+   This file's docstring already warns about it for the SURFACE (the pages inline
+   the engine verbatim, so a call inside an inlined body looks like a call from
+   the surface) — and the gates/tools tier had no such protection at all. On
+   organ_reach_gate.js's first day I wrote, in a COMMENT explaining the sweep:
+
+       the sweep counts reach by looking for `BohemiaCommitment.states(`
+
+   and that sentence became the only "caller" states() had. Deleting its real
+   call left the gate GREEN. A green that proves nothing is worse than a red.
+
+   THE FIX IS THE RULER, NOT THE TARGET. "Do not write the pattern in a comment"
+   is not a rule anybody can keep; a sweep that cannot tell code from prose is
+   the broken thing. Comments are stripped before counting.
+
+   KNOWN LIMIT, STATED: this strip is textual, so a `//` or `/*` living inside a
+   string literal eats to the end of that line or block. It can therefore
+   UNDERCOUNT, never overcount — and undercounting fails LOUD (a real caller
+   looks dead and somebody investigates) while overcounting fails SILENT, which
+   is the failure that just happened. Wrong in the safe direction on purpose. */
+/* AND THE FIRST CUT OF THIS STRIP WAS TOO GREEDY, WHICH I CAUGHT BY READING THE
+   THREE NEW DEADS INSTEAD OF BELIEVING THEM. It stripped EVERY triple-quoted
+   Python string as a docstring — but this repo's patch tools carry their JS
+   PAYLOAD in exactly those strings (`NEW_ROW = """...body += ctRow(...)..."""`),
+   so three functions with real callers were reported dead in one step.
+   THE DISTINCTION THAT MATTERS: the MODULE DOCSTRING is prose and everything
+   else in triple quotes is code waiting to be written into the city. So only the
+   leading docstring goes, and JS comments are stripped from what remains —
+   including inside the payloads, because a comment there is still a comment when
+   it lands. Three false deads is what "fails loud" looks like when it works. */
+function stripComments(src, py) {
+  let s = src;
+  if (py) {
+    /* the module docstring only: the first triple-quoted block, before any code */
+    s = s.replace(/^(#![^\n]*\n)?\s*(?:"""[\s\S]*?"""|'''[\s\S]*?''')/, '$1');
+    s = s.replace(/(^|\n)\s*#[^\n]*/g, '$1');   /* whole-line python comments */
+  }
+  s = s.replace(/\/\*[\s\S]*?\*\//g, ' ');
+  s = s.replace(/(^|[^:])\/\/[^\n]*/g, '$1');   /* keep https:// intact */
+  return s;
+}
+
+function codeCount(pattern, dirs) {
+  const re = new RegExp(pattern, 'g');
+  let n = 0;
+  for (const d of dirs) {
+    const dir = path.join(ROOT, d);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (!/\.(js|py)$/.test(f)) continue;
+      let src;
+      try { src = fs.readFileSync(path.join(dir, f), 'utf8'); } catch (_e) { continue; }
+      n += (stripComments(src, /\.py$/.test(f)).match(re) || []).length;
+    }
+  }
+  return n;
+}
+
 console.log('ORGAN REACH — surface: ' + surface + '\n');
 const dead = [];
 for (const m of MODS) {
@@ -138,7 +197,10 @@ for (const m of MODS) {
     /* engine-internal: any call to .f( inside engine/, minus the definition line.
        A helper called by its OWN module is reached, not dead. */
     const eng = Math.max(0, grepCount('[^.a-zA-Z]' + f + '\\s*\\(', 'engine/') - 1);
-    const tool = grepCount(g + '\\.' + f + '\\s*\\(', 'gates/ tools/');
+    /* A COMMENT IS NOT A CALLER — see stripComments above. This tier used a
+       raw grep and counted my own explanatory prose as states()'s only
+       caller, which made a deleted call look alive. */
+    const tool = codeCount(g + '\\.' + f + '\\s*\\(', ['gates', 'tools']);
     return { f, surf, eng, tool };
   });
   const onSurface = rows.filter(r => r.surf > 0);
