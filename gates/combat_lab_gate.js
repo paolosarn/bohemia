@@ -4659,6 +4659,32 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V176 THE FINISHER (RF4-12) ================================
+   "Charge up a more impactful ability after say 10 attacks, WHICH TAKES
+    SOMETHING UNCONTROLLABLE AND GIVES IT TO THE PLAYER TO USE TACTICALLY."
+   The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
+   the shape, and above all that the feature touches ONE line. */
+  ok('V176 RF4-12 A COUNTER AND A READY STATE, WHICH IS EXACTLY WHAT THE DIFF COLUMN ASKED FOR ("it converts luck into agency, and it costs no new UI"). No button, no HUD element, no toggle -- it announces itself in the readout he already reads, when it fills and when it spends',
+    /function finisherReady\(\)\{ return \(G\._finCharge\|\|0\)>=FINISH_AT; \}/.test(demo) &&
+    /function finisherFeed\(\)\{/.test(demo) &&
+    !/id="finisher"/.test(demo) && !/id="finbtn"/.test(demo));
+
+  ok('V176 AND IT SPENDS ON ONE LINE -- V32\'s lethality roll, and nothing else in the file. Same damage, same dial, same odds of landing: it replaces ONE roll of a coin the game was already flipping with a thing the player earned. NO DAMAGE BEFORE THE DIAL survives an entire new ability, because lethality was already a boolean',
+    /const _lethalRoll=_fin\|\|\(WEAPON==='shotgun'\)\|\|\(Math\.random\(\)<\(WEAPON_LETHAL\[WEAPON\]\|\|0\)\);/.test(demo) &&
+    /const _fin=finisherReady\(\)&&WEAPON!=='shotgun';/.test(demo));
+
+  ok('V176 FED BY ATTACKS, NOT BY KILLS, which is Wang\'s own wording and the only thing that works at our scale: measured, a fight runs about 12.4 turns and drops just 2.3 bodies, so a kill-fed charge would fire roughly never. The feed sits on the shot resolution and skips misses',
+    /if\(kind!=='miss'\)finisherFeed\(\);/.test(demo));
+
+  ok('V176 AND IT CANNOT BE STOCKPILED: the feed returns early once ready, so a long fight banks exactly one finisher rather than five. An ability you can hoard is a burst nobody can plan around, which is the same disease V163 cured in the stamina clock',
+    /if\(G\.over\|\|finisherReady\(\)\)return;/.test(demo));
+
+  ok('V176 AND THE SHOTGUN NO-OP IS DELIBERATE AND DOCUMENTED, not an oversight: 1.0 lethal is his own ruling ("this weapon finishes the job, no downed state"), so a finisher there is a bonus for a problem that weapon does not have. THE INVERSE of the wide-open bonus cut the day before, which paid out on ONE weapon of four and so could not be learned -- this one is redundant exactly where it is redundant',
+    /WEAPON!=='shotgun'/.test(demo) && /const WEAPON_LETHAL=\{pistol:0\.20,smg:0\.35,rifle:0\.55,shotgun:1\.0\};/.test(demo));
+
+  ok('V176 AND A FINISHER IS EARNED IN THE FIGHT YOU SPEND IT IN: the charge clears with the rest of the per-fight state, so the first perfect shot of a new encounter is never free',
+    /G\._finCharge=0;   \/\* V176: a finisher is earned in the fight you spend it in \*\//.test(demo));
+
 /* ===== V175 HE SHOUTS (RF4-39, THE ANTI-PULL RULE) ===============
    The BEHAVIOUR is measured in a browser by fight_moves_you_gate, with the alarm
    switched off and on across the same fights. What is pinned here is the shape. */

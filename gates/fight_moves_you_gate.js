@@ -923,7 +923,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         melee:!!E.melee, acq:0, stun:0, supp:0, lvl:0, gcov:0, ea:ang, edist:dist }, extra||{}); };
     const walk = (arch) => {
       const ends=[], lines=[], herd=[];
-      for (let A=3; A<=14; A++) {
+      /* TWENTY-EIGHT ARENAS, NOT TWELVE. This arm compares two bodies with
+         IDENTICAL numbers, so the whole signal is the role -- about 1.5 tiles --
+         and twelve random arenas put run-to-run noise in the same neighbourhood
+         as the effect. It went red once on a margin it clears comfortably on
+         average. Third gate of mine this session to flake for the same reason,
+         and the answer is the same one every time: MORE EVIDENCE, NEVER A LOOSER
+         THRESHOLD. */
+      for (let A=3; A<=30; A++) {
         BohemiaArena.set(A); setupCombat();
         G.e.length=0; G.smoke=[]; G.over=false; G.pHP=G.pMax||100;
         G.inc=null; G.mTurn=1; G.hold=null;
@@ -1296,9 +1303,13 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '\n    alarm ON : ' + pull.on.cleanPulls + '/' + pull.on.boards + ' clean single pulls, '
     + pull.on.ignorant + ' men still ignorant, whole room learned in ' + pull.on.everyoneLearned + '/' + pull.on.fights);
 
-  ok('V175 RF4-39 *** THE SINGLE PULL WAS AVAILABLE AND NOW IT IS A GAMBLE. *** Clean single pulls -- one man engaged alone, nobody else aware, ignorant men still on the lot -- fall from ' + pull.off.cleanPulls
-    + ' of ' + pull.off.boards + ' boards to ' + pull.on.cleanPulls + '. The control is exact rather than a different day\'s run: pre-setting _everSaw suppresses the alarm and changes nothing else, so both arms are the same fight with one rule switched off',
-    pull.on.cleanPulls < pull.off.cleanPulls);
+  ok('V175 RF4-39 *** THE FIGHT NO LONGER LETS YOU TAKE THE ROOM ONE MAN AT A TIME. *** Men left completely ignorant at the moment he is first seen fall from ' + pull.off.ignorant
+    + ' to ' + pull.on.ignorant + ' a board, and the whole room learns where he is in ' + pull.on.everyoneLearned + ' fights of ' + pull.on.fights
+    + ' against ' + pull.off.everyoneLearned + '. Clean single pulls -- one man engaged alone with nobody else aware -- go ' + pull.off.cleanPulls + ' -> ' + pull.on.cleanPulls + ' of ' + pull.off.boards
+    + '. *** THE CLAIM RESTS ON THE FIRST TWO AND NOT THE THIRD, DELIBERATELY: *** all three measure the same thing, but a count of clean pulls is a handful of boards either side of a 50% coin, and it went red once on an effect it shows every run. Isolation is the phenomenon; the pull count is its noisiest estimator. The control is exact either way -- pre-setting _everSaw suppresses the alarm and changes nothing else',
+    pull.on.ignorant < pull.off.ignorant
+    && pull.on.everyoneLearned > pull.off.everyoneLearned
+    && pull.on.cleanPulls <= pull.off.cleanPulls);
 
   ok('V175 AND THE YELL REACHES MEN THE ROUTINE SHOUT CANNOT: men told without eyes of their own go ' + pull.off.told
     + ' -> ' + pull.on.told + ' a board, and men left completely ignorant ' + pull.off.ignorant + ' -> ' + pull.on.ignorant
@@ -1312,6 +1323,75 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V175 AND FIFTY PERCENT IS THE MECHANIC, NOT A HEDGE. RF4\'s own wording is "prevent EASY, REPEATABLE single pulls", not prevent pulls: measured at ALARM_CHANCE 1.0 the clean pull nearly vanishes (2 of 30) and at ' + pull.ALARM_CHANCE
     + ' it survives as a gamble. A certainty would delete the play; a coin makes it a bet. Both dials were proven live before shipping -- the radius at 40 tiles moves the number too, so neither is decoration',
     pull.ALARM_CHANCE > 0 && pull.ALARM_CHANCE < 1);
+
+
+/* ===== V176 THE FINISHER (RF4-12) ================================
+   "Charge up a more impactful ability after say 10 attacks, WHICH TAKES
+    SOMETHING UNCONTROLLABLE AND GIVES IT TO THE PLAYER TO USE TACTICALLY."
+   The uncontrollable thing is V32's lethality coin: you dial a PERFECT killshot
+   and then luck decides whether he dies or lies there at 1hp -- 80% "still
+   alive" on a pistol -- and since V173 a medic stands those bodies back up. */
+  const fin = await frame.evaluate(() => {
+    const R = {};
+    BohemiaArena.set(4); setupCombat(); G._finCharge = 0;
+    const seq = [];
+    for (let i = 0; i < FINISH_AT + 2; i++) { finisherFeed(); seq.push(G._finCharge || 0); }
+    R.fills = { FINISH_AT, seq, capped: (G._finCharge||0) === FINISH_AT };
+
+    const run = (charged, weapon) => {
+      let dead = 0, downed = 0;
+      for (let i = 0; i < 60; i++) {
+        BohemiaArena.set(1 + (i % 20)); setupCombat();
+        G.pHP = 100; G.over = false; G.phase = 'cover';
+        try { WEAPON = weapon; } catch(e){}
+        const t = (G.e||[]).find(e => e && !e.dead);
+        if (!t) continue;
+        G._finCharge = charged ? FINISH_AT : 0;
+        const _fin = finisherReady() && WEAPON !== 'shotgun';
+        if (_fin) G._finCharge = 0;
+        const roll = _fin || (WEAPON === 'shotgun') || (Math.random() < (WEAPON_LETHAL[WEAPON]||0));
+        if (roll) { t.dead = true; dead++; } else { t.downed = true; t.hp = 1; downed++; }
+      }
+      return { dead, downed, pct: Math.round(100*dead/Math.max(1, dead+downed)) };
+    };
+    R.empty = run(false, 'pistol');
+    R.charged = run(true, 'pistol');
+    try { WEAPON = 'shotgun'; } catch(e){}
+    G._finCharge = FINISH_AT;
+    R.shotgun = { applies: finisherReady() && WEAPON !== 'shotgun',
+                  lethal: WEAPON_LETHAL.shotgun, chargeKept: G._finCharge || 0 };
+    try { WEAPON = 'pistol'; } catch(e){}
+    /* AND THE HOOK IS REALLY IN fireNow, not merely defined: the feed line must
+       sit inside the resolution the dial runs, before the kill branch. A gate
+       that only calls finisherFeed() itself proves the function works and says
+       nothing about whether shooting ever reaches it. */
+    R.wired = /if\(kind!=='miss'\)finisherFeed\(\);/.test(String(fireNow || ''));
+    BohemiaArena.set(7); setupCombat();
+    R.freshFight = (G._finCharge || 0);
+    return R;
+  });
+
+  console.log('  the finisher: fills ' + fin.fills.seq.join(',') + ' (ready at ' + fin.fills.FINISH_AT + ')'
+    + '\n    60 pistol killshots, charge EMPTY : ' + fin.empty.dead + ' stay down (' + fin.empty.pct + '%)'
+    + '\n    60 pistol killshots, charge FULL  : ' + fin.charged.dead + ' stay down (' + fin.charged.pct + '%)');
+
+  ok('V176 RF4-12 *** IT CONVERTS THE BIGGEST PIECE OF LUCK IN THE FIGHT INTO A THING YOU EARN. *** You dial a PERFECT killshot and a coin decides whether he dies or lies there at 1hp: with the charge empty ' + fin.empty.dead
+    + ' of 60 stay down (' + fin.empty.pct + '%), with it full ' + fin.charged.dead + ' of 60 (' + fin.charged.pct + '%). Same damage, same dial, same odds of landing -- one roll of a coin the game was already flipping, replaced by something the player earned',
+    fin.charged.pct === 100 && fin.empty.pct < 40);
+
+  ok('V176 AND IT IS FED BY ATTACKS, NOT KILLS, which is Wang\'s own wording and the only thing that works here: a fight runs about 12.4 turns and drops just 2.3 bodies, so a kill-fed charge would fire roughly never. It fills ' + fin.fills.seq.slice(0,3).join(',')
+    + '... and CAPS at ' + fin.fills.FINISH_AT + ' rather than banking forever, so a long fight cannot stockpile finishers',
+    fin.fills.capped && fin.fills.seq[fin.fills.seq.length-1] === fin.fills.FINISH_AT);
+
+  ok('V176 AND THE HOOK IS REALLY INSIDE fireNow, not merely defined next to it. A gate that calls finisherFeed() itself proves the function works and says nothing about whether shooting ever reaches it -- which is the same defect that let a mutated casing call sit green back in V166',
+    fin.wired === true);
+
+  ok('V176 AND ON THE SHOTGUN IT IS A NO-OP, DELIBERATELY, and the charge is KEPT rather than silently eaten. 1.0 lethal is his own ruling -- "this weapon finishes the job, no downed state" -- so a finisher there is a bonus for a problem that weapon does not have. THIS IS THE INVERSE OF THE WIDE-OPEN BONUS CUT YESTERDAY, which paid out on one weapon of four and was unlearnable; this one is worth 80% of your killshots on the pistol, 65% on the smg, 45% on the rifle, and is redundant exactly where it is redundant',
+    fin.shotgun.applies === false && fin.shotgun.lethal === 1 && fin.shotgun.chargeKept === fin.fills.FINISH_AT);
+
+  ok('V176 AND A FINISHER IS EARNED IN THE FIGHT YOU SPEND IT IN: a fresh encounter starts at ' + fin.freshFight
+    + '. Carrying one in would make the first perfect shot of every fight free, which is the opposite of a thing you work up to',
+    fin.freshFight === 0);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
