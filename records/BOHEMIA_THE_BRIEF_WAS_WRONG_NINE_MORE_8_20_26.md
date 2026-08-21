@@ -84,17 +84,36 @@ Both triggers exist in the run (a quest-completion hook; `deed` appears 31
 times), so these are BUILDABLE — as stings, in the music system, alongside the
 combat sting that already works. **That is the next real feature in this lane.**
 
-## 4. SOMEBODY TURNS TO YOU — the brief defeats itself
+## 4. SOMEBODY TURNS TO YOU — nothing in the world makes that sound
 
-*"small: a person is not an event."* A brief that asks for a sound small enough
-to not be an event is asking for something inaudible, and an inaudible candidate
-gets thumbed down for being nothing. It cannot win. Both ids carried the same
-self-defeating sentence, which is why both went 0 for 5.
+**CORRECTED 8/21, AND THE FIRST VERSION OF THIS SECTION WAS WRONG.** It said the
+brief "asks for something inaudible" because it says *"small: a person is not an
+event"*, and that the candidates therefore died for being too quiet. That was a
+guess dressed as a diagnosis, and MEASURING IT KILLED IT. Rendered through the
+real engine, peak and RMS:
 
-What a person turning to you actually sounds like is a BODY: cloth shifting,
-weight moving onto the other foot. That is foley with a source, not an abstract
-quiet tone — and `cloth_on` is approved, so the family demonstrably works. If it
-is re-briefed, it is re-briefed as a body.
+    turn_to_you   peak 0.185 - 0.244    rms 0.0100 - 0.0143
+    talk_start    peak 0.262 - 0.266    rms 0.0129 - 0.0157
+    cloth_on      peak 0.150 - 0.246    rms 0.0128 - 0.0260   APPROVED
+    pickup        peak 0.316 - 0.410    rms 0.0113 - 0.0153   APPROVED
+
+They sit in the same range as sounds he approved, and `cloth_on` is quieter in
+places. They were perfectly audible and he killed all ten anyway. Loudness was
+never the reason.
+
+THE REAL REASON, and it is a harder one: **nothing in the world physically makes
+that sound.** A person turning toward you is conveyed by their body and their
+voice. An abstract "somebody has noticed you" cue has no source object — it is a
+UI convention borrowed from games that announce dialogue with a chime, and this
+game's whole identity is the opposite of that. Every candidate was a sound with
+no thing making it, so every candidate was wrong no matter how it was built.
+
+The `turn_to_you` attempt was already a `friction` recipe, so the "make it a
+body" idea was tried too, and died with the rest.
+
+**RECOMMENDATION: leave it silent.** The moment is answered by animation and by
+the character's voice, which is another lane's system. Do not cook an eleventh.
+Any footstep shift is already covered by the footstep system.
 
 ## 6. A DOG — the honest answer is that the rack cannot do it
 
@@ -108,13 +127,35 @@ it lands as an instrument imitating a dog, which is worse than no dog.
 **Recommendation: leave it silent and stop spending candidates on it.** The
 valley being empty of animals is not a defect, and a bad dog is worse than none.
 
-## 7. THE CAR TICKS — the only real cooking miss of the nine
+## 7. THE CAR TICKS — TWO things were wrong, and one was the brief after all
 
-Cooling metal ticking is physically simple and the brief describes the world
-correctly. Ten candidates still died. This is the one moment on this list where
-another cook is a legitimate move, and it should go sparse and irregular:
-cooling metal ticks are *unevenly spaced*, which is the thing a quantised rack
-gets wrong by default. Note the 120 BPM law fights this moment specifically.
+**REVISED 8/21. The first version called this "the only real cooking miss of the
+nine" and said the brief described the world correctly. Half of that was wrong.**
+
+**The brief described a car that had just been driven.** Engine-cooling tick is a
+twenty-to-thirty minute phenomenon after a hot shutdown. This valley's cars are
+WRECKS: they are cover, they have sat for years, and nothing in them cooled from
+an engine. *"Hiding behind a car is a clock you can watch"* could not be true
+here. Same shape as the coins.
+
+**What IS true, every single day:** sheet metal in the Mojave takes full sun,
+expands, and contracts as the sun comes off it. Thermal cycling makes abandoned
+steel tick and pop in the late afternoon and again in the morning. No engine, no
+driver. That version belongs to the WORLD, not to combat cover.
+
+**And the second thing: every candidate ticked IN RHYTHM.** All ten hit-sets
+across both ids land on a 32nd-note grid (every value a multiple of 0.0625).
+Contracting metal is stick-slip — irregular, and the gaps LENGTHEN, because the
+panel approaches ambient asymptotically. A tick on a grid reads as a meter.
+
+This does NOT touch the 120 BPM law, which governs GAMEPLAY: *"when a mechanic
+and the beat disagree, THE MECHANIC MOVES: difficulty, pattern speed, cycle
+length, cover windows."* It is about WHEN a sound is asked for, never the grain
+texture inside one triggered event.
+
+SHIPPED 8/21 as `metal_ticks` — THE METAL MOVES — on the `fm` method, riding the
+ambience rotation beside the gust and the generator. All 18 hit times are off
+the grid and every set decelerates. Gated in `sfx_diversity_gate`.
 
 ## 8 and 9. GLASS AND METAL FOOTSTEPS — there is nothing to trigger them
 
@@ -131,6 +172,11 @@ same position on the art side and for the same reason.
 
 Before cooking a replacement for any dead moment, in this order:
 
+0. **Is there a PHYSICAL SOURCE?** Is there a real object in the world making
+   this noise? (somebody turns to you: no. Ten wasted on a UI convention in a
+   game whose identity is that it has none.) Added 8/21, and it is question ZERO
+   because it is the cheapest one to ask and it outranks every question below
+   it: a sound with nothing making it cannot be fixed by any amount of craft.
 1. **Does a trigger exist?** (glass and metal footsteps: no. Twenty wasted.)
 2. **Is it already answered elsewhere?** (the fight is over: yes, by STING.
    Fifteen wasted.)
@@ -140,5 +186,5 @@ Before cooking a replacement for any dead moment, in this order:
 5. **Can the rack physically make it?** (a dog: no. Fifteen wasted.)
 
 Only then cook. Ninety-five of the ninety-five dead candidates on this list fail
-one of those five questions, and every one of those questions can be answered by
+one of those six questions, and every one of those questions can be answered by
 reading the repo before a single sample is rendered.

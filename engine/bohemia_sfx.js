@@ -961,6 +961,13 @@ const BOH_SFX = (function () {
        cooked to be paper and coin in a world that has neither. This is the
        moment written from what actually moves. ---- */
     { ev: 'parts_pass',  label: 'PARTS CHANGE HANDS',    why: 'resource parts, metal with mass, handed over or tipped out. what actually moves when something changes hands in this valley' },
+    /* ---- 8/21: THE DESERT MOVES THE METAL. Replaces THE CAR TICKS, which
+       died 10 for 10 under panel_tick and car_heat because its brief described
+       an engine cooling after a drive, in a valley whose cars are years-old
+       wrecks. Sun-heated sheet metal contracting in the late afternoon is the
+       version that is true here, needs nobody to have driven anything, and
+       belongs to the world rather than to combat cover. ---- */
+    { ev: 'metal_ticks', label: 'THE METAL MOVES',    why: 'sun-heated sheet metal contracting as the day comes off it. irregular, and the gaps get longer as it cools. no engine, no driver, just steel and the desert' },
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -2393,6 +2400,27 @@ const BOH_SFX = (function () {
       instSets: ['boneplate', 'ratchet', 'anvil', 'reelclick', 'ironstep'],
       hitSets: [[0, 0.0625, 0.1875], [0, 0.125], [0, 0.0625, 0.125, 0.25],
                 [0, 0.1875], [0, 0.0625, 0.25]]
+    },
+
+    metal_ticks: {
+      /* STICK-SLIP, NOT A CLOCK. Every dead candidate for this moment ticked on
+         a 32nd grid and therefore read as a meter. Contracting metal releases
+         irregularly and SLOWS DOWN, because the panel approaches ambient
+         asymptotically -- so every gap below is off the grid and each one is
+         roughly 1.5x the gap before it. Thin and bright: this is a panel
+         releasing, not a bar being struck. */
+      base: { synth: 'fm', mat: 'metal', hz: 1850, ratio: 2.74, index: 1.5,
+              modes: 5, bright: 0.68, decay: 0.075, damp: 2.2, warble: 0.2,
+              atk: 0, trans: 0.55, transHz: 3100, transQ: 1.5, grit: 0.18,
+              gritHz: 2200, space: 0.12, room: 0.1875, refl: 1, dark: 5200,
+              width: 0.42, drive: 0.04, mkup: 0.82, gain: 0.52,
+              hits: [0, 0.11, 0.29, 0.58, 1.02] },
+      jit:  { hz: [1450, 2600], ratio: [2.2, 3.4], index: [1.0, 2.3],
+              decay: [0.05, 0.11], bright: [0.55, 0.8], dark: [4200, 6600],
+              width: [0.34, 0.55] },
+      hitSets: [[0, 0.11, 0.29, 0.58, 1.02], [0, 0.14, 0.33, 0.67],
+                [0, 0.09, 0.23, 0.47, 0.88], [0, 0.17, 0.41, 0.83],
+                [0, 0.13, 0.31, 0.62, 1.09]]
     },
     walk_more: {
       base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 140,

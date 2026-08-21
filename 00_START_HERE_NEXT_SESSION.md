@@ -607,8 +607,14 @@ compared to the bank directly now. Proved by knocking the baked copy back a swee
   sfx_wired_gate    907 passed, 0 FAILED
 
 *** THE STALENESS HE NAMED IS BACK, AND IT IS MEASURABLE. *** SFX DIVERSITY is RED
-and it is this lane's red: `instrument` now owns 53.8 percent of all non-modal recipes
-(21 of 39) against a 50 percent cap. It was ALREADY over before 8/20 (52.6 percent) so
+and it is this lane's red. 8/21: 105 of 205 non-modal candidates (51.2 percent) against a
+50 percent cap -- improved from 52.6 percent by cooking metal_ticks on `fm` instead of
+`instrument`. ONE more non-instrument recipe clears it (105 of 210 is exactly 50). It was
+NOT padded to get there: the remaining silent moments all fail one of the six screening
+questions (no trigger, no physical source, already answered, or the rack cannot do it), and
+inventing a sound to move a ratio is how the staleness got here in the first place. The
+next legitimate cook clears the gate for free.
+  ORIGINAL NOTE, still true: `instrument` owns the non-modal pool (21 of 39 recipes). It was ALREADY over before 8/20 (52.6 percent) so
 nobody caused it in one turn, but parts_pass nudged it up and every cook that reaches for
 the instrument axis nudges it further. This is Paolo's own 8/12 words -- "you need more
 diverse sounds bro its getting stale at this point" -- come back as a number. THE FIX IS

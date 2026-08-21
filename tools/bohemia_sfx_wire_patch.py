@@ -973,6 +973,16 @@ def parent_block(bank):
          an unapproved name is skipped and the bed plays. */
       if(r<0.44 && (A.sign_alive||[]).length) return 'sign_alive';
       if(r<0.50 && (A.dog_calls||[]).length) return 'dog_calls';
+      /* THE DESERT MOVES THE METAL (8/21). Sheet metal that took full sun all
+         day contracting as the day comes off it -- irregular, and the gaps get
+         longer as it cools. THE CAR TICKS died 10 for 10 as a combat-cover
+         sound because its brief described an engine cooling after a drive, and
+         this valley's cars are years-old wrecks. Thermal cycling needs no
+         engine and no driver, which is why it belongs HERE, in the world, next
+         to the gust and the generator. Same guard as all of them: an unapproved
+         name is skipped and the bed plays, so it costs nothing until he says
+         yes. Rarer than the weather and about as rare as the sign. */
+      if(r<0.56 && (A.metal_ticks||[]).length) return 'metal_ticks';
       return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },

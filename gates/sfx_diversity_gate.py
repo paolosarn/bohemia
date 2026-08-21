@@ -38,6 +38,7 @@ has no attack at all. If two methods ever collapse into one region, that IS the
 staleness returning and the gate should go red.
 """
 import json
+import re
 import os
 import subprocess
 import sys
@@ -214,6 +215,42 @@ def main():
         top = max(len([x for x in fresh if x['synth'] == m]) for m in fresh_m)
         ok('and no single method owns it (%d of %d candidates at most)'
            % (top, len(fresh)), top <= len(fresh) * 0.5)
+
+    # ---- 2b. NOT EVERYTHING IN THIS GAME IS ON THE GRID (8/21) -----------
+    # THE CAR TICKS died 10 for 10 across panel_tick and car_heat, and one of
+    # the two reasons was RHYTHM: every hit-set in both ids lands on a 32nd-note
+    # grid (each value a multiple of 0.0625). Contracting metal is stick-slip --
+    # the intervals are irregular AND THEY LENGTHEN, because the panel
+    # approaches ambient temperature asymptotically. A tick on a grid reads as a
+    # meter, which is exactly what the dead brief asked for ("a clock you can
+    # watch"). That is a STALENESS property, which is why it lives in this gate.
+    #
+    # This does NOT touch the 120 BPM law. That law is about GAMEPLAY -- "when a
+    # mechanic and the beat disagree, THE MECHANIC MOVES: difficulty, pattern
+    # speed, cycle length, cover windows" -- it governs WHEN a sound is asked
+    # for, never the grain texture inside one triggered event.
+    esrc = open('engine/bohemia_sfx.js', encoding='utf8').read()
+    mm = re.search(r'\n    metal_ticks: \{(.*?)\n    \},', esrc, re.S)
+    ok('the engine still carries metal_ticks, the off-grid moment', bool(mm))
+    if mm:
+        body = mm.group(1)
+        arrs = re.findall(r'\[([0-9.,\s]+)\]', body[body.index('hitSets:'):])
+        sets = [[float(x) for x in a.split(',') if x.strip()] for a in arrs]
+        ok('metal_ticks declares its five hit-sets (%d)' % len(sets), len(sets) == 5)
+        vals = [v for a in sets for v in a if v]
+        off = [v for v in vals
+               if abs(round(v / 0.0625) * 0.0625 - v) > 1e-9]
+        ok('every metal_ticks hit is OFF the 32nd grid, so it cannot read as a '
+           'meter the way all ten dead candidates did (%d of %d)'
+           % (len(off), len(vals)), vals and len(off) == len(vals))
+        bad = []
+        for a in sets:
+            g = [round(a[k + 1] - a[k], 4) for k in range(len(a) - 1)]
+            if not all(g[k + 1] > g[k] for k in range(len(g) - 1)):
+                bad.append(a)
+        ok('and every set LENGTHENS as it goes, because metal approaching '
+           'ambient contracts more and more slowly (%s)'
+           % (bad or 'all %d sets decelerate' % len(sets)), not bad)
 
     # ---- 3. THE METHODS ARE AUDIBLY DIFFERENT -----------------------------
     # This is the check that makes "stale" a measurement. Names are free; a
