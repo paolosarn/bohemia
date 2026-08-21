@@ -36,7 +36,8 @@
        taste choice: BEAT = 0.5s under the 120 BPM law, so a 600ms quiet window
        spans a full beat of this game's own cadence. Anything driven by the beat
        -- steps, animation, the mover -- cannot hide inside it.
-     - IT COUNTS DOM MUTATIONS, NOT PAINT, AND THAT IS A TRAP -- READ THIS ONE.
+     - IT COUNTS DOM MUTATIONS **AND CANVAS DRAW CALLS** (fixed 8/21; the note
+       below is why, and it stays because it is the reasoning). READ THIS ONE.
        A MutationObserver is installed once per document and left running; it is
        a counter, so re-entry is free. But DRAWING TO A CANVAS MUTATES NO DOM AT
        ALL, so a page busy painting looks perfectly still to this. If the thing
@@ -50,6 +51,13 @@
        THE FIX IS `cond`, BELOW, NOT A LONGER CEILING. When the gate knows what
        it is waiting for -- and a gate that is about to assert something always
        does -- pass that as the condition and quiescence is never consulted.
+       AND SINCE 8/21 THE DEFAULT ALSO SEES PAINT, so the 23 sites across 13
+       gates that read canvas pixels after a plain settle are no longer a row of
+       tripwires waiting to go off one at a time. `cond` is still the honest form
+       and still preferred; the counter is the safety net under the ones nobody
+       has got to yet. It bit twice before it was fixed -- navcluster's portrait
+       and opening's cold open -- and the second one looked like another lane's
+       bug for a day because a race does.
      - AND IT IS SAFE WHEN IT CANNOT SEE. Cross-origin frames, a detached page, a
        navigation mid-poll: every failure path falls back to sleeping out the
        remaining budget, which is what the code did before. A helper that turns
@@ -66,16 +74,41 @@ const QUIET = 600;        /* stillness required: > one 500ms beat */
 const FLOOR = 120;        /* never return before the handler can have started */
 
 const INSTALL = `(() => {
-  if (window.__BOH_SETTLE) return window.__BOH_SETTLE.n;
-  const s = { n: 0 };
+  if (window.__BOH_SETTLE) return window.__BOH_SETTLE.n + window.__BOH_SETTLE.c;
+  const s = { n: 0, c: 0 };
   try {
     const mo = new MutationObserver(recs => { s.n += recs.length; });
     mo.observe(document, { subtree: true, childList: true,
                            attributes: true, characterData: true });
     s.mo = mo;
   } catch (e) {}
+  /* AND PAINT, WHICH IS THE HALF THAT WAS MISSING AND COST THIS LANE TWO GATES.
+     A MutationObserver cannot see a canvas being drawn -- ctx.drawImage mutates
+     no DOM -- so a page busy painting a cutscene looked perfectly still, settle
+     returned early, and the gate measured an unpainted canvas. It bit
+     navcluster's portrait (0 of 4096 opaque on a portrait that is fully painted)
+     and opening's cold open (0 lit samples on a cutscene that plays fine), and
+     the second one presented as somebody else's bug for a day because it is a
+     RACE: green in the morning, red in the evening, same tree.
+     So count draw calls too. It is one increment on a handful of 2D methods,
+     the same trick the canvas-memory probe already uses on drawImage, and it is
+     side-effect free. A page that genuinely paints every frame simply never goes
+     quiet and pays its full budget -- which is EXACTLY what the fixed sleep it
+     replaced did, so the worst case is today's behaviour and never worse. */
+  try {
+    const P = (self.CanvasRenderingContext2D || {}).prototype;
+    if (P && !P.__bohSettleWrapped) {
+      for (const m of ['drawImage', 'putImageData', 'fillRect', 'clearRect',
+                       'fill', 'stroke', 'fillText', 'strokeText']) {
+        const orig = P[m];
+        if (typeof orig !== 'function') continue;
+        P[m] = function () { s.c++; return orig.apply(this, arguments); };
+      }
+      P.__bohSettleWrapped = true;
+    }
+  } catch (e) {}
   window.__BOH_SETTLE = s;
-  return s.n;
+  return s.n + s.c;
 })()`;
 
 /* the page a target belongs to: Page has .waitForTimeout, Frame has .page() */

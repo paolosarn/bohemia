@@ -117,3 +117,43 @@ header so nobody "tidies" one away.
 node gates/the_whole_demo_gate.js
 python3 gates/bohemia_gates.py --only "WHOLE DEMO"
 ```
+
+## A CORRECTION I OWE: THE COLD OPEN WAS MY BUG, NOT MAIN'S
+The 8/20 handoff recorded OPENING as *"the cold open draws 0 lit samples —
+arrived with main, verified by reverting my edit and getting the identical
+failure."* **That verification reverted the wrong edit, and the bug was mine.**
+
+`opening_gate` had a literal 9-second sleep before it sampled the cutscene
+canvas. The sleep-killing pass replaced it with `settle`'s default rule, which
+waits for the page to stop changing — measured with a MutationObserver.
+**Painting a canvas mutates no DOM.** So the page went "quiet" before the opening
+had drawn a frame, and the gate measured an unpainted canvas.
+
+It is a **race**, which is exactly why it looked like somebody else's work: the
+gate read **24/0 in the morning and 23/1 in the evening** on a tree whose only
+relevant difference was machine load. Reverting "my edit" at that point reverted
+a *later* commit; the settle conversion had already landed, so the revert proved
+nothing. Proved properly this time, both directions: restore the literal sleep
+and the same claim passes 24/0.
+
+**Second instance of a trap this lane documented in `bohemia_settle.js` the day
+before** (navcluster's portrait was the first: 0 of 4096 opaque on a portrait
+that is fully painted).
+
+### SO IT IS FIXED FOR ALL OF THEM, NOT JUST THIS ONE
+A scan found **23 sites across 13 gates** where a plain `settle` is followed
+closely by a canvas pixel read — a row of tripwires waiting to go off one at a
+time, each of which would look like a different lane's bug on the day it fired.
+Rather than hand-guess 23 conditions, `settle` now **counts canvas draw calls as
+well as DOM mutations**: one increment on a handful of 2D context methods, the
+same trick the canvas-memory probe already uses, side-effect free.
+
+Verified the general fix carries it: with `opening_gate`'s bespoke condition
+**removed**, relying only on the counter, it is still 24/0.
+
+**The worst case is exactly the old behaviour.** A page that genuinely paints
+every frame never goes quiet and pays its full budget — which is what the fixed
+sleep did. Measured after: `demo_gate` 47s, `crowd_gate` 34s, `border_gate` 8s,
+all green. `cond` remains the honest form and is still preferred where a gate
+knows what it is waiting for; the counter is the safety net under the ones nobody
+has got to yet.

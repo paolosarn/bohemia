@@ -156,7 +156,26 @@ function pw() {
     ok('and it has NOT seized the screen — the run is playable underneath',
       !(await shown(page)), 'a cutscene that takes the screen because you changed tabs is a thing you learn to dread');
     await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
-    await SETTLE(page, 9000);
+    /* WAIT FOR THE PIXELS, NOT FOR QUIET (8/21). This was a literal 9-second
+       sleep and the sleep-killing pass replaced it with SETTLE's default
+       quiescence rule -- WHICH CANNOT SEE A CUTSCENE. A MutationObserver counts
+       DOM changes and PAINTING A CANVAS MUTATES NO DOM, so the page went "quiet"
+       before the opening had drawn a frame and "it is DRAWING" reported 0 lit
+       samples on a cutscene that plays perfectly. Proved both ways: restore the
+       literal sleep and the same claim passes, 24/0.
+
+       IT IS A RACE, WHICH IS WHY IT LOOKED LIKE SOMEBODY ELSE'S BUG. This gate
+       read 24/0 in the morning and 23/1 in the evening on a tree whose only
+       relevant difference was load, and the handoff recorded it as "arrived with
+       main, verified by reverting my edit" -- a verification that reverted the
+       WRONG edit, because the settle conversion had already been committed. The
+       correction is in records/BOHEMIA_THE_WHOLE_DEMO_PLAYS_8_21_26.md.
+
+       SECOND INSTANCE OF A TRAP THIS LANE DOCUMENTED IN bohemia_settle.js THE
+       DAY BEFORE (navcluster's portrait was the first). The fix is the one that
+       docstring already names: when the gate knows what it is waiting for, pass
+       the CONDITION. Here it is literally the next line's assertion. */
+    await SETTLE(page, 9000, async () => (await painted(page)) > 0);
     ok('TAPPING WATCH PLAYS THE OPENING', await shown(page));
     const lit = await painted(page);
     ok('and it is DRAWING — the family is on screen, not an empty canvas (' + lit + ' lit samples)',
