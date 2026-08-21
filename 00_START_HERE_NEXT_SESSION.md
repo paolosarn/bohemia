@@ -16666,10 +16666,31 @@ THAT DID NOT APPLY LOOKS EXACTLY LIKE A MUTATION THAT DID NOT BITE. Assert the
 anchor count, and prefer a unique PHRASE over anything with punctuation in it.
 
 NEXT FOR THIS LANE, in order:
- 1. RUN THE SWEEP AS A GATE. TEN instances in a week says the machine, not my
-    attention, should be catching this. tools/bohemia_organ_reach.js is written
-    and honest; gates/sfx_wired_gate.py and silent_moments_gate are the shape to
-    copy. It currently reports 2 left: BohemiaCommitment.states (introspection)
+ 1. *** WHAT DOES BEING **INSIDE** ACTUALLY GET YOU? *** [PENDING Paolo] and it is
+    the top of the whole system. MEASURED, same person, three states:
+        COUNTED (sided, gave 9)   buttons: name / burn a bridge / do it / no / take
+        INSIDE  (burned, gave 20) buttons: name / do it / no / take
+        INSIDE  (burned, gave 60) IDENTICAL to gave 20 but for the meet counter
+    You climb five rungs and burn a bridge somewhere else to pass the last wall,
+    and the card is the rung below MINUS THE WALL. His INSIDE note says "the
+    newcomer is the old-timer now, and the next newcomer is your problem" -- a
+    DIRECTION, not a mechanic. Inventing the mechanic is writing canon he
+    reserved, so it went to him in plain words. WHEN HE ANSWERS, build it.
+    NOTE the shape of the likely answer is already half-built: BohemiaTies
+    .vouchFor requires a voucher who is INSIDE the same outfit and whose name you
+    know. His note reads like the player becoming that voucher.
+ 2. RUN THE SWEEP AS A GATE. DONE 8/21 -- gates/organ_reach_gate.js, TEN instances
+    in a week said the machine should catch this, not my attention. Four rules and
+    THE ALLOWLIST IS CHECKED IN BOTH DIRECTIONS so it cannot rot: nothing-anywhere
+    is a defect with no exemption; off-the-surface needs a WRITTEN REASON; a
+    declared helper that LATER GETS WIRED must be deleted; an entry for something
+    gone is rot. It caught its author THREE TIMES on day one.
+    *** AND IT STRUCTURALLY CANNOT CATCH THE ELEVENTH. *** A note is DATA, so it
+    has no call site to count -- five authored rung sentences ("Three times is a
+    pattern. They start expecting you.") had NEVER been rendered and the sweep
+    reports bohemia_belonging perfectly healthy. A GATE YOU TRUST FOR THE WRONG
+    QUESTION IS WORSE THAN NO GATE. Unread PROSE needs a gate that walks the card
+    and reads it (faction_arc part P), not one that counts callers. It currently reports 2 left: BohemiaCommitment.states (introspection)
     and BohemiaPeople.peopleOf (PEOPLE's module, not mine). EVERY organ this
     lane owns now has a caller on the surface he walks.
     KNOWN BLIND SPOT, ALREADY HANDLED, DO NOT REGRESS IT: the first sweep
