@@ -1,3 +1,126 @@
+RUN (run-eak241): 8/21 -- *** THE WHOLE DEMO PLAYS AND SOMETHING PROVES IT, AND
+17.8 MB CAME OFF EVERY BOOT. ***
+
+THE DEMO BOARD WAS STALE ON TWO OF ITS THREE REMAINING ROWS, and both were
+already done. Re-measured, not remembered:
+  ROW 3 "walking is still silent, the city has ZERO footstep code" -- DONE.
+    __surfaceOf classifies six grounds and posts BOHEMIA_STEP; the alpha catches
+    it at :7779 and calls stepSfx. footstep_gate 14/0.
+  ROW 1's FIGHT half "no combat entry on the walked surface" -- DONE. Walking
+    through a real door posts BOHEMIA_CITY_ENCOUNTER with a roster and the real
+    room dims, the shell assembles a fight, and it puts him back on the block.
+    combat_entry_gate 14/0, whole round trip.
+That is TWICE IN TWO DAYS the board has aimed the fleet's #1 priority at
+something already finished. A STATUS BOARD IS A CLAIM ABOUT THE TREE AND IT
+DECAYS LIKE ONE. Corrected in place, with the evidence.
+
+*** WHAT WAS ACTUALLY MISSING WAS THE JOURNEY. *** Every beat was green across
+FIVE GATES, THREE SURFACES, FIVE SEPARATE BOOTS, and the join between any two of
+them proved by nobody -- SWEEP 13 word for word. THE VISTA WAS THE SHARPEST CASE:
+vista_beat drives the CITY STANDALONE, and nobody opens it that way; he opens the
+alpha and taps the splash, and the city is an IFRAME inside a shell with its own
+toolbar and cards. The demo's money shot had never been checked on the surface
+his thumb touches.
+  I EXPECTED A BUG AND THERE WASN'T ONE. The valley opens by itself on day 2 in
+  the alpha, card at page 104-164 against a tab bar at 0-40, zero errors. THE
+  PROOF WAS THE DELIVERABLE: the next board item is friends playing it, and you
+  do not do that with a path nobody has walked once.
+  GATE: WHOLE DEMO (21 claims, 44s, one unbroken session, every beat a tap a
+  player could make -- no offerAccept(), no DAY.day=2, no forcing a panel).
+  Mutation-tested both ways. It does NOT replace FIRST NIGHT: that is the
+  microscope on day one, this is the SPINE. Do not dedupe them.
+
+ONE THING TO WATCH AT THE FRIENDS ROUND, an affordance not a bug: tapping only
+the obvious primary button goes GET UP -> SLEEP -> DAY 2 and never plays
+anything. The day's work is behind the PHONE and the only thing pointing at it is
+one unread badge. It is lit, and it is a gate claim now. If the round turns up
+"I didn't know what to do", look there first.
+
+*** 17.8 MB OFF EVERY BOOT, and the second trigger was the real bug. *** Board
+DECISION item 3 (drop the run slice preload once the wiring migrated -- it has).
+The board was wrong twice: it is 17.8 MB not 11, and it is a THIRD of the bill,
+not most of it. THE REAL HEADLINE IS BOHEMIA_CITY_TILES.js AT 28.04 MB, and that
+is WORLD's. Removing the timer was not enough: the generic tab loader opened
+`p-`+tab.dataset.p, the panel NAMED AFTER the tab, while the shell displays
+(dataset.p==='run')?'city':dataset.p -- so tapping RUN showed p-city and LOADED
+p-run. Two mappings of one tab, disagreeing. The loader borrows the shell's rule
+now. window.__loadRunSlice is exported and NOTHING in the product calls it; the
+four gates that need the frame live ask by name. GATE: FIRST BYTES.
+
+*** AND THE COLD OPEN WAS MY BUG, TWICE MISREPORTED, NOW FIXED FOR ALL 23 SITES.
+opening_gate sampled a cutscene canvas after a default settle. PAINTING A CANVAS
+MUTATES NO DOM, so the page went quiet before a frame was drawn. A RACE: 24/0 in
+the morning, 23/1 in the evening, same tree -- which is why it read as main's.
+A scan found 23 SITES ACROSS 13 GATES with that exact shape, a row of tripwires
+each of which would look like a different lane's bug on the day it fired. So
+settle now COUNTS CANVAS DRAW CALLS as well as DOM mutations. Verified the
+general fix carries it: opening is 24/0 with its bespoke condition REMOVED. Worst
+case is exactly the old behaviour (a page that always paints pays its full
+budget, which is what the sleep did). demo 47s, crowd 34s, border 8s, all green.
+
+*** AND THE SCOREBOARD THAT SAYS HOW MUCH OF THE GAME IS IN THE GAME WAS
+COUNTING A PAGE NOBODY OPENS. *** INTEGRATION printed "THE RUN IS THE GAME:
+30 / 35 systems integrated". Measured by reading the probes: 25 of 29 are
+answered ONLY by the run slice -- the file I stopped downloading this morning.
+The ledger's header has warned since 8/4 and this gate's comment since 8/15;
+nobody acted, including me.
+  I DID NOT BULK RE-POINT THE 24, and checking proved that right: against a
+  COMMENT-STRIPPED city, CITYSAVE exists ONLY IN COMMENTS, and walk_feel
+  (WALKMODES) and interior_pool's bank bytes are GENUINELY ABSENT from the city.
+  Rewriting wholesale would have shipped lies. The good news, written down so
+  nobody repeats the search: every one of those systems DOES have a real trace
+  in the city under its own spelling, so it is a RE-PROBING job, not a porting
+  job.
+  WHAT I DID: every INTEGRATED row now declares WHICH SURFACE PROVED IT and the
+  headline states the split. AND THE CLASSIFIER IS BEHAVIOURAL, because my first
+  one was not -- it searched each probe's SOURCE for the words RUN and CITY, a
+  MENTION not a USE, the exact disease the change exists to cure, reproduced
+  inside the cure. Mutation caught it. The honest question is one line: BLANK THE
+  RUN SLICE AND ASK THE PROBE AGAIN. That took a flattering 4 down to the true:
+      PROVED ON THE SURFACE HE PLAYS: 1 of 30  [combat (Dead Eye Dial)]
+      PROVED ONLY ON THE RUN SLICE:   29, printed BY NAME every run
+  Combat is re-pointed as the template (city posts BOHEMIA_CITY_ENCOUNTER, the
+  shell answers in cityEncounterIn, proved end to end by combat_entry_gate 14/0).
+  The run-slice clause is kept behind an `||` on purpose: nothing was deleted.
+
+*** THE GATE TOLD ME TO RUN A COMMAND AND THE COMMAND BROKE THE GAME. ***
+CURRENT SLICE was red with "regenerating via tools/build_current_slice.js changes
+nothing". I followed it. The phone DIED ON LOAD -- "bohemia_loop needs
+bohemia_clout.js for the CLOUT scale; there is no fallback on purpose" -- no TAKE
+IT button, no job, no objective. THE WHOLE DEMO went 21/0 -> 17/4. The phone is
+where the day's work is taken.
+  CAUGHT ONLY BECAUSE I RE-RAN THE JOURNEY AFTER A "MECHANICAL" FIX. Nothing
+  about regenerating a stale slice suggests it needs a playtest.
+  AND I BLAMED THE WRONG CHANGE FIRST: I had just patched two banners into the
+  city, assumed it was mine, reverted it, AND THE FAILURE PERSISTED -- which is
+  what proved the banners innocent. Fixed at the source, both halves (the script
+  tag in the phone demo AND the MODS list), so the instruction is safe now.
+  THE TOOL HAD ALREADY WRITTEN THE WARNING: "no require() in a browser bundle, so
+  a module missing from this list is a throw on load, not a quiet degrade."
+
+BANNER 14/0: engine/bohemia_clout.js and engine/bohemia_deeds.js were inlined
+under one combined banner with no `engine/` prefix, so the resync sweep read them
+as ZERO modules. A BANNER IS NOT A COMMENT HERE, IT IS THE INDEX -- an unseen
+module drifts a week behind its engine file with every gate green (it already
+happened to the floorplan and the overmap). Comments only, and the tool PROVES it:
+both bodies verbatim afterwards, file grows by exactly the banner text (+57).
+The sweep now indexes 95 modules where it saw 93.
+
+VERIFIED NOT MINE, IN A CLEAN WORKTREE RATHER THAN BY ASSUMPTION: RUN GATE's
+DOOR WALL reds arrived with main. origin/main alone is 123/3; my branch is 124/2,
+one BETTER. Also not mine: RUN PEOPLE (opens the run file directly -- and its
+stated premise, "THE RUN IS THE SURFACE PAOLO PLAYS", is the stale belief the
+ledger work above documents), WALK DEADLOCK, and the sound lane's reds.
+
+NEXT FOR THIS LANE:
+ 1. THE FRIENDS ROUND IS PAOLO'S TO RUN and it is what the board says comes next.
+    Nothing engineering-side blocks it.
+ 2. BOHEMIA_CITY_TILES.js AT 28 MB is now the whole time-to-first-play problem
+    and it is WORLD's bank, not mine. Written down, not touched.
+ 3. The judge-sheet gigabyte (VOTE/ART/LOOK, 861 MB, released never) is still
+    ART's and CHARACTER's; CHARACTER has the fix (smaller DIMENSIONS -- decoded
+    cost is w*h*4 whatever the file weighs).
+
 CHARACTER (character-0lurbs): 8/21 (b) LATEST -- *** TWO HAIRSTYLES ON ONE HEAD.
 He said "Continue fixing east and west hair pls". Two defects, both PROFILE ONLY. ***
 
@@ -381,8 +504,15 @@ TWO REDS WERE REAL AND NEITHER WAS A BROKEN GAME:
     which is the entire point of that law. Re-ran tools/bohemia_words_book.py;
     only the fingerprint moved (same 1910 lines, same 1864 cited).
 
-ALSO GREEN, no work needed, they cleared as main moved: OPENING 24/0, DEMO 23/0,
-TOOLS RUN 8/0, JUDGE SURFACE 28/0, FIGHT MUSIC 47/0.
+ALSO GREEN, no work needed: DEMO 23/0, TOOLS RUN 8/0, JUDGE SURFACE 28/0,
+FIGHT MUSIC 47/0.
+  *** AND OPENING, WHICH I GOT WRONG TWICE AND HAVE NOW FIXED (see 8/21 above).
+  I wrote "cleared as main moved" and, before that, "arrived with main, verified
+  by reverting my edit". BOTH WRONG: opening_gate sampled a cutscene CANVAS after
+  a default settle, painting a canvas mutates no DOM, and it was a RACE -- so it
+  read green whenever I happened to catch it and red otherwise, and "reverting my
+  edit" reverted a later commit than the one that caused it. A FLAPPING GATE IS
+  NOT A GATE THAT CLEARED. ***
 
 *** THE REDS THAT ARE LEFT ARE REAL CONTENT, AND THEY BELONG TO OTHER LANES.
     Per the sweep law, each gets a written line rather than me editing another

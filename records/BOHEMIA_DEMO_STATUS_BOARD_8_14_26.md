@@ -80,12 +80,38 @@ WHAT IS STILL TRUE, AND IT IS SHORT:
 1. ~~**RUN P0-DOOR**~~ — **DONE, corrected 8/20 by measurement.** Tapping the
    splash lands on the game (tab RUN, panel p-city, DAY 1 offered) and the
    cold open is offered right there as "DAY 1 BEGINS BEFORE THE DAY / WATCH /
-   NOT NOW". Gated as OPENS ON THE GAME. **The next item is now #2.**
-2. **SOUNDS P0-WALK** — send a step event from the city; the bank, the
-   classifier and the parent-side player all already exist.
-3. **COMBAT RF4-LIFT** — the free-movement budget, and the indoor fight
-   entry that closes row 1's fight half in the same job.
-4. Then the closed playtest protocol: friends round, revise, fresh eyes.
+   NOT NOW". Gated as OPENS ON THE GAME.
+2. ~~**SOUNDS P0-WALK**~~ — **DONE, re-measured 8/21 by RUN.** The board's own
+   row 3 above is stale. The city classifies the ground under his feet
+   (`__surfaceOf`, six surfaces ported from `sfxGround`) and posts
+   `BOHEMIA_STEP`; the alpha catches it at `:7779` and calls `stepSfx`.
+   `footstep_gate` **14/0**.
+3. ~~**the FIGHT half of row 1**~~ — **DONE, re-measured 8/21 by RUN.** Walking
+   through a real door posts `BOHEMIA_CITY_ENCOUNTER` with a roster and the real
+   room dimensions, the shell assembles a fight, and it puts him back on the
+   block afterwards. `combat_entry_gate` **14/0**, whole round trip.
+   (COMBAT RF4-LIFT — the free-movement budget — is still open, and is NOT
+   demo-critical now that the entry works.)
+4. **THE DEMO PLAYS END TO END AND SOMETHING PROVES IT (RUN, 8/21).** What was
+   actually missing was not a beat, it was the JOURNEY: five gates, three
+   surfaces, five separate boots, and the join between any two of them proved by
+   nobody — SWEEP 13 word for word. The vista was the sharpest case, because
+   `vista_beat_gate` drives the city STANDALONE and nobody opens it that way.
+   The money shot had never been checked inside the alpha. It is now, and it
+   works: day 2, card at page 104-164 against a tab bar at 0-40, zero errors.
+   Gate: **WHOLE DEMO** (`gates/the_whole_demo_gate.js`, 21 claims, 44s).
+   Record: `records/BOHEMIA_THE_WHOLE_DEMO_PLAYS_8_21_26.md`.
+5. **NOW the closed playtest protocol: friends round, revise, fresh eyes.**
+   The one thing to watch, written down in the record: tapping ONLY the obvious
+   primary button goes GET UP -> SLEEP -> DAY 2 and never plays anything. The
+   day's work is behind the PHONE and the thing pointing at it is one unread
+   badge. It is lit, it is now a gate claim, and a friend who taps it plays the
+   game — but if the round turns up "I didn't know what to do", look there first.
+
+*** A STATUS BOARD IS A CLAIM ABOUT THE TREE AND IT DECAYS LIKE ONE. That is
+twice in two days this board has aimed the fleet's top priority at something
+already finished (row 7 on 8/20, rows 3 and 1-fight today). RE-MEASURE BEFORE
+STEERING ANYBODY. ***
 CUT FROM THE DEMO, STATED SO NOBODY BUILDS THEM: camp, quests 4-5, the
 healing montage, the field-surgery animation set.
 

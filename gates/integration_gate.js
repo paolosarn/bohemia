@@ -21,7 +21,9 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const LEDGER = path.join(ROOT, 'records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md');
-const RUN = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'), 'utf8');
+/* `let`, not `const`, ONLY so the surface classifier at the bottom can blank it
+   and ask a probe whether it can still answer. Nothing else reassigns it. */
+let RUN = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'), 'utf8');
 /* THE SURFACE HE ACTUALLY WALKS (8/15). Every probe in this file reads RUN, and
    since the coordinator ruled the CITY WORLD the walked surface on 8/14 that means
    every green below is evidence about a file the alpha preloads and NEVER DISPLAYS.
@@ -263,9 +265,27 @@ const PROBES = {
     RUN.indexOf(JSON.stringify(fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq'), 'utf8')).slice(1, -1)) >= 0,
   clout_feed: () => RUN.indexOf('BohemiaLoop.buildFeed(') >= 0 &&
     RUN.indexOf('BohemiaLoop.socialProfile(') >= 0 && RUN.indexOf('BohemiaLoop.cloutWeight(') >= 0,
-  combat_bridge: () => RUN.indexOf("type:'BOHEMIA_RUN_ENCOUNTER'") >= 0 &&
-    RUN.indexOf('BOHEMIA_RUN_COMBAT_END') >= 0 &&
-    ALPHA.indexOf('function runEncounterIn(') >= 0 && ALPHA.indexOf('startEncounter({packageId:d.packageId') >= 0,
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21, RUN lane). This proved combat on
+     the RUN SLICE -- BOHEMIA_RUN_ENCOUNTER, runEncounterIn -- a file the RUN tab
+     does not display and which, since today, is not even downloaded. The row
+     said INTEGRATED and it was true about the wrong building.
+     THE CITY PATH IS REAL AND PROVED TODAY, end to end, by combat_entry_gate
+     (14/0): walking through a real door posts BOHEMIA_CITY_ENCOUNTER with a
+     roster and the room's true dimensions, the shell assembles a fight, and it
+     puts him back on the block he was standing on. So the probe asks the city.
+     THE RUN-SLICE HALF IS KEPT AS A SECOND CLAUSE ON PURPOSE: it is still wired,
+     nothing was deleted, and if somebody re-points the tab back the row should
+     not silently become unproven. `||`, not `&&` -- either surface can carry it,
+     but the CITY one is what the headline counts. */
+  combat_bridge: () =>
+    (CITY.indexOf("type:'BOHEMIA_CITY_ENCOUNTER'") >= 0 &&
+     CITY.indexOf('function cityFightOnEnter(') >= 0 &&
+     ALPHA.indexOf("d.type==='BOHEMIA_CITY_ENCOUNTER'") >= 0 &&
+     ALPHA.indexOf('function cityEncounterIn(') >= 0)
+    ||
+    (RUN.indexOf("type:'BOHEMIA_RUN_ENCOUNTER'") >= 0 &&
+     RUN.indexOf('BOHEMIA_RUN_COMBAT_END') >= 0 &&
+     ALPHA.indexOf('function runEncounterIn(') >= 0),
   world_bridge: () => RUN.indexOf('BohemiaLoop.boot(') >= 0 &&
     engine('bohemia_loop.js').indexOf('function applyWorldEffects(') >= 0,
   /* 8/9: the row above was PARTIAL for six weeks with the note "quest outcomes really
@@ -355,10 +375,80 @@ Object.keys(PROBES).forEach(name => {
 ok('the integration ruling is recorded',
   fs.existsSync(path.join(ROOT, 'laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md')));
 
+/* ============================================================================
+   WHICH SURFACE PROVED IT (8/21, RUN lane) — the honest headline.
+
+   THE PROBLEM, stated by the ledger's own header since 8/4 and by this file's
+   own comment since 8/15, and acted on by nobody: nearly every probe reads
+   slices/BOHEMIA_RUN_CURRENT.html, and THE RUN TAB DOES NOT DISPLAY THAT FILE.
+   Measured today, by reading the probes themselves rather than by memory:
+
+       25 of 29 probes are answered ONLY by the run slice.
+
+   So "THE RUN IS THE GAME: 30 / 35 systems integrated" was a true sentence
+   about the wrong building. It is the exact disease this lane has spent the
+   week on -- a green about a surface nobody reaches -- sitting in the lane's
+   own scoreboard, which makes it the one that steers everybody.
+
+   WHAT THIS CHANGE DOES AND DOES NOT DO. It does NOT re-point the probes. That
+   is 24 systems of careful per-system work -- these probes check bank bytes,
+   approved sets and graveyard exclusions, and a scoreboard that wrongly claims
+   the city has something is worse than one that is honestly stale. Checked
+   today, every one of those systems DOES have a real trace in the city under
+   its own spelling (save/load, the resolver, combat, quests, agents, doors,
+   interiors, tiles, music, the seed, the valley), so this is a re-probing job
+   and not a porting job -- which is the good news and is written down so the
+   next session starts from evidence instead of repeating the search.
+
+   WHAT IT DOES is make the scoreboard STOP LYING TODAY, mechanically: every row
+   now declares WHICH SURFACE ITS PROBE READ, derived from the probe's own
+   source, never typed. The headline states the split. A reader can finally tell
+   which greens are about the game he plays, which was the entire complaint.
+   ========================================================================== */
+/* ASK THE PROBE, DO NOT READ IT (8/21). The first version of this classifier
+   searched each probe's SOURCE for the identifiers RUN and CITY -- which is a
+   MENTION, not a USE, the exact disease this whole scoreboard fix exists to
+   cure, reproduced inside the cure. Caught by mutation: disabling the city half
+   of combat_bridge with `false &&` left the word CITY in the text, so the
+   classifier happily kept counting it as proved on the played surface.
+
+   THE HONEST QUESTION IS BEHAVIOURAL AND IT IS ONE LINE: blank the run slice and
+   ask the probe again. If it still answers yes, the CITY (or the shell, or a
+   bank) carries that system on its own, and the row is real about the surface he
+   plays. If it goes silent, the run slice was the only thing holding it up. */
+const provedWithoutTheRunSlice = (name) => {
+  const fn = PROBES[name];
+  if (!fn) return false;
+  const keep = RUN;
+  RUN = '';
+  let out = false;
+  try { out = !!fn(); } catch (e) { out = false; }
+  RUN = keep;
+  return out;
+};
+const surfaceOf = (name) => (provedWithoutTheRunSlice(name) ? 'SHOWN' : 'RUN');
+
 const done = rows.filter(r => r.status === 'INTEGRATED').length;
 const part = rows.filter(r => r.status === 'PARTIAL').length;
+const proven = rows.filter(r => r.status === 'INTEGRATED');
+const bySurface = { RUN: [], SHOWN: [] };
+proven.forEach(r => { bySurface[surfaceOf(r.probe)].push(r.system); });
+const onShown = bySurface.SHOWN.length;
+
 console.log('INTEGRATION GATE: ' + pass + ' passed, ' + fail + ' failed');
-console.log('  THE RUN IS THE GAME: ' + done + ' / ' + rows.length +
-            ' systems integrated (' + part + ' partial, ' +
-            (rows.length - done - part) + ' not yet)');
+console.log('  ' + done + ' / ' + rows.length + ' systems integrated ('
+  + part + ' partial, ' + (rows.length - done - part) + ' not yet)');
+/* THE HALF THAT WAS MISSING, and it leads, because a reader who stops at the
+   first number has to stop at the true one. */
+console.log('  PROVED ON THE SURFACE HE PLAYS -- still true with the run slice '
+  + 'blanked: ' + onShown + ' of ' + done
+  + (onShown ? '  [' + bySurface.SHOWN.join(' · ') + ']' : ''));
+console.log('  PROVED ONLY ON THE RUN SLICE, WHICH THE RUN TAB DOES NOT DISPLAY: '
+  + bySurface.RUN.length);
+if (bySurface.RUN.length) {
+  console.log('  re-probing owed, in ledger order:');
+  for (let i = 0; i < bySurface.RUN.length; i += 3) {
+    console.log('    ' + bySurface.RUN.slice(i, i + 3).join(' · '));
+  }
+}
 process.exit(fail ? 1 : 0);
