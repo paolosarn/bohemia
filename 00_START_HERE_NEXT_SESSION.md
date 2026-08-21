@@ -58,6 +58,60 @@ general fix carries it: opening is 24/0 with its bespoke condition REMOVED. Wors
 case is exactly the old behaviour (a page that always paints pays its full
 budget, which is what the sleep did). demo 47s, crowd 34s, border 8s, all green.
 
+*** AND THE SCOREBOARD THAT SAYS HOW MUCH OF THE GAME IS IN THE GAME WAS
+COUNTING A PAGE NOBODY OPENS. *** INTEGRATION printed "THE RUN IS THE GAME:
+30 / 35 systems integrated". Measured by reading the probes: 25 of 29 are
+answered ONLY by the run slice -- the file I stopped downloading this morning.
+The ledger's header has warned since 8/4 and this gate's comment since 8/15;
+nobody acted, including me.
+  I DID NOT BULK RE-POINT THE 24, and checking proved that right: against a
+  COMMENT-STRIPPED city, CITYSAVE exists ONLY IN COMMENTS, and walk_feel
+  (WALKMODES) and interior_pool's bank bytes are GENUINELY ABSENT from the city.
+  Rewriting wholesale would have shipped lies. The good news, written down so
+  nobody repeats the search: every one of those systems DOES have a real trace
+  in the city under its own spelling, so it is a RE-PROBING job, not a porting
+  job.
+  WHAT I DID: every INTEGRATED row now declares WHICH SURFACE PROVED IT and the
+  headline states the split. AND THE CLASSIFIER IS BEHAVIOURAL, because my first
+  one was not -- it searched each probe's SOURCE for the words RUN and CITY, a
+  MENTION not a USE, the exact disease the change exists to cure, reproduced
+  inside the cure. Mutation caught it. The honest question is one line: BLANK THE
+  RUN SLICE AND ASK THE PROBE AGAIN. That took a flattering 4 down to the true:
+      PROVED ON THE SURFACE HE PLAYS: 1 of 30  [combat (Dead Eye Dial)]
+      PROVED ONLY ON THE RUN SLICE:   29, printed BY NAME every run
+  Combat is re-pointed as the template (city posts BOHEMIA_CITY_ENCOUNTER, the
+  shell answers in cityEncounterIn, proved end to end by combat_entry_gate 14/0).
+  The run-slice clause is kept behind an `||` on purpose: nothing was deleted.
+
+*** THE GATE TOLD ME TO RUN A COMMAND AND THE COMMAND BROKE THE GAME. ***
+CURRENT SLICE was red with "regenerating via tools/build_current_slice.js changes
+nothing". I followed it. The phone DIED ON LOAD -- "bohemia_loop needs
+bohemia_clout.js for the CLOUT scale; there is no fallback on purpose" -- no TAKE
+IT button, no job, no objective. THE WHOLE DEMO went 21/0 -> 17/4. The phone is
+where the day's work is taken.
+  CAUGHT ONLY BECAUSE I RE-RAN THE JOURNEY AFTER A "MECHANICAL" FIX. Nothing
+  about regenerating a stale slice suggests it needs a playtest.
+  AND I BLAMED THE WRONG CHANGE FIRST: I had just patched two banners into the
+  city, assumed it was mine, reverted it, AND THE FAILURE PERSISTED -- which is
+  what proved the banners innocent. Fixed at the source, both halves (the script
+  tag in the phone demo AND the MODS list), so the instruction is safe now.
+  THE TOOL HAD ALREADY WRITTEN THE WARNING: "no require() in a browser bundle, so
+  a module missing from this list is a throw on load, not a quiet degrade."
+
+BANNER 14/0: engine/bohemia_clout.js and engine/bohemia_deeds.js were inlined
+under one combined banner with no `engine/` prefix, so the resync sweep read them
+as ZERO modules. A BANNER IS NOT A COMMENT HERE, IT IS THE INDEX -- an unseen
+module drifts a week behind its engine file with every gate green (it already
+happened to the floorplan and the overmap). Comments only, and the tool PROVES it:
+both bodies verbatim afterwards, file grows by exactly the banner text (+57).
+The sweep now indexes 95 modules where it saw 93.
+
+VERIFIED NOT MINE, IN A CLEAN WORKTREE RATHER THAN BY ASSUMPTION: RUN GATE's
+DOOR WALL reds arrived with main. origin/main alone is 123/3; my branch is 124/2,
+one BETTER. Also not mine: RUN PEOPLE (opens the run file directly -- and its
+stated premise, "THE RUN IS THE SURFACE PAOLO PLAYS", is the stale belief the
+ledger work above documents), WALK DEADLOCK, and the sound lane's reds.
+
 NEXT FOR THIS LANE:
  1. THE FRIENDS ROUND IS PAOLO'S TO RUN and it is what the board says comes next.
     Nothing engineering-side blocks it.
