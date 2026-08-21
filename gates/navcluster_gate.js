@@ -124,6 +124,14 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
      delete this section outright rather than prop it up. */
   await page.evaluate(() => {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    /* ASK FOR THE RUN SLICE BY NAME (8/21). It used to arrive on a 2.5s timer
+       and again from the generic tab loader -- 17.8 MB on every player's boot
+       for a panel the shell never displays. That is gone; the loader is exported
+       as window.__loadRunSlice and NOTHING in the product calls it, which is the
+       point: a dependency you can grep beats one that happens on a timer. This
+       gate is one of the four things that genuinely needs the frame live, so it
+       asks. */
+    try { window.__loadRunSlice && window.__loadRunSlice(); } catch (e) { }
     const r = document.getElementById('p-run'); if (r) r.classList.add('on');
   }).catch(() => {});
   /* WAIT FOR THE PIXELS, NOT FOR QUIET (8/20, RUN lane). This was a 22-second

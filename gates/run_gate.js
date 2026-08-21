@@ -420,6 +420,7 @@ async function alphaRun() {
        outright, not propped up. */
     await page.evaluate(() => {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+      try { window.__loadRunSlice && window.__loadRunSlice(); } catch (e) { }
       const pr = document.getElementById('p-run');
       pr.classList.add('on');
       /* AND IT NEEDS A REAL BOX, which is the second half of the red ART flagged.

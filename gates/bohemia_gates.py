@@ -269,6 +269,23 @@ GATES = [
      'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
      'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
      'where the overlook is and never places it', True),
+    ('FIRST BYTES',    ['node', 'gates/first_bytes_gate.js'],
+     'WHAT A FRIEND DOWNLOADS BEFORE HE CAN MOVE. Demo board DECISION item 3 said the run '
+     'slice preload should be dropped once the wiring migrated -- it has, so it is. The board '
+     'was wrong twice and both were measured rather than repeated: it is 17.8 MB not 11, and '
+     'it is about a THIRD of the bill not "most of" it (BOHEMIA_CITY_TILES.js at 28.04 MB is '
+     'the real headline and belongs to WORLD). REMOVING THE TIMER WAS NOT ENOUGH, and the '
+     'second trigger is the actual bug: the generic tab loader opened `p-` + tab.dataset.p, '
+     'the panel NAMED AFTER the tab, while the shell displays (dataset.p===run)?city:dataset.p '
+     '-- so tapping RUN showed p-city and LOADED p-run, 17.8 MB pulled in to fill a panel '
+     'nobody will ever look at. Two mappings of one tab, disagreeing, the same family as every '
+     'other bug this week. This holds the boot clean, holds the two mappings together, and '
+     'holds that deferring never becomes deleting (the frame, its data-src and the exported '
+     'loader all stay, because four gates still need it live). IT PROVES ITS OWN EYES FIRST: '
+     'playwright\'s response/requestfinished do not fire with a size for a large file:// iframe '
+     'navigation, so the first probe reported the slice as NOT FETCHED for a file that '
+     'demonstrably was -- this one asserts it saw the two fetches that MUST happen before it '
+     'reports a third one absent. Mutation-tested both ways', False),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
