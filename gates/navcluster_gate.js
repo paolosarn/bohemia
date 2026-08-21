@@ -64,6 +64,57 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   await page.click('#front').catch(() => {});
   await SETTLE(page, 1200);
   await page.click('.tab[data-p="run"]');
+
+  /* MEASURED HERE, BEFORE THE HARNESS FORCES THE DEAD PANEL ON. The block below
+     switches the visible panel to p-run to reach the run slice, and a HIDDEN
+     panel's canvas measures 0px -- so asking the city about its screen share
+     after that reported 0%, which is not a fact about the layout, it is a fact
+     about which panel is showing. This is the moment the RUN tab has opened the
+     city and nothing has been forced yet: the real surface, in its real state. */
+  /* THE SCREEN-SHARE CLAIM MOVED TO THE SURFACE HE ACTUALLY LOOKS AT (8/20).
+     It measured the RUN SLICE, which this gate's own harness admits is dead as a
+     tab and only reachable by force-showing a panel the UI no longer exposes.
+     Measured there it reported "101px of a 150px viewport, 67%" -- and a
+     force-shown hidden panel reports 0x0 when it is left alone, so the number
+     was never about anything. VERIFY ON THE REAL SURFACE (7/18): the RUN tab
+     opens the CITY, so the city frame is where "how much screen does the world
+     get" has a meaning. Measured there: 779px of an 804px viewport, 97%.
+     His words were about the RUN SCREEN, and the run screen is the city now. */
+  await SETTLE(page, 20000, async () => {
+    const x = page.frames().find(fr => fr.name() === 'cityFrame');
+    if (!x) return false;
+    try { return await x.evaluate(() => { const c = document.getElementById('cv');
+      return !!(c && c.getBoundingClientRect().height > 50); }); } catch (e) { return false; }
+  });
+  const cf = page.frames().find(fr => fr.name() === 'cityFrame');
+  ok('THE RUN TAB REALLY OPENS THE CITY -- the surface his words are about', !!cf);
+  if (cf) {
+    const c = await cf.evaluate(() => {
+      const cv = document.getElementById('cv');
+      const b = cv ? cv.getBoundingClientRect() : null;
+      const face = document.getElementById('modeFace');
+      let lit = 0, of = 0;
+      if (face && face.width) {
+        try {
+          const d = face.getContext('2d').getImageData(0, 0, face.width, face.height).data;
+          of = face.width * face.height;
+          for (let i = 3; i < d.length; i += 4) if (d[i] > 8) lit++;
+        } catch (e) { }
+      }
+      return { canvasH: b ? Math.round(b.height) : 0, viewH: window.innerHeight,
+               pads: document.querySelectorAll('#pad .pb').length,
+               ctl: !!document.getElementById('ctl'), lit: lit, of: of };
+    });
+    const share = c.viewH ? c.canvasH / c.viewH : 0;
+    ok('THE WORLD GETS THE SCREEN: on the surface the RUN tab opens, the canvas is '
+      + c.canvasH + 'px of a ' + c.viewH + 'px viewport (' + (100 * share).toFixed(0)
+      + '%) — the controls float over it instead of carving a bar out of it',
+      share >= 0.85);
+    ok('EIGHT CARDINALS on the live surface too (' + c.pads + '/8)', c.pads === 8);
+    ok('THE PORTRAIT IS REALLY DRAWN THERE TOO (' + c.lit + '/' + c.of + ' opaque) — '
+      + '"dont present me nothing until i see the portrait"', c.of > 0 && c.lit > c.of * 0.3);
+    ok('and the old control bar never came back on the live surface either', !c.ctl);
+  }
   /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as a
      TAB, but it is still wired into the shell and what this gate measures is still
      alive in it - so the harness shows that panel directly instead of tapping a tab
@@ -75,7 +126,31 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
     const r = document.getElementById('p-run'); if (r) r.classList.add('on');
   }).catch(() => {});
-  await SETTLE(page, 22000);
+  /* WAIT FOR THE PIXELS, NOT FOR QUIET (8/20, RUN lane). This was a 22-second
+     sleep, and the sleep-killing pass replaced it with SETTLE's default
+     quiescence rule -- WHICH CANNOT SEE THIS. A MutationObserver counts DOM
+     changes, and PAINTING A CANVAS MUTATES NO DOM AT ALL. So the page went
+     "quiet" long before the portrait was drawn, settle returned early, and
+     "THE PORTRAIT IS REALLY DRAWN" reported 0 of 4096 opaque pixels on a
+     portrait that is in fact fully painted. Proved both ways: restore the
+     literal 22-second sleep and the same claim passes, 4096 of 4096.
+     That was my own regression, and the honest fix is the one settle's own
+     docstring already names -- when the gate KNOWS what it is waiting for, pass
+     the condition and quiescence is never consulted. Here the condition is
+     literally the thing the next line asserts: the portrait has pixels in it. */
+  await SETTLE(page, 22000, async () => {
+    const fr = page.frames().find(x => x.name() === 'runFrame');
+    if (!fr) return false;
+    try {
+      return await fr.evaluate(() => {
+        const c = document.getElementById('actface');
+        if (!c || !c.width) return false;
+        const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+        for (let i = 3; i < d.length; i += 4) if (d[i] > 8) return true;
+        return false;
+      });
+    } catch (e) { return false; }
+  });
   const f = page.frames().find(fr => fr.name() === 'runFrame');
   ok('the RUN tab really loads inside the alpha', !!f);
   if (!f) { console.log('NAV CLUSTER GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed'); await browser.close(); process.exit(1); }
@@ -110,10 +185,6 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     r.lit + '/' + r.of + ' opaque) — "dont present me nothing until i see the portrait"',
     r.of > 0 && r.lit > r.of * 0.3);
   ok('THE OLD CONTROL BAR IS GONE (#ctl ' + (r.ctl ? 'still present' : 'absent') + ')', !r.ctl);
-  const share = r.viewH ? r.canvasH / r.viewH : 0;
-  ok('THE WORLD GETS THE SCREEN: the canvas is ' + r.canvasH + 'px of a ' + r.viewH + 'px viewport (' +
-    (100 * share).toFixed(0) + '%) — the controls float over it instead of carving a bar out of it',
-    share >= 0.85);
 
   /* the two surfaces it was copied FROM still have theirs */
   const alpha = fs.readFileSync(ALPHA, 'utf8');

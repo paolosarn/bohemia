@@ -36,8 +36,20 @@
        taste choice: BEAT = 0.5s under the 120 BPM law, so a 600ms quiet window
        spans a full beat of this game's own cadence. Anything driven by the beat
        -- steps, animation, the mover -- cannot hide inside it.
-     - IT COUNTS DOM MUTATIONS, not paint. A MutationObserver is installed once
-       per document and left running; it is a counter, so re-entry is free.
+     - IT COUNTS DOM MUTATIONS, NOT PAINT, AND THAT IS A TRAP -- READ THIS ONE.
+       A MutationObserver is installed once per document and left running; it is
+       a counter, so re-entry is free. But DRAWING TO A CANVAS MUTATES NO DOM AT
+       ALL, so a page busy painting looks perfectly still to this. If the thing
+       you are waiting for is PIXELS, the default rule will return early and your
+       gate will measure an unpainted canvas.
+       IT ALREADY DID, the same day this was written. navcluster_gate's literal
+       22-second sleep became a default settle, the page went quiet long before
+       the portrait was drawn, and "THE PORTRAIT IS REALLY DRAWN" reported 0 of
+       4096 opaque pixels on a portrait that was in fact fully painted. Proved
+       both ways: restore the literal sleep and the same claim passes 4096/4096.
+       THE FIX IS `cond`, BELOW, NOT A LONGER CEILING. When the gate knows what
+       it is waiting for -- and a gate that is about to assert something always
+       does -- pass that as the condition and quiescence is never consulted.
      - AND IT IS SAFE WHEN IT CANNOT SEE. Cross-origin frames, a detached page, a
        navigation mid-poll: every failure path falls back to sleeping out the
        remaining budget, which is what the code did before. A helper that turns
