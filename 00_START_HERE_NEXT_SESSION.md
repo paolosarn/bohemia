@@ -1,3 +1,58 @@
+CHARACTER (character-0lurbs): 8/21 (b) LATEST -- *** TWO HAIRSTYLES ON ONE HEAD.
+He said "Continue fixing east and west hair pls". Two defects, both PROFILE ONLY. ***
+
+Facing S is byte-identical before and after everything below, which is why three weeks
+of front views never caught either one.
+
+1. HIS PAINTED BOB WAS DRAWING UNDER EVERY HAIRSTYLE. hair/curtain-bob is a PD layer;
+   a generated hairstyle stamps after it, so front-on it was simply covered. In profile
+   it is not: genHair spans the PART GRID and his paint reaches two cells past it each
+   side at the crown (facing E row 10: part ids x52-59, his paint x50-61). His bob's
+   ramp holds exactly [27,26,32] and [237,232,220], so the near-white one stuck out over
+   the forehead. 1,349 leaked pixels over 15 styles x 3 facings; 3,677 over all 8.
+   THE FIX IS NOT MORE HAIR -- widening the span patches the symptom and leaves two
+   hairstyles stacked on one head. The PD hair layer is not DRAWN while a hair garment
+   is worn. RIG LAW untouched: his bob is not edited and returns the moment one is not.
+2. THE FADE STOPPED HALFWAY IN PROFILE. fadeBot was a HAND COPY of sideBot made before
+   the 8/2 profile fix and never updated with it, so the taper ended mid-mass. Tinted
+   pixels sat at mean height 0.74 of the hair instead of 0.91, twice as many, smeared
+   into the crown. It IS sideBot now -- one expression, cannot drift.
+
+I GUESSED THE FADE FIRST AND I WAS WRONG. Fixed it, blob still there. Then measured:
+zero hair pixels above luminance 120 on a ramp topping out at 50, so the bright pixels
+were never hair. Pulling PD layers one at a time named the bob in one pass. The fade fix
+stayed only because I then measured it ON ITS OWN -- a change that survives because it
+was made on the way to something else is not verified, it is just present.
+
+AND THE FIRST PICTURE COULD NOT HAVE SHOWN IT: the tool stamped generators onto
+buildFrame's output by hand, which matches the render order but SKIPS THE PD LAYER LOGIC
+ENTIRELY. It drives G_WORN now. VERIFY ON THE REAL SURFACE means the real path, not a
+composite that resembles it.
+
+GATES: hair_gate 27/0. His bob never shows under a worn hairstyle (15 styles x 8 facings,
+counted by his own ramp colours on the worn path, pinned at 0; mutation fires at 3,677).
+The fade bottom IS the hair bottom, asserted in SOURCE because the bug was two diverging
+copies of one expression. Record:
+records/BOHEMIA_TWO_HAIRSTYLES_ON_ONE_HEAD_8_21_26.txt
+LOOK tab: "THE WHITE BLOB IN PROFILE", before beside after, both from the SAME code.
+
+ONE HONEST LOOSE END: CROWD went 15/1 once inside a twenty-gate loop, then passed four
+times running on its own. That is a FLAKE UNDER LOAD, not a pass. Recorded rather than
+called green. Not in the hair path; nothing here touches the crowd.
+
+THE CONTAINER CAME UP ON AN 8/14 TREE AGAIN, second session running, with 8/12-era files
+staged that look exactly like unfinished work. They are not: all five were strictly older
+copies of things already on main. DIFF AGAINST origin/main BEFORE BELIEVING A DIRTY TREE.
+
+NEXT IN THIS LANE
+  - STEP 5 continues: seams, hems, laces, buckles and stitch lines all still step by a
+    whole cell. Measure which actually read coarse at 112 before assuming.
+  - The same PART-GRID-vs-PAINT gap that hid his bob may affect OTHER PD layers in
+    profile (hat/durag, facial/punk-face). Worth one measurement pass.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+
+---
+
 CHARACTER (character-0lurbs): 8/21 (a) LATEST -- *** THE HAIR STOPPED BEING STRAIGHT.
 Row 2X STEP 5 has started: the first content that actually uses the new pixels. ***
 

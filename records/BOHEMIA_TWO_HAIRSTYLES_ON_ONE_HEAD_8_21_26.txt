@@ -1,0 +1,94 @@
+BOHEMIA -- TWO HAIRSTYLES ON ONE HEAD, AND A FADE THAT STOPPED HALFWAY
+CHARACTER lane, 8/21/26.  Paolo: "Continue fixing east and west hair pls"
+
+BOTH DEFECTS WERE PROFILE-ONLY, WHICH IS WHY THEY SURVIVED THREE WEEKS
+----------------------------------------------------------------------
+Facing S is byte-identical before and after every change below. Nothing that only
+looks at the front could ever have caught either one.
+
+*** 1. HIS PAINTED BOB WAS DRAWING UNDER EVERY HAIRSTYLE ***
+------------------------------------------------------------
+hair/curtain-bob is one of HIS PD layers. A generated hairstyle is stamped after it,
+so front-on the generated hair simply covered it and the double was invisible.
+
+IN PROFILE IT IS NOT COVERED. genHair takes its span from the PART GRID, and his paint
+reaches two cells PAST that grid on each side at the crown:
+
+    facing E, row 10:   part ids run x52-59        his paint runs x50-61
+
+His bob's ramp holds exactly two colours -- [27,26,32] and [237,232,220] -- so what
+showed through those four cells was the near-white one. A bright blob over the
+forehead, on both profiles, in every canon style.
+
+    MEASURED, BEFORE:  1,349 leaked pixels   (15 styles x 3 facings)
+    MEASURED, AFTER:   0                     (and 3,677 -> 0 across all 8 facings)
+
+THE FIX IS NOT MORE HAIR. Widening genHair's span to cover those cells patches the
+symptom and leaves TWO HAIRSTYLES STACKED ON ONE HEAD. If he is wearing a hairstyle,
+that IS his hairstyle: the PD hair layer is not drawn while a hair garment is worn.
+RIG LAW IS UNTOUCHED -- his painted bob is not edited, it is not drawn, and it comes
+straight back the moment no hair garment is worn. The PREVIEW path already cleared
+every equipped slot, so this only ever concerned the worn body.
+
+*** 2. THE FADE STOPPED IN THE MIDDLE OF THE HAIR ***
+------------------------------------------------------
+    sideBot = (back||prof) ? hBot : halfway      <- profile added 8/2
+    fadeBot =  back        ? hBot : halfway      <- profile never added
+
+fadeBot was a HAND COPY of sideBot, written before the 8/2 profile fix and never
+updated with it. That fix taught the hair MASS to cover the whole skull side-on; the
+fade's bottom stayed at the old halfway line. So in profile the taper stopped in the
+middle of a mass that now ran to the jaw.
+
+    tinted pixels, mean height in the hair (0 = top, 1 = bottom)
+        before   0.72 - 0.79, and roughly twice as many of them
+        after    0.91 - 0.95
+His law: "near the crown hair is solid, and toward the taper more of the skin
+underneath shows through". The taper is the bottom. It is not a copy any more, it IS
+sideBot -- one edge, so the two can never drift apart again.
+
+HOW I FOUND IT, INCLUDING THE WRONG TURN
+-----------------------------------------
+I GUESSED THE FADE FIRST AND I WAS WRONG. The blob looked like a fade misfiring, I
+found the sideBot/fadeBot divergence, fixed it, and THE BLOB WAS STILL THERE. Then I
+measured instead: zero hair pixels above luminance 120, on a style whose ramp tops out
+at 50 -- so the bright pixels were not hair at all. Pulling PD layers one at a time
+named hair/curtain-bob in one pass.
+The fade fix stayed only because I then measured it ON ITS OWN and it holds up. A
+change that survives because it was made on the way to something else is not verified,
+it is just present.
+
+AND THE FIRST PICTURE COULD NOT HAVE SHOWN THIS. tools/bohemia_hair_profile_look.js
+stamped the generators on top of buildFrame's output by hand. That happens to match
+the render order, so it looked right -- but it SKIPS THE PD LAYER LOGIC ENTIRELY, so
+it could never have revealed whether his bob was suppressed. It drives G_WORN now, the
+same path the game draws him with. VERIFY ON THE REAL SURFACE means the real path, not
+a composite that resembles it.
+
+GATES (a law without a machine gate is not enforced)
+-----------------------------------------------------
+hair_gate, 27/0:
+  - his painted bob NEVER shows under a worn hairstyle, 15 styles x 8 facings, counted
+    by his bob's own ramp colours on the REAL worn path, pinned at 0.
+    Mutation: remove the suppression -> fires, 3,677 leaked, naming the five worst.
+  - the fade bottom IS the hair bottom, one expression. Asserted in SOURCE on purpose:
+    the bug was two diverging copies of one expression, so what must hold is that
+    there is only ONE. Mutation: restore the copy -> fires.
+
+ONE HONEST LOOSE END
+--------------------
+CROWD went 15/1 once inside a twenty-gate loop and then passed four times in a row on
+its own. That is a FLAKE under load, not a pass -- I am recording it rather than
+calling it green, because a gate that fails only when the machine is busy is exactly
+the kind that gets waved through. Not investigated further this turn; it is not in the
+hair path and nothing in this change touches the crowd.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE WHITE BLOB IN PROFILE" -- BUZZ CUT, SLICK BACK, TEMPLE TAPER and SALT
+CROWN, east and west, before beside after. Both halves come from the SAME code
+(CLO_KEEP_PD_HAIR), so the only difference on screen is the thing being judged.
+The hair itself is in the CHARACTER tab.
+
+  node tools/bohemia_hair_profile_picture.js
+  node gates/hair_gate.js     27/0

@@ -280,6 +280,56 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     console.log('  *** THE HAIR IS LESS STRAIGHT THAN THE PIN. Lower PINNED_STRAIGHT to ' +
       ST.frac.toFixed(3) + ' and PINNED_LONGEST to ' + ST.longest + ' so it cannot slide back. ***');
 
+  /* *** NOBODY WEARS TWO HAIRSTYLES (Paolo 8/21: "Continue fixing east and west hair
+     pls"). *** His painted hair/curtain-bob is a PD layer; a generated hairstyle is
+     stamped after it. Front-on the generated hair simply covered it and the double was
+     invisible. IN PROFILE IT WAS NOT: genHair spans the PART GRID, and his paint reaches
+     two cells past that grid each side at the crown (facing E row 10: part ids x52-59,
+     his paint x50-61). His bob's ramp holds exactly two colours, [27,26,32] and
+     [237,232,220], so what showed through was the near-white one -- a bright blob over
+     the forehead on both profiles. MEASURED BEFORE THE FIX: 1,349 leaked pixels across
+     15 styles and 3 facings; every style leaked. This counts that exact colour on the
+     REAL worn path (G_WORN), not a hand composite, and pins it at zero. */
+  const LEAK = await pg.evaluate(() => {
+    const CANON = (window.GARMENTS || []).filter(g => g.st === 'canon');
+    const hairs = CANON.filter(g => g.layer === 'hair');
+    const BOB = (typeof PD !== 'undefined' && PD.ramps && PD.ramps['hair/curtain-bob']) || null;
+    if (!BOB) return { skip: 'his painted bob is not in this build' };
+    const keep = window.G_WORN;
+    let leaked = 0; const worst = [];
+    for (const h of hairs) {
+      window.G_WORN = { hair: h.n, base: 'WHITE TEE', legs: 'BLUE JEANS' };
+      let n = 0;
+      for (const d of ['S','SE','E','NE','N','NW','W','SW']) {
+        try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+        const f = buildFrame(d, 'idle', 0);
+        for (let i = 0; i < f.CW * f.CH; i++) { const c = f.px[i]; if (!c) continue;
+          for (const r of BOB) if (c[0] === r[0] && c[1] === r[1] && c[2] === r[2]) { n++; break; } }
+      }
+      leaked += n; if (n) worst.push(h.n + ':' + n);
+    }
+    window.G_WORN = keep;
+    try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+    return { leaked, worst: worst.slice(0, 5), styles: hairs.length };
+  });
+  if (LEAK.skip) ok('his painted bob is present to be checked', false);
+  else ok('HIS PAINTED BOB NEVER SHOWS UNDER A WORN HAIRSTYLE, ANY FACING (' + LEAK.leaked +
+     ' leaked pixels across ' + LEAK.styles + ' styles x 8 facings' +
+     (LEAK.worst.length ? ': ' + LEAK.worst.join(', ') : '') + ')', LEAK.leaked === 0);
+
+  /* THE FADE ENDS WHERE THE HAIR ENDS, AND THEY ARE ONE EXPRESSION. The 8/2 profile
+     fix taught the hair MASS to cover the whole skull side-on (back||prof) and left
+     fadeBot -- a hand copy of the same expression -- at the halfway line, so in profile
+     the taper stopped in the middle of a mass that ran to the jaw. Measured: skin-tinted
+     pixels sat at mean height 0.74 of the hair instead of 0.91, roughly twice as many of
+     them, smeared up into the crown. This is asserted in the SOURCE on purpose: the bug
+     was two diverging copies of one expression, so what must hold is that there is only
+     ONE. Facing S is unaffected either way, which is why it hid for three weeks. */
+  const alphaSrc = fs.readFileSync(ALPHA, 'utf8');
+  ok('the fade bottom IS the hair bottom, one expression, not a copy that can drift',
+     /fadeBot=sideBot/.test(alphaSrc) &&
+     !/fadeBot=back\?hBot/.test(alphaSrc));
+
   await b.close();
   done();
 })();

@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21o - THE METAL MOVES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21p - PROFILE HAIR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6492,6 +6492,26 @@ function buildFrame(d,clip,ph,_noOutline){
   const order=PD.meta.order;
   for(const slot of order){
     if(slot==='body')continue;
+    /* *** NOBODY WEARS TWO HAIRSTYLES (Paolo 8/21: "Continue fixing east and west
+       hair pls"). *** His painted hair/curtain-bob is a PD layer and the generated
+       hairstyle is stamped later, so on a front view the generated hair simply
+       covered it and the double was invisible. IN PROFILE IT IS NOT: genHair takes
+       its span from the PART GRID, and his painted bob reaches two cells PAST that
+       grid on each side at the crown (measured facing E, row 10: part ids run x52-59,
+       his paint runs x50-61). Those four cells never got covered, and his bob's ramp
+       has only two colours -- [27,26,32] and [237,232,220] -- so what showed through
+       was the near-white one: a bright blob over the forehead on both profiles, in
+       ten of the fifteen canon styles.
+       COVERING IT WITH MORE GENERATED HAIR WOULD BE THE WRONG FIX -- it patches the
+       symptom and leaves two hairstyles stacked on one head. If he is wearing a
+       hairstyle, that IS his hairstyle. RIG LAW IS UNTOUCHED: his painted bob is not
+       edited, it is not drawn, and it comes straight back the moment no hair garment
+       is worn. The PREVIEW path already clears every equipped slot, so this only
+       concerns the worn body. */
+    /* CLO_KEEP_PD_HAIR exists ONLY so tools/bohemia_hair_profile_picture.js can draw
+       the old behaviour from THIS code rather than a stored screenshot. False in the
+       game; nothing but that tool ever sets it. */
+    if(slot==='hair'&&!window.CLO_PREVIEW&&window.G_WORN&&window.G_WORN.hair&&!window.CLO_KEEP_PD_HAIR)continue;
     const key=G.equipped[slot];if(!key)continue;
     const L=PD.layers[key]&&PD.layers[key][gdir];if(!L)continue;
     let ramp=PD.ramps[key];if(G.tints[slot])ramp=retintRamp(ramp,G.tints[slot]);
@@ -21160,7 +21180,20 @@ window.CLO=(function(){
        it is a DENSITY ramp, so it lives in the SAME texSkip on the same
        head-anchored phase -- which is what stops it scattering into noise. It
        blends into SKIN by skipping: the body's own colour shows, per citizen. */
-    var fadeRows=(opt.fade||0)*S, fadeBot=back?hBot:(hTop+fr(hTop,hBot,sideF)+S-1);
+    /* *** THE FADE ENDS WHERE THE HAIR ENDS. IT IS THE SAME EDGE. (fixed 8/21) ***
+       Paolo: "Continue fixing east and west hair pls". This line used to read
+       `back?hBot:(hTop+fr(hTop,hBot,sideF)+S-1)` -- a COPY of sideBot above, made
+       before the 8/2 profile fix and never updated with it. That fix taught the hair
+       MASS to cover the whole skull side-on (back||prof), and the fade's bottom stayed
+       at the halfway line. So in profile the taper stopped in the MIDDLE of a mass
+       that now ran to the jaw, and `into` went positive across the entire crown:
+       measured on BUZZ CUT facing E, hair pixels at luminance 150+ on a ramp whose
+       LIGHTEST value is 50. A blob of bare-looking scalp over the forehead, in ten of
+       the fifteen canon styles, on both profiles.
+       It is not a copy any more, it IS sideBot -- one edge, so the two can never
+       drift apart again. The fade is the bottom of the hair; whatever that bottom is,
+       the fade is there. */
+    var fadeRows=(opt.fade||0)*S, fadeBot=sideBot;
     var texSkip=function(x,y){
       /* A PATTERN ROTATES WITH THE VIEW (Paolo 8/2: "prime example with the
          cornrows and the mohawk ... you really aren't doing it from a good eastern
