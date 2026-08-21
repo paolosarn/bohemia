@@ -197,6 +197,32 @@ def cut(text, a, b, what):
 def main():
     alpha = open(ALPHA, encoding='utf8').read()
 
+    # ---- REFUSE TO REGRESS SOMEBODY ELSE'S NEWER BAKE (added 8/21) ----------
+    # MEASURED: running this on the committed tree deleted 63 lines of the alpha
+    # to add 9, and what it deleted was an authored block a LATER patch put there
+    # -- "SIX SHAPES, NOT SIX COLOURS (Paolo 7/19 STRUCTURE-NOT-COLOR, amended
+    # 8/15 to govern IDENTITY)". This tool is written to be re-runnable: it cuts
+    # its own previous bake and writes a fresh one. That is correct right up
+    # until the block in the file is NEWER than the one this tool carries, and
+    # then re-running it is a silent REGRESSION rather than a crash.
+    #
+    # THE LOUD FAILURES WERE THE SAFE ONES. Fifty-two tools in this directory
+    # crash on the dead CITY_B64 key and can damage nothing. This one ran, said
+    # "wrote ALPHA + CITY", exited 0, and reverted another lane's work.
+    # It is also the best lead on the 1,159 lines that vanished from the city
+    # earlier the same day and were never reproduced -- NOT presented as the
+    # cause, because it was never reproduced.
+    #
+    # The precedent is this repo's own: bohemia_city_talk_patch refuses with
+    # "REFUSING TO WRITE: the CITY TALK block ... this tool cannot regen".
+    # Gate: gates/tool_idempotent_gate.js
+    NEWER = 'SIX SHAPES, NOT SIX COLOURS'
+    if NEWER in alpha:
+        print('REFUSING TO WRITE: the alpha carries a NEWER cast bake than this '
+              'tool can regenerate (%s).' % NEWER)
+        print('  Re-running would delete it. Nothing was written.')
+        sys.exit(0)
+
     # ---- alpha side ----
     if A_START in alpha:
         alpha = cut(alpha, A_START, A_END, 'the alpha bake')
