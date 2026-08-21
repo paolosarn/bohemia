@@ -92,7 +92,39 @@ NEW = ("""    else if(v===3){ c.g='#c8c4b8'; }                 // driveway apron
     else if(v===10){
       const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
       c.gArtPool='side'; c.gArtVariant=_sw%3;
+    }
+    /* __THE_SUBURB_HAS_SIDEWALKS__ -- AND A FRONT YARD MADE OF SOMETHING. Every house in
+       this district sat in a large flat rectangle of one dead-dirt tone: nine codes in the
+       whole suburb and not one of them a prop, which at the player's camera at the spawn is
+       most of the screen. Code 11 is DECORATIVE GRAVEL, the most Las Vegas thing about a
+       Las Vegas yard and the one that survives a dead world -- this valley has paid people
+       to tear their lawns out since the early 2000s, and rock does not die. Its palette
+       colour is already in texKindFor's rock family, so it picks up the ROCK grain with no
+       new art and no new pool: gravel drawn as gravel.
+       Code 13 is what a decade of wind leaves against the kerb. It is named "debris" in the
+       legend on purpose, so BohemiaHazard classifies it AMPLIFIES by derivation -- and the
+       class is stamped here because this branch is not the kit path and would otherwise
+       never carry one. The district he SPAWNS IN finally has ground that does something to
+       a body, and it gets the loose-chip mark for free. */
+    else if(v===11){ c.g='#9b968a'; }
+    else if(v===13){ c.g='#7c7263';
+      if(typeof BohemiaHazard!=='undefined'){
+        try{ const _h13=BohemiaHazard.classOf(
+               (typeof BohemiaSuburb!=='undefined'&&BohemiaSuburb.legend)?BohemiaSuburb.legend[13]:null,
+               BohemiaDistrictKit); if(_h13) c.haz=_h13; }catch(_e){}
+      }
     }""")
+
+ROCK_OLD = "  if(col==='#8a7a66'||col==='#6a5e50')return 'rock';"
+ROCK_NEW = ("  /* __THE_SUBURB_HAS_SIDEWALKS__ -- #9b968a is the suburb's DECORATIVE GRAVEL and it\n"
+            "     takes the rock grain, because that is what it is. The first cut picked the gravel\n"
+            "     colour to MATCH a colour already in this list, which got the right texture and the\n"
+            "     wrong value -- #8a7a66 is eight units off the dead dirt beside it, so a yard of\n"
+            "     rock read as a yard of dirt with a slightly different grain. LOOKED AT IT, then\n"
+            "     fixed the right end: choose the colour the material should be and teach the\n"
+            "     texture where to find it, rather than choosing the colour the texture already\n"
+            "     knew. */\n"
+            "  if(col==='#8a7a66'||col==='#6a5e50'||col==='#9b968a')return 'rock';")
 
 if not os.path.exists(WORLD):
     sys.exit('SUBURB SIDEWALK: %s is not here.' % WORLD)
@@ -103,6 +135,12 @@ refreshed = MARK in src
 # cannot duplicate anything -- the anchor goes missing and this exits loud.
 if NEW in src:
     src = src.replace(NEW, OLD, 1)
+if ROCK_NEW in src:
+    src = src.replace(ROCK_NEW, ROCK_OLD, 1)
+if ROCK_OLD not in src:
+    sys.exit('SUBURB SIDEWALK: could not find the rock branch of texKindFor. Refusing to '
+             'guess -- it decides which generator draws every untextured ground in the game.')
+src = src.replace(ROCK_OLD, ROCK_NEW, 1)
 if OLD not in src:
     sys.exit('SUBURB SIDEWALK: could not find the driveway-apron line in the m.sub branch. '
              'Refusing to guess -- this branch decides what every tile in the district he '

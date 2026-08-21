@@ -40,6 +40,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 /* ==== footing readout css ==== */
 /* THE FOOTING READOUT, DIRECTLY UNDER THE TOP BAR, and that position is the whole
    reason this comment exists. It was at bottom-left first, and a screenshot of the real
@@ -162,6 +163,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 <div id="hud"><span id="hmode">CITY MODE</span><span id="hclock">DAY 1 · 08:00</span><span id="hslot"></span></div>
 <div id="stage">
   <canvas id="cv"></canvas>
+  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
@@ -4715,7 +4717,38 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
         if(wxx<0||wyy<0||wxx>=Wd(g)||wyy>=Ht(g))continue;
         if(g[wyy][wxx]===4)return false;}}
     dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});
-    bd.forEach(function(c){g[c[1]][c[0]]=2;});up.forEach(function(c){g[c[1]][c[0]]=9;});return true;}
+    bd.forEach(function(c){g[c[1]][c[0]]=2;});up.forEach(function(c){g[c[1]][c[0]]=9;});
+    /* THE FRONT YARD, AND IT IS THE THING THE SPAWN WAS MISSING. Every house in this
+       district sat in a large flat rectangle of one dead-dirt tone with NOTHING in it --
+       nine codes in the whole suburb and not one of them a prop. Looked at from the
+       player's camera at the spawn, that is most of the screen.
+       WHERE: the frontage between the walk and the house, either side of the apron --
+       exactly the strip a real front yard occupies. The apron runs through it to the
+       garage, which is why the driveway cells are skipped rather than overwritten.
+       ONLY OVER BARE GROUND (cur===0): it never takes a walk, a wall, a mass or a
+       neighbour's cell, so nothing this adds can break D1 or the 3-tile skirt.
+       DETERMINISTIC PER LOT, never per cell (desert_dominance_law, Paolo 7/14: "too much
+       diversity with the desert tiles") -- a per-cell roll would salt the debris evenly
+       across every yard in the valley, which reads as texture rather than as somewhere
+       the wind has been. */
+    var _fy=((rx*73856093)^(ry*19349663)^0x5EED)>>>0;
+    for(var fd=1;fd<=DRIVE;fd++)for(var fw=h0;fw<h0+HW;fw++){
+      if(fw>=dvOff&&fw<dvOff+DVW) continue;                 /* the apron keeps its cells */
+      var fx=(rx+nx*fd+px*fw)|0, fy=(ry+ny*fd+py*fw)|0;
+      if(!inb(g,fx,fy)||g[fy][fx]!==0) continue;            /* bare ground only */
+      g[fy][fx]=11;
+      /* DRIFT COLLECTS AT AN EDGE AND IN SOME YARDS, NOT EVENLY IN ALL OF THEM.
+         One lot in three has drift at all (the per-lot roll), and within those it stacks
+         on the KERB ROW -- fd===1, the row furthest from the house -- because that is
+         where a wall or a kerb stops it. An even sprinkle across every yard reads as
+         texture; a few yards full of it reads as weather. */
+      /* THE KERB ROW IS USUALLY THE SIDEWALK, which this loop skips (bare ground only),
+         so "fd===1" put drift almost nowhere -- 12 cells across four whole plots. It goes
+         on the OUTER BARE ROWS instead: fd<=2, the yard edge nearest the street, which is
+         the same place for the same reason. Measured before and after rather than assumed. */
+      if(fd<=2 && (_fy%3)===0 && ((((_fy>>3)+fw*7)&3)!==0)) g[fy][fx]=13;
+    }
+    return true;}
   // even lot spacing along every road frontage (position-based, not a global counter)
   function fillHomes(g){var W=Wd(g),H=Ht(g);
     for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==1)continue;
@@ -4946,7 +4979,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -4964,6 +4997,21 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
        aperture, no gate assembly - which is what ~98% of this valley is. */
     5:{name:'gate',               kind:'gate',       act1:'gated-community entrance assembly off the arterial: sliding leaf, call box, kerb returns - only on a gated/estate community, never an ordinary walled suburb'},
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
+    /* THE FRONT YARD IS GRAVEL, WHICH IS THE MOST LAS VEGAS THING ABOUT A LAS VEGAS
+       YARD AND THE ONE THAT SURVIVES A DEAD WORLD. This valley has paid people to tear
+       lawns out since the early 2000s (the water authority's turf-removal rebate is the
+       most successful programme of its kind in the country), so the default front yard
+       here is DECORATIVE ROCK, not grass. Rock does not die: ten years on it is still
+       rock, bleached, drifted into the low corners, weeds gone to nothing in the joints.
+       This is NOT the graveyarded code 7. That was a TREE, and ACT 1 IS A DEAD WORLD --
+       no vegetation ever. Gravel is not vegetation; it is the ground the vegetation was
+       replaced with, twenty years before the lights went out. */
+    11:{name:'gravel yard',       kind:'ground',     act1:'decorative desert gravel over weed fabric, the rock that replaced a lawn a long time before anybody left'},
+    /* WHAT A DECADE LEAVES ON A FRONT YARD. Named with "debris" on purpose: the hazard
+       classifier reads the LEGEND, so this lands in AMPLIFIES by derivation and the
+       district he SPAWNS IN finally has ground that does something to a body. Not solid
+       -- you walk through drift, you do not walk around it (PROP SOLIDITY IS PER TILE). */
+    13:{name:'yard debris / drift',kind:'prop', solid:false, act1:'blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving'},
     10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
@@ -5967,6 +6015,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE FLOOR CAN DO SOMETHING TO YOU ==== */
+
+
 
 
 
@@ -22076,6 +22126,7 @@ function tileMeta(tx,ty){
 
 
 
+
 /* __VOID_SHADE_S__ */
 /* __A_HOLE_IS_NOT_A_WALL__ -- the shade a void draws at. Not a new colour and not a
    palette entry: the tile's OWN colour taken down in value, so a hole in white gypsum still
@@ -22414,6 +22465,45 @@ function realizeCell(gx,gy){
       const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
       c.gArtPool='side'; c.gArtVariant=_sw%3;
     }
+    /* __THE_SUBURB_HAS_SIDEWALKS__ -- AND A FRONT YARD MADE OF SOMETHING. Every house in
+       this district sat in a large flat rectangle of one dead-dirt tone: nine codes in the
+       whole suburb and not one of them a prop, which at the player's camera at the spawn is
+       most of the screen. Code 11 is DECORATIVE GRAVEL, the most Las Vegas thing about a
+       Las Vegas yard and the one that survives a dead world -- this valley has paid people
+       to tear their lawns out since the early 2000s, and rock does not die. Its palette
+       colour is already in texKindFor's rock family, so it picks up the ROCK grain with no
+       new art and no new pool: gravel drawn as gravel.
+       Code 13 is what a decade of wind leaves against the kerb. It is named "debris" in the
+       legend on purpose, so BohemiaHazard classifies it AMPLIFIES by derivation -- and the
+       class is stamped here because this branch is not the kit path and would otherwise
+       never carry one. The district he SPAWNS IN finally has ground that does something to
+       a body, and it gets the loose-chip mark for free. */
+    else if(v===11){ c.g='#9b968a'; }
+    else if(v===13){ c.g='#7c7263';
+      if(typeof BohemiaHazard!=='undefined'){
+        try{ const _h13=BohemiaHazard.classOf(
+               (typeof BohemiaSuburb!=='undefined'&&BohemiaSuburb.legend)?BohemiaSuburb.legend[13]:null,
+               BohemiaDistrictKit); if(_h13) c.haz=_h13; }catch(_e){}
+      }
+    }
+    /* __THE_SUBURB_HAS_SIDEWALKS__ -- CODE 10 IS THE SIDEWALK AND THIS BRANCH HAD NEVER
+       HEARD OF IT. The comment at the top of this block lists "0 dead 1 road 2 house 3
+       drive 4 wall 5 gate 6 garage 9 upper" and ten is not in it, so every walk in every
+       suburb fell through to the dead-dirt default at the top -- #8a7a5e, no art pool.
+       MEASURED at his spawn: 3,347 sidewalk cells, all of them painted as bare earth.
+       Paolo, 8/20, holding a screenshot of it: "the sidewalk is still dog shit".
+       NOTHING WAS MISSING. The generator has laid these since it was written
+       (layWalks -> walk:10), the suburb legend calls code 10 'sidewalk' and describes it
+       as "cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints"
+       -- which is a word-for-word description of pools.side in his harmonized bank -- and
+       BUILT WORLD LAW D1 requires the walk to exist. Only this branch did not know.
+       PER PLOT, NEVER PER CELL: desert_dominance_law, Paolo 7/14 ("too much diversity with
+       the desert tiles"). A per-cell shuffle turns a run of pavement into a checkerboard,
+       which is why the perimeter wall in this same branch is seeded per plot too. */
+    else if(v===10){
+      const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
+      c.gArtPool='side'; c.gArtVariant=_sw%3;
+    }
     else if(v===0){                                  // dead dirt: one DG blend per BLOCK
       const bh=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
       c.gArtPool='hyard'; c.gArtVariant=bh%3;
@@ -22665,6 +22755,7 @@ function __surfaceOf(c){
   if(/rock/.test(n)) return 'gravel';
   return 'dirt';
 }
+
 
 
 
@@ -23488,7 +23579,15 @@ function texKindFor(col,isStruct){
   if(col==='#8a8a86'||col==='#7a7a76'||col==='#5e5e5a'||col==='#4a4a48')return 'asphalt';
   if(col==='#c8c4b8'||col==='#b0aca0')return 'paved';
   if(col==='#3a6a8a')return 'water';
-  if(col==='#8a7a66'||col==='#6a5e50')return 'rock';
+  /* __THE_SUBURB_HAS_SIDEWALKS__ -- #9b968a is the suburb's DECORATIVE GRAVEL and it
+     takes the rock grain, because that is what it is. The first cut picked the gravel
+     colour to MATCH a colour already in this list, which got the right texture and the
+     wrong value -- #8a7a66 is eight units off the dead dirt beside it, so a yard of
+     rock read as a yard of dirt with a slightly different grain. LOOKED AT IT, then
+     fixed the right end: choose the colour the material should be and teach the
+     texture where to find it, rather than choosing the colour the texture already
+     knew. */
+  if(col==='#8a7a66'||col==='#6a5e50'||col==='#9b968a')return 'rock';
   return 'dirt';
 }
 
@@ -23683,6 +23782,7 @@ function recycleCv(ch){ if(!ch||!ch.cv)return;
   else { try{ch.cv.width=1;ch.cv.height=1;}catch(_e){} }   /* release the iOS buffer */
   ch.cv=null; ch.lamps=null;
 }
+
 
 
 
@@ -30669,6 +30769,8 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
    and the door is cut on the side you walked in from. Walk back out through it
    and you are on the plot again. No new button: the wall just lets you in. ==== */
 /* ==== engine/bohemia_floorplan.js (inlined verbatim) ==== */
+
+
 /* ==== THE FLOOR INDOORS (inlined verbatim) ==== */
 /* ==== engine/bohemia_interior_ground.js ==== */
 /* inlined verbatim by tools/bohemia_city_interior_ground_patch.py -- the banner above is one line on purpose: it is the ENGINE SYNC sweep's only door, and a wrapped banner is an opt-out. */
@@ -32095,6 +32197,7 @@ function cityFightCount(){
 
 
 
+
 /* __FR_S__ */
 /* ==== __THE_FIGHT_GETS_THE_ROOM__ ====================================================
    THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. The encounter handoff described the room as
@@ -32393,6 +32496,7 @@ function renderInside(){
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
     }
   }
+
 
 
 

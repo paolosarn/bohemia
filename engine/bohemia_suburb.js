@@ -129,7 +129,38 @@
         if(wxx<0||wyy<0||wxx>=Wd(g)||wyy>=Ht(g))continue;
         if(g[wyy][wxx]===4)return false;}}
     dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});
-    bd.forEach(function(c){g[c[1]][c[0]]=2;});up.forEach(function(c){g[c[1]][c[0]]=9;});return true;}
+    bd.forEach(function(c){g[c[1]][c[0]]=2;});up.forEach(function(c){g[c[1]][c[0]]=9;});
+    /* THE FRONT YARD, AND IT IS THE THING THE SPAWN WAS MISSING. Every house in this
+       district sat in a large flat rectangle of one dead-dirt tone with NOTHING in it --
+       nine codes in the whole suburb and not one of them a prop. Looked at from the
+       player's camera at the spawn, that is most of the screen.
+       WHERE: the frontage between the walk and the house, either side of the apron --
+       exactly the strip a real front yard occupies. The apron runs through it to the
+       garage, which is why the driveway cells are skipped rather than overwritten.
+       ONLY OVER BARE GROUND (cur===0): it never takes a walk, a wall, a mass or a
+       neighbour's cell, so nothing this adds can break D1 or the 3-tile skirt.
+       DETERMINISTIC PER LOT, never per cell (desert_dominance_law, Paolo 7/14: "too much
+       diversity with the desert tiles") -- a per-cell roll would salt the debris evenly
+       across every yard in the valley, which reads as texture rather than as somewhere
+       the wind has been. */
+    var _fy=((rx*73856093)^(ry*19349663)^0x5EED)>>>0;
+    for(var fd=1;fd<=DRIVE;fd++)for(var fw=h0;fw<h0+HW;fw++){
+      if(fw>=dvOff&&fw<dvOff+DVW) continue;                 /* the apron keeps its cells */
+      var fx=(rx+nx*fd+px*fw)|0, fy=(ry+ny*fd+py*fw)|0;
+      if(!inb(g,fx,fy)||g[fy][fx]!==0) continue;            /* bare ground only */
+      g[fy][fx]=11;
+      /* DRIFT COLLECTS AT AN EDGE AND IN SOME YARDS, NOT EVENLY IN ALL OF THEM.
+         One lot in three has drift at all (the per-lot roll), and within those it stacks
+         on the KERB ROW -- fd===1, the row furthest from the house -- because that is
+         where a wall or a kerb stops it. An even sprinkle across every yard reads as
+         texture; a few yards full of it reads as weather. */
+      /* THE KERB ROW IS USUALLY THE SIDEWALK, which this loop skips (bare ground only),
+         so "fd===1" put drift almost nowhere -- 12 cells across four whole plots. It goes
+         on the OUTER BARE ROWS instead: fd<=2, the yard edge nearest the street, which is
+         the same place for the same reason. Measured before and after rather than assumed. */
+      if(fd<=2 && (_fy%3)===0 && ((((_fy>>3)+fw*7)&3)!==0)) g[fy][fx]=13;
+    }
+    return true;}
   // even lot spacing along every road frontage (position-based, not a global counter)
   function fillHomes(g){var W=Wd(g),H=Ht(g);
     for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==1)continue;
@@ -360,7 +391,7 @@
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -378,6 +409,21 @@
        aperture, no gate assembly - which is what ~98% of this valley is. */
     5:{name:'gate',               kind:'gate',       act1:'gated-community entrance assembly off the arterial: sliding leaf, call box, kerb returns - only on a gated/estate community, never an ordinary walled suburb'},
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
+    /* THE FRONT YARD IS GRAVEL, WHICH IS THE MOST LAS VEGAS THING ABOUT A LAS VEGAS
+       YARD AND THE ONE THAT SURVIVES A DEAD WORLD. This valley has paid people to tear
+       lawns out since the early 2000s (the water authority's turf-removal rebate is the
+       most successful programme of its kind in the country), so the default front yard
+       here is DECORATIVE ROCK, not grass. Rock does not die: ten years on it is still
+       rock, bleached, drifted into the low corners, weeds gone to nothing in the joints.
+       This is NOT the graveyarded code 7. That was a TREE, and ACT 1 IS A DEAD WORLD --
+       no vegetation ever. Gravel is not vegetation; it is the ground the vegetation was
+       replaced with, twenty years before the lights went out. */
+    11:{name:'gravel yard',       kind:'ground',     act1:'decorative desert gravel over weed fabric, the rock that replaced a lawn a long time before anybody left'},
+    /* WHAT A DECADE LEAVES ON A FRONT YARD. Named with "debris" on purpose: the hazard
+       classifier reads the LEGEND, so this lands in AMPLIFIES by derivation and the
+       district he SPAWNS IN finally has ground that does something to a body. Not solid
+       -- you walk through drift, you do not walk around it (PROP SOLIDITY IS PER TILE). */
+    13:{name:'yard debris / drift',kind:'prop', solid:false, act1:'blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving'},
     10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };

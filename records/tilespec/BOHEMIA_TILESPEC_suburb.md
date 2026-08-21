@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 7087 |
+| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 5991 |
 | 1 | `#33333c` | road | drive | cracked residential street asphalt (car-drivable) | ground | no | — | 3325 |
 | 2 | `#8a8478` | house | building | single-story stucco tract house, faded, dark windows | structure | yes | house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage | 2620 |
 | 3 | `#3f3f47` | driveway | drive | cracked concrete driveway apron (drivable to garage) | ground | no | — | 420 |
@@ -44,6 +44,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#6b6b74` | garage | building | front-corner garage, steel roll door, dented | structure | yes | garage interior: 1-2 car bays, junk shelves, a door into the house | 1001 |
 | 9 | `#9a938a` | house upper floor | building | 2-story house upper mass (taller top-down read) | structure | yes | the house floorplan upper story (bedrooms), reached by interior stairs | 615 |
 | 10 | `#57575f` | sidewalk | walk | cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation | ground | no | — | 815 |
+| 11 | `#9b968a` | gravel yard | ground | decorative desert gravel over weed fabric, the rock that replaced a lawn a long time before anybody left | ground | no | — | 991 |
+| 13 | `#7c7263` | yard debris / drift | prop | blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving | prop | no | — | 105 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

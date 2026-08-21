@@ -3,8 +3,8 @@
  "shots": [
   {
    "id": "the-spawn-sidewalk",
-   "title": "THE SIDEWALK WHERE YOU SPAWN",
-   "caption": "You sent a picture of your own spawn and the sidewalk was flat dirt. It was never missing: the suburb has laid sidewalks since it was written and the renderer had no case for that tile code, so all 3,347 of them fell through to the dead-dirt default. They wear your approved concrete now. RUN tab, it is the street you wake up on.",
+   "title": "THE NEIGHBOURHOOD YOU WAKE UP IN",
+   "caption": "Two passes on the street you spawn on. The sidewalks were being laid all along and the renderer had no case for them, so they drew as dead dirt -- they wear your concrete now. And every house sat in one flat empty rectangle: nine tile codes in the whole suburb and not one of them a prop. Front yards are DECORATIVE GRAVEL now, which is what a Las Vegas yard actually is and the one thing that survives a dead world, with wind-drifted debris against the kerb in about a third of them. RUN tab.",
    "file": "look/the-spawn-sidewalk.png",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "stamp": "8/20/26"
@@ -141,7 +141,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 486.7,
+   "kb": 501.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },

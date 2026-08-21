@@ -1,3 +1,56 @@
+WORLD (world-9lfjtf): 8/20 (k) LATEST -- *** THE NEIGHBOURHOOD YOU WAKE UP IN HAD NINE TILE
+CODES AND NOT ONE OF THEM WAS A PROP. TAB: RUN, the street you spawn on. ***
+
+I stopped measuring and went and LOOKED at the spawn the way he does, at play zoom. The
+streets and the houses read fine after this morning. THE YARDS DO NOT: every house sat in a
+large flat rectangle of one dead-dirt tone, and at the player's camera that is most of the
+screen. Checked the generator and this time NOTHING was being produced and dropped -- the
+suburb has NINE codes (dead-ground, road, house, driveway, wall, gate, garage, upper,
+sidewalk) AND NOT ONE OF THEM IS A PROP. No bins, no debris, no dressing of any kind, in the
+district he spends the first minutes of every run in.
+
+CHECKED THE GRAVEYARD FIRST, which is why this is not a tree: codes 7 and 8 (tree, pool) are
+GRAVEYARDED because ACT 1 IS A DEAD WORLD -- no vegetation ever. So nothing that grows.
+
+WHAT WENT IN, and both are real Las Vegas rather than invented dressing:
+  11 GRAVEL YARD (ground)  The most Vegas thing about a Vegas yard and the one that
+     survives a dead world. This valley has paid people to tear their lawns out since the
+     early 2000s -- the water authority's turf rebate is the most successful programme of
+     its kind in the country -- so the default front yard here is DECORATIVE ROCK. Rock does
+     not die. Laid on the frontage either side of the apron, over bare ground only, so it
+     can never touch a walk, a wall or a mass (D1 and the 3-tile skirt are untouched).
+  13 YARD DEBRIS / DRIFT (prop, walk-through)  What a decade of wind leaves against a kerb.
+     NAMED "debris" ON PURPOSE: the hazard classifier reads the LEGEND, so it lands in
+     AMPLIFIES by derivation and THE DISTRICT HE SPAWNS IN FINALLY HAS GROUND THAT DOES
+     SOMETHING TO A BODY -- and it picks up the loose-chip mark from 8/20 for free.
+     One lot in three has drift at all; an even sprinkle reads as texture, a few full yards
+     read as weather (desert_dominance_law, Paolo 7/14: "too much diversity").
+
+MEASURED on the page: gravel 3,893 cells and debris 441 cells around the spawn, debris
+carrying haz=AMPLIFIES. Both had to be cased in the renderer's m.sub branch IN THE SAME
+TURN or they would have fallen through to dead dirt -- which is the bug I fixed this
+morning, so I did not get to make it twice.
+
+AND I GOT THE GRAVEL COLOUR WRONG FIRST AND ONLY LOOKING CAUGHT IT. I picked #8a7a66
+because it was ALREADY in texKindFor's rock list, which got the right grain and the wrong
+value: eight units off the dead dirt beside it, so a yard of rock read as a yard of dirt.
+CHOOSE THE COLOUR THE MATERIAL SHOULD BE AND TEACH THE TEXTURE WHERE TO FIND IT, never the
+other way round. #9b968a now, added to the rock family.
+
+  tools/bohemia_city_suburb_sidewalk_patch.py   the renderer cases + the rock mapping
+  engine/bohemia_suburb.js                      codes 11 and 13, laid in home()
+  Picture: THE NEIGHBOURHOOD YOU WAKE UP IN, in the LOOK tab.
+
+Gates: tilespec 310, suburb street 13, walkable 73, occupancy 16, hazard 74, landlocked 16,
+district kit 24, look 24. Dossiers regenerated (71 districts).
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. The suburb still has no VERTICAL dressing -- no bins, no dead car in a driveway, no
+     power poles. The drive-network gates are the risk (a car on an apron blocks it), which
+     is why this turn did ground only. That is the obvious next pass.
+  2. The 8 genuinely unused street pools: superseded, or a door somebody forgot to open?
+  3. ROAD CELLS and drive_network are still the other WORLD session's, unchanged.
+
 RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES, AND THE REDS ARE
 MOSTLY BLIND RULERS, NOT BROKEN GAME. ***
 
