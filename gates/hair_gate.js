@@ -231,6 +231,55 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
   ok('but nothing is lost -- the sheet is archived under its round', RR.archived);
   ok('the board reports what is unjudged (' + R.stat + ')', /unjudged/.test(R.stat));
 
+  /* *** CLAUSE 3 IN PIXELS, NOT IN THE SOURCE (8/21). ***
+     craft_law_gate already asserts clause 3 -- "no straight lines, hair is little off
+     shapes" -- but only by finding the wobble IN THE CODE. That is a mention check,
+     and the wobble can be present, correct, and still produce a machine-straight edge:
+     it did. It steps by a whole CELL, so when the rig went to 112 the hair kept
+     wobbling in 2x2 blocks and HALF of every hair edge sat in a straight run of four
+     rows or more, with 16-row straight sides on TEMPLE TAPER and BOWL CUT. Nothing in
+     the machine noticed, because nothing in the machine was looking at the edge.
+     THIS LOOKS AT THE EDGE. It walks each canon style's silhouette on all 8 facings
+     and counts consecutive rows sitting at exactly the same x. A run of RIG_RS is the
+     floor and means nothing (a cell is that many rows tall). Runs of 4+ are the thing
+     he named, and the fraction of edge rows inside one is a RATCHET THAT ONLY SHRINKS.
+     Measure it with: node tools/bohemia_hair_straightness.js */
+  const PINNED_STRAIGHT = 0.185;   // fraction of hair edge rows in a straight run of 4+
+  const PINNED_LONGEST  = 6;      // longest straight run anywhere, in rows
+  const ST = await pg.evaluate(() => {
+    const HAIR = (window.GARMENTS || []).filter(g => g.layer === 'hair' && g.st === 'canon');
+    let rows = 0, inLong = 0, longest = 0;
+    for (const h of HAIR) for (const d of ['S','SE','E','NE','N','NW','W','SW']) {
+      if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
+      const f = buildFrame(d, 'idle', 0);
+      let o = null; try { o = h.gen(f.grid, f.CW, f.CH); } catch (e) {}
+      if (!o) continue;
+      const L = {}, R2 = {};
+      for (const k in o) { const i = +k, x = i % f.CW, y = (i / f.CW) | 0;
+        if (L[y] === undefined || x < L[y]) L[y] = x;
+        if (R2[y] === undefined || x > R2[y]) R2[y] = x; }
+      for (const side of [L, R2]) {
+        const ys = Object.keys(side).map(Number).sort((a, b) => a - b);
+        let run = 1;
+        for (let n = 1; n <= ys.length; n++) {
+          const cont = n < ys.length && ys[n] === ys[n-1] + 1 && side[ys[n]] === side[ys[n-1]];
+          if (cont) run++;
+          else { rows += run; if (run > longest) longest = run; if (run >= 4) inLong += run; run = 1; }
+        }
+      }
+    }
+    if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
+    return { frac: rows ? inLong / rows : 0, longest, rows, styles: HAIR.length };
+  });
+  ok('CLAUSE 3, MEASURED ON THE EDGE: hair rows in a straight run of 4+ only ever shrinks (' +
+     (ST.frac * 100).toFixed(1) + '%, pinned at ' + (PINNED_STRAIGHT * 100).toFixed(0) + '%, over ' +
+     ST.rows + ' edge rows across ' + ST.styles + ' styles)', ST.frac <= PINNED_STRAIGHT);
+  ok('CLAUSE 3: no hair edge runs straight for longer than ' + PINNED_LONGEST +
+     ' rows (longest is ' + ST.longest + ')', ST.longest <= PINNED_LONGEST);
+  if (ST.frac < PINNED_STRAIGHT - 0.02 || ST.longest < PINNED_LONGEST - 1)
+    console.log('  *** THE HAIR IS LESS STRAIGHT THAN THE PIN. Lower PINNED_STRAIGHT to ' +
+      ST.frac.toFixed(3) + ' and PINNED_LONGEST to ' + ST.longest + ' so it cannot slide back. ***');
+
   await b.close();
   done();
 })();

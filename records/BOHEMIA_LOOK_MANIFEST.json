@@ -323,6 +323,16 @@
    "kb": 180.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "hair-edge",
+   "title": "THE HAIR STOPPED BEING STRAIGHT",
+   "caption": "You told me on 8/1 that hair is little off shapes and that I was drawing a lot of straight lines. The fix that day worked, but it moved the edge by a whole block, so when the character went to four times the pixels the hair kept wobbling in the same chunky steps: sharper, not finer. Measured, half of every hair edge was running dead straight for four rows or more and some for sixteen. The edge now moves by a single pixel, which is only possible at the new resolution. 18.5% now, longest run six. Left is the old edge, right is the new one, same generator, same head. Your painted head is untouched. CHARACTER tab for the hair, LOOK tab for this picture.",
+   "file": "look/hair-edge.png",
+   "kb": 63.0,
+   "stamp": "8/21/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_hair_edge_picture.js"
   }
  ]
 }

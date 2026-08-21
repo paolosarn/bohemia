@@ -1,0 +1,104 @@
+BOHEMIA -- THE HAIR STOPPED BEING STRAIGHT
+CHARACTER lane, 8/21/26. Row 2X step 5, the first content that uses the new pixels.
+
+THE RULING THIS SERVES (Paolo 8/1, LOCKED, craft law clause 3)
+--------------------------------------------------------------
+    "a lot about hair is about just the little off shapes that it makes ... I'm
+     seeing you make like a lot of straight lines and that's not realistic at all"
+
+THE FIX FROM 8/1 WORKED AND THEN QUIETLY STOPPED WORKING
+--------------------------------------------------------
+A deterministic per-row wobble went in the same day: hash the row, push the edge out,
+same input same wobble forever so an NPC never shimmers. Correct, and still correct.
+
+But it hashes the CELL row and its only amplitude is S. At 56 that is one pixel and it
+is the finest mark available. THE MOMENT THE RIG WENT TO 112 (8/20) IT BECAME A TWO
+PIXEL STEP ON A CELL-SIZED GRID -- the same silhouette as 56, drawn twice as big. Four
+times the pixels bought a SHARPER hair edge and not a FINER one, which is the whole
+difference between a resolution bump and actual detail.
+
+NOTHING IN THE MACHINE NOTICED, and the reason is the important part: craft_law_gate
+asserts clause 3 BY FINDING THE WOBBLE IN THE SOURCE. The wobble was there, hashed,
+deterministic, exactly as the law says. A source check cannot tell you the edge it
+produces is dead straight. THAT IS A MENTION CHECK WEARING A LAW'S NAME.
+
+MEASURED, BEFORE ANYTHING CHANGED (tools/bohemia_hair_straightness.js)
+----------------------------------------------------------------------
+Walk every canon style's silhouette on all 8 facings, count consecutive rows sitting at
+exactly the same x. A run of 2 is the floor at RIG_RS=2 and means nothing.
+
+    50.7%  of ALL hair edge rows sat in a straight run of FOUR OR MORE
+       16  rows was the longest straight edge (TEMPLE TAPER, BOWL CUT)
+    68.5%  TEMPLE TAPER, 63.4% BOWL CUT, 58.5% GREY WISPS
+
+Half of every head of hair in the game was a machine-drawn line.
+
+THE CHANGE, AND WHY IT CANNOT BECOME STATIC
+--------------------------------------------
+The cell-level step is UNTOUCHED, so the coarse silhouette is the one he approved.
+Where that step says "stay put", the individual PIXEL row may now move by ONE. His own
+clause 5 is the argument: "ONE PIXEL not three at 56px" -- a finer grid is for finer
+marks, not bigger ones.
+
+The failure the cell-hash exists to prevent is the edge turning to television static,
+and the sub-step cannot cause it: IT ONLY FIRES WHERE THE COARSE STEP DID NOT, so the
+edge's total travel is unchanged at S. At S===1 it never fires at all, which is why all
+1,744 pinned 56 hashes are byte-identical.
+
+    AFTER:  18.5%  of edge rows in a straight run of 4+   (was 50.7%)
+                6  longest straight edge anywhere          (was 16)
+
+TWO RATES WERE TRIED AND THE LOSER IS WORTH RECORDING. Firing 1-in-4 per pixel row gave
+28.0% and a 12-row longest -- WORSE ON BOTH AXES than 1-in-2, and it still peaked at
+single-row runs. There was no trade-off to tune; 1-in-2 dominated it outright.
+
+*** THE GATE HAD TO BE WIDENED, AND THAT IS THE UNCOMFORTABLE PART ***
+----------------------------------------------------------------------
+clothes_4x_gate's claim 1 says the 112 output IS the 56 output scaled. That is the right
+default and it is what catches a hardcoded distance. IT IS ALSO, the moment any authored
+detail exists at 112, A CLAIM THAT FORBIDS THE ENTIRE POINT OF THE FLIP. Step 5 is
+DEFINED as detail the finer grid can express and the coarse one cannot.
+
+A GATE MUST NEVER OUTRANK A RULING (8/1). So a generator may carry @SUBCELL-DETAIL and
+the gate widens THAT generator's bound by exactly the size of a sub-cell mark -- one
+pixel, 12% coverage -- and nothing else's.
+
+AND I TRIED TWICE TO MAKE THE MARKER SOMETHING THE MACHINE VERIFIES, AND FAILED TWICE:
+    ATTEMPT 1  compare the 112 output to the 56 output block-doubled. USELESS -- a
+               resolution-native generator differs from that anyway just by drawing
+               natively, so genBag passed on a bare pasted comment.
+    ATTEMPT 2  count cells whose TWO PIXEL ROWS differ, since only finer-than-a-cell
+               logic should split a cell. MEASURED, AND IT DOES NOT SEPARATE THEM:
+                   genHair    4   <- the one generator that really does author sub-cell
+                   genCoat   13      detail scores LOWEST of the three
+                   genGear   17
+               Native edge shading splits cells all by itself.
+A third attempt would have been the fourth version of something nobody asked for
+(STOP PRODUCING, 7/26), so THE CHECK IS NOT THERE and the gate says so out loud.
+
+WHY THAT IS ACCEPTABLE, AND IT IS MEASURED NOT ASSUMED: the marker moves the bound from
+1 pixel to 2 and from 4% coverage to 12%. THE BUG THIS GATE EXISTS FOR IS NOT IN THAT
+RANGE. Mutation-tested WITH the wider bound in force: put the backpack's hardcoded
+distances back and it still fires on three facings at 31% of proper coverage. A false
+marker can excuse a small honest difference; it cannot hide a mis-scaling bug.
+
+AND CLAUSE 3 NOW HAS A GATE THAT LOOKS AT PIXELS
+-------------------------------------------------
+hair_gate walks the real silhouette and ratchets both numbers, only ever downward:
+    PINNED_STRAIGHT 0.185      PINNED_LONGEST 6
+Mutation: disable the sub-step and it fires on both, reporting 50.7% and 16 -- the exact
+pre-change numbers. The source-level check in craft_law_gate stays; it is now the weaker
+of two rather than the only one.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE HAIR STOPPED BEING STRAIGHT" -- TEMPLE TAPER, BOWL CUT and SUN CROP, the
+old edge beside the new one, zoomed so one pixel is visible. Both halves come out of the
+SAME generator (CLO_NOSUB switches the sub-step off for the tool), so the only difference
+on screen is the thing being judged, not two different builds.
+The hair itself is in the CHARACTER tab.
+
+  node tools/bohemia_hair_straightness.js     the measurement
+  node tools/bohemia_hair_edge_picture.js     the picture
+  node gates/hair_gate.js                     25/0
+  node gates/clothes_4x_gate.js               12/0, 1,744 hashes unmoved at 56

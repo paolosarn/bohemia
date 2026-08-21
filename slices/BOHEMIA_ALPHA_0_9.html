@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21j - THE GRAVES HAVE THEIR STONES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21k - HAIR ISNT STRAIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21008,6 +21008,7 @@ window.CLO=(function(){
        tex    'solid' | 'locs' | 'braid' -- ropes/rows instead of a mass
      STRUCTURE-NOT-COLOR: these are silhouettes. The ramp only makes them
      visible. ===== */
+  var CLO_NOSUB=false; window.CLO_SET_NOSUB=function(v){CLO_NOSUB=!!v;};
   function genHair(g,opt){
     var r=opt.ramp,i,o={},S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;
@@ -21035,13 +21036,43 @@ window.CLO=(function(){
        NPC never shimmers between frames. "a lot about hair is about just the little
        off shapes that it makes ... I'm seeing you make like a lot of straight lines
        and that's not realistic at all." */
+    /* THE BEFORE/AFTER PICTURE COMES OUT OF THIS GENERATOR, NOT A STORED SCREENSHOT.
+       CLO_NOSUB turns the sub-cell step off so tools/bohemia_hair_edge_picture.js can
+       draw the old edge and the new one from the SAME code on the SAME body -- the
+       only difference on screen is then the thing being judged. It is false in the
+       game and nothing but that tool ever sets it. */
+    var _noSub=(typeof CLO_NOSUB!=='undefined'&&CLO_NOSUB);
     var _wseed=0, _wn=(opt.name||'');
     for(var _wi=0;_wi<_wn.length;_wi++){_wseed=(Math.imul(_wseed^_wn.charCodeAt(_wi),16777619))>>>0;}
     /* THE WOBBLE IS PER ROW OF HAIR, NOT PER PIXEL ROW. Hashing the raw y at 112
        gives every sub-row its own jitter and the edge turns to static instead of
        "little off shapes" -- and the amount it moves by is a hair's width, so S. */
+    /* *** AND AT 112 THE STEP CAN BE FINER THAN A CELL (8/21, row 2X step 5). ***
+       The line above is still right about the SHAPE: hash the cell row, so the
+       coarse silhouette is the one he approved and an NPC never shimmers. But it
+       was the WHOLE wobble, and its only amplitude was S -- so once the rig
+       composed at 112 the hair edge moved in 2x2 blocks and four times the pixels
+       bought a SHARPER edge, not a FINER one. Measured before this landed:
+       50.7% of all hair edge rows sat in a straight run of FOUR OR MORE, with
+       16-row straight edges on TEMPLE TAPER and BOWL CUT. That is the exact thing
+       clause 3 is about -- "a lot of straight lines and that's not realistic".
+       SO: keep the cell-level step exactly as it was, and where it says "stay put",
+       let the individual pixel row move by ONE. His own clause 5: "ONE PIXEL not
+       three at 56px" -- a finer grid is for finer marks, not bigger ones.
+       IT CANNOT TURN INTO STATIC, which is the failure the cell-hash exists to
+       prevent: the sub-step only ever fires where the coarse step did NOT, so the
+       edge's total travel is unchanged at S, and at S===1 it never fires at all --
+       the 56 silhouette is byte-identical, which the wardrobe pin proves. */
+    /* @SUBCELL-DETAIL: this generator authors marks FINER THAN ONE CELL when S>1,
+       so its 112 output is deliberately NOT its 56 output scaled. clothes_4x_gate
+       reads this marker and widens ONLY this generator's proportion bound, by ONE
+       PIXEL and 12% coverage -- the exact size of the sub-step below. Every other
+       generator stays on the tight bound. */
     var wob=function(y,side){ var h=(Math.imul((_wseed^((((y/S)|0))*2654435761))>>>0,2246822507))>>>0;
-      return ((h>>>(side?7:17))&3)===0 ? S : 0; };
+      var base=((h>>>(side?7:17))&3)===0 ? S : 0;
+      if(S<2||base||_noSub) return base;
+      var h2=(Math.imul((_wseed^((y*2654435761)>>>0))>>>0,3266489909))>>>0;
+      return ((h2>>>(side?11:23))&3)<2 ? 1 : 0; };
     var span=function(y){ var mn=CW,mx=-1; for(var x=0;x<CW;x++){var gv=g[y*CW+x];
       if(gv===1||gv===2){if(x<mn)mn=x;if(x>mx)mx=x;}} return mx<0?null:[mn,mx]; };
     /* THE BROW CEILING. On a front facing the eyes are the top of the painted

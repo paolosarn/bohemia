@@ -1,3 +1,69 @@
+CHARACTER (character-0lurbs): 8/21 (a) LATEST -- *** THE HAIR STOPPED BEING STRAIGHT.
+Row 2X STEP 5 has started: the first content that actually uses the new pixels. ***
+
+HIS CLAUSE 3 (8/1, LOCKED): "hair is about just the little off shapes that it makes ...
+I'm seeing you make like a lot of straight lines and that's not realistic at all."
+
+The wobble built that day works and is still correct. But it hashes the CELL row and its
+only amplitude is S, so the moment the rig went to 112 it became a TWO PIXEL step on a
+cell-sized grid -- the same silhouette as 56, drawn bigger. FOUR TIMES THE PIXELS BOUGHT
+A SHARPER HAIR EDGE, NOT A FINER ONE.
+
+NOTHING NOTICED, AND THAT IS THE REUSABLE PART: craft_law_gate asserts clause 3 by
+FINDING THE WOBBLE IN THE SOURCE. It was there, hashed, deterministic, exactly as
+written. A SOURCE CHECK CANNOT TELL YOU THE EDGE IT PRODUCES IS DEAD STRAIGHT.
+
+MEASURED (tools/bohemia_hair_straightness.js), before -> after:
+    rows in a straight run of 4+     50.7%  ->  18.5%
+    longest straight edge            16     ->  6
+The cell step is UNTOUCHED (the coarse shape is the one he approved); where it says stay
+put, the individual PIXEL row may move by ONE. Cannot become static: it only fires where
+the coarse step did NOT, so total travel is unchanged, and at S===1 it never fires, which
+is why all 1,744 pinned 56 hashes are byte-identical.
+Tried 1-in-4 as well: 28.0% and 12 -- worse on BOTH axes, no trade-off to tune.
+
+*** THE GATE HAD TO BE WIDENED AND I COULD NOT MAKE THE WIDENING SELF-CHECKING. ***
+clothes_4x claim 1 ("112 output IS 56 scaled") forbids the entire point of the flip once
+any authored detail exists. A GATE MUST NEVER OUTRANK A RULING, so a generator may carry
+@SUBCELL-DETAIL and gets ONE pixel / 12% coverage of slack, nothing else does. I tried
+twice to make the machine verify the marker and FAILED TWICE -- recorded so nobody
+rebuilds it: (1) comparing 112 to doubled-56 is useless, native drawing differs anyway;
+(2) counting split cells does NOT separate them -- genHair scores 4 while genCoat scores
+13 and genGear 17 with no sub-cell authoring at all. A third attempt would have been the
+fourth version of an unasked-for thing. THE RISK IS BOUNDED AND MEASURED: mutation-tested
+with the wide bound in force, the backpack hardcode still fires at 31%. A false marker
+can excuse a small honest difference; it cannot hide a mis-scaling bug.
+
+CLAUSE 3 NOW HAS A PIXEL GATE: hair_gate ratchets PINNED_STRAIGHT 0.185 / PINNED_LONGEST
+6, both downward-only. Mutation: disable the sub-step and it fires reporting 50.7% and 16.
+Record: records/BOHEMIA_THE_HAIR_STOPPED_BEING_STRAIGHT_8_21_26.txt
+LOOK tab: "THE HAIR STOPPED BEING STRAIGHT" -- old edge beside new, SAME generator
+(CLO_NOSUB switches the sub-step off for the tool), so the only difference on screen is
+the thing being judged.
+
+ALSO, AND IT COST THE FIRST HALF OF THE SESSION: THE CONTAINER CAME UP ON AN 8/14 TREE
+with 8/12-era files staged, which looks exactly like unfinished mid-flight work. It was
+not -- origin/main was 8/21 and already contained every one of those files, in NEWER
+form. Checked all five against main before resetting; every local copy was strictly
+older. IF A CONTAINER LOOKS LIKE IT HAS UNCOMMITTED WORK, DIFF IT AGAINST origin/main
+BEFORE BELIEVING IT.
+
+CORRECTED A STALE NOTE OF MY OWN: my last handoff sent the next session to build "the
+fade-blends-into-skin-tone item marked [UNBUILT]". IT IS BUILT -- 8/1, amended 8/2
+(skull-only). The [UNBUILT] tag lives in the 8/14 TWICE THE PIXELS addendum and is stale
+there too.
+
+NEXT IN THIS LANE
+  - STEP 5 CONTINUES and hair is only the first of it. The same "sharper not finer"
+    audit is owed on every other generator: seams, hems, laces, buckles and stitch lines
+    all still step by a whole cell. genCoat and genGear already split cells natively, so
+    start by measuring which ones actually read coarse at 112 rather than assuming.
+  - CANVAS MEMORY still red, still NOT this lane's: 104 full-resolution images decode to
+    850 MB. It needs smaller DIMENSIONS, not quantizing.
+  - #354 TASTE and #356 ART 45 remain red and remain other lanes' content.
+
+---
+
 WORLD (world-9lfjtf): 8/20 (k) LATEST -- *** THE NEIGHBOURHOOD YOU WAKE UP IN HAD NINE TILE
 CODES AND NOT ONE OF THEM WAS A PROP. TAB: RUN, the street you spawn on. ***
 

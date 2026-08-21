@@ -159,6 +159,39 @@ const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
    straps. Nineteen generators branch on curDir, so a south-only fixture cannot see
    the majority of the code it claims to cover, and a gate that cannot see the
    failure it exists to catch is the broken one (8/1). 56 shapes x 8 facings. */
+/* *** A GENERATOR MAY DECLARE THAT IT AUTHORS DETAIL FINER THAN A CELL (8/21). ***
+   Claim 1 says the 112 output is the 56 output scaled. That is the right default and
+   it is what catches a hardcoded distance. It is also, the moment ANY authored detail
+   exists at 112, a claim that forbids the entire point of the flip -- row 2X step 5 is
+   defined as detail the finer grid can express and the coarse one cannot, and Paolo's
+   craft law demands it in two clauses ("no straight lines", "ONE PIXEL not three").
+   A GATE MUST NEVER OUTRANK A RULING (8/1). So a generator may carry the marker
+   @SUBCELL-DETAIL, and the gate widens THAT generator's bound by exactly the size of a
+   sub-cell mark -- one pixel, and 12% coverage -- and nothing else's. The marker is
+   checked in the SOURCE, so a lane cannot get the slack by claiming it in a reply.
+   THE BUG THIS GATE EXISTS FOR IS STILL CAUGHT WITH ENORMOUS MARGIN: a generator with
+   a hardcoded distance comes out at 25-50% of its proper coverage, not 110%, and the
+   mutation test at the bottom of this file proves it still fires with the wider bound. */
+const SUBCELL = new Set(GENS.filter(n => /@SUBCELL-DETAIL/.test(grab(src, n) || '')));
+/* *** WHAT THE MARKER CAN AND CANNOT DO, SAID PLAINLY BECAUSE I TRIED TO DO MORE. ***
+   A bare comment buys the wider bound. Nothing verifies that the generator carrying it
+   actually draws a sub-cell mark, and that bothered me enough to try twice:
+     ATTEMPT 1  compare the 112 output to the 56 output block-doubled. USELESS: a
+                resolution-native generator differs from that anyway just by drawing
+                natively, so genBag passed on a bare comment.
+     ATTEMPT 2  count cells whose TWO PIXEL ROWS differ, on the theory that only
+                finer-than-a-cell logic can split a cell. MEASURED, AND IT DOES NOT
+                SEPARATE THEM: genHair, the one generator that really does author
+                sub-cell detail, scores 4 -- while genCoat scores 13 and genGear 17
+                with no sub-cell authoring at all, purely from native edge shading.
+   A third attempt would be the fourth version of something nobody asked for, so the
+   check is not here and this comment is what stands in its place.
+   AND THE RISK IS SMALL, WHICH IS WHY THAT IS ACCEPTABLE: the marker widens the bound
+   from 1 pixel to 2 and from 4% coverage to 12%. THE BUG THIS GATE EXISTS FOR IS NOT
+   IN THAT RANGE -- a generator with a hardcoded distance comes out at 25-50% of its
+   proper coverage. Mutation-tested with the marker's wider bound in force: the
+   backpack hardcode still fires on three facings at 31%. A false marker cannot hide a
+   mis-scaling bug; it can only excuse a small honest difference. */
 let native = 0, ran = 0; const drift = [];
 for (const d of DIRS) {
   const A = build(src, 56, d), B = build(src, 112, d);
@@ -172,17 +205,19 @@ for (const d of DIRS) {
        behind are invisible on purpose); one that draws in exactly one is a bug. */
     if (!s1 && !s2) { native++; continue; }
     if (!s1 || !s2) { drift.push(label + ' DRAWS AT ' + (s1 ? '56 ONLY' : '112 ONLY')); continue; }
-    const TX = 1.1 / (2 * s1.BW), TY = 1.1 / (2 * s1.BH);
+    const SUB = SUBCELL.has(fn) ? 2.0 : 1.0, COV = SUBCELL.has(fn) ? 0.12 : 0.04;
+    const TX = SUB * 1.1 / (2 * s1.BW), TY = SUB * 1.1 / (2 * s1.BH);
     const AX = { lef: TX, rig: TX, w: TX, top: TY, bot: TY, h: TY };
     const worst = Object.keys(AX).map(k => [k, Math.abs(s1[k] - s2[k]) / AX[k]]).sort((x, y) => y[1] - x[1])[0];
     const covR = s2.cov / s1.cov;
-    if (worst[1] <= 1 && Math.abs(covR - 1) < 0.04) native++;
+    if (worst[1] <= 1 && Math.abs(covR - 1) < COV) native++;
     else drift.push(label + ': ' + worst[0] + ' x' + worst[1].toFixed(2) + ' floor, covers ' +
       (covR * 100).toFixed(0) + '% of what it should (' + s1.count + '->' + s2.count + ', ideal x4)');
   }
 }
 ok('every garment and hairstyle keeps its PROPORTIONS when the body doubles, EVERY FACING (' +
-   native + '/' + ran + (drift.length ? ')\n     ' + drift.slice(0, 10).join('\n     ') : ')'),
+   native + '/' + ran + (SUBCELL.size ? '; sub-cell detail declared by ' + [...SUBCELL].join(', ') : '') +
+   (drift.length ? ')\n     ' + drift.slice(0, 10).join('\n     ') : ')'),
    drift.length === 0);
 
 /* --------------------------------- claim 2: the build he plays today did not move */
