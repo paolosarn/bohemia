@@ -20325,6 +20325,93 @@ var XP = {}, XP_LOADED = 0;
     im.onload=function(){ XP_LOADED++; if(typeof draw==='function') draw(); };
     im.src='data:image/png;base64,'+e.b64; return { im:im, s:e.s||1, p:e.p||e.pack||'' }; }); }); })();
 </script>
+<!-- 8/21 (SOUND lane, found by rebuilding): bohemia_clout.js MUST load BEFORE
+     bohemia_loop.js. The CLOUT table was split out into its own module and
+     bohemia_loop.js now hard-throws without it ("it is the one copy of that
+     table and there is no fallback on purpose"), but this file was never given
+     the tag -- and this file is the canonical script ORDER that
+     tools/build_run_slice.js inlines from. The committed RUN_CURRENT.html still
+     carried the old pre-split copy, so nothing was red until the next rebuild
+     re-inlined the new bohemia_loop.js and the run died on load with
+     "BohemiaLoop is not defined". A module split is not finished until the page
+     that loads it says so. -->
+<script>
+/* inlined: engine/bohemia_clout.js */
+// BOHEMIA CLOUT, HOW LOUD A THING WAS, AND THE ONE PLACE THAT SAYS SO
+// (8/21/26, PEOPLE lane. Extracted, not authored: every number below is Paolo's
+//  7/21 ruling, moved, not changed.)
+//
+// ===== WHY THIS FILE EXISTS, AND IT IS NOT A NEW IDEA =====
+// bohemia_deeds.js refuses to run without this table and says why, in an error
+// string it throws on purpose:
+//
+//     "bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second
+//      copy of that table on purpose"
+//
+// MEASURED 8/21: THERE WERE FOUR COPIES.
+//     engine/bohemia_loop.js                  (the canonical one)
+//     slices/BOHEMIA_HOW_LOUD_8_6_26.html     retyped into a stub BohemiaLoop
+//     slices/BOHEMIA_CURRENT_SLICE.html       retyped
+//     slices/BOHEMIA_RUN_CURRENT.html         retyped
+//
+// They all hold the same numbers today, so nothing is broken this minute. That is
+// exactly what makes it dangerous: the 7/21 ruling says in as many words that the
+// ORDERING is locked canon and THE EXACT NUMBERS STAY TUNABLE, so the day he
+// retunes them, three surfaces keep the old ones and nobody finds out. A drift
+// that is invisible until the moment somebody exercises the thing it governs is
+// the class of rot the truth hierarchy exists to kill.
+//
+// AND THE COPIES WERE NOT LAZINESS. bohemia_loop.js is 75 KB and throws at load
+// without bohemia_engine, bohemia_scheduler, bohemia_world, bohemia_bq,
+// bohemia_quest_runtime and the faction graph. Anybody who wanted four numbers had
+// to choose between dragging in most of the engine or retyping the row. Three
+// surfaces made the same reasonable choice. THE FIX IS NOT TO SCOLD THE COPIES, IT
+// IS TO MAKE THE ORIGINAL REACHABLE: this file has NO dependencies at all, so
+// there is no longer a reason to retype it anywhere.
+//
+// ===== WHAT IS HIS, AND WHAT IS MERELY MOVED =====
+// The tags, the weights, the neutral, and the locked ordering are all his 7/21
+// ruling, copied verbatim out of bohemia_loop.js. Nothing here is tuned, renamed
+// or reinterpreted. bohemia_loop.js still exports CLOUT_TAGS / CLOUT_WEIGHTS /
+// cloutWeight / cloutTagFrom exactly as before, so every existing caller is
+// untouched; it now reads them from here instead of declaring them.
+//
+// REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks nothing and opens no bank. This is
+// a MOVE of an existing table, and the gate asserts the moved values are
+// identical to the ones bohemia_loop.js used to declare.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  /* HIS SCALE, 7/21. A quest's completing @STAGE line carries ONE of these to
+     classify its own outcome. The ORDERING (reckless > risky > notable > quiet)
+     is locked canon; the exact numbers stay tunable, which is the whole reason
+     there may only ever be one copy of them. */
+  var CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
+  var CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
+  var CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
+
+  function cloutWeight(tag) {
+    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
+  }
+
+  /* pick the one clout tag off a raw #hashtag list (first vocabulary hit; a stage
+     should only carry one, which is an authoring discipline, not enforced here). */
+  function cloutTagFrom(tags) {
+    tags = tags || [];
+    for (var i = 0; i < CLOUT_TAGS.length; i++)
+      if (tags.indexOf(CLOUT_TAGS[i]) >= 0) return CLOUT_TAGS[i];
+    return null;
+  }
+
+  var API = { CLOUT_TAGS: CLOUT_TAGS, CLOUT_WEIGHTS: CLOUT_WEIGHTS,
+              CLOUT_NEUTRAL: CLOUT_NEUTRAL,
+              cloutWeight: cloutWeight, cloutTagFrom: cloutTagFrom };
+  if (HASREQ) module.exports = API;
+  if (typeof root !== 'undefined') root.BohemiaClout = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
 <script>
 /* inlined: engine/bohemia_loop.js */
 /* ============================================================================
@@ -20378,10 +20465,23 @@ var XP = {}, XP_LOADED = 0;
   const DEFAULT_GRAPH = (typeof require !== 'undefined')
     ? require('./BOHEMIA_faction_graph.json')
     : (root.BOHEMIA_FACTION_GRAPH);
-  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH);
+  /* 8/21 (found by the SOUND lane rebuilding the run): THE CLOUT TABLE IS
+     RESOLVED HERE, like every other dependency in this file, and it has to be.
+     It was added INSIDE the factory as
+         (typeof root !== 'undefined' ? root.BohemiaClout : null)
+     but `root` is a parameter of THIS wrapper and is not in the factory's
+     scope at all -- so in a browser that expression was always undefined and
+     bohemia_loop hard-threw "needs bohemia_clout.js" on every page load,
+     taking BohemiaLoop with it. It worked under Node because the `require`
+     branch never touches `root`, which is why a node-side gate stayed green
+     while the run died in the browser. VERIFY ON THE REAL SURFACE. */
+  const CLOUTMOD = (typeof require !== 'undefined')
+    ? require('./bohemia_clout.js')
+    : (root.BohemiaClout);
+  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD) {
   'use strict';
 
   const Core = E.Core;
@@ -21602,13 +21702,29 @@ var XP = {}, XP_LOADED = 0;
      tagsOf(), so no format change was needed). Untagged stages score NEUTRAL.
      The ORDERING (reckless > risky > notable > quiet) is now locked canon and
      enforced by the LOOP CLOUT gate; the exact numbers stay tunable. */
-  const CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
-  const CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
-  const CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
-
-  function cloutWeight(tag) {
-    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
-  }
+  /* *** THE TABLE MOVED TO engine/bohemia_clout.js AND THE VALUES DID NOT. ***
+     (8/21, PEOPLE lane.) bohemia_deeds.js throws a deliberate error saying "there
+     is no second copy of that table on purpose" -- and measured on 8/21 there
+     were FOUR: this one, plus retyped copies in BOHEMIA_HOW_LOUD_8_6_26.html,
+     BOHEMIA_CURRENT_SLICE.html and BOHEMIA_RUN_CURRENT.html. All four agreed, so
+     nothing was broken; the ruling right above says the numbers STAY TUNABLE, so
+     the day he retunes them three surfaces would silently keep the old ones.
+     The copies were not laziness. This file is 75 KB and throws at load without
+     engine, scheduler, world, bq, quest_runtime and the faction graph, so anybody
+     who wanted four numbers had to drag in most of the engine or retype the row.
+     bohemia_clout.js has NO dependencies, so there is no longer a reason to.
+     EVERY EXPORT BELOW IS UNCHANGED. This reads what it used to declare, so no
+     caller of CLOUT_TAGS / CLOUT_WEIGHTS / cloutWeight / cloutTagFrom sees any
+     difference, and the gate asserts the moved values are identical. */
+  /* CLOUTMOD arrives as a factory parameter, resolved by the wrapper above --
+     see the note there. The throw stays: there is deliberately no fallback. */
+  if (!CLOUTMOD) throw new Error('bohemia_loop needs bohemia_clout.js for the '
+    + 'CLOUT scale; it is the one copy of that table and there is no fallback '
+    + 'on purpose');
+  const CLOUT_TAGS = CLOUTMOD.CLOUT_TAGS;
+  const CLOUT_WEIGHTS = CLOUTMOD.CLOUT_WEIGHTS;
+  const CLOUT_NEUTRAL = CLOUTMOD.CLOUT_NEUTRAL;
+  const cloutWeight = CLOUTMOD.cloutWeight;
   /* pick the one clout tag off a stage's raw #hashtag list (first vocabulary hit;
      a stage should only carry one — that's a content-authoring discipline, not
      enforced here). */
@@ -22539,12 +22655,26 @@ var XP = {}, XP_LOADED = 0;
   var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
   var BQ   = HASREQ ? require('./bohemia_bq.js')       : (root.BQ || null);
   var S    = HASREQ ? require('./bohemia_standing.js') : (root.BohemiaStanding || null);
-  var LOOP = HASREQ ? require('./bohemia_loop.js')     : (root.BohemiaLoop || null);
+  /* THE TABLE, FROM WHEREVER IT IS REACHABLE, AND IT IS THE SAME TABLE.
+     (8/21.) This used to demand BohemiaLoop, and the error it threw was right
+     about the rule and wrong about the address: bohemia_loop.js is 75 KB and
+     throws at load without six other modules, so a surface that wanted four
+     numbers had to drag in most of the engine. Three of them retyped the row
+     instead, which is exactly the second copy this error was written to prevent.
+     The table now lives alone in bohemia_clout.js with no dependencies, and
+     bohemia_loop.js READS it rather than declaring it -- so LOOP.cloutWeight and
+     CLOUT.cloutWeight are the same four numbers by construction, not by luck.
+     Preferring the standalone module is what lets the walked city have loudness
+     for 13 KB instead of the whole engine. The throw survives for the case it
+     always meant: NEITHER is present, so there is no table at all. */
+  var LOOP  = HASREQ ? require('./bohemia_loop.js')  : (root.BohemiaLoop  || null);
+  var CLOUT = HASREQ ? require('./bohemia_clout.js') : (root.BohemiaClout || null);
 
   /* ---- HIS COLUMN 2: HOW LOUD. Read, never retyped. --------------------- */
   function cloutWeight(tag) {
-    if (!LOOP) throw new Error('bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second copy of that table on purpose');
-    return LOOP.cloutWeight(tag);
+    var src = CLOUT || LOOP;
+    if (!src) throw new Error('bohemia_deeds needs the CLOUT scale (bohemia_clout.js, or bohemia_loop.js which reads it); there is no second copy of that table on purpose');
+    return src.cloutWeight(tag);
   }
   function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
 

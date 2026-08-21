@@ -49,10 +49,23 @@
   const DEFAULT_GRAPH = (typeof require !== 'undefined')
     ? require('./BOHEMIA_faction_graph.json')
     : (root.BOHEMIA_FACTION_GRAPH);
-  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH);
+  /* 8/21 (found by the SOUND lane rebuilding the run): THE CLOUT TABLE IS
+     RESOLVED HERE, like every other dependency in this file, and it has to be.
+     It was added INSIDE the factory as
+         (typeof root !== 'undefined' ? root.BohemiaClout : null)
+     but `root` is a parameter of THIS wrapper and is not in the factory's
+     scope at all -- so in a browser that expression was always undefined and
+     bohemia_loop hard-threw "needs bohemia_clout.js" on every page load,
+     taking BohemiaLoop with it. It worked under Node because the `require`
+     branch never touches `root`, which is why a node-side gate stayed green
+     while the run died in the browser. VERIFY ON THE REAL SURFACE. */
+  const CLOUTMOD = (typeof require !== 'undefined')
+    ? require('./bohemia_clout.js')
+    : (root.BohemiaClout);
+  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD) {
   'use strict';
 
   const Core = E.Core;
@@ -1287,9 +1300,8 @@
      EVERY EXPORT BELOW IS UNCHANGED. This reads what it used to declare, so no
      caller of CLOUT_TAGS / CLOUT_WEIGHTS / cloutWeight / cloutTagFrom sees any
      difference, and the gate asserts the moved values are identical. */
-  const CLOUTMOD = (typeof require !== 'undefined')
-    ? require('./bohemia_clout.js')
-    : (typeof root !== 'undefined' ? root.BohemiaClout : null);
+  /* CLOUTMOD arrives as a factory parameter, resolved by the wrapper above --
+     see the note there. The throw stays: there is deliberately no fallback. */
   if (!CLOUTMOD) throw new Error('bohemia_loop needs bohemia_clout.js for the '
     + 'CLOUT scale; it is the one copy of that table and there is no fallback '
     + 'on purpose');

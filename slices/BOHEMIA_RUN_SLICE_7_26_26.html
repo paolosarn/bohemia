@@ -446,6 +446,17 @@ var XP = {}, XP_LOADED = 0;
     im.onload=function(){ XP_LOADED++; if(typeof draw==='function') draw(); };
     im.src='data:image/png;base64,'+e.b64; return { im:im, s:e.s||1, p:e.p||e.pack||'' }; }); }); })();
 </script>
+<!-- 8/21 (SOUND lane, found by rebuilding): bohemia_clout.js MUST load BEFORE
+     bohemia_loop.js. The CLOUT table was split out into its own module and
+     bohemia_loop.js now hard-throws without it ("it is the one copy of that
+     table and there is no fallback on purpose"), but this file was never given
+     the tag -- and this file is the canonical script ORDER that
+     tools/build_run_slice.js inlines from. The committed RUN_CURRENT.html still
+     carried the old pre-split copy, so nothing was red until the next rebuild
+     re-inlined the new bohemia_loop.js and the run died on load with
+     "BohemiaLoop is not defined". A module split is not finished until the page
+     that loads it says so. -->
+<script src="../engine/bohemia_clout.js"></script>
 <script src="../engine/bohemia_loop.js"></script>
 <!-- THE REPUTATION LAYER, so the run can SHOW what a quest actually cost. The
      integration ledger has carried "factions / world bridge - PARTIAL - quest
