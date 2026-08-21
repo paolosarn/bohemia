@@ -1516,89 +1516,90 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/21 LATEST -- *** THE NUMBER MOVED AND NOBODY HAD SEEN
-ANYTHING. THEY SEE IT NOW, AND THEY TELL EACH OTHER. TAB: RUN -- answer a claim,
-then walk up to somebody who was standing there. The first row of their card says
-SAW. Somebody who was not there, later, says HEARD. ***
+PEOPLE (people-7h9sfy): 8/21 LATEST -- *** QUIET AND NOTORIOUS WERE THE SAME WORD,
+AND THE TABLE THAT SAID "NO SECOND COPY" HAD FOUR. TAB: RUN -- do something quiet
+and only the person beside you knows; throw in with an outfit and somebody down
+the street hears, and it gets retold four times instead of once. ***
 
-engine/bohemia_deeds.js names the flaw in its own opening paragraph, 8/6: "the
-faction standing got applied godlike -- the number moved, valley-wide, instantly,
-and NOBODY HAD SEEN ANYTHING. So today a back-yard handshake and a public
-humiliation in front of a whole block are worth the same." THE CITY WAS COMMITTING
-EXACTLY THAT: you answer a claim to a person's face on a street,
-BohemiaBelonging.adjust moves a valley-wide number, the whole outfit knows
-instantly, and the man standing next to you knows nothing.
-engine/bohemia_standing.js was built for this input on 8/2 -- witness, opinion,
-gossip, hearsay decay, generational inheritance, 35 green claims -- and had no
-caller anywhere. Yesterday this lane wired the witness ORGAN so people can SEE
-you; this wires the DEED, so what they see you DO is a thing they hold and pass on.
+engine/bohemia_deeds.js opens with TWO complaints and the last turn only closed
+one. The second stayed EXACTLY TRUE -- "a back-yard handshake and a public
+humiliation in front of a whole block are worth the same" -- because every deed
+took the default reach and the default hop budget. The module says it about
+itself: "until now NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every deed got the
+same hop budget, so quiet and notorious were the same word."
 
-ON THE CARD, first row, sitting directly above "NAME: YOU HAVE NOT ASKED":
-    SAW    watched you turn an outfit down
-A STRANGER WHOSE NAME YOU HAVE NEVER ASKED HAS ALREADY WATCHED YOU DO SOMETHING.
-It leads because it is the only part of the card that is different because of what
-you have DONE; every row below it is true of them on any day.
+*** WHICH OF HIS FOUR WORDS EACH ACT EARNS IS READ OFF HIS CORPUS, NOT INVENTED. ***
+203 clout tags across 27 quests, and the rule written in HIS OWN WORDS on 7/21:
+"CLOUT rides loudness", "quiet fix -> #quiet, public patch -> #notable", "help
+them finish small and intimate -> #quiet", "draw a real crowd -> #notable", "loud
+AND dangerous -> #risky", "loud spectacle -> #reckless", and decisively "THE
+PLAYER DOES NOT PICK A CLOUT NUMBER" -- THE ACT DOES. Applied to the four acts the
+walked street has:
+    met a claim      #quiet     you did what was asked, between the two of you
+    took a favour    #quiet     a hand-off, not a scene
+    refused a claim  #notable   you turned an outfit down to their face, in the open
+    committed        #risky     you threw in where anyone can see
+Those four words are the JUDGEMENT and he overturns them with one word. The
+WEIGHTS behind them are untouched and remain his.
 
-AND IT TRAVELS. Measured on the real surface:
-    stood next to you          hops=0   SAW    watched you turn an outfit down
-    sixty cells away           nothing  (no row at all)
-    45 min beside the witness  hops=1   HEARD  heard you turned an outfit down
-In most games every NPC knows everything the instant it happens with no route the
-news could have taken. Here there is a route and the card shows which end of it
-you are looking at.
+MEASURED ON THE REAL SURFACE, two people on the same street at 6 and 14 tiles:
+    quiet act   reached 1 (only the near one)   retold once
+    loud  act   reached 2 (both)                retold four times
+Full curve off his live table: untagged 9 tiles / 2 hops (BIT-FOR-BIT the old
+behaviour, the module's own identity guarantee), quiet 7/1, notable 12/3, risky
+17/4, reckless 24/5. A tag can move you OFF the default, never silently redefine it.
 
-THE WINDOW IS COUNTED IN GAME MINUTES, NOT FRAMES, and that is not a detail.
-Counting frames would mean two neighbours could only talk while the PLAYER stood
-watching them -- wrong about the world and unreachable in practice, because the
-player walks twelve cells a game-minute so 45 minutes of watching is five hundred
-cells of staring at the same two people. Elapsed clock time between passes is
-credited instead. TOGETHER MEANS CONVERSATIONAL DISTANCE (2 cells), NOT SEE_RANGE
-(9): you can watch something happen from nine tiles away, you cannot swap news
-from there. A pair that separates loses its accumulated time rather than banking
-it, which stops two people who merely pass each other daily from eventually
-counting as having had a long conversation.
+*** AND THE TABLE THAT SAID THERE IS NO SECOND COPY HAD FOUR. ***
+bohemia_deeds threw "there is no second copy of that table on purpose". Measured
+8/21, CLOUT_WEIGHTS was declared in bohemia_loop.js AND retyped in
+BOHEMIA_HOW_LOUD_8_6_26.html, BOHEMIA_CURRENT_SLICE.html and
+BOHEMIA_RUN_CURRENT.html. All four AGREE today, which is exactly what made it
+dangerous: the same 7/21 ruling says the ORDERING is locked and THE NUMBERS STAY
+TUNABLE, so the day he retunes them three surfaces keep the old ones and nobody
+finds out. THE COPIES WERE NOT LAZINESS -- bohemia_loop.js is 75 KB and throws at
+load without engine, scheduler, world, bq, quest_runtime and the faction graph, so
+anybody who wanted four numbers had to drag in most of the engine or retype the
+row. THE FIX IS NOT TO SCOLD THE COPIES, IT IS TO MAKE THE ORIGINAL REACHABLE:
+engine/bohemia_clout.js holds the table alone with ZERO dependencies, bohemia_loop
+READS it and exports CLOUT_TAGS/CLOUT_WEIGHTS/cloutWeight/cloutTagFrom UNCHANGED so
+no caller sees a difference, and the walked city gets loudness for 13 KB instead of
+the whole engine. Proved by retuning one file: engine, loop and the inlined city
+copy all followed and his ordering held.
 
-*** WHAT A DEED IS WORTH IS STILL HIS AND THAT IS WHY IT SHIPS EMPTY. ***
-DEED_WEIGHT is blank ("NOTHING IS IN HERE and nothing in this file invents a
-row"), opinionOf returns 0, standingOf returns NEUTRAL, and THE GATE ASSERTS BOTH
-STAY THAT WAY -- if it ever stops being zero without a ruling, some lane invented
-a number he did not give. That is also why the card reads the deed LEDGER instead
-of becauseOf(): becauseOf is a JUDGEMENT query and filters on force, so it returns
-nothing at all while the table is empty, but "he watched you refuse" is a FACT and
-it is true today. The moment he rules ONE row, opinion, standing rungs and the
-faction's whole view of you light up on this same data with NO wiring changed.
+THREE THINGS THIS GOT WRONG FIRST, ALL THE SAME SHAPE, ALL WORTH KEEPING:
+  - AN IDEMPOTENT TOOL WHOSE REFRESH PATH COVERS ONLY PART OF WHAT IT WRITES WILL
+    QUIETLY SKIP THE REST. The tool writes an inlined REGION and scattered CALL
+    SITES; its refresh branch only rewrote the region, so when ctDeed grew a `tag`
+    argument a re-run left every call site on the old form and the feature was
+    HALF-WIRED with the tool reporting success. The gate caught it.
+  - AN UPGRADE PAIR'S TWO HALVES MUST DESCRIBE THE SAME SPAN. The first fix paired
+    a NARROW `from` (the call line) with a WIDE `to` (the whole anchored region),
+    re-inserting the region around the call: a duplicated advance(60) that
+    DOUBLE-CHARGED AN HOUR OF HIS DAY, and a duplicated brace that was a hard
+    syntax error taking the entire city frame down. THIRD time this lane has met a
+    replace whose delete half and insert half cover different ground.
+  - git checkout <file> REVERTS YOUR OWN UNCOMMITTED WORK ALONG WITH THE MUTATION.
+    Mutation tests on uncommitted files need a backup copy, never a checkout.
+Both tool paths now converge BYTE-IDENTICALLY (fresh install vs in-place upgrade),
+proved by md5.
 
-THE BOUNDARY IS ASSERTED, NOT PROMISED. Claims, belonging and commitment are the
-FACTIONS lane's (last live 8/18). Nothing here changes what a claim COSTS, who may
-ask, or how belonging moves, and A5 of the gate asserts their adjust() line is
-intact and unchanged. This adds one sentence to the world: AND THESE SPECIFIC
-PEOPLE SAW YOU DO IT.
-
-THE KIND DOES NOT CARRY THE OUTFIT, on purpose: claim:met / claim:refused, never
-claim:refused:REDS. He weighs an ACT once; a kind per faction grows his table with
-the roster, and a bystander outside that outfit only knows you turned somebody
-down anyway, which is what the words say. All words are DRAFT, in one table
-(CT_DEED_WORDS).
-
-gates: CITY DEEDS 20/0 (new, registered 303 of 402), CITY MEMORY 23, city_talk 18,
-standing 35, memory 10 -- all green on the merged tree. Tool idempotent on the
-FIRST try, md5-identical over three runs (the memory tool shipped with the
-delete-half-missing bug yesterday, so this one carried the region marker from the
-start). Mutation-proved three ways with arrival verified in the file under test
-each time: gossip with no window -> 2 red; witness everyone regardless of distance
--> 4 red, including SAW and HEARD collapsing into the SAME SENTENCE; fire the deed
-on an unresolved claim -> 1 red.
-records/BOHEMIA_THE_NUMBER_MOVED_AND_NOBODY_SAW_8_20_26.md
+gates: CITY DEEDS 20 -> 30 all green, CITY MEMORY 23, engine sync law HOLDS (18
+modules, zero drift), loop clout 18, loop profile 10, deed bridge 27, standing 35,
+memory 10, city talk 18, integration 128. Mutations: drop the tag -> 2 red;
+reintroduce a second copy of the table -> 2 red; retune his weights -> EVERYTHING
+FOLLOWED (the proof, not a failure).
+records/BOHEMIA_HOW_LOUD_IT_WAS_8_21_26.md
 
 WHAT COMES NEXT:
-  1. *** THE THIRD ACT WORTH JUDGING. THIS LANE'S. *** Claims and commitments are
-     wired. The other real choice on that card is the FAVOUR -- asking somebody
-     for something -- and it is one ctDeed() line once somebody decides whether
-     ASKING is a deed at all. Beyond that: bohemia_deeds.js can make a deed LOUDER
-     or quieter from a quest's own #quiet/#reckless tag (reach and hops read from
-     his CLOUT_WEIGHTS), and nothing on the walked surface carries a tag yet.
+  1. *** THE THREE RETYPED SLICES. *** BOHEMIA_HOW_LOUD_8_6_26.html,
+     BOHEMIA_CURRENT_SLICE.html and BOHEMIA_RUN_CURRENT.html still carry their own
+     copy of CLOUT_WEIGHTS. They agree today. Each is a one-line change in
+     whichever tool generates it now that bohemia_clout.js exists to point at.
+     NOT this lane's surfaces; flagged rather than touched.
   2. *** THE DIAL, AND IT IS HIS. *** One DEED_WEIGHT row turns all of this from
-     "they remember" into "they judge". Nothing should invent it.
+     "they remember" into "they judge" -- opinionOf, standingOf, the rungs and the
+     faction's whole view of you light up on data that is already being collected,
+     with NO wiring changed. Nothing should invent it.
   3. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
   4. THE RIDGE EXTERIOR -- the one genuinely missing picture, and the only scene
