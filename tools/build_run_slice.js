@@ -432,6 +432,10 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
 /* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
    riding the bought gravel on every plant service lane -
    tools/tfcook/TF-ART-016_lane_cook.py */
+/* VOLUME 8/21: the cemetery's 925 headstones -
+   tools/tfcook/TF-ART-005_headstone_cook.py */
+grabPieces('banks/tileforms/TF-ART-005_HEADSTONE_VOLUME_8_21_26.json',
+  ['headstone_0', 'headstone_1', 'headstone_2']);
 /* VOLUME 8/21: the stadium bowl's raked seating + the school's metal
    bleachers + aisle stairs - tools/tfcook/TF-ART-005_seating_cook.py */
 grabPieces('banks/tileforms/TF-ART-005_SEATING_VOLUME_8_21_26.json',

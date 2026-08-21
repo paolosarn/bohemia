@@ -21094,6 +21094,14 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (d) LATEST -- *** THE GRAVES, THE SPUR, THE ALLEYS:
+925 headstones stand in the cemetery lawn (no glyphs - the dead are his
+to name); the granary rail spur wires into the approved rail family
+(track on straights, ballast on curves - honest about geometry); the
+downtown/commercial alleys pour asphalt. Sitting pass 40. Ranking is
+thinning - next tier is mostly plausible fallbacks; the parked list and
+the daily re-probe remain the standing jobs.
+PREVIOUS (c):
 ART (f3eu53): 8/21 (c) LATEST -- *** THE BOWL GETS ITS SEATS: the
 stadium's biggest surface (2,499 seating cells) + the school bleachers
 draw as raked bench rows with aisle stairs; the concourse pours concrete.

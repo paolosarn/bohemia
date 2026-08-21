@@ -856,3 +856,17 @@ render iteration: the first aisle cells painted only their strip and
 left their flanks BLACK - an overlay that replaces a cell must paint the
 whole cell or ride on something that does. Verified live: the bowl wraps
 the dead scoreboard in bench rows now, weeds in the concourse.
+
+## 8/21 FORTIETH PASS: THE GRAVES, THE SPUR, AND THE ALLEYS
+
+Three more off the ranking. The cemetery's 925 HEADSTONES - every one a
+single prop cell drawing as a wall block in the new lawn - stand as
+bleached stone slabs now (three shapes, lit tops, foot shadows, the odd
+lean from settling ground; NO name, date or glyph on any face - the dead
+are his to name). The granary's 2,059-cell RAIL SPUR drew gravel because
+the rail family never knew the synonym - and the spur CURVES, so the
+honest wire puts the track row only on locally-straight cells and the
+ballast bed on the curve fragments, which is what a curve looks like
+from above anyway. And the downtown and commercial ALLEYS (2,377 cells)
+pour old asphalt instead of gravel. Verified live: the cemetery reads as
+a cemetery at last - rows of stones in the dead lawn.
