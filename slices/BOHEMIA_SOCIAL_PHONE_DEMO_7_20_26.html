@@ -80,6 +80,13 @@ var BOHEMIA_FACTION_GRAPH = __FACTION_GRAPH_JSON__;
    They cast themselves into the valley below; nothing here edits their content. */
 var CANON_QUESTS = __CANON_QUESTS_JSON__;
 </script>
+<!-- CLOUT LOADS BEFORE LOOP (8/21, RUN lane). bohemia_loop.js reads
+     root.BohemiaClout for the CLOUT scale and THROWS without it ("it is the
+     one copy of that table and there is no fallback on purpose"). It was
+     never listed here, so rebuilding this phone produced a page that died on
+     load: no TAKE IT button, the job could not be taken, the whole demo went
+     21/0 -> 17/4. And CURRENT SLICE was telling people to run that rebuild. -->
+<script src="../engine/bohemia_clout.js"></script>
 <script src="../engine/bohemia_loop.js"></script>
 <style>
   /* ============================================================================

@@ -38,6 +38,18 @@ var MODS = ['bohemia_engine','bohemia_scheduler','bohemia_bq','bohemia_quest_run
   // missing from this list is a throw on load, not a quiet degrade.
   'bohemia_utility',
   'bohemia_rooms',
+  // CLOUT LOADS BEFORE LOOP (8/21, RUN lane). bohemia_loop.js reads
+  // root.BohemiaClout for the CLOUT scale and THROWS when it is absent -- "it is
+  // the one copy of that table and there is no fallback on purpose". It was not
+  // in this list, so running this tool produced a phone that died on load: the
+  // TAKE IT button never rendered, the job could not be taken, and the whole
+  // demo gate went 21/0 -> 17/4. THE TRAP WAS THAT THE GATE TOLD YOU TO RUN IT:
+  // CURRENT SLICE goes red with "regenerating changes nothing" and names this
+  // command, so following the instruction broke the game. The list's own comment
+  // already warned why -- "no require() in a browser bundle, so a module missing
+  // from this list is a throw on load, not a quiet degrade" -- it just had not
+  // been updated when loop.js grew the dependency.
+  'bohemia_clout',
   'bohemia_world','bohemia_valleymap','bohemia_loop'];
 
 var html = fs.readFileSync(SRC, 'utf8');
