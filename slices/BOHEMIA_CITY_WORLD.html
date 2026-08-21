@@ -36274,6 +36274,28 @@ function ctTieRow(p, roster){
    and earned. Both facts are already in the save; nothing here rolls a die.
    Returns the strongest such person, or null when you have nobody to name -- and
    null is a real answer, not a gap. */
+/* __CITY_RUNGNOTE__ -- HIS SENTENCE, MINUS A BIBLIOGRAPHY.
+   Four of the five rung notes are player copy. ONE carries a research citation
+   mid-sentence -- half player copy, half author's note to himself -- and a
+   bibliography on a person's card reads as a bug to whoever is holding the phone.
+   That is very likely why all five were dropped instead of one.
+   THIS IS MECHANICAL, NEVER AUTHORIAL: a "Name & Name:" clause is dropped FROM
+   THE CARD ONLY. Nothing is rewritten or paraphrased, and the note keeps its full
+   original text everywhere else, so the WORDS tab still hands him the whole thing
+   to edit. Splitting off a bibliographic aside is punctuation, not writing. */
+function ctRungNote(rung){
+  var s = String((rung && rung.note) || '');
+  /* "Lastname & Lastname: " or "Lastname 1991: " -- a citation, not a sentence */
+  var cut = s.replace(/(^|\.\s+)[A-Z][A-Za-z]+(\s*&\s*[A-Z][A-Za-z]+|\s+\d{4})[^:]{0,20}:\s*/g, '$1');
+  /* dropping the clause leaves the next sentence starting lower-case ("You did
+     the thing once. this is the whole entry"), which reads as broken copy. Only
+     ever applied where the strip actually fired, and capitalising after a full
+     stop is the same class of repair as removing the aside: punctuation, not
+     writing. His words are untouched. */
+  if(cut !== s) cut = cut.replace(/(^|\.\s+)([a-z])/g,
+                    function(_m, a, c){ return a + c.toUpperCase(); });
+  return cut.trim();
+}
 function ctOnwardWho(p, fid){
   if(typeof BohemiaTies === 'undefined' || !fid) return null;
   try {
@@ -36708,6 +36730,15 @@ function ctDraw(){
         body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
+      /* __CITY_RUNGNOTE__ -- AND WHAT THAT WORD MEANS, which he wrote when the
+         ladder shipped and no surface has ever asked for. The card printed one
+         word -- USEFUL, COUNTED, INSIDE -- and left the sentence saying what it
+         costs you sitting unread beside it. The organ sweep cannot find this
+         class: a note is DATA, so it has no call site to count.
+         Folds with the terms, because the WORD is live and the sentence under it
+         is a property of the RUNG -- identical on every member of every outfit at
+         that rung, forever, which is the fold's own test. */
+      if(bar.rung && ctLadder) body += ctNote(ctRungNote(bar.rung));
       /* __CITY_NEGLECT__ -- AND WHAT A QUIET DAY COSTS, on the row that
          owns it, before it ever happens. THE CONSEQUENCE IS PRINTED BEFORE THE
          BUTTON, NEVER AFTER (8/15): a cost that only arrives overnight,

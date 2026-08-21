@@ -1486,6 +1486,38 @@ function requirePlaywright() {
                            + 'one. Same root cause as M5: homesIn() seats one person per '
                            + 'cell so the home focus groups nobody. WORLD/density.' }));
 
+    /* ---- P. THE SENTENCES UNDER THE LADDER --------------------------------
+       THE ELEVENTH, and it is authored CONTENT rather than an organ. The card
+       printed bar.rung.word -- one word -- and the sentence he wrote saying what
+       that word MEANS has never once been asked for by any surface.
+       AND THE ORGAN SWEEP CANNOT FIND THIS CLASS: a note is DATA, so it has no
+       call site to count. organ_reach_gate shipped this morning and reports
+       bohemia_belonging perfectly healthy. Worth saying out loud, because a gate
+       you trust for the wrong question is worse than no gate. */
+    const RUNGS = require(path.join(ROOT, 'engine/bohemia_belonging.js')).RUNGS;
+    ok('P1 EVERY RUNG HAS AN AUTHORED SENTENCE and the ladder still has five of '
+      + 'them. If a rung ever loses its note this goes red rather than quietly '
+      + 'rendering a blank where an explanation used to be',
+      Array.isArray(RUNGS) && RUNGS.length === 5
+        && RUNGS.every(r => r && String(r.note || '').trim().length > 10),
+      JSON.stringify((RUNGS || []).map(r => r.word)));
+
+    ok('P2 …and the card SHOWS the one for the rung you are on. It printed the '
+      + 'word alone since the ladder shipped, so the player climbed five rungs '
+      + 'and was never told what any of them cost — the same shape as the ten '
+      + 'orphaned organs, one layer up: somebody wrote it, no surface asked',
+      !!tert.opened && RUNGS.some(r => (tert.opened || '').indexOf(
+        String(r.note).replace(/(^|\.\s+)[A-Z][A-Za-z]+(\s*&\s*[A-Z][A-Za-z]+|\s+\d{4})[^:]{0,20}:\s*/g, '$1').trim()) >= 0),
+      JSON.stringify({ opened: (tert.opened || '').slice(0, 400) }));
+
+    ok('P3 …and NO BIBLIOGRAPHY REACHES THE CARD. One of the five carries a '
+      + 'research citation mid-sentence — half player copy, half note to self — '
+      + 'and that is very likely why all five were dropped instead of one. It is '
+      + 'stripped for the card only; his text is untouched everywhere else',
+      !/(Lave|Wenger|Granovetter|Dunbar|Feld|Burt|Simmel|Kalyvas|Gouldner)/i
+        .test(tert.opened || ''),
+      JSON.stringify(((tert.opened || '').match(/[^\n]*(Lave|Wenger|Feld|Burt)[^\n]*/g) || [])));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
