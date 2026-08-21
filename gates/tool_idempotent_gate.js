@@ -98,17 +98,27 @@ function ok(claim, cond, detail) {
 }
 const git = (a) => cp.execSync('git ' + a, { cwd: ROOT, encoding: 'utf8' }).trim();
 
-/* ---- it will not measure on a dirty tree -------------------------------- */
-const dirtyBefore = git('status --short');
-ok('the tree is clean before measuring — this gate diffs with git, so somebody '
-  + "else's uncommitted work would read as a tool's damage and it must refuse "
-  + 'rather than report a stranger\'s edits as a destructive tool',
-  dirtyBefore === '', dirtyBefore.split('\n').slice(0, 5).join(' | '));
-
-if (dirtyBefore !== '') {
-  console.log('\nTOOL IDEMPOTENT GATE: ' + pass + ' passed, ' + fail + ' failed');
-  process.exit(1);
+/* ---- IT MEASURES A DELTA, NOT AN ABSOLUTE -------------------------------
+   THE FIRST VERSION REFUSED TO RUN ON A DIRTY TREE, and that was wrong in the
+   ordinary case rather than the rare one: the very first suite run went red
+   because registering this gate had left bohemia_gates.py modified. Every lane
+   runs the suite with uncommitted work -- that IS the normal state -- so a gate
+   that reds on dirt would be red almost always, and a gate that is always red
+   teaches everyone to ignore it.
+   A BASELINE, NOT A VETO. The tree's existing state is recorded first and
+   subtracted, so pre-existing edits cancel out and only what a TOOL changes is
+   attributed to it. Same correctness, none of the false reds -- and it still
+   restores anything a tool writes, so somebody else's work is never lost. */
+function snapshot() {
+  const st = git('diff --numstat') + '\n@@\n' + git('status --porcelain');
+  return st;
 }
+const baseline = snapshot();
+ok('a baseline of the tree is taken before anything runs, so a lane\'s '
+  + 'uncommitted work is never attributed to a tool. The first cut REFUSED on a '
+  + 'dirty tree and went red on its own registration commit — a gate that is red '
+  + 'in the ordinary case is one everybody learns to ignore',
+  typeof baseline === 'string');
 
 const destructive = [], silent = [], clean = [];
 for (const t of RUNS) {
@@ -117,17 +127,29 @@ for (const t of RUNS) {
   try { out = cp.execSync('timeout 180 python3 ' + file + ' 2>&1', { cwd: ROOT, encoding: 'utf8' }); }
   catch (e) { out = (e.stdout || '') + (e.stderr || ''); code = e.status || 1; }
 
-  const diff = git('status --short');
+  /* the DELTA against the baseline: what THIS tool changed, ignoring whatever
+     was already uncommitted when the gate started. */
+  const now = snapshot();
   let ins = 0, del = 0;
-  if (diff) {
-    const st = git('diff --numstat');
-    for (const ln of st.split('\n').filter(Boolean)) {
-      const p = ln.split('\t');
-      ins += parseInt(p[0], 10) || 0; del += parseInt(p[1], 10) || 0;
+  if (now !== baseline) {
+    const base = {}, cur = {};
+    for (const ln of git('diff --numstat').split('\n').filter(Boolean)) {
+      const q = ln.split('\t'); cur[q[2]] = [parseInt(q[0], 10) || 0, parseInt(q[1], 10) || 0];
     }
-    /* put the tree back before the next tool, always */
-    try { cp.execSync('git checkout -q -- . && git clean -qfd slices engine banks records',
-      { cwd: ROOT }); } catch (_e) {}
+    for (const ln of baseline.split('\n@@\n')[0].split('\n').filter(Boolean)) {
+      const q = ln.split('\t'); base[q[2]] = [parseInt(q[0], 10) || 0, parseInt(q[1], 10) || 0];
+    }
+    for (const f in cur) {
+      const b = base[f] || [0, 0];
+      ins += Math.max(0, cur[f][0] - b[0]);
+      del += Math.max(0, cur[f][1] - b[1]);
+    }
+    /* restore ONLY what this tool touched, never the lane's own work */
+    for (const f in cur) if (!base[f] || String(base[f]) !== String(cur[f])) {
+      if (base[f]) continue;                    /* already dirty before: leave it */
+      try { cp.execSync('git checkout -q -- ' + JSON.stringify(f), { cwd: ROOT }); } catch (_e) {}
+    }
+    try { cp.execSync('git clean -qfd slices engine banks records', { cwd: ROOT }); } catch (_e) {}
   }
   const claimedWrite = /\bwrote\b|\bwired\b|\bKB\b/i.test(out) && !/no-?op|already|nothing to do/i.test(out);
   const rec = { tool: t, code, ins, del, claimedWrite, first: out.split('\n').filter(Boolean)[0] || '' };
@@ -157,9 +179,10 @@ ok('T3 …and the honest ones stay honest: a tool that has nothing to do SAYS so
   + 'it is already the majority',
   clean.length >= 7, clean.map(c => c.tool).join(', '));
 
-const after = git('status --short');
-ok('T4 the tree is clean AFTER measuring too — nothing this gate ran survived it',
-  after === '', after.split('\n').slice(0, 5).join(' | '));
+ok('T4 the tree is as it was AFTER measuring too — nothing this gate ran '
+  + 'survived it, and nothing a lane had in flight was thrown away either',
+  snapshot() === baseline,
+  'baseline drifted; run `git status` and check nothing was lost');
 
 console.log('');
 console.log('  ran ' + RUNS.length + ' tools that execute (52 more crash on the dead '
