@@ -1,6 +1,222 @@
 RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES, AND THE REDS ARE
 MOSTLY BLIND RULERS, NOT BROKEN GAME. ***
 
+THE SUITE ITSELF IS DONE (fixes 1, 2, 3 all landed):
+  401 of 401 gates, ZERO unrun, including the confirm-alone pass.
+  Was 217 of 379 and a fifty-minute wall.
+  --pure runs the browserless gates as a pre-ship check.
+  A RED UNDER LOAD IS RE-RUN ALONE before it counts, so the suite cannot invent
+  one.
+
+*** AND THE RUNNER WAS OVERSUBSCRIBING THE BOX BY HALF, WHICH IS WHY IT KEPT
+    INVENTING THEM. *** Its own comment said "pure gates get all the cores and
+    browsers get half". The code did not do that: a browser gate held ONLY the
+    browser semaphore, so a four-core container ran JOBS pure PLUS BROWSER_JOBS
+    browser at once -- four and two -- aimed squarely at the gates that MEASURE
+    TIME. The file had already written down what that costs ("oversubscribe the
+    box and they fail for LOAD rather than for truth") and then paid it every
+    run. FIGHT MUSIC and FIRST NIGHT both came up red in the pack and green
+    alone today, and the confirm pass bought a second full run of each to find
+    out. A browser gate now takes a browser slot AND a core.
+    THE CLAIM IS MEASURED NOW, NOT ASSERTED: BOHEMIA_SUITE_TRACE logs each gate
+    in and out of the box and SUITE HONESTY A17/A18 compute the PEAK. That
+    comment was wrong for as long as the runner has existed and nothing noticed,
+    because the WORDS were right and the NESTING was not -- a regex passes
+    happily on that. Mutation-tested: reverting the one line turns both red.
+
+*** THE PATTERN OF THIS WHOLE SWEEP: SEVEN OF THE REDS I CLEARED WERE GATES
+    READING CHARACTERS INSTEAD OF BEHAVIOUR, AND THREE OF THOSE WENT RED AT A
+    CORRECT CHANGE. *** Not one was a broken game. Write this down because it
+    will happen again the next time anything is refactored:
+
+  CRAFT LAW 35/4 -> 39/0. The 4X hair pass rewrote every hair distance from
+    PIXELS to CELLS of S=CW/56, so `(x-hMn)` became `((x-hMn)/S)|0` and four
+    TRUE clauses reported false. This gate had done it to itself twice before
+    and SAYS SO in its own comments ("pin the behaviour", "THIS PINNED THE
+    BROKEN FIX"), and the law it enforces contains the rule it kept breaking: A
+    CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE. It now
+    LIFTS each expression out of the alpha, compiles it and RUNS it over a sweep
+    of head widths, scales and coordinates. Stricter, not looser -- the old
+    check passed on a file that merely contained the right characters, and its
+    first version pinned the broken fix and shipped. Mutation-tested four ways.
+
+  RIG CHECK 195/2 -> 208/0. The rig is now `const BAKED=RIG2X({...})`. The scan
+    looked for `const NAME = {`, so BAKED went INVISIBLE. That was not two reds,
+    IT WAS NINE: seven more claims downstream were being silently skipped
+    because BAKED could not be found. And the wrapper itself had NO GATE AT ALL
+    -- a scaler running over every painted pixel of his rig on every boot, under
+    a law that says his painted regions are sacrosanct. It now RUNS RIG2X on a
+    rig whose answer is known by hand: every painted pixel becomes its own 2x2
+    block, regions stay disjoint, order preserved, skeleton and pose double with
+    it. Mutation-tested: dropping one pixel of four is caught.
+
+  CHAR OUTLINE 34/1 -> 35/0. `indexOf('  return {px,CW,CH};')`, exact literal,
+    two leading spaces and all. buildFrame started returning {px,CW,CH,grid} and
+    it came back -1. Worse, the clause was `(iRet - iPass) < 2200` -- a BYTE
+    BUDGET, which passes for any 2,199 bytes of anything, INCLUDING a
+    compositing pass drawing over the border. It now requires that NOTHING
+    EXECUTES between the outline call and the return, and names the offender.
+    Mutation-tested: the old budget passed the same mutation happily.
+
+  COMBAT LAB 885/3 -> 888/0. Three faults: BAKED again; a 700-character window
+    from `function doReload(){` to `endTurnReturn(false);` that a five-line
+    comment outgrew (it reads the FUNCTION and checks its LAST STATEMENT now);
+    and the one worth remembering --
+    *** A RECORDED HOLE FIRED AT THE THING IT EXISTED TO GET BUILT. *** The
+    clause said "RECORDED, NOT FIXED: in the overworld the kill ladder is
+    unreachable, the ONLY writer of MUS.layers is the studio preview buttons",
+    and pinned it by asserting exactly ONE assignment. Somebody built KILLMUS,
+    a second assignment appeared, and the gate reported the FIX as a FAILURE.
+    A RECORDED HOLE IS A TRIPWIRE, NOT A LOCK. It now asserts the fixed state
+    and pins what the fix must keep doing: his own 7/3 rungs, the lift landing
+    at the TOP OF A BAR, a reset to calm per fight.
+
+  ROAD CELLS 42/1 -> 45/0. Same disease, sharpest case. It asserted "the
+    arterial block wall blocks" -- a tile PAOLO'S OWN RULING DELETED ("THE
+    STREETS DONT HAVE WALLS", 8/11) after one surviving column SEALED THE PLAYER
+    INTO A SINGLE CELL (flooding from spawn reached 3 tiles of 9,216). WORLD
+    carrying out his ruling turned the gate red, and the gate was arguing for
+    the wall. A GATE MUST NEVER OUTRANK A RULING. Flipped into the tripwire that
+    matters: code 8 stays empty, no arterial tile is a wall under any OTHER
+    number (a renumbered wall is the same wall), and no full column is solid so
+    it can never seal him in again.
+
+  FIRST NIGHT 53/0 in both places now. Green alone, red in the pack, and its
+    crash SWALLOWED THE TALLY -- one line about a null, no way to tell whether it
+    died at claim 3 or claim 50. Three faults: it was timing on a guess (now
+    polls, and polls for state:'attached', because playwright's DEFAULT 'visible'
+    cost it fifteen claims in one edit -- the button is tappable, the frame just
+    never lays it out); a downstream null (DQ.serialize().state is null when no
+    job was taken) that DETONATED instead of going red, taking twelve claims with
+    it; and a crash handler that printed no tally. Fault 2 is what made fault 1
+    invisible and fault 3 is why nobody could tell.
+
+TWO REDS WERE REAL AND NEITHER WAS A BROKEN GAME:
+
+  SONG LOCK 19/1 -> 20/0. RED SINCE 8/19 AND NOBODY NOTICED, because the suite
+    was dying two thirds of the way through and a gate that never runs reads
+    exactly like a green one. Two MUSIC commits moved MLOOPS and neither
+    re-locked: 9cf5a719 removed eight songs he had killed, 05371f62 added three
+    menu songs. VERIFIED AT SONG GRANULARITY BEFORE RECORDING ANYTHING: 132
+    entries -> 127, all eight removals are in the graveyard, and ALTERED IS
+    EMPTY -- every surviving song byte-identical. Re-locked with that finding
+    written into the manifest note; the diff confirms only MLOOPS moved.
+
+  DIALOGUE CATALOGUE 60/2 -> 62/0. The WORDS tab bake was stale against its
+    sources, so drafted lines existed in the game he could not reach to edit --
+    which is the entire point of that law. Re-ran tools/bohemia_words_book.py;
+    only the fingerprint moved (same 1910 lines, same 1864 cited).
+
+ALSO GREEN, no work needed, they cleared as main moved: OPENING 24/0, DEMO 23/0,
+TOOLS RUN 8/0, JUDGE SURFACE 28/0, FIGHT MUSIC 47/0.
+
+*** THE REDS THAT ARE LEFT ARE REAL CONTENT, AND THEY BELONG TO OTHER LANES.
+    Per the sweep law, each gets a written line rather than me editing another
+    lane's system: ***
+  MOTION VISIBLE (ANIMATION)  headshot and headshot-2: the silhouette WIDENS as
+      the body goes flat (that claim passes) but the top of the sprite drops
+      0px on every one of 7 samples. The body is moving and the topmost row
+      never is. Real, measured, and it is the ragdoll's own clip.
+  CAST SHAPES (CHARACTER)     silhouette variety mean 0.074 against a 0.085
+      floor -- the cast is not varied enough as a whole.
+  OUTFITS 13 (CHARACTER)      closest pair Blues/Remnants 0.0199 against 0.035;
+      board mean 0.071 against 0.090. STRUCTURE-NOT-COLOR: this needs new
+      garment SHAPES, and a recolour will not move it.
+  FIELD SURGERY (COMBAT)      tweeze returns to where it started (gap 2.24px) so
+      the bar does not snap; POUR is not the stillest of the three.
+  DRIVE NETWORK (WORLD)       the ratchet is doing its job: the disconnected debt
+      GREW 22 -> 25 and the hairline debt 4 -> 5. Five districts have drive
+      surface a car cannot reach -- convention 99.7%, prison 9.6%, dam 0.0%,
+      minigp 0.0%, fort 52.9% reachable; dam has 0% of its lanes wide enough to
+      drive. This is district layout and MAP LAW, so it is WORLD's to design.
+  FRESH DOORS (SOUNDS)        opening a real door in the real run sounds his
+      approved drag ZERO times (want exactly once, matched on the vector
+      signature).
+  SFX DIVERSITY / VOICE SURFACES / WHAT YOU HEARD (SOUNDS) -- not diagnosed this
+      pass; they are that lane's assertions and that lane is live.
+
+*** AND THEN THE SWEEP TURNED ON THE SUITE ITSELF AND FOUND TWO WORSE THINGS. ***
+
+  THE SUITE EXITED 0 WITH NINETEEN RED GATES. Measured on the full run this
+    session: "19 GATE(S) FAILED: ... EXIT=0". The exit code was
+    `1 if (failed and strict) else 0` and --strict was OPT-IN, so anything
+    reading the exit code -- a script, a CI step, a pre-ship check, an `&&` in a
+    shell -- was told a nineteen-red suite had passed. Not silence this time: an
+    affirmative, specific, wrong answer. AND IT WAS BACKWARDS AGAINST THE
+    SUITE'S OWN RULE -- an UNRUN gate already exited 1 ("an unfinished run is
+    not a pass", A6), so the WEAKER signal was taken more seriously than the
+    stronger one. Red is the default answer to red now; --lenient is the typed,
+    deliberate way to ask for the old behaviour. Gated as A19, mutation-tested.
+
+  THE CONFIRM PASS WAS NAMING A CAUSE IT NEVER MEASURED. When a red did not
+    reproduce alone it printed "WAS LOAD, NOT TRUTH". The re-run measures no
+    such thing. Caught red-handed: it reported eight gates as load flakes when
+    six of them were green because I HAD FIXED THEM mid-run. It says what
+    happened now and leaves why to the reader.
+
+*** AND ONE OF THE REDS WAS MINE, FROM FIX 1. READ THIS BEFORE TOUCHING settle. ***
+  NAV CLUSTER reported "THE PORTRAIT IS REALLY DRAWN -- 0 of 4096 opaque" on a
+  portrait that is fully painted, 4096 of 4096. settle()'s default rule waits
+  for the page to STOP CHANGING via a MutationObserver, and PAINTING A CANVAS
+  MUTATES NO DOM AT ALL. A literal 22-second sleep became a default settle, the
+  page went quiet long before the portrait was drawn, and the gate measured an
+  unpainted canvas. Proved both ways: restore the literal sleep and it passes.
+  THE FIX IS `cond`, WHICH settle's OWN DOCSTRING ALREADY NAMED and I did not
+  use: when a gate knows what it is waiting for -- and a gate about to assert
+  something always does -- pass the condition and quiescence is never consulted.
+  The trap is now written at the top of bohemia_settle.js. 26 GATES READ CANVAS
+  PIXELS UNDER A DEFAULT SETTLE and could hit it.
+  I CHECKED WHETHER I HAD BROKEN OTHERS RATHER THAN ASSUMING: CAST SHAPES and
+  OUTFITS 13 re-ran with every settle converted back to a literal sleep gave
+  IDENTICAL numbers, so those two are real content and not my artefact.
+
+  NAV CLUSTER's other half was a gate watching a ghost: "THE WORLD GETS THE
+  SCREEN" measured the RUN SLICE, dead as a tab and reachable only by
+  force-showing a panel the UI no longer exposes (101px of a 150px viewport;
+  left alone that panel is 0x0). His words were about THE RUN SCREEN and the run
+  screen is the CITY now: 779px of an 804px viewport, 97%. Moved there, and
+  measured BEFORE the harness forces the dead panel on. 16/0.
+
+*** THE ONE FINDING PAOLO MIGHT ACTUALLY CARE ABOUT: THE ALPHA HOLDS A GIGABYTE.
+    records/BOHEMIA_WHICH_TAB_EATS_THE_PHONE_8_20_26.md ***
+  CANVAS MEMORY was right. The alpha peaks at 1,155 MB resident, 516% of the
+  224 MB iOS floor; the ratchet was set on 7/27 when the same measurement read
+  ~93 MB. I priced every tab (tools/bohemia_which_tab_eats_the_phone.js, new):
+      loaded 55 MB | RUN tab +44 MB | 480 steps of walking +2.5 MB
+      vote +476.2 MB (51 images) | art +214.7 MB (28) | look +169.8 MB (21)
+      back on RUN after forcing GC: released 0.2 MB of 999.5
+  THE GAME AS PLAYED IS FINE; THE JUDGE SHEETS ARE THE BILL. 100 images at an
+  average of 8.6 MB each -- about 1,465 x 1,465 -- on a 390-point column, and
+  nothing is ever given back. He can boot and play and never approach the floor.
+  He gets killed if he TOURS THE JUDGE TABS, which is exactly what a verdict
+  session is. CHARACTER reached the same conclusion independently from the other
+  side and adds the fix: decoded cost is w*h*4 whatever the file weighs, so
+  quantizing cannot help -- IT NEEDS SMALLER DIMENSIONS.
+  THE RATCHET STAYS. Raising a ceiling to make a number green is the GOODHART
+  GUARD, and the gate says so in its own failure message.
+
+ALSO CLEARED THIS PASS, all the same disease: ROAD CELLS 42/1 -> 45/0 (it
+demanded the arterial block wall, a tile HIS OWN RULING DELETED after one
+surviving column sealed the player into a single cell -- flipped into the
+tripwire that matters: code 8 stays empty, no tile is a wall under any other
+number, and no full column is solid); COMBAT LAB 885/3 -> 888/0 (BAKED again, a
+700-char window a comment outgrew, and a RECORDED HOLE that fired at the thing
+it existed to get built -- somebody built KILLMUS and the gate reported the fix
+as a failure); CHAR OUTLINE 34/1 -> 35/0; RIG CHECK 195/2 -> 208/0 (nine claims,
+not two -- seven downstream were being silently skipped); FIRST NIGHT hardened
+three ways; SONG LOCK re-locked with the finding written in; DIALOGUE CATALOGUE
+re-baked; CANVAS MEMORY's phantom 'city' tab.
+
+THE RULE FROM THE SWEEP LAW STILL BINDS: a red with an owner gets fixed or gets
+a written line saying why it is legitimately red. The lines above are that.
+
+NEXT FOR THIS LANE:
+ 1. The demo P0s. The suite work is finished and was only ever the thing in
+    front of them.
+ 2. If another refactor lands, EXPECT THIS AGAIN. The tell is a gate going red
+    in the same turn something legitimate changed shape. Check the ruler before
+    you touch the target -- seven times out of nine today, the ruler was wrong.
+
 CHARACTER (character-0lurbs): 8/20 (f) LATEST -- *** I PUBLISHED A BUG THAT DOES NOT
 EXIST AND THEN WENT TO FIX IT. THERE IS NO JAW DEBT. ***
 
@@ -161,152 +377,6 @@ WHAT COMES NEXT FOR THIS LANE:
   2. The 10 remaining never-requested pools: superseded, or a door somebody forgot to open?
   3. ROAD CELLS (arterial block wall) and drive_network are still theirs, unchanged.
 
-RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES AND THE REDS ARE BEING
-CLEARED. 393/393 zero unrun, and ten gates taken green this pass. ***
-
-THE SUITE ITSELF IS DONE (fixes 1, 2, 3 all landed):
-  401 of 401 gates, ZERO unrun, including the confirm-alone pass.
-  Was 217 of 379 and a fifty-minute wall.
-  --pure runs the browserless gates as a pre-ship check.
-  A RED UNDER LOAD IS RE-RUN ALONE before it counts, so the suite cannot invent
-  one.
-
-*** AND THE RUNNER WAS OVERSUBSCRIBING THE BOX BY HALF, WHICH IS WHY IT KEPT
-    INVENTING THEM. *** Its own comment said "pure gates get all the cores and
-    browsers get half". The code did not do that: a browser gate held ONLY the
-    browser semaphore, so a four-core container ran JOBS pure PLUS BROWSER_JOBS
-    browser at once -- four and two -- aimed squarely at the gates that MEASURE
-    TIME. The file had already written down what that costs ("oversubscribe the
-    box and they fail for LOAD rather than for truth") and then paid it every
-    run. FIGHT MUSIC and FIRST NIGHT both came up red in the pack and green
-    alone today, and the confirm pass bought a second full run of each to find
-    out. A browser gate now takes a browser slot AND a core.
-    THE CLAIM IS MEASURED NOW, NOT ASSERTED: BOHEMIA_SUITE_TRACE logs each gate
-    in and out of the box and SUITE HONESTY A17/A18 compute the PEAK. That
-    comment was wrong for as long as the runner has existed and nothing noticed,
-    because the WORDS were right and the NESTING was not -- a regex passes
-    happily on that. Mutation-tested: reverting the one line turns both red.
-
-*** THE PATTERN OF THIS WHOLE SWEEP: SEVEN OF THE REDS I CLEARED WERE GATES
-    READING CHARACTERS INSTEAD OF BEHAVIOUR, AND THREE OF THOSE WENT RED AT A
-    CORRECT CHANGE. *** Not one was a broken game. Write this down because it
-    will happen again the next time anything is refactored:
-
-  CRAFT LAW 35/4 -> 39/0. The 4X hair pass rewrote every hair distance from
-    PIXELS to CELLS of S=CW/56, so `(x-hMn)` became `((x-hMn)/S)|0` and four
-    TRUE clauses reported false. This gate had done it to itself twice before
-    and SAYS SO in its own comments ("pin the behaviour", "THIS PINNED THE
-    BROKEN FIX"), and the law it enforces contains the rule it kept breaking: A
-    CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE. It now
-    LIFTS each expression out of the alpha, compiles it and RUNS it over a sweep
-    of head widths, scales and coordinates. Stricter, not looser -- the old
-    check passed on a file that merely contained the right characters, and its
-    first version pinned the broken fix and shipped. Mutation-tested four ways.
-
-  RIG CHECK 195/2 -> 208/0. The rig is now `const BAKED=RIG2X({...})`. The scan
-    looked for `const NAME = {`, so BAKED went INVISIBLE. That was not two reds,
-    IT WAS NINE: seven more claims downstream were being silently skipped
-    because BAKED could not be found. And the wrapper itself had NO GATE AT ALL
-    -- a scaler running over every painted pixel of his rig on every boot, under
-    a law that says his painted regions are sacrosanct. It now RUNS RIG2X on a
-    rig whose answer is known by hand: every painted pixel becomes its own 2x2
-    block, regions stay disjoint, order preserved, skeleton and pose double with
-    it. Mutation-tested: dropping one pixel of four is caught.
-
-  CHAR OUTLINE 34/1 -> 35/0. `indexOf('  return {px,CW,CH};')`, exact literal,
-    two leading spaces and all. buildFrame started returning {px,CW,CH,grid} and
-    it came back -1. Worse, the clause was `(iRet - iPass) < 2200` -- a BYTE
-    BUDGET, which passes for any 2,199 bytes of anything, INCLUDING a
-    compositing pass drawing over the border. It now requires that NOTHING
-    EXECUTES between the outline call and the return, and names the offender.
-    Mutation-tested: the old budget passed the same mutation happily.
-
-  COMBAT LAB 885/3 -> 888/0. Three faults: BAKED again; a 700-character window
-    from `function doReload(){` to `endTurnReturn(false);` that a five-line
-    comment outgrew (it reads the FUNCTION and checks its LAST STATEMENT now);
-    and the one worth remembering --
-    *** A RECORDED HOLE FIRED AT THE THING IT EXISTED TO GET BUILT. *** The
-    clause said "RECORDED, NOT FIXED: in the overworld the kill ladder is
-    unreachable, the ONLY writer of MUS.layers is the studio preview buttons",
-    and pinned it by asserting exactly ONE assignment. Somebody built KILLMUS,
-    a second assignment appeared, and the gate reported the FIX as a FAILURE.
-    A RECORDED HOLE IS A TRIPWIRE, NOT A LOCK. It now asserts the fixed state
-    and pins what the fix must keep doing: his own 7/3 rungs, the lift landing
-    at the TOP OF A BAR, a reset to calm per fight.
-
-  ROAD CELLS 42/1 -> 45/0. Same disease, sharpest case. It asserted "the
-    arterial block wall blocks" -- a tile PAOLO'S OWN RULING DELETED ("THE
-    STREETS DONT HAVE WALLS", 8/11) after one surviving column SEALED THE PLAYER
-    INTO A SINGLE CELL (flooding from spawn reached 3 tiles of 9,216). WORLD
-    carrying out his ruling turned the gate red, and the gate was arguing for
-    the wall. A GATE MUST NEVER OUTRANK A RULING. Flipped into the tripwire that
-    matters: code 8 stays empty, no arterial tile is a wall under any OTHER
-    number (a renumbered wall is the same wall), and no full column is solid so
-    it can never seal him in again.
-
-  FIRST NIGHT 53/0 in both places now. Green alone, red in the pack, and its
-    crash SWALLOWED THE TALLY -- one line about a null, no way to tell whether it
-    died at claim 3 or claim 50. Three faults: it was timing on a guess (now
-    polls, and polls for state:'attached', because playwright's DEFAULT 'visible'
-    cost it fifteen claims in one edit -- the button is tappable, the frame just
-    never lays it out); a downstream null (DQ.serialize().state is null when no
-    job was taken) that DETONATED instead of going red, taking twelve claims with
-    it; and a crash handler that printed no tally. Fault 2 is what made fault 1
-    invisible and fault 3 is why nobody could tell.
-
-TWO REDS WERE REAL AND NEITHER WAS A BROKEN GAME:
-
-  SONG LOCK 19/1 -> 20/0. RED SINCE 8/19 AND NOBODY NOTICED, because the suite
-    was dying two thirds of the way through and a gate that never runs reads
-    exactly like a green one. Two MUSIC commits moved MLOOPS and neither
-    re-locked: 9cf5a719 removed eight songs he had killed, 05371f62 added three
-    menu songs. VERIFIED AT SONG GRANULARITY BEFORE RECORDING ANYTHING: 132
-    entries -> 127, all eight removals are in the graveyard, and ALTERED IS
-    EMPTY -- every surviving song byte-identical. Re-locked with that finding
-    written into the manifest note; the diff confirms only MLOOPS moved.
-
-  DIALOGUE CATALOGUE 60/2 -> 62/0. The WORDS tab bake was stale against its
-    sources, so drafted lines existed in the game he could not reach to edit --
-    which is the entire point of that law. Re-ran tools/bohemia_words_book.py;
-    only the fingerprint moved (same 1910 lines, same 1864 cited).
-
-ALSO GREEN, no work needed, they cleared as main moved: OPENING 24/0, DEMO 23/0,
-TOOLS RUN 8/0, JUDGE SURFACE 28/0, FIGHT MUSIC 47/0.
-
-*** THE REDS THAT ARE LEFT ARE REAL CONTENT, AND THEY BELONG TO OTHER LANES.
-    Per the sweep law, each gets a written line rather than me editing another
-    lane's system: ***
-  MOTION VISIBLE (ANIMATION)  headshot and headshot-2: the silhouette WIDENS as
-      the body goes flat (that claim passes) but the top of the sprite drops
-      0px on every one of 7 samples. The body is moving and the topmost row
-      never is. Real, measured, and it is the ragdoll's own clip.
-  CAST SHAPES (CHARACTER)     silhouette variety mean 0.074 against a 0.085
-      floor -- the cast is not varied enough as a whole.
-  OUTFITS 13 (CHARACTER)      closest pair Blues/Remnants 0.0199 against 0.035;
-      board mean 0.071 against 0.090. STRUCTURE-NOT-COLOR: this needs new
-      garment SHAPES, and a recolour will not move it.
-  FIELD SURGERY (COMBAT)      tweeze returns to where it started (gap 2.24px) so
-      the bar does not snap; POUR is not the stillest of the three.
-  DRIVE NETWORK (WORLD)       the ratchet is doing its job: the disconnected debt
-      GREW 22 -> 25 and the hairline debt 4 -> 5. Five districts have drive
-      surface a car cannot reach -- convention 99.7%, prison 9.6%, dam 0.0%,
-      minigp 0.0%, fort 52.9% reachable; dam has 0% of its lanes wide enough to
-      drive. This is district layout and MAP LAW, so it is WORLD's to design.
-  FRESH DOORS (SOUNDS)        opening a real door in the real run sounds his
-      approved drag ZERO times (want exactly once, matched on the vector
-      signature).
-  SFX DIVERSITY / VOICE SURFACES / WHAT YOU HEARD (SOUNDS) -- not diagnosed this
-      pass; they are that lane's assertions and that lane is live.
-
-THE RULE FROM THE SWEEP LAW STILL BINDS: a red with an owner gets fixed or gets
-a written line saying why it is legitimately red. The lines above are that.
-
-NEXT FOR THIS LANE:
- 1. The demo P0s. The suite work is finished and was only ever the thing in
-    front of them.
- 2. If another refactor lands, EXPECT THIS AGAIN. The tell is a gate going red
-    in the same turn something legitimate changed shape. Check the ruler before
-    you touch the target -- seven times out of nine today, the ruler was wrong.
 
 WORLD (world-9lfjtf): 8/20 (h) LATEST -- *** PROPER SIDEWALKS. His ruling, executed.
 TABS: RUN (stand on any big road), LOOK (the picture is THE KERB AND THE LANE LINE).
