@@ -338,8 +338,36 @@
   function buildLandlockConnect(m){
     var N=m.n, extra={}, touchesCache={}, key=function(x,y){return x+','+y;};
     function isBuilt(d){ return !!DISTGEN[d]; }  // only real auto-factory districts relay
+    /* A STREET YOU CANNOT WALK ONTO IS NOT ACCESS (8/21).
+       This asked rawStreetEdges, which uses the kit's ROADSET -- and ROADSET holds
+       FREEWAY and BELTWAY as well as arterial and strip. Those are LIMITED ACCESS: no
+       crosswalk, no gate, no sidewalk, nothing a body on foot can step onto. So the
+       relay BFS below happily TERMINATED on a freeway and called the chain solved.
+
+       MEASURED on the canon valley before the fix:
+         suburb-family touching a WALKABLE street (arterial/strip)   1934
+         suburb-family touching ONLY freeway/interchange/rail         242   <-- sealed
+         suburb-family with no street at all, relying on this relay   545
+       Those 242 are ANCHORS: a relay chain that ends on one strands itself and
+       everything queued behind it. Flooding the REAL TILES found 357 pockets totalling
+       541 cells that never touch a street -- 257 of them suburb, a QUARTER OF THE
+       GAME'S HOUSING a body can never walk to.
+
+       Same shape as everything else this week: the model and the surface disagreed and
+       the model held the looser definition. landlocked_gate.js checks THIS MODEL, on
+       seeds 1337/42/99, and has been green throughout.
+
+       Paolo 8/1, standing in one: "make sure I can't be locked in any certain district
+       ever again it's so fucking creepy." A freeway shoulder is not a way out. */
+    var WALKABLE_ROAD={arterial:1,strip:1};
+    function walkableStreetEdges(xx,yy){
+      var at=function(ax,ay){var c=m.at(ax,ay);return c?c.district:null;}, o=[];
+      if(WALKABLE_ROAD[at(xx,yy-1)])o.push('N'); if(WALKABLE_ROAD[at(xx,yy+1)])o.push('S');
+      if(WALKABLE_ROAD[at(xx-1,yy)])o.push('W'); if(WALKABLE_ROAD[at(xx+1,yy)])o.push('E');
+      return o;
+    }
     function touches(x,y){ var k=key(x,y); if(k in touchesCache)return touchesCache[k];
-      return touchesCache[k]=rawStreetEdges(m,x,y).length>0; }
+      return touchesCache[k]=walkableStreetEdges(x,y).length>0; }
     function addEdge(k,e){ (extra[k]=extra[k]||{})[e]=1; }
     var DIRS=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], OPP={N:'S',S:'N',E:'W',W:'E'};
     for(var y=0;y<N;y++)for(var x=0;x<N;x++){
@@ -583,6 +611,16 @@
       for(var k in mand) out[k]=mand[k].slice();
       for(var k2 in cosmetic){ var set={}; (out[k2]||[]).forEach(function(e){set[e]=1;});
         cosmetic[k2].forEach(function(e){set[e]=1;}); out[k2]=Object.keys(set); }
+      /* KEEP THE TWO APART AS WELL AS TOGETHER (8/21). The merged map is what the
+         generator needs -- an edge is an edge -- but it is NOT what an auditor needs.
+         landlocked_gate.js measures "the cosmetic-connect per-edge rate" off this
+         merged map, so every MANDATORY relay edge counts as a cosmetic one. It read
+         0.25 only because the two happened to be in balance; the moment the relay
+         found 285 more cells (the walkable-street fix above) the rate jumped to 0.38
+         and the gate went red about a knob nobody had touched.
+         A NUMBER YOU CANNOT ATTRIBUTE IS NOT A MEASUREMENT. Both maps are published
+         now, and the gate reads the one it is named after. */
+      out.__mandatory = mand; out.__cosmetic = cosmetic;
       return out;
     })();
     /* THE PLOT CACHE IS BOUNDED (7/26/26, WORLD lane). It was a plain object that

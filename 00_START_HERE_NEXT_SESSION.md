@@ -28132,7 +28132,67 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/21 (a) LATEST -- *** THE MAP WAS DRAWING THREE-WEEK-OLD ART,
+WORLD (city-1eztay): 8/21 (b) LATEST -- *** A QUARTER OF THE GAME'S HOUSING WAS
+SEALED OFF, AND THE LAW AGAINST IT HAD A GREEN GATE: THE MODEL COUNTED A FREEWAY AS
+STREET ACCESS. ***
+Gates: LANDLOCKED 16/0, MAP TAB 9/0, walked surface / walkable / district fill /
+legend kept / tilespec / truncation / hero wire / interiors / banner / tools run green.
+
+Flooding the valley cell-to-cell (the same test the gate makes): 357 STRANDED POCKETS,
+541 CELLS that never touch a street -- 257 of them SUBURB, in 266 one-cell and 54
+two-cell pockets. Two houses' worth of neighbourhood walled off from the whole valley.
+Paolo 8/1, standing in one: "make sure I cant be locked in any certain district ever
+again its so fucking creepy."
+
+*** I GOT THE CAUSE WRONG TWICE FIRST, AND BOTH WERE PLAUSIBLE. *** (1) "each suburb
+gets one gate and they don't line up" -- 49% of adjacent suburb pairs ARE sealed, but
+that is HIS OWN 7/21 RULING working (most stay walled, Sun Belt privacy, 25% connect
+chance). (2) "the relay is a 2-cycle" -- the map said 47,11->["S"] and 47,12->["N"],
+two cells pointing at each other. Looked like a smoking gun. It is the BACK EDGE of the
+same hop, written by addEdge on both endpoints. I nearly wrote it up.
+THE ACTUAL CAUSE, found by asking what the chain TERMINATES ON:
+    (47,11) suburb  rawStreetEdges=[]     relay=["S"]
+    (47,12) suburb  rawStreetEdges=["S"]  <- its S neighbour is...
+    (47,13) FREEWAY
+The chain does reach a street. The street is a FREEWAY. rawStreetEdges uses the kit's
+ROADSET = {freeway, arterial, strip, beltway}, and freeway/beltway are LIMITED ACCESS:
+no crosswalk, no gate, no sidewalk, nothing a body on foot can step onto.
+    suburb-family touching a WALKABLE street (arterial/strip)  1,934
+    suburb-family touching ONLY freeway/interchange/rail         242  <- ANCHORS
+    suburb-family with no street at all, relying on the relay     545
+Every relay chain ending on one of those 242 strands itself AND everything behind it.
+FIX: one definition, scoped to the relay only (rawStreetEdges keeps its meaning
+elsewhere -- a freeway edge matters for street-FACING geometry, it just is not a way
+out).  var WALKABLE_ROAD={arterial:1,strip:1};
+    stranded pockets 357 -> 177,  cells 541 -> 255,  SUBURB 257 -> 3
+    (mountain 217 stays: solid rock. desert 13 stays: bare land, exempt by the law.)
+
+AND THE GATE THAT WENT RED WAS RIGHT TO. landlocked_gate measures "the cosmetic-connect
+per-edge rate" off w.landlockConnect -- which is the MANDATORY relay map UNIONED WITH
+the cosmetic one. Every mandatory edge counted as a cosmetic connector. It read 0.25
+only because the two were coincidentally in balance; the relay finding 285 more cells
+took it to 0.38 and it complained about a knob nobody touched. A NUMBER YOU CANNOT
+ATTRIBUTE IS NOT A MEASUREMENT. The world publishes both maps separately now
+(__mandatory / __cosmetic) and the gate reads the one it is named after: 0.243 / 0.252
+/ 0.253 against a designed 0.25, all three seeds. FIFTH RULER THIS WEEK.
+
+*** WHAT THIS DOES NOT FIX, AND THE NEXT PIECE OF WORK. *** THE WALKED SURFACE DOES NOT
+CONSUME THIS. Measured, not assumed: walked_surface reports 82.6% BEFORE my change and
+82.6% AFTER -- it did not move one cell. slices/BOHEMIA_CITY_WORLD.html carries NO copy
+of engine/bohemia_world.js (no banner; the resync reports 93 modules all fresh without
+it) and its two mentions of landlockConnect are both COMMENTS. The city page builds its
+cells from its own overmap plus the district modules and the relay never enters that
+path. THE MAP TAB does embed world.js and now carries the fix; THE SURFACE YOU WALK
+DOES NOT. Next: give the walked surface the relay, either by consuming world.js or by
+carrying a precomputed relay table. Until then this is a correct model behind a surface
+that ignores it -- the exact disease this week has been about, so it is named rather
+than left for a green gate to imply it is solved.
+
+TWO DEFINITIONS OF THE SAME WORD AND ONLY ONE WAS THE PLAYER'S. The model said "street"
+and meant ROADSET. The player says "street" and means somewhere I can stand.
+Record: records/BOHEMIA_A_FREEWAY_IS_NOT_A_WAY_OUT_8_21_26.md
+
+WORLD (city-1eztay): 8/21 (a) -- *** THE MAP WAS DRAWING THREE-WEEK-OLD ART,
 AND NINE DISTRICTS WERE NOT ON IT AT ALL. ***
 Tab: MAP / the city view. Gates: HERO WIRE 143 red -> 145/0, walked surface 10/0.
 

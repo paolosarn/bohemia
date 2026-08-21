@@ -100,8 +100,17 @@ for (const seed of SEEDS) {
       const nx = x + dx, ny = y + dy, nc = w.at(nx, ny);
       if (!nc || !w.SUBURB_FAMILY[nc.district] || w.rawStreetEdges(nx, ny).length === 0) continue;
       eligiblePairs++;
-      const extra = w.landlockConnect[x + ',' + y] || [];
-      if (!extra.includes(e)) continue;
+      /* MEASURE THE COSMETIC MAP, NOT THE MERGED ONE (8/21). This read
+         w.landlockConnect, which is mandatory relays UNIONED with cosmetic
+         connectors, and called the total "the cosmetic-connect per-edge rate". It
+         sat inside the 15-35% band only because the two were coincidentally in
+         balance. When the relay was fixed to stop terminating on freeways -- which
+         a body cannot walk onto -- it found 285 more cells, and this rate jumped to
+         0.38 and went red about COSMETIC_CONNECT_CHANCE, a knob nobody had touched.
+         The world publishes both maps separately now. A number you cannot attribute
+         is not a measurement. */
+      const cos = (w.landlockConnect.__cosmetic || w.landlockConnect)[x + ',' + y] || [];
+      if (!cos.includes(e)) continue;
       connectedPairs++;
       if (e === 'E' && tileChecked < 15) {
         tileChecked++;
