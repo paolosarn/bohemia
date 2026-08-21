@@ -1289,6 +1289,12 @@ function requirePlaywright() {
             const tt = document.getElementById('ctterms');
             if (tt) tt.click();
             out.opened = document.getElementById('ctcard').innerText;
+            /* EVERY rung's note through the REAL shipped function, not just
+               the one this card happens to sit on — see P3. */
+            try {
+              out.rungNotes = BohemiaBelonging.RUNGS.map(function(r){
+                return { word:r.word, raw:String(r.note||''), shown:ctRungNote(r) }; });
+            } catch(_e){ out.rungNotes = null; }
             break;
           }
           return out;
@@ -1510,13 +1516,35 @@ function requirePlaywright() {
         String(r.note).replace(/(^|\.\s+)[A-Z][A-Za-z]+(\s*&\s*[A-Z][A-Za-z]+|\s+\d{4})[^:]{0,20}:\s*/g, '$1').trim()) >= 0),
       JSON.stringify({ opened: (tert.opened || '').slice(0, 400) }));
 
-    ok('P3 …and NO BIBLIOGRAPHY REACHES THE CARD. One of the five carries a '
+    /* AND THE FIRST VERSION OF P3 COULD PASS WITHOUT TESTING ANYTHING.
+       It searched ONE card — whichever rung the tertius probe happened to stand
+       on — for citation words. Only ONE of the five notes carries a citation, so
+       on any other rung the claim was true for free. Mutation-proved it: putting
+       the raw note back left the gate GREEN at 81/0.
+       A CLAIM THAT ONLY LOOKS AT THE CASE IN FRONT OF IT IS NOT A CLAIM — the
+       same defect as a size bar that measures a comfortable card, twice in two
+       days. This runs the REAL shipped ctRungNote over ALL FIVE rungs and also
+       asserts the strip actually FIRES somewhere, so it cannot go vacuous if the
+       citation is ever edited out of the data. */
+    const notes = tert.rungNotes || [];
+    const CITE = /(Lave|Wenger|Granovetter|Dunbar|Feld|Burt|Simmel|Kalyvas|Gouldner)/i;
+    ok('P3 …and NO BIBLIOGRAPHY REACHES THE CARD, checked on ALL FIVE rungs '
+      + 'rather than the one the probe is standing on. One note carries a '
       + 'research citation mid-sentence — half player copy, half note to self — '
       + 'and that is very likely why all five were dropped instead of one. It is '
       + 'stripped for the card only; his text is untouched everywhere else',
-      !/(Lave|Wenger|Granovetter|Dunbar|Feld|Burt|Simmel|Kalyvas|Gouldner)/i
-        .test(tert.opened || ''),
-      JSON.stringify(((tert.opened || '').match(/[^\n]*(Lave|Wenger|Feld|Burt)[^\n]*/g) || [])));
+      notes.length === 5 && notes.every(n => !CITE.test(n.shown)),
+      JSON.stringify(notes.filter(n => CITE.test(n.shown))));
+
+    ok('P4 …and the strip is PROVED to fire rather than assumed: at least one '
+      + 'note differs from its raw text, and every note still ends up a real '
+      + 'sentence. Without this, deleting the citation from the data would make '
+      + 'P3 pass while the stripping was quietly broken',
+      notes.length === 5
+        && notes.some(n => n.shown !== n.raw)
+        && notes.every(n => /^[A-Z]/.test(n.shown) && n.shown.length > 10),
+      JSON.stringify(notes.map(n => ({ word: n.word, changed: n.shown !== n.raw,
+                                       shown: n.shown.slice(0, 60) }))));
 
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
