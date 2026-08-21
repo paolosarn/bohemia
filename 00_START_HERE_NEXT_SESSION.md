@@ -2997,6 +2997,20 @@ NOISIEST ESTIMATOR, so the claim rests on men-left-ignorant and rooms-alerted wi
 the pull count still printed and required not to rise. If a gate of yours flakes,
 this is the pattern -- do not widen the number.
 
+*** HOW TO VERIFY A DEPLOY, BECAUSE I GOT THIS WRONG THREE TIMES TODAY. ***
+A shell watcher polling the GitHub API and testing `git merge-base --is-ancestor
+<mine> <deployed>` gave a FALSE NEGATIVE on all three ships -- it reported "no
+deploy carrying it" while the run had already concluded SUCCESS. The cause is
+that the check needs the DEPLOYED sha to exist locally, and later commits from
+other lanes are not fetched yet, so every candidate is skipped and silence looks
+exactly like failure. A watcher that cannot see the thing it is watching reports
+"no", which is the same class of bug as the three harness failures on 8/21 where
+"the tap does nothing" was really the test missing the car.
+DO THIS INSTEAD, it worked every time: mcp__github__actions_list with
+resource_id 'pages.yml' (the result is too big for context -- it saves to a file,
+parse that with python json), THEN `git fetch origin main` FIRST and only then
+run the ancestor check. Do not burn a fifteen-minute polling window on it.
+
 WHAT COMES NEXT FOR THIS LANE, IN ORDER:
  1. RF4-45 (two stars), BUILD VARIETY LIVES IN TALENT UPGRADES: "players pick
     upgrades to make talents fill different gaps or perform different functions...
