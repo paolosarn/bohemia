@@ -1118,6 +1118,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
         <div id="dirWhere" style="margin-top:7px"></div>
         <div id="dirAdd" style="margin-top:7px"></div>
         <div id="dirList" style="margin-top:8px"></div>
+        <div id="dirDial" style="margin-top:8px"></div>
         <div class="row" style="margin-top:9px;gap:6px;display:flex;align-items:center;flex-wrap:wrap">
           <button id="dirPlay" class="opt" style="background:#d8b45a;color:#191308;border-color:#d8b45a;font-weight:700">&#9654; PLAY WHAT I BUILT</button>
           <button id="dirExport" class="opt">EXPORT .TXT</button>
@@ -25724,7 +25725,12 @@ function dirRenderChips(){
   var m=document.getElementById('dirMode'); m.innerHTML='';
   m.appendChild(dirChip('CUTSCENES', DIR_MODE==='cutscene', function(){ DIR_MODE='cutscene'; DIR_I=0; dirRender(); }));
   m.appendChild(dirChip('QUESTS', DIR_MODE==='quest', function(){ DIR_MODE='quest'; DIR_I=0; dirRender(); }));
+  /* __DIR_STANDING__ -- the dial for what a deed is WORTH. Third mode because
+     it is a third kind of direction: cutscenes and quests are ORDERED things he
+     rearranges, this is a VALUE he sets. Same tab, same law. */
+  m.appendChild(dirChip('STANDING', DIR_MODE==='standing', function(){ DIR_MODE='standing'; dirRender(); }));
   var p=document.getElementById('dirPick'); p.innerHTML='';
+  if(DIR_MODE==='standing') return;   /* __DIR_STANDING__: no scene to pick */
   var list = DIR_MODE==='cutscene' ? dirScenes().map(function(s){return s.title;})
                                    : BOHEMIA_QUESTS.map(function(q){return q.title;});
   list.forEach(function(t,i){ p.appendChild(dirChip(t, i===DIR_I, function(){ DIR_I=i; dirRender(); })); });
@@ -25877,12 +25883,28 @@ function dirRenderList(){
 
 /* ---- PLAY WHAT HE BUILT ---- */
 function dirPlay(){
+  /* __DIR_STANDING__ -- FOR A DIAL, PLAYING IT IS GOING TO LOOK AT SOMEBODY.
+     The law's PLAY requirement is "the thing he built, not a preview of a plan",
+     and a dial's built thing is not a scene: it is what the person who watched
+     you now thinks. So this hands him straight to the walked surface, where the
+     card he opens will carry the row his number just created. */
+  if(DIR_MODE==='standing'){
+    dirWPush();
+    var n0=document.getElementById('dirNote');
+    var set=Object.keys(DIR_W).length;
+    n0.innerHTML = set
+      ? 'Sent to the city. Walk up to somebody who watched you and their card says '
+        + 'what they make of it.'
+      : 'Set at least one of them first, then this takes you to the street.';
+    if(set){ var t0=document.querySelector('#tabs .tab[data-p=run]'); if(t0) t0.click(); }
+    return;
+  }
   var c=dirCur(); if(!c) return;
   var stage=document.getElementById('dirStage');
   var note=document.getElementById('dirNote');
   if(DIR_MODE!=='cutscene'){
     stage.style.display='none';
-    note.innerHTML='Quests do not play in here yet — edit and EXPORT, and they land as canon. '+
+    note.innerHTML='Quests do not play in here yet, edit and EXPORT, and they land as canon. '+
       'The <b>CUTSCENE</b> tab is where scenes play.';
     return;
   }
@@ -25915,6 +25937,21 @@ function dirCaption(s,ended){
 /* ---- EXPORT ---- */
 function dirExport(){
   var out=['BOHEMIA -- DIRECTED BY PAOLO',''], n=0;
+  /* __DIR_STANDING__ -- HIS DIAL EXPORTS AS CANON, which is the KEEP half of the
+     law: a lane reads this file and lands the rows in bohemia_standing's
+     DEED_WEIGHT. Exported first because it is the shortest and the one somebody
+     has to act on. Only the rows he actually ruled. */
+  var wk=Object.keys(DIR_W).filter(function(k){ return Number(DIR_W[k]); });
+  if(wk.length){
+    n++;
+    out.push('=== STANDING: WHAT A DEED IS WORTH (DEED_WEIGHT) ===');
+    wk.forEach(function(k){
+      var d=null; DIR_DEEDS.forEach(function(x){ if(x.kind===k) d=x; });
+      out.push('  '+k+'  '+(DIR_W[k]>0?'+':'')+DIR_W[k]
+               +(d?'   // '+d.say:''));
+    });
+    out.push('');
+  }
   Object.keys(DIR).forEach(function(k){
     var shipped=null;
     if(k.indexOf('scene:')===0) BOHEMIA_CUTSCENES.forEach(function(s){ if('scene:'+s.scene.id===k) shipped=s.scene; });
@@ -25948,8 +25985,142 @@ function dirExport(){
   a.download='BOHEMIA_DIRECTED.txt'; a.click();
 }
 
+
+/* ================= __DIR_STANDING__ : THE DIAL FOR WHAT A DEED IS WORTH ======
+   *** WHERE DOES HE CHANGE THIS HIMSELF? *** (HE MUST BE ABLE TO DIRECT IT, 8/12.)
+   The PEOPLE lane shipped a reputation system over three turns -- people witness
+   what you do, remember it, gossip it at a penalty per retelling, and forget it
+   as it fades -- with its entire JUDGEMENT layer, bohemia_standing's DEED_WEIGHT,
+   deliberately empty and waiting on his ruling. Correct under MECHANISM-MINE /
+   CONTENTS-PAOLO'S: numbers are his and nothing may invent one.
+   BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME AND I EDIT A FILE, and his own
+   law says a system in that state IS NOT SHIPPED YET. Not inventing his numbers
+   and not giving him the controls are two different mistakes and I made the
+   second one three times running.
+   THE TABLE STILL SHIPS EMPTY. This does not seed it, suggest a value, or default
+   to anything but zero. Zero means UNRULED, not "worth nothing", and clearing a
+   row takes the ruling back -- being able to undo is half of a dial.
+   WHAT HE SEES IS THE CONSEQUENCE, NOT THE NUMBER. A raw integer is not a
+   decision he can make; "somebody who watched this ends up COLD on you, and
+   someone who only heard about it barely moves" is. The readout is computed
+   through the live module -- the same forceOf, the same hearsay penalty, the same
+   rungs -- so it is the real answer and not an illustration of one. */
+var DIR_DEEDS = [
+  { kind:'claim:refused', say:'You turn an outfit down to their face',    clout:'notable' },
+  { kind:'claim:met',     say:'You do the thing an outfit asked of you',  clout:'quiet'   },
+  { kind:'favour',        say:'You take a favour from an outfit',         clout:'quiet'   },
+  { kind:'commit',        say:'You throw in with an outfit',              clout:'risky'   }
+];
+var DIR_W_KEY='boh.direct.deedweight';
+var DIR_W=(function(){ try{ var r=JSON.parse(localStorage.getItem(DIR_W_KEY)||'null');
+  return (r&&typeof r==='object')?r:{}; }catch(e){ return {}; } })();
+function dirWSave(){
+  try{ localStorage.setItem(DIR_W_KEY, JSON.stringify(DIR_W)); }catch(e){}
+  dirWPush();
+}
+/* ACROSS THE FRAME, THE MOMENT HE TURNS IT. The deeds live in the city frame, so
+   a dial that only wrote localStorage would be a dial he has to reload to feel.
+   The city applies it in place and persists its own copy. */
+function dirWPush(){
+  try{
+    var fr=document.getElementById('cityFrame');
+    if(fr&&fr.contentWindow)
+      fr.contentWindow.postMessage({type:'BOHEMIA_DEED_WEIGHTS',weights:DIR_W},'*');
+  }catch(e){}
+}
+/* THE CONSEQUENCE, AND THE REAL MODULE IS THE ONE THAT COMPUTES IT.
+   *** THE FIRST CUT REACHED INTO THE FRAME AND IT CANNOT WORK, EVER. *** MEASURED:
+   fr.contentWindow.BohemiaStanding throws SecurityError, because file:// frames
+   are opaque origin "null". The tempting repair was to retype the rung boundaries
+   and the hearsay penalty up here, which is EXACTLY the second-copy drift this
+   lane spent the previous turn deleting -- and it would have been introduced on
+   purpose, knowing better. So the city computes it with the shipped module and
+   posts the answers back; these are cached, never derived. The ladder is fixed,
+   so one reply covers every button and no press costs a round trip. */
+var DIR_LADDER=[-5,-3,-1,1,3,5];
+var DIR_FACTS=null;
+function dirWAsk(){
+  try{
+    var fr=document.getElementById('cityFrame');
+    if(fr&&fr.contentWindow)
+      fr.contentWindow.postMessage({type:'BOHEMIA_STANDING_ASK',values:DIR_LADDER},'*');
+  }catch(e){}
+}
+window.addEventListener('message',function(ev){
+  var d=ev&&ev.data;
+  if(d&&d.type==='BOHEMIA_STANDING_FACTS'&&d.rows){
+    DIR_FACTS=d.rows;
+    if(DIR_MODE==='standing') try{ dirDial(); }catch(e){}
+  }
+});
+function dirWReadout(w, clout){
+  if(!w) return 'not ruled yet, so nobody forms an opinion about it at all';
+  var r=DIR_FACTS&&DIR_FACTS[String(w)];
+  if(!r){ dirWAsk(); return 'open the RUN tab once and this will show what it does'; }
+  var f=function(v){ return (v>0?'+':'')+Number(v).toFixed(1); };
+  return 'someone who WATCHED it: '+f(w)+' ('+r.saw+') · '
+       + 'someone who only HEARD: '+f(r.heardValue)+' ('+r.heard+')';
+}
+function dirDialRow(d){
+  var box=document.createElement('div');
+  box.style.cssText='border:1px solid #241c12;border-radius:4px;padding:8px 10px;margin-bottom:7px';
+  var w=Number(DIR_W[d.kind]||0);
+  var head=document.createElement('div');
+  head.style.cssText='font-size:12px;line-height:1.4;margin-bottom:6px';
+  head.textContent=d.say;
+  box.appendChild(head);
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap';
+  [-5,-3,-1,0,1,3,5].forEach(function(v){
+    var on=(w===v);
+    var bt=dirChip(v===0?'NOT RULED':((v>0?'+':'')+v), on, function(){
+      if(v===0) delete DIR_W[d.kind]; else DIR_W[d.kind]=v;
+      dirWSave(); dirRender();
+    });
+    bt.style.cssText+=';padding:5px 9px;font-size:11px';
+    row.appendChild(bt);
+  });
+  box.appendChild(row);
+  var out=document.createElement('div');
+  out.style.cssText='margin-top:6px;font-size:11px;line-height:1.45;opacity:.78';
+  out.textContent=dirWReadout(w, d.clout);
+  box.appendChild(out);
+  return box;
+}
+function dirDial(){
+  var host=document.getElementById('dirDial'); if(!host) return;
+  host.innerHTML='';
+  if(DIR_MODE!=='standing'){ host.style.display='none'; return; }
+  host.style.display='block';
+  if(!DIR_FACTS) dirWAsk();
+  var intro=document.createElement('div');
+  intro.className='mini';
+  intro.style.cssText='line-height:1.55;margin-bottom:8px';
+  intro.textContent='People in the city already watch what you do, remember it, and tell '
+    + 'each other. Nothing in the game says whether any of it is GOOD or BAD yet, because '
+    + 'that is yours. Set what each one is worth and walk up to somebody who saw you do it.';
+  host.appendChild(intro);
+  DIR_DEEDS.forEach(function(d){ host.appendChild(dirDialRow(d)); });
+}
+
 function dirRender(){
-  dirRenderChips(); dirWhere(); dirAddRow(); dirRenderList();
+  dirRenderChips();
+  /* __DIR_STANDING__ -- the scene editors have nothing to say about a dial, and
+     calling them anyway printed a stale scene's beats under it. */
+  if(DIR_MODE==='standing'){
+    ['dirWhere','dirAdd','dirList'].forEach(function(id){
+      var e=document.getElementById(id); if(e){ e.innerHTML=''; }
+    });
+    dirDial();
+    var n=document.getElementById('dirNote');
+    var set=Object.keys(DIR_W).length;
+    n.innerHTML = set
+      ? '<b>'+set+' of '+DIR_DEEDS.length+' ruled</b> · the city is using these right now'
+      : '<b>nothing ruled yet</b> · people remember what you did, but form no opinion of it';
+    return;
+  }
+  dirDial();
+  dirWhere(); dirAddRow(); dirRenderList();
   var note=document.getElementById('dirNote');
   var c=dirCur();
   note.innerHTML = c ? ('<b>'+c.title+'</b> · '+
@@ -25961,6 +26132,13 @@ function dirRender(){
   var t=document.getElementById('tabs'); if(!t) return;
   var tab=t.querySelector('.tab[data-p=direct]');
   if(tab) tab.addEventListener('click', function(){ dirRender(); });
+  /* __DIR_STANDING__ -- HIS RULING TRAVELS ON BOOT, not only when he touches
+     the dial. The city persists its own copy too, so this is belt and braces
+     rather than the only channel: whichever surface loads first, they agree. */
+  try{ dirWPush(); dirWAsk(); }catch(e){}
+  var rt=t.querySelector('.tab[data-p=run]');
+  if(rt) rt.addEventListener('click', function(){ setTimeout(function(){
+    try{ dirWPush(); dirWAsk(); }catch(e){} }, 1200); });
   var p=document.getElementById('dirPlay'); if(p) p.addEventListener('click', dirPlay);
   var e=document.getElementById('dirExport'); if(e) e.addEventListener('click', dirExport);
   var r=document.getElementById('dirReset'); if(r) r.addEventListener('click', function(){

@@ -1668,6 +1668,18 @@ GATES = [
      "dragging in 75 KB and six modules) while bohemia_deeds threw an error saying there is no second "
      "copy on purpose; it now lives alone in bohemia_clout.js with no dependencies and everything "
      "READS it, so retuning one number moves the engine, the loop and the walked city together", True),
+    ('CITY DIAL',      ['node', 'gates/city_dial_gate.js'],
+     "This lane shipped a reputation system over three turns -- people witness what you do, remember "
+     "it, tell each other at a penalty per retelling, and forget it as it fades -- with its entire "
+     "JUDGEMENT layer, bohemia_standing's DEED_WEIGHT, deliberately EMPTY and waiting on Paolo. "
+     "Correct under MECHANISM-MINE/CONTENTS-PAOLO'S. BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME "
+     "AND I EDIT A FILE, and his own 8/12 law answers that in one line: 'where does he change this "
+     "himself? If the answer is he tells me and I edit a file, the system is not shipped yet.' Not "
+     "inventing his numbers and not giving him the controls are two different mistakes. The DIRECT tab "
+     "now has a STANDING dial: every act in plain words, the consequence spelled out (watched vs only "
+     "heard) COMPUTED BY THE SHIPPED MODULE rather than retyped in the alpha, it crosses the frame the "
+     "moment he presses so the city is live on it, it persists, it exports as canon, and he can take "
+     "it back. The table still ships EMPTY and the gate asserts every declaration of it is", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "

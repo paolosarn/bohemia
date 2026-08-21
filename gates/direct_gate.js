@@ -1,4 +1,4 @@
-/* BOHEMIA DIRECT GATE (8/12/26) — he can DIRECT it, not just watch it, and every
+/* BOHEMIA DIRECT GATE (8/12/26), he can DIRECT it, not just watch it, and every
  * verb is proved by PERFORMING IT in the real alpha.
  *
  * Paolo 8/12: "Bro this is the same fucking problem we had with the questing
@@ -8,7 +8,7 @@
  * an editor: buttons that render, a list that scrolls, and a save that quietly
  * does nothing. That failure is invisible from the outside and it is exactly the
  * failure he is angry about, twice. So this gate does not read the source for
- * the word "delete" — it opens the alpha, taps the tab, presses the buttons and
+ * the word "delete", it opens the alpha, taps the tab, presses the buttons and
  * asserts THE SCENE CHANGED. A verb that does not change the scene is not a
  * verb.
  *
@@ -90,6 +90,8 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
     /* ---- SEE ---- */
     const seen = await page.evaluate(() => ({
       modes: document.querySelectorAll('#dirMode button').length,
+      modeNames: Array.from(document.querySelectorAll('#dirMode button'))
+                      .map(b => b.textContent),
       picks: document.querySelectorAll('#dirPick button').length,
       rows: document.querySelectorAll('#dirList > div').length,
       quests: (window.BOHEMIA_QUESTS || []).length,
@@ -97,7 +99,17 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
       adds: Array.from(document.querySelectorAll('#dirAdd button')).map(b => b.textContent),
       wheres: document.querySelectorAll('#dirWhere select').length
     }));
-    ok(seen.modes === 2, 'both things he said he cannot direct are modes here (cutscenes, quests)');
+    /* *** THIS PINNED THE COUNT AND THE COUNT LEGITIMATELY CHANGED. *** It read
+       `seen.modes === 2`, so adding a THIRD mode (STANDING, 8/21: the dial for
+       what a deed is worth, which is a thing he also could not direct) turned it
+       red for doing exactly what this gate exists to encourage. The RULE was
+       never "there are two modes", it is "both things he said he cannot direct
+       are here", so it now names them and tolerates company. Fourth time this
+       lane has met an assertion that pinned today's ANSWER instead of today's
+       RULE. */
+    ok(seen.modeNames.indexOf('CUTSCENES') >= 0 && seen.modeNames.indexOf('QUESTS') >= 0,
+       'both things he said he cannot direct are modes here (have: '
+       + seen.modeNames.join('/') + ')');
     ok(seen.scenes === sceneFiles.length,
       'EVERY authored scene is in the director (' + seen.scenes + ' of ' + sceneFiles.length + ')');
     ok(seen.quests === bqFiles.length,
@@ -123,7 +135,7 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
                edited: dirEdited() };
     });
     ok(added.ok && added.hadFather === false && added.hasFather === true && added.after === added.before + 1,
-      'ADD: he puts the father at the grief dinner himself — the question I asked him last turn ' +
+      'ADD: he puts the father at the grief dinner himself, the question I asked him last turn ' +
       'is now a button (' + added.before + ' beats -> ' + added.after + ')');
     ok(added.edited === true, 'and the director knows it is his version now, not the shipped one');
 
@@ -190,7 +202,7 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
       'RELOCATE: he can walk to a different house (' + relocated.seedBefore + ' -> ' + relocated.seedAfter + ')');
     ok(relocated.roomAfter && relocated.roomAfter !== relocated.roomBefore,
       'and the SCENE\'S ACTUAL ROOM changes with it (' + relocated.roomBefore +
-      ' -> ' + relocated.roomAfter + ') — a label that did not move the room would be a lie');
+      ' -> ' + relocated.roomAfter + '), a label that did not move the room would be a lie');
     ok(relocated.roleAfter !== relocated.roleBefore,
       'and he can move it to a different room of the house (' + relocated.roleBefore +
       ' -> ' + relocated.roleAfter + ')');
@@ -219,10 +231,10 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
     }));
     ok(played.stage === 'block', 'PLAY: pressing play shows the stage');
     ok(played.hit === true,
-      'AND WHAT PLAYS IS HIS VERSION — a line he added reached the screen (' +
+      'AND WHAT PLAYS IS HIS VERSION, a line he added reached the screen (' +
       played.beats + ' beats in)');
     ok(played.shippedHasIt === false,
-      'while the SHIPPED scene is untouched — he directs on his phone, EXPORT is how it lands');
+      'while the SHIPPED scene is untouched, he directs on his phone, EXPORT is how it lands');
 
     /* ---- KEEP ---- */
     const kept = await page.evaluate(() => {
@@ -239,7 +251,7 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
       b.click();
       const rows = document.querySelectorAll('#dirList > div').length;
       const gotos = document.querySelectorAll('#dirList select.dirGoto').length;
-      /* change where a choice leads — the one bit of routing a director must have */
+      /* change where a choice leads, the one bit of routing a director must have */
       /* the ROUTE selects specifically -- the first select in a row could be
          anything, and a gate that changes the wrong control proves nothing. */
       const sels = Array.from(document.querySelectorAll('#dirList select.dirGoto'));
@@ -264,7 +276,7 @@ ok(sceneFiles.length >= 2 && bqFiles.length >= 10,
     ok(quests.picks === bqFiles.length, 'and all ' + bqFiles.length + ' quests are reachable');
 
     ok(errs.length === 0, 'no page errors while directing' +
-      (errs.length ? ' — ' + errs.slice(0, 3).join(' | ') : ''));
+      (errs.length ? ', ' + errs.slice(0, 3).join(' | ') : ''));
 
   } finally {
     await browser.close();
