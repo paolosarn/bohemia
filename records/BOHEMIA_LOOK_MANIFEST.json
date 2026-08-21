@@ -333,6 +333,16 @@
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_edge_picture.js"
+  },
+  {
+   "id": "hair-profile",
+   "title": "THE WHITE BLOB IN PROFILE",
+   "caption": "You said to keep fixing east and west hair. Two things were wrong and both were profile only, which is why they survived three weeks of front views. First, your own painted curtain bob was still drawing underneath every hairstyle you put on. Front on, the hairstyle covered it and you could not tell. Side on, your paint reaches two pixels further out than the hairstyle knows about, and the near-white colour in your bob's palette stuck out over the forehead as a bright blob. 1,349 pixels of it across all fifteen styles, now zero. Second, the fade was stopping halfway down the head in profile instead of at the bottom of the hair. Your painted bob is untouched and comes straight back the moment you take a hairstyle off. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "file": "look/hair-profile.png",
+   "kb": 75.4,
+   "stamp": "8/21/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_hair_profile_picture.js"
   }
  ]
 }

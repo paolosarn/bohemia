@@ -1683,6 +1683,18 @@ GATES = [
      "dragging in 75 KB and six modules) while bohemia_deeds threw an error saying there is no second "
      "copy on purpose; it now lives alone in bohemia_clout.js with no dependencies and everything "
      "READS it, so retuning one number moves the engine, the loop and the walked city together", True),
+    ('CITY DIAL',      ['node', 'gates/city_dial_gate.js'],
+     "This lane shipped a reputation system over three turns -- people witness what you do, remember "
+     "it, tell each other at a penalty per retelling, and forget it as it fades -- with its entire "
+     "JUDGEMENT layer, bohemia_standing's DEED_WEIGHT, deliberately EMPTY and waiting on Paolo. "
+     "Correct under MECHANISM-MINE/CONTENTS-PAOLO'S. BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME "
+     "AND I EDIT A FILE, and his own 8/12 law answers that in one line: 'where does he change this "
+     "himself? If the answer is he tells me and I edit a file, the system is not shipped yet.' Not "
+     "inventing his numbers and not giving him the controls are two different mistakes. The DIRECT tab "
+     "now has a STANDING dial: every act in plain words, the consequence spelled out (watched vs only "
+     "heard) COMPUTED BY THE SHIPPED MODULE rather than retyped in the alpha, it crosses the frame the "
+     "moment he presses so the city is live on it, it persists, it exports as canon, and he can take "
+     "it back. The table still ships EMPTY and the gate asserts every declaration of it is", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
@@ -1821,6 +1833,25 @@ GATES = [
      "VERIFY ON THE REAL SURFACE (7/18): a source-read is not a measurement, and here the two "
      "disagreed completely. Both mutations bite -- delete the runTab.click() and five claims "
      "go red, rename the RUN tab and six do", False),
+    ('TOOL IDEMPOTENT',['node', 'gates/tool_idempotent_gate.js'],
+     "THE LOUD FAILURES WERE THE SAFE ONES. Backlog P-N has said since 8/4 that ~60 city "
+     "patch tools reach for the dead CITY_B64 key and crash, and filed THE CRASHERS as the "
+     "problem. Measured 8/21 by RUNNING all 63 with the tree hard-reset after each: 52 "
+     "crash, 9 no-op correctly, and 2 actually run -- and the two that run are the hazard. "
+     "TWO STATIC COUNTS GOT IT WRONG FIRST (63, then 61), because referencing CITY_B64 is "
+     "not the same as breaking on it; bohemia_city_module_resync was in BOTH broken lists "
+     "and runs perfectly. A CLASSIFIER THAT CANNOT TELL A WORKING TOOL FROM A BROKEN ONE IS "
+     "THE BROKEN THING. cast_patch printed 'wrote ALPHA + CITY', exited 0, and DELETED 63 "
+     "LINES to add 9 -- what it deleted was an authored block a LATER patch added (SIX "
+     "SHAPES NOT SIX COLOURS), because a tool that cuts its own previous bake is correct "
+     "until the block in the file is NEWER than the one it carries, and then re-running it "
+     "is a silent REGRESSION rather than a crash. hero_wire wrote byte-identical content "
+     "every run and still printed '69 district heroes wired', a success line over an "
+     "unchanged file. Both are fixed and both were RED here first. It runs only the 11 "
+     "tools that execute (a crasher cannot damage anything) and REFUSES TO MEASURE ON A "
+     "DIRTY TREE so a stranger's uncommitted work is never reported as a tool's damage. "
+     "Best lead on the 1,159 lines that vanished from the city the same day and were never "
+     "reproduced -- named as a lead, NOT as the cause", False),
     ('ORGAN REACH',    ['node', 'gates/organ_reach_gate.js'],
      "TEN TIMES IN ONE WEEK, IN ONE LANE: AN ORGAN COMPUTES SOMETHING AND NOTHING ON THE "
      "WALKED SURFACE CALLS IT. give(), the uncollected favour, the cost that cost nothing, "

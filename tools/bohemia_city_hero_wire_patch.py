@@ -216,6 +216,17 @@ def main():
     new_b64 = base64.b64encode(dec.encode('utf8')).decode('ascii')
     alpha = (dec if inline else
              alpha[:m.start(1)] + base64.b64encode(dec.encode('utf8')).decode() + alpha[m.end(1):])
+    # SAY WHAT ACTUALLY HAPPENED (8/21). This wrote byte-identical content every
+    # run and still printed "69 district heroes wired", which reads as work done.
+    # The wiring IS correct and idempotent -- the MESSAGE was the only defect --
+    # but a success line over an unchanged file is the same disease as a green
+    # gate that proves nothing: the next person to read it believes something
+    # happened. Gate: gates/tool_idempotent_gate.js
+    _before = open(target, encoding='utf8').read() if os.path.exists(target) else None
+    if _before == alpha:
+        print('HERO WIRE: already wired (%d district heroes); nothing to write.'
+              % len(districts))
+        return
     open(target, 'w', encoding='utf8').write(alpha)
     print('HERO WIRE: %d district heroes wired via switch-guard; CITY_B64 %d KB' % (len(districts), len(dec) // 1024))
     print('   ', ' '.join(districts))

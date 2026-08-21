@@ -1,3 +1,58 @@
+CHARACTER (character-0lurbs): 8/21 (b) LATEST -- *** TWO HAIRSTYLES ON ONE HEAD.
+He said "Continue fixing east and west hair pls". Two defects, both PROFILE ONLY. ***
+
+Facing S is byte-identical before and after everything below, which is why three weeks
+of front views never caught either one.
+
+1. HIS PAINTED BOB WAS DRAWING UNDER EVERY HAIRSTYLE. hair/curtain-bob is a PD layer;
+   a generated hairstyle stamps after it, so front-on it was simply covered. In profile
+   it is not: genHair spans the PART GRID and his paint reaches two cells past it each
+   side at the crown (facing E row 10: part ids x52-59, his paint x50-61). His bob's
+   ramp holds exactly [27,26,32] and [237,232,220], so the near-white one stuck out over
+   the forehead. 1,349 leaked pixels over 15 styles x 3 facings; 3,677 over all 8.
+   THE FIX IS NOT MORE HAIR -- widening the span patches the symptom and leaves two
+   hairstyles stacked on one head. The PD hair layer is not DRAWN while a hair garment
+   is worn. RIG LAW untouched: his bob is not edited and returns the moment one is not.
+2. THE FADE STOPPED HALFWAY IN PROFILE. fadeBot was a HAND COPY of sideBot made before
+   the 8/2 profile fix and never updated with it, so the taper ended mid-mass. Tinted
+   pixels sat at mean height 0.74 of the hair instead of 0.91, twice as many, smeared
+   into the crown. It IS sideBot now -- one expression, cannot drift.
+
+I GUESSED THE FADE FIRST AND I WAS WRONG. Fixed it, blob still there. Then measured:
+zero hair pixels above luminance 120 on a ramp topping out at 50, so the bright pixels
+were never hair. Pulling PD layers one at a time named the bob in one pass. The fade fix
+stayed only because I then measured it ON ITS OWN -- a change that survives because it
+was made on the way to something else is not verified, it is just present.
+
+AND THE FIRST PICTURE COULD NOT HAVE SHOWN IT: the tool stamped generators onto
+buildFrame's output by hand, which matches the render order but SKIPS THE PD LAYER LOGIC
+ENTIRELY. It drives G_WORN now. VERIFY ON THE REAL SURFACE means the real path, not a
+composite that resembles it.
+
+GATES: hair_gate 27/0. His bob never shows under a worn hairstyle (15 styles x 8 facings,
+counted by his own ramp colours on the worn path, pinned at 0; mutation fires at 3,677).
+The fade bottom IS the hair bottom, asserted in SOURCE because the bug was two diverging
+copies of one expression. Record:
+records/BOHEMIA_TWO_HAIRSTYLES_ON_ONE_HEAD_8_21_26.txt
+LOOK tab: "THE WHITE BLOB IN PROFILE", before beside after, both from the SAME code.
+
+ONE HONEST LOOSE END: CROWD went 15/1 once inside a twenty-gate loop, then passed four
+times running on its own. That is a FLAKE UNDER LOAD, not a pass. Recorded rather than
+called green. Not in the hair path; nothing here touches the crowd.
+
+THE CONTAINER CAME UP ON AN 8/14 TREE AGAIN, second session running, with 8/12-era files
+staged that look exactly like unfinished work. They are not: all five were strictly older
+copies of things already on main. DIFF AGAINST origin/main BEFORE BELIEVING A DIRTY TREE.
+
+NEXT IN THIS LANE
+  - STEP 5 continues: seams, hems, laces, buckles and stitch lines all still step by a
+    whole cell. Measure which actually read coarse at 112 before assuming.
+  - The same PART-GRID-vs-PAINT gap that hid his bob may affect OTHER PD layers in
+    profile (hat/durag, facial/punk-face). Worth one measurement pass.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+
+---
+
 CHARACTER (character-0lurbs): 8/21 (a) LATEST -- *** THE HAIR STOPPED BEING STRAIGHT.
 Row 2X STEP 5 has started: the first content that actually uses the new pixels. ***
 
@@ -1612,94 +1667,87 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/21 LATEST -- *** QUIET AND NOTORIOUS WERE THE SAME WORD,
-AND THE TABLE THAT SAID "NO SECOND COPY" HAD FOUR. TAB: RUN -- do something quiet
-and only the person beside you knows; throw in with an outfit and somebody down
-the street hears, and it gets retold four times instead of once. ***
+PEOPLE (people-7h9sfy): 8/21 LATEST -- *** I BROKE HIS OWN LAW THREE TURNS RUNNING:
+THE DIAL HAD NO DIAL. TAB: DIRECT, third chip, STANDING -- set what each thing you
+can do is worth, press PLAY WHAT I BUILT, and it drops you on the street where the
+person who watched you now has an opinion. ***
 
-engine/bohemia_deeds.js opens with TWO complaints and the last turn only closed
-one. The second stayed EXACTLY TRUE -- "a back-yard handshake and a public
-humiliation in front of a whole block are worth the same" -- because every deed
-took the default reach and the default hop budget. The module says it about
-itself: "until now NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every deed got the
-same hop budget, so quiet and notorious were the same word."
+Over three turns this lane shipped a reputation system: people witness what you do,
+remember it, tell each other at a penalty per retelling, forget it as it fades, and
+a loud act carries further than a quiet one. Its entire JUDGEMENT layer,
+bohemia_standing's DEED_WEIGHT, ships deliberately EMPTY and waits on Paolo.
+Correct under MECHANISM-MINE/CONTENTS-PAOLO'S: numbers are his, nothing may invent
+one. BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME AND I EDIT A FILE, and his
+own 8/12 law answers that in one line: "WHERE DOES HE CHANGE THIS HIMSELF? If the
+answer is he tells me and I edit a file, THE SYSTEM IS NOT SHIPPED YET."
 
-*** WHICH OF HIS FOUR WORDS EACH ACT EARNS IS READ OFF HIS CORPUS, NOT INVENTED. ***
-203 clout tags across 27 quests, and the rule written in HIS OWN WORDS on 7/21:
-"CLOUT rides loudness", "quiet fix -> #quiet, public patch -> #notable", "help
-them finish small and intimate -> #quiet", "draw a real crowd -> #notable", "loud
-AND dangerous -> #risky", "loud spectacle -> #reckless", and decisively "THE
-PLAYER DOES NOT PICK A CLOUT NUMBER" -- THE ACT DOES. Applied to the four acts the
-walked street has:
-    met a claim      #quiet     you did what was asked, between the two of you
-    took a favour    #quiet     a hand-off, not a scene
-    refused a claim  #notable   you turned an outfit down to their face, in the open
-    committed        #risky     you threw in where anyone can see
-Those four words are the JUDGEMENT and he overturns them with one word. The
-WEIGHTS behind them are untouched and remain his.
+*** MY OWN HANDOFF SAID "THE DIAL, AND IT IS HIS. NOTHING SHOULD INVENT IT" THREE
+TIMES, APPROVINGLY. *** That sentence is right about the first half and blind to
+the second. NOT INVENTING HIS NUMBERS AND NOT GIVING HIM THE CONTROLS ARE TWO
+DIFFERENT MISTAKES, and I kept making the second while congratulating myself for
+avoiding the first. If a future session finds itself writing "this is his call" in
+a handoff, the very next question is WHERE DOES HE MAKE IT, and if there is no
+answer that is the work.
 
-MEASURED ON THE REAL SURFACE, two people on the same street at 6 and 14 tiles:
-    quiet act   reached 1 (only the near one)   retold once
-    loud  act   reached 2 (both)                retold four times
-Full curve off his live table: untagged 9 tiles / 2 hops (BIT-FOR-BIT the old
-behaviour, the module's own identity guarantee), quiet 7/1, notable 12/3, risky
-17/4, reckless 24/5. A tag can move you OFF the default, never silently redefine it.
+WHAT HE GETS: four things he can do on that street, each in plain English, each
+with a ladder he taps (-5 -3 -1 [NOT RULED] +1 +3 +5). WHAT HE READS IS THE
+CONSEQUENCE, NOT THE NUMBER -- "someone who WATCHED it: -3.0 (COLD) - someone who
+only HEARD: -1.6 (COLD)". NOT RULED IS A REAL POSITION, NOT ZERO: zero would mean
+"worth nothing", NOT RULED means he has not said, and while he has not said nobody
+in the game forms an opinion at all. Pressing it again TAKES THE RULING BACK,
+because undo is half of a dial. It crosses the frame the moment he presses, so
+opinionOf, standingOf and the rungs light up with NO other wiring and the card
+gains a THEY THINK row on the person who watched him. It persists, and it exports
+as .txt a lane can land straight into DEED_WEIGHT as canon.
 
-*** AND THE TABLE THAT SAID THERE IS NO SECOND COPY HAD FOUR. ***
-bohemia_deeds threw "there is no second copy of that table on purpose". Measured
-8/21, CLOUT_WEIGHTS was declared in bohemia_loop.js AND retyped in
-BOHEMIA_HOW_LOUD_8_6_26.html, BOHEMIA_CURRENT_SLICE.html and
-BOHEMIA_RUN_CURRENT.html. All four AGREE today, which is exactly what made it
-dangerous: the same 7/21 ruling says the ORDERING is locked and THE NUMBERS STAY
-TUNABLE, so the day he retunes them three surfaces keep the old ones and nobody
-finds out. THE COPIES WERE NOT LAZINESS -- bohemia_loop.js is 75 KB and throws at
-load without engine, scheduler, world, bq, quest_runtime and the faction graph, so
-anybody who wanted four numbers had to drag in most of the engine or retype the
-row. THE FIX IS NOT TO SCOLD THE COPIES, IT IS TO MAKE THE ORIGINAL REACHABLE:
-engine/bohemia_clout.js holds the table alone with ZERO dependencies, bohemia_loop
-READS it and exports CLOUT_TAGS/CLOUT_WEIGHTS/cloutWeight/cloutTagFrom UNCHANGED so
-no caller sees a difference, and the walked city gets loudness for 13 KB instead of
-the whole engine. Proved by retuning one file: engine, loop and the inlined city
-copy all followed and his ordering held.
+THE TABLE STILL SHIPS EMPTY and the gate asserts every shipped DECLARATION of it
+is {} and that the only writer anywhere is his dial.
 
-THREE THINGS THIS GOT WRONG FIRST, ALL THE SAME SHAPE, ALL WORTH KEEPING:
-  - AN IDEMPOTENT TOOL WHOSE REFRESH PATH COVERS ONLY PART OF WHAT IT WRITES WILL
-    QUIETLY SKIP THE REST. The tool writes an inlined REGION and scattered CALL
-    SITES; its refresh branch only rewrote the region, so when ctDeed grew a `tag`
-    argument a re-run left every call site on the old form and the feature was
-    HALF-WIRED with the tool reporting success. The gate caught it.
-  - AN UPGRADE PAIR'S TWO HALVES MUST DESCRIBE THE SAME SPAN. The first fix paired
-    a NARROW `from` (the call line) with a WIDE `to` (the whole anchored region),
-    re-inserting the region around the call: a duplicated advance(60) that
-    DOUBLE-CHARGED AN HOUR OF HIS DAY, and a duplicated brace that was a hard
-    syntax error taking the entire city frame down. THIRD time this lane has met a
-    replace whose delete half and insert half cover different ground.
-  - git checkout <file> REVERTS YOUR OWN UNCOMMITTED WORK ALONG WITH THE MUTATION.
-    Mutation tests on uncommitted files need a backup copy, never a checkout.
-Both tool paths now converge BYTE-IDENTICALLY (fresh install vs in-place upgrade),
-proved by md5.
+*** THE ONE I ALMOST GOT WRONG KNOWING BETTER. *** The readout needs the rung
+boundaries and the hearsay penalty, and fr.contentWindow.BohemiaStanding THROWS
+SecurityError -- file:// frames are opaque origin "null", measured not assumed. The
+tempting repair was to retype RUNGS and HEARSAY_LOSS up in the alpha, which is
+EXACTLY the second-copy drift this lane spent the PREVIOUS TURN deleting, one day
+later, by the person who wrote the record about it. The city computes them with the
+shipped module and posts them back; the ladder is fixed so one reply covers every
+button and no press costs a round trip.
 
-gates: CITY DEEDS 20 -> 30 all green, CITY MEMORY 23, engine sync law HOLDS (18
-modules, zero drift), loop clout 18, loop profile 10, deed bridge 27, standing 35,
-memory 10, city talk 18, integration 128. Mutations: drop the tag -> 2 red;
-reintroduce a second copy of the table -> 2 red; retune his weights -> EVERYTHING
-FOLLOWED (the proof, not a failure).
-records/BOHEMIA_HOW_LOUD_IT_WAS_8_21_26.md
+TWO THINGS THIS GOT WRONG FIRST, both worth keeping:
+  - A RUNTIME PROBE COULD NOT SEE A SEEDED TABLE BECAUSE MY OWN PUSH ERASED IT.
+    Seeding DEED_WEIGHT with a default left the gate GREEN: the alpha pushes his
+    (empty) dial across on boot and the receiver clears before applying, so the
+    seed was NEUTRALISED rather than CAUGHT. The runtime behaviour is right -- his
+    dial is the authority -- but it means no probe can ever see a seeded default.
+    The gate now asserts the shipped DECLARATION, which is what the law is about.
+  - AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S RULE FAILS THE DAY
+    THE ANSWER LEGITIMATELY CHANGES. direct_gate read `seen.modes === 2`, so
+    adding a third mode turned it red FOR DOING EXACTLY WHAT THAT GATE EXISTS TO
+    ENCOURAGE. The rule was never "there are two modes", it is "both things he
+    said he cannot direct are here"; it names them now and tolerates company.
+    FOURTH TIME THIS LANE HAS MET THIS SHAPE. Fix the ruler, never the target.
+
+gates: CITY DIAL 22/0 (new, registered 306 of 406), DIRECT 33/0 after the
+generalisation, CITY DEEDS 30/0, CITY MEMORY 23/0, standing 35, attempt 15.
+Mutations: seed the table -> 1 red; stop it crossing the frame -> 3 red; retype
+the rungs in the alpha -> 1 red.
+records/BOHEMIA_WHERE_DOES_HE_CHANGE_THIS_HIMSELF_8_21_26.md
 
 WHAT COMES NEXT:
-  1. *** THE THREE RETYPED SLICES. *** BOHEMIA_HOW_LOUD_8_6_26.html,
-     BOHEMIA_CURRENT_SLICE.html and BOHEMIA_RUN_CURRENT.html still carry their own
-     copy of CLOUT_WEIGHTS. They agree today. Each is a one-line change in
-     whichever tool generates it now that bohemia_clout.js exists to point at.
-     NOT this lane's surfaces; flagged rather than touched.
-  2. *** THE DIAL, AND IT IS HIS. *** One DEED_WEIGHT row turns all of this from
-     "they remember" into "they judge" -- opinionOf, standingOf, the rungs and the
-     faction's whole view of you light up on data that is already being collected,
-     with NO wiring changed. Nothing should invent it.
-  3. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
+  1. *** HE TURNS IT. *** Nothing else in this system is blocked on code. The
+     moment he sets ONE row, three turns of witnessing, gossip and decay become a
+     reputation that judges him. His, and nothing should invent it.
+  2. *** THE OTHER DIALS, AND THIS LANE'S NEXT JOB. *** The same test applies to
+     every number this lane is sitting on: SEE_RANGE (9 tiles), the gossip window
+     (45 min), the deed halflife, the memory halflife. Each is a defensible
+     constant with a written argument, and "where does he change this himself" has
+     the same wrong answer for all of them. The STANDING dial is the pattern to
+     copy.
+  3. THE THREE RETYPED CLOUT SLICES -- BOHEMIA_HOW_LOUD_8_6_26.html,
+     BOHEMIA_CURRENT_SLICE.html, BOHEMIA_RUN_CURRENT.html still hold their own
+     copy of CLOUT_WEIGHTS. One line each in whichever tool generates them now
+     that bohemia_clout.js exists to point at. NOT this lane's surfaces.
+  4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
-  4. THE RIDGE EXTERIOR -- the one genuinely missing picture, and the only scene
-     still carrying an honest needsArt. ART's.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
 50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
 

@@ -26319,6 +26319,99 @@ var CT_DEED_WORDS = {
   'favour':        { saw: 'watched an outfit do you a favour',           /* draft */
                      heard: 'heard an outfit did you a favour' }         /* draft */
 };
+/* __CITY_DIAL__ -- HIS DIAL, AND THE PLACE IT LANDS.
+   *** WHERE DOES HE CHANGE THIS HIMSELF? *** (HE MUST BE ABLE TO DIRECT IT, 8/12.)
+   This lane shipped three turns of a reputation system whose entire judgement
+   layer -- DEED_WEIGHT -- is deliberately empty and waiting on his ruling, and
+   the only way he could fill it was to tell me and I edit a file. His own law
+   says in as many words that a system in that state IS NOT SHIPPED YET. Not
+   inventing his numbers was right. Leaving him no controls was not, and they are
+   two different mistakes.
+   So the DIRECT tab has a STANDING dial and this is where its numbers land.
+   MECHANISM-MINE / CONTENTS-PAOLO'S IS UNTOUCHED AND IS ACTUALLY NOW HONOURED
+   PROPERLY: the table still ships EMPTY, nothing here writes a row of its own,
+   and the only thing that ever fills it is him turning a dial. The gate still
+   asserts it is empty until he does.
+   MUTATED IN PLACE, NEVER REPLACED. BohemiaStanding.DEED_WEIGHT is the same
+   object forceOf() closes over, so assigning properties on it lights up
+   opinionOf, standingOf, becauseOf and the rungs with no other wiring at all.
+   Swapping the reference instead would leave forceOf reading the old empty one,
+   which is the kind of bug that looks like "the dial does nothing". */
+function ctDialSave(){
+  try { localStorage.setItem('boh.city.deedweight',
+        JSON.stringify(BohemiaStanding.DEED_WEIGHT)); } catch(_e){}
+}
+function ctDialApply(w, save){
+  if (typeof BohemiaStanding === 'undefined' || !w) return 0;
+  var T0 = BohemiaStanding.DEED_WEIGHT, n = 0;
+  /* HIS TABLE IS THE WHOLE TRUTH: a kind he has cleared must actually clear, so
+     the old rows go before the new ones land. Merging instead would make a
+     weight impossible to take back, and taking it back is half of a dial. */
+  for (var k in T0) if (Object.prototype.hasOwnProperty.call(T0, k)) delete T0[k];
+  for (var j in w) {
+    if (!Object.prototype.hasOwnProperty.call(w, j)) continue;
+    var v = Number(w[j]);
+    if (!isFinite(v) || v === 0) continue;      /* zero is "unruled", not "worth nothing" */
+    T0[j] = v; n++;
+  }
+  if (save !== false) ctDialSave();
+  try { if (CT_OPEN) ctDraw(); } catch(_e){}
+  return n;
+}
+(function(){
+  /* restored on boot, so his ruling survives a reload without the alpha */
+  try {
+    var raw = JSON.parse(localStorage.getItem('boh.city.deedweight') || 'null');
+    if (raw && typeof raw === 'object') ctDialApply(raw, false);
+  } catch(_e){}
+  /* and the DIRECT tab pushes it across the frame the moment he turns it */
+  window.addEventListener('message', function(ev){
+    var d = ev && ev.data;
+    if (d && d.type === 'BOHEMIA_DEED_WEIGHTS' && d.weights)
+      ctDialApply(d.weights, true);
+    /* *** THE DIAL CANNOT READ THIS MODULE, SO THIS MODULE ANSWERS IT. ***
+       MEASURED: the alpha reaching into the frame for BohemiaStanding throws
+       SecurityError -- file:// frames are opaque origin "null" -- so a readout
+       computed up there could only ever have been a RETYPED copy of the rungs
+       and the hearsay penalty. That is the same second-copy drift this lane
+       spent yesterday deleting, and it would have been introduced knowingly.
+       So the REAL module computes the answer here and posts it. The dial offers
+       a fixed ladder of values, which is why one reply covers every button and
+       there is no round trip per press. */
+    if (d && d.type === 'BOHEMIA_STANDING_ASK' && d.values && d.values.length) {
+      var rows = {};
+      try {
+        for (var i = 0; i < d.values.length; i++) {
+          var v = Number(d.values[i]); if (!isFinite(v)) continue;
+          var heard = v * BohemiaStanding.HEARSAY_LOSS;
+          rows[String(v)] = { saw: BohemiaStanding.rungFor(v),
+                              heard: BohemiaStanding.rungFor(heard),
+                              heardValue: +heard.toFixed(2) };
+        }
+      } catch(_e) { return; }
+      try { if (window.parent && window.parent !== window)
+        window.parent.postMessage({ type:'BOHEMIA_STANDING_FACTS', rows: rows }, '*'); } catch(_e){}
+    }
+  });
+})();
+
+/* __CITY_DIAL__ -- WHAT THEY THINK OF YOU, ONCE HE HAS SAID WHAT IT IS WORTH.
+   Silent while the table is empty, which is the honest state: with no ruling
+   there is no opinion, and printing NEUTRAL for everybody would be inventing a
+   judgement he has not made. The moment one dial moves, this is how he SEES the
+   change immediately -- the law's actual requirement, not a preview of one. */
+function ctOpinionOf(id){
+  if (typeof BohemiaStanding === 'undefined') return null;
+  if (!Object.keys(BohemiaStanding.DEED_WEIGHT).length) return null;
+  var m = CT_MINDS[id]; if (!m || !m.deeds || !m.deeds.length) return null;
+  var v = 0;
+  try { v = BohemiaStanding.opinionOf(m, '@', ctMinuteNow()); } catch(_e){ return null; }
+  if (!v) return null;
+  var rung = null;
+  try { rung = BohemiaStanding.rungFor(v); } catch(_e){}
+  return { value: v, rung: rung };
+}
+
 function ctKnownDeeds(id, limit){
   var m = CT_MINDS[id];
   if (!m || !m.deeds || !m.deeds.length) return [];
@@ -36704,6 +36797,26 @@ function ctDraw(){
   var at=ctAt(p);
   var card=document.getElementById('ctcard');
   var body='<div class="who">'+(nm?nm.toUpperCase():BohemiaPeople.headingOf(who))+'</div>';
+  /* __CITY_DEEDS__ -- WHAT THEY KNOW ABOUT YOU, and whether they were there.
+     Leads the card for the same reason the recognition leads the tell: it is the
+     only part that is true of you and them TOGETHER, and the only part that is
+     different because of what you have done. A person who knows nothing about
+     you gets no row at all rather than an empty one -- a blank labelled row
+     reads as a broken feature, and silence is the honest answer. */
+  try {
+    var kd = ctKnownDeeds(p.id, 2);
+    for (var kdi = 0; kdi < kd.length; kdi++)
+      body += ctRow(kd[kdi].heard ? 'HEARD' : 'SAW', kd[kdi].say);
+    /* __CITY_DIAL__ -- AND WHAT THEY MAKE OF IT, once he has said what it is
+       worth. Absent entirely while his table is empty: with no ruling there is
+       no opinion, and printing NEUTRAL for everybody would be a judgement he
+       never made. The moment one dial in the DIRECT tab moves, this row appears
+       on the person who watched it, which is the law's "see the change
+       immediately" rather than a preview of one. */
+    var op = ctOpinionOf(p.id);
+    if (op) body += ctRow('THEY THINK', op.rung + ' (' + (op.value > 0 ? '+' : '')
+                                       + op.value.toFixed(1) + ')');
+  } catch(_e){}
   /* __CITY_DEEDS__ -- WHAT THEY KNOW ABOUT YOU, and whether they were there.
      Leads the card for the same reason the recognition leads the tell: it is the
      only part that is true of you and them TOGETHER, and the only part that is
