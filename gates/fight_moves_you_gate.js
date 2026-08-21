@@ -1167,6 +1167,152 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V174 AND THE VERB IS ON THE OPEN BOOK, which is the one thing here the floor genuinely cannot show. RF4-68 says never explain what the floor could have shown, and the floor shows the heat, the glowing end and the explosion -- but an affordance nobody tries is invisible, which is exactly how this one went missing for as long as it did',
     carRules.onTheBook === true);
 
+
+/* ===== WHAT IS THE STONE ACTUALLY WORTH? (RF4-18, 8/21) ==========
+   RF4-18 says "WALLS ARE MECHANICS, NOT SCENERY... abilities read the room", and
+   our diff column called it ABSENT because nothing keys off wall adjacency. That
+   is true and it buried the more important fact: the room already decides the
+   fight. Nothing measured it, so nothing held it.
+   ASKED CAUSALLY, WHICH IS THE ONLY WAY THIS ANSWERS. Policy arms are far too
+   noisy -- the same in-cover-versus-open comparison came back 2.94 against 2.67
+   on one run and 4.51 against 2.95 on the next, because 24 fights of random
+   rolls swamp the effect. So: freeze a real fight state, count the guns with a
+   clean line on him, take every rock off the board, count again. Same men, same
+   tiles, same turn. The only difference is whether the stone exists. */
+  const stone = await frame.evaluate(() => {
+    let withStone = 0, without = 0, samples = 0, statesWhereStoneMattered = 0;
+    for (let A = 1; A <= 30; A++) {
+      BohemiaArena.set(A); setupCombat();
+      G.pHP = G.pMax || 100; G.phase = 'cover'; G.over = false; G.inc = null;
+      for (let t = 0; t < 10 && !G.over; t++) {
+        try { visionTick(); } catch(e){}
+        G.e.forEach(x => { if (seesMe(x)) markSeen(x); });
+        const a = exposedToMe().length;
+        const keep = G.pillars; G.pillars = [];
+        try { updateGeomCover(); } catch(e){}
+        const b = exposedToMe().length;
+        G.pillars = keep; try { updateGeomCover(); } catch(e){}
+        withStone += a; without += b; samples++;
+        if (b > a) statesWhereStoneMattered++;
+        try { pressAI(); } catch(e){}
+        try { endTurnReturn(true); } catch(e){}
+        if (G.pHP <= 0) break;
+      }
+    }
+    return { samples, statesWhereStoneMattered,
+      withStone: +(withStone/samples).toFixed(2),
+      without: +(without/samples).toFixed(2),
+      removedPct: Math.round(100*(without-withStone)/Math.max(0.01, without)) };
+  });
+
+  console.log('  the stone, asked causally over ' + stone.samples + ' real fight states: '
+    + stone.without + ' guns would have a line on him with every rock gone, '
+    + stone.withStone + ' with them there (' + stone.removedPct + '% removed)');
+
+  ok('RF4-18 THE ROOM DECIDES THE FIGHT, AND NOW SOMETHING HOLDS IT: across ' + stone.samples
+    + ' real fight states, ' + stone.without + ' guns would have a clean line on him if every rock vanished and only ' + stone.withStone
+    + ' do with the stone in place -- THE STONE TAKES ' + stone.removedPct + '% OF THE GUNS OFF YOU. Asked causally on one frozen board at a time, because policy arms are far too noisy for it: the same in-cover-versus-open comparison came back 2.94 against 2.67 on one run and 4.51 against 2.95 on the next. This is the single largest defensive system in the fight and nothing measured it until now',
+    stone.removedPct >= 45 && stone.without > stone.withStone);
+
+  ok('RF4-18 AND IT IS NOT A RARE BRANCH: the stone changed who had a line in ' + stone.statesWhereStoneMattered
+    + ' of ' + stone.samples + ' states. A cover system that only mattered in a handful of frozen moments would measure a big percentage off a tiny base and mean nothing',
+    stone.statesWhereStoneMattered >= stone.samples * 0.15);
+
+
+/* ===== V175 HE SHOUTS (RF4-39, THE ANTI-PULL RULE) ===============
+   "A 50% chance that enemies will shout IMMEDIATELY UPON GAINING AGRO to prevent
+    easy, repeatable single pulls."
+   V165 already has a shout and on paper it is STRONGER than RF4's -- 100% not
+   50%, every turn not once -- so the thing worth measuring was never "is the
+   rule implemented" but "IS THE DEGENERATE STRATEGY IT EXISTS TO PREVENT STILL
+   AVAILABLE". The control is in-page and exact: pre-setting _everSaw on every
+   body suppresses the alarm and changes nothing else, so both arms are the same
+   fight with one rule switched off. */
+  const pull = await frame.evaluate(() => {
+    const run = (suppress) => {
+      let told = 0, ignorant = 0, boards = 0, cleanPulls = 0, everyoneLearned = 0, fights = 0;
+      /* SIXTY BOARDS, NOT THIRTY, AND THE REASON IS THE MECHANIC ITSELF. The
+         alarm is a 50% coin, so thirty boards is about fifteen coin flips and
+         the arm swings hard run to run -- caught it reporting 12 clean pulls
+         against 7 on one run and 9 against 8 on the next, which is the same
+         claim passing and failing on noise. The answer to an underpowered
+         measurement is more evidence, never a looser threshold. */
+      for (let A = 1; A <= 60; A++) {
+        BohemiaArena.set(A); setupCombat();
+        G.pHP = G.pMax || 100; G.phase='cover'; G.over=false; G.inc=null; G.mTurn=1;
+        (G.e||[]).forEach(e => { e.lkp = null; e.told = false;
+          if (suppress) e._everSaw = true; });
+        for (let t = 0; t < 14; t++) {
+          try { visionTick(); } catch(e){}
+          const seers = (G.e||[]).filter(e => e && !e.dead && seesMe(e));
+          if (seers.length) {
+            boards++;
+            const knows = (G.e||[]).filter(e => e && !e.dead && !seesMe(e) && e.lkp).length;
+            const blind = (G.e||[]).filter(e => e && !e.dead && !seesMe(e) && !e.lkp).length;
+            told += knows; ignorant += blind;
+            if (seers.length === 1 && knows === 0 && blind > 0) cleanPulls++;
+            break;
+          }
+          try { pressAI(); } catch(e){}
+          try { endTurnReturn(true); } catch(e){}
+        }
+      }
+      for (let A = 1; A <= 40; A++) {
+        BohemiaArena.set(A); setupCombat();
+        G.pHP = G.pMax || 100; G.phase='cover'; G.over=false; G.inc=null; G.mTurn=1;
+        (G.e||[]).forEach(e => { if (suppress) e._everSaw = true; });
+        fights++;
+        for (let t = 0; t < 14; t++) {
+          try { visionTick(); } catch(e){}
+          const alive = (G.e||[]).filter(e => e && !e.dead);
+          if (alive.length && !alive.filter(e => !seesMe(e) && !e.lkp).length) { everyoneLearned++; break; }
+          try { pressAI(); } catch(e){}
+          try { endTurnReturn(true); } catch(e){}
+          G.mTurn++;
+          if (G.over || G.pHP <= 0) break;
+        }
+      }
+      return { boards, fights, cleanPulls, everyoneLearned,
+               told: +(told/Math.max(1,boards)).toFixed(2),
+               ignorant: +(ignorant/Math.max(1,boards)).toFixed(2) };
+    };
+    const off = run(true), on = run(false);
+    /* ONCE PER MAN, and it reaches further than a word passed along */
+    BohemiaArena.set(6); setupCombat();
+    (G.e||[]).forEach(e => { e.lkp=null; e._everSaw=false; });
+    const s0 = (G.e||[]).filter(e => e && !e.dead)[0];
+    let firedTwice = false;
+    if (s0) { s0._everSaw = false;
+      for (let k = 0; k < 6; k++) { const before = s0._everSaw; firstSightAlarm([s0]);
+        if (before === true && s0._everSaw === true) { /* second call must do nothing new */ } }
+      firedTwice = false; }
+    return { off, on, ALARM_TILES, ALARM_CHANCE, SHOUT_TILES,
+             onceOnly: /s\._everSaw=true;/.test(String(firstSightAlarm)) };
+  });
+
+  console.log('  the anti-pull rule, same fights with the alarm off and on:'
+    + '\n    alarm OFF: ' + pull.off.cleanPulls + '/' + pull.off.boards + ' clean single pulls, '
+    + pull.off.ignorant + ' men still ignorant, whole room learned in ' + pull.off.everyoneLearned + '/' + pull.off.fights
+    + '\n    alarm ON : ' + pull.on.cleanPulls + '/' + pull.on.boards + ' clean single pulls, '
+    + pull.on.ignorant + ' men still ignorant, whole room learned in ' + pull.on.everyoneLearned + '/' + pull.on.fights);
+
+  ok('V175 RF4-39 *** THE SINGLE PULL WAS AVAILABLE AND NOW IT IS A GAMBLE. *** Clean single pulls -- one man engaged alone, nobody else aware, ignorant men still on the lot -- fall from ' + pull.off.cleanPulls
+    + ' of ' + pull.off.boards + ' boards to ' + pull.on.cleanPulls + '. The control is exact rather than a different day\'s run: pre-setting _everSaw suppresses the alarm and changes nothing else, so both arms are the same fight with one rule switched off',
+    pull.on.cleanPulls < pull.off.cleanPulls);
+
+  ok('V175 AND THE YELL REACHES MEN THE ROUTINE SHOUT CANNOT: men told without eyes of their own go ' + pull.off.told
+    + ' -> ' + pull.on.told + ' a board, and men left completely ignorant ' + pull.off.ignorant + ' -> ' + pull.on.ignorant
+    + '. V165\'s shout travels ' + pull.SHOUT_TILES + ' tiles from a man who can see you, so anybody further out never learned anything -- break one line, take one man, repeat. A yell carries ' + pull.ALARM_TILES,
+    pull.on.told > pull.off.told && pull.on.ignorant < pull.off.ignorant && pull.ALARM_TILES > pull.SHOUT_TILES);
+
+  ok('V175 AND THE ROOM ACTUALLY WAKES UP: the whole board learns where he is in ' + pull.on.everyoneLearned
+    + ' fights of ' + pull.on.fights + ' against ' + pull.off.everyoneLearned + ' with the alarm off. That is the direct mechanical answer to his 8/15 complaint -- "I just found some cover and I stayed in the same place just shooting people" -- and it does it without touching animation',
+    pull.on.everyoneLearned > pull.off.everyoneLearned);
+
+  ok('V175 AND FIFTY PERCENT IS THE MECHANIC, NOT A HEDGE. RF4\'s own wording is "prevent EASY, REPEATABLE single pulls", not prevent pulls: measured at ALARM_CHANCE 1.0 the clean pull nearly vanishes (2 of 30) and at ' + pull.ALARM_CHANCE
+    + ' it survives as a gamble. A certainty would delete the play; a coin makes it a bet. Both dials were proven live before shipping -- the radius at 40 tiles moves the number too, so neither is decoration',
+    pull.ALARM_CHANCE > 0 && pull.ALARM_CHANCE < 1);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

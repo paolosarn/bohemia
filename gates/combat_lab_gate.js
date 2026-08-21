@@ -4626,6 +4626,28 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V175 HE SHOUTS (RF4-39, THE ANTI-PULL RULE) ===============
+   The BEHAVIOUR is measured in a browser by fight_moves_you_gate, with the alarm
+   switched off and on across the same fights. What is pinned here is the shape. */
+  ok('V175 RF4-39 THE ALARM EXISTS AND IT IS A COIN: 50% on gaining agro, which is RF4\'s own number and its own wording -- "prevent EASY, REPEATABLE single pulls", not prevent pulls. A certainty would delete the play',
+    /const ALARM_CHANCE=0\.5;/.test(demo) && /Math\.random\(\)>=ALARM_CHANCE/.test(demo));
+
+  ok('V175 AND A YELL CARRIES FURTHER THAN A WORD PASSED ALONG. V165\'s routine shout travels SHOUT_TILES from a man who can see you, so anybody further out never learned anything -- which is exactly why the single pull worked. ALARM_TILES is strictly larger, and that gap IS the mechanic',
+    /const ALARM_TILES=15;/.test(demo) && /const SHOUT_TILES=8;/.test(demo));
+
+  ok('V175 AND IT IS THE FIRST SIGHTING ONLY, once per man. A yell every turn is just the routine shout with a bigger number, and it would make the alarm meaningless by making it constant -- the point is that the moment you are FOUND is dangerous in a way the rest of the fight is not',
+    /if\(!s\|\|s\._everSaw\)continue;/.test(demo) && /s\._everSaw=true;/.test(demo));
+
+  ok('V175 AND IT REUSES V165\'s markSeen, so what an alarmed man knows is exactly what a told man knows -- one definition of "where he is" rather than two that can drift. It also skips a man who already knew, so the yell never double-counts somebody the shout had already reached',
+    /markSeen\(o\); o\.told=true; raised\+\+;/.test(demo) && /if\(o\.lkp\)continue;/.test(demo));
+
+  ok('V175 AND IT RUNS INSIDE visionTick, BEFORE the routine shout, so ONE function decides who knows what. Awareness split across two places is how a man ends up told twice and counted once',
+    demo.indexOf('if(seers.length)firstSightAlarm(seers);') > 0 &&
+    demo.indexOf('if(seers.length)firstSightAlarm(seers);') < demo.indexOf('if(Math.hypot(sx,sy)<=SHOUT_TILES)'));
+
+  ok('V175 AND A NEW LOT IS A ROOM NOBODY HAS FOUND YOU IN YET: _everSaw clears on setup, so the alarm cannot arrive already spent from the last fight',
+    /e\._everSaw=false;/.test(demo));
+
 /* ===== V174 YOU CAN SHOOT THE CAR (Paolo 8/20) ====================
    The BEHAVIOUR is measured by fight_moves_you_gate with a real mouse click on
    the real canvas, because the feature IS the tap. What is pinned here is the
