@@ -193,12 +193,22 @@ the state it reverses to is "none". Tool fixed, duplicate cut.
 
 NEXT IN THIS LANE
   - THE REST OF THE VERTICAL DRESSING. The lamp is the first thing in the suburb that
-    stands up and is not a building; bins, a dead car in a driveway and power poles are
-    still absent. The arterial already authors 'power pole' (code 10) and it draws as a
-    FLAT SQUARE OF PALETTE COLOUR -- there is no vertical for it, the way there was no
-    vertical for the lamp until today. That is the obvious next sweep, and it is a general
-    question, not a one-off: which authored props are standing objects in their legend and
-    lying flat on the screen.
+    stands up and is not a building; bins and a dead car in a driveway are still absent.
+    AND THE SWEEP IS ALREADY DONE -- ask which authored props are STANDING OBJECTS in
+    their legend and lie flat on the screen, and the answer is 18 declarations / 1,773
+    tiles. (Props only: a legend `structure` or `building` already gets a 3/4 front face,
+    so it is not flat. A `prop` gets c.s=pal, one coloured square, no height.)
+        barricade post 1356 arsenal:10  ·  transmission tower 120 dam:9
+        light tower 100 speedway:12 + 54 ballpark:12  ·  speaker pole 61 drivein:7
+        fallen sign 20 town:14  ·  signal mast 16 rail:8 (+4 arterial_x, +4 strip_x)
+        post 8 fort:9  ·  sign standard 6 casino:9  ·  light mast 4 airbase + 4 airport
+        power pole 4 arterial:10 + 2 arterial_x:10  ·  high-mast light 4 freeway + 3 interchange
+        mile post 3 rail:18
+    THE LAMP WAS ONE OF THESE and it took one rule to fix all 42 districts at once, so the
+    shape of the answer is known. What is NOT known is which of these deserve the same
+    treatment and which need art of their own -- a transmission tower, a speaker pole and
+    a barricade post are three different silhouettes and none of them is a cobra head.
+    Measure what the bank already holds before cooking anything (REUSE-FIRST).
   - LIGHT TOWERS AND FLOODLIGHT MASTS need their own art. speedway/ballpark/school/stadium/
     airport author them in blobs of up to 25 tiles and they are deliberately excluded from
     the cobra-head sprite. A mast is a real silhouette and those districts are dark without it.

@@ -155,3 +155,34 @@ before re-applying, so once two copies existed the tool preserved two copies for
 reported success both times. A reversal capped at one occurrence cannot converge; an
 uncapped one always does, because the state it reverses to is "none". Tool fixed, duplicate
 cut.
+
+## THE SWEEP THIS OPENS (measured the same turn, not shipped)
+
+The lamp was one instance of a general question, so the general question got asked: **which
+authored props are STANDING OBJECTS in their legend and lie flat on the screen?**
+
+Props only — a legend `structure` or `building` already gets a ¾ front face and is not
+flat. A `prop` gets `c.s=pal`: one coloured square, no height, no silhouette.
+
+```
+barricade post        1356   arsenal:10
+transmission tower     120   dam:9
+light tower            100   speedway:12      +54  ballpark:12
+speaker pole            61   drivein:7
+fallen sign             20   town:14
+signal mast             16   rail:8           +4 arterial_x:12   +4 strip_x:12
+post                     8   fort:9
+sign standard            6   casino:9
+light mast               4   airbase:15       +4 airport:15
+power pole               4   arterial:10      +2 arterial_x:10
+high-mast light          4   freeway:9        +3 interchange:9
+mile post                3   rail:18
+                    ------
+18 declarations, 1,773 tiles
+```
+
+The lamp took **one rule** to fix forty-two districts at once, so the shape of the answer
+is known. What is not known is which of these deserve the same treatment and which need
+art of their own — a transmission tower, a speaker pole and a barricade post are three
+different silhouettes and none of them is a cobra head. REUSE-FIRST: measure what the
+banks already hold before cooking a single pixel.
