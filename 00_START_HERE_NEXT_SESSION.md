@@ -347,7 +347,26 @@ compared to the bank directly now. Proved by knocking the baked copy back a swee
   no_cash_gate       10 passed, 0 FAILED   (new, every check mutation-proved)
   sfx_wired_gate    907 passed, 0 FAILED
 
+*** THE STALENESS HE NAMED IS BACK, AND IT IS MEASURABLE. *** SFX DIVERSITY is RED
+and it is this lane's red: `instrument` now owns 53.8 percent of all non-modal recipes
+(21 of 39) against a 50 percent cap. It was ALREADY over before 8/20 (52.6 percent) so
+nobody caused it in one turn, but parts_pass nudged it up and every cook that reaches for
+the instrument axis nudges it further. This is Paolo's own 8/12 words -- "you need more
+diverse sounds bro its getting stale at this point" -- come back as a number. THE FIX IS
+NOT A DIVERSITY BATCH: it is that the NEXT cooks use the starved methods. Measured spread
+right now: friction 8, particle 2, fm 1, modal-ex 1, against instrument 21. Anything cooked
+on fm or particle helps twice, because it lifts the floor and does not raise the top.
+
+ALSO RED AND NOT OURS, CHECKED THE HONEST WAY (ran each one against origin/main in a
+worktree, identical result both sides -- so none of these came from the 8/20 sound work):
+DOORS FRESH (22/1), SONG LOCK (19/1), VOICE SURFACES (25/1, the cold open stops at beat
+88). SONG LOCK matching byte-for-byte is also the proof that rebuilding the alpha does NOT
+disturb his locked songs, which is worth knowing before anybody panics about the wire tool.
+
 WHAT COMES NEXT FOR THIS LANE:
+  0. YOU OWN IT NOW is the twin of IT IS DONE and is NOT buildable from this lane:
+     citySnapshot() carries no ownership field, so the parent has nothing to diff. It needs
+     the CITY session to put ownership in the snapshot, then it is ten lines here.
   1. THE THIRD PITCH ROW at semi -6. The INST_VOICE grid is a TWO-POINT model (-24, +12)
      and it has MISPREDICTED 3 of 44 voices. This is the top engineering defect. It needs
      its own turn because it RE-TUNES every approved instrument sound, so it needs a

@@ -44,6 +44,12 @@ GATES = [
     ('SILENT MOMENTS',  ['python3', 'gates/silent_moments_gate.py'],
      'the moments that make no sound are counted, and the ones this lane can '
      'reach have a caller waiting for the day they are approved', False),
+    ('NO CASH',        ['python3', 'gates/no_cash_gate.py'],
+     'there is no paper and there are no coins (Paolo 8/20, on the hands_pass.4 '
+     'verdict line): no live moment describes money as paper or coin, the three '
+     'dead cash ids stay dead and hold no approved sound, the moment is ANSWERED '
+     'by parts_pass rather than deleted, and nothing in the shipped build plays '
+     'a dead cash id', False),
     ('STING AUDIBLE',  ['python3', 'gates/sting_audible_gate.py'],
      'every musical sting actually makes a sound, MEASURED through the real '
      'synthV rather than read: a graveyarded or drumV voice name renders a '
