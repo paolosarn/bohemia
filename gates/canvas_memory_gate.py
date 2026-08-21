@@ -139,7 +139,23 @@ def main():
         chk(len(tabs) >= 11,
             'the alpha was measured with %d tabs opened. A tab nobody opened has '
             'not built its bodies yet, and its memory is not in the number.' % len(tabs))
-        for t in ('city', 'map', 'run', 'char'):
+        # THERE IS NO CITY TAB, AND THERE HAS NOT BEEN ONE FOR A WHILE (8/20).
+        # This demanded 'city' and the alpha does not have it: 15 tab elements,
+        # none of them city. The alpha SAYS SO in its own words next to the code
+        # that does it -- "THE WALKED SURFACE IS BEHIND THE **RUN** TAB. There is
+        # no data-p='city' tab at all -- the shell maps the RUN tab to the p-city
+        # panel". So the probe opened every tab that exists, and the gate failed
+        # it for missing one that does not.
+        #
+        # (The trap is worth naming: grepping the alpha for data-p="city" DOES
+        # find a hit -- inside that very comment. A CHECKER THAT CANNOT TELL A
+        # MENTION FROM A USE IS THE BROKEN ONE, and it caught me first.)
+        #
+        # The invariant is not the tab's NAME, it is that the walked world was
+        # actually built before anybody read a number off it. RUN is the tab that
+        # builds it, and the city is an IFRAME, which is why the frames check
+        # below is the other half of the same claim.
+        for t in ('map', 'run', 'char'):
             chk(t in tabs, 'the alpha was measured without ever opening the %s tab' % t)
         # the alpha carries its heaviest modules in iframes; a main-frame-only
         # reading reports the biggest surface in the game as holding nothing.
