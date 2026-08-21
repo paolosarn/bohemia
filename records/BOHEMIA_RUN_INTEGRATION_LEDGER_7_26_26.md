@@ -11,6 +11,10 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 · `NOT YET` (honestly absent). No other value is legal.
 
 <!-- SURFACE-MEASURED: slices/BOHEMIA_RUN_CURRENT.html -->
+<!-- MEASURED 8/21 BY ASKING THE PROBES, NOT BY READING THEM: blank the run slice
+     and re-run every probe, and exactly ONE of the thirty INTEGRATED rows still
+     answers yes. The gate prints that split on every run now, so a reader can no
+     longer reach the greens before the caveat. -->
 <!-- SURFACE-SHOWN: slices/BOHEMIA_CITY_WORLD.html -->
 
 > ## ⚠ WHAT THIS SCOREBOARD MEASURES, AND WHAT PAOLO SEES, ARE TWO DIFFERENT FILES
