@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21n - A FREEWAY IS NOT A WAY OUT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21o - THE METAL MOVES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -16862,6 +16862,13 @@ const BOH_SFX = (function () {
        cooked to be paper and coin in a world that has neither. This is the
        moment written from what actually moves. ---- */
     { ev: 'parts_pass',  label: 'PARTS CHANGE HANDS',    why: 'resource parts, metal with mass, handed over or tipped out. what actually moves when something changes hands in this valley' },
+    /* ---- 8/21: THE DESERT MOVES THE METAL. Replaces THE CAR TICKS, which
+       died 10 for 10 under panel_tick and car_heat because its brief described
+       an engine cooling after a drive, in a valley whose cars are years-old
+       wrecks. Sun-heated sheet metal contracting in the late afternoon is the
+       version that is true here, needs nobody to have driven anything, and
+       belongs to the world rather than to combat cover. ---- */
+    { ev: 'metal_ticks', label: 'THE METAL MOVES',    why: 'sun-heated sheet metal contracting as the day comes off it. irregular, and the gaps get longer as it cools. no engine, no driver, just steel and the desert' },
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -18294,6 +18301,27 @@ const BOH_SFX = (function () {
       instSets: ['boneplate', 'ratchet', 'anvil', 'reelclick', 'ironstep'],
       hitSets: [[0, 0.0625, 0.1875], [0, 0.125], [0, 0.0625, 0.125, 0.25],
                 [0, 0.1875], [0, 0.0625, 0.25]]
+    },
+
+    metal_ticks: {
+      /* STICK-SLIP, NOT A CLOCK. Every dead candidate for this moment ticked on
+         a 32nd grid and therefore read as a meter. Contracting metal releases
+         irregularly and SLOWS DOWN, because the panel approaches ambient
+         asymptotically -- so every gap below is off the grid and each one is
+         roughly 1.5x the gap before it. Thin and bright: this is a panel
+         releasing, not a bar being struck. */
+      base: { synth: 'fm', mat: 'metal', hz: 1850, ratio: 2.74, index: 1.5,
+              modes: 5, bright: 0.68, decay: 0.075, damp: 2.2, warble: 0.2,
+              atk: 0, trans: 0.55, transHz: 3100, transQ: 1.5, grit: 0.18,
+              gritHz: 2200, space: 0.12, room: 0.1875, refl: 1, dark: 5200,
+              width: 0.42, drive: 0.04, mkup: 0.82, gain: 0.52,
+              hits: [0, 0.11, 0.29, 0.58, 1.02] },
+      jit:  { hz: [1450, 2600], ratio: [2.2, 3.4], index: [1.0, 2.3],
+              decay: [0.05, 0.11], bright: [0.55, 0.8], dark: [4200, 6600],
+              width: [0.34, 0.55] },
+      hitSets: [[0, 0.11, 0.29, 0.58, 1.02], [0, 0.14, 0.33, 0.67],
+                [0, 0.09, 0.23, 0.47, 0.88], [0, 0.17, 0.41, 0.83],
+                [0, 0.13, 0.31, 0.62, 1.09]]
     },
     walk_more: {
       base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 140,
@@ -20396,6 +20424,16 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          an unapproved name is skipped and the bed plays. */
       if(r<0.44 && (A.sign_alive||[]).length) return 'sign_alive';
       if(r<0.50 && (A.dog_calls||[]).length) return 'dog_calls';
+      /* THE DESERT MOVES THE METAL (8/21). Sheet metal that took full sun all
+         day contracting as the day comes off it -- irregular, and the gaps get
+         longer as it cools. THE CAR TICKS died 10 for 10 as a combat-cover
+         sound because its brief described an engine cooling after a drive, and
+         this valley's cars are years-old wrecks. Thermal cycling needs no
+         engine and no driver, which is why it belongs HERE, in the world, next
+         to the gust and the generator. Same guard as all of them: an unapproved
+         name is skipped and the bed plays, so it costs nothing until he says
+         yes. Rarer than the weather and about as rare as the sign. */
+      if(r<0.56 && (A.metal_ticks||[]).length) return 'metal_ticks';
       return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },
