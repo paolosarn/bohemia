@@ -1273,13 +1273,30 @@
      tagsOf(), so no format change was needed). Untagged stages score NEUTRAL.
      The ORDERING (reckless > risky > notable > quiet) is now locked canon and
      enforced by the LOOP CLOUT gate; the exact numbers stay tunable. */
-  const CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
-  const CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
-  const CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
-
-  function cloutWeight(tag) {
-    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
-  }
+  /* *** THE TABLE MOVED TO engine/bohemia_clout.js AND THE VALUES DID NOT. ***
+     (8/21, PEOPLE lane.) bohemia_deeds.js throws a deliberate error saying "there
+     is no second copy of that table on purpose" -- and measured on 8/21 there
+     were FOUR: this one, plus retyped copies in BOHEMIA_HOW_LOUD_8_6_26.html,
+     BOHEMIA_CURRENT_SLICE.html and BOHEMIA_RUN_CURRENT.html. All four agreed, so
+     nothing was broken; the ruling right above says the numbers STAY TUNABLE, so
+     the day he retunes them three surfaces would silently keep the old ones.
+     The copies were not laziness. This file is 75 KB and throws at load without
+     engine, scheduler, world, bq, quest_runtime and the faction graph, so anybody
+     who wanted four numbers had to drag in most of the engine or retype the row.
+     bohemia_clout.js has NO dependencies, so there is no longer a reason to.
+     EVERY EXPORT BELOW IS UNCHANGED. This reads what it used to declare, so no
+     caller of CLOUT_TAGS / CLOUT_WEIGHTS / cloutWeight / cloutTagFrom sees any
+     difference, and the gate asserts the moved values are identical. */
+  const CLOUTMOD = (typeof require !== 'undefined')
+    ? require('./bohemia_clout.js')
+    : (typeof root !== 'undefined' ? root.BohemiaClout : null);
+  if (!CLOUTMOD) throw new Error('bohemia_loop needs bohemia_clout.js for the '
+    + 'CLOUT scale; it is the one copy of that table and there is no fallback '
+    + 'on purpose');
+  const CLOUT_TAGS = CLOUTMOD.CLOUT_TAGS;
+  const CLOUT_WEIGHTS = CLOUTMOD.CLOUT_WEIGHTS;
+  const CLOUT_NEUTRAL = CLOUTMOD.CLOUT_NEUTRAL;
+  const cloutWeight = CLOUTMOD.cloutWeight;
   /* pick the one clout tag off a stage's raw #hashtag list (first vocabulary hit;
      a stage should only carry one — that's a content-authoring discipline, not
      enforced here). */

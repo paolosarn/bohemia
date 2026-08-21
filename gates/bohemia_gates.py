@@ -1658,7 +1658,16 @@ GATES = [
      "witnessed by people actually near (measured by placing somebody sixty cells away, not by hoping "
      "the world provides one), two people together for the module's own 45-minute window swap it at a "
      "hop, it does NOT move before the window, SAW reads differently from HEARD, nobody gossips to "
-     "your face, and DEED_WEIGHT is STILL EMPTY because what a deed is WORTH is Paolo's dial", True),
+     "your face, and DEED_WEIGHT is STILL EMPTY because what a deed is WORTH is Paolo's dial. "
+     "8/21 CLOSES THE OTHER HALF OF THAT SAME HEADER COMPLAINT -- 'a back-yard handshake and a "
+     "public humiliation in front of a whole block are worth the same' -- which stayed true because "
+     "every deed took the default reach and hop budget. Each act now carries one of HIS four clout "
+     "words, read off the corpus rule he wrote on 7/21 ('CLOUT rides loudness', 'the player does not "
+     "pick a clout number'), and reach/hops derive from his CLOUT_WEIGHTS. That table was DECLARED "
+     "FOUR TIMES (bohemia_loop plus three slices that retyped it, because reaching the original meant "
+     "dragging in 75 KB and six modules) while bohemia_deeds threw an error saying there is no second "
+     "copy on purpose; it now lives alone in bohemia_clout.js with no dependencies and everything "
+     "READS it, so retuning one number moves the engine, the loop and the walked city together", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "

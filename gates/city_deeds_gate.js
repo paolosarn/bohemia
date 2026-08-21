@@ -68,12 +68,12 @@ ok('A2 and EXACTLY ONCE (found ' + copies + ')', copies === 1);
 /* ---- 2. THE CLAIM IS THE DEED, AND THE OTHER LANE IS UNTOUCHED ------------- */
 /* A DEFINITION IS NOT A CALLER, and this lane has now found twelve of those. */
 ok('A3 answering a claim CALLS ctDeed, it is not merely defined',
-  /ctDeed\(said==='yes'/.test(city));
+  /ctDeed\(kD, CT_DEED_CLOUT\[kD\]\)/.test(city));
 /* ONLY A CLAIM THAT RESOLVED. A demand you did not actually answer is not a
    thing anybody watched you do. Asserted as the RULE: the call sits behind
    r.answered, on the same line. */
 ok('A4 and ONLY when the claim really resolved (guarded by r.answered)',
-  /if\(r\.answered\) try\{ ctDeed\(/.test(city));
+  /if\(r\.answered\) try\{ var kD=\(said===/.test(city));
 /* THE BOUNDARY, ASSERTED. The FACTIONS lane owns what a claim costs. If this
    patch ever starts moving their number, that is a lane violation and it should
    fail here rather than be discovered in a merge. */
@@ -81,9 +81,40 @@ ok('A5 the FACTIONS lane\'s belonging adjust is still the only thing moving '
   + 'their number, unchanged',
   /if\(r\.answered && r\.delta\) BohemiaBelonging\.adjust\(sv, ctFid, r\.delta\);/.test(city));
 ok('A6 committing to an outfit is a deed too, inside the moved branch',
-  /ctDeed\('commit'\)/.test(city));
+  /ctDeed\('commit', CT_DEED_CLOUT\['commit'\]\)/.test(city));
 ok('A7 the gossip pass runs beside the witness pass on the same tick',
   /ctGossipPass\(\); \}catch\(_e\)\{\}    \/\* __CITY_DEEDS__ \*\//.test(city));
+
+/* ---- 3. HOW LOUD, AND ONE COPY OF THE TABLE ------------------------------
+   bohemia_deeds throws a deliberate error saying "there is no second copy of
+   that table on purpose". Measured 8/21: there were FOUR -- bohemia_loop plus
+   three slices that retyped the row, because reaching the original meant
+   dragging in 75 KB and six modules. The table now lives alone in
+   bohemia_clout.js with no dependencies and bohemia_loop READS it. */
+const clout = fs.readFileSync('engine/bohemia_clout.js', 'utf8');
+const loop = fs.readFileSync('engine/bohemia_loop.js', 'utf8');
+ok('A8 engine/bohemia_clout.js is inlined in the city BYTE-IDENTICAL',
+  city.indexOf(clout) >= 0);
+const deedsSrc = fs.readFileSync('engine/bohemia_deeds.js', 'utf8');
+ok('A9 and so is engine/bohemia_deeds.js, which is what makes loudness reachable '
+  + 'for 13 KB instead of the whole engine', city.indexOf(deedsSrc) >= 0);
+/* THE TABLE HAS ONE DECLARATION IN THE ENGINE. Asserted as the RULE -- the
+   literal appears once across engine/ -- so it fails if anybody reintroduces a
+   copy, rather than pinning today's file list. */
+const decls = ['engine/bohemia_clout.js', 'engine/bohemia_loop.js', 'engine/bohemia_deeds.js']
+  .filter(f => /CLOUT_WEIGHTS\s*=\s*\{/.test(fs.readFileSync(f, 'utf8')));
+ok('A10 the CLOUT table is DECLARED exactly once in the engine (found in: '
+  + decls.join(', ') + '), the 7/21 ruling says the numbers stay tunable, so a '
+  + 'second copy is a silent drift waiting for the day he retunes them',
+  decls.length === 1 && decls[0] === 'engine/bohemia_clout.js');
+ok('A11 bohemia_loop READS that table rather than declaring its own, and still '
+  + 'exports CLOUT_TAGS/CLOUT_WEIGHTS/cloutWeight unchanged for every caller',
+  /require\('\.\/bohemia_clout\.js'\)/.test(loop)
+  && /CLOUT_TAGS,\s*CLOUT_WEIGHTS,\s*cloutWeight,\s*cloutTagFrom/.test(loop));
+ok('A12a taking a favour is a deed too, guarded by r.took the same way the '
+  + 'claim is guarded by r.answered', /if\(r\.took\) try\{ ctDeed\('favour'/.test(city));
+ok('A12 each act carries one of HIS four words, read off the corpus rule',
+  /CT_DEED_CLOUT\s*=\s*\{/.test(city) && /ctDeed\(kD, CT_DEED_CLOUT\[kD\]\)/.test(city));
 
 (async () => {
   console.log('CITY DEEDS GATE, what you did is a thing people saw, and it travels');
@@ -165,6 +196,36 @@ ok('A7 the gossip pass runs beside the witness pass on the same tick',
       out.strangerRows = ctKnownDeeds('__GD_NOBODY__', 2).length;
 
       delete CT_MINDS['__GD_NEAR__']; delete CT_MINDS['__GD_FAR__'];
+
+      /* *** HOW LOUD IT WAS DECIDES HOW FAR IT GOES. ***
+         The other half of the deeds header's complaint: "a back-yard handshake
+         and a public humiliation in front of a whole block are worth the same."
+         Two people on the SAME STREET at fixed distances, and the only thing
+         that changes between the two runs is which of his four words the act
+         carries. Read as a RULE (loud reaches strictly more than quiet), never
+         as pinned tile counts, so retuning his weights cannot fail this. */
+      out.curve = [null, 'quiet', 'notable', 'risky', 'reckless'].map(t => ({
+        tag: String(t), reach: BohemiaDeeds.reachOf(t), hops: BohemiaDeeds.hopsFor(t) }));
+      out.identity = BohemiaDeeds.reachOf(null) === BohemiaStanding.SEE_RANGE
+                  && BohemiaDeeds.hopsFor(null) === BohemiaStanding.MAX_HOPS;
+      const r = out.curve.slice(1).map(c => c.reach);
+      out.ordered = r[0] < r[1] && r[1] < r[2] && r[2] < r[3];
+
+      const A = { p: { id: '__LD_A__' }, at: [hx + 6,  hy] };
+      const B = { p: { id: '__LD_B__' }, at: [hx + 14, hy] };
+      BARK_DREW.length = 0; BARK_DREW.push(A, B);
+      out.quietReached = ctDeed('claim:met', 'quiet');
+      out.quietBudget = (((CT_MINDS['__LD_A__'] || {}).deeds || [])[0] || {}).maxHops;
+      delete CT_MINDS['__LD_A__']; delete CT_MINDS['__LD_B__'];
+      out.loudReached = ctDeed('commit', 'risky');
+      out.loudBudget = (((CT_MINDS['__LD_A__'] || {}).deeds || [])[0] || {}).maxHops;
+      delete CT_MINDS['__LD_A__']; delete CT_MINDS['__LD_B__'];
+      /* AND AN UNTAGGED DEED IS STILL BIT-FOR-BIT THE OLD BEHAVIOUR. */
+      BARK_DREW.length = 0; BARK_DREW.push(A, B);
+      ctDeed('claim:met');
+      out.untaggedBudget = (((CT_MINDS['__LD_A__'] || {}).deeds || [])[0] || {}).maxHops;
+      delete CT_MINDS['__LD_A__']; delete CT_MINDS['__LD_B__'];
+
       BARK_DREW.length = 0;
       return out;
     });
@@ -194,6 +255,21 @@ ok('A7 the gossip pass runs beside the witness pass on the same tick',
       + 'what happened, the judgement is his', m.weights === 0 && m.opinion === 0);
     ok('B12 a person who knows nothing about you gets NO row rather than a blank one',
       m.strangerRows === 0);
+    /* the loudness half of the same header complaint */
+    ok('C1 an UNTAGGED deed is bit-for-bit the old behaviour (reach === SEE_RANGE, '
+      + 'hops === MAX_HOPS) so a tag can only move you OFF the default, never '
+      + 'silently redefine it', m.identity === true && m.untaggedBudget == null);
+    ok('C2 HIS LOCKED ORDERING holds on the live table: reckless > risky > '
+      + 'notable > quiet (' + m.curve.slice(1).map(c => c.tag + ':' + c.reach).join(' < ')
+      + ')', m.ordered === true);
+    ok('C3 A BACK-YARD HANDSHAKE AND A PUBLIC ONE ARE NO LONGER WORTH THE SAME: '
+      + 'same street, same two people, the quiet act reached ' + m.quietReached
+      + ' and the loud one reached ' + m.loudReached,
+      m.loudReached > m.quietReached);
+    ok('C4 and the hop budget travels ON the deed, so a quiet thing dies with the '
+      + 'people who watched it (' + m.quietBudget + ' retelling) while a loud one '
+      + 'outlives them (' + m.loudBudget + ')',
+      m.quietBudget > 0 && m.loudBudget > m.quietBudget);
     ok('B13 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);
   } finally {

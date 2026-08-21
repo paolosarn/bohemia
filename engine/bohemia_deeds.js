@@ -45,12 +45,26 @@
   var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
   var BQ   = HASREQ ? require('./bohemia_bq.js')       : (root.BQ || null);
   var S    = HASREQ ? require('./bohemia_standing.js') : (root.BohemiaStanding || null);
-  var LOOP = HASREQ ? require('./bohemia_loop.js')     : (root.BohemiaLoop || null);
+  /* THE TABLE, FROM WHEREVER IT IS REACHABLE, AND IT IS THE SAME TABLE.
+     (8/21.) This used to demand BohemiaLoop, and the error it threw was right
+     about the rule and wrong about the address: bohemia_loop.js is 75 KB and
+     throws at load without six other modules, so a surface that wanted four
+     numbers had to drag in most of the engine. Three of them retyped the row
+     instead, which is exactly the second copy this error was written to prevent.
+     The table now lives alone in bohemia_clout.js with no dependencies, and
+     bohemia_loop.js READS it rather than declaring it -- so LOOP.cloutWeight and
+     CLOUT.cloutWeight are the same four numbers by construction, not by luck.
+     Preferring the standalone module is what lets the walked city have loudness
+     for 13 KB instead of the whole engine. The throw survives for the case it
+     always meant: NEITHER is present, so there is no table at all. */
+  var LOOP  = HASREQ ? require('./bohemia_loop.js')  : (root.BohemiaLoop  || null);
+  var CLOUT = HASREQ ? require('./bohemia_clout.js') : (root.BohemiaClout || null);
 
   /* ---- HIS COLUMN 2: HOW LOUD. Read, never retyped. --------------------- */
   function cloutWeight(tag) {
-    if (!LOOP) throw new Error('bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second copy of that table on purpose');
-    return LOOP.cloutWeight(tag);
+    var src = CLOUT || LOOP;
+    if (!src) throw new Error('bohemia_deeds needs the CLOUT scale (bohemia_clout.js, or bohemia_loop.js which reads it); there is no second copy of that table on purpose');
+    return src.cloutWeight(tag);
   }
   function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
 

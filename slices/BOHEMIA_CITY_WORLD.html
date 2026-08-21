@@ -25683,15 +25683,352 @@ function ctKnowsMe(id){
 })(typeof globalThis!=='undefined'?globalThis:this);
 
 /* ==== /engine/bohemia_standing.js (THE DEED LEDGER) ==== */
+
+/* ==== bohemia_clout.js + bohemia_deeds.js (HOW LOUD, inlined verbatim) ==== */
+// BOHEMIA CLOUT, HOW LOUD A THING WAS, AND THE ONE PLACE THAT SAYS SO
+// (8/21/26, PEOPLE lane. Extracted, not authored: every number below is Paolo's
+//  7/21 ruling, moved, not changed.)
+//
+// ===== WHY THIS FILE EXISTS, AND IT IS NOT A NEW IDEA =====
+// bohemia_deeds.js refuses to run without this table and says why, in an error
+// string it throws on purpose:
+//
+//     "bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second
+//      copy of that table on purpose"
+//
+// MEASURED 8/21: THERE WERE FOUR COPIES.
+//     engine/bohemia_loop.js                  (the canonical one)
+//     slices/BOHEMIA_HOW_LOUD_8_6_26.html     retyped into a stub BohemiaLoop
+//     slices/BOHEMIA_CURRENT_SLICE.html       retyped
+//     slices/BOHEMIA_RUN_CURRENT.html         retyped
+//
+// They all hold the same numbers today, so nothing is broken this minute. That is
+// exactly what makes it dangerous: the 7/21 ruling says in as many words that the
+// ORDERING is locked canon and THE EXACT NUMBERS STAY TUNABLE, so the day he
+// retunes them, three surfaces keep the old ones and nobody finds out. A drift
+// that is invisible until the moment somebody exercises the thing it governs is
+// the class of rot the truth hierarchy exists to kill.
+//
+// AND THE COPIES WERE NOT LAZINESS. bohemia_loop.js is 75 KB and throws at load
+// without bohemia_engine, bohemia_scheduler, bohemia_world, bohemia_bq,
+// bohemia_quest_runtime and the faction graph. Anybody who wanted four numbers had
+// to choose between dragging in most of the engine or retyping the row. Three
+// surfaces made the same reasonable choice. THE FIX IS NOT TO SCOLD THE COPIES, IT
+// IS TO MAKE THE ORIGINAL REACHABLE: this file has NO dependencies at all, so
+// there is no longer a reason to retype it anywhere.
+//
+// ===== WHAT IS HIS, AND WHAT IS MERELY MOVED =====
+// The tags, the weights, the neutral, and the locked ordering are all his 7/21
+// ruling, copied verbatim out of bohemia_loop.js. Nothing here is tuned, renamed
+// or reinterpreted. bohemia_loop.js still exports CLOUT_TAGS / CLOUT_WEIGHTS /
+// cloutWeight / cloutTagFrom exactly as before, so every existing caller is
+// untouched; it now reads them from here instead of declaring them.
+//
+// REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks nothing and opens no bank. This is
+// a MOVE of an existing table, and the gate asserts the moved values are
+// identical to the ones bohemia_loop.js used to declare.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  /* HIS SCALE, 7/21. A quest's completing @STAGE line carries ONE of these to
+     classify its own outcome. The ORDERING (reckless > risky > notable > quiet)
+     is locked canon; the exact numbers stay tunable, which is the whole reason
+     there may only ever be one copy of them. */
+  var CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
+  var CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
+  var CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
+
+  function cloutWeight(tag) {
+    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
+  }
+
+  /* pick the one clout tag off a raw #hashtag list (first vocabulary hit; a stage
+     should only carry one, which is an authoring discipline, not enforced here). */
+  function cloutTagFrom(tags) {
+    tags = tags || [];
+    for (var i = 0; i < CLOUT_TAGS.length; i++)
+      if (tags.indexOf(CLOUT_TAGS[i]) >= 0) return CLOUT_TAGS[i];
+    return null;
+  }
+
+  var API = { CLOUT_TAGS: CLOUT_TAGS, CLOUT_WEIGHTS: CLOUT_WEIGHTS,
+              CLOUT_NEUTRAL: CLOUT_NEUTRAL,
+              cloutWeight: cloutWeight, cloutTagFrom: cloutTagFrom };
+  if (HASREQ) module.exports = API;
+  if (typeof root !== 'undefined') root.BohemiaClout = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+// BOHEMIA DEEDS — THE BRIDGE FROM A QUEST OUTCOME TO WHO ACTUALLY SAW IT
+// (8/6/26, PEOPLE lane. Reads canon, invents nothing.)
+//
+// ===== THE HOLE, IN ONE SENTENCE =====
+// Paolo's quest corpus ALREADY writes down how big a deed was (`@DO faction REDS +12`)
+// AND how loud it was (`#quiet` / `#notable` / `#risky` / `#reckless`), and the loud
+// half only ever reached the VANITY FOLLOWER COUNT. The faction standing got applied
+// godlike: the number moved, valley-wide, instantly, and NOBODY HAD SEEN ANYTHING.
+//
+// So today a back-yard handshake and a public humiliation in front of a whole block
+// are worth the same to a faction. They are not the same. His own 7/21 law already
+// says so — RECKLESS BEATS QUIET — it just never got applied to anything except a
+// follower number.
+//
+// THIS MODULE IS THAT LAW, APPLIED TO REPUTATION.
+//   the ±N  ->  HOW MUCH the deed weighs   (already his, already authored)
+//   the tag ->  HOW FAR the news carries   (already his, already authored)
+// One is the deed. The other is the audience. They were never the same axis, and the
+// corpus has always authored them separately (S17 stage 30 is a #quiet +5; stage 33
+// is a #reckless -15). Nothing here is a new decision. It is two of his own columns
+// finally being read by the same organ.
+//
+// ===== REUSE CHECK (REUSE-FIRST, Paolo 7/22) =====
+// Opened, in code, and used:
+//   engine/bohemia_bq.js       — the real .bq parser. Stages, @DO lines, #tags all
+//                                come out of HIS parser. This file does not re-parse
+//                                the quest format and does not own a second copy of it.
+//   engine/bohemia_loop.js     — CLOUT_WEIGHTS {quiet:8,notable:25,risky:55,reckless:110}
+//                                and CLOUT_NEUTRAL:15 are READ FROM THERE, never retyped.
+//                                If he retunes them (the 7/21 law says the numbers are
+//                                tunable and only the ORDERING is locked), reach and
+//                                hops retune with them on the next boot, for free.
+//   engine/bohemia_standing.js — the witness/gossip/decay organ. Already built, already
+//                                gated at 35 claims. This adds NO reputation math.
+//   quests/bq/*.bq             — the 59 authored faction deltas and the 69 clout tags.
+// Nothing was cooked. Every number below is either his, or derived from his with the
+// derivation written down.
+//
+// ===== MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter =====
+// bohemia_standing.js STILL SHIPS ITS DEED_WEIGHT TABLE EMPTY and its own gate still
+// asserts that. This module FILLS it at load — by SCANNING HIS FILES. There is not one
+// hand-typed row anywhere in here, and no faction is named in this file either. If the
+// corpus is empty the table is empty and the organ stays inert, exactly as before.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var BQ   = HASREQ ? require('./bohemia_bq.js')       : (root.BQ || null);
+  var S    = HASREQ ? require('./bohemia_standing.js') : (root.BohemiaStanding || null);
+  /* THE TABLE, FROM WHEREVER IT IS REACHABLE, AND IT IS THE SAME TABLE.
+     (8/21.) This used to demand BohemiaLoop, and the error it threw was right
+     about the rule and wrong about the address: bohemia_loop.js is 75 KB and
+     throws at load without six other modules, so a surface that wanted four
+     numbers had to drag in most of the engine. Three of them retyped the row
+     instead, which is exactly the second copy this error was written to prevent.
+     The table now lives alone in bohemia_clout.js with no dependencies, and
+     bohemia_loop.js READS it rather than declaring it -- so LOOP.cloutWeight and
+     CLOUT.cloutWeight are the same four numbers by construction, not by luck.
+     Preferring the standalone module is what lets the walked city have loudness
+     for 13 KB instead of the whole engine. The throw survives for the case it
+     always meant: NEITHER is present, so there is no table at all. */
+  var LOOP  = HASREQ ? require('./bohemia_loop.js')  : (root.BohemiaLoop  || null);
+  var CLOUT = HASREQ ? require('./bohemia_clout.js') : (root.BohemiaClout || null);
+
+  /* ---- HIS COLUMN 2: HOW LOUD. Read, never retyped. --------------------- */
+  function cloutWeight(tag) {
+    var src = CLOUT || LOOP;
+    if (!src) throw new Error('bohemia_deeds needs the CLOUT scale (bohemia_clout.js, or bohemia_loop.js which reads it); there is no second copy of that table on purpose');
+    return src.cloutWeight(tag);
+  }
+  function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
+
+  /* ---- REACH: HOW FAR A THING CARRIES ------------------------------------
+     The only genuinely new math in this file, and it is one line with a real
+     reason under it.
+
+     A clout weight is, in effect, HOW MANY PEOPLE CARE. A crowd of that many
+     people does not stand in a line — it occupies an AREA. Area grows with the
+     count, so the RADIUS grows with its SQUARE ROOT. That is not a game-feel
+     knob, it is the geometry of people standing outdoors.
+
+     reach = SEE_RANGE * sqrt(cloutWeight / CLOUT_NEUTRAL)
+
+     THREE THINGS FALL OUT OF IT, AND ALL THREE ARE WHY IT IS THE RIGHT CURVE:
+
+     1. AN UNTAGGED DEED LANDS EXACTLY ON SEE_RANGE. sqrt(15/15) = 1. The default
+        case is bit-for-bit the behaviour standing.js already had, so the tag can
+        only ever move you OFF the old number, never silently redefine it.
+     2. RECKLESS IS ~2.7x THE SIGHTLINE, NOT 13.75x. Straight linear scaling on his
+        weights would have made one loud act visible across 124 tiles — most of the
+        valley — and news would teleport again, which is the exact failure the whole
+        witness organ exists to kill. The square root keeps news travelling at the
+        speed of PEOPLE.
+     3. HIS LOCKED ORDERING SURVIVES. sqrt is monotonic, so reckless > risky >
+        notable > quiet holds no matter how he retunes the weights. The gate checks
+        this against the live table rather than against numbers baked in here. */
+  function reachOf(tag) {
+    return Math.round(S.SEE_RANGE * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- HOPS: HOW MANY TIMES IT GETS RETOLD --------------------------------
+     Same curve, same reason, and this is the half that makes the DYNASTY work.
+
+     standing.js already states the generational law in its own comments:
+       "A QUIET GOOD DEED DIES WITH THE WITNESS.
+        A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR."
+     ...because inherit() only carries a deed forward if hops > 0 — if somebody
+     RETOLD it. But until now NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every
+     deed got the same hop budget, so "quiet" and "notorious" were the same word.
+     The clout tag is the thing that was missing. A #quiet deed gets ONE hop, so
+     it usually dies with the people who watched it. A #reckless one gets five,
+     so it is still being repeated by someone alive in thirty years.
+
+     Untagged lands exactly on MAX_HOPS, same identity guarantee as reach. */
+  function hopsFor(tag) {
+    return Math.round(S.MAX_HOPS * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- THE UNITS CONVERSION, AND WHY IT IS NOT A KNOB ---------------------
+     His quest deltas run on the quest scale (the corpus's biggest single act is
+     |18|). standing.js's rungs run on the opinion scale (HOSTILE/-3, COLD/-1,
+     NEUTRAL/1, WARM/3 — boundaries two apart). Something has to convert, and a
+     conversion factor picked by feel is an invented constant pretending to be
+     mechanism. So it is DERIVED, from a rule you can argue with in English:
+
+       THE BIGGEST THING A QUEST CAN DO, DONE IN FRONT OF THE ENTIRE FACTION,
+       MOVES YOU EXACTLY ONE RUNG.
+
+     divisor = (largest |delta| in the corpus) / (rung step)
+     Today: 18 / 2 = 9. It is measured from his files at load, so if he ever writes
+     a bigger deed the whole scale re-normalises itself and the rule still holds.
+     Nothing to retune by hand, ever. */
+  var RUNG_STEP = (function () {
+    var r = S.RUNGS, best = Infinity;
+    for (var i = 1; i < r.length - 1; i++) best = Math.min(best, r[i][1] - r[i - 1][1]);
+    return best;
+  })();
+
+  /* ---- THE CORPUS SCAN ----------------------------------------------------
+     Every faction delta he has ever authored, with the clout tag of the stage it
+     sits on. This is the whole contents layer and it is entirely read.
+
+     ONE ACT, TWO MEANINGS — and the corpus was already saying this out loud.
+     S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES -6`: taking the
+     credit is a good customer to the traders and a betrayal to the growers. It is
+     ONE thing that happened. So it is recorded as one event with a per-faction
+     face: a Caravanner standing there remembers the version that touched them, a
+     Blue remembers theirs, and a Red standing in the same street remembers NOTHING,
+     because the Reds genuinely do not care who buys seed. That is zero-sum for
+     free, and it is why the deed kind carries the faction in it. */
+  function scanQuest(src, fallbackId) {
+    var q = BQ.parse(src);
+    var out = [];
+    for (var i = 0; i < q.stages.length; i++) {
+      var st = q.stages[i];
+      var tag = LOOP.cloutTagFrom(st.tags);
+      for (var j = 0; j < st.dos.length; j++) {
+        var m = /^faction\s+([A-Za-z_]+)\s+([-+]?\d+)\s*$/.exec(st.dos[j].text);
+        if (!m) continue;
+        out.push({
+          quest: q.id || fallbackId || '?',
+          stage: st.n,
+          faction: m[1],
+          delta: parseInt(m[2], 10),
+          clout: tag,                       // null = untagged, scores CLOUT_NEUTRAL
+          kind: 'q:' + (q.id || fallbackId || '?') + ':' + st.n + '@' + m[1],
+          label: st.log || '',
+        });
+      }
+    }
+    return out;
+  }
+
+  /* Load a whole corpus of already-read sources: [{id, src}, ...]. Kept free of
+     any filesystem call so the same function runs in node and in a browser page
+     with the quests inlined. */
+  function loadCorpus(sources) {
+    var deeds = [];
+    for (var i = 0; i < sources.length; i++) {
+      deeds = deeds.concat(scanQuest(sources[i].src, sources[i].id));
+    }
+    var maxAbs = 0;
+    for (var k = 0; k < deeds.length; k++) maxAbs = Math.max(maxAbs, Math.abs(deeds[k].delta));
+    var divisor = maxAbs ? (maxAbs / RUNG_STEP) : 1;
+
+    /* FILL HIS TABLE. standing.js exports DEED_WEIGHT by reference and ships it
+       empty; this is the only thing in the codebase that puts rows in it, and
+       every row traces to a line number in one of his .bq files. */
+    var labels = {};
+    for (var d = 0; d < deeds.length; d++) {
+      S.DEED_WEIGHT[deeds[d].kind] = deeds[d].delta / divisor;
+      labels[deeds[d].kind] = deeds[d].label;
+    }
+    LABELS = labels;
+    return { deeds: deeds, divisor: divisor, maxAbs: maxAbs, rungStep: RUNG_STEP, count: deeds.length };
+  }
+  var LABELS = {};
+
+  /* ---- PUBLISH: THE ACTUAL BRIDGE ----------------------------------------
+     A quest stage resolved at (x,y). Instead of writing a number into a ledger
+     nobody witnessed, this puts the event into the heads of the people who were
+     standing there — as far as its own loudness carries, with the hop budget its
+     own loudness earned. Returns who saw what, which is the honest answer to the
+     question the old code could not even ask: DID ANYBODY NOTICE?
+
+     Nothing is stored anywhere else. There is still no faction ledger; a faction's
+     view of you remains the average of what its people actually saw. */
+  function publish(minds, turn, actorId, rows, x, y, where, factionOfOwner) {
+    var seen = [], total = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var faction = r.faction;
+      var n = S.witness(minds, turn, actorId, r.kind, x, y, where, {
+        range: reachOf(r.clout),
+        maxHops: hopsFor(r.clout),
+        only: function (owner) { return factionOfOwner(owner) === faction; },
+      });
+      seen.push({ faction: faction, kind: r.kind, clout: r.clout, delta: r.delta,
+                  reach: reachOf(r.clout), maxHops: hopsFor(r.clout), witnesses: n });
+      total += n;
+    }
+    return { rows: seen, witnesses: total };
+  }
+
+  /* Resolve one stage of one already-parsed quest straight into the world. The
+     convenience the run lane will actually call. */
+  function publishStage(minds, turn, actorId, questSrc, stageN, x, y, where, factionOfOwner, questId) {
+    var rows = scanQuest(questSrc, questId).filter(function (r) { return r.stage === stageN; });
+    return publish(minds, turn, actorId, rows, x, y, where, factionOfOwner);
+  }
+
+  /* ---- WHY THEY FEEL THAT WAY, IN ENGLISH --------------------------------
+     becauseOf() returns deed KINDS, which are machine ids. A standing the player
+     cannot read is a standing they cannot play around, so the quest's own @LOG
+     line — already written, already in his voice — is what gets shown. */
+  function sayWhy(minds, faction, actorId, now, factionOfOwner, limit) {
+    return S.becauseOf(minds, faction, actorId, now, factionOfOwner, limit)
+      .map(function (b) {
+        return { who: b.who, force: b.force, heard: b.heard, hops: b.hops,
+                 said: LABELS[b.kind] || b.kind };
+      });
+  }
+
+  var API = {
+    reachOf: reachOf, hopsFor: hopsFor, cloutWeight: cloutWeight,
+    scanQuest: scanQuest, loadCorpus: loadCorpus,
+    publish: publish, publishStage: publishStage, sayWhy: sayWhy,
+    RUNG_STEP: RUNG_STEP,
+    labels: function () { return LABELS; },
+  };
+  if (HASREQ) module.exports = API; else root.BohemiaDeeds = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ==== /bohemia_clout.js + bohemia_deeds.js (HOW LOUD) ==== */
 /* __CITY_DEEDS__ -- SOMEBODY DID SOMETHING AND THE PEOPLE THERE SAW IT.
    The witness set is the render's own BARK_DREW, exactly as ctWitnessPass reads
    it: who can see you is who the game actually drew, never a second calculation
    that could disagree with the picture.
-   RANGE AND HOPS ARE THE MODULE'S DEFAULTS ON PURPOSE. bohemia_deeds.js can make
-   a deed louder or quieter from a quest's own #quiet/#reckless tag, but a claim
-   answered on the street carries no such tag and inventing one would be picking a
-   number that is his. Default sightline, default two retellings. */
-function ctDeed(kind){
+   *** AND HOW LOUD IT WAS DECIDES HOW FAR IT GOES. ***
+   The deeds header names TWO failures and the first pass only fixed one. "The
+   number moved and nobody had seen anything" is closed. The other half -- "a
+   back-yard handshake and a public humiliation in front of a whole block are
+   worth the same" -- stayed true, because every deed took the default reach and
+   the default hop budget. bohemia_deeds.js says so about itself: "until now
+   NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every deed got the same hop
+   budget, so quiet and notorious were the same word."
+   reachOf/hopsFor derive both from HIS 7/21 CLOUT_WEIGHTS, so nothing here is a
+   number I picked: reach = SEE_RANGE * sqrt(w/NEUTRAL), which is the geometry of
+   people standing outdoors, and an untagged deed lands bit-for-bit on the old
+   behaviour. Measured from his live table: quiet 7 tiles / 1 hop, untagged 9 / 2,
+   notable 12 / 3, risky 17 / 4, reckless 24 / 5. */
+function ctDeed(kind, tag){
   if (typeof BohemiaStanding === 'undefined' || typeof BohemiaMemory === 'undefined')
     return 0;
   var now = ctMinuteNow();
@@ -25702,14 +26039,49 @@ function ctDeed(kind){
     pos[d.p.id] = { x: d.at[0], y: d.at[1] };
     minds.push(ctMind(d.p.id));
   }
+  /* NO TAG IS A LEGAL ANSWER AND IT MEANS THE OLD BEHAVIOUR EXACTLY. Passing
+     undefined opts is not the same as passing computed defaults -- it is the
+     module's own identity case, and keeping it reachable is what makes the tag
+     able to move you OFF the default without ever silently redefining it. */
+  var opts;
+  if (tag && typeof BohemiaDeeds !== 'undefined') {
+    try { opts = { range: BohemiaDeeds.reachOf(tag), maxHops: BohemiaDeeds.hopsFor(tag) }; }
+    catch (_e) { opts = undefined; }
+  }
   var n = 0;
   try {
     n = BohemiaStanding.witness(minds, now, '@', kind, hx, hy,
-                                function (owner) { return pos[owner] || null; });
+                                function (owner) { return pos[owner] || null; }, opts);
   } catch (_e) { return 0; }
   if (n) ctMindSave();
   return n;
 }
+
+/* __CITY_DEEDS__ -- WHICH OF HIS FOUR WORDS EACH ACT EARNS.
+   *** THIS IS READ OFF HIS CORPUS, NOT INVENTED. *** The quest corpus carries 203
+   clout tags across 27 quests, and it writes the rule down in his own words
+   (7/21): "CLOUT rides loudness", "quiet fix -> #quiet, public patch ->
+   #notable", "help them finish small and intimate -> #quiet", "draw a real crowd
+   -> #notable", "loud AND dangerous -> #risky", "loud spectacle -> #reckless",
+   and, decisively, "THE PLAYER DOES NOT PICK A CLOUT NUMBER" -- the ACT does.
+   So, applying his own rule to the three acts the walked street actually has:
+     claim:met      you did the thing that was asked, between the two of you.
+                    Small and intimate. #quiet.
+     claim:refused  you turned an outfit down to their face, in the open. Not a
+                    spectacle, but it is a break and it happens in public.
+                    #notable, his "public patch".
+     commit         you threw in with an outfit where anyone can see. The loudest
+                    thing available on this street, and it costs you elsewhere.
+                    #risky, his "loud AND dangerous".
+   These three words are the judgement, and they are the kind of thing he
+   overturns with one word if he disagrees. The WEIGHTS behind them are untouched
+   and remain his. */
+var CT_DEED_CLOUT = {
+  'claim:met':     'quiet',      /* draft */
+  'claim:refused': 'notable',    /* draft */
+  'commit':        'risky',      /* draft */
+  'favour':        'quiet'       /* draft */
+};
 
 /* __CITY_DEEDS__ -- AND THEN THEY TELL EACH OTHER.
    *** THE WINDOW IS COUNTED IN GAME MINUTES, NOT IN FRAMES. ***
@@ -25769,7 +26141,9 @@ var CT_DEED_WORDS = {
   'claim:refused': { saw: 'watched you turn an outfit down',             /* draft */
                      heard: 'heard you turned an outfit down' },         /* draft */
   'commit':        { saw: 'watched you throw in with an outfit',         /* draft */
-                     heard: 'heard you threw in with an outfit' }        /* draft */
+                     heard: 'heard you threw in with an outfit' },       /* draft */
+  'favour':        { saw: 'watched an outfit do you a favour',           /* draft */
+                     heard: 'heard an outfit did you a favour' }         /* draft */
 };
 function ctKnownDeeds(id, limit){
   var m = CT_MINDS[id];
@@ -36581,6 +36955,10 @@ function ctDraw(){
     /* __CITY_WALLFENCE__ -- the merged favour-act for a debt outfit is a WRITER
        too, and it was the second way through the wall. */
     if(r.took && ctFavIsAct) ctGiveCapped(sv, ctFid);
+    /* __CITY_DEEDS__ -- and being SEEN taking from an outfit is the whole point
+       of the favour: this block's own citation is "they want you to OWE them".
+       Nobody had ever observed it. */
+    if(r.took) try{ ctDeed('favour', CT_DEED_CLOUT['favour']); }catch(_e){}
     advance(60);
     ctDraw(); render();
   });
@@ -36608,7 +36986,8 @@ function ctDraw(){
        a kind per faction would make his DEED_WEIGHT table grow with the roster,
        and a bystander who is not in that outfit only knows that you turned
        somebody down anyway. */
-    if(r.answered) try{ ctDeed(said==='yes' ? 'claim:met' : 'claim:refused'); }catch(_e){}
+    if(r.answered) try{ var kD=(said==='yes'?'claim:met':'claim:refused');
+                        ctDeed(kD, CT_DEED_CLOUT[kD]); }catch(_e){}
     advance(60);
     ctDraw(); render();
   }
@@ -36633,7 +37012,7 @@ function ctDraw(){
       /* __CITY_DEEDS__ -- throwing in with an outfit is the loudest thing you can
          do on this street, and it was equally unobserved. Inside the `moved`
          branch: a commitment that did not move is not a deed. */
-      try{ ctDeed('commit'); }catch(_e){}
+      try{ ctDeed('commit', CT_DEED_CLOUT['commit']); }catch(_e){}
     }
     advance(60);
     ctDraw(); render();
