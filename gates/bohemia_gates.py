@@ -269,6 +269,25 @@ GATES = [
      'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
      'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
      'where the overlook is and never places it', True),
+    ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
+     'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
+     'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
+     'separate boots, and the join between any two of them proved by nobody -- SWEEP 13 word '
+     'for word, "gates that test pieces and never the journey", and the same shape as every '
+     'other bug this week: a finished thing with a published seam and no caller, except here '
+     'the seam is between two GATES and the thing falling through it is the demo. THE VISTA '
+     'WAS THE SHARPEST CASE: vista_beat drives BOHEMIA_CITY_WORLD.html STANDALONE, and nobody '
+     'opens it that way -- he opens the alpha and taps the splash, and the city runs as an '
+     'IFRAME inside a shell with its own toolbar, day card and install banner. This lane had '
+     'already shipped a fix for a bug of exactly that shape. So the demo\'s money shot had '
+     'never once been checked on the surface his thumb touches. It is now, and it works: the '
+     'valley opens on day 2 in the alpha, card at page 104-164 against a tab bar at 0-40, '
+     'compared in ONE coordinate system because the card is measured in the iframe and the bar '
+     'in the page. EVERY BEAT IS A TAP A PLAYER COULD MAKE -- no offerAccept(), no DAY.day=2, '
+     'no forcing a panel visible. Mutation-tested both ways: disarm the vista and the money '
+     'shot goes red, silence the phone badge and the affordance claim goes red. It does NOT '
+     'replace FIRST NIGHT and must not be deduped with it -- that one is the microscope on day '
+     'one, this is the SPINE, and a microscope cannot see a seam between two boots', False),
     ('FIRST NIGHT',    ['node', 'gates/first_night_gate.js'],
      'THE FIRST NIGHT HAD NEVER BEEN PLAYED AS A SEQUENCE. Nine beats land in the player\'s '
      'first twenty minutes -- cold open, wake, the job on the phone, the offer, the market, '
