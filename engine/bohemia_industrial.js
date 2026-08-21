@@ -9,7 +9,7 @@
 //    steelcobuildings.com, alliedbuildings.com (truck court 130ft, docks 14ft o.c.,
 //    1 trailer stall per dock, office+car park at the front).
 // codes: 0 ground 1 asphalt 2 warehouse 3 fence 4 dock-door 5 gate 6 office 7 truck-court
-//        8 stall-stripe 9 parked-trailer 10 container 11 guard-shack
+//        8 stall-stripe 9 parked-trailer 10 container 11 guard-shack 12 pole-light
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
@@ -67,6 +67,21 @@
     // fill the rest of the fenced lot with yard asphalt (the drive surface) — no void
     for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++) if(g[yy][xx]===0) g[yy][xx]=1;
 
+    /* YARD POLE LIGHTS (code 12), 8/21. Twelve codes in this district and not one of them
+       stood up off the ground except the buildings, so the valley-wide lamp sweep found
+       every distribution centre in the world unlit -- which no real one has ever been: a
+       truck court is a night operation and the pole lights are the whole reason it can be.
+       AT THE FENCE LINE, NOT IN THE COURT, and that is a circulation decision as much as a
+       realism one. A pole is a solid cell, and a solid cell dropped into a backing apron is
+       something a 53-foot trailer has to be routed around; driveConnected wants >0.85 of the
+       yard reachable from the gate. Real yards mount them on the perimeter and light inward,
+       which is both what the reference does and the only placement that costs the truck
+       nothing. ~M(35) apart = about 120 ft, standard yard-lighting spacing. */
+    for(var py=MARGIN+M(12); py<H-1-MARGIN-M(6); py+=M(35)){
+      if(G.get(MARGIN,py)===1) G.set(MARGIN,py,12);
+      if(G.get(W-1-MARGIN,py)===1) G.set(W-1-MARGIN,py,12);
+    }
+
     // GATES on the streets this cell touches (a wide truck gate) + guard shack beside it
     var gates=[];
     streets.forEach(function(edge){
@@ -88,7 +103,7 @@
   }
   function driveConnected(res){ return K.connectedFrom(res.g,function(c){return c===5;},function(c){return c===1||c===5||c===7;})>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a'};
+  var PALETTE={1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a',12:'#4a463f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt / gravel (setback, yard gaps)'},
@@ -102,7 +117,10 @@
     8:{name:'trailer stall stripe',kind:'marking',   act1:'faded trailer-stall stripe on asphalt'},
     9:{name:'parked trailer',     kind:'vehicle',    act1:'abandoned box trailer, faded, some tagged'},
     10:{name:'container',         kind:'prop',       act1:'rusted shipping container, dented, stacked'},
-    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark', enter:'tiny guard-booth interior (one room)'}
+    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark', enter:'tiny guard-booth interior (one room)'},
+    /* Named 'pole light' like the forty-three other districts that author one, so the city
+       page's single lamp rule finds it without knowing anything about this district. */
+    12:{name:'pole light',        kind:'prop',       act1:'a yard pole light on the fence line, head dark, the base collared in rust'}
   };
   var NOTES={
     summary:'Distribution center — one big warehouse, a dock-door row, a truck court, a trailer yard, a front office + employee lot, a guard shack, fenced.',
@@ -111,7 +129,7 @@
       'A row of dock doors along the front feeds a deep truck-court apron for backing trailers.',
       'Trailer staging + a parking yard (striped stalls, many parked trailers); an employee car lot + office + guard shack at the front; shipping containers; a perimeter fence.'],
     circulation:'Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.',
-    layering:'GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.',
+    layering:'GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10), the YARD POLE LIGHTS (12, on the fence line so a backing trailer never has to route around one). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.',
     decisions:['REBUILT from real DC research (Paolo: research the real thing first).',
       'Gate hardened to all 6 placements + a drive-reach assertion (7/19).']
   };

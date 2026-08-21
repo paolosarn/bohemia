@@ -189,6 +189,74 @@
      why D1 was true in one district out of forty: nobody else could call it. K.layWalks is
      the same code, proved byte-identical on 32 blocks / 786,432 cells; this is the caller. */
   function layWalks(g){ return K().layWalks(g,{road:{1:1},walk:10,over:function(c){return c===0;}}); }
+  /* THE STREET LIGHT (code 12), 8/21. The district Paolo SPAWNS IN had eleven codes and
+     every single one of them lay flat on the ground: road, walk, drive, dirt, gravel,
+     debris, and the house masses. Nothing on this plot stood up out of the ground plane
+     except the buildings themselves, which is why the spawn reads as a floor plan seen
+     from above rather than a street you are standing in. A streetlight is the cheapest
+     vertical in any real neighbourhood and the valley already owns the art for it -- the
+     blessed V11 dark lamp bodies, banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt, three
+     variants, approved 7/14 and drawn ZERO times anywhere in the world until today.
+
+     WHERE IT STANDS. Paolo's 7/31 ruling put the walk hard against the kerb ("a 1 grid
+     sidewalk next to the streets"), so there is no amenity strip to stand a pole in. Real
+     attached-walk residential practice puts the pole at the BACK OF WALK, on the property
+     line, and that is what this does: it finds a kerb walk cell, steps one further from
+     the road, and stands the pole there if that cell is bare yard or gravel. The walk
+     itself is never blocked and a driveway apron is never touched.
+
+     SPACING IS RESEARCHED, NOT INVENTED (8/21, local residential practice): successive
+     heads at 200-300 ft, STAGGERED on alternate sides of the street, which puts same-side
+     poles at 400-600 ft. TILE=0.75 m, so 250 ft = 76 m = 102 tiles between successive
+     heads. On a 128-tile plot that is roughly one head per street, which is why a suburb
+     comes out with a handful and not an avenue of them -- the same order as every other
+     district that authors a light (trailer 4, apartment 8, town 18).
+     DEAD IS DEFAULT: the head is dark. The night glow is the POWER network's business and
+     only a live circuit lights one, which is CLUSTERED POWER / LIGHT=TERRITORY, unchanged. */
+  var LIGHT_SPACE=204;   /* 500 ft between SAME-SIDE poles; the other kerb is offset by half
+                            of that, so SUCCESSIVE heads land ~250 ft apart. That is the
+                            researched pair of numbers, and the staggering is what turns one
+                            into the other. */
+  /* AND IT IS A GREEDY WALK, NOT A MODULO. The first cut of this asked `along % SPACE ===
+     phase`, which nominates ONE cell per street and then throws the pole away if that exact
+     cell happens to have a driveway, a garage or a house behind it. MEASURED: one light in
+     the whole plot. A real crew does not abandon a pole because the target station is
+     somebody's drive apron -- it walks on and sets it at the next place it fits. So: collect
+     every LEGAL station along each kerb, then walk that list in order and take one whenever
+     the spacing has been earned. The number is a target the street has to honour on average,
+     not a lottery a cell has to win. */
+  function layLights(g){
+    var W=Wd(g),H=Ht(g),x,y,i,n=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    var ph=(SEED_CTX>>>3)%LIGHT_SPACE, runs={};
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==10) continue;                                   /* the kerb walk only */
+      for(i=0;i<4;i++){
+        var rx=x+d4[i][0], ry=y+d4[i][1];
+        if(!inb(g,rx,ry)||(g[ry][rx]!==1&&g[ry][rx]!==5)) continue; /* the road it hugs */
+        var bx=x-d4[i][0], by=y-d4[i][1];                          /* BACK OF WALK */
+        if(!inb(g,bx,by)) break;
+        if(g[by][bx]!==0&&g[by][bx]!==11) break;   /* bare yard or gravel; never a drive,
+                                                      a wall, a garage or a house */
+        var vert=(d4[i][0]!==0);                   /* the road runs north-south */
+        var along=vert?y:x;                        /* the coordinate running along the kerb */
+        var line=vert?rx:ry;                       /* WHICH street this kerb belongs to */
+        var side=((d4[i][0]+d4[i][1])>0)?0:1;      /* which of the two kerbs this is */
+        var key=(vert?'V':'H')+line+':'+side;
+        (runs[key]||(runs[key]=[])).push([along,bx,by,side]);
+        break;
+      }
+    }
+    for(var k in runs){ var st=runs[k]; st.sort(function(a,b){return a[0]-b[0];});
+      /* side 1 starts half a spacing later: that offset IS the stagger */
+      var last=-1e9, want=ph+(st[0][3]?(LIGHT_SPACE>>1):0);
+      for(i=0;i<st.length;i++){ var e=st[i];
+        if(e[0]<want&&last<-1e8) continue;                /* wait for this run's first station */
+        if(e[0]-last<LIGHT_SPACE) continue;               /* spacing not earned yet */
+        g[e[2]][e[1]]=12; last=e[0]; n++;
+      }
+    }
+    return n;
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -322,6 +390,10 @@
     for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
     placeColOuter(g,Lx,-1,ys[0],ys[n-1]); placeColOuter(g,Lx, 1,ys[0],ys[n-1]);
     placeColOuter(g,Rx, 1,ys[0],ys[n-1]); placeColOuter(g,Rx,-1,ys[0],ys[n-1]);
+    /* LAST, ON PURPOSE, and it is the mirror of the walk's argument above. The walk goes
+       down FIRST so nothing can build on it; the pole goes down LAST so it cannot take
+       land a house, a garage or a driveway wanted. Order is the enforcement, both ways. */
+    layLights(g);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
@@ -391,7 +463,7 @@
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -425,6 +497,12 @@
        -- you walk through drift, you do not walk around it (PROP SOLIDITY IS PER TILE). */
     13:{name:'yard debris / drift',kind:'prop', solid:false, act1:'blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving'},
     10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
+    /* THE ONLY THING ON THIS PLOT THAT STANDS UP AND IS NOT A BUILDING. Named
+       'street light' so the city page's ONE lamp rule -- legend name reads as a light
+       standard -> draw the approved lamp body -- finds it the same way it finds the
+       'streetlight' on the arterial and the 'pole light' in forty-three other districts.
+       A pole blocks a body's cell, so it takes the kind default solid:true. */
+    12:{name:'street light',      kind:'prop',       act1:'a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
@@ -437,10 +515,11 @@
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: ENTRANCES only on street edges (a corner exits two streets); roads reach every lot from the entrance (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface. GATED IS RICH: a gated/estate community gets a GATE ASSEMBLY (code 5) in the aperture; an ordinary walled suburb gets the STREET ITSELF (code 1) running through a gap in the block wall - same 7-tile aperture, different thing standing in it.',
-    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
+    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards, gravel yards (11) (flat, walk/drive). PROP: yard debris drift (13, walk THROUGH) and the STREET LIGHT (12, solid, the one vertical on this plot that is not a building - it stands at the BACK OF WALK on the property line, never on the walk itself). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
       'Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
       'Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).',
+      'STREET LIGHTS (code 12) at the BACK OF WALK, 250 ft (102 tiles) between successive heads, STAGGERED on alternate kerbs -- researched local-residential practice (200-300 ft successive, 400-600 ft same side), not an invented number. The walk is attached to the kerb by Paolo 7/31, so there is no amenity strip and the pole goes on the property line behind it. Heads are DARK; the night glow belongs to the POWER network and only a live circuit lights one (CLUSTERED POWER / LIGHT=TERRITORY).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
   };

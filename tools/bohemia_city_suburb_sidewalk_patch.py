@@ -133,10 +133,16 @@ refreshed = MARK in src
 
 # RE-RUNNABLE: a pure replacement of an anchor that still exists, so a failed reversal
 # cannot duplicate anything -- the anchor goes missing and this exits loud.
+# EVERY OCCURRENCE, NOT THE FIRST (fixed 8/21). These said `.replace(NEW, OLD, 1)`, which
+# reverses ONE copy and then re-applies ONE copy -- so the moment two copies existed the
+# tool preserved two copies forever, and reported success both times. Two DID exist: the
+# page carried the sidewalk block twice, the second one unreachable dead code behind the
+# first `else if(v===10)`. A reversal that is capped at one occurrence cannot converge;
+# an uncapped one always does, because the state it reverses to is "none".
 if NEW in src:
-    src = src.replace(NEW, OLD, 1)
+    src = src.replace(NEW, OLD)
 if ROCK_NEW in src:
-    src = src.replace(ROCK_NEW, ROCK_OLD, 1)
+    src = src.replace(ROCK_NEW, ROCK_OLD)
 if ROCK_OLD not in src:
     sys.exit('SUBURB SIDEWALK: could not find the rock branch of texKindFor. Refusing to '
              'guess -- it decides which generator draws every untextured ground in the game.')

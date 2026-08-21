@@ -1245,6 +1245,21 @@ GATES = [
      'his bank. It counts REQUESTS now, which no cache and no choice of door can fool. 8 of '
      '21 pools are in use and 13 are never asked for at all, named and ratcheted. It is the '
      'machine the STREETS ARE THE HARMONIZED POOL law (7/31, LOCKED) never had', False),
+    ('LAMP',           ['node', 'gates/lamp_gate.js'],
+     'THREE APPROVED STREETLIGHT SPRITES, FORTY-TWO DISTRICTS AUTHORING A LIGHT TILE, AND '
+     'ZERO LAMPS ANYWHERE IN THE VALLEY. Both halves were individually correct the whole '
+     'time: his blessed V11 lamp bodies (7/14) were loaded and a renderer drew them from '
+     'ch2.posts, and 42 district legends declared a streetlight or a pole light. NOTHING '
+     'CONNECTED THEM -- the only producer of c.lamp lived in the parametric road path, and '
+     'that path went dead on 8/18 when every road class got its own generator (KIT_ROAD now '
+     'covers every entry in RD, so m.road is false valley-wide). A renderer that draws '
+     'nothing is SILENT, which is why three days of green gates never noticed. Measured on '
+     'the running page with the instrument proved first: 0 draws across 36 districts against '
+     '25 for an injected control; 46 after. This gate checks the JOIN -- the producers still '
+     'exist, the page rule still recognises them (read out of the page, never re-implemented '
+     'here), and both consumers are still wired -- plus the suburb half, where a pole may '
+     'never stand on his one-grid sidewalk (7/31, LOCKED: a solid cell in a one-wide walk '
+     'does not narrow it, it severs it). Proved red by breaking the ch2.posts hook', False),
     ('FURNISH',        ['node', 'gates/furnish_gate.js'],
      'WHAT IS IN THE ROOM, AND THEREFORE WHAT YOU CAN GET BEHIND -- the second half of a '
      'number this lane published the same morning. RETREAT measured the RF4 lift sec 6 '

@@ -64,6 +64,96 @@ NEXT IN THIS LANE
 
 ---
 
+WORLD (world-9lfjtf): 8/21 (a) LATEST -- *** THREE APPROVED STREETLIGHT SPRITES, FORTY-TWO
+DISTRICTS AUTHORING A LIGHT TILE, AND ZERO LAMPS ANYWHERE IN THE VALLEY. TAB: RUN (the
+street you spawn on) and CITY (everywhere else). ***
+
+MEASURED FIRST, INSTRUMENT PROVED FIRST (the rule this lane earned last session: a
+negative result is a claim about your INSTRUMENT until you have shown the instrument
+could have seen a positive). A synthetic lamp injected into every chunk gave 25 draws.
+The real sweep, 36 districts, gave ZERO -- against 36,089 walkable cells counted by the
+same probe in the same cells, so the probe was awake.
+
+    approved lamp sprites decoded : 3      lamp DRAWS, 36 districts : 0
+    lamp CELLS: suburb 0  arterial 0  commercial 0  downtown 0  strip 0  industrial 0
+
+WHY. One producer of `c.lamp` existed in the whole world and it lived in the PARAMETRIC
+ROAD PATH, under `if(m.road)`. On 8/18 the roads got their own generator modules, and
+tileMeta sets `m.road=false` the moment a road routes to its kit -- and KIT_ROAD is now
+{strip, arterial, freeway, rail, interchange}, WHICH IS EVERY ROAD CLASS IN RD. That path
+is dead code valley-wide, and the only thing that ever raised a lamp went dark with it.
+
+THIS IS THE SAME SHAPE AS THE TRAFFIC SIGNALS, THREE DAYS EARLIER, IN THE SAME FILE.
+__A_ROAD_IS_STILL_A_ROAD__ (8/18) found his 348-sprite signal set drawing zero times for
+exactly this reason. The lamp was standing in the same room and nobody asked it.
+THE LESSON: when a path stops running, everything that ONLY lived on that path stops with
+it, and a renderer that draws nothing is SILENT -- a lamp that is not drawn looks exactly
+like a lamp that was never authored. After a routing change the sweep is not "does the new
+path work", it is WHAT ELSE WAS ONLY ON THE OLD ONE.
+
+SHIPPED: ONE RULE, WHOLE VALLEY, ON THE CONSUMER SIDE. realizeCell now recognises a light
+standard BY ITS LEGEND NAME and raises Paolo's approved body (banks/BOHEMIA_LAMP_DARK_
+VARIANTS_7_14_26.txt, blessed 7/14, drawn zero times until today). 42 district modules
+already declared one -- 'streetlight' on the arterial and the strip, 'pole light' in forty
+others -- all gated, all in dossiers, all rendering as flat squares.
+    0 draws -> 46 draws.  suburb 11 lamp cells / 3 plots, downtown 18, strip 23, arterial 6.
+NOT DRAWN, on purpose: light TOWERS and floodlight masts (speedway blobs of 25, ballpark,
+school, stadium, airport) -- a stadium mast is a different object and 25 tiles would stand
+25 overlapping poles. And never the second tile of a blob.
+
+THE SUBURB, WHICH IS WHERE HE SPAWNS, was not on the kit path at all (m.sub, hand-written)
+and had ELEVEN CODES ALL FLAT ON THE GROUND -- nothing stood up except the buildings, which
+is why the spawn read as a floor plan seen from above. bohemia_suburb.js now authors code
+12, a street light at the BACK OF WALK (his 7/31 walk is attached to the kerb so there is
+no amenity strip; the pole goes on the property line behind it, and the gate refuses any
+pole on the kerb line -- a solid cell in a one-grid walk does not narrow it, it SEVERS it).
+Spacing researched, not invented: 200-300 ft successive / 400-600 ft same-side, staggered.
+AND IT IS A GREEDY WALK, NOT A MODULO: the first cut asked `along % SPACE === phase` and
+produced ONE light in the entire plot, because a nominated cell that happens to have a
+driveway behind it just throws the pole away. A real crew walks on and sets it at the next
+place it fits. 10-12 per plot now.
+
+commercial and industrial -- the two commonest built types -- authored NO light tile at
+all, so there was nothing to turn on. Added: commercial 23 (island kerbs + median ends,
+every other median so the grid is ~94 ft not 47 ft) and industrial 12 (FENCE LINE, not the
+truck court -- a pole is solid and a 53-foot trailer should not have to route around one;
+driveConnected still true). Six each.
+
+DEAD IS DEFAULT and untouched: no head lights itself. The night glow belongs to the POWER
+network and only a live circuit turns one on (CLUSTERED POWER / LIGHT=TERRITORY). The gate
+asserts the POWER.at().live check still stands between the pole and the glow.
+
+GATE: gates/lamp_gate.js, 19 checks, suite entry LAMP. It checks the JOIN, because both
+halves were individually correct the whole time and nothing was watching the connection.
+It reads __lampTile OUT OF THE PAGE and executes it rather than re-implementing it (a gate
+carrying its own copy of the thing it checks is checking itself). Proved red by breaking
+the ch2.posts hook: 18 passed, 1 failed, exit 1.
+Record: records/BOHEMIA_THE_VALLEY_HAD_NO_STREETLIGHTS_8_21_26.md
+
+HOUSEKEEPING FOUND ON THE WAY: the city page carried the 8/20 sidewalk block TWICE, the
+second copy unreachable dead code. Its patch tool reversed only the FIRST occurrence before
+re-applying, so once two existed it preserved two forever and reported success both times.
+A reversal capped at one occurrence cannot converge; an uncapped one always does, because
+the state it reverses to is "none". Tool fixed, duplicate cut.
+
+NEXT IN THIS LANE
+  - THE REST OF THE VERTICAL DRESSING. The lamp is the first thing in the suburb that
+    stands up and is not a building; bins, a dead car in a driveway and power poles are
+    still absent. The arterial already authors 'power pole' (code 10) and it draws as a
+    FLAT SQUARE OF PALETTE COLOUR -- there is no vertical for it, the way there was no
+    vertical for the lamp until today. That is the obvious next sweep, and it is a general
+    question, not a one-off: which authored props are standing objects in their legend and
+    lying flat on the screen.
+  - LIGHT TOWERS AND FLOODLIGHT MASTS need their own art. speedway/ballpark/school/stadium/
+    airport author them in blobs of up to 25 tiles and they are deliberately excluded from
+    the cobra-head sprite. A mast is a real silhouette and those districts are dark without it.
+  - The 8 genuinely unused street pools: superseded, or a door somebody forgot to open?
+    (streets lane's question, unchanged.)
+  - ROAD CELLS (arterial block wall) and drive_network (debt ratchet 22->25) remain the
+    other WORLD session's, unchanged.
+
+---
+
 WORLD (world-9lfjtf): 8/20 (k) LATEST -- *** THE NEIGHBOURHOOD YOU WAKE UP IN HAD NINE TILE
 CODES AND NOT ONE OF THEM WAS A PROP. TAB: RUN, the street you spawn on. ***
 

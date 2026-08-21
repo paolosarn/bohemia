@@ -4777,6 +4777,74 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      why D1 was true in one district out of forty: nobody else could call it. K.layWalks is
      the same code, proved byte-identical on 32 blocks / 786,432 cells; this is the caller. */
   function layWalks(g){ return K().layWalks(g,{road:{1:1},walk:10,over:function(c){return c===0;}}); }
+  /* THE STREET LIGHT (code 12), 8/21. The district Paolo SPAWNS IN had eleven codes and
+     every single one of them lay flat on the ground: road, walk, drive, dirt, gravel,
+     debris, and the house masses. Nothing on this plot stood up out of the ground plane
+     except the buildings themselves, which is why the spawn reads as a floor plan seen
+     from above rather than a street you are standing in. A streetlight is the cheapest
+     vertical in any real neighbourhood and the valley already owns the art for it -- the
+     blessed V11 dark lamp bodies, banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt, three
+     variants, approved 7/14 and drawn ZERO times anywhere in the world until today.
+
+     WHERE IT STANDS. Paolo's 7/31 ruling put the walk hard against the kerb ("a 1 grid
+     sidewalk next to the streets"), so there is no amenity strip to stand a pole in. Real
+     attached-walk residential practice puts the pole at the BACK OF WALK, on the property
+     line, and that is what this does: it finds a kerb walk cell, steps one further from
+     the road, and stands the pole there if that cell is bare yard or gravel. The walk
+     itself is never blocked and a driveway apron is never touched.
+
+     SPACING IS RESEARCHED, NOT INVENTED (8/21, local residential practice): successive
+     heads at 200-300 ft, STAGGERED on alternate sides of the street, which puts same-side
+     poles at 400-600 ft. TILE=0.75 m, so 250 ft = 76 m = 102 tiles between successive
+     heads. On a 128-tile plot that is roughly one head per street, which is why a suburb
+     comes out with a handful and not an avenue of them -- the same order as every other
+     district that authors a light (trailer 4, apartment 8, town 18).
+     DEAD IS DEFAULT: the head is dark. The night glow is the POWER network's business and
+     only a live circuit lights one, which is CLUSTERED POWER / LIGHT=TERRITORY, unchanged. */
+  var LIGHT_SPACE=204;   /* 500 ft between SAME-SIDE poles; the other kerb is offset by half
+                            of that, so SUCCESSIVE heads land ~250 ft apart. That is the
+                            researched pair of numbers, and the staggering is what turns one
+                            into the other. */
+  /* AND IT IS A GREEDY WALK, NOT A MODULO. The first cut of this asked `along % SPACE ===
+     phase`, which nominates ONE cell per street and then throws the pole away if that exact
+     cell happens to have a driveway, a garage or a house behind it. MEASURED: one light in
+     the whole plot. A real crew does not abandon a pole because the target station is
+     somebody's drive apron -- it walks on and sets it at the next place it fits. So: collect
+     every LEGAL station along each kerb, then walk that list in order and take one whenever
+     the spacing has been earned. The number is a target the street has to honour on average,
+     not a lottery a cell has to win. */
+  function layLights(g){
+    var W=Wd(g),H=Ht(g),x,y,i,n=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    var ph=(SEED_CTX>>>3)%LIGHT_SPACE, runs={};
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==10) continue;                                   /* the kerb walk only */
+      for(i=0;i<4;i++){
+        var rx=x+d4[i][0], ry=y+d4[i][1];
+        if(!inb(g,rx,ry)||(g[ry][rx]!==1&&g[ry][rx]!==5)) continue; /* the road it hugs */
+        var bx=x-d4[i][0], by=y-d4[i][1];                          /* BACK OF WALK */
+        if(!inb(g,bx,by)) break;
+        if(g[by][bx]!==0&&g[by][bx]!==11) break;   /* bare yard or gravel; never a drive,
+                                                      a wall, a garage or a house */
+        var vert=(d4[i][0]!==0);                   /* the road runs north-south */
+        var along=vert?y:x;                        /* the coordinate running along the kerb */
+        var line=vert?rx:ry;                       /* WHICH street this kerb belongs to */
+        var side=((d4[i][0]+d4[i][1])>0)?0:1;      /* which of the two kerbs this is */
+        var key=(vert?'V':'H')+line+':'+side;
+        (runs[key]||(runs[key]=[])).push([along,bx,by,side]);
+        break;
+      }
+    }
+    for(var k in runs){ var st=runs[k]; st.sort(function(a,b){return a[0]-b[0];});
+      /* side 1 starts half a spacing later: that offset IS the stagger */
+      var last=-1e9, want=ph+(st[0][3]?(LIGHT_SPACE>>1):0);
+      for(i=0;i<st.length;i++){ var e=st[i];
+        if(e[0]<want&&last<-1e8) continue;                /* wait for this run's first station */
+        if(e[0]-last<LIGHT_SPACE) continue;               /* spacing not earned yet */
+        g[e[2]][e[1]]=12; last=e[0]; n++;
+      }
+    }
+    return n;
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -4910,6 +4978,10 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
     placeColOuter(g,Lx,-1,ys[0],ys[n-1]); placeColOuter(g,Lx, 1,ys[0],ys[n-1]);
     placeColOuter(g,Rx, 1,ys[0],ys[n-1]); placeColOuter(g,Rx,-1,ys[0],ys[n-1]);
+    /* LAST, ON PURPOSE, and it is the mirror of the walk's argument above. The walk goes
+       down FIRST so nothing can build on it; the pole goes down LAST so it cannot take
+       land a house, a garage or a driveway wanted. Order is the enforcement, both ways. */
+    layLights(g);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
@@ -4979,7 +5051,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -5013,6 +5085,12 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
        -- you walk through drift, you do not walk around it (PROP SOLIDITY IS PER TILE). */
     13:{name:'yard debris / drift',kind:'prop', solid:false, act1:'blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving'},
     10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
+    /* THE ONLY THING ON THIS PLOT THAT STANDS UP AND IS NOT A BUILDING. Named
+       'street light' so the city page's ONE lamp rule -- legend name reads as a light
+       standard -> draw the approved lamp body -- finds it the same way it finds the
+       'streetlight' on the arterial and the 'pole light' in forty-three other districts.
+       A pole blocks a body's cell, so it takes the kind default solid:true. */
+    12:{name:'street light',      kind:'prop',       act1:'a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
@@ -5025,10 +5103,11 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: ENTRANCES only on street edges (a corner exits two streets); roads reach every lot from the entrance (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface. GATED IS RICH: a gated/estate community gets a GATE ASSEMBLY (code 5) in the aperture; an ordinary walled suburb gets the STREET ITSELF (code 1) running through a gap in the block wall - same 7-tile aperture, different thing standing in it.',
-    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
+    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards, gravel yards (11) (flat, walk/drive). PROP: yard debris drift (13, walk THROUGH) and the STREET LIGHT (12, solid, the one vertical on this plot that is not a building - it stands at the BACK OF WALK on the property line, never on the walk itself). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
       'Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
       'Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).',
+      'STREET LIGHTS (code 12) at the BACK OF WALK, 250 ft (102 tiles) between successive heads, STAGGERED on alternate kerbs -- researched local-residential practice (200-300 ft successive, 400-600 ft same side), not an invented number. The walk is attached to the kerb by Paolo 7/31, so there is no amenity strip and the pole goes on the property line behind it. Heads are DARK; the night glow belongs to the POWER network and only a live circuit lights one (CLUSTERED POWER / LIGHT=TERRITORY).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
   };
@@ -9319,6 +9398,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
        by planted islands, and they are where the loose carts end up. */
     for(i=0;i<4;i++){ var ix=14+i*19;
       G.rect(ix,79,ix+8,81,4); set(ix+4,80,3);
+      if((i&1)===1) set(ix+1,80,23);      /* a standard on the mid-lot island, off the tree */
     }
     /* the medians sit INSIDE the stall bands and never cross a drive aisle -- the first
        cut ran them the full depth of the lot and severed the circulation, dropping the
@@ -9327,6 +9407,16 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
       G.rect(mx,56,mx+2,62,4); G.rect(mx,72,mx+2,78,4);
       G.rect(mx,84,mx+2,90,4); G.rect(mx,100,mx+2,106,4);
       set(mx+1,58,3); set(mx+1,75,3); set(mx+1,87,3); set(mx+1,103,3);
+      /* THE LIGHT STANDARDS (code 23), 8/21. A power-centre lot this size has never in its
+         life been unlit -- the standards are the tallest thing on the pavement and the only
+         vertical between the kerb and the anchor. This district had 23 codes and not one of
+         them stood a pole, so the valley-wide lamp sweep found it dark along with every
+         other commercial pad in the world. They go where they go in a real lot: ON THE
+         KERBED ISLAND, never loose in a stall, and at the ENDS of the median bands.
+         EVERY OTHER MEDIAN, on purpose. Islands sit 19 tiles (14 m) apart; a pole on each
+         would be a 47-ft grid, which is half again as tight as the 100-120 ft parking-lot
+         practice this is built to. Skipping one puts them at ~94 ft. */
+      if((i&1)===0){ set(mx+1,56,23); set(mx+1,106,23); }
     }
     /* nobody came back for these */
     for(i=0;i<22;i++){
@@ -9411,7 +9501,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7c7367',3:'#514f40',4:'#4a4a35',5:'#c79a3f',
     6:'#8a8a92',7:'#3f4e52',8:'#8c3f38',9:'#2f6058',10:'#a8842f',11:'#c9c1aa',12:'#b0863a',
     13:'#a39a88',14:'#241f1a',15:'#2b2b31',16:'#6a6e72',17:'#6a6e72',18:'#9aa0a6',
-    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f'};
+    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f',23:'#4a463f'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',   act1:'bare cracked dirt at the property line'},
     1:{name:'lot asphalt',        kind:'drive',    act1:'the cracked parking field and its drive aisles, weeds up every joint (car-drivable)'},
@@ -9435,7 +9525,11 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     19:{name:'fuel canopy',       kind:'structure',act1:'the fuel-island canopy, brand panels stripped, you drive under it', layer:'overhead', solid:false},
     20:{name:'fuel pump',         kind:'prop',     act1:'a dead pump, hoses down, screen dark'},
     22:{name:'setback ground',    kind:'ground',   act1:'the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face'},
-    21:{name:'garden centre wall', kind:'fence',    act1:'the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge'}
+    21:{name:'garden centre wall', kind:'fence',    act1:'the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge'},
+    /* Named 'pole light' to match the forty-three other districts that author one, so the
+       city page's single lamp rule (legend name reads as a light standard -> raise the
+       approved lamp body) finds it without knowing anything about this district. */
+    23:{name:'pole light',        kind:'prop',     act1:'a tall parking-lot light standard on its island kerb, head dark, the pole rash-scraped where trolleys hit it'}
   };
   var NOTES={
     summary:'A dead power center: a big-box ANCHOR across the back, an L of inline shop bays under coloured awnings down the east, a lot of double-loaded parking bays with landscape islands, outparcel pads at the kerb (a fuel canopy and a drive-thru restaurant with its lane wrapping it), a pylon sign at the street, and a service alley with docks behind the whole thing.',
@@ -9453,7 +9547,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
       'The PYLON SIGN stands at the street beside the entrance, board blank.'
     ],
     circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE car entrance on the primary street. The drive network is the lot, the outparcel pads, the drive-thru lane and the rear service alley (code 1 and 15), all one connected surface reachable from the kerb (K.driveReachFromStreet). On foot the covered walks (6) run the shopfronts and the anchor front. A corner cell gains a pedestrian gate on the side street. Every business keeps a back door onto the alley for trash and deliveries (Paolo 7/18).',
-    layering:'GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.',
+    layering:'GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3), the LOT LIGHT STANDARDS (23, solid, on the island kerbs and the ends of the median bands -- the tallest thing on the pavement). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.',
     decisions:[
       'REBUILT 7/31 on Paolo\'s "make it look good" ruling. The old module was a flat L and a striped lot with no second building and no colour.',
       'IT IS NOW ACTUALLY REGISTERED. The old one never bound K — its registration hid behind `typeof K!==\'undefined\'` resolving against a global another module happened to leak, so the walked city has been drawing commercial from LEGACY PREFAB STAMPS with not one enterable building. Binding K used to turn walkable_gate red because the old single-street form was 61% pavement; this one is dense enough that the law is satisfied by the design rather than by not being registered.',
@@ -10411,7 +10505,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 //    steelcobuildings.com, alliedbuildings.com (truck court 130ft, docks 14ft o.c.,
 //    1 trailer stall per dock, office+car park at the front).
 // codes: 0 ground 1 asphalt 2 warehouse 3 fence 4 dock-door 5 gate 6 office 7 truck-court
-//        8 stall-stripe 9 parked-trailer 10 container 11 guard-shack
+//        8 stall-stripe 9 parked-trailer 10 container 11 guard-shack 12 pole-light
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
@@ -10469,6 +10563,21 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     // fill the rest of the fenced lot with yard asphalt (the drive surface) — no void
     for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++) if(g[yy][xx]===0) g[yy][xx]=1;
 
+    /* YARD POLE LIGHTS (code 12), 8/21. Twelve codes in this district and not one of them
+       stood up off the ground except the buildings, so the valley-wide lamp sweep found
+       every distribution centre in the world unlit -- which no real one has ever been: a
+       truck court is a night operation and the pole lights are the whole reason it can be.
+       AT THE FENCE LINE, NOT IN THE COURT, and that is a circulation decision as much as a
+       realism one. A pole is a solid cell, and a solid cell dropped into a backing apron is
+       something a 53-foot trailer has to be routed around; driveConnected wants >0.85 of the
+       yard reachable from the gate. Real yards mount them on the perimeter and light inward,
+       which is both what the reference does and the only placement that costs the truck
+       nothing. ~M(35) apart = about 120 ft, standard yard-lighting spacing. */
+    for(var py=MARGIN+M(12); py<H-1-MARGIN-M(6); py+=M(35)){
+      if(G.get(MARGIN,py)===1) G.set(MARGIN,py,12);
+      if(G.get(W-1-MARGIN,py)===1) G.set(W-1-MARGIN,py,12);
+    }
+
     // GATES on the streets this cell touches (a wide truck gate) + guard shack beside it
     var gates=[];
     streets.forEach(function(edge){
@@ -10490,7 +10599,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   }
   function driveConnected(res){ return K.connectedFrom(res.g,function(c){return c===5;},function(c){return c===1||c===5||c===7;})>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a'};
+  var PALETTE={1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a',12:'#4a463f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt / gravel (setback, yard gaps)'},
@@ -10504,7 +10613,10 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     8:{name:'trailer stall stripe',kind:'marking',   act1:'faded trailer-stall stripe on asphalt'},
     9:{name:'parked trailer',     kind:'vehicle',    act1:'abandoned box trailer, faded, some tagged'},
     10:{name:'container',         kind:'prop',       act1:'rusted shipping container, dented, stacked'},
-    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark', enter:'tiny guard-booth interior (one room)'}
+    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark', enter:'tiny guard-booth interior (one room)'},
+    /* Named 'pole light' like the forty-three other districts that author one, so the city
+       page's single lamp rule finds it without knowing anything about this district. */
+    12:{name:'pole light',        kind:'prop',       act1:'a yard pole light on the fence line, head dark, the base collared in rust'}
   };
   var NOTES={
     summary:'Distribution center — one big warehouse, a dock-door row, a truck court, a trailer yard, a front office + employee lot, a guard shack, fenced.',
@@ -10513,7 +10625,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
       'A row of dock doors along the front feeds a deep truck-court apron for backing trailers.',
       'Trailer staging + a parking yard (striped stalls, many parked trailers); an employee car lot + office + guard shack at the front; shipping containers; a perimeter fence.'],
     circulation:'Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.',
-    layering:'GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.',
+    layering:'GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10), the YARD POLE LIGHTS (12, on the fence line so a backing trailer never has to route around one). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.',
     decisions:['REBUILT from real DC research (Paolo: research the real thing first).',
       'Gate hardened to all 6 placements + a drive-reach assertion (7/19).']
   };
@@ -22139,6 +22251,24 @@ function __voidShade(col){
   return '#'+h(r)+h(g)+h(b);
 }
 /* __VOID_SHADE_E__ */
+/* __THE_VALLEY_DRAWS_ITS_LAMPS__ -- ONE RULE, WHOLE VALLEY: a tile whose legend NAMES it
+   a light standard raises the approved lamp body. Forty-five district modules declare one
+   ('streetlight' on the arterial and the strip, 'pole light' in forty-three others) and
+   until today every one of them rendered as a flat square, because the only thing in the
+   world that ever set `c.lamp` was the parametric road path -- which went dead the day
+   roads got their own generators (KIT_ROAD covers every class in RD, so `m.road` is false
+   valley-wide). Measured before touching anything: 3 sprites loaded, 0 draws, 0 lamp cells
+   in six districts, against 25 draws for an injected control.
+   TOWERS AND MASTS ARE NOT COBRA HEADS. speedway/ballpark/school/stadium/airport author
+   LIGHT TOWERS in blobs of up to 25 tiles; this sprite is a street light and would be a lie
+   on a floodlight mast (and 25 of them would stand 25 overlapping poles). Excluded by name
+   until they get art of their own. */
+function __lampTile(entry){
+  var n=String((entry&&entry.name)||'');
+  if(/tower|mast|floodlight/i.test(n)) return false;         /* a different object entirely */
+  return /streetlight|street light|pole light|light standard/i.test(n);
+}
+/* __THE_VALLEY_DRAWS_ITS_LAMPS__ END */
 function realizeCell(gx,gy){
   if(gx<0||gy<0||gx>=WORLD_F||gy>=WORLD_F)return null;
   const tx=(gx/FN)|0, ty=(gy/FN)|0, lx=gx-tx*FN, ly=gy-ty*FN;
@@ -22218,6 +22348,18 @@ function realizeCell(gx,gy){
     const spec=m.kitSpec, entry=spec&&spec.legend&&spec.legend[code];
     const tl=BohemiaDistrictKit.tileLayer(entry);
     const pal=(spec&&spec.palette&&spec.palette[code])||'#98948a';
+    /* __THE_VALLEY_DRAWS_ITS_LAMPS_KIT__ -- ONE PER BLOB, top-left anchored. A pole is a
+       single tile in 43 of the 45 districts that author one; `town` runs blobs of two, and
+       without this a two-tile blob stands two poles in the same spot. Reading the kit grid
+       directly is exact and free -- it is the array this branch already indexed one line
+       above. At the plot edge there is no neighbour to compare against, which is correct:
+       a 1-2 tile pole does not straddle two plots. */
+    if(__lampTile(entry)){
+      var _lw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
+      var _ln=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
+      if(!_lw&&!_ln) c.lamp=1;
+    }
+    /* __THE_VALLEY_DRAWS_ITS_LAMPS_KIT__ END */
     /* __DANGEROUS_GROUND_LOOKS_DANGEROUS__ -- THE CLASS RIDES ON THE CELL.
        The page already has hazardUnder(gx,gy), and it is the wrong tool here: it
        re-resolves tileMeta and the legend from scratch for a single cell, which is right
@@ -22447,6 +22589,17 @@ function realizeCell(gx,gy){
     c.g='#8a7a5e';                                   // dead dirt (act-1: nothing grows)
     if(v===1||v===5){ c.g='#8a8a86'; }               // interior street / gate opening
     else if(v===3){ c.g='#c8c4b8'; }                 // driveway apron
+    /* __THE_VALLEY_DRAWS_ITS_LAMPS_SUB__ -- THE ONE THING IN HIS SPAWN THAT STANDS UP AND
+       IS NOT A BUILDING. Eleven codes in this district and every single one of them lay flat
+       on the ground -- road, walk, drive, dirt, gravel, debris, and the house masses -- which
+       is why the spawn reads as a floor plan seen from above instead of a street you are
+       standing in. bohemia_suburb.js authors code 12 at the BACK OF WALK (Paolo's 7/31 walk
+       is attached to the kerb, so there is no amenity strip and the pole goes on the property
+       line behind it), on researched local-residential spacing: successive heads 200-300 ft,
+       staggered on alternate kerbs. A pole blocks a cell. The head is DARK; only a live POWER
+       circuit lights one at night, which is CLUSTERED POWER / LIGHT=TERRITORY, untouched. */
+    else if(v===12){ c.s='#4a463f'; c.walk=false; c.lamp=1; }
+    /* __THE_VALLEY_DRAWS_ITS_LAMPS_SUB__ END */
     /* __THE_SUBURB_HAS_SIDEWALKS__ -- CODE 10 IS THE SIDEWALK AND THIS BRANCH HAD NEVER
        HEARD OF IT. The comment at the top of this block lists "0 dead 1 road 2 house 3
        drive 4 wall 5 gate 6 garage 9 upper" and ten is not in it, so every walk in every
@@ -22503,6 +22656,27 @@ function realizeCell(gx,gy){
     else if(v===10){
       const _sw=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
       c.gArtPool='side'; c.gArtVariant=_sw%3;
+    }
+    /* __THE_SUBURB_HAS_SIDEWALKS__ -- AND A FRONT YARD MADE OF SOMETHING. Every house in
+       this district sat in a large flat rectangle of one dead-dirt tone: nine codes in the
+       whole suburb and not one of them a prop, which at the player's camera at the spawn is
+       most of the screen. Code 11 is DECORATIVE GRAVEL, the most Las Vegas thing about a
+       Las Vegas yard and the one that survives a dead world -- this valley has paid people
+       to tear their lawns out since the early 2000s, and rock does not die. Its palette
+       colour is already in texKindFor's rock family, so it picks up the ROCK grain with no
+       new art and no new pool: gravel drawn as gravel.
+       Code 13 is what a decade of wind leaves against the kerb. It is named "debris" in the
+       legend on purpose, so BohemiaHazard classifies it AMPLIFIES by derivation -- and the
+       class is stamped here because this branch is not the kit path and would otherwise
+       never carry one. The district he SPAWNS IN finally has ground that does something to
+       a body, and it gets the loose-chip mark for free. */
+    else if(v===11){ c.g='#9b968a'; }
+    else if(v===13){ c.g='#7c7263';
+      if(typeof BohemiaHazard!=='undefined'){
+        try{ const _h13=BohemiaHazard.classOf(
+               (typeof BohemiaSuburb!=='undefined'&&BohemiaSuburb.legend)?BohemiaSuburb.legend[13]:null,
+               BohemiaDistrictKit); if(_h13) c.haz=_h13; }catch(_e){}
+      }
     }
     else if(v===0){                                  // dead dirt: one DG blend per BLOCK
       const bh=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;

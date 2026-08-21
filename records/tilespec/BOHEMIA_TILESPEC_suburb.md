@@ -21,12 +21,13 @@ GENERATED from `engine/bohemia_suburb.js` (NOTES + LEGEND + PALETTE) — do not 
 Street-aware: ENTRANCES only on street edges (a corner exits two streets); roads reach every lot from the entrance (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface. GATED IS RICH: a gated/estate community gets a GATE ASSEMBLY (code 5) in the aperture; an ordinary walled suburb gets the STREET ITSELF (code 1) running through a gap in the block wall - same 7-tile aperture, different thing standing in it.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.
+GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards, gravel yards (11) (flat, walk/drive). PROP: yard debris drift (13, walk THROUGH) and the STREET LIGHT (12, solid, the one vertical on this plot that is not a building - it stands at the BACK OF WALK on the property line, never on the walk itself). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.
 
 ### Decisions & rulings
 - Every home has a proper street -> driveway -> front-garage (Paolo ruling).
 - Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.
 - Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).
+- STREET LIGHTS (code 12) at the BACK OF WALK, 250 ft (102 tiles) between successive heads, STAGGERED on alternate kerbs -- researched local-residential practice (200-300 ft successive, 400-600 ft same side), not an invented number. The walk is attached to the kerb by Paolo 7/31, so there is no amenity strip and the pole goes on the property line behind it. Heads are DARK; the night glow belongs to the POWER network and only a live circuit lights one (CLUSTERED POWER / LIGHT=TERRITORY).
 - MODULARITY LAW: must snap into 1x2 / 2x2, connected.
 - Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.
 
@@ -35,7 +36,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 5991 |
+| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 5983 |
 | 1 | `#33333c` | road | drive | cracked residential street asphalt (car-drivable) | ground | no | — | 3325 |
 | 2 | `#8a8478` | house | building | single-story stucco tract house, faded, dark windows | structure | yes | house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage | 2620 |
 | 3 | `#3f3f47` | driveway | drive | cracked concrete driveway apron (drivable to garage) | ground | no | — | 420 |
@@ -44,7 +45,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#6b6b74` | garage | building | front-corner garage, steel roll door, dented | structure | yes | garage interior: 1-2 car bays, junk shelves, a door into the house | 1001 |
 | 9 | `#9a938a` | house upper floor | building | 2-story house upper mass (taller top-down read) | structure | yes | the house floorplan upper story (bedrooms), reached by interior stairs | 615 |
 | 10 | `#57575f` | sidewalk | walk | cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation | ground | no | — | 815 |
-| 11 | `#9b968a` | gravel yard | ground | decorative desert gravel over weed fabric, the rock that replaced a lawn a long time before anybody left | ground | no | — | 991 |
+| 11 | `#9b968a` | gravel yard | ground | decorative desert gravel over weed fabric, the rock that replaced a lawn a long time before anybody left | ground | no | — | 989 |
+| 12 | `#4a463f` | street light | prop | a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it | prop | yes | — | 10 |
 | 13 | `#7c7263` | yard debris / drift | prop | blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving | prop | no | — | 105 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

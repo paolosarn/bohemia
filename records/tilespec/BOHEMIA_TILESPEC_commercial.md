@@ -23,7 +23,7 @@ GENERATED from `engine/bohemia_commercial.js` (NOTES + LEGEND + PALETTE) — do 
 Street-aware via canonical-south + K.rotateToStreet: ONE car entrance on the primary street. The drive network is the lot, the outparcel pads, the drive-thru lane and the rear service alley (code 1 and 15), all one connected surface reachable from the kerb (K.driveReachFromStreet). On foot the covered walks (6) run the shopfronts and the anchor front. A corner cell gains a pedestrian gate on the side street. Every business keeps a back door onto the alley for trash and deliveries (Paolo 7/18).
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.
+GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3), the LOT LIGHT STANDARDS (23, solid, on the island kerbs and the ends of the median bands -- the tallest thing on the pavement). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.
 
 ### Decisions & rulings
 - REBUILT 7/31 on Paolo's "make it look good" ruling. The old module was a flat L and a striped lot with no second building and no colour.
@@ -41,7 +41,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#33333c` | lot asphalt | drive | the cracked parking field and its drive aisles, weeds up every joint (car-drivable) | ground | no | — | 4667 |
 | 2 | `#7c7367` | store | building | concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out | structure | yes | retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind | 2582 |
 | 3 | `#514f40` | dead tree | tree-dead | a dead lot tree in its island, gone to stick | prop | yes | — | 167 |
-| 4 | `#4a4a35` | landscape island | ground | a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up | ground | no | — | 419 |
+| 4 | `#4a4a35` | landscape island | ground | a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up | ground | no | — | 413 |
 | 5 | `#c79a3f` | curb cut / gate | gate | the driveway curb cut off the street, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#8a8a92` | storefront walk | walk | the covered concrete walk along the shopfronts, cracked, glass underfoot | ground | no | — | 499 |
 | 7 | `#3f4e52` | storefront glass | building | the shopfront glazing line, dark and mostly out | structure | yes | — | 42 |
@@ -60,6 +60,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 20 | `#8a5a4a` | fuel pump | prop | a dead pump, hoses down, screen dark | prop | yes | — | 6 |
 | 21 | `#6e6a5c` | garden centre wall | fence | the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge | structure | yes | — | 97 |
 | 22 | `#46442f` | setback ground | ground | the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face | ground | no | — | 2246 |
+| 23 | `#4a463f` | pole light | prop | a tall parking-lot light standard on its island kerb, head dark, the pole rash-scraped where trolleys hit it | prop | yes | — | 6 |
 
 **Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

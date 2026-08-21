@@ -119,6 +119,7 @@
        by planted islands, and they are where the loose carts end up. */
     for(i=0;i<4;i++){ var ix=14+i*19;
       G.rect(ix,79,ix+8,81,4); set(ix+4,80,3);
+      if((i&1)===1) set(ix+1,80,23);      /* a standard on the mid-lot island, off the tree */
     }
     /* the medians sit INSIDE the stall bands and never cross a drive aisle -- the first
        cut ran them the full depth of the lot and severed the circulation, dropping the
@@ -127,6 +128,16 @@
       G.rect(mx,56,mx+2,62,4); G.rect(mx,72,mx+2,78,4);
       G.rect(mx,84,mx+2,90,4); G.rect(mx,100,mx+2,106,4);
       set(mx+1,58,3); set(mx+1,75,3); set(mx+1,87,3); set(mx+1,103,3);
+      /* THE LIGHT STANDARDS (code 23), 8/21. A power-centre lot this size has never in its
+         life been unlit -- the standards are the tallest thing on the pavement and the only
+         vertical between the kerb and the anchor. This district had 23 codes and not one of
+         them stood a pole, so the valley-wide lamp sweep found it dark along with every
+         other commercial pad in the world. They go where they go in a real lot: ON THE
+         KERBED ISLAND, never loose in a stall, and at the ENDS of the median bands.
+         EVERY OTHER MEDIAN, on purpose. Islands sit 19 tiles (14 m) apart; a pole on each
+         would be a 47-ft grid, which is half again as tight as the 100-120 ft parking-lot
+         practice this is built to. Skipping one puts them at ~94 ft. */
+      if((i&1)===0){ set(mx+1,56,23); set(mx+1,106,23); }
     }
     /* nobody came back for these */
     for(i=0;i<22;i++){
@@ -211,7 +222,7 @@
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7c7367',3:'#514f40',4:'#4a4a35',5:'#c79a3f',
     6:'#8a8a92',7:'#3f4e52',8:'#8c3f38',9:'#2f6058',10:'#a8842f',11:'#c9c1aa',12:'#b0863a',
     13:'#a39a88',14:'#241f1a',15:'#2b2b31',16:'#6a6e72',17:'#6a6e72',18:'#9aa0a6',
-    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f'};
+    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f',23:'#4a463f'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',   act1:'bare cracked dirt at the property line'},
     1:{name:'lot asphalt',        kind:'drive',    act1:'the cracked parking field and its drive aisles, weeds up every joint (car-drivable)'},
@@ -235,7 +246,11 @@
     19:{name:'fuel canopy',       kind:'structure',act1:'the fuel-island canopy, brand panels stripped, you drive under it', layer:'overhead', solid:false},
     20:{name:'fuel pump',         kind:'prop',     act1:'a dead pump, hoses down, screen dark'},
     22:{name:'setback ground',    kind:'ground',   act1:'the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face'},
-    21:{name:'garden centre wall', kind:'fence',    act1:'the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge'}
+    21:{name:'garden centre wall', kind:'fence',    act1:'the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge'},
+    /* Named 'pole light' to match the forty-three other districts that author one, so the
+       city page's single lamp rule (legend name reads as a light standard -> raise the
+       approved lamp body) finds it without knowing anything about this district. */
+    23:{name:'pole light',        kind:'prop',     act1:'a tall parking-lot light standard on its island kerb, head dark, the pole rash-scraped where trolleys hit it'}
   };
   var NOTES={
     summary:'A dead power center: a big-box ANCHOR across the back, an L of inline shop bays under coloured awnings down the east, a lot of double-loaded parking bays with landscape islands, outparcel pads at the kerb (a fuel canopy and a drive-thru restaurant with its lane wrapping it), a pylon sign at the street, and a service alley with docks behind the whole thing.',
@@ -253,7 +268,7 @@
       'The PYLON SIGN stands at the street beside the entrance, board blank.'
     ],
     circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE car entrance on the primary street. The drive network is the lot, the outparcel pads, the drive-thru lane and the rear service alley (code 1 and 15), all one connected surface reachable from the kerb (K.driveReachFromStreet). On foot the covered walks (6) run the shopfronts and the anchor front. A corner cell gains a pedestrian gate on the side street. Every business keeps a back door onto the alley for trash and deliveries (Paolo 7/18).',
-    layering:'GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.',
+    layering:'GROUND (drive): lot asphalt and the pads (1), the service alley (15), with the stall ticks (11). GROUND (walk): the setback (4), the storefront walks (6). STRUCTURE (solid, ENTERABLE): the anchor and the shop bays (2), their glass line (7), and the roof edge and rooftop plant (13), which sit ON the mass and are part of it. OVERHEAD (you pass UNDER): the shop awnings (8/9/10) and the fuel canopy (19). PROP: docks and pallets (16), fuel pumps (20), carts (18), dead trees (3), the LOT LIGHT STANDARDS (23, solid, on the island kerbs and the ends of the median bands -- the tallest thing on the pavement). VEHICLE: the cars left in the stalls (17). PORTAL: the kerb cut (5) and every DOORWAY (14) — shop entries and steel back doors.',
     decisions:[
       'REBUILT 7/31 on Paolo\'s "make it look good" ruling. The old module was a flat L and a striped lot with no second building and no colour.',
       'IT IS NOW ACTUALLY REGISTERED. The old one never bound K — its registration hid behind `typeof K!==\'undefined\'` resolving against a global another module happened to leak, so the walked city has been drawing commercial from LEGACY PREFAB STAMPS with not one enterable building. Binding K used to turn walkable_gate red because the old single-street form was 61% pavement; this one is dense enough that the law is satisfied by the design rather than by not being registered.',

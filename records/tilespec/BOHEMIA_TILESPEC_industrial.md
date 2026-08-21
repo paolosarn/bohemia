@@ -18,7 +18,7 @@ GENERATED from `engine/bohemia_industrial.js` (NOTES + LEGEND + PALETTE) — do 
 Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.
+GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10), the YARD POLE LIGHTS (12, on the fence line so a backing trailer never has to route around one). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.
 
 ### Decisions & rulings
 - REBUILT from real DC research (Paolo: research the real thing first).
@@ -30,7 +30,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt / gravel (setback, yard gaps) | ground | no | — | — |
-| 1 | `#33333c` | asphalt drive | drive | cracked asphalt drive lane / employee lot (car-drivable) | ground | no | — | 7326 |
+| 1 | `#33333c` | asphalt drive | drive | cracked asphalt drive lane / employee lot (car-drivable) | ground | no | — | 7320 |
 | 2 | `#7a7a82` | warehouse | building | big tilt-up concrete box, rusted metal siding, dark | structure | yes | WAREHOUSE INTERIOR: one big open floor, tall racking aisles, the dock doors seen from inside, a small office corner | 3875 |
 | 3 | `#4a4438` | fence | fence | chain-link perimeter fence, sagging, some down | structure | yes | — | 497 |
 | 4 | `#c7a24a` | dock door | building | roll-up loading dock door, dented, some open black | portal | no | through the dock into the warehouse floor | 19 |
@@ -41,6 +41,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 9 | `#5a5a64` | parked trailer | vehicle | abandoned box trailer, faded, some tagged | prop | yes | — | 1536 |
 | 10 | `#6b5a3a` | container | prop | rusted shipping container, dented, stacked | prop | yes | — | 72 |
 | 11 | `#9a8a6a` | guard shack | building | small guard booth at the gate, dark | structure | yes | tiny guard-booth interior (one room) | 25 |
+| 12 | `#4a463f` | pole light | prop | a yard pole light on the fence line, head dark, the base collared in rust | prop | yes | — | 6 |
 
 **Gate:** `gates/industrial_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
