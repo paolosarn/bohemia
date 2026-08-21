@@ -2,65 +2,65 @@
   "HONESTY": "HEADLESS DESKTOP CHROMIUM, not an iPhone. Backing-store bytes are the same arithmetic on any device and transfer; heap and compositor copies do not.",
   "what": "per-tab price of the alpha in canvas + decoded image bytes, opened one at a time, plus what is still held after returning to RUN and forcing a collection",
   "ios_floor_mb": 224,
-  "loadedMB": 55.3,
-  "peakMB": 999.5,
+  "loadedMB": 55,
+  "peakMB": 999.4,
   "heldAfterReturnMB": 999.3,
   "tabs": [
     {
       "tab": "vote",
-      "canvasDeltaMB": 0.4,
+      "canvasDeltaMB": 1.3,
       "imageDeltaMB": 476.2,
       "imagesDelta": 51,
-      "runningMB": 531.9
+      "runningMB": 532.5
     },
     {
       "tab": "look",
-      "canvasDeltaMB": 1,
+      "canvasDeltaMB": 0,
       "imageDeltaMB": 169.8,
       "imagesDelta": 21,
-      "runningMB": 702.7
+      "runningMB": 702.3
     },
     {
       "tab": "words",
-      "canvasDeltaMB": 11.1,
+      "canvasDeltaMB": 7.9,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 713.8
+      "runningMB": 710.2
     },
     {
       "tab": "cutscene",
-      "canvasDeltaMB": 0.9,
+      "canvasDeltaMB": 5.4,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 714.7
+      "runningMB": 715.6
     },
     {
       "tab": "direct",
-      "canvasDeltaMB": 1.5,
+      "canvasDeltaMB": -3.7,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 716.2
+      "runningMB": 711.9
     },
     {
       "tab": "run",
-      "canvasDeltaMB": 44.5,
+      "canvasDeltaMB": 48.9,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
       "runningMB": 760.7
     },
     {
       "tab": "char",
-      "canvasDeltaMB": 5.2,
+      "canvasDeltaMB": 6.3,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 765.9
+      "runningMB": 767
     },
     {
       "tab": "clothes",
-      "canvasDeltaMB": 2.5,
+      "canvasDeltaMB": 1.3,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 768.4
+      "runningMB": 768.3
     },
     {
       "tab": "anim",
@@ -74,7 +74,7 @@
       "canvasDeltaMB": 0.5,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 768.9
+      "runningMB": 768.8
     },
     {
       "tab": "combat",
@@ -88,7 +88,7 @@
       "canvasDeltaMB": 0,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 770.9
+      "runningMB": 770.8
     },
     {
       "tab": "map",
@@ -99,24 +99,24 @@
     },
     {
       "tab": "slice",
-      "canvasDeltaMB": 0.1,
+      "canvasDeltaMB": 0,
       "imageDeltaMB": 0,
       "imagesDelta": 0,
-      "runningMB": 784
+      "runningMB": 783.9
     },
     {
       "tab": "life",
       "canvasDeltaMB": 0,
       "imageDeltaMB": 0.7,
       "imagesDelta": 6,
-      "runningMB": 784.7
+      "runningMB": 784.6
     },
     {
       "tab": "art",
-      "canvasDeltaMB": 0.1,
+      "canvasDeltaMB": 0,
       "imageDeltaMB": 214.7,
       "imagesDelta": 28,
-      "runningMB": 999.5
+      "runningMB": 999.4
     }
   ]
 }

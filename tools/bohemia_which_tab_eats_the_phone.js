@@ -154,7 +154,13 @@ async function total(page) {
         el.click();
         return true;
       }, t);
-      if (!opened) { console.log('  %-12s (not found)', t); continue; }
+      /* A TOOL THROWS, IT DOES NOT SHRUG (ONE WORLD TAB, and I broke my own rule
+         in the same session I swept eleven files for it). A tab this cannot open
+         is a tab it cannot price, and carrying on would quietly publish a bill
+         that is missing a line while looking complete -- which is the whole
+         silence-reads-as-green disease in miniature. */
+      if (!opened) throw new Error('tab "' + t + '" was listed in #tabs and could '
+        + 'not be opened -- the bill would be missing a line and look complete');
       await p.waitForTimeout(1400);
       const now = await total(p);
       const row = {
@@ -175,10 +181,18 @@ async function total(page) {
        different animal from one that costs 200 MB forever, and section 8 is a
        law about the second kind. Go back to the tab he actually plays, force a
        collection, and see what is still held. */
-    await p.evaluate(() => {
+    /* `if (el) el.click()` was the shape here, which ONE WORLD TAB exists to
+       kill: a tab that moved makes it a NO-OP and the tool carries on against
+       whatever surface happens to be showing. "What is still held after going
+       back to the game" is meaningless if we never went back to the game. */
+    const backOnRun = await p.evaluate(() => {
       const el = document.querySelector('#tabs .tab[data-p="run"]');
-      if (el) el.click();
+      if (!el) return false;
+      el.click();
+      return true;
     });
+    if (!backOnRun) throw new Error('could not return to the RUN tab, so "what is '
+      + 'still held after leaving the judge sheets" would be measured somewhere else');
     await p.waitForTimeout(2500);
     for (let i = 0; i < 3; i++) {
       try { await p.evaluate(() => { if (typeof gc === 'function') gc(); }); } catch (e) { }
