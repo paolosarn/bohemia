@@ -164,8 +164,15 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
      four-number table until 8/18; routing them through their real module is what made the
      bug reachable, and this check is what found it. 3 cells -> 7,616 (82.6%).
      THE FLOOR ONLY RISES. Mountain, freeway and walled subdivisions are legitimately not
-     walkable, so this is not 100% and should not be -- but it may never fall. */
-  const REACH_FLOOR = 75;
+     walkable, so this is not 100% and should not be -- but it may never fall.
+     RAISED 75 -> 90 ON 8/22, and this is the whole point of saying "only rises" out loud:
+     the number sat at 75 while the surface measured 82.6, so an eight-point regression
+     could have landed green. It measures 93.1% now that the LANDLOCK RELAY is wired into
+     the two generator call sites (+970 cells, 357 stranded pockets drained), and 90 is
+     that result with a little headroom for another lane moving a district. Paolo 8/1:
+     "make sure I cant be locked in any certain district ever again it's so fucking
+     creepy." A floor below the measurement is not a ratchet, it is a decoration. */
+  const REACH_FLOOR = 90;
   const reach = await fr.evaluate(() => {
     const FN = 128, N = 96;
     const walkAt = (gx, gy) => { let c = null; try { c = realizeCell(gx, gy); } catch (e) { return false; }
@@ -189,6 +196,18 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
         seen.add(k); q.push([nx, ny]); } }
     return { pct: +(100 * seen.size / (N * N)).toFixed(1), cells: seen.size };
   });
+  /* THE RECEIPTS FROM __kitBlock's CATCH (8/22). That catch is non-fatal on purpose -- one
+     district's generator throwing must not take the valley down -- which is exactly why it
+     spent 8/21 reporting a bare ReferenceError as a believable "86.8% drawn by their own
+     module". It records the reason now, and this prints it, so a swallowed wiring bug is a
+     line on screen instead of a number with a trade-off shape. A ReferenceError or a
+     TypeError in that block is ALWAYS a wiring bug in the page, never a district's data. */
+  const kitfail = await fr.evaluate(() => window.__KITFAIL || {});
+  const kfk = Object.keys(kitfail);
+  if (kfk.length) kfk.slice(0, 8).forEach(d => console.log('        ! kit generate threw for ' + d + ': ' + kitfail[d]));
+  ok('NO DISTRICT\'S GENERATOR THREW ON THE PAGE: __kitBlock\'s catch caught nothing, so no '
+     + 'cell is falling back to a painted rectangle for a reason nobody can see'
+     + (kfk.length ? '  -- threw: ' + kfk.join(', ') : ''), kfk.length === 0);
   ok('YOU CAN WALK OUT OF WHERE YOU SPAWN: at least ' + REACH_FLOOR + '% of the valley is '
      + 'reachable on foot from the player start (measured ' + reach.pct + '%, ' + reach.cells + ' cells)',
      reach.pct >= REACH_FLOOR);

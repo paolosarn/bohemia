@@ -1123,7 +1123,146 @@ function buildOvermap(seed){
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG};
+
+/* ==========================================================================
+   LANDLOCK CONNECT — THE RELAY THAT LETS A WALLED CELL REACH A STREET.
+   Moved here from bohemia_world.js on 8/21 for one reason: WORLD.JS IS NOT ON
+   THE PAGE. The walked surface inlines this module and the district kit, never
+   world.js, so the relay existed in the model and NOT on the surface a body
+   walks. Measured: 357 stranded pockets, 541 cells that never touch a street,
+   257 of them suburb -- and walked_surface reachability did not move by a
+   single cell when the relay was fixed, because the page had never had it.
+   ONE CANONICAL BODY (ENGINE SYNC LAW): world.js calls this, the page calls
+   this, and neither keeps a copy. It takes isBuilt/familyOf as arguments
+   because those are the caller's vocabulary, and a default here would be a
+   second definition waiting to drift from the first.
+   ========================================================================== */
+function landlockConnect(m, opts){
+  opts = opts || {};
+  var isBuilt = opts.isBuilt, familyOf = opts.familyOf;
+  if (typeof isBuilt !== 'function' || typeof familyOf !== 'function')
+    throw new Error('landlockConnect needs opts.isBuilt(d) and opts.familyOf(d): which districts are auto-built, and which count as the same family for a relay. Guessing either here is how two callers drift.');
+  var N=m.n, extra={}, touchesCache={}, key=function(x,y){return x+','+y;};
+  /* A STREET YOU CANNOT WALK ONTO IS NOT ACCESS (8/21).
+     This asked rawStreetEdges, which uses the kit's ROADSET -- and ROADSET holds
+     FREEWAY and BELTWAY as well as arterial and strip. Those are LIMITED ACCESS: no
+     crosswalk, no gate, no sidewalk, nothing a body on foot can step onto. So the
+     relay BFS below happily TERMINATED on a freeway and called the chain solved.
+
+     MEASURED on the canon valley before the fix:
+       suburb-family touching a WALKABLE street (arterial/strip)   1934
+       suburb-family touching ONLY freeway/interchange/rail         242   <-- sealed
+       suburb-family with no street at all, relying on this relay   545
+     Those 242 are ANCHORS: a relay chain that ends on one strands itself and
+     everything queued behind it. Flooding the REAL TILES found 357 pockets totalling
+     541 cells that never touch a street -- 257 of them suburb, a QUARTER OF THE
+     GAME'S HOUSING a body can never walk to.
+
+     Same shape as everything else this week: the model and the surface disagreed and
+     the model held the looser definition. landlocked_gate.js checks THIS MODEL, on
+     seeds 1337/42/99, and has been green throughout.
+
+     Paolo 8/1, standing in one: "make sure I can't be locked in any certain district
+     ever again it's so fucking creepy." A freeway shoulder is not a way out. */
+  var WALKABLE_ROAD={arterial:1,strip:1};
+  function walkableStreetEdges(xx,yy){
+    var at=function(ax,ay){var c=m.at(ax,ay);return c?c.district:null;}, o=[];
+    if(WALKABLE_ROAD[at(xx,yy-1)])o.push('N'); if(WALKABLE_ROAD[at(xx,yy+1)])o.push('S');
+    if(WALKABLE_ROAD[at(xx-1,yy)])o.push('W'); if(WALKABLE_ROAD[at(xx+1,yy)])o.push('E');
+    return o;
+  }
+  function touches(x,y){ var k=key(x,y); if(k in touchesCache)return touchesCache[k];
+    return touchesCache[k]=walkableStreetEdges(x,y).length>0; }
+  function addEdge(k,e){ (extra[k]=extra[k]||{})[e]=1; }
+  var DIRS=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], OPP={N:'S',S:'N',E:'W',W:'E'};
+  for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+    var cell=m.at(x,y); if(!cell||!isBuilt(cell.district)||touches(x,y))continue;
+    var fam=familyOf(cell.district);
+    var seen={}; seen[key(x,y)]=1;
+    var q=[{x:x,y:y,path:[]}], head=0, found=null;
+    while(head<q.length && !found){
+      var cur=q[head++];
+      for(var i=0;i<4;i++){
+        var e=DIRS[i][0], nx=cur.x+DIRS[i][1], ny=cur.y+DIRS[i][2], nk=key(nx,ny);
+        if(seen[nk])continue; var nc=m.at(nx,ny); if(!nc||familyOf(nc.district)!==fam)continue;
+        seen[nk]=1;
+        var hop={fromX:cur.x,fromY:cur.y,edge:e,toX:nx,toY:ny};
+        var np={x:nx,y:ny,path:cur.path.concat([hop])};
+        if(touches(nx,ny)){ found=np; break; }
+        q.push(np);
+      }
+    }
+    /* NOBODY IS EVER WALLED IN (Paolo 8/1, and he was standing in one when he
+       said it: "make sure I can't be locked in any certain district ever
+       again it's so fucking creepy").
+       THE SAME-FAMILY RELAY ABOVE IS THE REALISTIC PATH and it stays first:
+       a walled subdivision reaching the road through the subdivision next door
+       is how Sun Belt tracts actually connect. But it can only help a cell
+       that HAS a same-family neighbour. A landlocked school, drive-in or
+       estate has none, so it got nothing at all - 27 cells in the canon valley
+       came out with no street edge AND no relay, which is a sealed box you can
+       stand inside and never leave.
+       SO THERE IS A SECOND PASS, and it is deliberately less picky than the
+       first: if family loyalty cannot find you a road, take ANY built
+       neighbour. Relaying through a district of another kind is less true to
+       real Vegas than relaying through your own kind - and it is enormously
+       truer than a prison. Realism loses to reachability, once, at the end,
+       and only for the cells that would otherwise have nothing. */
+    if(!found){
+      var seen2={}; seen2[key(x,y)]=1;
+      var q2=[{x:x,y:y,path:[]}], h2=0;
+      while(h2<q2.length && !found){
+        var cur2=q2[h2++];
+        for(var j=0;j<4;j++){
+          var e2=DIRS[j][0], mx=cur2.x+DIRS[j][1], my=cur2.y+DIRS[j][2], mk=key(mx,my);
+          if(seen2[mk])continue; var mc=m.at(mx,my); if(!mc||!isBuilt(mc.district))continue;
+          seen2[mk]=1;
+          var hop2={fromX:cur2.x,fromY:cur2.y,edge:e2,toX:mx,toY:my};
+          var np2={x:mx,y:my,path:cur2.path.concat([hop2])};
+          if(touches(mx,my)){ found=np2; break; }
+          q2.push(np2);
+        }
+      }
+    }
+    /* AND A THIRD PASS, FOR THE SEVEN CELLS EVEN THAT COULD NOT SAVE. Some
+       built districts sit in a pocket whose whole connected run of built cells
+       never touches a road - three estates in the north-east, a commercial, a
+       farm and two suburbs down in the south-west corner. No relay through
+       built ground can reach a street because there is no street to reach that
+       way; what is between them and the road is BARE DESERT.
+       That is precisely what the LANDMARK ACCESS SPUR in the overmap law
+       exists for - "carves a desert-only driveway to the nearest street for
+       isolated cells the relay can't reach, never touches built content" - so
+       this pass crosses anything, and the desert crossing IS the spur. It runs
+       last and only for cells that would otherwise be sealed, so it never
+       takes a shortcut through somebody's plot that a built relay could have
+       served properly. */
+    if(!found){
+      var seen3={}; seen3[key(x,y)]=1;
+      var q3=[{x:x,y:y,path:[]}], h3=0;
+      while(h3<q3.length && !found){
+        var cur3=q3[h3++];
+        if(cur3.path.length>16) continue;              // a spur is a driveway, not a highway
+        for(var t=0;t<4;t++){
+          var e3=DIRS[t][0], ax=cur3.x+DIRS[t][1], ay=cur3.y+DIRS[t][2], ak=key(ax,ay);
+          if(seen3[ak])continue; var ac=m.at(ax,ay); if(!ac)continue;
+          seen3[ak]=1;
+          var hop3={fromX:cur3.x,fromY:cur3.y,edge:e3,toX:ax,toY:ay};
+          var np3={x:ax,y:ay,path:cur3.path.concat([hop3])};
+          if(touches(ax,ay)){ found=np3; break; }
+          q3.push(np3);
+        }
+      }
+    }
+    if(found) found.path.forEach(function(hop){
+      addEdge(key(hop.fromX,hop.fromY),hop.edge);
+      addEdge(key(hop.toX,hop.toY),OPP[hop.edge]);
+    });
+  }
+  var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
+}
+
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

@@ -31177,7 +31177,71 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/21 (b) LATEST -- *** A QUARTER OF THE GAME'S HOUSING WAS
+WORLD (city-1eztay): 8/22 (a) LATEST -- *** NOBODY IS WALLED IN ANY MORE. Yesterday's
+three unexplained failures were ONE SCOPE ERROR, and the valley went 82.6% -> 93.1%
+reachable on foot without costing a single cell anywhere else. ***
+Gates: WALKED SURFACE 11/0 (93.1% reachable, 99.9% drawn by own module, UNMOVED),
+landlocked 16/0, plus the full suite.
+
+Paolo 8/1, standing in a sealed subdivision: "make sure I cant be locked in any certain
+district ever again it's so fucking creepy." 357 stranded pockets, 541 cells you could
+stand in and never leave, 257 of them housing. FIXED: +970 cells now reachable.
+
+WHY IT TOOK THREE FAILED ATTEMPTS FIRST, AND IT WAS NEVER THE RELAY. EVERY INLINED
+MODULE ON THE PAGE IS AN IIFE PUBLISHING ONE NAME. The overmap ends
+`global.BohemiaOvermap=API; })(...)`. ASKED IN THE LIVE BROWSER:
+    typeof census / buildOvermap / API / landlockConnect    ALL 'undefined'
+    typeof OM.landlockConnect                               'function'
+Yesterday's resolver anchored INSIDE that IIFE and called a bare landlockConnect, so
+the two call sites one scope out could not see relayEdges at all:
+  __subBlock has NO try/catch -> ReferenceError took the render down  = the "0%"
+  __kitBlock has catch(e){g=null} -> ate the SAME ReferenceError and handed back an
+    empty grid, which reads as "not drawn by its own module"          = the "86.8%"
+Three numbers, one cause, none of them a trade-off. (A second ReferenceError rode
+along: the kit patch called relayEdges(tx,ty) where the coords are gx4/gy4.)
+
+PROVEN BEFORE RE-WIRING, in the live page, patching nothing (the diff the 8/21 record
+asked for): relay 4,432 entries; 2,035 built cells with no street of their own, ALL
+2,035 get an edge; 1,566 of those an edge the ['S'] fallback got wrong; and the suburb
+grid ['S'] vs relay differs by 2.0-5.1% of tiles with 11 distinct codes BOTH ways. A 3%
+delta at identical richness is a loop road meeting a different edge, not a generator
+falling over.
+TWO OF THE THREE OPEN QUESTIONS CLOSED ON THE WAY: GRP = round(128/FN) and FN is 128,
+so GRP is 1 -- the group IS the cell, gx*GRP was always right, that suspect was
+nothing. And "drawn by its own module" was measuring REAL failure every time; the
+failure was mine.
+
+SHIPPED: relayEdges lives OUTSIDE every module IIFE, beside the two call sites, going
+through OM.landlockConnect. One lazy BFS per page load, cached. isBuilt ASKS THE KIT
+whether a district has a generator here rather than copying a list that would drift;
+familyOf is the four-district suburb family from the LANDLOCKED DISTRICT LAW. The kit
+path merges only into the LEGS-LESS branch -- a district arriving with legs already had
+its edges decided by whoever built those legs.
+
+TWO MACHINE LOCKS, because a law without a gate is not enforced:
+ 1. REACH_FLOOR 75 -> 90 in walked_surface_gate. It said "the floor only rises" while
+    sitting eight points UNDER the measurement, so a full regression could have landed
+    green. A floor below the measurement is a decoration, not a ratchet.
+ 2. __kitBlock's catch now KEEPS A RECEIPT (window.__KITFAIL) and the gate asserts it is
+    empty and prints any entry. It stays non-fatal -- the player's build must survive one
+    bad cell -- but it can never again report a wiring bug as a believable percentage.
+    Currently zero districts throw.
+
+THE LESSON: the fix was not trying harder, it was ASKING THE PAGE WHAT IT ACTUALLY HAD
+-- four lines of typeof in a browser -- instead of reasoning from what the source said
+it should have. VERIFY ON THE REAL SURFACE, applied to scope instead of to pixels. And
+STOP PRODUCING is what kept the fourth guess from shipping against a phantom.
+Records: records/BOHEMIA_ONE_SCOPE_ERROR_WEARING_THREE_FACES_8_22_26.md
+         records/BOHEMIA_THE_RELAY_IS_ON_THE_PAGE_8_21_26.md (kept, RESOLVED banner)
+Tool:    tools/bohemia_city_landlock_relay_patch.py (applied)
+
+NEXT IN THIS LANE
+  - 34 unplaced legend codes across 22 families remain (legend_kept ratchet, green).
+  - The 6.9% still unreachable: mountain, freeway and walled subdivisions are LEGITIMATELY
+    not walkable, so this is not meant to reach 100%. Measure what is actually left before
+    assuming any of it is a defect.
+
+WORLD (city-1eztay): 8/21 (b) -- *** A QUARTER OF THE GAME'S HOUSING WAS
 SEALED OFF, AND THE LAW AGAINST IT HAD A GREEN GATE: THE MODEL COUNTED A FREEWAY AS
 STREET ACCESS. ***
 Gates: LANDLOCKED 16/0, MAP TAB 9/0, walked surface / walkable / district fill /
