@@ -274,6 +274,81 @@ ok('A5 the throttle does not spend a minute it recorded nothing in '
     ok('B14 every person in the valley has a unique mind key ('
       + m.people + ' people, ' + m.dupKeys + ' collisions), a shared key would '
       + 'make one person remember what another saw', m.dupKeys === 0);
+    /* ---- THE MISSING-PERSONS ORGAN, ASKABLE FOR THE FIRST TIME ---------- */
+    const mp = await fr.evaluate(() => {
+      const out = {};
+      render();
+      /* THREE PEOPLE: two standing together, one far off. */
+      const A = { p:{id:'__MPA__'}, at:[hx+2,hy] };
+      const B = { p:{id:'__MPB__'}, at:[hx+3,hy] };
+      const C = { p:{id:'__MPC__'}, at:[hx+60,hy] };
+      BARK_DREW.length=0; BARK_DREW.push(A,B,C);
+      CT_SAW_MIN=-1; ctWitnessPass();
+      const subj = m => Object.keys((CT_MINDS[m]||{}).fam||{});
+      out.Asaw = subj('__MPA__');
+      out.Csaw = subj('__MPC__');
+      out.askedAboutSeen = ctSeen('__MPA__','__MPB__');
+      out.askedAboutUnseen = ctSeen('__MPA__','__MPC__');
+      out.organ = ctWhoSawLast('__MPB__', ['__MPA__','__MPC__']);
+      /* CLARITY SHAPES THE ANSWER: wind the real clock and read the bands. */
+      const t0 = ctMinuteNow(), bands = [];
+      [0, 60*30, 60*90, 60*400].forEach(age => {
+        const tot = t0 + age;
+        T.day = Math.floor(tot/1440); T.min = tot%1440;
+        const r = ctSeen('__MPA__','__MPB__');
+        bands.push(r ? (r.saw ? r.band : 'never') : 'null');
+      });
+      T.day = Math.floor(t0/1440); T.min = t0%1440;
+      out.bands = bands;
+      /* THE GRAMMAR CONTRACT, over EVERY rendering rather than the one that
+         happens to be on screen. The first cut shipped "1 days back" and "right
+         about here way" -- two bugs in one sentence, both invisible unless you
+         render the whole cross-product. */
+      const lines = [];
+      ['sharp','fair','faint'].forEach(band => {
+        [10, 200, 1500, 3000, 6000, 20000].forEach(w => {
+          [[0,0],[0,-20],[0,20],[-20,0],[20,0]].forEach(d => {
+            lines.push(CT_SEEN_WORDS[band]
+              .replace('{when}', ctWhenWord(w))
+              .replace('{where}', ctWhereWord(hx+d[0], hy+d[1])));
+          });
+        });
+      });
+      lines.push(CT_SEEN_WORDS.never);
+      out.rendered = lines.length;
+      out.bad = lines.filter(t => / way\./.test(t) || /\b1 days\b/.test(t)
+        || /  /.test(t) || /[{}]/.test(t) || /,\s*\./.test(t) || !/[.!?]$/.test(t));
+      delete CT_MINDS['__MPA__']; delete CT_MINDS['__MPB__']; delete CT_MINDS['__MPC__'];
+      BARK_DREW.length=0;
+      return out;
+    });
+    ok('C1 PEOPLE SEE EACH OTHER, not only the player. For three turns every mind '
+      + 'in the valley held exactly one subject, "@", which is a memory of you '
+      + 'rather than a memory (A saw: ' + mp.Asaw.join(',') + ')',
+      mp.Asaw.indexOf('__MPB__') >= 0);
+    ok('C2 and somebody sixty cells away saw neither of them ('
+      + mp.Csaw.join(',') + ')', mp.Csaw.indexOf('__MPB__') < 0);
+    ok('C3 ASKING SOMEBODY WHEN THEY LAST SAW A PERSON HAS A REAL ANSWER, and it '
+      + 'is the first question in this game whose answer is not authored ("'
+      + (mp.askedAboutSeen || {}).text + '")',
+      !!mp.askedAboutSeen && mp.askedAboutSeen.saw === true);
+    ok('C4 and somebody they never saw gets an honest no ("'
+      + (mp.askedAboutUnseen || {}).text + '")',
+      !!mp.askedAboutUnseen && mp.askedAboutUnseen.saw === false);
+    ok('C5 lastSeenAcross finally has a caller and names the witness ('
+      + JSON.stringify(mp.organ && mp.organ.witness) + ')',
+      !!mp.organ && mp.organ.witness === '__MPA__');
+    ok('C6 CLARITY SHAPES THE ANSWER rather than gating it: the same witness '
+      + 'answers differently as it fogs (' + mp.bands.join(' -> ') + ')',
+      new Set(mp.bands).size >= 3 && mp.bands[0] === 'sharp'
+      && mp.bands[mp.bands.length-1] === 'never');
+    ok('C7 THE GRAMMAR CONTRACT holds over all ' + mp.rendered + ' renderings, not '
+      + 'the one on screen (' + mp.bad.length + ' bad'
+      + (mp.bad.length ? ': "' + mp.bad[0] + '"' : '') + ')', mp.bad.length === 0);
+    /* YOU HAVE TO ASK (7/31) governs WHO you may ask about. */
+    ok('C8 you can only ask after somebody whose name you took',
+      /if \(!all\[k\] \|\| !all\[k\]\.asked\) continue;/.test(city));
+
     ok('B15 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);
   } finally {
