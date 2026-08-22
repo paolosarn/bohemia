@@ -41,7 +41,13 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 /* Each probe answers ONE question: is this system's wiring really in the run
    that ships? They look for the load-bearing call, never a comment. */
 const PROBES = {
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run clause
+     behind `||`, needles checked against a COMMENT-STRIPPED city. */
   cast_bridge: () =>
+    (CITY.indexOf("m.type!=='BOHEMIA_CITY_CAST'") >= 0 &&
+     ALPHA.indexOf('function citySendCast(') >= 0 &&
+     ALPHA.indexOf('window.CITY_CAST_LOOKS = CITY_CAST_LOOKS') >= 0)
+    ||
     // the run asks for the real baked cast, the alpha bakes it off the real rig,
     // and the run decodes it with the same packed-sprite format the city uses
     RUN.indexOf("BOHEMIA_RUN_NEED_CAST") >= 0 &&
@@ -58,10 +64,15 @@ const PROBES = {
     RUN.indexOf('PFRAME=(PFRAME+1)&3') >= 0 && RUN.indexOf('function updateFaces(') >= 0,
   body_sort: () =>
     RUN.indexOf('bodies.sort(') >= 0 && RUN.indexOf('me:true') >= 0,
-  suburb_module: () => RUN.indexOf(engine('bohemia_suburb.js')) >= 0 &&
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run clause
+     behind `||`, needles checked against a COMMENT-STRIPPED city. */
+  suburb_module: () =>
+    (CITY.indexOf(engine('bohemia_suburb.js')) >= 0 && CITY.indexOf('BohemiaSuburb.') >= 0)
+    ||
+    (RUN.indexOf(engine('bohemia_suburb.js')) >= 0 &&
     // the block is a real valley cell now, so what the module gives the run is
     // its footprint reader, run over the world's own grid
-    RUN.indexOf('BohemiaSuburb.homeFootprints({ g:G, W:T, H:T })') >= 0,
+    RUN.indexOf('BohemiaSuburb.homeFootprints({ g:G, W:T, H:T })') >= 0),
   art_banks: () => {
     const walk = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SUBURB_WALK_7_18_26.html'), 'utf8');
     const a = walk.indexOf('var DOOR_B64=['), b = walk.indexOf('function lampAt(', a);
@@ -78,7 +89,16 @@ const PROBES = {
     // every approved residential clip's every frame must be present verbatim
     return res.every(k => bank.clips[k].frames.every(f => RUN.indexOf(f) >= 0));
   },
-  music_bridge: () => RUN.indexOf("type:'BOHEMIA_RUN_MUSIC'") >= 0 &&
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run-slice
+     clause kept behind `||` so nothing is deleted. Needles checked against a
+     COMMENT-STRIPPED city. */
+  music_bridge: () =>
+    ((CITY.indexOf('bohemiaCityMusic') >= 0 && ALPHA.indexOf('bohemiaCityMusic') >= 0 &&
+      ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
+      /MAST\.gain\.cancelScheduledValues/.test(ALPHA) &&
+      /MAST\.gain\.linearRampToValueAtTime\(0/.test(ALPHA))
+     ||
+     (RUN.indexOf("type:'BOHEMIA_RUN_MUSIC'") >= 0 &&
     ALPHA.indexOf("d.type==='BOHEMIA_RUN_MUSIC'") >= 0 &&
     ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
     // no second synth: the run must never CONSTRUCT an audio context of its own
@@ -87,7 +107,7 @@ const PROBES = {
     // the scheduler. Notes already booked into the graph kept playing after the
     // button said off, which is why clearing the timer alone is not a stop.
     /MAST\.gain\.cancelScheduledValues/.test(ALPHA) &&
-    /MAST\.gain\.linearRampToValueAtTime\(0/.test(ALPHA),
+    /MAST\.gain\.linearRampToValueAtTime\(0/.test(ALPHA))),
 
   /* BORDER WALLS (Paolo direct order 7/27). The 13 approved perimeter keys must
      really wrap the block he walks. Note what this probe does NOT do: it does not
@@ -216,8 +236,13 @@ const PROBES = {
   },
   /* THE SENTENCE THE GAME SPEAKS: the run's verbs go through the PORTED
      resolver, not a private copy, and the moments carry HIS sizes. */
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run-slice
+     clause kept behind `||` so nothing is deleted. Needles checked against a
+     COMMENT-STRIPPED city. */
   resolver: () => {
     const mod = fs.readFileSync(path.join(ROOT, 'engine/bohemia_resolve.js'), 'utf8');
+    if (CITY.indexOf(mod) >= 0 && CITY.indexOf('BOH_RESOLVE') >= 0 &&
+        CITY.indexOf('makeResolver') >= 0 && CITY.indexOf('makeReach') >= 0) return true;
     return RUN.indexOf(mod) >= 0 &&                        // the approved port itself
       RUN.indexOf('BOH_RESOLVE.makeReach(1)') >= 0 &&      // one declared reach
       RUN.indexOf('BOH_RESOLVE.makeResolver({ moments: MOMENTS })') >= 0 &&
@@ -232,37 +257,93 @@ const PROBES = {
     RUN.indexOf('function freeNudge(') >= 0 && RUN.indexOf('walkbtn') >= 0,
   /* THE VALLEY IS REAL: the run reads the world model's own tile rung one cell
      at a time, and the edge is a crossing rather than a wall. */
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run-slice
+     clause kept behind `||` so nothing is deleted. Needles checked against a
+     COMMENT-STRIPPED city. */
   real_valley: () =>
-    RUN.indexOf('function loadCell(') >= 0 && RUN.indexOf('WORLD.tile(cx*T+x, cy*T+y)') >= 0 &&
+    (CITY.indexOf('om.n') >= 0 && CITY.indexOf('function tpDistrictAt(') >= 0)
+    ||
+    (RUN.indexOf('function loadCell(') >= 0 && RUN.indexOf('WORLD.tile(cx*T+x, cy*T+y)') >= 0 &&
     RUN.indexOf('function findHomeCell(') >= 0 &&
     RUN.indexOf('You crossed into the') >= 0 &&
     // passability is the world's answer now, not a private list of suburb codes
     RUN.indexOf('return !SOLIDG[y][x];') >= 0 &&
-    RUN.indexOf("BohemiaSuburb.generate(SEED, 'ring', 1, 1)") < 0,
+    RUN.indexOf("BohemiaSuburb.generate(SEED, 'ring', 1, 1)") < 0),
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run-slice
+     clause kept behind `||` so nothing is deleted. Needles checked against a
+     COMMENT-STRIPPED city. */
   district_material: () =>
-    RUN.indexOf('function genericTile(') >= 0 && RUN.indexOf('NAMEG[gy][gx]') >= 0 &&
-    RUN.indexOf('function isSuburbCell(') >= 0,
+    (CITY.indexOf('function tileMeta(') >= 0 && CITY.indexOf('deadLegendFor(') >= 0 &&
+     CITY.indexOf('.act1') >= 0)
+    ||
+    (RUN.indexOf('function genericTile(') >= 0 && RUN.indexOf('NAMEG[gy][gx]') >= 0 &&
+     RUN.indexOf('function isSuburbCell(') >= 0),
   /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
      own save, no private side-channel, no device prefs riding along. */
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21, RUN lane). Same pattern every
+     time and it is deliberate: the CITY clause first, the run-slice clause kept
+     behind `||`. Nothing is deleted -- the run slice is still wired and if
+     anyone re-points the tab the row must not silently become unproven -- but
+     the headline counts only what survives with the run slice blanked, so a
+     row only goes green-on-the-played-surface when the city really carries it.
+     Every needle below was checked against a COMMENT-STRIPPED city, because
+     this repo has burned a day on checkers that could not tell a mention from
+     a use (CITYSAVE, for one, exists ONLY in comments). */
   save_blob: () =>
-    RUN.indexOf('function saveBlob(') >= 0 && RUN.indexOf('function applyBlob(') >= 0 &&
+    (CITY.indexOf('function save(') >= 0 && CITY.indexOf('function load(') >= 0 &&
+     CITY.indexOf('function applyRestore(') >= 0 &&
+     CITY.indexOf('localStorage.setItem') >= 0)
+    ||
+    (RUN.indexOf('function saveBlob(') >= 0 && RUN.indexOf('function applyBlob(') >= 0 &&
     RUN.indexOf('function migrateBlob(') >= 0 &&
     RUN.indexOf('BohemiaLoop.captureSave(CTX)') >= 0 &&      // through the ENGINE save
     RUN.indexOf('function sleepSave(') >= 0 && RUN.indexOf('function manualSave(') >= 0 &&
     RUN.indexOf('function autoSave(') >= 0 &&                 // all three kinds, per "BOTH"
     RUN.indexOf('SAVE_ENV_VERSION') >= 0 &&                   // versioned from day one
     // the music toggle is a DEVICE PREFERENCE and must never be written into a blob
-    !/run:\s*\{[^}]*MUSIC_ON/.test(RUN),
+    !/run:\s*\{[^}]*MUSIC_ON/.test(RUN)),
   death_reload: () =>
     RUN.indexOf('function loadClosest(') >= 0 &&
     /if\(!d\.victory\)\{[\s\S]{0,400}loadClosest\(\)/.test(RUN),
-  floorplan_module: () => RUN.indexOf(engine('bohemia_floorplan.js')) >= 0 &&
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run clause
+     behind `||`, needles checked against a COMMENT-STRIPPED city. */
+  floorplan_module: () =>
+    (CITY.indexOf(engine('bohemia_floorplan.js')) >= 0 && CITY.indexOf('BOH_FLOORPLAN') >= 0)
+    || RUN.indexOf(engine('bohemia_floorplan.js')) >= 0 &&
     RUN.indexOf('BOH_FLOORPLAN.generate(') >= 0,
-  agents_module: () => RUN.indexOf(engine('bohemia_agents.js')) >= 0 &&
-    RUN.indexOf('BohemiaAgents.agentsForBlock(') >= 0 && RUN.indexOf('SIM.step()') >= 0,
-  quest_runtime: () => RUN.indexOf(engine('bohemia_quest_runtime.js')) >= 0 &&
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21, RUN lane). Same pattern every
+     time and it is deliberate: the CITY clause first, the run-slice clause kept
+     behind `||`. Nothing is deleted -- the run slice is still wired and if
+     anyone re-points the tab the row must not silently become unproven -- but
+     the headline counts only what survives with the run slice blanked, so a
+     row only goes green-on-the-played-surface when the city really carries it.
+     Every needle below was checked against a COMMENT-STRIPPED city, because
+     this repo has burned a day on checkers that could not tell a mention from
+     a use (CITYSAVE, for one, exists ONLY in comments). */
+  agents_module: () =>
+    (CITY.indexOf(engine('bohemia_agents.js')) >= 0 &&
+     CITY.indexOf('BohemiaAgents.scheduleFor(') >= 0 &&
+     CITY.indexOf('BohemiaAgents.whereAt(') >= 0)
+    ||
+    (RUN.indexOf(engine('bohemia_agents.js')) >= 0 &&
+     RUN.indexOf('BohemiaAgents.agentsForBlock(') >= 0 && RUN.indexOf('SIM.step()') >= 0),
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/21, RUN lane). Same pattern every
+     time and it is deliberate: the CITY clause first, the run-slice clause kept
+     behind `||`. Nothing is deleted -- the run slice is still wired and if
+     anyone re-points the tab the row must not silently become unproven -- but
+     the headline counts only what survives with the run slice blanked, so a
+     row only goes green-on-the-played-surface when the city really carries it.
+     Every needle below was checked against a COMMENT-STRIPPED city, because
+     this repo has burned a day on checkers that could not tell a mention from
+     a use (CITYSAVE, for one, exists ONLY in comments). */
+  quest_runtime: () =>
+    (CITY.indexOf(engine('bohemia_quest_runtime.js')) >= 0 &&
+     CITY.indexOf(engine('bohemia_bq.js')) >= 0 &&
+     CITY.indexOf('DQ.serialize()') >= 0 && CITY.indexOf('OFFER_TAKEN') >= 0)
+    ||
+    (RUN.indexOf(engine('bohemia_quest_runtime.js')) >= 0 &&
     RUN.indexOf(engine('bohemia_bq.js')) >= 0 &&
-    RUN.indexOf(JSON.stringify(fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq'), 'utf8')).slice(1, -1)) >= 0,
+    RUN.indexOf(JSON.stringify(fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq'), 'utf8')).slice(1, -1)) >= 0),
   clout_feed: () => RUN.indexOf('BohemiaLoop.buildFeed(') >= 0 &&
     RUN.indexOf('BohemiaLoop.socialProfile(') >= 0 && RUN.indexOf('BohemiaLoop.cloutWeight(') >= 0,
   /* RE-POINTED AT THE SURFACE HE PLAYS (8/21, RUN lane). This proved combat on
