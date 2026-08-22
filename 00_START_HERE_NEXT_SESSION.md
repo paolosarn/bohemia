@@ -972,10 +972,21 @@ WHAT COMES NEXT FOR THIS LANE:
   0. YOU OWN IT NOW is the twin of IT IS DONE and is NOT buildable from this lane:
      citySnapshot() carries no ownership field, so the parent has nothing to diff. It needs
      the CITY session to put ownership in the snapshot, then it is ten lines here.
-  1. THE THIRD PITCH ROW at semi -6. The INST_VOICE grid is a TWO-POINT model (-24, +12)
-     and it has MISPREDICTED 3 of 44 voices. This is the top engineering defect. It needs
-     its own turn because it RE-TUNES every approved instrument sound, so it needs a
-     deliberate fingerprint re-record -- do not do it as a side effect of something else.
+  1. THE THIRD PITCH ROW: *** MEASURED 8/22 AND THE ANSWER IS LEAVE IT OFF. *** This row
+     sat at the top of this list for several sessions as "the top engineering defect" and
+     nobody had measured the only thing that matters -- whether a sound HE APPROVED is
+     wrong because of it. Now measured, all 50 voices that feed approved moments, three
+     pitches each: only TWO mispredict by over 50 percent (holdbreath 87, dawnpad 80; the
+     rest 44 and under), they feed six approved candidates, and every one of those six
+     renders INSIDE the judgeable band. sfx_render_gate is 6756/0. There is no audible
+     defect to fix. The 400-percent voice the tool's comment is written around, breathpad,
+     is not used by a single approved moment -- the headline was counting the RACK, not
+     the GAME. Turning it on re-tunes 460 candidates he has already ruled on (up to 46
+     percent RMS on come_up.1) to correct two voices that are already in band. Bad trade:
+     HE JUDGED WHAT HE HEARD. It stays built and one constant away
+     (SEMI = [-24, -6, 12]) and rides WITH a deliberate re-record, never under one.
+     Full evidence + the three things that would change the answer:
+     records/BOHEMIA_THE_THIRD_PITCH_ROW_STAYS_OFF_8_22_26.md
   2. `go_inside` has a real unused trigger: the `inside` flag already crosses to the parent
      every 4s and nothing plays the moment.
   3. lungs_burn is WAIVED, not wired -- his brief is "you ran too far" and THERE IS NO
