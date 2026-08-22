@@ -126,3 +126,31 @@ attempt would have been a fourth guess at a phantom.
 The fix was not to try harder. It was to **ask the page what it actually had** — four lines
 of `typeof` in a browser — instead of reasoning about what the source said it should have.
 That is VERIFY ON THE REAL SURFACE, applied to scope instead of to pixels.
+
+## WHAT IS LEFT, MEASURED
+
+The valley does not reach 100% and should not: mountain, freeway and water are not walkable
+ground. So the honest question is what is left that IS. Of the 633 cells still unreachable:
+
+```
+mountain   584  |
+freeway     17  |  603 legitimately not walkable
+water        2  |
+
+desert       6  |
+estate       6  |
+farm         6  |
+suburb       5  |   30 BUILT CELLS STILL SEALED
+railyard     4  |
+warehouse    2  |
+gypsum       1  |
+```
+
+28 pockets in total; the four large ones (214, 120, 93, 91 cells) are the mountain ranges.
+
+**The sealed-ground problem went from 541 cells to 30** -- 0.3% of the valley instead of
+5.9%, and the housing share of it from 257 to 11.
+
+The last 30 are the next job, and they come with a warning: the relay's third pass caps a
+spur at 16 hops and only carves desert, so the likely story is "behind a range with no road
+on the far side". A farm sealed behind a mountain may be **correct**. Check before building.

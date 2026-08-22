@@ -31235,11 +31235,23 @@ Records: records/BOHEMIA_ONE_SCOPE_ERROR_WEARING_THREE_FACES_8_22_26.md
          records/BOHEMIA_THE_RELAY_IS_ON_THE_PAGE_8_21_26.md (kept, RESOLVED banner)
 Tool:    tools/bohemia_city_landlock_relay_patch.py (applied)
 
+WHAT IS ACTUALLY LEFT, MEASURED RATHER THAN ASSUMED. Of the 633 cells still unreachable:
+    mountain 584 · freeway 17 · water 2          603 LEGITIMATELY not walkable
+    desert 6 · estate 6 · farm 6 · suburb 5 · railyard 4 · warehouse 2 · gypsum 1
+                                                  30 BUILT CELLS STILL SEALED
+28 pockets; the four big ones (214/120/93/91) are the mountain ranges. So the sealed-housing
+problem went 541 -> 30 cells, and what remains is 0.3% of the valley rather than 5.9%.
+
 NEXT IN THIS LANE
+  - THE LAST 30. Seven district types, none of them more than 6 cells. The relay's third
+    pass caps a spur at 16 hops and only carves desert, so the likely story is "behind the
+    mountain with no road on the far side" -- CHECK THAT BEFORE BUILDING ANYTHING, because
+    a farm sealed behind a range may be correct and not a defect.
   - 34 unplaced legend codes across 22 families remain (legend_kept ratchet, green).
-  - The 6.9% still unreachable: mountain, freeway and walled subdivisions are LEGITIMATELY
-    not walkable, so this is not meant to reach 100%. Measure what is actually left before
-    assuming any of it is a defect.
+  - THE SUITE NO LONGER FITS ITS OWN BUDGET: 412 gates at 9.8s each needs ~4,021s against a
+    2,700s budget, so one gate never ran and the runner itself now prints
+    `--shard 1/3 · 2/3 · 3/3`. Not this lane's to fix, but every lane's problem: a full pass
+    is no longer one command.
 
 WORLD (city-1eztay): 8/21 (b) -- *** A QUARTER OF THE GAME'S HOUSING WAS
 SEALED OFF, AND THE LAW AGAINST IT HAD A GREEN GATE: THE MODEL COUNTED A FREEWAY AS
