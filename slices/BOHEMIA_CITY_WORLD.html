@@ -383,6 +383,11 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 </style>
 <style id="tjScrollFix">#tjPanel,#tjPanel *{touch-action:pan-y !important}#tjPanel img[data-place]{touch-action:manipulation !important}#tjPanel textarea{touch-action:auto !important}</style>
 <script src="BOHEMIA_CITY_TILES.js"></script>
+<script src="BOHEMIA_CITY_PROPS.js"></script><!-- __A_VERTICAL_IS_A_FAMILY__ the street
+     furniture bank (20 corpus objects, 11 families). Beside the page, not in it, for the same
+     reason TP_TILES is (8/6, repo budget): 354 KB of art that never changes should not ride
+     inside the one file every session rewrites. __A_VERTICAL_IS_A_FAMILY__ END -->
+
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -4845,6 +4850,82 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     }
     return n;
   }
+  /* THE BINS (code 14), 8/21. The other half of "nothing on this plot stands up". The
+     streetlight gave the suburb its first vertical that is not a house; this gives it the
+     one object every single American kerb has, and it is the object that says PEOPLE LIVED
+     HERE more plainly than any building does.
+
+     WHERE THEY ARE IS A STORY DECISION AND IT IS NOT DECORATION. Las Vegas residential
+     collection is wheeled carts: they live beside the garage and get rolled to the kerb the
+     night before. So where a bin is tells you WHEN this street stopped: the ones at the kerb
+     were put out for a collection that never came. That is the whole valley's premise in one
+     prop, and it costs nothing to say it this way instead of scattering them at random.
+     THE SPLIT IS DELIBERATE and it is the only number here: most houses kept theirs by the
+     garage, a minority had already rolled theirs out. Nobody ruled on the ratio, so it is a
+     mechanism default, not canon -- MECHANISM-MINE / CONTENTS-PAOLO'S.
+
+     NEVER ON THE WALK, NEVER ON THE APRON. A bin is a solid cell. Paolo's walk is one grid
+     wide (7/31, LOCKED), so a bin standing in it does not narrow the sidewalk, it severs it;
+     and a bin on the driveway apron blocks the car the driveway exists for. Bare yard and
+     gravel only, exactly like the pole. */
+  function layBins(g){
+    var W=Wd(g),H=Ht(g),x,y,i,n=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    /* one decision per DRIVEWAY, because a driveway is a house: find each apron blob once,
+       then place from its two ends. Scanning cells instead would put a bin beside every
+       apron tile and line the street with them. */
+    var seen={};
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==3 || seen[x+','+y]) continue;
+      var st=[[x,y]], cells=[]; seen[x+','+y]=1;
+      while(st.length){ var p=st.pop(); cells.push(p);
+        for(i=0;i<4;i++){ var nx=p[0]+d4[i][0], ny=p[1]+d4[i][1], k=nx+','+ny;
+          if(seen[k]||!inb(g,nx,ny)||g[ny][nx]!==3) continue; seen[k]=1; st.push([nx,ny]); } }
+      /* THIS HOUSE'S OWN COIN. Math.imul, not `*`: with these constants a plain multiply
+         exceeds 2^53, JS rounds it as a double, and the low bits -- the only bits a %100
+         ever reads -- come back degraded. That is a real latent bug and it is fixed here,
+         but IT WAS NOT THE ONE I WENT LOOKING FOR, and the distinction is worth keeping.
+         A 22-house block was standing 28 bins and I assumed the hash. MEASURED INSTEAD OF
+         ASSUMED: the coin was clean (values 95,11,95,77,16,30,35,7,49,...) and 15 of 22
+         blobs passed. The count was my own inverted condition -- `>=62 continue` passes
+         SIXTY-TWO percent, not thirty-eight -- and I had almost written the wrong cause
+         into this comment as a measurement I never took. */
+      var hh=(Math.imul(cells[0][0],73856093)^Math.imul(cells[0][1],19349663)^0xB1)>>>0;
+      /* WHO STILL HAS CARTS ON THE LOT. Every house in this valley owned two; a decade
+         later some were taken, some blew into the wash, some are shut in the garage. Just
+         over half still show. A mechanism default, not canon -- nobody ruled on it. */
+      if((hh%100)>=55) continue;
+      /* KERB END or GARAGE END: the apron cell nearest the walk, or nearest the garage */
+      var kerb=null, gar=null;
+      for(i=0;i<cells.length;i++){ var c=cells[i];
+        for(var d=0;d<4;d++){ var ax=c[0]+d4[d][0], ay=c[1]+d4[d][1];
+          if(!inb(g,ax,ay)) continue;
+          if(g[ay][ax]===10||g[ay][ax]===1) kerb=kerb||c;
+          if(g[ay][ax]===6) gar=gar||c; } }
+      /* PREFERENCE, THEN FALL BACK -- the lesson the streetlights taught this morning. A
+         first cut picked ONE end and gave up if the yard beside it happened to be house or
+         walk, which is a lottery a cell has to win rather than a habit a street has: it put
+         2 bins on one plot and 10 on the next. A bin goes where a bin fits; the coin decides
+         WHICH END IT PREFERS, never whether the house owns one at all. */
+      var ends=((hh>>7)%100<34) ? [kerb,gar] : [gar,kerb];
+      ends=ends.filter(function(e){return !!e;});
+      if(!ends.length) continue;
+      var placed=false, bx=0, by=0;
+      for(var ei=0;ei<ends.length&&!placed;ei++)
+      for(i=0;i<4&&!placed;i++){ bx=ends[ei][0]+d4[i][0]; by=ends[ei][1]+d4[i][1];
+        if(!inb(g,bx,by)) continue;
+        if(g[by][bx]!==0&&g[by][bx]!==11) continue;
+        g[by][bx]=14; n++; placed=true;
+        /* THE SECOND CART. Two-stream collection is universal here, so a house showing one
+           usually shows both, standing together. */
+        if(((hh>>13)%100)<50){
+          for(var j=0;j<4;j++){ var sx=bx+d4[j][0], sy=by+d4[j][1];
+            if(!inb(g,sx,sy)) continue;
+            if(g[sy][sx]!==0&&g[sy][sx]!==11) continue;
+            g[sy][sx]=14; n++; break; } }
+      }
+    }
+    return n;
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -4982,6 +5063,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
        down FIRST so nothing can build on it; the pole goes down LAST so it cannot take
        land a house, a garage or a driveway wanted. Order is the enforcement, both ways. */
     layLights(g);
+    layBins(g);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
@@ -5051,7 +5133,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f',14:'#55565a'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -5090,6 +5172,10 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
        standard -> draw the approved lamp body -- finds it the same way it finds the
        'streetlight' on the arterial and the 'pole light' in forty-three other districts.
        A pole blocks a body's cell, so it takes the kind default solid:true. */
+    /* Named 'trash bin' so the city page's ONE prop table (legend name -> family) stands a
+       bin here without knowing anything about this district -- the same mechanism that gives
+       the mall its dumpster and the campus its bench. */
+    14:{name:'trash bin / wheeled cart',kind:'prop', act1:'a wheeled collection cart, lid gaping, faded to chalk on the sun side -- the ones at the kerb were put out for a collection that never came'},
     12:{name:'street light',      kind:'prop',       act1:'a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
@@ -5103,10 +5189,11 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: ENTRANCES only on street edges (a corner exits two streets); roads reach every lot from the entrance (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface. GATED IS RICH: a gated/estate community gets a GATE ASSEMBLY (code 5) in the aperture; an ordinary walled suburb gets the STREET ITSELF (code 1) running through a gap in the block wall - same 7-tile aperture, different thing standing in it.',
-    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards, gravel yards (11) (flat, walk/drive). PROP: yard debris drift (13, walk THROUGH) and the STREET LIGHT (12, solid, the one vertical on this plot that is not a building - it stands at the BACK OF WALK on the property line, never on the walk itself). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
+    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards, gravel yards (11) (flat, walk/drive). PROP: yard debris drift (13, walk THROUGH), the BINS (14, solid, beside the garage or out at the kerb) and the STREET LIGHT (12, solid, the one vertical on this plot that is not a building - it stands at the BACK OF WALK on the property line, never on the walk itself). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
       'Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
       'Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).',
+      'BINS (code 14) beside the garage, or out at the kerb on the houses that had already rolled them out -- WHERE a bin stands is when this street stopped, and that is the premise of the whole valley said in one prop. Never on the one-grid walk and never on the driveway apron: a bin is solid, and in a one-wide walk that severs it. The put-out ratio is a mechanism default, not canon.',
       'STREET LIGHTS (code 12) at the BACK OF WALK, 250 ft (102 tiles) between successive heads, STAGGERED on alternate kerbs -- researched local-residential practice (200-300 ft successive, 400-600 ft same side), not an invented number. The walk is attached to the kerb by Paolo 7/31, so there is no amenity strip and the pole goes on the property line behind it. Heads are DARK; the night glow belongs to the POWER network and only a live circuit lights one (CLUSTERED POWER / LIGHT=TERRITORY).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
@@ -22269,6 +22356,41 @@ function __lampTile(entry){
   return /streetlight|street light|pole light|light standard/i.test(n);
 }
 /* __THE_VALLEY_DRAWS_ITS_LAMPS__ END */
+/* __A_VERTICAL_IS_A_FAMILY_REG__ -- ONE TABLE, WHOLE VALLEY, and it is the same trick
+   that lit every streetlight in the game this morning: a district legend that NAMES a thing
+   gets the thing. Authoring content in a district module is the only step a new prop needs;
+   nothing here changes again.
+   The lamp is deliberately NOT in this table -- it has its own matcher (__lampTile) that
+   already refuses towers and masts, and it keeps its own flag so every lamp shipped today
+   draws byte-for-byte the same. */
+const PROP_IMG = (function(){ var out={};
+  if(typeof PROP_B64==='undefined') return out;
+  for(var k in PROP_B64){ out[k]=PROP_B64[k].map(function(b){
+    var im=new Image(); im.src='data:image/png;base64,'+b; return im; }); }
+  return out; })();
+var PROP_NAME = [
+  /* a legend name that matches -> the family that stands up for it. Ordered: the first
+     match wins, so the specific patterns come before the loose ones. */
+  [/dumpster|skip\b/i,                              'dumpster'],
+  [/trash|garbage|refuse|waste bin|\bbin\b/i,       'bin'],
+  [/garbage bag|refuse sack|\bbags?\b/i,           'bag'],
+  [/\bbench\b/i,                                   'bench'],
+  [/bollard|wheel stop/i,                           'bollard'],
+  [/traffic cone|\bcone\b/i,                       'cone'],
+  [/jersey barrier|barricade|road closed/i,         'barricade'],
+  [/fire barrel|oil drum|\bdrum\b|\bbarrel\b/i,   'barrel'],
+  [/\btyres?\b|\btires?\b/i,                      'tyre'],
+  [/pallet|\bcrate\b/i,                            'pallet'],
+  [/mailbox|post box|letter box/i,                  'mailbox']
+];
+function __propFamily(entry){
+  var n=String((entry&&entry.name)||''); if(!n) return null;
+  /* a TOWER or a MAST is never one of these, same refusal the lamp matcher makes */
+  if(/tower|mast|floodlight/i.test(n)) return null;
+  for(var i=0;i<PROP_NAME.length;i++) if(PROP_NAME[i][0].test(n)) return PROP_NAME[i][1];
+  return null;
+}
+/* __A_VERTICAL_IS_A_FAMILY_REG__ END */
 function realizeCell(gx,gy){
   if(gx<0||gy<0||gx>=WORLD_F||gy>=WORLD_F)return null;
   const tx=(gx/FN)|0, ty=(gy/FN)|0, lx=gx-tx*FN, ly=gy-ty*FN;
@@ -22348,6 +22470,17 @@ function realizeCell(gx,gy){
     const spec=m.kitSpec, entry=spec&&spec.legend&&spec.legend[code];
     const tl=BohemiaDistrictKit.tileLayer(entry);
     const pal=(spec&&spec.palette&&spec.palette[code])||'#98948a';
+    /* __A_VERTICAL_IS_A_FAMILY_KIT__ -- ONE PER BLOB, top-left anchored, exactly as the
+       lamp does it: a two-tile blob must not stand two objects in the same spot. */
+    if(!c.lamp){ var _pf=__propFamily(entry);
+      if(_pf && PROP_IMG[_pf] && PROP_IMG[_pf].length){
+        var _pw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
+        var _pn=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
+        if(!_pw&&!_pn){ var _ph=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
+          c.post={p:_pf, v:_ph%PROP_IMG[_pf].length}; }
+      }
+    }
+    /* __A_VERTICAL_IS_A_FAMILY_KIT__ END */
     /* __THE_VALLEY_DRAWS_ITS_LAMPS_KIT__ -- ONE PER BLOB, top-left anchored. A pole is a
        single tile in 43 of the 45 districts that author one; `town` runs blobs of two, and
        without this a two-tile blob stands two poles in the same spot. Reading the kit grid
@@ -22599,6 +22732,16 @@ function realizeCell(gx,gy){
        staggered on alternate kerbs. A pole blocks a cell. The head is DARK; only a live POWER
        circuit lights one at night, which is CLUSTERED POWER / LIGHT=TERRITORY, untouched. */
     else if(v===12){ c.s='#4a463f'; c.walk=false; c.lamp=1; }
+    /* __A_VERTICAL_IS_A_FAMILY_SUB__ -- THE BINS. The district he spawns in is the one
+       district that is not on the kit path, so the name->family table cannot reach it and it
+       says the family here instead. Code 14 is a wheeled collection cart: solid, standing,
+       beside the garage on most lots and out at the kerb on the ones that had already rolled
+       them out for a collection that never came. */
+    else if(v===14){ c.s='#55565a'; c.walk=false;
+      var _bh=(Math.imul(tx*FN+lx,2654435761)^Math.imul(ty*FN+ly,40503))>>>0;
+      var _bp=(typeof PROP_IMG!=='undefined'&&PROP_IMG.bin)?PROP_IMG.bin.length:1;
+      c.post={p:'bin', v:_bh%_bp}; }
+    /* __A_VERTICAL_IS_A_FAMILY_SUB__ END */
     /* __THE_VALLEY_DRAWS_ITS_LAMPS_SUB__ END */
     /* __THE_SUBURB_HAS_SIDEWALKS__ -- CODE 10 IS THE SIDEWALK AND THIS BRANCH HAD NEVER
        HEARD OF IT. The comment at the top of this block lists "0 dead 1 road 2 house 3
@@ -24168,6 +24311,12 @@ function chunkCanvas(cx,cy){
       x.fillStyle='rgba(255,255,255,0.10)'; x.fillRect(i2*TPX,y*TPX,TPX,1);
       x.fillStyle='rgba(0,0,0,0.22)'; x.fillRect(i2*TPX,y*TPX+TPX-1,TPX,1);
       ch2.lamps.push([i2,y]); }
+    /* __A_VERTICAL_IS_A_FAMILY_COLLECT__ -- the lamp is mapped onto the general path so
+       there is ONE collector and one draw, and so every lamp shipped this morning keeps its
+       exact footprint (PROP_FP.lamp is the 1.5 x 3 rise 2 it already drew at). */
+    if(c.lamp) ch2.posts.push([i2,y,'lamp',(i2+y)%3]);
+    else if(c.post) ch2.posts.push([i2,y,c.post.p,c.post.v]);
+    /* __A_VERTICAL_IS_A_FAMILY_COLLECT__ END */
     if(c.lamp)ch2.posts.push([i2,y]);
   }
   ch2.cv=c2; ch2.cvT=++chunkTick; cvTrim(key);   /* PIXEL FIX: hold the canvas budget */
@@ -29495,10 +29644,20 @@ function renderHuman(){
       g.fillStyle='rgba(255,220,120,0.85)';
       for(const [lx,ly] of ch.lamps){ g.fillRect(bx+lx*C+C*0.35,by+ly*C+C*0.4,Math.max(2,C*0.14),Math.max(2,C*0.14)); }
     }
-    if(ch.posts&&ch.posts.length)for(const [px2,py2] of ch.posts){
-      const im=LAMP_IMG[(px2+py2)%LAMP_IMG.length];
-      if(im.complete&&im.naturalWidth) g.drawImage(im, bx+px2*C-C*0.25, by+(py2-2)*C, C*1.5, C*3);
-      if(night){
+    if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar] of ch.posts){
+      /* __A_VERTICAL_IS_A_FAMILY_DRAW__ -- one draw for every standing object in the game.
+         The family picks the sprite pool and the FOOTPRINT; a 96px master cannot say how big
+         a thing is in the world, so PROP_FP does. `rise` is how far above the footing cell it
+         reaches, which is what makes it occlude what is behind it. */
+      const _fam=pfam||'lamp';
+      const _pool=(_fam==='lamp')?LAMP_IMG:((typeof PROP_IMG!=='undefined'&&PROP_IMG[_fam])||null);
+      const _fp=(typeof PROP_FP!=='undefined'&&PROP_FP[_fam])||[1.5,3,2];
+      const im=_pool?_pool[(pvar==null?(px2+py2):pvar)%_pool.length]:null;
+      if(im&&im.complete&&im.naturalWidth)
+        g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2, by+(py2-_fp[2])*C, C*_fp[0], C*_fp[1]);
+      /* THE GLOW IS A LAMP THING. A bin does not light a street, and CLUSTERED POWER /
+         LIGHT=TERRITORY is a claim about who owns a block -- never a decoration on furniture. */
+      if(night&&_fam==='lamp'){
         const tX=((cx<<4)+px2)>>5, tY=((cy<<4)+py2)>>5;
         if(POWER.at(tX,tY).live){
           g.fillStyle='rgba(255,196,90,0.9)';

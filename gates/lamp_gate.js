@@ -95,10 +95,15 @@ ok('the KIT path raises only the TOP-LEFT tile of a blob (never two poles in one
 ok('the SUBURB branch sets c.lamp (he spawns there and it is not on the kit path)',
    /__THE_VALLEY_DRAWS_ITS_LAMPS_SUB__/.test(src) && /else if\(v===12\)\{[^}]*c\.lamp=1;/.test(src));
 ok('the renderer still collects lamp cells into ch2.posts', /if\(c\.lamp\)ch2\.posts\.push/.test(src));
-ok('the renderer still draws an approved LAMP_IMG body for each post',
-   /ch\.posts[\s\S]{0,200}?LAMP_IMG\[/.test(src));
-ok('DEAD IS DEFAULT: the night head glow still asks POWER before it lights one',
-   /ch\.posts[\s\S]{0,700}?POWER\.at\([\s\S]{0,40}?\)\.live/.test(src));
+// THE DRAW IS SHARED NOW (8/21, same day): the lamp was folded onto the general standing-prop
+// path, so these two no longer look for a lamp-only draw call -- they look for the lamp's
+// BRANCH of the shared one. The claim is unchanged and is if anything stronger: the lamp
+// family must still resolve to Paolo's approved LAMP_IMG pool, and the glow must still be
+// asked only of the lamp and only when POWER says the circuit is live.
+ok('the renderer still draws an approved LAMP_IMG body for the lamp family',
+   /ch\.posts[\s\S]{0,900}?_fam===.lamp.\)\?LAMP_IMG/.test(src));
+ok('DEAD IS DEFAULT: the night head glow is asked ONLY of the lamp, and only of a live circuit',
+   /if\(night&&_fam===.lamp.\)\{[\s\S]{0,400}?POWER\.at\([\s\S]{0,40}?\)\.live/.test(src));
 
 // the suburb generator's own half
 const SUB = require(path.join(REPO, 'engine/bohemia_suburb.js'));

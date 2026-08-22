@@ -1285,6 +1285,21 @@ GATES = [
      'his bank. It counts REQUESTS now, which no cache and no choice of door can fool. 8 of '
      '21 pools are in use and 13 are never asked for at all, named and ratcheted. It is the '
      'machine the STREETS ARE THE HARMONIZED POOL law (7/31, LOCKED) never had', False),
+    ('PROPS',          ['node', 'gates/props_gate.js'],
+     'THE VERTICAL IS A MECHANISM NOW, NOT A LAMP. The morning fix stood ONE object up via a '
+     'lamp-shaped path from flag to sprite; the next prop would have meant a fourth copy of '
+     'the same eight lines, so it became c.post={p,v} plus ONE legend-name -> family table. '
+     '46 draws -> 603 across 36 districts, and every prop the valley had ALREADY authored '
+     'stood up for free -- dumpsters in the mall, pallets in the warehouse, benches on the '
+     'campus, 113 barricades in the arsenal, mailbox kiosks in the apartments. The art is '
+     'SHOPPED, not cooked (REUSE-FIRST): 20 corpus objects out of the 575-object standing '
+     'set, vetted by MEASURING PIXELS against PURPLE RESERVATION and ACT ONE ONLY, and this '
+     'gate re-measures them with its OWN PNG reader because a gate that imports the tool it '
+     'checks is asking the accused to testify. It also binds the script tag to the sibling '
+     'art file (the 8/6 repo-budget precedent, a pair that must not drift), pins the lamp '
+     'footprint so the shared draw cannot regress something he already has, and refuses any '
+     'suburb bin that sits in the one-grid walk or on a driveway apron. Four mutations bite',
+     False),
     ('LAMP',           ['node', 'gates/lamp_gate.js'],
      'THREE APPROVED STREETLIGHT SPRITES, FORTY-TWO DISTRICTS AUTHORING A LIGHT TILE, AND '
      'ZERO LAMPS ANYWHERE IN THE VALLEY. Both halves were individually correct the whole '

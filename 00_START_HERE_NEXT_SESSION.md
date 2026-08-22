@@ -297,6 +297,77 @@ NEXT IN THIS LANE
 
 ---
 
+WORLD (world-9lfjtf): 8/21 (b) LATEST -- *** THE VERTICAL IS A MECHANISM NOW, NOT A LAMP.
+46 STANDING OBJECTS -> 603. TAB: RUN (the street you spawn on) + CITY (everywhere else). ***
+
+This morning stood ONE object up (the streetlight). The next prop would have meant a fourth
+copy of the same eight lines, so `c.lamp` became `c.post={p,v}` plus ONE legend-name ->
+family table. Everything the valley had ALREADY authored stood up for free, no content
+written: mall 2 dumpsters, warehouse 2 dumpsters + 9 pallets, campus 12 benches, commercial
+12 pallets, arsenal 113 barricades, apartment 2 mailbox kiosks + 6 dumpsters.
+
+THE ART IS SHOPPED, NOT COOKED -- REUSE-FIRST in its strongest form, NOT ONE PIXEL DRAWN.
+banks/BOHEMIA_STANDING_SET_7_10_26.txt has been 575 corpus objects typed STANDING since
+7/10 and nobody had ever opened it. 20 objects / 11 families now in
+banks/BOHEMIA_STREET_FURNITURE_8_21_26.txt: bin x4, bag x2, barrel x2, barricade x3,
+bollard x2, cone x2, bench, dumpster, mailbox, pallet, tyre. Six candidates KILLED by
+measuring pixels (purple recycling logo 2.6%, neon signpost 8.2%, and four more).
+
+THE SUBURB HE SPAWNS IN GOT BINS (code 14). It is the one district NOT on the kit path, so
+it carries its own case -- same split the streetlight hit. WHERE A BIN STANDS IS WHEN THIS
+STREET STOPPED: carts live beside the garage and go to the kerb the night before, so the
+ones at the kerb were put out for a collection that never came. Never in the one-grid walk
+(a solid cell there severs it, it does not narrow it) and never on an apron.
+
+THREE THINGS I GOT WRONG AND HOW EACH WAS CAUGHT -- this is the useful part:
+  1. I NEARLY PUBLISHED AN ALARM ABOUT THE LAMPS I SHIPPED THIS MORNING. On a 2x contact
+     sheet the approved "dark" lamps read as glowing amber lanterns, which in a 12%-lit dead
+     world would have been serious. Measured against the LIT originals before saying a word:
+     100% of the very-bright pixels are killed in all seven. The amber is brass frame and
+     dead glass. AN UPSCALED CONTACT SHEET EXAGGERATES RIM LIGHT; the histogram does not.
+  2. MY OWN KILL FILTER KILLED A GREEN DUMPSTER. It had a "no vegetation" law implemented as
+     "how many green pixels", and a green dumpster is 14.3% green PAINTED STEEL. No tuning
+     fixes that: A COLOUR HISTOGRAM CANNOT TELL A LEAF FROM PAINT. Split honestly now --
+     purple/emissive are COLOUR facts and get colour tests forever; "is this a plant" is a
+     SEMANTIC question and is answered by not listing planters, with the reason recorded.
+  3. I ALMOST WROTE A FABRICATED MEASUREMENT INTO THE CODE. 28 bins on a 22-house block, I
+     assumed the hash, and started typing "MEASURED: a gate written to pass 38% passed 82%"
+     -- a number I never took. The coin was clean; the cause was my own inverted condition
+     (`>=62 continue` passes SIXTY-TWO percent). The imul fix is still right, it just was
+     not the cause, and the comment now says exactly that.
+
+GATE: gates/props_gate.js, 32 checks, suite entry PROPS, proved red by drifting the lamp
+footprint. Its own PNG reader (a gate that imports the tool it checks is asking the accused
+to testify), binds the script tag to the sibling art file, pins the lamp footprint, refuses
+a bin in the walk or on an apron.
+AND THE LAMP GATE WENT RED, CORRECTLY: folding the lamp onto the shared draw invalidated two
+regexes. RE-AIMED, NOT WEAKENED -- they now assert the lamp's BRANCH of the shared draw, and
+were re-proved red by deleting the `_fam==='lamp'` guard.
+Record: records/BOHEMIA_THE_VERTICAL_IS_A_MECHANISM_8_21_26.md
+
+*** THIS CONTAINER CAME UP ON A FOREIGN BRANCH. *** claude/world-9lfjtf had been rewritten
+by another session on the same reused branch name, and its working tree was OLDER THAN MAIN
+-- 41 modified files that looked exactly like mid-flight work and were reversions. Verified
+before touching anything: my morning ship is an ancestor of origin/main, the other session's
+commits are all on origin/main, the tree was missing content main has. Reset, nothing lost.
+Same trap the CHARACTER lane hit the same day. DIFF AGAINST origin/main BEFORE BELIEVING A
+CONTAINER.
+
+NEXT IN THIS LANE
+  - AUTHOR THE CONTENT, because the mechanism is done and the census is the map: the whole
+    valley authors EIGHT prop families. Every district that should have a bin, a bench, a
+    cone, a barrel or a barricade and does not is now a one-line legend entry plus a
+    placement rule. commercial and industrial were the two commonest built types and had no
+    light tile at all this morning; the same is true of furniture nearly everywhere.
+  - THE POWER POLE still has no art. arterial:10 authors one and the corpus street packs do
+    not contain a distribution pole, so this is the first thing in a while that genuinely
+    needs cooking rather than shopping (45 DEGREE ART LAW).
+  - LIGHT TOWERS / FLOODLIGHT MASTS (speedway, ballpark, school, stadium, airport) are
+    deliberately refused by both matchers and stay flat until they get their own art.
+  - The 8 unused street pools, ROAD CELLS and drive_network remain as they were.
+
+---
+
 WORLD (world-9lfjtf): 8/21 (a) LATEST -- *** THREE APPROVED STREETLIGHT SPRITES, FORTY-TWO
 DISTRICTS AUTHORING A LIGHT TILE, AND ZERO LAMPS ANYWHERE IN THE VALLEY. TAB: RUN (the
 street you spawn on) and CITY (everywhere else). ***
