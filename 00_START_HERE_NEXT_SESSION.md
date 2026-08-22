@@ -46527,6 +46527,7 @@ AND THE COORDINATOR CAUSED SOME OF THIS: my own previous reply said
 "money", "get paid", "spend money" — the drift came out of the session
 whose job is catching drift.
 
+<<<<<<< HEAD
 --------------------------------------------------------------------------------
 COORDINATOR (07), 8/15 (e) — SWEEP 10. The 8/14 demo audit drove the
 week: SOUNDS moved the approved sounds onto the surface he actually walks
@@ -46992,3 +46993,68 @@ blend [UNBUILT]; the 8/1 law says BUILT 8/1/26 (a density ramp in the
 same texSkip that draws a cornrow). Stale line in the file every session
 reads first — fixed, and the four fades are held by the E/W defect like
 everything else, not by the fade.
+=======
+FACTIONS (ovkjpf): 8/20-8/21 — THE BELONGING SYSTEM IS CONNECTED END TO END.
+Eleven times in one week the same shape: AN ORGAN COMPUTES SOMETHING AND NOTHING
+ON THE WALKED SURFACE CALLS IT. It never shows as a crash -- the organ is right,
+its unit test is green, ITS OWN GATE IS GREEN, and the feature does not exist for
+the player. Nine of the eleven were found by tripping over them.
+
+WHAT IS NOW ON THE CARD (all measured on the real city page, all mutation-proved):
+  meet -> learn the name the way THAT OUTFIT does it (five of the sixteen
+  mechanics were dead: MOB vouch, REMNANTS overheard, BLUES standing, HOMELESS
+  "where do you sleep", COLORFUL screening) -> see who they run with -> read
+  their terms -> act -> hit the wall -> take a side -> get counted -> get asked
+  -> owe -> get collected from -> neglect decays it -> history persists.
+  Plus: WHAT ASKING COSTS, printed BEFORE the button (3 outfits charge);
+  YOUR POSITION (Burt/Simmel tertius gaudens vs the 2024 dolens correction);
+  and the five authored RUNG NOTES, which no surface had ever asked for.
+GATES: FACTION ARC 82/0 · CARD FOLD 18/0 · ORGAN REACH 8/0 · TOOL IDEMPOTENT 5/0.
+
+*** TWO THINGS ARE HIS AND BOTH ARE ABOUT THE WORLD, NOT THE CODE ***
+ 1. WHAT DOES BEING **INSIDE** GET YOU? Measured, same person, three states:
+      COUNTED (sided, gave 9)    buttons: name/burn a bridge/do it/no/take
+      INSIDE  (burned, gave 20)  buttons: name/do it/no/take
+      INSIDE  (burned, gave 60)  IDENTICAL to gave 20 but for the meet counter
+    You climb five rungs and burn a bridge elsewhere and the card is the rung
+    below MINUS THE WALL. His INSIDE note -- "the newcomer is the old-timer now,
+    and the next newcomer is your problem" -- is a DIRECTION, not a mechanic.
+    NOTE the likely answer is half-built already: BohemiaTies.vouchFor needs a
+    voucher who is INSIDE the same outfit and whose name you know. His note reads
+    like the player becoming that voucher.
+ 2. DOES ANYBODY SHARE A HOUSE? MEASURED: 199 of 298 people know NOBODY AT ALL
+    (mean 0.71, max 8; only 19 of 298 can introduce you onward to three).
+    ZERO cross-outfit ties exist in the whole valley, so whoHears returns NOBODY
+    for every outfit and the entire cross-cutting-cleavage half is unreachable:
+    WHO WILL HEAR, AND IT COSTS YOU, and tertius DOLENS can never fire.
+    EVERY COMMITMENT IN THIS GAME IS CURRENTLY FREE.
+    CAUSE, three stacked: homesIn() seats ONE person per fine cell so the HOME
+    focus (Feld's strongest, and the one that most naturally crosses an outfit
+    line) groups nobody; a FACTION tie is same-outfit by definition; WORK is the
+    only possible bridge and 32-affiliated-of-298 never pairs two affiliated
+    people from different outfits. CHECKED SPECIFICALLY that this is NOT a keying
+    bug in bohemia_ties -- a bug of exactly that shape was found and fixed 8/15
+    and the same conclusion would have been wrong twice.
+    Record: records/BOHEMIA_EVERY_COMMITMENT_IN_THIS_GAME_IS_FREE_8_20_26.md
+
+TRAPS THIS LANE PAID FOR. DO NOT REPEAT THEM.
+  READING THE CODE GAVE A DIFFERENT ANSWER THAN RUNNING IT, THREE TIMES: the
+    organ sweep called BohemiaTies dead (it is INJECTED as a value); two static
+    counts of "broken tools" said 63 then 61 (running them said 52, and one in
+    both lists ran perfectly). A CLASSIFIER THAT CANNOT TELL A WORKING THING FROM
+    A BROKEN ONE IS THE BROKEN THING.
+  A COMMENT IS NOT A CALLER. I wrote the search pattern inside a comment
+    EXPLAINING the search, and the comment became the only "caller" the function
+    had. Deleting the real call left the gate green.
+  A CLAIM THAT ONLY LOOKS AT THE CASE IN FRONT OF IT IS NOT A CLAIM. Twice: a
+    size bar measuring a comfortable card, and a citation check reading one rung
+    of five. Both passed while broken; both caught by mutation.
+  A GATE CAN GO RED BECAUSE ITS EVIDENCE MOVED, NOT BECAUSE ITS CLAIM BROKE.
+    THE TEST: is the claim still provable another way? If not, the code is wrong.
+  A MUTATION THAT DID NOT APPLY LOOKS EXACTLY LIKE ONE THAT DID NOT BITE. Assert
+    the anchor count; prefer a unique PHRASE over anything with punctuation.
+  A GATE THAT IS ALWAYS RED IS ONE EVERYBODY IGNORES. tool_idempotent's first cut
+    refused on a dirty tree and went red on its own registration commit.
+  THE ORGAN SWEEP STRUCTURALLY CANNOT FIND UNREAD PROSE -- a note is DATA, so it
+    has no call site. Five authored rung sentences were invisible to it.
+>>>>>>> 6312058 (HANDOFF: the FACTIONS lane's state, the two questions that are his, and seven traps)
