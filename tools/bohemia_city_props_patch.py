@@ -82,7 +82,15 @@ var PROP_NAME = [
   [/bollard|wheel stop/i,                           'bollard'],
   [/traffic cone|\\bcone\\b/i,                       'cone'],
   [/jersey barrier|barricade|road closed/i,         'barricade'],
-  [/fire barrel|oil drum|\\bdrum\\b|\\bbarrel\\b/i,   'barrel'],
+  /* A LIT BARREL IS A CLAIM, NOT A DECORATION, so it gets its own row ABOVE the dead one.
+     All 12 banked fire barrels are ACTIVELY BURNING (measured: 5-10% flame pixels each), and
+     a fire in this valley means somebody is here RIGHT NOW keeping warm and holding this
+     spot -- LIGHT=TERRITORY, and nobody patrols the dark. WHO HOLDS WHAT GROUND IS PAOLO'S
+     (MECHANISM-MINE / CONTENTS-PAOLO'S), so the family is wired and NOTHING PLACES ONE: no
+     district authors the name today, so nothing draws, which is the correct default. The day
+     he says there are people at an intersection it is one legend line, not a build. */
+  [/fire ?barrel|burn barrel|brazier/i,             'firebarrel'],
+  [/oil drum|\\bdrum\\b|\\bbarrel\\b/i,             'barrel'],
   [/\\btyres?\\b|\\btires?\\b/i,                      'tyre'],
   [/pallet|\\bcrate\\b/i,                            'pallet'],
   [/mailbox|post box|letter box/i,                  'mailbox']

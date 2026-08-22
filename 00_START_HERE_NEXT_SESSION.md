@@ -350,6 +350,14 @@ downtown 328. 603 draws -> 2,007.
   which parks cars shoulder to shoulder into 5x6 blobs that as ONE blob would be one car six
   metres wide.
 
+THE FIRE BARRELS ARE WIRED AND DELIBERATELY UNPLACED [PENDING, Paolo's call]. The bank
+carries 12 and ALL TWELVE ARE ACTIVELY BURNING (measured 5-10% flame pixels each). A fire in
+this valley is not decoration -- it means somebody is here RIGHT NOW, keeping warm, HOLDING
+THIS SPOT, which is LIGHT=TERRITORY and "nobody patrols the dark". WHO HOLDS WHAT GROUND IS
+HIS (MECHANISM-MINE / CONTENTS-PAOLO'S), so the family has its own name row above the dead
+barrel and ZERO districts author it: nothing draws, which is the correct default. The day he
+says there are people at an intersection it is ONE LEGEND LINE, not a build.
+
 GATE: gates/props_gate.js, 40 checks, suite entry PROPS, proved red by drifting the lamp
 footprint. Its own PNG reader (a gate that imports the tool it checks is asking the accused
 to testify), binds the script tag to the sibling art file, pins the lamp footprint, refuses
