@@ -3016,8 +3016,24 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
               'have failed for LOAD, and the suite may not invent a red.'
               % len(failed), flush=True)
         by_name = {nm: (idx, a, w) for idx, nm, a, w in work}
-        confirmed, load_flakes = [], []
+        confirmed, load_flakes, unconfirmed = [], [], []
+        # THE CONFIRM PASS NEEDS ITS OWN CLOCK, AND NOT HAVING ONE COST TWO WHOLE
+        # RUNS (8/21). SUITE_BUDGET stops DISPATCH of gates; this pass runs after
+        # it and was bounded by nothing, so the outer `timeout` killed it mid-list
+        # -- twice, at 1 confirmed of 30 and 1 of 35. Every gate had ALREADY RUN
+        # and answered; what died was the flake-vs-real classification, which is
+        # the only reason to run reds twice at all. A pass that gets killed
+        # reports NOTHING, which is precisely the disease this suite exists to
+        # kill, so it now budgets itself and NAMES what it could not reach rather
+        # than trailing off. Default is generous (a third of the suite budget)
+        # and tunable.
+        confirm_budget = float(os.environ.get(
+            'BOHEMIA_CONFIRM_BUDGET', str(max(300, SUITE_BUDGET // 3))))
+        t_confirm = time.time()
         for nm in list(failed):
+            if time.time() - t_confirm > confirm_budget:
+                unconfirmed.append(nm)
+                continue
             ent = by_name.get(nm)
             if not ent:
                 confirmed.append(nm)
@@ -3039,12 +3055,23 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
                       flush=True)
             else:
                 confirmed.append(nm)
+        # AND IT SAYS SO, BY NAME. An unconfirmed red is NOT a green and NOT a
+        # confirmed red -- it is a red nobody re-checked, and calling it either
+        # would be inventing a verdict.
+        if unconfirmed:
+            print('  %d RED(S) NOT RE-CHECKED -- the confirm pass hit its %ds '
+                  'budget. These stay RED and are UNCLASSIFIED (they may be load, '
+                  'they may be real; nothing here knows which): %s'
+                  % (len(unconfirmed), int(confirm_budget), ', '.join(unconfirmed)),
+                  flush=True)
+            print('  Re-check one with: python3 gates/bohemia_gates.py --only "<name>"',
+                  flush=True)
         if load_flakes:
             # same correction as above: this named a cause the re-run never
             # measured. It reports WHAT HAPPENED and leaves WHY to the reader.
             print('  %d RED(S) DID NOT REPRODUCE ALONE: %s'
                   % (len(load_flakes), ', '.join(load_flakes)), flush=True)
-        failed = confirmed
+        failed = confirmed + unconfirmed
     print('=' * 78)
     if failed:
         print('  %d GATE(S) FAILED: %s   (%.0fs)' % (len(failed), ', '.join(failed), time.time() - t0))

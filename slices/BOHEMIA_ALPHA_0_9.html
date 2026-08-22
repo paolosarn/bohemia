@@ -25916,7 +25916,18 @@ function dirPlay(){
       ? 'Sent to the city. Walk up to somebody who watched you and their card says '
         + 'what they make of it.'
       : 'Set at least one of them first, then this takes you to the street.';
-    if(set){ var t0=document.querySelector('#tabs .tab[data-p=run]'); if(t0) t0.click(); }
+    if(set){ var t0=document.querySelector('#tabs .tab[data-p=run]');
+      /* A TAB THAT WAS NOT FOUND IS NOT SILENTLY SKIPPED (8/21, RUN lane). This
+         was `if(t0) t0.click();` -- the note above it promises 'this takes you to
+         the street', and when the lookup missed he got the promise and stayed
+         exactly where he was. That is the shape swept out of eleven files on
+         8/20 and it arrived again in a tool written after the sweep, which is
+         why the gate is a gate and not a one-off cleanup. Player-facing, so the
+         answer is to TELL HIM rather than throw: he can still get there, he just
+         has to tap it himself. */
+      if(t0){ t0.click(); }
+      else { n0.innerHTML = 'Sent to the city. Open the RUN tab and walk up to '
+        + 'somebody who watched you -- their card says what they make of it.'; } }
     return;
   }
   var c=dirCur(); if(!c) return;
