@@ -4561,7 +4561,31 @@ P-M. [SUPERSEDED 8/4 BY THE WORLD LANE, WHO SHIPPED THE SAME FIX FIRST - and one
    not the red list. The instances that went quiet are the ones still out there.
    Record: records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md | 8/4 | no.
 
-P-N. [OPEN, NOT MINE, MECHANICAL - THE OTHER HALF OF P-M]
+P-N. [CORRECTED 8/21 BY MEASUREMENT - THE RANKING IN THIS ENTRY IS BACKWARDS.
+   RAN all 63 with the tree hard-reset after each, rather than reading them:
+       BROKE (crash, exit 1)  52   |  NOOP (idempotent)  9  |  RAN (changed)  2
+   TWO STATIC COUNTS GOT IT WRONG FIRST (63, then 61): referencing CITY_B64 is
+   not the same as breaking on it -- bohemia_city_module_resync was in BOTH
+   "broken" lists and runs perfectly (93 modules, all fresh). A CLASSIFIER THAT
+   CANNOT TELL A WORKING TOOL FROM A BROKEN ONE IS THE BROKEN THING.
+   *** THE 52 CRASHERS ARE THE SAFE ONES. *** They fail loudly, change nothing,
+   and their edits were baked into the committed city many turns ago. Dead
+   scaffolding, not urgent rot -- DO NOT SPEND THE AFTERNOON MIGRATING THEM.
+   THE TWO THAT RAN WERE THE HAZARD, and this entry's own text predicted it
+   ("a tool that HALF-works is worse than one that crashes loudly") and then
+   filed the crashers as the work anyway:
+     cast_patch      printed "wrote ALPHA + CITY", exit 0, DELETED 63 LINES to
+                     add 9 -- an authored block a LATER patch added. A tool that
+                     cuts its own previous bake is correct until the block in the
+                     file is NEWER than the one it carries; then it is a silent
+                     REGRESSION. FIXED: refuses and names the newer block.
+     hero_wire       wrote byte-identical content every run and still printed
+                     "69 district heroes wired". Idempotent; the MESSAGE was the
+                     defect. FIXED: says "already wired; nothing to write."
+   Gate: gates/tool_idempotent_gate.js (TOOL IDEMPOTENT), mutation-proved.
+   Best lead on the 1,159 lines that vanished from the city the same day and were
+   never reproduced -- A LEAD, NOT THE CAUSE.
+   ORIGINAL ENTRY BELOW, KEPT because its diagnosis of the SHAPE was right:]
    SIXTY TOOLS IN tools/ ALSO REACH FOR CITY_B64 AND CRASH. The entire city patch
    toolchain cannot re-apply anything right now: every one of them dies with
    "substring not found" the moment it runs.
