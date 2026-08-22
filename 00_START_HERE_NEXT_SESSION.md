@@ -336,7 +336,21 @@ THREE THINGS I GOT WRONG AND HOW EACH WAS CAUGHT -- this is the useful part:
      (`>=62 continue` passes SIXTY-TWO percent). The imul fix is still right, it just was
      not the cause, and the comment now says exactly that.
 
-GATE: gates/props_gate.js, 32 checks, suite entry PROPS, proved red by drifting the lamp
+AND THEN THE CARS, THE BIGGEST SILENT ONE YET. 30+ districts author a kind:'vehicle' tile
+and the kit maps vehicle -> layer:'prop', so EVERY DEAD CAR IN THE VALLEY DREW AS A FLAT
+SQUARE while 20 approved top-down wrecks sat in banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt
+since 7/18, never once drawn. medical 1,101 tiles, boneyard 3,589, policestation 915,
+downtown 328. 603 draws -> 2,007.
+  A CAR IS NOT A STANDING PROP: top-down masters lie FLAT, rise 0, nothing walks behind one.
+  AND THE LATTICE HAS TO FOLLOW THE BLOB BECAUSE THE PLOT MAY BE TURNED. Districts are
+  authored canonical-south and rotated to their street, so a rank authored 2 wide x 4 long
+  arrives 4x2 half the time. A fixed 2x4 lattice cut those in half -- measured on the page, a
+  4x2 rank came back w:2,h:2 TWICE and the squashed sprite is exactly what the screenshot
+  showed. Run both ways through the cell, step along the longer one. It also handles medical,
+  which parks cars shoulder to shoulder into 5x6 blobs that as ONE blob would be one car six
+  metres wide.
+
+GATE: gates/props_gate.js, 40 checks, suite entry PROPS, proved red by drifting the lamp
 footprint. Its own PNG reader (a gate that imports the tool it checks is asking the accused
 to testify), binds the script tag to the sibling art file, pins the lamp footprint, refuses
 a bin in the walk or on an apron.
@@ -354,8 +368,10 @@ Same trap the CHARACTER lane hit the same day. DIFF AGAINST origin/main BEFORE B
 CONTAINER.
 
 NEXT IN THIS LANE
-  - AUTHOR THE CONTENT, because the mechanism is done and the census is the map: the whole
-    valley authors EIGHT prop families. Every district that should have a bin, a bench, a
+  - AUTHOR THE CONTENT. 63 of 71 districts still have NO furniture at all (list is one node
+    one-liner away; 8 have some). The mechanism is done, so each is a legend line plus a
+    placement rule -- park/school/library/medical/cemetery/downtown/town are the ones a
+    player actually stands in. The whole valley authors EIGHT prop families. Every district that should have a bin, a bench, a
     cone, a barrel or a barricade and does not is now a one-line legend entry plus a
     placement rule. commercial and industrial were the two commonest built types and had no
     light tile at all this morning; the same is true of furniture nearly everywhere.

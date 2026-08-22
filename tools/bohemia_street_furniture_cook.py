@@ -16,10 +16,24 @@ authored the tile and nothing drew it. THIS IS THE OPPOSITE PROBLEM: there is no
 draw. A dead American suburb with no bin at the kerb, no bag split open in the gutter, no
 tyre in the wash and no cone left in the road is not under-rendered, it is UNFURNISHED.
 
+AND THE CARS ARE THE BIGGEST ONE. THIRTY-ODD DISTRICTS author a `kind:'vehicle'` tile --
+dead car, abandoned car, parked car, patrol car, impound wreck, wrecked car -- and the kit
+maps `vehicle` to layer:'prop', so every one of them renders as A FLAT COLOURED SQUARE.
+Meanwhile banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt has held TWENTY approved top-down
+abandoned cars since 7/18 ("HD_TILE_REPO part2 / 10. Abandoned cars, the V11 bake family")
+and nothing in the game has ever drawn one. Same shape as the streetlight, an order of
+magnitude more tiles: medical alone authors 1,101 of them, boneyard 3,589.
+
+A CAR IS NOT A STANDING PROP and is not treated as one. These masters are TOP-DOWN, so a
+car lies flat in its footprint with no rise and no occlusion -- it is a thing on the ground,
+not a thing you walk behind. Districts author them as 2x4 blobs (measured: commercial 10 of
+12, downtown 39 of 40, mall 19 of 22), which is exactly the sprite's aspect.
+
 REUSE CHECK: cooks NOT ONE PIXEL. It opens banks/BOHEMIA_STANDING_SET_7_10_26.txt (575
-corpus objects already typed standing) and banks/BOHEMIA_HD_TILE_REPO_part1..4.txt (where
-those (pack, idx) references resolve to actual pixels), and it uses 20 of them unchanged.
-Nothing was drawn here and no new canon was invented.
+corpus objects already typed standing), banks/BOHEMIA_HD_TILE_REPO_part1..4.txt (where those
+(pack, idx) references resolve to actual pixels) and banks/BOHEMIA_STREET_PROP_POOLS_7_18_26
+.txt (the derived car/barrel pools), and it uses them unchanged. Nothing was drawn here and
+no new canon was invented.
 
 SO THIS SHOPS INSTEAD OF COOKING. REUSE-FIRST (Paolo 7/22, "check out the approved
 assets first before cooking"): banks/BOHEMIA_STANDING_SET_7_10_26.txt is 575 corpus
@@ -161,6 +175,30 @@ def main():
                     slot[i] = b
 
     kept, killed = {}, []
+
+    # ---- THE DERIVED POOLS. Same law filter, different shelf: these are already-cut pools
+    # rather than (pack, idx) references, so they are read straight and vetted identically.
+    # Nothing is trusted because of where it came from.
+    POOLS = 'banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt'
+    if os.path.exists(POOLS):
+        pools = json.load(open(POOLS, encoding='utf-8'))
+        for fam, key in (('car', 'car_wreck'), ('firebarrel', 'fire_barrel')):
+            for i, e in enumerate(pools.get(key, [])):
+                b64 = e if isinstance(e, str) else (e.get('b64') or e.get('png'))
+                if not b64:
+                    continue
+                dec = decode(b64)
+                if not dec:
+                    killed.append((fam, key, i, ['NOT A PNG']))
+                    continue
+                raw, w, h = dec
+                bad, opaque = law_violations(pixels(raw))
+                if bad:
+                    killed.append((fam, key, i, bad))
+                    continue
+                kept.setdefault(fam, []).append({
+                    'pack': key, 'idx': i, 'w': w, 'h': h, 'opaque': opaque, 'b64': b64})
+
     for fam, pack, idx in CANDIDATES:
         b64 = packs.get(pack, {}).get(idx)
         if not b64:

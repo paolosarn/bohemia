@@ -49,6 +49,13 @@ FOOTPRINT = {
     'barricade': [1.50, 1.20, 0.35],
     'dumpster':  [1.60, 1.30, 0.40],
     'mailbox':   [0.90, 1.30, 0.45],
+    # A CAR IS NOT A STANDING PROP. These masters are TOP-DOWN, so a car lies flat in its
+    # footprint: rise 0, no occlusion, a thing on the ground rather than a thing you walk
+    # behind. 2 x 4 cells is 1.5 m x 3 m at TILE=0.75, and it is what the districts author
+    # (measured: 10 of 12 in commercial, 39 of 40 in downtown, 19 of 22 in the mall). The
+    # draw overrides these with the blob's real extent when it has one.
+    'car':       [2.00, 4.00, 0.00],
+    'firebarrel':[0.90, 1.30, 0.45],
 }
 
 if not os.path.exists(BANK):

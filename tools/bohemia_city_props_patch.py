@@ -103,7 +103,37 @@ function __propFamily(entry){
      True,
      """    /* __A_VERTICAL_IS_A_FAMILY_KIT__ -- ONE PER BLOB, top-left anchored, exactly as the
        lamp does it: a two-tile blob must not stand two objects in the same spot. */
-    if(!c.lamp){ var _pf=__propFamily(entry);
+    /* A CAR IS ITS OWN SHAPE, AND IT IS NOT A STANDING PROP. Thirty-odd districts author a
+       kind:'vehicle' tile and the kit maps vehicle -> layer:'prop', so every dead car in the
+       valley has been a flat coloured square while 20 approved top-down wrecks sat in
+       banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt since 7/18, never drawn.
+       ONE CAR PER 2x4 SUB-BLOCK, not one per blob. Districts author cars as 2x4 blobs -- but
+       medical parks them shoulder to shoulder and six of its blobs merge into 5x6, which as
+       one blob would draw ONE CAR SIX METRES WIDE. Walking left and up to the sub-block
+       origin and emitting on a 2x4 lattice handles both without ever looking at a whole blob:
+       a lone car gets one sprite, a merged rank gets one per car. The run lengths give the
+       real extent so a 2x3 stall draws a 2x3 car instead of overhanging the kerb. */
+    if(!c.lamp && entry && entry.kind==='vehicle' && PROP_IMG.car && PROP_IMG.car.length){
+      /* THE LATTICE FOLLOWS THE BLOB, because the plot may be TURNED. Districts are authored
+         canonical-south and rotated to whatever street they front (kit rotateToStreet), so a
+         rank of cars authored 2 wide x 4 long arrives 4 wide x 2 long half the time. A fixed
+         2x4 lattice cut those in half and drew two squat 2x2 cars side by side -- measured on
+         the running page: a 4x2 rank came back as w:2,h:2 twice, and the sprite squashed into
+         a square is exactly what it looked like. So find the run BOTH WAYS through this cell,
+         let the longer one be the car's length, and step the lattice along it. */
+      var _ox=lx; while(_ox>0 && m.kit[ly*FN+_ox-1]===code) _ox--;
+      var _ex=lx; while(_ex<FN-1 && m.kit[ly*FN+_ex+1]===code) _ex++;
+      var _oy=ly; while(_oy>0 && m.kit[(_oy-1)*FN+lx]===code) _oy--;
+      var _ey=ly; while(_ey<FN-1 && m.kit[(_ey+1)*FN+lx]===code) _ey++;
+      var _lie=(_ex-_ox) > (_ey-_oy);            /* the rank lies ACROSS, not up the page */
+      var _sx=_lie?4:2, _sy=_lie?2:4;
+      if((((lx-_ox)%_sx)===0) && (((ly-_oy)%_sy)===0)){
+        var _cw=Math.min(_sx, _ex-lx+1), _chh=Math.min(_sy, _ey-ly+1);
+        var _cvh=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
+        c.post={p:'car', v:_cvh%PROP_IMG.car.length, w:_cw, h:_chh};
+      }
+    }
+    if(!c.lamp && !c.post){ var _pf=__propFamily(entry);
       if(_pf && PROP_IMG[_pf] && PROP_IMG[_pf].length){
         var _pw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
         var _pn=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
@@ -122,7 +152,7 @@ function __propFamily(entry){
        there is ONE collector and one draw, and so every lamp shipped this morning keeps its
        exact footprint (PROP_FP.lamp is the 1.5 x 3 rise 2 it already drew at). */
     if(c.lamp) ch2.posts.push([i2,y,'lamp',(i2+y)%3]);
-    else if(c.post) ch2.posts.push([i2,y,c.post.p,c.post.v]);
+    else if(c.post) ch2.posts.push([i2,y,c.post.p,c.post.v,c.post.w,c.post.h]);
     /* __A_VERTICAL_IS_A_FAMILY_COLLECT__ END */
 """),
     # ---- 4b. the suburb is NOT on the kit path (m.sub, a hand-written per-code branch),
@@ -148,17 +178,31 @@ DRAW_OLD = """    if(ch.posts&&ch.posts.length)for(const [px2,py2] of ch.posts){
       const im=LAMP_IMG[(px2+py2)%LAMP_IMG.length];
       if(im.complete&&im.naturalWidth) g.drawImage(im, bx+px2*C-C*0.25, by+(py2-2)*C, C*1.5, C*3);
       if(night){"""
-DRAW_NEW = """    if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar] of ch.posts){
+DRAW_NEW = """    if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar,pw,ph] of ch.posts){
       /* __A_VERTICAL_IS_A_FAMILY_DRAW__ -- one draw for every standing object in the game.
          The family picks the sprite pool and the FOOTPRINT; a 96px master cannot say how big
          a thing is in the world, so PROP_FP does. `rise` is how far above the footing cell it
          reaches, which is what makes it occlude what is behind it. */
       const _fam=pfam||'lamp';
       const _pool=(_fam==='lamp')?LAMP_IMG:((typeof PROP_IMG!=='undefined'&&PROP_IMG[_fam])||null);
-      const _fp=(typeof PROP_FP!=='undefined'&&PROP_FP[_fam])||[1.5,3,2];
+      let _fp=(typeof PROP_FP!=='undefined'&&PROP_FP[_fam])||[1.5,3,2];
+      /* AN EXTENT BEATS A DEFAULT. Most props are one object of one size, but a car is
+         whatever its stall is, so the cell may carry its own w/h in cells. */
+      if(pw) _fp=[pw,ph,0];
       const im=_pool?_pool[(pvar==null?(px2+py2):pvar)%_pool.length]:null;
-      if(im&&im.complete&&im.naturalWidth)
-        g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2, by+(py2-_fp[2])*C, C*_fp[0], C*_fp[1]);
+      if(im&&im.complete&&im.naturalWidth){
+        if(pw&&pw>ph){
+          /* THE MASTERS ARE ALL NOSE-UP. A stall that is wider than it is deep holds a car
+             lying ACROSS it, so it turns a quarter -- drawn about the footprint's centre so
+             it still fills the stall it was parked in. */
+          const _mx=bx+px2*C+(C*pw)/2, _my=by+py2*C+(C*ph)/2;
+          g.save(); g.translate(_mx,_my); g.rotate(Math.PI/2);
+          g.drawImage(im, -(C*ph)/2, -(C*pw)/2, C*ph, C*pw);
+          g.restore();
+        } else {
+          g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2*(pw?0:1), by+(py2-_fp[2])*C, C*_fp[0], C*_fp[1]);
+        }
+      }
       /* THE GLOW IS A LAMP THING. A bin does not light a street, and CLUSTERED POWER /
          LIGHT=TERRITORY is a claim about who owns a block -- never a decoration on furniture. */
       if(night&&_fam==='lamp'){"""
@@ -180,9 +224,16 @@ for mark, anchor, after, body in BLOCKS:
     src = src.replace(anchor, (anchor + '\n' + body.rstrip('\n')) if after
                       else (body.rstrip('\n') + '\n' + anchor), 1)
 
-if DRAW_NEW.split('\n')[0] in src:
-    # reverse the draw rewrite by restoring the original three lines
-    src = re.sub(re.escape(DRAW_NEW.split('\n')[0]) + r'.*?if\(night&&_fam===\'lamp\'\)\{',
+# REVERSE BY MARKER, NEVER BY CONTENT -- the rule this repo learned on 8/20 and that I broke
+# here the same afternoon. This used to reverse by matching DRAW_NEW's FIRST LINE, which is
+# content; the moment I edited the block to carry a per-cell extent, the stored first line
+# stopped matching the one on the page, the reversal silently did nothing, and the tool then
+# could not find its anchor and exited loud. Loud is the good outcome and it is still luck.
+# The marker is stable across every edit to the body, so this converges no matter what the
+# block becomes.
+if '__A_VERTICAL_IS_A_FAMILY_DRAW__' in src:
+    src = re.sub(r'    if\(ch\.posts&&ch\.posts\.length\)for\(const \[[^\]]*\] of ch\.posts\)\{'
+                 r'.*?if\(night&&_fam===\'lamp\'\)\{',
                  DRAW_OLD, src, count=1, flags=re.S)
 if src.count(DRAW_OLD) != 1:
     sys.exit('PROPS PATCH: could not find the single lamp-draw block. Refusing to guess -- '

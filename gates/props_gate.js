@@ -161,6 +161,24 @@ ok('THE GLOW IS STILL A LAMP THING (a bin does not light a street)',
    /if\(night&&_fam==='lamp'\)\{/.test(page));
 ok('and it still asks POWER before it lights one', /POWER\.at\([\s\S]{0,40}?\)\.live/.test(page));
 
+// ---------------------------------------------------------------- the cars
+// THE BIGGEST SILENT ONE. 30+ districts author a kind:'vehicle' tile, the kit maps vehicle
+// to layer:'prop', and every dead car in the valley drew as a flat square while 20 approved
+// top-down wrecks sat banked since 7/18. A car is NOT a standing prop: the masters are
+// top-down, so it lies flat in its footprint with no rise and nothing walks behind it.
+ok('the bank carries the approved car wrecks', Array.isArray(bank.families.car) && bank.families.car.length >= 15);
+ok('a car LIES FLAT -- rise 0, because a top-down master is a thing on the ground',
+   Array.isArray(fp.car) && fp.car[2] === 0);
+ok('the kit path has a vehicle branch', /entry\.kind==='vehicle'/.test(page) && /c\.post=\{p:'car'/.test(page));
+ok('the car lattice FOLLOWS THE BLOB (a rotated plot turns a 2x4 rank into 4x2)',
+   /_lie=\(_ex-_ox\) > \(_ey-_oy\)/.test(page) && /_sx=_lie\?4:2, _sy=_lie\?2:4/.test(page));
+ok('one car per sub-block, not one per blob (a merged rank must not draw one giant car)',
+   /\(\(\(lx-_ox\)%_sx\)===0\) && \(\(\(ly-_oy\)%_sy\)===0\)/.test(page));
+ok('the collector carries the per-cell extent', /ch2\.posts\.push\(\[i2,y,c\.post\.p,c\.post\.v,c\.post\.w,c\.post\.h\]\)/.test(page));
+ok('the draw prefers a real extent over the family default', /if\(pw\) _fp=\[pw,ph,0\];/.test(page));
+ok('and turns a car that lies across its stall (every master is nose-up)',
+   /if\(pw&&pw>ph\)\{[\s\S]{0,400}?g\.rotate\(Math\.PI\/2\)/.test(page));
+
 // ---------------------------------------------------------------- the wiring
 ok('the page holds ONE name->family table', /var PROP_NAME = \[/.test(page) && /function __propFamily\(/.test(page));
 ok('the kit path asks the table', /__A_VERTICAL_IS_A_FAMILY_KIT__/.test(page) && /__propFamily\(entry\)/.test(page));

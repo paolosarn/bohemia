@@ -130,3 +130,45 @@ before touching anything: my streetlight ship is an ancestor of `origin/main`, t
 session's commits are all on `origin/main`, and the tree was missing content main has. Reset
 to main, nothing lost. Same trap the CHARACTER lane hit on 8/21: **if a container looks like
 it has uncommitted work, diff it against origin/main before believing it.**
+
+
+---
+
+## AND THEN THE CARS, WHICH WERE THE BIGGEST ONE ALL ALONG
+
+The mechanism made the next find cheap to act on. **Thirty-odd districts author a
+`kind:'vehicle'` tile** — dead car, abandoned car, parked car, patrol car, impound wreck,
+wrecked car — and the kit maps `vehicle` to `layer:'prop'`, so **every car in the valley drew
+as a flat coloured square.** Meanwhile `banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt` has held
+**twenty approved top-down abandoned cars** since 7/18 ("HD_TILE_REPO part2 / 10. Abandoned
+cars, the V11 bake family") and nothing in this game had ever drawn one.
+
+Same shape as the streetlight. An order of magnitude more tiles:
+
+```
+medical 1,101 · boneyard 3,589 · policestation 915 · interchange 417 · downtown 328
+convention 316 · firestation 272 · mall 190 · freeway 156 · commercial 108 ...
+603 draws -> 2,007 across 36 districts
+```
+
+**A car is not a standing prop.** The masters are top-down, so a car lies flat in its
+footprint: rise 0, no occlusion, a thing on the ground rather than a thing you walk behind.
+
+**And the lattice has to follow the blob, because the plot may be turned.** Districts are
+authored canonical-south and rotated to whatever street they front (kit `rotateToStreet`), so
+a rank of cars authored 2 wide × 4 long arrives **4 wide × 2 long** half the time. My first
+cut used a fixed 2×4 lattice and cut those ranks in half — measured on the running page, a
+4×2 rank came back as `w:2,h:2` twice, and the sprite squashed into a square is exactly what
+the screenshot showed. Finding the run *both ways* through the cell and stepping along the
+longer one fixes it, and it also handles the merged case: medical parks cars shoulder to
+shoulder into 5×6 blobs that, drawn as one blob, would be **one car six metres wide.**
+
+Gate: eight more checks in `props_gate.js` (40 total), proved red by pinning the lattice back
+to a fixed 2×4.
+
+**One more re-runnability bug, mine, same afternoon.** The props patch reversed its draw block
+by matching its **first line** — content. The moment I edited the block to carry a per-cell
+extent, the stored line stopped matching the page, the reversal silently did nothing, and the
+tool exited loud on a missing anchor. Loud is the good outcome and it was still luck. It cuts
+by marker now, which converges no matter what the body becomes. That is the third time this
+week the same rule has had to be re-learned: **reverse by marker, never by content.**
