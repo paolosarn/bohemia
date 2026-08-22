@@ -1807,85 +1807,82 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/21 LATEST -- *** I BROKE HIS OWN LAW THREE TURNS RUNNING:
-THE DIAL HAD NO DIAL. TAB: DIRECT, third chip, STANDING -- set what each thing you
-can do is worth, press PLAY WHAT I BUILT, and it drops you on the street where the
-person who watched you now has an opinion. ***
+PEOPLE (people-7h9sfy): 8/21 LATEST -- *** EVERY MIND IN THE VALLEY HELD ONE
+SUBJECT AND IT WAS YOU. TAB: RUN -- take somebody's name, then walk up to anybody
+else and the card offers "Have you seen ___?" The answer comes out of THAT
+PERSON'S OWN HEAD. ***
 
-Over three turns this lane shipped a reputation system: people witness what you do,
-remember it, tell each other at a penalty per retelling, forget it as it fades, and
-a loud act carries further than a quiet one. Its entire JUDGEMENT layer,
-bohemia_standing's DEED_WEIGHT, ships deliberately EMPTY and waits on Paolo.
-Correct under MECHANISM-MINE/CONTENTS-PAOLO'S: numbers are his, nothing may invent
-one. BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME AND I EDIT A FILE, and his
-own 8/12 law answers that in one line: "WHERE DOES HE CHANGE THIS HIMSELF? If the
-answer is he tells me and I edit a file, THE SYSTEM IS NOT SHIPPED YET."
+Three turns ago this lane wired the witness organ so people could see the player.
+It only ever recorded THE PLAYER. Every mind in Las Vegas held one subject, '@',
+which is A MEMORY OF YOU RATHER THAN A MEMORY. bohemia_memory's own attach() has
+always recorded out-agents seeing out-agents AND the player, in one sentence, and
+the city was doing half of it.
 
-*** MY OWN HANDOFF SAID "THE DIAL, AND IT IS HIS. NOTHING SHOULD INVENT IT" THREE
-TIMES, APPROVINGLY. *** That sentence is right about the first half and blind to
-the second. NOT INVENTING HIS NUMBERS AND NOT GIVING HIM THE CONTROLS ARE TWO
-DIFFERENT MISTAKES, and I kept making the second while congratulating myself for
-avoiding the first. If a future session finds itself writing "this is his call" in
-a handoff, the very next question is WHERE DOES HE MAKE IT, and if there is no
-answer that is the work.
+*** AND THE HALF IT SKIPPED IS THE HALF THE QUESTBOOK ASKED FOR. *** The module's
+header, 7/19: "the questbook's engine backlog demands THE SETTLEMENT'S
+MISSING-PERSONS ORGAN (Q133/Q134/Q138). Its seed question, 'when did anyone last
+see H3-2, and how sure are they', is answerable from these minds." It was not
+answerable from anything, because nothing in the game had ever put a sighting in a
+mind. Measured on the real card, from a man who has NOT told you his own name:
+    [ Have you seen Anahi Nguyen? ]
+    THEY SAID   Yeah. just now, right about here.
 
-WHAT HE GETS: four things he can do on that street, each in plain English, each
-with a ladder he taps (-5 -3 -1 [NOT RULED] +1 +3 +5). WHAT HE READS IS THE
-CONSEQUENCE, NOT THE NUMBER -- "someone who WATCHED it: -3.0 (COLD) - someone who
-only HEARD: -1.6 (COLD)". NOT RULED IS A REAL POSITION, NOT ZERO: zero would mean
-"worth nothing", NOT RULED means he has not said, and while he has not said nobody
-in the game forms an opinion at all. Pressing it again TAKES THE RULING BACK,
-because undo is half of a dial. It crosses the frame the moment he presses, so
-opinionOf, standingOf and the rungs light up with NO other wiring and the card
-gains a THEY THINK row on the person who watched him. It persists, and it exports
-as .txt a lane can land straight into DEED_WEIGHT as canon.
+*** IT IS THE FIRST QUESTION IN THIS GAME WHOSE ANSWER IS NOT AUTHORED. *** Every
+other ask resolves through the person's TRADE -- deliberately, per the ask
+system's own comment, so "the same question put to the same kind of person always
+gets the same reply", because a world where the answer depends on which body you
+clicked is not a world with information in it. This one resolves through THAT
+PERSON'S OWN MEMORY, so two people standing side by side answer differently and
+BOTH ARE TELLING THE TRUTH.
 
-THE TABLE STILL SHIPS EMPTY and the gate asserts every shipped DECLARATION of it
-is {} and that the only writer anywhere is his dial.
+CLARITY SHAPES THE ANSWER, IT DOES NOT GATE IT. A fogged memory is a vaguer
+sentence, not a refusal, which is what a real witness sounds like:
+    now    sharp   "Yeah. just now, right about here."
+    30h    fair    "I think so. yesterday, somewhere north of here."
+    400h   never   "No. Not that I know of."
+That last row is the module's own MIN_CLARITY -- nothing usable, so they simply
+did not see them. An honest blank, not a stonewall.
 
-*** THE ONE I ALMOST GOT WRONG KNOWING BETTER. *** The readout needs the rung
-boundaries and the hearsay penalty, and fr.contentWindow.BohemiaStanding THROWS
-SecurityError -- file:// frames are opaque origin "null", measured not assumed. The
-tempting repair was to retype RUNGS and HEARSAY_LOSS up in the alpha, which is
-EXACTLY the second-copy drift this lane spent the PREVIOUS TURN deleting, one day
-later, by the person who wrote the record about it. The city computes them with the
-shipped module and posts them back; the ladder is fixed so one reply covers every
-button and no press costs a round trip.
+YOU HAVE TO ASK (7/31) GOVERNS WHO YOU MAY ASK ABOUT: the list is built from the
+met-ledger's `asked` bit and nothing else, so you can only go looking for somebody
+whose NAME YOU TOOK. You cannot put out a description of a stranger, which is
+right and is also the reason taking names matters. lastSeenAcross FINALLY HAS A
+CALLER, scoped to minds the player has actually spoken to -- a valley-wide sweep
+would hand him an answer nobody told him, which is the godlike-information failure
+this whole lane exists to undo.
 
-TWO THINGS THIS GOT WRONG FIRST, both worth keeping:
-  - A RUNTIME PROBE COULD NOT SEE A SEEDED TABLE BECAUSE MY OWN PUSH ERASED IT.
-    Seeding DEED_WEIGHT with a default left the gate GREEN: the alpha pushes his
-    (empty) dial across on boot and the receiver clears before applying, so the
-    seed was NEUTRALISED rather than CAUGHT. The runtime behaviour is right -- his
-    dial is the authority -- but it means no probe can ever see a seeded default.
-    The gate now asserts the shipped DECLARATION, which is what the law is about.
-  - AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S RULE FAILS THE DAY
-    THE ANSWER LEGITIMATELY CHANGES. direct_gate read `seen.modes === 2`, so
-    adding a third mode turned it red FOR DOING EXACTLY WHAT THAT GATE EXISTS TO
-    ENCOURAGE. The rule was never "there are two modes", it is "both things he
-    said he cannot direct are here"; it names them now and tolerates company.
-    FOURTH TIME THIS LANE HAS MET THIS SHAPE. Fix the ruler, never the target.
+*** THE WORDS WERE BROKEN AND THE MACHINE CATCHES IT NOW. *** The first cut
+rendered "I think so. 1 days back, right about here way." -- a plural that never
+checked for one, and a template appending " way" to a phrase that was already
+whole. BROKEN GRAMMAR IS NOT AN ATTEMPT, IT IS A BUG; the 8/11 law says every line
+ships written as if it ships. Same failure the quirk factory hit in July and the
+same answer: a GRAMMAR CONTRACT MACHINE-CHECKED OVER EVERY RENDERING rather than
+eyeballed on the one on screen. 91 renderings, 67 distinct, 0 bad, and a mutation
+putting the bug back turns 30 of them red.
 
-gates: CITY DIAL 22/0 (new, registered 306 of 406), DIRECT 33/0 after the
-generalisation, CITY DEEDS 30/0, CITY MEMORY 23/0, standing 35, attempt 15.
-Mutations: seed the table -> 1 red; stop it crossing the frame -> 3 red; retype
-the rungs in the alpha -> 1 red.
-records/BOHEMIA_WHERE_DOES_HE_CHANGE_THIS_HIMSELF_8_21_26.md
+AND THE REFRESH PATH HAD THE SAME HOLE THE SIBLING TOOL SHIPPED YESTERDAY -- an
+inlined region rewritten while the call sites outside it were left behind. Caught
+before it could bite this time, both paths, each pair narrow and span-matched on
+both halves. The lesson travelled from one tool to its sibling in a day, which is
+what writing it down is for.
+
+gates: CITY MEMORY 23 -> 31 all green, CITY DEEDS 30, CITY DIAL 22, city talk 18,
+memory 10. Both city tools idempotent TOGETHER, md5 over three runs. Mutations:
+back to player-only sight -> 4 red; put the grammar bug back -> 1 red naming 30
+bad renderings.
+records/BOHEMIA_HAVE_YOU_SEEN_THEM_8_21_26.md
 
 WHAT COMES NEXT:
-  1. *** HE TURNS IT. *** Nothing else in this system is blocked on code. The
-     moment he sets ONE row, three turns of witnessing, gossip and decay become a
-     reputation that judges him. His, and nothing should invent it.
-  2. *** THE OTHER DIALS, AND THIS LANE'S NEXT JOB. *** The same test applies to
-     every number this lane is sitting on: SEE_RANGE (9 tiles), the gossip window
-     (45 min), the deed halflife, the memory halflife. Each is a defensible
-     constant with a written argument, and "where does he change this himself" has
-     the same wrong answer for all of them. The STANDING dial is the pattern to
-     copy.
-  3. THE THREE RETYPED CLOUT SLICES -- BOHEMIA_HOW_LOUD_8_6_26.html,
-     BOHEMIA_CURRENT_SLICE.html, BOHEMIA_RUN_CURRENT.html still hold their own
-     copy of CLOUT_WEIGHTS. One line each in whichever tool generates them now
-     that bohemia_clout.js exists to point at. NOT this lane's surfaces.
+  1. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
+     (45 min), the deed halflife, the memory halflife -- every one a defensible
+     constant with a written argument, and every one with the same wrong answer to
+     "WHERE DOES HE CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the
+     pattern to copy, and the readout must ASK the city rather than retype
+     anything (file:// frames are opaque origin -- cross-frame reads throw).
+  2. HE TURNS THE STANDING DIAL. One row makes three turns of witnessing and
+     gossip into a reputation that JUDGES him. His, and nothing should invent it.
+  3. THE THREE RETYPED CLOUT SLICES -- one line each in whichever tool generates
+     them now that bohemia_clout.js exists. NOT this lane's surfaces.
   4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
