@@ -3307,6 +3307,2489 @@ WHAT COMES NEXT FOR THIS LANE, in order:
 FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
 
 
+COMBAT (combat-nfnki9): 8/21 (s) LATEST -- *** THE BREACHER: a man who shoots the
+ROCK YOU ARE BEHIND. RF4-28 BUILT. And the mechanic he drives -- V152's cover
+chewing -- HAD NEVER ONCE RUN IN THE GAME'S HISTORY, because its own geometry
+forbade it. TAB: COMBAT -- hide behind a rock and stay there. ***
+Record: records/BOHEMIA_COMBAT_THE_BREACHER_8_21_26.md
+Tool:   tools/bohemia_combat_the_breacher_patch.py (v177, idempotent)
+Gates:  fight_moves_you 79/0 (5 new) | combat_lab 913/0 (6 new) | skill_gap 6/0
+
+*** THE FINDING THAT MATTERS MOST: A SHIPPED MECHANIC THAT COULD NEVER FIRE. ***
+V152 added `if(covP)chewCover(covP)` -- "and the stone takes it too", cover has hp
+and is eaten by the rounds it stops. MEASURED: 0 calls across 309 turns of real
+play, 0 pillars destroyed or even knocked down across 24 fights. NOT RARE,
+IMPOSSIBLE: 264 states, 85 guns in the volley, and NOT ONE had a pillar covering
+you from them -- because a pillar that covers you is precisely what removes a man
+FROM the volley. The chew waits on a condition its own geometry forbids. Cover had
+never degraded once, so the 73% held for the whole fight, forever.
+(The first cut wrapped chewCover and read 0, WHICH PROVES NOTHING UNTIL YOU CHECK
+THE WRAPPER -- calling it directly showed 1 call seen, so the zero was the game's.)
+
+WHAT SHIPS: a body whose turn goes into the STONE rather than into you. He is the
+counter RF4-28 asks for AND the only caller chewCover can ever have -- putting
+rounds into a position you cannot see into is what suppressing IS, and it is the
+one case the volley's line-of-sight test was never going to reach.
+   10 fights, a man who FINDS COVER AND HOLDS IT (his 8/15 complaint verbatim):
+   working: 68 bites, 5 pillars destroyed, 68 turns held in cover
+   pinned : 0 bites, 0 destroyed,          75 turns held
+*** AND A NEGATIVE RESULT, RECORDED NOT DROPPED: HE DOES NOT MEASURABLY PUSH A
+CAMPER OFF THE LOT. *** The gate carried a claim that he did (68 turns held vs 75)
+and on the merged tree it FLIPPED AND STAYED FLIPPED -- 81 vs 71, then 74 vs 58,
+the player holding cover MORE with him working. The first two readings were noise
+pointing the way I wanted, which is exactly how a wanted conclusion gets shipped.
+THE REASON IS 65 ROCKS AN ARENA: destroying one moves the man to the next one,
+which is a step and not an eviction. The mechanism is real and gated; the
+CONSEQUENCE is not there yet and the gate now says so.
+He costs NO DAMAGE while he works -- his turn goes into the rock, so incoming fire
+DROPS while he is busy and the bill arrives as geometry when the cover goes. Goon
+with a job (V173 pattern, ARCH.human's numbers copied). Pinning him is the answer.
+
+THREE HARNESS CUTS BEFORE THE NUMBER WAS TRUE, each measuring a different player:
+a WALKER (cover changes every turn, no rock takes its ten bites -- 74 chews, 1
+knockdown), a CAMPER AT SPAWN (not behind anything at all, inRealCover() false --
+2 chews), and finally FIND-COVER-THEN-HOLD, the actual habit.
+
+SEVEN MUTATIONS ALL CAUGHT, but one exposed a MIS-SPECIFIED TEST OF MY OWN:
+"put him ahead of the blades" actually moved him ahead of the MEDIC, and both
+already fill after the blades, so it tested nothing. The corrected mutation then
+showed the ordering claim could be defeated by a duplicate push sitting in front
+of the one indexOf finds -- EXACTLY THE HOLE V174's CAR-TAP CLAIM HAD -- so it now
+also asserts there is exactly one.
+
+*** CORRECTION TO WHAT THIS HANDOFF SAID LAST TURN: RF4-45 IS NOT UNBLOCKED. ***
+It was listed as the top build. Its own diff column ends "Still Paolo's call; the
+option is now cheaper than it looked", and it reshapes RF4-31 which is explicitly
+[PENDING PAOLO] -- does Bohemia want RF4-level build diversity, or is the dial the
+primary variety axis. Building talent upgrades SIZES THE PERK TREE, which is his
+decision, not this lane's. Do not build it on a "go".
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER:
+ 1. RF4-40 (unstarred but it is RF4-28's other half), THE ANTI-DOMINANT-ABILITY
+    RULE: abilities "too effective in many situations" get nerfed or removed, and
+    counter-enemies exist to push the player off a favourite playstyle. NOT A TOP
+    ROW BECAUSE every starred row left is blocked -- RF4-45 and RF4-31 on his
+    ruling about build variety, RF4-36 on his ruling about what a fight is worth,
+    RF4-56 by NO DAMAGE BEFORE THE DIAL, RF4-54 on terrain that does not ride the
+    wire, and RF4-18 on a currency that is not weapon-capped. V177 built the first
+    counter-enemy; RF4-40 is the RULE that says a counter must exist for every
+    dominant thing, and the skill_gap gate already names the biggest one.
+ 2. RF4-53 THREE-LAYER AWARENESS. V165's vision is the substrate, V175 added the
+    alarm layer.
+ 3. RF4-18 -- revisit now that V176 shipped a CHARGE, which is uniform across
+    weapons in a way killshots-per-turn is not. DO NOT write a third version of
+    the wide-open bonus.
+ 4. RF4-54 TERRAIN KILLS -- A WIRE JOB FIRST; enter() carries no terrain field.
+ 5. RF4-36, RF4-45, RF4-31, RF4-56 -- all BLOCKED on his rulings or on law.
+
+THE LEDGER: three stars 3 of 4 | two stars 3 of 6 | ONE STAR 5 of 8 | unstarred 17
+of 50. 28 BUILT rows, all named by a gate.
+
+SOUND (sound-xk7pjp): 8/20 (v) LATEST -- *** HE SWEPT ALL 500 AND RULED ON THE
+ECONOMY WHILE HE DID IT. TAB: MUSIC (the SFX board is clear). Nothing to judge. ***
+
+Paolo, written on the hands_pass.4 verdict line:
+
+    "THERE IS NO PAPER NO COINS COINS GET MELTED DOWN TO RESOURCE PARTS
+     WHAT DONT U UNDERSTAND"
+
+That is not a note about a sound, it is WHAT THE ECONOMY IS, and it agrees with canon
+standing since 7/8 (medicine, electricity, resources). Locked in
+laws/BOHEMIA_ADDENDUM_NO_PAPER_NO_COINS_8_20_26.md. ANY LANE writing a transaction --
+quest reward, trade, purse, shop, bribe, debt -- writes it in those three. Nobody hands
+anybody a bill. If a UI or a line of dialogue says cash or coins it is wrong.
+
+THE MONEY MOMENT DIED FIFTEEN FOR FIFTEEN and the synthesis was never the problem.
+money, cash_count and hands_pass each got five candidates from three different sound
+sources, and every one was cooked to be paper and coin in a world that has neither -- so
+the better it was at being what it was asked to be, the more wrong it was. All three are
+dead for their BRIEF. THE LESSON: a moment that dies across MULTIPLE SOURCES is a brief
+that does not describe his world, not a cooking failure. I re-cooked it twice before
+asking what it actually is. Replaced by `parts_pass`: metal with mass, several pieces,
+handed or tipped rather than counted, no ring and no chime.
+
+HIS THUMBS ARE DERIVED NOW, NOT HAND-BUILT. tools/bohemia_sfx_bank_from_verdict.py reads
+the verdict file and writes the bank, validating every thumb against what the engine
+actually cooks. Bank 148 -> 155 (lungs_burn, mag_home, sand_more[0,2,3], sign_alive,
+wood_more). A hand-built bank is how a thumb goes missing.
+
+*** THREE RULERS WERE WRONG ABOUT A CORRECT GAME. This keeps happening and it is now the
+top failure mode in this lane -- read this before you trust any gate here. ***
+  1. sfx_wired_gate HARDCODED the bank filename, with a comment directly above it warning
+     that the wire and the gate must read the same file. It drifted anyway and reported a
+     STALE ALPHA when the alpha was right and the gate was two sweeps behind. It reads the
+     wire tool's own constant now.
+  2. The ambience chooser was read through a FIXED 1400-CHARACTER WINDOW. SFX-09 pushed
+     sign_alive to 2421 chars past the anchor, so the gate said "NOTHING CAN PLAY THIS"
+     about a sound wired three lines below where it stopped reading. Same bug at 200 chars
+     on 8/12; the fix then was to bump the number, which only reschedules it. It reads to
+     the CLOSING BRACE now, quote- and comment-aware.
+  3. My own probe for the baked bank assumed the object literal and the window assignment
+     were one statement, and printed "could not find the baked bank" about a correct build.
+     CHECK THE RULER FIRST. I nearly re-ran a whole build over it.
+
+AND THE CHECK THAT WOULD CATCH A REAL ONE: every bank check in that gate was comparing his
+thumbs to a FILE ON DISK, and the game does not read that file -- the wire tool bakes a
+copy into the alpha. Out-of-order build (the factory WIPES the parent wire block, so the
+wire tool must run LAST) = perfect file, older sweep in his ears. The baked bytes are
+compared to the bank directly now. Proved by knocking the baked copy back a sweep.
+
+  no_cash_gate       10 passed, 0 FAILED   (new, every check mutation-proved)
+  sfx_wired_gate    907 passed, 0 FAILED
+
+*** THE STALENESS HE NAMED IS BACK, AND IT IS MEASURABLE. *** SFX DIVERSITY is RED
+and it is this lane's red. 8/21: 105 of 205 non-modal candidates (51.2 percent) against a
+50 percent cap -- improved from 52.6 percent by cooking metal_ticks on `fm` instead of
+`instrument`. ONE more non-instrument recipe clears it (105 of 210 is exactly 50). It was
+NOT padded to get there: the remaining silent moments all fail one of the six screening
+questions (no trigger, no physical source, already answered, or the rack cannot do it), and
+inventing a sound to move a ratio is how the staleness got here in the first place. The
+next legitimate cook clears the gate for free.
+  ORIGINAL NOTE, still true: `instrument` owns the non-modal pool (21 of 39 recipes). It was ALREADY over before 8/20 (52.6 percent) so
+nobody caused it in one turn, but parts_pass nudged it up and every cook that reaches for
+the instrument axis nudges it further. This is Paolo's own 8/12 words -- "you need more
+diverse sounds bro its getting stale at this point" -- come back as a number. THE FIX IS
+NOT A DIVERSITY BATCH: it is that the NEXT cooks use the starved methods. Measured spread
+right now: friction 8, particle 2, fm 1, modal-ex 1, against instrument 21. Anything cooked
+on fm or particle helps twice, because it lifts the floor and does not raise the top.
+
+ALSO RED AND NOT OURS, CHECKED THE HONEST WAY (ran each one against origin/main in a
+worktree, identical result both sides -- so none of these came from the 8/20 sound work):
+DOORS FRESH (22/1), SONG LOCK (19/1), VOICE SURFACES (25/1, the cold open stops at beat
+88). SONG LOCK matching byte-for-byte is also the proof that rebuilding the alpha does NOT
+disturb his locked songs, which is worth knowing before anybody panics about the wire tool.
+
+WHAT COMES NEXT FOR THIS LANE:
+  0. YOU OWN IT NOW is the twin of IT IS DONE and is NOT buildable from this lane:
+     citySnapshot() carries no ownership field, so the parent has nothing to diff. It needs
+     the CITY session to put ownership in the snapshot, then it is ten lines here.
+  1. THE THIRD PITCH ROW at semi -6. The INST_VOICE grid is a TWO-POINT model (-24, +12)
+     and it has MISPREDICTED 3 of 44 voices. This is the top engineering defect. It needs
+     its own turn because it RE-TUNES every approved instrument sound, so it needs a
+     deliberate fingerprint re-record -- do not do it as a side effect of something else.
+  2. `go_inside` has a real unused trigger: the `inside` flag already crosses to the parent
+     every 4s and nothing plays the moment.
+  3. lungs_burn is WAIVED, not wired -- his brief is "you ran too far" and THERE IS NO
+     RUNNING (one fixed SPEED=0.34, no sprint key, no stamina). Checked, not assumed.
+     Wiring it means inventing a stamina system, which is not this lane's to invent. The
+     waiver expires by itself the moment verb:'sprint' appears in the run.
+
+SOUND (sound-xk7pjp): 8/20 (r,s,t,u) LATEST -- *** 40 SOUNDS ARE WAITING FOR HIM,
+AND THEY WERE CARDS 93 TO 100 OF 100. TAB: MUSIC, the SFX board -- now cards 1 to
+8. ***
+
+He asked "do you have new sounds for me to judge?" and I verified it on the
+shipped sheet instead of asserting it.
+  THE ROOM GOES QUIET | THE MAG SEATS | IT CHANGES HANDS | A DOG, OUT THERE
+  THE SIGN IS STILL ON | YOUR LUNGS CATCH UP | MORE SAND | MORE BOARDS
+All 40 render 0.17-0.31 (none below the judgeable floor, none silent, no page
+errors). Tapping one fires ONLY that sound -- the judge-quiet checks from his
+8/16 complaint are still green.
+
+*** THE THING THAT WOULD HAVE COST HIM THE SESSION. *** Those 8 cards sat at
+positions 93-100 OF 100. The sheet opened on ninety-two CLOSED cards and the only
+work he could do was underneath all of them. The rule was already right and had
+been since 8/1 -- his words, "I shouldn't be having a scroll for five fucking
+minutes", and the code comment literally says "the page opens on exactly the work
+that is left" -- but the list was walked in DECLARATION order and a new batch is
+declared at the END. Technically visible, practically buried: the exact shape of
+"I didn't see the new sound effect".
+FIXED in tools/bohemia_sfx_factory.py: undecided sort FIRST, decided after,
+declaration order preserved inside each group so nothing else shuffles under him.
+No verdict changed, no sound changed -- only what he meets first. Measured again:
+cards 1 through 8.
+
+*** SIXTH RULER MISTAKE THIS WEEK, CAUGHT BEFORE REPORTING. *** My first probe
+said all 100 cards were OPEN and the collapse was broken. It tested row
+visibility; the sheet closes a card by setting display:none on the card BODY,
+which is what sfx_wired_gate already measures. Re-measured its way: 8 open, 92
+shut, exactly as designed. Running tally of bad instruments: RMS on the kill
+layers, a closure lookup on the ambience, the two-point pitch model (x3), a
+checker searching a haystack holding its own answer key, a grep of the wrong
+file, and now a visibility test on the wrong element. CHECK THE RULER FIRST.
+
+GATES: SFX RENDER 6626/0 (500 candidates). SFX WIRED 853/0. VERDICT-FROZEN 6/0.
+SILENT MOMENTS 29/0. INSTRUMENT 15/0. ALPHA LOADS 20/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** WAIT FOR HIS 40 VERDICTS BEFORE TOUCHING THE PITCH MODEL. *** The
+    two-point calibration (INST_VOICE at semi -24 and +12 only) has mispredicted
+    THREE voices -- ghostvox and breathpad 5x quiet on 8/19, sweeppad a click on
+    8/20. The fix is a third row at semi -6 and the measure tool already freezes
+    existing rows, so only the new row needs reading (~72 voices x 5 steps, 6-8
+    min). BUT IT RE-TUNES EVERY INSTRUMENT SOUND HE HAS APPROVED, so running it
+    while 40 candidates await his thumb would move the ground under his own
+    verdicts. Do it the moment his sweep lands, with a deliberate re-record.
+ 2. Whatever he approves out of the 40 unlocks volume (APPROVAL UNLOCKS VOLUME)
+    and expires the step_wood waiver in sfx_wired_gate automatically.
+ 3. go_inside has a real trigger nobody has used: the `inside` flag crosses to
+    the parent every 4s -- watch it flip, same shape as PAYSTING.
+ 4. HORIZONTAL RE-SEQUENCING between music intensity tiers; the vertical half
+    (kill layers) is done.
+
+CHARACTER (character-0lurbs): 8/20 (e) LATEST -- *** THE CHARACTER IS FOUR TIMES
+THE PIXELS. HE SHIPPED IT BY SAYING "IT LOOKS EXACTLY THE SAME DUMBASS". ***
+
+He was right, and that was the whole answer. Row 2X had steps 1-4 built, proved and
+DORMANT since 8/16 on ONE sentence I wrote myself -- "at 112 native his head renders
+as a box" -- which is true and was also a JUDGEMENT made on his behalf about pixels
+he had never been shown. He was shown them, could not see a difference, and it
+shipped. Thirty pixels on a face were holding the headline.
+VERIFIED THE PICTURE WAS HONEST BEFORE TREATING IT AS A RULING: 976 of 30,752
+displayed head pixels differ, 3.2%. A real difference, correctly called nothing.
+
+SHIPPED (`python3 tools/bohemia_2x_flip.py --flip`):
+  - the frame composes at 112 NATIVELY; Scale2x is OFF, which deletes per-frame work
+  - the black border is ONE TRUE PIXEL, median 1 on all eight facings
+  - his painted art untouched -- rig_no_drift still hashes the literal byte for byte
+  - the wardrobe was made resolution-native the same morning, so garments arrive
+    sharp instead of block-doubled (which is what the old plan would have shipped)
+
+THE FLIP TOOL GOT TWO THINGS WRONG AND REFUSED TO WRITE BOTH TIMES (it working):
+  1. it would have RE-INSERTED the block-doubling garment seam and undone the
+     morning's 4x wardrobe. Retired, replaced with an ASSERTION -- if the native
+     seam ever vanishes it refuses to flip rather than silently reverting.
+  2. four seams it called MISSING were already applied in a later `typeof BAKED`
+     form. A tool that cannot recognise its own finished work reports a MISS.
+
+RE-BLESSED, NOTHING LOOSENED (all mutation-tested):
+  ALPHA LOADS + RIG NO-DRIFT  the literal is WRAPPED now, so `const BAKED={` matched
+                              nothing and both said HIS RIG IS MISSING on a build
+                              where it is present and doubled
+  CANVAS SCALE                CLOTHES boxes were x1.5 and x0.5 around a 112 sprite
+                              (x4.5 and x1.5 on the glass). Resized; cloBig re-pinned
+                              x3 -> x2 because those are the SAME SIZE on screen
+  BORDER                      THE RULER WAS WRONG: it measured along a raster row, so
+                              on a diagonal it read a staircase tread as an 8px
+                              border once Scale2x stopped rounding corners. Takes the
+                              smaller of BOTH axes now -- stricter, not looser
+  CROWD                       not dice: it compared a HALF-DRAWN board. Settles on the
+                              board, not a clock. 4 runs green
+
+*** THE ONE THAT IS A FINDING, NOT A RE-BLESS: HEAD FOLLOWS RIG. ***
+Its pin was FLATTERED. In 56-equivalent cells the chin went from "exactly right"
+(rig 4, game 4) to "two cells wide" (rig 4, game 6) purely by removing the smoothing
+-- THE SKINNER WAS ALWAYS DRAWING IT THAT WIDE and Scale2x was trimming the corner
+off. The ratchet is a RATIO now (deviation over the rig's own width): 0.171 at 56,
+0.211 at 112, scale-free forever, never needs re-blessing again. It is the instrument
+that says where "the head is a box" actually lives: THE CHIN AND THE ROW UNDER THE
+MOUTH. Fix the skinner there and the number falls.
+
+MEMORY, measured as row 2X demanded:
+  a PLAYER holds 25.4 MB and the RUN tab adds ZERO. The flip costs the game nothing.
+  the CLOTHES tab quadrupled (25 -> 96.8 MB): it keeps a live canvas per garment for
+    258 garments and never let go of the pixels, only of the painting. Off-screen
+    canvases release their backing store now: 96.8 -> 2.4 MB, whole build 1,188 ->
+    1,093 MB. So this turn IMPROVED the worst case by ~100 MB while doubling the rig.
+  *** STILL RED AND NOT THIS LANE'S -- THE ONE THING WORTH SOMEBODY'S NEXT TURN ***
+    104 full-resolution images decode to 850 MB: VOTE 69 imgs / 633 MB, ART 27 imgs
+    / 209 MB. BYTE-IDENTICAL before and after the flip, so none of it is the rig.
+    QUANTIZING DOES NOT HELP -- decoded cost is w*h*4 whatever the PNG weighs; it
+    needs smaller DIMENSIONS or thumbnails. The gate had been GREEN ONLY ON A STALE
+    MEASUREMENT FILE (its own NOTE says so every run). I re-took it rather than keep
+    a green I know is a lie.
+
+  records/BOHEMIA_THE_FLIP_SHIPPED_BECAUSE_HE_COULD_NOT_SEE_IT_8_20_26.txt
+  LOOK tab: "IT LOOKS EXACTLY THE SAME" -- re-labelled to what it became, left is
+  every build before today, right is what he is playing.
+
+NEXT IN THIS LANE:
+  - STEP (5) IS OPEN FOR THE FIRST TIME: real detail per garment/hairstyle, now that
+    there is somewhere to put it. The fade-blends-into-skin-tone item the
+    hair-and-shape law marks [UNBUILT] is possible from today.
+  - the CHIN. head_follows_rig now points at it precisely; it is skinner work and
+    RIG LAW makes that the most dangerous code in the repo, so measure first.
+  - wear()/scuff still hash per PIXEL (alpha ~21833); at 112 that is noise, not
+    cloth. Same cell-hash fix the tatter already took.
+
+---
+
+SOUND (sound-xk7pjp): 8/20 (p,q) LATEST -- *** SAND STOPPED MACHINE-GUNNING. My
+own last ship made three surfaces audible and two of them had ONE sample. TAB:
+RUN (walk the open desert). Nothing to judge. ***
+
+Yesterday's ground fix let step_concrete/sand/wood play for the first time. That
+created a defect one layer down:
+    asphalt 5 | gravel 5 | dirt 5 | concrete 1 (+3 walk_more) | SAND 1 | WOOD 2
+and the classifier returns 'sand' for ANY unnamed tile, which is most of the open
+valley -- so the most-walked ground in the game after asphalt was firing ONE
+sample every step. A FIX THAT CREATES A DEFECT ONE LAYER DOWN IS HALF A FIX.
+
+1. SAND BORROWS THE DIRT, TODAY. Six variants instead of one, entirely out of
+   sounds he already approved. Dirt is the same ground with less grain. The
+   borrow costs nothing when sand_more is approved; the pool just widens.
+2. SFX-10: sand_more + wood_more, 5 each, on his rack (48% vs 30%). Odd pools on
+   purpose -- an even pool locks to the phrasing and everything here is 120 BPM.
+   `knock`, `rim`, `wood`, `brim` all looked perfect for boards and ALL RENDER
+   SILENT (drumV kinds, not synthV). Measuring is the only reason they are out.
+3. *** THE WIRE TOOL COULD NOT RUN AND IT WAS MY FAULT FROM THE DAY BEFORE. ***
+   "not enough arguments for format string" -- I wrote a comment containing
+   "the 12% that has power" inside a %-formatted block. It crashed the same way
+   on a CLEAN TREE, so it was not the new edit. The alpha had been patched
+   directly at the time, so the damage was invisible: the tool that OWNS the
+   whole parent-side sound wire was unrunnable and the next lane would have hit
+   it cold. ANY LITERAL % IN parent_block MUST BE %%.
+
+THE GATE TOOK THREE TRIES TO BECOME HONEST, and the failures are the lesson:
+  a. it named THREE surfaces because three were all that existed. Now six.
+  b. v1 PRINTED A WAIVER AND FAILED ANYWAY -- a gate saying two opposite things
+     at once. A named waiver now PASSES and prints why.
+  c. v2 kept its own hardcoded {step_sand:(...)} dict, so deleting the real
+     sibling entry changed nothing and it stayed GREEN on a tree where sand was
+     back to one sample. Same family as a checker searching a haystack that
+     contains its own answer key. It reads the LIVE pool off the shipped build.
+  d. new leg: the shipped pool must MATCH WHAT THE WIRE TOOL DECLARES -- catches
+     an edit never re-applied, or a parent block clobbered by a rebase.
+
+GATES: SFX RENDER 6626/0 (500 candidates, deliberately re-recorded). SFX WIRED
+853/0. VERDICT-FROZEN 6/0 (nothing he judged moved). SILENT MOMENTS 29/0.
+INSTRUMENT 15/0. ALPHA LOADS 20/0. SHIPPED TRUTH 41/0. FRONT DOOR 8/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** THE TWO-POINT PITCH MODEL IS THE TOP ITEM AND IT HAS NOW MISPREDICTED
+    THREE TIMES. *** INST_VOICE calibrates each borrowed voice at TWO semitones,
+    -24 and +12, and interpolates straight between them. Voices that dip in the
+    middle get driven wrong: ghostvox and breathpad came out 5x quiet (8/19),
+    sweeppad came out a CLICK today and was swapped for guiro rather than fixing
+    the model. The fix is a third row at semi -6: the tool already freezes
+    existing rows, so only the NEW row needs measuring (72 voices x 5 steps,
+    roughly 6-8 minutes). BUT IT MOVES EVERY INSTRUMENT SOUND HE HAS ALREADY
+    APPROVED, so it needs a deliberate fingerprint re-record and its own turn.
+    Do it first thing, not at the end of a session.
+ 2. step_wood is still 2 and WAIVED BY NAME in sfx_wired_gate; the waiver expires
+    by itself the moment one wood_more candidate is approved.
+ 3. go_inside has a real trigger nobody has used: the `inside` flag already
+    crosses to the parent every 4s -- watch it flip, same shape as PAYSTING.
+ 4. HORIZONTAL RE-SEQUENCING between intensity tiers. The vertical half is done.
+
+WORLD (world-9lfjtf): 8/20 (g) LATEST -- *** I PUBLISHED A FALSE CLAIM THIS AFTERNOON AND
+THIS IS THE RETRACTION. No tab changes. Nothing here needs judging. ***
+
+WHAT I SHIPPED IN 8/20 (f): "his harmonized street bank reaches NO ROAD IN THE VALLEY --
+44,376 road ground cells sampled, ZERO mapping to an approved street tile."
+
+IT IS FALSE. Measured properly across 192,512 ground cells in 22 district types:
+
+    cell.gArtPool (a pool NAMED on the cell)  145,128 hits
+        hyard 90,962 | street 52,904 | side 1,262
+    SA_MAP[cell.g] (a COLOUR lookup)            3,171 hits
+        street 2,907 | side 264
+    neither (plain generated colour)           44,213
+
+In arterial and freeway districts specifically, 7,228 of 14,336 sampled ground cells wear
+`street` and 863 wear `side`. HIS BANK REACHES THE ROADS ABUNDANTLY AND ALWAYS DID.
+
+TWO INSTRUMENTATION ERRORS, BOTH MINE, IN ONE GATE:
+ 1. I COUNTED THE WRONG OBJECT. saTex() blits the approved Image into a canvas ONCE per
+    (pool,variant), caches the canvas and returns THE CANVAS -- so after first use the
+    renderer draws a cache entry my counter could not recognise, and the cache was already
+    warm when the sweep began. Eight working pools looked silent. Hence "3 of 21 draw".
+ 2. I ASKED ONE OF TWO DOORS. SA_MAP is a COLOUR lookup and genuinely returns nothing on
+    road cells. The live door is gArtPool, an EXPLICIT POOL NAMED ON THE CELL. I got a null
+    from the legacy door and reported the art missing.
+
+A NULL FROM ONE LOOKUP IS NOT A FACT ABOUT THE WORLD. I wrote "a probe that checks one room
+and reports the house empty is the same disease as the bug it hunts" INTO THAT VERY FILE,
+caught myself doing it twice while building it, then did it a third time and shipped it. A
+NEGATIVE RESULT DESERVES THE SAME SCEPTICISM AS A POSITIVE ONE, and I gave it none because
+it was exciting. If you are about to report that something big is missing: find the OTHER
+door first, and check what your instrument can actually see.
+
+WHAT IS STILL TRUE AND WORTH HAVING. The finding that started it is unchanged: his 348
+traffic signal sprites were LOADED, CORRECT AND DRAWING NOWHERE for weeks while the check
+that said "his sprites are LOADED in the browser" stayed green. So the gate counts REQUESTS
+now, not draws:
+    SPRITES (heroes, signals) counted at the draw -- blitted directly, never re-wrapped.
+        heroes 3,664 draws, 60/60 loaded | signals 6 draws (zero this morning)
+    POOLS counted at the saTex() REQUEST -- door-independent and cache-independent.
+        8 of 21 in active use: street side hroof hwall hwindow hboarded hdoor hyard
+13 POOLS ARE NEVER REQUESTED ONCE and that part is real: roof wallface wallwin perimeter
+pocket_v pocket_h cross_ns cross_ew lane_h lane_v shoulder median_h median_v. Several are
+PLAUSIBLY superseded (the pocket/crossing/lane/median set predates the roads drawing
+themselves) -- but "plausibly" is a guess and guessing is what produced the retraction
+above. Named and ratcheted so the question stays visible for whoever owns the streets.
+
+MUTATIONS: point the signal code back at the old flag and the gate fails on "TRAFFIC SIGNALS
+arrive (0 draws)" -- the exact historical regression. Close BOTH doors on `street` and the
+ratchet fails 14/13. Closing only ONE door does not trip it, which is correct -- and my first
+attempt closed one door, did not bite, and THAT WAS THE EVIDENCE I SHOULD HAVE FOLLOWED
+instead of publishing.
+
+  records/BOHEMIA_LOADED_IS_NOT_ARRIVED_8_20_26.md   corrected in place, retraction first
+  gates/approved_art_arrives_gate.js                 7 checks, two mutations confirmed
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. The 13 never-requested pools are the one open art question and they are the STREETS
+     lane's to answer: superseded, or a door somebody forgot to open?
+  2. ROAD CELLS (the arterial block wall) and drive_network (22->25 ratchet, five landmark
+     districts) are still the other WORLD session's, unchanged.
+  3. A hand-painted hazard tile bank is still ART's if he wants one.
+
+RUN (run-eak241): 8/20 P0-SUITE -- *** THE SUITE FINISHES. 393 OF 393, ZERO
+UNRUN. It was 217 of 379 and a fifty-minute wall. ***
+
+                        WAS               NOW
+  gates run             217 of 379        393 of 393   <- all of them
+  never ran             162               ZERO
+  wall clock            ~3000s, killed    2564s, finished
+  per gate              13.8s             ~4.5s in the pack
+
+THREE FIXES, IN THE ORDER THE SWEEP LAW ASKED FOR.
+
+FIX 1 -- THE SLEEPS. 399 fixed waits in 108 gates/*.js, 19.7 minutes of ceiling,
+replaced with a condition (gates/bohemia_settle.js). The old number stays as a
+CEILING it can never exceed, so worst case is exactly the old behaviour. Stillness
+is measured over 600ms because BEAT is 0.5s under the 120 BPM law -- nothing
+driven by the beat can hide inside the window. That alone took the run to 258/393
+in 45 minutes, and then the runner's own arithmetic said the truth: ~4129s of work
+against a 2700s budget. PER-GATE TRIMMING WAS NEVER GOING TO CLOSE A GAP THAT BIG.
+
+FIX 2 -- PARALLEL, NOT ONE WARM BROWSER. The sweep asked for a single browser
+shared by 94 gates; this overlaps separate ones instead, for the same clock at a
+fraction of the risk. Sharing a browser means sharing a page or a profile, and
+the moment two gates share state the suite lies in a NEW way -- a gate green
+because another gate warmed something is exactly what this sweep exists to kill.
+Processes stay separate; they just stop queueing.
+  PURE gates    -> all cores      (BOHEMIA_JOBS)
+  BROWSER gates -> half           (BOHEMIA_BROWSER_JOBS)
+because gates that measure TIME fail for LOAD when the box is oversubscribed --
+measured on this lane's own box a week ago, when one orphaned core made RUN BEAT
+report 3.112 beats per second instead of 2.
+
+FIX 3 -- `--pure`, THE BROWSERLESS TIER. 249 of 393 gates never touch a browser.
+A filter over what exists, not new work. NOT named --fast on purpose: --fast
+already means "skip the rows flagged slow" here, and quietly redefining a flag
+other lanes already type is how a tool starts lying about what it did.
+
+*** AND THE PART THAT MATTERS MOST: A RED UNDER LOAD IS NOT A VERDICT. ***
+The first full parallel run proved the risk instead of theorising about it --
+CITY BORDER and THE CROWD failed in the pack and passed alone. THE SUITE WAS
+INVENTING REDS, which is the same class of lie as an unrun gate reading green,
+pointing the other way. So every failure is now RE-RUN ALONE with nothing else on
+the box, and THAT is the verdict. The definitive run caught two: THE CROWD and
+THE RUN, both "the box, not the build". It costs a quiet re-run per red and buys
+back the one thing parallelism could have taken: THE RIGHT TO BELIEVE A RED. This
+is the discipline this lane applied by hand all month, moved into the runner so
+nobody has to remember it.
+
+A REGRESSION I WROTE AND CAUGHT: the first parallel cut buffered the whole report
+and printed it after every thread joined, so a run killed at minute forty would
+have said NOTHING AT ALL -- the original bug of this entire sweep in a new
+costume. Found by watching a run sit silent for ten minutes. Results stream in
+table order now, the moment each gate and everything above it has answered.
+
+NOT ONE ASSERTION CHANGED, across all three fixes (sweep law section 7).
+
+*** 24 CONFIRMED REDS, AND THAT NUMBER GOING UP IS THE POINT. ***
+It was 13 when the suite could only reach 258. The other eleven were always
+there; 135 gates were simply never asked. Silence read as green, exactly as the
+law said.
+  TRAFFIC SIGNAL, DRIVE NETWORK, VOTE TAB, VOICE SURFACES, MIX, SONG LOCK,
+  COMBAT LAB, ROAD CELLS, ONE MAP, TOOLS RUN, BANNER, QUEST PLACEMENT,
+  CURRENT SLICE, WHAT YOU HEARD, MAP BOUND, ONE WORLD TAB, INVISIBLE SCHEDULE,
+  NAV CLUSTER, INTERIORS, MAP TAB, TASTE, ART 45, HERO WIRE, RF4 TEARDOWN
+Sweep section 6 already assigns owners for several. THE RULE ATTACHED THERE NOW
+BITES: a red with an owner gets fixed or gets a written line saying why it is
+legitimately red.
+
+WHAT COMES NEXT ON THE SUITE:
+ 1. THE 24 REDS ARE NOW VISIBLE AND OWNED. That is the whole reason the suite
+    had to finish, and it is where the next suite session goes.
+ 2. 3.7 MINUTES OF SLEEPS SURVIVE, measured: 101 calls across 17 gates/*.py that
+    EMBED javascript run through node. Same disease, different shape; the .js
+    rewrite cannot see inside a Python string and was not allowed to guess.
+ 3. THE CONFIRM-ALONE PASS COSTS ~790s AT 26 REDS and shrinks as reds get fixed.
+    If the red count ever grows instead, that pass is the first thing to bound.
+
+
+WORLD (world-9lfjtf): 8/20 (f) LATEST -- *** HIS APPROVED STREET ART REACHES ZERO OF 44,376
+ROAD CELLS, AND NOTHING WAS EVER GOING TO SAY SO. No tab changes; this is a gate and a
+finding. Nothing here needs judging. ***
+
+THIS MORNING his 348 traffic signal sprites turned out to be LOADED, CORRECT AND DRAWING
+NOWHERE for weeks, while the check that said "his sprites are LOADED in the browser" stayed
+green the whole time. THAT IS NOT A ONE-OFF, IT IS A SHAPE: every art pool is reached through
+a LOOKUP (a colour, a flag, a district name), and when the thing it keys on changes
+underneath it the art stops appearing and nothing goes red.
+
+So: a gate that hooks drawImage and COUNTS REAL DRAWS across 58 renders of the walked surface
+over 36 district types, plus the CITY view.
+
+    district heroes   3,664 draws   60/60 loaded
+    traffic signals       6 draws   (zero this morning)
+    street/building     3 of 21 pools draw
+
+*** THE BIG ONE, AND IT IS NOT MINE TO FIX. *** Street art is chosen by GROUND COLOUR through
+SA_MAP, whose keys are the old parametric street colours (#8a8a86, #7a7a76, #5e5e5a,
+#4a4a48, #c8c4b8). Since A ROAD WITH ITS OWN MODULE DRAWS ITSELF (8/18-8/19) the roads emit
+their generator's own palette instead (#33333c, #6a5f47, #8a8a92, #a09a8a).
+MEASURED: 44,376 road ground cells sampled across 24 road cells, ZERO mapping to an approved
+street tile. His harmonized 7/14 bank -- roadway, kerb, shoulder, crossings, medians, lane
+markings -- reaches NO ROAD IN THE VALLEY. That is STREETS ARE THE HARMONIZED POOL (7/31,
+LOCKED) failing valley-wide in silence.
+I DID NOT FIX IT. The fix is a mapping from each new road tile to the bank pool it should
+wear, and that is a decision for whoever authored those road tiles. Handed over with the
+numbers rather than guessed at: ONE SYSTEM, ONE SESSION.
+
+THE GATE IS THE MACHINE THAT LAW NEVER HAD (a law without a machine gate is not enforced --
+proven 7/16, six of nine gated laws already broken). RATCHET, not a cliff: the 18 silent
+pools are NAMED and may only shrink. Both mutations bite and the first is the EXACT
+historical regression -- point the signal code back at the old flag and this gate fails on
+"his 7/17 TRAFFIC SIGNALS arrive (0 draws)". IT WOULD HAVE CAUGHT THE SIGNAL LOSS THE DAY IT
+HAPPENED.
+
+  records/BOHEMIA_LOADED_IS_NOT_ARRIVED_8_20_26.md
+  gates/approved_art_arrives_gate.js   7 checks, two mutations confirmed
+
+*** MY OWN METHOD WAS WRONG TWICE BEFORE IT WAS RIGHT, and both would have produced
+confident false findings. *** (1) I hooked only the VISIBLE canvas; street art bakes into
+per-chunk canvases, a different context, so the first sweep reported zero for pools that were
+fine. (2) I swept only the walked surface and got "60 district heroes loaded, 0 DRAWN" -- the
+heroes are drawn by renderCity(), the CITY tab, not render(). They were never missing; I was
+looking in the wrong room, and I nearly shipped it as a 60-sprite catastrophe. A PROBE THAT
+CHECKS ONE ROOM AND REPORTS THE HOUSE EMPTY IS THE SAME DISEASE AS THE BUG IT HUNTS.
+
+*** AND THREE OF MY OWN GATES WERE NOT IN THE SUITE. *** Found while registering this one.
+interior_ground_gate.js and hazard_look_gate.js (both 8/20, both mine) were NEVER added to
+the table in gates/bohemia_gates.py, so they had only ever run because I ran them by hand.
+They would never have run again after this session ended. A GATE THAT IS NOT IN THE TABLE IS
+A GATE NOBODY RUNS -- the same silence it was written to end. All three are registered now
+and verified THROUGH THE RUNNER, not just standalone. If you write a gate, grep the table.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. THE ROADWAY BANK MAPPING is the biggest open thing in the world right now and it is the
+     other WORLD session's: 44,376 cells wearing generator colours instead of his approved
+     street tiles. Numbers above.
+  2. ROAD CELLS (the arterial block wall) and drive_network (22->25 ratchet, five landmark
+     districts) are also theirs, unchanged from 8/20 (e).
+  3. A hand-painted hazard tile bank is still ART's if he wants one.
+
+CHARACTER (character-0lurbs): 8/20 (d) LATEST -- *** THE 4X BLOCKER WAS MY
+JUDGEMENT, NOT HIS, AND HE HAS NEVER BEEN SHOWN IT. NOW HE CAN LOOK. ***
+
+Row 2X has been parked since 8/16 on one sentence: "AT 112 NATIVE HIS HEAD RENDERS
+AS A BOX", therefore the rest is PAINT, therefore it waits for Paolo. True, and it
+still smuggled in a verdict -- I decided the box was unacceptable on his behalf, and
+the 4x headline he asked for on 8/14 AND AGAIN ON 8/20 has been sitting behind my
+opinion of pixels he has never seen. That is the approvals queue through the side
+door, which EVERYTHING IS A THUMB killed.
+
+MEASURED IT INSTEAD (tools/bohemia_2x_box_measure.js, real rig, all 8 facings):
+    5.90%   of the lit body differs between today and native 4x
+      11%   of that difference is on the head or face -- the box is mostly NOT the head
+    9.8 / 40 / 52%   of it is MINE to author -- bare / everyday / fully kitted
+THE LAST LINE IS THE FINDING. A garment pixel is CODE, and as of this morning all 13
+generators draw natively at any resolution. So a rounded corner on a shirt, a boot, a
+coat or a hairstyle is a thing I write, not a thing he paints -- and the more dressed
+a character is, the less of the box is his problem. Nobody in this game is naked.
+records/BOHEMIA_HOW_MUCH_OF_THE_BOX_IS_HIS_8_20_26.txt
+
+AND THE ROW'S OWN JUDGEABLE, OWED SINCE 8/14 AND NEVER DRAWN, IS NOW IN THE LOOK TAB:
+"IS THIS A DEALBREAKER?" -- head, profile, back and whole body, today on the left and
+native 4x on the right, same size, same clothes.
+  node tools/bohemia_2x_box_picture.js
+
+DELIBERATELY NOT BUILT: the generator rounding. It is dormant until the flip and
+building it before he looks is the fourth version of an unasked-for feature
+(STOP PRODUCING). If he says the right column is fine, steps 1-4 flip and the
+rounding is a normal cook after. If not, the measurement says which pixels are worth
+his hand and which are mine.
+
+*** AND THE FLEET-BLOCKING SIZE RED IS CLEARED: IT WAS THE RULER. ***
+PAGES PUBLISH said "271 MB / 260 MB cap" on every lane's ship. The site is 230 MB.
+.github/workflows/pages.yml assembles _site by hand and touches .nojekyll, so JEKYLL
+NEVER RUNS and _config.yml -- which the gate read as the source of truth -- governs
+nothing about the deploy. Three explicit cp -r lines do. The 41 MB gap (tileforms_
+proofs, the valley aerial, the words book, the questbook index) was KEPT on paper and
+never copied. Measured on my own deploy: assembly 0 seconds, whole job 41 seconds.
+WHY THE DRIFT CHECK MISSED IT: it tested `cp -r records(\s|/)` for "is records
+copied", and `cp -r records/target` matches. A PART read as the WHOLE.
+FIXED, AND STRICTER: the size check measures the workflow's copy list; the reference
+check asks "does the workflow copy it" before consulting an exclude list that no
+longer runs (asking the old way after the fix reported 36 LIVE refs as dropped); a
+new check fails a HALF-published folder; and the legitimate carve-out (records/
+excluded, records/target copied by name) is understood and written into the config.
+Cap unchanged at 260. Not one byte deleted. Deploy behaviour byte-identical.
+Mutation-tested 3 ways, names the culprit each time -- including 524 MB when somebody
+adds banks/ back, which is the failure the cap was written for.
+  node gates/pages_publish_gate.js   18/0   (230 MB / 260 MB)
+  records/BOHEMIA_THE_SIZE_CAP_WAS_MEASURING_A_SITE_WE_STOPPED_PUBLISHING_8_20_26.txt
+
+NEXT IN THIS LANE:
+  - IF HE SAYS THE BOX IS FINE: flip steps 1-4 (`python3 tools/bohemia_2x_flip.py
+    --flip`), re-bless the gate numbers per records/BOHEMIA_2X_GATE_REBLESS_
+    CHECKLIST_8_15_26.txt, then author generator rounding as a normal cook.
+  - IF HE SAYS IT IS NOT: the measurement above says the head/face is only 11% of it,
+    so the repaint ask is far smaller than "the rig".
+  - EITHER WAY, STILL OWED: wear()/scuff hash per PIXEL (alpha ~21833) and the PD
+    FACIAL layer block-doubles. The first is mine and is the same cell-hash fix the
+    tatter already took; the second is his painted art and stays block-doubled under
+    RIG LAW -- worth measuring how visible it is beside native cloth.
+  - #354 TASTE and #356 ART 45 are still red on the fleet, still other lanes' content.
+
+---
+
+SOUND (sound-xk7pjp): 8/20 (n,o) LATEST -- *** THE SIDEWALK STOPPED SOUNDING LIKE
+A ROAD. Three sounds he APPROVED had never once played, on the ground he covers
+most. TAB: RUN (walk from a lot onto a sidewalk, then indoors). Nothing to
+judge. ***
+
+I set out to cook the next six silent moments and found something better first.
+
+THERE ARE TWO GROUND CLASSIFIERS IN THIS REPO:
+  sfxGround()   in the RUN slice. Six surfaces. Written 8/12 for exactly this --
+                its comment says "a sidewalk, a motel floor and deep desert sand
+                all came out as the same footstep he had already heard."
+  __surfaceOf() in BOHEMIA_CITY_WORLD.html. THREE, and it lumps concrete,
+                sidewalk, walk and slab in WITH asphalt.
+AND THE CITY IS THE ONE HE WALKS -- he asked for the city in the run tab on 7/28.
+So step_concrete, step_sand and step_wood (all approved in the 270-thumb sweep)
+had NEVER MADE A SOUND, and every sidewalk and interior floor played the roadway
+footstep. Eight days audible.
+
+Fixed in ONE function, rules PORTED from sfxGround not reinvented. ORDER IS THE
+SPEC: the road test runs before the concrete test, because a drivable surface is
+asphalt whatever the tile is called. Nothing else changed BY CONSTRUCTION -- the
+parent already does `if(!APPROVED[ev]) ev='step_dirt'`, so an unbacked surface
+plays what it played before instead of going silent.
+Measured on the real city surface, 12 tile names, ZERO mismatches; and end to end
+in the alpha all six resolve to sounds he approved.
+
+*** WHAT I DID NOT DO, AND WHY IT IS THE POINT. *** I checked TRIGGERS BEFORE
+COOKING and three of the six moments cannot fire at all:
+  step_glass / step_metal  there is no glass or metal ground for the run to
+                           report, and he killed all ten candidates anyway
+  breath / breath_out      needs a sprint verb; there is none in the run
+Cooking those would be cooking sounds that can never play -- the mistake I fixed
+yesterday. A TRIGGER CHECK BEFORE A COOK IS NOW THE ORDER OF WORK.
+
+*** AND THE RULER ALMOST GOT ME AGAIN, FIFTH TIME IN FOUR DAYS. *** My first
+measurement grepped BOHEMIA_CITY_WORLD.html for sfxGround, found zero, and I was
+one step from reporting the 8/12 classifier as DELETED FROM THE BUILD. It is not
+deleted. It lives in the run slice and I grepped the wrong file. The running
+tally: RMS said the kill layers were inaudible; a closure lookup said the
+ambience was unpatched; a two-point pitch model said two voices were five times
+louder than they are; a checker searched a haystack containing its own answer
+key; and now a grep of the wrong file. CHECK THE RULER FIRST, EVERY TIME.
+
+GATE: silent_moments_gate grew EIGHT legs for the ground (the city can report
+concrete/sand/wood, the road test still precedes concrete, all three approved and
+reachable). Mutation-proved twice: delete the wood rule -> red; put concrete
+before the road -> red. Now 29 checks.
+
+GATES: SILENT MOMENTS 29/0. SFX RENDER 6496/0. SFX WIRED 842/0. VERDICT-FROZEN
+6/0. FIGHT MUSIC 47/0. INSTRUMENT 15/0. MUSIC 20/0. MUSIC REACH 17/0. ALPHA LOADS
+20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** step_concrete, step_sand and step_wood have ONE, ONE and TWO approved
+    candidates. *** They are now the most-heard footsteps in the game after
+    asphalt, and a single sample repeated is the MACHINE GUN defect this lane
+    already has a law about. They want siblings the way step_concrete already has
+    walk_more. THAT IS THE TOP ITEM and it is a cook with a proven trigger.
+ 2. THE OTHER THREE SILENT MOMENTS WITH REAL TRIGGERS: go_inside (the `inside`
+    flag already crosses to the parent every 4s -- watch it flip, same shape as
+    PAYSTING), talk_start and quest_done (triggers NOT yet found; look before
+    cooking).
+ 3. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. Built
+    and one line (INST_SEMI) from being on.
+ 4. HORIZONTAL RE-SEQUENCING between intensity tiers. The vertical half is done.
+
+CHARACTER (character-0lurbs): 8/20 (c) LATEST -- *** HE ASKED FOR THE CLOTHES AT
+4X. HIS PREMISE WAS WRONG AND HE NAMED THE EXACT THING THE 2X PLAN DEFERRED. ***
+
+    "i need you to remake all the clothes and hairs with the 4x pixels we now
+     have in mind is that okay?"
+
+WE DO NOT HAVE THE 4X PIXELS. RIG_RS is 1, BAKED.W is 56, and the reason the 112
+rig stays dormant is his own 8/1 law -- composing natively removes the corner
+rounding Scale2x was doing and the head renders as a BOX, "no straight lines".
+Twice the pixels means PAINTING at 112 and that is his hand.
+(records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt)
+
+BUT HE IS RIGHT ABOUT THE GAP. tools/bohemia_2x_flip.py says in its own docstring
+"CLO GENERATORS (56) LEFT AT 56 and block-doubled AT THE gen() SEAM" -- so the day
+the rig doubles, the body gets four times the pixels and every garment and every
+hairstyle arrives as 2x2 squares beside it. He caught that from the outside.
+
+AND IT IS WORSE THAN CHUNKY. Hand the generators the real 112 grid with nothing
+else changed and they come out the WRONG SIZE. Measured, before any of this:
+    bedroll 0.25 (never grows at all)   backpack 0.29   satchel 0.37   sash 0.39
+    pauldron 0.44   cape 0.45   scarf 0.48   kneepads/belt/chestrig 0.50
+    apron 0.55   hair 0.83   hats 0.82-0.92   genTop/genCoat/genCoverall ~1.00
+10 of 41 scaled. 31 did not.
+
+WHAT SHIPPED. Not 228 images: 236 of 237 canon garments and ALL 36 hairstyles are
+GENERATED by 13 functions, 1,213 lines. Every pixel DISTANCE now reads a scalar
+derived from the grid (rsc()); part ids and colour indices do not scale, and that
+is the whole classification -- 752 literals sorted by measure-fix-measure, never
+by eye.
+    448/448 shapes keep their proportions when the body doubles, all 8 facings
+    1,744 outputs at 56 are byte-identical to the previous commit, 0 different
+
+THE SECOND NUMBER IS THE ONE THAT MATTERS AND IT CAUGHT ME. The first pass was NOT
+identical: it moved a satchel three pixels, lit a mohawk spike, dropped a ponytail
+a row, and lost the inner rim off both coverall chest pockets. Nineteen pixels,
+all invisible to the 4x measurement, all would have shipped.
+
+THREE GENERAL BUGS, EACH FIXED ONCE:
+  - an INCLUSIVE bound is off by S-1 (`yy>=tb-4` is FIVE rows, not four)
+  - a FRACTION OF A SPAN is a CELL count, not a pixel count -> helper fr(a,b,f);
+    23 sites; getting this wrong put the dust mask two rows below his mouth
+  - a MAX EDGE (tMx, tb) is the BOTTOM of its cell, so offsets off it start S-1
+    earlier
+
+THE GATE HAD A HOLE AND MUTATION TESTING FOUND IT. gates/clothes_4x_gate.js ran
+claim 1 on facing S alone; putting the backpack's hardcoded body back STAYED
+GREEN, because a pack only draws from behind and 19 generators branch on curDir.
+Now all 8 facings. Four mutations tried, four caught, each naming the culprit.
+
+WHAT DELIBERATELY DID NOT MOVE: the 24-grid PD layers and the skin-detail brush
+still block-stamp. Those are PAINTED pixels -- his -- and inventing detail he did
+not paint is a RIG LAW violation, not an upgrade. The gate asserts both halves.
+
+WHERE HE SEES IT: LOOK tab, "THE WARDROBE AT 4X" -- twelve garments and two
+hairstyles drawn twice at the same size, block-doubled left, native right, on his
+own rig, from the alpha's own generators. CLOTHES tab is where he wears them and
+nothing there looks different today, which is the 1,744 hashes doing their job.
+  node tools/bohemia_4x_wardrobe_picture.js
+  node gates/clothes_4x_gate.js        12/0
+  records/BOHEMIA_THE_CLOTHES_AND_HAIR_ARE_RESOLUTION_NATIVE_8_20_26.txt
+
+STILL HIS, NOT MINE: repainting the rig at 112. The wardrobe is ready for that day
+and costs nothing until it comes.
+
+NEXT IN THIS LANE (nothing is blocked on him):
+  - the PD layer half. Hair is generated so it went native, but the FACIAL layer
+    and his painted curtain-bob are 24-grid art that will still block-double.
+    That is correct under RIG LAW, but it is worth measuring how visible the
+    mismatch is beside native cloth before the flip, not after.
+  - the wear/tatter and scuff passes hash per PIXEL in a few places outside the
+    13 generators; at 112 that is noise rather than cloth. Same cell-hash fix.
+  - #354 TASTE and #356 ART 45 are still red on the fleet and are still other
+    lanes' content (checked, not touched).
+
+---
+
+
+WORLD (world-9lfjtf): 8/20 (e) LATEST -- *** HIS 348 TRAFFIC SIGNAL SPRITES WERE DRAWING
+ZERO TIMES AT 274 REAL INTERSECTIONS. TABS: RUN (any big crossing), LOOK (HIS SIGNALS, BACK
+ON THE INTERSECTIONS), VOTE (9 heroes he could not reach). Nothing here needs judging. ***
+
+TWO OF THE FOUR REDS THE COORDINATOR ASSIGNED THIS LANE ON 8/19 ARE CLOSED. A third was
+already fixed by the other WORLD session. The fourth is theirs and is named at the bottom.
+
+--- TRAFFIC SIGNAL: ONE FLAG WAS CARRYING TWO MEANINGS ---------------------------
+Measured on the running page, 40x40 cells:
+    road-district cells (arterial 375, freeway 193)   568
+    cells where m.road is TRUE                          0
+    intersections found using m.road                    0
+    intersections found using the DISTRICT TYPE       274
+    signal sprites drawn                                0
+
+THE SPRITES WERE NEVER MISSING. The gate's own "his sprites are LOADED in the browser" check
+had been GREEN the whole time. They were loaded, correct, and asked to draw at a set of
+intersections that had become empty.
+
+`m.road` meant BOTH "this cell IS a road" (identity, born as road:!!RD[d]) AND "draw it with
+the parametric XSEC drawer" (instruction). Then A ROAD WITH ITS OWN MODULE DRAWS ITSELF
+(8/18-8/19): the routing correctly turns the drawer off with `m.road=false`, and every road
+in the valley stopped being a road as far as everything downstream could tell.
+
+sigPass is the victim and ITS OWN COMMENT SAYS WHY IT TRUSTED THE FLAG: "tileMeta already
+computes exactly those four booleans ... so this reuses the city's own notion of the road
+network instead of inventing one." THAT WAS RIGHT. Reusing the world's own notion is what
+this repo asks for everywhere. The notion was then repurposed underneath it. This is
+gypsum:7 in another system: A FLAG THAT ANSWERS TWO QUESTIONS ANSWERS NEITHER THE DAY THEY
+DIVERGE.
+
+THE FIX IS ADDITIVE AND CHANGES NO ROAD PIXEL: `m.isRoad` is set once at construction from
+the same registry and NOTHING ever clears it; sigPass asks isRoad. `m.road` keeps its
+instruction meaning exactly as the road lanes use it. No road generator, cross section or
+registry was edited. Revert sigPass and the gate goes back to 0 draws -- confirmed.
+
+AND THE GATE WAS ASKING THE SAME WRONG QUESTION. Both its failures came from ONE of them: it
+scanned for an intersection with mm.road, found none, never moved the camera to one, and
+then correctly reported no signal drawn. Two failures, one wrong question.
+
+I CHECKED HOW FAR THE COLLISION WENT AND IT STOPPED THERE. Two other places ask m.road as an
+identity question (the dead-content legend and the pit sweep). Their comment says "roads and
+bare ground both come out of tileMeta with no plot grid", which WAS true and is not any
+more. MEASURED rather than assumed: 40 of 40 sampled road cells place dead content, 559
+items, every one 'ok'. They fall through to the road's own legend now, which is better --
+bodies sit against the road's real tiles. Nothing to fix, and saying so is the point: an
+unchecked consumer is indistinguishable from a broken one.
+
+--- VOTE TAB: 9 OF HIS HEROES HAD NO DOOR ---------------------------------------
+resort, casino, convention, prison, dam, minigp, fort, strip, strip_x had art in
+banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt and were not on the page: it had not been
+regenerated since those districts shipped. `python3 tools/bohemia_vote_tab.py`. 21/0.
+They are in the VOTE tab whenever he feels like opening it -- NOT a queue, per EVERYTHING IS
+A THUMB (8/9).
+
+  records/BOHEMIA_A_ROAD_IS_STILL_A_ROAD_8_20_26.md   the finding
+  tools/bohemia_city_signal_road_patch.py             on the surface
+  gates/traffic_signal_gate.js 11 (mutation confirmed) + gates/vote_tab_gate.js 21
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. ROAD CELLS is the last of the four and IT IS NOT MINE: it fails on "the arterial block
+     wall blocks", which is the other WORLD session's active work (their 8/19 commit is
+     literally the wall down the west side of every street). Named, not touched.
+  2. gates/drive_network_gate.js, same session: the debt ratchet went BACKWARDS (22->25,
+     4->5) on the five landmark districts shipped 8/19. Prison 9.6% reachable, dam 0%,
+     minigp 0%, fort 52.9%, convention 99.7%. Component sizes in the 8/20 (a) block.
+  3. A hand-painted hazard tile bank is still ART's if he wants one; what shipped 8/20 (d)
+     is derived and covers tiles authored next month.
+
+SOUND (sound-xk7pjp): 8/20 (l,m) LATEST -- *** I DID THE EXACT THING I HAD
+DOCUMENTED THE DAY BEFORE. SFX-09 shipped six moments with NO CALLERS. They have
+callers now, and there is finally a gate that catches it. TAB: MUSIC (30
+candidates open expanded), RUN. Nothing needs judging. ***
+
+On 8/20 I counted thirty moments that make no sound, found NOT ONE HAD A CALLER,
+wrote it up as the defect this lane keeps finding -- then cooked SFX-09 and
+shipped six MORE with no callers. Every one of gone_quiet, mag_home, hands_pass,
+dog_calls, sign_alive, lungs_burn had exactly ONE reference in the build and it
+was its own recipe.
+A COOK WITHOUT A CALLER IS NOT A SHIPPED SOUND. It is a candidate on a sheet.
+
+WIRED: gone_quiet -> end of a fight (beside `clear`) | hands_pass -> a purse
+credit (beside `money`) | dog_calls + sign_alive -> the rare ambience rotation |
+mag_home -> doReload() in the combat module, a real function with a real trigger
+that already calls audio().
+NOT WIRED, NAMED NOT FAKED: lungs_burn. OUT OF BREATH needs a sprint and THERE IS
+NO SPRINT VERB IN THE RUN -- the only matches in the city world are a liquids
+effect that would DISABLE a sprint that does not exist. Wiring it to walking
+would be a lie about what the sound means. [expires when a sprint verb appears]
+
+*** THE GATE THAT WOULD HAVE CAUGHT ME (silent_moments_gate, now 21 checks):
+EVERY COOKED MOMENT HAS A CALLER OR A WRITTEN REASON NOT TO. *** Three things it
+taught me while I wrote it:
+ 1. MY FIRST PREDICATE WAS TOO LITERAL -- it looked for sfx('id') and failed
+    nineteen REAL moments, because footsteps are chosen by SURFACE
+    (`sfx('step_'+surface)`) and ambience by a rotation that RETURNS a name.
+    Neither is a literal call site and both are genuine callers.
+ 2. THE HAYSTACK CONTAINED THE ANSWER KEY. The engine is inlined verbatim in the
+    alpha and names every id in its OWN EVENTS and RECIPE tables, so leaving it
+    in made every moment look called and the check tested NOTHING. Cut out now.
+    FOURTH TIME IN THREE DAYS a checker nearly passed on its own subject.
+ 3. IT FOUND ONE I DID NOT KNOW ABOUT: `door_clack`, cooked, unapproved, unwired.
+    That is a RULING not an oversight -- he killed all five door_clack candidates
+    in the same export where door_drag.0 lived, and the reasoning is written at
+    the door wire: playing the drag backwards for the close puts a sound on a
+    moment he ruled has none. The gate forced me to go find that. Recorded.
+Mutation-proved: delete the gone_quiet wire and two legs go red.
+
+ALSO: fight_music_gate flaked ONCE in five runs (the streets-come-back leg). NOT
+weakened -- the wait ladder was too short for a loaded headless clock so it got
+another rung, plus a note that if it flakes again the fix is MORE LADDER and
+never a softer assertion. Four consecutive clean runs after.
+
+GATES: SILENT MOMENTS 21/0. SFX RENDER 6496/0. SFX WIRED 842/0. VERDICT-FROZEN
+6/0. FIGHT MUSIC 47/0. INSTRUMENT 15/0. MUSIC 20/0. MUSIC REACH 17/0. ALPHA LOADS
+20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE OTHER SIX SILENT MOMENTS -- talk_start, go_inside, step_glass,
+    step_metal, quest_done, breath -- same treatment as SFX-09 and for the same
+    reason: both their rounds were raw synthesis and they have never once been
+    offered an instrument. AND WIRE THEM IN THE SAME TURN. Three of those live
+    in other lanes' files (city world interiors, the dialogue runtime).
+ 2. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. Built
+    and one line (INST_SEMI) from being on; turning it on alone moves 460
+    candidates he has ruled on, so it never goes alone.
+ 3. HORIZONTAL RE-SEQUENCING between intensity tiers -- the other half of the
+    adaptive-music research. The vertical half (kill layers) is done.
+
+SOUND (sound-xk7pjp): 8/20 (h..k) LATEST -- *** SFX-09: SIX SILENT MOMENTS GET HIS
+RACK, AND THE CALIBRATION IS NOW AS FROZEN AS HIS VERDICTS. TABS: MUSIC (the six
+new moments open EXPANDED, 30 candidates), RUN. Nothing needs judging to ship. ***
+
+FIRST, I TOOK BACK A QUESTION I SHOULD NEVER HAVE ASKED. Last turn I wrote up
+"twelve moments died twice, both rounds were raw synthesis, instruments are the
+source that works" and called it a decision worth his breath. It is not. He made
+it on 8/16 -- "use more instruments" -- and his thumbs say it twice:
+    miss       0 UP / 45 DOWN  as raw synthesis
+    miss_past 20 UP /  0 DOWN  as an instrument      <- the SAME moment
+    round_land / nerve_break / wake_up  died 5 of 5, all approved as instruments
+Deferring that was manufacturing an approval request, which EVERYTHING IS A THUMB
+killed. THE TEST I FAILED: had I already written down what I thought the answer
+was? Yes. Then it was work I had not done.
+
+SIX MOMENTS, NEW IDS (the old ones are judged and frozen):
+  gone_quiet THE ROOM GOES QUIET | mag_home THE MAG SEATS | hands_pass IT CHANGES
+  HANDS | dog_calls A DOG, OUT THERE | sign_alive THE SIGN IS STILL ON |
+  lungs_burn YOUR LUNGS CATCH UP
+NOT ONE NEW VOICE COOKED. His rack already held `neonsign`/`neontube` for NEON
+STILL LIT, `ratchet`/`reelclick` for YOU RELOAD, `coin`/`cashreg` for MONEY
+MOVES -- voices he wrote for these exact moments that this engine had never
+called. All 30 were rendered THROUGH THE ENGINE'S OWN GAIN PATH and measured
+before a recipe was written; the two too quiet to drive (hollowvowl 0.0014,
+crtbuzz 0.0024) never made it in.
+
+*** THE BUG THIS BATCH UNCOVERED IS BIGGER THAN THE BATCH. ***
+The render gate failed TWELVE OF HIS ALREADY-JUDGED candidates for drifting
+(hurt_more.3 moved 31% in RMS and changed its beat count). Cause: my measure tool
+re-measured EVERY voice every run, and 13 of 44 come back different each time
+because their rack bodies draw from Math.random internally. The ENGINE seeds that
+draw when it PLAYS a voice; the TOOL never seeded it when it MEASURED one. So
+every future batch would have silently re-tuned every sound he ever approved.
+A VOICE IS NOW MEASURED ONCE AND FROZEN, exactly like a verdict. Only unknown
+names get measured; --remeasure forces the old way deliberately and says what it
+moved. All 44 carried through byte-for-byte; the 12 drift failures went to zero.
+
+*** AND ONE FIX I BUILT AND THEN DID NOT SWITCH ON. *** Two new candidates came
+out at 0.027 and 0.021 against a floor of 0.15 -- the ruler again. The grid
+interpolates PITCH between two octaves, and `breathpad` peaks 0.081 two octaves
+down, 0.165 an octave up, and 0.0255 IN THE MIDDLE. Five times off, and the drive
+is solved backwards from it. I built the third pitch row AND the migration that
+lays it down with the outer rows carried byte-for-byte. Then I measured the cost
+of turning it on: come_up.1 moves 46% in RMS and 460 candidates he has ruled on
+change. A SOUND HE HAS JUDGED DOES NOT CHANGE UNDER HIM FOR AN IMPROVEMENT IN MY
+INSTRUMENT. The row is built, documented at INST_SEMI + in the measure tool, and
+OFF. It rides WITH a deliberate re-record, never under one. The two candidates
+were fixed instead by measuring replacements at their true operating point
+(ghostvox -> watervoice, breathpad -> reedorgan).
+
+THAT IS THE THIRD RULER LESSON IN TWO DAYS: RMS said the kill layers were
+inaudible; a closure lookup said the ambience was unpatched; a two-point pitch
+model said two voices were five times louder than they are. WHEN A MEASUREMENT
+SAYS SOMETHING IS BROKEN, CHECK THE RULER FIRST -- and when the ruler is right
+but fixing it moves his judged work, the fix waits for a deliberate re-record.
+
+Also: silent_moments_gate capped ALL silent moments together, so cooking six new
+ones turned it red -- the lane working, not failing. The ceiling now sits on the
+moments he has been SHOWN AND KILLED (30, unchanged); never-heard ones are work
+in flight. Mutation-proved it still bites.
+
+NOTE FOR THE FLEET: engine/bohemia_sfx.js was DELETED by another lane's patch
+tool and restored by the COMBAT lane in 85121b6 (2920 insertions, 0 deletions).
+I checked every file this lane owns is present on main before rebasing over it --
+none of their work was eaten. Worth everyone checking the same after that
+incident.
+
+GATES: SFX RENDER 6496/0 (490 candidates, re-recorded deliberately). VERDICT-
+FROZEN 6/0, zero drift. INSTRUMENT 15/0 (90 candidates across 18 moments on his
+rack). SFX WIRED 842/0. SILENT MOMENTS 15/0. FIGHT MUSIC 47/0. MUSIC 20/0.
+MUSIC REACH 17/0. ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE OTHER SIX SILENT MOMENTS -- talk_start, go_inside, step_glass,
+    step_metal, quest_done, breath -- same treatment, same reasoning. Held back
+    only so this batch stayed the size of what the demo walks through.
+ 2. THE THIRD PITCH ROW, ridden in WITH a deliberate fingerprint re-record. It is
+    built and one line (INST_SEMI) from being on. Do it when a re-record is
+    happening anyway, never on its own.
+ 3. WIRES FOR THE SIX NEW MOMENTS. gone_quiet and hands_pass already have callers
+    (I wired clear/money on 8/20); mag_home, dog_calls, sign_alive and lungs_burn
+    need theirs, and three of those live in other lanes' files.
+ 4. HORIZONTAL RE-SEQUENCING between whole intensity tiers -- the other half of
+    the adaptive-music research; the vertical half (kill layers) is done.
+
+WORLD (world-9lfjtf): 8/20 (d) LATEST -- *** THE FLOOR COULD KILL YOU AND IT COULD NOT TELL
+YOU. TABS: RUN (walk a rail yard or a reclaim pond), LOOK (THE BAD FOOTING, THE HOLE).
+Nothing here needs judging. ***
+
+Three days of work made the ground mean something: 31 hazard tiles in 22 districts, a third
+occupancy state for the four real holes, ceiling rubble and lift shafts indoors. EVERY ONE OF
+THEM DREW AS FLAT COLOUR. Loose ballast you cannot brace on was the same picture as the
+concrete beside it, and the only thing on screen that said the floor was dangerous was A LINE
+OF TEXT IN THE CORNER -- the system explaining itself because the picture could not (§2.6:
+never explain something the floor could have shown).
+
+THREE FORMS, CHOSEN BY THE DERIVED CLASS, so a drained pool authored next month looks lethal
+the same afternoon with no edit here:
+    LOOSE  angular chips, four sizes, four values, no two alike, no regular spacing
+    WET    a translucent dark blue-shifted wash with uneven scum and a lighter rim, and
+           NO highlight in the middle (a shine reads as a swimming pool)
+    DROP   a bright near lip and a hard far shadow, only where the neighbour is not a hole
+
+*** THE GATE READS THE BAKED PIXELS, AND THAT IS THE WHOLE POINT. *** Every flag was ALREADY
+CORRECT before a mark was drawn -- c.haz was stamped on all 29 hazard tiles on the surface
+and the picture was byte-identical. A gate asserting "the class is on the cell" would have
+been green through a feature that did not exist. So it bakes a real chunk and reads the RGBA:
+
+    plain ground   broken 2.7%   lum 122
+    AMPLIFIES      broken 7.6%   lum 120   visible by TEXTURE
+    KILLS          broken 8.3%   lum  50   visible by TEXTURE + VALUE
+    DISABLES       broken 2.5%   lum  85   visible by VALUE
+
+  records/BOHEMIA_DANGEROUS_GROUND_LOOKS_DANGEROUS_8_20_26.md   the finding
+  tools/bohemia_city_hazard_look_patch.py                       on the surface
+  gates/hazard_look_gate.js   6 checks, two mutations confirmed
+
+*** THREE THINGS THE PIXELS TOLD ME THAT READING THE CODE DID NOT. ***
+1. THE CHIPS WERE INVISIBLE ON HALF THE VALLEY. The first cut multiplied the base colour by
+   0.62..1.42 -- fine on tan desert, INVISIBLE on railyard ballast, because multiplying a
+   dark grey by anything near 1 gives another dark grey on a tile that is already dark and
+   already textured. The step is ABSOLUTE now and its direction comes from the base's own
+   luminance: dark ground gets lighter chips, light ground gets darker ones.
+2. THE WET MARK WAS WIPING THE GROUND. It filled the tile flat and measured 0.0% broken-up
+   against 2.7% for ordinary dirt -- a clean sheet of colour with the material underneath
+   erased, which is the one thing the ask forbids by name (wet WITHOUT reading as clean).
+   AND I HAD LOOKED AT THE PICTURE, read the flat teal as "water", and moved on. The pixels
+   disagreed with my eye. It is a translucent wash now.
+3. MY OWN GATE'S FIRST CLAIM WOULD HAVE MADE WATER LOOK LIKE GRAVEL. It demanded every class
+   be MORE BROKEN UP than ordinary ground. Right for loose rock, wrong for a liquid: standing
+   water IS smoother than the dirt around it, and that is what water is. Chasing that number
+   meant adding texture to a puddle to satisfy a gate -- the GOODHART GUARD in its purest
+   form. The claim is now the one always meant: VISIBLY DIFFERENT, BY TEXTURE OR BY VALUE.
+
+AND THE FRAMING OF THE PICTURE WAS WRONG TWICE, both found by taking it and looking:
+the first finder took the first match anywhere and landed on the top row of the map (four
+fifths off-map blue); the second took the CENTROID of the patch, and the centroid of a
+scattered set is not in the set -- it put the camera on a loading pad with the ballast off
+screen. It now scores every hazard cell by how many hazard cells sit in the 5x5 around it and
+stands on the densest one.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. A HAND-PAINTED HAZARD BANK IS STILL ART'S if he wants one. This is derived and honest
+     and it is not painted pixels. Both banks were opened and neither holds ground hazard:
+     the street pool is 30-year road wash, the prop pool's `cover` family is jersey barriers
+     and sandbags (objects ON ground, not ground).
+  2. SPREAD.water is one entry if he ever rules that somewhere indoors still takes water.
+  3. NOT MINE and still red: gates/drive_network_gate.js -- the debt ratchet went BACKWARDS
+     (22->25, 4->5) on the five landmark districts the other WORLD session shipped 8/19.
+     Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
+
+
+PEOPLE (people-7h9sfy): 8/21 LATEST -- *** I BROKE HIS OWN LAW THREE TURNS RUNNING:
+THE DIAL HAD NO DIAL. TAB: DIRECT, third chip, STANDING -- set what each thing you
+can do is worth, press PLAY WHAT I BUILT, and it drops you on the street where the
+person who watched you now has an opinion. ***
+
+Over three turns this lane shipped a reputation system: people witness what you do,
+remember it, tell each other at a penalty per retelling, forget it as it fades, and
+a loud act carries further than a quiet one. Its entire JUDGEMENT layer,
+bohemia_standing's DEED_WEIGHT, ships deliberately EMPTY and waits on Paolo.
+Correct under MECHANISM-MINE/CONTENTS-PAOLO'S: numbers are his, nothing may invent
+one. BUT THE ONLY WAY HE COULD FILL IT WAS TO TELL ME AND I EDIT A FILE, and his
+own 8/12 law answers that in one line: "WHERE DOES HE CHANGE THIS HIMSELF? If the
+answer is he tells me and I edit a file, THE SYSTEM IS NOT SHIPPED YET."
+
+*** MY OWN HANDOFF SAID "THE DIAL, AND IT IS HIS. NOTHING SHOULD INVENT IT" THREE
+TIMES, APPROVINGLY. *** That sentence is right about the first half and blind to
+the second. NOT INVENTING HIS NUMBERS AND NOT GIVING HIM THE CONTROLS ARE TWO
+DIFFERENT MISTAKES, and I kept making the second while congratulating myself for
+avoiding the first. If a future session finds itself writing "this is his call" in
+a handoff, the very next question is WHERE DOES HE MAKE IT, and if there is no
+answer that is the work.
+
+WHAT HE GETS: four things he can do on that street, each in plain English, each
+with a ladder he taps (-5 -3 -1 [NOT RULED] +1 +3 +5). WHAT HE READS IS THE
+CONSEQUENCE, NOT THE NUMBER -- "someone who WATCHED it: -3.0 (COLD) - someone who
+only HEARD: -1.6 (COLD)". NOT RULED IS A REAL POSITION, NOT ZERO: zero would mean
+"worth nothing", NOT RULED means he has not said, and while he has not said nobody
+in the game forms an opinion at all. Pressing it again TAKES THE RULING BACK,
+because undo is half of a dial. It crosses the frame the moment he presses, so
+opinionOf, standingOf and the rungs light up with NO other wiring and the card
+gains a THEY THINK row on the person who watched him. It persists, and it exports
+as .txt a lane can land straight into DEED_WEIGHT as canon.
+
+THE TABLE STILL SHIPS EMPTY and the gate asserts every shipped DECLARATION of it
+is {} and that the only writer anywhere is his dial.
+
+*** THE ONE I ALMOST GOT WRONG KNOWING BETTER. *** The readout needs the rung
+boundaries and the hearsay penalty, and fr.contentWindow.BohemiaStanding THROWS
+SecurityError -- file:// frames are opaque origin "null", measured not assumed. The
+tempting repair was to retype RUNGS and HEARSAY_LOSS up in the alpha, which is
+EXACTLY the second-copy drift this lane spent the PREVIOUS TURN deleting, one day
+later, by the person who wrote the record about it. The city computes them with the
+shipped module and posts them back; the ladder is fixed so one reply covers every
+button and no press costs a round trip.
+
+TWO THINGS THIS GOT WRONG FIRST, both worth keeping:
+  - A RUNTIME PROBE COULD NOT SEE A SEEDED TABLE BECAUSE MY OWN PUSH ERASED IT.
+    Seeding DEED_WEIGHT with a default left the gate GREEN: the alpha pushes his
+    (empty) dial across on boot and the receiver clears before applying, so the
+    seed was NEUTRALISED rather than CAUGHT. The runtime behaviour is right -- his
+    dial is the authority -- but it means no probe can ever see a seeded default.
+    The gate now asserts the shipped DECLARATION, which is what the law is about.
+  - AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S RULE FAILS THE DAY
+    THE ANSWER LEGITIMATELY CHANGES. direct_gate read `seen.modes === 2`, so
+    adding a third mode turned it red FOR DOING EXACTLY WHAT THAT GATE EXISTS TO
+    ENCOURAGE. The rule was never "there are two modes", it is "both things he
+    said he cannot direct are here"; it names them now and tolerates company.
+    FOURTH TIME THIS LANE HAS MET THIS SHAPE. Fix the ruler, never the target.
+
+gates: CITY DIAL 22/0 (new, registered 306 of 406), DIRECT 33/0 after the
+generalisation, CITY DEEDS 30/0, CITY MEMORY 23/0, standing 35, attempt 15.
+Mutations: seed the table -> 1 red; stop it crossing the frame -> 3 red; retype
+the rungs in the alpha -> 1 red.
+records/BOHEMIA_WHERE_DOES_HE_CHANGE_THIS_HIMSELF_8_21_26.md
+
+WHAT COMES NEXT:
+  1. *** HE TURNS IT. *** Nothing else in this system is blocked on code. The
+     moment he sets ONE row, three turns of witnessing, gossip and decay become a
+     reputation that judges him. His, and nothing should invent it.
+  2. *** THE OTHER DIALS, AND THIS LANE'S NEXT JOB. *** The same test applies to
+     every number this lane is sitting on: SEE_RANGE (9 tiles), the gossip window
+     (45 min), the deed halflife, the memory halflife. Each is a defensible
+     constant with a written argument, and "where does he change this himself" has
+     the same wrong answer for all of them. The STANDING dial is the pattern to
+     copy.
+  3. THE THREE RETYPED CLOUT SLICES -- BOHEMIA_HOW_LOUD_8_6_26.html,
+     BOHEMIA_CURRENT_SLICE.html, BOHEMIA_RUN_CURRENT.html still hold their own
+     copy of CLOUT_WEIGHTS. One line each in whichever tool generates them now
+     that bohemia_clout.js exists to point at. NOT this lane's surfaces.
+  4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
+     unplayed. SOUNDS.
+RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
+50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
+
+THE DELIVERABLE, MEASURED, BOTH ENDS:
+
+                        BEFORE            AFTER
+  gates run             217 of 379        258 of 393
+  wall clock            ~3000s (50 min)   2711s (45.2 min)
+  per gate              13.8s             10.5s   (the suite's own figure)
+  never ran             162               135
+  share of the table    57.3%             65.6%
+
++41 gates against a table that GREW by 14 while I worked. About 24% off the
+per-gate clock. AND IT IS NOT ENOUGH: the runner's own arithmetic at the bottom
+of the run says this build needs ~4129s against a 2700s budget. FIX 1 ALONE
+CANNOT MAKE THE SUITE FINISH, which is what the sweep law predicted by putting
+fix 2 second rather than calling fix 1 sufficient.
+
+WHAT WAS DONE. 399 fixed sleeps in 108 gates/*.js, 19.7 minutes of ceiling,
+replaced with a condition:
+    await pg.waitForTimeout(2500)  ->  await SETTLE(pg, 2500)
+  gates/bohemia_settle.js             the helper
+  tools/bohemia_kill_fixed_sleeps.py  the rewrite, with --check
+
+MEASURED FIRST, because the shape decided the design. Of the 399 sleeps, 162 sit
+after a click, 86 after a goto, 38 after an evaluate, 6 after a reload -- and in
+nearly every case the NEXT line is an evaluate reading whatever the sleep waited
+for. They are all one sentence: "give the page long enough to finish reacting to
+what I just did." THAT SENTENCE HAS A CONDITION and it does not need to know what
+the gate checks: THE PAGE HAS STOPPED CHANGING.
+
+THE CONTRACT IS CONSERVATIVE ON PURPOSE:
+  - THE OLD NUMBER IS A CEILING IT CAN NEVER EXCEED. Worst case is exactly the
+    old behaviour; no gate can get slower.
+  - A 120ms floor, so it cannot mistake "the handler has not started yet" for
+    "finished".
+  - STILLNESS IS MEASURED OVER A BEAT: 600ms, because BEAT is 0.5s under the 120
+    BPM law, so nothing driven by the beat can hide inside the window. That number
+    is the repo's own law, not a taste call.
+  - When it cannot see (cross-origin frame, detached page, navigation mid-poll)
+    it sleeps out the remaining budget. A helper that turned an error into an
+    early return would be a gate that lies.
+  - ZERO ASSERTIONS CHANGED, which the sweep law names as the point of fix 1.
+
+SPOT-MEASURED, same pass counts both sides:
+    opening       59s -> 54s (20/20)      population dial  42s -> 24s (21/21)
+    exchange      62s -> 50s (31/31)      wall class       39s -> 20s (24/24)
+
+IT CAUGHT ITSELF ONCE: the first pass put the require ABOVE `#!/usr/bin/env node`
+in nine executable gates, so node parsed the shebang as code. Checking that every
+gates/*.js still PARSES before trusting anything is what found it -- the rewrite
+tool now keeps a shebang on line 1 and says why.
+
+THE 13 REDS THIS RUN are the standing set: DISTRICT FILL, TRAFFIC SIGNAL, DRIVE
+NETWORK, VOTE TAB, VOICE SURFACES, FRESH DOORS, MIX, SONG LOCK, DRESS, ROAD
+CELLS, TOOLS RUN, BANNER, QUEST PLACEMENT. MIX is the only name new to this lane
+and it is NOT from the conversion: my commit does not touch gates/mix_gate.py,
+and running it against HEAD~1 is red too (its failure COUNT drifts 1<->2 between
+runs because it samples an audio duck envelope, which is worth someone knowing).
+
+WHAT COMES NEXT ON THE SUITE, and the law already ordered it:
+ 1. FIX 2 -- ONE BROWSER, NOT NINETY-FOUR. This is now the whole remaining gap.
+    94 gates each cold-launch chromium and boot a 3.8MB alpha before their first
+    assertion; at ~10.5s a gate that boot IS the 10.5s. Hand each gate an
+    isolated CONTEXT off one warm process. Nothing a gate asserts changes.
+ 2. FIX 3 -- the --fast filter over the ~256 gates that never touch a browser.
+    A filter over what exists, not new work.
+ 3. AND 3.7 MINUTES OF SLEEPS SURVIVE, measured: 101 calls across 17 gates/*.py
+    that EMBED javascript run through node. Same disease, different shape; the
+    .js rewrite cannot see inside a Python string and was not allowed to guess.
+ BUT THE ORDER IS HIS: fixes 2 and 3 wait behind this lane's demo P0s.
+
+SOUND (sound-xk7pjp): 8/20 (f,g) LATEST -- *** THIRTY OF THE NINETY-TWO GAME
+MOMENTS MAKE NO SOUND. He killed every candidate for all of them, twice, AND NOT
+ONE OF THEM HAD A CALLER. TAB: RUN. Nothing to judge. ***
+
+    92 moments | 50 have an approved sound | 42 make none
+      7 DELIBERATELY DEAD (replaced by a newer id -- silence is correct)
+      5 waived to a verb that does not exist yet
+     30 REAL, PLAYABLE MOMENTS THAT MAKE NO SOUND
+
+Pairing each with its second-round replacement leaves TWELVE distinct moments.
+The verdicts, counted out of records/BOHEMIA_SFX_VERDICT_*.txt:
+    clear/clear_still 0 UP 65 DOWN | talk_start/turn_to_you 0/60
+    go_inside/cross_in 0/60 | quest_done/done_ring 0/60 | reload/mag_clack 0/55
+    breath/breath_out 0/55 | money/cash_count 0/55 | neon_buzz/neon_hum 0/55
+    dog_far/dog_cry 0/55 | step_glass/glass_crunch 0/55 | step_metal/deck_ring 0/55
+Two full rounds, ten candidates each, not one yes.
+
+*** AND NOT ONE HAD A WIRE. *** Grepped the alpha, the combat module and the city
+world for a call on any of those twenty-two ids: NOTHING, ANYWHERE. Broken at
+BOTH ends. If he approved a THE FIGHT IS OVER tomorrow it would still be silent,
+and it would look like a bad sound instead of a missing wire.
+
+I DID NOT COOK A THIRD ROUND -- two rejections end a feature for the session and
+that is what STOP PRODUCING is named after. I shipped the half that needs no
+thumb: THE CALLERS.
+  clear/clear_still -> the end of a fight
+  money/cash_count  -> a purse CREDIT (beside PAYSTING, which already sees it)
+  neon/dog          -> the rare outdoor ambience rotation, guarded exactly the
+                       way generator and wind_gust already were
+EVERY ONE IS A NO-OP TODAY BY DESIGN and the gate asserts it: play() is
+"unjudged = silent". Nothing sounds until he says yes; the day he does it works.
+
+NAMED FOR OTHER LANES so nobody re-derives it: go_inside + talk_start (city world
+/ dialogue runtime), reload (combat module), breath (needs a stamina signal that
+may not exist), step_glass + step_metal (the surface already in BOHEMIA_STEP).
+
+gates/silent_moments_gate.py (14 checks, REGISTERED) counts the silent moments
+every run with a CEILING not an equality -- the number going DOWN is the point of
+the lane, only a quiet increase is a defect -- and proves the wires by SPYING ON
+playSFX through a real encounter and a real state message. Its ambience leg is a
+SOURCE check and SAYS SO: AMB is inside a closure no probe can reach, and a check
+that cannot see its subject must admit which it is rather than quietly test
+nothing. Mutation-proved both ways.
+
+*** A BAD RULER NEARLY COST ME TWICE TODAY. *** This morning: RMS said the kill
+layers were inaudible (they add density, not loudness -- count the PARTS). This
+evening: my probe said the ambience rotation did not name the dog -- it reads
+AMB.pick.toString(), AMB is in a closure, the lookup threw, the catch returned ''
+and a regex on '' is false. Both times the patch was fine and the INSTRUMENT was
+broken. WHEN A MEASUREMENT SAYS A THING IS BROKEN, CHECK THE RULER FIRST.
+
+GATES: SILENT MOMENTS 14/0 (new). FIGHT MUSIC 47/0. SFX WIRED 842/0. SFX RENDER
+6106/0. MUSIC 20/0. MUSIC REACH 17/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. *** THE ONE DECISION WORTH HIS BREATH: TWELVE MOMENTS HAVE DIED TWICE AND
+    BOTH ROUNDS WERE RAW SYNTHESIS. *** Every moment that got an INSTRUMENT-backed
+    replacement lived -- miss -> miss_past (0/45 then 20 UP / 0 DOWN), round_land
+    -> dirt_take, nerve_break -> will_goes, wake_up -> come_up. Instruments run
+    48% approval against ~30% for raw synthesis, on his own thumbs. These twelve
+    have NEVER been offered one. That is not a third guess at the same thing, it
+    is the first application of the source that works -- but it IS a third round,
+    so it wants a deliberate decision rather than a tired one at the end of a
+    long session. THAT IS THE TOP ITEM.
+ 2. HORIZONTAL RE-SEQUENCING. The vertical half (kill layers) is done; moving
+    between whole intensity TIERS is the other half of the research.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+
+CHARACTER (character-0lurbs): 8/20 (b) LATEST -- *** A SECOND FLEET RED CLEARED, AND
+IT WAS CAUSED BY ONE SENTENCE I WROTE IN A COMMENT. *** #204 DRESS, now 46/0.
+NO TAB and no build stamp bump: nothing player-facing moved, on purpose.
+Record: records/BOHEMIA_A_SECOND_RED_CAUSED_BY_A_SENTENCE_I_WROTE_8_20_26.txt
+
+DRESS said "bank is FRESH: 236 banked === 237 canon in the alpha" -- i.e. a garment
+exists in the game that was never banked. The wardrobe is this lane's, so I went to
+find which garment. THERE ISN'T ONE. The count is of the STRING st:'canon' across a
+4 MB file, and of its 237 occurrences 236 are real garments -- exactly the bank -- and
+ONE is a sentence in a comment I wrote on 8/17 above the city cast: "Every garment
+here is st:'canon' and already exists".
+
+*** THE GATE HAD BEEN CONTRADICTING ITSELF AND NOBODY LOOKED. *** DRESS also checks
+"every canon garment in the alpha is in the bank BY NAME" and that was GREEN the whole
+time. So it was reporting the bank stale AND every garment present. When two checks in
+one file disagree the specific one beats the counting one -- and a red nobody has
+triaged is a red nobody reads.
+Fixed the RULER: block comments are stripped before counting (237 -> exactly 236,
+nothing else touched). Rewording my comment would have gone green in ten seconds and
+left the same landmine for the next person who writes about the wardrobe.
+Mutation-tested both ways and it names the culprit each time: remove a garment from the
+bank -> red naming FIELD SHORTALLS; add a real unbanked canon garment -> red naming it.
+
+*** THE PATTERN IS WORTH MORE THAN EITHER FIX, AND EVERY LANE SHOULD CHECK ITS OWN. ***
+This is the THIRD mention-counted-as-a-use defect in two days, across three gates:
+  8/19 REUSE FIRST swept a tool as "drawing" because its DOCSTRING said putImageData
+       (it is a CSS class flip that draws nothing)
+  8/19 REUSE FIRST read `REUSE CHECK (REUSE-FIRST, Paolo 7/22):` as ABSENT, wanting
+       the colon adjacent
+  8/20 DRESS counted a sentence about the wardrobe as a garment
+All three are grep-shaped checks over files that contain BOTH code and prose about
+that code. This repo writes unusually thorough comments -- that is a strength, and it
+guarantees any gate that greps a whole file will eventually be fooled by its own
+documentation. IF YOUR GATE GREPS A SOURCE FILE, STRIP THE PROSE FIRST.
+
+AND THE OTHER LESSON, TWICE PROVEN NOW: A GATE'S NAME DOES NOT TELL YOU WHOSE FAILURE
+IT IS. Neither REUSE FIRST nor DRESS sounds character-lane; both were. The 8/19 fleet
+picture (29 red) is explicitly a BASELINE nobody has triaged -- two of them are now
+cleared by this lane, both in under an hour, neither changing a pixel. IF YOU HAVE A
+QUIET TURN, TRIAGE A RED AGAINST YOUR OWN FILES BEFORE BUILDING ANYTHING.
+
+WHAT I CHECKED AND DELIBERATELY LEFT ALONE:
+  #354 TASTE  wants a TASTE CHECK block in bohemia_exchange_factory.py and
+              bohemia_quirk_factory.py -- other lanes' content, and writing their
+              taste notes would be writing their canon.
+  #356 ART 45 a roofline in banks/BOHEMIA_DISTRICT_HERO_CANDIDATES reads as a flat
+              rectangle instead of an iso diamond. ART lane.
+  THE HERO FACTORY STILL DOES NOT PARSE (reported 8/20a, tools/bohemia_district_hero_
+  factory.py line 1247, broke in 53a981c). Still open, still not mine.
+
+WHAT COMES NEXT FOR THIS LANE:
+ 1. MORE OF THE 29, TRIAGED AGAINST OUR OWN FILES. That is two for two on quiet turns.
+ 2. STILL BLOCKED AND STILL NOT MINE: faction ground assignment (his ruling), painting
+    the rig at 112 (his call, not code), RUN wiring the field surgery clips (theirs).
+ 3. No unblocked content work I would defend building. The wardrobe delivers exactly
+    what the game needs and I have measured that twice.
+
+SOUND (sound-xk7pjp): 8/20 (c,d,e) LATEST -- *** GETTING PAID SOUNDS LIKE
+SOMETHING, and a flaky check I shipped this morning is gone. TAB: RUN (finish a
+job and listen). Nothing to judge. ***
+
+THE MOMENT. The demo board's re-audit closed two rows hours ago: getting paid and
+spending both went live. So a job ends, the purse is credited, the number in his
+phone goes up, and IT MAKES NO SOUND. In a game whose subject is a collapsed
+economy that is the most loaded event there is.
+`quest_done` exists as a cooked SFX moment -- the engine calls it "the one moment
+that earns the whole room" -- and it is NOT APPROVED, so it plays nothing today
+and will keep playing nothing until he thumbs it. A STING needs no thumb: it is
+derived from the key of the song already running, so there is no candidate to
+judge and nothing of his to wait on. That is the general lesson for this lane --
+WHEN A MOMENT IS SILENT BECAUSE A CANDIDATE IS UNJUDGED, A STING GETS THERE
+WITHOUT HIM.
+
+AND IT TOUCHED NO OTHER LANE'S FILE. The obvious wiring is a postMessage inside
+the city world's payForToday(), and the WORLD lane shipped into that file TWICE
+today. citySnapshot() already carries `purse`, reportState() already posts it up
+as bohemiaCityState, and the alpha already handles that message. The purse is a
+LEDGER {id,day,entries[]}, so a payday is visible from this side as new entries
+with kind 'source'. One listener on a signal that was already arriving.
+  restore (3 credits at once) -> silent    resend (debounced) -> silent
+  spend ('drain')             -> silent    PAID (fresh credit) -> SOUNDS
+Deliberately modest: two notes, root and fifth, coldpiano. The win sting is a
+four-note rise; if a water run were scored as big as surviving a firefight,
+neither would mean anything. THE GATE ASSERTS THAT RELATIONSHIP, so the design
+decision can only be broken loudly.
+
+*** THE GATE LESSON, AND IT IS THE MOST USEFUL THING IN THIS ENTRY. ***
+The bar-line check I shipped this morning was FLAKY. It watched five kills go by
+and required that `want` be seen ahead of `layers` at least once -- but a kill
+that lands ON a bar line applies immediately and the gap is never observable. It
+went red on a COMPLETELY CORRECT TREE during this turn's mutation sweep, printing
+the EXACT SAME READING a real regression produces. That is the worst failure mode
+a gate has: it cries wolf, and then everyone learns to ignore red.
+It is now DRIVEN instead of observed -- park the transport at step 17 (just past
+a line), ask for a lift, prove it is HELD; move to step 32 (the top of a bar),
+prove it LANDS. Three consecutive runs on the same tree: 47/0, 47/0, 47/0. And it
+still catches the real thing.
+  THE RULE, joining the two from yesterday: a gate must observe the subject's own
+  trigger, must not compute its expectation from the subject, AND MUST NOT DEPEND
+  ON WHEN IT HAPPENED TO LOOK. If a check can pass or fail on the same code, it
+  is not a check.
+
+I ALSO DID NOT BUILD SOMETHING. My own last handoff said "next: make the layers
+respond to DANGER (player HP), not only kills". Checked before building: the
+heartbeat SFX ALREADY fires once when you cross under 35% HP, deliberately not a
+loop, "so it marks the moment he became fragile instead of nagging while he is".
+Danger is covered, by sound effects rather than by music, which is the right
+division. Building a second danger system would have been producing on top of one
+that works. That item is struck off, not deferred.
+
+GATES: FIGHT MUSIC 47/0 (13 -> 47 across the day). MUSIC 20/0. MUSIC REACH 17/0.
+SFX RENDER 6106/0. SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. STILL SILENT, and each is a real playable moment: a DAY ENDING (sleep resolves
+    the day and the reckoning prints), a DISTRICT taken, a DEBT cleared. The
+    payday listener is the pattern -- find the signal that already crosses into
+    the alpha and listen to it, rather than asking another lane to post one.
+ 2. HORIZONTAL RE-SEQUENCING. The vertical half (kill layers) is done. The other
+    half of the research is moving between whole intensity TIERS of arrangement,
+    not just adding parts to one.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine, and
+    most moments are still raw synthesis.
+
+WORLD (world-9lfjtf): 8/20 (c) LATEST -- *** THE FLOOR COULD DO SOMETHING TO YOU EVERYWHERE
+EXCEPT WHERE THE FIGHTS ARE. TAB: RUN, walk into any building. Nothing here needs judging. ***
+
+FOR THE COMBAT LANE, THIS IS THE ONE TO READ. Since 8/18 this lane has read 31 hazard tiles
+out of 22 district legends and this morning gave four of them a third occupancy state. ALL OF
+IT OUTDOORS. Every fight in this game starts by walking through a door.
+
+MEASURED before a line of it was written: an interior cell carried g/room/door/role/furn and
+NOTHING ELSE. Zero cells in any interior in the game had EVER carried terrain, so the fight
+payload's ground channel was 252 dots for a 21x12 house, every room, every fight. The one
+system built to make a room feel alive was switched off in every room a fight happens in.
+And fightroom_gate was GREEN through all of it, because it checked the channel's LENGTH and
+never its CONTENT -- a gate standing on its own side of a seam nobody was standing on, for
+the fourth time this week.
+
+IT INVENTS NO VOCABULARY, and that is the design rather than a nicety. The three materials
+are named so the EXISTING hazard rules classify them, with no new rule and no edit to the
+classifier:
+    standing water          -> DISABLES   (the rule that already read a pumpstation gland)
+    fallen ceiling rubble   -> AMPLIFIES  (the rule that already read freeway rubble)
+    lift shaft              -> KILLS, and a VOID (the rule that already read an intake shaft)
+A dead building has the same three things a dead quarry has: liquid you can walk into,
+footing you cannot set, and a hole.
+
+WHERE IT GOES IS DERIVED, AND THE PROOF IS THAT NOBODY TYPED THE NUMBERS. A ceiling comes
+down where it is SPANNING -- a cell two or more tiles from every wall has no wall carrying
+the deck above it -- so there is NO ROOM LIST AT ALL. The result:
+    residential 2.2%   office 2.1%   retail 3.4%   landmark 4.8%   WAREHOUSE 7.7%
+A warehouse ends up three times more damaged than a house because its ceiling spans further.
+That gradient is an output. The gate asserts the ORDERING, never the values, and SPREAD (his
+dial) ships empty.
+
+*** THE VALLEY IS BONE DRY, AND FINDING THAT OUT WAS THE MOST USEFUL THING HERE. *** The
+first cut put standing water in every bath, kitchen and breakroom -- that is where the
+plumbing is, and the derivation was sound. Then I read what it produced: 34 TILES OF STANDING
+WATER IN A HOUSE, every seed. The number was the small problem. This is Las Vegas ten years
+later: the driest major city in the United States, ~100 mm of rain a year, single-digit
+summer humidity. Water in an unroofed building here is gone in a season, and what is left is
+THE TIDE LINE, not the pool. So the material stays DEFINED (a flooded plant room is one entry
+in SPREAD) and is PLACED NOWHERE, with the reason written into the module rather than deleted
+so nobody re-derives puddles. DISABLES has no indoor presence and saying so beats flooding
+the valley to fill a column.
+
+  records/BOHEMIA_THE_FLOOR_INDOORS_8_20_26.md      the finding
+  engine/bohemia_interior_ground.js                 spec + generator
+  tools/bohemia_city_interior_ground_patch.py       on the surface
+  gates/interior_ground_gate.js 21 (four mutations) + gates/fightroom_gate.js 13
+
+*** TWO THINGS I GOT WRONG, BOTH CAUGHT BY MEASURING, AND THE SECOND IS THE BETTER LESSON. ***
+1. MOST OF THIS GROUND DOES NOT BLOCK ANYTHING. I copied the furniture module's connectivity
+   guard verbatim -- flood-fill the room, every stamped cell an obstacle -- and 22 of 64
+   plates came back with the floor CUT IN TWO, while the same plates furnished alone came
+   back 0 of 64. Rubble is AMPLIFIES and water is DISABLES: ground-layer, not solid, YOU WALK
+   ON BOTH. That is what those classes ARE. The one thing that does block is a VOID, and a
+   void is a hole in the PLATE, not the room -- a room-local check cannot see the corridor it
+   just sealed. My gate had the identical error, which is the only reason it surfaced.
+2. A GATE THAT ASKS THE THING IT IS JUDGING WHAT THE ANSWER SHOULD BE IS NOT A GATE. The lift
+   rule read `G.NO_LIFT[z]` -- the target's own table as its own ruler -- so emptying NO_LIFT
+   put lifts in houses AND switched off the test in one edit. Confirmed GREEN THROUGH THE BUG
+   by mutation. Fixed by naming the zones, and the fix exposed a second layer: the mutation
+   STILL passed, because a residential plan has no `service` room and could never get a lift
+   however the rule was written. The zone the rule actually protects is `default`, the one
+   zone my test list left out. A REFUSAL TESTED ONLY WHERE IT CANNOT FIRE IS NOT TESTED.
+
+AND THE FOUR GAPS THE 8/18 HAZARD RECORD LEFT OPEN ARE ALL CLOSED. Two of them closed by
+finding the diagnosis was WRONG rather than by doing the work they asked for:
+  1. "THE VALLEY HAS NO WALKABLE RUBBLE FIELD" -- never true. The rubble was declared
+     walk-through all along and the surface was discarding all 48 declarations one line
+     before they reached him (fixed 8/18). Re-measured: 14 walkable loose-ground tiles.
+  2 + 3. the lethal drops and gypsum:7 -- closed 8/20 (b), voids and code 15.
+  4. "THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE" -- closed. It registers
+     70 of 71. The 9 it cannot build are a different code path (suburb/estate/gated go
+     through __subGrid, 2,582 cells of suburb build fine) or names reserved for Paolo.
+     That line said 35, then 57, before anybody counted it.
+The gaps text lives in tools/bohemia_hazard_sheet.js, NOT in the .md it writes -- I
+hand-edited the generated file yesterday and the edit silently reverted on the next run,
+which is the same disease as 8/20 (a). Edit the generator.
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. THE ART ASK IS THE ONLY THING THIS FEATURE STILL WANTS, and it is unchanged from 8/18:
+     loose ground that READS as loose, and a drop that READS as a drop. Everything is on the
+     glass and classified; what is missing is one visual mark per class at walking zoom.
+  2. Interior hazard is AMPLIFIES + the shaft only. If he ever rules that somewhere still
+     takes water, SPREAD.water is one entry.
+  3. NOT MINE and still red: gates/drive_network_gate.js. The debt ratchet went BACKWARDS
+     (22->25, 4->5) and all five regressions are the landmark districts the other WORLD
+     session shipped 8/19 -- prison 9.6% reachable (1,650 tiles of service road stranded),
+     dam 0%, minigp 0% (the whole circuit), fort 52.9%, convention 99.7%. Numbers in the
+     8/20 (a) block below.
+
+PEOPLE (people-7h9sfy): 8/20 LATEST -- *** WHAT YOU NOTICE ABOUT SOMEBODY BEFORE
+EITHER OF YOU SPEAKS. TAB: RUN -- walk up to anybody and read the line above the
+movement pad. ***
+
+bohemia_quirk.js has carried a TELL for all 22 shapes since 8/19 (third person,
+no dialogue) and tellFor() had never once been called by anything a player could
+see. NINTH time this lane has closed that shape.
+
+THE HOLE, MEASURED: standing next to anybody on the walked surface, the ENTIRE
+text on screen was the one button, and the button says their TRADE. Eighty-eight
+people on a settlement block and every one of them the word SCAVENGER. Now each
+one is somebody doing something specific.
+
+A TELL IS NOT A NAME, so YOU HAVE TO ASK (7/31) is untouched: nameOf() still
+returns null for a stranger and the tell never prints one. You can watch somebody
+straighten what is already straight without being introduced, and noticing it is
+how you decide to talk to them at all -- so the tell shows for a STRANGER while
+the name still does not. It reads through qkOf(), the block-de-collided answer,
+so what you notice at a glance is the same person you meet on the card and nobody
+on the street shares a tell.
+
+*** THE POSITION IS MEASURED, NOT CHOSEN, AND THE FIRST CUT FAILED IT. *** At
+bottom:112 the line ran straight THROUGH the movement pad: unreadable, and
+sitting on taps meant for the pad. Caught by SCREENSHOTTING it -- no assertion
+existed that could have. Measured the real HUD (nav owns x198-378 below y618; the
+note/rung/bike stack owns the bottom-left below y714), found the clear band above
+y618, and THE OVERLAP IS NOW AN ASSERTION with the boxes printed in it.
+
+THREE GATE BUGS FIXED ON THE WAY, every one test-state pollution rather than a
+feature fault, and the lesson is one line: A PROBE THAT INHERITS ANOTHER PROBE'S
+STATE MEASURES THAT STATE.
+  1. it inherited an OPEN CARD from earlier assertions, and ctVerb correctly
+     hides the button AND the tell whenever a card is up;
+  2. it compared against the person it WALKED TO instead of the one
+     ctAdjacent() actually PICKED (a neighbour can be closer);
+  3. it measured "a stranger" on a block where an earlier assertion had already
+     asked twelve people their names, so it reset the met-ledger and asserted
+     the LAW instead of the leftovers.
+
+gates: QUIRK 32 -> 38, mutation-tested two ways.
+
+*** FOR WHOEVER OWNS THE WORKFLOW (RUN, under the 8/20 suite fold): THE PAGES
+CHECKOUT TOOK TEN MINUTES. *** Two numbers, same repo, same workflow, same day,
+both deploys mine:
+    01:17  THE RAID RUNS      actions/checkout@v4 =  18 seconds
+    17:01  WHAT YOU NOTICE    actions/checkout@v4 = 609 seconds
+34x in one day. Everything after checkout stayed fast in both (assemble instant,
+upload 8s, deploy-pages 11s) and BOTH RUNS SUCCEEDED -- nothing is broken, it is
+getting expensive. Supporting facts measured here: .git is 6.8 GB against a
+615 MB working tree, and slices/BOHEMIA_ALPHA_0_9.html has 515 commits at ~4 MB
+while the LEGACY, never-displayed BOHEMIA_RUN_CURRENT.html has 149 at 17 MB --
+single-line inlined payloads, near worst case for delta compression.
+I AM DELIBERATELY NOT DIAGNOSING IT. I raised repo size as a cause on 8/19 and
+had to correct myself the same turn when a second sample came back at 22s. Two
+points are a line only if you already believe the line. The cheap first move is
+a THIRD DATA POINT, not a fix: watch the checkout duration on the next few pages
+runs. If it stays in the hundreds of seconds, `fetch-depth: 1` on that checkout
+is one line, touches no history, and a deploy that copies slices/ into a bucket
+does not need 6.8 GB of it. Full record with the numbers and the risk-ordered
+levers: records/BOHEMIA_THE_CHECKOUT_TOOK_TEN_MINUTES_8_20_26.md
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** COLD_OPEN.cast IS [] AND COLD_OPEN.place IS null. NOBODY IS BEHIND YOU
+     IN THE DEFENCE. *** [PENDING Paolo] since 8/8, but his 7/19 law rules both
+     ("defending the home room to room... it ends saving the mother"). The raid
+     RUNS now, so this is visible instead of academic. COMBAT's.
+  2. THE RIDGE EXTERIOR. Money shot, title screen and last frame of the tutorial
+     are one image and it does not exist; the burial plays its words over an
+     honest empty frame that says so. ART's.
+  3. BIND THE BURIAL TO THE REAL VISTA OVERLOOK so the grave and the money shot
+     are one place. RUN's day loop.
+  4. DEEDS AND STANDING are still not in the city at all -- two modules that know
+     what the player was SEEN doing, absent from the surface he plays. MINE, but
+     the rich deed sources on the talk card are the FACTIONS lane's sentinels, so
+     check who is live before starting.
+SOUND (sound-xk7pjp): 8/20 (a,b) LATEST -- *** THE FIGHT BUILDS AS YOU KILL. A
+five-style intensity system Paolo commissioned on 7/3 that NOTHING IN THE GAME
+HAD EVER SWITCHED ON. TAB: RUN (get in a fight and kill two, then four).
+Nothing to judge. ***
+
+MUS.playStep has gated a second and third tier of arrangement behind sk>=2 and
+sk>=4 since 7/3, one intensification style per faction (drive/stabs/melody/
+drums/bassrise), built for his ruling: "the progression of four kills all sound
+like the same progression". The MUSIC tab even carries the control, labelled
+KILL LAYERS: CALM / 2 KILLS / 4 KILLS.
+
+THAT BUTTON WAS THE ONLY WRITER OF MUS.layers IN THE WHOLE ALPHA. One assignment,
+in that click handler, nothing else anywhere. So MUS.layers was 0 for the whole
+of every fight ever played and every fight ran flat, first shot to last. TENTH
+time this fleet has found that exact shape: a finished system, a published seam,
+no caller.
+
+NOW: BOHEMIA_SHOT_RESULT already carries outcome:'killshot'. Two kills lift to
+layer 2, four to layer 4 -- his own button's thresholds -- reset to CALM on
+encounter start AND on settle. THE LIFT LANDS ON THE BAR LINE (a part appearing
+mid-bar reads as a mistake, not as intensity), using the same pend/apply shape
+CITYMUS already uses.
+
+*** THE MEASUREMENT LESSON OF THIS TURN, and it is the useful part. ***
+I measured it wrong first. Rendering two bars per layer and comparing RMS gave
+differences of 1-3% -- about 0.25 dB, under the just-noticeable threshold -- which
+read like the whole lift was inaudible and nearly sent me changing working code.
+THE RULER WAS WRONG, not the feature: the parts that come in at higher layers are
+quiet hats, chips and clicks that add DENSITY, not loudness, which is exactly what
+vertical layering is FOR. Counting the parts that actually fire is exact and it is
+unambiguous:
+    VOLUNTEERS (drive)   19 ->  39 ->  63     (+232%)
+    NETWORK    (drive)   39 ->  59 ->  87
+    CHURCH     (melody)  11 ->  21 ->  29
+    REDS       (drums)   23 ->  29 ->  37     taiko at 2, ride+clap at 4
+    all 13 factions thicken at BOTH thresholds, no exceptions.
+WHEN A MEASUREMENT SAYS A THING IS BROKEN, CHECK THE RULER BEFORE THE THING.
+
+gates/fight_music_gate.py is now 38 checks (was 13 this morning). It plays a
+fight, kills five things, counts the parts, and its probe wraps synthV/drumV and
+PUTS THEM BACK in a finally. Mutation-proved three more ways this turn: cut the
+killshot wire -> 3 legs red; drop the bar-line hold -> the quantisation leg red;
+never reset -> the calm leg red.
+
+STALE BLOCKER CLOSED: records/BOHEMIA_SOUND_DEMO_BLOCKERS_8_9_26.md still listed
+"MENU MUSIC: does the front splash play?" as waiting on Paolo. It shipped 8/19.
+It was written the same day EVERYTHING IS A THUMB landed and is exactly the shape
+that law killed. Four blockers remain and ALL FOUR ARE HIS EAR on cooked
+candidates, not decisions -- so NOTHING IN THIS LANE BLOCKS THE DEMO.
+
+GATES: FIGHT MUSIC 38/0. MUSIC 20/0. MUSIC REACH 17/0. SFX RENDER 6106/0.
+SFX WIRED 842/0. INSTRUMENT 15/0. VERDICT-FROZEN 6/0. ALPHA LOADS 20/0.
+FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NEXT FOR THIS LANE, in order:
+ 1. THE LAYERS ONLY GO UP. Nothing brings them down inside a long fight, and
+    nothing responds to DANGER (player HP, hostiles remaining) -- only to kills.
+    The research's other half is horizontal re-sequencing between intensity
+    tiers; the vertical half is now done.
+ 2. NO STING OUTSIDE COMBAT. Win and loss are done. A quest completing, a
+    district taken, a debt cleared all still pass in silence. `quest_done` is a
+    cooked SFX moment that is NOT APPROVED, so it plays nothing at all today.
+ 3. The MENU pool is 4 and three are brand new (8/19).
+ 4. SFX: instruments are 29 UP / 60 (48%), the best source in the engine.
+
+RUN (run-eak241): 8/20 (k) LATEST -- *** THE WHOLE FIRST DAY IS PLAYABLE BY HAND
+NOW, AND NOTHING IS CALLED FOR HIM. Wake, take the job on the phone, walk to your
+own house, go in, choose, finish. TAB: RUN. ***
+
+TWO ITEMS OFF THIS LANE'S OWN LIST. One was a real bug, and the other turned out
+to be WORKING -- which is a result, not a wasted turn, and it is now nailed down
+so it cannot quietly stop working.
+
+*** 1. A STEP INDOORS WAS NOT A STEP. ***
+Yesterday's fix taught the day loop to hear the player walking. It went into ONE
+mover. There are two: stepOnce() outdoors, and the interior mover, which ticks
+the same 0.084 per cell (so the clock was right) and never called DAY.step -- so
+walking the length of a house counted ZERO steps. A gate block that happened to
+run after he was already inside reported "walking counts as steps: 0" and I
+nearly read it as yesterday's outdoor fix having failed. It had not. A SEAM WITH
+EXACTLY ONE CALLER LOOKS FINISHED FROM THE OUTSIDE.
+  tools/bohemia_a_step_indoors_is_a_step_patch.py  (mutation-tested)
+
+*** 2. THE JOB CAN BE FINISHED BY HAND, AND IT ALREADY COULD. ***
+Every previous proof of this beat went through demo_day_gate, which CALLS
+offerAccept() and dayEnteredBuilding() directly. Driven by taps instead, on the
+real alpha, touching only what a player can touch:
+
+    tap GET UP
+    tap PHONE -> tap TAKE IT      -> "Find why the block browns out", stage 10
+    walk 15 cells to his own door -> INSIDE, stage 20, 15 steps counted
+    the quest's OWN choice card:  QUIET / NOTABLE / RECKLESS, the author's words
+    tap QUIET                     -> done, outcome COMPLETE, tagged "quiet"
+    the card closes, qline reads  -> "DONE - The Meter Reader"
+    the purse                     -> paid nothing, refused NO_RULING
+
+THE REFUSAL IS THE CORRECT ANSWER, not a bug: what a day's work pays is his
+ruling (EVERYTHING COSTS ONE, 8/15), and the game says who has not ruled instead
+of inventing a number. The gate asserts the refusal is NAMED rather than silent.
+
+  gates/first_night_gate.js now 53 claims (was 47). The first day is asserted
+  end to end by player-touchable actions only, so no part of it can go quiet
+  without a red gate.
+
+ALSO REGENERATED, NOT MINE BUT FREE TO FIX: slices/BOHEMIA_RUN_CURRENT.html was
+STALE against its own generator before this turn started -- run_gate's "regenerating
+via tools/build_run_slice.js changes nothing" was red on plain origin/main, checked
+by stashing my commit and rebuilding. A generated file whose own gate demands it be
+current is maintenance, not design, so it is rebuilt here: RUN GATE 126/0. THE
+FOUR-COMMAND RULE is what catches this -- any engine edit stales the city inline
+copies, the run slice, the census and the LOOK pictures, and the run slice is the
+one that gets forgotten because it is 17MB and usually a no-op.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE SECOND DAY. Everything above is DAY 1. Day 2 opens a different job (THE
+    BACK DOOR) and nobody has ever played it by hand -- and day 2 is also where
+    the vista fires, so it is the busiest morning in the game. Same harness,
+    one day later.
+ 2. HE IS NEVER TOLD WHERE TO GO. The objective reads "Find why the block browns
+    out" and the offer carries no location; the quest fired because he walked
+    into A building, any building. That is fine for one quest and will not hold
+    for a second. A quest that names a place needs the place to be findable --
+    and the phone already carries where the market and the overlook are, so the
+    channel exists. Worth measuring before building anything.
+ 3. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH behind VOTE, LOOK, WORDS,
+    CUTSCENE, DIRECT. His 8/16 ruling one level up; the shell owns tab order.
+ 4. CAMP is frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+STILL NOT MINE: swap meet 42 cells from spawn (placement, MAP LAW); the phone's
+market distance is Euclidean while the vista's is Manhattan; arterial 20.4% /
+freeway 36.5% content against 45% floors (WORLD); entering ANY building is a 35%
+firefight and that is ten times more reachable since yesterday (COMBAT's dial,
+untouched).
+
+THE SUITE NO LONGER FITS ONE RUN. It enforces a 2700s budget and tells you to
+shard: `python3 gates/bohemia_gates.py --shard 1/3` (then 2/3, 3/3). Three shards
+this turn: 9 + 6 + 11 red, every name verified as another lane's or pre-existing.
+
+RUN (run-eak241): 8/20 (d) LATEST -- *** THE VALLEY WAS SEALED. 2,334 building
+cells around the spawn, TWO you could walk into -- and his own front door was one
+of the eighteen the game refused. TAB: RUN, walk to your house. ***
+
+FOUND BY DRIVING THE LAST UNPROVEN STRETCH: taking the job by TAPPING it and
+walking INTO a building. demo_day_gate calls dayEnteredBuilding() directly and
+teleports to the market, so "the job beat works" was proven and "A BODY CAN CROSS
+A THRESHOLD" never was.
+
+FIRST, THE GOOD NEWS, MEASURED: tapping TAKE IT in the phone genuinely works.
+Objective "Find why the block browns out" arrives in the city, badge clears,
+quest reaches stage 10, zero errors. The cross-frame path is sound.
+
+THEN THE SWEEP, 129x129 CELLS AROUND WHERE HE WAKES UP:
+    2,334 cells belong to enterable buildings
+        2 of them could be walked into
+       63 cells to the nearest one
+
+WHY: Paolo's 8/2 door rule is implemented in two halves that disagree.
+    massHasDoor()  counts FOUR markers:  hdoor, portal+enter, doorW, doorE
+    the walk       admitted through TWO: hdoor, portal
+A house whose door is a doorW/doorE makes the guard say "this building HAS a
+door", which flips the walk into its strict branch -- "it has a door and this is
+not it: a wall stops you" -- and then NOTHING satisfies the strict test, because
+the walk cannot see the marker the guard just counted. THE GUARD LOCKS THE DOOR
+AND THROWS AWAY THE KEY. Counted around spawn: 2 hdoor, 0 portals, 9 doorW, 9
+doorE. Eighteen real doors refused, two honoured.
+AND THE NEAREST REFUSED DOOR IS AT (6219,6256), WHICH IS HIS OWN HOUSE -- the one
+this lane spent yesterday putting back in the cell he wakes up in.
+The 8/2 comment's own safety net ("A BUILDING THAT HAS NO DOOR IS UNCHANGED")
+only fires when massHasDoor is FALSE, and it was TRUE for all 2,334 cells. Dead
+code, and the sealing it was written to prevent happened anyway.
+  tools/bohemia_a_door_is_a_door_patch.py  -> one predicate both halves call
+  20 doors reachable now, nearest 29 cells. The 8/2 rule is UNTOUCHED: a building
+  with a door is still enterable only through its door.
+
+*** THEN I WALKED THROUGH THE DOOR AND LOOKED, AND IT WAS A GUNFIGHT. ***
+The readout said "inside the garage interior: 1-2 car bays, junk shelves, a door
+into the house". The SCREEN said WAIT / SUPPRESS / HAND-PEEK / RIFLE / GREN 2 /
+ENGAGE with a firing line across STREET #60025.
+__CITY_FIGHT__ ("THE DOOR IS THE FIGHT") is deliberate and it is not mine, and
+its 0.35 is tagged [DIAL, draft:true] exactly as it should be. WHAT IS WRONG IS
+WHICH BUILDING: the roll is DETERMINISTIC off the footprint hash -- on purpose,
+so a door cannot be farmed -- so HIS HOUSE IS NOT UNLUCKY ONCE, IT IS A FIREFIGHT
+FOREVER. Same seed, same house, every run.
+AND TODAY MADE IT BITE: before the door fix, two doors in the neighbourhood could
+be walked through and the roll almost never ran. Now twenty can.
+  tools/bohemia_not_your_own_house_patch.py -> the house the run calls his is
+  never an ambush. FIGHT_ODDS is untouched, every other building is identical,
+  and the exemption is derived from HOME so it follows the house through a reroll.
+
+AFTER: he wakes, taps TAKE IT, walks fourteen cells and stands INSIDE his own
+house -- "21x12 - 5 ROOMS - DAY 1 - 06:01 - INSIDE - RESIDENTIAL", a real room,
+the day loop recording `entered`. Screenshotted, not inferred.
+
+  gates/first_night_gate.js now 47 claims (was 38). Both fixes mutation-tested.
+
+THREE THINGS THE HARNESS TAUGHT ME, worth keeping:
+  - MOVEMENT IS BEAT-QUANTISED at 120 BPM. A 220ms pad press lands NOTHING. My
+    first path walk did 8 steps of a 14-step route and looked exactly like the
+    door refusing him. Presses must be a full beat (560ms here).
+  - A GREEDY WALKER IS NOT A PLAYER. It stalls on any wall and stops five cells
+    short of a front door. The gate uses a BFS over walkable cells as a stand-in
+    for eyes, and every move is still a real pointer hold on the real pad.
+  - MY OWN PROBE CARRIED A HAND-COPY OF THE DOOR RULE and kept reporting 2 usable
+    doors after the fix. A probe that re-implements the rule it is measuring is
+    the same disease as the bug. It calls isDoorCell() now.
+  - AND ORDER MATTERS IN THE GATE: homeFind is per-cell, so the door walk must run
+    before any free walking carries him out of his home cell; and step counting
+    must be measured on OUTDOOR walking, because the interior mover does not
+    count steps (a block that ran indoors reported "walking counts 0" for the
+    wrong reason).
+
+*** A REBASE DROPPED A SHIPPED FIX AGAIN, THIRD TIME, AND THE GATE IS THE ONLY
+REASON ANYONE KNOWS. *** Rebasing this turn onto 42 commits of main silently lost
+the ALPHA half of __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ while the CITY half
+survived, so the cold-open banner went straight back over the phone -- measured
+on the merged tree, banner 40-127 against a phone button at 89-120, the exact bug
+from two days ago, live again. first_night_gate went 36/8 and named it; nothing
+else would have. Re-running the patch tool restored it (they are idempotent, which
+is the whole reason they are tools and not hand edits).
+THE PATTERN: this is the THIRD shipped change of mine that a rebase has deleted
+out of slices/BOHEMIA_ALPHA_0_9.html -- <div id="standalonenote"> twice (8/17,
+8/19) and this. That file is edited by every lane on every ship and conflict
+resolution there loses work silently. TWO THINGS THAT ACTUALLY HELP: keep the fix
+in an IDEMPOTENT patch tool so recovery is one command, and own a gate that
+DRIVES THE REAL SURFACE, because a source-level check would have passed here (the
+city half was present and the tool file was untouched).
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE INTERIOR MOVER DOES NOT COUNT STEPS. Outdoor walking now spends the day
+    and counts steps; walking around inside a building spends time (advance
+    0.084) but never calls DAY.step. Small, and it is the same seam as yesterday.
+ 2. FINISH THE JOB BY HAND. He can now take it and walk into a building; the
+    quest's own choice card on entering the RIGHT building, tapped through to a
+    resolution and a payout, is still only proven by demo_day_gate calling it.
+ 3. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH behind VOTE, LOOK, WORDS,
+    CUTSCENE, DIRECT. His 8/16 ruling one level up; the shell owns tab order.
+ 4. CAMP is frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+FOR THE COMBAT LANE, NOT ACTED ON: entering ANY building is a 35% firefight and
+that is now reachable ten times more often than it was this morning. Worth
+knowing before he plays it; the dial is yours and I did not move it.
+
+STILL NOT MINE: swap meet 42 cells from spawn (placement, MAP LAW); the phone's
+market distance is Euclidean while the vista's is Manhattan; arterial 20.4% /
+freeway 36.5% content against 45% floors (WORLD).
+
+
+WORLD (world-9lfjtf): 8/20 (b) LATEST -- *** THE DEEPEST HOLES IN THE VALLEY WERE WALLS YOU
+BOUNCED OFF. TABS: RUN (walk a quarry rim or a reclaim pond), LOOK (the picture is called
+THE HOLE). Nothing here needs judging. ***
+
+The world had TWO answers for a tile -- you stand on it, or you bump into it -- and the four
+most genuinely lethal pieces of ground in it needed a THIRD:
+
+    quarry:7   bench lip / crest      the top of a cut face
+    gypsum:7   bench lip / crest      the same, in raw white gypsum
+    intake:13  intake shaft / main    the shaft down to the tunnel
+    reclaim:6  crusted pond centre    "hard enough to walk on and not hard enough to trust"
+
+All four were kind:'structure', which DEFAULTS SOLID, so the game modelled the deepest holes
+in the valley as walls. AND IT COST THE WHOLE FEATURE, not just the tiles: the hazard sweep
+admitted a tile only if a body could STAND on it, and his own KILLS clause is "an enemy
+KNOCKED or CHARGING in dies outright" -- a body that is knocked in is BY DEFINITION somewhere
+it could not have walked. So all four matched the KILLS rule BY NAME and all four were
+classified as NOTHING. The rule was right, the tiles were right, and the gate between them
+threw them away in silence.
+
+THE THIRD STATE IS A VOID: does not block (a body thrown at it goes in), cannot be walked
+into (nothing paths there by choice). CONSENT is the test, not depth, which is his own rule.
+
+    KILLS membership   4 tiles / 3 districts  ->  8 tiles / 7 districts
+    voids in the world 0                      ->  2,405 CELLS, all behaving
+                       (reclaim:6 x1683, intake:13 x355, quarry:7 x207, gypsum:7 x160)
+
+Every one is checked against THREE claims because they are three promises to three readers:
+it refuses a body (pathing), it SAYS it is a hole (combat -- a cell that refuses you without
+saying why is indistinguishable from a wall), and it is DRAWN DARKER than the rock it is cut
+from (him). That third one exists because of the mountain on 8/18: every flag correct, every
+number green, 927 cells rendering as brickwork. Both mutations bite.
+
+FOR COMBAT: the fight-room ground channel gains 'V', and V outranks K on purpose. Both kill
+on forced entry; a K is ground you can choose to stand on, a V cannot be pathed into at all
+and does not stop a body thrown at it. Conflate them and you either path somebody into a
+shaft or treat the shaft as a wall. WHAT A KNOCKBACK DOES THERE IS YOURS, not mine.
+
+AND gypsum:7 meant TWO THINGS -- bench lip AND dome shell, an edge you go over and a
+hemisphere you bump into, sharing one number, so it could be neither. Dome is code 15 now.
+
+  records/BOHEMIA_A_HOLE_IS_NOT_A_WALL_8_20_26.md   the finding
+  tools/bohemia_city_void_patch.py                  on the surface
+  gates/hazard_gate.js 74 · gates/occupancy_gate.js 16 · both mutation-confirmed
+
+*** AND TWO OF MY OWN PATCH TOOLS COULD NOT RE-RUN, WHICH IS THE SAME DISEASE AS 8/20 (a). ***
+bohemia_city_fightroom_patch.py and bohemia_city_occupancy_patch.py both opened with
+`if MARK in src: print("already applied"); exit(0)`. From the moment each landed in a commit
+its output FROZE: every later edit did nothing to the page while the tool reported SUCCESS.
+Not hypothetical -- the 'V' character was added, the tool run, it said applied, and it was
+not on the surface. Both reverse properly now, and the fight-room one also cuts the LEGACY
+unmarked block, because cutting only the marked form left the old copy and produced TWO
+`function cityFightRoom` definitions in one file with the browser running the last.
+If you write a patch tool: reverse-then-apply, cut inserts BY MARKER, and keep every
+historical form of an inserted block so an older page can still be reversed.
+
+WORLD (world-9lfjtf): 8/20 (a) -- *** SEVENTEEN ENGINE MODULES ON THE WALKED PAGE
+
+CHARACTER (character-0lurbs): 8/20 (a) LATEST -- *** ONE OF THE FLEET'S 29 REDS WAS
+MINE AND IT IS CLEARED. AND A TOOL IN ANOTHER LANE DOES NOT PARSE AT ALL. ***
+NO TAB, and no build stamp bump: nothing player-facing moved this turn, on purpose.
+Record: records/BOHEMIA_A_RED_THAT_WAS_MINE_AND_A_TOOL_THAT_DOES_NOT_PARSE_8_20_26.txt
+
+*** READ THIS FIRST IF YOU ARE THE WORLD OR ART LANE ***
+    tools/bohemia_district_hero_factory.py DOES NOT PARSE.
+    line 1247: a JS block comment (/* ... */) is sitting in a Python file.
+    line 1245 also looks unclosed: `'px': _win(TOWER, 1, 3, 5, 0.3` with no bracket.
+    BISECTED: broke in 53a981c (8/19, "YOU COULD NOT LEAVE THE BLOCK YOU SPAWN IN").
+    Every commit before that parses. The biggest pixel-making tool in the repo has
+    been unable to run for a day.
+LIKELY (and I did not prove it, confirm before believing me): #364 HERO WIRE fails on
+`resort` and `casino` -- the two new Strip districts -- with "sprite embedded as PNG
+data URI". Those heroes come out of this factory. A factory that cannot parse cannot
+cook them.
+HOW I FOUND IT, AND A CORRECTION I MADE TO MYSELF BEFORE SHIPPING: a plain sweep --
+py_compile every tools/*.py and gates/*.py, node --check every .js, 380 files in
+seconds. I first wrote that nobody could know because #219 TOOLS RUN times out at 600s
+reproducing the hero factory (31 min, per the 8/19 record). SOMEBODY HAS SINCE BOUNDED
+IT: TOOLS RUN now finishes in 16.7 SECONDS and names this exact file, with a check
+labelled "THE HERO FACTORY ACTUALLY RUNS (this is the check that was missing)". So the
+fleet already reports it and my sweep only agrees. What I add is the BISECT (53a981c),
+the second defect behind the first (line 1245), and the likely HERO WIRE link.
+I did NOT fix the factory: 1,200 lines in another lane's system, and ONE SYSTEM ONE
+SESSION is worth more than a fast win.
+
+WHAT I DID FIX -- #343 REUSE FIRST, NOW 151/0.
+It failed on four files and ALL FOUR WERE CHARACTER-LANE TOOLS. The 8/19 fleet picture
+is explicitly a BASELINE and not a triage, so no red in it is attributed; the first
+useful thing any lane can do with that record is check which of the 29 is its own.
+Two genuinely lacked a REUSE CHECK block and now carry real ones (family_cast_patch:
+zero garment pixels, four dial sets on the one rig, and the only thing it draws is a
+render-time contact shadow, which SHADOWS ARE SEPARATE sanctions; family_anim_patch:
+zero pixels, it bakes famPaintBody's own output and blits it).
+TWO WERE THE RULER, and the gate's own header quotes the law that catches them:
+ 1. A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1). It decided
+    a tool "draws" by searching the WHOLE FILE -- docstring included -- for fillRect /
+    putImageData. bohemia_sun_mode_char_patch.py is a CSS class flip that draws nothing
+    and merely EXPLAINS putImageData in prose, and for that sentence it was held to the
+    art-cooking law. The module docstring is stripped before the test now. EMBEDDED JS
+    IS NOT stripped, because these patch tools inject drawing code as string literals
+    and that is a real use.
+ 2. THE MARKER, NOT ITS PUNCTUATION. The regex wanted the colon immediately after the
+    words, so `REUSE CHECK (REUSE-FIRST, Paolo 7/22):` read as ABSENT. Citing the law
+    you are complying with is this repo's own habit and the gate was failing files for
+    it. The heading must still be ONE LINE -- mine wrapped at first and stayed red,
+    which is the same line-wrapping trap look_gate documented.
+MUTATION-TESTED THREE WAYS, all correct: delete a real block -> red; a NEW patch tool
+that draws in CODE with no block -> red (no hole opened); a tool that mentions drawing
+only in PROSE -> correctly not swept.
+
+WHAT COMES NEXT FOR THIS LANE:
+ 1. CHECK THE 29 AGAINST YOUR OWN WORK BEFORE BUILDING ANYTHING. That record is a
+    baseline nobody has triaged. One of them was mine and it took twenty minutes.
+    #219 TOOLS RUN and #343 REUSE FIRST are the two that silently accumulate other
+    people's debt, so they are worth re-running by hand even when the suite is long.
+ 2. STILL BLOCKED AND STILL NOT MINE: faction ground assignment (his ruling), painting
+    the rig at 112 (his call, not code -- records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_
+    8_16_26.txt), RUN wiring the field surgery clips (theirs).
+ 3. The lane has no unblocked content work I would defend building. Three turns running
+    the honest answer has been to measure something nobody had measured rather than add
+    to a wardrobe that already delivers what the game needs.
+
+WORLD (world-9lfjtf): 8/20 (a) LATEST -- *** SEVENTEEN ENGINE MODULES ON THE WALKED PAGE
+WERE STALE COPIES, AND MY WHOLE DAY OF LEGEND FIXES WAS SILENTLY REVERTED IN ALL OF THEM.
+TABS: RUN (the valley edge, the lakebed), MAP. Nothing here needs judging. ***
+
+TWENTY-ONE COMMITS WERE SITTING ON THE SESSION BRANCH AND NONE OF THEM WERE ON MAIN. The
+alpha deploys from main, so an entire day of this lane was unplayable. That is a ship-law
+failure, it was mine, and it is fixed: everything below is on main now. Read this part
+first, because the two findings under it are the reason the merge was not a formality.
+
+--- 1. THE PAGE CARRIES COPIES, AND A COPY GOES STALE WITHOUT SAYING SO ---------
+The walked surface INLINES the engine modules. I spent a day correcting 15 district legends
+(12 tree tiles plus swapmeet kiosk and truckstop planter, all declaring solid:true) and one
+water legend (`open water` had inherited walk-through from the water-dead kind default,
+right for a dry basin and wrong for a reservoir). Every one of those edits was to
+engine/*.js on disk. THE PAGE NEVER SAW ANY OF THEM.
+
+    python3 tools/bohemia_city_module_resync.py
+    -> 90 embedded, 73 already fresh, SEVENTEEN RESYNCED
+
+How it surfaced: terrain_surface_gate.js went from 18/3 to 20/1, and the ONE new failure was
+water coming back 16,384 of 16,384 WALKABLE -- the entire reservoir strollable. The gate was
+reading the page's copy of the water legend, which did not have the fix. THE FIX WAS ON DISK
+AND GREEN IN EVERY GATE THAT READS DISK. A gate that reads canon and a game that reads a copy
+will agree with each other forever and both be wrong. Run the resync before you trust a
+number off that page, and run it as the LAST step before you ship.
+
+--- 2. THE OTHER WORLD SESSION SHIPPED TERRAIN ROUTING WHILE I WAS BUILDING IT ---
+Main now carries `const KIT_TERRAIN={desert:1,mountain:1,water:1,wash:1}`, its own tileMeta
+branch, its own `legs.terrain` options, and the generators inlined. Mine was the same job
+under the name TERRAIN_KIT. TWO REGISTRIES OF THE SAME FOUR NAMES UNDER TWO SPELLINGS IN ONE
+FILE IS NOT REDUNDANCY, IT IS THE NEXT PERSON'S BUG -- so I DELETED my routing half rather
+than keeping it disabled. tools/bohemia_city_terrain_patch.py is half the size and now only
+does the half nobody had: how the routed result is DRAWN (rock is not a roof, code 0 is a
+real tile, ground solidity is per tile, rock gets the rock texture that already existed).
+It READS their registry by name and refuses to run if that name disappears, so their four
+can become five without an edit here. Terrain gate: 21/21.
+
+ONE THING I SAW IN THEIR HALF AND DID NOT TOUCH, for whoever owns it: their terrain branch
+passes `cellX:tx, cellY:ty` -- the CELL coordinate -- into __kitBlock, which generates one
+128x128 grid per BLOCK (gx4,gy4; FN=32, GRP=4). The terrain field is global, so the block
+coordinate is the 128-tile coordinate. It reads wrong by 4x, and whichever of a block's 16
+cells renders first decides the value. I DID NOT CHANGE IT because the seam test passes on
+their page and measures right (a real neighbour agrees 117/128 along the shared edge against
+a 54.7/128 control), and I do not edit another lane's system on the strength of a code read
+against a passing measurement. Flagging it, not fixing it.
+
+--- 3. IT WAS THREE ARTIFACTS, NOT ONE, AND THE DIFFERENTIAL IS HOW I KNEW ------
+The city world was the first stale artifact. Two more turned up the same hour: the built
+phone slice (`slices/BOHEMIA_CURRENT_SLICE.html`) still carried the old water module, and
+four LOOK photographs were of a surface that had moved.
+
+    python3 tools/bohemia_city_module_resync.py   the city world's 90 inlined modules
+    node    tools/build_current_slice.js          the phone slice
+    node    gates/look_gate.js                    NAMES the exact photographer to re-run
+
+HOW I KNEW WHICH REDS WERE MINE, and this is the part to copy. The suite hit its 2700s
+budget: 288 of 391 ran, 24 red. Twenty-one of those 24 are red on origin/main TOO -- sixteen
+of them written down in records/BOHEMIA_THE_FIRST_COMPLETE_GATE_PICTURE_8_19_26.md, and the
+other five measured in a pristine `git worktree` of main this hour. EXACTLY THREE WERE MINE
+(LOOK, ONE MAP, WHAT YOU HEARD) and all three were the same stale-copy disease. All three
+are green now, and so are my six (hazard 69, retreat 18, furnish 32, occupancy 13, fight
+room 12, terrain surface 21 -- 165 checks, 0 failed).
+
+WITHOUT THE WORKTREE THERE IS NO WAY TO TELL A REGRESSION YOU CAUSED FROM A RED YOU
+INHERITED. With 21 standing reds on main, a real regression rides in behind them unnoticed.
+Do the differential before you ship, every time:
+    git worktree add --detach <tmp> origin/main
+    then run the suspect list in both trees and compare.
+
+--- ALSO, PRE-EXISTING AND NOT MINE ---------------------------------------------
+The resync reports engine/bohemia_floorplan.js UNRECOGNISED (matches neither canon nor the
+last 40 revisions), so it refuses to touch it -- correctly. That block on the page contains
+page-only code (inPassable lives in it) that is not in the disk module, and it is like that
+on pristine main, before any of my patches. It means anything editing inPassable is editing
+inside an inlined module block. Safe today only because the block is already unrecognised.
+
+WORLD (world-9lfjtf): 8/19 (a) -- *** THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE.
+IT ISN'T ANY MORE. TAB: RUN -- walk in a door and the fight now knows what it is standing
+in. ***
+
+FOR THE COMBAT LANE, THIS IS THE ONE TO READ. __CITY_FIGHT__ made the door the fight, and
+the handoff it posts you described the room as:
+
+    room:{ w: fp.W, h: fp.H, zone: INSIDE.zone }
+
+TWO NUMBERS AND A LABEL. Its own comment said why -- walls as cover and doorways as
+chokepoints "belong to the teardown spec, WHICH DOES NOT EXIST". THAT SPEC EXISTS NOW
+(records/BOHEMIA_RF4_TEARDOWN_SPEC.md, LAB, 8/18), so the reason was gone and the seam was
+the only thing left.
+
+*** AND IT IS THE PUREST FORM OF WHAT THE LIFT §6 WARNS ABOUT. *** This lane spent a day
+making the floor mean something -- cover you can get behind, ground that kills or slows you,
+a measured retreat guarantee -- and AT THE MOMENT A FIGHT STARTS, COMBAT GOT A BOX. Every
+one of those systems was invisible exactly where it was built to matter.
+
+WHAT RIDES NOW, measured off a real 21x12 house entered through its own door:
+    floor    252 chars for 252 cells, 142 standable -- a real map, row-major
+    cover    5 'C' chest-to-head (blocks body AND look), 16 'l' knee-to-waist (body only,
+             NEVER the look -- there is no crouch, a sofa cannot hide you)
+    ground   the hazard channel: K kills / A +50% physical / D no sprint. Empty indoors
+             today, shipped anyway so you read ONE shape indoors and out.
+    doors    5 chokepoints as coordinates -- a body in a doorway is a tool in his corpus
+    retreat  {ok:true, cells:142, stranded:0, worst:10, loops:75, pinches:6} FOR THAT ROOM
+    legend   IN THE PAYLOAD, so you never guess what a character means and neither side can
+             silently redefine one
+
+  tools/bohemia_city_fightroom_patch.py   the seam
+  gates/fightroom_gate.js                 12 checks, 2 mutations confirmed
+
+THIS IS NOT COMBAT CODE AND IT DECIDES NOTHING ABOUT THE FIGHT. §6 routes machines 1, 3, 4,
+7, 8 and 9 to you; WORLD owns making the room legible and that is where I stopped. What to
+DO with cover, chokepoints and a retreat number is yours.
+
+*** AND THE MEASURE HAD TO BE INLINED TO GET THERE, which is the same trap as yesterday. ***
+First run produced every field correct and `retreat` simply ABSENT -- engine/bohemia_retreat.js
+had only ever existed node-side for a gate. A DEPENDENCY THAT IS NOT THERE FAILS EXACTLY LIKE
+A FEATURE THAT WAS NEVER WIRED, and the only thing that told them apart was reading the
+payload off the running page instead of re-reading the patch. Second time in two days.
+
+THE GATE STANDS ON THE SEAM AND NOWHERE ELSE: the map must BE the room he is standing in,
+cell for cell, checked against inPassable() -- the same class of bug that had the occupancy
+model and the walked surface disagreeing about 4,327 of 4,327 cells -- and the retreat cell
+count is cross-checked against the standable cells in the map, two independent counts of one
+room. Flatten cover into one character and it goes red; make the map forget that furniture
+blocks and it names the coordinates.
+
+*** FOR THE OTHER WORLD SESSION (landmarks/roads) -- MEASURED, NOT FIXED, BECAUSE IT IS
+YOUR MODULE AND YOU ARE ACTIVELY IN IT. *** gates/drive_network_gate.js is RED and the debt
+ratchet went BACKWARDS (disconnected 22 -> 25, hairline 4 -> 5). All five regressions are the
+five districts engine/bohemia_landmarks.js shipped on 8/19, none of which were held to the
+7/31 RULE NUMBER ONE. Measured at seed 11, streets ['S'], drive-surface components:
+
+    convention   99.7% reachable   5 components, 2 slivers of 2 tiles stranded
+    fort         52.9% reachable   2 components: 99 (touches edge) + 88 STRANDED
+    prison        9.6% reachable   2 components: 1650 STRANDED + 176 (touches edge)
+                                   -- the whole service road is cut off from the street
+    dam           0.0% reachable   239 tiles, ONE component, touches NO edge, and 0% of its
+                                   lanes are wide enough to drive (the crest road is 1 tile)
+    minigp        0.0% reachable   4941 tiles (circuit + pit lane), touches NO edge at all
+
+A dam crest road and a racing circuit are private surfaces, but a car still has to GET to
+them -- a paddock gate, an abutment access road -- so all five are genuine, not excusable as
+"a runway is not reached from a kerb". I did not touch them: ONE SYSTEM, ONE SESSION, and
+fixing them means designing access roads inside a module you shipped yesterday.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  0. THE VALLEY STILL HAS NO WALKABLE RUBBLE FIELD (gap 1 of the 8/18 hazard record, the
+     last one still open). Every rubble/debris tile in six districts is a PROP, and the
+     AMPLIFIES class exists for exactly that ground. A ground-layer rubble tile is a
+     district-generator job and it is MINE.
+  1. THE HAZARD CHANNEL IS EMPTY INDOORS because floorplans carry no terrain. When an
+     OUTDOOR fight exists, the ground channel wants the district's hazard classes -- the
+     wiring is already shaped for it, it just has nothing to say inside a house.
+  2. [DONE 8/20 (b)] the fatal drops are VOIDS now -- see the top of this file.
+  3. [DONE 8/20 (b)] gypsum:7 split; the dome shell is code 15.
+  4. THE ROADS ARE THE LAST PARAMETRIC SURFACE -- arterial/freeway/rail/interchange still
+     draw from a four-number XSEC table, the way terrain drew from ten rectangles until
+     yesterday. NOT MINE: it is the other WORLD session's ground (they did the Strip 8/18).
+
+WORLD (world-9lfjtf): 8/18 (g) LATEST -- *** THE MOUNTAINS AND THE LAKE ARE REAL NOW, AND
+I HAD THE DIAGNOSIS WRONG TWICE BEFORE I HAD IT RIGHT. TAB: RUN -- walk to the edge of the
+valley, or out onto the lakebed. ***
+
+I reverted the mountain and the lake TWICE today and wrote down "terrain needs its own ART
+MAPPING". THAT WAS WRONG. The cause was ONE EARLY RETURN:
+
+    if(code===0){ c.g=slotGround(d); c.gArtPool='hyard'; return c; }
+
+Code 0 was treated as "empty ground" and RETURNED BEFORE THE LEGEND WAS EVER READ, handed
+slotGround(d) -- one hard-coded colour per district. For a DISTRICT that is correct: code 0
+is the dead setback. FOR TERRAIN CODE 0 IS A REAL AUTHORED TILE and it is the most common
+one in the cell: desert pavement, desert dead-ground, BEDROCK FACE (a solid structure,
+11,486 of 16,384 tiles), OPEN WATER. slotGround('mountain') is '#8a7a66' and
+slotGround('water') is '#3a6a8a' -- THOSE were the colours I was looking at and calling an
+art problem.
+
+    desert    16,219/16,384 walkable   13 types, its own #6e6045 pavement not generic sand
+    wash      14,799/16,384            13 types, concrete and riprap BLOCK
+    mountain     618/16,384            5 types, A WALL WITH PASSES -- was 0 of 16,384
+    water      8,949/16,384            6 types, lakebed walkable, DEEP WATER BLOCKS
+
+HOW I FINALLY FOUND IT, because the method is the transferable part: I compared THREE
+numbers for ONE tile -- what the LEGEND says, what the CELL OBJECT carries, and what PIXEL
+is actually painted. Legend #6e6045, cell #d8b078, paint matched the cell. Two of the three
+agreeing told me exactly which link was lying. I had been looking at the painted pixel alone
+and inferring a cause from it.
+
+*** A SECOND OCCUPANCY BUG, ONE LAYER BELOW THIS MORNING'S. *** The GROUND branch set
+walk=true for every ground tile and never looked at tl.solid, so `water:0 open water` --
+which DECLARES solid:true -- came back 16,384 of 16,384 WALKABLE. The whole reservoir,
+strollable. A GROUND TILE IS WALKABLE BECAUSE ITS TILE SAYS SO.
+
+*** AND MY OWN OCCUPANCY GATE WAS GREEN THROUGH IT, TWICE OVER. THIS IS THE PART TO KEEP. ***
+  1. It only swept PROPS, because that is where the first bug was. A GATE SCOPED TO WHERE
+     THE LAST BUG WAS ONLY EVER CATCHES THE LAST BUG. Widened to every layer.
+  2. Widened, IT STILL PASSED THE MUTATION -- because it sampled "the first 40 cells with a
+     kit grid" and they were all ordinary districts, where no GROUND tile is solid. The
+     interesting case was never in the sample. A COMPARISON THAT NEVER SEES THE INTERESTING
+     CASE REPORTS AGREEMENT. It samples one cell per district TYPE now and ASSERTS ITS OWN
+     COVERAGE (215,179 solid-ground cells seen); if that count is ever zero, the agreement
+     under it means nothing. The mutation bites now and names water:0 by hand.
+  Sweep is 664,798 walk-through and 257,232 solid cells, both directions, all agreeing.
+
+ONE MORE ASSERTION WAS WRONG ABOUT THE WORLD RATHER THAN THE OTHER WAY ROUND: I required 6
+tile types of every terrain and a mountain has 5 -- bedrock, cliff band, talus, rockfall
+scar, ridge crest, which is the honest vocabulary of rock. Demanding six of a mountain
+failed it FOR BEING A MOUNTAIN. The floor is per terrain now.
+
+GREEN: terrain_surface 18/0, occupancy 13/0, hazard 69/0, frame_budget 22/0 (perf held).
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A residual faint course texture survives on dark rock from a source I did not identify.
+     It is no longer red brick and no longer wrong-coloured, but it is not clean either.
+  2. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  4. THE ROADS ARE THE LAST PARAMETRIC SURFACE. arterial/freeway/rail/interchange still draw
+     from a four-number XSEC table, the same way terrain drew from ten rectangles until
+     today. freeway:16 rail ballast and interchange:15 rubble are authored and unreachable.
+
+WORLD (world-9lfjtf): 8/18 (f) LATEST -- *** ROCK IS NOT A ROOF; THE MAP TAB CAUGHT MY OWN
+DRIFT; AND THE ZOOM SEAM GATE WAS FAILING BECAUSE THE MACHINE WAS BUSY. TAB: RUN. ***
+
+THREE THINGS, AND TWO OF THEM ARE ABOUT RULERS RATHER THAN FEATURES.
+
+*** ROCK IS NOT A ROOF. *** realizeCell gave EVERY structure tile artPool:'hroof' -- roof
+art tinted to its palette colour. Right for a building; BRICKWORK for a limestone cliff
+band, which is why the first routed mountain came back looking like a wall. Terrain
+structure (bedrock, ridge crest, cliff band, a concrete headwall) now takes its palette
+colour FLAT, the same fallback this renderer already uses when a pool is missing. Districts
+untouched. Verified by screenshot: the red brick is gone.
+
+*** THE MAP TAB WAS STALE AND ITS OWN GATE SAID SO, ON MY DRIFT. *** I edited 15 district
+legends this morning (the trunk-blocks fix). The MAP tab embeds its own copies, and 15 of
+its 62 came back "body drift, stamp missing/mismatched" naming EXACTLY the files I touched.
+tools/bohemia_map_tab.py regenerates it: 8/1 -> 9/0. If you edit an engine legend, RERUN
+THAT TOOL -- the ENGINE SYNC LAW covers the map tab too and it caught me before Paolo did.
+
+*** THE ZOOM SEAM GATE WAS RED FOR A REASON THAT HAD NOTHING TO DO WITH THE GAME, and the
+measurement is the interesting part. *** A single-run comparison said "main passes, mine
+fails" and I nearly filed it as my regression. Measured properly, three runs each:
+    MINE  1 fail of 3        MAIN  3 fails of 3        ISOLATED, fresh context  5 passes of 5
+Same code path on that gesture in both trees. It tracks MACHINE LOAD, not content. The gate
+did setZoomAt(zmax*2) then slept a fixed 1400 ms; the seam actually fires inside 500 ms when
+it fires at all, so on a busy box the stopwatch lost, not the game. It now POLLS to the same
+total budget instead of sleeping through it. THE ASSERTION IS UNCHANGED -- still MODE must
+become 'human' -- and it is mutation-confirmed: clamp the pinch so the seam can never fire
+and it still goes red. Three runs green after.
+TWO LESSONS WORTH KEEPING: a ONE-RUN comparison between two trees is not evidence, and a
+gate that goes red because the machine was busy is a gate somebody switches off -- and this
+one guards a gesture PAOLO REPORTED HIMSELF ("I tried to zoom back in and then the game
+started breaking"), so it is the last one that should be ignorable.
+
+*** THE MOUNTAIN IS STILL OUT, and the second attempt turned "it looks wrong" into a list
+somebody can finish. THREE BLOCKERS, ALL IN realizeCell: ***
+  1. ROCK IS NOT A ROOF -- fixed above, the only one generic enough to keep on its own.
+  2. `walk: d!=='water' && d!=='mountain'` HARD-CODES the mountain unwalkable at the top of
+     every kit cell, so its talus, ravine floors and drainages stay blocked even when the
+     generator supplies them. That default predates the mountain having tiles at all.
+  3. `if(code===0){ ... c.gArtPool='hyard'; return c; }` treats code 0 as generic yard ground
+     and RETURNS BEFORE THE LEGEND IS EVER READ. Mountain code 0 is BEDROCK FACE, a solid
+     structure, and it is 11,486 of 16,384 tiles in one cell -- the single biggest thing in
+     the mountain never reaches the structure branch at all.
+  A residual brick texture also survives from a source I did not identify, so the list is not
+  closed. Three named blockers and one unknown beats a vague "it looked bad".
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. Finish the mountain: blockers 2 and 3 above, then re-route it and LOOK at it again.
+     927 cells of valley edge that are currently a solid wall.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
+WORLD (world-9lfjtf): 8/18 (e) LATEST -- *** THE MOUNTAIN WAS ROUTED, MEASURED, LOOKED AT
+AND REVERTED IN THE SAME HOUR. A GATE WOULD HAVE PASSED IT. NOT IN A TAB: nothing shipped,
+and that is the point. ***
+
+MEASURED before: a mountain cell is 0/16,384 walkable and a four-cell band 512x384 tiles
+wide could not be entered at all -- 927 CELLS OF TOTAL WALL, while its own generator is
+80.4% bedrock/ridge/cliff and 19.6% talus, ravine floor, dry drainage and alluvial fan, and
+gates/terrain_gate.js has asserted since 7/26 that "a mountain cell is never a solid block".
+
+ROUTED through the same door the desert took, it came back 0.6-20% walkable per cell with
+real material in it. THE CONTENT WAS RIGHT. Then I opened the picture: bedrock face, ridge
+crest and cliff band are ALL STRUCTURE-LAYER tiles, and this renderer draws structure with
+BUILDING ART -- so the massif came back as a checkerboard of BRICKWORK. 927 cells of brick
+wall around a valley he already tells me looks like shit when it is wrong.
+
+*** A GATE WOULD HAVE PASSED IT. *** The tiles were there. The seam held. Walkability went
+up. No page errors. EVERY NUMBER IMPROVED. Only LOOKING caught it, which is the whole
+content of VERIFY ON THE REAL SURFACE and the reason the law says LOOK and not MEASURE.
+
+Reverted: mountain is out of TERRAIN_KIT and its module is no longer inlined (an inlined
+module nothing calls is dead weight the sync sweep still carries). The attempt and its
+numbers are KEPT in the tool and the record, because a refusal nobody wrote down is
+indistinguishable from never having tried. It comes back when structure-layer TERRAIN has a
+rock treatment -- a renderer + ART job, not a routing job.
+
+*** AND THE TOOL BROKE THE PAGE ONCE TODAY, IN A WAY THIS REPO HAS SEEN BEFORE. *** It
+reversed its own edits by matching the NEW text verbatim so it could re-run. I edited one
+comment line inside that text; the file's older form stopped matching; the reversal silently
+did nothing; the forward pass inserted a SECOND `const TERRAIN_KIT` and the whole page died
+on "Identifier already declared". That is the payday orphan (8/15) in a different coat:
+A REVERSAL THAT MATCHES ON CONTENT BREAKS THE DAY THE CONTENT CHANGES. The registry edit now
+carries its own delimiters and is cut by MARKER, with a LEGACY_REG list of every form it has
+ever had -- the same pattern bohemia_city_payday_patch.py uses for exactly this.
+
+DESERT AND WASH ARE UNCHANGED AND STILL GREEN: terrain_surface_gate 13/0, seam 117/128
+against an averaged control of 54.7/128.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A ROCK TREATMENT FOR STRUCTURE-LAYER TERRAIN, so the mountain can come back. That is
+     the blocker on 927 cells and it is a renderer branch plus an ART form, not routing.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
+WORLD (world-9lfjtf): 8/18 (d) LATEST -- *** TEN RECTANGLES CANNOT SAY "GHOST PLAT".
+THE TERRAIN GENERATORS HAD NEVER REACHED THE SURFACE HE WALKS ON. TAB: RUN -- walk out
+into the desert or down a wash and look at the ground. ***
+
+MEASURED on the running page, asking tileMeta what a real terrain cell actually IS:
+    desert / wash / mountain   hasKit:false  open:true  rects:10
+    water                      hasKit:false  open:true  rects:0
+Every terrain cell in the valley -- a 128x128 tile plate -- was TEN 2x2 RECTANGLES OF FLAT
+COLOUR. That was the whole thing. Meanwhile engine/bohemia_desert.js had been authoring
+self-spaced creosote, OHV tracks, illegal dumping, caliche and the GHOST PLAT (a graded
+subdivision nobody built), and engine/bohemia_wash.js the braid, the riprap, the flood
+structure and the sewer tunnel mouth.
+
+*** gates/terrain_gate.js HAS BEEN GREEN ON ALL OF IT SINCE 7/26. *** It tests the
+GENERATOR. Nothing ever asked whether the game called it. THAT IS THE THIRD TIME IN ONE DAY
+FOR THIS EXACT SHAPE -- hazard classified ground nothing could reach, occupancy_gate found
+the model and the surface disagreeing about 4,327 of 4,327 cells, and here a generator with
+a full gate suite behind it was simply never invoked. A gate that checks its own side of a
+seam NOBODY IS STANDING ON will stay green through anything.
+
+AFTER, same cells:
+    desert  13 tile types -- desert pavement 6189, GRADED PAD 5304, rock lag 2043,
+            dry rill 1213, caliche hardpan 619, OHV track 334
+    wash    13 tile types -- channel bank 4554, channel invert 3276, maintenance road
+            1564, riprap 942   (and walkable 16,344 -> 14,799: the concrete BLOCKS now)
+
+  tools/bohemia_city_terrain_patch.py   the fix + the whole argument
+  gates/terrain_surface_gate.js         13 checks, standing ON the seam
+  records/BOHEMIA_TEN_RECTANGLES_8_18_26.md
+
+*** IT TOOK THE DOOR A ROAD BUILT LAST WEEK. *** The page's own comment: "A ROAD WITH ITS
+OWN MODULE DRAWS ITSELF -- four numbers cannot say palm median." Ten rectangles cannot say
+ghost plat.
+
+*** THE ONE THING THAT CAN BREAK SILENTLY, AND IT IS WHY THE GATE IS SHAPED LIKE THIS. ***
+Terrain is sampled from ONE valley-wide field in GLOBAL coordinates -- the entire reason a
+ridge crosses a cell boundary instead of stopping at it. __kitBlock makes one 128x128 block
+per GRP x GRP cells (FN=32, GRP=4), so THE BLOCK COORDINATE IS THE 128-TILE COORDINATE.
+Hand it the CELL instead and EVERY SEAM IN THE VALLEY BREAKS WHILE EACH CELL STILL LOOKS
+PERFECTLY FINE ON ITS OWN. You cannot see that in a screenshot, so it is measured against a
+control, AVERAGED over six distant cells because a single sample swings and a gate whose
+threshold sits near the noise gets switched off by whoever it wakes:
+    real neighbour      117/128
+    six controls, mean   54.7/128
+    MUTATION (pin it)    71/71 -- identical, no seam at all
+
+*** IT TOOK THREE MEASUREMENTS TO GET THE DESERT IN, and the middle one is the lesson. ***
+Run 1: wash took the door with 13 real types, DESERT DID NOT MOVE -- its generator is not
+inlined in the city page at all. Run 2: inlined it, STILL NOTHING -- it samples
+engine/bohemia_terrain_noise.js, the one continuous field, and that was not on the page
+either, so it threw on load and fell back to the rectangles. A DEPENDENCY THAT IS NOT THERE
+FAILS EXACTLY LIKE A FEATURE THAT WAS NEVER WIRED, and the only thing that told them apart
+was measuring the page again instead of re-reading the patch.
+
+MOUNTAIN AND WATER ARE DELIBERATELY OUT, with different reasons, and the gate proves they
+still take the fallback so it stays live code:
+  MOUNTAIN  routing it is an IMPROVEMENT (0/256 walkable today, a solid wall, while its own
+            gate insists it is "a wall with PASSES" and the ravines are walkable) but it
+            changes traversal for 927 cells and deserves its own before/after.
+  WATER     its legend calls `open water` non-solid, so routing it would let him WALK OUT
+            ONTO THE LAKE. That is a legend fix (deep water blocks), not a terrain fix.
+
+*** AND I CORRECTED A NUMBER I PUBLISHED THIS MORNING. *** The 8/18 (b) handoff said the
+walked surface "registers 35 of the engine's 66 district types, so 10 of the 21 hazard
+districts cannot be reached". IT REGISTERS 57 OF 66. The nine absent are suburb (its own
+realizer, deliberate, recorded 8/3), the roads and the terrain -- every one handled by a
+dedicated path rather than missing. The real gap was narrower and sharper than the number I
+gave. Corrected by name in both files rather than quietly edited.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. MOUNTAIN through the same door, with its own before/after on traversal. 927 cells that
+     are currently a solid wall and are supposed to have passes.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
+WORLD (world-9lfjtf): 8/18 (c) LATEST -- *** THE WALKED SURFACE HAD BEEN IGNORING THE
+OCCUPANCY MODEL FOR EVERY PROP IN THE VALLEY. TAB: RUN -- brush, weeds and rubble drift
+are ground you walk over now instead of walls. ***
+
+MEASURED ON THE REAL PAGE, 40 real district cells:
+    before   0 of 4,327 walk-through prop cells agreed with the model
+    after    4,327 of 4,327
+
+engine/bohemia_district_kit.js has modelled prop solidity PER TILE since July and says so
+in its own file ("prop: an object sitting on the ground; SOLID PER ITS SIZE" / "solid =
+does the tile block a body's cell at grade"). Its DEFAULT for prop and tree-dead is
+solid:TRUE, so every solid:false in a legend is a district author DELIBERATELY declaring
+that a body may stand there -- you push through creosote, you walk over rubble drift, you
+step past a survey stake. FORTY-EIGHT of them, across 41 districts, written into dossiers
+and held by tilespec_gate and district_kit_gate.
+
+The walked surface threw away all 48 in ONE LINE:
+    if(tl.layer==='prop'){ c.s=pal; c.walk=false; return c; }
+No mention of tl.solid.
+
+*** WHY NO GATE COULD SEE IT, and this is the part worth keeping. *** district_kit_gate
+holds the MODEL. walkable_gate holds land STATISTICS. tilespec_gate holds the DOSSIER. All
+three were green, because each was checking its own side of a seam NOBODY WAS STANDING ON.
+A contradiction between two live systems is a bug and never an interpretation choice -- but
+it can only BE a bug once something compares them, and nothing did.
+
+*** AND I FOUND IT BY BEING WRONG THIS MORNING. *** The hazard classifier's first
+standability rule was the kit's own answer. Six tiles came back walk:false on the running
+page, so I tightened the rule to layer==='ground' and wrote down the lesson "A PROP IS AN
+OBJECT ON THE GROUND, NOT THE GROUND". THAT WAS THE WRONG LESSON. I had two live systems
+contradicting each other and I believed the one in front of me instead of asking which was
+lying. VERIFYING ON THE REAL SURFACE IS NECESSARY AND IT IS NOT SUFFICIENT: the surface can
+be the broken half.
+
+  tools/bohemia_city_occupancy_patch.py   one condition, and the argument for it
+  gates/occupancy_gate.js                 12 checks, BOTH directions, 2 mutations bite
+  records/BOHEMIA_THE_SURFACE_IGNORED_THE_MODEL_8_18_26.md
+
+WHAT IT OPENED UP: hazard 19 -> 26 tiles, 15 -> 21 districts, AMPLIFIES 7 -> 14 tiles in 12
+districts. That closes gap 1 from this morning's hazard record -- "the valley has no
+walkable rubble field" -- and NOT by adding a tile. It was never missing. It was declared,
+authored, dossiered, and discarded one line before it reached him.
+
+*** FIFTEEN DECLARATIONS WERE GENUINELY WRONG AND THAT HALF IS WHY THE FIX IS SAFE. ***
+A TRUNK BLOCKS. Twelve dead/street/windbreak trees, a map kiosk and a landscaping planter
+carried solid:false, and honouring the flag without correcting them would have shipped a
+player walking through tree trunks. Corrected in their own legends, which is the right
+place: the tile was wrong, not the reader. They behave exactly as they do today.
+ONE CORRECTION WAS REVERTED and it is recorded because a silent revert is indistinguishable
+from an oversight: strip:7 / strip_x:7 "planter" reads, in its own act1, "a tree well cut
+into the promenade, the tree gone, the pit full of grit and trash". That is a recess at
+grade, not a mass. Two reasons to leave it: the description is explicit, and the Strip is
+another WORLD session's fresh ground (f812f41, today).
+
+THE GATE IS A COMPARISON AND NOTHING ELSE. It asserts nothing about which answer is right
+for any particular tile -- that is the district author's call and it lives in the legend --
+and only refuses to let the two disagree. Both directions, so "make everything walkable" is
+not a way to pass it.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. The three genuinely fatal drops modelled as STRUCTURE tiles (quarry:7 bench crest,
+     intake:13 shaft, reclaim:6 crusted pond) -- you bump into them instead of falling in.
+     Same shape as this one: the model says wall, the world means hole.
+  2. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  3. [CORRECTED 8/18 -- I PUBLISHED A WRONG NUMBER HERE. The page registers 57 of 66, not
+     35. The nine absent are suburb (its own realizer, deliberate, recorded 8/3), the roads
+     (arterial, arterial_x, freeway, rail, interchange) and the terrain (desert, mountain,
+     water) -- every one handled by a dedicated path rather than missing. The REAL gap was
+     narrower and sharper: the terrain path realized every cell as TEN RECTANGLES and never
+     called the generators at all. Fixed for desert and wash the same day; see
+     records/BOHEMIA_TEN_RECTANGLES_8_18_26.md. What is still open from it: MOUNTAIN (927
+     cells, 0/256 walkable today while its own gate insists it is "a wall with PASSES") and
+     WATER (its legend calls open water non-solid, so routing it would let him walk onto the
+     lake -- a legend fix, not a terrain fix).]
+
+WORLD (world-9lfjtf): 8/18 (b) LATEST -- *** ROOMS HAVE THINGS IN THEM NOW, AND ONLY
+THE CHEST-HIGH THINGS HIDE YOU. TAB: RUN -- walk through any door and look at the
+room. ***
+
+THIS IS THE SECOND HALF OF A NUMBER I PUBLISHED THIS MORNING. The retreat gate measured
+the RF4 lift's hard obligation ("a cramped room deletes the entire core verb") and found
+a clean break: every plate 10x10 or under is ONE ROOM with 94% of its floor unable to get
+out of sight. Walls cannot fix that -- a 6x6 plate is 4.5 METRES SQUARE, and partitioning
+a shed so a gate goes green is inventing architecture that does not exist. Cover at that
+size is WHAT IS IN THE ROOM.
+
+  stranded floor cells   9,630 -> 3,053   (-68%)
+  the break point          320 -> 224 tiles, ratcheted so it may only come down
+
+*** THE TIMING WAS NOT LUCK: __CITY_FIGHT__ ("THE DOOR IS THE FIGHT") landed on the
+walked surface while I was building this. inEnter is now both the way inside and the way
+into a fight, so the room I furnished IS the room the fight happens in. ***
+
+  engine/bohemia_furnish.js            three classes, 25 roles, deterministic
+  tools/bohemia_city_furnish_patch.py  on the plate, in inEnter, blocking + drawn
+  gates/furnish_gate.js                32 checks, 3 mutations confirmed
+  records/BOHEMIA_WHAT_IS_IN_THE_ROOM_8_18_26.md
+
+  COVER  chest-to-head and opaque -- racking, lockers, a fridge, a counter run.
+         Blocks the body AND the look. This is what makes a room fightable.
+  LOW    knee-to-waist -- a bed, a sofa, a desk. Blocks the body, NEVER the look.
+         There is no crouch in this game, so a sofa cannot hide you and will not
+         pretend to.
+  LOOSE  litter. Blocks nothing, and nothing downstream may count it as cover.
+
+*** THE SPLIT IS THE WHOLE DESIGN AND THE GATE ATTACKS IT. *** Calling a desk "cover"
+would pass the retreat obligation in every office in the game while it played exactly as
+badly as before. A number that improves while the game does not is worse than a red one.
+Flip that one flag and the gate goes red; so does deleting the doorway guard (2,722
+pieces in or beside a doorway, 233 plates cut in two).
+
+*** THE SMALLEST PLATES ARE IMPROVED AND NOT CLAIMED FIXED. *** 98 of 162 still strand
+somebody and that number stays in the gate output. A 4.5 m room with one shelf still has
+sightlines, and tuning density until it went green would be lying about a shed.
+
+*** THE REUSE CHECK ENDED IN A WARNING, NOT A SHOPPING LIST -- READ THIS BEFORE YOU
+REACH FOR EITHER BANK. *** I opened, decoded and LOOKED AT both (rendered to PNG and
+viewed, not read about):
+  banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt -- header claims "every tile here carries a
+    Paolo UP verdict". It is a GENERIC FANTASY ASSET PACK: banded oak barrels, burlap
+    sacks, tavern benches, potion bottles and LIVE FLOWERING PLANTS.
+  banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt -- its `container` family is GLOWING SCI-FI
+    LOOT CRATES. Its `cover` family (jersey barriers, sandbags, steel plate) is the one
+    usable set in either bank, and it is right for a fortified room, wrong for a bedroom.
+Nothing is wired from either. What draws is a blocking VOLUME with a lit top and a darker
+front -- the same fallback this renderer already uses -- and COVER rises into the cell
+above while LOW does not, so the two are told apart by SHAPE before colour.
+ART's ask is TWO FORMS, not twenty-five: one chest-to-head mass that reads as "this hides
+me", one knee-to-waist mass that reads as "this does not". Full ask in the record.
+
+*** FOR WHOEVER OWNS __HOUSE_FLOORS__ -- I SAW THIS AND DID NOT TOUCH IT. *** Walking
+into a real house to verify the furniture draws, the interior renders FANTASY DUNGEON
+floor and door tiles including large LIVE GREEN FLOWERING VEGETATION, inside a residential
+building in a valley that stopped watering things a decade before act one. That is the
+same standing law the 7/22 prefab fix enforces outdoors, failing indoors. Your story is
+already live (Paolo 8/6, "Tile wood and carpet bro ofc bro wtf") and names his tile as a
+declared interim -- but the interim note does not mention the vegetation, and that half is
+a standing-law violation on the surface he plays. ONE SYSTEM, ONE SESSION: it is yours.
+
+*** AND A WARNING ABOUT THIS CONTAINER, because it cost me the work once. *** This
+session's box REPROVISIONED TWICE mid-run and both times the git checkout reverted to a
+commit from 8/9 and every UNCOMMITTED file vanished. The hazard and retreat work survived
+because it was pushed; the furnish work had to be rewritten from scratch. COMMIT EARLY
+AND OFTEN HERE -- do not hold a finished module until the suite passes.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A GROUND-LAYER RUBBLE TILE. Every rubble/debris tile in six districts is a `prop`
+     the walked surface blocks, so the most classic piece of unstable ground in any game
+     cannot be stood on here. It is what makes AMPLIFIES real, indoors and out, and it is
+     the cheapest of the four gaps.
+  2. The three genuinely fatal drops modelled as STRUCTURE tiles (quarry:7 bench crest,
+     intake:13 shaft, reclaim:6 crusted pond) -- you bump into them instead of falling in.
+  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  4. The walked surface's kit registers 35 of the engine's 62 district types, so 10 of the
+     15 hazard districts cannot be reached at all. That caps far more than these features.
+
+FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
+
+
 COMBAT (combat-nfnki9): 8/21 (j) LATEST -- *** THE FINISHER. Land six shots and
 the next perfect killshot STAYS DOWN instead of leaving him alive on the floor.
 RF4-12 BUILT. TAB: COMBAT -- shoot six times, then dial a kill. ***

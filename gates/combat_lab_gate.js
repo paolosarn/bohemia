@@ -4659,6 +4659,34 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V177 THE BREACHER (RF4-28) ================================
+   The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
+   the shape, and the fact that the mechanic he drives had no reachable caller. */
+  ok('V177 RF4-28 THE COUNTER EXISTS: a body whose turn goes into the STONE YOU ARE BEHIND rather than into you. Our diff column named this exact answer -- "our cover system is strong enough that a cover-destroying body would be a real counter" -- and the measurement backs it, because the stone takes 73% of the guns off you',
+    /function breachTurn\(\)\{/.test(demo) && /breacher:\{n:'BREACHER'/.test(demo));
+
+  ok('V177 AND HE IS A GOON WITH A JOB, the V173 pattern: hp, accuracy and damage COPIED from ARCH.human rather than chosen, so a whole new archetype sets no damage number and NO DAMAGE BEFORE THE DIAL survives it',
+    /breacher:\{n:'BREACHER', hp:60, acc:0\.55, dmg:\[14,26\]/.test(demo) &&
+    /human:\{n:'GOON',  hp:60,  acc:0\.55, dmg:\[14,26\]/.test(demo));
+
+  ok('V177 AND HE IS THE FIRST REACHABLE CALLER chewCover HAS EVER HAD. V152 shipped "and the stone takes it too" inside the volley, where it waits for a round of THEIRS that YOUR COVER ATE -- a condition its own geometry forbids, since a pillar that covers you is what takes a man OUT of the volley. Measured at zero across 264 states. This man does not need a line on you, he needs the rock',
+    /for\(let k=0;k<BREACH_BITE;k\+\+\)\{ try\{ chewCover\(P\); \}catch\(_x\)\{\} \}/.test(demo) &&
+    /const P=coverPillarAgainst\(e\.ea,e\.edist,e\.lvl,false\);/.test(demo));
+
+  ok('V177 AND PINNING HIM IS THE ANSWER TO HIM, the same answer the medic has, so the counter has a counter rather than being a wall: a suppressed, stunned or prone breacher does no work that turn',
+    /if\(pinned\(e\)\|\|\(e\.stun\|\|0\)>0\|\|\(e\.prone\|\|0\)>0\)continue;   \/\* head-down men do no work \*\//.test(demo));
+
+  ok('V177 AND HE HAS TO BE ABLE TO REACH THE ROCK: gated on inHisRange, so a man standing off the end of the board does not quietly demolish a lot he could never hit',
+    /if\(!inHisRange\(e\)\)continue;/.test(demo));
+
+  ok('V177 AND HE FILLS AFTER THE BLADES, so his 7/19 MELEE MIX still takes its slots first. That is the ruling V173 broke by inserting an archetype ahead of them -- at PACK the recipe wants floor(N/2) knives and the medic was eating one -- and a second new body must not repeat it',
+    demo.indexOf("out.push('breacher')") > demo.indexOf("const BL=['shiv','bat','spear'];")
+    /* AND EXACTLY ONE PLACE PUTS HIM IN, because an ordering claim that reads
+       indexOf is defeated by a duplicate sitting in front of the one it finds --
+       precisely the hole V174's car-tap claim had, found by mutation the same
+       way. Ordering only means something when there is one of the thing. */
+    && (demo.match(/out\.push\('breacher'\)/g) || []).length === 1);
+
 /* ===== V176 THE FINISHER (RF4-12) ================================
    "Charge up a more impactful ability after say 10 attacks, WHICH TAKES
     SOMETHING UNCONTROLLABLE AND GIVES IT TO THE PLAYER TO USE TACTICALLY."

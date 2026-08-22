@@ -1393,6 +1393,111 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '. Carrying one in would make the first perfect shot of every fight free, which is the opposite of a thing you work up to',
     fin.freshFight === 0);
 
+
+/* ===== V177 THE BREACHER (RF4-28) ================================
+   "Enemies are designed as COUNTERS TO EFFECTIVE PLAYER ACTIONS, deliberately."
+   The effective action is measured a few claims up: THE STONE TAKES 73% OF THE
+   GUNS OFF YOU. And while checking whether it needed countering, V152's
+   cover-chewing turned out to be STRUCTURALLY UNREACHABLE -- see the claim below.
+   The player modelled here is his own 8/15 complaint verbatim: "I just found some
+   cover and I stayed in the same place just shooting people." Two earlier cuts
+   measured the wrong man -- a WALKER's cover changes every turn so no rock ever
+   takes the ten bites it needs, and a CAMPER AT SPAWN is not behind anything at
+   all -- so this one moves until inRealCover() is true and then holds. */
+  const breach = await frame.evaluate(() => {
+    const DIRS = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+    const play = (silence) => {
+      let knocked=0, gone=0, fights=0, held=0, chews=0;
+      const real = chewCover;
+      window.chewCover = function(P){ chews++; return real(P); };
+      for (let A = 1; A <= 30; A++) {
+        BohemiaArena.set(A); setupCombat();
+        if (!(G.e||[]).some(e => e && e.E && e.E.breach)) continue;
+        fights++;
+        G.pHP = G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
+        const tall0 = (G.pillars||[]).filter(P => P.tall!==false).length;
+        const n0 = (G.pillars||[]).length;
+        for (let t = 0; t < 14 && !G.over; t++) {
+          if (silence) (G.e||[]).forEach(e => { if (e && e.E && e.E.breach) e.supp = 2; });
+          let covered = false; try { covered = inRealCover(); } catch(e){}
+          if (!covered) {
+            const o = (() => { if (!G.exit) return [2,3,1,4,0,5,7,6];
+              const x = Math.cos(G.exit.ea), y = Math.sin(G.exit.ea);
+              return DIRS.map((d,i)=>({i,dot:d[0]*x+d[1]*y})).sort((a,b)=>b.dot-a.dot).map(z=>z.i); })();
+            const b4 = { x: G.worldOff.x, y: G.worldOff.y };
+            for (const d of o) { try { doMove(d); } catch(e){}
+              if (G.worldOff.x !== b4.x || G.worldOff.y !== b4.y) break; }
+            if (G.worldOff.x === b4.x && G.worldOff.y === b4.y && !G.over) { try { endTurnReturn(true); } catch(e){} }
+          } else {
+            held++;
+            const pool = modePool();
+            if (pool.length) { const i = pickTarget();
+              if (i>=0 && G.e[i]) { try { applyDamage(G.e[i],45);
+                if (G.e[i].hp<=0) G.e[i].dead=true; checkClear(); } catch(e){} } }
+            if (!G.over) { try { endTurnReturn(true); } catch(e){} }
+          }
+          if (G.pHP <= 0) break;
+        }
+        knocked += Math.max(0, tall0 - (G.pillars||[]).filter(P => P.tall!==false).length);
+        gone += Math.max(0, n0 - (G.pillars||[]).length);
+      }
+      window.chewCover = real;
+      return { fights, held, chews, knocked, gone };
+    };
+    const on = play(false), off = play(true);
+    let inRoster = 0, tried = 0;
+    for (let A = 1; A <= 30; A++) { BohemiaArena.set(A); setupCombat(); tried++;
+      if ((G.e||[]).some(e => e && e.E && e.E.breach)) inRoster++; }
+    /* AND THE UNREACHABLE MECHANIC, measured on its own terms: how many guns are
+       in the volley, and how many of those have a pillar covering you from them
+       -- which is the exact and only condition V152's chew waits on. */
+    let states = 0, volley = 0, both = 0;
+    for (let A = 1; A <= 30; A++) {
+      BohemiaArena.set(A); setupCombat();
+      G.pHP = 100; G.phase='cover'; G.over=false; G.inc=null;
+      for (let t = 0; t < 10; t++) {
+        states++;
+        try { visionTick(); } catch(e){}
+        const pool = exposedToMe(); volley += pool.length;
+        for (const e of pool) if (coverPillarAgainst(e.ea, e.edist, e.lvl, false)) both++;
+        try { pressAI(); } catch(e){}
+        try { endTurnReturn(true); } catch(e){}
+        if (G.over || G.pHP <= 0) break;
+      }
+    }
+    return { on, off, rosters: { tried, inRoster },
+             catch22: { states, volley, both },
+             sameNumbers: ARCH.human.hp === ARCH.breacher.hp
+                       && ARCH.human.acc === ARCH.breacher.acc
+                       && ARCH.human.dmg.join() === ARCH.breacher.dmg.join() };
+  });
+
+  console.log('  the breacher, against a man who finds cover and holds it:'
+    + '\n    working : ' + breach.on.chews + ' bites, ' + breach.on.knocked + ' knocked down, ' + breach.on.gone
+    + ' destroyed over ' + breach.on.fights + ' fights (' + breach.on.held + ' turns actually in cover)'
+    + '\n    pinned  : ' + breach.off.chews + ' bites, ' + breach.off.knocked + ' knocked down, ' + breach.off.gone
+    + ' destroyed (' + breach.off.held + ' turns in cover)');
+
+  ok('V177 *** V152s COVER-CHEWING WAS STRUCTURALLY UNREACHABLE, AND THIS IS THE FIRST CALLER IT HAS EVER HAD. *** "The stone takes it too" fires on a round of THEIRS that YOUR COVER ATE -- and across ' + breach.catch22.states
+    + ' real fight states with ' + breach.catch22.volley + ' guns in the volley, exactly ' + breach.catch22.both
+    + ' had a pillar covering you from them. Not rare: IMPOSSIBLE, because a pillar that covers you is precisely what removes a man from the volley. Cover in this game had never once degraded, so that 73% held for the whole fight, forever',
+    breach.catch22.volley > 20 && breach.catch22.both === 0);
+
+  ok('V177 RF4-28 AND NOW THE ROCK GOES: ' + breach.on.chews + ' bites and ' + breach.on.gone
+    + ' pillars destroyed against a man holding cover, and ' + breach.off.chews + ' bites with the breacher pinned every turn. The control is exact -- same fights, same arenas, one man head-down -- and PINNING HIM IS THE ANSWER TO HIM, the same answer the medic has, because a suppressed man does no work',
+    breach.on.chews > 20 && breach.on.gone > 0 && breach.off.chews === 0 && breach.off.gone === 0);
+
+  ok('V177 AND A NEGATIVE RESULT, RECORDED RATHER THAN QUIETLY DROPPED: HE DOES NOT MEASURABLY PUSH A CAMPER OFF THE LOT. Turns held in cover came out ' + breach.on.held
+    + ' with him working against ' + breach.off.held + ' with him pinned -- and the first two runs read the other way, which is exactly how a wanted conclusion gets shipped. THE REASON IS 65 ROCKS AN ARENA: destroying one moves the man to the next one, which is a step, not an eviction. The mechanism is real and gated above; the CONSEQUENCE the counter was reached for is not there yet, and saying so is worth more than a claim that flips run to run',
+    breach.on.chews > 20 && breach.on.gone > 0);
+
+  ok('V177 AND HE IS A GOON WITH A JOB, the V173 pattern: hp, accuracy and damage COPIED from ARCH.human rather than chosen, so a whole new archetype sets no damage number and the measurement has nothing to point at except behaviour. He also costs no damage while he works -- his turn goes into the stone instead of into you, and the bill arrives as geometry when the cover goes',
+    breach.sameNumbers === true);
+
+  ok('V177 AND HE IS ACTUALLY IN THE FIGHT (' + breach.rosters.inRoster + ' of ' + breach.rosters.tried
+    + ' rosters), filling after the blades so his 7/19 melee mix still takes its slots first -- the ruling V173 broke and had to be fixed',
+    breach.rosters.inRoster >= 5);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
