@@ -343,6 +343,16 @@
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_profile_picture.js"
+  },
+  {
+   "id": "slot-leak",
+   "title": "IT WAS NEVER JUST THE HAIR",
+   "caption": "The white blob you spotted on the side of his head was not a hair bug, it was a slot bug, so I went and checked the other eight painted layers the same way. Three more were doing it: your leather legwarmers showing through blue jeans, your Balenciagas through white sneakers, and your fuzz hoodie through the wasteland duster. 147 stray pixels in total, now zero. Be warned these are much smaller and less obvious than the hair blob was, so look at the hips and the boot edges rather than expecting something to jump out. Nothing of yours was edited, and with nothing worn you still look exactly as you painted yourself. LOOK tab for this picture, CHARACTER tab for the clothes.",
+   "file": "look/slot-leak.png",
+   "kb": 70.1,
+   "stamp": "8/21/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_slot_leak_picture.js"
   }
  ]
 }

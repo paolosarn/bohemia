@@ -1,0 +1,84 @@
+BOHEMIA -- IT WAS NEVER JUST THE HAIR: A SLOT BUG WEARING A HAIR BUG'S CLOTHES
+CHARACTER lane, 8/21/26.  Continuing from "Continue fixing east and west hair pls".
+
+WHAT YESTERDAY'S FIX ACTUALLY WAS
+----------------------------------
+His painted hair/curtain-bob was still drawing under a worn hairstyle. Front-on the
+generated hair covered it; in profile it did not, because a generator spans the PART
+GRID and his paint reaches two cells past that grid at the crown. His bob's ramp holds
+a near-white, so what leaked was a bright blob over the forehead. Fixed by not drawing
+the PD hair layer while a hair garment is worn.
+
+I SHIPPED THAT AS A HAIR FIX. IT WAS NOT A HAIR FIX.
+-----------------------------------------------------
+Hair is one of nine PD layers and six have generated counterparts. Nothing about the
+mechanism was specific to hair -- any painted layer whose slot gets a generated garment
+would do the same thing. So I audited all of them on the real worn path, all 8 facings
+(tools/bohemia_pd_leak_audit.js):
+
+    pants/leather-legwarmer    68 px leaking through BLUE JEANS
+    shoes/balenciaga           61 px leaking through WHITE SNEAKERS
+    jacket/japanese-fuzz       18 px leaking through WASTELAND DUSTER
+    shirt/cowl-hoodie           0
+    hair/curtain-bob            0    (fixed the day before)
+
+THREE MORE, LIVE, IN THE BUILD HE IS PLAYING. Fixing hair and stopping would have left
+them there indefinitely, because nobody would have gone looking: the visible symptom was
+on the head and the head was fixed.
+
+THE FIX IS THE GENERAL ONE
+---------------------------
+The hair-only line is gone. If a generated garment of a slot is worn, the painted layer
+of that same slot is not drawn. One rule, seven slots, no special case:
+    hair->hair  hat->head  shirt->base  jacket->outer  pants->legs  shoes->feet
+    glasses->face
+body and facial are ABSENT FROM THAT MAP ON PURPOSE. A garment never replaces his face
+or his body, and the gate fails if either is ever added.
+
+TWO THINGS THIS COULD HAVE BROKEN, BOTH MEASURED RATHER THAN ASSUMED
+---------------------------------------------------------------------
+HIS DEFAULT LOOK. window.G_WORN is null until something dresses him, so out of the box
+he wears his painted outfit exactly as painted. Verified by rendering 32 frames (8
+facings x 2 clips x 2 phases) off origin/main and off this build and comparing hashes:
+BYTE-IDENTICAL. The suppression fires only when a generated garment of that slot is
+deliberately worn, and then the generated garment IS the garment.
+
+HIS FACE. Dress him head to toe and his painted face must still be on the frame. It is,
+and the gate asserts it two independent ways -- the source map must not contain 'facial',
+and the pixels must still be there after dressing him. Mutation: add facial to the map
+and BOTH fire, the pixel one reporting 0 painted face pixels on screen.
+
+RIG LAW IS UNTOUCHED. Nothing of his is edited. One layer is not DRAWN while its slot is
+filled, and it returns the moment the slot is empty.
+
+A MISTAKE IN MY OWN TOOL, WORTH RECORDING
+------------------------------------------
+The first run of the audit reported "no generated counterpart" for all six layers and
+looked like a clean bill of health. IT WAS A TYPO IN A LOOKUP TABLE: I assumed the PD
+slots were named base/legs/feet/outer like the wardrobe's layers. They are shirt/pants/
+shoes/jacket. Every pairing missed, and a missed pairing printed as reassurance.
+A LOOKUP THAT MISSES SILENTLY IS THE SAME BUG AS A GATE THAT PASSES VACUOUSLY, and the
+only reason I caught it is that a clean result was the answer I wanted -- which is
+exactly when to look twice. The slot names are read from PD.meta.order now.
+
+GATE (FACTORY LAW: new machinery, own gate, same turn)
+-------------------------------------------------------
+gates/one_garment_per_slot_gate.js, 9/0. Registered in the suite as ONE PER SLOT.
+Three mutations, all caught, all naming the culprit:
+    remove the suppression      -> pants:68 shoes:61 jacket:18 hair:261, each named
+    add 'facial' to the map     -> 3 failures including "0 painted face pixels"
+    fire it with nothing worn   -> "BARE ON NE,N,NW", his default outfit stripped
+Hair's deep sweep stays in hair_gate (15 styles x 8 facings). The two overlap on hair on
+purpose: hair is where the defect was worst and losing that coverage to tidiness would
+be a bad trade.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "IT WAS NEVER JUST THE HAIR" -- legwarmers, Balenciagas and fuzz hoodie,
+before beside after, both halves out of the SAME code (CLO_KEEP_PD).
+SAID PLAINLY IN THE CAPTION: these are much subtler than the hair blob. 147 pixels
+across three slots, at the hips and the boot edges. Overselling a small fix after a big
+one is how the next real finding stops being believed.
+
+  node tools/bohemia_pd_leak_audit.js
+  node gates/one_garment_per_slot_gate.js    9/0

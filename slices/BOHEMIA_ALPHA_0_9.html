@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21s - HAVE YOU SEEN THEM</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/21u - ONE PER SLOT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6509,10 +6509,30 @@ function buildFrame(d,clip,ph,_noOutline){
        edited, it is not drawn, and it comes straight back the moment no hair garment
        is worn. The PREVIEW path already clears every equipped slot, so this only
        concerns the worn body. */
-    /* CLO_KEEP_PD_HAIR exists ONLY so tools/bohemia_hair_profile_picture.js can draw
-       the old behaviour from THIS code rather than a stored screenshot. False in the
-       game; nothing but that tool ever sets it. */
-    if(slot==='hair'&&!window.CLO_PREVIEW&&window.G_WORN&&window.G_WORN.hair&&!window.CLO_KEEP_PD_HAIR)continue;
+    /* *** YOU WEAR ONE GARMENT PER SLOT (Paolo 8/21: "Continue fixing east and west
+       hair pls" -- generalised 8/21 from hair to every slot). *** His PD layers are
+       his painted outfit; the generated wardrobe stamps after them. Front-on the
+       generated garment simply covered its painted twin and the double was invisible.
+       IN PROFILE IT IS NOT: a generator spans the PART GRID and his paint reaches past
+       that grid, so the painted twin peeks out along the edges.
+       FOUND ON HAIR FIRST (3,677 leaked pixels, a near-white blob over the forehead).
+       AUDITED THE OTHER EIGHT LAYERS AFTERWARDS -- tools/bohemia_pd_leak_audit.js --
+       and it was never a hair bug, it was a SLOT bug, live in three more places:
+           pants/leather-legwarmer  68 px leaking through BLUE JEANS
+           shoes/balenciaga         61 px leaking through WHITE SNEAKERS
+           jacket/japanese-fuzz     18 px leaking through WASTELAND DUSTER
+       HIS DEFAULT LOOK IS UNTOUCHED, and this is why it is safe: G_WORN is null until
+       something dresses him, so out of the box he wears his painted outfit exactly as
+       painted. The suppression fires only when a generated garment of that same slot is
+       deliberately worn, and then the generated garment IS the garment.
+       body and facial have no counterpart and are absent from this map ON PURPOSE: a
+       garment never replaces his face or his body. RIG LAW is untouched -- nothing is
+       edited, one layer is not DRAWN, and it returns the moment the slot is empty.
+       CLO_KEEP_PD exists ONLY so the before/after picture tools can draw the old
+       behaviour from THIS code rather than a stored screenshot. False in the game. */
+    if(!window.CLO_PREVIEW&&!window.CLO_KEEP_PD&&window.G_WORN){
+      const _wl=({hair:'hair',hat:'head',shirt:'base',jacket:'outer',pants:'legs',shoes:'feet',glasses:'face'})[slot];
+      if(_wl&&window.G_WORN[_wl])continue; }
     const key=G.equipped[slot];if(!key)continue;
     const L=PD.layers[key]&&PD.layers[key][gdir];if(!L)continue;
     let ramp=PD.ramps[key];if(G.tints[slot])ramp=retintRamp(ramp,G.tints[slot]);

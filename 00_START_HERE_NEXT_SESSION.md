@@ -1,3 +1,58 @@
+CHARACTER (character-0lurbs): 8/21 (c) LATEST -- *** IT WAS NEVER JUST THE HAIR.
+Yesterday's hair fix was a SLOT fix wearing a hair fix's clothes, and three more of his
+painted layers were leaking the same way in the build he is playing. ***
+
+THE MECHANISM WAS NEVER HAIR-SPECIFIC: a generator spans the PART GRID, his paint reaches
+past it, so any painted layer whose slot gets a generated garment peeks out along the
+edges. Audited all nine on the real worn path, all 8 facings (tools/bohemia_pd_leak_audit.js):
+    pants/leather-legwarmer   68 px through BLUE JEANS
+    shoes/balenciaga          61 px through WHITE SNEAKERS
+    jacket/japanese-fuzz      18 px through WASTELAND DUSTER
+    shirt 0,  hair 0 (fixed yesterday)
+Fixing hair and stopping would have left these forever: the visible symptom was on the
+head, and the head was fixed.
+
+THE FIX IS NOW GENERAL, no special case: if a generated garment of a slot is worn, the
+painted layer of that slot is not drawn.
+    hair->hair  hat->head  shirt->base  jacket->outer  pants->legs  shoes->feet  glasses->face
+body and facial are ABSENT FROM THAT MAP ON PURPOSE and the gate fails if either is added.
+
+BOTH RISKS MEASURED, NOT ASSUMED:
+  HIS DEFAULT LOOK -- G_WORN is null until something dresses him. 32 frames (8 facings x
+  2 clips x 2 phases) rendered off origin/main and off this build: BYTE-IDENTICAL.
+  HIS FACE -- dressed head to toe, his painted face is still on the frame. Asserted two
+  independent ways (the source map must not contain 'facial'; the pixels must survive).
+RIG LAW UNTOUCHED: nothing edited, one layer not DRAWN while its slot is filled, back the
+moment it is empty.
+
+*** A MISTAKE IN MY OWN TOOL, AND THE LESSON IS THE POINT. *** The audit's first run
+reported "no generated counterpart" for all six layers and looked like a clean bill of
+health. It was a TYPO IN A LOOKUP TABLE -- I assumed the PD slots were named base/legs/
+feet/outer like the wardrobe's layers; they are shirt/pants/shoes/jacket. Every pairing
+missed, and a missed pairing PRINTED AS REASSURANCE. A LOOKUP THAT MISSES SILENTLY IS THE
+SAME BUG AS A GATE THAT PASSES VACUOUSLY. The only reason I caught it is that a clean
+result was the answer I wanted, which is exactly when to look twice. Slot names are read
+from PD.meta.order now.
+
+GATE: gates/one_garment_per_slot_gate.js 9/0, registered as ONE PER SLOT. Three mutations
+all caught and all naming the culprit (remove suppression -> each slot named with its
+count; add 'facial' -> "0 painted face pixels"; fire with nothing worn -> "BARE ON NE,N,NW").
+Record: records/BOHEMIA_IT_WAS_NEVER_JUST_THE_HAIR_8_21_26.txt
+LOOK tab: "IT WAS NEVER JUST THE HAIR", before beside after from the SAME code (CLO_KEEP_PD).
+The caption says plainly these are MUCH subtler than the hair blob -- 147 px at hips and
+boot edges. Overselling a small fix after a big one is how the next real finding stops
+being believed.
+
+NEXT IN THIS LANE
+  - STEP 5 of row 2X continues: seams, hems, laces, buckles and stitch lines still step
+    by a whole cell at 112. Measure which actually read coarse before assuming.
+  - hat/durag and glasses/shades were NOT exercised by the audit (both slots empty in his
+    default equip), so their pairing is asserted but unproven. Equip one and re-run.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+  - CROWD flaked 15/1 once under load on 8/21 then passed 4x alone. Still unexplained.
+
+---
+
 RUN (run-eak241): 8/21 -- *** THE WHOLE DEMO PLAYS AND SOMETHING PROVES IT, AND
 17.8 MB CAME OFF EVERY BOOT. ***
 

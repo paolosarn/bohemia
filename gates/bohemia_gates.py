@@ -846,6 +846,10 @@ GATES = [
      'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
     ('CLOTH STRUCT',   ['node', 'gates/structure_gate.js'],
      'structure-not-color: jacket/poncho/tall-boot/rolled/gear are real shapes', False),
+    ('ONE PER SLOT',   ['node', 'gates/one_garment_per_slot_gate.js'],
+     'you wear one garment per slot: no painted layer of his shows through a worn garment of '
+     'the same slot, his default painted outfit is untouched, and no garment ever replaces '
+     'his face or his body', False),
     ('CLOTHES 4X',     ['node', 'gates/clothes_4x_gate.js'],
      'every garment and hairstyle keeps its proportions when the rig doubles, on all 8 facings -- '
      'and not one pixel of the 56 wardrobe he plays today moved (1,744 pinned hashes)', False),

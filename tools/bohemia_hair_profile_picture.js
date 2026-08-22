@@ -12,7 +12,7 @@
  *      skull side-on and left the fade's bottom, a hand copy of the same expression,
  *      at the old halfway line.
  *
- * BOTH HALVES COME OUT OF THE SAME CODE (CLO_KEEP_PD_HAIR), so the only difference on
+ * BOTH HALVES COME OUT OF THE SAME CODE (CLO_KEEP_PD), so the only difference on
  * screen is the thing being judged rather than two different builds.
  *
  * RIG CHECK (RIG IS LAW, 7/26): renders and photographs, writes nothing back. His
@@ -43,10 +43,10 @@ const OUT = path.join(REPO, 'slices/look/hair-profile.png');
     const keep = window.G_WORN;
     const frame = (n, d, old) => {
       window.G_WORN = { hair: n, base: 'WHITE TEE', legs: 'BLUE JEANS' };
-      window.CLO_KEEP_PD_HAIR = !!old;
+      window.CLO_KEEP_PD = !!old;
       try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
       const f = buildFrame(d, 'idle', 0);
-      window.CLO_KEEP_PD_HAIR = false;
+      window.CLO_KEEP_PD = false;
       return { px: f.px.slice(), W: f.CW };
     };
     const Z = 11, PAD = 18, LBL = 168, HDR = 128;
