@@ -24362,12 +24362,25 @@ function drawRailform(gx,gy,X,Y,S){
   if(String(NAMEG[gy][gx]||'').toLowerCase()==='rail spur'){
     function isSpur(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
       return String(NAMEG[y2][x2]||'').toLowerCase()==='rail spur'; }
-    if(isSpur(gx-1,gy)||isSpur(gx+1,gy)){
-      var sv=th(0,gy,3), sph=(gx%2===0)?'A':'B';
-      var sim=TILEFORM_IMG['rail_yard_corridor_'+sv+sph];
-      if(sim&&sim.complete&&sim.naturalWidth){
-        ctx.drawImage(look(sim),0,2*44,44,44,X,Y,S,S);
-        return true;
+    /* AUDIT FIX (8/21, third composition audit): the spur cells are a WIDE
+       APRON, not thin lines - "continues E or W" was true inside the whole
+       blob and painted wall-to-wall rails, corduroy across the granary.
+       Rails belong only on a THIN run: continuing both ways horizontally
+       and NOT sandwiched by spur above and below. The apron is ballast. */
+    /* SECOND ITERATION same audit: 2-3 cell fragments still passed the
+       thin test and scattered rail dashes across the apron. A rail is a
+       RUN - only sidings six cells or longer carry track; everything
+       shorter is apron ballast. */
+    if(!(isSpur(gx,gy-1)&&isSpur(gx,gy+1))){
+      var runL=0; while(runL<7 && isSpur(gx-1-runL,gy)) runL++;
+      var runR=0; while(runR<7 && isSpur(gx+1+runR,gy)) runR++;
+      if(runL+runR+1>=6){
+        var sv=th(0,gy,3), sph=(gx%2===0)?'A':'B';
+        var sim=TILEFORM_IMG['rail_yard_corridor_'+sv+sph];
+        if(sim&&sim.complete&&sim.naturalWidth){
+          ctx.drawImage(look(sim),0,2*44,44,44,X,Y,S,S);
+          return true;
+        }
       }
     }
     var sp=TILEFORM_IMG['rail_plate_'+th(gx,gy,3)];

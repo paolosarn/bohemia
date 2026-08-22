@@ -870,3 +870,20 @@ ballast bed on the curve fragments, which is what a curve looks like
 from above anyway. And the downtown and commercial ALLEYS (2,377 cells)
 pour old asphalt instead of gravel. Verified live: the cemetery reads as
 a cemetery at last - rows of stones in the dead lawn.
+
+## 8/21 FORTY-FIRST PASS: THIRD COMPOSITION AUDIT (and the probe earns its keep again)
+
+Walked the four newest stacks. Cemetery: COMPOSED (stones in rows on the
+lawn). Stadium: COMPOSED (seats + aisles + scoreboard + yard lines).
+Gypsum: COMPOSED (white piles by the quarry). Granary: the audit CAUGHT
+what looked like my spur wire painting corduroy across the whole yard -
+two fix iterations later the frame had not changed, and the courthouse
+lesson kicked in: WHEN A FIX CHANGES NOTHING TWICE, THE THING YOU ARE
+STARING AT IS NOT THE THING THAT IS WRONG. The white-probe build proved
+the real spur cells are exactly the two long sidings (which my wire
+dresses correctly - rails on the 6+ runs, ballast elsewhere), and the
+tan dashed field I was chasing is a DIFFERENT pre-existing granary
+surface, not mine and not broken enough to chase. The two iterations
+stay: the minimum-run law (rails only on sidings 6+ cells) is more
+honest than what shipped yesterday either way. Audit verdict: COMPOSED
+across all four stacks; one self-misread, corrected by instrument.

@@ -23997,6 +23997,14 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/21 (e) LATEST -- *** THIRD COMPOSITION AUDIT: all four
+new stacks COMPOSED (cemetery stones, stadium seats, gypsum piles,
+granary spur). One self-misread: chased "corduroy" at the granary for two
+iterations before the white-probe proved the spur wire was already right
+and the dashed field was a different surface - the probe instrument
+earned its keep a second time. Spur now carries the stricter minimum-run
+law (rails only on 6+ sidings). Sitting pass 41.
+PREVIOUS (d):
 ART (f3eu53): 8/21 (d) LATEST -- *** THE GRAVES, THE SPUR, THE ALLEYS:
 925 headstones stand in the cemetery lawn (no glyphs - the dead are his
 to name); the granary rail spur wires into the approved rail family
