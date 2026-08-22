@@ -1,3 +1,80 @@
+RUN (run-eak241): 8/21 (b) -- *** WINNING AND LOSING WERE THE SAME EVENT, AND THE
+GATE SAID IT WAS FINE. *** TAB: RUN (walk into any building, fight, come back out).
+
+THE FIGHT'S OUTCOME REACHED THE WALKED WORLD AND WAS DROPPED. ALPHA:7724 posts
+{type:'BOHEMIA_CITY_COMBAT_END', outcome, at} into the city frame. Grep the city:
+ZERO HITS. Five listeners in there -- DEED_WEIGHTS, MusicState, PhoneGo,
+PhoneAccept, GOTO_CELL -- and not one of them was this.
+  AND combat_entry_gate CALLED THAT GREEN, in the most refined version of this
+  week's disease: it claimed "the city is TOLD the outcome (observed arriving in
+  the city frame, not merely sent)" and proved it by INSTALLING ITS OWN LISTENER
+  inside the city frame. That proves DELIVERY. It cannot prove CONSUMPTION,
+  because the listener it observed with is its own. A GATE THAT SUPPLIES THE
+  LISTENER IT IS TESTING FOR IS MEASURING THE POSTMAN.
+  BUILT, smallest honest thing: the city listens; the line lands in the day
+  ledger, which the reckoning card ALREADY renders under WHAT HAPPENED; and it
+  hits the objective line at once so he does not wait for nightfall. Recorded AS
+  A FIGHT -- the day loop grew DAY.happened(line,tag), because stage() is
+  quest-shaped and reusing it would mean lying about the shape of the thing.
+  DELIBERATELY NOT DONE, each somebody else's ruling: NO DAMAGE BEFORE THE DIAL
+  (no health, no wound, no loss) and NO TIME COST either -- a fight should eat
+  part of a day but the day is spent in units the walk earns and a figure for a
+  fight is a dial I do not set. Flagged, not guessed. Words are draft:true.
+  Measured through the ALPHA: win -> 1 ledger note + qline; loss -> a DIFFERENT
+  note and line; 0 page errors. combat_entry 14/0 -> 20/0, mutation 20/0 -> 17/3.
+  Four-command rule ran (dayloop resynced into the city, run slice rebuilt).
+
+THE SCOREBOARD: 1 OF 30 -> 12 OF 30 on the played surface. Re-pointed eleven
+probes (cast bridge, rig, wardrobe, suburb, floorplans, agents, quests, resolver,
+real valley, music + music-off, save/load), EVERY needle checked against a
+COMMENT-STRIPPED city -- CITYSAVE exists ONLY in comments, so the obvious needle
+for save/load would have been a lie.
+  LEFT OWED ON PURPOSE, because the city genuinely does not carry them, and these
+  are candidate HOLES IN THE PLAYED GAME rather than bookkeeping:
+    world_bridge (no BohemiaLoop at all)      death_reload (no death path)
+    interior_pool (dressed-interior bank absent)   walk_feel (WALKMODES absent)
+    clout_feed (BohemiaClout present, buildFeed not -- the FEED is not shown)
+    door_anim (doors exist; the approved ANIMATED bank does not -- different claim)
+
+THE CENSUS CORRECTED A HAND CHECK, the calibration firing the way nobody expects.
+bohemia_memory.js was hand-verified NO TRACE on 8/4 ("grep: no makeMind on any
+surface"). The city now really calls makeMind/recall/see and city_memory_gate is
+23/0 over it. Row moved to SHOWN with the reason. REACHABILITY 16/0.
+Its headline is still worth somebody's attention: 302.5 MB of 306.1 MB does not
+reach the shown surface; 25 sources reach only the file nobody sees.
+
+*** A CONFIRM PASS THAT GETS KILLED REPORTS NOTHING, AND IT HAPPENED TWICE. ***
+SUITE_BUDGET stops DISPATCH; the confirm-alone pass ran after it bounded by
+NOTHING, so the outer timeout killed it mid-list -- 1 confirmed of 30, then 1 of
+35. Every gate had already answered; what died was the flake-vs-real
+classification, the only reason to re-run reds at all. It budgets itself now
+(BOHEMIA_CONFIRM_BUDGET, default a third of the suite budget) and NAMES what it
+could not reach: those stay RED and UNCLASSIFIED, because calling them green or
+confirmed-red would be inventing a verdict. Proved by driving the real scheduler
+with a budget of zero.
+
+MY OWN LAW BROKEN BY A FILE WRITTEN AFTER THE SWEEP: ONE WORLD TAB 371/1.
+tools/bohemia_direct_tab_patch.py had `if(t0) t0.click();` right under a note
+promising the player "this takes you to the street" -- lookup misses, he gets the
+promise and stays put. Fixed in the tool AND the shipped alpha so the tool cannot
+put it back; player-facing, so it TELLS him instead of throwing. 372/0.
+
+VERIFIED NOT MINE, in clean worktrees rather than by assumption: CARD FOLD A12
+(fullest person card overflows the phone) and RUN GATE's DOOR WALL reds are
+identical on origin/main.
+
+LEFT RED ON PURPOSE, with the reason: TASTE 39/1 on
+tools/bohemia_street_furniture_cook.py, a new WORLD art cook with a REUSE CHECK
+and ZERO mention of taste -- it never consulted the canon. Writing a TASTE CHECK
+for it would FABRICATE a claim its author never made. That is exactly what the
+gate exists to catch and it is WORLD's to answer.
+
+NEXT FOR THIS LANE:
+ 1. The six candidate holes above are the real work: they are systems the game he
+    plays does not have. death_reload and clout_feed are the most player-visible.
+ 2. The other 18 owed re-probes.
+ 3. The friends round is still Paolo's to run and nothing engineering-side blocks it.
+
 CHARACTER (character-0lurbs): 8/21 (c) LATEST -- *** IT WAS NEVER JUST THE HAIR.
 Yesterday's hair fix was a SLOT fix wearing a hair fix's clothes, and three more of his
 painted layers were leaking the same way in the build he is playing. ***
