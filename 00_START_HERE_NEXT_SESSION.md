@@ -46527,7 +46527,6 @@ AND THE COORDINATOR CAUSED SOME OF THIS: my own previous reply said
 "money", "get paid", "spend money" — the drift came out of the session
 whose job is catching drift.
 
-<<<<<<< HEAD
 --------------------------------------------------------------------------------
 COORDINATOR (07), 8/15 (e) — SWEEP 10. The 8/14 demo audit drove the
 week: SOUNDS moved the approved sounds onto the surface he actually walks
@@ -46993,7 +46992,6 @@ blend [UNBUILT]; the 8/1 law says BUILT 8/1/26 (a density ramp in the
 same texSkip that draws a cornrow). Stale line in the file every session
 reads first — fixed, and the four fades are held by the E/W defect like
 everything else, not by the fade.
-=======
 FACTIONS (ovkjpf): 8/20-8/21 — THE BELONGING SYSTEM IS CONNECTED END TO END.
 Eleven times in one week the same shape: AN ORGAN COMPUTES SOMETHING AND NOTHING
 ON THE WALKED SURFACE CALLS IT. It never shows as a crash -- the organ is right,
@@ -47057,4 +47055,3 @@ TRAPS THIS LANE PAID FOR. DO NOT REPEAT THEM.
     refused on a dirty tree and went red on its own registration commit.
   THE ORGAN SWEEP STRUCTURALLY CANNOT FIND UNREAD PROSE -- a note is DATA, so it
     has no call site. Five authored rung sentences were invisible to it.
->>>>>>> 6312058 (HANDOFF: the FACTIONS lane's state, the two questions that are his, and seven traps)
