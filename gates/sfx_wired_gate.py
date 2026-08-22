@@ -121,6 +121,17 @@ const METER=`(function(){
      granted. This is the strict path -- the one his phone was on. */
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
     .find(x=>x.getAttribute('data-p')==='run'); if(!t) throw new Error('that tab is not in the bar'); t.click();});
+  /* ASK FOR THE RUN SLICE BY NAME (8/22). The 17.8 MB run used to be fetched on
+     a timer on every boot, and on 8/21 the WORLD lane stopped that: the RUN tab
+     shows the CITY panel, so the player never sees this frame and the download
+     was pure waste. The frame is now loaded on demand through
+     window.__loadRunSlice, and their note says it plainly -- "the four gates
+     that need the frame live ask for it by name". THIS GATE IS A FIFTH and it
+     was not updated, so it sat waiting 30 s for an iframe nobody had told to
+     load, and died with a bare TimeoutError that said nothing about why.
+     NOT A PRODUCT BUG: measured both sides in the same container, the run boots
+     fine at 47ac314 and the frame is simply empty here until it is asked for. */
+  await p.evaluate(()=>{ try{ window.__loadRunSlice && window.__loadRunSlice(); }catch(_e){} });
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});
   await p.waitForTimeout(3500);
   const fr=await (await p.$('#runFrame')).contentFrame();
