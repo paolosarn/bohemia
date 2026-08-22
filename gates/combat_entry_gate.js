@@ -203,8 +203,59 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       cleared: (typeof CITYFIGHT !== 'undefined') && CITYFIGHT === false };
   });
   const homeSeen = await cityFrame.evaluate(() => window.__HOME_SEEN);
-  ok('WHEN IT SETTLES HE IS PUT BACK ON THE BLOCK HE WAS STANDING ON: the city tab comes back, the city is TOLD the outcome (observed arriving in the city frame, not merely sent), and the flag is cleared so the next door is a fresh fight',
+  ok('WHEN IT SETTLES HE IS PUT BACK ON THE BLOCK HE WAS STANDING ON: the city tab comes back, the outcome is DELIVERED to the city frame, and the flag is cleared so the next door is a fresh fight',
     home.ret && !!homeSeen && home.onCityTab && home.cleared);
+
+  /* *** AND THE CITY ACTUALLY HEARD IT, WHICH IS A DIFFERENT CLAIM (8/21). ***
+     The assertion above used to say "the city is TOLD the outcome" and proved it
+     with the listener THIS GATE INSTALLS three lines up. That proves DELIVERY.
+     It cannot prove CONSUMPTION -- the listener it observed with is its own -- and
+     "the city is TOLD" reads as "the city knows". A GATE THAT SUPPLIES THE
+     LISTENER IT IS TESTING FOR IS MEASURING THE POSTMAN.
+     Measured 8/21: the city had FIVE message listeners and not one of them was
+     BOHEMIA_CITY_COMBAT_END, so he walked through a door, fought, and the world
+     he walked back into never found out. WINNING AND LOSING WERE THE SAME EVENT.
+     These claims are about the city's OWN handler. */
+  const consumed = await cityFrame.evaluate(() => ({
+    home: window.__FIGHT_CAME_HOME || null,
+    notes: (typeof DAY !== 'undefined' && DAY.summary) ? DAY.summary().notes.slice() : [],
+    qline: (document.getElementById('qline') || {}).textContent || '',
+  }));
+  ok('THE CITY ITSELF HEARS THE FIGHT COME HOME -- its own handler ran, not the '
+    + 'one this gate installed to watch the postman', !!consumed.home);
+  ok('...and it lands in the day ledger, which the reckoning card already renders '
+    + 'under WHAT HAPPENED, so the fight is a line on the card he meets that night'
+    + ' (' + consumed.notes.length + ' note(s))', consumed.notes.length >= 1);
+  ok('...and he can see it WITHOUT waiting for nightfall: it is on the objective '
+    + 'line ("' + consumed.qline.trim().slice(0, 44) + '")', consumed.qline.trim() !== '');
+
+  /* WINNING AND LOSING MUST NOT BE THE SAME EVENT. That was literally true
+     before the consumer existed, and it is the cheapest possible regression to
+     re-introduce: a handler that ignores `outcome` looks identical from outside. */
+  const lost = await (async () => {
+    await page.evaluate(() => {
+      try { CITYFIGHT = true; CITYFIGHT_AT = { gx: 6, gy: 6 };
+        cityFightHome({ result: 'loss', victory: false }); } catch (e) { }
+    });
+    await SETTLE(page, 1500);
+    return cityFrame.evaluate(() => ({
+      home: window.__FIGHT_CAME_HOME || null,
+      qline: (document.getElementById('qline') || {}).textContent || '',
+      notes: (typeof DAY !== 'undefined' && DAY.summary) ? DAY.summary().notes.length : 0,
+    }));
+  })();
+  ok('LOSING IS NOT THE SAME EVENT AS WINNING -- the world says something '
+    + 'different about it ("' + lost.qline.trim().slice(0, 44) + '")',
+    !!lost.home && lost.home.won === false && lost.qline.trim() !== consumed.qline.trim());
+  ok('...and a lost fight is recorded too, rather than only the wins',
+    lost.notes > consumed.notes.length);
+  /* NO DAMAGE BEFORE THE DIAL: the consumer REPORTS and must never start
+     punishing him on my initiative. If a health or wound number ever appears in
+     that handler it is a ruling somebody made, and it should be his. */
+  ok('and it still REPORTS rather than punishes -- NO DAMAGE BEFORE THE DIAL',
+    !/__THE_FIGHT_COMES_HOME__[\s\S]{0,2000}?(hp|health|wound|damage)\s*[-+=]/i
+      .test(require('fs').readFileSync(
+        require('path').join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8')));
 
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

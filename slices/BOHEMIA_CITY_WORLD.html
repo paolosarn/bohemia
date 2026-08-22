@@ -21036,6 +21036,20 @@ root.BQRuntime=API;
       return L;
     };
 
+    /* SOMETHING HAPPENED THAT WAS NOT A QUEST STAGE (8/21, RUN lane). The
+       fight's outcome had nowhere to land: `stage()` is quest-shaped (questId,
+       stageN) and using it for a fight would mean lying about the shape of the
+       thing to reuse a function. This is the same notes array the reckoning
+       already renders under WHAT HAPPENED, with the same guard -- accepted
+       while the day is CLOSING too, because the consequence of a day belongs to
+       that day, which is the lesson stage() learned on 8/12. */
+    L.happened = function (line, tag) {
+      if (L.phase !== 'awake' && L.phase !== 'ended') return L;
+      if (line) L.ledger.notes.push(line);
+      fire('happened', tag || null, line || null);
+      return L;
+    };
+
     /* ---- THE RECKONING --------------------------------------------------- */
     L.endDay = function (reason) {
       if (L.phase === 'ended') return L.phase;
@@ -31077,6 +31091,36 @@ function mixHex(a,b,t){
    before this line would have executed under `let` (the temporal dead zone that
    silently killed the wake-at-home hook on 8/11). */
 var OFFER=null, OFFER_TAKEN=false;
+/* __THE_FIGHT_COMES_HOME__ (8/21, RUN lane). The shell posts
+   {type:'BOHEMIA_CITY_COMBAT_END', outcome, at} into this frame when a fight
+   settles, and until now NOTHING IN HERE LISTENED FOR IT -- so he walked through
+   a door, fought, and the world he walked back into never found out. Winning and
+   losing were the same event.
+   combat_entry_gate reported this as fine because it INSTALLED ITS OWN LISTENER
+   to watch the message arrive. That proves delivery; it cannot prove
+   consumption. This is the consumer.
+   IT REPORTS AND IT DOES NOT PUNISH: NO DAMAGE BEFORE THE DIAL, and no time cost
+   either, because the day is spent in units the walk earns and a figure for a
+   fight would be a dial I do not get to set. The line lands in the day ledger,
+   which the reckoning card already renders under WHAT HAPPENED. */
+window.addEventListener('message',function(ev){
+  var d=ev&&ev.data; if(!d||d.type!=='BOHEMIA_CITY_COMBAT_END')return;
+  var o=d.outcome||{};
+  /* WON is the explicit flag the shell sends; anything else is not a win. A
+     fight that ended some third way is still a thing that HAPPENED to him. */
+  var won = !!(o.victory||o.result==='win');
+  /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
+     ship, his to overwrite. */
+  var line = won
+    ? 'You walked out of that one.'                       /* draft:true */
+    : 'It went badly in there. You walked out anyway.';   /* draft:true */
+  try{ if(typeof DAY!=='undefined'&&DAY.happened) DAY.happened(line,'fight'); }catch(_e){}
+  /* AND HE SEES IT NOW, not only at the reckoning: the objective line is the one
+     piece of text on the walked surface he is already reading. */
+  try{ var q=document.getElementById('qline'); if(q) q.textContent=line; }catch(_e){}
+  try{ window.__FIGHT_CAME_HOME={won:won,at:d.at||null,line:line}; }catch(_e){}
+});
+
 window.addEventListener('message',function(ev){
   var d=ev&&ev.data; if(!d||!d.bohemiaPhoneAccept)return;
   try{ offerAccept(); }catch(_e){}

@@ -165,6 +165,20 @@
       return L;
     };
 
+    /* SOMETHING HAPPENED THAT WAS NOT A QUEST STAGE (8/21, RUN lane). The
+       fight's outcome had nowhere to land: `stage()` is quest-shaped (questId,
+       stageN) and using it for a fight would mean lying about the shape of the
+       thing to reuse a function. This is the same notes array the reckoning
+       already renders under WHAT HAPPENED, with the same guard -- accepted
+       while the day is CLOSING too, because the consequence of a day belongs to
+       that day, which is the lesson stage() learned on 8/12. */
+    L.happened = function (line, tag) {
+      if (L.phase !== 'awake' && L.phase !== 'ended') return L;
+      if (line) L.ledger.notes.push(line);
+      fire('happened', tag || null, line || null);
+      return L;
+    };
+
     /* ---- THE RECKONING --------------------------------------------------- */
     L.endDay = function (reason) {
       if (L.phase === 'ended') return L.phase;
