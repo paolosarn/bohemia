@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 98 |
-| SHOWN (part) | 12 | 12 |
-| LOADED ONLY | 18 | 8 |
-| NO TRACE | 73 | 12 |
+| SHOWN (all) | 1 | 105 |
+| SHOWN (part) | 13 | 10 |
+| LOADED ONLY | 18 | 7 |
+| NO TRACE | 73 | 11 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **104** | **145** |
+| **total** | **105** | **148** |
 
-**300.6 MB of 304.1 MB** sampled does not reach the shown surface.
+**302.5 MB of 306.1 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -61,11 +61,10 @@ verbatim.
 | `banks/BOHEMIA_GRIME_8_3_26.txt` | bank | 0.11 |
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
-| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.07 |
+| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
-| `engine/bohemia_standing.js` | engine | 0.02 |
 | `banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt` | bank | 0.01 |
 | `engine/bohemia_overmap_bridge.js` | engine | 0.01 |
 | `engine/bohemia_tilepool.js` | engine | 0.01 |
@@ -79,7 +78,7 @@ verbatim.
 | `banks/BOHEMIA_HD_TILE_REPO_part4.txt` | bank | 45.66 |
 | `banks/BOHEMIA_HD_TILE_REPO_part3.txt` | bank | 44.90 |
 | `banks/BOHEMIA_HD_TILE_REPO_part2.txt` | bank | 44.72 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 30.03 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 31.95 |
 | `banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt` | bank | 10.30 |
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
@@ -137,7 +136,7 @@ verbatim.
 | `engine/bohemia_prop_scale.js` | engine | 0.01 |
 | `banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt` | bank | 0.01 |
 
-*(25 more, see the .json)*
+*(24 more, see the .json)*
 
 ## REACHES HIM
 
@@ -166,6 +165,8 @@ verbatim.
 | `engine/bohemia_firestation.js` | engine | 32/32 |
 | `engine/bohemia_freeway.js` | engine | 32/32 |
 | `engine/bohemia_golf.js` | engine | 32/32 |
+| `engine/bohemia_interchange.js` | engine | 32/32 |
+| `engine/bohemia_interior_ground.js` | engine | 32/32 |
 | `engine/bohemia_introductions.js` | engine | 32/32 |
 | `engine/bohemia_landfill.js` | engine | 32/32 |
 | `engine/bohemia_landmarks.js` | engine | 32/32 |
@@ -182,6 +183,7 @@ verbatim.
 | `engine/bohemia_sfx.js` | engine | 32/32 |
 | `engine/bohemia_speedway.js` | engine | 32/32 |
 | `engine/bohemia_stadium.js` | engine | 32/32 |
+| `engine/bohemia_standing.js` | engine | 32/32 |
 | `engine/bohemia_storage.js` | engine | 32/32 |
 | `engine/bohemia_strip.js` | engine | 32/32 |
 | `engine/bohemia_substation.js` | engine | 32/32 |
@@ -200,6 +202,3 @@ verbatim.
 | `engine/bohemia_dead.js` | engine | 30/30 |
 | `engine/bohemia_jail.js` | engine | 30/30 |
 | `engine/bohemia_solar.js` | engine | 29/29 |
-| `engine/bohemia_industrial.js` | engine | 26/26 |
-| `engine/bohemia_mountain.js` | engine | 25/25 |
-| `engine/bohemia_water.js` | engine | 25/25 |

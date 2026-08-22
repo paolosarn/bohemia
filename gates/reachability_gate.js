@@ -125,7 +125,19 @@ ok('the report says it decides by BYTES, not by names (the 8/4 false-alarm lesso
    conservative here: the colour does reach the screen, as a swatch, but it
    arrives as a value rather than a draw call and the classifier reads calls.) */
 const VERIFIED = [
-  ['engine/bohemia_memory.js', 'NO TRACE'],       // grep: no makeMind on any surface
+  /* MOVED 8/21, AND THE ROW ABOVE ALREADY SAID HOW TO DO THIS: "a hand check is a
+     measurement of a moment, not a permanent fact; when a later change falsifies
+     one, the row moves and says why". This one was hand-checked NO TRACE on 8/4
+     with the note "grep: no makeMind on any surface". That is no longer true, and
+     the census caught it the moment regenerating made it current -- which is the
+     calibration working in the direction nobody expects, the instrument correcting
+     the hand.
+     VERIFIED BEFORE MOVING IT, on the comment-stripped city so a mention could not
+     pass for a use: the module is inlined VERBATIM and the city really CALLS it --
+     BohemiaMemory.makeMind(, .recall(, .see( -- and gates/city_memory_gate.js
+     ("somebody remembers seeing you, on the tab he taps") is 23/0 over it. The
+     block knowing your face is on the surface he plays. */
+  ['engine/bohemia_memory.js', 'SHOWN'],          // 8/4 NO TRACE; the CITY MEMORY work calls makeMind/recall/see
   ['engine/bohemia_dress.js', 'LOADED ONLY'],     // was NO TRACE 8/4; the run's allegiance line loads it 8/11
   ['engine/bohemia_people.js', 'SHOWN'],          // P-J shipped it into the city
   ['engine/bohemia_agents.js', 'SHOWN'],          // makeSim is in the city frame
