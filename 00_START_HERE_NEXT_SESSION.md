@@ -31316,10 +31316,19 @@ SCORE:              8/21    after relay   after ruler
   correct as built     -           -    12 (A 10, D 2)
 
 NEXT IN THIS LANE, IN ORDER
-  1. B, THE CLUSTER SEAM: give farm / warehouse / railyard the 8/19 blob layout the other
-     five cluster types already have. EXISTING MECHANISM TO COPY, not a design to invent.
-     13 cells. Check first whether the PAGE passes them `legs.cluster` at all -- the kit call
-     site only forwards `bounds` when it is set.
+  1. B, THE CLUSTER SEAM: give farm / warehouse / railyard the 8/19 blob layout. 13 cells.
+     I SAID "EXISTING MECHANISM TO COPY" AND THEN CHECKED, AND IT IS BIGGER THAN THAT.
+     Both halves measured, so nobody repeats them:
+       - `CLUSTER_KIT={airport,airbase,convention,prison,dam,minigp,fort}` (page ~22411).
+         Farm/warehouse/railyard are NOT in it, exactly as predicted.
+       - BUT ADDING THEM TO THAT LIST DOES NOTHING. `grep -c bounds` on
+         engine/bohemia_farm.js, _warehouse.js and _railyard.js returns ZERO, all three.
+         The generators cannot read the bounds the list would start passing them, so the
+         one-line fix is a no-op at best.
+     So it is a real change to three generators -- lay out in VALLEY coordinates against the
+     blob bounds and copy each cell's own window, the airfield/golf/landmark pattern -- plus
+     each one's own gate and dossier. A turn's work, not a tail-end patch. Read
+     engine/bohemia_airfield.js for the shape that already works.
   2. C, THE MIDPOINT KEEP-OUT: the middle 7 tiles of a street's edge are where EVERY
      district's gate is BY LAW, so a street may not stand a mass there. Convention-shaped,
      no cross-district query needed. 2 cells.

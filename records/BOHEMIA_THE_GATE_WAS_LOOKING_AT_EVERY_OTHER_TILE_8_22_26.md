@@ -85,8 +85,19 @@ the defect world.js records as fixed on 8/19 for five other types: *"These five 
 VALLEY coordinates against the bounds of the whole blob and each cell copies its own window,
 so the seams line up by construction."* Farm, warehouse and railyard did not get it.
 
-**That is the next job, and it has an existing mechanism to copy rather than a design to
-invent.**
+**That is the next job — and I wrote "an existing mechanism to copy" and then went and
+checked, which changed the answer.** Both halves, measured:
+
+- `CLUSTER_KIT = {airport, airbase, convention, prison, dam, minigp, fort}` on the page.
+  Farm, warehouse and railyard are not in it, exactly as predicted.
+- **Adding them to that list does nothing.** `grep -c bounds` on `engine/bohemia_farm.js`,
+  `bohemia_warehouse.js` and `bohemia_railyard.js` returns **zero**, all three. The
+  generators cannot read the bounds the list would begin handing them.
+
+So it is a real change to three generators — lay out in valley coordinates against the blob
+bounds and have each cell copy its own window — plus each one's gate and dossier.
+`engine/bohemia_airfield.js` is the shape that already works. A turn's work, not a patch,
+and worth saying out loud before somebody spends that turn trying the one-liner.
 
 ### C. A BUILDING ACROSS THE MOUTH — 2 cells.
 
