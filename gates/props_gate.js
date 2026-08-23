@@ -150,8 +150,32 @@ ok(`every banked object actually reached the sibling (${inSib}/${objects})`, inS
 const fp = (() => { const m = /const PROP_FP = (\{.*?\});/s.exec(sib); return m ? JSON.parse(m[1]) : {}; })();
 ok('every family declares [width, height, rise] in CELLS -- a 96px master cannot say how ' +
    'big a thing is in the world', famsBank.every(f => Array.isArray(fp[f]) && fp[f].length === 3));
-ok('no family is streetlight-tall by accident (only the lamp rises more than 1 cell)',
-   Object.keys(fp).every(f => f === 'lamp' || fp[f][2] <= 1.0));
+// ONLY THE THINGS THAT ARE ACTUALLY TALL MAY BE TALL. The lamp and the commissioned power
+// pole are three and three-and-a-half cells of rise on purpose; a bin that quietly acquired
+// that would tower over the houses and nothing else would complain.
+ok('nothing is streetlight-tall by accident (only the lamp and the pole rise past 1 cell)',
+   Object.keys(fp).every(f => f === 'lamp' || f === 'pole' || fp[f][2] <= 1.0));
+ok('the pole is the tallest thing on the street, taller than the lamp -- that is the point of it',
+   Array.isArray(fp.pole) && fp.pole[1] > fp.lamp[1] && fp.pole[2] > fp.lamp[2]);
+
+// ---------------------------------------------------------------- the commissioned pole
+// REUSE-FIRST came back NEGATIVE here and that is why this art exists: 294 corpus packs, the
+// 575-object standing set and 27 unopened street packs, 109 tiles rendered and looked at, and
+// no distribution pole anywhere. arterial:10 has authored one since the district was written.
+ok('the bank carries the commissioned poles', Array.isArray(bank.families.pole) && bank.families.pole.length >= 4);
+ok('the pole bank registers in the 45 DEGREE LAW gate (all original art does)',
+   /BOHEMIA_POWER_POLE_8_23_26\.txt'?,\s*'poles'/.test(
+     fs.readFileSync(path.join(REPO, 'gates/art_45_gate.py'), 'utf8')));
+{
+  const pb = path.join(REPO, 'banks/BOHEMIA_POWER_POLE_8_23_26.txt');
+  ok('the commissioned bank exists and declares the 45 perspective', fs.existsSync(pb) &&
+     /45deg three-quarter/.test(JSON.parse(fs.readFileSync(pb, 'utf8')).perspective || ''));
+  const src = fs.readFileSync(path.join(REPO, 'tools/bohemia_power_pole_factory.py'), 'utf8');
+  ok('it is drawn with the traffic-signal factory toolkit, not a second 3/4 renderer',
+     /from bohemia_traffic_signal_factory import/.test(src) && /ellipse_disc/.test(src));
+  ok('its REUSE CHECK records that the sweep came back NEGATIVE (that is a real answer)',
+     /REUSE CHECK, AND IT CAME BACK NEGATIVE/.test(src));
+}
 
 // ---------------------------------------------------------------- D. the lamp did not regress
 ok('the lamp keeps its exact shipped footprint (1.5 wide, 3 tall, rise 2)',
@@ -240,6 +264,7 @@ if (m) {
   const wrong = CASES.filter(([n, want]) => famOf(n) !== want).map(([n]) => n);
   ok('the table resolves the names the valley actually authors, and refuses towers/masts' +
      (wrong.length ? ' -- wrong: ' + wrong.join(', ') : ''), wrong.length === 0);
+  ok('"power pole" routes to the commissioned pole', famOf('power pole') === 'pole');
   ok('every family the table can name exists in the bank',
      table.every(([, f]) => famsBank.indexOf(f) >= 0));
   // ORDER MATTERS HERE: a burning barrel and a dead drum are different objects and the

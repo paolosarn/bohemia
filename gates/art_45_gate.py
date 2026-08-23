@@ -43,6 +43,11 @@ from PIL import Image
 REGISTRY = [
     ('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt', 'signals', 'prop'),
     ('banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt', 'heroes', 'building'),
+    # 8/23: the power pole. arterial:10 has authored one since the district was written and it
+    # drew as a flat coloured square; a REUSE-FIRST sweep of 294 corpus packs, the 575-object
+    # standing set and 27 unopened street packs found no distribution pole anywhere, so this
+    # one is a commissioned original and registers here like every other.
+    ('banks/BOHEMIA_POWER_POLE_8_23_26.txt', 'poles', 'prop'),
 ]
 
 P = F = 0

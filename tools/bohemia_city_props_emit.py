@@ -59,6 +59,11 @@ FOOTPRINT = {
     # RUBBLE IS A FIELD, NOT AN OBJECT. One cell, barely proud of the ground -- it is spill
     # and collapse you walk over, not a thing you walk behind, so the rise is near zero.
     'rubble':    [1.10, 1.00, 0.10],
+    # A DISTRIBUTION POLE IS THE TALLEST THING ON A RESIDENTIAL STREET -- taller than the
+    # streetlight, which is the point of it. Real poles run 35-40 ft; at TILE=0.75 that is
+    # ~15 cells, which would be absurd on screen, so it reads at the lamp's scale plus a half
+    # again, the same compression every vertical in this game already uses.
+    'pole':      [1.80, 4.50, 3.50],
 }
 
 if not os.path.exists(BANK):

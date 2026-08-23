@@ -528,10 +528,28 @@ is the first thing in a while that genuinely needs cooking rather than shopping.
 Also: tall_ratio in the standing set is 1.00 for ALL 575 objects -- computed on the square
 canvas, not the content. Another piece of metadata that looks like an answer and is not.
 
+AND THE POWER POLE IS COOKED AND SHIPPED. arterial:10 authored one since the district was
+written and it drew as a flat square. REUSE CHECK CAME BACK NEGATIVE -- 294 packs, the 575-
+object standing set, 27 unopened street packs, 109 tiles rendered and LOOKED at, no
+distribution pole anywhere -- so this is the first thing in a long while that needed cooking.
+WHAT IT REUSES IS THE DRAWING: every helper comes from the traffic-signal factory
+(ellipse_disc, bowed_band, cyl_index, bow), the toolkit that already passes the 45 law. A
+second hand-rolled three-quarter renderer is the duplication FACTORY LAW exists to stop.
+Anatomy researched: wood pole, bolted+braced crossarm, porcelain insulators "like stacked
+plates", four wires (three phases + neutral), transformer can on some. Some spans SNAPPED with
+the loose end curling -- an unbroken grid overhead would contradict CLUSTERED POWER.
+  THE EYE WAS WRONG AND THE MEASUREMENT RIGHT, AGAIN. My first look said "far too dark".
+  Measured first: mean 37-39 / p90 94 ALREADY MATCHED the approved signals (38-40 / 93-95) --
+  I was reading a BLACK CONTACT SHEET. The real gap was the TOP END, max 128 vs the lamp's
+  180, because the shaft never took a specular hit. Re-rendered on desert ground, not black.
+  AND THE ART CORRECTED MY TEXT: I wrote that desert sun silvers these grey. UNTREATED wood
+  silvers; a utility pole is CREOSOTE-TREATED and stays dark brown-black for decades, which
+  is what the render came out as. The art was right, the description was wrong, so the
+  description changed.
+art_45_gate passes it (ellipse base widest row 11 above bottom, 23 vs 11 px; top-lit 62 vs
+wall 30). props_gate 67 checks. 4 poles per arterial plot on the running page.
+
 NEXT IN THIS LANE
-  - THE POWER POLE, COOKED. Confirmed absent from the corpus, so this is a real art task
-    under the 45 DEGREE ART LAW. It is the most characteristic vertical on a Vegas arterial
-    and the arterial is what he walks along.
   - AUTHOR THE CONTENT: 63 of 71 districts still have NO furniture at all. The mechanism is
     done, so each is a legend line plus a placement rule; park/school/library/medical/
     cemetery/downtown/town are the ones a player actually stands in.

@@ -319,3 +319,53 @@ is the honest end of a reuse check rather than a reason to skip one.
 I also found `tall_ratio` in the standing set is **1.00 for all 575 objects** — computed on the
 square canvas rather than the content, so the field says nothing. Another piece of metadata
 that looks like an answer and is not.
+
+
+---
+
+## THE POWER POLE, COOKED (8/23)
+
+`arterial:10` and `arterial_x:10` have authored a power pole since the district was written,
+and it has drawn as a flat coloured square the whole time. This is the first thing in a long
+while that could not be shopped.
+
+**REUSE CHECK, and it came back NEGATIVE — which is the point of doing one.** 294 corpus packs,
+the 575-object standing set, 27 street/exterior packs I had not opened, **109 tiles rendered
+and looked at.** There is no distribution pole anywhere in the corpus. (I also found
+`tall_ratio` in the standing set reads **1.00 for all 575 objects** — computed on the square
+canvas rather than the content, so the one field that could have found a tall thin object says
+nothing.) A reuse check that can only ever come back positive is not a check.
+
+**What it reuses is the drawing itself.** Every helper comes from
+`tools/bohemia_traffic_signal_factory.py` — `ellipse_disc`, `bowed_band`, `cyl_index`, `bow` —
+the toolkit that already passes the 45 law. A second hand-rolled three-quarter renderer is
+exactly the duplication FACTORY LAW exists to stop.
+
+**Anatomy researched, not remembered**: wood pole from a tree trunk; a wooden crossarm bolted
+across and braced diagonally; porcelain insulators that "look like stacked plates"; four wires,
+three phases and a neutral; and on some poles a transformer, the can that steps voltage down
+for the houses under it. Some spans are **snapped**, the loose end curling — a decade with no
+linemen is the premise, and an unbroken grid overhead would contradict CLUSTERED POWER every
+time he looked up.
+
+### The eye was wrong and the measurement was right, again
+
+My first look said *far too dark*. Measured against the blessed banks before changing anything:
+
+```
+approved lamp    mean 45-49   p90 102-113   max 180-187
+approved signal  mean 38-40   p90  93-95    max 169
+MY POLE (v1)     mean 37-39   p90  94       max 128
+```
+
+The mean and p90 already **matched the approved art**. My eye was reading a black contact
+sheet. What was actually missing was the **top end** — the shaft never took a specular hit at
+all. Re-rendered on desert ground instead of black, with the highlight added, it reads.
+
+**And the art corrected my own text.** I wrote that desert sun silvers these grey — untreated
+wood silvers, but a utility pole is **creosote-treated** and stays dark brown-black for
+decades, which is exactly what the render came out as. The art was right and the description
+was wrong, so the description changed.
+
+`gates/art_45_gate.py` passes it: *ellipse base (widest row 11 above bottom, 23 vs 11 px wide),
+top-lit 62 vs wall 30.* props_gate is at **67 checks**.

@@ -219,6 +219,26 @@ def main():
             kept.setdefault(fam, []).append({
                 'pack': pack, 'idx': idx, 'w': w, 'h': h, 'opaque': opaque, 'b64': b64})
 
+    # ---- THE COMMISSIONED ORIGINALS. Cooked by tools/bohemia_power_pole_factory.py because
+    # the corpus has no distribution pole. Vetted by the SAME filter as everything shopped:
+    # nothing is trusted because of who drew it.
+    POLES = 'banks/BOHEMIA_POWER_POLE_8_23_26.txt'
+    if os.path.exists(POLES):
+        pb = json.load(open(POLES, encoding='utf-8'))
+        for i, e in enumerate(pb.get('poles', [])):
+            dec = decode(e['b64'])
+            if not dec:
+                killed.append(('pole', 'commissioned', i, ['NOT A PNG']))
+                continue
+            raw, w, h = dec
+            bad, opaque = law_violations(pixels(raw))
+            if bad:
+                killed.append(('pole', 'commissioned', i, bad))
+                continue
+            kept.setdefault('pole', []).append({
+                'pack': 'commissioned/power_pole', 'idx': i, 'w': w, 'h': h,
+                'opaque': opaque, 'b64': e['b64']})
+
     for fam, pack, idx in CANDIDATES:
         b64 = packs.get(pack, {}).get(idx)
         if not b64:

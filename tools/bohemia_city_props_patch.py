@@ -94,6 +94,9 @@ var PROP_NAME = [
   [/\\btyres?\\b|\\btires?\\b/i,                      'tyre'],
   [/pallet|\\bcrate\\b/i,                            'pallet'],
   [/mailbox|post box|letter box/i,                  'mailbox'],
+  /* THE POLE, commissioned 8/23 because the corpus had none. Above rubble so "power pole"
+     cannot fall through to anything looser. */
+  [/power pole|utility pole|distribution pole/i,    'pole'],
   /* RUBBLE LAST, because it is the loosest pattern here and would otherwise swallow
      "debris rack" and anything else with the word in it. */
   [/rubble|debris|scrap pile|junk pile|wreckage/i,  'rubble']
