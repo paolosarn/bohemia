@@ -270,6 +270,57 @@ ok('A12 each act carries one of HIS four words, read off the corpus rule',
       + 'people who watched it (' + m.quietBudget + ' retelling) while a loud one '
       + 'outlives them (' + m.loudBudget + ')',
       m.quietBudget > 0 && m.loudBudget > m.quietBudget);
+    /* ---- REACTIVITY: THEY SAY IT OUT LOUD (backlog 0r, the Hades math) ---- */
+    const rx = await fr.evaluate(() => {
+      const out = {};
+      render();
+      const W = { p: { id: '__RX__', key: 'P:city:__RX__' }, at: [hx + 2, hy] };
+      BARK_DREW.length = 0; BARK_DREW.push(W);
+      /* NOBODY HAS SEEN ANYTHING: the street must sound exactly as it did. */
+      BARK.p = null; BARK.text = null;
+      out.silentBefore = ctDeedBark(1000);
+      ctDeed('claim:refused', 'notable');
+      out.fired = ctDeedBark(2000);
+      out.saidSaw = BARK.text;
+      /* AND A WITNESS IS NOT A BROKEN RECORD. */
+      BARK.p = null; BARK.text = null;
+      out.repeats = ctDeedBark(3000);
+      /* HEARD SAYS SOMETHING ELSE, which is the whole payoff of a route. */
+      CT_MINDS['__RX__'].deeds[0].hops = 1;
+      CT_REACT_SAID = {}; BARK.p = null; BARK.text = null;
+      ctDeedBark(4000);
+      out.saidHeard = BARK.text;
+      /* HADES' RULE: never repeat until the pool is spent. */
+      CT_REACT_USED = {};
+      const cyc = [];
+      for (let i = 0; i < 4; i++) cyc.push(ctReactLine('claim:refused', false));
+      out.cycle = cyc;
+      out.poolSize = CT_REACT['claim:refused'].saw.length;
+      /* AND THE WORDS NEVER GUESS WHO HE IS. */
+      const all = [];
+      Object.keys(CT_REACT).forEach(k => {
+        all.push.apply(all, CT_REACT[k].saw); all.push.apply(all, CT_REACT[k].heard); });
+      out.lines = all.length;
+      out.gendered = all.filter(t => /\b(he|him|his|she|her|hers)\b/i.test(t));
+      out.unpunctuated = all.filter(t => !/[.!?]$/.test(t));
+      delete CT_MINDS['__RX__']; BARK_DREW.length = 0;
+      return out;
+    });
+    ok('D1 with nobody having seen anything the street is UNCHANGED (additive, '
+      + 'never a regression)', rx.silentBefore === false);
+    ok('D2 A WITNESS SAYS IT OUT LOUD, so a deed is not something you only find '
+      + 'by opening a card ("' + rx.saidSaw + '")', rx.fired === true && !!rx.saidSaw);
+    ok('D3 and does not repeat the same sighting at you', rx.repeats === false);
+    ok('D4 SAW and HEARD say different things ("' + rx.saidSaw + '" vs "'
+      + rx.saidHeard + '")', !!rx.saidHeard && rx.saidHeard !== rx.saidSaw);
+    ok('D5 HADES\' RULE: no line repeats until the pool is spent ('
+      + rx.cycle.join(' | ') + ')',
+      new Set(rx.cycle.slice(0, rx.poolSize)).size === rx.poolSize);
+    ok('D6 the drafted lines NEVER GUESS WHO HE IS (' + rx.lines + ' lines, '
+      + rx.gendered.length + ' gendered' + (rx.gendered.length ? ': "'
+      + rx.gendered[0] + '"' : '') + ') - who the player is is his',
+      rx.gendered.length === 0 && rx.unpunctuated.length === 0);
+
     ok('B13 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);
   } finally {
