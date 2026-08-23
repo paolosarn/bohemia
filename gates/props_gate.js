@@ -26,6 +26,7 @@
 // it -- it severs it. Same refusal the streetlight gate makes for poles.
 
 const fs = require('fs');
+const SUB0 = require(require('path').join(require('path').dirname(__dirname), 'engine/bohemia_suburb.js'));
 const path = require('path');
 const zlib = require('zlib');
 const REPO = path.dirname(__dirname);
@@ -179,6 +180,39 @@ ok('the draw prefers a real extent over the family default', /if\(pw\) _fp=\[pw,
 ok('and turns a car that lies across its stall (every master is nose-up)',
    /if\(pw&&pw>ph\)\{[\s\S]{0,400}?g\.rotate\(Math\.PI\/2\)/.test(page));
 
+// ---------------------------------------------------------------- the fire
+// PAOLO, 8/21: "Ofc ppl will warm themselves by barrel fire in act one." That is a ruling and
+// it settles more than a prop -- ACT ONE HAS LIVING PEOPLE IN IT. It is also the CLUSTERED
+// POWER law made visible: the valley is 94.5% dark, a STREETLIGHT burns on the share somebody
+// OWNS, and a BARREL burns on all the rest. Same authored tile, two readings.
+ok('the bank carries the burning barrels', Array.isArray(bank.families.firebarrel) && bank.families.firebarrel.length >= 8);
+ok('and the DEAD rusted drum is a separate family (they are not the same object)',
+   Array.isArray(bank.families.barrel) && bank.families.barrel.length >= 1);
+ok('A FIRE IS WHERE THE GRID IS NOT: a live circuit draws the cold drum instead',
+   /__A_FIRE_IS_WHERE_THE_GRID_IS_NOT__/.test(page) &&
+   /_onGrid=\(_fam==='firebarrel'\)&&POWER\.at\(_pTX,_pTY\)\.live/.test(page) &&
+   /if\(_onGrid\) _fam='barrel';/.test(page));
+ok('THE FIRE IS ITS OWN CIRCUIT -- its night glow never asks POWER, which is the point of it',
+   /if\(night&&_fam==='firebarrel'\)\{(?:(?!POWER\.at)[\s\S]){0,600}?\}\s*if\(night&&_fam==='lamp'\)/.test(page));
+ok('the suburb legend names code 15 a fire barrel',
+   !!SUB0.legend[15] && /fire barrel/i.test(SUB0.legend[15].name));
+{
+  let fires = 0, plots = 0, onFrontage = 0;
+  for (let seed = 1; seed <= 40; seed++) {
+    const r = SUB0.generate(seed, { streets: ['S'] }), g = r.g; plots++;
+    for (let y = 1; y < r.H - 1; y++) for (let x = 1; x < r.W - 1; x++) {
+      if (g[y][x] !== 15) continue;
+      fires++;
+      // a fire is sheltered: never on the street frontage, never eating the walk
+      if ([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy]) => g[y+dy][x+dx] === 10 || g[y+dy][x+dx] === 1)) onFrontage++;
+    }
+  }
+  ok(`SOMEBODY IS OUT THERE, and not everywhere: ${fires} fires across ${plots} neighbourhoods ` +
+     `(want 4..16 -- people are the scarcest thing in this valley)`, fires >= 4 && fires <= 16);
+  ok(`no fire on the street frontage (${onFrontage}) -- it is lit in the lee of the wall, ` +
+     'out of the wind and out of sight', onFrontage === 0);
+}
+
 // ---------------------------------------------------------------- the wiring
 ok('the page holds ONE name->family table', /var PROP_NAME = \[/.test(page) && /function __propFamily\(/.test(page));
 ok('the kit path asks the table', /__A_VERTICAL_IS_A_FAMILY_KIT__/.test(page) && /__propFamily\(entry\)/.test(page));
@@ -202,10 +236,15 @@ if (m) {
      (wrong.length ? ' -- wrong: ' + wrong.join(', ') : ''), wrong.length === 0);
   ok('every family the table can name exists in the bank',
      table.every(([, f]) => famsBank.indexOf(f) >= 0));
+  // ORDER MATTERS HERE: a burning barrel and a dead drum are different objects and the
+  // specific pattern has to sit above the loose one, or every fire in act one is a cold drum.
+  const famRaw = (n) => { for (const [re, f] of table) if (re.test(n)) return f; return null; };
+  ok('"fire barrel" routes to the BURNING pool and "oil drum" to the dead one',
+     famRaw('fire barrel') === 'firebarrel' && famRaw('oil drum') === 'barrel');
 }
 
 // ---------------------------------------------------------------- the suburb, on the ground
-const SUB = require(path.join(REPO, 'engine/bohemia_suburb.js'));
+const SUB = SUB0;
 ok('the suburb legend names code 14 a bin', !!SUB.legend[14] && /bin|cart/i.test(SUB.legend[14].name));
 ok('the suburb palette gives code 14 a colour', !!SUB.palette[14]);
 let bins = 0, onWalk = 0, onApron = 0, walk = 0, plots = 0;

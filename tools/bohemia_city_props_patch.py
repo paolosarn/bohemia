@@ -173,6 +173,10 @@ function __propFamily(entry){
        says the family here instead. Code 14 is a wheeled collection cart: solid, standing,
        beside the garage on most lots and out at the kerb on the ones that had already rolled
        them out for a collection that never came. */
+    else if(v===15){ c.s='#6b4a2e'; c.walk=false;
+      var _fh=(Math.imul(tx*FN+lx,2654435761)^Math.imul(ty*FN+ly,40503))>>>0;
+      var _fp2=(typeof PROP_IMG!=='undefined'&&PROP_IMG.firebarrel)?PROP_IMG.firebarrel.length:1;
+      c.post={p:'firebarrel', v:_fh%_fp2}; }
     else if(v===14){ c.s='#55565a'; c.walk=false;
       var _bh=(Math.imul(tx*FN+lx,2654435761)^Math.imul(ty*FN+ly,40503))>>>0;
       var _bp=(typeof PROP_IMG!=='undefined'&&PROP_IMG.bin)?PROP_IMG.bin.length:1;
@@ -191,7 +195,18 @@ DRAW_NEW = """    if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar,pw,p
          The family picks the sprite pool and the FOOTPRINT; a 96px master cannot say how big
          a thing is in the world, so PROP_FP does. `rise` is how far above the footing cell it
          reaches, which is what makes it occlude what is behind it. */
-      const _fam=pfam||'lamp';
+      let _fam=pfam||'lamp';
+      /* __A_FIRE_IS_WHERE_THE_GRID_IS_NOT__ (Paolo 8/21: "Ofc ppl will warm themselves by
+         barrel fire in act one"). This is the CLUSTERED POWER law made visible in daylight.
+         The valley measures 94.5% dark -- 12% of circuits live, owned, the network eerily
+         perfect. A STREETLIGHT is what burns on the share somebody OWNS. A BARREL is what
+         burns on all the rest, where everybody else is. So the same authored tile draws a
+         BURNING drum on a dead block and a COLD RUSTED one on a live block, because nobody
+         breaks up furniture to keep warm on a street that still has electricity. One tile,
+         two readings, and you can tell whose ground you are standing on by looking at it. */
+      const _pTX=((cx<<4)+px2)>>5, _pTY=((cy<<4)+py2)>>5;
+      const _onGrid=(_fam==='firebarrel')&&POWER.at(_pTX,_pTY).live;
+      if(_onGrid) _fam='barrel';
       const _pool=(_fam==='lamp')?LAMP_IMG:((typeof PROP_IMG!=='undefined'&&PROP_IMG[_fam])||null);
       let _fp=(typeof PROP_FP!=='undefined'&&PROP_FP[_fam])||[1.5,3,2];
       /* AN EXTENT BEATS A DEFAULT. Most props are one object of one size, but a car is
@@ -213,6 +228,20 @@ DRAW_NEW = """    if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar,pw,p
       }
       /* THE GLOW IS A LAMP THING. A bin does not light a street, and CLUSTERED POWER /
          LIGHT=TERRITORY is a claim about who owns a block -- never a decoration on furniture. */
+      /* AND AT NIGHT THE FIRE IS ITS OWN CIRCUIT. The lamp asks POWER before it glows; the
+         barrel does not have to ask anybody, and that is the entire point of it. Warmer and
+         lower than a lamp head, and no two barrels sit at the same brightness.
+         NOT A PER-FRAME FLICKER, DELIBERATELY. The city redraws on a STEP, not on a frame
+         (I-MOVE-YOU-MOVE), so an animated flame keyed to a render clock would be a flicker
+         that never flickers -- a lie told in code. It is keyed to the world clock and the
+         cell instead: it varies barrel to barrel, and it shifts as the night goes on. */
+      if(night&&_fam==='firebarrel'){
+        const _fl=0.72+0.28*Math.abs(Math.sin(((T&&T.min)||0)*0.11+px2*0.7+py2*1.3));
+        g.fillStyle='rgba(255,150,60,'+(0.55*_fl).toFixed(3)+')';
+        g.fillRect(bx+px2*C+C*0.28, by+(py2-_fp[2])*C+C*0.10, Math.max(2,C*0.34), Math.max(2,C*0.30));
+        g.fillStyle='rgba(255,120,40,'+(0.18*_fl).toFixed(3)+')';
+        g.beginPath(); g.ellipse(bx+px2*C+C*0.5, by+py2*C+C*0.5, C*2.1*_fl, C*1.5*_fl, 0, 0, 7); g.fill();
+      }
       if(night&&_fam==='lamp'){"""
 
 if not os.path.exists(WORLD):

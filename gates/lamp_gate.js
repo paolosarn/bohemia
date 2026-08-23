@@ -100,8 +100,12 @@ ok('the renderer still collects lamp cells into ch2.posts', /if\(c\.lamp\)ch2\.p
 // BRANCH of the shared one. The claim is unchanged and is if anything stronger: the lamp
 // family must still resolve to Paolo's approved LAMP_IMG pool, and the glow must still be
 // asked only of the lamp and only when POWER says the circuit is live.
+// ANCHORED ON THE EXPRESSION, NOT ON PROXIMITY. This was a windowed search from `ch.posts`,
+// and it went red the moment a fire-barrel branch was added between the two -- the claim was
+// still true, the window was just too small. A distance is not evidence; the pool selection
+// IS the load-bearing thing, so assert that.
 ok('the renderer still draws an approved LAMP_IMG body for the lamp family',
-   /ch\.posts[\s\S]{0,900}?_fam===.lamp.\)\?LAMP_IMG/.test(src));
+   /const _pool=\(_fam==='lamp'\)\?LAMP_IMG:/.test(src));
 ok('DEAD IS DEFAULT: the night head glow is asked ONLY of the lamp, and only of a live circuit',
    /if\(night&&_fam===.lamp.\)\{[\s\S]{0,400}?POWER\.at\([\s\S]{0,40}?\)\.live/.test(src));
 

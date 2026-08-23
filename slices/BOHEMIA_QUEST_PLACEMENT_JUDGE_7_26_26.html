@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>BOHEMIA - WHERE THE QUESTS HAPPEN</title>
 <!-- engine-md5:engine/bohemia_district_kit.js:e3d62372abf30c734c78868ccfe96654 -->
-<!-- engine-md5:engine/bohemia_suburb.js:9af2ab26a26fafa5c5f4a007072c75db -->
+<!-- engine-md5:engine/bohemia_suburb.js:5ee5f07ff97d6561346b9af72a07b46e -->
 <!-- engine-md5:engine/bohemia_commercial.js:742c9adf76df9cbd50ab0bc798d5be3b -->
 <!-- engine-md5:engine/bohemia_industrial.js:4ad82e35be86eee279e852ba27dd7bab -->
 <!-- engine-md5:engine/bohemia_medical.js:b541ae9d4b6b3f4368d4e3bd77289371 -->
@@ -981,6 +981,68 @@
     }
     return n;
   }
+  /* THE BARREL FIRE (code 15). PAOLO, 8/21, asked whether anybody is out there: "Ofc ppl
+     will warm themselves by barrel fire in act one." That is a ruling and it settles
+     something much bigger than a prop -- ACT ONE HAS LIVING PEOPLE IN IT, they are outside,
+     and they are cold.
+
+     WHERE A FIRE BURNS IS THE POWER LAW MADE VISIBLE, which is why the fire is PLACED here
+     and LIT somewhere else. The valley measures 94.5% dark (CLUSTERED POWER: 12% of circuits
+     live, owned, the network eerily perfect). A streetlight is what burns on the small share
+     somebody OWNS. A barrel is what burns on all the rest, where everybody else is. Same
+     street, two kinds of light, and you can read who holds what by which one you can see.
+     So this generator only says "a person would light one HERE"; the city decides whether it
+     is actually burning by asking POWER, because nobody burns furniture on a block that
+     still has electricity.
+
+     OUT OF THE WIND AND OFF THE FRONTAGE. Against the inside face of the block wall, in a
+     corner where two walls meet: a Mojave winter night runs to freezing and that wall is the
+     only windbreak on the plot. RARE ON PURPOSE -- a fire means PEOPLE, people are the
+     scarcest thing in this valley, and one barrel per neighbourhood says far more than one
+     per block. HOW MANY AND WHERE IS MINE; THAT THEY EXIST AT ALL IS HIS. */
+  function layFires(g){
+    var W=Wd(g),H=Ht(g),x,y,i,d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    var hh=(Math.imul(SEED_CTX,2246822519)^0x1F13E)>>>0;
+    /* PEOPLE ARE THE SCARCEST THING IN THIS VALLEY. About one neighbourhood in five has
+       anybody left in it -- a mechanism default, not canon; Paolo ruled THAT they exist, the
+       number is mine until he says otherwise. */
+    if((hh%100)>=22) return 0;
+    function look(needWalls){
+      /* FROM 1, NOT 2. The first cut scanned from 2 and found NOTHING on 24 seeds, because
+         the block wall is a one-thick ring at the very edge and the only cells with TWO wall
+         neighbours are the inside corners at (1,1) -- exactly the cells the bound skipped.
+         The corner is also the right answer: sheltered on two sides, off the frontage, out
+         of sight of the street. */
+      var out=[];
+      for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++){
+        if(g[yy][xx]!==0&&g[yy][xx]!==11) continue;      /* bare yard or gravel only */
+        /* READ WITH A RAW BOUNDS CHECK, NOT inb(). This module's inb() is
+           `x>=1 && y>=1 && x<W-1 && y<H-1` -- it means "a cell you may WRITE to", and it
+           deliberately excludes the outer ring. THE BLOCK WALL IS THAT RING. Asking inb()
+           whether the wall exists therefore answers NO, walls counted 0 everywhere, and 24
+           seeds produced 24 empty neighbourhoods with the coin passing normally. A helper
+           named for bounds that actually means "the writable interior" is safe to place
+           with and wrong to look with. */
+        var walls=0, frontage=false;
+        for(i=0;i<4;i++){ var nx=xx+d4[i][0], ny=yy+d4[i][1];
+          if(nx<0||ny<0||nx>=W||ny>=H) continue;
+          if(g[ny][nx]===4) walls++;                     /* block wall / side fence */
+          if(g[ny][nx]===10||g[ny][nx]===1) frontage=true;
+        }
+        if(walls>=needWalls && !frontage) out.push([xx,yy]);
+      }
+      return out;
+    }
+    /* COLLECT, THEN CHOOSE. Returning the FIRST match put the fire at (1,1) on every single
+       plot -- 11 neighbourhoods, 11 fires, all in the same corner, because a scan in reading
+       order always finds that corner first. Identical placement across every block is a
+       pattern a player reads as a bug even when each one is individually plausible. */
+    var cands=look(2); if(!cands.length) cands=look(1);
+    if(!cands.length) return 0;
+    var best=cands[((hh>>9)>>>0)%cands.length];
+    g[best[1]][best[0]]=15;
+    return 1;
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -1119,6 +1181,7 @@
        land a house, a garage or a driveway wanted. Order is the enforcement, both ways. */
     layLights(g);
     layBins(g);
+    layFires(g);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
@@ -1188,7 +1251,7 @@
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f',14:'#55565a'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f',14:'#55565a',15:'#6b4a2e'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -1231,6 +1294,10 @@
        bin here without knowing anything about this district -- the same mechanism that gives
        the mall its dumpster and the campus its bench. */
     14:{name:'trash bin / wheeled cart',kind:'prop', act1:'a wheeled collection cart, lid gaping, faded to chalk on the sun side -- the ones at the kerb were put out for a collection that never came'},
+    /* Named 'fire barrel' so the city page's prop table routes it to the BURNING pool and
+       not the dead rusted drum. Paolo 8/21: "Ofc ppl will warm themselves by barrel fire in
+       act one." */
+    15:{name:'fire barrel',       kind:'prop',       act1:'a steel drum somebody burns fence slats and furniture in, sheltered in the lee of the block wall -- the only warm thing on this street, and the proof that somebody is still out here'},
     12:{name:'street light',      kind:'prop',       act1:'a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };

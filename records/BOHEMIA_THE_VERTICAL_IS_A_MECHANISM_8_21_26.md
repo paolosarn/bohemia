@@ -172,3 +172,64 @@ extent, the stored line stopped matching the page, the reversal silently did not
 tool exited loud on a missing anchor. Loud is the good outcome and it was still luck. It cuts
 by marker now, which converges no matter what the body becomes. That is the third time this
 week the same rule has had to be re-learned: **reverse by marker, never by content.**
+
+
+---
+
+## AND THEN HE ANSWERED THE ONE QUESTION
+
+I had wired the fire barrels and deliberately placed none, because all twelve banked barrels
+are **actively burning** and a fire says somebody is here *right now* holding this spot —
+who holds what ground is his. He answered:
+
+> **"Ofc ppl will warm themselves by barrel fire in act one."**
+
+NOTES ARE RULINGS (7/19), so it went in the same turn. And it settles far more than a prop:
+**act one has living people in it.** They are outside, and they are cold.
+
+### Where a fire burns is the power law made visible
+
+Measured: the valley is **94.5% dark** (CLUSTERED POWER — 12% of circuits live, owned, the
+network eerily perfect). So:
+
+> A **streetlight** is what burns on the share somebody **owns**.
+> A **barrel** is what burns on all the rest, where everybody else is.
+
+Same authored tile, two readings. The generator only says *a person would light one here*;
+the **city decides whether it is actually burning by asking POWER** — on a live circuit the
+barrel stands cold, because nobody breaks up furniture to keep warm on a street that still
+has electricity. You can tell whose ground you are standing on by looking at the light.
+
+And at night the fire is **its own circuit**: the lamp asks POWER before it glows, the barrel
+does not have to ask anybody, which is the whole point of it.
+
+Placed in the lee of the block wall, in a corner where two walls meet — a Mojave winter night
+runs to freezing and that wall is the only windbreak on the plot. Never on the frontage.
+**About one neighbourhood in five** has anybody left in it: a fire means people, people are
+the scarcest thing in this valley, and one barrel per neighbourhood says far more than one per
+block. *That they exist is his; how many and where is mine.*
+
+### Four bugs on the way in, all mine, all caught by measuring
+
+1. **`0x1F1RE` is not valid hex.** A cute constant that would have been a syntax error. Caught
+   before it ever ran, by an assertion failing on an unrelated line.
+2. **The scan started at index 2** and found nothing across 24 seeds — the block wall is a
+   one-thick ring at the very edge, so the only cells with two wall neighbours are the inside
+   corners at (1,1), *exactly* the cells the bound skipped.
+3. **The real one.** `inb(g,x,y)` in this module is `x>=1 && y>=1 && x<W-1 && y<H-1` — it
+   means **"a cell you may WRITE to"**, and it deliberately excludes the outer ring. **The
+   block wall IS that ring.** Asking `inb()` whether the wall exists answers *no*, so walls
+   counted zero everywhere and 24 seeds produced 24 empty neighbourhoods with the coin passing
+   normally. A helper named for bounds that actually means *the writable interior* is safe to
+   place with and wrong to look with.
+4. **Returning the first match** put the fire at (1,1) on every single plot — eleven
+   neighbourhoods, eleven fires, one corner. Individually plausible, collectively a bug the
+   player reads instantly. Collect the candidates, then choose.
+
+And one I caught in my own code before it shipped: I keyed the flame to an invented `BEATN`
+that does not exist. Worse, **the city redraws on a STEP, not a frame** (I-MOVE-YOU-MOVE), so
+an animated flame would have been a flicker that never flickers — a lie told in code. It is
+keyed to the world clock and the cell instead: it varies barrel to barrel and shifts as the
+night goes on, and the comment says exactly that.
+
+Gate: 8 more checks (48 total), proved red by deleting the on-grid swap.

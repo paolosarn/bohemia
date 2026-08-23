@@ -427,13 +427,39 @@ downtown 328. 603 draws -> 2,007.
   which parks cars shoulder to shoulder into 5x6 blobs that as ONE blob would be one car six
   metres wide.
 
-THE FIRE BARRELS ARE WIRED AND DELIBERATELY UNPLACED [PENDING, Paolo's call]. The bank
-carries 12 and ALL TWELVE ARE ACTIVELY BURNING (measured 5-10% flame pixels each). A fire in
-this valley is not decoration -- it means somebody is here RIGHT NOW, keeping warm, HOLDING
-THIS SPOT, which is LIGHT=TERRITORY and "nobody patrols the dark". WHO HOLDS WHAT GROUND IS
-HIS (MECHANISM-MINE / CONTENTS-PAOLO'S), so the family has its own name row above the dead
-barrel and ZERO districts author it: nothing draws, which is the correct default. The day he
-says there are people at an intersection it is ONE LEGEND LINE, not a build.
+*** HE ANSWERED, AND ACT ONE HAS LIVING PEOPLE IN IT. *** Paolo 8/21: "Ofc ppl will warm
+themselves by barrel fire in act one." NOTES ARE RULINGS, so it shipped the same turn.
+
+WHERE A FIRE BURNS IS THE POWER LAW MADE VISIBLE. Measured: the valley is 94.5% DARK
+(CLUSTERED POWER, 12% of circuits live and owned). A STREETLIGHT burns on the share somebody
+OWNS; a BARREL burns on all the rest, where everybody else is. Same authored tile, two
+readings: the generator says "a person would light one HERE", and the CITY decides whether it
+is actually burning by asking POWER -- on a live circuit the barrel stands COLD, because
+nobody burns furniture on a street that still has electricity. At night the fire is its OWN
+circuit: the lamp asks POWER before it glows, the barrel does not have to ask anybody.
+In the lee of the block wall, in a corner where two walls meet, never on the frontage. ~1
+neighbourhood in 5 has anybody left in it. THAT THEY EXIST IS HIS; how many and where is mine.
+
+FOUR BUGS ON THE WAY IN, ALL MINE, AND THE THIRD IS THE ONE WORTH KEEPING:
+  1. `0x1F1RE` is not valid hex -- a cute constant that would have been a syntax error.
+  2. The scan started at index 2 and found NOTHING on 24 seeds: the wall is a one-thick ring
+     at the very edge, so the only cells with two wall neighbours are the inside corners at
+     (1,1) -- exactly what the bound skipped.
+  3. *** inb(g,x,y) IN THIS MODULE MEANS "A CELL YOU MAY WRITE TO", NOT "IN BOUNDS". *** It is
+     x>=1&&y>=1&&x<W-1&&y<H-1 and it deliberately excludes the outer ring -- AND THE BLOCK
+     WALL IS THAT RING. Asking inb() whether the wall exists answers NO, walls counted 0
+     everywhere, 24 seeds gave 24 empty neighbourhoods with the coin passing normally. A
+     helper named for bounds that means the writable interior is safe to PLACE with and wrong
+     to LOOK with.
+  4. Returning the FIRST match put the fire at (1,1) on every plot -- 11 fires, one corner.
+     Collect the candidates, then choose.
+  And one caught before it shipped: I keyed the flame to an invented BEATN, and the city
+  redraws on a STEP not a frame (I-MOVE-YOU-MOVE), so an animated flame would have been a
+  flicker that never flickers -- a lie told in code. Keyed to the world clock and the cell.
+
+ALSO RE-ANCHORED THE LAMP GATE, AGAIN CORRECTLY: its LAMP_IMG check was a WINDOWED search
+from ch.posts and the new fire branch pushed the match past the window. The claim was true,
+the window was too small. A distance is not evidence -- it asserts the pool selection now.
 
 GATE: gates/props_gate.js, 40 checks, suite entry PROPS, proved red by drifting the lamp
 footprint. Its own PNG reader (a gate that imports the tool it checks is asking the accused

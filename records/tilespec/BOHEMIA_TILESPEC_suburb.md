@@ -50,6 +50,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#4a463f` | street light | prop | a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it | prop | yes | — | 10 |
 | 13 | `#7c7263` | yard debris / drift | prop | blown debris drifted against the kerb and the wall -- paper, a bin on its side, what the wind kept moving | prop | no | — | 105 |
 | 14 | `#55565a` | trash bin / wheeled cart | prop | a wheeled collection cart, lid gaping, faded to chalk on the sun side -- the ones at the kerb were put out for a collection that never came | prop | yes | — | 14 |
+| 15 | `#6b4a2e` | fire barrel | prop | a steel drum somebody burns fence slats and furniture in, sheltered in the lee of the block wall -- the only warm thing on this street, and the proof that somebody is still out here | prop | yes | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

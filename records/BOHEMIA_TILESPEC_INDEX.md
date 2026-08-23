@@ -6,7 +6,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 
 | district | category | tile codes | drivable |
 |---|---|---|---|
-| [suburb](tilespec/BOHEMIA_TILESPEC_suburb.md) | residential | 13 | yes |
+| [suburb](tilespec/BOHEMIA_TILESPEC_suburb.md) | residential | 14 | yes |
 | [commercial](tilespec/BOHEMIA_TILESPEC_commercial.md) | commercial | 24 | yes |
 | [industrial](tilespec/BOHEMIA_TILESPEC_industrial.md) | industrial | 13 | yes |
 | [medical](tilespec/BOHEMIA_TILESPEC_medical.md) | civic | 12 | yes |
