@@ -31268,7 +31268,69 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/22 (a) LATEST -- *** NOBODY IS WALLED IN ANY MORE. Yesterday's
+WORLD (city-1eztay): 8/22 (b) LATEST -- *** THE GATE WAS LOOKING AT EVERY OTHER TILE, AND
+A DRIVEWAY IS ONE TILE WIDE. Three neighbourhoods were reported sealed that you can walk
+straight out of. Sixth ruler this week. ***
+Gates: WALKED SURFACE 11/0 (93.2% reachable, 99.9% own-module), landlocked 16/0, walkable
+73/0, district fill 53/0, city tab 64/0, current slice 6/0, map tab 9/0, payday 35/0.
+
+THE BUG: walked_surface_gate's crossable() swept a shared boundary with `i += 2` -- EVERY
+EVEN OFFSET, half the boundary never looked at. A suburb's street-facing edge has SEVEN
+walkable tiles out of 128. That is the entrance; the block wall is the other 121. Whether
+those seven land on even indices is LUCK. Measured at full resolution, three of the five
+cells the sweep called sealed share exactly ONE walkable tile with the arterial they front,
+at index 67, 61 and 67. All three ODD. All three walkable in the actual game.
+Stride 1. 93.1% -> 93.2%, +3 cells that were never sealed at all. FIX THE RULER (8/1).
+
+THE 27 THAT REALLY ARE SEALED, EVERY ONE NAMED, MEASURED AT TILE LEVEL:
+ A. RINGED BY TERRAIN -- 10 cells, AND THIS IS CORRECT, NOT A DEFECT. desert 5,0/6,0/6,1/
+    6,2 in the NW behind a solar farm; estate+desert 83,2/83,3/92,8/89,9/92,9 in NE mountain
+    bowls; gypsum 5,53 with MOUNTAIN ON ALL FOUR SIDES. The relay's third pass carves a spur
+    through DESERT; these are ringed by rock. A road out would be inventing geography.
+ B. APERTURE MISMATCH -- 13 cells, THE REAL BUG. Both sides open the correct side; the gates
+    land in different places along it. THE RELAY SPEAKS IN SIDES, CONNECTION HAPPENS AT
+    TILES. railyard<->suburb gap 38/39, farm<->farm gap 11/12/29, warehouse<->warehouse
+    gap 83, suburb<->farm gap 11.
+    WHERE THE OPENINGS ACTUALLY SIT: 61-67 IS THE CONVENTION -- pedGate() writes
+    Math.round(n*0.5)+/-3 and the suburb's punchGate() writes Math.round(W*0.5)+/-3,
+    independently, which is why the whole valley works. The offenders sit at 19, 47, 80,
+    107, 108, and they are all CLUSTER districts (farm, warehouse, railyard) whose adjacent
+    cells lay out INDEPENDENTLY instead of as one blob -- the seam does not line up even
+    between two cells of the SAME farm. That is the exact defect world.js records as fixed
+    on 8/19 for five other types ("lay out in VALLEY coordinates against the bounds of the
+    whole blob, so the seams line up by construction"). Farm/warehouse/railyard never got it.
+ C. A BUILDING ACROSS THE MOUTH -- 2 cells (73,30 and 77,34). A suburb fronts a real
+    arterial. Its 7-tile entrance is walkable. The arterial's sidewalk is walkable EVERYWHERE
+    EXCEPT exactly those 7 tiles, where a solid mass stands (artPool 'hroof', walk:false).
+    Both modules put a feature at the midpoint of the same edge: the neighbourhood OPENS
+    there, the street BUILDS there. THE ONE PLACE YOU CAN LEAVE IS THE ONE PLACE THAT IS
+    WALLED. The three cells in the ruler table survive only on a rounding difference.
+ D. A WALLED PERIMETER -- 2 cells (84,2 / 89,3), estates with ZERO walkable tiles on either
+    side of the shared edge. GATED IS RICH working as ruled. Left alone on purpose.
+
+SCORE:              8/21    after relay   after ruler
+  reachable        82.6%       93.1%        93.2%
+  sealed built       541          30           27
+  of those housing   257          11            8
+  genuinely broken     -           -    15 (B 13, C 2)
+  correct as built     -           -    12 (A 10, D 2)
+
+NEXT IN THIS LANE, IN ORDER
+  1. B, THE CLUSTER SEAM: give farm / warehouse / railyard the 8/19 blob layout the other
+     five cluster types already have. EXISTING MECHANISM TO COPY, not a design to invent.
+     13 cells. Check first whether the PAGE passes them `legs.cluster` at all -- the kit call
+     site only forwards `bounds` when it is set.
+  2. C, THE MIDPOINT KEEP-OUT: the middle 7 tiles of a street's edge are where EVERY
+     district's gate is BY LAW, so a street may not stand a mass there. Convention-shaped,
+     no cross-district query needed. 2 cells.
+  3. A and D are CORRECT. Do not "fix" them.
+  4. 34 unplaced legend codes across 22 families (legend_kept ratchet, green).
+  5. NOT THIS LANE'S BUT EVERY LANE'S: the suite no longer fits its own budget -- 412 gates
+     at 9.8s needs ~4,021s against 2,700s, one gate never ran, and the runner now prints its
+     own `--shard 1/3` remedy.
+Record: records/BOHEMIA_THE_GATE_WAS_LOOKING_AT_EVERY_OTHER_TILE_8_22_26.md
+
+WORLD (city-1eztay): 8/22 (a) -- *** NOBODY IS WALLED IN ANY MORE. Yesterday's
 three unexplained failures were ONE SCOPE ERROR, and the valley went 82.6% -> 93.1%
 reachable on foot without costing a single cell anywhere else. ***
 Gates: WALKED SURFACE 11/0 (93.1% reachable, 99.9% drawn by own module, UNMOVED),

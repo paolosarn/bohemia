@@ -177,14 +177,25 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     const FN = 128, N = 96;
     const walkAt = (gx, gy) => { let c = null; try { c = realizeCell(gx, gy); } catch (e) { return false; }
       return !!(c && c.walk !== false); };
+    /* EVERY TILE, NOT EVERY OTHER ONE (8/22). This swept `i += 2` and so only ever looked
+       at EVEN offsets along a shared boundary. A suburb's street-facing edge has SEVEN
+       walkable tiles out of 128 -- that is the driveway, the one gap in the block -- and
+       whether those seven land on even indices is luck. MEASURED: cells 16,30 · 91,30 and
+       58,70 each share exactly ONE walkable tile with the arterial they front, at index 67,
+       61 and 67. All three odd. All three reported UNREACHABLE by this gate and all three
+       walkable in the actual game.
+       A sampler that steps over half the boundary cannot see a one-tile crossing, and a
+       one-tile crossing is what a driveway IS. Stride 1. It costs a little time on the
+       pairs that genuinely do not connect (the ones that do still return on first hit) and
+       it buys a number that means what it says. FIX THE RULER, NEVER THE TARGET. */
     const crossable = (ax, ay, bx, by) => {
       if (ax === bx) { const y = (by > ay) ? (ay * FN + FN - 1) : (ay * FN);
         const y2 = (by > ay) ? (by * FN) : (by * FN + FN - 1);
-        for (let i = 0; i < FN; i += 2) if (walkAt(ax * FN + i, y) && walkAt(ax * FN + i, y2)) return true;
+        for (let i = 0; i < FN; i++) if (walkAt(ax * FN + i, y) && walkAt(ax * FN + i, y2)) return true;
         return false; }
       const x = (bx > ax) ? (ax * FN + FN - 1) : (ax * FN);
       const x2 = (bx > ax) ? (bx * FN) : (bx * FN + FN - 1);
-      for (let i = 0; i < FN; i += 2) if (walkAt(x, ay * FN + i) && walkAt(x2, ay * FN + i)) return true;
+      for (let i = 0; i < FN; i++) if (walkAt(x, ay * FN + i) && walkAt(x2, ay * FN + i)) return true;
       return false; };
     const sx = Math.max(0, Math.min(N - 1, (hx / FN) | 0)), sy = Math.max(0, Math.min(N - 1, (hy / FN) | 0));
     const seen = new Set([sx + ',' + sy]); const q = [[sx, sy]]; let h = 0;
