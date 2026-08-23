@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
 <!-- engine-md5:engine/bohemia_district_kit.js:e3d62372abf30c734c78868ccfe96654 -->
-<!-- engine-md5:engine/bohemia_suburb.js:5ee5f07ff97d6561346b9af72a07b46e -->
+<!-- engine-md5:engine/bohemia_suburb.js:bd5cee7826161546778809a232882065 -->
 <!-- engine-md5:engine/bohemia_commercial.js:742c9adf76df9cbd50ab0bc798d5be3b -->
 <!-- engine-md5:engine/bohemia_industrial.js:4ad82e35be86eee279e852ba27dd7bab -->
 <!-- engine-md5:engine/bohemia_medical.js:b541ae9d4b6b3f4368d4e3bd77289371 -->
@@ -1014,6 +1014,64 @@
     g[best[1]][best[0]]=15;
     return 1;
   }
+  /* THE CARS THAT NEVER LEFT (code 16), 8/23. Fourteen codes in the district he spawns in
+     and not ONE of them was a vehicle -- every driveway on his street empty, which is the
+     single thing a dead American suburb would never be.
+
+     AND WHY THEY ARE STILL HERE IS THE PREMISE OF THE WHOLE GAME. In an EVACUATION people
+     drive away and the drives are empty. In an ECONOMIC collapse they stay until they cannot,
+     and the car dies where it sits -- no fuel, no parts, nowhere to go. Detroit is the
+     reference and it is unambiguous: abandoned vehicles in drives, at kerbs and pushed onto
+     yards are so defining a feature of a foreclosed neighbourhood that the city runs
+     enforcement programmes for them. Bohemia's identity is "the most realistic economic crash
+     simulator", so MOST DRIVEWAYS KEEP THEIR CAR. An empty drive is the exception and it
+     means somebody got out.
+
+     A CAR IN A TWO-WIDE DRIVE BLOCKS IT, and that is true rather than convenient: you cannot
+     get a vehicle past it to the garage. What that costs the drive network is MEASURED below
+     and in the gate, not assumed. The share is a mechanism default; that they are here at all
+     is what the collapse being economic means. */
+  function layCars(g){
+    var W=Wd(g),H=Ht(g),x,y,i,n=0,d4=[[1,0],[-1,0],[0,1],[0,-1]],seen={};
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==3 || seen[x+','+y]) continue;
+      var st=[[x,y]], cells=[]; seen[x+','+y]=1;
+      while(st.length){ var p=st.pop(); cells.push(p);
+        for(i=0;i<4;i++){ var nx=p[0]+d4[i][0], ny=p[1]+d4[i][1], k=nx+','+ny;
+          if(seen[k]||!inb(g,nx,ny)||g[ny][nx]!==3) continue; seen[k]=1; st.push([nx,ny]); } }
+      var hh=(Math.imul(cells[0][0],2654435761)^Math.imul(cells[0][1],40503)^0xCA53)>>>0;
+      if((hh%100)>=64) continue;                    /* a minority of families got out */
+      /* BESIDE THE DRIVE, NOT IN IT -- and this was measured twice before it was believed.
+         Filling the drive is the obvious reading and it is wrong for this model: our driveway
+         is DVW=2 tiles, which at TILE=0.75 is 1.5 m, ONE car wide, not the 16-20 ft two-car
+         apron a real Vegas tract house has. So a car in it seals the garage, and roadConnected
+         -- this district's own contract that the road reaches every lot -- went from 1.000 to
+         0.851 and FAILED ON ALL TWELVE test plots. An earlier cut that dodged that by taking
+         cells within a radius of the garage end drew 1x3 and 1x1 blobs, a car one cell wide.
+         THE DETROIT REFERENCE ALREADY HAD THE ANSWER: abandoned vehicles in YARDS are as
+         defining as the ones in drives, enough that the city runs enforcement for them. A car
+         pulled onto the dirt beside the drive is the truer image anyway -- it is what you do
+         when it stops running and you still need the drive. It costs the network nothing. */
+      var x0=cells[0][0],x1=x0,y0=cells[0][1],y1=y0;
+      for(i=1;i<cells.length;i++){ var cc=cells[i];
+        if(cc[0]<x0)x0=cc[0]; if(cc[0]>x1)x1=cc[0];
+        if(cc[1]<y0)y0=cc[1]; if(cc[1]>y1)y1=cc[1]; }
+      var dw=x1-x0+1, dh=y1-y0+1, along=(dh>=dw);      /* the drive runs up the page */
+      var cw2=along?2:3, ch2=along?3:2;                /* the car lies alongside it */
+      var spots=along ? [[x1+1,y0],[x0-cw2,y0]] : [[x0,y1+1],[x0,y0-ch2]];
+      for(var si=0;si<spots.length;si++){
+        var sx=spots[si][0], sy=spots[si][1], okp=true;
+        for(var yy=sy;yy<sy+ch2&&okp;yy++)for(var xx=sx;xx<sx+cw2&&okp;xx++){
+          if(!inb(g,xx,yy)) okp=false;
+          else if(g[yy][xx]!==0&&g[yy][xx]!==11) okp=false;   /* bare yard or gravel only */
+        }
+        if(!okp) continue;
+        for(yy=sy;yy<sy+ch2;yy++)for(xx=sx;xx<sx+cw2;xx++){ g[yy][xx]=16; n++; }
+        break;
+      }
+    }
+    return n;
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -1152,6 +1210,7 @@
        land a house, a garage or a driveway wanted. Order is the enforcement, both ways. */
     layLights(g);
     layBins(g);
+    layCars(g);
     layFires(g);
     return gates;
   }
@@ -1222,7 +1281,7 @@
     /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
-    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f',14:'#55565a',15:'#6b4a2e'};
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',11:'#9b968a',13:'#7c7263',10:'#57575f',12:'#4a463f',14:'#55565a',15:'#6b4a2e',16:'#5a5f63'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -1269,6 +1328,9 @@
        not the dead rusted drum. Paolo 8/21: "Ofc ppl will warm themselves by barrel fire in
        act one." */
     15:{name:'fire barrel',       kind:'prop',       act1:'a steel drum somebody burns fence slats and furniture in, sheltered in the lee of the block wall -- the only warm thing on this street, and the proof that somebody is still out here'},
+    /* kind:'vehicle', so the city's car branch stands one of the 20 approved top-down wrecks
+       here without this district knowing anything about them. */
+    16:{name:'dead car',          kind:'vehicle',    act1:'the car that never left: flat on its rims at the top of the drive, nose to the garage, glass crazed white on the sun side -- there was no fuel and nowhere to go'},
     12:{name:'street light',      kind:'prop',       act1:'a residential street light on its pole at the back of walk, cobra head dark, the pole scuffed at knee height where the kerb takes it'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
