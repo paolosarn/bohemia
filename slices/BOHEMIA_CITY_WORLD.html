@@ -34143,7 +34143,38 @@ var CT_MET = (function(){
   var raw=null; try{ raw=JSON.parse(localStorage.getItem('boh.city.met')||'null'); }catch(_e){}
   return BohemiaPeople.makeLedger(raw);
 })();
-function ctSave(){ try{ localStorage.setItem('boh.city.met', JSON.stringify(CT_MET.serialize())); }catch(_e){} }
+function ctSave(){
+  try{ localStorage.setItem('boh.city.met', JSON.stringify(CT_MET.serialize())); }catch(_e){}
+  ctBelongPersist();          /* __CITY_BELONGSAVE__ */
+}
+/* __CITY_BELONGSAVE__ -- THE BELONGING SYSTEM HAD NO MEMORY.
+   window.__CT_BELONG was a plain object: nothing wrote it, nothing read it back.
+   MEASURED on the real page -- work for the Cartel, commit, take a debt, reload:
+   gave 9->0, commitment burned->none, owed 4->0, and the NAME survived. So the
+   game remembered your name and forgot that you burned a bridge for them.
+   ONE SEAM, NOT TWENTY: the writers are record/adjust/setState and two ledgers,
+   and hooking each is five chances to miss one. ctSave() is already called at
+   every moment the city thinks worth saving, so it carries both facts. */
+var CT_BELONG_KEY = 'boh.city.belong';
+var CT_BELONG_VER = 1;
+function ctBelongPersist(){
+  try{
+    var sv = window.__CT_BELONG;
+    if(!sv || !sv.meta) return;
+    localStorage.setItem(CT_BELONG_KEY,
+      JSON.stringify({ v:CT_BELONG_VER, meta:sv.meta }));
+  }catch(_e){}
+}
+function ctBelongHydrate(){
+  /* AN UNREADABLE BLOB IS DISCARDED, NEVER HALF-APPLIED. A partially restored
+     standing is worse than a fresh one because you cannot see that it is wrong. */
+  try{
+    var raw = JSON.parse(localStorage.getItem(CT_BELONG_KEY) || 'null');
+    if(!raw || raw.v !== CT_BELONG_VER || !raw.meta || typeof raw.meta !== 'object')
+      return { meta:{} };
+    return { meta: raw.meta };
+  }catch(_e){ return { meta:{} }; }
+}
 
 /* WHERE HE LANDED, captured ONCE. The neighbour is pinned to the spawn, not to
    the player: a body that followed you around would be a cursor, not a person. */
@@ -36834,7 +36865,8 @@ function ctFactionOf(p){
    which day. Same shape and the SAME WRITER the run and the world bridge use
    (BohemiaBelonging.record), so the count cannot fork between surfaces. */
 function ctBelongSave(){
-  if(!window.__CT_BELONG) window.__CT_BELONG = { meta:{} };
+  /* __CITY_BELONGSAVE__ -- hydrate on first read. One reader, one writer. */
+  if(!window.__CT_BELONG) window.__CT_BELONG = ctBelongHydrate();
   return window.__CT_BELONG;
 }
 /* __CITY_NOLADDER__ -- IS THERE A LADDER HERE AT ALL?
@@ -38346,6 +38378,11 @@ window.__CT={ everyone:function(){ return ctEveryone().map(function(p){
               open:function(){ ctOpen(); return !!CT_OPEN; },
               nameCount:function(){ return CT_MET.namesKnown(); },
               wipe:function(){ try{localStorage.removeItem('boh.city.met');}catch(_e){}
+                /* __CITY_BELONGSAVE__ -- A WIPE THAT LEAVES HALF THE SAVE IS NOT A
+                   WIPE. This removed only the met-ledger, which would have left a
+                   player's standing and commitments behind after they asked for a
+                   clean slate. */
+                try{localStorage.removeItem(CT_BELONG_KEY); window.__CT_BELONG=null;}catch(_e){}
                                CT_MET=BohemiaPeople.makeLedger(null); } };
 /* ==== /CITY TALK ==== */
 
