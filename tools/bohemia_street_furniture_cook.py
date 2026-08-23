@@ -199,6 +199,26 @@ def main():
                 kept.setdefault(fam, []).append({
                     'pack': key, 'idx': i, 'w': w, 'h': h, 'opaque': opaque, 'b64': b64})
 
+    # ---- WHOLE-PACK FAMILIES. Rubble is not a discrete object you pick one of; it is a
+    # FIELD, and a field wants many faces or it reads as wallpaper. These packs are taken
+    # entire and vetted individually, so the law does the choosing rather than my patience.
+    for fam, pack in (('rubble', '9. Rubble and debris'),
+                      ('rubble', '17. Ruins and debris'),
+                      ('rubble', '7. Trash and debris')):
+        for idx in sorted(packs.get(pack, {})):
+            b64 = packs[pack][idx]
+            dec = decode(b64)
+            if not dec:
+                killed.append((fam, pack, idx, ['NOT A PNG']))
+                continue
+            raw, w, h = dec
+            bad, opaque = law_violations(pixels(raw))
+            if bad:
+                killed.append((fam, pack, idx, bad))
+                continue
+            kept.setdefault(fam, []).append({
+                'pack': pack, 'idx': idx, 'w': w, 'h': h, 'opaque': opaque, 'b64': b64})
+
     for fam, pack, idx in CANDIDATES:
         b64 = packs.get(pack, {}).get(idx)
         if not b64:

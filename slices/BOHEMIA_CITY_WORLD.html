@@ -394,6 +394,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -22727,7 +22728,10 @@ var PROP_NAME = [
   [/oil drum|\bdrum\b|\bbarrel\b/i,             'barrel'],
   [/\btyres?\b|\btires?\b/i,                      'tyre'],
   [/pallet|\bcrate\b/i,                            'pallet'],
-  [/mailbox|post box|letter box/i,                  'mailbox']
+  [/mailbox|post box|letter box/i,                  'mailbox'],
+  /* RUBBLE LAST, because it is the loosest pattern here and would otherwise swallow
+     "debris rack" and anything else with the word in it. */
+  [/rubble|debris|scrap pile|junk pile|wreckage/i,  'rubble']
 ];
 function __propFamily(entry){
   var n=String((entry&&entry.name)||''); if(!n) return null;
@@ -22850,10 +22854,20 @@ function realizeCell(gx,gy){
     }
     if(!c.lamp && !c.post){ var _pf=__propFamily(entry);
       if(_pf && PROP_IMG[_pf] && PROP_IMG[_pf].length){
-        var _pw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
-        var _pn=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
-        if(!_pw&&!_pn){ var _ph=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
-          c.post={p:_pf, v:_ph%PROP_IMG[_pf].length}; }
+        var _ph=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
+        if(_pf==='rubble'){
+          /* A FIELD IS SCATTERED, NOT ANCHORED. One-per-blob is right for a bin and absurd
+             for rubble: basin authors 1,736 debris tiles in one plot and rail 1,001, so a
+             single anchored sprite would be one heap the size of a city block. Rubble emits
+             on a LATTICE instead -- roughly one heap per 4x4, and not at every station, so
+             the ground reads as spill and collapse rather than as wallpaper. */
+          if(((gx&3)===((_ph>>>2)&3)) && ((gy&3)===((_ph>>>5)&3)) && ((_ph%100)<62))
+            c.post={p:_pf, v:_ph%PROP_IMG[_pf].length};
+        } else {
+          var _pw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
+          var _pn=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
+          if(!_pw&&!_pn) c.post={p:_pf, v:_ph%PROP_IMG[_pf].length};
+        }
       }
     }
     /* __A_VERTICAL_IS_A_FAMILY_KIT__ END */

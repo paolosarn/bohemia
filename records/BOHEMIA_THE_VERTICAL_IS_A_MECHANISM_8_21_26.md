@@ -277,3 +277,45 @@ Gate: 7 more checks (55 total). The mutation that matters parks a car back in th
 takes `roadConnected` to **0 of 6 plots** — my first attempt at that mutation was too weak to
 bite, which is worth saying: a mutation that does not reproduce the bug you are guarding
 against is not a test, it is a decoration.
+
+
+---
+
+## RUBBLE IS A FIELD, NOT AN OBJECT (8/23)
+
+**16 declarations / 4,665 tiles** of rubble and debris across the valley — basin 1,736 in one
+plot, rail 1,001, interchange 582 — every one of them flat. And three corpus packs nobody had
+ever opened held **41 usable heaps** after the law filter.
+
+**The emission rule is the whole find.** One-per-blob is right for a bin and *absurd* here: an
+anchored sprite on basin's 1,736-tile field would be one heap the size of a city block. Rubble
+**scatters on a lattice** — roughly one heap per 4×4, and deliberately *not* at every station,
+because a full lattice is a grid, which reads worse than wallpaper.
+
+```
+basin  68 heaps/plot   rail 24   freeway 3   interchange 3      no page errors
+```
+
+Three emission rules now, and each is a different truth about what a thing IS:
+
+| rule | for | why |
+|---|---|---|
+| one per **blob** | bin, bench, dumpster, mailbox | a discrete object, standing |
+| one per **2×4 sub-block** | car | a discrete object with a *size*, and ranks merge |
+| **scatter on a lattice** | rubble | not an object at all — a field |
+
+And the gate's own one-per-blob assertion went red on my refactor, correctly: rubble opts out
+of that path on purpose, so the check now asserts the anchored path still guards its west and
+north neighbours rather than assuming it is the only path.
+
+### REUSE-FIRST, discharged honestly, and one thing genuinely needs cooking
+
+Before any of this I swept the corpus for a **utility pole** — 27 unswept street/exterior packs,
+109 tiles rendered and looked at. There is no distribution pole anywhere in it. `arterial:10`
+authors one and it stays a flat square until somebody draws it. That is the first thing in a
+while that genuinely needs **cooking** rather than shopping (45 DEGREE ART LAW), and saying so
+is the honest end of a reuse check rather than a reason to skip one.
+
+I also found `tall_ratio` in the standing set is **1.00 for all 575 objects** — computed on the
+square canvas rather than the content, so the field says nothing. Another piece of metadata
+that looks like an answer and is not.

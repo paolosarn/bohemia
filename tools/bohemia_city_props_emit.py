@@ -56,6 +56,9 @@ FOOTPRINT = {
     # draw overrides these with the blob's real extent when it has one.
     'car':       [2.00, 4.00, 0.00],
     'firebarrel':[0.90, 1.30, 0.45],
+    # RUBBLE IS A FIELD, NOT AN OBJECT. One cell, barely proud of the ground -- it is spill
+    # and collapse you walk over, not a thing you walk behind, so the rise is near zero.
+    'rubble':    [1.10, 1.00, 0.10],
 }
 
 if not os.path.exists(BANK):

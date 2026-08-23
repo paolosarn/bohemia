@@ -216,7 +216,13 @@ ok('the suburb legend names code 15 a fire barrel',
 // ---------------------------------------------------------------- the wiring
 ok('the page holds ONE name->family table', /var PROP_NAME = \[/.test(page) && /function __propFamily\(/.test(page));
 ok('the kit path asks the table', /__A_VERTICAL_IS_A_FAMILY_KIT__/.test(page) && /__propFamily\(entry\)/.test(page));
-ok('the kit path stands ONE per blob (never two objects in one spot)', /if\(!_pw&&!_pn\)\{/.test(page));
+// ONE PER BLOB STILL, for every family that is a discrete OBJECT. Rubble deliberately opts
+// out of this (it is a field and scatters instead), so the assertion is that the anchored
+// path exists and still guards the west and north neighbours -- not that it is the only path.
+ok('the kit path stands ONE per blob for discrete objects (never two in one spot)',
+   /var _pw=\(lx>0\)\?\(m\.kit\[ly\*FN\+lx-1\]===code\)/.test(page) &&
+   /var _pn=\(ly>0\)\?\(m\.kit\[\(ly-1\)\*FN\+lx\]===code\)/.test(page) &&
+   /if\(!_pw&&!_pn\)/.test(page));
 ok('the suburb has its own case (it is not on the kit path)',
    /__A_VERTICAL_IS_A_FAMILY_SUB__/.test(page) && /else if\(v===14\)\{[\s\S]{0,200}?c\.post=\{p:'bin'/.test(page));
 
@@ -305,6 +311,28 @@ ok('the suburb branch stands a car from the approved wreck pool',
      '-- this is the check that went red twice', disconnected === 0);
   ok(`no car sits IN a driveway (${inDrive}) -- a 1.5 m drive with a car in it is a sealed garage`, inDrive === 0);
   ok(`no car sits in the one-grid walk (${onWalk})`, onWalk === 0);
+}
+
+// ---------------------------------------------------------------- rubble is a FIELD
+// 16 declarations / 4,665 tiles of rubble and debris across the valley, every one flat, while
+// the corpus held 41 usable heaps in three packs nobody had opened. The emission rule is the
+// point: one-per-blob is right for a bin and ABSURD here -- basin authors 1,736 debris tiles
+// in a single plot and rail 1,001, so an anchored sprite would be one heap the size of a
+// city block. It scatters on a lattice instead, and not at every station.
+ok('the bank carries a real spread of rubble faces (a field wants many or it is wallpaper)',
+   Array.isArray(bank.families.rubble) && bank.families.rubble.length >= 20);
+ok('rubble is FLAT -- spill you walk over, not a thing you walk behind',
+   Array.isArray(fp.rubble) && fp.rubble[2] <= 0.15);
+ok('rubble SCATTERS on a lattice instead of anchoring one per blob',
+   /_pf==='rubble'/.test(page) && /\(gx&3\)===\(\(_ph>>>2\)&3\)/.test(page) && /\(gy&3\)===\(\(_ph>>>5\)&3\)/.test(page));
+ok('and not at every station (a full lattice is a grid, which is worse than wallpaper)',
+   /_ph%100\)<62/.test(page));
+if (m) {
+  const table2 = eval(m[1]);
+  const fam3 = (n) => { for (const [re, f] of table2) if (re.test(n)) return f; return null; };
+  ok('the loose rubble pattern sits LAST so it cannot swallow the specific families',
+     fam3('rubble / debris') === 'rubble' && fam3('dumpster') === 'dumpster' &&
+     fam3('trash bin / wheeled cart') === 'bin');
 }
 
 // ---------------------------------------------------------------- MUTATIONS

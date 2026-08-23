@@ -462,7 +462,32 @@ in the drive and takes roadConnected to 0 OF 6 PLOTS. MY FIRST ATTEMPT AT THAT M
 TOO WEAK TO BITE and I replaced it -- a mutation that does not reproduce the bug you are
 guarding against is not a test, it is a decoration.
 
+AND RUBBLE IS A FIELD, NOT AN OBJECT. 16 declarations / 4,665 tiles of rubble and debris
+across the valley (basin 1,736 in ONE plot, rail 1,001, interchange 582), every one flat,
+while three corpus packs nobody had opened held 41 usable heaps after the law filter.
+THE EMISSION RULE IS THE FIND: one-per-blob is right for a bin and ABSURD here -- an anchored
+sprite on basin's field would be one heap the size of a city block. Rubble SCATTERS on a
+lattice, ~1 heap per 4x4, and deliberately NOT at every station (a full lattice is a grid,
+which reads worse than wallpaper). Measured: basin 68 heaps/plot, rail 24, freeway 3, no
+page errors. THREE EMISSION RULES NOW, each a different truth about what a thing IS:
+    one per BLOB          bin, bench, dumpster, mailbox   a discrete standing object
+    one per 2x4 SUB-BLOCK car                              discrete, with a SIZE, ranks merge
+    SCATTER on a lattice  rubble                           not an object at all, a field
+The gate's own one-per-blob check went red on my refactor, correctly -- rubble opts out of
+that path on purpose, so it now asserts the anchored path still guards its west/north
+neighbours rather than assuming it is the only path. props_gate 60 checks.
+
+REUSE-FIRST DISCHARGED HONESTLY, AND ONE THING NEEDS COOKING: I swept 27 unswept street and
+exterior packs, rendered and LOOKED at 109 tiles, and there is NO UTILITY POLE anywhere in
+the corpus. arterial:10 authors one and it stays a flat square until somebody draws it. That
+is the first thing in a while that genuinely needs cooking rather than shopping.
+Also: tall_ratio in the standing set is 1.00 for ALL 575 objects -- computed on the square
+canvas, not the content. Another piece of metadata that looks like an answer and is not.
+
 NEXT IN THIS LANE
+  - THE POWER POLE, COOKED. Confirmed absent from the corpus, so this is a real art task
+    under the 45 DEGREE ART LAW. It is the most characteristic vertical on a Vegas arterial
+    and the arterial is what he walks along.
   - AUTHOR THE CONTENT: 63 of 71 districts still have NO furniture at all. The mechanism is
     done, so each is a legend line plus a placement rule; park/school/library/medical/
     cemetery/downtown/town are the ones a player actually stands in.
