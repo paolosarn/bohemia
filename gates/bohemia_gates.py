@@ -1295,6 +1295,22 @@ GATES = [
      'his bank. It counts REQUESTS now, which no cache and no choice of door can fool. 8 of '
      '21 pools are in use and 13 are never asked for at all, named and ratcheted. It is the '
      'machine the STREETS ARE THE HARMONIZED POOL law (7/31, LOCKED) never had', False),
+    ('DEAD CODE',      ['node', 'gates/dead_code_gate.js'],
+     'A LEGEND CODE NO GENERATOR EVER PLACES IS CONTENT THAT DOES NOT EXIST -- it passes '
+     'tilespec_gate (the dossier row is there), passes district_kit_gate (the entry is '
+     'well-formed), appears in the tiling brief, and is never once in the game. The same '
+     'silence that hid the streetlights, the cars and the rubble this week. 59 dead of 1,136, '
+     'ratcheted downward only. IT EXISTS BECAUSE MY FIRST MEASUREMENT WAS CONFIDENTLY WRONG: '
+     'a quick sweep said 76 dead and named the airport as having NO HANGAR, NO JET BRIDGE AND '
+     'NO DEAD AIRLINER. Read off the running valley instead, every cell of a whole field: the '
+     'airbase places 45,864 hangar tiles and 3,059 dead fighters, the airport 32,088 terminal '
+     'and 6,572 airliner. Two things made the first answer garbage and this gate is built '
+     'around both -- a MULTI-CELL district cannot be measured one cell at a time (an airfield '
+     'is a field and one cell is a window onto it; its apron loop cannot execute at all at '
+     '128 tiles), and ONE LEGEND CAN SERVE TWO KINDS (an airport never places a revetment '
+     'because that is an airbase word). Every conditional code is NAMED with its reason, and '
+     'six seeds not two, because a two-seed run called park:9 dead when it places fine',
+     False),
     ('PROPS',          ['node', 'gates/props_gate.js'],
      'THE VERTICAL IS A MECHANISM NOW, NOT A LAMP. The morning fix stood ONE object up via a '
      'lamp-shaped path from flag to sprite; the next prop would have meant a fourth copy of '

@@ -478,6 +478,54 @@ NEXT IN THIS LANE
 
 ---
 
+WORLD (world-9lfjtf): 8/23 (b) LATEST -- *** I ALMOST PUBLISHED "THE AIRPORT HAS NO
+AIRCRAFT" AND IT WAS MY INSTRUMENT AGAIN. Plus a gate so nobody repeats it. ***
+
+FIRST, THE STALE ITEM I INHERITED FROM MYSELF. My own handoff said "63 of 71 districts have
+NO furniture at all". Re-measured before acting on it: IT IS SEVEN. The car, rubble, lamp and
+pole families closed 56 of them, and the number went stale the moment I shipped the cars. I
+was about to run a large content pass against a figure my own previous work had invalidated.
+MEASURE BEFORE YOU EXECUTE A HANDOFF ITEM, INCLUDING YOUR OWN.
+
+THEN THE NEAR-MISS. A sweep said 76 of 1,136 legend codes are authored and NEVER PLACED, and
+named the airport as having no hangar, no jet bridge and no dead airliner. That is a dramatic
+finding and it is FALSE. Read off the running valley instead -- every cell of a whole field,
+not a sample:
+    airbase   hangars 45,864 · dead fighters 3,059 · revetments 2,688 · stand marks 3,213
+    airport   terminal 32,088 · airliners  6,572 · jet bridges     70 · stand marks 1,176
+Both place their content in full. TWO THINGS MADE MY ANSWER GARBAGE:
+  1. A MULTI-CELL DISTRICT CANNOT BE MEASURED ONE CELL AT A TIME. An airfield is a FIELD
+     spanning several overmap cells; one cell is a WINDOW onto it. Called with no bounds it
+     builds a 128-tile field and its apron loop (st = A0+90; st < A1-120) cannot execute even
+     once -- so nothing on the apron places, which looks exactly like content never written.
+  2. ONE LEGEND CAN SERVE TWO KINDS. The airfield shares a legend between airport and airbase,
+     so an airport legitimately never places a revetment. Half of "never placed" was "never
+     placed BY THIS KIND", which is a shared vocabulary, not a defect.
+FOURTH TIME THIS SESSION THE INSTRUMENT WAS THE BROKEN PART. Caught before publishing, which
+is the only reason it is a note and not a retraction.
+
+SHIPPED: gates/dead_code_gate.js, suite entry DEAD CODE. 59 dead of 1,136 codes, ratcheted
+DOWNWARD ONLY, 14 conditional codes NAMED WITH THEIR REASON (a bare allowlist explains
+nothing). Six seeds not two, because a two-seed run called park:9 dead when it places fine --
+a gate whose list carries false deaths teaches people to ignore the list. Proved red by adding
+a legend row nothing places.
+
+WHAT THE 59 ACTUALLY CONTAINS is now a real worklist for whoever wants it: freeway has no
+overpass deck and no bridge columns, interchange no sign gantry, several districts have
+`marking` codes nothing draws. Each is a small generator fix, not a mystery.
+
+NEXT IN THIS LANE
+  - THE 59. Work the list down; freeway:12/13 (overpass deck + bridge column) is the most
+    visible -- a freeway that never crosses anything.
+  - THE SEVEN GENUINELY BARE DISTRICTS: airbase, airport, ballpark, fueldepot, mountain,
+    reservoir, solar. mountain and reservoir are terrain and correctly bare; the other five
+    are mostly waiting on LIGHT TOWER art, which both prop matchers refuse on purpose.
+  - LIGHT TOWERS / FLOODLIGHT MASTS still need their own art (speedway, ballpark, school,
+    stadium, airport). Same job the power pole just got: cook it, 45 DEGREE ART LAW.
+  - A CLUSTER MAILBOX (CBU) is the honest Vegas answer for tract mail; corpus has none.
+
+---
+
 WORLD (world-9lfjtf): 8/23 (a) LATEST -- *** THE CARS THAT NEVER LEFT. The district he
 spawns in had FOURTEEN codes and not one vehicle. TAB: RUN. ***
 
