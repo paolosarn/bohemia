@@ -353,6 +353,16 @@
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_slot_leak_picture.js"
+  },
+  {
+   "id": "boot-stitch",
+   "title": "THE BOOTS GOT STITCHING",
+   "caption": "Since the character went to four times the pixels, only his hair had actually been given anything to do with them. I measured the wardrobe and 102 of your 200 canon garments had no one-pixel detail on them anywhere, which means every mark on them was a whole block wide and the extra pixels were buying a bigger boot rather than a finer one. Footwear was the worst: zero of eighteen. So every shoe now has a welt stitch, a single-pixel dotted line where the upper meets the sole, which is the thing real boots have and 56 pixels had no room for. Left is before, right is now, front and side. Nothing you already ruled on got thinner: the heel seam and the laces are exactly as they were. LOOK tab for this picture, CLOTHES tab for the shoes.",
+   "file": "look/boot-stitch.png",
+   "kb": 80.7,
+   "stamp": "8/22/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_boot_stitch_picture.js"
   }
  ]
 }

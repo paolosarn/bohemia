@@ -100,11 +100,38 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
       dflt.push({ d, lit, ownPaint });
     }
 
-    /* 2. NOTHING OF HIS LEAKS THROUGH A WORN GARMENT OF THE SAME SLOT */
+    /* 2. NOTHING OF HIS LEAKS THROUGH A WORN GARMENT OF THE SAME SLOT
+       EQUIP THE EMPTY SLOTS ON PURPOSE (added 8/22). The first cut of this gate walked
+       G.equipped, and hat and glasses are EMPTY in his default equip -- so there was no
+       painted layer on the body to leak and both slots were skipped in silence. Their
+       entry in the map was an unproven claim sitting inside a green gate, which is the
+       same defect as a check that passes vacuously. Measured once equipped:
+           hat/durag       1,488 painted px with nothing worn, 0 under a hat
+           glasses/shades    216 painted px with nothing worn, 0 under a face garment
+       so the pairing is real for all seven. It is exercised here every run now. */
     const leaks = [];
-    for (const slot in G.equipped) {
-      const key = G.equipped[slot]; if (!key) continue;
+    const slots = new Set(Object.keys(PAIR));
+    for (const slot of Object.keys(G.equipped)) slots.add(slot);
+    for (const slot of slots) {
       const wl = PAIR[slot]; if (!wl) continue;
+      let key = G.equipped[slot];
+      const restore = {};
+      if (!key) {
+        key = Object.keys(PD.layers).filter(k => k.indexOf(slot + '/') === 0)[0];
+        if (!key) continue;
+        restore[slot] = G.equipped[slot]; G.equipped[slot] = key;
+      }
+      /* ISOLATE THE SLOT FROM WHAT COVERS IT (added 8/22, caught by the vacuity check
+         above on its first run). PD.meta.order draws shirt BEFORE jacket, and his
+         painted fuzz jacket covers his painted cowl-hoodie completely -- so the shirt
+         slot showed ZERO painted pixels even with nothing worn, and its "no leak"
+         result was measuring an empty stage. Clear the layers drawn AFTER this one for
+         the duration of the test. Both the bare and the worn reading use the SAME
+         configuration, so the comparison stays honest; all that changes is that the
+         layer under test is actually on screen to be leaked. */
+      const ord = (PD.meta && PD.meta.order) || [];
+      const after = ord.slice(ord.indexOf(slot) + 1);
+      for (const s2 of after) { if (G.equipped[s2] && !(s2 in restore)) { restore[s2] = G.equipped[s2]; G.equipped[s2] = ''; } }
       const ramp = (PD.ramps[key] || []).filter(c => !shared.has(c.join(',')));
       const pick = CANON.filter(g => g.layer === wl)[0];
       if (!pick || !ramp.length) continue;
@@ -117,7 +144,16 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
         for (let i = 0; i < f.CW * f.CH; i++) { const c = f.px[i]; if (!c) continue;
           for (const r of ramp) if (c[0] === r[0] && c[1] === r[1] && c[2] === r[2]) { n++; break; } }
       }
-      leaks.push({ slot, key, wearing: pick.n, n });
+      /* AND IT MUST HAVE HAD SOMETHING TO HIDE. A zero that was always zero proves
+         nothing -- with the slot empty, this check would pass on a broken build. */
+      window.G_WORN = null;
+      try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+      const bareF = buildFrame('S', 'idle', 0);
+      let bareN = 0;
+      for (let i = 0; i < bareF.CW * bareF.CH; i++) { const c = bareF.px[i]; if (!c) continue;
+        for (const r of ramp) if (c[0] === r[0] && c[1] === r[1] && c[2] === r[2]) { bareN++; break; } }
+      leaks.push({ slot, key, wearing: pick.n, n, bare: bareN });
+      for (const s2 in restore) G.equipped[s2] = restore[s2];
     }
 
     /* 3. AND HIS FACE SURVIVES BEING DRESSED. The failure this exists to catch is a
@@ -154,6 +190,13 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
      R.leaks.map(q => q.slot + ':' + q.n).join(' ') +
      (bad.length ? ' -- LEAKING: ' + bad.map(q => q.key + ' under ' + q.wearing + ' by ' + q.n).join(', ') : '') + ')',
      bad.length === 0);
+  /* THE ZERO ABOVE MUST BE AN EARNED ZERO. Every slot has to draw real painted pixels
+     when nothing is worn, or its zero is vacuous and would pass on a broken build. */
+  const vac = R.leaks.filter(q => !q.bare);
+  ok('every slot actually had something to hide (' + R.leaks.map(q => q.slot + ':' + q.bare).join(' ') +
+     (vac.length ? ' -- VACUOUS: ' + vac.map(q => q.slot).join(', ') : '') + ')', vac.length === 0);
+  ok('all seven clothing slots were exercised, none skipped for being empty (' +
+     R.leaks.length + '/7: ' + R.leaks.map(q => q.slot).join(' ') + ')', R.leaks.length === 7);
 
   ok('HIS FACE SURVIVES BEING FULLY DRESSED (' + R.facePx + ' painted face pixels on screen)',
      R.facePx > 0);
