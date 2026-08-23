@@ -504,15 +504,23 @@ Both place their content in full. TWO THINGS MADE MY ANSWER GARBAGE:
 FOURTH TIME THIS SESSION THE INSTRUMENT WAS THE BROKEN PART. Caught before publishing, which
 is the only reason it is a note and not a retraction.
 
-SHIPPED: gates/dead_code_gate.js, suite entry DEAD CODE. 59 dead of 1,136 codes, ratcheted
-DOWNWARD ONLY, 14 conditional codes NAMED WITH THEIR REASON (a bare allowlist explains
-nothing). Six seeds not two, because a two-seed run called park:9 dead when it places fine --
-a gate whose list carries false deaths teaches people to ignore the list. Proved red by adding
-a legend row nothing places.
-
-WHAT THE 59 ACTUALLY CONTAINS is now a real worklist for whoever wants it: freeway has no
-overpass deck and no bridge columns, interchange no sign gantry, several districts have
-`marking` codes nothing draws. Each is a small generator fix, not a mystery.
+*** AND THEN I SHIPPED THAT GATE WRONG AND REBUILT IT THE SAME DAY. *** v1 measured by
+calling spec.generate() with synthetic options, reported 59 dead, and PRINTED A WORKLIST THAT
+WAS SUBSTANTIALLY FALSE. It told me the freeway "never crosses anything" -- I nearly published
+that as a headline. The built valley has 296,132 OVERPASS DECK TILES across 101 cells and
+1,818 bridge columns. ONE CAUSE BOTH TIMES, and it is the whole lesson:
+    A DISTRICT DOES NOT DECIDE ITS OWN SHAPE. The WORLD hands it options -- bounds, cross,
+    kind -- and a generator called without them builds something that NEVER OCCURS IN THE GAME.
+v2 does not ask a district what it would build in a vacuum. IT READS THE VALLEY THAT EXISTS,
+through the same tileMeta() the renderer uses (VERIFY ON THE REAL SURFACE). 41 dead of 1,054
+codes across 67 built districts. The airport, airbase and freeway entries all correctly
+vanished from the list.
+AND THE SAMPLE DEPTH IS ASSERTED, because it is load-bearing: at 40 cells/district the gate
+says 46 dead, at 160 it says 41, and THE FIVE DIFFERENCE ARE SAMPLING ARTEFACTS (a freeway
+crossing the rail corridor exists in six cells of the whole valley). So the list means
+"absent from up to 160 built cells", not "provably absent" -- said out loud, because that is
+the difference between a worklist somebody can trust and the one v1 shipped. Both mutations
+bite: shallow the sample, or add a legend row the world never builds.
 
 NEXT IN THIS LANE
   - THE 59. Work the list down; freeway:12/13 (overpass deck + bridge column) is the most
