@@ -1,0 +1,106 @@
+BOHEMIA -- FOUR TIMES THE PIXELS WAS BUYING A BIGGER BOOT, NOT A FINER ONE
+CHARACTER lane, 8/22/26.  Row 2X step 5, second item. And two gates that were lying.
+
+THE QUESTION STEP 5 EXISTS TO ANSWER
+-------------------------------------
+The rig composes at 112 now. That is worth nothing by itself: a mark drawn one CELL wide
+is TWO pixels at 112, so a garment that merely scales comes out chunkier relative to the
+body. The border fix of 8/16 is the proof of what the difference looks like -- 2px to
+1px, and he asked for it by name.
+
+MEASURED, EVERY CANON GARMENT (tools/bohemia_seam_width_audit.js, real posed body):
+the thinnest colour run with a different colour on BOTH sides -- which is what a seam, a
+stitch line or a zip looks like in the output.
+
+    layer     garments   have a 1px seam
+    feet          18            0
+    face           8            0
+    hands          4            0
+    neck           7            0
+    waist          5            0
+    head           2            0
+    gear          22            4
+    back          11            3
+    outer         31           20
+    legs          24           21
+    base          68           50
+
+    102 OF 200 CANON GARMENTS HAD NO ONE-PIXEL DETAIL ANYWHERE.
+
+Footwear, gloves, scarves, belts and face pieces were at ZERO. Every mark on them was a
+whole cell wide.
+
+WHAT I DID NOT DO, AND IT MATTERS
+----------------------------------
+The obvious move is to thin the existing marks. IT WOULD HAVE CONTRADICTED A RULING.
+genShoes' heel seam is S wide with his own reason written above it: "one 56-pixel of
+WIDTH is what he ruled on, so the band is S wide -- holding it at a literal 1 on a 112
+rig would halve the seam he approved." The lace ladder and midsole are the same.
+So nothing he ruled on got thinner. What was added is a mark that DID NOT EXIST.
+
+THE WELT STITCH
+---------------
+A boot is stitched where the upper meets the sole: one pixel, with a gap either side. At
+56 there was nowhere to put it -- the whole upper is four rows and a dotted line inside
+it would have been noise. At 112 there is room, and it is the first thing on a shoe that
+the extra pixels actually buy.
+Dotted on the odd columns so it reads as stitching rather than a drawn line, and skipped
+on the outermost column of each row so it never touches the silhouette (the outline is
+derived and 1px; a stitch dot sitting on it would thicken it).
+S>1 ONLY, so the 56 wardrobe is byte-identical and its 1,744 pinned hashes do not move.
+
+    feet: 0 of 18 -> 18 of 18.   total: 102 of 200 -> 84 of 200.
+
+*** AND MY OWN GATE CAUGHT ME PUTTING A BUG IN THE SHIPPING FILE ***
+---------------------------------------------------------------------
+The first cut read the before/after flag as `window.CLO_NOSTITCH`. clothes_4x builds the
+generators with `new Function` and NO DOM, so it went red immediately:
+
+    N genShoes THREW window is not defined
+
+A bare `window.` inside a generator throws anywhere there is no window, and headless is
+exactly where the gates live. It is read through `typeof` now, the same way genHair reads
+CLO_NOSUB. I would not have found this by looking at the game, because the game has a
+window. THE GATE THAT LOOKS AT THE CODE FROM A DIFFERENT ANGLE IS THE ONE THAT EARNS ITS
+KEEP.
+
+*** TWO CLAIMS IN YESTERDAY'S GATE WERE UNPROVEN, AND ONE WAS VACUOUS ***
+--------------------------------------------------------------------------
+one_garment_per_slot walked G.equipped. HAT AND GLASSES ARE EMPTY in his default equip,
+so there was no painted layer on the body to leak and both slots were skipped IN SILENCE
+-- their entry in the map was a claim sitting inside a green gate. Equipped on purpose:
+
+    hat/durag        1,488 painted px with nothing worn, 0 under a hat
+    glasses/shades     216 painted px with nothing worn, 0 under a face garment
+
+Then a new check -- "every slot must actually have had something to hide" -- immediately
+caught a THIRD problem: shirt showed 0 painted pixels even bare, because PD.meta.order
+draws shirt BEFORE jacket and his painted fuzz jacket covers his painted cowl-hoodie
+completely. THE SHIRT LEAK TEST WAS MEASURING AN EMPTY STAGE. Each slot is now isolated
+from the layers drawn after it for the duration of its own test.
+
+    THE MUTATION TELLS THE STORY. Remove the suppression and yesterday's gate named four
+    slots; today's names SEVEN:
+        hair:261  hat:313  shirt:92  jacket:18  pants:72  shoes:61  glasses:192
+    Three of those -- hat, shirt, glasses, 597 pixels between them -- were invisible to
+    the audit I shipped yesterday and called complete.
+
+GATES
+-----
+clothes_4x, 13/0. New claim: STEP 5 ONLY GOES FORWARD -- shapes with no one-pixel detail
+at 112, pinned at 44 on the fixture, downward only. Not a demand that every garment carry
+fine detail (a belt is a band, a gorget is a plate); a promise the count never RISES, so
+nobody deletes detail to make a gate green and step 5 cannot quietly stall. It runs on
+the fixture rather than the real body and says so -- the authoritative number is the
+tool's. Mutation: strip the welt stitch out and it fires at 46.
+one_garment_per_slot, 11/0, three claims stronger than yesterday.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE BOOTS GOT STITCHING" -- BROWN BOOTS, WRAPPED BOOTS and WHITE SNEAKERS,
+front and profile, before beside after, both halves out of the SAME generator
+(CLO_NOSTITCH). The shoes are in the CLOTHES tab.
+
+  node tools/bohemia_seam_width_audit.js
+  node gates/clothes_4x_gate.js               13/0
+  node gates/one_garment_per_slot_gate.js     11/0

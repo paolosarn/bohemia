@@ -220,6 +220,59 @@ ok('every garment and hairstyle keeps its PROPORTIONS when the body doubles, EVE
    (drift.length ? ')\n     ' + drift.slice(0, 10).join('\n     ') : ')'),
    drift.length === 0);
 
+/* *** CLAIM 3: STEP 5 ONLY EVER GOES FORWARD (8/22). ***
+   The flip gave every garment four times the pixels. That is worth nothing on its own:
+   a mark drawn one CELL wide is two pixels at 112, so a garment that only scales comes
+   out chunkier relative to the body, not finer. The border fix of 8/16 is the proof of
+   what the difference looks like -- 2px to 1px, and he asked for it by name.
+   MEASURED 8/22 (tools/bohemia_seam_width_audit.js, on the real posed body): 102 of 200
+   canon garments had NO one-pixel feature anywhere. Footwear, gloves, scarves, belts and
+   face pieces were all at ZERO. Boots got a welt stitch the same day, which took feet
+   from 0/18 to 18/18 and the total from 102 to 84.
+   THIS RATCHETS THAT NUMBER DOWNWARD. It is not a demand that every garment have fine
+   detail -- a belt is genuinely a band and a gorget is genuinely a plate -- it is a
+   promise that the count NEVER GOES UP, so nobody removes fine detail to make a gate
+   green, and step 5 cannot quietly stall.
+   IT RUNS ON THE FIXTURE, NOT THE REAL BODY, and says so: the authoritative number is
+   the tool's. The fixture is a consistent stand-in that costs no browser, and what is
+   ratcheted here is the fixture's own count, measured on this build. */
+const COARSE_PIN = (() => {
+  const G112 = build(src, 112, 'S');
+  const thin = (o) => {
+    const rows = {};
+    for (const k in o) { const i = +k, y = (i / 112) | 0; (rows[y] = rows[y] || []).push(i % 112); }
+    let has1 = false;
+    for (const y in rows) {
+      const xs = rows[y].sort((a, c) => a - c);
+      let st = 0;
+      for (let n = 1; n <= xs.length; n++) {
+        const cont = n < xs.length && xs[n] === xs[n-1] + 1 &&
+          o[y * 112 + xs[n]].join() === o[y * 112 + xs[st]].join();
+        if (cont) continue;
+        const L = o[y * 112 + xs[st] - 1], Rr = o[y * 112 + xs[n-1] + 1];
+        const me = o[y * 112 + xs[st]].join();
+        if (L && Rr && L.join() !== me && Rr.join() !== me && (n - st) === 1) has1 = true;
+        st = n;
+      }
+    }
+    return has1;
+  };
+  let coarse = 0, ran = 0;
+  for (const [fn, o] of SHAPES) {
+    let out = null; try { out = G112[fn](g112, Object.assign({ ramp: R }, o)); } catch (e) {}
+    if (!out || !Object.keys(out).length) continue;
+    ran++; if (!thin(out)) coarse++;
+  }
+  return { coarse, ran };
+})();
+const PINNED_COARSE = 44;   // shapes with NO 1px feature on the fixture; only ever shrinks
+ok('STEP 5 ONLY GOES FORWARD: shapes with no one-pixel detail at 112 (' +
+   COARSE_PIN.coarse + ' of ' + COARSE_PIN.ran + ', pinned at ' + PINNED_COARSE + ')',
+   COARSE_PIN.coarse <= PINNED_COARSE);
+if (COARSE_PIN.coarse < PINNED_COARSE)
+  console.log('  *** MORE GARMENTS HAVE FINE DETAIL THAN THE PIN. Lower PINNED_COARSE to ' +
+    COARSE_PIN.coarse + ' so it cannot slide back. ***');
+
 /* --------------------------------- claim 2: the build he plays today did not move */
 const CASES = [];
 for (const sl of ['long', 'short', 'rolled', 'none']) for (const nk of ['crew', 'v', 'henley', 'button', 'turtle', 'hood'])

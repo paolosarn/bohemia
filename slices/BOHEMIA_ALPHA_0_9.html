@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/22b - SOMEBODY IS STILL OUT HERE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/22c - SOMEBODY IS STILL OUT HERE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -20940,6 +20940,11 @@ window.CLO=(function(){
        shoes rendered byte-identical front to back and he saw a laced tongue on the
        back of his heel from every angle. Laces are a FRONT feature; from behind a
        shoe has a heel counter and a centre seam. */
+    /* GUARDED, NOT `window.` (caught by the gate's own harness the moment this landed:
+       "genShoes THREW window is not defined"). A generator must run anywhere -- the
+       clothes_4x harness builds these functions with no DOM at all -- so a flag is read
+       through typeof, never off window, exactly as genHair reads CLO_NOSUB. */
+    var _noStitch=(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH);
     var _sd=(typeof curDir!=='undefined')?curDir:'S';
     var shBack=(_sd==='N'||_sd==='NE'||_sd==='NW');
     var w={}; for(i=0;i<g.length;i++){var p=g[i]; if(p===11||p===12)w[i]=1; else if((p===9||p===10)&&((i/CW)|0)>=lb[p]-rise)w[i]=1;}
@@ -20977,6 +20982,23 @@ window.CLO=(function(){
       else if(p===9||p===10){ var lt2=lb[p]-rise;
         if(tall)c=(y<lt2+S)?r.lt:(y<lt2+2*S)?r.dk:bshade(inG,x,y,r);     /* shaft: light fold-over cuff + dark seam, then leather */
         else c=midC; }                                                   /* ankle collar (padded) */
+      /* @SUBCELL-DETAIL -- THE WELT STITCH (8/22, row 2X step 5). A boot is stitched
+         where the upper meets the sole, and that stitch is ONE PIXEL with a gap either
+         side of it. At 56 there was nowhere to put it: the whole upper is four rows and
+         a dotted line inside it would have been noise. At 112 there is room, and this
+         is the first thing on a shoe that the extra pixels actually buy.
+         MEASURED BEFORE THIS: 0 of 18 canon shoes had a single one-pixel feature --
+         every mark on them was a whole cell wide, so four times the pixels had bought
+         a bigger boot rather than a finer one (tools/bohemia_seam_width_audit.js).
+         IT DOES NOT THIN ANYTHING HE RULED ON. The heel seam stays S wide, with his
+         own reason recorded above it; the lace ladder and the midsole keep their widths.
+         This is a mark that did not exist, not a mark made smaller.
+         S>1 ONLY, so the 56 wardrobe is byte-identical and its 1,744 pinned hashes do
+         not move. Dotted on the ODD columns so it reads as stitching rather than a
+         drawn line, and skipped on the outermost column of the row so it never touches
+         the silhouette edge (the outline is derived and 1px, and a stitch dot sitting
+         on it would thicken it). */
+      if(S>1&&!_noStitch&&db===2*S&&(x%2)===1&&inG(x-1,y)&&inG(x+1,y))c=mix(c,0.74);
       o[ii]=c; }
     return o; }
   /* HEADWEAR (7/18): the missing ~20% of the wardrobe target. Real geometry ON
@@ -21088,6 +21110,7 @@ window.CLO=(function(){
      STRUCTURE-NOT-COLOR: these are silhouettes. The ramp only makes them
      visible. ===== */
   var CLO_NOSUB=false; window.CLO_SET_NOSUB=function(v){CLO_NOSUB=!!v;};
+  var CLO_NOSTITCH=false; window.CLO_SET_NOSTITCH=function(v){CLO_NOSTITCH=!!v;};
   function genHair(g,opt){
     var r=opt.ramp,i,o={},S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;

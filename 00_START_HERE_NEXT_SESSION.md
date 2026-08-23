@@ -1,3 +1,63 @@
+CHARACTER (character-0lurbs): 8/22 (a) LATEST -- *** FOUR TIMES THE PIXELS WAS BUYING A
+BIGGER BOOT, NOT A FINER ONE. Row 2X step 5, second item. Plus two of my own gates that
+were lying, one of them vacuously. ***
+
+MEASURED EVERY CANON GARMENT (tools/bohemia_seam_width_audit.js, real posed body): the
+thinnest colour run with a different colour on BOTH sides -- what a seam or stitch line
+looks like in the output.
+    feet 0/18   face 0/8   hands 0/4   neck 0/7   waist 0/5   head 0/2
+    gear 4/22   back 3/11  outer 20/31  legs 21/24  base 50/68
+    *** 102 OF 200 CANON GARMENTS HAD NO ONE-PIXEL DETAIL ANYWHERE. ***
+A mark drawn one CELL wide is TWO pixels at 112, so a garment that only scales comes out
+chunkier relative to the body. That is the whole of step 5 in one number.
+
+I DID NOT THIN THE EXISTING MARKS, AND THAT WAS THE IMPORTANT CALL. genShoes' heel seam
+is S wide with HIS OWN REASON recorded above it ("holding it at a literal 1 on a 112 rig
+would halve the seam he approved"). Same for the lace ladder and midsole. What shipped is
+a mark that DID NOT EXIST: the welt stitch where the upper meets the sole, 1px, dotted on
+odd columns, skipped on the outermost column so it never thickens the derived outline.
+S>1 only, so the 56 wardrobe is byte-identical and its 1,744 hashes do not move.
+    feet 0/18 -> 18/18.   total 102/200 -> 84/200.
+
+*** MY OWN GATE CAUGHT ME PUTTING A BUG IN THE SHIPPING FILE. *** First cut read the flag
+as `window.CLO_NOSTITCH`; clothes_4x builds generators with new Function and NO DOM, so it
+went red instantly: "genShoes THREW window is not defined". A bare window. inside a
+generator throws anywhere there is no window, and headless is where the gates live. Read
+through typeof now, like genHair reads CLO_NOSUB. THE GATE THAT LOOKS FROM A DIFFERENT
+ANGLE IS THE ONE THAT EARNS ITS KEEP -- the game has a window, so playing it would never
+have shown this.
+
+*** AND YESTERDAY'S one_garment_per_slot HAD TWO UNPROVEN CLAIMS AND ONE VACUOUS ONE. ***
+It walked G.equipped, and HAT AND GLASSES ARE EMPTY in his default equip, so both were
+skipped IN SILENCE -- claims sitting inside a green gate. Equipped on purpose: durag
+1,488 px bare / 0 worn, shades 216 / 0. Then a new "every slot must have had something to
+hide" check caught a third: SHIRT showed 0 even bare, because PD.meta.order draws shirt
+BEFORE jacket and his painted fuzz jacket covers his cowl-hoodie completely -- the shirt
+test was measuring an empty stage. Each slot is isolated from the layers drawn after it
+now. THE MUTATION TELLS IT: remove the suppression and yesterday's gate named FOUR slots,
+today's names SEVEN (hair:261 hat:313 shirt:92 jacket:18 pants:72 shoes:61 glasses:192).
+597 of those pixels were invisible to the audit I shipped yesterday and called complete.
+
+GATES: clothes_4x 13/0 with a new STEP 5 ONLY GOES FORWARD ratchet (shapes with no 1px
+detail, pinned 44 on the fixture, downward only; mutation fires at 46). It is NOT a demand
+that every garment carry fine detail -- a belt is a band -- it is a promise the count never
+rises so step 5 cannot quietly stall. one_garment_per_slot 11/0.
+Record: records/BOHEMIA_FOUR_TIMES_THE_PIXELS_BOUGHT_A_BIGGER_BOOT_8_22_26.txt
+LOOK tab: "THE BOOTS GOT STITCHING", before beside after, same generator (CLO_NOSTITCH).
+
+NEXT IN THIS LANE
+  - STEP 5 CONTINUES and the audit says exactly where: face 0/8, hands 0/4, neck 0/7,
+    waist 0/5, head 0/2, gear 4/22. Gloves want knuckle seams, belts a buckle tongue,
+    scarves a fringe. Run the audit first; it names the worst offender per layer.
+  - BEFORE ADDING ANYTHING, CHECK WHETHER A WIDTH WAS RULED ON. The heel seam nearly got
+    thinned by me on the way past. ADD marks, do not shrink his.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+  - CROWD flaked 15/1 once under load on 8/21, passed 4x alone since. Still unexplained.
+  - THE CONTAINER COMES UP ON AN 8/14 TREE EVERY SESSION with 8/12-era files staged that
+    look like unfinished work. They are not. DIFF AGAINST origin/main BEFORE BELIEVING IT.
+
+---
+
 RUN (run-eak241): 8/21 (b) -- *** WINNING AND LOSING WERE THE SAME EVENT, AND THE
 GATE SAID IT WAS FINE. *** TAB: RUN (walk into any building, fight, come back out).
 
