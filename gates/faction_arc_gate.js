@@ -1615,6 +1615,49 @@ function requirePlaywright() {
       !!persist && persist.back.asked === true,
       JSON.stringify(persist && persist.back));
 
+    /* Q3 EXISTS BECAUSE MUTATING THE GUARD DID NOT BITE. Deleting the
+       version/shape check left the gate at 87/0, because the gate only ever
+       WRITES a valid blob and so never walks the discard path. I had already
+       written "an unreadable blob is discarded, never half-applied" in the
+       commit message — a claim nothing proved. Same class as the fail-safe
+       branch earlier this week that turned out to be the only path taken.
+       AN UNTESTED BRANCH IS A CLAIM, NOT A BEHAVIOUR. This writes real garbage
+       into the key and asserts the game comes up CLEAN rather than crashing or
+       half-restoring: a partially restored standing is worse than a fresh one,
+       because you cannot see that it is wrong. */
+    const corrupt = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      const errs = [];
+      pg.on('pageerror', e => errs.push(e.message));
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(5000);
+        await pg.evaluate(() => {
+          try { localStorage.setItem('boh.city.belong', '{"v":99,"meta":"not an object"'); }
+          catch (_e) {}
+        });
+        await pg.reload();
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate((e) => {
+          const sv = ctBelongSave();
+          const rules = (typeof BohemiaBelonging !== 'undefined' && BohemiaBelonging.RULES) || {};
+          let any = 0;
+          for (const k in rules) any += BohemiaBelonging.gaveOf(sv, k) | 0;
+          return { hasMeta: !!(sv && sv.meta && typeof sv.meta === 'object'),
+                   standing: any, errs: e };
+        }, errs);
+      } finally { await pg.close(); }
+    })();
+
+    ok('Q3 A SAVE IT CANNOT READ IS DISCARDED, NOT HALF-APPLIED. Written because '
+      + 'deleting the guard did NOT make this gate red — it only ever writes a '
+      + 'valid blob, so the discard path was a claim in a commit message that '
+      + 'nothing exercised. Fed real garbage, the game comes up clean instead of '
+      + 'crashing or restoring somebody a standing they cannot see is wrong',
+      !!corrupt && corrupt.hasMeta && corrupt.standing === 0
+        && corrupt.errs.length === 0,
+      JSON.stringify(corrupt));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
