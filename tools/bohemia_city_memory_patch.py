@@ -371,6 +371,11 @@ def main():
     mem = open(MEM, encoding='utf-8').read()
 
     block = BEGIN + '\n' + mem + '\n' + END + STORE + STORE_END + '\n'
+    # lines the file has that are NOT this tool's region, before we touch it
+    outside_before = s.count('\n')
+    if BEGIN in s and STORE_END in s:
+        i0 = s.index(BEGIN); j0 = s.index(STORE_END) + len(STORE_END) + 1
+        outside_before = s.count('\n') - s[i0:j0].count('\n')
 
     if BEGIN in s:
         # THE BLOCK IS REPLACED WHOLE, never appended: an insert tool run twice is
@@ -388,9 +393,19 @@ def main():
         # re-run left them on the old form and REPORTED SUCCESS. Applied on both
         # paths, and a no-op once current.
         s = wire_cards(s)
+        # *** THE GUARD PROTECTS OTHER PEOPLE'S LINES, NOT MY OWN BLOCK. ***
+        # As `grew < 0` it also forbade this tool from ever SHRINKING the region
+        # it owns -- so the day a block needed removing (8/21: machinery I added
+        # for a bug that turned out not to exist) the tool refused to take it back
+        # out, and the only way to revert was by hand. A guard that cannot tell my
+        # lines from somebody else's blocks the correct move as readily as the
+        # dangerous one. It now measures the file OUTSIDE the owned region, which
+        # is the thing 8/17's 2,607-line accident actually destroyed.
+        outside_after = s.count('\n') - block.count('\n')
+        if outside_after < outside_before:
+            sys.exit('REFUSING TO WRITE: this would REMOVE %d lines from OUTSIDE '
+                     'this tool\'s own block.' % (outside_before - outside_after))
         grew2 = s.count('\n') - n_before
-        if grew2 < 0:
-            sys.exit('REFUSING TO WRITE: this would REMOVE %d lines.' % -grew2)
         open(CITY, 'w', encoding='utf-8').write(s)
         print('CITY MEMORY: refreshed the organ AND the call sites. %+d lines' % grew2)
         print('  ask verb : %d' % s.count('ctSeenOffer('))

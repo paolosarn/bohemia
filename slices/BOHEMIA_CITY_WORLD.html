@@ -26520,7 +26520,7 @@ function ctKnowsMe(id){
 
 /* ==== /engine/bohemia_standing.js (THE DEED LEDGER) ==== */
 
-/* ==== engine/bohemia_clout.js (HOW LOUD, inlined verbatim) ==== */
+/* ==== bohemia_clout.js + bohemia_deeds.js (HOW LOUD, inlined verbatim) ==== */
 // BOHEMIA CLOUT, HOW LOUD A THING WAS, AND THE ONE PLACE THAT SAYS SO
 // (8/21/26, PEOPLE lane. Extracted, not authored: every number below is Paolo's
 //  7/21 ruling, moved, not changed.)
@@ -26595,7 +26595,6 @@ function ctKnowsMe(id){
   if (typeof root !== 'undefined') root.BohemiaClout = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 
-/* ==== engine/bohemia_deeds.js (HOW LOUD, inlined verbatim) ==== */
 // BOHEMIA DEEDS — THE BRIDGE FROM A QUEST OUTCOME TO WHO ACTUALLY SAW IT
 // (8/6/26, PEOPLE lane. Reads canon, invents nothing.)
 //
@@ -26982,6 +26981,101 @@ var CT_DEED_WORDS = {
   'favour':        { saw: 'watched an outfit do you a favour',           /* draft */
                      heard: 'heard an outfit did you a favour' }         /* draft */
 };
+/* __CITY_REACT__ -- THEY SAY IT OUT LOUD, WITHOUT YOU OPENING ANYTHING.
+   *** A DEED THAT ONLY EXISTS ON A CARD IS A DEED MOST PLAYERS NEVER SEE. ***
+   Everything this lane built over four turns -- witnessing, gossip, hearsay
+   decay, loudness -- was reachable only by walking up to somebody and opening
+   their card. My own note on turn one said why that is fatal: a system the player
+   cannot SEE working is indistinguishable from no system at all.
+   BACKLOG 0r, THE REACTIVITY MULTIPLIER (8/12, the Hades math): Hades ships ~4
+   boss fights but 21,020 voice lines, because roguelite replayability is bought
+   with REACTIVITY PER ENCOUNTER, not roster size -- and the row names this
+   lane's organs as the channel: "what witnesses say ... flowing through the
+   witness organ + memory systems already live". It also names their trick, which
+   is copied here: THEIR SYSTEM NEVER REPEATS A LINE UNTIL EVERY UNUSED OPTION IS
+   SPENT.
+   ADDITIVE, NEVER A REGRESSION, and it borrows the shape of the line above it:
+   xchStart preempts the solo bark when two people are talking; this preempts it
+   when somebody standing there actually watched you do something. Nobody
+   witnessed anything, nothing changes, the street sounds exactly as it did.
+   *** SAW AND HEARD SAY DIFFERENT THINGS. *** That is the whole payoff of
+   modelling a route the news could take, and it has been invisible outside the
+   card until now: an eyewitness is specific, a retelling is vague and hedged.
+   THE WORDS ARE DRAFT (ALWAYS MAKE AN ATTEMPT, 8/11), written as if they ship,
+   in one table so there is one place to edit them. They are deliberately
+   PRONOUN-FREE: who the player is is his, and a bark that guesses is a bark that
+   is wrong half the time. */
+var CT_REACT = {
+  'claim:refused': {
+    saw:   ['Told them no. Right to their face.',            /* draft */
+            'Saw that. Turned them down flat.'],             /* draft */
+    heard: ['Heard somebody turned them down.',              /* draft */
+            'Word going round, somebody said no to them.']   /* draft */
+  },
+  'claim:met': {
+    saw:   ['Did what was asked. No fuss about it.',         /* draft */
+            'Saw that one come through for them.'],          /* draft */
+    heard: ['Heard somebody came through for them.',         /* draft */
+            'Word is that got done.']                        /* draft */
+  },
+  'favour': {
+    saw:   ['They handed something over. Saw it.',           /* draft */
+            'Saw them do a favour there.'],                  /* draft */
+    heard: ['Heard they did somebody a favour.',             /* draft */
+            'Word is something got handed over.']            /* draft */
+  },
+  'commit': {
+    saw:   ['Threw in with them. Right in the open.',        /* draft */
+            'Saw that. Picked a side.'],                     /* draft */
+    heard: ['Heard somebody threw in with them.',            /* draft */
+            'Word is a side got picked.']                    /* draft */
+  }
+};
+/* HADES' RULE, LITERALLY: never repeat a line until every unused option in that
+   pool is spent. Per pool, not per person, because the player hears the STREET,
+   not one man -- two neighbours saying the same sentence back to back is the
+   repetition this is meant to kill. */
+var CT_REACT_USED = {};
+function ctReactLine(kind, heard){
+  var pool = CT_REACT[kind]; if (!pool) return null;
+  var arr = heard ? pool.heard : pool.saw;
+  if (!arr || !arr.length) return null;
+  var key = kind + (heard ? ':h' : ':s');
+  var used = CT_REACT_USED[key] || (CT_REACT_USED[key] = []);
+  if (used.length >= arr.length) { used.length = 0; }
+  for (var i = 0; i < arr.length; i++) {
+    if (used.indexOf(i) < 0) { used.push(i); return arr[i]; }
+  }
+  return arr[0];
+}
+/* SAID ONCE, BY THAT PERSON, ABOUT THAT DEED. A witness who repeats the same
+   sighting every time you walk past is not reactive, he is a broken record. */
+var CT_REACT_SAID = {};
+function ctDeedBark(now){
+  if (typeof BohemiaMemory === 'undefined') return false;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  for (var i = 0; i < drew.length; i++) {
+    var d = drew[i]; if (!d || !d.p || !d.at) continue;
+    /* CLOSE ENOUGH TO OVERHEAR, the same test the solo bark applies. */
+    if (Math.abs(d.at[0] - hx) + Math.abs(d.at[1] - hy) > 6) continue;
+    var m = CT_MINDS[d.p.id]; if (!m || !m.deeds || !m.deeds.length) continue;
+    for (var j = m.deeds.length - 1; j >= 0; j--) {
+      var dd = m.deeds[j];
+      if (dd.actor !== '@') continue;
+      if (!CT_REACT[dd.kind]) continue;
+      var sk = String(d.p.id) + '|' + dd.kind + '|' + dd.turn;
+      if (CT_REACT_SAID[sk]) continue;
+      var line = ctReactLine(dd.kind, (dd.hops || 0) > 0);
+      if (!line) continue;
+      CT_REACT_SAID[sk] = 1;
+      BARK.p = d.p; BARK.at = d.at; BARK.text = line;
+      BARK.until = now + barkHold(line);
+      return true;
+    }
+  }
+  return false;
+}
+
 /* __CITY_DIAL__ -- HIS DIAL, AND THE PLACE IT LANDS.
    *** WHERE DOES HE CHANGE THIS HIMSELF? *** (HE MUST BE ABLE TO DIRECT IT, 8/12.)
    This lane shipped three turns of a reputation system whose entire judgement
@@ -29417,6 +29511,7 @@ function barkTick(now){
      shipped. At dial 1 a pair is rare, so this is additive and never a
      regression. */
   if (xchStart(now)) return;
+  if (ctDeedBark(now)) return;   /* __CITY_REACT__ */
   var pick = barkPick();
   if (!pick) return;
   var lines;

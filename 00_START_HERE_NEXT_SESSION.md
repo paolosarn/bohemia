@@ -2180,82 +2180,79 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/21 LATEST -- *** EVERY MIND IN THE VALLEY HELD ONE
-SUBJECT AND IT WAS YOU. TAB: RUN -- take somebody's name, then walk up to anybody
-else and the card offers "Have you seen ___?" The answer comes out of THAT
-PERSON'S OWN HEAD. ***
+PEOPLE (people-7h9sfy): 8/22 LATEST -- *** A DEED THAT ONLY EXISTS ON A CARD IS A
+DEED MOST PLAYERS NEVER SEE. TAB: RUN -- do something in front of somebody and
+walk on; they say what they saw, out loud, over their head. You open nothing. ***
 
-Three turns ago this lane wired the witness organ so people could see the player.
-It only ever recorded THE PLAYER. Every mind in Las Vegas held one subject, '@',
-which is A MEMORY OF YOU RATHER THAN A MEMORY. bohemia_memory's own attach() has
-always recorded out-agents seeing out-agents AND the player, in one sentence, and
-the city was doing half of it.
+Four turns of this lane built witnessing, gossip, hearsay decay and loudness, ALL
+of it reachable only by walking up to somebody and opening their card. My own note
+on turn one quoted the reputation literature saying exactly why that is fatal -- a
+system the player cannot SEE working is indistinguishable from no system at all --
+and then I built four turns of precisely that.
 
-*** AND THE HALF IT SKIPPED IS THE HALF THE QUESTBOOK ASKED FOR. *** The module's
-header, 7/19: "the questbook's engine backlog demands THE SETTLEMENT'S
-MISSING-PERSONS ORGAN (Q133/Q134/Q138). Its seed question, 'when did anyone last
-see H3-2, and how sure are they', is answerable from these minds." It was not
-answerable from anything, because nothing in the game had ever put a sighting in a
-mind. Measured on the real card, from a man who has NOT told you his own name:
-    [ Have you seen Anahi Nguyen? ]
-    THEY SAID   Yeah. just now, right about here.
+BACKLOG 0r NAMES THIS LANE'S ORGANS AS THE CHANNEL: Hades ships ~4 boss fights but
+21,020 voice lines, because roguelite replayability is bought with REACTIVITY PER
+ENCOUNTER, "flowing through the witness organ + memory systems already live". Their
+trick, copied literally: NEVER REPEAT A LINE UNTIL EVERY UNUSED OPTION IS SPENT.
 
-*** IT IS THE FIRST QUESTION IN THIS GAME WHOSE ANSWER IS NOT AUTHORED. *** Every
-other ask resolves through the person's TRADE -- deliberately, per the ask
-system's own comment, so "the same question put to the same kind of person always
-gets the same reply", because a world where the answer depends on which body you
-clicked is not a world with information in it. This one resolves through THAT
-PERSON'S OWN MEMORY, so two people standing side by side answer differently and
-BOTH ARE TELLING THE TRUTH.
+SAW AND HEARD SAY DIFFERENT THINGS, which is the whole payoff of modelling a route
+the news could take and was invisible outside the card until now:
+    watched it   "Told them no. Right to their face."
+    only heard   "Heard somebody turned them down."
+An eyewitness is specific; a retelling is vague and hedged. Sixteen drafted lines
+(four acts x saw/heard x two variants), cycling so no line repeats until its pool
+is spent, and a witness never repeats the SAME sighting at you. It PREEMPTS the
+ordinary bark the way the two-person conversation above it does, so with nobody
+having seen anything the street sounds precisely as before. The lines are
+deliberately PRONOUN-FREE: who the player is is his, and a bark that guesses is
+wrong half the time. The gate asserts zero gendered pronouns across all sixteen.
 
-CLARITY SHAPES THE ANSWER, IT DOES NOT GATE IT. A fogged memory is a vaguer
-sentence, not a refusal, which is what a real witness sounds like:
-    now    sharp   "Yeah. just now, right about here."
-    30h    fair    "I think so. yesterday, somewhere north of here."
-    400h   never   "No. Not that I know of."
-That last row is the module's own MIN_CLARITY -- nothing usable, so they simply
-did not see them. An honest blank, not a stonewall.
+*** I FILED A BUG THAT DID NOT EXIST, AND THE WAY I GOT THERE IS THE LESSON. ***
+Mid-turn I measured ctDeed recording ZERO witnesses after a render and concluded
+the claim/favour/commit deeds had never recorded anybody in real play. WRONG TWICE
+OVER.
+  - I MEASURED THE WRONG SURFACE. The probe loaded BOHEMIA_CITY_WORLD.html
+    DIRECTLY. Standalone, the city never receives PLAYER_CV from the alpha, so
+    peoplePass returns early and draws NOBODY -- playerCV:false, zero bodies,
+    forever. Every number I read came from a frame with no people in it. VERIFY ON
+    THE REAL SURFACE is not a slogan about screenshots: THE CITY FRAME IS A
+    DIFFERENT SURFACE WHEN IT IS NOT INSIDE THE ALPHA. Any probe of city behaviour
+    must go through the alpha's RUN tab.
+  - I MISREAD WHICH FUNCTION OWNS THE RESET. A comment inside barkPass says
+    "consume it, then clear for the next", which I read as barkPass clearing
+    BARK_DREW. It does not. `BARK_DREW = []` IS THE FIRST LINE OF peoplePass,
+    confirmed by walking the file rather than trusting the comment.
+Re-measured through the alpha: drewAfterRender 1, witnessesRecorded 1. NO BUG. The
+machinery I had added is REVERTED, including a comment that would have sat in the
+codebase asserting a falsehood. A layer added "just in case" is speculative
+complexity; a loud comment describing an imaginary bug is worse, because the next
+person believes it.
 
-YOU HAVE TO ASK (7/31) GOVERNS WHO YOU MAY ASK ABOUT: the list is built from the
-met-ledger's `asked` bit and nothing else, so you can only go looking for somebody
-whose NAME YOU TOOK. You cannot put out a description of a stranger, which is
-right and is also the reason taking names matters. lastSeenAcross FINALLY HAS A
-CALLER, scoped to minds the player has actually spoken to -- a valley-wide sweep
-would hand him an answer nobody told him, which is the godlike-information failure
-this whole lane exists to undo.
+ONE REAL THING CAME OUT OF THAT DETOUR: THE NET-DELETION GUARD COULD NOT TELL MY
+LINES FROM ANYBODY ELSE'S. Written as `if (grew < 0) refuse`, it also forbade the
+tool from ever SHRINKING ITS OWN BLOCK -- so the moment a block genuinely needed
+removing, the tool refused and the only way back was by hand. It now measures the
+file OUTSIDE the region it owns, which is the thing 8/17's 2,607-line accident
+actually destroyed. A guard that blocks the correct move as readily as the
+dangerous one gets routed around, and a guard that gets routed around is not a
+guard. THE SIBLING TOOLS SHOULD TAKE THE SAME FIX.
 
-*** THE WORDS WERE BROKEN AND THE MACHINE CATCHES IT NOW. *** The first cut
-rendered "I think so. 1 days back, right about here way." -- a plural that never
-checked for one, and a template appending " way" to a phrase that was already
-whole. BROKEN GRAMMAR IS NOT AN ATTEMPT, IT IS A BUG; the 8/11 law says every line
-ships written as if it ships. Same failure the quirk factory hit in July and the
-same answer: a GRAMMAR CONTRACT MACHINE-CHECKED OVER EVERY RENDERING rather than
-eyeballed on the one on screen. 91 renderings, 67 distinct, 0 bad, and a mutation
-putting the bug back turns 30 of them red.
-
-AND THE REFRESH PATH HAD THE SAME HOLE THE SIBLING TOOL SHIPPED YESTERDAY -- an
-inlined region rewritten while the call sites outside it were left behind. Caught
-before it could bite this time, both paths, each pair narrow and span-matched on
-both halves. The lesson travelled from one tool to its sibling in a day, which is
-what writing it down is for.
-
-gates: CITY MEMORY 23 -> 31 all green, CITY DEEDS 30, CITY DIAL 22, city talk 18,
-memory 10. Both city tools idempotent TOGETHER, md5 over three runs. Mutations:
-back to player-only sight -> 4 red; put the grammar bug back -> 1 red naming 30
-bad renderings.
-records/BOHEMIA_HAVE_YOU_SEEN_THEM_8_21_26.md
+gates: CITY DEEDS 30 -> 36 all green, CITY MEMORY 31, CITY DIAL 22, city talk 18.
+Both city tools idempotent together. Mutations: let a witness repeat forever -> 1
+red; make SAW and HEARD identical -> 1 red.
+records/BOHEMIA_THEY_SAY_IT_OUT_LOUD_8_21_26.md
 
 WHAT COMES NEXT:
-  1. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
+  1. *** THE AFTERMATH SET PROPER. *** 0r asks for reactions DIFFERENT FOR KILLED
+     VS SPARED. That needs a boss, which is COMBAT's; the channel is built and
+     waiting. Theirs to trigger, THIS LANE'S TO WORD.
+  2. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
      (45 min), the deed halflife, the memory halflife -- every one a defensible
-     constant with a written argument, and every one with the same wrong answer to
-     "WHERE DOES HE CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the
-     pattern to copy, and the readout must ASK the city rather than retype
-     anything (file:// frames are opaque origin -- cross-frame reads throw).
-  2. HE TURNS THE STANDING DIAL. One row makes three turns of witnessing and
-     gossip into a reputation that JUDGES him. His, and nothing should invent it.
-  3. THE THREE RETYPED CLOUT SLICES -- one line each in whichever tool generates
-     them now that bohemia_clout.js exists. NOT this lane's surfaces.
+     constant with a written argument and the same wrong answer to "WHERE DOES HE
+     CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the pattern; the readout
+     must ASK the city rather than retype anything (file:// frames are opaque
+     origin, cross-frame reads throw SecurityError).
+  3. HE TURNS THE STANDING DIAL. One row makes all of this JUDGE him. His.
   4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
@@ -31320,7 +31317,78 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/22 (a) LATEST -- *** NOBODY IS WALLED IN ANY MORE. Yesterday's
+WORLD (city-1eztay): 8/22 (b) LATEST -- *** THE GATE WAS LOOKING AT EVERY OTHER TILE, AND
+A DRIVEWAY IS ONE TILE WIDE. Three neighbourhoods were reported sealed that you can walk
+straight out of. Sixth ruler this week. ***
+Gates: WALKED SURFACE 11/0 (93.2% reachable, 99.9% own-module), landlocked 16/0, walkable
+73/0, district fill 53/0, city tab 64/0, current slice 6/0, map tab 9/0, payday 35/0.
+
+THE BUG: walked_surface_gate's crossable() swept a shared boundary with `i += 2` -- EVERY
+EVEN OFFSET, half the boundary never looked at. A suburb's street-facing edge has SEVEN
+walkable tiles out of 128. That is the entrance; the block wall is the other 121. Whether
+those seven land on even indices is LUCK. Measured at full resolution, three of the five
+cells the sweep called sealed share exactly ONE walkable tile with the arterial they front,
+at index 67, 61 and 67. All three ODD. All three walkable in the actual game.
+Stride 1. 93.1% -> 93.2%, +3 cells that were never sealed at all. FIX THE RULER (8/1).
+
+THE 27 THAT REALLY ARE SEALED, EVERY ONE NAMED, MEASURED AT TILE LEVEL:
+ A. RINGED BY TERRAIN -- 10 cells, AND THIS IS CORRECT, NOT A DEFECT. desert 5,0/6,0/6,1/
+    6,2 in the NW behind a solar farm; estate+desert 83,2/83,3/92,8/89,9/92,9 in NE mountain
+    bowls; gypsum 5,53 with MOUNTAIN ON ALL FOUR SIDES. The relay's third pass carves a spur
+    through DESERT; these are ringed by rock. A road out would be inventing geography.
+ B. APERTURE MISMATCH -- 13 cells, THE REAL BUG. Both sides open the correct side; the gates
+    land in different places along it. THE RELAY SPEAKS IN SIDES, CONNECTION HAPPENS AT
+    TILES. railyard<->suburb gap 38/39, farm<->farm gap 11/12/29, warehouse<->warehouse
+    gap 83, suburb<->farm gap 11.
+    WHERE THE OPENINGS ACTUALLY SIT: 61-67 IS THE CONVENTION -- pedGate() writes
+    Math.round(n*0.5)+/-3 and the suburb's punchGate() writes Math.round(W*0.5)+/-3,
+    independently, which is why the whole valley works. The offenders sit at 19, 47, 80,
+    107, 108, and they are all CLUSTER districts (farm, warehouse, railyard) whose adjacent
+    cells lay out INDEPENDENTLY instead of as one blob -- the seam does not line up even
+    between two cells of the SAME farm. That is the exact defect world.js records as fixed
+    on 8/19 for five other types ("lay out in VALLEY coordinates against the bounds of the
+    whole blob, so the seams line up by construction"). Farm/warehouse/railyard never got it.
+ C. A BUILDING ACROSS THE MOUTH -- 2 cells (73,30 and 77,34). A suburb fronts a real
+    arterial. Its 7-tile entrance is walkable. The arterial's sidewalk is walkable EVERYWHERE
+    EXCEPT exactly those 7 tiles, where a solid mass stands (artPool 'hroof', walk:false).
+    Both modules put a feature at the midpoint of the same edge: the neighbourhood OPENS
+    there, the street BUILDS there. THE ONE PLACE YOU CAN LEAVE IS THE ONE PLACE THAT IS
+    WALLED. The three cells in the ruler table survive only on a rounding difference.
+ D. A WALLED PERIMETER -- 2 cells (84,2 / 89,3), estates with ZERO walkable tiles on either
+    side of the shared edge. GATED IS RICH working as ruled. Left alone on purpose.
+
+SCORE:              8/21    after relay   after ruler
+  reachable        82.6%       93.1%        93.2%
+  sealed built       541          30           27
+  of those housing   257          11            8
+  genuinely broken     -           -    15 (B 13, C 2)
+  correct as built     -           -    12 (A 10, D 2)
+
+NEXT IN THIS LANE, IN ORDER
+  1. B, THE CLUSTER SEAM: give farm / warehouse / railyard the 8/19 blob layout. 13 cells.
+     I SAID "EXISTING MECHANISM TO COPY" AND THEN CHECKED, AND IT IS BIGGER THAN THAT.
+     Both halves measured, so nobody repeats them:
+       - `CLUSTER_KIT={airport,airbase,convention,prison,dam,minigp,fort}` (page ~22411).
+         Farm/warehouse/railyard are NOT in it, exactly as predicted.
+       - BUT ADDING THEM TO THAT LIST DOES NOTHING. `grep -c bounds` on
+         engine/bohemia_farm.js, _warehouse.js and _railyard.js returns ZERO, all three.
+         The generators cannot read the bounds the list would start passing them, so the
+         one-line fix is a no-op at best.
+     So it is a real change to three generators -- lay out in VALLEY coordinates against the
+     blob bounds and copy each cell's own window, the airfield/golf/landmark pattern -- plus
+     each one's own gate and dossier. A turn's work, not a tail-end patch. Read
+     engine/bohemia_airfield.js for the shape that already works.
+  2. C, THE MIDPOINT KEEP-OUT: the middle 7 tiles of a street's edge are where EVERY
+     district's gate is BY LAW, so a street may not stand a mass there. Convention-shaped,
+     no cross-district query needed. 2 cells.
+  3. A and D are CORRECT. Do not "fix" them.
+  4. 34 unplaced legend codes across 22 families (legend_kept ratchet, green).
+  5. NOT THIS LANE'S BUT EVERY LANE'S: the suite no longer fits its own budget -- 412 gates
+     at 9.8s needs ~4,021s against 2,700s, one gate never ran, and the runner now prints its
+     own `--shard 1/3` remedy.
+Record: records/BOHEMIA_THE_GATE_WAS_LOOKING_AT_EVERY_OTHER_TILE_8_22_26.md
+
+WORLD (city-1eztay): 8/22 (a) -- *** NOBODY IS WALLED IN ANY MORE. Yesterday's
 three unexplained failures were ONE SCOPE ERROR, and the valley went 82.6% -> 93.1%
 reachable on foot without costing a single cell anywhere else. ***
 Gates: WALKED SURFACE 11/0 (93.1% reachable, 99.9% drawn by own module, UNMOVED),
