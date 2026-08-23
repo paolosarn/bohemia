@@ -57,7 +57,20 @@ if failed:
     sys.exit(1)
 
 before = open(INDEX, encoding='utf8').read()
-subprocess.run([sys.executable, TOOL], check=True, capture_output=True)
+# THE INDEX TOOL NOW REFUSES TO WRITE A SMALLER INDEX (8/22, RUN lane), and a
+# refusal is a RED, not a traceback. It exits 1 when a bank file EXISTS but
+# cannot be READ, because a swallowed read error silently dropped eight banks --
+# PENDING PAOLO ones among them -- out of this very index today. check=True
+# turned that into a CalledProcessError stack trace, which is a gate that cannot
+# report. Read the reason and say it.
+_r = subprocess.run([sys.executable, TOOL], capture_output=True, text=True)
+if _r.returncode != 0:
+    _why = (_r.stderr or _r.stdout or '').strip().split('\n')
+    ok('the index tool could rebuild the index (' + (_why[0][:110] if _why else 'no reason given') + ')', False)
+    for _l in _why[1:4]:
+        print('      ' + _l.strip()[:120])
+    print('BANK LAW GATE: %d passed, %d failed' % (passed, failed))
+    sys.exit(1)
 after = open(INDEX, encoding='utf8').read()
 ok('THE INDEX IS CURRENT: regenerating it changes nothing - a bank cannot land a '
    'ruling that never reaches the index (run `python3 %s` the same turn any bank lands)' % TOOL,

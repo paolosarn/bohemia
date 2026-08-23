@@ -32,6 +32,7 @@ quietly add a rule nobody checks.
 import glob
 import json
 import os
+import sys
 import re
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
@@ -77,11 +78,24 @@ def harvest(obj, out, depth=0):
 
 
 rows = []
+unreadable = []
 for path in sorted(glob.glob('banks/*.txt') + glob.glob('banks/*.json') +
                    glob.glob('records/*.txt') + glob.glob('records/*.json')):
+    # A FILE THAT CANNOT BE READ IS NOT A FILE THAT SAYS NOTHING (8/22, RUN lane).
+    # This was `except Exception: continue`. Measured today: under parallel gate
+    # load the container threw EIO reading a 6.9 MB bank, the swallow skipped it,
+    # and the SMALLER INDEX WAS WRITTEN OVER THE REAL ONE -- eight banks vanished,
+    # including ones marked PENDING PAOLO and the very file that had failed. Silent
+    # data loss caused by a transient read error, with no signal anywhere.
+    # A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE
+    # INSTRUMENT COULD HAVE SEEN A POSITIVE ONE. An absent file is a fact about the
+    # world; an unreadable one is a fact about the disk, and they are not the same.
     try:
         text = open(path, encoding='utf8', errors='replace').read()
-    except Exception:
+    except FileNotFoundError:
+        continue                      # genuinely gone: that IS a fact about the world
+    except Exception as e:
+        unreadable.append('%s: %s' % (path, e))
         continue
     found = []
     for obj in blocks(text):
@@ -123,6 +137,36 @@ for n, (path, field, value) in enumerate(rows, 1):
     body.append('| %d | `%s` | `%s` | %s |' % (n, path, field, v))
 body += ["", "TOTAL: %d rulings across %d files." %
          (len(rows), len(set(r[0] for r in rows))), ""]
+
+# AND IT REFUSES TO WRITE A SMALLER INDEX BUILT FROM A BAD READ. Failing loudly
+# costs a re-run; writing quietly costs rulings nobody notices are gone until
+# somebody goes looking for a bank Paolo was still deciding on.
+if unreadable:
+    sys.stderr.write(
+        'REFUSING TO WRITE %s: %d file(s) EXIST but could not be read, so this run '
+        'would silently drop their rulings from the index.\n' % (OUT, len(unreadable)))
+    for u in unreadable[:8]:
+        sys.stderr.write('  UNREADABLE: %s\n' % u)
+    sys.stderr.write('  (usually transient I/O under parallel load -- re-run on a '
+                     'quiet box. The old index is left exactly as it was.)\n')
+    sys.exit(1)
+
+# A SECOND GUARD, because not every bad read raises: if the index would SHRINK
+# while the source files are all still there, something is wrong with the reading
+# and not with the world.
+prev = 0
+if os.path.exists(OUT):
+    try:
+        prev = sum(1 for ln in open(OUT, encoding='utf8') if ln.startswith('| ')
+                   and ln[2:3].isdigit())
+    except Exception:
+        prev = 0
+if prev and len(rows) < prev and os.environ.get('BOHEMIA_INDEX_SHRINK') != '1':
+    sys.stderr.write(
+        'REFUSING TO WRITE %s: it would go from %d rulings to %d. A shrinking index '
+        'is a read problem until proven otherwise. If rulings really were removed, '
+        're-run with BOHEMIA_INDEX_SHRINK=1.\n' % (OUT, prev, len(rows)))
+    sys.exit(1)
 
 os.makedirs('records', exist_ok=True)
 open(OUT, 'w', encoding='utf8').write('\n'.join(body) + '\n')
