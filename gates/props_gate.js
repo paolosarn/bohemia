@@ -275,6 +275,38 @@ ok(`no bin sits IN a driveway apron (${onApron}) -- it blocks the car the drive 
 ok('the suburb streets still reach every lot with the bins down',
    SUB.roadConnected(SUB.generate(7, { streets: ['S'] })));
 
+// ---------------------------------------------------------------- the cars that never left
+// The suburb had FOURTEEN codes and not one vehicle -- every driveway on his street empty,
+// which is the one thing a dead American suburb would never be. Why they are still here is
+// the premise: an EVACUATION empties the drives, an ECONOMIC collapse leaves the car where it
+// died. BESIDE the drive, never in it: our DVW=2 driveway is 1.5 m, ONE car wide, so a car in
+// it seals the garage -- measured, roadConnected 1.000 -> 0.851, failing all twelve plots.
+ok('the suburb legend names code 16 a dead car and types it as a VEHICLE',
+   !!SUB0.legend[16] && /dead car/i.test(SUB0.legend[16].name) && SUB0.legend[16].kind === 'vehicle');
+ok('the suburb palette gives code 16 a colour', !!SUB0.palette[16]);
+ok('the suburb branch stands a car from the approved wreck pool',
+   /else if\(v===16\)\{[\s\S]{0,900}?c\.post=\{p:'car'/.test(page));
+{
+  let cars = 0, inDrive = 0, onWalk = 0, disconnected = 0, plots = 0;
+  for (const seed of [1, 3, 7, 11, 23, 41]) {
+    const r = SUB0.generate(seed, { streets: ['S'] }), g = r.g; plots++;
+    if (!SUB0.roadConnected(r)) disconnected++;
+    for (let y = 1; y < r.H - 1; y++) for (let x = 1; x < r.W - 1; x++) {
+      if (g[y][x] !== 16) continue;
+      cars++;
+      const n4 = [[1,0],[-1,0],[0,1],[0,-1]];
+      // it must be standing on what was YARD: surrounded by drive on 3+ sides means it ate one
+      if (n4.filter(([dx,dy]) => g[y+dy][x+dx] === 3).length >= 3) inDrive++;
+      if (n4.filter(([dx,dy]) => g[y+dy][x+dx] === 10).length >= 2) onWalk++;
+    }
+  }
+  ok(`the cars are there (${cars} cells across ${plots} plots, want >= 60)`, cars >= 60);
+  ok(`THE ROAD STILL REACHES EVERY LOT with the cars down (${plots - disconnected}/${plots}) ` +
+     '-- this is the check that went red twice', disconnected === 0);
+  ok(`no car sits IN a driveway (${inDrive}) -- a 1.5 m drive with a car in it is a sealed garage`, inDrive === 0);
+  ok(`no car sits in the one-grid walk (${onWalk})`, onWalk === 0);
+}
+
 // ---------------------------------------------------------------- MUTATIONS
 {
   let caught = 0;

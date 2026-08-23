@@ -173,6 +173,22 @@ function __propFamily(entry){
        says the family here instead. Code 14 is a wheeled collection cart: solid, standing,
        beside the garage on most lots and out at the kerb on the ones that had already rolled
        them out for a collection that never came. */
+    /* THE CARS THAT NEVER LEFT. Same blob-following logic the kit path uses, reading m.sub
+       instead: find the sub-block origin, emit ONE car per 2x4 (or 4x2) and give it the real
+       extent so a short drive gets a short car instead of one overhanging the kerb. */
+    else if(v===16){ c.s='#5a5f63'; c.walk=false;
+      if(typeof PROP_IMG!=='undefined' && PROP_IMG.car && PROP_IMG.car.length){
+        var _sox=lx; while(_sox>0 && m.sub[ly*FN+_sox-1]===16) _sox--;
+        var _sex=lx; while(_sex<FN-1 && m.sub[ly*FN+_sex+1]===16) _sex++;
+        var _soy=ly; while(_soy>0 && m.sub[(_soy-1)*FN+lx]===16) _soy--;
+        var _sey=ly; while(_sey<FN-1 && m.sub[(_sey+1)*FN+lx]===16) _sey++;
+        var _slie=(_sex-_sox) > (_sey-_soy);
+        var _ssx=_slie?4:2, _ssy=_slie?2:4;
+        if((((lx-_sox)%_ssx)===0) && (((ly-_soy)%_ssy)===0)){
+          var _sh=(Math.imul(tx*FN+lx,2654435761)^Math.imul(ty*FN+ly,40503))>>>0;
+          c.post={p:'car', v:_sh%PROP_IMG.car.length,
+                  w:Math.min(_ssx,_sex-lx+1), h:Math.min(_ssy,_sey-ly+1)}; }
+      } }
     else if(v===15){ c.s='#6b4a2e'; c.walk=false;
       var _fh=(Math.imul(tx*FN+lx,2654435761)^Math.imul(ty*FN+ly,40503))>>>0;
       var _fp2=(typeof PROP_IMG!=='undefined'&&PROP_IMG.firebarrel)?PROP_IMG.firebarrel.length:1;

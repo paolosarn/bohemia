@@ -233,3 +233,47 @@ keyed to the world clock and the cell instead: it varies barrel to barrel and sh
 night goes on, and the comment says exactly that.
 
 Gate: 8 more checks (48 total), proved red by deleting the on-grid swap.
+
+
+---
+
+## THE CARS THAT NEVER LEFT (8/23)
+
+The suburb had **fourteen codes and not one vehicle** — every driveway on the street he spawns
+on empty, which is the single thing a dead American suburb would never be.
+
+**Why they are still here is the premise of the whole game.** In an *evacuation* people drive
+away and the drives are empty. In an **economic** collapse they stay until they cannot, and the
+car dies where it sits: no fuel, no parts, nowhere to go. Detroit is the reference and it is
+unambiguous — abandoned vehicles in drives, at kerbs and pushed onto yards are so defining a
+feature of a foreclosed neighbourhood that the city runs enforcement programmes for them.
+Bohemia's identity is *"the most realistic economic crash simulator"*, so the car staying is
+not set dressing, it is the thesis.
+
+### Two wrong placements, both measured before they were believed
+
+**Filling the drive** is the obvious reading and it is wrong *for this model*. Our driveway is
+`DVW=2` tiles — at `TILE=0.75` that is 1.5 m, **one car wide**, not the 16-20 ft two-car apron
+a real Vegas tract house has. So a car in it seals the garage:
+
+```
+roadConnected   1.000  ->  0.851     FAILED ON ALL TWELVE TEST PLOTS
+```
+
+An earlier cut dodged that by taking apron cells within a radius of the garage end — which is
+an L or a plus, never a car. Measured on the running page, the blobs came back **1x3, 1x1 and
+3x1**, and the sprite drew one cell wide.
+
+**The Detroit reference already had the answer**: a car pulled onto the dirt beside the drive.
+It is the truer image anyway — it is what you do when it stops running and you still need the
+drive — and it costs the network nothing.
+
+```
+roadConnected   1.000 on every plot     ~5 cars per neighbourhood
+extents on the page:  2x3 and 3x2, clean rectangles, correctly turned
+```
+
+Gate: 7 more checks (55 total). The mutation that matters parks a car back in the drive and
+takes `roadConnected` to **0 of 6 plots** — my first attempt at that mutation was too weak to
+bite, which is worth saying: a mutation that does not reproduce the bug you are guarding
+against is not a test, it is a decoration.

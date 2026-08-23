@@ -434,6 +434,55 @@ NEXT IN THIS LANE
 
 ---
 
+WORLD (world-9lfjtf): 8/23 (a) LATEST -- *** THE CARS THAT NEVER LEFT. The district he
+spawns in had FOURTEEN codes and not one vehicle. TAB: RUN. ***
+
+Every driveway on his street was empty, which is the single thing a dead American suburb
+would never be. WHY THEY ARE STILL HERE IS THE PREMISE OF THE GAME: an EVACUATION empties the
+drives; an ECONOMIC collapse leaves the car where it died, no fuel, no parts, nowhere to go.
+Detroit is the reference and it is unambiguous -- abandoned vehicles in drives, at kerbs and
+pushed onto YARDS are so defining a feature of a foreclosed neighbourhood that the city runs
+enforcement programmes for them. "The most realistic economic crash simulator" means the car
+staying is the thesis, not set dressing.
+
+TWO WRONG PLACEMENTS, BOTH MEASURED BEFORE THEY WERE BELIEVED:
+  1. FILLING THE DRIVE is the obvious reading and is wrong FOR THIS MODEL. DVW=2 tiles at
+     TILE=0.75 is 1.5 m -- ONE car wide, not the 16-20 ft two-car apron a real Vegas tract
+     house has. A car in it SEALS THE GARAGE: roadConnected 1.000 -> 0.851, FAILED ON ALL
+     TWELVE PLOTS.
+  2. Dodging that by taking apron cells within a radius of the garage end gives an L or a
+     plus, never a car -- measured on the page, blobs came back 1x3, 1x1, 3x1, one cell wide.
+  THE DETROIT REFERENCE ALREADY HAD THE ANSWER: on the dirt BESIDE the drive. Truer image
+  anyway (it is what you do when it stops running and you still need the drive) and it costs
+  the network nothing: roadConnected 1.000 on every plot, ~5 cars a neighbourhood, extents
+  2x3 and 3x2 on the page, clean and correctly turned.
+
+GATE: 7 more checks in props_gate.js (55 total). The mutation that matters parks a car back
+in the drive and takes roadConnected to 0 OF 6 PLOTS. MY FIRST ATTEMPT AT THAT MUTATION WAS
+TOO WEAK TO BITE and I replaced it -- a mutation that does not reproduce the bug you are
+guarding against is not a test, it is a decoration.
+
+NEXT IN THIS LANE
+  - AUTHOR THE CONTENT: 63 of 71 districts still have NO furniture at all. The mechanism is
+    done, so each is a legend line plus a placement rule; park/school/library/medical/
+    cemetery/downtown/town are the ones a player actually stands in.
+  - THE POWER POLE still has no art. arterial:10 authors one, the corpus street packs have no
+    distribution pole, so this is the first thing in a while that genuinely needs COOKING
+    rather than shopping (45 DEGREE ART LAW).
+  - LIGHT TOWERS / FLOODLIGHT MASTS (speedway, ballpark, school, stadium, airport) stay flat
+    until they get their own art; both matchers refuse them on purpose.
+  - A CLUSTER MAILBOX (CBU) is the honest Vegas answer for tract mail and the corpus has no
+    art for one -- another cook, small.
+
+*** THE CONTAINER REVERTED TO A FOREIGN BRANCH TWICE IN ONE SESSION. *** claude/world-9lfjtf
+is reused across sessions, so this container twice came up on another lane's HEAD with a
+working tree OLDER than main, looking exactly like unfinished mid-flight work. Both times the
+right move was: verify my ships are ancestors of origin/main, verify their commits are too,
+confirm the tree is missing content main HAS, then reset. Nothing was ever lost. DIFF AGAINST
+origin/main BEFORE BELIEVING A CONTAINER.
+
+---
+
 WORLD (world-9lfjtf): 8/21 (b) LATEST -- *** THE VERTICAL IS A MECHANISM NOW, NOT A LAMP.
 46 STANDING OBJECTS -> 603. TAB: RUN (the street you spawn on) + CITY (everywhere else). ***
 
