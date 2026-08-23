@@ -1633,8 +1633,23 @@ function requirePlaywright() {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(5000);
         await pg.evaluate(() => {
-          try { localStorage.setItem('boh.city.belong', '{"v":99,"meta":"not an object"'); }
-          catch (_e) {}
+          /* THE FIRST PAYLOAD HERE TESTED THE WRONG THING, and the mutation said
+             so: with the guard deleted the gate STILL passed. The garbage was
+             UNTERMINATED JSON, so JSON.parse threw and the try/catch swallowed
+             it — the version/shape guard was never reached at all. Two layers
+             deep, and I had proved the outer one twice.
+             VALID JSON WITH A WRONG VERSION AND A PLAUSIBLE STANDING is the only
+             payload the guard alone can reject: it parses cleanly, it looks
+             exactly like a real save, and its numbers are the thing that must
+             NOT come back. If the guard goes, this standing gets restored and
+             the claim below fails. */
+          try {
+            localStorage.setItem('boh.city.belong', JSON.stringify({
+              v: 99,                                   /* a version we cannot read */
+              meta: { gave: { Cartel: 99, Mob: 77 },   /* plausible, and wrong */
+                      commit: { Cartel: 'burned' } }
+            }));
+          } catch (_e) {}
         });
         await pg.reload();
         await pg.waitForTimeout(6000);
