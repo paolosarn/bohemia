@@ -887,3 +887,19 @@ surface, not mine and not broken enough to chase. The two iterations
 stay: the minimum-run law (rails only on sidings 6+ cells) is more
 honest than what shipped yesterday either way. Audit verdict: COMPOSED
 across all four stacks; one self-misread, corrected by instrument.
+
+## 8/22 FORTY-SECOND PASS: THE TRAILERS PARKED THIRTY YEARS AGO
+
+Daily re-probe first: all twelve landmark grounds still sealed (WORLD's
+own commit the same hour: "THE LAST 30: what is still sealed, measured
+instead of assumed" - they are working the seal; the pounce stays armed).
+Then the ranking's next: the industrial yard's 'parked trailer' x1792 -
+measured as twenty-eight blobs, EVERY ONE exactly 4x16 cells, a real
+40-foot box trailer at 3m x 12m, drawing as wall mass. One 176x704 RGBA
+prop, anchored right-bottom per the multi-cell law: the sky-lit ribbed
+aluminium roof carries the read, lit west edge, dark east, door seams
+and latch bars at the rear, kingpin plate at the nose, ground shadow off
+the east and south. Three wear variants (bleached / patched / rust-
+bloomed), aluminium from the approved galv, rust from the approved rail
+plate, no logo or fleet number ever. Verified live: a full trailer in
+the truck court reads as exactly what it is.

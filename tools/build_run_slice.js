@@ -432,6 +432,10 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
 /* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
    riding the bought gravel on every plant service lane -
    tools/tfcook/TF-ART-016_lane_cook.py */
+/* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
+   tools/tfcook/TF-ART-002_trailer_cook.py */
+grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',
+  ['trailer_box_0', 'trailer_box_1', 'trailer_box_2']);
 /* VOLUME 8/21: the cemetery's 925 headstones -
    tools/tfcook/TF-ART-005_headstone_cook.py */
 grabPieces('banks/tileforms/TF-ART-005_HEADSTONE_VOLUME_8_21_26.json',

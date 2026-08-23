@@ -26723,6 +26723,14 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/22 (a) LATEST -- *** THE TRAILERS: industrial's 28 dead
+semi-trailers (all exactly 4x16 cells, measured) draw as ribbed-aluminium
+boxes with door seams and kingpin plates - one multi-cell prop, three
+wear states. Daily re-probe: all twelve grounds still sealed (WORLD is
+working the seal - their commit says so). Sitting pass 42. Ranking next:
+'earth-covered magazine' (arsenal bunker mounds), 'valve / hatch'
+(reservoir), 'spout / dust bin' (granary), 'riprap' (wash).
+PREVIOUS (e):
 ART (f3eu53): 8/21 (e) LATEST -- *** THIRD COMPOSITION AUDIT: all four
 new stacks COMPOSED (cemetery stones, stadium seats, gypsum piles,
 granary spur). One self-misread: chased "corduroy" at the granary for two
