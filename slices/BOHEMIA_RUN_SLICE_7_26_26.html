@@ -1196,6 +1196,22 @@ function drawSolarform(gx,gy,X,Y,S){
     if(!drawBought('road',gx,gy,X,Y,S)) tput('road_1',X,Y,S);
     return true;
   }
+  if(n==='parked trailer'){
+    /* MEASURED 8/22: 28 semi-trailers, every one exactly 4x16 cells,
+       drawing as wall mass. Lot ground first, then the one 4x16 RGBA box
+       anchored at the blob's right-bottom so the draw loop never overpaints
+       it - the established multi-cell prop law. */
+    if(!drawBought('walk',gx,gy,X,Y,S)) tput('concrete_0',X,Y,S);
+    function isTrl(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='parked trailer'; }
+    if(isTrl(gx+1,gy)||isTrl(gx,gy+1)) return true;
+    var tx0=gx; while(isTrl(tx0-1,gy)) tx0--;
+    var ty0=gy; while(isTrl(gx,ty0-1)) ty0--;
+    var tw=gx-tx0+1, thh=gy-ty0+1;
+    var tb=tf('trailer_box_'+th(tx0,ty0,3));
+    if(tb) ctx.drawImage(look(tb),X-(tw-1)*S,Y-(thh-1)*S,tw*S,thh*S);
+    return true;
+  }
   if(n==='seating / stands (the bowl)' || n==='bleachers'){
     /* MEASURED 8/21: the stadium bowl (x2499, its biggest surface) and the
        school bleachers (x303) fell to the generic wall mass. A stand is
