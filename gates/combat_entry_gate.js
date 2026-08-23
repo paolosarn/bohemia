@@ -216,6 +216,18 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
      BOHEMIA_CITY_COMBAT_END, so he walked through a door, fought, and the world
      he walked back into never found out. WINNING AND LOSING WERE THE SAME EVENT.
      These claims are about the city's OWN handler. */
+  /* WATCH WHAT THE CITY ASKS THE SHELL FOR. Installed in the SHELL, because that
+     is where those messages land -- listening anywhere else would be measuring
+     the postman again, which is the bug the claims above were written for. */
+  await page.evaluate(() => {
+    window.__ASKED = [];
+    window.addEventListener('message', ev => {
+      const d = ev && ev.data; if (!d) return;
+      if (d.bohemiaCityNeedRestore !== undefined) window.__ASKED.push('needRestore');
+      if (d.bohemiaCitySfx) window.__ASKED.push('sfx:' + d.bohemiaCitySfx.ev);
+    });
+  });
+  await SETTLE(page, 400);
   const consumed = await cityFrame.evaluate(() => ({
     home: window.__FIGHT_CAME_HOME || null,
     notes: (typeof DAY !== 'undefined' && DAY.summary) ? DAY.summary().notes.slice() : [],
@@ -232,6 +244,17 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   /* WINNING AND LOSING MUST NOT BE THE SAME EVENT. That was literally true
      before the consumer existed, and it is the cheapest possible regression to
      re-introduce: a handler that ignores `outcome` looks identical from outside. */
+  const wonAsked = await page.evaluate(() => { const a = window.__ASKED.slice(); window.__ASKED = []; return a; });
+  /* WATCH THE CALL, NOT THE LEFTOVER. The ledger line is rolled back a moment
+     later by design, so the only honest place to see it is the call itself. */
+  await cityFrame.evaluate(() => {
+    window.__HAPPENED = [];
+    if (typeof DAY !== 'undefined' && DAY.happened && !DAY.__wrapped) {
+      const orig = DAY.happened.bind(DAY);
+      DAY.happened = function (line, tag) { window.__HAPPENED.push(tag || ''); return orig(line, tag); };
+      DAY.__wrapped = true;
+    }
+  });
   const lost = await (async () => {
     await page.evaluate(() => {
       try { CITYFIGHT = true; CITYFIGHT_AT = { gx: 6, gy: 6 };
@@ -244,11 +267,51 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       notes: (typeof DAY !== 'undefined' && DAY.summary) ? DAY.summary().notes.length : 0,
     }));
   })();
+  const asked = await page.evaluate(() => window.__ASKED.slice());
+  const lostRecorded = await cityFrame.evaluate(
+    () => (window.__HAPPENED || []).indexOf('fight') >= 0);
   ok('LOSING IS NOT THE SAME EVENT AS WINNING -- the world says something '
     + 'different about it ("' + lost.qline.trim().slice(0, 44) + '")',
     !!lost.home && lost.home.won === false && lost.qline.trim() !== consumed.qline.trim());
-  ok('...and a lost fight is recorded too, rather than only the wins',
-    lost.notes > consumed.notes.length);
+  /* THIS CLAIM CHANGED MEANING THE DAY DEATH BECAME A RELOAD (8/22), and the
+     honest thing is to say what is now true rather than keep a green.
+     It used to be `lost.notes > consumed.notes.length` -- the loss adds a
+     ledger line. It still WRITES one: DAY.happened fires, watched below. But the
+     line does not SURVIVE, because the very next thing that happens is
+     applyRestore putting him back in the day BEFORE the fight, and a note
+     written in a timeline you have just left is supposed to go with it. Asserting
+     the note is still there after a rollback would be asserting the rollback
+     failed. So: the loss is RECORDED (proved by watching the call), and the day
+     it was recorded in is GONE (which is the ruling working). */
+  ok('...and a lost fight is RECORDED as it happens -- DAY.happened fires for it, '
+    + 'not only for the wins', lostRecorded === true);
+
+  /* *** DEATH IS A RELOAD, NOT A RESET (Paolo 7/26) -- ON THE SURFACE HE PLAYS.
+     Measured 8/22 against the REAL outcome object combat builds: a loss fires
+     with playerHP 0 and three of them still standing, and the world said "you
+     walked out anyway". Carried here from the run slice, which has had the
+     ruling since July on a surface nobody sees. */
+  const wentDown = await cityFrame.evaluate(() => window.__WENT_DOWN || null);
+  ok('GOING DOWN IS A THING THAT HAPPENS TO HIM: the city marks it, rather than '
+    + 'telling a man on the floor that he strolled out', !!wentDown);
+  ok('...and it asks for THE CLOSEST SAVE on the same channel the BOOT already '
+    + 'uses (bohemiaCityNeedRestore -> CITYSAVE.load -> applyRestore), so going '
+    + 'down did not grow a second save system',
+    asked.indexOf('needRestore') >= 0);
+  ok('...and HIS approved sound plays -- went_down, the one of thirty-five he '
+    + 'kept on 8/16', asked.indexOf('sfx:went_down') >= 0);
+  ok('...and the SOUND COMES BEFORE THE ROLLBACK, because it belongs to going '
+    + 'down and not to the save that answers it',
+    asked.indexOf('sfx:went_down') >= 0
+    && asked.indexOf('sfx:went_down') < asked.indexOf('needRestore'));
+  ok('AND A WIN NEVER ROLLS HIM BACK -- winning a fight must not cost him the '
+    + 'day he just spent', wonAsked.indexOf('needRestore') < 0);
+  /* NO DAMAGE BEFORE THE DIAL, still: this reads the outcome combat ALREADY
+     reports and answers it. It must never grow a health number of its own. */
+  ok('and going down still invents no health, wound or threshold of its own',
+    !/__DEATH_IS_A_RELOAD__[\s\S]{0,1800}?(hp|health|wound)\s*[-+=]\s*\d/i
+      .test(require('fs').readFileSync(
+        require('path').join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8')));
   /* NO DAMAGE BEFORE THE DIAL: the consumer REPORTS and must never start
      punishing him on my initiative. If a health or wound number ever appears in
      that handler it is a ruling somebody made, and it should be his. */

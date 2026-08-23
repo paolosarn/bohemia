@@ -31598,10 +31598,34 @@ window.addEventListener('message',function(ev){
   var won = !!(o.victory||o.result==='win');
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
+  /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
+     You walked out anyway." for a LOSS -- measured against the real outcome
+     object, that fires with playerHP 0 and three of them still standing, so the
+     game told a man on the floor that he strolled out. That line was an honest
+     placeholder while there was no mechanism; it is wrong the moment there is
+     one.
+     DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): "you go back to the closest
+     previous save. Never a wipe, never start-from-the-beginning." Carried here
+     from the run slice, which has had it since July on a surface nobody sees.
+     NOTHING NEW IS BUILT: going down asks the SAME question the boot asks --
+     bohemiaCityNeedRestore -> the shell's CITYSAVE.load() -> bohemiaCityRestore
+     or bohemiaCityRestoreNone -> applyRestore. A death path with its own restore
+     would be the third copy of one thing. */
   var line = won
     ? 'You walked out of that one.'                       /* draft:true */
-    : 'It went badly in there. You walked out anyway.';   /* draft:true */
+    : 'You went down. Back to your last save.';           /* draft:true */
   try{ if(typeof DAY!=='undefined'&&DAY.happened) DAY.happened(line,'fight'); }catch(_e){}
+  if(!won){
+    /* HIS SOUND, AND IT IS APPROVED: went_down, "the one of thirty-five he kept"
+       (8/16). FIRED BEFORE THE ROLLBACK, because the sound belongs to going down
+       and not to the save that answers it -- the run slice's own note, and right. */
+    try{ window.parent.postMessage({bohemiaCitySfx:{ev:'went_down'}},'*'); }catch(_e){}
+    try{ window.__WENT_DOWN={at:d.at||null,asked:true}; }catch(_e){}
+    /* and the shell answers on the channel the boot already uses. If there is no
+       save it replies bohemiaCityRestoreNone and he keeps standing where he is --
+       which is the run slice's "there was no save to go back to", not a crash. */
+    try{ window.parent.postMessage({bohemiaCityNeedRestore:1},'*'); }catch(_e){}
+  }
   /* AND HE SEES IT NOW, not only at the reckoning: the objective line is the one
      piece of text on the walked surface he is already reading. */
   try{ var q=document.getElementById('qline'); if(q) q.textContent=line; }catch(_e){}

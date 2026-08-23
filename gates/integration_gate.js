@@ -290,9 +290,19 @@ const PROBES = {
      this repo has burned a day on checkers that could not tell a mention from
      a use (CITYSAVE, for one, exists ONLY in comments). */
   save_blob: () =>
-    (CITY.indexOf('function save(') >= 0 && CITY.indexOf('function load(') >= 0 &&
+    /* CORRECTED 8/22: this named `function save(` / `function load(` and those
+       are THE PURSE'S serialisers (CITY:5966, `function save(purse)`), not the
+       city's game save at all. Right words, wrong subsystem -- the mention/use
+       trap in a new costume, and it made this row claim something false about
+       the played surface, which is the exact failure the whole re-probe exists
+       to end. The city's real save is citySnapshot() + applyRestore(), versioned
+       by CITY_SAVE_V with a migration chain, handed to the shell over the
+       bohemiaCitySave* messages. Found by trying to USE it. */
+    (CITY.indexOf('function citySnapshot(') >= 0 &&
      CITY.indexOf('function applyRestore(') >= 0 &&
-     CITY.indexOf('localStorage.setItem') >= 0)
+     CITY.indexOf('CITY_SAVE_V') >= 0 &&
+     CITY.indexOf('bohemiaCitySaveExport') >= 0 &&
+     ALPHA.indexOf('bohemiaCitySave') >= 0)
     ||
     (RUN.indexOf('function saveBlob(') >= 0 && RUN.indexOf('function applyBlob(') >= 0 &&
     RUN.indexOf('function migrateBlob(') >= 0 &&
@@ -302,9 +312,22 @@ const PROBES = {
     RUN.indexOf('SAVE_ENV_VERSION') >= 0 &&                   // versioned from day one
     // the music toggle is a DEVICE PREFERENCE and must never be written into a blob
     !/run:\s*\{[^}]*MUSIC_ON/.test(RUN)),
+  /* RE-POINTED, AND THE ROW IS TRUE ON THE PLAYED SURFACE FOR THE FIRST TIME
+     (8/22). It was owed because the city genuinely did not carry it: measured
+     against the real outcome object, a loss fired with playerHP 0 and three of
+     them still standing and the world said "you walked out anyway". Paolo's
+     ruling from 7/26 -- "DEATH IS A RELOAD, NOT A RESET: you go back to the
+     closest previous save. Never a wipe" -- was sitting in the run slice, on a
+     surface nobody sees. Carried over reusing the boot's own restore path, so
+     no second save system exists. */
   death_reload: () =>
-    RUN.indexOf('function loadClosest(') >= 0 &&
-    /if\(!d\.victory\)\{[\s\S]{0,400}loadClosest\(\)/.test(RUN),
+    (CITY.indexOf('__DEATH_IS_A_RELOAD__') >= 0 &&
+     CITY.indexOf("{bohemiaCityNeedRestore:1}") >= 0 &&
+     CITY.indexOf("{ev:'went_down'}") >= 0 &&
+     CITY.indexOf('function applyRestore(') >= 0)
+    ||
+    (RUN.indexOf('function loadClosest(') >= 0 &&
+    /if\(!d\.victory\)\{[\s\S]{0,400}loadClosest\(\)/.test(RUN)),
   /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run clause
      behind `||`, needles checked against a COMMENT-STRIPPED city. */
   floorplan_module: () =>
