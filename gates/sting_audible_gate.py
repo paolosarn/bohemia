@@ -264,8 +264,19 @@ def main():
            'moment): %s' % (d.get('qBaseline') or 'silent'), not d.get('qBaseline'))
         ok('finishing a job plays the DONE cadence (%s)'
            % (d.get('qComplete') or 'nothing'), d.get('qComplete') == ['done'])
-        ok('failing a job plays LOSS, which is already built and already his '
-           '(%s)' % (d.get('qFailed') or 'nothing'), d.get('qFailed') == ['loss'])
+        # CHANGED 8/22, AND THE BEHAVIOUR MOVED FIRST, NOT THE CHECK. This used
+        # to demand `loss`, on the reasoning that "failing a job and losing a
+        # fight are the same shape of moment". Walking the actual demo proved
+        # they are not: the player takes the day-one job, does not finish it,
+        # taps SLEEP, and the game played the fight-DEFEAT cadence -- heavy,
+        # falling, authored for being beaten -- over going to bed. That is the
+        # mistake the `paid` figure warns about pointed the other way ("a water
+        # run in a dead valley is not a boss kill"). A missed job now has its
+        # own small figure. This is not a check being loosened to match a
+        # regression; it is a check following a ruling I made and can defend.
+        ok('a MISSED job plays its own small figure, not the fight-defeat '
+           'cadence (%s)' % (d.get('qFailed') or 'nothing'),
+           d.get('qFailed') == ['missed'])
         ok('loading a save whose quest is ALREADY done makes no sound, because '
            'that is not the moment of finishing it (%s)'
            % (d.get('qReload') or 'silent'), not d.get('qReload'))

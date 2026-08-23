@@ -1546,6 +1546,133 @@ function requirePlaywright() {
       JSON.stringify(notes.map(n => ({ word: n.word, changed: n.shown !== n.raw,
                                        shown: n.shown.slice(0, 60) }))));
 
+    /* ---- Q. AND IT IS STILL TRUE TOMORROW ---------------------------------
+       THE TWELFTH, AND IT IS EVERYTHING THIS LANE BUILT ALL WEEK. Eleven times
+       an organ computed something nothing called; this is the same shape one
+       level higher and the largest of them: the surface called EVERYTHING
+       correctly and NOTHING REMEMBERED IT. ctBelongSave() returned a plain
+       window object -- nothing wrote it, nothing read it back.
+       AND THE HALF THAT SURVIVED MADE IT WORSE: CT_MET persisted, so the game
+       remembered your NAME and forgot that you BURNED A BRIDGE for them.
+       THIS IS THE FIRST CLAIM IN THIS GATE THAT RELOADS THE PAGE. Eighty-two
+       claims walked the arc and not one of them closed the tab, which is why a
+       system with no memory looked perfectly healthy for a week. */
+    const persist = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        const seed = await pg.evaluate(() => {
+          const R = ctValleyRoster(), row = R.filter(a => a.faction)[0];
+          if (!row) return null;
+          const q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+          hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
+          const rec = ctEveryone().filter(x => x.id === row.__id)[0];
+          if (!rec) return null;
+          const at = ctAt(rec);
+          for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            hx = at[0] + d[0]; hy = at[1] + d[1];
+            const a = ctAdjacent(); if (a && a.id === rec.id) break;
+          }
+          const fid = ctFactionOf(rec), sv = ctBelongSave();
+          for (let i = 0; i < 9; i++) BohemiaBelonging.record(sv, fid, 0);
+          BohemiaCommitment.setState(sv, fid, 'burned');
+          sv.meta.owed = sv.meta.owed || {}; sv.meta.owed[fid] = 4;
+          CT_MET.meet('P:city:' + rec.id, 1); CT_MET.ask('P:city:' + rec.id, 1);
+          ctSave();
+          return { fid, key: 'P:city:' + rec.id,
+                   gave: BohemiaBelonging.gaveOf(sv, fid),
+                   state: BohemiaCommitment.stateOf(sv, fid),
+                   owed: (sv.meta.owed || {})[fid] };
+        });
+        if (!seed) return null;
+        await pg.reload();
+        await pg.waitForTimeout(6000);
+        const back = await pg.evaluate((s) => {
+          const sv = ctBelongSave();
+          return { gave: BohemiaBelonging.gaveOf(sv, s.fid),
+                   state: BohemiaCommitment.stateOf(sv, s.fid),
+                   owed: (sv.meta.owed || {})[s.fid],
+                   asked: CT_MET.asked(s.key) };
+        }, seed);
+        return { seed, back };
+      } finally { await pg.close(); }
+    })();
+
+    ok('Q1 EVERYTHING YOU DID FOR THEM IS STILL TRUE AFTER A RELOAD. Standing, '
+      + 'commitment and debt lived in a plain window object that nothing ever '
+      + 'wrote — measured: gave 9 to 0, burned to none, owed 4 to 0. A week of '
+      + 'this system existed only until the tab closed',
+      !!persist && persist.back.gave === persist.seed.gave
+        && persist.back.state === persist.seed.state
+        && String(persist.back.owed) === String(persist.seed.owed),
+      JSON.stringify(persist && { before: persist.seed, after: persist.back }));
+
+    ok('Q2 …and the NAME survived alongside it, which is the half that made the '
+      + 'bug worse rather than better: CT_MET always persisted, so the game '
+      + 'remembered what to call you and forgot that you burned a bridge for '
+      + 'them. A COUNT IS NOT A MEMORY, one level up',
+      !!persist && persist.back.asked === true,
+      JSON.stringify(persist && persist.back));
+
+    /* Q3 EXISTS BECAUSE MUTATING THE GUARD DID NOT BITE. Deleting the
+       version/shape check left the gate at 87/0, because the gate only ever
+       WRITES a valid blob and so never walks the discard path. I had already
+       written "an unreadable blob is discarded, never half-applied" in the
+       commit message — a claim nothing proved. Same class as the fail-safe
+       branch earlier this week that turned out to be the only path taken.
+       AN UNTESTED BRANCH IS A CLAIM, NOT A BEHAVIOUR. This writes real garbage
+       into the key and asserts the game comes up CLEAN rather than crashing or
+       half-restoring: a partially restored standing is worse than a fresh one,
+       because you cannot see that it is wrong. */
+    const corrupt = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      const errs = [];
+      pg.on('pageerror', e => errs.push(e.message));
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(5000);
+        await pg.evaluate(() => {
+          /* THE FIRST PAYLOAD HERE TESTED THE WRONG THING, and the mutation said
+             so: with the guard deleted the gate STILL passed. The garbage was
+             UNTERMINATED JSON, so JSON.parse threw and the try/catch swallowed
+             it — the version/shape guard was never reached at all. Two layers
+             deep, and I had proved the outer one twice.
+             VALID JSON WITH A WRONG VERSION AND A PLAUSIBLE STANDING is the only
+             payload the guard alone can reject: it parses cleanly, it looks
+             exactly like a real save, and its numbers are the thing that must
+             NOT come back. If the guard goes, this standing gets restored and
+             the claim below fails. */
+          try {
+            localStorage.setItem('boh.city.belong', JSON.stringify({
+              v: 99,                                   /* a version we cannot read */
+              meta: { gave: { Cartel: 99, Mob: 77 },   /* plausible, and wrong */
+                      commit: { Cartel: 'burned' } }
+            }));
+          } catch (_e) {}
+        });
+        await pg.reload();
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate((e) => {
+          const sv = ctBelongSave();
+          const rules = (typeof BohemiaBelonging !== 'undefined' && BohemiaBelonging.RULES) || {};
+          let any = 0;
+          for (const k in rules) any += BohemiaBelonging.gaveOf(sv, k) | 0;
+          return { hasMeta: !!(sv && sv.meta && typeof sv.meta === 'object'),
+                   standing: any, errs: e };
+        }, errs);
+      } finally { await pg.close(); }
+    })();
+
+    ok('Q3 A SAVE IT CANNOT READ IS DISCARDED, NOT HALF-APPLIED. Written because '
+      + 'deleting the guard did NOT make this gate red — it only ever writes a '
+      + 'valid blob, so the discard path was a claim in a commit message that '
+      + 'nothing exercised. Fed real garbage, the game comes up clean instead of '
+      + 'crashing or restoring somebody a standing they cannot see is wrong',
+      !!corrupt && corrupt.hasMeta && corrupt.standing === 0
+        && corrupt.errs.length === 0,
+      JSON.stringify(corrupt));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
