@@ -2131,82 +2131,79 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/21 LATEST -- *** EVERY MIND IN THE VALLEY HELD ONE
-SUBJECT AND IT WAS YOU. TAB: RUN -- take somebody's name, then walk up to anybody
-else and the card offers "Have you seen ___?" The answer comes out of THAT
-PERSON'S OWN HEAD. ***
+PEOPLE (people-7h9sfy): 8/22 LATEST -- *** A DEED THAT ONLY EXISTS ON A CARD IS A
+DEED MOST PLAYERS NEVER SEE. TAB: RUN -- do something in front of somebody and
+walk on; they say what they saw, out loud, over their head. You open nothing. ***
 
-Three turns ago this lane wired the witness organ so people could see the player.
-It only ever recorded THE PLAYER. Every mind in Las Vegas held one subject, '@',
-which is A MEMORY OF YOU RATHER THAN A MEMORY. bohemia_memory's own attach() has
-always recorded out-agents seeing out-agents AND the player, in one sentence, and
-the city was doing half of it.
+Four turns of this lane built witnessing, gossip, hearsay decay and loudness, ALL
+of it reachable only by walking up to somebody and opening their card. My own note
+on turn one quoted the reputation literature saying exactly why that is fatal -- a
+system the player cannot SEE working is indistinguishable from no system at all --
+and then I built four turns of precisely that.
 
-*** AND THE HALF IT SKIPPED IS THE HALF THE QUESTBOOK ASKED FOR. *** The module's
-header, 7/19: "the questbook's engine backlog demands THE SETTLEMENT'S
-MISSING-PERSONS ORGAN (Q133/Q134/Q138). Its seed question, 'when did anyone last
-see H3-2, and how sure are they', is answerable from these minds." It was not
-answerable from anything, because nothing in the game had ever put a sighting in a
-mind. Measured on the real card, from a man who has NOT told you his own name:
-    [ Have you seen Anahi Nguyen? ]
-    THEY SAID   Yeah. just now, right about here.
+BACKLOG 0r NAMES THIS LANE'S ORGANS AS THE CHANNEL: Hades ships ~4 boss fights but
+21,020 voice lines, because roguelite replayability is bought with REACTIVITY PER
+ENCOUNTER, "flowing through the witness organ + memory systems already live". Their
+trick, copied literally: NEVER REPEAT A LINE UNTIL EVERY UNUSED OPTION IS SPENT.
 
-*** IT IS THE FIRST QUESTION IN THIS GAME WHOSE ANSWER IS NOT AUTHORED. *** Every
-other ask resolves through the person's TRADE -- deliberately, per the ask
-system's own comment, so "the same question put to the same kind of person always
-gets the same reply", because a world where the answer depends on which body you
-clicked is not a world with information in it. This one resolves through THAT
-PERSON'S OWN MEMORY, so two people standing side by side answer differently and
-BOTH ARE TELLING THE TRUTH.
+SAW AND HEARD SAY DIFFERENT THINGS, which is the whole payoff of modelling a route
+the news could take and was invisible outside the card until now:
+    watched it   "Told them no. Right to their face."
+    only heard   "Heard somebody turned them down."
+An eyewitness is specific; a retelling is vague and hedged. Sixteen drafted lines
+(four acts x saw/heard x two variants), cycling so no line repeats until its pool
+is spent, and a witness never repeats the SAME sighting at you. It PREEMPTS the
+ordinary bark the way the two-person conversation above it does, so with nobody
+having seen anything the street sounds precisely as before. The lines are
+deliberately PRONOUN-FREE: who the player is is his, and a bark that guesses is
+wrong half the time. The gate asserts zero gendered pronouns across all sixteen.
 
-CLARITY SHAPES THE ANSWER, IT DOES NOT GATE IT. A fogged memory is a vaguer
-sentence, not a refusal, which is what a real witness sounds like:
-    now    sharp   "Yeah. just now, right about here."
-    30h    fair    "I think so. yesterday, somewhere north of here."
-    400h   never   "No. Not that I know of."
-That last row is the module's own MIN_CLARITY -- nothing usable, so they simply
-did not see them. An honest blank, not a stonewall.
+*** I FILED A BUG THAT DID NOT EXIST, AND THE WAY I GOT THERE IS THE LESSON. ***
+Mid-turn I measured ctDeed recording ZERO witnesses after a render and concluded
+the claim/favour/commit deeds had never recorded anybody in real play. WRONG TWICE
+OVER.
+  - I MEASURED THE WRONG SURFACE. The probe loaded BOHEMIA_CITY_WORLD.html
+    DIRECTLY. Standalone, the city never receives PLAYER_CV from the alpha, so
+    peoplePass returns early and draws NOBODY -- playerCV:false, zero bodies,
+    forever. Every number I read came from a frame with no people in it. VERIFY ON
+    THE REAL SURFACE is not a slogan about screenshots: THE CITY FRAME IS A
+    DIFFERENT SURFACE WHEN IT IS NOT INSIDE THE ALPHA. Any probe of city behaviour
+    must go through the alpha's RUN tab.
+  - I MISREAD WHICH FUNCTION OWNS THE RESET. A comment inside barkPass says
+    "consume it, then clear for the next", which I read as barkPass clearing
+    BARK_DREW. It does not. `BARK_DREW = []` IS THE FIRST LINE OF peoplePass,
+    confirmed by walking the file rather than trusting the comment.
+Re-measured through the alpha: drewAfterRender 1, witnessesRecorded 1. NO BUG. The
+machinery I had added is REVERTED, including a comment that would have sat in the
+codebase asserting a falsehood. A layer added "just in case" is speculative
+complexity; a loud comment describing an imaginary bug is worse, because the next
+person believes it.
 
-YOU HAVE TO ASK (7/31) GOVERNS WHO YOU MAY ASK ABOUT: the list is built from the
-met-ledger's `asked` bit and nothing else, so you can only go looking for somebody
-whose NAME YOU TOOK. You cannot put out a description of a stranger, which is
-right and is also the reason taking names matters. lastSeenAcross FINALLY HAS A
-CALLER, scoped to minds the player has actually spoken to -- a valley-wide sweep
-would hand him an answer nobody told him, which is the godlike-information failure
-this whole lane exists to undo.
+ONE REAL THING CAME OUT OF THAT DETOUR: THE NET-DELETION GUARD COULD NOT TELL MY
+LINES FROM ANYBODY ELSE'S. Written as `if (grew < 0) refuse`, it also forbade the
+tool from ever SHRINKING ITS OWN BLOCK -- so the moment a block genuinely needed
+removing, the tool refused and the only way back was by hand. It now measures the
+file OUTSIDE the region it owns, which is the thing 8/17's 2,607-line accident
+actually destroyed. A guard that blocks the correct move as readily as the
+dangerous one gets routed around, and a guard that gets routed around is not a
+guard. THE SIBLING TOOLS SHOULD TAKE THE SAME FIX.
 
-*** THE WORDS WERE BROKEN AND THE MACHINE CATCHES IT NOW. *** The first cut
-rendered "I think so. 1 days back, right about here way." -- a plural that never
-checked for one, and a template appending " way" to a phrase that was already
-whole. BROKEN GRAMMAR IS NOT AN ATTEMPT, IT IS A BUG; the 8/11 law says every line
-ships written as if it ships. Same failure the quirk factory hit in July and the
-same answer: a GRAMMAR CONTRACT MACHINE-CHECKED OVER EVERY RENDERING rather than
-eyeballed on the one on screen. 91 renderings, 67 distinct, 0 bad, and a mutation
-putting the bug back turns 30 of them red.
-
-AND THE REFRESH PATH HAD THE SAME HOLE THE SIBLING TOOL SHIPPED YESTERDAY -- an
-inlined region rewritten while the call sites outside it were left behind. Caught
-before it could bite this time, both paths, each pair narrow and span-matched on
-both halves. The lesson travelled from one tool to its sibling in a day, which is
-what writing it down is for.
-
-gates: CITY MEMORY 23 -> 31 all green, CITY DEEDS 30, CITY DIAL 22, city talk 18,
-memory 10. Both city tools idempotent TOGETHER, md5 over three runs. Mutations:
-back to player-only sight -> 4 red; put the grammar bug back -> 1 red naming 30
-bad renderings.
-records/BOHEMIA_HAVE_YOU_SEEN_THEM_8_21_26.md
+gates: CITY DEEDS 30 -> 36 all green, CITY MEMORY 31, CITY DIAL 22, city talk 18.
+Both city tools idempotent together. Mutations: let a witness repeat forever -> 1
+red; make SAW and HEARD identical -> 1 red.
+records/BOHEMIA_THEY_SAY_IT_OUT_LOUD_8_21_26.md
 
 WHAT COMES NEXT:
-  1. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
+  1. *** THE AFTERMATH SET PROPER. *** 0r asks for reactions DIFFERENT FOR KILLED
+     VS SPARED. That needs a boss, which is COMBAT's; the channel is built and
+     waiting. Theirs to trigger, THIS LANE'S TO WORD.
+  2. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
      (45 min), the deed halflife, the memory halflife -- every one a defensible
-     constant with a written argument, and every one with the same wrong answer to
-     "WHERE DOES HE CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the
-     pattern to copy, and the readout must ASK the city rather than retype
-     anything (file:// frames are opaque origin -- cross-frame reads throw).
-  2. HE TURNS THE STANDING DIAL. One row makes three turns of witnessing and
-     gossip into a reputation that JUDGES him. His, and nothing should invent it.
-  3. THE THREE RETYPED CLOUT SLICES -- one line each in whichever tool generates
-     them now that bohemia_clout.js exists. NOT this lane's surfaces.
+     constant with a written argument and the same wrong answer to "WHERE DOES HE
+     CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the pattern; the readout
+     must ASK the city rather than retype anything (file:// frames are opaque
+     origin, cross-frame reads throw SecurityError).
+  3. HE TURNS THE STANDING DIAL. One row makes all of this JUDGE him. His.
   4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
