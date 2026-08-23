@@ -1,3 +1,47 @@
+SOUND (sound-xk7pjp): 8/22 (b) LATEST -- *** I WALKED THE DEMO AND LISTENED, AND
+FIVE OF TEN BEATS WERE SILENT. TAB: RUN (get up, walk, sleep). Nothing to judge. ***
+
+THIS LANE HAD BEEN COUNTING THE CATALOGUE, NOT THE WALK. Every instrument here measures
+the BANK -- 102 moments, 155 approved, which ids have callers. What Paolo experiences is a
+walk, and a moment that is wired but never REACHED during that walk is, to him, silent.
+gates/demo_sound_gate.js (registered DEMO SOUND) takes the same beats as the RUN lane's
+WHOLE DEMO gate and records every sound asked for, on all three surfaces: playSFX, the
+BOHEMIA_SFX/BOHEMIA_STEP posts, and STING.play -- which is not playSFX and which no other
+instrument was watching.
+
+*** THE GAME MOVED HOUSE AND THE SOUNDS DID NOT. *** come_up (4 of 5) and sleep_sink
+(5 of 5, his cleanest sweep) were wired -- in the RUN SLICE, the panel nobody opens since
+the RUN tab started showing the CITY on 8/21. So the demo's first morning and first night
+were both silent while the sounds sat finished in the bank. SEVEN approved moments are in
+that position and only two are fixed: THE REMAINING FIVE ARE THE NEXT LIST --
+door_drag, eat, phone_buzz, save_chime, went_down. For each, ask: does this moment still
+exist in the city, and where. A STATIC CALLER-CHECK CANNOT SEE THIS -- it finds the caller
+and reports the moment covered. Only walking finds it.
+
+*** AND GOING TO BED SOUNDED LIKE BEING BEATEN. THAT ONE WAS MINE. *** QUESTSTING (I
+shipped it 8/20) played the `loss` figure -- authored for LOSING A FIGHT, "falling, and it
+lands heavy" -- when the player slept with the day-one job unfinished. My own commit
+argued "failing a job and losing a fight are the same shape of moment". One listen killed
+that. Now `missed`: two notes, falling, the exact inverse of `paid`, same voice, small on
+purpose. NOTHING STATIC COULD HAVE CAUGHT IT: STING.play was called, with a real figure,
+that renders audibly, from a real caller. Every check said yes. It was the WRONG FEELING
+IN THE RIGHT PLACE, and only an instrument that plays the game can see that.
+
+  5 of 10 beats -> 7 of 10.  demo_sound 7/0 · sting_audible 30/0 · sfx_wired 907/0
+  sfx_render 6756/0 · silent_moments 38/0 · no_cash 10/0 · instrument 15/0
+  sfx_diversity 38/1 (the known dominance cap, 51.2 vs 50)
+  records/BOHEMIA_WHAT_THE_DEMO_SOUNDS_LIKE_8_22_26.md
+
+STILL SILENT ON PURPOSE: the splash before he taps (no gesture, no audio context -- not
+fixable and not a defect). Opening the phone and TAKING THE JOB are taps inside the city,
+and EVERY city tap is silent while shell taps tick. Blanket-wiring that runs into his 8/4
+ruling ("I CANT HEAR THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON"),
+so it was NOT swept. Taking the job deserves one on merit -- it is a commitment, not
+navigation -- and no approved candidate exists for it yet.
+
+THE RULE THIS BUYS: before claiming a moment is covered, ask WHERE IN THE WALK HE HEARS
+IT, not whether something calls it.
+
 CHARACTER (character-0lurbs): 8/22 (a) LATEST -- *** FOUR TIMES THE PIXELS WAS BUYING A
 BIGGER BOOT, NOT A FINER ONE. Row 2X step 5, second item. Plus two of my own gates that
 were lying, one of them vacuously. ***

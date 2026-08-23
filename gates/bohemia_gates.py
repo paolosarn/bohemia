@@ -286,6 +286,16 @@ GATES = [
      'navigation, so the first probe reported the slice as NOT FETCHED for a file that '
      'demonstrably was -- this one asserts it saw the two fetches that MUST happen before it '
      'reports a third one absent. Mutation-tested both ways', False),
+    ('DEMO SOUND',     ['node', 'gates/demo_sound_gate.js'],
+     'WHAT THE DEMO SOUNDS LIKE, beat by beat, on the same walk the WHOLE DEMO '
+     'gate takes. This lane had only ever counted the CATALOGUE -- 102 moments, '
+     '155 approved, which ids have callers -- and a moment that is perfectly '
+     'wired but never REACHED during the demo is, to him, silent. It found the '
+     'first morning and the first night both silent while come_up and '
+     'sleep_sink sat approved in the bank, wired to the run panel nobody opens '
+     'any more; and it caught going to sleep playing the fight-DEFEAT cadence '
+     'because an unfinished job was being scored like a lost fight. Silent '
+     'beats are REPORTED, not failed: the quiet is the design', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

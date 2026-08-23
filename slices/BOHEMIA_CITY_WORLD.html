@@ -30905,7 +30905,16 @@ function showWake(){
           +'<div class="sub">on the network \u00b7 not taken</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
-  cardShow(h,function(){ cardHide(); try{ vistaBeatMaybe(); }catch(_e){} });
+  cardShow(h,function(){ cardHide();
+    /* __THE_MORNING_MAKES_A_SOUND__ (8/22, SOUND lane) -- HIS OWN, APPROVED AND
+       STRANDED. come_up is 4 of 5 from his 8/16b sweep and it was wired only in
+       the RUN slice, the panel nobody opens since the RUN tab started showing
+       the city. Measured silent on the real demo walk by gates/demo_sound_gate.js.
+       Same channel the phone already uses: the city asks the alpha, which owns
+       the bus and the bank. */
+    try{ if(window.parent&&window.parent!==window)
+      window.parent.postMessage({bohemiaCitySfx:{ev:'come_up'}},'*'); }catch(_e){}
+    try{ vistaBeatMaybe(); }catch(_e){} });
 }
 
 /* THE OFFER. Its words are the quest's own -- the same law the resolution buttons
@@ -38474,7 +38483,14 @@ function showStanding(){
 document.getElementById('rungbtn').addEventListener('click', showStanding);
 /* ==== end WHERE YOU STAND WITH THE CITY ==== */
 document.getElementById('sleepbtn').addEventListener('click',function(){
-  if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
+  if(DAY.phase!=='awake')return;
+  /* __SETTLING IN IS A SOUND HE PICKED__ (8/22, SOUND lane) -- sleep_sink is
+     5 of 5, his cleanest sweep, and it was stranded in the RUN slice exactly
+     like come_up. It goes BEFORE the state change, on the tap, so it lands with
+     the button rather than after eight hours of clock have already moved. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'sleep_sink'}},'*'); }catch(_e){}
+  DAY.sleep(); daySync(); onNightfall(); updHud();
 });
 /* __THE_CITY_ASKS_FOR_ITS_SAVE__ -- THE CITY ASKS FOR ITS SAVE, because the city is the
    only party that knows when the city is ready.
