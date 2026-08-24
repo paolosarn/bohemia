@@ -332,7 +332,11 @@ GATES = [
      'one is the reason the pixels are here -- a PERFECT camCell that the renderer ignores '
      'left every model claim green ("the camera sat between cells for 87.5% of a walked beat" '
      'was still true) and only the canvas noticed. HYBRID and FREE are NOT carried and are '
-     'named, not hidden', True),
+     'named, not hidden. LOAD-SENSITIVE ON PURPOSE, like FIGHT MUSIC and FIRST NIGHT: it '
+     'samples rAF cadence every 40ms, so an oversubscribed box drags the SLIDE median down '
+     'and it goes red in the pack and green alone. That is the box, not the game -- the '
+     'confirm pass is what classifies it, and a red here should be re-run alone before it is '
+     'believed', True),
     # 8/24: NOBODY WAS WATCHING THE ONE NUMBER THAT DECIDES WHETHER A FRIEND PLAYS THE
     # DEMO OR CLOSES THE TAB -- the megabytes their phone pulls before the world appears.
     # 412 gates and not one of them asked. Measured: 40.5 MB total, 32.4 MB of it AFTER the

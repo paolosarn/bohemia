@@ -45,6 +45,10 @@ const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
 const ALPHA = 'file://' + path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
+/* the file is the authority on what SHOULD be on screen; the page is the
+   authority on what IS. The gap between them is the deletion this catches. */
+const CITY_SRC = require('fs').readFileSync(
+  path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html'), 'utf8');
 
 function playwright() {
   for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules',
@@ -261,6 +265,46 @@ const report = (state, hits) => hits.map(h =>
       ok('NOTHING SITS ON TOP OF ANYTHING ELSE -- ' + name
         + (hits.length ? ': ' + report(name, hits) : ''), hits.length === 0);
     }
+
+    /* ---- 2b. NOTHING WAS DELETED TO MAKE THE LAYOUT TIDY -----------------
+       THE CLAIM THIS GATE WAS MISSING, and my own patch is what proved it was
+       missing. The first cut of the column "removed" hidden chips from the stack
+       with s.removeChild -- which does not leave the column, it takes the node
+       OUT OF THE DOCUMENT. #bikebtn is display:none by default, so
+       getElementById('bikebtn') began returning null, and applyRestore does
+       `getElementById('bikebtn').classList.toggle(...)` unguarded: every restore
+       threw, which since 8/22 includes THE RELOAD AFTER YOU LOSE A FIGHT.
+       ANOTHER LANE'S GATE CAUGHT IT (CITY BRIDGE), NOT THIS ONE, and the reason
+       is structural: everything above only measures VISIBLE chrome, and a node
+       that has been deleted is extremely invisible. A layout gate that only looks
+       at what it can see will call a deletion a tidy screen. So: every id this
+       file claims to be watching must still EXIST and still be IN the document,
+       whether or not it is currently shown. */
+    /* THE EXPECTED SET IS DERIVED FROM THE MARKUP, NOT GUESSED. First cut asked
+       the live page which chips it could find and reported the missing ones
+       without failing -- on the grounds that a chip absent from this build is not
+       a deletion. Mutation-testing killed that immediately: with the removeChild
+       put back, #fitbtn simply moved into the "not in this build" line and the
+       gate stayed green. A DELETED CHIP AND A NEVER-BUILT CHIP ARE
+       INDISTINGUISHABLE FROM INSIDE THE PAGE, so the question has to be asked
+       somewhere that knows the difference. The city FILE declares `id="fitbtn"`;
+       if the file declares it, the running document must have it. */
+    const declared = CHROME.filter(id =>
+      new RegExp('id=["\']' + id + '["\']').test(CITY_SRC));
+    const alive = await city.evaluate((ids) => {
+      const gone = [], detached = [];
+      for (const id of ids) {
+        const e = document.getElementById(id);
+        if (!e) { gone.push(id); continue; }
+        if (!document.body.contains(e)) detached.push(id);
+      }
+      return { gone: gone, detached: detached };
+    }, declared);
+    ok('NOTHING WAS DELETED TO MAKE THE LAYOUT TIDY -- all ' + declared.length
+      + ' chips the city file declares are still in the document, hidden or not'
+      + (alive.gone.length ? ' [MISSING: ' + alive.gone.join(', ') + ']' : '')
+      + (alive.detached.length ? ' [DETACHED: ' + alive.detached.join(', ') + ']' : ''),
+      alive.gone.length === 0 && alive.detached.length === 0);
 
     /* ---- 3. THE SENTENCE THAT STARTED THIS ------------------------------ */
     const q = await city.evaluate(() => {

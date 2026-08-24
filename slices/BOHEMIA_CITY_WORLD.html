@@ -25272,10 +25272,20 @@ function blStack(){
   ['sleepbtn','bikebtn','fitbtn','mktbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
-    if(getComputedStyle(el).display==='none'){
-      /* a hidden chip leaves the column rather than holding an empty rung open */
-      if(el.parentNode===s) s.removeChild(el);
-      return; }
+    /* NEVER DETACH A HIDDEN CHIP, AND THE FIRST CUT OF THIS DID. It said "a
+       hidden chip leaves the column rather than holding an empty rung open" and
+       called s.removeChild(el) -- which does not just leave the column, it TAKES
+       THE NODE OUT OF THE DOCUMENT. #bikebtn is display:none by default, so
+       document.getElementById('bikebtn') started returning null, and applyRestore
+       does `getElementById('bikebtn').classList.toggle('on',RIDING)` unguarded:
+       every restore threw, which since 8/22 includes THE RELOAD AFTER YOU LOSE A
+       FIGHT. Caught by another lane's gate (CITY BRIDGE), not by mine -- my own
+       overlap gate only measures VISIBLE chrome, and a node that has been deleted
+       is extremely invisible.
+       AND THE REMOVAL WAS NEVER NEEDED: a display:none flex child occupies no
+       space and contributes no gap, so it cannot hold a rung open. The column was
+       already doing the right thing and I invented a problem to solve. Adopt
+       everything, hidden or not; flexbox handles the rest. */
     s.appendChild(el);          /* appendChild REORDERS, which is what keeps the order true */
   });
   return s;
@@ -25300,7 +25310,10 @@ function tlStack(){
   ['topbar','qline'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
-    if(getComputedStyle(el).display==='none'){ if(el.parentNode===s) s.removeChild(el); return; }
+    /* same rule as the bottom-left column, and for the same reason: NEVER DETACH.
+       Taking a hidden chip out of the document makes getElementById return null
+       for every other system that looks it up, and a display:none flex child
+       already costs nothing. See the note in blStack. */
     s.appendChild(el);
   });
   return s;
