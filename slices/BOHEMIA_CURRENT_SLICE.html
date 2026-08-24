@@ -6390,50 +6390,114 @@ root.BQRuntime=API;
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
 
+  /* A SOLAR FARM IS ONE PLANT, NOT ONE PLANT PER CELL (8/24/26, WORLD lane).
+     MEASURED on the canon valley: solar is TWO blobs totalling 303 cells, and the larger
+     is 265 CELLS -- 2.4 km2, which is a correct size for real Mojave utility solar
+     (Copper Mountain is about that). What was wrong is not the size, it is that this
+     function only ever received a seed and a street list, so EVERY ONE of those 265 cells
+     built a COMPLETE, SEPARATELY FENCED PLANT: 265 perimeter fences, 265 substation
+     switchyards, 265 control buildings, 265 gates, and panel rows that restart at every
+     cell boundary instead of running the field. 3.3% of the valley, repeating.
+
+     It is also why solar reads as a WALL. `G.frame(3)` fenced all four sides of every
+     cell, so the sealed-cell sweep measured `theirs=0` on every solar edge -- the desert
+     pocket at 6,0/6,1/6,2 is walled in by a fence that should only exist on the outside
+     of the plant.
+
+     THE FIX IS THE 8/19 CLUSTER PATTERN, already proven on airport/airbase/convention/
+     prison/dam/minigp/fort: the caller hands every cell THE BOUNDS OF ITS BLOB, the plant
+     is laid out in VALLEY coordinates against those bounds, and each cell keeps its own
+     128x128 window. Seams line up by construction because there is only one layout.
+
+     TWO THINGS THIS HAD TO GET RIGHT THAT THE AIRFIELD DID NOT HAVE TO:
+     1. SPEED. An airfield is 3-9 cells; iterating the whole field per cell is free. At 265
+        cells the field is ~2,560 tiles across, so a naive "loop the plant, clip to the
+        window" is 6.5M iterations per cell x 265 cells. Every loop below therefore starts
+        at the first index that can touch THIS cell and stops when it leaves -- the work
+        stays proportional to one cell, not to the plant.
+     2. NO BOUNDS MUST STILL MEAN THE OLD PLOT. With bounds absent the blob is this one
+        cell, every valley coordinate collapses to the cell-local one it used to be, and
+        the output is BYTE-IDENTICAL to the previous generator. That is asserted in
+        solar_gate.js rather than believed. */
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i, x, y;
     var MARGIN=3, ROWH=M(3), GAP=M(4), ROAD=M(3), SUBW=M(22), SUBH=M(16);
-    G.frame(3);                                                       // perimeter fence
-    var ax0=MARGIN+2, ax1=W-2-MARGIN, ay0=MARGIN+2, ay1=H-2-MARGIN;
-    G.rect(ax0,ay0,ax1,ay1,1);                                        // gravel base (O&M ground)
 
-    // SUBSTATION switchyard + CONTROL building in the bottom-left corner (by the gate)
+    var cellX=opts.cellX||0, cellY=opts.cellY||0;
+    var b=opts.bounds||{x0:cellX,x1:cellX,y0:cellY,y1:cellY};
+    var cx=cellX*W, cy=cellY*H;                       // this cell's origin, in valley tiles
+    var fx0=b.x0*W, fx1=(b.x1+1)*W-1;                 // the whole plant, in valley tiles
+    var fy0=b.y0*H, fy1=(b.y1+1)*H-1;
+    var wx1=cx+W-1, wy1=cy+H-1;                       // this cell's window, valley tiles
+    // VALLEY-COORDINATE WRITERS. Everything below draws THE PLANT; only what falls in this
+    // cell's window is kept. vrect clips first so it never walks tiles it will discard.
+    function vset(vx,vy,c){ var lx=vx-cx, ly=vy-cy; if(lx>=0&&ly>=0&&lx<W&&ly<H) g[ly][lx]=c; }
+    function vrect(x0,y0,x1,y1,c){ if(x1<cx||x0>wx1||y1<cy||y0>wy1) return;
+      var xa=Math.max(x0,cx), xb=Math.min(x1,wx1), ya=Math.max(y0,cy), yb=Math.min(y1,wy1), xx, yy;
+      for(yy=ya;yy<=yb;yy++) for(xx=xa;xx<=xb;xx++) g[yy-cy][xx-cx]=c; }
+    // first index >= a lower bound, for a loop that starts at `from` and steps by `step`
+    function firstAt(from,step,atLeast){ return (atLeast<=from)?from:(from+Math.ceil((atLeast-from)/step)*step); }
+
+    // PERIMETER FENCE: the PLANT's boundary. An interior cell of a big plant gets none,
+    // which is the whole point -- a fence between two halves of one solar farm is a wall
+    // that should not exist.
+    vrect(fx0,fy0,fx1,fy0,3); vrect(fx0,fy1,fx1,fy1,3);
+    vrect(fx0,fy0,fx0,fy1,3); vrect(fx1,fy0,fx1,fy1,3);
+    // fx1/fy1 are the LAST TILE INDEX of the plant; the old code measured the far setback
+    // off the WIDTH (W-2-MARGIN), so the +1 is what keeps a one-cell plant identical.
+    var ax0=fx0+MARGIN+2, ax1=fx1+1-2-MARGIN, ay0=fy0+MARGIN+2, ay1=fy1+1-2-MARGIN;
+    vrect(ax0,ay0,ax1,ay1,1);                                         // gravel base (O&M ground)
+
+    // SUBSTATION switchyard + CONTROL building, ONCE, in the plant's bottom-left corner
     var sx0=ax0, sy1=ay1, sx1=ax0+SUBW, sy0=ay1-SUBH;
-    for(y=sy0+1;y<sy1-1;y+=M(4)) for(x=sx0+1;x<sx1-1;x+=M(5)) G.rect(x,y,x+M(3),y+M(2),6);  // transformer/switchgear rows
-    G.rect(sx0,sy0-M(7),sx0+M(10),sy0-1,2);                          // control / O&M building
-    G.rect(sx0-1,sy0-M(8),sx1+1,sy1,3);                              // hmm inner fence would overwrite; instead outline below
+    for(y=sy0+1;y<sy1-1;y+=M(4)) for(x=sx0+1;x<sx1-1;x+=M(5)) vrect(x,y,x+M(3),y+M(2),6);  // transformer/switchgear rows
+    vrect(sx0,sy0-M(7),sx0+M(10),sy0-1,2);                            // control / O&M building
+    vrect(sx0-1,sy0-M(8),sx1+1,sy1,3);                                // hmm inner fence would overwrite; instead outline below
     // re-lay the switchyard cleanly (the outline above set fence 3 over it) -> restore yard + fence ring only
-    G.rect(sx0,sy0,sx1,sy1,1); for(y=sy0+1;y<sy1-1;y+=M(4)) for(x=sx0+1;x<sx1-1;x+=M(5)) G.rect(x,y,x+M(3),y+M(2),6);
-    for(x=sx0;x<=sx1;x++){G.set(x,sy0,3);G.set(x,sy1,3);} for(y=sy0;y<=sy1;y++){G.set(sx0,y,3);G.set(sx1,y,3);}  // yard fence
-    G.rect(sx0+2,sy0-M(7),sx0+2+M(10),sy0-1,2);                      // control / O&M building (above the yard)
+    vrect(sx0,sy0,sx1,sy1,1); for(y=sy0+1;y<sy1-1;y+=M(4)) for(x=sx0+1;x<sx1-1;x+=M(5)) vrect(x,y,x+M(3),y+M(2),6);
+    for(x=sx0;x<=sx1;x++){vset(x,sy0,3);vset(x,sy1,3);} for(y=sy0;y<=sy1;y++){vset(sx0,y,3);vset(sx1,y,3);}  // yard fence
+    vrect(sx0+2,sy0-M(7),sx0+2+M(10),sy0-1,2);                        // control / O&M building (above the yard)
 
     // PANEL ARRAY FIELD: long rows of panels, vertical O&M access roads split it into blocks,
-    // an inverter/transformer pad anchors each block edge.
-    var roadXs=[]; for(x=ax0+M(30); x<ax1-M(6); x+=M(30)){ G.rect(x,ay0,x+ROAD-1,ay1,1); roadXs.push(x); }
-    var invAt=0;
-    for(y=ay0; y+ROWH<=ay1; y+=ROWH+GAP){
-      for(x=ax0; x+M(6)<ax1; x+=M(7)){
+    // an inverter/transformer pad anchors each block edge. Rows and roads are indexed off the
+    // PLANT's origin, so they run unbroken across every cell of it.
+    var roadXs=[], roadStep=M(30);
+    for(x=ax0+roadStep; x<ax1-M(6); x+=roadStep){ if(x+ROAD-1>=cx&&x<=wx1) vrect(x,ay0,x+ROAD-1,ay1,1); roadXs.push(x); }
+    var rowStep=ROWH+GAP, colStep=M(7);
+    // ONLY THE ROWS AND COLUMNS THIS CELL CAN SEE (see note 1 above). invAt still counts
+    // from the plant's first row so the inverter cadence is the plant's, not the window's.
+    var yStart=firstAt(ay0,rowStep,cy-rowStep);
+    for(y=yStart; y+ROWH<=ay1 && y<=wy1; y+=rowStep){
+      var invAt=Math.round((y-ay0)/rowStep);
+      var xStart=firstAt(ax0,colStep,cx-colStep);
+      for(x=xStart; x+M(6)<ax1 && x<=wx1; x+=colStep){
         // skip access-road columns and the substation footprint
         var onRoad=false; for(i=0;i<roadXs.length;i++) if(x+M(6)>=roadXs[i]-1 && x<=roadXs[i]+ROAD) onRoad=true;
         var inSub=(x<sx1+2 && y>sy0-M(8));
         if(onRoad||inSub) continue;
-        G.rect(x,y,x+M(6),y+ROWH-1,7);                               // a panel table (row segment)
+        vrect(x,y,x+M(6),y+ROWH-1,7);                                 // a panel table (row segment)
       }
       // an inverter/transformer pad tucked beside a road on alternating rows
-      if(roadXs.length){ var rX=roadXs[invAt%roadXs.length]; G.rect(rX-M(2),y,rX-1,y+ROWH-1,4); invAt++; }
+      if(roadXs.length){ var rX=roadXs[invAt%roadXs.length]; vrect(rX-M(2),y,rX-1,y+ROWH-1,4); }
     }
 
-    // GATE + access driveway from the street(s) to the gravel spine
+    // GATE + access driveway from the street(s) to the gravel spine. A gate belongs on the
+    // PLANT's edge, so an interior cell never punches one -- it would be a gate in the
+    // middle of a solar farm. A perimeter cell that fronts a street still gets one, which
+    // is how a real facility of this size works: a main gate plus service gates.
     var gates=[];
     streets.forEach(function(edge){
+      if(edge==='S'&&cy+H-1!==fy1) return; if(edge==='N'&&cy!==fy0) return;
+      if(edge==='E'&&cx+W-1!==fx1) return; if(edge==='W'&&cx!==fx0) return;
       if(edge==='S'||edge==='N'){ var gx=Math.floor(W*0.5), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
         for(i=-3;i<=3;i++)G.set(gx+i,gy,5); for(var s=1;s<=M(6);s++){var yy=gy+dir*s; if(!(yy>0&&yy<H-1))break; for(var w=-2;w<=2;w++)if(G.get(gx+w,yy)===7||G.get(gx+w,yy)===0)G.set(gx+w,yy,1);} gates.push({edge:edge,x:gx,y:gy}); }
       else { var gy2=Math.floor(H*0.5), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
         for(i=-3;i<=3;i++)G.set(gx2,gy2+i,5); for(var s2=1;s2<=M(6);s2++){var xx=gx2+dir2*s2; if(!(xx>0&&xx<W-1))break; for(var w2=-2;w2<=2;w2++)if(G.get(xx,gy2+w2)===7||G.get(xx,gy2+w2)===0)G.set(xx,gy2+w2,1);} gates.push({edge:edge,x:gx2,y:gy2}); }
     });
 
-    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2;})};
+    return {g:g, W:W, H:H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(g,function(v){return v===2;})};
   }
 
   // a maintenance vehicle reaches the gravel access roads (code 1) from the street gate, in ANY
@@ -18054,7 +18118,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     commercial: { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
     industrial: { mod:IND, foot:function(r){return r.footprints;},           zone:'warehouse' },
     medical:    { mod:MED, foot:function(r){return r.footprints;},           zone:'institutional' },
-    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' },
+    /* A SOLAR FARM IS ONE PLANT (8/24). The canon valley's larger solar blob is 265
+       CELLS, and without this every one of them built its own fenced plant with its own
+       substation, control building and gate. cluster:true is what hands the generator
+       the bounds of the whole field so it lays out once, in valley coordinates. */
+    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office', cluster:true },
     park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' },
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default' },
     cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },

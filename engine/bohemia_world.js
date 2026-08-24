@@ -103,7 +103,11 @@
     commercial: { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
     industrial: { mod:IND, foot:function(r){return r.footprints;},           zone:'warehouse' },
     medical:    { mod:MED, foot:function(r){return r.footprints;},           zone:'institutional' },
-    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' },
+    /* A SOLAR FARM IS ONE PLANT (8/24). The canon valley's larger solar blob is 265
+       CELLS, and without this every one of them built its own fenced plant with its own
+       substation, control building and gate. cluster:true is what hands the generator
+       the bounds of the whole field so it lays out once, in valley coordinates. */
+    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office', cluster:true },
     park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' },
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default' },
     cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },

@@ -160,8 +160,36 @@ const DEBT = {
    SAMPLED, because a full 9,216-cell sweep is ~137s and this has to live in the suite.
    Up to CAP cells per district type, spread evenly through that type's cells so the
    sample crosses different blobs, different street configs and different neighbours. A
-   type with fewer than CAP cells is swept whole. */
+   type with fewer than CAP cells is swept whole.
+
+   PLUS THE EXTREMES, ALWAYS (8/24). An evenly-spaced sample is exactly the thing that
+   misses a CORNER, and a cluster-laid district anchors its one-off features at corners --
+   the whole point of laying a plant out once in valley coordinates is that its substation
+   and control building exist ONCE, in one cell of the blob. Solar is 303 cells and its
+   control building is in one of them: a 30-of-303 spread hits it about a tenth of the
+   time, so this gate reported "solar declares a control building and never builds one"
+   about a tenth of the time and passed the rest. That is worse than a red gate, because
+   it is a FLAKY one, and it would have been read as an intermittent generator bug rather
+   than a sampling artifact. So the eight extreme cells of every type -- min and max of
+   x, y, x+y and x-y, which is the bounding box plus its diagonals -- are always in the
+   sample. Eight extra plots per type; the corner anchors stop being a coin toss. */
 const CAP = 30;
+
+/* the cells a type's corner features could be hiding in: the bounding box's extremes and
+   its diagonal extremes. Cheap, general, and it needs to know nothing about clusters. */
+function extremesOf(cells) {
+  const pick = (score) => {
+    let lo = cells[0], hi = cells[0];
+    for (const c of cells) {
+      if (score(c) < score(lo)) lo = c;
+      if (score(c) > score(hi)) hi = c;
+    }
+    return [lo, hi];
+  };
+  return [].concat(
+    pick(c => c[0]), pick(c => c[1]),
+    pick(c => c[0] + c[1]), pick(c => c[0] - c[1]));
+}
 
 const W = require(path.join(ROOT, 'engine/bohemia_world.js'));
 const world = W.world('bohemia');          // THE ONE SEED (CLAUDE.md), never a fresh one
@@ -207,8 +235,10 @@ const famUsed = new Map();      // legend object -> Set of codes actually emitte
 const famNames = new Map();     // legend object -> Set of district names using it
 for (const [type, cells] of Object.entries(cellsOf)) {
   const step = Math.max(1, Math.floor(cells.length / CAP));
-  for (let i = 0; i < cells.length; i += step) {
-    const [x, y] = cells[i];
+  const sample = new Map();     // "x,y" -> cell, so the extremes never duplicate a spread pick
+  for (let i = 0; i < cells.length; i += step) sample.set(cells[i][0] + ',' + cells[i][1], cells[i]);
+  for (const c of extremesOf(cells)) sample.set(c[0] + ',' + c[1], c);
+  for (const [x, y] of sample.values()) {
     let p = null;
     try { p = world.plot(x, y); } catch (e) { continue; }
     const g = p && p.block && p.block.grid;

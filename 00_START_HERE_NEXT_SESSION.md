@@ -31713,7 +31713,84 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/22 (b) LATEST -- *** THE GATE WAS LOOKING AT EVERY OTHER TILE, AND
+WORLD (city-1eztay): 8/24 (a) LATEST -- *** ONE SOLAR FARM, NOT 301. The biggest district
+in the valley was building a whole separately fenced power plant in EVERY ONE of its 301
+cells. Measured on the surface: 301 control buildings -> 3. ***
+Gates: solar 7/0, WALKED SURFACE 11/0 (93.3%), walkable 73/0, district fill 53/0, legend
+kept 5/0, truncation 5/0, district kit 24/0, interiors 42/0, landlocked 16/0, tilespec
+310/0, city tab 64/0, current slice 6/0, map tab 9/0, payday 35/0, squint 4/0, hue 4/0,
+art45 12/0, square icons 28/0.
+
+FIRST I KILLED MY OWN REFRAME. Yesterday's record said three neighbourhoods survive on "a
+rounding difference", which would mean EVERY front door in the valley is a one-tile slot.
+Swept all 2,399 residential-to-street boundaries: 2,377 share SEVEN OR MORE walkable tiles.
+Front doors are fine. The reframe was wrong, so the handoff's ordering stood.
+
+THEN I SIZED THE JOB INSTEAD OF TAKING THE FIRST NAME ON THE LIST. Every district whose
+cells lay out independently has the same defect, so I measured the blobs:
+    solar    303 cells, biggest blob 265   <-- twenty times farm's worst case, 3.3% of valley
+    farm      93 cells, biggest blob 9
+    downtown  28 cells, biggest 9,8        <-- repetition is CORRECT here, a city IS blocks
+    golf 9 · railyard 6 · landfill 4 · warehouse 2
+At 96 m a cell, 265 cells is 2.4 km2 -- a CORRECT size for Mojave utility solar (Copper
+Mountain is about that). The size was never the problem, the repetition was.
+
+WHAT WAS WRONG: generate() only ever got a seed and a street list, so every cell ran
+`G.frame(3)` + a substation + a control building + a gate. That is also why solar reads as a
+WALL: every cell fenced all four of its own sides, including the ones facing its own plant.
+
+THE FIX is the 8/19 cluster pattern (airport/airbase/convention/prison/dam/minigp/fort): the
+caller hands every cell THE BOUNDS OF ITS BLOB, the plant lays out ONCE in valley
+coordinates, each cell keeps its own 128x128 window. `cluster:true` in world.js DISTGEN +
+solar added to CLUSTER_KIT on the page. TWO THINGS THE AIRFIELD NEVER HAD TO HANDLE:
+  1. SPEED. At 265 cells the field is ~2,560 tiles across, so naive clip-to-window is 6.5M
+     iterations x 265 cells. Every loop now starts at the first index that can touch THIS
+     cell. Measured on a 280-cell plant: 0.30 ms per cell.
+  2. NO BOUNDS MUST STILL MEAN THE OLD PLOT. 20 of 20 plots BYTE-IDENTICAL, 5 seeds x 4
+     street configs. That test earned its keep instantly -- the first version failed all 20,
+     because fx1 is a last INDEX and the old code measured its setback off the WIDTH. One
+     +1, found in seconds by a test that can only answer yes or no.
+
+MEASURED, ON THE SURFACE, across all 301 solar cells in the live valley:
+    cells with a control building   301 ->    3    (one per field)
+    cells with a gate               301 ->   84    (perimeter cells fronting a street)
+    fence tiles                ~262,000 -> 22,214  (the plants' outsides only)
+On a synthetic 3x3 plant the interior seam carries THE SAME CODE ON 128 OF 128 ROWS with
+ZERO fence tiles on it. The rows run through.
+Walked surface 93.2% -> 93.3% (+9 cells, all mountain that was cut off behind a fence that
+should not have existed). The desert pocket at 6,0/6,1/6,2 is STILL sealed and that is now
+CORRECT -- its only non-mountain neighbour is the plant's real outer fence.
+
+A GATE THAT WOULD HAVE GONE FLAKY, CAUGHT BY ITS OWN FAILURE. legend_kept went red on
+solar(2,6). True of the sample, false of the world: it takes 30 evenly-spaced cells per type
+and the control building now exists in ONE cell of 303, so it would have passed nine runs in
+ten and failed the tenth -- read as an intermittent generator bug. A FLAKY GATE IS WORSE
+THAN A RED ONE. Fixed generally, not special-cased: the sample now always includes the eight
+EXTREME cells of a type (min/max of x, y, x+y, x-y). An evenly-spaced sample is precisely
+what misses a CORNER, and a corner is where a cluster-laid district anchors its one-offs.
+DEBT UNCHANGED AT 31 -- the two entries that vanished were the false solar ones this change
+had just created, not real debt paid down.
+
+THE FRESHNESS CLASS FIRED AGAIN (third time this week): current_slice 4/2 and map_tab 8/1
+after an engine module changed, because both embed module bodies and stamp their md5. Both
+name their own rebuild tool in the failure text. Rebuilt, both green. CHECK THIS BY REFLEX
+AFTER ANY engine/ EDIT: city_tab, current_slice, map_tab, payday.
+
+NEXT IN THIS LANE, IN ORDER
+  1. THE SAME FIX FOR GOLF (9 cells) AND RAILYARD (6), then LANDFILL (4). Single blobs, one
+     facility each, same shape of change with a fraction of solar's blast radius. Copy
+     engine/bohemia_solar.js's generate() -- the vset/vrect/firstAt trio plus the
+     byte-identical-single-cell test is the whole recipe.
+  2. FARM (38 cells across 13 multi-cell blobs) is messier: it hard-codes a farmstead at the
+     SE of EVERY cell, so the anchor has to move to the blob, not just the coordinates.
+  3. WAREHOUSE (2 cells) -- do it when farm is done, not worth a turn alone.
+  4. LEAVE COMMERCIAL AND DOWNTOWN ALONE. Adjacent blocks repeating is what a city IS.
+  5. Still open from 8/22: the aperture mismatch (13 cells) and the midpoint keep-out where a
+     street stands a mass across a neighbourhood's gate (2 cells).
+  6. 34 unplaced legend codes across 22 families (legend_kept ratchet, green at 31 declared).
+Record: records/BOHEMIA_ONE_SOLAR_FARM_NOT_301_8_24_26.md
+
+WORLD (city-1eztay): 8/22 (b) -- *** THE GATE WAS LOOKING AT EVERY OTHER TILE, AND
 A DRIVEWAY IS ONE TILE WIDE. Three neighbourhoods were reported sealed that you can walk
 straight out of. Sixth ruler this week. ***
 Gates: WALKED SURFACE 11/0 (93.2% reachable, 99.9% own-module), landlocked 16/0, walkable
