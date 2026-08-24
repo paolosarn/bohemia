@@ -1,3 +1,53 @@
+SOUND (sound-xk7pjp): 8/24 (d) LATEST -- *** THE DEMO WENT FROM 5 OF 10 BEATS MAKING
+A SOUND TO 10 OF 11. TAB: RUN (tap anything). Nothing to judge. ***
+
+THE GAME NOW ANSWERS A TAP IN EVERY FRAME. The shell has ticked its own buttons since
+8/12; the CITY and the PHONE never did, and it was never a design decision -- that handler
+is bound to the PARENT document and a click inside an iframe never reaches it. Same policy
+mirrored into both, not reinvented: a refusal is ui_deny, a way out is ui_back, everything
+else is ui_tap. All three approved, all three his.
+
+*** I MISREAD HIS 8/4 RULING LAST TURN AND WROTE THE WRONG REASON INTO THIS FILE. *** I
+said wiring city taps would hit "I CANT HEAR THE SOUNDS IF THE UI THAT PLAYS SOUNDS
+EVERYTIME I CLICK A BUTTON". Re-read on the surface that implements it: that is NOT a ban
+on UI sound. The shell's own handler says "every button on the phone is a UI TAP, EXCEPT
+ON A SURFACE WHOSE JOB IS PLAYING A SOUND", excluded BY CONTAINER (#sfxWrap, #sbWrap,
+#mixWrap, the music transport, [data-noui]). UI taps ARE the design; the exclusion is
+sound-judging surfaces, and neither the city nor the phone has one. READ THE RULING ON THE
+SURFACE THAT IMPLEMENTS IT, not from memory of it.
+
+TWO THINGS ARE DELIBERATELY EXCLUDED, both to avoid stacking two sounds on one click --
+which IS the thing his 8/4 ruling is actually about: the movement pad (already makes a
+FOOTSTEP) and SLEEP / the day-card GO (already carry come_up and sleep_sink).
+
+THE PHONE POSTS TO window.top, NOT window.parent. It is a child of the CITY, which is a
+child of the shell, and only the shell owns the audio bus and the approved bank. Posting
+to `parent` lands in the city and stops there -- mutation-proved, that exact mutation goes
+red.
+
+AND THE PHONE IS A GENERATED FILE. BOHEMIA_CURRENT_SLICE.html is built by
+tools/build_current_slice.js from slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html. THE
+SOURCE WAS PATCHED, NOT THE OUTPUT -- an edit to the output is erased by the next rebuild,
+which is the exact failure class this lane has been finding all week. Checked the two were
+byte-for-byte in sync BEFORE rebuilding, so nobody else's pending work got swept in.
+
+*** A TOO-NARROW MATCHER COST ME A ROUND AGAIN, THE FOURTH THIS WEEK. *** The first city
+handler matched only `button` -- and the city's controls are DIVS (#phonebtn, #musbtn,
+#savebtn). Measured silent on the walk, fixed to #topbar>div / #devtray>div. THE WALK
+CAUGHT IT; no amount of reading would have.
+
+  10 of 11 beats sound. The one that does not is the splash BEFORE he touches anything:
+  no gesture means no audio context, which is a browser law, not a defect.
+
+  demo_sound 12/0 · sfx_wired 907/0 · silent_moments 38/0 · sting_audible 30/0
+  no_cash 10/0 · the_whole_demo 21/0 · first_night 53/0
+  records/BOHEMIA_WHAT_THE_DEMO_SOUNDS_LIKE_8_22_26.md
+
+WHAT COMES NEXT: TAKING THE JOB gets a TICK, not a fanfare. It is the pivot of ONE GOOD
+DAY and arguably wants a sound of its own, but there is no approved candidate for "you
+accepted work" and inventing a moment he has not ruled on is not this lane's call. If any
+cook comes next, that is the one -- ONE sound, and nothing else.
+
 CHARACTER (character-0lurbs): 8/24 (a) LATEST -- *** THE HARDWARE. Row 2X step 5, fourth
 pass, and the biggest single jump: 66 of 200 -> 44 of 204 with no fine detail. ***
 

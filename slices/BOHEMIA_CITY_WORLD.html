@@ -38820,6 +38820,48 @@ function showStanding(){
 
 document.getElementById('rungbtn').addEventListener('click', showStanding);
 /* ==== end WHERE YOU STAND WITH THE CITY ==== */
+/* __THE_CITY_ANSWERS_A_TAP__ (8/22, SOUND lane) -- the shell has ticked its own
+   buttons since 8/12 and the city never has, purely because that handler is
+   bound to the PARENT document and a click inside an iframe never reaches it.
+   Same policy as the shell's, mirrored rather than reinvented: a refusal is
+   ui_deny, a way out is ui_back, everything else is ui_tap, all three his and
+   all three approved. Read off what the button ALREADY says -- never a new
+   attribute nobody sets.
+   TWO THINGS ARE EXCLUDED AND BOTH FOR THE SAME REASON: the movement pad
+   already makes a FOOTSTEP, and SLEEP and the day-card GO already carry their
+   own moment sound (sleep_sink, come_up). Stacking a tick on top of those is
+   exactly the two-sounds-on-one-click problem he complained about on 8/4, which
+   is the thing this policy exists to avoid, not to cause. [data-noui] stays the
+   escape hatch for any panel built later. */
+(function(){
+  var NOUI='#pad,#sleepbtn,.dcgo,[data-noui]';
+  document.addEventListener('click',function(e){
+    try{
+      var t=e&&e.target; if(!t||!t.closest) return;
+      if(t.closest(NOUI)) return;
+      /* THE CITY'S CONTROLS ARE DIVS, NOT BUTTONS. The first version of this
+         matched only `button` and missed #phonebtn entirely -- measured silent
+         on the walk, which is the fourth time this week a too-narrow matcher
+         has told me something was missing when it was my selector that was.
+         The city's chrome is #topbar and #devtray, one div per control, so ask
+         for a direct child of those (closest() resolves the badge SPAN inside
+         PHONE up to the control itself). */
+      var btn=t.closest('button')||t.closest('.dcbtn')||t.closest('.tab')||t.closest('.opt')
+             ||t.closest('#topbar>div')||t.closest('#devtray>div');
+      if(!btn) return;
+      var lab=(((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+                (btn.textContent||''))).trim().toLowerCase();
+      var refused = btn.disabled===true
+                 || (btn.classList && (btn.classList.contains('off')
+                                    || btn.classList.contains('disabled')));
+      var ev = refused ? 'ui_deny'
+             : (/^(back|close|cancel|done|x|<|\u2039|\u00d7|\u2190)$/.test(lab) ? 'ui_back'
+             : 'ui_tap');
+      if(window.parent&&window.parent!==window)
+        window.parent.postMessage({bohemiaCitySfx:{ev:ev}},'*');
+    }catch(_e){}
+  },true);
+})();
 document.getElementById('sleepbtn').addEventListener('click',function(){
   if(DAY.phase!=='awake')return;
   /* __SETTLING IN IS A SOUND HE PICKED__ (8/22, SOUND lane) -- sleep_sink is
