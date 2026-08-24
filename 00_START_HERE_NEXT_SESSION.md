@@ -603,6 +603,50 @@ NEXT IN THIS LANE
 
 ---
 
+WORLD (world-9lfjtf): 8/23 (c) LATEST -- *** THE LIGHT TOWER: THE REFUSAL BECOMES A ROUTE.
+TAB: CITY (speedway, ballpark, school, stadium). ***
+
+Both prop matchers have refused /tower|mast|floodlight/ since the streetlight rule shipped.
+That was CORRECT AND NOT A FIX: a stadium mast is not a cobra head, and the lamp sprite on
+speedway's 5x5 blobs would have stood 25 ornamental lanterns. The refusal was a promise to
+come back with the right art. speedway:12 (100 tiles, blobs of 25), ballpark:12 (54),
+school:12 (40), stadium:12 (12).
+COOKED WITH THE SAME TOOLKIT AS THE POLE -- ellipse_disc, bowed_band, cyl_index, bow from the
+traffic-signal factory. A third hand-rolled 3/4 renderer is what FACTORY LAW exists to stop.
+Anatomy researched: tapered steel mast 20-50 m, flanged in sections, a HEADFRAME carrying 2-3
+ROWS of floodlights, external ladder access. ~A QUARTER OF THE HEADS ARE GONE (housing empty,
+lens out) because a complete lamp set after a decade claims somebody maintains this ground --
+not my claim to make. Stands at the CENTRE of its own base, not the corner: every other family
+anchors top-left, right for a bin and wrong for a mast bolted to a 5x5 pad.
+art_45_gate passes it (ellipse base widest row 13 above bottom, 27 vs 11 px; top-lit 62 vs
+wall 30). Standing: speedway 8, ballpark 12, school 12, stadium 10 per two cells. props_gate 76.
+
+*** AND THE GATE FAILED ON ITS OWN REFLECTION -- three times, one cause. *** Adding the route
+turned SIX props-gate checks red at once and EVERY ONE WAS THE GATE, NOT THE PAGE:
+  1. the gate carried a LOCAL RE-IMPLEMENTATION of __propFamily with the old blanket refusal
+     baked in -- the exact criticism this gate makes of importing the tool under test, written
+     into the gate by me;
+  2. fixed to run the page's real matcher, it failed again because that function takes a
+     LEGEND ENTRY and the copy took a bare string, so every lookup read entry.name===undefined;
+  3. and one expectation was simply out of date: ['light tower', null] was true yesterday.
+A GATE THAT DESCRIBES THE CODE INSTEAD OF RUNNING IT GOES STALE THE MOMENT THE CODE MOVES.
+
+NEXT IN THIS LANE
+  - THE 41 dead legend codes (gates/dead_code_gate.js prints the list). Trustworthy now that
+    it reads the BUILT valley; interchange:14 sign gantry and the several `marking` codes
+    nothing draws are the obvious ones.
+  - A CLUSTER MAILBOX (CBU) is the honest Vegas answer for tract mail; corpus has none, so it
+    is a cook. Small, and it is the last obvious missing suburb object.
+  - THE SEVEN BARE DISTRICTS: airbase, airport, ballpark, fueldepot, mountain, reservoir,
+    solar. ballpark just gained towers; mountain and reservoir are terrain and correctly bare.
+
+*** THE CONTAINER HAS NOW REVERTED TO A FOREIGN BRANCH THREE TIMES IN ONE SESSION. *** The
+branch name is reused across sessions. Every time: verify my ships are ancestors of
+origin/main, verify their commits are too, confirm the tree is missing content main HAS, then
+reset. Nothing has ever been lost. DIFF AGAINST origin/main BEFORE BELIEVING A CONTAINER.
+
+---
+
 WORLD (world-9lfjtf): 8/23 (b) LATEST -- *** I ALMOST PUBLISHED "THE AIRPORT HAS NO
 AIRCRAFT" AND IT WAS MY INSTRUMENT AGAIN. Plus a gate so nobody repeats it. ***
 

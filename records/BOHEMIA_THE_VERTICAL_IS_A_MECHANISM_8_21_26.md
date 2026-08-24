@@ -369,3 +369,46 @@ was wrong, so the description changed.
 
 `gates/art_45_gate.py` passes it: *ellipse base (widest row 11 above bottom, 23 vs 11 px wide),
 top-lit 62 vs wall 30.* props_gate is at **67 checks**.
+
+
+---
+
+## THE LIGHT TOWER (8/23) — the refusal becomes a route
+
+When the streetlight rule lit forty-two districts, both matchers explicitly refused
+`/tower|mast|floodlight/`. That was **correct and it was not a fix**: a stadium mast is not a
+cobra head, and the lamp sprite on speedway's 5×5 blobs would have stood twenty-five
+ornamental lanterns and called it a floodlight tower. The refusal was a promise to come back
+with the right art.
+
+```
+speedway:12  100 tiles, blobs of 25     ballpark:12  54     school:12  40     stadium:12  12
+```
+
+Cooked with the same toolkit as the power pole — `ellipse_disc`, `bowed_band`, `cyl_index`,
+`bow` from the traffic-signal factory. A third hand-rolled three-quarter renderer is what
+FACTORY LAW exists to stop. Anatomy researched: a tapered steel mast 20-50 m, flanged in
+sections, carrying a **headframe** with two or three **rows** of floodlights, and external
+ladder access. About a quarter of the heads are **gone** — housing empty, lens out — because a
+complete lamp set after a decade would be claiming somebody maintains this ground, and that is
+a claim about who holds what, not mine to make.
+
+It stands at the **centre of its own base**, not the corner: every other family anchors
+top-left, which is right for a bin and wrong for a mast bolted to a 5×5 pad.
+
+`art_45_gate` passes it — *ellipse base (widest row 13 above bottom, 27 vs 11 px), top-lit 62
+vs wall 30.* Standing in the valley: speedway 8, ballpark 12, school 12, stadium 10 per two
+cells.
+
+### And the gate failed on its own reflection
+
+Adding the route turned **six** props-gate checks red at once, and every one of them was the
+gate rather than the page. The gate carried a **local re-implementation** of `__propFamily`
+with the old blanket refusal baked into it — the exact criticism this same file makes of
+importing the tool under test, written into the file by me. Fixed to run the page's real
+matcher. Then it failed again, because the real function takes a **legend entry** and the copy
+took a bare string, so every lookup read `entry.name === undefined`. And one expectation was
+simply out of date: `['light tower', null]` was true yesterday and is false today.
+
+Three failures, one cause: **a gate that describes the code instead of running it goes stale
+the moment the code moves.**

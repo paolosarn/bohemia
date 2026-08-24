@@ -239,6 +239,23 @@ def main():
                 'pack': 'commissioned/power_pole', 'idx': i, 'w': w, 'h': h,
                 'opaque': opaque, 'b64': e['b64']})
 
+    TOWERS = 'banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt'
+    if os.path.exists(TOWERS):
+        tb = json.load(open(TOWERS, encoding='utf-8'))
+        for i, e in enumerate(tb.get('towers', [])):
+            dec = decode(e['b64'])
+            if not dec:
+                killed.append(('lighttower', 'commissioned', i, ['NOT A PNG']))
+                continue
+            raw, w, h = dec
+            bad, opaque = law_violations(pixels(raw))
+            if bad:
+                killed.append(('lighttower', 'commissioned', i, bad))
+                continue
+            kept.setdefault('lighttower', []).append({
+                'pack': 'commissioned/light_tower', 'idx': i, 'w': w, 'h': h,
+                'opaque': opaque, 'b64': e['b64']})
+
     for fam, pack, idx in CANDIDATES:
         b64 = packs.get(pack, {}).get(idx)
         if not b64:

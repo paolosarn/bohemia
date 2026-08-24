@@ -64,6 +64,11 @@ FOOTPRINT = {
     # ~15 cells, which would be absurd on screen, so it reads at the lamp's scale plus a half
     # again, the same compression every vertical in this game already uses.
     'pole':      [1.80, 4.50, 3.50],
+    # A STADIUM MAST IS THE TALLEST THING IN THE VALLEY THAT IS NOT A BUILDING. Real ones run
+    # 20-50 m; at TILE=0.75 the low end alone is 27 cells, so like every vertical here it is
+    # compressed -- but it must still read as taller than the pole, which is the whole reason
+    # it could not borrow the lamp.
+    'lighttower':[3.20, 9.00, 7.50],
 }
 
 if not os.path.exists(BANK):

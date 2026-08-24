@@ -103,7 +103,11 @@ var PROP_NAME = [
 ];
 function __propFamily(entry){
   var n=String((entry&&entry.name)||''); if(!n) return null;
-  /* a TOWER or a MAST is never one of these, same refusal the lamp matcher makes */
+  /* THE REFUSAL IS NOW AN ANSWER. This used to return null for anything matching
+     /tower|mast|floodlight/ because a stadium mast is not a cobra head and the lamp sprite on
+     a 5x5 blob would have stood 25 ornamental lanterns. The right art exists as of 8/23, so
+     the refusal becomes a ROUTE -- to its own family, never to the lamp. */
+  if(/light tower|floodlight mast|pole \/ light tower/i.test(n)) return 'lighttower';
   if(/tower|mast|floodlight/i.test(n)) return null;
   for(var i=0;i<PROP_NAME.length;i++) if(PROP_NAME[i][0].test(n)) return PROP_NAME[i][1];
   return null;
@@ -150,7 +154,19 @@ function __propFamily(entry){
     if(!c.lamp && !c.post){ var _pf=__propFamily(entry);
       if(_pf && PROP_IMG[_pf] && PROP_IMG[_pf].length){
         var _ph=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
-        if(_pf==='rubble'){
+        if(_pf==='lighttower'){
+          /* AT THE CENTRE OF ITS OWN BASE. Every other family anchors top-left, which is right
+             for a bin and wrong for a mast: speedway authors these as 5x5 blobs, and a
+             corner-anchored tower stands at the edge of the concrete it is bolted to. The run
+             cross through this cell gives the blob's extent, so the middle is findable without
+             a flood fill. */
+          var _tox=lx; while(_tox>0 && m.kit[ly*FN+_tox-1]===code) _tox--;
+          var _tex=lx; while(_tex<FN-1 && m.kit[ly*FN+_tex+1]===code) _tex++;
+          var _toy=ly; while(_toy>0 && m.kit[(_toy-1)*FN+lx]===code) _toy--;
+          var _tey=ly; while(_tey<FN-1 && m.kit[(_tey+1)*FN+lx]===code) _tey++;
+          if(lx===((_tox+_tex)>>1) && ly===((_toy+_tey)>>1))
+            c.post={p:_pf, v:_ph%PROP_IMG[_pf].length};
+        } else if(_pf==='rubble'){
           /* A FIELD IS SCATTERED, NOT ANCHORED. One-per-blob is right for a bin and absurd
              for rubble: basin authors 1,736 debris tiles in one plot and rail 1,001, so a
              single anchored sprite would be one heap the size of a city block. Rubble emits

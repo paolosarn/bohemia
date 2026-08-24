@@ -154,7 +154,7 @@ ok('every family declares [width, height, rise] in CELLS -- a 96px master cannot
 // pole are three and three-and-a-half cells of rise on purpose; a bin that quietly acquired
 // that would tower over the houses and nothing else would complain.
 ok('nothing is streetlight-tall by accident (only the lamp and the pole rise past 1 cell)',
-   Object.keys(fp).every(f => f === 'lamp' || f === 'pole' || fp[f][2] <= 1.0));
+   Object.keys(fp).every(f => f === 'lamp' || f === 'pole' || f === 'lighttower' || fp[f][2] <= 1.0));
 ok('the pole is the tallest thing on the street, taller than the lamp -- that is the point of it',
    Array.isArray(fp.pole) && fp.pole[1] > fp.lamp[1] && fp.pole[2] > fp.lamp[2]);
 
@@ -237,6 +237,31 @@ ok('the suburb legend names code 15 a fire barrel',
      'out of the wind and out of sight', onFrontage === 0);
 }
 
+// ---------------------------------------------------------------- the light tower
+// The last family both matchers refused ON PURPOSE: a stadium mast is not a cobra head, and
+// the lamp sprite on speedway's 5x5 blobs would have stood 25 ornamental lanterns. The refusal
+// was a promise to come back with the right art (8/23), so it is now a ROUTE, never a null.
+ok('the bank carries the commissioned light towers',
+   Array.isArray(bank.families.lighttower) && bank.families.lighttower.length >= 4);
+ok('a mast is TALLER THAN THE POLE, which is the whole reason it could not borrow the lamp',
+   Array.isArray(fp.lighttower) && fp.lighttower[1] > fp.pole[1] && fp.lighttower[2] > fp.pole[2]);
+ok('it stands at the CENTRE of its own base, not the corner (speedway authors 5x5 blobs)',
+   /_pf==='lighttower'/.test(page) &&
+   /lx===\(\(_tox\+_tex\)>>1\) && ly===\(\(_toy\+_tey\)>>1\)/.test(page));
+ok('the tower bank registers in the 45 DEGREE LAW gate',
+   /BOHEMIA_LIGHT_TOWER_8_23_26\.txt'?,\s*'towers'/.test(
+     fs.readFileSync(path.join(REPO, 'gates/art_45_gate.py'), 'utf8')));
+{
+  const tb = path.join(REPO, 'banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt');
+  ok('the commissioned tower bank declares the 45 perspective', fs.existsSync(tb) &&
+     /45deg three-quarter/.test(JSON.parse(fs.readFileSync(tb, 'utf8')).perspective || ''));
+  const src = fs.readFileSync(path.join(REPO, 'tools/bohemia_light_tower_factory.py'), 'utf8');
+  ok('it reuses the traffic-signal toolkit rather than a third 3/4 renderer',
+     /from bohemia_traffic_signal_factory import/.test(src) && /ellipse_disc/.test(src));
+  ok('ACT ONE: some heads are simply GONE (a complete lamp set claims somebody maintains it)',
+     /dead_out/.test(src) && /seed_r\(\) < 0\.28/.test(src));
+}
+
 // ---------------------------------------------------------------- the wiring
 ok('the page holds ONE name->family table', /var PROP_NAME = \[/.test(page) && /function __propFamily\(/.test(page));
 ok('the kit path asks the table', /__A_VERTICAL_IS_A_FAMILY_KIT__/.test(page) && /__propFamily\(entry\)/.test(page));
@@ -255,16 +280,35 @@ const m = /var PROP_NAME = (\[[\s\S]*?\]);\nfunction __propFamily/.exec(page);
 ok('the name table parses', !!m);
 if (m) {
   const table = eval(m[1]);
-  const famOf = (n) => { if (/tower|mast|floodlight/i.test(n)) return null;
-    for (const [re, f] of table) if (re.test(n)) return f; return null; };
+  // USE THE PAGE'S OWN MATCHER, NOT A COPY OF IT. This was a re-implementation that carried
+  // the OLD blanket refusal of /tower|mast|floodlight/, so the moment that refusal became a
+  // ROUTE to the commissioned tower the gate failed a rule the page satisfies. A gate that
+  // carries its own copy of the thing it checks is checking itself -- the same criticism this
+  // file makes of importing the tool under test, and I wrote it into the file anyway.
+  // IT TAKES A LEGEND ENTRY, NOT A STRING. The local copy this replaced took a bare name, so
+  // handing the real function a string made every lookup read entry.name === undefined and
+  // return null -- six checks failed at once and every one of them was the gate, not the page.
+  const fnSrc = /function __propFamily\(entry\)\{[\s\S]*?\n\}/.exec(page);
+  const real = fnSrc ? new Function('PROP_NAME', fnSrc[0] + '\nreturn __propFamily;')(table)
+                     : (() => null);
+  const famOf = (n) => real({ name: n });
+  ok('the page defines __propFamily and this gate runs THAT, not a copy', !!fnSrc);
   const CASES = [['dumpster', 'dumpster'], ['trash bin / wheeled cart', 'bin'],
                  ['bench / planter', 'bench'], ['loose pallets', 'pallet'],
                  ['barricade post', 'barricade'], ['mailbox kiosk', 'mailbox'],
-                 ['light tower', null], ['light mast', null], ['sidewalk', null]];
+                 // 'light tower' USED to be null on purpose; as of 8/23 it has its own art
+                 // and its own family, so the expectation moves with the game.
+                 ['light tower', 'lighttower'], ['light mast', null], ['sidewalk', null]];
   const wrong = CASES.filter(([n, want]) => famOf(n) !== want).map(([n]) => n);
   ok('the table resolves the names the valley actually authors, and refuses towers/masts' +
      (wrong.length ? ' -- wrong: ' + wrong.join(', ') : ''), wrong.length === 0);
   ok('"power pole" routes to the commissioned pole', famOf('power pole') === 'pole');
+  // THE REFUSAL BECAME A ROUTE. These four names must reach the tower and NEVER the lamp.
+  ok('every authored light-tower name routes to the tower family, not to null and not to the lamp',
+     famOf('light tower') === 'lighttower' &&
+     famOf('light tower / floodlight mast') === 'lighttower' &&
+     famOf('pole / light tower') === 'lighttower' &&
+     famOf('light mast') === null);
   ok('every family the table can name exists in the bank',
      table.every(([, f]) => famsBank.indexOf(f) >= 0));
   // ORDER MATTERS HERE: a burning barrel and a dead drum are different objects and the

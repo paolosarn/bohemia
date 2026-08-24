@@ -48,6 +48,11 @@ REGISTRY = [
     # standing set and 27 unopened street packs found no distribution pole anywhere, so this
     # one is a commissioned original and registers here like every other.
     ('banks/BOHEMIA_POWER_POLE_8_23_26.txt', 'poles', 'prop'),
+    # 8/23: the light tower. speedway/ballpark/school/stadium all author one and BOTH prop
+    # matchers refuse /tower|mast|floodlight/ on purpose -- a stadium mast is not a cobra head,
+    # and the lamp sprite on a 5x5 blob would stand 25 ornamental lanterns. The refusal was a
+    # promise to come back with the right art; this is it.
+    ('banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt', 'towers', 'prop'),
 ]
 
 P = F = 0
