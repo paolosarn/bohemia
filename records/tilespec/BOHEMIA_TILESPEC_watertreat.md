@@ -32,18 +32,18 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2583 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2561 |
 | 1 | `#45433c` | service road | drive | the plant service road — a car reaches the structures from the gate (drivable) | ground | no | — | 341 |
 | 2 | `#6f665a` | building (control / blower / chem) | building | the control house / blower room / chemical building, dark, gauges dead | structure | yes | plant interior: the control room + pump/blower gallery up front, the chemical + lab rooms behind | 1741 |
-| 3 | `#3a4020` | dead brush | tree-dead | dead brush caught in the perimeter fence | prop | no | — | — |
-| 4 | `#5a584f` | dry basin floor | ground | the cracked dry concrete of a drained basin / the plant deck | ground | no | — | 6934 |
+| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the perimeter fence | prop | no | — | 22 |
+| 4 | `#5a584f` | dry basin floor | ground | the cracked dry concrete of a drained basin / the plant deck | ground | no | — | 6929 |
 | 5 | `#c79a3f` | gate | gate | the plant service gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#7a7268` | clarifier wall / core | structure | the concrete wall + centre core of a circular clarifier tank (the round-tank rim) | structure | yes | — | 499 |
 | 7 | `#46585a` | aeration / filter basin | ground | a drained aeration basin / filter cell — cracked floor, walls water-stained dark | ground | no | — | 2125 |
 | 8 | `#8a8478` | pipe gallery / catwalk | structure | a steel pipe gallery / catwalk / clarifier sweep arm, rusted | structure | yes | — | 1628 |
 | 9 | `#8f8676` | pole light | prop | a plant pole light, head dark | prop | yes | — | 5 |
 | 10 | `#5a5240` | crusted sludge / scum | ground | crusted dried sludge / scum drifted in the basins + on the deck | ground | no | — | 20 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard / valve paint on the deck | ground | no | — | — |
+| 11 | `#c9c1aa` | marking | marking | faded hazard / valve paint on the deck | ground | no | — | 5 |
 | 12 | `#6a6a72` | perimeter fence | structure | the chain-link plant perimeter fence, wire sagging | structure | yes | — | 503 |
 
 **Gate:** `gates/watertreat_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

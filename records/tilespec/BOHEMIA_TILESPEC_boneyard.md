@@ -36,12 +36,12 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#4a4438` | dirt drive lane | drive | the rutted dirt lane between the car rows — a loader/car reaches every row (drivable) | ground | no | — | 1328 |
 | 2 | `#6a5f50` | building (office / parts) | building | the salvage office + parts counter, window smashed, ledger gone | structure | yes | office interior: the parts counter + a wall of pull tickets up front, a parts shelving room behind | 465 |
 | 3 | `#3f382c` | scrap / tire pile | tree-dead | a heap of bald tires / twisted scrap metal | prop | yes | — | 52 |
-| 4 | `#565040` | dirt yard ground | ground | the oil-dark packed-dirt yard the wrecks sit on | ground | no | — | 6242 |
+| 4 | `#565040` | dirt yard ground | ground | the oil-dark packed-dirt yard the wrecks sit on | ground | no | — | 6238 |
 | 5 | `#c79a3f` | gate | gate | the salvage gate off the street, amber curb, chain hanging | portal | no | — | 7 |
 | 6 | `#8a5040` | wrecked car (rust) | vehicle | a wrecked car in the row, rusted to oxide-red, stripped for parts | prop | yes | — | 1355 |
 | 7 | `#453d34` | crushed-car stack | structure | a wall of flattened, crushed cars stacked for the baler | structure | yes | — | 513 |
 | 8 | `#c8a03a` | crane / crusher | structure | the claw crane + mobile crusher, boom seized, yellow paint faded | structure | yes | — | 295 |
-| 9 | `#8f8676` | pole light | prop | a yard pole light, head dark | prop | yes | — | — |
+| 9 | `#8f8676` | pole light | prop | a yard pole light, head dark | prop | yes | — | 4 |
 | 10 | `#2a2620` | oil / fluid stain | ground | oil + fluid stained into the dirt under the wrecks | ground | no | — | 157 |
 | 11 | `#c9c1aa` | marking (scale/aisle) | marking | the truck-scale pad + faded aisle/row markers | ground | no | — | 396 |
 | 12 | `#6a6a72` | perimeter fence | structure | the salvage-yard security fence, wire + barbed top sagging | structure | yes | — | 501 |

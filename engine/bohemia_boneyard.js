@@ -54,7 +54,13 @@
     // ---- TIRE + SCRAP piles, oil stains, pole lights ----
     for(i=0;i<9;i++){ var px=12+Math.floor(r()*100), py=14+Math.floor(r()*100); if(get(px,py)===4){ G.disc(px,py,2,3); } } // scrap/tire piles
     for(i=0;i<26;i++){ var ox=8+Math.floor(r()*104), oy=12+Math.floor(r()*104); if(get(ox,oy)===4&&r()<0.5)set(ox,oy,10); } // oil-stained dirt
-    [[9,14],[106,14],[9,100],[70,100]].forEach(function(p){ set(p[0],p[1],9); });
+    /* THE FOUR YARD LIGHTS WERE PLACED AND THEN PAVED OVER (8/23). They stood at [9,14],
+       [106,14], [9,100] and [70,100] -- and the west spine (x 7-9), the east spine (x 106-108)
+       and the cross lane (y 100-103) are all drawn BELOW this line, so every one of the four
+       was overwritten by a dirt lane before the plot was returned. gates/dead_code_gate.js
+       reported boneyard:9 absent from 160 built cells and it was right: this yard has been
+       pitch dark since it was written. A POLE LIGHT STANDS BESIDE A LANE, NOT IN IT, so they
+       moved off the drive network entirely and now go down LAST -- see below the gate. */
 
     // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
     var gx=W>>1;
@@ -65,6 +71,12 @@
     G.rect(8,100,120,103,1);                                            // a cross lane tying the rows to the gate
     G.rect(7,14,9,103,1); G.rect(106,14,108,103,1);                     // west + east spines tying every row-lane to the cross lane
     for(i=-3;i<=3;i++)set(gx+i,H-1,5);                                  // the street gate LAST, so the lane can't erase it
+    // THE YARD LIGHTS, AFTER EVERYTHING (see the note up in the props block). Two on the clear
+    // strip between the fence and the first row of wrecks, two on the landside apron past the
+    // cross lane and clear of the office, the scale and the entrance lane. A wrecking yard
+    // lights the ground it works, and the reason to draw them last is that nothing in this
+    // generator can then take them away again.
+    [[12,11],[104,11],[75,108],[100,108]].forEach(function(p){ set(p[0],p[1],9); });
     return g;
   }
 

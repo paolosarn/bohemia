@@ -47,7 +47,18 @@
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE HAZARD PAINT ON THE GRAVEL (code 11), 8/23. This district authored the row -- "faded
+       hazard / bay markings on the gravel" -- and never once placed it, one of nine that did
+       the same. gates/dead_code_gate.js found the class; K.stencil is the shared machine.
+       On the gravel yard (4) where it meets a bay: the paint marks the working area round the
+       switchgear, which is exactly where a substation paints it. */
+    K.stencil(g, {on:4, near:7, mark:11, count:5, seed:(seed>>>0)||1});
+    /* AND THE BRUSH IN THE DOUBLE FENCE (code 3), authored and never placed. A switchyard is
+       sprayed and graded for a reason -- brush against a grounded fence is how the fence stops
+       being a fence -- so brush in it says the last person with a licence left a decade ago. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:((seed>>>0)^0x5b3)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
   var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6a6358',3:'#3f382c',4:'#514d44',5:'#c79a3f',6:'#7a7268',

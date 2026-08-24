@@ -37,14 +37,14 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#5c5140` | haul road | drive | the haul ramp spiralling down the benches, graded wide enough for a rock truck (drivable) | ground | no | — | 2156 |
 | 2 | `#6e6558` | building (crusher house / plant) | building | the primary crusher house, its feed hopper empty, the belts hanging | structure | yes | the quarry building interior: the working room at the front, stores and plant behind it | 407 |
 | 3 | `#3f382c` | dead brush | tree-dead | creosote holding on at the quarry rim, in the last soil the blasting has not reached yet | prop | yes | — | 124 |
-| 4 | `#8a8070` | quarry floor | ground | the blasted floor of a bench, white rock dust over everything | ground | no | — | 3720 |
+| 4 | `#8a8070` | quarry floor | ground | the blasted floor of a bench, white rock dust over everything | ground | no | — | 3716 |
 | 5 | `#c79a3f` | gate | gate | the quarry gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#a49a86` | rock bench | structure | a cut bench of limestone, the drill lines still visible up its face | structure | yes | — | 1138 |
 | 7 | `#b8ae98` | bench lip / crest | structure | the crest of the bench, loose rock along the edge where nobody has scaled it | structure | no | — | 207 |
 | 8 | `#5e6a68` | pit water | water-dead | water standing in the bottom of the pit, gone the colour of the rock | ground | no | — | 1835 |
 | 9 | `#8f8676` | pole light | prop | a yard light over the crusher, head dark, on a plant that used to run three shifts | prop | yes | — | 3 |
 | 10 | `#8c8272` | shot rock / stockpile | prop | a cone of graded stone, or shot rock left where the last round dropped it | prop | yes | — | 3153 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the plant floor | ground | no | — | — |
+| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the plant floor | ground | no | — | 4 |
 | 12 | `#6a6a72` | perimeter fence | structure | the quarry fence, most of it still standing | structure | yes | — | 442 |
 | 13 | `#6b6154` | conveyor run | structure | the conveyor from the pit to the stockpiles, belt slack and gone brittle | structure | yes | — | 253 |
 | 14 | `#8a8478` | screen tower | structure | the screen tower over the crusher, the tallest thing on the site | structure | yes | — | 99 |

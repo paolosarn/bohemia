@@ -1,3 +1,81 @@
+WORLD (world-9lfjtf): 8/24 (a) LATEST -- *** THE ROWS NOBODY EVER PLACED. Fifteen tile codes
+that were authored, described, gated and dossiered, and never once put in the game. The
+dead-code debt goes 41 -> 19. Nothing to judge. ***
+
+TAB: CITY (walk into any yard: jail, railyard, substation, water treatment, the wrecking
+yard, a reservoir). The two big ones are visible at night.
+
+WHAT WAS ACTUALLY WRONG, and two of the three are BUGS, not omissions:
+
+  1. NINE DISTRICTS AUTHORED A `marking` AND NONE PLACED IT. arsenal ("the magazine number
+     stencilled on the headwall"), basin ("the elevation marks on the outlet box, the record
+     of every flood that filled this basin"), quarry, gypsum, radio, reclaim, reservoir,
+     substation, watertreat. A whole authoring pass of small human detail, written into nine
+     legends and never into a generator. K.stencil() in the district kit is the machine; seven
+     of the nine declare it as ONE LINE OF DATA in the utility SPECS (mark:{on,near,count}).
+
+  2. *** TWO DISTRICTS' POLE LIGHTS WERE PLACED AND THEN PAVED OVER. *** boneyard and
+     reservoir both set four lights and then, further down the same function, cut the drive
+     network on top of them -- the boneyard's west/east spines and cross lane are exactly its
+     four light tiles, and buildCanonical's perimeter ring (x 8-10, x W-11..W-9) is exactly
+     the reservoir's. BOTH YARDS HAVE BEEN PITCH DARK SINCE THE DAY THEY WERE WRITTEN, every
+     seed, and nothing said a word, because a light that got overwritten looks exactly like a
+     light that was never authored. The other eight utility layouts light at x=12 / x=W-13
+     and were never touched; `tanks` was two tiles out. The boneyard's four now go down LAST,
+     after the lanes and the gate, so nothing left in that generator can take them away. They
+     pick up the 8/21 streetlight consumer for free -- real lamp bodies, POWER decides if they
+     burn.
+
+  3. FOUR DISTRICTS AUTHORED "DEAD BRUSH CAUGHT IN THE FENCE" AND NEVER GREW IT (jail,
+     railyard, substation, watertreat). Same machine, on the setback where it meets the fence.
+     AND TWO OF THEM WERE PAINTING IT GREEN: jail:3 #3a4526 and watertreat:3 #3a4020 against
+     the family's #3f382c. A DEAD CODE HIDES A DEAD COLOUR -- the wrong tone was never once on
+     screen. The jail's exercise yard went with them (#55603a is lawn; its own legend calls it
+     "dead dirt"). ACT ONE HAS NO VEGETATION.
+
+  4. The reservoir's STANDPIPE, authored and never drawn.
+
+  5. SIX FALSE ENTRIES CAME OFF THE WORKLIST. bohemia_airfield.js registers `airport` and
+     `airbase` against ONE shared LEGEND and branches on kind, so each carries six of the
+     other's rows and each is dead by design. v1 of the gate named them, v2 dropped them.
+     Back in CONDITIONAL with reasons read out of the source, not inferred.
+
+RATCHET: gates/dead_code_gate.js DEBT 41 -> 32 (markings) -> 26 (airfield) -> 19. Down only.
+Record: records/BOHEMIA_THE_ROWS_NOBODY_EVER_PLACED_8_24_26.md
+Stamp: BUILD 8/24c - THE YARDS GET THEIR LIGHTS BACK
+
+NEXT IN THIS LANE, in this order:
+  - THE INTERCHANGE HAS NO LANE MARKINGS AT ALL (interchange:2 white lane line, and :14 sign
+    gantry). Biggest thing left on the dead list and the most visible. It is a HARMONIZED POOL
+    job, not a stencil: read records/BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md and
+    source from banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt.
+  - warehouse:10 abandoned car. Trivial and already scoped: unit() writes reserved-stall
+    markings at (ux+2,uy-2) and (ux+4,uy-2) and a dead car belongs in one. ~30% of units, a
+    2x4 block at (ux+2, uy-4). Checked the spine street can't erase it (it only converts codes
+    0/3/4/11/12, and x 105-111 is past the last unit at x=99).
+  - THE UTILITY 13/14 PAIRS: arsenal cable trench + lightning mast, basin storm drain + gauge
+    mast, radio anchor block, reclaim vent stack. Same class as the markings, one layout each.
+  - *** TWENTY LOOK PICTURES OF THE CITY HAVE NO SHOOTER AND CANNOT BE RETAKEN. *** CHARACTER
+    flagged the-spawn-sidewalk as WORLD's one-line fix; it is not one line, but it is also not
+    hard, and my first read of it was wrong. There is no warp FUNCTION on the page (no P, no
+    ME, no teleport; window only carries zoomBounds/setZoomAt/setHZoom/playerBox/skyZoom), and
+    I nearly wrote down that there was no hook at all. THERE IS: the page keeps its position in
+    plain top-level bindings -- `hx`/`hy` for the walked tile, `city.x`/`city.y` for map mode,
+    `MODE`, and `window.__WALKFEEL.cam()` which already hands out the camera cell a gate reads.
+    A shooter sets those and calls render(). So: ONE parameterised city shooter, driven by the
+    manifest id, and every one of the twenty gets a `shooter` line. Do it before the next thing
+    in this lane that needs a picture, because right now nothing this lane ships can be
+    photographed on the real surface without doing it by hand.
+  - The remaining `code 0` dead entries (arterial/downtown/industrial/freeway) are the
+    fill-through margin a dense district never leaves. Probably CONDITIONAL, but prove it in
+    the source the way the airfield six were proved before excusing them.
+
+THE LESSON, AND IT IS THE SAME ONE ALL WEEK: a thing can be authored, described, gated,
+documented and completely absent, and NOTHING makes a sound. The only reason this turn found
+two paved-over yards is that a machine now reads the world that actually got built.
+
+---
+
 CHARACTER (character-0lurbs): 8/23 (a) LATEST -- *** THE SMALL THINGS. Row 2X step 5,
 third pass: four more garment types get a mark they never had. 84 of 200 -> 66 of 200. ***
 

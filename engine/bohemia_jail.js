@@ -49,11 +49,24 @@
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE BRUSH CAUGHT IN THE WIRE (code 3), 8/23. Authored -- "dead brush caught in the wall
+       + wire" -- and never placed, one of four districts in this family that wrote the row and
+       never wrote the tile. It is the tell that nobody has walked this fence line in ten
+       years, and it is the only thing on a prison's setback that is not concrete. On the
+       setback (0) where it meets the perimeter wall (12), which is where the wind puts it. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:(seed>>>0)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6f6a62',3:'#3a4526',4:'#4a4842',5:'#c79a3f',6:'#8a8478',
-    7:'#55603a',8:'#9a948a',9:'#8f8676',10:'#5a5f66',11:'#c9c1aa',12:'#6a6a72',13:'#2a2824'};
+  /* CODE 3 WAS GREEN AND CODE 3 IS DEAD BRUSH (8/23). #3a4526 is olive; the rest of this
+     family paints dead brush #3f382c, and so does every district in the utility factory.
+     Nobody caught it because the generator never placed a single code-3 tile, so the wrong
+     colour was never once on screen -- a dead code hides a dead colour. ACT ONE HAS NO
+     VEGETATION; what it has is what died. Code 7 goes with it: the legend calls the exercise
+     yard "dead dirt + a ghosted court line" and it was painted #55603a, which is lawn. */
+  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6f6a62',3:'#3f382c',4:'#4a4842',5:'#c79a3f',6:'#8a8478',
+    7:'#4e4a3e',8:'#9a948a',9:'#8f8676',10:'#5a5f66',11:'#c9c1aa',12:'#6a6a72',13:'#2a2824'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the wall (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the intake sally lane / service drive (car-drivable)'},

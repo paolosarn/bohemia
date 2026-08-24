@@ -37,12 +37,12 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#4c483f` | terminal road | drive | the road in from the gate to the loading rack (drivable) | ground | no | — | 1459 |
 | 2 | `#6a6358` | building (terminal office) | building | the terminal office, the loading authorisations still pinned up inside | structure | yes | the fueldepot building interior: the working room at the front, stores and plant behind it | 299 |
 | 3 | `#3f382c` | dead brush | tree-dead | brush caught along the outside of a containment dike, downhill of everything | prop | yes | — | 85 |
-| 4 | `#5b564b` | containment floor | ground | the floor of a containment cell, graded to its sump, stained where something stood in it | ground | no | — | 3825 |
+| 4 | `#5b564b` | containment floor | ground | the floor of a containment cell, graded to its sump, stained where something stood in it | ground | no | — | 3823 |
 | 5 | `#c79a3f` | gate | gate | the terminal gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#8e968f` | storage tank | structure | an above-ground bulk tank, shell paint chalked to nothing, a rust line where the product level stopped | structure | yes | — | 992 |
-| 7 | `#6f6a5e` | containment dike / rack | structure | the reinforced concrete dike round the tank — or the frame of the truck loading rack | structure | yes | — | 3380 |
+| 7 | `#6f6a5e` | containment dike / rack | structure | the reinforced concrete dike round the tank — or the frame of the truck loading rack | structure | yes | — | 3378 |
 | 8 | `#3d4a46` | spill / standing product | water-dead | something dark standing in the low corner of a containment cell | ground | no | — | 1340 |
-| 9 | `#8f8676` | pole light | prop | a terminal yard light, head dark | prop | yes | — | — |
+| 9 | `#8f8676` | pole light | prop | a terminal yard light, head dark | prop | yes | — | 4 |
 | 10 | `#a39a86` | valve / manway | prop | a block valve on the manifold, a shell manway, a gauge hatch left open | prop | yes | — | 2078 |
 | 11 | `#c9c1aa` | marking | marking | the loading lane markings on the rack apron | ground | no | — | 143 |
 | 12 | `#6a6a72` | perimeter fence | structure | the terminal fence, and the signage that used to say why is long gone off it | structure | yes | — | 227 |

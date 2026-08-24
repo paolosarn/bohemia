@@ -34,7 +34,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground (setback) | ground | ridge ground outside the fence, too steep and too high up for anything but this | ground | no | — | 2888 |
 | 1 | `#4c483f` | access road | drive | the road up to the transmitter building (drivable) | ground | no | — | 1441 |
-| 2 | `#6a6358` | building (equipment hut / transmitter) | building | an equipment hut at the foot of a mast, and the transmitter building below them | structure | yes | the radio building interior: the working room at the front, stores and plant behind it | 808 |
+| 2 | `#6a6358` | building (equipment hut / transmitter) | building | an equipment hut at the foot of a mast, and the transmitter building below them | structure | yes | the radio building interior: the working room at the front, stores and plant behind it | 806 |
 | 3 | `#3f382c` | dead brush | tree-dead | brush on the ridge between the anchors, in the only part of the site nothing needed | prop | yes | — | 143 |
 | 4 | `#544f42` | site ground | ground | the ridge ground of the site, mostly empty because the guys need the room | ground | no | — | 4025 |
 | 5 | `#c79a3f` | gate | gate | the site gate off the street, amber curb | portal | no | — | 5 |
@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#8e8878` | guy wire | overhead | a guy wire running out from the mast to its anchor, overhead the whole way | overhead | no | — | 2591 |
 | 9 | `#8f8676` | pole light | prop | a site light, head dark, below aircraft-warning lights that are darker still | prop | yes | — | 2 |
 | 10 | `#9a9080` | propane tank / ice bridge | prop | the propane tank beside a hut and the ice bridge from hut to mast | prop | yes | — | 3782 |
-| 11 | `#c9c1aa` | marking | marking | call letters stencilled on a hut door | ground | no | — | — |
+| 11 | `#c9c1aa` | marking | marking | call letters stencilled on a hut door | ground | no | — | 2 |
 | 12 | `#6a6a72` | perimeter fence | structure | the site fence, which was never the security here -- the climb was | structure | yes | — | 453 |
 | 13 | `#6b6458` | ground radial | structure | a buried copper radial, its trench line still readable in the dirt | structure | yes | — | 161 |
 | 14 | `#b0a894` | guyed mast | structure | A GUYED MAST — the tallest thing for miles, and the reason nobody built anything else up here | structure | yes | — | 45 |

@@ -32,18 +32,18 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2627 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2605 |
 | 1 | `#45433c` | access road | drive | the gravel access road — a maintenance truck reaches the yard from the gate (drivable) | ground | no | — | 555 |
 | 2 | `#6a6358` | control house | building | the control + relay house, panels dark, doors chained | structure | yes | control-house interior: the relay + control room up front, the battery + auxiliary rooms behind | 480 |
-| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the double perimeter fence | prop | no | — | — |
-| 4 | `#514d44` | gravel yard | ground | the crushed-stone switchyard gravel (grounding grid beneath) | ground | no | — | 8365 |
+| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the double perimeter fence | prop | no | — | 22 |
+| 4 | `#514d44` | gravel yard | ground | the crushed-stone switchyard gravel (grounding grid beneath) | ground | no | — | 8360 |
 | 5 | `#c79a3f` | gate | gate | the switchyard gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#7a7268` | transformer | structure | a power transformer — a big oil-filled block, radiators + bushings, cold, weeping oil | structure | yes | — | 1547 |
 | 7 | `#8a8478` | switchgear structure | structure | a steel lattice switchgear bay — disconnects + breakers, dead | structure | yes | — | 771 |
 | 8 | `#9a948a` | busbar / conductor | overhead | the overhead busbars / conductors distributing between circuits (dead, sagging) | overhead | no | — | 475 |
 | 9 | `#8f8676` | pole light | prop | a yard pole light, head dark | prop | yes | — | 3 |
 | 10 | `#b0a894` | insulator / arrestor | prop | a porcelain insulator stack / lightning arrestor, cracked | prop | yes | — | 90 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard / bay markings on the gravel | ground | no | — | — |
+| 11 | `#c9c1aa` | marking | marking | faded hazard / bay markings on the gravel | ground | no | — | 5 |
 | 12 | `#6a6a72` | perimeter fence | structure | the double security fence of the switchyard (grounded), wire sagging | structure | yes | — | 896 |
 | 13 | `#33302a` | cable trench | ground | a covered cable trench threading the yard between the structures | ground | no | — | 570 |
 

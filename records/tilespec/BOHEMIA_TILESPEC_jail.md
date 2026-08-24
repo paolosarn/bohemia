@@ -32,14 +32,14 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the wall (setback) | ground | no | — | 2568 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the wall (setback) | ground | no | — | 2546 |
 | 1 | `#3a3a42` | drive / lot | drive | the intake sally lane / service drive (car-drivable) | ground | no | — | 135 |
 | 2 | `#6f6a62` | building (cell block/admin) | building | a cell block / the admin+intake block, concrete, slit windows | structure | yes | block interior: the two-tier cell tiers around a dayroom, the control picket at the hub; admin = intake, property, holding | 3460 |
-| 3 | `#3a4526` | dead brush | tree-dead | dead brush caught in the wall + wire | prop | no | — | — |
+| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the wall + wire | prop | no | — | 22 |
 | 4 | `#4a4842` | secure yard concrete | ground | the secure-yard concrete between the blocks, cracked | ground | no | — | 6952 |
 | 5 | `#c79a3f` | gate | gate | the intake gate off the street, amber curb, the outer sally door | portal | no | — | 5 |
 | 6 | `#8a8478` | guard tower | structure | a corner guard tower over the wall, glass gone, empty | structure | yes | — | 99 |
-| 7 | `#55603a` | recreation yard | ground | a walled recreation yard, dead dirt + a ghosted court line | ground | no | — | 1856 |
+| 7 | `#4e4a3e` | recreation yard | ground | a walled recreation yard, dead dirt + a ghosted court line | ground | no | — | 1856 |
 | 8 | `#9a948a` | razor wire (wall top) | structure | coiled razor wire crowning the perimeter wall, rusted | structure | yes | — | 228 |
 | 9 | `#8f8676` | pole light | prop | a yard security light, head dark | prop | yes | — | 4 |
 | 10 | `#5a5f66` | sally port | structure | the enclosed vehicle sally port (secure transfer), doors seized | structure | yes | — | 70 |

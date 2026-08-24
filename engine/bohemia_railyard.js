@@ -48,7 +48,12 @@
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE BRUSH IN THE BALLAST AND THE FENCE (code 3), 8/23. Authored and never placed, one
+       of four in this family. A live yard sprays its fence line; a dead one does not, and the
+       brush is the clock. On the setback (0) against the perimeter fence (12). */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:(seed>>>0)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
   var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6a6358',3:'#3f382c',4:'#4a4640',5:'#c79a3f',6:'#565048',

@@ -514,7 +514,53 @@
       else content++; }
     return { drivePct:100*drive/A, contentPct:100*content/A, fillerPct:100*filler/A }; }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,
+  /* STENCIL: the small human mark somebody left on a piece of infrastructure.
+     (8/23, WORLD lane.)
+
+     NINE DISTRICTS AUTHORED ONE AND NOT ONE OF THEM WAS EVER PLACED. arsenal, basin, gypsum,
+     quarry, radio, reclaim, reservoir, substation and watertreat each carry `11 = marking`
+     with its own specific line -- "the magazine number stencilled on the headwall", "the
+     elevation marks on the outlet box, the record of every flood that filled this basin",
+     "call letters stencilled on a hut door". A whole authoring pass of the small human detail
+     that makes infrastructure feel USED, written into nine legends and then never written
+     into a single generator. gates/dead_code_gate.js found it; this is the machine that fixes
+     the class rather than nine bespoke patches (FACTORY LAW).
+
+     It is deliberately SPARSE. A stencil is one number on one headwall, not a texture: a mark
+     on every magazine reads as wallpaper and says nobody chose where to put it. Deterministic
+     from the seed, so a plot always wears the same marks.
+
+     `on` is the host code the mark sits on; `near`, when given, requires the host cell to
+     touch that code, which is how a mark lands on the FACE of a structure (the side you can
+     read from the yard) rather than buried in its middle. */
+  function stencil(g,opts){
+    opts=opts||{}; var W=g[0].length,H=g.length;
+    var on=opts.on, mark=opts.mark, want=opts.count||3, near=opts.near;
+    var r=rng((opts.seed||1)*2654435761>>>0), spots=[], x, y, i;
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==on) continue;
+      if(near!=null){
+        var touch=false;
+        for(i=0;i<4;i++){ var nx=x+[1,-1,0,0][i], ny=y+[0,0,1,-1][i];
+          if(nx<0||ny<0||nx>=W||ny>=H) continue;
+          if(g[ny][nx]===near) touch=true; }
+        if(!touch) continue;
+      }
+      spots.push([x,y]);
+    }
+    if(!spots.length) return 0;
+    /* spread them: take from evenly-spaced positions in the candidate list rather than the
+       first N, or every mark lands in the same corner of the plot */
+    var n=0, step=Math.max(1,Math.floor(spots.length/want));
+    for(i=0;i<spots.length && n<want;i+=step){
+      var p=spots[(i+((r()*step)|0))%spots.length];
+      if(g[p[1]][p[0]]!==on) continue;
+      g[p[1]][p[0]]=mark; n++;
+    }
+    return n;
+  }
+
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,

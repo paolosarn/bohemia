@@ -39,6 +39,19 @@ const REPO = path.dirname(__dirname);
 // real world removed most of the reasons a code merely LOOKED absent.
 const CONDITIONAL = {
   'suburb:5': 'gate — GATED IS RICH (Paolo): only a gated/estate community, never a walled suburb',
+  // THE AIRFIELD SHARES ONE LEGEND ACROSS TWO DISTRICTS, so each of them carries the other's
+  // rows and each of those rows is dead by design. bohemia_airfield.js registers `airport` and
+  // `airbase` against the same LEGEND object and then branches on kind: the landside band is
+  // `kind==='airport' ? 8 : 9`, the apron is a jet bridge and an airliner on one and a fighter
+  // in revetments on the other. Read in the source, not inferred (engine/bohemia_airfield.js
+  // lines 102, 158-174). v1 of this gate named these six and v2 dropped them, which put six
+  // false entries in a worklist somebody is supposed to be able to trust.
+  'airport:9': 'hangar — the airbase branch only; an airport\'s landside is one terminal block (code 8)',
+  'airport:12': 'dead fighter — the airbase apron only; an airport parks airliners (code 11)',
+  'airport:17': 'revetment — the airbase apron only; alert pads do not exist landside of a terminal',
+  'airbase:8': 'terminal — the airport branch only; an airbase\'s landside is separate hangars (code 9)',
+  'airbase:10': 'jet bridge — the airport apron only; nothing docks a bridge to a fighter',
+  'airbase:11': 'dead airliner — the airport apron only; the airbase parks fighters (code 12)',
 };
 
 (async () => {
@@ -57,8 +70,9 @@ const CONDITIONAL = {
   // they fall, so a multi-cell field contributes many windows and a one-cell district
   // contributes its whole self.
   //
-  // CAP IS 160 AND THAT NUMBER IS LOAD-BEARING, stated here rather than buried. At 40 the gate
-  // reported 46 dead; at 160 it reports 41. THE FIVE DIFFERENCE WERE SAMPLING ARTEFACTS -- rare
+  // CAP IS 160 AND THAT NUMBER IS LOAD-BEARING, stated here rather than buried. Measured the day
+  // it was set: at 40 the gate reported 46 dead, at 160 it reported 41 on the same tree, and the
+  // ratchet has come down since. THE FIVE DIFFERENCE WERE SAMPLING ARTEFACTS -- rare
   // codes that only occur where two things coincide (a freeway crossing the rail corridor
   // exists in six cells of the whole valley). So this list means "absent from up to 160 built
   // cells", not "provably absent from the game", and deeper sampling would find a few more
@@ -111,7 +125,7 @@ const CONDITIONAL = {
   // THE RATCHET. Whatever is dead today is written down; it may only come down. A district
   // author adding a legend row the world never builds is told immediately -- this class has
   // stayed invisible for weeks at a time.
-  const DEBT = 41;
+  const DEBT = 19;
   ok(`read the BUILT valley, not a synthetic generate (${districts} districts, ${codes} codes)`,
      districts >= 40 && codes >= 600);
   // NOBODY QUIETLY LOWERS THE SAMPLE DEPTH. Halving it would "improve" the dead count by

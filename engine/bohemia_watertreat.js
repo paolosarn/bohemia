@@ -68,12 +68,23 @@
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
+    /* THE VALVE PAINT ON THE DECK (code 11), 8/23. Authored -- "faded hazard / valve paint on
+       the deck" -- and never placed, one of nine. On the basin floor (4) beside the clarifier
+       wall (6): the paint is round the plant you have to walk to, not scattered on open deck. */
+    K.stencil(g, {on:4, near:6, mark:11, count:5, seed:(seed>>>0)||1});
+    /* AND THE BRUSH IN THE PERIMETER FENCE (code 3), authored and never placed. On the
+       setback (0) against the fence (12) -- the fourth and last of this family to get the row
+       it wrote. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:((seed>>>0)^0x5b3)||1});
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})};
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6f665a',3:'#3a4020',4:'#5a584f',5:'#c79a3f',6:'#7a7268',
+  /* CODE 3 WAS GREEN (#3a4020) AND CODE 3 IS DEAD BRUSH (8/23). Same slip as the jail, hidden
+     the same way: the generator never placed a code-3 tile, so the wrong colour was never on
+     screen. The family tone for dead brush is #3f382c. ACT ONE HAS NO VEGETATION. */
+  var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6f665a',3:'#3f382c',4:'#5a584f',5:'#c79a3f',6:'#7a7268',
     7:'#46585a',8:'#8a8478',9:'#8f8676',10:'#5a5240',11:'#c9c1aa',12:'#6a6a72'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},

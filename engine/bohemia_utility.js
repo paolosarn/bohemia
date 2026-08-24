@@ -196,9 +196,27 @@
         G.rect(W-30,my+4,W-22,my+6,7);
         G.rect(Math.round(W*0.62),my+10,Math.round(W*0.62)+20,my+24,2);   // THE VALVE HOUSE, drawn LAST
         G.rect(Math.round(W*0.30),my+8,Math.round(W*0.30)+2,my+26,13);
+        /* THE STANDPIPE (code 14), authored in this legend and never once drawn -- "the
+           standpipe beside the tanks". It is not decoration: a standpipe is how a gravity
+           system takes a surge without splitting a main, a tall open column between the tanks
+           whose water level IS the pressure in the pipe. So it stands on the pad between the
+           two tanks, above the manifold it protects, with its own line down into it. It starts
+           at y=15 because the perimeter ring is cut across y 9-11 after every layout returns,
+           which is the exact thing that had been eating this district's pole lights. */
+        var spx=(W>>1)-2;
+        G.rect(spx,15,spx+3,38,14);
+        G.rect(spx+1,38,spx+2,my,13);
+        G.set(spx,14,10); G.set(spx+3,14,10);                             // the top hatch + gauge
       }
       brush(G,28);
-      lights(G,[[10,16],[W-11,16],[10,H-20],[W-11,H-20]]);
+      /* THE SAME FAILURE THE BONEYARD HAD, IN THE ONLY LAYOUT THAT STILL HAD IT (8/23). These
+         four stood at x=10 and x=W-11, and buildCanonical cuts the PERIMETER RING after every
+         layout returns -- G.rect(8,9,10,H-11,1) and G.rect(W-11,9,W-9,H-11,1) -- which is
+         exactly those two columns. So both districts on this layout lost all four lights to a
+         road, every seed, and dead_code_gate reported reservoir:9 absent from 160 built cells.
+         The other eight layouts light at x=12 / x=W-13 and were never touched; this one was
+         two tiles out. A LIGHT STANDS BESIDE THE PERIMETER LANE, NOT IN IT. */
+      lights(G,[[12,16],[W-13,16],[12,H-20],[W-13,H-20]]);
     },
 
     // A GRAIN ELEVATOR IS A COMB. A battery of touching concrete cylinders with the
@@ -416,6 +434,8 @@
   var SPECS = {
 
     quarry: { lay:'pit', par:{benches:4}, cat:'infrastructure', yard:4,
+      /* hazard paint on the PLANT FLOOR (4), beside the crusher house (2) */
+      mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#8a8070',5:'#c79a3f',6:'#a49a86',7:'#b8ae98',
            8:'#5e6a68',9:'#8f8676',10:'#8c8272',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478'},
       leg:{0:['desert dead-ground','ground','the untouched desert outside the quarry line'],
@@ -441,6 +461,8 @@
            'Aggregate flow: feed hopper to primary crusher, across a vibrating screen, to secondary crushers, oversize recirculated.'] },
 
     gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
+      /* hazard paint on the MILL FLOOR (4), beside the mill (2) */
+      mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
            8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478',
            /* the shotcrete shell: greyer than the raw gypsum around it, because it is
@@ -493,6 +515,8 @@
            'Reinforced concrete dikes are the default for a permanent bulk plant — they take heavy equipment traffic, last 40+ years, and accept engineered drain valves and oil/water separators.'] },
 
     reservoir: { lay:'tanks', par:{cols:2, rows:1, rad:20, dikes:false, rack:false}, cat:'infrastructure', yard:4,
+      /* the identification band round the TANK BASE: the tank (6) where it meets its pad (4) */
+      mark:{on:6, near:4, count:5},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6b6558',5:'#c79a3f',6:'#9aa0a2',7:'#7d8386',
            8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the hillside outside the reservoir fence'],
@@ -585,6 +609,8 @@
            'Steel I-beams carry the headhouse and the upper conveyor gallery.'] },
 
     arsenal: { lay:'bunkers', par:{}, cat:'industrial', yard:4,
+      /* the magazine NUMBER goes on the headwall: the arch face (7) where it meets open ground */
+      mark:{on:7, near:4, count:4},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#54503f',5:'#c79a3f',6:'#5d5a44',7:'#7c7566',
            8:'#3d4a46',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the quantity-distance setback — legally empty ground, and that is why it is empty'],
@@ -631,6 +657,8 @@
            'Cooling is 1000-ton units with on-board flywheels for ride-through, hot-aisle containment, cold air from overhead.'] },
 
     basin: { lay:'bowl', par:{}, cat:'infrastructure', yard:4,
+      /* elevation marks on the OUTLET WORKS (6), read from the basin floor (4) */
+      mark:{on:6, near:4, count:3},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6e654e',5:'#c79a3f',6:'#5f5844',7:'#7b7259',
            8:'#4c8450',9:'#8f8676',10:'#8a8172',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the ground outside the embankment, which is the ground this basin exists to keep dry'],
@@ -654,6 +682,8 @@
            'A real outlet: a concrete box storm drain with a 24-inch orifice leaving the basin. Las Vegas sits in a basin with ONE outlet, the Las Vegas Wash, and everything drains east to Lake Mead.'] },
 
     reclaim: { lay:'ponds', par:{}, cat:'infrastructure', yard:4,
+      /* the pond NUMBER on a weir box: the berm (7) where it meets the berm road (4) */
+      mark:{on:7, near:4, count:3},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#5a5546',5:'#c79a3f',6:'#6b6f56',7:'#7d7461',
            8:'#4a5f4e',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the setback outside the pond field, and downwind of it, which is why nobody built here'],
@@ -679,6 +709,8 @@
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },
 
     radio: { lay:'masts', par:{}, cat:'infrastructure', yard:4,
+      /* call letters on the HUT DOOR: the equipment hut (2) where it faces the site ground */
+      mark:{on:2, near:4, count:2},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#544f42',5:'#c79a3f',6:'#8a8478',7:'#7e7768',
            8:'#8e8878',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#6b6458',14:'#b0a894'},
       leg:{0:['dead-ground (setback)','ground','ridge ground outside the fence, too steep and too high up for anything but this'],
@@ -767,6 +799,16 @@
     G.rect(G.W-11,9,G.W-9,G.H-11,1);
     G.rect(gx-2,G.H-14,gx+2,G.H-8,1);
     connectDrive(G);
+    /* THE MARK SOMEBODY LEFT ON IT (8/23). Every district in this factory authored a
+       `marking` row -- "the magazine number stencilled on the headwall", "the elevation marks
+       on the outlet box, the record of every flood that filled this basin", "call letters
+       stencilled on a hut door" -- and NOT ONE OF THEM WAS EVER PLACED. A whole authoring
+       pass of the small human detail that makes infrastructure read as USED, written into
+       nine legends and never written into a generator. gates/dead_code_gate.js found it.
+       ONE STEP HERE, one declaration per district (`mark` in SPECS), rather than nine
+       bespoke patches: the mark is a fact about the district, the placing is a mechanism. */
+    if(s.mark) K.stencil(G.g, {on:s.mark.on, near:s.mark.near, mark:11,
+                               count:s.mark.count||3, seed:(seed>>>0)||1});
     return G.g;
   }
   function makeGenerate(type){

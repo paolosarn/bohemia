@@ -37,17 +37,17 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#4c483f` | access road | drive | the road up to the tank pad, switchbacked because the pad had to be this high (drivable) | ground | no | — | 1441 |
 | 2 | `#6a6358` | building (valve house) | building | the valve house — the altitude valve that used to hold the level is still in there | structure | yes | the reservoir building interior: the working room at the front, stores and plant behind it | 315 |
 | 3 | `#3f382c` | dead brush | tree-dead | brush on the cut slope of the pad, holding the cut together better than the drains do | prop | yes | — | 54 |
-| 4 | `#6b6558` | tank pad | ground | the graded pad the tanks stand on, cut into the hillside | ground | no | — | 3885 |
+| 4 | `#6b6558` | tank pad | ground | the graded pad the tanks stand on, cut into the hillside | ground | no | — | 3846 |
 | 5 | `#c79a3f` | gate | gate | the reservoir gate off the street, amber curb | portal | no | — | 5 |
-| 6 | `#9aa0a2` | water tank | structure | a welded steel reservoir, seams showing through the failed coating, sitting high enough that the whole valley below was fed by gravity | structure | yes | — | 1438 |
-| 7 | `#7d8386` | tank roof | structure | the tank roof, its centre vent and the hatch beside it | structure | yes | — | 3299 |
-| 8 | `#3a5560` | overflow | water-dead | the overflow weir and the stain running away from it down the pad | ground | no | — | 1073 |
-| 9 | `#8f8676` | pole light | prop | a pad light, head dark | prop | yes | — | — |
-| 10 | `#a39a86` | valve / hatch | prop | a buried valve cover, the shell manway, the level float box | prop | yes | — | 1402 |
-| 11 | `#c9c1aa` | marking | marking | the fading identification band round the tank base | ground | no | — | — |
+| 6 | `#9aa0a2` | water tank | structure | a welded steel reservoir, seams showing through the failed coating, sitting high enough that the whole valley below was fed by gravity | structure | yes | — | 1433 |
+| 7 | `#7d8386` | tank roof | structure | the tank roof, its centre vent and the hatch beside it | structure | yes | — | 3295 |
+| 8 | `#3a5560` | overflow | water-dead | the overflow weir and the stain running away from it down the pad | ground | no | — | 1046 |
+| 9 | `#8f8676` | pole light | prop | a pad light, head dark | prop | yes | — | 4 |
+| 10 | `#a39a86` | valve / hatch | prop | a buried valve cover, the shell manway, the level float box | prop | yes | — | 1354 |
+| 11 | `#c9c1aa` | marking | marking | the fading identification band round the tank base | ground | no | — | 5 |
 | 12 | `#6a6a72` | perimeter fence | structure | the reservoir fence, ringing two tanks and a valve house and nothing else at all | structure | yes | — | 335 |
-| 13 | `#7a7266` | transmission main | structure | the transmission main in and out — big enough that its trench reads from the air | structure | yes | — | 720 |
-| 14 | `#8a8478` | standpipe | structure | the standpipe beside the tanks | structure | yes | — | — |
+| 13 | `#7a7266` | transmission main | structure | the transmission main in and out — big enough that its trench reads from the air | structure | yes | — | 740 |
+| 14 | `#8a8478` | standpipe | structure | the standpipe beside the tanks | structure | yes | — | 94 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
