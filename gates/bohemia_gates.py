@@ -296,6 +296,26 @@ GATES = [
      'any more; and it caught going to sleep playing the fight-DEFEAT cadence '
      'because an unfinished job was being scored like a lost fight. Silent '
      'beats are REPORTED, not failed: the quiet is the design', True),
+    ('HUD OVERLAP',    ['node', 'gates/hud_overlap_gate.js'],
+     'NO TWO PIECES OF CHROME MAY SIT ON TOP OF EACH OTHER, measured pairwise on the surface '
+     'he plays. FOUND: the objective line -- the only sentence in the game telling a player '
+     'what he is supposed to be doing -- was printed UNDER the toolbar. qline 47..62 against '
+     'topbar 49..80, both z-index 7, so which one won was decided by DOM order: thirteen of '
+     'its fifteen pixels were inside the toolbar. Two more pairs were piled in the '
+     'bottom-left (rungbtn under note, bikebtn under sleepbtn). AND IT WAS A REGRESSION '
+     'AGAINST A FIX THAT HAD ALREADY SHIPPED: CITY found this exact bug in this exact corner '
+     'on 7/29, wrote "none of them knows the others exist", and built a flex column to own '
+     'it -- then the DAY LOOP added three more hardcoded-offset chips to the same corner six '
+     'days later. Nothing in the machine cared, which is the whole argument for this file. '
+     'SO THE CHECK IS GENERAL, not three special cases: every visible chip against every '
+     'other, in four states reached by tapping, so a chip added tomorrow is covered the day '
+     'it appears. Containment is skipped (a button inside the toolbar is inside it on '
+     'purpose) and deliberate overlaps must be NAMED with a reason -- there is no tolerance '
+     'to hide in. It proves its own eyes by putting yesterday\'s bug back, and that control '
+     'failed twice before it bit: once because the column simply won, once because the '
+     'column ADOPTED THE CHIP BACK before the read. It also holds that the objective says '
+     'what to DO, derived from the spec\'s own advance rule so the sentence cannot drift '
+     'from the mechanic', True),
     ('WALK FEEL',      ['node', 'gates/walk_feel_gate.js'],
      'HOW WALKING FEELS, MEASURED IN THE PIXELS OF THE STAGE CANVAS. The city camera is '
      'player-centred and the cell changes inside stepOnce, so the body could never move on '

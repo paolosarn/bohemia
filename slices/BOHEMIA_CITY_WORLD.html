@@ -117,6 +117,22 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
 #bikebtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 
+/* ==== TOP-LEFT STACK (8/24, __HUD_NEVER_OVERLAPS__) ==========================
+   The same answer the bottom-left corner got on 7/29 and the toolbar got on
+   7/25, applied to the last corner still doing arithmetic by hand. MEASURED
+   BEFORE CHANGING IT, in the frame's own coordinates: #qline 47..62 and #topbar
+   49..80, both z-index 7 -- thirteen of the objective's fifteen pixels were
+   inside the toolbar, and the winner was decided by DOM order. The objective is
+   the only sentence in the game that tells a player what to do.
+   A COLUMN, so the toolbar can wrap to two rows on a long song title and the
+   objective still lands underneath it instead of behind it. ==== */
+#tlstack{position:absolute;left:6px;right:6px;top:8px;z-index:7;
+  display:flex;flex-direction:column;align-items:stretch;gap:6px;
+  pointer-events:none}
+#tlstack>*{position:static !important;left:auto !important;right:auto !important;
+  top:auto !important;bottom:auto !important;transform:none !important;
+  margin:0 !important;width:auto !important}
+
 /* ==== BOTTOM-LEFT STACK (7/29): see tools/bohemia_city_bottomleft_patch.py.
    Four absolutely-positioned things shared this corner and collided. One flex
    column now owns it, bounded clear of the nav ring. ==== */
@@ -21881,11 +21897,40 @@ root.BQRuntime=API;
     D.tags = function () { return D.rt ? (D.rt.state.doneTags || []) : []; };
 
     /* the one line the HUD shows: the live objective, or the outcome */
+    /* __HUD_NEVER_OVERLAPS__ (8/24). THE OBJECTIVE NEVER SAID WHAT TO DO.
+       hudLine returned objs[0].text and dropped everything else, so day one read
+       "Find why the block browns out" and nothing on screen mentioned a building
+       or the dark -- while the spec RIGHT THERE declares how the thing advances:
+           advance: { stage: 20, on: 'enter_building', require: 'dark' }
+       A friend walks past every door in the valley.
+       DERIVED FROM THE RULE, NEVER WRITTEN PER QUEST, so the sentence cannot
+       drift from the mechanic: change how a day advances and its hint changes
+       with it, and every day's quest gets one without anybody authoring it.
+       Words are a real attempt and his to edit (ALWAYS MAKE AN ATTEMPT, 8/11);
+       the mechanic they describe is not mine to change. */
+    D.nextStep = function () {
+      var sp = D.spec, a = sp && sp.advance;
+      if (!a || !D.rt) return '';
+      if (!(D.rt.state.stage < a.stage)) return '';   /* the hint is for the step that is actually next */
+      if (a.on === 'enter_building')
+        return a.require === 'dark'
+          ? 'get inside somewhere the power is out'      /* draft:true */
+          : 'get inside one of these buildings';         /* draft:true */
+      if (a.on === 'enter_district')
+        return a.require === 'new'
+          ? 'cross into a block you have not walked yet' /* draft:true */
+          : 'get out onto another block';                /* draft:true */
+      return '';
+    };
     D.hudLine = function () {
       if (!D.rt) return '';
       if (D.rt.state.done) return (D.rt.state.outcome === 'COMPLETE' ? 'DONE · ' : 'FAILED · ') + (D.Q.title || '');
       var objs = D.rt.objectives().filter(function (o) { return o.status === 'active'; });
-      if (objs.length) return objs[0].text;
+      if (objs.length) {
+        var step = '';
+        try { step = D.nextStep(); } catch (e) { step = ''; }
+        return step ? (objs[0].text + ' · ' + step) : objs[0].text;
+      }
       return D.spec ? D.spec.brief : '';
     };
 
@@ -25213,13 +25258,55 @@ function blStack(){
      working the day one of them is rebuilt - which is exactly how the offsets
      drifted apart in the first place. appendChild on a node already in place is
      a no-op, so this is cheap. */
-  ['bikebtn','fitbtn','note'].forEach(function(id){
+  /* __HUD_NEVER_OVERLAPS__ (8/24): THE DAY LOOP ADDED THREE MORE CHIPS TO THIS
+     CORNER AND NEVER JOINED THE COLUMN -- #sleepbtn bottom:6, #mktbtn bottom:40,
+     #rungbtn bottom:74, each an absolute hardcoded offset, which is word for word
+     the bug the note above this function describes fixing. Measured: bikebtn
+     760..792 under sleepbtn 767..798, and note 714..754 under rungbtn 699..730.
+     The ladder also has a HOLE -- #mktbtn is display:none, so the 40 rung is
+     empty and the hint falls into the gap.
+     AND THE ORDER IS DECLARED NOW. insertBefore(el, firstChild) meant a chip's
+     position depended on which system happened to build it first; this list is
+     bottom-up (the column is column-reverse, so DOM order runs bottom to top) and
+     is re-asserted every pass, so a rebuilt chip goes back to its own place. */
+  ['sleepbtn','bikebtn','fitbtn','mktbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
-    if(el&&el.parentNode!==s&&getComputedStyle(el).display!=='none')s.insertBefore(el,s.firstChild);
+    if(!el) return;
+    if(getComputedStyle(el).display==='none'){
+      /* a hidden chip leaves the column rather than holding an empty rung open */
+      if(el.parentNode===s) s.removeChild(el);
+      return; }
+    s.appendChild(el);          /* appendChild REORDERS, which is what keeps the order true */
+  });
+  return s;
+}
+/* __HUD_NEVER_OVERLAPS__ -- the top-left column, same pattern, same reason. The
+   toolbar goes in first and the objective under it, so a toolbar that wraps
+   pushes the sentence down instead of covering it. */
+function tlStack(){
+  let s=document.getElementById('tlstack');
+  if(!s){
+    /* THE COLUMN HAS TO BE BORN IN THE TOOLBAR'S OWN PARENT. First cut appended
+       it to .wrap, which is NOT what #topbar was positioned against: top:8 put
+       the toolbar at y=49, so its offsetParent starts 41px down, below the clock
+       bar. Hung off .wrap the same top:8 rendered at y=8 and dragged the whole
+       toolbar UP INTO #hud -- five fresh collisions where there had been none,
+       caught by this patch's own gate on its first run. Ask the element what it
+       was positioned against instead of assuming, and capture it BEFORE adoption
+       changes the answer. */
+    const bar=document.getElementById('topbar');
+    const w=(bar&&bar.offsetParent)||document.querySelector('.wrap')||document.body;
+    s=document.createElement('div'); s.id='tlstack'; w.appendChild(s); }
+  ['topbar','qline'].forEach(function(id){
+    const el=document.getElementById(id);
+    if(!el) return;
+    if(getComputedStyle(el).display==='none'){ if(el.parentNode===s) s.removeChild(el); return; }
+    s.appendChild(el);
   });
   return s;
 }
 blStack(); setInterval(blStack,600);
+tlStack(); setInterval(tlStack,600);
 function tpInitButtons(){
   /* BUFFET BUTTONS KILLED (Paolo 7/29: "I dont want those button anymore").
      Build nothing, and tear out anything a stale build left behind. The bar is

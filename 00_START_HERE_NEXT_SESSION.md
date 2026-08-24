@@ -1,3 +1,97 @@
+RUN (run-eak241): 8/24 LATEST -- *** THE ONE SENTENCE THAT TELLS HIM WHAT TO DO
+WAS PRINTED UNDER THE TOOLBAR. TAB: RUN (take the job, look at the top). Nothing
+to judge. ***
+
+FOUND BY PLAYING IT, NOT BY READING A LEDGER. Splash, cold open, get up, phone,
+take the job, walk -- screenshotting every beat AND LOOKING AT THEM. The bug is in
+the first frame after taking the job. Boxes in the city frame's own coordinates:
+
+    qline    47..62   "Find why the block browns out"   z-index 7
+    topbar   49..80    MUSIC / SAVE / PHONE / wrench     z-index 7
+
+THIRTEEN OF THE OBJECTIVE'S FIFTEEN PIXELS WERE INSIDE THE TOOLBAR, both at
+z-index 7, so which one won was decided by DOM order. That line is the only thing
+in the game telling a player what he is supposed to be doing. Two more pairs were
+piled in the bottom-left: rungbtn under note (16px), bikebtn under sleepbtn (25px).
+
+*** AND IT WAS A REGRESSION AGAINST A FIX THAT ALREADY SHIPPED, BY THIS LANE. ***
+On 7/29 CITY found this exact bug in this exact corner and wrote it down -- "four
+things live in that corner and every one of them was absolute-positioned with its
+own hardcoded offset, so none of them knows the others exist" -- and built
+#blstack to own it. Then the DAY LOOP, MINE, added three more absolutely
+positioned chips to the same corner six days later (#sleepbtn bottom:6, #mktbtn
+bottom:40, #rungbtn bottom:74). The ladder even has a HOLE: #mktbtn is
+display:none, so the 40 rung is empty and the hint falls into the gap.
+NOTHING IN THE MACHINE CARED. The fix was right, was written down, was read by
+nobody, and rotted in under a week. That is the whole argument for a gate.
+
+FIXED WITH THE ANSWER ALREADY DESIGNED: the three chips JOIN the column and lose
+their offsets, and the top gets the same treatment (#tlstack) so the objective
+sits UNDER the toolbar even when a long song title wraps it to two rows. The order
+is DECLARED now rather than left to creation timing, and a hidden chip LEAVES the
+column instead of holding an empty rung open.
+
+*** AND THE OTHER HALF: THE OBJECTIVE NEVER SAID WHAT TO DO. *** hudLine()
+returned objs[0].text and dropped everything else, while the day's spec in the
+same file declares  advance:{stage:20, on:'enter_building', require:'dark'}  --
+so "Find why the block browns out" is finished by WALKING INTO A BUILDING WITH NO
+POWER. Nothing on screen said building. Nothing said dark. A friend walks past
+every door in the valley and then goes to bed. (The mechanic is fine: CLUSTERED
+POWER leaves ~88% of the valley off the live network, so nearly any building
+satisfies it.) The next step is DERIVED FROM THE RULE, never authored per quest,
+so it cannot drift from the mechanic -- change how a day advances and its sentence
+changes with it, and every day's quest gets one for free. It disappears once he is
+past that step. Words draft:true.
+    before:  Find why the block browns out
+    after:   Find why the block browns out · get inside somewhere the power is out
+
+GATE: hud_overlap_gate.js (registered HUD OVERLAP), 14 claims. GENERAL, NOT THREE
+SPECIAL CASES -- every visible chip against every other, pairwise, in four states
+reached by tapping, so a chip added tomorrow is covered the day it appears.
+Containment skipped (a button inside the toolbar is inside it on purpose).
+Exceptions must be NAMED with a reason; there is no tolerance to hide in and the
+list is empty. The opened builder's drawer is excluded on principle: it is a PANEL
+THE PLAYER OPENED, not a chip in a corner, and its button is still checked.
+    just got up 0 · carrying the objective 0 · drawer open 0 · walking 0
+    (was 3 pairs, across 15 pieces of chrome)
+
+*** THE CONTROL FAILED TWICE BEFORE IT BIT AND BOTH FAILURES WERE THE FINDING. ***
+Shoving a chip onto another with inline position:fixed did NOTHING -- the column
+kept winning. Taking it out of the column with its old bottom:6px DID reproduce
+the bug, and then blStack's 600ms tick ADOPTED IT BACK before the read, so the
+gate still saw a clean screen. It now plants, measures and restores in ONE
+evaluate, because reading a rect forces layout synchronously and no timer can run
+in the middle. That the tick heals it at all is the fix working and is its own
+claim now.
+
+TWO OF MY OWN BUGS, CAUGHT BY MY OWN GATE ON ITS FIRST RUN: #tlstack was appended
+to .wrap, which is NOT what #topbar was positioned against, so top:8 rendered at
+y=8 instead of y=49 and dragged the whole toolbar UP INTO #hud -- five fresh
+collisions where there had been none. And the gate read .h off a DOMRect, which
+has .height, printing "toolbar ..NaN"; a comparison against NaN is always false,
+so that claim would have failed forever for a reason that was not the claim.
+
+*** ONE ROW CORRECTED SO NOBODY RE-DOES A REJECTED THING: interior_pool IS NOT AN
+OWED HOLE, IT IS A REFUSAL. *** CITY opened that bank, RENDERED IT TO PNG AND
+LOOKED: banded oak barrels, burlap sacks, tavern benches, potion bottles and LIVE
+FLOWERING PLANTS -- a generic fantasy pack, and live greenery breaks the dead-world
+law outright. The other pool's containers are glowing sci-fi loot crates. Their
+words: "Putting a fantasy barrel in the one surface he plays, because a bank
+existed and a law said reuse first, is how a build ends up looking like somebody
+else's game." City interiors ARE furnished (typed COVER/LOW massing, edge-faced,
+45-law correct), just not from that bank. The ledger quotes the refusal now.
+The status column still reads INTEGRATED because that is what the probe proves
+about the run slice -- integration_gate REJECTED a compound status when I tried
+one, which is a gate outranking my convenience and it was right.
+
+STILL OWED ON THE PLAYED SURFACE, and both are real holes: world_bridge (no
+BohemiaLoop in the city) and clout_feed (the FEED is not shown). 15 of 30.
+
+THE RULE THIS BUYS: A CORNER OF THE SCREEN BELONGS TO A LAYOUT OR IT BELONGS TO
+NOBODY. The moment two things in it carry their own hardcoded offsets, neither
+knows the other exists, and the one that loses will be whichever one you cared
+about most.
+
 WORLD (world-9lfjtf): 8/24 (a) LATEST -- *** THE ROWS NOBODY EVER PLACED. Fifteen tile codes
 that were authored, described, gated and dossiered, and never once put in the game. The
 dead-code debt goes 41 -> 19. Nothing to judge. ***
