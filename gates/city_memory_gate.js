@@ -349,6 +349,35 @@ ok('A5 the throttle does not spend a minute it recorded nothing in '
     ok('C8 you can only ask after somebody whose name you took',
       /if \(!all\[k\] \|\| !all\[k\]\.asked\) continue;/.test(city));
 
+    /* ---- NO RAW COORDINATES ON A CARD HE READS -------------------------- */
+    const lv = await fr.evaluate(() => {
+      render();
+      const nb = ctNeighbour(); const at = ctAt(nb);
+      hx = at[0] + 1; hy = at[1]; render(); ctVerb();
+      const btn = document.getElementById('cttalk'); if (btn) btn.click();
+      const card = document.getElementById('ctcard');
+      const rows = [...card.querySelectorAll('.r')].map(r => ({
+        k: r.querySelector('.k').textContent,
+        v: r.querySelector('.v').textContent }));
+      const lives = rows.filter(r => /LIVES/.test(r.k))[0] || null;
+      /* the rule, not the row: NO row on this card may print a bare fine-grid
+         pair at him. "HERE, 6205 6269" is the variable, shown. */
+      const coordish = rows.filter(r => /\b\d{4,}\s+\d{4,}\b/.test(r.v));
+      ctClose();
+      return { lives: lives, coordRows: coordish.map(r => r.k + '|' + r.v),
+               rows: rows.length };
+    });
+    ok('D1 the LIVES row says where they live IN WORDS ("'
+      + ((lv.lives || {}).v || '(missing)') + '"), not the two numbers it used '
+      + 'to print at him', !!lv.lives && !/\d{4,}/.test(lv.lives.v));
+    ok('D2 and NO row on the card prints a bare fine-grid pair ('
+      + lv.coordRows.length + ' found' + (lv.coordRows.length ? ': '
+      + lv.coordRows[0] : '') + '), a coordinate is not an address',
+      lv.coordRows.length === 0);
+    ok('D3 it uses this lane\'s OWN where-vocabulary rather than a second one, so '
+      + 'the card and the witness say it the same way',
+      /ctWhereWord\(p\.home\[0\], p\.home\[1\]\)/.test(city));
+
     ok('B15 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);
   } finally {

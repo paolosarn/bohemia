@@ -101,6 +101,68 @@ DOOR_NEW = """  /* __THE_DOOR_DRAGS_OPEN__ (8/22, SOUND lane) -- his 8/9 thumb, 
   try{ cityFightOnEnter(); }catch(_e){}
   advance(0.5); return true;"""
 
+# ---- 2c. EVERY BUTTON IN THE CITY IS A UI TAP TOO. --------------------------
+# Measured silent on the walk: opening the phone made no sound, and neither does
+# any other button inside the city. The shell has ticked its buttons since 8/12.
+#
+# I MISREAD HIS RULING LAST TURN AND WROTE THE WRONG REASON DOWN. I said
+# blanket-wiring city taps would hit his 8/4 complaint ("I CANT HEAR THE SOUNDS
+# IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE A SOUND WHEN
+# I CLICK PLAY ON A NEW SOUND IM TESTING"). Re-read on the surface that
+# implements it: that ruling is NOT a ban on UI sound. The shell's own handler
+# says so -- "every button on the phone is a UI TAP, EXCEPT ON A SURFACE WHOSE
+# JOB IS PLAYING A SOUND", excluded BY CONTAINER (#sfxWrap, #sbWrap, #mixWrap,
+# the music transport, [data-noui]). UI taps are the design. The exclusion is
+# judging surfaces, and the city has none.
+#
+# SO IT WAS NEVER A POLICY DECISION, IT WAS PLUMBING: that handler is bound to
+# the PARENT document, and a click inside an iframe never reaches it. Same
+# policy, same three sounds, bound where the clicks actually happen.
+TAP_ANCHOR = "document.getElementById('sleepbtn').addEventListener('click',function(){"
+TAP_NEW = """/* __THE_CITY_ANSWERS_A_TAP__ (8/22, SOUND lane) -- the shell has ticked its own
+   buttons since 8/12 and the city never has, purely because that handler is
+   bound to the PARENT document and a click inside an iframe never reaches it.
+   Same policy as the shell's, mirrored rather than reinvented: a refusal is
+   ui_deny, a way out is ui_back, everything else is ui_tap, all three his and
+   all three approved. Read off what the button ALREADY says -- never a new
+   attribute nobody sets.
+   TWO THINGS ARE EXCLUDED AND BOTH FOR THE SAME REASON: the movement pad
+   already makes a FOOTSTEP, and SLEEP and the day-card GO already carry their
+   own moment sound (sleep_sink, come_up). Stacking a tick on top of those is
+   exactly the two-sounds-on-one-click problem he complained about on 8/4, which
+   is the thing this policy exists to avoid, not to cause. [data-noui] stays the
+   escape hatch for any panel built later. */
+(function(){
+  var NOUI='#pad,#sleepbtn,.dcgo,[data-noui]';
+  document.addEventListener('click',function(e){
+    try{
+      var t=e&&e.target; if(!t||!t.closest) return;
+      if(t.closest(NOUI)) return;
+      /* THE CITY'S CONTROLS ARE DIVS, NOT BUTTONS. The first version of this
+         matched only `button` and missed #phonebtn entirely -- measured silent
+         on the walk, which is the fourth time this week a too-narrow matcher
+         has told me something was missing when it was my selector that was.
+         The city's chrome is #topbar and #devtray, one div per control, so ask
+         for a direct child of those (closest() resolves the badge SPAN inside
+         PHONE up to the control itself). */
+      var btn=t.closest('button')||t.closest('.dcbtn')||t.closest('.tab')||t.closest('.opt')
+             ||t.closest('#topbar>div')||t.closest('#devtray>div');
+      if(!btn) return;
+      var lab=(((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+                (btn.textContent||''))).trim().toLowerCase();
+      var refused = btn.disabled===true
+                 || (btn.classList && (btn.classList.contains('off')
+                                    || btn.classList.contains('disabled')));
+      var ev = refused ? 'ui_deny'
+             : (/^(back|close|cancel|done|x|<|\\u2039|\\u00d7|\\u2190)$/.test(lab) ? 'ui_back'
+             : 'ui_tap');
+      if(window.parent&&window.parent!==window)
+        window.parent.postMessage({bohemiaCitySfx:{ev:ev}},'*');
+    }catch(_e){}
+  },true);
+})();
+document.getElementById('sleepbtn').addEventListener('click',function(){"""
+
 # ---- 3. A MISSED JOB IS NOT A LOST FIGHT. -----------------------------------
 FIG_OLD = """    done: { v:'bell',      g:0.20, sd:0.34, oct:0,
             n:[[5,0],[0,2],[0,5],[12,5]] }"""
@@ -138,6 +200,12 @@ def main():
             return 1
         c = c.replace(SLEEP_OLD, SLEEP_NEW, 1)
         changed.append('SLEEP now plays sleep_sink (5 of 5, his cleanest sweep)')
+    if '__THE_CITY_ANSWERS_A_TAP__' not in c:
+        if TAP_ANCHOR not in c:
+            print('FAIL: the sleep button handler (the tap anchor) moved')
+            return 1
+        c = c.replace(TAP_ANCHOR, TAP_NEW, 1)
+        changed.append("the city's buttons answer a tap, same policy as the shell's")
     if "ev:'door_drag'" not in c:
         if DOOR_OLD not in c:
             print('FAIL: inEnter is not where this tool expects it')

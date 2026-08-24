@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/24c - THE YARDS GET THEIR LIGHTS BACK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/24h - THE YARDS GET THEIR LIGHTS BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21849,18 +21849,41 @@ window.CLO=(function(){
      one-shoulder scrap pauldron, a diagonal chest rig with pouches. New
      category, new zones; worn OVER clothes (drawn additively like accessories). */
   function genGear(g,opt){ var r=opt.ramp,kind=opt.kind,i,o={},S=rsc();
+    var _noStitch=(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH);
+    /* @SUBCELL-DETAIL -- RIVETS (8/23, row 2X step 5). Scavenged armour is riveted, and
+       a rivet is ONE pixel. At 56 a plate is three or four rows tall and a stud row
+       inside it would have been half the plate; at 112 there is room for the hardware
+       that makes a plate read as bolted metal instead of a painted rectangle.
+       MEASURED BEFORE THIS: 4 of 22 canon gear pieces had any one-pixel feature at all.
+       ONE PASS, NOT FOURTEEN EDITS. Every kind below builds its own `o` and returns it,
+       so the rivets go on at the return -- which also means a new kind gets them for
+       free instead of being forgotten.
+       WHERE THEY GO: the top and bottom row of each column's own run, every other cell
+       across, and only on runs at least three cells tall so a thin strap does not turn
+       into a dotted line. NOTHING ANY KIND DRAWS IS MOVED OR THINNED -- a rivet
+       recolours a pixel the plate already owns. S>1 only, so the 56 wardrobe is
+       byte-identical and its 1,744 pinned hashes do not move. */
+    var rivets=function(oo){ if(S<2||_noStitch||!r.lt)return oo;
+      var col={};
+      for(var k2 in oo){ var ii=+k2,x2=ii%CW,y2=(ii/CW)|0;
+        var c2=col[x2]||(col[x2]={a:1e9,b:-1}); if(y2<c2.a)c2.a=y2; if(y2>c2.b)c2.b=y2; }
+      for(var xk in col){ var cc=col[xk]; if(cc.b-cc.a+1<3*S)continue;
+        if((xk%(2*S))!==1)continue;
+        var t1=cc.a*CW+(+xk), b1=cc.b*CW+(+xk);
+        if(oo[t1])oo[t1]=r.lt; if(oo[b1])oo[b1]=r.lt; }
+      return oo; };
     if(kind==='kneepads'){ var le=pExt(g,9),re=pExt(g,10);
       [[9,le],[10,re]].forEach(function(pr){ var p=pr[0],E2=pr[1]; if(E2.mx<0)return;
         var knee=E2.mn+fr(E2.mn,E2.mx,0.45);
         for(i=0;i<g.length;i++)if(g[i]===p){ var y=(i/CW)|0;
           if(y>=knee-S&&y<knee+3*S)o[i]=(y<knee||y>=knee+2*S)?r.dk:(y<knee+S)?r.lt:r.mid; } });  /* strap edges, scuffed cap */
-      return o; }
+      return rivets(o); }
     if(kind==='shinguards'){ var leS=pExt(g,9),reS=pExt(g,10);           /* wave 3: strapped plates down both shins */
       [[9,leS],[10,reS]].forEach(function(pr2){ var p3=pr2[0],E3=pr2[1]; if(E3.mx<0)return;
         var top3=E3.mn+fr(E3.mn,E3.mx,0.6);
         for(i=0;i<g.length;i++)if(g[i]===p3){ var y7=(i/CW)|0;
           if(y7>=top3&&y7<=E3.mx-S)o[i]=(y7<top3+S||y7>E3.mx-2*S)?r.dk:(((((y7-top3)/S)|0)%2)?r.mid:r.lt); } });
-      return o; }
+      return rivets(o); }
     if(kind==='chestplate'){ var tbC=-1,ttC=CH,sxC=0,scC=0;              /* wave 4: a scavenged armor plate over the chest, X harness on the back */
       for(i=0;i<g.length;i++)if(g[i]===4){var yC=(i/CW)|0;if(yC>tbC)tbC=yC;if(yC<ttC)ttC=yC;sxC+=i%CW;scC++;}
       var cxC=scC?Math.round(sxC/scC):(CW>>1), dirC=(typeof curDir!=='undefined')?curDir:'S';
@@ -21872,13 +21895,13 @@ window.CLO=(function(){
         if(yC2>=ttC+2*S&&yC2<=tbC-5*S&&xC>=cxC-3*S&&xC<cxC+4*S){
           var eC=(xC<cxC-2*S||xC>=cxC+3*S||yC2<ttC+3*S||yC2>tbC-6*S);
           o[i]=eC?r.dk:(yC2<ttC+5*S?r.lt:r.mid); } }                     /* the plate: lit collar edge, dark rim */
-      return o; }
+      return rivets(o); }
     if(kind==='bracers'){ var aLB=pExt(g,5),aRB=pExt(g,6);               /* wave 5: forearm guards, both arms */
       [[5,aLB],[6,aRB]].forEach(function(pr4){ var p5=pr4[0],E5=pr4[1]; if(E5.mx<0)return;
         var b0=E5.mn+fr(E5.mn,E5.mx,0.55), b1=E5.mn+fr(E5.mn,E5.mx,0.85)+S-1;   /* b1 is an INCLUSIVE bottom: take the last row of the cell */
         for(i=0;i<g.length;i++)if(g[i]===p5){ var y8=(i/CW)|0;
           if(y8>=b0&&y8<=b1)o[i]=(y8<b0+S||y8>b1-S)?r.dk:(((((y8-b0)/S)|0)%2)?r.mid:r.lt); } });
-      return o; }
+      return rivets(o); }
     if(kind==='holster'){ var reH=pExt(g,10); if(reH.mx<0)return o;      /* wave 5: thigh rig on one leg + hip strap */
       var tbH=-1,sxH=0,scH=0; for(i=0;i<g.length;i++)if(g[i]===4){var yH=(i/CW)|0;if(yH>tbH)tbH=yH;sxH+=i%CW;scH++;}
       var cxH=scH?Math.round(sxH/scH):(CW>>1);
@@ -21888,14 +21911,14 @@ window.CLO=(function(){
         else if(yh>=hs0+S&&yh<hs1){ var rEdge=(g[i+S]!==10);
           o[i]=rEdge?r.lt:r.mid; } }
       for(i=0;i<g.length;i++)if(g[i]===4){ var yH2=(i/CW)|0,xH2=i%CW; if(yH2>tbH-S&&xH2>cxH)o[i]=r.dk; }
-      return o; }
+      return rivets(o); }
     if(kind==='pauldron'){ var aR2=pExt(g,6); if(aR2.mx<0)return o;      /* one shoulder: the RIGHT arm's top rows + the torso corner it meets */
       var top=aR2.mn, lim=top+4*S;
       for(i=0;i<g.length;i++){ var p2=g[i],x3=i%CW,y4=(i/CW)|0;
         if(p2===6&&y4<lim+S)o[i]=(y4>=lim)?r.dk:(y4<top+S)?r.lt:r.mid;   /* plate: lit top edge, dark lower rim */
         if(p2===4&&y4<top+3*S){ var nearArm=false; for(var dd=1;dd<=2*S;dd++)if(g[y4*CW+(x3+dd)]===6||g[y4*CW+(x3-dd)]===6)nearArm=true;
           if(nearArm)o[i]=(y4>=top+2*S)?r.dk:r.mid; } }                  /* the strap lip onto the torso */
-      return o; }
+      return rivets(o); }
     if(kind==='suspenders'){ var tbS=-1,ttS=CH,sxS=0,scS=0;
       for(i=0;i<g.length;i++)if(g[i]===4){var yS=(i/CW)|0;if(yS>tbS)tbS=yS;if(yS<ttS)ttS=yS;sxS+=i%CW;scS++;}
       var cxS=scS?Math.round(sxS/scS):(CW>>1), dirS=(typeof curDir!=='undefined')?curDir:'S';
@@ -21907,7 +21930,7 @@ window.CLO=(function(){
         if(onStrap)o[i]=r.dk;
         if(!backS&&onStrap&&yS2>tbS-2*S)o[i]=r.lt;                                   /* front: waist buttons */
         if(backS&&tS>0.6&&xS>=cxS-((S-1)>>1)&&xS<cxS-((S-1)>>1)+S)o[i]=r.dk; }       /* back: the single spine strap below the cross */
-      return o; }
+      return rivets(o); }
     if(kind==='elbowpads'){ /* wave 8: the kneepads' upstairs sibling -- strapped
        caps on BOTH elbows, arm zone only. */
       var eL=pExt(g,5),eR=pExt(g,6);
@@ -21915,7 +21938,7 @@ window.CLO=(function(){
         var el=E2.mn+fr(E2.mn,E2.mx,0.45);
         for(i=0;i<g.length;i++)if(g[i]===p){ var y=(i/CW)|0;
           if(y>=el-S&&y<el+3*S)o[i]=(y<el||y>=el+2*S)?r.dk:(y<el+S)?r.lt:r.mid; } });
-      return o; }
+      return rivets(o); }
     if(kind==='legwraps'){ /* wave 8: field puttees -- cloth wrapped shin to knee
        on BOTH legs, the diagonal winding readable. Cloth, not the shin guards'
        plates. */
@@ -21924,7 +21947,7 @@ window.CLO=(function(){
         var top=E2.mn+fr(E2.mn,E2.mx,0.5);
         for(i=0;i<g.length;i++)if(g[i]===p){ var x=i%CW,y=(i/CW)|0;
           if(y>=top){ o[i]=((((((x/S)|0)+((y/S)|0))%3)===0))?mix(r.mid,0.78):(y<top+S||y>E2.mx-S)?r.dk:r.mid; } } });
-      return o; }
+      return rivets(o); }
     if(kind==='shoulderroll'){ /* wave 8: a BLANKET ROLL slung shoulder to hip --
        thick (3px) where the bandolier is a strap, woven texture, tied ends. */
       var tbR=-1,ttR=CH,mnR=CW,mxR=-1;
@@ -21937,7 +21960,7 @@ window.CLO=(function(){
         if(dxr>=-2*S&&dxr<3*S){ o[i]=(dxr<-S||dxr>=2*S)?r.dk:(((((xr/S)|0)+((yr/S)|0))%2)?r.mid:mix(r.mid,0.85)); } }   /* woven roll, THICK */
       for(i=0;i<g.length;i++)if(g[i]===4){ var xr2=i%CW,yr2=(i/CW)|0;      /* tied ends at shoulder + hip */
         if((yr2<y0+2*S&&xr2>=x0-S&&xr2<x0+2*S)||(yr2>y1-2*S&&xr2>=x1-S&&xr2<x1+2*S))o[i]=r.dk; }
-      return o; }
+      return rivets(o); }
     if(kind==='toolbelt'){ /* wave 7: the working waist -- a heavy belt with
        POUCHES HANGING off it onto the hips, front and back. The plain belt
        stays an accessory; this is gear with real hanging geometry. */
@@ -21953,7 +21976,7 @@ window.CLO=(function(){
         for(var yP=tbT+1;yP<=tbT+4*S;yP++)for(var xP=h0;xP<=h1;xP++){ var iP=yP*CW+xP;   /* tbT is the BOTTOM pixel of its cell, so the pouch starts at +1 and runs 4 cells */
           if(iP<0||iP>=g.length)continue; var gvP=g[iP];
           if(gvP===9||gvP===10||gvP===0)o[iP]=(yP>tbT+3*S||xP<h0+S||xP>h1-S)?r.dk:r.mid; } }
-      return o; }
+      return rivets(o); }
     if(kind==='bandolier'){ /* wave 6: ONE diagonal shell belt, left shoulder
        to right hip, brass studs riding the strap, ammo pouch at the low end.
        Not the chest rig (X-harness with pouches) -- a single sash that reads
@@ -21970,7 +21993,7 @@ window.CLO=(function(){
       for(i=0;i<g.length;i++)if(g[i]===4){ var xp3=i%CW,yp3=(i/CW)|0;      /* the pouch at the hip end */
         if(yp3>=py0&&yp3<=y1&&xp3>=px0&&xp3<=px1)
           o[i]=(yp3<py0+S||yp3>y1-S||xp3<px0+S||xp3>px1-S)?r.dk:r.mid; }
-      return o; }
+      return rivets(o); }
     if(kind==='chestrig'){ var tb2=-1,tt2=CH,sx2=0,sc2=0;
       for(i=0;i<g.length;i++)if(g[i]===4){var y5=(i/CW)|0;if(y5>tb2)tb2=y5;if(y5<tt2)tt2=y5;sx2+=i%CW;sc2++;}
       var cx2=sc2?Math.round(sx2/sc2):(CW>>1), h=tb2-tt2;
@@ -21979,7 +22002,7 @@ window.CLO=(function(){
         if(x6>=strapX-S&&x6<strapX+2*S)o[i]=((x6>=strapX&&x6<strapX+S)?r.mid:r.dk);
         if(t3>0.35&&t3<0.75&&x6>=cx2-4*S&&x6<cx2-S)o[i]=(t3<0.45||t3>0.65)?r.dk:r.lt;  /* pouch, left chest */
         if(t3>0.4&&t3<0.7&&x6>=cx2+2*S&&x6<cx2+4*S)o[i]=(t3<0.48||t3>0.62)?r.dk:r.mid; }  /* small pouch, right */
-      return o; }
+      return rivets(o); }
     if(kind==='gorget'){ /* MARATHON WAVE 2 (7/25/26): a narrow throat-guard ring
        at the base of the neck -- a genuinely different zone from the chestplate
        (starts well below the collar) and the pauldron/bracers (shoulder/arm
@@ -21988,13 +22011,32 @@ window.CLO=(function(){
       for(i=0;i<g.length;i++){ var pGo=g[i],yGo2=(i/CW)|0;
         if(pGo===3)o[i]=(yGo2<=ttGo-S)?r.lt:r.dk;                       /* the neck band: lit top rim, dark below */
         else if(pGo===4&&yGo2<ttGo+2*S)o[i]=r.mid; }                    /* the collar lip it laps onto the torso */
-      return o; }
-    return o; }
+      return rivets(o); }
+    return rivets(o); }
   /* BAGS (7/19, STRUCTURE wave 2): a new carried-equipment class on a new
      'back' layer. Directional like the hood: the pack LIVES on the back --
      full body from behind, protruding from the back edge in profile, straps
      only from the front. */
   function genBag(g,opt){ var r=opt.ramp,kind=opt.kind||'backpack',i,o={},S=rsc();
+    var _noStitch=(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH);
+    /* @SUBCELL-DETAIL -- BUCKLE STUDS (8/23, row 2X step 5). A pack is held on with
+       hardware: buckles at the strap ends, studs at the flap corners. That hardware is
+       ONE pixel. At 56 a satchel is five rows and any of it would have swallowed the
+       bag; at 112 there is room.
+       MEASURED BEFORE THIS: 3 of 11 canon back pieces had a single one-pixel feature.
+       SAME SHAPE AS THE GEAR RIVETS and applied the same way, at the return, so a new
+       bag kind gets it instead of being forgotten. Nothing any kind draws is moved or
+       thinned -- a stud recolours a pixel the bag already owns. S>1 only, so the 56
+       wardrobe is byte-identical. */
+    var studs=function(oo){ if(S<2||_noStitch||!r.lt)return oo;
+      var col={};
+      for(var k2 in oo){ var ii=+k2,x2=ii%CW,y2=(ii/CW)|0;
+        var c2=col[x2]||(col[x2]={a:1e9,b:-1}); if(y2<c2.a)c2.a=y2; if(y2>c2.b)c2.b=y2; }
+      for(var xk in col){ var cc=col[xk]; if(cc.b-cc.a+1<3*S)continue;
+        if((xk%(2*S))!==1)continue;
+        var t1=cc.a*CW+(+xk), b1=cc.b*CW+(+xk);
+        if(oo[t1])oo[t1]=r.lt; if(oo[b1])oo[b1]=r.lt; }
+      return oo; };
     /* 4X, THE OFF-BY-(S-1) THAT EATS A ROW. A body MAX edge (tMx, tb) is the RIGHT
        or BOTTOM pixel of its cell, so at S=2 the cell it belongs to starts S-1
        earlier. Offsets measured off a max edge use the cell's LEFT/TOP corner or
@@ -22038,7 +22080,7 @@ window.CLO=(function(){
           var lx2=Math.round(x1+(x0-x1)*t2), dq2=xq2-lx2;
           if(dq2>=0&&dq2<2*S)o[i]=(dq2>=S)?r.dk:r.mid; }
         tips(mxQL,y0); }
-      return o; }
+      return studs(o); }
     var tb=-1,ttop=CH,sx=0,sc=0,tMn=CW,tMx=-1;
     for(i=0;i<g.length;i++)if(g[i]===4){var x=i%CW,y=(i/CW)|0;if(y>tb)tb=y;if(y<ttop)ttop=y;if(x<tMn)tMn=x;if(x>tMx)tMx=x;sx+=x;sc++;}
     var cx=sc?Math.round(sx/sc):(CW>>1);
@@ -22072,7 +22114,7 @@ window.CLO=(function(){
             o[i]=((lo>=2*S&&lo<3*S)||(ro>=2*S&&ro<3*S))?r.mid:r.dk;                   /* outer dark webbing, inner lit edge */
             if(ya>=ttop+5*S&&ya<ttop+6*S&&((lo>=S&&lo<2*S)||(ro>=S&&ro<2*S)))o[i]=r.lt; } }   /* the chest buckles */
         for(var yk=ttop+S;yk<ttop+9*S;yk++)for(var ek=1;ek<=S;ek++){ put(tMn-ek,yk,r.dk); put(tMx+ek,yk,r.dk); } }  /* the pack edges peeking past the shoulders */
-      return o; }
+      return studs(o); }
     if(kind==='bedroll'){                                                             /* wave 3: a rolled blanket ACROSS the upper back, tied at both ends */
       if(back){ for(var yy2=ttop;yy2<ttop+4*S;yy2++)for(var xx2=tMn-2*S;xx2<=tMx+2*S;xx2++){
           var ee=(xx2<tMn||xx2>tMx||yy2<ttop+S||yy2>=ttop+3*S);
@@ -22089,7 +22131,7 @@ window.CLO=(function(){
           if(xf2>=tMn+2*S&&xf2<=tMx-2*S)continue;
           for(var rl=1;rl<=S;rl++)put(xf2,ttop-rl,r.mid);
           for(var rl2=0;rl2<S;rl2++)put(xf2,ttop+rl2,(xf2<tMn+S||xf2>tMx-S)?r.dk:r.mid); } }
-      return o; }
+      return studs(o); }
     if(kind==='satchel'){                                                             /* hip bag + cross-body strap, every facing */
       var tbL=tb-(S-1), tMxL=tMx-(S-1);
       var hy=tbL-2*S, onR=prof?(fcx>cx):!back?false:true;
@@ -22102,8 +22144,8 @@ window.CLO=(function(){
         var _s0=back?cx-3*S:cx+3*S;                                         /* the strap crosses the OTHER shoulder from behind */
         var strapX=Math.round(_s0-(_s0-(side))*ts*0.9);
         if(xs>=strapX&&xs<strapX+S)o[i]=r.dk; }                                       /* the cross-body strap */
-      return o; }
-    return o; }
+      return studs(o); }
+    return studs(o); }
   /* APRON (7/19, STRUCTURE wave 2): a front PANEL garment -- chest bib + skirt
      over the upper legs, neck loop, waist tie. From behind it is just strings
      (the panel lives on the front). Worn over a base outfit (outer layer). */

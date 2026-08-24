@@ -903,3 +903,46 @@ the east and south. Three wear variants (bleached / patched / rust-
 bloomed), aluminium from the approved galv, rust from the approved rail
 plate, no logo or fleet number ever. Verified live: a full trailer in
 the truck court reads as exactly what it is.
+
+## 8/24 FORTY-THIRD PASS: THE ARSENAL BERMS (measured three times, wrong twice)
+
+Daily re-probe first: all twelve landmark grounds still sealed, trailer
+awnings still unnamed. Then the ranking's next: the arsenal's
+'earth-covered magazine' x1372 - twelve blobs, and the measurement said
+"19x16 each", so I cooked a MOUND: crest / mid / flank earth bands, a
+concrete headwall, a steel blast door. Two banding iterations later the
+frame read as a flat tan road, and the white-probe earned its keep for
+the fourth time: the 19x16 was the RING'S BOUNDING BOX. The name is not
+a mound at all - it is the earth BERM RING wrapped around each bunker
+block. So the wire became a pure berm and the headwall + door pieces
+went to the bank unwired (mag_head_0/1, mag_door - a berm has no
+headwall; they wait for a shape that does). Then the FOURTH look: the
+recook still measured uniform ~170 across the whole arm, and arithmetic
+closed it - 1372 cells / 12 blobs fits a ring TWO cells thick, not
+four, so the centreline test made every cell crest. A 2-thick berm has
+no room for crest+flank per side; it reads as a RIDGE - lit flank +
+shaded flank, light from the NW like every cast shadow in the frame.
+Verified live: the ring around each igloo block finally reads raised.
+Lessons banked: a blob measurement quotes a BOUNDING BOX, not a shape
+(count the cells before believing the rectangle), and when a band
+scheme needs N cells of width, check the width fits before wiring it.
+
+## 8/24 FORTY-FOURTH PASS: THE WATERWORKS HATCHES
+
+Same GO, next name on the ranking: the reservoir's 'valve / hatch'
+x1434, all falling to the gravel fallback - dirt pockmarks across the
+pad ring and dirt trails through the setback. Measured first: dozens of
+true 1x1 singles plus long SPARSE runs (4x51, 9x34, 8x32 bounding boxes
+at 40-60% fill - service lines following the buried mains, not slabs),
+neighboured by tank pad (1058), overflow (326) and transmission main
+(127). Two pieces, both RGBA riding on bought concrete: the round
+access lid (an ellipse per the 45 law, hinge bar, no bolt stipple, rust
+weep on the old ones) for lone cells, and the two-leaf vault cover in a
+pale collar for corridor cells, axis picked from the run's own
+neighbours. Verified live at the reservoir: lids in the yard, vault
+chains marching the easement. Twentieth wired family. Same turn, the
+suite's confirm pass flagged my own TF-ART-019 record: the 8/21 grid
+kit shipped a "short form" shortcut instead of the full contract, and
+the tileform gate rightly killed it - repaired to the full C-I form
+with a board row, 8287/0 by exit code. The reservoir's remaining names
+(tank roof, overflow, transmission main) stay on the ranking.

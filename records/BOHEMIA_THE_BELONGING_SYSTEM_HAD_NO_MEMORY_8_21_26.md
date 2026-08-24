@@ -120,3 +120,45 @@ whoever owns the save-slot design, in one pass, for both ledgers.
 Gate: `gates/faction_arc_gate.js` part Q (Q1 reload, Q2 the name, Q3 corrupt save) — the first claims in this lane that reload the page
 Tool: `tools/bohemia_city_belong_persist_patch.py`
 Tab: **CITY** — do work for somebody, close the tab, come back. It is still true.
+
+---
+
+## 7. AND A FINDING I DID NOT SHIP, BECAUSE I CHECKED IT ONE STEP FURTHER
+
+Having built a reload harness, the obvious next question was **what else does the
+game forget?** The sweep came back looking like a second big finding:
+
+```
+DAY          5  ->  1     LOST
+playerX  10299  ->  6205  LOST
+playerY   2252  ->  6271  LOST
+standing / commitments / people met / names asked      kept
+```
+
+Measured through the **real alpha**, tapping the splash like a friend — not the
+standalone city page, which was the first cut and rightly thrown away. So it
+already survived one "verify on the real surface" pass.
+
+**It is still not a finding.** `bohemia.save.v1` was absent entirely, and the
+reason is one line:
+
+```
+runFrame element in DOM: true   src=(empty)
+RUN frame booted?  false
+```
+
+**The RUN frame never loaded.** It is lazily sourced, my walk never triggered it,
+and the day and the save both live inside it. A page that was never handed a day
+cannot be said to have forgotten one — and the auto-save the alpha's own comments
+describe (`auto:start`, written on a 2.5s timer) never ran either.
+
+> **A SWEEP THAT FINDS SOMETHING IN ANOTHER LANE'S SYSTEM IS A HYPOTHESIS, NOT A
+> BUG.** Three checks deep it was still standing; the fourth killed it. The cost
+> of publishing it would have been a lane spending an afternoon on a save system
+> that was never running in my test.
+
+**What is honestly known:** the faction ledgers survive a reload (measured, gated,
+mutation-proved). Whether DAY and player position survive a *real* session is
+**untested here**, because answering it means understanding the RUN frame's
+lifecycle, and that is the RUN lane's system. Handed over as a question, not a
+defect.

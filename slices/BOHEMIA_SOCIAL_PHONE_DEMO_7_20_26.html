@@ -1235,3 +1235,45 @@ function standingBlock(){
 }
 
 </script>
+
+<script>
+/* __THE_PHONE_ANSWERS_A_TAP__ (8/22, SOUND lane) -- the last silent beat of the
+   demo. gates/demo_sound_gate.js walks the whole thing and records what the game
+   asks for; TAKING THE JOB, the pivot of ONE GOOD DAY, made no sound at all.
+
+   The shell has ticked its own buttons since 8/12 and the city since today, and
+   this frame was the last one left out for the same plumbing reason both times:
+   that handler is bound to a document these clicks never reach. Same policy,
+   mirrored rather than reinvented -- a refusal is ui_deny, a way out is ui_back,
+   everything else is ui_tap, all three approved and all three his.
+
+   window.top, NOT window.parent: this frame is a child of the CITY, which is a
+   child of the shell, and only the shell owns the audio bus and the approved
+   bank. Posting to `parent` would land in the city and stop there.
+
+   IT IS A TICK, NOT A FANFARE. Taking a job is a real commitment and arguably
+   wants a sound of its own, but there is no approved candidate for one and
+   inventing a moment he has not ruled on is not this lane's call. */
+(function(){
+  var NOUI='[data-noui]';
+  document.addEventListener('click',function(e){
+    try{
+      var t=e&&e.target; if(!t||!t.closest) return;
+      if(t.closest(NOUI)) return;
+      var btn=t.closest('button')||t.closest('.mapgo')||t.closest('.lv-take')
+             ||t.closest('.tab')||t.closest('.opt');
+      if(!btn) return;
+      var lab=(((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+                (btn.textContent||''))).trim().toLowerCase();
+      var refused = btn.disabled===true
+                 || (btn.classList && (btn.classList.contains('off')
+                                    || btn.classList.contains('disabled')));
+      var ev = refused ? 'ui_deny'
+             : (/^(back|close|cancel|done|x|<|\u2039|\u00d7|\u2190)$/.test(lab) ? 'ui_back'
+             : 'ui_tap');
+      if(window.top&&window.top!==window)
+        window.top.postMessage({bohemiaCitySfx:{ev:ev}},'*');
+    }catch(_e){}
+  },true);
+})();
+</script>

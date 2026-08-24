@@ -163,7 +163,15 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
     /* ---- 4. THE PHONE, AND THE JOB ------------------------------------- */
     await city.evaluate(() => { const b = document.getElementById('phonebtn'); if (b) b.click(); });
     await SETTLE(page, 2500);
-    await drain('he opens the PHONE (the job is behind it)');
+    const phoneHeard = await drain('he opens the PHONE (the job is behind it)');
+    /* THE GAME ANSWERS A TAP, IN EVERY FRAME. The shell has ticked its buttons
+       since 8/12; the city and the phone never did, because that handler is
+       bound to a document their clicks never reach. Not a policy decision --
+       his 8/4 ruling excludes SOUND-JUDGING surfaces, not the game -- just
+       plumbing, and it left the two most-tapped controls in the demo dead. */
+    ok('THE CITY ANSWERS A TAP -- opening the phone ticks ('
+      + (phoneHeard.join(', ') || 'SILENCE') + ')',
+      phoneHeard.some(h => /ui_tap|ui_back/.test(h)));
 
     const pf = page.frames().find(fr => /CURRENT_SLICE/.test(fr.url()));
     if (pf) {
@@ -172,7 +180,13 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
         await pf.evaluate(() => { const t = document.querySelector('.lv-take'); if (t) t.click(); });
       } catch (e) { }
       await SETTLE(page, 2200);
-      await drain('he TAKES THE JOB');
+      const tookHeard = await drain('he TAKES THE JOB');
+      /* THE PIVOT OF ONE GOOD DAY. The phone is a child of the CITY, which is a
+         child of the shell, so it has to post to window.top -- posting to
+         `parent` lands in the city and stops there. */
+      ok('TAKING THE JOB ANSWERS -- the pivot of the demo is not a dead button ('
+        + (tookHeard.join(', ') || 'SILENCE') + ')',
+        tookHeard.some(h => /ui_tap|ui_back/.test(h)));
       await city.evaluate(() => { try { phoneClose(); } catch (e) { } });
       await SETTLE(page, 900);
     }
