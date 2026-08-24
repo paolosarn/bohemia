@@ -1,3 +1,128 @@
+RUN (run-eak241): 8/23 LATEST -- *** THE WORLD TELEPORTED FIFTY-SIX PIXELS TWICE
+A SECOND AND WE CALLED IT WALKING. TAB: RUN (walk anywhere). Nothing to judge. ***
+
+MEASURED IN THE CANVAS HE LOOKS AT, holding the pad and sampling every 40ms, the
+MEDIAN change between adjacent frames:
+
+    standing still            median  0.0%    max  0.0%
+    walking, BEFORE (GRID)    median  0.0%    max 61.7%   <- that max IS the jump
+    walking, AFTER  (SLIDE)   median 58.8%    max 68.1%
+
+A typical frame of walking was IDENTICAL to the frame before it, and then twice a
+second sixty-one percent of the screen changed at once. That is not a figure of
+speech about how it felt; it is the pixel count. The city camera is player-centred
+and whole-pixel, hx,hy are CELLS, and they change inside stepOnce -- so the body
+could never move on screen and the entire world jumped one cell every BEAT.
+
+*** IT WAS INVISIBLE BECAUSE THE ANIMATION WAS ALREADY PERFECT. *** ANIM picks a
+walk frame off (now-t0)/BEAT, so the legs cycle beautifully at 60fps, on the beat.
+The sounds play, DAY.step fires, the clock advances 0.084 a cell. Every instrument
+we own said the walk was working, and the ground under his feet was teleporting.
+A SYSTEM CAN BE RIGHT IN EVERY PART AND WRONG IN THE ONE THING NOBODY MEASURES.
+
+A MIGRATION, NOT AN INVENTION. Paolo's own option 1 from the townwalk pattern
+note, stranded in the run panel nobody opens since 8/21: "SAME rules, the body
+just slides across the cell over the beat instead of teleporting", and the ruling
+explicitly leaves how a spent action is DRAWN to us. NO LAW MOVED -- time is still
+spent per cell entered, one step is still one step, the metronome is still the
+only clock, occupancy still resolves on the true cell.
+
+IT COST NO LOOP, AND THAT IS THE FIND. animate() ALREADY rAFed for exactly one
+beat after every step, ALREADY rendered every frame of it, and ALREADY computed
+(now-t0)/BEAT -- the interpolation parameter has been sitting in that file being
+used to pick a sprite frame and nothing else. Only the offset changed. Whole-pixel
+camera preserved: the Math.round is load-bearing and now rounds a moving number.
+
+BOTH CAMERAS AND THE TAPS, because only fixing one is this lane's signature bug.
+Outdoors the camera glides and the body is nailed to centre. Indoors there are
+TWO: a fitted plate is static so the BODY glides, an oversized plate follows the
+body so the CAMERA does. tpCellAt derives its origin the same way, so a tap
+mid-step hits the tile he can SEE and not the one the model has moved to.
+
+HE CHANGES IT HIMSELF: a chip in the BUILDER'S DRAWER (the wrench, RUN tab)
+cycles GRID/SLIDE mid-walk, SLIDE default, remembered across a reload. The drawer
+and not the toolbar, on his own 8/16 ruling about bullshit buttons under the thumb.
+
+*** MUTANT 2 IS WHY THE GATE READS PIXELS AND IT IS THE LESSON TO CARRY. ***
+walk_feel_gate (20 claims, registered WALK FEEL) was mutation-tested twice.
+Mutant 1, camCell never interpolates -> 5 claims red. MUTANT 2: camCell
+interpolating PERFECTLY while the renderer goes back to reading hx,hy -- this
+lane's most-found bug, a finished thing with a published seam and no caller --
+left EVERY MODEL CLAIM GREEN. "The camera sat between cells for 87.5% of a walked
+beat" was still perfectly TRUE, because the camera really was between cells and
+nothing drew it there. Only the two canvas checks noticed. A gate built on the
+seam would have shipped a feature that does nothing and called it proved.
+
+DOOR_ANIM WAS NEVER A HOLE, it was the ledger asking the old address. All 90
+frames of all 10 approved residential swing clips are in BOHEMIA_CITY_TILES.js
+verbatim (measured, 0 missing) -- the art moved house on 8/6 with the other 27 MB
+-- and inEnter, the one place a body goes through a door, calls doorSwing. The
+probe asks the CALLER and the C,C*2 blit now instead of a bank reference.
+
+  LEDGER: 13 of 30 -> 15 of 30 on the surface he plays.
+  STILL OWED, and each is a real hole rather than bookkeeping:
+    world_bridge (no BohemiaLoop in the city)   clout_feed (the FEED is not shown)
+    interior_pool (dressed-interior bank absent)
+  NOT CARRIED AND NAMED: HYBRID and FREE need a second position space with its
+  own collision, doors, and answer for a day metered per CELL ENTERED -- a build,
+  not a migration, and FREE is flagged dead on arrival by TIME IS SPENT BY
+  ACTIONS. The OVERMAP declines the glide outright rather than leaving state
+  nothing draws; its camera is the iso one and it is a second surface to prove.
+
+*** AND I HAD TO CLEAN UP AFTER MYSELF. I WROTE "THE FOUR GATES THAT NEED THE
+FRAME LIVE ASK FOR IT BY NAME" AND NEVER SWEPT FOR THE REST. *** The 8/21 change
+that stopped the alpha downloading the 17.8 MB run slice is right and it stays.
+MEASURED MECHANICALLY: TEN gates open the alpha, hunt the frame list for
+RUN_CURRENT, and never ask the exported loader. Six were sitting red in the suite.
+AND THE FAILURE THEY PRODUCE IS A LIE, which is why it was slow to see:
+
+    const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
+
+the fallback silently hands them THE CITY -- a real, live, working frame that
+simply has no openDoor and no run SLEEP verb -- so the gate reports "the run
+exposes openDoor: FAIL" and it reads as THE RUN being broken. A FALLBACK THAT
+SUBSTITUTES A DIFFERENT SURFACE WITHOUT SAYING SO TURNS A MISSING DEPENDENCY INTO
+A FALSE ACCUSATION AGAINST WORKING CODE.
+    SQUIGGLE VOICE red -> green · VOICE SURFACES red -> green
+    FRESH DOORS 21/2 -> 22/1 · TIME PASS 28/3 -> 30/1
+AND ONE FIXED SLEEP THE FIX EXPOSED: every_voice_surface waited a FLAT 46 SECONDS
+for the cold open. That held only while the slice happened to load long before;
+now it loads a few lines earlier in the same tab and the beats run behind. THE
+DURATION WAS ALWAYS THE BUG and the load only made it visible. It waits for the
+condition now.
+
+*** AND THE TWO THAT ARE STILL RED ARE RED FOR REAL REASONS THE FALLBACK WAS
+HIDING. THAT IS THE POINT OF THE SWEEP, NOT A SIDE EFFECT. *** Both are SOUND's:
+  FRESH DOORS 22/1. "OPENING A REAL DOOR IN THE REAL RUN SOUNDS HIS APPROVED
+  DRAG, EXACTLY ONCE (0)." That is door_drag, first on the five-sound list SOUND
+  wrote on 8/22 ("door_drag, eat, phone_buzz, save_chime, went_down"). It has
+  been missing since the game moved house and the gate could not say so because
+  it was looking at the city.
+
+LEFT RED ON PURPOSE, WITH THE REASON:
+  TIME PASS 30/1. First time since 8/21 that leg has measured THE RUN at all, and
+  what it found is that AN EIGHT-HOUR SLEEP REACHES THE WIRE AS TWO CLOCK MOVES,
+  not one -- no single row carries the 480-minute jump, so nothing strikes eight.
+  `-1` was reported for both "no row" and "several rows", which want opposite
+  fixes; it prints which now, and the jumps it did see ([450, 0]). That is a sound
+  and a clock-report cadence, both SOUND's.
+  VERIFIED NOT MINE, against origin/main's own slices rather than by assumption:
+  RENDER PIXEL (13.3% half-pixel on baseline vs 13.4% here, and the DRAW COUNT
+  grew 30% because SLIDE renders more frames -- the RATE did not move),
+  MOTION VISIBLE, WALK DEADLOCK, TIME PASS's clock legs. FULL RES and DRIVE
+  NETWORK are the standing WORLD reds.
+  QUEST PLACEMENT: the quest-placement JUDGE PAGE has stale inlined copies of
+  engine/bohemia_overmap.js and engine/bohemia_world.js. WORLD moved both on 8/23
+  and did not rerun tools/bohemia_quest_placement_judge.py. One command, theirs.
+  BANK LAW: the container's disk is throwing EIO on records/refs/pocketcity2/*
+  and on a bank. My 8/22 index fix is WORKING -- it refuses to write a shrunken
+  index rather than silently deleting rows -- so this red is a sick disk being
+  reported honestly, not a code failure. It will be green in a healthy container.
+
+THE RULE THIS BUYS: BEFORE CLAIMING A FEATURE IS WIRED, ASK WHAT THE PIXELS DO.
+A seam can be perfect, its caller can be missing, and every model-level check in
+the building will still say yes.
+
 SOUND (sound-xk7pjp): 8/22 (b) LATEST -- *** I WALKED THE DEMO AND LISTENED, AND
 FIVE OF TEN BEATS WERE SILENT. TAB: RUN (get up, walk, sleep). Nothing to judge. ***
 
