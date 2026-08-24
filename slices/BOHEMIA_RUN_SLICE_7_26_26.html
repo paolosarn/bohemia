@@ -1212,6 +1212,36 @@ function drawSolarform(gx,gy,X,Y,S){
     if(tb) ctx.drawImage(look(tb),X-(tw-1)*S,Y-(thh-1)*S,tw*S,thh*S);
     return true;
   }
+  if(n==='earth-covered magazine'){
+    /* THIRD LOOK (8/23, white-probe): the name is not a solid mound - it is
+       the earth BERM RING wrapped around each bunker block (the 19x16
+       "blob" was the ring's bounding box). So: pure berm, no headwall, no
+       door (those pieces stay banked). The crest runs along the ring's
+       centreline - band by the THIN axis of the local arm. */
+    function isMag(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='earth-covered magazine'; }
+    var up=0; while(up<8&&isMag(gx,gy-1-up))up++;
+    var dn=0; while(dn<8&&isMag(gx,gy+1+dn))dn++;
+    var lf=0; while(lf<8&&isMag(gx-1-lf,gy))lf++;
+    var rt=0; while(rt<8&&isMag(gx+1+rt,gy))rt++;
+    var wx=lf+rt+1, wy=up+dn+1;
+    /* FOURTH LOOK (8/23, measured uniform ~170 across the whole arm): the
+       ring is TWO cells thick (1372 cells / 12 blobs fits t=2, not t=4),
+       so |lf-rt|<=1 made every cell crest. A 2-thick berm has no room for
+       crest+flank bands per side - it reads as a RIDGE: lit flank + shaded
+       flank, light from the NW like every shadow in the shot. */
+    var band;
+    if(Math.min(wx,wy)<=2){
+      band = (wx<=wy) ? (lf===0?'crest':'edge_n') : (up===0?'crest':'edge_s');
+    }else{
+      var cen = (wx<=wy) ? Math.abs(lf-rt)<=1 : Math.abs(up-dn)<=1;
+      var edge = (wx<=wy) ? (lf===0||rt===0) : (up===0||dn===0);
+      band = cen ? 'crest' : edge ? ((wx<=wy? rt<lf : dn<up) ? 'edge_s' : 'edge_n') : 'mid';
+    }
+    var em=tf('mag_'+band+'_'+th(gx,gy,2)); if(!em) return false;
+    ctx.drawImage(look(em),X,Y,S,S);
+    return true;
+  }
   if(n==='seating / stands (the bowl)' || n==='bleachers'){
     /* MEASURED 8/21: the stadium bowl (x2499, its biggest surface) and the
        school bleachers (x303) fell to the generic wall mass. A stand is

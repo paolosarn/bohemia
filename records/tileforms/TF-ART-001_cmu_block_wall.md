@@ -120,3 +120,26 @@
 - STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt) AND WIRED 8/13/26: cap beam draws as the TOP COURSE of every block-material wall mass (replacing the orange starter parapet there - the cap IS the top) and the vent block sits sparse (1 in 18) mid-wall. Block masses are known exactly: the builder ships bd/bdef flags beside every civic wall pool and the page re-runs the mass hash (civicIsBlockMass) so only buildings that actually drew block_grey/block_painted get courses. Verified standing at the solar farm (def-pool district), live frame: records/target/ART_WIRED_TF-ART-001.png, card in the ART tab. Twelfth wired family. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 10 | VERDICT: —
+
+## K. VOLUME 8/24/26: THE ARSENAL BERMS (earth-covered magazines)
+- MEASURED: 'earth-covered magazine' x1372 across the arsenal - reported
+  as "12 blobs, 19x16 each" and cooked FIRST as a solid mound (crest /
+  mid / flank bands + concrete headwall + steel blast door). Two banding
+  iterations read as a flat tan road. WHITE-PROBE: the 19x16 was the
+  ring's BOUNDING BOX - the named cells are the earth BERM RING wrapped
+  around each bunker block. FOURTH look, by arithmetic: 1372/12 cells per
+  blob fits a ring TWO cells thick, so the centreline test banded every
+  cell crest (measured uniform ~170 across the arm). A 2-thick berm has
+  no room for crest+flank per side: final wire reads it as a RIDGE - lit
+  flank (crest band) + shaded flank (edge band), light from the NW like
+  every cast shadow on the surface, graded-earth mottle + dead scrub.
+- BANKED UNWIRED: mag_head_0/1 (concrete headwall) and mag_door (steel
+  blast door) stay in banks/tileforms/TF-ART-001_MAGAZINE_VOLUME_8_23_26.json
+  for a shape that has a face; a berm has no headwall.
+- LESSONS: a blob measurement quotes a BOUNDING BOX, not a shape - count
+  the cells before believing the rectangle. A band scheme that needs N
+  cells of width must check the width fits before wiring.
+- COOK: tools/tfcook/TF-ART-001_magazine_cook.py (11 pieces, earth from
+  the approved dirt, concrete from the approved kerb pale, steel from the
+  approved galv). Live frame: records/target/ART_WIRED_TF-ART-001.png
+  (card reshot at the arsenal ring). STATUS: COOKED AND WIRED 8/24/26.

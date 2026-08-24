@@ -432,6 +432,12 @@ grabPieces('banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json',
 /* VOLUME 8/20: member 5, the folded one - the O&M two-track wheel ruts
    riding the bought gravel on every plant service lane -
    tools/tfcook/TF-ART-016_lane_cook.py */
+/* VOLUME 8/23: the arsenal's twelve earth-covered magazines -
+   tools/tfcook/TF-ART-001_magazine_cook.py */
+grabPieces('banks/tileforms/TF-ART-001_MAGAZINE_VOLUME_8_23_26.json',
+  ['mag_crest_0', 'mag_crest_1', 'mag_mid_0', 'mag_mid_1',
+   'mag_edge_n_0', 'mag_edge_n_1', 'mag_edge_s_0', 'mag_edge_s_1',
+   'mag_head_0', 'mag_head_1', 'mag_door']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

@@ -31018,7 +31018,21 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/22 (a) LATEST -- *** THE TRAILERS: industrial's 28 dead
+ART (f3eu53): 8/24 (a) LATEST -- *** THE ARSENAL BERMS: 'earth-covered
+magazine' x1372 was measured "12 blobs, 19x16 each" and cooked as a
+MOUND with headwall + blast door - WRONG TWICE. White-probe: the 19x16
+was the ring's BOUNDING BOX; the name is the earth berm RING around
+each bunker block. Then arithmetic: 1372/12 fits a ring TWO thick, so
+the centreline band made every cell crest (uniform tan road). Final
+wire: a 2-thick berm is a RIDGE - lit flank + shaded flank, NW light.
+mag_head_0/1 + mag_door BANKED UNWIRED (a berm has no headwall).
+Lessons: a blob measurement quotes a bounding box, count cells before
+believing the rectangle; check a band scheme's width fits before
+wiring. Daily re-probe: twelve grounds still sealed, awnings unnamed.
+Sitting pass 43. Ranking next: 'valve / hatch' (reservoir), 'spout /
+dust bin' (granary), 'barricade post' (arsenal), 'riprap' (wash).
+PREVIOUS (8/22 a):
+ART (f3eu53): 8/22 (a) -- *** THE TRAILERS: industrial's 28 dead
 semi-trailers (all exactly 4x16 cells, measured) draw as ribbed-aluminium
 boxes with door seams and kingpin plates - one multi-cell prop, three
 wear states. Daily re-probe: all twelve grounds still sealed (WORLD is

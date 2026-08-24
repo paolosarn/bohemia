@@ -903,3 +903,26 @@ the east and south. Three wear variants (bleached / patched / rust-
 bloomed), aluminium from the approved galv, rust from the approved rail
 plate, no logo or fleet number ever. Verified live: a full trailer in
 the truck court reads as exactly what it is.
+
+## 8/24 FORTY-THIRD PASS: THE ARSENAL BERMS (measured three times, wrong twice)
+
+Daily re-probe first: all twelve landmark grounds still sealed, trailer
+awnings still unnamed. Then the ranking's next: the arsenal's
+'earth-covered magazine' x1372 - twelve blobs, and the measurement said
+"19x16 each", so I cooked a MOUND: crest / mid / flank earth bands, a
+concrete headwall, a steel blast door. Two banding iterations later the
+frame read as a flat tan road, and the white-probe earned its keep for
+the fourth time: the 19x16 was the RING'S BOUNDING BOX. The name is not
+a mound at all - it is the earth BERM RING wrapped around each bunker
+block. So the wire became a pure berm and the headwall + door pieces
+went to the bank unwired (mag_head_0/1, mag_door - a berm has no
+headwall; they wait for a shape that does). Then the FOURTH look: the
+recook still measured uniform ~170 across the whole arm, and arithmetic
+closed it - 1372 cells / 12 blobs fits a ring TWO cells thick, not
+four, so the centreline test made every cell crest. A 2-thick berm has
+no room for crest+flank per side; it reads as a RIDGE - lit flank +
+shaded flank, light from the NW like every cast shadow in the frame.
+Verified live: the ring around each igloo block finally reads raised.
+Lessons banked: a blob measurement quotes a BOUNDING BOX, not a shape
+(count the cells before believing the rectangle), and when a band
+scheme needs N cells of width, check the width fits before wiring it.
