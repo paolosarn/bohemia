@@ -1389,6 +1389,99 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V176 AND ON THE SHOTGUN IT IS A NO-OP, DELIBERATELY, and the charge is KEPT rather than silently eaten. 1.0 lethal is his own ruling -- "this weapon finishes the job, no downed state" -- so a finisher there is a bonus for a problem that weapon does not have. THIS IS THE INVERSE OF THE WIDE-OPEN BONUS CUT YESTERDAY, which paid out on one weapon of four and was unlearnable; this one is worth 80% of your killshots on the pistol, 65% on the smg, 45% on the rifle, and is redundant exactly where it is redundant',
     fin.shotgun.applies === false && fin.shotgun.lethal === 1 && fin.shotgun.chargeKept === fin.fills.FINISH_AT);
 
+/* ===== V178: THE FIRST TEST IN THIS REPO THAT FIRES THE GUN ======
+   Every combat gate here -- including V176's own -- reaches the fight by calling
+   applyDamage directly, which SKIPS fireNow entirely. So the dial, V32's
+   lethality coin, the downed state and the finisher's feed had never once been
+   exercised by a test. V176's arm above fed the counter by calling
+   finisherFeed() itself: that proves the counter counts and says NOTHING about
+   whether a fight ever reaches the threshold. It did not -- a three-man fight
+   earned 5 of the 6 required, so the ability was absent from most fights he
+   plays, and ENC_WEIGHTS puts 65% of encounters at three or four men.
+   THIS ARM PRESSES ENGAGE AND FIRE. It is slower than everything else in this
+   file and it is the only thing here that proves the feature is reachable. */
+  const realGun = await (async () => {
+    await frame.evaluate(() => {
+      BohemiaArena.set(6); G.encCurve = false; G.numEnemies = 3; setupCombat();
+      G.pHP = G.pMax||100; G.phase='cover'; G.over=false; G.inc=null; G._finCharge = 0;
+      try { WEAPON = 'pistol'; } catch(e){}
+      window.__said = []; const real = setRead;
+      window.__realRead = real;
+      window.setRead = function(t,s,c){ window.__said.push(t); return real(t,s,c); };
+    });
+    let peak = 0, shots = 0, deadAtSpend = null;
+    /* THIRTY SHOTS, NOT FOURTEEN. A headless click lands at an arbitrary point in
+       the dial's rotation, so a good share of these MISS and feed nothing -- at
+       fourteen the arm read peak 2 on one run and peak 4 with a clean spend on
+       the next, which is the same claim passing and failing on the dial's luck.
+       Fourth time this session the answer is the same: MORE EVIDENCE, NEVER A
+       LOOSER THRESHOLD. */
+    for (let i = 0; i < 30; i++) {
+      const live = await frame.evaluate(() => {
+        G.phase='cover'; G.inc=null; G.over=false; G.pHP=G.pMax||100; G._chainWait=null;
+        /* STAND THE BOARD BACK UP RATHER THAN RE-RUNNING setupCombat, because
+           setupCombat calls resetFightState which ZEROES THE CHARGE -- refreshing
+           the fight to get more targets would wipe the very thing being measured,
+           and that is exactly how the first cut of this read 0 after 26 shots. */
+        if (!(G.e||[]).some(e => e && !e.dead && !e.downed)) {
+          for (const e of (G.e||[])) { if (!e) continue;
+            e.dead=false; e.downed=false; e.hp=e.max||60; e.stun=0; e.prone=0; e.supp=0; }
+        }
+        const t = (G.e||[]).find(e => e && !e.dead && !e.downed);
+        if (t) { t.ea=0; t.edist=3; t.gcov=0; t.stun=0; try { putCell(t,3,0); } catch(e){} }
+        try { updateGeomCover(); } catch(e){}
+        return { standing: (G.e||[]).filter(e => e && !e.dead && !e.downed).length,
+                 charge: G._finCharge||0, dead: (G.e||[]).filter(e=>e&&e.dead).length };
+      });
+      if (live.standing === 0) break;
+      peak = Math.max(peak, live.charge);
+      const deadBefore = live.dead, chargeBefore = live.charge;
+      try { await frame.click('#fire', { timeout: 2000 }); } catch(e){}
+      await page.waitForTimeout(550);
+      try { await frame.click('#fire', { timeout: 2000 }); } catch(e){}
+      await page.waitForTimeout(1050);
+      shots++;
+      /* SAMPLE AFTER THE SHOT TOO. The first write read the charge only BEFORE
+         firing and then asserted it was seen at the threshold -- which it never
+         can be, because the shot that reaches the threshold SPENDS it in the same
+         breath. The feature was working and the claim was measuring a value that
+         does not exist. A spend is: the charge dropped to zero from a non-zero
+         value, and a body went from standing to DEAD in that shot. */
+      const post = await frame.evaluate(() => ({ charge: G._finCharge||0,
+        dead: (G.e||[]).filter(e=>e&&e.dead).length }));
+      peak = Math.max(peak, post.charge);
+      if (deadAtSpend === null && chargeBefore > 0 && post.charge === 0) {
+        deadAtSpend = post.dead > deadBefore;
+      }
+    }
+    const said = await frame.evaluate(() => {
+      const r = { ready: window.__said.filter(x => x === 'FINISHER READY').length,
+                  spent: window.__said.filter(x => x === 'THAT ONE STAYS DOWN').length,
+                  FINISH_AT };
+      window.setRead = window.__realRead;
+      /* AND HAND THE BOARD BACK. This arm pins numEnemies to 3 and turns the
+         encounter curve off, and every later arm reads both -- leaving them set
+         starved the breacher out of all 30 rosters and failed three claims that
+         had nothing to do with it. An arm that mutates shared state has to put
+         it back. */
+      G.encCurve = true; G.numEnemies = 5;
+      return r;
+    });
+    return { peak, shots, said, deadAtSpend };
+  })();
+
+  console.log('  the finisher, fired through the real ENGAGE/FIRE buttons: ' + realGun.shots
+    + ' shots, peak charge ' + realGun.peak + ' of ' + realGun.said.FINISH_AT
+    + ', "FINISHER READY" x' + realGun.said.ready + ', "THAT ONE STAYS DOWN" x' + realGun.said.spent);
+
+  ok('V178 *** THE FINISHER IS ACTUALLY REACHABLE, PROVED BY PRESSING THE BUTTONS. *** A three-man fight earns ' + realGun.peak
+    + ' charge and the threshold is ' + realGun.said.FINISH_AT + ', so it announces itself ("FINISHER READY" x' + realGun.said.ready
+    + ') and spends ("THAT ONE STAYS DOWN" x' + realGun.said.spent + '). At the shipped-yesterday value of 6 the same fight earned 5 and the ability NEVER APPEARED -- a dead dial by a different route than MEDIC_SHY: not a term that changes nothing, but a threshold nobody can reach. Every other combat arm in this file calls applyDamage and skips fireNow, so nothing had ever fired the gun',
+    realGun.said.ready >= 1 && realGun.said.spent >= 1);
+
+  ok('V178 AND THE BODY IT SPENDS ON REALLY STAYS DOWN: the shot taken with the charge full turned a standing man into a DEAD one rather than a downed one, on the real fire path with V32\'s coin in place',
+    realGun.deadAtSpend === true);
+
   ok('V176 AND A FINISHER IS EARNED IN THE FIGHT YOU SPEND IT IN: a fresh encounter starts at ' + fin.freshFight
     + '. Carrying one in would make the first perfect shot of every fight free, which is the opposite of a thing you work up to',
     fin.freshFight === 0);
