@@ -1,3 +1,53 @@
+CHARACTER (character-0lurbs): 8/23 (a) LATEST -- *** THE SMALL THINGS. Row 2X step 5,
+third pass: four more garment types get a mark they never had. 84 of 200 -> 66 of 200. ***
+
+    gloves   knuckle seam    hands 0/4 -> 4/4      scarves  woven weft   neck 0/7 -> 7/7
+    belts    edge stitching  waist 0/5 -> 2/5      masks    hem stitch   face 0/8 -> 5/8
+(tool belts are genGear's, not genAcc's, which is why waist stops at 2/5.)
+
+*** THE RULE THAT MATTERS MORE THAN THE MARKS: ADD, NEVER SHRINK. *** Nothing he ruled on
+got thinner. genShoes' heel seam is S wide with HIS OWN reason written above it; the
+belt's buckle, the glove's edge, the scarf ring's split and the mask's top band all keep
+their widths. The temptation on every one of these was to thin the existing line, and that
+would have quietly overwritten a ruling. CHECK FOR A RECORDED WIDTH BEFORE TOUCHING ONE.
+
+MEASURE THE BODY, DO NOT GUESS IT: the knuckle seam went in at mn+2*S and DREW NOTHING.
+The hand is six rows tall at 112, so that is the fifth of six and the generator's own edge
+test (which reaches two pixels) correctly called it an edge. Probed the real part grid,
+moved it to mn+S, landed. A row index guessed from the shape of the CODE rather than the
+shape of the BODY is a coin flip.
+
+AND THE PICTURE LIED ONCE FIRST: the before/after came out with both columns IDENTICAL,
+because CLO_NOSTITCH gated the boot stitch and genAcc had never been taught to read it.
+A BEFORE/AFTER WHERE NOTHING DIFFERS IS NOT A NULL RESULT, IT IS A BROKEN TOOL. Only
+looking at the picture catches that.
+
+GATES: clothes_4x 13/0, STEP 5 ratchet moved 44 -> 40 (downward only, so nobody deletes
+detail to go green and step 5 cannot stall). 1,744 pinned 56 hashes unmoved -- every mark
+is S>1 only. ACCESSORIES 13/0.
+Record: records/BOHEMIA_THE_SMALL_THINGS_8_23_26.txt
+LOOK tab: "THE SMALL THINGS", before beside after, same generators.
+
+*** ONE RED I DID NOT FIX AND IT IS NOT THIS LANE'S. *** LOOK is 23/1 on ONE stale
+picture: the-spawn-sidewalk. It photographs the CITY WORLD, belongs to WORLD, and RECORDS
+NO SHOOTER -- no tool in the repo references it, so nobody can retake it. VERIFIED
+PRE-EXISTING: stash everything I did, run the gate on clean main, same 23/1, same picture.
+I retook the other 28 that went stale (every one that records how it was taken).
+THE FIX IS ONE LINE IN THE MANIFEST AND IT IS WORLD'S: give it a shooter. Same hole I
+closed for the twelve city shots on 8/20, in a picture added since.
+
+NEXT IN THIS LANE
+  - STEP 5 CONTINUES. The audit names what is left: gear 4/22, back 3/11, outer 20/31,
+    base 50/68, head 0/2, and 3 bandanas in face that take a different code path from the
+    masks. Gear and bags are the big ones. Run the audit first; it names the worst per layer.
+  - BEFORE ADDING, CHECK FOR A RULED WIDTH. Grep the generator for his name or a quote.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+  - CROWD flaked 15/1 once under load on 8/21, passed repeatedly since. Still unexplained.
+  - THE CONTAINER USUALLY COMES UP ON A STALE TREE with old files staged that look like
+    unfinished work. DIFF AGAINST origin/main BEFORE BELIEVING IT. (Clean this session.)
+
+---
+
 SOUND (sound-xk7pjp): 8/23 (i) LATEST -- *** THE STRANDED LIST IS CLOSED, AND MY OWN
 COUNT OF IT WAS WRONG. TAB: RUN (walk into any building). Nothing to judge. ***
 

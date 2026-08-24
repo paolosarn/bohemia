@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/23k - ONE ACT, FOUR MEANINGS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/23k - THE SMALL THINGS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21468,7 +21468,10 @@ window.CLO=(function(){
         for(var py=hBot;py<hBot+pl;py++){ var pw=(py<hBot+2*S)?2*S:S;
           for(var px=tx-pw;px<hcxR+pw+1;px++) put(px,py,(px<tx-pw+S||px>hcxR+pw-S)?r.dk:r.mid); } } }
     return o; }
-  function genAcc(g,opt){ var r=opt.ramp,kind=opt.kind,i,S=rsc();
+  function genAcc(g,opt){
+    /* the before/after tools flip this to draw the pre-step-5 version from THIS
+       code; typeof-guarded because a generator must run with no DOM at all. */
+    var _noStitch=(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH); var r=opt.ramp,kind=opt.kind,i,S=rsc();
     /* 4X: `inw`/`outw` step in CELLS, not pixels. A face edge (fMx/fBot) is the
        OUTERMOST pixel of its cell, so "one column inward" is S pixels wide and
        starts S-1 earlier -- stepping by 1 puts a 112 lens inside its own rim. */
@@ -21617,7 +21620,14 @@ window.CLO=(function(){
       var tEnd=(opt.tail==='long')?9:4, fEnd=(opt.tail==='long')?7:3;    /* TRAILING (wave 5): the long scarf's tail falls to the waist */
       for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.mid;
       for(var yr=tTop;yr<tTop+2*S;yr++)for(var xr=nMn-2*S;xr<=nMx+2*S;xr++){ if(xr<0||xr>=CW)continue; var ir=yr*CW+xr;
-        if(g[ir]===4)o[ir]=(xr<nMn-S||xr>nMx+S||yr>=tTop+S)?r.dk:r.mid; }
+        if(g[ir]===4)o[ir]=(xr<nMn-S||xr>nMx+S||yr>=tTop+S)?r.dk:r.mid;
+        /* @SUBCELL-DETAIL -- THE WEFT (8/22, row 2X step 5). A scarf is woven, and at
+           this size the weave reads as one alternating row through the band. At 56 the
+           whole ring is two rows and a weave line would have been half the garment; at
+           112 it is four and the line has somewhere to live. MEASURED BEFORE THIS: 0 of
+           7 canon neck pieces had a single one-pixel feature. The ring's width and its
+           dark/light split are untouched -- this is a mark that did not exist. */
+        if(S>1&&!_noStitch&&g[ir]===4&&yr===tTop+S&&(xr%2)===1)o[ir]=r.mid; }
       if(back){ for(var t2=2*S;t2<(tEnd+1)*S;t2++)for(var bc=0;bc<S;bc++){var it=(tTop+t2)*CW+hcxL+bc; if(g[it]===4)o[it]=(t2>=tEnd*S)?r.dk:r.mid;
           var it3=(tTop+t2)*CW+hcxL-S+bc; if(t2<tEnd*S&&g[it3]===4)o[it3]=r.mid;} }                                       /* tail down the back */
       else if(front){ for(var t3=2*S;t3<(fEnd+1)*S;t3++)for(var fc2=0;fc2<S;fc2++){var if2=(tTop+t3)*CW+(hcxL-S+fc2); if(g[if2]===4)o[if2]=(t3>=fEnd*S)?r.dk:r.mid;} }  /* short drape on the chest */
@@ -21627,7 +21637,13 @@ window.CLO=(function(){
       return o; }
     if(kind==='mask'){                                                   /* dust bandana: nose+mouth down, NEVER at/above the eyes */
       if(!back){ for(i=0;i<g.length;i++){var pm=g[i],xm=i%CW,ym=(i/CW)|0;
-        if((pm===1||pm===2)&&ym>=mouthY&&ym<=hBot)o[i]=(ym<mouthY+S)?r.dk:((xm<hMn+S||xm>hMx-S)?r.dk:r.mid); } }
+        if((pm===1||pm===2)&&ym>=mouthY&&ym<=hBot){ o[i]=(ym<mouthY+S)?r.dk:((xm<hMn+S||xm>hMx-S)?r.dk:r.mid);
+          /* @SUBCELL-DETAIL -- THE HEM STITCH (8/22, row 2X step 5). A dust mask is a
+             folded cloth and the fold is stitched: one pixel, dotted, just below the top
+             edge. At 56 the mask is three rows deep and the top row IS the edge; at 112
+             there is a row to spare. MEASURED BEFORE THIS: 0 of 8 canon face pieces had
+             any one-pixel feature. The top dark band keeps its S rows. */
+          if(S>1&&!_noStitch&&ym===mouthY+S&&(xm%2)===1&&xm>=hMn+S&&xm<=hMx-S)o[i]=r.dk; } } }
       if(!front){ var ky=Math.min(hBot,mouthY+S);                        /* the tied knot at the back of the skull */
         if(back){ for(var kr=0;kr<S;kr++)for(var kc2=0;kc2<S;kc2++){ o[(ky+kr)*CW+hcxL+kc2]=r.dk;
             var kt1=(ky+S+kr)*CW+(hcxL-S+kc2), kt2=(ky+S+kr)*CW+(hcxL+S+kc2);
@@ -21679,12 +21695,29 @@ window.CLO=(function(){
           if(o[gl1]!==undefined)o[gl1]=r.mid; if(o[gl2]!==undefined)o[gl2]=r.mid; }
       }
       return o; }
-    if(kind==='gloves'){ for(i=0;i<g.length;i++){var pg2=g[i]; if(pg2!==7&&pg2!==8)continue;
+    if(kind==='gloves'){ var hL=pExt(g,7),hR=pExt(g,8);
+      for(i=0;i<g.length;i++){var pg2=g[i]; if(pg2!==7&&pg2!==8)continue;
       var edge=false; for(var ed=1;ed<=S;ed++){
         var gl=g[i-ed],gr2=g[i+ed],gu=g[i-ed*CW],gd=g[i+ed*CW];
         if(!((gl===7||gl===8)&&(gr2===7||gr2===8)&&(gu===7||gu===8)&&(gd===7||gd===8))){edge=true;break;} }
-      o[i]=edge?r.dk:r.mid; } return o; }
-    if(kind==='belt'){ for(i=0;i<g.length;i++)if(g[i]===4){var yb2=(i/CW)|0; if(yb2>tb-2*S)o[i]=r.dk;}
+      o[i]=edge?r.dk:r.mid;
+      /* @SUBCELL-DETAIL -- THE KNUCKLE SEAM (8/22, row 2X step 5). A glove is seamed
+         across the knuckles, and that seam is ONE pixel. At 56 the whole hand is three
+         rows and a line inside it would have eaten the glove; at 112 there is room.
+         MEASURED BEFORE THIS: 0 of 4 canon gloves had a single one-pixel feature -- the
+         entire garment was a dark outline round a flat fill.
+         NOTHING RULED ON IS TOUCHED: the edge stays S wide, the fill stays r.mid. This
+         is a mark that did not exist. S>1 only, so the 56 wardrobe is byte-identical. */
+      if(S>1&&!edge){ var yk=(i/CW)|0, xk=i%CW, hx=(pg2===7?hL:hR);
+        if(!_noStitch&&yk===hx.mn+S&&(xk%2)===1)o[i]=r.dk; } } return o; }
+    if(kind==='belt'){ for(i=0;i<g.length;i++)if(g[i]===4){var yb2=(i/CW)|0; if(yb2>tb-2*S)o[i]=r.dk;
+        /* @SUBCELL-DETAIL -- EDGE STITCHING (8/22, row 2X step 5). A leather belt is
+           stitched a hair in from each edge, one pixel, dotted. At 56 the band is two
+           rows and both of them are the edge; at 112 the band is four and the stitch has
+           somewhere to live. MEASURED BEFORE THIS: 0 of 5 canon belts had any one-pixel
+           feature -- the whole garment was a flat dark band with a buckle on it.
+           THE BUCKLE IS NOT TOUCHED and neither is the band's width. S>1 only. */
+        if(S>1&&!_noStitch&&(yb2===tb-2*S+1||yb2===tb)&&((i%CW)%2)===1)o[i]=r.mid; }
       if(front){var bcx=Math.round((tMn+tMx)/2)-((S-1)>>1);                              /* the buckle catches light, front only */
         for(var br=0;br<S;br++)for(var bc2=0;bc2<S;bc2++){var bk=(tb-2*S+1+br)*CW+bcx+bc2; if(g[bk]===4)o[bk]=r.lt;} }
       return o; }

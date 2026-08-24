@@ -265,7 +265,7 @@ const COARSE_PIN = (() => {
   }
   return { coarse, ran };
 })();
-const PINNED_COARSE = 44;   // shapes with NO 1px feature on the fixture; only ever shrinks
+const PINNED_COARSE = 40;   // shapes with NO 1px feature on the fixture; only ever shrinks
 ok('STEP 5 ONLY GOES FORWARD: shapes with no one-pixel detail at 112 (' +
    COARSE_PIN.coarse + ' of ' + COARSE_PIN.ran + ', pinned at ' + PINNED_COARSE + ')',
    COARSE_PIN.coarse <= PINNED_COARSE);

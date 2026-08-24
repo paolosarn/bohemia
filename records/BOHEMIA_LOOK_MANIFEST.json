@@ -85,11 +85,11 @@
    "caption": "Bones lying in the open on a suburb street, bleached and scattered by ten years of scavengers. RUN tab.",
    "file": "look/dead-suburb.png",
    "at": {
-    "x": 4171,
-    "y": 3434,
+    "x": 4168,
+    "y": 3352,
     "zoom": 44
    },
-   "kb": 311.4,
+   "kb": 303.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -117,7 +117,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 219.4,
+   "kb": 205,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -141,7 +141,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 501.3,
+   "kb": 510.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -183,7 +183,7 @@
     "y": 900,
     "zoom": 26
    },
-   "kb": 141.4,
+   "kb": 146.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -193,7 +193,7 @@
    "caption": "Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.",
    "file": "look/the-wall.png",
    "at": null,
-   "kb": 183.1,
+   "kb": 209.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -203,7 +203,7 @@
    "caption": "Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.",
    "file": "look/the-claim.png",
    "at": null,
-   "kb": 178,
+   "kb": 202.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -213,7 +213,7 @@
    "caption": "The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.",
    "file": "look/the-favour.png",
    "at": null,
-   "kb": 172.9,
+   "kb": 198.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -223,7 +223,7 @@
    "caption": "This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.",
    "file": "look/the-collection.png",
    "at": null,
-   "kb": 193.7,
+   "kb": 214,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -233,7 +233,7 @@
    "caption": "Five different systems write onto a person now and the card had quietly grown to 96 percent of your screen -- one more thing and it would have run off the bottom. So the stuff that is true of the WHOLE outfit and never changes (what they want, what they hold, what they pay in) collapses to one line the moment you have done anything for them, because you have already read it. Tap that line and it all comes back. Down to 84 percent. CITY tab, tap somebody you have helped.",
    "file": "look/the-terms-fold.png",
    "at": null,
-   "kb": 249.1,
+   "kb": 250.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -286,7 +286,7 @@
     "y": 576,
     "zoom": 26
    },
-   "kb": 323,
+   "kb": 333.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -329,7 +329,7 @@
    "title": "THE HAIR STOPPED BEING STRAIGHT",
    "caption": "You told me on 8/1 that hair is little off shapes and that I was drawing a lot of straight lines. The fix that day worked, but it moved the edge by a whole block, so when the character went to four times the pixels the hair kept wobbling in the same chunky steps: sharper, not finer. Measured, half of every hair edge was running dead straight for four rows or more and some for sixteen. The edge now moves by a single pixel, which is only possible at the new resolution. 18.5% now, longest run six. Left is the old edge, right is the new one, same generator, same head. Your painted head is untouched. CHARACTER tab for the hair, LOOK tab for this picture.",
    "file": "look/hair-edge.png",
-   "kb": 63.0,
+   "kb": 63,
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_edge_picture.js"
@@ -363,6 +363,16 @@
    "stamp": "8/22/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_boot_stitch_picture.js"
+  },
+  {
+   "id": "fine-detail",
+   "title": "THE SMALL THINGS",
+   "caption": "Carrying on from the boots. Your gloves had no knuckles, your belts had no stitching, your scarves had no weave and your masks had no hem, because at the old resolution there was no spare row to put any of it in. All four have one now. This is the same method as the boot stitch and the same rule with it: nothing you already ruled on got thinner, these are marks that did not exist before. 102 of your 200 clothes had no fine detail yesterday morning, 66 do now. Next are the gear pieces and the bags. LOOK tab for this picture, CLOTHES tab for the items.",
+   "file": "look/fine-detail.png",
+   "kb": 72,
+   "stamp": "8/23/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_fine_detail_picture.js"
   }
  ]
 }

@@ -1,0 +1,71 @@
+BOHEMIA -- THE SMALL THINGS: FOUR MORE GARMENT TYPES GET A MARK THEY NEVER HAD
+CHARACTER lane, 8/23/26.  Row 2X step 5, third pass.
+
+WHERE THIS STARTED
+------------------
+The rig composes at 112. A mark drawn one CELL wide is TWO pixels there, so a garment
+that only scales comes out chunkier relative to the body. Measured 8/22 across every
+canon garment (tools/bohemia_seam_width_audit.js): 102 OF 200 HAD NO ONE-PIXEL DETAIL
+ANYWHERE. Boots got a welt stitch the same day, 0/18 -> 18/18, and the total fell to 84.
+
+THIS PASS, FOUR MORE
+--------------------
+    gloves    a knuckle seam        hands  0/4 -> 4/4
+    belts     edge stitching        waist  0/5 -> 2/5   (tool belts are genGear's)
+    scarves   a woven weft line     neck   0/7 -> 7/7
+    masks     a hem stitch          face   0/8 -> 5/8
+
+    84 of 200 -> 66 of 200.
+
+EVERY ONE IS A MARK THAT DID NOT EXIST. At 56 a glove is three rows and a seam inside it
+would have eaten the garment; a belt is two rows and both are the edge; a scarf ring is
+two rows and a weave line would be half of it. At 112 each has a row to spare.
+
+*** THE RULE THAT MATTERS MORE THAN THE MARKS: ADD, NEVER SHRINK. ***
+Nothing he ruled on got thinner. genShoes' heel seam is S wide with HIS OWN reason
+written above it. The belt's buckle, the glove's edge, the scarf ring's dark/light split
+and the mask's top band all keep exactly the widths they had. The temptation on every one
+of these was to thin the existing line, and that would have quietly overwritten a ruling.
+
+MEASURE THE BODY, DO NOT GUESS IT
+----------------------------------
+The knuckle seam went in at row mn+2*S and DREW NOTHING. The hand is six rows tall at
+112, so mn+2*S is the fifth of six and the generator's own edge test -- which reaches two
+pixels in every direction -- correctly called it an edge. Probed the real part grid
+(6 rows, 10 wide), moved the seam to mn+S, and it landed. A row index guessed from the
+shape of the code rather than the shape of the body is a coin flip.
+
+AND THE PICTURE LIED ONCE BEFORE IT TOLD THE TRUTH
+---------------------------------------------------
+The first before/after came out with the two columns IDENTICAL. CLO_NOSTITCH gated the
+boot stitch and genAcc had never been taught to read it, so "before" was drawing the new
+marks too. The flag is read in genAcc now, typeof-guarded like the others, and all four
+marks honour it. A before/after where nothing differs is not a null result, IT IS A
+BROKEN TOOL, and the only reason to catch it is to look at the picture instead of
+trusting that the tool did its job.
+
+GATES
+-----
+clothes_4x 13/0. The STEP 5 ONLY GOES FORWARD ratchet moved 44 -> 40 on the fixture,
+which is what it exists for: the number can never rise, so nobody deletes fine detail to
+make a gate green and step 5 cannot quietly stall. The 1,744 pinned 56 hashes are
+unmoved, because every mark here is S>1 only.
+ACCESSORIES 13/0, and every other character gate green.
+
+THE ONE RED I AM NOT FIXING, AND WHY
+-------------------------------------
+LOOK is 23/1 on ONE stale picture: the-spawn-sidewalk. It photographs the CITY WORLD,
+it belongs to the WORLD lane, and it RECORDS NO SHOOTER -- no tool anywhere in the repo
+references it, so nobody can retake it. VERIFIED PRE-EXISTING: stashing every change I
+made and re-running the gate on clean main gives the same 23/1 on the same picture.
+I retook the other 28 that went stale, which is every one that records how it was taken.
+THE FIX IS ONE LINE IN THE MANIFEST AND IT IS THE WORLD LANE'S: give it a shooter. This
+is the same hole I closed for the twelve city shots on 8/20, in a picture added since.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE SMALL THINGS" -- gloves, belt, scarf and mask, before beside after, both
+halves out of the SAME generators. The items are in the CLOTHES tab.
+
+  node tools/bohemia_seam_width_audit.js
+  node gates/clothes_4x_gate.js    13/0
