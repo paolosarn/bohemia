@@ -1110,8 +1110,18 @@ function renderLock(){
   if(neigh){ var last=neigh.msgs[neigh.msgs.length-1]; nf+=notifCard(avatar('@'+neigh.av), neigh.who, last.t); }
   if(offers) nf+=notifCard('<div class="av sm" style="background:'+AV_COLORS[0]+'">&#9670;</div>','Network', offers+' quest'+(offers>1?'s':'')+' available near you');
   if(!nf) nf=notifCard('<div class="av sm" style="background:'+AV_COLORS[1]+'">&#9679;</div>','Network','all quiet on the feed');
+  /* __ONE_CLOCK__ (8/24). This was the string literal '07:14', in 48px type,
+     the first thing the eye lands on when he opens the phone -- while the city HUD
+     and this phone's OWN top bar both read DAY 1 · 06:00 in the same screenshot.
+     It has said 07:14 in every session of this game, forever.
+     THE SEAM WAS ALREADY HERE AND ALREADY CONSUMED: the city posts
+     {bohemiaPhoneWhere:{district,day,clock}} on every push, this file stores it in
+     LIVE, and the top bar uses it. The big clock six lines away printed a copy.
+     THE LITERAL STAYS AS THE FALLBACK, on purpose: the standalone phone demo opens
+     this page with no city around it and no world clock to ask. */
+  var lkTime = (LIVE && LIVE.clock) ? String(LIVE.clock) : '07:14';
   el('lock').innerHTML =
-    '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-time">'+esc(lkTime)+'</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
     '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
 }
 function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true;
@@ -1176,6 +1186,11 @@ window.addEventListener('message', function(ev){
   var d = ev && ev.data;
   if(!d || !d.bohemiaPhoneWhere) return;
   LIVE = d.bohemiaPhoneWhere;
+  /* __ONE_CLOCK__ -- and the lock FOLLOWS the clock. Reading LIVE once at
+     render would be the same bug in a nicer coat: right at the moment he opened
+     the phone and wrong a minute later. If the lock is up when a push lands, it
+     redraws. */
+  try{ if(phone && phone.classList.contains('locked')) renderLock(); }catch(e){}
   /* THE MAP NEEDED NO NEW CODE TO SHOW HIM: it already drew "you" from
      player.tile and was drawing a demo actor parked at a start cell. */
   try{

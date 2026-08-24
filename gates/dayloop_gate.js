@@ -84,13 +84,34 @@ for (const spec of DQ.DAYS) {
   ok('day 1 opens a real parsed canon quest', !!open && open.id === 'bq_meter_reader');
   ok('and its brief is the quest\'s own @LOG line',
      open.log === 'The block loses half its light at the same hour every night.');
-  ok('the HUD carries the live objective', Q.hudLine() === 'Find why the block browns out');
+  /* THE OBJECTIVE GREW A SECOND HALF ON 8/24 AND THIS CLAIM WAS ASSERTING THE
+     OLD ONE. It read `=== 'Find why the block browns out'`, which was the whole
+     HUD line until hudLine started appending the DERIVED next step. Loosening it
+     to a substring would have been the lazy repair and would have stopped
+     checking the half that is new, so it is now TWO claims: the objective is
+     still exactly what the .bq says, and the step is exactly what the day spec's
+     own advance rule means. Both are the contract now. */
+  ok('the HUD carries the live objective',
+     Q.hudLine().split(' · ')[0] === 'Find why the block browns out');
+  /* day 1 declares advance: { on:'enter_building', require:'dark' }, so the
+     sentence a player reads has to be that rule in plain words. If somebody
+     changes how day one advances, this claim fails until the words follow -- which
+     is the point of deriving them instead of authoring them per quest. */
+  ok('AND IT SAYS WHAT TO DO NEXT, derived from the day spec\'s own advance rule '
+     + '("' + Q.hudLine() + '")',
+     Q.hudLine() === 'Find why the block browns out · get inside somewhere the power is out');
 
   ok('walking into a LIT building does not advance it',
      Q.event('enter_building', { district: 'suburb', dark: false }) === null);
   const adv = Q.event('enter_building', { district: 'suburb', dark: true });
   ok('walking into a building on a DARK block does advance it', !!adv && adv.stage === 20);
   ok('and that advance raises the resolution card', !!adv.card && adv.card.options.length === 3);
+  /* AND THE HINT HAS TO GO AWAY WHEN IT IS DONE, or the game spends the rest of
+     the day telling him to do a thing he already did. nextStep is guarded by
+     `stage < a.stage`; nothing was testing that guard, and a stale instruction is
+     worse than none because he trusts it. */
+  ok('and the DO-THIS-NEXT half disappears once he has done it ("' + Q.hudLine() + '")',
+     Q.hudLine().indexOf('get inside somewhere the power is out') < 0);
 
   const res = Q.resolve(30);
   ok('resolving runs the quest for real', !!res && Q.done() && Q.outcome() === 'COMPLETE');

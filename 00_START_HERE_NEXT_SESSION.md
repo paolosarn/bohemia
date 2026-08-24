@@ -117,6 +117,50 @@ NOBODY. The moment two things in it carry their own hardcoded offsets, neither
 knows the other exists, and the one that loses will be whichever one you cared
 about most.
 
+
+*** AND THE HINT WENT INTO THE COPY, NOT THE CANON BODY. ENGINE SYNC LAW, BROKEN
+BY ME, CAUGHT BY A GUARD THAT HAD NEVER PAID OFF BEFORE. *** D.nextStep and the
+new D.hudLine went straight into BOHEMIA_CITY_WORLD.html -- which carries an
+INLINED COPY of engine/bohemia_demoquests.js -- so the copy stopped being canon.
+INLINED FRESH runs the resync tool, which finds a module by matching a KNOWN
+historical body; an edited copy matches nothing, so it fell through to the only
+path that GUESSES (cut from this banner to the next one) and demoquests is
+followed by DEMO_BQ, five whole quest files inlined as a string:
+    REFUSING: the banner cut is 59775 bytes against a 12286 byte module --
+    that is not one module, it is this one plus whatever follows it.
+That oversize guard was added 8/20 for an incident its author could not reproduce
+and SAID SO rather than claiming a cure. It just paid for itself: without it the
+resync would have written five quest files over one module, in the file the whole
+game is played in. MEASURED BEFORE TOUCHING ANYTHING: 3/0 on origin/main's city,
+0/1 on mine, same gate. Mine. Fixed in the order that is the whole difficulty --
+revert the copy FIRST (an edited copy is why it was guessing), then patch canon,
+then resync. INLINED FRESH 0/1 -> 3/0, feature unchanged, verified on the real
+surface after the resync rather than on the seam.
+THE RULE THIS BUYS: A FIX THAT LIVES IN A COPY IS A FIX THE NEXT RESYNC SILENTLY
+DELETES. Before editing anything in a slice, ask whether a banner above it says
+the bytes belong to an engine module.
+
+*** AND THE SAME MISTAKE TWICE MORE IN ONE DAY, ON TWO OTHER GENERATED FILES. ***
+CURRENT SLICE went red with one line -- "regenerating changes nothing" was FALSE.
+The phone-clock fix had been written into slices/BOHEMIA_CURRENT_SLICE.html, which
+is BUILT by tools/build_current_slice.js out of BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26
+.html, so the next person to run the builder would have deleted it without
+noticing. Tool repointed at the SOURCE, rebuilt, 6/0, and the fix now survives a
+regeneration (verified by regenerating).
+POPULATION DIAL B4 went red at "top 80 vs bottom of what is above it 80" -- two
+rounded numbers that are not equal. #tlstack made #topbar a FLEX CHILD and flex
+resolves heights to fractions where absolute positioning landed on integers, so
+#popwrap's hardcoded top:78px stopped clearing the toolbar by a sub-pixel. 22/0 on
+main, 21/1 on mine: mine. Fixed with the law I shipped this morning rather than a
+luckier number -- the card MEASURES what is above it. First cut of that measured
+against the COLUMN's offsetParent while the card is positioned against a different
+one, so it failed again with the identical message; ask the element being moved
+what it is positioned against. 22/0.
+
+THE ONE RULE UNDER ALL THREE: BEFORE EDITING A FILE, ASK WHO GENERATES IT. An
+inlined engine copy, a built slice, and a hand-placed offset are the same bug --
+a value that has an owner somewhere else.
+
 WORLD (world-9lfjtf): 8/24 (a) LATEST -- *** THE ROWS NOBODY EVER PLACED. Fifteen tile codes
 that were authored, described, gated and dossiered, and never once put in the game. The
 dead-code debt goes 41 -> 19. Nothing to judge. ***
