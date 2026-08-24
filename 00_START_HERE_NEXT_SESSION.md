@@ -50336,3 +50336,34 @@ TRAPS THIS LANE PAID FOR. DO NOT REPEAT THEM.
     refused on a dirty tree and went red on its own registration commit.
   THE ORGAN SWEEP STRUCTURALLY CANNOT FIND UNREAD PROSE -- a note is DATA, so it
     has no call site. Five authored rung sentences were invisible to it.
+FACTIONS (ovkjpf) 8/21 ADDENDUM — *** THE WHOLE SYSTEM HAD NO MEMORY. ***
+ctBelongSave() returned a plain window object: nothing wrote it, nothing read it
+back. MEASURED on the real page -- work for the Cartel, commit, take a debt,
+reload: gave 9->0, commitment burned->none, owed 4->0, and THE NAME SURVIVED.
+So the game remembered what to call you and forgot that you burned a bridge for
+them. A COUNT IS NOT A MEMORY, one level up.
+WHY 82 GREEN CLAIMS NEVER SAW IT: `grep -c 'reload()' faction_arc_gate.js` -> 0.
+Every claim walked the arc and NOT ONE EVER CLOSED THE GAME AND CAME BACK.
+A GATE THAT NEVER RELOADS CANNOT TELL A SAVED GAME FROM A SESSION.
+FIXED: ctSave() carries both ledgers, ctBelongSave() hydrates on first read. One
+writer, one reader. Same pattern as boh.city.met, second key, same seam. The
+debug wipe() took only the met-ledger and now takes both -- A WIPE THAT LEAVES
+HALF THE SAVE IS NOT A WIPE. Gate: part Q (Q1/Q2/Q3). 88/0.
+
+*** AND MY CORRUPT-SAVE CHECK TESTED THE WRONG LAYER, TWICE. *** The version
+guard mutation did not bite (the gate only ever writes a VALID blob, so the
+discard path was a claim nothing exercised). Q3 was written to fix that and DID
+NOT BITE EITHER: the payload was UNTERMINATED JSON, so JSON.parse threw, the
+try/catch swallowed it, and the guard under test was never reached.
+WHEN TWO GUARDS STACK, A TEST THAT TRIPS THE OUTER ONE PROVES NOTHING ABOUT THE
+INNER ONE. Aim the payload at the layer under test: valid JSON, wrong version,
+PLAUSIBLE standing. Now 87/1 with the guard deleted, 88/0 restored.
+
+STILL TRUE, NOT THIS LANE'S: the city's ledgers live OUTSIDE the game's save
+slots. bohemia.save.v1 is RUN's slot list; boh.city.met and boh.city.belong are
+global keys. So LOADING AN OLDER SAVE DOES NOT REWIND YOUR FACTION STANDING.
+Pre-existing (the met-ledger has always behaved this way) and making faction
+state slot-aware while "who you have met" is not would be WORSE -- two
+behaviours for facts about the same person. One pass, both ledgers, whoever owns
+the save-slot design.
+Record: records/BOHEMIA_THE_BELONGING_SYSTEM_HAD_NO_MEMORY_8_21_26.md
