@@ -33505,6 +33505,14 @@ function inEnter(tgtX,tgtY,fromX,fromY,portal){
      inEnter is the ONE place a body goes through a door (the 8/2 doorway ruling
      funnels every entry through here), so this is the only hook needed and
      nothing else in the walk is touched. */
+  /* __THE_DOOR_DRAGS_OPEN__ (8/22, SOUND lane) -- his 8/9 thumb, approved and
+     stranded in the run slice. inEnter is, in this file's own words, "the ONE
+     place a body goes through a door", so this is the only hook needed.
+     BEFORE the fight assembles, because the door is what you hear first.
+     THE SHUT STAYS SILENT, also his ruling: door_open and door_shut died 10 for
+     10 and the game owes them nothing. Only the drag was approved. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'door_drag'}},'*'); }catch(_e){}
   try{ cityFightOnEnter(); }catch(_e){}
   advance(0.5); return true;
 }

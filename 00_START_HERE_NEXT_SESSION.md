@@ -1,3 +1,42 @@
+SOUND (sound-xk7pjp): 8/23 (i) LATEST -- *** THE STRANDED LIST IS CLOSED, AND MY OWN
+COUNT OF IT WAS WRONG. TAB: RUN (walk into any building). Nothing to judge. ***
+
+WIRED THIS TURN: door_drag. Walking into a building -- the commonest action in the game
+and the way every fight starts -- was SILENT, measured on the walk. His 8/9 thumb, wired
+only in the run slice. Hooked at inEnter, which this file's own comment calls "the ONE
+place a body goes through a door". IT DOES NOT BREAK THE DOOR RULING: he killed all ten
+door_open/door_shut candidates and the game owes those silence; door_drag is the separate
+approved one and his own wording is already in the wire tool -- "the door DRAGS open (his
+8/9 thumb); the SHUT stays silent, also his". The gate asserts BOTH halves.
+
+*** MY "FIVE REMAINING STRANDED" WAS WRONG, AND IT IS THE SAME BUG AS THREE OTHERS THIS
+WEEK. *** The matcher only knew sfx('x')/playSFX('x') and not
+postMessage({bohemiaCitySfx:{ev:'x'}}), which is the channel the city actually uses. Fixed
+to include it, the SAME matcher then declared step_dirt and air_day "reachable from
+nowhere" -- minutes after I had MEASURED both firing. STATIC CALL-SHAPE MATCHING HAS NOW
+MISLED ME THREE TIMES IN THIS LANE. Do not add a fourth matcher. WALK IT.
+
+THE LIST IS CLOSED:
+  come_up     WIRED 8/22, measured        went_down   already posted by the city
+  sleep_sink  WIRED 8/22, measured        phone_buzz  already works, measured
+  door_drag   WIRED 8/23, measured
+  eat         NO TRIGGER -- it exists only as a NEED (kitchen adverts, "morning ration"),
+              not an action a player takes. Nothing to hang a sound on. Leave it.
+  save_chime  SILENT ON PURPOSE -- the city autosaves from a dozen places on ordinary
+              play; a chime would be a metronome over the whole game and lands on his 8/4
+              ruling about UI sounds. If a MANUAL save button ever ships, that is the
+              moment and this is its sound.
+
+  8 of 11 demo beats sound.  demo_sound 10/0 · sfx_wired 907/0 · sfx_render 6756/0
+  silent_moments 38/0 · sting_audible 30/0 · no_cash 10/0
+  records/BOHEMIA_WHAT_THE_DEMO_SOUNDS_LIKE_8_22_26.md
+
+STILL SILENT, ALL ON PURPOSE: the splash before he taps (no gesture = no audio context),
+opening the phone, and TAKING THE JOB. The last one deserves a sound on merit -- it is a
+commitment, not navigation -- but no approved candidate exists for it and blanket-wiring
+city taps hits his 8/4 ruling. THAT IS THE NEXT COOK, if any: one sound for accepting
+work, and nothing else.
+
 RUN (run-eak241): 8/23 LATEST -- *** THE WORLD TELEPORTED FIFTY-SIX PIXELS TWICE
 A SECOND AND WE CALLED IT WALKING. TAB: RUN (walk anywhere). Nothing to judge. ***
 

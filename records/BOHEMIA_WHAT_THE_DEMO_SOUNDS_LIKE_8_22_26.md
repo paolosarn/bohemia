@@ -103,3 +103,70 @@ Reported, not papered over.
 Before claiming a moment is covered, ask **where in the walk he hears it**, not
 whether something calls it. A caller in a panel nobody opens is not a sound, and
 a correct sound in the wrong emotional place is worse than silence.
+
+
+---
+
+# THE STRANDED LIST, RESOLVED (8/23)
+
+The 8/22 entry said **seven** approved moments were reachable only from the run
+slice and named five as "the next list". **That number was wrong, and it was
+wrong the same way three earlier numbers this week were wrong: a static matcher
+that only knew some of the shapes a call can take.** It looked for
+`sfx('x')` / `playSFX('x')` and did not know about
+`postMessage({bohemiaCitySfx:{ev:'x'}})`, which is the channel the city actually
+uses. Re-run with that shape included, the same matcher then claimed
+`step_dirt`, `air_day` and 26 others were "reachable from nowhere" — while I had
+MEASURED `step:dirt` and the ambience beds firing minutes earlier.
+
+**Static call-shape matching has now misled me three times in this lane.** The
+walk is the instrument that tells the truth. The list below is resolved by
+walking and by reading the city, not by grepping for call shapes.
+
+| moment | resolution |
+|---|---|
+| `come_up` | **WIRED 8/22.** GET UP posts it. Measured. |
+| `sleep_sink` | **WIRED 8/22.** SLEEP posts it. Measured. |
+| `door_drag` | **WIRED 8/23.** `inEnter` posts it. Measured. |
+| `went_down` | already posted by the city; the matcher missed the shape |
+| `phone_buzz` | already works; measured firing twice on the walk |
+| `eat` | **NO TRIGGER. Leave it.** |
+| `save_chime` | **DELIBERATELY SILENT. Leave it.** |
+
+## door_drag, and the ruling it does NOT break
+
+Entering a building was silent — the commonest action in the game and the way
+every fight starts. `door_drag` is approved from his 8/9 sweep and was wired only
+in the run slice.
+
+He killed all ten `door_open` / `door_shut` candidates and the game owes those
+silence; `sfx_wired_gate` asserts neither is ever banked. `door_drag` is the
+separate, later, approved one, and his ruling is already written in this lane's
+wire tool: *"the door DRAGS open (his 8/9 thumb); the SHUT stays silent, also
+his."* Opening is the half he said yes to. The gate now asserts both halves —
+the drag fires, and neither dead id comes back with it.
+
+## eat — the moment does not exist
+
+`eat` appears in the city only as a **need**: `ADVERTS={kitchen:['eat'],
+dining:['eat']}` and a schedule that returns `'eat'` for the morning ration and
+supper. That is a thing an NPC schedule wants, not an action the player takes.
+There is nothing to hang a sound on. Same answer as the glass and metal
+footsteps: **question one, does a trigger exist, and it does not.**
+
+## save_chime — silent on purpose
+
+The city saves constantly and invisibly: `localStorage.setItem` fires from a
+dozen places on ordinary play. A chime on saving would not be a moment, it would
+be a metronome over the whole game, and it lands exactly on his 8/4 ruling —
+*"I CANT HEAR THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A
+BUTTON."* An autosave the player never asked for should not announce itself.
+If a MANUAL save button ever ships, that is a moment and this is its sound.
+
+## WHERE THE WALK STANDS
+
+    8 of 11 beats make a sound.
+
+Still silent, all three on purpose and all three explained above: the splash
+before he touches anything (no gesture, no audio context), opening the phone,
+and taking the job.

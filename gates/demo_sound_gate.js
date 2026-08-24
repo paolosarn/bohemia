@@ -230,6 +230,48 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
     ok('the journey actually reached the vista, so the report above covers the '
       + 'whole demo and not a truncated walk', d2.vista === true);
 
+    /* ---- 8. HE WALKS INTO A BUILDING ------------------------------------
+       LAST ON PURPOSE. Entering a building starts a FIGHT, which moves the
+       world; measuring it before the vista would contaminate every beat above.
+       The technique is the combat-entry gate's, deliberately: walk a body
+       through a REAL door via the shipped `inEnter` rather than calling a
+       trigger by hand, because that gate found by mutation that the trigger can
+       be alive while no door calls it.
+       WHY IT IS WORTH A BEAT: door_drag is approved (his 8/9 thumb) and is one
+       of the moments still wired only in the run slice, and a static check
+       cannot tell me whether the CITY's doors reach it. Walking can. */
+    await page.evaluate(() => { window.__HEARD = []; });
+    const door = await city.evaluate(() => {
+      if (typeof inEnter !== 'function' || typeof inFootprint !== 'function') return { noDoor: true };
+      const was = (typeof INSIDE !== 'undefined') ? INSIDE : null;
+      let entered = 0;
+      for (let y = 0; y < 260 && !entered; y += 3) {
+        for (let x = 0; x < 260 && !entered; x += 3) {
+          let f = null; try { f = inFootprint(x, y); } catch (e) { }
+          if (!f) continue;
+          try { if (inEnter(x, y, x, y - 1, false)) entered++; } catch (e) { }
+        }
+      }
+      INSIDE = was;
+      return { entered };
+    });
+    await SETTLE(page, 1400);
+    const doorHeard = await drain('HE WALKS INTO A BUILDING (a real door, via inEnter)');
+    ok('the walk actually got through a door, so the line above is a measurement '
+      + 'and not an untried beat (' + JSON.stringify(door) + ')',
+      !door.noDoor && door.entered > 0);
+    ok('THE DOOR DRAGS OPEN -- his 8/9 thumb, on the commonest action in the '
+      + 'game and the way every fight starts ('
+      + (doorHeard.join(', ') || 'SILENCE') + ')',
+      doorHeard.some(h => /door_drag/.test(h)));
+    /* AND THE OTHER HALF OF THAT RULING. He killed all ten door_open/door_shut
+       candidates: the game owes a closing door silence. Only the DRAG was
+       approved, so hearing either of the dead ids here would be shipping a
+       sound he explicitly rejected. */
+    ok('and no door sound he KILLED comes back with it (door_open/door_shut '
+      + 'died 10 for 10)',
+      !doorHeard.some(h => /door_open|door_shut/.test(h)));
+
     ok('and the page threw nothing while being listened to ('
       + (errs.slice(0, 2).join(' | ') || 'clean') + ')', errs.length === 0);
   } catch (e) {

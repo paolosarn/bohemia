@@ -77,6 +77,30 @@ SLEEP_NEW = """document.getElementById('sleepbtn').addEventListener('click',func
   DAY.sleep(); daySync(); onNightfall(); updHud();
 });"""
 
+# ---- 2b. THE DOOR DRAGS OPEN. -----------------------------------------------
+# Measured silent on the walk (8/22): entering a building -- the commonest thing
+# a player does, and the way every fight starts -- made no sound at all, while
+# door_drag sat approved from his 8/9 sweep and wired only in the run slice.
+#
+# AND IT DOES NOT BREAK THE DOOR RULING. He killed all ten door_open/door_shut
+# candidates and the game owes those silence; sfx_wired_gate asserts neither is
+# ever banked. door_drag is a SEPARATE, LATER, APPROVED sound, and his ruling on
+# it is already written down in this lane's wire tool: "the door DRAGS open (his
+# 8/9 thumb); the SHUT stays silent, also his." Opening is the half he said yes
+# to. The shut stays silent here too.
+DOOR_OLD = """  try{ cityFightOnEnter(); }catch(_e){}
+  advance(0.5); return true;"""
+DOOR_NEW = """  /* __THE_DOOR_DRAGS_OPEN__ (8/22, SOUND lane) -- his 8/9 thumb, approved and
+     stranded in the run slice. inEnter is, in this file's own words, "the ONE
+     place a body goes through a door", so this is the only hook needed.
+     BEFORE the fight assembles, because the door is what you hear first.
+     THE SHUT STAYS SILENT, also his ruling: door_open and door_shut died 10 for
+     10 and the game owes them nothing. Only the drag was approved. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'door_drag'}},'*'); }catch(_e){}
+  try{ cityFightOnEnter(); }catch(_e){}
+  advance(0.5); return true;"""
+
 # ---- 3. A MISSED JOB IS NOT A LOST FIGHT. -----------------------------------
 FIG_OLD = """    done: { v:'bell',      g:0.20, sd:0.34, oct:0,
             n:[[5,0],[0,2],[0,5],[12,5]] }"""
@@ -114,6 +138,12 @@ def main():
             return 1
         c = c.replace(SLEEP_OLD, SLEEP_NEW, 1)
         changed.append('SLEEP now plays sleep_sink (5 of 5, his cleanest sweep)')
+    if "ev:'door_drag'" not in c:
+        if DOOR_OLD not in c:
+            print('FAIL: inEnter is not where this tool expects it')
+            return 1
+        c = c.replace(DOOR_OLD, DOOR_NEW, 1)
+        changed.append('walking through a door now drags it open (his 8/9 thumb)')
     if changed:
         open(CITY, 'w', encoding='utf8').write(c)
 
