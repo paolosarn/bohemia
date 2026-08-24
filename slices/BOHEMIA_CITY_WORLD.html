@@ -38100,7 +38100,24 @@ function ctDraw(){
   var ctTradeWord = BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY';
   if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
     body+=ctRow('TRADE', ctTradeWord);
-  body+=ctRow('LIVES', 'HERE, '+at[0]+' '+at[1]);
+  /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.
+     This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two
+     numbers no player can use, on the card he opens for every person in the
+     valley. A coordinate is not an address; it is the variable, shown.
+     REUSE-FIRST, and it is this lane's own vocabulary: ctWhereWord already
+     answers "where is that from where I am standing" for the missing-persons
+     reply, so the card says it the same way the witness does. One phrasing for
+     one idea, and the day that phrasing improves, both improve.
+     bohemia_people.seatLineOf() would say it better still -- "HOUSE 4 - THIRD OF
+     FIVE" -- but measured 8/23 it returns "HOUSE 901" for every city person,
+     because the city's adapter carries no household. That is recorded as a
+     finding for the lane that owns the adapter, not papered over here. */
+  body+=ctRow('LIVES', (function(){
+    try {
+      var w = ctWhereWord(p.home[0], p.home[1]);
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    } catch(_e){ return 'On this block'; }
+  })());
   /* RIGHT NOW is EYESIGHT and stays: present tense is what you can see. A
      future or habitual line would be a timetable, which Paolo banned. */
   body+=ctRow('RIGHT NOW', BohemiaPeople.nowLineOf(who, T.min|0) ||

@@ -341,7 +341,8 @@ def wire_cards(s):
     whose `from` is narrow and whose `to` is wide duplicates the surrounding
     region -- that cost this lane an hour of his game day and a hard syntax error
     yesterday. Each of these is a no-op once applied."""
-    for label, frm, to in (('ask buttons', ASK_ANCHOR, ASK_NEW),
+    for label, frm, to in (('lives row', LIVES_V1, LIVES_V2),
+                           ('ask buttons', ASK_ANCHOR, ASK_NEW),
                            ('ask handler', HANDLER_ANCHOR, HANDLER_NEW)):
         if to in s:
             continue
@@ -352,6 +353,9 @@ def wire_cards(s):
         s = s.replace(frm, to, 1)
     return s
 
+
+LIVES_V1 = "  body+=ctRow('LIVES', 'HERE, '+at[0]+' '+at[1]);"
+LIVES_V2 = '  /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.\n     This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two\n     numbers no player can use, on the card he opens for every person in the\n     valley. A coordinate is not an address; it is the variable, shown.\n     REUSE-FIRST, and it is this lane\'s own vocabulary: ctWhereWord already\n     answers "where is that from where I am standing" for the missing-persons\n     reply, so the card says it the same way the witness does. One phrasing for\n     one idea, and the day that phrasing improves, both improve.\n     bohemia_people.seatLineOf() would say it better still -- "HOUSE 4 - THIRD OF\n     FIVE" -- but measured 8/23 it returns "HOUSE 901" for every city person,\n     because the city\'s adapter carries no household. That is recorded as a\n     finding for the lane that owns the adapter, not papered over here. */\n  body+=ctRow(\'LIVES\', (function(){\n    try {\n      var w = ctWhereWord(p.home[0], p.home[1]);\n      return w.charAt(0).toUpperCase() + w.slice(1);\n    } catch(_e){ return \'On this block\'; }\n  })());'
 
 def cut_ok(s, needle, label):
     n = s.count(needle)
