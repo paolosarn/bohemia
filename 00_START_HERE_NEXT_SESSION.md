@@ -35660,7 +35660,80 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/24 (a) LATEST -- *** ONE SOLAR FARM, NOT 301. The biggest district
+WORLD (city-1eztay): 8/24 (b) LATEST -- *** FORTY MEGABYTES BEFORE YOU CAN MOVE. Nobody was
+watching the one number that decides whether a friend plays the demo or closes the tab. I
+found it, built the obvious fix, PROVED THE FIX MAKES IT WORSE, reverted it, and gated the
+number so it cannot grow. ***
+Gates: TIME TO PLAY 6/0 (new, registered), and the alpha is BYTE-IDENTICAL to before -- the
+attempted fix is fully reverted.
+
+WHY I WASN'T DOING THE CLUSTER SEAM: I priced it first. Golf 9 cells + railyard 6 + landfill
+4 = 19 cells, 0.2% of the valley, and each needs its canonical layout RE-AUTHORED to scale
+(they hardcode their features at fixed coordinates), which is redesign, not copying solar's
+recipe. Poor trade in a demo week. So I asked the demo what it was missing instead.
+
+THE 8/14 DEMO BOARD'S HEADLINE CLAIM IS FALSE NOW, re-measured: BOHEMIA_RUN_CURRENT.html is
+NOT fetched at all -- the RUN lane made the iframe data-src and it is genuinely lazy. The
+board's own capitalised warning ("RE-MEASURE BEFORE STEERING ANYBODY") earned its keep again.
+
+THE REAL NUMBER, over real HTTP, cold cache, tapping the splash like a person:
+    BEFORE THE TAP    8.11 MB
+    AFTER THE TAP    32.38 MB   <-- 10.4 s of dead wait ON LOCALHOST, zero latency
+    TOTAL TO PLAY    40.48 MB
+      28.04 MB  BOHEMIA_CITY_TILES.js   8,674 tile sprites in ONE file
+       4.05 MB  BOHEMIA_ALPHA_0_9.html  (crosses the wire TWICE, see below)
+       2.62 MB  BOHEMIA_CITY_WORLD.html
+       1.72 MB  BOHEMIA_CITY_PROPS.js
+NOT ONE BYTE of the 32 MB starts until the tap CREATES the city iframe, so the whole payload
+is serialised after the only gesture a player makes. On cellular that is minutes.
+ENCODING IS NOT THE PROBLEM and I checked before assuming: 28.04 MB raw gzips to 20.76 MB,
+about what the raw PNGs weigh. Converting base64 to real image files buys ~nothing.
+
+THE FIX I BUILT AND THREW AWAY. Warm the cache during the splash (fetch(), NOT
+<link rel=prefetch> -- Safari does not implement it and he plays on an iPhone). Measured: the
+after-tap number did not move. The SERVER's log says why:
+    warm-up   GET TILES 200 · GET PROPS 200
+    the tap   GET TILES 200 AGAIN   (props never re-requested -- served from cache)
+PROPS (1.7 MB) warmed and was reused. TILES (28 MB) DOWNLOADED TWICE -- Chromium will not put
+a response that large in its HTTP cache. The "fix" doubles the bytes on a metered connection.
+Reverted; the alpha is byte-identical. STOP PRODUCING: a fix my own measurement calls harmful
+does not ship just because I already wrote it.
+TWO TRAPS, both this week's lesson again: a `response` event FIRES FOR CACHE HITS and reports
+a content-length, so counting browser-side scored a warm cache as a fresh download; and
+file:// has NO cache semantics, so none of this is measurable there.
+
+SMALLER FINDING, NOT ACTED ON: the ordered request log is ALPHA -> sw.js -> ALPHA. The
+always-fresh service worker is network-first for navigations and re-fetches the document with
+cache:'no-store', so the 4 MB alpha crosses the wire TWICE on a cold visit -- the ONE-LINK
+LAW's freshness paid for in megabytes. Whether it repeats on a warm visit is NOT established.
+Check before acting.
+
+SHIPPED: gates/time_to_play_gate.js (TIME TO PLAY, 6/0, 13s). Stands up a real static server
+with real cache headers, boots the alpha, waits the beat a person spends reading the splash,
+taps, and counts WHAT THE SERVER WAS ASKED FOR rather than what the browser reported. Two
+ceilings that only come down (46 MB total / 36 MB after the tap), both MUTATION-TESTED. Any
+file big enough to be un-cacheable is named as SPLIT DEBT with the size it had when listed --
+same ratchet idiom as legend_kept: may not grow, and an entry left listed after being fixed
+fails too.
+
+NEXT IN THIS LANE, IN ORDER
+  1. SPLIT THE TILE BANK -- the highest-value thing in this lane by a distance. NOT by
+     declaration (TP_TILES alone is 20.9 MB and would still be un-cacheable): split BY FAMILY,
+     24 of them, largest `misc` 6.8 MB. That makes three things true at once that are false
+     today -- the chunks cache, they download in parallel, and the splash warm-up starts
+     working, at which point the reverted fix above becomes CORRECT and comes back.
+     tools/bohemia_city_split_tile_bank.py is the 8/6 precedent, one level shallower.
+  2. Then re-run TIME TO PLAY and LOWER THE CEILINGS to whatever it measures. That is the point.
+  3. PROGRESSIVE LOADING only after that, and mind the prerequisite MEASURED today: with the
+     bank blocked the world is not a flat-coloured world, it is a BLACK VOID with
+     `ReferenceError: HERO_SRC is not defined`. The renderer hard-depends on the whole bank
+     and must degrade gracefully first.
+  4. Cluster seam for golf/railyard/landfill/farm -- still open, still correct, worth 19 cells.
+  5. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  6. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_FORTY_MEGABYTES_BEFORE_YOU_CAN_MOVE_8_24_26.md
+
+WORLD (city-1eztay): 8/24 (a) -- *** ONE SOLAR FARM, NOT 301. The biggest district
 in the valley was building a whole separately fenced power plant in EVERY ONE of its 301
 cells. Measured on the surface: 301 control buildings -> 3. ***
 Gates: solar 7/0, WALKED SURFACE 11/0 (93.3%), walkable 73/0, district fill 53/0, legend

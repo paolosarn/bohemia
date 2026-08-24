@@ -313,6 +313,15 @@ GATES = [
      'left every model claim green ("the camera sat between cells for 87.5% of a walked beat" '
      'was still true) and only the canvas noticed. HYBRID and FREE are NOT carried and are '
      'named, not hidden', True),
+    # 8/24: NOBODY WAS WATCHING THE ONE NUMBER THAT DECIDES WHETHER A FRIEND PLAYS THE
+    # DEMO OR CLOSES THE TAB -- the megabytes their phone pulls before the world appears.
+    # 412 gates and not one of them asked. Measured: 40.5 MB total, 32.4 MB of it AFTER the
+    # tap, 28 MB of that a single tile bank. This holds the ceiling while the bank waits to
+    # be split; it serves the repo over real HTTP because file:// has no cache semantics.
+    ('TIME TO PLAY',   ['node', 'gates/time_to_play_gate.js'],
+     'a friend on a phone can actually reach the world: the download before first play is '
+     'measured over real HTTP and held to a ceiling that only ever comes down, and any file '
+     'big enough to be un-cacheable is named as split debt rather than left to grow', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
