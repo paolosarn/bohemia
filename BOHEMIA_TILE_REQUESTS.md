@@ -393,6 +393,16 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    split in its section B; who owns the dropped kerb and the apron flare is a
    coordinator call, not the ART lane's, and it must be settled BEFORE cooking
    or the same kerb gets drawn in three materials.
+99. SHIPPED | GRID KIT (transformer bays, switchgear lattice, overhead
+   busbars, insulators, battery container banks) | RUN + CITY - the two
+   districts that ARE the grid (substation MAINTAINED under CLUSTERED POWER,
+   battery DEAD by its own dossier) drew as generic slabs | structure layer
+   solid for bays/containers/lattice, OVERHEAD non-solid for the busbar
+   runs, 44px corpus cell; bay pieces band the measured 19x20 bay, container
+   pieces subdivide the 14-cell run into five 40-foot lids | see form | ART
+   lane (post-board gap sweep, filed retroactively 8/24 - the form shipped
+   8/21 with a "short form" shortcut this row and the full C-I sections now
+   repair) | HIGH | FORM: TF-ART-019
 
 =============================================================================
 ## OPEN — WORLD LANE (filed 7/28 under the TILE FORMS ORDER; every row has a
