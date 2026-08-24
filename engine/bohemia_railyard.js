@@ -62,7 +62,7 @@
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'service road',       kind:'drive',      act1:'the yard service road — a truck reaches the depot from the gate (drivable)'},
     2:{name:'building (engine shed/depot/office)',kind:'building',act1:'the engine shed / maintenance depot + office + fuel/sand shed, dark', enter:'depot interior: the inspection + light-maintenance bays (pits in the floor), the heavy shop + office off the side'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush in the ballast + fence', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush up through the ballast and caught in the fence, on track nothing has run over since', solid:false},
     4:{name:'ballast / gravel',   kind:'ground',     act1:'the crushed-stone ballast + gravel of the yard'},
     5:{name:'gate',               kind:'gate',       act1:'the yard gate off the street, amber curb'},
     6:{name:'rail track',         kind:'ground',     act1:'a steel running rail on ties — the classification tracks fanned across the yard'},

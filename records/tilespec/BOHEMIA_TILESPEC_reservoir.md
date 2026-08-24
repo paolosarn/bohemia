@@ -42,12 +42,12 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#9aa0a2` | water tank | structure | a welded steel reservoir, seams showing through the failed coating, sitting high enough that the whole valley below was fed by gravity | structure | yes | — | 1433 |
 | 7 | `#7d8386` | tank roof | structure | the tank roof, its centre vent and the hatch beside it | structure | yes | — | 3295 |
 | 8 | `#3a5560` | overflow | water-dead | the overflow weir and the stain running away from it down the pad | ground | no | — | 1046 |
-| 9 | `#8f8676` | pole light | prop | a pad light, head dark | prop | yes | — | 4 |
+| 9 | `#8f8676` | pole light | prop | a pad light, head dark, standing over water nobody has drawn in ten years | prop | yes | — | 4 |
 | 10 | `#a39a86` | valve / hatch | prop | a buried valve cover, the shell manway, the level float box | prop | yes | — | 1354 |
 | 11 | `#c9c1aa` | marking | marking | the fading identification band round the tank base | ground | no | — | 5 |
 | 12 | `#6a6a72` | perimeter fence | structure | the reservoir fence, ringing two tanks and a valve house and nothing else at all | structure | yes | — | 335 |
 | 13 | `#7a7266` | transmission main | structure | the transmission main in and out — big enough that its trench reads from the air | structure | yes | — | 740 |
-| 14 | `#8a8478` | standpipe | structure | the standpipe beside the tanks | structure | yes | — | 94 |
+| 14 | `#8a8478` | standpipe | structure | the standpipe between the tanks, an open column whose water level WAS the pressure in the main | structure | yes | — | 94 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

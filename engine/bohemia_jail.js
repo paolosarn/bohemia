@@ -71,7 +71,7 @@
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the wall (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the intake sally lane / service drive (car-drivable)'},
     2:{name:'building (cell block/admin)',kind:'building',act1:'a cell block / the admin+intake block, concrete, slit windows', enter:'block interior: the two-tier cell tiers around a dayroom, the control picket at the hub; admin = intake, property, holding'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall + wire', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall and the wire, which is how you know nobody walks this fence line', solid:false},
     4:{name:'secure yard concrete',kind:'ground',    act1:'the secure-yard concrete between the blocks, cracked'},
     5:{name:'gate',               kind:'gate',       act1:'the intake gate off the street, amber curb, the outer sally door'},
     6:{name:'guard tower',        kind:'structure',  act1:'a corner guard tower over the wall, glass gone, empty', solid:true},

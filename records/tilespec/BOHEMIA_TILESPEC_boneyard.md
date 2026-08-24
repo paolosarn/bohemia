@@ -41,7 +41,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#8a5040` | wrecked car (rust) | vehicle | a wrecked car in the row, rusted to oxide-red, stripped for parts | prop | yes | — | 1355 |
 | 7 | `#453d34` | crushed-car stack | structure | a wall of flattened, crushed cars stacked for the baler | structure | yes | — | 513 |
 | 8 | `#c8a03a` | crane / crusher | structure | the claw crane + mobile crusher, boom seized, yellow paint faded | structure | yes | — | 295 |
-| 9 | `#8f8676` | pole light | prop | a yard pole light, head dark | prop | yes | — | 4 |
+| 9 | `#8f8676` | pole light | prop | a yard pole light, head dark, standing over the rows so a man could find a car after dark | prop | yes | — | 4 |
 | 10 | `#2a2620` | oil / fluid stain | ground | oil + fluid stained into the dirt under the wrecks | ground | no | — | 157 |
 | 11 | `#c9c1aa` | marking (scale/aisle) | marking | the truck-scale pad + faded aisle/row markers | ground | no | — | 396 |
 | 12 | `#6a6a72` | perimeter fence | structure | the salvage-yard security fence, wire + barbed top sagging | structure | yes | — | 501 |

@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#8a8478` | pipe gallery / catwalk | structure | a steel pipe gallery / catwalk / clarifier sweep arm, rusted | structure | yes | — | 1628 |
 | 9 | `#8f8676` | pole light | prop | a plant pole light, head dark | prop | yes | — | 5 |
 | 10 | `#5a5240` | crusted sludge / scum | ground | crusted dried sludge / scum drifted in the basins + on the deck | ground | no | — | 20 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard / valve paint on the deck | ground | no | — | 5 |
+| 11 | `#c9c1aa` | marking | marking | faded hazard and valve paint on the deck, telling an operator who is not coming which way to turn it | ground | no | — | 5 |
 | 12 | `#6a6a72` | perimeter fence | structure | the chain-link plant perimeter fence, wire sagging | structure | yes | — | 503 |
 
 **Gate:** `gates/watertreat_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

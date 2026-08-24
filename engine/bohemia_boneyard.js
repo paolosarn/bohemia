@@ -102,7 +102,7 @@
     6:{name:'wrecked car (rust)', kind:'vehicle',    act1:'a wrecked car in the row, rusted to oxide-red, stripped for parts', solid:true},
     7:{name:'crushed-car stack',  kind:'structure',  act1:'a wall of flattened, crushed cars stacked for the baler', solid:true},
     8:{name:'crane / crusher',    kind:'structure',  act1:'the claw crane + mobile crusher, boom seized, yellow paint faded', solid:true},
-    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark'},
+    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark, standing over the rows so a man could find a car after dark'},
     10:{name:'oil / fluid stain', kind:'ground',     act1:'oil + fluid stained into the dirt under the wrecks', solid:false},
     11:{name:'marking (scale/aisle)',kind:'marking', act1:'the truck-scale pad + faded aisle/row markers'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the salvage-yard security fence, wire + barbed top sagging', solid:true},

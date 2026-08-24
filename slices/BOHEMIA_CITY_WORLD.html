@@ -5679,11 +5679,19 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       if (!legend[c]) continue;
       var k = legend[c].kind, layer = tileLayer(legend[c]).layer;
       if (k === 'drive') { S[c] = 1; any = true; }
-      /* PAINT IS NOT A WALL: a stall stripe is a marking painted on asphalt and a car
-         drives straight over it. Treating it as an obstacle invents pockets that are not
-         there -- it is what stranded ten tiles of the commercial lot behind its own
-         parking stripes. */
-      else if (k === 'marking') { S[c] = 1; }
+      /* PAINT IS NOT A WALL, AND IT IS NOT A ROAD EITHER (amended 8/24). The original rule
+         is untouched and still right: a stall stripe is a marking painted on asphalt, a car
+         drives straight over it, and treating it as an obstacle invents pockets that are not
+         there -- that is what stranded ten tiles of the commercial lot behind its own parking
+         stripes. So paint still CONDUCTS a path; see driveConductors.
+         WHAT WAS WRONG WAS COUNTING IT AS SURFACE THAT MUST BE REACHED. The moment nine
+         districts started stencilling a magazine number on a headwall and hazard paint on
+         gravel (8/24), every one of those stencils became an unreachable "road" in the middle
+         of a yard and nine districts read 99.8% instead of 100%. A car was never denied
+         anything; the METRIC was counting paint as pavement. The distinction the kit already
+         draws for overheads -- conducts, is not counted -- is exactly the one paint needs, and
+         nothing is lost by it: a genuinely stranded parking stall sits ON drive-kind asphalt,
+         and the asphalt is still in the denominator. */
       /* overheads are handled separately -- see driveConductors below. They are not drive
          surface and must not be counted as such: an awning over a sidewalk is not road. */
     }
@@ -5702,6 +5710,10 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     for (var c in legend) {
       if (!legend[c]) continue;
       if (tileLayer(legend[c]).layer === 'overhead') C[c] = 1;
+      /* AND PAINT (8/24). A car drives over a stall stripe, a lane line, a stencilled bay
+         number -- so the path goes through it and a road split by its own markings is still
+         one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
+      else if (legend[c].kind === 'marking') C[c] = 1;
     }
     return C;
   }
@@ -5738,15 +5750,27 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      drive tiles sitting in a 3x3 block of drive, so a district made of hairlines scores
      near zero however connected it is. */
   function driveWidthScore(g, legend){
-    var S = driveMask(legend || {});
+    legend = legend || {};
+    var S = driveMask(legend);
     if (!S) return 1;
+    /* A LANE LINE DOES NOT MAKE A LANE NARROWER (8/24). Paint moved out of the drive mask
+       and into the conductors the same day, and this function reads the mask -- so a stripe
+       painted down the middle of a road suddenly punched a hole in that road's 3x3
+       neighbourhood and the road started scoring as a hairline. It is the same tile a car
+       drives over; for the WIDTH question it is unambiguously part of the lane. So the
+       neighbourhood test unions paint back in. The DENOMINATOR stays real drive tiles only,
+       which is the half that had to change: paint is measured as part of a lane, never as a
+       lane of its own. */
+    var P = {}, c;
+    for (c in S) P[c] = 1;
+    for (c in legend) if (legend[c] && legend[c].kind === 'marking') P[c] = 1;
     var n = g.length, tot = 0, core = 0, x, y, dx, dy;
     for (y = 1; y < n - 1; y++) for (x = 1; x < n - 1; x++) {
       if (!S[g[y][x]]) continue;
       tot++;
       var all = true;
       for (dy = -1; dy <= 1 && all; dy++) for (dx = -1; dx <= 1; dx++)
-        if (!S[g[y + dy][x + dx]]) { all = false; break; }
+        if (!P[g[y + dy][x + dx]]) { all = false; break; }
       if (all) core++;
     }
     return tot ? core / tot : 1;
@@ -9342,7 +9366,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     6:{name:'wrecked car (rust)', kind:'vehicle',    act1:'a wrecked car in the row, rusted to oxide-red, stripped for parts', solid:true},
     7:{name:'crushed-car stack',  kind:'structure',  act1:'a wall of flattened, crushed cars stacked for the baler', solid:true},
     8:{name:'crane / crusher',    kind:'structure',  act1:'the claw crane + mobile crusher, boom seized, yellow paint faded', solid:true},
-    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark'},
+    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark, standing over the rows so a man could find a car after dark'},
     10:{name:'oil / fluid stain', kind:'ground',     act1:'oil + fluid stained into the dirt under the wrecks', solid:false},
     11:{name:'marking (scale/aisle)',kind:'marking', act1:'the truck-scale pad + faded aisle/row markers'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the salvage-yard security fence, wire + barbed top sagging', solid:true},
@@ -11133,7 +11157,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the wall (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the intake sally lane / service drive (car-drivable)'},
     2:{name:'building (cell block/admin)',kind:'building',act1:'a cell block / the admin+intake block, concrete, slit windows', enter:'block interior: the two-tier cell tiers around a dayroom, the control picket at the hub; admin = intake, property, holding'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall + wire', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall and the wire, which is how you know nobody walks this fence line', solid:false},
     4:{name:'secure yard concrete',kind:'ground',    act1:'the secure-yard concrete between the blocks, cracked'},
     5:{name:'gate',               kind:'gate',       act1:'the intake gate off the street, amber curb, the outer sally door'},
     6:{name:'guard tower',        kind:'structure',  act1:'a corner guard tower over the wall, glass gone, empty', solid:true},
@@ -12135,7 +12159,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'service road',       kind:'drive',      act1:'the yard service road — a truck reaches the depot from the gate (drivable)'},
     2:{name:'building (engine shed/depot/office)',kind:'building',act1:'the engine shed / maintenance depot + office + fuel/sand shed, dark', enter:'depot interior: the inspection + light-maintenance bays (pits in the floor), the heavy shop + office off the side'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush in the ballast + fence', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush up through the ballast and caught in the fence, on track nothing has run over since', solid:false},
     4:{name:'ballast / gravel',   kind:'ground',     act1:'the crushed-stone ballast + gravel of the yard'},
     5:{name:'gate',               kind:'gate',       act1:'the yard gate off the street, amber curb'},
     6:{name:'rail track',         kind:'ground',     act1:'a steel running rail on ties — the classification tracks fanned across the yard'},
@@ -13770,7 +13794,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     8:{name:'pipe gallery / catwalk',kind:'structure',act1:'a steel pipe gallery / catwalk / clarifier sweep arm, rusted', solid:true},
     9:{name:'pole light',         kind:'prop',       act1:'a plant pole light, head dark'},
     10:{name:'crusted sludge / scum',kind:'ground',  act1:'crusted dried sludge / scum drifted in the basins + on the deck', solid:false},
-    11:{name:'marking',           kind:'marking',    act1:'faded hazard / valve paint on the deck'},
+    11:{name:'marking',           kind:'marking',    act1:'faded hazard and valve paint on the deck, telling an operator who is not coming which way to turn it'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the chain-link plant perimeter fence, wire sagging', solid:true}
   };
   var NOTES={
@@ -15798,7 +15822,7 @@ const BEAT=500; // 120BPM law
            8:['pit water','water-dead','water standing in the bottom of the pit, gone the colour of the rock'],
            9:['pole light','prop','a yard light over the crusher, head dark, on a plant that used to run three shifts'],
            10:['shot rock / stockpile','prop','a cone of graded stone, or shot rock left where the last round dropped it'],
-           11:['marking','marking','faded hazard paint on the plant floor'],
+           11:['marking','marking','faded hazard paint on the plant floor, where the crusher feed had to be walked around'],
            12:['perimeter fence','structure','the quarry fence, most of it still standing'],
            13:['conveyor run','structure','the conveyor from the pit to the stockpiles, belt slack and gone brittle'],
            14:['screen tower','structure','the screen tower over the crusher, the tallest thing on the site']},
@@ -15827,7 +15851,7 @@ const BEAT=500; // 120BPM law
            8:['pit water','water-dead','water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust'],
            9:['pole light','prop','a plant yard light, head dark, on a site that made its own power and still went out'],
            10:['stockpile','prop','a cone of milled rock waiting for a calciner that stopped'],
-           11:['marking','marking','faded hazard paint on the mill floor'],
+           11:['marking','marking','faded hazard paint on the mill floor, powdered over white like everything else here'],
            12:['perimeter fence','structure','the plant fence, which stops at the quarry line because nobody fences a cliff'],
            13:['conveyor run','structure','the mobile conveyor that carried ore straight from the quarry into the plant'],
            14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome'],
@@ -15850,7 +15874,7 @@ const BEAT=500; // 120BPM law
            6:['storage tank','structure','an above-ground bulk tank, shell paint chalked to nothing, a rust line where the product level stopped'],
            7:['containment dike / rack','structure','the reinforced concrete dike round the tank — or the frame of the truck loading rack'],
            8:['spill / standing product','water-dead','something dark standing in the low corner of a containment cell'],
-           9:['pole light','prop','a terminal yard light, head dark'],
+           9:['pole light','prop','a terminal yard light, head dark, over a rack that used to load through the night'],
            10:['valve / manway','prop','a block valve on the manifold, a shell manway, a gauge hatch left open'],
            11:['marking','marking','the loading lane markings on the rack apron'],
            12:['perimeter fence','structure','the terminal fence, and the signage that used to say why is long gone off it'],
@@ -15875,12 +15899,12 @@ const BEAT=500; // 120BPM law
            6:['water tank','structure','a welded steel reservoir, seams showing through the failed coating, sitting high enough that the whole valley below was fed by gravity'],
            7:['tank roof','structure','the tank roof, its centre vent and the hatch beside it'],
            8:['overflow','water-dead','the overflow weir and the stain running away from it down the pad'],
-           9:['pole light','prop','a pad light, head dark'],
+           9:['pole light','prop','a pad light, head dark, standing over water nobody has drawn in ten years'],
            10:['valve / hatch','prop','a buried valve cover, the shell manway, the level float box'],
            11:['marking','marking','the fading identification band round the tank base'],
            12:['perimeter fence','structure','the reservoir fence, ringing two tanks and a valve house and nothing else at all'],
            13:['transmission main','structure','the transmission main in and out — big enough that its trench reads from the air'],
-           14:['standpipe','structure','the standpipe beside the tanks']},
+           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main']},
       sum:'A water reservoir site: two big welded steel tanks on a graded pad cut high into the foothills, a valve house, and transmission mains leaving downhill.',
       ref:['Las Vegas Valley Water District: 84 reservoir basins and tanks holding nearly a billion gallons, serving more than 400,000 homes and businesses.',
            'LVVWD engineers site reservoirs by elevation and customer count, deliberately UPGRADIENT of customers so gravity pushes water through the lines and builds pressure.',
@@ -16047,7 +16071,7 @@ const BEAT=500; // 120BPM law
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
            10:['weir box / blower','prop','an outlet weir box on a pond corner, a blower on its pad'],
-           11:['marking','marking','pond number stencilled on a weir box'],
+           11:['marking','marking','a pond number stencilled on a weir box, so a man on foot knew which cell he was at'],
            12:['perimeter fence','structure','the plant fence, more about keeping people out of the ponds than anything in'],
            13:['inlet header','structure','the header feeding every pond off one line'],
            14:['vent stack','structure','the vent stack on the blower house']},
@@ -16071,7 +16095,7 @@ const BEAT=500; // 120BPM law
            8:['guy wire','overhead','a guy wire running out from the mast to its anchor, overhead the whole way'],
            9:['pole light','prop','a site light, head dark, below aircraft-warning lights that are darker still'],
            10:['propane tank / ice bridge','prop','the propane tank beside a hut and the ice bridge from hut to mast'],
-           11:['marking','marking','call letters stencilled on a hut door'],
+           11:['marking','marking','the station call letters stencilled on a hut door, the only name anywhere on this hill'],
            12:['perimeter fence','structure','the site fence, which was never the security here -- the climb was'],
            13:['ground radial','structure','a buried copper radial, its trench line still readable in the dirt'],
            14:['guyed mast','structure','A GUYED MAST — the tallest thing for miles, and the reason nobody built anything else up here']},

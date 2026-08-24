@@ -42,7 +42,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#8e968f` | storage tank | structure | an above-ground bulk tank, shell paint chalked to nothing, a rust line where the product level stopped | structure | yes | — | 992 |
 | 7 | `#6f6a5e` | containment dike / rack | structure | the reinforced concrete dike round the tank — or the frame of the truck loading rack | structure | yes | — | 3378 |
 | 8 | `#3d4a46` | spill / standing product | water-dead | something dark standing in the low corner of a containment cell | ground | no | — | 1340 |
-| 9 | `#8f8676` | pole light | prop | a terminal yard light, head dark | prop | yes | — | 4 |
+| 9 | `#8f8676` | pole light | prop | a terminal yard light, head dark, over a rack that used to load through the night | prop | yes | — | 4 |
 | 10 | `#a39a86` | valve / manway | prop | a block valve on the manifold, a shell manway, a gauge hatch left open | prop | yes | — | 2078 |
 | 11 | `#c9c1aa` | marking | marking | the loading lane markings on the rack apron | ground | no | — | 143 |
 | 12 | `#6a6a72` | perimeter fence | structure | the terminal fence, and the signage that used to say why is long gone off it | structure | yes | — | 227 |

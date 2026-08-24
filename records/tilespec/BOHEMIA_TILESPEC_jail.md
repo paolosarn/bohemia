@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the wall (setback) | ground | no | — | 2546 |
 | 1 | `#3a3a42` | drive / lot | drive | the intake sally lane / service drive (car-drivable) | ground | no | — | 135 |
 | 2 | `#6f6a62` | building (cell block/admin) | building | a cell block / the admin+intake block, concrete, slit windows | structure | yes | block interior: the two-tier cell tiers around a dayroom, the control picket at the hub; admin = intake, property, holding | 3460 |
-| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the wall + wire | prop | no | — | 22 |
+| 3 | `#3f382c` | dead brush | tree-dead | dead brush caught in the wall and the wire, which is how you know nobody walks this fence line | prop | no | — | 22 |
 | 4 | `#4a4842` | secure yard concrete | ground | the secure-yard concrete between the blocks, cracked | ground | no | — | 6952 |
 | 5 | `#c79a3f` | gate | gate | the intake gate off the street, amber curb, the outer sally door | portal | no | — | 5 |
 | 6 | `#8a8478` | guard tower | structure | a corner guard tower over the wall, glass gone, empty | structure | yes | — | 99 |

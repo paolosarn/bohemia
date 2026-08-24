@@ -44,7 +44,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#5e6a68` | pit water | water-dead | water standing in the bottom of the pit, gone the colour of the rock | ground | no | — | 1835 |
 | 9 | `#8f8676` | pole light | prop | a yard light over the crusher, head dark, on a plant that used to run three shifts | prop | yes | — | 3 |
 | 10 | `#8c8272` | shot rock / stockpile | prop | a cone of graded stone, or shot rock left where the last round dropped it | prop | yes | — | 3153 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the plant floor | ground | no | — | 4 |
+| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the plant floor, where the crusher feed had to be walked around | ground | no | — | 4 |
 | 12 | `#6a6a72` | perimeter fence | structure | the quarry fence, most of it still standing | structure | yes | — | 442 |
 | 13 | `#6b6154` | conveyor run | structure | the conveyor from the pit to the stockpiles, belt slack and gone brittle | structure | yes | — | 253 |
 | 14 | `#8a8478` | screen tower | structure | the screen tower over the crusher, the tallest thing on the site | structure | yes | — | 99 |

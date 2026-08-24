@@ -98,7 +98,7 @@
     8:{name:'pipe gallery / catwalk',kind:'structure',act1:'a steel pipe gallery / catwalk / clarifier sweep arm, rusted', solid:true},
     9:{name:'pole light',         kind:'prop',       act1:'a plant pole light, head dark'},
     10:{name:'crusted sludge / scum',kind:'ground',  act1:'crusted dried sludge / scum drifted in the basins + on the deck', solid:false},
-    11:{name:'marking',           kind:'marking',    act1:'faded hazard / valve paint on the deck'},
+    11:{name:'marking',           kind:'marking',    act1:'faded hazard and valve paint on the deck, telling an operator who is not coming which way to turn it'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the chain-link plant perimeter fence, wire sagging', solid:true}
   };
   var NOTES={

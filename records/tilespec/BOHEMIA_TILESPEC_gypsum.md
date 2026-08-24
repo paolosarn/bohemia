@@ -44,7 +44,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#3f8076` | pit water | water-dead | water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust | ground | no | — | 1682 |
 | 9 | `#8f8676` | pole light | prop | a plant yard light, head dark, on a site that made its own power and still went out | prop | yes | — | 3 |
 | 10 | `#a89f8c` | stockpile | prop | a cone of milled rock waiting for a calciner that stopped | prop | yes | — | 2960 |
-| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the mill floor | ground | no | — | 4 |
+| 11 | `#c9c1aa` | marking | marking | faded hazard paint on the mill floor, powdered over white like everything else here | ground | no | — | 4 |
 | 12 | `#6a6a72` | perimeter fence | structure | the plant fence, which stops at the quarry line because nobody fences a cliff | structure | yes | — | 405 |
 | 13 | `#6b6154` | conveyor run | structure | the mobile conveyor that carried ore straight from the quarry into the plant | structure | yes | — | 364 |
 | 14 | `#8a8478` | calciner stack / dome crown | structure | the calciner stack, and the crown vent at the top of the storage dome | structure | yes | — | 180 |

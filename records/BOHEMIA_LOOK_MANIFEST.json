@@ -1,13 +1,35 @@
 {
- "built": "8/8/26",
+ "built": "8/24/26",
  "shots": [
+  {
+   "id": "the-yards-lit",
+   "title": "TWO YARDS THAT HAVE NEVER HAD A LIGHT",
+   "caption": "The wrecking yard and the reservoir both put four pole lights down when they were built, and then paved straight over all four with their own dirt lanes -- so both places have been pitch dark since the day they were written, every seed, and nothing ever said a word, because a light that got overwritten looks exactly like a light that was never there. A machine that reads the world that actually got built found them. They stand now, and at night the power grid decides which ones burn. RUN tab, walk into a wrecking yard.",
+   "file": "look/the-yards-lit.png",
+   "at": {
+    "x": 5492,
+    "y": 2956,
+    "zoom": 26
+   },
+   "kb": 209.4,
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-yards-lit"
+  },
   {
    "id": "the-spawn-sidewalk",
    "title": "THE NEIGHBOURHOOD YOU WAKE UP IN",
    "caption": "Two passes on the street you spawn on. The sidewalks were being laid all along and the renderer had no case for them, so they drew as dead dirt -- they wear your concrete now. And every house sat in one flat empty rectangle: nine tile codes in the whole suburb and not one of them a prop. Front yards are DECORATIVE GRAVEL now, which is what a Las Vegas yard actually is and the one thing that survives a dead world, with wind-drifted debris against the kerb in about a third of them. RUN tab.",
    "file": "look/the-spawn-sidewalk.png",
+   "at": {
+    "x": 3094,
+    "y": 789,
+    "zoom": 26
+   },
+   "kb": 269.9,
+   "stamp": "8/24/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
-   "stamp": "8/20/26"
+   "shooter": "node tools/bohemia_look_shots.js --only the-spawn-sidewalk"
   },
   {
    "id": "zoom-identity",
@@ -90,8 +112,9 @@
     "zoom": 44
    },
    "kb": 303.2,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-suburb"
   },
   {
    "id": "dead-road",
@@ -104,8 +127,9 @@
     "zoom": 44
    },
    "kb": 212,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-road"
   },
   {
    "id": "dead-desert",
@@ -118,8 +142,9 @@
     "zoom": 44
    },
    "kb": 205,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-desert"
   },
   {
    "id": "dead-density",
@@ -132,8 +157,9 @@
     "zoom": 22
    },
    "kb": 224.6,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-density"
   },
   {
    "id": "vista",
@@ -141,9 +167,10 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 510.9,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "kb": 501,
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only vista"
   },
   {
    "id": "dead-pit",
@@ -156,8 +183,9 @@
     "zoom": 30
    },
    "kb": 228.6,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-pit"
   },
   {
    "id": "dead-cluster",
@@ -170,8 +198,9 @@
     "zoom": 30
    },
    "kb": 177,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only dead-cluster"
   },
   {
    "id": "the-pit-dug",
@@ -184,8 +213,9 @@
     "zoom": 26
    },
    "kb": 146.6,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-pit-dug"
   },
   {
    "id": "the-wall",
@@ -194,8 +224,9 @@
    "file": "look/the-wall.png",
    "at": null,
    "kb": 209.6,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-wall"
   },
   {
    "id": "the-claim",
@@ -204,8 +235,9 @@
    "file": "look/the-claim.png",
    "at": null,
    "kb": 202.9,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-claim"
   },
   {
    "id": "the-favour",
@@ -214,8 +246,9 @@
    "file": "look/the-favour.png",
    "at": null,
    "kb": 198.6,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-favour"
   },
   {
    "id": "the-collection",
@@ -224,8 +257,9 @@
    "file": "look/the-collection.png",
    "at": null,
    "kb": 214,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-collection"
   },
   {
    "id": "the-terms-fold",
@@ -234,8 +268,9 @@
    "file": "look/the-terms-fold.png",
    "at": null,
    "kb": 250.5,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-terms-fold"
   },
   {
    "id": "they-lost-you",
@@ -259,8 +294,9 @@
     "zoom": 30
    },
    "kb": 244.9,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-hole"
   },
   {
    "id": "the-bad-footing",
@@ -273,8 +309,9 @@
     "zoom": 22
    },
    "kb": 388.5,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-bad-footing"
   },
   {
    "id": "the-signals-are-back",
@@ -287,8 +324,9 @@
     "zoom": 26
    },
    "kb": 333.5,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-signals-are-back"
   },
   {
    "id": "wardrobe-4x",
@@ -321,8 +359,9 @@
     "zoom": 26
    },
    "kb": 180.4,
-   "stamp": "8/8/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-proper-sidewalk"
   },
   {
    "id": "hair-edge",

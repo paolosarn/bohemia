@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#4a5f4e` | pond water | water-dead | what is in the pond now — still, green, and not moving anywhere | ground | no | — | 2739 |
 | 9 | `#8f8676` | pole light | prop | a plant light, head dark, standing over water that no longer moves anywhere | prop | yes | — | 3 |
 | 10 | `#9a9080` | weir box / blower | prop | an outlet weir box on a pond corner, a blower on its pad | prop | yes | — | 238 |
-| 11 | `#c9c1aa` | marking | marking | pond number stencilled on a weir box | ground | no | — | 3 |
+| 11 | `#c9c1aa` | marking | marking | a pond number stencilled on a weir box, so a man on foot knew which cell he was at | ground | no | — | 3 |
 | 12 | `#6a6a72` | perimeter fence | structure | the plant fence, more about keeping people out of the ponds than anything in | structure | yes | — | 455 |
 | 13 | `#7a7266` | inlet header | structure | the header feeding every pond off one line | structure | yes | — | 171 |
 | 14 | `#8a8478` | vent stack | structure | the vent stack on the blower house | structure | yes | — | — |

@@ -146,3 +146,83 @@ turn found the paved-over lights is that such a machine now exists and told on t
 LAWS SERVED: FACTORY LAW (one mechanism, thirteen consumers), A LAW WITHOUT A MACHINE GATE IS
 NOT ENFORCED, ACT ONE ONLY, MECHANISM-MINE / CONTENTS-PAOLO'S (every word placed here was
 already written by the district's own author), VERIFY ON THE REAL SURFACE.
+
+---
+
+# THE SECOND HALF: PLACING THEM BROKE THREE GATES, AND EVERY ONE WAS RIGHT TO BREAK
+
+Putting fifteen authored codes into the world set off three gates. Not one of them was noise,
+and not one of them was fixed by moving a number.
+
+## PAINT IS NOT A WALL -- AND IT IS NOT A ROAD EITHER
+
+DRIVE NETWORK went from 25 broken districts to 34 the moment the nine markings landed. Every
+one of the nine read 99.8% instead of 100%.
+
+`K.driveMask` counted `kind:'marking'` as DRIVE SURFACE. The 7/31 rule behind that is right and
+is untouched: a stall stripe is paint on asphalt, a car drives over it, and treating it as an
+obstacle invents pockets that are not there -- that is what stranded ten tiles of the commercial
+lot behind its own parking stripes. But a stencilled bay number on a gravel yard is not a road,
+and counting it as one made it an unreachable road. A car was never denied anything. THE METRIC
+WAS COUNTING PAINT AS PAVEMENT.
+
+The kit already drew exactly the distinction paint needed, for overheads: a skybridge CONDUCTS
+a path without being counted as drive surface. Paint is a conductor now.
+
+**ELEVEN DISTRICTS CAME GREEN THAT NOBODY TOUCHED**: apartment, ballpark, campus, downtown,
+jail, landfill, park, railyard, terminal, trailer, warehouse. Every one had been reported broken
+since 7/31 because of its own markings. They are struck from the debt. 25 -> 15.
+
+`driveWidthScore` needed the other half of the same thought: a lane line does not make a lane
+narrower. Paint is unioned back in for the neighbourhood test, never for the denominator.
+
+FOUR ARE GENUINELY BROKEN AND ARE DELIBERATELY NOT EXCUSED: prison (9.6% of its drive surface
+reachable), fort (52.9%), dam (0.0%), minigp (0.0%). Verified red on origin/main before touching
+anything, so they are inherited. dam and minigp have ZERO drive tiles touching the plot edge --
+their whole network is sealed off from the street. Putting them in the debt set would turn four
+broken districts green with a keystroke, which is the one thing a ratchet must never allow.
+
+## THE SAMPLE ONLY EVER SAW THE TOP OF THE VALLEY
+
+DEAD CODE reported `solar:2 control building` and `solar:6 substation switchgear` as newly dead
+after another lane's ONE SOLAR FARM change merged. Censused across all 301 solar cells: **378
+tiles of control building and 960 of switchgear, both alive.** The gate took cells in raster
+order and stopped at 160, so for any district bigger than 160 cells it read the top of the map
+and called the rest absent. I came within one keystroke of raising a ratchet to cover two deaths
+that had not happened.
+
+The sample now spans every cell a district occupies. (And the first correction was wrong too:
+`i += floor(len/CAP)` at len=301, CAP=160 gives a step of 1, which is the original bug again.
+`k*len/CAP` is the one that actually spreads.)
+
+## IF I CANNOT WRITE WHAT A PIXEL IS, IT DOES NOT SHIP
+
+ANSWERED FOR went 75 -> 86 stub write-ups. Diffed against the baseline: exactly eleven, exactly
+mine. Placing a code puts its legend entry on screen, and eleven of them had act-1 lines a
+character or two under the bar -- "a yard pole light, head dark", "dead brush in the ballast +
+fence". They had never been measured because the tile had never been drawn. All eleven are
+written now. 86 -> 75.
+
+## AND THE PICTURES
+
+LOOK went red: nineteen of the twenty-three stale pictures photograph the CITY WORLD, and the
+gate said "NO SHOOTER RECORDED -- add one" for every one of them. Another lane read that as
+unfixable and handed it over twice.
+
+IT WAS NEVER UNFIXABLE. `tools/bohemia_look_shots.js` has taken those seventeen since 8/8, it
+already supports `--only`, and the manifest it writes ITSELF simply never recorded that. A
+capability nobody can find is the same as one that does not exist. The tool now records its own
+shooter line, the-spawn-sidewalk is a subject at last (title and caption kept word for word from
+8/20 -- it is being given a way to be retaken, not rewritten), and all 34 pictures are current.
+LOOK: 24 passed, 0 failed.
+
+New picture: **THE YARDS LIT** -- a pole light standing in the wrecking yard, which is a picture
+of something that has never once been on screen.
+
+## THE PATTERN, THREE MORE TIMES
+
+Every one of these was THE INSTRUMENT, not the thing measured. Paint counted as pavement. A
+sample that only read the top of the map. A picture that could not be retaken because the tool
+never said it could take it. That is now roughly a dozen times in two sessions, and the rule
+holds: A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT
+COULD HAVE SEEN A POSITIVE ONE.

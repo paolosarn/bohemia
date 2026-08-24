@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2605 |
 | 1 | `#45433c` | service road | drive | the yard service road — a truck reaches the depot from the gate (drivable) | ground | no | — | 695 |
 | 2 | `#6a6358` | building (engine shed/depot/office) | building | the engine shed / maintenance depot + office + fuel/sand shed, dark | structure | yes | depot interior: the inspection + light-maintenance bays (pits in the floor), the heavy shop + office off the side | 1825 |
-| 3 | `#3f382c` | dead brush | tree-dead | dead brush in the ballast + fence | prop | no | — | 22 |
+| 3 | `#3f382c` | dead brush | tree-dead | dead brush up through the ballast and caught in the fence, on track nothing has run over since | prop | no | — | 22 |
 | 4 | `#4a4640` | ballast / gravel | ground | the crushed-stone ballast + gravel of the yard | ground | no | — | 7167 |
 | 5 | `#c79a3f` | gate | gate | the yard gate off the street, amber curb | portal | no | — | 5 |
 | 6 | `#565048` | rail track | ground | a steel running rail on ties — the classification tracks fanned across the yard | ground | no | — | 358 |

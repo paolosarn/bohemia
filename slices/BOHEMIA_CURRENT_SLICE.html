@@ -4701,11 +4701,19 @@ root.BQRuntime=API;
       if (!legend[c]) continue;
       var k = legend[c].kind, layer = tileLayer(legend[c]).layer;
       if (k === 'drive') { S[c] = 1; any = true; }
-      /* PAINT IS NOT A WALL: a stall stripe is a marking painted on asphalt and a car
-         drives straight over it. Treating it as an obstacle invents pockets that are not
-         there -- it is what stranded ten tiles of the commercial lot behind its own
-         parking stripes. */
-      else if (k === 'marking') { S[c] = 1; }
+      /* PAINT IS NOT A WALL, AND IT IS NOT A ROAD EITHER (amended 8/24). The original rule
+         is untouched and still right: a stall stripe is a marking painted on asphalt, a car
+         drives straight over it, and treating it as an obstacle invents pockets that are not
+         there -- that is what stranded ten tiles of the commercial lot behind its own parking
+         stripes. So paint still CONDUCTS a path; see driveConductors.
+         WHAT WAS WRONG WAS COUNTING IT AS SURFACE THAT MUST BE REACHED. The moment nine
+         districts started stencilling a magazine number on a headwall and hazard paint on
+         gravel (8/24), every one of those stencils became an unreachable "road" in the middle
+         of a yard and nine districts read 99.8% instead of 100%. A car was never denied
+         anything; the METRIC was counting paint as pavement. The distinction the kit already
+         draws for overheads -- conducts, is not counted -- is exactly the one paint needs, and
+         nothing is lost by it: a genuinely stranded parking stall sits ON drive-kind asphalt,
+         and the asphalt is still in the denominator. */
       /* overheads are handled separately -- see driveConductors below. They are not drive
          surface and must not be counted as such: an awning over a sidewalk is not road. */
     }
@@ -4724,6 +4732,10 @@ root.BQRuntime=API;
     for (var c in legend) {
       if (!legend[c]) continue;
       if (tileLayer(legend[c]).layer === 'overhead') C[c] = 1;
+      /* AND PAINT (8/24). A car drives over a stall stripe, a lane line, a stencilled bay
+         number -- so the path goes through it and a road split by its own markings is still
+         one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
+      else if (legend[c].kind === 'marking') C[c] = 1;
     }
     return C;
   }
@@ -4760,15 +4772,27 @@ root.BQRuntime=API;
      drive tiles sitting in a 3x3 block of drive, so a district made of hairlines scores
      near zero however connected it is. */
   function driveWidthScore(g, legend){
-    var S = driveMask(legend || {});
+    legend = legend || {};
+    var S = driveMask(legend);
     if (!S) return 1;
+    /* A LANE LINE DOES NOT MAKE A LANE NARROWER (8/24). Paint moved out of the drive mask
+       and into the conductors the same day, and this function reads the mask -- so a stripe
+       painted down the middle of a road suddenly punched a hole in that road's 3x3
+       neighbourhood and the road started scoring as a hairline. It is the same tile a car
+       drives over; for the WIDTH question it is unambiguously part of the lane. So the
+       neighbourhood test unions paint back in. The DENOMINATOR stays real drive tiles only,
+       which is the half that had to change: paint is measured as part of a lane, never as a
+       lane of its own. */
+    var P = {}, c;
+    for (c in S) P[c] = 1;
+    for (c in legend) if (legend[c] && legend[c].kind === 'marking') P[c] = 1;
     var n = g.length, tot = 0, core = 0, x, y, dx, dy;
     for (y = 1; y < n - 1; y++) for (x = 1; x < n - 1; x++) {
       if (!S[g[y][x]]) continue;
       tot++;
       var all = true;
       for (dy = -1; dy <= 1 && all; dy++) for (dx = -1; dx <= 1; dx++)
-        if (!S[g[y + dy][x + dx]]) { all = false; break; }
+        if (!P[g[y + dy][x + dx]]) { all = false; break; }
       if (all) core++;
     }
     return tot ? core / tot : 1;
@@ -5027,7 +5051,53 @@ root.BQRuntime=API;
       else content++; }
     return { drivePct:100*drive/A, contentPct:100*content/A, fillerPct:100*filler/A }; }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,
+  /* STENCIL: the small human mark somebody left on a piece of infrastructure.
+     (8/23, WORLD lane.)
+
+     NINE DISTRICTS AUTHORED ONE AND NOT ONE OF THEM WAS EVER PLACED. arsenal, basin, gypsum,
+     quarry, radio, reclaim, reservoir, substation and watertreat each carry `11 = marking`
+     with its own specific line -- "the magazine number stencilled on the headwall", "the
+     elevation marks on the outlet box, the record of every flood that filled this basin",
+     "call letters stencilled on a hut door". A whole authoring pass of the small human detail
+     that makes infrastructure feel USED, written into nine legends and then never written
+     into a single generator. gates/dead_code_gate.js found it; this is the machine that fixes
+     the class rather than nine bespoke patches (FACTORY LAW).
+
+     It is deliberately SPARSE. A stencil is one number on one headwall, not a texture: a mark
+     on every magazine reads as wallpaper and says nobody chose where to put it. Deterministic
+     from the seed, so a plot always wears the same marks.
+
+     `on` is the host code the mark sits on; `near`, when given, requires the host cell to
+     touch that code, which is how a mark lands on the FACE of a structure (the side you can
+     read from the yard) rather than buried in its middle. */
+  function stencil(g,opts){
+    opts=opts||{}; var W=g[0].length,H=g.length;
+    var on=opts.on, mark=opts.mark, want=opts.count||3, near=opts.near;
+    var r=rng((opts.seed||1)*2654435761>>>0), spots=[], x, y, i;
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(g[y][x]!==on) continue;
+      if(near!=null){
+        var touch=false;
+        for(i=0;i<4;i++){ var nx=x+[1,-1,0,0][i], ny=y+[0,0,1,-1][i];
+          if(nx<0||ny<0||nx>=W||ny>=H) continue;
+          if(g[ny][nx]===near) touch=true; }
+        if(!touch) continue;
+      }
+      spots.push([x,y]);
+    }
+    if(!spots.length) return 0;
+    /* spread them: take from evenly-spaced positions in the candidate list rather than the
+       first N, or every mark lands in the same corner of the plot */
+    var n=0, step=Math.max(1,Math.floor(spots.length/want));
+    for(i=0;i<spots.length && n<want;i+=step){
+      var p=spots[(i+((r()*step)|0))%spots.length];
+      if(g[p[1]][p[0]]!==on) continue;
+      g[p[1]][p[0]]=mark; n++;
+    }
+    return n;
+  }
+
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
@@ -8262,12 +8332,23 @@ root.BQRuntime=API;
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
+    /* THE VALVE PAINT ON THE DECK (code 11), 8/23. Authored -- "faded hazard / valve paint on
+       the deck" -- and never placed, one of nine. On the basin floor (4) beside the clarifier
+       wall (6): the paint is round the plant you have to walk to, not scattered on open deck. */
+    K.stencil(g, {on:4, near:6, mark:11, count:5, seed:(seed>>>0)||1});
+    /* AND THE BRUSH IN THE PERIMETER FENCE (code 3), authored and never placed. On the
+       setback (0) against the fence (12) -- the fourth and last of this family to get the row
+       it wrote. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:((seed>>>0)^0x5b3)||1});
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})};
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6f665a',3:'#3a4020',4:'#5a584f',5:'#c79a3f',6:'#7a7268',
+  /* CODE 3 WAS GREEN (#3a4020) AND CODE 3 IS DEAD BRUSH (8/23). Same slip as the jail, hidden
+     the same way: the generator never placed a code-3 tile, so the wrong colour was never on
+     screen. The family tone for dead brush is #3f382c. ACT ONE HAS NO VEGETATION. */
+  var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6f665a',3:'#3f382c',4:'#5a584f',5:'#c79a3f',6:'#7a7268',
     7:'#46585a',8:'#8a8478',9:'#8f8676',10:'#5a5240',11:'#c9c1aa',12:'#6a6a72'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -8281,7 +8362,7 @@ root.BQRuntime=API;
     8:{name:'pipe gallery / catwalk',kind:'structure',act1:'a steel pipe gallery / catwalk / clarifier sweep arm, rusted', solid:true},
     9:{name:'pole light',         kind:'prop',       act1:'a plant pole light, head dark'},
     10:{name:'crusted sludge / scum',kind:'ground',  act1:'crusted dried sludge / scum drifted in the basins + on the deck', solid:false},
-    11:{name:'marking',           kind:'marking',    act1:'faded hazard / valve paint on the deck'},
+    11:{name:'marking',           kind:'marking',    act1:'faded hazard and valve paint on the deck, telling an operator who is not coming which way to turn it'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the chain-link plant perimeter fence, wire sagging', solid:true}
   };
   var NOTES={
@@ -8364,7 +8445,13 @@ root.BQRuntime=API;
     // ---- TIRE + SCRAP piles, oil stains, pole lights ----
     for(i=0;i<9;i++){ var px=12+Math.floor(r()*100), py=14+Math.floor(r()*100); if(get(px,py)===4){ G.disc(px,py,2,3); } } // scrap/tire piles
     for(i=0;i<26;i++){ var ox=8+Math.floor(r()*104), oy=12+Math.floor(r()*104); if(get(ox,oy)===4&&r()<0.5)set(ox,oy,10); } // oil-stained dirt
-    [[9,14],[106,14],[9,100],[70,100]].forEach(function(p){ set(p[0],p[1],9); });
+    /* THE FOUR YARD LIGHTS WERE PLACED AND THEN PAVED OVER (8/23). They stood at [9,14],
+       [106,14], [9,100] and [70,100] -- and the west spine (x 7-9), the east spine (x 106-108)
+       and the cross lane (y 100-103) are all drawn BELOW this line, so every one of the four
+       was overwritten by a dirt lane before the plot was returned. gates/dead_code_gate.js
+       reported boneyard:9 absent from 160 built cells and it was right: this yard has been
+       pitch dark since it was written. A POLE LIGHT STANDS BESIDE A LANE, NOT IN IT, so they
+       moved off the drive network entirely and now go down LAST -- see below the gate. */
 
     // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
     var gx=W>>1;
@@ -8375,6 +8462,12 @@ root.BQRuntime=API;
     G.rect(8,100,120,103,1);                                            // a cross lane tying the rows to the gate
     G.rect(7,14,9,103,1); G.rect(106,14,108,103,1);                     // west + east spines tying every row-lane to the cross lane
     for(i=-3;i<=3;i++)set(gx+i,H-1,5);                                  // the street gate LAST, so the lane can't erase it
+    // THE YARD LIGHTS, AFTER EVERYTHING (see the note up in the props block). Two on the clear
+    // strip between the fence and the first row of wrecks, two on the landside apron past the
+    // cross lane and clear of the office, the scale and the entrance lane. A wrecking yard
+    // lights the ground it works, and the reason to draw them last is that nothing in this
+    // generator can then take them away again.
+    [[12,11],[104,11],[75,108],[100,108]].forEach(function(p){ set(p[0],p[1],9); });
     return g;
   }
 
@@ -8400,7 +8493,7 @@ root.BQRuntime=API;
     6:{name:'wrecked car (rust)', kind:'vehicle',    act1:'a wrecked car in the row, rusted to oxide-red, stripped for parts', solid:true},
     7:{name:'crushed-car stack',  kind:'structure',  act1:'a wall of flattened, crushed cars stacked for the baler', solid:true},
     8:{name:'crane / crusher',    kind:'structure',  act1:'the claw crane + mobile crusher, boom seized, yellow paint faded', solid:true},
-    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark'},
+    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark, standing over the rows so a man could find a car after dark'},
     10:{name:'oil / fluid stain', kind:'ground',     act1:'oil + fluid stained into the dirt under the wrecks', solid:false},
     11:{name:'marking (scale/aisle)',kind:'marking', act1:'the truck-scale pad + faded aisle/row markers'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the salvage-yard security fence, wire + barbed top sagging', solid:true},
@@ -8913,7 +9006,12 @@ root.BQRuntime=API;
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE BRUSH IN THE BALLAST AND THE FENCE (code 3), 8/23. Authored and never placed, one
+       of four in this family. A live yard sprays its fence line; a dead one does not, and the
+       brush is the clock. On the setback (0) against the perimeter fence (12). */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:(seed>>>0)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
   var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6a6358',3:'#3f382c',4:'#4a4640',5:'#c79a3f',6:'#565048',
@@ -8922,7 +9020,7 @@ root.BQRuntime=API;
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'service road',       kind:'drive',      act1:'the yard service road — a truck reaches the depot from the gate (drivable)'},
     2:{name:'building (engine shed/depot/office)',kind:'building',act1:'the engine shed / maintenance depot + office + fuel/sand shed, dark', enter:'depot interior: the inspection + light-maintenance bays (pits in the floor), the heavy shop + office off the side'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush in the ballast + fence', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush up through the ballast and caught in the fence, on track nothing has run over since', solid:false},
     4:{name:'ballast / gravel',   kind:'ground',     act1:'the crushed-stone ballast + gravel of the yard'},
     5:{name:'gate',               kind:'gate',       act1:'the yard gate off the street, amber curb'},
     6:{name:'rail track',         kind:'ground',     act1:'a steel running rail on ties — the classification tracks fanned across the yard'},
@@ -9005,7 +9103,18 @@ root.BQRuntime=API;
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE HAZARD PAINT ON THE GRAVEL (code 11), 8/23. This district authored the row -- "faded
+       hazard / bay markings on the gravel" -- and never once placed it, one of nine that did
+       the same. gates/dead_code_gate.js found the class; K.stencil is the shared machine.
+       On the gravel yard (4) where it meets a bay: the paint marks the working area round the
+       switchgear, which is exactly where a substation paints it. */
+    K.stencil(g, {on:4, near:7, mark:11, count:5, seed:(seed>>>0)||1});
+    /* AND THE BRUSH IN THE DOUBLE FENCE (code 3), authored and never placed. A switchyard is
+       sprayed and graded for a reason -- brush against a grounded fence is how the fence stops
+       being a fence -- so brush in it says the last person with a licence left a decade ago. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:((seed>>>0)^0x5b3)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
   var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6a6358',3:'#3f382c',4:'#514d44',5:'#c79a3f',6:'#7a7268',
@@ -9507,16 +9616,29 @@ root.BQRuntime=API;
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+    var g=res.g;
+    /* THE BRUSH CAUGHT IN THE WIRE (code 3), 8/23. Authored -- "dead brush caught in the wall
+       + wire" -- and never placed, one of four districts in this family that wrote the row and
+       never wrote the tile. It is the tell that nobody has walked this fence line in ten
+       years, and it is the only thing on a prison's setback that is not concrete. On the
+       setback (0) where it meets the perimeter wall (12), which is where the wind puts it. */
+    K.stencil(g, {on:0, near:12, mark:3, count:22, seed:(seed>>>0)||1});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6f6a62',3:'#3a4526',4:'#4a4842',5:'#c79a3f',6:'#8a8478',
-    7:'#55603a',8:'#9a948a',9:'#8f8676',10:'#5a5f66',11:'#c9c1aa',12:'#6a6a72',13:'#2a2824'};
+  /* CODE 3 WAS GREEN AND CODE 3 IS DEAD BRUSH (8/23). #3a4526 is olive; the rest of this
+     family paints dead brush #3f382c, and so does every district in the utility factory.
+     Nobody caught it because the generator never placed a single code-3 tile, so the wrong
+     colour was never once on screen -- a dead code hides a dead colour. ACT ONE HAS NO
+     VEGETATION; what it has is what died. Code 7 goes with it: the legend calls the exercise
+     yard "dead dirt + a ghosted court line" and it was painted #55603a, which is lawn. */
+  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6f6a62',3:'#3f382c',4:'#4a4842',5:'#c79a3f',6:'#8a8478',
+    7:'#4e4a3e',8:'#9a948a',9:'#8f8676',10:'#5a5f66',11:'#c9c1aa',12:'#6a6a72',13:'#2a2824'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the wall (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the intake sally lane / service drive (car-drivable)'},
     2:{name:'building (cell block/admin)',kind:'building',act1:'a cell block / the admin+intake block, concrete, slit windows', enter:'block interior: the two-tier cell tiers around a dayroom, the control picket at the hub; admin = intake, property, holding'},
-    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall + wire', solid:false},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the wall and the wire, which is how you know nobody walks this fence line', solid:false},
     4:{name:'secure yard concrete',kind:'ground',    act1:'the secure-yard concrete between the blocks, cracked'},
     5:{name:'gate',               kind:'gate',       act1:'the intake gate off the street, amber curb, the outer sally door'},
     6:{name:'guard tower',        kind:'structure',  act1:'a corner guard tower over the wall, glass gone, empty', solid:true},
@@ -17267,9 +17389,27 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         G.rect(W-30,my+4,W-22,my+6,7);
         G.rect(Math.round(W*0.62),my+10,Math.round(W*0.62)+20,my+24,2);   // THE VALVE HOUSE, drawn LAST
         G.rect(Math.round(W*0.30),my+8,Math.round(W*0.30)+2,my+26,13);
+        /* THE STANDPIPE (code 14), authored in this legend and never once drawn -- "the
+           standpipe beside the tanks". It is not decoration: a standpipe is how a gravity
+           system takes a surge without splitting a main, a tall open column between the tanks
+           whose water level IS the pressure in the pipe. So it stands on the pad between the
+           two tanks, above the manifold it protects, with its own line down into it. It starts
+           at y=15 because the perimeter ring is cut across y 9-11 after every layout returns,
+           which is the exact thing that had been eating this district's pole lights. */
+        var spx=(W>>1)-2;
+        G.rect(spx,15,spx+3,38,14);
+        G.rect(spx+1,38,spx+2,my,13);
+        G.set(spx,14,10); G.set(spx+3,14,10);                             // the top hatch + gauge
       }
       brush(G,28);
-      lights(G,[[10,16],[W-11,16],[10,H-20],[W-11,H-20]]);
+      /* THE SAME FAILURE THE BONEYARD HAD, IN THE ONLY LAYOUT THAT STILL HAD IT (8/23). These
+         four stood at x=10 and x=W-11, and buildCanonical cuts the PERIMETER RING after every
+         layout returns -- G.rect(8,9,10,H-11,1) and G.rect(W-11,9,W-9,H-11,1) -- which is
+         exactly those two columns. So both districts on this layout lost all four lights to a
+         road, every seed, and dead_code_gate reported reservoir:9 absent from 160 built cells.
+         The other eight layouts light at x=12 / x=W-13 and were never touched; this one was
+         two tiles out. A LIGHT STANDS BESIDE THE PERIMETER LANE, NOT IN IT. */
+      lights(G,[[12,16],[W-13,16],[12,H-20],[W-13,H-20]]);
     },
 
     // A GRAIN ELEVATOR IS A COMB. A battery of touching concrete cylinders with the
@@ -17487,6 +17627,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var SPECS = {
 
     quarry: { lay:'pit', par:{benches:4}, cat:'infrastructure', yard:4,
+      /* hazard paint on the PLANT FLOOR (4), beside the crusher house (2) */
+      mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#8a8070',5:'#c79a3f',6:'#a49a86',7:'#b8ae98',
            8:'#5e6a68',9:'#8f8676',10:'#8c8272',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478'},
       leg:{0:['desert dead-ground','ground','the untouched desert outside the quarry line'],
@@ -17502,7 +17644,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            8:['pit water','water-dead','water standing in the bottom of the pit, gone the colour of the rock'],
            9:['pole light','prop','a yard light over the crusher, head dark, on a plant that used to run three shifts'],
            10:['shot rock / stockpile','prop','a cone of graded stone, or shot rock left where the last round dropped it'],
-           11:['marking','marking','faded hazard paint on the plant floor'],
+           11:['marking','marking','faded hazard paint on the plant floor, where the crusher feed had to be walked around'],
            12:['perimeter fence','structure','the quarry fence, most of it still standing'],
            13:['conveyor run','structure','the conveyor from the pit to the stockpiles, belt slack and gone brittle'],
            14:['screen tower','structure','the screen tower over the crusher, the tallest thing on the site']},
@@ -17512,6 +17654,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'Aggregate flow: feed hopper to primary crusher, across a vibrating screen, to secondary crushers, oversize recirculated.'] },
 
     gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
+      /* hazard paint on the MILL FLOOR (4), beside the mill (2) */
+      mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
            8:'#3f8076',9:'#8f8676',10:'#a89f8c',11:'#c9c1aa',12:'#6a6a72',13:'#6b6154',14:'#8a8478',
            /* the shotcrete shell: greyer than the raw gypsum around it, because it is
@@ -17529,7 +17673,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            8:['pit water','water-dead','water standing in the low corner of the workings, gone turquoise the way sulfate water does -- the one colour on a site that is otherwise all white dust'],
            9:['pole light','prop','a plant yard light, head dark, on a site that made its own power and still went out'],
            10:['stockpile','prop','a cone of milled rock waiting for a calciner that stopped'],
-           11:['marking','marking','faded hazard paint on the mill floor'],
+           11:['marking','marking','faded hazard paint on the mill floor, powdered over white like everything else here'],
            12:['perimeter fence','structure','the plant fence, which stops at the quarry line because nobody fences a cliff'],
            13:['conveyor run','structure','the mobile conveyor that carried ore straight from the quarry into the plant'],
            14:['calciner stack / dome crown','structure','the calciner stack, and the crown vent at the top of the storage dome'],
@@ -17552,7 +17696,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            6:['storage tank','structure','an above-ground bulk tank, shell paint chalked to nothing, a rust line where the product level stopped'],
            7:['containment dike / rack','structure','the reinforced concrete dike round the tank — or the frame of the truck loading rack'],
            8:['spill / standing product','water-dead','something dark standing in the low corner of a containment cell'],
-           9:['pole light','prop','a terminal yard light, head dark'],
+           9:['pole light','prop','a terminal yard light, head dark, over a rack that used to load through the night'],
            10:['valve / manway','prop','a block valve on the manifold, a shell manway, a gauge hatch left open'],
            11:['marking','marking','the loading lane markings on the rack apron'],
            12:['perimeter fence','structure','the terminal fence, and the signage that used to say why is long gone off it'],
@@ -17564,6 +17708,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'Reinforced concrete dikes are the default for a permanent bulk plant — they take heavy equipment traffic, last 40+ years, and accept engineered drain valves and oil/water separators.'] },
 
     reservoir: { lay:'tanks', par:{cols:2, rows:1, rad:20, dikes:false, rack:false}, cat:'infrastructure', yard:4,
+      /* the identification band round the TANK BASE: the tank (6) where it meets its pad (4) */
+      mark:{on:6, near:4, count:5},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6b6558',5:'#c79a3f',6:'#9aa0a2',7:'#7d8386',
            8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the hillside outside the reservoir fence'],
@@ -17575,12 +17721,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            6:['water tank','structure','a welded steel reservoir, seams showing through the failed coating, sitting high enough that the whole valley below was fed by gravity'],
            7:['tank roof','structure','the tank roof, its centre vent and the hatch beside it'],
            8:['overflow','water-dead','the overflow weir and the stain running away from it down the pad'],
-           9:['pole light','prop','a pad light, head dark'],
+           9:['pole light','prop','a pad light, head dark, standing over water nobody has drawn in ten years'],
            10:['valve / hatch','prop','a buried valve cover, the shell manway, the level float box'],
            11:['marking','marking','the fading identification band round the tank base'],
            12:['perimeter fence','structure','the reservoir fence, ringing two tanks and a valve house and nothing else at all'],
            13:['transmission main','structure','the transmission main in and out — big enough that its trench reads from the air'],
-           14:['standpipe','structure','the standpipe beside the tanks']},
+           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main']},
       sum:'A water reservoir site: two big welded steel tanks on a graded pad cut high into the foothills, a valve house, and transmission mains leaving downhill.',
       ref:['Las Vegas Valley Water District: 84 reservoir basins and tanks holding nearly a billion gallons, serving more than 400,000 homes and businesses.',
            'LVVWD engineers site reservoirs by elevation and customer count, deliberately UPGRADIENT of customers so gravity pushes water through the lines and builds pressure.',
@@ -17656,6 +17802,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'Steel I-beams carry the headhouse and the upper conveyor gallery.'] },
 
     arsenal: { lay:'bunkers', par:{}, cat:'industrial', yard:4,
+      /* the magazine NUMBER goes on the headwall: the arch face (7) where it meets open ground */
+      mark:{on:7, near:4, count:4},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#54503f',5:'#c79a3f',6:'#5d5a44',7:'#7c7566',
            8:'#3d4a46',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the quantity-distance setback — legally empty ground, and that is why it is empty'],
@@ -17702,6 +17850,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'Cooling is 1000-ton units with on-board flywheels for ride-through, hot-aisle containment, cold air from overhead.'] },
 
     basin: { lay:'bowl', par:{}, cat:'infrastructure', yard:4,
+      /* elevation marks on the OUTLET WORKS (6), read from the basin floor (4) */
+      mark:{on:6, near:4, count:3},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6e654e',5:'#c79a3f',6:'#5f5844',7:'#7b7259',
            8:'#4c8450',9:'#8f8676',10:'#8a8172',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the ground outside the embankment, which is the ground this basin exists to keep dry'],
@@ -17725,6 +17875,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'A real outlet: a concrete box storm drain with a 24-inch orifice leaving the basin. Las Vegas sits in a basin with ONE outlet, the Las Vegas Wash, and everything drains east to Lake Mead.'] },
 
     reclaim: { lay:'ponds', par:{}, cat:'infrastructure', yard:4,
+      /* the pond NUMBER on a weir box: the berm (7) where it meets the berm road (4) */
+      mark:{on:7, near:4, count:3},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#5a5546',5:'#c79a3f',6:'#6b6f56',7:'#7d7461',
            8:'#4a5f4e',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the setback outside the pond field, and downwind of it, which is why nobody built here'],
@@ -17741,7 +17893,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            8:['pond water','water-dead','what is in the pond now — still, green, and not moving anywhere'],
            9:['pole light','prop','a plant light, head dark, standing over water that no longer moves anywhere'],
            10:['weir box / blower','prop','an outlet weir box on a pond corner, a blower on its pad'],
-           11:['marking','marking','pond number stencilled on a weir box'],
+           11:['marking','marking','a pond number stencilled on a weir box, so a man on foot knew which cell he was at'],
            12:['perimeter fence','structure','the plant fence, more about keeping people out of the ponds than anything in'],
            13:['inlet header','structure','the header feeding every pond off one line'],
            14:['vent stack','structure','the vent stack on the blower house']},
@@ -17750,6 +17902,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },
 
     radio: { lay:'masts', par:{}, cat:'infrastructure', yard:4,
+      /* call letters on the HUT DOOR: the equipment hut (2) where it faces the site ground */
+      mark:{on:2, near:4, count:2},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#544f42',5:'#c79a3f',6:'#8a8478',7:'#7e7768',
            8:'#8e8878',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#6b6458',14:'#b0a894'},
       leg:{0:['dead-ground (setback)','ground','ridge ground outside the fence, too steep and too high up for anything but this'],
@@ -17763,7 +17917,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            8:['guy wire','overhead','a guy wire running out from the mast to its anchor, overhead the whole way'],
            9:['pole light','prop','a site light, head dark, below aircraft-warning lights that are darker still'],
            10:['propane tank / ice bridge','prop','the propane tank beside a hut and the ice bridge from hut to mast'],
-           11:['marking','marking','call letters stencilled on a hut door'],
+           11:['marking','marking','the station call letters stencilled on a hut door, the only name anywhere on this hill'],
            12:['perimeter fence','structure','the site fence, which was never the security here -- the climb was'],
            13:['ground radial','structure','a buried copper radial, its trench line still readable in the dirt'],
            14:['guyed mast','structure','A GUYED MAST — the tallest thing for miles, and the reason nobody built anything else up here']},
@@ -17838,6 +17992,16 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     G.rect(G.W-11,9,G.W-9,G.H-11,1);
     G.rect(gx-2,G.H-14,gx+2,G.H-8,1);
     connectDrive(G);
+    /* THE MARK SOMEBODY LEFT ON IT (8/23). Every district in this factory authored a
+       `marking` row -- "the magazine number stencilled on the headwall", "the elevation marks
+       on the outlet box, the record of every flood that filled this basin", "call letters
+       stencilled on a hut door" -- and NOT ONE OF THEM WAS EVER PLACED. A whole authoring
+       pass of the small human detail that makes infrastructure read as USED, written into
+       nine legends and never written into a generator. gates/dead_code_gate.js found it.
+       ONE STEP HERE, one declaration per district (`mark` in SPECS), rather than nine
+       bespoke patches: the mark is a fact about the district, the placing is a mechanism. */
+    if(s.mark) K.stencil(G.g, {on:s.mark.on, near:s.mark.near, mark:11,
+                               count:s.mark.count||3, seed:(seed>>>0)||1});
     return G.g;
   }
   function makeGenerate(type){

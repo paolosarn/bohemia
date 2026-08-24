@@ -43,8 +43,69 @@ WHAT WAS ACTUALLY WRONG, and two of the three are BUGS, not omissions:
 RATCHET: gates/dead_code_gate.js DEBT 41 -> 32 (markings) -> 26 (airfield) -> 19. Down only.
 Record: records/BOHEMIA_THE_ROWS_NOBODY_EVER_PLACED_8_24_26.md
 Stamp: BUILD 8/24c - THE YARDS GET THEIR LIGHTS BACK
+RATCHETS MOVED: dead codes 41 -> 19  ·  disconnected districts 25 -> 15  ·  stub write-ups 86 -> 75
+
+
+=== THE SECOND HALF: PLACING THEM BROKE THREE GATES AND EVERY ONE WAS RIGHT ===
+
+  A. PAINT IS NOT A WALL -- AND IT IS NOT A ROAD EITHER. DRIVE NETWORK went 25 broken
+     districts to 34 the moment the markings landed: K.driveMask counted kind:'marking' as
+     drive SURFACE, so a bay number stencilled on gravel became an unreachable road. The
+     7/31 rule is untouched and still right (a car drives over a stall stripe; treating it as
+     an obstacle invents pockets). Paint is a CONDUCTOR now, the same distinction the kit
+     already drew for overheads. ELEVEN DISTRICTS NOBODY TOUCHED CAME GREEN -- apartment,
+     ballpark, campus, downtown, jail, landfill, park, railyard, terminal, trailer, warehouse
+     -- every one reported broken since 7/31 because of its own paint. 25 -> 15. They are
+     struck from the debt so they cannot go bad again. driveWidthScore needed the other half:
+     a lane line does not make a lane narrower.
+     *** FOUR ARE GENUINELY BROKEN AND I DID NOT EXCUSE THEM: prison 9.6% reachable, fort
+     52.9%, dam 0.0%, minigp 0.0%. Verified red on origin/main first, so inherited. dam and
+     minigp have ZERO drive tiles touching the plot edge -- the whole network is sealed off
+     from the street, which is RULE NUMBER ONE broken outright. Putting them in the debt set
+     would turn four broken districts green with a keystroke. THIS IS THE NEXT REAL JOB. ***
+
+  B. THE DEAD-CODE SAMPLE ONLY EVER SAW THE TOP OF THE VALLEY. It reported solar:2 control
+     building and solar:6 switchgear dead after another lane's ONE SOLAR FARM landed. Censused
+     all 301 solar cells: 378 tiles of control building, 960 of switchgear, both ALIVE. The
+     sample took cells in raster order and stopped at 160, so any district over 160 cells was
+     read from the top only. Came one keystroke from raising a ratchet over two deaths that had
+     not happened. Fixed to span every cell -- and the FIRST fix was wrong too (i += floor(len/
+     CAP) is step 1 at 301/160, the original bug again).
+
+  C. ANSWERED FOR went 75 -> 86 stub write-ups. Diffed against baseline: exactly eleven,
+     exactly mine. Placing a code puts its legend entry on screen, and eleven had act-1 lines a
+     character under the bar -- never measured because the tile had never been drawn. All
+     eleven written properly. 86 -> 75.
+
+  D. *** LOOK IS GREEN, 24/0, AND THE TWENTY UNRETAKEABLE PICTURES WERE NEVER UNRETAKEABLE. ***
+     tools/bohemia_look_shots.js has taken seventeen of them since 8/8 and already supports
+     --only; the manifest it writes ITSELF just never recorded a `shooter` line, so look_gate
+     printed "NO SHOOTER RECORDED -- add one" and a lane handed it over twice as an unfixable
+     red. A CAPABILITY NOBODY CAN FIND IS THE SAME AS ONE THAT DOES NOT EXIST. The tool records
+     its own shooter now, the-spawn-sidewalk is finally a subject (its 8/20 title and caption
+     kept word for word -- given a way to be retaken, not rewritten), all 34 pictures current.
+     NEW PICTURE, LOOK tab: "TWO YARDS THAT HAVE NEVER HAD A LIGHT" -- a pole light standing in
+     the wrecking yard, a picture of something that has never once been on screen.
+
+  GATES: the full suite is 415 gates and now takes 50+ MINUTES (3012s on a loaded box, 846s on
+  a quiet one), so the 3000s timeout in a plain `timeout 3000 python3 gates/bohemia_gates.py`
+  KILLS IT. Run it with nohup and no timeout, or shard it. And its pack run is load-sensitive:
+  13 reds on a quiet run, 30 on a loaded one, same tree. BASELINE EVERY RED against origin/main
+  in a worktree before believing it is yours -- that is how the eleven inherited ones were told
+  apart from the three that were mine, and all three of mine were real.
+
+  INHERITED REDS, verified on origin/main, NOT this lane's and NOT caused here: GRAVEYARD,
+  FULL RES, TIME PASS, OUTFITS 13, THE RUN, RUN PEOPLE, CARD FOLD, CANVAS MEMORY, VISTA BEAT,
+  FRESH DOORS, TILE FORM, BANKS USED, and DRIVE NETWORK's four broken districts.
 
 NEXT IN THIS LANE, in this order:
+  - *** FOUR DISTRICTS A CAR CANNOT DRIVE INTO: dam 0.0%, minigp 0.0%, prison 9.6%, fort
+    52.9% of their drive surface reachable from the street. RULE NUMBER ONE (Paolo 7/31) broken
+    outright, and DRIVE NETWORK has been red on main because of it. Diagnosis already done: dam
+    and minigp have ZERO drive tiles touching the plot edge ring at all, so nothing can enter;
+    prison and fort touch it (22 tiles each) but 90% and 47% of their internal network is cut
+    off from that touch. STREET-AWARE / DRIVABLE ACCESS LAW says one car entrance on the primary
+    street. Do this first -- it is the biggest broken thing this lane can see. ***
   - THE INTERCHANGE HAS NO LANE MARKINGS AT ALL (interchange:2 white lane line, and :14 sign
     gantry). Biggest thing left on the dead list and the most visible. It is a HARMONIZED POOL
     job, not a stencil: read records/BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md and
@@ -55,17 +116,7 @@ NEXT IN THIS LANE, in this order:
     0/3/4/11/12, and x 105-111 is past the last unit at x=99).
   - THE UTILITY 13/14 PAIRS: arsenal cable trench + lightning mast, basin storm drain + gauge
     mast, radio anchor block, reclaim vent stack. Same class as the markings, one layout each.
-  - *** TWENTY LOOK PICTURES OF THE CITY HAVE NO SHOOTER AND CANNOT BE RETAKEN. *** CHARACTER
-    flagged the-spawn-sidewalk as WORLD's one-line fix; it is not one line, but it is also not
-    hard, and my first read of it was wrong. There is no warp FUNCTION on the page (no P, no
-    ME, no teleport; window only carries zoomBounds/setZoomAt/setHZoom/playerBox/skyZoom), and
-    I nearly wrote down that there was no hook at all. THERE IS: the page keeps its position in
-    plain top-level bindings -- `hx`/`hy` for the walked tile, `city.x`/`city.y` for map mode,
-    `MODE`, and `window.__WALKFEEL.cam()` which already hands out the camera cell a gate reads.
-    A shooter sets those and calls render(). So: ONE parameterised city shooter, driven by the
-    manifest id, and every one of the twenty gets a `shooter` line. Do it before the next thing
-    in this lane that needs a picture, because right now nothing this lane ships can be
-    photographed on the real surface without doing it by hand.
+  - *** DONE THIS TURN -- see D above. Every city picture has a shooter and LOOK is green. ***
   - The remaining `code 0` dead entries (arterial/downtown/industrial/freeway) are the
     fill-through margin a dense district never leaves. Probably CONDITIONAL, but prove it in
     the source the way the airfield six were proved before excusing them.

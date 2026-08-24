@@ -66,33 +66,54 @@ const CONDITIONAL = {
                   { waitUntil: 'load' });
   await page.waitForFunction(() => typeof render === 'function', null, { timeout: 90000 });
 
-  // SAMPLE EVERY DISTRICT AS THE WORLD ACTUALLY BUILT IT. Up to CAP cells each, taken wherever
-  // they fall, so a multi-cell field contributes many windows and a one-cell district
-  // contributes its whole self.
+  // SAMPLE EVERY DISTRICT AS THE WORLD ACTUALLY BUILT IT. Up to CAP cells each, spread evenly
+  // across every cell that district occupies, so a multi-cell field contributes windows from
+  // end to end and a one-cell district contributes its whole self.
   //
   // CAP IS 160 AND THAT NUMBER IS LOAD-BEARING, stated here rather than buried. Measured the day
   // it was set: at 40 the gate reported 46 dead, at 160 it reported 41 on the same tree, and the
-  // ratchet has come down since. THE FIVE DIFFERENCE WERE SAMPLING ARTEFACTS -- rare
+  // ratchet has come down since. THE SIX DIFFERENCE WERE SAMPLING ARTEFACTS -- rare
   // codes that only occur where two things coincide (a freeway crossing the rail corridor
-  // exists in six cells of the whole valley). So this list means "absent from up to 160 built
-  // cells", not "provably absent from the game", and deeper sampling would find a few more
-  // alive. Saying so is the difference between a worklist somebody can trust and the one this
-  // gate shipped with an hour ago.
+  // exists in six cells of the whole valley). So this list still means "absent from up to 160
+  // built cells", not "provably absent from the game", and deeper sampling would find a few
+  // more alive. Saying so is the difference between a worklist somebody can trust and the one
+  // this gate shipped with an hour ago.
+  /* SPREAD THE SAMPLE ACROSS THE WHOLE DISTRICT, NOT THE FIRST 160 CELLS IT MEETS (8/24).
+     This used to take cells in raster order and stop at CAP, which for any district bigger
+     than CAP meant IT ONLY EVER SAW THE TOP OF THE VALLEY. It cost a false answer the same
+     day it mattered: solar occupies 301 cells, another lane consolidated it to one real farm,
+     and the gate reported solar:2 'control building' and solar:6 'substation switchgear' as
+     DEAD. Censused across all 301 cells: 378 tiles of control building and 960 of switchgear,
+     both alive -- they simply sit in cells the raster sample never reached. Nearly wrote two
+     false deaths into a worklist and raised a ratchet to cover them.
+     So: collect every cell of every district first, THEN take CAP of them evenly spaced. Same
+     cost, and a rare feature anywhere in a district can now be seen from anywhere in it. */
   const seen = await page.evaluate((CAP) => {
-    const out = {}, count = {};
+    const cellsOf = {};
     for (let ty = 0; ty < om.n; ty++) {
       for (let tx = 0; tx < om.n; tx++) {
         const t = om.at(tx, ty);
         if (!t) continue;
-        const d = t.district;
-        if ((count[d] || 0) >= CAP) continue;
+        (cellsOf[t.district] || (cellsOf[t.district] = [])).push([tx, ty]);
+      }
+    }
+    const out = {}, count = {};
+    for (const d in cellsOf) {
+      const list = cellsOf[d];
+      /* EVENLY ACROSS THE WHOLE LIST. `i += floor(len/CAP)` is NOT that: at len=301 and
+         CAP=160 the step is 1 and you are back to reading the first 160 cells, which is the
+         exact bug this block was rewritten to kill. Indexing k*len/CAP spans the full range
+         whatever the two numbers are. */
+      const take = Math.min(CAP, list.length);
+      for (let k = 0; k < take; k++) {
+        const cell = list[Math.floor(k * list.length / take)];
         let m;
-        try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        try { m = tileMeta(cell[0], cell[1]); } catch (e) { continue; }
         const grid = m.kit || m.sub;
         if (!grid) continue;
         count[d] = (count[d] || 0) + 1;
         const s = out[d] || (out[d] = {});
-        for (let i = 0; i < grid.length; i++) s[grid[i]] = 1;
+        for (let j = 0; j < grid.length; j++) s[grid[j]] = 1;
       }
     }
     return { codes: out, cells: count };

@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#8e8878` | guy wire | overhead | a guy wire running out from the mast to its anchor, overhead the whole way | overhead | no | — | 2591 |
 | 9 | `#8f8676` | pole light | prop | a site light, head dark, below aircraft-warning lights that are darker still | prop | yes | — | 2 |
 | 10 | `#9a9080` | propane tank / ice bridge | prop | the propane tank beside a hut and the ice bridge from hut to mast | prop | yes | — | 3782 |
-| 11 | `#c9c1aa` | marking | marking | call letters stencilled on a hut door | ground | no | — | 2 |
+| 11 | `#c9c1aa` | marking | marking | the station call letters stencilled on a hut door, the only name anywhere on this hill | ground | no | — | 2 |
 | 12 | `#6a6a72` | perimeter fence | structure | the site fence, which was never the security here -- the climb was | structure | yes | — | 453 |
 | 13 | `#6b6458` | ground radial | structure | a buried copper radial, its trench line still readable in the dirt | structure | yes | — | 161 |
 | 14 | `#b0a894` | guyed mast | structure | A GUYED MAST — the tallest thing for miles, and the reason nobody built anything else up here | structure | yes | — | 45 |

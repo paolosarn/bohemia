@@ -52,12 +52,26 @@ for (const f of fs.readdirSync(path.join(ROOT, 'engine'))) {
 let pass = 0; const fails = [];
 const ok = (n, c) => { c ? pass++ : fails.push(n); };
 
-/* NAMED DEBT, measured 7/31 when the law landed. May only shrink. */
+/* NAMED DEBT, measured 7/31 when the law landed. May only shrink.
+   SHRUNK 8/24, ELEVEN AT ONCE, AND NOT ONE OF THEM WAS TOUCHED. apartment, ballpark, campus,
+   downtown, jail, landfill, park, railyard, terminal, trailer and warehouse all came green the
+   moment paint stopped counting as drive SURFACE (it is a conductor now -- K.driveMask /
+   K.driveConductors, 8/24). Every one of those eleven was reported broken because of ITS OWN
+   MARKINGS: a stall stripe or a bay number sitting off the lane counted as a road a car could
+   not reach. The metric was wrong, not the districts, and it had been wrong since 7/31.
+   They are struck from the debt, so none of them can quietly go bad again. */
 const DISCONNECTED_DEBT = new Set([
-  'airbase', 'airport', 'apartment', 'ballpark', 'boneyard', 'campus', 'desert', 'downtown',
-  'interchange', 'jail', 'landfill', 'medical', 'park', 'rail', 'railyard', 'solar',
-  'speedway', 'terminal', 'town', 'trailer', 'truckstop', 'warehouse',
+  'airbase', 'airport', 'boneyard', 'desert', 'interchange', 'medical', 'rail', 'solar',
+  'speedway', 'town', 'truckstop',
 ]);
+/* THE FOUR THAT ARE GENUINELY BROKEN AND ARE DELIBERATELY NOT EXCUSED: prison (9.6% of its
+   drive surface reachable), fort (52.9%), dam (0.0%) and minigp (0.0%). They are newer than
+   the 7/31 debt, so they were never in it, and RULE NUMBER ONE has been RED on main because of
+   them -- verified on origin/main before touching anything, so this is inherited, not caused.
+   Putting them in the debt set would turn four broken districts green with a keystroke, which
+   is the one thing a ratchet must never let anybody do. They stay named until somebody fixes
+   the roads. BADNOW_CEILING therefore counts them: 11 excused + 4 unexcused = 15. */
+const BADNOW_CEILING = 15;
 const HAIRLINE_DEBT = new Set(['battery', 'cemetery', 'desert', 'golf']);
 const WIDTH_FLOOR = 0.35;
 
@@ -97,9 +111,10 @@ ok('RULE NUMBER ONE — no district outside the named debt has drive surface a c
    'reach from the street' + (regressed.length ? ' — ' + regressed.join(', ') : ''),
    regressed.length === 0);
 
-ok(`the disconnected debt only ever SHRINKS (${badNow.length} districts, was ` +
-   `${DISCONNECTED_DEBT.size}` + (fixed.length ? '; FIXED since: ' + fixed.join(', ') : '') + ')',
-   badNow.length <= DISCONNECTED_DEBT.size);
+ok(`the disconnected debt only ever SHRINKS (${badNow.length} districts, ceiling ` +
+   `${BADNOW_CEILING} = ${DISCONNECTED_DEBT.size} excused + 4 named-and-unexcused)` +
+   (fixed.length ? '  FIXED since: ' + fixed.join(', ') : ''),
+   badNow.length <= BADNOW_CEILING);
 
 ok('NO HAIRLINE LANES — no district outside the named debt is built from roads too narrow ' +
    'to drive (he circled two of them and asked what they were)' +
@@ -128,10 +143,31 @@ for (const name of ['commercial', 'mall']) {
 const kitSrc = fs.readFileSync(path.join(ROOT, 'engine', 'bohemia_district_kit.js'), 'utf8');
 ok('the kit owns ONE answer for the whole drive network (K.driveNetworkReach)',
    /function driveNetworkReach/.test(kitSrc) && typeof K.driveNetworkReach === 'function');
-ok('PAINT IS NOT A WALL: the mask counts markings as drivable, because a car drives over a ' +
-   'stall stripe', (() => {
-     const m = K.driveMask({ 1: { kind: 'drive' }, 2: { kind: 'marking' }, 3: { kind: 'building' } });
-     return m && m[1] && m[2] && !m[3];
+/* PAINT IS NOT A WALL -- RE-AIMED 8/24, NOT WEAKENED. This used to read the MASK and assert
+   markings were in it. That is an implementation detail, and it was the wrong one: counting
+   paint as drive SURFACE made every stencilled bay number in a gravel yard an unreachable
+   road, and dropped nine districts to 99.8% without a car being denied anything. Paint is a
+   CONDUCTOR now -- it carries the path, it is not itself road. So the test asks the thing the
+   7/31 ruling actually protects, which is stronger than what it replaces: a road cut clean in
+   half by its own stripe is STILL ONE ROAD, end to end. A test that reads the mechanism can
+   only ever confirm the mechanism; a test that reads the behaviour catches it changing. */
+ok('PAINT IS NOT A WALL: a road split by its own stall stripe is still fully reachable',
+   (() => {
+     const L = { 0: { kind: 'ground' }, 1: { kind: 'drive' }, 2: { kind: 'marking' } };
+     const n = 24, g = [];
+     for (let y = 0; y < n; y++) g.push(new Array(n).fill(0));
+     for (let y = 0; y < n; y++) g[y][5] = 1;          /* a lane from edge to edge */
+     g[12][5] = 2;                                     /* one stripe painted clean across it */
+     return Math.abs(K.driveNetworkReach(g, L) - 1) < 1e-9;
+   })());
+ok('AND PAINT IS NOT A ROAD: a lone stencil on the ground is not unreachable drive surface',
+   (() => {
+     const L = { 0: { kind: 'ground' }, 1: { kind: 'drive' }, 2: { kind: 'marking' } };
+     const n = 24, g = [];
+     for (let y = 0; y < n; y++) g.push(new Array(n).fill(0));
+     for (let y = 0; y < n; y++) g[y][5] = 1;
+     g[18][18] = 2;                                    /* a bay number stencilled out in the yard */
+     return Math.abs(K.driveNetworkReach(g, L) - 1) < 1e-9;
    })());
 for (const name of ['commercial', 'mall']) {
   const src = fs.readFileSync(path.join(ROOT, 'engine', 'bohemia_' + name + '.js'), 'utf8');

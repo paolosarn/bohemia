@@ -239,6 +239,52 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    /* ADDED 8/24. This picture has been in the tab since 8/20 with NO SHOOTER, so every time
+       the city changed it went stale and nobody could retake it -- CHARACTER handed it over
+       twice as an unfixable red. It is not unfixable and it never was: it photographs the same
+       surface as every other shot in this file, it just was not a subject. Title and caption
+       are the 8/20 originals, word for word -- the picture is being given a way to be retaken,
+       not rewritten. */
+    id: 'the-spawn-sidewalk',
+    title: 'THE NEIGHBOURHOOD YOU WAKE UP IN',
+    caption: 'Two passes on the street you spawn on. The sidewalks were being laid all along and the renderer had no case for them, so they drew as dead dirt -- they wear your concrete now. And every house sat in one flat empty rectangle: nine tile codes in the whole suburb and not one of them a prop. Front yards are DECORATIVE GRAVEL now, which is what a Las Vegas yard actually is and the one thing that survives a dead world, with wind-drifted debris against the kerb in about a third of them. RUN tab.',
+    find: `(() => {
+      /* STAND WHERE THE WALK MEETS THE YARD. The whole subject is the join: sub code 10 is
+         the sidewalk that used to draw as dead dirt, code 11 the decorative gravel that
+         replaced the empty rectangle. A frame with only one of them in it is a picture of
+         half the fix, which is the mistake the-proper-sidewalk already made once. */
+      for (let ty = 6; ty < om.n - 6; ty++) for (let tx = 6; tx < om.n - 6; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'suburb') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.sub) continue;
+        for (let ly = 8; ly < FN - 8; ly++) for (let lx = 8; lx < FN - 8; lx++) {
+          if (m.sub[ly * FN + lx] !== 10) continue;
+          let gravel = false;
+          for (let dy = -6; dy <= 6 && !gravel; dy++) for (let dx = -6; dx <= 6; dx++)
+            if (m.sub[(ly + dy) * FN + (lx + dx)] === 11) { gravel = true; break; }
+          if (gravel) return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 26 };
+        }
+      } return null; })()`,
+  },
+  {
+    /* ADDED 8/24. Two yards had their pole lights placed and then paved over by their own
+       drive network, every seed, since the day they were written -- so this is a picture of
+       something that has never once been on screen. Frames a code-9 pole light in the
+       wrecking yard, which is where the approved lamp body now stands. */
+    id: 'the-yards-lit',
+    title: 'TWO YARDS THAT HAVE NEVER HAD A LIGHT',
+    caption: 'The wrecking yard and the reservoir both put four pole lights down when they were built, and then paved straight over all four with their own dirt lanes -- so both places have been pitch dark since the day they were written, every seed, and nothing ever said a word, because a light that got overwritten looks exactly like a light that was never there. A machine that reads the world that actually got built found them. They stand now, and at night the power grid decides which ones burn. RUN tab, walk into a wrecking yard.',
+    find: `(() => {
+      for (let ty = 4; ty < om.n - 4; ty++) for (let tx = 4; tx < om.n - 4; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'boneyard') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        for (let ly = 4; ly < FN - 4; ly++) for (let lx = 4; lx < FN - 4; lx++)
+          if (m.kit[ly * FN + lx] === 9)
+            return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 26 };
+      } return null; })()`,
+  },
+  {
     id: 'the-bad-footing',
     title: 'GROUND YOU CANNOT SET YOUR FEET ON',
     caption: 'Loose ground: ballast, talus, rubble drift. Standing here you cannot brace, so everything physical hits you harder -- and the tip cuts both ways, because you can lead somebody else onto it. Until 8/20 this drew as flat colour and the only thing that told you it was dangerous was a line of text in the corner. Now the floor says it: broken chips, four values, no two pieces alike. RUN tab.',
@@ -522,7 +568,8 @@ async function restoreShellChrome(shell) {
       const kb2 = fs.statSync(file2).size / 1024;
       shots.push({ id: s.id, title: s.title, caption: s.caption, file: 'look/' + s.id + '.png',
                    at: null, kb: +kb2.toFixed(1), stamp: STAMP,
-                   surface: 'slices/BOHEMIA_CITY_WORLD.html' });
+                   surface: 'slices/BOHEMIA_CITY_WORLD.html',
+                   shooter: 'node tools/bohemia_look_shots.js --only ' + s.id });
       console.log('  SHOT  ' + s.id.padEnd(16) + kb2.toFixed(0).padStart(5) + ' KB   (a moment, not a place)');
       continue;
     }
@@ -600,9 +647,18 @@ async function restoreShellChrome(shell) {
       window.__LOOK_HIDDEN = [];
     });
     const kb = fs.statSync(file).size / 1024;
+    /* RECORD HOW IT WAS TAKEN (8/24). Seventeen of these pictures have been in the tab since
+       8/8 with no `shooter` line, and look_gate prints "NO SHOOTER RECORDED -- add one" for
+       every one of them the moment the city changes -- which is every time this lane ships.
+       Another lane read that as "no tool in the repo can retake it" and handed it over as an
+       unfixable red. IT WAS NEVER UNFIXABLE: this file is the tool, it has always taken them,
+       and it already supports --only. The only thing missing was the tool SAYING SO in the
+       manifest it writes itself. A capability nobody can find is the same as one that does not
+       exist -- and it cost a lane a red it could not close. */
     shots.push({ id: s.id, title: s.title, caption: s.caption, file: 'look/' + s.id + '.png',
                  at: { x: spot.hx, y: spot.hy, zoom: spot.zoom || null }, kb: +kb.toFixed(1), stamp: STAMP,
-                 surface: 'slices/BOHEMIA_CITY_WORLD.html' });
+                 surface: 'slices/BOHEMIA_CITY_WORLD.html',
+                 shooter: 'node tools/bohemia_look_shots.js --only ' + s.id });
     console.log('  SHOT  ' + s.id.padEnd(16) + kb.toFixed(0).padStart(5) + ' KB   at ' + spot.hx + ',' + spot.hy);
   }
 

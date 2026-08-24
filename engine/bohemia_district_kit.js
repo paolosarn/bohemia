@@ -188,11 +188,19 @@
       if (!legend[c]) continue;
       var k = legend[c].kind, layer = tileLayer(legend[c]).layer;
       if (k === 'drive') { S[c] = 1; any = true; }
-      /* PAINT IS NOT A WALL: a stall stripe is a marking painted on asphalt and a car
-         drives straight over it. Treating it as an obstacle invents pockets that are not
-         there -- it is what stranded ten tiles of the commercial lot behind its own
-         parking stripes. */
-      else if (k === 'marking') { S[c] = 1; }
+      /* PAINT IS NOT A WALL, AND IT IS NOT A ROAD EITHER (amended 8/24). The original rule
+         is untouched and still right: a stall stripe is a marking painted on asphalt, a car
+         drives straight over it, and treating it as an obstacle invents pockets that are not
+         there -- that is what stranded ten tiles of the commercial lot behind its own parking
+         stripes. So paint still CONDUCTS a path; see driveConductors.
+         WHAT WAS WRONG WAS COUNTING IT AS SURFACE THAT MUST BE REACHED. The moment nine
+         districts started stencilling a magazine number on a headwall and hazard paint on
+         gravel (8/24), every one of those stencils became an unreachable "road" in the middle
+         of a yard and nine districts read 99.8% instead of 100%. A car was never denied
+         anything; the METRIC was counting paint as pavement. The distinction the kit already
+         draws for overheads -- conducts, is not counted -- is exactly the one paint needs, and
+         nothing is lost by it: a genuinely stranded parking stall sits ON drive-kind asphalt,
+         and the asphalt is still in the denominator. */
       /* overheads are handled separately -- see driveConductors below. They are not drive
          surface and must not be counted as such: an awning over a sidewalk is not road. */
     }
@@ -211,6 +219,10 @@
     for (var c in legend) {
       if (!legend[c]) continue;
       if (tileLayer(legend[c]).layer === 'overhead') C[c] = 1;
+      /* AND PAINT (8/24). A car drives over a stall stripe, a lane line, a stencilled bay
+         number -- so the path goes through it and a road split by its own markings is still
+         one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
+      else if (legend[c].kind === 'marking') C[c] = 1;
     }
     return C;
   }
@@ -247,15 +259,27 @@
      drive tiles sitting in a 3x3 block of drive, so a district made of hairlines scores
      near zero however connected it is. */
   function driveWidthScore(g, legend){
-    var S = driveMask(legend || {});
+    legend = legend || {};
+    var S = driveMask(legend);
     if (!S) return 1;
+    /* A LANE LINE DOES NOT MAKE A LANE NARROWER (8/24). Paint moved out of the drive mask
+       and into the conductors the same day, and this function reads the mask -- so a stripe
+       painted down the middle of a road suddenly punched a hole in that road's 3x3
+       neighbourhood and the road started scoring as a hairline. It is the same tile a car
+       drives over; for the WIDTH question it is unambiguously part of the lane. So the
+       neighbourhood test unions paint back in. The DENOMINATOR stays real drive tiles only,
+       which is the half that had to change: paint is measured as part of a lane, never as a
+       lane of its own. */
+    var P = {}, c;
+    for (c in S) P[c] = 1;
+    for (c in legend) if (legend[c] && legend[c].kind === 'marking') P[c] = 1;
     var n = g.length, tot = 0, core = 0, x, y, dx, dy;
     for (y = 1; y < n - 1; y++) for (x = 1; x < n - 1; x++) {
       if (!S[g[y][x]]) continue;
       tot++;
       var all = true;
       for (dy = -1; dy <= 1 && all; dy++) for (dx = -1; dx <= 1; dx++)
-        if (!S[g[y + dy][x + dx]]) { all = false; break; }
+        if (!P[g[y + dy][x + dx]]) { all = false; break; }
       if (all) core++;
     }
     return tot ? core / tot : 1;
