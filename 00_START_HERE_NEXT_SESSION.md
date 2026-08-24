@@ -2531,79 +2531,74 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/22 LATEST -- *** A DEED THAT ONLY EXISTS ON A CARD IS A
-DEED MOST PLAYERS NEVER SEE. TAB: RUN -- do something in front of somebody and
-walk on; they say what they saw, out loud, over their head. You open nothing. ***
+PEOPLE (people-7h9sfy): 8/23 LATEST -- *** ONE ACT, FOUR MEANINGS. THE MULTIPLIER
+IS WHO IS SPEAKING, NOT HOW MANY LINES. TAB: RUN -- turn an outfit down in front
+of people; the one who runs with that outfit, somebody from a rival, and a
+bystander each say a DIFFERENT thing about the same moment. ***
 
-Four turns of this lane built witnessing, gossip, hearsay decay and loudness, ALL
-of it reachable only by walking up to somebody and opening their card. My own note
-on turn one quoted the reputation literature saying exactly why that is fatal -- a
-system the player cannot SEE working is indistinguishable from no system at all --
-and then I built four turns of precisely that.
+The turn before shipped witnesses saying what they saw out loud (16 lines, four
+acts x saw/heard x two variants). Backlog 0r's Hades math says REACTIVITY is the
+multiplier, and the honest read is NOT "write more lines of the same four acts" --
+that is padding. THE MULTIPLIER IS WHO IS SPEAKING.
 
-BACKLOG 0r NAMES THIS LANE'S ORGANS AS THE CHANNEL: Hades ships ~4 boss fights but
-21,020 voice lines, because roguelite replayability is bought with REACTIVITY PER
-ENCOUNTER, "flowing through the witness organ + memory systems already live". Their
-trick, copied literally: NEVER REPEAT A LINE UNTIL EVERY UNUSED OPTION IS SPENT.
+THE CORPUS HAS ALWAYS AUTHORED THIS. bohemia_deeds quotes his own quest file: "ONE
+ACT, TWO MEANINGS... S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES
+-6`: taking the credit is a good customer to the traders and a betrayal to the
+growers." And bohemia_standing ships opts.only saying "one act can mean opposite
+things to two factions and nothing at all to a third."
 
-SAW AND HEARD SAY DIFFERENT THINGS, which is the whole payoff of modelling a route
-the news could take and was invisible outside the card until now:
-    watched it   "Told them no. Right to their face."
-    only heard   "Heard somebody turned them down."
-An eyewitness is specific; a retelling is vague and hedged. Sixteen drafted lines
-(four acts x saw/heard x two variants), cycling so no line repeats until its pool
-is spent, and a witness never repeats the SAME sighting at you. It PREEMPTS the
-ordinary bark the way the two-person conversation above it does, so with nobody
-having seen anything the street sounds precisely as before. The lines are
-deliberately PRONOUN-FREE: who the player is is his, and a bark that guesses is
-wrong half the time. The gate asserts zero gendered pronouns across all sixteen.
+Measured on the real surface, the same refusal:
+    the outfit you refused    "Said no. To us. Standing right there."
+    somebody from a rival     "Turned them down. Good."
+    an unaffiliated bystander "Told them no. Right to their face."
+    anyone who only heard     "Heard somebody turned them down."
+Four acts x four audiences x two variants = 32 drafted lines, pronoun-free,
+cycling so none repeats until its pool is spent.
 
-*** I FILED A BUG THAT DID NOT EXIST, AND THE WAY I GOT THERE IS THE LESSON. ***
-Mid-turn I measured ctDeed recording ZERO witnesses after a render and concluded
-the claim/favour/commit deeds had never recorded anybody in real play. WRONG TWICE
-OVER.
-  - I MEASURED THE WRONG SURFACE. The probe loaded BOHEMIA_CITY_WORLD.html
-    DIRECTLY. Standalone, the city never receives PLAYER_CV from the alpha, so
-    peoplePass returns early and draws NOBODY -- playerCV:false, zero bodies,
-    forever. Every number I read came from a frame with no people in it. VERIFY ON
-    THE REAL SURFACE is not a slogan about screenshots: THE CITY FRAME IS A
-    DIFFERENT SURFACE WHEN IT IS NOT INSIDE THE ALPHA. Any probe of city behaviour
-    must go through the alpha's RUN tab.
-  - I MISREAD WHICH FUNCTION OWNS THE RESET. A comment inside barkPass says
-    "consume it, then clear for the next", which I read as barkPass clearing
-    BARK_DREW. It does not. `BARK_DREW = []` IS THE FIRST LINE OF peoplePass,
-    confirmed by walking the file rather than trusting the comment.
-Re-measured through the alpha: drewAfterRender 1, witnessesRecorded 1. NO BUG. The
-machinery I had added is REVERTED, including a comment that would have sat in the
-codebase asserting a falsehood. A layer added "just in case" is speculative
-complexity; a loud comment describing an imaginary bug is worse, because the next
-person believes it.
+*** THE RETELLING LOSES THE DETAIL AND THAT IS THE DESIGN. *** The deed remembers
+which outfit it was about, stamped on the EYEWITNESS copies and never carried in
+the KIND (a kind per faction would grow his DEED_WEIGHT table with the roster, and
+he weighs an act ONCE). gossip() copies actor/kind/turn/position/hops and the
+fields it knows, and does NOT copy fid. Not a limitation worked around: THE
+SPECIFIC DETAIL IS THE FIRST THING A RETELLING LOSES. An eyewitness knows who you
+turned down; somebody who only heard knows that somebody got turned down. So
+second-hand news is vague BY CONSTRUCTION, and a mutation letting fid survive a
+retelling goes red.
 
-ONE REAL THING CAME OUT OF THAT DETOUR: THE NET-DELETION GUARD COULD NOT TELL MY
-LINES FROM ANYBODY ELSE'S. Written as `if (grew < 0) refuse`, it also forbade the
-tool from ever SHRINKING ITS OWN BLOCK -- so the moment a block genuinely needed
-removing, the tool refused and the only way back was by hand. It now measures the
-file OUTSIDE the region it owns, which is the thing 8/17's 2,607-line accident
-actually destroyed. A guard that blocks the correct move as readily as the
-dangerous one gets routed around, and a guard that gets routed around is not a
-guard. THE SIBLING TOOLS SHOULD TAKE THE SAME FIX.
+TWO THINGS THIS GOT WRONG FIRST, both worth keeping:
+  - EVERY FORM A TOOL HAS EVER SHIPPED NEEDS AN UPGRADE PATH. The tool REFUSED
+    outright when the city held the intermediate form (tagged, no outfit) and only
+    V1 and fresh-anchor pairs existed. REFUSING WAS THE RIGHT FAILURE -- it said
+    so and changed nothing rather than reporting success over a half-wired city --
+    but the fix is A PAIR PER SHIPPED FORM, each narrow and span-matched. Three
+    forms now, three paths.
+  - *** FIFTH TIME: AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S
+    RULE. *** Three assertions matched the exact ARGUMENT LIST of the ctDeed call
+    and went red because the call legitimately GREW an argument (a clout tag on
+    8/21, the outfit on 8/22). They match the CALL now, not its arguments. If a
+    future session writes a regex containing a full argument list, that is this
+    bug being written for the sixth time.
 
-gates: CITY DEEDS 30 -> 36 all green, CITY MEMORY 31, CITY DIAL 22, city talk 18.
-Both city tools idempotent together. Mutations: let a witness repeat forever -> 1
-red; make SAW and HEARD identical -> 1 red.
-records/BOHEMIA_THEY_SAY_IT_OUT_LOUD_8_21_26.md
+gates: CITY DEEDS 36 -> 43 all green, CITY MEMORY 31, CITY DIAL 22, city talk 18,
+standing 35. Both city tools idempotent together, md5 over three runs. Mutations:
+everybody reads the act the same way -> 3 red; let the outfit survive a retelling
+-> 2 red.
+records/BOHEMIA_ONE_ACT_FOUR_MEANINGS_8_22_26.md
 
 WHAT COMES NEXT:
   1. *** THE AFTERMATH SET PROPER. *** 0r asks for reactions DIFFERENT FOR KILLED
-     VS SPARED. That needs a boss, which is COMBAT's; the channel is built and
-     waiting. Theirs to trigger, THIS LANE'S TO WORD.
-  2. *** THE OTHER DIALS, THIS LANE'S. *** SEE_RANGE (9 tiles), the gossip window
-     (45 min), the deed halflife, the memory halflife -- every one a defensible
-     constant with a written argument and the same wrong answer to "WHERE DOES HE
-     CHANGE THIS HIMSELF". The STANDING dial in DIRECT is the pattern; the readout
-     must ASK the city rather than retype anything (file:// frames are opaque
-     origin, cross-frame reads throw SecurityError).
-  3. HE TURNS THE STANDING DIAL. One row makes all of this JUDGE him. His.
+     VS SPARED. Needs a boss, which is COMBAT's; the channel is built and now has
+     audiences too. Theirs to trigger, THIS LANE'S TO WORD.
+  2. HE TURNS THE STANDING DIAL (DIRECT tab, third chip). One row makes all of
+     this JUDGE him instead of merely remember him. His.
+  3. *** THE OTHER DIALS -- AND READ THIS BEFORE BUILDING THEM. *** SEE_RANGE, the
+     gossip window, the halflives are SET AND WORKING with written arguments,
+     unlike DEED_WEIGHT which was EMPTY AND BLOCKING. The 8/12 law's test is about
+     things HE HAS TO RULE ON. Nine mechanism sliders would be the
+     technical-question trap wearing a UI. If it ships, it ships as ONE creative
+     fork about HOW THE WORLD FEELS, in his words, not as a tuning panel. Two
+     handoffs in a row listed this as "next" on momentum; it is not obviously
+     right and a session should decide, not inherit.
   4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
      unplayed. SOUNDS.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
