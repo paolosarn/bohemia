@@ -31063,7 +31063,18 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/24 (a) LATEST -- *** THE ARSENAL BERMS: 'earth-covered
+ART (f3eu53): 8/24 (b) LATEST -- *** THE WATERWORKS HATCHES: the
+reservoir's 'valve / hatch' x1434 fell to gravel; measured as singles +
+sparse pipe-corridor runs, wired as round access lids (lone cells) and
+two-leaf vault covers (corridor cells, axis from neighbours), riding on
+bought concrete. Twentieth wired family, card in the ART tab. Also
+repaired my own TF-ART-019 record (the 8/21 "short form" shortcut) to
+the full form contract after the suite's tileform gate killed it -
+8287/0 by exit code. Sitting pass 44. Ranking next: 'spout / dust bin'
+(granary), 'barricade post' (arsenal), 'riprap' (wash), and the
+reservoir's own tank roof / overflow / transmission main.
+PREVIOUS (8/24 a):
+ART (f3eu53): 8/24 (a) -- *** THE ARSENAL BERMS: 'earth-covered
 magazine' x1372 was measured "12 blobs, 19x16 each" and cooked as a
 MOUND with headwall + blast door - WRONG TWICE. White-probe: the 19x16
 was the ring's BOUNDING BOX; the name is the earth berm RING around

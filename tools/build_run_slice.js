@@ -438,6 +438,11 @@ grabPieces('banks/tileforms/TF-ART-001_MAGAZINE_VOLUME_8_23_26.json',
   ['mag_crest_0', 'mag_crest_1', 'mag_mid_0', 'mag_mid_1',
    'mag_edge_n_0', 'mag_edge_n_1', 'mag_edge_s_0', 'mag_edge_s_1',
    'mag_head_0', 'mag_head_1', 'mag_door']);
+/* TF-ART-020 8/24: the reservoir's 1434 valve/hatch lids and vault covers -
+   tools/tfcook/TF-ART-020_valve_hatch_cook.py */
+grabPieces('banks/tileforms/TF-ART-020_CANDIDATES_8_24_26.json',
+  ['vh_round_0', 'vh_round_1', 'vh_vault_h_0', 'vh_vault_h_1',
+   'vh_vault_v_0', 'vh_vault_v_1']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

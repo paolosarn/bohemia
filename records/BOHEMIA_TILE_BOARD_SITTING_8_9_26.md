@@ -926,3 +926,23 @@ Verified live: the ring around each igloo block finally reads raised.
 Lessons banked: a blob measurement quotes a BOUNDING BOX, not a shape
 (count the cells before believing the rectangle), and when a band
 scheme needs N cells of width, check the width fits before wiring it.
+
+## 8/24 FORTY-FOURTH PASS: THE WATERWORKS HATCHES
+
+Same GO, next name on the ranking: the reservoir's 'valve / hatch'
+x1434, all falling to the gravel fallback - dirt pockmarks across the
+pad ring and dirt trails through the setback. Measured first: dozens of
+true 1x1 singles plus long SPARSE runs (4x51, 9x34, 8x32 bounding boxes
+at 40-60% fill - service lines following the buried mains, not slabs),
+neighboured by tank pad (1058), overflow (326) and transmission main
+(127). Two pieces, both RGBA riding on bought concrete: the round
+access lid (an ellipse per the 45 law, hinge bar, no bolt stipple, rust
+weep on the old ones) for lone cells, and the two-leaf vault cover in a
+pale collar for corridor cells, axis picked from the run's own
+neighbours. Verified live at the reservoir: lids in the yard, vault
+chains marching the easement. Twentieth wired family. Same turn, the
+suite's confirm pass flagged my own TF-ART-019 record: the 8/21 grid
+kit shipped a "short form" shortcut instead of the full contract, and
+the tileform gate rightly killed it - repaired to the full C-I form
+with a board row, 8287/0 by exit code. The reservoir's remaining names
+(tank roof, overflow, transmission main) stay on the ranking.

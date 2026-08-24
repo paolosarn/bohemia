@@ -1242,6 +1242,23 @@ function drawSolarform(gx,gy,X,Y,S){
     ctx.drawImage(look(em),X,Y,S,S);
     return true;
   }
+  if(n==='valve / hatch'){
+    /* TF-ART-020 (8/24, measured): 1434 cells on the reservoir's tank pad
+       ring and along the transmission-main corridors, falling to the
+       gravel fallback - pockmarks in the concrete. A single is one round
+       access lid; a cell with a same-name neighbour is part of a pipe
+       corridor and wears the two-leaf VAULT COVER on the run's axis. Both
+       ride on bought concrete so a hatch is pad-with-hardware, never its
+       own material island. */
+    function isVh(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='valve / hatch'; }
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete_0',X,Y,S);
+    var vhH=isVh(gx-1,gy)||isVh(gx+1,gy), vhV=isVh(gx,gy-1)||isVh(gx,gy+1);
+    var vp = (!vhH&&!vhV) ? 'vh_round_' : (vhH&&!vhV) ? 'vh_vault_h_' :
+             (vhV&&!vhH) ? 'vh_vault_v_' : ((gx+gy)%2 ? 'vh_vault_h_' : 'vh_vault_v_');
+    var vt=tf(vp+th(gx,gy,2)); if(vt) ctx.drawImage(look(vt),X,Y,S,S);
+    return true;
+  }
   if(n==='seating / stands (the bowl)' || n==='bleachers'){
     /* MEASURED 8/21: the stadium bowl (x2499, its biggest surface) and the
        school bleachers (x303) fell to the generic wall mass. A stand is
