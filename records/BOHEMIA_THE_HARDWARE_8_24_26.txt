@@ -1,0 +1,72 @@
+BOHEMIA -- THE HARDWARE: RIVETS AND STUDS, AND THE PICTURE THAT LIED FIRST
+CHARACTER lane, 8/24/26.  Row 2X step 5, fourth pass.
+
+WHERE THE WEEK STARTED AND WHERE IT IS NOW
+-------------------------------------------
+    8/22 morning   102 of 200 canon garments had NO one-pixel detail anywhere
+    8/22           boots, a welt stitch                     feet  0/18 -> 18/18
+    8/23           gloves, belts, scarves, masks            84 -> 66
+    8/24 (this)    gear rivets and pack studs               66 -> 44
+
+        gear   4 of 22  ->  24 of 26
+        back   3 of 11  ->   7 of 11
+        waist  2 of 5   ->   4 of 5    (the tool belts live in genGear)
+
+THE DENOMINATOR MOVED AND THAT IS NOT A ROUNDING ERROR: 200 -> 204. The metric only
+counts a garment that draws a bounded colour run at all, and four pieces that previously
+drew nothing measurable now do. Said plainly rather than quietly folded into a nicer
+number.
+
+WHAT A RIVET IS AND WHY IT COULD NOT EXIST BEFORE
+--------------------------------------------------
+Scavenged armour is bolted together. A rivet is ONE pixel. At 56 a chest plate is three
+or four rows tall and a stud row inside it would have been half the plate, so there was
+nothing to draw. At 112 there is room, and hardware is what makes a plate read as bolted
+metal rather than a painted rectangle.
+
+ONE PASS, NOT FOURTEEN EDITS. genGear has fourteen kinds and each builds its own output
+and returns it, so the rivets go on AT THE RETURN -- fifteen call sites rewritten
+mechanically, and a new kind gets them for free instead of being forgotten. genBag got
+the same treatment on its five.
+WHERE THEY GO: the top and bottom row of each column's own run, every other cell across,
+and only on runs at least three cells tall so a thin strap does not become a dotted line.
+NOTHING ANY KIND DRAWS IS MOVED OR THINNED -- a rivet RECOLOURS a pixel the plate already
+owned. S>1 only, so the 56 wardrobe is byte-identical and its 1,744 pinned hashes hold.
+
+*** THE PICTURE LIED, AGAIN, AND DIFFERENTLY THIS TIME ***
+------------------------------------------------------------
+The first hardware picture had two rows -- CHEST PLATE and KNEEPADS -- showing a body
+wearing nothing at all, before AND after, looking exactly like a real comparison where
+the change did nothing. THE GARMENT NAMES WERE WRONG. I wrote 'SCRAP CHESTPLATE'; the
+canon name is 'SCRAP CHEST PLATE'. A name that is not in the catalogue draws NOTHING, and
+nothing beside nothing is a very convincing null result.
+
+That is the SECOND picture in two days to lie in a different way (yesterday's had both
+columns identical because genAcc never read the before/after flag). The failure mode is
+the same underneath: A TOOL THAT CANNOT DISTINGUISH "NO CHANGE" FROM "NOTHING RAN" WILL
+ALWAYS REPORT THE COMFORTABLE ONE. The tool now prints NOT IN THE CATALOGUE in red beside
+any row whose garment does not exist, so the absence is visible instead of invisible.
+The only reason either was caught is LOOKING AT THE PICTURE rather than trusting that it
+ran clean.
+
+GATES
+-----
+clothes_4x 13/0. The STEP 5 ratchet moved 40 -> 27 on the fixture, which is the whole
+point of it: downward only, so nobody deletes fine detail to make a gate green and step 5
+cannot quietly stall. 1,744 pinned 56 hashes unmoved.
+Every other character gate green: ACCESSORIES 13/0, ONE PER SLOT 11/0, HAIR 27/0,
+CRAFT LAW 39/0, STRUCTURE 134/0, DRESS 46/0, RIG NO DRIFT 23/0, REUSE FIRST 168/0.
+
+STILL NOT FIXED, STILL NOT THIS LANE'S
+---------------------------------------
+the-spawn-sidewalk in the LOOK tab records NO SHOOTER and photographs the CITY WORLD, so
+no tool in the repo can retake it. Reported 8/23, still none. One line in the manifest,
+and it is the WORLD lane's.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE HARDWARE" -- chest plate, shin guards, kneepads and the ruck pack, before
+beside after, both halves out of the SAME generators. The gear is in the CLOTHES tab.
+
+  node tools/bohemia_seam_width_audit.js
+  node gates/clothes_4x_gate.js    13/0

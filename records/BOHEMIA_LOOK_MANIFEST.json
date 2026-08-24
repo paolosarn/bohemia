@@ -373,6 +373,16 @@
    "stamp": "8/23/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_fine_detail_picture.js"
+  },
+  {
+   "id": "hardware",
+   "title": "THE HARDWARE",
+   "caption": "Third pass on giving your clothes detail the sharper character can actually hold. Scavenged armour is bolted together and yours had no rivets, because a rivet is one pixel and one pixel did not exist before. Every gear piece and every pack now gets studs along its plate edges. This is the biggest single jump so far: gear went from 4 of 22 pieces with fine detail to 24 of 26, packs from 3 of 11 to 7 of 11. Three days ago 102 of your clothes had no fine detail anywhere, now it is 44. Nothing moved and nothing got thinner, a rivet just recolours a pixel the plate already owned. LOOK tab for this picture, CLOTHES tab for the gear.",
+   "file": "look/hardware.png",
+   "kb": 72.7,
+   "stamp": "8/24/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_hardware_picture.js"
   }
  ]
 }

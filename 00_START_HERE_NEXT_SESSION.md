@@ -1,3 +1,48 @@
+CHARACTER (character-0lurbs): 8/24 (a) LATEST -- *** THE HARDWARE. Row 2X step 5, fourth
+pass, and the biggest single jump: 66 of 200 -> 44 of 204 with no fine detail. ***
+
+    gear   4/22 -> 24/26      back  3/11 -> 7/11      waist 2/5 -> 4/5
+THE WEEK: 102 (8/22 morning) -> boots 84 -> gloves/belts/scarves/masks 66 -> gear/bags 44.
+THE DENOMINATOR MOVED, 200 -> 204, AND THAT IS NOT ROUNDING: the metric only counts a
+garment that draws a bounded colour run at all, and four pieces that drew nothing
+measurable now do. Said plainly rather than folded into a nicer number.
+
+A rivet is ONE pixel. At 56 a chest plate is three rows and a stud row would have been
+half the plate. ONE PASS, NOT FOURTEEN EDITS: genGear's kinds each build their own output
+and return it, so rivets go on AT THE RETURN (15 sites), and a new kind gets them free
+instead of being forgotten. genBag the same on 5. Only on runs >=3 cells tall so a strap
+does not become a dotted line. A rivet RECOLOURS a pixel the plate already owned --
+nothing moved, nothing thinned. S>1 only; 1,744 pinned 56 hashes hold.
+
+*** THE PICTURE LIED AGAIN, DIFFERENTLY. *** Two rows showed a body wearing NOTHING,
+before and after, looking exactly like a real comparison where the change did nothing.
+The garment names were wrong -- I wrote 'SCRAP CHESTPLATE', the canon name is 'SCRAP CHEST
+PLATE'. A name not in the catalogue draws nothing, and nothing beside nothing is a very
+convincing null result. SECOND lying picture in two days (yesterday's had both columns
+identical because genAcc never read the flag). SAME ROOT: A TOOL THAT CANNOT DISTINGUISH
+"NO CHANGE" FROM "NOTHING RAN" WILL ALWAYS REPORT THE COMFORTABLE ONE. It prints NOT IN
+THE CATALOGUE in red now. Both were caught only by LOOKING AT THE PICTURE.
+
+GATES: clothes_4x 13/0, STEP 5 ratchet 40 -> 27 (downward only). All character gates green.
+Record: records/BOHEMIA_THE_HARDWARE_8_24_26.txt
+LOOK tab: "THE HARDWARE", before beside after, same generators.
+
+NEXT IN THIS LANE
+  - STEP 5, WHAT IS LEFT (run the audit, it names the worst per layer):
+        base 50/68   outer 20/31   legs 21/24   face 5/8 (3 bandanas, different path)
+        head 0/2     gear 24/26    back 7/11    waist 4/5
+    base and outer are the big two now: shirts want a placket/cuff stitch, coats a lapel
+    seam. head is only 2 garments and is the cheapest remaining zero.
+  - BEFORE ADDING, GREP THE GENERATOR FOR A RULED WIDTH. genShoes' heel seam has his own
+    words next to it. ADD marks, never shrink his.
+  - BEFORE SHIPPING A BEFORE/AFTER, CHECK THE GARMENT NAME EXISTS AND THE FLAG IS READ BY
+    THAT GENERATOR. Both failure modes have now cost a turn each.
+  - the-spawn-sidewalk STILL has no shooter (reported 8/23). WORLD lane, one manifest line.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+  - CROWD flaked 15/1 once under load on 8/21, fine since. Still unexplained.
+
+---
+
 CHARACTER (character-0lurbs): 8/23 (a) LATEST -- *** THE SMALL THINGS. Row 2X step 5,
 third pass: four more garment types get a mark they never had. 84 of 200 -> 66 of 200. ***
 
