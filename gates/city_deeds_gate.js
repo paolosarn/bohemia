@@ -67,8 +67,14 @@ ok('A2 and EXACTLY ONCE (found ' + copies + ')', copies === 1);
 
 /* ---- 2. THE CLAIM IS THE DEED, AND THE OTHER LANE IS UNTOUCHED ------------- */
 /* A DEFINITION IS NOT A CALLER, and this lane has now found twelve of those. */
+/* *** MATCH THE CALL, NOT ITS ARGUMENT LIST. *** These pinned the exact
+   arguments three times running and went red three times for the call
+   legitimately GROWING one (a clout tag on 8/21, the outfit on 8/22). FIFTH time
+   this lane has met an assertion that pins today's ANSWER instead of today's
+   RULE. The rule is "answering a claim calls ctDeed with the kind", and it holds
+   however many arguments follow. */
 ok('A3 answering a claim CALLS ctDeed, it is not merely defined',
-  /ctDeed\(kD, CT_DEED_CLOUT\[kD\]\)/.test(city));
+  /ctDeed\(kD,/.test(city));
 /* ONLY A CLAIM THAT RESOLVED. A demand you did not actually answer is not a
    thing anybody watched you do. Asserted as the RULE: the call sits behind
    r.answered, on the same line. */
@@ -81,7 +87,7 @@ ok('A5 the FACTIONS lane\'s belonging adjust is still the only thing moving '
   + 'their number, unchanged',
   /if\(r\.answered && r\.delta\) BohemiaBelonging\.adjust\(sv, ctFid, r\.delta\);/.test(city));
 ok('A6 committing to an outfit is a deed too, inside the moved branch',
-  /ctDeed\('commit', CT_DEED_CLOUT\['commit'\]\)/.test(city));
+  /ctDeed\('commit',/.test(city));
 ok('A7 the gossip pass runs beside the witness pass on the same tick',
   /ctGossipPass\(\); \}catch\(_e\)\{\}    \/\* __CITY_DEEDS__ \*\//.test(city));
 
@@ -114,7 +120,7 @@ ok('A11 bohemia_loop READS that table rather than declaring its own, and still '
 ok('A12a taking a favour is a deed too, guarded by r.took the same way the '
   + 'claim is guarded by r.answered', /if\(r\.took\) try\{ ctDeed\('favour'/.test(city));
 ok('A12 each act carries one of HIS four words, read off the corpus rule',
-  /CT_DEED_CLOUT\s*=\s*\{/.test(city) && /ctDeed\(kD, CT_DEED_CLOUT\[kD\]\)/.test(city));
+  /CT_DEED_CLOUT\s*=\s*\{/.test(city) && /ctDeed\(kD, CT_DEED_CLOUT\[kD\]/.test(city));
 
 (async () => {
   console.log('CITY DEEDS GATE, what you did is a thing people saw, and it travels');
@@ -320,6 +326,76 @@ ok('A12 each act carries one of HIS four words, read off the corpus rule',
       + rx.gendered.length + ' gendered' + (rx.gendered.length ? ': "'
       + rx.gendered[0] + '"' : '') + ') - who the player is is his',
       rx.gendered.length === 0 && rx.unpunctuated.length === 0);
+
+    /* ---- ONE ACT, FOUR MEANINGS, FROM WHO IS SPEAKING -------------------- */
+    const aud = await fr.evaluate(() => {
+      const out = {};
+      render();
+      const say = (wf, fid, hops) => {
+        const W = { p: { id: '__AU' + wf + '__', key: 'k' }, at: [hx + 2, hy] };
+        BARK_DREW.length = 0; BARK_DREW.push(W);
+        ctDeed('claim:refused', 'notable', fid);
+        const m = CT_MINDS[W.p.id], d = m.deeds[m.deeds.length - 1];
+        const stamped = d.fid;
+        d.hops = hops || 0;
+        const real = ctFactionOf; ctFactionOf = () => wf;
+        CT_REACT_SAID = {}; CT_REACT_USED = {}; BARK.p = null; BARK.text = null;
+        ctDeedBark(1000);
+        ctFactionOf = real;
+        const t = BARK.text; delete CT_MINDS[W.p.id];
+        return { line: t, stamped: stamped };
+      };
+      out.theirs = say('REDS', 'REDS', 0);
+      out.rival = say('BLUES', 'REDS', 0);
+      out.bystander = say(null, 'REDS', 0);
+      out.heard = say('REDS', 'REDS', 1);
+      /* THE OUTFIT IS DROPPED BY A RETELLING, and that is the design. */
+      const A = { p: { id: '__GA__' }, at: [hx + 1, hy] };
+      const B = { p: { id: '__GB__' }, at: [hx + 2, hy] };
+      BARK_DREW.length = 0; BARK_DREW.push(A);
+      ctDeed('claim:refused', 'notable', 'REDS');
+      CT_TOGETHER = {}; CT_GOSSIP_MIN = ctMinuteNow();
+      BARK_DREW.length = 0; BARK_DREW.push(A, B);
+      const t0 = ctMinuteNow(), tt = t0 + BohemiaStanding.GOSSIP_WINDOW + 1;
+      T.day = Math.floor(tt / 1440); T.min = tt % 1440;
+      ctGossipPass();
+      const bd = ((CT_MINDS['__GB__'] || {}).deeds || [])[0];
+      out.retoldHasFid = !!(bd && bd.fid);
+      out.retoldExists = !!bd;
+      T.day = Math.floor(t0 / 1440); T.min = t0 % 1440;
+      delete CT_MINDS['__GA__']; delete CT_MINDS['__GB__'];
+      /* every line, across every audience, still never guesses who he is */
+      const all = [];
+      Object.keys(CT_REACT).forEach(k => Object.keys(CT_REACT[k]).forEach(
+        band => all.push.apply(all, CT_REACT[k][band])));
+      out.lines = all.length;
+      out.gendered = all.filter(t => /\b(he|him|his|she|her|hers)\b/i.test(t));
+      out.unpunctuated = all.filter(t => !/[.!?]$/.test(t));
+      out.bands = Object.keys(CT_REACT['claim:refused']);
+      BARK_DREW.length = 0;
+      return out;
+    });
+    ok('E1 the deed remembers WHICH OUTFIT, stamped on the eyewitness copy',
+      aud.theirs.stamped === 'REDS');
+    ok('E2 THE OUTFIT YOU REFUSED says something of its own ("'
+      + aud.theirs.line + '")', !!aud.theirs.line);
+    ok('E3 A RIVAL reads the same act differently ("' + aud.rival.line + '")',
+      !!aud.rival.line && aud.rival.line !== aud.theirs.line);
+    ok('E4 and an unaffiliated BYSTANDER differently again ("'
+      + aud.bystander.line + '")',
+      !!aud.bystander.line && aud.bystander.line !== aud.theirs.line
+      && aud.bystander.line !== aud.rival.line);
+    ok('E5 ONE ACT, FOUR MEANINGS, which is what the corpus has always authored '
+      + '(S17 is CARAVANS +12 AND BLUES -6 on the same stage)',
+      new Set([aud.theirs.line, aud.rival.line, aud.bystander.line,
+               aud.heard.line]).size === 4);
+    ok('E6 A RETELLING LOSES WHICH OUTFIT IT WAS, so second-hand news is vague by '
+      + 'construction rather than by a rule I wrote',
+      aud.retoldExists === true && aud.retoldHasFid === false);
+    ok('E7 ' + aud.lines + ' drafted lines across ' + aud.bands.length
+      + ' audiences, none gendered, all punctuated'
+      + (aud.gendered.length ? ' (BAD: "' + aud.gendered[0] + '")' : ''),
+      aud.lines >= 24 && aud.gendered.length === 0 && aud.unpunctuated.length === 0);
 
     ok('B13 the city frame threw no errors' + (errs.length ? ': ' + errs[0] : ''),
       errs.length === 0);

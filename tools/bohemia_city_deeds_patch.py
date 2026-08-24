@@ -94,7 +94,7 @@ STORE = r'''
    people standing outdoors, and an untagged deed lands bit-for-bit on the old
    behaviour. Measured from his live table: quiet 7 tiles / 1 hop, untagged 9 / 2,
    notable 12 / 3, risky 17 / 4, reckless 24 / 5. */
-function ctDeed(kind, tag){
+function ctDeed(kind, tag, fid){
   if (typeof BohemiaStanding === 'undefined' || typeof BohemiaMemory === 'undefined')
     return 0;
   var now = ctMinuteNow();
@@ -119,6 +119,25 @@ function ctDeed(kind, tag){
     n = BohemiaStanding.witness(minds, now, '@', kind, hx, hy,
                                 function (owner) { return pos[owner] || null; }, opts);
   } catch (_e) { return 0; }
+  /* *** WHICH OUTFIT IT WAS ABOUT, AND ONLY THE EYEWITNESS KNOWS. ***
+     Stamped on the copies this call just created, never carried in the KIND --
+     a kind per faction would grow Paolo's DEED_WEIGHT table with the roster, and
+     he weighs an ACT once.
+     AND GOSSIP DROPS IT ON PURPOSE, WHICH IS THE POINT. bohemia_standing's
+     gossip() copies actor/kind/turn/x/y/hops plus the fields it knows (maxHops,
+     inherited, of) and NOTHING ELSE, so `fid` does not survive a retelling. That
+     is not a limitation to work around, it is exactly what happens to a story:
+     THE SPECIFIC DETAIL IS THE FIRST THING A RETELLING LOSES. An eyewitness knows
+     who you turned down. Somebody who only heard knows that somebody got turned
+     down. The lines below are written to that difference. */
+  if (n && fid) {
+    for (var q = 0; q < minds.length; q++) {
+      var ds = minds[q].deeds; if (!ds || !ds.length) continue;
+      var last = ds[ds.length - 1];
+      if (last && last.actor === '@' && last.kind === kind && last.turn === now)
+        last.fid = fid;
+    }
+  }
   if (n) ctMindSave();
   return n;
 }
@@ -237,28 +256,44 @@ var CT_DEED_WORDS = {
    is wrong half the time. */
 var CT_REACT = {
   'claim:refused': {
-    saw:   ['Told them no. Right to their face.',            /* draft */
-            'Saw that. Turned them down flat.'],             /* draft */
-    heard: ['Heard somebody turned them down.',              /* draft */
-            'Word going round, somebody said no to them.']   /* draft */
+    theirs: ['Said no. To us. Standing right there.',        /* draft */
+             'That was our ask. Got told no.'],              /* draft */
+    rival:  ['Turned them down. Good.',                      /* draft */
+             'Somebody finally said no to that lot.'],       /* draft */
+    saw:    ['Told them no. Right to their face.',           /* draft */
+             'Saw that. Turned them down flat.'],            /* draft */
+    heard:  ['Heard somebody turned them down.',             /* draft */
+             'Word going round, somebody said no to them.']  /* draft */
   },
   'claim:met': {
-    saw:   ['Did what was asked. No fuss about it.',         /* draft */
-            'Saw that one come through for them.'],          /* draft */
-    heard: ['Heard somebody came through for them.',         /* draft */
-            'Word is that got done.']                        /* draft */
+    theirs: ['Did what we asked. Noted.',                    /* draft */
+             'That got done. For us.'],                      /* draft */
+    rival:  ['Doing their errands now.',                     /* draft */
+             'Running for that lot, apparently.'],           /* draft */
+    saw:    ['Did what was asked. No fuss about it.',        /* draft */
+             'Saw that one come through for them.'],         /* draft */
+    heard:  ['Heard somebody came through for them.',        /* draft */
+             'Word is that got done.']                       /* draft */
   },
   'favour': {
-    saw:   ['They handed something over. Saw it.',           /* draft */
-            'Saw them do a favour there.'],                  /* draft */
-    heard: ['Heard they did somebody a favour.',             /* draft */
-            'Word is something got handed over.']            /* draft */
+    theirs: ['We handed that over. Remember it.',            /* draft */
+             'That came out of our stock.'],                 /* draft */
+    rival:  ['Taking from them now. That is a choice.',      /* draft */
+             'On their books already.'],                     /* draft */
+    saw:    ['They handed something over. Saw it.',          /* draft */
+             'Saw them do a favour there.'],                 /* draft */
+    heard:  ['Heard they did somebody a favour.',            /* draft */
+             'Word is something got handed over.']           /* draft */
   },
   'commit': {
-    saw:   ['Threw in with them. Right in the open.',        /* draft */
-            'Saw that. Picked a side.'],                     /* draft */
-    heard: ['Heard somebody threw in with them.',            /* draft */
-            'Word is a side got picked.']                    /* draft */
+    theirs: ['One of ours now. In the open.',                /* draft */
+             'Threw in with us. Everybody saw.'],            /* draft */
+    rival:  ['Picked them. Remember that.',                  /* draft */
+             'Threw in with that lot. In the open.'],        /* draft */
+    saw:    ['Threw in with them. Right in the open.',       /* draft */
+             'Saw that. Picked a side.'],                    /* draft */
+    heard:  ['Heard somebody threw in with them.',           /* draft */
+             'Word is a side got picked.']                   /* draft */
   }
 };
 /* HADES' RULE, LITERALLY: never repeat a line until every unused option in that
@@ -266,11 +301,23 @@ var CT_REACT = {
    not one man -- two neighbours saying the same sentence back to back is the
    repetition this is meant to kill. */
 var CT_REACT_USED = {};
-function ctReactLine(kind, heard){
+/* *** WHO IS SPEAKING DECIDES WHAT THE ACT MEANT. ***
+   Backlog 0r's multiplier done properly: not MORE lines of the same thing, which
+   is filler, but lines that depend on WHO SAW IT. The corpus has always authored
+   this -- S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES -6`, one act
+   that is a good turn to the traders and a betrayal to the growers -- and
+   bohemia_standing ships opts.only for exactly this reason, saying "one act can
+   mean opposite things to two factions and nothing at all to a third".
+   FOUR AUDIENCES: the outfit it was done to, somebody who runs with anybody else,
+   an unaffiliated bystander, and anyone who only heard. A retelling has no
+   audience at all, because gossip drops which outfit it was -- so the vaguest
+   line is also the only one available second-hand, which is right. */
+function ctReactLine(kind, heard, audience){
   var pool = CT_REACT[kind]; if (!pool) return null;
-  var arr = heard ? pool.heard : pool.saw;
+  var band = heard ? 'heard' : (audience || 'saw');
+  var arr = pool[band] || pool.saw;
   if (!arr || !arr.length) return null;
-  var key = kind + (heard ? ':h' : ':s');
+  var key = kind + ':' + band;
   var used = CT_REACT_USED[key] || (CT_REACT_USED[key] = []);
   if (used.length >= arr.length) { used.length = 0; }
   for (var i = 0; i < arr.length; i++) {
@@ -295,7 +342,16 @@ function ctDeedBark(now){
       if (!CT_REACT[dd.kind]) continue;
       var sk = String(d.p.id) + '|' + dd.kind + '|' + dd.turn;
       if (CT_REACT_SAID[sk]) continue;
-      var line = ctReactLine(dd.kind, (dd.hops || 0) > 0);
+      /* THEIR OWN ALLEGIANCE, from the surface's own answer -- never a second
+         idea of who somebody runs with. A person with no outfit is a bystander,
+         which is the honest reading and not a gap. */
+      var aud = 'saw';
+      if (dd.fid) {
+        var wf = null;
+        try { wf = ctFactionOf(d.p); } catch(_e){}
+        if (wf) aud = (String(wf) === String(dd.fid)) ? 'theirs' : 'rival';
+      }
+      var line = ctReactLine(dd.kind, (dd.hops || 0) > 0, aud);
       if (!line) continue;
       CT_REACT_SAID[sk] = 1;
       BARK.p = d.p; BARK.at = d.at; BARK.text = line;
@@ -440,7 +496,7 @@ CLAIM_NEW = """    if(r.answered && r.delta) BohemiaBelonging.adjust(sv, ctFid, 
        and a bystander who is not in that outfit only knows that you turned
        somebody down anyway. */
     if(r.answered) try{ var kD=(said==='yes'?'claim:met':'claim:refused');
-                        ctDeed(kD, CT_DEED_CLOUT[kD]); }catch(_e){}
+                        ctDeed(kD, CT_DEED_CLOUT[kD], ctFid); }catch(_e){}
     advance(60);"""
 
 # THE THIRD ACT ON THAT CARD. Taking a favour is a deed: the favour block cites
@@ -456,7 +512,7 @@ FAVOUR_NEW = """    if(r.took && ctFavIsAct) ctGiveCapped(sv, ctFid);
     /* __CITY_DEEDS__ -- and being SEEN taking from an outfit is the whole point
        of the favour: this block's own citation is "they want you to OWE them".
        Nobody had ever observed it. */
-    if(r.took) try{ ctDeed('favour', CT_DEED_CLOUT['favour']); }catch(_e){}
+    if(r.took) try{ ctDeed('favour', CT_DEED_CLOUT['favour'], ctFid); }catch(_e){}
     advance(60);"""
 FAVOUR_CALL_V1 = None   # never shipped an untagged form; nothing to upgrade from
 
@@ -471,10 +527,10 @@ FAVOUR_CALL_V1 = None   # never shipped an untagged form; nothing to upgrade fro
 # else), and the wide anchor pairs are kept only for a FRESH install.
 CLAIM_CALL_V1 = ("    if(r.answered) try{ ctDeed(said==='yes' ? 'claim:met' : "
                  "'claim:refused'); }catch(_e){}")
-CLAIM_CALL_V2 = ("    if(r.answered) try{ var kD=(said==='yes'?'claim:met':'claim:refused');\n"
-                 "                        ctDeed(kD, CT_DEED_CLOUT[kD]); }catch(_e){}")
+CLAIM_CALL_V3 = ("    if(r.answered) try{ var kD=(said==='yes'?'claim:met':'claim:refused');\n"
+                 "                        ctDeed(kD, CT_DEED_CLOUT[kD], ctFid); }catch(_e){}")
 COMMIT_CALL_V1 = "      try{ ctDeed('commit'); }catch(_e){}"
-COMMIT_CALL_V2 = "      try{ ctDeed('commit', CT_DEED_CLOUT['commit']); }catch(_e){}"
+COMMIT_CALL_V3 = "      try{ ctDeed('commit', CT_DEED_CLOUT['commit'], ctFid); }catch(_e){}"
 
 COMMIT_ANCHOR = """      for(var ci=0; ci<ctPaid.length; ci++)
         BohemiaBelonging.adjust(sv, ctPaid[ci].faction, -ctPaid[ci].lose);
@@ -484,7 +540,7 @@ COMMIT_NEW = """      for(var ci=0; ci<ctPaid.length; ci++)
       /* __CITY_DEEDS__ -- throwing in with an outfit is the loudest thing you can
          do on this street, and it was equally unobserved. Inside the `moved`
          branch: a commitment that did not move is not a deed. */
-      try{ ctDeed('commit', CT_DEED_CLOUT['commit']); }catch(_e){}
+      try{ ctDeed('commit', CT_DEED_CLOUT['commit'], ctFid); }catch(_e){}
     }"""
 
 # --- the surface. FIRST ROW ON THE CARD, because what they know about YOU is the
@@ -517,6 +573,18 @@ CARD_NEW = CARD_ANCHOR + """
 
 BARK_ANCHOR = '  if (xchStart(now)) return;'
 BARK_NEW = '  if (xchStart(now)) return;\n  if (ctDeedBark(now)) return;   /* __CITY_REACT__ */'
+
+# *** EVERY FORM THIS TOOL HAS EVER SHIPPED NEEDS AN UPGRADE PATH. ***
+# The tool refused outright when the city held V2 (tagged, no outfit) and only
+# V1->V3 and anchor->V3 pairs existed. REFUSING IS THE RIGHT FAILURE -- it said
+# so and changed nothing, rather than reporting success over a half-wired city --
+# but the fix is to keep a pair per shipped form. Each is narrow and span-matched
+# on both halves.
+CLAIM_CALL_V2 = ("    if(r.answered) try{ var kD=(said==='yes'?'claim:met':'claim:refused');\n"
+                 "                        ctDeed(kD, CT_DEED_CLOUT[kD]); }catch(_e){}")
+COMMIT_CALL_V2 = "      try{ ctDeed('commit', CT_DEED_CLOUT['commit']); }catch(_e){}"
+FAVOUR_CALL_V2 = "    if(r.took) try{ ctDeed('favour', CT_DEED_CLOUT['favour']); }catch(_e){}"
+FAVOUR_CALL_V3 = "    if(r.took) try{ ctDeed('favour', CT_DEED_CLOUT['favour'], ctFid); }catch(_e){}"
 
 def cut_ok(s, needle, label):
     n = s.count(needle)
@@ -557,9 +625,14 @@ def main():
     # under another lane's edit cannot take the others down with it.
     WIRING = [
         ('gossip pass',  [(GOSSIP_ANCHOR, GOSSIP_NEW)]),
-        ('claim deed',   [(CLAIM_CALL_V1, CLAIM_CALL_V2), (CLAIM_ANCHOR, CLAIM_NEW)]),
-        ('commit deed',  [(COMMIT_CALL_V1, COMMIT_CALL_V2), (COMMIT_ANCHOR, COMMIT_NEW)]),
-        ('favour deed',  [(FAVOUR_ANCHOR, FAVOUR_NEW)]),
+        ('claim deed',   [(CLAIM_CALL_V2, CLAIM_CALL_V3),
+                          (CLAIM_CALL_V1, CLAIM_CALL_V3),
+                          (CLAIM_ANCHOR, CLAIM_NEW)]),
+        ('commit deed',  [(COMMIT_CALL_V2, COMMIT_CALL_V3),
+                          (COMMIT_CALL_V1, COMMIT_CALL_V3),
+                          (COMMIT_ANCHOR, COMMIT_NEW)]),
+        ('favour deed',  [(FAVOUR_CALL_V2, FAVOUR_CALL_V3),
+                          (FAVOUR_ANCHOR, FAVOUR_NEW)]),
         ('card row',     [(CARD_ANCHOR, CARD_NEW)]),
         ('deed bark',    [(BARK_ANCHOR, BARK_NEW)]),
     ]
