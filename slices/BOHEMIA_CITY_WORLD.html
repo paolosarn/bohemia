@@ -25320,36 +25320,6 @@ function tlStack(){
        already costs nothing. See the note in blStack. */
     s.appendChild(el);
   });
-  /* __POPCARD_FOLLOWS_THE_TOOLBAR__ (8/24). ANYTHING THAT SITS UNDER THE TOOLBAR HAS TO BE
-     TOLD WHERE THE TOOLBAR ENDS. #popwrap carried `top:78px`, a hardcoded guess
-     at the toolbar's height, and making #topbar a flex child moved its bottom by
-     a FRACTION of a pixel -- enough that the population card stopped clearing it
-     and POPULATION DIAL's B4 went red printing "top 80 vs bottom 80", two rounded
-     numbers that are not equal. Nudging 78 to 81 would be the same bug with a
-     luckier number and would break again the day a long song title wraps the
-     toolbar to two rows.
-     So it is measured, off the SAME two elements that gate names (the toolbar and
-     the open drawer -- the population button lives inside the drawer, so the
-     drawer is open when the card appears). Whole-pixel ceiling plus one, because
-     landing exactly on the boundary is the thing that failed. */
-  try{
-    var low=0;
-    ['topbar','devtray'].forEach(function(id){
-      var e=document.getElementById(id);
-      if(e&&e.offsetParent!==null) low=Math.max(low,e.getBoundingClientRect().bottom);
-    });
-    var pw=document.getElementById('popwrap');
-    /* THE CARD'S OWN OFFSETPARENT, NOT THE STACK'S. First cut measured against
-       the column's container, and #popwrap is positioned against a different one,
-       so the number was right in the wrong coordinate space and B4 failed again
-       with the identical message. Ask the element being moved what it is
-       positioned against -- the same lesson tlStack itself learned one patch ago. */
-    if(pw&&low>0){
-      var ph=pw.offsetParent||pw.parentNode;
-      var phTop=ph?ph.getBoundingClientRect().top:0;
-      pw.style.top=(Math.ceil(low-phTop)+1)+'px';
-    }
-  }catch(_e){}
   return s;
 }
 blStack(); setInterval(blStack,600);
@@ -32588,12 +32558,32 @@ function popApply(v){
       /* clear whatever is actually above it: the toolbar wraps to two rows at
          phone width, and this button lives in the BUILDER'S DRAWER, which hangs
          below the toolbar and is taller still. Take the lowest of the two. */
+      /* __POPCARD_FOLLOWS_THE_TOOLBAR__ (8/24, RUN lane). THIS ALREADY MEASURED,
+         AND MY CHANGE SILENTLY CHANGED WHAT IT WAS MEASURING. It read
+         `e.offsetTop + e.offsetHeight`, and offsetTop is relative to the
+         element's OFFSETPARENT -- so when #tlstack made #topbar a flex child of
+         a positioned column, the toolbar's offsetTop stopped meaning "distance
+         down the stage" and started meaning "distance down the stack", which is
+         about zero. The arithmetic never changed; its MEANING did, silently.
+         getBoundingClientRect is viewport-relative and cannot be re-based under
+         it, converted here into the card's OWN offsetParent -- ask the element
+         being MOVED what it is positioned against, not the element being
+         measured. Ceil, because the defect that started this was a sub-pixel
+         comparison that printed as equal.
+         AND THIS IS THE ONLY WRITER. My first repair added a second one on a
+         600ms poll, which raced this one and was load-dependent besides -- two
+         things owning one number and neither knowing the other exists, which is
+         the exact bug I spent the day removing from this HUD. */
       var low = 0;
       ['topbar', 'devtray'].forEach(function (id) {
         var e = document.getElementById(id);
-        if (e && e.offsetParent !== null) low = Math.max(low, e.offsetTop + e.offsetHeight);
+        if (e && e.offsetParent !== null) low = Math.max(low, e.getBoundingClientRect().bottom);
       });
-      if (low) wrap.style.top = (low + 8) + 'px';
+      if (low) {
+        var ph = wrap.offsetParent || wrap.parentNode;
+        var phTop = ph ? ph.getBoundingClientRect().top : 0;
+        wrap.style.top = (Math.ceil(low - phTop) + 8) + 'px';
+      }
       popRefresh();
     }
   });
