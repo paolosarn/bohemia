@@ -151,6 +151,17 @@ const pw = pwmod();
   }
 
   // ---- THE RUN: its own dialogue, driven through openTalk --------------
+  /* __ASK_FOR_THE_RUN_SLICE__ (8/23). The alpha stopped downloading the 17.8 MB run
+     slice on boot (8/21) and this gate never got told. Without this the frame
+     lookup below falls through to p.frames()[1] -- THE CITY -- and every claim
+     about "the run" is then measured against a surface that was never asked to
+     carry them. Ask the exported loader by name, which is what it was exported
+     for, and wait for the frame to finish rather than guessing a duration. */
+  await p.evaluate(() => { if (window.__loadRunSlice) window.__loadRunSlice(); });
+  for (let _i = 0; _i < 120 && !p.frames().find(f => f.url().includes('RUN_CURRENT')); _i++)
+    await p.waitForTimeout(500);
+  { const _rf = p.frames().find(f => f.url().includes('RUN_CURRENT'));
+    if (_rf) await _rf.waitForLoadState('load').catch(() => {}); }
   const rf = p.frames().find(f => f.url().includes('RUN_CURRENT'));
   out.runFrame = !!rf;
   if (rf) {
@@ -184,7 +195,14 @@ const pw = pwmod();
   out.storyPressed = await p.evaluate(() => {
     const b = document.getElementById('cutPlay') || document.getElementById('storyPlay');
     if (!b) return false; b.click(); return true; });
-  await p.waitForTimeout(46000);   /* the cold open grew to ~40 beats on 8/12 */
+  /* __ASK_FOR_THE_RUN_SLICE__ (8/23): was `await p.waitForTimeout(46000)`, a flat
+     guess that only held while the run slice happened to be loaded long before
+     this point. THE CONDITION, NOT A DURATION -- and the ceiling is generous so
+     a slow box reads as slow rather than as a broken cold open. */
+  await p.waitForFunction(() => {
+    const e = document.getElementById('cutState') || document.getElementById('storyState');
+    return !!(e && /done/.test(e.textContent || ''));
+  }, null, { timeout: 150000 }).catch(() => {});
   out.storySpoke = await p.evaluate(() => window.__spoke.slice());
   out.storyState = await p.evaluate(() => (document.getElementById('cutState')
     || document.getElementById('storyState') || {}).textContent || '');

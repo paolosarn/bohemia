@@ -209,6 +209,17 @@ const pw = pwmod();
     if (!t) throw new Error('no RUN tab to open: the surface this gate measures is not reachable');
     t.click(); });
   await p.waitForTimeout(8000);
+  /* __ASK_FOR_THE_RUN_SLICE__ (8/23). The alpha stopped downloading the 17.8 MB run
+     slice on boot (8/21) and this gate never got told. Without this the frame
+     lookup below falls through to p.frames()[1] -- THE CITY -- and every claim
+     about "the run" is then measured against a surface that was never asked to
+     carry them. Ask the exported loader by name, which is what it was exported
+     for, and wait for the frame to finish rather than guessing a duration. */
+  await p.evaluate(() => { if (window.__loadRunSlice) window.__loadRunSlice(); });
+  for (let _i = 0; _i < 120 && !p.frames().find(f => f.url().includes('RUN_CURRENT')); _i++)
+    await p.waitForTimeout(500);
+  { const _rf = p.frames().find(f => f.url().includes('RUN_CURRENT'));
+    if (_rf) await _rf.waitForLoadState('load').catch(() => {}); }
   const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
   if (fr) {
     const before = await fr.evaluate(() => ({
@@ -231,6 +242,12 @@ const pw = pwmod();
     const rows = await p.evaluate(n => window.__timePassLog(n), base);
     const mine = rows.filter(r => r.jump === want);
     out.sleepStrikes = mine.length === 1 ? mine[0].strikes : -1;
+    /* -1 MEANT TWO DIFFERENT THINGS and neither was printed: no row carried the
+       jump at all, or several did. Those want opposite fixes, so the report says
+       which, and what jumps it DID see. */
+    out.sleepRows = mine.length;
+    out.sleepJumpWanted = want;
+    out.sleepJumpsSeen = rows.map(r => r.jump);
   }
 
   out.stats = await p.evaluate(() => window.__timePassStats ? window.__timePassStats() : null);
@@ -342,7 +359,9 @@ def main():
         adv += 1440
     ok('PRESSING IT MOVES THE WORLD CLOCK by 8 hours (%d minutes)' % adv, adv == 480)
     ok('AND THE GAME STRIKES EIGHT TIMES FOR IT (%s) -- no synthetic message, '
-       'the button the player actually presses' % d.get('sleepStrikes'),
+       'the button the player actually presses [%s row(s) carried the %s-minute '
+       'jump; jumps seen: %s]' % (d.get('sleepStrikes'), d.get('sleepRows'),
+                                  d.get('sleepJumpWanted'), d.get('sleepJumpsSeen')),
        d.get('sleepStrikes') == 8)
 
     st = d.get('stats') or {}

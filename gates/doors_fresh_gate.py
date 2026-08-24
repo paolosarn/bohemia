@@ -97,6 +97,17 @@ const pw = pwmod();
     BOH_SFX.render = function(v){
       if (v && v.mat === 'ash' && v.hits && v.hits.length === 3 && Math.abs(v.hz - 174) < 1) window.__dd++;
       return o.apply(null, arguments); }; });
+  /* __ASK_FOR_THE_RUN_SLICE__ (8/23). The alpha stopped downloading the 17.8 MB run
+     slice on boot (8/21) and this gate never got told. Without this the frame
+     lookup below falls through to p.frames()[1] -- THE CITY -- and every claim
+     about "the run" is then measured against a surface that was never asked to
+     carry them. Ask the exported loader by name, which is what it was exported
+     for, and wait for the frame to finish rather than guessing a duration. */
+  await p.evaluate(() => { if (window.__loadRunSlice) window.__loadRunSlice(); });
+  for (let _i = 0; _i < 120 && !p.frames().find(f => f.url().includes('RUN_CURRENT')); _i++)
+    await p.waitForTimeout(500);
+  { const _rf = p.frames().find(f => f.url().includes('RUN_CURRENT'));
+    if (_rf) await _rf.waitForLoadState('load').catch(() => {}); }
   const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
   if (fr) {
     const b0 = await p.evaluate(() => window.__dd);
