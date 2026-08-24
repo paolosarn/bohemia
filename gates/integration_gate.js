@@ -80,12 +80,39 @@ const PROBES = {
   },
   /* DOOR LAW (Paolo 7/26): the approved animated bank, 1 wide x 2 tall, really
      in the shipped run — the clips themselves, not a reference to them. */
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/23, RUN lane) AND IT TURNED OUT TO BE
+     BOOKKEEPING, NOT A HOLE. This row sat in the owed pile as "doors exist; the
+     approved ANIMATED bank does not", and that was true of what the probe was
+     LOOKING AT and false of the game. All NINETY frames of all ten approved
+     residential swing clips are present verbatim in BOHEMIA_CITY_TILES.js
+     (measured, 0 missing), inEnter -- the one place in the city a body goes
+     through a door -- calls doorSwing, and doorSwingDraw blits the plate into a
+     ONE WIDE TWO TALL slot over two beats. The art moved house on 8/6 with the
+     rest of the 27 MB and the ledger kept asking the old address.
+     THE NEEDLES ARE ALL USES: the CALLER inside inEnter, the draw call in the
+     render pass, and the `C, C*2` blit which is where "two tiles tall" actually
+     lives. The frames are checked against the BANK, so the claim is the approved
+     art and not a lookalike. */
   door_anim: () => {
-    if (RUN.indexOf('"tileW":1,"tileH":2') < 0) return false;
-    if (RUN.indexOf('function drawDoorFace(') < 0 || RUN.indexOf('function doorPassable(') < 0) return false;
     const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt'), 'utf8'));
     const res = Object.keys(bank.clips).filter(k => /^4\._Doors_a_\d+_swing$/.test(k)).sort();
     if (res.length < 6) return false;
+    const cityHas = () => {
+      if (CITY.indexOf('const DOOR_ANIM_IMG=DOOR_ANIM.map(') < 0) return false;
+      if (CITY.indexOf('function doorSwing(seed,gx,gy){') < 0) return false;
+      /* the CALLER, not the function: inEnter is the one door in the city */
+      if (CITY.indexOf('try{ doorSwing((tgtX*73856093)^(tgtY*19349663),tgtX,tgtY); }catch(_e){}') < 0) return false;
+      if (CITY.indexOf('doorSwingDraw(ox,oy,C);') < 0) return false;
+      /* ONE WIDE, TWO TALL -- the row's distinguishing claim, in the blit */
+      if (CITY.indexOf('g.drawImage(im,dx,dy-C,C,C*2);') < 0) return false;
+      let tiles;
+      try { tiles = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_TILES.js'), 'utf8'); }
+      catch (e) { return false; }
+      return res.every(k => bank.clips[k].frames.every(f => tiles.indexOf(f) >= 0));
+    };
+    if (cityHas()) return true;
+    if (RUN.indexOf('"tileW":1,"tileH":2') < 0) return false;
+    if (RUN.indexOf('function drawDoorFace(') < 0 || RUN.indexOf('function doorPassable(') < 0) return false;
     // every approved residential clip's every frame must be present verbatim
     return res.every(k => bank.clips[k].frames.every(f => RUN.indexOf(f) >= 0));
   },
@@ -251,10 +278,31 @@ const PROBES = {
       RUN.indexOf('function contextVerb(') >= 0 && RUN.indexOf('function spendTime(') >= 0 &&
       RUN.indexOf("RESOLVER.register('block-clock','WORLD'") >= 0;
   },
+  /* RE-POINTED AT THE SURFACE HE PLAYS (8/23, RUN lane) AND NARROWED ON PURPOSE.
+     The city carries TWO of the four modes, GRID and SLIDE, and the clause says
+     exactly that and nothing more. HYBRID and FREE are continuous movement,
+     which in the city means a second position space with its own collision, its
+     own door handling and its own answer for how a continuous body spends a day
+     metered per CELL ENTERED -- a build, not a migration, and FREE is the one
+     the run slice's own note flags as called dead on arrival by TIME IS SPENT
+     BY ACTIONS. They stay owed. The run clause below still wants all four, so
+     nothing about the old surface is quietly downgraded.
+     THE LAST NEEDLE IS THE ONE THAT MATTERS and it is deliberately the CAMERA
+     LINE, not the function: mutation-testing walk_feel_gate proved that camCell
+     can be perfect and unread, which is a file-shape probe's blind spot by
+     construction. Every needle here was chosen to survive comment stripping;
+     the marker comment is not one of them. */
   walk_feel: () =>
-    /var WALKMODES=\['GRID','SLIDE','HYBRID','FREE'\]/.test(RUN) &&
+    (CITY.indexOf("var WALKFEELS = ['GRID', 'SLIDE']") >= 0 &&
+     CITY.indexOf('function camCell(') >= 0 &&
+     CITY.indexOf('function glideStart(') >= 0 &&
+     CITY.indexOf('function walkFeelSet(') >= 0 &&
+     CITY.indexOf('id="walkfeel"') >= 0 &&
+     CITY.indexOf('const ox=Math.round(cv.width/2-_gc[0]*C)') >= 0)
+    ||
+    (/var WALKMODES=\['GRID','SLIDE','HYBRID','FREE'\]/.test(RUN) &&
     RUN.indexOf('function walkModeSet(') >= 0 && RUN.indexOf('function drawOffset(') >= 0 &&
-    RUN.indexOf('function freeNudge(') >= 0 && RUN.indexOf('walkbtn') >= 0,
+    RUN.indexOf('function freeNudge(') >= 0 && RUN.indexOf('walkbtn') >= 0),
   /* THE VALLEY IS REAL: the run reads the world model's own tile rung one cell
      at a time, and the edge is a crossing rather than a wall. */
   /* RE-POINTED AT THE SURFACE HE PLAYS (8/21) -- city clause first, run-slice

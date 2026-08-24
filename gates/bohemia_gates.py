@@ -296,6 +296,23 @@ GATES = [
      'any more; and it caught going to sleep playing the fight-DEFEAT cadence '
      'because an unfinished job was being scored like a lost fight. Silent '
      'beats are REPORTED, not failed: the quiet is the design', True),
+    ('WALK FEEL',      ['node', 'gates/walk_feel_gate.js'],
+     'HOW WALKING FEELS, MEASURED IN THE PIXELS OF THE STAGE CANVAS. The city camera is '
+     'player-centred and the cell changes inside stepOnce, so the body could never move on '
+     'screen and the WHOLE WORLD jumped one cell -- 56px at the walk zoom -- twice a second, '
+     'while the legs cycled perfectly smoothly in place. MEASURED BEFORE AND AFTER, holding '
+     'the pad and sampling the canvas every 40ms: GRID moves 0.0% of a typical frame and then '
+     '61% of it in one, which IS the teleport; SLIDE moves 58.8% of a typical frame. The '
+     'median is the metric on purpose -- a mean is dragged up in GRID by exactly the frames '
+     'the feature exists to delete. SLIDE is Paolo\'s own option 1 from the townwalk pattern '
+     'note, carried over from the run panel nobody opens: "SAME rules, the body just slides '
+     'across the cell over the beat", and the ruling leaves how a spent action is DRAWN to us, '
+     'so no law moves. IT COST NO LOOP: animate() already rAFed for exactly one beat after '
+     'every step and already rendered every frame of it. MUTATION-TESTED TWICE and the second '
+     'one is the reason the pixels are here -- a PERFECT camCell that the renderer ignores '
+     'left every model claim green ("the camera sat between cells for 87.5% of a walked beat" '
+     'was still true) and only the canvas noticed. HYBRID and FREE are NOT carried and are '
+     'named, not hidden', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
