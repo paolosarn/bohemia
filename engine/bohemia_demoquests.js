@@ -238,12 +238,45 @@
     D.outcome = function () { return D.rt ? D.rt.state.outcome : null; };
     D.tags = function () { return D.rt ? (D.rt.state.doneTags || []) : []; };
 
+    /* THE OBJECTIVE NEVER SAID WHAT TO DO (8/24, RUN lane).
+       hudLine returned objs[0].text and dropped everything else, so day one read
+       "Find why the block browns out" and nothing on screen mentioned a building
+       or the dark -- while the day's own spec, declared a few hundred lines up,
+       says exactly how the thing advances:
+           advance: { stage: 20, on: 'enter_building', require: 'dark' }
+       A friend walks past every door in the valley.
+       DERIVED FROM THE RULE, NEVER WRITTEN PER QUEST, so the sentence cannot
+       drift from the mechanic: change how a day advances and its hint changes
+       with it, and every day's quest gets one without anybody authoring it.
+       Words are a real attempt and his to edit (ALWAYS MAKE AN ATTEMPT, 8/11);
+       the mechanic they describe is not mine to change.
+       IT LIVES HERE AND NOT IN THE CITY'S INLINED COPY, which is where I put it
+       first: ENGINE SYNC LAW, one canonical body per module. A fix that lives in
+       a copy is a fix the next resync silently deletes. */
+    D.nextStep = function () {
+      var sp = D.spec, a = sp && sp.advance;
+      if (!a || !D.rt) return '';
+      if (!(D.rt.state.stage < a.stage)) return '';   /* the hint is for the step that is actually next */
+      if (a.on === 'enter_building')
+        return a.require === 'dark'
+          ? 'get inside somewhere the power is out'      /* draft:true */
+          : 'get inside one of these buildings';         /* draft:true */
+      if (a.on === 'enter_district')
+        return a.require === 'new'
+          ? 'cross into a block you have not walked yet' /* draft:true */
+          : 'get out onto another block';                /* draft:true */
+      return '';
+    };
     /* the one line the HUD shows: the live objective, or the outcome */
     D.hudLine = function () {
       if (!D.rt) return '';
       if (D.rt.state.done) return (D.rt.state.outcome === 'COMPLETE' ? 'DONE · ' : 'FAILED · ') + (D.Q.title || '');
       var objs = D.rt.objectives().filter(function (o) { return o.status === 'active'; });
-      if (objs.length) return objs[0].text;
+      if (objs.length) {
+        var step = '';
+        try { step = D.nextStep(); } catch (e) { step = ''; }
+        return step ? (objs[0].text + ' · ' + step) : objs[0].text;
+      }
       return D.spec ? D.spec.brief : '';
     };
 
