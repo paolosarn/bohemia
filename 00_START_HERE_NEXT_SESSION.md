@@ -2676,76 +2676,82 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/23 LATEST -- *** ONE ACT, FOUR MEANINGS. THE MULTIPLIER
-IS WHO IS SPEAKING, NOT HOW MANY LINES. TAB: RUN -- turn an outfit down in front
-of people; the one who runs with that outfit, somebody from a rival, and a
-bystander each say a DIFFERENT thing about the same moment. ***
+PEOPLE (people-7h9sfy): 8/24 LATEST -- *** NOBODY IN THE VALLEY SHARES A ROOF, AND
+THAT IS WHY THE SOCIAL GRAPH IS EMPTY. A MEASUREMENT AND A CAUSE, HANDED TO
+FACTIONS. Shipped instead: TAB RUN, the card no longer prints raw grid
+coordinates at him. ***
 
-The turn before shipped witnesses saying what they saw out loud (16 lines, four
-acts x saw/heard x two variants). Backlog 0r's Hades math says REACTIVITY is the
-multiplier, and the honest read is NOT "write more lines of the same four acts" --
-that is padding. THE MULTIPLIER IS WHO IS SPEAKING.
+Set out to make gossip travel along RELATIONSHIPS instead of proximity (two
+strangers at a bus stop do not swap news about you; neighbours do), via
+bohemia_ties.knows(), which had ZERO callers. MEASURED THE GRAPH FIRST.
 
-THE CORPUS HAS ALWAYS AUTHORED THIS. bohemia_deeds quotes his own quest file: "ONE
-ACT, TWO MEANINGS... S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES
--6`: taking the credit is a good customer to the traders and a betrayal to the
-growers." And bohemia_standing ships opts.only saying "one act can mean opposite
-things to two factions and nothing at all to a third."
+THE NUMBERS, real surface, whole valley roster, using the FACTIONS lane's own call
+pattern (ctValleyRoster/ctCell/ctVKey):
+    298 people, 564 foci (home 298, work 254, faction 12)
+    522 OF THOSE FOCI ARE SINGLETONS -- INCLUDING ALL 298 HOME FOCI
+    780 sampled pairs -> 8 know each other (1.0%)
+    60 pairs who SLEEP WITHIN TWO CELLS -> ZERO know each other
+GATING GOSSIP ON "THEY KNOW EACH OTHER" WOULD HAVE REDUCED GOSSIP TO ZERO. That
+measurement is the only reason it was not shipped, and it is the same
+threshold-bigger-than-the-room check that has now paid off three times. MEASURE
+THE POPULATION BEFORE GATING ANYTHING ON IT.
 
-Measured on the real surface, the same refusal:
-    the outfit you refused    "Said no. To us. Standing right there."
-    somebody from a rival     "Turned them down. Good."
-    an unaffiliated bystander "Told them no. Right to their face."
-    anyone who only heard     "Heard somebody turned them down."
-Four acts x four audiences x two variants = 32 drafted lines, pronoun-free,
-cycling so none repeats until its pool is spent.
+THE CAUSE, EXACTLY. bohemia_ties.fociOf prefers the DECLARED seat, and its own
+8/15 comment says why: "its adapter mints a unique id per person, so every
+resident parsed out as the sole occupant of their own house... The declared seat is
+the fact; the id is a spelling of it. Read the fact." THE READER WAS FIXED, THE
+WRITER WAS NOT. ctAgent declares home:{building: p.home[0]+','+p.home[1]} -- THE
+PERSON'S OWN FINE-GRID CELL. Every person stands on a different cell, so every
+building id is unique, so every household is a household of one. The 8/15 fix
+taught the reader to prefer a field whose value CAN NEVER BE SHARED. A FIX ON THE
+READING SIDE THAT THE WRITING SIDE NEVER FOLLOWED IS NOT A FIX.
 
-*** THE RETELLING LOSES THE DETAIL AND THAT IS THE DESIGN. *** The deed remembers
-which outfit it was about, stamped on the EYEWITNESS copies and never carried in
-the KIND (a kind per faction would grow his DEED_WEIGHT table with the roster, and
-he weighs an act ONCE). gossip() copies actor/kind/turn/position/hops and the
-fields it knows, and does NOT copy fid. Not a limitation worked around: THE
-SPECIFIC DETAIL IS THE FIRST THING A RETELLING LOSES. An eyewitness knows who you
-turned down; somebody who only heard knows that somebody got turned down. So
-second-hand news is vague BY CONSTRUCTION, and a mutation letting fid survive a
-retelling goes red.
+FOUR CAPABILITIES ON ONE GAP: three of his sixteen dossier conditions
+(MOB/REMNANTS/COLORFUL) still cannot find a third party, which is the ENTIRE
+REASON bohemia_ties was built on 8/12; seatLineOf degrades to "HOUSE 901" instead
+of "HOUSE 4 - THIRD OF FIVE"; workLineOf degrades to "12:12, WEST"; and news
+cannot travel along relationships.
 
-TWO THINGS THIS GOT WRONG FIRST, both worth keeping:
-  - EVERY FORM A TOOL HAS EVER SHIPPED NEEDS AN UPGRADE PATH. The tool REFUSED
-    outright when the city held the intermediate form (tagged, no outfit) and only
-    V1 and fresh-anchor pairs existed. REFUSING WAS THE RIGHT FAILURE -- it said
-    so and changed nothing rather than reporting success over a half-wired city --
-    but the fix is A PAIR PER SHIPPED FORM, each narrow and span-matched. Three
-    forms now, three paths.
-  - *** FIFTH TIME: AN ASSERTION THAT PINS TODAY'S ANSWER INSTEAD OF TODAY'S
-    RULE. *** Three assertions matched the exact ARGUMENT LIST of the ctDeed call
-    and went red because the call legitimately GREW an argument (a clout tag on
-    8/21, the outfit on 8/22). They match the CALL now, not its arguments. If a
-    future session writes a regex containing a full argument list, that is this
-    bug being written for the sixth time.
+WHAT THE RECORD DOES NOT CLAIM: that the world is wrong. Ten years after the crash
+a valley of solitary squatters is plausible canon, and if that is the ruling the
+home focus SHOULD be empty. What is certainly true is narrower: THE ADAPTER
+DECLARES A VALUE THAT CANNOT BE SHARED, SO THE QUESTION WAS NEVER ASKED. The code
+answers "no households" BY ACCIDENT rather than BY DECISION.
 
-gates: CITY DEEDS 36 -> 43 all green, CITY MEMORY 31, CITY DIAL 22, city talk 18,
-standing 35. Both city tools idempotent together, md5 over three runs. Mutations:
-everybody reads the act the same way -> 3 red; let the outfit survive a retelling
--> 2 red.
-records/BOHEMIA_ONE_ACT_FOUR_MEANINGS_8_22_26.md
+NOT FIXED HERE, on purpose: ctAgent and bohemia_ties are the FACTIONS lane's; a
+city cell carries only {g,s,walk,q} with NO mass or structure id, so "same
+building" would have to be flood-filled or invented; and whether people share
+dwellings is WORLDBUILDING. Faking a household to make my own feature light up
+would have been building on a number I made up.
+records/BOHEMIA_NOBODY_IN_THE_VALLEY_SHARES_A_ROOF_8_23_26.md
+
+SHIPPED INSTEAD, the part that was ours and needed no household: THE CARD WAS
+PRINTING RAW FINE-GRID COORDINATES AT HIM.
+    before   LIVES   HERE, 6205 6269
+    after    LIVES   Right about here      ("south of here" from 25 cells away)
+A COORDINATE IS NOT AN ADDRESS; IT IS THE VARIABLE, SHOWN. It uses this lane's own
+ctWhereWord -- the same vocabulary the missing-persons witness answers in -- so the
+card and the witness say it ONE way, and the day that phrasing improves, both
+improve. The gate asserts the RULE, not the row: NO row on that card may print a
+bare fine-grid pair. Mutation putting the coordinates back -> 3 red.
+
+gates: CITY MEMORY 31 -> 34 all green, CITY DEEDS 43, city talk 18, CITY DIAL 22.
 
 WHAT COMES NEXT:
-  1. *** THE AFTERMATH SET PROPER. *** 0r asks for reactions DIFFERENT FOR KILLED
-     VS SPARED. Needs a boss, which is COMBAT's; the channel is built and now has
-     audiences too. Theirs to trigger, THIS LANE'S TO WORD.
-  2. HE TURNS THE STANDING DIAL (DIRECT tab, third chip). One row makes all of
+  1. *** THE ROOF FINDING IS FACTIONS'. *** If they rule households exist, this
+     lane's gossip-along-relationships is then a small, honest wire-up and the
+     measurement above is the before-number to beat.
+  2. THE AFTERMATH SET PROPER (backlog 0r): reactions DIFFERENT FOR KILLED VS
+     SPARED. Needs a boss -- COMBAT's to trigger, THIS LANE'S TO WORD. The channel
+     is built and now carries four audiences.
+  3. HE TURNS THE STANDING DIAL (DIRECT tab, third chip). One row makes all of
      this JUDGE him instead of merely remember him. His.
-  3. *** THE OTHER DIALS -- AND READ THIS BEFORE BUILDING THEM. *** SEE_RANGE, the
-     gossip window, the halflives are SET AND WORKING with written arguments,
-     unlike DEED_WEIGHT which was EMPTY AND BLOCKING. The 8/12 law's test is about
-     things HE HAS TO RULE ON. Nine mechanism sliders would be the
-     technical-question trap wearing a UI. If it ships, it ships as ONE creative
-     fork about HOW THE WORLD FEELS, in his words, not as a tuning panel. Two
-     handoffs in a row listed this as "next" on momentum; it is not obviously
-     right and a session should decide, not inherit.
-  4. WALKING IS SILENT -- one sfx message, zero footstep code, 97 approved sounds
-     unplayed. SOUNDS.
+  4. THE OTHER DIALS -- READ BEFORE BUILDING. SEE_RANGE, the gossip window, the
+     halflives are SET AND WORKING with written arguments, unlike DEED_WEIGHT
+     which was EMPTY AND BLOCKING. Nine mechanism sliders would be the
+     technical-question trap wearing a UI. Three handoffs listed this on momentum;
+     decide, do not inherit.
+  5. WALKING IS SILENT -- 97 approved sounds unplayed. SOUNDS.
 RUN (run-eak241): 8/20 P0-SUITE FIX 1 -- *** THE SLEEPS ARE GONE. 217 of 379 in
 50 minutes became 258 of 393 in 45. THE SUITE STILL DOES NOT FINISH. ***
 
