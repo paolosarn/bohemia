@@ -87,6 +87,31 @@ one, which is a gate outranking my convenience and it was right.
 STILL OWED ON THE PLAYED SURFACE, and both are real holes: world_bridge (no
 BohemiaLoop in the city) and clout_feed (the FEED is not shown). 15 of 30.
 
+*** AND THE SAME METHOD FOUND A SECOND ONE ON THE NEXT SCREEN. THE PHONE'S
+BIGGEST NUMBER WAS A STRING LITERAL. *** Three clocks on the screen where he takes
+the job: the city HUD DAY 1 · 06:00, the phone's own bar DAY 1 · 06:00, and THE
+LOCK SCREEN IN 48px TYPE reading 07:14. Source: '<div class="lk-time">07:14</div>'.
+It has said 07:14 in every session of this game, forever.
+AND THE SEAM WAS ALREADY THERE AND ALREADY CONSUMED: the city posts
+{bohemiaPhoneWhere:{district,day,clock}} every push, the phone STORES it in LIVE
+and uses it for the little top bar -- and the big clock six lines away printed a
+hardcoded copy of what it carries. Not a seam with no caller this time; a seam WITH
+a caller, next to a duplicate of its own value.
+Fixed to read LIVE.clock AND TO REDRAW WHEN THE CLOCK MOVES (reading it once at
+render is the same bug in a nicer coat: right when he opens the phone, wrong a
+minute later). The literal stays as the FALLBACK on purpose -- the standalone phone
+demo has no city around it to ask. +38°C is deliberately untouched: the game models
+no temperature so it contradicts nothing, and inventing weather to justify a string
+would be inventing canon.
+THE CLAIM IS GENERAL AND GUARDED AGAINST VACUITY (whole_demo, now 23): it sweeps
+every surface for anything shaped like a clock and asks whether they agree, so the
+next hardcoded time is caught without anybody adding it -- plus a second claim that
+it FOUND at least two, because a sweep that finds nothing agrees with itself
+perfectly. Mutation-tested by putting the literal back:
+    city/hclock=06:00 city/sub=06:00 city/phonewhere=06:00
+    phone/lk-time=07:14 phone/lv-top=06:00
+Four said 06:00 and one said 07:14. The failure message IS the diagnosis.
+
 THE RULE THIS BUYS: A CORNER OF THE SCREEN BELONGS TO A LAYOUT OR IT BELONGS TO
 NOBODY. The moment two things in it carry their own hardcoded offsets, neither
 knows the other exists, and the one that loses will be whichever one you cared

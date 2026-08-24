@@ -166,6 +166,61 @@ the run slice. `integration_gate` rejected a compound status when I tried one �
 that vocabulary is closed on purpose. A gate outranking my convenience, and it was
 right.)*
 
+## AND THE SAME METHOD FOUND A SECOND ONE ON THE NEXT SCREEN
+
+Kept looking at the screenshots. The phone — the demo's second screen, where he
+takes the job — opens with **three clocks on it**:
+
+```
+the city HUD          DAY 1 · 06:00
+the phone's own bar   SUBURB · DAY 1 · 06:00
+THE LOCK SCREEN, 48px, the first thing the eye lands on:   07:14
+```
+
+Source, verbatim:
+
+```js
+'<div class="lk-time">07:14</div>'
+```
+
+A hardcoded string. It has read 07:14 in every session of this game, forever.
+
+**And the seam was already there and already consumed.** The city posts
+`{bohemiaPhoneWhere:{district, day, clock}}` on every push; the phone stores it in
+`LIVE` and uses it for the little bar at the top. The big clock, six lines away,
+printed a literal copy. This lane's signature bug in its most galling form yet:
+not a seam with no caller, but a seam **with** a caller sitting next to a
+hardcoded duplicate of what it carries.
+
+The lock now reads `LIVE.clock`, and **redraws when the clock moves** — setting it
+once at render would be the same bug in a nicer coat, right at the moment he
+opened the phone and wrong a minute later. The literal stays as the fallback on
+purpose: the standalone phone demo has no city around it and no world clock to ask.
+
+`+38°C` is deliberately untouched. The game models no temperature, so it
+contradicts nothing. A placeholder that disagrees with nothing is a placeholder; a
+placeholder that disagrees with the game standing next to it is a bug. Inventing a
+weather system to justify a string would be inventing canon.
+
+### THE CLAIM IS GENERAL AND IT IS GUARDED AGAINST VACUITY
+
+Added to `the_whole_demo_gate` (now 23 claims), and it does not check that one
+element. It sweeps every surface — shell, city, phone — for anything shaped like a
+clock and asks whether they all agree, so the next hardcoded time is caught without
+anybody adding it here. Leaves only, so a container holding two clocks is not
+counted as a third.
+
+**A sweep that finds nothing agrees with itself perfectly**, so a second claim
+requires it to have found at least two clocks. Mutation-tested by putting the
+literal back:
+
+```
+> FAIL  city/hclock=06:00 city/sub=06:00 city/phonewhere=06:00
+        phone/lk-time=07:14 phone/lv-top=06:00
+```
+
+Four clocks said 06:00 and one said 07:14. The failure message is the diagnosis.
+
 ---
 
 **THE RULE THIS BUYS:** a corner of the screen belongs to a layout or it belongs

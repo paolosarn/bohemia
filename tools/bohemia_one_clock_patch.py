@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""
+THE PHONE'S BIGGEST NUMBER WAS A STRING LITERAL, AND IT DISAGREED WITH THE GAME
+(8/24/26, RUN lane.)
+
+MEASURED BY OPENING THE PHONE THE WAY HE OPENS IT -- tap PHONE in the RUN tab,
+day one, and screenshot. Three clocks on one screen:
+
+    the city HUD          DAY 1 · 06:00
+    the phone's own bar   SUBURB · DAY 1 · 06:00
+    THE PHONE'S LOCK SCREEN, in 48px type, the first thing the eye lands on:
+                          07:14
+
+Source, verbatim:
+
+    '<div class="lk-time">07:14</div>'
+
+A hardcoded string. It has read 07:14 in every session of this game, forever,
+while the world's clock ran underneath it. The phone is where he takes the job --
+it is the demo's second screen, and it opens by contradicting the first.
+
+AND THE SEAM WAS ALREADY THERE AND ALREADY CONSUMED. The city posts the real
+state into the phone every push:
+
+    PHONE_FR.contentWindow.postMessage({bohemiaPhoneWhere: st})   // {district, day, clock}
+
+and the phone STORES it -- `LIVE = d.bohemiaPhoneWhere` -- and uses it for the
+little bar at the top. The lock screen, six lines away, prints the literal. This
+lane's signature bug one more time, and the most galling version yet: not a seam
+with no caller, but a seam with a caller sitting next to a hardcoded copy of what
+it carries.
+
+THE FALLBACK IS KEPT ON PURPOSE. slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html
+opens this phone with no city around it, and a standalone phone has no world clock
+to ask. It shows the literal there and the live time in the game, which is the
+honest behaviour in both places.
+
+AND THE LOCK REDRAWS WHEN THE CLOCK MOVES. Setting it once at render would be a
+different flavour of the same bug -- correct at the moment he opened it and wrong
+a minute later. If the lock is up when a push lands, it re-renders.
+
+WHAT IS DELIBERATELY NOT TOUCHED: "+38°C". The game models no temperature, so
+there is nothing for it to contradict and nothing for me to derive it from. A
+placeholder that disagrees with NOTHING is a placeholder; a placeholder that
+disagrees with the game standing next to it is a bug. Only the second one is
+mine to fix, and inventing a weather system to justify a string would be
+inventing canon.
+
+REUSE CHECK: no graphic pixels cooked -- this reads a message the page already
+receives, so no banks/ lookup applies.
+
+Idempotent (marker __ONE_CLOCK__).
+"""
+import os
+import sys
+
+PHONE = 'slices/BOHEMIA_CURRENT_SLICE.html'
+MARK = '__ONE_CLOCK__'
+
+OLD = """  el('lock').innerHTML =
+    '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
+}"""
+
+NEW = """  /* """ + MARK + """ (8/24). This was the string literal '07:14', in 48px type,
+     the first thing the eye lands on when he opens the phone -- while the city HUD
+     and this phone's OWN top bar both read DAY 1 · 06:00 in the same screenshot.
+     It has said 07:14 in every session of this game, forever.
+     THE SEAM WAS ALREADY HERE AND ALREADY CONSUMED: the city posts
+     {bohemiaPhoneWhere:{district,day,clock}} on every push, this file stores it in
+     LIVE, and the top bar uses it. The big clock six lines away printed a copy.
+     THE LITERAL STAYS AS THE FALLBACK, on purpose: the standalone phone demo opens
+     this page with no city around it and no world clock to ask. */
+  var lkTime = (LIVE && LIVE.clock) ? String(LIVE.clock) : '07:14';
+  el('lock').innerHTML =
+    '<div class="lk-time">'+esc(lkTime)+'</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
+}"""
+
+# the lock has to follow the clock, not snapshot it
+OLD2 = """  LIVE = d.bohemiaPhoneWhere;"""
+
+NEW2 = """  LIVE = d.bohemiaPhoneWhere;
+  /* """ + MARK + """ -- and the lock FOLLOWS the clock. Reading LIVE once at
+     render would be the same bug in a nicer coat: right at the moment he opened
+     the phone and wrong a minute later. If the lock is up when a push lands, it
+     redraws. */
+  try{ if(phone && phone.classList.contains('locked')) renderLock(); }catch(e){}"""
+
+
+def main():
+    if not os.path.exists(PHONE):
+        sys.exit('FAIL: ' + PHONE + ' not found')
+    s = open(PHONE, encoding='utf8').read()
+    if MARK in s:
+        print('NOOP: the phone already reads the game clock')
+        return
+
+    for needle, why in (
+            ('LIVE = d.bohemiaPhoneWhere;', 'the live state the city already posts'),
+            ('function renderLock()', 'the lock screen'),
+            ('function esc(', 'the escaper this reuses')):
+        if needle not in s:
+            sys.exit('FAIL: %s is missing (%s)' % (needle, why))
+
+    for old, new, what in ((OLD, NEW, 'the lock screen reads the game clock'),
+                           (OLD2, NEW2, 'the lock redraws when the clock moves')):
+        n = s.count(old)
+        if n != 1:
+            sys.exit('FAIL: anchor for "%s" matched %d times, expected 1' % (what, n))
+        s = s.replace(old, new, 1)
+
+    open(PHONE, 'w', encoding='utf8').write(s)
+    print('PATCHED %s -- the phone shows the time the game is at' % PHONE)
+
+
+if __name__ == '__main__':
+    main()

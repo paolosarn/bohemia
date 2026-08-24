@@ -180,6 +180,50 @@ const HOLD = 560;
       const after = await read();
       ok('TAKING IT CROSSES THE FRAME BOUNDARY and the city knows he took it',
         after.taken === true);
+      /* ---- THE GAME MAY NOT CONTRADICT ITSELF ABOUT THE TIME -------------
+         FOUND 8/24 by opening the phone and LOOKING at the screenshot: the city
+         HUD read DAY 1 · 06:00, the phone's own top bar read DAY 1 · 06:00, and
+         the phone's LOCK SCREEN read 07:14 in 48px type -- a string literal that
+         had said 07:14 in every session of this game, forever, six lines away
+         from the live value the phone already receives and already uses.
+         THE CHECK IS GENERAL, NOT A CHECK ON THAT ONE ELEMENT. It sweeps every
+         surface for anything that LOOKS like a clock and asks whether they all
+         agree, so the next hardcoded time is caught by the same claim without
+         anybody adding it here. Text nodes only, and only leaves, so a container
+         that happens to contain two clocks is not itself counted as a third. */
+      const clocks = [];
+      for (const [where, fr] of [['shell', page], ['city', city], ['phone', pf]]) {
+        if (!fr) continue;
+        const found = await fr.evaluate(() => {
+          const out = [];
+          const rx = /(?:^|[^\d])([0-2]?\d:[0-5]\d)(?![\d])/;
+          const walk = document.querySelectorAll('body *');
+          for (const e of walk) {
+            if (e.children.length) continue;                 /* leaves only */
+            const cs = getComputedStyle(e);
+            if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+            const t = (e.textContent || '').trim();
+            if (t.length > 40) continue;
+            const m = rx.exec(t);
+            if (m) out.push({ id: e.id || e.className || e.tagName, t: m[1] });
+          }
+          return out;
+        }).catch(() => []);
+        found.forEach(f => clocks.push({ where: where, id: String(f.id).slice(0, 22), t: f.t }));
+      }
+      const times = [...new Set(clocks.map(c => c.t))];
+      /* A SWEEP THAT FINDS NOTHING AGREES WITH ITSELF PERFECTLY. This claim is
+         worthless unless it actually found clocks to compare, so say how many and
+         require more than one -- otherwise a selector that silently stops matching
+         turns this green forever, which is the vacuous-claim trap this repo keeps
+         paying for. */
+      ok('it found clocks to compare at all (' + clocks.length + ' across '
+        + [...new Set(clocks.map(c => c.where))].join('+') + ')', clocks.length >= 2);
+      ok('THE GAME DOES NOT CONTRADICT ITSELF ABOUT THE TIME -- every clock on '
+        + 'every surface reads the same ('
+        + clocks.map(c => c.where + '/' + c.id + '=' + c.t).join(' ') + ')',
+        times.length <= 1);
+
       ok('and an objective arrives where he can read it ("'
         + after.obj.trim().slice(0, 40) + '")', after.obj.trim() !== '');
       await city.evaluate(() => { try { phoneClose(); } catch (e) { } });
