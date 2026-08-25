@@ -4659,6 +4659,25 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V179 THE EYES ON YOU (RF4-53 layer 2) =====================
+   The pixels are proved in a browser by fight_moves_you_gate. Pinned here: that
+   it reads the game's own predicate, that it is an ELLIPSE, and that it draws
+   under the body rather than over his art. */
+  ok('V179 RF4-53 IT IS THE GAME\'S OWN ANSWER, DRAWN: the ring reads seesMe(), the same predicate V165 already runs the bead, the volley, the press, the shout and the spotter\'s pin on. A second definition of "he can see me" drawn beside the first is exactly how a readout and a rule drift apart -- this one cannot disagree with the fight, because it IS the fight',
+    /_eyes=seesMe\(e\);/.test(demo) && /if\(EYES_RING&&!e\.dead&&!e\.downed\)\{/.test(demo));
+
+  ok('V179 AND IT IS AN ELLIPSE, NOT A CIRCLE (45 DEGREE ART LAW): the ground is seen at the world\'s three-quarter view, so a ground mark is squashed on the same axis and in roughly the same proportion as the shadow already under his feet. A true circle would be the one thing on this board lying flat against the camera',
+    /x\.ellipse\(ex,ey\+er\*0\.66,er\*1\.15,er\*0\.42,0,0,7\);/.test(demo));
+
+  ok('V179 AND IT DRAWS UNDER THE BODY, before drawEnemySprite, so it marks the ground he stands on and covers no pixel of his art. RIG CHECK is not a formality here -- a mark painted OVER a character is a mark painted over somebody\'s painted regions',
+    demo.indexOf('_eyes=seesMe(e);') < demo.indexOf('if(!drawEnemySprite(x,e,ex,ey,nowMs)){'));
+
+  ok('V179 AND IT HAS A DARK SEAT UNDER THE BRIGHT LINE, which is a correction and not decoration: the first write was one hairline at 0.55 alpha -- correct, squashed, in the right place, and at the zoom he actually plays it barely read at all. Same lesson as V170\'s smoke, which shipped too pale and had to be darkened after somebody looked at it',
+    /rgba\(24,20,16,0\.55\)/.test(demo) && /rgba\(240,232,208,0\.95\)/.test(demo));
+
+  ok('V179 AND IT IS A [DIAL] HE CAN SWITCH OFF, because a permanent overlay nobody asked for is not information, it is furniture',
+    /const EYES_RING=true;/.test(demo));
+
 /* ===== V177 THE BREACHER (RF4-28) ================================
    The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
    the shape, and the fact that the mechanic he drives had no reachable caller. */
