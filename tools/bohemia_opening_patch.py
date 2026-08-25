@@ -106,7 +106,23 @@ JS = JS_BEGIN + '''
    whole point of the 8/12 law and it was only half done while the opening was
    a tab nobody's run ever entered. */
 var OPEN_SEEN_KEY = 'bohemia.opening.seen.v1';
+/* *** WHERE THEY GOT TO, BECAUSE THE FLAG WAS BEING SPENT TOO EARLY. ***
+   MEASURED 8/25 on the real surface: openRaid marked the opening SEEN at the
+   raid, roughly 65 seconds in, with three of the sequence's four scenes still
+   unplayed. Close the app during the grief dinner and come back and you are not
+   offered it, nothing is playing, the flag is spent, and there are zero saves --
+   the last room, the grief dinner and the burial GONE with no way back to them.
+   That is the whole emotional payload of the opening lost to a phone call.
+   THE RULE IS: YOU HAVE SEEN THE OPENING WHEN YOU HAVE SEEN THE OPENING. The
+   seen flag now belongs to openDone alone, and this bookmark carries the place
+   so an interrupted sequence RESUMES rather than replaying 26 beats or vanishing. */
+var OPEN_AT_KEY = 'bohemia.opening.at.v1';
 var OPEN_PLAYER = null, OPEN_RUNNING = false;
+/* true from openStart until openDone, ACROSS the fight -- OPEN_RUNNING goes
+   false while combat has the screen, so it cannot answer "is a sequence in
+   flight". This is what stops the invite offering the opening mid raid, which
+   is the job the seen flag was wrongly doing. */
+var OPEN_MIDFLIGHT = false;
 
 /* THE ONE SCENE THE GAME OPENS WITH. Not "whatever is selected in the CUTSCENE
    tab" -- the opening is a fixed thing, found by the scene's own act/order
@@ -228,11 +244,27 @@ function openHasProgress(){
    -- somebody mid-story is not at the beginning, and being shown the beginning
    would read as a bug rather than as drama. */
 function openShould(){
+  if(OPEN_MIDFLIGHT) return false;          /* already in flight this session */
   try { if(localStorage.getItem(OPEN_SEEN_KEY)) return false; } catch(_e){ return false; }
-  if(openHasProgress()) return false;
+  /* AN UNFINISHED OPENING IS NOT PROGRESS. openHasProgress asks "are they
+     mid-story in the DAY"; somebody who stopped inside the cutscene has a
+     bookmark and no day, and they are exactly who this is for. */
+  if(!openUnfinished() && openHasProgress()) return false;
   return !!(typeof BohemiaStorySurface !== 'undefined' && openWhich());
 }
 function openMarkSeen(){ try{ localStorage.setItem(OPEN_SEEN_KEY,'1'); }catch(_e){} }
+/* the bookmark: the scene that was playing when they stopped. Written by
+   openPlay for every scene, cleared only when the sequence truly ends. */
+function openMarkAt(id){ try{ localStorage.setItem(OPEN_AT_KEY, String(id||'')); }catch(_e){} }
+function openClearAt(){ try{ localStorage.removeItem(OPEN_AT_KEY); }catch(_e){} }
+function openUnfinished(){
+  try {
+    if(localStorage.getItem(OPEN_SEEN_KEY)) return null;
+    var id = localStorage.getItem(OPEN_AT_KEY);
+    if(!id) return null;
+    return openSceneById(id) ? id : null;   /* a bookmark to a scene that no longer exists is not a bookmark */
+  } catch(_e){ return null; }
+}
 
 function openCaption(s, ended){
   var cap=document.getElementById('openCap'); if(!cap) return;
@@ -254,7 +286,11 @@ function openCaption(s, ended){
 function openDone(){
   if(!OPEN_RUNNING) return;
   OPEN_RUNNING=false;
+  OPEN_MIDFLIGHT=false;
+  /* THE ONLY PLACE THE FLAG IS SPENT. It used to be spent in openRaid as well,
+     which meant "seen" became true with three scenes still to play. */
   openMarkSeen();
+  openClearAt();
   try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
   var w=document.getElementById('openWrap'); if(!w) return;
   w.style.transition='opacity .45s'; w.style.opacity='0';
@@ -304,6 +340,7 @@ function openStart(){
     return;
   }
   OPEN_RUNNING=true;
+  OPEN_MIDFLIGHT=true;
   var host=openHost();
   if(host && w.parentElement!==host){
     if(getComputedStyle(host).position==='static') host.style.position='relative';
@@ -316,7 +353,11 @@ function openStart(){
      difference between an opening that starts in a second and one that makes a
      demo player stare at a black rectangle while six rigs rebuild. */
   cutBoot(function(){
-    var sc=openScene();
+    /* PICK IT UP WHERE THEY LEFT IT. A bookmark means they started the sequence
+       and did not finish it; replaying 26 beats they already sat through is its
+       own way of losing their time. Canon start when there is no bookmark. */
+    var at = openUnfinished();
+    var sc = at ? openSceneById(at) : openScene();
     if(!sc){ openDone(); return; }
     openPlay(sc);
   });
@@ -366,7 +407,11 @@ function openRaid(h, fromId){
   if(typeof fn !== 'function') return false;
   if(typeof showTabPanel !== 'function') return false;
   openHideOverlay();
-  openMarkSeen();               /* he has seen the opening; it must not replay */
+  /* NOT openMarkSeen(). The raid is the MIDDLE of the sequence, and marking it
+     seen here is what threw away the last room, the grief dinner and the burial
+     for anybody who stopped during them. OPEN_MIDFLIGHT keeps the invite quiet
+     while the fight has the screen, which is the only thing the mark was
+     actually needed for. */
   OPEN_RUNNING = false;
   var resumed = false;
   function resume(){
@@ -422,6 +467,8 @@ function openPlay(sc){
   if(!sc || !cv) { openDone(); return false; }
   try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
   OPEN_RUNNING=true;
+  OPEN_MIDFLIGHT=true;
+  openMarkAt(sc.id);        /* where they are, in case the phone rings */
   /* *** THE OVERLAY MUST FOLLOW THE LIVE PANEL ON EVERY SCENE, NOT JUST THE
      FIRST. *** openStart parents it to whatever panel is live when the opening
      begins; openPlay only set display, so the second scene of the sequence

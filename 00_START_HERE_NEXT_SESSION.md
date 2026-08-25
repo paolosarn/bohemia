@@ -1,3 +1,87 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (g) LATEST -- *** SWEEP 20. EVERY
+PLAYER GETS THE SAME VALLEY FOREVER, AND IT IS ONE LINE. Nothing to judge.
+READ-BACK (sweep 18's synthesis-by-receiver, applied to myself): FROM THE HANDOFF
+I TOOK -- SOUND already answered my SILENT-1 in under two hours and CORRECTED ME
+THREE WAYS; PEOPLE built households twice, reverted them and found M5 was built
+on a false premise; WORLD has rule number one green for the first time; somebody
+measured 24 seconds of load on a REAL PHONE. ***
+
+*** A ROUTED LANE CHECKED MY WORK AND WAS RIGHT. RECORDED, NOT BURIED. ***
+SOUND classified 61 sounds against a test sharper than the one I gave them ("if
+he cannot hear it, does he MISS A STATE CHANGE HE HAS TO ACT ON") and returned
+11 INFORMATION / 50 ATMOSPHERE / 3 with no twin at all. Three corrections:
+  1. done_ring, which I named as one of the three information cues, IS A CORPSE
+     -- 0 up / 5 down, no approved sound, the SFX died 10 for 10 across two ids.
+     A twin for it would have been work spent in another lane on something the
+     player will never hear.
+  2. phone_buzz already has a twin (the badge), so it was never one of the three.
+  3. MY SCOPE WAS WRONG. I wrote "a one-column pass over the rack", and the rack
+     is the SFX engine -- but the most information-dense sounds in this game are
+     STINGS, not SFX. taken / paid / done / missed are pure state change and a
+     pass that walked only the SFX table would have missed STING:missed entirely.
+THE REAL THREE ARE: save_chime (the run was written -- exactly what a person
+checks before putting the phone down), ui_deny (YOU CANNOT DO THAT -- a refusal
+with no sound is indistinguishable from A BROKEN BUTTON, so it does not just lose
+information, it teaches the wrong thing), and STING:missed (the job went
+unfinished -- the quietest failure in the game; nothing announces the day ended
+with the work undone, he just wakes up on day two).
+That is a better answer than the one I routed, and the lane got there by refusing
+to treat a routed task as exempt from being checked. RUN SILENT-2 should build
+against SOUND's three, not mine.
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift and collisions nobody inside a lane can see, guards the demo path, routes
+  work. Never writes engine/tools/gates/slices code.
+  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
+  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived FIVE times with the
+  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
+
+IN FLIGHT
+  Nothing half-built. Seven sweeps closed, each a record plus routed rows.
+
+BLOCKED ON
+  Nothing for me. Unclaimed, all cheap:
+    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
+    SHARED -10  two hostnames the proxy blocks; until then NO session in this
+                fleet can run a gate in WebKit, the only engine iPhones use
+    SHARED -11  the names gate, pairs with WORLD NAMES-1
+    SHARED -12  make handoff_gate about the law it is named after
+    RUN 0f + P0-MORNING  the friends round returns nothing without them
+
+WHAT I WOULD DO NEXT
+  Sweep 21 on the next "sweep". Standing watch: RUN 0f and P0-MORNING before
+  anybody is invited, and NOBODY SWITCHES THE SEED ON MID-ROUND (see SEED-1).
+
+PROOF -- seven sweeps, each with numbers, sources and confidence stated:
+  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
+    sweep 14, twice amended since: one tester plays MUTED, and EVERY tester
+    plays the canonical valley.
+  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
+    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
+  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
+    HIS RULING, LOCKED. Three registers; the mix is mandatory.
+  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
+    sweep 16. 201 chromium.launch, 0 webkit.
+  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
+    sweep 17. Routed WORLD NAMES-1, SHARED -11.
+  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
+    sweep 18. Routed SHARED -12. This entry is that format.
+  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
+    sweep 19. The data killed the big version of my thesis (~73% play with sound
+    ON) and SOUND then corrected the small version. Both recorded.
+  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
+    sweep 20, this one. const BOH_SEED_TEXT='bohemia' contradicts his LOCKED
+    8/4 law "different seed, different valley = the comeback engine". The engine
+    ALREADY splits fixed skeleton from procedural fill, so his law is a built
+    feature with its input welded shut. Routed WORLD SEED-1 + SEED-2/seed_gate.
+    THE COST STATED HONESTLY: 379 gates, 23 demo claims, every dossier and every
+    thumb he has ever given ran on ONE seed -- including WORLD's "rule number one
+    is green", today. Turning the seed on exposes a surface with zero evidence.
+    So: build it now, switch it on AFTER round 1.
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/25 (a) LATEST -- *** EVERY DISTRICT IN THE VALLEY HAS A WAY IN NOW.
 RULE NUMBER ONE has been RED on main since the day Paolo made it a law on 7/31, and it is
 GREEN. Four districts a car could not drive into are fixed, and the dead-code debt goes
@@ -102,68 +186,6 @@ exactly like a thing that was never built. That is the entire reason dead_code_g
 drive_network_gate exist, and this week they have paid for themselves several times over.
 
 ---
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
-EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
-built). Nothing to judge. ***
-
----
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (e) LATEST -- *** SWEEP 18. THE
-HANDOFF IS 63,979 LINES AND NOBODY READS IT. Nothing to judge.
-THIS ENTRY IS THE NEW FORMAT, DEMONSTRATED ON THE ONLY ENTRIES I OWN: sweeps
-14-17 used to be four blocks and 321 lines here. They are now five links, because
-every one of them already lives in a permanent records/ file. ***
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift and collisions nobody inside a lane can see, guards the demo path, routes
-  work. Never writes engine/tools/gates/slices code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  His SPANGLISH ruling is law (fdb5eaa) and has now been re-sent twice with the
-  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
-
-IN FLIGHT
-  Nothing half-built. Five sweeps closed, each as a record plus routed rows.
-
-BLOCKED ON
-  Nothing for me. Three routed rows are unclaimed and all three are cheap:
-    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
-    SHARED -10  two hostnames the proxy blocks, which is why no session in this
-                fleet can run a gate in WebKit
-    SHARED -11  the names gate, pairs with WORLD NAMES-1
-
-WHAT I WOULD DO NEXT
-  Sweep 19 on the next "sweep". Standing watch: whether RUN picks up 0f (the
-  feedback card) and P0-MORNING before anyone is invited to the friends round --
-  that round returns nothing without them, and first impressions spend once.
-
-PROOF -- the five sweeps, each with its numbers, sources and confidence stated:
-  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14. The demo plays and is gated; the friends round would return nothing.
-    RUN 0f was never built and the first morning points at the wrong door.
-    Routed: RUN 0f re-tagged PLAYTEST-BLOCKING, RUN P0-MORNING.
-  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. A Vegas with 418,400+ Spanish speakers had zero. The words book
-    holds 1,910 lines and none knows its language. Routed: PEOPLE LANG-1,
-    QUESTS LANG-2 + language_gate. Collision audit: 4 lanes in CITY_WORLD ->
-    SHARED -9.
-  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, 8/25, LOCKED. Three registers and the mix is mandatory; register
-    2 is a SKILL, not a gap. Never phonetic accent spelling. LANGUAGE NEVER GATES
-    REQUIRED INFORMATION. In CLAUDE.md and the canon index.
-  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit, WebKit not installed -- and on an
-    iPhone outside the EEA every browser is WebKit. Green gates prove it works in
-    Chrome. Routed: RUN WEBKIT-1, RUN WEBKIT-2, SHARED -10.
-  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. The two icons he killed on 8/20 were drawing a category, because
-    the Strip has no names. The law is mostly on our side and I said so instead
-    of using a scarier version. Routed: WORLD NAMES-1, SHARED -11.
-  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18, this one. Routed: SHARED HANDOFF-1.
-
-================================================================================
 
 CHARACTER (character-0lurbs): 8/25 (b) LATEST -- *** P0-PROFILE: THE HAIR WAS IN FRONT
 OF HIS FACE. He was right, and it is one defect, and it is fixed. ***
@@ -3328,7 +3350,52 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 LATEST -- *** THE DEMO'S FIRST TEN MINUTES NOW HAVE
+PEOPLE (people-7h9sfy): 8/25 LATEST -- *** A PHONE CALL DURING THE GRIEF DINNER
+WAS DELETING THREE OF THE OPENING'S FOUR SCENES, PERMANENTLY. FIXED, AND IT NOW
+PICKS UP WHERE YOU LEFT IT. TAB RUN. ***
+
+Chased the number the previous turn measured and did not stop on (`save rows: 0`
+after 164s of story) and it led somewhere worse. openRaid called openMarkSeen()
+at the handoff to the FIGHT:
+
+    standing in the raid  seen=TRUE      <- 65s in, 1 of 4 scenes played
+    force quit mid grief dinner, reopen, tap RUN:
+      offered again false | playing nothing | still seen | 0 saves
+
+THE LAST ROOM, THE GRIEF DINNER AND THE BURIAL GONE WITH NO WAY BACK -- the whole
+emotional payload of Act 1, lost to an interruption on a demo player's first run,
+and starting over does not return it because the flag says they have seen it.
+
+THE MARK WAS NOT CARELESS, IT WAS THE WRONG TOOL. Its own comment names a real
+concern (OPEN_RUNNING is false during the raid, so nothing stopped the invite
+offering the opening over the fight). But the seen flag is a PERMANENT
+CROSS-SESSION statement spent to solve a ten-second in-session problem.
+  OPEN_MIDFLIGHT  openStart -> openDone, ACROSS the fight: "is a sequence in flight"
+  OPEN_AT_KEY     the bookmark: which scene was playing when they stopped
+  seen            openDone ALONE, which also clears the bookmark
+openStart resumes from the bookmark instead of the top; a bookmark to a scene that
+no longer exists is resolved through openSceneById before it is trusted. Fixed at
+the GENERATOR, never in the alpha it writes.
+
+opening_gate 53 -> 63. AND ONE CLAIM OF MINE WAS DEFENDING THE BUG: "WATCHING IT
+THROUGH COUNTS AS SEEN" sampled at the raid and passed ONLY BECAUSE the flag was
+being spent early. A CLAIM THAT GOES GREEN ONLY WHILE THE DEFECT EXISTS IS WORSE
+THAN NO CLAIM. It now reads THE SEEN FLAG IS NOT SPENT MID SEQUENCE.
+
+MUTATIONS: MI (put the shipped bug back) 5 RED including "AN INTERRUPTED OPENING
+IS STILL THERE WHEN THEY COME BACK"; MJ (no bookmark) 2 RED, replays from the top.
+
+WATCH THE STAMP WHEN YOU REBASE: another lane had shipped 8/25r while I verified,
+and my resolved stamp was 8/25p -- keeping it would have moved the stamp BACKWARDS.
+Took 8/25s. The letters are not monotonic across lanes; read main's before picking.
+
+COST: opening_gate is now the heaviest in the suite at ~6 min (it plays the whole
+opening twice, once to the day and once interrupted).
+
+Record: records/BOHEMIA_YOU_HAVE_SEEN_IT_WHEN_YOU_HAVE_SEEN_IT_8_25_26.md
+
+---- PREVIOUS (8/25, same day) ----
+*** THE DEMO'S FIRST TEN MINUTES NOW HAVE
 A MACHINE BEHIND EVERY LINK, INCLUDING THE LAST ONE: THE STORY ENDS AND HANDS YOU
 A PLAYABLE DAY. 164 SECONDS, TAP TO STANDING IN IT. TAB RUN. ***
 
@@ -44757,7 +44824,74 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (a) LATEST -- *** THE WORLD SURVIVES WITHOUT ITS ART. Block all
+WORLD (city-1eztay): 8/25 (b) LATEST -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
+number this lane ever produced was LOCALHOST. Throttled to weak 4G, a friend who taps at once
+waits 24.2s for the world. Gated. And the fix is no longer a guess -- it is measured, with a
+probe that finally passes its own control. ***
+Gates: TIME TO PLAY 13/0 (all three ceilings mutation-tested), WALKED SURFACE 11/0
+(8,595 / 93.3% / 99.9%, unmoved).
+
+FIRST, THE INSTRUMENT, BECAUSE YESTERDAY'S LIED. Enumerated every canvas with a real pixel
+checksum: `cv` 378x779 is THE WORLD and its sum MOVES when the art is removed
+(1170979137 -> 2766964240); `modeFace` correctly does not. THE CONTROL PASSES.
+YESTERDAY'S BUG, NAMEABLE NOW: I compared `toDataURL(...).slice(-64)` -- THE LAST 64
+CHARACTERS OF A PNG DATA URL, the tail of a compressed stream, which matched for three
+visibly different worlds. Two more fixes were needed for an honest reading: the DAY 1 card
+sits OVER the canvas so it must be dismissed first, and the SERVICE WORKER fetches
+navigations itself so page-level interception never fires until it is blocked.
+
+THE ANSWER: with `defer` on chunks 2..N --
+    normal   families=24  worldsum=1170979137  errors=0
+    defer    families=24  worldsum= 188303220  errors=0
+    blocked  families= 0  worldsum= 188303220  errors=0
+    CONTROL normal vs blocked differ? true | defer===normal? FALSE | defer===blocked? TRUE
+THE DEFERRED ART ARRIVES (all 24 families, zero errors) AND THE WORLD IS DRAWN WITHOUT IT.
+The mechanism is one line, at CITY:25376:
+    const TP_IMG = {};
+    for(const k in TP_TILES){ TP_IMG[k]=TP_TILES[k].map(b=>{...new Image()...}); }
+    const TP_CATS = Object.keys(TP_TILES);
+TP_IMG and TP_CATS are baked ONCE AT PARSE TIME. Deferred scripts run after, so they bake
+from an empty object and stay empty forever. Progressive loading needs a RE-BAKE AND A
+REDRAW, not just a `defer` attribute.
+
+AND THEN THE NUMBER THAT IS ACTUALLY ABOUT A PERSON. All of 40.48 MB / 32.38 MB / 2.65 MB was
+LOCALHOST -- right for counting bytes, useless for "how long does he stare at it". Throttled:
+    connection   taps at once   reads splash 8s
+    good 4G          9.2 s           2.3 s
+    weak 4G         24.3 s          16.3 s
+THE SPLASH WARM-UP IS REAL -- it is the whole difference between those columns. BUT IT ONLY
+HELPS A PLAYER WHO WAITS, and the splash appears in 0.8s so he has every reason to tap at
+once. Yesterday's 12x was measured on a machine where the download had already finished; on a
+phone it is worth ~7s good / ~8s bad. Worth having. NOT the end of the job.
+
+SHIPPED: time_to_play runs a THIRD boot under Network.emulateNetworkConditions at
+3 Mbit / 150 ms (the conservative end of weak 4G, not its headline), taps immediately, waits
+for the world's canvas:
+    ON A WEAK 4G PHONE, TAPPING AT ONCE: splash 0.8s, world 25.0s, WAIT AFTER THE TAP 24.2s
+Two claims: the world must APPEAR AT ALL, and the wait is held at 30s and only comes down.
+Mutation-tested at 5s -- fails and names the measured 24.2s. SIZING A WAIT OFF A HEADLINE
+BANDWIDTH NUMBER IS HOW YOU SHIP A DEMO THAT ONLY WORKS IN THE OFFICE.
+
+BUILD STAMP NOT MOVED: nothing a player sees changed. This turn bought a number and an
+instrument.
+
+NEXT IN THIS LANE -- #1 IS ONE JOB NOW, NOT AN OPEN QUESTION
+  1. RE-BAKE AND REDRAW WHEN THE ART LANDS. Blocker named, line quoted, payoff measured: the
+     world would appear off CHUNK 1 ALONE -- 1.75 MB instead of 28 -- roughly TWO SECONDS
+     INSTEAD OF TWENTY-FOUR on a weak phone. The shape:
+       a. `defer` chunks 2..N (the world already survives this, and that is GATED).
+       b. After the last chunk, rebuild TP_IMG and refill TP_CATS (it is `const`, so
+          length=0 then push, NEVER a re-bind), plus whatever the other seven banks bake at
+          parse time -- FIND THEM ALL FIRST, that survey is NOT done.
+       c. Force one redraw.
+       d. Prove it with the probe in the record: defer===normal, control passing.
+     Then LOWER THE 30s CEILING to whatever it measures. That is the point of the ratchet.
+  2. Cluster seam for golf/railyard/landfill/farm -- open, correct, 19 cells.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_TWENTY_FOUR_SECONDS_ON_A_REAL_PHONE_8_25_26.md
+
+WORLD (city-1eztay): 8/25 (a) -- *** THE WORLD SURVIVES WITHOUT ITS ART. Block all
 26 MB of sprites and the city still renders a PLAYABLE world with ZERO errors. Yesterday the
 same test was a black screen and a ReferenceError. Gated. ***
 Gates: TIME TO PLAY 11/0 (mutation-tested), WALKED SURFACE 11/0 (8,595 / 93.3% / 99.9%,

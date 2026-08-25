@@ -447,12 +447,21 @@ function pw() {
       JSON.stringify(laterCards.slice(0, 3)) + ')',
       !scene || scene.cuts === 0 || laterCards.length >= 2);
 
-    /* THE ONE THAT WOULD HAVE BITTEN A DEMO PLAYER. openDone marks seen; so does
-       the raid path. If either had forgotten, the person who watched the whole
-       opening would be offered it again tomorrow while the person who skipped it
-       never would -- exactly backwards. */
-    ok('WATCHING IT THROUGH COUNTS AS SEEN - it never ambushes the patient player again',
-      played.seen === true);
+    /* *** THE FLAG IS NOT SPENT IN THE MIDDLE OF THE STORY. ***
+       This claim used to read "watching it through counts as seen" and sampled
+       HERE, at the handoff to the raid -- which passed only because openRaid was
+       marking the opening seen roughly 65 seconds in, with three of its four
+       scenes still unplayed. MEASURED 8/25: close the app during the grief dinner
+       and come back, and you are not offered it, nothing plays, the flag is spent,
+       and the last room, the grief dinner and the burial are GONE. The claim was
+       encoding the bug.
+       So it now guards the fix instead: A STORY THAT IS NOT OVER HAS NOT BEEN
+       SEEN. Whoever re-adds openMarkSeen to the raid path turns this red. The
+       original meaning is kept, correctly sampled, by "having watched the whole
+       thing, it never asks again" at the end of this block. */
+    ok('THE SEEN FLAG IS NOT SPENT MID SEQUENCE - the story is not over yet',
+      played.seen === false,
+      'marking it seen at the raid throws away every scene after the fight for anybody who stops');
     ok('and it leaves you on a live surface with real area, not a black rectangle (' +
       played.w + 'x' + played.h + ')', played.w > 200 && played.h > 200);
 
@@ -690,7 +699,87 @@ function pw() {
       ok('and that surface is the one the RUN tab shows (' + out.panel + ', tab ' + out.tab + ')',
         out.tab === 'run');
       ok('and having watched the whole thing, it never asks again', out.seen === true);
+      ok('and the bookmark is put away when the story is actually over',
+        await page.evaluate(() => !localStorage.getItem('bohemia.opening.at.v1')),
+        'a stale bookmark would offer a finished story back to somebody who finished it');
     }
+  }
+
+  /* ---- 6. THE PHONE RINGS DURING THE GRIEF DINNER ------------------------
+     *** THE OPENING USED TO SPEND ITS OWN FLAG 65 SECONDS IN. *** openRaid
+     called openMarkSeen at the handoff to the fight, with three of the
+     sequence's four scenes unplayed. MEASURED 8/25: stop during the grief
+     dinner, come back, and you are not offered it, nothing is playing, the flag
+     is spent and there are no saves. The last room, the grief dinner and the
+     burial were GONE with no way back -- the entire emotional payload of the
+     opening, lost to a phone call, on a demo player's first run.
+
+     THE RULE IS: YOU HAVE SEEN THE OPENING WHEN YOU HAVE SEEN THE OPENING. This
+     drives the interruption for real -- play in, stop mid sequence, RELOAD THE
+     PAGE the way a force quit does, and demand the story is still reachable and
+     picks up where it stopped rather than replaying beats they already sat
+     through. Nothing here reads a flag it did not watch being written. */
+  {
+    const { page, errs } = await boot();
+    await enter(page);
+    await tapRun(page);
+    await SETTLE(page, 2500);
+    await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
+    await SETTLE(page, 150000, async () => await page.evaluate(() =>
+      !!(typeof G !== 'undefined' && G && G.encounter && typeof G.encounter.onEnd === 'function')));
+
+    ok('THE FLAG IS STILL UNSPENT WHEN THE RAID TAKES THE SCREEN',
+      await page.evaluate(() => !localStorage.getItem('bohemia.opening.seen.v1')),
+      'this is the exact moment it used to be spent, and what it cost was every scene after');
+    ok('and the invite does not offer the opening while it is already in flight',
+      await page.evaluate(() => {
+        try { return typeof openShould === 'function' ? openShould() === false : true; }
+        catch (_x) { return false; }
+      }), 'OPEN_MIDFLIGHT does this job now; it used to be done by spending the seen flag');
+
+    await page.evaluate(() => { const e = G.encounter; if (e && e.onEnd) e.onEnd('encounter-won'); });
+    const midId = await page.evaluate(() => {
+      /* whatever the sequence moves to after the fight, read off the page */
+      try { return openNext(openScene()) ? (openNext(openScene()).then || null) : null; }
+      catch (_x) { return null; }
+    });
+    await SETTLE(page, 90000, async () => await page.evaluate(
+      id => { try { return !!(OPEN_PLAYER && OPEN_PLAYER.scene && (!id || OPEN_PLAYER.scene.id === id)); }
+              catch (_x) { return false; } }, midId));
+    const stopped = await page.evaluate(() => ({
+      scene: (OPEN_PLAYER && OPEN_PLAYER.scene) ? OPEN_PLAYER.scene.id : null,
+      bookmark: localStorage.getItem('bohemia.opening.at.v1')
+    }));
+    ok('THE GAME REMEMBERS WHERE THEY GOT TO (' + stopped.bookmark + ')',
+      !!stopped.bookmark && stopped.bookmark === stopped.scene);
+
+    /* the force quit */
+    await page.reload();
+    await SETTLE(page, 3500);
+    await enter(page);
+    await tapRun(page);
+    await SETTLE(page, 4000);
+    const back = await page.evaluate(() => {
+      const i = document.getElementById('openInvite');
+      return {
+        offered: !!i && getComputedStyle(i).display !== 'none',
+        seen: !!localStorage.getItem('bohemia.opening.seen.v1')
+      };
+    });
+    ok('AN INTERRUPTED OPENING IS STILL THERE WHEN THEY COME BACK', back.offered === true,
+      'the last room, the grief dinner and the burial are the payload; losing them to a phone call is the bug this guards');
+    ok('and it has still not been marked seen, because they have not seen it', back.seen === false);
+
+    await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
+    await SETTLE(page, 60000, async () => await page.evaluate(() => {
+      try { return !!(OPEN_PLAYER && OPEN_PLAYER.scene); } catch (_x) { return false; } }));
+    const resumed = await page.evaluate(() =>
+      (OPEN_PLAYER && OPEN_PLAYER.scene) ? OPEN_PLAYER.scene.id : null);
+    ok('AND IT PICKS UP WHERE THEY LEFT IT (' + resumed + '), not 26 beats from the top',
+      resumed === stopped.scene,
+      'replaying what they already sat through is its own way of taking their time');
+    ok('nothing threw across the interruption', errs.length === 0, errs.slice(0, 2).join(' | '));
+    await page.close();
 
     ok('and nothing threw across the whole opening', errs.length === 0, errs.slice(0, 2).join(' | '));
     await page.close();

@@ -402,6 +402,88 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      FRONT.ahead + ' pixels ahead of the face, worst ' + FRONT.worst + 'px' +
      (FRONT.bad.length ? ': ' + FRONT.bad.join(', ') : '') + ')', FRONT.ahead === 0);
 
+  /* *** HAIR AT FOUR TIMES THE PIXELS (Paolo 8/25, LOCKED). ***
+     "we made the character model 4x and i feel like with especially the hair your still
+      playing with the orignal pixels. not the pixels that are now 1 pixel because we made
+      the canvas 4x bigger you know."
+     laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md
+
+     CLAUSE 2, MEASURED: every canon style must carry at least one ONE-PIXEL mark INSIDE
+     its own silhouette. Not the outline -- the outline got a one-pixel step on 8/21 and
+     that is not the haircut. A mark is a run of one colour with a different hair colour
+     on BOTH sides: a strand, a parting, a fade step.
+     BEFORE THE STRAND PASS: 9 of 15 styles had NO one-pixel mark anywhere inside them.
+     Thinnest internal feature was 8px on SLICK BACK, BOWL CUT and SHAG -- solid blocks
+     with a shaded rim and nothing in between.
+     NOT A DEMAND FOR NOISE. A buzz cut is allowed to be nearly solid. What is forbidden
+     is a generator that CANNOT express a one-pixel mark, because that one is still
+     drawing at 56 whatever the canvas says.
+
+     CLAUSE 1, MEASURED: a haircut is one haircut from every angle. genHair branches hard
+     on back/profile/front and each branch was written at a different time for a different
+     complaint -- nothing has ever asserted the three agree. Turning the head one notch may
+     change how the hair LOOKS but not WHAT IT IS, so the hair's own area may not jump
+     between adjacent facings. */
+  const NAT = await pg.evaluate(() => {
+    const H = (window.GARMENTS || []).filter(g => g.st === 'canon' && g.layer === 'hair');
+    const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+    const noFine = [], swing = [];
+    const area = {};
+    for (const d of DIRS) {
+      if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
+      const f = buildFrame(d, 'idle', 0);
+      for (const h of H) {
+        let o = null; try { o = h.gen(f.grid, f.CW, f.CH); } catch (e) {}
+        if (!o) continue;
+        (area[h.n] = area[h.n] || {})[d] = Object.keys(o).length;
+        if (d !== 'S') continue;
+        /* one-pixel marks inside the silhouette, front facing */
+        const rows = {};
+        for (const k in o) { const i = +k, y = (i / f.CW) | 0; (rows[y] = rows[y] || []).push(i % f.CW); }
+        let one = 0;
+        for (const y in rows) {
+          const xs = rows[y].sort((a, c) => a - c);
+          let st2 = 0;
+          for (let n = 1; n <= xs.length; n++) {
+            const cont = n < xs.length && xs[n] === xs[n-1] + 1 &&
+              o[y * f.CW + xs[n]].join() === o[y * f.CW + xs[st2]].join();
+            if (cont) continue;
+            const L2 = o[y * f.CW + xs[st2] - 1], R3 = o[y * f.CW + xs[n-1] + 1];
+            const me = o[y * f.CW + xs[st2]].join();
+            if (L2 && R3 && L2.join() !== me && R3.join() !== me && (n - st2) === 1) one++;
+            st2 = n;
+          }
+        }
+        if (!one) noFine.push(h.n);
+      }
+    }
+    if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
+    /* identity swing: biggest area jump between two ADJACENT facings, as a fraction */
+    for (const n in area) {
+      let worst = 0, pair = '';
+      for (let i = 0; i < DIRS.length; i++) {
+        const a = area[n][DIRS[i]], c = area[n][DIRS[(i + 1) % DIRS.length]];
+        if (!a || !c) continue;
+        const j = Math.abs(a - c) / Math.max(a, c);
+        if (j > worst) { worst = j; pair = DIRS[i] + '->' + DIRS[(i + 1) % DIRS.length]; }
+      }
+      swing.push({ n, worst, pair });
+    }
+    swing.sort((a, c) => c.worst - a.worst);
+    return { noFine, swing: swing.slice(0, 4), worst: swing.length ? swing[0].worst : 0,
+             styles: H.length };
+  });
+  ok('*** CLAUSE 2: every style carries a ONE-PIXEL mark inside it, not just on its edge ***' +
+     ' (' + (NAT.styles - NAT.noFine.length) + '/' + NAT.styles +
+     (NAT.noFine.length ? ' -- STILL DRAWN AT 56: ' + NAT.noFine.join(', ') : '') + ')',
+     NAT.noFine.length === 0);
+  const PINNED_SWING = 0.62;   // biggest hair-area jump between adjacent facings; only shrinks
+  ok('CLAUSE 1: a haircut is one haircut from every angle -- biggest area jump between ' +
+     'adjacent facings is ' + (NAT.worst * 100).toFixed(0) + '% (pinned ' +
+     (PINNED_SWING * 100).toFixed(0) + '%), worst ' +
+     NAT.swing.map(q => q.n + ' ' + q.pair + ' ' + (q.worst * 100).toFixed(0) + '%').join(', '),
+     NAT.worst <= PINNED_SWING);
+
   await b.close();
   done();
 })();

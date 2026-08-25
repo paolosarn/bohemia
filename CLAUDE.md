@@ -255,6 +255,23 @@ research partner. He DECIDES, you PRODUCE.
   A GATE MUST NEVER OUTRANK A RULING, a checker that cannot tell a mention from a use
   is the broken one, fix the ruler never the target, and do not claim things about
   the codebase without checking. Gate: craft_law_gate.js.
+- HAIR AT FOUR TIMES THE PIXELS (Paolo 8/25/26, LOCKED): "we made the character model
+  4x and i feel like with especially the hair your still playing with the orignal
+  pixels. not the pixels that are now 1 pixel because we made the canvas 4x bigger."
+  Same message CLEARED the E/W profile hold ("the side view is a lot better") and
+  opened this. CLAUSE 1: a haircut is ONE haircut from every angle -- turning the head
+  may change appearance, never IDENTITY. CLAUSE 2: draw in the pixels we actually have
+  -- every canon style carries at least one ONE-PIXEL mark INSIDE its own silhouette.
+  MEASURED THE DAY HE SAID IT: 9 of 15 styles had none at all, solid blocks with a
+  shaded rim and nothing in them. *** AND A NUMBER SAID HE WAS WRONG FIRST: an
+  edge-parity audit read 50.9% and meant "already native", because it was measuring
+  the OUTLINE. THE SHAPE IS THE INSIDE. When a metric disagrees with him about his own
+  art, SUSPECT THE METRIC. *** Not a licence for noise -- 8/1 clause 3 still governs,
+  little off shapes, never straight lines, deterministic so an NPC does not shimmer
+  (the first cut drew a ruled bar down the crown and only LOOKING caught it). Never
+  thin a mark he ruled on; ADD marks the finer grid can hold. That method is HIS,
+  approved four-for-four on the fine-detail passes 8/25. Full law:
+  laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md  Gate: hair_gate.js
 - THE BORDER IS ONE PIXEL WHERE HE SEES IT (Paolo 8/14 + 8/15, LOCKED): "the black
   border has to be thinner, like half as thin". CHAR_OUTLINE always drew ONE pixel
   and was always correct -- it just ran BEFORE the Scale2x that takes the frame to

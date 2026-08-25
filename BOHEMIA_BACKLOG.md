@@ -1491,6 +1491,46 @@ WEBKIT-2. *** THE SAFARI CODE WE ALREADY WROTE HAS NEVER BEEN RUN IN
    "forty megabytes before you can move" — in Chrome.
    | the four shipped Safari fixes measured in webkit, pass or fail
    reported honestly | — | no. ***
+SILENT-2. *** BUILD AGAINST SOUND'S THREE, NOT THE THREE I GUESSED —
+   SILENT-1 IS ANSWERED AND IT CORRECTED ME (8/25, commit 512f0e3). 61
+   sounds classified: 11 INFORMATION / 50 ATMOSPHERE / 3 WITH NO TWIN.
+   done_ring is a CORPSE (0 up / 5 down, no approved sound) and phone_buzz
+   already has the badge, so neither is yours. THE THREE ARE:
+     save_chime    THE RUN WAS WRITTEN — nothing anywhere says a save
+                   happened, and it is what a person checks before putting
+                   the phone down.
+     ui_deny       YOU CANNOT DO THAT — a refusal with no sound is
+                   indistinguishable from A BROKEN BUTTON. It does not just
+                   lose information, IT TEACHES THE WRONG THING.
+     STING:missed  THE JOB WENT UNFINISHED — the quietest failure in the
+                   game. Nothing announces the day ended with the work
+                   undone; he just wakes up on day two.
+   DRAW THE TWIN, AND RE-SIZE P0-MORNING AGAINST THE SILENT
+   CASE (sweep 19, 8/25 — records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_
+   8_25_26.md). PAIRS WITH SOUNDS SILENT-1, which names the cues. SOUND
+   CLASSIFIES, RUN DRAWS — neither lane has to learn the other's system,
+   which is the boundary this repo keeps crossing.
+   A SOUND MAY BE THE BEST COPY OF A MESSAGE. IT MAY NEVER BE THE ONLY
+   COPY. Three small pixel events, each with an obvious home already: the
+   phone, the objective line, the save indicator. Not a caption track, not
+   a settings menu, not a tutorial.
+   *** AND THIS CORRECTS AN INPUT TO YOUR OWN P0-MORNING. *** That row is
+   built on this lane's finding that the day's work is behind the PHONE
+   and "the thing pointing at it is one unread badge." THAT MEASUREMENT
+   ASSUMED THE PLAYER COULD HEAR THE BUZZ. For a muted player the badge is
+   not the weakest signifier, it is the ONLY one — so the first morning is
+   strictly worse than measured, and P0-MORNING should be sized against
+   the silent case. The friends round is exactly the situation that
+   produces muting: 5-8 people opening a link wherever they happen to be,
+   with other people around.
+   GATE, SAME TURN — `silent_play_gate`: drive the demo with audio
+   disabled and assert every INFORMATION cue produced a VISIBLE change in
+   the same beat. Mutation test: delete one twin -> red. THE CLAIM MUST BE
+   ABOUT PIXELS, NOT ABOUT A FUNCTION HAVING BEEN CALLED — this lane has
+   spent a month finding finished code with no caller, and a gate that
+   checks the call instead of the pixel is that same bug wearing a badge.
+   | the demo driven muted, every information cue visible | — | no.
+   TAB: RUN. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -1997,6 +2037,74 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+SEED-1. *** HIS LOCKED LAW SAYS "DIFFERENT SEED, DIFFERENT VALLEY" AND A
+   CONSTANT SAYS OTHERWISE (sweep 20, 8/25 — records/BOHEMIA_ONE_VALLEY_
+   FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md).
+   MEASURED, ONE LINE: slices/BOHEMIA_CITY_WORLD.html:20908
+       const BOH_SEED_TEXT='bohemia';
+   and :20910 `let seed=BOH_ONE_SEED()`. Every player, every install,
+   every run, forever, gets the identical valley. A save restores its own
+   stored seed; a player with NO save gets hash('bohemia'). There is no
+   new-run path that rolls one, no seed field, no gate, no backlog row.
+   THE LAW IT CONTRADICTS IS HIS AND IT IS LOCKED. laws/BOHEMIA_ADDENDUM_
+   THE_VALHEIM_SHAPE_8_4_26.md §2, verbatim: "REPLAYABILITY comes from
+   the seed + quest variety... DIFFERENT SEED, DIFFERENT VALLEY, different
+   quest options and facts = the comeback engine." He named the mechanism
+   three weeks ago and the mechanism is welded shut. A live law
+   contradicted by live code is a BUG, not an interpretation choice.
+   YOUR ARCHITECTURE ALREADY DOES WHAT HE ASKED, WHICH IS WHY THIS IS
+   CHEAP: buildOvermap already reads `const fixed=skeleton(x,y,L)` and
+   only calls proceduralDistrict where there is no fixed cell, already
+   threads a per-cell seed, and layoutFromSeed already flips the town
+   sides per seed. THE REAL CITY AND THE PROCEDURAL FILL ARE ALREADY
+   SEPARATE. It is a built feature with its input welded.
+   THE TENSION, RESOLVED RATHER THAN IGNORED: ONE MAP (7/27) is about the
+   phone map and the builder agreeing WITHIN a run — satisfied by
+   threading the run's seed, which the code already does. REALISM FIRST
+   is the real conflict and it decides the shape: there is exactly one Las
+   Vegas. SO THE SPLIT THE ENGINE ALREADY BUILT IS THE LAW — THE SKELETON
+   IS FIXED BECAUSE IT IS A FACT (Strip, I-15, Spaghetti Bowl, downtown,
+   dam, mountains, airport, fort, Springs), THE FILL IS SEEDED. The Strip
+   is always the Strip. Your street is not always your street.
+   AND THE OUTSIDE AGREES TWICE: practitioners' consensus on procedural
+   worlds is HYBRID, not random — Spelunky feels handcrafted because it
+   assembles designed chunks under strict rules with a guaranteed
+   critical path, and "constraints and careful rule design produce better
+   results than pure randomness." And environmental psychology says the
+   driver of attachment to a place is FAMILIARITY, plus routine, ritual
+   and personalisation (Altman & Low) — every one of which is already a
+   Bohemia mechanic (your house, the neighbour one door down, walking the
+   same blocks, the builder). RESHUFFLING THE GEOGRAPHY EVERY RUN WOULD
+   DESTROY THE MECHANISM THAT MAKES HIM LOVE THE VALLEY. Keep the bones.
+   BUILD: a new run rolls a seed; the seed is DISPLAYED and ENTERABLE (he
+   named Valheim, and a seed you can send somebody is the cheapest social
+   feature a world game has); 'bohemia' stays the default everywhere a
+   gate, an art review or a verdict of his looks, so his thumbs stay
+   comparable forever. A new seed is a PLAYER thing, never a test thing.
+   *** DO NOT SWITCH IT ON FOR THE DEMO BUILD UNTIL ROUND 1 IS DONE. ***
+   Build the path, leave the door shut. If five testers each get a
+   different world their quit points are not comparable to each other or
+   to round 2, and comparison is the entire value of the protocol.
+   | a second seed produces a different valley with an identical Strip,
+   and 'bohemia' still boots byte-identical | — | no. TAB: MAP / CITY. ***
+SEED-2. *** THE INVARIANTS GET A GATE BEFORE THE SWITCH, NOT AFTER (sweep
+   20, same record). `seed_gate`: boot N seeds — start at 8 — and assert
+   the things we believe about the valley that have only ever been checked
+   at ONE input: every district has a way in (the landlocked law), no
+   district type lands where that law forbids it, the fixed skeleton is
+   IDENTICAL across all N, and the walkable-land and street-access laws
+   hold per seed. Mutation test: force a landlocked commercial cell on one
+   seed -> red.
+   THE UNCOMFORTABLE PART, AND IT IS THIS LANE'S OWN WIN: you shipped
+   "EVERY DISTRICT IN THE VALLEY HAS A WAY IN: RULE NUMBER ONE IS GREEN
+   FOR THE FIRST TIME" today. It is a real achievement AND IT IS PROVEN ON
+   ONE SEED. The landlocked law exists precisely because generation can
+   strand a cell; whether it holds at seed two is unknown. 379 gates, 23
+   whole-demo claims, every dossier, every approved tile and every thumb
+   he has ever given — all of it on hash('bohemia').
+   EXPECT REDS AND TREAT THEM AS THE POINT. A generator observed at one
+   input is not known to work; it is known to work once.
+   | 8 seeds, invariants asserted, reds reported honestly | — | no. ***
 NAMES-1. *** THE STRIP NEEDS NAMES BEFORE IT NEEDS ART, AND THIS IS THE
    UNBUILT HALF OF PLACES BELOW (sweep 17, 8/25 — records/BOHEMIA_THE_
    STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md). DO THIS FIRST; it
@@ -5981,6 +6089,32 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+SILENT-1. *** SAY WHICH SOUNDS ARE MESSAGES (sweep 19, 8/25 —
+   records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md). SMALL. It
+   is a classification pass, not a cook.
+   READ §1 OF THAT RECORD FIRST, BECAUSE IT CLEARS THIS LANE: I went in
+   suspecting a portrait phone game was pouring effort into a channel
+   most players never turn on. THE DATA SAYS NO. About 73% of mobile
+   players run volume at 10%+, ~78% in the US, and only about 9% play
+   completely silent — and people who mute are not uninterested, ~70%
+   call sound important; they mute because somebody is nearby. THE SOUND
+   INVESTMENT IS NOT WASTED AND THIS ROW ASKS FOR NONE OF IT BACK.
+   WHAT SURVIVES IS THREE CUES. Sound here splits two ways: ATMOSPHERE
+   (neon_buzz, six approved footstep surfaces, the rack, the fight) where
+   silence costs beauty and nothing else — that is most of the 500 — and
+   INFORMATION, where the sound IS the message. The three I can already
+   see in the walked surface: `phone_buzz` (a job just arrived),
+   `done_ring` (the thing you were doing finished), `save_chime` (your run
+   was written to disk). FOR THOSE THREE NOTHING IN THE PIXELS SAYS IT.
+   THE GUIDELINE IS ALREADY ACCEPTED IN THIS REPO, IN THE OTHER CHANNEL:
+   Game Accessibility Guidelines BASIC tier says "ensure no essential
+   information is conveyed by sounds alone", and names SITUATIONAL
+   impairment explicitly — a noisy room, or sound muted. SHARED -6 adopted
+   the sibling rule for COLOUR word for word off the same document and the
+   same tier. WE TOOK ONE AND LEFT THE OTHER.
+   BUILD: one column over the rack, INFORMATION or ATMOSPHERE. Only
+   INFORMATION needs a twin, and only this lane knows the 500. Expect the
+   list to be tiny. | the column exists and the info set is named | — | no.
 REDS. *** TWO OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 —
    laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6):
      SFX RENDER  gates/sfx_render_gate.py — real audio in a real browser
@@ -6122,9 +6256,18 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
-P0-PROFILE. *** EAST AND WEST HAIR IS BROKEN ACROSS THE BOARD, HIS WORDS,
-   AND YOUR OWN GATE ALREADY SAID SO. TOP OF THIS LANE'S QUEUE; ALL HAIR
-   WORK WAITS BEHIND IT (8/20 — records/BOHEMIA_VERDICT_HAIR_ROUND4_
+P0-PROFILE. *** CLEARED 8/25 BY PAOLO HIMSELF: "the side view is a lot
+   better east and west." THE HARD HOLD ON THE 21 UNJUDGED STYLES IS
+   LIFTED. *** The defect was found and fixed on 8/25 (a044733): the hair
+   was drawing IN FRONT OF HIS FACE on the rows his eyes, nose and mouth
+   occupy, 546 stray pixels, zero of 15 styles clean, now zero stray and
+   all 15 clean. Pinned at zero in gates/hair_gate.js and shown to him as
+   one head, not a ballot. He passed the view and in the same breath
+   opened a NEW requirement, which is now P0-HAIRNATIVE below. Do NOT
+   re-ask him about profiles; that question is answered. Kept here for
+   the record only. Everything under this line is history:
+   AND YOUR OWN GATE ALREADY SAID SO. WAS TOP OF THIS LANE'S QUEUE; ALL
+   HAIR WORK WAITED BEHIND IT (8/20 — records/BOHEMIA_VERDICT_HAIR_ROUND4_
    8_20_26.txt). Paolo, round 4: "You really need to tell the character
    chat that EAST AND WEST HAIRSTYLES LOOK LIKE ABSOLUTE DOG SHIT ACROSS
    THE BOARD."
@@ -6155,6 +6298,30 @@ P0-PROFILE. *** EAST AND WEST HAIR IS BROKEN ACROSS THE BOARD, HIS WORDS,
    facings, before any style is shown to him again | — | yes, but ONE
    HEAD FIRST: show him a single style in profile and let him say the
    view is fixed before anything else is queued. ***
+P0-HAIRNATIVE. *** A HAIRCUT IS ONE HAIRCUT FROM EVERY ANGLE, AND CLAUSE 1
+   IS ONLY HALF PROVED. TOP OF THIS LANE'S QUEUE. *** Paolo, 8/25, in the
+   same message that cleared P0-PROFILE: "you just have to be intentional
+   with the hairstyles making them looking good and the same and
+   coordinated from all angles." Law written and gated the same turn —
+   laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md.
+   CLAUSE 2 IS DONE AND MEASURED: 9 of 15 canon styles had no one-pixel
+   mark inside their own silhouette; 0 of 15 now, 47 one-pixel marks -> 820,
+   nothing thinned and no silhouette moved (strandPass in genHair, 8/25q,
+   records/BOHEMIA_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.txt).
+   CLAUSE 1 IS NOT. The identity-swing ratchet pins the worst adjacent-facing
+   area jump at 0.62 and stops it growing. IT DOES NOT PROVE THE THREE
+   genHair BRANCHES AGREE. `back`, `prof` and `front` were written at three
+   different times for three different complaints — the 8/2 profile fix, the
+   back exemption, the front curtain — and NOTHING HAS EVER ASSERTED THEY
+   DESCRIBE THE SAME HAIRCUT. A style that is a mane from the front and a
+   crop from the side has failed however good either view is alone, and that
+   is precisely the failure mode his words name.
+   THE WORK: a per-style identity fingerprint (mass, height, and where the
+   volume sits, colour and absolute size discarded like the city-cast width
+   profile already does) held across all eight facings, with the branches
+   reconciled where they disagree rather than the ratchet loosened.
+   | every canon style's identity holds across all 8 facings, gated, on the
+   real surface | — | no. He already ruled; this is work, not a question. ***
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never

@@ -201,15 +201,20 @@ NEW_FIELDS = """      home: [home[0], home[1]],         // fine-grid cell
 # never group anybody no matter what the population said.
 CITY = 'slices/BOHEMIA_CITY_WORLD.html'
 OLD_ADAPTER = """           home:{building:(p.home?p.home[0]+','+p.home[1]:h-1), bedRoom:0},"""
-NEW_ADAPTER = """           /* """ + MARKER + """ -- THE ADDRESS, NOT THE ROOM. This keyed
-              home.building on the person's own fine cell, which is unique per
-              person by construction, so bohemia_ties' HOME focus -- the
-              strongest tie there is, and the only one that can cross an outfit
-              line -- grouped nobody, and the valley had 298 households of one.
-              p.household is the house; the cell is still their room. Falls back
-              to the old spelling so a roster without households is unchanged. */
-           home:{building:(p.household != null ? p.household
-                            : (p.home?p.home[0]+','+p.home[1]:h-1)), bedRoom:0},"""
+NEW_ADAPTER = """           /* """ + MARKER + """ -- A SEPARATE FIELD, BECAUSE home.building
+              IS LOAD-BEARING FOR MORE THAN TIES. The first cut OVERWROTE it with
+              the household id and G1 went red: 33 people still affiliated, but a
+              DIFFERENT 33, and none of them near the spawn. bohemia_agents reads
+              home.building for its own purposes (line 124 keys a set off it), so
+              changing that string reshuffles things that have nothing to do with
+              who knows whom. THE RATE SURVIVED AND THE IDENTITIES DID NOT, which
+              is exactly the shape that made the cause invisible: the headline
+              number looked unchanged.
+              So home.building is left EXACTLY as it was and the household rides
+              beside it. bohemia_ties reads the new field and falls back to the
+              old spelling, so a roster without households behaves as before. */
+           household: (p.household != null ? p.household : null),
+           home:{building:(p.home?p.home[0]+','+p.home[1]:h-1), bedRoom:0},"""
 
 
 def main():

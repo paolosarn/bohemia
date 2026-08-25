@@ -1,0 +1,150 @@
+BOHEMIA — VERDICT: DISTRICT MAP ICONS, THE FULL BOARD (Paolo, 8/25/26, VOTE tab)
+69 verdicts in one sitting. Where a verdict here differs from the 8/20 file
+(records/BOHEMIA_VERDICT_DISTRICT_MAP_ICONS_8_20_26.txt), THIS FILE WINS:
+newest date wins is the truth hierarchy's own rule.
+
+@VERDICT strip_x NO
+@VERDICT strip NO
+@VERDICT fort YES
+@VERDICT minigp NO
+@VERDICT dam NO
+@VERDICT prison COULD BE BETTER
+@VERDICT convention COULD BE BETTER
+@VERDICT casino COULD BE BETTER
+@VERDICT resort COULD BE BETTER
+@VERDICT cityhall NO
+@VERDICT battery NO
+@VERDICT terminal NO
+@VERDICT downtown COULD BE BETTER
+@VERDICT industrial COULD BE BETTER
+@VERDICT medical YES
+@VERDICT mall NO
+@VERDICT park NO
+@VERDICT warehouse COULD BE BETTER
+@VERDICT commercial COULD BE BETTER
+@VERDICT school COULD BE BETTER
+@VERDICT courthouse COULD BE BETTER
+@VERDICT library NO
+@VERDICT farm NO
+@VERDICT firestation NO
+@VERDICT policestation NO
+@VERDICT solar COULD BE BETTER
+@VERDICT stadium NO
+@VERDICT storage NO
+@VERDICT truckstop COULD BE BETTER
+@VERDICT swapmeet COULD BE BETTER
+@VERDICT rail NO
+@VERDICT interchange NO
+@VERDICT campus NO
+@VERDICT speedway COULD BE BETTER
+@VERDICT town COULD BE BETTER
+@VERDICT ballpark COULD BE BETTER
+@VERDICT chapel YES
+@VERDICT apartment YES
+@VERDICT suburb NO
+@VERDICT trailer NO
+@VERDICT cemetery NO
+@VERDICT jail COULD BE BETTER
+@VERDICT landfill NO
+@VERDICT railyard COULD BE BETTER
+@VERDICT substation YES
+@VERDICT watertreat NO
+@VERDICT waterpark NO
+@VERDICT golf NO
+@VERDICT drivein NO
+@VERDICT boneyard COULD BE BETTER
+@VERDICT wash NO
+@VERDICT freeway NO
+@VERDICT arterial NO
+@VERDICT arterial_x NO
+@VERDICT mountain NO
+@VERDICT desert NO
+@VERDICT water NO
+@VERDICT quarry NO
+@VERDICT gypsum NO
+@VERDICT fueldepot NO
+@VERDICT reservoir NO
+@VERDICT granary NO
+@VERDICT arsenal NO
+@VERDICT datafort COULD BE BETTER
+@VERDICT basin NO
+@VERDICT reclaim NO
+@VERDICT radio NO
+@VERDICT pumpstation NO
+@VERDICT intake NO
+
+HIS BATCH NOTE, VERBATIM:
+"bro not everything needs to be represented with buildings. a park DOESNT
+NEED BUILDINGS IN IT. some buildings by their size will naturally be 2x2
+instead of 1. for example the stadium or moto speedway. probably even the
+casinos too. the streets look like dog shit idk why its so hard to to this
+you keep wanting to add like windows to the streets. EVEN THE MUNTAIN AND
+DESERT YOU TRIED TO MAKE TALL BUUILDINGS BRO ITS MOSTLY BAD. THE SCHOOL
+AGAIN WAS THE MOST IMPRESSIVE BUT YOU STILL HAD THE YELLOW LINES GO MUCH
+FARTHER THEN THEY NEEDED TO MAN CMON"
+
+TALLY: 5 YES (fort, medical, chapel, apartment, substation) ·
+20 COULD BE BETTER · 44 NO.
+
+SUPERSEDES from 8/20 (newest wins):
+- casino, resort: were NO (graveyarded 8/20) -> now COULD BE BETTER. His
+  newest word un-graveyards them: they ship frozen. The 8/20 post-mortem's
+  lesson (do not cook an icon for a place that does not exist) STANDS for
+  fresh cooks; the existing pictures simply ship as-is until the Strip
+  exists as a place.
+- strip, strip_x, minigp, dam: were CBB -> now NO. SECOND REJECTION: per
+  STOP PRODUCING, these four are DEAD FOR THE SESSION. No fresh cook this
+  session. strip/strip_x also stay behind the 8/20 lesson anyway.
+
+================================================================
+THE MECHANISM POST-MORTEM (why 44 died at once, and it is ONE bug)
+================================================================
+VERIFIED ON THE REAL PIXELS before writing this: park, mountain, desert,
+freeway, school, stadium exported and looked at. What he saw:
+- park: the trees are BOXES ON STILTS (read as watchtowers) beside a real
+  two-storey windowed restroom building. A park made of buildings.
+- mountain: concentric stacked prisms = a WEDDING-CAKE ZIGGURAT, reads as
+  a bunker building, not a peak.
+- desert: an 8.6-unit rock "outcrop" = a TOWER; creosote as bright pillars.
+- freeway: 5.0-unit sound walls that the factory's WALL-DRESSING pass then
+  textured with panel joints = WINDOWS ON A STREET.
+- school (his best): the four light towers are 8.2-unit BRIGHT YELLOW
+  POLES - "the yellow lines go much farther than they needed". The field's
+  yard lines are contained and fine; the towers are the lines he means.
+THE ROOT CAUSE IS THE PIPELINE, NOT SIXTY DRAWINGS: the factory's global
+building passes (_thicken parapets, _dress_walls joints, _dress_roofs,
+_fat_and_tall widen-and-raise) run on EVERY hero, including the districts
+that are not buildings. A pass can be individually right and still wrong
+because of what it is applied to - the border lesson, again. Streets got
+window-like wall dressing; landforms got raised and dressed like masses.
+
+HIS RULINGS, RECORDED (each becomes build law for every future icon):
+1. NOT EVERYTHING IS A BUILDING. Parks, landforms, water and streets are
+   drawn as what they are. The factory now carries a NOT_A_BUILDING list
+   that skips every building-dressing pass for those districts.
+2. BIG VENUES ARE NATURALLY 2x2: stadium, speedway, probably casino. This
+   needs CITY-tab 2x2 planting support - built next, not skipped.
+   [NEXT TURN: 2x2 support + stadium/speedway fresh cooks at 2x2]
+3. STREETS ARE ROADS: no windows, no wall dressing, roadway dominant.
+4. LANDFORMS ARE LANDFORMS: mountain is a ridge, desert is flat with low
+   scrub, the tallest desert thing is a low knob, never a tower.
+5. SCHOOL: light towers stand tall relative to the STANDS, not the sky.
+
+ACTED ON THIS TURN (fresh cooks answering dead slots, per his direction):
+- pipeline: NOT_A_BUILDING pass exclusion (the one bug behind the wave)
+- park: buildings REMOVED - turf, path, real layered tree crowns, benches
+- mountain: rebuilt as an asymmetric two-peak RIDGE, not a wedding cake
+- desert: outcrop cut to a low knob, creosote low and flat
+- freeway/arterial/arterial_x/interchange/rail: undressed (no windows),
+  walls held low so the roadway carries the tile
+- school (CBB + his named note = NOTES ARE RULINGS): light towers cut from
+  8.2 to 3.8 units, heads at the top
+The other killed slots (cityhall, battery, terminal, mall, library, farm,
+firestation, policestation, storage, campus, suburb, trailer, cemetery,
+landfill, watertreat, waterpark, golf, drivein, wash, water, quarry,
+gypsum, fueldepot, reservoir, granary, arsenal, basin, reclaim, radio,
+pumpstation, intake) get fresh cooks in ranked waves next turns, each
+following rulings 1-5. They are NOT recooked blind this turn: the
+pipeline fix changes what every one of them looks like, and cooking 40
+icons before looking at the first six would repeat the exact mistake
+that produced this batch.

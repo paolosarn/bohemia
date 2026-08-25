@@ -1391,7 +1391,31 @@ function requirePlaywright() {
       + 'people are in DIFFERENT outfits, and the tie graph either has such pairs '
       + 'or it does not. If there are cross-outfit ties and still zero lines, the '
       + 'two disagree and that is a bug',
-      (tert.crossTies | 0) === 0 ? (tert.lines | 0) === 0 : (tert.lines | 0) > 0,
+      /* *** THIS CLAIM WAS BUILT ON A FALSE PREMISE AND I ONLY FOUND OUT WHEN IT
+         FIRED. *** It asserted that zero DIRECT cross-outfit ties must mean zero
+         whoHears lines. whoHears does not work that way and never did:
+
+             var maxHops = (opts.maxHops != null ? opts.maxHops : 3);
+
+         It is a THREE-HOP breadth-first walk, and it explicitly marks a step as
+         crossed when it travels via home or work -- "travelling either of them
+         means the split was crossed on the way, and the cleavage literature says
+         that is what softens it". So MOB -> an unaffiliated neighbour -> NETWORK
+         is a line with NO direct cross-outfit tie anywhere in it. That is the
+         DESIGN, not a disagreement.
+         IT ONLY EVER PASSED BECAUSE BOTH NUMBERS WERE ZERO. The valley had no
+         ties at all, so "0 implies 0" held for the wrong reason for days. The
+         moment anything created ties, the false half showed.
+         AND IT COST A CORRECT CHANGE: I read this red as "two systems disagree",
+         could not explain it, and pulled households out of main over it.
+         A GREEN CLAIM IS NOT A TRUE CLAIM WHEN BOTH SIDES ARE ZERO.
+         What it holds now is the real invariant: a line REQUIRES a tie somewhere
+         within reach, direct or relayed, so ties==0 must mean lines==0 -- and
+         lines are allowed to exceed direct crossings, because relaying is the
+         whole mechanism. */
+      (tert.sameTies | 0) + (tert.crossTies | 0) === 0
+        ? (tert.lines | 0) === 0
+        : true,
       JSON.stringify({ tiesBetweenAffiliated: (tert.sameTies | 0) + (tert.crossTies | 0),
                        sameOutfit: tert.sameTies, crossingAnOutfitLine: tert.crossTies,
                        whoHearsLinesInTheWholeValley: tert.lines,

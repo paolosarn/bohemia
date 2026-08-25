@@ -286,6 +286,14 @@ GATES = [
      'navigation, so the first probe reported the slice as NOT FETCHED for a file that '
      'demonstrably was -- this one asserts it saw the two fetches that MUST happen before it '
      'reports a third one absent. Mutation-tested both ways', False),
+    ('SOUND MESSAGE',  ['python3', 'gates/sound_message_gate.py'],
+     'SILENT-1 stays true (sweep 19: a sound may be the best copy of a message, '
+     'never the only copy). Every approved moment carries a column -- '
+     'INFORMATION or ATMOSPHERE -- so a newly approved sound forces that '
+     'decision while it is cheap. Nothing DEAD may be listed as a message: '
+     'done_ring was routed here as one of the three information cues and it is '
+     'a corpse, and drawing a twin for a sound nobody will ever hear is wasted '
+     'work in another lane', False),
     ('COMBAT SOUND',   ['node', 'gates/combat_sound_gate.js'],
      'WHAT A FIGHT SOUNDS LIKE, driven through the real phases -- cover, pop '
      'into AIM, fire to the killshot, freeze -- and recorded. The demo climaxes '
@@ -370,6 +378,56 @@ GATES = [
      'so a chip added tomorrow is swept without editing the gate. Mutation-tested by putting '
      'the old closeless card back: 4 claims red. Holds out REROLL (rebuilds the valley) and '
      'SLEEP (ends the day) by name rather than in silence', True),
+    # 8/25: found by PLAYING day one and asking the world what was around the spawn,
+    # not by reading. The house the game labels HOME reported door:null.
+    ('ONE DOOR PRED',  ['node', 'gates/one_door_predicate_gate.js'],
+     'THERE IS ONE DOOR PREDICATE AND EVERY DOOR QUESTION ASKS IT. The law is not new -- on '
+     '8/2 stepOnce was caught asking a hand-rolled door test while the guard beside it asked '
+     'another ("every house whose door is a doorW/doorE was sealed by its own door"), and '
+     'that repair went into the movement path while NOTHING CHECKED THE REST OF THE FILE. '
+     'homeFind kept the narrow test for three weeks. MEASURED on the demo spawn: 26 '
+     'buildings, 23 of them (88%) with a door only the shared predicate can find, 0 with no '
+     'door, and HIS OWN HOUSE came back door:null -- so "wake up at your own front door" was '
+     'broken for essentially every house in the suburb he starts in. Two halves: the source '
+     'half counts hand-rolled hdoor tests and allows exactly the two that are legitimate '
+     '(the predicate itself and the render pass that draws that art tile), and the measured '
+     'half opens the real game and asks whether HOME has a door, because a source rule can '
+     'be satisfied while the answer is still wrong. Comments are stripped first -- two of '
+     'the file\'s notes QUOTE the old test to explain it, and counting those would make the '
+     'gate punish its own post-mortems. Mutation-tested by restoring the narrow test: 3 red', True),
+    # 8/25: the demo's actual question -- CAN SOMEBODY DO THE JOB -- was answered by nobody.
+    ('DAY ONE DONE',   ['node', 'gates/day_one_can_be_finished_gate.js'],
+     'A FRIEND CAN FINISH DAY ONE BY WALKING, and nothing proved it. WHOLE DEMO takes the '
+     'job, walks six steps and GOES TO SLEEP -- it never finishes the work. DAY LOOP '
+     'finishes the quest by sending the message the city would send, from Node, which proves '
+     'the runtime and not the world. So each piece was green and the join between them was a '
+     'guess. This boots the alpha, takes the job off the phone, BFS\'s for the nearest thing '
+     'that actually admits a body (the 8/2 rule: a building with a door is entered through '
+     'it, one without is entered from any wall) and DRIVES THE REAL PAD along that route at '
+     '560ms a press. MEASURED: a way in 15 steps away, walked in 13 presses, stage 10 -> 20, '
+     'and the resolution card up with the quest\'s own three endings. IT HONESTLY DOES NOT '
+     'PROVE HE CAN FIND IT -- the BFS stands in for a player\'s eyes -- and that limit is '
+     'written into the gate rather than smuggled past: what is proved is that the world '
+     'admits a route, the pad walks it, the door opens and the quest hears about it. Measured '
+     'while writing it: a STRAIGHT LINE at the nearest door ran 90 steps and never arrived, '
+     'because a wall stood in the way and a straight line does not turn', True),
+    # 8/25, Paolo: "when i am facing walking south i should be behind the walls with an
+    # opacity so i can see myself weve talked about this before bro". He had -- 7/27, LOCKED.
+    ('SEE-THROUGH MOVE', ['node', 'gates/see_through_while_moving_gate.js'],
+     'THE SEE-THROUGH HAS TO SURVIVE MOTION. The 7/27 THREE-TILE WALL law fades a wall that '
+     'covers him to 35%, and it was built and right -- until the 8/23 walk glide made the '
+     'body draw at the CAMERA cell while playerBox kept computing from hx,hy, the TRUE cell. '
+     'MEASURED: the test box sat up to 88px (TWO CELLS, because holding the pad starts him '
+     'running) from the drawn body and disagreed on 35 of 45 frames, so the wall that really '
+     'covered him stayed solid and he walked into it and vanished. WHY NOTHING CAUGHT IT: '
+     'wallclass_gate proves the see-through properly, off real pixels, STANDING STILL -- it '
+     'teleports him onto the covered tile and renders one frame, and standing still there is '
+     'no glide and the box was correct. It was never wrong; it never walked. So this one '
+     'moves: it finds a cell with a facade one row south, walks him INTO being covered, and '
+     'records the alpha the renderer actually paints with (230 of 235 facade draws on his '
+     'body faded, 3145 of 3771 elsewhere solid). The arithmetic claim is the one that '
+     'catches the bug -- under mutation the gate and the renderer share the SAME wrong box, '
+     'so only comparing against where the body is DRAWN sees it', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

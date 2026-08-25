@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25o - EVERY DISTRICT HAS A WAY IN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25s - THE STORY SURVIVES A PHONE CALL</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21546,6 +21546,52 @@ window.CLO=(function(){
        drift apart again. The fade is the bottom of the hair; whatever that bottom is,
        the fade is there. */
     var fadeRows=(opt.fade||0)*S, fadeBot=sideBot;
+    /* @SUBCELL-DETAIL -- STRAND SEPARATION (8/25, HAIR AT FOUR TIMES THE PIXELS).
+       Paolo: "we made the character model 4x and i feel like with especially the hair
+       your still playing with the orignal pixels. not the pixels that are now 1 pixel
+       because we made the canvas 4x bigger."
+       HE WAS RIGHT, MEASURED THE SAME DAY: NINE OF FIFTEEN canon styles had NO one-pixel
+       mark anywhere inside them. Their thinnest internal feature was 4, 5, 6 or 8 pixels
+       -- SLICK BACK, BOWL CUT and SHAG were solid blocks of colour with a shaded rim and
+       nothing at all in between. At 56 that was the only thing that fit. At 112 there is
+       room and they still had nothing.
+       AND THE FIRST NUMBER I TOOK SAID HE WAS WRONG: an edge-parity audit reported 50.9%
+       of hair edges on the fine grid, which reads as "already native". True and
+       irrelevant -- the 8/21 wobble gives the OUTLINE a one-pixel step, and the outline
+       is not the haircut. THE SHAPE IS THE INSIDE. When a metric disagrees with him about
+       his own art, suspect the metric.
+       WHAT THIS DRAWS: where locks part, hair falls into shadow. One pixel, darker, and
+       it RUNS WITH THE HAIR rather than across it -- the same phase axis texSkip uses, so
+       it rotates with the view exactly like the cornrows do (his 8/2 ruling).
+       IT IS A SHADE, NOT A SKIP. His first fade attempt was killed for showing skin
+       through the hair; this never removes a hair pixel, it darkens one.
+       SPARSE ON PURPOSE: one line every four cells. Clause 3 still governs -- little off
+       shapes, deterministic, and a buzz cut is allowed to be nearly solid. This is the
+       difference between "can express a one-pixel mark" and "is covered in stripes".
+       SOLID STYLES ONLY: locs and braids already carry their own marks at his approved
+       2:1 ratio and are not touched. S>1 only, so the 56 wardrobe is untouched. */
+    var strandPass=function(oo){
+      if(S<2||tex!=='solid'||(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH))return oo;
+      var _sd2=0, _sn=(opt.name||'');
+      for(var _si=0;_si<_sn.length;_si++){_sd2=(Math.imul(_sd2^_sn.charCodeAt(_si),16777619))>>>0;}
+      var _ph=(_sd2>>>11)%(4*S);
+      for(var k3 in oo){ var i3=+k3, x3=i3%CW, y3=(i3/CW)|0;
+        /* the flow axis, exactly as texSkip picks it */
+        var ax=prof?(y3-hTop):(x3-hMn);
+        if(ax<0)continue;
+        /* NO STRAIGHT LINES (Paolo 8/1, LOCKED: "hair is little off shapes"). A fixed
+           phase draws a ruled vertical bar down the crown, which is a stripe and not a
+           parting -- I shot it and it read as a barcode. So the parting DRIFTS by one
+           pixel, deterministically, in segments two cells long down the cross axis.
+           One pixel is the whole point of the 4x law: it is a move the 56 grid could
+           not make, and it is what turns a rule into a strand. */
+        var _cr=prof?(x3-hMn):(y3-hTop); if(_cr<0)_cr=0;
+        var _wb=((Math.imul(_sd2^(((_cr/(2*S))|0)+1),2654435761)>>>0)%3)-1;
+        if(((ax+_wb+4*S)%(4*S))!==_ph)continue;
+        var c3=oo[k3];
+        if(c3[0]===r.dk[0]&&c3[1]===r.dk[1]&&c3[2]===r.dk[2])continue;   /* already the shadow */
+        oo[k3]=r.dk; }
+      return oo; };
     var texSkip=function(x,y){
       /* A PATTERN ROTATES WITH THE VIEW (Paolo 8/2: "prime example with the
          cornrows and the mohawk ... you really aren't doing it from a good eastern
@@ -21806,7 +21852,7 @@ window.CLO=(function(){
       else if(tie==='pony'&&!front){ var pl=fr(hTop,hBot,1.2);
         for(var py=hBot;py<hBot+pl;py++){ var pw=(py<hBot+2*S)?2*S:S;
           for(var px=tx-pw;px<hcxR+pw+1;px++) put(px,py,(px<tx-pw+S||px>hcxR+pw-S)?r.dk:r.mid); } } }
-    return o; }
+    return strandPass(o); }
   function genAcc(g,opt){
     /* the before/after tools flip this to draw the pre-step-5 version from THIS
        code; typeof-guarded because a generator must run with no DOM at all. */
@@ -26638,7 +26684,23 @@ function dirRender(){
    whole point of the 8/12 law and it was only half done while the opening was
    a tab nobody's run ever entered. */
 var OPEN_SEEN_KEY = 'bohemia.opening.seen.v1';
+/* *** WHERE THEY GOT TO, BECAUSE THE FLAG WAS BEING SPENT TOO EARLY. ***
+   MEASURED 8/25 on the real surface: openRaid marked the opening SEEN at the
+   raid, roughly 65 seconds in, with three of the sequence's four scenes still
+   unplayed. Close the app during the grief dinner and come back and you are not
+   offered it, nothing is playing, the flag is spent, and there are zero saves --
+   the last room, the grief dinner and the burial GONE with no way back to them.
+   That is the whole emotional payload of the opening lost to a phone call.
+   THE RULE IS: YOU HAVE SEEN THE OPENING WHEN YOU HAVE SEEN THE OPENING. The
+   seen flag now belongs to openDone alone, and this bookmark carries the place
+   so an interrupted sequence RESUMES rather than replaying 26 beats or vanishing. */
+var OPEN_AT_KEY = 'bohemia.opening.at.v1';
 var OPEN_PLAYER = null, OPEN_RUNNING = false;
+/* true from openStart until openDone, ACROSS the fight -- OPEN_RUNNING goes
+   false while combat has the screen, so it cannot answer "is a sequence in
+   flight". This is what stops the invite offering the opening mid raid, which
+   is the job the seen flag was wrongly doing. */
+var OPEN_MIDFLIGHT = false;
 
 /* THE ONE SCENE THE GAME OPENS WITH. Not "whatever is selected in the CUTSCENE
    tab" -- the opening is a fixed thing, found by the scene's own act/order
@@ -26760,11 +26822,27 @@ function openHasProgress(){
    -- somebody mid-story is not at the beginning, and being shown the beginning
    would read as a bug rather than as drama. */
 function openShould(){
+  if(OPEN_MIDFLIGHT) return false;          /* already in flight this session */
   try { if(localStorage.getItem(OPEN_SEEN_KEY)) return false; } catch(_e){ return false; }
-  if(openHasProgress()) return false;
+  /* AN UNFINISHED OPENING IS NOT PROGRESS. openHasProgress asks "are they
+     mid-story in the DAY"; somebody who stopped inside the cutscene has a
+     bookmark and no day, and they are exactly who this is for. */
+  if(!openUnfinished() && openHasProgress()) return false;
   return !!(typeof BohemiaStorySurface !== 'undefined' && openWhich());
 }
 function openMarkSeen(){ try{ localStorage.setItem(OPEN_SEEN_KEY,'1'); }catch(_e){} }
+/* the bookmark: the scene that was playing when they stopped. Written by
+   openPlay for every scene, cleared only when the sequence truly ends. */
+function openMarkAt(id){ try{ localStorage.setItem(OPEN_AT_KEY, String(id||'')); }catch(_e){} }
+function openClearAt(){ try{ localStorage.removeItem(OPEN_AT_KEY); }catch(_e){} }
+function openUnfinished(){
+  try {
+    if(localStorage.getItem(OPEN_SEEN_KEY)) return null;
+    var id = localStorage.getItem(OPEN_AT_KEY);
+    if(!id) return null;
+    return openSceneById(id) ? id : null;   /* a bookmark to a scene that no longer exists is not a bookmark */
+  } catch(_e){ return null; }
+}
 
 function openCaption(s, ended){
   var cap=document.getElementById('openCap'); if(!cap) return;
@@ -26786,7 +26864,11 @@ function openCaption(s, ended){
 function openDone(){
   if(!OPEN_RUNNING) return;
   OPEN_RUNNING=false;
+  OPEN_MIDFLIGHT=false;
+  /* THE ONLY PLACE THE FLAG IS SPENT. It used to be spent in openRaid as well,
+     which meant "seen" became true with three scenes still to play. */
   openMarkSeen();
+  openClearAt();
   try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
   var w=document.getElementById('openWrap'); if(!w) return;
   w.style.transition='opacity .45s'; w.style.opacity='0';
@@ -26836,6 +26918,7 @@ function openStart(){
     return;
   }
   OPEN_RUNNING=true;
+  OPEN_MIDFLIGHT=true;
   var host=openHost();
   if(host && w.parentElement!==host){
     if(getComputedStyle(host).position==='static') host.style.position='relative';
@@ -26848,7 +26931,11 @@ function openStart(){
      difference between an opening that starts in a second and one that makes a
      demo player stare at a black rectangle while six rigs rebuild. */
   cutBoot(function(){
-    var sc=openScene();
+    /* PICK IT UP WHERE THEY LEFT IT. A bookmark means they started the sequence
+       and did not finish it; replaying 26 beats they already sat through is its
+       own way of losing their time. Canon start when there is no bookmark. */
+    var at = openUnfinished();
+    var sc = at ? openSceneById(at) : openScene();
     if(!sc){ openDone(); return; }
     openPlay(sc);
   });
@@ -26898,7 +26985,11 @@ function openRaid(h, fromId){
   if(typeof fn !== 'function') return false;
   if(typeof showTabPanel !== 'function') return false;
   openHideOverlay();
-  openMarkSeen();               /* he has seen the opening; it must not replay */
+  /* NOT openMarkSeen(). The raid is the MIDDLE of the sequence, and marking it
+     seen here is what threw away the last room, the grief dinner and the burial
+     for anybody who stopped during them. OPEN_MIDFLIGHT keeps the invite quiet
+     while the fight has the screen, which is the only thing the mark was
+     actually needed for. */
   OPEN_RUNNING = false;
   var resumed = false;
   function resume(){
@@ -26954,6 +27045,8 @@ function openPlay(sc){
   if(!sc || !cv) { openDone(); return false; }
   try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
   OPEN_RUNNING=true;
+  OPEN_MIDFLIGHT=true;
+  openMarkAt(sc.id);        /* where they are, in case the phone rings */
   /* *** THE OVERLAY MUST FOLLOW THE LIVE PANEL ON EVERY SCENE, NOT JUST THE
      FIRST. *** openStart parents it to whatever panel is live when the opening
      begins; openPlay only set display, so the second scene of the sequence
