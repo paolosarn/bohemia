@@ -114,6 +114,35 @@ function snapshot() {
   return st;
 }
 const baseline = snapshot();
+
+/* ---- AND THE UNTRACKED FILES THAT WERE ALREADY HERE ----------------------
+   THIS GATE ATE A LANE'S RECORD ON 8/25 AND ITS OWN T4 IS WHAT CAUGHT IT.
+   The restore below used to finish with `git clean -qfd slices engine banks
+   records`, which deletes EVERY untracked file in those folders -- not the ones
+   a tool just wrote, all of them. A COMBAT record written that turn and not yet
+   committed was deleted by a gate whose own claim is "nothing a lane had in
+   flight was thrown away either". T4 went red, correctly, AFTER the file was
+   already gone, and the failure landed in a list of 22 with no way to tell it
+   apart from somebody else's.
+   THE BUG IS THE SAME SHAPE AS THE ONE THE GATE EXISTS TO CATCH: a blunt
+   instrument that cannot tell its own output from somebody else's work. The
+   tracked half already got this right -- it takes a baseline and subtracts it.
+   The untracked half never did. So: record what was untracked BEFORE anything
+   runs, and only remove what APPEARED. */
+function untrackedNow() {
+  return new Set(git('status --porcelain -uall').split('\n')
+    .filter(l => l.startsWith('??'))
+    .map(l => l.slice(3).trim().replace(/^"|"$/g, ''))
+    .filter(Boolean));
+}
+const baseUntracked = untrackedNow();
+/* A SENTINEL, because a claim that this no longer eats files is worth exactly
+   as much as a test that puts a file in front of it. Untracked, in one of the
+   four folders it used to sweep, present before the first tool runs. */
+const SENTINEL = 'records/.tool_idempotent_sentinel.tmp';
+try { require('fs').writeFileSync(path.join(ROOT, SENTINEL),
+  'if this file is missing, the gate ate a lane\'s work again\n'); } catch (_e) {}
+baseUntracked.add(SENTINEL);
 ok('a baseline of the tree is taken before anything runs, so a lane\'s '
   + 'uncommitted work is never attributed to a tool. The first cut REFUSED on a '
   + 'dirty tree and went red on its own registration commit — a gate that is red '
@@ -149,7 +178,15 @@ for (const t of RUNS) {
       if (base[f]) continue;                    /* already dirty before: leave it */
       try { cp.execSync('git checkout -q -- ' + JSON.stringify(f), { cwd: ROOT }); } catch (_e) {}
     }
-    try { cp.execSync('git clean -qfd slices engine banks records', { cwd: ROOT }); } catch (_e) {}
+    /* ONLY WHAT APPEARED. `git clean -qfd slices engine banks records` used to
+       sit here and it deleted every untracked file in four folders, including a
+       lane's in-flight record. Subtract the baseline, exactly as the tracked
+       half above already does. */
+    for (const f of untrackedNow()) {
+      if (baseUntracked.has(f)) continue;                        /* was already here: not ours to delete */
+      if (!/^(slices|engine|banks|records)\//.test(f)) continue;  /* same four folders as before */
+      try { require('fs').rmSync(path.join(ROOT, f), { force: true }); } catch (_e) {}
+    }
   }
   const claimedWrite = /\bwrote\b|\bwired\b|\bKB\b/i.test(out) && !/no-?op|already|nothing to do/i.test(out);
   const rec = { tool: t, code, ins, del, claimedWrite, first: out.split('\n').filter(Boolean)[0] || '' };
@@ -179,8 +216,28 @@ ok('T3 …and the honest ones stay honest: a tool that has nothing to do SAYS so
   + 'it is already the majority',
   clean.length >= 7, clean.map(c => c.tool).join(', '));
 
+/* T5 RUNS BEFORE T4, because T4 compares against a baseline that counts the
+   sentinel, so the sentinel has to still be there when T4 reads the tree. */
+const sentinelLived = require('fs').existsSync(path.join(ROOT, SENTINEL));
+ok('T5 *** AND THIS GATE NO LONGER EATS A LANE\'S UNCOMMITTED WORK, WHICH IT DID '
+  + 'ON 8/25. *** The restore step ended with `git clean -qfd slices engine banks '
+  + 'records` — every untracked file in four folders, not the ones a tool just '
+  + 'wrote — and it deleted a COMBAT record written that same turn and not yet '
+  + 'committed. THE SAME SHAPE AS THE DISEASE THIS GATE EXISTS TO CATCH: a blunt '
+  + 'instrument that cannot tell its own output from somebody else\'s work. The '
+  + 'tracked half always took a baseline and subtracted it; the untracked half '
+  + 'never did. This claim is worth what the test in front of it is worth, so '
+  + 'there is a real untracked sentinel file sitting in records/ the whole time '
+  + 'the tools run',
+  sentinelLived, 'the sentinel was deleted — the restore step is eating files again');
+try { require('fs').rmSync(path.join(ROOT, SENTINEL), { force: true }); } catch (_e) {}
+
 ok('T4 the tree is as it was AFTER measuring too — nothing this gate ran '
-  + 'survived it, and nothing a lane had in flight was thrown away either',
+  + 'survived it, and nothing a lane had in flight was thrown away either. '
+  + 'T4 IS WHAT CAUGHT THE 8/25 DELETION, correctly and far too late: it went '
+  + 'red after the file was already gone, in a list of 22 reds with nothing to '
+  + 'tell it apart from somebody else\'s. A gate that detects the damage it '
+  + 'itself did is still a gate that did the damage',
   snapshot() === baseline,
   'baseline drifted; run `git status` and check nothing was lost');
 
