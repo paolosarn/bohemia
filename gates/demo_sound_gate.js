@@ -187,6 +187,17 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
       ok('TAKING THE JOB ANSWERS -- the pivot of the demo is not a dead button ('
         + (tookHeard.join(', ') || 'SILENCE') + ')',
         tookHeard.some(h => /ui_tap|ui_back/.test(h)));
+      /* AND IT IS A MUSICAL BEAT, NOT A CHIME. Nothing in the world makes a
+         noise when you accept work, so a sound effect here would be the UI
+         convention that killed ten SOMEBODY TURNS TO YOU candidates. `taken`
+         joins paid / done / missed: the transaction family, carried by the
+         score. Posted from the city's offerAccept rather than diffed out of
+         the save state, because MEASURED, zero state broadcasts reach the
+         parent during the whole of day one. */
+      ok('and the commitment is carried by the SCORE -- taking the job plays '
+        + 'its own sting, in the paid/done/missed family ('
+        + (tookHeard.join(', ') || 'SILENCE') + ')',
+        tookHeard.includes('sting:taken'));
       await city.evaluate(() => { try { phoneClose(); } catch (e) { } });
       await SETTLE(page, 900);
     }

@@ -88,6 +88,26 @@ SLEEP_NEW = """document.getElementById('sleepbtn').addEventListener('click',func
 # it is already written down in this lane's wire tool: "the door DRAGS open (his
 # 8/9 thumb); the SHUT stays silent, also his." Opening is the half he said yes
 # to. The shut stays silent here too.
+STING_OLD = """function offerAccept(){
+  if(!OFFER||OFFER_TAKEN)return false;
+  OFFER_TAKEN=true;"""
+
+STING_NEW = """function offerAccept(){
+  if(!OFFER||OFFER_TAKEN)return false;
+  OFFER_TAKEN=true;
+  /* __TAKING_THE_JOB_SOUNDS_LIKE_SOMETHING__ (8/25, SOUND lane). The pivot of
+     ONE GOOD DAY, and the last beat of the demo that made no sound of its own.
+     IT IS POSTED FROM HERE, NOT DIFFED FROM THE SAVE STATE. The parent CAN see
+     a job appear in bohemiaCityState -- but MEASURED: the city broadcasts that
+     state only on save-worthy moments, and ZERO arrive during the whole of day
+     one, so a diff-based watcher is starved exactly when this fires. A musical
+     beat must not wait on a save.
+     ONE OWNER, DELIBERATELY: QUESTSTING briefly had a '?' -> id branch for this
+     and it was REMOVED when this line landed. Two owners for one moment is the
+     bug, not the belt-and-braces. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySting:{fig:'taken'}},'*'); }catch(_e){}"""
+
 DOOR_OLD = """  try{ cityFightOnEnter(); }catch(_e){}
   advance(0.5); return true;"""
 DOOR_NEW = """  /* __THE_DOOR_DRAGS_OPEN__ (8/22, SOUND lane) -- his 8/9 thumb, approved and
@@ -176,12 +196,30 @@ FIG_NEW = """    done: { v:'bell',      g:0.20, sd:0.34, oct:0,
        a job you got paid for read as the same size of event pointing opposite
        ways. Small on purpose: the day is not over, and tomorrow exists. */
     missed: { v:'coldpiano', g:0.18, sd:0.22, oct:0,
-            n:[[7,0],[0,3]] }"""
+            n:[[7,0],[0,3]] },
+    /* YOU SAID YES, AND NOTHING HAS HAPPENED YET (8/25). Taking the job is the
+       pivot of ONE GOOD DAY and it was the last silent beat of the demo. It is
+       NOT a sound effect: nothing in the world makes a noise when you accept
+       work, and a chime with no source is the UI convention that killed ten
+       SOMEBODY TURNS TO YOU candidates. It is the same KIND of thing as paid,
+       done and missed -- a narrative beat carried by the music -- so it joins
+       that family and completes it:
+           taken   you commit          root -> FOURTH, rising, UNRESOLVED
+           paid    you get paid        root -> fifth,  rising, settled
+           missed  you let it go       fifth -> root,  falling
+           done    you finish it       IV -> I, four notes, plagal
+       The FOURTH is the point: it is the interval that does not resolve. You
+       have agreed to something and none of it has happened yet. Same voice as
+       paid and missed so the four read as one size of life event. */
+    taken:  { v:'coldpiano', g:0.19, sd:0.22, oct:0,
+            n:[[0,0],[5,3]] }"""
 
 PLAY_OLD = "      STING.play((b[2]==='COMPLETE')?'done':'loss');"
 PLAY_NEW = """      /* 8/22: NOT `loss` -- see the `missed` figure. A job you did not get
          round to is not a fight you lost. */
       STING.play((b[2]==='COMPLETE')?'done':'missed');"""
+
+
 
 
 def main():
@@ -206,6 +244,11 @@ def main():
             return 1
         c = c.replace(TAP_ANCHOR, TAP_NEW, 1)
         changed.append("the city's buttons answer a tap, same policy as the shell's")
+    if 'bohemiaCitySting' not in c:
+        if STING_OLD not in c:
+            print('FAIL: offerAccept moved'); return 1
+        c = c.replace(STING_OLD, STING_NEW, 1)
+        changed.append('taking the job posts its own sting, from offerAccept')
     if "ev:'door_drag'" not in c:
         if DOOR_OLD not in c:
             print('FAIL: inEnter is not where this tool expects it')
@@ -216,7 +259,12 @@ def main():
         open(CITY, 'w', encoding='utf8').write(c)
 
     a = open(ALPHA, encoding='utf8').read()
-    if "missed: { v:'coldpiano'" not in a:
+    # GUARD ON THE NEW THING, NOT AN OLD ONE (8/25). This keyed on `missed`,
+    # which the alpha already had, so the block was skipped and the `taken`
+    # figure added later never landed -- the tool printed "already applied"
+    # about work it had not done. An idempotence check must name what THIS
+    # version adds, or it silently protects a stale build.
+    if "taken:  { v:'coldpiano'" not in a:
         if FIG_OLD not in a:
             print('FAIL: the STING figure table is not where this tool expects it')
             return 1
@@ -225,6 +273,19 @@ def main():
     if PLAY_OLD in a:
         a = a.replace(PLAY_OLD, PLAY_NEW, 1)
         changed.append('a missed job no longer plays the fight-loss cadence')
+    if 'bohemiaCitySting!==undefined' not in a:
+        if """  if(d.bohemiaCitySfx!==undefined){""" not in a:
+            print('FAIL: the city-sfx message handler moved'); return 1
+        a = a.replace("""  if(d.bohemiaCitySfx!==undefined){""", """  /* 8/25: and the MUSICAL beats, beside the sound ones. A sting is not a
+     playSFX -- it is a figure in the score -- so it gets its own key rather
+     than being smuggled through the sfx channel. */
+  if(d.bohemiaCitySting!==undefined){
+    try{ if(window.STING) STING.play(String(d.bohemiaCitySting.fig||'')); }catch(e){}
+    return true;
+  }
+  if(d.bohemiaCitySfx!==undefined){""", 1)
+        changed.append('the shell answers a sting message from the city')
+
     open(ALPHA, 'w', encoding='utf8').write(a)
 
     for x in changed:

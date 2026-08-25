@@ -31543,6 +31543,18 @@ function offerRing(){
 function offerAccept(){
   if(!OFFER||OFFER_TAKEN)return false;
   OFFER_TAKEN=true;
+  /* __TAKING_THE_JOB_SOUNDS_LIKE_SOMETHING__ (8/25, SOUND lane). The pivot of
+     ONE GOOD DAY, and the last beat of the demo that made no sound of its own.
+     IT IS POSTED FROM HERE, NOT DIFFED FROM THE SAVE STATE. The parent CAN see
+     a job appear in bohemiaCityState -- but MEASURED: the city broadcasts that
+     state only on save-worthy moments, and ZERO arrive during the whole of day
+     one, so a diff-based watcher is starved exactly when this fires. A musical
+     beat must not wait on a save.
+     ONE OWNER, DELIBERATELY: QUESTSTING briefly had a '?' -> id branch for this
+     and it was REMOVED when this line landed. Two owners for one moment is the
+     bug, not the belt-and-braces. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySting:{fig:'taken'}},'*'); }catch(_e){}
   DAYOPEN=DQ.openDay(DAY.day);
   window.__OFFER_TAKEN=(window.__OFFER_TAKEN||0)+1;
   phoneBadge(); updQline(); phonePush(true);

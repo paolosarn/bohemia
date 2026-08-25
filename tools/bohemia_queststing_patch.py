@@ -111,8 +111,21 @@ const QUESTSTING={
       if(this.seen===null){ this.seen=k; return; }   /* the baseline never sounds */
       if(k===this.seen) return;
       var was=this.seen; this.seen=k;
-      /* only a transition INTO done, on the SAME quest, is the moment */
       var a=was.split('|'), b=k.split('|');
+      /* A JOB ARRIVING IS A JOB TAKEN (8/25). MEASURED on the real walk: quest.id
+         is null right up to and including the phone being OPEN, and becomes the
+         quest's id the instant TAKE IT is tapped. `key` maps a null id to '?',
+         so '?' -> a real id is exactly the moment he commits, and nothing else
+         produces that transition.
+         THE BASELINE GUARD ABOVE ALREADY COVERS A RELOAD: a save whose job is
+         already active records that on the first report and stays silent,
+         because starting the game is not taking a job. A day-2 job arriving does
+         not fire either -- that is id -> id, never '?' -> id. */
+      if(a[0]==='?' && b[0]!=='?' && b[1]!=='1'){
+        if(window.STING)STING.play('taken');
+        return;
+      }
+      /* only a transition INTO done, on the SAME quest, is the moment */
       if(a[0]!==b[0]) return;                        /* a different job entirely */
       if(a[1]==='1'||b[1]!=='1') return;             /* was already done, or still is not */
       if(!window.STING) return;
