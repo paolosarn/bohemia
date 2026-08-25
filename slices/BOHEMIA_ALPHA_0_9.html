@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25g - NO HAIR ON HIS FACE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25j - YOU SAID YES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7935,6 +7935,13 @@ function combatMsgIn(d){
      path: a side door would let a sound board look healthy while the game is silent,
      which this fleet has shipped once already. phone_buzz.2 and .4 are UP in his 8/9
      verdict, so this is an approved sound finally being used, not a new one. */
+  /* 8/25: and the MUSICAL beats, beside the sound ones. A sting is not a
+     playSFX -- it is a figure in the score -- so it gets its own key rather
+     than being smuggled through the sfx channel. */
+  if(d.bohemiaCitySting!==undefined){
+    try{ if(window.STING) STING.play(String(d.bohemiaCitySting.fig||'')); }catch(e){}
+    return true;
+  }
   if(d.bohemiaCitySfx!==undefined){
     try{ if(window.playSFX) window.playSFX(String(d.bohemiaCitySfx.ev||'')); }catch(e){}
     window.__CITY_SFX=(window.__CITY_SFX||0)+1;
@@ -12632,6 +12639,31 @@ const STING={
        through the real synthV before it was chosen. */
     done: { v:'bell',      g:0.20, sd:0.34, oct:0,
             n:[[5,0],[0,2],[0,5],[12,5]] },
+    /* A MISSED JOB IS NOT A LOST FIGHT (8/22). QUESTSTING was playing `loss` --
+       "falling, and it lands heavy", authored for losing a FIGHT -- when the
+       player slept with the day's job unfinished. Caught by walking the demo:
+       going to bed sounded like being beaten. This is the exact inverse of
+       `paid` (root up to the fifth), on the SAME voice, so a job you missed and
+       a job you got paid for read as the same size of event pointing opposite
+       ways. Small on purpose: the day is not over, and tomorrow exists. */
+    missed: { v:'coldpiano', g:0.18, sd:0.22, oct:0,
+            n:[[7,0],[0,3]] },
+    /* YOU SAID YES, AND NOTHING HAS HAPPENED YET (8/25). Taking the job is the
+       pivot of ONE GOOD DAY and it was the last silent beat of the demo. It is
+       NOT a sound effect: nothing in the world makes a noise when you accept
+       work, and a chime with no source is the UI convention that killed ten
+       SOMEBODY TURNS TO YOU candidates. It is the same KIND of thing as paid,
+       done and missed -- a narrative beat carried by the music -- so it joins
+       that family and completes it:
+           taken   you commit          root -> FOURTH, rising, UNRESOLVED
+           paid    you get paid        root -> fifth,  rising, settled
+           missed  you let it go       fifth -> root,  falling
+           done    you finish it       IV -> I, four notes, plagal
+       The FOURTH is the point: it is the interval that does not resolve. You
+       have agreed to something and none of it has happened yet. Same voice as
+       paid and missed so the four read as one size of life event. */
+    taken:  { v:'coldpiano', g:0.19, sd:0.22, oct:0,
+            n:[[0,0],[5,3]] },
     /* A MISSED JOB IS NOT A LOST FIGHT (8/22). QUESTSTING was playing `loss` --
        "falling, and it lands heavy", authored for losing a FIGHT -- when the
        player slept with the day's job unfinished. Caught by walking the demo:
