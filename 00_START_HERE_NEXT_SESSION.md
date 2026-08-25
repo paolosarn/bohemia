@@ -1,222 +1,47 @@
-CHARACTER (character-0lurbs): 8/25 (q) LATEST -- *** STRANDS IN THE HAIR. HE WAS
-RIGHT AND THE FIRST RULER I BUILT SAID HE WAS WRONG. TAB: LOOK for the picture,
-CHARACTER for the hair. Nothing to judge -- he already ruled. ***
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (g) LATEST -- *** SWEEP 20. EVERY
+PLAYER GETS THE SAME VALLEY FOREVER, AND IT IS ONE LINE. Nothing to judge.
+READ-BACK (sweep 18's synthesis-by-receiver, applied to myself): FROM THE HANDOFF
+I TOOK -- SOUND already answered my SILENT-1 in under two hours and CORRECTED ME
+THREE WAYS; PEOPLE built households twice, reverted them and found M5 was built
+on a false premise; WORLD has rule number one green for the first time; somebody
+measured 24 seconds of load on a REAL PHONE. ***
 
-HIS RULING, VERBATIM, AND IT DOES THREE THINGS AT ONCE:
-"the side view is a lot better east and west you just have to be intentional with
- the hairstyles making them looking good and the same and coordinated from all
- angles. and you know we made the character model 4x and i feel like with
- especiallythe hair your still playing with the orignal pixels. not the pixels
- that are noe 1 pixel because we made the canvas 4x bigger you know. what you
- showed me looks decent asf. make whatever law u need and continue with what you
- need to do"
-
-  1. *** THE P0-PROFILE HOLD IS LIFTED. *** The side view PASSED. The 21 unjudged
-     styles are no longer blocked by the view. Do not re-ask him about profiles.
-  2. A coordination requirement: one haircut, eight angles, still one haircut.
-  3. A defect claim: the hair is still drawn in old-size pixels.
-  Plus explicit authority to write the law. It is written and gated.
-
-*** THE THING WORTH CARRYING TO EVERY OTHER LANE: A NUMBER SAID HE WAS WRONG,
-AND THE NUMBER WAS THE THING THAT WAS WRONG. ***
-First ruler was EDGE PARITY -- what share of the hair's silhouette edges sit on a
-pixel the old 56 grid could not reach. It came back 50.9%, all 15 styles, all 8
-facings. 50.9% is the score of a shape that fully uses the fine grid. Read
-literally it says he is mistaken about his own art.
-IT WAS TRUE AND IT WAS IRRELEVANT. The 8/21 wobble pass had already given the
-OUTLINE a one-pixel step, and THE OUTLINE IS NOT THE HAIRCUT. THE SHAPE IS THE
-INSIDE. The metric was measuring the one part that had already been converted and
-reporting it as the whole.
-Measured the INSIDE instead -- runs of one colour bounded on BOTH sides by a
-different hair colour, so a strand or a parting and never the silhouette edge:
-
-    9 OF 15 CANON STYLES HAD NO ONE-PIXEL MARK INSIDE THEM AT ALL.
-    thinnest internal feature: SLICK BACK 8  BOWL CUT 8  SHAG 8  LONG LOOSE 6
-      FRINGE 5  GREY WISPS 5  BUZZ CUT 4  CROP 4  SHOULDER LENGTH 4
-
-Nine solid blocks of colour with a shaded rim and nothing in them. He was right in
-the exact words he used. WHEN A METRIC DISAGREES WITH HIM ABOUT HIS OWN ART,
-SUSPECT THE METRIC. Third time this week an instrument printed the comfortable
-answer; three before/after pictures lied 8/22-8/24 for three different reasons. It
-is always the same failure -- a tool that cannot tell "no defect" from "not
-looking at the defect" always prints "no defect".
-
-WHAT SHIPPED: strandPass in genHair. A deterministic one-pixel parting along the
-same flow axis texSkip uses, so it rotates with the view exactly like his cornrows
-do (his 8/2 ruling). Seeded off the STYLE NAME, so an NPC never shimmers and the
-same haircut is the same haircut every time it is drawn.
-  - A SHADE, NOT A SKIP. Never removes a hair pixel, only darkens one to the
-    style's own shadow tone. His first fade attempt was killed for showing skin
-    through hair; this cannot do that.
-  - SPARSE ON PURPOSE, one line every four cells. A buzz cut is allowed to be
-    nearly solid. The target is "can express a one-pixel mark", not "stripes".
-  - SOLID STYLES ONLY. Locs and braids already carry their own marks at his
-    approved 2:1 ratio and are untouched.
-  - S>1 ONLY. The 56 wardrobe is byte-identical; the 1,744 pinned hashes hold.
-
-*** AND THE FIRST CUT BROKE ANOTHER OF HIS LAWS, WHICH I ONLY FOUND BY LOOKING. ***
-A FIXED phase draws a ruled vertical bar down the crown. I shot it, looked at it,
-and it read as a BARCODE -- straight into HOW HAIR AND SHAPE WORK (8/1, LOCKED):
-"no straight lines, hair is little off shapes". The parting now DRIFTS one pixel,
-deterministically, in segments two cells long down the cross axis. ONE PIXEL IS
-EXACTLY THE POINT OF HIS RULING: a move the old grid could not make, and the thing
-that turns a rule into a strand. VERIFY ON THE REAL SURFACE caught this. Reading
-the pass never would have.
-
-MEASURED AFTER:
-    styles with no one-pixel mark inside   9 of 15 -> 0 of 15
-    one-pixel marks, all hair, all views        47 -> 820
-    thinnest internal feature, every style    4..8 -> 1
-Nothing thinned. No silhouette moved. Nothing he ruled on redrawn.
-
-LAW + GATE, same turn, because a law without a machine gate is not enforced:
-  laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md
-    CLAUSE 1  a haircut is one haircut from every angle
-    CLAUSE 2  draw in the pixels we actually have
-  gates/hair_gate.js  32 checks, two new downward-only ratchets:
-    styles with no one-pixel mark inside     pinned, only ever shrinks
-    identity swing between adjacent facings  pinned 0.62, only ever shrinks
-
-FOUR VERDICTS IN THE SAME BREATH, ALL AFFIRMATIVE, ALL RECORDED:
-  "i like the boots got  stitching"
-  "i like the tiny hem pixels good job on that too"
-  "i like the scavanged armor too"
-  "i like the small things from the belts to gloves to scarfs to masks looked good"
-FOUR FOR FOUR on the fine-detail passes. Nothing killed. THE METHOD IS HIS RULING
-NOW AND NOT MY METHOD: add one-pixel marks the finer grid can hold, NEVER thin a
-mark he ruled on. Clause 2 is that method applied to hair.
-
-WHAT THE NEXT CHARACTER SESSION PICKS UP:
-  1. CLAUSE 1 IS WRITTEN BUT ONLY HALF-PROVED. The identity-swing ratchet pins the
-     worst adjacent-facing jump at 0.62 and stops it growing. It does not yet prove
-     the three genHair branches (back / prof / front) AGREE -- they were written at
-     different times for different complaints and nothing has ever asserted they
-     describe the same haircut. That is the next real piece of work.
-  2. THE 21 UNJUDGED STYLES ARE UNBLOCKED. The view passed. They are now blocked
-     only by clause 2, which they now satisfy. A batch is queueable.
-  3. NOT MINE, do not pick up: CANVAS MEMORY red, #354 TASTE, #356 ART 45, and the
-     the-spawn-sidewalk LOOK picture with no shooter (WORLD lane).
-
-  node gates/hair_gate.js                     32/0
-  node tools/bohemia_hair_strand_picture.js   the before/after, LOOK tab
-  node tools/bohemia_hair_native_audit.js     the edge-parity ruler that lied
-  records/BOHEMIA_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.txt
-
-================================================================================
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (d) LATEST -- *** SWEEP 17. THE
-STRIP NEEDS NAMES BEFORE IT NEEDS ART. TAB: MAP / CITY (routed to WORLD).
-Nothing to judge. ***
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (e) LATEST -- *** SWEEP 18. THE
-HANDOFF IS 63,979 LINES AND NOBODY READS IT. Nothing to judge.
-THIS ENTRY IS THE NEW FORMAT, DEMONSTRATED ON THE ONLY ENTRIES I OWN: sweeps
-14-17 used to be four blocks and 321 lines here. They are now five links, because
-every one of them already lives in a permanent records/ file. ***
-RUN (run-eak241): 8/25 (b) LATEST -- *** THE SEE-THROUGH TESTED WHERE HE USED TO
-BE, SO WALKING BEHIND A WALL HID HIM. TAB: RUN (walk south into a house).
-Nothing to judge. ***
-
-*** HE TOLD ME WE HAD TALKED ABOUT THIS BEFORE, AND HE WAS RIGHT. *** "when i am
-facing walking south i should be behind the walls with an opacity so i can see
-myself weve talked about this before bro." It is LOCKED law from 7/27 -- THE
-THREE-TILE WALL AND THE SEE-THROUGH, his own words, "an opacity filter for when
-I'm in front of a wall" -- and it was BUILT and RIGHT. I BROKE IT ON 8/23.
-The law's order is: facades behind him solid, then the player, then facades in
-front LAST, faded where they cover him. Step 4 asks playerBox() where he is. The
-walk glide made the body draw at the CAMERA cell and playerBox kept computing
-from hx,hy, THE TRUE CELL.
-    worst gap between the test box and the drawn body   88 px (TWO CELLS)
-    frames they disagreed by more than 2px              35 of 45 (78%)
-Two cells because holding the pad starts him RUNNING. So for most of every walked
-beat the game asked whether a wall covered a spot he was not standing on, the wall
-that really covered him stayed solid, and he walked into it and vanished.
-*** WHY NOTHING CAUGHT IT, AND IT IS THE USEFUL PART: *** wallclass_gate proves
-the see-through properly, off real pixels, STANDING STILL -- it teleports him onto
-the covered tile and renders ONE frame. Standing still there is no glide and the
-box was correct. THAT GATE WAS NEVER WRONG. IT NEVER WALKED.
-*** AND IT IS THE THIRD TIME THIS WEEK I MADE THE SAME MISTAKE: *** the objective
-hint went into a copy instead of the canon body; the population card measured a
-toolbar whose coordinate space I had changed; now the see-through measures a body
-I moved. MOVING WHERE SOMETHING IS DRAWN IS NOT A DRAWING CHANGE.
-Fixed with ONE OWNER (camCell is called once per frame and the value is PASSED,
-not re-derived -- two calls read performance.now() twice and can disagree, the
-second-owner bug I had to undo in the population card). 88px -> 0px.
-GATE: SEE-THROUGH MOVE, 10 claims, walks him INTO being covered and records the
-alpha the renderer actually paints with: 230 of 235 facade draws on his body
-FADED. Its own first cut held SOUTH from the spawn and reported "0 of 126 faded",
-which was TRUE and meaningless -- he walks an arterial with nothing over him.
-Mutation-tested: ONLY the arithmetic claim catches it, because under the bug the
-gate and the renderer share the SAME wrong box.
-
-*** THE STREETS: MEASURED, AND THE CONNECTIVITY HALF IS ALREADY TRUE. ***
-"all streets should connect ... it looks so bad."
-    district grid    ONE component, 3,483 cells, 0 stranded, 150 cul-de-sacs
-    drawn surface    0 of 354 boundary crossings between road districts broken
-*** MY FIRST NUMBER WAS WRONG AND I NEARLY HANDED IT TO WORLD AS THEIR BUG: 46%
-broken, 298 of 652 -- because it counted a road meeting a PARK or a suburb as a
-break. A road that ends where the road district ends is not a broken road. *** The
-7 "disconnected road pieces" were the same artefact: a 301-cell window cutting
-parallel arterials that join further out. A MEASUREMENT THAT NAMES THE WRONG OWNER
-COSTS SOMEBODY A DAY.
-So his real complaint is the second half -- PLACEMENT AND LOOK -- which is WORLD's
-generator and MAP LAW's reservation to him. Routed with numbers, not guessed at.
-Record: records/BOHEMIA_DO_THE_STREETS_CONNECT_8_25_26.md
-
-*** EARLIER THE SAME DAY: HIS HOUSE HAD NO FRONT DOOR. *** isDoorCell counts four
-ways a door exists; homeFind counted ONE. 26 buildings around the spawn, 23 of
-them (88%) have a door only the shared predicate can find, and HIS OWN HOUSE came
-back door:null -- so "wake up at your own front door" was broken for essentially
-every house in the suburb. The SAME bug was fixed 8/2 in the movement path and
-nothing checked the rest of the file. Fixed by DELETING THE COPY.
-GATE: ONE DOOR PRED, 9 claims, source half + measured half.
-
-*** AND NOTHING PROVED A FRIEND CAN FINISH DAY ONE. *** WHOLE DEMO takes the job,
-walks six steps and GOES TO SLEEP. DAY LOOP finishes the quest by sending the
-message the city would send, from Node. Every piece green, the join a guess.
-    a way in 15 steps away · walked in 13 REAL pad presses · stage 10 -> 20
-    · the resolution card up with the quest's own three endings
-A STRAIGHT LINE at the nearest door ran 90 steps and never arrived, because a wall
-stood between and a straight line does not turn.
-GATE: DAY ONE DONE, 12 claims. It HONESTLY DOES NOT PROVE HE CAN FIND IT -- the
-BFS stands in for a player's eyes -- and that limit is in the gate, not smuggled past.
-
-AND I CHECKED MY OWN 8/23 CLAIM AGAINST A GAUGE I DID NOT WRITE: "SLIDE cost no
-loop" was an assertion; frame_budget measures walking at 71 paints across 89
-frames, 2 doubled, under its 10% budget. Demo board row 8 is covered and healthy.
-
-WHAT COMES AFTER, in order:
-  1. STREET PLACEMENT AND LOOK is WORLD's, with the numbers above proving it is
-     not a connectivity bug. Somebody has to look at a junction and say what is
-     wrong in words; there is no number in that record that disagrees with him.
-  2. DISCOVERABILITY is the open question DAY ONE DONE names. The job is 15 steps
-     away and completable; a friend on an arterial looking at a blank wall has no
-     idea which way. The HOME arrow points at a dark building 2 minutes off that
-     IS a valid answer -- but nobody has watched a person try. Wants a human.
-  3. FT-JOURNEY (fast travel is a journey, not a teleport), spec written 8/24,
-     NOT STARTED. A real build, wants its own run.
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
-SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
-READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
-FROM THE HANDOFF I TOOK -- WORLD has rule number one green for the first time
-(every district has a way in), PEOPLE closed the opening's last link and shipped
-households so one outfit can hear about another, SOUND put 17 approved sounds
-into combat, and RUN 0f + P0-MORNING are still unclaimed with the friends round
-waiting on them. ***
+*** A ROUTED LANE CHECKED MY WORK AND WAS RIGHT. RECORDED, NOT BURIED. ***
+SOUND classified 61 sounds against a test sharper than the one I gave them ("if
+he cannot hear it, does he MISS A STATE CHANGE HE HAS TO ACT ON") and returned
+11 INFORMATION / 50 ATMOSPHERE / 3 with no twin at all. Three corrections:
+  1. done_ring, which I named as one of the three information cues, IS A CORPSE
+     -- 0 up / 5 down, no approved sound, the SFX died 10 for 10 across two ids.
+     A twin for it would have been work spent in another lane on something the
+     player will never hear.
+  2. phone_buzz already has a twin (the badge), so it was never one of the three.
+  3. MY SCOPE WAS WRONG. I wrote "a one-column pass over the rack", and the rack
+     is the SFX engine -- but the most information-dense sounds in this game are
+     STINGS, not SFX. taken / paid / done / missed are pure state change and a
+     pass that walked only the SFX table would have missed STING:missed entirely.
+THE REAL THREE ARE: save_chime (the run was written -- exactly what a person
+checks before putting the phone down), ui_deny (YOU CANNOT DO THAT -- a refusal
+with no sound is indistinguishable from A BROKEN BUTTON, so it does not just lose
+information, it teaches the wrong thing), and STING:missed (the job went
+unfinished -- the quietest failure in the game; nothing announces the day ended
+with the work undone, he just wakes up on day two).
+That is a better answer than the one I routed, and the lane got there by refusing
+to treat a routed task as exempt from being checked. RUN SILENT-2 should build
+against SOUND's three, not mine.
 
 WHERE THIS LANE IS
   Read-only across every lane. Records his rulings as law the same turn, audits
   drift and collisions nobody inside a lane can see, guards the demo path, routes
   work. Never writes engine/tools/gates/slices code.
   DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  HIS SPANGLISH RULING IS LAW (fdb5eaa) AND HAS NOW ARRIVED FOUR TIMES with the
+  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived FIVE times with the
   sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
 
 IN FLIGHT
-  Nothing half-built. Six sweeps closed, each a record plus routed rows.
+  Nothing half-built. Seven sweeps closed, each a record plus routed rows.
 
 BLOCKED ON
-  Nothing for me. Unclaimed and all cheap:
+  Nothing for me. Unclaimed, all cheap:
     SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
     SHARED -10  two hostnames the proxy blocks; until then NO session in this
                 fleet can run a gate in WebKit, the only engine iPhones use
@@ -225,36 +50,35 @@ BLOCKED ON
     RUN 0f + P0-MORNING  the friends round returns nothing without them
 
 WHAT I WOULD DO NEXT
-  Sweep 20 on the next "sweep". Standing watch: RUN 0f and P0-MORNING before
-  anybody is invited. First impressions spend once.
+  Sweep 21 on the next "sweep". Standing watch: RUN 0f and P0-MORNING before
+  anybody is invited, and NOBODY SWITCHES THE SEED ON MID-ROUND (see SEED-1).
 
-PROOF -- six sweeps, each with its numbers, sources and confidence stated:
+PROOF -- seven sweeps, each with numbers, sources and confidence stated:
   records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14. The demo plays and is gated; the friends round would return
-    nothing. RUN 0f was never built; the first morning points at the wrong door.
-    AMENDED 8/25: one tester plays MUTED, deliberately.
+    sweep 14, twice amended since: one tester plays MUTED, and EVERY tester
+    plays the canonical valley.
   records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. A Vegas with 418,400+ Spanish speakers had zero. 1,910 authored
-    lines and none knows its language. Routed PEOPLE LANG-1, QUESTS LANG-2.
-    Collision audit: four lanes in CITY_WORLD -> SHARED -9.
+    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
   laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, LOCKED. Three registers, the mix is mandatory, register 2 is a
-    SKILL not a gap, never phonetic accent spelling, LANGUAGE NEVER GATES
-    REQUIRED INFORMATION.
+    HIS RULING, LOCKED. Three registers; the mix is mandatory.
   records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit, WebKit not installed -- and outside
-    the EEA every iPhone browser IS WebKit. Green gates prove it works in Chrome.
+    sweep 16. 201 chromium.launch, 0 webkit.
   records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. The two icons he killed were drawing a category; the Strip has no
-    names. The law is mostly on our side and I said so instead of scaring anyone.
+    sweep 17. Routed WORLD NAMES-1, SHARED -11.
   records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18. 63,979 lines, 942 entries, first 200 lines cover 2 of them. The law
-    says REWRITE and every lane PREPENDS. Compacted my own 410 lines to this.
+    sweep 18. Routed SHARED -12. This entry is that format.
   records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
-    sweep 19, this one. THE DATA KILLED THE BIG VERSION OF MY THESIS: ~73% of
-    mobile players have sound ON, so the sound work is NOT wasted and I recorded
-    the number that beat me. What survives is three INFORMATION cues with no
-    picture behind them. Routed SOUNDS SILENT-1, RUN SILENT-2 + silent_play_gate.
+    sweep 19. The data killed the big version of my thesis (~73% play with sound
+    ON) and SOUND then corrected the small version. Both recorded.
+  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
+    sweep 20, this one. const BOH_SEED_TEXT='bohemia' contradicts his LOCKED
+    8/4 law "different seed, different valley = the comeback engine". The engine
+    ALREADY splits fixed skeleton from procedural fill, so his law is a built
+    feature with its input welded shut. Routed WORLD SEED-1 + SEED-2/seed_gate.
+    THE COST STATED HONESTLY: 379 gates, 23 demo claims, every dossier and every
+    thumb he has ever given ran on ONE seed -- including WORLD's "rule number one
+    is green", today. Turning the seed on exposes a surface with zero evidence.
+    So: build it now, switch it on AFTER round 1.
 
 ================================================================================
 

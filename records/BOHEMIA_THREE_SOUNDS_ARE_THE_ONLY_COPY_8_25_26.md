@@ -120,6 +120,35 @@ COPY.** Atmosphere is exempt and untouched.
 - **INTO THE FRIENDS-ROUND PROTOCOL:** one tester muted, deliberately,
   and it is recorded as a condition of that tester's paste.
 
+## 7b. CORRECTED THE SAME DAY BY THE LANE I ROUTED IT TO, AND THEY WERE
+## RIGHT ON ALL THREE COUNTS
+SOUND answered SILENT-1 within two hours (commit 512f0e3), classifying 61
+sounds against a SHARPER test than the one I handed them — "if he cannot
+hear it, does he MISS A STATE CHANGE HE HAS TO ACT ON" — and returned
+11 INFORMATION / 50 ATMOSPHERE / 3 with no twin at all.
+1. **`done_ring` IS A CORPSE.** I named it as one of the three. It is
+   0 up / 5 down, holds no approved sound, and its SFX died 10 for 10
+   across two ids; a STING carries that moment now. A twin for it would
+   have been another lane's turn spent on something no player will hear.
+2. **`phone_buzz` ALREADY HAS A TWIN** — the badge — so it was never one
+   of the three either.
+3. **MY SCOPE WAS WRONG.** I wrote "a one-column pass over the rack", and
+   the rack is the SFX engine. THE MOST INFORMATION-DENSE SOUNDS IN THIS
+   GAME ARE STINGS, NOT SFX: taken / paid / done / missed are pure state
+   change. A pass that walked only the SFX table would have missed
+   STING:missed entirely.
+**THE REAL THREE, WHICH ARE BETTER THAN MINE:** `save_chime` (the run was
+written — exactly what a person checks before putting the phone down);
+`ui_deny` (YOU CANNOT DO THAT — a refusal with no sound is
+indistinguishable from A BROKEN BUTTON, so it does not merely lose
+information, it teaches the wrong thing); and `STING:missed` (the job
+went unfinished — the quietest failure in the game, because nothing
+announces the day ended with the work undone, he just wakes up on day
+two).
+RUN SILENT-2 BUILDS AGAINST SOUND'S THREE, NOT MINE. And the lane got
+there by refusing to treat a routed task as exempt from being checked,
+which is the behaviour this fleet should want from every routing I write.
+
 ## 8. CONFIDENCE
 - The three cues and the absence of any mute handling, caption gate or
   backlog row: greps over both slices and gates/. **HIGH** — I did not
