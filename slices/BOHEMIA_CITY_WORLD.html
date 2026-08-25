@@ -23422,6 +23422,11 @@ function realizeCell(gx,gy){
        directly is exact and free -- it is the array this branch already indexed one line
        above. At the plot edge there is no neighbour to compare against, which is correct:
        a 1-2 tile pole does not straddle two plots. */
+    /* __CONCRETE_IS_NOT_A_ROOF_SET__ -- stamp the material on the cell while the legend is
+       still in hand. One line, and it is the only place in the pipeline that knows this tile
+       is a dam wall rather than a colour that a water tower also happens to wear. */
+    if(__concreteTile(entry)) c.sTex='concrete';
+/* __CONCRETE_IS_NOT_A_ROOF_SET__ END */
     if(__lampTile(entry)){
       var _lw=(lx>0)?(m.kit[ly*FN+lx-1]===code):false;
       var _ln=(ly>0)?(m.kit[(ly-1)*FN+lx]===code):false;
@@ -23463,7 +23468,16 @@ function realizeCell(gx,gy){
          flat instead -- the same fallback this renderer already uses when a pool is
          missing. A real rock face is ART's ask; this is the interim, and it is not
          brick. Districts are untouched. */
-      if(!KIT_TERRAIN[d]){ c.artPool='hroof'; c.tint=pal; }
+      /* __CONCRETE_IS_NOT_A_ROOF_POOL__ -- and neither is a dam. The line below hands the
+         APPROVED HOUSE-ROOF ART to every structure tile in every non-terrain district, so
+         the largest man-made object on this map was wearing house shingles. Its own
+         comment already made this argument for limestone and even names "a concrete
+         headwall"; this finishes the sentence for the material it named.
+         THE HEIGHT IS SET EXPLICITLY because the shadow pass keys off this very flag
+         (wallH || (face || artPool==='hroof') ? WALL_H : 1). WALLS ARE TWO TALL, Paolo
+         8/2 LOCKED -- 'from fencing to concrete to brick whatever'. Nothing gets shorter. */
+      if(!KIT_TERRAIN[d]&&!__concreteTile(entry)){ c.artPool='hroof'; c.tint=pal; }
+      else if(!KIT_TERRAIN[d]&&!c.wallH){ c.wallH=WALL_H; }
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
@@ -24893,6 +24907,34 @@ const TEXKIND={
     for(let k=0;k<6;k++){ x.fillStyle=_rgb(B[0]-30,B[1]-24,B[2]-22); x.fillRect((r()*TPX)|0,(r()*TPX)|0,1,1); } },
   water(x,B,r){ for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,7); x.fillRect(px2,py,1,1); }
     for(let k=0;k<5;k++){ const py=(r()*TPX)|0; x.fillStyle=_rgb(B[0]+20,B[1]+26,B[2]+30); x.fillRect((r()*(TPX/2))|0,py,4+((r()*8)|0),1); } },
+  /* __CONCRETE_IS_NOT_A_ROOF_TEX__ -- MASS CONCRETE, which the game had no painter for at
+     all. Everything standing up got canopy, rock or ROOF, and roof draws 4px shingle bands
+     with staggered seams -- so the dam, every median barrier, every bridge column and every
+     silo in the valley was wearing masonry.
+     RESEARCHED, not invented. Mass concrete is placed in LIFTS: Hoover Dam is 230 interlocking
+     vertical columns poured in five-foot lifts, so the face carries horizontal FORM LINES where
+     one lift met the next, and widely spaced vertical CONTRACTION JOINTS between columns. The
+     surface is SMOOTH -- much smoother than rock -- and streaked pale where calcium has leached
+     down it for decades. The corpus says it too: granary:6 is "a concrete silo, joint lines
+     showing where each slipform lift stopped".
+     So: low jitter, a horizontal lift line every 7px, ONE vertical joint, one pale leach run,
+     and NO STAGGER, because the stagger is the thing that read as brick. */
+  concrete(x,B,r){
+    for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,6); x.fillRect(px2,py,1,1); }
+    for(let ly=6;ly<TPX;ly+=7){                                  /* THE LIFT LINES */
+      x.fillStyle=_rgb(B[0]-16,B[1]-15,B[2]-14); x.fillRect(0,ly,TPX,1);
+      x.fillStyle=_rgb(B[0]+13,B[1]+13,B[2]+12); x.fillRect(0,ly+1,TPX,1); }
+    const vj=2+((r()*(TPX-4))|0);                                /* ONE contraction joint */
+    x.fillStyle=_rgb(B[0]-19,B[1]-18,B[2]-17); x.fillRect(vj,0,1,TPX);
+    for(let k=0;k<2;k++){                                        /* calcium leaching, running DOWN */
+      const sx=(r()*TPX)|0, sy=(r()*(TPX>>1))|0, sh=(TPX>>1)+((r()*(TPX>>1))|0);
+      x.fillStyle=_rgb(Math.min(255,B[0]+21),Math.min(255,B[1]+21),Math.min(255,B[2]+19));
+      x.fillRect(sx,sy,1,Math.min(sh,TPX-sy)); }
+    x.fillStyle=_rgb(Math.min(255,B[0]+17),Math.min(255,B[1]+17),Math.min(255,B[2]+15));
+    x.fillRect(0,0,TPX,1);                                       /* the sky-lit top edge (45 LAW) */
+    x.fillStyle=_rgb(B[0]-21,B[1]-20,B[2]-19); x.fillRect(0,TPX-1,TPX,1);
+  },
+/* __CONCRETE_IS_NOT_A_ROOF_TEX__ END */
   rock(x,B,r){ for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,13); x.fillRect(px2,py,1,1); }
     for(let k=0;k<8;k++){ const px2=(r()*(TPX-3))|0,py=(r()*(TPX-3))|0; x.fillStyle=_rgb(B[0]-28,B[1]-26,B[2]-24); x.fillRect(px2,py,3,3);
       x.fillStyle=_rgb(B[0]+16,B[1]+16,B[2]+14); x.fillRect(px2,py,3,1); } }
@@ -25083,7 +25125,18 @@ for(const _hk of ['hroof','hwall','hwindow','hboarded','hdoor','hyard']){
     im.onload=()=>{ if(--SA_LEFT===0)saFlush(); };
     im.src='data:image/png;base64,'+b; return im; }); }
 
-function texForKind(kind,col,variant){ if(kind==='wall'&&(col==='#c04030'||col==='#7a5a48')){ const t4=saTex(variant===3?'wallwin':'wallface',variant); if(t4)return t4; } if(kind==='wall'&&WALL_MAP[col]){ const t5=saTex(WALL_MAP[col],variant); if(t5)return t5; }
+function texForKind(kind,col,variant){
+  /* __CONCRETE_IS_NOT_A_ROOF_KIND__ -- a caller may now ask for a procedural family BY
+     NAME (c.sTex), rather than only by the colour lookup texKindFor does. Approved art
+     still wins: the WALL_MAP / house-stamp branches below run first and return. */
+  if(kind&&TEXKIND[kind]&&kind!=='wall'){
+    const _k='K'+kind+'|'+col+'|'+variant; let _t=_texCache.get(_k); if(_t)return _t;
+    const _c=document.createElement('canvas'); _c.width=TPX; _c.height=TPX;
+    const _x=_c.getContext('2d');
+    let _s=(OM.hash2(variant*31+7,col.charCodeAt(1)*13+col.charCodeAt(5),20260825))>>>0;
+    const _r=()=>{_s=(_s*1664525+1013904223)>>>0; return _s/4294967296;};
+    TEXKIND[kind](_x,_hex(col),_r); _texCache.set(_k,_t=_c); return _t;
+  } if(kind==='wall'&&(col==='#c04030'||col==='#7a5a48')){ const t4=saTex(variant===3?'wallwin':'wallface',variant); if(t4)return t4; } if(kind==='wall'&&WALL_MAP[col]){ const t5=saTex(WALL_MAP[col],variant); if(t5)return t5; }
   const key=kind+'|'+col+'|'+variant;
   let t=_texCache.get(key); if(t)return t;
   const c2=document.createElement('canvas'); c2.width=TPX; c2.height=TPX;
@@ -25094,6 +25147,31 @@ function texForKind(kind,col,variant){ if(kind==='wall'&&(col==='#c04030'||col==
   _texCache.set(key,t=c2);
   return t;
 }
+/* __CONCRETE_IS_NOT_A_ROOF_PICK__ -- A COLOUR IS NOT AN IDENTITY, so the choice is made
+   where the tile still knows what it is (realizeCell, holding the legend) and carried on the
+   cell as `c.sTex`. Measured before choosing this: of the 18 palette colours worn by concrete
+   masses, only SIX are worn by nothing else -- #9a948a is the dam wall AND a gantry crane, a
+   busbar, a microwave mast, razor wire and a water tower. Keying the texture off the colour,
+   which is what __terrainRockCols does, would have re-skinned twelve unrelated objects to fix
+   one. This is the same shape as c.lamp and c.haz: the legend names the thing, the renderer
+   draws what it is told. */
+function __concreteTile(entry){
+  if(!entry) return false;
+  var n=String(entry.name||''), txt=n+' '+String(entry.act1||'');
+  if(/roof|canopy|awning|shingle|\bdeck\b/i.test(txt)) return false;
+  /* ADOBE IS DELIBERATELY NOT IN THIS LIST. The fort's curtain wall is MUD BRICK, and lift
+     lines and calcium leaching are signatures of POURED concrete -- they would be a lie on
+     it. It was in the first cut, and it came out because I could not photograph the fort to
+     check: DO NOT SHIP A MATERIAL YOU HAVE NOT LOOKED AT. Adobe needs its own painter (warm,
+     coursed, slumped, no leaching) and until it has one the fort is UNCHANGED, not wrong in a
+     new way. Named in the handoff. */
+  if(!/concrete|masonry|cinder ?block|\bcmu\b|shotcrete|gunite|precast|reinforced/i.test(txt)) return false;
+  /* THE OBJECT MUST BE THE MASS. A tilt-up warehouse is made of concrete and says so, but the
+     face you see from above is its ROOF -- so `store`, `warehouse`, `tenant unit`, `building`
+     stay shingled, because none of them is NAMED a mass. */
+  return /\bwall\b|\bpier\b|\bcolumn\b|barrier|\bsilo\b|\bdike\b|revetment|culvert|storm drain|\barch\b|anchor block|traverse|facade|bollard|\bpad\b|clarifier|outlet works|flood structure|transmission main|drying tower/i.test(n);
+}
+/* __CONCRETE_IS_NOT_A_ROOF_PICK__ END */
 function texFor(col,isStruct,variant){ if(!isStruct){ const sp=SA_MAP[col]; if(sp){ const t2=saTex(sp,variant); if(t2)return t2; } } if(isStruct){ const wp=WALL_MAP[col]; if(wp){ const t3=saTex(wp,variant); if(t3)return t3; } } /* BUILDING ART (7/20): approved house-stamp roofs for residential structures */ if(isStruct&&(col==='#c04030'||col==='#7a5a48')){ const t3=saTex('roof',variant); if(t3)return t3; }
   const kind=texKindFor(col,isStruct), key=kind+'|'+col+'|'+variant;
   let t=_texCache.get(key); if(t)return t;
@@ -25344,6 +25422,12 @@ function chunkCanvas(cx,cy){
       else if(!c.face&&c.artPool) _ht2=saTex(c.artPool,v);
       if(_ht2){ x.drawImage(_ht2,i2*TPX,y*TPX); if(c.tint){ x.globalAlpha=0.16; x.fillStyle=c.tint; x.fillRect(i2*TPX,y*TPX,TPX,TPX); x.globalAlpha=1; } }
       else if(c.face)x.drawImage(texForKind('wall',c.s,v),i2*TPX,y*TPX);
+      /* __CONCRETE_IS_NOT_A_ROOF_DRAW__ -- a cell that named its own material gets it.
+         AFTER the approved-art branches above on purpose: anything that resolves to a
+         judged pool (artPool / WALL_MAP / SA_MAP) keeps it, because those return before
+         this line is ever reached. This only catches what was falling through to the
+         procedural default, which for every concrete mass in the game was ROOF. */
+      else if(c.sTex) x.drawImage(texForKind(c.sTex,c.s,v),i2*TPX,y*TPX);
       else x.drawImage(texFor(c.s,true,v),i2*TPX,y*TPX);
       x.fillStyle='rgba(255,255,255,0.10)'; x.fillRect(i2*TPX,y*TPX,TPX,1);
       x.fillStyle='rgba(0,0,0,0.22)'; x.fillRect(i2*TPX,y*TPX+TPX-1,TPX,1);

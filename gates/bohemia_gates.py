@@ -590,6 +590,8 @@ GATES = [
      'Paolo 7/31: quests, factions and the economy are OFF -- the footprint of all three is frozen and may only shrink', False),
     ('PURSE',          ['node', 'gates/purse_gate.js'],
      'the money is auditable and the numbers stay Paolo\'s: balances are a sum of the ledger, never negative, never anonymous, and PAYOUT/PRICES/PRODUCTION ship EMPTY', False),
+    ('CONCRETE',       ['node', 'gates/concrete_gate.js'],
+     'a dam is not a roof: every structure tile in every non-terrain district was wearing the APPROVED HOUSE-ROOF ART, and the routing must read the legend because 12 of 17 concrete colours are shared with a gantry crane, a busbar, razor wire and a water tower', False),
     ('DRIVE NETWORK',  ['node', 'gates/drive_network_gate.js'],
      'Paolo 7/31 RULE NUMBER ONE: every drivable tile is reachable from the street, and a lane is wide enough to be a lane', False),
     ('ANSWERED FOR',   ['node', 'gates/answered_for_gate.js'],

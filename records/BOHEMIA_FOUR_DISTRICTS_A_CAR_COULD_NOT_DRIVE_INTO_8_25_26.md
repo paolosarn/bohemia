@@ -196,3 +196,32 @@ districts and it deserves its own pass with pictures. It is named in the handoff
 item, and the picture's caption says it in plain words rather than pretending the shot is
 clean. VERIFY ON THE REAL SURFACE cuts both ways: looking at the picture is how you find the
 thing you were not looking for.
+
+
+---
+
+# CORRECTION, SAME DAY: THE CAUSE ABOVE IS WRONG
+
+The section above says the dam falls through `texKindFor` to the procedural `roof` painter.
+**It does not, and it never reaches texKindFor at all.**
+
+`realizeCell` hands every structure tile in every non-terrain district the APPROVED HOUSE-ROOF
+ART POOL:
+
+```js
+if(!KIT_TERRAIN[d]){ c.artPool='hroof'; c.tint=pal; }
+```
+
+and `texFor` returns that art before any procedural kind is asked for. So the dam was not
+wearing a generated shingle pattern -- it was wearing Paolo's actual approved house roof tiles,
+tinted grey. Measured on the running page at the exact camera position of the photograph:
+`artPool='hroof'` on every wall tile.
+
+**HOW I FOUND OUT I WAS WRONG: I built the fix for the cause I had written down, ran it, and the
+retaken picture was PIXEL-IDENTICAL.** A fix that changes no pixels is not a fix. The procedural
+concrete painter was necessary and is what draws now, but on its own it was unreachable, and
+only the photograph said so. Reading the code once more would not have found it, because the
+code I was reading was correct and irrelevant.
+
+The full fix and the reasoning are in
+`records/BOHEMIA_A_COLOUR_IS_NOT_AN_IDENTITY_8_25_26.md`.
