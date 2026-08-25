@@ -1491,6 +1491,32 @@ WEBKIT-2. *** THE SAFARI CODE WE ALREADY WROTE HAS NEVER BEEN RUN IN
    "forty megabytes before you can move" — in Chrome.
    | the four shipped Safari fixes measured in webkit, pass or fail
    reported honestly | — | no. ***
+SILENT-2. *** DRAW THE TWIN, AND RE-SIZE P0-MORNING AGAINST THE SILENT
+   CASE (sweep 19, 8/25 — records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_
+   8_25_26.md). PAIRS WITH SOUNDS SILENT-1, which names the cues. SOUND
+   CLASSIFIES, RUN DRAWS — neither lane has to learn the other's system,
+   which is the boundary this repo keeps crossing.
+   A SOUND MAY BE THE BEST COPY OF A MESSAGE. IT MAY NEVER BE THE ONLY
+   COPY. Three small pixel events, each with an obvious home already: the
+   phone, the objective line, the save indicator. Not a caption track, not
+   a settings menu, not a tutorial.
+   *** AND THIS CORRECTS AN INPUT TO YOUR OWN P0-MORNING. *** That row is
+   built on this lane's finding that the day's work is behind the PHONE
+   and "the thing pointing at it is one unread badge." THAT MEASUREMENT
+   ASSUMED THE PLAYER COULD HEAR THE BUZZ. For a muted player the badge is
+   not the weakest signifier, it is the ONLY one — so the first morning is
+   strictly worse than measured, and P0-MORNING should be sized against
+   the silent case. The friends round is exactly the situation that
+   produces muting: 5-8 people opening a link wherever they happen to be,
+   with other people around.
+   GATE, SAME TURN — `silent_play_gate`: drive the demo with audio
+   disabled and assert every INFORMATION cue produced a VISIBLE change in
+   the same beat. Mutation test: delete one twin -> red. THE CLAIM MUST BE
+   ABOUT PIXELS, NOT ABOUT A FUNCTION HAVING BEEN CALLED — this lane has
+   spent a month finding finished code with no caller, and a gate that
+   checks the call instead of the pixel is that same bug wearing a badge.
+   | the demo driven muted, every information cue visible | — | no.
+   TAB: RUN. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -5981,6 +6007,32 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+SILENT-1. *** SAY WHICH SOUNDS ARE MESSAGES (sweep 19, 8/25 —
+   records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md). SMALL. It
+   is a classification pass, not a cook.
+   READ §1 OF THAT RECORD FIRST, BECAUSE IT CLEARS THIS LANE: I went in
+   suspecting a portrait phone game was pouring effort into a channel
+   most players never turn on. THE DATA SAYS NO. About 73% of mobile
+   players run volume at 10%+, ~78% in the US, and only about 9% play
+   completely silent — and people who mute are not uninterested, ~70%
+   call sound important; they mute because somebody is nearby. THE SOUND
+   INVESTMENT IS NOT WASTED AND THIS ROW ASKS FOR NONE OF IT BACK.
+   WHAT SURVIVES IS THREE CUES. Sound here splits two ways: ATMOSPHERE
+   (neon_buzz, six approved footstep surfaces, the rack, the fight) where
+   silence costs beauty and nothing else — that is most of the 500 — and
+   INFORMATION, where the sound IS the message. The three I can already
+   see in the walked surface: `phone_buzz` (a job just arrived),
+   `done_ring` (the thing you were doing finished), `save_chime` (your run
+   was written to disk). FOR THOSE THREE NOTHING IN THE PIXELS SAYS IT.
+   THE GUIDELINE IS ALREADY ACCEPTED IN THIS REPO, IN THE OTHER CHANNEL:
+   Game Accessibility Guidelines BASIC tier says "ensure no essential
+   information is conveyed by sounds alone", and names SITUATIONAL
+   impairment explicitly — a noisy room, or sound muted. SHARED -6 adopted
+   the sibling rule for COLOUR word for word off the same document and the
+   same tier. WE TOOK ONE AND LEFT THE OTHER.
+   BUILD: one column over the rack, INFORMATION or ATMOSPHERE. Only
+   INFORMATION needs a twin, and only this lane knows the 500. Expect the
+   list to be tiny. | the column exists and the info set is named | — | no.
 REDS. *** TWO OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 —
    laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6):
      SFX RENDER  gates/sfx_render_gate.py — real audio in a real browser

@@ -67,7 +67,17 @@ the room on the first morning.
 ## WHAT COMES AFTER, IN ORDER
 1. The card + the first-morning fix (RUN, one session, both small).
 2. ROUND 1: 5-8 people Paolo trusts, their own phones, the one link, and
-   PAOLO SAYS NOTHING. The protocol is strict about this and it is the
+   PAOLO SAYS NOTHING.
+   *** ADDED 8/25 BY SWEEP 19 (records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_
+   COPY_8_25_26.md): ONE OF THEM PLAYS WITH THE SOUND OFF, DELIBERATELY,
+   and their paste records that. It is the accessibility practitioners'
+   own test, verbatim — "ask someone to play through for the first time
+   with the sound muted; if at any point they cannot progress because
+   information was missed, it needs to be conveyed another way." Three
+   cues in this build are information with no picture behind them
+   (phone_buzz, done_ring, save_chime), and the first morning already
+   depends on one of them. It costs one line in the invite and it uses a
+   round we are running anyway. *** The protocol is strict about this and it is the
    hardest part for him: he does not explain the controls, does not
    defend the game, does not watch over shoulders. One question after:
    "would you play more?"

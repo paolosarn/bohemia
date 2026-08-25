@@ -1,3 +1,66 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
+SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
+READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
+FROM THE HANDOFF I TOOK -- WORLD has rule number one green for the first time
+(every district has a way in), PEOPLE closed the opening's last link and shipped
+households so one outfit can hear about another, SOUND put 17 approved sounds
+into combat, and RUN 0f + P0-MORNING are still unclaimed with the friends round
+waiting on them. ***
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift and collisions nobody inside a lane can see, guards the demo path, routes
+  work. Never writes engine/tools/gates/slices code.
+  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
+  HIS SPANGLISH RULING IS LAW (fdb5eaa) AND HAS NOW ARRIVED FOUR TIMES with the
+  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
+
+IN FLIGHT
+  Nothing half-built. Six sweeps closed, each a record plus routed rows.
+
+BLOCKED ON
+  Nothing for me. Unclaimed and all cheap:
+    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
+    SHARED -10  two hostnames the proxy blocks; until then NO session in this
+                fleet can run a gate in WebKit, the only engine iPhones use
+    SHARED -11  the names gate, pairs with WORLD NAMES-1
+    SHARED -12  make handoff_gate about the law it is named after
+    RUN 0f + P0-MORNING  the friends round returns nothing without them
+
+WHAT I WOULD DO NEXT
+  Sweep 20 on the next "sweep". Standing watch: RUN 0f and P0-MORNING before
+  anybody is invited. First impressions spend once.
+
+PROOF -- six sweeps, each with its numbers, sources and confidence stated:
+  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
+    sweep 14. The demo plays and is gated; the friends round would return
+    nothing. RUN 0f was never built; the first morning points at the wrong door.
+    AMENDED 8/25: one tester plays MUTED, deliberately.
+  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
+    sweep 15. A Vegas with 418,400+ Spanish speakers had zero. 1,910 authored
+    lines and none knows its language. Routed PEOPLE LANG-1, QUESTS LANG-2.
+    Collision audit: four lanes in CITY_WORLD -> SHARED -9.
+  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
+    HIS RULING, LOCKED. Three registers, the mix is mandatory, register 2 is a
+    SKILL not a gap, never phonetic accent spelling, LANGUAGE NEVER GATES
+    REQUIRED INFORMATION.
+  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
+    sweep 16. 201 chromium.launch, 0 webkit, WebKit not installed -- and outside
+    the EEA every iPhone browser IS WebKit. Green gates prove it works in Chrome.
+  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
+    sweep 17. The two icons he killed were drawing a category; the Strip has no
+    names. The law is mostly on our side and I said so instead of scaring anyone.
+  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
+    sweep 18. 63,979 lines, 942 entries, first 200 lines cover 2 of them. The law
+    says REWRITE and every lane PREPENDS. Compacted my own 410 lines to this.
+  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
+    sweep 19, this one. THE DATA KILLED THE BIG VERSION OF MY THESIS: ~73% of
+    mobile players have sound ON, so the sound work is NOT wasted and I recorded
+    the number that beat me. What survives is three INFORMATION cues with no
+    picture behind them. Routed SOUNDS SILENT-1, RUN SILENT-2 + silent_play_gate.
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/25 (a) LATEST -- *** EVERY DISTRICT IN THE VALLEY HAS A WAY IN NOW.
 RULE NUMBER ONE has been RED on main since the day Paolo made it a law on 7/31, and it is
 GREEN. Four districts a car could not drive into are fixed, and the dead-code debt goes
@@ -102,68 +165,6 @@ exactly like a thing that was never built. That is the entire reason dead_code_g
 drive_network_gate exist, and this week they have paid for themselves several times over.
 
 ---
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
-EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
-built). Nothing to judge. ***
-
----
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (e) LATEST -- *** SWEEP 18. THE
-HANDOFF IS 63,979 LINES AND NOBODY READS IT. Nothing to judge.
-THIS ENTRY IS THE NEW FORMAT, DEMONSTRATED ON THE ONLY ENTRIES I OWN: sweeps
-14-17 used to be four blocks and 321 lines here. They are now five links, because
-every one of them already lives in a permanent records/ file. ***
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift and collisions nobody inside a lane can see, guards the demo path, routes
-  work. Never writes engine/tools/gates/slices code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  His SPANGLISH ruling is law (fdb5eaa) and has now been re-sent twice with the
-  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
-
-IN FLIGHT
-  Nothing half-built. Five sweeps closed, each as a record plus routed rows.
-
-BLOCKED ON
-  Nothing for me. Three routed rows are unclaimed and all three are cheap:
-    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
-    SHARED -10  two hostnames the proxy blocks, which is why no session in this
-                fleet can run a gate in WebKit
-    SHARED -11  the names gate, pairs with WORLD NAMES-1
-
-WHAT I WOULD DO NEXT
-  Sweep 19 on the next "sweep". Standing watch: whether RUN picks up 0f (the
-  feedback card) and P0-MORNING before anyone is invited to the friends round --
-  that round returns nothing without them, and first impressions spend once.
-
-PROOF -- the five sweeps, each with its numbers, sources and confidence stated:
-  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14. The demo plays and is gated; the friends round would return nothing.
-    RUN 0f was never built and the first morning points at the wrong door.
-    Routed: RUN 0f re-tagged PLAYTEST-BLOCKING, RUN P0-MORNING.
-  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. A Vegas with 418,400+ Spanish speakers had zero. The words book
-    holds 1,910 lines and none knows its language. Routed: PEOPLE LANG-1,
-    QUESTS LANG-2 + language_gate. Collision audit: 4 lanes in CITY_WORLD ->
-    SHARED -9.
-  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, 8/25, LOCKED. Three registers and the mix is mandatory; register
-    2 is a SKILL, not a gap. Never phonetic accent spelling. LANGUAGE NEVER GATES
-    REQUIRED INFORMATION. In CLAUDE.md and the canon index.
-  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit, WebKit not installed -- and on an
-    iPhone outside the EEA every browser is WebKit. Green gates prove it works in
-    Chrome. Routed: RUN WEBKIT-1, RUN WEBKIT-2, SHARED -10.
-  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. The two icons he killed on 8/20 were drawing a category, because
-    the Strip has no names. The law is mostly on our side and I said so instead
-    of using a scarier version. Routed: WORLD NAMES-1, SHARED -11.
-  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18, this one. Routed: SHARED HANDOFF-1.
-
-================================================================================
 
 CHARACTER (character-0lurbs): 8/25 (b) LATEST -- *** P0-PROFILE: THE HAIR WAS IN FRONT
 OF HIS FACE. He was right, and it is one defect, and it is fixed. ***
