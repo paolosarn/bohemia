@@ -267,6 +267,23 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    /* ADDED 8/25 (b). Steel was the second material out of the house-roof art. A tank shell
+       shows it better than a crane does: the crane is a thin structure and reads as ten tiles
+       on screen, the tank is a mass you can actually judge a material on. */
+    id: 'everything-metal',
+    title: 'THE RUST RUNS DOWN IT NOW',
+    caption: 'Every metal thing in the city was wearing house roof tiles: the gantry crane at the rail yard, the conveyors at the quarry, the pipe galleries at the water plant, the guardrails on the freeway, this water tank. Twenty-five of them. They are steel now -- ribbed like real sheet metal, catching the light on one edge of every rib the way metal does and concrete does not, with the rust bleeding DOWNWARD from every fastener, because that is the direction water carries it. Ten years of it. RUN tab, walk into any industrial yard.',
+    find: `(() => {
+      for (let ty = 2; ty < om.n - 2; ty++) for (let tx = 2; tx < om.n - 2; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'reservoir') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        for (let ly = 14; ly < FN - 14; ly++) for (let lx = 14; lx < FN - 14; lx++)
+          if (m.kit[ly * FN + lx] === 6)
+            return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 16 };
+      } return null; })()`,
+  },
+  {
     /* ADDED 8/25. The road across the crest of the dam was TWO TILES WIDE -- 1.5 m at
        TILE=0.75 -- and its whole network read as unreachable because a gate counted as a wall.
        This is the picture of a road that is finally a road. */

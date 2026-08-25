@@ -116,36 +116,96 @@ BLOCKS = [
     x.fillRect(0,0,TPX,1);                                       /* the sky-lit top edge (45 LAW) */
     x.fillStyle=_rgb(B[0]-21,B[1]-20,B[2]-19); x.fillRect(0,TPX-1,TPX,1);
   },
+  /* STEEL, and it is a different problem from concrete in one specific way: metal is SPECULAR.
+     Concrete scatters light evenly and reads as a smooth field; steel has a bright edge where a
+     rib catches the sky and a dark one where the next rib turns away, and that alternation is
+     most of what tells you it is metal at all.
+     WHAT IS ACTUALLY OUT THERE, and this covers both halves of the population: corrugated sheet
+     (a silo, a shed wall, a tank shell) is PARALLEL RIBS at a tight pitch, and structural steel
+     (a gantry crane, a switchgear lattice, a catwalk) is linear members with sky between them.
+     At 44px both read the same way -- regular parallel lines with a specular edge -- so one
+     painter serves, which is why this is a row in the table and not a second mechanism.
+     AND IT IS TEN YEARS DEAD. The thing that makes abandoned steel unmistakable is not the
+     metal, it is the RUST RUNS: orange-brown streaks bleeding DOWNWARD from every fastener and
+     seam, because water carries the oxide down the face. Derived from the tile's own colour
+     rather than a fixed orange, so a galvanised silo and a painted crane both stain in their
+     own register instead of every steel object in the valley going the same shade. */
+  steel(x,B,r){
+    for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,9); x.fillRect(px2,py,1,1); }
+    for(let rx=0;rx<TPX;rx+=3){                                  /* THE RIBS */
+      x.fillStyle=_rgb(Math.min(255,B[0]+25),Math.min(255,B[1]+26),Math.min(255,B[2]+27));
+      x.fillRect(rx,0,1,TPX);                                    /* the sky-caught edge */
+      x.fillStyle=_rgb(B[0]-22,B[1]-22,B[2]-21);
+      x.fillRect(rx+1,0,1,TPX); }                                /* the turn away from it */
+    for(let k=0;k<3;k++){                                        /* RUST, running DOWN */
+      const sx=(r()*TPX)|0, sy=(r()*(TPX-4))|0, sh=3+((r()*(TPX-sy))|0);
+      const g0=(B[0]+B[1]+B[2])/3;
+      x.fillStyle=_rgb(Math.min(255,(g0*0.86+52)|0),(g0*0.52+18)|0,(g0*0.30+8)|0);
+      x.fillRect(sx,sy,1,Math.min(sh,TPX-sy));
+      if(r()<0.5) x.fillRect(sx+1,sy+1,1,Math.max(1,(sh*0.6)|0)); }
+    for(let k=0;k<4;k++){                                        /* fasteners, where the rust starts */
+      x.fillStyle=_rgb(B[0]-30,B[1]-30,B[2]-28); x.fillRect((r()*TPX)|0,(r()*TPX)|0,1,1); }
+    x.fillStyle=_rgb(Math.min(255,B[0]+20),Math.min(255,B[1]+21),Math.min(255,B[2]+22));
+    x.fillRect(0,0,TPX,1);                                       /* the sky-lit top edge (45 LAW) */
+    x.fillStyle=_rgb(B[0]-24,B[1]-24,B[2]-22); x.fillRect(0,TPX-1,TPX,1);
+  },
 /* __CONCRETE_IS_NOT_A_ROOF_TEX__ END */
 """),
 
     ('__CONCRETE_IS_NOT_A_ROOF_PICK__',
      "function texFor(col,isStruct,variant){",
      False,
-     """/* __CONCRETE_IS_NOT_A_ROOF_PICK__ -- A COLOUR IS NOT AN IDENTITY, so the choice is made
-   where the tile still knows what it is (realizeCell, holding the legend) and carried on the
-   cell as `c.sTex`. Measured before choosing this: of the 18 palette colours worn by concrete
-   masses, only SIX are worn by nothing else -- #9a948a is the dam wall AND a gantry crane, a
-   busbar, a microwave mast, razor wire and a water tower. Keying the texture off the colour,
-   which is what __terrainRockCols does, would have re-skinned twelve unrelated objects to fix
-   one. This is the same shape as c.lamp and c.haz: the legend names the thing, the renderer
-   draws what it is told. */
-function __concreteTile(entry){
-  if(!entry) return false;
+     """/* __CONCRETE_IS_NOT_A_ROOF_PICK__ -- THE MATERIALS TABLE. A COLOUR IS NOT AN IDENTITY, so
+   the choice is made where the tile still knows what it is (realizeCell, holding the legend)
+   and carried on the cell as `c.sTex`. Measured before choosing this: of the 18 palette colours
+   worn by concrete masses, only SIX are worn by nothing else -- #9a948a is the dam wall AND a
+   gantry crane, a busbar, a microwave mast, razor wire and a water tower. Keying the texture
+   off the colour, which is what __terrainRockCols does, would have re-skinned twelve unrelated
+   objects to fix one. Same shape as c.lamp and c.haz: the legend names the thing, the renderer
+   draws what it is told.
+   ONE TABLE, MANY MATERIALS (FACTORY LAW). Adding a material is a row, not a new mechanism.
+   Rows are tried in order and the FIRST match wins, so the specific sits above the general. */
+var MATERIALS=[
+  /* [material, the object IS this mass (matched on the NAME), the material text, a veto] */
+  ['concrete',
+   /\\bwall\\b|\\bpier\\b|\\bcolumn\\b|barrier|\\bsilo\\b|\\bdike\\b|revetment|culvert|storm drain|\\barch\\b|anchor block|traverse|facade|bollard|\\bpad\\b|clarifier|outlet works|flood structure|transmission main|drying tower/i,
+   /concrete|masonry|cinder ?block|\\bcmu\\b|shotcrete|gunite|precast|reinforced/i,
+   null],
+  /* STEEL IS NAMED BY THE OBJECT, NOT BY THE WORD. Concrete legends say "concrete"; steel
+     legends mostly do not -- railyard:13 is "the container gantry crane spanning the stack,
+     rails, legs, a seized hoist trolley" and never uses the word. So the rule is the set of
+     objects that are steel BY DEFINITION: there is no other material a container gantry, a
+     switchgear lattice, a catwalk, a conveyor run or a W-beam guardrail is made of. Every one
+     of the 25 was read and eyeballed before it went in this list.
+     AND THE VETO EARNS ITS KEEP HERE: "screen tower" is a rock screen at the quarry and a
+     MOVIE SCREEN at the drive-in. One name, two objects, and one of them is a painted sheet
+     that must not become corrugated steel. Vetoed by name. */
+  ['steel',
+   /gantry crane|catwalk|pipe gallery|pipe rack|pipe manifold|switchgear|busbar|conveyor|hoist|derrick|guardrail|water tank|surge tank|storage tank|headframe|screen tower|lattice|\\bmast\\b|scaffold|trestle|hopper|vent stack|calciner stack|crushed-car stack|\\bcrane\\b|\\bsilo\\b/i,
+   /./,
+   /movie|projection|picture|concrete|adobe/i]
+];
+function __materialOf(entry){
+  if(!entry) return null;
   var n=String(entry.name||''), txt=n+' '+String(entry.act1||'');
-  if(/roof|canopy|awning|shingle|\\bdeck\\b/i.test(txt)) return false;
-  /* ADOBE IS DELIBERATELY NOT IN THIS LIST. The fort's curtain wall is MUD BRICK, and lift
-     lines and calcium leaching are signatures of POURED concrete -- they would be a lie on
-     it. It was in the first cut, and it came out because I could not photograph the fort to
-     check: DO NOT SHIP A MATERIAL YOU HAVE NOT LOOKED AT. Adobe needs its own painter (warm,
-     coursed, slumped, no leaching) and until it has one the fort is UNCHANGED, not wrong in a
-     new way. Named in the handoff. */
-  if(!/concrete|masonry|cinder ?block|\\bcmu\\b|shotcrete|gunite|precast|reinforced/i.test(txt)) return false;
-  /* THE OBJECT MUST BE THE MASS. A tilt-up warehouse is made of concrete and says so, but the
-     face you see from above is its ROOF -- so `store`, `warehouse`, `tenant unit`, `building`
-     stay shingled, because none of them is NAMED a mass. */
-  return /\\bwall\\b|\\bpier\\b|\\bcolumn\\b|barrier|\\bsilo\\b|\\bdike\\b|revetment|culvert|storm drain|\\barch\\b|anchor block|traverse|facade|bollard|\\bpad\\b|clarifier|outlet works|flood structure|transmission main|drying tower/i.test(n);
+  if(/roof|canopy|awning|shingle|\\bdeck\\b/i.test(txt)) return null;
+  for(var i=0;i<MATERIALS.length;i++){
+    var M=MATERIALS[i];
+    if(M[3]&&M[3].test(txt)) continue;
+    /* THE OBJECT MUST BE THE MASS. A tilt-up warehouse is made of concrete and says so, but the
+       face you see from above is its ROOF -- so `store`, `warehouse`, `tenant unit`, `building`
+       stay shingled, because none of them is NAMED a mass. */
+    if(M[1].test(n)&&M[2].test(txt)) return M[0];
+  }
+  return null;
 }
+/* ADOBE IS DELIBERATELY ABSENT. The fort's curtain wall is MUD BRICK, and lift lines and
+   calcium leaching are signatures of POURED concrete -- they would be a lie on it. It was in
+   the first cut and came out because I could not photograph the fort to check. DO NOT SHIP A
+   MATERIAL YOU HAVE NOT LOOKED AT. tools/bohemia_material_peek.js exists now precisely so that
+   is never the reason again; adobe gets its own painter (warm, coursed, slumped, no leaching)
+   and until then the fort is UNCHANGED rather than wrong in a new way. */
+function __concreteTile(entry){ return __materialOf(entry)==='concrete'; }
 /* __CONCRETE_IS_NOT_A_ROOF_PICK__ END */
 """),
 
@@ -154,8 +214,10 @@ function __concreteTile(entry){
      False,
      """    /* __CONCRETE_IS_NOT_A_ROOF_SET__ -- stamp the material on the cell while the legend is
        still in hand. One line, and it is the only place in the pipeline that knows this tile
-       is a dam wall rather than a colour that a water tower also happens to wear. */
-    if(__concreteTile(entry)) c.sTex='concrete';
+       is a dam wall rather than a colour that a water tower also happens to wear -- and now it
+       is also the only place that knows a gantry crane is steel rather than a shade of grey a
+       dam also wears. */
+    var _mat=__materialOf(entry); if(_mat) c.sTex=_mat;
 /* __CONCRETE_IS_NOT_A_ROOF_SET__ END */
 """),
 ]
@@ -196,7 +258,7 @@ POOL_NEW = ("      /* __CONCRETE_IS_NOT_A_ROOF_POOL__ -- and neither is a dam. T
             "         THE HEIGHT IS SET EXPLICITLY because the shadow pass keys off this very flag\n"
             "         (wallH || (face || artPool==='hroof') ? WALL_H : 1). WALLS ARE TWO TALL, Paolo\n"
             "         8/2 LOCKED -- 'from fencing to concrete to brick whatever'. Nothing gets shorter. */\n"
-            "      if(!KIT_TERRAIN[d]&&!__concreteTile(entry)){ c.artPool='hroof'; c.tint=pal; }\n"
+            "      if(!KIT_TERRAIN[d]&&!__materialOf(entry)){ c.artPool='hroof'; c.tint=pal; }\n"
             "      else if(!KIT_TERRAIN[d]&&!c.wallH){ c.wallH=WALL_H; }")
 
 # THE DRAW SITE. A pure replacement of an anchor that still exists, so a failed reversal
@@ -246,8 +308,14 @@ if src.count(DRAW_OLD) != 1:
              'guess -- it draws every standing object in the game.' % src.count(DRAW_OLD))
 src = src.replace(DRAW_OLD, DRAW_NEW, 1)
 
-if POOL_NEW in src:
-    src = src.replace(POOL_NEW, POOL_OLD)
+# REVERSE BY MARKER, NEVER BY CONTENT -- the lesson this repo has already paid for twice, and
+# it bit again the moment the rule inside this block changed from __concreteTile to
+# __materialOf: `if POOL_NEW in src` was false, so nothing reversed, and the anchor was already
+# gone. A marker survives every edit to the thing it wraps; a content match survives none.
+_pool_pat = re.compile(
+    r'[ \t]*/\* __CONCRETE_IS_NOT_A_ROOF_POOL__.*?\n[ \t]*if\(!KIT_TERRAIN\[d\]&&![^\n]*\n'
+    r'[ \t]*else if\(!KIT_TERRAIN\[d\]&&!c\.wallH\)\{ c\.wallH=WALL_H; \}\n', re.S)
+src, _pn = _pool_pat.subn(POOL_OLD + '\n', src)
 if src.count(POOL_OLD) != 1:
     sys.exit('CONCRETE PATCH: the hroof assignment is not unique (%d hits). Refusing to guess '
              '-- it decides the material of every standing object in every district.'
@@ -262,6 +330,6 @@ src = src.replace(KIND_OLD, KIND_NEW, 1)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('CONCRETE PATCH: %s' % ('REFRESHED' if refreshed else 'applied'))
-print('    21 tiles across 19 districts stop wearing the approved HOUSE ROOF art')
+print('    the materials table routes CONCRETE and STEEL out of the approved HOUSE ROOF art')
 print('    routed by the LEGEND, never by the colour: 12 of 18 concrete colours are shared')
 print('    with a gantry crane, a busbar, razor wire, a hangar, a fence, a water tower...')

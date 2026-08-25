@@ -467,6 +467,21 @@
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_strand_picture.js"
+  },
+  {
+   "id": "everything-metal",
+   "title": "THE RUST RUNS DOWN IT NOW",
+   "caption": "Every metal thing in the city was wearing house roof tiles: the gantry crane at the rail yard, the conveyors at the quarry, the pipe galleries at the water plant, the guardrails on the freeway, this water tank. Twenty-five of them. They are steel now -- ribbed like real sheet metal, catching the light on one edge of every rib the way metal does and concrete does not, with the rust bleeding DOWNWARD from every fastener, because that is the direction water carries it. Ten years of it. RUN tab, walk into any industrial yard.",
+   "file": "look/everything-metal.png",
+   "at": {
+    "x": 7768,
+    "y": 1294,
+    "zoom": 16
+   },
+   "kb": 239.9,
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only everything-metal"
   }
  ]
 }

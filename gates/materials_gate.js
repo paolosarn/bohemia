@@ -1,4 +1,5 @@
-// CONCRETE IS NOT A ROOF GATE (8/25, WORLD lane).
+// MATERIALS GATE (8/25, WORLD lane). Was concrete_gate; it gates a TABLE now, not one material,
+// and a gate named for the wrong thing is the drift this repo exists to stop.
 //
 // realizeCell hands every structure tile in every non-terrain district the APPROVED HOUSE-ROOF
 // ART POOL -- `if(!KIT_TERRAIN[d]){ c.artPool='hroof'; c.tint=pal; }` -- so Hoover Dam, every
@@ -21,7 +22,8 @@ const REPO = path.dirname(__dirname);
 
 // Whatever routes today may only ever GROW. A district author naming a new concrete mass gets
 // it for free; nobody quietly drops one.
-const ROUTED_FLOOR = 21;
+const CONCRETE_FLOOR = 21;
+const STEEL_FLOOR = 25;
 
 (async () => {
   let pass = 0, fail = 0;
@@ -37,14 +39,16 @@ const ROUTED_FLOOR = 21;
 
   const R = await page.evaluate(() => {
     const K = BohemiaDistrictKit;
-    const routed = [], byCol = {};
+    const routed = [], byCol = {}, byMat = {};
     for (const t of K.types()) {
       const sp = K.get(t); if (!sp || !sp.legend || !sp.palette) continue;
       for (const c in sp.legend) {
         const e = sp.legend[c]; if (!e) continue;
         if (K.tileLayer(e).layer !== 'structure') continue;
         const col = sp.palette[c];
-        const hit = __concreteTile(e);
+        const mat = __materialOf(e);
+        if (mat) { (byMat[mat] = byMat[mat] || []).push(t + ':' + c + ' ' + e.name); }
+        const hit = mat === 'concrete';
         if (hit) { routed.push(t + ':' + c + ' ' + e.name); if (col) (byCol[col] = byCol[col] || []).push(true); }
         else if (col) (byCol[col] = byCol[col] || []).push(false);
       }
@@ -73,13 +77,20 @@ const ROUTED_FLOOR = 21;
     }
     const spec = K.get('dam');
     return {
-      routed, shared, total, dam,
+      routed, shared, total, dam, byMat,
       hasPainter: typeof TEXKIND.concrete === 'function',
+      hasSteel: typeof TEXKIND.steel === 'function',
+      /* THE VETO, BY EXAMPLE. "screen tower" is a rock screen at the quarry and a MOVIE SCREEN
+         at the drive-in: one name, two objects, and one of them is a painted sheet that must
+         not become corrugated steel. */
+      movieScreen: __materialOf(K.get('drivein').legend[6]),
+      rockScreen: __materialOf(K.get('quarry').legend[14]),
+      gantry: __materialOf(K.get('railyard').legend[13]),
       /* the discriminator, by example: a roofed building made OF concrete must stay roofed */
-      store: __concreteTile(K.get('commercial').legend[2]),
-      warehouse: __concreteTile(K.get('warehouse').legend[2]),
-      damWall: __concreteTile(spec.legend[2]),
-      fort: __concreteTile(K.get('fort').legend[2]),
+      store: __materialOf(K.get('commercial').legend[2]),
+      warehouse: __materialOf(K.get('warehouse').legend[2]),
+      damWall: __materialOf(spec.legend[2]),
+      fort: __materialOf(K.get('fort').legend[2]),
     };
   });
   await browser.close();
@@ -87,17 +98,29 @@ const ROUTED_FLOOR = 21;
   ok('the city page booted with no error' + (pageErr ? ' -- ' + pageErr : ''), !pageErr);
   ok('there is a MASS CONCRETE painter at all (the game had none: canopy, rock, or roof)',
      R.hasPainter);
-  ok(`the concrete masses are routed and the set only GROWS (${R.routed.length} of ${ROUTED_FLOOR})`,
-     R.routed.length >= ROUTED_FLOOR);
+  ok(`the concrete masses are routed and the set only GROWS (${R.routed.length} of ${CONCRETE_FLOOR})`,
+     R.routed.length >= CONCRETE_FLOOR);
+  ok('there is a STEEL painter -- metal is SPECULAR and concrete is not, which is most of what ' +
+     'tells you a thing is metal at all', R.hasSteel);
+  ok(`the steel objects are routed and the set only GROWS (${(R.byMat.steel || []).length} of ` +
+     `${STEEL_FLOOR})`, (R.byMat.steel || []).length >= STEEL_FLOOR);
+  ok('THE GANTRY CRANE is steel -- and its legend never once uses the word, which is why steel ' +
+     'is matched on objects that are steel BY DEFINITION and concrete is matched on the word',
+     R.gantry === 'steel');
+  /* ONE NAME, TWO OBJECTS. This is the check that stops the steel rule eating a painted sheet. */
+  ok('THE DRIVE-IN\'S "screen tower" IS A MOVIE SCREEN and does not become corrugated steel',
+     R.movieScreen === null);
+  ok('...while the QUARRY\'S "screen tower" -- a rock screen over the crusher -- does',
+     R.rockScreen === 'steel');
 
-  ok('THE DAM WALL routes to concrete -- the object this was found on', R.damWall === true);
+  ok('THE DAM WALL routes to concrete -- the object this was found on', R.damWall === 'concrete');
   ok('A ROOFED BUILDING MADE OF CONCRETE STAYS ROOFED: commercial:2 store does not route',
-     R.store === false);
+     R.store === null);
   ok('...and neither does warehouse:2 tenant unit (tilt-up, and its act-1 line says concrete)',
-     R.warehouse === false);
+     R.warehouse === null);
   ok('ADOBE IS NOT CONCRETE: the fort\'s mud-brick curtain wall does not route (lift lines and ' +
      'calcium leaching are signatures of POURED concrete and would be a lie on it)',
-     R.fort === false);
+     R.fort === null);
 
   ok('the dam wall no longer carries the APPROVED HOUSE-ROOF pool' +
      (R.dam ? ' (artPool=' + R.dam.artPool + ')' : ' -- NO DAM CELL FOUND'),
@@ -115,17 +138,21 @@ const ROUTED_FLOOR = 21;
      `${R.total}), which is why this is routed by the legend and not by the palette`,
      R.shared > R.total / 2);
   const src = fs.readFileSync(path.join(REPO, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
-  ok('the routing reads the LEGEND ENTRY, not the colour (__concreteTile takes an entry and ' +
+  ok('the routing reads the LEGEND ENTRY, not the colour (__materialOf takes an entry and ' +
      'tests its name and act-1 text)',
-     /function __concreteTile\(entry\)/.test(src) && /entry\.act1/.test(src));
+     /function __materialOf\(entry\)/.test(src) && /entry\.act1/.test(src));
   ok('and the cell carries the answer to the renderer, the same way c.lamp and c.haz do',
-     /if\(__concreteTile\(entry\)\) c\.sTex='concrete';/.test(src));
+     /var _mat=__materialOf\(entry\); if\(_mat\) c\.sTex=_mat;/.test(src));
+  ok('ONE TABLE, MANY MATERIALS (FACTORY LAW): adding a material is a ROW, not a mechanism',
+     /var MATERIALS=\[/.test(src));
   ok('APPROVED ART STILL WINS: the procedural branch sits AFTER the art-pool branches, so ' +
      'anything resolving to a judged pool keeps it',
      src.indexOf("else if(c.sTex) x.drawImage") > src.indexOf('if(_ht2){ x.drawImage'));
 
-  console.log('  routed: ' + R.routed.join(' | '));
-  console.log('CONCRETE GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
-              R.routed.length + ' masses, ' + R.shared + '/' + R.total + ' colours shared)');
+  for (const m of Object.keys(R.byMat).sort())
+    console.log('  ' + m + ' (' + R.byMat[m].length + '): ' + R.byMat[m].join(' | '));
+  console.log('MATERIALS GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
+              Object.keys(R.byMat).map(m => m + ' ' + R.byMat[m].length).join(', ') +
+              '; ' + R.shared + '/' + R.total + ' concrete colours shared)');
   process.exit(fail ? 1 : 0);
 })();
