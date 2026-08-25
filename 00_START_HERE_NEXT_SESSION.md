@@ -3142,6 +3142,33 @@ green, in 120ms. One `&&` fixes it and M4 proves the fix (reports `(0s)`, red).
 Not proven red, named honestly: "resolves a scene with lines in it", "leaves you
 on a live surface with real area", and the chain-level copy of the callable check.
 
+THE FULL SUITE FINISHED (419 gates, 73 min, 26 red). RUN IT WITH nohup AND NO
+TIMEOUT, OR SHARD IT -- the runner now says so itself and prints the shard commands;
+my first attempt used `timeout 3000` piped to `tail` and died at 50 minutes with
+ZERO output. Fifteen reds are on the inherited list. The confirm pass re-ran every
+red ALONE and cleared FIGHT MOVES YOU as load, which is why that pass exists.
+
+TWO WERE MINE AND BOTH ARE FIXED:
+  BANNER -- FIXING THE OUTPUT DOES NOT FIX THE GENERATOR. bohemia_clout.js and
+  bohemia_deeds.js were inlined in the city page behind a banner naming both
+  modules with no `engine/` prefix, so the ENGINE SYNC scanner counted them as
+  ZERO and both sat outside the one-canonical-body law. THE RUN LANE ALREADY
+  FIXED THIS ON 8/21 with a tool that repairs the city page -- but MY tool
+  GENERATES that region and put the hole straight back. Measured: the combined
+  banner was in the page exactly once, so the regeneration had undone their
+  repair. Fixed at the source, one banner per module. Comments only: both bodies
+  still byte-verbatim (3,874 / 13,800), region +3 lines, BANNER 12/2 -> 14/0.
+  ENGINE SYNC still 18 modules / zero drift, unchanged and correctly so -- nothing
+  HAD drifted; what changed is that these two can now BE SEEN to.
+
+  DIALOGUE CATALOGUE -- MY REGRESSION, THEIR GATE WAS THE VICTIM. It called eight
+  reaction keys INVENTED (saw:/heard: quiet, notable, risky, reckless). ALL EIGHT
+  ARE REAL. It read CLOUT_WEIGHTS out of bohemia_loop.js as an object literal, and
+  I extracted that table to bohemia_clout.js, so loop now holds a REFERENCE. Regex
+  matched nothing, tag list empty, every genuine key reported invented. The rule is
+  "the tags the world produces"; pinning the FILE is not that rule. Now sweeps
+  engine/ and NAMES the module in the pass line. 60/2 -> 62/0.
+
 Record: records/BOHEMIA_NOBODY_EVER_WATCHED_IT_TO_THE_END_8_25_26.md
 
 ---- PREVIOUS (8/24) ----

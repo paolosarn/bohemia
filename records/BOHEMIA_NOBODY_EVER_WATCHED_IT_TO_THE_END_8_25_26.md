@@ -170,7 +170,49 @@ unable to pass for a reason that has nothing to do with the rule.**
 The gate goes from about 60 seconds to about 190. The extra two minutes buy the
 only proof in the repo that the first minute of the demo plays.
 
-## A SECOND FINDING, HANDED TO WHOEVER OWNS THE LOOK TAB
+## THE FULL SUITE FINISHED, AND TWO OF THE REDS WERE ACTUALLY MINE
+
+419 gates, 73 minutes, 26 red. Fifteen are on the handoff's documented inherited
+list. The runner's own confirm pass re-ran every red ALONE and cleared one as load
+(FIGHT MOVES YOU), which is exactly why that pass exists. Two were mine.
+
+### BANNER: FIXING THE OUTPUT DID NOT FIX THE GENERATOR
+
+`engine/bohemia_clout.js` and `engine/bohemia_deeds.js` were inlined into the city
+page behind a banner the ENGINE SYNC scanner cannot read - one line naming both
+modules, with no `engine/` prefix - so the sweep counted them as zero modules and
+both bodies sat outside the law that keeps one canonical copy of each.
+
+**The RUN lane already fixed this on 8/21.** They wrote a tool that repairs the
+banners in the city page, and it worked. But **this lane's tool GENERATES that
+region**, so the next run of it put the hole straight back. Measured before
+touching anything: the combined banner was in the page exactly once, so the
+regeneration had already undone their repair.
+
+A generator and its output are not two places to fix a bug. Fixed at the source.
+Verified the fix is comments only, which for a sync-law repair is the whole bar:
+both module bodies still byte-for-byte verbatim (3,874 and 13,800 bytes), region
+grew by 3 lines, BANNER 12/2 -> 14/0. ENGINE SYNC still reports 18 modules and zero
+drift, unchanged and correctly so - nothing HAD drifted. What changed is that these
+two can now be SEEN to.
+
+### DIALOGUE CATALOGUE: MY OWN REGRESSION, AND THE GATE WAS THE VICTIM
+
+It reported eight reaction keys as INVENTED - `saw:` and `heard:` for quiet,
+notable, risky and reckless. **All eight are real tags.** The gate read
+`CLOUT_WEIGHTS` out of `bohemia_loop.js` with a regex for an object literal, and
+this lane extracted that table into its own module, so loop now holds a
+**reference, not a literal**. The regex matched nothing, the tag list came back
+empty, and the next claim then called every genuine key invented. Both claims were
+lying, and the lane that moved the table did nothing wrong.
+
+The rule is "the clout tags the world produces". Pinning the FILE that holds them
+is not that rule, and it failed the first day the file changed - the same family as
+the five pinned-answer misses above, one layer out. It now sweeps `engine/` for the
+literal and NAMES the module that supplied it in the pass line, so the next move is
+visible instead of silent. 60/2 -> 62/0.
+
+## A THIRD FINDING, HANDED TO WHOEVER OWNS THE LOOK TAB
 
 Not mine to fix, and named rather than left as a mystery red.
 
@@ -211,3 +253,6 @@ cause and cannot clear without re-shooting pictures of unchanged pixels.
 | `gates/opening_gate.js` | 24 -> 40 claims; the playthrough block and the chain walk |
 | `tools/bohemia_opening_patch.py` | the stale 8/19 raid comments corrected at source |
 | `slices/BOHEMIA_ALPHA_0_9.html` | same two corrections, plus the build stamp |
+| `tools/bohemia_city_deeds_patch.py` | one scanner-readable banner per module, at the generator |
+| `slices/BOHEMIA_CITY_WORLD.html` | that region regenerated; banners only, bodies verbatim |
+| `gates/dialogue_catalogue_gate.js` | reads the clout table wherever it lives, and names the module |
