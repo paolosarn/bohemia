@@ -378,6 +378,31 @@ def harvest():
             books.append(parse_quirks(p))
         else:
             books.append(parse_scene(p))
+    return stamp_language(books)
+
+
+# ---- LANG-2: EVERY LINE KNOWS WHAT LANGUAGE IT IS IN (8/25/26) -------------
+# THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). The expensive thing later is never
+# the CONTENT of a line -- his 8/11 law is right and a line is one row. THE
+# EXPENSIVE THING IS A MISSING COLUMN. Adding a language field today is one
+# function on a harvester. Adding it at line 5,000 means a human re-reads five
+# thousand lines and rules on each one, and that human is HIM.
+# So: EVERY line in the book carries `lang`, defaulting to 'en', and the register
+# buckets carry theirs. It is one field, it is visible in the WORDS tab, and
+# nothing about it needs a decision from him today.
+LANG_SUFFIX = ('@spanglish', '@es')
+
+
+def stamp_language(books):
+    for b in books:
+        for ln in b.get('lines', []):
+            reg = 'en'
+            for src in (ln.get('speaker'), ln.get('node'), ln.get('id')):
+                s = str(src or '')
+                for suf in LANG_SUFFIX:
+                    if s.endswith(suf) or (suf + '#') in s:
+                        reg = suf[1:]
+            ln.setdefault('lang', reg)
     return books
 
 
@@ -430,6 +455,10 @@ body.sun .who{color:#7a6a3e}
 .k{border:1px solid #3a3020;border-radius:3px;padding:1px 5px;font-size:9px;color:#8d8168}
 body.sun .k{border-color:#bcae90;color:#6a5f4a}
 .k.choice{color:#7fb3d5;border-color:#2f4a5c}
+/* LANG-2 (8/25): the register chip. Warm, not alarming -- a Spanglish line is
+   normal, it is not a problem to be fixed. */
+.k.lang{color:#d9a441;border-color:#6b5220}
+body.sun .k.lang{color:#8a6410;border-color:#c9ae72}
 .k.journal{color:#b08a5a;border-color:#4a3a22}
 .k.objective{color:#8ab07f;border-color:#31462c}
 .tx{width:100%;margin-top:5px;font:14px/1.55 ui-monospace,monospace;background:#120e07;color:#e8dfc8;
@@ -498,7 +527,7 @@ function matches(l, b) {
   if (filter === 'edited') { if (!(l.id in edits)) return false; }
   else if (filter !== 'all' && l.kind !== filter) return false;
   if (!qs) return true;
-  var hay = (l.text + ' ' + l.speaker + ' ' + b.title + ' ' + (l.node || '')).toLowerCase();
+  var hay = (l.text + ' ' + l.speaker + ' ' + b.title + ' ' + (l.node || '') + ' ' + (l.lang || 'en')).toLowerCase();
   return hay.indexOf(qs) >= 0;
 }
 
@@ -542,7 +571,11 @@ function render() {
       var kc = l.kind === 'choice' ? ' choice' : l.kind === 'journal' ? ' journal'
         : l.kind === 'objective' ? ' objective' : '';
       d.innerHTML = '<div class="who"><span class="k' + kc + '">' + l.kind + '</span>' +
-        '<span>' + l.speaker + '</span>' + (l.node ? '<span class="gsrc">' + l.node + '</span>' : '') + '</div>';
+        '<span>' + l.speaker + '</span>' + (l.node ? '<span class="gsrc">' + l.node + '</span>' : '') +
+        /* LANG-2 (8/25, THEY SPEAK SPANGLISH): the register, shown only when it is
+           not plain English, because a tag on all 1,910 rows is noise and a tag on
+           the 314 that switch is information. He can search "spanglish". */
+        (l.lang && l.lang !== 'en' ? '<span class="k lang">' + l.lang + '</span>' : '') + '</div>';
       var t = document.createElement('textarea');
       t.className = 'tx' + ((l.id in edits) ? ' edited' : '');
       t.value = (l.id in edits) ? edits[l.id] : l.text;
@@ -595,7 +628,8 @@ document.getElementById('exp').addEventListener('click', function () {
     hit.forEach(function (l) {
       n++;
       out.push('  LINE ' + l.id);
-      out.push('  SPEAKER ' + l.speaker + (l.node ? '  NODE ' + l.node : ''));
+      out.push('  SPEAKER ' + l.speaker + (l.node ? '  NODE ' + l.node : '') +
+               (l.lang && l.lang !== 'en' ? '  LANG ' + l.lang : ''));
       out.push('  WAS  ' + l.text);
       out.push('  NOW  ' + edits[l.id]);
       out.push('');
@@ -665,6 +699,8 @@ def main():
             'cites': [] if per_line else [cite(c) for c in b['cites']],
             'lines': [{'id': l['id'], 'kind': l['kind'], 'speaker': l['speaker'],
                        'node': l.get('node'), 'text': l['text'],
+                       # LANG-2 (8/25): every line knows what language it is in.
+                       'lang': l.get('lang') or 'en',
                        'cites': [cite(c) for c in (l.get('cites') or [])] if per_line else []}
                       for l in b['lines']],
         })

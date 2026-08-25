@@ -1755,6 +1755,28 @@ GATES = [
      'shipping (playing over a real save, playing twice, stranding somebody on black) and the '
      'two lies that got past the first cut -- display:flex inside a display:none parent, and '
      'the RUN tab routing to p-city rather than p-run', False),
+    ('LANGUAGE',       ['node', 'gates/language_gate.js'],
+     'THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). A Las Vegas with 418,400+ Spanish speakers had '
+     'exactly ZERO in the build -- every person spoke flawless monolingual English, including '
+     'this lane\'s own shipped proof character, RUBEN NGUYEN. His ruling fixes that; the DANGER '
+     'his ruling creates is the one the localisation research names and Sleeping Dogs got '
+     'attacked for, flavour quietly becoming a COMPREHENSION FAILURE. So the hard rule is the '
+     'point of this gate: LANGUAGE NEVER GATES REQUIRED INFORMATION, and it is checkable only '
+     'because the Spanish this game may say is a CLOSED DECLARED SET written by the bark factory '
+     'from the lines it actually ships. It sweeps every objective, resolution button and journal '
+     'line in every canon quest, the one action button in all three registers, and every row of '
+     'the person card, and proves not one of them contains a word from it. It also holds the '
+     'law\'s named failure (a build where every Spanish speaker is register 3 FAILS -- register 2 '
+     'is a SKILL, register 3 is a GAP), the county arithmetic, and the CLUSTERING: the 139 '
+     'limited-English tracts are a fact about neighbourhoods, so a sprinkle that averages right '
+     'is still wrong. AND IT WALKS THE CITY, because both of the worst bugs here were invisible '
+     'to every file-reading claim: the city handed personOf ONE GLOBAL SEED as a block seed (so '
+     'the whole valley came out 100% ENGLISH -- measured, not guessed) and derived language off a '
+     'DIFFERENT KEY than the name. Two identities for one person, both stable, nothing visibly '
+     'broken. Mutations: a Spanish objective 2 red, the city fix reverted 4 red, every register '
+     'flattened to 3 8 red, the lexicon self-poisoned 4 red (the anti-vacuity claim first, while '
+     'the headline claim stayed green -- which is why that guard exists), the English fallback '
+     'removed 3 red', False),
     ('REACTION REACH', ['node', 'gates/reaction_reach_gate.js'],
      'The reaction lines were written, cited and GREEN while not one person in the game could '
      'say one: the walked run called linesFor(who) with NO ARGUMENTS, so every situation bucket '

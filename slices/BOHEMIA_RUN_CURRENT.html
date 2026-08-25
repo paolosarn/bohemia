@@ -15957,6 +15957,319 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var KNOWN_AT_START = {};
   var NAMED_CAST = KNOWN_AT_START;      // the old name, kept so nothing breaks
 
+  // ---- WHAT LANGUAGE SOMEBODY SPEAKS (8/25/26, LANG-1) ---------------------
+  // THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED): "make them speak spanglish for
+  // our game i like that. have it very poor english ro spanglish to give it
+  // that flavor." laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md.
+  //
+  // THE HOLE THIS FILLS: this file's own comment has said since 7/31 that Clark
+  // County is "roughly 30% Hispanic or Latino" and that an all-Anglo name pool
+  // "would be a lie about Las Vegas" -- and that finding reached exactly ONE
+  // system, the surname pool. The proof character this lane shipped is RUBEN
+  // NGUYEN, and Ruben Nguyen spoke flawless monolingual English, because every
+  // single person in this build did.
+  //
+  // THREE REGISTERS, AND KEEPING THEM APART IS THE WHOLE CRAFT. Register 2 is a
+  // SKILL and register 3 is a GAP: intra-sentential code-switching is what
+  // PROFICIENT bilinguals do, and the syntactic "violations" in the literature
+  // "were not due to limited bilingual competence." Writing everybody as
+  // register 3 would be bad linguistics AND an insult to a third of the county.
+  var LANG = {
+    en:        { key: 'en',        card: 'ENGLISH',               short: 'EN' },
+    spanglish: { key: 'spanglish', card: 'ENGLISH AND SPANISH',   short: 'EN/ES' },
+    es:        { key: 'es',        card: 'SPANISH, SOME ENGLISH', short: 'ES' }
+  };
+  var LANG_ORDER = ['en', 'spanglish', 'es'];
+
+  /* THE VALLEY'S REAL NUMBERS, AND THE ARITHMETIC IN THE OPEN so the next
+     session can check it instead of trusting it. Per 1000 people.
+       418,475   Clark County residents 5+ who speak Spanish at home (ACS)
+       2,265,461 Clark County population (2020 census)
+       -> 18.5% of the valley speaks Spanish at home
+       45%       of those speak English less than "very well" (ACS 2009-2013)
+       The ACS scale is very well / well / not well / not at all. Register 3 is
+       the "not well / not at all" end, roughly half of that 45% in published
+       breakdowns. THAT HALF IS MY ESTIMATE AND IS SAID OUT LOUD RATHER THAN
+       BURIED: 45% x ~50% = ~22% of Spanish speakers.
+       -> es 18.5 x 0.22 = 4.1%   spanglish 18.5 - 4.1 = 14.4%   en 81.5% */
+  var VALLEY_MIX = { en: 815, spanglish: 144, es: 41 };
+
+  /* AND IT CLUSTERS, WHICH IS THE PART THAT MAKES IT A MECHANIC INSTEAD OF A
+     SPRINKLE. 139 CENSUS TRACTS in Clark County are places where more than 10%
+     of households contain nobody over 14 who speaks English only or speaks it
+     "very well" (Clark County Elections' own minority-language page, which
+     exists because federal law forces bilingual ballots here). Clark County has
+     roughly 500 tracts, so about 28% of this valley is that kind of ground.
+     Our valley is built out of cells. A correct Las Vegas has WHOLE BLOCKS
+     where the language on the street is not the language on the phone.
+       A tract that clears a 10%-of-HOUSEHOLDS limited-English bar is not 10%
+       Spanish-speaking, it is typically half to two thirds. 53% here.
+     THE TWO MIXES AVERAGE BACK TO THE COUNTY. 0.278 x BARRIO + 0.722 x REST
+     lands on VALLEY_MIX to the nearest tenth of a percent, which is what
+     language_gate claim B measures -- so the clustering costs the valley
+     nothing in accuracy and buys it every neighbourhood. */
+  var BARRIO_SHARE = 278;                                 // per 1000 blocks
+  var BARRIO_MIX = { en: 470, spanglish: 400, es: 130 };
+  var REST_MIX   = { en: 948, spanglish:  45, es:   7 };
+
+  /* WHICH KIND OF BLOCK THIS IS. Derived from the block seed alone, so every
+     person on a street agrees about the street without anybody storing it. */
+  function blockMixOf(blockSeed) {
+    return (mix32((blockSeed >>> 0) ^ 0x27d4eb2f) % 1000) < BARRIO_SHARE ? BARRIO_MIX : REST_MIX;
+  }
+
+  /* WHAT THEY SPEAK. A THIRD INDEPENDENT STREAM off the identity key, exactly
+     like the two the name uses, so language does not travel with a first name
+     and every Marisol is not the same person. Derived, never stored: the same
+     three numbers resolve to the same register on any device, forever. */
+  function langOf(blockSeed, key) {
+    var h = 0, i;
+    for (i = 0; i < String(key || '').length; i++) h = (Math.imul(h, 31) + String(key).charCodeAt(i)) >>> 0;
+    var mix = blockMixOf(blockSeed);
+    var r = mix32(h ^ 0x5bf03635) % 1000, acc = 0;
+    for (i = 0; i < LANG_ORDER.length; i++) {
+      acc += mix[LANG_ORDER[i]] || 0;
+      if (r < acc) return LANG_ORDER[i];
+    }
+    return 'en';
+  }
+
+  /* ---- THE CLOSED SET OF SPANISH WORDS THIS GAME MAY SAY -------------------
+     Word -> what it means in English. GENERATED, not hand-kept:
+     tools/bohemia_bark_factory.py writes exactly the words that appear in the
+     lines it ships, so the lexicon can never drift from the mouth.
+     IT IS THE HARD RULE MADE MACHINE-CHECKABLE. "LANGUAGE NEVER GATES REQUIRED
+     INFORMATION" is not a promise you can keep by being careful; it is a claim
+     something has to be able to fail. Because the set is closed and declared,
+     gates/language_gate.js can sweep every objective, every resolution button
+     and every job offer in the build and prove not one of them contains a word
+     from it. Sleeping Dogs is the precedent in both directions, and the
+     localisation research names the real cost: a player who is not sure what to
+     do next. That bug cannot reach this build without turning a claim red.
+     DO NOT HAND-EDIT: re-run the factory. */
+  var ES_LEX = {
+  "abuela": "grandmother",
+  "acuerdo": "I remember, in \"me acuerdo\"",
+  "agua": "water",
+  "ahorita": "right now, or soon, or never",
+  "al": "to the",
+  "alguien": "somebody",
+  "alguna": "some",
+  "ambos": "both",
+  "amá": "mom",
+  "antes": "before",
+  "apaga": "turn it off",
+  "apurado": "in a hurry",
+  "aquí": "here",
+  "así": "like that",
+  "ay": "oh",
+  "ayúdame": "help me",
+  "bendito": "blessed",
+  "bien": "fine, well",
+  "bueno": "well, or good",
+  "buscas": "are you looking for",
+  "cabrón": "bastard",
+  "calle": "street",
+  "calor": "heat",
+  "camino": "the road",
+  "carnal": "brother, close friend",
+  "casi": "almost",
+  "cerrado": "closed",
+  "chamba": "work, a job",
+  "chingado": "damn",
+  "ciento": "a hundred",
+  "cierra": "close",
+  "cinco": "five",
+  "claro": "of course",
+  "cobre": "copper",
+  "comadre": "a close woman friend, godmother to your kids",
+  "comer": "to eat",
+  "comida": "the food",
+  "compa": "buddy",
+  "compraron": "they bought",
+  "con": "with",
+  "conozco": "I know",
+  "cualquier": "any",
+  "cuenta": "count",
+  "cuidado": "careful",
+  "cómo": "how",
+  "da": "gives, in \"me da igual\"",
+  "de": "of",
+  "demás": "the rest",
+  "después": "after, afterwards",
+  "diciendo": "saying",
+  "diez": "ten",
+  "dinero": "money",
+  "dios": "god",
+  "dos": "two",
+  "día": "day",
+  "el": "the",
+  "ella": "she",
+  "en": "in, on",
+  "entres": "go in",
+  "es": "is",
+  "esa": "that",
+  "eso": "that",
+  "esquina": "the corner",
+  "esta": "this",
+  "estoy": "I am",
+  "está": "is",
+  "están": "they are",
+  "familia": "family",
+  "flojo": "loose, slack",
+  "foto": "a photo",
+  "frío": "cold",
+  "funciona": "it works",
+  "gracias": "thank you",
+  "gusta": "like, in \"no me gusta\"",
+  "güey": "dude",
+  "hace": "makes",
+  "hambre": "hunger",
+  "hasta": "until",
+  "hay": "there is",
+  "hermano": "brother",
+  "hija": "daughter",
+  "hijo": "son",
+  "hombre": "man",
+  "hora": "the hour",
+  "igual": "the same",
+  "ironía": "irony",
+  "la": "the",
+  "las": "the",
+  "llave": "the tap, the faucet",
+  "llegamos": "we arrived",
+  "lluvia": "rain",
+  "lo": "the, it",
+  "los": "the",
+  "luz": "the light, the power",
+  "madre": "mother",
+  "mano": "brother, short for hermano",
+  "martes": "Tuesday",
+  "mañana": "tomorrow, or the morning",
+  "me": "me",
+  "medidor": "the meter",
+  "mi": "my",
+  "mientas": "lie to me, in \"no me mientas\"",
+  "mija": "my daughter, said to anyone younger",
+  "mijo": "my son, said to anyone younger",
+  "mira": "look",
+  "mires": "look, in \"no me mires\"",
+  "misma": "same",
+  "mismas": "same",
+  "nada": "nothing",
+  "nadie": "nobody",
+  "niños": "the kids",
+  "no": "no",
+  "noche": "night",
+  "nomás": "just, only",
+  "nos": "us",
+  "nosotros": "us",
+  "o": "or",
+  "ocho": "eight",
+  "ofender": "to offend",
+  "ojalá": "God willing, hopefully",
+  "olvida": "forget",
+  "oscuridad": "the dark",
+  "otra": "other, another",
+  "oye": "hey, listen",
+  "paga": "pays",
+  "para": "for",
+  "pasada": "last, past",
+  "peor": "the worst",
+  "pero": "but",
+  "poco": "a little",
+  "por": "for",
+  "porque": "because",
+  "precio": "a price",
+  "pregunta": "ask",
+  "pregúntame": "ask me",
+  "primo": "cousin",
+  "puede": "can",
+  "puedo": "I can",
+  "puerta": "the door",
+  "puertas": "the doors",
+  "pues": "well",
+  "pájaro": "a bird",
+  "que": "that",
+  "quedarse": "to stay",
+  "qué": "what",
+  "rato": "a while",
+  "regla": "a rule",
+  "revés": "backwards, in \"al revés\"",
+  "sabes": "you know",
+  "sabrás": "you will know",
+  "saca": "put out, take out",
+  "se": "itself, in \"no se me olvida\"",
+  "sea": "whatever it is, in \"lo que sea\"",
+  "segunda": "second",
+  "seis": "six",
+  "semana": "the week",
+  "serio": "serious, in \"en serio\"",
+  "si": "if",
+  "siempre": "always",
+  "sin": "without",
+  "siéntate": "sit down",
+  "sol": "the sun",
+  "son": "they are",
+  "sí": "yes",
+  "tampoco": "either, neither",
+  "tarde": "late, or the afternoon",
+  "te": "you",
+  "ti": "you",
+  "toca": "is my turn, in \"me toca\"",
+  "todo": "everything",
+  "todos": "everybody",
+  "trabajo": "I work, or work",
+  "traigo": "I bring",
+  "tu": "your",
+  "turno": "the shift",
+  "tía": "aunt",
+  "tío": "uncle",
+  "tú": "you",
+  "una": "a, one",
+  "vamos": "we go, let us go",
+  "ven": "come",
+  "vez": "a time, once",
+  "viejo": "old man",
+  "voy": "I am going",
+  "vuelvo": "I come back",
+  "y": "and",
+  "ya": "already, or enough",
+  "yo": "I"
+};
+  /* THE HALF OF THE LEXICON THAT CANNOT BE MISTAKEN FOR ENGLISH.
+     Derived by the factory against this game's own English corpus, never
+     hand-picked: "no", "son", "me" and "ya" are words in both languages, and a
+     sweep that flagged them would go red on every English objective in the
+     build. THIS is the list language_gate claim C sweeps the required-
+     information surfaces with. DO NOT HAND-EDIT: re-run the factory. */
+  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "compa", "compraron", "con", "conozco", "cualquier", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "dinero", "dios", "dos", "día", "el", "ella", "en", "entres", "es", "esa", "eso", "esquina", "esta", "estoy", "está", "están", "familia", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "o", "ocho", "ofender", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "peor", "pero", "poco", "por", "porque", "precio", "pregunta", "pregúntame", "primo", "puede", "puedo", "puerta", "puertas", "pues", "pájaro", "que", "quedarse", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sin", "siéntate", "sol", "sí", "tampoco", "tarde", "te", "ti", "toca", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tía", "tío", "tú", "una", "vamos", "ven", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo"];
+  /* WHAT MAY FOLLOW AN APOSTROPHE AND STILL LEAVE A WORD BEHIND. ONE LIST,
+     shipped from the factory, read by esWordsIn below and by the gate through
+     it -- never re-typed into a second regex somewhere. */
+  var ES_CLITIC = ["s", "t", "re", "ve", "ll", "d", "m"];
+
+  /* WHICH SPANISH WORDS A STRING CONTAINS -- ONE IMPLEMENTATION, FOR EVERYBODY.
+     gates/language_gate.js calls THIS to sweep the objectives, the resolution
+     buttons and the phone's job offers rather than carrying its own regex, and
+     that is deliberate: this lane has now twice shipped a bug whose whole cause
+     was two copies of one rule quietly disagreeing (two tab switchers with one
+     routing rule; a generator and its output). A checker that re-types the rule
+     it is checking is the same shape.
+     Returns the words as written, so a failure names what it found. */
+  function esWordsIn(text) {
+    var only = {}, i, out = [];
+    for (i = 0; i < ES_ONLY.length; i++) only[ES_ONLY[i]] = 1;
+    var m, re = /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ']+/g, s = String(text == null ? '' : text);
+    while ((m = re.exec(s))) {
+      var w = m[0].toLowerCase();
+      if (only[w]) { out.push(m[0]); continue; }
+      var ap = w.indexOf("'");
+      if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0 && only[w.slice(0, ap)]) out.push(m[0]);
+    }
+    return out;
+  }
+
   // ---- THE POOL A STRANGER ANSWERS FROM ------------------------------------
   // MECHANISM-MINE: the machine may generate the name somebody TELLS you when you
   // ask. It may never decide who the story people are (that is KNOWN_AT_START,
@@ -16026,16 +16339,44 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "There's a town north that still has a working sign. A SIGN.",
     "Two weeks of road and the best thing I saw was a bird."
   ],
+  "faction:Caravans@es": [
+    "Six day go. Six day come. The road change two time.",
+    "The road say the price. Not me.",
+    "Two week on the road. Best thing I see is a bird."
+  ],
+  "faction:Caravans@spanglish": [
+    "Six days out, six days back, y the road changes both times.",
+    "Prices are what el camino says they are.",
+    "Two weeks of road and the best thing I saw was un pájaro."
+  ],
   "faction:Cartel": [
     "You want it, there's a price. You don't want it, walk on.",
     "Nobody made you come down here.",
     "Everything's available. Availability isn't the expensive part."
+  ],
+  "faction:Cartel@es": [
+    "You want, is a price. You not want, you walk.",
+    "Nobody make you come here."
+  ],
+  "faction:Cartel@spanglish": [
+    "You want it, hay un precio. You don't want it, walk on.",
+    "Nadie made you come down here."
   ],
   "faction:Church": [
     "Doors are open. They're always open, that's the point.",
     "Come eat. Sit through the words first if you can stand them.",
     "Nobody's turned away. Nobody's turned away twice, either.",
     "Bring who you like. Bring who you don't like, especially."
+  ],
+  "faction:Church@es": [
+    "The door is open. Always open. Is the point.",
+    "Come eat. First the words. If you can.",
+    "Nobody go away. Nobody go away two time also."
+  ],
+  "faction:Church@spanglish": [
+    "Las puertas are open. They're always open, that's the point.",
+    "Ven a comer. Sit through the words first if you can stand them.",
+    "Nobody's turned away. Nobody's turned away twice, tampoco."
   ],
   "faction:Colorful": [
     "You should have seen this place at night. You still should."
@@ -16045,8 +16386,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Everybody here's from somewhere. Ask sometime.",
     "I've slept in better and I've slept in worse and I'm still here."
   ],
+  "faction:Homeless@es": [
+    "I have a place out of the sun. Cost nothing.",
+    "Everybody here is from some place. Ask one day."
+  ],
+  "faction:Homeless@spanglish": [
+    "Got a spot out of el sol if you need one. Costs nothing.",
+    "Everybody here's from somewhere. Pregunta sometime."
+  ],
   "faction:La Familia": [
     "Family eats first. Everybody's family somewhere."
+  ],
+  "faction:La Familia@es": [
+    "Family eat first. Everybody is family from some place.",
+    "You sit at the table. Now you are ours."
+  ],
+  "faction:La Familia@spanglish": [
+    "La familia eats first. Everybody's family somewhere.",
+    "You sat at the table, so you're ours now. Así de simple."
   ],
   "faction:Mob": [
     "The house always has a floor and you're standing on it.",
@@ -16085,6 +16442,16 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Whoever built this knew what they were doing. Whoever touched it after didn't.",
     "Everything in this valley was built by somebody who's still alive."
   ],
+  "faction:Trades@es": [
+    "I fix it. Not for free.",
+    "Bring the part, or bring the hour. Same to me.",
+    "The one who build this, he know. The one who touch after, no."
+  ],
+  "faction:Trades@spanglish": [
+    "I can fix it. No puedo fix it for free.",
+    "Bring the part or bring the hours, me da igual.",
+    "Whoever built this knew what they were doing. Whoever touched it after, no."
+  ],
   "faction:Triads": [
     "Terms first. Then the handshake."
   ],
@@ -16098,12 +16465,33 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "If I'm not back by dark, the list is on the table.",
     "I'm collecting, not visiting. Don't put the kettle on."
   ],
+  "keeper:errand@es": [
+    "One hour close. Everybody see it.",
+    "I go, I come back. Touch nothing."
+  ],
+  "keeper:errand@spanglish": [
+    "I close for one hour y everybody notices.",
+    "Voy y vuelvo. Don't touch anything."
+  ],
   "keeper:free": [
     "Sit. You look like a man about to ask me for something.",
     "It ran better when fewer people knew it existed.",
     "Everybody's a good neighbour on a full stomach.",
     "Ask me tomorrow when I'm not counting.",
     "I've buried people who were owed more than you."
+  ],
+  "keeper:free@es": [
+    "I hear all. I repeat almost nothing.",
+    "Here everybody owe everybody. Is how it work.",
+    "You want know who is short? Look what they buy.",
+    "Twenty year, same corner. You learn."
+  ],
+  "keeper:free@spanglish": [
+    "I hear everything and I repeat casi nothing.",
+    "Everybody on this block owes everybody. Así funciona.",
+    "You want to know who's short this week? Ask me qué compraron.",
+    "I'm not gossiping, I'm keeping track.",
+    "Twenty years en la misma esquina. You learn things."
   ],
   "keeper:home": [
     "Wipe your feet, this is somebody's house.",
@@ -16115,16 +16503,50 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "You're welcome here. You're not welcome to everything here.",
     "Take your shoes off and take your side of it off too."
   ],
+  "keeper:home@es": [
+    "I feed the block today. Now I feed you.",
+    "Sit. The food not go anywhere.",
+    "In this house nobody sleep hungry. Is the rule.",
+    "My mother do it this way. She is right."
+  ],
+  "keeper:home@spanglish": [
+    "I fed half the block today y I still have to feed you.",
+    "Sit down. La comida's not going anywhere.",
+    "Nobody in this house goes to sleep con hambre, that's it, that's the rule.",
+    "Your abuela did it this way and she was right."
+  ],
   "keeper:scav": [
     "I don't like doing this. I like eating."
+  ],
+  "keeper:scav@es": [
+    "Even me, I look. Is no other way."
+  ],
+  "keeper:scav@spanglish": [
+    "Even I go looking. No hay de otra."
   ],
   "keeper:sleep": [
     "...",
     "It'll keep till morning. Everything keeps till morning."
   ],
+  "keeper:sleep@es": [
+    "...",
+    "Close. Come back six."
+  ],
+  "keeper:sleep@spanglish": [
+    "...",
+    "Cerrado. Come back at six."
+  ],
   "keeper:watch": [
     "I'd rather be the one awake than the one wondering.",
     "Nothing gets past this porch without saying hello."
+  ],
+  "keeper:watch@es": [
+    "I know every face here. You, not yet.",
+    "Nothing move out there. I see it two time."
+  ],
+  "keeper:watch@spanglish": [
+    "I know every face on this street. Tú I don't know yet.",
+    "Nothing moves out there that I don't see twice."
   ],
   "keeper:work": [
     "Count it in front of me, not after.",
@@ -16136,10 +16558,35 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Everybody thinks they're the exception. Nobody's the exception.",
     "It's not mine. I just hold the key to it."
   ],
+  "keeper:work@es": [
+    "Everything have price. And a story. Only one is free.",
+    "Now, or cheap. Not both.",
+    "I open when I open. Ask anybody.",
+    "Count in front of me. Please.",
+    "Is the last one. Until road open."
+  ],
+  "keeper:work@spanglish": [
+    "Everything on this shelf has a price y a story, and only one is free.",
+    "You want it now or you want it cheap? No los dos.",
+    "I open when I open. Ask the block, todos know.",
+    "Count it in front of me. Por favor.",
+    "That's the last one till the road opens.",
+    "Traigo lo que puedo. What I can't, somebody else brings."
+  ],
   "scav:errand": [
     "Dropping this off then I'm done, I mean it.",
     "They asked for glass. I brought glass.",
     "Two more streets and then I'm somebody's problem, not mine."
+  ],
+  "scav:errand@es": [
+    "Two more door. Then we go.",
+    "He say he come. He say.",
+    "I not carry this. You carry."
+  ],
+  "scav:errand@spanglish": [
+    "Two more doors y nos vamos.",
+    "He said he'd be here. Pues, he said.",
+    "I'm not carrying that. Tú carry that."
   ],
   "scav:free": [
     "I got two batteries and a story.",
@@ -16149,12 +16596,37 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "I'd trade the whole bag for a working fridge and I mean it.",
     "You want to know what's out there? Sand and other people's kitchens."
   ],
+  "scav:free@es": [
+    "Best thing I find? A photo. I keep it.",
+    "You go where nobody go yet. Is all.",
+    "My uncle do this before. He call it a job.",
+    "Everything good is behind something heavy."
+  ],
+  "scav:free@spanglish": [
+    "Best thing I ever pulled out of a house? Una foto. Kept it.",
+    "You go where nobody's hungry enough to have gone yet.",
+    "My tío did this before the crash and called it a job.",
+    "Everything worth having is behind something heavy.",
+    "Ask me in a year if it's still worth it. Pregúntame in a year."
+  ],
   "scav:home": [
     "It's not much. It's what there was.",
     "Don't tell your mother where I got it.",
     "I'll go further out tomorrow. It's fine.",
     "I'll clean it. It works, it's just ugly.",
     "Nothing today. There's always tomorrow, there's just not always today."
+  ],
+  "scav:home@es": [
+    "No ask where. Only eat.",
+    "Today nothing. I tell you first.",
+    "Wash the hand. Really wash.",
+    "Put under bed, with the other."
+  ],
+  "scav:home@spanglish": [
+    "Don't ask where it came from, mijo. Eat.",
+    "I brought back nada today and I'm telling you first.",
+    "Wash your hands. En serio, wash them.",
+    "Put it under the bed con lo demás."
   ],
   "scav:scav": [
     "Anything with a serial number on it, somebody wants.",
@@ -16170,21 +16642,68 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Been in here before. Somebody moved the chairs.",
     "Leave the photos. I know, I know. Just leave them."
   ],
+  "scav:scav@es": [
+    "Serial number, somebody want it. Always.",
+    "Not go past second room. The floor is bad.",
+    "Street is empty already. We come ten year late.",
+    "Wire. Glass. Thing that hold water. Is all.",
+    "You smell? Then no. We not go in.",
+    "Three house today, the bed still made."
+  ],
+  "scav:scav@spanglish": [
+    "Anything with a serial number on it, somebody wants.",
+    "No entres past the second room. Floor's a suggestion.",
+    "Whole street's picked. Llegamos late by a decade.",
+    "Wire, glass, anything that holds agua. That's the list.",
+    "You smell that? Then we're not going in.",
+    "Third house today with the beds still made. No me gusta.",
+    "Take the small stuff first. Small stuff walks."
+  ],
   "scav:sleep": [
     "...",
     "Wake me if the dogs start."
   ],
+  "scav:sleep@es": [
+    "...",
+    "Enough. Tomorrow."
+  ],
+  "scav:sleep@spanglish": [
+    "...",
+    "Ya. Mañana."
+  ],
   "scav:watch": [
     "I'm better at finding than watching.",
     "Anything moves out there, it's a bag in the wind."
+  ],
+  "scav:watch@es": [
+    "I watch. Nobody else watch.",
+    "Two people. I know both."
+  ],
+  "scav:watch@spanglish": [
+    "I watch the street porque nobody else does.",
+    "Two people out. Ambos I know."
   ],
   "scav:work": [
     "Sorting's the job. Anybody can pick things up.",
     "That pile's mine, that pile's the block's. Don't mix them.",
     "Anything shiny goes in the middle pile, I'll look at it after."
   ],
+  "scav:work@es": [
+    "If they pay, is work. If no, is Tuesday.",
+    "Only hand. No machine. Machine not work here."
+  ],
+  "scav:work@spanglish": [
+    "It's work if somebody pays. Si no, it's Tuesday.",
+    "Hands, not machines. Nothing here runs anyway."
+  ],
   "watch:errand": [
     "Fast in, fast out. I'm expected somewhere."
+  ],
+  "watch:errand@es": [
+    "Fast. Before dark. I work at dark."
+  ],
+  "watch:errand@spanglish": [
+    "Quick, before it's dark. Yo trabajo at dark."
   ],
   "watch:free": [
     "Third night in a row somebody's been on that roof.",
@@ -16192,17 +16711,51 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "You want the shift? Take the shift. I'm not proud.",
     "I sleep with the window open. Habit."
   ],
+  "watch:free@es": [
+    "I sleep when everybody wake. Always backward.",
+    "Ask me how the street look at four. Nobody ask.",
+    "Somebody must stand there. Is me."
+  ],
+  "watch:free@spanglish": [
+    "I sleep when everybody's awake. Al revés, always.",
+    "Ask me what the street looks like at four. Nadie asks.",
+    "Somebody has to stand out there y me toca."
+  ],
   "watch:home": [
     "I sleep days. Try to remember that.",
     "Nothing happened, which is the best sentence I know.",
     "Don't ask. It was fine. It's always fine until it isn't."
   ],
+  "watch:home@es": [
+    "Wake me nine. Not before.",
+    "I see the sun come up. Again.",
+    "Close the door. I know you know. I say it."
+  ],
+  "watch:home@spanglish": [
+    "Wake me at nine, no antes.",
+    "I saw the sun come up. Otra vez.",
+    "Cierra la puerta. Yes I know. I still say it."
+  ],
   "watch:scav": [
     "Off shift I take what everybody takes."
+  ],
+  "watch:scav@es": [
+    "I take what nobody watch. Is funny, I know."
+  ],
+  "watch:scav@spanglish": [
+    "I take what nobody's watching. Ironía, I know."
   ],
   "watch:sleep": [
     "...",
     "I hear everything, so it had better be worth it."
+  ],
+  "watch:sleep@es": [
+    "...",
+    "Is day. Let me sleep."
+  ],
+  "watch:sleep@spanglish": [
+    "...",
+    "Es de día. Let me sleep."
   ],
   "watch:watch": [
     "State your business or state nothing and keep walking.",
@@ -16218,9 +16771,32 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Go home. I'm not asking twice and I'm not asking rudely.",
     "You get used to the dark. You never get used to the waiting."
   ],
+  "watch:watch@es": [
+    "Nothing. Is good.",
+    "You learn the hour. Two to four is the bad one.",
+    "I not look for trouble. I look for when it start.",
+    "Same dog. Same nothing. Every night.",
+    "Eight hour. The best part is when is boring."
+  ],
+  "watch:watch@spanglish": [
+    "Nothing. Y eso es bueno.",
+    "You learn the hours. Two to four es lo peor.",
+    "I'm not looking for trouble, estoy looking for the hour it starts.",
+    "Same dog barks at the same nothing every night.",
+    "Light moves out there? Mira first, say nothing.",
+    "Ocho hours and the best part is when it's boring."
+  ],
   "watch:work": [
     "Same post, same window, same six lights.",
     "I write it down. Somebody eventually reads it."
+  ],
+  "watch:work@es": [
+    "Stand. Is the work. All the shift.",
+    "If something happen, you know it."
+  ],
+  "watch:work@spanglish": [
+    "Standing is the work. Todo el turno.",
+    "You'll know if something happens. Ya lo sabrás."
   ],
   "when:after_trouble": [
     "Everybody's accounted for. Everybody on this block.",
@@ -16229,6 +16805,20 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Count the doors. Then count the people.",
     "Whatever you saw, you saw it with us."
   ],
+  "when:after_trouble@es": [
+    "Everybody is here. All this block.",
+    "Board it tonight. Fix it good in the light.",
+    "Nobody say nothing. Everybody say it loud.",
+    "Count the door. Then count the people.",
+    "What you see, you see it with us."
+  ],
+  "when:after_trouble@spanglish": [
+    "Everybody's accounted for. Todos on this block.",
+    "Board it tonight, fix it bien when it's light.",
+    "Nobody's saying nada and everybody's saying it loud.",
+    "Cuenta las puertas. Then count the people.",
+    "Whatever you saw, you saw it con nosotros."
+  ],
   "when:brownout": [
     "There it goes. Same hour as always.",
     "Half light's worse than none. Makes you think it's coming back.",
@@ -16236,9 +16826,31 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Half the block, same as Tuesday.",
     "It's not broken. Somebody's just using more of it than us."
   ],
+  "when:brownout@es": [
+    "There. Same hour. Always.",
+    "Half light is worse than no light. You think it come back.",
+    "Somebody up there drink before us.",
+    "Half the block. Same like Tuesday.",
+    "Is not broken. Somebody use more."
+  ],
+  "when:brownout@spanglish": [
+    "There it goes. La misma hora as always.",
+    "Half light's worse than none. Te hace think it's coming back.",
+    "Somebody upstream is drinking before nosotros.",
+    "Half the block, igual que el martes.",
+    "It's not broken. Somebody's just using more of it than us."
+  ],
   "when:favour": [
     "I'll not forget it. That's worth more here than it used to be.",
     "You did right by me. Say the word sometime."
+  ],
+  "when:favour@es": [
+    "I not forget this. Here that is worth much.",
+    "You do right with me. Say the word one day."
+  ],
+  "when:favour@spanglish": [
+    "No se me olvida. That's worth more here than it used to be.",
+    "You did right by me. Say the word alguna vez."
   ],
   "when:heat": [
     "Hundred and ten in the shade and there is no shade.",
@@ -16247,10 +16859,33 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "You can hear the road ticking.",
     "This used to be the fun kind of hot."
   ],
+  "when:heat@es": [
+    "Hundred ten. And no shade.",
+    "Not move until four. Nothing is worth it.",
+    "Drink now. Not when thirsty. Too late then.",
+    "Listen. The road is ticking."
+  ],
+  "when:heat@spanglish": [
+    "Ciento diez in the shade and there is no shade.",
+    "Don't move till four. Nada's worth it till four.",
+    "Drink before you're thirsty. Después is too late out here.",
+    "You can hear the road ticking.",
+    "This used to be the fun kind of calor."
+  ],
   "when:hungry": [
     "I'm fine. I ate yesterday.",
     "Half now, half tomorrow. That's how you make it two days.",
     "I'm saving it. Don't look at me like that."
+  ],
+  "when:hungry@es": [
+    "I am fine. Yesterday I eat.",
+    "Half now. Half tomorrow. Is two day.",
+    "I save it. Not look at me like this."
+  ],
+  "when:hungry@spanglish": [
+    "Estoy bien. I ate yesterday.",
+    "Half now, half tomorrow. Así it's two days.",
+    "I'm saving it. No me mires así."
   ],
   "when:market": [
     "Say a number. Any number. We'll meet somewhere sad in the middle.",
@@ -16261,10 +16896,35 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Everybody's an honest trader till the second offer.",
     "I'll take it for what it's worth to me, not what it's worth to you."
   ],
+  "when:market@es": [
+    "Say a number. Any number. We meet in the middle. Sad middle.",
+    "Last week is not this price.",
+    "Money, work, or water. One.",
+    "You touch, you buy. Is the rule.",
+    "For that? For THAT?"
+  ],
+  "when:market@spanglish": [
+    "Say a number. Cualquier number. We'll meet somewhere sad in the middle.",
+    "That's not what it was worth la semana pasada.",
+    "Cash, work, or agua. Pick one.",
+    "You touch it, you bought it. Esa es la regla.",
+    "For that? Por ESO?",
+    "Everybody's an honest trader hasta la segunda offer."
+  ],
   "when:met_before": [
     "You again. That's not a complaint.",
     "Still walking, then.",
     "I remember you. That's rarer than it sounds."
+  ],
+  "when:met_before@es": [
+    "You again. Is not a complaint.",
+    "Still walking. Good.",
+    "I remember you. Is not common."
+  ],
+  "when:met_before@spanglish": [
+    "Tú otra vez. That's not a complaint.",
+    "Still walking, then.",
+    "Me acuerdo de ti. That's rarer than it sounds."
   ],
   "when:night": [
     "Twelve blocks and you can count the lit ones.",
@@ -16274,14 +16934,47 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Nobody patrols the dark. That's not a rule, it's just true.",
     "See a light move where nothing should be? Say nothing and walk faster."
   ],
+  "when:night@es": [
+    "Twelve block. Count the light. Is quick.",
+    "What is out there tonight, it can stay out there.",
+    "The dark is the only free thing.",
+    "So quiet you hear the freeway. Nothing on it. You hear it.",
+    "Nobody go in the dark. Is not a rule. Is true."
+  ],
+  "when:night@spanglish": [
+    "Twelve blocks y you can count the lit ones.",
+    "Whatever's out there tonight puede quedarse out there.",
+    "La oscuridad's the only thing that's free.",
+    "You can hear the freeway when it's this quiet. Nothing on it, pero you hear it.",
+    "Nobody patrols the dark. No es una regla, it's just true.",
+    "See a light move where nothing should be? Say nada and walk faster."
+  ],
   "when:owed": [
     "You know what you owe me.",
     "I'm not going to bring it up. I'm just going to look at you."
+  ],
+  "when:owed@es": [
+    "You know what you owe.",
+    "I not say it. I only look at you."
+  ],
+  "when:owed@spanglish": [
+    "Ya sabes what you owe me.",
+    "I'm not going to bring it up. Nomás voy a look at you."
   ],
   "when:rain": [
     "Put out everything that holds water. Everything.",
     "First rain since spring and half of it's on the roof, not in the barrel.",
     "Kids are out in it. Let them be out in it."
+  ],
+  "when:rain@es": [
+    "Put out all thing that hold water. All.",
+    "First rain since spring. Half go on the roof.",
+    "The kids are in it. Let them."
+  ],
+  "when:rain@spanglish": [
+    "Saca everything that holds water. Everything.",
+    "First rain since spring y half of it's on the roof, not in the barrel.",
+    "Los niños are out in it. Let them be out in it."
   ],
   "when:seen": [
     "Don't know you.",
@@ -16294,13 +16987,46 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Whatever you're selling, walk slower.",
     "You're not from three blocks up, are you."
   ],
+  "when:seen@es": [
+    "I not know you.",
+    "You are from other block. The one.",
+    "Is fine. If you take nothing.",
+    "Morning. Or whatever is.",
+    "Keep walk. No offence.",
+    "You look for somebody?"
+  ],
+  "when:seen@spanglish": [
+    "No te conozco.",
+    "You're the one from the other block.",
+    "Long as you're not taking anything.",
+    "Morning. O lo que sea.",
+    "Keep walking, sin ofender.",
+    "Buscas a alguien?",
+    "New face. Huh."
+  ],
   "when:stranger_block": [
     "This isn't your street.",
+    "Ask before you take anything on this block. Ask ME."
+  ],
+  "when:stranger_block@es": [
+    "Is not your street.",
+    "Ask before you take. Ask me."
+  ],
+  "when:stranger_block@spanglish": [
+    "Esta no es tu calle.",
     "Ask before you take anything on this block. Ask ME."
   ],
   "when:work_short": [
     "We're two short today and nobody's saying why.",
     "If they don't show tomorrow I'm putting somebody else on it."
+  ],
+  "when:work_short@es": [
+    "Two people missing. Nobody say why.",
+    "Tomorrow they not come, I put other people."
+  ],
+  "when:work_short@spanglish": [
+    "We're two short today y nobody's saying why.",
+    "If they don't show mañana I'm putting somebody else on it."
   ],
   "worker:errand": [
     "Four stops and I've done one.",
@@ -16310,6 +17036,19 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Half of getting anything here is knowing which door.",
     "Tell her I came by. Tell her I came by TWICE.",
     "I'm not arguing, I'm explaining loudly."
+  ],
+  "worker:errand@es": [
+    "Four stop. I do one.",
+    "If close, I not come back tomorrow.",
+    "She say noon. Is long time noon.",
+    "I pay with work. Always work."
+  ],
+  "worker:errand@spanglish": [
+    "Four stops y I've done one.",
+    "If they're closed no vuelvo mañana.",
+    "She said noon. It has been noon por un rato.",
+    "I'll pay in work. Siempre pay in work.",
+    "Half of getting anything here is knowing which door. La otra half is knowing who."
   ],
   "worker:free": [
     "Give it two years. Somebody'll turn the rest of the lights back on.",
@@ -16323,6 +17062,21 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "I'd move if there was anywhere that isn't this.",
     "Twelve years I've walked this street and it's never been this quiet at noon."
   ],
+  "worker:free@es": [
+    "Two years maybe. Then lights come back. Maybe.",
+    "Before, this block have two lights. Two.",
+    "I not say he steal it. I say he have it.",
+    "Sit down. You make me tired.",
+    "Is not rumour. Is my cousin."
+  ],
+  "worker:free@spanglish": [
+    "Give it two years. Somebody'll turn the rest of the lights back on. Ojalá.",
+    "You remember when this block had two working streetlights? Dos.",
+    "I'm not saying he stole it. Estoy diciendo he has it.",
+    "Siéntate, you're making me tired.",
+    "That's not a rumour, that's mi primo.",
+    "Whole valley's held together con hose clamps and stubbornness."
+  ],
   "worker:home": [
     "Shoes off. I just swept.",
     "We're one bad week from asking my brother for help and I'd rather not.",
@@ -16334,6 +17088,21 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "I'm not asking them for anything. I'd rather be cold.",
     "Sit with me a minute. Just a minute."
   ],
+  "worker:home@es": [
+    "Shoes. I sweep already.",
+    "You eat today? Say true.",
+    "Leave door open. Is cooler.",
+    "Save this one. Cut the end, is still good.",
+    "Sit. You work since morning."
+  ],
+  "worker:home@spanglish": [
+    "Shoes off, mija, I just swept.",
+    "We're one bad week from asking mi hermano for help and I'd rather not.",
+    "Did you eat? Y no me mientas.",
+    "Leave the door. It's cooler open y nobody's coming down here.",
+    "Save that. Still good if you cut the ends off.",
+    "Siéntate. You've been on your feet since six."
+  ],
   "worker:scav": [
     "Copper's gone. Everything's gone but the heavy stuff.",
     "Somebody beat us here by about a year.",
@@ -16341,17 +17110,45 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Everything decent's behind a door somebody welded.",
     "One good find pays a week. One."
   ],
+  "worker:scav@es": [
+    "Copper is gone. Only heavy thing stay.",
+    "Somebody come here before. One year before.",
+    "Take the hinge. Everybody forget the hinge."
+  ],
+  "worker:scav@spanglish": [
+    "El cobre's gone. Everything's gone but the heavy stuff.",
+    "Somebody beat us here by about a year, güey.",
+    "Take the hinges. People always forget hinges."
+  ],
   "worker:sleep": [
     "...",
     "Turn that off.",
     "Five more minutes and I mean it.",
     "Let me sleep or let me work, not both."
   ],
+  "worker:sleep@es": [
+    "...",
+    "Off. Please.",
+    "Five minute. No more."
+  ],
+  "worker:sleep@spanglish": [
+    "...",
+    "Apaga eso.",
+    "Five more minutes y ya."
+  ],
   "worker:watch": [
     "Nothing yet. Which is the job.",
     "I count six lit windows from here. Same six as last night.",
     "Anything happens, I'm the one who yells. That's the plan.",
     "Two of us and eleven houses. You do the maths."
+  ],
+  "worker:watch@es": [
+    "Nothing. Is the job.",
+    "Six window with light. Same six like last night."
+  ],
+  "worker:watch@spanglish": [
+    "Nothing yet. Which is the job.",
+    "Six lit windows from here. Las mismas seis as last night."
   ],
   "worker:work": [
     "Third shift this week and the meter still reads the same.",
@@ -16366,6 +17163,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     "Don't help. Seriously. You'll help it into the ground.",
     "It held all winter. It'll hold.",
     "Tell them it's done when it's done."
+  ],
+  "worker:work@es": [
+    "Meter say the same. Every week the same.",
+    "It works. Is not pretty. Nobody pay me for pretty.",
+    "Hold. No. Hold.",
+    "They want by dark. Dark is one hour.",
+    "Careful. Is live. It lie about it.",
+    "I give you one hour. Not two."
+  ],
+  "worker:work@spanglish": [
+    "Third shift this week y el medidor still reads the same.",
+    "If it runs, it runs. Nadie me paga to make it pretty.",
+    "Hold that. No. HOLD it, hombre.",
+    "They want it done by dark, y ya son las cinco.",
+    "Whoever wired this was apurado or in a mood.",
+    "I'll trade you an hour. Two, no.",
+    "Cuidado, that's live and it lies about it.",
+    "Every job in this valley is somebody's old job done worse. Pero it pays."
   ]
 };
 
@@ -16547,6 +17362,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       lookSeed: mix32(agent.seed),
       // a separate stream for anything that must vary INDEPENDENTLY of the look
       idSeed: hash(blockSeed, seat.house + 1, seat.slot + 101),
+      /* WHAT THEY SPEAK (8/25, LANG-1). Derived like everything else here, so a
+         neighbour sounds the same on any device and nothing is persisted. It
+         sits OUTSIDE the three tiers on purpose: you do not have to ask
+         somebody their name to hear what language they are speaking in. */
+      lang: langOf(blockSeed, key),
       household: {
         house: seat.house,
         slot: seat.slot,
@@ -16599,7 +17419,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
      trade takes an article and a person does not: "TALK TO THE SCAVENGER" but
      "TALK TO RUBEN". The run built this string itself for half a day and shipped
      "TALK TO THE RUBEN" the moment names existed; the gate caught it, and the
-     fix is that the run stops doing grammar. */
+     fix is that the run stops doing grammar.
+     THIS STRING IS ENGLISH FOREVER, WHATEVER THE PERSON SPEAKS (8/25, THEY
+     SPEAK SPANGLISH, the hard rule). It is the one button, it is how the player
+     knows an action exists at all, and a button you cannot read is not flavour,
+     it is a broken button. person.lang is deliberately not consulted here and
+     language_gate claim C fails if that ever changes. */
   function addressOf(person, verb) {
     verb = verb || 'TALK TO';
     return nameOf(person) ? verb + ' ' + headingOf(person)
@@ -16613,6 +17438,13 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     var n = nameOf(person);
     if (n) return String(n).split(' ')[0].toUpperCase();
     return ROLE_WORDS[person.role] || 'SOMEBODY';
+  }
+  /* THE CARD WORDS FOR A REGISTER. Plain English on purpose: this row is the
+     game telling the player a fact about somebody, which is required
+     information, and required information is English. */
+  function speaksLineOf(person) {
+    var l = person && person.lang;
+    return (LANG[l] || LANG.en).card;
   }
   // the small line under the heading: pure mechanism, no character in it
   function seatLineOf(person) {
@@ -16683,6 +17515,13 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     if (person && person.household.house >= 0) {
       rows.push({ label: 'LIVES', value: 'HOUSE ' + (person.household.house + 1) + ' ON THIS BLOCK' });
     }
+    /* WHAT YOU CAN HEAR WITHOUT ASKING ANYTHING (8/25, LANG-1). This row is the
+       exact opposite of the NAME row above and that is why it belongs next to
+       it: a name is a thing you have to be GIVEN, and a language is a thing you
+       already have. You have been standing in front of them while they talk.
+       It is present-tense eyesight, not a timetable, so THE DAY IS NOT FOR
+       READING (7/31) is satisfied the same way RIGHT NOW is. */
+    rows.push({ label: 'SPEAKS', value: speaksLineOf(person) });
     rows.push({ label: 'WORKS', value: workLineOf(person) });
     /* EYESIGHT, NOT A TIMETABLE. Where somebody is RIGHT NOW, while you are
        standing in front of them, is the only tense the ruling allows. */
@@ -16790,6 +17629,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     GIVEN: GIVEN, SURNAME: SURNAME, generatedName: generatedName,
     ROLE_WORDS: ROLE_WORDS, ACT_WORDS: ACT_WORDS,
     hash: hash, keyOf: keyOf, seatOf: seatOf,
+    // LANG-1 (8/25): what somebody speaks, derived exactly like their name.
+    LANG: LANG, LANG_ORDER: LANG_ORDER,
+    ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC, esWordsIn: esWordsIn,
+    VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
+    BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf,
+    langOf: langOf, speaksLineOf: speaksLineOf,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
@@ -16817,15 +17662,28 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       var heard = (opts && opts.heard) || null;  // same, reached by gossip
       var rung = (opts && opts.rung) || null;    // standing.js RUNGS
       var met = (opts && opts.met) || null;      // people.js makeLedger
+      /* *** AND IT COMES OUT IN THE LANGUAGE THEY SPEAK (8/25, LANG-1). ***
+         Every bucket below is tried in the person's REGISTER first and in plain
+         English second, so a Spanglish neighbour says the Spanglish version of
+         the line their role and their hour would have given them anyway, and a
+         bucket nobody has written a register for still speaks. THE FALLBACK IS
+         THE HARD RULE IN ONE LINE: the failure mode of a missing translation is
+         ENGLISH, never silence, so no bucket can ever go mute by gaining a
+         register. Ambient barks carry no required information by construction
+         (Q056.W8: nobody here explains the collapse), which is what makes this
+         the safe place for language to live and the objective line the unsafe
+         one. */
+      var reg = (opts && opts.lang) || (person && person.lang) || 'en';
+      function bucket(k) { return k ? (LINES[k + '@' + reg] || LINES[k]) : null; }
       var pick = (saw && REACTIONS['saw:' + saw])
         || (heard && REACTIONS['heard:' + heard])
         || (rung && REACTIONS['rung:' + rung])
         || (met && REACTIONS['met:' + met])
-        || LINES[person.key]
-        || (at && LINES[person.role + ':' + at])
-        || LINES[person.role]
-        || (fac && LINES['faction:' + fac])
-        || (when && LINES['when:' + when])
+        || bucket(person.key)
+        || (at && bucket(person.role + ':' + at))
+        || bucket(person.role)
+        || (fac && bucket('faction:' + fac))
+        || (when && bucket('when:' + when))
         || [];
       return pick.slice();
     }
