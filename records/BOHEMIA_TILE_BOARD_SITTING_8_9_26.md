@@ -987,3 +987,27 @@ the wash: the strip runs the channel edge and reads as rock. The
 tileform gate caught a line-wrapped path in the form's shopping check
 (a filename split across lines is a filename that does not exist to the
 checker) - unwrapped, 8774/0 by exit code. Twenty-three wired families.
+
+## 8/25 FORTY-SEVENTH PASS: THE FULL ICON BOARD VERDICT (5 YES, 20 CBB, 44 NO)
+
+He judged all 69 district map icons in one sitting and named the disease
+in one breath: "not everything needs to be represented with buildings...
+you keep wanting to add windows to the streets... even the mountain and
+desert you tried to make tall buildings." VERIFIED ON THE PIXELS before
+acting: the park's trees were boxes on stilts beside a windowed restroom,
+the mountain was a wedding cake, the desert grew an 8.6-unit tower, the
+freeway's 5-unit walls wore the wall-dressing pass's window-like joints,
+and the school's 8.2-unit yellow light towers were "the yellow lines
+that go much farther than they needed". ONE PIPELINE DEFECT JUDGED 44
+TIMES: the factory's building passes ran on every hero. Fixed at the
+pipeline (NOT_A_BUILDING skips all building passes), rebuilt park /
+mountain / desert / freeway / school, rebaked all 69 (73 minutes of
+CPU), verified the six on the baked pixels, re-wired the city page
+(proved by the sha1 recipe after my own md5 probe false-alarmed - fix
+the ruler), big_icons gate amended to his newest word (park exempt,
+exempt floor 2.0), 44 graveyard entries with one shared post-mortem.
+Second rejections (strip, strip_x, minigp, dam) are DEAD FOR THE
+SESSION. casino/resort move NO -> CBB by newest-date-wins. STILL OWED:
+2x2 planting for stadium/speedway/casino-class venues (recorded ruling,
+needs city-app blob planting), and ranked fresh-cook waves for the
+other killed slots under the five rulings.
