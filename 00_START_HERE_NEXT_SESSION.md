@@ -35716,7 +35716,18 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/24 (c) LATEST -- *** DOUBLE SHIP, THE LOADOUT ROW AND
+ART (f3eu53): 8/25 (a) LATEST -- *** THE WASH'S ARMOR + FOURTH AUDIT:
+'riprap' x936 (two 115x3 strips flanking the channel) wired as a
+full-cell packed-stone ground - lit/shadow facet pairs from the
+approved kerb pale, baked dirt gaps, three hashed variants, no
+outlines/stipple. Twenty-three wired families. Fourth composition
+audit: COMPOSED across the four newest stacks (berm two-tone varies by
+arm, no wallpaper; no predicate leaks). Daily re-probe: twelve grounds
+still sealed, awnings unnamed. Sitting pass 46. Ranking next:
+'landscaping' (police), granary gallery/headhouse, reservoir tank
+roof/overflow; 'guy wire' (radio) is marginal.
+PREVIOUS (8/24 c):
+ART (f3eu53): 8/24 (c) -- *** DOUBLE SHIP, THE LOADOUT ROW AND
 THE POST LINES: granary 'spout / dust bin' x1514 wired as cyclone dust
 collectors (silo bases) + loadout spouts with grain-dust bleach (spur
 side), on bought concrete; arsenal 'barricade post' x1607 wired as

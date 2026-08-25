@@ -1259,6 +1259,15 @@ function drawSolarform(gx,gy,X,Y,S){
     var vt=tf(vp+th(gx,gy,2)); if(vt) ctx.drawImage(look(vt),X,Y,S,S);
     return true;
   }
+  if(n==='riprap'){
+    /* TF-ART-023 (8/25, measured): 936 cells at the wash - two 115x3
+       armor strips along the channel edges plus scattered patches. Rock
+       armor is a full-cell packed-stone ground; three hashed variants
+       so the strips never wallpaper. */
+    var rr=tf('rip_'+th(gx,gy,3));
+    if(rr){ ctx.drawImage(look(rr),X,Y,S,S); return true; }
+    return false;
+  }
   if(n==='spout / dust bin'){
     /* TF-ART-021 (8/24, measured): 1514 cells hugging the granary's dump
        apron (1001 adjacencies) and rail spur (511) at the silo bases. A

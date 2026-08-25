@@ -966,3 +966,24 @@ in zoom: cable spans visible between posts, cyclones reading as steel.
 Hawthorne NV is the depot reference. Twenty-two wired families. Both
 forms filed FULL (the TF-ART-019 lesson: no short forms, ever), board
 rows 94/95, tileform gate 0 by exit code.
+
+## 8/25 FORTY-SIXTH PASS: FOURTH COMPOSITION AUDIT + THE WASH'S ARMOR
+
+Daily re-probe first: all twelve landmark grounds still at exactly one
+name (sealed), trailer awnings still unnamed. FOURTH COMPOSITION AUDIT
+(five family ships since the third): walked a DIFFERENT arsenal corner -
+the berm ring's two-tone varies correctly by arm orientation (no
+wallpaper, mottle and scrub shuffle), the post lines, fence wardrobe and
+lanes read together; granary and reservoir full frames from the 8/24
+ships re-judged - COMPOSED across all four stacks, no predicate leaks
+(all four new predicates are exact-name). Then the ranking's next: the
+wash's 'riprap' x936 - two 115x3 ARMOR STRIPS flanking the channel plus
+scattered patches, all drawing bare dirt. Full-cell packed-stone ground
+tile: every stone a lit north facet over a shadowed south facet with
+baked dirt gaps (facets from the approved kerb pale, a third warmed to
+caliche tan; no outlines, no stipple - the 74%-orphan lesson), three
+hashed variants against wallpaper on the long strips. Verified live at
+the wash: the strip runs the channel edge and reads as rock. The
+tileform gate caught a line-wrapped path in the form's shopping check
+(a filename split across lines is a filename that does not exist to the
+checker) - unwrapped, 8774/0 by exit code. Twenty-three wired families.

@@ -452,6 +452,10 @@ grabPieces('banks/tileforms/TF-ART-021_CANDIDATES_8_24_26.json',
 grabPieces('banks/tileforms/TF-ART-022_CANDIDATES_8_24_26.json',
   ['bp_post_0', 'bp_post_1', 'bp_cable_h_0', 'bp_cable_h_1',
    'bp_cable_v_0', 'bp_cable_v_1']);
+/* TF-ART-023 8/25: the wash's 936 riprap rock-armor cells -
+   tools/tfcook/TF-ART-023_riprap_cook.py */
+grabPieces('banks/tileforms/TF-ART-023_CANDIDATES_8_25_26.json',
+  ['rip_0', 'rip_1', 'rip_2']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

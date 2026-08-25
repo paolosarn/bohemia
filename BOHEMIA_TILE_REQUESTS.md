@@ -393,6 +393,12 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    split in its section B; who owns the dropped kerb and the apron flare is a
    coordinator call, not the ART lane's, and it must be settled BEFORE cooking
    or the same kerb gets drawn in three materials.
+93. SHIPPED | RIPRAP (packed rock armor, wash) | RUN + CITY - 936 named
+   cells fell to the gravel fallback, erasing the channel's armor bands |
+   ground layer, 44px corpus cell, self-seamless full-cell tile (baked
+   dirt gaps, three hashed variants against wallpaper on the 115-cell
+   strips) | see form | ART lane (inventory ranking, 8/25) | MED |
+   FORM: TF-ART-023
 94. SHIPPED | BARRICADE POST (post-and-cable vehicle lines, arsenal) |
    RUN + CITY - 1,607 named cells fell to the gravel fallback, so the
    depot showed no movement control | ground layer, 44px corpus cell,
