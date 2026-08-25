@@ -4678,6 +4678,43 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
   ok('V179 AND IT IS A [DIAL] HE CAN SWITCH OFF, because a permanent overlay nobody asked for is not information, it is furniture',
     /const EYES_RING=true;/.test(demo));
 
+/* ===== V180 STAND WHERE THEY CAN SEE YOU (RF4-18) ================
+   The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
+   the shape, the wiring, and the two things the mutation tests forced out. */
+  ok('V180 RF4-18 WALLS ARE MECHANICS AT LAST, AND THE THING THAT UNBLOCKED IT WAS A CURRENCY: this row was BUILT AND CUT on 8/21 because its only payout was +1 killshot on the chain, and V62\'s per-weapon cap (pistol 8, smg 2, shotgun 2, rifle 1) swallowed it on three guns of four -- the readout promised the rifle one more shot and handed over nothing. The record named what it needed, "a reward currency that is NOT weapon-capped", and V176 shipped one. It pays into THE FINISHER CHARGE, which fills identically whatever you are holding',
+    /function openGroundTick\(\)\{/.test(demo) && /finisherFeed\(\);/.test(demo));
+
+  ok('V180 AND IT IS NOT MERELY BEING OUTDOORS, which is the version that would have failed the same way twice: wide open ALONE is 55% of turns and 7 a fight, which at one charge a turn is 1.33 FREE finishers per fight and makes V176\'s "you earn it by shooting" mean nothing. Both halves are required -- no stone near you AND at least one man who can actually see you',
+    /if\(!wideOpen\(\)\|\|!eyesOnMe\(\)\)return;/.test(demo));
+
+  ok('V180 AND THE CONDITION IS THE ONE V179 ALREADY DRAWS: eyesOnMe runs seesMe, the same predicate the rings under their feet are painted from, so THE INFORMATION AND THE REWARD ARE THE SAME THING. That is the difference between a rule a player can act on and a rule he has to be told about -- and it is RF4-02 and RF4-48 again, information ON THE FIELD rather than in a menu',
+    /function eyesOnMe\(\)\{[\s\S]{0,220}seesMe\(e\)/.test(demo));
+
+  /* SCOPED TO THE FUNCTION BODY, and the first write of this claim was not.
+     It negated /if\(G\.over\|\|finisherReady\(\)\)return;/ across the whole
+     file -- and that string is V176's finisherFeed, the very guard being
+     credited. A checker that cannot tell somebody else's line from your own is
+     the broken one, same shape as the MEDIC_SHY claim that tripped on the
+     comment explaining the deletion. */
+  {
+    const _ogt = demo.slice(demo.indexOf('function openGroundTick(){'),
+                            demo.indexOf('function tickTurnEnd(){ meleeTurnRun();'));
+    ok('V180 AND IT SETS NO SECOND CAP, because a mutation test proved a second cap was a dead term: the first write re-checked finisherReady() inside openGroundTick, deleting that check left every gate green, and finisherFeed already refuses to fill past the threshold. THE MEDIC_SHY DEFECT, caught before it shipped this time rather than after',
+      _ogt.length > 100 && _ogt.length < 900
+      && /if\(G\.over\)return;/.test(_ogt)
+      && !/if\(G\.over\|\|finisherReady\(\)\)return;/.test(_ogt));
+  }
+
+  ok('V180 AND 1.6 IS A LOAD-BEARING [DIAL], not a number somebody liked: wound down to 0.8 or 0.2 the state covers HALF of all turns and the turns that are NOT open stop having any guns on them at all, so there is no safer place left that does not also pay and the rule stops being a decision. 1.6 gives 35% of turns, 0.8 gives 50%, 0.2 gives 48%, 2.4 gives 18%',
+    /const WIDE_OPEN_R=1\.6;/.test(demo));
+
+  ok('V180 AND IT IS ACTUALLY WIRED, which is the failure V177 had to repair in somebody else\'s code: V152\'s cover-chewing shipped correct and STRUCTURALLY UNREACHABLE for months because nothing could ever call it. This one is called from tickTurnEnd, where every turn in the fight ends',
+    /function tickTurnEnd\(\)\{ meleeTurnRun\(\); medicTurn\(\); breachTurn\(\); openGroundTick\(\);/.test(demo));
+
+  ok('V180 AND NO DAMAGE BEFORE THE DIAL SURVIVES IT: not one damage, accuracy or hp number moves. It feeds a counter V176 already owns, through the function V176 already wrote',
+    !/ARCH\.[a-z]+\s*=\s*\{[^}]*dmg/.test(demo.slice(demo.indexOf('function openGroundTick'),
+      demo.indexOf('function openGroundTick') + 900)));
+
 /* ===== V177 THE BREACHER (RF4-28) ================================
    The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
    the shape, and the fact that the mechanic he drives had no reachable caller. */
@@ -5521,7 +5558,14 @@ ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter t
      the anchor stops demanding meleeTurnRun be immediately followed by the cover
      scramble. The CLAIM is unchanged -- the scramble runs, then the press -- and
      it is still the ordering being asserted, not the absence of neighbours. */
-  /function tickTurnEnd\(\)\{ meleeTurnRun\(\);[\s\S]{0,40}?updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
+  /* V180 RE-POINTED, third time and the same reason: openGroundTick() joins
+     medicTurn and breachTurn at the head of the function, which took the gap to
+     44 characters and overflowed a 40-character window. THE CLAIM IS UNCHANGED
+     -- the scramble runs, then the press -- and it is the ORDERING being
+     asserted, not how many neighbours sit in front of it. Widened rather than
+     rewritten, because a window this claim keeps outgrowing is measuring the
+     wrong thing when it is tight, not when it is loose. */
+  /function tickTurnEnd\(\)\{ meleeTurnRun\(\);[\s\S]{0,120}?updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
 
 ok('V136 ONE MAN, ONE MOVE: coverSeekAI stamps whoever it moved with the turn number and the press skips him, so nobody ever gets a scramble AND a bound in the same turn (4 tiles from a 2.2 and a 1.8)',
   /e\._movedTurn=G\.mTurn\|\|0;/.test(demo) &&

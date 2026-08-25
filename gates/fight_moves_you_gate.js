@@ -1408,15 +1408,38 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       window.__said = []; const real = setRead;
       window.__realRead = real;
       window.setRead = function(t,s,c){ window.__said.push(t); return real(t,s,c); };
+      /* A STEADY HAND, AND IT IS THE FIX MORE EVIDENCE COULD NOT BUY.
+         This arm went 14 shots -> 30 shots on the last pass and STILL failed: a
+         later run read peak 2 with 2 hits in 30, and A/B against the previous
+         build showed the same swing there, so it was never about anything that
+         shipped. A blind timed click lands at an arbitrary point in the dial's
+         rotation, and the claim being made is that A FIGHT EARNS ENOUGH CHARGE
+         TO REACH THE THRESHOLD -- a claim about reachability, which dial luck
+         has no business deciding. So press the real #fire when the dial is
+         actually on target, the way a player who can play does.
+         THE BUTTON IS UNTOUCHED AND SO IS EVERYTHING BEHIND IT: pointerdown and
+         pointerup on the shipped element, through the shipped handler, into the
+         real fireNow with V32's coin in place. Nothing is simulated. And the
+         event pair matters -- the first write dispatched pointerdown alone and
+         read a clean zero across four runs, because THE SHOT FIRES ON POINTERUP. */
+      window.__steady = function(){
+        const btn = document.getElementById('fire'); if(!btn) return;
+        let fired = false, inAim = 0;
+        const tick = () => { if(fired) return;
+          if(G.phase==='aim') inAim++; else inAim = 0;
+          /* let the dial actually start: the angle sits near zero for a beat
+             right after the pop, and a watcher that fires on frame one is not
+             aiming, it is catching the dial before it has moved */
+          if(inAim>=10 && !G.inc && !G.ks && !G.over && Math.abs(G.angle)<=0.015){
+            fired = true;
+            btn.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true}));
+            btn.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,cancelable:true}));
+            return; }
+          requestAnimationFrame(tick); };
+        requestAnimationFrame(tick); };
     });
     let peak = 0, shots = 0, deadAtSpend = null;
-    /* THIRTY SHOTS, NOT FOURTEEN. A headless click lands at an arbitrary point in
-       the dial's rotation, so a good share of these MISS and feed nothing -- at
-       fourteen the arm read peak 2 on one run and peak 4 with a clean spend on
-       the next, which is the same claim passing and failing on the dial's luck.
-       Fourth time this session the answer is the same: MORE EVIDENCE, NEVER A
-       LOOSER THRESHOLD. */
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 16; i++) {
       const live = await frame.evaluate(() => {
         G.phase='cover'; G.inc=null; G.over=false; G.pHP=G.pMax||100; G._chainWait=null;
         /* STAND THE BOARD BACK UP RATHER THAN RE-RUNNING setupCombat, because
@@ -1436,10 +1459,9 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       if (live.standing === 0) break;
       peak = Math.max(peak, live.charge);
       const deadBefore = live.dead, chargeBefore = live.charge;
-      try { await frame.click('#fire', { timeout: 2000 }); } catch(e){}
-      await page.waitForTimeout(550);
-      try { await frame.click('#fire', { timeout: 2000 }); } catch(e){}
-      await page.waitForTimeout(1050);
+      try { await frame.click('#fire', { timeout: 2000 }); } catch(e){}   /* ENGAGE: pops the dial */
+      try { await frame.evaluate(() => window.__steady()); } catch(e){}   /* and the release, on target */
+      await page.waitForTimeout(1600);
       shots++;
       /* SAMPLE AFTER THE SHOT TOO. The first write read the charge only BEFORE
          firing and then asserted it was seen at the threshold -- which it never
@@ -1476,7 +1498,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
 
   ok('V178 *** THE FINISHER IS ACTUALLY REACHABLE, PROVED BY PRESSING THE BUTTONS. *** A three-man fight earns ' + realGun.peak
     + ' charge and the threshold is ' + realGun.said.FINISH_AT + ', so it announces itself ("FINISHER READY" x' + realGun.said.ready
-    + ') and spends ("THAT ONE STAYS DOWN" x' + realGun.said.spent + '). At the shipped-yesterday value of 6 the same fight earned 5 and the ability NEVER APPEARED -- a dead dial by a different route than MEDIC_SHY: not a term that changes nothing, but a threshold nobody can reach. Every other combat arm in this file calls applyDamage and skips fireNow, so nothing had ever fired the gun',
+    + ') and spends ("THAT ONE STAYS DOWN" x' + realGun.said.spent + '). At the shipped-yesterday value of 6 the same fight earned 5 and the ability NEVER APPEARED -- a dead dial by a different route than MEDIC_SHY: not a term that changes nothing, but a threshold nobody can reach. Every other combat arm in this file calls applyDamage and skips fireNow, so nothing had ever fired the gun. THE ARM ITSELF WAS FLAKY UNTIL 8/25 and going 14 shots -> 30 did not fix it -- a blind timed click landed 2 hits in 30 on a bad run, and A/B against the previous build swung the same way, so it was the DIAL LUCK deciding a claim about reachability. It now presses the real button when the dial is on target: pointerdown AND pointerup, because the shot fires on the release',
     realGun.said.ready >= 1 && realGun.said.spent >= 1);
 
   ok('V178 AND THE BODY IT SPENDS ON REALLY STAYS DOWN: the shot taken with the charge full turned a standing man into a DEAD one rather than a downed one, on the real fire path with V32\'s coin in place',
@@ -1685,6 +1707,196 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' boards ' + eyes.room.coveredSeers + ' men have eyes on you, and with every rock taken off the lot that becomes ' + eyes.room.openSeers
     + '. The stone takes most of the guns off you (measured 73% on 8/21) and until now it did that INVISIBLY. Step behind a rock and the rings go out',
     eyes.room.openSeers > eyes.room.coveredSeers);
+
+/* ===== V180 STAND WHERE THEY CAN SEE YOU (RF4-18) ==================
+   "Walls are mechanics, not scenery. +1 for ENDING A TURN WIDE OPEN, meaning NOT
+    ADJACENT TO ANY WALLS. Abilities read the room."
+   BUILT AND CUT ON 8/21. That version paid a killshot on the chain and V62's
+   per-weapon cap swallowed it on three guns of four; the record named what it
+   needed -- A CURRENCY THAT IS NOT WEAPON-CAPPED -- and V176 then shipped one.
+   THE ARMS BELOW EXIST BECAUSE THE FIRST MEASUREMENT OF THIS WAS WRONG TWICE.
+   Sampling wideOpen BEFORE the move said 22 of 75 charges came from nowhere:
+   the tick runs at turn END, which is the row's own wording. And a control that
+   buried a rock under his feet was VOID -- pillars are stored relative to the
+   player and travel with him, so the rock walked away on the first step. */
+  const walls = await (async () => {
+    const play = await frame.evaluate(() => {
+      const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      /* THE TRIGGER IS NEVER PULLED IN THIS ARM. V176's own feed is landed
+         shots, so with no shooting at all, every charge that appears can only
+         have come from open ground. No proxy, no subtraction. */
+      const feeds=[]; const realFeed=window.finisherFeed; let caught=0;
+      window.finisherFeed=function(){ caught++;
+        let w=null,e2=null; try{w=wideOpen();}catch(x){} try{e2=eyesOnMe();}catch(x){}
+        feeds.push({w:w,e:e2}); return realFeed.apply(this,arguments); };
+      function run(prep){
+        let fights=0,turns=0,gain=0,top=0,earned=0;
+        for(let A=1;A<=24;A++){
+          BohemiaArena.set(A); setupCombat();
+          G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null; fights++;
+          if(prep)prep();
+          let got=0;
+          for(let t=0;t<14&&!G.over;t++){
+            turns++;
+            const c0=G._finCharge||0, b4={x:G.worldOff.x,y:G.worldOff.y};
+            const o=(()=>{ if(!G.exit)return [2,3,1,4,0,5,7,6];
+              const x=Math.cos(G.exit.ea),y=Math.sin(G.exit.ea);
+              return DIRS.map((d,i)=>({i,dot:d[0]*x+d[1]*y})).sort((a,b)=>b.dot-a.dot).map(z=>z.i); })();
+            for(const d of o){ try{doMove(d);}catch(e){}
+              if(G.worldOff.x!==b4.x||G.worldOff.y!==b4.y)break; }
+            if(G.worldOff.x===b4.x&&G.worldOff.y===b4.y&&!G.over){ try{endTurnReturn(true);}catch(e){} }
+            const c1=G._finCharge||0;
+            if(c1>c0){ gain+=(c1-c0); got+=(c1-c0); }
+            if(c1>top)top=c1;
+            if(G.pHP<=0)break; }
+          if(got>0)earned++; }
+        return {fights,turns,gain,top,earned,perTurn:+(gain/turns).toFixed(3)};
+      }
+      const live=run(null);
+      const liveFeeds=feeds.length, bothTrue=feeds.filter(z=>z.w===true&&z.e===true).length;
+      feeds.length=0;
+      /* CONTROL A: nobody alive to look at him. The eyes half must bind. */
+      const blind=run(()=>{ for(const e of (G.e||[]))e.dead=true; });
+      feeds.length=0;
+      /* CONTROL B: every rock off the lot, so he is ALWAYS wide open. If the
+         open half binds, the pay rate has to go UP. This replaces the void
+         rock-under-foot control described above. */
+      const norocks=run(()=>{ G.pillars=[]; });
+      window.finisherFeed=realFeed;
+      return {caught, live, liveFeeds, bothTrue, blind, norocks};
+    });
+
+    /* WHAT IT COSTS, sampled INSIDE tickTurnEnd -- the exact instant the rule
+       evaluates -- and conditioned on the STATE, not on which bot is driving.
+       TWO EARLIER VERSIONS OF THIS DIED. hp-per-turn came back BACKWARDS, because
+       a turn spent open is also a turn spent WALKING AWAY while a tucked turn is
+       one men spend closing on you. And comparing an open-runner bot against a
+       rock-hugger bot read IDENTICAL (3.2 against 3.16) for a dumber reason:
+       exposedToMe() TAKES NO ARGUMENT AND RETURNS AN ARRAY, so exposedToMe(e) is
+       truthy every time and that column was counting living men, not guns. */
+    const risk = await frame.evaluate(() => {
+      const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      const rows=[]; const realTick=window.tickTurnEnd; let caught=0;
+      window.tickTurnEnd=function(){ caught++;
+        let w=false,e2=false,g=0;
+        try{ w=wideOpen(); }catch(x){} try{ e2=eyesOnMe(); }catch(x){}
+        try{ g=exposedToMe().length; }catch(x){}
+        rows.push({open:(w&&e2), guns:g}); return realTick.apply(this,arguments); };
+      for(let A=1;A<=24;A++){
+        BohemiaArena.set(A); setupCombat();
+        G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
+        for(let t=0;t<20&&!G.over;t++){
+          try{ visionTick(); }catch(e){}
+          const pool=modePool(), worth=pool.filter(e=>(e.edist||99)<=5||acquired(e));
+          if(worth.length){ const i=pickTarget();
+            if(i>=0&&G.e[i]){ try{ applyDamage(G.e[i],45); finisherFeed();
+              if(G.e[i].hp<=0)G.e[i].dead=true; checkClear(); }catch(e){} }
+            if(!G.over){ try{ endTurnReturn(true); }catch(e){} } }
+          else { const b4={x:G.worldOff.x,y:G.worldOff.y};
+            const o=(()=>{ if(!G.exit)return [2,3,1,4,0,5,7,6];
+              const x=Math.cos(G.exit.ea),y=Math.sin(G.exit.ea);
+              return DIRS.map((d,i)=>({i,dot:d[0]*x+d[1]*y})).sort((a,b)=>b.dot-a.dot).map(z=>z.i); })();
+            for(const d of o){ try{doMove(d);}catch(e){}
+              if(G.worldOff.x!==b4.x||G.worldOff.y!==b4.y)break; }
+            if(G.worldOff.x===b4.x&&G.worldOff.y===b4.y&&!G.over){ try{endTurnReturn(true);}catch(e){} } }
+          if(G.pHP<=0)break; } }
+      window.tickTurnEnd=realTick;
+      const on=rows.filter(r=>r.open), off=rows.filter(r=>!r.open);
+      /* THE PERCENTAGE, NOT THE RATIO. Guns-per-turn came out 4.29x on one run
+         and 7.11x on the next because the denominator is a fraction of a gun.
+         "How often is at least one gun on you" read 50 against 13 and 50 against
+         9 -- the same answer twice. A better statistic, never a looser threshold. */
+      const any=a=>a.length? Math.round(100*a.filter(r=>r.guns>0).length/a.length):0;
+      return { caught, sampled:rows.length,
+        openTurns:on.length, openPctWithAGunOnYou:any(on),
+        otherTurns:off.length, otherPctWithAGunOnYou:any(off),
+        openPctOfAllTurns: Math.round(100*on.length/rows.length) };
+    });
+
+    /* AND WHAT IT DOES TO A PLAYER WHO ACTUALLY SHOOTS. The walk-only arm proves
+       the wiring; it does not answer "is the finisher free now". Same boards,
+       same shooting, V180's open test stubbed off in the control.
+       ONE STAND-IN, NAMED: a gate cannot drive 48 fights through the real FIRE
+       button in reasonable time, so a landed hit calls finisherFeed() here --
+       exactly the line fireNow runs. Same function, same guard. */
+    const arrive = await frame.evaluate(() => {
+      const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      const realWide=window.wideOpen;
+      function run(on){
+        window.wideOpen = on ? realWide : function(){ return false; };
+        let fights=0,ready=0,sum=0;
+        for(let A=1;A<=24;A++){
+          BohemiaArena.set(A); setupCombat();
+          G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null; fights++;
+          let first=-1,t2=0;
+          for(let t=0;t<20&&!G.over;t++){ t2++;
+            try{ visionTick(); }catch(e){}
+            const pool=modePool(), worth=pool.filter(e=>(e.edist||99)<=5||acquired(e));
+            if(worth.length){ const i=pickTarget();
+              if(i>=0&&G.e[i]){ try{ applyDamage(G.e[i],45); finisherFeed();
+                if(G.e[i].hp<=0)G.e[i].dead=true; checkClear(); }catch(e){} }
+              if(!G.over){ try{ endTurnReturn(true); }catch(e){} } }
+            else { const b4={x:G.worldOff.x,y:G.worldOff.y};
+              const o=(()=>{ if(!G.exit)return [2,3,1,4,0,5,7,6];
+                const x=Math.cos(G.exit.ea),y=Math.sin(G.exit.ea);
+                return DIRS.map((d,i)=>({i,dot:d[0]*x+d[1]*y})).sort((a,b)=>b.dot-a.dot).map(z=>z.i); })();
+              for(const d of o){ try{doMove(d);}catch(e){}
+                if(G.worldOff.x!==b4.x||G.worldOff.y!==b4.y)break; }
+              if(G.worldOff.x===b4.x&&G.worldOff.y===b4.y&&!G.over){ try{endTurnReturn(true);}catch(e){} } }
+            if(first<0&&finisherReady())first=t2;
+            if(G.pHP<=0)break; }
+          if(first>0){ready++;sum+=first;} }
+        return {fights, ready, pct:Math.round(100*ready/fights),
+          turn: ready? +(sum/ready).toFixed(1):null};
+      }
+      const ON=run(true), OFF=run(false);
+      window.wideOpen=realWide;
+      return {ON, OFF, finishAt:FINISH_AT};
+    });
+    return { play, risk, arrive };
+  })();
+
+  console.log('  V180, walking only, trigger never pulled across ' + walls.play.live.fights + ' fights:'
+    + '\n    charge earned from open ground   ' + walls.play.live.gain + ' over ' + walls.play.live.turns + ' turns'
+    + '\n    feeds where BOTH halves were true ' + walls.play.bothTrue + ' of ' + walls.play.liveFeeds
+    + '\n    control, nobody alive to look    ' + walls.play.blind.gain
+    + '\n    control, every rock off the lot  ' + walls.play.norocks.gain + ' (' + walls.play.norocks.perTurn + '/turn against ' + walls.play.live.perTurn + ')'
+    + '\n    highest charge ever seen         ' + walls.play.live.top + ' against FINISH_AT ' + walls.arrive.finishAt
+    + '\n  and what the ground costs, sampled inside the tick:'
+    + '\n    open under their eyes  ' + walls.risk.openPctWithAGunOnYou + '% of ' + walls.risk.openTurns + ' turns have a gun on you'
+    + '\n    every other turn       ' + walls.risk.otherPctWithAGunOnYou + '% of ' + walls.risk.otherTurns
+    + '\n  and when the finisher arrives for a player who shoots:'
+    + '\n    with it     ' + walls.arrive.ON.pct + '% of fights, about turn ' + walls.arrive.ON.turn
+    + '\n    without it  ' + walls.arrive.OFF.pct + '% of fights, about turn ' + walls.arrive.OFF.turn);
+
+  ok('V180 RF4-18 *** WALLS ARE MECHANICS: STANDING ON OPEN GROUND UNDER THEIR EYES FEEDS THE FINISHER, AND NOTHING ELSE DOES IT. *** With the trigger never pulled across '
+    + walls.play.live.fights + ' fights the charge still climbed ' + walls.play.live.gain + ' times, and ALL ' + walls.play.bothTrue + ' OF ' + walls.play.liveFeeds
+    + ' fired with both halves true -- sampled AT THE CALL, because the first version sampled before the move and made 22 of 75 charges look like they came from nowhere. The tick runs at turn END, which is the row\'s own wording',
+    walls.play.caught > 0 && walls.play.live.gain > 20 && walls.play.liveFeeds > 20
+    && walls.play.bothTrue === walls.play.liveFeeds);
+
+  ok('V180 AND BOTH HALVES BIND, CAUSALLY: kill every man so nobody can look and the charge earns ' + walls.play.blind.gain
+    + '; take every rock off the lot so he is always in the open and it earns ' + walls.play.norocks.gain + ' (' + walls.play.norocks.perTurn
+    + ' a turn against ' + walls.play.live.perTurn + '). THE FIRST CONTROL WAS VOID and is worth naming: it buried a rock under his feet, and pillars are stored relative to the player, so the rock walked away with him on the first step',
+    walls.play.blind.gain === 0 && walls.play.norocks.perTurn > walls.play.live.perTurn * 1.3);
+
+  ok('V180 AND IT CANNOT STOCKPILE, which is what kept it from being a handout: the highest charge seen in ' + walls.play.live.turns
+    + ' turns of standing around is ' + walls.play.live.top + ', exactly FINISH_AT. THE CAP IS V176\'S AND IT STAYS V176\'S -- the first write of openGroundTick re-checked finisherReady() itself, a mutation that deleted that check left this whole file green, and a term that changes nothing is the MEDIC_SHY defect. It came out',
+    walls.play.live.top === walls.arrive.finishAt);
+
+  ok('V180 AND THE GROUND IS AVOIDABLE, WHICH IS THE HALF THAT MAKES IT A CHOICE: open ground under their eyes is '
+    + walls.risk.openPctOfAllTurns + '% of turn ends, so most of the fight you are not standing in it. THIS ARM EXISTS BECAUSE A MUTATION SURVIVED WITHOUT IT -- winding WIDE_OPEN_R from 1.6 down to 0.8 or 0.2 took the state to HALF of all turns and left the turns that are NOT open with 0% guns on them, meaning there was no safer place left that did not also pay. The rule would still have fired, and stopped being a decision. Measured across the dial: 1.6 gives 35%, 0.8 gives 50%, 0.2 gives 48%, 2.4 gives 18%',
+    walls.risk.openPctOfAllTurns < 42 && walls.risk.openPctOfAllTurns > 10);
+
+  ok('V180 AND IT IS PAID FOR: on open ground under their eyes ' + walls.risk.openPctWithAGunOnYou
+    + '% of turns have at least one gun that can reach you, against ' + walls.risk.otherPctWithAGunOnYou + '% everywhere else. THE RATIO IS NOT THE CLAIM -- guns-per-turn came out 4.29x one run and 7.11x the next on a denominator smaller than one gun, while this percentage read the same answer twice. A better statistic, never a looser threshold',
+    walls.risk.caught > 0 && walls.risk.openTurns > 60
+    && walls.risk.openPctWithAGunOnYou > walls.risk.otherPctWithAGunOnYou * 2);
+
+  ok('V180 AND IT MOVES A REAL FIGHT: for a player who shoots, the finisher comes up in ' + walls.arrive.ON.pct
+    + '% of fights around turn ' + walls.arrive.ON.turn + ', against ' + walls.arrive.OFF.pct + '% around turn ' + walls.arrive.OFF.turn
+    + ' with the open test stubbed off. Same boards, same shooting, one predicate changed -- so it is not a rule that only fires in a lab',
+    walls.arrive.ON.pct > walls.arrive.OFF.pct && walls.arrive.ON.turn < walls.arrive.OFF.turn);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
