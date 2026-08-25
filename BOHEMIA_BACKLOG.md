@@ -1393,6 +1393,34 @@ FT-JOURNEY. *** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED).
    what is worth carrying, every number, and whether the player can ever be the
    raider. NOT STARTED ON PURPOSE -- it is a real build and wants its own run at
    it rather than being bolted onto the end of a bug-fix turn.
+P0-MORNING. *** THE FIRST MORNING POINTS AT THE WRONG DOOR, AND WE KNOW
+   IT BEFORE THE TESTERS DO (8/24 — records/BOHEMIA_THE_FRIENDS_ROUND_IS_
+   NOT_READY_8_24_26.md). From this lane's OWN demo record: tapping ONLY
+   the obvious primary button goes GET UP -> SLEEP -> DAY 2 and never
+   plays anything. The day's work is behind the PHONE, and the thing
+   pointing at it is one unread badge. **A tester can finish the demo
+   without ever meeting the game.**
+   THE RESEARCH SAYS THIS IS DEFAULT BEHAVIOUR, NOT AN EDGE CASE:
+   playtest practitioners report players click through without reading and
+   follow whatever is highlighted — one observed session had players
+   "breezed through the tutorial by clicking every highlighted button" and
+   minutes later had no idea how anything worked, because it taught them
+   WHERE TO CLICK and not what it meant.
+   AND THE REAL-WORLD FRAME NAMES IT EXACTLY. Don Norman: AFFORDANCES are
+   what actions are possible, SIGNIFIERS are what tells you WHERE the
+   action goes — and his rule is that WHEN YOU HAVE TO PUT A SIGN ON A
+   DOOR, THE DESIGN ALREADY FAILED. Our badge is a sign on a door. The big
+   button is the handle everyone reaches for and it leads away from the
+   game.
+   THE FIX IS NOT A TUTORIAL AND NOT MORE TEXT: make the PHONE the
+   loudest, most primary-looking thing on screen at 06:00 on day one. GET
+   UP and SLEEP stay exactly where they are; they just must not out-shout
+   the phone on the first morning.
+   DO IT BEFORE ROUND 1, NOT DURING IT. We already know the failure; a
+   fresh-eyes round spent rediscovering a known bug spends the one thing
+   the protocol says spends once. | a cold session where the hand goes to
+   the phone without being told, gated in the whole-demo run | — | yes,
+   the first morning is judgeable the moment it changes. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -1666,8 +1694,28 @@ E1-RUN. *** THE PAYDAY BRIDGE CAN FINALLY BE CALLED (8/15, off Paolo's
    Composes with time-is-spent + the bike (0v). WORLD supplies the pricing
    hooks. | travel menu on the real surface, costs shown before commit |
    supplement table detail = PENDING Paolo (GDD's own list) | no.
-0f. THE SOFT OPENING KIT (sweep 1 catch, 8/11 — records/BOHEMIA_
-   COORDINATOR_SWEEP_LEDGER.md; demo-ADJACENT, never demo-blocking): an
+0f. *** RE-TAGGED 8/24: PLAYTEST-BLOCKING. BUILD IT BEFORE ANYONE IS
+   INVITED (records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md).
+   The demo now plays end to end and the next step is the friends round —
+   and THE PROTOCOL'S WHOLE DESIGN RESTS ON THIS CARD: "the in-demo
+   FEEDBACK CARD (RUN 0f) + the telemetry paste. Each tester sends Paolo
+   ONE paste." IT WAS NEVER BUILT. The "demo-ADJACENT, never
+   demo-blocking" tag below was CORRECT on 8/11 and is wrong now in the
+   only way that matters: it is not demo-blocking, it is PLAYTEST-
+   blocking, and the playtest is what is next.
+   WITHOUT IT: 5-8 people play and Paolo gets 5-8 texts saying "it was
+   cool." No quit points, no confusion map, nothing comparable between
+   round 1 and round 2, and the protocol's own rule that "a tester who
+   stops playing is a FINDING" has no way to record where they stopped.
+   THE ROUND IS SPENT, AND FIRST IMPRESSIONS SPEND ONCE.
+   (Note: gates/feedback_master_gate.py exists but is a DIFFERENT thing —
+   it protects PAOLO'S feedback from going missing, not a tester's.)
+   SCOPE IS SMALL ON PURPOSE: three taps (fun? / confusing? / play
+   again?) + an optional text box, exported exactly like the save blob so
+   a tester can paste it into a chat. Folds with telemetry (0e) so one
+   paste returns data and feelings together. ***
+   ORIGINAL 8/11 ENTRY, kept as the record — THE SOFT OPENING KIT (sweep
+   1 catch, 8/11; demo-ADJACENT, never demo-blocking): an
    end-of-day in-demo FEEDBACK CARD — three taps (fun? / confusing? / play
    again?) + optional text — exported exactly like the save blob so any
    playtester can paste their reaction into a chat; folds with telemetry

@@ -1,3 +1,78 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 LATEST -- *** THE DEMO IS DONE AND
+THE NEXT STEP WOULD HAVE RETURNED NOTHING. TAB: RUN (first morning) + NOT IN A TAB
+YET (the feedback card). Nothing to judge. ***
+
+WHAT I MEASURED, NOT ASSUMED. The demo plays start to finish and something proves
+it: gates/the_whole_demo_gate.js, 21 claims, 44 seconds, splash to valley in one
+unbroken session. Board rows 3 (footsteps) and 1-fight are closed. So the board's
+next row is ROUND 1, the friends round, and the protocol for it has been sitting
+ready since 8/11. I checked whether it could actually be run. IT CANNOT, for two
+reasons, and neither one is a demo bug.
+
+*** 1. THE INSTRUMENT THE PROTOCOL IS BUILT ON DOES NOT EXIST. ***
+records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md rests on one object: "the
+in-demo FEEDBACK CARD (RUN 0f) + the telemetry paste. Each tester sends Paolo ONE
+paste." RUN 0f WAS NEVER BUILT. It is still open in BOHEMIA_BACKLOG.md tagged
+"demo-ADJACENT, never demo-blocking" -- which was CORRECT on 8/11, when the demo
+did not exist and the card would have blocked it for nothing. That tag is now
+wrong in the only way that matters: the card is not demo-blocking, it is
+PLAYTEST-blocking, and the playtest is the next row.
+I checked for its gate before claiming it was missing (the 8/17 rule: to ask
+whether a system exists, find its gate first). gates/feedback_master_gate.py
+exists and is a DIFFERENT thing -- it protects PAOLO'S feedback from going
+missing, not a tester's. No gate, no card, no round.
+WITHOUT IT: five to eight people play and he gets five to eight texts saying "it
+was cool." No quit points, no confusion map, nothing comparable between round 1
+and round 2, and the protocol's own rule that "a tester who stops playing is a
+FINDING" has no way to record where they stopped. THE ROUND IS SPENT AND FIRST
+IMPRESSIONS SPEND ONCE.
+RE-TAGGED PLAYTEST-BLOCKING in the backlog, with the reason written into the row.
+
+*** 2. WE ALREADY KNOW HOW THE TESTERS WILL FAIL, IN THE LANE'S OWN WORDS. ***
+From records/BOHEMIA_THE_WHOLE_DEMO_PLAYS_8_21_26.md: tapping ONLY the obvious
+primary button goes GET UP -> SLEEP -> DAY 2 and never plays anything. The day's
+work is behind the PHONE and the thing pointing at it is one unread badge.
+A TESTER CAN FINISH THE DEMO WITHOUT EVER MEETING THE GAME.
+That is not a hypothetical -- gates/phone_rings_gate.js holds it as law on purpose:
+"THE DAY STARTS WITH NO JOB. Wake, and there is no objective -- only word that
+something came in." The design is correct. The SIGNPOSTING is what fails.
+BOTH AISLES SAY THIS IS DEFAULT BEHAVIOUR, NOT AN EDGE CASE. Playtest
+practitioners report the same finding repeatedly: players click through without
+reading and follow whatever is highlighted. One observed session is the exact
+shape of ours -- players "breezed through the tutorial by clicking every
+highlighted button they were told to," and minutes later had no idea how anything
+worked, because it had taught them WHERE TO CLICK and not what it meant. And the
+real-world aisle names it precisely: Don Norman's AFFORDANCE (what action is
+possible) vs SIGNIFIER (what tells you where the action goes), and his rule that
+WHEN YOU HAVE TO PUT A SIGN ON A DOOR, THE DESIGN ALREADY FAILED. Our badge is a
+sign on a door; the big button is the handle everyone reaches for and it leads
+away from the game.
+THE FIX IS NOT A TUTORIAL AND NOT MORE TEXT: make the PHONE the loudest, most
+primary-looking thing on screen at 06:00 on day one. GET UP and SLEEP stay exactly
+where they are -- they just must not out-shout the phone on the first morning.
+DO IT BEFORE ROUND 1, NOT DURING IT. Spending a fresh-eyes round rediscovering a
+bug we already wrote down spends the one thing the protocol says spends once.
+ROUTED: RUN P0-MORNING (new row), plus RUN 0f re-tagged. Both small, one session.
+
+WHAT COMES AFTER, IN ORDER (written into the record so nobody has to re-derive it):
+card + first-morning fix -> ROUND 1 with 5-8 people on their own phones and PAOLO
+SAYS NOTHING -> compile every paste into one digest and route findings as
+corrections -> fix -> ROUND 2 with FIVE TO EIGHT NEW PEOPLE, never the same
+audience twice -> only then the public question, and it is his.
+
+CONFIDENCE, STATED: the missing card and the stale tag, read from the backlog and
+the gate directory, HIGH. The first-morning trap, from the RUN lane's own demo
+record and phone_rings_gate's stated design, HIGH. Norman, published and standard,
+HIGH. The practitioner playtest findings, consistent across sources, MEDIUM-HIGH.
+That fixing the signifier will change round-1 behaviour is a PREDICTION, and round
+1 is the test of it.
+
+  RECORD: records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
+  ROUTED: BOHEMIA_BACKLOG.md RUN 0f (re-tagged PLAYTEST-BLOCKING) + RUN P0-MORNING (new)
+  NO CODE TOUCHED. Coordinator is read-only across every lane.
+
+================================================================================
+
 RUN (run-eak241): 8/24 (b) LATEST -- *** A CARD THAT SAID "TAP CLOSE" AND COULD
 NOT BE TAPPED. TAB: RUN (press STANDING). Nothing to judge. ***
 
