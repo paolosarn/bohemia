@@ -189,6 +189,62 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
 
   await browser.close();
 
+  /* AND NOW THE ONLY NUMBER THAT IS ACTUALLY ABOUT A PERSON.
+     Every byte count above is measured on LOCALHOST -- infinite bandwidth, zero latency --
+     which is correct for counting bytes and useless for answering "how long does he stare
+     at it". Measured 8/25 on a throttled connection, the honest answer was nothing like the
+     localhost one:
+
+         connection   taps at once   reads splash 8s
+         good 4G          9.2 s           2.3 s
+         weak 4G         24.3 s          16.3 s
+
+     The splash warm-up is real -- it is the whole difference between those two columns --
+     but it can only help a player who WAITS, and the friend who taps the moment a button
+     appears is the friend a demo has to survive. So the gate holds the impatient case on
+     the weak profile: the worst thing a real person meets.
+
+     3 Mbit down / 150 ms is the conservative end of what a weak 4G connection delivers, not
+     its headline number. Sizing a wait off the headline is how you ship a demo that only
+     works in the office. */
+  const NET = { down: 3 * 1024 * 1024 / 8, up: 5e5, lat: 150 };
+  const CEIL_TAP_TO_WORLD_MS = 30000;
+
+  const b3 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const c3 = await b3.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const p3 = await c3.newPage();
+  const cdp = await c3.newCDPSession(p3);
+  await cdp.send('Network.enable');
+  await cdp.send('Network.emulateNetworkConditions',
+    { offline: false, downloadThroughput: NET.down, uploadThroughput: NET.up, latency: NET.lat });
+  const t0 = Date.now();
+  await p3.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_ALPHA_0_9.html',
+    { waitUntil: 'load', timeout: 300000 });
+  const splashMs = Date.now() - t0;
+  await p3.evaluate(() => { const f = document.querySelector('#front, #fronttap'); if (f) f.click(); });
+  const tapAt = Date.now() - t0;
+  let worldMs = -1;
+  try {
+    await p3.waitForFunction(() => {
+      const fr = [...document.querySelectorAll('iframe')].find(f => /CITY_WORLD/.test(f.src || ''));
+      try { return !!(fr && fr.contentWindow && fr.contentWindow.document.getElementById('cv')); }
+      catch (e) { return false; }
+    }, null, { timeout: 300000 });
+    worldMs = Date.now() - t0;
+  } catch (e) {}
+  await b3.close();
+  const waitMs = worldMs > 0 ? worldMs - tapAt : -1;
+  console.log('  ON A WEAK 4G PHONE, TAPPING AT ONCE: splash ' + (splashMs / 1000).toFixed(1)
+    + 's, world ' + (worldMs > 0 ? (worldMs / 1000).toFixed(1) + 's' : 'NEVER')
+    + ', WAIT AFTER THE TAP ' + (waitMs > 0 ? (waitMs / 1000).toFixed(1) + 's' : '-'));
+
+  ok('the world actually appears on a weak 4G phone (3 Mbit / 150 ms) for a player who taps '
+     + 'the moment the splash does', worldMs > 0);
+  ok('and the wait after that tap is at most ' + (CEIL_TAP_TO_WORLD_MS / 1000) + 's (measured '
+     + (waitMs > 0 ? (waitMs / 1000).toFixed(1) : '?') + 's). This is the number a friend '
+     + 'experiences, and it only ever comes down',
+     waitMs > 0 && waitMs <= CEIL_TAP_TO_WORLD_MS);
+
   /* THE WORLD SURVIVES WITHOUT ITS ART, and this claim is the whole reason progressive
      loading is reachable at all. Measured 8/25: block the bank and the city used to be a
      BLACK VOID with `ReferenceError: HERO_SRC is not defined` -- the page reads the bank's

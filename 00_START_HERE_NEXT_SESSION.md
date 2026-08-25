@@ -44758,7 +44758,74 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (a) LATEST -- *** THE WORLD SURVIVES WITHOUT ITS ART. Block all
+WORLD (city-1eztay): 8/25 (b) LATEST -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
+number this lane ever produced was LOCALHOST. Throttled to weak 4G, a friend who taps at once
+waits 24.2s for the world. Gated. And the fix is no longer a guess -- it is measured, with a
+probe that finally passes its own control. ***
+Gates: TIME TO PLAY 13/0 (all three ceilings mutation-tested), WALKED SURFACE 11/0
+(8,595 / 93.3% / 99.9%, unmoved).
+
+FIRST, THE INSTRUMENT, BECAUSE YESTERDAY'S LIED. Enumerated every canvas with a real pixel
+checksum: `cv` 378x779 is THE WORLD and its sum MOVES when the art is removed
+(1170979137 -> 2766964240); `modeFace` correctly does not. THE CONTROL PASSES.
+YESTERDAY'S BUG, NAMEABLE NOW: I compared `toDataURL(...).slice(-64)` -- THE LAST 64
+CHARACTERS OF A PNG DATA URL, the tail of a compressed stream, which matched for three
+visibly different worlds. Two more fixes were needed for an honest reading: the DAY 1 card
+sits OVER the canvas so it must be dismissed first, and the SERVICE WORKER fetches
+navigations itself so page-level interception never fires until it is blocked.
+
+THE ANSWER: with `defer` on chunks 2..N --
+    normal   families=24  worldsum=1170979137  errors=0
+    defer    families=24  worldsum= 188303220  errors=0
+    blocked  families= 0  worldsum= 188303220  errors=0
+    CONTROL normal vs blocked differ? true | defer===normal? FALSE | defer===blocked? TRUE
+THE DEFERRED ART ARRIVES (all 24 families, zero errors) AND THE WORLD IS DRAWN WITHOUT IT.
+The mechanism is one line, at CITY:25376:
+    const TP_IMG = {};
+    for(const k in TP_TILES){ TP_IMG[k]=TP_TILES[k].map(b=>{...new Image()...}); }
+    const TP_CATS = Object.keys(TP_TILES);
+TP_IMG and TP_CATS are baked ONCE AT PARSE TIME. Deferred scripts run after, so they bake
+from an empty object and stay empty forever. Progressive loading needs a RE-BAKE AND A
+REDRAW, not just a `defer` attribute.
+
+AND THEN THE NUMBER THAT IS ACTUALLY ABOUT A PERSON. All of 40.48 MB / 32.38 MB / 2.65 MB was
+LOCALHOST -- right for counting bytes, useless for "how long does he stare at it". Throttled:
+    connection   taps at once   reads splash 8s
+    good 4G          9.2 s           2.3 s
+    weak 4G         24.3 s          16.3 s
+THE SPLASH WARM-UP IS REAL -- it is the whole difference between those columns. BUT IT ONLY
+HELPS A PLAYER WHO WAITS, and the splash appears in 0.8s so he has every reason to tap at
+once. Yesterday's 12x was measured on a machine where the download had already finished; on a
+phone it is worth ~7s good / ~8s bad. Worth having. NOT the end of the job.
+
+SHIPPED: time_to_play runs a THIRD boot under Network.emulateNetworkConditions at
+3 Mbit / 150 ms (the conservative end of weak 4G, not its headline), taps immediately, waits
+for the world's canvas:
+    ON A WEAK 4G PHONE, TAPPING AT ONCE: splash 0.8s, world 25.0s, WAIT AFTER THE TAP 24.2s
+Two claims: the world must APPEAR AT ALL, and the wait is held at 30s and only comes down.
+Mutation-tested at 5s -- fails and names the measured 24.2s. SIZING A WAIT OFF A HEADLINE
+BANDWIDTH NUMBER IS HOW YOU SHIP A DEMO THAT ONLY WORKS IN THE OFFICE.
+
+BUILD STAMP NOT MOVED: nothing a player sees changed. This turn bought a number and an
+instrument.
+
+NEXT IN THIS LANE -- #1 IS ONE JOB NOW, NOT AN OPEN QUESTION
+  1. RE-BAKE AND REDRAW WHEN THE ART LANDS. Blocker named, line quoted, payoff measured: the
+     world would appear off CHUNK 1 ALONE -- 1.75 MB instead of 28 -- roughly TWO SECONDS
+     INSTEAD OF TWENTY-FOUR on a weak phone. The shape:
+       a. `defer` chunks 2..N (the world already survives this, and that is GATED).
+       b. After the last chunk, rebuild TP_IMG and refill TP_CATS (it is `const`, so
+          length=0 then push, NEVER a re-bind), plus whatever the other seven banks bake at
+          parse time -- FIND THEM ALL FIRST, that survey is NOT done.
+       c. Force one redraw.
+       d. Prove it with the probe in the record: defer===normal, control passing.
+     Then LOWER THE 30s CEILING to whatever it measures. That is the point of the ratchet.
+  2. Cluster seam for golf/railyard/landfill/farm -- open, correct, 19 cells.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_TWENTY_FOUR_SECONDS_ON_A_REAL_PHONE_8_25_26.md
+
+WORLD (city-1eztay): 8/25 (a) -- *** THE WORLD SURVIVES WITHOUT ITS ART. Block all
 26 MB of sprites and the city still renders a PLAYABLE world with ZERO errors. Yesterday the
 same test was a black screen and a ReferenceError. Gated. ***
 Gates: TIME TO PLAY 11/0 (mutation-tested), WALKED SURFACE 11/0 (8,595 / 93.3% / 99.9%,
