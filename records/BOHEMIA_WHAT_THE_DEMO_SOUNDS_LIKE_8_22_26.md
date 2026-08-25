@@ -170,3 +170,54 @@ If a MANUAL save button ever ships, that is a moment and this is its sound.
 Still silent, all three on purpose and all three explained above: the splash
 before he touches anything (no gesture, no audio context), opening the phone,
 and taking the job.
+
+
+---
+
+# THE INSTRUMENT COULD NOT HEAR THE MUSIC (8/25)
+
+The demo's climax is a fight (the 7/24 demo-climax ruling), and combat is where
+most of this lane's approved sounds live — seventeen are reachable only from
+that module. None had ever been listened to on a walk, so a fight beat was added.
+
+**It reported "-- silent --", and both halves of that were wrong.**
+
+## THE FIGHT WAS NEVER SILENT
+
+Asked the music system directly before believing the report: `FIGHTMUS.on=true`,
+`MUS.playing=true`. The fight takes the music over **immediately** — the
+asymmetric transition working exactly as designed, instant in, phrase-end out.
+
+**The recorder watched `playSFX`, the SFX posts and `STING.play`, and called
+everything else silence.** It was blind to the score, which is most of what a
+player actually hears. A report that cannot hear music is not a report of what
+the demo sounds like, and the next session reading that line would have gone off
+to fix a beat that was already correct. Checking the ruler before believing it is
+the only reason that did not happen.
+
+The recorder now polls the music state and reports handovers as their own event,
+so a music-only beat reads as `music: takes over for the fight` instead of as
+silence.
+
+## AND THE FIGHT BEAT WAS MEASURING THE WRONG FIGHT
+
+The door **is** what starts a fight: `inEnter` calls `cityFightOnEnter`. So the
+fight is already running by the time the door beat finishes, which is why the
+score hands over ON THE DOOR BEAT and not on a beat of its own.
+
+The first version assembled a *second* fight through the shell's
+`cityEncounterIn` and measured that. Nobody starts a second fight on top of a
+live one — it was testing a path no player walks. Removed; the assertion now
+reads the state the real door produced.
+
+## WHERE THE WALK STANDS
+
+    10 of 11 beats make a sound
+    HE WALKS INTO A BUILDING → door_drag, music: takes over for the fight
+
+Two checks were added and both mutation-proved: kill `FIGHTMUS.enter()` and the
+climax goes quiet (red); blind the recorder to music again and the report goes
+back to lying (red).
+
+The one still-silent beat is the splash before he touches anything: no gesture
+means no audio context. A browser law, not a defect.
