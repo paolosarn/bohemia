@@ -240,8 +240,21 @@ const pw = pwmod();
                              .catch(() => -1);
     let want = out.sleepAfter - out.sleepBefore; if (want < 0) want += 1440;
     const rows = await p.evaluate(n => window.__timePassLog(n), base);
-    const mine = rows.filter(r => r.jump === want);
+    /* MATCH THE SLEEP BY ITS SIZE, NOT BY A LABEL THIS GATE COMPUTED (8/25).
+       This demanded a row whose jump equalled `want` EXACTLY, and `want` is
+       measured from the instant this gate read the clock -- while the WIRE's
+       baseline is the run's last four-second report. The clock keeps moving in
+       between, so the wire legitimately measures a slightly smaller move.
+       MEASURED: want=480, the wire logged 450, and the row read `450:8`. THE
+       GAME STRUCK EIGHT TIMES. The old matcher found no row, returned -1, and
+       -1 was then read as "nothing strikes eight" -- a gate reporting a game
+       defect that did not exist, off its own arithmetic.
+       The sleep is the BIG jump; take it, and keep the row-per-call rule that
+       stops a stray four-second report being added to its count. */
+    const since = rows.filter(r => r.jump >= 60);
+    const mine = since.length ? [since.reduce((a, b) => b.jump > a.jump ? b : a)] : [];
     out.sleepStrikes = mine.length === 1 ? mine[0].strikes : -1;
+    out.sleepWireJump = mine.length === 1 ? mine[0].jump : -1;
     /* -1 MEANT TWO DIFFERENT THINGS and neither was printed: no row carried the
        jump at all, or several did. Those want opposite fixes, so the report says
        which, and what jumps it DID see. */
@@ -359,10 +372,17 @@ def main():
         adv += 1440
     ok('PRESSING IT MOVES THE WORLD CLOCK by 8 hours (%d minutes)' % adv, adv == 480)
     ok('AND THE GAME STRIKES EIGHT TIMES FOR IT (%s) -- no synthetic message, '
-       'the button the player actually presses [%s row(s) carried the %s-minute '
-       'jump; jumps seen: %s]' % (d.get('sleepStrikes'), d.get('sleepRows'),
-                                  d.get('sleepJumpWanted'), d.get('sleepJumpsSeen')),
+       'the button the player actually presses [the wire saw a %s-minute move; '
+       'jumps seen: %s]' % (d.get('sleepStrikes'), d.get('sleepWireJump'),
+                            d.get('sleepJumpsSeen')),
        d.get('sleepStrikes') == 8)
+    # AND THE WIRE MUST HAVE SEEN SUBSTANTIALLY THE WHOLE SLEEP. Matching the
+    # biggest jump would otherwise accept a wire that watched two hours of an
+    # eight-hour night and rounded its way to a plausible number. One hour of
+    # slack covers the reporting cadence; anything worse is a real lost move.
+    _wj, _wa = d.get('sleepWireJump') or 0, adv or 0
+    ok('and the wire saw substantially the whole night, not a fragment of it '
+       '(%s of %s minutes)' % (_wj, _wa), abs(_wj - _wa) <= 60)
 
     st = d.get('stats') or {}
     ok('the floor is an hour, so ordinary play can never reach it',
