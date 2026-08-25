@@ -1,3 +1,86 @@
+RUN (run-eak241): 8/25 (b) LATEST -- *** THE SEE-THROUGH TESTED WHERE HE USED TO
+BE, SO WALKING BEHIND A WALL HID HIM. TAB: RUN (walk south into a house).
+Nothing to judge. ***
+
+*** HE TOLD ME WE HAD TALKED ABOUT THIS BEFORE, AND HE WAS RIGHT. *** "when i am
+facing walking south i should be behind the walls with an opacity so i can see
+myself weve talked about this before bro." It is LOCKED law from 7/27 -- THE
+THREE-TILE WALL AND THE SEE-THROUGH, his own words, "an opacity filter for when
+I'm in front of a wall" -- and it was BUILT and RIGHT. I BROKE IT ON 8/23.
+The law's order is: facades behind him solid, then the player, then facades in
+front LAST, faded where they cover him. Step 4 asks playerBox() where he is. The
+walk glide made the body draw at the CAMERA cell and playerBox kept computing
+from hx,hy, THE TRUE CELL.
+    worst gap between the test box and the drawn body   88 px (TWO CELLS)
+    frames they disagreed by more than 2px              35 of 45 (78%)
+Two cells because holding the pad starts him RUNNING. So for most of every walked
+beat the game asked whether a wall covered a spot he was not standing on, the wall
+that really covered him stayed solid, and he walked into it and vanished.
+*** WHY NOTHING CAUGHT IT, AND IT IS THE USEFUL PART: *** wallclass_gate proves
+the see-through properly, off real pixels, STANDING STILL -- it teleports him onto
+the covered tile and renders ONE frame. Standing still there is no glide and the
+box was correct. THAT GATE WAS NEVER WRONG. IT NEVER WALKED.
+*** AND IT IS THE THIRD TIME THIS WEEK I MADE THE SAME MISTAKE: *** the objective
+hint went into a copy instead of the canon body; the population card measured a
+toolbar whose coordinate space I had changed; now the see-through measures a body
+I moved. MOVING WHERE SOMETHING IS DRAWN IS NOT A DRAWING CHANGE.
+Fixed with ONE OWNER (camCell is called once per frame and the value is PASSED,
+not re-derived -- two calls read performance.now() twice and can disagree, the
+second-owner bug I had to undo in the population card). 88px -> 0px.
+GATE: SEE-THROUGH MOVE, 10 claims, walks him INTO being covered and records the
+alpha the renderer actually paints with: 230 of 235 facade draws on his body
+FADED. Its own first cut held SOUTH from the spawn and reported "0 of 126 faded",
+which was TRUE and meaningless -- he walks an arterial with nothing over him.
+Mutation-tested: ONLY the arithmetic claim catches it, because under the bug the
+gate and the renderer share the SAME wrong box.
+
+*** THE STREETS: MEASURED, AND THE CONNECTIVITY HALF IS ALREADY TRUE. ***
+"all streets should connect ... it looks so bad."
+    district grid    ONE component, 3,483 cells, 0 stranded, 150 cul-de-sacs
+    drawn surface    0 of 354 boundary crossings between road districts broken
+*** MY FIRST NUMBER WAS WRONG AND I NEARLY HANDED IT TO WORLD AS THEIR BUG: 46%
+broken, 298 of 652 -- because it counted a road meeting a PARK or a suburb as a
+break. A road that ends where the road district ends is not a broken road. *** The
+7 "disconnected road pieces" were the same artefact: a 301-cell window cutting
+parallel arterials that join further out. A MEASUREMENT THAT NAMES THE WRONG OWNER
+COSTS SOMEBODY A DAY.
+So his real complaint is the second half -- PLACEMENT AND LOOK -- which is WORLD's
+generator and MAP LAW's reservation to him. Routed with numbers, not guessed at.
+Record: records/BOHEMIA_DO_THE_STREETS_CONNECT_8_25_26.md
+
+*** EARLIER THE SAME DAY: HIS HOUSE HAD NO FRONT DOOR. *** isDoorCell counts four
+ways a door exists; homeFind counted ONE. 26 buildings around the spawn, 23 of
+them (88%) have a door only the shared predicate can find, and HIS OWN HOUSE came
+back door:null -- so "wake up at your own front door" was broken for essentially
+every house in the suburb. The SAME bug was fixed 8/2 in the movement path and
+nothing checked the rest of the file. Fixed by DELETING THE COPY.
+GATE: ONE DOOR PRED, 9 claims, source half + measured half.
+
+*** AND NOTHING PROVED A FRIEND CAN FINISH DAY ONE. *** WHOLE DEMO takes the job,
+walks six steps and GOES TO SLEEP. DAY LOOP finishes the quest by sending the
+message the city would send, from Node. Every piece green, the join a guess.
+    a way in 15 steps away · walked in 13 REAL pad presses · stage 10 -> 20
+    · the resolution card up with the quest's own three endings
+A STRAIGHT LINE at the nearest door ran 90 steps and never arrived, because a wall
+stood between and a straight line does not turn.
+GATE: DAY ONE DONE, 12 claims. It HONESTLY DOES NOT PROVE HE CAN FIND IT -- the
+BFS stands in for a player's eyes -- and that limit is in the gate, not smuggled past.
+
+AND I CHECKED MY OWN 8/23 CLAIM AGAINST A GAUGE I DID NOT WRITE: "SLIDE cost no
+loop" was an assertion; frame_budget measures walking at 71 paints across 89
+frames, 2 doubled, under its 10% budget. Demo board row 8 is covered and healthy.
+
+WHAT COMES AFTER, in order:
+  1. STREET PLACEMENT AND LOOK is WORLD's, with the numbers above proving it is
+     not a connectivity bug. Somebody has to look at a junction and say what is
+     wrong in words; there is no number in that record that disagrees with him.
+  2. DISCOVERABILITY is the open question DAY ONE DONE names. The job is 15 steps
+     away and completable; a friend on an arterial looking at a blank wall has no
+     idea which way. The HOME arrow points at a dark building 2 minutes off that
+     IS a valid answer -- but nobody has watched a person try. Wants a human.
+  3. FT-JOURNEY (fast travel is a journey, not a teleport), spec written 8/24,
+     NOT STARTED. A real build, wants its own run.
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
 SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
 READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
