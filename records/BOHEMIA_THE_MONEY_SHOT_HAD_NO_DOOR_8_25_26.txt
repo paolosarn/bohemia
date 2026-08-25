@@ -65,8 +65,8 @@ A GATE CALLING A FUNCTION IS NOT THE SAME AS THE GAME CALLING IT, and a gate tha
 reaches for the function instead of the gesture will be green either way.
 
 
-THE FIX
-=======
+THE FIX, TWO PATCHES
+====================
 
 tools/bohemia_the_vista_lets_you_leave_patch.py
   - a TAP on the world closes it, reusing the city's OWN tap-versus-drag test
