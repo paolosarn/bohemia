@@ -378,6 +378,39 @@ GATES = [
      'so a chip added tomorrow is swept without editing the gate. Mutation-tested by putting '
      'the old closeless card back: 4 claims red. Holds out REROLL (rebuilds the valley) and '
      'SLEEP (ends the day) by name rather than in silence', True),
+    # 8/25: found by PLAYING day one and asking the world what was around the spawn,
+    # not by reading. The house the game labels HOME reported door:null.
+    ('ONE DOOR PRED',  ['node', 'gates/one_door_predicate_gate.js'],
+     'THERE IS ONE DOOR PREDICATE AND EVERY DOOR QUESTION ASKS IT. The law is not new -- on '
+     '8/2 stepOnce was caught asking a hand-rolled door test while the guard beside it asked '
+     'another ("every house whose door is a doorW/doorE was sealed by its own door"), and '
+     'that repair went into the movement path while NOTHING CHECKED THE REST OF THE FILE. '
+     'homeFind kept the narrow test for three weeks. MEASURED on the demo spawn: 26 '
+     'buildings, 23 of them (88%) with a door only the shared predicate can find, 0 with no '
+     'door, and HIS OWN HOUSE came back door:null -- so "wake up at your own front door" was '
+     'broken for essentially every house in the suburb he starts in. Two halves: the source '
+     'half counts hand-rolled hdoor tests and allows exactly the two that are legitimate '
+     '(the predicate itself and the render pass that draws that art tile), and the measured '
+     'half opens the real game and asks whether HOME has a door, because a source rule can '
+     'be satisfied while the answer is still wrong. Comments are stripped first -- two of '
+     'the file\'s notes QUOTE the old test to explain it, and counting those would make the '
+     'gate punish its own post-mortems. Mutation-tested by restoring the narrow test: 3 red', True),
+    # 8/25: the demo's actual question -- CAN SOMEBODY DO THE JOB -- was answered by nobody.
+    ('DAY ONE DONE',   ['node', 'gates/day_one_can_be_finished_gate.js'],
+     'A FRIEND CAN FINISH DAY ONE BY WALKING, and nothing proved it. WHOLE DEMO takes the '
+     'job, walks six steps and GOES TO SLEEP -- it never finishes the work. DAY LOOP '
+     'finishes the quest by sending the message the city would send, from Node, which proves '
+     'the runtime and not the world. So each piece was green and the join between them was a '
+     'guess. This boots the alpha, takes the job off the phone, BFS\'s for the nearest thing '
+     'that actually admits a body (the 8/2 rule: a building with a door is entered through '
+     'it, one without is entered from any wall) and DRIVES THE REAL PAD along that route at '
+     '560ms a press. MEASURED: a way in 15 steps away, walked in 13 presses, stage 10 -> 20, '
+     'and the resolution card up with the quest\'s own three endings. IT HONESTLY DOES NOT '
+     'PROVE HE CAN FIND IT -- the BFS stands in for a player\'s eyes -- and that limit is '
+     'written into the gate rather than smuggled past: what is proved is that the world '
+     'admits a route, the pad walks it, the door opens and the quest hears about it. Measured '
+     'while writing it: a STRAIGHT LINE at the nearest door ran 90 steps and never arrived, '
+     'because a wall stood in the way and a straight line does not turn', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

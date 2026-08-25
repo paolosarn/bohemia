@@ -31934,7 +31934,18 @@ function homeFind(){
   let door=null;
   for(let y=f.y;y<f.y+f.h&&!door;y++)for(let x=f.x;x<f.x+f.w&&!door;x++){
     const c=cellAt(x,y);
-    if(c&&c.artPool_face==='hdoor')door=[x,y];
+    /* __HOME_DOOR_IS_A_DOOR__ (8/25). This read `c.artPool_face==='hdoor'` -- the
+       FIRST of the four things isDoorCell counts -- so a house whose front door
+       is a doorW or doorE reported having no door at all. MEASURED on the demo
+       spawn: 35 real door cells within 90 cells of him, and HIS OWN HOUSE came
+       back door:null.
+       THE SAME BUG WAS FIXED ON 8/2 IN stepOnce AND ITS NOTE IS STILL IN THIS
+       FILE -- "__A_DOOR_IS_A_DOOR__ ... every house whose door is a doorW/doorE
+       was sealed by its own door." That repair never reached here, because a
+       predicate copied by hand into a second place drifts from the first. So
+       this does not fix the copy, it deletes the copy and asks the one function
+       everything else asks. */
+    if(isDoorCell(c))door=[x,y];
   }
   HOME={x:f.x,y:f.y,w:f.w,h:f.h,door:door,cell:{x:city.x,y:city.y}};
   return HOME;
