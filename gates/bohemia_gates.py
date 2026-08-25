@@ -364,6 +364,18 @@ GATES = [
     # 412 gates and not one of them asked. Measured: 40.5 MB total, 32.4 MB of it AFTER the
     # tap, 28 MB of that a single tile bank. This holds the ceiling while the bank waits to
     # be split; it serves the repo over real HTTP because file:// has no cache semantics.
+    # 8/25: the 26 MB of sprites came off the critical path. Chunk 1 declares the bank names
+    # and blocks; the rest are pulled by a loader once a world is drawn. Every step of that
+    # fails SILENTLY -- a bank baked at parse time from an empty object stays empty forever,
+    # a repaint fired before the world exists clears an empty cache and never returns, a
+    # chunk run out of order corrupts the banks rather than delaying them. Nothing throws.
+    # Proved in CITY MODE, which is the only place the late art is visible at all, with a
+    # control boot that has to look different before the answer is believed.
+    ('LATE ART',       ['node', 'gates/late_art_gate.js'],
+     'the art that no longer blocks the world still ARRIVES and still gets DRAWN: the '
+     'shipped page renders the same city as one with every chunk blocking, all three late '
+     'banks re-bake and decode, and a no-art control proves the comparison can see a '
+     'difference at all', True),
     ('TIME TO PLAY',   ['node', 'gates/time_to_play_gate.js'],
      'a friend on a phone can actually reach the world: the download before first play is '
      'measured over real HTTP and held to a ceiling that only ever comes down, and any file '

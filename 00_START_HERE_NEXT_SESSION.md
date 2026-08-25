@@ -51073,7 +51073,79 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (b) LATEST -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
+WORLD (city-1eztay): 8/25 (c) LATEST -- *** TWENTY-NINE SECONDS TO TEN. A friend on a weak
+phone who taps the splash the second it appears now waits 10.8s for the city instead of 28.6.
+The 26 MB of sprite art is off the critical path and streams in behind him. Two gates hold it,
+both mutation-tested. Nothing to judge. ***
+Gates: LATE ART 21/0 (new, mutation-tested), TIME TO PLAY 13/0 (ceiling 30s -> 16s,
+mutation-tested).
+
+TAB: RUN. The world opens about three times faster on a phone. Same city, same everything.
+
+*** FIRST, THE THING THAT COST TWO DAYS: FOUR PROBES TOLD ME THE TRUTH AND I CALLED ALL FOUR
+BROKEN. *** a data-URL tail (matched three different worlds), a raw pixel checksum (different
+on EVERY repaint of the same build -- three values in one run, nothing touched but a forced
+redraw), distinct colour counting (8028 vs 8028), neighbour edge density (325 vs 325). Every
+one failed its own control: 24 sprite families and ZERO measured the same. Three probe
+generations went into fixing the ruler.
+THEY WERE ALL RIGHT. I saved the two pictures and looked, and they are identical, because
+NONE OF THE LATE ART IS ON THE SPAWN SCREEN: HERO_SRC is read only by renderCity(), TP_TILES
+only by the tile painter, DOOR_ANIM only when a door swings. The walked view is drawn from
+chunk 1. In CITY MODE the difference is not subtle -- 631 detail vs 218, painted grey blocks
+vs flat red prisms.
+VERIFY ON THE REAL SURFACE HAS A SECOND HALF NOBODY WROTE DOWN: the real surface is the one
+where THE THING YOU CHANGED is visible. A correct instrument aimed at the wrong screen is
+confidently wrong, and confidently wrong outlives red by a long way.
+
+THE REAL BUG UNDERNEATH: the re-bake was right from the first attempt and was ANNOUNCING
+ITSELF TO AN EMPTY STAGE. Banks 24/69/10 and 100% decoded, canvas still on the no-art
+checksum, one hand-fired repaint and it became the fully-textured world exactly. saFlush()
+throws away drawn chunks and re-renders; run before a single chunk has EVER been drawn it
+clears an empty cache, renders nothing, and (once-only) never comes back. It waits on
+chunkCache having something now. If the world never draws, no repaint is needed -- the banks
+are full, so whenever it does draw, it draws with the art.
+
+*** AND THE THING THAT ACTUALLY MADE IT FAST: `defer` WAS THE WRONG TOOL. *** It delays
+EXECUTION, not the DOWNLOAD. The browser saw all eight tags during the parse and opened all
+eight transfers next to the one blocking chunk the world waits on. Request-by-request on a
+3 Mbit phone, tapping at once:
+    0.9s -> 28.9s   1.75 MB  BOHEMIA_CITY_TILES_01.js   <-- five seconds of work
+    0.9s -> 28.5s   1.72 MB  BOHEMIA_CITY_PROPS.js
+So the chunks are NOT TAGS any more. A 2 KB deferred loader waits until the canvas actually
+has a city on it, then pulls them itself, IN ORDER, one at a time, and calls the re-bake.
+Order is correctness not speed: every chunk after the first MUTATES what chunk 1 declared.
+    DRAWN WORLD at 11.6s  (wait after the tap 10.8s)
+
+TWO SMALLER CORRECTIONS, BOTH THE SAME MISTAKE:
+  - THE WARM-UP WAS HURTING THE IMPATIENT PLAYER. A warm fetch that has not FINISHED has not
+    filled the cache, so the iframe opens a SECOND download of the same file. Chunk 1 and the
+    props were each in flight twice. It now does nothing for 2s, so a player who taps inside
+    that window never starts one; the tap pauses the queue, the city frame resumes it. And
+    the world page came OUT of the warm list -- sw.js is network-first for NAVIGATIONS, an
+    iframe load IS one, so warming it cost 2.68 MB and bought nothing.
+  - THE GATE'S OWN CLOCK WAS FLATTERING ME. It waited for `#cv` to EXIST, and #cv is on line
+    181 of a 2.6 MB page -- the parser reaches it before a single script runs. It measured
+    "has the page started arriving". It waits for PIXELS now (>8 distinct colours), which is
+    why the honest number moved from a bogus 24.1s to a real 28.7s before any of today's work
+    counted at all.
+
+NOTE FOR WHOEVER TOUCHES THE BANK NEXT: another lane re-baked 69 hero icons into the OLD
+monolith path slices/BOHEMIA_CITY_TILES.js, which the page no longer loads. The chunker
+handles it (monolith present -> read it and re-chunk; absent -> read the chunks back), so this
+ship folded that work in. But a bake that lands there and never gets re-chunked is invisible.
+
+NEXT IN THIS LANE
+  1. 10.8s is now CITY_WORLD.html (2.62 MB) + chunk 1 (1.75 MB) + props (1.72 MB) and nothing
+     else. 6.1 MB at 375 KB/s is 16s of transfer, overlapped down to 11. THERE IS NO ORDERING
+     TRICK LEFT -- one of those three has to shrink. The world page is the biggest and the
+     least examined.
+  2. Cluster seam for golf/railyard/landfill/farm -- open, correct, 19 cells.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_TWENTY_NINE_SECONDS_TO_TEN_8_25_26.md
+Stamp:  BUILD 8/25t - THE WORLD OPENS 3X FASTER
+
+WORLD (city-1eztay): 8/25 (b) -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
 number this lane ever produced was LOCALHOST. Throttled to weak 4G, a friend who taps at once
 waits 24.2s for the world. Gated. And the fix is no longer a guess -- it is measured, with a
 probe that finally passes its own control. ***
