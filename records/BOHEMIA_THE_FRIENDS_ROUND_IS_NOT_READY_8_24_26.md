@@ -74,9 +74,11 @@ the room on the first morning.
    own test, verbatim — "ask someone to play through for the first time
    with the sound muted; if at any point they cannot progress because
    information was missed, it needs to be conveyed another way." Three
-   cues in this build are information with no picture behind them
-   (phone_buzz, done_ring, save_chime), and the first morning already
-   depends on one of them. It costs one line in the invite and it uses a
+   cues in this build are information with no picture behind them.
+   *** CORRECTED 8/25 BY THE SOUND LANE, WHICH CHECKED MY LIST AND WAS
+   RIGHT: they are save_chime, ui_deny and STING:missed. done_ring is a
+   CORPSE (no approved sound) and phone_buzz already has the badge. ***
+   And the first morning depends on the phone arriving at all. It costs one line in the invite and it uses a
    round we are running anyway. ***
    *** ADDED 8/25 BY SWEEP 20 (records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_
    CONST_NOT_A_DECISION_8_25_26.md): EVERY TESTER PLAYS THE CANONICAL
@@ -85,7 +87,30 @@ the room on the first morning.
    build until this round is finished. Five testers on five different
    worlds produce quit points that cannot be compared to each other or to
    round 2, and comparison is the entire value of this protocol. Build the
-   path, leave the door shut until the round is done. *** The protocol is strict about this and it is the
+   path, leave the door shut until the round is done. ***
+   *** ADDED 8/25 BY SWEEP 21 (records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_
+   AND_A_ROUND_THAT_CANNOT_BE_READ_8_25_26.md): THE ROUND RUNS ON ONE
+   PINNED BUILD, AND NOTHING IS PATCHED MID-ROUND.
+   The splash reads "BUILD 8/25t" — the twentieth build of a single day —
+   and the one link is network-first BY LAW, so it always serves whatever
+   main deployed last. Without a pin, every tester plays a different game
+   and so does the same tester on Saturday versus Monday. Comparison is
+   the entire value of this protocol.
+   THE LINK IS SACRED AND DOES NOT CHANGE. The published site is pinned to
+   one tagged commit for the duration; the fleet keeps merging to main at
+   full speed. This is a publish decision, not a development freeze.
+   NO PATCHING MID-ROUND — findings queue and land after. Patching because
+   tester #2 tripped, while #3 through #8 are still to come, FEELS
+   responsive and silently turns one round into eight incomparable ones;
+   the experimentation literature calls that peeking and it is how rounds
+   die. ONE exception, written in advance so it is not a judgement call
+   under pressure: a HARD BLOCKER that stops testers playing at all — the
+   round is worthless anyway, so re-pin, note it, and treat what came
+   before as a separate round.
+   AND EVERY PASTE CARRIES THE BUILD AND THE SEED. A paste without them is
+   an anecdote. Specified into RUN 0f before it is written, because it
+   cannot be retrofitted onto pastes already collected. ***
+   PAOLO SAYS NOTHING. The protocol is strict about this and it is the
    hardest part for him: he does not explain the controls, does not
    defend the game, does not watch over shoulders. One question after:
    "would you play more?"
