@@ -195,6 +195,99 @@ scenes and that the seen-flag was spent 65 seconds into a 164 second story, with
 a claim of THEIRS defending the bug; WORLD found the dam wearing the approved
 house roof. ***
 
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/25 (a) LATEST -- *** BOTH SOUND REDS ON THE SWEEP WERE MY
+OWN RULERS, AND FIXING THEM UNCOVERED A REAL BUG THE BROKEN RULER HAD BEEN
+HIDING: EVERY DOOR THE PLAYER OPENS HAS PLAYED HIS DRAG TWICE SINCE 8/14. ***
+
+WHERE THIS LANE IS
+  Sweep 19 handed SOUND two reds. Neither was a game defect.
+
+  RED 1, "an eight-hour sleep reaches the wire as TWO clock moves, nothing
+  strikes eight". MEASURED on the real SLEEP button in the real run:
+      ROWS (jump:strikes) = ['450:8', '0:0']
+  One row, EIGHT strikes. The game was right the whole time. time_pass_gate
+  demanded a row whose jump equalled a number IT computed from when IT read the
+  clock, while the wire's baseline is the run's last four-second report -- so
+  the wire honestly sees 450, not 480, no row matched, and the -1 that came back
+  was read as a fact about the game. Now matched by BEING THE BIG ONE, plus a
+  new leg that keeps the half the old exact label was accidentally enforcing:
+  "the wire saw substantially the whole night, not a fragment of it".
+
+  RED 2, "opening a real door in the real run sounds his approved drag, exactly
+  once (0)". THREE things, tangled:
+    - THE RULER. It matched |hz - 174| < 1. Then NO TWO PLAYBACKS ARE IDENTICAL
+      landed 8/18 and put +/-3% pitch jitter on every playback ON PURPOSE. The
+      door renders at 173.4, 175.8, 176.7 -- never 174 again -- so the counter
+      read zero while the door sounded perfectly.
+    - THE DOOR DID NOT EXIST. The gate drove openDoor('gate-probe-door'). Real
+      keys are "x,y". That parsed to NaN and placeSound threw on it, so the ONE
+      case that matters (the door under your hand) had never been tested.
+    - AND THEN THE REAL BUG. On a real door under a working ruler the count is
+      not 1, it is 2: ash/3/174 (placed) and ash/3/175.8 (flat). openDoor called
+      sfxAt() AND sfx(); the sfx() was written as the catch's fallback and then
+      repeated OUTSIDE the catch. FIXED.
+  Fourth, found in there: a broken PLACEMENT must never cost him the SOUND.
+  placeSound carried a non-finite distance to gain.gain.value, which throws, and
+  its catch turned a placement bug into silence. It falls back to centre now,
+  and the run checks the tile before posting. Both sides.
+
+  THE ACTUAL FINDING IS THE PATTERN. Eleven ruler mistakes this week; they now
+  outnumber the real bugs by a wide margin, and every one has the same shape --
+  a measurement that was exactly right against the engine it was written against,
+  left in place while the engine moved underneath it. A gate is code and it rots
+  like code. THE INSTRUMENT IS THE FIRST SUSPECT NOW, NOT THE LAST.
+
+IN FLIGHT
+  Nothing half-built.
+
+FOR THE WORLD LANE, NOT MINE TO SHIP
+  engine/ IS AHEAD OF slices/BOHEMIA_RUN_CURRENT.html. The households, the
+  conducting gate and the parked self-storage cars are committed to engine/ and
+  are NOT in the run the player loads. Nothing gates that, so it is invisible.
+  I rebuilt the slice to test my own change, saw it was carrying your unshipped
+  world work, and put the slice back and patched it surgically instead -- an
+  18 MB blob of another lane's world content is yours to verify, not mine to
+  push. `node tools/build_run_slice.js` is all it takes; it loads clean (zero
+  pageerrors over nine seconds) and first_night_gate runs 55/0 against it.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT I WOULD DO NEXT
+  1. SFX DIVERSITY is the last SOUND red: instrument owns 51.2% of non-modal
+     candidates against a 50% cap. NOT padding it with filler to make a number
+     go green -- the fix is fresh non-instrument topologies, which is a cook.
+  2. A gate that checks gates: every hardcoded engine constant in gates/ that
+     the engine can move. That is what all eleven of these were.
+
+PROOF
+  records/BOHEMIA_MY_RULERS_ARE_THE_BUGS_NOW_8_25_26.md
+    Both reds, all four door defects, the eleven-mistake table, the three rules
+    that fall out of it, and every mutation with its exact red text.
+  gates/time_pass_gate.py       32 passed, 0 FAILED
+  gates/doors_fresh_gate.py     27 passed, 0 FAILED
+  MUTATED, against the shipped build, restored after -- six in total:
+    TIME PASS  big jumps strike nothing        -> "STRIKES EIGHT TIMES FOR IT (0)"
+    TIME PASS  wire under-reports the move     -> strike leg GREEN, new leg RED
+    DOORS      put the double-fire back        -> "EXACTLY ONCE (2 at [174, 170.8] Hz)"
+    DOORS      un-harden placeSound            -> "non-finite distance (0)"
+    DOORS      drop the unreadable-tile route  -> "UNREADABLE TILE STILL SOUNDS (0)"
+    DOORS      widen the band to +/-60%        -> exclusivity RED, naming boots_go,
+                                                  step_gravel, went_down, sleep_sink
+
+------------------------------------------------------------------------------
+
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
+SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
+READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
+FROM THE HANDOFF I TOOK -- WORLD has rule number one green for the first time
+(every district has a way in), PEOPLE closed the opening's last link and shipped
+households so one outfit can hear about another, SOUND put 17 approved sounds
+into combat, and RUN 0f + P0-MORNING are still unclaimed with the friends round
+waiting on them. ***
+
 WHERE THIS LANE IS
   Read-only across every lane. Records his rulings as law the same turn, audits
   drift and collisions nobody inside a lane can see, guards the demo path, routes

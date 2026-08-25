@@ -806,6 +806,14 @@ def parent_block(bank):
       var dx = +place.dx || 0, dy = +place.dy || 0;
       var r = (place.dist != null) ? Math.max(0, +place.dist)
                                    : Math.sqrt(dx*dx + dy*dy);
+      /* A BROKEN PLACEMENT MUST NOT COST HIM THE SOUND (8/25). A caller that
+         posts a non-finite distance -- and one did, for eleven days -- carried
+         NaN all the way to gain.gain.value, which THROWS, and the catch below
+         turned a placement bug into SILENCE. That is the worst possible
+         failure mode: the placement is the decoration, the sound is the
+         message. If we cannot tell where it happened, it happened right here. */
+      if(!isFinite(r)) r = 0;
+      if(!isFinite(dx)) dx = 0;
       r = Math.max(0.5, r);
       var g = 1/(1 + 0.55*r);                    /* the inverse law, as before */
       /* A WALL BETWEEN YOU AND IT. Only when the two sides disagree: a sound

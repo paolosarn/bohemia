@@ -3714,9 +3714,21 @@ function openDoor(k){ var d=doorState(k);
      is correct OCCLUSION when you open one from the street, and one
      path, so a door somebody ELSE opens is already spatial the day the
      game has one. The SHUT stays silent: he killed all five clacks. */
-  try{ var _dk=String(k).split(':').pop().split(',');
-       sfxAt('door_drag', +_dk[0], +_dk[1]); }catch(_e){ sfx('door_drag'); }
-  sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */
+  /* ONE DOOR, ONE SOUND (8/25). This shipped calling the placed post AND the
+     flat one. The `sfx()` was written as the catch's fallback and then repeated
+     OUTSIDE the catch, so a door the PLAYER opens rendered TWICE -- measured on
+     the real surface, a tile from the player: `ash/3/174` and `ash/3/175.8`,
+     the placed copy and the centre copy, at the same moment. It stayed
+     invisible because the one gate watching matched an exact hz that the 8/18
+     pitch jitter had already made unmatchable. The fallback belongs in the
+     catch and nowhere else.
+     AND THE TILE HAS TO BE A NUMBER. doorKey() is "x,y" and an interior key is
+     "i<house>:x,y", but any other key hands placeSound NaN, which throws inside
+     it and drops the door to SILENT rather than to centre. A door with no
+     readable tile is still a door: check first, and fall back on purpose. */
+  (function(){ var _dk=String(k).split(':').pop().split(','),
+                   _x=+_dk[0], _y=+_dk[1];
+    if(isFinite(_x)&&isFinite(_y)) sfxAt('door_drag',_x,_y); else sfx('door_drag'); })();
   if(!DOORTICKING){ DOORTICKING=true; requestAnimationFrame(doorTick); }
   return d; }
 /* the contract's own collision rule: passable once the leaf is really open */

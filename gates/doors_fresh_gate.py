@@ -92,11 +92,49 @@ const pw = pwmod();
     if (!t) throw new Error('no RUN tab to open: the surface this gate measures is not reachable');
     t.click(); });
   await p.waitForTimeout(8000);
-  await p.evaluate(() => { window.__dd = 0; try { MUS.audio(); } catch(e) {}
+  /* THE SIGNATURE HAD A NUMBER IN IT THAT THE GAME DELIBERATELY MOVES (8/25).
+     `Math.abs(v.hz - 174) < 1` was exact and correct on the day it was written.
+     Then NO TWO PLAYBACKS ARE IDENTICAL landed on 8/18 and put +/-3% of pitch
+     jitter on EVERY playback, on purpose, as a shipped feature. Measured on the
+     real surface: the door renders at 173.4, at 175.8, at 176.7 -- never at 174
+     again through the flat path -- and this counter read ZERO while the door
+     was sounding perfectly. It then reported that as a GAME defect.
+     A signature is only exact against the engine it was measured on, and the
+     engine changes; the band has to be the band the game can actually produce.
+     174 +/- 4% covers the whole jitter range with a little air either side, and
+     the assertion below PROVES nothing else in his bank lives in that band
+     rather than assuming it. */
+  await p.evaluate(() => { window.__dd = 0; window.__ddhz = []; try { MUS.audio(); } catch(e) {}
+    window.__isDrag = v => !!(v && v.mat === 'ash' && v.hits && v.hits.length === 3
+                              && Math.abs(v.hz - 174) < 174 * 0.04);
     const o = BOH_SFX.render.bind(BOH_SFX);
     BOH_SFX.render = function(v){
-      if (v && v.mat === 'ash' && v.hits && v.hits.length === 3 && Math.abs(v.hz - 174) < 1) window.__dd++;
+      if (window.__isDrag(v)) { window.__dd++; window.__ddhz.push(Math.round(v.hz * 10) / 10); }
       return o.apply(null, arguments); }; });
+  /* AND THE BAND IS EXCLUSIVE, PROVEN AGAINST HIS WHOLE APPROVED BANK, at the
+     widest the jitter can throw each candidate. COUNT THE THING, NOT
+     EVERYTHING: a footstep in the same window must not be able to read as a
+     door, which is the ruler mistake time_pass had to be corrected for. Widen
+     this band and it catches boots_go, step_gravel and went_down -- they are
+     RIGHT THERE, which is the whole argument for measuring the exclusion. */
+  out.dragBandExclusive = await p.evaluate(() => {
+    try {
+      const A = window.__SFX_APPROVED || {}, bad = [];
+      for (const ev in A) for (const i of A[ev]) {
+        const c = BOH_SFX.cook(ev, 5)[i]; if (!c) continue;
+        for (const f of [0.97, 1, 1.03]) {
+          const t = {}; for (const k in c) t[k] = c[k]; t.hz = c.hz * f;
+          if (window.__isDrag(t) && ev !== 'door_drag') bad.push(ev + '.' + i);
+        }
+      }
+      const good = (A.door_drag || []).length > 0 && (A.door_drag || []).every(i => {
+        const c = BOH_SFX.cook('door_drag', 5)[i];
+        return [0.97, 1, 1.03].every(f => {
+          const t = {}; for (const k in c) t[k] = c[k]; t.hz = c.hz * f;
+          return window.__isDrag(t); }); });
+      return { bad: Array.from(new Set(bad)), good };
+    } catch(e) { return { bad: ['ERR:' + e.message], good: false }; }
+  });
   /* __ASK_FOR_THE_RUN_SLICE__ (8/23). The alpha stopped downloading the 17.8 MB run
      slice on boot (8/21) and this gate never got told. Without this the frame
      lookup below falls through to p.frames()[1] -- THE CITY -- and every claim
@@ -111,10 +149,38 @@ const pw = pwmod();
   const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
   if (fr) {
     const b0 = await p.evaluate(() => window.__dd);
-    out.openCalled = await fr.evaluate(() => { try { openDoor('gate-probe-door'); return true; }
-                                               catch(e) { return false; } }).catch(() => false);
+    /* OPEN A DOOR WHERE A PLAYER OPENS ONE (8/25). This drove `openDoor(
+       'gate-probe-door')` -- a key no door in the game ever has. doorKey() is
+       "x,y", so that string parsed to NaN, the placed post carried NaN, and
+       placeSound threw on it and dropped that copy entirely. The gate was
+       therefore measuring a path the player never walks, and the ONE case that
+       matters (the door under your hand, adjacent, unoccluded) was never tested
+       at all. Use the tile beside the player, which is the only kind of door he
+       can open. */
+    out.openCalled = await fr.evaluate(() => {
+      try { openDoor((px + 1) + ',' + py); return true; } catch(e) { return false; }
+    }).catch(() => false);
     await p.waitForTimeout(1200);
     out.dragFired = (await p.evaluate(() => window.__dd)) - b0;
+    out.dragHz = await p.evaluate(() => window.__ddhz.slice());
+
+    /* AND A DOOR WHOSE TILE CANNOT BE READ IS STILL A DOOR (8/25). The key is
+       "x,y" outside and "i<house>:x,y" inside, and a caller with anything else
+       used to hand placeSound NaN, which threw inside it and dropped the sound
+       to SILENCE. A broken PLACEMENT must never cost him the SOUND -- placement
+       is decoration, the sound is the message -- so it now falls back to
+       centre, on both sides: the run checks before posting and placeSound
+       refuses to carry a non-finite distance. Both paths are exercised here. */
+    const b1 = await p.evaluate(() => window.__dd);
+    await fr.evaluate(() => { try { openDoor('no-tile-in-this-key'); } catch(e) {} })
+            .catch(() => {});
+    await p.waitForTimeout(1000);
+    out.dragNoTile = (await p.evaluate(() => window.__dd)) - b1;
+    const b2 = await p.evaluate(() => window.__dd);
+    await p.evaluate(() => { try { window.playSFXAt('door_drag',
+      { dx: NaN, dy: NaN, dist: NaN, inside: false }); } catch(e) {} });
+    await p.waitForTimeout(1000);
+    out.dragNaNPlace = (await p.evaluate(() => window.__dd)) - b2;
   }
 
   out.errors = errs.slice(0, 3);
@@ -196,10 +262,23 @@ def main():
     ok('and the SHUT is still silent, which is his ruling and not an omission',
        not d.get('wiredShut'))
     ok('the run exposes openDoor to drive', d.get('openCalled'))
+    band = d.get('dragBandExclusive') or {}
+    ok('the strike counter measures THE DRAG and nothing else: every approved '
+       'door_drag reads as one across the whole 8/18 jitter range',
+       band.get('good'))
+    ok('and NOTHING ELSE in his bank can be mistaken for a door, at any pitch '
+       'the jitter can throw it (%s)' % (band.get('bad') or 'none'),
+       not band.get('bad'))
     ok('OPENING A REAL DOOR IN THE REAL RUN SOUNDS HIS APPROVED DRAG, EXACTLY '
-       'ONCE (%s) -- matched on the vector signature, so a footstep in the same '
-       'window cannot be mistaken for it' % d.get('dragFired'),
+       'ONCE (%s at %s Hz) -- one door, ONE sound: it fired the placed post and '
+       'the flat one both until 8/25' % (d.get('dragFired'), d.get('dragHz')),
        d.get('dragFired') == 1)
+    ok('A DOOR WITH AN UNREADABLE TILE STILL SOUNDS, at centre (%s) -- a broken '
+       'placement must never cost him the sound' % d.get('dragNoTile'),
+       d.get('dragNoTile') == 1)
+    ok('and placeSound itself refuses to go silent on a non-finite distance '
+       '(%s) -- it threw and swallowed that copy for eleven days'
+       % d.get('dragNaNPlace'), d.get('dragNaNPlace') == 1)
     ok('the fresh cook uses NEW ids, so the dead ten stay dead and findable',
        d.get('freshIdsAreNew'))
     ok('and the dead ids STILL COOK METAL AND WOOD -- nothing new has been slipped '

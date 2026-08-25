@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25y - ONE HAIRCUT, EVERY ANGLE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25z - ONE DOOR, ONE SOUND</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -20562,6 +20562,14 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
       var dx = +place.dx || 0, dy = +place.dy || 0;
       var r = (place.dist != null) ? Math.max(0, +place.dist)
                                    : Math.sqrt(dx*dx + dy*dy);
+      /* A BROKEN PLACEMENT MUST NOT COST HIM THE SOUND (8/25). A caller that
+         posts a non-finite distance -- and one did, for eleven days -- carried
+         NaN all the way to gain.gain.value, which THROWS, and the catch below
+         turned a placement bug into SILENCE. That is the worst possible
+         failure mode: the placement is the decoration, the sound is the
+         message. If we cannot tell where it happened, it happened right here. */
+      if(!isFinite(r)) r = 0;
+      if(!isFinite(dx)) dx = 0;
       r = Math.max(0.5, r);
       var g = 1/(1 + 0.55*r);                    /* the inverse law, as before */
       /* A WALL BETWEEN YOU AND IT. Only when the two sides disagree: a sound
