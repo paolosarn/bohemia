@@ -25088,7 +25088,13 @@ setInterval(()=>{
   if(moved){ animate((running||RIDING)?'run':'walk'); reportState(); footingUpdate(); /* __FLOOR_DOES_SOMETHING__ */ }
   render();
 },BEAT);
-function startHold(di){ held=di; pend=di; heldBeats=0; }
+function startHold(di){
+  /* __EVERY_CONTROL_LEAVES_THE_VISTA__: a direction is not "get me out of here", it is "go that
+     way". So the overlook drops AND the hold he is already making stands --
+     swallowing the press would make the first step out of every vista dead,
+     which is the same class of not-working-button he reported on STANDING. */
+  try{ if(typeof vistaBail==='function') vistaBail(); }catch(_e){}
+  held=di; pend=di; heldBeats=0; }
 function endHold(){ held=null; heldBeats=0; }
 
 // ---- WORLD MOVERS LAW (Paolo 7/5/26): NOTHING moves until you do, cars and
@@ -31850,6 +31856,17 @@ function vistaOpen(){
   window.__VISTA_OPEN=(window.__VISTA_OPEN||0)+1;
   return true;
 }
+/* __EVERY_CONTROL_LEAVES_THE_VISTA__ (8/25) -- IS THE OVERLOOK IN THE WAY?
+   Every world control asks this FIRST. Measured before it existed: DROP IN,
+   WHOLE MAP and the pad all did their own job straight through an open vista
+   and left him standing on the mountain with the card still up. SKY -- the
+   other full-screen camera state -- has had exactly this guard on WHOLE MAP
+   since __ONE_ZOOM_TO_THE_MOON__; the overlook never got one. Returns true if
+   it took the press, so a caller can decide whether to also do its own job. */
+function vistaBail(){
+  try{ if(typeof VISTA!=='undefined' && VISTA){ vistaClose(); return true; } }catch(_e){}
+  return false;
+}
 function vistaClose(){
   if(!VISTA) return false;
   const r=VISTA.returnTo; VISTA=null;
@@ -31864,16 +31881,51 @@ function vistaClose(){
 /* the card is DOM, not painted into the canvas: the art underneath is the shot,
    and text burned into the frame would be text burned into every screenshot of
    it forever. */
+/* __THE_VISTA_LETS_YOU_LEAVE__ (8/25) -- WHAT IS THE BOTTOM OF THE TOP CHROME.
+   Defined ONCE. The population card worked this out on 8/24 and the vista card
+   would have been the third hand-written copy of the same six lines -- and a
+   copied rule is a rule that drifts, which is the whole story of this week (a
+   door predicate copied into homeFind, an objective hint copied into an inlined
+   module, a toolbar offset copied into popwrap). Anything that floats over the
+   world asks this instead of guessing a number.
+   `el` is the thing being POSITIONED: the answer is returned in ITS OWN
+   offsetParent's coordinates, because asking the element being measured is how
+   the popcard fix got it wrong the first time. */
+function topChromeBottom(el){
+  var low=0;
+  ['topbar','tlstack','devtray'].forEach(function(id){
+    var e=document.getElementById(id);
+    if(e&&e.offsetParent!==null) low=Math.max(low,e.getBoundingClientRect().bottom);
+  });
+  if(!low) return null;
+  var ph=(el&&(el.offsetParent||el.parentNode))||document.body;
+  var phTop=ph?ph.getBoundingClientRect().top:0;
+  return Math.ceil(low-phTop);
+}
 function vistaCardDraw(){
   if(!VISTA) return;
   let el=document.getElementById('vistaCard');
   if(!el){ el=document.createElement('div'); el.id='vistaCard';
+    /* __THE_VISTA_LETS_YOU_LEAVE__: pointer-events AUTO now, because tapping the card is
+       one of the ways out. It used to be `none`, so the card could not even be
+       tapped -- and there was nothing else to tap either. */
     el.style.cssText='position:absolute;left:0;right:0;top:64px;z-index:45;text-align:center;'
-      +'pointer-events:none;font:12px ui-monospace,monospace;letter-spacing:2px';
+      +'pointer-events:auto;cursor:pointer;font:12px ui-monospace,monospace;letter-spacing:2px';
+    el.addEventListener('click',function(){ try{ vistaClose(); }catch(_e){} });
     (document.getElementById('wrap')||document.body).appendChild(el); }
+  /* __THE_VISTA_LETS_YOU_LEAVE__: it was top:64px, hardcoded, while the toolbar sits at
+     49..80 and the objective line at 86..116 -- so THE VALLEY was printed across
+     the music button, the save button and the day's objective, on the one screen
+     the demo exists to show off. Measured now, through the shared helper. */
+  var _tcb=topChromeBottom(el);
+  if(_tcb!=null) el.style.top=(_tcb+8)+'px';
   el.innerHTML='<div style="display:inline-block;background:rgba(12,10,8,.74);border:1px solid #3a3020;'
     +'border-radius:8px;padding:8px 14px;color:#e6d9b8">THE VALLEY<br>'
-    +'<span style="color:#c8a848;font-size:11px">'+VISTA.card+'</span></div>';
+    +'<span style="color:#c8a848;font-size:11px">'+VISTA.card+'</span>'
+    /* A WAY OUT HE CAN SEE. It existed and was invisible, which is the same as
+       not existing -- his words on the STANDING card two days ago. */
+    +'<br><span style="color:#8d7c5e;font-size:10px">tap anywhere to go back</span>'
+    +'</div>';   /* draft:true */
 }
 
 /* ARMED IN THE WALKED WORLD: step onto the overlook and it fires, once.
@@ -32208,6 +32260,12 @@ function swapMode(){
   updHud();
 }
 function transition(){
+  /* __EVERY_CONTROL_LEAVES_THE_VISTA__: while the overlook is up this button means COME BACK, and
+     nothing else. It used to run the whole dive animation on top of the vista --
+     MODE flipped underneath the card, so the title of the valley ended up
+     printed over his own street. One tap home; if he then wants to drop in, the
+     button is right there and it works. */
+  if(vistaBail()) return;
   if(transing)return; transing=true;
   const D=460, t0=performance.now();
   const cityIn=(MODE==='city');
@@ -32292,6 +32350,19 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     }
   });
   function up(e){
+    /* __THE_VISTA_LETS_YOU_LEAVE__ (8/25). THE VISTA HAD NO WAY OUT AT ALL. vistaClose()
+       exists, is correct, and its ONLY caller in the repo was a gate -- so on day
+       2, when the overlook opens by itself, tapping, Escape, DROP IN, WHOLE MAP
+       and the pad all left him standing on the mountain. Measured, all six.
+       A TAP LEAVES. It reuses the city's own tap-versus-drag test (CB._tapMoved)
+       rather than inventing one, so he can still DRAG to look around the valley
+       and only a real tap comes home. It is checked before cityTapPlot because
+       while the vista is up, a tap means "I am done looking", not "inspect that
+       plot a mile away". */
+    if(VISTA && CB._tapStart && CB._tapMoved<8 && pts.size<=1){
+      try{ vistaClose(); }catch(_e){}
+      CB._tapStart=null; pts.delete(e.pointerId); return;
+    }
     if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1){ cityTapPlot(CB._tapStart.x,CB._tapStart.y); }
     if(MODE==='city') CB._tapStart=null;
     /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "an artifact from one of the first
@@ -32328,6 +32399,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
 // WHOLE MAP button: toggle between full-valley fit and normal 1x centered
 document.getElementById('fitbtn').addEventListener('click',()=>{
   if(SKY){ skyExit(); return; }   /* __ONE_ZOOM_TO_THE_MOON__: one tap back down to the valley */
+  if(vistaBail()) return;         /* __EVERY_CONTROL_LEAVES_THE_VISTA__: and one tap back down off the rim */
   if(MODE!=='city')return;
   const [zmin]=zoomBounds();
   if(Math.abs(CZOOM-zmin)<0.02) recenter(); else fitMap();
@@ -33291,6 +33363,9 @@ document.addEventListener('pointerdown', function(ev){
 }, true);   /* CAPTURE, so a panel that stops propagation cannot hide the tap */
 document.addEventListener('keydown', function(ev){
   if(ev.key!=='Escape') return;
+  /* __THE_VISTA_LETS_YOU_LEAVE__: the overlook is the biggest thing that can be open, so it
+     answers the same key everything else does. */
+  try{ if(typeof VISTA!=='undefined'&&VISTA){ vistaClose(); return; } }catch(_e){}
   for(var i=0;i<OUTSIDE_PANELS.length;i++){
     var el=document.getElementById(OUTSIDE_PANELS[i][0]);
     if(panelIsOpen(el)) panelClose(OUTSIDE_PANELS[i]);
@@ -34084,16 +34159,11 @@ function popApply(v){
          600ms poll, which raced this one and was load-dependent besides -- two
          things owning one number and neither knowing the other exists, which is
          the exact bug I spent the day removing from this HUD. */
-      var low = 0;
-      ['topbar', 'devtray'].forEach(function (id) {
-        var e = document.getElementById(id);
-        if (e && e.offsetParent !== null) low = Math.max(low, e.getBoundingClientRect().bottom);
-      });
-      if (low) {
-        var ph = wrap.offsetParent || wrap.parentNode;
-        var phTop = ph ? ph.getBoundingClientRect().top : 0;
-        wrap.style.top = (Math.ceil(low - phTop) + 8) + 'px';
-      }
+      /* __THE_VISTA_LETS_YOU_LEAVE__ (8/25): this WAS six lines of arithmetic, and the
+         vista card was about to become a second copy of them. Extracted to
+         topChromeBottom() and called by both. Same answer, one owner. */
+      var _tcb = topChromeBottom(wrap);
+      if (_tcb != null) wrap.style.top = (_tcb + 8) + 'px';
       popRefresh();
     }
   });

@@ -1,0 +1,200 @@
+THE MONEY SHOT HAD NO DOOR
+8/25/26 -- RUN lane. Found by PLAYING the back half of the demo, which nobody had.
+
+
+WHAT HAPPENED
+=============
+
+I played the demo past the point anybody had played it: resolve the job, the
+reckoning, sleep, day 2. It plays. Day 2 opened with a new job and then, a few
+seconds after GET UP, THE VISTA fired by itself -- demo critical-path row 11, the
+overlook where the whole valley opens up. The shot looked good.
+
+Then I tried to leave, and could not. Measured on the real surface, six gestures,
+each from a clean open:
+
+    tap the world              -> still open
+    Escape                     -> still open
+    the MODE / DROP IN button  -> still open
+    tap the vista card         -> still open
+    WHOLE MAP                  -> still open
+    walk the pad               -> still open
+
+vistaClose() existed. It was correct. It restored his cell, his mode, the overmap
+marker and his house. THE ONLY CALLER IN THE ENTIRE REPO WAS A GATE:
+
+    gates/vista_beat_gate.js:127   window.__VISTA.close()
+
+Nothing a player could touch called it. He reaches the best moment in the demo,
+which the game plays FOR him, unprompted, and then the game keeps him there.
+
+That is his own report from 8/24 -- "When I press standing, and I press close, it
+doesn't close ... pretty please just make sure all the buttons work" -- on the one
+screen the demo exists to show off.
+
+AND THE TITLE WAS PRINTED ON THE TOOLBAR. `top:64px`, hardcoded, while the toolbar
+occupies 49..80 and the objective line sits under it. So "THE VALLEY / the
+neighbourhoods, the boulevards, the freeway - 4.4 km of it" was drawn across the
+music button, the save button and the day's objective. Measured after: all four
+corners of the card's ink had another element on top of them.
+
+
+WHY EVERY PANEL CLOSES DID NOT CATCH IT
+=======================================
+
+I built every_panel_closes_gate.js on 8/24 for exactly this class of bug, and it
+was green through all of this.
+
+It walks the chips in the toolbar, the builder drawer and the bottom-left column,
+opens whatever each one opens, and proves it can be closed. THE VISTA IS NOT
+OPENED BY A CHIP. The day loop opens it.
+
+An enumerating gate is only ever as complete as its enumeration. That is a
+permanent property of that gate, not a defect I can patch out of it -- widening
+the sweep to "everything" would just move the boundary. So the fix is not to
+change EVERY PANEL. It is that a thing no chip reaches gets its own gate.
+
+THE GENERAL FORM, and this is the fourth member of the family this week:
+A FINISHED THING WITH A PUBLISHED SEAM AND NO CALLER.
+  - __VISTA.open() was published and the run never called it (fixed 8/23,
+    __THE_VALLEY_IS_A_PLACE__)
+  - come_up was approved and wired only in the slice nobody opens (SOUND, 8/22)
+  - homeFind's door test knew one door kind of four (fixed 8/24)
+  - and now vistaClose(), whose only caller was the gate that proved it worked.
+A GATE CALLING A FUNCTION IS NOT THE SAME AS THE GAME CALLING IT, and a gate that
+reaches for the function instead of the gesture will be green either way.
+
+
+THE FIX
+=======
+
+tools/bohemia_the_vista_lets_you_leave_patch.py
+  - a TAP on the world closes it, reusing the city's OWN tap-versus-drag test
+    (CB._tapMoved) rather than inventing a second one, so dragging to look around
+    the valley still looks around the valley
+  - a tap on the CARD closes it (its pointer-events were `none`, so the card
+    could not even be tapped, and there was nothing else to tap either)
+  - ESCAPE closes it
+  - the card SAYS SO: "tap anywhere to go back". A way out he cannot see is one he
+    does not have -- his words about the STANDING card, two days before this.
+  - the card MEASURES what is above it instead of guessing 64px
+
+tools/bohemia_every_control_leaves_the_vista_patch.py
+  The other three were not three more bugs, they were ONE: the vista is a
+  full-screen camera state and nothing else in the file knew it existed. Every
+  control just did its own job on top of it -- DROP IN even flipped MODE
+  UNDERNEATH the card, leaving the title of the valley printed over his own
+  street, which is worse than stuck.
+
+  AND THE FILE HAD ALREADY SOLVED THIS ONCE. SKY is the other full-screen camera
+  state, and WHOLE MAP has opened with `if(SKY){ skyExit(); return; }` since
+  __ONE_ZOOM_TO_THE_MOON__. The moon got the treatment; the overlook never did.
+  vistaBail() is that shape, and the three controls ask it first.
+
+  DROP IN and WHOLE MAP    COME BACK, and stop. They are camera buttons and the
+                           vista is a camera; doing their own job as well would
+                           leave him somewhere he did not ask to be.
+  THE PAD                  COMES BACK AND THEN WALKS. A direction is not "get me
+                           out of here", it is "go that way". Swallowing the press
+                           would make the first step out of every vista dead --
+                           the same not-working-button he reported on STANDING.
+                           MEASURED: 4 cells walked on the way out.
+
+
+AND ONE OWNER FOR "WHAT IS ABOVE ME"
+====================================
+
+The population card worked out the top-chrome measurement on 8/24. The vista card
+would have been the SECOND hand-written copy, and a third was coming. Copies drift
+-- that is the whole story of this week: a door predicate copied into homeFind, an
+objective hint copied into an inlined module, a toolbar offset copied into popwrap.
+
+topChromeBottom(el) is defined once and both callers ask it. It answers in the
+positioned element's OWN offsetParent coordinates, because asking the element
+being measured is how the popcard fix got it wrong on its first try.
+
+The gate holds this in SOURCE as well as pixels: one definition, at least two
+callers, and exactly one place in the file running a max of chrome bottoms.
+
+
+MEASURED, AFTER
+===============
+
+    card ink starts at 95, the chrome above it ends at 86     (was 64 vs 86)
+    elements painted over the card's ink                      0 of 4 corners
+    ways out that work                                        6 of 6  (was 0 of 6)
+    dragging to look around the valley                        still looks around
+    cells walked on the way out via the pad                   4
+
+
+THE GATE
+========
+
+gates/vista_lets_you_leave_gate.js -- VISTA EXIT, 21 claims, registered.
+
+MUTATION TESTED, three ways:
+  both patches reverted        6 passed, 15 failed -- and the log reproduces the
+                               bug report verbatim: "0 of 6 ways out", card at 64
+                               under a chrome ending at 86, 4 of 4 corners covered
+  only the first patch         14 passed, 7 failed -- it tells half-fixed from
+                               fixed, which is the case a coarser gate would miss
+  tap closes on any touch      20 passed, 1 failed -- the drag claim catches the
+                               obvious wrong fix, where looking at the valley
+                               takes the valley away
+
+Its own summary line was caught lying on that third run: it printed "drag
+survives" unconditionally while that very claim was red. It reports the measured
+value now. A gate that narrates a result it did not check is a gate.
+
+
+AND A STANDING RED THAT WAS NEVER A BUG
+=======================================
+
+VISTA BEAT has been red on one claim: "and it PLAYS after GET UP, so it is never
+under the wake card". The behaviour was never wrong. The claim demanded the EXACT
+source text `cardShow(h,function(){ cardHide(); try{ vistaBeatMaybe` -- the call
+as the literal next statement after cardHide(). On 8/22 SOUND added the come_up
+sting to that same handler, in between, and the claim went red while the
+measured claim eleven lines below it -- "AND THE WAKE CARD IS GONE" -- stayed
+green the entire time.
+
+A CHECKER THAT MATCHES FORMATTING INSTEAD OF BEHAVIOUR goes red every time
+another lane legitimately touches the line, and a standing red hides real reds.
+FIX THE RULER, NEVER THE TARGET (8/1). It now cuts out the GET UP handler's body
+and asks whether the beat is fired from inside it, with anything allowed in
+between, plus the other half the claim always meant: that the WAKE only ARMS it.
+
+THE REPLACEMENT FELL INTO THE ADJACENT TRAP ON ITS FIRST RUN, which is worth
+keeping written down. Scanning 900 characters after DAY.on('wake') for
+"vistaBeatMaybe()" ran past the end of the handler and matched
+`function vistaBeatMaybe(){` -- THE DEFINITION, twenty lines below. A checker that
+cannot tell a mention from a use, inside the fix for a checker that could not tell
+formatting from behaviour. The handler's body is cut out first now.
+
+MUTATION TESTED both ways:
+  beat unhooked from GET UP    15 passed, 5 failed
+  beat fired on the wake       18 passed, 2 failed -- and the second failure is
+                               the MEASURED claim, which is the proof that the
+                               source claim and the pixels agree
+
+VISTA BEAT: 20 passed, 0 failed.
+
+
+NOT CHANGED
+===========
+
+Where the overlook is, what it frames, the survey line, the camera move, the
+once-ever flag, or the returnTo bookkeeping that keeps his house alive while he is
+up there. MAP LAW holds: this lane reports where the overlook is and never places
+it.
+
+
+NEIGHBOURS RE-RUN, ALL GREEN
+============================
+
+    HUD OVERLAP        15 / 0
+    EVERY PANEL        14 / 0
+    POPULATION DIAL    22 / 0     (it shares topChromeBottom now)
+    WHOLE DEMO         23 / 0
+    VISTA BEAT         20 / 0
+    VISTA EXIT         21 / 0

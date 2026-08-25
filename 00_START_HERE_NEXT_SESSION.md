@@ -602,6 +602,124 @@ NEXT IN THIS LANE
 
 ---
 
+RUN (run-eak241): 8/25 (b) LATEST -- *** THE DEMO'S MONEY SHOT HAD NO DOOR.
+TAB: RUN (day 2, right after GET UP). Nothing to judge. ***
+
+I PLAYED THE BACK HALF OF THE DEMO, WHICH NOBODY HAD. Resolve the job, the
+reckoning, sleep, day 2. It plays end to end: the resolution card offers three real
+endings in the quest's own words, the reckoning read "DAY 1 - TURNED IN - 06:01 -
+0h lived - 16h given back - 14 steps", day 2 opened with THE BACK DOOR, and then
+THE VISTA fired by itself a few seconds after GET UP. Demo critical-path row 11.
+The shot looked good.
+
+*** THEN I COULD NOT LEAVE IT. SIX GESTURES, MEASURED, EACH FROM A CLEAN OPEN. ***
+    tap the world / Escape / the MODE-DROP IN button / tap the card / WHOLE MAP /
+    walk the pad          -> all six: still open.
+vistaClose() EXISTED, WAS CORRECT, AND THE ONLY CALLER IN THE REPO WAS A GATE
+(vista_beat_gate.js:127). Nothing a player could touch called it. He reaches the
+best moment in the demo, which the game plays FOR him unprompted, and the game
+keeps him there. That is his own 8/24 report -- "I press close, it doesn't close
+... pretty please just make sure all the buttons work" -- on the one screen the
+demo exists to show off.
+AND THE TITLE WAS PRINTED ON THE TOOLBAR: top:64px hardcoded into a toolbar at
+49..80, so "THE VALLEY - the neighbourhoods, the boulevards, the freeway - 4.4 km
+of it" was drawn across the music button, the save button and the day's objective.
+Measured: 4 of 4 corners of the card's ink had another element on top of them.
+
+*** WHY EVERY PANEL CLOSES WAS GREEN THROUGH ALL OF IT, AND WHY I DID NOT "FIX"
+THAT GATE. *** It walks the chips in the toolbar, the drawer and the bottom-left
+column. THE VISTA IS NOT OPENED BY A CHIP -- the day loop opens it. An enumerating
+gate is only ever as complete as its enumeration; that is a permanent property of
+it, not a defect to patch out, and widening the sweep to "everything" just moves
+the boundary. So the thing no chip reaches got its own gate.
+FOURTH MEMBER OF THE SAME FAMILY THIS WEEK: A FINISHED THING WITH A PUBLISHED SEAM
+AND NO CALLER (__VISTA.open with no game caller, come_up wired only in the slice
+nobody opens, homeFind knowing one door kind of four, and now this). A GATE CALLING
+A FUNCTION IS NOT THE GAME CALLING IT, and a gate that reaches for the function
+instead of the gesture is green either way.
+
+THE FIX, TWO PATCHES:
+  the_vista_lets_you_leave -- a TAP on the world closes it, reusing the city's OWN
+    tap-versus-drag test (CB._tapMoved) so a DRAG still looks around the valley; a
+    tap on the CARD closes it (its pointer-events were `none`, so it could not even
+    be tapped, and there was nothing else to tap either); Escape closes it; and the
+    card SAYS SO -- "tap anywhere to go back", draft:true. A WAY OUT HE CANNOT SEE
+    IS ONE HE DOES NOT HAVE, his words about STANDING two days earlier.
+  every_control_leaves_the_vista -- the other three were not three more bugs but
+    ONE: the vista is a full-screen camera state and nothing else in the file knew
+    it existed, so every control did its own job on top of it. DROP IN even flipped
+    MODE UNDERNEATH the card, printing the title of the valley over his own street.
+    AND THE FILE HAD ALREADY SOLVED THIS ONCE: SKY, the other full-screen camera
+    state, has had `if(SKY){ skyExit(); return; }` on WHOLE MAP since
+    __ONE_ZOOM_TO_THE_MOON__. vistaBail() is that shape. DROP IN and WHOLE MAP COME
+    BACK and stop (they are camera buttons and the vista is a camera). THE PAD COMES
+    BACK AND THEN WALKS -- a direction is not "get me out of here", it is "go that
+    way", and swallowing the press would make the first step out of every vista
+    dead. MEASURED: 4 cells walked on the way out.
+
+ONE OWNER FOR "WHAT IS ABOVE ME". The population card wrote that measurement on
+8/24; the vista card would have been the second hand-written copy and a third was
+coming. topChromeBottom(el) is defined once and both call it, answering in the
+positioned element's OWN offsetParent coordinates (asking the element being
+measured is how the popcard fix got it wrong first time). MEASURED AFTER: card ink
+at 95, chrome above it ends at 86, 0 of 4 corners covered.
+
+  GATE: gates/vista_lets_you_leave_gate.js, registered VISTA EXIT, 21 claims.
+  MUTATION-TESTED THREE WAYS. Both patches reverted: 6 passed 15 failed, and the
+  log reproduces the bug report verbatim -- "0 of 6 ways out", card at 64 under a
+  chrome ending at 86, 4 of 4 corners covered. Only the first patch: 14/7, so it
+  tells HALF-FIXED from fixed. Tap closes on any touch: 20/1, the drag claim
+  catching the obvious wrong fix where looking at the valley takes it away.
+  ITS OWN SUMMARY LINE WAS CAUGHT LYING on that third run -- it printed "drag
+  survives" unconditionally while that claim was red. It reports the measured value
+  now. A gate that narrates a result it did not check is a gate.
+
+*** AND A STANDING RED THAT WAS NEVER A BUG: VISTA BEAT, 18/1 -> 20/0. *** The
+claim "it PLAYS after GET UP, so it is never under the wake card" demanded the
+EXACT text `cardShow(h,function(){ cardHide(); try{ vistaBeatMaybe` -- the call as
+the literal next statement. On 8/22 SOUND added the come_up sting to that same
+handler, in between, and it went red while the behaviour never changed at all: the
+MEASURED claim eleven lines below it, "AND THE WAKE CARD IS GONE", stayed green the
+whole time. A CHECKER THAT MATCHES FORMATTING INSTEAD OF BEHAVIOUR goes red every
+time another lane legitimately touches the line, and a standing red hides real
+reds. FIX THE RULER, NEVER THE TARGET (8/1). It cuts out the GET UP handler's body
+and asks whether the beat fires from inside it, anything allowed in between, plus
+the half it always meant: the WAKE only ARMS it.
+THE REPLACEMENT FELL INTO THE ADJACENT TRAP ON ITS FIRST RUN and it is worth
+keeping written down: scanning 900 characters after DAY.on('wake') for
+"vistaBeatMaybe()" ran past the end of the handler and matched
+`function vistaBeatMaybe(){` -- THE DEFINITION. A checker that cannot tell a
+mention from a use, inside the fix for a checker that could not tell formatting
+from behaviour. Mutation-tested both ways (beat unhooked from GET UP 15/5; beat
+fired on the wake 18/2, and that second failure is the MEASURED claim, which is the
+proof the source claim and the pixels agree).
+
+NEIGHBOURS RE-RUN, ALL GREEN: HUD OVERLAP 15/0, EVERY PANEL 14/0, POPULATION DIAL
+22/0 (it shares topChromeBottom now), WHOLE DEMO 23/0, VISTA BEAT 20/0, VISTA EXIT
+21/0.
+NOT CHANGED: where the overlook is, what it frames, the survey line, the camera
+move, the once-ever flag, the returnTo bookkeeping. MAP LAW holds.
+RECORD: records/BOHEMIA_THE_MONEY_SHOT_HAD_NO_DOOR_8_25_26.txt
+
+NEXT IN THIS LANE, in order:
+  1. FT-JOURNEY. Fast travel is a journey, spec LOCKED and recorded 8/24
+     (laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md), NOT STARTED on
+     purpose -- it is a real build and wants its own run, not the tail of a bug
+     turn. It is the biggest unbuilt thing this lane owns.
+  2. DISCOVERABILITY. Day one is provably finishable in 15 steps and 13 pad
+     presses (DAY ONE DONE proves it), but a friend opening the link has no
+     signpost telling him where to go. This one wants a human watching somebody
+     play, not another gate.
+  3. PLAY THE REST OF IT. Everything in this section was found by playing past
+     where anybody had played. Day 3 onward has never been walked.
+NOT MINE, CONFIRMED PRE-EXISTING: street PLACEMENT and LOOK is WORLD's -- the
+connectivity number is 0 broken of 354 road-bearing boundaries
+(records/BOHEMIA_DO_THE_STREETS_CONNECT_8_25_26.md), so what he is reacting to is
+how they LOOK, not whether they join.
+
+THE RULE THIS BUYS: A SEAM WITH ONE CALLER, AND THAT CALLER A GATE, IS NOT SHIPPED.
+Grep for who calls it from the GAME before believing a feature exists.
+
 RUN (run-eak241): 8/24 (b) LATEST -- *** A CARD THAT SAID "TAP CLOSE" AND COULD
 NOT BE TAPPED. TAB: RUN (press STANDING). Nothing to judge. ***
 

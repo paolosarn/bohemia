@@ -59,8 +59,31 @@ function pw() {
      + 'nobody ever did', /window\.__VISTA\.open\(\)/.test(code));
   ok('and it is wired to the day loop\'s wake, not to a menu',
      /DAY\.on\('wake'[\s\S]{0,900}?VISTA_ARMED=true/.test(code));
+  /* THIS CLAIM WAS RED FOR SOMETHING THAT WAS NEVER WRONG (8/25, RUN). It used to
+     demand the EXACT text `cardShow(h,function(){ cardHide(); try{ vistaBeatMaybe`
+     -- vistaBeatMaybe as the literal next statement after cardHide. On 8/22 SOUND
+     added the come_up sting to that same handler, in between, and this went red
+     while the behaviour never changed at all: the measured claim further down --
+     "AND THE WAKE CARD IS GONE" -- stayed green through the whole thing.
+     A CHECKER THAT MATCHES FORMATTING INSTEAD OF BEHAVIOUR fails every time
+     another lane legitimately touches the line, and it costs a real red that
+     hides real reds. FIX THE RULER, NEVER THE TARGET (8/1). What the claim
+     actually means is: the beat is fired from the GET UP handler, and NOT from
+     the wake itself -- so both halves are asserted, and anything may sit between. */
+  const getUpBody = /cardShow\(h,\s*function\(\)\s*\{([\s\S]{0,1400}?)\n\}\n/.exec(code);
   ok('and it PLAYS after GET UP, so it is never under the wake card',
-     /cardShow\(h,function\(\)\{ cardHide\(\); try\{ vistaBeatMaybe/.test(code));
+     !!getUpBody && /vistaBeatMaybe\(\)/.test(getUpBody[1]));
+  /* AND THE SAME TRAP CAUGHT THE REPLACEMENT ON ITS FIRST RUN, which is worth
+     leaving written down. Scanning 900 characters after DAY.on('wake') for
+     "vistaBeatMaybe()" ran straight past the end of the handler and matched
+     `function vistaBeatMaybe(){` -- THE DEFINITION, twenty lines below it. A
+     checker that cannot tell a mention from a use, inside the fix for a checker
+     that could not tell formatting from behaviour. So the handler's own body is
+     cut out first and the question is asked only of that. */
+  const wake = /DAY\.on\('wake',\s*function\(\)\s*\{([\s\S]{0,1200}?)\n\}\);/.exec(code);
+  ok('and the wake itself only ARMS it, so it can never render under the card',
+     !!wake && /VISTA_ARMED\s*=\s*true/.test(wake[1])
+     && !/vistaBeatMaybe\s*\(\s*\)/.test(wake[1]));
   ok('the phone is told where the overlook is', /vista:\(function\(\)/.test(code));
   ok('it rides the save, so once means once', /vistaSeen:!!VISTA_SEEN/.test(code));
   /* MAP LAW: this lane reports where it is, never decides it. */

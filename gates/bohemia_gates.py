@@ -428,6 +428,26 @@ GATES = [
      'body faded, 3145 of 3771 elsewhere solid). The arithmetic claim is the one that '
      'catches the bug -- under mutation the gate and the renderer share the SAME wrong box, '
      'so only comparing against where the body is DRAWN sees it', True),
+    # 8/25, RUN. Found by PLAYING the back half of the demo, which nobody had.
+    # Same report as EVERY PANEL, on the one screen the demo exists to show off.
+    ('VISTA EXIT',     ['node', 'gates/vista_lets_you_leave_gate.js'],
+     'THE OVERLOOK HAS TO LET HIM LEAVE. THE VISTA is demo critical-path row 11 and on DAY 2 '
+     'it opens BY ITSELF seconds after GET UP -- and MEASURED, all six ways out did nothing: '
+     'tap the world, Escape, the MODE/DROP IN button, tap the card, WHOLE MAP, walk the pad. '
+     'vistaClose() existed, was correct, and THE ONLY CALLER IN THE REPO WAS A GATE '
+     '(vista_beat_gate.js:127), so nothing a player could touch called it. He reached the best '
+     'moment in the demo and the game kept him there -- his STANDING report again, on the money '
+     'shot. WHY EVERY PANEL MISSED IT: that gate walks the chips in the toolbar, the drawer and '
+     'the bottom-left column, and the vista is not opened by a chip, THE DAY LOOP OPENS IT -- an '
+     'enumerating gate is only ever as complete as its enumeration, which is a permanent property '
+     'of it, not a bug there. So the thing no chip reaches gets its own gate. It also holds the '
+     'card OFF the toolbar (it was top:64px hardcoded into a toolbar at 49..80, printing THE '
+     'VALLEY across the music button, the save button and the day objective) by measuring through '
+     'ONE shared topChromeBottom() the population card also calls -- the source half fails if '
+     'anybody hand-rolls that arithmetic a third time. And it holds the two edges the fix could '
+     'break: a DRAG to look around the valley must NOT throw him out, and a pad direction must '
+     'drop the vista AND leave him walking, because a swallowed press is a dead first step',
+     True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
