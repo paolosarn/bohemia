@@ -95,9 +95,16 @@
        actually walks. The declared seat is the fact; the id is a spelling of
        it. Read the fact. */
     var id = String(agent.id || '');
-    var house = (agent.home && agent.home.building != null)
-      ? 'B' + agent.home.building
-      : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
+    /* __POP_HOUSEHOLDS__ -- THE HOUSEHOLD FIRST, IF THE ROSTER HAS ONE.
+       home.building is load-bearing for things that are not this (bohemia_agents
+       keys off it), so the address gets its own field rather than overwriting a
+       string other systems read. Falls through to exactly the old behaviour when
+       there is no household, so a roster built before them is unchanged. */
+    var house = (agent.household != null)
+      ? 'HH' + agent.household
+      : (agent.home && agent.home.building != null)
+        ? 'B' + agent.home.building
+        : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
     if (house) f.home = 'H:' + (cell ? cell[0] + ',' + cell[1] + ':' : '') + house;
     var j = agent.job;
     /* WHERE THEY WORK. Prefer a DECLARED site, same reason as the roof above:
