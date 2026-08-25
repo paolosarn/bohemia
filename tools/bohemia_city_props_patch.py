@@ -49,7 +49,11 @@ WORLD = 'slices/BOHEMIA_CITY_WORLD.html'
 BLOCKS = [
     # ---- 1. load the sibling bank, build the images, and hold the name->family table
     ('__A_VERTICAL_IS_A_FAMILY__',
-     '<script src="BOHEMIA_CITY_TILES.js"></script>',
+     # 8/24: the art bank became BOHEMIA_CITY_TILES_01..NN.js (one 28 MB file was over
+     # every browser's cache limit). ANCHOR ON THE REGION'S END MARKER, never on a chunk
+     # filename -- the count changes whenever the bank is re-chunked, and this anchor
+     # breaking is exactly how splitting the bank silently broke this tool once already.
+     '<!-- __TILE_BANK_END__ -->',
      True,
      """<script src="BOHEMIA_CITY_PROPS.js"></script><!-- __A_VERTICAL_IS_A_FAMILY__ the street
      furniture bank (20 corpus objects, 11 families). Beside the page, not in it, for the same

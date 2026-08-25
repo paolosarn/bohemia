@@ -40285,7 +40285,85 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/24 (b) LATEST -- *** FORTY MEGABYTES BEFORE YOU CAN MOVE. Nobody was
+WORLD (city-1eztay): 8/24 (c) LATEST -- *** THE WAIT IS 12x SHORTER. Tap-to-world went
+32.38 MB -> 2.65 MB. Same art, same world, not a pixel different. ***
+Gates: TIME TO PLAY 9/0, WALKED SURFACE 11/0 (8,595 cells / 93.3% / 99.9% -- IDENTICAL to
+before the split), blob integrity 103/0, integration 128/0, city tab 64/0, current slice 6/0,
+map tab 9/0, alpha loads 20/0, props 76/0, city kit binding 12/0, dooranim 10/0, hero wire
+145/0, icon 25/0, street source 18/0, mapsize 13/0, interiors 42/0, navcluster 16/0, full
+pixel 15/0, touch guard 25/0, traffic signal 11/0, shadow 7/0, doorjamb 15/0, ewdoor 7/0,
+market 32/0, one valley 12/0, cold boot 11/0, pages publish 18/0, repo budget 7/0.
+
+Yesterday's turn found the demo's real blocker, failed to fix it ON PURPOSE, and left one
+instruction: SPLIT THE BANK INTO CHUNKS SMALL ENOUGH TO CACHE. This is that.
+
+FIRST I MEASURED THE WALL instead of guessing "small enough" -- serve files of rising size,
+fetch each twice, watch which second fetch reaches the server:
+    1/2/4/6 MB  served from cache        8/12/16/24 MB  RE-DOWNLOADED
+THE WALL IS BETWEEN 6 AND 8 MB. So the chunker targets 4 MB, which is why `misc` (6.81 MB,
+comfortably inside the cacheable column) still gets split: a chunk that only just fits is a
+chunk that stops fitting the next time somebody cooks a sprite.
+
+SHIPPED: tools/bohemia_city_chunk_tile_bank.py -> BOHEMIA_CITY_TILES_01..08.js, none over
+4 MB. Chunk 1 declares the containers, later chunks fill them, a family too big for one
+chunk is split and re-joined with .concat IN LOAD ORDER so no sprite index moves. Then the
+alpha warms them during the splash -- THE EXACT CODE REVERTED YESTERDAY, UNCHANGED. Same
+code, different file sizes, opposite result. That is why the chunking had to come first.
+
+MEASURED, from the server's side:
+    after the tap   32.38 MB -> 2.65 MB     <-- the wait he actually feels
+    total to play   40.48 MB -> 40.51 MB    (identical: same bytes, moved)
+    request order   ALPHA -> sw -> ALPHA -> TILES_01..08 -> PROPS  |TAP|  -> CITY_WORLD.html
+
+THREE THINGS IT COULD HAVE BROKEN, AND DID:
+ 1. EQUIVALENCE. The tool evaluates its own chunks in load order and deep-compares every
+    declaration against the original, refusing to write if it fails -- and it FAILED first
+    try: I emitted families biggest-first to pack tighter, and JSON.stringify walks an object
+    in INSERTION order, so a size-sorted TP_TILES is a different object. Families keep their
+    original order now.
+ 2. ITS OWN GUARD. First packing put all seven "small" declarations in chunk 1 -> 7.12 MB,
+    over the wall (HERO_SRC 2.83 + DOOR_ANIM 2.54 + rest is not small). The size check caught
+    it and wrote nothing.
+ 3. A PATCH TOOL WITH NOTHING TO DO WITH ANY OF THIS. bohemia_city_props_patch.py anchors on
+    `<script src="BOHEMIA_CITY_TILES.js"></script>` to insert the props bank. Deleting that
+    tag silently broke it. The chunks now live in a NAMED REGION and other tools anchor on
+    `<!-- __TILE_BANK_END__ -->`, stable at any chunk count.
+
+THE ONE THAT DID NOT BREAK, AND IT IS THE LESSON: gates/bohemia_city_app.js is the shared
+resolver 33 GATES use to ask "what is the city source". Its 8/6 comment says splitting the
+FILES without splitting the ANSWER is the trap that cost the fleet a day twice. ONE FUNCTION
+changed (it globs the chunks and joins them sorted) and 33 gates did not have to know;
+sixteen were run individually to confirm. The 8/6 author paid for that in advance.
+
+THE COST, SAID OUT LOUD: ~28 MB of new blobs (the same art re-stored under new names, old
+blob stays in history). Against 906 MB with a 5 GB ceiling 137 days out that is ~one day off
+the clock. It buys back more: the bank used to be ONE file, so changing a single sprite
+rewrote all 28 MB into a new blob. Now it rewrites ONE 4 MB CHUNK -- future art edits cost
+about a seventh of what they did.
+
+TIME TO PLAY also grew three claims and lost one: the split debt is EMPTY one day after it
+was created (and the stale-entry check had a hole the moment it was needed -- `sizeOf(n) &&`
+skips a DELETED file, the one case it existed for); the after-tap ceiling RATCHETED 36 -> 6
+MB; the warm list must match the chunks on disk both ways (drift = a 404 on every boot and
+the wait comes back LOOKING like nothing changed); and the un-cacheable single bank must
+stay gone.
+
+NEXT IN THIS LANE, IN ORDER
+  1. TOTAL IS STILL 40.5 MB. The wait is fixed, the DOWNLOAD is not. Next real win is
+     PROGRESSIVE LOADING -- draw the world, let art arrive -- and the prerequisite is
+     measured and unpleasant: with the bank blocked the world is a BLACK VOID with
+     `ReferenceError: HERO_SRC is not defined`, NOT a flat-coloured world. The renderer
+     hard-depends on the whole bank and must degrade gracefully first. That is the job.
+  2. THE ALPHA CROSSES THE WIRE TWICE (ALPHA -> sw.js -> ALPHA, 4 MB each). The always-fresh
+     service worker re-fetches navigations with cache:'no-store'. Whether it repeats on a
+     WARM visit is NOT established. Check before acting -- it may be 4 MB for free.
+  3. Cluster seam for golf/railyard/landfill/farm -- open, correct, worth 19 cells.
+  4. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  5. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_THE_WAIT_IS_12X_SHORTER_8_24_26.md
+Tool:   tools/bohemia_city_chunk_tile_bank.py (idempotent; re-run after any bank change)
+
+WORLD (city-1eztay): 8/24 (b) -- *** FORTY MEGABYTES BEFORE YOU CAN MOVE. Nobody was
 watching the one number that decides whether a friend plays the demo or closes the tab. I
 found it, built the obvious fix, PROVED THE FIX MAKES IT WORSE, reverted it, and gated the
 number so it cannot grow. ***

@@ -69,10 +69,23 @@ const BODY = 'function renderCity(';
    the FILES without splitting the ANSWER is exactly the trap that cost the fleet a
    day on 8/2 and again on 8/4. So read() glues it back on. The split is a storage
    decision, not a visible one. */
+/* AND ON 8/24 THE BANK SPLIT AGAIN, so this glues back N files instead of one -- which is
+   the same job this function was written to do, and the reason the 8/24 split cost the
+   fleet nothing. One 28 MB file was over every browser's per-response cache limit (the wall
+   is between 6 and 8 MB, measured), so it was re-downloaded on every cold visit and could
+   not be warmed during the splash. It is BOHEMIA_CITY_TILES_01..NN.js now, each under 4 MB.
+   THIS IS STILL THE ONLY PLACE THAT KNOWS. Twenty-odd gates ask read() for "the city
+   source" and grep it for tile data; they did not have to change and must never have to.
+   Read in sorted order because chunk 1 declares the containers the rest fill -- a consumer
+   that evaluates this text depends on that order exactly as the browser does. */
 function tileBank() {
-  const p = path.join(ROOT, 'slices/BOHEMIA_CITY_TILES.js');
-  try { return fs.existsSync(p) ? '\n' + fs.readFileSync(p, 'utf8') : ''; }
-  catch (e) { return ''; }
+  const dir = path.join(ROOT, 'slices');
+  try {
+    const parts = fs.readdirSync(dir)
+      .filter(f => /^BOHEMIA_CITY_TILES(_\d+)?\.js$/.test(f))
+      .sort();
+    return parts.map(f => '\n' + fs.readFileSync(path.join(dir, f), 'utf8')).join('');
+  } catch (e) { return ''; }
 }
 
 function read() {

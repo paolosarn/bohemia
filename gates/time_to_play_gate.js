@@ -43,8 +43,13 @@ const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
    NOT enough headroom for a lane adding another art bank, which is the thing this stops.
    If you are here because the gate went red: you did not break it, you grew the download a
    friend waits through. Either shrink what you added or say out loud why it is worth it. */
-const CEIL_TOTAL = 46 * 1048576;   // everything a cold visitor pulls to reach the world
-const CEIL_AFTER = 36 * 1048576;   // the part AFTER the tap -- the wait he actually stares at
+const CEIL_TOTAL = 44 * 1048576;   // everything a cold visitor pulls to reach the world
+/* THE ONE THAT MOVED. 36 -> 6 MB on 8/24, and this is the whole point of a ratchet:
+   the bank was split into 8 cacheable chunks and the splash now warms them, so the wait
+   after the tap went 32.38 MB -> 2.65 MB. Measured, both times, from the server's side.
+   6 MB is that result with room for the world page to grow, and NOT room for anybody to
+   put another art bank back on the far side of the tap. */
+const CEIL_AFTER = 6 * 1048576;    // the part AFTER the tap -- the wait he actually stares at
 
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
                '.png': 'image/png', '.json': 'application/json', '.webmanifest': 'application/manifest+json' };
@@ -122,13 +127,14 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      response, which is why warming it during the splash downloads it TWICE instead of once.
      The fix is to split the bank into chunks a browser will keep. Until then it is listed
      here with the size it had when it was listed, and IT MAY ONLY SHRINK. */
-  const SPLIT_DEBT = {
-    'BOHEMIA_CITY_TILES.js':
-      { bytes: 29398564, why: '8,674 tile sprites in one file. Too big for the HTTP cache, '
-        + 'so it cannot be warmed during the splash and is re-downloaded on every cold visit. '
-        + 'SPLIT IT: tools/bohemia_city_split_tile_bank.py is the 8/6 precedent that pulled '
-        + 'this bank out of the world page in the first place, one level shallower.' },
-  };
+  /* EMPTY, 8/24, AND IT CAME OFF THE SAME DAY IT WENT ON. BOHEMIA_CITY_TILES.js was here at
+     29,398,564 bytes -- 8,674 sprites in one file, too big for any browser to cache, so it
+     was re-downloaded on every cold visit and could not be warmed. tools/
+     bohemia_city_chunk_tile_bank.py split it into 8 chunks of under 4 MB, proved they
+     reassemble byte-identical, and the alpha warms them during the splash. The wait after
+     the tap went 32.38 MB -> 2.65 MB. The entry is gone rather than left sitting green,
+     which is what the stale-entry check below exists to force. */
+  const SPLIT_DEBT = {};
   const heavy = big.filter(f => f.b > totB * 0.5);
   const unnamed = heavy.filter(f => !SPLIT_DEBT[f.n]);
   ok('no UNNAMED asset is more than half of everything a friend downloads'
@@ -142,8 +148,13 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      + (grown.length ? '  -- ' + grown.map(r => r.n + ' ' + MB(r.was) + ' -> ' + MB(r.now)).join(', ') : ''),
      !grown.length);
 
-  /* AND THE LIST STAYS HONEST. A file that got split and stayed listed hides the next one. */
-  const fixed = Object.keys(SPLIT_DEBT).filter(n => sizeOf(n) && sizeOf(n) <= totB * 0.5);
+  /* AND THE LIST STAYS HONEST. A file that got split and stayed listed hides the next one.
+     THE MISSING-FILE HOLE, found 8/24 the moment the debt was actually paid: this read
+     `sizeOf(n) && ...`, and sizeOf returns 0 for a file that no longer exists -- so a debt
+     entry naming a DELETED file was silently skipped instead of flagged. The one case the
+     check exists for was the one case it could not see. A named file that is gone counts as
+     fixed, loudly. */
+  const fixed = Object.keys(SPLIT_DEBT).filter(n => sizeOf(n) <= totB * 0.5);
   ok('every file still named in the split debt is still oversized (a fixed entry left on the '
      + 'list is how a debt list quietly stops meaning anything)'
      + (fixed.length ? '  -- SPLIT AND STILL LISTED, take it off: ' + fixed.join(', ') : ''),
@@ -151,6 +162,30 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
 
   Object.entries(SPLIT_DEBT).forEach(([n, d]) =>
     console.log('  SPLIT DEBT: ' + n + ' ' + MB(sizeOf(n)) + ' -- ' + d.why));
+
+  /* THE WARM LIST MUST BE THE CHUNKS THAT EXIST. The splash warms a hardcoded list of
+     filenames; the chunker owns that list and regenerates it. If the two ever drift, the
+     warm-up 404s on every boot and the wait silently comes back -- and it would come back
+     LOOKING like nothing changed, which is the worst kind of regression. So: every chunk on
+     disk is warmed, and everything warmed exists. */
+  const onDisk = fs.readdirSync(path.join(ROOT, 'slices'))
+    .filter(f => /^BOHEMIA_CITY_TILES_\d+\.js$/.test(f)).sort();
+  const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
+  const warmed = (alpha.match(/BOHEMIA_CITY_TILES_\d+\.js/g) || []);
+  const notWarmed = onDisk.filter(f => !warmed.includes(f));
+  const ghosts = warmed.filter(f => !onDisk.includes(f));
+  ok('the splash warms every tile chunk that exists (' + onDisk.length + ' chunks)'
+     + (notWarmed.length ? '  -- on disk but never warmed: ' + notWarmed.join(', ') : ''),
+     onDisk.length > 0 && !notWarmed.length);
+  ok('the splash warms nothing that has been deleted (a 404 on every boot, and the wait '
+     + 'comes back looking like nothing changed)'
+     + (ghosts.length ? '  -- warmed but gone: ' + [...new Set(ghosts)].join(', ') : ''),
+     !ghosts.length);
+
+  /* AND THE OLD MONOLITH MUST STAY GONE. Regenerating it beside the chunks would double the
+     art in the repo and quietly re-create the un-cacheable file this all exists to kill. */
+  ok('the un-cacheable single tile bank is gone and stays gone',
+     !fs.existsSync(path.join(ROOT, 'slices/BOHEMIA_CITY_TILES.js')));
 
   await browser.close();
   server.close();

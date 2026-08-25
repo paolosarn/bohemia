@@ -79,7 +79,15 @@ const PAGES = [
      would fail a page that is CORRECT and smaller on purpose, which is the same
      mistake as a gate insisting on the shape it was born with. */
   ['BOHEMIA_CITY_WORLD.html', 700000],     // the walked world + city builder (code)
-  ['BOHEMIA_CITY_TILES.js', 19000000],     // its art bank, split out 8/6
+  /* 8/24: the art bank is not one file any more. BOHEMIA_CITY_TILES.js was 28 MB, which is
+     over every browser's per-response cache limit (measured: the wall is between 6 and 8
+     MB), so it was re-downloaded on every cold visit and could not be warmed during the
+     splash. It is now BOHEMIA_CITY_TILES_01..NN.js, each under 4 MB, and the splash warms
+     them: the wait after the tap went 32.38 MB -> 2.65 MB.
+     THE CHUNKS ARE ENUMERATED, NOT LISTED, and that is this gate's own lesson applied to
+     itself -- the comment above says "the floor follows the file, not the memory of it".
+     A hardcoded list of eight names is a memory, and it would go stale the first time
+     anybody re-chunks. */
   ['BOHEMIA_RUN_CURRENT.html', 100000],
   ['BOHEMIA_CURRENT_SLICE.html', 100000],
   ['BOHEMIA_MAP_CURRENT.html', 100000],
@@ -139,7 +147,15 @@ for (const [name, floor] of BLOBS) {
 }
 
 /* and the sibling pages the alpha loads by src -- same document, same damage */
-for (const [file, floor] of PAGES) {
+/* the art bank's chunks, enumerated off disk rather than remembered (see the note in PAGES) */
+const TILE_CHUNKS = fs.readdirSync(path.join(ROOT, 'slices'))
+  .filter(f => /^BOHEMIA_CITY_TILES_\d+\.js$/.test(f)).sort()
+  .map(f => [f, 200000]);
+ok('the art bank is present as cacheable chunks (' + TILE_CHUNKS.length + ' found). One '
+   + '28 MB file was over every browser\'s cache limit and was re-downloaded on every cold '
+   + 'visit', TILE_CHUNKS.length >= 4);
+
+for (const [file, floor] of PAGES.concat(TILE_CHUNKS)) {
   const p = path.join(ROOT, 'slices', file);
   ok(file + ' exists (the alpha loads it by src)', fs.existsSync(p));
   if (!fs.existsSync(p)) continue;
