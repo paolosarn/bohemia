@@ -371,7 +371,19 @@ function openRaid(h, fromId){
   var resumed = false;
   function resume(){
     if(resumed) return; resumed = true;
-    try{ showTabPanel('run'); }catch(_e){}
+    /* *** showTabPanel('run') DOES NOT PUT YOU WHERE THE RUN TAB PUTS YOU. ***
+       Paolo 7/28 put the city in the run tab, and the tab's own click handler
+       honours it -- `var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p`.
+       showTabPanel does the literal thing instead and lights p-run, the parked
+       hidden panel that only exists so postMessage can still find the run
+       iframe. So coming back from the raid landed the player on a surface the
+       RUN tab never shows. TAP THE TAB THE WAY A FINGER TAPS IT and the one
+       routing rule stays in one place; showTabPanel is kept as the fallback so
+       this can never be worse than it was. */
+    try{
+      var _rt = document.querySelector('.tab[data-p=run]');
+      if(_rt) _rt.click(); else showTabPanel('run');
+    }catch(_e){ try{ showTabPanel('run'); }catch(_e2){} }
     setTimeout(function(){
       try{ if(!openContinue(fromId)) openDone(); }catch(_e){ openDone(); }
     }, 500);
@@ -410,7 +422,23 @@ function openPlay(sc){
   if(!sc || !cv) { openDone(); return false; }
   try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
   OPEN_RUNNING=true;
+  /* *** THE OVERLAY MUST FOLLOW THE LIVE PANEL ON EVERY SCENE, NOT JUST THE
+     FIRST. *** openStart parents it to whatever panel is live when the opening
+     begins; openPlay only set display, so the second scene of the sequence
+     inherited the FIRST scene's host. MEASURED 8/25 on the real surface, after
+     the raid returns: parent p-city, live panel p-run, box 0x0, OPEN_RUNNING
+     true, playing act1_ridge_burial. The grief dinner and the burial were
+     running perfectly, with captions advancing, INSIDE A HIDDEN PANEL where
+     nobody could see them -- which is this file's own documented lie (a flex
+     child of a display:none parent still computes display:flex) committed again
+     in the one path nobody had ever run. Re-parenting here fixes it for every
+     scene through one door, because openPlay is the door they all go through. */
   var w=document.getElementById('openWrap');
+  var host=openHost();
+  if(w && host && w.parentElement!==host){
+    if(getComputedStyle(host).position==='static') host.style.position='relative';
+    host.appendChild(w);
+  }
   if(w) w.style.display='flex';
   OPEN_PLAYER=new BohemiaStorySurface.Story({
     canvas:cv, set:BohemiaColdOpenSet, scene:sc, runtime:BohemiaScene,
