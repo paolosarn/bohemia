@@ -866,6 +866,15 @@ GATES = [
      'does not clip, goes silent on time (SCREECH LAW proved on the waveform), renders '
      'identically twice, sits in the judgeable loudness band, and has not drifted from '
      'its recorded fingerprint', True),
+    ('VOICE AUDIBLE',  ['node', 'gates/voice_audible_gate.js'],
+     'a NEWBORN VOICE HAS TO MAKE A SOUND, and only rendering proves it. The '
+     'music gate checks a BODY EXISTS -- a text search for kind===name -- which '
+     'cannot tell a voice that sings from one that builds a node graph and never '
+     'connects it, or lands ten times too quiet. This repo has shipped that bug '
+     '(ironlung, throatsong, and `crystal` renders EXACTLY ZERO to this day), and '
+     'it nearly shipped again in batch 24: fissionhymn passed the music gate with '
+     'a real body and real envelopes at peak 0.031 against a shipped lead 0.165. '
+     'Renders every fresh song lead through the real synthV and measures it', True),
     ('SONG LOCK',      ['node', 'gates/song_lock_gate.js'],
      "Paolo's songs are byte-locked: no session edits a song quietly, ever", False),
     ('COMBAT POOL',    ['node', 'gates/combat_pool_gate.js'],

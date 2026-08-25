@@ -1,0 +1,90 @@
+=== COOK BATCH 24 (8/24/26) — 4 songs, 4 newborn voices, 4 topologies the rack
+=== has never had. Horror FF10, MELODIC under the dread.
+
+NEW VOICES BORN (ledgered to owner song, with the topology and why it is NOT
+the thing it resembles -- the 7/8 failure was "different clothes, same body",
+so each of these was chosen by first reading the 577 that already exist):
+
+- atriumvox   -> THE VOICE THAT STILL ANNOUNCES FLOORS
+                 FOF / GRAIN-PER-PERIOD FORMANT SYNTHESIS (the IRCAM CHANT
+                 technique), computed into a finite buffer. ONE damped-sinusoid
+                 grain per pitch period, each ringing at a FORMANT, not at the
+                 note: the PITCH is the grain RATE, the VOWEL is the grain's own
+                 frequency. What sings is a rate, not an oscillator.
+                 NOT brokenrosary, which is a BEAD TRAIN of five separate plucks
+                 at sd*0.16 -- a rhythmic echo, not grains fusing into a tone.
+- signalrot   -> THE LAST BROADCAST CORRODES
+                 RING MODULATION BY BAND-LIMITED NOISE. Bandpassed noise drives
+                 the VCA gain on top of a DC floor, so the noise MULTIPLIES the
+                 tone. The melody survives and corrodes at once.
+                 NOT aeolianharp / windpsaltery, which FILTER noise through
+                 resonators. Filtering shapes; multiplying eats.
+- twintoll    -> THE BELLS DISAGREE
+                 DUAL-CARRIER FM ON ONE MODULATOR AT AN IRRATIONAL RATIO (root
+                 2), WITH OPPOSED INDEX ENVELOPES: one carrier starts clangorous
+                 and purifies while the other starts pure and sours, crossing in
+                 the middle, the two beating four cents apart throughout.
+                 NOT emberharp, which is ONE carrier with a decaying index.
+- fissionhymn -> THE NOTE THAT WOULD NOT STAY ONE
+                 ADDITIVE WITH STAGGERED ONSETS AND DIVERGENT DETUNE. Partials
+                 ARRIVE one at a time during the decay and drift further out of
+                 tune the longer they hold. Starts single, ends a crowd.
+                 NOT glassrequiem, which strikes every partial at once and gives
+                 each a random decay.
+
+VARIETY LAW (no two share scale + feel + kick; checked against the other three
+fresh songs already badged NEW, not just against each other):
+- THE VOICE THAT STILL ANNOUNCES FLOORS root44 scale[0,1,3,7,8]      feel half   kick[0,6,11]
+- THE LAST BROADCAST CORRODES           root51 scale[0,2,3,6,8,10]   feel drive  kick[0,4,7,10,13]
+- THE BELLS DISAGREE                    root39 scale[0,3,6,7,10]     feel normal kick[0,9]
+- THE NOTE THAT WOULD NOT STAY ONE      root57 scale[0,2,5,6,9,11]   feel half   kick[0,5,8,12]
+
+ENTRIES (verbatim):
+{n:'THE VOICE THAT STILL ANNOUNCES FLOORS',acc:'#6a7f8e',root:44,scale:[0,1,3,7,8],wave:'sine',kick:[0,6,11],bass:[0,3,7,8],hat:[4,12],inst:{b:'abyssbass',l:'atriumvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'THE LAST BROADCAST CORRODES',acc:'#b07a3a',root:51,scale:[0,2,3,6,8,10],wave:'sawtooth',kick:[0,4,7,10,13],bass:[0,6,8,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'signalrot'},am:'vacancyhum',kit:{k:'punchk',h:'tight'},mel:'call',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
+{n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true},
+{n:'THE NOTE THAT WOULD NOT STAY ONE',acc:'#7f9a86',root:57,scale:[0,2,5,6,9,11],wave:'sine',kick:[0,5,8,12],bass:[0,5,9,11],hat:[3,7,11,15],inst:{b:'reservoirbass',l:'fissionhymn'},am:'edenmist',kit:{k:'boom',h:'shakerh'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true}
+
+ALL FOUR UNJUDGED, NEW badges live. NEW_VIBES was APPENDED TO, NOT REPLACED:
+the three menu songs already badged are unjudged, and overwriting the list
+would have buried three of his songs on his behalf (and tripped the music
+gate's own cooked-but-hidden check, which exists because that already happened
+to nine songs in batch 20).
+
+GRAVEYARD IS FINAL: all four titles checked against the 63 dead titles in
+gates/bohemia_graveyard.txt. Zero collisions. No remakes.
+
+SCREECH LAW: clean, and swept on the four new bodies specifically rather than
+on the whole 4.2MB build: 0 createDelay, 0 createConvolver, 0 createWaveShaper,
+5 oscillators and 2 buffers, all 7 sources explicitly stopped. Nothing feeds
+back; every ringing thing is excited-and-decaying.
+
+MEASURED, NOT ASSUMED -- and it caught one. gates/voice_audible_gate.js renders
+every fresh song's LEAD through the real synthV and measures it:
+    atriumvox    rms 0.00911  peak 0.2141
+    signalrot    rms 0.00751  peak 0.1510
+    twintoll     rms 0.00943  peak 0.2042
+    fissionhymn  rms 0.04378  peak 0.3088
+fissionhymn FIRST MEASURED PEAK 0.031 -- against emberharp's 0.165 -- because
+its partials arrive late and the master decay compounded with the per-partial
+decays. It passed the music gate: real body, real oscillators, real envelopes,
+and a lead nobody would hear under a mix. The envelope was restructured (the
+partial envelopes ARE the shape; the bus just carries them) and re-measured.
+THE MUSIC GATE CANNOT SEE THIS CLASS AT ALL, which is why the new gate exists.
+
+AND THE SONG LOCK CAUGHT THE COOK TOOL. song_lock_gate extracts the song list
+as the span from its declaration to the first newline-bracket-semicolon. The
+first version of the batch tool spliced in before the closing bracket and left
+no newline in front of it, so that end anchor vanished and the span ran on to
+the next one in the file:
+MLOOPS measured 991,094 bytes instead of 31,446 -- a 31x over-grab for four
+songs. Regenerating the manifest at that moment would have baked a hash of the
+wrong region and quietly wrecked the lock that exists to protect his songs. The
+tool rebuilds the tail now and REFUSES to run if that shape is not there.
+(This entry deliberately DESCRIBES those anchors instead of quoting them --
+writing the literal declaration into the repo block re-created the bug once,
+because the lock searches the whole file including its own lawbook.)
+After the fix MLOOPS is 32,555 bytes: +1,109 for four songs, which is right.
+
+Gates: MUSIC 20/0 · VOICE AUDIBLE 16/0 · SONG LOCK 20/0 (all mutation-proved).
+

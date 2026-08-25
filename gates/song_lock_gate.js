@@ -49,11 +49,31 @@ function ok(msg, cond) {
   else { fail++; console.log('  FAIL ' + msg); }
 }
 
-const alpha = fs.readFileSync(ALPHA, 'utf8');
+const alphaRaw = fs.readFileSync(ALPHA, 'utf8');
+/* CUT THE LAWBOOK OUT BEFORE LOOKING FOR ANYTHING (8/24). The alpha carries the
+   music repo as a <script type="text/plain"> block: the lawbook and every batch
+   history travel WITH the build, which is the point of it. But this gate finds
+   each locked body by SEARCHING THE FILE for a declaration, and that block is
+   part of the file -- so the moment a batch note QUOTED a declaration in prose,
+   the search found the prose first and the span ran from inside the lawbook to
+   the next matching end anchor anywhere after it. MLOOPS measured 2,228,716
+   bytes instead of 31,446, and --write would have cheerfully hashed the wrong
+   two megabytes and called the lock updated.
+   That is not hypothetical: it happened while writing the batch-24 note, whose
+   subject was this very anchor. gates/music_gate.js has excluded this block
+   since it was written, for exactly this reason and in almost these words. This
+   gate should have too.
+   A GATE THAT SEARCHES A FILE CONTAINING ITS OWN DOCUMENTATION MUST EXCLUDE THE
+   DOCUMENTATION. */
+const _ri = alphaRaw.indexOf('<script type="text/plain" id="BOHEMIA_MUSIC_REPO">');
+const _rj = _ri >= 0 ? alphaRaw.indexOf('</script>', _ri) : -1;
+const alpha = (_ri >= 0 && _rj > _ri)
+  ? alphaRaw.slice(0, _ri) + alphaRaw.slice(_rj)
+  : alphaRaw;
 const b64key = "const COMBAT_B64='";
-const bi = alpha.indexOf(b64key) + b64key.length;
-const bj = alpha.indexOf("'", bi);
-const demo = Buffer.from(alpha.slice(bi, bj), 'base64').toString('utf8');
+const bi = alphaRaw.indexOf(b64key) + b64key.length;
+const bj = alphaRaw.indexOf("'", bi);
+const demo = Buffer.from(alphaRaw.slice(bi, bj), 'base64').toString('utf8');
 
 /* pull a named body out of a source by its opening and closing anchors */
 function body(src, start, end, label) {
