@@ -67,8 +67,26 @@ DEEDS = os.path.join(ROOT, 'engine', 'bohemia_deeds.js')
 
 BEGIN = '/* ==== engine/bohemia_standing.js (THE DEED LEDGER, inlined verbatim) ==== */'
 END = '/* ==== /engine/bohemia_standing.js (THE DEED LEDGER) ==== */'
-LOUD_BEGIN = '/* ==== bohemia_clout.js + bohemia_deeds.js (HOW LOUD, inlined verbatim) ==== */'
-LOUD_END = '/* ==== /bohemia_clout.js + bohemia_deeds.js (HOW LOUD) ==== */'
+# *** ONE BANNER PER MODULE, AND IT MUST SAY `engine/`. ***
+# This tool used to emit ONE banner naming both modules and no engine/ prefix:
+#     /* ==== bohemia_clout.js + bohemia_deeds.js (HOW LOUD, inlined verbatim) ==== */
+# The ENGINE SYNC LAW's scanner (tools/bohemia_city_module_resync.py) accepts a
+# line that startswith('/* ==== engine/') and endswith('==== */'), so it read that
+# as ZERO modules and both bodies dropped out of the sweep. A module the sweep
+# cannot see can drift a week behind its engine file with every gate green -- the
+# same hole that hid the floorplan and the overmap before it. A banner is not a
+# comment here; IT IS THE INDEX.
+#
+# *** AND FIXING THE OUTPUT DID NOT FIX IT. *** The RUN lane caught this on 8/21
+# and wrote tools/bohemia_unhide_two_banners_patch.py, which repairs the banners in
+# slices/BOHEMIA_CITY_WORLD.html. But THIS tool GENERATES that region, so the next
+# run of it put the hole straight back, and BANNER was red again on 8/25 naming the
+# same two modules. A generator and its output are not two places to fix a bug;
+# the generator is the only one that stays fixed. Repaired here, at the source.
+CLOUT_BEGIN = '/* ==== engine/bohemia_clout.js (HOW LOUD, inlined verbatim) ==== */'
+CLOUT_END = '/* ==== /engine/bohemia_clout.js (HOW LOUD) ==== */'
+DEEDS_BEGIN = '/* ==== engine/bohemia_deeds.js (WHO SAW IT, inlined verbatim) ==== */'
+DEEDS_END = '/* ==== /engine/bohemia_deeds.js (WHO SAW IT) ==== */'
 STORE_END = '/* ==== /__CITY_DEEDS__ store ==== */'
 
 # This lane's own memory block closes with this line. Anchoring here puts the deed
@@ -609,7 +627,8 @@ def main():
                  'held in minds and there are none.')
 
     block = (BEGIN + '\n' + stand + '\n' + END + '\n\n'
-             + LOUD_BEGIN + '\n' + clout + '\n' + deeds + '\n' + LOUD_END
+             + CLOUT_BEGIN + '\n' + clout + '\n' + CLOUT_END + '\n\n'
+             + DEEDS_BEGIN + '\n' + deeds + '\n' + DEEDS_END
              + STORE + STORE_END + '\n')
 
     # *** THE WIRING OUTSIDE THE BLOCK HAS TO BE UPGRADEABLE TOO. ***

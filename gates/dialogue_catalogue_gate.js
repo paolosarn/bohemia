@@ -276,11 +276,28 @@ if (reactFile.length) {
   var loopSrc = fs.readFileSync('engine/bohemia_loop.js', 'utf8');
   var rm = /var RUNGS=\[([\s\S]*?)\];/.exec(standing);
   var RUNGS = rm ? (rm[1].match(/'[A-Z]+'/g) || []).map(function (x) { return x.slice(1, -1); }) : [];
-  var cm = /CLOUT_WEIGHTS\s*=\s*\{([^}]*)\}/.exec(loopSrc);
-  var CLOUTS = cm ? (cm[1].match(/(\w+)\s*:/g) || []).map(function (x) { return x.replace(/\s*:/, ''); }) : [];
+  /* *** READ THE TABLE WHEREVER IT LIVES, NOT OUT OF ONE FILENAME. *** This read
+     CLOUT_WEIGHTS out of bohemia_loop.js, and on 8/25 the PEOPLE lane extracted
+     the table into engine/bohemia_clout.js so that loop now carries
+     `const CLOUT_WEIGHTS = CLOUTMOD.CLOUT_WEIGHTS;` -- a REFERENCE, not a literal.
+     The regex matched nothing, CLOUTS came back EMPTY, and the next claim then
+     reported all eight of its real reaction keys as INVENTED (saw:/heard: quiet,
+     notable, risky, reckless -- every one of them a tag the world does emit).
+     A checker that cannot find the table says the lines are wrong; both claims
+     were lying, and the lane that moved the table did nothing wrong.
+     THE RULE IS "the clout tags the world produces". Pinning the FILE that holds
+     them is not that rule, and it failed the first day the file changed. So sweep
+     the engine for the literal and NAME the module that supplied it, which makes
+     the next move visible in the pass line instead of silent in a red. */
+  var CLOUTS = [], cloutFrom = 'none';
+  fs.readdirSync('engine').filter(function (f) { return /\.js$/.test(f); }).forEach(function (f) {
+    var m = /CLOUT_WEIGHTS\s*=\s*\{([^}]*)\}/.exec(fs.readFileSync('engine/' + f, 'utf8'));
+    var tags = m ? (m[1].match(/(\w+)\s*:/g) || []).map(function (x) { return x.replace(/\s*:/, ''); }) : [];
+    if (tags.length > CLOUTS.length) { CLOUTS = tags; cloutFrom = f; }
+  });
   ok(RUNGS.length >= 4 && CLOUTS.length >= 4,
     'the world\'s own standing rungs and clout tags were read off the shipped modules (' +
-    RUNGS.join('/') + ' | ' + CLOUTS.join('/') + ')');
+    RUNGS.join('/') + ' | ' + CLOUTS.join('/') + ' from ' + cloutFrom + ')');
 
   var rxUncited = [], rxBadId = [], rxBadTitle = [], rxAlien = [];
   Object.keys(RX.reactions || {}).forEach(function (key) {
