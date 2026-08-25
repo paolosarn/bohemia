@@ -5111,6 +5111,39 @@ REACHABILITY. Fixed with A STEADY HAND, not more shots: it presses the real #fir
 when the dial is on target. AND THE SHOT FIRES ON POINTERUP -- dispatching
 pointerdown alone read a clean zero across four runs.
 
+*** AND A GATE DELETED THIS TURN'S RECORD. FIXED, AND EVERY LANE WAS EXPOSED. ***
+tool_idempotent_gate.js ended its restore with `git clean -qfd slices engine banks
+records` -- EVERY untracked file in four folders, not the ones its tools wrote. It
+ate the V180 record before it was committed. Any lane with an uncommitted record,
+a fresh bank or a new slice on disk loses it whenever anybody runs the suite.
+ITS OWN T4 CAUGHT IT ("nothing a lane had in flight was thrown away either") --
+correctly, AFTER the file was gone, buried in a list of 22 reds. A gate that
+detects the damage it did is still a gate that did the damage. FIXED the way its
+TRACKED half already worked: baseline the untracked set, delete only what appeared.
+New T5 proves it with a real sentinel file rather than by reading the source.
+COMMIT AND THEN RUN THE SUITE. Do not leave a record untracked while gates run.
+
+*** AND THE SUITE CANNOT GO GREEN, FOR ANYBODY, AND HAS NOT FOR SOME TIME. ***
+Full run: 22 RED and 72 GATES NEVER RAN (2700s budget, needs ~4458s). It now wants
+three shards. ALL 22 WERE A/B'd AGAINST A CLEAN CHECKOUT OF origin/main:
+  18 RED ON CLEAN MAIN            other lanes, pre-existing
+  1  TOOL IDEMPOTENT T1           bohemia_city_hero_wire_patch.py is not
+                                  idempotent (+1/-1). CITY lane. Identical on main.
+  1  FRESH DOORS                  FLAKY -- passed twice then failed twice on the
+                                  SAME clean worktree, nothing changed
+  2  GRAVEYARD, MIX               green on both
+NONE is caused by this change. The decisive test for the two that differed: swap
+main's alpha into this tree and re-run -- both still failed, so it is not the alpha.
+AND THE LOOK GATE MEASURES CHECKOUT AGE, NOT CONTENT. It compares file mtimes, and
+the pictures here are dated 8/21. Setting the alpha's mtime back to match them,
+CONTENT UNTOUCHED, cleared 7 of the 10 instantly. It fires for ANY lane whose
+working copy is over six hours old the moment it edits the alpha, whatever it
+edited, and can NEVER fail on a fresh clone. The 7 pictures were NOT retaken: V180
+draws nothing, so they would be byte-identical and would hide the defect. ART lane's
+file and ART lane's call; filed, not done from here.
+RUN THE GATES DIRECTLY WHEN YOU NEED AN A/B -- the runner takes a global lock so
+22 gates x 2 trees is hours; the scripts run in parallel and finish in minutes.
+
 WHAT COMES NEXT FOR THIS LANE, IN ORDER:
  1. RF4-53 LAYER 1 -- needs a pre-fight and a stealth stat. Probably not this
     lane's alone; the fight-start trigger sits between world and combat.

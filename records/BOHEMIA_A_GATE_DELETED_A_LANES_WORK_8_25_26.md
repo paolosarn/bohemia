@@ -132,3 +132,72 @@ The tracked half of this gate had already learned the lesson and written it down
 in a comment. The untracked half sat six lines below it and had not. **Half a file
 can know something the other half does not**, and a paragraph describing careful
 behaviour is not the same as code that behaves carefully.
+
+---
+
+# PART TWO: THE SUITE CANNOT GO GREEN, AND HAS NOT BEEN ABLE TO FOR SOME TIME
+
+The full suite run that ate the record also reported this:
+
+> **22 GATE(S) FAILED** ... **72 GATE(S) NEVER RAN** — the suite hit its 2700s budget with 72 left.
+> MEASURED THIS RUN: 10.6s a gate, so this run's 422 gates need ~4458s against a 2700s budget.
+
+So a "full pass" currently covers **83% of the gates** and returns 22 reds. Under
+SHIP FLOW that is supposed to be a hard stop. It is not a hard stop for anybody,
+because it is the state of `main` itself — which means every lane has been
+shipping past it without saying so.
+
+**All 22 were A/B'd against a clean checkout of `origin/main`**, running each gate
+script directly rather than through the runner (the runner takes a global lock, so
+22 gates x 2 trees is hours; direct they parallelise).
+
+| verdict | count | what it means |
+|---|---|---|
+| **red on clean `origin/main`** | **18** | pre-existing, other lanes, untouched by this change |
+| **red on clean main (T1)** | 1 | `TOOL IDEMPOTENT` — `bohemia_city_hero_wire_patch.py` is not idempotent. CITY lane. |
+| **flaky** | 1 | `FRESH DOORS` — see below |
+| **green on both trees** | 2 | GRAVEYARD, MIX |
+
+**NONE of them is caused by this change's content.** The decisive test for the two
+that differed was to swap `origin/main`'s alpha into this tree and re-run: both
+still failed, so the alpha is not the cause.
+
+## FRESH DOORS IS FLAKY, PROVEN ON ONE TREE
+
+It passed twice on the clean main worktree, then **failed twice on that same
+worktree** with nothing changed in between. The failing claim counts a door-drag
+sound in a live browser run and got 0. Same tree, same content, both verdicts.
+
+## AND THE LOOK GATE MEASURES CHECKOUT AGE, NOT CONTENT
+
+`LOOK` fails one claim: *"no picture is more than six hours behind the surface it
+photographs (10 stale)"*. It compares **file mtimes**:
+
+```js
+if (fs.statSync(f).mtimeMs < fs.statSync(surf).mtimeMs - 6 * 3600 * 1000)
+```
+
+The pictures in this checkout are dated **8/21**. Setting the alpha's mtime back to
+match them — **content completely untouched** — cleared **7 of the 10** instantly.
+The remaining 3 photograph `BOHEMIA_CITY_WORLD.html`, which another lane touched.
+
+So the claim fires for **any lane whose working copy is more than six hours old,
+the moment it edits the alpha**, whatever it edited. On a fresh clone every file
+has the same timestamp and the gate can never fail, which is exactly why it reads
+green on the worktree and red in every real session.
+
+**These 7 pictures were NOT retaken here.** V180 draws nothing — not one pixel —
+and the seven photograph the drunk seam, field surgery, six neighbours, the border,
+the 4x wardrobe, the hair edge and the boot stitch. Regenerating them would emit
+identical images to silence a timestamp. **The gate is measuring the wrong thing,
+and shipping seven byte-identical PNGs to quiet it would hide that instead of
+reporting it.** Naming it is the honest move; fixing it is the ART lane's file and
+its call, and it is filed here rather than done from a combat session.
+
+## WHAT WAS ACTUALLY VERIFIED FOR THIS CHANGE
+
+- `fight_moves_you_gate.js` — **89 pass / 0 fail**
+- `combat_lab_gate.js` — **925 pass / 0 fail**
+- four mutations of the new code — **all four caught**
+- `tool_idempotent_gate.js` — its file-eating bug fixed, T5 added, T1 left red and
+  named because it is the CITY lane's and identical on clean main
