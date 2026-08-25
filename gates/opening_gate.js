@@ -341,11 +341,17 @@ function pw() {
        caption node cannot miss a write to it. It is also the surface itself --
        the words in #openCap are literally what a person sees. */
     await page.evaluate(() => {
-      window.__CAPS = [];
+      window.__CAPS = []; window.__SCENES = [];
       const cap = document.getElementById('openCap'); if (!cap) return;
       const push = () => {
         const t = (cap.textContent || '').trim();
         if (t && window.__CAPS[window.__CAPS.length - 1] !== t) window.__CAPS.push(t);
+        /* which scene of the sequence is speaking, sampled off the same event.
+           A sequence that plays one scene four times is not a sequence. */
+        try {
+          const id = OPEN_PLAYER && OPEN_PLAYER.scene && OPEN_PLAYER.scene.id;
+          if (id && window.__SCENES[window.__SCENES.length - 1] !== id) window.__SCENES.push(id);
+        } catch (_x) {}
       };
       push();
       new MutationObserver(push).observe(cap, { childList: true, subtree: true, characterData: true });
@@ -399,6 +405,19 @@ function pw() {
        the literal halves either side of one are what a gate can honestly demand.
        Asking for the raw authored string would fail on a correct substitution. */
     const litOf = t => String(t).split(/\{[^}]*\}/).map(s => s.trim()).filter(s => s.length > 3);
+    /* the scenes the sequence names, in order, walked on the page. Shared by the
+       post-fight claims and the chain walk below so both read one source. */
+    const chainOf = async startId => await page.evaluate(id0 => {
+      const out = []; let id = id0, seen = {}, g = 0;
+      while (id && !seen[id] && g++ < 20) {
+        seen[id] = 1; out.push(id);
+        const s = (typeof openSceneById === 'function') ? openSceneById(id) : null;
+        if (!s) break;
+        const h = (s.beats || []).find(b => b.kind === 'handoff');
+        id = h ? (h.then || (h.to === 'scene' ? h.scene : null)) : null;
+      }
+      return out;
+    }, startId);
     const stream = played.caps.join('\n');
     const missing = (scene ? scene.say : []).filter(t => {
       const frags = litOf(t);
@@ -611,6 +630,66 @@ function pw() {
         missing2.length === 0, JSON.stringify(missing2.slice(0, 2)));
       ok('and the caption kept moving after the fight (' + capsBefore + ' -> ' + back.caps.length + ')',
         back.caps.length > capsBefore);
+
+      /* ---- AND ALL THE WAY OUT THE OTHER SIDE, INTO A DAY -------------------
+         The last link of the demo's opening, and the last one nobody had checked.
+         BOTH demo gates play the day: demo_gate SKIPS the opening and
+         the_whole_demo_gate DECLINES it. So "the day" has only ever been entered
+         through the side door, and the seam where the finished STORY hands the
+         player into a playable surface had never been crossed by anybody.
+
+         The terminator is the LAST SCENE OF THE CHAIN, read from the chain, and
+         only then the quiet. "Not running and not shown" on its own is ALSO TRUE
+         DURING THE FIGHT -- a probe using exactly that reported the opening
+         finished at 65s having played one scene of four, which is the same
+         vacuous shape as the `ran &&` hole closed higher up this file. A
+         termination condition that matches the middle is not a termination
+         condition. */
+      const chainIds = await chainOf(scene ? scene.id : null);
+      const lastId = chainIds.length ? chainIds[chainIds.length - 1] : null;
+      await SETTLE(page, 200000, async () => await page.evaluate(
+        id => !id || (window.__SCENES || []).indexOf(id) >= 0, lastId));
+      await SETTLE(page, 90000, async () => await page.evaluate(() => {
+        const w = document.getElementById('openWrap');
+        const vis = !!w && getComputedStyle(w).display !== 'none' && w.getBoundingClientRect().width > 80;
+        return (typeof OPEN_RUNNING !== 'undefined' && !OPEN_RUNNING) && !vis;
+      }));
+
+      const out = await page.evaluate(() => {
+        const on = document.querySelector('.panel.on');
+        const tab = document.querySelector('.tab.on');
+        const w = document.getElementById('openWrap');
+        const r = on ? on.getBoundingClientRect() : null;
+        /* THE WORLD FRAME, MEASURED FROM THE PARENT ONLY. A file:// iframe is an
+           opaque origin, so reading the city's own state throws SecurityError and
+           teaches nothing. What a person can see is what is asserted: a frame
+           with real area, inside the panel that is actually live. */
+        const fr = on ? on.querySelector('iframe') : null;
+        const fb = fr ? fr.getBoundingClientRect() : null;
+        return {
+          scenes: window.__SCENES || [], caps: (window.__CAPS || []).length,
+          running: typeof OPEN_RUNNING !== 'undefined' ? OPEN_RUNNING : null,
+          shown: !!w && getComputedStyle(w).display !== 'none' && w.getBoundingClientRect().width > 80,
+          panel: on ? on.id : 'none', tab: tab ? tab.dataset.p : null,
+          panelW: r ? Math.round(r.width) : 0, panelH: r ? Math.round(r.height) : 0,
+          frame: !!fr, frameW: fb ? Math.round(fb.width) : 0, frameH: fb ? Math.round(fb.height) : 0,
+          seen: !!localStorage.getItem('bohemia.opening.seen.v1')
+        };
+      });
+      const missedScenes = chainIds.filter(id => out.scenes.indexOf(id) < 0);
+      ok('THE WHOLE SEQUENCE PLAYS, not just the scene before the fight (' +
+        out.scenes.length + '/' + chainIds.length + ': ' + out.scenes.join(' -> ') + ')',
+        missedScenes.length === 0, JSON.stringify(missedScenes));
+      ok('and the opening ENDS on its own (' + out.caps + ' captions)',
+        !out.shown && out.running === false);
+      ok('AND IT PUTS YOU IN A DAY - a live panel with the world in it (' +
+        out.panel + ' ' + out.panelW + 'x' + out.panelH + ', frame ' + out.frameW + 'x' + out.frameH + ')',
+        out.panelW > 200 && out.panelH > 200 && out.frame &&
+        out.frameW > 200 && out.frameH > 200,
+        'the story is over and the player has to be standing somewhere playable');
+      ok('and that surface is the one the RUN tab shows (' + out.panel + ', tab ' + out.tab + ')',
+        out.tab === 'run');
+      ok('and having watched the whole thing, it never asks again', out.seen === true);
     }
 
     ok('and nothing threw across the whole opening', errs.length === 0, errs.slice(0, 2).join(' | '));
