@@ -67,8 +67,18 @@ for (const needle of [
    the side of the head -- measured: cornrows on E occupied rows 5-6 and nothing
    else. Side-on there is no face in the way either. Pin BOTH exemptions so neither
    can be quietly dropped. */
+/* AND WIDENED AGAIN 8/25, BECAUSE THE PIN WAS A SPELLING TEST AND NOT A RULE.
+   It matched the literal `(back||prof)?hBot:`. That form was ALSO a guillotine: sideF
+   is how a style's LENGTH is written down (SHOULDER LENGTH 1.60, LONG LOOSE 2.40), so
+   a hard hBot cut every long style off at the jaw on six of the eight facings and
+   turned a shoulder-length haircut into a crop the moment he turned his head. The
+   ruling was ALWAYS "at least the whole skull"; the code said "exactly". Fixing it
+   turned a red on here -- A GATE MUST NEVER OUTRANK A RULING (8/1), and a checker that
+   only knows one spelling of a rule is the broken one. Both forms are legal; what is
+   pinned is that back and profile are exempted from sideF's ceiling AT ALL.
+   THE REAL PROOF IS IN hair_gate, on the rendered pixels, where it belongs. */
 ok('clause 2 in code: the back AND profile facings cover the whole skull',
-  /var sideBot=\(back\|\|prof\)\?hBot:/.test(src));
+  /var sideBot=\(back\|\|prof\)\?(hBot|Math\.max\(hBot,)/.test(src));
 ok('clause 3 in code: row edges take a deterministic wobble',
   /var wob=function\(y,side\)/.test(src) && /mn-=wob\(y,0\); mx\+=wob\(y,1\)/.test(src));
 ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimmer)',

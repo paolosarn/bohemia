@@ -265,7 +265,10 @@ const COARSE_PIN = (() => {
   }
   return { coarse, ran };
 })();
-const PINNED_COARSE = 18;   // shapes with NO 1px feature on the fixture; only ever shrinks
+const PINNED_COARSE = 15;   // shapes with NO 1px feature on the fixture; only ever shrinks
+                            // 18 -> 15 on 8/25: the fall's own sway (a long style hangs in
+                            // air and sways, it does not hang like a ruled ribbon) put a
+                            // one-pixel mark into three more long-hair shapes.
 ok('STEP 5 ONLY GOES FORWARD: shapes with no one-pixel detail at 112 (' +
    COARSE_PIN.coarse + ' of ' + COARSE_PIN.ran + ', pinned at ' + PINNED_COARSE + ')',
    COARSE_PIN.coarse <= PINNED_COARSE);

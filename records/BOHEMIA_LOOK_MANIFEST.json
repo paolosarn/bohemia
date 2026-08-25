@@ -482,6 +482,16 @@
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only everything-metal"
+  },
+  {
+   "id": "one-haircut",
+   "title": "ONE HAIRCUT, THE WHOLE WAY ROUND",
+   "caption": "You said the haircuts have to be the same and coordinated from all angles. Two of the fifteen were not, and it was not close: SHOULDER LENGTH and LONG LOOSE had a real fall of hair facing forward and NOTHING from any other angle. Turn his head one notch and a shoulder-length haircut became a crop. A second bug on top of it meant the long one and the shoulder one drew the exact same length anyway, so the dial that says how long a haircut is was not reaching the screen at all. Both fixed. Each row here is one haircut turning all the way around, one step at a time, so you can see it stay the same haircut. I also drew this twice wrong before I got it right: once the hair fell as a single strip down his chest, once it detached at the jaw and floated off his shoulders. Looking at the picture caught both; every number I had said it was fine. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "file": "look/one-haircut.png",
+   "kb": 157.5,
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_one_haircut_eight_ways.js"
   }
  ]
 }

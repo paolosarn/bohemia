@@ -73,12 +73,37 @@ It does not licence redrawing anything he has approved. ADD marks the finer grid
 can hold; never thin a mark he ruled on. That rule is from the garment work and
 it carries over unchanged.
 
+## CLAUSE 1, PROVED THE SAME DAY, AND IT WAS BROKEN
+
+The clause was not hypothetical. Measured hours after it was written:
+
+    SHOULDER LENGTH   11 pixels of hair below the jaw facing S, SE and SW.
+    LONG LOOSE        ZERO facing E, NE, N, NW or W.
+
+Two of the fifteen were a mane from the front and a crop from the side. `sideF` is
+how a style's LENGTH is written down, and both the 8/1 back fix and the 8/2 profile
+fix clamped it to `hBot` — a floor for a cropped style and a **guillotine** for a
+long one. Neither fix asked which. That is the branch-disagreement this clause was
+written to catch, and the clause caught it.
+
+**AND THE GATE THAT WAS SUPPOSED TO HOLD CLAUSE 1 WAS GREEN THROUGH ALL OF IT.** It
+pinned the hair's own AREA between adjacent facings. Area SHOULD swing — from the
+front you see a face and two curtains, from behind a whole skull of hair. Pinning a
+quantity that legitimately moves cannot catch one that must not. **HOW FAR THE HAIR
+FALLS** is a property of the object and not of the view; that is the ruler clause 1
+needs, and it is the one that is pinned now.
+
+Full finding: `records/BOHEMIA_A_HAIRCUT_IS_ONE_HAIRCUT_8_25_26.txt`
+
 ## THE GATE
 
-`gates/hair_gate.js` — two ratchets, both downward-only:
+`gates/hair_gate.js` — five ratchets, all downward-only:
 
   - **styles with no one-pixel mark inside them.** Pinned, only ever shrinks.
-  - **identity swing between adjacent facings.** Pinned, only ever shrinks.
+  - **how far a haircut FALLS, one notch of turn.** Pinned at 0.31 head-heights.
+  - **a sheet of hair across his chest on a front facing.** Pinned at zero.
+  - **from behind and side-on the hair reaches the jaw.** Pinned at zero short.
+  - **identity swing between adjacent facings (area).** Pinned, kept as a net.
 
 A law without a machine gate is not enforced, and this one is written the same
 turn as the gate that holds it.

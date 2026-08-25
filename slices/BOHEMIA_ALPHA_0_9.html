@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25x - THEY SPEAK SPANGLISH</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25y - ONE HAIRCUT, EVERY ANGLE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21483,6 +21483,16 @@ window.CLO=(function(){
       if(S<2||base||_noSub) return base;
       var h2=(Math.imul((_wseed^((y*2654435761)>>>0))>>>0,3266489909))>>>0;
       return ((h2>>>(side?11:23))&3)<2 ? 1 : 0; };
+    /* the FALL's own step -- see the front-curtain branch below. Same cell-row grid and
+       the same style seed as wob(), a different hash so the two edges of one curtain
+       never move together like a printed ribbon. */
+    var _fall=function(y,side){ var h=(Math.imul((_wseed^((((y/S)|0)*40503)>>>0))>>>0,3266489909))>>>0;
+      var base=((h>>>(side?9:21))&1)?S:0;
+      /* and the same sub-cell rule wob() follows: only where the cell step did NOT
+         fire, so the edge's total travel never grows and at 56 it never fires at all. */
+      if(S<2||base||_noSub)return base;
+      var h2=(Math.imul((_wseed^((y*2654435761)>>>0))>>>0,40503))>>>0;
+      return ((h2>>>(side?3:19))&1)?1:0; };
     var span=function(y){ var mn=CW,mx=-1; for(var x=0;x<CW;x++){var gv=g[y*CW+x];
       if(gv===1||gv===2){if(x<mn)mn=x;if(x>mx)mx=x;}} return mx<0?null:[mn,mx]; };
     /* THE BROW CEILING. On a front facing the eyes are the top of the painted
@@ -21492,7 +21502,30 @@ window.CLO=(function(){
        the forehead on -- take the bottom of the cell fr() lands on. */
     var frontLine=Math.min(brow+S-1, hTop+fr(hTop,hBot,(opt.front!=null?opt.front:0.22))+S-1);
     var vol=opt.vol||0, sideF=(opt.side!=null?opt.side:0.62), flare=opt.flare||0;
-    var backEx=(back||!front)?(opt.back||0):0, strip=opt.strip||0, tie=opt.tie||null, tex=opt.tex||'solid';
+    /* *** backEx WAS THE ONE LENGTH IN THIS GENERATOR THAT NEVER LEARNED ABOUT 112.
+       (Paolo 8/25: "we made the character model 4x ... your still playing with the
+       orignal pixels.") *** Every other measurement here goes through fr(), which
+       divides by S and multiplies back. This one is raw pixels. So when the rig doubled,
+       a wolf cut's back length stayed 8 pixels on a head that had grown from 11 rows to
+       22 -- MEASURED, the same haircut went from 1.0 head-heights of fall to 0.64.
+       The haircut got shorter because the canvas got bigger, which is backwards, and it
+       is an IDENTITY change (clause 1) as much as a scale one. In CELLS now, like
+       everything else it sits beside. */
+    /* AND IT WAS AN ON/OFF SWITCH ON A THING THAT TURNS. A fall down the back went from
+       its FULL length to NOTHING in the single notch between SE and E: measured on
+       WOLF CUT, 0.27 head-heights of hair facing SE and 1.10 facing E. A haircut that
+       grows a mane when you turn one notch has failed clause 1 however good either view
+       is on its own.
+       WHAT ACTUALLY HAPPENS, which is also his 8/1 ruling ("with more of the longer
+       hairstyles even from the front I would like to see you know a couple pixels of
+       hair ... even if it is in the back of the head"): a fall hanging behind the head
+       is NOT invisible from the front. It hangs past the shoulders and you see its outer
+       edges, foreshortened. Half head-on, most of it at three-quarters, all of it side-on
+       and from behind. The old code drew the last two of those three and called the
+       first one zero. */
+    var _bkF=front?(dir==='S'?0.5:0.75):1;
+    var backEx=(opt.back||0)?Math.round((opt.back*S)*_bkF):0;
+    var strip=opt.strip||0, tie=opt.tie||null, tex=opt.tex||'solid';
     /* THE BACK IS THE WHOLE SKULL (Paolo 8/1, "that's the first thing"). sideF was
        applied on EVERY facing, so from behind -- where there is no face to avoid --
        the mass still stopped at 62% of head height and left the bottom third bare.
@@ -21506,7 +21539,23 @@ window.CLO=(function(){
        the way either: you see the whole side of the head, and hair covers it to the
        hairline. So profile joins back, and the brow ceiling in put() still protects
        the eye rows on the facings that actually show eyes. */
-    var sideBot=(back||prof)?hBot:(hTop+fr(hTop,hBot,sideF)+S-1);
+    /* *** AND BOTH OF THOSE FIXES WROTE `hBot` WHEN THEY MEANT "AT LEAST hBot".
+       (Paolo 8/25, CLAUSE 1: "making them looking good and the same and coordinated
+       from all angles.") ***
+       sideF is not only a hairline, it is HOW A STYLE'S LENGTH IS WRITTEN DOWN:
+       SHOULDER LENGTH carries side 1.60 and LONG LOOSE side 2.40, meaning the mass runs
+       well past the jaw. A hard `hBot` is a FLOOR for a cropped style and a GUILLOTINE
+       for a long one, and nothing ever asked which. MEASURED THE DAY HE NAMED IT:
+           SHOULDER LENGTH   S 11px below the jaw   E, N and every other facing 0px
+           LONG LOOSE        S 11px below the jaw   E, N and every other facing 0px
+       Turn the head one notch and a shoulder-length haircut is a crop. That is exactly
+       the failure clause 1 names -- a mane from the front and a crop from the side --
+       and it was two of the fifteen.
+       ONE LINE, BOTH INTENTS: never less than the whole skull (8/1 + 8/2), never less
+       than the style's own length (8/25). Nothing shrinks; a style with sideF below 1
+       resolves to hBot exactly as before. */
+    var _styleBot=hTop+fr(hTop,hBot,sideF)+S-1;
+    var sideBot=(back||prof)?Math.max(hBot,_styleBot):_styleBot;
     /* ONE TEXTURE FUNCTION, SHARED BY BOTH DRAWING PATHS (Paolo 8/1: "The cornrows
        is not one pixel of skin two pixels of hair what's wrong with you?" and then
        "I'm sure that will help you not just for cornrows ... hairstyles with fades
@@ -21782,7 +21831,13 @@ window.CLO=(function(){
       /* THE NAPE (Paolo 8/1): hair does not end in a straight horizontal line at the
          jaw, it comes to a nape. From behind, the last two rows draw in toward centre. */
       if(back&&y>hBot-2*S&&y<=hBot){ var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
-      if(!strip){ mn-=wob(y,0); mx+=wob(y,1); }                    /* NO STRAIGHT LINES */
+      if(!strip){ mn-=wob(y,0); mx+=wob(y,1);                      /* NO STRAIGHT LINES */
+        /* A FALL IS A FALL WHICHEVER WAY HE FACES. wob() fires on one row in four,
+           which is a hairline lying on bone; below the jaw the hair is hanging in air
+           and it sways. Applied here as well as in the front-curtain branch, so the
+           back and the profile get the same treatment the front does and the three
+           branches stop disagreeing about what a fall looks like. */
+        if(y>hBot){ mn-=_fall(y,0); mx+=_fall(y,1); } }
       if(front&&y>frontLine){
         /* front facing, below the front line: the mass is only at the SIDES --
            never across the face, and never a sheet down the chest. Two curtains,
@@ -21790,6 +21845,16 @@ window.CLO=(function(){
            first version capped this at the jaw, which is why nothing long read
            as long.) */
         var fs=span(Math.min(y,hBot)); if(!fs)continue;
+        /* *** HAIR HANGS FROM THE WIDEST PART OF THE HEAD, NOT FROM THE CHIN. ***
+           span() is the skull row by row, and the last three rows of it are the JAW
+           narrowing to a point. The curtains tracked it inward, and then the fall
+           below the jaw picked up again at full head width -- so the hair pinched in
+           at the jawline and jumped back out underneath it, and read as two masses
+           floating off the sides of his shoulders with a gap where his ears are.
+           I only saw it by looking at the render; every number I had said the length
+           was correct, and it was. Hair leaves the head at the temples and falls
+           STRAIGHT DOWN past a jaw that is narrower than it is. */
+        if(y>hBot-3*S){ fs=[Math.min(fs[0],hMn),Math.max(fs[1],hMx)]; }
         /* A LONG STYLE PEEKS FROM THE FRONT (Paolo 8/1): "with more of the longer
            hairstyles even from the front I would like to see you know a couple pixels
            of hair ... even if it is in the back of the head." Below the jaw a style
@@ -21800,9 +21865,56 @@ window.CLO=(function(){
            curtain wide enough for a 2:1 run to physically exist -- at 1px there is
            no ratio to express, only a line. */
         var cw=(tex==='solid')?w:Math.max(3*S,w);
-        for(var xl=mn;xl<fs[0]+cw;xl++){ if(texSkip(xl,y))continue;
+        /* *** THE TAPER MUST THIN THE FALL, NOT DRAG IT INTO THE MIDDLE OF HIS CHEST.
+           (Paolo 8/25, clause 1.) ***
+           Above the jaw the two curtains sit at the sides of the head. Below it, the
+           shared narrowing walks mn and mx TOWARD EACH OTHER -- correct from behind,
+           where the fall really does draw in to a point at the nape, and wrong from the
+           front, where the two masses hang either side of the neck and never meet.
+           TWO FAILURES CAME OUT OF THAT ONE LINE, and I drew both of them before I
+           looked at either. FIRST, with cw about 2*S and the narrowing reaching 2*S,
+           the curtains closed completely and the fall simply STOPPED -- at the same row
+           for every style, whatever length the style asked for. MEASURED: SHOULDER
+           LENGTH carries side 1.60 and LONG LOOSE carries 2.40, a 50% bigger dial, and
+           both drew 11px of fall. THE DIAL WAS NOT REACHING THE RENDER. SECOND, my
+           first repair widened cw to compensate, which walked the two curtains inward
+           until they MERGED -- long hair rendered as one rat's tail down the sternum,
+           and WOLF CUT as a solid sheet across the chest, which is the exact thing the
+           curtain rule exists to forbid. Only looking at it caught that.
+           SO: below the jaw the curtains stay ANCHORED to the head's own sides and the
+           taper takes width off each one instead, and a hard cap at half the head keeps
+           them from ever touching however long the style runs. */
+        /* AND IT HANGS FROM THE SIDES OF THE HEAD, NOT FROM THE CHIN. span() at the jaw
+           is the narrowest row of the whole skull, so anchoring the fall there tucked it
+           in behind the jawline and then the no-touching cap -- half of a five-pixel
+           chin -- pinned every curtain to one hair. Hair falls from the widest part of
+           the head. THE WOBBLE COMES WITH IT: re-applied here rather than inherited,
+           because this branch replaces the edges the shared wobble had already moved,
+           and a fall drawn as two ruled columns is clause 3 all over again. */
+        var _ciL=0,_ciR=0;
+        if(y>hBot){ fs=[hMn,hMx]; mn=fs[0]-wob(y,0); mx=fs[1]+wob(y,1);
+          var _tp=Math.min(Math.max(0,cw-S),(((y-hBot)/(4*S))|0)*S);
+          cw=Math.min(cw-_tp,Math.max(S,(fs[1]-fs[0]+1)>>1));
+          /* A FALL HAS TWO EDGES AND BOTH OF THEM ARE HAIR. The wobble above moves the
+             OUTER edge; the inner one, where the curtain meets his neck and chest, was
+             a ruled column all the way down. Measured the moment the fall got long:
+             straight runs of 4+ rows went 19.5% -> 21.1%, and clause 3 (8/1, LOCKED)
+             says hair is little off shapes and never straight lines. Its own hash bit,
+             so the two edges of one curtain do not move together like a printed
+             ribbon, and it only ever takes a hair OFF the inner edge -- the fall can
+             never grow inward toward the middle of his chest. */
+          /* AND FREE-HANGING HAIR MOVES MORE THAN HAIR PRESSED TO A SKULL. wob() fires
+             on one row in four, which is right for a hairline lying on bone and far too
+             calm for a fall swinging in the air -- the long styles came out as two
+             ruled ribbons and pushed clause 3 from 19.5% to 21.1%. This is a SECOND
+             independent step on the same cell-row grid, so a fall separates and sways
+             without turning to static and without an NPC ever shimmering. */
+          mn-=_fall(y,0); mx+=_fall(y,1);
+          _ciL=Math.min(cw-S,wob(y+3*S,1)+_fall(y+5*S,1));
+          _ciR=Math.min(cw-S,wob(y+3*S,0)+_fall(y+5*S,0)); }
+        for(var xl=mn;xl<fs[0]+cw-_ciL;xl++){ if(texSkip(xl,y))continue;
           put(xl,y,(xl<mn+S)?r.dk:r.mid); }
-        for(var xr=fs[1]-cw+1;xr<=mx;xr++){ if(texSkip(xr,y))continue;
+        for(var xr=fs[1]-cw+1+_ciR;xr<=mx;xr++){ if(texSkip(xr,y))continue;
           put(xr,y,(xr>mx-S)?r.dk:r.mid); }
         continue; }
       for(var x=mn;x<=mx;x++){

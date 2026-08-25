@@ -6309,8 +6309,24 @@ P0-PROFILE. *** CLEARED 8/25 BY PAOLO HIMSELF: "the side view is a lot
    facings, before any style is shown to him again | — | yes, but ONE
    HEAD FIRST: show him a single style in profile and let him say the
    view is fixed before anything else is queued. ***
-P0-HAIRNATIVE. *** A HAIRCUT IS ONE HAIRCUT FROM EVERY ANGLE, AND CLAUSE 1
-   IS ONLY HALF PROVED. TOP OF THIS LANE'S QUEUE. *** Paolo, 8/25, in the
+P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
+   CLAUSE 1 WAS BROKEN WHEN IT WAS CHECKED. *** SHOULDER LENGTH and LONG LOOSE
+   had 11px of fall from the front and ZERO from every other angle -- a
+   shoulder-length haircut that became a crop when he turned his head. Two
+   earlier fixes (8/1 back, 8/2 profile) both clamped the length dial to the
+   jaw, which is a floor for a crop and a guillotine for a long style. Fixed;
+   0.50 head-heights on all eight now. Underneath it the length dial was not
+   reaching the render at all (side 1.60 and side 2.40 drew the same 11px), and
+   backEx was the one length in genHair that never learned about 112 (a wolf
+   cut got SHORTER when the canvas got bigger). All three fixed, 35/0 in the
+   hair gate, three new mutation-tested ratchets, 56 pin re-taken on purpose
+   (208 hashes, every one genHair with a long side value).
+   THE GATE THAT WAS SUPPOSED TO HOLD CLAUSE 1 WAS GREEN THROUGH ALL OF IT
+   because it pinned AREA, which legitimately swings. Keep that lesson.
+   records/BOHEMIA_A_HAIRCUT_IS_ONE_HAIRCUT_8_25_26.txt. Kept for the record;
+   everything under this line is the original row:
+   *** A HAIRCUT IS ONE HAIRCUT FROM EVERY ANGLE, AND CLAUSE 1
+   IS ONLY HALF PROVED. WAS TOP OF THIS LANE'S QUEUE. *** Paolo, 8/25, in the
    same message that cleared P0-PROFILE: "you just have to be intentional
    with the hairstyles making them looking good and the same and
    coordinated from all angles." Law written and gated the same turn —

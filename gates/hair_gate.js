@@ -428,14 +428,49 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     const H = (window.GARMENTS || []).filter(g => g.st === 'canon' && g.layer === 'hair');
     const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
     const noFine = [], swing = [];
-    const area = {};
+    const area = {}, len = {};
+    const sheet = [], shortSide = [];
     for (const d of DIRS) {
       if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
       const f = buildFrame(d, 'idle', 0);
+      /* his painted skull, never a guess */
+      let gMn = 1e9, gMx = -1, gTop = 1e9, gBot = -1;
+      for (let i = 0; i < f.grid.length; i++) { const gv = f.grid[i];
+        if (gv === 1 || gv === 2) { const x = i % f.CW, y = (i / f.CW) | 0;
+          if (x < gMn) gMn = x; if (x > gMx) gMx = x;
+          if (y < gTop) gTop = y; if (y > gBot) gBot = y; } }
+      const gH = gBot - gTop + 1;
+      const midA = gMn + Math.floor((gMx - gMn + 1) * 0.35);
+      const midB = gMn + Math.floor((gMx - gMn + 1) * 0.65);
       for (const h of H) {
         let o = null; try { o = h.gen(f.grid, f.CW, f.CH); } catch (e) {}
         if (!o) continue;
         (area[h.n] = area[h.n] || {})[d] = Object.keys(o).length;
+        /* *** LENGTH IS THE IDENTITY, AND AREA IS NOT. *** The 8/25 pin used the hair's
+           own AREA, which SHOULD swing: from the front you see a face and two curtains,
+           from behind a whole skull of hair. It passed at 62% while SHOULDER LENGTH was
+           falling 11px below the jaw facing south and ZERO facing east -- a
+           shoulder-length haircut that became a crop when he turned his head, sitting
+           inside a green gate. How far the hair FALLS is a property of the object and
+           not of the view, so it is the ruler clause 1 actually needs. */
+        let bot = -1;
+        const below = {};
+        for (const k in o) { const i = +k, y = (i / f.CW) | 0;
+          if (y > bot) bot = y;
+          if (y > gBot) (below[y] = below[y] || {})[i % f.CW] = 1; }
+        (len[h.n] = len[h.n] || {})[d] = Math.max(0, bot - gBot) / gH;
+        /* NEVER A SHEET ACROSS HIS CHEST on a front facing: below the jaw the mass is
+           two curtains at the sides, never one mass down the sternum. My own first
+           repair of the length bug drew exactly that and only looking caught it. */
+        if (d === 'S' || d === 'SE' || d === 'SW') {
+          for (const y in below) { let n = 0;
+            for (let x = midA; x <= midB; x++) if (below[y][x]) n++;
+            if (n >= (midB - midA + 1)) { sheet.push(h.n + ' ' + d); break; } }
+        }
+        /* AND THE RENDERED HALF OF THE 8/1 + 8/2 RULING (craft_law_gate can only read
+           the source): from behind and side-on the hair covers the WHOLE skull, so the
+           mass must reach the jaw. */
+        if (d !== 'S' && d !== 'SE' && d !== 'SW' && bot < gBot) shortSide.push(h.n + ' ' + d);
         if (d !== 'S') continue;
         /* one-pixel marks inside the silhouette, front facing */
         const rows = {};
@@ -470,8 +505,22 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
       swing.push({ n, worst, pair });
     }
     swing.sort((a, c) => c.worst - a.worst);
+    /* the same one-notch rule, on LENGTH */
+    const lswing = [];
+    for (const n in len) {
+      let worst = 0, pair = '';
+      for (let i = 0; i < DIRS.length; i++) {
+        const a = len[n][DIRS[i]], c = len[n][DIRS[(i + 1) % DIRS.length]];
+        if (a === undefined || c === undefined) continue;
+        const j = Math.abs(a - c);
+        if (j > worst) { worst = j; pair = DIRS[i] + '->' + DIRS[(i + 1) % DIRS.length]; }
+      }
+      lswing.push({ n, worst, pair });
+    }
+    lswing.sort((a, c) => c.worst - a.worst);
     return { noFine, swing: swing.slice(0, 4), worst: swing.length ? swing[0].worst : 0,
-             styles: H.length };
+             lswing: lswing.slice(0, 3), lworst: lswing.length ? lswing[0].worst : 0,
+             sheet, shortSide, styles: H.length };
   });
   ok('*** CLAUSE 2: every style carries a ONE-PIXEL mark inside it, not just on its edge ***' +
      ' (' + (NAT.styles - NAT.noFine.length) + '/' + NAT.styles +
@@ -483,6 +532,21 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      (PINNED_SWING * 100).toFixed(0) + '%), worst ' +
      NAT.swing.map(q => q.n + ' ' + q.pair + ' ' + (q.worst * 100).toFixed(0) + '%').join(', '),
      NAT.worst <= PINNED_SWING);
+  /* THE RULER THAT WOULD HAVE CAUGHT IT. Pinned at the measured 0.300 (ASH SWEEP,
+     SW->W), which is a back-of-head length coming into view as he turns and is anatomy,
+     not a defect. What it forbids is what SHOULDER LENGTH and LONG LOOSE were doing:
+     0.500 head-heights of hair from the front and NOTHING from any other angle. */
+  const PINNED_LEN_SWING = 0.31;   // head-heights of fall, one notch of turn; only shrinks
+  ok('*** CLAUSE 1: how far a haircut FALLS may not change as the head turns one notch ' +
+     '(' + NAT.lworst.toFixed(3) + ' head-heights, pinned ' + PINNED_LEN_SWING.toFixed(2) + ') *** worst ' +
+     NAT.lswing.map(q => q.n + ' ' + q.pair + ' ' + q.worst.toFixed(2)).join(', '),
+     NAT.lworst <= PINNED_LEN_SWING);
+  ok('CLAUSE 1: below the jaw a front facing draws TWO CURTAINS, never a sheet across ' +
+     'his chest (' + (NAT.sheet.length ? NAT.sheet.slice(0, 6).join(', ') : 'none') + ')',
+     NAT.sheet.length === 0);
+  ok('8/1 + 8/2 ON THE RENDERED PIXELS: from behind and side-on the hair reaches the jaw ' +
+     '(' + (NAT.shortSide.length ? NAT.shortSide.slice(0, 6).join(', ') : 'all 15, all 5 facings') + ')',
+     NAT.shortSide.length === 0);
 
   await b.close();
   done();

@@ -1,3 +1,113 @@
+CHARACTER (character-0lurbs): 8/25 (y) LATEST -- *** A SHOULDER-LENGTH HAIRCUT WAS
+A CROP THE MOMENT HE TURNED HIS HEAD, AND THE GATE THAT WAS SUPPOSED TO CATCH THAT
+WAS GREEN. TAB: LOOK for the picture, CHARACTER for the hair. Nothing to judge. ***
+
+HIS RULING (8/25) DID THREE THINGS AND THE FIRST ONE CLOSED A P0:
+"the side view is a lot better east and west you just have to be intentional with
+ the hairstyles making them looking good and the same and coordinated from all
+ angles. and you know we made the character model 4x and i feel like with
+ especiallythe hair your still playing with the orignal pixels..."
+  1. *** THE E/W PROFILE HOLD IS LIFTED. Do not re-ask him about profiles. ***
+  2. CLAUSE 1: one haircut, eight angles, still one haircut.
+  3. CLAUSE 2: draw in the pixels we actually have.
+Law written and gated 8/25: laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md
+
+CLAUSE 2 SHIPPED EARLIER TODAY (build q, strandPass): 9 of 15 styles had NO
+one-pixel mark inside their own silhouette; 0 of 15 now, 47 -> 820 marks.
+records/BOHEMIA_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.txt
+
+*** CLAUSE 1 SHIPPED THIS BUILD, AND IT WAS BROKEN WHEN I CHECKED IT. ***
+
+    SHOULDER LENGTH   11 pixels of hair below the jaw facing S, SE and SW.
+    LONG LOOSE        ZERO facing E, NE, N, NW or W.
+
+Two of fifteen were a mane from the front and a crop from the side -- the exact
+failure the clause names. `sideF` is HOW A STYLE'S LENGTH IS WRITTEN DOWN (SHOULDER
+LENGTH 1.60, LONG LOOSE 2.40), and BOTH earlier repairs -- THE BACK IS THE WHOLE
+SKULL (8/1) and PROFILE GETS THE WHOLE SKULL TOO (8/2) -- clamped it to `hBot`.
+That is a FLOOR for a cropped style and a GUILLOTINE for a long one, and neither fix
+asked which. One line now says both intents: never less than the skull, never less
+than the style's own length.
+
+*** THE LESSON WORTH CARRYING TO EVERY LANE: THE CLAUSE-1 GATE WAS GREEN THROUGH ALL
+OF IT, BECAUSE IT PINNED A QUANTITY THAT IS SUPPOSED TO MOVE. *** It measured the
+hair's AREA between adjacent facings at 62%. Area SHOULD swing -- from the front you
+see a face and two curtains, from behind a whole skull of hair. A pin on a quantity
+that legitimately moves can never catch one that must not. HOW FAR THE HAIR FALLS is
+a property of the object and not of the view. That is the ruler, and it is pinned now.
+
+TWO MORE BUGS CAME OUT FROM UNDER IT:
+  - THE LENGTH DIAL WAS NOT REACHING THE RENDER AT ALL. side 1.60 and side 2.40 --
+    a 50% difference -- both drew the same 11px, because the below-jaw taper ate the
+    whole curtain. Every style's fall stopped at the same row whatever it asked for.
+  - backEx WAS THE ONE LENGTH IN genHair THAT NEVER LEARNED ABOUT 112. Raw pixels
+    where everything beside it goes through fr(). WOLF CUT's back length went 1.00
+    head-heights at 56 to 0.64 at 112: THE HAIRCUT GOT SHORTER BECAUSE THE CANVAS GOT
+    BIGGER. In cells now. It was also an on/off switch on a thing that turns (full
+    length on seven facings, zero on the front), so a fall appeared out of nowhere
+    between SE and E; it ramps now, which is his own 8/1 "even from the front I would
+    like to see a couple pixels of hair even if it is in the back of the head".
+
+*** AND I DREW IT WRONG TWICE BEFORE I DREW IT RIGHT. ONLY LOOKING CAUGHT EITHER. ***
+  1. Widening the curtain to survive the taper walked the two curtains inward until
+     they MERGED -- long hair as one rat's tail down the sternum, WOLF CUT as a solid
+     sheet across the chest, which is the thing the curtain rule exists to forbid.
+  2. Anchoring the fall to span() at the jaw -- the narrowest row of the whole skull
+     -- pinched the hair in at the jawline and picked it up again at full width
+     underneath, so the hair DETACHED and floated off his shoulders.
+BOTH TIMES EVERY NUMBER I HAD SAID THE LENGTH WAS CORRECT, AND THE LENGTH WAS
+CORRECT. VERIFY ON THE REAL SURFACE is the only instrument that caught either, and
+that is twice this week.
+
+AND A FIX THAT TRADES ONE RULING FOR ANOTHER IS NOT A FIX: long falls are long
+straight edges, and clause 3 (8/1) went 19.5% -> 21.1% the moment they got their
+length back. NOT fixed by loosening the pin. Free-hanging hair MOVES MORE than hair
+pressed to a skull -- wob() fires one row in four, which is a hairline lying on bone.
+A second independent step, both edges of every curtain, every facing's fall. Back to
+19.5%, unmoved, and the falls read as hair instead of ribbon.
+
+MEASURED (head-heights of fall, scale-free):
+    SHOULDER LENGTH   S 0.50 / E 0.00 / N 0.00  ->  0.50 on all eight
+    LONG LOOSE        S 0.50 / E 0.00 / N 0.00  ->  1.27-1.30 on all eight
+      and LONG LOOSE is now genuinely longer than SHOULDER LENGTH, which it was
+      not before on ANY facing
+    worst one-notch length change, 15 styles   1.273  ->  0.300
+    clause 3 straightness, six open-air facings 19.5%  ->  19.5% (unmoved)
+The 0.300 that remains is ASH SWEEP turning SW to W: a back-of-head length coming
+into view. That is anatomy, named as such rather than engineered away.
+
+GATES: hair_gate 35/0, three new ratchets, ALL THREE MUTATION-TESTED --
+  length may not change in one notch (pinned 0.31) | never a sheet across his chest
+  (pinned 0) | from behind and side-on the hair reaches the jaw (pinned 0 short).
+  mutation: put sideBot back to the guillotine -> RED at 1.273 naming LONG LOOSE.
+  mutation: remove the no-touching cap -> RED naming six style/facing pairs.
+craft_law_gate: its clause-2 pin was a SPELLING TEST matching the literal
+  `(back||prof)?hBot:` -- which IS the guillotine -- so fixing the bug turned it red.
+  A GATE MUST NEVER OUTRANK A RULING: ruler fixed, real proof moved to hair_gate
+  where it runs on rendered pixels. 39/0.
+56 PIN MOVED ON PURPOSE: 208 of 1,744, EVERY ONE genHair with a long `side` (26
+  cases x 8 facings, nothing outside hair). The bug was just as real at 56.
+clothes_4x PINNED_COARSE 18 -> 15 (the fall's sway put a 1px mark in three more).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. *** THE SAME AUDIT HAS NEVER BEEN RUN ON CLOTHES. *** genHair was not special:
+     every generator branches on facing, and nothing asserts a COAT is the same coat
+     from the back. tools/bohemia_hair_identity_audit.js is the pattern -- scale-free
+     properties of the OBJECT (length, height, reach), never of the view (area), one
+     notch of turn. Expect the same class of bug and expect area-style rulers to be
+     hiding it.
+  2. HAIR STATUS, CHECKED, because the old handoff said "21 unjudged styles held":
+     the catalogue holds 36 hair entries -- 15 canon and 21 DEAD. There is no held
+     ballot of 21. GRAVEYARD IS FINAL; do not remake them.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/hair_gate.js                        35/0
+  node tools/bohemia_one_haircut_eight_ways.js   the picture, LOOK tab
+  node tools/bohemia_hair_identity_audit.js      the four identity rulers
+  records/BOHEMIA_A_HAIRCUT_IS_ONE_HAIRCUT_8_25_26.txt
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/25 (c) LATEST -- *** EVERY METAL THING IN THE CITY WAS ALSO WEARING A
 HOUSE ROOF. 25 steel objects now read as steel. And the tool that should have existed two turns
 ago exists now. Nothing to judge. ***
