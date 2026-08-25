@@ -286,6 +286,14 @@ GATES = [
      'navigation, so the first probe reported the slice as NOT FETCHED for a file that '
      'demonstrably was -- this one asserts it saw the two fetches that MUST happen before it '
      'reports a third one absent. Mutation-tested both ways', False),
+    ('SOUND MESSAGE',  ['python3', 'gates/sound_message_gate.py'],
+     'SILENT-1 stays true (sweep 19: a sound may be the best copy of a message, '
+     'never the only copy). Every approved moment carries a column -- '
+     'INFORMATION or ATMOSPHERE -- so a newly approved sound forces that '
+     'decision while it is cheap. Nothing DEAD may be listed as a message: '
+     'done_ring was routed here as one of the three information cues and it is '
+     'a corpse, and drawing a twin for a sound nobody will ever hear is wasted '
+     'work in another lane', False),
     ('COMBAT SOUND',   ['node', 'gates/combat_sound_gate.js'],
      'WHAT A FIGHT SOUNDS LIKE, driven through the real phases -- cover, pop '
      'into AIM, fire to the killshot, freeze -- and recorded. The demo climaxes '

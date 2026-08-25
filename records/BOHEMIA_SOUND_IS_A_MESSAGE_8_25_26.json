@@ -1,0 +1,335 @@
+{
+ "law": "records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md",
+ "note": "twin values are what the SOUND lane BELIEVES, never what it proved. SILENT-2 confirms on pixels. NONE means this lane could find nothing visual and it is the strongest candidate for a twin.",
+ "routed": "SWEEP 19, SOUNDS SILENT-1",
+ "rows": {
+  "STING:done": {
+   "kind": "INFORMATION",
+   "label": "(sting) THE JOB IS FINISHED",
+   "msg": "THE JOB IS FINISHED",
+   "twin": "SUSPECTED (the objective line resolves)",
+   "why": "carries the moment whose SFX died 10 for 10 -- the coordinator's `done_ring`."
+  },
+  "STING:loss": {
+   "kind": "INFORMATION",
+   "label": "(sting) THE FIGHT IS LOST",
+   "msg": "THE FIGHT IS LOST",
+   "twin": "SUSPECTED (the fight ends visibly)",
+   "why": "hard to miss on screen."
+  },
+  "STING:missed": {
+   "kind": "INFORMATION",
+   "label": "(sting) THE JOB WENT UNFINISHED",
+   "msg": "THE JOB WENT UNFINISHED",
+   "twin": "NONE",
+   "why": "the quietest failure in the game. Nothing announces that the day ended with the work undone -- he just wakes up on day two. This is a real gap and it is not on the coordinator's list because the sting system is not in the rack they swept."
+  },
+  "STING:paid": {
+   "kind": "INFORMATION",
+   "label": "(sting) YOU WERE PAID",
+   "msg": "YOU WERE PAID",
+   "twin": "SUSPECTED (the purse changes)",
+   "why": "the purse is a number on a screen; this is likely already covered."
+  },
+  "STING:taken": {
+   "kind": "INFORMATION",
+   "label": "(sting) YOU TOOK THE JOB",
+   "msg": "YOU TOOK THE JOB",
+   "twin": "SUSPECTED (an objective arrives on screen -- measured 8/25 on the real walk)",
+   "why": "the commitment. The objective line appearing IS a twin, and a good one."
+  },
+  "STING:win": {
+   "kind": "INFORMATION",
+   "label": "(sting) THE FIGHT IS WON",
+   "msg": "THE FIGHT IS WON",
+   "twin": "SUSPECTED (the fight ends visibly)",
+   "why": "hard to miss on screen."
+  },
+  "air_day": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE VALLEY AT MIDDAY"
+  },
+  "air_inside": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "INSIDE A BUILDING"
+  },
+  "air_night": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE VALLEY AT NIGHT"
+  },
+  "block": {
+   "kind": "INFORMATION",
+   "label": "BLOCKED",
+   "msg": "IT DID NOT GET THROUGH",
+   "twin": "SUSPECTED (combat shows verdicts)",
+   "why": "the difference between a hit and a blocked hit is the difference between a working plan and a wasted beat."
+  },
+  "boots_go": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "BOOTS GOING SOMEWHERE"
+  },
+  "casing": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "BRASS HITS THE FLOOR"
+  },
+  "cloth_on": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "CLOTHES GO ON"
+  },
+  "come_up": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOU COME UP"
+  },
+  "cover_more": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "COVER EATS ANOTHER"
+  },
+  "demolish": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "IT COMES APART"
+  },
+  "dirt_take": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "THE GROUND TAKES IT"
+  },
+  "door_drag": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE DOOR DRAGS OPEN"
+  },
+  "drink": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOU DRINK"
+  },
+  "dry_fire": {
+   "kind": "INFORMATION",
+   "label": "EMPTY",
+   "msg": "EMPTY -- THE SHOT DID NOT HAPPEN",
+   "twin": "SUSPECTED (combat draws a great deal of state)",
+   "why": "in a rhythm fight, pressing and getting nothing is a beat lost and a chain broken. He has to know it was EMPTY rather than mistimed, and those two failures feel identical without the sound."
+  },
+  "eat": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOU EAT"
+  },
+  "generator": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "A GENERATOR, SOMEWHERE"
+  },
+  "heartbeat": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOUR HEART, TOO LOUD"
+  },
+  "hit": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOU LAND A HIT"
+  },
+  "hit_more": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "LANDING IT, AGAIN"
+  },
+  "hurt": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOU TAKE THE HIT"
+  },
+  "hurt_more": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "TAKING IT, AGAIN"
+  },
+  "kill": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "KILL \u2014 ON THE BEAT"
+  },
+  "lungs_burn": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOUR LUNGS CATCH UP"
+  },
+  "mag_home": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE MAG SEATS"
+  },
+  "melee_hit": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "MELEE CONNECTS"
+  },
+  "miss_past": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "THE SHOT MISSES"
+  },
+  "phone_buzz": {
+   "kind": "INFORMATION",
+   "label": "PHONE BUZZES",
+   "msg": "A JOB ARRIVED",
+   "twin": "SUSPECTED (an unread badge on the phone button)",
+   "why": "the coordinator is right that this is a message and right that the badge is weak, and sweep 14 already found the badge is the ONLY other pointer at the day's work. So the twin exists but is thin: this is a STRENGTHEN job, not a draw-from-nothing job, and that distinction is worth RUN's time."
+  },
+  "pickup": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "PICK SOMETHING UP"
+  },
+  "power_on": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE BLOCK LIGHTS"
+  },
+  "sand_more": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "MORE SAND"
+  },
+  "save_chime": {
+   "kind": "INFORMATION",
+   "label": "SAVED",
+   "msg": "THE RUN WAS WRITTEN",
+   "twin": "NONE",
+   "why": "the strongest case in the game. Nothing anywhere says a save happened; the chime is the entire notification. A player who cannot hear it has no way at all to know his run is safe, which is exactly the thing a person checks before putting the phone down."
+  },
+  "set_down": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "IT GOES DOWN"
+  },
+  "shot": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOUR GUN GOES OFF"
+  },
+  "shot_more": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "THE GUN, AGAIN"
+  },
+  "sign_alive": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "THE SIGN IS STILL ON"
+  },
+  "sleep_sink": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOU SLEEP"
+  },
+  "step_asphalt": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 ASPHALT"
+  },
+  "step_concrete": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 CONCRETE"
+  },
+  "step_dirt": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 DIRT"
+  },
+  "step_gravel": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 GRAVEL"
+  },
+  "step_sand": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 DEEP SAND"
+  },
+  "step_wood": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "FOOTSTEP \u2014 FLOORBOARDS"
+  },
+  "stone_bite": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOUR COVER LOSES A PIECE"
+  },
+  "swing_air": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOU SWING AND MISS"
+  },
+  "tape_pull": {
+   "group": "the body",
+   "kind": "ATMOSPHERE",
+   "label": "YOU PATCH YOURSELF UP"
+  },
+  "time_pass": {
+   "group": "things he does to the world",
+   "kind": "ATMOSPHERE",
+   "label": "HOURS GO BY"
+  },
+  "ui_back": {
+   "group": "the interface answering a touch",
+   "kind": "ATMOSPHERE",
+   "label": "BACK / CLOSE"
+  },
+  "ui_deny": {
+   "kind": "INFORMATION",
+   "label": "YOU CANNOT DO THAT",
+   "msg": "YOU CANNOT DO THAT",
+   "twin": "NONE",
+   "why": "a refusal with no sound is indistinguishable from a BROKEN BUTTON. This is the one on the list that does not just lose information, it actively teaches the wrong thing: he taps, nothing happens, and the game looks broken rather than strict. His own brief for it is \"refused. short and flat, never a buzzer.\""
+  },
+  "ui_tap": {
+   "group": "the interface answering a touch",
+   "kind": "ATMOSPHERE",
+   "label": "UI TAP"
+  },
+  "vital_deep": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "VITAL HIT"
+  },
+  "walk_more": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "MORE SIDEWALK"
+  },
+  "went_down": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "YOU GO DOWN"
+  },
+  "will_goes": {
+   "group": "the fight, which is a VISUAL event",
+   "kind": "ATMOSPHERE",
+   "label": "HIS WILL GOES"
+  },
+  "wind_gust": {
+   "group": "the world",
+   "kind": "ATMOSPHERE",
+   "label": "A GUST COMES THROUGH"
+  },
+  "wood_more": {
+   "group": "the ground under him",
+   "kind": "ATMOSPHERE",
+   "label": "MORE BOARDS"
+  }
+ },
+ "test": "if he cannot hear it, does he miss a state change he has to act on?"
+}
