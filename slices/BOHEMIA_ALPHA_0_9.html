@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/24j - THE LOADOUT ROW AND THE POST LINES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25b - THE HEM</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -20900,7 +20900,7 @@ window.CLO=(function(){
         }
       }
     }
-    return o; }
+    return (typeof hemStitch==='function')?hemStitch(o,r):o; }
   /* PANTS: waistband + belt line, fly, side seams, rolled hem cuffs */
   function genPants(g,opt){ var r=opt.ramp,i,S=rsc(),tb=-1; for(i=0;i<g.length;i++)if(g[i]===4){var y=(i/CW)|0;if(y>tb)tb=y;}
     var le=pExt(g,9),re=pExt(g,10);
@@ -21095,7 +21095,7 @@ window.CLO=(function(){
       else if(!front){ var ks=(fcx>hcx)?-1:1; var sK=span(rBot)||span(hTop);
         var kx3=(ks>0?sK[1]-S+1:sK[0]);
         for(var kr2=0;kr2<S;kr2++)for(var kc2=0;kc2<S;kc2++)put(kx3+kc2,rBot+1+kr2,r.dk); } }
-    return o; }
+    return (typeof hemStitch==='function')?hemStitch(o,r):o; }
   /* ACCESSORIES (7/19): the last missing wardrobe category (~16% of the target).
      Five types, each ZONE-LOCKED (it can only touch its own body region) and
      facing-aware. Zones honor the anatomy learned the hard way:
@@ -21122,6 +21122,50 @@ window.CLO=(function(){
      visible. ===== */
   var CLO_NOSUB=false; window.CLO_SET_NOSUB=function(v){CLO_NOSUB=!!v;};
   var CLO_NOSTITCH=false; window.CLO_SET_NOSTITCH=function(v){CLO_NOSTITCH=!!v;};
+  /* @SUBCELL-DETAIL -- THE HEM STITCH, SHARED BY THE CLOTH GENERATORS (8/24, row 2X
+     step 5). Cloth is hemmed along its bottom edge and the stitching is ONE pixel,
+     DARKER than the cloth (thread sits in a fold and catches shadow) -- which is the
+     opposite of the rivets on armour, where a stud catches light. Getting that backwards
+     makes a shirt look studded.
+     At 56 a shirt hem is one row and that row IS the edge, so there was nowhere to put
+     it. At 112 there is a row to spare.
+     ONE HELPER, THREE GENERATORS. genTop, genCoat and genHat all hem, so the pass lives
+     here rather than three times over. Bottom row of each column's own run, every other
+     cell across, only on runs at least three cells tall so a thin strap or a collar band
+     does not turn into a dotted line. It RECOLOURS a pixel the garment already owned --
+     nothing is moved, nothing is thinned, and no shape any ruling covers is touched.
+     S>1 only, so the 56 wardrobe is byte-identical. */
+  /* CALLED THROUGH A typeof GUARD, NEVER BARE (8/25). The first cut called this
+     directly and took FOUR GATES RED at once -- headwear, hoodie, open-coat and
+     structure all reported that genTop, genCoat and genHat "do not render". They were
+     throwing: every one of those gates builds the generators in isolation with its own
+     short list of helpers, and a helper added today is in none of them. This is the same
+     shape as the `window is not defined` break two days ago: A GENERATOR THAT DEPENDS ON
+     SOMETHING OUTSIDE ITSELF BREAKS EVERY HARNESS THAT DOES NOT KNOW ABOUT IT, and there
+     are more harnesses than anyone remembers. Guarding at the call site fixes all of them
+     at once and any future one for free. Where the helper is absent the garment simply
+     draws without its hem stitch, which is correct for gates that measure SHAPE; the gate
+     that measures the detail itself does include it. */
+  function hemStitch(oo,r){ var S=rsc();
+    if(S<2||(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH)||!r||!r.dk)return oo;
+    var col={};
+    for(var k2 in oo){ var ii=+k2,x2=ii%CW,y2=(ii/CW)|0;
+      var c2=col[x2]||(col[x2]={a:1e9,b:-1}); if(y2<c2.a)c2.a=y2; if(y2>c2.b)c2.b=y2; }
+    for(var xk in col){ var cc=col[xk]; if(cc.b-cc.a+1<3*S)continue;
+      if((xk%(2*S))!==1)continue;
+      /* ONE CELL ABOVE THE FOLD, NOT ON IT. The first cut put the stitch on the bottom
+         row and CHANGED NOTHING AT ALL: measured, all 8 candidate pixels on a long-sleeve
+         shirt were ALREADY the dark tone, because a garment darkens its own hem edge.
+         Painting dark over dark is a no-op, and the audit dutifully reported no change --
+         which looks exactly like a mark that did not help. Real hem stitching runs just
+         ABOVE the fold anyway, so the correct placement and the visible one are the same.
+         AND IT CONTRASTS WITH WHATEVER IS THERE rather than assuming: dark cloth takes a
+         mid-tone thread, light cloth takes a dark one. A stitch you cannot see is not a
+         stitch. */
+      var b1=(cc.b-S)*CW+(+xk), cur=oo[b1]; if(!cur)continue;
+      var isDk=(cur[0]===r.dk[0]&&cur[1]===r.dk[1]&&cur[2]===r.dk[2]);
+      oo[b1]=isDk?(r.mid||r.lt):r.dk; }
+    return oo; }
   function genHair(g,opt){
     var r=opt.ramp,i,o={},S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;
@@ -21783,7 +21827,7 @@ window.CLO=(function(){
       else if(((((jx-cx)%(4*S))+4*S)%(4*S))>=2*S&&((((jx-cx)%(4*S))+4*S)%(4*S))<3*S)c2=mix(r.mid,0.8);   /* cloth-fold shadow, 4px pitch at 56 */
       else if(jx<cx)c2=r.lt;                                             /* sky-lit side */
       o[jj]=c2; }
-    return o; }
+    return (typeof hemStitch==='function')?hemStitch(o,r):o; }
   /* PONCHO (7/19, STRUCTURE-NOT-COLOR): a genuinely different garment class --
      one diamond of fabric over the shoulders. Wider than the body (real pixels
      into the background past the arms), tapering to a fringed hem below the

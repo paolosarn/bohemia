@@ -1,3 +1,53 @@
+CHARACTER (character-0lurbs): 8/25 (a) LATEST -- *** THE HEM. Row 2X step 5, fifth and
+last big pass. 102 of 200 with no fine detail on Friday, 22 of 204 now. ***
+
+    8/22 boots 102->84   8/23 gloves/belts/scarves/masks ->66
+    8/24 gear rivets ->44   8/25 shirts and coats ->22
+    base 50/68 -> 65/68     outer 20/31 -> 27/31
+The remaining 22 are mostly things that SHOULD be plain: a hip sash is a band of cloth, a
+bandolier is a strap, a shemagh is a wrap. Do not force marks onto them to chase a number.
+
+*** IT SHIPPED AS A PURE NO-OP FIRST AND THE AUDIT SAID SO. *** The stitch went on the
+BOTTOM ROW in r.dk and the numbers did not move by one garment. Measured instead of
+guessed: all 8 candidate pixels were ALREADY r.dk, because a garment darkens its own hem
+edge. PAINTING DARK OVER DARK IS A NO-OP, and "no change" looks exactly like "did not
+help". Fixed two ways and the correct placement turned out to be the visible one: ONE CELL
+ABOVE THE FOLD (where real hemming runs), and CONTRAST WITH WHAT IS THERE (dark cloth takes
+a mid thread). base 50->65 the moment it could be seen.
+
+*** THE HELPER TOOK FOUR GATES RED AT ONCE. *** Calling hemStitch directly turned HEADWEAR,
+HOODIE, OPEN-COAT and STRUCTURE red together, all saying genTop/genCoat/genHat "do not
+render". They were THROWING: each of those gates builds generators in isolation with its
+own short helper list, and a helper added today is in none of them. SAME SHAPE AS THE
+`window is not defined` BREAK TWO DAYS AGO: A GENERATOR THAT DEPENDS ON SOMETHING OUTSIDE
+ITSELF BREAKS EVERY HARNESS THAT DOES NOT KNOW ABOUT IT, AND THERE ARE MORE HARNESSES THAN
+ANYONE REMEMBERS. Guarded at the call site with typeof, which fixes all four and every
+future one, instead of editing four helper lists and waiting to find the fifth.
+
+*** THE PICTURE LIED A THIRD TIME SO THE TOOL NOW REFUSES TO. *** Three identical-halves
+pictures this week, three different causes: a flag a generator never read (8/23), a garment
+name not in the catalogue (8/24), a crop framed away from the change (8/25). The tool now
+COUNTS DIFFERING PIXELS INSIDE THE CROP and prints NO DIFFERENCE IN THIS CROP when it is
+zero. A before/after can no longer claim a null result it did not measure.
+
+GATES: clothes_4x 13/0 (STEP 5 ratchet 27 -> 18, downward only). STRUCTURE 134/0, HEADWEAR
+13/0, HOODIE 11/0, OPEN-COAT 12/0 back after the guard. LOOK 24/0, 36 pictures, none stale
+-- the-spawn-sidewalk clears now too. 1,744 pinned 56 hashes unmoved.
+Record: records/BOHEMIA_THE_HEM_8_25_26.txt   LOOK tab: "THE HEM".
+
+NEXT IN THIS LANE
+  - STEP 5 IS ESSENTIALLY DONE AND SHOULD STOP HERE. 22 of 204 remain and most of them
+    are correctly plain. Forcing marks onto a sash or a strap to move the number would be
+    chasing the ratchet instead of the craft. THE RATCHET ONLY HAS TO NOT RISE.
+  - WHAT IS ACTUALLY NEXT IS HIS TASTE, NOT MORE COUNTING: five before/after pictures are
+    in the LOOK tab now (hair edge, profile, boot stitch, small things, hardware, hem).
+    If he dislikes the style, one correction changes all of them, because every mark comes
+    from four shared passes rather than 200 hand edits.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE and #356 ART 45 likewise.
+  - CROWD flaked 15/1 once under load on 8/21, fine since. Still unexplained.
+
+---
+
 RUN (run-eak241): 8/24 LATEST -- *** THE ONE SENTENCE THAT TELLS HIM WHAT TO DO
 WAS PRINTED UNDER THE TOOLBAR. TAB: RUN (take the job, look at the top). Nothing
 to judge. ***

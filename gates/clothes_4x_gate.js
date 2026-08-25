@@ -95,7 +95,7 @@ ok('the PD layers and the skin brush still block-stamp (RIG LAW: his pixels are 
 
 /* ------------------------------------------------------------- the harness */
 function build(s, CW, dir) {
-  const help = ['rsc', 'fr', 'mix', 'grade', 'bshade', 'ext', 'pExt'].map(n => grab(s, n)).filter(Boolean);
+  const help = ['rsc', 'fr', 'mix', 'grade', 'bshade', 'ext', 'pExt', 'hemStitch'].map(n => grab(s, n)).filter(Boolean);
   const bodies = help.concat(GENS.map(n => grab(s, n)).filter(Boolean));
   return new Function('CW', 'CH', 'curDir', 'var AMB=[67,61,56];\n' + bodies.join('\n') +
     '\nreturn {' + GENS.join(',') + '};')(CW, CW, dir);
@@ -265,7 +265,7 @@ const COARSE_PIN = (() => {
   }
   return { coarse, ran };
 })();
-const PINNED_COARSE = 27;   // shapes with NO 1px feature on the fixture; only ever shrinks
+const PINNED_COARSE = 18;   // shapes with NO 1px feature on the fixture; only ever shrinks
 ok('STEP 5 ONLY GOES FORWARD: shapes with no one-pixel detail at 112 (' +
    COARSE_PIN.coarse + ' of ' + COARSE_PIN.ran + ', pinned at ' + PINNED_COARSE + ')',
    COARSE_PIN.coarse <= PINNED_COARSE);

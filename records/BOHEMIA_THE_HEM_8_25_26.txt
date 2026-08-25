@@ -1,0 +1,73 @@
+BOHEMIA -- THE HEM: THE LAST BIG PASS, AND A HELPER THAT TOOK FOUR GATES RED
+CHARACTER lane, 8/25/26.  Row 2X step 5, fifth pass.
+
+THE WEEK IN ONE COLUMN
+----------------------
+    8/22 morning   102 of 200 canon garments had NO one-pixel detail anywhere
+    8/22 boots     welt stitch                    feet  0/18 -> 18/18      -> 84
+    8/23 small     gloves belts scarves masks                              -> 66
+    8/24 hardware  rivets on gear, studs on packs gear 4/22 -> 24/26       -> 44
+    8/25 hem       shirts and coats               base 50/68 -> 65/68      -> 22
+                                                  outer 20/31 -> 27/31
+
+    22 OF 204. Was 102. The remaining 22 are mostly things that should be plain: a
+    hip sash is a band of cloth, a bandolier is a strap, a shemagh is a wrap.
+
+WHAT A HEM STITCH IS
+--------------------
+Cloth is hemmed and the stitching is ONE pixel. At 56 a shirt hem is one row and that
+row IS the edge, so there was nowhere to put it. At 112 there is a row to spare.
+ONE HELPER, THREE GENERATORS -- genTop, genCoat and genHat all hem, so it lives in one
+place rather than three.
+
+*** IT SHIPPED AS A PURE NO-OP FIRST, AND THE AUDIT SAID SO ***
+-----------------------------------------------------------------
+The first cut put the stitch on the BOTTOM ROW in r.dk, and the numbers did not move by a
+single garment. Measured before guessing: all 8 candidate pixels on a long-sleeve shirt
+were ALREADY r.dk, because a garment darkens its own hem edge. PAINTING DARK OVER DARK IS
+A NO-OP, and an audit that reports no change looks exactly like a mark that did not help.
+Two fixes, and the correct placement and the visible one turned out to be the same thing:
+  - ONE CELL ABOVE THE FOLD, which is where real hem stitching runs anyway.
+  - CONTRAST WITH WHAT IS THERE: dark cloth takes a mid thread, light cloth takes a dark
+    one. A stitch you cannot see is not a stitch.
+base 50 -> 65, outer 20 -> 27 the moment it could actually be seen.
+
+*** AND THE HELPER TOOK FOUR GATES RED AT ONCE ***
+----------------------------------------------------
+Calling hemStitch directly turned HEADWEAR, HOODIE, OPEN-COAT and STRUCTURE red together,
+all reporting that genTop, genCoat and genHat "do not render". They were THROWING: every
+one of those gates builds the generators in isolation with its own short list of helpers,
+and a helper added today is in none of them.
+THIS IS THE SAME SHAPE AS THE `window is not defined` BREAK TWO DAYS AGO. A GENERATOR THAT
+DEPENDS ON SOMETHING OUTSIDE ITSELF BREAKS EVERY HARNESS THAT DOES NOT KNOW ABOUT IT, AND
+THERE ARE MORE HARNESSES THAN ANYONE REMEMBERS. Fixed at the call site with a typeof
+guard, which repairs all four and any future one for free -- rather than editing four
+helper lists and waiting to discover the fifth.
+Where the helper is absent the garment draws without its hem stitch. That is correct for
+gates measuring SHAPE, and the gate that measures the detail does include it.
+
+*** THE PICTURE LIED A THIRD TIME, SO THE TOOL NOW REFUSES TO ***
+------------------------------------------------------------------
+Three pictures this week showed two identical halves, for three different reasons:
+    8/23  a flag one generator had never been taught to read
+    8/24  a garment name that was not in the catalogue, so nothing drew at all
+    8/25  a crop framed at the chest when the change is at the HEM
+Every one looked like an honest "the change did nothing". The tool now COUNTS THE
+DIFFERING PIXELS INSIDE THE CROP and prints NO DIFFERENCE IN THIS CROP on any row where
+that count is zero. A before/after picture can no longer quietly claim a null result it
+did not measure. All four rows of this one differ.
+
+GATES
+-----
+clothes_4x 13/0, STEP 5 ratchet 27 -> 18 on the fixture, downward only.
+STRUCTURE 134/0, HEADWEAR 13/0, HOODIE 11/0, OPEN-COAT 12/0 -- all four back after the
+guard. Every other character gate green. LOOK 24/0, 36 pictures, none stale.
+1,744 pinned 56 hashes unmoved: every mark this week is S>1 only.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "THE HEM" -- a tee, a flannel, a duster and a vest, before beside after, both
+halves out of the SAME generators. The clothes are in the CLOTHES tab.
+
+  node tools/bohemia_seam_width_audit.js
+  node gates/clothes_4x_gate.js    13/0
