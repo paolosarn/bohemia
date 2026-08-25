@@ -1,3 +1,87 @@
+RUN (run-eak241): 8/24 (b) LATEST -- *** A CARD THAT SAID "TAP CLOSE" AND COULD
+NOT BE TAPPED. TAB: RUN (press STANDING). Nothing to judge. ***
+
+FOUR THINGS PAOLO REPORTED, ALL REPRODUCED ON THE REAL ALPHA BEFORE ANYTHING WAS
+TOUCHED, ALL FIXED, ONE OF THEM A MUCH BIGGER BUG THAN HE COULD SEE.
+
+*** 1. STANDING COULD NOT BE CLOSED, AND IT WAS THE WHOLE CARD SYSTEM. ***
+MEASURED: the card opens with hasAct 0. cardShow's ONLY route to its own cardHide
+was `ev.target.closest('[data-act]')`. Four of six callers build data-act buttons
+and close fine; THE TWO STANDING CALLERS BUILD NONE. So it printed a row reading
+"TAP / CLOSE" that no tap on the words, the card, or the backdrop could act on,
+with a correct cardHide sitting right there unreachable. Ninth-ish time this lane
+has found a finished thing with a published seam and no caller.
+FIXED IN THE SYSTEM, NOT IN THE ONE CARD -- giving STANDING a button leaves the
+next card anybody writes exactly as stuck. Every card gets a real X from cardShow
+itself, the scrim closes on a tap outside, Escape closes. Checked card by card
+first: NO CARD GATES THE DAY, so being able to leave one can never strand him.
+
+*** 2. THE OTHER FIVE PANELS PASSED "HAS A CLOSE BUTTON" AND FAILED HIS RULE. ***
+savepanel, keypanel, pfpanel, popwrap, phonewrap: each had a button somewhere, so
+none was technically stuck, AND NOT ONE ANSWERED A TAP OUTSIDE. "It has a close
+button" is not the standard he set. One capture-phase listener now closes any open
+panel when the tap lands outside it and outside the chip that opened it. Each is
+put away by ITS OWN author's closer where one exists -- the phone's phoneClose
+also clears PHONE_ON, and hiding the element behind its back is how state and
+pixels drift apart.
+
+*** 3. THE TILE PANEL HE ALREADY KILLED ONCE, RESURRECTED ON EVERY TAP. ***
+Every tap on the ground while walking ran tpTap -> tpShowJudge(), which BUILDS the
+old GOOD DIRECTION / NOT IT panel. One tap measured: "CONCRETE tile 290 (world)
+judge the look GOOD DIRECTION NOT IT X". He killed those buttons 7/29 and
+tpInitButtons deletes the node at boot -- BUT DELETING A NODE ONCE WHILE LEAVING
+THE FUNCTION THAT REBUILDS IT WIRED TO THE COMMONEST GESTURE IN THE GAME IS NOT A
+KILL. Removed at the trigger AND the builder.
+
+*** 4. HIS HOUSE WAS NEVER ONE HOUSE, AND THE ARROW IS HOW I FOUND OUT. ***
+"It's hard to find my house. It's not easy." I built the off-screen marker first,
+then MEASURED it: drew at spawn, drew NOTHING after fourteen steps. That is not
+what an off-screen house looks like, it is what NO HOUSE looks like. homeFind
+cached on the cell he was STANDING IN, so crossing a district re-scanned the new
+cell and called a house there his home, and in a cell with no house it returned
+null and he had no house at all. HIS HOUSE FOLLOWED HIM AROUND AND THEN
+EVAPORATED. Keyed on where he LANDED now -- the anchor the function's own comment
+already asks for. FIRST NIGHT's 8/19 claim was asserting the old source line, so
+it is STRENGTHENED not loosened: three claims where there was one (the camera is
+never the answer, the house is anchored on the landing, the standing cell survives
+only as the pre-drop-in fallback). 52/1 -> 55/0.
+And off screen, an arrow at the edge points at it with HOME and how far IN
+MINUTES, because the day already advances 0.084 per cell -- the clock is this
+world's unit of distance, and a tile count is a fact about a grid he cannot see.
+REALISM FIRST: a person knows the way to his own house.
+
+  GATE: gates/every_panel_closes_gate.js, registered EVERY PANEL, 14 claims.
+  It does NOT assert "STANDING closes" -- that goes green while the next card is
+  just as stuck. It asserts HE CAN GET BACK TO THE GAME, measured with
+  elementFromPoint at the middle of the stage, because a classList check passes a
+  panel left invisible over the whole screen. The chip list is DERIVED by walking
+  the three layout containers, so a chip added tomorrow is swept without editing
+  the gate. Mutation-tested by restoring the closeless card: 4 claims red.
+  AND ITS FIRST RUN WAS WRONG ABOUT THE GAME: it called savebtn and six others
+  STUCK because it pressed #phoneclose and #popclose by name and had never heard
+  of #sv-close. A gate that declares a panel unclosable because IT could not find
+  the button is measuring its own blind spot. It presses what the panel offers now.
+
+*** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED, RECORDED). ***
+"we gotta find out this like fun organ trail type of fast travel" + Frontier
+(Armor Games, Oct 2009). This ANSWERS the fast-travel PENDING open in the valley
+scale law since 7/6, and that line now points at the answer. Researched rather
+than remembered (sources in the addendum): you route a caravan, cargo is the
+stake, the road interrupts, you hire guards and upgrade transport, standing still
+is punished, and the lawman/outlaw axis rides the SAME loop.
+WHAT LOCKS: a journey has a MIDDLE; route is a choice with a cost; you carry
+something that can be lost; the road interrupts; you can prepare against it;
+stopped and robbed are one system from two sides; it obeys the clock we have.
+RESERVED AND NOT MINE: Enforcers and Buccaneers are FRONTIER'S names, not
+Bohemia's -- which factions police or rob the roads is HIS, as are the roads
+(MAP LAW), the goods, every number, and whether he can ever be the raider.
+NOT STARTED ON PURPOSE: it is a real build and wants its own run rather than
+being bolted onto the end of a bug-fix turn. Backlog row FT-JOURNEY, spec in
+laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md.
+
+THE RULE THIS BUYS: "IT HAS A CLOSE BUTTON" IS NOT "HE CAN GET OUT". Ask what is
+under his thumb after he presses it, not what the code intended.
+
 CHARACTER (character-0lurbs): 8/25 (a) LATEST -- *** THE HEM. Row 2X step 5, fifth and
 last big pass. 102 of 200 with no fine detail on Friday, 22 of 204 now. ***
 
