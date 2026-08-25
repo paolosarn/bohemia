@@ -1,3 +1,93 @@
+WORLD (world-9lfjtf): 8/25 (b) LATEST -- *** THE DAM WAS WEARING PAOLO'S APPROVED HOUSE ROOF.
+So was every median barrier, every bridge column and every concrete silo in the valley. Fixed,
+and the obvious fix would have put concrete on a gantry crane. Nothing to judge. ***
+
+TAB: LOOK, picture "A ROAD ACROSS THE DAM". Or CITY, walk out onto the dam.
+
+WHAT WAS WRONG: realizeCell hands EVERY structure tile in EVERY non-terrain district the
+APPROVED HOUSE-ROOF ART POOL -- `if(!KIT_TERRAIN[d]){ c.artPool='hroof'; c.tint=pal; }` -- so
+the largest man-made object on the map wore the same shingle tiles as a suburb house, tinted
+grey. That line had ALREADY won this argument once for limestone (__ROCK_IS_NOT_A_ROOF__) and
+its own comment even names "a concrete headwall"; it exempted only the TERRAIN districts.
+
+*** I PUBLISHED THE WRONG CAUSE FIRST AND THE PICTURE CAUGHT IT. *** Yesterday's record said
+the dam fell through texKindFor to the procedural `roof` painter. It never reaches texKindFor
+at all -- texFor returns the art pool first. I built the fix for the cause I had written down,
+ran it, retook the photograph, and IT WAS PIXEL-IDENTICAL. A FIX THAT CHANGES NO PIXELS IS NOT
+A FIX. Re-reading the code would never have found it; the code I kept reading was correct and
+irrelevant. The correction is appended to the 8/25 record.
+
+*** AND THE OBVIOUS FIX WAS THE WRONG ONE. *** The natural move is to collect the concrete
+colours into a set and key the texture off the colour, exactly like __terrainRockCols. MEASURED
+BEFORE WRITING IT: of the 18 palette colours worn by concrete masses, only SIX are worn by
+nothing else. #9a948a is the dam wall AND a gantry crane, a busbar, a microwave mast, razor
+wire and a water tower. #6a6a72 is the prison's perimeter wall AND a hangar, a carport, a
+chain-link fence and a signal mast. A COLOUR IS NOT AN IDENTITY. So the decision is made where
+the tile still knows what it is -- realizeCell, holding the legend -- and carried to the
+renderer as c.sTex, which is the same shape as c.lamp and c.haz.
+
+ROUTED: 21 masses across 19 districts, and NOT ONE is a roofed building. A tile qualifies only
+if its NAME is the mass (wall/pier/column/barrier/silo/dike/revetment/arch/clarifier/...) AND
+its material text says concrete. That second half is the work: a tilt-up warehouse IS concrete
+and says so, but the face you see from above is its ROOF, so store/warehouse/tenant unit stay
+shingled. `kind` was the other tempting discriminator and is also wrong -- the dam wall is
+kind:'building' because you can go inside it ("a gallery inside the dam"), which is correct and
+stays.
+
+ADOBE CAME BACK OUT. The fort's curtain wall is MUD BRICK; lift lines and calcium leaching are
+signatures of POURED concrete and would be a lie on it. It came out because I could not
+photograph the fort to check -- my quick probe warped the camera and the world did not move
+with it. DO NOT SHIP A MATERIAL YOU HAVE NOT LOOKED AT. The fort is UNCHANGED, not wrong in a
+new way.
+
+THE PAINTER IS RESEARCHED. Mass concrete is placed in LIFTS -- Hoover Dam is 230 interlocking
+columns poured in five-foot lifts -- so the face carries horizontal FORM LINES and widely
+spaced vertical CONTRACTION JOINTS, is SMOOTH (much smoother than rock), and is streaked pale
+where calcium has leached down it for decades. The corpus already said it: granary:6 is "a
+concrete silo, joint lines showing where each slipform lift stopped". NO STAGGER -- the stagger
+is what read as brick.
+
+HEIGHT WAS COUPLED TO THE BUG and that is the trap: the shadow pass reads
+`c.wallH || ((c.face || c.artPool==='hroof') ? WALL_H : 1)`, so dropping the pool would have
+flattened every concrete mass from three tiles to one. WALLS ARE TWO TALL (Paolo 8/2, LOCKED).
+Height is set explicitly and measured unchanged (wallH=3 on the dam).
+
+APPROVED ART STILL WINS: the procedural branch sits AFTER the art-pool branches, so anything
+resolving to a judged pool keeps it. The gate asserts the ordering.
+
+GATE: gates/concrete_gate.js, 14 checks, registered in the suite as CONCRETE. It asserts the
+dam routes, a concrete-BUILT store does not, adobe does not, the dam lost the roof pool and KEPT
+its height, and -- measured on the page, not remembered -- that most concrete colours are shared
+with something that is not concrete. The routed set may only GROW.
+Tool: tools/bohemia_city_concrete_patch.py (re-runnable, proved idempotent)
+Record: records/BOHEMIA_A_COLOUR_IS_NOT_AN_IDENTITY_8_25_26.md
+Stamp:  BUILD 8/25t - THE DAM IS MADE OF CONCRETE
+
+NEXT IN THIS LANE, in this order:
+  - *** ADOBE NEEDS ITS OWN PAINTER. *** fort:2 is the only tile waiting on it: warm, coursed,
+    slumped, NO calcium leaching (that is a concrete signature). One painter and one word added
+    to the regex in __concreteTile's sibling. AND FIX THE PROBE FIRST -- setting hx/hy and
+    calling render() does NOT move the world, so I could not photograph the fort at all. That
+    is why adobe is unshipped, and it will block the next material too.
+  - THE OTHER MATERIALS ARE THE SAME BUG. Everything standing up still gets canopy, rock, roof
+    or now concrete. STEEL (the gantry crane, the busbar, the pipe galleries, the tank shells),
+    WOOD, and CHAIN-LINK are all wearing house shingles right now. The mechanism is built and
+    proven -- each new material is a painter plus a legend rule, and the gate pattern is there
+    to copy. Do STEEL next; it is the biggest population.
+  - THE INTERCHANGE IS STILL 87.9% CONNECTED -- 479 drive tiles unreachable, measured absolute.
+    Map which tiles are in the unreachable set before guessing; the connector ramps are the
+    suspects.
+  - THE REMAINING TEN DEAD CODES. Four are one question (arterial:0 / downtown:0 / freeway:0 /
+    industrial:0 are the fill-through margin a dense district never leaves): prove they are
+    CONDITIONAL in the source the way the airfield six were proved, or give the districts a
+    margin. casino:7 and resort:9 are NEVER AUTO-GENERATE and are not ours.
+  - THE SUITE IS 422 GATES AND TAKES ~66 MINUTES. Run it with nohup and NO timeout, and DO NOT
+    EDIT WHILE IT RUNS. Baseline every red against origin/main in a worktree: 21 reds this run
+    and every single one was inherited, including TOOL IDEMPOTENT (another lane's
+    bohemia_city_hero_wire_patch.py rewrites an already-patched tree) and FACTION ARC.
+
+---
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (g) LATEST -- *** SWEEP 20. EVERY
 PLAYER GETS THE SAME VALLEY FOREVER, AND IT IS ONE LINE. Nothing to judge.
 READ-BACK (sweep 18's synthesis-by-receiver, applied to myself): FROM THE HANDOFF
