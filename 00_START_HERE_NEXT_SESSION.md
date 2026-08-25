@@ -1,3 +1,81 @@
+WORLD (world-9lfjtf): 8/25 (c) LATEST -- *** EVERY METAL THING IN THE CITY WAS ALSO WEARING A
+HOUSE ROOF. 25 steel objects now read as steel. And the tool that should have existed two turns
+ago exists now. Nothing to judge. ***
+
+TAB: LOOK, "THE RUST RUNS DOWN IT NOW". Or CITY, walk into any industrial yard.
+
+*** THE MISSING TOOL COST THE LAST FEATURE. *** Adobe shipped unverified and got pulled back out
+because I could not photograph the fort. look_shots could always have taken that picture -- but
+every one of its shots is a MANIFEST ENTRY, a titled thing in the LOOK tab, so there was no way
+to just LOOK at something while working on it. So I hand-rolled throwaway probes, three of them,
+all wrong the same three ways: THE ZOOM IS `HC` not setZoomAt (which threw into a swallowed
+catch); the camera centres on the PLAYER so centring on the subject puts the body on top of it;
+and the chrome is DOM ON TOP OF THE CANVAS, so the first one shot the scene under the day-one
+wake card. tools/bohemia_material_peek.js is the missing half -- same page, same camera, no
+manifest -- and it PROVES ITSELF FIRST: --selftest photographs the dam wall, whose answer is
+already known, and reports the district the camera actually landed in.
+
+  AND IT CAUGHT ME BEING WRONG IN THE OTHER DIRECTION. The first steel shot looked like "a
+  suburb with parked cars" and I wrote that the instrument was lying. It was not: measured at
+  that exact tile, railyard:13 gantry crane, sTex=steel. Those were BOXCARS AND CONTAINERS on
+  the classification tracks and the crane was ten tiles of the frame. I CALLED THE INSTRUMENT A
+  LIAR WHEN MY READING OF THE PICTURE WAS THE WRONG PART.
+
+ONE TABLE, MANY MATERIALS. __concreteTile became __materialOf: rows tried in order, first match
+wins. Adding a material is a ROW, not a mechanism.
+
+*** STEEL IS NAMED BY THE OBJECT, NOT BY THE WORD, and that is the whole difference from
+concrete. *** Concrete legends say "concrete". Steel legends mostly do not -- railyard:13 is "the
+container gantry crane spanning the stack, rails, legs, a seized hoist trolley" and never uses
+the word. A text rule finds 11 candidates and four are roofed sheds. So steel matches the set of
+objects that are steel BY DEFINITION: there is no other material a container gantry, a switchgear
+lattice, a catwalk, a conveyor run or a W-beam guardrail is made of. All 25 were read and
+eyeballed before they went in the list.
+  AND THE VETO EARNED ITS KEEP AT ONCE: "screen tower" is a rock screen at the quarry and a
+  MOVIE SCREEN at the drive-in. One name, two objects, one of them a painted sheet that must not
+  become corrugated steel. Vetoed by name; the gate checks both halves.
+
+THE PAINTER: metal is SPECULAR and concrete is not, and that alternation -- bright edge where a
+rib catches the sky, dark where the next rib turns away -- is most of what says "metal". Both
+halves of the population read the same at 44px (corrugated sheet is ribs, structural steel is
+linear members with sky between), so one painter serves. And it is TEN YEARS DEAD: the thing that
+makes abandoned steel unmistakable is the RUST RUNS bleeding DOWNWARD from every fastener,
+because that is the direction water carries the oxide. Derived from the tile's own colour, so a
+galvanised tank and a painted crane stain in their own register.
+
+GATE: gates/materials_gate.js -- RENAMED from concrete_gate, because it gates a TABLE now and a
+gate named for the wrong thing is exactly the drift this repo exists to stop. 20 checks,
+registered as MATERIALS. 21 concrete + 25 steel, floors on both, movie-screen veto asserted from
+both sides.
+Tool:   tools/bohemia_city_concrete_patch.py (re-runnable; its pool reversal is MARKER-based now,
+        because content-matching broke the moment the rule inside it changed -- the lesson this
+        repo has already paid for twice)
+Record: records/BOHEMIA_A_COLOUR_IS_NOT_AN_IDENTITY_8_25_26.md
+Stamp:  BUILD 8/25u - EVERYTHING METAL IS METAL NOW
+
+NEXT IN THIS LANE, in this order:
+  - *** ADOBE. It is unblocked now -- bohemia_material_peek.js is exactly what was missing.
+    fort:2 is the only tile waiting: warm, coursed, slumped, NO calcium leaching (a concrete
+    signature). One painter and one row in MATERIALS. LOOK AT IT BEFORE SHIPPING IT; that is the
+    whole reason it is still open. ***
+  - THE RESERVOIR DRAWS ITS BURIED BASIN ROOF SLABS WITH CODE 6, which its own legend calls
+    "water tank" -- so a concrete slab is now wearing steel. Found in the steel photograph. One
+    code, two materials, in the GENERATOR not the routing; same class as the dome-shell/bench-lip
+    collision the quarry already carries a note about. It wants a separate code, NOT a routing
+    exception.
+  - THE REST OF THE MATERIALS ARE THE SAME ROW. Everything standing up is still canopy, rock,
+    concrete, steel or roof. CHAIN-LINK (every perimeter fence in the valley), WOOD, and GLASS
+    are all still wearing house shingles. Chain-link is the biggest population and the easiest to
+    read: it is mostly transparent, which no painter here does yet.
+  - THE INTERCHANGE IS STILL 87.9% CONNECTED (479 drive tiles unreachable, measured absolute).
+  - THE REMAINING TEN DEAD CODES; four of them are one question (arterial:0 / downtown:0 /
+    freeway:0 / industrial:0 are the fill-through margin a dense district never leaves).
+  - SUITE: 422 gates, ~66 min. nohup, NO timeout, and DO NOT EDIT WHILE IT RUNS. Baseline every
+    red against origin/main in a worktree -- last full run had 21 reds and every one was
+    inherited.
+
+---
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (h) LATEST -- *** SWEEP 21. TWENTY
 BUILDS IN ONE DAY AND A ROUND THAT CANNOT BE READ. Nothing to judge.
 READ-BACK (synthesis by receiver): FROM THE HANDOFF I TOOK -- HE RULED ON THE FULL
