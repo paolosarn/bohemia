@@ -63623,3 +63623,46 @@ state slot-aware while "who you have met" is not would be WORSE -- two
 behaviours for facts about the same person. One pass, both ledgers, whoever owns
 the save-slot design.
 Record: records/BOHEMIA_THE_BELONGING_SYSTEM_HAD_NO_MEMORY_8_21_26.md
+
+FACTIONS (ovkjpf) 8/21 — HOUSEHOLDS ARE IN, AND G1 IS RED ON PURPOSE.
+Paolo ruled it: "people share houses yes bro". NOTES ARE RULINGS, built same turn.
+    BEFORE  298 people, 298 homes, ZERO households, 199 of 298 knew NOBODY,
+            106 ties between affiliated people and ALL 106 same-outfit,
+            CROSS-OUTFIT LINES: 0, whoHears answered NOBODY for every faction.
+            EVERY COMMITMENT IN THE GAME WAS FREE.
+    AFTER   183 households (mean 1.63), people knowing nobody 199 -> 114,
+            cross-outfit ties 0 -> 2, whoHears LINES 0 -> 4
+            (CUSTOM<->MOB, MOB<->NETWORK).
+THE DEDUP STAYS: one body per cell is also a law. A house is not a cell, it is
+several people in several rooms at one address -- everyone keeps their own cell
+and gains a shared HOUSEHOLD. Nothing overlaps.
+SIZES RESEARCHED: US mean 2.58 / 28.9% alone is a PROSPERITY number; job loss
+TRIPLES house-sharing, doubling-up runs 6%+ vs 2% baseline (HUD/AHS, Census
+SEHSD-WP2011-04). Table: 1p 8% / 2p 26% / 3p 28% / 4p 22% / 5p 16%, capped at
+Dunbar's support clique. One table, every number sayable out loud.
+
+*** G1 IS RED AND IT HAS AN OWNER. DO NOT "FIX" IT BY SOFTENING IT. ***
+The headcount is fixed at 298, so bigger households mean FEWER DISTINCT HOME
+LOCATIONS and the nearest affiliated person to any spawn gets further away.
+CONNECTION BOUGHT WITH COVERAGE -- arithmetic, not a bug.
+ISOLATED, NOT GUESSED: same gate, same seed, main's city -> 92/0 GREEN; with
+households -> red. AND A NARROWER SPAWN PROBE SHOWED THE TWO BUILDS IDENTICAL
+(4 drawn, 0 affiliated either way), which is exactly why it had to be RUN both
+ways instead of reasoned about. An earlier attempt at that A/B was worthless --
+stashed a CLEAN tree, so both sides measured the same build, and it would have
+reported a fake regression.
+THE FIX IS WHERE PEOPLE LIVE and it is HIS: seed a couple of affiliated
+households near the spawn, or raise the population, or raise AFFILIATED_RATE
+(33 of 298, already [PENDING]). ASKED, NOT DECIDED.
+
+ALSO SHIPPED: F3 asserted string EQUALITY where the claim was CONTAINMENT --
+the card reads "BE INTRODUCED BY SOMEBODY WHO VOUCHES · ASKING COSTS: ..." and
+the rule is the first half, verbatim. Latent since the asking-cost row shipped;
+only fires when a roster puts a MOB member in the un-asked state. Pushed to main
+ON ITS OWN, ahead of the change that surfaced it.
+
+TRAP WORTH CARRYING: TWO OF MY OWN A/B RUNS WERE VOID AND LOOKED FINE. One
+stashed a clean tree; one copied the city to /tmp and broke its relative assets.
+A COMPARISON THAT DID NOT ACTUALLY COMPARE LOOKS EXACTLY LIKE A NULL RESULT.
+Assert the two sides DIFFER in the way you set them up to differ, before
+believing what they tell you.
