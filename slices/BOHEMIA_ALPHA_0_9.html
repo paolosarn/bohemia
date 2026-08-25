@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25g - THE WAIT IS 12x SHORTER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25g - NO HAIR ON HIS FACE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21564,8 +21564,50 @@ window.CLO=(function(){
       return [ (c[0]+(skinMid[0]-c[0])*t)|0,
                (c[1]+(skinMid[1]-c[1])*t)|0,
                (c[2]+(skinMid[2]-c[2])*t)|0 ]; };
+    /* *** NO HAIR IN FRONT OF HIS FACE (Paolo 8/20, round 4: "east and west hairstyles
+       look like ABSOLUTE DOG SHIT ACROSS THE BOARD", 13 of 15 killed). ***
+       put() already refuses to paint ON the face, so nobody looked further. The hair was
+       painting in the EMPTY AIR IN FRONT of it: on the rows his eyes, nose and mouth
+       occupy, the mass expands outward past the front of the face and hangs there.
+       MEASURED, all 15 canon styles, both profiles:
+           546 hair pixels in front of the face.   ZERO of 15 styles clean.
+           worst: SHAG at 4px out, then WOLF CUT at 3, the rest at 2.
+       That is his "across the board" as a number: every profile read as a helmet with a
+       slot for a face instead of a person, because the face was squeezed between hair
+       behind AND hair in front.
+       ONLY ON THE FACE ROWS, and that is deliberate: a FRINGE hanging over the forehead
+       is correct and stays, because the forehead is above the face part. Below the jaw is
+       untouched too -- hair falls in front of the shoulders and always did.
+       WHY IT LOOKED FINE IN THE MEASUREMENTS I TOOK FIRST: the silhouette still reached
+       2px further right with hair on, and I read that as "the nose survives" and moved
+       on. The number was telling me the hair was in front of the nose. A number you have
+       already taken can be the answer while you are reading it as a reassurance. */
+    var _fFront=null;
+    if(prof){ _fFront={};
+      var _fMnAll=CW,_fMxAll=-1,_hMnAll=CW,_hMxAll=-1;
+      for(var _q=0;_q<g.length;_q++){ var _gv=g[_q],_qx=_q%CW;
+        if(_gv===2){ var _qy=(_q/CW)|0, _fr=_fFront[_qy]||(_fFront[_qy]={a:CW,b:-1});
+          if(_qx<_fr.a)_fr.a=_qx; if(_qx>_fr.b)_fr.b=_qx;
+          if(_qx<_fMnAll)_fMnAll=_qx; if(_qx>_fMxAll)_fMxAll=_qx; }
+        if(_gv===1||_gv===2){ if(_qx<_hMnAll)_hMnAll=_qx; if(_qx>_hMxAll)_hMxAll=_qx; } }
+      /* which way he is looking, read off the art rather than assumed from the facing
+         name: the face sits toward the front of the skull. */
+      _fFront.dir=((_fMnAll+_fMxAll)>=(_hMnAll+_hMxAll))?1:-1;
+      if(_fMxAll<0)_fFront=null; }
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return;
       var hi=y*CW+x, gv=g[hi];
+      /* AND THE CLAMP LINE IS NOT A RULER. Cutting every style off at the same column
+         made a dead-straight vertical edge down the face, and his LOCKED clause 3 says
+         hair is little off shapes and not straight lines. Measured the moment the clamp
+         landed: straight runs went 18.5% -> 23.9% and the longest went 6 rows -> 10.
+         A FIX THAT TRADES ONE OF HIS RULINGS FOR ANOTHER IS NOT A FIX. So the boundary
+         steps back by a hashed 0 or 1 cell per row -- deterministic, same style same row
+         forever, so an NPC never shimmers -- and it only ever pulls the edge BACK, never
+         forward, so no pixel can return to the front of his face. */
+      if(_fFront&&y<=hBot){ var _fr2=_fFront[y];
+        if(_fr2){ var _jh=(Math.imul((_wseed^(((y/S)|0)*2654435761))>>>0,3266489909))>>>0;
+          var _jag=((_jh>>>19)%3)*S;   /* 0, one cell or two, evenly -- a binary jag repeats half the time and still reads as a ruled line */
+          if(_fFront.dir>0){ if(x>_fr2.b-_jag)return; } else { if(x<_fr2.a+_jag)return; } } }
       if(y<=hBot){ /* ON the head: skull + background always; the face only from behind */
         if(gv===0||gv===1){ o[hi]=col; return; }
         if(gv===2&&(back||y<=frontLine)){ o[hi]=col; return; }

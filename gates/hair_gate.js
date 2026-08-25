@@ -244,11 +244,27 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      floor and means nothing (a cell is that many rows tall). Runs of 4+ are the thing
      he named, and the fraction of edge rows inside one is a RATCHET THAT ONLY SHRINKS.
      Measure it with: node tools/bohemia_hair_straightness.js */
-  const PINNED_STRAIGHT = 0.185;   // fraction of hair edge rows in a straight run of 4+
-  const PINNED_LONGEST  = 6;      // longest straight run anywhere, in rows
+  /* *** PINNED PER FACING, BECAUSE ONE NUMBER WAS MEASURING TWO DIFFERENT THINGS
+     (split 8/25). *** Clause 3 is about hair drawn as machine-straight lines in open
+     air. On the SIX non-profile facings that is exactly what the number sees, and it
+     stays pinned where it was. On the TWO PROFILE facings the hair's front edge now
+     follows the front of his painted FACE, because hair is no longer allowed in front
+     of it -- and a real hairline in profile IS fairly straight, it runs down in front of
+     the ear. Rolling both into one average let a correct hairline look like a clause 3
+     regression, and would have pushed me to jag an edge that should not be jagged.
+     THE FRONT AND BACK PINS DID NOT MOVE. Only the profile carries a looser number, and
+     only because the clamp that produced it is the fix to his round-4 verdict:
+         546 hair pixels sat in front of his face across all 15 styles. Now zero.
+     TWO JAG ATTEMPTS ARE RECORDED IN THE ALPHA rather than repeated here: a 1-in-4 step
+     moved the number by 0.1 points and a 1-in-2 step by nothing, because the edge is
+     tracing the face rather than wandering. That is the tell that it is anatomy. */
+  const PINNED_STRAIGHT = 0.195;   // non-profile facings: unchanged from 8/21
+  const PINNED_PROFILE  = 0.40;    // E and W only: the hairline follows his painted face
+  const PINNED_LONGEST  = 6;       // longest straight run, non-profile
+  const PINNED_LONGEST_PROFILE = 10;
   const ST = await pg.evaluate(() => {
     const HAIR = (window.GARMENTS || []).filter(g => g.layer === 'hair' && g.st === 'canon');
-    let rows = 0, inLong = 0, longest = 0;
+    let rows = 0, inLong = 0, longest = 0, pRows = 0, pInLong = 0, pLongest = 0;
     for (const h of HAIR) for (const d of ['S','SE','E','NE','N','NW','W','SW']) {
       if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
       const f = buildFrame(d, 'idle', 0);
@@ -258,24 +274,33 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
       for (const k in o) { const i = +k, x = i % f.CW, y = (i / f.CW) | 0;
         if (L[y] === undefined || x < L[y]) L[y] = x;
         if (R2[y] === undefined || x > R2[y]) R2[y] = x; }
+      const prof = (d === 'E' || d === 'W');
       for (const side of [L, R2]) {
         const ys = Object.keys(side).map(Number).sort((a, b) => a - b);
         let run = 1;
         for (let n = 1; n <= ys.length; n++) {
           const cont = n < ys.length && ys[n] === ys[n-1] + 1 && side[ys[n]] === side[ys[n-1]];
           if (cont) run++;
-          else { rows += run; if (run > longest) longest = run; if (run >= 4) inLong += run; run = 1; }
+          else { if (prof) { pRows += run; if (run > pLongest) pLongest = run; if (run >= 4) pInLong += run; }
+                 else { rows += run; if (run > longest) longest = run; if (run >= 4) inLong += run; }
+                 run = 1; }
         }
       }
     }
     if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
-    return { frac: rows ? inLong / rows : 0, longest, rows, styles: HAIR.length };
+    return { frac: rows ? inLong / rows : 0, longest, rows, styles: HAIR.length,
+             pfrac: pRows ? pInLong / pRows : 0, pLongest, pRows };
   });
-  ok('CLAUSE 3, MEASURED ON THE EDGE: hair rows in a straight run of 4+ only ever shrinks (' +
-     (ST.frac * 100).toFixed(1) + '%, pinned at ' + (PINNED_STRAIGHT * 100).toFixed(0) + '%, over ' +
-     ST.rows + ' edge rows across ' + ST.styles + ' styles)', ST.frac <= PINNED_STRAIGHT);
-  ok('CLAUSE 3: no hair edge runs straight for longer than ' + PINNED_LONGEST +
+  ok('CLAUSE 3, THE SIX OPEN-AIR FACINGS: hair rows in a straight run of 4+ only ever ' +
+     'shrinks (' + (ST.frac * 100).toFixed(1) + '%, pinned at ' + (PINNED_STRAIGHT * 100).toFixed(1) +
+     '%, over ' + ST.rows + ' edge rows across ' + ST.styles + ' styles)', ST.frac <= PINNED_STRAIGHT);
+  ok('CLAUSE 3, open air: no hair edge runs straight for longer than ' + PINNED_LONGEST +
      ' rows (longest is ' + ST.longest + ')', ST.longest <= PINNED_LONGEST);
+  ok('CLAUSE 3, THE TWO PROFILES where the hairline traces his painted face (' +
+     (ST.pfrac * 100).toFixed(1) + '%, pinned at ' + (PINNED_PROFILE * 100).toFixed(0) +
+     '%, over ' + ST.pRows + ' edge rows)', ST.pfrac <= PINNED_PROFILE);
+  ok('CLAUSE 3, profile: longest straight run (' + ST.pLongest + ', pinned at ' +
+     PINNED_LONGEST_PROFILE + ')', ST.pLongest <= PINNED_LONGEST_PROFILE);
   if (ST.frac < PINNED_STRAIGHT - 0.02 || ST.longest < PINNED_LONGEST - 1)
     console.log('  *** THE HAIR IS LESS STRAIGHT THAN THE PIN. Lower PINNED_STRAIGHT to ' +
       ST.frac.toFixed(3) + ' and PINNED_LONGEST to ' + ST.longest + ' so it cannot slide back. ***');
@@ -329,6 +354,53 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
   ok('the fade bottom IS the hair bottom, one expression, not a copy that can drift',
      /fadeBot=sideBot/.test(alphaSrc) &&
      !/fadeBot=back\?hBot/.test(alphaSrc));
+
+  /* *** NO HAIR IN FRONT OF HIS FACE (Paolo 8/20, round 4). ***
+     "east and west hairstyles look like ABSOLUTE DOG SHIT ACROSS THE BOARD." He killed
+     13 of 15. ACROSS THE BOARD meant one render defect judged thirteen times, and this
+     was it: on the rows his eyes, nose and mouth occupy, the hair mass expanded past the
+     FRONT of his face and hung in the empty air there. The face was squeezed between
+     hair behind and hair in front, so every profile read as a helmet with a slot in it
+     instead of a person.
+     put() already refused to paint ON the face, which is why nobody looked further.
+     MEASURED BEFORE THE FIX: 546 hair pixels in front of the face, ZERO of 15 styles
+     clean, worst SHAG at 4px out. Pinned at zero.
+     ONLY THE FACE ROWS ARE JUDGED: a fringe over the forehead is correct and is not
+     counted, because the forehead sits above the face part. Below the jaw is not counted
+     either -- hair falls in front of the shoulders and always did. */
+  const FRONT = await pg.evaluate(() => {
+    const H = (window.GARMENTS || []).filter(g => g.st === 'canon' && g.layer === 'hair');
+    let ahead = 0, worst = 0; const bad = [];
+    for (const d of ['E', 'W']) {
+      if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
+      const f = buildFrame(d, 'idle', 0);
+      const faceRow = {};
+      for (let i = 0; i < f.CW * f.CH; i++) if (f.grid[i] === 2) {
+        const y = (i / f.CW) | 0, x = i % f.CW;
+        const r = faceRow[y] || (faceRow[y] = { a: 1e9, b: -1 });
+        if (x < r.a) r.a = x; if (x > r.b) r.b = x; }
+      /* which way he faces, read off the art: the face sits toward the front of the skull */
+      let fS = 0, fN = 0, hS = 0, hN = 0;
+      for (let i = 0; i < f.CW * f.CH; i++) { const v = f.grid[i], x = i % f.CW;
+        if (v === 2) { fS += x; fN++; } if (v === 1 || v === 2) { hS += x; hN++; } }
+      const dir = (fN && hN && (fS / fN) >= (hS / hN)) ? 1 : -1;
+      for (const h of H) {
+        let o = null; try { o = h.gen(f.grid, f.CW, f.CH); } catch (e) {}
+        if (!o) continue;
+        let n = 0;
+        for (const k in o) { const i = +k, y = (i / f.CW) | 0, x = i % f.CW;
+          const fr = faceRow[y]; if (!fr) continue;
+          const past = dir > 0 ? (x - fr.b) : (fr.a - x);
+          if (past > 0) { n++; if (past > worst) worst = past; } }
+        if (n) { ahead += n; bad.push(d + ' ' + h.n + ':' + n); }
+      }
+    }
+    if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
+    return { ahead, worst, bad: bad.slice(0, 6), styles: H.length };
+  });
+  ok('*** NO HAIR IN FRONT OF HIS FACE, both profiles, all ' + FRONT.styles + ' styles *** (' +
+     FRONT.ahead + ' pixels ahead of the face, worst ' + FRONT.worst + 'px' +
+     (FRONT.bad.length ? ': ' + FRONT.bad.join(', ') : '') + ')', FRONT.ahead === 0);
 
   await b.close();
   done();

@@ -1,0 +1,90 @@
+BOHEMIA -- THE HAIR WAS IN FRONT OF HIS FACE
+CHARACTER lane, 8/25/26.  P0-PROFILE, the top of this lane's queue.
+
+HIS WORDS, ROUND 4 (8/20), AND HE WAS RIGHT
+--------------------------------------------
+    "east and west hairstyles look like ABSOLUTE DOG SHIT ACROSS THE BOARD"
+He killed 13 of 15. ACROSS THE BOARD means one render defect judged thirteen times.
+
+THE DEFECT
+----------
+On the rows his eyes, nose and mouth occupy, the hair mass expanded PAST THE FRONT OF
+HIS FACE and hung in the empty air there. His face was squeezed between hair behind it
+and hair in front of it, so every profile read as a helmet with a slot in it instead of
+a person.
+
+    546 hair pixels in front of the face.   ZERO of 15 styles clean.
+    worst SHAG at 4px out, WOLF CUT at 3, the rest at 2.
+
+WHY NOBODY FOUND IT: put() already refuses to paint ON the face, and that check has been
+correct and green for weeks. The hair was never on his face. IT WAS IN FRONT OF IT, on
+background pixels, where no rule was looking.
+
+THE FIX: on a profile facing, on rows the face occupies, hair may not be drawn past the
+front of the face. A FRINGE OVER THE FOREHEAD IS UNTOUCHED -- the forehead sits above the
+face part, so it is not a face row. Below the jaw is untouched too; hair falls in front
+of the shoulders and always did. 546 -> 0, all 15 styles clean, mutation-tested.
+
+*** THREE WRONG THEORIES FIRST, AND THE FOURTH WAS IN A NUMBER I HAD ALREADY TAKEN ***
+----------------------------------------------------------------------------------------
+  1. "the styles collapse into one shape in profile." MEASURED, REJECTED: east and west
+     are 127% and 128% AS DISTINCT as south, closest pair six times further apart.
+  2. "the three back facings have collapsed into one." MEASURED, REJECTED: all eight
+     facings produce different bodies and different hair.
+  3. "the hair covers his nose and jaw." MEASURED, REJECTED: the nose survives in every
+     style.
+Theory 3's measurement said the silhouette reached 2px FURTHER RIGHT with hair than
+without. I read that as "good, the nose survives" and moved on. IT WAS TELLING ME THE
+HAIR WAS TWO PIXELS IN FRONT OF HIS NOSE. A NUMBER YOU HAVE ALREADY TAKEN CAN BE THE
+ANSWER WHILE YOU ARE READING IT AS A REASSURANCE.
+What broke the deadlock was not another theory. It was rendering THE BARE HEAD beside
+the haired one: the bare profile has a brow, a nose, a mouth, a jaw and a neck and reads
+as a person. The haired one was a ball. That comparison took ten minutes and should have
+been the first thing, not the fifth.
+
+*** AND THE FIX BROKE ONE OF HIS OTHER LAWS, WHICH IS NOT A FIX ***
+--------------------------------------------------------------------
+Clamping every style at the same column made a dead-straight vertical edge down the face.
+His LOCKED clause 3 says hair is little off shapes, not straight lines. Measured the
+moment the clamp landed: straight runs 18.5% -> 23.9%, longest 6 rows -> 10.
+TWO ATTEMPTS TO JAG THE BOUNDARY, both recorded because they FAILED: a 1-in-4 step moved
+the number 0.1 points, a 1-in-2 step moved it none. The edge is not wandering, it is
+TRACING HIS PAINTED FACE -- and a real hairline in profile IS fairly straight, it runs
+down in front of the ear.
+So the ruler was measuring two different things as one number. IT IS SPLIT NOW:
+    six open-air facings   pinned 19.5%, longest 6   -- UNCHANGED from 8/21
+    two profile facings    pinned 40%, longest 10    -- the hairline on his face
+The front and back pins did not move a hair. Only the profile carries a looser number and
+only because the clamp that produced it is the fix to his verdict. Rolling both into one
+average would have let correct anatomy look like a regression and pushed me to jag an
+edge that should not be jagged.
+
+THE 56 PIN MOVED ON PURPOSE
+---------------------------
+136 of 1,744 hashes changed. That pin's own comment says never regenerate it to clear a
+red. This is not drift and not a 4x edit: it is the profile change HE ASKED FOR, and it
+is re-taken deliberately with this record as the reason.
+
+GATES
+-----
+hair_gate 30/0, with two new claims:
+  - NO HAIR IN FRONT OF HIS FACE, both profiles, all 15 styles, pinned at ZERO.
+    Mutation: remove the clamp and it fires at 546, naming the worst six styles.
+  - clause 3 split by facing, as above.
+Every other character gate green. clothes_4x 13/0 on the re-taken pin.
+
+WHAT IS NOT DONE, AND IT IS DELIBERATE
+---------------------------------------
+THE 21 UNJUDGED STYLES STAY HELD. The row's own judge column says show him ONE HEAD in
+profile and let him say the view is fixed before anything else is queued. Putting 21 in
+front of him through a view he has just called dog shit is exactly what that hold exists
+to prevent, and my own confidence is not the test -- I was wrong three times today.
+
+WHERE HE SEES IT
+----------------
+LOOK tab: "IS THE SIDE VIEW FIXED?" -- his bare head on the top row and the same head
+with the temple taper on the bottom, front and both sides. The temple taper is one of the
+two he KEPT, so anything he says about its profile is a verdict on the VIEW, not the
+style. The hair is in the CHARACTER tab.
+
+  node gates/hair_gate.js    30/0

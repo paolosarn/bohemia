@@ -1,3 +1,62 @@
+CHARACTER (character-0lurbs): 8/25 (b) LATEST -- *** P0-PROFILE: THE HAIR WAS IN FRONT
+OF HIS FACE. He was right, and it is one defect, and it is fixed. ***
+
+Round 4, 8/20: "east and west hairstyles look like ABSOLUTE DOG SHIT ACROSS THE BOARD."
+13 of 15 killed. ACROSS THE BOARD = one render defect judged thirteen times. IT WAS THIS:
+on the rows his eyes, nose and mouth occupy, the hair mass expanded PAST THE FRONT OF HIS
+FACE and hung in the empty air there. His face was squeezed between hair behind and hair
+in front, so every profile read as a helmet with a slot instead of a person.
+    546 hair pixels in front of the face.   ZERO of 15 styles clean.   Now 0, all clean.
+WHY NOBODY FOUND IT: put() already refuses to paint ON the face and has been green for
+weeks. The hair was never ON his face. IT WAS IN FRONT OF IT, on background pixels, where
+no rule was looking. A fringe over the forehead is untouched (forehead is above the face
+part); below the jaw is untouched (hair falls in front of the shoulders).
+
+*** THREE WRONG THEORIES FIRST, AND THE ANSWER WAS IN A NUMBER I ALREADY HAD. ***
+  1 "styles collapse into one shape in profile" -- REJECTED, E/W are 127%/128% AS
+    DISTINCT as south. 2 "the back facings collapsed into one" -- REJECTED, all eight
+    differ. 3 "hair covers his nose" -- REJECTED, the nose survives everywhere.
+Theory 3's measurement said the silhouette reached 2px FURTHER RIGHT with hair. I read
+that as "good, the nose survives". IT WAS TELLING ME THE HAIR WAS 2PX IN FRONT OF HIS
+NOSE. A NUMBER YOU HAVE ALREADY TAKEN CAN BE THE ANSWER WHILE YOU READ IT AS REASSURANCE.
+What broke it was rendering THE BARE HEAD beside the haired one. Bare profile has brow,
+nose, mouth, jaw, neck and reads as a person; haired was a ball. Ten minutes, and it
+should have been first not fifth. IF A VIEW LOOKS WRONG, STRIP EVERYTHING OFF IT FIRST.
+
+*** AND THE FIX BROKE CLAUSE 3, WHICH MEANS IT WAS NOT A FIX. *** Clamping at one column
+made a dead-straight edge down the face; straight runs 18.5% -> 23.9%, longest 6 -> 10.
+TWO JAG ATTEMPTS FAILED and are recorded: 1-in-4 moved it 0.1 points, 1-in-2 moved it
+none. The edge is not wandering, it is TRACING HIS PAINTED FACE, and a real hairline in
+profile IS straight -- it runs down in front of the ear. THE RULER WAS MEASURING TWO
+THINGS AS ONE NUMBER. Split:
+    six open-air facings  pinned 19.5% / longest 6   UNCHANGED from 8/21
+    two profiles          pinned 40%   / longest 10  the hairline on his face
+Front and back pins did not move. Only the profile is looser, and only because the clamp
+is the fix to his verdict.
+
+THE 56 PIN MOVED ON PURPOSE: 136 of 1,744 hashes. Not drift, not a 4x edit -- the profile
+change HE ASKED FOR, re-taken deliberately with the record as the reason.
+
+GATES: hair_gate 30/0 with NO HAIR IN FRONT OF HIS FACE pinned at ZERO (mutation fires at
+546 naming the worst six) plus the split clause 3. All other character gates green.
+Record: records/BOHEMIA_HAIR_WAS_IN_FRONT_OF_HIS_FACE_8_25_26.txt
+
+*** THE 21 UNJUDGED STYLES STAY HELD. *** The row's judge column says ONE HEAD FIRST: show
+him a single style in profile and let him say the view is fixed before anything is queued.
+LOOK tab: "IS THE SIDE VIEW FIXED?" -- bare head on top, temple taper below, front and both
+sides. Temple taper is one of the TWO HE KEPT, so his answer is a verdict on the VIEW and
+not the style. DO NOT QUEUE THE 21 UNTIL HE ANSWERS. My confidence is not the test; I was
+wrong three times today.
+
+NEXT IN THIS LANE
+  - HE ANSWERS THE ONE HEAD. If good, the 21 unjudged go to a ballot. If still bad, the
+    bare-head-beside-haired comparison is the tool that works -- use it first this time.
+  - STEP 5 IS DONE AND SHOULD STOP: 22 of 204 garments have no fine detail and most of
+    them are correctly plain (a sash is a band of cloth). The ratchet only has to not rise.
+  - CANVAS MEMORY still red, still not this lane's. #354 TASTE, #356 ART 45 likewise.
+
+---
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
 EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
 built). Nothing to judge. ***
