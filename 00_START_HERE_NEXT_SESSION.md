@@ -3328,7 +3328,40 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 LATEST -- *** THE OPENING RESUMED AFTER THE FIGHT
+PEOPLE (people-7h9sfy): 8/25 LATEST -- *** THE DEMO'S FIRST TEN MINUTES NOW HAVE
+A MACHINE BEHIND EVERY LINK, INCLUDING THE LAST ONE: THE STORY ENDS AND HANDS YOU
+A PLAYABLE DAY. 164 SECONDS, TAP TO STANDING IN IT. TAB RUN. ***
+
+BOTH DEMO GATES ENTER THE DAY THROUGH A SIDE DOOR -- demo_gate taps #openSkip,
+the_whole_demo_gate taps #openNot. Neither has ever walked out of the FINISHED
+story into a day, so the last link had never been crossed by anybody.
+
+    scenes played   cold_open -> the_last_room -> grief_dinner -> ridge_burial
+    captions 40     runtime 164s     page errors 0
+    ends on         p-city 390x804, tab=run, world frame live in the live panel
+
+IT WORKS. Rows 7 and 10 are proven from the first tap to a playable day with
+nothing skipped and nothing declined. opening_gate 48 -> 53.
+
+THE MISTAKE WORTH CARRYING: the first probe asked "is the opening over?" as
+`!OPEN_RUNNING && !visible` and reported it FINISHED IN 65s HAVING PLAYED ONE
+SCENE OF FOUR. That is also true IN THE MIDDLE OF THE FIGHT, when the runtime
+stands down so combat can have the screen. A TERMINATION CONDITION THAT MATCHES
+THE MIDDLE IS NOT A TERMINATION CONDITION -- the identical shape as the vacuous
+pass I closed in this same gate hours earlier, made again the same day. The
+honest terminator is the LAST SCENE OF THE CHAIN, read from the chain.
+
+MUTATIONS: MA (last scene unreachable) 2 red, MB (curtain never lifts) 2 red and
+still 40 captions, MC (no world frame) 1 red printing "p-city 390x804, frame 0x0".
+Three of five new claims red; the other two named in the record, not implied.
+
+FOUR PROBE ERRORS THIS SESSION, none filed as findings, each caught by measuring
+again before writing it up. That is the habit worth keeping more than any fix.
+
+Record: records/BOHEMIA_ALL_THE_WAY_OUT_THE_OTHER_SIDE_8_25_26.md
+
+---- PREVIOUS (8/25, same day) ----
+*** THE OPENING RESUMED AFTER THE FIGHT
 INTO A PANEL NOBODY COULD SEE. THREE OF ITS FOUR SCENES HAD NEVER BEEN WATCHED BY
 ANYONE. FIXED, AND THE WHOLE SEQUENCE PLAYS. TAB RUN. ***
 
