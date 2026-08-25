@@ -1,3 +1,117 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
+EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
+built). Nothing to judge. ***
+
+DELTA SINCE MY LAST MARK (cb4fd08 -> 258290f, 25 commits, 5 lanes + me).
+RUN shipped the panel-close system (every_panel_closes_gate, 14 claims), killed a
+resurrected tile-judge panel, and found his house was never one house -- homeFind
+cached on the cell he was STANDING IN, so it followed him and then evaporated.
+PEOPLE is live and shipped the cold open end to end (opening_gate) plus two reds
+that were its own. WORLD shipped paint-is-not-a-road and the roof/social-graph
+finding. SOUND cooked batch 24. CHARACTER shipped THE HEM. COMBAT shipped RF4-40,
+the free sprint on the beat.
+
+DEMO PATH GUARDED, MEASURED NOT ASSUMED: gates/the_whole_demo_gate.js is
+23 PASSED / 0 FAILED (it was 21 claims at my last mark; PEOPLE added two).
+The demo still plays splash to valley in one unbroken session. NO REGRESSION.
+
+*** COLLISION AUDIT -- FOUR LANES ARE STANDING IN ONE FILE AND TWO OF THEM
+ALREADY CAUGHT THEMSELVES BY HAND. ***
+MEASURED 8/18-8/25: slices/BOHEMIA_CITY_WORLD.html took 37 commits in seven days,
+slices/BOHEMIA_ALPHA_0_9.html took 47. Named lanes on CITY_WORLD: WORLD 11,
+SOUND 3, PEOPLE 1, plus RUN's unlabelled commits.
+THIS IS NOT MY INFERENCE. Commit 8002bb2 is titled "THE SAME MISTAKE THREE TIMES
+IN ONE DAY: I EDITED FILES THAT SOMETHING ELSE OWNS" and c407275 is "MY REPAIR
+ADDED A SECOND OWNER FOR ONE NUMBER, WHICH IS THE BUG I SPENT THE DAY REMOVING."
+Both lanes found it AFTER shipping, by hand, a day late. ONE SYSTEM ONE SESSION
+is a law with NO MACHINE GATE, and CLAUDE.md's own rule is that such a law is not
+enforced. ROUTED: SHARED -9, an ownership map derived from this file's lane
+sections plus an advisory-loud gate. Honest limit stated in the row: a gate
+cannot tell a legitimate shared edit from a trespass by path alone; what it CAN
+hold is "this commit touched a path another lane owns and did not say so."
+
+*** THE HORIZON ITEM: LANGUAGE. NOBODY HAS STARTED IT AND IT IS NOT IN ANY LIST. ***
+VERIFIED UNSTARTED BEFORE CLAIMING IT (the 8/17 rule): zero hits for a language
+attribute across engine/, quests/, the words book; zero hits for "bilingual",
+"code-switch", "language barrier", "speaks Spanish" across BOHEMIA_BACKLOG.md and
+every file in laws/; no gate; no [PENDING] row. It has never been raised.
+THE MEASUREMENT. engine/bohemia_people.js already says it in its own comment --
+Clark County is "roughly 30% Hispanic or Latino... a name pool that is all
+[Anglo] would be a lie about Las Vegas" -- and that research reached exactly ONE
+system, THE SURNAME POOL. The lane's own shipped proof character is RUBEN NGUYEN,
+and Ruben Nguyen speaks flawless monolingual English, because everyone here does.
+The real numbers are bigger than the headline: Spanish is Clark County's
+most-spoken language at 418,400+ speakers; 362,728 adults speak something other
+than English; 139 CENSUS TRACTS are places where >10% of households contain
+nobody over 14 who speaks English only or "very well". Our valley is built out of
+cells. A correct Las Vegas has whole neighbourhoods where the language on the
+street is not the language on the phone.
+
+THE FINDING THAT CHALLENGES WHAT WE BELIEVE. We believe words are cheap because
+he edits them later (8/11, LOCKED). That is TRUE, and it is true for a reason we
+never said out loud: THE WORDS ARE CHEAP BECAUSE THEY LIVE IN A DATA FILE. What
+is NOT cheap later is a MISSING COLUMN. records/BOHEMIA_WORDS_BOOK.json holds
+1,910 authored player-facing lines, 1,864 of them citing catalogue laws, every
+one harvested and editable in the WORDS tab -- and NOT ONE KNOWS WHAT LANGUAGE IT
+IS IN. Adding `lang` today is one field on the generator. Adding it at line 5,000
+means a human re-reads five thousand lines and rules on each, and that human is
+HIM. So the 8/11 law has an expiry date nobody noticed: it covers a line's
+CONTENT forever, and it does not cover a PROPERTY the line was never given.
+(Industry consensus on retrofit cost is unanimous but I DISCOUNTED it on purpose
+-- our text is already externalised, so we dodged the expensive half by accident.
+The schema column is the only part still open.)
+
+THE OTHER AISLE TURNS IT FROM FLAVOUR INTO A MECHANIC. Disaster research across
+Katrina, Rita and Maria: limited-English households "face barriers to receiving
+timely, accurate and useful disaster information", official messages are received
+with SKEPTICISM, and those households ROUTE AROUND the official channel onto
+informal networks -- family, friends, co-ethnic community -- which for the people
+inside them is FASTER AND MORE TRUSTED, not a downgrade. Bilingual staff act as
+literal information conduits. And county preparedness does not correlate with how
+many such residents a county has (110-county study).
+WHY THAT IS OURS: INFORMATION IS ALREADY BOHEMIA'S CURRENCY. phone_rings_gate.js
+holds "THE DAY STARTS WITH NO JOB... only word that something came in", and the
+feed deliberately EXCLUDES the phoneless ("you can't get their quest over the
+phone"). WE ALREADY BUILT A TWO-CHANNEL WORLD AND SPLIT IT ON WHO OWNS A PHONE.
+The real world splits it on WHO SPEAKS WHAT. One sentence: the neighbour who does
+not answer the phone feed already knows, because her cousin told her an hour ago,
+and whether you can hear that is a thing about you.
+
+THE GAMES AISLE, INCLUDING THE HALF THAT ARGUES AGAINST ME. Sleeping Dogs is the
+closest precedent: United Front deliberately had characters "switch back and
+forth between languages" per character background so the street is "a mix of
+Cantonese and English, just like you would in real Hong Kong", researched on site
+with the police and the triads. Reception SPLIT -- praised as authentic AND
+attacked as gratuitous -- and localisation practitioners are harsher: untranslated
+text breaks immersion and, worse, comprehension failures "make it challenging for
+players to grasp essential game mechanics", the documented failure being a player
+who cannot tell what to do next. Ghost of Tsushima is the safe version: in the
+Japanese dub the Mongols speak untranslated Mongolian, and it works precisely
+because none of it is load-bearing.
+SO THE PRECEDENT DOES NOT SAY "PUT SPANISH IN THE GAME." It says the moment
+language gates something the player needs, it stops being world and becomes a bug.
+
+THE DECISION (mine, EVERYTHING IS A THUMB, correct-after -- NOT a question):
+LANGUAGE IS A FACT ABOUT A PERSON, NOT A SETTING ON THE GAME.
+  1. the line schema gets `lang` NOW, before line 1,911, default en;
+  2. a person's language is DERIVED from the identity key exactly like their
+     name, same real-valley weighting, pool replaceable by him in one edit;
+  3. HARD RULE: LANGUAGE NEVER GATES REQUIRED INFORMATION -- flavour and
+     who-knows-first, never whether you can finish;
+  4. the mechanic is THE SECOND CHANNEL, not subtitles;
+  5. WE ARE NOT TRANSLATING THE GAME. That is a business decision, later, his.
+RESERVED, SHIPS EMPTY: whether the PLAYER speaks anything but English (identity),
+which named story people speak what (same rule as KNOWN_AT_START), whether the
+game ever ships translated. Defaults ship; he corrects what he meets. NOT QUEUED.
+
+  RECORD: records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
+  ROUTED: PEOPLE LANG-1 (a person has a language) + QUESTS LANG-2 (the `lang`
+  column + a new language_gate whose third claim is the one that matters:
+  no line carrying required information is non-English) + SHARED -9 (ownership gate)
+  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
+
+================================================================================
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 LATEST -- *** THE DEMO IS DONE AND
 THE NEXT STEP WOULD HAVE RETURNED NOTHING. TAB: RUN (first morning) + NOT IN A TAB
 YET (the feedback card). Nothing to judge. ***

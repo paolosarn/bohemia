@@ -4239,6 +4239,50 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+LANG-1. *** A PERSON HAS A LANGUAGE, AND RIGHT NOW NOBODY DOES (sweep 15,
+   8/25 — records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_
+   8_25_26.md. Coordinator DECISION under EVERYTHING IS A THUMB, not a
+   question. Verified unstarted first: zero hits for a language attribute
+   across engine/, quests/, the words book, laws/ and this file.)
+   THIS LANE ALREADY DID THE RESEARCH AND USED ONE PERCENT OF IT.
+   engine/bohemia_people.js says it in its own comment — Clark County is
+   "roughly 30% Hispanic or Latino... a name pool that is all [Anglo]
+   would be a lie about Las Vegas" — and that finding reached exactly ONE
+   system, the surname pool. The lane's own shipped proof character is
+   RUBEN NGUYEN, and Ruben Nguyen speaks flawless monolingual English,
+   because in this build every single person does.
+   THE REAL NUMBERS ARE BIGGER THAN THE 30%: Spanish is Clark County's
+   most-spoken language at 418,400+ speakers; 362,728 adults here speak
+   something other than English; and 139 CENSUS TRACTS are places where
+   more than 10% of households contain nobody over 14 who speaks English
+   only or speaks it "very well". Our valley is built out of cells. A
+   correct Las Vegas has whole neighbourhoods where the language on the
+   street is not the language on the phone.
+   BUILD: language is DERIVED FROM THE IDENTITY KEY exactly like the name
+   — same key, same real-valley weighting, nothing new stored, pool
+   replaceable by him in one edit the way the name pool already is. It
+   surfaces where the name surfaces (the card, the one action button).
+   THE MECHANIC IS THE SECOND CHANNEL, NOT SUBTITLES. This lane already
+   built a two-channel world and split it on WHO OWNS A PHONE — the feed
+   deliberately excludes the phoneless ("you can't get their quest over
+   the phone"). The disaster research says the real split is WHO SPEAKS
+   WHAT, and that the street channel is not a downgrade: for the people
+   inside it, it is FASTER AND MORE TRUSTED than the official one. The
+   shape in one sentence: the neighbour who does not answer the phone
+   feed already knows, because her cousin told her an hour ago, and
+   whether you can hear that is a thing about you.
+   THE HARD RULE, NOT NEGOTIABLE: LANGUAGE NEVER GATES REQUIRED
+   INFORMATION. It changes flavour and it changes who knows first. The
+   moment it decides whether you can finish something, it stops being
+   world and becomes a bug — that is the documented Sleeping Dogs
+   complaint and the comprehension research, turned into a constraint.
+   RESERVED AND SHIPS EMPTY (mechanism mine, contents his): whether the
+   PLAYER speaks anything but English (identity, his), which named story
+   people speak what (same rule as KNOWN_AT_START), whether the game ever
+   ships translated. Defaults ship; he corrects what he meets.
+   | the card and the action button on the real surface, plus a street
+   sample of the derived mix | player language + named roster = his | no —
+   he meets it in the game. TAB: LIFE. ***
 P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
    *** THE THIRD QUEST EFFECT, AUTHORED SINCE 7/25, PARSED CORRECTLY, READ BY NOTHING. ***
    bohemia_quest_runtime.js line 117 has parsed `@DO faction_posture CARTEL +1` into
@@ -6496,6 +6540,39 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 ## claimed it. The 7/26 hibernation text is kept here as history:
 ## (WAS: HIBERNATED, laws/BOHEMIA_ADDENDUM_QUESTS_LANE_HIBERNATED_7_26_26.md,
 ## no "quests" sessions until Paolo reopens the lane.)
+LANG-2. *** THE LINE SCHEMA IS MISSING ONE COLUMN AND THAT IS THE ONLY
+   IRREVERSIBLE PART (sweep 15, 8/25 — records/BOHEMIA_EVERYBODY_IN_THIS_
+   VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md). PAIRS WITH PEOPLE LANG-1.
+   records/BOHEMIA_WORDS_BOOK.json holds 1,910 authored player-facing
+   lines across 36 sources, 1,864 citing the questbook laws they came
+   from. NOT ONE KNOWS WHAT LANGUAGE IT IS IN. There is no field.
+   WHY IT IS A TODAY PROBLEM AND NOT A SOMEDAY PROBLEM: his 8/11 law says
+   words are cheap because he edits them later, and that is TRUE — for
+   the CONTENT of a line, forever, because a line is a row in a data
+   file. It is NOT true for a PROPERTY the line was never given. Adding
+   `lang` today is one field on tools/bohemia_words_book.py and the .bq
+   writer. Adding it at line 5,000 means a human re-reads five thousand
+   lines and rules on each, and that human is HIM. The industry evidence
+   is blunt and unanimous on the general case ("internationalization
+   costs almost nothing upfront; deferring it costs a great deal later";
+   the Balatro launch is the named cautionary case) — DISCOUNTED here on
+   purpose, because our text is already externalised so we dodged the
+   expensive half by accident. The schema column is the part that is
+   still open.
+   THIS IS NOT ABOUT TRANSLATING THE GAME. Shipping Bohemia in Spanish is
+   a business decision, later, and it is his. This just keeps that
+   decision cheap instead of turning it into a re-read of the corpus.
+   BUILD: `lang` on every authored line, default `en`, written by the
+   generator across all 1,910 existing rows, visible and editable in the
+   WORDS tab like every other property of a line.
+   GATE, SAME TURN (a law without a machine gate is not enforced):
+   `language_gate`, three claims — (a) every authored line carries a
+   lang; (b) the derived people mix matches the valley's real numbers
+   within tolerance; (c) NO LINE CARRYING REQUIRED INFORMATION IS
+   NON-ENGLISH (objective text, resolution buttons, the phone feed's job
+   offer). Claim (c) is the one that matters. Mutation test: retag one
+   objective line non-English and (c) must go red.
+   | the WORDS tab showing the column | nothing pending | no. TAB: WORDS. ***
 NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    THERE IS NO MONEY IN BOHEMIA (his 7/26 locked law; we drifted off it) and
    it reached the page: 16 "money" + 6 "currency" + a "Coins" across the .bq
@@ -6533,6 +6610,33 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-9. *** ONE SYSTEM ONE SESSION IS A LAW WITH NO GATE, AND FOUR LANES ARE
+   STANDING IN THE SAME FILE (sweep 15 collision audit, 8/25).
+   MEASURED, 8/18 to 8/25: slices/BOHEMIA_CITY_WORLD.html took 37 commits
+   in seven days and slices/BOHEMIA_ALPHA_0_9.html took 47. The named
+   lanes on CITY_WORLD alone are WORLD (11), SOUND (3), PEOPLE (1), plus
+   RUN's unlabelled commits. That is four lanes in one file.
+   THIS IS NOT AN INFERENCE — A LANE ALREADY REPORTED IT ON ITSELF. Commit
+   8002bb2 is titled "THE SAME MISTAKE THREE TIMES IN ONE DAY: I EDITED
+   FILES THAT SOMETHING ELSE OWNS", and c407275 is "MY REPAIR ADDED A
+   SECOND OWNER FOR ONE NUMBER, WHICH IS THE BUG I SPENT THE DAY
+   REMOVING". Both lanes caught themselves AFTER shipping, by hand.
+   CLAUDE.md's own rule is that a law without a machine gate is not
+   enforced, and PARALLEL SESSIONS is exactly that law. Six of nine gated
+   laws were already broken when that rule was written; this one is not
+   even gated.
+   BUILD: an OWNERSHIP MAP (which lane owns which path prefix, derived
+   from the lane sections in this file, not hand-listed) and a gate that
+   reads the working tree's staged paths against the branch's lane and
+   fails on a cross-lane edit that is not in the shared set (engine
+   modules stay shared under ENGINE SYNC LAW). It must be ADVISORY-LOUD
+   rather than blocking on shared paths, or it stops the fleet dead.
+   HONEST LIMIT, STATED: a gate cannot tell a legitimate shared edit from
+   a trespass by path alone. The claim it CAN hold is "this commit
+   touched a path another lane owns and did not say so" — which is the
+   thing both lanes above had to discover by hand a day late.
+   | red on a deliberately cross-lane staged edit, green on a shared one |
+   nothing pending | no. NOT IN A TAB — this is fleet plumbing. ***
 -8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,
    8/16 — records/BOHEMIA_RESEARCH_THE_PRICE_OF_HIS_THUMBS_8_16_26.md.
    FLEET-WIDE for any lane that cooks batches; SOUNDS runs it first
