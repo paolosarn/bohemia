@@ -5222,6 +5222,37 @@ file and ART lane's call; filed, not done from here.
 RUN THE GATES DIRECTLY WHEN YOU NEED AN A/B -- the runner takes a global lock so
 22 gates x 2 trees is hours; the scripts run in parallel and finish in minutes.
 
+*** AND RF4-29 IS MEASURED AND HOLDS -- A ROW WHOSE OWN COLUMN SAID "NOT
+MEASURED... I DID NOT MEASURE IT." *** It could not be measured until V178,
+because until then NOTHING IN THIS REPO HAD EVER FIRED THE GUN. The steady hand
+built this morning to fix V178's flaky arm is the instrument it needed.
+  8 arenas, 4.3 men avg, real buttons, dial perfect every time:
+    7 openers LANDED, 427hp off the room, 2 bodies, 0 FIGHTS ENDED
+  full fights:  PERFECT dial  7 of 10 cleared, died 2, MEDIAN 20 TURNS
+                RANDOM timing 2 of 10 cleared, DIED 8
+  none of the 20 fights was over inside two turns.
+AND THE 6/30 DOC'S INVERSION IS NOT IN THE GAME: it claims a perfect chain
+clearing a room in ONE TURN as the master reward. With a perfect dial that never
+happened once. Either it needs tactics the bot lacks, or it was aspiration
+written down as behaviour. Naming that is worth more than a silent BUILT.
+LIMIT STATED: perfect at the DIAL, stupid at everything else -- no suppress, no
+grenade, no cover plan, no target priority. 20 turns is the TRIGGER ceiling.
+
+*** AND THE HARNESS WAS WRONG TWICE AND LOOKED FINE BOTH TIMES. READ THIS. ***
+ 1. IT MEASURED A MAN STANDING STILL. Pressed FIRE every turn, never moved, and
+    reported a PERFECT player taking 24+ turns and dropping nobody -- which
+    contradicted V178's own 11-shots-for-three-men. doPop REFUSES when nothing is
+    in reach (V141) and says GO AND GET THEM. A player who never closes never
+    fires. A RESULT THAT DISAGREES WITH A NUMBER YOU ALREADY HAVE IS A BUG.
+ 2. "THE OPENER KILLED NOBODY" WAS MOSTLY "THERE WAS NO OPENER." The first gate
+    arm asserted only that nobody died, and passed. Adding one column -- did the
+    round go into anybody -- showed 6 OF 8 OPENERS FIRED NOTHING AT ALL. It was
+    reporting the ABSENCE OF A SHOT as a design property, green while doing it.
+    Retry-until-it-lands took it to 7 of 8.
+Both are the same failure V180 hit three times: an arm nobody controlled.
+Gate: fight_moves_you 91/0 (2 new). IT PLAYS ONLY TURN ONE ON PURPOSE -- a full
+fight version is ten minutes and the suite is already 1758s over budget.
+
 WHAT COMES NEXT FOR THIS LANE, IN ORDER:
  1. RF4-53 LAYER 1 -- needs a pre-fight and a stealth stat. Probably not this
     lane's alone; the fight-start trigger sits between world and combat.
@@ -5229,8 +5260,8 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
  3. RF4-36, RF4-45, RF4-31, RF4-56 -- BLOCKED on his rulings or on law. The one
     that unblocks the most is still WHAT A FIGHT IS WORTH, asked and unanswered.
 
-THE LEDGER: three stars 3 of 4 | two stars 3 of 6 | one star 6 of 8 | unstarred 18
-of 50. 30 BUILT rows, all named by a gate.
+THE LEDGER: three stars 3 of 4 | two stars 3 of 6 | one star 6 of 8 | unstarred 19
+of 50. 31 BUILT rows, all named by a gate.
 
 SOUND (sound-xk7pjp): 8/24 (d) LATEST -- *** THE DEMO WENT FROM 5 OF 10 BEATS MAKING
 A SOUND TO 10 OF 11. TAB: RUN (tap anything). Nothing to judge. ***

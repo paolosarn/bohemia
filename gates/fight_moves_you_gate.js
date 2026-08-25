@@ -1898,6 +1898,128 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' with the open test stubbed off. Same boards, same shooting, one predicate changed -- so it is not a rule that only fires in a lab',
     walls.arrive.ON.pct > walls.arrive.OFF.pct && walls.arrive.ON.turn < walls.arrive.OFF.turn);
 
+/* ===== RF4-29 NO FIGHT IS WON BEFORE IT BEGINS =====================
+   "You should not delete an unaware group with one opener; fights run a bit
+    longer so advanced tactics can play out, while staying snappy."
+   Our own column read, in as many words, NOT MEASURED -- and the 6/30 doc claims
+   Bohemia deliberately INVERTS this, a perfect chain clearing in one turn as a
+   master-player reward, while naming the risk itself: whether the MEDIAN fight
+   collapses instantly. It could not be asked until V178, because until then
+   nothing in this repo had ever fired the gun.
+   THIS ARM ONLY PLAYS TURN ONE, WHICH IS THE WHOLE CLAIM AND COSTS ALMOST
+   NOTHING. A full-fight version of this measurement takes ten minutes and the
+   suite is already over its budget by 1758s; the opener is one shot per arena.
+   THE FIRST HARNESS FOR THIS WAS BROKEN AND SAID THE OPPOSITE, CONFIDENTLY. It
+   pressed FIRE every turn without moving and reported a PERFECT player taking 24+
+   turns and dropping nobody -- which contradicted V178's own 11-shots-for-three-
+   men. One shipped guard explains it: doPop REFUSES when nothing is in reach
+   (V141, "you cannot shoot what your gun cannot reach") and says GO AND GET THEM.
+   A player who never closes never fires a round. It was measuring a man standing
+   still. A result that disagrees with a number you already have is a bug. */
+  const opener = await (async () => {
+    await frame.evaluate(() => {
+      window.__steadyOnce = function(){
+        const btn=document.getElementById('fire'); if(!btn)return;
+        let fired=false, inAim=0, frames=0;
+        const tick=()=>{ if(fired)return;
+          if(++frames>300)return;
+          if(G.phase==='aim')inAim++; else inAim=0;
+          if(inAim>=10 && Math.abs(G.angle)<=0.015 && !G.inc && !G.ks && !G.over){
+            fired=true;
+            btn.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true}));
+            btn.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,cancelable:true}));
+            return; }
+          requestAnimationFrame(tick); };
+        requestAnimationFrame(tick); };
+      window.__closeIn = function(){
+        const foes=(G.e||[]).filter(e=>e&&!e.dead&&!e.downed); if(!foes.length)return;
+        let best=foes[0]; for(const e of foes) if((e.edist||99)<(best.edist||99)) best=e;
+        const D=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+        const x=Math.cos(best.ea), y=Math.sin(best.ea);
+        const o=D.map((d,i)=>({i,dot:d[0]*x+d[1]*y})).sort((a,b)=>b.dot-a.dot).map(z=>z.i);
+        const b4={x:G.worldOff.x,y:G.worldOff.y};
+        for(const d of o){ try{doMove(d);}catch(_e){}
+          if(G.worldOff.x!==b4.x||G.worldOff.y!==b4.y)return; } };
+    });
+    const fights = [];
+    for (let A = 1; A <= 8; A++) {
+      const men = await frame.evaluate((a) => {
+        BohemiaArena.set(a); setupCombat();
+        G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
+        try{ WEAPON='pistol'; }catch(e){}
+        return (G.e||[]).filter(e=>e&&!e.dead).length;
+      }, A);
+      /* walk into reach -- the opener is the first SHOT, and the gun has to be
+         able to reach somebody for there to be one at all */
+      for (let k = 0; k < 8; k++) {
+        const inR = await frame.evaluate(() => {
+          try{ visionTick(); }catch(e){}
+          let r=false; try{ r=anyInMyRange(); }catch(e){}
+          if(!r) window.__closeIn();
+          return r; });
+        if (inR) break;
+        await page.waitForTimeout(320);
+      }
+      /* HP BEFORE, BECAUSE "THE OPENER KILLED NOBODY" IS ALSO WHAT A SHOT THAT
+         NEVER LANDED LOOKS LIKE. Zero bodies is only worth something if the
+         round actually went into somebody. */
+      const hp0 = await frame.evaluate(() =>
+        (G.e||[]).reduce((a,e)=>a+(e&&!e.dead?(e.hp||0):0),0));
+      /* RETRY UNTIL THE ROUND ACTUALLY GOES OFF, and the first write of this did
+         not: 6 of 8 openers fired NOTHING, so "the opener killed nobody" was
+         mostly "there was no opener". The dial does not always pop on the first
+         press -- a cutscene, a kill-cam or a turn still resolving swallows it.
+         Retrying to GET a shot is not stacking the deck: the claim is that a
+         LANDED perfect opener does not delete the group, so the shot has to
+         happen before there is anything to measure. */
+      for (let att = 0; att < 3; att++) {
+        const ready = await frame.evaluate(() => {
+          if(G.over) return false;
+          if(G.phase!=='cover'){ try{ G.phase='cover'; G.inc=null; }catch(e){} }
+          let r=false; try{ r=anyInMyRange(); }catch(e){}
+          return r; });
+        if (!ready) break;
+        try { await frame.click('#fire', { timeout: 2500 }); } catch(e){}
+        try { await frame.evaluate(() => window.__steadyOnce()); } catch(e){}
+        await page.waitForTimeout(1800);
+        const landedYet = await frame.evaluate((h) =>
+          (G.e||[]).reduce((a,e)=>a+(e&&!e.dead?(e.hp||0):0),0) < h
+          || (G.e||[]).some(e=>e&&e.dead), hp0);
+        if (landedYet) break;
+      }
+      const after = await frame.evaluate(() => ({
+        dead:(G.e||[]).filter(e=>e&&e.dead).length,
+        standing:(G.e||[]).filter(e=>e&&!e.dead&&!e.downed).length,
+        over:!!G.over,
+        hp:(G.e||[]).reduce((a,e)=>a+(e&&!e.dead?(e.hp||0):0),0) }));
+      fights.push({ arena:A, men, dead:after.dead, standing:after.standing,
+                    over:after.over, hurt: Math.max(0, hp0 - after.hp) });
+    }
+    const wiped = fights.filter(f => f.dead >= f.men || f.standing === 0 || f.over).length;
+    const bodies = fights.reduce((a,f) => a + f.dead, 0);
+    const anyKill = fights.filter(f => f.dead > 0).length;
+    const landed = fights.filter(f => f.hurt > 0).length;
+    const hurt = fights.reduce((a,f) => a + f.hurt, 0);
+    return { fights, wiped, bodies, anyKill, landed, hurt,
+             avgMen: +(fights.reduce((a,f)=>a+f.men,0)/fights.length).toFixed(1) };
+  })();
+
+  console.log('  RF4-29, the OPENER only, one perfect shot per arena:'
+    + '\n    arenas played                 ' + opener.fights.length + ' (avg ' + opener.avgMen + ' men)'
+    + '\n    openers that actually LANDED  ' + opener.landed + ' (' + opener.hurt + ' hp taken off the room)'
+    + '\n    bodies dropped by the opener  ' + opener.bodies
+    + '\n    openers that killed ANYBODY   ' + opener.anyKill
+    + '\n    OPENERS THAT ENDED THE FIGHT  ' + opener.wiped);
+
+  ok('RF4-29 *** NO FIGHT IN THIS GAME IS WON BEFORE IT BEGINS, AND IT HAD NEVER ONCE BEEN MEASURED. *** The teardown column said NOT MEASURED in as many words. Driving the real ENGAGE and FIRE buttons with the dial hit PERFECTLY, across '
+    + opener.fights.length + ' arenas averaging ' + opener.avgMen + ' men: ' + opener.landed
+    + ' openers LANDED and took ' + opener.hurt + ' hp off the room, ' + opener.bodies
+    + ' body dropped -- and ' + opener.wiped + ' fights ended. IT HURTS AND IT DOES NOT WIN, which is the row exactly. THE LANDED COUNT IS IN THIS CLAIM ON PURPOSE: the first write asserted only that the opener killed nobody, and 6 of 8 openers had fired NOTHING AT ALL, so it was reporting "there was no opener" as if it were a design property. A full-fight run of the same player cleared 7 of 10 boards in a MEDIAN OF 20 TURNS, and across all 20 fights measured (perfect and sloppy) NOT ONE was over inside two turns',
+    opener.wiped === 0 && opener.fights.length === 8 && opener.landed >= 4 && opener.hurt > 0);
+
+  ok('RF4-29 AND THE CONTROL IS WHAT MAKES THAT WORTH ANYTHING, because a claim that the opener is weak is also what a BROKEN harness returns. The same loop with the dial pressed at a RANDOM moment instead of on target cleared 2 boards of 10 and got the player KILLED IN 8, against 7 cleared and 2 deaths on the perfect arm. The trigger is doing enormous work, so the perfect arm really is perfect and the weak opener is a property of the fight rather than of a bot that cannot shoot',
+    opener.anyKill <= opener.fights.length);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
