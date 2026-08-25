@@ -1673,6 +1673,88 @@ function requirePlaywright() {
         && corrupt.errs.length === 0,
       JSON.stringify(corrupt));
 
+    /* ---- R. WHAT EVERY OUTFIT PAYS, AND THE TWO POSTURES ------------------
+       Swept because the same shape had been wrong twelve times. It was NOT wrong
+       here -- every outfit with a declared `pays` reaches the card -- and the
+       sweep is kept so it stays that way.
+       AND MY PROBE CALLED THREE WORKING OUTFITS BROKEN FIRST. It grepped only
+       "YOU CAN ASK THEM FOR", and his canon gives CARTEL, CHURCH and NETWORK the
+       OPPOSITE POSTURE: they help you BEFORE you agree to anything, so their row
+       reads "THEY ARE OFFERING" and their note says "It is free. That is the
+       point of it, and it is the part to be careful about." A SWEEP THAT KNOWS
+       ONE POSTURE REPORTS THE OTHER AS A DEFECT. */
+    const pays = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const B = BohemiaBelonging, R = ctValleyRoster();
+          const keys = B.keys ? B.keys() : Object.keys(B.RULES || {});
+          const out = { declared: [], reached: [], noMembers: [], missing: [],
+                        offering: [], asking: [] };
+          for (const k of keys) {
+            const rule = B.RULES[k];
+            if (!rule || !rule.pays) continue;
+            out.declared.push(k);
+            const norm = String(k).toUpperCase();
+            const row = R.filter(a => String(a.faction || '').toUpperCase() === norm)[0];
+            if (!row) { out.noMembers.push(k); continue; }
+            const q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+            hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
+            const rec = ctEveryone().filter(x => x.id === row.__id)[0];
+            if (!rec) { out.missing.push(k + '(not drawable)'); continue; }
+            const at = ctAt(rec);
+            let stood = false;
+            for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              hx = at[0] + d[0]; hy = at[1] + d[1];
+              const a = ctAdjacent(); if (a && a.id === rec.id) { stood = true; break; }
+            }
+            if (!stood) { out.missing.push(k + '(cannot stand beside)'); continue; }
+            const fid = ctFactionOf(rec), sv = ctBelongSave();
+            let hit = null;
+            for (const gave of [3, 6, 9, 12]) {
+              sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+              sv.meta.gave[fid] = gave;
+              ctSawCell(); ctClose(); ctOpen();
+              const el = document.getElementById('ctcard');
+              const t = (el && el.style.display !== 'none') ? el.innerText : '';
+              const m = t.match(/(YOU CAN ASK THEM FOR|THEY ARE OFFERING)\n([^\n]*)/);
+              if (m) { hit = { gave, word: m[1], what: m[2] }; break; }
+            }
+            if (!hit) { out.missing.push(k + '(no row at any standing)'); continue; }
+            out.reached.push({ k, at: hit.gave, word: hit.word, what: hit.what });
+            (hit.word === 'THEY ARE OFFERING' ? out.offering : out.asking).push(k);
+          }
+          return out;
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('R1 EVERY OUTFIT THAT DECLARES WHAT IT PAYS ACTUALLY PAYS IT ON THE CARD. '
+      + 'Swept because this exact shape — authored, computed, never reachable — '
+      + 'had been wrong twelve times this week. It is NOT wrong here, and the '
+      + 'sweep is kept so it stays that way',
+      !!pays && pays.missing.length === 0 && pays.reached.length > 0,
+      JSON.stringify({ declared: pays && pays.declared.length,
+                       reached: pays && pays.reached.length,
+                       missing: pays && pays.missing }));
+
+    ok('R2 …and BOTH OF HIS POSTURES ARE LIVE, not collapsed into one. Most '
+      + 'outfits make you earn the right to ask; CARTEL, CHURCH and NETWORK HELP '
+      + 'YOU BEFORE YOU AGREE TO ANYTHING and their row says so — "It is free. '
+      + 'That is the point of it, and it is the part to be careful about." My own '
+      + 'first sweep grepped one phrase and called all three broken',
+      !!pays && pays.offering.length > 0 && pays.asking.length > 0,
+      JSON.stringify({ theyOffer: pays && pays.offering, youAsk: pays && pays.asking }));
+
+    ok('R3 …and the outfits that CANNOT be tested are NAMED rather than skipped. '
+      + 'Five stand in the valley with zero members, so nobody can reach their '
+      + 'favour at all — a population fact, not a wiring one, and it is reported '
+      + 'with its cause instead of quietly counting as a pass',
+      !!pays && Array.isArray(pays.noMembers),
+      JSON.stringify({ zeroMembers: pays && pays.noMembers }));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
