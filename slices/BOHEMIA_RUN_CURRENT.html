@@ -5026,6 +5026,14 @@ root.BQRuntime=API;
          number -- so the path goes through it and a road split by its own markings is still
          one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
       else if (legend[c].kind === 'marking') C[c] = 1;
+      /* AND THE GATE (8/25). A GATE IS THE HOLE YOU DRIVE THROUGH. It was counted as a wall,
+         so any district whose road meets the street THROUGH its gate tile read as sealed off.
+         The dam was reported 0.0% reachable -- 239 tiles of access road a car could supposedly
+         never touch -- and it is 100% the moment the gate conducts. Nothing was wrong with the
+         dam. Measured across every registered district before changing this: exactly TWO move,
+         so it is not a loosening, it is the one case a gate exists for. STREET-AWARE ACCESS
+         LAW says one car entrance on the primary street; this is that entrance. */
+      else if (legend[c].kind === 'gate') C[c] = 1;
     }
     return C;
   }
@@ -10526,6 +10534,22 @@ root.BQRuntime=API;
       G.rect(ux+1,uy,ux+Math.max(1,Math.floor(uw*0.4)),uy+2,7);          // office bay, front corner
       set(ux+Math.floor(uw/2),uy+depth,6);                                // roll-up dock, back face
       for(var ci=0;ci<2;ci++) set(ux+2+ci*2,uy-2,11);                     // reserved stalls out front
+      /* AND SOMETHING STILL PARKED IN ONE (8/25). Code 10, "a car dead in a reserved stall,
+         tyres flat", was authored in this legend and never once placed -- dead_code_gate found
+         it. The stall paint two lines up is the whole reason the code exists: a RESERVED stall
+         is reserved for somebody, and the tell that the tenant never came back is that their
+         car is still in it. About a third of the units, nose-in to the roll-up like you park
+         when the unit is yours. It cannot be erased by the spine street, which only converts
+         codes 0/3/4/11/12 and runs past x=105, clear of the last unit at x=99. */
+      /* AND IT MUST NOT TOUCH THE RANDOM STREAM. The first cut was `if(r()<0.34)`, which
+         consumes a draw per unit and SHIFTS EVERY LATER DRAW IN THE WHOLE DISTRICT -- three
+         more bays came up burned-out, the code-2 footprint count fell 12 to 9, and
+         warehouse_gate went red on a check about tenant units that had nothing to do with
+         cars. A decoration that changes the layout is not a decoration.
+         So it is derived from the unit index and the seed instead: same per-unit answer, same
+         determinism, and the sequence r() hands out is byte-for-byte what it was. */
+      if((((Math.imul(idx+1,2654435761)^Math.imul(seed>>>0,40503))>>>0)%100)<34)
+        G.rect(ux+2,uy-4,ux+3,uy-1,10);
       if(r()<0.4) set(ux+3,uy+depth+1,13);                                // loose pallets behind the dock
     }
     // ---- BASE: lot asphalt, fenced; desert at the margins ----
@@ -13125,8 +13149,84 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       for (var k = 0; k < out.length; k++) if (out[k][0] === fx && out[k][1] === fy) { dup = true; break; }
       if (dup) continue;
       out.push([fx, fy, r]);
+      /* __POP_HOUSEHOLDS__ -- and the rest of their household, beside them */
+      seatHouseholds(out[out.length - 1], want, out, nx, ny, seed, pick);
     }
     return out;
+  }
+
+  /* __POP_HOUSEHOLDS__ -- WHO SHARES AN ADDRESS. Paolo 8/21: "people share
+     houses yes bro". Measured before this: 298 people, 298 homes, ZERO
+     households, 199 of 298 knowing nobody at all, and NOT ONE tie in the valley
+     crossing an outfit line -- so whoHears() answered NOBODY for every faction
+     and every commitment in the game was free.
+     Feld 1981: ties form around FOCI, home is the strongest one, it sits under
+     Dunbar's support clique of 5 so everyone in it knows everyone, AND IT IS THE
+     ONLY FOCUS THAT DOES NOT CARE WHAT OUTFIT YOU RUN WITH.
+     THE DEDUP ABOVE STAYS. One body per cell is also a law, and two people on
+     one tile draw on top of each other. A house is not a cell -- it is several
+     people in several rooms at one address -- so everybody keeps their own cell
+     and gains a shared HOUSEHOLD. Nothing moves; nothing overlaps.
+     SIZES RESEARCHED, NOT PICKED: US mean is 2.58 with 28.9% living alone, but
+     that is a prosperity number -- job loss TRIPLES house-sharing and doubling
+     up runs 6%+ against a 2% baseline in recession (HUD/AHS; Census
+     SEHSD-WP2011-04). This is worse than a recession, so the distribution shifts
+     off modern without reaching 1900's 4.6 (that mean was fertility). */
+  var HOUSEHOLD_SIZES = [
+    { n: 1, w:  8 },   /* living alone is a luxury the collapse deleted */
+    { n: 2, w: 26 },
+    { n: 3, w: 28 },
+    { n: 4, w: 22 },
+    { n: 5, w: 16 }    /* capped at Dunbar's support clique */
+  ];
+  var HOUSEHOLD_REACH = 3;   /* fine cells: an address is a small footprint */
+
+  function householdSize(seed32) {
+    var total = 0, i;
+    for (i = 0; i < HOUSEHOLD_SIZES.length; i++) total += HOUSEHOLD_SIZES[i].w;
+    var r = (seed32 >>> 7) % total;
+    for (i = 0; i < HOUSEHOLD_SIZES.length; i++) {
+      r -= HOUSEHOLD_SIZES[i].w;
+      if (r < 0) return HOUSEHOLD_SIZES[i].n;
+    }
+    return 1;
+  }
+
+  /* THE HOUSEHOLD IS FORMED FIRST AND THEN SEATED, WHICH IS THE WHOLE FIX.
+     The first cut GROUPED people who happened to land near each other, and
+     measured mean 1.30 with 183 of 230 households still single -- because the
+     scatter spreads people across a whole neighbourhood and almost nobody lands
+     within a house's width of anybody. Discovering households cannot work when
+     the placement was never trying to make any.
+     So: each accepted cell is a HEAD OF HOUSEHOLD, its size is rolled, and the
+     rest of that household is seated in the free cells AROUND it -- which is
+     what rooms at one address actually are. The surface still gets to reject
+     every cell (`pick`), the dedup still holds so nobody shares a tile, and the
+     total is still bounded by `want`, so the census stays honest. */
+  function seatHouseholds(head, want, cells, nx, ny, seed, pick) {
+    var cap = householdSize(h2(head[0], head[1], (seed | 0) + 917));
+    var id = 'H' + nx + ':' + ny + ':' + head[0] + ':' + head[1];
+    head[3] = id;
+    var placed = 1;
+    /* a deterministic ring walk outward from the head: rooms of one house */
+    for (var d = 1; d <= HOUSEHOLD_REACH && placed < cap && cells.length < want; d++) {
+      for (var dy = -d; dy <= d && placed < cap && cells.length < want; dy++) {
+        for (var dx = -d; dx <= d && placed < cap && cells.length < want; dx++) {
+          if (Math.abs(dx) !== d && Math.abs(dy) !== d) continue;   /* ring only */
+          var fx = head[0] + dx, fy = head[1] + dy;
+          if (pick && !pick(fx, fy)) continue;
+          var taken = false;
+          for (var k = 0; k < cells.length; k++)
+            if (cells[k][0] === fx && cells[k][1] === fy) { taken = true; break; }
+          if (taken) continue;
+          var c = [fx, fy, h2(fx, fy, seed)];
+          c[3] = id;                       /* same ADDRESS, different room */
+          cells.push(c);
+          placed++;
+        }
+      }
+    }
+    return placed;
   }
 
   // Valley-wide census, for the gate and for anything that wants to state the
@@ -13223,6 +13323,11 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       nx: nx, ny: ny, i: i,
       zone: zone,                       // cluster | spread | loner
       home: [home[0], home[1]],         // fine-grid cell
+      /* __POP_HOUSEHOLDS__ -- THE ADDRESS THEY SHARE. Their CELL is their room
+         and stays unique (one body per cell); this is the house it is in, and it
+         is what bohemia_ties reads as the HOME focus. Falls back to the cell so
+         a roster built before households still behaves exactly as it did. */
+      household: (home[3] != null ? home[3] : (home[0] + ',' + home[1])),
       look: (r >>> 3) & 7,              // which tint of the rig this body wears
       face: r & 7,                      // which of the 8 facings they idle in
       archetype: ARCHETYPES[(r >>> 6) % ARCHETYPES.length],
@@ -17379,10 +17484,24 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
           G.set(mx+Math.round(gr*1.2*Math.cos(a)), my+Math.round(gr*1.0*Math.sin(a)), 13); }
         [0,120,240].forEach(function(d){                                // the GUY ANCHORS, far out
           var a=d*Math.PI/180, ax=mx+Math.round(gr*Math.cos(a)), ay=my+Math.round(gr*0.86*Math.sin(a));
-          G.set(ax,ay,7); G.set(ax+1,ay,7); G.set(ax,ay+1,7);
+          /* THE FAR ANCHOR IS THE ANCHOR BLOCK, CODE 6, NOT THE BASE PLATE (8/25). Both
+             rows exist in this legend and mean different objects: 7 is the 'anchor / base
+             plate' the mast stands on, 6 is the 'anchor block -- a lump of concrete out in
+             the open with nothing near it', which is precisely what a guy deadman IS and
+             precisely what these three are, out at the end of every guy. They were drawn
+             as 7, so code 6 was never once placed anywhere in the valley and the district
+             lost the one object its own notes call the strangest thing on the site. */
+          G.set(ax,ay,6); G.set(ax+1,ay,6); G.set(ax,ay+1,6);
           for(var t=1;t<gr;t++){ var qx=mx+Math.round(t*Math.cos(a)), qy=my+Math.round(t*0.86*Math.sin(a));
             if(G.get(qx,qy)===4) G.set(qx,qy,8); }                      // the guy wires themselves
         });
+        /* AND THE BASE PLATE (code 7) UNDER IT. Moving the guy deadmen to code 6 above left
+           code 7 with nothing drawing it, which would have been trading one dead row for
+           another -- so this is the object code 7 was always for: the concrete pier and steel
+           base plate a guyed mast is pinned to. A mast this size does not sit on dirt; it
+           stands on a block with an insulator under it, because on a real AM tower THE WHOLE
+           MAST IS LIVE. Drawn before the mast so the mast stands on top of it. */
+        G.rect(mx-2,my-2,mx+2,my+2,7);
         G.rect(mx-1,my-1,mx+1,my+1,14);                                 // THE MAST
         G.rect(mx+4,my+4,mx+12,my+11,2);                                // its equipment hut
         G.set(mx-4,my+5,10); G.set(mx-6,my+5,10);                       // the propane tank + ice bridge
@@ -17408,10 +17527,25 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
         G.rect(bx-4,by-2,bx-2,by+17,7);                                 // the earth traverse beside it
       }
       G.rect(10,H-30,W-11,H-27,1);                                      // the service lane
+      /* THE CABLE TRENCH (code 13), authored as "the cable trench along the service lane"
+         and never drawn. It is the site's nervous system: an ammunition storage area runs
+         its lightning protection, its intrusion alarms and its magazine lighting down a
+         covered trench beside the lane, because you do not put a cable in the open where a
+         truck reverses. It runs the whole length of the lane, which is what "along" means. */
+      G.rect(10,H-32,W-11,H-31,13);
       for(i=0;i<4;i++) G.rect(24+i*26,H-27,26+i*26,H-14,1);             // spurs to each rank
       G.rect(W-40,H-26,W-16,H-16,2);                                    // the issue point / guard office
       G.rect(8,10,W-9,11,12);
       for(i=0;i<3;i++) G.rect(12,20+i*28,14,32+i*28,10);                // barricade posts
+      /* THE LIGHTNING MASTS (code 14), "a lightning mast over the ranks", authored and
+         never drawn. They are not decoration on an ammunition site -- a magazine field is
+         the one place in the valley where a strike is a mass casualty event, so it is ringed
+         with masts that take the hit and put it in the ground instead. They stand IN THE
+         AISLES between the ranks, never over a magazine, because that is the only ground
+         here you are allowed to put anything tall on. Guarded on the yard code so a mast can
+         never eat an earth cover. */
+      for(j=0;j<2;j++)for(i=0;i<2;i++){ var lx=36+i*52, ly=38+j*28;
+        if(G.get(lx,ly)===4) G.rect(lx,ly,lx+1,ly+4,14); }
       brush(G,30);
       lights(G,[[12,16],[W-13,16],[12,H-34],[W-13,H-34]]);
     },
@@ -17436,6 +17570,11 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
       G.rect(ox-4,y0+30,W-8,y0+34,8);                                   // THE OUTFALL CHANNEL, leaving
       G.rect(ox-4,y0+28,W-8,y0+29,7); G.rect(ox-4,y0+35,W-8,y0+36,7);
       G.rect(22,H-30,52,H-16,2);                                        // the blower / control building
+      /* THE VENT STACK (code 14), "the vent stack on the blower house", authored and never
+         drawn. A pond field's blower house is the one building on the site with something
+         to get rid of -- the air it pulls off the ponds -- so the stack is the tallest thing
+         here and the only vertical in a plan made entirely of flat rectangles. */
+      G.rect(46,H-28,48,H-25,14);
       G.rect(56,H-28,W-24,H-26,13);
       for(i=0;i<6;i++) G.set(60+i*10,H-24,10);                          // the aeration blowers
       brush(G,22);
@@ -17463,6 +17602,18 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
       G.rect(cx-5,H-32,cx+5,H-30,6);   // elevation marks are ON the outlet box
       G.rect(cx-2,H-30,cx+2,H-26,8);                                    // the orifice and what leaves it
       for(i=0;i<7;i++) G.set(cx-6+i*2,H-33,10);                         // the debris rack across its mouth
+      /* THE STORM DRAIN (code 13), "the concrete box storm drain leaving the outlet", and
+         THE STAGE GAUGE (code 14), "the stage gauge on the crest" -- both authored and never
+         drawn. The box drain is where the water GOES: a basin is only half a structure
+         without the pipe that takes the released flow away, and a 24-inch orifice on a
+         concrete box is the real Clark County detail this layout is built on. It leaves
+         east and stops short of the perimeter lane, because a buried box does not sever a
+         road a truck drives on. The gauge is a staff on the crest with the flood stages
+         painted up it -- the same record as the elevation marks on the outlet box, read
+         from the top instead of from the water. */
+      G.rect(cx+8,H-34,W-12,H-32,13);
+      G.rect(cx-16,H-26,cx-15,H-24,14);
+      G.rect(cx+18,12,cx+19,14,14);
       G.rect(cx+22,H-26,cx+44,H-24,7);                                  // the emergency SPILLWAY in the crest
       G.rect(cx+24,H-24,cx+42,H-20,4);
       // THE MAINTENANCE RAMP, and it has to actually ARRIVE. Cut down the west slope, along
@@ -17711,8 +17862,8 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            10:['barricade post','prop','a barricade post at the head of a rank, set there to stop a vehicle rather than a person'],
            11:['marking','marking','the magazine number stencilled on the headwall'],
            12:['perimeter fence','structure','the arsenal fence, and it is the outer of two -- the inner one is the fence that mattered'],
-           13:['cable trench','structure','the cable trench along the service lane'],
-           14:['lightning mast','structure','a lightning mast over the ranks']},
+           13:['cable trench','structure','the covered cable trench beside the service lane, carrying the lightning protection and every alarm on the site'],
+           14:['lightning mast','structure','a lightning mast standing in the aisle between two ranks, there to take the strike so a magazine does not']},
       sum:'An ammunition storage area: twelve earth-covered magazines set well apart in echelon with earth traverses between them, doors on one end only, off a single service lane.',
       ref:['Ammunition storage practice: earth-covered magazines are separated by quantity-distance and screened from each other by earth traverses, so a detonation in one does not propagate.',
            'The headwall and door are on ONE end only; the rest of the structure is arch under fill.'] },
@@ -17760,7 +17911,7 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            11:['marking','marking','the elevation marks on the outlet box — the record of every flood that filled this'],
            12:['perimeter fence','structure','the basin fence, pushed over where the last flood shoved a raft of debris into it'],
            13:['storm drain','structure','the concrete box storm drain leaving the outlet'],
-           14:['gauge mast','structure','the stage gauge on the crest']},
+           14:['gauge mast','structure','the stage gauge on the crest, the flood heights painted up it, the top mark higher than anyone believed']},
       sum:'A flood detention basin: an earth bowl with stepped side slopes down to a flat silt floor, a concrete outlet works with a small orifice at the low corner, and an emergency spillway notched in the crest.',
       ref:['Clark County Regional Flood Control District: basins range from 10 to 50 acres and up to 50 feet deep, holding water to about 51.5 feet before it goes over the emergency spillway.',
            'Since 1991 the district has built 650 miles of channel and 100 basins for $1.9 billion, with another 25 years of projects planned.',
@@ -17788,7 +17939,7 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            11:['marking','marking','a pond number stencilled on a weir box, so a man on foot knew which cell he was at'],
            12:['perimeter fence','structure','the plant fence, more about keeping people out of the ponds than anything in'],
            13:['inlet header','structure','the header feeding every pond off one line'],
-           14:['vent stack','structure','the vent stack on the blower house']},
+           14:['vent stack','structure','the vent stack on the blower house, the tallest thing on a site that is otherwise all flat rectangles']},
       sum:'A reclamation pond field: nine bermed ponds in a grid, an inlet header down one side, an outfall channel leaving toward the wash.',
       ref:['Clark County water reclamation: treated effluent returns to the Las Vegas Wash and from there to Lake Mead, which is why the outfall channel points that way.',
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },
@@ -24056,9 +24207,16 @@ var XP = {}, XP_LOADED = 0;
        actually walks. The declared seat is the fact; the id is a spelling of
        it. Read the fact. */
     var id = String(agent.id || '');
-    var house = (agent.home && agent.home.building != null)
-      ? 'B' + agent.home.building
-      : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
+    /* __POP_HOUSEHOLDS__ -- THE HOUSEHOLD FIRST, IF THE ROSTER HAS ONE.
+       home.building is load-bearing for things that are not this (bohemia_agents
+       keys off it), so the address gets its own field rather than overwriting a
+       string other systems read. Falls through to exactly the old behaviour when
+       there is no household, so a roster built before them is unchanged. */
+    var house = (agent.household != null)
+      ? 'HH' + agent.household
+      : (agent.home && agent.home.building != null)
+        ? 'B' + agent.home.building
+        : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
     if (house) f.home = 'H:' + (cell ? cell[0] + ',' + cell[1] + ':' : '') + house;
     var j = agent.job;
     /* WHERE THEY WORK. Prefer a DECLARED site, same reason as the roof above:
