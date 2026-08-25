@@ -1011,3 +1011,27 @@ SESSION. casino/resort move NO -> CBB by newest-date-wins. STILL OWED:
 2x2 planting for stadium/speedway/casino-class venues (recorded ruling,
 needs city-app blob planting), and ranked fresh-cook waves for the
 other killed slots under the five rulings.
+
+## 8/25 FORTY-EIGHTH PASS: THE VENUES TAKE THEIR FOUR LOTS (2x2, both halves)
+
+The owed half of the icon verdict ("some buildings by their size will
+naturally be 2x2... the stadium or moto speedway. probably even the
+casinos"). MEASURED FIRST: the overmap already builds the stadium as a
+2x2 blob and the speedway as 4x3 - the old city render stamped the SAME
+hero on every cell, four little stadiums inside one stadium. Casinos
+are five 1x1 cells, so they stay 1x1 on the generated map. TWO HALVES
+SHIPPED, both in-place edits on the live city app (the region carries
+other lanes' work - never regenerate, update):
+(1) RENDER: a venue district draws its hero ONCE per blob, flood-walked,
+anchored at the blob's FRONT cell (max y then x - painted last, the
+multi-cell prop law from the run slice), scaled to span (w+h)/2 cells,
+centred on the blob; the blob's other cells paint the venue's own pad.
+Proven on the live page: 12 speedway cells -> 11 skip + 1 anchor
+{w:4,h:3,cx:14.5,cy:7}, one oval on screen.
+(2) PLANTING: the builder's plain BUILD button routes stadium/speedway/
+casino through the EXISTING buildBig 2x2 verb (Paolo 7/18 built it; his
+8/25 word makes it the venue default) - a planted venue always claims
+four lots. Proven live: picked stadium on empty desert, tapped BUILD,
+span {2x2, stadium} written, all four lots stadium, ONE hero spanning
+them in the render. Hero wire + walked surface + all 16 city gates
+green by exit code.

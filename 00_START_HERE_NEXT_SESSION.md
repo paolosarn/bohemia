@@ -44770,7 +44770,21 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/25 (a) LATEST -- *** THE WASH'S ARMOR + FOURTH AUDIT:
+ART (f3eu53): 8/25 (c) LATEST -- *** THE ICON VERDICT ANSWERED IN FULL:
+his 69-vote board (5 YES, 20 CBB, 44 NO) traced to ONE pipeline bug
+(building passes ran on every hero); fixed at the pass level
+(NOT_A_BUILDING), park/mountain/desert/freeway rebuilt, school towers
+cut, all 69 rebaked + rewired, 44 graveyarded with one post-mortem,
+big_icons gate amended to his newest word. THEN the owed 2x2 half:
+venue blobs draw ONE spanning hero (flood walk, front anchor, span
+(w+h)/2) and the builder's BUILD button routes stadium/speedway/casino
+through buildBig so a planted venue claims four lots - both halves
+proven live. Second rejections (strip, strip_x, minigp, dam) DEAD FOR
+SESSION. Sitting passes 47-48. Next: ranked fresh-cook waves for the
+other 30-odd killed icon slots under his five rulings, and the tile
+ranking ('landscaping' at the police station, granary gallery).
+PREVIOUS (8/25 a):
+ART (f3eu53): 8/25 (a) -- *** THE WASH'S ARMOR + FOURTH AUDIT:
 'riprap' x936 (two 115x3 strips flanking the channel) wired as a
 full-cell packed-stone ground - lit/shadow facet pairs from the
 approved kerb pale, baked dirt gaps, three hashed variants, no

@@ -21014,7 +21014,21 @@ function CBpanel(){
   const dem=el.querySelector('#cbdem');
   if(dem) dem.onclick=function(){ const r=CE.demolish(EDITS,x,y,CBdistAt(x,y)); if(r.ok)CBafterEdit(); };
   const bd=el.querySelector('#cbbuild');
-  if(bd) bd.onclick=function(){ const r=CE.build(EDITS,x,y,CBdistAt(x,y),ty.value,OM.DISTRICT); if(r.ok)CBafterEdit(); };
+  /* PAOLO 8/25: "some buildings by their size will naturally be 2x2 instead of
+     1. for example the stadium or moto speedway. probably even the casinos."
+     NATURALLY means the player never plants a one-lot one: picking a venue
+     type routes the plain BUILD through the existing 2x2 big-building verb,
+     so a planted venue always lands the footprint its hero now spans. */
+  const NATURAL_2X2={stadium:1,speedway:1,casino:1};
+  if(bd) bd.onclick=function(){
+    if(NATURAL_2X2[ty.value]){
+      const r2=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
+      if(r2.ok)CBafterEdit();
+      else { const a=el.querySelector('#cbacts');
+        if(a)a.insertAdjacentHTML('beforeend','<span class="cbnote">a '+ty.value+' is a 2x2 building: '+r2.why+' (needs a clear 2x2 down-right)</span>'); }
+      return;
+    }
+    const r=CE.build(EDITS,x,y,CBdistAt(x,y),ty.value,OM.DISTRICT); if(r.ok)CBafterEdit(); };
   const bg=el.querySelector('#cbbig');
   if(bg) bg.onclick=function(){
     const r=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
@@ -24397,6 +24411,33 @@ function ribbonHalf(d,x,y,axis){
   var t=om.at(x+a[0],y+a[1]);
   return (t&&FW_FAM(t.district))?1:0;                     // 1 = far half, 0 = near half
 }
+/* PAOLO 8/25 (the full-board verdict): "some buildings by their size will
+   naturally be 2x2 instead of 1. for example the stadium or moto speedway."
+   The overmap already builds these venues as multi-cell blobs (stadium 2x2,
+   speedway 4x3-minus-one) and the old render stamped the SAME hero on every
+   cell - four little stadiums inside one stadium. A venue district draws its
+   hero ONCE per blob, scaled to span the blob's whole footprint, anchored at
+   the blob's FRONT cell (max y then max x - painted last, so no blob cell's
+   own ground overdraws it: the multi-cell prop law from the run slice). The
+   blob's other cells paint only the venue's own pad ground. Casinos stay 1x1
+   because the world builds them as single cells. */
+var VENUE_BLOB={stadium:1,speedway:1};
+var VENUE_PAD={stadium:'#37332d',speedway:'#42442e'};
+function venueBlob(d,x,y){
+  function isD(a,b){var t=om.at(a,b);return !!t&&t.district===d;}
+  var seen={},st=[[x,y]],cells=[],minx=x,maxx=x,miny=y,maxy=y;
+  seen[x+','+y]=1;
+  while(st.length){var c=st.pop(),a=c[0],b=c[1];cells.push(c);
+    if(a<minx)minx=a;if(a>maxx)maxx=a;if(b<miny)miny=b;if(b>maxy)maxy=b;
+    var nb=[[a+1,b],[a-1,b],[a,b+1],[a,b-1]];
+    for(var i=0;i<4;i++){var k=nb[i][0]+','+nb[i][1];
+      if(!seen[k]&&isD(nb[i][0],nb[i][1])){seen[k]=1;st.push(nb[i]);}}}
+  var ax2=cells[0][0],ay2=cells[0][1];
+  for(var i2=1;i2<cells.length;i2++){var c2=cells[i2];
+    if(c2[1]>ay2||(c2[1]===ay2&&c2[0]>ax2)){ax2=c2[0];ay2=c2[1];}}
+  if(x!==ax2||y!==ay2) return {skip:true};
+  return {skip:false,w:maxx-minx+1,h:maxy-miny+1,cx:(minx+maxx)/2,cy:(miny+maxy)/2};
+}
 function heroFlip(d,x,y){
   if(typeof RD==='undefined'||!RD[d]) return false;      // not a road: never flipped
   var ax=roadAxis(d,x,y);
@@ -24434,8 +24475,8 @@ function overpassAt(x,y){
   }
   return 0;
 }
-function drawHero(name,p,flip){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
-  var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW/plate,a=HERO_ANCH[name];
+function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
+  var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW*(span||1)/plate,a=HERO_ANCH[name];
   var dx=p.sx-a.bx*sc, dy=p.sy+TH/2-a.by*sc, w=im.naturalWidth*sc, h=im.naturalHeight*sc;
   if(flip){
     /* mirror about the tile's OWN centre line, not the canvas: the anchor is
@@ -24594,6 +24635,9 @@ function renderCity(){
         g.restore();
       }
       if(_lift) p.sy-=_lift;
+      var _vb=VENUE_BLOB[d]?venueBlob(d,x,y):null;
+      if(_vb&&_vb.skip){ dia(p,VENUE_PAD[d]); } else
+      if(_vb&&HERO_IMG[d]&&drawHero(d,{sx:p.sx+((_vb.cx-_vb.cy)-(x-y))*TW/2,sy:p.sy+((_vb.cx+_vb.cy)-(x+y))*TH/2},false,(_vb.w+_vb.h)/2)){ } else
       if(!(HERO_IMG[d]&&drawHero(d,p,heroFlip(d,x,y))))if(!(HERO_IMG[d]&&drawHero(d,p)))switch(d){
         case 'arterial': { dia(p,'#8a8a86'); /* LIGHT=TERRITORY (7/20): live circuits queue their lamps; the pass after the night wash draws them so light cuts the dark and neighbors' tiles never occlude a lamp (the occlusion law). */ if(night){ const pw=POWER.at(x,y); if(pw.live){ (window.__LAMPQ=window.__LAMPQ||[]).push({sx:p.sx,sy:p.sy}); } } break; }
         case 'freeway': case 'beltway': dia(p,'#5e5e5a'); break;
