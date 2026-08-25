@@ -26041,8 +26041,24 @@ function facadePass(ox,oy,C,front,pgy,pbox){
     jambFlush();
   }
 }
-function playerBox(ox,oy,C){
-  const px=ox+hx*C, py=oy+hy*C;
+function playerBox(ox,oy,C,gc){
+  /* __SEE_THROUGH_FOLLOWS_THE_BODY__ (8/25). Paolo: "when i am facing walking south i should be
+     behind the walls with an opacity so i can see myself weve talked about this
+     before bro." He had: it is the 7/27 THREE-TILE WALL law, and it was built and
+     working. I broke it on 8/23 when the walk glide made the body draw at the
+     CAMERA cell while this kept computing from hx,hy, the TRUE cell.
+     MEASURED walking south, 45 frames at cell 44: the test box sat up to 88px --
+     TWO CELLS, because holding the pad starts him running -- from the drawn body,
+     and disagreed by more than 2px on 35 of 45 frames. So for most of every beat
+     the game asked whether a wall covered a spot he was not standing on, the wall
+     that really covered him stayed solid, and he vanished into it WHILE MOVING.
+     `gc` is the camera cell renderHuman already computed this frame. It is PASSED
+     rather than re-derived: camCell reads performance.now(), so calling it twice
+     in one frame is two owners for one number -- the bug I shipped into the
+     population card on 8/24 and had to take back out. Falls back to the true cell
+     for any caller that does not have one. */
+  const _g=gc||[hx,hy];
+  const px=ox+_g[0]*C, py=oy+_g[1]*C;
   const lad=HC>=64?224:(HC>=32?112:(HC<17?28:56));
   return {x0:px+C/2-lad/2, x1:px+C/2+lad/2, y0:py+C-lad, y1:py+C};
 }
@@ -30977,7 +30993,7 @@ function renderHuman(){
   shadowPass(ox,oy,C);
   doorSwingDraw(ox,oy,C);   /* __DOOR_SWINGS__ */
   /* THREE-TILE WALL: everything he is standing SOUTH of, at full opacity */
-  const _pbox=playerBox(ox,oy,C);
+  const _pbox=playerBox(ox,oy,C,_gc);   /* __SEE_THROUGH_FOLLOWS_THE_BODY__: the box follows the body */
   facadePass(ox,oy,C,false,hy,null);
   /* CITY PEOPLE (7/29): residents draw AFTER the walls behind the player and
      BEFORE the player, so somebody standing north of you is occluded by the

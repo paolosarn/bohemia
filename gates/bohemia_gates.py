@@ -411,6 +411,23 @@ GATES = [
      'admits a route, the pad walks it, the door opens and the quest hears about it. Measured '
      'while writing it: a STRAIGHT LINE at the nearest door ran 90 steps and never arrived, '
      'because a wall stood in the way and a straight line does not turn', True),
+    # 8/25, Paolo: "when i am facing walking south i should be behind the walls with an
+    # opacity so i can see myself weve talked about this before bro". He had -- 7/27, LOCKED.
+    ('SEE-THROUGH MOVE', ['node', 'gates/see_through_while_moving_gate.js'],
+     'THE SEE-THROUGH HAS TO SURVIVE MOTION. The 7/27 THREE-TILE WALL law fades a wall that '
+     'covers him to 35%, and it was built and right -- until the 8/23 walk glide made the '
+     'body draw at the CAMERA cell while playerBox kept computing from hx,hy, the TRUE cell. '
+     'MEASURED: the test box sat up to 88px (TWO CELLS, because holding the pad starts him '
+     'running) from the drawn body and disagreed on 35 of 45 frames, so the wall that really '
+     'covered him stayed solid and he walked into it and vanished. WHY NOTHING CAUGHT IT: '
+     'wallclass_gate proves the see-through properly, off real pixels, STANDING STILL -- it '
+     'teleports him onto the covered tile and renders one frame, and standing still there is '
+     'no glide and the box was correct. It was never wrong; it never walked. So this one '
+     'moves: it finds a cell with a facade one row south, walks him INTO being covered, and '
+     'records the alpha the renderer actually paints with (230 of 235 facade draws on his '
+     'body faded, 3145 of 3771 elsewhere solid). The arithmetic claim is the one that '
+     'catches the bug -- under mutation the gate and the renderer share the SAME wrong box, '
+     'so only comparing against where the body is DRAWN sees it', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
