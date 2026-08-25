@@ -1374,29 +1374,28 @@ def build_park(P):
     s = Scene()
     # a park is OPEN: mostly dead turf + a winding path, a small shelter, a lot at the edge.
     # (Turf stays — a park IS the grass; but the BUILDING sits on a paved pad, Paolo 7/24.)
-    _ground(s, (-3, -3, 15, 15), patches=[(-2, -2, 14, 14, TURF), (0.0, 0.0, 4.6, 4.0, PAVE)],
+    # PAOLO 8/25 (NO on the whole icon): "a park DOESNT NEED BUILDINGS IN IT."
+    # The restroom, the picnic shelter and its pad are GONE. A park is turf, a
+    # path, trees and benches - and the trees have to read as TREES: the old
+    # ones were tall bare box-trunks with small box heads, which read as
+    # watchtowers on stilts. Short trunks, big layered crowns.
+    _ground(s, (-3, -3, 15, 15), patches=[(-2, -2, 14, 14, TURF)],
             lot=(9.5, 10.5, 15, 15), groundc=TURF, lotc=LOT)
     # winding path (a couple light bands)
     s.box((-2, 3.0, 0.01), (13, 1.1, 0.05), {'c': PATH})
     s.box((5.0, 3.0, 0.01), (1.1, 9.0, 0.05), {'c': PATH})
-    # the small SHELTER / restroom building on its paved pad (the only structure)
-    for (cx_, cy_) in ((7.2, 7.6), (10.4, 7.6), (7.2, 10.4), (10.4, 10.4)):
-        s.box((cx_ - 0.13, cy_ - 0.13, 0), (0.26, 0.26, 2.6), {'c': _dark(SHELTER, 1.1)['c']})
-    s.box((6.6, 7.0, 2.6), (4.4, 4.0, 0.3), {'top': _dark(SHELTER, 1.15),
-          'px': _dark(SHELTER, 0.8), 'py': _dark(SHELTER, 0.8),
-          'nx': _dark(SHELTER, 0.8), 'ny': _dark(SHELTER, 0.8)})   # THE PICNIC SHELTER
-    s.box((0.5, 0.5, 0), (3.8, 3.2, 3.4), {'top': _dark(SHELTER, 0.9), 'px': _win(SHELTER, 2, 2, 4),
-          'py': _dark(SHELTER, 0.9), 'nx': _dark(SHELTER), 'ny': _dark(SHELTER)})
-    _door(s, 4.1, 1.4, 2.4, 1.9, doorc=_dark(SHELTER, 0.4)['c'], framec=tuple(min(255, int(c * 1.15)) for c in SHELTER))
-    # a dead shade tree + benches + a car at the lot (canon CAR size)
-    # A PARK'S SILHOUETTE IS ITS TREES. Light masts made it a twin of the speedway; a stand
-    # of big dead crowns is a shape nothing else in the valley has.
-    for (tx_, ty_, th_) in ((-1.4, 8.6, 6.4), (2.6, 7.4, 7.8), (0.4, 12.0, 5.6), (4.4, 11.4, 6.8)):
-        s.box((tx_ - 0.2, ty_ - 0.2, 0), (0.4, 0.4, th_), {'c': (74, 66, 52)})
-        s.box((tx_ - 1.3, ty_ - 1.1, th_), (2.6, 2.2, 1.5), {'c': (86, 78, 60)})
-        s.box((tx_ - 0.8, ty_ - 0.7, th_ + 1.5), (1.6, 1.4, 0.9), {'c': (96, 88, 68)})
-    s.box((9.0, 5.5, 0), (0.5, 0.5, 3.0), {'c': (70, 60, 48)})
-    for (bx, by) in [(2.0, 6.5), (7.5, 8.0)]:
+    s.box((5.0, 11.0, 0.01), (5.6, 1.0, 0.05), {'c': PATH})
+    # THE STAND OF DEAD SHADE TREES: short trunk, three stepped crown layers
+    # so the head is a rounded MASS wider than the trunk is tall.
+    for (tx_, ty_, th_, cs) in ((-0.6, 8.2, 2.4, 2.5), (2.8, 6.8, 3.0, 3.0),
+                                (0.6, 11.6, 2.0, 2.2), (4.6, 10.6, 2.7, 2.7),
+                                (8.2, 6.6, 2.2, 2.4), (7.0, 1.0, 2.6, 2.8),
+                                (11.2, 2.6, 2.1, 2.3), (1.2, 0.6, 2.3, 2.5)):
+        s.box((tx_ - 0.22, ty_ - 0.22, 0), (0.44, 0.44, th_), {'c': (74, 66, 52)})
+        s.box((tx_ - cs*0.5, ty_ - cs*0.45, th_), (cs, cs*0.9, 1.0), {'c': (84, 76, 58)})
+        s.box((tx_ - cs*0.38, ty_ - cs*0.34, th_ + 1.0), (cs*0.76, cs*0.68, 0.9), {'c': (92, 84, 64)})
+        s.box((tx_ - cs*0.22, ty_ - cs*0.2, th_ + 1.9), (cs*0.44, cs*0.4, 0.7), {'c': (100, 92, 70)})
+    for (bx, by) in [(2.0, 4.4), (7.5, 4.4), (3.4, 9.6)]:
         s.box((bx, by, 0), (1.6, 0.4, 0.4), {'c': BENCH})
     _vehicle(s, 10.4, 11.4, CAR, CARC, along='x')
     return s, 6.6
@@ -1501,10 +1500,14 @@ def build_school(P):
     # are tall asf". Both true. Real stadium lights stand just outside the track at the
     # corners of the bowl and they are tall RELATIVE TO THE STANDS, not to the sky --
     # 5.2 units put them at nearly the height of the academic building's whole mass.
+    # PAOLO 8/25 (CBB + note, NOTES ARE RULINGS): "the yellow lines go much
+    # farther than they needed" - the 8.2-unit yellow poles towered over the
+    # whole school and read as lines shot into the sky. Tall relative to the
+    # STANDS means just clear of the bleachers, head at the top.
     for (lx, ly) in [(cx - SL - 0.9, cy - RO - 0.5), (cx + SL + 0.9, cy - RO - 0.5),
                      (cx - SL - 0.9, cy + RO + 0.5), (cx + SL + 0.9, cy + RO + 0.5)]:
-        s.box((lx - 0.16, ly - 0.16, 0), (0.32, 0.32, 8.2), {'c': TOWER})
-        s.box((lx - 0.42, ly - 0.42, 3.1), (0.84, 0.84, 0.34),
+        s.box((lx - 0.16, ly - 0.16, 0), (0.32, 0.32, 3.6), {'c': TOWER})
+        s.box((lx - 0.42, ly - 0.42, 3.3), (0.84, 0.84, 0.34),
               {'c': tuple(min(255, int(c * 1.15)) for c in TOWER)})
 
     # THE ACADEMIC SPINE behind it, two storeys, and the GYM in school colours
@@ -3248,10 +3251,12 @@ def build_freeway(P):
     # THE SOUND WALLS, a thin verge behind each one -- his one allowance, and what a real
     # urban freeway actually carries.
     for sy in (Y0, Y1 - 0.5):
-        # A REAL SOUND WALL IS 12-16 FT and this one was drawn at about nine. It is the only
-        # vertical left on a freeway run now that the deck went to the interchange, so it has
-        # to carry the tile -- and the honest height is also the taller one.
-        s.box((X0, sy, 0.09), (X1 - X0, 0.5, 5.0), {'top': _dark(SOUND, 1.16),
+        # PAOLO 8/25 (NO): at 5.0 units, dressed by the wall pass, these read
+        # as WINDOWED BUILDING WALLS - "you keep wanting to add windows to
+        # the streets". The freeway is now on the NOT_A_BUILDING list (no
+        # dressing ever) and the wall is held low so the ROADWAY carries the
+        # tile: a wall is an edge on a street icon, never the subject.
+        s.box((X0, sy, 0.09), (X1 - X0, 0.5, 2.2), {'top': _dark(SOUND, 1.16),
               'px': _dark(SOUND, 1.0), 'py': _dark(SOUND, 0.82),
               'nx': _dark(SOUND, 1.0), 'ny': _dark(SOUND, 0.82)})
     s.box((X0, CY - 0.35, 0.12), (X1 - X0, 0.7, 0.9), {'top': _dark(BARRIER, 1.14),
@@ -3484,15 +3489,30 @@ def build_mountain(P):
     ROCK, CREST, CLIFF, TALUS, RAVINE, SHRUB, BOULDER = P.get(0, P[2]), P[1], P[2], P[3], P[4], P[6], P[7]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(104, 94, 80), lotc=(84, 78, 68))
-    # THE MASSIF: stepped prisms rising to one summit, each a value lighter
-    steps = [(5.4, 5.4, 0.0, 7.6, 3.4, ROCK), (5.6, 5.2, 3.4, 5.9, 3.2, _dark(ROCK, 1.08)['c']),
-             (5.9, 5.0, 6.6, 4.3, 3.0, CLIFF), (6.2, 4.8, 9.6, 2.7, 2.8, _dark(CREST, 0.96)['c']),
-             (6.4, 4.7, 12.4, 1.3, 1.9, CREST)]
+    # PAOLO 8/25 (NO): the concentric stack read as a WEDDING-CAKE BUILDING.
+    # A mountain is an ASYMMETRIC RIDGE: two peaks offset along a diagonal
+    # axis, the steps sliding sideways as they climb so no two are centred
+    # on each other, the main summit clearly higher. No doors, no bands of
+    # anything that reads as storeys.
+    steps = [
+        # the ridge base, elongated NW-SE: two overlapping feet
+        (4.2, 7.0, 0.0, 6.2, 3.0, ROCK),
+        (8.6, 3.8, 0.0, 5.0, 2.4, _dark(ROCK, 0.96)['c']),
+        # the main peak climbs with each step SLIDING toward the summit
+        (4.0, 6.6, 3.0, 4.4, 3.0, _dark(ROCK, 1.08)['c']),
+        (3.6, 6.0, 6.0, 3.1, 3.0, CLIFF),
+        (3.3, 5.5, 9.0, 2.0, 3.0, _dark(CREST, 0.96)['c']),
+        (3.1, 5.1, 12.0, 1.0, 2.6, CREST),
+        # the second peak, lower, its own slide
+        (8.9, 3.5, 2.4, 3.4, 2.6, _dark(ROCK, 1.04)['c']),
+        (9.2, 3.1, 5.0, 2.1, 2.4, CLIFF),
+        (9.4, 2.8, 7.4, 1.0, 1.8, _dark(CREST, 0.9)['c']),
+    ]
     for (cx, cy, cz, rad, hgt, col) in steps:
         s.prism(cx, cy, cz, rad, hgt, 9, {'c': col}, {'c': tuple(min(255, int(v * 1.14)) for v in col)})
-    # THE CLIFF BANDS on the sunward face
-    for (bz, bw) in [(2.6, 6.4), (5.8, 4.9), (8.8, 3.4)]:
-        s.box((5.4 - bw * 0.5, 5.4 - bw * 0.52, bz), (bw, 0.5, 0.75), {'c': _dark(CLIFF, 0.74)['c']})
+    # NO CLIFF-BAND BOXES: regular dark bands across a face at even heights
+    # read as STOREYS (part of the 8/25 building-read kill). The stepped
+    # prisms themselves are the strata.
     # THE TALUS FAN off the foot, and the ravine cut
     for (tx, ty, tr) in [(1.0, 10.4, 2.3), (10.6, 10.0, 2.0), (11.4, 1.4, 1.8), (0.4, 1.8, 1.9)]:
         s.prism(tx, ty, 0, tr, 0.9, 8, {'c': TALUS}, {'c': _dark(TALUS, 1.12)['c']})
@@ -3524,16 +3544,18 @@ def build_desert(P):
         for gx in range(5):
             cx = -1.6 + gx * 3.05 + ((gy % 2) * 1.5)
             cy = -1.6 + gy * 3.05
-            s.prism(cx, cy, 0, 0.62, 1.15, 7, {'c': CREO}, {'c': _dark(CREO, 1.16)['c']})
+            # low and wide: at 1.15 tall the grid of creosote read as green
+            # PILLARS (part of the 8/25 building-read kill); a real bush is
+            # wider than it is tall
+            s.prism(cx, cy, 0, 0.7, 0.55, 7, {'c': CREO}, {'c': _dark(CREO, 1.16)['c']})
             s.prism(cx + 1.35, cy + 1.3, 0, 0.38, 0.6, 6, {'c': BURSAGE}, {'c': _dark(BURSAGE, 1.14)['c']})
-    # THE ROCK OUTCROP: the one thing open Mojave stands up, and the only vertical this
-    # district honestly has. A varnished limestone knob reads across the flat for miles.
-    for (ox, oy, orr, oh) in [(9.6, 0.2, 2.8, 8.6), (0.2, 11.6, 1.6, 3.2)]:
+    # THE ROCK OUTCROP - LOW. PAOLO 8/25 (NO): the 8.6-unit knob read as a
+    # TOWER ("even the desert you tried to make tall buildings"). Open
+    # Mojave is a HORIZONTAL; the knob is knee-of-the-valley low.
+    for (ox, oy, orr, oh) in [(9.6, 0.2, 2.6, 2.2), (0.2, 11.6, 1.5, 1.3)]:
         s.prism(ox, oy, 0, orr, oh, 7, {'c': OUT}, {'c': _dark(OUT, 1.16)['c']})
-        s.prism(ox + 0.5, oy + 0.4, oh * 0.62, orr * 0.62, oh * 0.75, 6, {'c': _dark(OUT, 0.92)['c']},
-                {'c': _dark(OUT, 1.1)['c']})
-        s.prism(ox + 0.2, oy + 0.7, oh * 1.15, orr * 0.34, oh * 0.5, 6, {'c': _dark(OUT, 1.04)['c']},
-                {'c': _dark(OUT, 1.2)['c']})
+        s.prism(ox + 0.4, oy + 0.3, oh * 0.7, orr * 0.55, oh * 0.6, 6, {'c': _dark(OUT, 0.94)['c']},
+                {'c': _dark(OUT, 1.12)['c']})
     for (yx, yy) in [(4.4, 1.0), (12.0, 6.4), (5.6, 12.2)]:                                    # DEAD YUCCA
         s.box((yx, yy, 0), (0.3, 0.3, 2.5), {'c': YUCCA})
         for k in range(4):
@@ -4846,6 +4868,15 @@ def _write_dossier(heroes):
     open('records/BOHEMIA_DISTRICT_HERO_DOSSIER.md', 'w', encoding='utf8').write('\n'.join(lines))
 
 
+# PAOLO 8/25: "not everything needs to be represented with buildings." The
+# districts that are landform, water, park or street skip every
+# building-dressing pass (parapets, wall joints, roof dressing, widen-and-
+# raise). Their builders author the whole read themselves.
+NOT_A_BUILDING = {'park', 'mountain', 'desert', 'water', 'wash', 'golf',
+                  'cemetery', 'landfill', 'basin',
+                  'freeway', 'arterial', 'arterial_x', 'interchange', 'rail'}
+
+
 def main():
     P = _load_pal()
     out = {
@@ -4872,11 +4903,21 @@ def main():
         # (Written the wrong way round first, caught before it shipped.)
         # HIS 8/15 ROOF RULING, before the widening so the parapet grows with the
         # building it belongs to rather than floating inside it.
-        _thicken(scene, d)
+        # PAOLO 8/25 (the full-board verdict, 44 NO): "not everything needs to be
+        # represented with buildings... you keep wanting to add like windows to
+        # the streets. EVEN THE MOUNTAIN AND DESERT YOU TRIED TO MAKE TALL
+        # BUILDINGS." The cause was HERE: these building passes ran on every
+        # hero, so streets grew window-like wall dressing and landforms were
+        # raised and dressed like masses. A pass can be individually right and
+        # still wrong because of what it is applied to. Landforms, water,
+        # parks and streets are NOT buildings and skip every building pass.
+        if d not in NOT_A_BUILDING:
+            _thicken(scene, d)
         _strip_enclosures(scene)   # Paolo 8/16: nothing rings a plot
-        _dress_walls(scene, d)
-        _dress_roofs(scene, d)
-        _fat_and_tall(scene)
+        if d not in NOT_A_BUILDING:
+            _dress_walls(scene, d)
+            _dress_roofs(scene, d)
+            _fat_and_tall(scene)
         # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big
         # as we can have it"). The sprite frames TIGHT on the building now that the parking
         # is gone, and the scale is lifted so the mass fills the square instead of sitting
