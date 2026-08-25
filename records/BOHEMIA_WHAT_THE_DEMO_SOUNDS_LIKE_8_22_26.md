@@ -221,3 +221,53 @@ back to lying (red).
 
 The one still-silent beat is the splash before he touches anything: no gesture
 means no audio context. A browser law, not a defect.
+
+
+---
+
+# WHAT A FIGHT SOUNDS LIKE (8/25)
+
+Combat holds seventeen approved sounds reachable from nowhere else, and the demo
+climaxes in a fight. **None of them had ever been listened to.**
+`gates/combat_sound_gate.js` drives the real phases — cover, pop into AIM, fire
+to the killshot, freeze — and records what the module asks the shell for.
+
+    the shell, before combat      ui_tap, music starts
+    COMBAT opens                  ui_tap, music STOPS, phone_buzz
+    HE IS IN COVER                -- silent --
+    HE POPS OUT AND AIMS          -- silent --
+    HE FIRES (1 shot to the kill) casing, shot, KILL
+    THE KILLSHOT FREEZE           -- silent (a held beat) --
+
+**Firing works.** casing, shot and kill all reach the shell. Aim wide instead and
+the same drive produces `miss_past`, `dirt_take`, `boots_go` and no kill — the
+game discriminating correctly, which is also the mutation that proves the check.
+
+## TWO OF MY OWN RULERS WERE WRONG FIRST
+
+**The killshot was unreachable, and it was not the game.**
+`combat_runs_smoke.js` leaves the dial moving at `_angVel=0.01`, and its own
+output says `ks=false` — so the sequence I borrowed had never reached a kill
+either. The kill zone is `hZ=0.05` wide and a dial still travelling has drifted
+out of it by the time `fireNow` reads the angle. Held still at zero it kills on
+the **first** shot.
+
+**And the kill assertion was on the wrong beat.** I asserted "something sounds
+when a man goes down" on the freeze that follows, and it went red on a build
+where `kill` had already played. You hear the kill ON THE SHOT THAT DOES IT; the
+freeze afterwards is a held moment and its quiet is the point. My beat boundary
+was wrong, not the game — the fourth time this week a measuring device of mine
+was the thing at fault.
+
+## THE ONE THING WORTH SOMEBODY'S ATTENTION
+
+**Opening the COMBAT tab STOPS the music and nothing replaces it.** Via the city
+door the fight takes the music over immediately and correctly (proved 8/25,
+`FIGHTMUS.on=true`). Tapping COMBAT directly is a different path: the score stops
+and no fight music starts, so a practice fight there is unscored.
+
+That may well be deliberate — the COMBAT tab is a lab surface, not the demo path,
+and the demo path is correct. It is REPORTED rather than changed, because
+inventing policy about a surface whose purpose is somebody else's call is not
+this lane's job. **If it is not deliberate, it is a one-line fix and this is the
+note that says so.**
