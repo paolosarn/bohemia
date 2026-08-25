@@ -71,7 +71,7 @@ _Mall — matched: the DUMBBELL — a long concourse with a big-box ANCHOR at ea
 - ground entrance — a mall vestibule door on the concourse front
 - abandoned cars x5 (canon CAR) — in the parking field (code 10); parking lot + drive (codes 4/1)
 
-## PARK  (1724x1371, anchor 874,1286)
+## PARK  (1724x960, anchor 874,1288)
 _Park — matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches._
 
 - shelter/restroom — the only building, on a PAVED pad (code 2), window + door
@@ -195,7 +195,7 @@ _Swap meet — matched: a food hall + rows of colorful STALL TENTS (the market) 
 - market pylon sign — the market sign (code 8 "market pylon sign")
 - abandoned car (canon CAR) — a car by the entrance (code 10); the gravel market lot (code 1)
 
-## RAIL  (1724x1206, anchor 874,1292)
+## RAIL  (1724x929, anchor 874,1292)
 _Railway — matched to the walkable corridor: two ballasted TRACKS with a dead LOCOMOTIVE and FREIGHT WAGONS standing on them + a wayside SIGNAL and its RELAY HUT + the at-grade CROSSING with the GATE ARM still down + the ROW fence + the rail-served LOADING DOCK and stacked relay steel._
 
 - main track — the ballast prism (code 1 "ballast") with sleepers across it (code 2 "tie") and two gauge-spaced running rails (code 3 "rail")
@@ -211,7 +211,7 @@ _Railway — matched to the walkable corridor: two ballasted TRACKS with a dead 
 - right-of-way fence x4 — the fence line along the corridor (code 7 "ROW fence")
 - ground — the walking cess either side of the ballast (code 4 "cess"), the material yard (code 21) and the gravel maintenance road (code 6 "service road")
 
-## INTERCHANGE  (1724x1125, anchor 874,1312)
+## INTERCHANGE  (1724x905, anchor 874,1312)
 _Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved._
 
 - lower carriageway — the at-grade interstate running east-west (code 1 "travel lane") with its paved shoulders (code 3 "shoulder")
@@ -333,7 +333,7 @@ _Mobile home park — matched: fifteen SINGLE-WIDES on their pads, all the same 
 - yard light — the tall pole the whole lot is hung off (code 9 "pole light")
 - perimeter fence posts — corner posts of the park fence (code 12 "fence")
 
-## CEMETERY  (1724x1087, anchor 874,1289)
+## CEMETERY  (1724x888, anchor 874,1289)
 _Memorial park — matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates._
 
 - mausoleum — the only building with height on a memorial park (code 7 "mausoleum"), its door at grade
@@ -353,7 +353,7 @@ _Detention center — matched, on the CLARK COUNTY DETENTION CENTER (JMA with HO
 - guard towers — four, one at each corner of the yard, glazed cabs (code 6 "guard tower")
 - pole light — in the yard (code 9 "pole light")
 
-## LANDFILL  (1724x1327, anchor 874,1290)
+## LANDFILL  (1724x1056, anchor 874,1290)
 _Landfill — matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond._
 
 - terraced mound — four stepped benches, each smaller and lighter (code 6 "waste fill")
@@ -408,7 +408,7 @@ _Water park — matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-200
 - snack bar — the small mass by the pool (code 13 "snack bar")
 - lounger row — chairs on the deck (code 11 "lounge chair")
 
-## GOLF  (1724x1043, anchor 865,1284)
+## GOLF  (1724x888, anchor 865,1284)
 _Golf course — matched: three GREENS each ringed by its SAND BUNKER with the pin and flag standing in it — in act 1 the fairways are dead brown and only the sand still reads bright, so the bunkers do the work. Plus the dry water hazard, the tee boxes, the CLUBHOUSE under its gable and a cart left mid-round._
 
 - greens — mown discs with the pin still standing (code 6 "green (putting surface)", code 10 "flagstick / pin")
@@ -441,7 +441,7 @@ _Wrecking yard — matched: six CRUSHED-CAR STACKS, flattened bodies piled six a
 - parts office — with its door (code 2 "building (office / parts)")
 - perimeter fence posts — corner posts (code 12 "perimeter fence")
 
-## WASH  (1724x1112, anchor 874,1291)
+## WASH  (1724x886, anchor 874,1291)
 _Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL cut straight across the plot, sloped concrete walls down to a flat invert with the low-flow trickle in it, riprap on the banks, a road BRIDGE on piers over it, and the SEWER TUNNEL MOUTH in the wall — which is the way IN, and why this district matters at all._
 
 - channel walls — sloped concrete cut down to the invert (code 2 "concrete flood structure")
@@ -453,7 +453,7 @@ _Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL c
 - staff gauge — the graduated mast on the wall, the only flood warning anybody down there gets (code 2)
 - dead brush — tumbleweed caught on the banks (code 3 "dead brush / tumbleweed")
 
-## FREEWAY  (1724x1298, anchor 874,1312)
+## FREEWAY  (1724x972, anchor 876,1314)
 _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) — infrastructure carrying something across a gap._
 
 - travel lanes — the roadbed with its lane lines (code 1 "travel lane", code 2 "white lane line")
@@ -464,7 +464,7 @@ _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIG
 - dead semi — in the slow lane (code 11 "dead semi")
 - dead cars — where they stopped (code 10 "dead car")
 
-## ARTERIAL  (1724x1358, anchor 874,1312)
+## ARTERIAL  (1724x1064, anchor 874,1312)
 _Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run._
 
 - roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")
@@ -474,7 +474,7 @@ _Arterial — THE RUN: the sidewalks are the two ends and the street fills every
 - lane dashes — three lanes each way, running clean off both ends (code 2 "lane line")
 - streetlights — on their stems (code 9 "streetlight")
 
-## ARTERIAL_X  (1724x1392, anchor 874,1312)
+## ARTERIAL_X  (1724x1119, anchor 874,1312)
 _Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head._
 
 - roadway — the junction box, paved past the frame on all four legs (code 1 "asphalt roadway")
@@ -587,7 +587,7 @@ _Las Vegas Boulevard Crossing — THE CROSSING, a different item from the run (s
 - marquee pylon — at the building face (code 20 "marquee pylon")
 - dead cars — in the lanes (code 14 "dead car")
 
-## MOUNTAIN  (1724x1438, anchor 874,1290)
+## MOUNTAIN  (1724x1210, anchor 874,1290)
 _Mountain — matched: a limestone RIDGE on the valley rim, a stepped massif rising to one summit with CLIFF BANDS across its sunward face, TALUS fans off the foot, a ravine cut into the flank and boulders on the apron. The tallest thing in the valley and it reads that way at map zoom._
 
 - massif — stepped prisms rising to one summit (code 0 "bedrock face", code 1 "ridge crest")
@@ -597,7 +597,7 @@ _Mountain — matched: a limestone RIDGE on the valley rim, a stepped massif ris
 - boulders — on the apron (code 7 "boulder")
 - desert shrub — the little that grows at that elevation (code 6 "desert shrub")
 
-## DESERT  (1724x1420, anchor 874,1290)
+## DESERT  (1724x887, anchor 874,1290)
 _Open desert — LOW BY NATURE and named as such: there is no building in open Mojave and inventing one would be a lie about the map. What it has is TEXTURE — varnished desert pavement, rock lag, CREOSOTE in its evenly spaced grid (they poison each other's roots, which is why the spacing is even), bursage between them, a dry rill, rock outcrops, dead yucca, dumped debris and a burned car._
 
 - desert pavement — varnished dark, the base plane (code 0 "desert pavement")
@@ -609,7 +609,7 @@ _Open desert — LOW BY NATURE and named as such: there is no building in open M
 - dead yucca — the stalks (code 12 "dead yucca")
 - dumped debris and a burned car — somebody has been here (code 7 "dumped debris", code 8 "burned car")
 
-## WATER  (1724x1039, anchor 907,1275)
+## WATER  (1724x887, anchor 907,1275)
 _Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. What makes it legible is the BATHTUB RING, the white mineral band the water left on the rock as it dropped over twenty years, with the exposed lakebed cracking below it, shore rock above, and a LAUNCH RAMP that now ends a long way short of the water. The sunken boat is the punchline._
 
 - open water — the shrunken sheet (code 0 "open water", code 1 "shallow water")
@@ -693,7 +693,7 @@ _DATA FORT_
 - guard house -- at the gate with its door, glass still intact, which on this site is the tell (code 2 "building (guard house)")
 - microwave masts -- on the roofline (code 14 "microwave mast")
 
-## BASIN  (1724x1085, anchor 895,1277)
+## BASIN  (1724x891, anchor 895,1277)
 _DETENTION BASIN_
 
 - the bowl -- four SQUARED rings stepping down, so it reads made and not eroded (code 6 "side slope", code 7 "embankment crest")

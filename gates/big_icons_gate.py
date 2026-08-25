@@ -85,6 +85,12 @@ TALL_FLOOR = 6.0            # world units, the tallest solid in the scene
 LOW_BY_NATURE = {
     'speedway',   # the subject is a banked track
     'storage',    # rows of single-storey units
+    # 8/25, THE FULL-BOARD VERDICT: "not everything needs to be represented with
+    # buildings. a park DOESNT NEED BUILDINGS IN IT... even the mountain and
+    # desert you tried to make tall buildings." A PARK is turf, trees and
+    # benches - its tallest honest mass is a tree crown. Named here the same
+    # day its buildings were removed from the hero.
+    'park',
     # 8/4, the terrain and the road surfaces. Forcing a tower onto any of these would be
     # a lie about the map, which is a worse failure than a low icon: OPEN DESERT has no
     # building in it, a LINED FLOOD CHANNEL is a trench, a GOLF COURSE is greens and
@@ -143,7 +149,11 @@ for d, fn in sorted(F.HEROES.items()):
     except Exception:                                              # noqa: BLE001
         continue
     tall = max((q[2] + q[5] for q in scene.solids), default=0.0)
-    floor = 4.5 if d in LOW_BY_NATURE else TALL_FLOOR
+    # 8/25: the 4.5 exempt floor still demanded a half-tower from the flat
+    # districts - the desert's honest knob is 2.2 units and the freeway's
+    # sound wall is 2.2 by his own "windows on the streets" kill. LOW BY
+    # NATURE means LOW: the floor asks only that something stands at all.
+    floor = 2.0 if d in LOW_BY_NATURE else TALL_FLOOR
     if tall < floor:
         squat.append('%s(%.1f)' % (d, tall))
 
