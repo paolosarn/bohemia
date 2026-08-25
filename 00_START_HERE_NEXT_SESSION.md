@@ -3350,7 +3350,52 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 LATEST -- *** THE DEMO'S FIRST TEN MINUTES NOW HAVE
+PEOPLE (people-7h9sfy): 8/25 LATEST -- *** A PHONE CALL DURING THE GRIEF DINNER
+WAS DELETING THREE OF THE OPENING'S FOUR SCENES, PERMANENTLY. FIXED, AND IT NOW
+PICKS UP WHERE YOU LEFT IT. TAB RUN. ***
+
+Chased the number the previous turn measured and did not stop on (`save rows: 0`
+after 164s of story) and it led somewhere worse. openRaid called openMarkSeen()
+at the handoff to the FIGHT:
+
+    standing in the raid  seen=TRUE      <- 65s in, 1 of 4 scenes played
+    force quit mid grief dinner, reopen, tap RUN:
+      offered again false | playing nothing | still seen | 0 saves
+
+THE LAST ROOM, THE GRIEF DINNER AND THE BURIAL GONE WITH NO WAY BACK -- the whole
+emotional payload of Act 1, lost to an interruption on a demo player's first run,
+and starting over does not return it because the flag says they have seen it.
+
+THE MARK WAS NOT CARELESS, IT WAS THE WRONG TOOL. Its own comment names a real
+concern (OPEN_RUNNING is false during the raid, so nothing stopped the invite
+offering the opening over the fight). But the seen flag is a PERMANENT
+CROSS-SESSION statement spent to solve a ten-second in-session problem.
+  OPEN_MIDFLIGHT  openStart -> openDone, ACROSS the fight: "is a sequence in flight"
+  OPEN_AT_KEY     the bookmark: which scene was playing when they stopped
+  seen            openDone ALONE, which also clears the bookmark
+openStart resumes from the bookmark instead of the top; a bookmark to a scene that
+no longer exists is resolved through openSceneById before it is trusted. Fixed at
+the GENERATOR, never in the alpha it writes.
+
+opening_gate 53 -> 63. AND ONE CLAIM OF MINE WAS DEFENDING THE BUG: "WATCHING IT
+THROUGH COUNTS AS SEEN" sampled at the raid and passed ONLY BECAUSE the flag was
+being spent early. A CLAIM THAT GOES GREEN ONLY WHILE THE DEFECT EXISTS IS WORSE
+THAN NO CLAIM. It now reads THE SEEN FLAG IS NOT SPENT MID SEQUENCE.
+
+MUTATIONS: MI (put the shipped bug back) 5 RED including "AN INTERRUPTED OPENING
+IS STILL THERE WHEN THEY COME BACK"; MJ (no bookmark) 2 RED, replays from the top.
+
+WATCH THE STAMP WHEN YOU REBASE: another lane had shipped 8/25r while I verified,
+and my resolved stamp was 8/25p -- keeping it would have moved the stamp BACKWARDS.
+Took 8/25s. The letters are not monotonic across lanes; read main's before picking.
+
+COST: opening_gate is now the heaviest in the suite at ~6 min (it plays the whole
+opening twice, once to the day and once interrupted).
+
+Record: records/BOHEMIA_YOU_HAVE_SEEN_IT_WHEN_YOU_HAVE_SEEN_IT_8_25_26.md
+
+---- PREVIOUS (8/25, same day) ----
+*** THE DEMO'S FIRST TEN MINUTES NOW HAVE
 A MACHINE BEHIND EVERY LINK, INCLUDING THE LAST ONE: THE STORY ENDS AND HANDS YOU
 A PLAYABLE DAY. 164 SECONDS, TAP TO STANDING IN IT. TAB RUN. ***
 
