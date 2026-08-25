@@ -1,3 +1,72 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (h) LATEST -- *** SWEEP 21. TWENTY
+BUILDS IN ONE DAY AND A ROUND THAT CANNOT BE READ. Nothing to judge.
+READ-BACK (synthesis by receiver): FROM THE HANDOFF I TOOK -- HE RULED ON THE FULL
+ICON BOARD (5 YES / 20 CBB / 44 NO) and ART shipped the v8 bake under those
+rulings; PEOPLE found a phone call was deleting three of the opening's four
+scenes and that the seen-flag was spent 65 seconds into a 164 second story, with
+a claim of THEIRS defending the bug; WORLD found the dam wearing the approved
+house roof. ***
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift and collisions nobody inside a lane can see, guards the demo path, routes
+  work. Never writes engine/tools/gates/slices code.
+  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
+  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived SIX times with the
+  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
+
+IN FLIGHT
+  Nothing half-built. Eight sweeps closed, each a record plus routed rows.
+
+BLOCKED ON
+  Nothing for me. Unclaimed, all cheap, and THREE OF THEM ARE NOW THE SAME JOB --
+  making the friends round readable:
+    RUN 0f + P0-MORNING   the instrument and the first morning
+    SHARED -13            publish from a pinned ref for the round
+    WORLD SEED-1          build the seed, do not switch it on until after
+    SHARED -9   the lane-ownership gate
+    SHARED -10  two hostnames the proxy blocks (no WebKit anywhere in the fleet)
+    SHARED -11  the names gate, pairs with WORLD NAMES-1
+    SHARED -12  make handoff_gate about the law it is named after
+
+WHAT I WOULD DO NEXT
+  Sweep 22 on the next "sweep". Standing watch: nobody opens round 1 until the
+  card exists, the build is pinned and the seed stays off.
+
+PROOF -- eight sweeps, each with numbers, sources and confidence stated:
+  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
+    sweep 14, now amended three times: one tester plays MUTED; every tester plays
+    the canonical valley; the round runs on ONE PINNED BUILD and nothing is
+    patched mid-round.
+  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
+    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
+  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
+    HIS RULING, LOCKED. Three registers; the mix is mandatory.
+  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
+    sweep 16. 201 chromium.launch, 0 webkit.
+  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
+    sweep 17. Routed WORLD NAMES-1, SHARED -11.
+  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
+    sweep 18. Routed SHARED -12. This entry is that format.
+  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
+    sweep 19, corrected by SOUND the same day and the correction is in the record.
+  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
+    sweep 20. Routed WORLD SEED-1 + SEED-2.
+  records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_READ_8_25_26.md
+    sweep 21, this one. The splash prints "BUILD 8/25t" -- the letter is t, THE
+    TWENTIETH BUILD OF ONE DAY -- and main took 23 first-parent commits today with
+    a MEDIAN GAP OF 2.0 MINUTES. The one link is network-first BY LAW so it always
+    serves the newest deploy. Put those next to round 1 and every tester plays a
+    different game. TWO OF HIS LOCKED LAWS, BOTH CORRECT, THAT HAVE NEVER BEEN
+    ASKED TO HOLD AT THE SAME MOMENT. Resolution: THE LINK IS SACRED, THE REF IT
+    SERVES IS NOT -- pin the published site to one tag for the round while the
+    fleet keeps merging to main at full speed. A publish decision, not a freeze.
+    NOT BROKEN AND SAID SO: the save is fine, save_compat_gate holds a walk-forward
+    migrator and refuses a newer-build save BY NAME instead of wiping it.
+    Routed SHARED -13 + RUN 0f amended to stamp the build and the seed.
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/25 (b) LATEST -- *** THE DAM WAS WEARING PAOLO'S APPROVED HOUSE ROOF.
 So was every median barrier, every bridge column and every concrete silo in the valley. Fixed,
 and the obvious fix would have put concrete on a gantry crane. Nothing to judge. ***
@@ -87,90 +156,6 @@ NEXT IN THIS LANE, in this order:
     bohemia_city_hero_wire_patch.py rewrites an already-patched tree) and FACTION ARC.
 
 ---
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (g) LATEST -- *** SWEEP 20. EVERY
-PLAYER GETS THE SAME VALLEY FOREVER, AND IT IS ONE LINE. Nothing to judge.
-READ-BACK (sweep 18's synthesis-by-receiver, applied to myself): FROM THE HANDOFF
-I TOOK -- SOUND already answered my SILENT-1 in under two hours and CORRECTED ME
-THREE WAYS; PEOPLE built households twice, reverted them and found M5 was built
-on a false premise; WORLD has rule number one green for the first time; somebody
-measured 24 seconds of load on a REAL PHONE. ***
-
-*** A ROUTED LANE CHECKED MY WORK AND WAS RIGHT. RECORDED, NOT BURIED. ***
-SOUND classified 61 sounds against a test sharper than the one I gave them ("if
-he cannot hear it, does he MISS A STATE CHANGE HE HAS TO ACT ON") and returned
-11 INFORMATION / 50 ATMOSPHERE / 3 with no twin at all. Three corrections:
-  1. done_ring, which I named as one of the three information cues, IS A CORPSE
-     -- 0 up / 5 down, no approved sound, the SFX died 10 for 10 across two ids.
-     A twin for it would have been work spent in another lane on something the
-     player will never hear.
-  2. phone_buzz already has a twin (the badge), so it was never one of the three.
-  3. MY SCOPE WAS WRONG. I wrote "a one-column pass over the rack", and the rack
-     is the SFX engine -- but the most information-dense sounds in this game are
-     STINGS, not SFX. taken / paid / done / missed are pure state change and a
-     pass that walked only the SFX table would have missed STING:missed entirely.
-THE REAL THREE ARE: save_chime (the run was written -- exactly what a person
-checks before putting the phone down), ui_deny (YOU CANNOT DO THAT -- a refusal
-with no sound is indistinguishable from A BROKEN BUTTON, so it does not just lose
-information, it teaches the wrong thing), and STING:missed (the job went
-unfinished -- the quietest failure in the game; nothing announces the day ended
-with the work undone, he just wakes up on day two).
-That is a better answer than the one I routed, and the lane got there by refusing
-to treat a routed task as exempt from being checked. RUN SILENT-2 should build
-against SOUND's three, not mine.
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift and collisions nobody inside a lane can see, guards the demo path, routes
-  work. Never writes engine/tools/gates/slices code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived FIVE times with the
-  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
-
-IN FLIGHT
-  Nothing half-built. Seven sweeps closed, each a record plus routed rows.
-
-BLOCKED ON
-  Nothing for me. Unclaimed, all cheap:
-    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
-    SHARED -10  two hostnames the proxy blocks; until then NO session in this
-                fleet can run a gate in WebKit, the only engine iPhones use
-    SHARED -11  the names gate, pairs with WORLD NAMES-1
-    SHARED -12  make handoff_gate about the law it is named after
-    RUN 0f + P0-MORNING  the friends round returns nothing without them
-
-WHAT I WOULD DO NEXT
-  Sweep 21 on the next "sweep". Standing watch: RUN 0f and P0-MORNING before
-  anybody is invited, and NOBODY SWITCHES THE SEED ON MID-ROUND (see SEED-1).
-
-PROOF -- seven sweeps, each with numbers, sources and confidence stated:
-  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14, twice amended since: one tester plays MUTED, and EVERY tester
-    plays the canonical valley.
-  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
-  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, LOCKED. Three registers; the mix is mandatory.
-  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit.
-  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. Routed WORLD NAMES-1, SHARED -11.
-  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18. Routed SHARED -12. This entry is that format.
-  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
-    sweep 19. The data killed the big version of my thesis (~73% play with sound
-    ON) and SOUND then corrected the small version. Both recorded.
-  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
-    sweep 20, this one. const BOH_SEED_TEXT='bohemia' contradicts his LOCKED
-    8/4 law "different seed, different valley = the comeback engine". The engine
-    ALREADY splits fixed skeleton from procedural fill, so his law is a built
-    feature with its input welded shut. Routed WORLD SEED-1 + SEED-2/seed_gate.
-    THE COST STATED HONESTLY: 379 gates, 23 demo claims, every dossier and every
-    thumb he has ever given ran on ONE seed -- including WORLD's "rule number one
-    is green", today. Turning the seed on exposes a surface with zero evidence.
-    So: build it now, switch it on AFTER round 1.
-
-================================================================================
 
 WORLD (world-9lfjtf): 8/25 (a) LATEST -- *** EVERY DISTRICT IN THE VALLEY HAS A WAY IN NOW.
 RULE NUMBER ONE has been RED on main since the day Paolo made it a law on 7/31, and it is

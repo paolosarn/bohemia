@@ -1804,8 +1804,19 @@ E1-RUN. *** THE PAYDAY BRIDGE CAN FINALLY BE CALLED (8/15, off Paolo's
    Composes with time-is-spent + the bike (0v). WORLD supplies the pricing
    hooks. | travel menu on the real surface, costs shown before commit |
    supplement table detail = PENDING Paolo (GDD's own list) | no.
-0f. *** RE-TAGGED 8/24: PLAYTEST-BLOCKING. BUILD IT BEFORE ANYONE IS
-   INVITED (records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md).
+0f. *** AMENDED 8/25 (sweep 21): THE CARD STAMPS THE BUILD AND THE SEED
+   INTO EVERY PASTE. Two fields, and they cost nothing today because this
+   card HAS NOT BEEN WRITTEN YET — they cannot be retrofitted onto pastes
+   already collected. When a tester says "it froze when I went in the
+   door", the first question is WHICH BUILD, and right now that answer is
+   unrecoverable: nothing a tester sends carries a build id. The stamp
+   already exists and is already on screen (the splash reads "BUILD
+   8/25t"); the card just has to carry it. The seed arrives with WORLD
+   SEED-1. A PASTE WITHOUT THEM IS AN ANECDOTE.
+   (records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_
+   READ_8_25_26.md) ***
+   *** AND THE 8/24 RE-TAG STILL STANDS: PLAYTEST-BLOCKING. BUILD IT
+   BEFORE ANYONE IS INVITED (records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md).
    The demo now plays end to end and the next step is the friends round —
    and THE PROTOCOL'S WHOLE DESIGN RESTS ON THIS CARD: "the in-demo
    FEEDBACK CARD (RUN 0f) + the telemetry paste. Each tester sends Paolo
@@ -6921,6 +6932,61 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-13. *** PUBLISH FROM A PINNED REF FOR THE FRIENDS ROUND (sweep 21, 8/25 —
+   records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_
+   READ_8_25_26.md). NOT BEFORE THE ROUND OPENS. Small, reversible, and it
+   does NOT touch the URL.
+   MEASURED, AND THE GAME PRINTS IT ITSELF: the splash reads "BUILD 8/25t"
+   — the letter is t, THE TWENTIETH BUILD OF ONE DAY. Independently:
+   first-parent commits to main were 18 / 11 / 23 / 23 across 8/22-8/25,
+   with a MEDIAN GAP OF 2.0 MINUTES between today's pushes. That is nine
+   sessions working exactly as designed.
+   AND THE LINK IS ALWAYS FRESH BY LAW: slices/sw.js is network-first with
+   cache:'no-store' so "the link ALWAYS renders the latest deploy", which
+   is the ONE-LINK LAW's whole point and the reason "?v=arms" is dead.
+   PUT THOSE TWO NEXT TO ROUND 1 AND EVERY TESTER PLAYS A DIFFERENT GAME,
+   including the same tester on Saturday versus Monday. The protocol's
+   entire value is COMPARISON — quit points against each other, round 1
+   against round 2 — and a comparison across a moving build is not a weak
+   measurement, IT IS NOT A MEASUREMENT.
+   WHAT IS *NOT* BROKEN, said plainly: THE SAVE IS FINE AND IT IS GOOD
+   WORK. save_compat_gate asserts one version constant, a walk-forward
+   migrator, no exact-equality check, an old save still loading, and a
+   NEWER-build save refused BY NAME and left alone instead of wiped.
+   Crossing a deploy does not cost a player their run. This row is about
+   READING THE RESULT, not about data loss.
+   BOTH AISLES. Experimentation: "you should not change the experiment
+   settings, the test goals, the design of the variation or of the Control
+   mid-experiment" — and, arriving from a completely different direction
+   than sweep 20 did, "changing experiment settings mid-run, SUCH AS
+   MODIFYING THE EXPERIMENT SEED, breaks consistent user assignment and
+   compromises the integrity of the entire dataset." The related trap is
+   PEEKING: patching the demo because tester #2 tripped, while #3-#8 are
+   still to come, FEELS responsive and silently turns one round into eight
+   incomparable ones. Release engineering: the old answer is a code freeze
+   ("once you introduce new code, your level of confidence drops and you
+   may need to redo the entire QA and validation process"), and the modern
+   one is better and is exactly our shape — "creating a branch for release
+   REPLACES the practice of the code freeze."
+   THE DECISION: THE LINK IS SACRED, THE REF IT SERVES IS NOT. Pin the
+   published site to one tagged commit for the round. The URL is untouched,
+   sw.js is untouched, testers still get "the newest deploy" — the newest
+   deploy just stops moving for the duration. THE FLEET DOES NOT STOP:
+   nine sessions keep merging to main. This is a PUBLISH decision, not a
+   development freeze, and nobody loses a turn.
+   NO PATCHING MID-ROUND. Findings queue and land after. ONE exception,
+   written in advance so it is not a judgement call under pressure: a HARD
+   BLOCKER that stops testers playing at all — the round is worthless
+   anyway at that point, so re-pin, note it, and treat what came before as
+   a separate round.
+   BUILD: a ref choice in the Pages workflow (pages_publish_gate already
+   binds the publish list, so this is not new machinery). REVERSIBLE IN
+   ONE COMMIT, and WRITE THE UN-PIN STEP DOWN AT THE SAME TIME AS THE PIN
+   STEP — a freeze nobody remembers how to lift is how a fleet loses a
+   week. DO NOT TOUCH sw.js, the URL, or add a query string; the ONE-LINK
+   LAW is not what needs fixing and touching it solves the wrong problem
+   loudly. | the link serves the pinned build while main moves, and one
+   commit un-pins it | — | no. NOT IN A TAB — this is publishing. ***
 -12. *** MAKE THE HANDOFF GATE ABOUT THE LAW IT IS NAMED AFTER (sweep 18,
    8/25 — records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_
    8_25_26.md).
