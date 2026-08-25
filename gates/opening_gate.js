@@ -512,6 +512,107 @@ function pw() {
     console.log('  . the opening sequence: ' + chain.length + ' scenes, ' +
       totals.b + ' beats, ' + totals.s + ' spoken lines');
 
+    /* ---- AND THE OTHER SIDE OF THE FIGHT, WHICH NOBODY HAD EVER SEEN --------
+       *** THE CLAIM ABOVE ABOUT WHERE IT LANDS WAS TRUE AND SHALLOW. *** It reads
+       the live TAB and stops there, so it passes on a COMBAT tab with no fight in
+       it: a room, not what happens in the room. That is the same defect this gate
+       was written to catch, committed by this gate.
+
+       The 7/19 opening vision is ONE UNBROKEN SEQUENCE and the fight sits in the
+       middle of it. Everything after the raid -- the last room, the grief dinner,
+       the burial that ends the tutorial -- had never been played by anyone, because
+       a gate cannot win a tutorial fight and no human had sat through it either.
+
+       WHOSE HALF IS WHOSE, and this is why invoking onEnd here is the honest test
+       rather than a side door. COMBAT's contract is that a settled encounter calls
+       onEnd, win or lose; their end path does it unconditionally, after the sting,
+       outside the victory branch, and THEIR gate owns proving it. This lane's
+       contract is the other half: WHEN onEnd FIRES, THE STORY COMES BACK. So this
+       drives the seam COMBAT publishes, from the encounter the game itself created,
+       and asserts only the half this lane owns. Winning the fight instead would
+       make the opening's gate fail whenever combat balance moved, which is a
+       different lane's number deciding whether my story is broken. */
+    const raid = scene && scene.handoff && scene.handoff.to === 'combat' ? scene.handoff : null;
+    if (raid) {
+      /* WAIT FOR THE FIGHT, NOT FOR THE TAB. Measured: the handoff deliberately
+         waits for the combat frame and then 250ms more, so the tab is live BEFORE
+         the encounter exists. Reading it on the tab reported "no fight" on a raid
+         that starts perfectly -- a probe error that was one write-up away from
+         being filed as a bug in another lane's code. */
+      await SETTLE(page, 25000, async () => await page.evaluate(() =>
+        !!(typeof G !== 'undefined' && G && G.encounter && typeof G.encounter.onEnd === 'function')));
+      const fight = await page.evaluate(() => {
+        const e = (typeof G !== 'undefined' && G) ? G.encounter : null;
+        if (!e) return null;
+        return {
+          id: e.ctx && e.ctx.encounterId, objective: e.ctx && e.ctx.objective,
+          roster: (e.roster || []).length, hasOnEnd: typeof e.onEnd === 'function'
+        };
+      });
+      ok('THE RAID STARTS A REAL FIGHT, not just a tab (' +
+        (fight ? fight.roster + ' hostiles, ' + JSON.stringify(fight.objective) : 'NO ENCOUNTER') + ')',
+        !!fight && fight.roster > 0);
+      ok('and it is the encounter the SCENE named (' + (fight && fight.id) + ' / ' + raid.encounter + ')',
+        !!fight && (!raid.encounter || fight.id === raid.encounter),
+        'the scene names the encounter id; a rename on either lane must not pass silently');
+      ok('and the fight is carrying the way back - the scene handed it an onEnd',
+        !!fight && fight.hasOnEnd,
+        'no onEnd means the opening ends at the fight and the grief dinner never plays');
+
+      const capsBefore = await page.evaluate(() => (window.__CAPS || []).length);
+      const settled = await page.evaluate(() => {
+        const e = (typeof G !== 'undefined' && G) ? G.encounter : null;
+        if (!e || typeof e.onEnd !== 'function') return false;
+        try { e.onEnd('encounter-won'); return true; } catch (_x) { return false; }
+      });
+      ok('the encounter can be settled through the seam COMBAT publishes', settled);
+
+      /* WHAT MUST COME BACK is read out of the scene's own handoff, so a rewrite
+         moves the target instead of breaking the claim. */
+      const nextId = raid.then || null;
+      const nextLines = await page.evaluate(id => {
+        const s = id && typeof openSceneById === 'function' ? openSceneById(id) : null;
+        return s ? (s.beats || []).filter(b => b.kind === 'say' && b.text).map(b => String(b.text)) : [];
+      }, nextId);
+      /* WAIT FOR THE WHOLE SCENE, NOT ITS FIRST LINE. The first cut waited only
+         for line one and then asserted all of them, so it reported 1/2 on a scene
+         that plays both perfectly -- the gate sampling before the thing it was
+         about to demand. Same shape as the vacuous pass closed above: the claim
+         was fine, the moment of measurement was wrong. */
+      const wantFrags = nextLines.map(t => litOf(t)[0]).filter(Boolean);
+      await SETTLE(page, 60000, async () => await page.evaluate(fr => {
+        const s = (window.__CAPS || []).join('\n');
+        return fr.every(f => s.indexOf(f) >= 0);
+      }, wantFrags));
+
+      const back = await page.evaluate(() => {
+        const w = document.getElementById('openWrap');
+        const r = w ? w.getBoundingClientRect() : null;
+        return {
+          caps: (window.__CAPS || []).slice(),
+          shown: !!w && getComputedStyle(w).display !== 'none' && r.width > 80 && r.height > 80,
+          running: typeof OPEN_RUNNING !== 'undefined' ? OPEN_RUNNING : null,
+          scene: (typeof OPEN_PLAYER !== 'undefined' && OPEN_PLAYER && OPEN_PLAYER.scene)
+            ? OPEN_PLAYER.scene.id : null
+        };
+      });
+      ok('WHEN THE FIGHT ENDS THE STORY COMES BACK - the overlay returns and plays on',
+        back.shown && back.running === true,
+        'this is the seam that had never once been exercised; a false here means the demo ends at the fight');
+      ok('and it resumes into the scene the handoff named (' + back.scene + ' / ' + nextId + ')',
+        !nextId || back.scene === nextId);
+      const stream2 = back.caps.join('\n');
+      const missing2 = nextLines.filter(t => {
+        const frags = litOf(t);
+        return frags.length ? !frags.every(f => stream2.indexOf(f) >= 0) : false;
+      });
+      ok('AND THE LINES AFTER THE FIGHT REACH THE SCREEN (' +
+        (nextLines.length - missing2.length) + '/' + nextLines.length + ' of ' + nextId + ')',
+        missing2.length === 0, JSON.stringify(missing2.slice(0, 2)));
+      ok('and the caption kept moving after the fight (' + capsBefore + ' -> ' + back.caps.length + ')',
+        back.caps.length > capsBefore);
+    }
+
     ok('and nothing threw across the whole opening', errs.length === 0, errs.slice(0, 2).join(' | '));
     await page.close();
   }

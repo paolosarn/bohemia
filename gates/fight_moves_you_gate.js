@@ -1591,6 +1591,101 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' rosters), filling after the blades so his 7/19 melee mix still takes its slots first -- the ruling V173 broke and had to be fixed',
     breach.rosters.inRoster >= 5);
 
+
+/* ===== V179 THE EYES ON YOU (RF4-53 layer 2) =====================
+   "A BINARY SPOTTED/UNSPOTTED SYSTEM HAS NO DECISIONS IN IT."
+   V165 made vision the master switch -- it gates the bead, the volley, the
+   press, the shout and the spotter's pin -- so WHO HAS EYES ON YOU is the fact
+   the player most needs, and measured over 278 real fight states it was the one
+   the screen would not tell him: every man who could see him was marked, but 707
+   of 1157 MARKED men could NOT see him. Three in five. The washes are honest
+   about a man's STANCE and say nothing about his line to YOU.
+   PROVED BY PIXELS, and it took three tries. A colour filter guessed at the
+   blend returned a clean zero twice while the branch was running eighty-four
+   times a frame, and the first sampler read UN-ZOOMED field coordinates -- the
+   same transform mistake the car tap made. What settles it is the same man on
+   the same tile, once seeing and once blinded by a rock on his line, diffed. */
+  const eyes = await (async () => {
+    /* COUNT THE DRAW, DO NOT PHOTOGRAPH IT. Two pixel-diff versions of this arm
+       died first, and the second died on its own null control: the board is
+       ANIMATED -- beat pulses, washes, sprites breathing -- so two grabs of the
+       identical state differ by hundreds of pixels, and a real effect cannot be
+       told from a frame's ordinary churn. A photograph of a moving thing is not
+       a measurement. So the context is wrapped and the ring's own stroke is
+       COUNTED, which is exact and does not care what frame it lands on. */
+    const arm = async (nSeers) => await frame.evaluate((wantSeers) => {
+      BohemiaArena.set(2); setupCombat();
+      G.e.length=0; G.pillars=[]; G.smoke=[]; G.over=false; G.pHP=100;
+      G.phase='cover'; G.inc=null; G.mTurn=1;
+      const mk = (ang) => { const E = JSON.parse(JSON.stringify(ARCH.human));
+        return { i:0, E, n:'T', hp:60, max:60, arch:'human', dead:false, melee:false,
+                 acq:0, stun:0, supp:0, lvl:0, gcov:0, ea:ang, edist:5 }; };
+      for (let k=0;k<3;k++) G.e.push(mk(-0.6 + k*0.6));
+      G.e.forEach((e,i) => { e.i=i;
+        putCell(e, Math.round(Math.cos(e.ea)*5), Math.round(Math.sin(e.ea)*5)); });
+      G.numEnemies = 3;
+      /* blind everybody by walling their lines, then open exactly wantSeers */
+      G.pillars = G.e.map(e => ({ ea:e.ea, edist:2.5, r:0.55 }));
+      G.pillars.length = Math.max(0, G.e.length - wantSeers);
+      try { updateGeomCover(); visionTick(); } catch(e){}
+      const seers = (G.e||[]).filter(e => e && !e.dead && seesMe(e)).length;
+      /* wrap the context and count strokes painted in the ring's bone */
+      const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+      if (!ctx.__wrapped) { const realStroke = ctx.stroke.bind(ctx);
+        ctx.__bone = 0;
+        ctx.stroke = function(){ try {
+            if (String(this.strokeStyle).indexOf('240, 232, 208') >= 0
+             || String(this.strokeStyle).indexOf('240,232,208') >= 0) ctx.__bone++;
+          } catch(_e){} return realStroke(); };
+        ctx.__wrapped = true; }
+      ctx.__bone = 0;
+      return { seers, wanted: wantSeers };
+    }, nSeers);
+
+    const readBone = async () => await frame.evaluate(() => {
+      const ctx = document.getElementById('cv').getContext('2d');
+      return ctx.__bone || 0; });
+
+    const none = await arm(0); await page.waitForTimeout(900); const boneNone = await readBone();
+    const some = await arm(2); await page.waitForTimeout(900); const boneSome = await readBone();
+    const all  = await arm(3); await page.waitForTimeout(900); const boneAll  = await readBone();
+
+    const room = await frame.evaluate(() => {
+      let openSeers=0, coveredSeers=0, boards=0;
+      for (let A=1; A<=20; A++) {
+        BohemiaArena.set(A); setupCombat();
+        G.pHP=100; G.phase='cover'; G.over=false; G.inc=null;
+        const keep = G.pillars;
+        G.pillars = []; try { updateGeomCover(); visionTick(); } catch(e){}
+        openSeers += (G.e||[]).filter(e => e && !e.dead && seesMe(e)).length;
+        G.pillars = keep; try { updateGeomCover(); visionTick(); } catch(e){}
+        coveredSeers += (G.e||[]).filter(e => e && !e.dead && seesMe(e)).length;
+        boards++;
+      }
+      return { boards, openSeers, coveredSeers };
+    });
+    return { none:{ seers:none.seers, strokes:boneNone },
+             some:{ seers:some.seers, strokes:boneSome },
+             all:{ seers:all.seers, strokes:boneAll }, room };
+  })();
+
+  console.log('  the eyes ring, counted as draw calls on one unchanged board:'
+    + '\n    0 men with eyes on you -> ' + eyes.none.strokes + ' bone strokes'
+    + '\n    ' + eyes.some.seers + ' men with eyes on you -> ' + eyes.some.strokes + ' bone strokes'
+    + '\n    ' + eyes.all.seers + ' men with eyes on you -> ' + eyes.all.strokes + ' bone strokes'
+    + '\n    and in game terms: ' + eyes.room.coveredSeers + ' men have eyes on you across '
+    + eyes.room.boards + ' boards, against ' + eyes.room.openSeers + ' with every rock removed');
+
+  ok('V179 RF4-53 *** THE AWARENESS STATE IS ON THE FIELD, AND IT IS DRAWN ONCE PER MAN WHO CAN SEE YOU. *** Nobody sees you and the ring paints ' + eyes.none.strokes
+    + ' times; ' + eyes.some.seers + ' men see you and it paints ' + eyes.some.strokes + '; ' + eyes.all.seers + ' see you and it paints ' + eyes.all.strokes
+    + '. Before this the screen marked a man who was UP, and 707 of 1157 marked men could not see you at all -- three in five, with no way to tell which. TWO PIXEL-DIFF VERSIONS OF THIS ARM DIED FIRST and the second died on its own null control: the board is ANIMATED, so two grabs of the identical state differ by hundreds of pixels and a real effect cannot be told from ordinary churn. A photograph of a moving thing is not a measurement',
+    eyes.none.strokes === 0 && eyes.some.strokes > 0 && eyes.all.strokes > eyes.some.strokes);
+
+  ok('V179 AND IT MAKES COVER LEGIBLE, which is what it is for: across ' + eyes.room.boards
+    + ' boards ' + eyes.room.coveredSeers + ' men have eyes on you, and with every rock taken off the lot that becomes ' + eyes.room.openSeers
+    + '. The stone takes most of the guns off you (measured 73% on 8/21) and until now it did that INVISIBLY. Step behind a rock and the rings go out',
+    eyes.room.openSeers > eyes.room.coveredSeers);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

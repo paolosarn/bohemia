@@ -42,6 +42,7 @@ const ALPHA = 'file://' + path.join(path.dirname(__dirname), 'slices/BOHEMIA_ALP
     const out = { rs: (typeof RIG_RS !== 'undefined' ? RIG_RS : 1), styles: [], hist: {}, rows: 0, longest: 0 };
     for (const h of HAIR) {
       let longest = 0, inLong = 0, rows = 0;
+      out.perDir = out.perDir || {};
       for (const d of DIRS) {
         if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
         const f = buildFrame(d, 'idle', 0);
@@ -55,10 +56,13 @@ const ALPHA = 'file://' + path.join(path.dirname(__dirname), 'slices/BOHEMIA_ALP
         for (const side of [L, Rr]) {
           const ys = Object.keys(side).map(Number).sort((a, b) => a - b);
           let run = 1;
+          const pd = out.perDir[d] || (out.perDir[d] = { rows: 0, inLong: 0, longest: 0 });
           for (let n = 1; n <= ys.length; n++) {
             const cont = n < ys.length && ys[n] === ys[n - 1] + 1 && side[ys[n]] === side[ys[n - 1]];
             if (cont) run++;
             else { out.hist[run] = (out.hist[run] || 0) + 1; rows += run;
+              pd.rows += run; if (run >= 4) pd.inLong += run;
+              if (run > pd.longest) pd.longest = run;
               if (run > longest) longest = run;
               if (run >= 4) inLong += run;
               run = 1; }
@@ -85,6 +89,10 @@ const ALPHA = 'file://' + path.join(path.dirname(__dirname), 'slices/BOHEMIA_ALP
     console.log('    ' + String(k).padStart(2) + ' rows: ' + String(R.hist[k]).padStart(5) +
       '  ' + '#'.repeat(Math.round(60 * R.hist[k] / tot)));
   const long = Object.keys(R.hist).map(Number).filter(k => k >= 4).reduce((a, k) => a + R.hist[k] * k, 0);
+  console.log('\n  PER FACING (this is where the number actually lives):');
+  for (const d of ['S','SE','E','NE','N','NW','W','SW']) { const q = R.perDir[d]; if (!q) continue;
+    console.log('    ' + d.padEnd(4) + (100 * q.inLong / Math.max(1,q.rows)).toFixed(1).padStart(6) +
+      '%  in runs of 4+, longest ' + q.longest); }
   console.log('\n  ' + (100 * long / R.rows).toFixed(1) + '% of all edge rows sit in a straight run of 4 or more.');
   console.log('  longest straight edge anywhere: ' + R.longest + ' rows.');
 })();

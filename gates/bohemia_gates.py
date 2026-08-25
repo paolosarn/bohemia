@@ -286,6 +286,14 @@ GATES = [
      'navigation, so the first probe reported the slice as NOT FETCHED for a file that '
      'demonstrably was -- this one asserts it saw the two fetches that MUST happen before it '
      'reports a third one absent. Mutation-tested both ways', False),
+    ('COMBAT SOUND',   ['node', 'gates/combat_sound_gate.js'],
+     'WHAT A FIGHT SOUNDS LIKE, driven through the real phases -- cover, pop '
+     'into AIM, fire to the killshot, freeze -- and recorded. The demo climaxes '
+     'in a fight and combat holds seventeen approved sounds reachable from '
+     'nowhere else, none of which had ever been listened to. Asserts the two a '
+     'player would notice in ten seconds: firing is audible, and a man going '
+     'down is audible ON THE SHOT THAT DOES IT. Everything else is reported, '
+     'because a quiet beat in a fight can be design', True),
     ('DEMO SOUND',     ['node', 'gates/demo_sound_gate.js'],
      'WHAT THE DEMO SOUNDS LIKE, beat by beat, on the same walk the WHOLE DEMO '
      'gate takes. This lane had only ever counted the CATALOGUE -- 102 moments, '

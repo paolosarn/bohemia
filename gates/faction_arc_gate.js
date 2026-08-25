@@ -517,9 +517,21 @@ function requirePlaywright() {
         JSON.stringify(n));
 
       if (n.cardRest !== null)
+        /* CONTAINS, NOT EQUALS. This asserted string equality and went red on
+           MOB the day a different roster put that member in the un-asked state:
+              card "BE INTRODUCED BY SOMEBODY WHO VOUCHES  ·  ASKING COSTS: A
+                    SMALL PERMANENT MARK AGAINST YOU."
+              rule "BE INTRODUCED BY SOMEBODY WHO VOUCHES"
+           The rule IS there verbatim, which is the whole claim -- what follows is
+           __CITY_ASKCOST__ telling him the price BEFORE the button, which is a
+           different law (8/15) doing its job on the same row.
+           EQUALITY WAS NEVER THE CLAIM. "In its own words, verbatim from the
+           rule" is satisfied by containment; demanding equality forbids any other
+           system from ever adding to that row, which is not a thing this gate
+           gets to decide on the card's behalf. */
         ok('F3 ' + f + ' tells the player HOW TO GET THE REST in its own words, '
           + 'verbatim from the rule rather than a generic line',
-          n.cardRest === n.ruleNext,
+          String(n.cardRest).indexOf(String(n.ruleNext)) === 0,
           JSON.stringify({ card: n.cardRest, rule: n.ruleNext }));
     }
 
@@ -705,6 +717,27 @@ function requirePlaywright() {
       + '"Nobody in Las Vegas runs with anybody" is the state the game was '
       + 'silently in for thirteen days',
       reach2.cells != null && reach2.affiliated > 0,
+      /* *** THIS IS RED ON PURPOSE AND IT HAS AN OWNER. ***
+         Paolo ruled 8/21 "people share houses yes bro", and households are in.
+         They did what they were for: people who know NOBODY fell 199 -> 114,
+         cross-outfit ties went 0 -> 2, and whoHears answered for the first time
+         ever (MOB <-> NETWORK, MOB <-> CUSTOM) -- which is the entire
+         cross-cutting half of the faction design, previously unreachable,
+         because until now EVERY COMMITMENT IN THE GAME WAS FREE.
+         THE COST IS THIS CLAIM, and it is arithmetic rather than a bug: the
+         headcount is fixed at 298, so bigger households mean FEWER DISTINCT HOME
+         LOCATIONS, and the nearest affiliated person to any given spawn gets
+         further away. Connection bought with coverage.
+         ISOLATED, NOT GUESSED: same gate, same seed, main's city -> 92/0 green;
+         with households -> this red. And a narrower spawn probe showed the two
+         builds IDENTICAL (4 drawn, 0 affiliated either way), which is why this
+         had to be run both ways rather than reasoned about.
+         IT IS NOT SOFTENED TO PASS. Weakening a claim so my own change goes
+         green is the exact move this lane has spent the week refusing. The fix
+         is WHERE PEOPLE LIVE -- seed a couple of affiliated households near the
+         spawn, or raise the population, or raise AFFILIATED_RATE (32 of 298,
+         already [PENDING Paolo]) -- and that is his map, not mine.
+         Record: records/BOHEMIA_EVERY_COMMITMENT_IN_THIS_GAME_IS_FREE_8_20_26.md */
       JSON.stringify(reach2));
 
     /* ---- H. THE ONLY THING THAT MOVES WHILE HE IS DOING SOMETHING ELSE ----

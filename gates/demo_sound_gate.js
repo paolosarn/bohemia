@@ -76,6 +76,25 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
         if (d.type === 'BOHEMIA_STEP') note(d.surface || 'step', 'step');
       } catch (_e) { }
     });
+    /* AND THE MUSIC, WHICH IS MOST OF WHAT HE ACTUALLY HEARS (8/25). This
+       recorder watched playSFX, the SFX posts and STING and called everything
+       else silence -- so it reported A FIGHT STARTS as "-- silent --" on a
+       build where the fight takes the music over IMMEDIATELY and correctly
+       (FIGHTMUS.on true, MUS.playing true, measured). A report that cannot see
+       the score is not a report of what the demo sounds like, and the next
+       session reading that line would have gone off to fix a non-problem.
+       Polled rather than hooked: FIGHTMUS.on is a flag, not a call. */
+    let musWas = null, fightWas = null;
+    setInterval(() => {
+      try {
+        const playing = !!(typeof MUS !== 'undefined' && MUS.playing);
+        const fighting = !!(window.FIGHTMUS && FIGHTMUS.on);
+        if (musWas !== null && playing !== musWas) note(playing ? 'starts' : 'stops', 'music');
+        if (fightWas !== null && fighting !== fightWas)
+          note(fighting ? 'takes over for the fight' : 'hands back after the fight', 'music');
+        musWas = playing; fightWas = fighting;
+      } catch (_e) { }
+    }, 150);
     /* playSFX and STING are defined long after this script runs, so poll for
        them and wrap once each. Wrapping twice would double-count. */
     let wrapped = { sfx: false, sting: false };
@@ -187,6 +206,17 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
       ok('TAKING THE JOB ANSWERS -- the pivot of the demo is not a dead button ('
         + (tookHeard.join(', ') || 'SILENCE') + ')',
         tookHeard.some(h => /ui_tap|ui_back/.test(h)));
+      /* AND IT IS A MUSICAL BEAT, NOT A CHIME. Nothing in the world makes a
+         noise when you accept work, so a sound effect here would be the UI
+         convention that killed ten SOMEBODY TURNS TO YOU candidates. `taken`
+         joins paid / done / missed: the transaction family, carried by the
+         score. Posted from the city's offerAccept rather than diffed out of
+         the save state, because MEASURED, zero state broadcasts reach the
+         parent during the whole of day one. */
+      ok('and the commitment is carried by the SCORE -- taking the job plays '
+        + 'its own sting, in the paid/done/missed family ('
+        + (tookHeard.join(', ') || 'SILENCE') + ')',
+        tookHeard.includes('sting:taken'));
       await city.evaluate(() => { try { phoneClose(); } catch (e) { } });
       await SETTLE(page, 900);
     }
@@ -285,6 +315,32 @@ const BEATS = [];          /* {beat, heard:[...]} in order, for the report */
     ok('and no door sound he KILLED comes back with it (door_open/door_shut '
       + 'died 10 for 10)',
       !doorHeard.some(h => /door_open|door_shut/.test(h)));
+
+    /* ---- 9. AND THE FIGHT THAT DOOR STARTS ------------------------------
+       THE DEMO CLIMAXES IN A FIGHT (the 7/24 ruling), and the door above is
+       what starts one: inEnter calls cityFightOnEnter. So the fight is ALREADY
+       RUNNING by the line above -- which is why the music hands over ON THE
+       DOOR BEAT and not on a beat of its own.
+       THE FIRST VERSION OF THIS ASSEMBLED A SECOND FIGHT with the shell's
+       cityEncounterIn and reported it "-- silent --". Both halves of that were
+       wrong: nothing was silent (the score had already changed hands, and this
+       recorder could not hear music at all), and nobody starts a second fight
+       on top of a live one. Ask the state the real door produced. */
+    const fightMus = await page.evaluate(() => ({
+      fightmusOn: !!(window.FIGHTMUS && FIGHTMUS.on),
+      musPlaying: !!(typeof MUS !== 'undefined' && MUS.playing),
+      live: !!(typeof G !== 'undefined' && G.encounter && !G.encounter.settled),
+    }));
+    /* A fight is scored, not sound-effected: the music changes hands the
+       instant it starts. That is the asymmetric transition -- IMMEDIATE in,
+       phrase-end out. If this goes quiet the demo's climax loses its floor. */
+    ok('THE DOOR STARTS A FIGHT AND THE MUSIC TAKES IT OVER, immediately '
+      + '(FIGHTMUS.on=' + fightMus.fightmusOn + ', MUS.playing='
+      + fightMus.musPlaying + ')',
+      fightMus.fightmusOn === true && fightMus.musPlaying === true);
+    ok('and the score handing over is REPORTED in the walk above, so no future '
+      + 'session reads a music-only beat as silence',
+      doorHeard.some(h => /^music:/.test(h)));
 
     ok('and the page threw nothing while being listened to ('
       + (errs.slice(0, 2).join(' | ') || 'clean') + ')', errs.length === 0);

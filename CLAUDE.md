@@ -156,6 +156,17 @@ research partner. He DECIDES, you PRODUCE.
   A line he cannot reach is a line he cannot edit. Full law:
   laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md
   Gate: dialogue_catalogue_gate.js. Harvester: tools/bohemia_words_book.py
+- THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED): "make them speak spanglish for our
+  game i like that. have it very poor english ro spanglish to give it that
+  flavor." Las Vegas is 418,400+ Spanish speakers and our valley had ZERO. It is
+  IN THE LINE, not a translation layer. THREE REGISTERS and the mix is mandatory:
+  english-dominant, SPANGLISH (fluent, switching mid-sentence because it is
+  faster -- the headline register), and spanish-dominant/poor english (SOME
+  people, never all). Spanglish is a SKILL, not a broken language; writing
+  everyone as broken English is bad linguistics and an insult to a third of the
+  county. Never phonetic accent spelling. HARD RULE: LANGUAGE NEVER GATES
+  REQUIRED INFORMATION. Full law:
+  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md  Gate: language_gate
 - 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the

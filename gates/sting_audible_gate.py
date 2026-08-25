@@ -214,6 +214,13 @@ def main():
     # `[^)]*` was wrong: STING.play((b[2]==='COMPLETE')?'done':'loss') contains
     # parentheses, so it captured only up to the first one and lost the names.
     # Balance the parens instead of guessing how deep they go.
+    # THE SENDERS. A sting can be asked for from another frame, so the surfaces
+    # that post one are part of the caller set.
+    SENDERS = []
+    for _f in ('slices/BOHEMIA_CITY_WORLD.html', 'slices/BOHEMIA_CURRENT_SLICE.html'):
+        if os.path.exists(_f):
+            SENDERS.append(open(_f, encoding='utf8').read())
+
     calls = []
     for m in re.finditer(r'STING\.play\(', src):
         i, depth = m.end(), 1          # NOT `d` -- that is the probe result
@@ -250,9 +257,23 @@ def main():
         # call in the build and look for the name inside it -- which still
         # refuses a bare mention elsewhere in the file, because it only ever
         # reads what sits between that call's own parentheses.
-        ok('something in the build actually plays STING %s (callers: %s)'
-           % (k, ' | '.join(calls) or 'none'),
-           any(("'%s'" % k) in c or ('"%s"' % k) in c for c in calls))
+        # A USE IS NOT ALWAYS A LITERAL, AND NOW IT IS NOT ALWAYS IN THIS FILE
+        # EITHER (8/25). This already knew about the ternary. `taken` is
+        # dispatched from a MESSAGE -- the city posts {bohemiaCitySting:{fig:
+        # 'taken'}} and the shell calls STING.play(String(d....fig||'')) -- so
+        # the argument at the call site is a VARIABLE and the name lives in the
+        # sender. A caller in another frame is still a caller.
+        # THIS IS NOT A LOOSENING: it demands the figure name actually appear as
+        # a POSTED figure in a surface that ships, and only accepts that when
+        # the build really does have a dynamic STING.play. A figure nobody posts
+        # and nobody names literally still fails.
+        dynamic = any(("fig" in c) for c in calls)
+        posted = any(("fig:'%s'" % k) in surf for surf in SENDERS)
+        ok('something in the build actually plays STING %s (callers: %s%s)'
+           % (k, ' | '.join(calls) or 'none',
+              '; posted by the city' if posted else ''),
+           any(("'%s'" % k) in c or ('"%s"' % k) in c for c in calls)
+           or (dynamic and posted))
 
     # ---- QUESTSTING, DRIVEN RATHER THAN GREPPED -------------------------
     # IT IS DONE went 0 UP / 20 DOWN as a sound effect because it is a MUSICAL

@@ -59,17 +59,57 @@ SRC = 'slices/BOHEMIA_CITY_TILES.js'
 PAGE = 'slices/BOHEMIA_CITY_WORLD.html'
 STEM = 'BOHEMIA_CITY_TILES_'
 CHUNK_MAX = 4 * 1048576          # see the measured table above; the wall is 6-8 MB
+# THE EIGHT NAMES THE BANK OWNS, in the order the original file declared them. Named here
+# rather than discovered, because the read-back path (below) has to know what to pull out of
+# the evaluated chunks, and "whatever eval left lying around" is not a contract.
+HEAD_NAMES = ['HERO_SRC', 'SA_TILES', 'SIG_TILES', 'TP_TILES',
+              'JAMB_W', 'JAMB_E', 'DOOR_ANIM', 'IN_DOOR_B64']
 
-if not os.path.exists(SRC):
-    sys.exit('CHUNK: %s is not here. Nothing to split.' % SRC)
-src = open(SRC, encoding='utf8').read()
+# RE-RUNNABLE ON ITS OWN OUTPUT. After the first run the monolith is gone, so a second run
+# has to read the CHUNKS -- otherwise the only way to change the emission shape is to dig the
+# old file out of git, which is exactly the kind of one-way tool that rots. Chunks are read
+# in load order because chunk 1 declares what the rest fill; anything else is not the bank.
+import glob
+if os.path.exists(SRC):
+    src = open(SRC, encoding='utf8').read()
+else:
+    parts = sorted(glob.glob('slices/%s[0-9][0-9].js' % STEM))
+    if not parts:
+        sys.exit('CHUNK: neither %s nor any %sNN.js chunk is here. Nothing to split.'
+                 % (SRC, STEM))
+    print('CHUNK: the monolith is gone; reading the bank back from %d chunks.' % len(parts))
+    # AND IT HAS TO BE EVALUATED, NOT SCANNED. After the first run the chunks are mostly
+    # MUTATIONS -- `TP_TILES["misc"]=[...]`, a push loop -- and the declaration scan below
+    # only understands `kw NAME = <literal>;`. Scanning them would read TP_TILES as the empty
+    # object chunk 1 declares and silently throw the whole bank away. So run them.
+    import subprocess as _sp
+    # ONE eval, extraction included. `const` declared inside an eval is scoped to THAT eval,
+    # so pulling the names out in a second eval cannot see them -- which is exactly the
+    # ReferenceError this first tripped over. Same shape the equivalence probe below uses.
+    _probe = ('const fs=require("fs");\n'
+              'const O={};\n'
+              'eval(%s.map(f=>fs.readFileSync(f,"utf8")).join("\\n") + "\\n;" + '
+              '%s.map(n=>`O[${JSON.stringify(n)}]=${n};`).join(""));\n'
+              'process.stdout.write(JSON.stringify(O));\n') % (json.dumps(parts),
+                                                                json.dumps(HEAD_NAMES))
+    _t = '/tmp/_bohemia_chunk_readback.js'
+    open(_t, 'w', encoding='utf8').write(_probe)
+    _r = _sp.run(['node', '--stack-size=8000', '--max-old-space-size=6144', _t],
+                 capture_output=True, text=True)
+    if _r.returncode != 0 or not _r.stdout:
+        sys.exit('CHUNK: could not evaluate the existing chunks to read the bank back: %s'
+                 % (_r.stderr or '')[:300])
+    _vals = json.loads(_r.stdout)
+    src = None      # the declaration scan is skipped; decls are built directly below
+    decls = [(('var' if n == 'HERO_SRC' else 'const'), n, _vals[n]) for n in HEAD_NAMES]
 
 # ---------------------------------------------------------------- 1. read the bank
 # Every declaration is `kw NAME = <json literal>;` at column 0. Walk the literal with a
 # brace/bracket counter rather than a regex: 28 MB of base64 contains every character a
 # regex would trip on, and a greedy match here would silently swallow the next declaration.
-decls = []          # (keyword, name, python value) in source order
-for m in re.finditer(r'^(var|const|let)\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*', src, re.M):
+if src is not None:
+  decls = []          # (keyword, name, python value) in source order
+  for m in re.finditer(r'^(var|const|let)\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*', src, re.M):
     kw, name = m.group(1), m.group(2)
     i = m.end()
     open_ch = src[i]
@@ -97,8 +137,9 @@ for m in re.finditer(r'^(var|const|let)\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*', src,
     decls.append((kw, name, json.loads(src[i:j + 1])))
 
 names = [d[1] for d in decls]
-print('CHUNK: read %s -- %.2f MB, %d declarations: %s'
-      % (SRC, len(src) / 1048576, len(decls), ', '.join(names)))
+print('CHUNK: read the bank -- %.2f MB of values, %d declarations: %s'
+      % (sum(len(json.dumps(d[2], separators=(',', ':'))) for d in decls) / 1048576.0,
+         len(decls), ', '.join(names)))
 if 'TP_TILES' not in names:
     sys.exit('CHUNK: no TP_TILES. This tool exists to split it; refusing to run blind.')
 
@@ -118,30 +159,80 @@ J = lambda v: json.dumps(v, separators=(',', ':'), ensure_ascii=False)
 units = []          # (source_string, byte_len)
 tp = dict((d[1], d[2]) for d in decls)['TP_TILES']
 
+# EVERY NAME IS DECLARED IN CHUNK 1, AND NOTHING AFTER CHUNK 1 EVER RE-BINDS ONE. Two
+# separate things depend on that, and neither is obvious:
+#
+# 1. THE WORLD SURVIVES A MISSING BANK. Measured 8/25: block the whole bank and the city is
+#    a BLACK VOID with `ReferenceError: HERO_SRC is not defined` -- the page reads these
+#    names at module scope, so an absent bank kills the script before a pixel is drawn.
+#    Bootstrap the eight names as empty containers and the SAME blocked build renders a
+#    playable world: ground, the character, the HUD, the cold open, the quest card, the
+#    movement pad, ZERO errors. Only the texture is missing. That one property is the whole
+#    prerequisite for progressive loading, so chunk 1 owns the declarations and can never be
+#    the chunk that fails to arrive.
+#
+# 2. FIVE GATES AND FOUR TOOLS READ THE DECLARATION FORM. city_tab, full_res, interiors and
+#    street_source all grep for `const SA_TILES=` / `const IN_DOOR_B64=` and friends against
+#    the assembled document. Switching the bank wholesale to bare assignment would have
+#    broken every one of them -- which is why the shape here is DECLARE ONCE, MUTATE AFTER
+#    rather than the simpler-looking rewrite.
+#
+# A declaration small enough to sit in chunk 1 is filled there, so those greps still find
+# real content. The three big ones are declared EMPTY and filled by later chunks through
+# mutation (Object.assign / a push loop), never re-assignment.
+INLINE_MAX = 1048576        # a declaration up to this size is filled in chunk 1 outright
+
+# SIZE AN ELEMENT BY WHAT IT SERIALISES TO, never by len(item). `len` on a base64 string is
+# its byte length, which is right -- and `len` on a NESTED array is its element COUNT, which
+# is not. DOOR_ANIM is a list of frame lists, so it sized itself at 0.00 MB while actually
+# being 2.54 MB, and the binner cheerfully packed it into a chunk that came out at 5.37 MB.
+# The 6 MB guard did not fire because 5.37 is under the measured wall -- so the tool would
+# have shipped a chunk with almost no margin, which is the exact thing its own comments say
+# not to do. A sizing function that is right for one type and silently wrong for another is
+# the same shape of bug as a sampler that steps over half a boundary.
+def item_len(x):
+    return len(J(x)) + 1
+
+def push_loop(name, items):
+    """append items to an existing array without spreading (a 2.5 MB spread blows the stack)"""
+    return '(function(a){for(var i=0;i<a.length;i++)%s.push(a[i]);})(%s);' % (name, J(items))
+
+head, small_len = [], 0
+big = []
 for kw, name, val in decls:
-    if name == 'TP_TILES':
-        units.append(('const TP_TILES={};', 20))
-        continue
     body = J(val)
-    if len(body) + 40 <= CHUNK_MAX:
-        units.append(('%s %s=%s;' % (kw, name, body), len(body)))
+    if name != 'TP_TILES' and len(body) <= INLINE_MAX:
+        head.append('%s %s=%s;' % (kw, name, body))       # declared AND filled, form preserved
+        small_len += len(body)
+    else:
+        head.append('%s %s=%s;' % (kw, name, '{}' if isinstance(val, dict) else '[]'))
+        if name != 'TP_TILES':
+            big.append((name, val))
+if small_len > CHUNK_MAX:
+    sys.exit('CHUNK: the always-declared head is %.2f MB, over the %.2f MB chunk size. Lower '
+             'INLINE_MAX -- chunk 1 must stay cacheable like every other chunk.'
+             % (small_len / 1048576.0, CHUNK_MAX / 1048576.0))
+# ONE DECLARATION PER LINE, exactly as the original file had them. Joining the head with
+# spaces put all eight on one line and broke street_source_gate, which finds
+# `const SA_TILES=` and then reads TO THE END OF THE LINE -- so it swallowed the following
+# declarations and the street table stopped parsing. The consumers were written against a
+# line-per-declaration file; keep that shape.
+units.append(('\n'.join(head), small_len))
+
+# the big non-TP declarations, filled by mutation
+for name, val in big:
+    if isinstance(val, dict):
+        units.append(('Object.assign(%s,%s);' % (name, J(val)), len(J(val))))
         continue
-    # A DECLARATION TOO BIG FOR ONE CHUNK, same treatment as a family below.
-    if not isinstance(val, list):
-        sys.exit('CHUNK: %s is an oversized OBJECT and this tool only knows how to split '
-                 'arrays and TP_TILES families. Refusing to guess at a safe seam.' % name)
-    first = True
     part, part_len = [], 0
     for item in val:
-        if part and part_len + len(item) + 4 > CHUNK_MAX:
-            units.append((('%s %s=%s;' % (kw, name, J(part))) if first else
-                          ('%s=%s.concat(%s);' % (name, name, J(part))), part_len))
-            part, part_len, first = [], 0, False
+        if part and part_len + item_len(item) > CHUNK_MAX:
+            units.append((push_loop(name, part), part_len))
+            part, part_len = [], 0
         part.append(item)
-        part_len += len(item) + 4
+        part_len += item_len(item)
     if part:
-        units.append((('%s %s=%s;' % (kw, name, J(part))) if first else
-                      ('%s=%s.concat(%s);' % (name, name, J(part))), part_len))
+        units.append((push_loop(name, part), part_len))
 
 # TP_TILES FAMILIES IN THEIR ORIGINAL ORDER, and this is not a stylistic choice. The first
 # version emitted them biggest-first to pack the bins tighter, and the equivalence check
@@ -160,13 +251,13 @@ for fam, arr in tp.items():
     first = True
     part, part_len = [], 0
     for item in arr:
-        if part and part_len + len(item) + 4 > CHUNK_MAX:
+        if part and part_len + item_len(item) > CHUNK_MAX:
             units.append((('TP_TILES[%s]=%s;' % (J(fam), J(part))) if first else
                           ('TP_TILES[%s]=TP_TILES[%s].concat(%s);' % (J(fam), J(fam), J(part))),
                           part_len))
             part, part_len, first = [], 0, False
         part.append(item)
-        part_len += len(item) + 4
+        part_len += item_len(item)
     if part:
         units.append((('TP_TILES[%s]=%s;' % (J(fam), J(part))) if first else
                       ('TP_TILES[%s]=TP_TILES[%s].concat(%s);' % (J(fam), J(fam), J(part))),
@@ -210,20 +301,26 @@ if big:
 # Not "looks right" -- evaluate the chunks in load order in a real JS engine and deep-compare
 # every declaration with the original file's. Anything less is a claim, not a check.
 import subprocess
+# THE EXPECTED VALUES ARE WRITTEN OUT, not re-read from the original file. On a re-run the
+# original file no longer exists -- the bank came back from the chunks themselves -- so
+# comparing against SRC would only work the very first time, which is precisely when a
+# check like this is least needed. Compare against what was READ, whichever way it was read.
+EXPECT = '/tmp/_bohemia_chunk_expect.json'
+open(EXPECT, 'w', encoding='utf8').write(
+    json.dumps(dict((d[1], d[2]) for d in decls), separators=(',', ':'), ensure_ascii=False))
 probe = (
     'const fs=require("fs");\n'
     'const files=%s;\n'
     'let js=files.map(f=>fs.readFileSync(f,"utf8")).join("\\n");\n'
-    'const orig=fs.readFileSync(%s,"utf8");\n'
-    'const A={},B={};\n'
+    'const B=JSON.parse(fs.readFileSync(%s,"utf8"));\n'
+    'const A={};\n'
     'eval(js + "\\n;" + %s.map(n=>`A[${JSON.stringify(n)}]=${n};`).join(""));\n'
-    'eval(orig + "\\n;" + %s.map(n=>`B[${JSON.stringify(n)}]=${n};`).join(""));\n'
     'const a=JSON.stringify(A), b=JSON.stringify(B);\n'
     'if(a===b){ console.log("IDENTICAL"); } else {\n'
     '  for(const k of Object.keys(B)){ if(JSON.stringify(A[k])!==JSON.stringify(B[k])) '
     'console.log("DIFFERS: "+k); }\n'
     '  console.log("MISMATCH"); }\n'
-) % (json.dumps(paths), json.dumps(SRC), json.dumps(names), json.dumps(names))
+) % (json.dumps(paths), json.dumps(EXPECT), json.dumps(names))
 tmp = '/tmp/_bohemia_chunk_probe.js'
 open(tmp, 'w', encoding='utf8').write(probe)
 out = subprocess.run(['node', '--stack-size=8000', tmp], capture_output=True, text=True)
@@ -261,7 +358,8 @@ else:
              'region. It changed shape; refusing to guess where the art loads.')
 open(PAGE, 'w', encoding='utf8').write(page)
 
-os.remove(SRC)
+if os.path.exists(SRC):
+    os.remove(SRC)
 
 # ---------------------------------------------------------------- 5. warm them on the splash
 # NOW that every chunk is under the cache wall, warming them during the splash finally does

@@ -2,6 +2,21 @@
  "built": "8/25/26",
  "shots": [
   {
+   "id": "the-way-in",
+   "title": "A ROAD ACROSS THE DAM",
+   "caption": "Four places in the valley were built so that a car could not get into them at all, and this was the worst of them. The road over the top of the dam was two tiles wide, which is about five feet -- a footpath, not the highway that ran over Hoover Dam for seventy years. And the whole thing read as sealed off from the street anyway, because the machine that checks it counted the gate you drive through as a wall. Both fixed: the crest carries two real lanes with a parapet either side, and every district in the valley can now be driven into. One thing you WILL notice: the dam itself looks like brickwork. It is meant to be one poured concrete wall. That is a separate bug and it is next -- the game picks a texture for anything standing up, and unless a tile belongs to the mountains it falls through to the ROOF pattern, so a dam gets shingles. RUN tab, walk out onto the dam.",
+   "file": "look/the-way-in.png",
+   "at": {
+    "x": 1253,
+    "y": 11493,
+    "zoom": 22
+   },
+   "kb": 249.5,
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only the-way-in"
+  },
+  {
    "id": "the-yards-lit",
    "title": "TWO YARDS THAT HAVE NEVER HAD A LIGHT",
    "caption": "The wrecking yard and the reservoir both put four pole lights down when they were built, and then paved straight over all four with their own dirt lanes -- so both places have been pitch dark since the day they were written, every seed, and nothing ever said a word, because a light that got overwritten looks exactly like a light that was never there. A machine that reads the world that actually got built found them. They stand now, and at night the power grid decides which ones burn. RUN tab, walk into a wrecking yard.",
@@ -434,19 +449,14 @@
    "shooter": "node tools/bohemia_hem_picture.js"
   },
   {
-   "id": "the-way-in",
-   "title": "A ROAD ACROSS THE DAM",
-   "caption": "Four places in the valley were built so that a car could not get into them at all, and this was the worst of them. The road over the top of the dam was two tiles wide, which is about five feet -- a footpath, not the highway that ran over Hoover Dam for seventy years. And the whole thing read as sealed off from the street anyway, because the machine that checks it counted the gate you drive through as a wall. Both fixed: the crest carries two real lanes with a parapet either side, and every district in the valley can now be driven into. One thing you WILL notice: the dam itself looks like brickwork. It is meant to be one poured concrete wall. That is a separate bug and it is next -- the game picks a texture for anything standing up, and unless a tile belongs to the mountains it falls through to the ROOF pattern, so a dam gets shingles. RUN tab, walk out onto the dam.",
-   "file": "look/the-way-in.png",
-   "at": {
-    "x": 1253,
-    "y": 11493,
-    "zoom": 22
-   },
-   "kb": 249.5,
+   "id": "one-head",
+   "title": "IS THE SIDE VIEW FIXED?",
+   "caption": "You said east and west hairstyles looked like dog shit across the board and killed 13 of 15. You were right and I found it: the hair was drawing IN FRONT OF HIS FACE. On the rows his eyes, nose and mouth are on, the hair spilled past the front of his face and hung in the air there, so his face was squeezed between hair behind it and hair in front of it. Every profile came out looking like a helmet with a slot instead of a person. 546 stray pixels across all 15 styles, not one style clean. Now zero. Top row is his bare head so you can see the face underneath, bottom row is the same head with hair on. One haircut only, the temple taper, which is one of the two you kept. The other 21 haircuts stay held until you say this view is good. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "file": "look/one-head.png",
+   "kb": 94.7,
    "stamp": "8/25/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html",
-   "shooter": "node tools/bohemia_look_shots.js --only the-way-in"
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_one_head_picture.js"
   }
  ]
 }
