@@ -34943,6 +34943,16 @@ var CT_MET = (function(){
   var raw=null; try{ raw=JSON.parse(localStorage.getItem('boh.city.met')||'null'); }catch(_e){}
   return BohemiaPeople.makeLedger(raw);
 })();
+/* __CITY_CARDFITS__ -- OPEN WHERE IT ALREADY SAT. A bottom-anchored card grows
+   upward, so the bottom is what a player has always been looking at. Scrolling to
+   it on open reproduces today's view exactly and leaves the formerly-clipped top
+   reachable by dragging down, rather than silently re-framing the card. */
+function ctCardToBottom(){
+  try{
+    var c = document.getElementById('ctcard');
+    if(c && c.scrollHeight > c.clientHeight) c.scrollTop = c.scrollHeight;
+  }catch(_e){}
+}
 function ctSave(){
   try{ localStorage.setItem('boh.city.met', JSON.stringify(CT_MET.serialize())); }catch(_e){}
   ctBelongPersist();          /* __CITY_BELONGSAVE__ */
@@ -37755,7 +37765,16 @@ function ctAdjacent(){
       'display:none;text-align:center;pointer-events:none;'+
       'font:11px/1.35 "Space Grotesk",system-ui,sans-serif;color:var(--ink);'+
       'opacity:0.72;text-shadow:0 1px 0 rgba(0,0,0,0.85)}'+
+    /* __CITY_CARDFITS__ -- IT GREW UPWARD OFF THE TOP OF THE PHONE.
+       bottom-anchored with no cap: measured 916px on an 844px screen with the
+       card's top at -80px, so the person's NAME and the rows saying who put you
+       on to them were CLIPPED. The buttons were always reachable; what you could
+       not see was who you were talking to.
+       Capped at the viewport with the margins it already had, scrolling instead
+       of spilling. A SHORT CARD IS UNCHANGED IN EVERY PIXEL -- this only ever
+       engages past the point where content was previously being thrown away. */
     '#ctcard{position:absolute;left:8px;right:8px;bottom:8px;z-index:41;display:none;'+
+      'max-height:calc(100% - 16px);overflow-y:auto;-webkit-overflow-scrolling:touch;'+
       'background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}'+
     '#ctcard .who{font:700 15px/1.2 "Space Grotesk",system-ui,sans-serif;color:var(--ink);'+
       'letter-spacing:1px}'+
@@ -38909,6 +38928,7 @@ function ctDraw(){
     body+='<button id="ctfavour">'+(ctFavIsAct ? ctAct.label : ctFav.label)+'</button>';
   body+='<button id="ctgo">Leave them to it</button>';
   card.innerHTML=body; card.style.display='block';
+  ctCardToBottom();   /* __CITY_CARDFITS__ -- open where a bottom-anchored card already sat */
   document.getElementById('cttalk').style.display='none';
   var ask=document.getElementById('ctask');
   if(ask) ask.addEventListener('click',function(){

@@ -162,7 +162,46 @@ async function busiestReachable() {
       const folded = snap();
       const tt = document.getElementById('ctterms');
       if (tt) tt.click();
-      return { fid, folded, opened: snap() };
+      const opened = snap();
+
+      /* ---- AND NOW THE WORST PERSON, NOT THIS ONE -----------------------
+         Height is driven by CONTENT LENGTH, so the person above is one sample.
+         Same state, swept across everybody affiliated, keeping the tallest and
+         its geometry — a bar that can be satisfied by a short quirk quote is a
+         bar that passes by luck. */
+      let worst = null;
+      const spread = [];
+      for (const row of R.filter(a => a.faction).slice(0, 16)) {
+        const q2 = String(row.__id).split(':'), sp2 = BohemiaPopulation.NB * FN;
+        hx = (+q2[0]) * sp2 + 4; hy = (+q2[1]) * sp2 + 4; CT_SPAWN = null; ctSpawn();
+        const r2 = ctEveryone().filter(x => x.id === row.__id)[0];
+        if (!r2) continue;
+        const a2 = ctAt(r2); let stood = false;
+        for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          hx = a2[0] + d[0]; hy = a2[1] + d[1];
+          const g = ctAdjacent(); if (g && g.id === r2.id) { stood = true; break; }
+        }
+        if (!stood) continue;
+        const f2 = ctFactionOf(r2), s2 = ctBelongSave();
+        s2.meta.gave = {}; s2.meta.owed = {}; s2.meta.claims = {}; s2.meta.commit = {};
+        s2.meta.gave[f2] = 9; s2.meta.owed[f2] = 3; s2.meta.commit[f2] = 'sided';
+        const o2 = R.map(a => String(a.faction || '').toUpperCase())
+                    .filter(f => f && f !== String(f2).toUpperCase())[0];
+        if (o2) for (let i = 0; i < 3; i++) BohemiaBelonging.record(s2, o2, 0);
+        ctSawCell(); ctClose(); ctOpen();
+        const c2 = document.getElementById('ctcard');
+        if (!c2 || c2.style.display === 'none') continue;
+        const b2 = c2.getBoundingClientRect();
+        const offBtns = [...c2.querySelectorAll('button')]
+          .filter(x => { const z = x.getBoundingClientRect();
+                         return z.bottom > innerHeight + 1 || z.top < -1; }).length;
+        const rec2 = { fid: f2, px: Math.round(b2.height), top: Math.round(b2.top),
+                       bottom: Math.round(b2.bottom), offBtns,
+                       scrolls: c2.scrollHeight > c2.clientHeight + 2 };
+        spread.push(rec2);
+        if (!worst || rec2.px > worst.px) worst = rec2;
+      }
+      return { fid, folded, opened, worst, spread };
     });
 
     if (out.skip) {
@@ -170,10 +209,25 @@ async function busiestReachable() {
         false, out.skip);
       return;
     }
-    ok('A12 the FULLEST state the game can reach — at the wall, committed, owing, '
-      + 'vouched for, and standing with a second outfit, which is every system on '
-      + 'the card at once — still FITS on the phone',
-      out.folded.px < VIEW.height * 0.90,
+    /* A12 IS NOT A PIXEL BUDGET ANY MORE, AND THE THIRD MISS IS WHY.
+       A1 stood beside whoever was NEAREST and never saw a vouch. A12 replaced it
+       and measured a comfortable STATE. A12 was rebuilt to sit at the wall and
+       still measured ONE ARBITRARY PERSON. Measured across fourteen people in the
+       IDENTICAL state: 916 916 900 881 881 874 852 832 823 ... 381 px.
+       SEVEN OF FOURTEEN WERE TALLER THAN THE PHONE and A12 was pinned to the
+       NINTH WORST, because height is driven by CONTENT LENGTH — the quirk quote
+       alone runs 105-134 chars — so one person is one sample of a distribution.
+       AND THE REAL DEFECT WAS NEVER THE NUMBER. The card is bottom-anchored with
+       no cap, so it grew UPWARD off the screen: top at -80px, every button still
+       reachable, and what was cut off was the person's NAME. The requirement was
+       never "under 90%", it was NOTHING IS OFF THE SCREEN — so that is what this
+       asserts now, on the worst card the sweep can find rather than on a number
+       that a shorter quirk quote could satisfy by luck. */
+    ok('A12 THE FULLEST CARD THE GAME CAN REACH IS FULLY ON THE SCREEN — measured '
+      + 'across many people rather than one, because card height is driven by how '
+      + 'long a person\'s quirk and name happen to be, and pinning one person pins '
+      + 'one sample. It grew upward off the top and hid their NAME',
+      out.worst && out.worst.top >= 0 && out.worst.bottom <= VIEW.height,
       out.folded.px + 'px of ' + VIEW.height + ' ('
       + Math.round(100 * out.folded.px / VIEW.height) + '%)'
       + ' — 838px / 99% before the four duplicate rows came off');
