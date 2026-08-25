@@ -1379,6 +1379,20 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+FT-JOURNEY. *** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED).
+   He named the shape exactly: "fun organ trail type of fast travel" and then
+   Frontier (Armor Games, Oct 2009) with its Enforcers/Buccaneers axis. This
+   ANSWERS the fast-travel PENDING that had been open in the valley scale law
+   since 7/6. Spec: laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md.
+   The shape that locks: a journey has a MIDDLE; route is a choice with a cost;
+   you carry something that can be lost; the road interrupts you; you can spend
+   to prepare against it; being stopped and being robbed are one system seen
+   from two sides. It obeys the clock we already have.
+   RESERVED AND NOT MINE: which factions police or rob the roads (Enforcers and
+   Buccaneers are FRONTIER'S names, not Bohemia's), which roads exist (MAP LAW),
+   what is worth carrying, every number, and whether the player can ever be the
+   raider. NOT STARTED ON PURPOSE -- it is a real build and wants its own run at
+   it rather than being bolted onto the end of a bug-fix turn.
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,

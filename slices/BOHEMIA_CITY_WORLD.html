@@ -386,6 +386,14 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #daycardIn{width:100%;max-width:420px;max-height:100%;overflow-y:auto;touch-action:pan-y;
   background:var(--face);border:1px solid var(--line);border-radius:12px;padding:16px 15px;
   box-shadow:0 18px 50px rgba(0,0,0,.7)}
+/* __EVERY_PANEL_CLOSES__ -- the corner ✕ every card gets from cardShow. Floated
+   right so it sits in the card's own top-right without a wrapper, and given a
+   real touch target rather than a glyph you have to hunt for with a thumb. */
+#daycardIn .dcx{float:right;margin:-6px -4px 0 8px;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;border-radius:8px;
+  color:#8d7c5e;font-size:15px;line-height:1;cursor:pointer;
+  border:1px solid transparent}
+#daycardIn .dcx:active{color:#fff;border-color:var(--line);background:#2a251d}
 #daycardIn h2{font-size:13px;letter-spacing:3px;color:var(--acc);margin-bottom:4px}
 #daycardIn h3{font-size:11px;letter-spacing:2px;color:#8d7c5e;margin:12px 0 5px}
 #daycardIn p{font-size:13px;line-height:1.5;color:var(--ink);margin-bottom:8px}
@@ -25212,6 +25220,15 @@ function tpTap(sx,sy){
   render(); tpShowJudge();
 }
 function tpShowJudge(){
+  /* __EVERY_PANEL_CLOSES__ (8/24): DEAD ON PURPOSE. Paolo asked for the old tile
+     inspector to be removed; the tap that called this is gone and this refuses to
+     build anything, so the panel cannot come back through any caller. The builder
+     below is left standing rather than deleted, the same way the 7/29 buffet kill
+     left its own -- a reader who wonders where it went can see it and its reason.
+     It also tears out any node a stale build left behind. */
+  try{ const _z=document.getElementById('tpJudge'); if(_z&&_z.parentNode)_z.parentNode.removeChild(_z); }catch(_e){}
+  return;
+  /* eslint-disable no-unreachable */
   const t=TP._selTile; if(!t)return;
   let panel=document.getElementById('tpJudge');
   if(!panel){ panel=document.createElement('div'); panel.id='tpJudge';
@@ -30978,7 +30995,20 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
   function up(e){
     if(MODE==='city' && CB._tapStart && CB._tapMoved<8 && pts.size<=1){ cityTapPlot(CB._tapStart.x,CB._tapStart.y); }
     if(MODE==='city') CB._tapStart=null;
-    if(MODE==='human' && typeof TP!=='undefined' && TP._tapStart && TP._tapMoved<8){ tpTap(TP._tapStart.x,TP._tapStart.y); }
+    /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "an artifact from one of the first
+       builds is that when I click a tile it'll show me the tile but now it's not
+       even correct because it's so old that part has to be removed."
+       This line ran tpTap on EVERY tap on the ground while walking, and tpTap
+       ends in tpShowJudge() which BUILDS the old GOOD DIRECTION / NOT IT panel
+       and appends it to the document. Measured: one tap produced "CONCRETE tile
+       290 (world) judge the look GOOD DIRECTION NOT IT X".
+       HE KILLED THOSE BUTTONS ON 7/29 ("I dont want those button anymore") and
+       tpInitButtons deletes the node at boot -- but deleting a node once while
+       leaving the function that rebuilds it wired to the most common gesture in
+       the game is not a kill. Removed at the trigger AND at the builder, so no
+       third path can bring it back. The placement half is already unreachable
+       (TP.on is pinned false and no button remains to set it), so nothing a
+       player can reach is lost. */
     if(typeof TP!=='undefined'){ TP._tapStart=null; }
     pts.delete(e.pointerId);
     const a=two();
@@ -31410,8 +31440,37 @@ function updQline(){
 /* ---- the cards ---------------------------------------------------------- */
 function cardShow(html,onTap){
   const c=document.getElementById('daycard'), i=document.getElementById('daycardIn');
-  i.innerHTML=html; c.classList.add('on');
-  i.onclick=function(ev){ const b=ev.target.closest('[data-act]'); if(b&&onTap)onTap(b.dataset.act); };
+  /* __EVERY_PANEL_CLOSES__ (8/24). Paolo: "When I press standing, and I press close,
+     it doesn't close." MEASURED: the STANDING card opens with hasAct 0, and the
+     ONLY way out of a card was `ev.target.closest('[data-act]')` -- so a card
+     whose author did not build a data-act button had no exit at all, while
+     printing a row that says "TAP CLOSE". cardHide existed, was correct, and was
+     unreachable: a finished thing with a published seam and no caller.
+     FIXED IN THE SYSTEM, NOT IN THE ONE CARD, because a rule every future caller
+     has to remember is a rule that lasts until the next caller. Every card now
+     gets a real ✕ from here, the scrim closes on a tap outside the card, and
+     Escape closes. Checked one card at a time first: none of them gates the day,
+     so being able to leave one can never strand him. */
+  i.innerHTML='<div class="dcx" data-act="close" title="close">\u2715</div>'+html;
+  c.classList.add('on');
+  i.onclick=function(ev){
+    const b=ev.target.closest('[data-act]');
+    if(!b) return;
+    if(b.dataset.act==='close'){ cardHide(); return; }   /* always works, even with no onTap */
+    if(onTap)onTap(b.dataset.act);
+  };
+  /* THE TAP OUTSIDE. #daycard is a full-screen scrim with the card centred in it,
+     so a click whose target IS the scrim landed outside the card -- the exact
+     gesture he asked for. Guarded on target identity so a tap inside the card
+     never closes it by accident. */
+  c.onclick=function(ev){ if(ev.target===c) cardHide(); };
+}
+/* __EVERY_PANEL_CLOSES__ -- and Escape, for anyone with a keyboard. Bound once. */
+if(!window.__CARD_ESC){
+  window.__CARD_ESC=1;
+  document.addEventListener('keydown',function(ev){
+    if(ev.key==='Escape'){ try{ cardHide(); }catch(_e){} }
+  });
 }
 function cardHide(){ document.getElementById('daycard').classList.remove('on'); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
@@ -31578,8 +31637,21 @@ function homeFind(){
      mktHub() and mktAt() in this same file already read the player's cell this
      exact way; homeFind was the one asking the camera. Now all three agree, so
      the house stays where the man is even if something moves the marker again. */
-  const _pcx=(MODE==='human')?((hx/FN)|0):city.x;
-  const _pcy=(MODE==='human')?((hy/FN)|0):city.y;
+  /* __HOME_IS_FINDABLE__ -- HIS HOUSE IS ONE HOUSE, AND IT WAS NOT.
+     This keyed the cache on the cell he is STANDING IN, so crossing a district
+     boundary re-scanned the new cell and called a house there his home. Walk two
+     blocks and "home" was a different building; walk into a cell with no house
+     and homeFind returned null, so homePass drew nothing and he had no house at
+     all. Measured: the arrow drew at spawn and vanished after fourteen steps.
+     Keyed on where he LANDED now, which is the anchor this function's own note
+     below already asks for -- "anchoring here keeps HOME the same house every
+     load AND puts it in front of him". The standing cell survives only as the
+     fallback for the one moment LANDED is null, before he has dropped in. REROLL
+     clears LANDED, HOME and HOME_KEY together, so a new valley still gets a new
+     house. */
+  const _lcell=(typeof LANDED!=='undefined'&&LANDED)?[(LANDED[0]/FN)|0,(LANDED[1]/FN)|0]:null;
+  const _pcx=_lcell?_lcell[0]:((MODE==='human')?((hx/FN)|0):city.x);
+  const _pcy=_lcell?_lcell[1]:((MODE==='human')?((hy/FN)|0):city.y);
   const key=seed+':'+_pcx+','+_pcy;
   if(HOME_KEY===key) return HOME;
   const bx=_pcx*FN, by=_pcy*FN;
@@ -31641,7 +31713,20 @@ function homePass(ox,oy,C){
      exactly when he was standing on his own doorstep looking at it. The building
      decides whether to draw; the label is then pulled onto the screen. */
   const cxp=Math.round(ox+(h.x+h.w/2)*C), cyp=Math.round(oy+(h.y+h.h/2)*C);
-  if(cxp<-C*8||cyp<-C*8||cxp>cv.width+C*8||cyp>cv.height+C*8)return;
+  if(cxp<-C*8||cyp<-C*8||cxp>cv.width+C*8||cyp>cv.height+C*8){
+    /* __HOME_IS_FINDABLE__ (8/24). Paolo: "It's hard to find my house. It's not easy."
+       This was a bare `return`: eight cells past the edge of the screen and the
+       only thing in the game that knows where he lives stopped drawing, so one
+       block from his own door the answer to "where do I live" was walk around
+       until you see it again.
+       REALISM FIRST, and this is the realistic answer rather than the game one: a
+       person knows the way to his own house. Not a marker floating over the world
+       -- just what anybody standing on a street already has, which way it is and
+       how far. The label above is still better when the house is actually
+       visible, so this only runs when it is not. */
+    homeArrow(cxp,cyp,C);
+    return;
+  }
   const sx=Math.max(24,Math.min(cv.width-24,cxp));
   const sy=Math.max(18,Math.min(cv.height-8,Math.round(oy+h.y*C-Math.round(C*0.55))));
   g.save();
@@ -31652,6 +31737,57 @@ function homePass(ox,oy,C){
   g.fillStyle='#e8b84a'; g.fillText('HOME',sx,sy);
   g.restore();
   window.__HOME_LABEL=(window.__HOME_LABEL||0)+1;
+}
+/* __HOME_IS_FINDABLE__ -- WHICH WAY HOME IS, from the edge of the screen. */
+function homeArrow(cxp,cyp,C){
+  const mx=cv.width/2, my=cv.height/2;
+  let dx=cxp-mx, dy=cyp-my;
+  const len=Math.hypot(dx,dy); if(!len) return;
+  dx/=len; dy/=len;
+  /* THE INSET BOX KEEPS IT OFF THE PAD. The nav ring is 180px in the bottom
+     right and it is the one thing his thumb lives on, so the arrow is never
+     allowed into that corner. */
+  const padL=26, padT=Math.round(cv.height*0.16), padR=26, padB=34;
+  let bx=cv.width-padR, by=cv.height-padB;
+  if(dx>0&&dy>0){ bx=Math.min(bx,cv.width-206); by=Math.min(by,cv.height-206); }
+  /* march out from the middle until the point leaves the box: cheap, exact, and
+     it cannot divide by zero on a straight-up or straight-across direction. */
+  let t=0; const step=4;
+  while(t<4000){
+    const px=mx+dx*(t+step), py=my+dy*(t+step);
+    if(px<padL||py<padT||px>bx||py>by) break;
+    t+=step;
+  }
+  const ax=Math.round(mx+dx*t), ay=Math.round(my+dy*t);
+  /* HOW FAR, IN THE GAME'S OWN UNIT. The day advances 0.084 minutes per cell, so
+     the clock is already how this world measures distance. A number of tiles is a
+     fact about a grid he cannot see. */
+  const cells=Math.round(len/Math.max(1,C));
+  const mins=Math.max(1,Math.round(cells*0.084));
+  g.save();
+  g.translate(ax,ay);
+  g.rotate(Math.atan2(dy,dx));
+  const r=Math.max(7,Math.round(C*0.20));
+  g.beginPath(); g.moveTo(r,0); g.lineTo(-r*0.75,r*0.68); g.lineTo(-r*0.75,-r*0.68); g.closePath();
+  g.fillStyle='rgba(12,14,10,0.85)'; g.lineWidth=3; g.strokeStyle='rgba(12,14,10,0.85)'; g.stroke();
+  g.fillStyle='#e8b84a'; g.fill();
+  g.restore();
+  g.save();
+  g.font='700 '+Math.max(9,Math.round(C*0.20))+'px "Space Grotesk",system-ui,sans-serif';
+  g.textAlign='center'; g.textBaseline='top';
+  const lbl='HOME '+mins+' MIN';                                  /* draft:true */
+  const ly=Math.min(cv.height-14,ay+Math.max(10,Math.round(C*0.26)));
+  /* CLAMP THE TEXT, NOT JUST THE ARROW. First cut clamped where the arrow sits and
+     then centred the label on it, so at the right edge the words ran off the
+     canvas and he read "HOME 4 MI". The arrow can touch the margin; the sentence
+     has to fit inside it, so its own half-width is measured and used. */
+  const half=g.measureText(lbl).width/2;
+  const lx=Math.max(half+4,Math.min(cv.width-half-4,ax));
+  g.fillStyle='rgba(12,14,10,0.85)';
+  for(let ddx=-1;ddx<=1;ddx++)for(let ddy=-1;ddy<=1;ddy++)if(ddx||ddy)g.fillText(lbl,lx+ddx,ly+ddy);
+  g.fillStyle='#e8b84a'; g.fillText(lbl,lx,ly);
+  g.restore();
+  window.__HOME_ARROW=(window.__HOME_ARROW||0)+1;
 }
 /* YOU WAKE UP AT HOME. A day that starts nowhere is not a day.
    The first wake of a run fires while he is still on the city view, before the world
@@ -31787,6 +31923,58 @@ function phoneOpen(){
   PHONE_ON=true; wrap.classList.add('on'); phonePush(true);
 }
 function phoneClose(){ PHONE_ON=false; document.getElementById('phonewrap').classList.remove('on'); }
+/* ==== __CLICK_OUTSIDE_CLOSES__ (8/24, RUN lane) =================================
+   Paolo: "there shouldn't be any buttons that bring up any pop menus that don't
+   go away after ... clicking out of them."
+   Every floating panel in the city, answering the one gesture everybody already
+   makes. ONE listener, not five patches, because five patches is how the last
+   two of these ended up behaving differently from each other.
+   MEASURED FIRST: all five had SOME button and NONE of them answered a tap
+   outside. "It has a close button" is not the standard he set. */
+var OUTSIDE_PANELS = [
+  /* panel id,    the chip that opens it,  how ITS OWN AUTHOR closes it */
+  ['phonewrap',   'phonebtn',  function(){ try{ phoneClose(); }catch(_e){} }],
+  ['savepanel',   'savebtn',   null],
+  ['keypanel',    'keybtn',    null],
+  ['pfpanel',     null,        null],
+  ['popwrap',     'popbtn',    null],
+  ['devtray',     'devbtn',    function(){ var t=document.getElementById('devtray');
+                                           if(t)t.classList.remove('on');
+                                           var b=document.getElementById('devbtn');
+                                           if(b)b.classList.remove('on'); }]
+];
+function panelIsOpen(el){
+  if(!el) return false;
+  var s=getComputedStyle(el);
+  return s.display!=='none' && s.visibility!=='hidden' && el.offsetParent!==null;
+}
+/* CLOSE IT THE WAY ITS AUTHOR DOES. The phone's own close also clears PHONE_ON;
+   setting display:none behind its back leaves the flag saying the phone is up
+   while the pixels say it is not, which is exactly how state and screen drift
+   apart. Only fall back to hiding when nobody published a closer. */
+function panelClose(row){
+  var el=document.getElementById(row[0]); if(!el) return;
+  if(row[2]){ row[2](); return; }
+  if(el.classList.contains('on')) el.classList.remove('on'); else el.style.display='none';
+}
+document.addEventListener('pointerdown', function(ev){
+  for(var i=0;i<OUTSIDE_PANELS.length;i++){
+    var row=OUTSIDE_PANELS[i], el=document.getElementById(row[0]);
+    if(!panelIsOpen(el)) continue;
+    if(el.contains(ev.target)) continue;                       /* inside it: leave it be */
+    var opener=row[1]?document.getElementById(row[1]):null;     /* the tap that opened it */
+    if(opener&&(opener===ev.target||opener.contains(ev.target))) continue;
+    panelClose(row);
+  }
+}, true);   /* CAPTURE, so a panel that stops propagation cannot hide the tap */
+document.addEventListener('keydown', function(ev){
+  if(ev.key!=='Escape') return;
+  for(var i=0;i<OUTSIDE_PANELS.length;i++){
+    var el=document.getElementById(OUTSIDE_PANELS[i][0]);
+    if(panelIsOpen(el)) panelClose(OUTSIDE_PANELS[i]);
+  }
+});
+/* ==== end __CLICK_OUTSIDE_CLOSES__ ============================================== */
 
 
 /* __ONE_ZOOM_TO_THE_MOON__ -- THE THIRD BAND, and then two more.
@@ -39088,7 +39276,7 @@ function showStanding(){
   var r = rungRead();
   if(!r.ok){
     cardShow('<div class="rwhy">Standing is not loaded on this page yet.</div>'
-           + '<div class="rrow"><span class="rk">TAP</span><span class="rv">CLOSE</span></div>',
+           + '<div class="dcgo" data-act="close">CLOSE</div>',   /* __EVERY_PANEL_CLOSES__ */
            cardHide);
     return;
   }
@@ -39117,7 +39305,11 @@ function showStanding(){
     h += '<div class="rpend">The top rung has no number yet. You said "enough done, enough '
        + 'love", which is not a share, so it stays out of reach until you name one.</div>';
   }
-  h += '<div class="rrow"><span class="rk">TAP</span><span class="rv">CLOSE</span></div>';
+  /* __EVERY_PANEL_CLOSES__ -- this row USED to read "TAP / CLOSE" and was not a
+     button: no data-act, so the card's own click delegate never matched it and
+     the card could not be closed at all. A real button now, on the same path the
+     working cards use. */
+  h += '<div class="dcgo" data-act="close">CLOSE</div>';   /* draft:true */
   cardShow(h, cardHide);
 }
 

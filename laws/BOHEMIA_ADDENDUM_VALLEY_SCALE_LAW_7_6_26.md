@@ -83,4 +83,9 @@ fork, see PENDING below.
 - ABSTRACTION LAW: LOCKED.
 - CONTINUOUS WALK LAW: LOCKED.
 - Fine-layer district templates: PENDING per class.
-- Player fast-travel / vehicles: PENDING, Paolo's call.
+- Player fast-travel / vehicles: **ANSWERED 8/24/26 — SUPERSEDED, see**
+  `laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md`. Paolo named the
+  shape (Frontier, Armor Games 2009 / Oregon Trail): fast travel is a JOURNEY
+  with a middle, not a teleport — route is a choice with a cost, you carry
+  something that can be lost, the road interrupts you, and you can prepare
+  against it. The faction casting, the roads and every number stay HIS.

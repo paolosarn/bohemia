@@ -118,9 +118,30 @@ async function worldFrame(page) {
      mktHub() and mktAt() already read the player's cell this way; homeFind was
      the one asking city.x, which is how the house ended up 38 cells away. */
   ok('the fix is in the build', c.indexOf('__HIS_FEET_ARE_THE_TRUTH__') >= 0);
-  ok('homeFind resolves from the PLAYER\'s cell, not the camera marker',
-     /_pcx=\(MODE==='human'\)\?\(\(hx\/FN\)\|0\):city\.x/.test(ccode)
+  /* AMENDED 8/24, AND IT IS A STRENGTHENING RATHER THAN A LOOSENING. This read
+     `_pcx=(MODE==='human')?((hx/FN)|0):city.x` as a literal source match. That
+     expression is still here and still the answer whenever it is the right one --
+     it just is not FIRST any more.
+     WHY: Paolo, 8/24, "It's hard to find my house. It's not easy." The 8/19 fix
+     stopped the CAMERA moving his house. Nothing stopped WALKING moving it: the
+     cache keyed on the cell he was standing in, so crossing a district re-scanned
+     the new cell and called a house there his home, and in a cell with no house
+     homeFind returned null and he had no house at all (measured: the HOME marker
+     drew at spawn and vanished after fourteen steps).
+     Both fixes want the same thing -- THE HOUSE DOES NOT MOVE -- so the claim now
+     asserts that directly, in three parts, and the camera clause is held to being
+     the last resort rather than merely present. LANDED is the player's own
+     position at drop-in, so HIS FEET ARE STILL THE TRUTH; they are just the feet
+     he arrived on. */
+  ok('homeFind resolves from the PLAYER, never the camera marker',
+     /_pcx=_lcell\?_lcell\[0\]:\(\(MODE==='human'\)\?\(\(hx\/FN\)\|0\):city\.x\)/.test(ccode)
      && /const key=seed\+':'\+_pcx\+','\+_pcy/.test(ccode));
+  ok('and his house is ONE house: anchored on where he LANDED, so walking into '
+     + 'another district cannot hand him a different one',
+     /_lcell=\(typeof LANDED!=='undefined'&&LANDED\)\?\[\(LANDED\[0\]\/FN\)\|0,\(LANDED\[1\]\/FN\)\|0\]:null/.test(ccode));
+  ok('and the standing cell survives ONLY as the fallback for before he has '
+     + 'dropped in, which is the one moment LANDED is null',
+     ccode.indexOf('city.x') < 0 || /_lcell\?[^;]*city\.x/.test(ccode));
   ok('and it uses the same idiom mktHub/mktAt already used, rather than a new one',
      /\(MODE==='human'\)\?\(\(hx\/FN\)\|0\):city\.x/.test(ccode.replace(/var cx=/g, '')));
 

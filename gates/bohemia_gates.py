@@ -346,6 +346,22 @@ GATES = [
      'a friend on a phone can actually reach the world: the download before first play is '
      'measured over real HTTP and held to a ceiling that only ever comes down, and any file '
      'big enough to be un-cacheable is named as split debt rather than left to grow', True),
+    # 8/24, Paolo: "When I press standing, and I press close, it doesn't close" and
+    # "pretty please just make sure all the buttons work ... there shouldn't be any
+    # buttons that bring up any pop menus that don't go away after clicking out of them".
+    ('EVERY PANEL',    ['node', 'gates/every_panel_closes_gate.js'],
+     'EVERY BUTTON WORKS AND EVERYTHING IT OPENS CAN BE CLOSED. He reported STANDING as '
+     'unclosable and it was: the card opened with ZERO elements carrying data-act, and '
+     'data-act was cardShow\'s only path to its own cardHide -- so it printed a row reading '
+     '"TAP CLOSE" that no tap on the words, the card or the backdrop could act on, with a '
+     'correct cardHide sitting right there unreachable. IT DOES NOT ASSERT "STANDING '
+     'CLOSES", which would go green while the next card anybody writes is just as stuck; it '
+     'asserts HE CAN GET BACK TO THE GAME, measured with elementFromPoint at the middle of '
+     'the stage rather than off a classList -- a class check passes a panel left invisible '
+     'over the whole screen. The chip list is DERIVED by walking the three layout containers, '
+     'so a chip added tomorrow is swept without editing the gate. Mutation-tested by putting '
+     'the old closeless card back: 4 claims red. Holds out REROLL (rebuilds the valley) and '
+     'SLEEP (ends the day) by name rather than in silence', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
