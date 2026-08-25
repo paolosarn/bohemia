@@ -3571,7 +3571,55 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 LATEST -- *** NOBODY HAD EVER WATCHED THE COLD OPEN
+PEOPLE (people-7h9sfy): 8/25 LATEST -- *** THE OPENING RESUMED AFTER THE FIGHT
+INTO A PANEL NOBODY COULD SEE. THREE OF ITS FOUR SCENES HAD NEVER BEEN WATCHED BY
+ANYONE. FIXED, AND THE WHOLE SEQUENCE PLAYS. TAB RUN. ***
+
+The turn before this proved scene one plays and hands you into the tutorial fight,
+and left its own sentence standing: "a gate cannot win the tutorial fight to reach
+scenes 2 through 4." So I drove the seam COMBAT publishes and measured what came
+back:
+
+    overlay parent   p-city      <- where the opening put it
+    live panel       p-run       <- where the resume put the player
+    overlay box      0 x 0       OPEN_RUNNING true
+    playing scene    act1_ridge_burial      captions 32 and climbing
+
+THE REST OF THE OPENING WAS RUNNING PERFECTLY AND NOBODY COULD SEE IT.
+
+CAUSE: showTabPanel('run') does NOT put you where the RUN tab puts you. Paolo's
+7/28 ruling lives in the tab's click handler (`PANEL = p==='run' ? 'city' : p`);
+showTabPanel does the literal thing and lights p-run, the parked hidden panel.
+TWO SWITCHERS, ONE ROUTING RULE, and the resume path used the one that disagrees.
+resume() now taps the RUN tab the way a finger does. Fixed at the GENERATOR
+(tools/bohemia_opening_patch.py), never in the alpha it writes.
+
+  after   parent p-city  live p-city  box 390x804  playing act1_the_last_room
+
+THE WHOLE SEQUENCE, SEEN FOR THE FIRST TIME: cold_open -> COMBAT (2 hostiles,
+objective "defend") -> the_last_room ("Where's NINA.") -> grief_dinner ("I picked
+the green ones out. Force of habit.") -> ridge_burial ("THE NEXT MORNING").
+{sibling_lost} resolves to NINA, which is the 7/19 canon.
+
+opening_gate 40 -> 48. THE CLAIM THAT LET THIS THROUGH WAS MINE: "the live tab is
+the one the scene hands off to" is true and passes on a COMBAT tab with no fight
+in it. A ROOM IS NOT WHAT HAPPENS IN THE ROOM.
+
+FOUR MUTATIONS AND M2 CORRECTED ME. I believed both my fixes were needed and had
+written that down. M2 (re-parent removed alone) came back GREEN 48/0: once the
+routing is right the live panel IS p-city, so the re-parent never fires. THE
+ROUTING FIX IS THE WHOLE FIX; the re-parent stays for the invariant and is
+credited with nothing. M4 (both reverted, the shipped code) goes red on exactly
+"WHEN THE FIGHT ENDS THE STORY COMES BACK" -- the bug cannot return unnoticed.
+
+TWO MORE PROBE ERRORS, both caught by measuring twice: "there is no fight" (read
+G.encounter before the handoff's own 250ms) and "only 1 of 2 lines" (waited for
+the first line, asserted all). Three across the session, none filed.
+
+Record: records/BOHEMIA_THE_STORY_CAME_BACK_INTO_A_HIDDEN_ROOM_8_25_26.md
+
+---- PREVIOUS (8/25, same day) ----
+*** NOBODY HAD EVER WATCHED THE COLD OPEN
 TO THE END. FIVE GATES REACH IT; FOUR TAP SKIP AND THE FIFTH TAPS NOT NOW. IT
 PLAYS FINE -- 62 SECONDS, ALL 10 LINES, ENDS STANDING IN THE FIGHT -- AND NOBODY
 COULD HAVE TOLD YOU THAT. TAB RUN. ***
