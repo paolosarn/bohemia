@@ -137,6 +137,96 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 </style><script type="application/json" id="sfxApproved">{"step_dirt": [0, 1, 2, 3, 4], "step_asphalt": [0, 1, 2, 3, 4], "step_gravel": [0, 1, 2, 3, 4]}</script>
 </head><body>
 <script type="text/plain" id="BOHEMIA_MUSIC_REPO">
+=== COOK BATCH 24 (8/24/26) — 4 songs, 4 newborn voices, 4 topologies the rack
+=== has never had. Horror FF10, MELODIC under the dread.
+
+NEW VOICES BORN (ledgered to owner song, with the topology and why it is NOT
+the thing it resembles -- the 7/8 failure was "different clothes, same body",
+so each of these was chosen by first reading the 577 that already exist):
+
+- atriumvox   -> THE VOICE THAT STILL ANNOUNCES FLOORS
+                 FOF / GRAIN-PER-PERIOD FORMANT SYNTHESIS (the IRCAM CHANT
+                 technique), computed into a finite buffer. ONE damped-sinusoid
+                 grain per pitch period, each ringing at a FORMANT, not at the
+                 note: the PITCH is the grain RATE, the VOWEL is the grain's own
+                 frequency. What sings is a rate, not an oscillator.
+                 NOT brokenrosary, which is a BEAD TRAIN of five separate plucks
+                 at sd*0.16 -- a rhythmic echo, not grains fusing into a tone.
+- signalrot   -> THE LAST BROADCAST CORRODES
+                 RING MODULATION BY BAND-LIMITED NOISE. Bandpassed noise drives
+                 the VCA gain on top of a DC floor, so the noise MULTIPLIES the
+                 tone. The melody survives and corrodes at once.
+                 NOT aeolianharp / windpsaltery, which FILTER noise through
+                 resonators. Filtering shapes; multiplying eats.
+- twintoll    -> THE BELLS DISAGREE
+                 DUAL-CARRIER FM ON ONE MODULATOR AT AN IRRATIONAL RATIO (root
+                 2), WITH OPPOSED INDEX ENVELOPES: one carrier starts clangorous
+                 and purifies while the other starts pure and sours, crossing in
+                 the middle, the two beating four cents apart throughout.
+                 NOT emberharp, which is ONE carrier with a decaying index.
+- fissionhymn -> THE NOTE THAT WOULD NOT STAY ONE
+                 ADDITIVE WITH STAGGERED ONSETS AND DIVERGENT DETUNE. Partials
+                 ARRIVE one at a time during the decay and drift further out of
+                 tune the longer they hold. Starts single, ends a crowd.
+                 NOT glassrequiem, which strikes every partial at once and gives
+                 each a random decay.
+
+VARIETY LAW (no two share scale + feel + kick; checked against the other three
+fresh songs already badged NEW, not just against each other):
+- THE VOICE THAT STILL ANNOUNCES FLOORS root44 scale[0,1,3,7,8]      feel half   kick[0,6,11]
+- THE LAST BROADCAST CORRODES           root51 scale[0,2,3,6,8,10]   feel drive  kick[0,4,7,10,13]
+- THE BELLS DISAGREE                    root39 scale[0,3,6,7,10]     feel normal kick[0,9]
+- THE NOTE THAT WOULD NOT STAY ONE      root57 scale[0,2,5,6,9,11]   feel half   kick[0,5,8,12]
+
+ENTRIES (verbatim):
+{n:'THE VOICE THAT STILL ANNOUNCES FLOORS',acc:'#6a7f8e',root:44,scale:[0,1,3,7,8],wave:'sine',kick:[0,6,11],bass:[0,3,7,8],hat:[4,12],inst:{b:'abyssbass',l:'atriumvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'THE LAST BROADCAST CORRODES',acc:'#b07a3a',root:51,scale:[0,2,3,6,8,10],wave:'sawtooth',kick:[0,4,7,10,13],bass:[0,6,8,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'signalrot'},am:'vacancyhum',kit:{k:'punchk',h:'tight'},mel:'call',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
+{n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true},
+{n:'THE NOTE THAT WOULD NOT STAY ONE',acc:'#7f9a86',root:57,scale:[0,2,5,6,9,11],wave:'sine',kick:[0,5,8,12],bass:[0,5,9,11],hat:[3,7,11,15],inst:{b:'reservoirbass',l:'fissionhymn'},am:'edenmist',kit:{k:'boom',h:'shakerh'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true}
+
+ALL FOUR UNJUDGED, NEW badges live. NEW_VIBES was APPENDED TO, NOT REPLACED:
+the three menu songs already badged are unjudged, and overwriting the list
+would have buried three of his songs on his behalf (and tripped the music
+gate's own cooked-but-hidden check, which exists because that already happened
+to nine songs in batch 20).
+
+GRAVEYARD IS FINAL: all four titles checked against the 63 dead titles in
+gates/bohemia_graveyard.txt. Zero collisions. No remakes.
+
+SCREECH LAW: clean, and swept on the four new bodies specifically rather than
+on the whole 4.2MB build: 0 createDelay, 0 createConvolver, 0 createWaveShaper,
+5 oscillators and 2 buffers, all 7 sources explicitly stopped. Nothing feeds
+back; every ringing thing is excited-and-decaying.
+
+MEASURED, NOT ASSUMED -- and it caught one. gates/voice_audible_gate.js renders
+every fresh song's LEAD through the real synthV and measures it:
+    atriumvox    rms 0.00911  peak 0.2141
+    signalrot    rms 0.00751  peak 0.1510
+    twintoll     rms 0.00943  peak 0.2042
+    fissionhymn  rms 0.04378  peak 0.3088
+fissionhymn FIRST MEASURED PEAK 0.031 -- against emberharp's 0.165 -- because
+its partials arrive late and the master decay compounded with the per-partial
+decays. It passed the music gate: real body, real oscillators, real envelopes,
+and a lead nobody would hear under a mix. The envelope was restructured (the
+partial envelopes ARE the shape; the bus just carries them) and re-measured.
+THE MUSIC GATE CANNOT SEE THIS CLASS AT ALL, which is why the new gate exists.
+
+AND THE SONG LOCK CAUGHT THE COOK TOOL. song_lock_gate extracts the song list
+as the span from its declaration to the first newline-bracket-semicolon. The
+first version of the batch tool spliced in before the closing bracket and left
+no newline in front of it, so that end anchor vanished and the span ran on to
+the next one in the file:
+MLOOPS measured 991,094 bytes instead of 31,446 -- a 31x over-grab for four
+songs. Regenerating the manifest at that moment would have baked a hash of the
+wrong region and quietly wrecked the lock that exists to protect his songs. The
+tool rebuilds the tail now and REFUSES to run if that shape is not there.
+(This entry deliberately DESCRIBES those anchors instead of quoting them --
+writing the literal declaration into the repo block re-created the bug once,
+because the lock searches the whole file including its own lawbook.)
+After the fix MLOOPS is 32,555 bytes: +1,109 for four songs, which is right.
+
+Gates: MUSIC 20/0 · VOICE AUDIBLE 16/0 · SONG LOCK 20/0 (all mutation-proved).
+
 === BATCH 23 VERDICT (8/2/26) - 0 OF 2, AND THE THEORY DIED WITH THEM ===
 DOWN  NOBODY LOCKS UP ANYMORE (splinterbell) and WHAT THE METER STILL READS
       (onebreath). Both leads LIVE per SONG-DEAD-NOT-VOICES (7/20).
@@ -1025,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25b - THE HEM</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25c - FOUR NEW SONGS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8411,6 +8501,115 @@ function drumV(kind,AC,MAST,t){
     b.connect(fl);fl.connect(g);g.connect(MAST);b.start(t); return; }
 }
 function synthV(kind,AC,MAST,hz,sd,semi,t,g0){
+  /* ===== BATCH 24 VOICES (8/24/26) — four topologies this rack has never had.
+     Chosen by reading the 577 that already exist and ruling out the near misses;
+     see tools/bohemia_music_batch24.py for why each is not the thing it
+     resembles. SCREECH LAW: nothing here feeds back, no delay, no convolver. */
+  if(kind==='atriumvox'){
+    /* FOF / GRAIN-PER-PERIOD FORMANT SYNTHESIS (the IRCAM CHANT technique), and
+       the first in this rack. ONE damped-sinusoid grain per pitch period, each
+       grain ringing at a FORMANT, not at the note. The PITCH is the grain RATE;
+       the VOWEL is the grain's own frequency. What sings is a rate, not an
+       oscillator -- which is why it fuses into a voice instead of a tremolo.
+       Computed into a finite buffer: cheaper than 400 oscillator nodes, exact,
+       and it cannot ring on. */
+    var f0=hz(semi), dur=Math.min(6,sd*4.2), SR=AC.sampleRate;
+    var n=Math.max(1,(SR*dur)|0), buf=AC.createBuffer(1,n,SR), d=buf.getChannelData(0);
+    var per=SR/Math.max(20,f0);            /* samples per grain = the pitch */
+    var F1=690, F2=1180;                   /* a dark 'aw' -- open, mournful */
+    var decay=0.0016*SR;                   /* grain damping, in samples */
+    for(var i=0;i<n;i++){
+      var ph=i%per;                        /* position inside this grain */
+      var env=Math.exp(-ph/decay);
+      /* the vowel opens slightly across the note: a mouth widening */
+      var k=i/n, a=F1*(1+0.06*k), b=F2*(1-0.04*k);
+      d[i]=env*(0.62*Math.sin(2*Math.PI*a*ph/SR)+0.38*Math.sin(2*Math.PI*b*ph/SR));
+    }
+    var s=AC.createBufferSource(); s.buffer=buf;
+    var lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2600; lp.Q.value=0.6;
+    var g=AC.createGain();
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(g0*0.5,t+0.09);          /* a breath, not a hit */
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    s.connect(lp); lp.connect(g); g.connect(MAST);
+    s.start(t); s.stop(t+dur+0.02); return; }
+  if(kind==='signalrot'){
+    /* RING MODULATION BY BAND-LIMITED NOISE. The rack's other noise voices
+       FILTER (aeolianharp, windpsaltery: noise poured through resonators). This
+       one MULTIPLIES: the noise drives the VCA's gain on top of a DC floor, so
+       the tone is eaten rather than accompanied. Melody survives, corroding --
+       a hymn on a transmitter that is failing. */
+    var o=AC.createOscillator(); o.type='sawtooth'; o.frequency.value=hz(semi);
+    var tone=AC.createBiquadFilter(); tone.type='lowpass'; tone.frequency.value=2200; tone.Q.value=0.8;
+    var vca=AC.createGain(); vca.gain.value=0.58;          /* the floor: the tone lives */
+    var ln=Math.max(1,(AC.sampleRate*Math.min(6,sd*4))|0);
+    var nb=AC.createBuffer(1,ln,AC.sampleRate), nd=nb.getChannelData(0);
+    for(var i2=0;i2<ln;i2++)nd[i2]=Math.random()*2-1;
+    var ns=AC.createBufferSource(); ns.buffer=nb;
+    var bp=AC.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1750; bp.Q.value=1.1;
+    var ng=AC.createGain(); ng.gain.value=0.42;            /* how hard it corrodes */
+    ns.connect(bp); bp.connect(ng); ng.connect(vca.gain);  /* MULTIPLY, not mix */
+    var g2=AC.createGain();
+    g2.gain.setValueAtTime(0.0001,t);
+    g2.gain.linearRampToValueAtTime(g0*0.42,t+0.02);
+    g2.gain.exponentialRampToValueAtTime(0.0001,t+sd*3.6);
+    o.connect(tone); tone.connect(vca); vca.connect(g2); g2.connect(MAST);
+    o.start(t); o.stop(t+sd*3.7); ns.start(t); ns.stop(t+sd*3.7); return; }
+  if(kind==='twintoll'){
+    /* DUAL-CARRIER FM ON ONE MODULATOR AT AN IRRATIONAL RATIO, OPPOSED INDEX
+       ENVELOPES. emberharp is FM with ONE carrier and a decaying index; this is
+       TWO, both bent by the same root-2 modulator, with their index envelopes
+       running OPPOSITE ways -- one purifies as the other sours, so the timbre
+       crosses over inside the note. The carriers sit four cents apart and beat
+       the whole way. Two towers that do not agree what time it is. */
+    var f=hz(semi);
+    var mod=AC.createOscillator(); mod.type='sine'; mod.frequency.value=f*1.41421356;
+    var mg1=AC.createGain(), mg2=AC.createGain();
+    var c1=AC.createOscillator(), c2=AC.createOscillator();
+    c1.type='sine'; c1.frequency.value=f;
+    c2.type='sine'; c2.frequency.value=f; c2.detune.value=4;   /* the beat */
+    /* clangorous -> pure */
+    mg1.gain.setValueAtTime(f*2.6,t); mg1.gain.exponentialRampToValueAtTime(f*0.05,t+sd*2.6);
+    /* pure -> sour */
+    mg2.gain.setValueAtTime(f*0.05,t); mg2.gain.exponentialRampToValueAtTime(f*1.9,t+sd*2.6);
+    mod.connect(mg1); mg1.connect(c1.frequency);
+    mod.connect(mg2); mg2.connect(c2.frequency);
+    var ga=AC.createGain(), gb=AC.createGain(), g3=AC.createGain();
+    ga.gain.value=0.55; gb.gain.value=0.45;
+    g3.gain.setValueAtTime(0.0001,t);
+    g3.gain.linearRampToValueAtTime(g0*0.44,t+0.012);
+    g3.gain.exponentialRampToValueAtTime(0.0001,t+sd*3.2);
+    c1.connect(ga); ga.connect(g3); c2.connect(gb); gb.connect(g3); g3.connect(MAST);
+    mod.start(t); c1.start(t); c2.start(t);
+    mod.stop(t+sd*3.3); c1.stop(t+sd*3.3); c2.stop(t+sd*3.3); return; }
+  if(kind==='fissionhymn'){
+    /* ADDITIVE WITH STAGGERED ONSETS AND DIVERGENT DETUNE. glassrequiem strikes
+       all its partials at once and lets them decay at random rates; this one
+       lets them ARRIVE one at a time DURING the decay, each drifting further out
+       of tune the longer it holds. The note starts single and ends a crowd. */
+    var f4=hz(semi), P=[1,2,3,4.5,6], DT=[0,-9,11,-17,23];
+    /* NO MASTER DECAY HERE, and that is the whole trick. The first version put
+       an exponential decay on `out` as well as on each partial, and because the
+       partials ARRIVE LATE the two decays compounded -- by the time the fifth
+       one spoke the bus had already faded. Measured peak 0.031 against
+       emberharp's 0.165: a lead nobody would hear under a mix. The partial
+       envelopes ARE the shape; the bus just carries them. */
+    var out=AC.createGain(); out.gain.value=g0*0.95;
+    out.connect(MAST);
+    for(var q=0;q<P.length;q++){
+      var os=AC.createOscillator(); os.type='sine'; os.frequency.value=f4*P[q];
+      var t0=t+sd*0.42*q;                       /* it arrives late, and later */
+      /* it leaves in tune and drifts: the crowd pulls apart */
+      os.detune.setValueAtTime(0,t0);
+      os.detune.linearRampToValueAtTime(DT[q],t0+sd*3.0);
+      var pg=AC.createGain();
+      pg.gain.setValueAtTime(0.0001,t0);
+      pg.gain.linearRampToValueAtTime(0.60/(1+q*0.38),t0+sd*0.5);
+      pg.gain.exponentialRampToValueAtTime(0.0001,t0+sd*3.4);
+      os.connect(pg); pg.connect(out);
+      os.start(t0); os.stop(t+sd*4.7);
+    }
+    return; }
   /* ===== BATCH 23 VOICES (8/2/26) =============================
      Two mechanisms the rack has never used, both of them ARTICULATED on
      purpose: a pitch you can follow is the one property every song he has kept
@@ -12090,7 +12289,11 @@ const MLOOPS=[
  {n:'THE MARKER ON THE DOOR',acc:'#a06a5a',root:48,scale:[0,2,4,7,9],wave:'sawtooth',kick:[0,4,8,11],bass:[0,4,9,12],hat:[2,6,10,14],inst:{b:'abyssbass',l:'brokenrosary'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'longs',swing:0.1,feel:'normal',klay:'melody',ff:true,bt:22},
  {n:'MENU — THE POWER STILL ON SOMEWHERE',menu:true,acc:'#c8b878',root:45,scale:[0,2,4,7,9],wave:'sine',kick:[],bass:[0,7],hat:[],inst:{b:'dawnpad',l:'gridglow'},am:'faythhum',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
  {n:'MENU — WHAT THE VALLEY KEPT',menu:true,acc:'#9a8ac8',root:43,scale:[0,2,3,5,7,8,11],wave:'triangle',kick:[0],bass:[0,7,12],hat:[],inst:{b:'coldpiano',l:'keptkeys'},am:'dawnwash',kit:{k:'thud',h:'wood'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
- {n:'MENU — NOBODY IS COMING',menu:true,acc:'#7a8a9a',root:38,scale:[0,2,3,5,7,8,10],wave:'sine',kick:[0,8],bass:[0],hat:[],inst:{b:'nobodyswell',l:'glasshope'},am:'edenmist',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'normal',klay:'melody',ff:true}
+ {n:'MENU — NOBODY IS COMING',menu:true,acc:'#7a8a9a',root:38,scale:[0,2,3,5,7,8,10],wave:'sine',kick:[0,8],bass:[0],hat:[],inst:{b:'nobodyswell',l:'glasshope'},am:'edenmist',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'normal',klay:'melody',ff:true},
+{n:'THE VOICE THAT STILL ANNOUNCES FLOORS',acc:'#6a7f8e',root:44,scale:[0,1,3,7,8],wave:'sine',kick:[0,6,11],bass:[0,3,7,8],hat:[4,12],inst:{b:'abyssbass',l:'atriumvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'THE LAST BROADCAST CORRODES',acc:'#b07a3a',root:51,scale:[0,2,3,6,8,10],wave:'sawtooth',kick:[0,4,7,10,13],bass:[0,6,8,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'signalrot'},am:'vacancyhum',kit:{k:'punchk',h:'tight'},mel:'call',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
+{n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true},
+{n:'THE NOTE THAT WOULD NOT STAY ONE',acc:'#7f9a86',root:57,scale:[0,2,5,6,9,11],wave:'sine',kick:[0,5,8,12],bass:[0,5,9,11],hat:[3,7,11,15],inst:{b:'reservoirbass',l:'fissionhymn'},am:'edenmist',kit:{k:'boom',h:'shakerh'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true}
 ];
 const REMADE_S2=['REDS','BLUES','ANARCHISTS','NETWORK','REMNANTS'];
 /* SONG2_VER (Paolo 7/4/26, definitive): the ONLY remake counter. Each faction's
@@ -12103,7 +12306,7 @@ const SONG2_VER={REDS:14,BLUES:10,ANARCHISTS:16,NETWORK:8,REMNANTS:11,HOMELESS:9
 /* NEW_VIBES = the CURRENT fresh cook (drives the NEW badge). Batch 15 judged
    7/20 verdict three (3 canon, 4 down as SONGS); batch 16 answers under the
    SONG-DEAD-NOT-VOICES law. */
-const NEW_VIBES=['MENU — THE POWER STILL ON SOMEWHERE','MENU — WHAT THE VALLEY KEPT','MENU — NOBODY IS COMING'];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
+const NEW_VIBES=['MENU — THE POWER STILL ON SOMEWHERE','MENU — WHAT THE VALLEY KEPT','MENU — NOBODY IS COMING','THE VOICE THAT STILL ANNOUNCES FLOORS','THE LAST BROADCAST CORRODES','THE BELLS DISAGREE','THE NOTE THAT WOULD NOT STAY ONE'];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
 const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':0,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':0,'THE CHOIR THAT STAYED#1':0,'MUSIC BOX FOR THE GONE#1':0,'IT WALKS THE STRIP AT 3AM#1':0,'PHANTOM CASINO#1':0,'THE DEBT COLLECTOR AT DAWN#1':0,'A HYMN NOBODY FINISHED#1':0,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0};
 /* UNJUDGED LAW (7/19 fix, caught on the real surface): fresh cooks get NO
    CANON_DEFAULTS entry -- a baked 2 silently stamped new batches CANON, hid the
