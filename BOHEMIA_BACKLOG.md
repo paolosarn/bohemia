@@ -1421,6 +1421,76 @@ P0-MORNING. *** THE FIRST MORNING POINTS AT THE WRONG DOOR, AND WE KNOW
    the protocol says spends once. | a cold session where the hand goes to
    the phone without being told, gated in the whole-demo run | — | yes,
    the first morning is judgeable the moment it changes. ***
+WEBKIT-1. *** 201 LAUNCHES AND NOT ONE IS THE BROWSER HE PLAYS ON
+   (sweep 16, 8/25 — records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_
+   BROWSER_8_25_26.md). THIS LANE OWNS THE SUITE, SO IT OWNS THIS.
+   MEASURED: `grep -rhoE "(chromium|firefox|webkit)\.launch" gates/ tools/`
+   returns 201 chromium, 0 firefox, 0 webkit. 150 gates need Playwright,
+   ~94 boot the whole alpha and tap real buttons. ALL CHROME. WebKit is
+   not even installed (/opt/pw-browsers holds chromium only); the four
+   gates matching "webkit" match CSS prefixes.
+   WHY IT IS A CATEGORY ERROR, NOT A GAP: line one of this project is
+   iPhone portrait, and on an iPhone outside the EEA EVERY BROWSER IS
+   WEBKIT — App Store rule 2.5.6 since 2008, and the DMA's 2024 opening
+   applies in the EEA only, "the WebKit restriction continues to apply in
+   the UK and the rest of the world." Las Vegas is in the rest of the
+   world. NO PLAYER OF THIS GAME EVER RUNS THE ENGINE OUR PROOF
+   APPARATUS RUNS.
+   AND THE 7/18 LAW ALREADY SAID IT: "a side-door probe is a lie."
+   Headless Chromium is a side-door probe for an iPhone game. This lane
+   has learned the same shape twice already — the thumb sweep's "a
+   Playwright click lands anywhere with equal ease, so reachability is
+   invisible to our whole apparatus BY CONSTRUCTION", and the border
+   finding's "only measuring the pixels he receives" — and fixed the
+   instance both times without asking what else the instrument cannot
+   see. This is the third and the biggest.
+   BUILD, DELIBERATELY SMALL: (1) ONE SHARED HELPER that reads an env var
+   and returns the browser type, so a gate is written once and run twice;
+   any later hard-coded chromium.launch is the drift. (2) THE DEMO PATH
+   ONLY, eight gates — the_whole_demo, opening, save_iphone, durable_save,
+   home_phone, phone_rings, demo_sound, every_panel_closes. Running all
+   150 twice doubles a suite this lane just spent a session making finish.
+   (3) ADVISORY FOR ONE WEEK, then blocking: a new engine on a codebase
+   that has never met it will go red on things that are WebKit's fault,
+   and a suite that cries wolf gets ignored. (4) Registered as its own
+   pass so a WebKit red is never confused with a Chromium red.
+   HONEST LIMIT, SAY IT IN THE COMMIT: Playwright's WebKit IS NOT SAFARI.
+   It is a desktop WebKit build approximating Safari, without Apple's OS
+   integrations, the real keyboard, real safe-area/scroll quirks, or real
+   hardware performance. What it buys is narrow and still enormous: we
+   stop testing an engine no player will ever run. The rest needs a
+   phone, and the friends round is the only real Safari we will ever get.
+   BLOCKER THAT IS NOT YOURS TO SOLVE: the install is 403'd at the proxy
+   (cdn.playwright.dev, playwright.download.prss.microsoft.com — see
+   SHARED WEBKIT-3). If it is still blocked, SAY SO LOUDLY in the handoff
+   rather than skipping quietly; a silently skipped engine is how this
+   went unnoticed for two months.
+   | the eight gates listed, green or explained, in webkit | — | no.
+   NOT IN A TAB — this is the instrument, not the game. ***
+WEBKIT-2. *** THE SAFARI CODE WE ALREADY WROTE HAS NEVER BEEN RUN IN
+   SAFARI (sweep 16, same record). PAIRS WITH WEBKIT-1, do it second.
+   The backlog names Safari in at least seven places WITH REAL
+   ENGINEERING ATTACHED: navigator.storage.persist() against Safari 17's
+   seven-day eviction, -webkit-touch-callout against the iOS long-press
+   selection menu, safe-area insets against Safari's bottom URL bar, and
+   the flat statement "iOS Safari kills the page." EVERY ONE OF THOSE
+   FIXES IS CURRENTLY A HYPOTHESIS. This is the cheapest win available:
+   the code is already written and we would simply be finding out whether
+   it works.
+   WHAT THE OUTSIDE SAYS IS WAITING (the SHAPE of the risk, not a
+   prediction about us): mobile Safari caps total canvas memory (~384 MB
+   documented) and then getContext STARTS RETURNING NULL — silent, no
+   crash message — and we are a canvas game that just quadrupled its
+   pixels and preloads a 15.9 MB slice; WebGL canvas resizing leaks on
+   iOS Safari (WebKit bug 219780) and GPU memory has decreased across iOS
+   versions; WebAudio on Safari has a decade of gesture-unlock,
+   one-at-a-time and "delayed and glitchy" history (WebKit 221334,
+   132691) and SOUND has shipped 500+ sfx, 24 music batches and a quest
+   sting all proven audible IN CHROME; and large JS parse is slow on iOS
+   while our alpha is one enormous file the lane already measured at
+   "forty megabytes before you can move" — in Chrome.
+   | the four shipped Safari fixes measured in webkit, pass or fail
+   reported honestly | — | no. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -4276,6 +4346,23 @@ LANG-1. *** A PERSON HAS A LANGUAGE, AND RIGHT NOW NOBODY DOES (sweep 15,
    moment it decides whether you can finish something, it stops being
    world and becomes a bug — that is the documented Sleeping Dogs
    complaint and the comprehension research, turned into a constraint.
+   *** HE RULED THE SAME DAY, 8/25: THEY SPEAK SPANGLISH. "make them
+   speak spanglish for our game i like that. have it very poor english ro
+   spanglish to give it that flavor." Law: laws/BOHEMIA_ADDENDUM_THEY_
+   SPEAK_SPANGLISH_8_25_26.md. It is IN THE LINE, in the game, not a
+   translation layer and not a setting. THREE REGISTERS, and keeping them
+   apart is the whole craft: (1) ENGLISH-DOMINANT, grew up here, the odd
+   word from home; (2) SPANGLISH, fluent in both, switching mid-sentence
+   because it is FASTER -- his headline register, most lines; (3)
+   SPANISH-DOMINANT / POOR ENGLISH, dropped articles and short clauses --
+   his "very poor english", and it belongs to SOME people, never all.
+   THE RESEARCH IS WHY THE MIX IS MANDATORY: intra-sentential switching
+   is what PROFICIENT bilinguals do, and violations of the syntactic
+   constraints "were not due to limited bilingual competence." Register 2
+   is a SKILL, register 3 is a GAP. Writing everyone as register 3 is bad
+   linguistics AND an insult to a third of the county. NEVER phonetic
+   accent spelling. The gate fails a build where every Spanish-speaking
+   character is register 3. ***
    RESERVED AND SHIPS EMPTY (mechanism mine, contents his): whether the
    PLAYER speaks anything but English (identity, his), which named story
    people speak what (same rule as KNOWN_AT_START), whether the game ever
@@ -6567,9 +6654,12 @@ LANG-2. *** THE LINE SCHEMA IS MISSING ONE COLUMN AND THAT IS THE ONLY
    WORDS tab like every other property of a line.
    GATE, SAME TURN (a law without a machine gate is not enforced):
    `language_gate`, three claims — (a) every authored line carries a
-   lang; (b) the derived people mix matches the valley's real numbers
-   within tolerance; (c) NO LINE CARRYING REQUIRED INFORMATION IS
-   NON-ENGLISH (objective text, resolution buttons, the phone feed's job
+   lang/REGISTER tag (his 8/25 Spanglish ruling: laws/BOHEMIA_ADDENDUM_
+   THEY_SPEAK_SPANGLISH_8_25_26.md, three registers); (b) the derived
+   people mix matches the valley's real numbers within tolerance AND the
+   register mix is not all one register — a build where every
+   Spanish-speaking character is "very poor english" FAILS; (c) NO LINE
+   CARRYING REQUIRED INFORMATION IS NON-ENGLISH (objective text, resolution buttons, the phone feed's job
    offer). Claim (c) is the one that matters. Mutation test: retag one
    objective line non-English and (c) must go red.
    | the WORDS tab showing the column | nothing pending | no. TAB: WORDS. ***
@@ -6610,6 +6700,22 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-10. *** THE ENVIRONMENT BLOCKS THE ONLY BROWSER OUR PLAYERS USE (sweep
+   16, 8/25 — records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_
+   8_25_26.md). NOT A DESIGN CALL, NOT A RULING — an allowlist entry.
+   I tried to install WebKit rather than recommend it. Reproduced twice:
+     Error: Download failed: server returned code 403 body 'request
+     blocked: no rule or allowlist entry allows host "cdn.playwright.dev"'
+     ... no rule or allowlist entry allows host
+     "playwright.download.prss.microsoft.com"
+   TWO HOSTNAMES NEED ALLOWLISTING:
+     cdn.playwright.dev
+     playwright.download.prss.microsoft.com
+   Until then no session in this fleet can run a single gate in the engine
+   every iPhone on earth uses. Whoever can reach the environment settings
+   does this; whoever cannot says so in the handoff rather than letting
+   RUN WEBKIT-1 sit silently skipped. | webkit installs and one gate runs
+   in it | — | no. ***
 -9. *** ONE SYSTEM ONE SESSION IS A LAW WITH NO GATE, AND FOUR LANES ARE
    STANDING IN THE SAME FILE (sweep 15 collision audit, 8/25).
    MEASURED, 8/18 to 8/25: slices/BOHEMIA_CITY_WORLD.html took 37 commits

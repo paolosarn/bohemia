@@ -1,3 +1,125 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (c) LATEST -- *** SWEEP 16. EVERY
+GATE WE HAVE TESTS THE WRONG BROWSER. Plus his SPANGLISH ruling, recorded as law
+the same turn. TAB: none (this is the instrument) + LIFE/WORDS (his ruling).
+Nothing to judge. ***
+
+HIS RULING FIRST, BECAUSE IT IS LAW NOW.
+"make them speak spanglish for our game i like that. have it very poor english ro
+spanglish to give it that flavor." Recorded:
+laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md, CLAUDE.md bullet added,
+canon index regenerated, LANG-1 and LANG-2 amended in the backlog.
+IT IS IN THE LINE, not a translation layer and not a setting. THREE REGISTERS,
+and keeping them apart is the entire craft: (1) english-dominant, grew up here,
+the odd word from home; (2) SPANGLISH, fluent in both, switching mid-sentence
+because it is FASTER -- his headline register, most lines; (3) spanish-dominant /
+poor english, dropped articles and short clauses -- his "very poor english", and
+it belongs to SOME people, never all of them.
+THE RESEARCH IS WHY THE MIX IS MANDATORY AND NOT A SOFTENING OF HIS RULING:
+intra-sentential code-switching is what PROFICIENT bilinguals do -- teachers and
+students do it with each other -- and the literature is explicit that constraint
+violations "were not due to limited bilingual competence." REGISTER 2 IS A SKILL.
+REGISTER 3 IS A GAP. Writing every Latino character as register 3 is bad
+linguistics and an insult to a third of the county, and it is the single most
+common way this goes wrong in shipped games. Craft rules in the law: switch at
+clause boundaries not mid-phrase, switch for a REASON (emotion, family, food,
+insults, numbers), NEVER phonetic accent spelling ("joo" for "you" is a cartoon),
+register 3 is grammar not misspelling. HARD RULE CARRIED OVER UNCHANGED: LANGUAGE
+NEVER GATES REQUIRED INFORMATION. The gate fails a build where every
+Spanish-speaking character is register 3.
+
+DELTA SINCE MY MARK (2c32d23 -> af64bc9): RUN fixed name-clipping on full cards;
+CHARACTER shipped P0-PROFILE (the hair was in front of his face) and retook 36
+LOOK pictures; SOUND shipped the YES sting and rebuilt to 8/25j.
+DEMO PATH GUARDED, MEASURED: the_whole_demo_gate 23 PASSED / 0 FAILED. Unchanged.
+COLLISIONS: no new cross-lane trespass since sweep 15; CITY_WORLD took 2 more
+commits (RUN, SOUND). SHARED -9, the ownership gate, is still the fix and is
+still unclaimed.
+
+*** THE HORIZON ITEM: 201 LAUNCHES AND NOT ONE IS THE BROWSER HE PLAYS ON. ***
+MEASURED, TWICE:
+    grep -rhoE "(chromium|firefox|webkit)\.launch" gates/ tools/
+      201 chromium.launch   0 firefox.launch   0 webkit.launch
+    ls /opt/pw-browsers -> chromium only. WEBKIT IS NOT INSTALLED.
+150 gates need Playwright. About 94 boot the entire alpha and drive it by tapping
+real buttons -- the discipline this repo is proudest of, and should be. ALL OF
+THEM ARE CHROME. The four gates matching "webkit" match CSS prefixes.
+WHY THAT IS A CATEGORY ERROR AND NOT A GAP: line one of this project is IPHONE
+PORTRAIT, and on an iPhone outside the EEA EVERY BROWSER IS WEBKIT -- App Store
+rule 2.5.6 ("apps that browse the web must use the appropriate WebKit framework
+and WebKit JavaScript") has stood since 2008, and the DMA's March 2024 opening
+applies in the EEA ONLY: the restriction "continues to apply in the UK and the
+rest of the world." Las Vegas is the rest of the world. Chrome on iPhone is
+WebKit wearing a Chrome hat. THERE IS NO PATH BY WHICH ANY PLAYER OF THIS GAME
+EVER RUNS THE ENGINE OUR ENTIRE PROOF APPARATUS RUNS.
+
+THE FINDING THAT CHALLENGES WHAT WE BELIEVE. We believe green gates mean it
+works. That belief is load-bearing for this whole operation -- "a law without a
+machine gate is not enforced" only holds if the machine watches the right thing.
+THE GATES DO NOT PROVE THE GAME WORKS. THEY PROVE IT WORKS IN CHROME.
+AND THE 7/18 LAW ALREADY SAID IT: "a side-door probe is a lie." We wrote that
+about a preview canvas. Headless Chromium is a side-door probe for an iPhone
+game, and 150 gates have walked through that side door since the law was written.
+THIS REPO HAS LEARNED THIS EXACT SHAPE TWICE AND NEVER GENERALISED IT: the thumb
+sweep ("a Playwright click lands anywhere with equal ease, so reachability is
+invisible to our whole apparatus BY CONSTRUCTION") and the border finding ("no
+amount of reading the pass finds that; only measuring the pixels he receives
+does"). Both times we fixed the instance. Nobody asked what else the instrument
+cannot see. This is the third instance and it is not one gate measuring the wrong
+thing, it is all 150 measuring the wrong engine.
+AND WE HAVE WRITTEN A PILE OF SAFARI-SPECIFIC CODE WE HAVE NEVER RUN IN SAFARI:
+navigator.storage.persist() against Safari 17's seven-day eviction,
+-webkit-touch-callout against the iOS long-press menu, safe-area insets against
+Safari's bottom URL bar, and the flat statement "iOS Safari kills the page."
+EVERY ONE OF THOSE FIXES IS CURRENTLY A HYPOTHESIS.
+
+WHAT THE OTHER AISLE SAYS IS WAITING (the SHAPE of the risk, not a prediction
+about our build): mobile Safari caps total canvas memory around 384 MB and then
+getContext STARTS RETURNING NULL -- silent, no crash message -- and we are a
+canvas game that just quadrupled its pixels and preloads a 15.9 MB slice on every
+visit; WebGL canvas resizing leaks on iOS Safari (WebKit bug 219780) and GPU
+memory available for rendering has DECREASED across iOS versions; WebAudio on
+Safari has a decade of gesture-unlock, one-file-at-a-time and "delayed and
+glitchy" history (WebKit 221334, 132691), and SOUND has shipped 500+ sfx, 24
+music batches and a quest sting this week, all proven audible IN CHROME; large JS
+parse is slow on iOS while our alpha is one enormous file the lane already
+measured at "forty megabytes before you can move" -- in Chrome.
+
+THE HONEST LIMIT, STATED BEFORE ANYBODY GETS EXCITED: PLAYWRIGHT'S WEBKIT IS NOT
+SAFARI. It is a DESKTOP WebKit build approximating Safari, without Apple's OS
+integrations, the real virtual keyboard, real notch/safe-area and scroll quirks,
+or real hardware performance; practitioners are unanimous that some bugs appear
+only on real devices. THE CLAIM IT BUYS IS NARROW AND STILL ENORMOUS: we stop
+testing an engine no player will ever run and start testing the right engine
+family imperfectly. Engine-level divergences -- API presence, audio unlock,
+storage semantics, CSS support, outright exceptions -- are exactly what it
+catches. The rest needs a phone, and the friends round is the only real Safari
+this game will get before launch.
+
+I TRIED TO INSTALL IT RATHER THAN RECOMMEND IT, AND IT IS BLOCKED BY NAME:
+    Error: Download failed: server returned code 403 body 'request blocked: no
+    rule or allowlist entry allows host "cdn.playwright.dev"'
+    ... no rule or allowlist entry allows host
+    "playwright.download.prss.microsoft.com"
+Two hostnames need allowlisting. That is an environment setting, not a ruling and
+not a design call. ROUTED as SHARED -10 with the exact error text.
+
+THE DECISION (mine, EVERYTHING IS A THUMB): THE ENGINE IS PART OF THE SURFACE. A
+GATE THAT RUNS ONLY IN CHROMIUM DOES NOT GET TO SAY THE GAME WORKS. Deliberately
+small: one shared helper so the engine is a PARAMETER not a copy-paste; the DEMO
+PATH ONLY, eight gates, because running all 150 twice doubles a suite RUN just
+spent a session making finish; ADVISORY FOR ONE WEEK then blocking, because a new
+engine on a codebase that has never met it will go red on things that are
+WebKit's fault and a suite that cries wolf gets ignored; its own pass so a WebKit
+red is never confused with a Chromium red; and NOTHING NEW SHIPS FOR THIS.
+
+  RECORD: records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
+  LAW: laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md (+ CLAUDE.md, canon index)
+  ROUTED: RUN WEBKIT-1 (the engine is a parameter) + RUN WEBKIT-2 (verify the
+  Safari code we already shipped) + SHARED -10 (the two blocked hostnames).
+  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
+
+================================================================================
+
 CHARACTER (character-0lurbs): 8/25 (b) LATEST -- *** P0-PROFILE: THE HAIR WAS IN FRONT
 OF HIS FACE. He was right, and it is one defect, and it is fixed. ***
 
