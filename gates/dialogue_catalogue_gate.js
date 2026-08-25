@@ -164,13 +164,29 @@ if (barkFile.length) {
   var agents = fs.readFileSync('engine/bohemia_agents.js', 'utf8');
   var acts = ['sleep', 'home', 'work', 'free', 'scav', 'errand', 'watch'];
   var roles = ['worker', 'scav', 'keeper', 'watch'];
-  var alien = Object.keys(BK.barks || {}).filter(function (k) {
+  /* A KEY MAY CARRY A REGISTER, AND THE REGISTER IS NOT PART OF THE KEY (8/25).
+     THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED) added `<bucket>@spanglish` and
+     `<bucket>@es` twins. This check split on ':' and read `work@spanglish` as
+     an act the sim has never heard of, so it called 56 correct buckets INVENTED.
+     A GATE MUST NEVER OUTRANK A RULING (8/1): the rule here is right and stays,
+     it just had to learn the newer shape. Splitting the suffix off makes it
+     STRONGER, not weaker -- the register itself is now validated against the
+     engine's own list, so `worker:work@klingon` is caught too. */
+  var REGISTERS = require('../engine/bohemia_people.js').LANG_ORDER;
+  var badReg = [], alien = Object.keys(BK.barks || {}).filter(function (key) {
+    var at = key.indexOf('@'), k = key;
+    if (at >= 0) {
+      k = key.slice(0, at);
+      if (REGISTERS.indexOf(key.slice(at + 1)) < 0) badReg.push(key);
+    }
     if (k.indexOf('faction:') === 0 || k.indexOf('when:') === 0) return false;
     var p = k.split(':');
     return roles.indexOf(p[0]) < 0 || (p[1] && acts.indexOf(p[1]) < 0);
   });
   ok(alien.length === 0, 'every role:act bucket uses the SIM\'S OWN words, so the lines ' +
     'actually fire' + (alien.length ? ' — INVENTED: ' + alien.join(', ') : ''));
+  ok(badReg.length === 0, 'and every register suffix is one the engine knows' +
+    (badReg.length ? ' — INVENTED: ' + badReg.join(', ') : ''));
   ok(roles.every(function (r) { return agents.indexOf(r) >= 0; }),
     'and those role words are the agents module\'s, not this gate\'s');
 }

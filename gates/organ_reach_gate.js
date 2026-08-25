@@ -83,6 +83,15 @@ const TOOLING_ONLY = {
   'BohemiaPeople.seatLineOf':
     "PEOPLE's module, not this lane's. Left declared rather than deleted so this "
     + 'gate reports on it without failing another lane; that lane owns the call.',
+  'BohemiaPeople.esWordsIn':
+    'the one implementation of "which Spanish words does this string contain", '
+    + 'and it is tooling-only ON PURPOSE. LANGUAGE NEVER GATES REQUIRED '
+    + 'INFORMATION (Paolo 8/25) is a rule about what must NEVER reach the '
+    + 'surface, so the thing that checks it belongs off the surface by '
+    + 'definition: language_gate sweeps every objective, resolution button and '
+    + 'job offer through this function. It lives in the engine rather than in '
+    + 'the gate because a checker that re-types the rule it is checking is how '
+    + "o'clock got read as the Spanish word \"o\" in one place and not the other.",
   'BohemiaPeople.cardFor':
     "PEOPLE's module, not this lane's, and the city builds its person card row by "
     + 'row rather than calling this. Declared so the sweep reports it without '

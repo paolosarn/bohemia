@@ -59,6 +59,14 @@ function ok(name, cond, detail) {
 function head(s) { console.log('\n' + s); }
 
 var P = require('../engine/bohemia_people.js');
+/* THE SWEEP IS CALLED BY ITS PUBLISHED NAME, not through the alias, and that is
+   deliberate. The module registers itself as the global BohemiaPeople, so this
+   is its name and not a workaround -- but tools/bohemia_organ_reach.js counts
+   callers TEXTUALLY, so `BohemiaPeople.esWordsIn(...)` is invisible to it and it reported
+   the function as reached by NOTHING ANYWHERE. That tool documents this exact
+   blind spot for values passed by injection; the alias case is the same shape
+   and belongs to its own lane, flagged rather than reached into. */
+var BohemiaPeople = P;
 var LAW = 'laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md';
 
 /* ==========================================================================
@@ -230,12 +238,12 @@ head('C. NO REQUIRED INFORMATION IS NON-ENGLISH');
 /* First: PROVE THE SWEEP CAN FAIL. A claim that cannot fail is not a claim, and
    this gate's whole value rests on esWordsIn actually finding things. */
 ok('the sweep finds Spanish when Spanish is there (anti-vacuity)',
-  P.esWordsIn('Bring the agua to mi casa, pues.').length >= 3,
-  JSON.stringify(P.esWordsIn('Bring the agua to mi casa, pues.')));
+  BohemiaPeople.esWordsIn('Bring the agua to mi casa, pues.').length >= 3,
+  JSON.stringify(BohemiaPeople.esWordsIn('Bring the agua to mi casa, pues.')));
 ok('and it does not fire on plain English',
-  P.esWordsIn('Go to the substation and read the meter before nine.').length === 0);
+  BohemiaPeople.esWordsIn('Go to the substation and read the meter before nine.').length === 0);
 ok("and it does not read o'clock as the Spanish word o",
-  P.esWordsIn("Nine o'clock. Watch.").length === 0);
+  BohemiaPeople.esWordsIn("Nine o'clock. Watch.").length === 0);
 
 var required = [];   // {where, text}
 function req(where, text) { if (text && String(text).trim()) required.push({ where: where, text: String(text) }); }
@@ -285,7 +293,7 @@ P.LANG_ORDER.forEach(function (r) {
 
 var offenders = [];
 required.forEach(function (r) {
-  var h = P.esWordsIn(r.text);
+  var h = BohemiaPeople.esWordsIn(r.text);
   if (h.length) offenders.push(r.where + '  "' + r.text.slice(0, 70) + '"  <- ' + h.join(','));
 });
 ok('*** NOT ONE STRING CARRYING REQUIRED INFORMATION IS NON-ENGLISH ***',
@@ -297,7 +305,7 @@ ok('*** NOT ONE STRING CARRYING REQUIRED INFORMATION IS NON-ENGLISH ***',
    spanglish that is an OBJECTIVE is the bug this rule exists for. */
 var reqKinds = { objective: 1, choice: 1, journal: 1 };
 var taggedReq = allLines.filter(function (l) { return reqKinds[l.kind]; });
-var mistagged = taggedReq.filter(function (l) { return l.lang !== 'en' || P.esWordsIn(l.text).length; });
+var mistagged = taggedReq.filter(function (l) { return l.lang !== 'en' || BohemiaPeople.esWordsIn(l.text).length; });
 ok('no objective, choice or journal line is written in another language',
   mistagged.length === 0,
   mistagged.length ? mistagged.slice(0, 3).map(function (l) { return l.id + ' [' + l.lang + ']'; }).join(', ')
@@ -377,7 +385,7 @@ allLines.forEach(function (l) {
 });
 var sgKeys = Object.keys(sgBuckets);
 var mute = sgKeys.filter(function (k) {
-  return !sgBuckets[k].some(function (t) { return P.esWordsIn(t).length > 0; });
+  return !sgBuckets[k].some(function (t) { return BohemiaPeople.esWordsIn(t).length > 0; });
 });
 ok('EVERY spanglish bucket actually switches languages somewhere in it',
   sgKeys.length > 20 && mute.length === 0,
@@ -393,9 +401,9 @@ var per = { key: 'x', role: 'worker', faction: null };
 var enLine = P.linesFor({ key: 'x', role: 'worker', lang: 'en' }, { at: 'work' })[0];
 var sgLine = P.linesFor({ key: 'x', role: 'worker', lang: 'spanglish' }, { at: 'work' })[0];
 var esLine = P.linesFor({ key: 'x', role: 'worker', lang: 'es' }, { at: 'work' })[0];
-ok('an english worker gets an english line', !!enLine && P.esWordsIn(enLine).length === 0, enLine);
+ok('an english worker gets an english line', !!enLine && BohemiaPeople.esWordsIn(enLine).length === 0, enLine);
 ok('a spanglish worker gets a DIFFERENT line, and it switches',
-  !!sgLine && sgLine !== enLine && P.esWordsIn(sgLine).length > 0, sgLine);
+  !!sgLine && sgLine !== enLine && BohemiaPeople.esWordsIn(sgLine).length > 0, sgLine);
 ok('a spanish-dominant worker gets a third line', !!esLine && esLine !== enLine && esLine !== sgLine, esLine);
 /* THE FALLBACK, TESTED ON A BUCKET THAT ACTUALLY HAS NO REGISTER. The first cut
    of this claim sampled keeper:scav, which HAS a spanglish twin -- so it was
@@ -411,7 +419,7 @@ ok('there is still a bucket with no register written for it, to test with',
   !!noRegKey, noRegKey);
 var noReg = noRegKey ? P.linesFor({ key: noRegKey, role: 'worker', lang: 'spanglish' }, {}) : [];
 ok('A BUCKET WITH NO REGISTER FALLS BACK TO ENGLISH RATHER THAN GOING MUTE',
-  noReg.length > 0 && P.esWordsIn(noReg[0]).length === 0,
+  noReg.length > 0 && BohemiaPeople.esWordsIn(noReg[0]).length === 0,
   noRegKey + ' -> ' + JSON.stringify(noReg[0]));
 var pe = P.personOf(4242, { id: 'H2-1', seed: 99, role: 'worker' }, { householdSize: 3, asked: true });
 ok('a real derived person carries a register', !!P.LANG[pe.lang], pe.name + ' speaks ' + pe.lang);

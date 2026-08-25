@@ -3503,7 +3503,84 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 LATEST -- *** A PHONE CALL DURING THE GRIEF DINNER
+PEOPLE (people-7h9sfy): 8/25 (b) LATEST -- *** NOBODY IN THIS VALLEY SPOKE
+SPANISH, AND THE FIRST TIME THEY DID, THE WALKED CITY TURNED THEM ALL BACK INTO
+ENGLISH. HIS SPANGLISH RULING IS BUILT AND MEASURED ON THE GROUND. TAB RUN
+(walk up to somebody: the card says what they speak, and their lines come out in
+it) AND TAB WORDS (every line, tagged, editable). ***
+
+HIS RULING 8/25, LOCKED: "make them speak spanglish for our game i like that.
+have it very poor english ro spanglish to give it that flavor ty". It had a law
+and no machine. LANG-1 was routed to this lane by sweep 15 and was unstarted.
+
+WHAT WAS THERE: this module's own comment has said since 7/31 that an all-Anglo
+name pool "would be a lie about Las Vegas", and that finding reached ONE system,
+the surname pool. The lane's shipped proof character is RUBEN NGUYEN and Ruben
+Nguyen spoke flawless monolingual English, because everybody did.
+
+LANG-1: three registers off a THIRD independent stream from the identity key,
+nothing stored. THE ARITHMETIC IS IN THE OPEN in the code so it can be checked:
+418,475 Spanish speakers 5+ / 2,265,461 residents = 18.5%; 45% speak English
+less than "very well"; register 3 is the "not well/not at all" end, ~half of
+that, AND THAT HALF IS DECLARED AS MY ESTIMATE.
+  target   en 815  spanglish 144  es 41   per 1000
+  derived  en 815  spanglish 144  es 41   over 126,000 people, 3,000 blocks
+AND IT CLUSTERS, which is what makes it a mechanic: 139 of Clark County's ~500
+tracts are limited-English ground, so 27.8% of blocks run a different mix and
+THE TWO AVERAGE BACK TO THE COUNTY to the nearest tenth of a percent. Top decile
+of blocks 57% Spanish, bottom decile 2%.
+
+THE WORDS: 244 -> 558 lines, 58 -> 152 buckets. Every role x act, every
+situation, six factions, in both registers, each citing the questbook (Q036.W1,
+Q129.W6, Q030.W8, Q075.W4, Q045.W8), all draft:true and editable in WORDS.
+linesFor asks for the register first and falls back to English, so THE FAILURE
+MODE OF A MISSING REGISTER IS ENGLISH, NEVER SILENCE.
+LANG-2 done too: all 2,224 lines carry `lang`, chipped and searchable in WORDS.
+The expensive thing later was never the content of a line, it was the column.
+
+*** THREE REAL DEFECTS, NONE FINDABLE BY READING CODE ***
+ 1. THE WALKED CITY WAS 100% ENGLISH. ctPerson handed personOf the city's ONE
+    GLOBAL SEED as a BLOCK seed, so blockMixOf answered the same for every
+    person alive and neighbourhoods could not exist. 1,277 of 1,277 English.
+    EVERY ENGINE CLAIM WAS GREEN. VERIFY ON THE REAL SURFACE is the only reason
+    this was found, and it is the whole justification for the gate's section G.
+ 2. TWO IDENTITIES FOR ONE PERSON. The city re-keys somebody after personOf
+    returns and re-derives their NAME; the language was already derived off the
+    old key. Both answers stable, nothing visibly broken.
+ 3. THE VOCABULARY YARDSTICK ATE ITS OWN OUTPUT. The factory built its "English
+    corpus" from the words book, which is harvested FROM the factory's lines, so
+    on the second run every Spanish word came back as English and the sweep list
+    collapsed 183 -> 5. THE TELL: the build answered differently depending on
+    what order two tools ran in. A CHECKER WHOSE INPUT IS ITS OWN OUTPUT IS NOT
+    A CHECKER.
+
+A GAP BETWEEN TWO GOOD GUARD RAILS (flagged for SHARED, not claimed): the city
+frame carried a 47,907-byte copy of an 81,931-byte module. bohemia_city_talk_patch
+correctly REFUSES to run (it would delete 3,400 lines another lane built) and the
+engine sync gate keys on `const BOH_*`, which this IIFE is not. I wrote
+tools/bohemia_people_resync.py for the one frame that blocked me and named the
+class. Any inlined module that is not a const BOH_* is unwatched.
+
+language_gate: 63 claims, ~23s. MUTATIONS: Spanish objective 2 red; the city fix
+reverted 4 red ("en 100.0%"); every register flattened to 3 8 red; the lexicon
+self-poisoned 4 RED WITH THE HEADLINE CLAIM STILL GREEN (the anti-vacuity claim
+is the only thing that caught it); the English fallback removed 3 red.
+
+TWO WEAK CLAIMS OF MINE, BOTH CAUGHT BY THE MUTATIONS: "does not travel with the
+name" was `return n > 0` after a loop that computed nothing; "falls back to
+English" sampled a bucket that HAS a register and survived M6 untouched. Both
+rewritten to compute what they name. Plus a false alarm caught BEFORE the gate
+shipped (o'clock read as the Spanish "o", 2 of 507 good objectives flagged) --
+A FALSE ALARM IS WHAT KILLS A GATE, NOT A MISS.
+
+VERIFICATION: main is 22 RED and 72 gates never run (COMBAT lane, 8/25), so a
+full suite pass is noise. Ran the 107 gates that touch any file I changed,
+directly. Reds A/B'd against a clean origin/main worktree.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md
+
+---- PREVIOUS (8/25, same day) ----
+*** A PHONE CALL DURING THE GRIEF DINNER
 WAS DELETING THREE OF THE OPENING'S FOUR SCENES, PERMANENTLY. FIXED, AND IT NOW
 PICKS UP WHERE YOU LEFT IT. TAB RUN. ***
 
