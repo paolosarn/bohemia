@@ -44613,7 +44613,89 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/24 (c) LATEST -- *** THE WAIT IS 12x SHORTER. Tap-to-world went
+WORLD (city-1eztay): 8/25 (a) LATEST -- *** THE WORLD SURVIVES WITHOUT ITS ART. Block all
+26 MB of sprites and the city still renders a PLAYABLE world with ZERO errors. Yesterday the
+same test was a black screen and a ReferenceError. Gated. ***
+Gates: TIME TO PLAY 11/0 (mutation-tested), WALKED SURFACE 11/0 (8,595 / 93.3% / 99.9%,
+UNMOVED), street source 18/0, city tab 64/0, interiors 42/0, hero wire 145/0, dooranim 10/0,
+doorjamb 15/0, blob integrity 107/0, integration 128/0, current slice 6/0, map tab 9/0,
+alpha loads 20/0, props 76/0. full_res 12/1 AND IT IS 12/1 ON PLAIN MAIN TOO (measured in a
+worktree, not assumed) -- pre-existing.
+
+FIRST I KILLED AN ITEM OFF MY OWN LIST. The handoff's #2 was "the alpha crosses the wire
+twice, may be 4 MB for free, CHECK BEFORE ACTING". Checked, three visits, counting server
+requests: visit 1 = 2x (8.17 MB), visits 2 and 3 = 1x. FIRST VISIT ONLY. And it is
+DELIBERATE and LOAD-BEARING: the alpha reloads once on controllerchange, and the first
+navigation happens BEFORE any worker exists, so it can be served stale from the CDN or the
+phone cache -- exactly the bug the ONE-LINK LAW exists for. NOT FREE. Struck off.
+(Side finding: on visits 2/3 ONLY the alpha is requested -- every chunk comes from cache. A
+returning player downloads 4 MB total.)
+
+THE EXPERIMENT. Yesterday: block the bank -> black void + `ReferenceError: HERO_SRC is not
+defined`. But that error is about NAMES, not art. Injected the eight names as empty
+containers in flight, blocked the whole bank:
+    state : {"om":"object","tp":"object","tpKeys":0,"cellGround":"#8a8a86","canvases":2}
+    errors: []
+and a screenshot of a PLAYABLE WORLD -- ground, character, DAY 1 06:00 SUBURB ON FOOT, the
+cold open, THE METER READER card, GET UP, the movement pad, BIKE, SLEEP. Only texture gone.
+(The probe needed one fix to be honest: the route never fired until the SERVICE WORKER was
+blocked, because the worker fetches navigations itself and those never reach page.route.)
+
+WHY IT IS NOT JUST A BOOTSTRAP LINE. FIVE GATES AND FOUR TOOLS READ THE DECLARATION FORM
+(city_tab, full_res, interiors, street_source grep for `const SA_TILES=` etc). So the shape
+is DECLARE ONCE, MUTATE AFTER: chunk 1 declares all eight and FILLS the small ones (1.75 MB)
+so those greps still find real content; HERO_SRC/DOOR_ANIM/TP_TILES are declared EMPTY and
+filled by later chunks via Object.assign / a push loop / TP_TILES[fam]=, and NOTHING after
+chunk 1 EVER RE-BINDS A NAME. 9 chunks, none over 4 MB, EQUIVALENCE: IDENTICAL.
+
+THREE THINGS THE TOOL GOT WRONG, EACH CAUGHT:
+ 1. IT COULD NOT RE-RUN -- it read the monolith it then deleted. It reads its own chunks back
+    now, and that path has its own trap: the chunks are mostly MUTATIONS, so the declaration
+    scanner would have read TP_TILES as chunk 1's empty object and silently thrown 21 MB
+    away. They are EVALUATED, not scanned. (And in ONE eval, not two: `const` inside an eval
+    is scoped to that eval.)
+ 2. A SIZING FUNCTION RIGHT FOR ONE TYPE AND SILENTLY WRONG FOR ANOTHER. Chunk 2 came out at
+    5.37 MB -- under the 6 MB wall so the guard did NOT fire, but with no margin. Cause:
+    `len(item)` is the byte length of a base64 string and the ELEMENT COUNT of a nested
+    array. DOOR_ANIM is a list of frame lists, so it sized itself 0.00 MB while actually
+    being 2.54 MB. Same shape as a sampler stepping over half a boundary. Sizes are
+    len(J(item)) now.
+ 3. IT PUT ALL EIGHT DECLARATIONS ON ONE LINE. street_source_gate finds `const SA_TILES=`
+    and reads TO THE END OF THE LINE, so it swallowed the rest and the street table stopped
+    parsing. Line-per-declaration is preserved now. 16/1 -> 18/0.
+
+GATED: time_to_play runs a SECOND boot with chunks 02+ blocked ->
+    ART BLOCKED: world builds=true  families=0  errors=0
+Mutation-tested by blocking chunk 01 too, which reproduces the original failure exactly
+(world builds=false, ReferenceError: HERO_SRC is not defined). Gated because it is INVISIBLE:
+nothing a player sees depends on it, so it would rot the first time somebody moved a
+declaration out of chunk 1 and the next person would find a black screen and no idea why.
+
+WHAT I DID NOT SHIP, AND THE INSTRUMENT THAT FAILED. `defer` on chunks 2..N (28 MB -> 1.75 MB
+blocking) is NOT shipped, because I could not prove the deferred art gets DRAWN. Compared
+normal/deferred/blocked page screenshots: ALL THREE BYTE-IDENTICAL, including blocked -- the
+DAY 1 card sits over the canvas, so I was comparing the overlay. Switched to reading the
+canvas and printed a CONTROL: normal must differ from blocked or the canvas is not where the
+art lands. THE CONTROL FAILED. Known: with defer all 24 families arrive, zero errors. NOT
+known: whether the world ends up textured. A defer shipped on a broken instrument is the
+trade this week keeps punishing.
+
+BUILD STAMP DELIBERATELY NOT MOVED: the world renders identically, so claiming a visible
+change would send him looking for something that is not there.
+
+NEXT IN THIS LANE, IN ORDER
+  1. A PROBE THAT CAN SEE THE WORLD'S PIXELS. Everything about progressive loading hangs on
+     it. Dismiss the DAY 1 card first, find the canvas the GROUND actually draws to, and
+     PROVE normal != blocked before trusting any comparison.
+  2. THEN `defer` on chunks 2..N. 28 MB -> 1.75 MB blocking. The world already survives it;
+     the only open question is repaint.
+  3. Cluster seam for golf/railyard/landfill/farm -- open, correct, 19 cells.
+  4. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  5. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_THE_WORLD_SURVIVES_WITHOUT_ITS_ART_8_25_26.md
+Tool:   tools/bohemia_city_chunk_tile_bank.py (now re-runnable on its own output)
+
+WORLD (city-1eztay): 8/24 (c) -- *** THE WAIT IS 12x SHORTER. Tap-to-world went
 32.38 MB -> 2.65 MB. Same art, same world, not a pixel different. ***
 Gates: TIME TO PLAY 9/0, WALKED SURFACE 11/0 (8,595 cells / 93.3% / 99.9% -- IDENTICAL to
 before the split), blob integrity 103/0, integration 128/0, city tab 64/0, current slice 6/0,

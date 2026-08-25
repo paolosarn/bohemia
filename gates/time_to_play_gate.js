@@ -188,6 +188,53 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      !fs.existsSync(path.join(ROOT, 'slices/BOHEMIA_CITY_TILES.js')));
 
   await browser.close();
+
+  /* THE WORLD SURVIVES WITHOUT ITS ART, and this claim is the whole reason progressive
+     loading is reachable at all. Measured 8/25: block the bank and the city used to be a
+     BLACK VOID with `ReferenceError: HERO_SRC is not defined` -- the page reads the bank's
+     eight names at module scope, so an absent bank killed the script before a pixel landed.
+     The chunker now declares all eight in CHUNK 1 (1.75 MB) and every later chunk MUTATES
+     rather than re-binds, so with 26 MB of sprites blocked the same build renders a playable
+     world -- ground, character, HUD, cold open, quest card, movement pad -- with zero errors.
+
+     Gated because it is invisible. Nothing a player sees depends on it today; it would rot
+     silently the first time somebody moved a declaration out of chunk 1, and the next person
+     to try progressive loading would find a black screen and no idea why. */
+  const b2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const c2 = await b2.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const p2 = await c2.newPage();
+  const errs2 = [];
+  p2.on('pageerror', e => errs2.push(String(e).slice(0, 140)));
+  await p2.route(/BOHEMIA_CITY_TILES_(?!01)\d\d\.js/, r => r.abort());
+  await p2.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_ALPHA_0_9.html',
+    { waitUntil: 'load', timeout: 240000 });
+  await SETTLE(p2, 4000);
+  await p2.evaluate(() => { const f = document.querySelector('#front, #fronttap'); if (f) f.click(); });
+  await SETTLE(p2, 9000);
+  const fr2 = p2.frames().find(f => /CITY_WORLD/.test(f.url()));
+  let bare = null;
+  if (fr2) {
+    try {
+      await fr2.waitForFunction(() => typeof om !== 'undefined' && typeof realizeCell === 'function',
+        null, { timeout: 90000 });
+      bare = await fr2.evaluate(() => {
+        const c = realizeCell(hx | 0, hy | 0);
+        return { fams: Object.keys(TP_TILES || {}).length, ground: !!(c && c.g) };
+      });
+    } catch (e) { bare = { threw: e.message.slice(0, 90) }; }
+  }
+  ok('THE WORLD BUILDS WITH ITS ART BLOCKED: chunk 1 declares every name the page reads, so '
+     + '26 MB of missing sprites costs texture and nothing else. Without this, progressive '
+     + 'loading is a black screen'
+     + (bare && bare.threw ? '  -- ' + bare.threw : ''),
+     !!(bare && bare.ground && bare.fams === 0));
+  ok('and it does it with NO page error (the old failure was ReferenceError: HERO_SRC is not '
+     + 'defined, thrown before a pixel was drawn)'
+     + (errs2.length ? '  -- ' + errs2.slice(0, 2).join(' | ') : ''), errs2.length === 0);
+  console.log('  ART BLOCKED: world builds=' + !!(bare && bare.ground)
+    + '  families=' + (bare ? bare.fams : '?') + '  errors=' + errs2.length);
+  await b2.close();
+
   server.close();
   fails.forEach(f => console.log('  FAIL: ' + f));
   console.log('TIME TO PLAY GATE: ' + pass + ' passed, ' + fails.length + ' failed');
