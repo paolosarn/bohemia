@@ -393,6 +393,18 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    split in its section B; who owns the dropped kerb and the apron flare is a
    coordinator call, not the ART lane's, and it must be settled BEFORE cooking
    or the same kerb gets drawn in three materials.
+94. SHIPPED | BARRICADE POST (post-and-cable vehicle lines, arsenal) |
+   RUN + CITY - 1,607 named cells fell to the gravel fallback, so the
+   depot showed no movement control | ground layer, 44px corpus cell,
+   self-seamless cable spans (edge-pinned) + single placement posts;
+   rides on bought gravel | see form | ART lane (inventory ranking,
+   8/24) | HIGH | FORM: TF-ART-022
+95. SHIPPED | SPOUT / DUST BIN (loadout spouts + cyclone dust
+   collectors, granary) | RUN + CITY - 1,514 named cells fell to the
+   gravel fallback, erasing the elevator's working row | ground layer,
+   44px corpus cell, single placement (rows read from the world's own
+   cell placement); rides on bought concrete | see form | ART lane
+   (inventory ranking, 8/24) | HIGH | FORM: TF-ART-021
 96. SHIPPED | VALVE / HATCH (round access lids + two-leaf vault covers,
    reservoir) | RUN + CITY - 1,434 named cells fell to the gravel
    fallback, pockmarking the waterworks | ground layer, 44px corpus cell,

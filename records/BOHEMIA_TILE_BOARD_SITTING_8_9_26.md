@@ -946,3 +946,23 @@ kit shipped a "short form" shortcut instead of the full contract, and
 the tileform gate rightly killed it - repaired to the full C-I form
 with a board row, 8287/0 by exit code. The reservoir's remaining names
 (tank roof, overflow, transmission main) stay on the ranking.
+
+## 8/24 FORTY-FIFTH PASS: THE LOADOUT ROW AND THE POST LINES (double ship)
+
+Two names off the ranking in one GO. The granary's 'spout / dust bin'
+x1514 (81 blobs hugging the dump apron 1001 and rail spur 511): a grain
+elevator's whole reason to exist is the loadout row, and it drew dirt.
+Wired as two pieces on bought concrete - the cyclone dust collector
+(ellipse rim, cone to a dark throat) for the silo bases, the loadout
+spout (boom, dark drop mouth, grain-dust bleach still on the deck) for
+spur-adjacent cells. The arsenal's 'barricade post' x1607 (85 blobs,
+sparse lines across the storage ground beside my berms and the
+traverses): a depot controls movement without walls because blast
+safety wants open ground, so post-and-cable it is - short
+concrete-filled posts, half rusted through, one continuous sagging
+cable pinned at the same height at every cell edge so spans join
+seamlessly (the busbar lesson: lines, never dots). Both verified live
+in zoom: cable spans visible between posts, cyclones reading as steel.
+Hawthorne NV is the depot reference. Twenty-two wired families. Both
+forms filed FULL (the TF-ART-019 lesson: no short forms, ever), board
+rows 94/95, tileform gate 0 by exit code.

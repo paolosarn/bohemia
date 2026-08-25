@@ -35437,7 +35437,18 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/24 (b) LATEST -- *** THE WATERWORKS HATCHES: the
+ART (f3eu53): 8/24 (c) LATEST -- *** DOUBLE SHIP, THE LOADOUT ROW AND
+THE POST LINES: granary 'spout / dust bin' x1514 wired as cyclone dust
+collectors (silo bases) + loadout spouts with grain-dust bleach (spur
+side), on bought concrete; arsenal 'barricade post' x1607 wired as
+post-and-cable vehicle lines (edge-pinned cable spans join seamlessly,
+posts half rusted, Hawthorne NV the reference), on bought gravel.
+Twenty-two wired families, both carded, both forms FULL (no short
+forms ever again - the TF-ART-019 lesson). Sitting pass 45. Ranking
+next: 'riprap' (wash), 'guy wire' (radio), 'landscaping' (police),
+plus the granary gallery/headhouse and reservoir tank roof/overflow.
+PREVIOUS (8/24 b):
+ART (f3eu53): 8/24 (b) -- *** THE WATERWORKS HATCHES: the
 reservoir's 'valve / hatch' x1434 fell to gravel; measured as singles +
 sparse pipe-corridor runs, wired as round access lids (lone cells) and
 two-leaf vault covers (corridor cells, axis from neighbours), riding on
