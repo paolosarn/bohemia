@@ -6754,6 +6754,63 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-12. *** MAKE THE HANDOFF GATE ABOUT THE LAW IT IS NAMED AFTER (sweep 18,
+   8/25 — records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_
+   8_25_26.md).
+   MEASURED: 00_START_HERE_NEXT_SESSION.md is 63,979 lines / 4.17 MB /
+   942 lane entries. Median entry 64 lines, LARGEST 1,977. Oldest 7/29,
+   twenty-eight days. 37% of entries are older than a week. THE FIRST 200
+   LINES COVER 2 ENTRIES OF 942; the first 500 cover 6. It grew 46,864 ->
+   63,979 in August, about +815 lines A DAY. CLAUDE.md orders every
+   session to read this file immediately, every session. NO SESSION READS
+   IT — a session reads the top, so the handoff already works as "the
+   last two entries" BY ACCIDENT and the other 940 are cost with no
+   reader.
+   THE LAW ALREADY SAYS THE FIX, IN THE SAME PARAGRAPH: "every working
+   session REWRITES it before ending. Old handoffs are not archived as
+   separate files; git history is the archive." THE LAW SAYS REWRITE. THE
+   PRACTICE IS PREPEND, every lane, including the coordinator. Nobody
+   decided that; it drifted one safe-feeling append at a time. A live law
+   contradicting live practice is a BUG by CLAUDE.md's own words.
+   AND 693 OF 942 ENTRIES (74%) ALREADY CITE A records/, gates/ OR laws/
+   PATH — the detail is in a permanent file and the entry is a second
+   copy. Nothing is lost by bounding this file. That was checked before
+   the decision, not after.
+   WHY THE MACHINE MISSED IT: handoff_gate.js is 5/5 every run and its
+   five claims are — the file exists, there is one of them, it is
+   non-empty and leads with a lane head, no merge markers, no merge
+   markers anywhere. NOT ONE CLAIM IS ABOUT THE RULING. It would stay
+   green at 600,000 lines. This repo's own words: "a checker that cannot
+   tell a mention from a use is the broken one" and "A GATE MUST NEVER
+   OUTRANK A RULING."
+   BUILD: (a) at most ONE current entry per lane; (b) every entry dated
+   within seven days; (c) a hard line cap on the file; (d) every entry
+   carries the five fields — WHERE THIS LANE IS / IN FLIGHT / BLOCKED ON
+   / WHAT I WOULD DO NEXT / PROOF. Mutation tests: a second entry for one
+   lane -> red; an entry dated ten days back -> red; a missing PROOF line
+   -> red.
+   PUT THE HONEST PART IN THE GATE'S HEADER COMMENT: this gate was green
+   5/5 while the law it is named after was broken for weeks, because
+   every claim it held was about the file's EXISTENCE.
+   THE OTHER AISLE, BECAUSE IT RUNS AGAINST OUR INSTINCT: shift handoff
+   is one of the most-studied failure points in medicine. Recall from
+   unstructured report measures 20-34%; a SHORT PREPRINTED SHEET in a
+   fixed format retains 96-100%. One content analysis found handoffs are
+   only 13.6% actionable knowledge. And I-PASS (Starmer et al., NEJM
+   2014, nine residency programs) cut medical errors 23% and preventable
+   adverse events ~30% WITHOUT slowing anybody down. Its last letter is
+   SYNTHESIS BY RECEIVER — the read-back — AND WE HAVE ZERO OF IT. Our
+   handoff is write-only; no session has ever confirmed what it took.
+   So the fifth piece: A SESSION'S FIRST REPLY STATES IN ONE LINE WHAT IT
+   TOOK FROM THE HANDOFF. One sentence, and it is the element the
+   evidence actually credits.
+   NOBODY BULK-EDITS ANOTHER LANE'S ENTRIES. The file shrinks as each
+   lane rewrites its own — that is the law working, not a purge. The
+   coordinator compacted ITS OWN four entries (410 lines -> one entry)
+   in the same commit as this row, as the format demonstrated rather
+   than described.
+   | the four mutations behave; the file's line count falls week over
+   week | — | no. NOT IN A TAB — this is the machine, not the game. ***
 -11. *** THE NAMES GATE (sweep 17, 8/25 — records/BOHEMIA_THE_STRIP_
    NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md). PAIRS WITH WORLD NAMES-1,
    same turn. TWO CLAIMS AND THE SECOND ONE IS THE IMPORTANT ONE:

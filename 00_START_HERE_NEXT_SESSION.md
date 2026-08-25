@@ -1,221 +1,56 @@
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (d) LATEST -- *** SWEEP 17. THE
-STRIP NEEDS NAMES BEFORE IT NEEDS ART. TAB: MAP / CITY (routed to WORLD).
-Nothing to judge. ***
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (e) LATEST -- *** SWEEP 18. THE
+HANDOFF IS 63,979 LINES AND NOBODY READS IT. Nothing to judge.
+THIS ENTRY IS THE NEW FORMAT, DEMONSTRATED ON THE ONLY ENTRIES I OWN: sweeps
+14-17 used to be four blocks and 321 lines here. They are now five links, because
+every one of them already lives in a permanent records/ file. ***
 
-HOUSEKEEPING FIRST, SO NOBODY REDOES IT: he re-sent the Spanglish ruling with
-this sweep. IT IS ALREADY LAW as of fdb5eaa --
-laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md, CLAUDE.md bullet, canon
-index, LANG-1/LANG-2 amended. Three registers, the mix is mandatory, register 2
-is a SKILL not a gap. NOT RE-SURFACED, NOT RE-ASKED.
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift and collisions nobody inside a lane can see, guards the demo path, routes
+  work. Never writes engine/tools/gates/slices code.
+  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
+  His SPANGLISH ruling is law (fdb5eaa) and has now been re-sent twice with the
+  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
 
-DELTA SINCE MY MARK (fdb5eaa): NOTHING NEW ON MAIN. No lane has pushed since
-sweep 16. Nothing to read, nothing to reconcile. Saying so instead of padding.
-DEMO PATH GUARDED, MEASURED: the_whole_demo_gate 23 PASSED / 0 FAILED.
-COLLISIONS: none new. SHARED -9 (the ownership gate) and SHARED -10 (the two
-blocked Playwright hostnames) are both still unclaimed and both still cheap.
+IN FLIGHT
+  Nothing half-built. Five sweeps closed, each as a record plus routed rows.
 
-*** THE HORIZON ITEM: THE STRIP HAS NO NAMES, AND THAT IS WHY IT HAS NO ART. ***
-THIS IS THE UNBUILT HALF OF A REJECTION HE ALREADY MADE. On 8/20 he killed
-exactly two of nine district map icons: CASINO and RESORT. WORLD's own commit
-from five days earlier said why -- "THE STRIP AND THE RESORTS DO NOT EXIST AS
-PLACES, THAT IS WHY THEY HAVE NO ART." That names the cause and stops one step
-short of the cure. A place does not exist because nobody decided what it IS, and
-THE FIRST DECISION ANYBODY MAKES ABOUT A PLACE IS ITS NAME. The art was trying to
-draw a category.
+BLOCKED ON
+  Nothing for me. Three routed rows are unclaimed and all three are cheap:
+    SHARED -9   the lane-ownership gate (ONE SYSTEM ONE SESSION has no machine)
+    SHARED -10  two hostnames the proxy blocks, which is why no session in this
+                fleet can run a gate in WebKit
+    SHARED -11  the names gate, pairs with WORLD NAMES-1
 
-MEASURED, HONESTLY, INCLUDING THE PART THAT SHRINKS MY OWN CASE: 23 real Vegas
-venue trademarks across engine/ and the shipped city world. MOST ARE RESEARCH
-CITATIONS IN COMMENTS -- Golden Nugget, Binion's, Wynn/Encore, Paris, Circa,
-Circus Circus -- and that is REUSE-FIRST WORKING. NOBODY DELETES THEM. They are
-why bohemia_casino.js knows a downtown casino meets the sidewalk with no setback
-while a Strip resort has a 100 m arrival drive. THREE ARE STRUCTURAL:
-LUXOR:'luxor', SPHERE:'sphere' and ALLEGIANT sit in the DISTRICT enum in
-bohemia_overmap.js, which is copied verbatim into slices/BOHEMIA_CITY_WORLD.html,
-and LUXOR is placed as a landmark on the real Strip position, commented "the
-pyramid on the strip south." THE PLAYER SEES NONE OF IT TODAY -- they are ids,
-not labels, and landmarks.js has no Luxor entry. Exposure right now is about
-zero, and I am saying that rather than rounding it up.
-THE POINT IS TIMING, NOT DANGER. Today it is an enum rename. After the Strip has
-art, quests, dialogue and save blobs keyed to those ids, it is a migration. There
-is no law about real names anywhere in laws/, no gate, and no backlog row.
+WHAT I WOULD DO NEXT
+  Sweep 19 on the next "sweep". Standing watch: whether RUN picks up 0f (the
+  feedback card) and P0-MORNING before anyone is invited to the friends round --
+  that round returns nothing without them, and first impressions spend once.
 
-THE PRECEDENT IS ALMOST EMBARRASSINGLY EXACT. FALLOUT: NEW VEGAS IS OUR PREMISE
--- post-collapse Las Vegas, the Strip still lit while the valley outside is ruin
--- and Obsidian renamed EVERY casino. The Tops, Gomorrah, the Ultra-Luxe, the
-Lucky 38. Each has a real counterpart; the designers took "the most artistic
-license with the casinos." WHAT IT BOUGHT THEM IS THE ARGUMENT: those names are
-now more famous to a generation of players than several of the real ones, some of
-which have since been demolished. A fictional name let them put a cannibal
-aristocracy inside the Ultra-Luxe. A real name owes the player the real building.
-A REAL NAME IS A CAGE; AN INVENTED ONE IS A DEED.
-
-*** THE FINDING THAT ARGUES AGAINST THE CASE I SET OUT TO MAKE. *** I went
-looking for a legal reason and THE LAW IS MOSTLY ON OUR SIDE, so I am writing
-that down instead of letting a scarier half-truth win the argument for me.
-E.S.S. Entertainment 2000 v. Rock Star Videos (9th Cir. 2008) is the controlling
-video-game case and it is a WIN: a real strip club sued over GTA: San Andreas'
-altered "Pig Pen", and the Ninth Circuit extended Rogers v. Grimaldi to marks used
-INSIDE an expressive work -- artistically relevant, not explicitly misleading, no
-reasonable consumer thinks a strip club made the game. And Jack Daniel's v. VIP
-Products (S. Ct. 2023) narrowed Rogers ONLY for use as a SOURCE IDENTIFIER, which
-a casino inside a game world is not; the commentary is explicit that expressive
-works including video games generally keep the protection.
-SO THIS IS NOT A FIRE DRILL. What actually remains is practical, and it is what
-matters to a solo developer: (1) "defensible" is not free -- E.S.S. took years and
-appellate lawyers, and a win you cannot afford to collect is not a win; (2) the
-real mechanism is a STOREFRONT TAKEDOWN FORM, not a courtroom, and a takedown does
-not require anybody to be right; (3) TRADE DRESS IS THE SHARPER EDGE THAN THE
-WORD -- E.S.S. turned on the LOGO AND LOOK, so a photographic pyramid with the sky
-beam is closer to the line than the string "luxor" in an enum.
-
-THE DECISION (mine, EVERYTHING IS A THUMB -- and it is a RULE, not a set of names,
-because NAMES ARE HIS): REAL GEOGRAPHY STAYS, REAL BUSINESSES BECOME OURS, THE
-SKYLINE STAYS RECOGNISABLE.
-  1. GEOGRAPHY IS FACT AND UNTOUCHED -- Las Vegas, the Strip's shape and
-     orientation, Fremont, the freeway, the dam, the wash, the mountains, the
-     airport, the Mormon Fort, the Springs. REALISM FIRST LOSES ALMOST NOTHING,
-     which is why this is the right shape of decision.
-  2. the three structural ids get replaced while it is still a rename.
-  3. THE SILHOUETTES STAY: a black pyramid on the south Strip with a light going
-     up, a giant lit sphere east of the middle, a stadium by the freeway. That
-     skyline IS Vegas. Altered, never photographic -- exactly the E.S.S. line.
-  4. RESEARCH COMMENTS ARE LEGAL AND STAY. Nobody deletes a citation.
-  5. THE NAMES THEMSELVES ARE HIS. This record names no building. But an empty
-     field is a blank page (8/11), so the lane ships a REAL ATTEMPT per venue
-     tagged draft:true, written as if it ships, and he EDITS.
-
-  RECORD: records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-  ROUTED: WORLD NAMES-1 (do it before PLACES; it is what lets art draw a building
-  instead of a category) + SHARED -11 (the names gate, whose SECOND claim is the
-  important one: research comments are EXPLICITLY EXEMPT and the gate proves it,
-  because a gate that punishes research does more damage than the thing it
-  prevents). NOT ROUTED, deliberately: any audit of the questbook corpus -- those
-  152 studied quests are STUDY MATERIAL cited like a bibliography.
-  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
-  I AM NOT A LAWYER AND THIS IS NOT LEGAL ADVICE. It is why the design call is
-  cheap insurance rather than an emergency.
-
-================================================================================
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (c) LATEST -- *** SWEEP 16. EVERY
-GATE WE HAVE TESTS THE WRONG BROWSER. Plus his SPANGLISH ruling, recorded as law
-the same turn. TAB: none (this is the instrument) + LIFE/WORDS (his ruling).
-Nothing to judge. ***
-
-HIS RULING FIRST, BECAUSE IT IS LAW NOW.
-"make them speak spanglish for our game i like that. have it very poor english ro
-spanglish to give it that flavor." Recorded:
-laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md, CLAUDE.md bullet added,
-canon index regenerated, LANG-1 and LANG-2 amended in the backlog.
-IT IS IN THE LINE, not a translation layer and not a setting. THREE REGISTERS,
-and keeping them apart is the entire craft: (1) english-dominant, grew up here,
-the odd word from home; (2) SPANGLISH, fluent in both, switching mid-sentence
-because it is FASTER -- his headline register, most lines; (3) spanish-dominant /
-poor english, dropped articles and short clauses -- his "very poor english", and
-it belongs to SOME people, never all of them.
-THE RESEARCH IS WHY THE MIX IS MANDATORY AND NOT A SOFTENING OF HIS RULING:
-intra-sentential code-switching is what PROFICIENT bilinguals do -- teachers and
-students do it with each other -- and the literature is explicit that constraint
-violations "were not due to limited bilingual competence." REGISTER 2 IS A SKILL.
-REGISTER 3 IS A GAP. Writing every Latino character as register 3 is bad
-linguistics and an insult to a third of the county, and it is the single most
-common way this goes wrong in shipped games. Craft rules in the law: switch at
-clause boundaries not mid-phrase, switch for a REASON (emotion, family, food,
-insults, numbers), NEVER phonetic accent spelling ("joo" for "you" is a cartoon),
-register 3 is grammar not misspelling. HARD RULE CARRIED OVER UNCHANGED: LANGUAGE
-NEVER GATES REQUIRED INFORMATION. The gate fails a build where every
-Spanish-speaking character is register 3.
-
-DELTA SINCE MY MARK (2c32d23 -> af64bc9): RUN fixed name-clipping on full cards;
-CHARACTER shipped P0-PROFILE (the hair was in front of his face) and retook 36
-LOOK pictures; SOUND shipped the YES sting and rebuilt to 8/25j.
-DEMO PATH GUARDED, MEASURED: the_whole_demo_gate 23 PASSED / 0 FAILED. Unchanged.
-COLLISIONS: no new cross-lane trespass since sweep 15; CITY_WORLD took 2 more
-commits (RUN, SOUND). SHARED -9, the ownership gate, is still the fix and is
-still unclaimed.
-
-*** THE HORIZON ITEM: 201 LAUNCHES AND NOT ONE IS THE BROWSER HE PLAYS ON. ***
-MEASURED, TWICE:
-    grep -rhoE "(chromium|firefox|webkit)\.launch" gates/ tools/
-      201 chromium.launch   0 firefox.launch   0 webkit.launch
-    ls /opt/pw-browsers -> chromium only. WEBKIT IS NOT INSTALLED.
-150 gates need Playwright. About 94 boot the entire alpha and drive it by tapping
-real buttons -- the discipline this repo is proudest of, and should be. ALL OF
-THEM ARE CHROME. The four gates matching "webkit" match CSS prefixes.
-WHY THAT IS A CATEGORY ERROR AND NOT A GAP: line one of this project is IPHONE
-PORTRAIT, and on an iPhone outside the EEA EVERY BROWSER IS WEBKIT -- App Store
-rule 2.5.6 ("apps that browse the web must use the appropriate WebKit framework
-and WebKit JavaScript") has stood since 2008, and the DMA's March 2024 opening
-applies in the EEA ONLY: the restriction "continues to apply in the UK and the
-rest of the world." Las Vegas is the rest of the world. Chrome on iPhone is
-WebKit wearing a Chrome hat. THERE IS NO PATH BY WHICH ANY PLAYER OF THIS GAME
-EVER RUNS THE ENGINE OUR ENTIRE PROOF APPARATUS RUNS.
-
-THE FINDING THAT CHALLENGES WHAT WE BELIEVE. We believe green gates mean it
-works. That belief is load-bearing for this whole operation -- "a law without a
-machine gate is not enforced" only holds if the machine watches the right thing.
-THE GATES DO NOT PROVE THE GAME WORKS. THEY PROVE IT WORKS IN CHROME.
-AND THE 7/18 LAW ALREADY SAID IT: "a side-door probe is a lie." We wrote that
-about a preview canvas. Headless Chromium is a side-door probe for an iPhone
-game, and 150 gates have walked through that side door since the law was written.
-THIS REPO HAS LEARNED THIS EXACT SHAPE TWICE AND NEVER GENERALISED IT: the thumb
-sweep ("a Playwright click lands anywhere with equal ease, so reachability is
-invisible to our whole apparatus BY CONSTRUCTION") and the border finding ("no
-amount of reading the pass finds that; only measuring the pixels he receives
-does"). Both times we fixed the instance. Nobody asked what else the instrument
-cannot see. This is the third instance and it is not one gate measuring the wrong
-thing, it is all 150 measuring the wrong engine.
-AND WE HAVE WRITTEN A PILE OF SAFARI-SPECIFIC CODE WE HAVE NEVER RUN IN SAFARI:
-navigator.storage.persist() against Safari 17's seven-day eviction,
--webkit-touch-callout against the iOS long-press menu, safe-area insets against
-Safari's bottom URL bar, and the flat statement "iOS Safari kills the page."
-EVERY ONE OF THOSE FIXES IS CURRENTLY A HYPOTHESIS.
-
-WHAT THE OTHER AISLE SAYS IS WAITING (the SHAPE of the risk, not a prediction
-about our build): mobile Safari caps total canvas memory around 384 MB and then
-getContext STARTS RETURNING NULL -- silent, no crash message -- and we are a
-canvas game that just quadrupled its pixels and preloads a 15.9 MB slice on every
-visit; WebGL canvas resizing leaks on iOS Safari (WebKit bug 219780) and GPU
-memory available for rendering has DECREASED across iOS versions; WebAudio on
-Safari has a decade of gesture-unlock, one-file-at-a-time and "delayed and
-glitchy" history (WebKit 221334, 132691), and SOUND has shipped 500+ sfx, 24
-music batches and a quest sting this week, all proven audible IN CHROME; large JS
-parse is slow on iOS while our alpha is one enormous file the lane already
-measured at "forty megabytes before you can move" -- in Chrome.
-
-THE HONEST LIMIT, STATED BEFORE ANYBODY GETS EXCITED: PLAYWRIGHT'S WEBKIT IS NOT
-SAFARI. It is a DESKTOP WebKit build approximating Safari, without Apple's OS
-integrations, the real virtual keyboard, real notch/safe-area and scroll quirks,
-or real hardware performance; practitioners are unanimous that some bugs appear
-only on real devices. THE CLAIM IT BUYS IS NARROW AND STILL ENORMOUS: we stop
-testing an engine no player will ever run and start testing the right engine
-family imperfectly. Engine-level divergences -- API presence, audio unlock,
-storage semantics, CSS support, outright exceptions -- are exactly what it
-catches. The rest needs a phone, and the friends round is the only real Safari
-this game will get before launch.
-
-I TRIED TO INSTALL IT RATHER THAN RECOMMEND IT, AND IT IS BLOCKED BY NAME:
-    Error: Download failed: server returned code 403 body 'request blocked: no
-    rule or allowlist entry allows host "cdn.playwright.dev"'
-    ... no rule or allowlist entry allows host
-    "playwright.download.prss.microsoft.com"
-Two hostnames need allowlisting. That is an environment setting, not a ruling and
-not a design call. ROUTED as SHARED -10 with the exact error text.
-
-THE DECISION (mine, EVERYTHING IS A THUMB): THE ENGINE IS PART OF THE SURFACE. A
-GATE THAT RUNS ONLY IN CHROMIUM DOES NOT GET TO SAY THE GAME WORKS. Deliberately
-small: one shared helper so the engine is a PARAMETER not a copy-paste; the DEMO
-PATH ONLY, eight gates, because running all 150 twice doubles a suite RUN just
-spent a session making finish; ADVISORY FOR ONE WEEK then blocking, because a new
-engine on a codebase that has never met it will go red on things that are
-WebKit's fault and a suite that cries wolf gets ignored; its own pass so a WebKit
-red is never confused with a Chromium red; and NOTHING NEW SHIPS FOR THIS.
-
-  RECORD: records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-  LAW: laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md (+ CLAUDE.md, canon index)
-  ROUTED: RUN WEBKIT-1 (the engine is a parameter) + RUN WEBKIT-2 (verify the
-  Safari code we already shipped) + SHARED -10 (the two blocked hostnames).
-  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
+PROOF -- the five sweeps, each with its numbers, sources and confidence stated:
+  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
+    sweep 14. The demo plays and is gated; the friends round would return nothing.
+    RUN 0f was never built and the first morning points at the wrong door.
+    Routed: RUN 0f re-tagged PLAYTEST-BLOCKING, RUN P0-MORNING.
+  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
+    sweep 15. A Vegas with 418,400+ Spanish speakers had zero. The words book
+    holds 1,910 lines and none knows its language. Routed: PEOPLE LANG-1,
+    QUESTS LANG-2 + language_gate. Collision audit: 4 lanes in CITY_WORLD ->
+    SHARED -9.
+  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
+    HIS RULING, 8/25, LOCKED. Three registers and the mix is mandatory; register
+    2 is a SKILL, not a gap. Never phonetic accent spelling. LANGUAGE NEVER GATES
+    REQUIRED INFORMATION. In CLAUDE.md and the canon index.
+  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
+    sweep 16. 201 chromium.launch, 0 webkit, WebKit not installed -- and on an
+    iPhone outside the EEA every browser is WebKit. Green gates prove it works in
+    Chrome. Routed: RUN WEBKIT-1, RUN WEBKIT-2, SHARED -10.
+  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
+    sweep 17. The two icons he killed on 8/20 were drawing a category, because
+    the Strip has no names. The law is mostly on our side and I said so instead
+    of using a scarier version. Routed: WORLD NAMES-1, SHARED -11.
+  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
+    sweep 18, this one. Routed: SHARED HANDOFF-1.
 
 ================================================================================
 
@@ -277,195 +112,6 @@ NEXT IN THIS LANE
   - CANVAS MEMORY still red, still not this lane's. #354 TASTE, #356 ART 45 likewise.
 
 ---
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
-EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
-built). Nothing to judge. ***
-
-DELTA SINCE MY LAST MARK (cb4fd08 -> 258290f, 25 commits, 5 lanes + me).
-RUN shipped the panel-close system (every_panel_closes_gate, 14 claims), killed a
-resurrected tile-judge panel, and found his house was never one house -- homeFind
-cached on the cell he was STANDING IN, so it followed him and then evaporated.
-PEOPLE is live and shipped the cold open end to end (opening_gate) plus two reds
-that were its own. WORLD shipped paint-is-not-a-road and the roof/social-graph
-finding. SOUND cooked batch 24. CHARACTER shipped THE HEM. COMBAT shipped RF4-40,
-the free sprint on the beat.
-
-DEMO PATH GUARDED, MEASURED NOT ASSUMED: gates/the_whole_demo_gate.js is
-23 PASSED / 0 FAILED (it was 21 claims at my last mark; PEOPLE added two).
-The demo still plays splash to valley in one unbroken session. NO REGRESSION.
-
-*** COLLISION AUDIT -- FOUR LANES ARE STANDING IN ONE FILE AND TWO OF THEM
-ALREADY CAUGHT THEMSELVES BY HAND. ***
-MEASURED 8/18-8/25: slices/BOHEMIA_CITY_WORLD.html took 37 commits in seven days,
-slices/BOHEMIA_ALPHA_0_9.html took 47. Named lanes on CITY_WORLD: WORLD 11,
-SOUND 3, PEOPLE 1, plus RUN's unlabelled commits.
-THIS IS NOT MY INFERENCE. Commit 8002bb2 is titled "THE SAME MISTAKE THREE TIMES
-IN ONE DAY: I EDITED FILES THAT SOMETHING ELSE OWNS" and c407275 is "MY REPAIR
-ADDED A SECOND OWNER FOR ONE NUMBER, WHICH IS THE BUG I SPENT THE DAY REMOVING."
-Both lanes found it AFTER shipping, by hand, a day late. ONE SYSTEM ONE SESSION
-is a law with NO MACHINE GATE, and CLAUDE.md's own rule is that such a law is not
-enforced. ROUTED: SHARED -9, an ownership map derived from this file's lane
-sections plus an advisory-loud gate. Honest limit stated in the row: a gate
-cannot tell a legitimate shared edit from a trespass by path alone; what it CAN
-hold is "this commit touched a path another lane owns and did not say so."
-
-*** THE HORIZON ITEM: LANGUAGE. NOBODY HAS STARTED IT AND IT IS NOT IN ANY LIST. ***
-VERIFIED UNSTARTED BEFORE CLAIMING IT (the 8/17 rule): zero hits for a language
-attribute across engine/, quests/, the words book; zero hits for "bilingual",
-"code-switch", "language barrier", "speaks Spanish" across BOHEMIA_BACKLOG.md and
-every file in laws/; no gate; no [PENDING] row. It has never been raised.
-THE MEASUREMENT. engine/bohemia_people.js already says it in its own comment --
-Clark County is "roughly 30% Hispanic or Latino... a name pool that is all
-[Anglo] would be a lie about Las Vegas" -- and that research reached exactly ONE
-system, THE SURNAME POOL. The lane's own shipped proof character is RUBEN NGUYEN,
-and Ruben Nguyen speaks flawless monolingual English, because everyone here does.
-The real numbers are bigger than the headline: Spanish is Clark County's
-most-spoken language at 418,400+ speakers; 362,728 adults speak something other
-than English; 139 CENSUS TRACTS are places where >10% of households contain
-nobody over 14 who speaks English only or "very well". Our valley is built out of
-cells. A correct Las Vegas has whole neighbourhoods where the language on the
-street is not the language on the phone.
-
-THE FINDING THAT CHALLENGES WHAT WE BELIEVE. We believe words are cheap because
-he edits them later (8/11, LOCKED). That is TRUE, and it is true for a reason we
-never said out loud: THE WORDS ARE CHEAP BECAUSE THEY LIVE IN A DATA FILE. What
-is NOT cheap later is a MISSING COLUMN. records/BOHEMIA_WORDS_BOOK.json holds
-1,910 authored player-facing lines, 1,864 of them citing catalogue laws, every
-one harvested and editable in the WORDS tab -- and NOT ONE KNOWS WHAT LANGUAGE IT
-IS IN. Adding `lang` today is one field on the generator. Adding it at line 5,000
-means a human re-reads five thousand lines and rules on each, and that human is
-HIM. So the 8/11 law has an expiry date nobody noticed: it covers a line's
-CONTENT forever, and it does not cover a PROPERTY the line was never given.
-(Industry consensus on retrofit cost is unanimous but I DISCOUNTED it on purpose
--- our text is already externalised, so we dodged the expensive half by accident.
-The schema column is the only part still open.)
-
-THE OTHER AISLE TURNS IT FROM FLAVOUR INTO A MECHANIC. Disaster research across
-Katrina, Rita and Maria: limited-English households "face barriers to receiving
-timely, accurate and useful disaster information", official messages are received
-with SKEPTICISM, and those households ROUTE AROUND the official channel onto
-informal networks -- family, friends, co-ethnic community -- which for the people
-inside them is FASTER AND MORE TRUSTED, not a downgrade. Bilingual staff act as
-literal information conduits. And county preparedness does not correlate with how
-many such residents a county has (110-county study).
-WHY THAT IS OURS: INFORMATION IS ALREADY BOHEMIA'S CURRENCY. phone_rings_gate.js
-holds "THE DAY STARTS WITH NO JOB... only word that something came in", and the
-feed deliberately EXCLUDES the phoneless ("you can't get their quest over the
-phone"). WE ALREADY BUILT A TWO-CHANNEL WORLD AND SPLIT IT ON WHO OWNS A PHONE.
-The real world splits it on WHO SPEAKS WHAT. One sentence: the neighbour who does
-not answer the phone feed already knows, because her cousin told her an hour ago,
-and whether you can hear that is a thing about you.
-
-THE GAMES AISLE, INCLUDING THE HALF THAT ARGUES AGAINST ME. Sleeping Dogs is the
-closest precedent: United Front deliberately had characters "switch back and
-forth between languages" per character background so the street is "a mix of
-Cantonese and English, just like you would in real Hong Kong", researched on site
-with the police and the triads. Reception SPLIT -- praised as authentic AND
-attacked as gratuitous -- and localisation practitioners are harsher: untranslated
-text breaks immersion and, worse, comprehension failures "make it challenging for
-players to grasp essential game mechanics", the documented failure being a player
-who cannot tell what to do next. Ghost of Tsushima is the safe version: in the
-Japanese dub the Mongols speak untranslated Mongolian, and it works precisely
-because none of it is load-bearing.
-SO THE PRECEDENT DOES NOT SAY "PUT SPANISH IN THE GAME." It says the moment
-language gates something the player needs, it stops being world and becomes a bug.
-
-THE DECISION (mine, EVERYTHING IS A THUMB, correct-after -- NOT a question):
-LANGUAGE IS A FACT ABOUT A PERSON, NOT A SETTING ON THE GAME.
-  1. the line schema gets `lang` NOW, before line 1,911, default en;
-  2. a person's language is DERIVED from the identity key exactly like their
-     name, same real-valley weighting, pool replaceable by him in one edit;
-  3. HARD RULE: LANGUAGE NEVER GATES REQUIRED INFORMATION -- flavour and
-     who-knows-first, never whether you can finish;
-  4. the mechanic is THE SECOND CHANNEL, not subtitles;
-  5. WE ARE NOT TRANSLATING THE GAME. That is a business decision, later, his.
-RESERVED, SHIPS EMPTY: whether the PLAYER speaks anything but English (identity),
-which named story people speak what (same rule as KNOWN_AT_START), whether the
-game ever ships translated. Defaults ship; he corrects what he meets. NOT QUEUED.
-
-  RECORD: records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-  ROUTED: PEOPLE LANG-1 (a person has a language) + QUESTS LANG-2 (the `lang`
-  column + a new language_gate whose third claim is the one that matters:
-  no line carrying required information is non-English) + SHARED -9 (ownership gate)
-  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 LATEST -- *** THE DEMO IS DONE AND
-THE NEXT STEP WOULD HAVE RETURNED NOTHING. TAB: RUN (first morning) + NOT IN A TAB
-YET (the feedback card). Nothing to judge. ***
-
-WHAT I MEASURED, NOT ASSUMED. The demo plays start to finish and something proves
-it: gates/the_whole_demo_gate.js, 21 claims, 44 seconds, splash to valley in one
-unbroken session. Board rows 3 (footsteps) and 1-fight are closed. So the board's
-next row is ROUND 1, the friends round, and the protocol for it has been sitting
-ready since 8/11. I checked whether it could actually be run. IT CANNOT, for two
-reasons, and neither one is a demo bug.
-
-*** 1. THE INSTRUMENT THE PROTOCOL IS BUILT ON DOES NOT EXIST. ***
-records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md rests on one object: "the
-in-demo FEEDBACK CARD (RUN 0f) + the telemetry paste. Each tester sends Paolo ONE
-paste." RUN 0f WAS NEVER BUILT. It is still open in BOHEMIA_BACKLOG.md tagged
-"demo-ADJACENT, never demo-blocking" -- which was CORRECT on 8/11, when the demo
-did not exist and the card would have blocked it for nothing. That tag is now
-wrong in the only way that matters: the card is not demo-blocking, it is
-PLAYTEST-blocking, and the playtest is the next row.
-I checked for its gate before claiming it was missing (the 8/17 rule: to ask
-whether a system exists, find its gate first). gates/feedback_master_gate.py
-exists and is a DIFFERENT thing -- it protects PAOLO'S feedback from going
-missing, not a tester's. No gate, no card, no round.
-WITHOUT IT: five to eight people play and he gets five to eight texts saying "it
-was cool." No quit points, no confusion map, nothing comparable between round 1
-and round 2, and the protocol's own rule that "a tester who stops playing is a
-FINDING" has no way to record where they stopped. THE ROUND IS SPENT AND FIRST
-IMPRESSIONS SPEND ONCE.
-RE-TAGGED PLAYTEST-BLOCKING in the backlog, with the reason written into the row.
-
-*** 2. WE ALREADY KNOW HOW THE TESTERS WILL FAIL, IN THE LANE'S OWN WORDS. ***
-From records/BOHEMIA_THE_WHOLE_DEMO_PLAYS_8_21_26.md: tapping ONLY the obvious
-primary button goes GET UP -> SLEEP -> DAY 2 and never plays anything. The day's
-work is behind the PHONE and the thing pointing at it is one unread badge.
-A TESTER CAN FINISH THE DEMO WITHOUT EVER MEETING THE GAME.
-That is not a hypothetical -- gates/phone_rings_gate.js holds it as law on purpose:
-"THE DAY STARTS WITH NO JOB. Wake, and there is no objective -- only word that
-something came in." The design is correct. The SIGNPOSTING is what fails.
-BOTH AISLES SAY THIS IS DEFAULT BEHAVIOUR, NOT AN EDGE CASE. Playtest
-practitioners report the same finding repeatedly: players click through without
-reading and follow whatever is highlighted. One observed session is the exact
-shape of ours -- players "breezed through the tutorial by clicking every
-highlighted button they were told to," and minutes later had no idea how anything
-worked, because it had taught them WHERE TO CLICK and not what it meant. And the
-real-world aisle names it precisely: Don Norman's AFFORDANCE (what action is
-possible) vs SIGNIFIER (what tells you where the action goes), and his rule that
-WHEN YOU HAVE TO PUT A SIGN ON A DOOR, THE DESIGN ALREADY FAILED. Our badge is a
-sign on a door; the big button is the handle everyone reaches for and it leads
-away from the game.
-THE FIX IS NOT A TUTORIAL AND NOT MORE TEXT: make the PHONE the loudest, most
-primary-looking thing on screen at 06:00 on day one. GET UP and SLEEP stay exactly
-where they are -- they just must not out-shout the phone on the first morning.
-DO IT BEFORE ROUND 1, NOT DURING IT. Spending a fresh-eyes round rediscovering a
-bug we already wrote down spends the one thing the protocol says spends once.
-ROUTED: RUN P0-MORNING (new row), plus RUN 0f re-tagged. Both small, one session.
-
-WHAT COMES AFTER, IN ORDER (written into the record so nobody has to re-derive it):
-card + first-morning fix -> ROUND 1 with 5-8 people on their own phones and PAOLO
-SAYS NOTHING -> compile every paste into one digest and route findings as
-corrections -> fix -> ROUND 2 with FIVE TO EIGHT NEW PEOPLE, never the same
-audience twice -> only then the public question, and it is his.
-
-CONFIDENCE, STATED: the missing card and the stale tag, read from the backlog and
-the gate directory, HIGH. The first-morning trap, from the RUN lane's own demo
-record and phone_rings_gate's stated design, HIGH. Norman, published and standard,
-HIGH. The practitioner playtest findings, consistent across sources, MEDIUM-HIGH.
-That fixing the signifier will change round-1 behaviour is a PREDICTION, and round
-1 is the test of it.
-
-  RECORD: records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-  ROUTED: BOHEMIA_BACKLOG.md RUN 0f (re-tagged PLAYTEST-BLOCKING) + RUN P0-MORNING (new)
-  NO CODE TOUCHED. Coordinator is read-only across every lane.
-
-================================================================================
 
 RUN (run-eak241): 8/24 (b) LATEST -- *** A CARD THAT SAID "TAP CLOSE" AND COULD
 NOT BE TAPPED. TAB: RUN (press STANDING). Nothing to judge. ***
