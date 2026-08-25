@@ -164,7 +164,15 @@ function openSceneById(id){
    is worse than stopping. So the sequence pauses at a handoff it cannot make,
    and openContinue() is the published seam for whoever wires the fight to
    resume it -- the same courtesy COMBAT did this lane by exposing
-   startColdOpen(onEnd) for the scene to name. */
+   startColdOpen(onEnd) for the scene to name.
+
+   *** MEASURED 8/25: IT HONOURS IT NOW, AND THAT PARAGRAPH ABOVE IS HISTORY. ***
+   Played on the real surface with a cleared phone: the cold open runs its 26
+   beats in 62 seconds and hands the player straight into the COMBAT surface with
+   startColdOpen live. The raid is played from the opening, every time, on a fresh
+   install. Left standing because it is WHY the pause exists, not because it is
+   still happening -- a line that reads as current and is not is the exact rot the
+   truth hierarchy exists to kill. Proof: gates/opening_gate.js section 5. */
 function openNext(sc){
   if(!sc || !sc.beats) return null;
   for(var i=0;i<sc.beats.length;i++){
@@ -326,7 +334,8 @@ function openStart(){
    anywhere: the game went warm dinner -> cut -> "get to the back door" -> you
    wake up on day 1 and get a job. The death the whole opening is built on did
    not happen, which made the grief dinner mourn nothing and the burial bury
-   nobody.
+   nobody. *** FIXED, AND MEASURED 8/25 RATHER THAN ASSUMED: a fresh phone that
+   taps WATCH ends the cold open standing in the fight. Past tense on purpose. ***
 
    IT DOES NOT INVENT A HANDOFF PATH. cityEncounterIn() has done this exact
    dance for weeks -- show the combat panel, make sure the frame exists, wait for

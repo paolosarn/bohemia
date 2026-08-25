@@ -3102,7 +3102,50 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/24 LATEST -- *** NOBODY IN THE VALLEY SHARES A ROOF, AND
+PEOPLE (people-7h9sfy): 8/25 LATEST -- *** NOBODY HAD EVER WATCHED THE COLD OPEN
+TO THE END. FIVE GATES REACH IT; FOUR TAP SKIP AND THE FIFTH TAPS NOT NOW. IT
+PLAYS FINE -- 62 SECONDS, ALL 10 LINES, ENDS STANDING IN THE FIGHT -- AND NOBODY
+COULD HAVE TOLD YOU THAT. TAB RUN. ***
+
+Demo plan rows 7 (THE FIRST FIVE MINUTES) and 10 (THE COLD OPEN SCENE) are mine
+and I had never verified either end to end. Swept gates/*.js for anything that
+touches the opening overlay: opening_gate, demo_gate, one_valley_gate, run_gate
+all click #openSkip within seconds; the_whole_demo_gate clicks #openNot. Each is
+individually right (run_gate skips because the overlay eats its D-pad taps;
+the_whole_demo_gate declines on purpose to prove declining still leaves a
+playable day). THE SUM was that "the opening works" meant "the opening STARTS".
+
+SO IT WAS PLAYED, ON THE REAL SURFACE, WITH NOTHING TOUCHED FOR A MINUTE:
+    act1_cold_open   26 beats, 10 spoken lines, 62 seconds
+    captions         15, all 10 lines on screen, BEFORE -> TEN YEARS LATER
+    page errors      0        marks seen from WATCHING (no skip)
+    ends on          the COMBAT surface, 390x804, startColdOpen() live
+IT ALL WORKS, and row 10's three-lane seam (PEOPLE runtime + scene, RUN consumes,
+COMBAT supplies the family-defense encounter) IS CLOSED AND FIRING. The 8/19
+comment saying the raid "has never been played from anywhere" was STALE; corrected
+in the tool AND the alpha (tool re-run reports "already exactly this", so no drift).
+
+THE CHAIN, walked on the page: 4 scenes, 68 beats, 23 spoken lines, every link
+resolves -- cold_open -> COMBAT -> the_last_room -> grief_dinner -> ridge_burial.
+
+opening_gate.js 24 -> 40 claims. Everything derived from openScene() at runtime,
+so his DIRECT edits ARE the spec: the line list comes from the say beats, the
+time-card claim only applies if the scene has a cut, the handoff claim looks the
+named function up on the page, and where it lands is compared against what the
+scene says it hands off to via the alpha's own switcher contract (.tab.on by
+data-p). No caption, no panel id and no function name is typed into the gate.
+
+FOUR MUTATIONS, 12 OF 15 NEW CLAIMS TURNED RED. M4 caught a hole in my own
+headline claim: "not showing and not running" is ALSO true of a scene that never
+started, so stubbing openStart would have printed PLAYS ALL THE WAY TO ITS END in
+green, in 120ms. One `&&` fixes it and M4 proves the fix (reports `(0s)`, red).
+Not proven red, named honestly: "resolves a scene with lines in it", "leaves you
+on a live surface with real area", and the chain-level copy of the callable check.
+
+Record: records/BOHEMIA_NOBODY_EVER_WATCHED_IT_TO_THE_END_8_25_26.md
+
+---- PREVIOUS (8/24) ----
+*** NOBODY IN THE VALLEY SHARES A ROOF, AND
 THAT IS WHY THE SOCIAL GRAPH IS EMPTY. A MEASUREMENT AND A CAUSE, HANDED TO
 FACTIONS. Shipped instead: TAB RUN, the card no longer prints raw grid
 coordinates at him. ***

@@ -289,6 +289,233 @@ function pw() {
     await page.close();
   }
 
+  /* ---- 5. IT PLAYS TO THE END BY ITSELF, AND IT HANDS YOU SOMEWHERE -------
+     *** EVERY GATE THAT HAS EVER TOUCHED THIS SCENE TAPPED SKIP. *** Swept 8/25:
+     four gates reach the cold open -- this one above, demo_gate, one_valley_gate,
+     run_gate -- and every single one of them clicks #openSkip within a few
+     seconds of it starting. So "the demo's opening plays" rested on four gates
+     proving it STARTS and nobody, ever, proving it FINISHES. The demo plan calls
+     row 7 THE FIRST FIVE MINUTES, not the first five seconds.
+
+     WHAT THAT LEFT UNCHECKED IS NOT SMALL. Whether it advances past its first
+     caption at all. Whether the lines he directed reach the screen or stop three
+     beats in. Whether the ten-years cut lands. Whether WATCHING it (rather than
+     skipping it) counts as seen -- if only the skip marked it, the one person
+     patient enough to sit through the whole opening is the one person it ambushes
+     again every morning. Whether it throws halfway. And where a human is standing
+     when it stops. Every one of those could have been broken all week with this
+     gate green, because the gate never let the scene get past its opening frame.
+
+     EVERYTHING HERE IS DERIVED FROM THE SCENE, NEVER TYPED IN. The line list, the
+     beat count, the cut and the handoff all come out of openScene() at runtime --
+     the same call the game makes, so it already carries his DIRECT edits and a
+     rewrite in the DIRECT tab moves the spec instead of breaking the gate. An
+     assertion that pins today's captions fails the morning he improves one, and
+     this lane has now paid for that exact mistake five times. */
+  {
+    const { page, errs } = await boot();
+    await enter(page);
+    await tapRun(page);
+    await SETTLE(page, 2500);
+
+    const scene = await page.evaluate(() => {
+      try {
+        const s = (typeof openScene === 'function') ? openScene() : null;
+        if (!s) return null;
+        const beats = s.beats || [];
+        return {
+          id: String(s.id || ''),
+          beats: beats.length,
+          say: beats.filter(b => b.kind === 'say' && b.text).map(b => String(b.text)),
+          cuts: beats.filter(b => b.kind === 'cut').length,
+          handoff: beats.find(b => b.kind === 'handoff') || null
+        };
+      } catch (_e) { return null; }
+    });
+    ok('the page resolves an opening scene with lines in it (' +
+      (scene ? scene.beats + ' beats, ' + scene.say.length + ' lines' : 'none') + ')',
+      !!scene && scene.beats > 0 && scene.say.length > 0);
+
+    /* WATCH THE ELEMENT HE READS. A poll would drop any beat shorter than its
+       interval and then report a line as never shown; an observer on the real
+       caption node cannot miss a write to it. It is also the surface itself --
+       the words in #openCap are literally what a person sees. */
+    await page.evaluate(() => {
+      window.__CAPS = [];
+      const cap = document.getElementById('openCap'); if (!cap) return;
+      const push = () => {
+        const t = (cap.textContent || '').trim();
+        if (t && window.__CAPS[window.__CAPS.length - 1] !== t) window.__CAPS.push(t);
+      };
+      push();
+      new MutationObserver(push).observe(cap, { childList: true, subtree: true, characterData: true });
+    });
+
+    await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
+    const ran = await page.evaluate(() =>
+      typeof OPEN_RUNNING !== 'undefined' && OPEN_RUNNING === true);
+    ok('WATCH puts the runtime in play', ran);
+
+    /* *** NOTHING IN THIS BLOCK TAPS SKIP. That is the entire point of it. ***
+       The ceiling is a demo claim, not a tuning number: an opening somebody
+       cannot sit through is broken for a demo whatever else is true of it. */
+    const shownNow = () => page.evaluate(() => {
+      const w = document.getElementById('openWrap');
+      return !!w && getComputedStyle(w).display !== 'none' && w.getBoundingClientRect().width > 80;
+    });
+    const took = await SETTLE(page, 150000, async () =>
+      (await page.evaluate(() => typeof OPEN_RUNNING !== 'undefined' && OPEN_RUNNING === false))
+      && !(await shownNow()));
+
+    const played = await page.evaluate(() => {
+      const on = document.querySelector('.panel.on');
+      const r = on ? on.getBoundingClientRect() : null;
+      const w = document.getElementById('openWrap');
+      const tab = document.querySelector('.tab.on');
+      return {
+        caps: (window.__CAPS || []).slice(),
+        running: (typeof OPEN_RUNNING !== 'undefined') ? OPEN_RUNNING : null,
+        overlay: !!w && getComputedStyle(w).display !== 'none' && w.getBoundingClientRect().width > 80,
+        w: r ? Math.round(r.width) : 0, h: r ? Math.round(r.height) : 0,
+        landed: tab ? String(tab.dataset.p || '') : null,
+        seen: !!localStorage.getItem('bohemia.opening.seen.v1')
+      };
+    });
+
+    /* `ran &&` IS NOT DECORATION, IT CLOSES A VACUOUS PASS IN THIS GATE'S OWN
+       HEADLINE CLAIM. "not showing and not running" is also true of a scene that
+       NEVER STARTED, so stub openStart and the loudest assertion here would have
+       gone green on an opening that did nothing at all. Found by asking what each
+       new claim would do under a mutation rather than by watching it pass. */
+    ok('THE OPENING PLAYS ALL THE WAY TO ITS END ON ITS OWN - nobody tapped SKIP (' +
+      Math.round(took / 1000) + 's)', ran && !played.overlay && played.running === false,
+      'if this is the first red here, the scene froze or never reached its last beat');
+    ok('and it is over inside two and a half minutes - row 7 is THE FIRST FIVE MINUTES',
+      took < 150000);
+    ok('the caption is not frozen on its first line (' + played.caps.length + ' captions)',
+      played.caps.length > 1);
+
+    /* {tokens} are substituted at play time ({sibling_lost} becomes a name), so
+       the literal halves either side of one are what a gate can honestly demand.
+       Asking for the raw authored string would fail on a correct substitution. */
+    const litOf = t => String(t).split(/\{[^}]*\}/).map(s => s.trim()).filter(s => s.length > 3);
+    const stream = played.caps.join('\n');
+    const missing = (scene ? scene.say : []).filter(t => {
+      const frags = litOf(t);
+      return frags.length ? !frags.every(f => stream.indexOf(f) >= 0) : false;
+    });
+    ok('EVERY LINE THE SCENE AUTHORS REACHES THE SCREEN (' +
+      ((scene ? scene.say.length : 0) - missing.length) + '/' + (scene ? scene.say.length : 0) + ')',
+      !!scene && missing.length === 0, JSON.stringify(missing.slice(0, 2)));
+
+    const nameless = (scene ? scene.say : []).filter(t => {
+      const f = litOf(t)[0]; if (!f) return false;
+      const hit = played.caps.find(c => c.indexOf(f) >= 0);
+      return !hit || hit.indexOf(f) === 0;      /* nothing printed ahead of the words */
+    });
+    ok('and every line arrives with a name on it - he can tell who is talking',
+      nameless.length === 0, JSON.stringify(nameless.slice(0, 2)));
+
+    /* the time cards are the captions that carry no authored line. A scene with
+       a cut in it must show more than one of them, or the ten-years jump exists
+       only in the script. Derived from the cut beat, so a scene without one is
+       not held to it. */
+    const cards = played.caps.filter(c => !(scene ? scene.say : []).some(t => {
+      const f = litOf(t)[0]; return f && c.indexOf(f) >= 0;
+    }));
+    const laterCards = Array.from(new Set(cards)).filter(c => c !== played.caps[0]);
+    ok('THE TIME CARD CHANGES - the ten-year jump is on screen, not just in the script (' +
+      JSON.stringify(laterCards.slice(0, 3)) + ')',
+      !scene || scene.cuts === 0 || laterCards.length >= 2);
+
+    /* THE ONE THAT WOULD HAVE BITTEN A DEMO PLAYER. openDone marks seen; so does
+       the raid path. If either had forgotten, the person who watched the whole
+       opening would be offered it again tomorrow while the person who skipped it
+       never would -- exactly backwards. */
+    ok('WATCHING IT THROUGH COUNTS AS SEEN - it never ambushes the patient player again',
+      played.seen === true);
+    ok('and it leaves you on a live surface with real area, not a black rectangle (' +
+      played.w + 'x' + played.h + ')', played.w > 200 && played.h > 200);
+
+    /* THE SEAM BETWEEN TWO LANES. The scene names a function COMBAT publishes;
+       the name is read out of the scene and looked up on the page, so a rename on
+       either side turns this red instead of silently ending the opening early --
+       which is the failure that hid the raid for twelve days. */
+    const seam = await page.evaluate(h => {
+      if (!h) return 'no handoff';
+      if (h.to === 'combat' && h.call) return typeof window[h.call];
+      if (h.to === 'scene' && h.scene)
+        return (typeof openSceneById === 'function' && openSceneById(h.scene)) ? 'function' : 'missing scene';
+      return 'unknown';
+    }, scene ? scene.handoff : null);
+    ok('the scene\'s handoff names something the page can actually call (' + seam + ')',
+      seam === 'function' || seam === 'no handoff',
+      'two lanes building halves that never meet is this repo\'s most expensive recurring bug');
+
+    /* AND IT WENT THERE. Read off the alpha own switcher contract -- showTabPanel
+       sets .tab.on by data-p -- and compared against what the SCENE says it hands
+       off to. No panel id is typed in here, so the claim survives a rename of the
+       panels and follows a rewrite of the handoff. */
+    const hasTab = await page.evaluate(to =>
+      !!to && !!document.querySelector('.tab[data-p="' + to + '"]'),
+      scene && scene.handoff ? scene.handoff.to : null);
+    ok('AND IT ACTUALLY TOOK YOU THERE - the live tab is the one the scene hands off to (' +
+      played.landed + ')',
+      !hasTab || played.landed === String(scene.handoff.to),
+      'the scene ends by handing the player to ' + (scene && scene.handoff ? scene.handoff.to : '-'));
+
+    /* ---- THE WHOLE SEQUENCE, NOT JUST ITS FIRST LINK ----------------------
+       laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md is explicit that this
+       is ONE UNBROKEN SEQUENCE: "1. NIGHT RAID ... 2. THE GRIEF DINNER ... 3. THE
+       BURIAL ON THE RIDGE (tutorial ends here)." Authored as four scenes chained
+       by their own handoff beats. Everything above proves the FIRST link plays; a
+       gate cannot win the tutorial fight to reach the rest of it, and should not
+       pretend to.
+
+       WHAT IT CAN DO IS WALK THE CHAIN, and that is exactly where the 8/19 bug
+       lived: startColdOpen sat in the alpha for twelve days with one occurrence
+       and zero callers, so the death the whole opening is built on never happened
+       and the grief dinner mourned nobody. A NAME THAT RESOLVES TO NOTHING LOOKS
+       IDENTICAL TO A FINISHED SEQUENCE AT RUNTIME -- openContinue just returns
+       false and the opening quietly ends early. So every link is looked up on the
+       page the game actually runs in, and a broken one is named out loud. */
+    const chain = await page.evaluate(startId => {
+      const out = [], seen = {};
+      let id = startId, guard = 0;
+      while (id && !seen[id] && guard++ < 20) {
+        seen[id] = 1;
+        const s = (typeof openSceneById === 'function') ? openSceneById(id) : null;
+        if (!s) { out.push({ id, missing: true }); break; }
+        const beats = s.beats || [];
+        const h = beats.find(b => b.kind === 'handoff');
+        const row = { id, beats: beats.length, say: beats.filter(b => b.kind === 'say' && b.text).length };
+        if (h) {
+          row.via = h.to;
+          if (h.call) row.callable = (typeof window[h.call] === 'function') ? h.call : ('MISSING ' + h.call);
+          row.next = h.then || (h.to === 'scene' ? h.scene : null) || null;
+        }
+        out.push(row);
+        id = row.next;
+      }
+      return out;
+    }, scene ? scene.id : null);
+    const broke = chain.filter(r => r.missing);
+    const uncallable = chain.filter(r => r.callable && r.callable.indexOf('MISSING ') === 0);
+    ok('EVERY SCENE THE OPENING CHAINS TO EXISTS (' +
+      chain.map(r => r.missing ? ('!!' + r.id) : (r.id + ':' + r.beats)).join(' -> ') + ')',
+      broke.length === 0, JSON.stringify(broke));
+    ok('and every function the sequence names is on the page (' +
+      (chain.filter(r => r.callable).map(r => r.callable).join(', ') || 'none named') + ')',
+      uncallable.length === 0, JSON.stringify(uncallable));
+    const totals = chain.filter(r => !r.missing)
+      .reduce((a, r) => ({ b: a.b + r.beats, s: a.s + r.say }), { b: 0, s: 0 });
+    console.log('  . the opening sequence: ' + chain.length + ' scenes, ' +
+      totals.b + ' beats, ' + totals.s + ' spoken lines');
+
+    ok('and nothing threw across the whole opening', errs.length === 0, errs.slice(0, 2).join(' | '));
+    await page.close();
+  }
+
   await b.close();
   console.log('OPENING GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
