@@ -6174,9 +6174,18 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
-P0-PROFILE. *** EAST AND WEST HAIR IS BROKEN ACROSS THE BOARD, HIS WORDS,
-   AND YOUR OWN GATE ALREADY SAID SO. TOP OF THIS LANE'S QUEUE; ALL HAIR
-   WORK WAITS BEHIND IT (8/20 — records/BOHEMIA_VERDICT_HAIR_ROUND4_
+P0-PROFILE. *** CLEARED 8/25 BY PAOLO HIMSELF: "the side view is a lot
+   better east and west." THE HARD HOLD ON THE 21 UNJUDGED STYLES IS
+   LIFTED. *** The defect was found and fixed on 8/25 (a044733): the hair
+   was drawing IN FRONT OF HIS FACE on the rows his eyes, nose and mouth
+   occupy, 546 stray pixels, zero of 15 styles clean, now zero stray and
+   all 15 clean. Pinned at zero in gates/hair_gate.js and shown to him as
+   one head, not a ballot. He passed the view and in the same breath
+   opened a NEW requirement, which is now P0-HAIRNATIVE below. Do NOT
+   re-ask him about profiles; that question is answered. Kept here for
+   the record only. Everything under this line is history:
+   AND YOUR OWN GATE ALREADY SAID SO. WAS TOP OF THIS LANE'S QUEUE; ALL
+   HAIR WORK WAITED BEHIND IT (8/20 — records/BOHEMIA_VERDICT_HAIR_ROUND4_
    8_20_26.txt). Paolo, round 4: "You really need to tell the character
    chat that EAST AND WEST HAIRSTYLES LOOK LIKE ABSOLUTE DOG SHIT ACROSS
    THE BOARD."
@@ -6207,6 +6216,30 @@ P0-PROFILE. *** EAST AND WEST HAIR IS BROKEN ACROSS THE BOARD, HIS WORDS,
    facings, before any style is shown to him again | — | yes, but ONE
    HEAD FIRST: show him a single style in profile and let him say the
    view is fixed before anything else is queued. ***
+P0-HAIRNATIVE. *** A HAIRCUT IS ONE HAIRCUT FROM EVERY ANGLE, AND CLAUSE 1
+   IS ONLY HALF PROVED. TOP OF THIS LANE'S QUEUE. *** Paolo, 8/25, in the
+   same message that cleared P0-PROFILE: "you just have to be intentional
+   with the hairstyles making them looking good and the same and
+   coordinated from all angles." Law written and gated the same turn —
+   laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md.
+   CLAUSE 2 IS DONE AND MEASURED: 9 of 15 canon styles had no one-pixel
+   mark inside their own silhouette; 0 of 15 now, 47 one-pixel marks -> 820,
+   nothing thinned and no silhouette moved (strandPass in genHair, 8/25q,
+   records/BOHEMIA_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.txt).
+   CLAUSE 1 IS NOT. The identity-swing ratchet pins the worst adjacent-facing
+   area jump at 0.62 and stops it growing. IT DOES NOT PROVE THE THREE
+   genHair BRANCHES AGREE. `back`, `prof` and `front` were written at three
+   different times for three different complaints — the 8/2 profile fix, the
+   back exemption, the front curtain — and NOTHING HAS EVER ASSERTED THEY
+   DESCRIBE THE SAME HAIRCUT. A style that is a mane from the front and a
+   crop from the side has failed however good either view is alone, and that
+   is precisely the failure mode his words name.
+   THE WORK: a per-style identity fingerprint (mass, height, and where the
+   volume sits, colour and absolute size discarded like the city-cast width
+   profile already does) held across all eight facings, with the branches
+   reconciled where they disagree rather than the ratchet loosened.
+   | every canon style's identity holds across all 8 facings, gated, on the
+   real surface | — | no. He already ruled; this is work, not a question. ***
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never

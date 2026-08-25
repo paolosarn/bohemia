@@ -450,13 +450,23 @@
   },
   {
    "id": "one-head",
-   "title": "IS THE SIDE VIEW FIXED?",
-   "caption": "You said east and west hairstyles looked like dog shit across the board and killed 13 of 15. You were right and I found it: the hair was drawing IN FRONT OF HIS FACE. On the rows his eyes, nose and mouth are on, the hair spilled past the front of his face and hung in the air there, so his face was squeezed between hair behind it and hair in front of it. Every profile came out looking like a helmet with a slot instead of a person. 546 stray pixels across all 15 styles, not one style clean. Now zero. Top row is his bare head so you can see the face underneath, bottom row is the same head with hair on. One haircut only, the temple taper, which is one of the two you kept. The other 21 haircuts stay held until you say this view is good. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "title": "THE SIDE VIEW, FIXED",
+   "caption": "ANSWERED 8/25: \"the side view is a lot better east and west.\" The hold on the other 21 haircuts is LIFTED. What was wrong: the hair was drawing IN FRONT OF HIS FACE. On the rows his eyes, nose and mouth are on, the hair spilled past the front of his face and hung in the air there, so every profile read as a helmet with a slot instead of a person. 546 stray pixels across all 15 styles, not one style clean. Now zero. Top row is his bare head, bottom row is the same head with hair on. LOOK tab for this picture, CHARACTER tab for the hair.",
    "file": "look/one-head.png",
    "kb": 94.7,
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_one_head_picture.js"
+  },
+  {
+   "id": "hair-strands",
+   "title": "STRANDS IN THE HAIR",
+   "caption": "You said the hair was still drawn in the old fat pixels. You were right, and the first number I took said you were wrong. That number was measuring the OUTLINE of the haircut, and the outline is not the haircut. Measuring the INSIDE instead: 9 of your 15 haircuts had nothing in them at all, one flat colour with a dark rim and no strand, parting or break anywhere. That is what the old small canvas could hold and nothing more. Now none are like that: 47 one-pixel marks across all the hair before, 820 now. The parting drifts by a pixel as it runs so it is a strand and not a ruled line, and it is worked out from the haircut's name so the same style comes out the same every time and nobody in a crowd shimmers. Nothing got thinner and no shape moved. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "file": "look/hair-strands.png",
+   "kb": 116.1,
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_hair_strand_picture.js"
   }
  ]
 }

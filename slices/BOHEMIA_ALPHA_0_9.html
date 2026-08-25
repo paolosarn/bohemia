@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25f - YOU CAN SEE YOURSELF AGAIN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/25q - STRANDS IN THE HAIR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21546,6 +21546,52 @@ window.CLO=(function(){
        drift apart again. The fade is the bottom of the hair; whatever that bottom is,
        the fade is there. */
     var fadeRows=(opt.fade||0)*S, fadeBot=sideBot;
+    /* @SUBCELL-DETAIL -- STRAND SEPARATION (8/25, HAIR AT FOUR TIMES THE PIXELS).
+       Paolo: "we made the character model 4x and i feel like with especially the hair
+       your still playing with the orignal pixels. not the pixels that are now 1 pixel
+       because we made the canvas 4x bigger."
+       HE WAS RIGHT, MEASURED THE SAME DAY: NINE OF FIFTEEN canon styles had NO one-pixel
+       mark anywhere inside them. Their thinnest internal feature was 4, 5, 6 or 8 pixels
+       -- SLICK BACK, BOWL CUT and SHAG were solid blocks of colour with a shaded rim and
+       nothing at all in between. At 56 that was the only thing that fit. At 112 there is
+       room and they still had nothing.
+       AND THE FIRST NUMBER I TOOK SAID HE WAS WRONG: an edge-parity audit reported 50.9%
+       of hair edges on the fine grid, which reads as "already native". True and
+       irrelevant -- the 8/21 wobble gives the OUTLINE a one-pixel step, and the outline
+       is not the haircut. THE SHAPE IS THE INSIDE. When a metric disagrees with him about
+       his own art, suspect the metric.
+       WHAT THIS DRAWS: where locks part, hair falls into shadow. One pixel, darker, and
+       it RUNS WITH THE HAIR rather than across it -- the same phase axis texSkip uses, so
+       it rotates with the view exactly like the cornrows do (his 8/2 ruling).
+       IT IS A SHADE, NOT A SKIP. His first fade attempt was killed for showing skin
+       through the hair; this never removes a hair pixel, it darkens one.
+       SPARSE ON PURPOSE: one line every four cells. Clause 3 still governs -- little off
+       shapes, deterministic, and a buzz cut is allowed to be nearly solid. This is the
+       difference between "can express a one-pixel mark" and "is covered in stripes".
+       SOLID STYLES ONLY: locs and braids already carry their own marks at his approved
+       2:1 ratio and are not touched. S>1 only, so the 56 wardrobe is untouched. */
+    var strandPass=function(oo){
+      if(S<2||tex!=='solid'||(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH))return oo;
+      var _sd2=0, _sn=(opt.name||'');
+      for(var _si=0;_si<_sn.length;_si++){_sd2=(Math.imul(_sd2^_sn.charCodeAt(_si),16777619))>>>0;}
+      var _ph=(_sd2>>>11)%(4*S);
+      for(var k3 in oo){ var i3=+k3, x3=i3%CW, y3=(i3/CW)|0;
+        /* the flow axis, exactly as texSkip picks it */
+        var ax=prof?(y3-hTop):(x3-hMn);
+        if(ax<0)continue;
+        /* NO STRAIGHT LINES (Paolo 8/1, LOCKED: "hair is little off shapes"). A fixed
+           phase draws a ruled vertical bar down the crown, which is a stripe and not a
+           parting -- I shot it and it read as a barcode. So the parting DRIFTS by one
+           pixel, deterministically, in segments two cells long down the cross axis.
+           One pixel is the whole point of the 4x law: it is a move the 56 grid could
+           not make, and it is what turns a rule into a strand. */
+        var _cr=prof?(x3-hMn):(y3-hTop); if(_cr<0)_cr=0;
+        var _wb=((Math.imul(_sd2^(((_cr/(2*S))|0)+1),2654435761)>>>0)%3)-1;
+        if(((ax+_wb+4*S)%(4*S))!==_ph)continue;
+        var c3=oo[k3];
+        if(c3[0]===r.dk[0]&&c3[1]===r.dk[1]&&c3[2]===r.dk[2])continue;   /* already the shadow */
+        oo[k3]=r.dk; }
+      return oo; };
     var texSkip=function(x,y){
       /* A PATTERN ROTATES WITH THE VIEW (Paolo 8/2: "prime example with the
          cornrows and the mohawk ... you really aren't doing it from a good eastern
@@ -21806,7 +21852,7 @@ window.CLO=(function(){
       else if(tie==='pony'&&!front){ var pl=fr(hTop,hBot,1.2);
         for(var py=hBot;py<hBot+pl;py++){ var pw=(py<hBot+2*S)?2*S:S;
           for(var px=tx-pw;px<hcxR+pw+1;px++) put(px,py,(px<tx-pw+S||px>hcxR+pw-S)?r.dk:r.mid); } } }
-    return o; }
+    return strandPass(o); }
   function genAcc(g,opt){
     /* the before/after tools flip this to draw the pre-step-5 version from THIS
        code; typeof-guarded because a generator must run with no DOM at all. */

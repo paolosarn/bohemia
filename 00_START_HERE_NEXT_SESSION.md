@@ -1,3 +1,117 @@
+CHARACTER (character-0lurbs): 8/25 (q) LATEST -- *** STRANDS IN THE HAIR. HE WAS
+RIGHT AND THE FIRST RULER I BUILT SAID HE WAS WRONG. TAB: LOOK for the picture,
+CHARACTER for the hair. Nothing to judge -- he already ruled. ***
+
+HIS RULING, VERBATIM, AND IT DOES THREE THINGS AT ONCE:
+"the side view is a lot better east and west you just have to be intentional with
+ the hairstyles making them looking good and the same and coordinated from all
+ angles. and you know we made the character model 4x and i feel like with
+ especiallythe hair your still playing with the orignal pixels. not the pixels
+ that are noe 1 pixel because we made the canvas 4x bigger you know. what you
+ showed me looks decent asf. make whatever law u need and continue with what you
+ need to do"
+
+  1. *** THE P0-PROFILE HOLD IS LIFTED. *** The side view PASSED. The 21 unjudged
+     styles are no longer blocked by the view. Do not re-ask him about profiles.
+  2. A coordination requirement: one haircut, eight angles, still one haircut.
+  3. A defect claim: the hair is still drawn in old-size pixels.
+  Plus explicit authority to write the law. It is written and gated.
+
+*** THE THING WORTH CARRYING TO EVERY OTHER LANE: A NUMBER SAID HE WAS WRONG,
+AND THE NUMBER WAS THE THING THAT WAS WRONG. ***
+First ruler was EDGE PARITY -- what share of the hair's silhouette edges sit on a
+pixel the old 56 grid could not reach. It came back 50.9%, all 15 styles, all 8
+facings. 50.9% is the score of a shape that fully uses the fine grid. Read
+literally it says he is mistaken about his own art.
+IT WAS TRUE AND IT WAS IRRELEVANT. The 8/21 wobble pass had already given the
+OUTLINE a one-pixel step, and THE OUTLINE IS NOT THE HAIRCUT. THE SHAPE IS THE
+INSIDE. The metric was measuring the one part that had already been converted and
+reporting it as the whole.
+Measured the INSIDE instead -- runs of one colour bounded on BOTH sides by a
+different hair colour, so a strand or a parting and never the silhouette edge:
+
+    9 OF 15 CANON STYLES HAD NO ONE-PIXEL MARK INSIDE THEM AT ALL.
+    thinnest internal feature: SLICK BACK 8  BOWL CUT 8  SHAG 8  LONG LOOSE 6
+      FRINGE 5  GREY WISPS 5  BUZZ CUT 4  CROP 4  SHOULDER LENGTH 4
+
+Nine solid blocks of colour with a shaded rim and nothing in them. He was right in
+the exact words he used. WHEN A METRIC DISAGREES WITH HIM ABOUT HIS OWN ART,
+SUSPECT THE METRIC. Third time this week an instrument printed the comfortable
+answer; three before/after pictures lied 8/22-8/24 for three different reasons. It
+is always the same failure -- a tool that cannot tell "no defect" from "not
+looking at the defect" always prints "no defect".
+
+WHAT SHIPPED: strandPass in genHair. A deterministic one-pixel parting along the
+same flow axis texSkip uses, so it rotates with the view exactly like his cornrows
+do (his 8/2 ruling). Seeded off the STYLE NAME, so an NPC never shimmers and the
+same haircut is the same haircut every time it is drawn.
+  - A SHADE, NOT A SKIP. Never removes a hair pixel, only darkens one to the
+    style's own shadow tone. His first fade attempt was killed for showing skin
+    through hair; this cannot do that.
+  - SPARSE ON PURPOSE, one line every four cells. A buzz cut is allowed to be
+    nearly solid. The target is "can express a one-pixel mark", not "stripes".
+  - SOLID STYLES ONLY. Locs and braids already carry their own marks at his
+    approved 2:1 ratio and are untouched.
+  - S>1 ONLY. The 56 wardrobe is byte-identical; the 1,744 pinned hashes hold.
+
+*** AND THE FIRST CUT BROKE ANOTHER OF HIS LAWS, WHICH I ONLY FOUND BY LOOKING. ***
+A FIXED phase draws a ruled vertical bar down the crown. I shot it, looked at it,
+and it read as a BARCODE -- straight into HOW HAIR AND SHAPE WORK (8/1, LOCKED):
+"no straight lines, hair is little off shapes". The parting now DRIFTS one pixel,
+deterministically, in segments two cells long down the cross axis. ONE PIXEL IS
+EXACTLY THE POINT OF HIS RULING: a move the old grid could not make, and the thing
+that turns a rule into a strand. VERIFY ON THE REAL SURFACE caught this. Reading
+the pass never would have.
+
+MEASURED AFTER:
+    styles with no one-pixel mark inside   9 of 15 -> 0 of 15
+    one-pixel marks, all hair, all views        47 -> 820
+    thinnest internal feature, every style    4..8 -> 1
+Nothing thinned. No silhouette moved. Nothing he ruled on redrawn.
+
+LAW + GATE, same turn, because a law without a machine gate is not enforced:
+  laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md
+    CLAUSE 1  a haircut is one haircut from every angle
+    CLAUSE 2  draw in the pixels we actually have
+  gates/hair_gate.js  32 checks, two new downward-only ratchets:
+    styles with no one-pixel mark inside     pinned, only ever shrinks
+    identity swing between adjacent facings  pinned 0.62, only ever shrinks
+
+FOUR VERDICTS IN THE SAME BREATH, ALL AFFIRMATIVE, ALL RECORDED:
+  "i like the boots got  stitching"
+  "i like the tiny hem pixels good job on that too"
+  "i like the scavanged armor too"
+  "i like the small things from the belts to gloves to scarfs to masks looked good"
+FOUR FOR FOUR on the fine-detail passes. Nothing killed. THE METHOD IS HIS RULING
+NOW AND NOT MY METHOD: add one-pixel marks the finer grid can hold, NEVER thin a
+mark he ruled on. Clause 2 is that method applied to hair.
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. CLAUSE 1 IS WRITTEN BUT ONLY HALF-PROVED. The identity-swing ratchet pins the
+     worst adjacent-facing jump at 0.62 and stops it growing. It does not yet prove
+     the three genHair branches (back / prof / front) AGREE -- they were written at
+     different times for different complaints and nothing has ever asserted they
+     describe the same haircut. That is the next real piece of work.
+  2. THE 21 UNJUDGED STYLES ARE UNBLOCKED. The view passed. They are now blocked
+     only by clause 2, which they now satisfy. A batch is queueable.
+  3. NOT MINE, do not pick up: CANVAS MEMORY red, #354 TASTE, #356 ART 45, and the
+     the-spawn-sidewalk LOOK picture with no shooter (WORLD lane).
+
+  node gates/hair_gate.js                     32/0
+  node tools/bohemia_hair_strand_picture.js   the before/after, LOOK tab
+  node tools/bohemia_hair_native_audit.js     the edge-parity ruler that lied
+  records/BOHEMIA_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.txt
+
+================================================================================
+
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (d) LATEST -- *** SWEEP 17. THE
+STRIP NEEDS NAMES BEFORE IT NEEDS ART. TAB: MAP / CITY (routed to WORLD).
+Nothing to judge. ***
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (e) LATEST -- *** SWEEP 18. THE
+HANDOFF IS 63,979 LINES AND NOBODY READS IT. Nothing to judge.
+THIS ENTRY IS THE NEW FORMAT, DEMONSTRATED ON THE ONLY ENTRIES I OWN: sweeps
+14-17 used to be four blocks and 321 lines here. They are now five links, because
+every one of them already lives in a permanent records/ file. ***
 RUN (run-eak241): 8/25 (b) LATEST -- *** THE SEE-THROUGH TESTED WHERE HE USED TO
 BE, SO WALKING BEHIND A WALL HID HIM. TAB: RUN (walk south into a house).
 Nothing to judge. ***
