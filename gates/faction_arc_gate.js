@@ -517,9 +517,21 @@ function requirePlaywright() {
         JSON.stringify(n));
 
       if (n.cardRest !== null)
+        /* CONTAINS, NOT EQUALS. This asserted string equality and went red on
+           MOB the day a different roster put that member in the un-asked state:
+              card "BE INTRODUCED BY SOMEBODY WHO VOUCHES  ·  ASKING COSTS: A
+                    SMALL PERMANENT MARK AGAINST YOU."
+              rule "BE INTRODUCED BY SOMEBODY WHO VOUCHES"
+           The rule IS there verbatim, which is the whole claim -- what follows is
+           __CITY_ASKCOST__ telling him the price BEFORE the button, which is a
+           different law (8/15) doing its job on the same row.
+           EQUALITY WAS NEVER THE CLAIM. "In its own words, verbatim from the
+           rule" is satisfied by containment; demanding equality forbids any other
+           system from ever adding to that row, which is not a thing this gate
+           gets to decide on the card's behalf. */
         ok('F3 ' + f + ' tells the player HOW TO GET THE REST in its own words, '
           + 'verbatim from the rule rather than a generic line',
-          n.cardRest === n.ruleNext,
+          String(n.cardRest).indexOf(String(n.ruleNext)) === 0,
           JSON.stringify({ card: n.cardRest, rule: n.ruleNext }));
     }
 
