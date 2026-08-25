@@ -1,3 +1,102 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (d) LATEST -- *** SWEEP 17. THE
+STRIP NEEDS NAMES BEFORE IT NEEDS ART. TAB: MAP / CITY (routed to WORLD).
+Nothing to judge. ***
+
+HOUSEKEEPING FIRST, SO NOBODY REDOES IT: he re-sent the Spanglish ruling with
+this sweep. IT IS ALREADY LAW as of fdb5eaa --
+laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md, CLAUDE.md bullet, canon
+index, LANG-1/LANG-2 amended. Three registers, the mix is mandatory, register 2
+is a SKILL not a gap. NOT RE-SURFACED, NOT RE-ASKED.
+
+DELTA SINCE MY MARK (fdb5eaa): NOTHING NEW ON MAIN. No lane has pushed since
+sweep 16. Nothing to read, nothing to reconcile. Saying so instead of padding.
+DEMO PATH GUARDED, MEASURED: the_whole_demo_gate 23 PASSED / 0 FAILED.
+COLLISIONS: none new. SHARED -9 (the ownership gate) and SHARED -10 (the two
+blocked Playwright hostnames) are both still unclaimed and both still cheap.
+
+*** THE HORIZON ITEM: THE STRIP HAS NO NAMES, AND THAT IS WHY IT HAS NO ART. ***
+THIS IS THE UNBUILT HALF OF A REJECTION HE ALREADY MADE. On 8/20 he killed
+exactly two of nine district map icons: CASINO and RESORT. WORLD's own commit
+from five days earlier said why -- "THE STRIP AND THE RESORTS DO NOT EXIST AS
+PLACES, THAT IS WHY THEY HAVE NO ART." That names the cause and stops one step
+short of the cure. A place does not exist because nobody decided what it IS, and
+THE FIRST DECISION ANYBODY MAKES ABOUT A PLACE IS ITS NAME. The art was trying to
+draw a category.
+
+MEASURED, HONESTLY, INCLUDING THE PART THAT SHRINKS MY OWN CASE: 23 real Vegas
+venue trademarks across engine/ and the shipped city world. MOST ARE RESEARCH
+CITATIONS IN COMMENTS -- Golden Nugget, Binion's, Wynn/Encore, Paris, Circa,
+Circus Circus -- and that is REUSE-FIRST WORKING. NOBODY DELETES THEM. They are
+why bohemia_casino.js knows a downtown casino meets the sidewalk with no setback
+while a Strip resort has a 100 m arrival drive. THREE ARE STRUCTURAL:
+LUXOR:'luxor', SPHERE:'sphere' and ALLEGIANT sit in the DISTRICT enum in
+bohemia_overmap.js, which is copied verbatim into slices/BOHEMIA_CITY_WORLD.html,
+and LUXOR is placed as a landmark on the real Strip position, commented "the
+pyramid on the strip south." THE PLAYER SEES NONE OF IT TODAY -- they are ids,
+not labels, and landmarks.js has no Luxor entry. Exposure right now is about
+zero, and I am saying that rather than rounding it up.
+THE POINT IS TIMING, NOT DANGER. Today it is an enum rename. After the Strip has
+art, quests, dialogue and save blobs keyed to those ids, it is a migration. There
+is no law about real names anywhere in laws/, no gate, and no backlog row.
+
+THE PRECEDENT IS ALMOST EMBARRASSINGLY EXACT. FALLOUT: NEW VEGAS IS OUR PREMISE
+-- post-collapse Las Vegas, the Strip still lit while the valley outside is ruin
+-- and Obsidian renamed EVERY casino. The Tops, Gomorrah, the Ultra-Luxe, the
+Lucky 38. Each has a real counterpart; the designers took "the most artistic
+license with the casinos." WHAT IT BOUGHT THEM IS THE ARGUMENT: those names are
+now more famous to a generation of players than several of the real ones, some of
+which have since been demolished. A fictional name let them put a cannibal
+aristocracy inside the Ultra-Luxe. A real name owes the player the real building.
+A REAL NAME IS A CAGE; AN INVENTED ONE IS A DEED.
+
+*** THE FINDING THAT ARGUES AGAINST THE CASE I SET OUT TO MAKE. *** I went
+looking for a legal reason and THE LAW IS MOSTLY ON OUR SIDE, so I am writing
+that down instead of letting a scarier half-truth win the argument for me.
+E.S.S. Entertainment 2000 v. Rock Star Videos (9th Cir. 2008) is the controlling
+video-game case and it is a WIN: a real strip club sued over GTA: San Andreas'
+altered "Pig Pen", and the Ninth Circuit extended Rogers v. Grimaldi to marks used
+INSIDE an expressive work -- artistically relevant, not explicitly misleading, no
+reasonable consumer thinks a strip club made the game. And Jack Daniel's v. VIP
+Products (S. Ct. 2023) narrowed Rogers ONLY for use as a SOURCE IDENTIFIER, which
+a casino inside a game world is not; the commentary is explicit that expressive
+works including video games generally keep the protection.
+SO THIS IS NOT A FIRE DRILL. What actually remains is practical, and it is what
+matters to a solo developer: (1) "defensible" is not free -- E.S.S. took years and
+appellate lawyers, and a win you cannot afford to collect is not a win; (2) the
+real mechanism is a STOREFRONT TAKEDOWN FORM, not a courtroom, and a takedown does
+not require anybody to be right; (3) TRADE DRESS IS THE SHARPER EDGE THAN THE
+WORD -- E.S.S. turned on the LOGO AND LOOK, so a photographic pyramid with the sky
+beam is closer to the line than the string "luxor" in an enum.
+
+THE DECISION (mine, EVERYTHING IS A THUMB -- and it is a RULE, not a set of names,
+because NAMES ARE HIS): REAL GEOGRAPHY STAYS, REAL BUSINESSES BECOME OURS, THE
+SKYLINE STAYS RECOGNISABLE.
+  1. GEOGRAPHY IS FACT AND UNTOUCHED -- Las Vegas, the Strip's shape and
+     orientation, Fremont, the freeway, the dam, the wash, the mountains, the
+     airport, the Mormon Fort, the Springs. REALISM FIRST LOSES ALMOST NOTHING,
+     which is why this is the right shape of decision.
+  2. the three structural ids get replaced while it is still a rename.
+  3. THE SILHOUETTES STAY: a black pyramid on the south Strip with a light going
+     up, a giant lit sphere east of the middle, a stadium by the freeway. That
+     skyline IS Vegas. Altered, never photographic -- exactly the E.S.S. line.
+  4. RESEARCH COMMENTS ARE LEGAL AND STAY. Nobody deletes a citation.
+  5. THE NAMES THEMSELVES ARE HIS. This record names no building. But an empty
+     field is a blank page (8/11), so the lane ships a REAL ATTEMPT per venue
+     tagged draft:true, written as if it ships, and he EDITS.
+
+  RECORD: records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
+  ROUTED: WORLD NAMES-1 (do it before PLACES; it is what lets art draw a building
+  instead of a category) + SHARED -11 (the names gate, whose SECOND claim is the
+  important one: research comments are EXPLICITLY EXEMPT and the gate proves it,
+  because a gate that punishes research does more damage than the thing it
+  prevents). NOT ROUTED, deliberately: any audit of the questbook corpus -- those
+  152 studied quests are STUDY MATERIAL cited like a bibliography.
+  GUARDED: the_whole_demo_gate 23/23. NO CODE TOUCHED -- coordinator is read-only.
+  I AM NOT A LAWYER AND THIS IS NOT LEGAL ADVICE. It is why the design call is
+  cheap insurance rather than an emergency.
+
+================================================================================
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (c) LATEST -- *** SWEEP 16. EVERY
 GATE WE HAVE TESTS THE WRONG BROWSER. Plus his SPANGLISH ruling, recorded as law
 the same turn. TAB: none (this is the instrument) + LIFE/WORDS (his ruling).

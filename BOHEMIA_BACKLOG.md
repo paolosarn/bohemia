@@ -1997,6 +1997,60 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+NAMES-1. *** THE STRIP NEEDS NAMES BEFORE IT NEEDS ART, AND THIS IS THE
+   UNBUILT HALF OF PLACES BELOW (sweep 17, 8/25 — records/BOHEMIA_THE_
+   STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md). DO THIS FIRST; it
+   is what lets PLACES draw a building instead of a category.
+   YOUR OWN COMMIT DIAGNOSED IT AND STOPPED ONE STEP SHORT: "THE STRIP AND
+   THE RESORTS DO NOT EXIST AS PLACES — THAT IS WHY THEY HAVE NO ART." A
+   place does not exist because nobody decided what it IS, and THE FIRST
+   DECISION ANYBODY MAKES ABOUT A PLACE IS ITS NAME. The two icons he
+   killed on 8/20 were drawing a category.
+   MEASURED, HONESTLY, INCLUDING THE PART THAT SHRINKS IT: 23 real Vegas
+   venue trademarks across engine/ and the shipped city world. MOST ARE
+   RESEARCH CITATIONS IN COMMENTS (Golden Nugget, Binion's, Wynn/Encore,
+   Paris, Circa, Circus Circus) — that is REUSE-FIRST WORKING and NOBODY
+   DELETES THEM; they are why bohemia_casino.js knows a downtown casino
+   has no setback. THREE ARE STRUCTURAL: LUXOR:'luxor', SPHERE:'sphere'
+   and ALLEGIANT sit in the DISTRICT enum in bohemia_overmap.js, copied
+   into slices/BOHEMIA_CITY_WORLD.html, with LUXOR placed as a landmark
+   on the real Strip position. THE PLAYER SEES NONE OF IT TODAY — they
+   are ids, not labels, and landmarks.js has no Luxor entry. Exposure now
+   is ~zero. THE POINT IS THE TIMING: today it is an enum rename; after
+   the Strip has art, quests, dialogue and saves keyed to those ids it is
+   a migration.
+   THE PRECEDENT IS ALMOST EMBARRASSINGLY EXACT: FALLOUT: NEW VEGAS is
+   our premise — post-collapse Vegas, the Strip still lit — and Obsidian
+   renamed EVERY casino. The Tops, Gomorrah, the Ultra-Luxe, the Lucky
+   38, each with a real counterpart, the designers taking "the most
+   artistic license with the casinos." Those names are now more famous to
+   a generation than several of the real ones, some since demolished. A
+   fictional name let them put a cannibal aristocracy in the Ultra-Luxe;
+   a real name owes the player the real building.
+   AND THE FINDING THAT ARGUES AGAINST THE OBVIOUS CASE, stated on
+   purpose: THE LAW IS MOSTLY ON OUR SIDE. E.S.S. v. Rock Star Videos
+   (9th Cir. 2008) protected GTA's altered "Pig Pen" against a real strip
+   club under Rogers v. Grimaldi, and Jack Daniel's (S. Ct. 2023)
+   narrowed Rogers only for SOURCE-IDENTIFYING use, which a casino inside
+   a game world is not. So this is NOT a legal fire drill. What remains
+   is practical: "defensible" is not free, the real mechanism is a
+   storefront takedown form rather than a courtroom, and TRADE DRESS is a
+   sharper edge than the word — E.S.S. was about the LOOK.
+   BUILD: (1) rename the three structural ids; (2) ship a DRAFTED name
+   per venue, tagged draft:true, written as if it ships, for every Strip
+   and downtown venue the overmap already places — an empty field is a
+   blank page and he EDITS, he does not invent from nothing (8/11);
+   (3) KEEP EVERY POSITION AND EVERY RESEARCH COMMENT.
+   THE SILHOUETTES STAY: a black pyramid on the south Strip with a light
+   going up, a giant lit sphere east of the middle, a stadium by the
+   freeway. That skyline is what makes it Vegas. ALTERED, never
+   photographic — which is exactly the line E.S.S. turned on.
+   GEOGRAPHY IS UNTOUCHED AND REALISM FIRST LOSES ALMOST NOTHING: Las
+   Vegas, the Strip's shape, Fremont, the freeway, the dam, the wash, the
+   mountains, the airport, the Mormon Fort, the Springs. Places are facts.
+   | named venues visible where the icons were, drafts editable | THE
+   NAMES THEMSELVES ARE HIS — drafts ship, he corrects | no, he meets
+   them in the game. TAB: MAP / CITY. ***
 PLACES. *** HIS THUMB JUST CONFIRMED YOUR OWN 8/15 FINDING, AND THE TWO
    DEAD ICONS ARE YOURS, NOT ART'S (8/20 — records/BOHEMIA_VERDICT_
    DISTRICT_MAP_ICONS_8_20_26.txt). He killed exactly CASINO and RESORT
@@ -6700,6 +6754,21 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-11. *** THE NAMES GATE (sweep 17, 8/25 — records/BOHEMIA_THE_STRIP_
+   NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md). PAIRS WITH WORLD NAMES-1,
+   same turn. TWO CLAIMS AND THE SECOND ONE IS THE IMPORTANT ONE:
+   (a) no real Las Vegas venue trademark appears in a DISTRICT id, a
+   landmark name, a player-facing label, or authored dialogue;
+   (b) RESEARCH COMMENTS ARE EXPLICITLY EXEMPT, and the gate PROVES it by
+   keeping bohemia_casino.js's citation block green. A gate that punishes
+   research would do more damage than the thing it prevents — those
+   citations are why the districts are good, and REUSE-FIRST requires
+   them.
+   Mutation tests: put "Bellagio" in a landmark label -> red; leave it in
+   a comment -> green.
+   NOT IN SCOPE, DELIBERATELY: the questbook corpus. Those 152 studied
+   quests are STUDY MATERIAL cited by id and title the way a bibliography
+   works, and that is not the same act. | both mutations behave | — | no.
 -10. *** THE ENVIRONMENT BLOCKS THE ONLY BROWSER OUR PLAYERS USE (sweep
    16, 8/25 — records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_
    8_25_26.md). NOT A DESIGN CALL, NOT A RULING — an allowlist entry.
