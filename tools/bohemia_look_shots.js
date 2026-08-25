@@ -267,6 +267,28 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    /* ADDED 8/25. The road across the crest of the dam was TWO TILES WIDE -- 1.5 m at
+       TILE=0.75 -- and its whole network read as unreachable because a gate counted as a wall.
+       This is the picture of a road that is finally a road. */
+    id: 'the-way-in',
+    title: 'A ROAD ACROSS THE DAM',
+    caption: 'Four places in the valley were built so that a car could not get into them at all, and this was the worst of them. The road over the top of the dam was two tiles wide, which is about five feet -- a footpath, not the highway that ran over Hoover Dam for seventy years. And the whole thing read as sealed off from the street anyway, because the machine that checks it counted the gate you drive through as a wall. Both fixed: the crest carries two real lanes with a parapet either side, and every district in the valley can now be driven into. One thing you WILL notice: the dam itself looks like brickwork. It is meant to be one poured concrete wall. That is a separate bug and it is next -- the game picks a texture for anything standing up, and unless a tile belongs to the mountains it falls through to the ROOF pattern, so a dam gets shingles. RUN tab, walk out onto the dam.',
+    find: `(() => {
+      for (let ty = 2; ty < om.n - 2; ty++) for (let tx = 2; tx < om.n - 2; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'dam') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        /* STAND ON THE CREST ROAD ITSELF, not on the wall beside it -- the subject is the
+           width of the roadway, so the camera has to be in the middle of it. */
+        for (let ly = 20; ly < FN - 20; ly++) for (let lx = 20; lx < FN - 20; lx++) {
+          if (m.kit[ly * FN + lx] !== 1) continue;
+          let run = 0;
+          for (let k = -3; k <= 3; k++) if (m.kit[(ly + k) * FN + lx] === 1) run++;
+          if (run >= 6) return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 22 };
+        }
+      } return null; })()`,
+  },
+  {
     /* ADDED 8/24. Two yards had their pole lights placed and then paved over by their own
        drive network, every seed, since the day they were written -- so this is a picture of
        something that has never once been on screen. Frames a code-9 pole light in the

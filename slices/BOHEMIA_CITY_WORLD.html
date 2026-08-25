@@ -5748,6 +5748,14 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
          number -- so the path goes through it and a road split by its own markings is still
          one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
       else if (legend[c].kind === 'marking') C[c] = 1;
+      /* AND THE GATE (8/25). A GATE IS THE HOLE YOU DRIVE THROUGH. It was counted as a wall,
+         so any district whose road meets the street THROUGH its gate tile read as sealed off.
+         The dam was reported 0.0% reachable -- 239 tiles of access road a car could supposedly
+         never touch -- and it is 100% the moment the gate conducts. Nothing was wrong with the
+         dam. Measured across every registered district before changing this: exactly TWO move,
+         so it is not a loosening, it is the one case a gate exists for. STREET-AWARE ACCESS
+         LAW says one car entrance on the primary street; this is that entrance. */
+      else if (legend[c].kind === 'gate') C[c] = 1;
     }
     return C;
   }
@@ -13425,6 +13433,22 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
       G.rect(ux+1,uy,ux+Math.max(1,Math.floor(uw*0.4)),uy+2,7);          // office bay, front corner
       set(ux+Math.floor(uw/2),uy+depth,6);                                // roll-up dock, back face
       for(var ci=0;ci<2;ci++) set(ux+2+ci*2,uy-2,11);                     // reserved stalls out front
+      /* AND SOMETHING STILL PARKED IN ONE (8/25). Code 10, "a car dead in a reserved stall,
+         tyres flat", was authored in this legend and never once placed -- dead_code_gate found
+         it. The stall paint two lines up is the whole reason the code exists: a RESERVED stall
+         is reserved for somebody, and the tell that the tenant never came back is that their
+         car is still in it. About a third of the units, nose-in to the roll-up like you park
+         when the unit is yours. It cannot be erased by the spine street, which only converts
+         codes 0/3/4/11/12 and runs past x=105, clear of the last unit at x=99. */
+      /* AND IT MUST NOT TOUCH THE RANDOM STREAM. The first cut was `if(r()<0.34)`, which
+         consumes a draw per unit and SHIFTS EVERY LATER DRAW IN THE WHOLE DISTRICT -- three
+         more bays came up burned-out, the code-2 footprint count fell 12 to 9, and
+         warehouse_gate went red on a check about tenant units that had nothing to do with
+         cars. A decoration that changes the layout is not a decoration.
+         So it is derived from the unit index and the seed instead: same per-unit answer, same
+         determinism, and the sequence r() hands out is byte-for-byte what it was. */
+      if((((Math.imul(idx+1,2654435761)^Math.imul(seed>>>0,40503))>>>0)%100)<34)
+        G.rect(ux+2,uy-4,ux+3,uy-1,10);
       if(r()<0.4) set(ux+3,uy+depth+1,13);                                // loose pallets behind the dock
     }
     // ---- BASE: lot asphalt, fenced; desert at the margins ----
@@ -13491,7 +13515,6 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API; root.BohemiaWarehouse=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
-
 /* ==== engine/bohemia_wash.js (canon, married 7/22) ==== */
 // BOHEMIA WASH (7/19/26). Paolo: "make a wash next to a street corner... I wanna wash where
 // homeless people can get into the sewers — a sewer entrance by the street." A Las Vegas
@@ -15699,10 +15722,24 @@ const BEAT=500; // 120BPM law
           G.set(mx+Math.round(gr*1.2*Math.cos(a)), my+Math.round(gr*1.0*Math.sin(a)), 13); }
         [0,120,240].forEach(function(d){                                // the GUY ANCHORS, far out
           var a=d*Math.PI/180, ax=mx+Math.round(gr*Math.cos(a)), ay=my+Math.round(gr*0.86*Math.sin(a));
-          G.set(ax,ay,7); G.set(ax+1,ay,7); G.set(ax,ay+1,7);
+          /* THE FAR ANCHOR IS THE ANCHOR BLOCK, CODE 6, NOT THE BASE PLATE (8/25). Both
+             rows exist in this legend and mean different objects: 7 is the 'anchor / base
+             plate' the mast stands on, 6 is the 'anchor block -- a lump of concrete out in
+             the open with nothing near it', which is precisely what a guy deadman IS and
+             precisely what these three are, out at the end of every guy. They were drawn
+             as 7, so code 6 was never once placed anywhere in the valley and the district
+             lost the one object its own notes call the strangest thing on the site. */
+          G.set(ax,ay,6); G.set(ax+1,ay,6); G.set(ax,ay+1,6);
           for(var t=1;t<gr;t++){ var qx=mx+Math.round(t*Math.cos(a)), qy=my+Math.round(t*0.86*Math.sin(a));
             if(G.get(qx,qy)===4) G.set(qx,qy,8); }                      // the guy wires themselves
         });
+        /* AND THE BASE PLATE (code 7) UNDER IT. Moving the guy deadmen to code 6 above left
+           code 7 with nothing drawing it, which would have been trading one dead row for
+           another -- so this is the object code 7 was always for: the concrete pier and steel
+           base plate a guyed mast is pinned to. A mast this size does not sit on dirt; it
+           stands on a block with an insulator under it, because on a real AM tower THE WHOLE
+           MAST IS LIVE. Drawn before the mast so the mast stands on top of it. */
+        G.rect(mx-2,my-2,mx+2,my+2,7);
         G.rect(mx-1,my-1,mx+1,my+1,14);                                 // THE MAST
         G.rect(mx+4,my+4,mx+12,my+11,2);                                // its equipment hut
         G.set(mx-4,my+5,10); G.set(mx-6,my+5,10);                       // the propane tank + ice bridge
@@ -15728,10 +15765,25 @@ const BEAT=500; // 120BPM law
         G.rect(bx-4,by-2,bx-2,by+17,7);                                 // the earth traverse beside it
       }
       G.rect(10,H-30,W-11,H-27,1);                                      // the service lane
+      /* THE CABLE TRENCH (code 13), authored as "the cable trench along the service lane"
+         and never drawn. It is the site's nervous system: an ammunition storage area runs
+         its lightning protection, its intrusion alarms and its magazine lighting down a
+         covered trench beside the lane, because you do not put a cable in the open where a
+         truck reverses. It runs the whole length of the lane, which is what "along" means. */
+      G.rect(10,H-32,W-11,H-31,13);
       for(i=0;i<4;i++) G.rect(24+i*26,H-27,26+i*26,H-14,1);             // spurs to each rank
       G.rect(W-40,H-26,W-16,H-16,2);                                    // the issue point / guard office
       G.rect(8,10,W-9,11,12);
       for(i=0;i<3;i++) G.rect(12,20+i*28,14,32+i*28,10);                // barricade posts
+      /* THE LIGHTNING MASTS (code 14), "a lightning mast over the ranks", authored and
+         never drawn. They are not decoration on an ammunition site -- a magazine field is
+         the one place in the valley where a strike is a mass casualty event, so it is ringed
+         with masts that take the hit and put it in the ground instead. They stand IN THE
+         AISLES between the ranks, never over a magazine, because that is the only ground
+         here you are allowed to put anything tall on. Guarded on the yard code so a mast can
+         never eat an earth cover. */
+      for(j=0;j<2;j++)for(i=0;i<2;i++){ var lx=36+i*52, ly=38+j*28;
+        if(G.get(lx,ly)===4) G.rect(lx,ly,lx+1,ly+4,14); }
       brush(G,30);
       lights(G,[[12,16],[W-13,16],[12,H-34],[W-13,H-34]]);
     },
@@ -15756,6 +15808,11 @@ const BEAT=500; // 120BPM law
       G.rect(ox-4,y0+30,W-8,y0+34,8);                                   // THE OUTFALL CHANNEL, leaving
       G.rect(ox-4,y0+28,W-8,y0+29,7); G.rect(ox-4,y0+35,W-8,y0+36,7);
       G.rect(22,H-30,52,H-16,2);                                        // the blower / control building
+      /* THE VENT STACK (code 14), "the vent stack on the blower house", authored and never
+         drawn. A pond field's blower house is the one building on the site with something
+         to get rid of -- the air it pulls off the ponds -- so the stack is the tallest thing
+         here and the only vertical in a plan made entirely of flat rectangles. */
+      G.rect(46,H-28,48,H-25,14);
       G.rect(56,H-28,W-24,H-26,13);
       for(i=0;i<6;i++) G.set(60+i*10,H-24,10);                          // the aeration blowers
       brush(G,22);
@@ -15783,6 +15840,18 @@ const BEAT=500; // 120BPM law
       G.rect(cx-5,H-32,cx+5,H-30,6);   // elevation marks are ON the outlet box
       G.rect(cx-2,H-30,cx+2,H-26,8);                                    // the orifice and what leaves it
       for(i=0;i<7;i++) G.set(cx-6+i*2,H-33,10);                         // the debris rack across its mouth
+      /* THE STORM DRAIN (code 13), "the concrete box storm drain leaving the outlet", and
+         THE STAGE GAUGE (code 14), "the stage gauge on the crest" -- both authored and never
+         drawn. The box drain is where the water GOES: a basin is only half a structure
+         without the pipe that takes the released flow away, and a 24-inch orifice on a
+         concrete box is the real Clark County detail this layout is built on. It leaves
+         east and stops short of the perimeter lane, because a buried box does not sever a
+         road a truck drives on. The gauge is a staff on the crest with the flood stages
+         painted up it -- the same record as the elevation marks on the outlet box, read
+         from the top instead of from the water. */
+      G.rect(cx+8,H-34,W-12,H-32,13);
+      G.rect(cx-16,H-26,cx-15,H-24,14);
+      G.rect(cx+18,12,cx+19,14,14);
       G.rect(cx+22,H-26,cx+44,H-24,7);                                  // the emergency SPILLWAY in the crest
       G.rect(cx+24,H-24,cx+42,H-20,4);
       // THE MAINTENANCE RAMP, and it has to actually ARRIVE. Cut down the west slope, along
@@ -16031,8 +16100,8 @@ const BEAT=500; // 120BPM law
            10:['barricade post','prop','a barricade post at the head of a rank, set there to stop a vehicle rather than a person'],
            11:['marking','marking','the magazine number stencilled on the headwall'],
            12:['perimeter fence','structure','the arsenal fence, and it is the outer of two -- the inner one is the fence that mattered'],
-           13:['cable trench','structure','the cable trench along the service lane'],
-           14:['lightning mast','structure','a lightning mast over the ranks']},
+           13:['cable trench','structure','the covered cable trench beside the service lane, carrying the lightning protection and every alarm on the site'],
+           14:['lightning mast','structure','a lightning mast standing in the aisle between two ranks, there to take the strike so a magazine does not']},
       sum:'An ammunition storage area: twelve earth-covered magazines set well apart in echelon with earth traverses between them, doors on one end only, off a single service lane.',
       ref:['Ammunition storage practice: earth-covered magazines are separated by quantity-distance and screened from each other by earth traverses, so a detonation in one does not propagate.',
            'The headwall and door are on ONE end only; the rest of the structure is arch under fill.'] },
@@ -16080,7 +16149,7 @@ const BEAT=500; // 120BPM law
            11:['marking','marking','the elevation marks on the outlet box — the record of every flood that filled this'],
            12:['perimeter fence','structure','the basin fence, pushed over where the last flood shoved a raft of debris into it'],
            13:['storm drain','structure','the concrete box storm drain leaving the outlet'],
-           14:['gauge mast','structure','the stage gauge on the crest']},
+           14:['gauge mast','structure','the stage gauge on the crest, the flood heights painted up it, the top mark higher than anyone believed']},
       sum:'A flood detention basin: an earth bowl with stepped side slopes down to a flat silt floor, a concrete outlet works with a small orifice at the low corner, and an emergency spillway notched in the crest.',
       ref:['Clark County Regional Flood Control District: basins range from 10 to 50 acres and up to 50 feet deep, holding water to about 51.5 feet before it goes over the emergency spillway.',
            'Since 1991 the district has built 650 miles of channel and 100 basins for $1.9 billion, with another 25 years of projects planned.',
@@ -16108,7 +16177,7 @@ const BEAT=500; // 120BPM law
            11:['marking','marking','a pond number stencilled on a weir box, so a man on foot knew which cell he was at'],
            12:['perimeter fence','structure','the plant fence, more about keeping people out of the ponds than anything in'],
            13:['inlet header','structure','the header feeding every pond off one line'],
-           14:['vent stack','structure','the vent stack on the blower house']},
+           14:['vent stack','structure','the vent stack on the blower house, the tallest thing on a site that is otherwise all flat rectangles']},
       sum:'A reclamation pond field: nine bermed ponds in a grid, an inlet header down one side, an outfall channel leaving toward the wash.',
       ref:['Clark County water reclamation: treated effluent returns to the Las Vegas Wash and from there to Lake Mead, which is why the outfall channel points that way.',
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },
@@ -19948,7 +20017,19 @@ const BEAT=500; // 120BPM law
         a.rect(a.fx(t[0]) - 4, a.fy(t[1]) - 4, a.fx(t[0]) + 4, a.fy(t[1]) + 4, 9);
       });
       var sx = a.fx(0.50);
-      a.rect(sx - 7, a.fy(0.80), sx + 7, a.fy(0.88), 5);                    // sally port
+      /* A SALLY PORT PIERCES BOTH FENCES OR IT IS NOT A SALLY PORT (8/25). This ran from
+         fy(0.80) to fy(0.88) -- which is entirely OUTSIDE the outer wire. It touched neither
+         fence run and never reached the service road, so the prison's whole internal road
+         network was sealed: 9.6% of 1,826 drive tiles reachable from the street, RULE NUMBER
+         ONE (Paolo 7/31) broken outright. A vehicle could drive up to the prison and then had
+         nowhere to go, and the approach road led to a box.
+         What a sally port IS: a vehicle trap with a gate at EACH end, cut through the double
+         perimeter so a transport enters, both gates never open at once, and it comes out on
+         the compound road. So it now spans from just inside the road ring (fy 0.74) down to
+         the approach road, cutting the inner run at 0.76 and the outer run at 0.80 on the way
+         -- which is the only reason either of those runs has a gap in it. Drawn after the
+         fences on purpose: the gap IS what is being cut. */
+      a.rect(sx - 7, a.fy(0.74), sx + 7, a.fy(0.88), 5);                    // sally port
       a.rect(sx - 5, a.fy(0.88), sx + 5, a.Y1, 1);
       a.rect(sx - 4, a.fy(0.82), sx - 3, a.fy(0.86), 10);
       a.rect(a.fx(0.62), a.fy(0.84), a.fx(0.82), a.fy(0.94), 12);           // admin, OUTSIDE the wire
@@ -20011,8 +20092,16 @@ const BEAT=500; // 120BPM law
         var t = (vx - a.X0) / Math.max(1, a.W - 1);
         var bow = Math.round(Math.sin(t * Math.PI) * a.H * 0.06);
         a.rect(vx, crest - half - bow, vx, crest + half - bow, 2);
-        a.set(vx, crest - bow, 1);
-        a.set(vx, crest - bow + 1, 1);
+        /* THE ROAD ACROSS THE CREST WAS TWO TILES WIDE, WHICH IS 1.5 METRES (8/25). At
+           TILE=0.75 m that is a footpath, not the highway that ran over Hoover Dam for
+           seventy years, and it is exactly the defect Paolo circled on the mall: "he circled
+           two of them and asked what they were supposed to be". The hairline check said 0% of
+           this district's lanes were wide enough to drive and it was right.
+           SEVEN TILES = 5.25 m: two lanes at a bit over 2.5 m each, which is what a crest road
+           genuinely is -- narrow, with a parapet either side, no shoulder. The three tiles of
+           wall left on each side are that parapet. Seen from above a dam crest IS mostly road;
+           the mass you read as the dam is the downstream face, and this view foreshortens it. */
+        a.rect(vx, crest - bow - 3, vx, crest - bow + 3, 1);
       }
       [0.18, 0.34, 0.66, 0.82].forEach(function (f) {                       // intake towers
         a.rect(a.fx(f) - 5, crest - half - Math.round(a.H * 0.16), a.fx(f) + 5, crest - half - Math.round(a.H * 0.07), 4);
@@ -20105,7 +20194,21 @@ const BEAT=500; // 120BPM law
       });
       a.rect(L - 12, Tp - 12, L - 5, Tp - 5, 7);                            // run-off
       a.rect(R + 5, B + 5, R + 12, B + 12, 7);
-      a.rect(a.fx(0.62), a.fy(0.96), a.fx(0.68), a.Y1, 1);
+      /* THE PIT ENTRANCE (8/25). This district's own circulation note says "the circuit and
+         the pit lane are one connected DRIVE surface entering off the street at the paddock
+         gate, so a vehicle can get onto the track". IT DID NOT. The entrance ran five tiles
+         in from the kerb and stopped in open outfield, and the tyre barrier was an unbroken
+         ring around the whole circuit -- so the track and the pit lane were a sealed island
+         and the karts would have had to be built inside it. Measured 0.0% of 4,929 drive
+         tiles reachable from the street, which is RULE NUMBER ONE (Paolo 7/31) broken outright
+         in a district whose notes claimed the opposite. A note is not a fact until a generator
+         writes it.
+         Every club circuit has this: an ACCESS GAP in the barrier at the paddock end, where
+         the karts are wheeled out onto the circuit. The entrance now runs from the kerb, up
+         the clear strip beside the paddock, and through that gap onto the main straight --
+         which the pit lane already joins. Drawn AFTER the tyre walls on purpose, because the
+         gap IS the thing being cut in them. */
+      a.rect(a.fx(0.62), B + 1, a.fx(0.68), a.Y1, 1);
       a.rect(a.fx(0.62), a.Y1 - 1, a.fx(0.68), a.Y1, 5);
       for (var i = 0; i < 3; i++) a.rect(a.fx(0.44 + i * 0.09), B - W - 5, a.fx(0.46 + i * 0.09), B - W - 3, 10);
       for (var j = 0; j < 30; j++) {
@@ -20175,8 +20278,15 @@ const BEAT=500; // 120BPM law
       a.rect(a.fx(0.20), a.fy(0.62) - 1, a.fx(0.24), a.fy(0.62), 8);
       a.rect(a.fx(0.40), a.fy(0.16), a.fx(0.56), a.fy(0.34), 4);            // the second range
       a.rect(a.fx(0.28), B - 3, a.fx(0.38), B, 5);                          // the gate
-      a.rect(a.fx(0.29), B, a.fx(0.37), a.Y1, 1);
       a.ring(L - 9, Tp - 9, R + 9, B + 9, 2, 11);                           // interpretive path
+      /* THE TRACK IS DRAWN AFTER THE PATH, AND THAT IS THE WHOLE FIX (8/25). The interpretive
+         path is a loop around the fort and its bottom run crosses the access track. It was
+         drawn second, so it PAINTED OVER the track and cut it clean in two -- 52.9% of the
+         fort's drive surface unreachable from the street, RULE NUMBER ONE (Paolo 7/31) broken
+         by a footpath. Where a path meets a drive on a real site the path crosses AT GRADE and
+         the drive runs through; you do not lift the road out and put gravel in the gap. So the
+         track goes down last and the path crosses it, which is also what it looks like. */
+      a.rect(a.fx(0.29), B, a.fx(0.37), a.Y1, 1);
       a.rect(a.fx(0.40), a.fy(0.78), a.fx(0.41), a.fy(0.82), 10);
       for (var i = 0; i < 8; i++) a.set(a.fx(0.16 + i * 0.05), a.fy(0.80), 9);
       for (var j = 0; j < 26; j++) {
@@ -20383,11 +20493,42 @@ const BEAT=500; // 120BPM law
       if (code !== null) {
         // white edge and lane lines, on the mainlines only (a ramp is a single stream)
         if (code === 1) {
+          /* OFF BY HALF A TILE, AND SO NO FREEWAY IN THE VALLEY HAD A LANE LINE ON IT (8/25).
+             This test was right in every way except one: it compared a DISTANCE to whole
+             numbers. The mainline centre of a 128-tile cell is 63.5 -- it lands between two
+             tiles, because an even span has no middle tile -- so every offset it produces is
+             3.5, 8.5, 13.5, 22.5. `offV === 23` and `LANE_LINES.indexOf(8.5)` can never be
+             true, not once, on any cell, since the day this was written. Measured: 2,255
+             travel-lane tiles in one junction and ZERO code 2, with the histogram of offsets
+             coming out entirely in halves. dead_code_gate found it as a dead legend row.
+             THE OFFSET IS NOW A TILE INDEX, not a distance: floor() gives the same answer when
+             a centre is a whole number and the right one when it is a half, so this works
+             either way and nobody has to know which parity a junction happened to get.
+             AND THE EDGE LINE IS DERIVED, NOT A CONSTANT. `EDGE = 23` only ever matched an
+             integer centre. The edge line is the last lane before the shoulder -- which is
+             exactly "the next tile out is not a lane" -- so ask bandOf that question instead of
+             hard-coding the answer for one parity. */
           var offV = onNS ? Math.abs(gx - dn.at) : -1, offH = onEW ? Math.abs(gy - de.at) : -1;
           var dashV = (Math.floor((gy % 14) / 7) === 0), dashH = (Math.floor((gx % 14) / 7) === 0);
-          if (offV === EDGE || offH === EDGE) return 2;
-          if (offV >= 0 && LANE_LINES.indexOf(offV) >= 0 && dashV) return 2;
-          if (offH >= 0 && LANE_LINES.indexOf(offH) >= 0 && dashH) return 2;
+          if ((offV >= 0 && bandOf(offV + 1) !== 1) || (offH >= 0 && bandOf(offH + 1) !== 1)) return 2;
+          if (offV >= 0 && LANE_LINES.indexOf(Math.floor(offV)) >= 0 && dashV) return 2;
+          if (offH >= 0 && LANE_LINES.indexOf(Math.floor(offH)) >= 0 && dashH) return 2;
+        }
+        /* THE SIGN GANTRIES (code 14), authored in this legend and never once placed -- the
+           other dead row dead_code_gate found here. They are the thing that tells you from a
+           mile away that a junction is coming, and on a dead freeway they are the thing whose
+           panels are gone: the frame still spans the road and the green boards that said where
+           you were going have been taken down, blown out or left hanging.
+           OVERHEAD, so you drive and walk UNDER them exactly like the deck -- which is also why
+           adding them cannot strand a lane: the kit conducts a path through an overhead.
+           Spaced 210 tiles, about 158 m, across the whole carriageway including the shoulders,
+           and only where a mainline runs AT GRADE -- over the crossing the road is already a
+           deck, and you do not hang a gantry under a bridge. Solved from valley coordinates
+           like everything else in this module, so a gantry lands in the same place no matter
+           which cell you are standing in. */
+        if ((code === 1 || code === 2 || code === 3) && (onNS !== onEW)) {
+          var along = onNS ? gy : gx;
+          if ((((along % 210) + 210) % 210) < 2) return 14;
         }
         // gore striping where a ramp's shoulder runs alongside a carriageway
         if (code === 17 && (onNS || onEW)) return 18;

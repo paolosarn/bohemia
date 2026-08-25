@@ -146,7 +146,7 @@ const CONDITIONAL = {
   // THE RATCHET. Whatever is dead today is written down; it may only come down. A district
   // author adding a legend row the world never builds is told immediately -- this class has
   // stayed invisible for weeks at a time.
-  const DEBT = 19;
+  const DEBT = 10;
   ok(`read the BUILT valley, not a synthetic generate (${districts} districts, ${codes} codes)`,
      districts >= 40 && codes >= 600);
   // NOBODY QUIETLY LOWERS THE SAMPLE DEPTH. Halving it would "improve" the dead count by

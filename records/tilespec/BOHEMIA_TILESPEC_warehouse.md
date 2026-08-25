@@ -35,14 +35,14 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#33333c` | street / drive | drive | the cracked internal park drive / driveway aisle (car-drivable) | ground | no | — | 2144 |
 | 2 | `#726a5c` | tenant unit | building | a flex/light-industrial bay, tilt-up concrete, sun-bleached, half the units looted | structure | yes | flex unit interior: a small front office, a bare warehouse bay behind it | 2483 |
 | 3 | `#3a4520` | weed / brush | tree-dead | weeds + tumbleweed through the cracked lot | prop | no | — | 7 |
-| 4 | `#524c3e` | lot asphalt | ground | the park lot / truck court asphalt, faded striping | ground | no | — | 8218 |
+| 4 | `#524c3e` | lot asphalt | ground | the park lot / truck court asphalt, faded striping | ground | no | — | 8169 |
 | 5 | `#c79a3f` | gate | gate | the park entrance off the street, amber curb | portal | no | — | 7 |
 | 6 | `#8a7a4a` | dock door | portal | a roll-up dock door, half open or torn off | portal | no | the bay behind the dock | 13 |
 | 7 | `#5c6068` | office bay | building | the tenant's front office window strip, glass smashed | structure | yes | — | 156 |
 | 8 | `#332a26` | burned unit | building | a burned-out tenant bay — charred shell, roof collapsed | structure | yes | — | 204 |
 | 9 | `#8f8676` | pole light | prop | a park pole light, head dark | prop | yes | — | 4 |
-| 10 | `#55555f` | abandoned car | vehicle | a car dead in a reserved stall, tyres flat | prop | yes | — | — |
-| 11 | `#c9c1aa` | stall marking | marking | faded reserved-parking stall paint | ground | no | — | 26 |
+| 10 | `#55555f` | abandoned car | vehicle | a car dead in a reserved stall, tyres flat | prop | yes | — | 56 |
+| 11 | `#c9c1aa` | stall marking | marking | faded reserved-parking stall paint | ground | no | — | 19 |
 | 12 | `#6a6a72` | fence | structure | the park perimeter fence, chain-link sagging | structure | yes | — | 501 |
 | 13 | `#8a7050` | loose pallets | prop | a stack of broken pallets behind a dock | prop | yes | — | 3 |
 | 14 | `#463f36` | dumpster | prop | a rusted dumpster near the entrance | prop | yes | — | 1 |

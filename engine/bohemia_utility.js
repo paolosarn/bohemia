@@ -294,10 +294,24 @@
           G.set(mx+Math.round(gr*1.2*Math.cos(a)), my+Math.round(gr*1.0*Math.sin(a)), 13); }
         [0,120,240].forEach(function(d){                                // the GUY ANCHORS, far out
           var a=d*Math.PI/180, ax=mx+Math.round(gr*Math.cos(a)), ay=my+Math.round(gr*0.86*Math.sin(a));
-          G.set(ax,ay,7); G.set(ax+1,ay,7); G.set(ax,ay+1,7);
+          /* THE FAR ANCHOR IS THE ANCHOR BLOCK, CODE 6, NOT THE BASE PLATE (8/25). Both
+             rows exist in this legend and mean different objects: 7 is the 'anchor / base
+             plate' the mast stands on, 6 is the 'anchor block -- a lump of concrete out in
+             the open with nothing near it', which is precisely what a guy deadman IS and
+             precisely what these three are, out at the end of every guy. They were drawn
+             as 7, so code 6 was never once placed anywhere in the valley and the district
+             lost the one object its own notes call the strangest thing on the site. */
+          G.set(ax,ay,6); G.set(ax+1,ay,6); G.set(ax,ay+1,6);
           for(var t=1;t<gr;t++){ var qx=mx+Math.round(t*Math.cos(a)), qy=my+Math.round(t*0.86*Math.sin(a));
             if(G.get(qx,qy)===4) G.set(qx,qy,8); }                      // the guy wires themselves
         });
+        /* AND THE BASE PLATE (code 7) UNDER IT. Moving the guy deadmen to code 6 above left
+           code 7 with nothing drawing it, which would have been trading one dead row for
+           another -- so this is the object code 7 was always for: the concrete pier and steel
+           base plate a guyed mast is pinned to. A mast this size does not sit on dirt; it
+           stands on a block with an insulator under it, because on a real AM tower THE WHOLE
+           MAST IS LIVE. Drawn before the mast so the mast stands on top of it. */
+        G.rect(mx-2,my-2,mx+2,my+2,7);
         G.rect(mx-1,my-1,mx+1,my+1,14);                                 // THE MAST
         G.rect(mx+4,my+4,mx+12,my+11,2);                                // its equipment hut
         G.set(mx-4,my+5,10); G.set(mx-6,my+5,10);                       // the propane tank + ice bridge
@@ -323,10 +337,25 @@
         G.rect(bx-4,by-2,bx-2,by+17,7);                                 // the earth traverse beside it
       }
       G.rect(10,H-30,W-11,H-27,1);                                      // the service lane
+      /* THE CABLE TRENCH (code 13), authored as "the cable trench along the service lane"
+         and never drawn. It is the site's nervous system: an ammunition storage area runs
+         its lightning protection, its intrusion alarms and its magazine lighting down a
+         covered trench beside the lane, because you do not put a cable in the open where a
+         truck reverses. It runs the whole length of the lane, which is what "along" means. */
+      G.rect(10,H-32,W-11,H-31,13);
       for(i=0;i<4;i++) G.rect(24+i*26,H-27,26+i*26,H-14,1);             // spurs to each rank
       G.rect(W-40,H-26,W-16,H-16,2);                                    // the issue point / guard office
       G.rect(8,10,W-9,11,12);
       for(i=0;i<3;i++) G.rect(12,20+i*28,14,32+i*28,10);                // barricade posts
+      /* THE LIGHTNING MASTS (code 14), "a lightning mast over the ranks", authored and
+         never drawn. They are not decoration on an ammunition site -- a magazine field is
+         the one place in the valley where a strike is a mass casualty event, so it is ringed
+         with masts that take the hit and put it in the ground instead. They stand IN THE
+         AISLES between the ranks, never over a magazine, because that is the only ground
+         here you are allowed to put anything tall on. Guarded on the yard code so a mast can
+         never eat an earth cover. */
+      for(j=0;j<2;j++)for(i=0;i<2;i++){ var lx=36+i*52, ly=38+j*28;
+        if(G.get(lx,ly)===4) G.rect(lx,ly,lx+1,ly+4,14); }
       brush(G,30);
       lights(G,[[12,16],[W-13,16],[12,H-34],[W-13,H-34]]);
     },
@@ -351,6 +380,11 @@
       G.rect(ox-4,y0+30,W-8,y0+34,8);                                   // THE OUTFALL CHANNEL, leaving
       G.rect(ox-4,y0+28,W-8,y0+29,7); G.rect(ox-4,y0+35,W-8,y0+36,7);
       G.rect(22,H-30,52,H-16,2);                                        // the blower / control building
+      /* THE VENT STACK (code 14), "the vent stack on the blower house", authored and never
+         drawn. A pond field's blower house is the one building on the site with something
+         to get rid of -- the air it pulls off the ponds -- so the stack is the tallest thing
+         here and the only vertical in a plan made entirely of flat rectangles. */
+      G.rect(46,H-28,48,H-25,14);
       G.rect(56,H-28,W-24,H-26,13);
       for(i=0;i<6;i++) G.set(60+i*10,H-24,10);                          // the aeration blowers
       brush(G,22);
@@ -378,6 +412,18 @@
       G.rect(cx-5,H-32,cx+5,H-30,6);   // elevation marks are ON the outlet box
       G.rect(cx-2,H-30,cx+2,H-26,8);                                    // the orifice and what leaves it
       for(i=0;i<7;i++) G.set(cx-6+i*2,H-33,10);                         // the debris rack across its mouth
+      /* THE STORM DRAIN (code 13), "the concrete box storm drain leaving the outlet", and
+         THE STAGE GAUGE (code 14), "the stage gauge on the crest" -- both authored and never
+         drawn. The box drain is where the water GOES: a basin is only half a structure
+         without the pipe that takes the released flow away, and a 24-inch orifice on a
+         concrete box is the real Clark County detail this layout is built on. It leaves
+         east and stops short of the perimeter lane, because a buried box does not sever a
+         road a truck drives on. The gauge is a staff on the crest with the flood stages
+         painted up it -- the same record as the elevation marks on the outlet box, read
+         from the top instead of from the water. */
+      G.rect(cx+8,H-34,W-12,H-32,13);
+      G.rect(cx-16,H-26,cx-15,H-24,14);
+      G.rect(cx+18,12,cx+19,14,14);
       G.rect(cx+22,H-26,cx+44,H-24,7);                                  // the emergency SPILLWAY in the crest
       G.rect(cx+24,H-24,cx+42,H-20,4);
       // THE MAINTENANCE RAMP, and it has to actually ARRIVE. Cut down the west slope, along
@@ -626,8 +672,8 @@
            10:['barricade post','prop','a barricade post at the head of a rank, set there to stop a vehicle rather than a person'],
            11:['marking','marking','the magazine number stencilled on the headwall'],
            12:['perimeter fence','structure','the arsenal fence, and it is the outer of two -- the inner one is the fence that mattered'],
-           13:['cable trench','structure','the cable trench along the service lane'],
-           14:['lightning mast','structure','a lightning mast over the ranks']},
+           13:['cable trench','structure','the covered cable trench beside the service lane, carrying the lightning protection and every alarm on the site'],
+           14:['lightning mast','structure','a lightning mast standing in the aisle between two ranks, there to take the strike so a magazine does not']},
       sum:'An ammunition storage area: twelve earth-covered magazines set well apart in echelon with earth traverses between them, doors on one end only, off a single service lane.',
       ref:['Ammunition storage practice: earth-covered magazines are separated by quantity-distance and screened from each other by earth traverses, so a detonation in one does not propagate.',
            'The headwall and door are on ONE end only; the rest of the structure is arch under fill.'] },
@@ -675,7 +721,7 @@
            11:['marking','marking','the elevation marks on the outlet box — the record of every flood that filled this'],
            12:['perimeter fence','structure','the basin fence, pushed over where the last flood shoved a raft of debris into it'],
            13:['storm drain','structure','the concrete box storm drain leaving the outlet'],
-           14:['gauge mast','structure','the stage gauge on the crest']},
+           14:['gauge mast','structure','the stage gauge on the crest, the flood heights painted up it, the top mark higher than anyone believed']},
       sum:'A flood detention basin: an earth bowl with stepped side slopes down to a flat silt floor, a concrete outlet works with a small orifice at the low corner, and an emergency spillway notched in the crest.',
       ref:['Clark County Regional Flood Control District: basins range from 10 to 50 acres and up to 50 feet deep, holding water to about 51.5 feet before it goes over the emergency spillway.',
            'Since 1991 the district has built 650 miles of channel and 100 basins for $1.9 billion, with another 25 years of projects planned.',
@@ -703,7 +749,7 @@
            11:['marking','marking','a pond number stencilled on a weir box, so a man on foot knew which cell he was at'],
            12:['perimeter fence','structure','the plant fence, more about keeping people out of the ponds than anything in'],
            13:['inlet header','structure','the header feeding every pond off one line'],
-           14:['vent stack','structure','the vent stack on the blower house']},
+           14:['vent stack','structure','the vent stack on the blower house, the tallest thing on a site that is otherwise all flat rectangles']},
       sum:'A reclamation pond field: nine bermed ponds in a grid, an inlet header down one side, an outfall channel leaving toward the wash.',
       ref:['Clark County water reclamation: treated effluent returns to the Las Vegas Wash and from there to Lake Mead, which is why the outfall channel points that way.',
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },

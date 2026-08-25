@@ -38,21 +38,21 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | infield dirt | ground | the graded infield inside the ramps, nobody has been in here in years | ground | no | — | 315 |
-| 1 | `#33333c` | travel lane | drive | mainline lane through the junction, sun-cracked and drifted | ground | no | — | 2255 |
-| 2 | `#b3ab97` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | — |
-| 3 | `#3d3d46` | shoulder | drive | paved shoulder, rumble strip worn flat | ground | no | — | 1283 |
+| 1 | `#33333c` | travel lane | drive | mainline lane through the junction, sun-cracked and drifted | ground | no | — | 1831 |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | 401 |
+| 3 | `#3d3d46` | shoulder | drive | paved shoulder, rumble strip worn flat | ground | no | — | 1244 |
 | 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 128 |
 | 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 472 |
 | 6 | `#6a5f47` | embankment | ground | graded embankment slope, decomposed granite and rock | ground | no | — | 1357 |
 | 7 | `#3a4520` | dead brush | tree-dead | dry brush and tumbleweed standing waist high in the infield | prop | yes | — | 508 |
 | 8 | `#7a7266` | sound wall | structure | the block sound wall around the outside of the whole structure | structure | yes | — | 399 |
 | 9 | `#8f8676` | high-mast light | prop | a high-mast light tower over the junction, every head dark | prop | yes | — | 3 |
-| 10 | `#55555f` | dead car | vehicle | a car stopped in the queue that never moved again, doors open | prop | yes | — | 417 |
-| 11 | `#4a4a54` | dead semi | vehicle | a semi stopped nose to tail on the ramp, trailer stripped | prop | yes | — | 206 |
+| 10 | `#55555f` | dead car | vehicle | a car stopped in the queue that never moved again, doors open | prop | yes | — | 408 |
+| 11 | `#4a4a54` | dead semi | vehicle | a semi stopped nose to tail on the ramp, trailer stripped | prop | yes | — | 192 |
 | 12 | `#5c5c66` | deck | overhead | the upper roadway on its structure — you drive and walk UNDER it | overhead | no | — | 6701 |
 | 13 | `#6f6a5e` | pier | structure | a concrete pier carrying the deck, tagged as high as anybody could reach | structure | yes | — | 171 |
-| 14 | `#6a6a72` | sign gantry | overhead | overhead sign gantry, panels gone or hanging | overhead | no | — | — |
-| 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 582 |
+| 14 | `#6a6a72` | sign gantry | overhead | overhead sign gantry, panels gone or hanging | overhead | no | — | 88 |
+| 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 579 |
 | 16 | `#38383f` | ramp lane | drive | a two-lane connector ramp curving away from the mainline | ground | no | — | 8 |
 | 17 | `#42424a` | ramp shoulder | drive | the narrow shoulder of a connector ramp, nowhere to go if you stop | ground | no | — | 24 |
 | 18 | `#a8a08c` | gore marking | marking | the painted gore where the ramp splits off, chevrons worn to ghosts | ground | no | — | 56 |

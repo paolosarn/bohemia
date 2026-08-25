@@ -64,14 +64,22 @@ const DISCONNECTED_DEBT = new Set([
   'airbase', 'airport', 'boneyard', 'desert', 'interchange', 'medical', 'rail', 'solar',
   'speedway', 'town', 'truckstop',
 ]);
-/* THE FOUR THAT ARE GENUINELY BROKEN AND ARE DELIBERATELY NOT EXCUSED: prison (9.6% of its
-   drive surface reachable), fort (52.9%), dam (0.0%) and minigp (0.0%). They are newer than
-   the 7/31 debt, so they were never in it, and RULE NUMBER ONE has been RED on main because of
-   them -- verified on origin/main before touching anything, so this is inherited, not caused.
-   Putting them in the debt set would turn four broken districts green with a keystroke, which
-   is the one thing a ratchet must never let anybody do. They stay named until somebody fixes
-   the roads. BADNOW_CEILING therefore counts them: 11 excused + 4 unexcused = 15. */
-const BADNOW_CEILING = 15;
+/* THE FOUR THAT WERE GENUINELY BROKEN ARE FIXED (8/25) AND THERE ARE NO UNEXCUSED ONES LEFT.
+   prison read 9.6%, fort 52.9%, dam 0.0%, minigp 0.0% -- inherited, red on main since they
+   were written, and deliberately NOT excused into the debt set, because excusing four broken
+   districts with a keystroke is the one thing a ratchet must never allow. So they were fixed
+   instead, and each was a different real fault:
+     dam      its access road met the street THROUGH ITS GATE TILE, and a gate counted as a
+              wall. Nothing was wrong with the dam. (K.driveConductors, 8/25.)
+     minigp   the entrance ran five tiles in from the kerb and stopped in open outfield, and
+              the tyre barrier was an unbroken ring -- the circuit was a sealed island. It has
+              a pit access gap now, which every club circuit has.
+     prison   the sally port sat entirely OUTSIDE the outer wire and pierced neither fence. A
+              sally port is a vehicle trap cut through BOTH runs; now it is.
+     fort     the interpretive path was drawn OVER the access track and cut it in two. The
+              track goes down last; a path crosses a drive at grade.
+   BADNOW_CEILING is now exactly the size of the named debt. Nothing is unexcused. */
+const BADNOW_CEILING = 11;
 const HAIRLINE_DEBT = new Set(['battery', 'cemetery', 'desert', 'golf']);
 const WIDTH_FLOOR = 0.35;
 
@@ -112,7 +120,7 @@ ok('RULE NUMBER ONE — no district outside the named debt has drive surface a c
    regressed.length === 0);
 
 ok(`the disconnected debt only ever SHRINKS (${badNow.length} districts, ceiling ` +
-   `${BADNOW_CEILING} = ${DISCONNECTED_DEBT.size} excused + 4 named-and-unexcused)` +
+   `${BADNOW_CEILING}; nothing unexcused)` +
    (fixed.length ? '  FIXED since: ' + fixed.join(', ') : ''),
    badNow.length <= BADNOW_CEILING);
 

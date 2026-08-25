@@ -250,7 +250,19 @@
         a.rect(a.fx(t[0]) - 4, a.fy(t[1]) - 4, a.fx(t[0]) + 4, a.fy(t[1]) + 4, 9);
       });
       var sx = a.fx(0.50);
-      a.rect(sx - 7, a.fy(0.80), sx + 7, a.fy(0.88), 5);                    // sally port
+      /* A SALLY PORT PIERCES BOTH FENCES OR IT IS NOT A SALLY PORT (8/25). This ran from
+         fy(0.80) to fy(0.88) -- which is entirely OUTSIDE the outer wire. It touched neither
+         fence run and never reached the service road, so the prison's whole internal road
+         network was sealed: 9.6% of 1,826 drive tiles reachable from the street, RULE NUMBER
+         ONE (Paolo 7/31) broken outright. A vehicle could drive up to the prison and then had
+         nowhere to go, and the approach road led to a box.
+         What a sally port IS: a vehicle trap with a gate at EACH end, cut through the double
+         perimeter so a transport enters, both gates never open at once, and it comes out on
+         the compound road. So it now spans from just inside the road ring (fy 0.74) down to
+         the approach road, cutting the inner run at 0.76 and the outer run at 0.80 on the way
+         -- which is the only reason either of those runs has a gap in it. Drawn after the
+         fences on purpose: the gap IS what is being cut. */
+      a.rect(sx - 7, a.fy(0.74), sx + 7, a.fy(0.88), 5);                    // sally port
       a.rect(sx - 5, a.fy(0.88), sx + 5, a.Y1, 1);
       a.rect(sx - 4, a.fy(0.82), sx - 3, a.fy(0.86), 10);
       a.rect(a.fx(0.62), a.fy(0.84), a.fx(0.82), a.fy(0.94), 12);           // admin, OUTSIDE the wire
@@ -313,8 +325,16 @@
         var t = (vx - a.X0) / Math.max(1, a.W - 1);
         var bow = Math.round(Math.sin(t * Math.PI) * a.H * 0.06);
         a.rect(vx, crest - half - bow, vx, crest + half - bow, 2);
-        a.set(vx, crest - bow, 1);
-        a.set(vx, crest - bow + 1, 1);
+        /* THE ROAD ACROSS THE CREST WAS TWO TILES WIDE, WHICH IS 1.5 METRES (8/25). At
+           TILE=0.75 m that is a footpath, not the highway that ran over Hoover Dam for
+           seventy years, and it is exactly the defect Paolo circled on the mall: "he circled
+           two of them and asked what they were supposed to be". The hairline check said 0% of
+           this district's lanes were wide enough to drive and it was right.
+           SEVEN TILES = 5.25 m: two lanes at a bit over 2.5 m each, which is what a crest road
+           genuinely is -- narrow, with a parapet either side, no shoulder. The three tiles of
+           wall left on each side are that parapet. Seen from above a dam crest IS mostly road;
+           the mass you read as the dam is the downstream face, and this view foreshortens it. */
+        a.rect(vx, crest - bow - 3, vx, crest - bow + 3, 1);
       }
       [0.18, 0.34, 0.66, 0.82].forEach(function (f) {                       // intake towers
         a.rect(a.fx(f) - 5, crest - half - Math.round(a.H * 0.16), a.fx(f) + 5, crest - half - Math.round(a.H * 0.07), 4);
@@ -407,7 +427,21 @@
       });
       a.rect(L - 12, Tp - 12, L - 5, Tp - 5, 7);                            // run-off
       a.rect(R + 5, B + 5, R + 12, B + 12, 7);
-      a.rect(a.fx(0.62), a.fy(0.96), a.fx(0.68), a.Y1, 1);
+      /* THE PIT ENTRANCE (8/25). This district's own circulation note says "the circuit and
+         the pit lane are one connected DRIVE surface entering off the street at the paddock
+         gate, so a vehicle can get onto the track". IT DID NOT. The entrance ran five tiles
+         in from the kerb and stopped in open outfield, and the tyre barrier was an unbroken
+         ring around the whole circuit -- so the track and the pit lane were a sealed island
+         and the karts would have had to be built inside it. Measured 0.0% of 4,929 drive
+         tiles reachable from the street, which is RULE NUMBER ONE (Paolo 7/31) broken outright
+         in a district whose notes claimed the opposite. A note is not a fact until a generator
+         writes it.
+         Every club circuit has this: an ACCESS GAP in the barrier at the paddock end, where
+         the karts are wheeled out onto the circuit. The entrance now runs from the kerb, up
+         the clear strip beside the paddock, and through that gap onto the main straight --
+         which the pit lane already joins. Drawn AFTER the tyre walls on purpose, because the
+         gap IS the thing being cut in them. */
+      a.rect(a.fx(0.62), B + 1, a.fx(0.68), a.Y1, 1);
       a.rect(a.fx(0.62), a.Y1 - 1, a.fx(0.68), a.Y1, 5);
       for (var i = 0; i < 3; i++) a.rect(a.fx(0.44 + i * 0.09), B - W - 5, a.fx(0.46 + i * 0.09), B - W - 3, 10);
       for (var j = 0; j < 30; j++) {
@@ -477,8 +511,15 @@
       a.rect(a.fx(0.20), a.fy(0.62) - 1, a.fx(0.24), a.fy(0.62), 8);
       a.rect(a.fx(0.40), a.fy(0.16), a.fx(0.56), a.fy(0.34), 4);            // the second range
       a.rect(a.fx(0.28), B - 3, a.fx(0.38), B, 5);                          // the gate
-      a.rect(a.fx(0.29), B, a.fx(0.37), a.Y1, 1);
       a.ring(L - 9, Tp - 9, R + 9, B + 9, 2, 11);                           // interpretive path
+      /* THE TRACK IS DRAWN AFTER THE PATH, AND THAT IS THE WHOLE FIX (8/25). The interpretive
+         path is a loop around the fort and its bottom run crosses the access track. It was
+         drawn second, so it PAINTED OVER the track and cut it clean in two -- 52.9% of the
+         fort's drive surface unreachable from the street, RULE NUMBER ONE (Paolo 7/31) broken
+         by a footpath. Where a path meets a drive on a real site the path crosses AT GRADE and
+         the drive runs through; you do not lift the road out and put gravel in the gap. So the
+         track goes down last and the path crosses it, which is also what it looks like. */
+      a.rect(a.fx(0.29), B, a.fx(0.37), a.Y1, 1);
       a.rect(a.fx(0.40), a.fy(0.78), a.fx(0.41), a.fy(0.82), 10);
       for (var i = 0; i < 8; i++) a.set(a.fx(0.16 + i * 0.05), a.fy(0.80), 9);
       for (var j = 0; j < 26; j++) {

@@ -39,15 +39,15 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 3 | `#3f382c` | flood debris | tree-dead | tumbleweed and branch wrack piled where the water last stopped | prop | yes | — | 90 |
 | 4 | `#6e654e` | basin floor | ground | the flat floor of the basin, silt cracked into plates | ground | no | — | 3700 |
 | 5 | `#c79a3f` | gate | gate | the basin gate off the street, amber curb | portal | no | — | 5 |
-| 6 | `#5f5844` | side slope / outlet works | structure | the side slope stepping down to the floor — and the concrete outlet box at the bottom of it | structure | yes | — | 3605 |
-| 7 | `#7b7259` | embankment crest / spillway | structure | the crest of the embankment, and the emergency spillway notched into it | structure | yes | — | 600 |
+| 6 | `#5f5844` | side slope / outlet works | structure | the side slope stepping down to the floor — and the concrete outlet box at the bottom of it | structure | yes | — | 3469 |
+| 7 | `#7b7259` | embankment crest / spillway | structure | the crest of the embankment, and the emergency spillway notched into it | structure | yes | — | 589 |
 | 8 | `#4c8450` | low-flow trickle | water-dead | the trickle that runs even when it has not rained, gone green with algae, crossing the floor to the orifice | ground | no | — | 1367 |
 | 9 | `#8f8676` | pole light | prop | a light on the crest, head dark, put there to work a basin at night in a storm | prop | yes | — | 2 |
 | 10 | `#8a8172` | debris rack / riprap | prop | the trash rack across the orifice, and rock armour where the flow comes in | prop | yes | — | 1613 |
 | 11 | `#c9c1aa` | marking | marking | the elevation marks on the outlet box — the record of every flood that filled this | ground | no | — | 3 |
 | 12 | `#6a6a72` | perimeter fence | structure | the basin fence, pushed over where the last flood shoved a raft of debris into it | structure | yes | — | 455 |
-| 13 | `#7a7266` | storm drain | structure | the concrete box storm drain leaving the outlet | structure | yes | — | — |
-| 14 | `#8a8478` | gauge mast | structure | the stage gauge on the crest | structure | yes | — | — |
+| 13 | `#7a7266` | storm drain | structure | the concrete box storm drain leaving the outlet | structure | yes | — | 135 |
+| 14 | `#8a8478` | gauge mast | structure | the stage gauge on the crest, the flood heights painted up it, the top mark higher than anyone believed | structure | yes | — | 12 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

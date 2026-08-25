@@ -38,16 +38,16 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 2 | `#7a7264` | housing unit | building | a housing unit: a long single-storey block with a slot window every cell | structure | yes | a dayroom with two tiers of cell doors around it, every door standing open | 2492 |
 | 3 | `#4a4030` | dead scrub | tree-dead | dead scrub against the wire | prop | no | — | 8 |
 | 4 | `#8c8274` | unit roof | structure | the unit roof with its swamp coolers, every fan still | structure | yes | — | 580 |
-| 5 | `#c2a86a` | sally port | gate | the sally-port vehicle trap, both gates hanging open | portal | no | — | 142 |
+| 5 | `#c2a86a` | sally port | gate | the sally-port vehicle trap, both gates hanging open | portal | no | — | 262 |
 | 6 | `#6a6558` | exercise yard | ground | a yard of packed dirt with a bare backboard at one end | ground | no | — | 1080 |
-| 7 | `#8a8a92` | perimeter fence | fence | the double perimeter: two chain-link runs with razor coil between them, cut through in one place | structure | yes | — | 2169 |
+| 7 | `#8a8a92` | perimeter fence | fence | the double perimeter: two chain-link runs with razor coil between them, cut through in one place | structure | yes | — | 2094 |
 | 8 | `#2e2a24` | unit door | portal | a unit door standing open onto the dayroom | portal | no | — | 48 |
 | 9 | `#8f8676` | guard tower | structure | a corner guard tower on its legs, glass gone, nobody in it | structure | yes | the tower cab: a swivel chair, a dead phone, and the whole compound below you | 324 |
 | 10 | `#55555f` | abandoned vehicle | vehicle | a transport van left in the sally port | prop | yes | — | 12 |
 | 11 | `#5f5a52` | services core | building | the services core: kitchen, laundry and infirmary in one block at the middle | structure | yes | the core: steam kettles cold, the infirmary cabinets emptied first | 296 |
 | 12 | `#9a9184` | administration | building | the administration building, OUTSIDE the wire | structure | yes | admin: a counter, a visitor bench, and files pulled out onto the floor | 336 |
-| 13 | `#8a7f66` | outside ground | ground | the desert outside the wire — never graded, never walked, creosote coming back into it | ground | no | — | 3110 |
-| 14 | `#75694f` | rock lag | ground | rock lag and creosote in patches outside the wire, the desert taking it back | ground | no | — | 2505 |
+| 13 | `#8a7f66` | outside ground | ground | the desert outside the wire — never graded, never walked, creosote coming back into it | ground | no | — | 3069 |
+| 14 | `#75694f` | rock lag | ground | rock lag and creosote in patches outside the wire, the desert taking it back | ground | no | — | 2501 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

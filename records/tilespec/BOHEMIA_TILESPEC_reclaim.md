@@ -34,7 +34,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground (setback) | ground | the setback outside the pond field, and downwind of it, which is why nobody built here | ground | no | — | 2894 |
 | 1 | `#4c483f` | service road | drive | the service road along the berm tops, one truck wide with nowhere to turn (drivable) | ground | no | — | 1441 |
-| 2 | `#6a6358` | building (blower / control) | building | the blower house, control room dark and the blowers inside it seized where they stopped | structure | yes | the reclaim building interior: the working room at the front, stores and plant behind it | 465 |
+| 2 | `#6a6358` | building (blower / control) | building | the blower house, control room dark and the blowers inside it seized where they stopped | structure | yes | the reclaim building interior: the working room at the front, stores and plant behind it | 453 |
 | 3 | `#3f382c` | dead brush | tree-dead | reed and brush gone dry on a berm, rooted in what the pond beside it used to carry | prop | yes | — | 28 |
 | 4 | `#5a5546` | berm road surface | ground | the graded top of a berm between two ponds | ground | no | — | 3795 |
 | 5 | `#c79a3f` | gate | gate | the plant gate off the street, amber curb | portal | no | — | 5 |
@@ -46,7 +46,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 11 | `#c9c1aa` | marking | marking | a pond number stencilled on a weir box, so a man on foot knew which cell he was at | ground | no | — | 3 |
 | 12 | `#6a6a72` | perimeter fence | structure | the plant fence, more about keeping people out of the ponds than anything in | structure | yes | — | 455 |
 | 13 | `#7a7266` | inlet header | structure | the header feeding every pond off one line | structure | yes | — | 171 |
-| 14 | `#8a8478` | vent stack | structure | the vent stack on the blower house | structure | yes | — | — |
+| 14 | `#8a8478` | vent stack | structure | the vent stack on the blower house, the tallest thing on a site that is otherwise all flat rectangles | structure | yes | — | 12 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -33,8 +33,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | canyon rock | ground | bare canyon rock, blasted flat where the works needed it | ground | no | — | 1545 |
-| 1 | `#3f3d38` | crest road | drive | the two-lane road across the dam crest (car-drivable) | ground | no | — | 239 |
-| 2 | `#9a948a` | dam wall | building | the arch-gravity wall itself, a concrete curve wedged into the canyon | structure | yes | a gallery inside the dam: wet concrete, a walkway, and the hum that is not there any more | 1356 |
+| 1 | `#3f3d38` | crest road | drive | the two-lane road across the dam crest (car-drivable) | ground | no | — | 843 |
+| 2 | `#9a948a` | dam wall | building | the arch-gravity wall itself, a concrete curve wedged into the canyon | structure | yes | a gallery inside the dam: wet concrete, a walkway, and the hum that is not there any more | 752 |
 | 3 | `#3a5a72` | reservoir | water | what is left of the reservoir, a long way below the white mineral ring it used to reach | ground | no | — | 3977 |
 | 4 | `#8e8880` | intake tower | building | an intake tower standing out of the water on its own plinth | structure | yes | the tower head: a gantry, a dead hoist, and the shaft going straight down | 528 |
 | 5 | `#c2a86a` | road entrance | gate | where the crest road meets the canyon road | portal | no | — | 48 |

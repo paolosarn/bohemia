@@ -28,6 +28,22 @@
       G.rect(ux+1,uy,ux+Math.max(1,Math.floor(uw*0.4)),uy+2,7);          // office bay, front corner
       set(ux+Math.floor(uw/2),uy+depth,6);                                // roll-up dock, back face
       for(var ci=0;ci<2;ci++) set(ux+2+ci*2,uy-2,11);                     // reserved stalls out front
+      /* AND SOMETHING STILL PARKED IN ONE (8/25). Code 10, "a car dead in a reserved stall,
+         tyres flat", was authored in this legend and never once placed -- dead_code_gate found
+         it. The stall paint two lines up is the whole reason the code exists: a RESERVED stall
+         is reserved for somebody, and the tell that the tenant never came back is that their
+         car is still in it. About a third of the units, nose-in to the roll-up like you park
+         when the unit is yours. It cannot be erased by the spine street, which only converts
+         codes 0/3/4/11/12 and runs past x=105, clear of the last unit at x=99. */
+      /* AND IT MUST NOT TOUCH THE RANDOM STREAM. The first cut was `if(r()<0.34)`, which
+         consumes a draw per unit and SHIFTS EVERY LATER DRAW IN THE WHOLE DISTRICT -- three
+         more bays came up burned-out, the code-2 footprint count fell 12 to 9, and
+         warehouse_gate went red on a check about tenant units that had nothing to do with
+         cars. A decoration that changes the layout is not a decoration.
+         So it is derived from the unit index and the seed instead: same per-unit answer, same
+         determinism, and the sequence r() hands out is byte-for-byte what it was. */
+      if((((Math.imul(idx+1,2654435761)^Math.imul(seed>>>0,40503))>>>0)%100)<34)
+        G.rect(ux+2,uy-4,ux+3,uy-1,10);
       if(r()<0.4) set(ux+3,uy+depth+1,13);                                // loose pallets behind the dock
     }
     // ---- BASE: lot asphalt, fenced; desert at the margins ----

@@ -33,7 +33,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dust yard | ground | the beaten dust of the fort yard, a century and a half of it | ground | no | — | 4183 |
-| 1 | `#3f3d38` | track | drive | the dirt track up to the gate (car-drivable) | ground | no | — | 187 |
+| 1 | `#3f3d38` | track | drive | the dirt track up to the gate (car-drivable) | ground | no | — | 209 |
 | 2 | `#a08a66` | adobe wall | building | the adobe curtain wall, mud brick under a century of weather, slumped in two places | structure | yes | inside the wall thickness: a store room, cool, dark, smelling of earth | 1156 |
 | 3 | `#4a4030` | dead mesquite | tree-dead | dead mesquite along the creek line | prop | no | — | 5 |
 | 4 | `#b09a72` | adobe building | building | THE original adobe building — the oldest standing structure in the valley | structure | yes | one room with a beamed ceiling, a hearth, and a floor of packed earth | 1190 |
@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 8 | `#2e2a24` | doorway | portal | a doorway in the adobe, no door left in it | portal | no | — | 12 |
 | 9 | `#8f8676` | post | prop | a corral post standing on its own | prop | yes | — | 8 |
 | 10 | `#55555f` | abandoned vehicle | vehicle | a park truck left outside the wall | prop | yes | — | 11 |
-| 11 | `#c9c1aa` | interpretive path | walk | the visitor path, its plaques prised off | ground | no | — | 677 |
+| 11 | `#c9c1aa` | interpretive path | walk | the visitor path, its plaques prised off | ground | no | — | 655 |
 | 12 | `#3a6a72` | creek | water | Las Vegas Creek: still running, which is the whole reason a city is here | ground | no | — | 534 |
 | 13 | `#9a8a68` | open desert | ground | the desert outside the fort, untouched since before any of this | ground | no | — | 4222 |
 | 14 | `#84744f` | creosote flat | ground | creosote in its evenly spaced grid outside the walls — they poison each other roots, which is why the spacing is even | ground | no | — | 3136 |

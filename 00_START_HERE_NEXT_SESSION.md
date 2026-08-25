@@ -1,3 +1,108 @@
+WORLD (world-9lfjtf): 8/25 (a) LATEST -- *** EVERY DISTRICT IN THE VALLEY HAS A WAY IN NOW.
+RULE NUMBER ONE has been RED on main since the day Paolo made it a law on 7/31, and it is
+GREEN. Four districts a car could not drive into are fixed, and the dead-code debt goes
+41 -> 10. Nothing to judge. ***
+
+TAB: CITY. Walk into the dam, the go-kart track, the prison or the old fort -- you can now
+drive into all four. The freeway junctions have lane markings on them for the first time.
+
+*** THE FOUR DISTRICTS A CAR COULD NOT DRIVE INTO. Yesterday's paint fix cleared eleven
+false ones and left these four standing with nothing to hide behind:
+
+    prison   9.6% of 1,826 drive tiles reachable from the street
+    fort    52.9% of 187
+    dam      0.0% of 239
+    minigp   0.0% of 4,929
+
+  They were never in the 7/31 debt list because they were written after it, so ONE LINE would
+  have turned all four green. That is the one thing a ratchet must never let anybody do. Each
+  was a different real fault:
+
+    dam     ITS ROAD MET THE STREET THROUGH ITS GATE TILE, and a gate counted as a WALL.
+            Nothing was wrong with the dam. A gate CONDUCTS now, like paint and like an
+            overhead. Measured every district first: exactly TWO move, so it is not a
+            loosening, it is the one case a gate exists for. 0.0% -> 100.0%.
+            AND ITS ROAD WAS 1.5 METRES WIDE -- two tiles across the crest of Hoover Dam,
+            which is the exact defect he circled on the mall. Seven tiles now, 5.25 m, two
+            lanes with a parapet either side.
+    minigp  the entrance ran five tiles in from the kerb and stopped in open outfield, and the
+            tyre barrier was an UNBROKEN RING -- the circuit was a sealed island and the karts
+            would have had to be built inside it. Its own notes claimed the opposite. A NOTE IS
+            NOT A FACT UNTIL A GENERATOR WRITES IT. It has a pit access gap now.
+    prison  the sally port sat entirely OUTSIDE the outer wire and pierced neither fence. A
+            sally port is a vehicle trap cut through BOTH runs; now it is.
+    fort    the interpretive footpath was drawn OVER the access track and cut it in two. A path
+            crosses a drive at grade. The track goes down last. ***
+
+*** AND THE FREEWAY JUNCTIONS HAD NO LANE MARKINGS, OFF BY HALF A TILE. *** The test was
+right in every way except one: it compared a DISTANCE to whole numbers. The mainline centre of
+a 128-tile cell is 63.5 -- an even span has no middle tile -- so every offset it produced was
+3.5, 8.5, 13.5, 22.5, and `offV === 23` could never be true, not once, on any cell, since the
+day it was written. 2,255 lane tiles per junction and ZERO paint. It is a tile INDEX now, and
+the edge line is DERIVED from bandOf instead of hard-coded for one parity, so it works whatever
+centre a junction gets. 401 lane lines per cell. Sign gantries too -- the other dead row there.
+
+DEAD CODES 41 -> 10, all of it authored content that had never reached the screen:
+  the interchange's lane line + sign gantry · warehouse dead cars in the reserved stalls ·
+  arsenal cable trench + lightning masts · basin storm drain + stage gauge · reclaim vent
+  stack · radio anchor blocks (drawn as the wrong code, so 6 was dead) AND its base plate
+  (which went dead the moment I fixed the anchors -- caught it before shipping the trade).
+
+RATCHETS MOVED: dead codes 41 -> 10 · drive network RED since 7/31 -> GREEN, ceiling 11 with
+NOTHING unexcused · stub write-ups held at 75 (four of mine went over the line when their tiles
+first appeared; written properly rather than excused).
+
+Record: records/BOHEMIA_FOUR_DISTRICTS_A_CAR_COULD_NOT_DRIVE_INTO_8_25_26.md
+Stamp:  BUILD 8/25h - EVERY DISTRICT HAS A WAY IN
+LOOK tab: "A ROAD ACROSS THE DAM" (the-way-in). All 37 pictures current, all 37 with a shooter.
+
+*** AND THE PICTURE TOLD ME SOMETHING I DID NOT ASK IT. *** The LOOK shot of the new dam crest
+road came back with THE DAM WALL RENDERED AS BRICKWORK. It is an arch-gravity CONCRETE wall.
+texKindFor has three families for anything standing up -- canopy, rock, and otherwise ROOF --
+and `rock` is reached only through __terrainRockCols(), which sweeps the TERRAIN districts. The
+dam is infrastructure, so its wall falls through and gets shingles, and so does every other
+concrete mass in the game outside a terrain district. Same class as "the mountain shipped as
+brickwork" that occupancy_gate still warns about. NOT fixed here -- it is a rendering change
+across many districts and it needs its own pass with pictures. The caption on the new picture
+says so in plain words rather than pretending the shot is clean.
+
+NEXT IN THIS LANE, in this order:
+  - *** THE DAM IS DRAWN AS BRICK AND SO IS EVERY CONCRETE MASS OUTSIDE A TERRAIN DISTRICT.
+    Diagnosis above, and the fix has a shape: __terrainRockCols() already proves the pattern --
+    sweep the registered districts and collect the structure-layer palette colours that belong
+    to a material, then teach texKindFor about that set. Do it BY THE LEGEND (the act-1 line
+    says "concrete", "adobe", "block"), never by hard-coding a colour, and LOOK AT PICTURES
+    before and after, because the blast radius is every standing thing in the game. ***
+  - *** THE INTERCHANGE IS STILL 87.9% CONNECTED
+    THE INTERCHANGE IS STILL 87.9% CONNECTED and it is the last big one on the disconnected
+    list. Measured absolute, not percent: 479 drive tiles unreachable (it was 484 before the
+    lane lines, so nothing I did made it worse -- the percentage only moved because 457 lane
+    tiles became paint). The ramps are the suspects: connector arcs that merge into a
+    carriageway the solver never joined. Start by mapping which drive tiles are in the
+    unreachable set rather than guessing.
+  - THE REMAINING TEN DEAD CODES, and four of them are one question: arterial:0 "dirt
+    shoulder", downtown:0, freeway:0, industrial:0 are all the fill-through margin a dense
+    district never leaves. Either they are genuinely CONDITIONAL -- in which case prove it in
+    the source the way the airfield six were proved -- or the districts should leave a margin.
+    Do not excuse them without the diagnosis. casino:7 and resort:9 are on the NEVER
+    AUTO-GENERATE list and are not ours. freeway:16/17 are a rare co-occurrence a 160-cell
+    sample may simply be missing. That leaves convention:5 and mountain:8 as real small work.
+  - A LOOK PICTURE OF THE FOUR. Every city picture has a shooter now (8/24) and
+    tools/bohemia_look_shots.js takes them with --only <id>, so this is twenty minutes: add a
+    subject that frames the dam crest road or the prison sally port.
+  - THE SUITE IS 420 GATES AND TAKES 50+ MINUTES. `timeout 3000 python3 gates/bohemia_gates.py`
+    KILLS IT at the 3000s mark -- run it with nohup and no timeout, or shard it. And DO NOT
+    EDIT WHILE IT RUNS; a run against a moving tree is worthless and has to be thrown away.
+    Its pack results are load-sensitive (13 reds on a quiet box, 30 on a loaded one, same
+    tree), so BASELINE EVERY RED against origin/main in a worktree before believing it.
+
+THE LESSON, THREE MORE TIMES: a gate counted as a wall, a distance compared to a whole number,
+a footpath painted over a road. Every one was invisible because the thing it broke looked
+exactly like a thing that was never built. That is the entire reason dead_code_gate and
+drive_network_gate exist, and this week they have paid for themselves several times over.
+
+---
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (b) LATEST -- *** SWEEP 15.
 EVERYBODY IN THIS VALLEY SPEAKS PERFECT ENGLISH. TAB: LIFE + WORDS (routed, not
 built). Nothing to judge. ***

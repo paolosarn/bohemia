@@ -189,11 +189,42 @@
       if (code !== null) {
         // white edge and lane lines, on the mainlines only (a ramp is a single stream)
         if (code === 1) {
+          /* OFF BY HALF A TILE, AND SO NO FREEWAY IN THE VALLEY HAD A LANE LINE ON IT (8/25).
+             This test was right in every way except one: it compared a DISTANCE to whole
+             numbers. The mainline centre of a 128-tile cell is 63.5 -- it lands between two
+             tiles, because an even span has no middle tile -- so every offset it produces is
+             3.5, 8.5, 13.5, 22.5. `offV === 23` and `LANE_LINES.indexOf(8.5)` can never be
+             true, not once, on any cell, since the day this was written. Measured: 2,255
+             travel-lane tiles in one junction and ZERO code 2, with the histogram of offsets
+             coming out entirely in halves. dead_code_gate found it as a dead legend row.
+             THE OFFSET IS NOW A TILE INDEX, not a distance: floor() gives the same answer when
+             a centre is a whole number and the right one when it is a half, so this works
+             either way and nobody has to know which parity a junction happened to get.
+             AND THE EDGE LINE IS DERIVED, NOT A CONSTANT. `EDGE = 23` only ever matched an
+             integer centre. The edge line is the last lane before the shoulder -- which is
+             exactly "the next tile out is not a lane" -- so ask bandOf that question instead of
+             hard-coding the answer for one parity. */
           var offV = onNS ? Math.abs(gx - dn.at) : -1, offH = onEW ? Math.abs(gy - de.at) : -1;
           var dashV = (Math.floor((gy % 14) / 7) === 0), dashH = (Math.floor((gx % 14) / 7) === 0);
-          if (offV === EDGE || offH === EDGE) return 2;
-          if (offV >= 0 && LANE_LINES.indexOf(offV) >= 0 && dashV) return 2;
-          if (offH >= 0 && LANE_LINES.indexOf(offH) >= 0 && dashH) return 2;
+          if ((offV >= 0 && bandOf(offV + 1) !== 1) || (offH >= 0 && bandOf(offH + 1) !== 1)) return 2;
+          if (offV >= 0 && LANE_LINES.indexOf(Math.floor(offV)) >= 0 && dashV) return 2;
+          if (offH >= 0 && LANE_LINES.indexOf(Math.floor(offH)) >= 0 && dashH) return 2;
+        }
+        /* THE SIGN GANTRIES (code 14), authored in this legend and never once placed -- the
+           other dead row dead_code_gate found here. They are the thing that tells you from a
+           mile away that a junction is coming, and on a dead freeway they are the thing whose
+           panels are gone: the frame still spans the road and the green boards that said where
+           you were going have been taken down, blown out or left hanging.
+           OVERHEAD, so you drive and walk UNDER them exactly like the deck -- which is also why
+           adding them cannot strand a lane: the kit conducts a path through an overhead.
+           Spaced 210 tiles, about 158 m, across the whole carriageway including the shoulders,
+           and only where a mainline runs AT GRADE -- over the crossing the road is already a
+           deck, and you do not hang a gantry under a bridge. Solved from valley coordinates
+           like everything else in this module, so a gantry lands in the same place no matter
+           which cell you are standing in. */
+        if ((code === 1 || code === 2 || code === 3) && (onNS !== onEW)) {
+          var along = onNS ? gy : gx;
+          if ((((along % 210) + 210) % 210) < 2) return 14;
         }
         // gore striping where a ramp's shoulder runs alongside a carriageway
         if (code === 17 && (onNS || onEW)) return 18;

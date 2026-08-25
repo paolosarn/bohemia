@@ -223,6 +223,14 @@
          number -- so the path goes through it and a road split by its own markings is still
          one road, which is the whole point of the 7/31 ruling. It just is not itself road. */
       else if (legend[c].kind === 'marking') C[c] = 1;
+      /* AND THE GATE (8/25). A GATE IS THE HOLE YOU DRIVE THROUGH. It was counted as a wall,
+         so any district whose road meets the street THROUGH its gate tile read as sealed off.
+         The dam was reported 0.0% reachable -- 239 tiles of access road a car could supposedly
+         never touch -- and it is 100% the moment the gate conducts. Nothing was wrong with the
+         dam. Measured across every registered district before changing this: exactly TWO move,
+         so it is not a loosening, it is the one case a gate exists for. STREET-AWARE ACCESS
+         LAW says one car entrance on the primary street; this is that entrance. */
+      else if (legend[c].kind === 'gate') C[c] = 1;
     }
     return C;
   }
