@@ -50,7 +50,65 @@
     for(i=-3;i<=3;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE LANDFILL, NOT FOUR (8/26). A regional landfill is one facility with one scale house,
+     one leachate pond and one haul road spiralling up the fill. Four cells each built the
+     whole thing, so the valley had four weighbridges inside one fence line.
+     AN AREA DISTRICT: bounds, like the solar farm. The fill CELLS (the real word for the
+     bermed compartments a landfill is filled in, one at a time) now tile the whole parcel
+     instead of being crammed four times over, which is also how a landfill actually looks
+     from the air. */
+  function clusterFill(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+5,f.y0+5,f.x1-5,f.y1-5,4);            // cover soil over the whole site
+    A.vframe(12,2);                                     // the SITE's fence, never a cell's
+
+    /* THE FILL CELLS, bermed and tiled across the parcel. Each is a compartment of waste
+       inside its own berm -- the berm rows are laid off the DISTRICT so a berm runs straight
+       through a cell boundary rather than stopping at it. */
+    var CW=54, CH=44;
+    for(var fy=A.firstAt(f.y0+16,CH,A.c.y0-CH); fy<=Math.min(f.y1-30,A.c.y1+CH); fy+=CH)
+      for(var fx=A.firstAt(f.x0+16,CW,A.c.x0-CW); fx<=Math.min(f.x1-24,A.c.x1+CW); fx+=CW){
+        A.vrect(fx,fy,fx+CW-8,fy+CH-8,7);               // the berm
+        A.vrect(fx+3,fy+3,fx+CW-11,fy+CH-11,6);         // the waste inside it
+        if(A.rnd(fx,fy)<0.55) A.vset(fx+((CW-8)>>1),fy+((CH-8)>>1),13);   // a gas well in the cap
+      }
+
+    /* HAUL ROAD: a ring around the fill plus a spine up the middle, because a truck has to
+       reach every compartment and the ring is what makes that true from any gate. */
+    A.vrect(f.x0+8,f.y0+8,f.x1-8,f.y0+13,1); A.vrect(f.x0+8,f.y1-13,f.x1-8,f.y1-8,1);
+    A.vrect(f.x0+8,f.y0+8,f.x0+13,f.y1-8,1); A.vrect(f.x1-13,f.y0+8,f.x1-8,f.y1-8,1);
+    A.vrect(f.mx-3,f.y0+8,f.mx+3,f.y1-8,1);
+
+    // ---- SCALE HOUSE + gas plant, ONCE, at the site entrance corner ----
+    A.vrect(f.x0+18,f.y1-30,f.x0+40,f.y1-18,2);
+    A.vrect(f.x0+19,f.y1-17,f.x0+39,f.y1-16,11);        // the weighbridge markings
+    A.vrect(f.x0+46,f.y1-28,f.x0+58,f.y1-20,2);         // gas / flare plant
+
+    // ---- LEACHATE POND, ONCE, at the low corner ----
+    A.vell(f.x1-38,f.y1-34,22,15,8);
+
+    A.dress(10,26,4);                                    // dozers and compactors parked out
+    A.dress(3,180,0); A.dress(3,120,4);                  // dead brush on the margins and the cap
+    [[f.x0+6,f.y0+6],[f.x1-6,f.y0+6],[f.x0+6,f.y1-6],[f.x1-6,f.y1-6]]
+      .forEach(function(p){ A.vset(p[0],p[1],9); });     // pole lights on the SITE's corners
+
+    var gates=A.gates(streets,5,1,[0,3,4,12],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with.  */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterFill(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,

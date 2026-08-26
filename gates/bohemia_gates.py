@@ -371,6 +371,18 @@ GATES = [
     # chunk run out of order corrupts the banks rather than delaying them. Nothing throws.
     # Proved in CITY MODE, which is the only place the late art is visible at all, with a
     # control boot that has to look different before the answer is believed.
+    # 8/26: SIX TIMES IN THREE DAYS the same defect -- solar 265 plants, wash 51 tunnel
+    # mouths, railyard 6 engine sheds, FOUR STADIUM BOWLS in a 2x2, 4 weighbridges, 4 chapels.
+    # A generator is handed one cell and draws 128x128 tiles, so a district covering a blob
+    # builds itself once per cell. Six is a class, not a bug, so this is the gate for the
+    # class: it reads the valley, finds every multi-cell blob, and builds each one BOTH ways
+    # -- as one district and a cell at a time -- then counts the facility's own hero
+    # structures in each. That comparison IS the mutation test, run every time, against the
+    # exact defect it guards, so it cannot go quietly green the way a constant can.
+    ('ONE PER BLOB',   ['node', 'gates/one_district_per_blob_gate.js'],
+     'a facility does not multiply when you give it more ground: a district spanning a blob '
+     'of cells builds ONE of itself, and its hero structures stop scaling with the number of '
+     'cells -- checked against the same district built the old way, cell by cell', True),
     ('LATE ART',       ['node', 'gates/late_art_gate.js'],
      'the art that no longer blocks the world still ARRIVES and still gets DRAWN: the '
      'shipped page renders the same city as one with every chunk blocking, all three late '

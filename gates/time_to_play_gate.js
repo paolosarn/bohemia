@@ -32,6 +32,7 @@
  *   node gates/time_to_play_gate.js
  */
 const http = require('http');
+const zlib = require('zlib');
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -43,13 +44,17 @@ const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
    NOT enough headroom for a lane adding another art bank, which is the thing this stops.
    If you are here because the gate went red: you did not break it, you grew the download a
    friend waits through. Either shrink what you added or say out loud why it is worth it. */
-const CEIL_TOTAL = 44 * 1048576;   // everything a cold visitor pulls to reach the world
+/* 44 -> 30 MB on 8/26, and NOTHING IN THE GAME CHANGED TO EARN IT. The test server sends
+   gzip now, like the real host does, so these count what actually crosses the wire instead of
+   what sits on disk: 40.76 -> 25.88 MB total, 2.84 -> 1.05 MB after the tap. Every byte
+   number this gate ever printed was a host that does not exist. */
+const CEIL_TOTAL = 30 * 1048576;   // everything a cold visitor pulls to reach the world
 /* THE ONE THAT MOVED. 36 -> 6 MB on 8/24, and this is the whole point of a ratchet:
    the bank was split into 8 cacheable chunks and the splash now warms them, so the wait
    after the tap went 32.38 MB -> 2.65 MB. Measured, both times, from the server's side.
    6 MB is that result with room for the world page to grow, and NOT room for anybody to
    put another art bank back on the far side of the tap. */
-const CEIL_AFTER = 6 * 1048576;    // the part AFTER the tap -- the wait he actually stares at
+const CEIL_AFTER = 2 * 1048576;    // the part AFTER the tap -- the wait he actually stares at
 
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
                '.png': 'image/png', '.json': 'application/json', '.webmanifest': 'application/manifest+json' };
@@ -62,14 +67,47 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
   /* a static host that behaves like one: real cache headers on assets, so what the browser
      reuses here is what it would reuse in production. */
   const hits = [];
+  const wire = {};        // basename -> bytes that actually crossed, compressed if compressed
   const server = http.createServer((req, res) => {
     const rel = decodeURIComponent(req.url.split('?')[0]);
     const file = path.join(ROOT, rel);
     if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       res.writeHead(404); return res.end('no');
     }
-    hits.push(path.basename(file));
+    const base = path.basename(file);
+    hits.push(base);
     const ext = path.extname(file);
+    /* GZIP, BECAUSE THE REAL HOST DOES (8/26). Every number this gate has ever printed was
+       measured off a server that sends the bytes raw, and GitHub Pages compresses text on the
+       fly -- it is fronted by a CDN that does gzip (not brotli; that has been asked for since
+       2019 and is still not there). So the wait it reported was a phone that does not exist,
+       and it was pessimistic by whatever these files happen to compress to:
+
+           BOHEMIA_CITY_WORLD.html   2.68 MB -> 0.99 MB   (37%)
+           BOHEMIA_CITY_TILES_01.js  1.75 MB -> 1.26 MB   (72%)
+           BOHEMIA_CITY_PROPS.js     1.72 MB -> 1.29 MB   (75%)
+
+       Base64 art barely compresses -- it is already-compressed PNG bytes spelled out in
+       letters -- and the page, which is source and comments, compresses hard. Sizing a demo's
+       wait off the uncompressed number is the same mistake as sizing it off a headline
+       bandwidth figure, which this gate already refuses to do one screen down.
+       AND THE ACCOUNTING COUNTS THE COMPRESSED BYTES, because that is what a person's time
+       and data plan actually pay for. Reading the file's size off disk after serving it
+       gzipped would report a download nobody made. */
+    const enc = String(req.headers['accept-encoding'] || '');
+    const zippable = ['.html', '.js', '.css', '.json', '.webmanifest'].indexOf(ext) >= 0;
+    if (zippable && /\bgzip\b/.test(enc)) {
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream',
+                           'Content-Encoding': 'gzip',
+                           'Cache-Control': 'public, max-age=600' });
+      let n = 0;
+      fs.createReadStream(file).pipe(zlib.createGzip({ level: 6 }))
+        .on('data', d => { n += d.length; })
+        .on('end', () => { wire[base] = n; })
+        .pipe(res);
+      return;
+    }
+    wire[base] = fs.statSync(file).size;
     res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream',
                          'Cache-Control': 'public, max-age=600' });
     fs.createReadStream(file).pipe(res);
@@ -87,7 +125,10 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      for cache hits too and still reports a content-length, so counting there would have
      scored a warm cache as a fresh download -- which is exactly the mistake that made the
      reverted warm-up look like it worked. The server only sees what actually crossed. */
-  const sizeOf = name => { try { return fs.statSync(path.join(ROOT, 'slices', name)).size; } catch (e) { return 0; } };
+  const sizeOf = name => {
+    if (wire[name] !== undefined) return wire[name];
+    try { return fs.statSync(path.join(ROOT, 'slices', name)).size; } catch (e) { return 0; }
+  };
 
   await page.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_ALPHA_0_9.html',
     { waitUntil: 'load', timeout: 240000 });
@@ -222,7 +263,12 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      was never the thing filling the pipe.
      16 s is 10.8 s with room for a slower CI box, and NOT room for anybody to put the art
      back on the critical path. */
-  const CEIL_TAP_TO_WORLD_MS = 16000;
+  /* 16 -> 12 s on 8/26. The test server sends gzip now, like the real host does, so this is
+     the first number here that is about the phone somebody actually holds: 11.1 s -> 8.4 s,
+     and nothing in the game changed to earn it -- the old number was measuring a host that
+     does not exist. 12 s is 8.4 with room for a slow box and none for putting the art back
+     on the critical path. */
+  const CEIL_TAP_TO_WORLD_MS = 12000;
 
   const b3 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const c3 = await b3.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });

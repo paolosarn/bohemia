@@ -51301,7 +51301,90 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/26 (a) LATEST -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
+WORLD (city-1eztay): 8/26 (b) LATEST -- *** A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT
+MORE GROUND. Three more districts stopped building themselves once per cell -- FOUR STADIUM
+BOWLS in a 2x2, four weighbridges in one landfill, four chapels in one burial ground. But the
+shipped thing is NOT the three districts: it is that this was the SIXTH TIME IN THREE DAYS, so
+it became a MECHANISM in the kit and a GATE FOR THE CLASS. And separately: EVERY LOAD NUMBER
+THIS LANE EVER PRINTED WAS A PHONE THAT DOES NOT EXIST. Nothing to judge. ***
+Gates: ONE PER BLOB 5/0 (NEW, self-mutation-testing), WALKED SURFACE 14/0, TIME TO PLAY 13/0
+(three ratchets down), STADIUM 12/0, LANDFILL 11/0, CEMETERY 8/0, RAILYARD 18/0,
+DISTRICT KIT 24/0.
+
+TAB: RUN. One stadium instead of four. And the world opens in 8.4s on a weak phone, not 11.1s.
+
+*** SIX TIMES IS NOT A BUG, IT IS A CLASS. *** solar 265 plants (8/24) · wash 51 tunnel mouths
+(8/25) · railyard 6 sheds · stadium 4 BOWLS · landfill 4 weighbridges · cemetery 4 chapels. The
+first three were fixed by hand, each growing its own copy of the same code. It is now
+K.blob(seed,opts) in the district kit: valley-coordinate vset/vrect/vell/vring/vline/vframe, a
+rnd that belongs to the BLOB not the cell, firstAt for loops that must land on the same rows in
+every cell, dress that keeps confetti off the seam, gates that only fire on the district's own
+edge. The three districts after it are ~30 lines each instead of ~130.
+
+TWO SHAPES, AND THIS IS THE PART TO KEEP: an AREA district takes the blob's BOUNDS (solar,
+railyard, stadium, landfill, cemetery). A LINE district takes its NEIGHBOURS (the wash turns a
+corner; the bounding box of that corner is 4x7 cells and a straight line through it misses most
+of the cells that are actually wash). Extent is the wrong question for a line.
+
+THE STADIUM WAS ALSO THE WRONG SIZE AND ONLY THIS COULD FIX IT: a real bowl is 200-250m across
+and a cell is 96m, so the single-cell build draws a 72m TOY. Across a 2x2 it is 138m with the
+lots around it. The canonical proportions are held exactly -- holding the RATIOS not the
+numbers is what lets the same bowl be a toy in one cell and a stadium across four.
+
+*** THE GATE FOR THE CLASS HAS NO CONSTANTS. *** one_district_per_blob_gate reads the valley,
+finds every multi-cell blob, and builds each BOTH WAYS -- as one district, and the old way a
+cell at a time -- then counts hero structures (connected runs of the district's own `body`
+predicate, which every district already declares). THAT COMPARISON IS THE MUTATION TEST, RUN
+EVERY TIME, AGAINST THE EXACT DEFECT IT GUARDS. It cannot go quietly green like a constant can.
+  landfill 4->2 · railyard 12->2 · convention 6->1 · wash 16->4 · prison 40->10 ·
+  stadium 4->1 · cemetery 16->6 · dam 28->7
+It prints its own backlog too: farm:9 · golf:9 · town:9 · datafort:6 · speedway:6.
+
+THREE THINGS THE GATE GOT WRONG FIRST, EACH A LESSON:
+  - IT EXITED 0 AND PRINTED NOTHING. Requiring all of engine/ loaded a module that self-tests
+    at require time and ends with process.exit. An exit code cannot be caught, so do not load
+    the file: it loads only what contains K.register( now.
+  - IT SAID THE MODEL DECLARES NO CLUSTERS, with six in the file. The regex was
+    \{[^}]*cluster:true and every DISTGEN row carries foot:function(r){return r.footprints;} --
+    the first } ends the class before cluster:true is reached.
+  - IT FAILED THE WASH, FIXED THE DAY BEFORE. It handed every district BOUNDS, so the wash fell
+    through to its lone-cell build and read 14 mouths either way. A GATE THAT CANNOT CONSTRUCT
+    THE THING IT IS JUDGING IS MEASURING ITSELF.
+  - and the rule is "DOES NOT SCALE WITH CELLS", not "at least halves": a 3-cell wash goes 6->4
+    because a run has two ends whatever its length. That is the fix working, and not a halving.
+
+THE PAGE, THIRD TIME THIS WEEK: all three fixed in the model, gated, mutation-tested, and the
+walked surface still drew the old thing. walked_surface_gate sweeps the one-facility districts
+on the page now: railyard 6c/2r · landfill 4c/2r · stadium 4c/1r · cemetery 2c/6r. Mutation:
+un-wire the page -> stadium 1->4, landfill 2->4, cemetery 6->8.
+AND THE FIRST CUT OF THAT SWEEP WAS TOO GREEDY: applied to every multi-cell blob it flagged a
+HUNDRED, and every one was right to have what it had -- a COMMERCIAL strip is 24 stores per
+cell BY DESIGN, a TOWN is 300 houses, a FARM has 5 barns. "One facility per blob" is a fact
+about the handful that ARE one facility, not about districts. The cemetery ceiling is 7 not 8
+for the same reason: measured 6 clustered and 8 per-cell, so 8 sits on the wrong side of the
+defect. A CEILING THAT DOES NOT FAIL THE BUG IT WAS WRITTEN FOR IS DECORATION.
+
+*** AND EVERY LOAD NUMBER THIS LANE PRINTED WAS A PHONE THAT DOES NOT EXIST. *** The test
+server sent every byte RAW and GITHUB PAGES COMPRESSES TEXT ON THE FLY (gzip; brotli has been
+asked for since 2019 and still is not there -- researched, not assumed). CITY_WORLD.html
+2.68->0.99 MB (37%), TILES_01 1.75->1.26 (72%), PROPS 1.72->1.29 (75%): base64 art barely
+compresses because it is already-compressed PNG spelled out in letters, and the page is source
+and comments so it compresses hard. With the server behaving like the real host AND the
+accounting counting what crossed the wire instead of what sits on disk:
+    total to play  40.76 -> 25.88 MB · after the tap 2.84 -> 1.05 MB · weak 4G 11.1s -> 8.4s
+NOTHING IN THE GAME CHANGED TO EARN ANY OF THAT. Three ratchets came down with it: total
+44->30 MB, after-the-tap 6->2 MB, the wait 16->12s. All three mutation-tested.
+
+NEXT IN THIS LANE
+  1. GOLF -- nine golf courses in a 3x3. An AREA district, so it is the stadium's shape and
+     K.blob is already there. Then FARM, the biggest by area (93 cells, 13 blobs) and the ONLY
+     one where "one farm each" may actually be correct -- LOOK BEFORE BUILDING.
+     The gate prints the rest itself: town:9 · datafort:6 · speedway:6 · park:3 · medical:2.
+  2. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  3. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md
+
+WORLD (city-1eztay): 8/26 (a) -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
 blob and every one of its six cells built a COMPLETE classification yard -- six engine sheds and
 six gantry cranes in a block 288 m across. It is one yard now. AND THE PAGE DID NOT GET IT UNTIL
 I WENT AND LOOKED, WHICH IS THE SECOND TIME IN TWO DAYS. Nothing to judge. ***

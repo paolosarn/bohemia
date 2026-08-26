@@ -30,7 +30,7 @@ verbatim.
 | UNSAMPLED | 0 | 0 |
 | **total** | **108** | **148** |
 
-**305.1 MB of 308.9 MB** sampled does not reach the shown surface.
+**305.1 MB of 309.0 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.

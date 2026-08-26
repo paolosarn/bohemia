@@ -70,8 +70,83 @@
     return g;
   }
 
+
+  /* ONE STADIUM, NOT FOUR (8/26). The valley's stadium is a 2x2 blob and every one of its
+     four cells built a COMPLETE stadium -- four bowls, four fields, four scoreboards, sixteen
+     floodlight masts, in a block 192 metres across. A stadium is the most singular thing in a
+     city: you do not get four of them by accident, and nobody looking at that could believe
+     the place was designed.
+
+     IT IS AN AREA DISTRICT, so it takes the blob's BOUNDS (like the solar farm and the
+     railyard) rather than its neighbours (like the wash, which is a line that turns corners).
+     ONE bowl, centred on the whole blob and SCALED to it, with the parking apron around it --
+     which is also the first time this stadium has been able to be a realistic size. A real
+     bowl is 200-250 m across; one 96 m cell could never hold one, so the single-cell build
+     draws a 72 m toy. Across a 2x2 it is 138 m and the lots are around it, as they are in
+     life. */
+  function clusterBowl(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    // ---- BASE: desert at the very margins, PARKING APRON over the whole parcel ----
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+6,f.y0+6,f.x1-6,f.y1-6,1);
+
+    /* ---- THE BOWL, ONCE, CENTRED ON THE DISTRICT ----
+       The canonical build's proportions are kept exactly: facade at R, concourse at R-2/R,
+       stands at R-5/R, field at R-20/48 of R. Holding the RATIOS rather than the numbers is
+       what lets the same bowl be a toy in one cell and a real stadium across four. */
+    var R=Math.floor(Math.min(f.w,f.h)*0.36), RY=Math.floor(R*0.92);
+    var ex=f.mx, ey=f.my-Math.floor(f.h*0.03);          // a little north: the entrance side is south
+    var k=R/48;
+    A.vell(ex,ey,R,RY,2);                                             // FACADE
+    A.vell(ex,ey,R-Math.round(2*k),RY-Math.round(2*k),7);             // CONCOURSE loop
+    A.vell(ex,ey,R-Math.round(5*k),RY-Math.round(5*k),6);             // SEATING BOWL
+    // aisle rings inside the stands
+    for(var tr=10; tr<=18; tr+=8) A.vring(ex,ey,R-Math.round(tr*k),RY-Math.round(tr*k),7,6,1);
+    // radial VOMITORY aisles from the concourse up through the seats
+    for(var i=0;i<16;i++){ var ang=(i/16)*Math.PI*2;
+      for(var t=0.60;t<=0.96;t+=0.006){
+        var vx=Math.round(ex+Math.cos(ang)*R*t), vy=Math.round(ey+Math.sin(ang)*RY*t);
+        if(A.vget(vx,vy)===6) A.vset(vx,vy,7); } }
+    var FX=R-Math.round(20*k), FY=RY-Math.round(19*k);
+    A.vell(ex,ey,FX,FY,4);                                            // THE FIELD
+
+    // ---- FIELD MARKINGS, faded: the midline, the centre circle, the two end lines ----
+    A.vrect(ex-(FX-Math.round(2*k)),ey,ex+(FX-Math.round(2*k)),ey,8);
+    A.vring(ex,ey,Math.round(6*k),Math.round(5*k),8,4,3);
+    [-1,1].forEach(function(sgn){ var ly=ey+sgn*(FY-Math.round(2*k));
+      for(var lx=ex-(FX-Math.round(4*k)); lx<=ex+(FX-Math.round(4*k)); lx++) if(A.vget(lx,ly)===4) A.vset(lx,ly,8); });
+
+    // ---- SCOREBOARD over the north end, FLOODLIGHT MASTS on the bowl's four corners ----
+    A.vrect(ex-Math.round(7*k),ey-RY+Math.round(15*k),ex+Math.round(7*k),ey-RY+Math.round(18*k),9);
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){
+      var lx=ex+s[0]*(R-Math.round(3*k)), ly=ey+s[1]*(RY-Math.round(3*k));
+      A.vset(lx,ly,12); A.vset(lx+s[0],ly,12); A.vset(lx,ly+s[1],12); });
+
+    /* ---- THE LOTS, and they are lots now rather than a verge ----
+       Stall lines every 9 tiles across the whole apron, laid off the DISTRICT so they run
+       straight through a cell boundary instead of restarting at it. */
+    for(var sx=A.firstAt(f.x0+10,9,A.c.x0-9); sx<=Math.min(f.x1-10,A.c.x1+9); sx+=9)
+      for(var sy=f.y0+8; sy<=f.y1-8; sy++) if(A.vget(sx,sy)===1) A.vset(sx,sy,3);
+    A.dress(11,90,1);                                                  // abandoned cars in the lots
+    A.dress(3,260,1);                                                  // rubble and weeds in cracked asphalt
+    A.dress(3,150,4);                                                  // weeds pushing through the dead field
+
+    var gates=A.gates(streets,5,1,[0,3],10);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with. A stadium bowl is also the one thing here that was the WRONG SIZE in a single cell: a real bowl is 200-250 m across and a cell is 96 m. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterBowl(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
