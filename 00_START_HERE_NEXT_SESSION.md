@@ -1,3 +1,74 @@
+WORLD (world-9lfjtf): 8/25 (d) LATEST -- *** EVERY FENCE IN THE CITY WAS A WALL. 31 of them are
+chain-link you can see through now, and ADOBE came back with a picture this time. Four materials,
+79 objects. Nothing to judge. ***
+
+TAB: LOOK, "A FENCE YOU CAN SEE THROUGH". Or CITY, walk up to any fence line.
+
+*** A FENCE YOU CANNOT SEE THROUGH IS A WALL, whatever the map calls it. *** 31 objects, the
+biggest population of the four, in nearly every district that has a boundary at all -- and every
+one of them was a solid band of approved house-roof shingles. Chain-link is the first material
+here where THE POINT IS WHAT IS NOT DRAWN: the tile is left mostly empty and the ground the
+renderer already drew shows straight through the mesh. Top rail as the one solid line (it is the
+only part of a chain-link fence that reads at distance), posts at a bay, and SOME BAYS SIMPLY
+GONE, because every one of these legends already says so -- "wire sagging", "cut through in
+places", "pushed over where the last flood shoved a tree into it".
+
+  AND THE SCALE WAS WRONG UNTIL THE PICTURE CAUGHT IT. The first cut drew a post every 11
+  texture pixels: FOUR POSTS PER TILE, one every 19 CENTIMETRES. A line post is every 3 m, a tile
+  is 0.75 m, so a post belongs in one tile in FOUR. The arithmetic was there to be done and I had
+  not done it. (The mesh pitch was right by luck and is right on purpose now: 44 px across 0.75 m
+  is 17 mm a pixel, and a 50 mm diamond is three of them.)
+
+  MATCHED ON THE NAME, AND THE NAME MUST NOT SAY WALL: prison:12 "administration" is a BUILDING
+  that merely mentions a fence, suburb:4 is "block perimeter wall, tan stucco", courthouse:20 is
+  masonry with wire on top, jail:8 is a coil, minigp:12 is a stack of tyres. All five would have
+  come in on an act-1 match. All five stay out and the gate checks each.
+
+*** ADOBE CAME BACK, WITH A PICTURE. *** It was pulled out yesterday because I could not
+photograph the fort, and that is the ONLY thing that changed: it has a picture now. Concrete is
+placed in LIFTS and leaches CALCIUM; adobe is BRICK and does not leach, IT MELTS -- courses slump,
+corners go soft, rain washes runnels into the face. NO STRAIGHT LINES (Paolo 8/1, about hair, and
+it is the same law): a course line wobbles a pixel because a hand-laid mud course does. No
+specular, which separates it from steel; warmer and grainier, which separates it from concrete.
+ITS ROW SITS ABOVE CONCRETE, because "adobe wall" matches the concrete row's name pattern and
+FIRST MATCH WINS -- lose that ordering and the fort silently becomes poured concrete. The gate
+asserts the source order rather than trusting it.
+
+THE INSTRUMENT GOT FIXED TWICE MORE, BOTH TIMES BY FAILING:
+  1. IT COULD NOT SEE THE EDGE OF A PLOT. The search ran 12..FN-12 and reported MISS for
+     substation:12 -- because a PERIMETER fence lives on the perimeter. An instrument that cannot
+     photograph a boundary cannot photograph a fence, a wall, a sound wall or a gate: most of the
+     boundary vocabulary of the game. IT FAILED LOUDLY, which is the only reason it was a
+     two-minute fix and not a wrong picture.
+  2. ONE SUBJECT COULD HANG THE WHOLE PASS. `vista` opens a camera MOMENT rather than hunting a
+     place, and its open() sat THIRTY MINUTES without returning or throwing, so a full LOOK pass
+     never finished and killing it killed the run. Bounded now: a hang becomes a reported MISS,
+     the same contract every other failure in that file has. HONESTLY: it completed fine on the
+     retry, so it is INTERMITTENT and probably contention. The bound is a guard, not a diagnosis.
+
+WHERE THE TABLE STANDS: chainlink 31 · steel 25 · concrete 21 · adobe 2 = 79 objects.
+GATE: gates/materials_gate.js, 30 checks, registered as MATERIALS.
+Record: records/BOHEMIA_A_COLOUR_IS_NOT_AN_IDENTITY_8_25_26.md
+Stamp:  BUILD 8/25ae - A FENCE YOU CAN SEE THROUGH
+
+NEXT IN THIS LANE, in this order:
+  - WOOD, GLASS, TYRE and RAZOR WIRE are the materials still wearing house shingles. GLASS is the
+    biggest visual win left -- every storefront and window wall in downtown and commercial -- and
+    it is the second material after chain-link where TRANSPARENCY is the whole point, so the
+    mechanism is already proved. WOOD is sheds, the drive-in screen and non-mesh fencing.
+  - *** BUILD STAMP LETTERS ARE PAST SINGLE LETTERS. Main was on 8/25ad when I merged and I
+    nearly shipped 8/25w, which is BACKWARD. Read origin/main's stamp before choosing, every
+    time -- the sequence is a..z then aa..az. ***
+  - THE RESERVOIR DRAWS ITS BURIED BASIN ROOF SLABS WITH CODE 6, which its legend calls "water
+    tank", so a concrete slab wears steel. One code, two materials, in the GENERATOR not the
+    routing. It wants a separate code, NOT a routing exception.
+  - THE INTERCHANGE IS STILL 87.9% CONNECTED (479 drive tiles unreachable, measured absolute).
+  - THE REMAINING TEN DEAD CODES; four are one question (the code-0 fill-through margins).
+  - SUITE: 422 gates, ~66 min. nohup, NO timeout, DO NOT EDIT WHILE IT RUNS, and baseline every
+    red against origin/main in a worktree.
+
+---
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (j) LATEST -- *** HE PLAYED IT AND
 FILED TEN THINGS. ALL TEN ARE RULINGS AND ALL TEN ARE ROUTED. A NEW LANE EXISTS
 (UI). Nothing to judge from me. ***
