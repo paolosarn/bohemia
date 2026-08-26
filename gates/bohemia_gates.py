@@ -908,6 +908,14 @@ GATES = [
      "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
      "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
      "speech; pitch declines across a statement and rises at a question", True),
+    ('DEMO BUILD',     ['node', 'gates/demo_build_gate.js'],
+     "Paolo 8/25 LOCKED: 'THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS "
+     "WORKSHOP LINK.' TWO SURFACES. The demo build exists as its own published "
+     "file, is CUT from the workshop rather than forked (regenerating changes "
+     "nothing), holds ZERO dev tabs, opens straight into the valley with no tab "
+     "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
+     "bench still has all sixteen of its tabs, because taking the workshop away "
+     "to make a demo would trade one mistake for a worse one", True),
     ('FRESH DOORS',    ['python3', 'gates/doors_fresh_gate.py'],
      "he killed all ten doors on 7/30 (metal 3-12, wood 0-5) and named DOORS in "
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "

@@ -1,3 +1,90 @@
+SOUND (sound-xk7pjp): 8/26 (a) LATEST -- *** THE DEMO BUILD EXISTS. Item A on the
+gap list, the one the coordinator put in capitals as the headline, is done: a
+standalone player-only file, CUT from the workshop and gated so it can never
+fork. Nothing to judge, and NOBODY IS INVITED YET. ***
+
+TAB: none, and that is the point. THE DEMO IS NOT A TAB, it is the second
+surface: slices/BOHEMIA_DEMO.html. His workshop link and all sixteen of its tabs
+are exactly where he left them, asserted by the gate.
+
+WHY THIS LANE TOOK A SHARED ROW
+  SOUND's two assigned reds closed yesterday and its demo work is done (10 of 11
+  beats sound, the 11th is the splash and is silent on purpose). SHARED -14 was
+  unclaimed, named as blocking everything else, and main had not moved since this
+  lane's last push, so nobody was mid-flight on it.
+
+WHAT SHIPPED
+  tools/bohemia_cut_the_demo.js  generates the demo FROM the alpha
+  gates/demo_build_gate.js       24 claims, driven in a real browser on BOTH
+                                 surfaces, registered in the suite as DEMO BUILD
+  slices/BOHEMIA_DEMO.html       the build itself
+
+  IT IS A CUT AND THE MACHINE HOLDS THAT PROMISE. The gate re-runs the cutter and
+  fails unless the committed demo is byte-identical to what it produces. Every
+  mutation trips that check as well as its own claim, so the demo cannot drift
+  away from his bench.
+
+  WHAT IT REMOVES: fifteen dev tabs (measured first -- only .tab[data-p="run"] is
+  ever looked up by selector, so the rest are inert); the tab bar itself; and two
+  things that were NOT on the routed checklist:
+    THE BUILDER'S DRAWER IN THE CITY. The toolbar's 🛠 opens REROLL / UNDER / KEY
+    / PEOPLE / SLIDE. A stranger tapping REROLL regenerates the world under their
+    own session. Hidden FROM THE DEMO SIDE ONLY -- BOHEMIA_CITY_WORLD.html is
+    another lane's file and is untouched; the workshop keeps its drawer.
+    THE FALLBACK ONTO HIS WARDROBE BENCH, found by mutating the gate rather than
+    by reading. With the run tab gone the demo landed on p-char, because the
+    alpha marks that panel `on` at rest. The demo now has no at-rest panel, so
+    its worst case is a blank stage, not a stranger inside a dev tool.
+
+  IT BOOTS AND IT PLAYS ARE DIFFERENT CLAIMS, so the gate asks both: the frame it
+  lands on owns the day loop (DAY, DQ, DAY 1), the wake card is up so a stranger
+  arrives on the FIRST MORNING, and the phone opens when tapped.
+
+TWO THINGS THE FLEET SHOULD KNOW
+  1. THE LAW SAYS "SEVENTEEN TABS". The bar holds SIXTEEN. CITY is the
+     seventeenth SURFACE and has never been a tab -- the RUN tab routes to the
+     city panel (Paolo 7/28). Seventeen surfaces, sixteen tabs. The gate asserts
+     what is actually there.
+  2. THE PUBLISHED SURFACE WENT 246 MB -> 250 MB AGAINST A 260 MB CAP. The demo
+     costs 4 MB and leaves ~10 MB of headroom. Not a blocker today; it is the
+     kind of thing that becomes one silently.
+
+WHAT THIS DOES NOT DO
+  BLOCKER F (24 seconds to first play) IS UNTOUCHED and claiming otherwise would
+  be a lie. Measured: the alpha is 4.11 MB of which COMBAT_B64 is 1.6 MB, and the
+  demo NEEDS the fight. Cutting tabs saves 125 KB at most. F is RUN's.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT COMES AFTER -- HIS ORDER, AND BUILD IS NOW DONE
+  BUILD -> DOOR -> ENDING -> INSTRUMENT -> INVITE. The remaining three are RUN's:
+  P0-DOOR, DEMO-END (the last thirty seconds, which nobody has designed and which
+  peak-end says is half of what anybody keeps), and 0f the feedback card. NOBODY
+  IS HANDED THE DEMO LINK UNTIL ALL FOUR EXIST -- he said we are not ready and he
+  is right.
+  This lane's own next item is unchanged: a friction-first cook for the 2
+  never-shown moments plus FIELD SURGERY, the only legal path at the SFX
+  diversity cap.
+
+PROOF
+  records/BOHEMIA_THE_DEMO_HAS_A_FRONT_DOOR_NOW_8_26_26.md
+  gates/demo_build_gate.js       24 passed, 0 failed
+  gates/pages_publish_gate.js    18 passed, 0 failed (250 MB / 260 MB)
+  gates/alpha_loads_gate.js      20 passed, 0 failed
+  MUTATED, eight, restored after -- a dev tab back in; the drawer reachable; the
+  bar shown; a workshop tab lost; the alpha changed under the cutter (it REFUSES,
+  exit 2); the phone button hidden; the game unable to open at all; the bench
+  fallback back. ONE DID NOT LAND and is recorded as a limit rather than dropped:
+  tearing DAY out from the demo side is a no-op because DAY is not a window
+  property, so the day-loop claim is proved non-vacuous by the no-frame mutation
+  instead of by a targeted teardown.
+
+------------------------------------------------------------------------------
+
 CHARACTER (character-0lurbs): 8/26 (b) LATEST -- *** SEVENTEEN THINGS HE COULD PUT
 ON DREW NOTHING AT ALL, AND THE GATE THAT GUARDS THEM WAS GREEN. TAB: LOOK for the
 picture, CHARACTER to put one on. Nothing to judge. ***
