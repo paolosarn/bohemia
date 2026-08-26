@@ -393,6 +393,14 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    split in its section B; who owns the dropped kerb and the apron flare is a
    coordinator call, not the ART lane's, and it must be settled BEFORE cooking
    or the same kerb gets drawn in three materials.
+91. SHIPPED | DRY BEDS (drought lakebed polygons + swept pit floors) |
+   RUN + CITY - 8,600+ cells of the valley's most famous dead surfaces
+   (Mead's bathtub bed, both pit floors, the terminal hardpan) fell to
+   the gravel fallback; golf's 2,074 fairway cells joined the approved
+   turf family as pure wiring in the same turn | ground layer, 44px
+   corpus cell, self-seamless (hashed crack seeds, matched silt base,
+   three variants) | see form | ART lane (fresh inventory ranking,
+   8/26) | HIGH | FORM: TF-ART-025
 92. SHIPPED | LANDSCAPING (dead xeriscape beds, police station) | RUN +
    CITY - 1,131 named cells fell to the gravel fallback, erasing the one
    manicured ground in the district | ground layer, 44px corpus cell,

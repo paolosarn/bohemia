@@ -470,6 +470,10 @@ grabPieces('banks/tileforms/TF-ART-020_ROOF_OVERFLOW_VOLUME_8_25_26.json',
    headhouse tops - tools/tfcook/TF-ART-021_gallery_cook.py */
 grabPieces('banks/tileforms/TF-ART-021_GALLERY_VOLUME_8_26_26.json',
   ['gg_h_ridge', 'gg_h_lit', 'gg_h_sh', 'gg_v_ridge', 'gg_v_lit', 'gg_v_sh']);
+/* TF-ART-025 8/26: the drought lakebed, the terminal hardpan and the two
+   pits' floors - tools/tfcook/TF-ART-025_drybeds_cook.py */
+grabPieces('banks/tileforms/TF-ART-025_CANDIDATES_8_26_26.json',
+  ['bed_0', 'bed_1', 'bed_2', 'qf_0', 'qf_1', 'qf_2']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

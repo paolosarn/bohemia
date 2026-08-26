@@ -1148,3 +1148,22 @@ WORD: he said he will explain "act one approve and other act approve"
 does. Wave-3 icon bake (8 low-by-nature districts uninflated, farm
 refielded, the drive-in's black-slab frame bug fixed) is grinding in
 the background and ships when it lands.
+
+## 8/26 FIFTY-FIFTH PASS: THE FRESH RANKING AND THE LAKE THAT LEFT ITS BED
+
+Re-ran the inventory instrument (753 names, one sample cell per
+district across the full 96x96): after six shipped families the old
+queue was stale, and the new top lies were 'exposed lakebed' x4109
+(Mead's bathtub bed drawing as gravel), 'quarry floor' x3691+x3699
+(both pits), 'hardpan' x1223, 'dead fairway' x2074. One cook of six
+tiles: drought-bed polygons (wandering crack seams with sunlit lips -
+the 8/1 no-straight-lines law applied to geology) and the swept bench
+floor (wheel-lane compaction as broad value dips, one blast-scar drag
+variant). The fairway shipped as PURE WIRING into the approved turf
+stripes - zero new pixels, a fairway is a lawn with a job. Verified
+live at the intake, the quarry and the golf course. A false alarm on
+the way: two lit traffic signals in the intake frame looked like sweep
+escapees, but measuring the pool by red+green found nothing - they are
+another system's street furniture, pre-existing, not the pool's. The
+twenty-fifth wired family; the wave-3 icon bake still grinding behind
+all of it.
