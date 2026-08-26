@@ -146,12 +146,12 @@ SONGS = [
      "inst:{b:'dawnpad',l:'gridglow'},am:'faythhum',kit:{k:'thud',h:'wood'},"
      "mel:'longs',swing:0,feel:'half',klay:'melody',ff:true}"),
     ("MENU — WHAT THE VALLEY KEPT",
-     "{n:'MENU — WHAT THE VALLEY KEPT',menu:true,acc:'#9a8ac8',root:43,"
+     "{n:'MENU — WHAT THE VALLEY KEPT',menu:true,acc:'#9a8ac8',root:43,"  # DOWN 8/26, GRAVEYARD FINAL -- the GUARD below refuses to re-add this
      "scale:[0,2,3,5,7,8,11],wave:'triangle',kick:[0],bass:[0,7,12],hat:[],"
      "inst:{b:'coldpiano',l:'keptkeys'},am:'dawnwash',kit:{k:'thud',h:'wood'},"
      "mel:'call',swing:0,feel:'half',klay:'melody',ff:true}"),
     ("MENU — NOBODY IS COMING",
-     "{n:'MENU — NOBODY IS COMING',menu:true,acc:'#7a8a9a',root:38,"
+     "{n:'MENU — NOBODY IS COMING',menu:true,acc:'#7a8a9a',root:38,"  # DOWN 8/26, GRAVEYARD FINAL -- the GUARD below refuses to re-add this
      "scale:[0,2,3,5,7,8,10],wave:'sine',kick:[0,8],bass:[0],hat:[],"
      "inst:{b:'nobodyswell',l:'glasshope'},am:'edenmist',kit:{k:'thud',h:'wood'},"
      "mel:'longs',swing:0,feel:'normal',klay:'melody',ff:true}"),
@@ -159,6 +159,57 @@ SONGS = [
 
 VOICE_ANCHOR = "  if(kind==='dawnpad'){"
 
+
+# ===== GRAVEYARD IS FINAL, APPLIED TO THE GENERATOR (8/26/26) ==============
+# A batch tool holds the full text of every song it ever cooked. When Paolo
+# kills one, tools/bohemia_music_bury_the_dead.py takes it out of MLOOPS -- and
+# this file still has it, so RE-RUNNING THIS TOOL PUTS IT BACK. That is not a
+# hypothetical: the graveyard gate flagged exactly these entries as live
+# references the moment three songs were buried on 8/26, and a live reference is
+# the pointer that survives the kill.
+# GRAVEYARD IS FINAL binds the machine, not just the person. This refuses.
+def _graveyard_names():
+    """Every song name the registry has a tombstone for."""
+    import os as _os
+    reg = _os.path.join(ROOT, 'gates', 'bohemia_graveyard.txt')
+    try:
+        txt = open(reg, encoding='utf8').read()
+    except Exception:
+        return set()          # no registry: refuse nothing, but say so at the call site
+    # THE REGISTRY'S ACTUAL SHAPE, checked against the file rather than assumed:
+    #     n:'MENU - NOBODY IS COMING'    | 8/26/26 | DOWN. GRAVEYARD FINAL...
+    # The first version of this looked for "is dead" and matched NOTHING, so the
+    # guard reported zero corpses and would have refused nobody. A checker that
+    # silently sees an empty world reads exactly like a checker that passed.
+    return set(re.findall(r"^n:'([^']+)'\s*\|", txt, re.M))
+
+
+def refuse_the_dead(songs):
+    """Drop any song Paolo has already killed, loudly. Never silently.
+
+    Accepts whatever shape the batch happens to use: a list of (name, entry)
+    pairs, or a list of raw entry strings. The first cut assumed strings and
+    threw a TypeError on the tuples this very file uses -- assuming a data shape
+    instead of reading it is how three of this week's bugs started.
+    """
+    dead = _graveyard_names()
+    if not dead:
+        print('  WARNING: no graveyard registry could be read, so NOTHING was checked')
+        return songs
+    kept, refused = [], []
+    for s in songs:
+        text = s[1] if isinstance(s, (tuple, list)) and len(s) > 1 else s
+        name = s[0] if isinstance(s, (tuple, list)) else None
+        if name is None:
+            m = re.search(r"\{n:'([^']+)'", text if isinstance(text, str) else '')
+            name = m.group(1) if m else None
+        if name and name in dead:
+            refused.append(name)
+        else:
+            kept.append(s)
+    for b in refused:
+        print('  REFUSED (graveyard is final, he killed it): %s' % b)
+    return kept
 
 def main():
     s = open(ALPHA, encoding='utf8').read()
@@ -175,7 +226,13 @@ def main():
     i0 = s.index('const MLOOPS=[')
     j0 = s.index('\n];', i0)
     have = set(re.findall(r"\{n:'([^']+)'", s[i0:j0]))
-    add = [lit for name, lit in SONGS if name not in have]
+    # GRAVEYARD IS FINAL, CHECKED AT THE MOMENT OF INJECTION. Not a comment on
+    # the entry, not a note in a docstring -- the actual list this tool is about
+    # to write into MLOOPS, filtered against the registry. Re-running this file
+    # after 8/26 must not put MENU - WHAT THE VALLEY KEPT or MENU - NOBODY IS
+    # COMING back into the game, and the only way to be sure of that is to ask.
+    LIVE = refuse_the_dead(SONGS)
+    add = [lit for name, lit in LIVE if name not in have]
     if add:
         s = s[:j0] + ',\n ' + ',\n '.join(add) + s[j0:]
         changed.append('%d songs added to MLOOPS' % len(add))
@@ -184,7 +241,7 @@ def main():
     m = re.search(r'const CAT_DEFAULTS=\{(.*?)\};', s, re.S)
     cur = dict(re.findall(r"'([^']+)':\[([^\]]*)\]", m.group(1)))
     newtags = 0
-    for name, _ in SONGS:
+    for name, _ in LIVE:
         if cur.get(name + '#1') != "'MENU'":
             cur[name + '#1'] = "'MENU'"
             newtags += 1
@@ -203,7 +260,7 @@ def main():
         print('FAIL: NEW_VIBES not found')
         return 1
     names = re.findall(r"'([^']+)'", m2.group(1))
-    missing = [n for n, _ in SONGS if n not in names]
+    missing = [n for n, _ in LIVE if n not in names]
     if missing:
         allnames = names + missing
         s = (s[:m2.start()] + 'const NEW_VIBES=['

@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-327 canon files indexed across 2 locations.
+329 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -150,7 +150,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md`
 - `BOHEMIA_ADDENDUM_FACE_SYSTEM_6_28_26.md`
 
-### COMBAT (15)
+### COMBAT (16)
+- `BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md`
 - `BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md`
 - `BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md`
@@ -247,7 +248,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_SUCCESSION_AND_BUNKERGUY_7_1_26.md`
 - `BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md`
 
-### MUSIC & SFX (3)
+### MUSIC & SFX (4)
+- `BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_MUSIC_VARIETY_HORROR_LAW_7_8_26.md`
 - `BOHEMIA_ADDENDUM_NEW_VOICES_LAW_7_7_26.md`

@@ -1,3 +1,88 @@
+SOUND (sound-xk7pjp): 8/26 (b) LATEST -- *** HIS VERDICT EXPORT LANDED. THE MENU
+WAS PLAYING A FIGHT'S ARRANGEMENT -- he heard it on one song, it was hitting ALL
+EIGHT, and the worst was SEVENFOLD. Fixed, gated, and his new three-level
+intensity ladder is built. Nothing to judge. ***
+
+TAB: MUSIC. The menu songs now sound the same wherever the KILL LAYERS button is
+set. Build 8/26i - THE MENU STAYS CALM.
+
+HIS RULING, RECORDED THE SAME TURN
+  laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
+  "menu music doesnt get impacted by intensity type shit" + the three-level
+  ladder + "we need more voices and different instruments sounds and shit."
+
+WHAT WAS ACTUALLY WRONG
+  He named MENU - THE POWER STILL ON SOMEWHERE, "really bad on intensity 2".
+  Measured, one bar of every menu song rendered through the real playStep:
+      THE POWER STILL ON SOMEWHERE   479 -> 1539 -> 2063
+      LIGHTS ACROSS THE VALLEY      1374 -> 7084 -> 9732   (sevenfold)
+      DEAD VALLEY DAWN               926 -> 1568 -> 2076
+  All eight, not one. FIXED at the single place the intensity NUMBER becomes an
+  ARRANGEMENT (`const sk = f.menu ? 0 : this.layers` in MUS.playStep), because
+  fixing it at the KILLMUS end would leave the JUDGE PAGE able to audition a
+  menu song at 2 -- which is the surface he heard it on.
+
+THE LADDER (part two of the same ruling)
+  Level 1 overworld / 2 threat or somebody talking to you / 3 two kills or a
+  crowd talking. Two things changed: the top moved from FOUR kills to TWO, and
+  kills stopped being the only input. window.INTENSITY is the front door;
+  KILLMUS is the same object under its old name.
+  WIRED: kills, threat (COMBAT_STARTED + PLAYER_HIT).
+  UNWIRED AND SAID SO: talking, crowd -- a conversation starts INSIDE the city
+  frame and nothing crosses to the shell. One line each from the lane that owns
+  that surface: INTENSITY.talking(true) / INTENSITY.crowd(true). Not edited here,
+  ONE SYSTEM ONE SESSION, and reported as unwired rather than counted as shipped.
+
+A GATE HELD THE OLD LADDER
+  fight_music_gate asserted "two kills -> layer 2, four -> layer 4". Right on
+  8/20, superseded on 8/26. A GATE MUST NEVER OUTRANK A RULING: updated, 47/0.
+
+THE THREE HE KILLED, AND TWO REAL BUGS BEHIND THEM
+  MENU - WHAT THE VALLEY KEPT, MENU - NOBODY IS COMING, THE NOTE THAT WOULD NOT
+  STAY ONE. Buried: MLOOPS 131 -> 128, tags pruned, song lock regenerated.
+  1. THE BURIAL WROTE A FALSE RECORD. bohemia_music_bury_the_dead.py had the
+     8/19 batch's story HARDCODED, so songs he killed on 8/26 were filed as
+     "7/8/26 | DOWN (batch 6/7 horror)". Every future burial by any lane would
+     have inherited it. Fixed at the tool; the date now comes from each song's
+     own death notice. Three rows corrected.
+  2. *** A GENERATOR CAN RESURRECT THE DEAD. *** Burying takes a song out of
+     MLOOPS; the batch tool that cooked it still holds its full text, so
+     RE-RUNNING THAT TOOL PUTS IT BACK. The graveyard gate saw it instantly:
+     live references 10 -> 16 the moment the three were buried. Both batch tools
+     now REFUSE. Verified the way that matters: after re-running batch21, MLOOPS
+     is still 128. Live refs back to the pre-existing 10 (all character lane).
+     THIS APPLIES TO EVERY LANE THAT COOKS BATCHES, not just music.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  "we need more voices and different instruments sounds and shit. so yeah keep
+  cooking" -- a STANDING order and the next thing this lane does. It does NOT
+  reopen particle and air: the 8/14 post-mortem barred those from new cooks
+  "unless he asks for one", and he asked for MUSIC voices in a MUSIC verdict.
+
+PROOF
+  records/BOHEMIA_THE_MENU_WAS_FIGHTING_8_26_26.md
+  gates/menu_music_gate.py     17 passed, 0 FAILED   (new, registered as MENU MUSIC)
+  gates/fight_music_gate.py    47 passed, 0 FAILED   (ladder updated to his 8/26)
+  SONG LOCK / DEMO BUILD / TOOL IDEMPOTENT / MUSIC REACH / ALPHA LOADS all green
+  MUTATED, five: the bug put back (all 8 menu songs red); intensity killed for
+  everyone ("not turn it all off" red); two kills back to four; threat removed;
+  COMBAT_STARTED unwired -- that last one goes red while the API stays green,
+  which is exactly what it is there to catch.
+  AND FOUR RULER MISTAKES OF MY OWN, all caught by measuring, all written up:
+  the probe set MUS.idx which is not a thing; a 1e-9 tolerance called float noise
+  a difference; a relative tolerance failed the quietest song for being quiet;
+  and the real answer was that playStep is NOT DETERMINISTIC (one song, one
+  intensity, three renders: zc 122/120/122). The gate now measures each song
+  against its own spread.
+
+------------------------------------------------------------------------------
+
 CHARACTER (character-0lurbs): 8/26 (n) LATEST -- *** ONE IN THREE PEOPLE IN THE CITY
 HAD A HAT ON AND YOU COULD NOT SEE IT. AND ALL 52 OTHER "FINDINGS" WERE MY RULER.
 TAB: LOOK for the picture, CITY to walk through the crowd. Nothing to judge. ***

@@ -938,6 +938,13 @@ GATES = [
      "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
      "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
      "speech; pitch declines across a statement and rises at a question", True),
+    ('MENU MUSIC',     ['python3', 'gates/menu_music_gate.py'],
+     "Paolo 8/26 LOCKED: 'menu music doesnt get impacted by intensity type "
+     "shit' -- he liked THE POWER STILL ON SOMEWHERE calm and it was 'really bad "
+     "on intensity 2'. Measured, it was hitting ALL EIGHT menu songs and the "
+     "worst was sevenfold. Every menu song now renders the same at 0/2/4 while "
+     "ordinary songs still build. Plus part two of the same ruling: intensity is "
+     "THREE levels, two kills not four, and threat and conversation raise it too", True),
     ('DEMO BUILD',     ['node', 'gates/demo_build_gate.js'],
      "Paolo 8/25 LOCKED: 'THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS "
      "WORKSHOP LINK.' TWO SURFACES. The demo build exists as its own published "
