@@ -1566,12 +1566,19 @@ WIDE-2. *** THE GATE THAT OPENS A LAPTOP WINDOW, BECAUSE WE HAVE NEVER
    opens 390x844. A DESKTOP LAYOUT IS A SECOND LAYOUT AND A LAYOUT NOTHING
    TESTS IS A LAYOUT THAT ROTS -- it will be broken again in a week and
    nobody will know.
-   ONE GATE, desktop-sized window, three claims: (a) THE WORLD'S VISIBLE
-   CELL COUNT IS IDENTICAL to the 390x844 case -- this is the important
-   one, because it is the whole promise that the game did not change;
-   (b) no control lands off-screen or underneath another; (c) nothing is
-   scaled by a fraction. Mutation test: widen the world's view by one cell
-   -> red. | the three claims, at laptop size | — | no. ***
+   *** AMENDED BY HIM 8/26, AND THE FIRST CLAIM FLIPS FROM A BLOCKER TO A
+   REPORT. *** He said he is not concerned with the gameplay advantage of
+   full screen right now and to do what we want. So:
+   (a) REPORT how many more cells a wide screen shows than a phone. DO NOT
+   FAIL ON IT. Print the number on every run. "We'll worry about that
+   later" needs the number to EXIST when later arrives -- a number nobody
+   recorded is a question nobody can answer, and that is the difference
+   between deferring a decision and losing it.
+   (b) no control lands off-screen or underneath another -- STILL A HARD
+   FAIL.
+   (c) nothing is scaled by a fraction -- STILL A HARD FAIL. He did not
+   overrule integer scaling and it was never a balance argument; blurry
+   pixel art is a regression on the thing he cares most about. | the three claims, at laptop size | — | no. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -7428,6 +7435,28 @@ WIDE-1. *** ON A LAPTOP THE WHOLE GAME IS A 640-PIXEL COLUMN, AND HE IS
    monitor is background. The alpha caps cards at 420 and 460. Nobody
    decided this; it is what a number becomes when it is typed once for a
    phone and never revisited.
+   *** HE OVERRULED MY CAUTION THE SAME DAY, SO READ THIS FIRST AND THEN
+   IGNORE THE REJECTION BELOW. *** His words: "I'm not too concerned with
+   the gameplay advantages of having full screen compared to it not being
+   full screen. But WHEN I ZOOM OUT, IT'S PRETTY FAR OUT, BRO. LIKE, SO
+   IT'S ALREADY GOOD. So yeah, DO WHAT YOU WANT, BRO... we'll worry about
+   that later."
+   SO: FILL THE SCREEN. Option A (show more world) is NO LONGER REJECTED
+   and option C is still fine; whichever falls out of a clean layout is
+   the lane's call, not a constraint from me. AND HIS REASON IS GOOD, NOT
+   A SHRUG -- the zoom already pulls way back, so view distance is ALREADY
+   generous BY DESIGN, and a wider window is a small change against a
+   range the game grants on purpose. My caution was priced against a
+   tighter game than the one we actually built.
+   TWO THINGS SURVIVE. (1) INTEGER SCALING, which he did not overrule
+   because it was never a balance argument -- pixel art scaled by a
+   fraction goes soft and uneven, and blurry pixels would be a regression
+   on the thing he cares most about. Whole numbers or none. (2) The gate
+   MEASURES INSTEAD OF BLOCKING (see RUN WIDE-2): "we'll worry about that
+   later" NEEDS THE NUMBER TO EXIST WHEN LATER ARRIVES, and that is the
+   difference between deferring a decision and losing it.
+   THE ORIGINAL ANALYSIS IS KEPT BELOW AS HISTORY BECAUSE THE MATH IN IT
+   IS STILL TRUE AND STILL USEFUL:
    *** "FULL SCREEN" IS TWO DIFFERENT THINGS AND ONLY ONE IS SAFE. ***
    (A) SHOW MORE WORLD -- REJECTED. A tactical grid where you see further
    is a DIFFERENT GAME (more enemies visible, more warning, different
