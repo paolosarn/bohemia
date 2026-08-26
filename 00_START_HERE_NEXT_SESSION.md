@@ -1,3 +1,89 @@
+CHARACTER (character-0lurbs): 8/26 (b) LATEST -- *** SEVENTEEN THINGS HE COULD PUT
+ON DREW NOTHING AT ALL, AND THE GATE THAT GUARDS THEM WAS GREEN. TAB: LOOK for the
+picture, CHARACTER to put one on. Nothing to judge. ***
+
+HOW IT WAS FOUND IS THE POINT. The hair audit built for clause 1 of his 8/25 law
+found two of fifteen styles that were a mane from the front and a crop from the
+side, inside a green gate. The obvious next question was whether genHair was
+special. IT WAS NOT -- every generator branches on facing and nothing had ever
+asked the same question of the 204 canon garments. So the audit was ported
+(tools/bohemia_garment_identity_audit.js). It was looking for a coat that changes
+shape when you turn round.
+
+*** IT FOUND SEVENTEEN GARMENTS THAT WERE NOT THERE. ***
+    every KNIT CAP, WATCH CAP, FIELD CAP, WORK CAP and SLOUCH BEANIE
+    CHINESE RICE FARMER HAT
+    WRAPAROUND SHADES and GREY WRAPAROUNDS
+MEASURED ON THE REAL FRAME, wearing them: equipping one changed ZERO PIXELS. Not
+thin, not misplaced. ABSENT. He could pick one in CHARACTER and nothing happened.
+
+THE CAUSE: ONE LITERAL 56, TWICE, IN TWO GENERATORS. BAKED is RIG2X'd and its layer
+indices pack at BAKED.W = 112; both call sites divided by a hard-coded 56, which
+returns DOUBLE the row. In genHat a second error was stacked on the first --
+`rt*S` -- so the durag line hats may not cross came out at ROW -12, twelve rows
+above the top of the canvas. put() refuses everything below the line. Nothing drew.
+  The comment on that line reads "HAT_MAX_Y is RIG space, rt is 56 space -- scale rt
+  or the durag line lands at half depth". Half true. rt only LOOKED like 56 space
+  because of the literal 56 directly above it. A FIX APPLIED TO A MISREAD
+  MEASUREMENT MADE IT TWICE AS WRONG, and then the comment made it look considered.
+genAcc's shades had the same two errors in one expression (a 24-wide painted layer
+converted to 56 space and never scaled to the rig, plus the same /56 on BAKED).
+
+*** AND THE HEADWEAR GATE WAS GREEN THROUGH ALL OF IT, FOR TWO REASONS, AND BOTH
+ARE WORTH CARRYING TO EVERY LANE: ***
+  1. IT LIFTS genHat OUT OF THE ALPHA and runs it on a synthetic grid, so BAKED and
+     HAT_MAX_Y are undefined there and the broken path NEVER EXECUTES. A gate that
+     lifts a function out of its environment cannot see a bug that lives in the
+     environment. If your gate greps or lifts, it is not testing the game.
+  2. WHAT IT HOLDS IS "a hat never crosses the durag line", AND A HAT THAT DRAWS
+     NOTHING CROSSES NOTHING. A check a corpse passes is not checking for life.
+
+AND MY OWN FIRST VERSION OF THE NEW GATE WAS ALSO VACUOUS, which is the same lesson
+a third time in one day: it compared "wearing it" to "wearing nothing", and putting
+a garment on SUPPRESSES the painted layer of that slot (the 8/21 rule), so the frame
+differed by HIS DURAG DISAPPEARING even when the hat drew nothing. It was measuring
+"something changed", not "the garment appeared". It passed the mutation. The painted
+layer of the slot under test is pulled in BOTH frames now.
+
+MEASURED:
+    canon garments drawing NOTHING on every facing   17  ->  0
+    head/face garments that render facing S       10/27  ->  25/27
+    STORM KNIT CAP worn, pixels changed on frame      0  ->  242
+    WRAPAROUND SHADES                                 0  ->  188
+The five that still draw nothing on SOME facing are shades, the gas mask and the two
+bandanas on the three BACK facings. Deliberate and correct: you cannot see somebody's
+sunglasses from behind. The gate judges each garment where it should show.
+
+GATES: one_garment_per_slot 12/0 (new sweep, all 221 canon garments, real worn path,
+  MUTATION-PROVED -- restoring both original errors names 15 of the 17 by name).
+  hat_gate 13/0, hair 35/0, clothes_4x 13/0, craft_law 39/0, structure 134/0,
+  border 6/0, head_follows_rig 5/0, hood 11/0.
+LOOK: all 42 pictures retaken. Editing the alpha legitimately made every picture of
+  it stale and the look gate said so; I retook every one with its own recorded
+  shooter (the command the gate itself prints), including the world/city ones, and
+  spot-checked that they still show what their captions claim. 24/0.
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP -- P0-GARMENTID, and the first job is
+FIXING THE RULER, NOT THE TARGET:
+  1. The audit reports 52 garments changing by a tenth of the body or more in one
+     notch. MOST OF THAT IS THE RULER BEING WRONG for back-LAYER items: from behind,
+     a pack sits between you and the arms, so "sleeve coverage" is a property of the
+     VIEW there and not of the object -- the exact mistake the hair gate made with
+     area. Triage the ruler before chasing a single garment.
+  2. Then the two that look like real bugs: SMITH'S APRON / TRADES APRON hem 0.188
+     facing S and 0.000 from behind (an apron vanishing below the waist as he turns),
+     and ROAD CAPE / SHOULDER MANTLE switching on and off at the E->NE notch.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/one_garment_per_slot_gate.js        12/0
+  node tools/bohemia_the_missing_hats.js         the picture, LOOK tab
+  node tools/bohemia_garment_identity_audit.js   the audit that found them
+  records/BOHEMIA_SEVENTEEN_GARMENTS_DREW_NOTHING_8_25_26.txt
+
+================================================================================
+
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (i) LATEST -- *** HIS RULING: THE
+DEMO IS ITS OWN LINK, AND WE ARE NOT READY. MY ERROR, OWNED. Nothing to judge. ***
 SOUND (sound-xk7pjp): 8/25 (b) LATEST -- *** THE STALENESS GATE WAS GETTING
 HAPPIER EVERY TIME A SOUND DIED, AND RUN BEAT SPENT FOUR DAYS CALLING THE RUN
 BROKEN WHEN THE RUN WAS FINE. Both of this lane's assigned reds. Nothing to

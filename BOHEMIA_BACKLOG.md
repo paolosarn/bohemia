@@ -6612,6 +6612,26 @@ P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
    reconciled where they disagree rather than the ratchet loosened.
    | every canon style's identity holds across all 8 facings, gated, on the
    real surface | — | no. He already ruled; this is work, not a question. ***
+P0-GARMENTID. *** THE IDENTITY AUDIT IS PORTED TO CLOTHES AND ITS FIRST RUN
+   FOUND 17 GARMENTS THAT DREW NOTHING AT ALL. FIXED 8/25. THE REST OF WHAT IT
+   FOUND IS THIS ROW. *** Every knit cap, watch cap, field cap, work cap and
+   slouch beanie, the rice farmer hat and both pairs of shades changed ZERO
+   pixels when worn -- one literal 56 where BAKED.W (112) belonged, twice, in
+   two generators, with a second scale error stacked on top in genHat. The hat
+   line came out at row -12, twelve rows above the canvas. Gated on the real
+   worn path in one_garment_per_slot_gate (mutation-proved).
+   records/BOHEMIA_SEVENTEEN_GARMENTS_DREW_NOTHING_8_25_26.txt
+   *** WHAT IS LEFT, AND THE FIRST JOB IS FIXING THE RULER NOT THE TARGET: ***
+   the audit reports 52 garments changing by a tenth of the body or more in one
+   notch of turn, and most of that is the ruler being wrong for back-LAYER
+   items (a pack sits between you and the arms from behind, so "sleeve
+   coverage" is a property of the VIEW there, not of the object -- exactly the
+   mistake the hair gate made with area). TRIAGE THE RULER FIRST. Then the two
+   that look like real bugs: SMITH'S APRON / TRADES APRON hem 0.188 facing S
+   and 0.000 from behind (an apron vanishing below the waist as he turns), and
+   the ROAD CAPE / SHOULDER MANTLE on/off at the E->NE notch.
+   | every canon garment holds its identity across 8 facings, gated, measured
+   on the real worn path | -- | no. He already ruled; this is work. ***
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never

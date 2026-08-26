@@ -1,5 +1,5 @@
 {
- "built": "8/25/26",
+ "built": "8/26/26",
  "shots": [
   {
    "id": "the-way-in",
@@ -484,16 +484,6 @@
    "shooter": "node tools/bohemia_look_shots.js --only everything-metal"
   },
   {
-   "id": "one-haircut",
-   "title": "ONE HAIRCUT, THE WHOLE WAY ROUND",
-   "caption": "You said the haircuts have to be the same and coordinated from all angles. Two of the fifteen were not, and it was not close: SHOULDER LENGTH and LONG LOOSE had a real fall of hair facing forward and NOTHING from any other angle. Turn his head one notch and a shoulder-length haircut became a crop. A second bug on top of it meant the long one and the shoulder one drew the exact same length anyway, so the dial that says how long a haircut is was not reaching the screen at all. Both fixed. Each row here is one haircut turning all the way around, one step at a time, so you can see it stay the same haircut. I also drew this twice wrong before I got it right: once the hair fell as a single strip down his chest, once it detached at the jaw and floated off his shoulders. Looking at the picture caught both; every number I had said it was fine. LOOK tab for this picture, CHARACTER tab for the hair.",
-   "file": "look/one-haircut.png",
-   "kb": 157.5,
-   "stamp": "8/25/26",
-   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
-   "shooter": "node tools/bohemia_one_haircut_eight_ways.js"
-  },
-  {
    "id": "you-can-see-through-it",
    "title": "A FENCE YOU CAN SEE THROUGH",
    "caption": "Every perimeter fence in the city was a solid band of house roof tiles ringing every district. Thirty-one of them. A fence you cannot see through is a WALL, whatever the map calls it. These are chain-link now, and the trick is what is NOT drawn: the tile is mostly empty and the ground on the far side shows straight through the mesh, with the posts every three metres and the top rail catching the light. Some panels are simply gone, because the fences here have been down for ten years and every one of these legends already said so. RUN tab, walk up to any fence line.",
@@ -507,6 +497,26 @@
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only you-can-see-through-it"
+  },
+  {
+   "id": "one-haircut",
+   "title": "ONE HAIRCUT, THE WHOLE WAY ROUND",
+   "caption": "You said the haircuts have to be the same and coordinated from all angles. Two of the fifteen were not, and it was not close: SHOULDER LENGTH and LONG LOOSE had a real fall of hair facing forward and NOTHING from any other angle. Turn his head one notch and a shoulder-length haircut became a crop. A second bug on top of it meant the long one and the shoulder one drew the exact same length anyway, so the dial that says how long a haircut is was not reaching the screen at all. Both fixed. Each row here is one haircut turning all the way around, one step at a time. I also drew this twice wrong before I got it right: once the hair fell as a single strip down his chest, once it detached at the jaw and floated off his shoulders. Looking at the picture caught both; every number I had said it was fine. LOOK tab for this picture, CHARACTER tab for the hair.",
+   "file": "look/one-haircut.png",
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_one_haircut_eight_ways.js",
+   "kb": 157.5
+  },
+  {
+   "id": "the-missing-hats",
+   "title": "SEVENTEEN THINGS THAT WERE NOT THERE",
+   "caption": "Seventeen things in your wardrobe drew NOTHING. Every knit cap, watch cap, field cap, work cap and slouch beanie, the rice farmer hat, and both pairs of shades. You could put one on and not one pixel of the screen changed. I found them by running the same check I built for the hair across all 204 clothes. One wrong number caused it: the code measured your head on the OLD small grid, so it thought the line a hat is not allowed to cross sat twelve rows ABOVE your head. Nothing can draw above that. And the gate that guards hats was green the whole time, because what it checks is that a hat never crosses the line, and a hat that draws nothing never crosses anything. Left three columns are before, right three are now. LOOK tab for this picture, CHARACTER tab to put one on.",
+   "file": "look/the-missing-hats.png",
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_the_missing_hats.js",
+   "kb": 196.7
   }
  ]
 }

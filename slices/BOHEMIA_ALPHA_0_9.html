@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26a - THE MAP ICONS TELL THE TRUTH</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26b - THE HATS ARE BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21296,10 +21296,31 @@ window.CLO=(function(){
        (its southernmost row) mapped from rest space onto the deformed head. In
        practice: ~4 rows below the head top in front/side, ~7 from behind. The
        30% band above is only the fallback when the durag globals are absent. */
+    /* *** THE ROW WIDTH IS BAKED'S OWN, NEVER THE LITERAL 56, AND THAT ONE NUMBER
+       MADE SEVENTEEN GARMENTS INVISIBLE. (8/25) ***
+       BAKED is RIG2X'd, so its layer indices pack as y*BAKED.W with BAKED.W = 112.
+       Dividing by a hard-coded 56 returns DOUBLE the row -- and then the fix that was
+       applied on top ("scale rt or the durag line lands at half depth") multiplied it
+       by S again. Two scale errors compounding in the same expression:
+           rt read 20 for a head whose top row is 10, then 20 * 2 = 40
+           hl = hTop + (HAT_MAX_Y - 40) = 10 + (18 - 40) = -12
+       put() refuses every pixel below the hat line, and the hat line was TWELVE ROWS
+       ABOVE THE TOP OF THE CANVAS, so genHat drew ZERO PIXELS on every facing.
+       MEASURED ON THE REAL SURFACE: 17 canon garments -- every knit cap, watch cap,
+       field cap, work cap, slouch beanie, the rice farmer hat and both pairs of
+       wraparound shades -- changed ZERO pixels of the frame when worn. Not thin, not
+       wrong: ABSENT. He could equip them and nothing happened.
+       AND THE HEADWEAR GATE WAS GREEN THROUGH ALL OF IT, because what it holds is "a
+       hat never crosses the durag line" and a hat that draws nothing crosses nothing.
+       A check that a corpse passes is not checking for life.
+       hl is now 18 facing S and E and 24 facing N -- eight rows down a 22-row head,
+       deeper at the back, which is exactly what a durag does and what the comment
+       below has always said it should be. */
     var gd2=(typeof MIRROR!=='undefined'&&MIRROR[dir])?MIRROR[dir]:dir, hl=band;
+    var _bw=(typeof BAKED!=='undefined'&&BAKED.W)?BAKED.W:56;
     if(typeof HAT_MAX_Y!=='undefined'&&HAT_MAX_Y[gd2]!=null&&typeof BAKED!=='undefined'&&BAKED.layers[gd2]){
-      var rt=99; ['1','2'].forEach(function(pid){var L=BAKED.layers[gd2][pid]; if(L)for(var li=0;li<L.length;li++){var ry=(L[li]/56)|0; if(ry<rt)rt=ry;}});
-      if(rt<99)hl=hTop+(HAT_MAX_Y[gd2]-rt*S); }   /* HAT_MAX_Y is RIG space, rt is 56 space -- scale rt or the durag line lands at half depth */
+      var rt=99; ['1','2'].forEach(function(pid){var L=BAKED.layers[gd2][pid]; if(L)for(var li=0;li<L.length;li++){var ry=(L[li]/_bw)|0; if(ry<rt)rt=ry;}});
+      if(rt<99)hl=hTop+(HAT_MAX_Y[gd2]-rt); }   /* both sides are RIG space now: no scale factor belongs here */
     /* UNIFORM WEAR DEPTH (Paolo 7/19: "why are the beanies in the back longer
        than the other parts of the head?"). The durag line is DEEPER from behind
        (a durag wraps toward the nape) -- but a beanie's cuff is a LEVEL band, so
@@ -21309,8 +21330,8 @@ window.CLO=(function(){
     var uD=null;
     if(typeof HAT_MAX_Y!=='undefined'&&typeof BAKED!=='undefined'){ var ds=[];
       for(var dk2 in HAT_MAX_Y){ var L2=BAKED.layers[dk2]; if(!L2)continue; var rt2=99;
-        ['1','2'].forEach(function(pid2){var LL=L2[pid2]; if(LL)for(var lj=0;lj<LL.length;lj++){var ry2=(LL[lj]/56)|0; if(ry2<rt2)rt2=ry2;}});
-        if(rt2<99)ds.push(HAT_MAX_Y[dk2]-rt2*S); }
+        ['1','2'].forEach(function(pid2){var LL=L2[pid2]; if(LL)for(var lj=0;lj<LL.length;lj++){var ry2=(LL[lj]/_bw)|0; if(ry2<rt2)rt2=ry2;}});
+        if(rt2<99)ds.push(HAT_MAX_Y[dk2]-rt2); }   /* same two compounding scale errors as hl above */
       if(ds.length)uD=Math.min.apply(null,ds); }
     var hlWear=(uD!=null)?hTop+uD:band;
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return; if(y>hl)return;   /* NOTHING below the hat line, ever (SLOT_CONTACT law) */
@@ -22166,8 +22187,19 @@ window.CLO=(function(){
       var FL=(typeof PD!=='undefined'&&PD.layers&&PD.layers['facial/punk-face'])?PD.layers['facial/punk-face'][gd3]:null;
       if(FL&&typeof BAKED!=='undefined'&&typeof G24_OY!=='undefined'){
         var iMin=99,iMax=-1;
-        for(var fk2 in FL.px){ if(FL.px[fk2]!==1)continue; var ry3=((+fk2/24)|0)+G24_OY; if(ry3<iMin)iMin=ry3; if(ry3>iMax)iMax=ry3; }
-        if(iMax>=0){ var rt3=99; ['1','2'].forEach(function(pid3){var L3=BAKED.layers[gd3]&&BAKED.layers[gd3][pid3]; if(L3)for(var lj3=0;lj3<L3.length;lj3++){var yy3=(L3[lj3]/56)|0; if(yy3<rt3)rt3=yy3;}});
+        /* *** THE SAME TWO COMPOUNDING SCALE ERRORS AS genHat, AND THE SAME RESULT:
+           BOTH PAIRS OF SHADES DREW NOTHING AT ALL. (8/25) ***
+           A painted layer packs at 24 wide, and +G24_OY puts it in 56 space -- it then
+           needs *RIG_RS to reach the rig, which is what every other reader of this
+           value does. This one did not. And rt3 divided BAKED's indices by a literal
+           56 when BAKED.W is 112, so it read the head top as row 20 instead of 10.
+           dHead came out at -10, the lens band was pushed ten rows above the eyes and
+           off the head, and put() dropped every pixel.
+           MEASURED: WRAPAROUND SHADES and GREY WRAPAROUNDS changed ZERO pixels of the
+           real frame when worn. The literal 56 is the tell -- BAKED's own width is the
+           only correct divisor and it has been 112 since the rig doubled. */
+        for(var fk2 in FL.px){ if(FL.px[fk2]!==1)continue; var ry3=(((+fk2/(FL.w||24))|0)+G24_OY)*S; if(ry3<iMin)iMin=ry3; if(ry3>iMax)iMax=ry3; }
+        if(iMax>=0){ var rt3=99, _bw3=(BAKED.W||56); ['1','2'].forEach(function(pid3){var L3=BAKED.layers[gd3]&&BAKED.layers[gd3][pid3]; if(L3)for(var lj3=0;lj3<L3.length;lj3++){var yy3=(L3[lj3]/_bw3)|0; if(yy3<rt3)rt3=yy3;}});
           if(rt3<99){ var off3=faceOffset(dir,'eyes'), dHead=hTop-rt3;
             eyeA=iMin+off3[1]+dHead; eyeB=iMax+off3[1]+dHead; } } }
       /* SHADES v3 (Paolo 7/19: v2 was 'a straight black line that didn't
