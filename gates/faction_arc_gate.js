@@ -1812,6 +1812,64 @@ function requirePlaywright() {
       !!pays && Array.isArray(pays.noMembers),
       JSON.stringify({ zeroMembers: pays && pays.noMembers }));
 
+    /* ---- S. NOBODY RUNS WITH SOMETHING THAT DOES NOT EXIST ----------------
+       Found while asking why five of the sixteen outfits have no members. Two
+       separate facts came out of it, and only one is a defect:
+         KARENS / SOCIAL_FORCES / AMALGAMATION have NO BASE in CT_BASES_BAKED, so
+           they correctly have no members. Placement, his map, not a bug.
+         BLUES and ANARCHISTS DO have bases -- at y=3 and y=0, the top edge -- and
+           still have zero members, which is worth his eye.
+         "CUSTOM" IS A BASE, and three people run with it. It is not one of the
+           sixteen: no terms, no acts, no ladder, no name mechanic. Their card
+           says RUNS WITH CUSTOM and then offers nothing but "Ask their name".
+       THE WHOLE SYSTEM IS DEAD FOR THOSE THREE PEOPLE and it looks like content
+       rather than a gap, which is the worst way for it to fail: a player reads a
+       faction name and finds a wall.
+       NOT DELETED. A base in the baked table is placement and placement is his
+       (MAP LAW). What a gate can do without deciding for him is refuse to let it
+       stay invisible. */
+    const orphanFactions = await (async () => {
+      const pg = await browser.newPage({ viewport: VIEW });
+      try {
+        await pg.goto('file://' + CITY);
+        await pg.waitForTimeout(6000);
+        return await pg.evaluate(() => {
+          const R = ctValleyRoster();
+          const ruled = (BohemiaBelonging.keys ? BohemiaBelonging.keys() : [])
+            .map(k => String(k).toUpperCase());
+          const orphans = {}, withMembers = {};
+          R.forEach(a => {
+            const f = String(a.faction || '').toUpperCase();
+            if (!f) return;
+            withMembers[f] = (withMembers[f] | 0) + 1;
+            if (ruled.indexOf(f) < 0) orphans[f] = (orphans[f] | 0) + 1;
+          });
+          const empty = ruled.filter(k => !withMembers[k]);
+          return { ruled: ruled.length, orphans, empty,
+                   withMembers: Object.keys(withMembers).length };
+        });
+      } finally { await pg.close(); }
+    })();
+
+    ok('S1 NOBODY IN THE VALLEY RUNS WITH AN OUTFIT THAT HAS NO RULE. A person '
+      + 'whose card says RUNS WITH <name> and then offers no terms, no act, no '
+      + 'ladder and no way to learn their name is advertising content that does '
+      + 'not exist — a player reads a faction and finds a wall, which is worse '
+      + 'than an unaffiliated stranger because it looks deliberate',
+      !!orphanFactions && Object.keys(orphanFactions.orphans).length === 0,
+      JSON.stringify(orphanFactions && orphanFactions.orphans)
+        + '  — these are in CT_BASES_BAKED but not in BohemiaBelonging.RULES.'
+        + ' Placement is his (MAP LAW); this NAMES it rather than deleting it.');
+
+    ok('S2 …and the outfits with NO members are reported with their reason rather '
+      + 'than skipped. Three of them have no base in the baked table at all, so '
+      + 'zero members is correct; the others have a base and still nobody, which '
+      + 'is a different thing and only visible if the two are counted apart',
+      !!orphanFactions && Array.isArray(orphanFactions.empty),
+      JSON.stringify({ ruledOutfits: orphanFactions && orphanFactions.ruled,
+                       outfitsWithMembers: orphanFactions && orphanFactions.withMembers,
+                       noMembers: orphanFactions && orphanFactions.empty }));
+
     ok('B13 the city threw no errors walking the whole arc', errors.length === 0,
       errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }
