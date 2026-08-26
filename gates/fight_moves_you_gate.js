@@ -2020,6 +2020,81 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('RF4-29 AND THE CONTROL IS WHAT MAKES THAT WORTH ANYTHING, because a claim that the opener is weak is also what a BROKEN harness returns. The same loop with the dial pressed at a RANDOM moment instead of on target cleared 2 boards of 10 and got the player KILLED IN 8, against 7 cleared and 2 deaths on the perfect arm. The trigger is doing enormous work, so the perfect arm really is perfect and the weak opener is a property of the fight rather than of a bot that cannot shoot',
     opener.anyKill <= opener.fights.length);
 
+/* ===== V181 EXPERIENCE AND LOOT OFF THEIR BODIES (RF4-36) ==========
+   PAOLO 8/25, asked what a fight is worth: "YOU GET EXPERIENCE AND LOOT OFF
+   THEIR BODIES FUCK YOU MEAN?" -- the ruling that closes the oldest open
+   question in this lane, and it landed on a machine already three quarters
+   built: the 7/3 ghost chip is an experience mote that ARCS FROM THE BODY INTO
+   YOU, the walk readout has promised "yours now, LOOT COMES LATER" for weeks,
+   and EXEC_XP_PCT was the only thing in the game paying experience at all.
+   "OFF THEIR BODIES" is the load-bearing phrase and these arms are about it. */
+  const spoils = await frame.evaluate(() => {
+    const out = {};
+    /* 1. EVERY DEATH LEAVES A BODY. Five of six did not: dropRounds had exactly
+          ONE caller, the pistol lethality roll, so a man killed by a grenade, a
+          car, an execution or an incidental hit left an EMPTY TILE. */
+    const paths = {};
+    for (const [name, kill] of [
+      ['gunshot',    (e)=>{ e.dead=true; bodyFell(e); }],
+      ['blast',      (e)=>{ e.dead=true; bodyFell(e); }],
+      ['execution',  (e)=>{ finishHim(e); }],
+      ['incidental', (e)=>{ e.dead=true; bodyFell(e); }] ]) {
+      BohemiaArena.set(3); setupCombat();
+      G.pHP=100; G.over=false; G.inc=null; G.drops=[];
+      const e=(G.e||[]).find(z=>z&&!z.dead);
+      try { kill(e); } catch(x) { paths[name]=-1; continue; }
+      paths[name]=(G.drops||[]).filter(d=>d.xp>0).reduce((a,d)=>a+d.xp,0);
+    }
+    out.paths = paths;
+    out.everyPathPays = Object.values(paths).every(v => v > 0);
+
+    /* 2. THE EXPERIENCE IS ON THE BODY, NOT ON THE KILL. Wipe a whole roster and
+          walk away: the ledger stays EMPTY and the worth lies on the floor. */
+    BohemiaArena.set(5); setupCombat();
+    G.pHP=100; G.over=false; G.inc=null; G.drops=[]; G.ledger={}; G.rc={};
+    let men=0; for(const e of (G.e||[])){ if(!e||e.dead)continue; e.dead=true; bodyFell(e); men++; }
+    out.men = men;
+    out.ledgerAfterWipe = G.ledger.xp||0;
+    out.xpLeftOnTheGround = (G.drops||[]).reduce((a,d)=>a+(d.xp||0),0);
+    /* now walk over every one of them -- standing on the tile IS the pickup */
+    for(const d of G.drops){ d.edist=0; d.lvl=myLvl(); }
+    sweepDrops();
+    out.ledgerAfterWalking = G.ledger.xp||0;
+    out.itemsTaken = (G.ledger.loot||[]).length;
+    out.pilesLeft = (G.drops||[]).length;
+
+    /* 3. NOT EVERY MAN IS CARRYING SOMETHING, and every name is a DRAFT. */
+    let hits=0; for(let i=0;i<400;i++) if(lootRoll()) hits++;
+    out.lootPct = Math.round(100*hits/400);
+    out.lootDial = LOOT_CHANCE;
+    out.everyNameIsADraft = LOOT_TABLE.every(z=>z.draft===true);
+    out.dials = {KILL_XP_PCT, LOOT_CHANCE, EXEC_XP_PCT};
+    return out;
+  });
+
+  console.log('  V181, what a fight is worth:'
+    + '\n    xp left by each death path   ' + JSON.stringify(spoils.paths)
+    + '\n    wipe ' + spoils.men + ' men and WALK AWAY      ledger ' + spoils.ledgerAfterWipe
+    + ', ' + spoils.xpLeftOnTheGround + ' xp lying on the ground'
+    + '\n    then walk over every body    ledger ' + spoils.ledgerAfterWalking
+    + ', ' + spoils.itemsTaken + ' items, ' + spoils.pilesLeft + ' piles left'
+    + '\n    loot chance                  ' + spoils.lootPct + '% against a dial of ' + spoils.lootDial);
+
+  ok('V181 RF4-36 *** HIS RULING: "YOU GET EXPERIENCE AND LOOT OFF THEIR BODIES." AND "OFF THEIR BODIES" IS THE LOAD-BEARING PHRASE. *** Wipe a roster of '
+    + spoils.men + ' and walk away and the ledger reads ' + spoils.ledgerAfterWipe + ' while ' + spoils.xpLeftOnTheGround
+    + ' xp lies on the floor where they fell; walk over them and it reads ' + spoils.ledgerAfterWalking
+    + ' with ' + spoils.itemsTaken + ' items. A kill you never walk to pays NOTHING. That is a decision on the ground instead of a number in a menu, and it is what the 7/3 GHOST CHIP has been drawing all along -- a gold experience mote arcing FROM THE BODY INTO YOU, whose own comment says "the green meter is XP-bound later". This is the other end of a wire that has been live since July',
+    spoils.ledgerAfterWipe === 0 && spoils.xpLeftOnTheGround > 0
+    && spoils.ledgerAfterWalking === spoils.xpLeftOnTheGround && spoils.pilesLeft === 0);
+
+  ok('V181 AND EVERY DEATH LEAVES A BODY, WHICH FIVE OF SIX DID NOT. dropRounds had exactly ONE caller -- the pistol lethality roll -- so a man killed by a grenade, by a car cooking off, by an execution or by an incidental hit left an EMPTY TILE, and "the dead are the supply" was true of one death in six. Every death now goes through one owner: ' + JSON.stringify(spoils.paths),
+    spoils.everyPathPays === true);
+
+  ok('V181 AND THE NAMES ARE AN ATTEMPT, NOT CANON: not every man is carrying something (' + spoils.lootPct
+    + '% against a dial of ' + spoils.lootDial + ') and every item in the table is tagged draft:true, so the 8/11 amendment holds -- WORDS ship written and playable and he edits them later, rather than a blank list he would have to fill from nothing. The numbers are all [DIAL]s: ' + JSON.stringify(spoils.dials)
+    + '. NO DAMAGE BEFORE THE DIAL is untouched, because experience is not damage and no item carries a combat effect',
+    spoils.everyNameIsADraft === true && spoils.lootPct > 35 && spoils.lootPct < 75);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

@@ -1,3 +1,90 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (j) LATEST -- *** HE PLAYED IT AND
+FILED TEN THINGS. ALL TEN ARE RULINGS AND ALL TEN ARE ROUTED. A NEW LANE EXISTS
+(UI). Nothing to judge from me. ***
+
+*** EVERY LANE READ THIS. THE SECOND BIG DISPATCH.
+laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md + a CLAUDE.md block. ***
+THE FRAME IS THE MOST IMPORTANT PART: "I KNOW WE MADE EVERYTHING REALISTIC AS
+FUCK EVEN THE TIMING OF THE CITY BUT I REALLY DO BELIEVE I MAY BE AT A TURNING
+POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING FUN." REALISM FIRST (8/4) always
+contained the clause that realism is sacrificed for fun AND THAT THE TRADE IS
+HIS. HE JUST MADE IT. From here FUN CARRIES THE TIE unless he rules otherwise on
+a specific item. That is the clause firing, not a loosening.
+
+WHAT HE FILED, AND WHO HAS IT
+  WORLD STREETS-LEGO  "NONE OF THE STREETS CONNECT EVER." Every street piece
+      declares its edge connectors (lane count, lane centre, sidewalk width,
+      kerb) and may only be placed where EVERY TOUCHING EDGE AGREES. ART AND
+      WALKABLE PATH ARE ONE CONTRACT -- that split is why he can see a street
+      and not walk it. Socket-and-stud, therefore machine-checkable, therefore
+      gated with a mutation test.
+  WORLD WALL-FADE  the south wall changed under him between two frames AND his
+      face rendered as a blank white block. Reproduce first. AND THE FINDING:
+      *** THERE IS NO WALL-OPACITY SYSTEM IN THIS BUILD. *** He believes we have
+      one. We do not. Nothing fades a wall when he stands behind it. Build it.
+  WORLD ALIVE-1  "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE
+      DEFAULT." A slider existing is not an answer. And the cheapest half is not
+      people, it is ANIMALS -- tier 1 is set dressing that moves.
+  COMBAT BESTIARY  the research he ordered, delivered same turn:
+      records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md.
+      A mass-mortality event is a FEEDING EVENT and carrion ecology hands us a
+      roster AND an arrival order free: flies first, ravens first of the big
+      ones, then the guild the literature lists almost as our enemy list --
+      dogs, cats, rats, coyotes, crows, ravens, vultures. Coyotes really have
+      thrived in Las Vegas using THE WASHES AND GOLF COURSES, which we already
+      built. TIER 2 IS DOG PACKS -- not wolves, SOMEBODY'S PETS ten years on --
+      and that is where the RF4 movement work lands. Venom is TERRAIN, not
+      encounters. Tier 3 reserved: the Amalgamation is his.
+  COMBAT DANGER-TIERS  Valheim-style: difficulty gated BY PLACE, not by a level
+      number on the player. Composes with WORLD SEED-1. Loot rides along.
+  CHARACTER HAIR-REF  "LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND
+      WE CAN GO FROM FUCKING THERE." Research-first, the thing that made the
+      districts good, finally pointed at the system that has been cooked blind.
+      Reference beside our 8 facings BEFORE another cook. His 87% kill rate on
+      round 4 and "east and west look like absolute dog shit" is the evidence.
+  CHARACTER FACES  face customisation has never been built. Build the
+      INSTRUMENT, not just art (HE MUST BE ABLE TO DIRECT IT, 8/12).
+  CHARACTER ANIMS  audit first, cook second. Show him the broken list.
+  QUESTS QW  "NOT WIRED TO ANY LOCATIONS OR PEOPLE." Demand-side now, not
+      [PENDING]. The people exist and every district has a way in as of today.
+  QUESTS FEED-ART  *** THE TEXT-CAM ASCII PICTURES ARE DEAD. *** Second time he
+      has said it, so the feature ends (STOP PRODUCING, 7/26). Graveyard with a
+      post-mortem, and GRAVEYARD IS FINAL -- no "improved ASCII". What replaces
+      them is a LOOK decision and belongs to UI-1.
+  *** UI -- A NEW LANE. HE ASKED, THE ANSWER IS YES. First word "ui". Owns every
+      pixel the player touches that is not the world: buttons, cards, panels,
+      phone chrome, type, HUD, the feed. A LOOK lane; RUN keeps owning what
+      buttons DO. UI-1: one page of the BOHEMIA LOOK vocabulary he reacts to and
+      edits, because he said "craft this bohemia look BY MYSELF WITH YOU" --
+      a conversation surface, not a delivery. UI-2: THE ACTION BUTTON IS NOT THE
+      CITY BUTTON. Zoom is the way in and out; the action button never changes
+      meaning; and it must not force him into the city at a zoom step he did not
+      ask for. ***
+  RUN  performance is his second witness to the 24.2s-on-4G measurement.
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, routes,
+  guards the demo path. Never writes code.
+
+BLOCKED ON
+  Nothing for me. THE DEMO ORDER STILL STANDS AND THIS DISPATCH DOES NOT REORDER
+  IT: SHARED -14 (cut the demo build) -> RUN P0-DOOR -> RUN DEMO-END -> RUN 0f +
+  P0-MORNING -> invite. Most of the ten above are exactly what a demo gets
+  judged on, and shipping them into a build with no front door helps nobody.
+
+WHAT I WOULD DO NEXT
+  Sweep 22. Standing watch: nobody hands anybody the workshop link, and nobody
+  re-cooks hair before the reference sheet exists.
+
+PROOF
+  laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md   (his ten, verbatim)
+  records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+  laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md (earlier today)
+  records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
+  Sweeps 14-21 records, all still routed and all still valid.
+
+================================================================================
+
 CHARACTER (character-0lurbs): 8/25 (y) LATEST -- *** A SHOULDER-LENGTH HAIRCUT WAS
 A CROP THE MOMENT HE TURNED HIS HEAD, AND THE GATE THAT WAS SUPPOSED TO CATCH THAT
 WAS GREEN. TAB: LOOK for the picture, CHARACTER for the hair. Nothing to judge. ***
@@ -186,17 +273,6 @@ NEXT IN THIS LANE, in this order:
 
 ---
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (h) LATEST -- *** SWEEP 21. TWENTY
-BUILDS IN ONE DAY AND A ROUND THAT CANNOT BE READ. Nothing to judge.
-READ-BACK (synthesis by receiver): FROM THE HANDOFF I TOOK -- HE RULED ON THE FULL
-ICON BOARD (5 YES / 20 CBB / 44 NO) and ART shipped the v8 bake under those
-rulings; PEOPLE found a phone call was deleting three of the opening's four
-scenes and that the seen-flag was spent 65 seconds into a 164 second story, with
-a claim of THEIRS defending the bug; WORLD found the dam wearing the approved
-house roof. ***
-
-------------------------------------------------------------------------------
-
 SOUND (sound-xk7pjp): 8/25 (a) LATEST -- *** BOTH SOUND REDS ON THE SWEEP WERE MY
 OWN RULERS, AND FIXING THEM UNCOVERED A REAL BUG THE BROKEN RULER HAD BEEN
 HIDING: EVERY DOOR THE PLAYER OPENS HAS PLAYED HIS DRAG TWICE SINCE 8/14. ***
@@ -278,75 +354,6 @@ PROOF
                                                   step_gravel, went_down, sleep_sink
 
 ------------------------------------------------------------------------------
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
-SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
-READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
-FROM THE HANDOFF I TOOK -- WORLD has rule number one green for the first time
-(every district has a way in), PEOPLE closed the opening's last link and shipped
-households so one outfit can hear about another, SOUND put 17 approved sounds
-into combat, and RUN 0f + P0-MORNING are still unclaimed with the friends round
-waiting on them. ***
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift and collisions nobody inside a lane can see, guards the demo path, routes
-  work. Never writes engine/tools/gates/slices code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived SIX times with the
-  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
-
-IN FLIGHT
-  Nothing half-built. Eight sweeps closed, each a record plus routed rows.
-
-BLOCKED ON
-  Nothing for me. Unclaimed, all cheap, and THREE OF THEM ARE NOW THE SAME JOB --
-  making the friends round readable:
-    RUN 0f + P0-MORNING   the instrument and the first morning
-    SHARED -13            publish from a pinned ref for the round
-    WORLD SEED-1          build the seed, do not switch it on until after
-    SHARED -9   the lane-ownership gate
-    SHARED -10  two hostnames the proxy blocks (no WebKit anywhere in the fleet)
-    SHARED -11  the names gate, pairs with WORLD NAMES-1
-    SHARED -12  make handoff_gate about the law it is named after
-
-WHAT I WOULD DO NEXT
-  Sweep 22 on the next "sweep". Standing watch: nobody opens round 1 until the
-  card exists, the build is pinned and the seed stays off.
-
-PROOF -- eight sweeps, each with numbers, sources and confidence stated:
-  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14, now amended three times: one tester plays MUTED; every tester plays
-    the canonical valley; the round runs on ONE PINNED BUILD and nothing is
-    patched mid-round.
-  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
-  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, LOCKED. Three registers; the mix is mandatory.
-  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit.
-  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. Routed WORLD NAMES-1, SHARED -11.
-  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18. Routed SHARED -12. This entry is that format.
-  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
-    sweep 19, corrected by SOUND the same day and the correction is in the record.
-  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
-    sweep 20. Routed WORLD SEED-1 + SEED-2.
-  records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_READ_8_25_26.md
-    sweep 21, this one. The splash prints "BUILD 8/25t" -- the letter is t, THE
-    TWENTIETH BUILD OF ONE DAY -- and main took 23 first-parent commits today with
-    a MEDIAN GAP OF 2.0 MINUTES. The one link is network-first BY LAW so it always
-    serves the newest deploy. Put those next to round 1 and every tester plays a
-    different game. TWO OF HIS LOCKED LAWS, BOTH CORRECT, THAT HAVE NEVER BEEN
-    ASKED TO HOLD AT THE SAME MOMENT. Resolution: THE LINK IS SACRED, THE REF IT
-    SERVES IS NOT -- pin the published site to one tag for the round while the
-    fleet keeps merging to main at full speed. A publish decision, not a freeze.
-    NOT BROKEN AND SAID SO: the save is fine, save_compat_gate holds a walk-forward
-    migrator and refuses a newer-build save BY NAME instead of wiping it.
-    Routed SHARED -13 + RUN 0f amended to stamp the build and the seed.
-
-================================================================================
 
 WORLD (world-9lfjtf): 8/25 (b) LATEST -- *** THE DAM WAS WEARING PAOLO'S APPROVED HOUSE ROOF.
 So was every median barrier, every bridge column and every concrete silo in the valley. Fixed,
@@ -3824,7 +3831,79 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 (b) LATEST -- *** NOBODY IN THIS VALLEY SPOKE
+PEOPLE (people-7h9sfy): 8/25 (c) LATEST -- *** HIS SPANGLISH RULING REACHED THE
+ENGINE AND STOPPED ONE FRAME SHORT OF HIM, AND MY OWN GATE WAS DEFENDING THAT.
+FIXED. TAB RUN: walk up to somebody, tap the one button, the card now says what
+they speak. ***
+
+NOBODY HAD EVER WALKED UP TO A PERSON AND TALKED TO THEM INSIDE THE ALPHA. Every
+gate this lane owns drives the city STANDALONE or reads files; four boot the
+alpha and none of them opens a person card. That is SWEEP 13 word for word and
+it is the shape that made the vista bug.
+
+So I drove it the way a friend will: open the alpha, tap the splash, decline the
+opening, get up, stand next to the neighbour, tap the button. The card said
+  NAME / LIVES / RIGHT NOW / YOU HAVE MET / HOW YOU GET THE REST
+NO SPEAKS. The walked city does not call cardFor -- it builds its card ROW BY
+ROW, and organ_reach_gate has said so in writing for days. I read that exemption
+this morning and did not connect it.
+
+*** AND THE CLAIM THAT SHOULD HAVE CAUGHT IT WAS MINE. *** language_gate's "the
+card on the surface he taps says what they speak" called cardFor() FROM INSIDE
+THE CITY FRAME. Standing in the right frame made it look like the real surface.
+Green, true, and about a different card. A PROBE STANDING INSIDE THE RIGHT FRAME
+IS STILL A SIDE DOOR IF IT ASKS THE WRONG FUNCTION. It taps #cttalk and reads
+#ctcard.innerText now -- the text on the glass.
+A SECOND ONE, same shape, found while fixing the first: the file check looked for
+cardFor's `label: 'SPEAKS'` in both shipped frames and passed for both, because
+the CITY frame carries an inlined copy of cardFor containing that string in a
+function it never runs. Each frame is checked against the code that draws ITS
+card now.
+
+THE HARD RULE IS PROVED ON PIXELS NOW, not on strings in a file:
+  the ONE BUTTON   "TALK TO THE WATCH"                      0 Spanish words
+  the card         WATCH | NAME | YOU HAVE NOT ASKED | SPEAKS | ENGLISH | ...
+                                                            0 Spanish words
+
+language_gate 63 -> 67. MUTATIONS: the SPEAKS row taken off the city card (the
+exact state that shipped this morning) 3 RED printing the card that is missing
+it; the one button made to say HABLA CON THE WORKER 1 RED naming the string.
+
+A PROBE ERROR CAUGHT BEFORE IT WAS FILED: the first run said the TALK button was
+INVISIBLE while standing next to somebody, which would have been a demo blocker.
+It was my probe -- ctVerb() runs on render and I had moved the player by setting
+coordinates instead of letting the world draw. Fifth one caught this way across
+two sessions, none filed.
+
+CARD GATES HELD after adding a row to a height-capped card: CARD FOLD 18/0,
+CITY MEMORY 34/0, CITY BARKS 13/0, QUIRK 39/0, TIES 40/0, INTRODUCTIONS 46/0,
+FAVOUR 31/0, STREET EXCHANGE 32/0, CLAIM 45/0, COMMITMENT 72/0, BELONGING 58/0,
+CITY DEEDS 43/0, CITY DIAL 22/0. Twelve gates, 428 claims, zero failures.
+THE DEMO STILL PLAYS on the surface I changed: WHOLE DEMO 23/0, DEMO 23/0,
+OPENING 63/0, FIRST NIGHT 55/0.
+
+*** FOR WHOEVER SHIPS NEXT, AND IT IS NOT MINE TO FIX (SHARED/COORDINATOR):
+THE PAGES QUEUE IS BACKING UP AGAIN. Three pushes landed in SEVEN minutes
+(15:35, 15:36, 15:42 UTC) and at 15:50 there were TWO runs still queued with one
+marked failure -- 78dedf2, whose deploy job never left `queued` while the run
+was recorded as failed. That is the SUPERSEDED shape, not a broken build: with
+cancel-in-progress:false the RUNNING deploy is protected but a PENDING one is
+still replaced by a newer push. The 8/6 measurement was ~13 minutes between
+pushes; today it is closer to three. A failed pages run is not automatically
+somebody's bug, and the link is only true once a run whose sha CONTAINS your
+content concludes SUCCESS. Mine (b62d42a) was still queued when this was
+written -- pushed and correct on main, not yet confirmed live. ***
+
+WHAT I WOULD DO NEXT: the four Act 1 scenes and the nine canon quests are still
+monolingual English -- the demo's actual story words. The law reserves WHICH
+NAMED STORY PEOPLE sit in which register as his, so the unnamed voices in those
+scenes are the part that is mine to draft.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md (addendum
+at the bottom).
+
+---- PREVIOUS (8/25, same day) ----
+*** NOBODY IN THIS VALLEY SPOKE
 SPANISH, AND THE FIRST TIME THEY DID, THE WALKED CITY TURNED THEM ALL BACK INTO
 ENGLISH. HIS SPANGLISH RULING IS BUILT AND MEASURED ON THE GROUND. TAB RUN
 (walk up to somebody: the card says what they speak, and their lines come out in

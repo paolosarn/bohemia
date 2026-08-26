@@ -1035,3 +1035,21 @@ four lots. Proven live: picked stadium on empty desert, tapped BUILD,
 span {2x2, stadium} written, all four lots stadium, ONE hero spanning
 them in the render. Hero wire + walked surface + all 16 city gates
 green by exit code.
+
+## 8/25 FORTY-NINTH PASS: THE BEDS SOMEBODY ONCE RAKED (parallel to the icon bake)
+
+While the icon wave-2 rebake ground its 75 minutes, the tile ranking's
+next: the police station's 'landscaping' x1131 - ONE connected web of
+bed strips (118x116 bounding box) ringing the station, lot and secure
+yard, all falling to the gravel fallback. The read that matters:
+xeriscape MULCH STAYS RAKED for thirty years (rock does not die) while
+every plant in it dies to straw - so the bed reads MANICURED against
+the wild desert, which is the whole story of a civic building nobody
+comes back to. Granite mulch warmed from the approved dirt (three
+hashed variants, one-pixel value grain, never dots), a dead agave
+rosette radiating on the 45 ellipse about every seventh cell, a
+feature boulder every nineteenth. Verified live at the station: the
+warm even band reads apart from the desert at a glance. Twenty-fourth
+wired family, full form, board row 92, tileform + reusefirst 0 by exit
+code. Targeted git adds only this ship - the hero bank was mid-bake in
+the background and a git add -A would have staged a half-written file.

@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 08/25/26
+# BOHEMIA CANON INDEX — regenerated 08/26/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-325 canon files indexed across 2 locations.
+327 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -276,8 +276,10 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (174) — add keywords to DOMAINS
+### UNCLASSIFIED (176) — add keywords to DOMAINS
 - `BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md`
+- `BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md`
+- `BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md`
 - `BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md`
 - `BOHEMIA_ADDENDUM_TALK_TO_HIM_LIKE_A_PERSON_8_24_26.md`
 - `BOHEMIA_ADDENDUM_NOBODY_EVER_WALKED_IT_8_20_26.md`

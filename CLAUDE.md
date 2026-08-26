@@ -387,6 +387,44 @@ rarely as one mega-session.
   Add a folder to the config AND the workflow's copy list together, or
   pages_publish_gate.js goes red -- it binds the two lists so neither can drift.
 
+## THE PLAYTEST DISPATCH (Paolo 8/25/26, LOCKED — he played the run and
+## filed ten things at once; second big dispatch after 7/29's BIG MISSING).
+## THE FRAME IS THE IMPORTANT PART: "I KNOW WE MADE EVERYTHING REALISTIC AS
+## FUCK... BUT I REALLY DO BELIEVE I MAY BE AT A TURNING POINT BECAUSE WE
+## NEED TO MAKE THIS GAME FUCKING FUN." REALISM FIRST (8/4) always said
+## realism is sacrificed only for fun and THE TRADE IS HIS. HE JUST MADE IT.
+## From here FUN CARRIES THE TIE unless he says otherwise on a specific item.
+## The ten: (1) the wall changed under him AND there is no wall-opacity
+## system at all, though he thinks there is -- build the fade; (2) quests are
+## not wired to places or people, and the ASCII "text-cam" feed art is DEAD;
+## (3) HAIR GOES TO REFERENCE FIRST, all 8 directions, before another cook;
+## (4) STREETS CONNECT LIKE LEGO -- every piece declares its edge connectors,
+## art and path are ONE contract, machine-checked; (5) the city is dead and
+## DEAD IS NOT THE DEFAULT (a slider is not an answer); (6) THE ACTION BUTTON
+## IS NOT THE CITY BUTTON -- zoom is the way in and out; (7) performance;
+## (8) ENEMIES, LOOT, and Valheim-style DANGER BY PLACE, with the bestiary
+## research delivered same turn; (9) THE UI LANE EXISTS NOW (first word
+## "ui") -- he crafts the Bohemia look WITH me; (10) animations get an audit
+## and FACE CUSTOMISATION, never built, is on the board.
+## Full law: laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md
+## Bestiary research: records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+
+## THE DEMO IS ITS OWN LINK (Paolo 8/25/26, LOCKED): "THE DEMO WILL BE A
+## STANDALONE LINK THAT ISNT THIS WORKSHOP LINK... WE ARE NOT READY FOR THE
+## DEMO YET." TWO SURFACES, and they are not the same thing. THE WORKSHOP is
+## slices/BOHEMIA_ALPHA_0_9.html, seventeen tabs, HIS bench, governed by the
+## ONE-LINK LAW below. THE DEMO is a SEPARATE PUBLISHED BUILD at a SEPARATE
+## URL with ZERO dev tabs -- cut from the workshop, never forked (one engine,
+## one canon). THE WORKSHOP LINK IS NEVER GIVEN TO A PLAYER: handing somebody
+## the bench is handing them sixteen doors and asking them to guess. The
+## coordinator planned three sweeps of a friends round around the workshop
+## link; that was the error this law exists to kill. And "the demo plays"
+## measured INSIDE the workshop is not the claim that a demo exists -- the
+## 8/4 plan already said it, item 9: THE DEMO IS A BUILD, NOT A VIBE.
+## Full law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md
+## Gap list: records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
+## Gate: demo_build_gate (routed SHARED -14)
+
 ## ONE-LINK LAW (Paolo 7/18/26, LOCKED — he was furious about "?v=arms")
 - There is ONE universal alpha URL and it NEVER changes, for ANY session:
   https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html

@@ -3866,7 +3866,13 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V114 EXECUTION PAYS, BARELY (Paolo 8/2, his number): "if you down someone and they were already down and you kill them maybe you can just get like a really minor stupid amount of experience... maybe only +2% or +3%". The kill is already paid for when he goes DOWN; this is a token for finishing a man on the floor, deliberately almost nothing, because the point is that it is a CHOICE and not an optimisation',
     demo.includes('const EXEC_XP_PCT=0.03;') &&
     demo.includes("G.ledger.execXP=(G.ledger.execXP||0)+_x;") &&
-    /function finishHim[\s\S]{0,1800}EXEC_XP_PCT/.test(demo));
+    /* V181 RE-POINTED, and it is the same shape as V136's window: finishHim
+       gained a bodyFell call, so EXEC_XP_PCT sits further down the function
+       than 1800 characters. THE CLAIM IS UNCHANGED -- an execution pays his
+       3% token -- and that token is now ON TOP of what the man was carrying
+       rather than the only experience in the game. A window a claim keeps
+       outgrowing is measuring the wrong thing when it is tight. */
+    /function finishHim[\s\S]{0,2600}EXEC_XP_PCT/.test(demo));
 
   /* ===== 49. V115 DECLARED BEFORE IT IS READ ========================= */
   ok('V115 THE CRASH I SHIPPED. v114 declared `const DIAL_GONE` beside the dial\'s band block -- about 1,500 characters BELOW the drawField call that passes it in. const has a temporal dead zone, so that read threw ReferenceError every frame and the whole demo went black. Paolo screenshotted it. It now sits immediately after the _df it is derived from, above every use',
@@ -4715,6 +4721,37 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     !/ARCH\.[a-z]+\s*=\s*\{[^}]*dmg/.test(demo.slice(demo.indexOf('function openGroundTick'),
       demo.indexOf('function openGroundTick') + 900)));
 
+/* ===== V181 EXPERIENCE AND LOOT OFF THEIR BODIES (RF4-36) ========
+   The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
+   his ruling, the phrase it turns on, and the laws it had to satisfy. */
+  ok('V181 RF4-36 HIS RULING, 8/25, asked what a fight is worth: "YOU GET EXPERIENCE AND LOOT OFF THEIR BODIES FUCK YOU MEAN?" It closes the oldest open question in this lane, and it landed on a machine ALREADY THREE QUARTERS BUILT: the 7/3 ghost chip is an experience mote that arcs FROM THE BODY INTO YOU, the walk readout has promised "yours now -- loot comes later" for weeks, and EXEC_XP_PCT (his own 8/2 number, 2-3% for finishing a man on the floor) was the ONLY thing in this game that paid experience at all',
+    /function bodyFell\(e\)\{/.test(demo) && /const KILL_XP_PCT=/.test(demo));
+
+  ok('V181 AND "OFF THEIR BODIES" IS THE LOAD-BEARING PHRASE. He did not say experience for WINNING -- he said off the bodies, so it sits on the corpse and you WALK TO IT, through the sweep that has handed over ammunition since V157. A kill you never walk to pays nothing, which is a decision on the ground instead of a number in a menu, and it is the geometry RF4-18 and RF4-48 are both about',
+    /if\(d\.xp\)\{ G\.ledger=G\.ledger\|\|\{\}; G\.ledger\.xp=/.test(demo)
+    && /function sweepDrops\(\)\{/.test(demo));
+
+  ok('V181 AND IT CLOSES A LOOP WITH V180 FROM THE SAME DAY, without one new rule: the body is lying where you shot him, frequently on OPEN GROUND UNDER THEIR EYES -- the state V180 pays a finisher charge for standing in, and the state where 56% of turns have a gun that can reach you against 17% everywhere else. Going to collect is the risk, and the reward for taking it was already shipped hours earlier',
+    /function openGroundTick\(\)\{/.test(demo) && /function bodyFell\(e\)\{/.test(demo));
+
+  ok('V181 AND MECHANISM-MINE / CONTENTS-HIS SURVIVES IT, in the shape the 8/11 amendment set: the pile, the walk, the sweep and the ledger are mechanism; the item NAMES are WORDS, so they ship as a REAL ATTEMPT tagged draft:true rather than an empty list he would have to write from nothing. An empty field is a blank page, and he edits, he does not write from nothing',
+    /const LOOT_TABLE=\[/.test(demo)
+    && (demo.match(/draft:true\}/g) || []).length >= 8);
+
+  ok('V181 AND NO DAMAGE BEFORE THE DIAL IS UNTOUCHED: experience is not damage, no item in the table carries a combat effect, and every number it introduces is a [DIAL]',
+    /const KILL_XP_PCT=0\.25;\s*\/\* \[DIAL\]/.test(demo)
+    && /const LOOT_CHANCE=0\.55;\s*\/\* \[DIAL\]/.test(demo));
+
+  {
+    /* SCOPED, because the whole point of this claim is a count INSIDE one
+       function, and a file-wide regex would happily match somebody else's. */
+    const _bf = demo.slice(demo.indexOf('function bodyFell(e){'),
+                           demo.indexOf('/* the dead are the supply */'));
+    ok('V181 AND IT REPAIRED A DEFECT ON THE WAY IN: dropRounds had exactly ONE caller, the pistol lethality roll, so a man killed by a grenade, by a car cooking off, by an execution or by an incidental hit LEFT AN EMPTY TILE. "The dead are the supply" was true of one death in six and had been since V157. Every death now goes through one owner, so a body is a body however it fell',
+      _bf.length > 100 && /dropRounds\(e\)/.test(_bf)
+      && (demo.match(/bodyFell\(/g) || []).length >= 7);
+  }
+
 /* ===== V177 THE BREACHER (RF4-28) ================================
    The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
    the shape, and the fact that the mechanic he drives had no reachable caller. */
@@ -5423,7 +5460,13 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     })());
 
   ok('V157 AND THE DEAD ARE THE SUPPLY: a man who falls leaves his rounds on the tile he fell on, and worldShift carries them like every other piece of world state -- if they moved with the player there would be nothing to walk to',
-    /if\(_lethalRoll\)\{ tgt\.dead=true; try\{dropRounds\(tgt\);\}catch\(_e\)\{\} \}/.test(demo) &&
+    /* V181 RE-POINTED: the lethality roll now calls bodyFell, which calls
+       dropRounds as its first act. THE CLAIM IS UNCHANGED -- a man who falls
+       leaves his rounds on the tile -- and it is now true of ALL SIX death
+       paths rather than this one, because dropRounds had exactly one caller
+       and five deaths in six left an empty tile. */
+    /if\(_lethalRoll\)\{ tgt\.dead=true; try\{bodyFell\(tgt\);\}catch\(_e\)\{\} \}/.test(demo) &&
+    /function bodyFell\(e\)\{[\s\S]{0,200}dropRounds\(e\)/.test(demo) &&
     demo.includes('if(Array.isArray(G.drops))for(const d of G.drops)mv(d,0.02);') &&
     demo.includes('try{sweepDrops();}catch(_e){}'));
 

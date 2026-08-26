@@ -456,6 +456,11 @@ grabPieces('banks/tileforms/TF-ART-022_CANDIDATES_8_24_26.json',
    tools/tfcook/TF-ART-023_riprap_cook.py */
 grabPieces('banks/tileforms/TF-ART-023_CANDIDATES_8_25_26.json',
   ['rip_0', 'rip_1', 'rip_2']);
+/* TF-ART-024 8/25: the police station's 1131 dead xeriscape bed cells -
+   tools/tfcook/TF-ART-024_landscaping_cook.py */
+grabPieces('banks/tileforms/TF-ART-024_CANDIDATES_8_25_26.json',
+  ['ls_mulch_0', 'ls_mulch_1', 'ls_mulch_2', 'ls_agave_0', 'ls_agave_1',
+   'ls_boulder']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

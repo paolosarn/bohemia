@@ -1259,6 +1259,20 @@ function drawSolarform(gx,gy,X,Y,S){
     var vt=tf(vp+th(gx,gy,2)); if(vt) ctx.drawImage(look(vt),X,Y,S,S);
     return true;
   }
+  if(n==='landscaping'){
+    /* TF-ART-024 (8/25, measured): 1131 cells - one connected web of bed
+       strips ringing the police station, its lot and secure yard. Dead
+       Vegas xeriscape: the granite mulch is still perfectly in place
+       (rock does not die), every plant in it is a dry straw rosette.
+       One agave about every seventh cell, a feature boulder about every
+       nineteenth. */
+    var lm=tf('ls_mulch_'+th(gx,gy,3));
+    if(!lm) return false;
+    ctx.drawImage(look(lm),X,Y,S,S);
+    if(th(gx*3+1,gy*7+2,19)===0){ var lb=tf('ls_boulder'); if(lb) ctx.drawImage(look(lb),X,Y,S,S); }
+    else if(th(gx,gy,7)===0){ var la=tf('ls_agave_'+th(gy,gx,2)); if(la) ctx.drawImage(look(la),X,Y,S,S); }
+    return true;
+  }
   if(n==='riprap'){
     /* TF-ART-023 (8/25, measured): 936 cells at the wash - two 115x3
        armor strips along the channel edges plus scattered patches. Rock

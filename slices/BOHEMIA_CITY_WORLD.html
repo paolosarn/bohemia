@@ -3002,12 +3002,31 @@ global.BohemiaOvermap=API;
      up runs 6%+ against a 2% baseline in recession (HUD/AHS; Census
      SEHSD-WP2011-04). This is worse than a recession, so the distribution shifts
      off modern without reaching 1900's 4.6 (that mean was fertility). */
+  /* THESE ARE NOT MY NUMBERS AND THEY SHOULD NEVER HAVE BEEN. The city has
+     carried a researched household distribution all along, used in four places:
+
+         // weights: 1 person 30% / 2 35% / 3 20% / 4 15% -> mean ~2.2
+         function household(seed){ ... }
+
+     with its grounding written above it -- "Las Vegas averaged ~2.6
+     persons/household pre-collapse (ACS). Post-collapse populations consolidate
+     for safety/heat BUT ALSO LOSE MEMBERS; survivor settlements historically
+     trend to small kin groups of 1-4."
+     I wrote my own table (1p 8% / 2p 26% / 3p 28% / 4p 22% / 5p 16%, mean ~3.1)
+     from consolidation research alone -- job loss triples house-sharing,
+     doubling-up runs 6% against a 2% baseline -- and MISSED THE HALF THAT PULLS
+     THE OTHER WAY: the die-off empties houses faster than hardship packs them.
+     Theirs is better grounded and it was already here.
+     REUSE-FIRST IS NOT ONLY FOR COOKED PIXELS: I checked whether an ORGAN existed
+     and never checked whether the CONTENT did. Two different distributions for
+     one fact is a contradiction rather than a choice, so this is THEIR table now
+     -- same weights, same cap of 4, same mean.
+     Record: records/BOHEMIA_I_BUILT_A_DUPLICATE_HOUSEHOLD_MODEL_8_21_26.md */
   var HOUSEHOLD_SIZES = [
-    { n: 1, w:  8 },   /* living alone is a luxury the collapse deleted */
-    { n: 2, w: 26 },
-    { n: 3, w: 28 },
-    { n: 4, w: 22 },
-    { n: 5, w: 16 }    /* capped at Dunbar's support clique */
+    { n: 1, w: 30 },
+    { n: 2, w: 35 },
+    { n: 3, w: 20 },
+    { n: 4, w: 15 }
   ];
   var HOUSEHOLD_REACH = 3;   /* fine cells: an address is a small footprint */
 
@@ -40118,6 +40137,19 @@ function ctDraw(){
   var ctTradeWord = BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY';
   if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
     body+=ctRow('TRADE', ctTradeWord);
+  /* __CITY_SPEAKS__ -- WHAT THEY SPEAK (8/25). THEY SPEAK SPANGLISH (Paolo
+     8/25, LOCKED). This shipped on BohemiaPeople.cardFor() and this card does
+     not call cardFor -- it builds itself row by row -- so his ruling reached
+     the engine and stopped one frame short of the only surface he opens. Found
+     by driving the talk loop inside the ALPHA rather than reading either file.
+     IT SITS WITH THE TRADE, NOT WITH THE ADDRESS. What somebody speaks is who
+     they are; where they sleep is not. And unlike NAME it needs no asking: you
+     have been standing in front of them while they talk, which makes it the
+     exact opposite of the row above it and the reason they belong together.
+     ENGLISH, ALWAYS. The row is the game telling him a fact, so it is required
+     information, so it is English whatever the person speaks. language_gate
+     sweeps this string with the rest of them. */
+  body+=ctRow('SPEAKS', BohemiaPeople.speaksLineOf(who));
   /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.
      This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two
      numbers no player can use, on the card he opens for every person in the
