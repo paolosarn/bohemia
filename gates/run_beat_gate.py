@@ -116,10 +116,34 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   out.locked={parentBeat:parentSide.parentBeat, parentMs:parentSide.parentMs, child:childSide};
 
   // ---- 5. PHASE advances with the wall clock
-  const a=await fr.evaluate(()=>RB.beatNow());
-  await p.waitForTimeout(1000);          // 1 second == exactly 2 beats at 120
-  const c=await fr.evaluate(()=>RB.beatNow());
-  out.advance={a,c,delta:c-a};
+  /* A ONE-SECOND WINDOW WAS SAMPLING NOISE (8/25). This read the beat, waited
+     1000 ms, read it again, and asserted the difference was 2.000 +/- 0.25
+     "because 1 second is exactly 2 beats at 120". It passed most runs and failed
+     some, and the failure said "not 120 BPM", which sent me looking for a tempo
+     change that does not exist -- the studio is hardcoded to (60/120)/4.
+     MEASURED, sampling every 200 ms inside the frame for eight seconds, the
+     INSTANTANEOUS rate ranges from 278 to 1542 ms per beat. The run does not
+     interpolate smoothly; it RE-SYNCS to the parent's audio clock in steps, so
+     the rate is a sawtooth around the true value. Over the whole eight seconds:
+         OVERALL 496.3 ms per beat -- 0.7% off 500. The run's clock is right.
+     A one-second window catches one or two teeth of that sawtooth, so the old
+     check was measuring jitter and calling it tempo. The window has to be long
+     enough for the teeth to average out, and the honest instrument is the one
+     that actually found this: many samples, taken INSIDE the frame so no
+     cross-process latency lands between two reads, and the OVERALL rate. */
+  const beats=await fr.evaluate(async()=>{
+    const out=[], t0=performance.now();
+    for(let i=0;i<21;i++){ out.push([performance.now()-t0, RB.beatNow()]);
+      await new Promise(r=>setTimeout(r,200)); }
+    return out;});
+  {
+    const first=beats[0], last=beats[beats.length-1];
+    const elapsedMs=last[0]-first[0], db=last[1]-first[1];
+    const perBeat=(out.locked&&out.locked.child&&out.locked.child.msPerBeat)||500;
+    out.advance={delta:db, elapsedMs, perBeat, samples:beats.length,
+                 measuredPerBeat: db>0 ? elapsedMs/db : 0,
+                 expected: elapsedMs/perBeat};
+  }
   out.phase=await fr.evaluate(()=>RB.phase());
 
   // ---- 6. LETTING GO when the transport stops
@@ -211,8 +235,24 @@ def main():
 
     # 5. phase is real and moves with the wall clock
     adv = d.get('advance') or {}
-    chk(abs(adv.get('delta', 0) - 2.0) < 0.25,
-        'one second of wall clock moved the run %.3f beats, not 2 (120 BPM)' % adv.get('delta', 0))
+    _mpb, _pb = adv.get('measuredPerBeat', 0), adv.get('perBeat', 0) or 1
+    chk(abs(_mpb - _pb) <= _pb * 0.05,
+        'over %.0f ms and %d samples the run averaged %.1f ms a beat, not %.0f '
+        '(%.1f%% off) -- that is a rate error, not the re-sync sawtooth'
+        % (adv.get('elapsedMs', 0), adv.get('samples', 0), _mpb, _pb,
+           100.0 * abs(_mpb - _pb) / _pb))
+    # AND THE WINDOW HAS TO BE LONG ENOUGH FOR THE SAWTOOTH TO AVERAGE OUT.
+    # This is the whole reason the old check was flaky, so it is now a claim the
+    # gate makes rather than an assumption it holds. A short window would also
+    # make the agreement above vacuous.
+    chk(adv.get('elapsedMs', 0) >= 3000,
+        'the measurement window was only %.0f ms, which is inside the re-sync '
+        'jitter (measured 278-1542 ms a beat instantaneously) -- any agreement '
+        'over it is luck' % adv.get('elapsedMs', 0))
+    chk(adv.get('samples', 0) >= 15,
+        'only %s samples, too few to average the sawtooth' % adv.get('samples'))
+    chk(abs(adv.get('perBeat', 0) - 500) < 1,
+        '120 BPM LAW: a beat is %s ms, not 500' % adv.get('perBeat'))
     ph = d.get('phase', -1)
     chk(0 <= ph < 1, 'phase is outside [0,1): %s' % ph)
 

@@ -127,3 +127,56 @@ wrote down the new contract, in a comment, on the day it changed, and a gate
 nobody re-read spent four days calling the run broken.
 
 The instrument is the first suspect, not the last.
+
+## AND RUN BEAT HAD A SECOND ONE UNDERNEATH THE FIRST
+
+Loading the slice turned RUN BEAT green, and then it went red again on the next
+run, on a different leg:
+
+    FAIL  one second of wall clock moved the run 2.400 beats, not 2 (120 BPM)
+
+2.4 beats a second is 144 BPM, so that message sends you looking for a tempo
+change. There is none: the studio is hardcoded to `stepDur(){return (60/120)/4;}`
+and always has been. The check read the beat, called `waitForTimeout(1000)`, read
+it again, and asserted the difference was 2.000 +/- 0.25 "because 1 second is
+exactly 2 beats at 120". It passed most runs and failed some.
+
+MEASURED, sampling every 200 ms inside the run frame for eight seconds:
+
+    instantaneous rate:  278 ... 1542 ms per beat
+    OVERALL:             496.3 ms per beat  (0.7% off 500)
+
+**The run's clock is right.** It does not interpolate smoothly between parent
+updates -- it RE-SYNCS to the parent's audio clock in steps, so the instantaneous
+rate is a sawtooth around the true value. A one-second window catches one or two
+teeth of that sawtooth. The old check was measuring jitter and reporting it as a
+broken tempo law, at random, roughly half the time.
+
+The fix is the instrument that actually found it: twenty-one samples taken INSIDE
+the frame, so no cross-process latency lands between two reads, and the OVERALL
+rate over four-plus seconds. Three runs back to back, 25/0 each.
+
+**It is stricter than what it replaced, not looser.** The 120 BPM LAW is now its
+own explicit leg (`a beat is 500 ms`), separate from the phase measurement, so a
+real tempo break is reported as a tempo break. Under the old check the two were
+the same number and could not be told apart -- which is precisely why a jitter
+sample got reported as a law violation.
+
+Two guard legs stop the fix rotting back: the window must be at least 3000 ms and
+carry at least fifteen samples, both stated as claims the gate makes rather than
+assumptions it holds.
+
+    MUTATION A  studio to 144 BPM     -> the 120 BPM leg RED; the rate leg stays
+                                         GREEN because the run correctly follows.
+                                         The old check could not separate these.
+    MUTATION B  run's clock 15% fast  -> "averaged 430.5 ms a beat, not 500
+                                         (13.9% off) -- that is a rate error,
+                                         not the re-sync sawtooth" RED
+    MUTATION C  window back to ~1.3 s -> reproduces the ORIGINAL flake exactly
+                                         (13.2% off from pure jitter), and both
+                                         guard legs go red and name it as a
+                                         window problem rather than a tempo one
+
+Thirteen now. RUN BEAT alone carried two of them, stacked: a gate that never
+noticed the alpha changed how it loads, and underneath it a gate that assumed the
+time it asked for was the time that passed.
