@@ -1105,7 +1105,7 @@ NEXT IN THIS LANE
 
 ---
 
-RUN (run-eak241): 8/25 (b) LATEST -- *** THE DEMO'S MONEY SHOT HAD NO DOOR.
+RUN (run-eak241): 8/25 (b) -- *** THE DEMO'S MONEY SHOT HAD NO DOOR.
 TAB: RUN (day 2, right after GET UP). Nothing to judge. ***
 
 I PLAYED THE BACK HALF OF THE DEMO, WHICH NOBODY HAD. Resolve the job, the

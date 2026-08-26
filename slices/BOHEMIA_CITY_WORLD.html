@@ -288,6 +288,21 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #phonebtn{padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);
   color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px}
 #phonebtn:active{border-color:var(--acc);color:#fff}
+/* __THE_PHONE_IS_THE_HANDLE__ (8/25) -- A RINGING PHONE LOOKS LIKE A BUTTON YOU PRESS.
+   MEASURED with a cold hand that presses the loudest control on screen and never
+   reads: from a cold boot it went WATCH, GET UP, then DROP IN / CITY / DROP IN /
+   CITY ten times and stopped. Phone opened 0. Job taken 0. Clock 06:00 at the
+   first tap and 06:00 at the twelfth. The phone HAD rung -- it was a dark chip
+   with a hairline and a 14px dot, and the dot is a sign on a door (Norman: when
+   you have to put a sign on a door, the design already failed).
+   THIS IS NOT A NEW SIGNIFIER. It is the fill the opening's WATCH button wears,
+   which is the first thing the player ever presses, so the language is already
+   taught. It is worn ONLY while the call is unread and it takes itself off. */
+#phonebtn.ring{background:#d8b45a;border-color:#d8b45a;color:#191308;font-weight:700}
+#phonebtn.ring:active{background:#c8a44a;color:#0d0a04}
+/* and the dot is redundant once the whole chip is lit: two signifiers for one
+   fact is how a screen gets noisy. */
+#phonebtn.ring #phonebadge{display:none !important}
 /* __THE_PHONE_RINGS__ -- the badge. Reuses the button's own face; nothing new drawn. */
 #phonebtn{position:relative}
 /* __BUILDERS_TOOLS_IN_A_DRAWER__ -- the builder's tray. Same treatment as the toolbar buttons
@@ -306,7 +321,25 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #phonebadge{display:none;position:absolute;top:-5px;right:-5px;min-width:14px;height:14px;
   border-radius:7px;background:#c8503a;color:#fff;font-size:9px;font-weight:700;
   line-height:14px;text-align:center;padding:0 3px}
-#phonewrap{position:absolute;inset:0;z-index:30;display:none;flex-direction:column;
+/* __A_PANEL_OUTRANKS_THE_CHROME__ (8/25) -- A PANEL THAT OWNS THE SCREEN OUTRANKS THE CHROME.
+   MEASURED with the phone open on day 1: sleepbtn, bikebtn and rungbtn were all
+   still the TOPMOST element at their own centres, sitting on top of a panel
+   covering 378x763 of a 390x844 screen. SLEEP ends the day -- so the thumb that
+   opens the phone lands on the button that finishes the demo without playing it.
+   MY REGRESSION, 8/24: __HUD_NEVER_OVERLAPS__ joined the day-loop chips into
+   #blstack at z-index 39 so they could not collide with each other, and this
+   panel has been 30 since it was built. SLEEP used to be 7 and correctly
+   underneath; the column lifted it over. Moving where something sits IS a
+   layering change, and everything that depended on the old position has to be
+   found and moved with it -- the same lesson as the popcard's offsetTop and the
+   see-through's playerBox, three times in one week.
+   THE ORDER, WRITTEN DOWN, because the file had twenty-two z-indexes and no rule:
+       world / canvas     under everything
+       chrome             6 .. 45   buttons, chips, the two columns, cards
+       TAKEOVER PANELS    50 ..     things that own the screen while up
+   Only this one covers the stage today, so only this one moves. The gate sweeps
+   the general case so the next one is caught by the machine, not by my guessing. */
+#phonewrap{position:absolute;inset:0;z-index:50;display:none;flex-direction:column;
   background:#070605}
 #phonewrap.on{display:flex}
 #phonebar{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
@@ -33572,9 +33605,16 @@ function offerAccept(){
   return true;
 }
 function phoneBadge(){
-  var el=document.getElementById('phonebadge'); if(!el)return;
+  var el=document.getElementById('phonebadge');
   var n=(OFFER&&!OFFER_TAKEN)?1:0;
-  el.textContent=n?String(n):''; el.style.display=n?'block':'none';
+  if(el){ el.textContent=n?String(n):''; el.style.display=n?'block':'none'; }
+  /* __THE_PHONE_IS_THE_HANDLE__: THE SAME FACT, WORN LOUDER. This function is already the
+     one place in the file that knows whether there is an unread call, and it is
+     called from offerRing() and from taking the job -- so the chip's clothes are
+     decided HERE and nowhere else. A second thing polling "is the phone ringing"
+     is the bug I shipped into the population card on 8/24 and had to remove. */
+  var b=document.getElementById('phonebtn');
+  if(b) b.classList.toggle('ring', !!n);
 }
 
 function showChoice(card){

@@ -1,0 +1,234 @@
+THE COLD HAND NEVER MET THE GAME
+8/25/26 -- RUN lane. Backlog row P0-MORNING. Demo blocker, closed.
+
+
+WHAT THE ROW SAID
+=================
+
+From this lane's own demo record on 8/24:
+
+    tapping ONLY the obvious primary button goes GET UP -> SLEEP -> DAY 2 and
+    never plays anything. The day's work is behind the PHONE, and the thing
+    pointing at it is one unread badge. A TESTER CAN FINISH THE DEMO WITHOUT
+    EVER MEETING THE GAME.
+
+    DO IT BEFORE ROUND 1, NOT DURING IT. We already know the failure; a
+    fresh-eyes round spent rediscovering a known bug spends the one thing the
+    protocol says spends once.
+
+
+THE COLD HAND
+=============
+
+Rather than trust the row's description, I built a probe that behaves like the
+tester it describes. It scores every visible control by WHAT ITS PIXELS ACTUALLY
+DO -- fill brightness weighted hardest, then border, then text colour, then area
+-- refuses anything it could not reach with a thumb (elementFromPoint at the
+control's own centre, so it cannot press through a modal), presses whatever wins,
+and never reads a word.
+
+BEFORE, from a cold boot:
+
+    1. WATCH      gold, score 89     correct, and the only good tap in the run
+    2. GET UP     score 43           correct
+    3. DROP IN    score 33           <-- the game ends here
+    4. CITY       score 33
+    5..12         DROP IN / CITY / DROP IN / CITY ...
+
+    phone opened : 0
+    job taken    : 0
+    clock        : 06:00 at tap 1, 06:00 at tap 12
+
+*** HE NEVER EVEN REACHES SLEEP. *** The row's version has him ending day one by
+accident. The truth is worse and quieter: he flips the camera between the street
+and the map until he puts the phone down. Nothing he can find spends a minute of
+the day.
+
+And `__OFFER_RANG` is 1 for the whole run. THE PHONE DID RING, at 06:00, and the
+hand never heard it -- because a ringing phone was a dark chip with a hairline
+border and a 14-pixel red dot in the corner.
+
+
+DON NORMAN, WHICH THE ROW ALREADY CITED
+=======================================
+
+AFFORDANCES are what actions are possible. SIGNIFIERS are what tells you where
+the action goes. And: WHEN YOU HAVE TO PUT A SIGN ON A DOOR, THE DESIGN ALREADY
+FAILED.
+
+The badge is a sign on a door. So the fix could not be a tooltip, an arrow, a
+tutorial line or one more sentence of copy -- every one of those is a bigger sign
+on the same door. It had to change which thing LOOKS like the handle.
+
+
+THE FIX, THREE PATCHES
+======================
+
+1. bohemia_the_phone_is_the_handle_patch.py
+   While a call is unread, the phone chip wears the SOLID FILL the opening's
+   WATCH button already wears (#d8b45a on #191308).
+   NOT A NEW SIGNIFIER: it is the treatment on the very first thing the player
+   ever presses, so the language is taught before he needs it.
+   AND IT HANGS OFF THE OWNER THAT ALREADY EXISTS. phoneBadge() computes
+   `(OFFER && !OFFER_TAKEN)` and is the one place in the file that knows there is
+   an unread call. The class is toggled THERE. A second thing polling "is the
+   phone ringing" is the bug I shipped into the population card on 8/24 and had
+   to take back out.
+   NOT DAY ONE ONLY, ON PURPOSE: the honest rule is "an unread call is the game
+   asking for you", true every morning, with no date check to rot.
+   IT SWITCHES ITSELF OFF the moment the job is taken.
+
+2. bohemia_a_panel_outranks_the_chrome_patch.py
+   *** AND THE COLD HAND FOUND A SECOND BUG THE ROW DID NOT KNOW ABOUT. ***
+   With the phone OPEN and covering 378x763 of a 390x844 screen, three world
+   buttons were STILL the topmost element at their own centres:
+
+       sleepbtn    bikebtn    rungbtn
+
+   SLEEP ENDS THE DAY. He opens the phone, his thumb is already at the bottom of
+   the screen, and the button under it finishes day one with the job never taken.
+   That is the row's failure with a real mechanism under it.
+
+   *** IT WAS MINE, FROM TWO DAYS EARLIER. *** __HUD_NEVER_OVERLAPS__ (8/24)
+   joined the day-loop chips into #blstack so they could not collide, and gave
+   that column z-index 39. #phonewrap has been 30 since it was built. Before the
+   column SLEEP was z-index 7 and correctly underneath; the column lifted it over.
+   A LAYOUT FIX THAT CHANGES A STACKING CONTEXT IS A LAYERING CHANGE. Same shape
+   as the popcard's offsetTop and the see-through's playerBox -- MOVING WHERE
+   SOMETHING SITS IS NOT A COSMETIC CHANGE -- and that is three times in one week.
+
+   The city had twenty-two z-indexes and no rule, which is why it was possible:
+   #ctcard 41, #cttalk 40, #cttell 39, #blstack 39, #phonewrap 30, #daycard 20,
+   #savepanel 9, #devtray 9, #pfpanel 8, #buildpanel 8, #tlstack 7, #sleepbtn 7.
+   A takeover panel sat below the chip columns AND below the conversation cards.
+   The order is now written down next to the one number that moved:
+
+       world / canvas      under everything
+       chrome              6 .. 45   buttons, chips, the two columns, cards
+       TAKEOVER PANELS     50 ..     things that own the screen while up
+
+   ONLY #phonewrap MOVED. It is the only panel that actually covers the stage
+   today; renumbering panels nobody has proved wrong would be changing things I
+   have not looked at. THE GATE DOES THE GENERAL CASE: it sweeps every panel that
+   takes over the screen and fails if ANY world button is topmost over it.
+
+3. bohemia_take_it_is_the_yes_patch.py
+   With the first two in, the cold hand got four taps deep and stalled at the
+   button that TAKES THE JOB -- `.mapgo`, background #2a2418, a dark chip built
+   for the map's small "GO" link. Measured: TAKE IT scored 35 on its own screen
+   and was beaten by an unread-post counter at 46. Everything else on that screen
+   is text.
+   `LIVE.offer` is true for exactly one state -- a job has come in and has not
+   been taken -- and in that state TAKE IT is not one option among several, it is
+   the single reason the screen is open. It wears the same fill now, so the whole
+   first morning is written in one sentence he has already been taught:
+
+       WATCH -> GET UP -> [gold] PHONE -> [gold] TAKE IT
+
+   `.mapgo` itself is untouched, so the map's GO links stay the quiet chips they
+   were designed as.
+   AND THIS EDITED THE SOURCE, NOT THE BUILD: BOHEMIA_CURRENT_SLICE.html is
+   generated by tools/build_current_slice.js from
+   BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html. I edited the generated file once
+   before, on a different job, and the CURRENT SLICE gate caught it with
+   "regenerating changes nothing" going FALSE. BEFORE EDITING A FILE, ASK WHO
+   GENERATES IT.
+
+
+MEASURED, AFTER
+===============
+
+    the phone on the first morning       90   (was 18)
+    the camera button that used to win   33   (unchanged -- nothing was dimmed)
+    world buttons pressable through the open phone    0   (was 3)
+    TAKE IT on the phone's own screen    90   (was 35, beaten by a counter at 46)
+    driving the chain                    the job is taken and the day has an
+                                         objective
+
+GET UP and SLEEP were not moved, dimmed, or taken away, exactly as the row
+requires. SLEEP is still on screen and still reachable; it simply no longer
+out-shouts a ringing phone, and it is no longer floating on top of one.
+
+
+WHAT THE PROBE COST ME, WHICH IS THE REUSABLE PART
+==================================================
+
+The cold hand was wrong four times before it was right, and every one of the four
+was a version of the same bug the game had:
+
+  1. IT CROWNED THE VIEWPORT. The first cut swept `[id]` and ranked #cityFrame --
+     the iframe holding the entire world -- as the loudest button on screen, then
+     "pressed" it twelve times. A scorer that will rank a viewport as a button is
+     measuring nothing.
+  2. IT PRESSED THROUGH A MODAL. Clicking by JS reached the phone chip through
+     the wake card's scrim and reported an order no human can perform. That is
+     this repo's own thumb-sweep finding -- "a Playwright click lands anywhere
+     with equal ease, so reachability is invisible to our whole apparatus BY
+     CONSTRUCTION" -- and it applies to a hand-rolled probe first of all.
+  3. IT COULD NOT SEE THE BUTTON THE WHOLE JOB WAS ABOUT. It swept a fixed
+     selector list, and nobody had put `.lv-take` in the list. A PROBE THAT
+     ENUMERATES ITS SUBJECTS IS ONLY EVER AS COMPLETE AS ITS ENUMERATION -- the
+     same lesson the panel gate learned pressing close buttons BY NAME and calling
+     a panel stuck because it had never heard of #sv-close. Fixed by asking what
+     BEHAVES like a control: a click handler, a button role, or a pointer cursor.
+  4. IT REPORTED THAT TAKE IT WAS BROKEN, FOR FOUR RUNS. It pressed a handle
+     recorded by an earlier evaluate; the phone re-renders on every state push, so
+     the tagged node was gone by the time of the press. A real pointer at the same
+     coordinates takes the job (measured: taken 0 -> 1). THE BUTTON WAS NEVER
+     BROKEN. THE PROBE WAS MEASURING ITS OWN STALENESS -- and I nearly wrote up a
+     working button as a demo-blocking defect.
+
+Number 4 is the one to remember. Three of these made the probe blind; that one
+made it CONFIDENTLY WRONG about the game, which is worse. VERIFY ON THE REAL
+SURFACE (7/18) is about the gesture as much as the pixels: a synthesised click
+event is a side-door press, and the phone routes taps through a delegated handler
+that wants the whole pointer sequence.
+
+
+THE GATE
+========
+
+gates/the_first_morning_points_at_the_game_gate.js -- FIRST MORNING, 16 claims,
+registered.
+
+It asserts an ORDER OF LOUDNESS computed from real computed styles, never a list
+of ids I think should be bright -- otherwise it would just be my patch asserting
+itself back at me, and a lane that dims the phone tomorrow would still be green.
+
+MUTATION TESTED FOUR WAYS, each hitting only its own claims:
+
+    all three patches reverted      10 passed, 6 failed -- and the log reproduces
+                                    the bug report in numbers: phone 18 vs mode
+                                    33, "phonewrap: sleepbtn,bikebtn,rungbtn",
+                                    TAKE IT 35 beaten by a counter at 46
+    the z-index only                15 passed, 1 failed
+    the chip never dressing itself  13 passed, 3 failed
+    the shout made permanent        15 passed, 1 failed -- so "it goes quiet
+                                    again" is a real claim, not decoration
+
+
+WHAT IS STILL TRUE AND NOT FIXED
+================================
+
+The phone opens on a LOCK SCREEN of notifications, and the job is one tap further
+in. That is left exactly as it is: tapping a notification on a phone lock screen
+is the most universally understood gesture there is, and it is the one piece of
+this flow that needs no teaching. The gate performs it rather than removing it.
+
+
+A SEPARATE FINDING, RECORDED FOR THE LANE THAT OWNS IT
+======================================================
+
+While surveying for FT-JOURNEY (the next row, not started), a reuse sweep found
+engine/bohemia_encounters.js -- THE AMBIENT ENCOUNTER DIRECTOR, 258 lines,
+approved by Paolo on 7/27 ("Approve all"), fully gated by gates/encounter_gate.js
+-- with ZERO CALLERS ANYWHERE IN THE REPO. A repo-wide grep for BohemiaEncounters
+returns exactly one file: itself.
+
+That is the FIFTH member of this week's family: A FINISHED THING WITH A PUBLISHED
+SEAM AND NO CALLER. Its twelve-token roster reads as though it were written for
+the fast-travel law: `toll_crew` ("raiders at a legible chokepoint who want a cut,
+not a corpse -- pay / fight / detour") IS the law's "being stopped and being
+robbed are one system"; `the_snatcher` ("grabs an item and RUNS -- loss without
+death") IS "you carry something and it can be lost"; `coyote_shadow` already keys
+off the player being LOADED. FT-JOURNEY should wire it rather than build one.

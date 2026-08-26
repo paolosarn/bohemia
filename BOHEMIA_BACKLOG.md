@@ -1393,6 +1393,19 @@ FT-JOURNEY. *** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED).
    what is worth carrying, every number, and whether the player can ever be the
    raider. NOT STARTED ON PURPOSE -- it is a real build and wants its own run at
    it rather than being bolted onto the end of a bug-fix turn.
+P0-MORNING. **DONE 8/25 (RUN).** Gate FIRST MORNING, 16 claims, mutation-tested
+   four ways. records/BOHEMIA_THE_COLD_HAND_NEVER_MET_THE_GAME_8_25_26.txt.
+   MEASURED BEFORE, with a probe that presses the loudest pixel and never reads:
+   WATCH, GET UP, then DROP IN / CITY ten times. Phone opened 0, job taken 0,
+   clock 06:00 at the first tap and 06:00 at the twelfth -- HE NEVER EVEN REACHED
+   SLEEP. AFTER: phone 90 vs the camera button 33, TAKE IT 90 and loudest on its
+   own screen, the chain driven end to end takes the job. NO COPY WAS ADDED; the
+   ringing phone and the job button wear the fill the opening's WATCH button
+   already wears. GET UP and SLEEP were not moved or dimmed, as this row required.
+   AND IT FOUND A SECOND BUG THIS ROW DID NOT KNOW: sleepbtn, bikebtn and rungbtn
+   were all pressable THROUGH the open phone -- SLEEP ENDS THE DAY -- because this
+   lane's own 8/24 chip column sat at z-index 39 over a panel at 30.
+   ORIGINAL ROW BELOW, kept because its research is the reasoning.
 P0-MORNING. *** THE FIRST MORNING POINTS AT THE WRONG DOOR, AND WE KNOW
    IT BEFORE THE TESTERS DO (8/24 — records/BOHEMIA_THE_FRIENDS_ROUND_IS_
    NOT_READY_8_24_26.md). From this lane's OWN demo record: tapping ONLY

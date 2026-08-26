@@ -448,6 +448,30 @@ GATES = [
      'break: a DRAG to look around the valley must NOT throw him out, and a pad direction must '
      'drop the vista AND leave him walking, because a swallowed press is a dead first step',
      True),
+    # 8/25, RUN. Backlog row P0-MORNING, the demo blocker: "a tester can finish
+    # the demo without ever meeting the game."
+    ('FIRST MORNING',  ['node', 'gates/the_first_morning_points_at_the_game_gate.js'],
+     'THE FIRST MORNING HAS TO POINT AT THE GAME. A COLD HAND -- a probe that scores every '
+     'control by what its pixels actually do (fill weighted hardest, then border, text, area), '
+     'refuses anything a thumb could not reach, presses the winner and never reads -- went '
+     'WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped. Phone opened 0, '
+     'job taken 0, clock 06:00 at the first tap and 06:00 at the twelfth. HE NEVER EVEN REACHED '
+     'SLEEP. And __OFFER_RANG was 1 the whole time: the phone HAD rung, and a ringing phone was a '
+     'dark chip with a hairline and a 14px dot. NORMAN: when you have to put a sign on a door the '
+     'design already failed, so nothing here asserts that a word was added -- it asserts an ORDER '
+     'OF LOUDNESS, computed off real computed styles rather than a list of what I think should be '
+     'bright, so a lane that dims the phone tomorrow turns this red without touching the gate. '
+     'AND THE COLD HAND FOUND A SECOND BUG THE ROW DID NOT KNOW: with the phone open over 378x763 '
+     'of a 390x844 screen, sleepbtn, bikebtn and rungbtn were STILL the topmost element at their '
+     'own centres -- and SLEEP ENDS THE DAY, so the thumb that opens the phone lands on the button '
+     'that finishes day one with the job never taken. That was this lane\'s own 8/24 regression '
+     '(the chip column went to z-index 39 over a panel that had been 30). The punch-through claim '
+     'sweeps EVERY takeover panel, not just the phone, so the next one is caught by the machine. '
+     'Measured after: phone 90 vs mode 33 (was 18 vs 33), 0 buttons through the panel (was 3), '
+     'TAKE IT 90 and loudest on its own screen (was 35, beaten by a post counter at 46), and the '
+     'chain driven end to end takes the job. Mutation-tested four ways, each hitting only its own '
+     'claims: all three patches reverted 10/6, z-index only 15/1, the chip never dressing itself '
+     '13/3, and the shout made permanent 15/1', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

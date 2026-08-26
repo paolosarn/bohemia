@@ -21510,7 +21510,21 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
   font-size:10px;letter-spacing:1px}
 /* __PHONE_OFFER__ -- the offer state of the live strip. */
 .lv-offer{margin-top:6px;font-size:9px;font-weight:700;letter-spacing:2px;color:#e8b84a}
-.lv-take{margin-top:8px;margin-left:0;display:inline-block}
+/* __TAKE_IT_IS_THE_YES__ (8/25) -- THE YES LOOKS LIKE THE YES.
+   A cold hand that presses the loudest control on screen and never reads got
+   WATCH -> GET UP -> PHONE and then stalled here, because TAKE IT inherited
+   .mapgo (#2a2418, the map's small quiet GO link) and was the darkest thing on
+   its own screen. LIVE.offer is true for exactly one state -- a job has come in
+   and has not been taken -- and in that state this is not one option among
+   several, it is the only reason the phone is open.
+   THE FILL IS NOT NEW: it is the opening's WATCH button and the ringing phone
+   chip, so by the time he reaches it he has pressed it twice and the language is
+   learned. .mapgo itself is untouched, so the map's GO links stay quiet, and this
+   goes quiet too the moment the job is his. */
+.lv-take{margin-top:8px;margin-left:0;display:inline-block;
+  background:#d8b45a;border-color:#d8b45a;color:#191308;
+  padding:7px 14px;font-size:11px;letter-spacing:2px}
+.lv-take:active{background:#c8a44a;color:#0d0a04}
 /* __THE_VALLEY_REMEMBERS__ -- the ledger, in the phone's own type. */
 .st-hd{margin-top:8px;font-size:9px;font-weight:700;letter-spacing:2px;color:#8d7c5e}
 .st-row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0}
