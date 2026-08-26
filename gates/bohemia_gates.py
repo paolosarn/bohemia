@@ -1052,6 +1052,18 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('ONE ENGINE', ['node', 'gates/one_engine_gate.js'],
+     'ONE ENGINE LAW (Paolo 7/3/26, crunch hunt): "the studio and combat never play at once; two unsynced drum '
+     'machines FLAM INTO MUSH." IT WAS WRITTEN DOWN, IT WAS WIRED, AND NOTHING EVER CHECKED IT -- so when the shell '
+     'grew tabs the condition silently aimed at the wrong one. Paolo 8/26, playing: "when I am playing the combat, '
+     'bro, IT IS LIKE TWO SONGS AT THE SAME TIME" and "I cannot even begin judging it because it sounds like shit". '
+     'He was right twice: measured 22.9 sound starts a second in a fight and 19.9 A SECOND AFTER LEAVING COMBAT, '
+     'because the shell posted mute:FALSE on every tab that was not the STUDIO -- leaving a fight did not leak music, '
+     'it ORDERED it. The second song was the CITY SHUFFLE, whose stop was guarded on MUS.playing. This gate COUNTS '
+     'SOUND PER FRAME PER SECOND rather than reading code, because a string check passed happily on the broken '
+     'version for weeks. Holds: combat music dies when you leave the tab, the fight keeps its own music coming and '
+     'going, and nothing else plays underneath it. It deliberately does NOT require a silent RUN tab -- RUN is '
+     'allowed its own music, and the first write of that claim went red on correct behaviour.', False),
     ('FIGHT MOVES YOU', ['node', 'gates/fight_moves_you_gate.js'],
      'THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, demo-critical): "there\'s no movement whatsoever and I hate it". '
      'His law names its own test and asked for this gate by name -- play a fight from ONE SPOT and require it to FAIL. '

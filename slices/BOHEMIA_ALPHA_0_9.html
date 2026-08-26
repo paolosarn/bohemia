@@ -1122,7 +1122,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26s - WHAT FINAL FANTASY 10 TAUGHT US</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26t - ONE ENGINE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8479,11 +8479,35 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
   if(t.dataset.p==='music'){ MUS.build();
     const cf=document.getElementById('combatFrame');   /* ONE ENGINE LAW: mute combat while the studio is open */
     if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:true},'*');}catch(e){} }
-  if(t.dataset.p!=='music'&&MUS.playing){
+  /* ===== V186 ONE ENGINE OWNS THE ROOM ==========================
+     Paolo 8/26, playing: "when I'm playing the combat, bro, IT'S LIKE TWO
+     SONGS AT THE SAME TIME" and "I can't even begin judging it because it
+     sounds like shit." MEASURED BEFORE TOUCHING ANYTHING, because he asked
+     me to confirm it first: 22.9 sound starts a second in a fight, and
+     19.9 A SECOND AFTER LEAVING COMBAT FOR RUN.
+     THE SECOND SONG IS THIS BRANCH. It was guarded on MUS.playing, so if
+     the studio was NOT playing but the CITY SHUFFLE was, nothing stopped
+     the shuffle and the city's music walked straight into a fight. The
+     guard is gone: opening COMBAT stops both, whether or not the studio
+     happens to be running. */
+  if(t.dataset.p==='combat'){ try{ if(CITYMUS.on)CITYMUS.stopShuffle(); }catch(e){}
+                              try{ MUS.stop(); }catch(e){} }
+  else if(t.dataset.p!=='music'&&MUS.playing){
     if(t.dataset.p==='city'&&CITYMUS.on){/* city shuffle owns playback here */}
     else { if(CITYMUS.on)CITYMUS.stopShuffle(); else MUS.stop(); } }   /* leaving the studio (or city shuffle) silences it */
-  if(t.dataset.p!=='music'){ const cf=document.getElementById('combatFrame');
-    if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:false},'*');}catch(e){} }
+  /* V186: *** THE ONE-WORD LOGIC ERROR, AND IT IS THE WHOLE BUG. ***
+     This read `if(t.dataset.p!=='music')` and posted mute:FALSE -- so going
+     to ANY tab that is not the studio TOLD COMBAT TO START PLAYING. Leaving
+     a fight for RUN did not leak music, it ORDERED it, which is the 19.9
+     sounds a second measured on the RUN tab.
+     THE ONE ENGINE LAW (Paolo 7/3/26) was written when the only rival was
+     THE STUDIO, so it asks "is the studio open?" when what it means is
+     "IS COMBAT ON SCREEN?". Every tab added since inherited the wrong
+     answer. One condition now covers both directions of his complaint:
+     COMBAT'S LOOP PLAYS ONLY WHILE THE COMBAT TAB IS THE VISIBLE ONE. */
+  { const cf=document.getElementById('combatFrame');
+    const _combatOwnsIt=(t.dataset.p==='combat');
+    if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:!_combatOwnsIt},'*');}catch(e){} }
   if(t.dataset.p==='combat')setTimeout(musicPushToCombat,400);   /* THE LIVE LINK: the studio speaks directly into combat */
   }));
 
