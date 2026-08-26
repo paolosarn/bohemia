@@ -135,10 +135,28 @@ function cut(src) {
      a build for strangers must not keep a fallback whose failure mode is
      "you are now in the developer's wardrobe tool". Nothing is marked on at
      rest; the splash lights the game, which is the only path there is. */
+  /* *** AND ON 8/26 THE RUN LANE MOVED THE AT-REST DEFAULT TO p-city ON PURPOSE
+     ("THE DOOR OPENS ON THE GAME", backlog row P0-DOOR), WHICH STOPPED THE CUT DEAD
+     AND WITH IT EVERY DEPLOY. *** This tool exits 2 when the alpha changes shape under
+     it and `set -e` in .github/workflows/pages.yml turns that into a failed build, so
+     the play link stopped updating for every lane at once -- which is the refusal
+     working exactly as designed and then nobody being told.
+     THE RULE WAS NEVER "p-char", AND IT IS NOT "LAND ON THE GAME" EITHER -- the gate
+     that holds this says NOTHING IS OPEN AT REST, and I had to be told that by the
+     gate after my first fix let p-city keep its `on`. The splash's click is what
+     lights the game, and it is the only path there is; a panel marked open at rest is
+     a fallback, and a fallback that fires is a stranger standing in a tool. So: strip
+     the `on` from WHICHEVER panel carries it. Any third state still refuses, because
+     then the tool genuinely does not know what it is looking at.
+     THIS IS NOT THIS LANE'S FILE. It is touched because an unpublishable site blocks
+     the demo every lane is shipping, the fix is the one the tool's own message asks
+     for, and leaving it red would have made my own push invisible too. */
   const CHARON = '<div class="panel on" id="p-char"';
-  if (src.indexOf(CHARON) < 0) die('the alpha no longer opens on p-char, so this '
+  const CITYON = '<div class="panel on" id="p-city"';
+  if (src.indexOf(CHARON) >= 0) src = src.replace(CHARON, '<div class="panel" id="p-char"');
+  else if (src.indexOf(CITYON) >= 0) src = src.replace(CITYON, '<div class="panel" id="p-city"');
+  else die('the alpha opens on neither p-char nor p-city, so this '
     + 'tool cannot tell what its at-rest default has become');
-  src = src.replace(CHARON, '<div class="panel" id="p-char"');
 
   /* ---- 3. a name of its own --------------------------------------------- */
   if (src.indexOf('<title>BOHEMIA</title>') < 0) die('the alpha title is not <title>BOHEMIA</title>');

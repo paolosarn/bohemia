@@ -1,3 +1,82 @@
+CHARACTER (character-0lurbs): 8/26 (n) LATEST -- *** ONE IN THREE PEOPLE IN THE CITY
+HAD A HAT ON AND YOU COULD NOT SEE IT. AND ALL 52 OTHER "FINDINGS" WERE MY RULER.
+TAB: LOOK for the picture, CITY to walk through the crowd. Nothing to judge. ***
+
+PART ONE: THE HAT BUG WAS FOUR TIMES BIGGER THAN "SEVENTEEN GARMENTS".
+Yesterday's fix restored 17 canon garments that rendered nothing. Counting them as
+menu items undersells it, because THE CITY DRESSES ITSELF OUT OF THE SAME CATALOGUE.
+MEASURED on 5,000 people generated exactly the way the game generates them
+(BOH_PERSONLOOK.lookFor with the canon pool -- the same call the crowd makes):
+    29.6%  of everybody in the city wears headwear
+    88.2%  of the hats they were wearing DREW NOTHING
+    28.4%  of EVERY PERSON IN THE CITY put something on their head and stayed bare
+Only TWO of the seventeen head garments in the game worked (shemagh, scrap helm).
+The town read as a place where almost nobody owns a hat. That is the honest measure
+of a bug that was, in code, one literal `56`.
+
+PART TWO: THE IDENTITY AUDIT ON CLOTHES. FIRST RUN SAID 52 GARMENTS CHANGE BY A
+TENTH OF THE BODY OR MORE IN ONE NOTCH OF TURN. *** EVERY ONE OF THEM WAS ME
+MEASURING THE CAMERA INSTEAD OF THE CLOTHES. *** Three separate ruler bugs:
+  SLEEVE ON A BACKPACK -- a pack hangs BEHIND the arms, so from behind it is between
+    you and them and paints them, side-on the near arm is in front of it. Asked only
+    of layers that HAVE sleeves now, and NEVER off the profile: side-on the near arm
+    sits in front of the torso and a SLEEVELESS apron scored 0.68. You cannot tell a
+    sleeve from an occlusion in a flat grid seen edge-on.
+  REACH -- and this was the hardest to admit because I wrote it as an identity
+    measure. How far a garment stands off the body SIDEWAYS IS NOT A PROPERTY OF THE
+    GARMENT. A cap brim points at the camera head-on and lies across the frame
+    side-on. That is FORESHORTENING, the whole reason a 3/4 view reads as depth.
+    Printed now, never judged.
+  OCCLUSION -- and this one cost me a change I threw away. SMITH'S APRON: hem 0.188
+    facing S, EXACTLY 0.000 from behind. I read it as an apron that stops existing
+    when he turns, wrote the fix (draw the skirt edges where the body does not cover
+    them, per row, off the part grid) and IT PAINTED ZERO PIXELS. The panel is 17px
+    and his hips are 22. IT IS GENUINELY HIDDEN and the code was right all along.
+    Reverted rather than shipped -- a change that draws nothing is exactly the class
+    of lie I have spent this week catching. A garment can be OCCLUDED rather than
+    ABSENT and a hem read off visible pixels cannot tell those apart, so a facing
+    showing under a quarter of a garment's biggest view is skipped as occluded.
+
+WHAT SURVIVES IS VERTICAL: hem, rise, sleeve off the profile. A hem does not
+foreshorten when he turns, which is exactly why hem caught the hair bug.
+
+    worst one-notch HEM, all 221 canon garments   0.087 body-heights
+    worst one-notch RISE                          0.032
+    worst one-notch SLEEVE                        0.100
+    garments over a tenth of a body in one notch  52 -> 0
+
+*** THE WARDROBE HOLDS. IT HELD BEFORE I STARTED. *** The only real defect in the
+clothes was the 17 that were not drawing -- found by this same audit on its first
+run, fixed yesterday, shipped.
+
+AND A RULER NARROWED FOUR TIMES HAS TO BE SHOWN TO STILL HAVE TEETH, because "I
+loosened it until it went green" is the exact failure this project has a law about.
+MUTATION: make every long coat knee-length IN PROFILE ONLY, one line in genCoat.
+    worst hem 0.087 -> 0.248, garments flagged 0 -> 13, gate names SPLIT-TAIL DUSTER.
+
+GATES: one_garment_per_slot 15/0 -- three new ratchets (hem 0.09, rise 0.04, sleeve
+  0.11), all mutation-proved, plus the 8/25 every-garment-appears sweep and the 8/21
+  slot rules. All on the REAL worn path, the only surface that has caught anything
+  this week. look 24/0 (44 pictures).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. *** THE THING I KEEP LEARNING AND WOULD TELL ANY LANE: A METRIC THAT MOVES WHEN
+     THE CAMERA MOVES CANNOT CATCH A DEFECT. *** Four rulers in two days died of it --
+     hair AREA, garment SLEEVE, garment REACH, and hem-under-occlusion. Before you
+     pin a number, ask what it does when nothing is wrong and the view changes. If
+     the answer is "it moves", it is not a defect detector, it is a camera detector.
+  2. The wardrobe and the hair now both hold identity across 8 facings and both are
+     gated. The next honest question for this lane is ANIMATION: does a garment hold
+     its identity across the FRAMES of a walk cycle, not just the facings? Nothing
+     has ever asked. Same audit, time axis instead of turn axis.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/one_garment_per_slot_gate.js        15/0
+  node tools/bohemia_the_bald_crowd.js           the picture, LOOK tab
+  node tools/bohemia_garment_identity_audit.js   the audit, ruler and all
+  records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
+
+================================================================================
 WORLD (world-9lfjtf): 8/26 (a) LATEST -- *** THE STREETS CONNECT NOW. One road join in
 three in the whole valley did not line up; the mile grid he walks is at ZERO. TAB: RUN to
 walk it. Nothing to judge. ***

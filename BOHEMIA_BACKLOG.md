@@ -6667,7 +6667,24 @@ P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
    reconciled where they disagree rather than the ratchet loosened.
    | every canon style's identity holds across all 8 facings, gated, on the
    real surface | — | no. He already ruled; this is work, not a question. ***
-P0-GARMENTID. *** THE IDENTITY AUDIT IS PORTED TO CLOTHES AND ITS FIRST RUN
+P0-GARMENTID. *** DONE 8/26. THE WARDROBE HOLDS, AND ALL 52 OTHER "FINDINGS"
+   WERE MY RULER. *** Worst one-notch change across all 221 canon garments is
+   0.087 body-heights of hem; 52 flagged garments -> 0. Every one was geometry:
+   SLEEVE on a backpack is where the camera is (a pack hangs behind the arms);
+   REACH is FORESHORTENING and had to come out of the judged set entirely (a cap
+   brim points at you head-on and lies across the frame side-on); and SMITH'S
+   APRON's 0.000 hem from behind is OCCLUSION -- I wrote the fix, it painted ZERO
+   PIXELS because the panel is 17px and his hips are 22, and I threw it away.
+   WHAT SURVIVES IS VERTICAL: hem, rise, sleeve off the profile. Three new
+   ratchets in one_garment_per_slot_gate (15/0), MUTATION-PROVED: knee-length
+   coats in profile only takes hem 0.087 -> 0.248 and flags 13.
+   AND THE HAT BUG WAS FOUR TIMES BIGGER THAN "17 GARMENTS": measured on 5,000
+   townspeople generated the way the game generates them, 29.6% wear headwear and
+   88.2% of those hats drew nothing -- 28.4% OF EVERY PERSON IN THE CITY put
+   something on their head and stayed bare.
+   records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
+   Kept for the record; everything under this line is the original row:
+   *** THE IDENTITY AUDIT IS PORTED TO CLOTHES AND ITS FIRST RUN
    FOUND 17 GARMENTS THAT DREW NOTHING AT ALL. FIXED 8/25. THE REST OF WHAT IT
    FOUND IS THIS ROW. *** Every knit cap, watch cap, field cap, work cap and
    slouch beanie, the rice farmer hat and both pairs of shades changed ZERO

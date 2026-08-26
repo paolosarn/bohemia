@@ -517,6 +517,16 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_missing_hats.js",
    "kb": 196.7
+  },
+  {
+   "id": "the-bald-crowd",
+   "title": "ONE IN THREE HAD A HAT ON",
+   "caption": "The hats I fixed yesterday were not just seventeen items in a menu. The city dresses itself out of that same wardrobe. I generated 5,000 townspeople the exact way the game makes them: 30 out of every 100 were wearing headwear, and 88 out of every 100 of those hats drew NOTHING. That is 28 out of every 100 people in your city putting something on their head and staying bare. Only 2 of the 17 hats in the whole game worked, so the town read as a place where almost nobody owns a hat, which is not the town you wrote. Top rows are what you actually saw. Bottom rows are the same ten people, same seed, same everything, wearing what they were always wearing. LOOK tab for this picture, CITY tab to walk through them.",
+   "file": "look/the-bald-crowd.png",
+   "kb": 134.2,
+   "stamp": "8/26/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_the_bald_crowd.js"
   }
  ]
 }
