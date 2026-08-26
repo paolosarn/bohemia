@@ -50,6 +50,18 @@ THE GATE, AND THE PART THAT MATTERS
   RULER and made the voices genuinely more distinctive in the direction of their
   own technique. Both cleared honestly.
 
+AND THE GATE ITSELF WAS FLAKY -- the rebase exposed it
+  Twelve commits from other lanes landed and syncthorn went red. My edit had
+  survived and the rack had grown by ONE voice, so the swing did not add up. Run
+  three times: nearest 0.1489 / 0.0929 / 0.0779. NOTHING ABOUT SYNCTHORN
+  CHANGED -- plenty of voices here are stochastic, so ONE RENDER SAMPLES A
+  VOICE'S NOISE as much as its timbre and the gate was deciding by coin flip.
+  Every voice is now placed by the AVERAGE OF THREE RENDERS: 0.1125 / 0.1244 /
+  0.1256 against a bar that stopped wandering too (0.0936/0.0935/0.0935).
+  THIRD TIME IN ONE SESSION nondeterminism broke a measurement (the run's beat
+  clock, the menu songs, this). ONE RENDER IS NOT A MEASUREMENT -- any gate
+  comparing audio in this engine must establish the thing's own spread first.
+
 TWO FINDS THAT HAD NOTHING TO DO WITH VOICES
   1. FOUR OF HIS CANON VERDICTS WERE NEVER IN THE GAME. Cross-checked all 106
      CANON rulings in his export against CANON_DEFAULTS: 102 present, 4 missing

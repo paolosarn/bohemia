@@ -146,6 +146,27 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     function dist(a,b){ let s=0; for(let i=0;i<a.length;i++){ const d=a[i]-b[i]; s+=d*d; }
       return Math.sqrt(s); }
 
+    /* ONE RENDER IS NOT A MEASUREMENT (8/26). Caught by running this gate three
+       times in a row: syncthorn's nearest neighbour came back 0.1489 (fatsaw),
+       0.0929 (ossuary) and 0.0779 (ossuary). Nothing about syncthorn changed --
+       plenty of voices in this rack are stochastic by design, so a single
+       sample of WHERE A VOICE SITS is a sample of its noise as much as of its
+       timbre, and a gate built on one render decides a batch by coin flip.
+       THE THIRD TIME THIS EXACT CLASS HAS BITTEN A MEASUREMENT IN ONE SESSION
+       (the run's beat clock, the menu songs, now this). Average the descriptor
+       over repeats: the jitter cancels, the timbre does not. */
+    async function place(kind, semi, reps){
+      const acc=[]; let got=0;
+      for(let r=0;r<reps;r++){
+        const x=await render(kind,semi,1.4);
+        if(x.err||x.silent) continue;
+        const v=vec(x); got++;
+        for(let i=0;i<v.length;i++) acc[i]=(acc[i]||0)+v[i];
+      }
+      if(!got) return null;
+      return acc.map(a=>a/got);
+    }
+
     /* every melodic voice the rack declares */
     const src = synthV.toString();
     const all = Array.from(new Set((src.match(/kind===?'[a-z_0-9]+'/g)||[])
@@ -164,16 +185,15 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
                       : {pk:+r.pk.toFixed(4), rms:+r.rms.toFixed(5),
                          zn:+r.zn.toFixed(3), live:+r.live.toFixed(3)});
       }
-      const mid=await render(k,57,1.4);
-      R.newv[k].shape = mid.err||mid.silent ? null : vec(mid);
+      R.newv[k].shape = await place(k,57,3);
     }
 
     /* 3. where every EXISTING voice sits, measured the same way */
     const pts=[];
     for(const k of old){
-      const r=await render(k,57,1.4);
-      if(r.err||r.silent) continue;
-      pts.push({k, v:vec(r)});
+      const v=await place(k,57,3);
+      if(!v) continue;
+      pts.push({k, v});
     }
     R.oldCount = pts.length;
 

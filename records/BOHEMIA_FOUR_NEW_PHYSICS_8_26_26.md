@@ -120,6 +120,30 @@ batch.
 The first is the whole reason the gate exists: distance **0.0000** to the voice it
 was copied from. The second is the development bug reproduced and caught.
 
+## AND THE GATE ITSELF WAS FLAKY, WHICH THE REBASE EXPOSED
+
+Rebasing onto twelve commits from other lanes turned `syncthorn` red. My edit had
+survived and the rack had only grown by one voice, so a 0.1296 → 0.0662 swing did
+not add up. Run three times in a row:
+
+    syncthorn nearest:  0.1489 (fatsaw) · 0.0929 (ossuary) · 0.0779 (ossuary)
+
+**Nothing about syncthorn changed.** Plenty of voices in this rack are stochastic
+by design, so a single render samples a voice's NOISE as much as its timbre, and
+a gate built on one render decides a batch by coin flip. The bar itself wandered
+too (0.0962 / 0.0938 / 0.0949).
+
+Every voice is now placed by the average of three renders. The jitter cancels,
+the timbre does not:
+
+    syncthorn nearest:  0.1125 · 0.1244 · 0.1256      bar 0.0936 / 0.0935 / 0.0935
+
+**That is the third time in one session that nondeterminism has broken a
+measurement** — the run's beat clock (zc 122/120/122 on identical input), the
+menu songs, and now this. The pattern is worth naming: in this engine, *one
+render is not a measurement*, and any gate that compares audio has to establish
+the thing's own spread before it compares anything to anything.
+
 ## TWO THINGS FOUND ON THE WAY THAT HAD NOTHING TO DO WITH VOICES
 
 **1. FOUR OF HIS CANON VERDICTS WERE NEVER IN THE GAME.** Cross-checking all 106

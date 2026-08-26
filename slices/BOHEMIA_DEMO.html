@@ -1128,7 +1128,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/26v - FOUR NEW PHYSICS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/26z - FOUR NEW PHYSICS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8496,8 +8496,16 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
      the shuffle and the city's music walked straight into a fight. The
      guard is gone: opening COMBAT stops both, whether or not the studio
      happens to be running. */
+  /* AMENDED SAME DAY, ON HIS WORD: "the combat music is all fucked up... try to
+     find out what you previously did." The first cut called MUS.stop()
+     UNCONDITIONALLY here, and MUS.stop() CUTS THE MASTER GAIN TO ZERO -- so
+     opening combat reached into the studio engine and silenced it even when it
+     was not playing, moments before musicPushToCombat sends the song across.
+     STOPPING A THING THAT IS NOT PLAYING IS NOT A NO-OP.
+     ONLY WHAT IS ACTUALLY MAKING NOISE GETS STOPPED NOW, which is all the
+     second-song bug ever needed: the city shuffle, when the shuffle is on. */
   if(t.dataset.p==='combat'){ try{ if(CITYMUS.on)CITYMUS.stopShuffle(); }catch(e){}
-                              try{ MUS.stop(); }catch(e){} }
+                              try{ if(MUS.playing)MUS.stop(); }catch(e){} }
   else if(t.dataset.p!=='music'&&MUS.playing){
     if(t.dataset.p==='city'&&CITYMUS.on){/* city shuffle owns playback here */}
     else { if(CITYMUS.on)CITYMUS.stopShuffle(); else MUS.stop(); } }   /* leaving the studio (or city shuffle) silences it */
