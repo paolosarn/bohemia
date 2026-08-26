@@ -1560,6 +1560,18 @@ SILENT-2. *** BUILD AGAINST SOUND'S THREE, NOT THE THREE I GUESSED —
    checks the call instead of the pixel is that same bug wearing a badge.
    | the demo driven muted, every information cue visible | — | no.
    TAB: RUN. ***
+WIDE-2. *** THE GATE THAT OPENS A LAPTOP WINDOW, BECAUSE WE HAVE NEVER
+   ONCE DONE THAT (8/26 — records/BOHEMIA_IT_IS_A_PHONE_COLUMN_ON_A_
+   LAPTOP_8_26_26.md, pairs with UI WIDE-1). Every gate this fleet owns
+   opens 390x844. A DESKTOP LAYOUT IS A SECOND LAYOUT AND A LAYOUT NOTHING
+   TESTS IS A LAYOUT THAT ROTS -- it will be broken again in a week and
+   nobody will know.
+   ONE GATE, desktop-sized window, three claims: (a) THE WORLD'S VISIBLE
+   CELL COUNT IS IDENTICAL to the 390x844 case -- this is the important
+   one, because it is the whole promise that the game did not change;
+   (b) no control lands off-screen or underneath another; (c) nothing is
+   scaled by a fraction. Mutation test: widen the world's view by one cell
+   -> red. | the three claims, at laptop size | — | no. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -7402,6 +7414,54 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
 ## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
 ## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
 ## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
+WIDE-1. *** ON A LAPTOP THE WHOLE GAME IS A 640-PIXEL COLUMN, AND HE IS
+   SICK OF IT (Paolo 8/26: "I'm sick and tired of the run and the combat
+   not being full screen and still being like phone screen while I'm on my
+   laptop... you gotta be able to adapt to the software. I CAN'T BELIEVE
+   THIS HASN'T BEEN FIXED YET." Record: records/BOHEMIA_IT_IS_A_PHONE_
+   COLUMN_ON_A_LAPTOP_8_26_26.md.) THIS LANE'S FIRST REAL JOB, HANDED TO
+   IT BY HIM ON ITS SECOND DAY.
+   MEASURED, ONE LINE: slices/BOHEMIA_CITY_WORLD.html:22
+       .wrap{ max-width:640px; margin:0 auto; height:100% ... }
+   That is the entire walked game. On any screen wider than 640px
+   everything he plays sits in a column in the middle and the rest of the
+   monitor is background. The alpha caps cards at 420 and 460. Nobody
+   decided this; it is what a number becomes when it is typed once for a
+   phone and never revisited.
+   *** "FULL SCREEN" IS TWO DIFFERENT THINGS AND ONLY ONE IS SAFE. ***
+   (A) SHOW MORE WORLD -- REJECTED. A tactical grid where you see further
+   is a DIFFERENT GAME (more enemies visible, more warning, different
+   fights), and all 379 gates open a 390x844 window, so a wider view is a
+   surface nothing has ever tested.
+   (B) SAME GAME, BIGGER -- DOES NOT ACTUALLY HELP, and the arithmetic
+   says why: the stage is already 844 tall and a laptop is ~800-1080
+   tall, so it is ALREADY near full height. Pixel art must scale by WHOLE
+   NUMBERS or it goes soft and uneven, and 2x is 1688 tall, taller than
+   his screen. The only legal integer scale on a laptop is 1x. THE MATH
+   FORBIDS THE OBVIOUS FIX.
+   (C) *** THE COLUMN IS THE WORLD, NOT THE GAME. THIS IS THE ANSWER. ***
+   The portrait column stays portrait because that is the design and the
+   gates. What does NOT have to stay inside it is everything that is not
+   the world: the HUD, the phone, the day chips, the objective line, the
+   buttons. On a phone they sit ON TOP of the world because there is
+   nowhere else. On a laptop there are hundreds of empty pixels either
+   side doing nothing. MOVE THE FURNITURE OUT OF THE ROOM. The world stays
+   a phone-shaped window, untouched, still gated at 390x844; the interface
+   breathes into the space beside it. He gets a screen that is USED, the
+   game is not altered by one tile, and every existing gate stays valid
+   because the world's viewport never moved.
+   STACKS WITH TWO THINGS ALREADY ON YOUR DESK: the thumb finding (on a
+   phone the top strip is the worst real estate and our whole tab bar
+   lives there -- on a laptop that constraint EVAPORATES and the layout
+   should know the difference), and the dead feed art's empty slot.
+   RULES: the world stays portrait on every device, always. Integer
+   scaling or none -- blurry pixel art is a worse insult than a small
+   window. NOTHING ABOUT THE GAME CHANGES; if a laptop player sees one
+   cell further than a phone player, the fix went wrong.
+   DO NOT TOUCH: the viewport meta's phone behaviour, or the world camera.
+   Those are the two things that LOOK like the fix and are not.
+   | his laptop shows a used screen with the same world in it | — | he
+   plays it. TAB: RUN and COMBAT, on a laptop. ***
 UI-0. *** THE LANE BRIEF EXISTS: laws/BOHEMIA_SESSION_BRIEF_UI_8_25_26.md.
    READ IT FIRST, before CLAUDE.md's laws list, if your first word is
    "ui". He asked for it by name on 8/25 ("can u regive me the ui
