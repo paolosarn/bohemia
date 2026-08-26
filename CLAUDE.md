@@ -387,6 +387,22 @@ rarely as one mega-session.
   Add a folder to the config AND the workflow's copy list together, or
   pages_publish_gate.js goes red -- it binds the two lists so neither can drift.
 
+## THE DEMO IS ITS OWN LINK (Paolo 8/25/26, LOCKED): "THE DEMO WILL BE A
+## STANDALONE LINK THAT ISNT THIS WORKSHOP LINK... WE ARE NOT READY FOR THE
+## DEMO YET." TWO SURFACES, and they are not the same thing. THE WORKSHOP is
+## slices/BOHEMIA_ALPHA_0_9.html, seventeen tabs, HIS bench, governed by the
+## ONE-LINK LAW below. THE DEMO is a SEPARATE PUBLISHED BUILD at a SEPARATE
+## URL with ZERO dev tabs -- cut from the workshop, never forked (one engine,
+## one canon). THE WORKSHOP LINK IS NEVER GIVEN TO A PLAYER: handing somebody
+## the bench is handing them sixteen doors and asking them to guess. The
+## coordinator planned three sweeps of a friends round around the workshop
+## link; that was the error this law exists to kill. And "the demo plays"
+## measured INSIDE the workshop is not the claim that a demo exists -- the
+## 8/4 plan already said it, item 9: THE DEMO IS A BUILD, NOT A VIBE.
+## Full law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md
+## Gap list: records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
+## Gate: demo_build_gate (routed SHARED -14)
+
 ## ONE-LINK LAW (Paolo 7/18/26, LOCKED — he was furious about "?v=arms")
 - There is ONE universal alpha URL and it NEVER changes, for ANY session:
   https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html

@@ -1,3 +1,71 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (i) LATEST -- *** HIS RULING: THE
+DEMO IS ITS OWN LINK, AND WE ARE NOT READY. MY ERROR, OWNED. Nothing to judge. ***
+
+*** READ THIS FIRST, EVERY LANE. THE DEMO IS NOT THE WORKSHOP. ***
+Paolo 8/25, LOCKED: "THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS WORKSHOP
+LINK ARE YOU SERIOUS AND WE ARE NOT READY FOR THE DEMO YET! WHAT ARE WE STILL
+MISSING!" Law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md, plus a
+CLAUDE.md block above the ONE-LINK LAW.
+TWO SURFACES: the WORKSHOP (the alpha, SEVENTEEN tabs, his bench, ONE-LINK LAW
+unchanged) and THE DEMO (a separate published build at a separate URL, ZERO dev
+tabs, cut from the workshop and never forked). THE WORKSHOP LINK IS NEVER GIVEN
+TO A PLAYER.
+MY ERROR AND IT IS A BAD ONE: sweeps 14, 20 and 21 planned the entire friends
+round around "5-8 people, their own phones, THE ONE LINK." That would have sent
+his friends into a dev bench and spent the one round that spends once. The error
+underneath it: "the demo plays" was being measured INSIDE the workshop.
+the_whole_demo_gate drives the ALPHA -- true, valuable, and NOT the claim that a
+demo exists. The 8/4 plan said it and we all read past it: item 9, THE DEMO IS A
+BUILD, NOT A VIBE.
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift, guards the demo path, routes work. Never writes code.
+  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23 -- in the
+  WORKSHOP, which is now the correct way to say it.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing for me. THE DEMO ORDER IS NOW: BUILD -> DOOR -> ENDING -> INSTRUMENT
+  -> INVITE. Nobody is invited until all four exist.
+    SHARED -14  CUT THE DEMO (the headline; no standalone slice exists)
+    RUN P0-DOOR  now serves BOTH surfaces
+    RUN DEMO-END  the last thirty seconds, which nobody has designed
+    RUN 0f + P0-MORNING  the instrument and the first morning
+    RUN 24-SECOND CEILING  measured on throttled 4G, demo-blocking
+  Then: SHARED -13 (pin the DEMO build for the round), WORLD SEED-1 (build, do
+  not switch on), SILENT-2, SHARED -9/-10/-11/-12.
+
+WHAT I WOULD DO NEXT
+  Sweep 22. Standing watch: nobody hands anybody the workshop link.
+
+PROOF
+  laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md  (his ruling)
+  records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md  (the measured gap
+    list AND the demo-feel research: PEAK-END RULE + DURATION NEGLECT from
+    Kahneman/Fredrickson 1993, and Zukowski's Feb 2025 demo-length survey showing
+    NO wishlist difference by length -- two aisles landing on the same answer.
+    THE FINDING THAT BITES: the ruled cut peaks in the first five minutes and
+    ENDS ON GOING TO BED. The ending is half of what anybody keeps and nobody
+    has designed it. Not a re-cut; the cut is his. Two drafted endings routed.)
+  WHAT IS ALREADY DONE, because he should see how close it is: the day plays end
+    to end and is gated; the cold open plays and hands off; THE VISTA HAS A
+    CALLER NOW (the 8/14 audit found zero); the save survives a hostile phone;
+    the fight has a door and 17 approved sounds; every district has a way in;
+    the payday bridge has 10 callers where the audit found zero; voices exist.
+    IT IS NOT A GAME THAT IS FAR AWAY. IT IS A GAME WITH NO FRONT DOOR.
+  Earlier sweeps 14-21, each a record with numbers, sources and confidence:
+    THE_FRIENDS_ROUND_IS_NOT_READY / EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_
+    ENGLISH / THEY_SPEAK_SPANGLISH (his law) / EVERY_GATE_WE_HAVE_TESTS_THE_
+    WRONG_BROWSER / THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART / THE_HANDOFF_IS_
+    64000_LINES / THREE_SOUNDS_ARE_THE_ONLY_COPY / ONE_VALLEY_FOREVER_IS_A_CONST
+    / TWENTY_BUILDS_IN_ONE_DAY. All of their routing still holds -- it just
+    applies to THE DEMO BUILD'S link now, not the workshop's.
+
+================================================================================
+
 CHARACTER (character-0lurbs): 8/25 (y) LATEST -- *** A SHOULDER-LENGTH HAIRCUT WAS
 A CROP THE MOMENT HE TURNED HIS HEAD, AND THE GATE THAT WAS SUPPOSED TO CATCH THAT
 WAS GREEN. TAB: LOOK for the picture, CHARACTER for the hair. Nothing to judge. ***
@@ -186,17 +254,6 @@ NEXT IN THIS LANE, in this order:
 
 ---
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (h) LATEST -- *** SWEEP 21. TWENTY
-BUILDS IN ONE DAY AND A ROUND THAT CANNOT BE READ. Nothing to judge.
-READ-BACK (synthesis by receiver): FROM THE HANDOFF I TOOK -- HE RULED ON THE FULL
-ICON BOARD (5 YES / 20 CBB / 44 NO) and ART shipped the v8 bake under those
-rulings; PEOPLE found a phone call was deleting three of the opening's four
-scenes and that the seen-flag was spent 65 seconds into a 164 second story, with
-a claim of THEIRS defending the bug; WORLD found the dam wearing the approved
-house roof. ***
-
-------------------------------------------------------------------------------
-
 SOUND (sound-xk7pjp): 8/25 (a) LATEST -- *** BOTH SOUND REDS ON THE SWEEP WERE MY
 OWN RULERS, AND FIXING THEM UNCOVERED A REAL BUG THE BROKEN RULER HAD BEEN
 HIDING: EVERY DOOR THE PLAYER OPENS HAS PLAYED HIS DRAG TWICE SINCE 8/14. ***
@@ -278,75 +335,6 @@ PROOF
                                                   step_gravel, went_down, sleep_sink
 
 ------------------------------------------------------------------------------
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (f) LATEST -- *** SWEEP 19. THREE
-SOUNDS ARE THE ONLY COPY OF SOMETHING THE PLAYER NEEDS. Nothing to judge.
-READ-BACK, the new rule applied to myself (sweep 18, synthesis by receiver):
-FROM THE HANDOFF I TOOK -- WORLD has rule number one green for the first time
-(every district has a way in), PEOPLE closed the opening's last link and shipped
-households so one outfit can hear about another, SOUND put 17 approved sounds
-into combat, and RUN 0f + P0-MORNING are still unclaimed with the friends round
-waiting on them. ***
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift and collisions nobody inside a lane can see, guards the demo path, routes
-  work. Never writes engine/tools/gates/slices code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23.
-  HIS SPANGLISH RULING IS LAW (fdb5eaa) and has now arrived SIX times with the
-  sweep prompt. IT IS DONE. Do not re-surface it, do not re-ask it.
-
-IN FLIGHT
-  Nothing half-built. Eight sweeps closed, each a record plus routed rows.
-
-BLOCKED ON
-  Nothing for me. Unclaimed, all cheap, and THREE OF THEM ARE NOW THE SAME JOB --
-  making the friends round readable:
-    RUN 0f + P0-MORNING   the instrument and the first morning
-    SHARED -13            publish from a pinned ref for the round
-    WORLD SEED-1          build the seed, do not switch it on until after
-    SHARED -9   the lane-ownership gate
-    SHARED -10  two hostnames the proxy blocks (no WebKit anywhere in the fleet)
-    SHARED -11  the names gate, pairs with WORLD NAMES-1
-    SHARED -12  make handoff_gate about the law it is named after
-
-WHAT I WOULD DO NEXT
-  Sweep 22 on the next "sweep". Standing watch: nobody opens round 1 until the
-  card exists, the build is pinned and the seed stays off.
-
-PROOF -- eight sweeps, each with numbers, sources and confidence stated:
-  records/BOHEMIA_THE_FRIENDS_ROUND_IS_NOT_READY_8_24_26.md
-    sweep 14, now amended three times: one tester plays MUTED; every tester plays
-    the canonical valley; the round runs on ONE PINNED BUILD and nothing is
-    patched mid-round.
-  records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_8_25_26.md
-    sweep 15. Routed PEOPLE LANG-1, QUESTS LANG-2, SHARED -9.
-  laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md
-    HIS RULING, LOCKED. Three registers; the mix is mandatory.
-  records/BOHEMIA_EVERY_GATE_WE_HAVE_TESTS_THE_WRONG_BROWSER_8_25_26.md
-    sweep 16. 201 chromium.launch, 0 webkit.
-  records/BOHEMIA_THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART_8_25_26.md
-    sweep 17. Routed WORLD NAMES-1, SHARED -11.
-  records/BOHEMIA_THE_HANDOFF_IS_64000_LINES_AND_NOBODY_READS_IT_8_25_26.md
-    sweep 18. Routed SHARED -12. This entry is that format.
-  records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md
-    sweep 19, corrected by SOUND the same day and the correction is in the record.
-  records/BOHEMIA_ONE_VALLEY_FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md
-    sweep 20. Routed WORLD SEED-1 + SEED-2.
-  records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_READ_8_25_26.md
-    sweep 21, this one. The splash prints "BUILD 8/25t" -- the letter is t, THE
-    TWENTIETH BUILD OF ONE DAY -- and main took 23 first-parent commits today with
-    a MEDIAN GAP OF 2.0 MINUTES. The one link is network-first BY LAW so it always
-    serves the newest deploy. Put those next to round 1 and every tester plays a
-    different game. TWO OF HIS LOCKED LAWS, BOTH CORRECT, THAT HAVE NEVER BEEN
-    ASKED TO HOLD AT THE SAME MOMENT. Resolution: THE LINK IS SACRED, THE REF IT
-    SERVES IS NOT -- pin the published site to one tag for the round while the
-    fleet keeps merging to main at full speed. A publish decision, not a freeze.
-    NOT BROKEN AND SAID SO: the save is fine, save_compat_gate holds a walk-forward
-    migrator and refuses a newer-build save BY NAME instead of wiping it.
-    Routed SHARED -13 + RUN 0f amended to stamp the build and the seed.
-
-================================================================================
 
 WORLD (world-9lfjtf): 8/25 (b) LATEST -- *** THE DAM WAS WEARING PAOLO'S APPROVED HOUSE ROOF.
 So was every median barrier, every bridge column and every concrete silo in the valley. Fixed,

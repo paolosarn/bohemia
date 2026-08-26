@@ -1624,7 +1624,48 @@ P0-SAVE. *** THE SAVE SURVIVES THE PHONE AND NOT US — WIRE THE MIGRATION
    compatibility. The audit checked that bytes survive the browser and
    never asked whether they survive us. | one version stamped and
    checked, chain called on load, fixture corpus gated green | — | no. ***
-P0-DOOR. *** THE GAME IS NOT THE FIRST THING A NEW PLAYER SEES. TOP OF
+DEMO-END. *** THE LAST THIRTY SECONDS DO NOT EXIST, AND THEY ARE HALF OF
+   WHAT ANYBODY REMEMBERS (8/25 — records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_
+   MISSING_8_25_26.md, on his "LOOK ONLINE FOR FEELINGS AND AWESOMENESS
+   DEMOS PROVIDE"). SMALL, and it uses parts that already exist.
+   THE RESEARCH, AND BOTH AISLES LAND ON THE SAME SPOT FROM OPPOSITE
+   DIRECTIONS. Kahneman & Fredrickson's PEAK-END RULE (1993, "When More
+   Pain Is Preferred to Less: Adding a Better End") is one of the most
+   replicated findings in the psychology of experience: a person's memory
+   of an episode is almost entirely predicted by TWO DATA POINTS -- the
+   most intense moment, and the LAST moment. Not the average, not the
+   total. Its companion is DURATION NEGLECT: how long it was barely
+   registers, and the neuroscience agrees, because encoding is biased
+   toward high-affect moments and toward BOUNDARY moments.
+   AND THE STEAM DATA SAYS IT WITHOUT MEANING TO: Zukowski's Feb 2025
+   developer survey on demo length found a ~50/50 split in what studios
+   chose and NO MEANINGFUL DIFFERENCE IN MEDIAN WISHLIST PERFORMANCE.
+   Length does not correlate with outcome BECAUSE NOBODY IS MEASURING
+   LENGTH. What he does say matters is the ending: a cliffhanger must make
+   a player think "I NEED TO PLAY MORE OF THIS", not "that was annoying",
+   and ending with no reason to come back actively hurts a demo.
+   NOW LOOK AT THE RULED CUT: cold open (the sibling dies) -> THE VISTA ->
+   one good day -> SLEEP. BOTH PEAKS ARE IN THE FIRST FIVE MINUTES AND THE
+   LAST THING THE PLAYER FEELS IS GOING TO BED. The peak is fine wherever
+   it sits, memory does not care when it happened -- but THE ENDING IS
+   DOING NOTHING and the ending is half of what they keep.
+   *** NOT A RE-CUT. THE CUT IS HIS AND IT IS GOOD. *** This is the last
+   thirty seconds, which nobody has designed at all. Two candidates, both
+   built on existing parts, both DRAFTED (draft:true) and put in front of
+   him inside the game rather than queued for a thumb:
+     (a) THE MESSAGE YOU CANNOT ANSWER -- the day ends, you sleep, and
+         something lands on the phone as the screen goes. The phone
+         already carries the day's work; one beat of writing, one call.
+     (b) THE VISTA RETURNS -- it is already locked canon that the overlook
+         UPGRADES PER ACT. Ending on the valley again, changed by the day
+         you just spent in it, is a peak AND an end in one shot and says
+         what the game is about without a word of text.
+   WHICH ENDING IS HIS. Both get written; he meets them and corrects.
+   | the demo ends on something other than a flatline, on the real surface
+   | which ending = HIS | no, he plays it. TAB: RUN. ***
+P0-DOOR. *** NOW SERVES TWO SURFACES (8/25): the workshop AND the demo
+   build (SHARED -14). Same fix, and it is the front door of both.
+   *** THE GAME IS NOT THE FIRST THING A NEW PLAYER SEES. TOP OF
    THE QUEUE, DEMO-BLOCKING, AND THE CHEAPEST BIG WIN ON THE BOARD (8/14
    coordinator audit — records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 7).
    After the splash, the alpha opens on the CHARACTER workbench:
@@ -6948,6 +6989,38 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-14. *** CUT THE DEMO. IT DOES NOT EXIST AND THAT IS THE HEADLINE (Paolo
+   8/25, LOCKED: "THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS
+   WORKSHOP LINK... WE ARE NOT READY FOR THE DEMO YET!" Law:
+   laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md. Gap list:
+   records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md.)
+   MEASURED: the alpha carries SEVENTEEN `data-p` tabs and there is NO
+   standalone player-only slice anywhere in slices/. Nothing publishes a
+   demo. "The demo plays" has been measured INSIDE THE WORKSHOP this whole
+   time -- the_whole_demo_gate drives the alpha, which is true and valuable
+   and IS NOT the claim that a demo exists. THE 8/4 DEMO PLAN SAID IT AND
+   WE ALL READ PAST IT: item 9, "THE DEMO IS A BUILD, NOT A VIBE."
+   COORDINATOR'S ERROR, OWNED: sweeps 14, 20 and 21 planned the friends
+   round around "5-8 people, their own phones, THE ONE LINK." That would
+   have sent his friends into a dev bench and spent the one round that
+   spends once.
+   BUILD: a published PLAYER-ONLY file at its own URL. Zero dev tabs. No
+   judge pages, no VOTE, no SLICE. CUT FROM the workshop, never a fork --
+   one engine, one canon, ENGINE SYNC LAW untouched; what differs is what
+   is PUBLISHED and what is REACHABLE. THE WORKSHOP KEEPS ALL SEVENTEEN
+   TABS: taking his bench away to make a demo trades one mistake for a
+   worse one, and NAME THE TAB depends on that bar existing.
+   GATE, same turn -- `demo_build_gate`: the demo build exists as its own
+   published file; ZERO dev tabs in it; a cold boot of its URL lands in the
+   GAME and not on a tab bar; the workshop still boots with 17 tabs.
+   Mutation tests: leave one dev tab in -> red; boot the demo onto a tab
+   bar -> red.
+   AND _config.yml + the pages workflow copy list move together or
+   pages_publish_gate goes red -- that binding exists precisely so a new
+   published file cannot 404 in production while working on disk.
+   | a stranger opens the demo URL and sees only the game; his workshop is
+   untouched | which URL/name = HIS | no. NOT IN A TAB -- it IS the other
+   surface. ***
 -13. *** PUBLISH FROM A PINNED REF FOR THE FRIENDS ROUND (sweep 21, 8/25 —
    records/BOHEMIA_TWENTY_BUILDS_IN_ONE_DAY_AND_A_ROUND_THAT_CANNOT_BE_
    READ_8_25_26.md). NOT BEFORE THE ROUND OPENS. Small, reversible, and it
