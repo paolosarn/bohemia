@@ -283,6 +283,79 @@ const SAME_CLASS_DEBT = { interchange: 3, strip: 4 };
          walk.wdead === 0);
     }
 
+    /* ── THE SIDEWALK IS ONE SIDEWALK ───────────────────────────────────────────────
+       Paolo 8/26, LOCKED: "all the sidewalks should be connected altogether unless
+       there's a crazy explosion or something's wrong. Most of the time the streets and
+       the sidewalk should be in harmony all the way."
+       That is a claim about a WALK, not about a seam, so it is tested as a walk: pick the
+       longest straight run of street in the valley and walk BOTH pavements from one end to
+       the other, asking the page itself whether each tile is ground he can stand on.
+       WHAT IT CAUGHT ON ITS FIRST RUN, over 5,376 tiles / 4 km: the sidewalk broke
+       FOURTEEN times. Two causes, both invisible to a per-cell check:
+         - THE BUS STOP. Seven tiles of pavement, twice a cell, that a body could not
+           cross -- on a tile whose legend says solid:false. The walked surface's
+           `structure` branch set walk=false flat and never read the flag, exactly as its
+           `prop` and `ground` branches did until 8/18. Six tiles in the whole game declare
+           a standable structure and all six were being discarded.
+         - THE CROSSING STREET'S FURNITURE. At a corner the band is the MINIMUM over both
+           axes, so a tile 20-25 off the north-south centreline is PARKWAY -- and also sits
+           on the east-west road's SIDEWALK. Dead palms and dead cars were being planted
+           there, sealing a pavement the other road never put anything on. */
+    const sw = await p.evaluate(() => {
+      const N = om.n;
+      let best = null;
+      for (let ty = 0; ty < N; ty++) {
+        let run = [];
+        for (let tx = 0; tx < N; tx++) {
+          const t = om.at(tx, ty);
+          if (t && t.district === 'arterial' && roadAxis('arterial', tx, ty) === 'ew') run.push(tx);
+          else { if (run.length >= 4 && (!best || run.length > best.cells.length)) best = { ty: ty, cells: run.slice() }; run = []; }
+        }
+        if (run.length >= 4 && (!best || run.length > best.cells.length)) best = { ty: ty, cells: run.slice() };
+      }
+      if (!best) return { found: false };
+      const cells = best.cells;
+      const x0 = cells[0] * FN, x1 = (cells[cells.length - 1] + 1) * FN - 1;
+      const out = { found: true, cells: cells.length, sides: {} };
+      for (const off of [-27, 27]) {
+        const gy = best.ty * FN + (FN >> 1) + off;
+        let steps = 0, dead = 0, cur = 0, longest = 0, first = [];
+        for (let gx = x0; gx <= x1; gx++) {
+          steps++;
+          const c = cellAt(gx, gy);
+          if (c && c.walk) { cur++; if (cur > longest) longest = cur; }
+          else {
+            dead++; cur = 0;
+            if (first.length < 5) {
+              const tx = (gx / FN) | 0, ty = (gy / FN) | 0;
+              let nm = '?';
+              try { const m = tileMeta(tx, ty), L = deadLegendFor(m);
+                    const e = L[m.kit[(gy - ty * FN) * FN + (gx - tx * FN)]];
+                    nm = (e && e.name) || '?'; } catch (_e) {}
+              first.push(nm);
+            }
+          }
+        }
+        out.sides[off < 0 ? 'north' : 'south'] = { steps: steps, dead: dead, longest: longest, first: first };
+      }
+      return out;
+    });
+    ok('there is a long straight street in the valley to walk the pavement of', sw.found);
+    if (sw.found) {
+      const n = sw.sides.north, s = sw.sides.south;
+      console.log('       ' + sw.cells + ' cells, ' + n.steps + ' tiles (' +
+                  Math.round(n.steps * 0.75) + ' m) of pavement each side');
+      ok('THE SIDEWALK IS IN HARMONY ALL THE WAY — both pavements of a ' +
+         Math.round(n.steps * 0.75) + ' m street are ONE unbroken piece, end to end, ' +
+         'measured on the surface he walks (north ' + n.dead + ' blocked, south ' +
+         s.dead + ' blocked' +
+         (n.first.length || s.first.length ? '; blockers: ' + n.first.concat(s.first).join(', ') : '') + ')',
+         n.dead === 0 && s.dead === 0);
+      ok('and the walk really was measured, not skipped — the longest unbroken piece is ' +
+         'the whole street (' + n.longest + '/' + n.steps + ')',
+         n.longest === n.steps && s.longest === s.steps);
+    }
+
     /* ── THE MUTATION TEST ──────────────────────────────────────────────────────────
        "nudge one piece's lane offset by one pixel -> red". Everything above could be
        true of a checker that cannot see. So: shift the arterial generator's whole output

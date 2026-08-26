@@ -146,6 +146,10 @@
      A real left-turn bay is 150 ft of storage plus a 120 ft taper, call it 270 ft; 60
      tiles is 45 m, a conservative read of that, and it now starts where the intersection
      box ends instead of 16 tiles inside it. */
+  /* THE CODES THAT STOP A BODY. Derived from the legend below rather than typed, so a new
+     solid tile cannot quietly start standing on the pavement. (bus stop 13 is NOT here: it
+     declares solid:false and is a pad you wait on.) */
+  var BLOCKS = { 9: 1, 10: 1, 11: 1, 12: 1, 14: 1 };  // light, pole, dead palm, mast, car
   var POCKET = BOX + 60;         // DERIVED, same lesson as BOX: this was the literal 106,
                                  // which was BOX+60 on the day it was typed and nothing
                                  // afterwards. The bay runs 45 m back from the junction.
@@ -365,9 +369,33 @@
        zone. That is now also the only band put() can reach, which is the correct
        accident.
        TILE = 0.75 m, so 1 ft = 0.4 tiles and the cell is 128 tiles = 96 m.        */
+    /* *** NOTHING BLOCKING EVER STANDS ON A SIDEWALK. *** (Paolo 8/26, LOCKED: "all the
+       sidewalks should be connected altogether unless there's a crazy explosion or
+       something's wrong. Most of the time the streets and the sidewalk should be in harmony
+       all the way.") That is SIDEWALK SANCTITY read strictly, and it was being broken in a
+       way no single-cell check could see. MEASURED by walking 5,376 tiles -- 4 km -- down
+       the sidewalk of one arterial on the real page: it broke FOURTEEN times.
+       WHERE IT BREAKS IS A CORNER. Furniture is placed in the PARKWAY and the parkway is
+       code 7, so the placement predicate looked correct. But at a crossing the band is the
+       MINIMUM over both axes, so a tile 20-25 tiles off the north-south road's centreline
+       is parkway -- code 7 -- while ALSO sitting on the east-west road's SIDEWALK. Place a
+       dead palm there and you have sealed the east-west walk with something the east-west
+       road never put down. Same for the dead car the crossing street leaves parked across
+       your pavement.
+       So the guard is asked in TILE space, once, for every blocking thing this module
+       places: is this tile inside EITHER road's walk band? If it is, it stays clear. */
+    function onSomeonesWalk(px, py) {
+      var ox = Math.abs(px - C), oy = Math.abs(py - C);
+      if (horiz && oy > AMEN && oy <= WALK) return true;   // the east-west road's walk
+      if (vert && ox > AMEN && ox <= WALK) return true;    // the north-south road's walk
+      return false;
+    }
     function put(px, py, code, over) {
       if (px < 0 || py < 0 || px > 127 || py > 127) return;
       var c = g[py][px];
+      /* the walk-band guard applies to things that BLOCK. Markings, ramps and the walk's
+         own furniture-free surface are not blocked by it -- they are not solid. */
+      if (BLOCKS[code] && onSomeonesWalk(px, py)) return;
       if (over ? over(c) : (c === 7)) g[py][px] = code;
     }
     var onWalkable = function (c) { return c === 7; };
@@ -558,7 +586,12 @@
         for (i = 0; i < 6; i++) for (var j = 0; j < 2; j++) {
           var coff = cs > 0 ? cs - j : cs + j;
           var px3 = cAxis === 'v' ? C + coff : ct + i, py3 = cAxis === 'v' ? ct + i : C + coff;
-          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+          /* THROUGH THE SAME GUARD AS EVERYTHING ELSE. This line wrote the grid directly
+             instead of going through put(), which is how the crossing street's dead car
+             ended up parked across the other street's sidewalk -- a wreck is six tiles long
+             and at a junction six tiles reaches out of the asphalt and onto the pavement. */
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1
+              && !onSomeonesWalk(px3, py3)) g[py3][px3] = 14;
         }
       }
     }
