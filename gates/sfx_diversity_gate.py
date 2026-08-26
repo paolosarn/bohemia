@@ -193,7 +193,44 @@ def main():
         print('  0 passed, 1 FAILED')
         return 1
 
-    rows = d['rows']
+    all_rows = d['rows']
+
+    # ---- 0. A DEAD CANDIDATE IS NOT DIVERSITY (8/25) ---------------------
+    # THIS GATE WAS COUNTING CORPSES, AND IT WAS GETTING HAPPIER EVERY TIME A
+    # SOUND DIED. It measured every recipe the engine can cook, whether or not
+    # the candidate still exists as a sound anybody will ever hear. GRAVEYARD IS
+    # FINAL, so a tombstoned candidate is never coming back -- counting it as a
+    # physics the game HAS is counting a physics the game LOST.
+    #
+    # AND THE ERROR RAN THE WRONG WAY, which is what makes it serious rather
+    # than untidy. Every one of the ten whole moments killed since 8/12 was a
+    # NON-instrument moment; not one instrument candidate has ever been
+    # tombstoned. So each death padded the denominator and made the ratio look
+    # better while the game got staler. MEASURED, the day this was found:
+    #     counting corpses : instrument 105 of 205 = 51.2%  (cap 50%)
+    #     LIVING SOUND     : instrument 105 of 155 = 67.7%
+    # and worse, PARTICLE AND AIR HAVE ZERO LIVING CANDIDATES between them --
+    # cash_count, deck_ring, glass_crunch, mag_clack, breath_out and dog_cry all
+    # went 5 for 5 -- while the span check below still said "at least four
+    # physics" and passed. Two of the engine's five physics are extinct in
+    # audible sound and the gate that exists to catch exactly that could not see
+    # it. That is the staleness his ruling names, wearing the gate's own badge.
+    #
+    # THE MATCH IS ANCHORED, because this repo has now made the same mistake
+    # twice: the graveyard file is PROSE as well as tombstones, and a loose
+    # search finds "swing_air.2 .3, tape_pull.1 .4" inside a sentence listing the
+    # candidates that LIVED and buries four survivors. A tombstone is a line
+    # whose id starts the line and is followed by its synth column. Nothing else
+    # counts as a death.
+    grave = open(os.path.join(ROOT, 'gates', 'bohemia_graveyard.txt'),
+                 encoding='utf8').read()
+    tomb = set(re.findall(r'^\s*([a-z_][a-z_0-9]*\.\d+)\s+synth=', grave, re.M))
+    # AND WHICH WHOLE METHODS HE BARRED. Read, never copied -- see section 2.
+    _mb = re.search(r'^BARRED-FROM-NEW-COOKS:[ \t]*(.+)$', grave, re.M)
+    barred = set((_mb.group(1) if _mb else '').split())
+    rows = [r0 for r0 in all_rows if r0['id'] not in tomb]
+    buried = len(all_rows) - len(rows)
+
     by = {}
     for row in rows:
         by.setdefault(row['synth'], []).append(row)
@@ -202,19 +239,75 @@ def main():
     methods = d.get('methods') or []
     ok('the shipped engine declares more than one way to make a sound (%s)'
        % ', '.join(methods), len(methods) >= 5)
-    ok('and every declared method is actually REACHED by a recipe (%s)'
-       % ', '.join('%s:%d' % (k, len(v)) for k, v in sorted(by.items())),
-       set(methods) <= set(by))
+    # EVERY METHOD HE STILL ALLOWS, not every method the engine can name. air and
+    # particle are deliberately still DECLARED after 8/14 -- the post-mortem kept
+    # them in the engine rather than deleting them, on the stated grounds that
+    # 0/30 condemns the recipes and cannot fully separate the method from the
+    # writing of it. So the engine keeping them is correct AND them having no
+    # living candidate is correct, and only a gate that knows about the bar can
+    # hold both at once. Before this it held neither and just went red.
+    ok('and every declared method HE HAS NOT BARRED is actually REACHED by a '
+       'living recipe (%s)%s'
+       % (', '.join('%s:%d' % (k, len(v)) for k, v in sorted(by.items())),
+          '  [barred, correctly silent: ' + ', '.join(sorted(barred)) + ']'
+          if barred else ''),
+       (set(methods) - barred) <= set(by))
+    ok('and a barred method is still DECLARED in the engine, because he barred '
+       'the recipes and not the physics -- deleting it would make the bar '
+       'unliftable (%s)' % (', '.join(sorted(barred)) or 'nothing barred'),
+       barred <= set(methods))
 
     # ---- 2. THE NEW BATCH IS NOT ONE METHOD WEARING FIVE HATS -------------
     fresh = [r0 for r0 in rows if r0['synth'] != 'modal']
     fresh_m = {r0['synth'] for r0 in fresh}
-    ok('the new batch spans at least four different physics (%s)'
-       % ', '.join(sorted(fresh_m)), len(fresh_m) >= 4)
+    dead_m = {r0['synth'] for r0 in all_rows
+              if r0['synth'] != 'modal' and r0['id'] in tomb} - fresh_m
+
+    # A GATE MUST NEVER OUTRANK A RULING (8/1). This asked for FOUR physics in
+    # the batch, and on 8/14 Paolo's verdicts made four impossible: particle and
+    # air went 0 UP / 30 DOWN across two batches and the post-mortem barred them
+    # from new cooks in as many words -- "there is no third cook for these slots,
+    # in this session or any other, unless he asks for one". Three methods are
+    # still allowed to be cooked, so a gate demanding four was demanding that
+    # somebody violate STOP PRODUCING to turn it green. It sat red for eleven
+    # days with no legal way out, which is the shape of a gate outranking a
+    # ruling.
+    # THE BAR IS READ, NOT COPIED. It lives on one anchored line in the graveyard
+    # registry -- the canonical home of what is dead -- so if he ever asks for
+    # particle again, one line changes and this gate follows. Copying the two
+    # names into this file is the mirrored-constant rot that cost this lane its
+    # whole week.
+    ok('the graveyard names which methods are barred from new cooks, so this '
+       'gate can never ask for one (%s)' % (', '.join(sorted(barred)) or 'NONE FOUND'),
+       bool(barred))
+    allowed = {r0['synth'] for r0 in all_rows if r0['synth'] != 'modal'} - barred
+    ok('EVERY PHYSICS HE STILL ALLOWS IS ACTUALLY MAKING SOUND (%s)%s'
+       % (', '.join(sorted(fresh_m & allowed)),
+          '  SILENT AND ALLOWED: ' + ', '.join(sorted(allowed - fresh_m))
+          if allowed - fresh_m else ''),
+       allowed and not (allowed - fresh_m))
+    ok('and the barred ones are barred because they are DEAD, not merely unused '
+       '-- if one ever comes back alive without him asking, that is a remake '
+       '(%s)' % (', '.join(sorted(barred & fresh_m)) or 'none alive, correct'),
+       not (barred & fresh_m))
     if fresh:
-        top = max(len([x for x in fresh if x['synth'] == m]) for m in fresh_m)
-        ok('and no single method owns it (%d of %d candidates at most)'
-           % (top, len(fresh)), top <= len(fresh) * 0.5)
+        top_m = max(fresh_m, key=lambda m: len([x for x in fresh if x['synth'] == m]))
+        top = len([x for x in fresh if x['synth'] == top_m])
+        # AND SAY WHAT CLOSING IT WOULD COST, so nobody closes it by padding.
+        # STOP PRODUCING names the tell; a gate that reports only a number
+        # invites somebody to cook eleven moments the game never asked for.
+        need = max(0, top * 2 - len(fresh))
+        ok('and no single method owns it (%s holds %d of %d LIVING candidates, '
+           '%.1f%%; %d tombstoned candidate(s) excluded -- counting them said '
+           '%d of %d). CLOSING THIS HONESTLY NEEDS %d MORE NON-%s CANDIDATES '
+           '(~%d moments) THAT THE GAME ACTUALLY WANTS -- friction first, it is '
+           'the best-scoring method he has. IT IS NOT CLOSED BY PADDING: 30 of '
+           'the 32 silent moments were already shown and got zero ups, so they '
+           'are spent, and particle and air are barred.'
+           % (top_m, top, len(fresh), 100.0 * top / len(fresh), buried, top,
+              len([x for x in all_rows if x['synth'] != 'modal']),
+              need, top_m.upper(), -(-need // 5)),
+           top <= len(fresh) * 0.5)
 
     # ---- 2b. NOT EVERYTHING IN THIS GAME IS ON THE GRID (8/21) -----------
     # THE CAR TICKS died 10 for 10 across panel_tick and car_heat, and one of

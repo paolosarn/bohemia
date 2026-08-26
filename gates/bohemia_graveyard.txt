@@ -1023,6 +1023,18 @@ WHAT THE POST-MORTEM ACTUALLY SHOWS, and it is not what the batch predicted:
 
 GRAVEYARD IS FINAL: these forty ids do not come back.
 
+A METHOD CAN BE BARRED, NOT JUST A CANDIDATE, AND THE MACHINE HAS TO BE ABLE TO
+READ IT (8/25). The paragraph above says particle and air "are barred from NEW
+cooks rather than deleted from the engine" -- a real standing ruling off 0 UP /
+30 DOWN across two batches -- and it said it in PROSE, so nothing could act on
+it. sfx_diversity_gate then spent eleven days demanding the batch span at least
+four physics, which his own verdicts had made impossible: only three are still
+allowed to be cooked. A GATE MUST NEVER OUTRANK A RULING (8/1), so the ruling
+gets an anchor and the gate reads it here instead of asserting a number that
+cannot be met. If he ever asks for one of these again, this ONE line changes.
+
+BARRED-FROM-NEW-COOKS: particle air
+
   [glass_crunch] all five dead (particle)
   glass_crunch.0     synth=particle  mat=glass    hz=  900.0 decay=0.1875
   glass_crunch.1     synth=particle  mat=glass    hz= 1074.9 decay=0.1250

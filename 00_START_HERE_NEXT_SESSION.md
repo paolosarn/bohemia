@@ -1,3 +1,78 @@
+SOUND (sound-xk7pjp): 8/25 (b) LATEST -- *** THE STALENESS GATE WAS GETTING
+HAPPIER EVERY TIME A SOUND DIED, AND RUN BEAT SPENT FOUR DAYS CALLING THE RUN
+BROKEN WHEN THE RUN WAS FINE. Both of this lane's assigned reds. Nothing to
+judge. ***
+
+TAB: nothing new to look at. This turn is two gates and a ruling that finally
+has a machine anchor. RUN and MUSIC are unchanged to play.
+
+WHERE THIS LANE IS
+  The backlog's REDS row assigns SOUND two red gates. SFX RENDER is green.
+  RUN BEAT was red on main since 8/21 and it was never a game defect: on 8/21
+  the alpha deliberately stopped fetching the 17.8 MB run slice on boot and
+  exported __loadRunSlice, and its own comment says "the four gates that need
+  the frame live ask for it by name". RUN BEAT was the fifth and never asked.
+  It waited on an empty iframe for thirty seconds and reported "the browser run
+  died". One line. Now 22 passed, 0 FAILED -- the run has been taking the
+  studio's tempo and tracking its phase the whole time.
+  GATED: suite_honesty A20, every gate that takes the run frame from inside the
+  alpha must ask for the slice by name. demo_gate is exempt by name and reason
+  (it picks its frame by capability and wants CITY_WORLD).
+
+  SFX DIVERSITY was worse and more interesting. It counted every recipe the
+  engine can cook, INCLUDING candidates Paolo had already killed:
+      counting corpses : instrument 105 of 205 = 51.2%
+      LIVING SOUND     : instrument 105 of 155 = 67.7%
+  Every one of the ten whole moments killed since 8/12 was NON-instrument; not
+  one instrument candidate has ever been tombstoned. So each death padded the
+  denominator and the gate got HAPPIER as the game got staler. And it was blind
+  to its own subject: particle and air have ZERO living candidates, yet the span
+  check said "at least four physics" and passed. Two of five physics extinct,
+  and the staleness gate could not see it.
+  THEN IT WAS ASKING FOR THE ILLEGAL. The 8/14 post-mortem bars particle and air
+  from new cooks ("no third cook for these slots, in this session or any other,
+  unless he asks"). The gate demanded four physics when three are allowed -- it
+  could only be turned green by breaking STOP PRODUCING. A GATE MUST NEVER
+  OUTRANK A RULING. The bar now has an anchored line in the graveyard,
+  BARRED-FROM-NEW-COOKS, and the gate READS it rather than copying it.
+
+ONE RED LEFT IN THIS LANE AND IT IS TRUE
+  instrument holds 105 of 155 LIVING candidates, 67.7%, cap 50%. I did not fake
+  it. Closing it honestly needs ~55 non-instrument candidates (~11 moments) THE
+  GAME ACTUALLY WANTS: particle and air are barred, and 30 of the 32 silent
+  moments were already shown and got zero ups, so they are spent. That leaves 2
+  never-shown moments plus the routed FIELD SURGERY set. The failure message now
+  carries that cost so nobody closes it by padding.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT I WOULD DO NEXT
+  1. FRICTION-FIRST COOK for the 2 never-shown moments + FIELD SURGERY (routed
+     8/13, five moments whose physics is friction/particle by nature). Friction
+     is 40%, the best-scoring method he has. That is the only legal path at the
+     diversity cap and it is real content, not padding.
+  2. The demo path is green from this lane: 10 of 11 beats sound and the 11th
+     is the splash, silent on purpose.
+
+PROOF
+  records/BOHEMIA_A_STALENESS_GATE_THAT_LIKED_DEATHS_8_25_26.md
+  gates/run_beat_gate.py         22 passed, 0 FAILED  (was: the run died)
+  gates/suite_honesty_gate.js    26 passed, 0 failed  (A20 new)
+  gates/sfx_diversity_gate.py    39 passed, 1 FAILED  (the true one, costed)
+  MUTATED, five, restored after:
+    the bar line disappears            -> 3 legs RED
+    a barred method comes back alive   -> the remake leg RED
+    the tombstone matcher goes blind   -> ratio falls back to the lying 51.2%
+                                          AND the remake leg catches it
+    a gate stops asking for the slice  -> A20 RED
+    A20's pattern matches nothing      -> A20's own blind-checker leg RED
+
+------------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/25 (d) LATEST -- *** EVERY FENCE IN THE CITY WAS A WALL. 31 of them are
 chain-link you can see through now, and ADOBE came back with a picture this time. Four materials,
 79 objects. Nothing to judge. ***

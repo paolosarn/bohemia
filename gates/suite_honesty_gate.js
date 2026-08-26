@@ -334,5 +334,58 @@ ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',
   /\[\s*\d+\/\s*\d+\]/.test(only.out), only.out.split('\n').filter(l => /CARD FOLD/.test(l))[0]);
 
+/* ---- 8. A GATE THAT NEEDS THE RUN SLICE HAS TO ASK FOR IT ------------------
+   RUN BEAT was a standing red on main from 8/21 to 8/25 and it was never a game
+   defect. On 8/21 the alpha deliberately STOPPED downloading the 17.8 MB run
+   slice on boot -- 17.8 MB fetched on every visit for a panel the shell never
+   displays -- and exported `window.__loadRunSlice` instead. Its own comment
+   states the contract: "nothing in the product calls this, and the four gates
+   that need the frame live ask for it by name."
+
+   RUN BEAT was the fifth. It waited for #runFrame to be ATTACHED, which it
+   always is, then waited 30s for RB to appear inside a frame with no src, and
+   reported "the browser run died". Four days of a red that named the run.
+
+   THE CHECK IS THE CONTRACT, NOT A STYLE RULE. A gate that reaches into the
+   alpha for the run frame is depending on a fetch that only it can start. It
+   either asks by name or it is measuring an empty iframe -- there is no third
+   outcome, which is what makes this mechanical.
+
+   IT ONLY LOOKS AT GATES THAT TAKE THE FRAME FROM INSIDE THE ALPHA. A gate that
+   opens slices/BOHEMIA_RUN_CURRENT.html as a PAGE (no_prison, wallclass) needs
+   nothing, and a gate that picks its frame BY CAPABILITY and wants the CITY
+   (demo_gate, which says so at length) is not asking for the run at all. The
+   first sweep written for this flagged all three and it was the sweep that was
+   wrong; the pattern below is the corrected one. */
+{
+  const RUNFRAME = /\$\('#runFrame'\)|querySelector\('#runFrame'\)|getElementById\(['"]runFrame|frames\(\)[\s\S]{0,80}RUN_CURRENT/;
+  /* named, with the reason, so an exemption is a decision somebody wrote down
+     rather than a gate quietly not being checked */
+  const EXEMPT = {
+    'demo_gate.js': 'picks its frame by capability and wants CITY_WORLD, not the run',
+  };
+  const offenders = [];
+  let looked = 0;
+  for (const f of fs.readdirSync(path.join(ROOT, 'gates')).sort()) {
+    const fp = path.join(ROOT, 'gates', f);
+    let src = '';
+    try { if (fs.statSync(fp).isDirectory()) continue; src = fs.readFileSync(fp, 'utf8'); }
+    catch (_e) { continue; }
+    if (!RUNFRAME.test(src)) continue;
+    if (EXEMPT[f]) continue;
+    looked++;
+    if (!src.includes('__loadRunSlice')) offenders.push(f);
+  }
+  ok('A20 EVERY GATE THAT TAKES THE RUN FRAME FROM INSIDE THE ALPHA ASKS FOR THE '
+    + 'SLICE BY NAME. The alpha stopped fetching it on boot on 8/21 and exported '
+    + '__loadRunSlice instead, so a gate that skips the call waits on an empty '
+    + 'iframe and reports the RUN as broken -- which is exactly what RUN BEAT did '
+    + 'for four days (' + looked + ' gate(s) checked)',
+    offenders.length === 0, offenders.join(', '));
+  ok('A20 …and this check is actually looking at something, rather than passing '
+    + 'because its pattern stopped matching anything at all',
+    looked >= 5, 'only ' + looked + ' gate(s) matched the run-frame pattern');
+}
+
 console.log('\nSUITE HONESTY GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

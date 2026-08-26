@@ -67,8 +67,25 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   // ATTACHED, not visible: the panel is display:none until its tab is on, and the
   // frame boots regardless. Waiting for visibility waits forever.
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});
+  /* __ASK_FOR_THE_RUN_SLICE__ (8/25). THIS GATE WAS THE FIFTH. The alpha stopped
+     downloading the 17.8 MB run slice on boot on 8/21 -- deliberately, and its
+     own comment says so: "nothing in the product calls this, and the four gates
+     that need the frame live ask for it by name". This one did not, so #runFrame
+     attached with no src, RB never appeared, and the wait below timed out at 30
+     seconds. The gate then reported "the browser run died", which the fleet has
+     been reading as a run-slice defect since 8/21.
+     SAME SHAPE AS THE OTHER TEN THIS WEEK: the measurement was exactly right
+     against the alpha it was written against, and was left in place while the
+     alpha moved underneath it. Ask the exported loader by name -- which is what
+     it was exported for -- and wait for the frame to finish rather than guessing
+     a duration. */
+  await p.evaluate(()=>{ if(window.__loadRunSlice) window.__loadRunSlice(); });
+  for(let i=0;i<120 && !p.frames().find(f=>f.url().includes('RUN_CURRENT'));i++)
+    await p.waitForTimeout(500);
+  const fr=p.frames().find(f=>f.url().includes('RUN_CURRENT'))
+        || await (await p.$('#runFrame')).contentFrame();
+  await fr.waitForLoadState('load').catch(()=>{});
   await p.waitForTimeout(2500);
-  const fr=await (await p.$('#runFrame')).contentFrame();
   await fr.waitForFunction(()=>typeof RB!=='undefined',null,{timeout:30000,polling:200});
   await p.waitForTimeout(800);
 
