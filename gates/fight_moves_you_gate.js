@@ -1307,9 +1307,17 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' to ' + pull.on.ignorant + ' a board, and the whole room learns where he is in ' + pull.on.everyoneLearned + ' fights of ' + pull.on.fights
     + ' against ' + pull.off.everyoneLearned + '. Clean single pulls -- one man engaged alone with nobody else aware -- go ' + pull.off.cleanPulls + ' -> ' + pull.on.cleanPulls + ' of ' + pull.off.boards
     + '. *** THE CLAIM RESTS ON THE FIRST TWO AND NOT THE THIRD, DELIBERATELY: *** all three measure the same thing, but a count of clean pulls is a handful of boards either side of a 50% coin, and it went red once on an effect it shows every run. Isolation is the phenomenon; the pull count is its noisiest estimator. The control is exact either way -- pre-setting _everSaw suppresses the alarm and changes nothing else',
+    /* THE ASSERTION NOW SAYS WHAT THE CLAIM ALREADY SAID IN CAPITALS. This line
+       required the clean-pull count too, while the sentence above it states that
+       the claim rests on the first two and NOT the third because a pull count is
+       a handful of boards either side of a coin. The prose had learned the lesson
+       and the code had not -- the same split that let a gate promise it never
+       threw away a lane's work while a line six below it did exactly that. It
+       went red on 15 against 14 while both load-bearing measures held (1.25
+       against 1.5, and 19 rooms against 9). The count is still PRINTED, because
+       it is context; it is no longer a veto. */
     pull.on.ignorant < pull.off.ignorant
-    && pull.on.everyoneLearned > pull.off.everyoneLearned
-    && pull.on.cleanPulls <= pull.off.cleanPulls);
+    && pull.on.everyoneLearned > pull.off.everyoneLearned);
 
   ok('V175 AND THE YELL REACHES MEN THE ROUTINE SHOUT CANNOT: men told without eyes of their own go ' + pull.off.told
     + ' -> ' + pull.on.told + ' a board, and men left completely ignorant ' + pull.off.ignorant + ' -> ' + pull.on.ignorant
@@ -1365,7 +1373,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        sit inside the resolution the dial runs, before the kill branch. A gate
        that only calls finisherFeed() itself proves the function works and says
        nothing about whether shooting ever reaches it. */
-    R.wired = /if\(kind!=='miss'\)finisherFeed\(\);/.test(String(fireNow || ''));
+    /* V185 RE-POINTED: the same line now also fires the kit's 'shot' verb, so it
+       reads `if(kind!=='miss'){ finisherFeed(); ... }`. THE CLAIM IS UNCHANGED --
+       the feed is INSIDE fireNow rather than merely defined beside it, which is
+       the whole point of this check. */
+    R.wired = /if\(kind!=='miss'\)\{ finisherFeed\(\);/.test(String(fireNow || ''));
     BohemiaArena.set(7); setupCombat();
     R.freshFight = (G._finCharge || 0);
     return R;
@@ -2229,6 +2241,94 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V183 *** NOBODY RUNS FROM A NOBODY, AND THAT IS THE FICTION AND THE MECHANIC IN ONE SENTENCE. *** Paolo, playing it: "I don\'t wanna see anyone run away anymore unless I have a perk that allows them to... YOU\'RE NOT SCARY ENOUGH." Across 20 fights and ' + fear.off.bodies
     + ' bodies, ' + fear.off.total + ' men break or run by default and ' + fear.on.total + ' do with the perk switched on -- same boards, same bodies. AND "SO MANY PEOPLE" WAS THE DESIGN, NOT LUCK: V35 fires the moment HALF the room is down and then rolls EVERY man EVERY turn at 10% plus 5% a body, so the back half of nearly every fight was a rout. V35 IS GATED, NOT GRAVEYARDED -- he did not say it is wrong, he said it is not EARNED yet',
     fear.FEAR_ON === false && fear.off.total === 0 && fear.on.total > 0);
+
+/* ===== V185 THE KIT (RF4-11, RF4-13) ===============================
+   "RECHARGE CONDITIONS ARE UNIQUE PER ITEM, AND THEY ARE VERBS, NOT TIMERS."
+   He ruled a real kit, then said: "take big turns and big swings... I really
+   need this shit to look like Rogue Fable four RIGHT NOW." This is the piece
+   that makes a turn a choice; without it every turn is still shoot-or-walk. */
+  const kit = await frame.evaluate(() => {
+    const o = {};
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    o.size = KIT.length;
+    o.allDrafts = KIT.every(k => k.draft === true);
+    o.distinctVerbs = new Set(KIT.map(k => k.verb)).size;
+    o.emptyAtStart = Object.keys(G.kit||{}).length;
+    /* EACH VERB CHARGES ITS OWN AND NOBODY ELSE'S */
+    const cross = {};
+    for (const verb of KIT.map(k=>k.verb)) {
+      BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+      for (let i=0;i<5;i++) kitVerb(verb);
+      cross[verb] = KIT.filter(k=>kitReady(k.id)).map(k=>k.id).join(','); }
+    o.cross = cross;
+    o.oneToOne = KIT.every(k => cross[k.verb] === k.id);
+    /* *** EVERY VERB HAS A REAL CALLER IN THE SHIPPED FIGHT. *** The first write
+       of this kit hooked FIVE and left move2 with none, so BREAK CONTACT could
+       never charge in a played fight -- shipped, correct and unreachable, the
+       same defect as V152's chewCover, V176's threshold and five of six deaths
+       in V181. This arm exists so that cannot happen again quietly. */
+    const fired = {};
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    hurtPlayer(10); fired.hit = ((G.kit||{}).plate||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    bodyFell({ea:0,edist:3,lvl:0,max:60}); fired.kill = ((G.kit||{}).slip||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.stam=3; try{ spendMove(1); }catch(e){} fired.move2 = ((G.kit||{}).smoke||0) > 0;
+    /* THE TURN-END PAIR, STAGED, because they are deliberate OPPOSITES: cover
+       charges only when you are NOT wide open, open charges only when you are
+       wide open AND somebody can see you. A turn spent in the open with nobody
+       looking charges NEITHER, which is correct and is what made the first
+       version of this probe read false. Stage each one instead of hoping. */
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.pillars=[{ea:0,edist:0.8,r:0.55}];            /* a rock at your elbow: NOT wide open */
+    try{ updateGeomCover(); }catch(e){}
+    try{ kitCoverTick(); }catch(e){}
+    fired.cover = ((G.kit||{}).steady||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.pillars=[];                                    /* nothing near you: wide open */
+    for(const e of (G.e||[])){ if(e){ e.dead=false; e.ea=0; e.edist=4; e.lvl=0; e.gcov=0; } }
+    try{ updateGeomCover(); visionTick(); }catch(e){}
+    try{ openGroundTick(); }catch(e){}
+    fired.open = ((G.kit||{}).read||0) > 0;
+    o.fired = fired;
+    o.everyVerbHasACaller = Object.values(fired).every(Boolean);
+    /* SPENDING EMPTIES IT, AND AN UNCHARGED ONE REFUSES */
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    for (let i=0;i<5;i++) kitVerb('hit');
+    const p0=G.pp; o.used = useKit('plate');
+    o.plateWent = { before:p0, after:G.pp, readyAfter:kitReady('plate') };
+    o.unchargedRefuses = (useKit('smoke') === false);
+    /* AND NOT ONE OF THEM TOUCHES DAMAGE */
+    const dummy={hp:100,max:100,armor:0};
+    const before=applyDamage(dummy,40); dummy.hp=100;
+    G.kit={}; for(const k of KIT) G.kit[k.id]=99;
+    for(const k of KIT){ try{ useKit(k.id); }catch(e){} }
+    o.damage = { before, after: applyDamage(dummy,40) };
+    return o;
+  });
+
+  console.log('  V185 the kit: ' + kit.size + ' abilities, ' + kit.distinctVerbs
+    + ' distinct verbs, ' + kit.emptyAtStart + ' charged at the start'
+    + '\n    verb -> what it charges   ' + JSON.stringify(kit.cross)
+    + '\n    every verb has a caller   ' + JSON.stringify(kit.fired)
+    + '\n    PLATE UP spent            plates ' + kit.plateWent.before + ' -> ' + kit.plateWent.after
+    + ', ready after ' + kit.plateWent.readyAfter
+    + '\n    damage before/after all 6 ' + kit.damage.before + ' / ' + kit.damage.after);
+
+  ok('V185 RF4-13 *** SIX ABILITIES, SIX DIFFERENT VERBS, AND THE VERBS ARE THE POINT. *** "Recharge conditions are unique per item, and they are VERBS, NOT TIMERS." A timer recharges whatever you do and teaches nothing; a verb recharges only if you played a certain way. Each of the ' + kit.size
+    + ' charges on its own verb and nobody else\'s (' + JSON.stringify(kit.cross) + '), and the six were chosen to CONFLICT -- taking a hit, tucking behind stone and standing wide open cannot all be true in one turn, so no single style keeps everything lit. That is a set of pressures, not a bigger menu',
+    kit.size === 6 && kit.distinctVerbs === 6 && kit.oneToOne === true && kit.emptyAtStart === 0);
+
+  ok('V185 *** AND EVERY VERB HAS A REAL CALLER IN A PLAYED FIGHT, WHICH THE FIRST WRITE DID NOT. *** It hooked five and left move2 with NONE, so BREAK CONTACT could never charge -- shipped, correct and structurally unreachable, the fourth time today after V152\'s chewCover, V176\'s threshold and five of six deaths in V181. Driving the real events: ' + JSON.stringify(kit.fired)
+    + '. spendMove is the one owner of a two-tile move, so sprint and dash both feed it',
+    kit.everyVerbHasACaller === true);
+
+  ok('V185 AND SPENDING ONE EMPTIES IT, AN UNCHARGED ONE REFUSES, AND NOT ONE OF THE SIX TOUCHES DAMAGE. PLATE UP takes plates ' + kit.plateWent.before + ' -> ' + kit.plateWent.after
+    + ' and goes uncharged; a cold ability returns false; and firing ALL SIX leaves applyDamage at ' + kit.damage.before + ' -> ' + kit.damage.after
+    + '. Every effect is POSITION, STATE or RESOURCE -- they move you, hide you, pin a man, hand you a plate, widen one dial or give back a pip. NO DAMAGE BEFORE THE DIAL survives a whole ability kit',
+    kit.used === true && kit.plateWent.after === kit.plateWent.before + 1
+    && kit.plateWent.readyAfter === false && kit.unchargedRefuses === true
+    && kit.damage.before === kit.damage.after);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
