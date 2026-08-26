@@ -1,3 +1,87 @@
+UI (ui-kmqmrf): 8/26 (c) LATEST -- *** HE OPENED THE UI TAB AND IT WAS BROKEN, AND
+BOTH THINGS HE SAID WERE RIGHT. The break was one CSS shape his phone drops and
+five other slices already avoid. The vote was supposed to be THUMBS and I invented
+a letter-picker instead. Both fixed. TAB: UI. ***
+
+TAB: UI. 48 thumbs on it now. Round two is asked IN THE TAB, with thumbs.
+
+*** 1. THE BREAK: `font:` SHORTHAND WITH A var() FAMILY ***
+  The page set type with `font:13px var(--fc)` FORTY-FOUR TIMES, including on
+  body. Chromium parses it. HIS PHONE IS WEBKIT, where shorthand-plus-var is the
+  fragile one, and when that declaration drops, every element using it loses its
+  SIZE AND ITS FAMILY IN THE SAME STROKE and the page falls back to the browser
+  default. That is not a subtle regression, that is a page arriving broken.
+  THE TELL WAS ONE GREP AWAY AND I NEVER RAN IT:
+      RUN slice     0 shorthands   27 font-family longhands
+      ALPHA         0              -
+      ART / LOOK / WORDS  0        -
+      UI page      44              -
+  FIVE SURFACES THAT WORK ON HIS PHONE ALL AVOID IT. ONE SURFACE USED IT. THAT
+  WAS THE ONE THAT BROKE. All 44 are longhands now. The shorthand also RESETS
+  font-weight and six rules were living off that reset, so the weight is written
+  down on purpose now instead of arriving as a side effect.
+
+*** 2. THE THING UNDER THE THING, AND IT IS EVERYBODY'S: NO GATE IN THIS REPO
+CAN SEE HIS BROWSER. *** 429 gates. Every browser one of them drives CHROMIUM.
+  There is no WebKit binary in the container, this session is told not to install
+  one, egress is closed. VERIFY ON THE REAL SURFACE (7/18) says the surface is
+  the one HE sees; we have been honouring the FILE half of that rule and quietly
+  failing the ENGINE half for a month. EVERY "PASS" THIS REPO HAS EVER PRINTED
+  ABOUT A RENDERED PAGE IS A STATEMENT ABOUT CHROMIUM. I could not fix that today
+  and I am not pretending otherwise. Routed SHARED -16.
+  WHAT SHIPPED INSTEAD, and it is worth keeping either way:
+    a) the font check is STATIC and sweeps EVERY slice, not just this lane's.
+    b) THE DIFFERENTIAL, GENERALISED: five slices are proven on his phone BECAUSE
+       HE PLAYS THEM, so anything a new page uses that NONE of them use is by
+       definition untested on the only browser that matters. Run today it named
+       three constructs unique to this page -- clip-path (THE CUT CORNER, one of
+       the three things he is voting on), background-blend-mode, and
+       prefers-reduced-motion. All three carry their WebKit prefix now and the
+       gate holds that every clip-path has a -webkit- twin.
+
+*** 3. THE VOTE: THUMBS, AND THE RULE WAS ALREADY WRITTEN DOWN ***
+  CLAUDE.md's verdict workflow says he judges by TAPPING THUMBS. The ART tab has
+  shipped them for weeks. I invented a letter-picker, so THE ONE PAGE ASKING FOR
+  HIS VERDICT WAS THE ONE PAGE THAT DID NOT LOOK LIKE A VERDICT.
+  Every option in every fork now has a thumbs up and a thumbs down: same buttons,
+  same words, same green and red as the ART tab. YES is one per question and
+  makes the whole page WEAR it, so the vote is not a form field, it is him
+  looking at his own choice. NO is INDEPENDENT -- he is allowed to hate all three
+  and that is a real answer. The NOs used to be thrown away; they are rulings.
+  The fork reads it back in words ("YES to C BONE . NO to A ONE GOLD"). A vote is
+  never colour alone: the chosen thumb also gets a heavier edge and a tick.
+  AN OLDER SAVE ON HIS PHONE HOLDING st.pick IS CARRIED FORWARD AS A YES, so
+  nothing he already told us is lost.
+  ROUND TWO IS ASKED IN THE TAB NOW, with thumbs, instead of only in chat. A
+  question he can only answer by remembering a message is the same failure NAME
+  THE TAB exists to kill.
+
+STANDING FOR EVERY LANE: any new judge surface uses THUMBS. And a green gate is a
+claim about the engine it ran in; ours all say Chromium.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  His thumbs, on the seven forks and on round two. All in the UI tab.
+
+WHAT I WOULD DO NEXT
+  1. Whatever he thumbs up: turn it into the real tokens the run uses.
+  2. UI-6, the beat list (FFX.R01), with COMBAT and RUN owning the contents.
+  3. SHARED -16 if any lane lands in an environment that has WebKit.
+
+PROOF
+  records/BOHEMIA_IT_BROKE_ON_HIS_PHONE_AND_EVERY_GATE_DRIVES_CHROMIUM_8_26_26.md
+  gates/ui_vocab_gate.js       67 passed, 0 FAILED  (was 57)
+  gates/ui_study_gate.js       45 passed, 0 FAILED  (was 40)
+  MUTATED, four new, all restored:
+    ONE font shorthand put back   -> RED, naming the file and the count
+    thumbs taken off one option   -> RED
+    the -webkit- twin stripped    -> RED
+    round two's thumbs removed    -> RED
+
+------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 8/26 (c) LATEST -- *** FOUR PHYSICS THIS RACK HAS NEVER
 HAD, answering his standing order. And the gate that measures them FAILED MY OWN
 BATCH TWICE -- I fixed the voices, not the gate. Four fresh songs badged NEW. ***

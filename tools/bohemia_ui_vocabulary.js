@@ -341,6 +341,13 @@ function sampleFor(f, o) {
 }
 
 function forkCard(f) {
+  /* THUMBS ON EVERY OPTION. Paolo 8/26: "I should be seeing a thumbs up and
+     thumbs down in anything you want me to fucking vote." He is right and this
+     was already the house rule -- the verdict workflow in CLAUDE.md says he
+     judges by tapping thumbs, and the ART tab has done exactly this for weeks.
+     The first cut of this page invented a letter-picker instead. One voting
+     system, and it is the one he already knows: the same buttons, the same
+     words, the same green and red. */
   const opts = f.opts.map(o => `
     <div class="opt" data-k="${f.k}" data-v="${o.v}">
       <div class="ohd"><span class="oletter">${o.v}</span><span class="oname">${esc(o.name)}</span>${
@@ -348,19 +355,19 @@ function forkCard(f) {
         f.rec === o.v ? '<span class="orec">MY PICK</span>' : ''}</div>
       ${sampleFor(f, o)}
       <p class="why">${esc(o.why)}</p>
+      <div class="verdict">
+        <button class="thumb up" data-k="${f.k}" data-v="${o.v}" data-t="UP">&#128077; YES</button>
+        <button class="thumb down" data-k="${f.k}" data-v="${o.v}" data-t="DOWN">&#128078; NO</button>
+      </div>
     </div>`).join('');
-  const picks = f.opts.map(o => `<button class="pick" data-k="${f.k}" data-v="${o.v}">${o.v}</button>`).join('');
   return `
   <section class="fork" id="fork-${f.k}" data-k="${f.k}">
     <h2><span class="n">${f.n}</span>${esc(f.title)}</h2>
     <p class="ask">${esc(f.ask)}</p>
     <p class="note">${esc(f.note)}</p>
     ${opts}
-    <div class="pickrow">
-      <span class="picklab">PICK ONE</span>${picks}
-      <span class="picked" id="picked-${f.k}">&mdash;</span>
-    </div>
-    <p class="recwhy"><b>WHY I WOULD PICK:</b> ${esc(f.rec_why)}</p>
+    <p class="picked" id="picked-${f.k}">Nothing said yet.</p>
+    <p class="recwhy"><b>WHAT I WOULD SAY YES TO:</b> ${esc(f.rec_why)}</p>
     <textarea class="note-in" data-k="${f.k}" placeholder="tear it up here. anything you hate, anything missing."></textarea>
   </section>`;
 }
@@ -426,6 +433,29 @@ function studyView() {
   <b>FFX.R01</b>. That is not decoration. Any time somebody around here says
   "let us do it like Final Fantasy", they have to say which one, and the machine
   checks that it is real.</p>
+
+  <section class="fork" id="fork-round2">
+    <h2><span class="n">&#9654;</span>ROUND TWO</h2>
+    <p class="ask">Which game do we take apart next?</p>
+    <p class="note">Say yes to one. Say no to any you do not care about. This is
+    the only thing on this page I am asking you for.</p>
+    ${[
+      ['P5', 'PERSONA 5', 'The loudest menus anybody has ever shipped, and the exact opposite of us. Best teacher alive on the question you are answering on the other page: how far a look can go before it stops working.'],
+      ['DS', 'DEATH STRANDING', 'A dead landscape and a phone in your hand. Closest to our mood of anything made. Would teach us the most about menus over an empty world.'],
+      ['DSP','DEAD SPACE', 'No menus at all. Health is on his spine, the map is a beam out of his hand. Would fill the hole Final Fantasy X left us: how do you put things on screen when you are not a hallway.']
+    ].map(g => `
+      <div class="opt" data-k="round2" data-v="${g[0]}">
+        <div class="ohd"><span class="oletter">${g[0]}</span><span class="oname">${g[1]}</span>${
+          g[0] === 'P5' ? '<span class="orec">MY PICK</span>' : ''}</div>
+        <p class="why">${g[2]}</p>
+        <div class="verdict">
+          <button class="thumb up" data-k="round2" data-v="${g[0]}" data-t="UP">&#128077; YES</button>
+          <button class="thumb down" data-k="round2" data-v="${g[0]}" data-t="DOWN">&#128078; NO</button>
+        </div>
+      </div>`).join('')}
+    <p class="picked" id="picked-round2">Nothing said yet.</p>
+    <textarea class="note-in" data-k="round2" placeholder="or name a different game here"></textarea>
+  </section>
 </div>`;
 }
 
@@ -492,12 +522,12 @@ body.sun .note-in,body.sun .bottom textarea{ color:#2a2418; border-color:#a89e88
 
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html,body{ margin:0; background:var(--bg); color:var(--ink); }
-body{ font:14px/1.55 var(--fb); padding:10px 10px calc(46px + env(safe-area-inset-bottom));
+body{ font-family:var(--fb);font-size:14px;line-height:1.55; padding:10px 10px calc(46px + env(safe-area-inset-bottom));
       max-width:520px; margin:0 auto; }
 
 header{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-h1{ font:13px/1.4 var(--fc); letter-spacing:2px; margin:0; flex:1; color:var(--acc); }
-.sunbtn{ min-height:44px; font:11px var(--fc); letter-spacing:1px; padding:8px 11px;
+h1{ font-family:var(--fc);font-size:13px;line-height:1.4;font-weight:400; letter-spacing:2px; margin:0; flex:1; color:var(--acc); }
+.sunbtn{ min-height:44px; font-family:var(--fc);font-size:11px; letter-spacing:1px; padding:8px 11px;
          background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:4px; }
 .lede{ font-size:13px; color:var(--dim); margin:0 0 14px; }
 .lede b{ color:var(--ink); }
@@ -507,22 +537,22 @@ h1{ font:13px/1.4 var(--fc); letter-spacing:2px; margin:0; flex:1; color:var(--a
    inner = the fill. corner, weight and cut all come out of this one pair,
    which is why seven letters can re-skin the whole page live. */
 .bx{ background:var(--line); padding:var(--bw); border-radius:var(--r);
-     clip-path:var(--clip); border:0; display:block; width:100%; text-align:left; }
+     -webkit-clip-path:var(--clip); clip-path:var(--clip); border:0; display:block; width:100%; text-align:left; }
 .bx > .in{ background:var(--fill); background-image:var(--grain);
            background-blend-mode:multiply; border-radius:var(--rin);
-           clip-path:var(--clip); box-shadow:var(--wear); padding:11px 12px;
+           -webkit-clip-path:var(--clip); clip-path:var(--clip); box-shadow:var(--wear); padding:11px 12px;
            color:var(--ink); font:inherit; }
-.btn{ font:12px var(--fc); letter-spacing:1.4px; padding:var(--bw); min-height:48px; }
+.btn{ font-family:var(--fc);font-size:12px; letter-spacing:1.4px; padding:var(--bw); min-height:48px; }
 .btn > .in{ display:flex; align-items:center; justify-content:center; min-height:46px;
             padding:6px 10px; color:var(--acc); font-weight:700; text-align:center; }
 .btn.ghost > .in{ color:var(--dim); }
-.pane > .in{ font:12px/1.5 var(--fb); color:var(--dim); }
-.pane b{ font:11px var(--fc); letter-spacing:1.5px; color:var(--ink); display:block; margin:6px 0 4px; }
+.pane > .in{ font-family:var(--fb);font-size:12px;line-height:1.5; color:var(--dim); }
+.pane b{ font-family:var(--fc);font-size:11px;font-weight:400; letter-spacing:1.5px; color:var(--ink); display:block; margin:6px 0 4px; }
 /* the SECOND accent lives here, so ONE GOLD and GOLD AND COLD are not the
    same picture. the BODY face lives here, so the letters fork is visible too. */
-.sTag{ display:inline-block; font:9px var(--fc); letter-spacing:1.2px; padding:3px 6px;
+.sTag{ display:inline-block; font-family:var(--fc);font-size:9px; letter-spacing:1.2px; padding:3px 6px;
        border:1px solid var(--acc2); color:var(--acc2); border-radius:2px; }
-.sBody{ display:block; font:13px/1.45 var(--fb); color:var(--dim); }
+.sBody{ display:block; font-family:var(--fb);font-size:13px;line-height:1.45; color:var(--dim); }
 
 /* ---- PRESSED: the three candidates, each a whole rule ------------------- */
 .press-A .btn:active > .in,[data-press="A"] .btn:active > .in{
@@ -547,67 +577,74 @@ h1{ font:13px/1.4 var(--fc); letter-spacing:2px; margin:0; flex:1; color:var(--a
   .deny{ animation:none; }
   .deny > .in{ box-shadow:inset 0 0 0 3px var(--danger); }
 }
-.denyword{ font:11px var(--fc); letter-spacing:1px; color:var(--danger); min-height:17px;
+.denyword{ font-family:var(--fc);font-size:11px; letter-spacing:1px; color:var(--danger); min-height:17px;
            margin-top:7px; }
 
 /* ---- forks --------------------------------------------------------------- */
 .fork{ margin:0 0 22px; padding:0 0 16px; border-bottom:1px solid var(--line); }
-h2{ font:13px var(--fc); letter-spacing:1.6px; margin:0 0 6px; display:flex; gap:8px; align-items:center; }
+h2{ font-family:var(--fc);font-size:13px;font-weight:400; letter-spacing:1.6px; margin:0 0 6px; display:flex; gap:8px; align-items:center; }
 .n{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px;
-    border-radius:50%; background:var(--acc); color:var(--accink); font:11px var(--fc); flex:none; }
+    border-radius:50%; background:var(--acc); color:var(--accink); font-family:var(--fc);font-size:11px; flex:none; }
 .ask{ font-size:14px; margin:0 0 6px; }
 .note{ font-size:12.5px; color:var(--dim); margin:0 0 12px; }
 .opt{ margin:0 0 14px; }
 .ohd{ display:flex; align-items:center; gap:7px; margin-bottom:7px; flex-wrap:wrap; }
 .oletter{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px;
-          border:1px solid var(--acc); color:var(--acc); font:11px var(--fc); border-radius:3px; flex:none; }
-.oname{ font:12px var(--fc); letter-spacing:1.5px; }
-.otoday,.orec{ font:9px var(--fc); letter-spacing:1px; padding:3px 6px; border-radius:2px; }
+          border:1px solid var(--acc); color:var(--acc); font-family:var(--fc);font-size:11px; border-radius:3px; flex:none; }
+.oname{ font-family:var(--fc);font-size:12px; letter-spacing:1.5px; }
+.otoday,.orec{ font-family:var(--fc);font-size:9px; letter-spacing:1px; padding:3px 6px; border-radius:2px; }
 .otoday{ background:var(--line); color:var(--ink); }
 .orec{ border:1px solid var(--acc); color:var(--acc); }
 .samp{ display:flex; flex-direction:column; gap:7px; }
 .samp .bx{ }
 .why{ font-size:12.5px; color:var(--dim); margin:8px 0 0; }
 .recwhy{ font-size:12.5px; margin:10px 0 0; color:var(--ink); }
-.recwhy b{ font:10px var(--fc); letter-spacing:1.2px; color:var(--acc); }
+.recwhy b{ font-family:var(--fc);font-size:10px;font-weight:400; letter-spacing:1.2px; color:var(--acc); }
 
-.pickrow{ display:flex; align-items:center; gap:7px; margin-top:12px; flex-wrap:wrap; }
-.picklab{ font:10px var(--fc); letter-spacing:1.5px; color:var(--faint); }
-.pick{ flex:1; min-width:56px; min-height:52px; font:16px var(--fc); font-weight:700;
-       background:transparent; color:var(--ink); border:2px solid var(--line); border-radius:5px; }
-/* SELECTED IS NEVER COLOUR ALONE (basic tier, ~1 in 12 men): it also gets a
-   thicker edge AND a tick in the label. */
-.pick.on{ background:var(--acc); color:var(--accink); border-color:var(--acc); border-width:4px; }
-.picked{ flex:1 0 100%; font:11px var(--fc); letter-spacing:1px; color:var(--acc); margin-top:2px; }
+/* THE THUMBS. Same buttons, same words, same green and red as the ART tab, so
+   there is exactly one thing in this build that means "vote". */
+.verdict{ display:flex; gap:8px; margin-top:10px; }
+.thumb{ flex:1; min-height:52px; font-family:var(--fc);font-size:12px; letter-spacing:1px;
+        padding:12px 4px; background:transparent; color:var(--ink);
+        border:2px solid var(--line); border-radius:5px; }
+/* A VOTE IS NEVER COLOUR ALONE (basic tier, ~1 in 12 men): the one he chose also
+   gets a thicker edge AND a tick in its own label. */
+.thumb.on{ border-width:4px; }
+.thumb.on.up{ background:#2f5d34; border-color:#4a8a52; color:#eaffea; }
+.thumb.on.down{ background:#5d2f2f; border-color:#8a4a4a; color:#ffeaea; }
+.picked{ font-family:var(--fc);font-size:11px; letter-spacing:1px; color:var(--acc);
+         margin:12px 0 0; }
+body.sun .thumb{ color:#2a2418; border-color:#a89e88; }
+body.sun .picked{ color:#4d3a10; }
 .note-in{ width:100%; margin-top:10px; min-height:44px; background:transparent; color:var(--ink);
-          border:1px solid var(--line); border-radius:5px; padding:8px; font:12px var(--fb); resize:vertical; }
+          border:1px solid var(--line); border-radius:5px; padding:8px; font-family:var(--fb);font-size:12px; resize:vertical; }
 
 /* ---- live preview -------------------------------------------------------- */
 .prev{ display:flex; flex-direction:column; gap:8px; margin:0 0 8px; }
 .pvbar > .in{ padding:9px 11px; }
-.pvobj{ display:flex; align-items:center; gap:8px; font:12px var(--fc); letter-spacing:.4px; color:var(--acc); }
+.pvobj{ display:flex; align-items:center; gap:8px; font-family:var(--fc);font-size:12px; letter-spacing:.4px; color:var(--acc); }
 .pvring{ color:var(--acc); }
 .pvchip{ margin-left:auto; font-size:10px; color:var(--faint); }
-.pvworld{ position:relative; height:190px; overflow:hidden; border-radius:var(--r); clip-path:var(--clip); }
+.pvworld{ position:relative; height:190px; overflow:hidden; border-radius:var(--r); -webkit-clip-path:var(--clip); clip-path:var(--clip); }
 .pvworld img{ width:100%; height:100%; object-fit:cover; object-position:50% 46%;
               image-rendering:pixelated; display:block; }
 /* THE THUMB (SHARED -5): the top corners are the worst real estate on a phone
    and about half of people hold it one-handed. The controls sit low and right
    here for the same reason they do in the run. */
 .pvtoastwrap{ position:absolute; left:8px; right:8px; top:8px; width:auto; }
-.pvtoast{ font:11.5px/1.45 var(--fc); color:var(--ink); }
+.pvtoast{ font-family:var(--fc);font-size:11.5px;line-height:1.45; color:var(--ink); }
 .pvtoast b{ color:var(--acc); }
 .pvnav{ position:absolute; right:8px; bottom:8px; display:flex; gap:6px; align-items:flex-end; }
 .pvact{ width:76px; }
 .pvpb{ width:48px; }
 .pvcard > .in{ padding:12px; }
-.pvcardhd{ display:flex; align-items:center; gap:8px; font:13px var(--fb); }
+.pvcardhd{ display:flex; align-items:center; gap:8px; font-family:var(--fb);font-size:13px; }
 .pvcardhd b{ font-weight:700; }
-.pvtag{ margin-left:auto; font:9px var(--fc); letter-spacing:1px; padding:3px 6px;
+.pvtag{ margin-left:auto; font-family:var(--fc);font-size:9px; letter-spacing:1px; padding:3px 6px;
         border:1px solid var(--acc2); color:var(--acc2); border-radius:2px; }
 .pvbody{ font-size:14px; margin-top:9px; }
 .pveng{ display:flex; gap:16px; margin-top:10px; padding-top:9px; border-top:1px solid var(--line);
-        font:11px var(--fc); color:var(--dim); }
+        font-family:var(--fc);font-size:11px; color:var(--dim); }
 .pveng .pvg{ margin-left:auto; color:var(--acc); font-weight:700; }
 .pvrow{ display:flex; gap:8px; }
 .pvrow .btn{ flex:1; }
@@ -615,7 +652,7 @@ h2{ font:13px var(--fc); letter-spacing:1.6px; margin:0 0 6px; display:flex; gap
 /* ---- the feed art options ------------------------------------------------ */
 .pvfeedart{ display:none; }
 .feed-B .pvfeedart,[data-feed="B"] .pvfeedart{ display:flex; align-items:center; gap:9px;
-  margin-top:9px; font:10px var(--fc); letter-spacing:1.2px; color:var(--dim); }
+  margin-top:9px; font-family:var(--fc);font-size:10px; letter-spacing:1.2px; color:var(--dim); }
 .feed-B .pvfeedart::before,[data-feed="B"] .pvfeedart::before{
   content:"\\25E5"; display:inline-flex; align-items:center; justify-content:center;
   width:38px; height:38px; flex:none; background:var(--acc); color:var(--accink);
@@ -624,27 +661,27 @@ h2{ font:13px var(--fc); letter-spacing:1.6px; margin:0 0 6px; display:flex; gap
 .feed-C .pvfeedart,[data-feed="C"] .pvfeedart{ display:block; position:relative; margin-top:9px;
   height:74px; overflow:hidden; border-radius:2px;
   background-image:url("../records/target/VALLEY_COMMERCIAL.png");
-  background-size:cover; background-position:50% 52%; image-rendering:pixelated; }
+  background-size:cover; background-position:50% 52%; image-rendering:pixelated; image-rendering:crisp-edges; }
 .feed-C .pvfeedart::after,[data-feed="C"] .pvfeedart::after{
   content:"THE PUMP YARD"; position:absolute; left:6px; bottom:6px;
-  font:9px var(--fc); letter-spacing:1.2px; padding:3px 6px;
+  font-family:var(--fc);font-size:9px; letter-spacing:1.2px; padding:3px 6px;
   background:rgba(8,7,5,.8); color:var(--ink); }
 
 /* ---- bottom -------------------------------------------------------------- */
 .bottom{ border-top:1px solid var(--line); padding-top:14px; margin-top:6px; }
-.bottom h3{ font:12px var(--fc); letter-spacing:1.5px; margin:0 0 8px; color:var(--acc); }
+.bottom h3{ font-family:var(--fc);font-size:12px;font-weight:400; letter-spacing:1.5px; margin:0 0 8px; color:var(--acc); }
 .bottom textarea{ width:100%; min-height:120px; background:transparent; color:var(--ink);
-  border:1px solid var(--line); border-radius:5px; padding:9px; font:13px var(--fb); resize:vertical; }
-.exp{ width:100%; margin-top:10px; min-height:54px; font:12px var(--fc); letter-spacing:2px;
+  border:1px solid var(--line); border-radius:5px; padding:9px; font-family:var(--fb);font-size:13px; resize:vertical; }
+.exp{ width:100%; margin-top:10px; min-height:54px; font-family:var(--fc);font-size:12px; letter-spacing:2px;
       padding:15px; background:var(--acc); color:var(--accink); border:0; border-radius:6px; }
-.reset{ width:100%; margin-top:8px; min-height:48px; font:11px var(--fc); letter-spacing:1.5px;
+.reset{ width:100%; margin-top:8px; min-height:48px; font-family:var(--fc);font-size:11px; letter-spacing:1.5px;
         background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:6px; }
-.done{ font:11px var(--fc); color:var(--faint); text-align:center; margin-top:8px; min-height:16px; }
-.tally{ font:11px var(--fc); letter-spacing:1px; color:var(--dim); margin:10px 0 0; }
+.done{ font-family:var(--fc);font-size:11px; color:var(--faint); text-align:center; margin-top:8px; min-height:16px; }
+.tally{ font-family:var(--fc);font-size:11px; letter-spacing:1px; color:var(--dim); margin:10px 0 0; }
 
 /* ---- TWO ROOMS, ONE TAB -------------------------------------------------- */
 #viewpick{ display:flex; gap:7px; margin:0 0 14px; }
-.vbtn{ flex:1; min-height:46px; font:10px/1.35 var(--fc); letter-spacing:.9px;
+.vbtn{ flex:1; min-height:46px; font-family:var(--fc);font-size:10px;line-height:1.35; letter-spacing:.9px;
        background:transparent; color:var(--dim); border:2px solid var(--line);
        border-radius:5px; padding:8px 6px; }
 /* NEVER COLOUR ALONE: the room you are standing in also has a thicker edge and
@@ -659,34 +696,34 @@ body.sun .vbtn.on{ background:#4d3a10; color:#f7f3e8; border-color:#4d3a10; }
 .scoreboard{ margin:0 0 4px; }
 .scoreplate{ border:2px solid var(--line); border-radius:5px; padding:11px 12px; }
 .scorow{ display:flex; gap:6px; flex-wrap:wrap; }
-.sc{ flex:1 1 40%; font:10px var(--fc); letter-spacing:1px; color:var(--dim); line-height:1.35; }
-.sc b{ display:block; font:20px var(--fc); font-weight:700; color:var(--ink); line-height:1.1; }
+.sc{ flex:1 1 40%; font-family:var(--fc);font-size:10px; letter-spacing:1px; color:var(--dim); line-height:1.35; }
+.sc b{ display:block; font-family:var(--fc);font-size:20px; font-weight:700; color:var(--ink); line-height:1.1; }
 .sc b.t{ color:var(--acc); }
 .sc b.a{ color:var(--acc2); }
 .sc b.r{ color:var(--danger); }
 .master{ margin:22px 0 0; }
 .mhd{ display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;
-      font:13px var(--fc); letter-spacing:1.6px; margin:0 0 10px;
+      font-family:var(--fc);font-size:13px; letter-spacing:1.6px; margin:0 0 10px;
       padding-bottom:7px; border-bottom:2px solid var(--line); }
 .mname{ color:var(--acc); }
-.msub{ font:11px var(--fb); letter-spacing:0; color:var(--dim); }
+.msub{ font-family:var(--fb);font-size:11px; letter-spacing:0; color:var(--dim); }
 .fnd{ margin:0 0 16px; padding:0 0 14px; border-bottom:1px solid var(--line); }
 .fhd{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-.fid{ font:10px var(--fc); letter-spacing:1.4px; color:var(--faint); }
+.fid{ font-family:var(--fc);font-size:10px; letter-spacing:1.4px; color:var(--faint); }
 /* THE VERDICT IS THE LOUDEST THING ON THE CARD, because the verdict is the point.
    It carries a WORD, so it never depends on its colour to be read. */
-.fverd{ margin-left:auto; font:10px var(--fc); font-weight:700; letter-spacing:1.4px;
+.fverd{ margin-left:auto; font-family:var(--fc);font-size:10px; font-weight:700; letter-spacing:1.4px;
         padding:4px 8px; border-radius:2px; border:2px solid var(--line); color:var(--ink); }
 .fv-take{ border-color:var(--acc); color:var(--acc); }
 .fv-adapt{ border-color:var(--acc2); color:var(--acc2); }
 .fv-refuse{ border-color:var(--danger); color:var(--danger); }
-.ftitle{ font:12.5px var(--fc); letter-spacing:1.2px; line-height:1.45; margin:0 0 8px; color:var(--ink); }
+.ftitle{ font-family:var(--fc);font-size:12.5px; letter-spacing:1.2px; line-height:1.45; margin:0 0 8px; color:var(--ink); }
 .fnd p{ font-size:13px; margin:0 0 8px; color:var(--dim); line-height:1.55; }
-.fnd p b{ display:block; font:9.5px var(--fc); letter-spacing:1.3px; color:var(--acc); margin-bottom:3px; }
+.fnd p b{ display:block; font-family:var(--fc);font-size:9.5px;font-weight:400; letter-spacing:1.3px; color:var(--acc); margin-bottom:3px; }
 .fwhat{ color:var(--ink)!important; }
 .fport b{ color:var(--acc)!important; }
 .fcaut b{ color:var(--danger)!important; }
-.flens{ font:10px var(--fc)!important; letter-spacing:.6px; color:var(--faint)!important; margin-bottom:0!important; }
+.flens{ font-family:var(--fc);font-size:10px!important; letter-spacing:.6px; color:var(--faint)!important; margin-bottom:0!important; }
 body.sun .mname{ color:#4d3a10; }
 body.sun .ftitle,body.sun .fwhat{ color:#1a1712!important; }
 body.sun .fnd p{ color:#3d362a; }
@@ -727,7 +764,7 @@ else is built out of.</b> Press the samples with your thumb, they are real. Pick
 letter and the whole page turns into your pick, so you are looking at the game, not
 at swatches. Nothing here is decided. Write on anything you hate.</p>
 
-<h3 style="font:11px var(--fc);letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
+<h3 style="font-family:var(--fc);font-size:11px;letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
   YOUR PICKS, RIGHT NOW</h3>
 ${PREVIEW}
 <p class="tally" id="tallytop">Nothing picked yet. This is the game as it looks today.</p>
@@ -749,7 +786,7 @@ ${SPEC.map(forkCard).join('\n')}
   carried by the colour alone either.</p>
 </section>
 
-<h3 style="font:11px var(--fc);letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
+<h3 style="font-family:var(--fc);font-size:11px;letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
   YOUR PICKS, AGAIN, AT THE BOTTOM WHERE YOU READ</h3>
 ${PREVIEW}
 <p class="tally" id="tallybot">Nothing picked yet.</p>
@@ -768,39 +805,89 @@ ${studyView()}
 <script>
 (function(){
   var KEYS = ${JSON.stringify(SPEC.map(f => f.k))};
-  var NAMES = ${JSON.stringify(Object.fromEntries(SPEC.map(f => [f.k, { t: f.title, o: Object.fromEntries(f.opts.map(o => [o.v, o.name])), rec: f.rec }])))};
+  /* ROUND TWO is voted on with the same thumbs, but it is a QUESTION, not a
+     look: it must never re-skin the page, so it is kept out of KEYS and handled
+     on its own below. One voting system, two kinds of answer. */
+  var ASKS = ['round2'];
+  var NAMES = ${JSON.stringify(Object.assign(
+      Object.fromEntries(SPEC.map(f => [f.k, { t: f.title, o: Object.fromEntries(f.opts.map(o => [o.v, o.name])), rec: f.rec }])),
+      { round2: { t: 'ROUND TWO', o: { P5: 'PERSONA 5', DS: 'DEATH STRANDING', DSP: 'DEAD SPACE' }, rec: 'P5' } }))};
   var SAVE = 'bohemia.ui.vocab.v1';
-  var st = { pick:{}, note:{}, all:'' };
+  var st = { up:{}, down:{}, note:{}, all:'' };
   try { var raw = localStorage.getItem(SAVE); if (raw) st = JSON.parse(raw); } catch(e){}
-  st.pick = st.pick || {}; st.note = st.note || {};
+  st.up = st.up || {}; st.down = st.down || {}; st.note = st.note || {};
+  /* AN OLDER SAVE ON HIS PHONE HOLDS st.pick. Carry it forward as a YES rather
+     than dropping what he already told us. */
+  if (st.pick) { for (var pk in st.pick) { if (st.pick[pk]) st.up[pk] = st.pick[pk]; } delete st.pick; }
 
   function save(){ try{ localStorage.setItem(SAVE, JSON.stringify(st)); }catch(e){} }
 
   function apply(){
     var root = document.documentElement, n = 0;
     KEYS.forEach(function(k){
-      var v = st.pick[k];
-      if (v) { root.setAttribute('data-'+k, v); n++; } else { root.removeAttribute('data-'+k); }
-      var lab = document.getElementById('picked-'+k);
-      if (lab) lab.textContent = v ? (v + ' ' + NAMES[k].o[v]) : '\\u2014';
-      document.querySelectorAll('.pick[data-k="'+k+'"]').forEach(function(b){
-        var on = b.getAttribute('data-v') === v;
+      var yes = st.up[k] || null;
+      var no  = st.down[k] || [];
+      /* the page WEARS whatever he said yes to, so a thumb is not a form field,
+         it is him looking at his own choice */
+      if (yes) { root.setAttribute('data-'+k, yes); n++; } else { root.removeAttribute('data-'+k); }
+      document.querySelectorAll('.thumb[data-k="'+k+'"]').forEach(function(b){
+        var v = b.getAttribute('data-v'), t = b.getAttribute('data-t');
+        var on = (t === 'UP') ? (yes === v) : (no.indexOf(v) >= 0);
         b.classList.toggle('on', on);
-        /* NEVER COLOUR ALONE: the chosen letter also carries a tick. */
-        b.textContent = on ? (b.getAttribute('data-v') + '\\u2713') : b.getAttribute('data-v');
+        /* never colour alone: the one he chose is ticked in words too */
+        var base = t === 'UP' ? '\uD83D\uDC4D YES' : '\uD83D\uDC4E NO';
+        b.innerHTML = on ? (base + ' \u2713') : base;
       });
+      var lab = document.getElementById('picked-'+k);
+      if (lab) {
+        var bits = [];
+        if (yes) bits.push('YES to ' + yes + ' ' + NAMES[k].o[yes]);
+        if (no.length) bits.push('NO to ' + no.map(function(v){ return v + ' ' + NAMES[k].o[v]; }).join(', '));
+        lab.textContent = bits.length ? bits.join('  \u00B7  ') : 'Nothing said yet.';
+      }
+    });
+    ASKS.forEach(function(k){
+      var yes = st.up[k] || null, no = st.down[k] || [];
+      document.querySelectorAll('.thumb[data-k="'+k+'"]').forEach(function(b){
+        var v = b.getAttribute('data-v'), t = b.getAttribute('data-t');
+        var on = (t === 'UP') ? (yes === v) : (no.indexOf(v) >= 0);
+        b.classList.toggle('on', on);
+        var base = t === 'UP' ? '\uD83D\uDC4D YES' : '\uD83D\uDC4E NO';
+        b.innerHTML = on ? (base + ' \u2713') : base;
+      });
+      var lab = document.getElementById('picked-'+k);
+      if (lab) {
+        var bits = [];
+        if (yes) bits.push('YES to ' + NAMES[k].o[yes]);
+        if (no.length) bits.push('NO to ' + no.map(function(v){ return NAMES[k].o[v]; }).join(', '));
+        lab.textContent = bits.length ? bits.join('  \u00B7  ') : 'Nothing said yet.';
+      }
+      st.round2 = yes ? NAMES[k].o[yes] : '';
     });
     var msg = n === 0 ? 'Nothing picked yet. This is the game as it looks today.'
       : (n + ' of ' + KEYS.length + ' picked. Everything above and below is wearing your choices.');
-    var a = document.getElementById('tallytop'), b = document.getElementById('tallybot');
-    if (a) a.textContent = msg; if (b) b.textContent = msg;
+    var a = document.getElementById('tallytop'), b2 = document.getElementById('tallybot');
+    if (a) a.textContent = msg; if (b2) b2.textContent = msg;
   }
 
   document.addEventListener('click', function(e){
-    var p = e.target.closest ? e.target.closest('.pick') : null;
-    if (!p) return;
-    var k = p.getAttribute('data-k'), v = p.getAttribute('data-v');
-    st.pick[k] = (st.pick[k] === v) ? null : v;
+    var t = e.target.closest ? e.target.closest('.thumb') : null;
+    if (!t) return;
+    var k = t.getAttribute('data-k'), v = t.getAttribute('data-v'), kind = t.getAttribute('data-t');
+    st.up = st.up || {}; st.down = st.down || {};
+    st.down[k] = st.down[k] || [];
+    if (kind === 'UP') {
+      /* YES is one per question -- it is a choice between three and the page can
+         only wear one. Tapping it again takes it back. */
+      st.up[k] = (st.up[k] === v) ? null : v;
+      st.down[k] = st.down[k].filter(function(x){ return x !== v; });
+    } else {
+      /* NO is independent: he is allowed to hate all three, and that is a real
+         answer, not an empty one. */
+      var i = st.down[k].indexOf(v);
+      if (i >= 0) st.down[k].splice(i, 1); else st.down[k].push(v);
+      if (st.up[k] === v) st.up[k] = null;
+    }
     save(); apply();
   });
 
@@ -856,11 +943,16 @@ ${studyView()}
     L.push('exported ' + new Date().toISOString().slice(0,16).replace('T',' '));
     L.push('');
     KEYS.forEach(function(k){
-      var v = st.pick[k];
-      L.push(NAMES[k].t + ': ' + (v ? (v + ' - ' + NAMES[k].o[v]) : 'NOT PICKED') +
-             (v && v !== NAMES[k].rec ? '   (claude wanted ' + NAMES[k].rec + ')' : ''));
+      var yes = st.up[k], no = st.down[k] || [];
+      L.push(NAMES[k].t + ':');
+      L.push('    YES: ' + (yes ? (yes + ' - ' + NAMES[k].o[yes]) : 'nothing') +
+             (yes && yes !== NAMES[k].rec ? '   (claude wanted ' + NAMES[k].rec + ')' : ''));
+      /* THE NOS ARE THE HALF THAT USED TO GET THROWN AWAY. A dead option is a
+         ruling: the graveyard is final and nobody re-cooks it. */
+      L.push('    NO : ' + (no.length ? no.map(function(v){ return v + ' - ' + NAMES[k].o[v]; }).join(' | ') : 'nothing'));
       if (st.note[k]) L.push('    note: ' + st.note[k]);
     });
+    if (st.round2) L.push(''), L.push('ROUND TWO, THE NEXT GAME WE STUDY: ' + st.round2);
     L.push('');
     L.push('READ THE FF10 STUDY IN THIS TAB: ' + (st.view === 'study' ? 'yes' : 'not yet'));
     L.push('');
@@ -875,7 +967,7 @@ ${studyView()}
   });
 
   document.getElementById('reset').addEventListener('click', function(){
-    st = { pick:{}, note:{}, all:'' };
+    st = { up:{}, down:{}, note:{}, all:'' };
     save(); apply();
     document.querySelectorAll('.note-in').forEach(function(t){ t.value=''; });
     all.value = '';

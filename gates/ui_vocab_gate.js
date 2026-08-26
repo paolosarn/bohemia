@@ -139,6 +139,79 @@ ok('and it really opens the grime bank in code',
      pbad.length === 0);
 }
 
+/* ==== 3b. *** THE ONE THAT BROKE IT ON HIS PHONE *** =======================
+   Paolo 8/26: "It looks like the fucking UI page was broken."
+
+   ROOT CAUSE: this page set type with the CSS `font:` SHORTHAND carrying a
+   var() family -- `font:13px var(--fc)` -- forty-four times, including on
+   html,body. Chromium parses that. His phone is an iPhone, which is WebKit,
+   and WebKit is where the shorthand-plus-var has always been the fragile one;
+   when the declaration is dropped, EVERY element that used it loses its size
+   AND its family at once and the page falls back to the browser default. That
+   is not a subtle regression, that is the page arriving broken.
+
+   THE TELL WAS SITTING RIGHT THERE AND I DID NOT LOOK: measured across the
+   shipped slices, the run uses `font-family:var(--x)` as a LONGHAND 27 times
+   and the shorthand-with-var ZERO times. So does the alpha, the ART tab, the
+   LOOK tab and the WORDS tab. FIVE SURFACES THAT WORK ON HIS PHONE ALL AVOID
+   IT, ONE SURFACE USED IT, AND THAT WAS THE ONE THAT BROKE.
+
+   AND EVERY GATE IN THIS REPO DRIVES CHROMIUM. There is no WebKit binary in
+   this container, so no test here can ever reproduce his browser. That is
+   exactly why this check is STATIC and why it sweeps EVERY slice rather than
+   just this lane's: the machine cannot see his engine, so it holds the shape
+   the engine is known to be fragile about, everywhere, forever. */
+{
+  const dir = path.join(ROOT, 'slices');
+  const SHORTHAND = /font:\s*[^;{}"']*var\(--/g;
+  const offenders = [];
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.html'))) {
+    const src = fs.readFileSync(path.join(dir, f), 'utf8');
+    const hits = src.match(SHORTHAND);
+    if (hits) offenders.push(f + ' x' + hits.length);
+  }
+  ok('NO SHIPPED SLICE SETS TYPE WITH THE `font:` SHORTHAND AND A var() FAMILY ' +
+     '(it is the construct his phone drops)' +
+     (offenders.length ? ' -- ' + offenders.slice(0, 4).join(', ') : ''),
+     offenders.length === 0);
+
+  /* THE SAME DIFFERENTIAL, GENERALISED. Five slices are proven on his phone
+     because he plays them. Anything this page uses that NONE of them use is,
+     by definition, untested on the only browser that matters -- so it carries
+     its WebKit prefix or it does not ship. Measured 8/26, three constructs were
+     unique to this page: clip-path (the CUT corner, one of the three things he
+     is voting on), background-blend-mode, and prefers-reduced-motion. */
+  for (const [why, re_] of [
+    ['the cut corner is drawn with the WebKit prefix as well as the plain one',
+     /-webkit-clip-path:\s*var\(--clip\)/],
+    ['pixels stay pixels the way the alpha does it, with both spellings',
+     /image-rendering:pixelated;\s*image-rendering:crisp-edges/],
+  ]) ok(why, re_.test(page));
+  {
+    const plain = (page.match(/(?<!-)\bclip-path:/g) || []).length;
+    const pref  = (page.match(/-webkit-clip-path:/g) || []).length;
+    ok('every clip-path has a -webkit- twin (' + pref + ' of ' + plain + ')',
+       plain > 0 && pref === plain);
+  }
+
+  /* and the page really does set its type the way the working surfaces do */
+  const longhands = (page.match(/font-family:\s*var\(--/g) || []).length;
+  ok('and the UI page sets font-family as a longhand, like every surface that ' +
+     'works on his phone (' + longhands + ' of them)', longhands >= 20);
+  /* the body rule is its own selector, not the html,body reset -- match what the
+     page actually ships rather than what I assumed it shipped */
+  /* collect EVERY rule whose selector list includes a bare `body`, rather than
+     guessing which one it is. The first cut anchored on `}body{` and the real
+     file has a newline there, so a correct page failed a wrong ruler. */
+  let bodyRule = '';
+  for (const m of page.matchAll(/([^{}<>]+)\{([^}]*)\}/g)) {
+    if (m[1].split(',').map(x => x.trim()).includes('body')) bodyRule += m[2] + ';';
+  }
+  ok('the body itself has a real family and a real size, declared separately so ' +
+     'one bad token cannot take both',
+     /font-family:\s*var\(--fb\)/.test(bodyRule) && /font-size:\s*14px/.test(bodyRule));
+}
+
 /* ==== 4. THE .TXT RULE, standing on every judge surface in this repo ====== */
 ok('the export writes .txt, never .json', /download\s*=\s*'BOHEMIA_UI_PICKS\.txt'/.test(page));
 ok('there is ONE comment box at the bottom, always', /id="all"/.test(page));
@@ -255,7 +328,7 @@ function worst(text) {
           why: (o.querySelector('.why') || {}).textContent || ''
         };
       });
-      out.push({ k, opts, picks: f.querySelectorAll('.pick').length });
+      out.push({ k, opts, picks: f.querySelectorAll('.thumb').length });
     });
     return out;
   }, FP);
@@ -295,8 +368,8 @@ function worst(text) {
   ok('there are seven forks on the page (' + forks.length + ')', forks.length === 7);
   ok('every fork offers at least two options',
      forks.length > 0 && forks.every(f => f.opts.length >= 2));
-  ok('every fork has a one-letter pick row for each option',
-     forks.every(f => f.picks === f.opts.length));
+  ok('EVERY OPTION HE VOTES ON HAS A THUMBS UP AND A THUMBS DOWN',
+     forks.every(f => f.picks === f.opts.length * 2));
   ok('every option shows a REAL sample, not just a label',
      forks.every(f => f.opts.every(o => o.hasSample)));
   ok('every option carries its own reasoning',
@@ -330,7 +403,7 @@ function worst(text) {
     return [s.borderRadius, s.padding, s.backgroundColor, s.clipPath, i.fontFamily, i.backgroundImage.slice(0, 40)].join('|');
   });
   for (const [k, v] of [['shape', 'C'], ['weight', 'B'], ['colour', 'C'], ['type', 'A'], ['texture', 'B']]) {
-    await q.click('.pick[data-k="' + k + '"][data-v="' + v + '"]');
+    await q.click('.thumb.up[data-k="' + k + '"][data-v="' + v + '"]');
   }
   await SETTLE(q, 500);
   const after = await q.evaluate(() => {
@@ -341,23 +414,39 @@ function worst(text) {
   ok('picking letters CHANGES THE LIVE PREVIEW he is looking at', before !== after);
 
   const stuck = await q.evaluate(() => {
-    const b = document.querySelector('.pick[data-k="shape"][data-v="C"]');
-    const u = document.querySelector('.pick[data-k="shape"][data-v="A"]');
+    const b = document.querySelector('.thumb.up[data-k="shape"][data-v="C"]');
+    const u = document.querySelector('.thumb.up[data-k="shape"][data-v="A"]');
     const cb = getComputedStyle(b), cu = getComputedStyle(u);
     return { on: b.classList.contains('on'),
              root: document.documentElement.getAttribute('data-shape'),
              bw: cb.borderWidth, uw: cu.borderWidth,
-             txt: b.textContent, utxt: u.textContent,
-             bg: cb.backgroundColor, ubg: cu.backgroundColor };
+             txt: b.textContent.trim(), utxt: u.textContent.trim(),
+             bg: cb.backgroundColor, ubg: cu.backgroundColor,
+             label: (document.getElementById('picked-shape') || {}).textContent || '' };
   });
-  ok('the pick sticks to the button', stuck.on);
+  ok('the thumb sticks when tapped', stuck.on);
   ok('and the whole page is wearing it (data-shape=' + stuck.root + ')', stuck.root === 'C');
+  ok('and it says back in words what he just said (' + stuck.label.slice(0, 30) + ')',
+     /YES to C/.test(stuck.label));
   /* NO ESSENTIAL INFORMATION BY COLOUR ALONE (basic tier; ~1 in 12 men).
-     Chosen must ALSO be readable with every colour stripped out. */
-  ok('CHOSEN IS NEVER COLOUR ALONE: it also gets a heavier edge (' +
+     A vote must ALSO be readable with every colour stripped out. */
+  ok('A VOTE IS NEVER COLOUR ALONE: it also gets a heavier edge (' +
      stuck.uw + ' -> ' + stuck.bw + ')', stuck.bw !== stuck.uw);
-  ok('and it also gets a mark in the letter itself (' + stuck.utxt + ' -> ' + stuck.txt + ')',
+  ok('and it also gets a tick in its own label (' + stuck.utxt + ' -> ' + stuck.txt + ')',
      stuck.txt !== stuck.utxt && stuck.txt.length > stuck.utxt.length);
+
+  /* SAYING NO IS A VOTE TOO, and it is the half that used to get thrown away:
+     a dead option is a ruling, and GRAVEYARD IS FINAL. */
+  await q.click('.thumb.down[data-k="shape"][data-v="A"]');
+  await SETTLE(q, 300);
+  const nay = await q.evaluate(() => ({
+    on: document.querySelector('.thumb.down[data-k="shape"][data-v="A"]').classList.contains('on'),
+    stillC: document.documentElement.getAttribute('data-shape') === 'C',
+    label: document.getElementById('picked-shape').textContent
+  }));
+  ok('he can say NO to an option, and it sticks', nay.on);
+  ok('and a NO on one option does not disturb the YES on another', nay.stillC);
+  ok('and the page reads his NO back to him too', /NO to A/.test(nay.label));
 
   /* ---- 6e. HIS WORK SURVIVES A RELOAD ------------------------------------ */
   await q.reload();
@@ -480,7 +569,7 @@ function worst(text) {
   /* ---- 6j. THE EXPORT CARRIES A REAL PICK ------------------------------- */
   const txt = await q.evaluate(() => {
     const KEYS = window.__BOH_UI_VOCAB.keys, st = window.__BOH_UI_VOCAB.state();
-    return { keys: KEYS.length, picked: Object.values(st.pick).filter(Boolean).length };
+    return { keys: KEYS.length, picked: Object.values(st.up || {}).filter(Boolean).length };
   });
   ok('the page can hand back what he chose (' + txt.picked + ' of ' + txt.keys + ')',
      txt.keys === 7 && txt.picked >= 5);

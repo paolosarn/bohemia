@@ -7617,6 +7617,20 @@ UI-7. *** ROUTED TO COMBAT + RUN, NOT BUILT HERE (FFX.D01, the finding under the
    I-MOVE-YOU-MOVE already says the world advances when you act, so if standing
    still costs nothing the list stays readable and the beat only decides WHEN the
    action lands. COMBAT's and RUN's call. | - | - | no. TAB: RUN. ***
+UI-8. *** THUMBS, NOT LETTERS, ON ANYTHING HE VOTES ON (Paolo 8/26: "I should
+   be seeing a thumbs up and thumbs down in anything you want me to fucking
+   vote"). HE IS RIGHT AND IT WAS ALREADY WRITTEN DOWN -- CLAUDE.md's verdict
+   workflow says he judges by TAPPING THUMBS and the ART tab has shipped
+   thumbs for weeks. The first cut of the vocabulary page invented a
+   letter-picker, so the one page asking for his verdict was the one page that
+   did not look like a verdict. FIXED: every option in every fork has a
+   thumbs up and a thumbs down, same buttons and same green and red as the ART
+   tab. YES is one per question and makes the page WEAR it; NO is independent
+   because he is allowed to hate all three, and the NOs are rulings, not
+   discards. Round two is asked in the tab with thumbs too, instead of only in
+   chat. STANDING: any new judge surface in any lane uses thumbs. Gate:
+   ui_vocab_gate + ui_study_gate. | he can vote the way he always votes | - |
+   YES, that is the whole point. TAB: UI. ***
 UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
@@ -7635,6 +7649,30 @@ UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-16. *** EVERY BROWSER GATE IN THIS REPO DRIVES CHROMIUM, AND HE PLAYS ON AN
+   IPHONE (found 8/26 by the UI lane, the hard way -- he opened the new UI tab
+   and said "it looks like the fucking UI page was broken").
+   ROOT CAUSE OF THAT ONE BREAK: the page set type with the CSS `font:`
+   SHORTHAND carrying a var() family, 44 times, including on body. Chromium
+   parses it. WebKit is where the shorthand-plus-var is fragile, and when the
+   declaration drops, every element using it loses its SIZE AND ITS FAMILY at
+   once and the page falls back to the browser default. Fixed, and swept.
+   THE THING UNDER THE THING IS THIS ROW. 429 gates, every browser one of them
+   Chromium, no WebKit binary in the container, egress closed. VERIFY ON THE
+   REAL SURFACE (7/18) says the surface is the one HE sees. We have been
+   honouring the FILE half of that rule and quietly failing the ENGINE half for
+   a month. Every PASS this repo has printed about a rendered page is a
+   statement about Chromium.
+   WHAT TO BUILD: a WebKit leg for the browser gates (playwright ships webkit;
+   the binary is not installed here and this session was told not to install
+   one, so it needs an environment that has it, or a CI job that does).
+   THE STOPGAP THAT ALREADY SHIPPED, and it is worth keeping either way:
+   ui_vocab_gate sweeps EVERY slice for the font shorthand, and THE
+   DIFFERENTIAL -- five slices are proven on his phone BECAUSE HE PLAYS THEM,
+   so anything a new page uses that NONE of them use is untested on the only
+   browser that matters. Run today it named three constructs unique to the new
+   page and all three now carry their WebKit prefix.
+   | a browser gate runs on WebKit too | - | no. TAB: every tab he opens. ***
 -15. *** FOUR PANELS ARE STILL PAINTED IN THE AMALGAMATION'S COLOUR (found
    8/26 by the UI lane; the shared chrome is already fixed, these are inside
    other lanes' panels so their lanes own them). PURPLE RESERVATION (7/10,

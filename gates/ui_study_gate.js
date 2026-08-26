@@ -275,6 +275,35 @@ ok('there is a way to switch between them', /class="vbtn"/.test(page));
   ok('and the study does not run off the side of the phone',
      await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1));
 
+  /* ROUND TWO IS A VOTE, SO IT HAS THUMBS. Paolo 8/26: "I should be seeing a
+     thumbs up and thumbs down in anything you want me to fucking vote." The
+     question about which game we study next was asked in chat only; a question
+     he cannot answer in the tab is a question he has to remember, and that is
+     the same failure NAME THE TAB is about. */
+  const r2 = await p.evaluate(() => ({
+    card: !!document.getElementById('fork-round2'),
+    ups: document.querySelectorAll('#fork-round2 .thumb.up').length,
+    downs: document.querySelectorAll('#fork-round2 .thumb.down').length,
+    opts: document.querySelectorAll('#fork-round2 .opt').length
+  }));
+  ok('ROUND TWO is asked in the tab, not only in chat', r2.card);
+  ok('and every game on it has a thumbs up AND a thumbs down (' +
+     r2.ups + ' up, ' + r2.downs + ' down, ' + r2.opts + ' games)',
+     r2.opts >= 3 && r2.ups === r2.opts && r2.downs === r2.opts);
+  await p.click('#fork-round2 .thumb.up[data-v="P5"]');
+  await SETTLE(p, 300);
+  const r2v = await p.evaluate(() => ({
+    on: document.querySelector('#fork-round2 .thumb.up[data-v="P5"]').classList.contains('on'),
+    label: document.getElementById('picked-round2').textContent,
+    /* AND IT MUST NOT RE-SKIN THE PAGE. Round two is a question, not a look. */
+    theme: document.documentElement.getAttribute('data-round2')
+  }));
+  ok('voting on round two sticks', r2v.on);
+  ok('and it reads back which game he chose (' + r2v.label.slice(0, 28) + ')',
+     /PERSONA/.test(r2v.label));
+  ok('and it does NOT re-skin the page, because it is a question and not a look',
+     r2v.theme === null);
+
   /* SUN MODE, IN THE SECOND ROOM. ui_vocab_gate sweeps sun-mode contrast over the
      PICKS view -- and it is blind to this one, because a hidden view has no
      rendered size and every element in it is skipped. A gate that goes green
