@@ -5307,7 +5307,95 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/26 (c) LATEST -- *** HE TOLD ME TO STOP. THE SPANISH
+PEOPLE (people-7h9sfy): 8/26 (d) LATEST -- *** NOBODY IN THIS VALLEY WAS EVER
+THE LINEMAN. A QUEST ROLE IS A PERSON YOU CAN WALK UP TO NOW. TAB RUN: walk up
+to somebody and the card says what the job wants them for. ***
+
+HIS PLAYTEST DISPATCH, ITEM 2: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY
+LOCATIONS OR PEOPLE IN THE CITY." Demand-side, not [PENDING]: "A QUEST THAT IS
+NOT ATTACHED TO A PLACE AND A PERSON IS NOT A QUEST."
+
+THE CITY SAID SO ITSELF, IN A COMMENT: "SCAFFOLD -- the casting. The real system
+casts @ROLE against people who actually exist in the world and places the quest
+where they are. This binds stages to WORLD EVENTS instead." So `@ROLE lineman REQ
+faction=TRADES` resolved to the STRING "lineman". A COMMENT THAT ADMITS A GAP IS
+NOT A GATE THAT FAILS ON IT.
+
+THE DESIGN CAME OUT OF COUNTING THE ROLES, NOT GUESSING:
+  faction=X            53 uses across the nine canon quests   THE WORLD ANSWERS IT
+  ~60 other predicates  1 use each (keeps_the_tunnel, reads_the_sky,
+                        found_the_stairwell, speaks_for_the_crew...)
+The faction is MATCHED. The one-offs are CONFERRED: the quest does not hunt for
+somebody who already keeps the tunnel, it makes the person it cast INTO the one
+who keeps it. That is the only reading that does not require inventing sixty new
+simulation facts.
+
+MEASURED FIRST: 2,661 people walked, 204 affiliated (7.7%), 11 of 13 outfits with
+real people on real ground, 2 (REDS, BLUES) with nobody -- and NULL is the honest
+answer for those rather than putting a stranger in an insider's part.
+The FIRST sweep read ZERO of 1,282 and that was MY WRONG FIELD, not the world:
+the city derives affiliation through its own bridge, not off the record. Checked
+before filing rather than after.
+
+ON THE CARD, MEASURED: "THE JOB: The Meter Reader wants the fixer. On this block,
+that is them." over Clemencia Munoz, whose RUNS WITH row says NETWORK, which is
+exactly what the fixer role demands. THE GATE'S STRONGEST CLAIM IS THAT
+CROSS-CHECK: printing "wants the fixer" over somebody whose own card says CARTEL
+would be worse than no row at all.
+
+WHAT IT DOES NOT CLAIM, SAID PLAINLY: THE PLACE HALF. bohemia_loop.js
+castTarget() has picked a real district cell for each quest SINCE 7/26 and the
+demo day loop binds to world events instead. That wiring is the day loop's job.
+The row says "on this block" because that is exactly what it is. ITEM 2 IS NOT
+CLOSED and this gate does not pretend it is.
+
+casting_gate, 27 claims, registered as CASTING. MUTATIONS: the faction demand
+ignored 5 RED (including 576/576 blocks casting, which is the tell); the dedupe
+deleted 2 RED ("part_a, part_b from a block of one person"); the card row deleted
+2 RED.
+
+A DEFECT IN MY OWN WORK, FOUND BY THE MUTATION: the cast was cached on hx,hy and
+the roster LENGTH, so taking one step re-cast the quest. Harmless while the pool
+is two or three people, and NOT harmless the moment the roster shifts: the person
+whose card you opened stops being the one the quest wants, mid-conversation. A
+CAST THAT MOVES WHILE YOU WALK TOWARD IT IS NOT A CAST. Keyed on the block now.
+
+AND TWO VACUOUS ATTEMPTS AT ONE CLAIM: "one person never holds two parts" passed
+with the dedupe DELETED, twice -- first because two different factions cannot
+collide, then because nine eligible people land apart BY LUCK. It takes a block
+of ONE person for the dedupe to be the only thing that can make it pass. A CLAIM
+HAS TO BE BUILT SO THE RULE IT NAMES IS THE ONLY THING THAT CAN MAKE IT PASS.
+
+Record: records/BOHEMIA_NOBODY_WAS_EVER_THE_LINEMAN_8_26_26.md
+
+WHAT COMES NEXT FOR THIS LANE:
+  1. *** THE CONVERSATION HAS NEVER BEEN PLAYED, AND IT IS THE BIGGEST HOLE IN
+     THE GAME. *** Counted this turn across quests/bq: 27 quest files, 236 @TALK
+     nodes, 504 @SAY lines, 558 @OPT choices, 59 @NOVERB refusals. The REAL
+     parser parses all of it (bohemia_bq.js builds talks/says/opts/locks/noverbs
+     and the linter checks node reachability, orphans and traps). NOTHING SPEAKS
+     IT. bohemia_demoquests.js binds stages to WORLD EVENTS -- where you walked,
+     whether the block had power -- so the quest talks to you through the phone
+     feed and the journal and NEVER through a person's mouth. His 8/11 words were
+     "I HAVE A WHOLE 170 QUEST FILE WITH DIALOGUE"; five hundred lines of it are
+     in the repo, parsed, and mute. Now that a @ROLE resolves to a real person,
+     the wire is short: walk up to the cast person, press their name, and the
+     quest's own @TALK node plays in their mouth, with its own options moving the
+     stage. THAT is what makes THE JOB row a quest instead of a label.
+  2. The CONFERRED traits are computed and shown nowhere. roleTraits() already
+     returns "keeps_the_tunnel", "reads_the_sky", "found_the_stairwell" -- the
+     most interesting sentence a quest ever writes about a stranger -- and the
+     card prints only the role name. One row, big payoff, cheap.
+  3. saw:/heard: reactions stay dark: 66 written lines, 0 reachable, because the
+     city's deeds carry no clout tag. That is the deeds system's field to set,
+     not a lines problem, and it stays a handoff row rather than my next turn.
+  4. NOT MINE, and flagged rather than claimed: THE PLACE HALF of item 2.
+     bohemia_loop.js castTarget() has picked a real district cell since 7/26 and
+     engine/bohemia_quest_placement.js already ranks better candidates per quest.
+     The demo day loop still binds to world events. Day-loop lane's call.
+
+---- PREVIOUS (8/26) ----
+*** HE TOLD ME TO STOP. THE SPANISH
 FEATURE IS CLOSED, THE DIAL IS DOWN TO HIS NUMBER, AND THERE IS NOW A GATE THAT
 FAILS IF ANYBODY WRITES ANOTHER REGISTER LINE. NOTHING TO JUDGE. ***
 

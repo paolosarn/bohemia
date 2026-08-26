@@ -1880,6 +1880,28 @@ GATES = [
      'shipping (playing over a real save, playing twice, stranding somebody on black) and the '
      'two lies that got past the first cut -- display:flex inside a display:none parent, and '
      'the RUN tab routing to p-city rather than p-run', False),
+    ('CASTING',        ['node', 'gates/casting_gate.js'],
+     'Paolo 8/25, THE PLAYTEST DISPATCH item 2: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY '
+     'LOCATIONS OR PEOPLE IN THE CITY", and his dispatch makes it demand-side: "A QUEST THAT IS '
+     'NOT ATTACHED TO A PLACE AND A PERSON IS NOT A QUEST." The city said so itself in a comment '
+     '-- "SCAFFOLD -- the casting" -- and `@ROLE lineman REQ faction=TRADES` resolved to the '
+     'STRING "lineman". Nobody in the valley had ever been the lineman. THE DESIGN COMES OUT OF '
+     'COUNTING THE ROLES: faction=X is 53 of the conditions across the nine canon quests and the '
+     'world can answer it, while ~60 others (keeps_the_tunnel, reads_the_sky, found_the_stairwell) '
+     'are used ONCE each and nothing in the sim computes them or ever will. So the faction is '
+     'MATCHED against people who really run with that outfit and the one-off predicates are '
+     'CONFERRED -- the quest does not hunt for somebody who already keeps the tunnel, it makes the '
+     'person it cast into the one who keeps it. MEASURED FIRST: 2,661 people walked, 204 '
+     'affiliated (7.7%), 11 of 13 outfits with real people on real ground, and NULL is the honest '
+     'answer for the two with nobody rather than putting a stranger in an insider\'s part. It '
+     'walks the city with a real quest taken off the phone, casts on 36 of 576 populated blocks, '
+     'opens the cast person\'s card FOR REAL and cross-checks the new THE JOB row against the '
+     'RUNS WITH row two lines below it -- printing "wants the fixer" over somebody whose own card '
+     'says CARTEL would be worse than no row. Mutations: the faction demand ignored 5 red, the '
+     'dedupe deleted 2 red, the card row deleted 2 red. WHAT IT DOES NOT CLAIM, said plainly: the '
+     'PLACE half. castTarget() has picked a real district cell since 7/26 and the demo day loop '
+     'still binds to world events, so the row says "on this block" and this gate does not pretend '
+     'item 2 is closed', False),
     ('LANGUAGE',       ['node', 'gates/language_gate.js'],
      'THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). A Las Vegas with 418,400+ Spanish speakers had '
      'exactly ZERO in the build -- every person spoke flawless monolingual English, including '

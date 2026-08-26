@@ -5844,6 +5844,116 @@ global.BohemiaOvermap=API;
     if (n) return String(n).split(' ')[0].toUpperCase();
     return ROLE_WORDS[person.role] || 'SOMEBODY';
   }
+  /* ---- CASTING: A QUEST ROLE BECOMES A REAL PERSON -----------------------
+     Paolo 8/25, THE PLAYTEST DISPATCH item 2:
+       "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR PEOPLE IN THE
+        CITY."
+     His dispatch makes it demand-side, not [PENDING]: "A QUEST THAT IS NOT
+     ATTACHED TO A PLACE AND A PERSON IS NOT A QUEST."
+
+     THE PLACE HALF ALREADY EXISTS. bohemia_loop.js castTarget() picks a real
+     district cell out of the quest's own faction demand, and it has since 7/26.
+     THE PERSON HALF DOES NOT: castTarget returns `speaker: "lineman"` -- a ROLE
+     WORD, not a human. Nobody in the valley has ever been the lineman.
+
+     WHAT A ROLE ACTUALLY ASKS FOR, COUNTED ACROSS ALL NINE CANON QUESTS:
+       faction=X            53 uses   THE WORLD CAN ANSWER THIS
+       ~60 other predicates  1 use each: keeps_the_tunnel, reads_the_sky,
+                             found_the_stairwell, speaks_for_the_crew...
+     That split is the whole design. The faction is a REAL DEMAND and is matched
+     against people who really run with that outfit. The one-off predicates are
+     the quest DESCRIBING THE PERSON IT NEEDS, and nothing in the sim computes
+     them or ever will, because each is bespoke to one quest. So they are
+     CONFERRED, NOT MATCHED: the quest does not hunt for somebody who already
+     keeps the tunnel, it makes the person it cast INTO the one who keeps it.
+     That is how casting works everywhere, and it is the only reading that does
+     not require inventing sixty new simulation facts.
+
+     MEASURED ON THE WALKED CITY BEFORE ANY OF THIS WAS WRITTEN: 2,661 people,
+     204 affiliated (7.7%), and ELEVEN of the thirteen outfits have real people
+     standing on real ground. Only REDS and BLUES came up empty in the sweep.
+     So the faction demand is answerable for nine of the eleven the quests ask
+     for, and NULL is the honest answer for the other two rather than a fake.
+
+     DETERMINISTIC, and it has to be: the same quest, on the same block, with the
+     same people, casts the same person forever, on any device, across saves.
+     Nothing is stored -- this is derived exactly like the name and the language,
+     off the identity keys that are already stable. */
+  function roleFaction(role) {
+    var m = /(?:^|\s)faction=([A-Za-z_]+)/.exec((role && role.cond) || '');
+    if (!m) return null;
+    var f = m[1].toUpperCase();
+    return (f === 'ANY') ? null : f;
+  }
+  /* THE CONFERRED HALF: everything the role asks for that is not a faction.
+     Returned so a surface can SAY it -- "the one who keeps the tunnel" is the
+     most interesting sentence a quest ever writes about a stranger, and it would
+     be a waste to match on it silently and never show it. */
+  function roleTraits(role) {
+    var out = [], re = /(?:^|\s)([a-z_]+)(?:=([A-Za-z_]+))?/g, m;
+    var cond = (role && role.cond) || '';
+    while ((m = re.exec(cond))) {
+      if (m[1] === 'faction' || m[1] === 'faction_any') continue;
+      out.push(m[2] ? (m[1] + '=' + m[2]) : m[1]);
+    }
+    return out;
+  }
+  /* WHO PLAYS THIS PART. `people` is whatever the surface already has; each
+     needs a `key` and a faction, and the faction accessor is passed IN rather
+     than assumed, because the walked city derives it through its own bridge and
+     a second derivation here would be two answers to one question.
+     Returns null when nobody qualifies, and null is a REAL ANSWER: most of the
+     valley runs with nobody, and a quest whose outfit holds no ground near you
+     genuinely has nobody to cast. Faking one would put a stranger in a role the
+     story says belongs to an insider. */
+  function castRole(role, people, opts) {
+    if (!role || !people || !people.length) return null;
+    var facOf = (opts && opts.factionOf) || function (p) { return p && p.faction; };
+    var want = roleFaction(role);
+    var pool = [];
+    for (var i = 0; i < people.length; i++) {
+      var p = people[i];
+      if (!p) continue;
+      if (want) {
+        var f = facOf(p);
+        if (!f || String(f).toUpperCase() !== want) continue;
+      }
+      pool.push(p);
+    }
+    if (!pool.length) return null;
+    /* SORTED BY KEY FIRST, so the answer cannot depend on the order the caller
+       happened to iterate the block in -- the same trap the quirk spread names.
+       Then a stable hash of the quest id and the role name picks one. */
+    pool.sort(function (a, b) {
+      return String(keyFor(a)) < String(keyFor(b)) ? -1 : (String(keyFor(a)) > String(keyFor(b)) ? 1 : 0);
+    });
+    var tag = String((opts && opts.questId) || '') + '/' + String(role.name || '');
+    var h = 0;
+    for (var c = 0; c < tag.length; c++) h = (Math.imul(h, 31) + tag.charCodeAt(c)) >>> 0;
+    var who = pool[mix32(h ^ 0x1b873593) % pool.length];
+    return { person: who, key: keyFor(who), role: role.name || null,
+             faction: want, traits: roleTraits(role), req: !!role.req };
+  }
+  function keyFor(p) { return (p && (p.key || p.id)) || ''; }
+  /* EVERY REQ ROLE AT ONCE, and OPT roles too when the ground can carry them.
+     One person may not hold two parts in the same quest: a story where the
+     lineman is also the fixer is not a story, it is a bug that reads as one. */
+  function castQuest(roles, people, opts) {
+    var out = {}, taken = {}, i, r, c;
+    var ordered = (roles || []).slice().sort(function (a, b) {
+      return (b.req ? 1 : 0) - (a.req ? 1 : 0);          /* REQ first, always */
+    });
+    for (i = 0; i < ordered.length; i++) {
+      r = ordered[i];
+      var free = (people || []).filter(function (p) { return !taken[keyFor(p)]; });
+      c = castRole(r, free, opts);
+      if (!c) continue;
+      taken[c.key] = 1;
+      out[r.name] = c;
+    }
+    return out;
+  }
+
   /* THE CARD WORDS FOR A REGISTER. Plain English on purpose: this row is the
      game telling the player a fact about somebody, which is required
      information, and required information is English. */
@@ -6041,6 +6151,9 @@ global.BohemiaOvermap=API;
     VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
     BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf, COUNTY_SPANISH: COUNTY_SPANISH,
     langOf: langOf, speaksLineOf: speaksLineOf,
+    // CASTING (8/26): a quest role becomes a real person on real ground.
+    roleFaction: roleFaction, roleTraits: roleTraits,
+    castRole: castRole, castQuest: castQuest,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
@@ -41706,6 +41819,62 @@ function ctBases(){
 /* the overmap cell you are standing in. hx,hy are GLOBAL FINE coords and FN is the
    fine tiles per cell, so this is the same cell the rest of the world means. */
 function ctCell(){ return [Math.floor(hx/FN), Math.floor(hy/FN)]; }
+/* __CITY_CASTING__ -- WHO THE ACTIVE QUEST ACTUALLY WANTS, ON THIS BLOCK.
+   Paolo 8/25: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR PEOPLE
+   IN THE CITY." A role resolved to the WORD "lineman" and nobody was ever it.
+   The casting itself is BohemiaPeople.castQuest -- one implementation, in the
+   identity module, because who somebody IS in a story is identity. This gives it
+   the two things only the city can: the people standing here, and the bridge
+   that says which outfit each of them runs with (ctFactionOf, which the card
+   already prints as RUNS WITH, so a cast and a card can never disagree).
+   CACHED PER BLOCK AND PER STAGE, not per draw: the card redraws constantly and
+   re-sorting every person on the block for every redraw is work nobody sees. */
+var CT_CAST = null, CT_CAST_KEY = '';
+function ctCast(){
+  try {
+    if (typeof DQ === 'undefined' || !DQ || !DQ.Q || !DQ.Q.roles) return null;
+    if (DQ.rt && DQ.rt.state && DQ.rt.state.done) return null;
+    var people = ctEveryone();
+    if (!people || !people.length) return null;
+    /* *** KEYED ON THE BLOCK, NOT ON WHERE YOU ARE STANDING IN IT, AND A
+       MUTATION TAUGHT ME THAT. *** The first cut keyed on hx,hy and the roster
+       LENGTH, so taking one step re-cast the quest -- harmless while the pool is
+       two or three affiliated people (the answer is deterministic, so it came
+       out the same), and NOT harmless the moment the roster shifts under you:
+       the person the card was opened on stopped being the person the quest
+       wanted, mid-conversation. A CAST THAT MOVES WHILE YOU WALK TOWARD IT IS
+       NOT A CAST. The block is what the roster belongs to, so the block is the
+       key, and BohemiaPopulation.NB is the cell size the spawn itself uses. */
+    var cell = ctCell ? ctCell() : [0, 0];
+    var nb = (typeof BohemiaPopulation !== 'undefined' && BohemiaPopulation.NB) || 1;
+    var k = String(DQ.spec && DQ.spec.id) + '|'
+          + Math.floor(cell[0] / nb) + ',' + Math.floor(cell[1] / nb);
+    if (CT_CAST_KEY === k) return CT_CAST;
+    var keyed = people.map(function(p){ return { key: 'P:city:' + p.id, __p: p }; });
+    CT_CAST = BohemiaPeople.castQuest(DQ.Q.roles, keyed, {
+      questId: (DQ.Q && DQ.Q.id) || '',
+      factionOf: function(w){ return ctFactionOf(w.__p); }
+    });
+    CT_CAST_KEY = k;
+    return CT_CAST;
+  } catch(_e){ return null; }
+}
+/* WHAT THIS PERSON IS WANTED FOR, or null. Plain English on purpose: it is the
+   game telling you what to do next, which is required information, which under
+   THEY SPEAK SPANGLISH's hard rule is always English. */
+function ctCastRow(who){
+  try {
+    var cast = ctCast(); if (!cast) return null;
+    for (var name in cast) {
+      if (!cast.hasOwnProperty(name)) continue;
+      if (cast[name].key !== who.key) continue;
+      var title = (DQ.Q && DQ.Q.title) || 'the job';
+      return title + ' wants the ' + String(name).replace(/_/g, ' ')
+             + '. On this block, that is them.';
+    }
+  } catch(_e){}
+  return null;
+}
 function ctFactionOf(p){
   var bases = ctOtherBases();
   if(!bases || typeof BohemiaAgents === 'undefined') return null;
@@ -42993,6 +43162,13 @@ function ctDraw(){
      information, so it is English whatever the person speaks. language_gate
      sweeps this string with the rest of them. */
   body+=ctRow('SPEAKS', BohemiaPeople.speaksLineOf(who));
+  /* __CITY_CASTING__ -- AND WHAT THE JOB WANTS THEM FOR (8/26). It sits with
+     the identity rows because being the one the quest needs is a fact about WHO
+     THEY ARE today, not about where they sleep. Absent for everybody else, which
+     is the point: on a block of thirty people this row is the one that tells you
+     which door to knock on. */
+  var ctJob = (typeof ctCastRow === 'function') ? ctCastRow(who) : null;
+  if (ctJob) body += ctRow('THE JOB', ctJob);
   /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.
      This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two
      numbers no player can use, on the card he opens for every person in the

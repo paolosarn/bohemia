@@ -1939,6 +1939,116 @@
     if (n) return String(n).split(' ')[0].toUpperCase();
     return ROLE_WORDS[person.role] || 'SOMEBODY';
   }
+  /* ---- CASTING: A QUEST ROLE BECOMES A REAL PERSON -----------------------
+     Paolo 8/25, THE PLAYTEST DISPATCH item 2:
+       "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR PEOPLE IN THE
+        CITY."
+     His dispatch makes it demand-side, not [PENDING]: "A QUEST THAT IS NOT
+     ATTACHED TO A PLACE AND A PERSON IS NOT A QUEST."
+
+     THE PLACE HALF ALREADY EXISTS. bohemia_loop.js castTarget() picks a real
+     district cell out of the quest's own faction demand, and it has since 7/26.
+     THE PERSON HALF DOES NOT: castTarget returns `speaker: "lineman"` -- a ROLE
+     WORD, not a human. Nobody in the valley has ever been the lineman.
+
+     WHAT A ROLE ACTUALLY ASKS FOR, COUNTED ACROSS ALL NINE CANON QUESTS:
+       faction=X            53 uses   THE WORLD CAN ANSWER THIS
+       ~60 other predicates  1 use each: keeps_the_tunnel, reads_the_sky,
+                             found_the_stairwell, speaks_for_the_crew...
+     That split is the whole design. The faction is a REAL DEMAND and is matched
+     against people who really run with that outfit. The one-off predicates are
+     the quest DESCRIBING THE PERSON IT NEEDS, and nothing in the sim computes
+     them or ever will, because each is bespoke to one quest. So they are
+     CONFERRED, NOT MATCHED: the quest does not hunt for somebody who already
+     keeps the tunnel, it makes the person it cast INTO the one who keeps it.
+     That is how casting works everywhere, and it is the only reading that does
+     not require inventing sixty new simulation facts.
+
+     MEASURED ON THE WALKED CITY BEFORE ANY OF THIS WAS WRITTEN: 2,661 people,
+     204 affiliated (7.7%), and ELEVEN of the thirteen outfits have real people
+     standing on real ground. Only REDS and BLUES came up empty in the sweep.
+     So the faction demand is answerable for nine of the eleven the quests ask
+     for, and NULL is the honest answer for the other two rather than a fake.
+
+     DETERMINISTIC, and it has to be: the same quest, on the same block, with the
+     same people, casts the same person forever, on any device, across saves.
+     Nothing is stored -- this is derived exactly like the name and the language,
+     off the identity keys that are already stable. */
+  function roleFaction(role) {
+    var m = /(?:^|\s)faction=([A-Za-z_]+)/.exec((role && role.cond) || '');
+    if (!m) return null;
+    var f = m[1].toUpperCase();
+    return (f === 'ANY') ? null : f;
+  }
+  /* THE CONFERRED HALF: everything the role asks for that is not a faction.
+     Returned so a surface can SAY it -- "the one who keeps the tunnel" is the
+     most interesting sentence a quest ever writes about a stranger, and it would
+     be a waste to match on it silently and never show it. */
+  function roleTraits(role) {
+    var out = [], re = /(?:^|\s)([a-z_]+)(?:=([A-Za-z_]+))?/g, m;
+    var cond = (role && role.cond) || '';
+    while ((m = re.exec(cond))) {
+      if (m[1] === 'faction' || m[1] === 'faction_any') continue;
+      out.push(m[2] ? (m[1] + '=' + m[2]) : m[1]);
+    }
+    return out;
+  }
+  /* WHO PLAYS THIS PART. `people` is whatever the surface already has; each
+     needs a `key` and a faction, and the faction accessor is passed IN rather
+     than assumed, because the walked city derives it through its own bridge and
+     a second derivation here would be two answers to one question.
+     Returns null when nobody qualifies, and null is a REAL ANSWER: most of the
+     valley runs with nobody, and a quest whose outfit holds no ground near you
+     genuinely has nobody to cast. Faking one would put a stranger in a role the
+     story says belongs to an insider. */
+  function castRole(role, people, opts) {
+    if (!role || !people || !people.length) return null;
+    var facOf = (opts && opts.factionOf) || function (p) { return p && p.faction; };
+    var want = roleFaction(role);
+    var pool = [];
+    for (var i = 0; i < people.length; i++) {
+      var p = people[i];
+      if (!p) continue;
+      if (want) {
+        var f = facOf(p);
+        if (!f || String(f).toUpperCase() !== want) continue;
+      }
+      pool.push(p);
+    }
+    if (!pool.length) return null;
+    /* SORTED BY KEY FIRST, so the answer cannot depend on the order the caller
+       happened to iterate the block in -- the same trap the quirk spread names.
+       Then a stable hash of the quest id and the role name picks one. */
+    pool.sort(function (a, b) {
+      return String(keyFor(a)) < String(keyFor(b)) ? -1 : (String(keyFor(a)) > String(keyFor(b)) ? 1 : 0);
+    });
+    var tag = String((opts && opts.questId) || '') + '/' + String(role.name || '');
+    var h = 0;
+    for (var c = 0; c < tag.length; c++) h = (Math.imul(h, 31) + tag.charCodeAt(c)) >>> 0;
+    var who = pool[mix32(h ^ 0x1b873593) % pool.length];
+    return { person: who, key: keyFor(who), role: role.name || null,
+             faction: want, traits: roleTraits(role), req: !!role.req };
+  }
+  function keyFor(p) { return (p && (p.key || p.id)) || ''; }
+  /* EVERY REQ ROLE AT ONCE, and OPT roles too when the ground can carry them.
+     One person may not hold two parts in the same quest: a story where the
+     lineman is also the fixer is not a story, it is a bug that reads as one. */
+  function castQuest(roles, people, opts) {
+    var out = {}, taken = {}, i, r, c;
+    var ordered = (roles || []).slice().sort(function (a, b) {
+      return (b.req ? 1 : 0) - (a.req ? 1 : 0);          /* REQ first, always */
+    });
+    for (i = 0; i < ordered.length; i++) {
+      r = ordered[i];
+      var free = (people || []).filter(function (p) { return !taken[keyFor(p)]; });
+      c = castRole(r, free, opts);
+      if (!c) continue;
+      taken[c.key] = 1;
+      out[r.name] = c;
+    }
+    return out;
+  }
+
   /* THE CARD WORDS FOR A REGISTER. Plain English on purpose: this row is the
      game telling the player a fact about somebody, which is required
      information, and required information is English. */
@@ -2136,6 +2246,9 @@
     VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
     BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf, COUNTY_SPANISH: COUNTY_SPANISH,
     langOf: langOf, speaksLineOf: speaksLineOf,
+    // CASTING (8/26): a quest role becomes a real person on real ground.
+    roleFaction: roleFaction, roleTraits: roleTraits,
+    castRole: castRole, castQuest: castQuest,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
