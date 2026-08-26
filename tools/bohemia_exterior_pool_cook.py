@@ -91,8 +91,13 @@ BUCKETS = {
     #   market and outdoor props  0 UP / 23 DOWN   a whole pack he killed
     # He designed this world's outdoor vocabulary with his thumb on 7/13 and
     # nobody ever built it.
+    # 8/26 third pass: 'light sources and fire barrels' is OUT of the regex -
+    # it is a FIRE FACTORY: every taste-kill backfilled with another burning
+    # variant (four sweeps of whack-a-mole, measured). Exactly two barrels
+    # survive via KEEP_TILES below - DEAD IS NOT THE DEFAULT wants a life
+    # sign, not a street on fire.
     'street':  r'^(street props|warning signs and road props|pipes and cables|'
-               r'pipes and wiring|light sources and fire barrels)$',
+               r'pipes and wiring)$',
     'wreck':   r'^(abandoned cars|abandoned cards|ruined building parts|'
                r'broken building walls|rubble and debris|scrap wall and panels)$',
     # SCENERY ONLY, and this line is the one that took a render-and-look to get
@@ -116,6 +121,11 @@ BUCKETS = {
     'barrier': r'^(barricades and blockades|barricades and defenses|'
                r'fences and wire|chain link fences)$',
     'camp':    r'^(market stalls|port market|camp and tents)$',
+    # 8/26, three more of his UP packs enter the world (the loot exclusion and
+    # the dead-system exclusion above both still stand untouched):
+    'burn':    r'^(burned ground and fire marks)$',
+    'cargo':   r'^(cargo, crates and containers)$',
+    'tools':   r'^(workbenches and tools)$',
 }
 
 # NEVER OUTSIDE, whatever their verdict: these are indoor objects and the interior
@@ -163,7 +173,143 @@ def purple_share(b64):
 
 # HIS SIZE RULINGS, as a draw scale. "BIG: render smaller / SMALL: render bigger".
 FLAG_SCALE = {'too_big': 0.62, 'too_small': 1.45, None: 1.0}
-PER_BUCKET_CAP = 18          # a phone carries this, and past ~18 nobody can tell them apart
+# PAOLO 8/26: "you might think you have all of the pixelated, beautifully
+# crafted tiles that you need to make everything that you need, and you don't...
+# keep cooking." The 18-cap was a guess about phone legibility that quietly
+# left 1,780 of his 1,927 UP tiles outside the world. Doubled - variety is his
+# explicit ask, and the round-robin below still spreads picks across packs.
+PER_BUCKET_CAP = 36
+
+# THE TASTE SWEEP (8/26, looked at all 332 on a contact sheet before shipping).
+# HIS 7/13 THUMB APPROVED THE TILE; THE WORLD'S LAWS GOVERN WHERE AND WHETHER
+# IT SHIPS - the same reading the potion-jar lesson above established. Killed
+# here, by content hash so the round-robin backfills the slot with another of
+# his UP tiles: fresh produce / meat / preserve DISPLAY stalls (in act 1
+# nobody is buying, and nothing fresh has existed for thirty years), LIT
+# lanterns and lamp posts and the lit forge (LIGHT=TERRITORY - nobody owns
+# light over a dead lot), glowing sci-fi canisters and glow-panel crates (no
+# self-light, ever), the sword crate (medieval read), the numbered disc
+# (a numeral is a word), the heraldic banner, and every burn scar still
+# glowing with live embers thirty years after the fire went out (cold char
+# stays; embers die). Tents, firepit RINGS, dry-goods sacks, containers,
+# benches and hand tools all stay - people still live here, they just do not
+# sell tomatoes. SECOND PASS same day: the round-robin backfilled killed
+# slots with MORE unseen stall/beacon/ember variants - the sweep re-looked
+# and killed those too. One deliberate keep: the burning fire barrel and the
+# camp firepits stay - DEAD IS NOT THE DEFAULT (8/25 dispatch), people still
+# live here; powered electric beacons and tended oil lanterns do not.
+
+# the two fire barrels that carry the DEAD-IS-NOT-THE-DEFAULT life sign
+KEEP_HASHES = frozenset(["2b64b141748733af", "8d789d79b06310b5"])
+TASTE_KILL = frozenset([
+ "01ded130451ae36d",
+ "05acff6d8e1581cc",
+ "06ae3e867a50aecf",
+ "094aaf0806f945ce",
+ "09526c832e3365a7",
+ "09e324dd4606581b",
+ "0ac660441a9a18cb",
+ "0ac765156bc1d2d9",
+ "0b7d44da3ec82513",
+ "1076f6305c0af7cb",
+ "1194271969260b29",
+ "1404ef4238c81858",
+ "19bf02e5bd94c6c9",
+ "1ac739c44ada1bc9",
+ "1e22aae1765d3f72",
+ "2240c9c95cc93d59",
+ "239c4fb9a69a930b",
+ "23b55488dd8585de",
+ "23be289af7ac6502",
+ "28ff65a6120daf6c",
+ "2ad74d65b74ae332",
+ "2cad95fc93b44938",
+ "311820d1417d1b6d",
+ "33dbdfc1ec91af2e",
+ "34f8f6a2c930c94f",
+ "36b2f8927f5ad49e",
+ "36c0db3197608446",
+ "37390a7ac47a30b6",
+ "3fe7513625056353",
+ "4450917a4b501f4d",
+ "4476ac39a37fe7f1",
+ "44770fea913b29a4",
+ "48f38e2cd971479b",
+ "497cee661fc66591",
+ "4ddbe05b2ac6d58d",
+ "5016bc7b4d1c4bcf",
+ "50c0cfa3549884d1",
+ "5519e96b896f3fc3",
+ "56a702c6af7dcca5",
+ "5735ab305f18511d",
+ "5a04fce78ea3c012",
+ "5be140cfe85b9eb5",
+ "5d7ac3b9dc19f2ba",
+ "5f47bb1229d37334",
+ "5faaf1a5471936aa",
+ "6099b9511c3d5456",
+ "66fd867807647f8c",
+ "67ef356fecceb061",
+ "6ad4c789a28e1f38",
+ "6d5628238ef9a256",
+ "70027ac8257b8365",
+ "70af6237b76f0a8a",
+ "713ea4a7532a9388",
+ "71df34c82265d6ff",
+ "789d438e590cc460",
+ "795ccf52ac3d4bed",
+ "7a63fe1f7cd4d08a",
+ "7ebb43b1d0f8b114",
+ "86aef9feae40fcd1",
+ "88c91d6460afcc98",
+ "8b112d549934bdbc",
+ "8c15ac21d9324024",
+ "9033b6aa6a085477",
+ "921b78e33b757eaa",
+ "98646282ca9b7af3",
+ "99b8a5baa650a172",
+ "9b03764f7db1e0c7",
+ "9bcc3b634823be14",
+ "9c074bbcf4bf35f8",
+ "a322e5b3985714eb",
+ "a3d64f133dcfc8c6",
+ "a965b90344c0455f",
+ "aaf26ed1b4cedd06",
+ "ab67572524cb59b4",
+ "af575a6791992d3f",
+ "b1c8430906af0196",
+ "bcdb44988bd4f694",
+ "bd7979993a09341e",
+ "c05f2c091e35fe3d",
+ "c47d9e5e435750b9",
+ "c4d739ae8e178ded",
+ "c6c3588b3c3714c5",
+ "c71c6f52b01cb7e9",
+ "c8e67374f1bd0b3e",
+ "cccb92ba18564cfd",
+ "cf96e8a9fbb511a1",
+ "d1840675d2588a96",
+ "d6a4d593ef110858",
+ "d7f4f636ad364744",
+ "db891396b5e0b99f",
+ "dbb0e411d5f493b8",
+ "dc92b9dfc70c26bf",
+ "dd9699d9f98e42e1",
+ "df5ae66f7aeeb8e2",
+ "e06bd1ca8a016298",
+ "e229fd42eceff5d0",
+ "e3222f11c3927cd8",
+ "eaa599f64c7be7e1",
+ "eab8557dbd724bd9",
+ "f53bc5ffb9189645",
+ "f593dd868b2a2bf3",
+ "f656c5def62b6313",
+ "f8b19a41562119b7",
+ "f9664f740f4e5308",
+ "fb0716c79c23ef26",
+ "fbe116e1a421cab6"
+])
+
 
 
 def norm(p):
@@ -232,6 +378,10 @@ def main():
                 if purple_share(b64) > PURPLE_MAX:
                     purple_dropped.append('%s#%d' % (norm(pack), i))
                     continue          # PURPLE RESERVATION. A verdict cannot licence it.
+                import hashlib as _hl
+                _h16=_hl.sha1(b64.encode()).hexdigest()[:16]
+                if _h16 in TASTE_KILL:
+                    continue          # the 8/26 taste sweep (see TASTE_KILL above)
                 up += 1
                 seen_packs[norm(pack)] = seen_packs.get(norm(pack), 0) + 1
                 out[b].append({
@@ -262,6 +412,22 @@ def main():
                 break
             i += 1
         capped[b] = order
+
+    # THE TWO KEPT FIRE BARRELS (see the regex note above): re-read from the
+    # masters by KEEP_HASHES so the life sign ships without reopening the
+    # fire factory. They join street AFTER the cap - two extra on purpose.
+    import hashlib as _hl2
+    for path in MASTERS:
+        dm = json.load(open(path))
+        for pack, items in dm.get('packs', {}).items():
+            if 'light sources and fire barrels' not in norm(pack):
+                continue
+            for i, t in enumerate(items if isinstance(items, list) else []):
+                b64k = t if isinstance(t, str) else (t.get('b64') or '')
+                if b64k and _hl2.sha1(b64k.encode()).hexdigest()[:16] in KEEP_HASHES:
+                    capped['street'].append({'pack': norm(pack), 'idx': i,
+                                             's': 1.0, 'flag': None,
+                                             'comment': None, 'b64': b64k})
 
     doc = {
         'version': 'BOHEMIA_EXTERIOR_POOL_v1',

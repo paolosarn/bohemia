@@ -128,7 +128,34 @@ def card(h, idx, judged_already):
             'style="background:%s;aspect-ratio:%s">'
             '<img alt="%s" src="data:image/png;base64,%s">'
             '<span class="cn">%s</span><span class="mark"></span></button>'
-            % (tag, d, d, pad, ar, d, h['b64'], d))
+            % (tag, d, d, pad, ar, d, _display_b64(h), d))
+
+
+# EMBED AT DISPLAY SIZE, NOT BAKE SIZE (8/26 - the same lesson the hero wire
+# patch learned 8/21 about the map). The bank sprite is ~1724px; a grid cell on
+# his phone shows under 200px. Shipping the bake bytes made this page 29 MB
+# with an EMPTY queue and put the whole publish surface 2 MB from its cap.
+# 512px keeps tap-zoom sharp at better than 2x display. LANCZOS, not NEAREST:
+# these are the factory's supersampled bakes, not native pixel art.
+_DISPLAY_W = 512
+_dcache = {}
+
+
+def _display_b64(h):
+    key = h['district']
+    if key in _dcache:
+        return _dcache[key]
+    import base64 as _b64mod
+    import io as _iomod
+    from PIL import Image as _Img
+    im = _Img.open(_iomod.BytesIO(_b64mod.b64decode(h['b64'])))
+    if im.width > _DISPLAY_W:
+        im = im.resize((_DISPLAY_W, max(1, round(im.height * _DISPLAY_W / im.width))),
+                       _Img.LANCZOS)
+    buf = _iomod.BytesIO()
+    im.save(buf, 'PNG', optimize=True)
+    _dcache[key] = _b64mod.b64encode(buf.getvalue()).decode('ascii')
+    return _dcache[key]
 
 
 # AN EMPTY QUEUE IS THE GOAL, AND THE PAGE HAS TO SAY SO. When he clears the last item the

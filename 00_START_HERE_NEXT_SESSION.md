@@ -46148,7 +46148,23 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/25 (c) LATEST -- *** THE ICON VERDICT ANSWERED IN FULL:
+ART (f3eu53): 8/26 (b) LATEST -- *** HE ASKED HOW MANY TILES: measured
+~886 drawn vs 1,927 he approved 7/13 (only ~647 ever drew). Outdoor pool
+126 -> 283 (cap 18->36, three new buckets: burn scars, cargo, tools),
+then a FOUR-PASS TASTE SWEEP killed 106 by hash (produce stalls, lit
+lamps/beacons/forge, glow canisters, sword crate, live embers, the lit
+walk signal found by measuring its own green) - his thumb approved the
+TILE, the world's laws govern WHERE. The fire-barrel pack was a fire
+factory: out of the regex, two barrels pinned as the life sign. Paid
+for payload: VOTE page embedded 69 bake-size sprites (29MB, empty
+queue) -> display size (6.6MB); publish 258->235/260. Also this UTC
+day: granary gallery gable (thin runs only - the shed skin was caught
+reading as walked-on corduroy and scoped OUT), icon wave 2 (cemetery/
+water/landfill/basin/radio). Sitting passes 51-53. NEXT: icon wave 3,
+industrial 'truck court' never matches the prop surface map (measured),
+composition audit due.
+PREVIOUS:
+ART (f3eu53): 8/25 (c) -- *** THE ICON VERDICT ANSWERED IN FULL:
 his 69-vote board (5 YES, 20 CBB, 44 NO) traced to ONE pipeline bug
 (building passes ran on every hero); fixed at the pass level
 (NOT_A_BUILDING), park/mountain/desert/freeway rebuilt, school towers

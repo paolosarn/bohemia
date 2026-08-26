@@ -2843,8 +2843,8 @@ var PROPS = { on:true, rate:9, maxCells:1.6 };   /* one cell in nine, never wide
 var PROP_BY_SURFACE = {
   road:  ['wreck'],                        /* the cars stopped where they stopped */
   walk:  ['street'],                       /* signs, pipes, fire barrels, kerb junk */
-  waste: ['dead','trash'],                 /* the desert taking a lot back, and what blew into it */
-  lot:   ['wreck','barrier','camp','crate'] /* an open lot is where people and their goods end up */
+  waste: ['dead','trash','burn'],          /* the desert taking a lot back, what blew in, and old fire scars */
+  lot:   ['wreck','barrier','camp','crate','cargo','tools','burn'] /* an open lot is where people, goods and work ended up */
 };
 /* THE NAMES ARE THE WORLD'S OWN, SAMPLED, NOT GUESSED. Three cuts of this matched
    nothing or the wrong thing because I invented the vocabulary from my own head:
