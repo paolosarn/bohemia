@@ -301,9 +301,20 @@
        nothing gets the old walk unchanged, so no surface moves under a lane
        that has not been told. */
     var W = opts.watching;
-    if(W && typeof W.ripples === 'function'){
+    if(W && (typeof W.watchers === 'function' || typeof W.ripples === 'function')){
       var rip = [];
-      try { rip = W.ripples(fid) || []; } catch(_e){ rip = []; }
+      /* TWO REASONS TO BE WATCHING, AND ONLY ONE OF THEM IS ABOUT THIS OUTFIT.
+         watchers() adds the second: outfits YOUR OWN OUTFIT is at war with.
+         They have been watching YOU since the day you made them an enemy, so
+         everything you do from then on reaches them without a chain -- which
+         is what turns an earned enemy from a one-off charge into a permanent
+         cost. ripples() is the fallback for a caller that predates this and
+         gets exactly the old answer. */
+      try {
+        rip = (typeof W.watchers === 'function'
+                 ? W.watchers(fid, opts.save)
+                 : W.ripples(fid)) || [];
+      } catch(_e){ rip = []; }
       for(var wi=0; wi<rip.length; wi++){
         var wf = norm(rip[wi].to);
         if(!wf || wf === want) continue;
@@ -475,8 +486,22 @@
       for(var k in (standings||{})) if(norm(k)===want) have = standings[k]|0;
       if(have <= 0) return;                     /* nothing to take */
       var base = lose, rel = null, moved = 0;
-      if(B && sided && typeof B.weigh === 'function'){
-        var w = B.weigh(sided, h.faction, lose);
+      /* WHICH POSITION IS DOING THE CHARGING. Two different facts can put an
+         outfit in this list and they are weighed by DIFFERENT edges:
+           why 'them' -- they hold a position on the outfit you are siding
+                         with. Weigh by that edge.
+           why 'you'  -- they hold one on YOUR OWN OUTFIT, earned the day you
+                         made them an enemy. Weigh by THAT edge, because
+                         between(them, thisOutfit) is usually null and would
+                         have quietly charged them flat -- an earned enemy
+                         reading exactly like a stranger, which is the whole
+                         thing not working. */
+      if(B && typeof B.weighRel === 'function' && h.watching
+         && h.watching.why === 'you'){
+        var wy = B.weighRel(h.watching, lose);
+        base = wy.weighted; rel = wy.why; moved = wy.moved;
+      } else if(B && sided && typeof B.weigh === 'function'){
+        var w = B.weigh(sided, h.faction, lose, opts.save);
         base = w.weighted; rel = w.why; moved = w.moved;
       }
       var take = Math.min(base, have);          /* never below a stranger */

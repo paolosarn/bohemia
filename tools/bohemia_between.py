@@ -356,14 +356,18 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
      Returns null when canon says nothing, and NULL IS A REAL ANSWER -- most
      pairs in this valley have no written position and pretending otherwise
      would be inventing canon. */
-  function between(a, b){
+  function between(a, b, save){
     var A=norm(a), B=norm(b);
     if(!A || !B || A===B) return null;
     for(var i=0;i<PAIRS.length;i++){
       var p=PAIRS[i];
       if(norm(p.from)===A && norm(p.to)===B) return decorate(p);
     }
-    return null;
+    /* AUTHORED CANON WINS AND IT IS NOT A TIE-BREAK, IT IS THE ORDER. The loop
+       above returns before this line ever runs, so an edge Paolo wrote can
+       never be overwritten by one the player earned. His graph is the world;
+       the save is only what this particular run did to itself. */
+    return earnedEdge(save, A, B);
   }
 
   function decorate(p){
@@ -395,7 +399,7 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
      board and reads as two separate wars. The outfit's OWN seat wins, because
      a board about them should say what THEY hold, not what is held about them;
      a mirrored row only survives when canon never wrote their side. */
-  function ripples(fid){
+  function ripples(fid, save){
     var A=norm(fid), out=[], byOther={};
     if(!A) return out;
     for(var i=0;i<PAIRS.length;i++){
@@ -409,6 +413,20 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
       if(had){ out.splice(out.indexOf(had), 1); }
       byOther[k] = row;
       out.push(row);
+    }
+    /* THEN WHAT THIS OUTFIT EARNED, for pairs canon left blank. Same dedupe
+       rule and the same reason: an authored row is already in byOther, so an
+       earned edge can only ever FILL A SILENCE, never argue with his lore. */
+    var earn = allEarned(save);
+    for(var ei=0; ei<earn.length; ei++){
+      var e = earn[ei], side = null;
+      if(norm(e.from)===A) side = e;
+      else if(norm(e.to)===A) side = flip(e);
+      if(!side) continue;
+      var ek = norm(side.to);
+      if(byOther[ek]) continue;
+      byOther[ek] = side;
+      out.push(side);
     }
     var rank={hostile:0, unknown:1, neutral:2, warm:3};
     out.sort(function(x,y){
@@ -426,6 +444,208 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
     return { from:d.to, to:d.from, label:d.label, init:d.init, sign:d.sign,
              war:d.war, protected:d.protected, word:d.word, note:d.note,
              cost:d.cost, draft:d.draft, mirrored:true };
+  }
+
+  /* ======================================================================
+     WHAT YOUR OWN OUTFIT EARNS. (8/26, Paolo's ruling, second half.)
+     ======================================================================
+     PAOLO 8/26: "custom is your own personal faction!!!!!! ... the values
+     arent just for you its for how your factions treated bro."
+
+     And canon has been asking for this in writing the whole time. The graph's
+     note on Custom:
+         "Player faction. No preset philosophy. IDENTITY EMERGES FROM THREE
+          GENERATIONS OF ACTION."
+     Its relations are {} because it has not acted yet. This is the mechanism
+     that fills them, and it fills them from what the player DID, never from
+     anything I decided.
+
+     ------------------------------------------------------------------
+     THE RULE IS STRUCTURAL BALANCE, AND SPECIFICALLY THE WEAK FORM
+     ------------------------------------------------------------------
+     HEIDER 1946 / CARTWRIGHT & HARARY 1956, structural balance: signed
+     triads are stable when the product of their signs is positive.
+     DAVIS 1967, WEAK STRUCTURAL BALANCE -- the correction, and the one that
+     matters here. Davis dropped Heider's assumption that "the enemy of my
+     enemy is my friend". Under weak balance the ONLY implausible triad is the
+     one with EXACTLY TWO POSITIVE EDGES; every other combination is allowed,
+     including all-negative. This is not a preference, it is what the data
+     says: triads with exactly two positive edges are massively
+     underrepresented in real signed networks, and all-negative triads are
+     OVERrepresented, which contradicts Heider directly.
+
+     SO EXACTLY ONE INFERENCE IS LICENSED HERE:
+         you --(+)--> Cartel        you took their side, in public
+         Cartel --(-)--> Remnants   canon, permanent war
+         you --(?)--> Remnants      if this were POSITIVE the triad would have
+                                    exactly two positive edges, the one
+                                    forbidden shape. So it resolves NEGATIVE.
+     THE ENEMY OF MY FRIEND IS MY ENEMY. That is all it says, and it is enough.
+
+     AND THE ONE IT REFUSES, WHICH IS THE WHOLE REASON WEAK BALANCE IS THE
+     RIGHT THEORY: all-negative triads are permitted, so being at odds with
+     the Cartel does NOT make you a friend of the Remnants. The game never
+     hands you an ally you did not earn. A strong-balance implementation
+     would have manufactured alliances out of arithmetic, and that is
+     inventing his lore.
+
+     ------------------------------------------------------------------
+     AND WHY IT ATTACHES TO THE OUTFIT RATHER THAN THE PERSON
+     ------------------------------------------------------------------
+     TIROLE 1996, A THEORY OF COLLECTIVE REPUTATIONS (Rev. Econ. Studies
+     63:1-22). A group's reputation is the aggregate of its members' track
+     records, and because any one member's record is observed only with noise,
+     his incentives are shaped by THE GROUP'S past behaviour as well as his
+     own. The finding that matters for a game about three generations:
+     "new members of an organization may suffer from an original sin of their
+     elders long after the latter are gone."
+     That is Bohemia's whole structure. Your grandchild inherits the enemies
+     you made. This is the machinery that lets that be literally true.
+
+     ------------------------------------------------------------------
+     HOSTILE AND WARM ARE NOT EARNED ON THE SAME TERMS
+     ------------------------------------------------------------------
+     A hostile edge is earned the moment you SIDE, because siding is public by
+     this game's own definition ("Said in front of people") and the other
+     side was already watching. A warm edge needs BURNED -- you have to have
+     actually cost yourself something. Grounded in the same literature:
+     negative ties are sparser, more consequential, and more reliably
+     transmitted than positive ones. Being hated by your friend's enemies is
+     free; being liked by your friend's friends is not.
+     THE PRACTICAL EFFECT, and it is deliberate: the cheap half of this system
+     only ever makes you enemies. */
+
+  function earnKey(a, b){ return norm(a) + '|' + norm(b); }
+  function earnedBag(save){
+    if(!save) return null;
+    var m = save.meta || save;
+    return (m && typeof m === 'object') ? (m.between || null) : null;
+  }
+  function earnedEdge(save, A, B){
+    var bag = earnedBag(save);
+    if(!bag) return null;
+    var e = bag[A + '|' + B];
+    return e ? decorateEarned(e, A, B) : null;
+  }
+  function allEarned(save){
+    var bag = earnedBag(save), out = [];
+    if(!bag) return out;
+    for(var k in bag){
+      var i = k.indexOf('|');
+      if(i < 0) continue;
+      out.push(decorateEarned(bag[k], k.slice(0, i), k.slice(i + 1)));
+    }
+    return out;
+  }
+
+  /* An earned edge is priced off the SAME REL_SPEC as an authored one, because
+     it is the same kind of fact arrived at a different way. It carries the
+     label of the canon relation that produced it and says so -- `via` is the
+     outfit you sided with, and it is the answer to "why do these people hate
+     me", which the player is entitled to. */
+  function decorateEarned(e, A, B){
+    var label = e.label || 'permanent-war';
+    var d = decorate({ from: A, to: B, label: label });
+    d.earned = true;
+    d.via = e.via || null;
+    d.day = (e.day != null ? e.day : null);
+    d.state = e.state || null;
+    /* THE SIGN IS THE RECORDED ONE, not the label's. A hostile edge earned off
+       an adjacency would otherwise read warm, and the stored sign is what the
+       balance rule actually decided. */
+    if(e.sign) d.sign = e.sign;
+    /* THE WORD IS ABOUT YOU, NOT ABOUT THE PAIR THAT CAUSED IT. Caught by
+       looking at the real board: the Caravans row read "THEY TAX THEM",
+       because it inherited the label of the CARTEL's relation with them. That
+       sentence is true and it is about two other outfits. You did not tax
+       anybody. The label is kept on the object (it is the provenance, and the
+       price comes off it) but the words a person reads have to describe THIS
+       edge, which is between them and your outfit. */
+    d.word = e.sign === 'warm' ? 'THEY GIVE YOU THE BENEFIT'
+                               : 'THEY HOLD IT AGAINST YOU';
+    if(e.sign === 'hostile' && (d.init == null || d.init > 0)) d.init = -40;
+    if(e.sign === 'warm'    && (d.init == null || d.init < 0)) d.init =  20;
+    d.note = e.sign === 'warm'
+      ? 'They have decided you are all right, and it was not a favour to you. '
+      + 'You stood beside people they stand beside, and you paid for it where '
+      + 'they could see.'
+      : 'You threw in with people they bury. Nobody told them; they were '
+      + 'already looking, and now they are looking at YOU.';
+    d.cost = e.sign === 'warm'
+      ? 'They will not charge you full price for being what you are.'
+      : 'Everything you do from here reaches them, and it costs more when it '
+      + 'does. You do not get to take this back.';
+    d.draft = true;
+    return d;
+  }
+
+  /* ---- THE WRITER, AND THERE IS ONLY ONE ---------------------------------
+     Called when a commitment MOVES. Walks the canon positions of the outfit
+     you just committed to and resolves the forbidden triad for each one.
+     Returns the edges it actually created, so the surface can say what just
+     happened rather than the player noticing later that everybody hates him.
+
+     NEVER OVERWRITES AN AUTHORED EDGE and never overwrites an earned one that
+     is already there -- the first time you make an enemy is the time that
+     counts, and re-siding does not re-make it. */
+  function earn(save, sided, state, day){
+    var made = [];
+    if(!save || !save.meta || !MINE || !sided) return made;
+    var A = norm(MINE), S = norm(sided);
+    if(!A || !S || A === S) return made;
+    var bag = save.meta.between || (save.meta.between = {});
+    var rip = ripples(S);                   /* AUTHORED only: a chain of
+                                               earned edges earning further
+                                               edges is a rumour mill, not a
+                                               balance rule. */
+    for(var i=0;i<rip.length;i++){
+      var r = rip[i], B = norm(r.to);
+      if(!B || B === A) continue;
+      var want = null;
+      if(r.sign === 'hostile') want = 'hostile';
+      else if(r.sign === 'warm' && String(state) === 'burned') want = 'warm';
+      if(!want) continue;
+      if(between(A, B, save)) continue;     /* authored or already earned */
+      var e = { sign: want, label: r.label, via: sided,
+                day: (day != null ? day|0 : null), state: String(state||'') };
+      bag[earnKey(A, B)] = e;
+      made.push(decorateEarned(e, A, B));
+    }
+    return made;
+  }
+
+  /* ---- WHO IS WATCHING, WHICH IS NOT THE SAME QUESTION AS RIPPLES --------
+     whoHears asks this. Two different reasons an outfit finds out about a
+     commitment without anybody carrying it to them:
+       THEM -- canon says they hold a position on the outfit you are siding
+               with, so they have been watching that outfit for years.
+       YOU  -- your OWN outfit has a hostile position with them, earned or
+               authored, so they have been watching YOU since the day you
+               made it. This is the half that makes an earned enemy a
+               PERMANENT COST rather than a one-off charge: from then on
+               everything you do reaches them.
+     Deduped, with `why` on each row, because "they were watching your outfit"
+     and "they were watching THIS outfit" are different sentences and the card
+     should be able to say which. */
+  function watchers(fid, save){
+    var out = [], seen = {};
+    var them = ripples(fid, save);
+    for(var i=0;i<them.length;i++){
+      var r = them[i], k = norm(r.to);
+      if(!k || seen[k]) continue;
+      if(r.sign !== 'hostile' && r.sign !== 'warm') continue;
+      seen[k] = 1; r.why = 'them'; out.push(r);
+    }
+    if(MINE && norm(fid) !== norm(MINE)){
+      var mineRip = ripples(MINE, save);
+      for(var j=0;j<mineRip.length;j++){
+        var m = mineRip[j], mk = norm(m.to);
+        if(!mk || seen[mk] || mk === norm(fid)) continue;
+        if(m.sign !== 'hostile') continue;   /* only enemies watch you */
+        seen[mk] = 1; m.why = 'you'; out.push(m);
+      }
+    }
+    return out;
   }
 
   /* ---- WHAT THIS DOES TO A COST ALREADY ESTABLISHED -----------------------
@@ -459,9 +679,17 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
 
      Returns the full working, not just a number, so the surface can say WHY
      and so a gate can check the arithmetic instead of trusting it. */
-  function weigh(sided, hearer, base){
+  function weigh(sided, hearer, base, save){
+    return weighRel(between(hearer, sided, save), base);
+  }
+
+  /* THE ARITHMETIC, IN ONE PLACE, because there are now TWO reasons an outfit
+     charges you and they must not each grow their own copy of the sum. Either
+     they hold a position on the outfit you are siding with (weigh), or they
+     hold one on YOUR OWN OUTFIT (this, called with that edge). A second
+     implementation of a formula is the bug this lane has fixed six times. */
+  function weighRel(rel, base){
     var b = base|0;
-    var rel = between(hearer, sided);
     var out = { base:b, weighted:b, rel:rel, moved:0, why:null };
     if(!rel || rel.init == null || b <= 0) return out;
     var w = b + Math.round(b * (-rel.init / 100));
@@ -484,7 +712,7 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
      line goes into that JSON, your outfit has a war and every surface below
      already knows what to do with it. */
   function mine(){ return MINE; }
-  function myRipples(){ return MINE ? ripples(MINE) : []; }
+  function myRipples(save){ return MINE ? ripples(MINE, save) : []; }
 
   /* FOUR FUNCTIONS THAT WERE HERE THIS MORNING ARE NOT ANY MORE, and this note
      is the record of why. either(), isMine(), powerOf() and alignOf() were
@@ -523,7 +751,9 @@ TEMPLATE = r'''// BOHEMIA BETWEEN -- WHAT THE OUTFITS ARE TO EACH OTHER.
 
   var API = { PAIRS:PAIRS, SPEC:SPEC, WORDS:WORDS, POWER:POWER,
               between:between, ripples:ripples, weigh:weigh,
-              mine:mine, myRipples:myRipples, keys:keys };
+              mine:mine, myRipples:myRipples, keys:keys,
+              earn:earn, allEarned:allEarned, watchers:watchers,
+              weighRel:weighRel };
   if(HASREQ) module.exports=API; else root.BohemiaBetween=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
 '''
