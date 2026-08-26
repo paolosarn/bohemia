@@ -225,6 +225,25 @@ WHAT I WOULD DO NEXT
 PROOF
   laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md   (his ten, verbatim)
   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+  records/BOHEMIA_RF4_ENEMY_DOSSIER_8_25_26.md  (his follow-up order, same day)
+    THE FIVE ARCHETYPES IN THE DESIGNER'S OWN WORDS -- plinker / nuker /
+    swarmer / summoner / tank -- and every one of RF4's 250+ monsters is one
+    of the five in a costume. Each is a different INSTRUCTION and the fight is
+    the argument between them. Stat block is SIX NUMBERS AND TWO VERBS.
+    Volume comes from a MODIFIER TABLE, which is our own FACTORY LAW in their
+    engine. THE SUMMONER IS THE ONE THAT BARKS, and it reuses the aggro-shout
+    we already took in the 8/17 lift.
+    *** THE FINDING: ONE OF THE FIVE DOES NOT SURVIVE THE TRANSLATION. ***
+    RF4 runs on mages and archers; animals have no ranged attack, so the
+    PLINKER vanishes and half the nukers with it. The pressure that says HURRY
+    must come from PEOPLE WITH GUNS or from THE ENVIRONMENT -- and we already
+    built the second: heat, the day clock, terrain kills. THE CLOCK IS OUR
+    PLINKER. That lets the animal tiers ship without waiting on the faction
+    roster he reserved.
+    BLOCKED AND SAID SO: rogue-fable-iv.fandom.com is refused by this
+    environment's egress proxy, so the full 250-monster table was NOT read.
+    The architecture is recovered; the roster is not, and nobody should guess
+    it. He owns the game -- one screenshot of the enemies page closes it.
   laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md (earlier today)
   records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
   Sweeps 14-21 records, all still routed and all still valid.

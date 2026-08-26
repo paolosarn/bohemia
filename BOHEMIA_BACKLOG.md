@@ -4489,6 +4489,51 @@ BESTIARY. *** ENEMIES, AND HE CALLED IT A TURNING POINT (Paolo 8/25 PLAYTEST DIS
    AND VENOM IS TERRAIN, NOT ENCOUNTERS: rattlesnakes, bark scorpions,
    widows and centipedes are the thing under the rubble and in the dark
    room, which fits the RF4 terrain-kills machinery we already took.
+   *** AMENDED SAME DAY — THE ENEMY DOSSIER (records/BOHEMIA_RF4_ENEMY_
+   DOSSIER_8_25_26.md, on his "DO BIG BRAIN RESEARCH ON ALL THE ENEMIES OF
+   ROGUE FABLE 4"). AUTHOR THE VALLEY AS FIVE ARCHETYPES x A MODIFIER
+   TABLE x A DISTRICT PALETTE, NOT AS A LIST OF ANIMALS. The archetype is
+   the design; the animal is the costume. That is how RF4 gets 250
+   monsters out of five ideas, and it is this repo's own FACTORY LAW in
+   somebody else's engine.
+   THE FIVE, IN THE DESIGNER'S OWN WORDS: PLINKER (ranged chip, low
+   priority, "due to their range they apply CONSTANT PRESSURE ON THE
+   PLAYER TO FINISH THE FIGHT QUICKLY"); NUKER ("dump a ton of damage...
+   must pay very close attention"); SWARMER (weak, many, "can quickly
+   SURROUND the player"); SUMMONER ("fill the battlefield with monsters
+   WHICH TEND TO ACT AS A SHIELD"); TANK (high damage, low mobility,
+   "best ignored until the end of the fight").
+   EACH ONE IS A DIFFERENT INSTRUCTION AND THE FIGHT IS THE ARGUMENT
+   BETWEEN THEM: hurry / ignore me / come here now / do not let me
+   surround you / watch me and nothing else.
+   *** THE SUMMONER IS THE ONE THAT BARKS. *** Best fit in the whole
+   mapping and it is free realism: a dog or coyote that howls really does
+   fill the field with a shield of bodies, and we ALREADY took RF4's
+   50%-chance aggro shout in the 8/17 lift, so the shout machinery and the
+   summoner archetype are the same animal behaviour. Kill the one barking
+   or the block arrives.
+   THE STAT BLOCK IS SIX NUMBERS AND TWO VERBS. Recovered example, Goblin
+   Shaman: HP 12, Speed NORMAL, Size SMALL, Level 3, Range 5, abilities
+   HEAL and SLOW. Speed is a WORD, size is a category. If a Bohemia enemy
+   needs a spreadsheet to explain it has failed RF4's own test AND his
+   ("spreadsheet simulators and I'm not a fan").
+   MODIFIERS DO THE VOLUME: FAST / TOUGH (125-200% HP) / DEADLY
+   (150-300% dmg) / REGENERATION / REFLECTIVE / RAPID-HEALING /
+   CONSUMABLE-LOCK, stacked in tiers.
+   *** AND THE FINDING THAT BITES: ONE OF THE FIVE DOES NOT SURVIVE THE
+   TRANSLATION. *** RF4's roster runs on MAGES AND ARCHERS. Animals have
+   no ranged attack -- a coyote cannot chip you from nine tiles -- so the
+   PLINKER mostly vanishes and half the nukers with it. The constant
+   pressure that says HURRY, the thing that stops a fight becoming "stand
+   in the doorway and swing", has to come from somewhere. Two candidates
+   only: PEOPLE WITH GUNS (which would make hostile humans structurally
+   required, not flavour) or THE ENVIRONMENT.
+   *** WE ALREADY BUILT THE SECOND ONE: THE CLOCK IS OUR PLINKER. *** Heat
+   is the daily condition (7/31), the day advances 0.084 per cell, and the
+   lift already took terrain kills. A timer is a plinker that never
+   misses, it is far more Bohemia than an archer would ever be, and it
+   means the animal tiers can ship WITHOUT waiting on the faction roster
+   he reserved. Whether hostile PEOPLE join the bestiary is HIS call.
    | a walk through the valley meets living things at three difficulties
    | names, roster and every number = HIS | he plays it. ***
 DANGER-TIERS. *** DISTRICTS ARE THE DIFFICULTY, VALHEIM-STYLE (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
