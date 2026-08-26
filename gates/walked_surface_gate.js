@@ -251,6 +251,39 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     }
     return { cells, ends, mouths };
   });
+  /* AND THE SAME QUESTION FOR THE RAILYARD (8/26), because the same trap caught it the same
+     way. The yard was fixed in engine/bohemia_railyard.js, wired in world.js, gated 18/0 and
+     mutation-tested -- and the page still drew SIX engine sheds, because the walked surface
+     carries its own INLINED COPY of every engine module and that copy was the old one. One
+     tool resyncs it (tools/bohemia_city_module_resync.py) and nothing forces anybody to run
+     it. So the page is asked directly: a classification yard has ONE engine shed however
+     many cells it spans. 6 of 6 was the bug, 1 of 6 is the answer. */
+  const yard = await fr.evaluate(() => {
+    const N = OM.OVER_N, W = 128;
+    const isY = (x, y) => { const c = om.at(x, y); return !!(c && c.district === 'railyard'); };
+    let cells = 0, sheds = 0, gantries = 0;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      if (!isY(x, y)) continue;
+      cells++;
+      const m = (typeof tileMeta === 'function') ? tileMeta(x, y) : null;
+      const g = m && m.kit;                    // FLAT Uint16Array, not rows
+      if (!g || g.length !== W * W) continue;
+      let hasShed = false, hasGantry = false;
+      for (let i = 0; i < g.length; i++) { if (g[i] === 2) hasShed = true; else if (g[i] === 13) hasGantry = true; }
+      if (hasShed) sheds++;
+      if (hasGantry) gantries++;
+    }
+    return { cells, sheds, gantries };
+  });
+  if (yard.cells > 1) {
+    console.log('  the railyard: ' + yard.cells + ' cells, ' + yard.sheds + ' engine sheds, '
+      + yard.gantries + ' gantry cranes (one of each per cell was the bug)');
+    ok('THE RAILYARD IS ONE YARD: a classification yard has ONE engine shed and ONE gantry '
+       + 'however many cells it spans (measured ' + yard.sheds + ' sheds, ' + yard.gantries
+       + ' gantries across ' + yard.cells + ' cells)',
+       yard.sheds === 1 && yard.gantries === 1);
+  }
+
   if (wash.cells) {
     console.log('  the wash: ' + wash.cells + ' cells, ' + wash.ends + ' ends, '
       + wash.mouths + ' tunnel mouths (one per cell was the bug)');

@@ -13521,7 +13521,133 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     for(i=-2;i<=2;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and every one of its six
+     cells was building a COMPLETE yard: its own engine shed, its own office, its own
+     container stack, its own gantry crane, its own perimeter fence. Six sheds and six
+     gantries in a block 288 m across.
+
+     A YARD TAKES BOUNDS, NOT NEIGHBOURS, and that is the difference from the wash. A channel
+     is a LINE -- it needs to know which sides it arrives and leaves on. A classification yard
+     is an AREA: one shed at the west end, one container stack at the east, and a fan of
+     tracks running the whole length between them. That is the solar farm's shape, so it gets
+     the solar farm's treatment: lay the yard out ONCE in valley tiles against the blob's
+     bounds, and let each cell keep only its own window.
+
+     AND THE STOCK ON THE TRACKS IS PLACED BY POSITION, NOT BY THE CELL'S RNG. Every cell has
+     its own seed, so a boxcar decided with `r()` would exist in one cell and not in the
+     neighbour that shares the same rail -- a wagon cut in half at every cell boundary. The
+     gaps and the locomotives come from a hash of the VALLEY coordinate and the BLOB, so the
+     same rail carries the same train however many cells it crosses. */
+  function clusterYard(seed,opts,b){
+    var G=K.grid(seed>>>0), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    var streets=opts.streets||['S'];
+    var cellX=opts.cellX||0, cellY=opts.cellY||0;
+    var cx=cellX*W, cy=cellY*H, wx1=cx+W-1, wy1=cy+H-1;
+    var fx0=b.x0*W, fx1=(b.x1+1)*W-1, fy0=b.y0*H, fy1=(b.y1+1)*H-1;
+    /* ONE SEED FOR THE WHOLE YARD, off the blob's own corner, so every cell of it agrees
+       about where the trains are without any cell being able to see the others. */
+    var bseed=((b.x0*73856093) ^ (b.y0*19349663) ^ 0x5f3a) >>> 0;
+    function yrnd(a,c){ var n=(bseed ^ Math.imul(a,2654435761) ^ Math.imul(c,40503)) >>> 0;
+      n = Math.imul(n ^ (n>>>16), 2246822507); n = Math.imul(n ^ (n>>>13), 3266489909);
+      return ((n ^ (n>>>16)) >>> 0) / 4294967296; }
+    function vset(vx,vy,c){ var lx=vx-cx, ly=vy-cy; if(lx>=0&&ly>=0&&lx<W&&ly<H) g[ly][lx]=c; }
+    function vget(vx,vy){ var lx=vx-cx, ly=vy-cy; return (lx>=0&&ly>=0&&lx<W&&ly<H)?g[ly][lx]:-1; }
+    function vrect(x0,y0,x1,y1,c){ if(x1<cx||x0>wx1||y1<cy||y0>wy1) return;
+      var xa=Math.max(x0,cx), xb=Math.min(x1,wx1), ya=Math.max(y0,cy), yb=Math.min(y1,wy1), xx, yy;
+      for(yy=ya;yy<=yb;yy++) for(xx=xa;xx<=xb;xx++) g[yy-cy][xx-cx]=c; }
+    /* the first multiple of `step` at or past `atLeast`, so a loop that starts outside this
+       cell still lands on the same rows the neighbour's does */
+    function firstAt(from,step,atLeast){ return (atLeast<=from)?from:(from+Math.ceil((atLeast-from)/step)*step); }
+
+    // ---- BASE: ballast inside the YARD's boundary, desert at the yard's margins ----
+    vrect(cx,cy,wx1,wy1,0);
+    vrect(fx0+6,fy0+8,fx1-6,fy1-6,4);
+    // the fence is the YARD's perimeter. An interior cell gets none, which is the point:
+    // a chain-link fence through the middle of one yard is a wall that should not be there.
+    vrect(fx0,fy0,fx1,fy0,12); vrect(fx0,fy1,fx1,fy1,12);
+    vrect(fx0,fy0,fx0,fy1,12); vrect(fx1,fy0,fx1,fy1,12);
+
+    // ---- ENGINE SHED + office, ONCE, at the yard's west end ----
+    vrect(fx0+8,fy0+12,fx0+30,fy0+72,2);
+    for(y=firstAt(fy0+16,6,cy-6); y<=Math.min(fy0+68,wy1+6); y+=6) vset(fx0+8,y,11);   // bay lines
+    vrect(fx0+8,fy0+78,fx0+30,fy0+96,2);                                               // office / fuel + sand
+
+    // ---- the FAN of CLASSIFICATION TRACKS, running the WHOLE yard, with sorted stock ----
+    var tx0=fx0+34, tx1=fx1-12;
+    for(var ty=firstAt(fy0+16,7,cy-4); ty<=Math.min(fy1-24,wy1+4); ty+=7){
+      vrect(tx0,ty,tx1,ty,6);
+      for(var bx=firstAt(tx0+2,9,cx-8); bx<=Math.min(tx1-6,wx1+8); bx+=9){
+        if(yrnd(bx,ty)<0.30) continue;                                  // a gap: the track is partly empty
+        var loco=yrnd(bx+7,ty+3)<0.12;
+        vrect(bx,ty-2,bx+6,ty+1,loco?8:7);                              // a car body straddling the rail
+      }
+    }
+
+    // ---- CONTAINER stacking yard + the GANTRY that works it, ONCE, at the yard's SE ----
+    var gx0=fx1-42, gx1=fx1-12, gy0=fy1-30, gy1=fy1-4;
+    for(var ccy=firstAt(gy0+2,6,cy-6); ccy<=Math.min(gy1-4,wy1+6); ccy+=6)
+      for(var ccx=firstAt(gx0+2,8,cx-8); ccx<=Math.min(gx1-8,wx1+8); ccx+=8){
+        if(yrnd(ccx,ccy+11)<0.15) continue;
+        vrect(ccx,ccy,ccx+6,ccy+4,10);
+      }
+    vrect(gx0,gy0,gx1,gy0+1,13); vrect(gx0,gy0,gx0,gy1,13); vrect(gx1,gy0,gx1,gy1,13);  // rails + legs
+    vrect(gx0+12,gy0-2,gx0+18,gy0+2,13);                                                 // trolley / hoist
+
+    // ---- pole lights on the YARD's corners, dead brush on its fence line ----
+    [[fx0+3,fy0+4],[fx1-3,fy0+4],[fx0+3,fy1-4],[fx1-3,fy1-4]].forEach(function(p){ vset(p[0],p[1],9); });
+    /* THE DRESSING KEEPS OFF THE SEAM, one tile in on every side. Scattered brush does not
+       line up with the neighbour's, and a single tumbleweed on the boundary row is enough to
+       make one cell's ballast meet the next cell's desert -- the same thing that broke seven
+       of the wash's forty-four seams before it was inset. */
+    for(i=0;i<14;i++){ var bx2=cx+1+Math.floor(r()*(W-2)), by2=cy+1+Math.floor(r()*(H-2));
+      if(vget(bx2,by2)===12) vset(bx2,by2,3); }
+
+    /* ---- THE SERVICE ROADS, AND WHY THERE IS A RING ----
+       The first cut ran ONE lane along the yard's south front, which is what a single-cell
+       yard has. Across a 3x2 blob that leaves the whole top row with no drivable surface at
+       all: a maintenance vehicle could not reach four of the six cells from any gate, and
+       driveConnected said so for five street placements. A yard this size has a perimeter
+       access road inside the fence -- that is how they are actually built, it is what the
+       gate is really asking about, and it sits in the desert margin between the fence and
+       the ballast where nothing else wants to be. */
+    vrect(fx0+2,fy0+2,fx1-2,fy0+5,1); vrect(fx0+2,fy1-5,fx1-2,fy1-2,1);   // north + south runs
+    vrect(fx0+2,fy0+2,fx0+5,fy1-2,1); vrect(fx1-5,fy0+2,fx1-2,fy1-2,1);   // west + east runs
+    vrect(fx0+8,fy1-18,fx1-8,fy1-14,1);          // the yard lane along the working front
+    vrect(fx0+18,fy0+96,fx0+22,fy1-14,1);        // depot road down to the lane
+
+    /* GATE + APRON on every street this cell actually fronts, and only on the yard's own
+       EDGE. An interior cell must never punch a gate: that is a gate in the middle of a
+       railyard. A perimeter cell that fronts a street still gets one, which is how a yard
+       this size really works -- a main gate plus service gates. */
+    var gates=[];
+    streets.forEach(function(edge){
+      if(edge==='S'&&wy1!==fy1) return; if(edge==='N'&&cy!==fy0) return;
+      if(edge==='E'&&wx1!==fx1) return; if(edge==='W'&&cx!==fx0) return;
+      var s2, w2, c2;
+      if(edge==='S'||edge==='N'){ var ggx=Math.floor(W*0.5), ggy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
+        for(i=-2;i<=2;i++) g[ggy][ggx+i]=5;
+        for(s2=1;s2<=M(14);s2++){ var yy=ggy+dir*s2; if(yy<=0||yy>=H-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[yy][ggx+w2]; if(c2===0||c2===3||c2===4||c2===12) g[yy][ggx+w2]=1; } }
+        gates.push({edge:edge,x:ggx,y:ggy});
+      } else { var ggy2=Math.floor(H*0.5), ggx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
+        for(i=-2;i<=2;i++) g[ggy2+i][ggx2]=5;
+        for(s2=1;s2<=M(14);s2++){ var xx=ggx2+dir2*s2; if(xx<=0||xx>=W-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[ggy2+w2][xx]; if(c2===0||c2===3||c2===4||c2===12) g[ggy2+w2][xx]=1; } }
+        gates.push({edge:edge,x:ggx2,y:ggy2});
+      }
+    });
+    return {g:g, W:W, H:H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE YARD CELL IS UNCHANGED. Canonical-south plus rotateToStreet is the right answer
+       for one cell and it is art that already shipped; only a yard that actually spans more
+       than one cell takes the cluster path, because only then is there a neighbour's half of
+       the same yard to line up with. */
+    var b=opts.bounds;
+    if(b && (b.x1>b.x0 || b.y1>b.y0)) return clusterYard(seed,opts,b);
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
@@ -24729,7 +24855,10 @@ function kitClusterBounds(d,tx,ty){
    4x7 cells and a straight line through it misses most of the cells that are actually wash.
    So a linear district is handed its four NEIGHBOURS instead -- which sides it arrives and
    leaves on -- and runs the channel through the cell on that axis. */
-const CLUSTER_KIT={airport:1,airbase:1,convention:1,prison:1,dam:1,minigp:1,fort:1,solar:1};
+/* AND THE RAILYARD (8/26). Six cells, six complete yards. Unlike the wash this one needs
+   nothing new from the page: railyard is INDUSTRIAL, so it already reaches the cluster
+   branch below and only had to be named here. */
+const CLUSTER_KIT={airport:1,airbase:1,convention:1,prison:1,dam:1,minigp:1,fort:1,solar:1,railyard:1};
 /* AND WASH IS NOT IN THAT LIST, WHICH COST AN HOUR. It is filed TERRAIN, so it is served by
    the KIT_TERRAIN branch further down and never reaches the cluster branch at all -- adding
    it to CLUSTER_KIT changed nothing and the probe still counted 60 tunnel mouths in 60 cells.

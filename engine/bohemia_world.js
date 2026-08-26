@@ -129,7 +129,11 @@
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
     landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
+       cells was building a COMPLETE yard -- six engine sheds, six gantry cranes, six
+       perimeter fences in a block 288 m across. A classification yard is an AREA, so it
+       takes BOUNDS like the solar farm does, not neighbours like the wash. */
+    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },

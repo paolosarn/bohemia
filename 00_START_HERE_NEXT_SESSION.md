@@ -51073,7 +51073,68 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (d) LATEST -- *** A WASH IS A RIVER, NOT FIFTY-ONE RIVERS. The
+WORLD (city-1eztay): 8/26 (a) LATEST -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
+blob and every one of its six cells built a COMPLETE classification yard -- six engine sheds and
+six gantry cranes in a block 288 m across. It is one yard now. AND THE PAGE DID NOT GET IT UNTIL
+I WENT AND LOOKED, WHICH IS THE SECOND TIME IN TWO DAYS. Nothing to judge. ***
+Gates: RAILYARD 18/0 (mutation-tested), WALKED SURFACE 13/0 (page-level check for BOTH the yard
+and the wash, both mutation-tested), WORLD MODEL 29/0, TILESPEC 310/0, WALKABLE-LAND 73/0,
+CITY TAB 64/0.
+
+TAB: RUN. Walk the train yard. One engine shed and one gantry crane instead of six of each.
+
+*** A YARD TAKES BOUNDS. A CHANNEL TAKES NEIGHBOURS. *** The wash is a LINE -- it needs to know
+which sides it arrives and leaves on, because it turns corners and a bounding box cannot express
+that. A classification yard is an AREA: one shed west, one container stack east, a fan of tracks
+running the length between. That is the SOLAR FARM's shape and it gets the solar farm's
+treatment. Both mechanisms now sit side by side in world.js and on the page.
+
+TWO THINGS THAT ONLY APPEAR ONCE IT SPANS CELLS:
+  - THE TRAINS HAD TO STOP BEING RANDOM PER CELL. Every cell has its own seed, so a boxcar
+    decided with the cell's r() exists in one cell and not in the neighbour sharing that rail --
+    a wagon cut in half at every boundary, on every rail. Gaps and locos come from a hash of the
+    VALLEY coordinate and the BLOB now.
+  - DRIVE ACCESS FAILED FOR FOUR OF SIX CELLS. One lane along the south front is what a
+    single-cell yard has; across a 3x2 blob the whole top row had no drivable surface at all. A
+    yard this size has a PERIMETER ACCESS ROAD inside the fence, which is how they are built.
+    worst void 0.091 -> 0.030, min drive reach 0.974, min content 22.3%.
+
+THE SEAM CHECK IS EAST-WEST ONLY AND THAT IS DELIBERATE: the rails run east-west so cells side
+by side share rail rows and their touching COLUMNS must agree; cells stacked north-south share
+no rail and adjacent ROWS legitimately differ. My first scratch probe demanded they match and
+reported three "broken" seams that were the yard working correctly. AND ON THIS DISTRICT THE
+SEAM COUNT IS NOT THE DISCRIMINATOR -- under mutation it reads 0 broken either way, because a
+per-cell yard puts its own fence on its own edge and fence meets fence. THE SHED AND GANTRY
+COUNTS ARE WHAT MOVE. A number that does not move under mutation is not evidence and does not go
+in the gate as though it were.
+
+*** AND THE PAGE DID NOT HAVE IT -- AGAIN, ONE LAYER DOWN. *** Yesterday it was world.js not
+being on the page. Today: THE WALKED SURFACE CARRIES ITS OWN INLINED COPY OF ALL 95 ENGINE
+MODULES and that copy was the old railyard. One tool resyncs it and nothing forces anybody to
+run it: python3 tools/bohemia_city_module_resync.py -> "95 embedded, 94 already fresh, RESYNCED:
+engine/bohemia_railyard.js".
+  on the page before   6 engine sheds, 6 gantries, in 6 cells
+  on the page after    1 engine shed,  1 gantry
+  mutation             stop the page treating it as a cluster -> 6 and 6 again
+TWO DAYS, TWO DISTRICT FIXES, TWO TIMES THE MODEL WAS RIGHT AND THE GAME WAS NOT. Engine module,
+world model, page dispatch and page module copy are FOUR PLACES and only the last is what he
+sees. EVERY DISTRICT FIX FROM HERE ENDS WITH A PAGE-LEVEL ASSERTION IN walked_surface_gate.
+
+NEXT IN THIS LANE
+  1. STADIUM -- FOUR STADIUMS in a 2x2 and a stadium is a singular landmark. It is an AREA, so
+     it is the railyard's shape, not the wash's; the mechanism is sitting there. Then GOLF (9
+     cells, nine golf courses in a 3x3). Remaining multi-cell blobs on the canon seed:
+       wash 51 DONE · railyard 6 DONE · farm 93 (13 blobs) · golf 9 · stadium 4 · landfill 4 ·
+       cemetery 4 · park 3 · medical 2
+  2. THE LOAD NUMBER IS MEASURED WITHOUT COMPRESSION AND GITHUB PAGES GZIPS ON THE FLY
+     (confirmed by research, no brotli). The three critical-path files are 6.15 MB raw and
+     3.54 MB gzipped, so the real wait is likely nearer 6s than the 11s the gate reports -- it
+     is measuring a phone that does not exist. Make the test server compress, then re-ratchet.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_ONE_YARD_NOT_SIX_8_26_26.md
+
+WORLD (city-1eztay): 8/25 (d) -- *** A WASH IS A RIVER, NOT FIFTY-ONE RIVERS. The
 valley's flood channel is 51 cells long and every one of them was building a COMPLETE wash
 with its own tunnel mouth -- 34 parallel north-south channels shoulder to shoulder along a
 run that goes east. It is one channel now. And chasing it found a collision between two
