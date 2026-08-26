@@ -1842,23 +1842,27 @@ def build_farm(P):
     s = Scene()
     # a farm is DIRT + dead crop rows, not grass or pavement (agricultural)
     DIRT = (92, 82, 64)
-    _ground(s, (-3, -3, 15, 15), patches=[(4.0, 4.0, 14.5, 14.5, _dark(FIELD, 0.9)['c'])],
+    # PAOLO 8/25 (NO on the whole board): the farm read as SHEDS WITH A RED
+    # SILO and three yellow stripes - the FIELD, the thing a farm is, was a
+    # corner patch. Flipped: the furrow field owns two-thirds of the plot and
+    # the buildings huddle in one corner the way a real quarter-section works.
+    _ground(s, (-3, -3, 15, 15), patches=[(1.0, 4.2, 14.5, 14.5, _dark(FIELD, 0.9)['c'])],
             drive=(-3, -1, 4, 1.5), groundc=DIRT, lotc=(70, 62, 48))
-    # dead crop rows in the field
-    for fy in range(0, 10, 2):
-        s.box((4.5, 5.0 + fy, 0.02), (9.5, 0.5, 0.12), {'c': _dark(FIELD, 1.1)['c']})
-    # the red BARN (gable approximated by a darker peaked cap) + a tall SILO beside it
-    s.box((-2, -1, 0), (5.5, 4.5, 4.4), {'top': _dark(BARN, 0.7), 'px': _dark(BARN, 1.0),
+    # dead crop rows fill the whole field, tighter rows read as furrows
+    for fy in range(0, 20, 2):
+        s.box((1.4, 4.8 + fy * 0.5, 0.02), (12.6, 0.45, 0.12), {'c': _dark(FIELD, 1.1)['c']})
+    # the red BARN, modest, + the SILO beside it
+    s.box((-2, -1, 0), (4.2, 3.4, 3.4), {'top': _dark(BARN, 0.7), 'px': _dark(BARN, 1.0),
           'py': _dark(BARN, 0.82), 'nx': _dark(BARN), 'ny': _dark(BARN)})
-    s.box((-1.4, -0.4, 4.4), (4.3, 3.3, 1.4), {'c': _dark(BARN, 0.78)['c']})    # peaked roof cap
-    s.prism(4.3, 0.6, 0, 1.5, 7.2, 14, {'c': SILO}, {'c': tuple(min(255, int(c * 1.05)) for c in SILO)})
-    s.prism(4.3, 0.6, 7.2, 1.5, 0.9, 14, {'c': _dark(SILO, 0.8)['c']})          # silo dome cap
-    # the farmhouse + a tractor + a fence line
-    s.box((-2, 5.5, 0), (3.4, 3.0, 3.6), {'top': _dark(HOUSE, 0.9), 'px': _win(HOUSE, 3, 2, 4),
+    s.box((-1.6, -0.6, 3.4), (3.4, 2.6, 1.1), {'c': _dark(BARN, 0.78)['c']})    # peaked roof cap
+    s.prism(3.4, 0.6, 0, 1.3, 6.6, 14, {'c': SILO}, {'c': tuple(min(255, int(c * 1.05)) for c in SILO)})
+    s.prism(3.4, 0.6, 6.6, 1.3, 0.8, 14, {'c': _dark(SILO, 0.8)['c']})          # silo dome cap
+    # the farmhouse, small, + a tractor dead IN the field + the boundary fence
+    s.box((5.6, -0.6, 0), (2.8, 2.4, 2.8), {'top': _dark(HOUSE, 0.9), 'px': _win(HOUSE, 2, 2, 4),
           'py': _win(HOUSE, 2, 2, 9), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE)})
-    _vehicle(s, 7.5, 1.0, CAR, TRACTOR, along='x')                             # a dead tractor
-    for fx in range(0, 8):
-        _fence_box(s, (-2.5 + fx * 2.0, 9.5, 0), (0.12, 0.12, 1.1), {'c': FENCE})
+    _vehicle(s, 6.5, 8.0, CAR, TRACTOR, along='x')                             # died mid-row
+    for fx in range(0, 9):
+        _fence_box(s, (-2.5 + fx * 1.9, 3.9, 0), (0.12, 0.12, 1.1), {'c': FENCE})
     return s, 6.6
 
 
@@ -3087,7 +3091,10 @@ def build_drivein(P):
     s.box((-1.0, -2.4, 0), (11.0, 0.55, 12.6),
           {'top': _dark(SCREEN, 1.18), 'px': {'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)},
            'py': _dark(SCREEN, 0.7), 'nx': _dark(SCREEN, 0.86), 'ny': _dark(SCREEN, 0.7)})
-    s.box((-1.3, -2.7, 0), (11.6, 0.3, 13.1), {'c': _dark(SCREEN, 0.62)['c']})               # its frame edge
+    # 8/26: this frame sat SOUTH of the wall (y -2.7 vs -2.4) - camera-side -
+    # so the whole pale screen face rendered as a black slab. The frame goes
+    # BEHIND the screen where the bracing already lives.
+    s.box((-1.3, -1.85, 0), (11.6, 0.3, 13.1), {'c': _dark(SCREEN, 0.62)['c']})              # its frame edge
     for bx in (0.0, 2.6, 5.2, 7.8):                                                          # the back bracing
         s.box((bx, -2.4, 0), (0.3, -0.0 + 1.9, 0.3), {'c': _dark(SCREEN, 0.58)['c']})
         s.quad((bx, -0.5, 0), (bx + 0.3, -0.5, 0), (bx + 0.3, -1.85, 8.0), (bx, -1.85, 8.0),
@@ -4894,7 +4901,16 @@ def _write_dossier(heroes):
 # raise). Their builders author the whole read themselves.
 NOT_A_BUILDING = {'park', 'mountain', 'desert', 'water', 'wash', 'golf',
                   'cemetery', 'landfill', 'basin',
-                  'freeway', 'arterial', 'arterial_x', 'interchange', 'rail'}
+                  'freeway', 'arterial', 'arterial_x', 'interchange', 'rail',
+                  # 8/26 wave 3 (the kill board's tower cluster): these ARE
+                  # buildings but LOW BY NATURE - single-storey ranches,
+                  # single-wide homes, storage unit rows, a screen tower on a
+                  # field, a dome, a pit. The widen-and-raise pass turned all
+                  # of them into tower blocks and the dressing striped the
+                  # gypsum dome into a wedding cake. Their builders author the
+                  # whole read.
+                  'suburb', 'trailer', 'storage', 'quarry', 'gypsum',
+                  'drivein', 'farm', 'waterpark'}
 
 
 def main():
