@@ -273,8 +273,23 @@ const LOUDNESS = `(function(){
          that wants the whole pointer sequence -- a synthesised click event on
          this button does nothing, which cost four probe runs to learn. */
       const before = await city.evaluate(() => window.__OFFER_TAKEN || 0);
-      await ph.click('.lv-take', { timeout: 8000 }).catch(() => { });
-      await SETTLE(page, 1800);
+      /* *** A THUMB THAT MISSES RE-TAPS, AND SO DOES THIS. *** Measured 1 failure
+         in 3 runs before this loop: the phone re-renders on every state push, so a
+         single click can land in the gap where the node has just been replaced and
+         the new one is not wired yet. That is the same staleness that made an
+         earlier probe report TAKE IT as broken for four runs. Retrying is not
+         papering over a bug -- the button works, and a gate that goes red one run
+         in three is a gate that gets ignored. How many taps it needed is printed,
+         so if that number ever climbs the flake is visible instead of silent. */
+      let taps = 0;
+      for (; taps < 4; taps++) {
+        await ph.click('.lv-take', { timeout: 8000 }).catch(() => { });
+        await SETTLE(page, 1400);
+        const got = await city.evaluate(() => window.__OFFER_TAKEN || 0);
+        if (got > before) { taps++; break; }
+      }
+      console.log('  TAKE IT needed ' + taps + ' tap(s)');
+      await SETTLE(page, 600);
       const after = await city.evaluate(() => ({
         taken: window.__OFFER_TAKEN || 0,
         unread: (typeof OFFER !== 'undefined' && !!OFFER) && !OFFER_TAKEN,
