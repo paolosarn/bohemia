@@ -1,3 +1,104 @@
+SOUND (sound-xk7pjp): 8/26 (c) LATEST -- *** FOUR PHYSICS THIS RACK HAS NEVER
+HAD, answering his standing order. And the gate that measures them FAILED MY OWN
+BATCH TWICE -- I fixed the voices, not the gate. Four fresh songs badged NEW. ***
+
+TAB: MUSIC. Four new tracks carry them: THE STRING THAT KEEPS MOVING / A NOTE
+THAT CLIMBS WITHOUT RISING / SOMETHING IN THE PIPE IS SHAPING WORDS / THE BOW
+WILL NOT LET GO. Build 8/26r - FOUR NEW PHYSICS.
+
+HIS ORDER
+  "we need more voices and different instruments sounds and shit. so yeah keep
+  cooking" -- standing, not a one-off.
+
+HE SAID DIFFERENT, SO THE SEARCH WAS FOR PHYSICS, NOT NAMES
+  582 melodic voices already exist. The failure mode is a 583rd that lands on
+  top of one of them. The rack was grepped for the TECHNIQUE (FM 32, waveshaping
+  23, comb 24, pluck 22, formant 14, additive 9, FOF 1, Karplus 1...) and
+  SUPERSAW WAS RULED OUT on that evidence: fatsaw / saw3v / detune / unisonsplit
+  are already detuned-saw stacks.
+  WHAT WAS ACTUALLY ABSENT:
+    scanstring  SCANNED SYNTHESIS (Verplank/Shaw/Mathews 1998-99). 64 masses on
+                springs, struck, integrated slowly, read out at pitch. THE
+                WAVETABLE IS COMPUTED BY PHYSICS, and it evolves as it settles.
+    syncthorn   HARD SYNC. The word "sync" appears ZERO times in 582 voices.
+    pafvox      PHASE-ALIGNED FORMANT (Puckette 1995). Not formantvox (filters),
+                not atriumvox (FOF grains). Three ways to a vowel; we had two.
+    bowdrag     STICK-SLIP FRICTION, Helmholtz motion. THE OSCILLATION IS NOT
+                MADE BY AN OSCILLATOR. The first voice here whose pitch is a
+                consequence rather than a setting.
+
+bowdrag FAILED TWICE BEFORE IT WORKED, and both are worth knowing
+  zc 4 over a second: it was CREEPING, not slipping -- the string velocity was
+  scaled by 0.002 so the relative velocity never changed sign and the "friction"
+  was a DC push. Then it went SILENT above 440 Hz: a stiffer string needs a
+  harder press, so the normal force scales with pitch. 55-1200 Hz now.
+
+THE GATE, AND THE PART THAT MATTERS
+  gates/voice_variety_gate.py (registered as VOICE VARIETY). Renders at EVERY
+  pitch, keeps its timbre across the register, and DOES NOT LAND ON AN EXISTING
+  VOICE. THE RACK SETS ITS OWN BAR: it measures how far apart the 578 existing
+  renderable voices are from each other and demands a newcomer beat the median
+  pair, so nobody picks the number that judges their own batch.
+      median existing pair 0.0936
+      bowdrag 0.0960 (overpasslight) · pafvox 0.1052 (hoover)
+      scanstring 0.1143 (sawlead)    · syncthorn 0.1296 (anvil)
+  IT FAILED MY BATCH TWICE. First run: pafvox 0.0077 from `printer`, syncthorn
+  0.0109 from `ringmod`. Half of that was a real descriptor gap -- all four axes
+  were STATIC and these topologies are about CHANGE -- so two evolution axes went
+  in, applied to all 582 so the bar rises with them. Still under. At that point
+  more axes would have been Goodharting my own gate, so I STOPPED TOUCHING THE
+  RULER and made the voices genuinely more distinctive in the direction of their
+  own technique. Both cleared honestly.
+
+AND THE GATE ITSELF WAS FLAKY -- the rebase exposed it
+  Twelve commits from other lanes landed and syncthorn went red. My edit had
+  survived and the rack had grown by ONE voice, so the swing did not add up. Run
+  three times: nearest 0.1489 / 0.0929 / 0.0779. NOTHING ABOUT SYNCTHORN
+  CHANGED -- plenty of voices here are stochastic, so ONE RENDER SAMPLES A
+  VOICE'S NOISE as much as its timbre and the gate was deciding by coin flip.
+  Every voice is now placed by the AVERAGE OF THREE RENDERS: 0.1125 / 0.1244 /
+  0.1256 against a bar that stopped wandering too (0.0936/0.0935/0.0935).
+  THIRD TIME IN ONE SESSION nondeterminism broke a measurement (the run's beat
+  clock, the menu songs, this). ONE RENDER IS NOT A MEASUREMENT -- any gate
+  comparing audio in this engine must establish the thing's own spread first.
+
+TWO FINDS THAT HAD NOTHING TO DO WITH VOICES
+  1. FOUR OF HIS CANON VERDICTS WERE NEVER IN THE GAME. Cross-checked all 106
+     CANON rulings in his export against CANON_DEFAULTS: 102 present, 4 missing
+     (MENU - THE POWER STILL ON SOMEWHERE, THE VOICE THAT STILL ANNOUNCES
+     FLOORS, THE LAST BROADCAST CORRODES, THE BELLS DISAGREE). Applied.
+  2. NEW_VIBES WAS STALE and it matters twice: it drives the NEW badge AND it is
+     the list voice_audible_gate walks, so the newest voices were the only ones
+     nobody was checking. Pointed at this batch.
+  AND I INVENTED A DRUM: kit h:'shaker' does not exist (it is 'shakerh'); that
+  song's hat would have been silent. batch25 now refuses to name an instrument
+  with no body -- and THAT checker was wrong on its first run too (it flagged
+  `clickh`, a real hat kept as an unquoted table key). It uses the game's rule now.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  KEEP COOKING -- it is a standing order and batch 26 is the next thing. The
+  search method is now written down and repeatable: grep the rack for the
+  TECHNIQUE, rule out the near misses by name, and let voice_variety_gate decide
+  whether the result is a sound or a name. Still absent and legal under SCREECH
+  LAW: pulsar synthesis, vector/wavetable spectral morph (check drawbarmorph
+  first), and a real waveguide is BARRED by the no-delay rule, so do not try.
+  Also still open from the 8/26 ruling: INTENSITY.talking() and INTENSITY.crowd()
+  have no callers -- one line each from the lane that owns the city frame.
+
+PROOF
+  records/BOHEMIA_FOUR_NEW_PHYSICS_8_26_26.md
+  gates/voice_variety_gate.py  15 passed, 0 FAILED   (-v prints the distances)
+  MUSIC 20/0 · VOICE AUDIBLE 10/0 · MENU MUSIC 17/0 · FIGHT MUSIC 47/0
+  SONG LOCK 20/0 · DEMO BUILD 25/0 · ALPHA LOADS 20/0 · graveyard unchanged at 10
+  MUTATED: a "new" voice secretly routed to sawlead -> nearest 0.0000 RED, which
+  is the whole reason the gate exists; and bowdrag's force stopped scaling with
+  pitch -> the register leg RED, reproducing the bug I actually shipped.
+
+------------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 8/26 (b) LATEST -- *** THE UIBOOK. He asked for the METHOD for
 studying other games' UI, then named Final Fantasy X as round one. Both shipped:
 four real instruments, four masters, citable ids, and a gate whose centre is
@@ -51301,7 +51402,90 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/26 (a) LATEST -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
+WORLD (city-1eztay): 8/26 (b) LATEST -- *** A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT
+MORE GROUND. Three more districts stopped building themselves once per cell -- FOUR STADIUM
+BOWLS in a 2x2, four weighbridges in one landfill, four chapels in one burial ground. But the
+shipped thing is NOT the three districts: it is that this was the SIXTH TIME IN THREE DAYS, so
+it became a MECHANISM in the kit and a GATE FOR THE CLASS. And separately: EVERY LOAD NUMBER
+THIS LANE EVER PRINTED WAS A PHONE THAT DOES NOT EXIST. Nothing to judge. ***
+Gates: ONE PER BLOB 5/0 (NEW, self-mutation-testing), WALKED SURFACE 14/0, TIME TO PLAY 13/0
+(three ratchets down), STADIUM 12/0, LANDFILL 11/0, CEMETERY 8/0, RAILYARD 18/0,
+DISTRICT KIT 24/0.
+
+TAB: RUN. One stadium instead of four. And the world opens in 8.4s on a weak phone, not 11.1s.
+
+*** SIX TIMES IS NOT A BUG, IT IS A CLASS. *** solar 265 plants (8/24) · wash 51 tunnel mouths
+(8/25) · railyard 6 sheds · stadium 4 BOWLS · landfill 4 weighbridges · cemetery 4 chapels. The
+first three were fixed by hand, each growing its own copy of the same code. It is now
+K.blob(seed,opts) in the district kit: valley-coordinate vset/vrect/vell/vring/vline/vframe, a
+rnd that belongs to the BLOB not the cell, firstAt for loops that must land on the same rows in
+every cell, dress that keeps confetti off the seam, gates that only fire on the district's own
+edge. The three districts after it are ~30 lines each instead of ~130.
+
+TWO SHAPES, AND THIS IS THE PART TO KEEP: an AREA district takes the blob's BOUNDS (solar,
+railyard, stadium, landfill, cemetery). A LINE district takes its NEIGHBOURS (the wash turns a
+corner; the bounding box of that corner is 4x7 cells and a straight line through it misses most
+of the cells that are actually wash). Extent is the wrong question for a line.
+
+THE STADIUM WAS ALSO THE WRONG SIZE AND ONLY THIS COULD FIX IT: a real bowl is 200-250m across
+and a cell is 96m, so the single-cell build draws a 72m TOY. Across a 2x2 it is 138m with the
+lots around it. The canonical proportions are held exactly -- holding the RATIOS not the
+numbers is what lets the same bowl be a toy in one cell and a stadium across four.
+
+*** THE GATE FOR THE CLASS HAS NO CONSTANTS. *** one_district_per_blob_gate reads the valley,
+finds every multi-cell blob, and builds each BOTH WAYS -- as one district, and the old way a
+cell at a time -- then counts hero structures (connected runs of the district's own `body`
+predicate, which every district already declares). THAT COMPARISON IS THE MUTATION TEST, RUN
+EVERY TIME, AGAINST THE EXACT DEFECT IT GUARDS. It cannot go quietly green like a constant can.
+  landfill 4->2 · railyard 12->2 · convention 6->1 · wash 16->4 · prison 40->10 ·
+  stadium 4->1 · cemetery 16->6 · dam 28->7
+It prints its own backlog too: farm:9 · golf:9 · town:9 · datafort:6 · speedway:6.
+
+THREE THINGS THE GATE GOT WRONG FIRST, EACH A LESSON:
+  - IT EXITED 0 AND PRINTED NOTHING. Requiring all of engine/ loaded a module that self-tests
+    at require time and ends with process.exit. An exit code cannot be caught, so do not load
+    the file: it loads only what contains K.register( now.
+  - IT SAID THE MODEL DECLARES NO CLUSTERS, with six in the file. The regex was
+    \{[^}]*cluster:true and every DISTGEN row carries foot:function(r){return r.footprints;} --
+    the first } ends the class before cluster:true is reached.
+  - IT FAILED THE WASH, FIXED THE DAY BEFORE. It handed every district BOUNDS, so the wash fell
+    through to its lone-cell build and read 14 mouths either way. A GATE THAT CANNOT CONSTRUCT
+    THE THING IT IS JUDGING IS MEASURING ITSELF.
+  - and the rule is "DOES NOT SCALE WITH CELLS", not "at least halves": a 3-cell wash goes 6->4
+    because a run has two ends whatever its length. That is the fix working, and not a halving.
+
+THE PAGE, THIRD TIME THIS WEEK: all three fixed in the model, gated, mutation-tested, and the
+walked surface still drew the old thing. walked_surface_gate sweeps the one-facility districts
+on the page now: railyard 6c/2r · landfill 4c/2r · stadium 4c/1r · cemetery 2c/6r. Mutation:
+un-wire the page -> stadium 1->4, landfill 2->4, cemetery 6->8.
+AND THE FIRST CUT OF THAT SWEEP WAS TOO GREEDY: applied to every multi-cell blob it flagged a
+HUNDRED, and every one was right to have what it had -- a COMMERCIAL strip is 24 stores per
+cell BY DESIGN, a TOWN is 300 houses, a FARM has 5 barns. "One facility per blob" is a fact
+about the handful that ARE one facility, not about districts. The cemetery ceiling is 7 not 8
+for the same reason: measured 6 clustered and 8 per-cell, so 8 sits on the wrong side of the
+defect. A CEILING THAT DOES NOT FAIL THE BUG IT WAS WRITTEN FOR IS DECORATION.
+
+*** AND EVERY LOAD NUMBER THIS LANE PRINTED WAS A PHONE THAT DOES NOT EXIST. *** The test
+server sent every byte RAW and GITHUB PAGES COMPRESSES TEXT ON THE FLY (gzip; brotli has been
+asked for since 2019 and still is not there -- researched, not assumed). CITY_WORLD.html
+2.68->0.99 MB (37%), TILES_01 1.75->1.26 (72%), PROPS 1.72->1.29 (75%): base64 art barely
+compresses because it is already-compressed PNG spelled out in letters, and the page is source
+and comments so it compresses hard. With the server behaving like the real host AND the
+accounting counting what crossed the wire instead of what sits on disk:
+    total to play  40.76 -> 25.88 MB · after the tap 2.84 -> 1.05 MB · weak 4G 11.1s -> 8.4s
+NOTHING IN THE GAME CHANGED TO EARN ANY OF THAT. Three ratchets came down with it: total
+44->30 MB, after-the-tap 6->2 MB, the wait 16->12s. All three mutation-tested.
+
+NEXT IN THIS LANE
+  1. GOLF -- nine golf courses in a 3x3. An AREA district, so it is the stadium's shape and
+     K.blob is already there. Then FARM, the biggest by area (93 cells, 13 blobs) and the ONLY
+     one where "one farm each" may actually be correct -- LOOK BEFORE BUILDING.
+     The gate prints the rest itself: town:9 · datafort:6 · speedway:6 · park:3 · medical:2.
+  2. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  3. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md
+
+WORLD (city-1eztay): 8/26 (a) -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
 blob and every one of its six cells built a COMPLETE classification yard -- six engine sheds and
 six gantry cranes in a block 288 m across. It is one yard now. AND THE PAGE DID NOT GET IT UNTIL
 I WENT AND LOOKED, WHICH IS THE SECOND TIME IN TWO DAYS. Nothing to judge. ***

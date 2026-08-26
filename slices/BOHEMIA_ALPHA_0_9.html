@@ -1122,7 +1122,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26u - THE SIDEWALK IS ONE SIDEWALK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26z - FOUR NEW PHYSICS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8490,8 +8490,16 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
      the shuffle and the city's music walked straight into a fight. The
      guard is gone: opening COMBAT stops both, whether or not the studio
      happens to be running. */
+  /* AMENDED SAME DAY, ON HIS WORD: "the combat music is all fucked up... try to
+     find out what you previously did." The first cut called MUS.stop()
+     UNCONDITIONALLY here, and MUS.stop() CUTS THE MASTER GAIN TO ZERO -- so
+     opening combat reached into the studio engine and silenced it even when it
+     was not playing, moments before musicPushToCombat sends the song across.
+     STOPPING A THING THAT IS NOT PLAYING IS NOT A NO-OP.
+     ONLY WHAT IS ACTUALLY MAKING NOISE GETS STOPPED NOW, which is all the
+     second-song bug ever needed: the city shuffle, when the shuffle is on. */
   if(t.dataset.p==='combat'){ try{ if(CITYMUS.on)CITYMUS.stopShuffle(); }catch(e){}
-                              try{ MUS.stop(); }catch(e){} }
+                              try{ if(MUS.playing)MUS.stop(); }catch(e){} }
   else if(t.dataset.p!=='music'&&MUS.playing){
     if(t.dataset.p==='city'&&CITYMUS.on){/* city shuffle owns playback here */}
     else { if(CITYMUS.on)CITYMUS.stopShuffle(); else MUS.stop(); } }   /* leaving the studio (or city shuffle) silences it */
@@ -8608,6 +8616,164 @@ function drumV(kind,AC,MAST,t){
     b.connect(fl);fl.connect(g);g.connect(MAST);b.start(t); return; }
 }
 function synthV(kind,AC,MAST,hz,sd,semi,t,g0){
+  /* ===== BATCH 25 VOICES (8/26/26) — four topologies this rack has never had.
+     His order: "we need more voices and different instruments sounds and shit."
+     Chosen by searching the 582 that exist for the TECHNIQUE rather than the
+     name, and every near miss is ruled out in tools/bohemia_music_batch25.py.
+     SCREECH LAW: nothing here delays, convolves or feeds back. Three of the
+     four are computed into a buffer sample by sample, which is how they can be
+     real physics with no delay line in the graph. */
+  if(kind==='scanstring'){
+    /* SCANNED SYNTHESIS (Verplank, Shaw & Mathews, Interval Research 1998-99).
+       A ring of 64 masses joined by springs is STRUCK at note-on, then
+       integrated at a slow rate while the whole ring is read out as one cycle
+       at the pitch. THE WAVETABLE IS COMPUTED BY PHYSICS -- not authored, not
+       crossfaded between presets -- and it keeps changing for the length of the
+       note as the string settles.
+       NOT granular (grains are independent; these masses are coupled). NOT
+       modal (modes are fixed and summed; this spectrum evolves). NOT wavemorph,
+       which crossfades two WaveShapers. */
+    const M=64, CYC=128, dur=Math.max(0.35, sd*4);
+    const cycles=Math.max(8, Math.ceil(dur*hz(semi)/1));
+    const bf=AC.createBuffer(1, cycles*CYC, AC.sampleRate), d=bf.getChannelData(0);
+    const x=new Float32Array(M), v=new Float32Array(M);
+    for(let i=0;i<M;i++) x[i]=Math.sin(2*Math.PI*i/M)*0.6;
+    x[8]+=0.9;                                  /* the strike */
+    const K=0.28, CENTRE=0.004, DAMP=0.0022;
+    let w=0;
+    for(let c=0;c<cycles;c++){
+      for(let s=0;s<CYC;s++){
+        const p=s*M/CYC, i0=Math.floor(p), fr=p-i0;
+        d[w++]=x[i0%M]*(1-fr)+x[(i0+1)%M]*fr;
+      }
+      for(let i=0;i<M;i++){
+        const a=(x[(i-1+M)%M]+x[(i+1)%M]-2*x[i])*K - x[i]*CENTRE - v[i]*DAMP;
+        v[i]+=a;
+      }
+      for(let i=0;i<M;i++) x[i]+=v[i];
+    }
+    let pk=0; for(let i=0;i<d.length;i++) pk=Math.max(pk,Math.abs(d[i]));
+    if(pk>0) for(let i=0;i<d.length;i++) d[i]/=pk;
+    const src=AC.createBufferSource(), g=AC.createGain(), lp=AC.createBiquadFilter();
+    src.buffer=bf; src.loop=false;
+    /* one CYC-sample cycle must last exactly one period of the note */
+    src.playbackRate.value = hz(semi)*CYC/AC.sampleRate;
+    lp.type='lowpass'; lp.frequency.value=Math.min(9000, hz(semi)*11); lp.Q.value=0.6;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(g0*0.9,t+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+sd*3.6);
+    src.connect(lp); lp.connect(g); g.connect(MAST);
+    src.start(t); src.stop(t+sd*3.8); return;
+  }
+  if(kind==='syncthorn'){
+    /* HARD SYNC, and this rack has never had oscillator sync at all. The slave
+       saw is FORCE-RESET to zero every time the master period wraps; the slave's
+       own pitch is swept across the note, so the discontinuity marches through
+       the waveform and the timbre climbs while the PITCH DOES NOT MOVE.
+       NOT detune: fatsaw, saw3v, detune and unisonsplit are stacks of
+       free-running saws a few cents apart and none of them resets anything,
+       which is the entire mechanism here. */
+    const dur=Math.max(0.3, sd*3.2), N=Math.floor(AC.sampleRate*dur);
+    const bf=AC.createBuffer(1,N,AC.sampleRate), d=bf.getChannelData(0);
+    const f0=hz(semi), SR=AC.sampleRate;
+    let mp=0, sp=0;
+    for(let i=0;i<N;i++){
+      const u=i/N, sw=1-Math.abs(2*u-1), ratio=1.0+8.5*sw*sw;   /* UP AND BACK:
+         a sync sweep that only climbs reads as a bright lead, which is why the
+         one-way version measured next to `saw3`. Rising and returning is the
+         shape nothing else in this rack makes. */          /* the sync sweep, and WIDE: 1x to 8.5x
+         on a square law, which is the whole character of hard sync. At 1.5-4.9x
+         linear it measured closer to `resonlead` than a typical pair of existing
+         voices are to each other -- a timid sync is just a bright lead. */
+      mp+=f0/SR; if(mp>=1){ mp-=1; sp=0; }     /* THE reset. this is hard sync */
+      sp+=f0*ratio/SR; if(sp>=1) sp-=1;
+      d[i]=(2*sp-1)*0.5;
+    }
+    const src=AC.createBufferSource(), g=AC.createGain(), lp=AC.createBiquadFilter();
+    src.buffer=bf;
+    lp.type='lowpass'; lp.frequency.value=Math.min(11000, f0*16); lp.Q.value=0.9;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(g0,t+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+sd*3);
+    src.connect(lp); lp.connect(g); g.connect(MAST);
+    src.start(t); src.stop(t+dur); return;
+  }
+  if(kind==='pafvox'){
+    /* PHASE-ALIGNED FORMANT (Miller Puckette, 1995). The carrier is RE-PHASED at
+       the start of every fundamental period and windowed by a raised cosine
+       raised to a power, so the formant can glide continuously with no
+       discontinuity and no filter.
+       NOT formantvox (a saw through bandpass filters -- subtractive). NOT
+       atriumvox (FOF: a sum of independently decaying grains). PAF is ONE
+       continuous carrier whose phase is disciplined by the fundamental. */
+    const dur=Math.max(0.3, sd*3.4), N=Math.floor(AC.sampleRate*dur);
+    const bf=AC.createBuffer(1,N,AC.sampleRate), d=bf.getChannelData(0);
+    const f0=hz(semi), SR=AC.sampleRate;
+    let p=0;
+    for(let i=0;i<N;i++){
+      const u=i/N, fc=f0*(1.6+9.4*u) + f0*0.5;  /* the formant glides, FAR, and the
+         +f0*0.5 parks it BETWEEN harmonics -- an inharmonic formant is the thing
+         PAF can do that a talkbox physically cannot. At 2.6-7x and harmonically
+         aligned it measured closer to `talkbox` than a typical existing pair. */
+      p+=f0/SR; if(p>=1) p-=1;
+      const bw=1.6+9.0*(1-u);   /* AND THE BANDWIDTH MOVES AGAINST THE CENTRE, which
+         is the thing PAF has and a filter sweep does not: the formant starts
+         wide and low and ends narrow and high, two independent motions from one
+         carrier. Locked together they measured next to `hoover`. */
+      const wdw=Math.pow(0.5*(1+Math.cos(2*Math.PI*(p-0.5))), bw);
+      d[i]=wdw*Math.cos(2*Math.PI*fc*(p/f0))*0.62;
+    }
+    const src=AC.createBufferSource(), g=AC.createGain(), hp=AC.createBiquadFilter();
+    src.buffer=bf;
+    hp.type='highpass'; hp.frequency.value=Math.max(60, f0*0.5); hp.Q.value=0.5;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(g0*0.95,t+0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+sd*3.2);
+    src.connect(hp); hp.connect(g); g.connect(MAST);
+    src.start(t); src.stop(t+dur); return;
+  }
+  if(kind==='bowdrag'){
+    /* STICK-SLIP FRICTION -- the Helmholtz motion of a bowed string. A friction
+       curve whose grip falls off hyperbolically with relative velocity drives a
+       resonator, and THE OSCILLATION IS NOT MADE BY AN OSCILLATOR: it emerges
+       because the bow grabs the string, drags it, and loses it, hundreds of
+       times a second. The first voice in this rack whose pitch is a consequence
+       rather than a setting.
+       NOT musicsaw / wineglass / glassharp / ebow. All four of those are a sine
+       with an LFO on it, which is what a bowed note SOUNDS like from across a
+       room and is not what a bow DOES.
+       THE NORMAL FORCE SCALES WITH PITCH, and that is not a tuning nicety: at a
+       fixed press it self-oscillated up to 440 Hz and went silent above it
+       (crossing ratio 0.15 at 660), because a stiffer string needs a harder
+       press to be dragged as far. Measured across 55-1200 Hz it now tracks at
+       0.89-0.98 of the ideal rate, and the shortfall is correct -- Helmholtz
+       motion is a sawtooth with a fast flyback, not a sine. */
+    const dur=Math.max(0.3, sd*3.4), N=Math.floor(AC.sampleRate*dur);
+    const bf=AC.createBuffer(1,N,AC.sampleRate), d=bf.getChannelData(0);
+    const SR=AC.sampleRate, f0=hz(semi), w=2*Math.PI*f0;
+    const K=w*w, C=w*0.08, VB=0.28, FN=w*VB*1.2, dt=1/SR;
+    let x=0, vv=0, blew=false;
+    for(let i=0;i<N;i++){
+      const vbow=VB*Math.min(1, i/(SR*0.04));
+      const vrel=vbow-vv;
+      const mu=1/(1+Math.abs(vrel)*40);
+      const F=mu*(vrel>=0?1:-1)*FN;
+      vv+=(F-K*x-C*vv)*dt; x+=vv*dt;
+      if(!isFinite(x)){ blew=true; break; }
+      d[i]=x;
+    }
+    if(blew){ for(let i=0;i<N;i++) d[i]=0; }
+    let pk=0; for(let i=0;i<N;i++) pk=Math.max(pk,Math.abs(d[i]));
+    if(pk>0) for(let i=0;i<N;i++) d[i]/=pk;
+    const src=AC.createBufferSource(), g=AC.createGain(), lp=AC.createBiquadFilter();
+    src.buffer=bf;
+    lp.type='lowpass'; lp.frequency.value=Math.min(7000, f0*9); lp.Q.value=0.7;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(g0*0.85,t+0.05);   /* a bow does not click in */
+    g.gain.exponentialRampToValueAtTime(0.0001,t+sd*3.2);
+    src.connect(lp); lp.connect(g); g.connect(MAST);
+    src.start(t); src.stop(t+dur); return;
+  }
   /* ===== BATCH 24 VOICES (8/24/26) — four topologies this rack has never had.
      Chosen by reading the 577 that already exist and ruling out the near misses;
      see tools/bohemia_music_batch24.py for why each is not the thing it
@@ -12397,7 +12563,11 @@ const MLOOPS=[
  {n:'MENU — THE POWER STILL ON SOMEWHERE',menu:true,acc:'#c8b878',root:45,scale:[0,2,4,7,9],wave:'sine',kick:[],bass:[0,7],hat:[],inst:{b:'dawnpad',l:'gridglow'},am:'faythhum',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
  {n:'THE VOICE THAT STILL ANNOUNCES FLOORS',acc:'#6a7f8e',root:44,scale:[0,1,3,7,8],wave:'sine',kick:[0,6,11],bass:[0,3,7,8],hat:[4,12],inst:{b:'abyssbass',l:'atriumvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
  {n:'THE LAST BROADCAST CORRODES',acc:'#b07a3a',root:51,scale:[0,2,3,6,8,10],wave:'sawtooth',kick:[0,4,7,10,13],bass:[0,6,8,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'signalrot'},am:'vacancyhum',kit:{k:'punchk',h:'tight'},mel:'call',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
- {n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true}
+ {n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true},
+ {n:'THE STRING THAT KEEPS MOVING',acc:'#7fa8a0',root:41,scale:[0,2,3,7,10],wave:'sine',kick:[0],bass:[0,7],hat:[],inst:{b:'boneyardbass',l:'scanstring'},am:'stillwater',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+ {n:'A NOTE THAT CLIMBS WITHOUT RISING',acc:'#c87a5a',root:45,scale:[0,1,5,7,8],wave:'sawtooth',kick:[0,6,10],bass:[0,5,7],hat:[4,12],inst:{b:'distbass',l:'syncthorn'},am:'signalrot',kit:{k:'knock',h:'clickh'},mel:'call',swing:0,feel:'normal',klay:'drive',ff:true,nu:true},
+ {n:'SOMETHING IN THE PIPE IS SHAPING WORDS',acc:'#9a86c8',root:38,scale:[0,2,3,5,7,8,11],wave:'triangle',kick:[],bass:[0,3,7],hat:[8],inst:{b:'choirbass',l:'pafvox'},am:'atriumvox',kit:{k:'thud',h:'shakerh'},mel:'seed8',swing:0.08,feel:'half',klay:'stabs',ff:true,nu:true},
+ {n:'THE BOW WILL NOT LET GO',acc:'#b8a06a',root:36,scale:[0,3,5,6,7,10],wave:'sawtooth',kick:[0,8],bass:[0,6,10],hat:[2,6,10,14],inst:{b:'reservoirbass',l:'bowdrag'},am:'mesawind',kit:{k:'boom',h:'ride'},mel:'longs',swing:0.16,feel:'normal',klay:'bassrise',ff:true,nu:true}
 ];
 const REMADE_S2=['REDS','BLUES','ANARCHISTS','NETWORK','REMNANTS'];
 /* SONG2_VER (Paolo 7/4/26, definitive): the ONLY remake counter. Each faction's
@@ -12410,8 +12580,8 @@ const SONG2_VER={REDS:14,BLUES:10,ANARCHISTS:16,NETWORK:8,REMNANTS:11,HOMELESS:9
 /* NEW_VIBES = the CURRENT fresh cook (drives the NEW badge). Batch 15 judged
    7/20 verdict three (3 canon, 4 down as SONGS); batch 16 answers under the
    SONG-DEAD-NOT-VOICES law. */
-const NEW_VIBES=['MENU — THE POWER STILL ON SOMEWHERE','MENU — WHAT THE VALLEY KEPT','MENU — NOBODY IS COMING','THE VOICE THAT STILL ANNOUNCES FLOORS','THE LAST BROADCAST CORRODES','THE BELLS DISAGREE','THE NOTE THAT WOULD NOT STAY ONE'];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
-const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':0,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':0,'THE CHOIR THAT STAYED#1':0,'MUSIC BOX FOR THE GONE#1':0,'IT WALKS THE STRIP AT 3AM#1':0,'PHANTOM CASINO#1':0,'THE DEBT COLLECTOR AT DAWN#1':0,'A HYMN NOBODY FINISHED#1':0,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0,'MENU — NOBODY IS COMING#1':0,'MENU — WHAT THE VALLEY KEPT#1':0,'THE NOTE THAT WOULD NOT STAY ONE#1':0};
+const NEW_VIBES=['THE STRING THAT KEEPS MOVING','A NOTE THAT CLIMBS WITHOUT RISING','SOMETHING IN THE PIPE IS SHAPING WORDS','THE BOW WILL NOT LET GO'];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
+const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':0,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':0,'THE CHOIR THAT STAYED#1':0,'MUSIC BOX FOR THE GONE#1':0,'IT WALKS THE STRIP AT 3AM#1':0,'PHANTOM CASINO#1':0,'THE DEBT COLLECTOR AT DAWN#1':0,'A HYMN NOBODY FINISHED#1':0,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0,'MENU — NOBODY IS COMING#1':0,'MENU — WHAT THE VALLEY KEPT#1':0,'THE NOTE THAT WOULD NOT STAY ONE#1':0,'MENU — THE POWER STILL ON SOMEWHERE#1':2,'THE VOICE THAT STILL ANNOUNCES FLOORS#1':2,'THE LAST BROADCAST CORRODES#1':2,'THE BELLS DISAGREE#1':2};
 /* UNJUDGED LAW (7/19 fix, caught on the real surface): fresh cooks get NO
    CANON_DEFAULTS entry -- a baked 2 silently stamped new batches CANON, hid the
    NEW badge, and hid the thumbs. Unjudged = absent = badge + thumbs live.

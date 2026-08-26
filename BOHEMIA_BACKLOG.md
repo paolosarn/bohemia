@@ -1566,12 +1566,19 @@ WIDE-2. *** THE GATE THAT OPENS A LAPTOP WINDOW, BECAUSE WE HAVE NEVER
    opens 390x844. A DESKTOP LAYOUT IS A SECOND LAYOUT AND A LAYOUT NOTHING
    TESTS IS A LAYOUT THAT ROTS -- it will be broken again in a week and
    nobody will know.
-   ONE GATE, desktop-sized window, three claims: (a) THE WORLD'S VISIBLE
-   CELL COUNT IS IDENTICAL to the 390x844 case -- this is the important
-   one, because it is the whole promise that the game did not change;
-   (b) no control lands off-screen or underneath another; (c) nothing is
-   scaled by a fraction. Mutation test: widen the world's view by one cell
-   -> red. | the three claims, at laptop size | — | no. ***
+   *** AMENDED BY HIM 8/26, AND THE FIRST CLAIM FLIPS FROM A BLOCKER TO A
+   REPORT. *** He said he is not concerned with the gameplay advantage of
+   full screen right now and to do what we want. So:
+   (a) REPORT how many more cells a wide screen shows than a phone. DO NOT
+   FAIL ON IT. Print the number on every run. "We'll worry about that
+   later" needs the number to EXIST when later arrives -- a number nobody
+   recorded is a question nobody can answer, and that is the difference
+   between deferring a decision and losing it.
+   (b) no control lands off-screen or underneath another -- STILL A HARD
+   FAIL.
+   (c) nothing is scaled by a fraction -- STILL A HARD FAIL. He did not
+   overrule integer scaling and it was never a balance argument; blurry
+   pixel art is a regression on the thing he cares most about. | the three claims, at laptop size | — | no. ***
 P0-SUITE. *** THE GATE SUITE IS THIS LANE'S NOW (Paolo 8/19: "I'll just
    do it in the run then" — folding the one-day-old GATES lane in rather
    than carrying another chat. Law: laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md,
@@ -1665,7 +1672,44 @@ P0-SAVE. *** THE SAVE SURVIVES THE PHONE AND NOT US — WIRE THE MIGRATION
    compatibility. The audit checked that bytes survive the browser and
    never asked whether they survive us. | one version stamped and
    checked, chain called on load, fixture corpus gated green | — | no. ***
-DEMO-END. *** THE LAST THIRTY SECONDS DO NOT EXIST, AND THEY ARE HALF OF
+DEMO-END. *** ANSWERED 8/26: HE PICKED THE OVERLOOK. BUILD IT. ***
+   HIS WORDS: "The overlook is cool. I like the overlook. It's very nice.
+   VERY NICE IDEA TO, LIKE, SWITCH. You know, it's like how Pixel Zelda
+   did it too. Like, yeah, BEAUTIFUL CLIFF LOOKING AT THIS AWESOME
+   ECONOMIC APOCALYPSE, LAS VEGAS TYPE SHIT."
+   NOTES ARE RULINGS (7/19): that IS the verdict. Do not re-thumb it.
+   *** AND IT UN-PENDS A FIVE-WEEK-OLD PROPOSAL. *** laws/BOHEMIA_ADDENDUM_
+   ACT1_OPENING_VISION_7_19_26.md carried a Claude extension marked
+   [PENDING] since 7/19: "BOOKEND it. The vista is one of the first things
+   you see, and one of the LAST." He just approved that idea by picking
+   it, unprompted, for the demo. THE BOOKEND IS CANON NOW and the demo is
+   its first instance in miniature.
+   THE ONE THING THAT MAKES OR BREAKS IT: HE PRAISED **THE SWITCH**. A
+   second view that looks the same as the first is NOT a bookend, it is a
+   repeat, and a repeat is a worse ending than no ending. THE TWO VIEWS
+   MUST VISIBLY DIFFER. That is the gate claim: capture both frames and
+   fail if they are the same pixels.
+   WHAT DIFFERS -- two levers, both cheap, both already built:
+   (1) TIME. You climb it in the morning and you stand there again at the
+   end of a day you actually spent. Dusk or night, same rock, same valley,
+   different light.
+   (2) *** AND NIGHT QUIETLY GIVES HIM OPTION B FOR FREE. *** The other
+   ending on the ballot was "the lights from your door" -- the ~12% of the
+   valley that still has power, which is canon, eerily perfect, and OWNED
+   (LIGHT = TERRITORY). Put the bookend at night and THE LIT GRID IS WHAT
+   HE IS LOOKING AT. He picked A and B lives inside it at no extra cost.
+   IT IS A PICTURE, NOT A CAPTION. "Beautiful cliff looking at this
+   awesome economic apocalypse Las Vegas" is a shot, not a text card. No
+   wall of words, no summary of his day, no "TO BE CONTINUED". The valley
+   does the talking. One line at most, and only if the silence needs it.
+   COMPOSES WITH: the peak-end research that started this (memory is the
+   strongest moment plus the LAST moment, and our cut had no last moment
+   at all), and the demo build order -- this is step 3 of BUILD -> DOOR ->
+   ENDING -> INSTRUMENT -> INVITE.
+   | both overlook frames captured, visibly different, on the real
+   surface, gated | any words on it are drafts he edits | no -- he already
+   ruled. TAB: RUN. ***
+DEMO-END-ORIG. *** THE LAST THIRTY SECONDS DO NOT EXIST, AND THEY ARE HALF OF
    WHAT ANYBODY REMEMBERS (8/25 — records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_
    MISSING_8_25_26.md, on his "LOOK ONLINE FOR FEELINGS AND AWESOMENESS
    DEMOS PROVIDE"). SMALL, and it uses parts that already exist.
@@ -7428,6 +7472,28 @@ WIDE-1. *** ON A LAPTOP THE WHOLE GAME IS A 640-PIXEL COLUMN, AND HE IS
    monitor is background. The alpha caps cards at 420 and 460. Nobody
    decided this; it is what a number becomes when it is typed once for a
    phone and never revisited.
+   *** HE OVERRULED MY CAUTION THE SAME DAY, SO READ THIS FIRST AND THEN
+   IGNORE THE REJECTION BELOW. *** His words: "I'm not too concerned with
+   the gameplay advantages of having full screen compared to it not being
+   full screen. But WHEN I ZOOM OUT, IT'S PRETTY FAR OUT, BRO. LIKE, SO
+   IT'S ALREADY GOOD. So yeah, DO WHAT YOU WANT, BRO... we'll worry about
+   that later."
+   SO: FILL THE SCREEN. Option A (show more world) is NO LONGER REJECTED
+   and option C is still fine; whichever falls out of a clean layout is
+   the lane's call, not a constraint from me. AND HIS REASON IS GOOD, NOT
+   A SHRUG -- the zoom already pulls way back, so view distance is ALREADY
+   generous BY DESIGN, and a wider window is a small change against a
+   range the game grants on purpose. My caution was priced against a
+   tighter game than the one we actually built.
+   TWO THINGS SURVIVE. (1) INTEGER SCALING, which he did not overrule
+   because it was never a balance argument -- pixel art scaled by a
+   fraction goes soft and uneven, and blurry pixels would be a regression
+   on the thing he cares most about. Whole numbers or none. (2) The gate
+   MEASURES INSTEAD OF BLOCKING (see RUN WIDE-2): "we'll worry about that
+   later" NEEDS THE NUMBER TO EXIST WHEN LATER ARRIVES, and that is the
+   difference between deferring a decision and losing it.
+   THE ORIGINAL ANALYSIS IS KEPT BELOW AS HISTORY BECAUSE THE MATH IN IT
+   IS STILL TRUE AND STILL USEFUL:
    *** "FULL SCREEN" IS TWO DIFFERENT THINGS AND ONLY ONE IS SAFE. ***
    (A) SHOW MORE WORLD -- REJECTED. A tactical grid where you see further
    is a DIFFERENT GAME (more enemies visible, more warning, different

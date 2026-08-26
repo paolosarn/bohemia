@@ -115,10 +115,14 @@
        north-south channels shoulder to shoulder. cluster:true is what hands the generator
        its four neighbours so the channel runs THROUGH a cell and lines up with the next. */
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
-    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional', cluster:true },
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
     golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
-    stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure' },
+    /* ONE OF IT, NOT ONE PER CELL (8/26). Four stadiums in a 2x2, four landfills, four
+       cemeteries -- each cell was building the whole facility. All three are AREA districts,
+       so they take the blob's BOUNDS like the solar farm and the railyard do, not its
+       neighbours like the wash (which is a line, and turns corners). */
+    stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
     school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
     firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
@@ -128,7 +132,7 @@
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
-    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
        cells was building a COMPLETE yard -- six engine sheds, six gantry cranes, six
        perimeter fences in a block 288 m across. A classification yard is an AREA, so it

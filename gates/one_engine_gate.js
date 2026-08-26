@@ -108,7 +108,7 @@ function ok(claim, cond, detail) {
 
   ok('E3 *** AND THAT IS THE OTHER HALF OF HIS COMPLAINT: NO SECOND SONG UNDER THE FIGHT. *** "It\'s like TWO SONGS AT THE SAME TIME." While combat is on screen the SHELL measures '
     + inFight.shell.toFixed(1) + ' a second against the combat frame\'s ' + inFight.combat.toFixed(1)
-    + '. The second song was the CITY SHUFFLE: the branch that silences it was guarded on MUS.playing, so if the studio was not running the shuffle walked straight into a fight. Opening COMBAT now stops both engines unconditionally. NOTE THIS GATE DOES NOT ASSERT A SILENT RUN TAB -- RUN IS ALLOWED ITS OWN MUSIC (it measured ' + idle.shell.toFixed(1)
+    + '. The second song was the CITY SHUFFLE: the branch that silences it was guarded on MUS.playing, so if the studio was not running the shuffle walked straight into a fight. Opening COMBAT now stops the shuffle. AMENDED SAME DAY: the first cut also called MUS.stop() UNCONDITIONALLY, and MUS.stop() CUTS THE MASTER GAIN TO ZERO -- so opening combat reached into the studio engine even when it was not playing. Only what is actually making noise is stopped now. STOPPING A THING THAT IS NOT PLAYING IS NOT A NO-OP. NOTE THIS GATE DOES NOT ASSERT A SILENT RUN TAB -- RUN IS ALLOWED ITS OWN MUSIC (it measured ' + idle.shell.toFixed(1)
     + ' a second here). The law is ONE ENGINE AT A TIME, never "tabs are quiet", and the first write of this claim got that wrong and went red on correct behaviour',
     inFight.shell < Math.max(2.5, inFight.combat * 0.25));
 

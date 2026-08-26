@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 105 |
+| SHOWN (all) | 1 | 106 |
 | SHOWN (part) | 13 | 10 |
 | LOADED ONLY | 19 | 7 |
 | NO TRACE | 75 | 11 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **108** | **148** |
+| **total** | **108** | **149** |
 
-**305.1 MB of 308.9 MB** sampled does not reach the shown surface.
+**305.1 MB of 309.0 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.

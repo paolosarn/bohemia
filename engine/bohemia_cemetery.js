@@ -77,8 +77,67 @@
     return g;
   }
 
+
+  /* ONE CEMETERY, NOT FOUR (8/26). Four cells, four chapels, four fountains, four sets of
+     gates -- inside what reads as one burial ground. A cemetery is a single institution with
+     ONE chapel and ONE entrance drive, and the rows of headstones run the length of it.
+     AN AREA DISTRICT: bounds. The headstone rows and the memorial drive are now laid off the
+     whole parcel, so a row runs unbroken across a cell boundary the way a real section does
+     instead of restarting every 96 metres. */
+  function clusterGround(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+4,f.y0+4,f.x1-4,f.y1-4,4);              // memorial lawn over the whole ground
+
+    /* THE SECTIONS. Headstone rows in blocks, with walking paths between them, all laid off
+       the DISTRICT so a row and a path both continue into the next cell. */
+    var SW=46, SH=34;
+    for(var sy=A.firstAt(f.y0+14,SH,A.c.y0-SH); sy<=Math.min(f.y1-20,A.c.y1+SH); sy+=SH)
+      for(var sx=A.firstAt(f.x0+14,SW,A.c.x0-SW); sx<=Math.min(f.x1-16,A.c.x1+SW); sx+=SW){
+        for(var ry=sy; ry<=sy+SH-10; ry+=4)
+          for(var rx=sx; rx<=sx+SW-10; rx+=3)
+            if(A.rnd(rx,ry)<0.86) A.vset(rx,ry,6);       // a headstone
+        A.vrect(sx+SW-8,sy,sx+SW-7,sy+SH-8,10);          // the path down the section's edge
+        A.vrect(sx,sy+SH-8,sx+SW-7,sy+SH-7,10);
+      }
+
+    /* THE MEMORIAL DRIVE: a loop around the ground with a spine to the chapel. One drive,
+       one loop -- what four cells had was four disconnected loops. */
+    A.vrect(f.x0+7,f.y0+7,f.x1-7,f.y0+10,1); A.vrect(f.x0+7,f.y1-10,f.x1-7,f.y1-7,1);
+    A.vrect(f.x0+7,f.y0+7,f.x0+10,f.y1-7,1); A.vrect(f.x1-10,f.y0+7,f.x1-7,f.y1-7,1);
+    A.vrect(f.mx-2,f.y0+10,f.mx+2,f.y1-10,1);
+
+    // ---- THE CHAPEL and the office, ONCE, on the drive at the south end ----
+    A.vrect(f.mx-16,f.y1-34,f.mx+16,f.y1-16,2);
+    A.vrect(f.mx-24,f.y1-28,f.mx-18,f.y1-20,2);
+    // ---- ONE dead fountain on the axis, ONE columbarium wall, mausolea along the drive ----
+    A.vell(f.mx,f.y0+26,9,7,9);
+    A.vrect(f.x0+16,f.y0+14,f.x0+18,f.y0+52,8);
+    for(var mi=0; mi<4; mi++){ var mx2=f.x0+30+Math.floor(f.w*(mi+1)/6), my2=f.y0+16;
+      A.vrect(mx2,my2,mx2+9,my2+7,7); }
+    // ---- ONE obelisk on the central axis: the thing you line the drive up on ----
+    A.vrect(f.mx-2,f.my-3,f.mx+2,f.my+3,11);
+
+    A.dress(3,120,4);                                     // dead trees on the lawn
+    A.dress(13,40,10);                                    // benches along the paths
+    A.dress(12,18,1);                                     // cars left on the drive
+
+    var gates=A.gates(streets,5,1,[0,3,4],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2||v===7;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with.  */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterGround(seed,opts,__b);
+
     var soft=function(c){ return c===4||c===6||c===3||c===0; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:10, pedOver:soft, pedInset:14});
     var g=res.g;

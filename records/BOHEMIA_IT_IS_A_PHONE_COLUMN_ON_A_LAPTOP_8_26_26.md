@@ -16,7 +16,36 @@ NOBODY DECIDED THIS. It is what a number becomes when it is typed once
 for a phone and never revisited, which is the third time this month the
 same shape of bug has turned up (the map seed, the browser engine, this).
 
-## 2. BUT "FULL SCREEN" IS TWO DIFFERENT THINGS AND ONLY ONE OF THEM IS
+## 1b. *** HE OVERRULED SECTION 2 THE SAME DAY. READ THIS BEFORE IT. ***
+His words, minutes after the first version of this record: "I'm not too
+concerned with the gameplay advantages of having full screen compared to
+it not being full screen. But WHEN I ZOOM OUT, IT'S PRETTY FAR OUT, BRO.
+LIKE, SO IT'S ALREADY GOOD. So yeah, DO WHAT YOU WANT, BRO... I'm not
+concerned with the gameplay advantages right now. We'll worry about that
+later."
+**SO THE CONSTRAINT I PUT ON THIS IS LIFTED, BY THE ONLY PERSON WHO CAN
+LIFT IT.** Section 2 below rejected "show more world" on balance grounds.
+THAT REJECTION IS DEAD. Option A and Option C are both legal now, and
+whichever falls out of a clean layout is fine.
+AND HIS REASON IS A GOOD ONE, NOT A SHRUG. The zoom already pulls way
+back, so the player's view distance is ALREADY generous by design. A
+wider window is a small change against a range the game already grants
+on purpose. He is right and my caution was priced against a tighter game
+than the one we actually built.
+### WHAT I AM KEEPING, AND WHY IT IS NOT DISOBEDIENCE
+The gate stays, but it **MEASURES INSTEAD OF BLOCKING.** It reports how
+many more cells a wide screen shows than a phone. It does not fail on the
+number. **"WE'LL WORRY ABOUT THAT LATER" NEEDS THE NUMBER TO EXIST WHEN
+LATER ARRIVES**, and a number nobody recorded is a question nobody can
+answer. That costs one line in a gate and it is the difference between
+deferring a decision and losing it.
+### AND ONE THING HE DID NOT OVERRULE, SO IT STANDS
+**INTEGER SCALING.** That was never a balance argument, it is craft: pixel
+art scaled by a fraction goes soft and uneven. Blurry pixels would be a
+real regression on the thing he cares most about. Whole numbers or none.
+
+## 2. [SUPERSEDED BY 1b ON THE BALANCE POINT] "FULL SCREEN" IS TWO
+## DIFFERENT THINGS AND ONLY ONE OF THEM IS
 ## SAFE
 This is not only plumbing, so it is worth being straight about it.
 **OPTION A — SHOW MORE WORLD.** Widen the view so a laptop sees more of
@@ -64,20 +93,22 @@ of doing too much: the temptation will be to redesign the interface
 because there is suddenly room. THE WORLD DOES NOT CHANGE. Only where
 the furniture sits.
 
-## 5. THE DECISION (mine, EVERYTHING IS A THUMB)
-1. **THE WORLD STAYS PORTRAIT, ALWAYS, ON EVERY DEVICE.** iPhone portrait
-   is line one of this project and it is not up for renegotiation by a
-   window size.
+## 5. THE DECISION (AMENDED BY HIM, 8/26)
+1. **FILL THE SCREEN. HE SAID DO WHAT YOU WANT AND HE MEANT IT.** The
+   phone layout stays exactly as it is on a phone; on a big screen the
+   game uses the screen. Whether that lands as furniture-outboard, more
+   world, or both is the lane's call now, not a constraint from me.
 2. **THE INTERFACE IS RESPONSIVE.** Below a threshold it is the phone
    layout we have. Above it, the furniture moves outboard.
 3. **PIXEL SCALING IS INTEGER OR IT DOES NOT HAPPEN.** No half-scales, no
    smoothing. Blurry pixel art would be a worse insult than a small
    window.
-4. **NOTHING ABOUT THE GAME CHANGES.** Same tiles visible, same fights,
-   same everything. If a laptop player can see one cell further than a
-   phone player, the fix went wrong.
+4. **[LIFTED BY HIM]** This used to say nothing about the game may
+   change and that one extra visible cell meant the fix went wrong. HE
+   SAID HE IS NOT CONCERNED WITH THAT RIGHT NOW. It is lifted.
 5. **IT GETS A GATE THAT OPENS A LAPTOP-SIZED WINDOW**, because we have
-   never once done that.
+   never once done that -- and that gate REPORTS the view difference
+   rather than failing on it, so the number exists when he does want it.
 
 ## 6. ROUTED
 - **UI — WIDE-1: THE FURNITURE MOVES OUTBOARD ON A BIG SCREEN.** Own the

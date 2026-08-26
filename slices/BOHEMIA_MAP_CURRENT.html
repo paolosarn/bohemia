@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:e1c2da4dab0e9d0a3224e561718c5ff3 -->
+<!-- engine-md5:engine/bohemia_district_kit.js:8522ee678035427bd9150bff12859f84 -->
 <!-- engine-md5:engine/bohemia_suburb.js:bd5cee7826161546778809a232882065 -->
 <!-- engine-md5:engine/bohemia_commercial.js:742c9adf76df9cbd50ab0bc798d5be3b -->
 <!-- engine-md5:engine/bohemia_industrial.js:4ad82e35be86eee279e852ba27dd7bab -->
@@ -9,10 +9,10 @@
 <!-- engine-md5:engine/bohemia_solar.js:ddb3db41332ca26dcb0c94555e1a4ba6 -->
 <!-- engine-md5:engine/bohemia_park.js:3b38ed7a6f64dd9708a200d99ddce534 -->
 <!-- engine-md5:engine/bohemia_wash.js:d06fbb27ed01add6afa063a6ef6a715f -->
-<!-- engine-md5:engine/bohemia_cemetery.js:b09a56ea6f4bfe37da0693dc05229617 -->
+<!-- engine-md5:engine/bohemia_cemetery.js:314d441ca99896bfbf98121313d31351 -->
 <!-- engine-md5:engine/bohemia_drivein.js:4c88aa8c118d1e21f2f209c3edeedc1d -->
 <!-- engine-md5:engine/bohemia_golf.js:8d6aa3e0d351e2c2bc7975df9b482588 -->
-<!-- engine-md5:engine/bohemia_stadium.js:eec69a7325925c924c4ad611af74b4b6 -->
+<!-- engine-md5:engine/bohemia_stadium.js:b3ecca998feef5ae9a6c76766e569d5e -->
 <!-- engine-md5:engine/bohemia_truckstop.js:1f1eb4e1c2628bb71370abc3f8a213a4 -->
 <!-- engine-md5:engine/bohemia_school.js:99b3567e12ef788a49efd328996d0dc7 -->
 <!-- engine-md5:engine/bohemia_firestation.js:00cce0c0e3947e0bf27509d98f20996b -->
@@ -22,8 +22,8 @@
 <!-- engine-md5:engine/bohemia_boneyard.js:6c49a5441ebb4df6c7e80f6eccfead4f -->
 <!-- engine-md5:engine/bohemia_policestation.js:3f4aded0a4847548443fc5b06bed6142 -->
 <!-- engine-md5:engine/bohemia_library.js:88cbbaad24fb2c53ea74819f8d7847f6 -->
-<!-- engine-md5:engine/bohemia_landfill.js:2e63fc6ae395218e799afc311f9e2aea -->
-<!-- engine-md5:engine/bohemia_railyard.js:0324c5e4edb7f4324c9e1859f84656ce -->
+<!-- engine-md5:engine/bohemia_landfill.js:daaadfd531b7f1d82ea3c4c1a7dc27d8 -->
+<!-- engine-md5:engine/bohemia_railyard.js:7980183aadc628a0bf112ac6845c1981 -->
 <!-- engine-md5:engine/bohemia_substation.js:8f84e217a71e36c22f80257350c35b77 -->
 <!-- engine-md5:engine/bohemia_chapel.js:ef0730d226036c219cd16535ee2e6cff -->
 <!-- engine-md5:engine/bohemia_courthouse.js:4df8d3d672db3eb5ee210ee64f28f4c4 -->
@@ -38,7 +38,7 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:2db0b5d904feacaf74a253518930f9fd -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:f4908e676076464da836b5b771597558 -->
-<!-- engine-md5:engine/bohemia_arterial.js:cbb7d011185e0f5a5d05add8687e784a -->
+<!-- engine-md5:engine/bohemia_arterial.js:25b41cedc7854cb87033a8ecc45c1a95 -->
 <!-- engine-md5:engine/bohemia_freeway.js:b9ce3c54cf18ccb364b69a67db0b63b7 -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
 <!-- engine-md5:engine/bohemia_airfield.js:4e2fd12f16f7044e02f5e6571eeae884 -->
@@ -62,7 +62,7 @@
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
 <!-- engine-md5:engine/bohemia_utility.js:b8fd7c75dbef7635ce99ed2ceee54f86 -->
 <!-- engine-md5:engine/bohemia_rooms.js:22bc9a94d23596d77c83183ea1f50ae0 -->
-<!-- engine-md5:engine/bohemia_world.js:f7436604c54f45d417dec9f1667b0cf9 -->
+<!-- engine-md5:engine/bohemia_world.js:16b4071a69b93d3e2b91eb6bb16b8d4a -->
 <!-- engine-md5:engine/bohemia_valleymap.js:36a0564d30ad03bd11f7a383d301adc4 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
@@ -115,6 +115,160 @@
       disc:function(cx,cy,r,c){ for(var dy=-r;dy<=r;dy++)for(var dx=-r;dx<=r;dx++)if(dx*dx+dy*dy<=r*r&&inb(g,cx+dx,cy+dy))g[cy+dy][cx+dx]=c; return api; }
     };
     return api;
+  }
+
+  /* ================= A DISTRICT BIGGER THAN ONE CELL ================= (8/26)
+     THE SAME MECHANISM, WRITTEN THREE TIMES BY HAND BEFORE IT EARNED A HOME. The solar farm
+     (8/24), the wash (8/25) and the railyard (8/26) each grew their own copy of it, and the
+     next four districts on the list want it too -- four stadiums in a 2x2, nine golf courses
+     in a 3x3, four landfills, four cemeteries. Copying it a fourth time is how a mechanism
+     rots into four slightly different mechanisms.
+
+     WHAT IT IS. A district generator is handed ONE cell and draws 128x128 tiles. When the
+     same district covers a BLOB of cells, every cell builds a complete copy of the whole
+     thing -- its own stadium bowl, its own clubhouse, its own fence. The fix is always the
+     same shape: lay the district out ONCE in VALLEY tiles against the blob's bounds, and let
+     each cell keep only the window that falls inside it. The seams then line up by
+     construction rather than by anybody being careful.
+
+     WHAT THIS GIVES YOU. `f` is the whole district in valley tiles, `c` is this cell's
+     window. vset/vrect/vell/vline all take VALLEY coordinates and clip to the window, so a
+     generator can draw a bowl 300 tiles across and never think about which cell it is in.
+
+     AND A SEED THAT BELONGS TO THE BLOB, NOT THE CELL. Every cell carries its own seed, so
+     anything decided with the cell's rng exists in one cell and not in its neighbour -- a
+     boxcar cut in half at the boundary, a tree that grows out of one side of a seam. `rnd(a,b)`
+     is a hash of a VALLEY position and the blob's own corner: same answer from every cell.
+     Use it for anything the neighbour also has to agree about, and the cell's own `rnd` only
+     for dressing that nobody can line up anyway.
+
+     ONE CELL IS NOT A BLOB. `many` is false when the bounds are a single cell, and every
+     district that uses this keeps its original single-cell build for that case -- the art
+     already shipped, and there is no neighbour to line up with. */
+  function blob(seed, opts){
+    opts = opts || {};
+    var g = grid(seed >>> 0), W = g.W, H = g.H;
+    var cellX = opts.cellX || 0, cellY = opts.cellY || 0;
+    var b = opts.bounds || { x0: cellX, x1: cellX, y0: cellY, y1: cellY };
+    var cx = cellX * W, cy = cellY * H, cx1 = cx + W - 1, cy1 = cy + H - 1;
+    var f = { x0: b.x0 * W, y0: b.y0 * H, x1: (b.x1 + 1) * W - 1, y1: (b.y1 + 1) * H - 1 };
+    f.w = f.x1 - f.x0 + 1; f.h = f.y1 - f.y0 + 1;
+    f.mx = (f.x0 + f.x1) >> 1; f.my = (f.y0 + f.y1) >> 1;
+    var bseed = ((b.x0 * 73856093) ^ (b.y0 * 19349663) ^ ((seed >>> 0) & 0xffff)) >>> 0;
+    var A = {
+      g: g.g, W: W, H: H, cells: g, bounds: b, f: f,
+      c: { x0: cx, y0: cy, x1: cx1, y1: cy1 },
+      many: (b.x1 > b.x0 || b.y1 > b.y0),
+      /* is this cell on the named side of the whole district? A gate, a fence run or an
+         entrance belongs on the DISTRICT's edge -- an interior cell punching one puts a gate
+         in the middle of a stadium car park. */
+      onEdge: function (e) {
+        return e === 'N' ? cy === f.y0 : e === 'S' ? cy1 === f.y1
+             : e === 'W' ? cx === f.x0 : e === 'E' ? cx1 === f.x1 : false;
+      },
+      rnd: function (a, c2) {
+        var n = (bseed ^ Math.imul(a | 0, 2654435761) ^ Math.imul(c2 | 0, 40503)) >>> 0;
+        n = Math.imul(n ^ (n >>> 16), 2246822507); n = Math.imul(n ^ (n >>> 13), 3266489909);
+        return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+      },
+      /* the first value of a `from + k*step` series at or past `atLeast` -- so a loop that
+         begins outside this cell still lands on exactly the rows the neighbour's does */
+      firstAt: function (from, step, atLeast) {
+        return (atLeast <= from) ? from : (from + Math.ceil((atLeast - from) / step) * step);
+      },
+      vget: function (vx, vy) { var lx = vx - cx, ly = vy - cy;
+        return (lx >= 0 && ly >= 0 && lx < W && ly < H) ? g.g[ly][lx] : -1; },
+      vset: function (vx, vy, code) { var lx = vx - cx, ly = vy - cy;
+        if (lx >= 0 && ly >= 0 && lx < W && ly < H) g.g[ly][lx] = code; return A; },
+      vrect: function (x0, y0, x1, y1, code) {
+        if (x1 < cx || x0 > cx1 || y1 < cy || y0 > cy1) return A;   // clip before walking
+        var xa = Math.max(x0, cx), xb = Math.min(x1, cx1);
+        var ya = Math.max(y0, cy), yb = Math.min(y1, cy1), xx, yy;
+        for (yy = ya; yy <= yb; yy++) for (xx = xa; xx <= xb; xx++) g.g[yy - cy][xx - cx] = code;
+        return A;
+      },
+      /* a filled ellipse in valley tiles -- the shape a stadium bowl, a pond and a landfill
+         cap are all made of, and the reason this is here rather than in three generators */
+      vell: function (ex, ey, rx, ry, code, onto) {
+        if (rx <= 0 || ry <= 0) return A;
+        var ya = Math.max(ey - ry, cy), yb = Math.min(ey + ry, cy1);
+        var xa = Math.max(ex - rx, cx), xb = Math.min(ex + rx, cx1), xx, yy;
+        for (yy = ya; yy <= yb; yy++) for (xx = xa; xx <= xb; xx++) {
+          var dx = (xx - ex) / rx, dy = (yy - ey) / ry;
+          if (dx * dx + dy * dy > 1) continue;
+          if (onto !== undefined && g.g[yy - cy][xx - cx] !== onto) continue;
+          g.g[yy - cy][xx - cx] = code;
+        }
+        return A;
+      },
+      /* the OUTLINE of an ellipse, walked by angle -- aisle rings, running tracks, a fence
+         following a pond. `onto` restricts it so a ring only marks what it is allowed to. */
+      vring: function (ex, ey, rx, ry, code, onto, step) {
+        step = step || 1;
+        for (var a = 0; a < 360; a += step) {
+          var rad = a * Math.PI / 180;
+          var px = Math.round(ex + Math.cos(rad) * rx), py = Math.round(ey + Math.sin(rad) * ry);
+          if (onto !== undefined && A.vget(px, py) !== onto) continue;
+          A.vset(px, py, code);
+        }
+        return A;
+      },
+      vline: function (x0, y0, x1, y1, code, onto) {
+        var n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)) || 1;
+        for (var i = 0; i <= n; i++) {
+          var px = Math.round(x0 + (x1 - x0) * i / n), py = Math.round(y0 + (y1 - y0) * i / n);
+          if (onto !== undefined && A.vget(px, py) !== onto) continue;
+          A.vset(px, py, code);
+        }
+        return A;
+      },
+      /* THE DISTRICT'S OWN PERIMETER, never the cell's. This is the line that used to be
+         drawn with G.frame() and became a fence through the middle of one facility. */
+      vframe: function (code, inset) {
+        inset = inset || 0;
+        var x0 = f.x0 + inset, x1 = f.x1 - inset, y0 = f.y0 + inset, y1 = f.y1 - inset;
+        A.vrect(x0, y0, x1, y0, code); A.vrect(x0, y1, x1, y1, code);
+        A.vrect(x0, y0, x0, y1, code); A.vrect(x1, y0, x1, y1, code);
+        return A;
+      },
+      /* SCATTERED DRESSING, KEPT OFF THE SEAM. Confetti does not line up with the
+         neighbour's, and one tumbleweed on the boundary row makes one cell's ballast meet the
+         next cell's desert -- that broke seven of the wash's forty-four seams before it was
+         inset. So dressing stays one tile inside this cell, always. */
+      dress: function (code, count, onto) {
+        for (var k = 0; k < count; k++) {
+          var px = cx + 1 + Math.floor(g.rnd() * (W - 2)), py = cy + 1 + Math.floor(g.rnd() * (H - 2));
+          if (onto === undefined || A.vget(px, py) === onto) A.vset(px, py, code);
+        }
+        return A;
+      },
+      /* A GATE ON A STREET THIS CELL ACTUALLY FRONTS, and only on the district's own edge.
+         `paveOver` is the set of codes an apron may eat on its way in. */
+      gates: function (streets, gateCode, driveCode, paveOver, reach) {
+        var out = [], gg = g.g, i, s, w;
+        reach = reach || 14;
+        (streets || []).forEach(function (e) {
+          if (!A.onEdge(e)) return;
+          if (e === 'S' || e === 'N') {
+            var gx = W >> 1, gy = (e === 'S') ? H - 1 : 0, dir = (e === 'S') ? -1 : 1;
+            for (i = -2; i <= 2; i++) if (gx + i >= 0 && gx + i < W) gg[gy][gx + i] = gateCode;
+            for (s = 1; s <= reach; s++) { var yy = gy + dir * s; if (yy <= 0 || yy >= H - 1) break;
+              for (w = -2; w <= 2; w++) { var cc = gg[yy][gx + w];
+                if (paveOver.indexOf(cc) >= 0) gg[yy][gx + w] = driveCode; } }
+            out.push({ edge: e, x: gx, y: gy });
+          } else {
+            var gy2 = H >> 1, gx2 = (e === 'E') ? W - 1 : 0, dir2 = (e === 'E') ? -1 : 1;
+            for (i = -2; i <= 2; i++) if (gy2 + i >= 0 && gy2 + i < H) gg[gy2 + i][gx2] = gateCode;
+            for (s = 1; s <= reach; s++) { var xx = gx2 + dir2 * s; if (xx <= 0 || xx >= W - 1) break;
+              for (w = -2; w <= 2; w++) { var c3 = gg[gy2 + w][xx];
+                if (paveOver.indexOf(c3) >= 0) gg[gy2 + w][xx] = driveCode; } }
+            out.push({ edge: e, x: gx2, y: gy2 });
+          }
+        });
+        return out;
+      }
+    };
+    return A;
   }
 
   // STREET-AWARE: which of a cell's four edges face a street (road-district neighbor).
@@ -680,7 +834,7 @@
     return n;
   }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,blob:blob,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
@@ -2714,8 +2868,67 @@
     return g;
   }
 
+
+  /* ONE CEMETERY, NOT FOUR (8/26). Four cells, four chapels, four fountains, four sets of
+     gates -- inside what reads as one burial ground. A cemetery is a single institution with
+     ONE chapel and ONE entrance drive, and the rows of headstones run the length of it.
+     AN AREA DISTRICT: bounds. The headstone rows and the memorial drive are now laid off the
+     whole parcel, so a row runs unbroken across a cell boundary the way a real section does
+     instead of restarting every 96 metres. */
+  function clusterGround(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+4,f.y0+4,f.x1-4,f.y1-4,4);              // memorial lawn over the whole ground
+
+    /* THE SECTIONS. Headstone rows in blocks, with walking paths between them, all laid off
+       the DISTRICT so a row and a path both continue into the next cell. */
+    var SW=46, SH=34;
+    for(var sy=A.firstAt(f.y0+14,SH,A.c.y0-SH); sy<=Math.min(f.y1-20,A.c.y1+SH); sy+=SH)
+      for(var sx=A.firstAt(f.x0+14,SW,A.c.x0-SW); sx<=Math.min(f.x1-16,A.c.x1+SW); sx+=SW){
+        for(var ry=sy; ry<=sy+SH-10; ry+=4)
+          for(var rx=sx; rx<=sx+SW-10; rx+=3)
+            if(A.rnd(rx,ry)<0.86) A.vset(rx,ry,6);       // a headstone
+        A.vrect(sx+SW-8,sy,sx+SW-7,sy+SH-8,10);          // the path down the section's edge
+        A.vrect(sx,sy+SH-8,sx+SW-7,sy+SH-7,10);
+      }
+
+    /* THE MEMORIAL DRIVE: a loop around the ground with a spine to the chapel. One drive,
+       one loop -- what four cells had was four disconnected loops. */
+    A.vrect(f.x0+7,f.y0+7,f.x1-7,f.y0+10,1); A.vrect(f.x0+7,f.y1-10,f.x1-7,f.y1-7,1);
+    A.vrect(f.x0+7,f.y0+7,f.x0+10,f.y1-7,1); A.vrect(f.x1-10,f.y0+7,f.x1-7,f.y1-7,1);
+    A.vrect(f.mx-2,f.y0+10,f.mx+2,f.y1-10,1);
+
+    // ---- THE CHAPEL and the office, ONCE, on the drive at the south end ----
+    A.vrect(f.mx-16,f.y1-34,f.mx+16,f.y1-16,2);
+    A.vrect(f.mx-24,f.y1-28,f.mx-18,f.y1-20,2);
+    // ---- ONE dead fountain on the axis, ONE columbarium wall, mausolea along the drive ----
+    A.vell(f.mx,f.y0+26,9,7,9);
+    A.vrect(f.x0+16,f.y0+14,f.x0+18,f.y0+52,8);
+    for(var mi=0; mi<4; mi++){ var mx2=f.x0+30+Math.floor(f.w*(mi+1)/6), my2=f.y0+16;
+      A.vrect(mx2,my2,mx2+9,my2+7,7); }
+    // ---- ONE obelisk on the central axis: the thing you line the drive up on ----
+    A.vrect(f.mx-2,f.my-3,f.mx+2,f.my+3,11);
+
+    A.dress(3,120,4);                                     // dead trees on the lawn
+    A.dress(13,40,10);                                    // benches along the paths
+    A.dress(12,18,1);                                     // cars left on the drive
+
+    var gates=A.gates(streets,5,1,[0,3,4],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2||v===7;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with.  */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterGround(seed,opts,__b);
+
     var soft=function(c){ return c===4||c===6||c===3||c===0; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:10, pedOver:soft, pedInset:14});
     var g=res.g;
@@ -3101,8 +3314,83 @@
     return g;
   }
 
+
+  /* ONE STADIUM, NOT FOUR (8/26). The valley's stadium is a 2x2 blob and every one of its
+     four cells built a COMPLETE stadium -- four bowls, four fields, four scoreboards, sixteen
+     floodlight masts, in a block 192 metres across. A stadium is the most singular thing in a
+     city: you do not get four of them by accident, and nobody looking at that could believe
+     the place was designed.
+
+     IT IS AN AREA DISTRICT, so it takes the blob's BOUNDS (like the solar farm and the
+     railyard) rather than its neighbours (like the wash, which is a line that turns corners).
+     ONE bowl, centred on the whole blob and SCALED to it, with the parking apron around it --
+     which is also the first time this stadium has been able to be a realistic size. A real
+     bowl is 200-250 m across; one 96 m cell could never hold one, so the single-cell build
+     draws a 72 m toy. Across a 2x2 it is 138 m and the lots are around it, as they are in
+     life. */
+  function clusterBowl(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    // ---- BASE: desert at the very margins, PARKING APRON over the whole parcel ----
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+6,f.y0+6,f.x1-6,f.y1-6,1);
+
+    /* ---- THE BOWL, ONCE, CENTRED ON THE DISTRICT ----
+       The canonical build's proportions are kept exactly: facade at R, concourse at R-2/R,
+       stands at R-5/R, field at R-20/48 of R. Holding the RATIOS rather than the numbers is
+       what lets the same bowl be a toy in one cell and a real stadium across four. */
+    var R=Math.floor(Math.min(f.w,f.h)*0.36), RY=Math.floor(R*0.92);
+    var ex=f.mx, ey=f.my-Math.floor(f.h*0.03);          // a little north: the entrance side is south
+    var k=R/48;
+    A.vell(ex,ey,R,RY,2);                                             // FACADE
+    A.vell(ex,ey,R-Math.round(2*k),RY-Math.round(2*k),7);             // CONCOURSE loop
+    A.vell(ex,ey,R-Math.round(5*k),RY-Math.round(5*k),6);             // SEATING BOWL
+    // aisle rings inside the stands
+    for(var tr=10; tr<=18; tr+=8) A.vring(ex,ey,R-Math.round(tr*k),RY-Math.round(tr*k),7,6,1);
+    // radial VOMITORY aisles from the concourse up through the seats
+    for(var i=0;i<16;i++){ var ang=(i/16)*Math.PI*2;
+      for(var t=0.60;t<=0.96;t+=0.006){
+        var vx=Math.round(ex+Math.cos(ang)*R*t), vy=Math.round(ey+Math.sin(ang)*RY*t);
+        if(A.vget(vx,vy)===6) A.vset(vx,vy,7); } }
+    var FX=R-Math.round(20*k), FY=RY-Math.round(19*k);
+    A.vell(ex,ey,FX,FY,4);                                            // THE FIELD
+
+    // ---- FIELD MARKINGS, faded: the midline, the centre circle, the two end lines ----
+    A.vrect(ex-(FX-Math.round(2*k)),ey,ex+(FX-Math.round(2*k)),ey,8);
+    A.vring(ex,ey,Math.round(6*k),Math.round(5*k),8,4,3);
+    [-1,1].forEach(function(sgn){ var ly=ey+sgn*(FY-Math.round(2*k));
+      for(var lx=ex-(FX-Math.round(4*k)); lx<=ex+(FX-Math.round(4*k)); lx++) if(A.vget(lx,ly)===4) A.vset(lx,ly,8); });
+
+    // ---- SCOREBOARD over the north end, FLOODLIGHT MASTS on the bowl's four corners ----
+    A.vrect(ex-Math.round(7*k),ey-RY+Math.round(15*k),ex+Math.round(7*k),ey-RY+Math.round(18*k),9);
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){
+      var lx=ex+s[0]*(R-Math.round(3*k)), ly=ey+s[1]*(RY-Math.round(3*k));
+      A.vset(lx,ly,12); A.vset(lx+s[0],ly,12); A.vset(lx,ly+s[1],12); });
+
+    /* ---- THE LOTS, and they are lots now rather than a verge ----
+       Stall lines every 9 tiles across the whole apron, laid off the DISTRICT so they run
+       straight through a cell boundary instead of restarting at it. */
+    for(var sx=A.firstAt(f.x0+10,9,A.c.x0-9); sx<=Math.min(f.x1-10,A.c.x1+9); sx+=9)
+      for(var sy=f.y0+8; sy<=f.y1-8; sy++) if(A.vget(sx,sy)===1) A.vset(sx,sy,3);
+    A.dress(11,90,1);                                                  // abandoned cars in the lots
+    A.dress(3,260,1);                                                  // rubble and weeds in cracked asphalt
+    A.dress(3,150,4);                                                  // weeds pushing through the dead field
+
+    var gates=A.gates(streets,5,1,[0,3],10);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with. A stadium bowl is also the one thing here that was the WRONG SIZE in a single cell: a real bowl is 200-250 m across and a cell is 96 m. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterBowl(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
@@ -4610,7 +4898,65 @@
     for(i=-3;i<=3;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE LANDFILL, NOT FOUR (8/26). A regional landfill is one facility with one scale house,
+     one leachate pond and one haul road spiralling up the fill. Four cells each built the
+     whole thing, so the valley had four weighbridges inside one fence line.
+     AN AREA DISTRICT: bounds, like the solar farm. The fill CELLS (the real word for the
+     bermed compartments a landfill is filled in, one at a time) now tile the whole parcel
+     instead of being crammed four times over, which is also how a landfill actually looks
+     from the air. */
+  function clusterFill(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+5,f.y0+5,f.x1-5,f.y1-5,4);            // cover soil over the whole site
+    A.vframe(12,2);                                     // the SITE's fence, never a cell's
+
+    /* THE FILL CELLS, bermed and tiled across the parcel. Each is a compartment of waste
+       inside its own berm -- the berm rows are laid off the DISTRICT so a berm runs straight
+       through a cell boundary rather than stopping at it. */
+    var CW=54, CH=44;
+    for(var fy=A.firstAt(f.y0+16,CH,A.c.y0-CH); fy<=Math.min(f.y1-30,A.c.y1+CH); fy+=CH)
+      for(var fx=A.firstAt(f.x0+16,CW,A.c.x0-CW); fx<=Math.min(f.x1-24,A.c.x1+CW); fx+=CW){
+        A.vrect(fx,fy,fx+CW-8,fy+CH-8,7);               // the berm
+        A.vrect(fx+3,fy+3,fx+CW-11,fy+CH-11,6);         // the waste inside it
+        if(A.rnd(fx,fy)<0.55) A.vset(fx+((CW-8)>>1),fy+((CH-8)>>1),13);   // a gas well in the cap
+      }
+
+    /* HAUL ROAD: a ring around the fill plus a spine up the middle, because a truck has to
+       reach every compartment and the ring is what makes that true from any gate. */
+    A.vrect(f.x0+8,f.y0+8,f.x1-8,f.y0+13,1); A.vrect(f.x0+8,f.y1-13,f.x1-8,f.y1-8,1);
+    A.vrect(f.x0+8,f.y0+8,f.x0+13,f.y1-8,1); A.vrect(f.x1-13,f.y0+8,f.x1-8,f.y1-8,1);
+    A.vrect(f.mx-3,f.y0+8,f.mx+3,f.y1-8,1);
+
+    // ---- SCALE HOUSE + gas plant, ONCE, at the site entrance corner ----
+    A.vrect(f.x0+18,f.y1-30,f.x0+40,f.y1-18,2);
+    A.vrect(f.x0+19,f.y1-17,f.x0+39,f.y1-16,11);        // the weighbridge markings
+    A.vrect(f.x0+46,f.y1-28,f.x0+58,f.y1-20,2);         // gas / flare plant
+
+    // ---- LEACHATE POND, ONCE, at the low corner ----
+    A.vell(f.x1-38,f.y1-34,22,15,8);
+
+    A.dress(10,26,4);                                    // dozers and compactors parked out
+    A.dress(3,180,0); A.dress(3,120,4);                  // dead brush on the margins and the cap
+    [[f.x0+6,f.y0+6],[f.x1-6,f.y0+6],[f.x0+6,f.y1-6],[f.x1-6,f.y1-6]]
+      .forEach(function(p){ A.vset(p[0],p[1],9); });     // pole lights on the SITE's corners
+
+    var gates=A.gates(streets,5,1,[0,3,4,12],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED (8/26). Canonical-south plus rotateToStreet is the right
+       answer for one cell and it is art that already shipped; only a district that actually
+       SPANS more than one cell takes the cluster path, because only then is there a
+       neighbour's half of the same place to line up with.  */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterFill(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
@@ -4703,7 +5049,133 @@
     for(i=-2;i<=2;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and every one of its six
+     cells was building a COMPLETE yard: its own engine shed, its own office, its own
+     container stack, its own gantry crane, its own perimeter fence. Six sheds and six
+     gantries in a block 288 m across.
+
+     A YARD TAKES BOUNDS, NOT NEIGHBOURS, and that is the difference from the wash. A channel
+     is a LINE -- it needs to know which sides it arrives and leaves on. A classification yard
+     is an AREA: one shed at the west end, one container stack at the east, and a fan of
+     tracks running the whole length between them. That is the solar farm's shape, so it gets
+     the solar farm's treatment: lay the yard out ONCE in valley tiles against the blob's
+     bounds, and let each cell keep only its own window.
+
+     AND THE STOCK ON THE TRACKS IS PLACED BY POSITION, NOT BY THE CELL'S RNG. Every cell has
+     its own seed, so a boxcar decided with `r()` would exist in one cell and not in the
+     neighbour that shares the same rail -- a wagon cut in half at every cell boundary. The
+     gaps and the locomotives come from a hash of the VALLEY coordinate and the BLOB, so the
+     same rail carries the same train however many cells it crosses. */
+  function clusterYard(seed,opts,b){
+    var G=K.grid(seed>>>0), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    var streets=opts.streets||['S'];
+    var cellX=opts.cellX||0, cellY=opts.cellY||0;
+    var cx=cellX*W, cy=cellY*H, wx1=cx+W-1, wy1=cy+H-1;
+    var fx0=b.x0*W, fx1=(b.x1+1)*W-1, fy0=b.y0*H, fy1=(b.y1+1)*H-1;
+    /* ONE SEED FOR THE WHOLE YARD, off the blob's own corner, so every cell of it agrees
+       about where the trains are without any cell being able to see the others. */
+    var bseed=((b.x0*73856093) ^ (b.y0*19349663) ^ 0x5f3a) >>> 0;
+    function yrnd(a,c){ var n=(bseed ^ Math.imul(a,2654435761) ^ Math.imul(c,40503)) >>> 0;
+      n = Math.imul(n ^ (n>>>16), 2246822507); n = Math.imul(n ^ (n>>>13), 3266489909);
+      return ((n ^ (n>>>16)) >>> 0) / 4294967296; }
+    function vset(vx,vy,c){ var lx=vx-cx, ly=vy-cy; if(lx>=0&&ly>=0&&lx<W&&ly<H) g[ly][lx]=c; }
+    function vget(vx,vy){ var lx=vx-cx, ly=vy-cy; return (lx>=0&&ly>=0&&lx<W&&ly<H)?g[ly][lx]:-1; }
+    function vrect(x0,y0,x1,y1,c){ if(x1<cx||x0>wx1||y1<cy||y0>wy1) return;
+      var xa=Math.max(x0,cx), xb=Math.min(x1,wx1), ya=Math.max(y0,cy), yb=Math.min(y1,wy1), xx, yy;
+      for(yy=ya;yy<=yb;yy++) for(xx=xa;xx<=xb;xx++) g[yy-cy][xx-cx]=c; }
+    /* the first multiple of `step` at or past `atLeast`, so a loop that starts outside this
+       cell still lands on the same rows the neighbour's does */
+    function firstAt(from,step,atLeast){ return (atLeast<=from)?from:(from+Math.ceil((atLeast-from)/step)*step); }
+
+    // ---- BASE: ballast inside the YARD's boundary, desert at the yard's margins ----
+    vrect(cx,cy,wx1,wy1,0);
+    vrect(fx0+6,fy0+8,fx1-6,fy1-6,4);
+    // the fence is the YARD's perimeter. An interior cell gets none, which is the point:
+    // a chain-link fence through the middle of one yard is a wall that should not be there.
+    vrect(fx0,fy0,fx1,fy0,12); vrect(fx0,fy1,fx1,fy1,12);
+    vrect(fx0,fy0,fx0,fy1,12); vrect(fx1,fy0,fx1,fy1,12);
+
+    // ---- ENGINE SHED + office, ONCE, at the yard's west end ----
+    vrect(fx0+8,fy0+12,fx0+30,fy0+72,2);
+    for(y=firstAt(fy0+16,6,cy-6); y<=Math.min(fy0+68,wy1+6); y+=6) vset(fx0+8,y,11);   // bay lines
+    vrect(fx0+8,fy0+78,fx0+30,fy0+96,2);                                               // office / fuel + sand
+
+    // ---- the FAN of CLASSIFICATION TRACKS, running the WHOLE yard, with sorted stock ----
+    var tx0=fx0+34, tx1=fx1-12;
+    for(var ty=firstAt(fy0+16,7,cy-4); ty<=Math.min(fy1-24,wy1+4); ty+=7){
+      vrect(tx0,ty,tx1,ty,6);
+      for(var bx=firstAt(tx0+2,9,cx-8); bx<=Math.min(tx1-6,wx1+8); bx+=9){
+        if(yrnd(bx,ty)<0.30) continue;                                  // a gap: the track is partly empty
+        var loco=yrnd(bx+7,ty+3)<0.12;
+        vrect(bx,ty-2,bx+6,ty+1,loco?8:7);                              // a car body straddling the rail
+      }
+    }
+
+    // ---- CONTAINER stacking yard + the GANTRY that works it, ONCE, at the yard's SE ----
+    var gx0=fx1-42, gx1=fx1-12, gy0=fy1-30, gy1=fy1-4;
+    for(var ccy=firstAt(gy0+2,6,cy-6); ccy<=Math.min(gy1-4,wy1+6); ccy+=6)
+      for(var ccx=firstAt(gx0+2,8,cx-8); ccx<=Math.min(gx1-8,wx1+8); ccx+=8){
+        if(yrnd(ccx,ccy+11)<0.15) continue;
+        vrect(ccx,ccy,ccx+6,ccy+4,10);
+      }
+    vrect(gx0,gy0,gx1,gy0+1,13); vrect(gx0,gy0,gx0,gy1,13); vrect(gx1,gy0,gx1,gy1,13);  // rails + legs
+    vrect(gx0+12,gy0-2,gx0+18,gy0+2,13);                                                 // trolley / hoist
+
+    // ---- pole lights on the YARD's corners, dead brush on its fence line ----
+    [[fx0+3,fy0+4],[fx1-3,fy0+4],[fx0+3,fy1-4],[fx1-3,fy1-4]].forEach(function(p){ vset(p[0],p[1],9); });
+    /* THE DRESSING KEEPS OFF THE SEAM, one tile in on every side. Scattered brush does not
+       line up with the neighbour's, and a single tumbleweed on the boundary row is enough to
+       make one cell's ballast meet the next cell's desert -- the same thing that broke seven
+       of the wash's forty-four seams before it was inset. */
+    for(i=0;i<14;i++){ var bx2=cx+1+Math.floor(r()*(W-2)), by2=cy+1+Math.floor(r()*(H-2));
+      if(vget(bx2,by2)===12) vset(bx2,by2,3); }
+
+    /* ---- THE SERVICE ROADS, AND WHY THERE IS A RING ----
+       The first cut ran ONE lane along the yard's south front, which is what a single-cell
+       yard has. Across a 3x2 blob that leaves the whole top row with no drivable surface at
+       all: a maintenance vehicle could not reach four of the six cells from any gate, and
+       driveConnected said so for five street placements. A yard this size has a perimeter
+       access road inside the fence -- that is how they are actually built, it is what the
+       gate is really asking about, and it sits in the desert margin between the fence and
+       the ballast where nothing else wants to be. */
+    vrect(fx0+2,fy0+2,fx1-2,fy0+5,1); vrect(fx0+2,fy1-5,fx1-2,fy1-2,1);   // north + south runs
+    vrect(fx0+2,fy0+2,fx0+5,fy1-2,1); vrect(fx1-5,fy0+2,fx1-2,fy1-2,1);   // west + east runs
+    vrect(fx0+8,fy1-18,fx1-8,fy1-14,1);          // the yard lane along the working front
+    vrect(fx0+18,fy0+96,fx0+22,fy1-14,1);        // depot road down to the lane
+
+    /* GATE + APRON on every street this cell actually fronts, and only on the yard's own
+       EDGE. An interior cell must never punch a gate: that is a gate in the middle of a
+       railyard. A perimeter cell that fronts a street still gets one, which is how a yard
+       this size really works -- a main gate plus service gates. */
+    var gates=[];
+    streets.forEach(function(edge){
+      if(edge==='S'&&wy1!==fy1) return; if(edge==='N'&&cy!==fy0) return;
+      if(edge==='E'&&wx1!==fx1) return; if(edge==='W'&&cx!==fx0) return;
+      var s2, w2, c2;
+      if(edge==='S'||edge==='N'){ var ggx=Math.floor(W*0.5), ggy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
+        for(i=-2;i<=2;i++) g[ggy][ggx+i]=5;
+        for(s2=1;s2<=M(14);s2++){ var yy=ggy+dir*s2; if(yy<=0||yy>=H-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[yy][ggx+w2]; if(c2===0||c2===3||c2===4||c2===12) g[yy][ggx+w2]=1; } }
+        gates.push({edge:edge,x:ggx,y:ggy});
+      } else { var ggy2=Math.floor(H*0.5), ggx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
+        for(i=-2;i<=2;i++) g[ggy2+i][ggx2]=5;
+        for(s2=1;s2<=M(14);s2++){ var xx=ggx2+dir2*s2; if(xx<=0||xx>=W-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[ggy2+w2][xx]; if(c2===0||c2===3||c2===4||c2===12) g[ggy2+w2][xx]=1; } }
+        gates.push({edge:edge,x:ggx2,y:ggy2});
+      }
+    });
+    return {g:g, W:W, H:H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE YARD CELL IS UNCHANGED. Canonical-south plus rotateToStreet is the right answer
+       for one cell and it is art that already shipped; only a yard that actually spans more
+       than one cell takes the cluster path, because only then is there a neighbour's half of
+       the same yard to line up with. */
+    var b=opts.bounds;
+    if(b && (b.x1>b.x0 || b.y1>b.y0)) return clusterYard(seed,opts,b);
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g;
@@ -6984,6 +7456,10 @@
      A real left-turn bay is 150 ft of storage plus a 120 ft taper, call it 270 ft; 60
      tiles is 45 m, a conservative read of that, and it now starts where the intersection
      box ends instead of 16 tiles inside it. */
+  /* THE CODES THAT STOP A BODY. Derived from the legend below rather than typed, so a new
+     solid tile cannot quietly start standing on the pavement. (bus stop 13 is NOT here: it
+     declares solid:false and is a pad you wait on.) */
+  var BLOCKS = { 9: 1, 10: 1, 11: 1, 12: 1, 14: 1 };  // light, pole, dead palm, mast, car
   var POCKET = BOX + 60;         // DERIVED, same lesson as BOX: this was the literal 106,
                                  // which was BOX+60 on the day it was typed and nothing
                                  // afterwards. The bay runs 45 m back from the junction.
@@ -7203,9 +7679,33 @@
        zone. That is now also the only band put() can reach, which is the correct
        accident.
        TILE = 0.75 m, so 1 ft = 0.4 tiles and the cell is 128 tiles = 96 m.        */
+    /* *** NOTHING BLOCKING EVER STANDS ON A SIDEWALK. *** (Paolo 8/26, LOCKED: "all the
+       sidewalks should be connected altogether unless there's a crazy explosion or
+       something's wrong. Most of the time the streets and the sidewalk should be in harmony
+       all the way.") That is SIDEWALK SANCTITY read strictly, and it was being broken in a
+       way no single-cell check could see. MEASURED by walking 5,376 tiles -- 4 km -- down
+       the sidewalk of one arterial on the real page: it broke FOURTEEN times.
+       WHERE IT BREAKS IS A CORNER. Furniture is placed in the PARKWAY and the parkway is
+       code 7, so the placement predicate looked correct. But at a crossing the band is the
+       MINIMUM over both axes, so a tile 20-25 tiles off the north-south road's centreline
+       is parkway -- code 7 -- while ALSO sitting on the east-west road's SIDEWALK. Place a
+       dead palm there and you have sealed the east-west walk with something the east-west
+       road never put down. Same for the dead car the crossing street leaves parked across
+       your pavement.
+       So the guard is asked in TILE space, once, for every blocking thing this module
+       places: is this tile inside EITHER road's walk band? If it is, it stays clear. */
+    function onSomeonesWalk(px, py) {
+      var ox = Math.abs(px - C), oy = Math.abs(py - C);
+      if (horiz && oy > AMEN && oy <= WALK) return true;   // the east-west road's walk
+      if (vert && ox > AMEN && ox <= WALK) return true;    // the north-south road's walk
+      return false;
+    }
     function put(px, py, code, over) {
       if (px < 0 || py < 0 || px > 127 || py > 127) return;
       var c = g[py][px];
+      /* the walk-band guard applies to things that BLOCK. Markings, ramps and the walk's
+         own furniture-free surface are not blocked by it -- they are not solid. */
+      if (BLOCKS[code] && onSomeonesWalk(px, py)) return;
       if (over ? over(c) : (c === 7)) g[py][px] = code;
     }
     var onWalkable = function (c) { return c === 7; };
@@ -7396,7 +7896,12 @@
         for (i = 0; i < 6; i++) for (var j = 0; j < 2; j++) {
           var coff = cs > 0 ? cs - j : cs + j;
           var px3 = cAxis === 'v' ? C + coff : ct + i, py3 = cAxis === 'v' ? ct + i : C + coff;
-          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+          /* THROUGH THE SAME GUARD AS EVERYTHING ELSE. This line wrote the grid directly
+             instead of going through put(), which is how the crossing street's dead car
+             ended up parked across the other street's sidewalk -- a wreck is six tiles long
+             and at a junction six tiles reaches out of the asphalt and onto the pavement. */
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1
+              && !onSomeonesWalk(px3, py3)) g[py3][px3] = 14;
         }
       }
     }
@@ -15295,10 +15800,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        north-south channels shoulder to shoulder. cluster:true is what hands the generator
        its four neighbours so the channel runs THROUGH a cell and lines up with the next. */
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
-    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional', cluster:true },
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
     golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
-    stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure' },
+    /* ONE OF IT, NOT ONE PER CELL (8/26). Four stadiums in a 2x2, four landfills, four
+       cemeteries -- each cell was building the whole facility. All three are AREA districts,
+       so they take the blob's BOUNDS like the solar farm and the railyard do, not its
+       neighbours like the wash (which is a line, and turns corners). */
+    stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
     school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
     firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
@@ -15308,8 +15817,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
-    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
+    /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
+       cells was building a COMPLETE yard -- six engine sheds, six gantry cranes, six
+       perimeter fences in a block 288 m across. A classification yard is an AREA, so it
+       takes BOUNDS like the solar farm does, not neighbours like the wash. */
+    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },

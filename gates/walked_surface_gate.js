@@ -251,6 +251,99 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     }
     return { cells, ends, mouths };
   });
+  /* EVERY CLUSTER DISTRICT, ON THE PAGE, IN ONE SWEEP (8/26). The wash and the railyard each
+     got their own check here after each was fixed in the model, gated green, and still drawn
+     wrong in the game -- world.js is not on this page, and the page's copy of every engine
+     module is its own. Three more landed the same day (stadium, landfill, cemetery), so the
+     bespoke checks stop here and this asks the question of ALL of them at once.
+     THE QUESTION IS THE SAME ONE THE MODEL GATE ASKS, put to the surface: a facility does not
+     multiply when you give it more ground. Count the connected runs of each district's own
+     BUILDING MASS across its blob. One stadium bowl is one run however many cells it spans;
+     four bowls are four. Anything that scales with the cell count is a page that did not get
+     the fix. */
+  const blobs = await fr.evaluate(() => {
+    const N = OM.OVER_N, W = 128;
+    const at = (x, y) => { const c = om.at(x, y); return c ? c.district : null; };
+    const seen = new Set(), out = [];
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const d = at(x, y); if (!d) continue;
+      const k = x + ',' + y; if (seen.has(k)) continue;
+      const cells = [], st = [[x, y]]; seen.add(k);
+      while (st.length && cells.length < 64) {
+        const c = st.pop(); cells.push(c);
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const nx = c[0] + dx, ny = c[1] + dy, k2 = nx + ',' + ny;
+          if (seen.has(k2) || at(nx, ny) !== d) continue;
+          seen.add(k2); st.push([nx, ny]);
+        }
+      }
+      if (cells.length < 2 || cells.length > 12) continue;
+      const spec = (typeof BohemiaDistrictKit !== 'undefined') ? BohemiaDistrictKit.get(d) : null;
+      if (!spec || typeof spec.body !== 'function') continue;
+      const xs = cells.map(c => c[0]), ys = cells.map(c => c[1]);
+      const bx0 = Math.min(...xs), bx1 = Math.max(...xs), by0 = Math.min(...ys), by1 = Math.max(...ys);
+      const bw = (bx1 - bx0 + 1) * W, bh = (by1 - by0 + 1) * W;
+      const big = new Int16Array(bw * bh).fill(-1);
+      let built = 0;
+      for (const [cx, cy] of cells) {
+        const m = (typeof tileMeta === 'function') ? tileMeta(cx, cy) : null;
+        const g = m && m.kit;                 // FLAT Uint16Array, not rows
+        if (!g || g.length !== W * W) continue;
+        built++;
+        for (let ly = 0; ly < W; ly++) for (let lx = 0; lx < W; lx++)
+          big[((cy - by0) * W + ly) * bw + ((cx - bx0) * W + lx)] = g[ly * W + lx];
+      }
+      if (built !== cells.length) continue;
+      const mark = new Uint8Array(bw * bh);
+      let runs = 0;
+      for (let i = 0; i < big.length; i++) {
+        if (mark[i] || big[i] < 0 || !spec.body(big[i])) continue;
+        runs++;
+        const st2 = [i]; mark[i] = 1;
+        while (st2.length) {
+          const p = st2.pop(), px = p % bw, py = (p / bw) | 0;
+          const nb = [px + 1 < bw ? p + 1 : -1, px > 0 ? p - 1 : -1,
+                      py + 1 < bh ? p + bw : -1, py > 0 ? p - bw : -1];
+          for (const q of nb) { if (q < 0 || mark[q] || big[q] < 0 || !spec.body(big[q])) continue; mark[q] = 1; st2.push(q); }
+        }
+      }
+      out.push({ d, n: cells.length, runs });
+    }
+    return out;
+  });
+  /* AND IT IS THE CLUSTER DISTRICTS ONLY, WITH A NUMBER EACH, which is a narrower claim than
+     the first cut and a true one. Swept across everything it flagged a hundred blobs -- and
+     every one of them was right to have what it had. A COMMERCIAL strip is twenty-four
+     separate stores per cell BY DESIGN; a TOWN is three hundred houses; a FARM has five barns.
+     "One facility per blob" is not a fact about districts, it is a fact about the handful
+     that ARE one facility, and a rule that fires on the rest is noise a reader learns to
+     scroll past.
+     THE GENERAL VERSION OF THIS CHECK LIVES IN gates/one_district_per_blob_gate.js, where it
+     can build each blob BOTH ways and compare -- which is the honest way to ask it and is not
+     available here, because this side only has what the page drew. So what this asks is the
+     narrow, decisive thing: the numbers the model gate measured, seen on the page. Each is
+     mutation-tested by breaking the page's wiring and watching it multiply. */
+  const EXPECT = {
+    stadium:  { max: 2,  why: 'ONE bowl. Four cells built four.' },
+    landfill: { max: 3,  why: 'ONE scale house and ONE gas plant. Four cells built four of each.' },
+    /* 7 and not 8: measured 6 as one ground and 8 built per cell, so 8 would sit exactly
+       on the wrong side of the defect and let it through. A ceiling that does not fail the bug
+       it was written for is decoration. */
+    cemetery: { max: 7,  why: 'ONE chapel, ONE office and a row of mausolea. Four cells built four sets.' },
+    railyard: { max: 3,  why: 'ONE engine shed and ONE office. Six cells built six of each.' },
+    solar:    { max: 4,  why: 'ONE control building per plant, not per cell.' },
+  };
+  const watched = blobs.filter(b => EXPECT[b.d]);
+  const scaled = watched.filter(b => b.runs > EXPECT[b.d].max);
+  if (watched.length) {
+    console.log('  one-facility districts on the page (cells/hero structures): '
+      + watched.sort((a, b) => b.n - a.n).map(b => b.d + ' ' + b.n + 'c/' + b.runs + 'r').join('  '));
+    ok('ON THE PAGE, A FACILITY DOES NOT MULTIPLY WITH ITS GROUND'
+       + (scaled.length ? ' -> ' + scaled.map(b => b.d + ' (' + b.n + ' cells, ' + b.runs
+           + ' structures, expected at most ' + EXPECT[b.d].max + ': ' + EXPECT[b.d].why + ')').join(', ') : ''),
+       scaled.length === 0);
+  }
+
   /* AND THE SAME QUESTION FOR THE RAILYARD (8/26), because the same trap caught it the same
      way. The yard was fixed in engine/bohemia_railyard.js, wired in world.js, gated 18/0 and
      mutation-tested -- and the page still drew SIX engine sheds, because the walked surface

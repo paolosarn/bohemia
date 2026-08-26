@@ -29,6 +29,160 @@
     return api;
   }
 
+  /* ================= A DISTRICT BIGGER THAN ONE CELL ================= (8/26)
+     THE SAME MECHANISM, WRITTEN THREE TIMES BY HAND BEFORE IT EARNED A HOME. The solar farm
+     (8/24), the wash (8/25) and the railyard (8/26) each grew their own copy of it, and the
+     next four districts on the list want it too -- four stadiums in a 2x2, nine golf courses
+     in a 3x3, four landfills, four cemeteries. Copying it a fourth time is how a mechanism
+     rots into four slightly different mechanisms.
+
+     WHAT IT IS. A district generator is handed ONE cell and draws 128x128 tiles. When the
+     same district covers a BLOB of cells, every cell builds a complete copy of the whole
+     thing -- its own stadium bowl, its own clubhouse, its own fence. The fix is always the
+     same shape: lay the district out ONCE in VALLEY tiles against the blob's bounds, and let
+     each cell keep only the window that falls inside it. The seams then line up by
+     construction rather than by anybody being careful.
+
+     WHAT THIS GIVES YOU. `f` is the whole district in valley tiles, `c` is this cell's
+     window. vset/vrect/vell/vline all take VALLEY coordinates and clip to the window, so a
+     generator can draw a bowl 300 tiles across and never think about which cell it is in.
+
+     AND A SEED THAT BELONGS TO THE BLOB, NOT THE CELL. Every cell carries its own seed, so
+     anything decided with the cell's rng exists in one cell and not in its neighbour -- a
+     boxcar cut in half at the boundary, a tree that grows out of one side of a seam. `rnd(a,b)`
+     is a hash of a VALLEY position and the blob's own corner: same answer from every cell.
+     Use it for anything the neighbour also has to agree about, and the cell's own `rnd` only
+     for dressing that nobody can line up anyway.
+
+     ONE CELL IS NOT A BLOB. `many` is false when the bounds are a single cell, and every
+     district that uses this keeps its original single-cell build for that case -- the art
+     already shipped, and there is no neighbour to line up with. */
+  function blob(seed, opts){
+    opts = opts || {};
+    var g = grid(seed >>> 0), W = g.W, H = g.H;
+    var cellX = opts.cellX || 0, cellY = opts.cellY || 0;
+    var b = opts.bounds || { x0: cellX, x1: cellX, y0: cellY, y1: cellY };
+    var cx = cellX * W, cy = cellY * H, cx1 = cx + W - 1, cy1 = cy + H - 1;
+    var f = { x0: b.x0 * W, y0: b.y0 * H, x1: (b.x1 + 1) * W - 1, y1: (b.y1 + 1) * H - 1 };
+    f.w = f.x1 - f.x0 + 1; f.h = f.y1 - f.y0 + 1;
+    f.mx = (f.x0 + f.x1) >> 1; f.my = (f.y0 + f.y1) >> 1;
+    var bseed = ((b.x0 * 73856093) ^ (b.y0 * 19349663) ^ ((seed >>> 0) & 0xffff)) >>> 0;
+    var A = {
+      g: g.g, W: W, H: H, cells: g, bounds: b, f: f,
+      c: { x0: cx, y0: cy, x1: cx1, y1: cy1 },
+      many: (b.x1 > b.x0 || b.y1 > b.y0),
+      /* is this cell on the named side of the whole district? A gate, a fence run or an
+         entrance belongs on the DISTRICT's edge -- an interior cell punching one puts a gate
+         in the middle of a stadium car park. */
+      onEdge: function (e) {
+        return e === 'N' ? cy === f.y0 : e === 'S' ? cy1 === f.y1
+             : e === 'W' ? cx === f.x0 : e === 'E' ? cx1 === f.x1 : false;
+      },
+      rnd: function (a, c2) {
+        var n = (bseed ^ Math.imul(a | 0, 2654435761) ^ Math.imul(c2 | 0, 40503)) >>> 0;
+        n = Math.imul(n ^ (n >>> 16), 2246822507); n = Math.imul(n ^ (n >>> 13), 3266489909);
+        return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+      },
+      /* the first value of a `from + k*step` series at or past `atLeast` -- so a loop that
+         begins outside this cell still lands on exactly the rows the neighbour's does */
+      firstAt: function (from, step, atLeast) {
+        return (atLeast <= from) ? from : (from + Math.ceil((atLeast - from) / step) * step);
+      },
+      vget: function (vx, vy) { var lx = vx - cx, ly = vy - cy;
+        return (lx >= 0 && ly >= 0 && lx < W && ly < H) ? g.g[ly][lx] : -1; },
+      vset: function (vx, vy, code) { var lx = vx - cx, ly = vy - cy;
+        if (lx >= 0 && ly >= 0 && lx < W && ly < H) g.g[ly][lx] = code; return A; },
+      vrect: function (x0, y0, x1, y1, code) {
+        if (x1 < cx || x0 > cx1 || y1 < cy || y0 > cy1) return A;   // clip before walking
+        var xa = Math.max(x0, cx), xb = Math.min(x1, cx1);
+        var ya = Math.max(y0, cy), yb = Math.min(y1, cy1), xx, yy;
+        for (yy = ya; yy <= yb; yy++) for (xx = xa; xx <= xb; xx++) g.g[yy - cy][xx - cx] = code;
+        return A;
+      },
+      /* a filled ellipse in valley tiles -- the shape a stadium bowl, a pond and a landfill
+         cap are all made of, and the reason this is here rather than in three generators */
+      vell: function (ex, ey, rx, ry, code, onto) {
+        if (rx <= 0 || ry <= 0) return A;
+        var ya = Math.max(ey - ry, cy), yb = Math.min(ey + ry, cy1);
+        var xa = Math.max(ex - rx, cx), xb = Math.min(ex + rx, cx1), xx, yy;
+        for (yy = ya; yy <= yb; yy++) for (xx = xa; xx <= xb; xx++) {
+          var dx = (xx - ex) / rx, dy = (yy - ey) / ry;
+          if (dx * dx + dy * dy > 1) continue;
+          if (onto !== undefined && g.g[yy - cy][xx - cx] !== onto) continue;
+          g.g[yy - cy][xx - cx] = code;
+        }
+        return A;
+      },
+      /* the OUTLINE of an ellipse, walked by angle -- aisle rings, running tracks, a fence
+         following a pond. `onto` restricts it so a ring only marks what it is allowed to. */
+      vring: function (ex, ey, rx, ry, code, onto, step) {
+        step = step || 1;
+        for (var a = 0; a < 360; a += step) {
+          var rad = a * Math.PI / 180;
+          var px = Math.round(ex + Math.cos(rad) * rx), py = Math.round(ey + Math.sin(rad) * ry);
+          if (onto !== undefined && A.vget(px, py) !== onto) continue;
+          A.vset(px, py, code);
+        }
+        return A;
+      },
+      vline: function (x0, y0, x1, y1, code, onto) {
+        var n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)) || 1;
+        for (var i = 0; i <= n; i++) {
+          var px = Math.round(x0 + (x1 - x0) * i / n), py = Math.round(y0 + (y1 - y0) * i / n);
+          if (onto !== undefined && A.vget(px, py) !== onto) continue;
+          A.vset(px, py, code);
+        }
+        return A;
+      },
+      /* THE DISTRICT'S OWN PERIMETER, never the cell's. This is the line that used to be
+         drawn with G.frame() and became a fence through the middle of one facility. */
+      vframe: function (code, inset) {
+        inset = inset || 0;
+        var x0 = f.x0 + inset, x1 = f.x1 - inset, y0 = f.y0 + inset, y1 = f.y1 - inset;
+        A.vrect(x0, y0, x1, y0, code); A.vrect(x0, y1, x1, y1, code);
+        A.vrect(x0, y0, x0, y1, code); A.vrect(x1, y0, x1, y1, code);
+        return A;
+      },
+      /* SCATTERED DRESSING, KEPT OFF THE SEAM. Confetti does not line up with the
+         neighbour's, and one tumbleweed on the boundary row makes one cell's ballast meet the
+         next cell's desert -- that broke seven of the wash's forty-four seams before it was
+         inset. So dressing stays one tile inside this cell, always. */
+      dress: function (code, count, onto) {
+        for (var k = 0; k < count; k++) {
+          var px = cx + 1 + Math.floor(g.rnd() * (W - 2)), py = cy + 1 + Math.floor(g.rnd() * (H - 2));
+          if (onto === undefined || A.vget(px, py) === onto) A.vset(px, py, code);
+        }
+        return A;
+      },
+      /* A GATE ON A STREET THIS CELL ACTUALLY FRONTS, and only on the district's own edge.
+         `paveOver` is the set of codes an apron may eat on its way in. */
+      gates: function (streets, gateCode, driveCode, paveOver, reach) {
+        var out = [], gg = g.g, i, s, w;
+        reach = reach || 14;
+        (streets || []).forEach(function (e) {
+          if (!A.onEdge(e)) return;
+          if (e === 'S' || e === 'N') {
+            var gx = W >> 1, gy = (e === 'S') ? H - 1 : 0, dir = (e === 'S') ? -1 : 1;
+            for (i = -2; i <= 2; i++) if (gx + i >= 0 && gx + i < W) gg[gy][gx + i] = gateCode;
+            for (s = 1; s <= reach; s++) { var yy = gy + dir * s; if (yy <= 0 || yy >= H - 1) break;
+              for (w = -2; w <= 2; w++) { var cc = gg[yy][gx + w];
+                if (paveOver.indexOf(cc) >= 0) gg[yy][gx + w] = driveCode; } }
+            out.push({ edge: e, x: gx, y: gy });
+          } else {
+            var gy2 = H >> 1, gx2 = (e === 'E') ? W - 1 : 0, dir2 = (e === 'E') ? -1 : 1;
+            for (i = -2; i <= 2; i++) if (gy2 + i >= 0 && gy2 + i < H) gg[gy2 + i][gx2] = gateCode;
+            for (s = 1; s <= reach; s++) { var xx = gx2 + dir2 * s; if (xx <= 0 || xx >= W - 1) break;
+              for (w = -2; w <= 2; w++) { var c3 = gg[gy2 + w][xx];
+                if (paveOver.indexOf(c3) >= 0) gg[gy2 + w][xx] = driveCode; } }
+            out.push({ edge: e, x: gx2, y: gy2 });
+          }
+        });
+        return out;
+      }
+    };
+    return A;
+  }
+
   // STREET-AWARE: which of a cell's four edges face a street (road-district neighbor).
   // neigh = {N,S,E,W: districtNameOrNull}. Always at least one edge (default S).
   var ROADSET={freeway:1,arterial:1,strip:1,beltway:1};
@@ -592,7 +746,7 @@
     return n;
   }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,blob:blob,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
