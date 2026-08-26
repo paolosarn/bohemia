@@ -4462,6 +4462,49 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+BESTIARY-VOLUME. *** HE ASKED FOR VOLUME: "OKAY BRO WE NEED A BUNCH MORE
+   ENEMIES SO TELL WHATEVER CHAT" (Paolo 8/25). THIS IS THE ORDER TO COOK,
+   AND IT IS A FACTORY ORDER, NOT A LIST.
+   READ FIRST: records/BOHEMIA_RF4_ENEMY_DOSSIER_8_25_26.md and
+   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md.
+   The spec is already written; this row is the batch.
+   THE SHAPE: FIVE ARCHETYPES x THREE TIERS = 15 BASE ENEMIES, and the
+   MODIFIER TABLE multiplies them into the "bunch" he is asking for
+   without fifteen more designs. That is FACTORY LAW and it is exactly
+   how RF4 gets 250 out of five.
+   *** COVERAGE, NOT COUNT, AND THIS IS NOT A STYLE NOTE. *** SHARED -8
+   measured it across every verdict he has ever filed: the sfx ballot grew
+   ~6x while the keep rate HALVED (62% -> 32%), and SFX-06 came back 34
+   OF 35 DEAD. A batch of 60 near-identical enemies would repeat that
+   exactly. SO: FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO NOT.
+   Every cell of archetype x tier filled once, then modifiers.
+   THE GRID, from the dossier and the ecology:
+     SWARMER  rats, flies, and at tier 2 a dog pack's bodies
+     SUMMONER *** THE ONE THAT BARKS *** -- a howling dog or coyote really
+              does fill the field with a shield, and the 50%-aggro-shout
+              machinery from the 8/17 lift is ALREADY BUILT. Kill the one
+              barking or the block arrives. Highest-priority target, and
+              the backline AI that keeps it out of your line of sight is
+              also already specced.
+     TANK     the thing you walk around: a burro that will not move, a
+              wreck with something living in it. Low mobility is the point.
+     NUKER    the one hit you cannot take: a hive in a wall, a person with
+              a rifle.
+     PLINKER  *** THE ARCHETYPE THAT DOES NOT SURVIVE ANIMALS. *** No
+              coyote chips you from nine tiles. THE CLOCK IS OUR PLINKER
+              -- heat (the daily condition, 7/31), the day advancing 0.084
+              per cell, terrain kills. A timer is a plinker that never
+              misses. Build the pressure, not an archer.
+   THE STAT BLOCK IS SIX NUMBERS AND TWO VERBS (HP, speed as a WORD, size
+   as a CATEGORY, level, range, two abilities). If an enemy needs a
+   spreadsheet it has failed RF4's own test and his.
+   NO DAMAGE BEFORE THE DIAL STILL HOLDS. Behaviour, movement, aggro,
+   shouts, packs and loot ship; the numbers wait for him.
+   RESERVED AND EMPTY: names, which animals are canon, tier 3's owners,
+   whether hostile PEOPLE join the roster, and every value.
+   | fifteen filled cells met on a real walk, each readable in one line |
+   names + roster + numbers = HIS | he plays it, he does not thumb a
+   ballot -- coverage is judged by playing, not by a grid of icons. ***
 BESTIARY. *** ENEMIES, AND HE CALLED IT A TURNING POINT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "WE NEED MORE ENEMIES IN THE GAMES... I REALLY DO BELIEVE I
    MAY BE AT A TURNING POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING
@@ -7199,6 +7242,11 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 ## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
 ## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
 ## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
+UI-0. *** THE LANE BRIEF EXISTS: laws/BOHEMIA_SESSION_BRIEF_UI_8_25_26.md.
+   READ IT FIRST, before CLAUDE.md's laws list, if your first word is
+   "ui". He asked for it by name on 8/25 ("can u regive me the ui
+   instructions please for the ui chat"), so it is written down once and
+   never reconstructed from memory again. ***
 UI-1. *** THE BOHEMIA LOOK, AND HE WANTS TO MAKE IT WITH YOU, NOT RECEIVE
    IT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME AND I NEED TO
