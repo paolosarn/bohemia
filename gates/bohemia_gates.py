@@ -85,6 +85,22 @@ GATES = [
      'yellow=direction, white=lane', False),
     ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
      'no street dead-ends into empty lots', False),
+    ('FLOOR',          ['node', 'gates/floor_gate.js'],
+     "Paolo 8/26, and it is the SECOND time (first was 8/6 \"Tile wood and carpet bro "
+     "ofc bro wtf\"): \"all the floors of the interior look like dog shit\". Every "
+     "interior floor in the game was ONE material picked by a 4x4 position hash, so a "
+     "living room, a hospital ward, a warehouse dock and a casino concourse stood on the "
+     "same floor -- while the ROOM ROLE the floorplan computes sat on every cell unused, "
+     "its own meta reading pending:'wall/floor/door art per zone' since July. Carpet, "
+     "wood, lino and slab cooked (swept every bank first: carpet 0, parquet 0, lino 0, "
+     "the only 'plank' a FENCE plank), the room picks the material, and his approved tile "
+     "keeps the wet rooms. Holds seamlessness as an OUTLIER test rather than an average, "
+     "because a plank floor's own board gaps make any average-based seam check fail a "
+     "perfectly periodic tile; holds ACT ONE (nothing green, nothing saturated); holds "
+     "the patchwork lesson that LOOKING caught and measuring did not -- variants of one "
+     "material must stay one material or a 4-cell patch grid reads as a quilt of "
+     "offcuts; and mutates the room->material map on the real page to prove the floor is "
+     "chosen by the ROOM and not by where you are standing.", False),
     ('STREET CONTRACT', ['node', 'gates/street_contract_gate.js'],
      'Paolo 8/25: "NONE OF THE STREETS CONNECT EVER ... LIKE CONSISTENT PUZZLE '
      'PIECES AND LEGO BLOCKS". Every street piece\'s edge connector is measured off '
