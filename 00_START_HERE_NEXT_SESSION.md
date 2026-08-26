@@ -4132,11 +4132,23 @@ this morning) 1 RED printing the English line the Spanglish person would have
 said; one "spanglish" line replaced by its English twin, THE FACTORY REFUSES TO
 WRITE and names it.
 
-TWO GATES WENT RED AND BOTH WERE MINE TO TEACH, not to work around: quirk_gate
-compared the card against the English table (it asks for the person's own mouth
-now, and counts 132 authored lines instead of 44) and dialogue_catalogue_gate's
-independent line counter did not know the register lines existed, which is
-exactly the claim that must never drift. Both green.
+THREE GATES WENT RED AND ALL THREE WERE MINE TO TEACH, not to work around:
+quirk_gate compared the card against the English table (it asks for the person's
+own mouth now, and counts 132 authored lines instead of 44); dialogue_catalogue
+_gate's INDEPENDENT line counter did not know the register lines existed, book
+2,312 vs counted 2,224, which is exactly the claim that must never drift; and
+organ_reach RULE 3 fired on a STALE EXEMPTION and was RIGHT -- cardFor is on the
+surface now so its entry had to go, which is the whole reason that allowlist is
+a ledger and not a hiding place. 39/0, 63/0, 8/0.
+
+STAMP COLLISION, AND THE RIGHT RESOLUTION: COMBAT took 8/26c while I was
+verifying, so I took 8/26d. Keeping mine would have put TWO DIFFERENT BUILDS ON
+ONE STAMP, which is worse than a stamp going backwards -- he would have no way
+to tell which one he has. Read main's stamp at the LAST moment, not the first.
+
+VERIFIED on the merged tree, twelve gates and 552 claims: LANGUAGE 71/0,
+PEOPLE 158/0, CARD FOLD 18/0, CITY MEMORY 34/0, CITY BARKS 13/0, TIES 40/0,
+INTRODUCTIONS 46/0, REACTION REACH 17/0, THE WHOLE DEMO 23/0.
 
 Deploy of the previous ship CONFIRMED: 7610790 pages run SUCCESS, and it carries
 b62d42a (the card fix). Note b62d42a's OWN run shows `failure` with its deploy
