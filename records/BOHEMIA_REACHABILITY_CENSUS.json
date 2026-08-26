@@ -1,7 +1,7 @@
 {
  "sources": 256,
- "total_mb": 305.7,
- "unreached_mb": 302.0,
+ "total_mb": 308.9,
+ "unreached_mb": 305.1,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -135,7 +135,7 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 3,
+   "hits_loaded": 6,
    "bytes": 1899631
   },
   {
@@ -154,7 +154,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 29548571
+   "bytes": 29549950
   },
   {
    "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
@@ -199,7 +199,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 2618366
+   "bytes": 5753253
   },
   {
    "path": "banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt",
@@ -288,7 +288,7 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 2,
+   "hits_loaded": 3,
    "bytes": 45064347
   },
   {
@@ -729,7 +729,7 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 5,
+   "hits_loaded": 11,
    "bytes": 1807932
   },
   {
@@ -747,7 +747,7 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 3,
+   "hits_loaded": 6,
    "bytes": 458130
   },
   {
@@ -1045,7 +1045,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 1,
-   "bytes": 39815
+   "bytes": 58043
   },
   {
    "path": "engine/bohemia_asking.js",
@@ -1789,10 +1789,10 @@
    "path": "engine/bohemia_people.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 6,
-   "hits_shown": 6,
-   "hits_loaded": 6,
-   "bytes": 47956
+   "samples": 9,
+   "hits_shown": 9,
+   "hits_loaded": 9,
+   "bytes": 95999
   },
   {
    "path": "engine/bohemia_personlook.js",
@@ -1828,7 +1828,7 @@
    "samples": 7,
    "hits_shown": 7,
    "hits_loaded": 7,
-   "bytes": 58673
+   "bytes": 59838
   },
   {
    "path": "engine/bohemia_powergrid.js",
@@ -1888,10 +1888,10 @@
    "path": "engine/bohemia_quirk.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 19,
-   "hits_shown": 19,
+   "samples": 32,
+   "hits_shown": 32,
    "hits_loaded": 2,
-   "bytes": 17278
+   "bytes": 27807
   },
   {
    "path": "engine/bohemia_rail.js",
@@ -2080,7 +2080,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 0,
-   "bytes": 41022
+   "bytes": 45227
   },
   {
    "path": "engine/bohemia_substation.js",
