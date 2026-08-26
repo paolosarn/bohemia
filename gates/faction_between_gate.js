@@ -362,13 +362,32 @@ console.log('\nH. WHAT YOUR OWN OUTFIT EARNS, AND THE ONE RULE THAT DECIDES IT.'
       && made.every(m => m.sign === 'hostile' && hostileOfCartel.indexOf(N(m.to)) >= 0),
     JSON.stringify(made.map(m => m.sign + ' ' + m.to)) + ' vs canon ' + JSON.stringify(hostileOfCartel));
 
+  /* TESTED ON AN OUTFIT THAT ACTUALLY HAS A FRIEND TO GIVE, and the first
+     version was not. It asserted "no warm edge" while siding with the CARTEL,
+     whose canon positions are two hostile and one hands-off -- there is no
+     warm relation anywhere near them, so the claim passed no matter what the
+     rule did. Proven by mutation: deleting the burned requirement entirely
+     left this green. A claim that cannot fail is not a claim.
+     The Remnants hold a professional respect with the Mob, so they can answer
+     both halves, and both halves are asserted on THE SAME OUTFIT -- sided
+     gives nothing, burned gives the Mob. */
+  const warmSource = BohemiaBetween.keys().filter(f =>
+    BohemiaBetween.ripples(f).some(r => r.sign === 'warm'))[0];
+  ok('H2a THERE IS AN OUTFIT WITH A FRIEND TO GIVE, so the two claims below '
+    + 'are answerable at all', !!warmSource, 'no outfit has a warm canon position');
+  const wSided  = BohemiaBetween.earn(sv(), warmSource, 'sided', 1);
+  const wBurned = BohemiaBetween.earn(sv(), warmSource, 'burned', 1);
   ok('H2 AND A MERE SIDING BUYS YOU NO FRIENDS. Being hated by your friend\'s '
     + 'enemies is free; being liked by your friend\'s friends is not. Negative '
     + 'ties are sparser, more consequential and more reliably transmitted than '
     + 'positive ones, so a warm edge costs BURNED -- you have to have actually '
     + 'paid something. The cheap half of this system only ever makes enemies',
-    made.every(m => m.sign !== 'warm'),
-    JSON.stringify(made.map(m => m.sign)));
+    made.every(m => m.sign !== 'warm')
+      && wSided.every(m => m.sign !== 'warm')
+      && wBurned.some(m => m.sign === 'warm'),
+    JSON.stringify({ outfit: warmSource,
+                     sided: wSided.map(m => m.sign + ' ' + m.to),
+                     burned: wBurned.map(m => m.sign + ' ' + m.to) }));
 
   const b = sv();
   const burned = BohemiaBetween.earn(b, 'Remnants', 'burned', 1);
@@ -412,9 +431,15 @@ console.log('\nH. WHAT YOUR OWN OUTFIT EARNS, AND THE ONE RULE THAT DECIDES IT.'
     selfEdge.length === 0, JSON.stringify(selfEdge.slice(0, 2)));
 
   /* AUTHORED CANON WINS, AND IT IS THE ORDER RATHER THAN A TIE-BREAK. */
+  /* THE EARNED EDGE IS PLANTED ON A PAIR HE ACTUALLY WROTE, and the first
+     version was not. It planted CUSTOM|REMNANTS and then asked about
+     REMNANTS|CARTEL -- a different pair, so the earned lookup found nothing
+     and the authored answer won no matter which order the code checked in.
+     Proven by mutation: moving the earned lookup ABOVE the authored loop left
+     this green. To test that canon wins a fight, the fight has to happen. */
   const c = sv();
   c.meta.between = {};
-  c.meta.between[N(MINE) + '|' + 'REMNANTS'] = { sign: 'warm', label: 'adjacent', via: 'x' };
+  c.meta.between['REMNANTS|CARTEL'] = { sign: 'warm', label: 'adjacent', via: 'x' };
   const authored = BohemiaBetween.between('Remnants', 'Cartel', c);
   ok('H6 AN EARNED EDGE CAN NEVER OVERWRITE ONE HE WROTE. between() returns '
     + 'from the authored loop before the earned lookup is ever reached, so his '
