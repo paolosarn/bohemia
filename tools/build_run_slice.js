@@ -466,6 +466,10 @@ grabPieces('banks/tileforms/TF-ART-024_CANDIDATES_8_25_26.json',
 grabPieces('banks/tileforms/TF-ART-020_ROOF_OVERFLOW_VOLUME_8_25_26.json',
   ['tr_deck_0', 'tr_deck_1', 'tr_deck_2', 'tr_vent_0', 'tr_vent_1',
    'of_basin_0', 'of_basin_1']);
+/* TF-ART-021 VOLUME 8/26: the granary's conveyor gallery, rail sheds and
+   headhouse tops - tools/tfcook/TF-ART-021_gallery_cook.py */
+grabPieces('banks/tileforms/TF-ART-021_GALLERY_VOLUME_8_26_26.json',
+  ['gg_h_ridge', 'gg_h_lit', 'gg_h_sh', 'gg_v_ridge', 'gg_v_lit', 'gg_v_sh']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

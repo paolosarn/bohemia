@@ -1082,3 +1082,16 @@ claimed "named" since 8/4 while the list never carried it, and the
 tank-tall rocks were exactly what hid the gap. This bake took 160
 minutes of CPU (the first took 73); the poller that watches it now
 watches the PROCESS, not a fixed clock, after one false wake.
+
+## 8/26 FIFTY-SECOND PASS: THE GALLERY GETS ITS ROOF (and the sheds do not, yet)
+
+Daily re-probe first: twelve landmark grounds still sealed, awnings
+still unnamed. Then the granary's gallery: the 101x3 conveyor bridge
+now wears gable galv (ridge cap, lit/shaded slopes, continuous ribs)
+banded by the thin-axis rule the berm taught. THE LOOK CAUGHT A SCOPE
+ERROR BEFORE IT SHIPPED: the first wire skinned the 9x9 rail sheds too
+and they read as one giant corduroy sheet with the player walking on
+it. Scoped to runs of width three or less the same hour; the sheds
+keep their generic mass until a real shed treatment exists, and saying
+so in the record beats shipping a wallpaper lie. Headhouse tops ride
+the same rule where they are thin.
