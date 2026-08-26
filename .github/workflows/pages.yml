@@ -56,6 +56,19 @@ jobs:
       #   slices/          the product: the alpha and every tab it opens
       #   engine/          four un-inlined dev slices load ../engine/*.js as script tags
       #   records/target/  the ART tab loads its target screens from there
+      # THE DEMO IS CUT AT DEPLOY, SO IT CAN NEVER BE STALE IN PRODUCTION (8/26).
+      # slices/BOHEMIA_DEMO.html is generated FROM the alpha by
+      # tools/bohemia_cut_the_demo.js -- the law says the demo is cut from the
+      # workshop and never a fork. The committed copy is real and gated, but it
+      # goes stale the moment ANY lane edits the alpha, and "somebody remembers
+      # to regenerate it" is exactly the manual step that left the run slice
+      # four days behind engine/ without anybody noticing.
+      # So the deploy re-cuts it. `set -e` means a cutter that REFUSES (it exits
+      # 2 when the alpha changes shape under it) fails this build loudly rather
+      # than publishing a half-demo to strangers.
+      - name: cut the demo from the workshop
+        run: node tools/bohemia_cut_the_demo.js
+
       - name: assemble the published site
         run: |
           set -e

@@ -173,6 +173,23 @@ async function walk(chromium, file) {
   ok('and the site actually PUBLISHES the folder it lives in, so the link is real '
     + 'rather than a file on disk', /slices/.test(cfg) && /slices/.test(wf),
     '_config.yml and .github/workflows/pages.yml must both carry slices/');
+  /* AND PRODUCTION DOES NOT DEPEND ON ANYBODY REMEMBERING. The committed demo
+     goes stale the moment any lane edits the alpha, and "somebody regenerates
+     it" is exactly the manual step that left slices/BOHEMIA_RUN_CURRENT.html
+     four days behind engine/ with nothing noticing. The deploy re-cuts it, and
+     because the workflow runs with `set -e` a cutter that REFUSES (exit 2, when
+     the alpha changed shape under it) fails the build instead of publishing a
+     half-demo to strangers. */
+  ok('and THE DEPLOY CUTS IT FRESH, so a stale demo can never reach a stranger '
+    + 'even if a lane forgets to regenerate it',
+    /* MATCH THE STEP, NOT THE PROSE. The first version of this searched the
+       workflow for the cutter's path and passed on the COMMENT above the step
+       explaining why the step exists -- so deleting the step left it green.
+       Caught by mutating it, which is the only reason it is not still wrong.
+       Third time this week a check has matched a sentence instead of code. */
+    /^\s*run:\s*node\s+tools\/bohemia_cut_the_demo\.js\s*$/m.test(wf),
+    '.github/workflows/pages.yml must have a step that RUNS ' + CUTTER
+    + ' before assembling the site (a comment mentioning it is not a step)');
 
   const { chromium } = pw();
 

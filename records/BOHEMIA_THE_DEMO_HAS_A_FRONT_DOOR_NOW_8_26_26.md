@@ -148,3 +148,39 @@ person keeps and nobody has designed it.
 
 The demo's URL, for the record and not for sending to anybody:
 `https://paolosarn.github.io/bohemia/slices/BOHEMIA_DEMO.html`
+
+## AND THEN IT WENT STALE TWELVE MINUTES LATER, WHICH IS THE REAL LESSON
+
+Rebasing onto twelve commits from other lanes, the anti-fork check fired on its
+first real test:
+
+    THE DEMO IS NOT A CUT OF THE CURRENT WORKSHOP: regenerating it changes
+    9846 bytes
+
+Nothing was wrong. Other lanes edited the alpha, which is their job, and the
+demo is a function of the alpha. Re-cut, 25/0 on the merged tree.
+
+**But that means every alpha edit by any lane makes the committed demo stale, and
+"somebody remembers to regenerate it" is exactly the manual step that left
+`slices/BOHEMIA_RUN_CURRENT.html` four days behind `engine/` with nothing
+noticing.** Repeating a pattern this repo has already proved rots would be a
+choice, not an accident.
+
+So **the deploy cuts it.** `.github/workflows/pages.yml` runs the cutter before
+assembling the site, and because that job runs under `set -e`, a cutter that
+REFUSES (exit 2, when the alpha has changed shape under it) fails the build
+loudly rather than publishing a half-demo to strangers. Production cannot serve a
+stale demo even if every lane forgets.
+
+The committed copy and the strict gate stay. A red there is not noise: it is the
+signal "your alpha change altered the demo, look at it", and it costs one command
+to clear.
+
+    MUTATION J  the deploy stops cutting the demo -> DEPLOY CUTS IT FRESH red
+
+**And J caught a bug in my own check first.** Its first version searched the
+workflow for the cutter's path and passed on the COMMENT above the step
+explaining why the step exists, so deleting the step left it green. It now
+matches the `run:` line itself. Third time this week a check of mine has matched
+a sentence instead of code, and the only reason it is not still wrong is that I
+mutated it.

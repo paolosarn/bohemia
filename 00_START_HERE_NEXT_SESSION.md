@@ -54,6 +54,18 @@ WHAT THIS DOES NOT DO
   be a lie. Measured: the alpha is 4.11 MB of which COMBAT_B64 is 1.6 MB, and the
   demo NEEDS the fight. Cutting tabs saves 125 KB at most. F is RUN's.
 
+AND THE DEPLOY CUTS IT, WHICH MATTERS MORE THAN IT SOUNDS
+  Rebasing onto twelve commits from other lanes made the committed demo stale
+  within minutes -- correctly, since the demo is a function of the alpha and
+  they edited the alpha. Every lane's alpha edit does that. "Somebody remembers
+  to regenerate it" is the manual step that left BOHEMIA_RUN_CURRENT.html four
+  days behind engine/ with nothing noticing, so pages.yml now runs the cutter
+  before assembling the site: production cannot serve a stale demo even if every
+  lane forgets, and a cutter that refuses fails the build instead.
+  THE STRICT GATE STAYS. If DEMO BUILD goes red for you, your alpha change
+  altered the demo -- `node tools/bohemia_cut_the_demo.js` clears it. That red is
+  information, not noise.
+
 IN FLIGHT
   Nothing half-built.
 
