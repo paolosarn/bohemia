@@ -80,6 +80,7 @@ decides anything -- no names, no deaths, no faction ground, no numbers.
 Gate: gates/dialogue_catalogue_gate.js (reactions section)
 """
 import json
+import sys
 import os
 import re
 
@@ -88,7 +89,13 @@ OUT = os.path.join(ROOT, 'records', 'BOHEMIA_REACTIONS.json')
 PEOPLE = os.path.join(ROOT, 'engine', 'bohemia_people.js')
 IDX = os.path.join(ROOT, 'records', 'BOHEMIA_QUESTBOOK_LAW_INDEX.json')
 STANDING = os.path.join(ROOT, 'engine', 'bohemia_standing.js')
-LOOP = os.path.join(ROOT, 'engine', 'bohemia_loop.js')
+# THE CLOUT TABLE MOVED AND THIS TOOL DID NOT NOTICE (8/26). CLOUT_WEIGHTS used
+# to live in bohemia_loop.js; it lives in bohemia_clout.js now and the loop only
+# re-exports it (`const CLOUT_WEIGHTS = CLOUTMOD.CLOUT_WEIGHTS`), so the regex
+# below stopped matching and this factory has refused to run ever since. Read it
+# off the module that OWNS it, which is what the comment further down always
+# said to do -- pointing at a re-export is the same mistake as retyping.
+LOOP = os.path.join(ROOT, 'engine', 'bohemia_clout.js')
 
 CITES = {
     'sixtexts': ('Q002.N4', 'NODE HECK_PAYOUT',
@@ -130,6 +137,23 @@ REACTIONS = {
     "There's nothing here for you. There's nothing here for you tomorrow either.",
     "You come back with the whole block behind you or you don't come back.",
  ]),
+ 'rung:HOSTILE@spanglish': (['banal', 'persist'], [
+    "No. Sea lo que sea, no.",
+    "Traes mucho camino to be walking down this one.",
+    "Ya sé what you did. Everybody on this street knows what you did.",
+    "No te pares where I can see you.",
+    "There's nothing here for you. Mañana tampoco.",
+    "You come back with the whole block behind you o no vuelves.",
+ ]),
+ 'rung:HOSTILE@es': (['banal', 'persist'], [
+    "No. What it is, no.",
+    "You walk long road for this one.",
+    "I know what you do. All this street know it.",
+    "Not stand where I see you.",
+    "Here is nothing for you. Tomorrow also nothing.",
+    "Come back with all the block, or not come back.",
+ ]),
+
  'rung:COLD': (['banal', 'hind'], [
     "I'm not going to be rude about it. I'm just not going to help.",
     "We're square. Let's keep it that way.",
@@ -137,12 +161,40 @@ REACTIONS = {
     "You'll want to talk to somebody else.",
     "It's not personal. It's just recent.",
  ]),
+ 'rung:COLD@spanglish': (['banal', 'hind'], [
+    "No voy a be rude about it. I'm just not going to help.",
+    "Estamos a mano. Let's keep it that way.",
+    "I heard. No voy a decir what I heard.",
+    "You'll want to talk a otra persona.",
+    "It's not personal. Es que it's recent.",
+ ]),
+ 'rung:COLD@es': (['banal', 'hind'], [
+    "I am not rude. But I not help.",
+    "We are equal. Let it stay like this.",
+    "I hear it. I not say what I hear.",
+    "Better you talk to other person.",
+    "Is not personal. Is only recent.",
+ ]),
+
  'rung:NEUTRAL': (['banter'], [
     "You're the one who's been around.",
     "I don't know you well enough to have an opinion and that's fine by me.",
     "Ask. I might answer.",
     "Haven't decided about you yet.",
  ]),
+ 'rung:NEUTRAL@spanglish': (['banter'], [
+    "You're the one que ha estado around.",
+    "I don't know you well enough to have an opinion y así está bien.",
+    "Pregunta. I might answer.",
+    "No he decidido about you yet.",
+ ]),
+ 'rung:NEUTRAL@es': (['banter'], [
+    "You are the one who is here sometimes.",
+    "I not know you enough for an opinion. Is fine.",
+    "Ask. Maybe I answer.",
+    "About you I not decide yet.",
+ ]),
+
  'rung:WARM': (['scarce', 'banter'], [
     "There's a chair. Sit in it.",
     "You've been decent to people I like. That travels.",
@@ -150,12 +202,40 @@ REACTIONS = {
     "I put a word in for you. Didn't have to. Did anyway.",
     "You need something, you ask me before you ask a stranger.",
  ]),
+ 'rung:WARM@spanglish': (['scarce', 'banter'], [
+    "There's a chair. Siéntate.",
+    "You've been decent to people I like. Eso viaja.",
+    "Take it. Pay me back cuando puedas, or don't.",
+    "Puse una palabra for you. Didn't have to. Did anyway.",
+    "You need something, me preguntas before you ask a stranger.",
+ ]),
+ 'rung:WARM@es': (['scarce', 'banter'], [
+    "Here is a chair. Sit.",
+    "You are good with people I like. That travel.",
+    "Take it. Pay me after. Or no.",
+    "I say a word for you. I not have to. I do it.",
+    "You need something, ask me. Not a stranger.",
+ ]),
+
  'rung:FWU': (['scarce', 'persist'], [
     "Anything I have. I mean that and I'd rather you didn't test it.",
     "You're not a guest here. Stop knocking.",
     "Half this block would stand up for you and the other half doesn't know you yet.",
     "Whatever happens, you've got a door here.",
  ]),
+ 'rung:FWU@spanglish': (['scarce', 'persist'], [
+    "Anything I have. Lo digo en serio y I'd rather you didn't test it.",
+    "You're not a guest here. Deja de knocking.",
+    "Half this block would stand up for you y la otra half doesn't know you yet.",
+    "Whatever happens, aquí tienes una puerta.",
+ ]),
+ 'rung:FWU@es': (['scarce', 'persist'], [
+    "What I have, is yours. I say it true. Not test me.",
+    "You are not a guest. Not knock.",
+    "Half this block stand for you. The other half not know you yet.",
+    "What happen, here is a door for you.",
+ ]),
+
 
  # ---- THEY SAW IT THEMSELVES -----------------------------------------------
  'saw:quiet': (['sixtexts', 'banter'], [
@@ -164,18 +244,55 @@ REACTIONS = {
     "Nobody's going to hear it from me.",
     "Quiet work. Rarer than you'd think.",
  ]),
+ 'saw:quiet@spanglish': (['sixtexts', 'banter'], [
+    "I saw. No creo que anybody else did.",
+    "You handled that without a crowd. Me di cuenta.",
+    "Nobody's going to hear it de mí.",
+    "Quiet work. Más raro than you'd think.",
+ ]),
+ 'saw:quiet@es': (['sixtexts', 'banter'], [
+    "I see it. I think nobody else see.",
+    "You do it with no crowd. I notice.",
+    "From me, nobody hear it.",
+    "Quiet work. Is not common.",
+ ]),
+
  'saw:notable': (['sixtexts', 'persist'], [
     "I was standing right there.",
     "Half the block watched you do that.",
     "People are going to be talking about that at dinner.",
     "You didn't hide it. I don't know yet if that was brave or stupid.",
  ]),
+ 'saw:notable@spanglish': (['sixtexts', 'persist'], [
+    "I was standing ahí mismo.",
+    "Medio bloque watched you do that.",
+    "People are going to be talking about that en la cena.",
+    "No lo escondiste. I don't know yet if that was brave or stupid.",
+ ]),
+ 'saw:notable@es': (['sixtexts', 'persist'], [
+    "I stand right there.",
+    "Half the block see you do it.",
+    "At dinner they talk about this.",
+    "You not hide it. Brave or stupid, I not know yet.",
+ ]),
+
  'saw:risky': (['sixtexts', 'persist'], [
     "You could have got somebody killed doing that.",
     "I saw it and I've been thinking about it since.",
     "That was a lot. That was a LOT.",
     "I'm not saying you were wrong. I'm saying my hands were shaking.",
  ]),
+ 'saw:risky@spanglish': (['sixtexts', 'persist'], [
+    "I saw where you put your hands. Eso no fue suerte.",
+    "You cut that closer que la gente cree.",
+    "I've seen people do that. Most of them una vez.",
+ ]),
+ 'saw:risky@es': (['sixtexts', 'persist'], [
+    "I see where you put the hand. Is not luck.",
+    "You go more close than people think.",
+    "I see people do this. Most of them, one time.",
+ ]),
+
  'saw:reckless': (['sixtexts', 'persist', 'banal'], [
     "I was there. I'll be answering questions about it for a month.",
     "Whatever you were trying to prove, you proved it.",
@@ -183,26 +300,81 @@ REACTIONS = {
     "I can't unsee it and neither can anybody else on that corner.",
     "There's no walking that back. You know that, right?",
  ]),
+ 'saw:reckless@spanglish': (['sixtexts', 'persist', 'banal'], [
+    "Yo estaba ahí. I'll be answering questions about it for a month.",
+    "Whatever you were trying to prove, lo probaste.",
+    "You did that delante de los niños.",
+    "No puedo unsee it and neither can anybody else on that corner.",
+    "No hay walking that back. You know that, right?",
+ ]),
+ 'saw:reckless@es': (['sixtexts', 'persist', 'banal'], [
+    "I am there. One month I answer questions for this.",
+    "What you want to prove, you prove it.",
+    "You do this in front of the children.",
+    "I not forget it. The corner not forget it also.",
+    "This you not take back. You know.",
+ ]),
+
 
  # ---- IT REACHED THEM SECOND-HAND -------------------------------------------
  'heard:quiet': (['sixtexts', 'hind'], [
     "Somebody mentioned you. Only somebody.",
     "I heard a version of it. Probably the wrong version.",
  ]),
+ 'heard:quiet@spanglish': (['sixtexts', 'hind'], [
+    "Alguien mentioned you. Only somebody.",
+    "I heard a version of it. Seguramente the wrong version.",
+ ]),
+ 'heard:quiet@es': (['sixtexts', 'hind'], [
+    "Somebody say your name. Only somebody.",
+    "I hear one version. Probably the wrong one.",
+ ]),
+
  'heard:notable': (['sixtexts', 'banter'], [
     "You're the one from the thing.",
     "It got to me third-hand and it still had your name on it.",
     "I've heard two different stories about you this week.",
  ]),
+ 'heard:notable@spanglish': (['sixtexts', 'banter'], [
+    "You're the one from la cosa esa.",
+    "It got to me third-hand y todavía had your name on it.",
+    "He oído two different stories about you this week.",
+ ]),
+ 'heard:notable@es': (['sixtexts', 'banter'], [
+    "You are the one from that thing.",
+    "It come to me third hand. Still with your name.",
+    "This week I hear two stories about you.",
+ ]),
+
  'heard:risky': (['sixtexts', 'persist'], [
     "Word came up this way about you. It didn't lose anything on the trip.",
     "I heard, and I heard who was standing near you when it happened.",
  ]),
+ 'heard:risky@spanglish': (['sixtexts', 'persist'], [
+    "Word came up this way about you. No perdió nada on the trip.",
+    "I heard, y oí who was standing near you when it happened.",
+ ]),
+ 'heard:risky@es': (['sixtexts', 'persist'], [
+    "The word come up here about you. It lose nothing on the road.",
+    "I hear it. And I hear who stand near you.",
+ ]),
+
  'heard:reckless': (['persist', 'banal'], [
     "Everybody's heard. That's the whole point of what you did, isn't it.",
     "Two blocks and a caravan and it still got here before you.",
     "I'd never met you and I already had an opinion.",
  ]),
+ 'heard:reckless@spanglish': (['persist', 'banal'], [
+    "Todo el mundo's heard. That's the whole point of what you did, no?",
+    "Two blocks and a caravan y llegó here before you.",
+    "I'd never met you y ya tenía an opinion.",
+ ]),
+ 'heard:reckless@es': (['persist', 'banal'], [
+    "Everybody hear it. Is the point of what you do, no?",
+    "Two block and a caravan, and it arrive before you.",
+    "I never meet you and already I have opinion.",
+ ]),
+
 
  # ---- WHAT THEY REMEMBER OF YOU PERSONALLY ---------------------------------
  'met:first': (['banter'], [
@@ -210,28 +382,88 @@ REACTIONS = {
     "New. Alright.",
     "I'll get your name eventually or I won't.",
  ]),
+ 'met:first@spanglish': (['banter'], [
+    "No creo que we've done this.",
+    "New. Bueno.",
+    "I'll get your name eventually o no.",
+ ]),
+ 'met:first@es': (['banter'], [
+    "I think we not do this before.",
+    "New. Okay.",
+    "Maybe I learn your name. Maybe no.",
+ ]),
+
  'met:again': (['banter', 'hind'], [
     "You. Again.",
     "That's twice. Three times and I'll learn your name.",
     "Still walking around, I see.",
  ]),
+ 'met:again@spanglish': (['banter', 'hind'], [
+    "Tú. Otra vez.",
+    "That's twice. Three times y aprendo your name.",
+    "Still walking around, ya veo.",
+ ]),
+ 'met:again@es': (['banter', 'hind'], [
+    "You. Otra vez.",
+    "Is two times. Three times, I learn the name.",
+    "Still you walk. I see.",
+ ]),
+
  'met:known': (['scarce', 'banter'], [
     "There you are.",
     "I was wondering when you'd come back around.",
     "Same as always? Course it is.",
  ]),
+ 'met:known@spanglish': (['scarce', 'banter'], [
+    "Ahí estás.",
+    "I was wondering cuándo you'd come back around.",
+    "Same as always? Claro que sí.",
+ ]),
+ 'met:known@es': (['scarce', 'banter'], [
+    "Ah. Here you are.",
+    "I think, when he come back. And here you are.",
+    "The same? Of course the same.",
+ ]),
+
  'met:asked': (['banter'], [
     "You asked. Most people don't ask.",
     "You remembered. That's not nothing here.",
  ]),
+ 'met:asked@spanglish': (['banter'], [
+    "You asked. La mayoría don't ask.",
+    "Te acordaste. That's not nothing here.",
+ ]),
+ 'met:asked@es': (['banter'], [
+    "You ask me. Most people not ask.",
+    "You remember. Here that is something.",
+ ]),
+
  'met:honest': (['scarce', 'persist'], [
     "You told me straight when you didn't have to.",
     "I've been lied to by better dressed people than you. You didn't.",
  ]),
+ 'met:honest@spanglish': (['scarce', 'persist'], [
+    "You told me straight cuando no tenías que.",
+    "I've been lied to by better dressed people than you. Tú no.",
+ ]),
+ 'met:honest@es': (['scarce', 'persist'], [
+    "You tell me true. You not have to.",
+    "Better dressed people lie to me. You, no.",
+ ]),
+
  'met:lied': (['persist', 'banal'], [
     "You told me a thing that wasn't true and I found out on my own.",
     "I'm not angry. I'm just done taking your word.",
  ]),
+ 'met:lied@spanglish': (['persist', 'banal'], [
+    "You told me a thing que no era verdad and I found out on my own.",
+    "No estoy angry. I'm just done taking your word.",
+ ]),
+ 'met:lied@es': (['persist', 'banal'], [
+    "You say a thing. Is not true. I find out alone.",
+    "I am not angry. But your word, no more.",
+ ]),
+
 }
 
 
@@ -288,15 +520,70 @@ def main():
     if not rungs or not clouts:
         raise SystemExit('could not read RUNGS / CLOUT_WEIGHTS off the shipped modules')
 
+    # A KEY MAY CARRY A REGISTER, AND THE REGISTER IS NOT PART OF THE KEY (8/26).
+    # THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED) adds `<key>@spanglish` and
+    # `<key>@es` twins. This check split on ':' and read "HOSTILE@spanglish" as a
+    # rung the world has never heard of, so it called 26 correct buckets alien.
+    # A GATE MUST NEVER OUTRANK A RULING (8/1): the rule is right and stays -- a
+    # key the world never produces IS a line that can never fire -- it just had
+    # to learn the newer shape. Splitting the suffix off makes it STRONGER: the
+    # register is validated too, so rung:WARM@klingon is caught as well.
+    REGISTERS = ('spanglish', 'es')
     alien = []
     for key in REACTIONS:
-        head, _, tail = key.partition(':')
+        base, at, reg = key.partition('@')
+        if at and reg not in REGISTERS:
+            alien.append(key + ' (registers are ' + '/'.join(REGISTERS) + ')')
+        head, _, tail = base.partition(':')
         if head == 'rung' and tail not in rungs:
             alien.append(key + ' (rungs are ' + '/'.join(rungs) + ')')
         if head in ('saw', 'heard') and tail not in clouts:
             alien.append(key + ' (clouts are ' + '/'.join(clouts) + ')')
+        if at and base not in REACTIONS:
+            alien.append(key + ' has no english bucket to fall back to')
+        # AND A REGISTER LINE MAY NOT BE A COPY OF ITS ENGLISH TWIN. A twin that
+        # repeats the English is a TAG, not a voice: it costs a row, adds nothing
+        # a player can hear, and makes the register look written when it is not.
+        # The quirk factory holds the same bar; four of my own 130 lines here
+        # tripped it, which is why it is a machine and not a good intention.
+        if at:
+            eng = set(REACTIONS[base][1]) if base in REACTIONS else set()
+            for t in REACTIONS[key][1]:
+                if t in eng:
+                    alien.append(key + ' repeats the english line: ' + t[:48])
     if alien:
         raise SystemExit('keys the world never produces: ' + '; '.join(alien))
+
+    # ONE CLOSED SET OF SPANISH, THREE MOUTHS, ONE CHECKER (8/26). The barks, the
+    # quirks and now these all draw from tools/bohemia_bark_factory.py's ES_GLOSS
+    # and none of them keeps a list of its own. LANGUAGE NEVER GATES REQUIRED
+    # INFORMATION is provable only because that set is closed: a word this table
+    # says and the sweep has never heard of is invisible to the sweep, and the
+    # claim goes green while the bug walks past it.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    try:
+        import bohemia_bark_factory as BF
+    except Exception as exc:
+        raise SystemExit('cannot reach the shared lexicon (%s). '
+                         'One closed set or no claim.' % exc)
+    vocab = BF.english_vocabulary()
+    missing = {}
+    for key in REACTIONS:
+        if '@' not in key:
+            continue
+        for t in REACTIONS[key][1]:
+            for w in BF.TOKEN.findall(t):
+                forms = BF.base_forms(w)
+                if any(f in BF.ES_GLOSS for f in forms):
+                    continue
+                if any(f in vocab for f in forms):
+                    continue
+                missing.setdefault(forms[-1], []).append(key)
+    if missing:
+        raise SystemExit(
+            'THESE WORDS SHIP WITHOUT A MEANING. Add them to ES_GLOSS in\n'
+            'tools/bohemia_bark_factory.py (ONE lexicon, not three):\n  '
+            + '\n  '.join('%-14s %s' % (w, missing[w][0]) for w in sorted(missing)))
 
     out, n = {}, 0
     for key in sorted(REACTIONS):

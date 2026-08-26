@@ -4327,7 +4327,78 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/26 LATEST -- *** THE LINE SOMEBODY SAYS TO YOUR FACE
+PEOPLE (people-7h9sfy): 8/26 (b) LATEST -- *** 66 REACTION LINES, 1,208 PEOPLE
+WALKED, ZERO REACHABLE -- AND EVERY AMBIENT BARK IN THE VALLEY HAD BEEN ENGLISH
+ALL ALONG. BOTH FIXED. TAB RUN. ***
+
+MEASURED FIRST, AS ALWAYS:
+  reaction lines authored       66
+  people walked in the city   1,208
+  reachable through the city      0
+linesFor() tries REACTIONS first -- what somebody says BECAUSE OF WHAT YOU DID --
+and the city's one call passes barkOpts(), which returned at/faction/when and
+never a single reaction key. SOMEBODY WHO HAD KNOWN YOU FOR A MONTH OPENED WITH
+THE WEATHER.
+THIS IS THE BUG reaction_reach_gate WAS WRITTEN FOR, IN THE OTHER FRAME. It was
+found and fixed in BOHEMIA_RUN_CURRENT.html -- the panel behind p-run, which the
+RUN tab does not show. The fix landed in the frame nobody looks at.
+
+*** AND THE WORSE ONE, ONE LAYER DOWN. *** barkOpts is handed a POPULATION
+RECORD (id, ns, nx, ny, zone, home, look, face...) and there is no `lang` on it.
+linesFor reads the register off person.lang. So EVERY AMBIENT BARK IN THE WALKED
+VALLEY DEFAULTED TO ENGLISH while the card, the quirk line and the engine all
+spoke in register.
+THE CLAIM THAT SAID OTHERWISE WAS MINE AND IT WAS A SIDE DOOR: it tested
+linesFor(ctPerson(...)) -- a person I built -- and the city calls
+linesFor(RECORD, barkOpts(RECORD)). THIRD SIDE-DOOR PROBE IN TWO DAYS, identical
+shape every time: I ASKED THE ENGINE A QUESTION THE SURFACE NEVER ASKS IT.
+
+BUILT: barkOpts carries met (the ledger's own bucket choice), rung (the same
+ctOpinionOf the card prints as THEY THINK) and lang (via ctPerson, ONE
+derivation). Reactions 66 -> 196 lines, 19 -> 57 buckets, all three mouths.
+linesFor gets a react() helper beside bucket(), register first, English fallback.
+Lexicon 224 -> 277 words, still ONE closed set, now checked by THREE factories.
+WORDS tab 2,442 lines (273 spanglish, 259 poor-english).
+LEFT OUT ON PURPOSE: saw:/heard: are keyed by CLOUT CLASS and the city's deeds
+are faction deeds with no clout tag. Inventing one would be inventing a fact
+about the player, so those two stay dark and the tool says why.
+
+*** THE ONE I NEARLY SHIPPED, CAUGHT BY THE SHAPE OF A NUMBER. *** First wiring
+gave 0 -> 3 reachable. THREE IS THE TELL. metState() answers 'first' for a person
+with NO RECORD, so all 1,208 strangers matched met:first and three lines
+outranked every role, act, faction and weather bucket in the game. A REACTION IS
+ABOUT HISTORY: gated on the ledger it went 0 -> 27, nine lines x three mouths,
+and met:first still fires at the right moment.
+
+MUTATIONS: the whole context block removed (the six-week state) 3 RED, one
+printing NOT ONE REACTION LINE IS REACHABLE; met passed for people with no record
+(the version I nearly shipped) 1 RED, "57 reaction lines from 19 people nobody
+has met".
+
+TWO TOOLS WERE ALREADY BROKEN AND NOBODY KNEW: bohemia_reaction_factory REFUSED
+TO RUN AT ALL because CLOUT_WEIGHTS moved to bohemia_clout.js and the loop only
+re-exports it -- POINTING A TOOL AT A RE-EXPORT IS THE SAME MISTAKE AS RETYPING
+THE TABLE. And its key validator called 26 correct buckets alien for the same
+reason the other two gates did.
+
+SIXTH PROBE ERROR CAUGHT BEFORE FILING: the stranger claim reported 36 reaction
+lines from 31 unmet people. It was counting the one person the block above had
+opened a card on, once per overlapping spawn radius. THE CLAIM WAS WRONG, NOT
+THE CODE.
+
+language_gate 71 -> 76. Deploy of the previous ship CONFIRMED: a61e3f8 pages
+SUCCESS, and 97bdffc7 carries the handoff too.
+
+WHAT I WOULD DO NEXT: every quest speaker is a TRADE, not a name (keeper,
+lineman, hauler, clerk, pastor, medic, midwife...), so the law's reservation on
+NAMED story people does not block the 504 quest lines at all. The four Act 1
+SCENES do have `mother` and `sibling_older` in them and those are his.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md
+(addendum 3 at the bottom).
+
+---- PREVIOUS (8/26) ----
+*** THE LINE SOMEBODY SAYS TO YOUR FACE
 WHEN YOU ASK THEIR NAME WAS THE LAST MONOLINGUAL ONE IN THE GAME. 44 -> 132
 LINES. TAB RUN: walk up, tap TALK, tap ask, and they answer in their own mouth. ***
 

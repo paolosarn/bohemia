@@ -315,9 +315,21 @@ if (reactFile.length) {
     'the world\'s own standing rungs and clout tags were read off the shipped modules (' +
     RUNGS.join('/') + ' | ' + CLOUTS.join('/') + ' from ' + cloutFrom + ')');
 
+  /* A KEY MAY CARRY A REGISTER, AND THE REGISTER IS NOT PART OF THE KEY (8/26).
+     FOURTH validator in this repo to meet `<key>@spanglish` and read the suffix
+     as part of the value -- it called 26 correct buckets INVENTED. The rule is
+     right and stays; splitting the suffix off makes it STRONGER, because the
+     register is validated too and rung:WARM@klingon is caught as well.
+     WORTH SAYING OUT LOUD FOR WHOEVER ADDS THE FIFTH: the common cause is that
+     every one of these parsers splits a compound key by hand, so a new part of
+     the key has to be taught to each of them separately. */
+  var REGISTERS = ['spanglish', 'es'];
   var rxUncited = [], rxBadId = [], rxBadTitle = [], rxAlien = [];
   Object.keys(RX.reactions || {}).forEach(function (key) {
-    var head = key.split(':')[0], tail = key.split(':')[1];
+    var at = key.indexOf('@'), base = at >= 0 ? key.slice(0, at) : key;
+    if (at >= 0 && REGISTERS.indexOf(key.slice(at + 1)) < 0) rxAlien.push(key);
+    if (at >= 0 && !RX.reactions[base]) rxAlien.push(key);
+    var head = base.split(':')[0], tail = base.split(':')[1];
     if (head === 'rung' && RUNGS.indexOf(tail) < 0) rxAlien.push(key);
     if ((head === 'saw' || head === 'heard') && CLOUTS.indexOf(tail) < 0) rxAlien.push(key);
     RX.reactions[key].forEach(function (r) {
@@ -444,7 +456,13 @@ if (fs.existsSync('records/BOHEMIA_EXCHANGES.json')) {
   var ppl = fs.readFileSync('engine/bohemia_people.js', 'utf8');
   ok(ppl.indexOf('var REACTIONS = {') >= 0 && ppl.indexOf('"rung:HOSTILE"') >= 0,
     'the reactions are WIRED into the people module');
-  ok(/var pick = \(saw && REACTIONS\['saw:'/.test(ppl),
+  /* THE LOOKUP MOVED BEHIND A HELPER, and the claim follows the BEHAVIOUR rather
+     than the old spelling. react() picks the person's register first and falls
+     back to English -- without it a Spanglish neighbour lost their voice the
+     moment they knew who you were -- so the thing to assert is that a reaction
+     is still consulted BEFORE the ambient buckets, whatever it is spelled. */
+  ok(/var pick = \(saw && react\('saw:'/.test(ppl) &&
+     ppl.indexOf("REACTIONS[k + '@' + reg] || REACTIONS[k]") >= 0,
     'and a REACTION BEATS AN AMBIENT LINE in the lookup — somebody who watched you ' +
     'do something reckless yesterday does not open with the weather');
   var missingRung = RUNGS.filter(function (r) { return !(RX.reactions || {})['rung:' + r]; });

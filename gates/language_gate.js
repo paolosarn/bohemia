@@ -547,7 +547,7 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
          asks the wrong function.
          So: stand next to somebody, let the world render the way movement
          does, TAP THE REAL BUTTON, and read the text that is on the glass. */
-      var card = null, line = null, verb = null, opened = false;
+      var card = null, line = null, verb = null, opened = false, lineLang = null;
       try {
         var RR = ctEveryone(), best = null, bd = 1e9;
         RR.forEach(function (r) {
@@ -566,7 +566,16 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
           var cc = document.getElementById('ctcard');
           opened = !!(cc && getComputedStyle(cc).display !== 'none');
           card = cc ? cc.innerText : null;
-          line = BohemiaPeople.linesFor(ctPerson(best.r), { at: 'work' })[0];
+          /* *** THROUGH THE CITY'S OWN PATH, NOT A PERSON I BUILT MYSELF. ***
+             This asked linesFor(ctPerson(...), {at:'work'}) and was GREEN and
+             was a lie: the walked city calls linesFor(RECORD, barkOpts(RECORD)),
+             and a population record has no `lang` field at all, so every ambient
+             bark in the valley defaulted to English while this claim reported
+             otherwise. THIRD side-door probe from this lane in two days, and the
+             shape is identical every time: I asked the engine a question the
+             surface never asks it. Call what the city calls. */
+          line = BohemiaPeople.linesFor(best.r, barkOpts(best.r))[0];
+          lineLang = (barkOpts(best.r) || {}).lang || null;
         }
       } catch (e) { card = 'THREW: ' + e.message; }
       /* *** AND THE LINE THEY SAY TO YOUR FACE, ONE PER REGISTER, OFF THE REAL
@@ -575,6 +584,80 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
          barks you overhear across the street had registers before the person
          standing in front of you did. Read the same way as everything else
          here: stand next to them, tap the button, tap ask, read the glass. */
+      /* *** AND A REACTION CAN ACTUALLY FIRE, which for six weeks it could not.
+         *** MEASURED before this claim existed: 66 authored reaction lines,
+         1,208 people walked, ZERO reachable, because barkOpts() returned only
+         at/faction/when and linesFor() looks for met and rung ahead of all of
+         them. Somebody who had known you for a month opened with the weather.
+         Meeting somebody is what creates the history, so this MEETS them the
+         way a player does -- stand next to them, tap the button -- and then
+         listens. A claim that only walked past would keep reporting zero and
+         would be right for the wrong reason. */
+      var reactHits = {}, reactSeen = 0, strangerHits = 0, strangerSeen = 0;
+      try { ctClose(); } catch (e9) {}
+      /* AND A STRANGER GETS NOTHING, which is the other half and the half I very
+         nearly shipped wrong. metState() answers 'first' for a person with NO
+         RECORD -- right for the card, catastrophic here: it made all 1,208
+         strangers in the valley match met:first, so THREE lines outranked every
+         role, act, faction and weather bucket in the game. Reachable went 0 -> 3
+         and 3 was the tell. A REACTION IS ABOUT HISTORY; no history, no
+         reaction. This block reads people BEFORE meeting anybody, and it must
+         come first, because meeting them is what would hide the bug. */
+      try {
+        var RXPRE = {};
+        Object.keys(BohemiaPeople.REACTIONS).forEach(function (k) {
+          BohemiaPeople.REACTIONS[k].forEach(function (t) { RXPRE[t] = k; });
+        });
+        for (var sx = 20; sx < 30; sx++) for (var sy = 20; sy < 30; sy++) {
+          hx = sx * sp + 4; hy = sy * sp + 4; CT_SPAWN = null;
+          var SR = [];
+          try { ctSpawn(); SR = ctEveryone(); } catch (eE) { continue; }
+          for (var si = 0; si < SR.length; si++) {
+            /* ONLY PEOPLE WITH NO RECORD, and this cost a red to get right. The
+               first cut counted everybody in these cells, and the block above it
+               had already opened ONE card -- so that one person legitimately had
+               a met:first reaction, appeared in a dozen overlapping spawn
+               radii, and reported 36 "reaction lines from people nobody has
+               met". THE CLAIM WAS WRONG, NOT THE CODE. A stranger is somebody
+               the LEDGER has never heard of; ask the ledger. */
+            var sk = 'P:city:' + SR[si].id;
+            try { if (CT_MET.get(sk)) continue; } catch (eG) { continue; }
+            strangerSeen++;
+            BohemiaPeople.linesFor(SR[si], barkOpts(SR[si])).forEach(function (t) {
+              if (RXPRE[t]) strangerHits++;
+            });
+          }
+        }
+      } catch (eF) {}
+      try {
+        var RXALL = {};
+        Object.keys(BohemiaPeople.REACTIONS).forEach(function (k) {
+          BohemiaPeople.REACTIONS[k].forEach(function (t) { RXALL[t] = k; });
+        });
+        for (var rx = 10; rx < 20 && reactSeen < 400; rx++)
+        for (var ry = 10; ry < 20 && reactSeen < 400; ry++) {
+          hx = rx * sp + 4; hy = ry * sp + 4; CT_SPAWN = null;
+          var RR2 = [];
+          try { ctSpawn(); RR2 = ctEveryone(); } catch (eA) { continue; }
+          for (var ri = 0; ri < RR2.length; ri++) {
+            var rat = ctAt(RR2[ri]), stood2 = false, dd2 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+            for (var rd = 0; rd < dd2.length; rd++) {
+              hx = rat[0] + dd2[rd][0]; hy = rat[1] + dd2[rd][1];
+              try { render(); } catch (eB) {}
+              if (ctAdjacent()) { stood2 = true; break; }
+            }
+            if (!stood2) continue;
+            var rb = document.getElementById('cttalk');
+            if (!rb || getComputedStyle(rb).display === 'none') continue;
+            rb.click();                       /* this is what records the meeting */
+            try { ctClose(); } catch (eC) {}
+            reactSeen++;
+            var rl = BohemiaPeople.linesFor(RR2[ri], barkOpts(RR2[ri]));
+            rl.forEach(function (t) { if (RXALL[t]) reactHits[RXALL[t]] = (reactHits[RXALL[t]] || 0) + 1; });
+          }
+        }
+      } catch (eD) {}
+
       var said = {};
       /* CLOSE THE CARD FIRST, AND THIS COST A RED TO LEARN. The block above ends
          with a card OPEN, and ctVerb() hides the one button whenever a card is
@@ -617,7 +700,9 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         seen: seen, blocks: blocks.length, mix: mix, rekeyed: rekeyed,
         low: blocks[Math.floor(blocks.length * 0.1)] || 0,
         high: blocks[Math.floor(blocks.length * 0.9)] || 0,
-        verb: verb, opened: opened, card: card, line: line, said: said
+        verb: verb, opened: opened, card: card, line: line, lineLang: lineLang, said: said,
+        reactHits: reactHits, reactSeen: reactSeen,
+        strangerHits: strangerHits, strangerSeen: strangerSeen
       };
     });
 
@@ -676,6 +761,30 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         return i > -1 && (l < 0 || i < l) && (h < 0 || i < h);
       })(), String(m.card).replace(/\n/g, ' | ').slice(0, 160));
     ok('somebody in the walked city has something to say', !!m.line, m.line);
+    /* AND THE AMBIENT PATH KNOWS WHAT LANGUAGE THEY SPEAK. barkOpts() is handed
+       a population record, which carries no `lang`, so without this the register
+       reaches the card and the quirk line and NOT the thing you overhear across
+       the street. Measured on the city's own options object. */
+    ok('the city tells the bark path what language the speaker is in',
+      !!m.lineLang && !!P.LANG[m.lineLang], String(m.lineLang));
+
+    /* THE SIX-WEEK BUG, AS A CLAIM. */
+    var rxKeys = Object.keys(m.reactHits || {});
+    ok('people were actually MET, not just walked past', m.reactSeen > 50,
+      m.reactSeen + ' met');
+    ok('*** SOMEBODY WHO KNOWS YOU SAYS SO, instead of opening with the weather ***',
+      rxKeys.length > 0, rxKeys.join(', ') || 'NOT ONE REACTION LINE IS REACHABLE');
+    ok('A STRANGER GETS THE STREET, NOT A REACTION -- no history, no reaction',
+      /* 15, and the number is measured rather than wished for: by the time this
+         runs the blocks above have met most of the walkable roster, and the
+         ground past them holds 19 people nobody has spoken to. Setting the bar
+         at a number the surface cannot reach is how a claim gets quietly
+         disabled the first time somebody widens the walk. */
+      m.strangerSeen >= 15 && m.strangerHits === 0,
+      m.strangerHits + ' reaction lines from ' + m.strangerSeen + ' people nobody has met');
+    ok('and the reactions come out in a register, not only in english',
+      rxKeys.some(function (k) { return k.indexOf('@') > 0; }),
+      rxKeys.filter(function (k) { return k.indexOf('@') > 0; }).join(', ') || 'english only');
 
     /* THE MOST PERSONAL LINE IN THE GAME, ONE PER REGISTER, OFF THE GLASS. */
     ok('an english neighbour answers in english when you ask their name',

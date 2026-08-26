@@ -451,3 +451,107 @@ feature**, and the only difference is whether you check.
 | `tools/bohemia_city_quirk_lang_patch.py` | the card row and the spoken line, in one register |
 | `tools/bohemia_bark_factory.py` | `esStems()`, 36 more glossed words, the leading-quote fix |
 | `gates/language_gate.js` | 67 -> 71 claims |
+
+---
+
+# ADDENDUM 3 (8/26): SIXTY-SIX REACTION LINES, 1,208 PEOPLE, ZERO REACHABLE --
+# AND THE AMBIENT BARKS HAD NEVER SPOKEN IN REGISTER EITHER
+
+## THE MEASUREMENT THAT STARTED IT
+
+```
+reaction lines authored       66
+people walked in the city   1,208
+reachable through the city      0
+```
+
+`linesFor()` tries REACTIONS first: what somebody says **because of what you
+did**, ahead of every ambient bucket. The walked city has exactly one call to
+it, and `barkOpts()` returned `at`, `faction` and `when`. It had never passed a
+single reaction key. **Somebody who had known you for a month opened with the
+weather.**
+
+This is the bug `reaction_reach_gate` was written for, in the other frame. Its
+own header says it: "the walked run called linesFor(who) with NO ARGUMENTS, so
+every situation bucket was unreachable." That was found and fixed in
+`BOHEMIA_RUN_CURRENT.html` -- **the panel behind p-run, which the RUN tab does
+not show.** The fix landed in the frame nobody looks at and the walked city kept
+the defect.
+
+## AND THEN THE WORSE ONE, FOUND ONE LAYER DOWN
+
+Wiring the context exposed something bigger. `barkOpts()` is handed a
+**population record**: `id, ns, nx, ny, i, zone, home, household, look, face,
+archetype, scheduleSeed, workDir, workDist`. There is no `lang` on it, and
+`linesFor` reads the register off `person.lang`.
+
+**So every ambient bark in the walked valley had defaulted to English all day.**
+The register reached the card, the quirk line and the engine, and never reached
+the thing you overhear across the street.
+
+**THE CLAIM THAT SAID OTHERWISE WAS MINE, AND IT WAS A SIDE DOOR.** Section G
+tested `linesFor(ctPerson(...), {at:'work'})` -- it built a person and asked
+that. The city calls `linesFor(RECORD, barkOpts(RECORD))`. **THIRD side-door
+probe from this lane in two days**, identical shape every time: *I asked the
+engine a question the surface never asks it.* The claim calls what the city
+calls now.
+
+## WHAT WAS BUILT
+
+| | |
+|---|---|
+| `barkOpts` now carries | `met` (the ledger's own bucket choice), `rung` (the same `ctOpinionOf` the card prints as THEY THINK), `lang` (via `ctPerson`, the one derivation) |
+| reactions | 66 -> **196 lines**, 19 -> 57 buckets: every bucket in all three mouths |
+| `linesFor` | a `react()` helper beside `bucket()`, register first, English fallback |
+| the lexicon | 224 -> **277 words**, still ONE closed set, now checked by three factories |
+| the words book | **2,442 lines** (273 spanglish, 259 poor-english) |
+
+**LEFT OUT ON PURPOSE, SAID PLAINLY:** `saw:` and `heard:` are keyed by CLOUT
+CLASS, and the deeds the city records are faction deeds with no clout tag. The
+run slice reads its class off `RUN.clout`, which does not exist here. Inventing
+a class would be inventing a fact about the player, so those two stay dark.
+
+## THE ONE I NEARLY SHIPPED, CAUGHT BY THE SHAPE OF A NUMBER
+
+First wiring: `o.met = CT_MET.metState(key)`. Reachable went **0 -> 3**.
+
+Three is the tell. `metState()` answers `'first'` for a person with **no
+record** -- correct for the card, catastrophic here: all 1,208 strangers matched
+`met:first`, so THREE lines outranked every role, act, faction and weather
+bucket in the game and the entire street said the same three sentences. A real
+wiring lights up dozens.
+
+**A REACTION IS ABOUT HISTORY.** No record, no reaction. Gated on the ledger, it
+went **0 -> 27** (nine lines x three mouths), and `met:first` still fires at the
+right moment: the city writes the record when you open somebody's card, so it
+belongs to the person you just walked up to and not to everybody you have walked
+past.
+
+## MUTATIONS
+
+| break | result |
+|---|---|
+| **M11** the whole reaction-context block removed (**the state that shipped for six weeks**) | **3 red**, one printing `NOT ONE REACTION LINE IS REACHABLE` |
+| **M12** `met` passed for people with no record (**the version I nearly shipped**) | **1 red**: `57 reaction lines from 19 people nobody has met` |
+
+## TWO TOOLS WERE ALREADY BROKEN AND NOBODY KNEW
+
+`bohemia_reaction_factory.py` **refused to run at all**: it reads `CLOUT_WEIGHTS`
+off `bohemia_loop.js`, and the table moved to `bohemia_clout.js` -- the loop only
+re-exports it, so the regex stopped matching. Pointing a tool at a re-export is
+the same mistake as retyping the table. It reads the owner now.
+
+Its key validator then called 26 correct buckets alien, because it split on `:`
+and read `HOSTILE@spanglish` as a rung. Same fix as the two before it: split the
+suffix off and **validate the register too**, so `rung:WARM@klingon` is caught as
+well. It also refuses a register line that repeats its English twin -- four of my
+own 130 tripped it.
+
+## AND A SIXTH PROBE ERROR, CAUGHT BEFORE IT WAS FILED
+
+The stranger claim reported `36 reaction lines from 31 people nobody has met`. It
+was counting a person the block above it had already opened a card on, once per
+overlapping spawn radius. **THE CLAIM WAS WRONG, NOT THE CODE.** A stranger is
+somebody the ledger has never heard of; ask the ledger.
+
+`gates/language_gate.js` 71 -> 76 claims.

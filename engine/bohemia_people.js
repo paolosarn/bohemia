@@ -203,9 +203,11 @@
      DO NOT HAND-EDIT: re-run the factory. */
   var ES_LEX = {
   "abuela": "grandmother",
+  "acordaste": "you remembered",
   "acuerdo": "I remember, in \"me acuerdo\"",
   "agua": "water",
   "ahorita": "right now, or soon, or never",
+  "ahí": "there",
   "al": "to the",
   "alguien": "somebody",
   "alguna": "some",
@@ -214,6 +216,7 @@
   "amá": "mom",
   "antes": "before",
   "apaga": "turn it off",
+  "aprendo": "I learn",
   "apurado": "in a hurry",
   "aquí": "here",
   "así": "like that",
@@ -221,6 +224,7 @@
   "ayúdame": "help me",
   "bendito": "blessed",
   "bien": "fine, well",
+  "bloque": "block",
   "bueno": "well, or good",
   "buscas": "are you looking for",
   "cabrón": "bastard",
@@ -229,6 +233,7 @@
   "camino": "the road",
   "carnal": "brother, close friend",
   "casi": "almost",
+  "cena": "dinner",
   "cerrado": "closed",
   "chamba": "work, a job",
   "chingado": "damn",
@@ -246,15 +251,25 @@
   "con": "with",
   "conozco": "I know",
   "contando": "counting",
+  "cosa": "thing",
+  "cree": "thinks",
+  "creo": "I think",
   "cualquier": "any",
+  "cuando": "when",
   "cuarenta": "forty",
   "cuenta": "count",
   "cuidado": "careful",
+  "cuándo": "when",
   "cómo": "how",
   "da": "gives, in \"me da igual\"",
   "de": "of",
+  "decidido": "decided",
+  "decir": "to say",
+  "deja": "stop, quit",
+  "delante": "in front of",
   "demás": "the rest",
   "después": "after, afterwards",
+  "di": "I gave, in \"me di cuenta\"",
   "diciendo": "saying",
   "diez": "ten",
   "digas": "tell, in \"no me digas\"",
@@ -272,27 +287,36 @@
   "entero": "whole",
   "entonces": "then",
   "entres": "go in",
+  "equal": "even, square",
   "equivoco": "get it wrong",
+  "era": "it was",
   "es": "is",
   "esa": "that",
+  "escondiste": "you hid it",
   "eso": "that",
   "espérate": "hold on",
   "esquina": "the corner",
   "esta": "this",
+  "estaba": "I was",
   "estado": "been",
+  "estamos": "we are",
   "esto": "this",
   "estoy": "I am",
   "está": "is",
   "están": "they are",
+  "estás": "you are",
   "familia": "family",
   "feo": "ugly, bad",
   "flojo": "loose, slack",
   "foto": "a photo",
   "frío": "cold",
+  "fue": "it was",
   "funciona": "it works",
+  "gente": "people",
   "gracias": "thank you",
   "gusta": "like, in \"no me gusta\"",
   "güey": "dude",
+  "ha": "has",
   "hace": "makes",
   "hambre": "hunger",
   "hasta": "until",
@@ -309,6 +333,7 @@
   "las": "the",
   "llave": "the tap, the faucet",
   "llegamos": "we arrived",
+  "llegó": "it arrived",
   "lluvia": "rain",
   "lo": "the, it",
   "los": "the",
@@ -317,9 +342,11 @@
   "mamá": "mom",
   "mano": "brother, short for hermano",
   "martes": "Tuesday",
+  "mayoría": "most of them",
   "mañana": "tomorrow, or the morning",
   "me": "me",
   "medidor": "the meter",
+  "medio": "half",
   "mi": "my",
   "mientas": "lie to me, in \"no me mientas\"",
   "mija": "my daughter, said to anyone younger",
@@ -328,6 +355,11 @@
   "mires": "look, in \"no me mires\"",
   "misma": "same",
   "mismas": "same",
+  "mismo": "same, right",
+  "mucho": "a lot",
+  "mundo": "world, in \"todo el mundo\", everybody",
+  "más": "more",
+  "mí": "me",
   "nada": "nothing",
   "nadie": "nobody",
   "niños": "the kids",
@@ -347,33 +379,44 @@
   "oscuridad": "the dark",
   "otra": "other, another",
   "oye": "hey, listen",
+  "oí": "I heard",
+  "oído": "heard",
   "paga": "pays",
+  "palabra": "a word",
   "para": "for",
+  "pares": "stop, in \"no te pares\"",
   "pasada": "last, past",
   "pensé": "I thought",
   "peor": "the worst",
+  "perdió": "it lost",
   "perdón": "sorry",
   "pero": "but",
+  "persona": "person",
   "poco": "a little",
   "por": "for",
   "porque": "because",
   "precio": "a price",
   "pregunta": "ask",
+  "preguntas": "you ask",
   "preguntes": "ask, in \"no preguntes\"",
   "pregúntame": "ask me",
   "primero": "first",
   "primo": "cousin",
+  "probaste": "you proved it",
+  "puedas": "you can",
   "puede": "can",
   "puedo": "I can",
   "puerta": "the door",
   "puertas": "the doors",
   "pues": "well",
+  "puse": "I put",
   "puso": "it turned",
   "pájaro": "a bird",
   "que": "that",
   "quedarse": "to stay",
   "quién": "who",
   "qué": "what",
+  "raro": "rare, odd",
   "rato": "a while",
   "regla": "a rule",
   "revés": "backwards, in \"al revés\"",
@@ -383,6 +426,7 @@
   "se": "itself, in \"no se me olvida\"",
   "sea": "whatever it is, in \"lo que sea\"",
   "segunda": "second",
+  "seguramente": "probably",
   "seis": "six",
   "semana": "the week",
   "serio": "serious, in \"en serio\"",
@@ -393,6 +437,7 @@
   "siéntate": "sit down",
   "sol": "the sun",
   "son": "they are",
+  "suerte": "luck",
   "sé": "I know",
   "sí": "yes",
   "también": "also",
@@ -400,12 +445,16 @@
   "tarde": "late, or the afternoon",
   "te": "you",
   "tengo": "I have",
+  "tenía": "I had",
+  "tenías": "you had",
   "ti": "you",
+  "tienes": "you have",
   "toca": "is my turn, in \"me toca\"",
   "todavía": "still",
   "todo": "everything",
   "todos": "everybody",
   "trabajo": "I work, or work",
+  "traes": "you bring, you carry",
   "traigo": "I bring",
   "tu": "your",
   "turno": "the shift",
@@ -417,9 +466,13 @@
   "vamos": "we go, let us go",
   "ven": "come",
   "vendo": "I sell",
+  "veo": "I see",
+  "verdad": "true, the truth",
   "vez": "a time, once",
+  "viaja": "it travels",
   "viejo": "old man",
   "voy": "I am going",
+  "vuelves": "you come back",
   "vuelvo": "I come back",
   "y": "and",
   "ya": "already, or enough",
@@ -433,11 +486,39 @@
      sweep that flagged them would go red on every English objective in the
      build. THIS is the list language_gate claim C sweeps the required-
      information surfaces with. DO NOT HAND-EDIT: re-run the factory. */
-  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "allí", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "comiste", "compa", "compraron", "con", "conozco", "contando", "cualquier", "cuarenta", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "digas", "digo", "dijeron", "dinero", "dios", "dos", "doy", "día", "el", "ella", "empiezo", "en", "entero", "entonces", "entres", "equivoco", "es", "esa", "eso", "espérate", "esquina", "esta", "estado", "esto", "estoy", "está", "están", "familia", "feo", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "invierno", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mamá", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "nuevo", "nunca", "o", "ocho", "ofender", "oigo", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "pensé", "peor", "perdón", "pero", "poco", "por", "porque", "precio", "pregunta", "preguntes", "pregúntame", "primero", "primo", "puede", "puedo", "puerta", "puertas", "pues", "puso", "pájaro", "que", "quedarse", "quién", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sigue", "sin", "siéntate", "sol", "sé", "sí", "también", "tampoco", "tarde", "te", "tengo", "ti", "toca", "todavía", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tuyo", "tía", "tío", "tú", "una", "vamos", "ven", "vendo", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo", "ándale", "único"];
+  var ES_ONLY = ["abuela", "acordaste", "acuerdo", "agua", "ahorita", "ahí", "al", "alguien", "alguna", "allí", "ambos", "amá", "antes", "apaga", "aprendo", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bloque", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cena", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "comiste", "compa", "compraron", "con", "conozco", "contando", "cosa", "cree", "creo", "cualquier", "cuando", "cuarenta", "cuenta", "cuidado", "cuándo", "cómo", "da", "de", "decidido", "decir", "deja", "delante", "demás", "después", "di", "diciendo", "diez", "digas", "digo", "dijeron", "dinero", "dios", "dos", "doy", "día", "el", "ella", "empiezo", "en", "entero", "entonces", "entres", "equal", "equivoco", "era", "es", "esa", "escondiste", "eso", "espérate", "esquina", "esta", "estaba", "estado", "estamos", "esto", "estoy", "está", "están", "estás", "familia", "feo", "flojo", "foto", "frío", "fue", "funciona", "gente", "gracias", "gusta", "güey", "ha", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "invierno", "ironía", "la", "las", "llave", "llegamos", "llegó", "lluvia", "lo", "los", "luz", "madre", "mamá", "mano", "martes", "mayoría", "mañana", "medidor", "medio", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "mismo", "mucho", "mundo", "más", "mí", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "nuevo", "nunca", "o", "ocho", "ofender", "oigo", "ojalá", "olvida", "oscuridad", "otra", "oye", "oí", "oído", "paga", "palabra", "para", "pares", "pasada", "pensé", "peor", "perdió", "perdón", "pero", "persona", "poco", "por", "porque", "precio", "pregunta", "preguntas", "preguntes", "pregúntame", "primero", "primo", "probaste", "puedas", "puede", "puedo", "puerta", "puertas", "pues", "puse", "puso", "pájaro", "que", "quedarse", "quién", "qué", "raro", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seguramente", "seis", "semana", "serio", "si", "siempre", "sigue", "sin", "siéntate", "sol", "suerte", "sé", "sí", "también", "tampoco", "tarde", "te", "tengo", "tenía", "tenías", "ti", "tienes", "toca", "todavía", "todo", "todos", "trabajo", "traes", "traigo", "tu", "turno", "tuyo", "tía", "tío", "tú", "una", "vamos", "ven", "vendo", "veo", "verdad", "vez", "viaja", "viejo", "voy", "vuelves", "vuelvo", "y", "ya", "yo", "ándale", "único"];
   /* WHAT MAY FOLLOW AN APOSTROPHE AND STILL LEAVE A WORD BEHIND. ONE LIST,
      shipped from the factory, read by esWordsIn below and by the gate through
      it -- never re-typed into a second regex somewhere. */
   var ES_CLITIC = ["s", "t", "re", "ve", "ll", "d", "m"];
+  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
+     lane has paid for two copies of one rule. The Python side learned that a
+     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
+     spoken line), fixed it there, and the gate's own tokenizer went red on the
+     very same two lines because the rule had not travelled. It lives HERE now
+     and everything that needs it calls it: esWordsIn below, and the gate. */
+  function esStems(word) {
+    var w = String(word == null ? "" : word).toLowerCase();
+    while (w.charAt(0) === "'") w = w.slice(1);
+    if (!w) return [];
+    var out = [w], ap = w.indexOf("'");
+    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
+    return out;
+  }
+  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
+     lane has paid for two copies of one rule. The Python side learned that a
+     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
+     spoken line), fixed it there, and the gate's own tokenizer went red on the
+     very same two lines because the rule had not travelled. It lives HERE now
+     and everything that needs it calls it: esWordsIn below, and the gate. */
+  function esStems(word) {
+    var w = String(word == null ? "" : word).toLowerCase();
+    while (w.charAt(0) === "'") w = w.slice(1);
+    if (!w) return [];
+    var out = [w], ap = w.indexOf("'");
+    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
+    return out;
+  }
   /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
      lane has paid for two copies of one rule. The Python side learned that a
      LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
@@ -1404,45 +1485,135 @@
     "It got to me third-hand and it still had your name on it.",
     "I've heard two different stories about you this week."
   ],
+  "heard:notable@es": [
+    "You are the one from that thing.",
+    "It come to me third hand. Still with your name.",
+    "This week I hear two stories about you."
+  ],
+  "heard:notable@spanglish": [
+    "You're the one from la cosa esa.",
+    "It got to me third-hand y todavía had your name on it.",
+    "He oído two different stories about you this week."
+  ],
   "heard:quiet": [
     "Somebody mentioned you. Only somebody.",
     "I heard a version of it. Probably the wrong version."
+  ],
+  "heard:quiet@es": [
+    "Somebody say your name. Only somebody.",
+    "I hear one version. Probably the wrong one."
+  ],
+  "heard:quiet@spanglish": [
+    "Alguien mentioned you. Only somebody.",
+    "I heard a version of it. Seguramente the wrong version."
   ],
   "heard:reckless": [
     "Everybody's heard. That's the whole point of what you did, isn't it.",
     "Two blocks and a caravan and it still got here before you.",
     "I'd never met you and I already had an opinion."
   ],
+  "heard:reckless@es": [
+    "Everybody hear it. Is the point of what you do, no?",
+    "Two block and a caravan, and it arrive before you.",
+    "I never meet you and already I have opinion."
+  ],
+  "heard:reckless@spanglish": [
+    "Todo el mundo's heard. That's the whole point of what you did, no?",
+    "Two blocks and a caravan y llegó here before you.",
+    "I'd never met you y ya tenía an opinion."
+  ],
   "heard:risky": [
     "Word came up this way about you. It didn't lose anything on the trip.",
     "I heard, and I heard who was standing near you when it happened."
+  ],
+  "heard:risky@es": [
+    "The word come up here about you. It lose nothing on the road.",
+    "I hear it. And I hear who stand near you."
+  ],
+  "heard:risky@spanglish": [
+    "Word came up this way about you. No perdió nada on the trip.",
+    "I heard, y oí who was standing near you when it happened."
   ],
   "met:again": [
     "You. Again.",
     "That's twice. Three times and I'll learn your name.",
     "Still walking around, I see."
   ],
+  "met:again@es": [
+    "You. Otra vez.",
+    "Is two times. Three times, I learn the name.",
+    "Still you walk. I see."
+  ],
+  "met:again@spanglish": [
+    "Tú. Otra vez.",
+    "That's twice. Three times y aprendo your name.",
+    "Still walking around, ya veo."
+  ],
   "met:asked": [
     "You asked. Most people don't ask.",
     "You remembered. That's not nothing here."
+  ],
+  "met:asked@es": [
+    "You ask me. Most people not ask.",
+    "You remember. Here that is something."
+  ],
+  "met:asked@spanglish": [
+    "You asked. La mayoría don't ask.",
+    "Te acordaste. That's not nothing here."
   ],
   "met:first": [
     "Don't think we've done this.",
     "New. Alright.",
     "I'll get your name eventually or I won't."
   ],
+  "met:first@es": [
+    "I think we not do this before.",
+    "New. Okay.",
+    "Maybe I learn your name. Maybe no."
+  ],
+  "met:first@spanglish": [
+    "No creo que we've done this.",
+    "New. Bueno.",
+    "I'll get your name eventually o no."
+  ],
   "met:honest": [
     "You told me straight when you didn't have to.",
     "I've been lied to by better dressed people than you. You didn't."
+  ],
+  "met:honest@es": [
+    "You tell me true. You not have to.",
+    "Better dressed people lie to me. You, no."
+  ],
+  "met:honest@spanglish": [
+    "You told me straight cuando no tenías que.",
+    "I've been lied to by better dressed people than you. Tú no."
   ],
   "met:known": [
     "There you are.",
     "I was wondering when you'd come back around.",
     "Same as always? Course it is."
   ],
+  "met:known@es": [
+    "Ah. Here you are.",
+    "I think, when he come back. And here you are.",
+    "The same? Of course the same."
+  ],
+  "met:known@spanglish": [
+    "Ahí estás.",
+    "I was wondering cuándo you'd come back around.",
+    "Same as always? Claro que sí."
+  ],
   "met:lied": [
     "You told me a thing that wasn't true and I found out on my own.",
     "I'm not angry. I'm just done taking your word."
+  ],
+  "met:lied@es": [
+    "You say a thing. Is not true. I find out alone.",
+    "I am not angry. But your word, no more."
+  ],
+  "met:lied@spanglish": [
+    "You told me a thing que no era verdad and I found out on my own.",
+    "No estoy angry. I'm just done taking your word."
   ],
   "rung:COLD": [
     "I'm not going to be rude about it. I'm just not going to help.",
@@ -1451,11 +1622,37 @@
     "You'll want to talk to somebody else.",
     "It's not personal. It's just recent."
   ],
+  "rung:COLD@es": [
+    "I am not rude. But I not help.",
+    "We are equal. Let it stay like this.",
+    "I hear it. I not say what I hear.",
+    "Better you talk to other person.",
+    "Is not personal. Is only recent."
+  ],
+  "rung:COLD@spanglish": [
+    "No voy a be rude about it. I'm just not going to help.",
+    "Estamos a mano. Let's keep it that way.",
+    "I heard. No voy a decir what I heard.",
+    "You'll want to talk a otra persona.",
+    "It's not personal. Es que it's recent."
+  ],
   "rung:FWU": [
     "Anything I have. I mean that and I'd rather you didn't test it.",
     "You're not a guest here. Stop knocking.",
     "Half this block would stand up for you and the other half doesn't know you yet.",
     "Whatever happens, you've got a door here."
+  ],
+  "rung:FWU@es": [
+    "What I have, is yours. I say it true. Not test me.",
+    "You are not a guest. Not knock.",
+    "Half this block stand for you. The other half not know you yet.",
+    "What happen, here is a door for you."
+  ],
+  "rung:FWU@spanglish": [
+    "Anything I have. Lo digo en serio y I'd rather you didn't test it.",
+    "You're not a guest here. Deja de knocking.",
+    "Half this block would stand up for you y la otra half doesn't know you yet.",
+    "Whatever happens, aquí tienes una puerta."
   ],
   "rung:HOSTILE": [
     "No. Whatever it is, no.",
@@ -1465,11 +1662,39 @@
     "There's nothing here for you. There's nothing here for you tomorrow either.",
     "You come back with the whole block behind you or you don't come back."
   ],
+  "rung:HOSTILE@es": [
+    "No. What it is, no.",
+    "You walk long road for this one.",
+    "I know what you do. All this street know it.",
+    "Not stand where I see you.",
+    "Here is nothing for you. Tomorrow also nothing.",
+    "Come back with all the block, or not come back."
+  ],
+  "rung:HOSTILE@spanglish": [
+    "No. Sea lo que sea, no.",
+    "Traes mucho camino to be walking down this one.",
+    "Ya sé what you did. Everybody on this street knows what you did.",
+    "No te pares where I can see you.",
+    "There's nothing here for you. Mañana tampoco.",
+    "You come back with the whole block behind you o no vuelves."
+  ],
   "rung:NEUTRAL": [
     "You're the one who's been around.",
     "I don't know you well enough to have an opinion and that's fine by me.",
     "Ask. I might answer.",
     "Haven't decided about you yet."
+  ],
+  "rung:NEUTRAL@es": [
+    "You are the one who is here sometimes.",
+    "I not know you enough for an opinion. Is fine.",
+    "Ask. Maybe I answer.",
+    "About you I not decide yet."
+  ],
+  "rung:NEUTRAL@spanglish": [
+    "You're the one que ha estado around.",
+    "I don't know you well enough to have an opinion y así está bien.",
+    "Pregunta. I might answer.",
+    "No he decidido about you yet."
   ],
   "rung:WARM": [
     "There's a chair. Sit in it.",
@@ -1478,17 +1703,55 @@
     "I put a word in for you. Didn't have to. Did anyway.",
     "You need something, you ask me before you ask a stranger."
   ],
+  "rung:WARM@es": [
+    "Here is a chair. Sit.",
+    "You are good with people I like. That travel.",
+    "Take it. Pay me after. Or no.",
+    "I say a word for you. I not have to. I do it.",
+    "You need something, ask me. Not a stranger."
+  ],
+  "rung:WARM@spanglish": [
+    "There's a chair. Siéntate.",
+    "You've been decent to people I like. Eso viaja.",
+    "Take it. Pay me back cuando puedas, or don't.",
+    "Puse una palabra for you. Didn't have to. Did anyway.",
+    "You need something, me preguntas before you ask a stranger."
+  ],
   "saw:notable": [
     "I was standing right there.",
     "Half the block watched you do that.",
     "People are going to be talking about that at dinner.",
     "You didn't hide it. I don't know yet if that was brave or stupid."
   ],
+  "saw:notable@es": [
+    "I stand right there.",
+    "Half the block see you do it.",
+    "At dinner they talk about this.",
+    "You not hide it. Brave or stupid, I not know yet."
+  ],
+  "saw:notable@spanglish": [
+    "I was standing ahí mismo.",
+    "Medio bloque watched you do that.",
+    "People are going to be talking about that en la cena.",
+    "No lo escondiste. I don't know yet if that was brave or stupid."
+  ],
   "saw:quiet": [
     "I saw. I don't think anybody else did.",
     "You handled that without a crowd. I noticed.",
     "Nobody's going to hear it from me.",
     "Quiet work. Rarer than you'd think."
+  ],
+  "saw:quiet@es": [
+    "I see it. I think nobody else see.",
+    "You do it with no crowd. I notice.",
+    "From me, nobody hear it.",
+    "Quiet work. Is not common."
+  ],
+  "saw:quiet@spanglish": [
+    "I saw. No creo que anybody else did.",
+    "You handled that without a crowd. Me di cuenta.",
+    "Nobody's going to hear it de mí.",
+    "Quiet work. Más raro than you'd think."
   ],
   "saw:reckless": [
     "I was there. I'll be answering questions about it for a month.",
@@ -1497,11 +1760,35 @@
     "I can't unsee it and neither can anybody else on that corner.",
     "There's no walking that back. You know that, right?"
   ],
+  "saw:reckless@es": [
+    "I am there. One month I answer questions for this.",
+    "What you want to prove, you prove it.",
+    "You do this in front of the children.",
+    "I not forget it. The corner not forget it also.",
+    "This you not take back. You know."
+  ],
+  "saw:reckless@spanglish": [
+    "Yo estaba ahí. I'll be answering questions about it for a month.",
+    "Whatever you were trying to prove, lo probaste.",
+    "You did that delante de los niños.",
+    "No puedo unsee it and neither can anybody else on that corner.",
+    "No hay walking that back. You know that, right?"
+  ],
   "saw:risky": [
     "You could have got somebody killed doing that.",
     "I saw it and I've been thinking about it since.",
     "That was a lot. That was a LOT.",
     "I'm not saying you were wrong. I'm saying my hands were shaking."
+  ],
+  "saw:risky@es": [
+    "I see where you put the hand. Is not luck.",
+    "You go more close than people think.",
+    "I see people do this. Most of them, one time."
+  ],
+  "saw:risky@spanglish": [
+    "I saw where you put your hands. Eso no fue suerte.",
+    "You cut that closer que la gente cree.",
+    "I've seen people do that. Most of them una vez."
   ]
 };
 
@@ -1844,7 +2131,7 @@
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
-    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS,
+    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
     // what a person says when no quest is talking. FILLED 8/12 by
     // tools/bohemia_bark_factory.py, every line a draft he can retype in WORDS.
     linesFor: function (person, opts) {
@@ -1880,10 +2167,16 @@
          one. */
       var reg = (opts && opts.lang) || (person && person.lang) || 'en';
       function bucket(k) { return k ? (LINES[k + '@' + reg] || LINES[k]) : null; }
-      var pick = (saw && REACTIONS['saw:' + saw])
-        || (heard && REACTIONS['heard:' + heard])
-        || (rung && REACTIONS['rung:' + rung])
-        || (met && REACTIONS['met:' + met])
+      /* AND A REACTION IS IN THEIR MOUTH TOO. This is the half that would have
+         made the register QUIETLY WEAKEN THE MORE YOU PLAY: a reaction outranks
+         every ambient bucket below, so the moment a Spanglish neighbour knows
+         who you are, an English-only reaction table would have taken their voice
+         away again. Same shape as bucket(), same English fallback, same reason. */
+      function react(k) { return k ? (REACTIONS[k + '@' + reg] || REACTIONS[k]) : null; }
+      var pick = (saw && react('saw:' + saw))
+        || (heard && react('heard:' + heard))
+        || (rung && react('rung:' + rung))
+        || (met && react('met:' + met))
         || bucket(person.key)
         || (at && bucket(person.role + ':' + at))
         || bucket(person.role)

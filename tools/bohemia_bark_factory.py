@@ -660,6 +660,28 @@ ES_GLOSS = {
     'quién': 'who', 'sigue': 'keep going', 'sé': 'I know', 'también': 'also',
     'tengo': 'I have', 'todavía': 'still', 'tuyo': 'yours', 'vendo': 'I sell',
     'ándale': 'go on', 'único': 'the only one',
+    # ---- and what the REACTION lines say (8/26). Same closed set, third mouth:
+    # what somebody says BECAUSE OF WHAT YOU DID. Adding a word here is the only
+    # way any factory in this repo may ship it, which is the whole point of the
+    # set being closed.
+    'acordaste': 'you remembered', 'ahí': 'there', 'aprendo': 'I learn',
+    'bloque': 'block', 'cena': 'dinner', 'cosa': 'thing', 'cree': 'thinks',
+    'creo': 'I think', 'cuando': 'when', 'cuándo': 'when', 'decidido': 'decided',
+    'decir': 'to say', 'deja': 'stop, quit', 'delante': 'in front of',
+    'di': 'I gave, in "me di cuenta"', 'equal': 'even, square',
+    'era': 'it was', 'escondiste': 'you hid it', 'estaba': 'I was',
+    'estamos': 'we are', 'estás': 'you are', 'fue': 'it was',
+    'gente': 'people', 'ha': 'has', 'llegó': 'it arrived',
+    'mayoría': 'most of them', 'medio': 'half', 'mismo': 'same, right',
+    'mucho': 'a lot', 'mundo': 'world, in "todo el mundo", everybody',
+    'más': 'more', 'mí': 'me', 'oí': 'I heard', 'oído': 'heard',
+    'palabra': 'a word', 'pares': 'stop, in "no te pares"',
+    'perdió': 'it lost', 'persona': 'person', 'preguntas': 'you ask',
+    'probaste': 'you proved it', 'puedas': 'you can', 'puse': 'I put',
+    'raro': 'rare, odd', 'seguramente': 'probably', 'suerte': 'luck',
+    'tenía': 'I had', 'tenías': 'you had', 'tienes': 'you have',
+    'traes': 'you bring, you carry', 'veo': 'I see', 'verdad': 'true, the truth',
+    'viaja': 'it travels', 'vuelves': 'you come back',
 }
 
 # ---- CITATIONS FOR THE REGISTER WORK. Ids resolve, titles verbatim.
