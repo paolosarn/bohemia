@@ -6,7 +6,7 @@
   "buckets": 152,
   "lines": 558,
   "registers": "THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). A bucket keyed <bucket>@spanglish or <bucket>@es is the same bucket in that register; engine/bohemia_people.js asks for the register first and falls back to plain English, so a missing register is never silence. Every Spanish word ships with an English meaning in ES_LEX, and gates/language_gate.js sweeps the objectives, the resolution buttons and the job offers to prove none of them contains one.",
-  "lexicon": 224,
+  "lexicon": 277,
   "englishAdditions": [
    "backward",
    "barks",

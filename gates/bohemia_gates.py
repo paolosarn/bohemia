@@ -454,6 +454,30 @@ GATES = [
      'break: a DRAG to look around the valley must NOT throw him out, and a pad direction must '
      'drop the vista AND leave him walking, because a swallowed press is a dead first step',
      True),
+    # 8/25, RUN. Backlog row P0-MORNING, the demo blocker: "a tester can finish
+    # the demo without ever meeting the game."
+    ('FIRST MORNING',  ['node', 'gates/the_first_morning_points_at_the_game_gate.js'],
+     'THE FIRST MORNING HAS TO POINT AT THE GAME. A COLD HAND -- a probe that scores every '
+     'control by what its pixels actually do (fill weighted hardest, then border, text, area), '
+     'refuses anything a thumb could not reach, presses the winner and never reads -- went '
+     'WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped. Phone opened 0, '
+     'job taken 0, clock 06:00 at the first tap and 06:00 at the twelfth. HE NEVER EVEN REACHED '
+     'SLEEP. And __OFFER_RANG was 1 the whole time: the phone HAD rung, and a ringing phone was a '
+     'dark chip with a hairline and a 14px dot. NORMAN: when you have to put a sign on a door the '
+     'design already failed, so nothing here asserts that a word was added -- it asserts an ORDER '
+     'OF LOUDNESS, computed off real computed styles rather than a list of what I think should be '
+     'bright, so a lane that dims the phone tomorrow turns this red without touching the gate. '
+     'AND THE COLD HAND FOUND A SECOND BUG THE ROW DID NOT KNOW: with the phone open over 378x763 '
+     'of a 390x844 screen, sleepbtn, bikebtn and rungbtn were STILL the topmost element at their '
+     'own centres -- and SLEEP ENDS THE DAY, so the thumb that opens the phone lands on the button '
+     'that finishes day one with the job never taken. That was this lane\'s own 8/24 regression '
+     '(the chip column went to z-index 39 over a panel that had been 30). The punch-through claim '
+     'sweeps EVERY takeover panel, not just the phone, so the next one is caught by the machine. '
+     'Measured after: phone 90 vs mode 33 (was 18 vs 33), 0 buttons through the panel (was 3), '
+     'TAKE IT 90 and loudest on its own screen (was 35, beaten by a post counter at 46), and the '
+     'chain driven end to end takes the job. Mutation-tested four ways, each hitting only its own '
+     'claims: all three patches reverted 10/6, z-index only 15/1, the chip never dressing itself '
+     '13/3, and the shout made permanent 15/1', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
@@ -914,6 +938,14 @@ GATES = [
      "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
      "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
      "speech; pitch declines across a statement and rises at a question", True),
+    ('DEMO BUILD',     ['node', 'gates/demo_build_gate.js'],
+     "Paolo 8/25 LOCKED: 'THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS "
+     "WORKSHOP LINK.' TWO SURFACES. The demo build exists as its own published "
+     "file, is CUT from the workshop rather than forked (regenerating changes "
+     "nothing), holds ZERO dev tabs, opens straight into the valley with no tab "
+     "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
+     "bench still has all sixteen of its tabs, because taking the workshop away "
+     "to make a demo would trade one mistake for a worse one", True),
     ('FRESH DOORS',    ['python3', 'gates/doors_fresh_gate.py'],
      "he killed all ten doors on 7/30 (metal 3-12, wood 0-5) and named DOORS in "
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
@@ -2531,6 +2563,26 @@ GATES = [
      'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
      'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
      'does, because a tab that throws on open passes every source check ever written', False),
+    ('UI VOCAB',       ['node', 'gates/ui_vocab_gate.js'],
+     'Paolo 8/25: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME ... CRAFT THIS BOHEMIA LOOK '
+     'BY MYSELF WITH YOU." The UI lane\'s first page: seven forks (corner, line, colour, '
+     'letters, dirt, pressed, the feed post) with real live samples he picks with one letter, '
+     'in the UI tab. A PAGE OF DESIGN OPTIONS HAS ONE CLASSIC WAY OF LYING and it is not a '
+     'crash -- THE OPTIONS ALL LOOK THE SAME, which every source check ever written passes. '
+     'So the centre of this gate measures each option\'s RENDERED style on the real element '
+     'and proves the siblings differ; PRESSED is the one fork that does not exist standing '
+     'still, so it is measured under a real mouse-down instead, and skipping it turns a leg '
+     'red. Plus: a pick must visibly change the live preview, chosen is never colour alone '
+     '(heavier edge + a tick in the letter), his picks survive a reload, every control clears '
+     '44px, SUN MODE really goes light and still reads at 4.5:1, and a REFUSED button says so '
+     'in words and in shape, never sound or colour alone. AND IT CLOSES THE HALF OF THE '
+     'PURPLE RESERVATION NOBODY WAS ENFORCING: bohemia_purity_gate.py sweeps 33 banks of '
+     'world art and has never looked at the interface, so the workshop\'s own tab underline '
+     'and the edge of every selected button on every panel were the Amalgamation\'s magenta. '
+     'Both are gold now; the chrome is held at ZERO, the rest of the alpha is RATCHETED so it '
+     'can only fall, and the rendered page is swept pixel by pixel through the bank gate\'s '
+     'own arithmetic. Its reading-level leg was mutation-tested and FAILED TO FAIL -- an '
+     'average cannot see one bad sentence -- so the worst sentence is now measured on its own', True),
     ('LIGHT',          ['node', 'gates/light_gate.js'],
      'Paolo 8/3: "you\'re called the art direction chat and you\'re not doing a lot of art '
      'directing ... I can\'t even see it". Measured, he was right: the play area used 110 of '

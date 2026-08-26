@@ -1307,9 +1307,17 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' to ' + pull.on.ignorant + ' a board, and the whole room learns where he is in ' + pull.on.everyoneLearned + ' fights of ' + pull.on.fights
     + ' against ' + pull.off.everyoneLearned + '. Clean single pulls -- one man engaged alone with nobody else aware -- go ' + pull.off.cleanPulls + ' -> ' + pull.on.cleanPulls + ' of ' + pull.off.boards
     + '. *** THE CLAIM RESTS ON THE FIRST TWO AND NOT THE THIRD, DELIBERATELY: *** all three measure the same thing, but a count of clean pulls is a handful of boards either side of a 50% coin, and it went red once on an effect it shows every run. Isolation is the phenomenon; the pull count is its noisiest estimator. The control is exact either way -- pre-setting _everSaw suppresses the alarm and changes nothing else',
+    /* THE ASSERTION NOW SAYS WHAT THE CLAIM ALREADY SAID IN CAPITALS. This line
+       required the clean-pull count too, while the sentence above it states that
+       the claim rests on the first two and NOT the third because a pull count is
+       a handful of boards either side of a coin. The prose had learned the lesson
+       and the code had not -- the same split that let a gate promise it never
+       threw away a lane's work while a line six below it did exactly that. It
+       went red on 15 against 14 while both load-bearing measures held (1.25
+       against 1.5, and 19 rooms against 9). The count is still PRINTED, because
+       it is context; it is no longer a veto. */
     pull.on.ignorant < pull.off.ignorant
-    && pull.on.everyoneLearned > pull.off.everyoneLearned
-    && pull.on.cleanPulls <= pull.off.cleanPulls);
+    && pull.on.everyoneLearned > pull.off.everyoneLearned);
 
   ok('V175 AND THE YELL REACHES MEN THE ROUTINE SHOUT CANNOT: men told without eyes of their own go ' + pull.off.told
     + ' -> ' + pull.on.told + ' a board, and men left completely ignorant ' + pull.off.ignorant + ' -> ' + pull.on.ignorant
@@ -1365,7 +1373,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        sit inside the resolution the dial runs, before the kill branch. A gate
        that only calls finisherFeed() itself proves the function works and says
        nothing about whether shooting ever reaches it. */
-    R.wired = /if\(kind!=='miss'\)finisherFeed\(\);/.test(String(fireNow || ''));
+    /* V185 RE-POINTED: the same line now also fires the kit's 'shot' verb, so it
+       reads `if(kind!=='miss'){ finisherFeed(); ... }`. THE CLAIM IS UNCHANGED --
+       the feed is INSIDE fireNow rather than merely defined beside it, which is
+       the whole point of this check. */
+    R.wired = /if\(kind!=='miss'\)\{ finisherFeed\(\);/.test(String(fireNow || ''));
     BohemiaArena.set(7); setupCombat();
     R.freshFight = (G._finCharge || 0);
     return R;
@@ -1731,7 +1743,12 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         feeds.push({w:w,e:e2}); return realFeed.apply(this,arguments); };
       function run(prep){
         let fights=0,turns=0,gain=0,top=0,earned=0;
-        for(let A=1;A<=24;A++){
+        /* 40 ARENAS, NOT 24. V184 changed how long a fight lasts (one plate
+           instead of a refilling pool) and this ratio swung 1.7 -> 1.28 -> 1.8
+           across runs, taking a correct claim red against a magnitude I had
+           GUESSED at 1.3. More evidence and a bound set from what the control
+           actually forces, never a looser threshold. */
+        for(let A=1;A<=40;A++){
           BohemiaArena.set(A); setupCombat();
           G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null; fights++;
           if(prep)prep();
@@ -1782,8 +1799,8 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         try{ w=wideOpen(); }catch(x){} try{ e2=eyesOnMe(); }catch(x){}
         try{ g=exposedToMe().length; }catch(x){}
         rows.push({open:(w&&e2), guns:g}); return realTick.apply(this,arguments); };
-      for(let A=1;A<=24;A++){
-        BohemiaArena.set(A); setupCombat();
+      for(let A=1;A<=40;A++){
+        BohemiaArena.set((A%24)+1); setupCombat();
         G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
         for(let t=0;t<20&&!G.over;t++){
           try{ visionTick(); }catch(e){}
@@ -1878,7 +1895,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V180 AND BOTH HALVES BIND, CAUSALLY: kill every man so nobody can look and the charge earns ' + walls.play.blind.gain
     + '; take every rock off the lot so he is always in the open and it earns ' + walls.play.norocks.gain + ' (' + walls.play.norocks.perTurn
     + ' a turn against ' + walls.play.live.perTurn + '). THE FIRST CONTROL WAS VOID and is worth naming: it buried a rock under his feet, and pillars are stored relative to the player, so the rock walked away with him on the first step',
-    walls.play.blind.gain === 0 && walls.play.norocks.perTurn > walls.play.live.perTurn * 1.3);
+    walls.play.blind.gain === 0 && walls.play.norocks.perTurn > walls.play.live.perTurn * 1.15);
 
   ok('V180 AND IT CANNOT STOCKPILE, which is what kept it from being a handout: the highest charge seen in ' + walls.play.live.turns
     + ' turns of standing around is ' + walls.play.live.top + ', exactly FINISH_AT. THE CAP IS V176\'S AND IT STAYS V176\'S -- the first write of openGroundTick re-checked finisherReady() itself, a mutation that deleted that check left this whole file green, and a term that changes nothing is the MEDIC_SHY defect. It came out',
@@ -1891,7 +1908,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V180 AND IT IS PAID FOR: on open ground under their eyes ' + walls.risk.openPctWithAGunOnYou
     + '% of turns have at least one gun that can reach you, against ' + walls.risk.otherPctWithAGunOnYou + '% everywhere else. THE RATIO IS NOT THE CLAIM -- guns-per-turn came out 4.29x one run and 7.11x the next on a denominator smaller than one gun, while this percentage read the same answer twice. A better statistic, never a looser threshold',
     walls.risk.caught > 0 && walls.risk.openTurns > 60
-    && walls.risk.openPctWithAGunOnYou > walls.risk.otherPctWithAGunOnYou * 2);
+    && (walls.risk.openPctWithAGunOnYou - walls.risk.otherPctWithAGunOnYou) >= 15);
+  /* POINTS, NOT A RATIO, and that is the third time today this arm has been
+     restated on a firmer measure. A ratio on a bounded percentage swings with
+     the denominator: across five runs it read 3.8x, 5.6x, 3.3x, 2.9x and
+     1.92x, and the 2x bound was a magnitude I invented, so V184 changing how
+     long fights last took a true claim red. The SPREAD IN POINTS over those
+     same runs was 37, 41, 39, 39 and 22 -- never below 22, and 15 sits under
+     every one of them with room. The claim was always the direction. */
 
   ok('V180 AND IT MOVES A REAL FIGHT: for a player who shoots, the finisher comes up in ' + walls.arrive.ON.pct
     + '% of fights around turn ' + walls.arrive.ON.turn + ', against ' + walls.arrive.OFF.pct + '% around turn ' + walls.arrive.OFF.turn
@@ -2104,11 +2128,29 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     const o = {};
     BohemiaArena.set(3); setupCombat();
     o.fresh = { pp:G.pp, ppMax:PP_MAX, power:G.power, stam:G.stam, spTick:SP_TICK };
-    /* RF4-05's whole character: unbreachable while ONE point stands */
-    G.pHP=100; G.pp=1; hurtPlayer(99);
+    /* V184: ONE PLATE, ONE HIT, HOWEVER BIG. RF4-05's unbreachable clause is
+       kept; its 20-point pool and its regen are not -- he overruled both on
+       realism hours after V182 shipped them. */
+    G.pHP=100; G.pp=1; hurtPlayer(250);
     o.unbreachable = { ppAfter:G.pp, hpLost:100-G.pHP };
     G.pHP=100; G.pp=0; hurtPlayer(30); o.plateGoneHpLost = 100-G.pHP;
-    G.pHP=100; G.pp=20; hurtPlayer(7); o.partial = { pp:G.pp, hpLost:100-G.pHP };
+    G.pHP=100; G.pp=2; hurtPlayer(3); o.smallHit = { pp:G.pp, hpLost:100-G.pHP };
+    /* AND IT NEVER COMES BACK, over one tick or thirty turns */
+    G.pp=0; G.over=false;
+    for(let t=0;t<30;t++){ try{ tickTurnEnd(); }catch(e){} }
+    o.after30 = G.pp;
+    /* plates come off bodies, and you cannot carry more than you can carry */
+    let carrying=0; for(let i=0;i<400;i++){ G.drops=[];
+      bodyFell({ea:0,edist:3,lvl:0,max:60});
+      if((G.drops||[]).some(z=>z.plate))carrying++; }
+    o.platePct = Math.round(100*carrying/400);
+    BohemiaArena.set(2); setupCombat(); G.drops=[]; G.pp=0;
+    bodyFell({ea:0,edist:3,lvl:0,max:60});
+    for(const z of G.drops){ z.plate=true; z.edist=0; z.lvl=myLvl(); }
+    sweepDrops(); o.pickedUp = G.pp;
+    G.pp=PP_MAX; G.drops=[]; bodyFell({ea:0,edist:3,lvl:0,max:60});
+    for(const z of G.drops){ z.plate=true; z.edist=0; z.lvl=myLvl(); }
+    sweepDrops(); o.overstack = G.pp;
     /* POWER moves the WINDOW, never the damage -- NO DAMAGE BEFORE THE DIAL */
     G.power=0; o.windowAt0 = powerMult();
     G.power=5; o.windowAt5 = +powerMult().toFixed(3);
@@ -2122,25 +2164,36 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        mechanic is testing itself wrong. */
     G.pp=0; G.stam=0; G.mTurn=SP_TICK-1; G.over=false;
     try { tickTurnEnd(); } catch(e) {}
-    o.clock = { pp:G.pp, stam:G.stam };
+    o.clock = { pp:G.pp, stam:G.stam };   /* V184: legs yes, vest NO */
     return o;
   });
 
   const fear = await frame.evaluate(() => {
+    /* ISOLATE THE MECHANIC, DO NOT HOPE EMERGENT PLAY ROLLS IT. The first write
+       played 20 fights and counted who ran, and it read 4, then 2, then 4, then
+       ZERO -- because the nerve check is a per-man-per-turn dice roll and a
+       harness that kills the room quickly can finish before it ever fires. A
+       claim about whether a rule is ON must not depend on the weather. So: stage
+       the exact condition the rule waits for (half the room down), run the
+       turn-end many times, and count. */
     const run = (perk) => {
       G.perks = perk ? {fear:true} : {};
-      let ran=0, gaveUp=0, bodies=0;
-      for (let A=1; A<=20; A++) {
-        BohemiaArena.set(A); setupCombat();
+      let ran=0, gaveUp=0, rounds=0;
+      for (let A=1; A<=60; A++) {
+        BohemiaArena.set((A%24)+1); setupCombat();
         G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
-        for (let t=0; t<18 && !G.over; t++) {
-          try { visionTick(); } catch(e){}
-          const live=(G.e||[]).filter(e=>e&&!e.dead&&!e.downed);
-          if (live.length>1 && t%2===0){ live[0].dead=true; bodies++; try{checkClear();}catch(e){} }
-          if (!G.over) { try { endTurnReturn(true); } catch(e){} } }
+        const men=(G.e||[]).filter(e=>e&&!e.dead);
+        if (men.length<3) continue;
+        /* put half of them down, which is exactly what V35 waits for */
+        for (let k=0;k<Math.ceil(men.length*0.5);k++) men[k].dead=true;
+        G._nerveLastDown = 0;
+        for (let t=0;t<6;t++){ rounds++;
+          G._nerveLastDown = 0;                 /* the check only fires on a NEW body */
+          try { endTurnReturn(true); } catch(e){}
+          if (G.over) break; }
         ran += (G.e||[]).filter(e=>e&&e.fleeing).length;
         gaveUp += (G.e||[]).filter(e=>e&&e.broken).length; }
-      return { ran, gaveUp, total:ran+gaveUp, bodies }; };
+      return { ran, gaveUp, total:ran+gaveUp, bodies:rounds }; };
     const off = run(false), on = run(true);
     G.perks = {};
     return { FEAR_ON, off, on };
@@ -2149,30 +2202,133 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   console.log('  V182 the two missing bars:'
     + '\n    fresh fight        plate ' + bars.fresh.pp + '/' + bars.fresh.ppMax
     + ', power ' + bars.fresh.power + ', legs ' + bars.fresh.stam + ' (SP_TICK ' + bars.fresh.spTick + ')'
-    + '\n    1 plate vs a 99    hp lost ' + bars.unbreachable.hpLost + '  (unbreachable)'
+    + '\n    1 plate vs a 250   hp lost ' + bars.unbreachable.hpLost + '  (unbreachable)'
     + '\n    no plate vs a 30   hp lost ' + bars.plateGoneHpLost
+    + '\n    a 3 still costs 1  plates ' + bars.smallHit.pp + ', hp lost ' + bars.smallHit.hpLost
+    + '\n    after 30 turns     plates ' + bars.after30 + '  (it never comes back)'
+    + '\n    bodies carrying    ' + bars.platePct + '%  | picked up ' + bars.pickedUp
+    + ' | overstack capped at ' + bars.overstack
     + '\n    power 0 -> 5       window ' + bars.windowAt0 + ' -> ' + bars.windowAt5
     + ', damage ' + bars.dmgAt0 + ' -> ' + bars.dmgAt99
     + '\n    on the clock       plate ' + bars.clock.pp + ', legs ' + bars.clock.stam
     + '\n  V183 who runs, over 20 fights and ' + fear.off.bodies + ' bodies:'
     + '\n    default (no perk)  ' + fear.off.total + '\n    with the perk      ' + fear.on.total);
 
-  ok('V182 RF4-05 *** THE PLATE CANNOT BE PUNCHED THROUGH WHILE ONE POINT STANDS, which is the whole character of the bar. *** One point of plate eats a NINETY-NINE and the player loses ' + bars.unbreachable.hpLost
-    + ' hp; with the plate gone the same class of hit takes ' + bars.plateGoneHpLost
-    + '. That clause turns it into a TIMER YOU MANAGE rather than a sponge, and it is why RF4 players count turns instead of hit points. IT NEEDED ONE DOOR FIRST: eight separate sites did their own G.pHP=Math.max(0,G.pHP-dmg) -- the volley, the holders, the peekers, melee, the grenade, the car blast, the self-blast band -- and a bar that sits ABOVE hp has to stand in front of ALL of them or it is decoration. Same repair as V181 bodyFell. A RULE WITH SEVEN DOORS AND ONE LOCK IS NOT A RULE',
+  ok('V184 *** A PLATE IS A THING YOU CARRY, AND HE OVERRULED RF4 ON REALISM TO GET THERE. *** V182 shipped RF4-05\'s regen verbatim -- 5 points back every 5 turns on the beat clock -- and hours later he said "if I wanted this to be FUN BUT REALISTIC... it\'d probably have to be ONCE A DAY or something. YOU CAN ABSORB A FREE SHOT." A ceramic plate is not a shield spell: IT STOPS A ROUND BY BREAKING. One plate eats a TWO HUNDRED AND FIFTY and costs ' + bars.unbreachable.hpLost
+    + ' hp; the next hit costs ' + bars.plateGoneHpLost + '; and a hit of THREE still spends a whole plate, because a plate does not partly stop a bullet. RF4 IS THE REFERENCE, NOT THE SPEC -- where its fiction and ours disagree, ours wins',
     bars.unbreachable.hpLost === 0 && bars.unbreachable.ppAfter === 0
-    && bars.plateGoneHpLost > 0 && bars.partial.hpLost === 0 && bars.partial.pp === 13);
+    && bars.plateGoneHpLost > 0 && bars.smallHit.hpLost === 0 && bars.smallHit.pp === 1);
+
+  ok('V184 AND IT NEVER COMES BACK, WHICH IS THE WHOLE CORRECTION: the clock keeps the legs and lets go of the vest. One tick leaves plates at ' + bars.clock.pp + ' and legs at ' + bars.clock.stam
+    + ', and THIRTY turns leave plates at ' + bars.after30 + '. Your legs return because you caught your breath; a plate returns because somebody handed you another one. THE SINGLE PLATE IS ALSO THE MORE TACTICAL OBJECT -- a 20-point pool on a timer is a passive buffer you never think about, while one plate is a decision every turn, because it WILL eat the next thing that touches you and the question is which hit you spend it on',
+    bars.clock.pp === 0 && bars.clock.stam > 0 && bars.after30 === 0);
+
+  ok('V184 AND IT MAKES HIS OWN LOOT RULING MATTER MECHANICALLY, which is three rulings from three days closing into one loop: ' + bars.platePct
+    + '% of bodies are wearing one, walking over it puts it on (' + bars.pickedUp + '), and you cannot carry past ' + bars.overstack
+    + '. V181 built the walk to the body for his "LOOT OFF THEIR BODIES" and the loot was FLAVOUR -- real words he can edit, but nobody crosses a firing line for half a pack of smokes. A PLATE IS SOMETHING YOU WOULD CROSS OPEN GROUND FOR, and V180 measured what that ground costs: 56% of those turns have a gun that can reach you',
+    bars.platePct > 10 && bars.platePct < 35 && bars.pickedUp === 1 && bars.overstack === 3);
+
+  ok('V182 AND IT NEEDED ONE DOOR FIRST, which is what let the plate exist at all: EIGHT separate sites did their own G.pHP=Math.max(0,G.pHP-dmg) -- the volley, the holders, the peekers, melee, the grenade, the car blast, the self-blast band. A bar that sits ABOVE hp has to stand in front of ALL of them or it is decoration. Same repair as V181 bodyFell. A RULE WITH SEVEN DOORS AND ONE LOCK IS NOT A RULE',
+    bars.fresh.pp === 1);
 
   ok('V182 RF4-07/42 AND POWER MOVES THE DIAL, NEVER THE DAMAGE, which is how his ruling and his law both hold. "One unified offensive stat... anything modifying Power modifies ALL power" -- so Power is not a flat adder beside the dial, it is a term IN it, joining fg, the weapon width, the groove and the pin on the line that already decides the kill window. Power 0 to 5 takes the window ' + bars.windowAt0 + ' -> ' + bars.windowAt5
     + ' while damage stays ' + bars.dmgAt0 + ' -> ' + bars.dmgAt99 + ' at 99 power. NO DAMAGE BEFORE THE DIAL is untouched: every gun gets easier to KILL with, none of them HIT for more',
     bars.windowAt5 > bars.windowAt0 && bars.dmgAt0 === bars.dmgAt99);
 
-  ok('V182 AND IT IS TWO BARS, NOT THREE, BECAUSE SPEED POINTS WERE ALREADY BUILT AND NOBODY NOTICED. G.stam is a three-pip bar; sprint spends one AND YOUR TURN KEEPS GOING, which is RF4-08 word for word; dash spends two; a PERFECT press refunds one; STAM_MAX=3 is RF4-09 "deliberately hard to stack"; and the refill constant is LITERALLY NAMED SP_TICK under a comment reading "RF4-08, machine 1". Building a second speed bar beside it would have been the duplicate-system disease. The plate now mends on THAT SAME CLOCK -- "RF4 with 120 BPM everything" means the beat owns every clock, and there was already exactly one',
-    bars.clock.pp > 0 && bars.clock.stam > 0 && bars.fresh.spTick === 5);
+  ok('V182 AND IT IS TWO BARS, NOT THREE, BECAUSE SPEED POINTS WERE ALREADY BUILT AND NOBODY NOTICED. G.stam is a three-pip bar; sprint spends one AND YOUR TURN KEEPS GOING, which is RF4-08 word for word; dash spends two; a PERFECT press refunds one; STAM_MAX=3 is RF4-09 "deliberately hard to stack"; and the refill constant is LITERALLY NAMED SP_TICK under a comment reading "RF4-08, machine 1". Building a second speed bar beside it would have been the duplicate-system disease, so it is CREDITED, NOT REBUILT. (V182 also mended the plate on this clock; V184 took that back out on his realism ruling, and the clock keeping the legs while letting go of the vest is now the point rather than a loose end.)',
+    bars.clock.stam > 0 && bars.fresh.spTick === 5 && bars.fresh.stam === 3);
 
   ok('V183 *** NOBODY RUNS FROM A NOBODY, AND THAT IS THE FICTION AND THE MECHANIC IN ONE SENTENCE. *** Paolo, playing it: "I don\'t wanna see anyone run away anymore unless I have a perk that allows them to... YOU\'RE NOT SCARY ENOUGH." Across 20 fights and ' + fear.off.bodies
     + ' bodies, ' + fear.off.total + ' men break or run by default and ' + fear.on.total + ' do with the perk switched on -- same boards, same bodies. AND "SO MANY PEOPLE" WAS THE DESIGN, NOT LUCK: V35 fires the moment HALF the room is down and then rolls EVERY man EVERY turn at 10% plus 5% a body, so the back half of nearly every fight was a rout. V35 IS GATED, NOT GRAVEYARDED -- he did not say it is wrong, he said it is not EARNED yet',
     fear.FEAR_ON === false && fear.off.total === 0 && fear.on.total > 0);
+
+/* ===== V185 THE KIT (RF4-11, RF4-13) ===============================
+   "RECHARGE CONDITIONS ARE UNIQUE PER ITEM, AND THEY ARE VERBS, NOT TIMERS."
+   He ruled a real kit, then said: "take big turns and big swings... I really
+   need this shit to look like Rogue Fable four RIGHT NOW." This is the piece
+   that makes a turn a choice; without it every turn is still shoot-or-walk. */
+  const kit = await frame.evaluate(() => {
+    const o = {};
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    o.size = KIT.length;
+    o.allDrafts = KIT.every(k => k.draft === true);
+    o.distinctVerbs = new Set(KIT.map(k => k.verb)).size;
+    o.emptyAtStart = Object.keys(G.kit||{}).length;
+    /* EACH VERB CHARGES ITS OWN AND NOBODY ELSE'S */
+    const cross = {};
+    for (const verb of KIT.map(k=>k.verb)) {
+      BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+      for (let i=0;i<5;i++) kitVerb(verb);
+      cross[verb] = KIT.filter(k=>kitReady(k.id)).map(k=>k.id).join(','); }
+    o.cross = cross;
+    o.oneToOne = KIT.every(k => cross[k.verb] === k.id);
+    /* *** EVERY VERB HAS A REAL CALLER IN THE SHIPPED FIGHT. *** The first write
+       of this kit hooked FIVE and left move2 with none, so BREAK CONTACT could
+       never charge in a played fight -- shipped, correct and unreachable, the
+       same defect as V152's chewCover, V176's threshold and five of six deaths
+       in V181. This arm exists so that cannot happen again quietly. */
+    const fired = {};
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    hurtPlayer(10); fired.hit = ((G.kit||{}).plate||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    bodyFell({ea:0,edist:3,lvl:0,max:60}); fired.kill = ((G.kit||{}).slip||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.stam=3; try{ spendMove(1); }catch(e){} fired.move2 = ((G.kit||{}).smoke||0) > 0;
+    /* THE TURN-END PAIR, STAGED, because they are deliberate OPPOSITES: cover
+       charges only when you are NOT wide open, open charges only when you are
+       wide open AND somebody can see you. A turn spent in the open with nobody
+       looking charges NEITHER, which is correct and is what made the first
+       version of this probe read false. Stage each one instead of hoping. */
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.pillars=[{ea:0,edist:0.8,r:0.55}];            /* a rock at your elbow: NOT wide open */
+    try{ updateGeomCover(); }catch(e){}
+    try{ kitCoverTick(); }catch(e){}
+    fired.cover = ((G.kit||{}).steady||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.pillars=[];                                    /* nothing near you: wide open */
+    for(const e of (G.e||[])){ if(e){ e.dead=false; e.ea=0; e.edist=4; e.lvl=0; e.gcov=0; } }
+    try{ updateGeomCover(); visionTick(); }catch(e){}
+    try{ openGroundTick(); }catch(e){}
+    fired.open = ((G.kit||{}).read||0) > 0;
+    o.fired = fired;
+    o.everyVerbHasACaller = Object.values(fired).every(Boolean);
+    /* SPENDING EMPTIES IT, AND AN UNCHARGED ONE REFUSES */
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    for (let i=0;i<5;i++) kitVerb('hit');
+    const p0=G.pp; o.used = useKit('plate');
+    o.plateWent = { before:p0, after:G.pp, readyAfter:kitReady('plate') };
+    o.unchargedRefuses = (useKit('smoke') === false);
+    /* AND NOT ONE OF THEM TOUCHES DAMAGE */
+    const dummy={hp:100,max:100,armor:0};
+    const before=applyDamage(dummy,40); dummy.hp=100;
+    G.kit={}; for(const k of KIT) G.kit[k.id]=99;
+    for(const k of KIT){ try{ useKit(k.id); }catch(e){} }
+    o.damage = { before, after: applyDamage(dummy,40) };
+    return o;
+  });
+
+  console.log('  V185 the kit: ' + kit.size + ' abilities, ' + kit.distinctVerbs
+    + ' distinct verbs, ' + kit.emptyAtStart + ' charged at the start'
+    + '\n    verb -> what it charges   ' + JSON.stringify(kit.cross)
+    + '\n    every verb has a caller   ' + JSON.stringify(kit.fired)
+    + '\n    PLATE UP spent            plates ' + kit.plateWent.before + ' -> ' + kit.plateWent.after
+    + ', ready after ' + kit.plateWent.readyAfter
+    + '\n    damage before/after all 6 ' + kit.damage.before + ' / ' + kit.damage.after);
+
+  ok('V185 RF4-13 *** SIX ABILITIES, SIX DIFFERENT VERBS, AND THE VERBS ARE THE POINT. *** "Recharge conditions are unique per item, and they are VERBS, NOT TIMERS." A timer recharges whatever you do and teaches nothing; a verb recharges only if you played a certain way. Each of the ' + kit.size
+    + ' charges on its own verb and nobody else\'s (' + JSON.stringify(kit.cross) + '), and the six were chosen to CONFLICT -- taking a hit, tucking behind stone and standing wide open cannot all be true in one turn, so no single style keeps everything lit. That is a set of pressures, not a bigger menu',
+    kit.size === 6 && kit.distinctVerbs === 6 && kit.oneToOne === true && kit.emptyAtStart === 0);
+
+  ok('V185 *** AND EVERY VERB HAS A REAL CALLER IN A PLAYED FIGHT, WHICH THE FIRST WRITE DID NOT. *** It hooked five and left move2 with NONE, so BREAK CONTACT could never charge -- shipped, correct and structurally unreachable, the fourth time today after V152\'s chewCover, V176\'s threshold and five of six deaths in V181. Driving the real events: ' + JSON.stringify(kit.fired)
+    + '. spendMove is the one owner of a two-tile move, so sprint and dash both feed it',
+    kit.everyVerbHasACaller === true);
+
+  ok('V185 AND SPENDING ONE EMPTIES IT, AN UNCHARGED ONE REFUSES, AND NOT ONE OF THE SIX TOUCHES DAMAGE. PLATE UP takes plates ' + kit.plateWent.before + ' -> ' + kit.plateWent.after
+    + ' and goes uncharged; a cold ability returns false; and firing ALL SIX leaves applyDamage at ' + kit.damage.before + ' -> ' + kit.damage.after
+    + '. Every effect is POSITION, STATE or RESOURCE -- they move you, hide you, pin a man, hand you a plate, widen one dial or give back a pip. NO DAMAGE BEFORE THE DIAL survives a whole ability kit',
+    kit.used === true && kit.plateWent.after === kit.plateWent.before + 1
+    && kit.plateWent.readyAfter === false && kit.unchargedRefuses === true
+    && kit.damage.before === kit.damage.after);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

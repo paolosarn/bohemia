@@ -4710,7 +4710,11 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     const _ogt = demo.slice(demo.indexOf('function openGroundTick(){'),
                             demo.indexOf('function tickTurnEnd(){ meleeTurnRun();'));
     ok('V180 AND IT SETS NO SECOND CAP, because a mutation test proved a second cap was a dead term: the first write re-checked finisherReady() inside openGroundTick, deleting that check left every gate green, and finisherFeed already refuses to fill past the threshold. THE MEDIC_SHY DEFECT, caught before it shipped this time rather than after',
-      _ogt.length > 100 && _ogt.length < 900
+      /* V185 RE-POINTED: openGroundTick gained the kit's 'open' verb, so the
+         slice is longer. The bound is a sanity rail on the SLICE, never the
+         claim -- what is asserted is that this function carries G.over and
+         NOT a second finisherReady cap. */
+      _ogt.length > 100 && _ogt.length < 1600
       && /if\(G\.over\)return;/.test(_ogt)
       && !/if\(G\.over\|\|finisherReady\(\)\)return;/.test(_ogt));
   }
@@ -4799,7 +4803,11 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /const _fin=finisherReady\(\)&&WEAPON!=='shotgun';/.test(demo));
 
   ok('V176 FED BY ATTACKS, NOT BY KILLS, which is Wang\'s own wording and the only thing that works at our scale: measured, a fight runs about 12.4 turns and drops just 2.3 bodies, so a kill-fed charge would fire roughly never. The feed sits on the shot resolution and skips misses',
-    /if\(kind!=='miss'\)finisherFeed\(\);/.test(demo));
+    /* V185 RE-POINTED: the same line now also fires the kit's 'shot' verb, so it
+       reads `if(kind!=='miss'){ finisherFeed(); ... }`. THE CLAIM IS UNCHANGED --
+       the feed is INSIDE fireNow rather than merely defined beside it, which is
+       the whole point of this check. */
+    /if\(kind!=='miss'\)\{ finisherFeed\(\);/.test(demo));
 
   ok('V176 AND IT CANNOT BE STOCKPILED: the feed returns early once ready, so a long fight banks exactly one finisher rather than five. An ability you can hoard is a burst nobody can plan around, which is the same disease V163 cured in the stamina clock',
     /if\(G\.over\|\|finisherReady\(\)\)return;/.test(demo));

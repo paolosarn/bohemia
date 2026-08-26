@@ -131,3 +131,24 @@
   | REQUESTED BY: ART lane (inventory ranking) | DATE: 8/24/26
   | PRIORITY: HIGH
 - BOARD ROW #: 95 | VERDICT: —
+
+## K. VOLUME 8/26/26: THE GALLERY GETS ITS ROOF (thin runs only, on purpose)
+- MEASURED: 'gallery / rail shed' x2121 (signature blob 101x3 - the
+  elevated conveyor gallery running the whole silo row - plus 9x9 rail
+  sheds) and 'headhouse' x310. All drew as generic mass.
+- WIRED: gable galv for THIN RUNS (width <= 3): each cell banded by its
+  place across the run's thin axis (the berm lesson) - ridge on the
+  centreline with a bright cap flashing, lit slope north/west, shaded
+  slope south/east with a rust streak, ribs perpendicular to the run
+  as CONTINUOUS lines.
+- SCOPED AFTER LOOKING: the first wire skinned the 9x9 sheds too and
+  they read as one giant corduroy sheet WITH THE PLAYER WALKING ON IT -
+  wrong twice over. Wide blobs keep their generic mass until a real
+  shed treatment exists; the gable is the BRIDGE's read. Pieces stay
+  banked for whatever that treatment reuses.
+- COOK: tools/tfcook/TF-ART-021_gallery_cook.py (6 axis-specific
+  pieces, galv from the approved pool, rust from the approved plate).
+  Bank: banks/tileforms/TF-ART-021_GALLERY_VOLUME_8_26_26.json.
+  Verified live at the granary: the gallery ribbons read as galvanized
+  bridge runs with the ridge glint. STATUS: COOKED AND WIRED 8/26/26
+  (thin runs); the shed treatment is an open item, not a claim.

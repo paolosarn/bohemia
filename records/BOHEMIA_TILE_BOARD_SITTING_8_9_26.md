@@ -1082,3 +1082,47 @@ claimed "named" since 8/4 while the list never carried it, and the
 tank-tall rocks were exactly what hid the gap. This bake took 160
 minutes of CPU (the first took 73); the poller that watches it now
 watches the PROCESS, not a fixed clock, after one false wake.
+
+## 8/26 FIFTY-SECOND PASS: THE GALLERY GETS ITS ROOF (and the sheds do not, yet)
+
+Daily re-probe first: twelve landmark grounds still sealed, awnings
+still unnamed. Then the granary's gallery: the 101x3 conveyor bridge
+now wears gable galv (ridge cap, lit/shaded slopes, continuous ribs)
+banded by the thin-axis rule the berm taught. THE LOOK CAUGHT A SCOPE
+ERROR BEFORE IT SHIPPED: the first wire skinned the 9x9 rail sheds too
+and they read as one giant corduroy sheet with the player walking on
+it. Scoped to runs of width three or less the same hour; the sheds
+keep their generic mass until a real shed treatment exists, and saying
+so in the record beats shipping a wallpaper lie. Headhouse tops ride
+the same rule where they are thin.
+
+## 8/26 FIFTY-THIRD PASS: HE ASKED HOW MANY TILES, AND THE ANSWER WAS EMBARRASSING
+
+Paolo: "you might think you have all of the pixelated, beautifully
+crafted tiles that you need to make everything that you need, and you
+don't. How many tiles are you using?" MEASURED, not guessed: the run
+draws ~886 distinct tile assets (465 cooked tileform pieces, 42 starter,
+46 bought grounds, 30 texture-match, ~132 civic skins, 18 perimeter, 9
+doors, 8 openings, 10 ground-pool, 126 exterior objects) - while HIS OWN
+7/13 Great Sweep approved 1,927 bought tiles of which only ~647 had ever
+drawn a pixel. The outdoor pool was capped at 18 per bucket by an old
+legibility guess. ACTED: cap doubled to 36, three new buckets (burn
+scars, cargo containers, workbenches+tools - the loot packs and the
+dead-system exclusions untouched), pool 126 -> 283 objects. THEN THE
+TASTE SWEEP, four passes on a contact sheet, because his thumb approved
+the TILE and the world's laws govern WHERE: killed 106 by content hash -
+fresh produce/meat/preserve stalls (in act 1 nobody is buying), lit
+lanterns, powered beacons and the lit forge (LIGHT=TERRITORY), glowing
+sci-fi canisters, the sword crate, the numbered disc, the heraldic
+banner, live embers in thirty-year-old burn scars, and finally the lit
+green pedestrian signal (found by measuring its own green pixels). The
+'light sources and fire barrels' pack proved to be a FIRE FACTORY that
+backfilled every kill with another flame - removed from the regex, with
+exactly TWO fire barrels pinned back by hash as the life sign (DEAD IS
+NOT THE DEFAULT). Paid for the payload growth honestly: the VOTE page
+was embedding 69 bake-size sprites (29 MB with an EMPTY queue) - now
+embeds at display size (6.6 MB), publish surface 258 -> 236 of 260.
+Verified live at a commercial lot: crates, tarped cargo, tires, sacks,
+an emptied stall, one modest campfire - a lot people LEFT, not a market
+morning. Wave 3 of the icon kills and the industrial 'truck court'
+surface-map gap (measured, unpropped today) are next.

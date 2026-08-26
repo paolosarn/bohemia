@@ -1851,15 +1851,37 @@ function requirePlaywright() {
       } finally { await pg.close(); }
     })();
 
-    ok('S1 NOBODY IN THE VALLEY RUNS WITH AN OUTFIT THAT HAS NO RULE. A person '
-      + 'whose card says RUNS WITH <name> and then offers no terms, no act, no '
-      + 'ladder and no way to learn their name is advertising content that does '
-      + 'not exist — a player reads a faction and finds a wall, which is worse '
-      + 'than an unaffiliated stranger because it looks deliberate',
-      !!orphanFactions && Object.keys(orphanFactions.orphans).length === 0,
-      JSON.stringify(orphanFactions && orphanFactions.orphans)
-        + '  — these are in CT_BASES_BAKED but not in BohemiaBelonging.RULES.'
-        + ' Placement is his (MAP LAW); this NAMES it rather than deleting it.');
+    /* *** I REPORTED CUSTOM AS A DEFECT AND IT IS THE PLAYER'S OWN FACTION. ***
+       Paolo 8/21: "custom is your own personal faction!!!!!! and you can imagine
+       if you play the game with your custom faction the values arent just for you
+       its for how your factions treated."
+       So CUSTOM having no entry in BohemiaBelonging.RULES is CORRECT and not a
+       gap: those rules describe how an NPC OUTFIT treats the player -- their
+       terms, their acts, their ladder, how they hand over a name. The player's
+       own faction does not need any of that, because you are not earning your
+       way into yourself.
+       I read a base I did not recognise as a template artifact. IT IS THE ONE
+       THE PLAYER BELONGS TO. Same shape as the false findings this lane keeps
+       catching: I checked whether the machinery existed and not what the thing
+       WAS. NOTES ARE RULINGS -- his word, fixed the same turn.
+       WHAT THE CLAIM HOLDS NOW is the real invariant, which the first version had
+       right underneath the wrong exemption: every outfit somebody runs with is
+       either an NPC outfit WITH a rule, or the player's own. A third kind is a
+       person advertising content that does not exist. */
+    const PLAYER_OWN = ['CUSTOM'];
+    const trueOrphans = orphanFactions
+      ? Object.keys(orphanFactions.orphans).filter(f => PLAYER_OWN.indexOf(f) < 0)
+      : [];
+    ok('S1 EVERY OUTFIT SOMEBODY RUNS WITH IS EITHER AN NPC OUTFIT WITH A RULE, '
+      + 'OR THE PLAYER\'S OWN. CUSTOM is the player\'s faction (Paolo 8/21) and '
+      + 'correctly has no NPC rule — those rules are how an outfit treats YOU, '
+      + 'and you do not earn your way into yourself. A third kind would be a '
+      + 'person advertising a faction that does not exist, and that is the wall '
+      + 'this catches',
+      trueOrphans.length === 0,
+      JSON.stringify({ playerOwn: PLAYER_OWN,
+                       unexplained: trueOrphans,
+                       counts: orphanFactions && orphanFactions.orphans }));
 
     ok('S2 …and the outfits with NO members are reported with their reason rather '
       + 'than skipped. Three of them have no base in the baked table at all, so '

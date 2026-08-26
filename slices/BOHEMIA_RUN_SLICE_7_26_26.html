@@ -1259,6 +1259,38 @@ function drawSolarform(gx,gy,X,Y,S){
     var vt=tf(vp+th(gx,gy,2)); if(vt) ctx.drawImage(look(vt),X,Y,S,S);
     return true;
   }
+  if(n==='gallery / rail shed' || n==='headhouse'){
+    /* TF-ART-021 volume (8/26, measured): the granary's elevated conveyor
+       gallery (signature blob 101x3), the rail sheds (9x9) and the
+       headhouse tops - all generic mass before. From the 45 they are
+       GABLE GALV: band each cell by its place across the run's THIN axis
+       (the berm lesson) - ridge on the centreline, lit slope north/west,
+       shaded slope south/east, ribs perpendicular to the run. */
+    var nm2=n;
+    function isGal(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      var v=String(NAMEG[y2][x2]||'').toLowerCase(); return v===nm2; }
+    var gu=0; while(gu<9&&isGal(gx,gy-1-gu))gu++;
+    var gd=0; while(gd<9&&isGal(gx,gy+1+gd))gd++;
+    var gl=0; while(gl<9&&isGal(gx-1-gl,gy))gl++;
+    var gr2=0; while(gr2<9&&isGal(gx+1+gr2,gy))gr2++;
+    var gwx=gl+gr2+1, gwy=gu+gd+1;
+    var ax=(gwx>=gwy)?'h':'v';
+    var pos, W;
+    if(ax==='h'){ pos=gu; W=gwy; } else { pos=gl; W=gwx; }
+    /* THIN RUNS ONLY (looked 8/26): on the 9x9 rail sheds this skin read
+       as one giant corduroy sheet with the player walking on it - wrong
+       twice over. The gable is the BRIDGE's read; wide blobs keep their
+       generic mass until a real shed treatment exists. */
+    if(W>3) return false;
+    var half=(W-1)/2, band;
+    if(W===1) band='ridge';
+    else if(Math.abs(pos-half)<0.6) band='ridge';
+    else band=(pos<half)?'lit':'sh';
+    var gp=tf('gg_'+ax+'_'+band);
+    if(!gp) return false;
+    ctx.drawImage(look(gp),X,Y,S,S);
+    return true;
+  }
   if(n==='tank roof'){
     /* TF-ART-020 volume (8/25, measured): 3295 cells - the concrete deck
        over the buried reservoir, in huge rectangular blobs ringed by the
@@ -2811,8 +2843,8 @@ var PROPS = { on:true, rate:9, maxCells:1.6 };   /* one cell in nine, never wide
 var PROP_BY_SURFACE = {
   road:  ['wreck'],                        /* the cars stopped where they stopped */
   walk:  ['street'],                       /* signs, pipes, fire barrels, kerb junk */
-  waste: ['dead','trash'],                 /* the desert taking a lot back, and what blew into it */
-  lot:   ['wreck','barrier','camp','crate'] /* an open lot is where people and their goods end up */
+  waste: ['dead','trash','burn'],          /* the desert taking a lot back, what blew in, and old fire scars */
+  lot:   ['wreck','barrier','camp','crate','cargo','tools','burn'] /* an open lot is where people, goods and work ended up */
 };
 /* THE NAMES ARE THE WORLD'S OWN, SAMPLED, NOT GUESSED. Three cuts of this matched
    nothing or the wrong thing because I invented the vocabulary from my own head:
