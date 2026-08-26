@@ -7515,6 +7515,42 @@ UI-4. *** THE GAME HAS NO TYPEFACE (found 8/26, UI lane). The alpha asks for
    whatever the phone decided. It is fork 4 on the vocabulary page with three
    system faces that need no download. Blocked on his letter, like the rest.
    | one named face, actually loading | which face = HIS | it is on the page. ***
+UI-5. *** THE UIBOOK EXISTS, AND ROUND ONE IS FINAL FANTASY X (Paolo 8/26:
+   "big brain research on how to do big brain research on studying other games
+   UI for one round ... the first basis of all of this is gonna be Final Fantasy
+   ten, my favorite UI of all time"). Law:
+   laws/BOHEMIA_ADDENDUM_THE_UI_STUDY_LAW_8_26_26.md
+   THE METHOD, not just the subject: four real instruments (Fagerholt &
+   Lorentzon's diegetic/non-diegetic/spatial/meta on its FICTION and GEOMETRY
+   axes; Hodent's seven usability pillars; Pinelle/Wong/Stach's heuristics mined
+   from reviews of 108 games; the practitioner's teardown), four masters
+   (LOOK/READ/DO/WORLD), stable citable ids, and a PORT VERDICT on every finding.
+   *** A ROUND WHERE EVERYTHING IS WORTH STEALING IS NOT A STUDY. *** The gate
+   requires refusals BY COUNT and fails an all-TAKE round.
+   ROUND 01: 18 findings, 9 TAKE, 5 ADAPT, 4 REFUSE. In the UI TAB, second view.
+   Corpus: uibook/. Index: records/BOHEMIA_UIBOOK_LAW_INDEX.json (query it, do
+   not remember it). Gate: ui_study_gate, 40 checks, 6 mutations.
+   ROUND TWO IS ANOTHER GAME WHENEVER HE NAMES ONE -- which game = HIS.
+   | a UI claim can be cited and checked | which game next = HIS | he reads it. ***
+UI-6. *** SHOW HIM THE NEXT FEW BEATS (FFX.R01, the most valuable finding of
+   round one). FFX's CTB window is a stack of portraits showing WHO ACTS NEXT,
+   several turns ahead: not a bar you interpret, a LIST YOU READ. It converts a
+   hidden simulation into an answer, so the player plans four moves out and never
+   does arithmetic. Bohemia is I-MOVE-YOU-MOVE at 120 BPM and that clock is a
+   FELT thing with no picture -- he hears the beat and never sees whose the next
+   few are. THE LOOK IS THIS LANE'S; what the list contains and when it updates
+   is COMBAT's and RUN's. CAUTION FROM THE FINDING: FFX's column is on the right
+   of a 4:3 screen and our right edge is where the thumb lives, so ours runs
+   along the TOP. | you can see who acts next | - | he plays it. TAB: RUN. ***
+UI-7. *** ROUTED TO COMBAT + RUN, NOT BUILT HERE (FFX.D01, the finding under the
+   famous finding). FFX's turn preview only works because the world PAUSES and
+   you have unlimited time to read it -- Square did not add a preview to ATB,
+   THEY REMOVED THE TIMER FIRST. We want the readable list while running
+   something closer to ATB's clock, and that is a real tension. This lane's
+   reading, offered not decided: the beat is the METRONOME, not the shot clock.
+   I-MOVE-YOU-MOVE already says the world advances when you act, so if standing
+   still costs nothing the list stays readable and the beat only decides WHEN the
+   action lands. COMBAT's and RUN's call. | - | - | no. TAB: RUN. ***
 UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
