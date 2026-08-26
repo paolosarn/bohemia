@@ -1,68 +1,87 @@
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (i) LATEST -- *** HIS RULING: THE
-DEMO IS ITS OWN LINK, AND WE ARE NOT READY. MY ERROR, OWNED. Nothing to judge. ***
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (j) LATEST -- *** HE PLAYED IT AND
+FILED TEN THINGS. ALL TEN ARE RULINGS AND ALL TEN ARE ROUTED. A NEW LANE EXISTS
+(UI). Nothing to judge from me. ***
 
-*** READ THIS FIRST, EVERY LANE. THE DEMO IS NOT THE WORKSHOP. ***
-Paolo 8/25, LOCKED: "THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS WORKSHOP
-LINK ARE YOU SERIOUS AND WE ARE NOT READY FOR THE DEMO YET! WHAT ARE WE STILL
-MISSING!" Law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md, plus a
-CLAUDE.md block above the ONE-LINK LAW.
-TWO SURFACES: the WORKSHOP (the alpha, SEVENTEEN tabs, his bench, ONE-LINK LAW
-unchanged) and THE DEMO (a separate published build at a separate URL, ZERO dev
-tabs, cut from the workshop and never forked). THE WORKSHOP LINK IS NEVER GIVEN
-TO A PLAYER.
-MY ERROR AND IT IS A BAD ONE: sweeps 14, 20 and 21 planned the entire friends
-round around "5-8 people, their own phones, THE ONE LINK." That would have sent
-his friends into a dev bench and spent the one round that spends once. The error
-underneath it: "the demo plays" was being measured INSIDE the workshop.
-the_whole_demo_gate drives the ALPHA -- true, valuable, and NOT the claim that a
-demo exists. The 8/4 plan said it and we all read past it: item 9, THE DEMO IS A
-BUILD, NOT A VIBE.
+*** EVERY LANE READ THIS. THE SECOND BIG DISPATCH.
+laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md + a CLAUDE.md block. ***
+THE FRAME IS THE MOST IMPORTANT PART: "I KNOW WE MADE EVERYTHING REALISTIC AS
+FUCK EVEN THE TIMING OF THE CITY BUT I REALLY DO BELIEVE I MAY BE AT A TURNING
+POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING FUN." REALISM FIRST (8/4) always
+contained the clause that realism is sacrificed for fun AND THAT THE TRADE IS
+HIS. HE JUST MADE IT. From here FUN CARRIES THE TIE unless he rules otherwise on
+a specific item. That is the clause firing, not a loosening.
+
+WHAT HE FILED, AND WHO HAS IT
+  WORLD STREETS-LEGO  "NONE OF THE STREETS CONNECT EVER." Every street piece
+      declares its edge connectors (lane count, lane centre, sidewalk width,
+      kerb) and may only be placed where EVERY TOUCHING EDGE AGREES. ART AND
+      WALKABLE PATH ARE ONE CONTRACT -- that split is why he can see a street
+      and not walk it. Socket-and-stud, therefore machine-checkable, therefore
+      gated with a mutation test.
+  WORLD WALL-FADE  the south wall changed under him between two frames AND his
+      face rendered as a blank white block. Reproduce first. AND THE FINDING:
+      *** THERE IS NO WALL-OPACITY SYSTEM IN THIS BUILD. *** He believes we have
+      one. We do not. Nothing fades a wall when he stands behind it. Build it.
+  WORLD ALIVE-1  "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE
+      DEFAULT." A slider existing is not an answer. And the cheapest half is not
+      people, it is ANIMALS -- tier 1 is set dressing that moves.
+  COMBAT BESTIARY  the research he ordered, delivered same turn:
+      records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md.
+      A mass-mortality event is a FEEDING EVENT and carrion ecology hands us a
+      roster AND an arrival order free: flies first, ravens first of the big
+      ones, then the guild the literature lists almost as our enemy list --
+      dogs, cats, rats, coyotes, crows, ravens, vultures. Coyotes really have
+      thrived in Las Vegas using THE WASHES AND GOLF COURSES, which we already
+      built. TIER 2 IS DOG PACKS -- not wolves, SOMEBODY'S PETS ten years on --
+      and that is where the RF4 movement work lands. Venom is TERRAIN, not
+      encounters. Tier 3 reserved: the Amalgamation is his.
+  COMBAT DANGER-TIERS  Valheim-style: difficulty gated BY PLACE, not by a level
+      number on the player. Composes with WORLD SEED-1. Loot rides along.
+  CHARACTER HAIR-REF  "LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND
+      WE CAN GO FROM FUCKING THERE." Research-first, the thing that made the
+      districts good, finally pointed at the system that has been cooked blind.
+      Reference beside our 8 facings BEFORE another cook. His 87% kill rate on
+      round 4 and "east and west look like absolute dog shit" is the evidence.
+  CHARACTER FACES  face customisation has never been built. Build the
+      INSTRUMENT, not just art (HE MUST BE ABLE TO DIRECT IT, 8/12).
+  CHARACTER ANIMS  audit first, cook second. Show him the broken list.
+  QUESTS QW  "NOT WIRED TO ANY LOCATIONS OR PEOPLE." Demand-side now, not
+      [PENDING]. The people exist and every district has a way in as of today.
+  QUESTS FEED-ART  *** THE TEXT-CAM ASCII PICTURES ARE DEAD. *** Second time he
+      has said it, so the feature ends (STOP PRODUCING, 7/26). Graveyard with a
+      post-mortem, and GRAVEYARD IS FINAL -- no "improved ASCII". What replaces
+      them is a LOOK decision and belongs to UI-1.
+  *** UI -- A NEW LANE. HE ASKED, THE ANSWER IS YES. First word "ui". Owns every
+      pixel the player touches that is not the world: buttons, cards, panels,
+      phone chrome, type, HUD, the feed. A LOOK lane; RUN keeps owning what
+      buttons DO. UI-1: one page of the BOHEMIA LOOK vocabulary he reacts to and
+      edits, because he said "craft this bohemia look BY MYSELF WITH YOU" --
+      a conversation surface, not a delivery. UI-2: THE ACTION BUTTON IS NOT THE
+      CITY BUTTON. Zoom is the way in and out; the action button never changes
+      meaning; and it must not force him into the city at a zoom step he did not
+      ask for. ***
+  RUN  performance is his second witness to the 24.2s-on-4G measurement.
 
 WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, audits
-  drift, guards the demo path, routes work. Never writes code.
-  DEMO PATH GREEN AND MEASURED THIS TURN: the_whole_demo_gate 23/23 -- in the
-  WORKSHOP, which is now the correct way to say it.
-
-IN FLIGHT
-  Nothing half-built.
+  Read-only across every lane. Records his rulings as law the same turn, routes,
+  guards the demo path. Never writes code.
 
 BLOCKED ON
-  Nothing for me. THE DEMO ORDER IS NOW: BUILD -> DOOR -> ENDING -> INSTRUMENT
-  -> INVITE. Nobody is invited until all four exist.
-    SHARED -14  CUT THE DEMO (the headline; no standalone slice exists)
-    RUN P0-DOOR  now serves BOTH surfaces
-    RUN DEMO-END  the last thirty seconds, which nobody has designed
-    RUN 0f + P0-MORNING  the instrument and the first morning
-    RUN 24-SECOND CEILING  measured on throttled 4G, demo-blocking
-  Then: SHARED -13 (pin the DEMO build for the round), WORLD SEED-1 (build, do
-  not switch on), SILENT-2, SHARED -9/-10/-11/-12.
+  Nothing for me. THE DEMO ORDER STILL STANDS AND THIS DISPATCH DOES NOT REORDER
+  IT: SHARED -14 (cut the demo build) -> RUN P0-DOOR -> RUN DEMO-END -> RUN 0f +
+  P0-MORNING -> invite. Most of the ten above are exactly what a demo gets
+  judged on, and shipping them into a build with no front door helps nobody.
 
 WHAT I WOULD DO NEXT
-  Sweep 22. Standing watch: nobody hands anybody the workshop link.
+  Sweep 22. Standing watch: nobody hands anybody the workshop link, and nobody
+  re-cooks hair before the reference sheet exists.
 
 PROOF
-  laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md  (his ruling)
-  records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md  (the measured gap
-    list AND the demo-feel research: PEAK-END RULE + DURATION NEGLECT from
-    Kahneman/Fredrickson 1993, and Zukowski's Feb 2025 demo-length survey showing
-    NO wishlist difference by length -- two aisles landing on the same answer.
-    THE FINDING THAT BITES: the ruled cut peaks in the first five minutes and
-    ENDS ON GOING TO BED. The ending is half of what anybody keeps and nobody
-    has designed it. Not a re-cut; the cut is his. Two drafted endings routed.)
-  WHAT IS ALREADY DONE, because he should see how close it is: the day plays end
-    to end and is gated; the cold open plays and hands off; THE VISTA HAS A
-    CALLER NOW (the 8/14 audit found zero); the save survives a hostile phone;
-    the fight has a door and 17 approved sounds; every district has a way in;
-    the payday bridge has 10 callers where the audit found zero; voices exist.
-    IT IS NOT A GAME THAT IS FAR AWAY. IT IS A GAME WITH NO FRONT DOOR.
-  Earlier sweeps 14-21, each a record with numbers, sources and confidence:
-    THE_FRIENDS_ROUND_IS_NOT_READY / EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_
-    ENGLISH / THEY_SPEAK_SPANGLISH (his law) / EVERY_GATE_WE_HAVE_TESTS_THE_
-    WRONG_BROWSER / THE_STRIP_NEEDS_NAMES_BEFORE_IT_NEEDS_ART / THE_HANDOFF_IS_
-    64000_LINES / THREE_SOUNDS_ARE_THE_ONLY_COPY / ONE_VALLEY_FOREVER_IS_A_CONST
-    / TWENTY_BUILDS_IN_ONE_DAY. All of their routing still holds -- it just
-    applies to THE DEMO BUILD'S link now, not the workshop's.
+  laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md   (his ten, verbatim)
+  records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+  laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md (earlier today)
+  records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
+  Sweeps 14-21 records, all still routed and all still valid.
 
 ================================================================================
 

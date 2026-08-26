@@ -2089,6 +2089,59 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+STREETS-LEGO. *** HIS RULING, TOP OF THIS LANE. "NONE OF THE STREETS
+   CONNECT EVER" (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "YOU NEED A FUCKING STANDARD AWESOME WAY TO MAKE SURE IF ITS
+   A STREET. IT WILL CONNECT ART WISE AND PATHWISE TO OTHER STREETS WE
+   NEED A STANDARDIZED WAY YOU PLACE STREETS IN PERFECT MATCHING
+   COORDINATE LIKE CONSISTENT PUZZLE PIECES AND LEGO BLOCKS SO FUCKING BE
+   IT BUT THAT NEEDS TO HAPPPEN."
+   THE STREET CONTRACT: every street piece DECLARES its connectors on all
+   four edges -- lane count, lane centre offset, sidewalk width, kerb line
+   -- and a piece may only be placed where EVERY TOUCHING EDGE AGREES.
+   ART AND WALKABLE PATH ARE THE SAME CONTRACT, not two systems that
+   happen to line up; that split is why he can SEE a street and not WALK
+   it, and walk something that does not look like a street.
+   It is a socket-and-stud rule, which means it is MACHINE-CHECKABLE, so
+   it gets a gate that sweeps every placed street in the valley and FAILS
+   ON A SINGLE MISMATCHED EDGE. Mutation test: nudge one piece's lane
+   offset by one pixel -> red.
+   REUSE-FIRST APPLIES: streets source from banks/BOHEMIA_STREET_POOLS_
+   HARMONIZED_7_14_26.txt (STREETS ARE THE HARMONIZED POOL, 7/31). This
+   row is the CONNECTOR CONTRACT over that bank, not a new art cook.
+   | walk a straight line across three districts without the street
+   breaking, on the real surface, gated | — | he plays it. TAB: RUN. ***
+WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "WTF IS GOING ON HERE WITH THE SOUTH PART OF THE BUILDING
+   THE WALL CHANGES I HOPE THATS NOT FOR ME WHEN IM SUPPOSED TO BE BEHIND
+   A WALL FACING THE CAMERA AND ITS SUPPOSED TO BE THE WALL OPCAICITY."
+   (a) A BUG: two frames of the same spot, the south building's wall tiles
+   are a DIFFERENT PATTERN in each, and in the second frame HIS FACE IS A
+   BLANK WHITE BLOCK. REPRODUCE BEFORE TOUCHING ANYTHING.
+   (b) *** THERE IS NO WALL-OPACITY SYSTEM IN THIS BUILD. *** I checked
+   the walked surface and the engine: nothing fades, ghosts or cuts away a
+   wall when the player stands behind it. HE BELIEVES WE HAVE IT. WE DO
+   NOT. For a three-quarter view with the camera to the south, a player
+   standing behind the south wall of his own house is invisible, and that
+   is not a nice-to-have.
+   BUILD THE FADE. Structure layer only (LAYERING law), never the ground,
+   and the same rule everywhere so it never reads as a bug.
+   | he walks behind the south wall and can still see himself, gated on
+   real pixels | — | he plays it. TAB: RUN. ***
+ALIVE-1. *** THE CITY IS DEAD AND DEAD IS NOT THE DEFAULT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT... THE CITY
+   SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A
+   SLIDER AND SHIT BUT YEAH MAN." A SLIDER EXISTING IS NOT AN ANSWER. A
+   default is a design decision and ours is wrong. Raise it until he meets
+   somebody WITHOUT TRYING.
+   AND THE CHEAPEST HALF IS NOT PEOPLE AT ALL, IT IS ANIMALS. See
+   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+   §4: ravens on a roofline, rats at a bin, a coyote crossing the wash
+   three blocks away and not caring about you. None of that is combat and
+   all of it is life. TIER 1 IS SET DRESSING THAT MOVES, and it is the
+   cheapest fix on this whole dispatch for the loudest complaint on it.
+   | he walks one block and sees something living without hunting for it
+   | how many = mine to pick, he corrects | he plays it. ***
 SEED-1. *** HIS LOCKED LAW SAYS "DIFFERENT SEED, DIFFERENT VALLEY" AND A
    CONSTANT SAYS OTHERWISE (sweep 20, 8/25 — records/BOHEMIA_ONE_VALLEY_
    FOREVER_IS_A_CONST_NOT_A_DECISION_8_25_26.md).
@@ -4409,6 +4462,51 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+BESTIARY. *** ENEMIES, AND HE CALLED IT A TURNING POINT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "WE NEED MORE ENEMIES IN THE GAMES... I REALLY DO BELIEVE I
+   MAY BE AT A TURNING POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING
+   FUN. NOT A SINGLE LOOT IDEA OR ENEMY AROUND LIKE IM JUST WALKING RN
+   THROUGH AN INCOMPLETE PIXEL CITY."
+   *** REALISM FIRST'S OWN ESCAPE CLAUSE JUST FIRED, BY THE ONLY PERSON
+   ALLOWED TO FIRE IT. FROM HERE FUN CARRIES THE TIE. ***
+   THE RESEARCH IS DELIVERED THE SAME TURN AND IT IS REAL ECOLOGY RATHER
+   THAN MONSTERS: records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_
+   CORPSES_8_25_26.md. The headline: a mass-mortality event is a FEEDING
+   EVENT, and carrion ecology hands us a roster AND an arrival order for
+   free. Flies first. Ravens first of the big ones. Then the vertebrate
+   guild the literature lists almost as a Bohemia enemy list -- DOGS,
+   cats, RATS, COYOTES, crows, ravens, vultures. Coyotes really have
+   thrived in Las Vegas, moving on THE WASHES AND GOLF COURSES, which we
+   already built as district types.
+   THREE TIERS, WHICH IS THE VALHEIM SHAPE HE ASKED FOR WITHOUT INVENTING
+   A SINGLE CREATURE. TIER 1 THE FED: rats, ravens, flies, lone coyotes,
+   mostly ambience rather than combat. TIER 2 THE ORGANISED: DOG PACKS --
+   not wolves, SOMEBODY'S PETS ten years on -- flanking, breaking off,
+   coming back. THIS IS WHERE THE RF4 MOVEMENT WORK LANDS: a pack that
+   circles is "the fight has to move you" with teeth instead of a rule.
+   TIER 3 THE OWNERS: RESERVED, because the Amalgamation and the factions
+   are HIS and this row does not fill them in.
+   AND VENOM IS TERRAIN, NOT ENCOUNTERS: rattlesnakes, bark scorpions,
+   widows and centipedes are the thing under the rubble and in the dark
+   room, which fits the RF4 terrain-kills machinery we already took.
+   | a walk through the valley meets living things at three difficulties
+   | names, roster and every number = HIS | he plays it. ***
+DANGER-TIERS. *** DISTRICTS ARE THE DIFFICULTY, VALHEIM-STYLE (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "WE HAVE THIS VALHEIM IDEA OF BIOMES AND LEVELED BIOMES IN
+   THE CITY AND SHIT WITH DIFFERENT DEGREES OF DIFFICULTY OF ENEMIES
+   WITHIN AND SHIT AND THE SEED GENERATION KINDA LIKE VALHEIM HAS THAT."
+   WHY VALHEIM WORKS, from the practitioner reading: difficulty is GATED
+   BY PLACE, NOT BY A LEVEL NUMBER ON THE PLAYER, and its spawn tiers key
+   to DISTANCE FROM THE WORLD CENTRE so early ground stays safe and the
+   worst things sit at the edges. Ours has something better than a
+   coordinate: THE STRIP, the dam, the worst blocks.
+   COMPOSES WITH WORLD SEED-1 (sweep 20) -- his 8/4 seed law and this are
+   the same engine, and SEED-1 unwelds the input.
+   LOOT RIDES ALONG, because he said there is not one loot idea in the
+   build: a carcass is a resource, a raven flock MARKS a body, a bee hive
+   is a hazard AND food, a dog pack has a den and a den holds what the
+   dogs dragged home. | danger reads off the map before you walk in | the
+   tier map is HIS to correct | he plays it. TAB: MAP. ***
 RF4-DOOR. *** WITHDRAWN THE SAME DAY BY THE COORDINATOR — THE DOOR IS
    ALREADY BUILT AND I WAS WRONG. On 8/20 I routed this above all machine
    work, telling this lane to stop and build a combat entry. IT SHIPPED
@@ -6302,6 +6400,42 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
    is the gap, and it is a big one. NON-COOK, needs a ruling before any work.
 
 ## CHARACTER  (LANE LAW 7/26: laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md
+HAIR-REF. *** GO LOOK AT REFERENCE. ALL EIGHT DIRECTIONS. BEFORE ANY MORE
+   COOKING. (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "THESE HAIRSTYLES ARE NOT FUCKING CUTTING IT WHY CANT U JUST
+   TELL THE ART CHAT OR WHATEVER OR THE CHARACTER CHAT TO FUCKING LOOK
+   ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND WE CAN GO FROM
+   FUCKING THERE!!!"
+   THIS IS RESEARCH-FIRST, THE THING THAT MADE THE DISTRICTS GOOD, FINALLY
+   POINTED AT THE ONE SYSTEM THAT HAS BEEN COOKED BLIND FOR WEEKS. Gather
+   real pixel-art hair reference across ALL EIGHT FACINGS. Study what
+   those artists actually do at THE BACK and THE THREE-QUARTER, which is
+   exactly where his verdicts keep dying (13 of 15 killed on round 4, and
+   his note was "east and west hairstyles look like absolute dog shit
+   across the board"). PUT THE REFERENCE BESIDE OUR STYLES SO HE CAN SEE
+   BOTH. Then cook.
+   NO MORE VARIANTS OFF THE TOP OF ANYBODY'S HEAD. His existing hair laws
+   still bind: 8/1 (the back is not the front, cover the headspace, no
+   straight lines, one pixel not three) and 8/25 (draw in the pixels we
+   actually have; a mark INSIDE the silhouette).
+   | reference sheet beside our 8 facings, in a tab, before a single new
+   cook | which references are good = HIS | YES, he judges the pairing. ***
+FACES. *** NEVER TOUCHED SINCE THE BEGINNING, AND HE WANTS IT BACK
+   (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "SINCE THE BEGINNING WE HAVE NEVER TOUCHED THE FACE
+   CUSTOMIZATION FOR THE CUSTOMIZED PORTRAITS OF PEOPLE. WE NEED TO GET
+   BACK ON THAT." Portraits exist and render (he has them in front of
+   him, front / turn / side); WHAT IS MISSING IS CUSTOMISATION. Build the
+   instrument, not just the art -- HE MUST BE ABLE TO DIRECT IT (8/12):
+   if the answer is "he tells me and I edit a file", it is not shipped.
+   | a face he can change himself, in a tab | every canon face = HIS ***
+ANIMS. *** A LOT OF THEM ARE FUCKED AND HE WANTS NEW ONES (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "I KNOW WE NEED TO WORK ON FIXING THE ANIMATIONS AND SHIT,
+   ALOT OF THEM ARE KINDA FUCKED. WE NEED NEW ONES." AUDIT FIRST, COOK
+   SECOND: list every animation, play each on the real surface, mark
+   which are broken and HOW, and show him the list before recooking. The
+   LEAF-PIXEL LAW still binds every frame. | the audit, then the recook |
+   which survive = HIS ***
 ## — the rig is the starting point of ALL body/anim work; RIG CHECK mandatory;
 ## AND laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md — shading never
 ## baked into asset pixels, render-time layer only. First items of the lane's
@@ -6906,6 +7040,33 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 ##    see it, and he was right).
 
 ## QUESTS — HEADER WAS STALE, CORRECTED 8/15 BY THE COORDINATOR. The
+QW. *** A QUEST THAT IS NOT ATTACHED TO A PLACE AND A PERSON IS NOT A
+   QUEST (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR
+   PEOPLE IN THE CITY." He played it and could not find the game in the
+   quests. Wiring quests to REAL locations and REAL named people is now
+   DEMAND-SIDE, not [PENDING] -- the generic placement rule he parked was
+   parked as a question about HOW, and he has just answered that it has
+   to happen. The people exist (PEOPLE names them from the identity key,
+   households shipped this week) and the places exist (every district has
+   a way in as of today). | a quest names a place you can walk to and a
+   person you can meet, on the real surface | WHICH people and places for
+   canon quests = HIS | he plays it. TAB: RUN + MAP. ***
+FEED-ART. *** THE ASCII PICTURES ARE DEAD (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "THE ART FOR THE QUEST LOGS IS SO FUCKING BAD WHEN ITS ON MY
+   FEED WE TALKED ABOUT THESE TEXT THAT LOOK LIKE PICTURES AND SHIT AND
+   ITS SO FUCKING BAD LOOKING I CANT TELL WHAT THOSE SHITS ARE!"
+   SECOND TIME HE HAS SAID IT. The little TEXT-CAM line-drawing
+   "community art" blocks on the phone feed are unreadable -- his own
+   screenshot shows a six-line box labelled "door" that reads as nothing.
+   THEY GO TO THE GRAVEYARD with a post-mortem, and GRAVEYARD IS FINAL:
+   no remakes, no "improved ASCII".
+   WHAT REPLACES THEM IS A LOOK DECISION AND IT BELONGS WITH THE NEW UI
+   LANE (UI-1), not here -- but the DELETION is this lane's, today,
+   because a second rejection ends the feature (STOP PRODUCING, 7/26).
+   The feed still needs SOMETHING per post; shipping nothing is fine
+   until UI-1 rules. | the text-cam art is gone from the feed | what
+   replaces it = HIS, via UI-1 | no, it is a kill. TAB: RUN (the phone). ***
 ## hibernation below is from 7/26 and QUEST AUTHORING HAS PLAINLY RESUMED:
 ## S22 THE COLD ROOM and S23-S25 (all water, all researched) shipped 8/13-14,
 ## taking the corpus 21 -> 25 with 35 studies cited. A header telling sessions
@@ -6987,6 +7148,47 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
+
+## UI  (NEW LANE, Paolo 8/25 — he asked "IDK IF ITS TIME TO MAKE A UI
+## CHAT?" and the answer is YES. First word "ui". Owns EVERY PIXEL THE
+## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
+## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
+## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
+UI-1. *** THE BOHEMIA LOOK, AND HE WANTS TO MAKE IT WITH YOU, NOT RECEIVE
+   IT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME AND I NEED TO
+   START WORKING ON HOW ALL THE BUTTON AND EVERYTHING IN THE WORLD WILL
+   LOOK AND CRAFT THIS BOHEMIA LOOK BY MYSELF WITH YOU. ITS UNIQUENESS
+   AND SAY. YEAH THATS BOHEMIA VIBES."
+   THE FIRST JOB IS NOT A COMPONENT LIBRARY. IT IS ONE PAGE OF VOCABULARY
+   he can react to and edit: shape, weight, corner, colour, type,
+   texture, and what a thing looks like PRESSED. He said "with you", so
+   it is a conversation surface, not a delivery.
+   REUSE-FIRST AND HIS EXISTING RULINGS BIND: the approved palettes, LINE
+   COLOR LAW, the PURPLE RESERVATION (purple is the Amalgamation's
+   alone), TAN WALL 85/15, and LIGHT=TERRITORY is LUMINANCE not hue.
+   THE UI IS ALSO WHERE HIS SILENT-PLAY TWINS AND HIS FEED ART LAND, so
+   coordinate with RUN SILENT-2 and QUESTS FEED-ART rather than
+   duplicating them.
+   HE MUST BE ABLE TO DIRECT IT (8/12): whatever ships, he changes it
+   himself in a tab. | one page of the look, in a tab, editable | the
+   look itself is HIS | YES -- this one he judges, because he asked to. ***
+UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+   HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
+   CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
+   ACTION BUTTON."
+   ZOOM IS THE WAY IN AND OUT. THE ACTION BUTTON DOES ACTIONS, ALWAYS,
+   AND NEVER CHANGES WHAT IT MEANS. One continuous gesture: pinch or
+   scroll out far enough and you are in the city view; scroll back in and
+   you are on the street. AND IT MUST NOT FORCE HIM into the city at a
+   zoom step he did not ask for -- he reported being "launched into a
+   random part of the city" and playing "the most I can zoom it out
+   before it forces me in."
+   A CONTROL THAT MEANS TWO THINGS DEPENDING ON ZOOM IS THE SAME DEFECT
+   AS A SIGN ON A DOOR: the affordance says ACT and the outcome is
+   TRAVEL. UI owns the control's meaning; RUN owns the swapMode plumbing
+   underneath. | zoom takes him in and out, the action button never does
+   | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 -14. *** CUT THE DEMO. IT DOES NOT EXIST AND THAT IS THE HEADLINE (Paolo
