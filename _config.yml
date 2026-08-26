@@ -41,6 +41,10 @@ exclude:
                     # gate reads THIS list as the source of truth, so it is named here
   - banks/          # 261 MB of art banks — read by the cook tools, never by a page
   - questbook/      # 8.5 MB of quest study corpus
+  - uibook/         # the UI study corpus (8/26). NOT published, on purpose: the
+                    # UI tab does not read these files, it renders
+                    # records/BOHEMIA_UIBOOK_LAW_INDEX.json, which the generator
+                    # inlines at build time. Same shape as questbook/.
   - archive/        # superseded files; history, never current
   - tools/          # generators and cooks — they run in a session, not in a browser
   - gates/          # the regression machines

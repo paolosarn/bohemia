@@ -125,6 +125,20 @@ const CT_GOLD        = contrast(C.gold, C.surface).toFixed(2);
 const CT_DIM         = contrast(C.dim, C.surface).toFixed(2);
 
 /* ==== 3. THE GRIME, HIS OWN, AT HIS OWN NUMBER ============================ */
+/* ==== 3b. THE UIBOOK, ROUND ONE ==========================================
+   THE UI STUDY LAW (8/26): a study he cannot reach is a study that does not
+   exist, so round one lives in this tab as its own view. The page does not
+   restate a single finding -- it RENDERS THE INDEX, so the study and the page
+   can never drift apart. If the corpus changes, this page changes on the next
+   build; if the corpus is missing, the build says so instead of shipping an
+   empty room. */
+const UIBOOK = path.join(ROOT, 'records/BOHEMIA_UIBOOK_LAW_INDEX.json');
+let BOOK = { _meta: { rounds: [] }, laws: {} };
+try { BOOK = JSON.parse(fs.readFileSync(UIBOOK, 'utf8')); }
+catch (_e) { console.error('NO UIBOOK INDEX. Run: python3 tools/bohemia_uibook_index.py'); process.exit(2); }
+const BOOK_IDS = Object.keys(BOOK.laws || {}).sort();
+if (!BOOK_IDS.length) { console.error('the uibook index is empty'); process.exit(2); }
+
 const grime = JSON.parse(fs.readFileSync(GRIME, 'utf8'));
 const GRIME_B64 = grime.b64;
 const GRIME_AMT = grime.ships_at;                    /* 0.30, ruled 8/9 */
@@ -351,6 +365,70 @@ function forkCard(f) {
   </section>`;
 }
 
+/* ---- THE STUDY VIEW, rendered from the index ------------------------------
+   Not a retelling. Every word below comes out of records/BOHEMIA_UIBOOK_LAW_INDEX.json,
+   which is mined from the corpus, so the page and the study cannot disagree.
+   Ordered LOOK / READ / DO / WORLD, the four masters, and the verdict is the
+   loudest thing on each card because the verdict is the point. */
+const MASTER_TITLE = {
+  look:  ['LOOK',  'material, colour, type, shape'],
+  read:  ['READ',  'what it tells you, and how fast'],
+  do:    ['DO',    'pressing, aiming, taking it back'],
+  world: ['WORLD', 'where the menu touches the story']
+};
+function studyCard(f) {
+  const v = (f.verdict || '').toLowerCase();
+  return `
+    <article class="fnd v-${v}" data-id="${f.id}" data-verdict="${f.verdict}">
+      <div class="fhd"><span class="fid">${esc(f.id)}</span>
+        <span class="fverd fv-${v}">${esc(f.verdict)}</span></div>
+      <h3 class="ftitle">${esc(f.title)}</h3>
+      <p class="fwhat">${esc(f.what)}</p>
+      <p class="fwhy"><b>WHY IT WORKS</b> ${esc(f.why)}</p>
+      <p class="fport"><b>${esc(f.verdict)} &middot; WHAT WE DO</b> ${esc(f.because)}</p>
+      ${f.caution ? `<p class="fcaut"><b>CAREFUL</b> ${esc(f.caution)}</p>` : ''}
+      <p class="flens">looked at through: ${esc(f.lens)} &middot; seen on: ${esc(f.screen)}</p>
+    </article>`;
+}
+function studyView() {
+  const laws = BOOK_IDS.map(k => BOOK.laws[k]);
+  const round = (BOOK._meta.rounds || [])[0] || { counts: {} };
+  const c = round.counts || {};
+  const groups = ['look', 'read', 'do', 'world'].map(m => {
+    const fs2 = laws.filter(f => f.kind === m);
+    if (!fs2.length) return '';
+    return `<section class="master" data-master="${m}">
+        <h2 class="mhd"><span class="mname">${MASTER_TITLE[m][0]}</span>
+          <span class="msub">${MASTER_TITLE[m][1]}</span></h2>
+        ${fs2.map(studyCard).join('')}
+      </section>`;
+  }).join('');
+  return `
+<div id="viewStudy" class="view">
+  <p class="lede"><b>Round one: Final Fantasy X.</b> Not a list of things I like about it.
+  Eighteen things it does, why each one works, and <b>what Bohemia does about it</b>.
+  Four of them we cannot have, and those are the useful ones.</p>
+  <div class="scoreboard">
+    <div class="scoreplate"><div class="scorow">
+        <span class="sc"><b>${c.findings || laws.length}</b>things found</span>
+        <span class="sc"><b class="t">${c.take || 0}</b>we take</span>
+        <span class="sc"><b class="a">${c.adapt || 0}</b>we change</span>
+        <span class="sc"><b class="r">${c.refuse || 0}</b>we cannot have</span>
+      </div></div>
+  </div>
+  <p class="note" style="margin:10px 0 16px">A study where everything is worth stealing
+  is not a study, it is a fan page. Final Fantasy X is a TV game, played with a controller,
+  with seven people in your party, in a hallway, with real actors reading the lines. We are
+  a phone game, one thumb, one person, an open city, and nobody reads anything out loud.
+  A lot of what makes it great is paid for by things we do not have.</p>
+  ${groups}
+  <p class="note" style="margin-top:18px">Every one of these has a code like
+  <b>FFX.R01</b>. That is not decoration. Any time somebody around here says
+  "let us do it like Final Fantasy", they have to say which one, and the machine
+  checks that it is real.</p>
+</div>`;
+}
+
 /* ==== 7. THE PAGE ========================================================= */
 const HTML = `<!doctype html>
 <meta charset="utf-8">
@@ -563,6 +641,71 @@ h2{ font:13px var(--fc); letter-spacing:1.6px; margin:0 0 6px; display:flex; gap
         background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:6px; }
 .done{ font:11px var(--fc); color:var(--faint); text-align:center; margin-top:8px; min-height:16px; }
 .tally{ font:11px var(--fc); letter-spacing:1px; color:var(--dim); margin:10px 0 0; }
+
+/* ---- TWO ROOMS, ONE TAB -------------------------------------------------- */
+#viewpick{ display:flex; gap:7px; margin:0 0 14px; }
+.vbtn{ flex:1; min-height:46px; font:10px/1.35 var(--fc); letter-spacing:.9px;
+       background:transparent; color:var(--dim); border:2px solid var(--line);
+       border-radius:5px; padding:8px 6px; }
+/* NEVER COLOUR ALONE: the room you are standing in also has a thicker edge and
+   a mark in its label, the same rule the pick letters follow. */
+.vbtn.on{ background:var(--acc); color:var(--accink); border-color:var(--acc); border-width:4px; }
+.view{ display:none; }
+.view.on{ display:block; }
+body.sun .vbtn{ color:#3d362a; border-color:#a89e88; }
+body.sun .vbtn.on{ background:#4d3a10; color:#f7f3e8; border-color:#4d3a10; }
+
+/* ---- THE STUDY ----------------------------------------------------------- */
+.scoreboard{ margin:0 0 4px; }
+.scoreplate{ border:2px solid var(--line); border-radius:5px; padding:11px 12px; }
+.scorow{ display:flex; gap:6px; flex-wrap:wrap; }
+.sc{ flex:1 1 40%; font:10px var(--fc); letter-spacing:1px; color:var(--dim); line-height:1.35; }
+.sc b{ display:block; font:20px var(--fc); font-weight:700; color:var(--ink); line-height:1.1; }
+.sc b.t{ color:var(--acc); }
+.sc b.a{ color:var(--acc2); }
+.sc b.r{ color:var(--danger); }
+.master{ margin:22px 0 0; }
+.mhd{ display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;
+      font:13px var(--fc); letter-spacing:1.6px; margin:0 0 10px;
+      padding-bottom:7px; border-bottom:2px solid var(--line); }
+.mname{ color:var(--acc); }
+.msub{ font:11px var(--fb); letter-spacing:0; color:var(--dim); }
+.fnd{ margin:0 0 16px; padding:0 0 14px; border-bottom:1px solid var(--line); }
+.fhd{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.fid{ font:10px var(--fc); letter-spacing:1.4px; color:var(--faint); }
+/* THE VERDICT IS THE LOUDEST THING ON THE CARD, because the verdict is the point.
+   It carries a WORD, so it never depends on its colour to be read. */
+.fverd{ margin-left:auto; font:10px var(--fc); font-weight:700; letter-spacing:1.4px;
+        padding:4px 8px; border-radius:2px; border:2px solid var(--line); color:var(--ink); }
+.fv-take{ border-color:var(--acc); color:var(--acc); }
+.fv-adapt{ border-color:var(--acc2); color:var(--acc2); }
+.fv-refuse{ border-color:var(--danger); color:var(--danger); }
+.ftitle{ font:12.5px var(--fc); letter-spacing:1.2px; line-height:1.45; margin:0 0 8px; color:var(--ink); }
+.fnd p{ font-size:13px; margin:0 0 8px; color:var(--dim); line-height:1.55; }
+.fnd p b{ display:block; font:9.5px var(--fc); letter-spacing:1.3px; color:var(--acc); margin-bottom:3px; }
+.fwhat{ color:var(--ink)!important; }
+.fport b{ color:var(--acc)!important; }
+.fcaut b{ color:var(--danger)!important; }
+.flens{ font:10px var(--fc)!important; letter-spacing:.6px; color:var(--faint)!important; margin-bottom:0!important; }
+body.sun .mname{ color:#4d3a10; }
+body.sun .ftitle,body.sun .fwhat{ color:#1a1712!important; }
+body.sun .fnd p{ color:#3d362a; }
+body.sun .fnd p b,body.sun .fport b{ color:#4d3a10!important; }
+body.sun .fverd{ color:#2a2418; }
+body.sun .fv-take{ border-color:#4d3a10; color:#4d3a10; }
+body.sun .flens,body.sun .fid{ color:#4a4234!important; }
+body.sun .master .mhd{ border-bottom-color:#a89e88; }
+body.sun .fnd{ border-bottom-color:#c2b9a4; }
+body.sun .scoreplate{ border-color:#a89e88; }
+body.sun .sc{ color:#3d362a; }
+body.sun .sc b{ color:#1a1712; }
+body.sun .sc b.t{ color:#4d3a10; }
+body.sun .sc b.a{ color:#2f5f57; }
+body.sun .sc b.r{ color:#8a2f1a; }
+body.sun .fv-adapt{ border-color:#2f5f57; color:#2f5f57; }
+body.sun .fv-refuse{ border-color:#8a2f1a; color:#8a2f1a; }
+body.sun .fcaut b{ color:#8a2f1a!important; }
+body.sun .msub{ color:#3d362a; }
 </style>
 
 <header>
@@ -570,6 +713,15 @@ h2{ font:13px var(--fc); letter-spacing:1.6px; margin:0 0 6px; display:flex; gap
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
 
+<!-- TWO ROOMS, ONE TAB. The picks stay the door you land on: they are the thing
+     that is actually waiting on him. The study is one tap away and never in
+     front of the question. -->
+<div id="viewpick" role="tablist">
+  <button class="vbtn on" data-view="pick">PICK THE LOOK</button>
+  <button class="vbtn" data-view="study">WHAT FF10 TAUGHT US</button>
+</div>
+
+<div id="viewPick" class="view">
 <p class="lede">This is the alphabet, not the book. <b>Seven choices that everything
 else is built out of.</b> Press the samples with your thumb, they are real. Pick a
 letter and the whole page turns into your pick, so you are looking at the game, not
@@ -609,6 +761,9 @@ ${PREVIEW}
   <button class="reset" id="reset">CLEAR EVERYTHING</button>
   <div class="done" id="done"></div>
 </div>
+</div><!-- /viewPick -->
+
+${studyView()}
 
 <script>
 (function(){
@@ -662,6 +817,28 @@ ${PREVIEW}
     document.body.classList.toggle('sun');
   });
 
+  /* TWO ROOMS, ONE TAB. The picks are the door you land on, always: they are
+     the thing actually waiting on him. Which room he was last in is remembered,
+     because losing your place is the cheapest way to lose a reader. */
+  function showView(v){
+    document.getElementById('viewPick').classList.toggle('on', v !== 'study');
+    document.getElementById('viewStudy').classList.toggle('on', v === 'study');
+    document.querySelectorAll('.vbtn').forEach(function(b){
+      var on = (b.getAttribute('data-view') === v) || (v !== 'study' && b.getAttribute('data-view') === 'pick');
+      b.classList.toggle('on', on);
+      /* never colour alone: the room you are in is also ticked */
+      var base = b.getAttribute('data-label') || b.textContent.replace(/\s*\u2713$/, '');
+      b.setAttribute('data-label', base);
+      b.textContent = on ? (base + ' \u2713') : base;
+    });
+    st.view = v; save();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.vbtn').forEach(function(b){
+    b.addEventListener('click', function(){ showView(b.getAttribute('data-view')); });
+  });
+  showView(st.view === 'study' ? 'study' : 'pick');
+
   /* THE REFUSAL, live, so he can feel it and hate it if he hates it. */
   var db = document.getElementById('denybtn'), dw = document.getElementById('denyword');
   db.addEventListener('click', function(){
@@ -684,6 +861,8 @@ ${PREVIEW}
              (v && v !== NAMES[k].rec ? '   (claude wanted ' + NAMES[k].rec + ')' : ''));
       if (st.note[k]) L.push('    note: ' + st.note[k]);
     });
+    L.push('');
+    L.push('READ THE FF10 STUDY IN THIS TAB: ' + (st.view === 'study' ? 'yes' : 'not yet'));
     L.push('');
     L.push('ANYTHING ELSE:');
     L.push(st.all || '(nothing)');
@@ -720,3 +899,5 @@ console.log('  grime       : ' + grime.version + ' at his ruled ' + GRIME_AMT);
 console.log('  contrast    : line today ' + CT_LINE_TODAY + ':1, heavy ' + CT_LINE_HEAVY +
             ':1, ink ' + CT_INK + ':1, gold ' + CT_GOLD + ':1, dim ' + CT_DIM + ':1');
 console.log('  purple      : none, swept at build over every colour emitted');
+console.log('  uibook      : ' + BOOK_IDS.length + ' findings rendered from the index (' +
+            (BOOK._meta.rounds || []).map(r => r.game + ' ' + (r.counts||{}).findings).join(', ') + ')');

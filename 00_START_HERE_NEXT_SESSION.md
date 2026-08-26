@@ -1,3 +1,152 @@
+UI (ui-kmqmrf): 8/26 (b) LATEST -- *** THE UIBOOK. He asked for the METHOD for
+studying other games' UI, then named Final Fantasy X as round one. Both shipped:
+four real instruments, four masters, citable ids, and a gate whose centre is
+"A ROUND WHERE EVERYTHING IS WORTH STEALING IS NOT A STUDY." 18 findings, and
+FOUR OF THEM ARE THINGS FF10 DOES WELL THAT CANNOT COME HERE. ***
+
+TAB: UI, second view, "WHAT FF10 TAUGHT US". The picks are still the door he
+lands on -- the study never stands in front of the question waiting on him.
+
+WHAT HE ASKED FOR, AND WHY IT IS TWO THINGS
+  "big brain research on how to do big brain research on studying other games UI
+  for one round. And then the first basis of all of this is gonna be Final
+  Fantasy ten, my favorite UI of all time." METHOD first, SUBJECT second, in that
+  order. So this turn is an INSTRUMENT plus ROUND ONE THROUGH IT.
+
+WHY IT IS A MACHINE AND NOT AN ESSAY
+  THE QUEST SIDE ALREADY PAID FOR THIS. 3,672 findings across 152 studied quests
+  sat unopened for a month and quests shipped in the STYLE of the corpus instead
+  of OUT of it, because skipping it cost nothing and left no trace (QUEST STUDY
+  LAW 7/26). A UI study written as an essay fails the same way on the same
+  timetable. So: corpus with stable ids, an index that resolves them, a gate that
+  proves a claim is real. FFX.R01 is a citation, not a name-drop.
+
+THE METHOD (laws/BOHEMIA_ADDENDUM_THE_UI_STUDY_LAW_8_26_26.md)
+  FOUR INSTRUMENTS, none of them invented here:
+    Fagerholt & Lorentzon 2009, Beyond the HUD -- the canonical taxonomy, two
+      axes (FICTION: do the characters know it exists? GEOMETRY: is it in the 3D
+      world or painted on the screen?) giving DIEGETIC / NON-DIEGETIC / SPATIAL /
+      META. Their measured result: diegetic and spatial read as most immersive.
+    Celia Hodent, The Gamer's Brain -- seven usability pillars in studio language
+      (Signs and Feedback, Clarity, Form Follows Function, Consistency, Minimum
+      Workload, Error Prevention and Recovery, User Control and Flexibility).
+      This is the lane's working vocabulary: when a screen is bad, one of these
+      seven names why.
+    Pinelle, Wong & Stach 2008 (CHI) -- heuristics mined from reviews of 108
+      GAMES across 6 genres. Its value is its direction of travel: built from
+      COMPLAINTS, not theory. The lens for "what will he hate".
+    The teardown -- rebuild the screen as a wireframe, label every element, mark
+      what you could cut. The unit of study is A SCREEN WITH TAGS (Game UI
+      Database, 55,000+ hand-tagged screens).
+  FOUR MASTERS, mirroring the questbook: LOOK / READ / DO / WORLD.
+  AND THE CLAUSE THAT MAKES IT RESEARCH: every finding ends TAKE / ADAPT /
+  REFUSE, and the gate REQUIRES REFUSALS BY COUNT. FFX is a 4:3 TV game,
+  controller, party of seven, corridor, voice actors. We are a portrait phone,
+  one thumb, one character, an open valley, no voice budget. Much of what makes
+  it great is PAID FOR by conditions we do not have.
+
+ROUND ONE: 18 findings -- LOOK 5, READ 5, DO 4, WORLD 4 -- TAKE 9, ADAPT 5,
+REFUSE 4. Corpus in uibook/, index in records/BOHEMIA_UIBOOK_LAW_INDEX.json.
+  THE THREE THAT CHANGE WHAT WE BUILD:
+    FFX.R01 THE FUTURE IS ON SCREEN. The CTB window is a stack of portraits
+      showing WHO ACTS NEXT several turns ahead -- not a bar you interpret, a
+      LIST YOU READ. It converts a hidden simulation (agility, action rank, tick
+      counters) into an ANSWER, so the player plans four moves out and never does
+      arithmetic. We are I-MOVE-YOU-MOVE at 120 BPM and that clock is a FELT
+      thing with no picture. Routed UI-6.
+    FFX.D04 THE BIG VERB IS EARNED BY A VERB YOU CHOOSE. Overdrive Modes let the
+      player pick WHICH event charges the gauge. Our own 8/26 law says "a real
+      kit of abilities recharged by VERBS, not timers" -- HIS FAVOURITE GAME
+      SHIPPED THAT IN 2001 AND WE DID NOT NOTICE IT WAS ALREADY SOLVED.
+    FFX.W01 THE SAVE POINT IS A THING YOU WALK TO. One object doing four jobs at
+      zero screen cost. Wires into DANGER BY PLACE and LIGHT = TERRITORY: a place
+      you can save is a place somebody is keeping the lights on, so the safe map
+      and the light map become the same map.
+  THE FOUR REFUSALS, BECAUSE THEY ARE THE POINT:
+    FFX.W03 no HUD -- FFX can afford an empty screen BECAUSE IT IS A CORRIDOR.
+      We are 27+ districts and he already reported being "launched into a random
+      part of the city". A clean empty screen is not a style you choose, it is
+      SOMETHING A CORRIDOR PAYS FOR. Anyone quoting "FFX has no HUD" at this
+      project without quoting that paragraph is quoting half a finding.
+    FFX.D01 no clock -- the finding UNDER the famous one. The turn preview only
+      works because the world PAUSES. Square did not add a preview to ATB, THEY
+      REMOVED THE TIMER FIRST. We want the readable list with something closer to
+      ATB's clock. Routed UI-7 to COMBAT and RUN with this lane's reading (the
+      beat is the metronome, not the shot clock) offered, not decided.
+    FFX.W04 thin text box -- because the ACTORS carry the scene. We have no voice
+      acting, so ours must be the OPPOSITE: bigger, face in it. THE RUN ALREADY
+      DOES THAT AND THIS STUDY SAYS IT IS RIGHT.
+    FFX.L04 big flying damage numbers -- banked, not built. NO DAMAGE BEFORE THE
+      DIAL is ours.
+  AND ONE PLACE HIS OWN LAW AND HIS FAVOURITE GAME DISAGREE: FFX.W02, the Al Bhed
+    Primers. Comprehension as progression, and nothing else in the medium does
+    it -- but THEY SPEAK SPANGLISH says LANGUAGE NEVER GATES REQUIRED
+    INFORMATION, and FFX's version gates information behind language. ADAPT with
+    a hard limit: graffiti and radio yes, a quest step or a name never.
+  AND TWO THAT ANSWER QUESTIONS ALREADY ON HIS SCREEN: FFX.L03 (the interface
+    lives in a hue the world does not use -- that is fork 3, answered from inside
+    his own favourite game) and FFX.L02 (the HD Remaster changed the TYPEFACE and
+    almost nothing else and fans still say it damaged the game -- that is fork 4).
+
+THE GATE, AND WHAT IT CAUGHT IN ITS OWN AUTHOR
+  gates/ui_study_gate.js, 40 checks, registered UI STUDY. Beyond the refusal
+  count it holds: every id resolves and ITS LETTER AGREES WITH ITS MASTER; every
+  refusal explains itself at length (a short one is a shrug with a label on it);
+  every finding LANDS on this game rather than floating; and THE PAGE RENDERS THE
+  INDEX ID FOR ID rather than retelling it, so the study and the corpus can never
+  become two live copies of one truth.
+  THREE THINGS IT CAUGHT IN ME:
+    1. The corpus header MIS-DECLARED ITS OWN COUNTS. It said TAKE 8 / ADAPT 6;
+       the corpus held 9 and 5. I miscounted my own study and the machine said so.
+    2. ONE FINDING WAS FLOATING. FFX.D03 described a shape and never landed it on
+       anything in this game. Rewritten onto the experience tree and the 60 mini
+       bosses. (Two others flagged in the same run were the RULER's fault and it
+       was widened -- then TIGHTENED BACK, because the first widening reached for
+       "he/his/we/our" and would have matched every sentence in the corpus. A
+       checker that matches everything is the same bug as one that matches
+       nothing, in a bigger coat.)
+    3. THE SCOREBOARD WAS BUILT OUT OF THE WRONG PRIMITIVE -- the vocabulary box,
+       whose colours sun mode deliberately never touches because those boxes are
+       showing a DARK GAME. In sun mode it was dark text on a dark plate at
+       1.57 to 1. The scoreboard is the page talking, not the game.
+  AND THE STUDY SWEEPS ITS OWN SUN MODE, because ui_vocab_gate is STRUCTURALLY
+  BLIND here: a hidden view has no rendered size, so every element in it is
+  skipped and the gate goes green BECAUSE ITS SUBJECT WAS INVISIBLE.
+
+  AND ONE MORE GATE I DID NOT WRITE CAUGHT ME: pages_publish_gate went red on the
+  new uibook/ folder -- "every folder _config.yml KEEPS is copied by the workflow".
+  That check exists because on 8/20 a half-published records/ meant 41 MB was
+  declared published by one list and copied by neither, so it worked on disk and
+  404'd in production. A NEW SOURCE FOLDER FALLS INTO THAT HOLE BY DEFAULT.
+  uibook/ is excluded by name with its reason now, exactly like questbook/: the UI
+  tab never reads those files, it renders the index.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Still his seven letters on the picks page. Round two is another game whenever
+  he names one; that is his call and it does not block anything.
+
+WHAT I WOULD DO NEXT
+  1. Whatever he picks: turn the picks into the real tokens the run uses.
+  2. UI-6, the beat list, with COMBAT and RUN owning what is in it.
+  3. The demo's front door, splash and ending (SHARED -14) are UI surface.
+
+PROOF
+  records/BOHEMIA_THE_UI_STUDY_METHOD_AND_ROUND_ONE_FFX_8_26_26.md
+  gates/ui_study_gate.js       40 passed, 0 FAILED
+  gates/ui_vocab_gate.js       57 passed, 0 FAILED  (still green on the grown page)
+  MUTATED, six, all restored:
+    every REFUSE flipped to TAKE    -> RED, "0 findings ... CANNOT come here"
+    a refusal cut to "We just cannot" -> RED, 3 legs
+    one finding hidden from the page  -> RED, "17 vs 18" + the refusal count
+    an id renamed against its master  -> RED at the indexer AND at the gate
+    one instrument stripped from law  -> RED, naming what went missing
+    sun mode left the small type faint-> RED, 36 words under 4.5 to 1
+
+------------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/26 (a) LATEST -- *** THE STREETS CONNECT NOW. One road join in
 three in the whole valley did not line up; the mile grid he walks is at ZERO. TAB: RUN to
 walk it. Nothing to judge. ***

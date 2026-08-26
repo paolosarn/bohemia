@@ -1052,6 +1052,18 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('ONE ENGINE', ['node', 'gates/one_engine_gate.js'],
+     'ONE ENGINE LAW (Paolo 7/3/26, crunch hunt): "the studio and combat never play at once; two unsynced drum '
+     'machines FLAM INTO MUSH." IT WAS WRITTEN DOWN, IT WAS WIRED, AND NOTHING EVER CHECKED IT -- so when the shell '
+     'grew tabs the condition silently aimed at the wrong one. Paolo 8/26, playing: "when I am playing the combat, '
+     'bro, IT IS LIKE TWO SONGS AT THE SAME TIME" and "I cannot even begin judging it because it sounds like shit". '
+     'He was right twice: measured 22.9 sound starts a second in a fight and 19.9 A SECOND AFTER LEAVING COMBAT, '
+     'because the shell posted mute:FALSE on every tab that was not the STUDIO -- leaving a fight did not leak music, '
+     'it ORDERED it. The second song was the CITY SHUFFLE, whose stop was guarded on MUS.playing. This gate COUNTS '
+     'SOUND PER FRAME PER SECOND rather than reading code, because a string check passed happily on the broken '
+     'version for weeks. Holds: combat music dies when you leave the tab, the fight keeps its own music coming and '
+     'going, and nothing else plays underneath it. It deliberately does NOT require a silent RUN tab -- RUN is '
+     'allowed its own music, and the first write of that claim went red on correct behaviour.', False),
     ('FIGHT MOVES YOU', ['node', 'gates/fight_moves_you_gate.js'],
      'THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, demo-critical): "there\'s no movement whatsoever and I hate it". '
      'His law names its own test and asked for this gate by name -- play a fight from ONE SPOT and require it to FAIL. '
@@ -2602,6 +2614,28 @@ GATES = [
      'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
      'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
      'does, because a tab that throws on open passes every source check ever written', False),
+    ('UI STUDY',       ['node', 'gates/ui_study_gate.js'],
+     'Paolo 8/26: "I need you to do big brain research on how to do big brain research on '
+     'studying other games UI for one round ... the first basis of all of this is gonna be '
+     'Final Fantasy ten, my favorite UI of all time." He asked for the METHOD first and the '
+     'SUBJECT second, so this holds both: THE UI STUDY LAW (four real instruments -- '
+     'Fagerholt & Lorentzon\'s diegetic/non-diegetic/spatial/meta taxonomy on its FICTION '
+     'and GEOMETRY axes, Hodent\'s seven usability pillars, Pinelle/Wong/Stach\'s heuristics '
+     'mined from reviews of 108 games, and the practitioner\'s teardown) and ROUND ONE, '
+     'Final Fantasy X, 18 findings under four masters (LOOK/READ/DO/WORLD) with stable '
+     'citable ids. THE CENTRE OF THIS GATE IS THE ONE THING THAT SEPARATES RESEARCH FROM '
+     'ADMIRATION: *** A ROUND WHERE EVERYTHING IS WORTH STEALING IS NOT A STUDY. *** FFX is '
+     'a 4:3 television game, controller, party of seven, corridor, voice actors; we are a '
+     'portrait phone, one thumb, one character, an open valley, no voice budget. Much of '
+     'what makes it great is PAID FOR by conditions we do not have, so the gate REQUIRES '
+     'refusals by count and fails an all-TAKE round -- proved by flipping every REFUSE to '
+     'TAKE and watching it go red. It also holds: every id resolves and its letter agrees '
+     'with its master, every refusal explains itself at length, every finding LANDS on this '
+     'game rather than floating (it caught one that did not, and the finding was rewritten), '
+     'and THE PAGE RENDERS THE INDEX id-for-id rather than retelling it, so the study and '
+     'the corpus can never drift into two live copies of one truth. In the UI tab as its own '
+     'view, with the picks still the door he lands on, and its own sun-mode sweep because '
+     'ui_vocab_gate is structurally blind to a hidden view', True),
     ('UI VOCAB',       ['node', 'gates/ui_vocab_gate.js'],
      'Paolo 8/25: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME ... CRAFT THIS BOHEMIA LOOK '
      'BY MYSELF WITH YOU." The UI lane\'s first page: seven forks (corner, line, colour, '
