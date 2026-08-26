@@ -179,7 +179,20 @@ research partner. He DECIDES, you PRODUCE.
   And the month of research he dreaded is mostly already banked: 244 questbook
   files, 152 studied quests, four masters, 3,672 findings, 1,910 authored lines.
   The HOLE is that all of it is about WHAT HAPPENS and none of it is about how a
-  sentence SOUNDS. Brief: laws/BOHEMIA_SESSION_BRIEF_WORDS_8_26_26.md ***
+  sentence SOUNDS. Brief: laws/BOHEMIA_SESSION_BRIEF_WORDS_8_26_26.md
+  *** AND THE DIAGNOSIS CAME BACK THE SAME DAY. Measured over our own 2,442
+  lines, not asserted: the 27 quest scenes contract 2.2% of the time and the
+  street barks contract 75%, so the story sounds like scripture and the street
+  sounds like people. A THIRD of every multi-sentence speech ends on a general
+  truth sitting where a punchline goes -- everybody in this game is wise, and
+  wisdom is the house voice. In 504 NPC speeches there are TWO question marks,
+  zero raised voices, zero stumbles: our people do not have conversations, they
+  deliver statements and wait for the player to pick a reply off a menu.
+  IF YOU ARE WRITING A LINE IN THIS GAME, READ THE CARD FIRST:
+  laws/BOHEMIA_VOICE_CARD_8_26_26.md -- six rules, one page. NOBODY IN BOHEMIA
+  IS WISE. Diagnosis: records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md
+  Gate: voice_gate.js -- rhythm, repeated openers, banned phrases, and it says
+  out loud that it CANNOT tell you whether a line is good. ***
 - THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED): "make them speak spanglish for our
   game i like that. have it very poor english ro spanglish to give it that
   flavor." Las Vegas is 418,400+ Spanish speakers and our valley had ZERO. It is

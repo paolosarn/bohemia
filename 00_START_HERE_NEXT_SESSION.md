@@ -1,3 +1,83 @@
+WORDS (words-8dqrnq): 8/26 (a) LATEST -- *** THE LANE OPENED AND THE FIRST THING IT DID WAS
+COUNT. Our quest scenes contract 2.2% of the time. Our street barks contract 75%. TAB: WORDS,
+open THE VOICE PASS at the top to see one scene written both ways. Nothing to judge. ***
+
+Paolo opened this lane by name: "it's time we have a new chat, like... write and sound like a
+human for Bohemia." The brief said the first job is a DIAGNOSIS, not a style guide -- "which
+tells we actually have, with counts and quoted examples from our own text. MEASURED, NOT
+ASSERTED." Measured over all 2,442 authored lines. Seven tells. Every quote is ours.
+
+  1 CONTRACTIONS      quests 2.2%  (20 against 880 phrases spelled out in full)
+                      everything else 75.0%.  Six scenes sit at a flat 0.0%.
+  2 MAXIM ENDINGS     140 of 418 multi-sentence speeches (33.5%) end on a general truth
+  3 CONVERSATION      504 NPC speeches hold TWO question marks, ZERO raised voices,
+                      ZERO stumbles, three trailing-offs
+  4 OPENERS           "That is"/"This is" opens 80 sentences; "I will" opens 25 lines
+  5 RECYCLED          "that is the whole" x8 and "I am not going to" x7, no shared character
+  6 RHYTHM            THE METER READER, the FIRST quest in the game, is the flattest scene
+                      in the build: spread 3.36 against a corpus median of 6.82
+  7 REGISTER          532 Spanglish lines, ZERO of them inside a quest scene
+
+TELL 1 IS THE ONE THAT MATTERS AND IT IS NOT A STYLE PROBLEM. It is two different games in
+one build. The barks already sound like people -- short, rude, specific, contracted. The
+quests sound like scripture. A player walking off the street into a conversation hears the
+seam, and nobody had ever counted it because nothing in 3,672 questbook findings is about
+how a SENTENCE SOUNDS. That hole is the whole reason he opened the lane.
+
+TELL 7 IS A DISTRIBUTION FINDING, NOT A REQUEST FOR MORE. ENOUGH IS ENOUGH (8/26) capped the
+register at 532 lines and THIS TURN ADDED ZERO. The Spanish feature is finished; the note is
+only that all of it is decoration you walk past. Redistributing it into a scene needs a
+ruling from him newer than 8/26 and nobody should spend a turn on it before that.
+
+THE CARD: laws/BOHEMIA_VOICE_CARD_8_26_26.md. Six rules, one page, gated at 110 lines because
+a card that grows into a manual is a card nobody holds in their head. The frame over all six
+is one sentence: NOBODY IN BOHEMIA IS WISE.
+  1 THEY TALK LIKE THEY ARE IN A HURRY        4 NINE WORDS, THEN TWO
+  2 CUT THE LAST SENTENCE                     5 NAME THE ONE THING ONLY THIS PERSON WOULD NAME
+  3 SOMEBODY HAS TO ASK, SOMEBODY HAS TO FUMBLE   6 THE LINE IS NOT THE POINT
+
+ONE SCENE, BOTH WAYS. THE METER READER took the pass because it was worst on both numbers.
+33 of 45 lines rewritten. Contractions 7.1% -> 95.0%. Rhythm ratio 0.57 -> 0.74. Questions to
+the player 0 -> 2. Cites Q142.W6 SILENCE EXTRACTS, Q152.W5 THE DESPAIR SCENE CHANGES REGISTER,
+ONCE, Q100.N2 NODE LYNETTE_MINEFIELD, Q004.N1 NODE SPIRIT_OFFER, each with what it did.
+
+*** THE LANE BOUNDARY IS MACHINE-CHECKED, NOT PROMISED. *** QUESTS owns WHAT HAPPENS, WORDS
+owns HOW IT SOUNDS, and they share a file. So the gate strips every player-facing line out of
+the quest on both sides of the pass and asserts what is LEFT is byte-identical: stages,
+branches, gates, effects, roles, objectives. Moving one @OPT target takes it red, and that
+mutation was run and restored.
+
+GATE: gates/voice_gate.js, routed, 44 checks. It measures the THREE tells a machine can
+honestly see and it says out loud, in the file and in its own output, that IT CANNOT TELL YOU
+IF A LINE IS GOOD.
+  - RHYTHM AS A RATIO, NEVER A RAW SPREAD. A terse scene cannot post a big absolute deviation
+    however hard it varies, so gating the raw number punishes the exact writing the card asks
+    for. The first cut used raw sd and read the rewrite as barely improved (3.36 -> 4.12)
+    while the ratio showed what a reader hears (0.57 -> 0.74). FIX THE RULER, NEVER THE TARGET.
+  - REPEATED OPENERS inside ONE scene. A common word across 2,442 lines is just English.
+  - BANNED PHRASES clean in the passed scene, ratcheting ceiling of 44 for the 26 scenes that
+    have NOT had a pass, printed in the output rather than hidden.
+  - Mutation-tested four ways in the file plus three live ones on the real repo.
+  - AND IT GUARDS THE DIAGNOSIS ITSELF. The report re-measures on every run, so
+    without a pinned baseline it would quietly republish TODAY'S numbers under the
+    words AS FOUND and the reason the lane exists would evaporate one pass at a
+    time. The baseline is MEASURED off the words book as it stood in the pre-pass
+    commit, read out of git rather than typed, and the gate fails if it was not
+    reachable. A clone that cannot read it says so in a banner at the top of the
+    report instead of degrading quietly.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+  1. THE OTHER 26 SCENES. The card and the gate exist; the passes do not. One scene per turn,
+     worst-first by rhythm ratio: THE STANDING BOUNTY, THE SAME CRATE TWICE, ONE MORE SET.
+     Every pass is WORDS ONLY and proves it the same way this one did.
+  2. THE 44 BANNED PHRASES still standing. They are named in the gate output every run and
+     the ceiling only ever goes down.
+  3. THE BARKS ARE THE MODEL, NOT THE PROBLEM. Do not "fix" them toward the quest voice.
+     They are the 75% and they are what the quests are being pulled toward.
+
+WHAT IS PENDING HIM: nothing from this lane. No line is ever put to him for approval (8/11)
+and every word in the WORDS tab is editable in place, both columns, export as .txt.
+
 FACTIONS (factions-ovkjpf): 8/26 (ad) LATEST -- *** YOUR OUTFIT EARNS ITS OWN
 ENEMIES NOW, AND THERE IS A BOARD TO SEE THEM ON. Nothing to judge. ***
 

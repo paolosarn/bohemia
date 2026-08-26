@@ -1,0 +1,535 @@
+{
+ "_meta": {
+  "what": "One scene written both ways. The BEFORE side is read out of git, never retyped, so the comparison cannot drift.",
+  "why": "The WORDS lane brief (Paolo 8/26): \"one scene rewritten both ways, side by side, so the difference is visible instead of described.\"",
+  "generator": "tools/bohemia_voice_rewrite.py",
+  "quest": "quests/bq/S01_THE_METER_READER.bq",
+  "before_ref": "41f2d679b07e4ba6b64e844d58de4171cd601dd0",
+  "lines": 45,
+  "changed": 33,
+  "card": "laws/BOHEMIA_VOICE_CARD_8_26_26.md",
+  "diagnosis": "records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md",
+  "draft": true,
+  "note": "Both columns are drafts. Nothing here is put to him for approval; every line is editable in the WORDS tab and the words are his."
+ },
+ "rules": {
+  "1": "THEY TALK LIKE THEY ARE IN A HURRY",
+  "2": "CUT THE LAST SENTENCE",
+  "3": "SOMEBODY HAS TO ASK, SOMEBODY HAS TO FUMBLE",
+  "4": "NINE WORDS, THEN TWO",
+  "5": "NAME THE ONE THING ONLY THIS PERSON WOULD NAME",
+  "6": "THE LINE IS NOT THE POINT"
+ },
+ "pairs": [
+  {
+   "kind": "log",
+   "node": "stage 10",
+   "speaker": "JOURNAL",
+   "before": "The block loses half its light at the same hour every night.",
+   "after": "Nine at night, every night, half this block goes brown.",
+   "changed": true,
+   "rules": [
+    1,
+    5
+   ]
+  },
+  {
+   "kind": "log",
+   "node": "stage 20",
+   "speaker": "JOURNAL",
+   "before": "The line tests clean. A clean line that browns out is a shared one. Found the split.",
+   "after": "Line tests clean. Clean and browning out means somebody's on our feed. Found the split.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "log",
+   "node": "stage 30",
+   "speaker": "JOURNAL",
+   "before": "Put the current back myself. The block has light tonight. Nobody was told.",
+   "after": "Put the current back myself. Block has light tonight. Nobody knows it was me.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "log",
+   "node": "stage 31",
+   "speaker": "JOURNAL",
+   "before": "Handed the tap to the trades. They patched it in daylight, names on the work order.",
+   "after": "Handed the tap to the trades. Daylight patch, every name on the work order.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "log",
+   "node": "stage 32",
+   "speaker": "JOURNAL",
+   "before": "Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up.",
+   "after": "Cut the skim line in front of the whole block. Sparks, a crowd, and somebody upstream has my face now.",
+   "changed": true,
+   "rules": [
+    1,
+    5
+   ]
+  },
+  {
+   "kind": "log",
+   "node": "stage 33",
+   "speaker": "JOURNAL",
+   "before": "Left it alone. The block goes dark again tonight, same hour.",
+   "after": "Left it alone. Block goes dark again tonight, same hour.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "open",
+   "speaker": "lineman",
+   "before": "Every night, same hour, this block loses half its light.",
+   "after": "Nine at night. Every night, nine, and half this block goes brown.",
+   "changed": true,
+   "rules": [
+    1,
+    4,
+    5
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "open",
+   "speaker": "lineman",
+   "before": "The line tests clean. A clean line that browns out is not a broken line. It is a shared one.",
+   "after": "I tested it myself. Line's clean. Clean and browning out means somebody upstream is on my feed drinking before we do.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    4
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "open",
+   "speaker": "lineman",
+   "before": "Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet.",
+   "after": "So walk it back for me. Past the dead storefronts, follow whatever cable's running warm. You any good at quiet?",
+   "changed": true,
+   "rules": [
+    1,
+    3,
+    5
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "open",
+   "speaker": "PLAYER",
+   "before": "I will walk it back.",
+   "after": "I'll walk it.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "open",
+   "speaker": "PLAYER",
+   "before": "Why not walk it yourself?",
+   "after": "Why not you?",
+   "changed": true,
+   "rules": [
+    1,
+    4
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "open",
+   "speaker": "PLAYER",
+   "before": "Not my block.",
+   "after": "Not my block.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "open",
+   "speaker": "PLAYER",
+   "before": "(say nothing, just go)",
+   "after": "(say nothing, just go)",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "say",
+   "node": "why",
+   "speaker": "lineman",
+   "before": "Because I have a name and a face and a family on this block.",
+   "after": "Because everybody on this block knows my face. I've got a kid.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    6
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "why",
+   "speaker": "lineman",
+   "before": "Whoever is drinking that current does not like to be looked at. You are new here. You are cheaper to lose.",
+   "after": "Whoever's drinking that current doesn't like being looked at. You're new. Nobody comes asking if you don't come back.",
+   "changed": true,
+   "rules": [
+    1,
+    2
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "why",
+   "speaker": "PLAYER",
+   "before": "Comforting.",
+   "after": "Comforting.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "why",
+   "speaker": "PLAYER",
+   "before": "Who does not like to be looked at?",
+   "after": "Who doesn't like being looked at?",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "why2",
+   "speaker": "lineman",
+   "before": "If I knew that, I would not need you. Nobody who drinks that quiet keeps a name that stays put.",
+   "after": "If I knew, I wouldn't need you. I asked my foreman about it once. He just looked at his hands till I stopped talking.",
+   "changed": true,
+   "rules": [
+    1,
+    5,
+    6
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "why2",
+   "speaker": "lineman",
+   "before": "Follow the split. Do not make a show of it.",
+   "after": "Follow the split. Don't make a show of it. Please.",
+   "changed": true,
+   "rules": [
+    1,
+    4,
+    6
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "refuse",
+   "speaker": "lineman",
+   "before": "Fair. It is nobody's job out here, which is why it is always nobody's job.",
+   "after": "Yeah. Fair. I'll go ask somebody else's kid to do it.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    4
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "refuse",
+   "speaker": "PLAYER",
+   "before": "Maybe another night.",
+   "after": "Maybe another night.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "refuse",
+   "speaker": "PLAYER",
+   "before": "Fine. I will look.",
+   "after": "Fine. I'll look.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "walk",
+   "speaker": "lineman",
+   "before": "Good. It splits somewhere past the dead storefronts. Follow the cable that runs warm.",
+   "after": "Good. Splits somewhere past the dead storefronts. Warm cable. You'll feel it before you see it.",
+   "changed": true,
+   "rules": [
+    1,
+    4,
+    5
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "split",
+   "speaker": "fixer",
+   "before": "Easy. You found the tap. Most people never look at a warm cable twice.",
+   "after": "Easy. Easy, easy. Don't touch that, it's live.",
+   "changed": true,
+   "rules": [
+    1,
+    3,
+    4
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "split",
+   "speaker": "fixer",
+   "before": "I move a little current where it is needed. The grid has no owner. I am just faster than the meter.",
+   "after": "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it.",
+   "changed": true,
+   "rules": [
+    1,
+    4,
+    6
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "split",
+   "speaker": "fixer",
+   "before": "Put it back and go home a quiet hero. Or make this loud. Loud is where it gets expensive for both of us.",
+   "after": "So. Put it back and go home and nobody hears a thing about it, or make it loud. Which are you?",
+   "changed": true,
+   "rules": [
+    1,
+    3,
+    4
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "split",
+   "speaker": "PLAYER",
+   "before": "Put it back. Nobody hears it.",
+   "after": "Put it back. Nobody hears it.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "split",
+   "speaker": "PLAYER",
+   "before": "The trades should see this.",
+   "after": "The trades should see this.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "split",
+   "speaker": "PLAYER",
+   "before": "Whose current is it, really?",
+   "after": "Whose current is it?",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "split",
+   "speaker": "PLAYER",
+   "before": "(cut the tap, right now)",
+   "after": "(cut the tap, right now)",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "say",
+   "node": "whose",
+   "speaker": "fixer",
+   "before": "See, that is the question that costs. I do not know whose.",
+   "after": "Huh. That's the one question, isn't it. I don't know whose. Never have.",
+   "changed": true,
+   "rules": [
+    1,
+    3,
+    4
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "whose",
+   "speaker": "fixer",
+   "before": "I know it goes down, not up. Toward the water. I do not follow it down and neither should you.",
+   "after": "It runs down. Not up. Down, toward the water. That's where I quit asking and you should quit there too.",
+   "changed": true,
+   "rules": [
+    1,
+    4
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "whose",
+   "speaker": "fixer",
+   "before": "I gave you nothing. Put it back, or do not. Your block, your name.",
+   "after": "I told you nothing. Understand me. Put it back or don't, it's your block and it's your face they'll remember.",
+   "changed": true,
+   "rules": [
+    1,
+    6
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "whose",
+   "speaker": "PLAYER",
+   "before": "Put it back. Quietly.",
+   "after": "Put it back. Quietly.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "whose",
+   "speaker": "PLAYER",
+   "before": "Cut it. Let them all see.",
+   "after": "Cut it. Let them see.",
+   "changed": true,
+   "rules": [
+    1
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "put",
+   "speaker": "lineman",
+   "before": "Light is back. I did not ask how.",
+   "after": "Light's back. I'm not going to ask how.",
+   "changed": true,
+   "rules": [
+    1,
+    2
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "put",
+   "speaker": "lineman",
+   "before": "You did not make a show of it. That is worth more out here than you will understand for a few years.",
+   "after": "You didn't make a show of it. I noticed. Not going to say anything else about it.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    6
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "put",
+   "speaker": "PLAYER",
+   "before": "Just fixed a line.",
+   "after": "Just fixed a line.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "say",
+   "node": "report",
+   "speaker": "lineman",
+   "before": "You brought it to us instead of eating it yourself. Good. We patch it in the open.",
+   "after": "You brought it to us. Could've kept it to yourself and you didn't.",
+   "changed": true,
+   "rules": [
+    1,
+    2
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "report",
+   "speaker": "lineman",
+   "before": "They will know a crew looked, and looked together. That is its own kind of loud, but it is ours.",
+   "after": "We patch it in daylight. Names on the work order, mine first, then the crew, then yours if you want it up there.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    5
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "report",
+   "speaker": "PLAYER",
+   "before": "Do it in daylight.",
+   "after": "Do it in daylight.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "say",
+   "node": "cut",
+   "speaker": "lineman",
+   "before": "You cut it in front of everyone. Half the block cheered and the other half went very quiet.",
+   "after": "You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was.",
+   "changed": true,
+   "rules": [
+    1,
+    5
+   ]
+  },
+  {
+   "kind": "say",
+   "node": "cut",
+   "speaker": "lineman",
+   "before": "They felt that upstream. Whoever drinks that current now knows your face. I hope the light was worth it.",
+   "after": "They felt that upstream. Somebody up there has your face now. I don't know what else to tell you.",
+   "changed": true,
+   "rules": [
+    1,
+    2,
+    6
+   ]
+  },
+  {
+   "kind": "opt",
+   "node": "cut",
+   "speaker": "PLAYER",
+   "before": "Let them know my face.",
+   "after": "Let them know my face.",
+   "changed": false,
+   "rules": []
+  },
+  {
+   "kind": "opt",
+   "node": "cut",
+   "speaker": "PLAYER",
+   "before": "(say nothing)",
+   "after": "(say nothing)",
+   "changed": false,
+   "rules": []
+  }
+ ]
+}

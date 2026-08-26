@@ -6,7 +6,7 @@
   "sources": 36,
   "lines": 2442,
   "cited": 2396,
-  "fingerprint": "80e01e2cb5296bb2",
+  "fingerprint": "2c38fe5da59b93ad",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -34,6 +34,26 @@
      "id": "Q003.P1",
      "title": "W1 (dirty errand",
      "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+    },
+    {
+     "id": "Q142.W6",
+     "title": "SILENCE EXTRACTS",
+     "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+    },
+    {
+     "id": "Q152.W5",
+     "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+     "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+    },
+    {
+     "id": "Q100.N2",
+     "title": "NODE LYNETTE_MINEFIELD",
+     "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+    },
+    {
+     "id": "Q004.N1",
+     "title": "NODE SPIRIT_OFFER",
+     "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
     }
    ],
    "lines": [
@@ -41,151 +61,7 @@
      "kind": "journal",
      "speaker": "JOURNAL",
      "node": "stage 10",
-     "text": "The block loses half its light at the same hour every night.",
-     "line": 40,
-     "id": "quests/bq/S01_THE_METER_READER.bq#40",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "journal",
-     "speaker": "JOURNAL",
-     "node": "stage 20",
-     "text": "The line tests clean. A clean line that browns out is a shared one. Found the split.",
-     "line": 43,
-     "id": "quests/bq/S01_THE_METER_READER.bq#43",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "journal",
-     "speaker": "JOURNAL",
-     "node": "stage 30",
-     "text": "Put the current back myself. The block has light tonight. Nobody was told.",
-     "line": 47,
-     "id": "quests/bq/S01_THE_METER_READER.bq#47",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "journal",
-     "speaker": "JOURNAL",
-     "node": "stage 31",
-     "text": "Handed the tap to the trades. They patched it in daylight, names on the work order.",
-     "line": 51,
-     "id": "quests/bq/S01_THE_METER_READER.bq#51",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "journal",
-     "speaker": "JOURNAL",
-     "node": "stage 32",
-     "text": "Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up.",
+     "text": "Nine at night, every night, half this block goes brown.",
      "line": 55,
      "id": "quests/bq/S01_THE_METER_READER.bq#55",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -209,6 +85,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -220,10 +116,10 @@
     {
      "kind": "journal",
      "speaker": "JOURNAL",
-     "node": "stage 33",
-     "text": "Left it alone. The block goes dark again tonight, same hour.",
-     "line": 59,
-     "id": "quests/bq/S01_THE_METER_READER.bq#59",
+     "node": "stage 20",
+     "text": "Line tests clean. Clean and browning out means somebody's on our feed. Found the split.",
+     "line": 58,
+     "id": "quests/bq/S01_THE_METER_READER.bq#58",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -245,6 +141,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -254,46 +170,10 @@
      "lang": "en"
     },
     {
-     "kind": "objective",
-     "speaker": "OBJECTIVE",
-     "node": "obj 10",
-     "text": "Find why the block browns out",
-     "line": 61,
-     "id": "quests/bq/S01_THE_METER_READER.bq#61",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "objective",
-     "speaker": "OBJECTIVE",
-     "node": "obj 20",
-     "text": "Follow the skimmed line",
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 30",
+     "text": "Put the current back myself. Block has light tonight. Nobody knows it was me.",
      "line": 62,
      "id": "quests/bq/S01_THE_METER_READER.bq#62",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -317,6 +197,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -326,13 +226,12 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "open",
-     "text": "Every night, same hour, this block loses half its light.",
-     "mood": "tired",
-     "line": 68,
-     "id": "quests/bq/S01_THE_METER_READER.bq#68",
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 31",
+     "text": "Handed the tap to the trades. Daylight patch, every name on the work order.",
+     "line": 66,
+     "id": "quests/bq/S01_THE_METER_READER.bq#66",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -354,6 +253,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -363,48 +282,10 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "open",
-     "text": "The line tests clean. A clean line that browns out is not a broken line. It is a shared one.",
-     "mood": null,
-     "line": 69,
-     "id": "quests/bq/S01_THE_METER_READER.bq#69",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "open",
-     "text": "Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet.",
-     "mood": null,
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 32",
+     "text": "Cut the skim line in front of the whole block. Sparks, a crowd, and somebody upstream has my face now.",
      "line": 70,
      "id": "quests/bq/S01_THE_METER_READER.bq#70",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -428,6 +309,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -437,118 +338,10 @@
      "lang": "en"
     },
     {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "open",
-     "text": "I will walk it back.",
-     "line": 71,
-     "id": "quests/bq/S01_THE_METER_READER.bq#71",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "open",
-     "text": "Why not walk it yourself?",
-     "line": 72,
-     "id": "quests/bq/S01_THE_METER_READER.bq#72",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "open",
-     "text": "Not my block.",
-     "line": 73,
-     "id": "quests/bq/S01_THE_METER_READER.bq#73",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "open",
-     "text": "(say nothing, just go)",
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 33",
+     "text": "Left it alone. Block goes dark again tonight, same hour.",
      "line": 74,
      "id": "quests/bq/S01_THE_METER_READER.bq#74",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -572,6 +365,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -581,13 +394,12 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "why",
-     "text": "Because I have a name and a face and a family on this block.",
-     "mood": "dread",
-     "line": 79,
-     "id": "quests/bq/S01_THE_METER_READER.bq#79",
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 10",
+     "text": "Find why the block browns out",
+     "line": 76,
+     "id": "quests/bq/S01_THE_METER_READER.bq#76",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -609,6 +421,82 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 20",
+     "text": "Follow the skimmed line",
+     "line": 77,
+     "id": "quests/bq/S01_THE_METER_READER.bq#77",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -620,11 +508,68 @@
     {
      "kind": "say",
      "speaker": "lineman",
-     "node": "why",
-     "text": "Whoever is drinking that current does not like to be looked at. You are new here. You are cheaper to lose.",
+     "node": "open",
+     "text": "Nine at night. Every night, nine, and half this block goes brown.",
+     "mood": "tired",
+     "line": 83,
+     "id": "quests/bq/S01_THE_METER_READER.bq#83",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "open",
+     "text": "I tested it myself. Line's clean. Clean and browning out means somebody upstream is on my feed drinking before we do.",
      "mood": null,
-     "line": 80,
-     "id": "quests/bq/S01_THE_METER_READER.bq#80",
+     "line": 84,
+     "id": "quests/bq/S01_THE_METER_READER.bq#84",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -646,6 +591,83 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "open",
+     "text": "So walk it back for me. Past the dead storefronts, follow whatever cable's running warm. You any good at quiet?",
+     "mood": null,
+     "line": 85,
+     "id": "quests/bq/S01_THE_METER_READER.bq#85",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -657,81 +679,8 @@
     {
      "kind": "choice",
      "speaker": "PLAYER",
-     "node": "why",
-     "text": "Comforting.",
-     "line": 81,
-     "id": "quests/bq/S01_THE_METER_READER.bq#81",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "why",
-     "text": "Who does not like to be looked at?",
-     "line": 82,
-     "id": "quests/bq/S01_THE_METER_READER.bq#82",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "why2",
-     "text": "If I knew that, I would not need you. Nobody who drinks that quiet keeps a name that stays put.",
-     "mood": null,
+     "node": "open",
+     "text": "I'll walk it.",
      "line": 86,
      "id": "quests/bq/S01_THE_METER_READER.bq#86",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -755,6 +704,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -764,11 +733,10 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "why2",
-     "text": "Follow the split. Do not make a show of it.",
-     "mood": null,
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "open",
+     "text": "Why not you?",
      "line": 87,
      "id": "quests/bq/S01_THE_METER_READER.bq#87",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -792,6 +760,138 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "open",
+     "text": "Not my block.",
+     "line": 88,
+     "id": "quests/bq/S01_THE_METER_READER.bq#88",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "open",
+     "text": "(say nothing, just go)",
+     "line": 89,
+     "id": "quests/bq/S01_THE_METER_READER.bq#89",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -803,81 +903,9 @@
     {
      "kind": "say",
      "speaker": "lineman",
-     "node": "refuse",
-     "text": "Fair. It is nobody's job out here, which is why it is always nobody's job.",
-     "mood": "tired",
-     "line": 92,
-     "id": "quests/bq/S01_THE_METER_READER.bq#92",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "refuse",
-     "text": "Maybe another night.",
-     "line": 93,
-     "id": "quests/bq/S01_THE_METER_READER.bq#93",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "refuse",
-     "text": "Fine. I will look.",
+     "node": "why",
+     "text": "Because everybody on this block knows my face. I've got a kid.",
+     "mood": "dread",
      "line": 94,
      "id": "quests/bq/S01_THE_METER_READER.bq#94",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -901,6 +929,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -912,11 +960,11 @@
     {
      "kind": "say",
      "speaker": "lineman",
-     "node": "walk",
-     "text": "Good. It splits somewhere past the dead storefronts. Follow the cable that runs warm.",
-     "mood": "tired",
-     "line": 98,
-     "id": "quests/bq/S01_THE_METER_READER.bq#98",
+     "node": "why",
+     "text": "Whoever's drinking that current doesn't like being looked at. You're new. Nobody comes asking if you don't come back.",
+     "mood": null,
+     "line": 95,
+     "id": "quests/bq/S01_THE_METER_READER.bq#95",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -938,6 +986,138 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "why",
+     "text": "Comforting.",
+     "line": 96,
+     "id": "quests/bq/S01_THE_METER_READER.bq#96",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "why",
+     "text": "Who doesn't like being looked at?",
+     "line": 97,
+     "id": "quests/bq/S01_THE_METER_READER.bq#97",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -948,10 +1128,124 @@
     },
     {
      "kind": "say",
-     "speaker": "fixer",
-     "node": "split",
-     "text": "Easy. You found the tap. Most people never look at a warm cable twice.",
-     "mood": "wary",
+     "speaker": "lineman",
+     "node": "why2",
+     "text": "If I knew, I wouldn't need you. I asked my foreman about it once. He just looked at his hands till I stopped talking.",
+     "mood": null,
+     "line": 101,
+     "id": "quests/bq/S01_THE_METER_READER.bq#101",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "why2",
+     "text": "Follow the split. Don't make a show of it. Please.",
+     "mood": null,
+     "line": 102,
+     "id": "quests/bq/S01_THE_METER_READER.bq#102",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "refuse",
+     "text": "Yeah. Fair. I'll go ask somebody else's kid to do it.",
+     "mood": "tired",
      "line": 107,
      "id": "quests/bq/S01_THE_METER_READER.bq#107",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -975,6 +1269,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -984,11 +1298,10 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "fixer",
-     "node": "split",
-     "text": "I move a little current where it is needed. The grid has no owner. I am just faster than the meter.",
-     "mood": null,
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "refuse",
+     "text": "Maybe another night.",
      "line": 108,
      "id": "quests/bq/S01_THE_METER_READER.bq#108",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1012,6 +1325,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1021,11 +1354,10 @@
      "lang": "en"
     },
     {
-     "kind": "say",
-     "speaker": "fixer",
-     "node": "split",
-     "text": "Put it back and go home a quiet hero. Or make this loud. Loud is where it gets expensive for both of us.",
-     "mood": null,
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "refuse",
+     "text": "Fine. I'll look.",
      "line": 109,
      "id": "quests/bq/S01_THE_METER_READER.bq#109",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1049,6 +1381,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1058,118 +1410,11 @@
      "lang": "en"
     },
     {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "split",
-     "text": "Put it back. Nobody hears it.",
-     "line": 110,
-     "id": "quests/bq/S01_THE_METER_READER.bq#110",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "split",
-     "text": "The trades should see this.",
-     "line": 111,
-     "id": "quests/bq/S01_THE_METER_READER.bq#111",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "split",
-     "text": "Whose current is it, really?",
-     "line": 112,
-     "id": "quests/bq/S01_THE_METER_READER.bq#112",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "split",
-     "text": "(cut the tap, right now)",
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "walk",
+     "text": "Good. Splits somewhere past the dead storefronts. Warm cable. You'll feel it before you see it.",
+     "mood": "tired",
      "line": 113,
      "id": "quests/bq/S01_THE_METER_READER.bq#113",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1193,6 +1438,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1204,46 +1469,9 @@
     {
      "kind": "say",
      "speaker": "fixer",
-     "node": "whose",
-     "text": "See, that is the question that costs. I do not know whose.",
-     "mood": "dread",
-     "line": 121,
-     "id": "quests/bq/S01_THE_METER_READER.bq#121",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
-      },
-      {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "fixer",
-     "node": "whose",
-     "text": "I know it goes down, not up. Toward the water. I do not follow it down and neither should you.",
-     "mood": null,
+     "node": "split",
+     "text": "Easy. Easy, easy. Don't touch that, it's live.",
+     "mood": "wary",
      "line": 122,
      "id": "quests/bq/S01_THE_METER_READER.bq#122",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1267,6 +1495,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1278,8 +1526,8 @@
     {
      "kind": "say",
      "speaker": "fixer",
-     "node": "whose",
-     "text": "I gave you nothing. Put it back, or do not. Your block, your name.",
+     "node": "split",
+     "text": "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it.",
      "mood": null,
      "line": 123,
      "id": "quests/bq/S01_THE_METER_READER.bq#123",
@@ -1304,6 +1552,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1313,10 +1581,11 @@
      "lang": "en"
     },
     {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "whose",
-     "text": "Put it back. Quietly.",
+     "kind": "say",
+     "speaker": "fixer",
+     "node": "split",
+     "text": "So. Put it back and go home and nobody hears a thing about it, or make it loud. Which are you?",
+     "mood": null,
      "line": 124,
      "id": "quests/bq/S01_THE_METER_READER.bq#124",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1340,6 +1609,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1351,8 +1640,8 @@
     {
      "kind": "choice",
      "speaker": "PLAYER",
-     "node": "whose",
-     "text": "Cut it. Let them all see.",
+     "node": "split",
+     "text": "Put it back. Nobody hears it.",
      "line": 125,
      "id": "quests/bq/S01_THE_METER_READER.bq#125",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1376,80 +1665,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "put",
-     "text": "Light is back. I did not ask how.",
-     "mood": "tired",
-     "line": 129,
-     "id": "quests/bq/S01_THE_METER_READER.bq#129",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
       },
       {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
       },
       {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
       },
       {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "put",
-     "text": "You did not make a show of it. That is worth more out here than you will understand for a few years.",
-     "mood": null,
-     "line": 130,
-     "id": "quests/bq/S01_THE_METER_READER.bq#130",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
       },
       {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1461,10 +1696,10 @@
     {
      "kind": "choice",
      "speaker": "PLAYER",
-     "node": "put",
-     "text": "Just fixed a line.",
-     "line": 131,
-     "id": "quests/bq/S01_THE_METER_READER.bq#131",
+     "node": "split",
+     "text": "The trades should see this.",
+     "line": 126,
+     "id": "quests/bq/S01_THE_METER_READER.bq#126",
      "src": "quests/bq/S01_THE_METER_READER.bq",
      "cites": [
       {
@@ -1486,6 +1721,138 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "split",
+     "text": "Whose current is it?",
+     "line": 127,
+     "id": "quests/bq/S01_THE_METER_READER.bq#127",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "split",
+     "text": "(cut the tap, right now)",
+     "line": 128,
+     "id": "quests/bq/S01_THE_METER_READER.bq#128",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1496,10 +1863,10 @@
     },
     {
      "kind": "say",
-     "speaker": "lineman",
-     "node": "report",
-     "text": "You brought it to us instead of eating it yourself. Good. We patch it in the open.",
-     "mood": "tired",
+     "speaker": "fixer",
+     "node": "whose",
+     "text": "Huh. That's the one question, isn't it. I don't know whose. Never have.",
+     "mood": "dread",
      "line": 136,
      "id": "quests/bq/S01_THE_METER_READER.bq#136",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1523,6 +1890,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1533,9 +1920,9 @@
     },
     {
      "kind": "say",
-     "speaker": "lineman",
-     "node": "report",
-     "text": "They will know a crew looked, and looked together. That is its own kind of loud, but it is ours.",
+     "speaker": "fixer",
+     "node": "whose",
+     "text": "It runs down. Not up. Down, toward the water. That's where I quit asking and you should quit there too.",
      "mood": null,
      "line": 137,
      "id": "quests/bq/S01_THE_METER_READER.bq#137",
@@ -1560,6 +1947,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1569,10 +1976,11 @@
      "lang": "en"
     },
     {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "report",
-     "text": "Do it in daylight.",
+     "kind": "say",
+     "speaker": "fixer",
+     "node": "whose",
+     "text": "I told you nothing. Understand me. Put it back or don't, it's your block and it's your face they'll remember.",
+     "mood": null,
      "line": 138,
      "id": "quests/bq/S01_THE_METER_READER.bq#138",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1596,80 +2004,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "cut",
-     "text": "You cut it in front of everyone. Half the block cheered and the other half went very quiet.",
-     "mood": "dread",
-     "line": 142,
-     "id": "quests/bq/S01_THE_METER_READER.bq#142",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
       },
       {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
       },
       {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
       },
       {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
-      }
-     ],
-     "citeLevel": "file",
-     "title": "The Meter Reader",
-     "questId": "bq_meter_reader",
-     "draft": true,
-     "lang": "en"
-    },
-    {
-     "kind": "say",
-     "speaker": "lineman",
-     "node": "cut",
-     "text": "They felt that upstream. Whoever drinks that current now knows your face. I hope the light was worth it.",
-     "mood": null,
-     "line": 143,
-     "id": "quests/bq/S01_THE_METER_READER.bq#143",
-     "src": "quests/bq/S01_THE_METER_READER.bq",
-     "cites": [
-      {
-       "id": "Q003.W1",
-       "title": "THE DIRTY ERRAND",
-       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
       },
       {
-       "id": "Q092.W2",
-       "title": "THE INSTITUTION IS THE MONSTER",
-       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
-      },
-      {
-       "id": "Q002.W2",
-       "title": "THE BRANCH-ROUTER NPC",
-       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
-      },
-      {
-       "id": "Q003.P1",
-       "title": "W1 (dirty errand",
-       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1681,8 +2035,121 @@
     {
      "kind": "choice",
      "speaker": "PLAYER",
-     "node": "cut",
-     "text": "Let them know my face.",
+     "node": "whose",
+     "text": "Put it back. Quietly.",
+     "line": 139,
+     "id": "quests/bq/S01_THE_METER_READER.bq#139",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "whose",
+     "text": "Cut it. Let them see.",
+     "line": 140,
+     "id": "quests/bq/S01_THE_METER_READER.bq#140",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "put",
+     "text": "Light's back. I'm not going to ask how.",
+     "mood": "tired",
      "line": 144,
      "id": "quests/bq/S01_THE_METER_READER.bq#144",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1706,6 +2173,26 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",
@@ -1715,10 +2202,11 @@
      "lang": "en"
     },
     {
-     "kind": "choice",
-     "speaker": "PLAYER",
-     "node": "cut",
-     "text": "(say nothing)",
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "put",
+     "text": "You didn't make a show of it. I noticed. Not going to say anything else about it.",
+     "mood": null,
      "line": 145,
      "id": "quests/bq/S01_THE_METER_READER.bq#145",
      "src": "quests/bq/S01_THE_METER_READER.bq",
@@ -1742,6 +2230,478 @@
        "id": "Q003.P1",
        "title": "W1 (dirty errand",
        "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "put",
+     "text": "Just fixed a line.",
+     "line": 146,
+     "id": "quests/bq/S01_THE_METER_READER.bq#146",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "report",
+     "text": "You brought it to us. Could've kept it to yourself and you didn't.",
+     "mood": "tired",
+     "line": 151,
+     "id": "quests/bq/S01_THE_METER_READER.bq#151",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "report",
+     "text": "We patch it in daylight. Names on the work order, mine first, then the crew, then yours if you want it up there.",
+     "mood": null,
+     "line": 152,
+     "id": "quests/bq/S01_THE_METER_READER.bq#152",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "report",
+     "text": "Do it in daylight.",
+     "line": 153,
+     "id": "quests/bq/S01_THE_METER_READER.bq#153",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "cut",
+     "text": "You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was.",
+     "mood": "dread",
+     "line": 157,
+     "id": "quests/bq/S01_THE_METER_READER.bq#157",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "cut",
+     "text": "They felt that upstream. Somebody up there has your face now. I don't know what else to tell you.",
+     "mood": null,
+     "line": 158,
+     "id": "quests/bq/S01_THE_METER_READER.bq#158",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "cut",
+     "text": "Let them know my face.",
+     "line": 159,
+     "id": "quests/bq/S01_THE_METER_READER.bq#159",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Meter Reader",
+     "questId": "bq_meter_reader",
+     "draft": true,
+     "lang": "en"
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "cut",
+     "text": "(say nothing)",
+     "line": 160,
+     "id": "quests/bq/S01_THE_METER_READER.bq#160",
+     "src": "quests/bq/S01_THE_METER_READER.bq",
+     "cites": [
+      {
+       "id": "Q003.W1",
+       "title": "THE DIRTY ERRAND",
+       "applied": "the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so."
+      },
+      {
+       "id": "Q092.W2",
+       "title": "THE INSTITUTION IS THE MONSTER",
+       "applied": "the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs."
+      },
+      {
+       "id": "Q002.W2",
+       "title": "THE BRANCH-ROUTER NPC",
+       "applied": "the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle."
+      },
+      {
+       "id": "Q003.P1",
+       "title": "W1 (dirty errand",
+       "applied": "the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose."
+      },
+      {
+       "id": "Q142.W6",
+       "title": "SILENCE EXTRACTS",
+       "applied": "the lineman volunteers his kid and his fear when the player says nothing back, and the silent option reaches the same node as the spoken one, so refusing to talk is never punished with less."
+      },
+      {
+       "id": "Q152.W5",
+       "title": "THE DESPAIR SCENE CHANGES REGISTER, ONCE",
+       "applied": "he is practical the whole way through and drops it exactly twice, four words each time -- \"I've got a kid\" and \"Please\" -- and never explains either one."
+      },
+      {
+       "id": "Q100.N2",
+       "title": "NODE LYNETTE_MINEFIELD",
+       "applied": "the fixer launders his own job in front of you (\"I don't steal it, I move it\") and the run-on he does it in is the characterization; the polite word for the ugly thing, dared you to say the ugly one."
+      },
+      {
+       "id": "Q004.N1",
+       "title": "NODE SPIRIT_OFFER",
+       "applied": "the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name."
       }
      ],
      "citeLevel": "file",

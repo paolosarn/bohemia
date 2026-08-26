@@ -1738,6 +1738,23 @@ GATES = [
      'tiles is re-hashed against the approved interior pool, so NO NEW ART is measured rather '
      'than promised -- and after the cut the surface places the player and NOBODY ELSE, '
      'because who survived ten years is Paolo\'s ruling, not the renderer\'s', False),
+    ('VOICE',          ['node', 'gates/voice_gate.js'],
+     'THE WORDS LANE (Paolo 8/26): "it\'s time we have a new chat, like, write and sound like '
+     'a human for Bohemia." The lane\'s honest premise is that THE WRITER IS A MACHINE AND '
+     'MACHINES HAVE TELLS, and the diagnosis measured which ones we actually have rather than '
+     'asserting them: the 27 quest scenes contracted 2.2%% of the time while the street barks '
+     'contracted 75%%, a third of every multi-sentence speech ended on a general truth, and in '
+     '504 NPC speeches there were TWO question marks, zero raised voices and zero stumbles. '
+     'Six rules came out of that (laws/BOHEMIA_VOICE_CARD_8_26_26.md) and the flattest scene '
+     'in the build took the first pass. THIS GATE MEASURES THE THREE TELLS A MACHINE CAN '
+     'HONESTLY SEE -- rhythm as a RATIO not a raw spread (a terse scene cannot post a big '
+     'absolute deviation, so gating the raw number would punish the writing the card asks '
+     'for), repeated openers inside one scene, and a banned-phrase list that ratchets down '
+     'corpus-wide. Mutation-tested four ways. AND IT PROVES THE LANE BOUNDARY: strip every '
+     'player-facing line out of the quest on both sides of the pass and what is left is '
+     'byte-identical, so WORDS changed how it sounds and QUESTS still owns what happens. '
+     'It says out loud, in the file and in its own output, that it CANNOT tell you whether a '
+     'line is good', False),
     ('DIALOGUE CATALOGUE', ['node', 'gates/dialogue_catalogue_gate.js'],
      'DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED): "I DONT HAVE TIME TO '
      'APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT LATER JUST DIALOGUE ALWAYS '

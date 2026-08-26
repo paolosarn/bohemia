@@ -41,6 +41,11 @@ RECORDS = os.path.join(ROOT, 'records')
 IDX_PATH = os.path.join(RECORDS, 'BOHEMIA_QUESTBOOK_LAW_INDEX.json')
 OUT_JSON = os.path.join(RECORDS, 'BOHEMIA_WORDS_BOOK.json')
 OUT_HTML = os.path.join(ROOT, 'slices', 'BOHEMIA_WORDS_CURRENT.html')
+# THE VOICE PASS (WORDS lane, 8/26). One scene written both ways, built by
+# tools/bohemia_voice_rewrite.py off git so the BEFORE column cannot drift.
+# It rides in THIS page because this is where he already edits every line --
+# a comparison living in a records/ file is a comparison he never sees.
+REWRITE_PATH = os.path.join(RECORDS, 'BOHEMIA_VOICE_REWRITE_8_26_26.json')
 
 
 def load_index():
@@ -498,6 +503,29 @@ body.sun footer{background:#f2ede1;border-top-color:#c9bda4}
 #cnt{font-size:11px;color:#8d8168;flex:1}
 body.sun #cnt{color:#6a5f4a}
 #exp{background:#d8b45a;color:#191308;border-color:#d8b45a;font-weight:700}
+/* THE VOICE PASS. Folded shut by default: he came to this tab to edit lines,
+   and a 45-row comparison above the first line is a wall. One tap opens it. */
+#voice{margin:14px 10px 0;border:1px solid #4a3a18;border-radius:6px;overflow:hidden}
+body.sun #voice{border-color:#c9ae72}
+#vhd{background:#181206;padding:8px 10px;font-size:11px;letter-spacing:1px;color:#d8b45a;cursor:pointer}
+body.sun #vhd{background:#f0e6cc;color:#8a6410}
+#vhd .s{display:block;margin-top:3px;letter-spacing:0;color:#8d8168;font-size:10.5px;line-height:1.5}
+body.sun #vhd .s{color:#6a5f4a}
+#vbody{display:none;padding:0 0 6px}
+#vbody.open{display:block}
+.vrow{border-top:1px solid #1d1710;padding:8px 10px}
+body.sun .vrow{border-top-color:#d9cdb2}
+.vwho{font-size:10px;letter-spacing:1px;color:#9a8a5e;margin-bottom:5px}
+body.sun .vwho{color:#7a6a3e}
+.vpair{display:flex;gap:8px;flex-wrap:wrap}
+.vcol{flex:1 1 240px;min-width:0;font-size:12.5px;line-height:1.5;padding:6px 8px;border-radius:4px}
+.vwas{background:#150f07;color:#8d8168;text-decoration:line-through;text-decoration-color:#4a3a20}
+body.sun .vwas{background:#e8e0cc;color:#7a7060}
+.vis{background:#141a10;color:#e8dfc8}
+body.sun .vis{background:#e6efdc;color:#20180e}
+.vsame{opacity:.45}
+.vrules{margin-top:5px;font-size:9.5px;letter-spacing:.5px;color:#6f6552}
+body.sun .vrules{color:#6a5f4a}
 .note{margin:12px 10px 0;padding:9px 10px;border:1px dashed #3a3020;border-radius:6px;font-size:11px;
   line-height:1.55;color:#8d8168}
 body.sun .note{border-color:#bcae90;color:#6a5f4a}
@@ -517,6 +545,7 @@ body.sun .note{border-color:#bcae90;color:#6a5f4a}
     <button id="sun">SUN</button>
   </div>
 </header>
+<div id="voice"></div>
 <div id="list"></div>
 <div class="note">Nothing here needs your approval. It ships as written and you change whatever you
   want, whenever you want. If a line is wrong, just fix it in the box.<br><br>
@@ -530,6 +559,7 @@ body.sun .note{border-color:#bcae90;color:#6a5f4a}
    that never reached this tab goes RED instead of silently disappearing. */
 var WORDS_FINGERPRINT = '__FINGERPRINT__';
 var BOOK = __PAYLOAD__;
+var VOICE = __VOICE__;
 var KEY = 'bohemia_words_edits_v1';
 var edits = {}; try { edits = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { edits = {}; }
 var filter = 'all', qs = '';
@@ -615,6 +645,43 @@ function count() {
   var c = document.getElementById('cnt');
   c.textContent = c.textContent.replace(/ · \d+ edited$/, '') + (edited ? ' · ' + edited + ' edited' : '');
 }
+
+/* ---- THE VOICE PASS, one scene both ways -------------------------------
+   Paolo 8/26 opened the WORDS lane and asked for the difference to be VISIBLE
+   instead of described. Left column is what shipped before, read straight out
+   of the commit; right column is the same beat after the voice card. Same
+   scene, same branches, same choices: only the words moved. Both are drafts
+   and neither is asking him for anything. */
+function voice() {
+  var host = document.getElementById('voice');
+  if (!VOICE || !VOICE.pairs) { host.style.display = 'none'; return; }
+  var m = VOICE._meta;
+  var h = '<div id="vhd">THE VOICE PASS &middot; ONE SCENE, BOTH WAYS &#9656;' +
+    '<span class="s">' + m.changed + ' of ' + m.lines + ' lines rewritten in THE METER READER. ' +
+    'Nothing about the quest changed: same people, same choices, same endings. ' +
+    'Only how they talk. Tap to see the old line beside the new one.</span></div>' +
+    '<div id="vbody">';
+  VOICE.pairs.forEach(function (p) {
+    var rn = (p.rules || []).map(function (r) { return r + '. ' + VOICE.rules[r]; }).join('  &middot;  ');
+    h += '<div class="vrow' + (p.changed ? '' : ' vsame') + '">' +
+      '<div class="vwho">' + p.speaker + ' &middot; ' + p.node + ' &middot; ' + p.kind + '</div>' +
+      (p.changed
+        ? '<div class="vpair"><div class="vcol vwas">' + p.before + '</div>' +
+          '<div class="vcol vis">' + p.after + '</div></div>' +
+          (rn ? '<div class="vrules">' + rn + '</div>' : '')
+        : '<div class="vpair"><div class="vcol vis">' + p.after + '</div></div>' +
+          '<div class="vrules">unchanged</div>') +
+      '</div>';
+  });
+  h += '</div>';
+  host.innerHTML = h;
+  document.getElementById('vhd').addEventListener('click', function () {
+    var b = document.getElementById('vbody'), on = b.classList.toggle('open');
+    this.firstChild.textContent = 'THE VOICE PASS \u00b7 ONE SCENE, BOTH WAYS ' +
+      (on ? '\u25be' : '\u25b8');
+  });
+}
+voice();
 
 document.querySelectorAll('.chip').forEach(function (b) {
   b.addEventListener('click', function () {
@@ -717,7 +784,12 @@ def main():
                        'cites': [cite(c) for c in (l.get('cites') or [])] if per_line else []}
                       for l in b['lines']],
         })
-    html = (HTML.replace('__PAYLOAD__', json.dumps(slim, ensure_ascii=False))
+    voice = {}
+    if os.path.exists(REWRITE_PATH):
+        with open(REWRITE_PATH, 'r', encoding='utf-8') as f:
+            voice = json.load(f)
+    html = (HTML.replace('__VOICE__', json.dumps(voice, ensure_ascii=False))
+                .replace('__PAYLOAD__', json.dumps(slim, ensure_ascii=False))
                 .replace('__FINGERPRINT__', fp)
                 .replace('__LINECOUNT__', str(lines)))
     with open(OUT_HTML, 'w', encoding='utf-8') as f:
