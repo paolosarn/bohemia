@@ -12,7 +12,16 @@ about the game in plain words.
 **ALL THREE BELOW ARE CREATIVE FORKS. NONE IS A PRIORITISATION QUESTION.**
 And his 8/25 ruling now orders them: FUN CARRIES THE TIE.
 
-## 1. THE DEMO'S LAST THIRTY SECONDS  [ASKED — open since 8/25]
+## 1. THE DEMO'S LAST THIRTY SECONDS  *** ANSWERED 8/26: A, THE OVERLOOK.
+## CLOSED. ***
+"The overlook is cool. I like the overlook. It's very nice. VERY NICE IDEA
+TO, LIKE, SWITCH... BEAUTIFUL CLIFF LOOKING AT THIS AWESOME ECONOMIC
+APOCALYPSE, LAS VEGAS TYPE SHIT."
+He praised THE SWITCH, so the two views must visibly differ or it is a
+repeat, not a bookend. Put it at night and option B (the lit ~12% that is
+owned) lives inside option A for free. Routed RUN DEMO-END. It also
+un-pends the 7/19 BOOKEND extension, which had sat [PENDING] five weeks.
+THE QUESTION AS IT WAS ASKED, kept for the record:
 Why it is a real question and not mine to just pick: the research says
 memory of an experience is almost entirely two data points, THE PEAK AND
 THE END (Kahneman/Fredrickson, and duration is neglected). Our ruled cut
