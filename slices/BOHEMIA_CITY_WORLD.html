@@ -33418,6 +33418,154 @@ function barkPass(ox, oy, C){
   gg.restore();
 }
 /* ===== END BOHEMIA CITY BARKS ===== */
+/* ======================= __THE_VALLEY_HAS_ANIMALS__ (8/26) =========================
+   Paolo: "maybe I wanna fuck around and start putting dogs and swarms of flies as
+   low tier biome level one enemies", and from the 8/25 dispatch, "the city is dead
+   and DEAD IS NOT THE DEFAULT".
+   THE RESEARCH DELIVERED THAT DAY ALREADY ANSWERED IT and nobody built it: "the
+   reason the city feels dead is not that we lack enemies. It is that we lack
+   ANIMALS ... Tier 1 is mostly not an enemy system at all. It is set dressing that
+   moves, and it is the cheapest fix on this list for the loudest complaint."
+   So these do not fight, have no health, and cost nothing to walk past. NO DAMAGE
+   BEFORE THE DIAL is untouched. One of them carries a real READ: flies mean
+   SOMETHING DIED HERE, which is information before we own a corpse system.
+   THE DOG IS NOT HERE AND THAT IS DELIBERATE. He named it first and the research
+   calls it the headline, but a dog is a BODY and a body is character art; a lane
+   does not invent creature pixels because it is in a hurry (45 DEGREE ART LAW,
+   REUSE-FIRST). Its row is below with count 0 and an art request is filed. */
+
+/* HOW MANY LIVE ON A BLOCK LIKE THIS. [DIAL, draft:true] -- real first attempts I
+   can defend from the ecology, not canon. DENSITY IS BY PLACE, which is the
+   Valheim half of his ruling: difficulty and life live in THE GROUND, never in a
+   level number on the player. Nothing here says who HOLDS the ground; that is
+   reserved and is not touched. */
+var ANIMAL_DENSITY = {
+  /* flies want bodies and bins; rats want walls and food; ravens want a roofline
+     and a reason. A default is given so a district nobody has tuned still breathes. */
+  _default:    { flies: 0.06, rats: 0.05, ravens: 0.03, dogs: 0 },
+  downtown:    { flies: 0.11, rats: 0.13, ravens: 0.07, dogs: 0 },
+  commercial:  { flies: 0.10, rats: 0.11, ravens: 0.06, dogs: 0 },
+  industrial:  { flies: 0.08, rats: 0.10, ravens: 0.05, dogs: 0 },
+  suburb:      { flies: 0.04, rats: 0.04, ravens: 0.04, dogs: 0 },
+  park:        { flies: 0.05, rats: 0.03, ravens: 0.08, dogs: 0 },
+  wash:        { flies: 0.05, rats: 0.05, ravens: 0.05, dogs: 0 },  /* the coyote highway */
+  desert:      { flies: 0.01, rats: 0.01, ravens: 0.02, dogs: 0 }
+};
+var ANIMAL_CAP = 90;            /* [DIAL, draft:true] per frame, his item 7 is PERFORMANCE */
+
+/* DETERMINISTIC LIFE. Hashed from (seed, cell) so the same block holds the same
+   animals every time it is walked and on every device -- a valley that reshuffles
+   its rats when you turn around reads as noise, which is the same argument
+   skyStars() already makes about the sky. */
+function animalHash(x, y, salt) {
+  var h = (x * 374761393 + y * 668265263 + (seed | 0) * 2246822519 + salt * 3266489917) >>> 0;
+  h = (h ^ (h >>> 13)) >>> 0; h = (h * 1274126177) >>> 0;
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+}
+function animalKindAt(x, y) {
+  var d = null;
+  try { var t = om.at((x / FN) | 0, (y / FN) | 0); d = t ? t.district : null; } catch (_e) { }
+  var tab = ANIMAL_DENSITY[d] || ANIMAL_DENSITY._default;
+  var r = animalHash(x, y, 7);
+  var a = tab.flies;
+  if (r < a) return 'flies';
+  a += tab.rats;   if (r < a) return 'rats';
+  a += tab.ravens; if (r < a) return 'ravens';
+  return null;
+}
+
+/* WHAT THEY ARE DRAWN AS. Procedural marks in the world's own palette, never
+   sprites -- a fly swarm IS specks, a rat IS a dash, a raven IS a silhouette.
+   Nothing is invented that would have needed a bank. */
+function animalPass(ox, oy, C) {
+  /* SKIPPED WHERE IT WOULD BE A LIE: at city zoom a 2px mark is not an animal,
+     it is a dirty screen. And his item 7 is PERFORMANCE, so this pass simply does
+     not exist up there. */
+  if (typeof MODE === 'undefined' || MODE !== 'human' || C < 17) { window.__ANIMALS_DRAWN = 0; return 0; }
+  var g = cv.getContext('2d');
+  var t = (typeof performance !== 'undefined') ? performance.now() : 0;
+  /* 120 BPM LAW: everything moves on the one clock, so a rat crossing a doorway is
+     on the beat with his own footsteps. */
+  var beat = t / 500;
+  var x0 = Math.floor(-ox / C) - 1, x1 = Math.ceil((cv.width - ox) / C) + 1;
+  var y0 = Math.floor(-oy / C) - 1, y1 = Math.ceil((cv.height - oy) / C) + 1;
+  var drawn = 0, kinds = { flies: 0, rats: 0, ravens: 0 };
+  g.save();
+  for (var y = y0; y <= y1; y++) {
+    for (var x = x0; x <= x1; x++) {
+      if (drawn >= ANIMAL_CAP) break;
+      var kind = animalKindAt(x, y);
+      if (!kind) continue;
+      var c = null; try { c = cellAt(x, y); } catch (_e) { continue; }
+      if (!c) continue;
+      var sx = ox + x * C, sy = oy + y * C;
+      var ph = animalHash(x, y, 31) * 6.283;
+      if (kind === 'flies') {
+        /* A SWARM OVER SOMETHING. Flies want a body or a bin, so they sit over a
+           cell you can WALK ON -- the thing they are on is at your feet. */
+        if (!c.walk) continue;
+        g.fillStyle = '#0b0906'; g.globalAlpha = 0.72;
+        var n = 5 + ((animalHash(x, y, 5) * 4) | 0);
+        for (var i = 0; i < n; i++) {
+          var a = beat * (1.6 + i * 0.21) + ph + i * 1.7;
+          var rr = C * (0.10 + 0.05 * Math.sin(beat * 0.9 + i));
+          var fx = sx + C / 2 + Math.cos(a) * rr;
+          var fy = sy + C * 0.42 + Math.sin(a * 1.3) * rr * 0.6;
+          g.fillRect(Math.round(fx), Math.round(fy), Math.max(1, (C / 44) | 0) || 1,
+                                                      Math.max(1, (C / 44) | 0) || 1);
+        }
+        kinds.flies++;
+      } else if (kind === 'rats') {
+        /* AT THE FOOT OF A WALL, which is where a rat actually runs. It needs
+           something solid beside it or it is a rat standing in a road. */
+        if (!c.walk) continue;
+        /* A RAT RUNS ALONG ANY WALL, NOT ONLY A WALL TO THE SOUTH. The first cut
+           checked cellAt(x,y+1) alone and MEASURED 4 placements out of 305 rolls
+           -- 1.3%, which is not "rats are rare", it is "rats do not exist". Any
+           cardinal neighbour that is solid, and the rat runs along THAT edge. */
+        var wall = null, wd = null;
+        for (var _w = 0; _w < 4 && !wall; _w++) {
+          var _o = [[0, 1], [0, -1], [1, 0], [-1, 0]][_w];
+          var _q = null; try { _q = cellAt(x + _o[0], y + _o[1]); } catch (_e2) { }
+          if (_q && !_q.walk) { wall = _q; wd = _o; }
+        }
+        if (!wall) continue;
+        var run = (beat * 0.5 + ph) % 6.283;
+        /* RARITY IS THE DENSITY ROLL'S JOB, ONCE. This gate used to cut another 62%
+           on top of it and MEASURED 9 rats against 480 flies across forty screens
+           -- roughly one rat every five screens, which is not "the urban constant"
+           the ecology calls them, it is rats that do not exist. They are out most
+           of the time now and the table decides how many there are. */
+        if (run > 4.6) continue;                      /* between runs, briefly gone */
+        /* run ALONG the wall it found: parallel to that edge, hugging it */
+        var horiz = (wd[1] !== 0);
+        var along = 0.15 + (run / 2.4) * 0.7;
+        var rx = sx + C * (horiz ? along : (wd[0] > 0 ? 0.82 : 0.10));
+        var ry = sy + C * (horiz ? (wd[1] > 0 ? 0.86 : 0.14) : along);
+        g.globalAlpha = 0.85; g.fillStyle = '#1a150f';
+        g.fillRect(Math.round(rx), Math.round(ry), Math.max(2, (C / 14) | 0), Math.max(1, (C / 22) | 0));
+        kinds.rats++;
+      } else {
+        /* A SILHOUETTE ON A ROOFLINE. A raven needs a roof, so it wants a solid
+           cell -- and it flicks rather than walks, which is what they do. */
+        if (c.walk) continue;
+        var flick = Math.sin(beat * 1.1 + ph) > 0.86 ? 1 : 0;
+        var bx = sx + C * 0.42, by = sy - C * 0.12 - flick * Math.max(1, (C / 22) | 0);
+        g.globalAlpha = 0.9; g.fillStyle = '#100d09';
+        var s = Math.max(2, (C / 12) | 0);
+        g.fillRect(Math.round(bx), Math.round(by), s, s);
+        g.fillRect(Math.round(bx - s * 0.6), Math.round(by + s * 0.25), Math.max(1, (s * 0.6) | 0), Math.max(1, (s * 0.4) | 0));
+        kinds.ravens++;
+      }
+      drawn++;
+    }
+  }
+  g.restore(); g.globalAlpha = 1;
+  window.__ANIMALS_DRAWN = drawn;
+  window.__ANIMALS_BY_KIND = kinds;
+  return drawn;
+}
+
 function peoplePass(ox, oy, C) {
   BARK_DREW = [];   /* __CITY_BARKS__ */
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
@@ -33468,6 +33616,10 @@ function peoplePass(ox, oy, C) {
   /* CITY TALK: names last, so nothing paints over them */
   try{ if(typeof ctNames==='function') ctNames(ox,oy,C); }catch(_ctn){}
   window.__PPL_OUT = out;
+  /* __THE_VALLEY_HAS_ANIMALS__: the valley is not empty. Drawn after the people and before
+     the facades, so a rat is in front of the road and behind the wall it runs
+     along -- the same layering rule the 7/27 see-through pass works to. */
+  try { animalPass(ox, oy, C); } catch (_e) { }
   window.__PPL_FACES = drewFaces;                      /* how many are away from home right now */
   return drawn;
 }
@@ -34208,7 +34360,11 @@ function updHud(){
   const t=om.at(city.x,city.y);
   document.getElementById('hslot').textContent=MODE==='city'?(t?t.district.toUpperCase():''):(()=>{const ft=om.at((hx/FN)|0,(hy/FN)|0);return (ft?ft.district.toUpperCase()+' · ':'')+(typeof RIDING!=='undefined'&&RIDING?'RIDING':'ON FOOT');})();
   document.getElementById('hmode').textContent=MODE==='city'?'CITY MODE':'HUMAN MODE';
-  document.getElementById('modeLbl').textContent=MODE==='city'?'⤓ DROP IN':'⤒ CITY';
+  /* __THE_ACTION_BUTTON_DOES_ACTIONS__: the round button says what it will DO, not where the
+     camera is. Repainted here because this already runs on every hud update. */
+  try{ actPaint(); }catch(_e){}
+  { var _mc=document.getElementById('modechip');
+    if(_mc) _mc.textContent=MODE==='city'?'\⤓ DROP IN':'\⤒ CITY'; }
   { const fb=document.getElementById('fitbtn'); if(fb)fb.style.display=MODE==='city'?'block':'none'; }
   { const bb=document.getElementById('bikebtn'); if(bb)bb.style.display=MODE==='human'?'block':'none'; }
   document.getElementById('note').textContent=MODE==='city'
@@ -34299,7 +34455,17 @@ function transition(){
   }
   requestAnimationFrame(frame);
 }
-document.getElementById('mode').addEventListener('click',transition);
+/* __THE_ACTION_BUTTON_DOES_ACTIONS__ (8/26): THE ACTION BUTTON DOES ACTIONS. This line was the
+   whole complaint -- the largest control in the game, in the middle of the movement
+   pad, wearing his character's face, wired to a camera toggle. ZOOM IS THE WAY IN
+   AND OUT and it is measured working end to end (street -> city -> sky -> back, one
+   pinch), so the camera does not need the best button on the screen.
+   IT STILL FALLS BACK. If there is genuinely nothing in front of him the press does
+   nothing rather than surprising him with a camera move -- a button that does a
+   different thing when you are not looking is worse than a button that waits. */
+document.getElementById('mode').addEventListener('click',function(){
+  try{ if(actPress()) return; }catch(_e){}
+});
 let RIDING=false;
 document.getElementById('bikebtn').addEventListener('click',()=>{
   RIDING=!RIDING;
@@ -34407,6 +34573,31 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
   },{passive:false});
 })();
 // WHOLE MAP button: toggle between full-valley fit and normal 1x centered
+/* __THE_ACTION_BUTTON_DOES_ACTIONS__ (8/26) -- THE CAMERA TOGGLE, AT THE SIZE OF A PREFERENCE.
+   Zoom is the way in and out and it is measured working, so this is no longer the
+   primary verb and no longer owns the best button on the screen. It is NOT deleted:
+   NO DISTRICT IS A PRISON (Paolo 8/1) and a player whose fingers cannot pinch must
+   still have a way across the seam. Beside WHOLE MAP, in the same chip language,
+   calling the SAME transition() the round button used to call. */
+(function(){
+  var b=document.getElementById('modechip');
+  if(!b){
+    b=document.createElement('div'); b.id='modechip';
+    var st=document.createElement('style');
+    st.textContent='#modechip{position:absolute;left:12px;bottom:46px;padding:7px 10px;'
+      +'border-radius:5px;background:var(--face);border:1px solid var(--line);'
+      +'color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}'
+      +'#modechip:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}'
+      /* the round button, when there is nothing in front of him, is quiet rather
+         than gone -- a control that vanishes reads as broken. */
+      +'#mode.idle{opacity:0.62}'
+      +'#mode.canact{box-shadow:0 0 0 1px var(--acc),0 6px 22px rgba(0,0,0,.6)}';
+    document.head.appendChild(st);
+    (document.querySelector('.wrap')||document.body).appendChild(b);
+    b.addEventListener('click',function(){ try{ transition(); }catch(_e){} });
+  }
+  try{ b.textContent=(typeof MODE!=='undefined'&&MODE==='city')?'\⤓ DROP IN':'\⤒ CITY'; }catch(_e){}
+})();
 document.getElementById('fitbtn').addEventListener('click',()=>{
   if(SKY){ skyExit(); return; }   /* __ONE_ZOOM_TO_THE_MOON__: one tap back down to the valley */
   if(vistaBail()) return;         /* __EVERY_CONTROL_LEAVES_THE_VISTA__: and one tap back down off the rim */
@@ -43970,9 +44161,126 @@ function ctClose(){ CT_OPEN=null;
   var c=document.getElementById('ctcard'); if(c) c.style.display='none';
   ctVerb(); }
 
+/* __THE_ACTION_BUTTON_DOES_ACTIONS__ (8/26) -- WHAT IS IN FRONT OF HIM, IN ONE PLACE.
+   Paolo, twice: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON ... THE ACTION
+   BUTTON DOES ACTIONS." The biggest, most central control in the game, wearing his
+   own character's face, was a camera toggle -- and there was no button anywhere for
+   doing the thing in front of you.
+   ORDER MATTERS AND IS DELIBERATE: a person beats a door, because if somebody is
+   standing in your doorway the thing you mean is them. Returns null when there is
+   nothing to do, and a button with nothing to do says nothing -- the same rule
+   #cttalk already had, moved onto the button his thumb is on. */
+/* __THE_ACTION_BUTTON_LETS_YOU_OUT__ (8/26): WHICH WAY IS OUT. Inside, the exit is the cell you
+   came in by, so "out" is whichever cardinal step leaves the footprint from the
+   door cell. Returns the DIRECTION INDEX stepOnce wants, never a position -- this
+   function finds the way, stepOnce does the moving. */
+function actWayOut(){
+  if(typeof INSIDE==='undefined'||!INSIDE) return -1;
+  var fp=INSIDE.fp, i, d, nx, ny;
+  /* ON THE DOOR: step off the plate. */
+  if(INSIDE.ix===INSIDE.door[0]&&INSIDE.iy===INSIDE.door[1]){
+    for(i=0;i<DIRS.length;i++){
+      d=DIRS[i]; if(d[0]&&d[1]) continue;              /* the plate edge is cardinal */
+      nx=INSIDE.ix+d[0]; ny=INSIDE.iy+d[1];
+      if(nx<0||ny<0||nx>=fp.W||ny>=fp.H) return i;
+    }
+    return -1;
+  }
+  /* ONE STEP IN FROM IT: step BACK ONTO the door, and the next press goes out.
+     *** THIS IS WHY, AND IT IS HIS OWN FEATURE. *** __STEP_INSIDE__ exists
+     because he asked "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT" --
+     crossing a threshold deliberately puts you ONE CELL THROUGH it so you can
+     turn, and the door is one step back the way you came. So he is never
+     standing on the door after entering, and a LEAVE that only worked from the
+     door cell showed him a silent button in a room he had just walked into.
+     TWO PRESSES, TWO REAL STEPS, NO TELEPORT: this walks him to the door the
+     same way the pad would, and the exit rule (you may only step off the plate
+     FROM the door cell) is untouched. */
+  for(i=0;i<DIRS.length;i++){
+    d=DIRS[i]; if(d[0]&&d[1]) continue;
+    if(INSIDE.ix+d[0]===INSIDE.door[0] && INSIDE.iy+d[1]===INSIDE.door[1]) return i;
+  }
+  return -1;
+}
+function actFront(){
+  if(typeof MODE==='undefined'||MODE!=='human') return null;
+  /* __THE_ACTION_BUTTON_LETS_YOU_OUT__: INSIDE FIRST. Measured before this existed: standing in a
+     room, the button still said ENTER -- it offered to put him into the room he was
+     already in, because the cell "in front of" him was still the door he came
+     through. A control that does not do what it says is the STANDING card again,
+     and this one was mine, shipped the same hour as a gate about it. */
+  try{
+    if(typeof INSIDE!=='undefined' && INSIDE){
+      var w=actWayOut();
+      if(w>=0) return { kind:'leave', label:'LEAVE', di:w };   /* draft:true */
+      return null;   /* in the back of the room: the answer is walk to the door */
+    }
+  }catch(_e){}
+  /* a person, using the person system's OWN address so it is never a generic TALK */
+  try{
+    if(typeof ctAdjacent==='function' && !CT_OPEN){
+      var p=ctAdjacent();
+      if(p){ var who=ctPerson(p);
+             return { kind:'talk', label:BohemiaPeople.addressOf(who), who:p }; }
+    }
+  }catch(_e){}
+  /* a door he is FACING. HFACE is where the body is pointed, which is the only
+     honest answer to "in front of" -- reading the whole ring would let him enter a
+     building behind his back. */
+  try{
+    if(typeof HFACE!=='undefined' && typeof isDoorCell==='function'){
+      var d=({N:[0,-1],S:[0,1],E:[1,0],W:[-1,0],
+              NE:[1,-1],SE:[1,1],NW:[-1,-1],SW:[-1,1]})[HFACE]||[0,1];
+      var fx=hx+d[0], fy=hy+d[1], fc=null;
+      try{ fc=cellAt(fx,fy); }catch(_e2){}
+      if(fc && fc.enter && isDoorCell(fc))
+        return { kind:'enter', label:'ENTER', at:[fx,fy] };   /* draft:true */
+    }
+  }catch(_e){}
+  /* a market is a PLACE -- the same rule mktAt() already states */
+  try{ if(typeof mktAt==='function' && mktAt())
+         return { kind:'trade', label:'TRADE' };              /* draft:true */
+  }catch(_e){}
+  return null;
+}
+
+/* __THE_ACTION_BUTTON_DOES_ACTIONS__: and the round button wears whatever that is. */
+function actPaint(){
+  var b=document.getElementById('mode'); if(!b) return;
+  var l=document.getElementById('modeLbl'); if(!l) return;
+  var f=actFront();
+  window.__ACT_VERB = f ? f.kind : null;
+  if(f){ l.textContent=f.label; b.classList.add('canact'); b.classList.remove('idle'); }
+  else { l.textContent=''; b.classList.remove('canact'); b.classList.add('idle'); }
+}
+
+/* __THE_ACTION_BUTTON_DOES_ACTIONS__: and pressing it does that thing. One press, one meaning,
+   never a menu. Each branch calls the verb's EXISTING owner -- inEnter for doors,
+   ctOpenFor for people, showMarket for the market -- so nothing here can drift
+   away from what walking into the same thing already does. */
+function actPress(){
+  var f=actFront(); if(!f) return false;
+  /* ctOpen() TAKES NO ARGUMENT -- it asks ctAdjacent() itself, which is exactly
+     the single-owner shape this whole patch is built on. Passing it a person would
+     have been a second opinion about who is next to him. */
+  /* __THE_ACTION_BUTTON_LETS_YOU_OUT__: OUT THROUGH THE SAME DOOR THE PAD USES. stepOnce owns the
+     exit -- "only the door lets you out, and it puts you back on the exact cell you
+     came in from" -- and lifting its four lines here is how the door predicate ended
+     up copied into homeFind. The button hands it a direction and lets it move him,
+     so both ways out spend the same half minute and can never disagree. */
+  if(f.kind==='leave'){ try{ return !!stepOnce(f.di); }catch(_e){ return false; } }
+  if(f.kind==='talk'){ try{ ctOpen(); }catch(_e){} return true; }
+  if(f.kind==='enter'){ try{ return !!inEnter(f.at[0],f.at[1],hx,hy,false); }catch(_e){ return false; } }
+  if(f.kind==='trade'){ try{ showMarket(); }catch(_e){} return true; }
+  return false;
+}
+
 /* THE BUTTON ONLY EXISTS WHEN SOMEBODY IS THERE. That is what makes it the ONE
    CONTEXTUAL VERB and not a menu. */
 function ctVerb(){
+  try{ actPaint(); }catch(_e){}   /* __THE_ACTION_BUTTON_DOES_ACTIONS__: the round button repaints on
+     the same beat this already ran on -- movement -- so there is no new hook and no
+     second thing deciding what is in front of him. */
   var b=document.getElementById('cttalk'); if(!b) return;
   var t=document.getElementById('cttell');
   /* __CITY_STALECARD__ -- YOU CANNOT TALK TO SOMEBODY YOU HAVE WALKED AWAY FROM.

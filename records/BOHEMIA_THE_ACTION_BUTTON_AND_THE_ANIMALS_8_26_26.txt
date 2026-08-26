@@ -1,0 +1,213 @@
+THE ACTION BUTTON DOES ACTIONS, AND THE VALLEY HAS ANIMALS IN IT
+8/26/26 -- RUN lane. Two things he had already ruled and nobody had built.
+
+
+HE HAD TO SAY IT TWICE
+======================
+
+    "I told you the action button ... the action button shouldn't be the city
+     button, bro. It should be the zoom out thing until you keep zooming out,
+     and it's cool. Like, you haven't even done that. ... you're hurting my
+     feelings, bro. There's so much to do, please."
+
+He is right. It was LOCKED on 8/25 as item 6 of THE PLAYTEST DISPATCH, in his
+words then:
+
+    "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO CHANGE THAT I
+     SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE ACTION BUTTON"
+
+
+HIS SENTENCE HAS TWO HALVES AND ONLY ONE WAS DONE
+=================================================
+
+I MEASURED BEFORE ARGUING, because "you haven't even done that" deserves a
+number. A real two-finger pinch, dispatched as actual touch, from the street:
+
+    start        human   HZOOM 44
+    pinch out    CITY    CZOOM 0.351
+    pinch out    SKY
+    spread in    city
+    spread in    city    CZOOM 1.77
+    spread in    HUMAN   HZOOM 44
+
+Street to city to sky and all the way back, one continuous gesture, both
+directions. HALF ONE WAS BUILT -- __ZOOM_SEAM__ (8/2) and
+__ONE_ZOOM_TO_THE_MOON__ (8/12) did it.
+
+HALF TWO WAS NEVER TOUCHED, AND IT IS THE HALF HE NAMES FIRST BOTH TIMES. The big
+round button in the middle of the movement pad -- the largest control in the game,
+under his right thumb, WEARING HIS OWN CHARACTER'S FACE -- still said
+
+    DROP IN  /  CITY
+
+So the most reachable thing on screen was a camera toggle, and the game had NO
+BUTTON AT ALL for doing the thing in front of you. The law's own words: THE ACTION
+BUTTON DOES ACTIONS.
+
+
+WHAT IT DOES NOW
+================
+
+It asks what is in front of him and says so on its own face:
+
+    somebody next to you   their address, from the person system's own label
+    a door you are facing  ENTER
+    a market you stand in  TRADE
+    inside a building      LEAVE
+    nothing                it goes quiet and says nothing
+
+THE PATTERN IS NOT NEW AND THAT IS THE POINT. #cttalk already worked exactly this
+way, and its own comment says why: "THE BUTTON ONLY EXISTS WHEN SOMEBODY IS THERE.
+That is what makes it the ONE CONTEXTUAL VERB and not a menu." That rule was
+right; it was just stuck on a small pill above the pad while a bigger, rounder,
+better-placed button sat in the middle doing camera work. The rule moved onto the
+button his thumb is already on.
+
+EVERY VERB CALLS THE OWNER THAT ALREADY EXISTED -- inEnter for doors, ctOpen for
+people, showMarket for the market, stepOnce for walking out. Not one line of their
+insides was copied. That is the whole lesson of this week (a door predicate copied
+into homeFind, an objective hint copied into an inlined module, a toolbar offset
+copied into popwrap), and the gate fails if it stops being true.
+
+WHERE THE CAMERA WENT: a small DROP IN / CITY chip beside WHOLE MAP. NOT DELETED.
+Zoom is the way and it is measured working, but NO DISTRICT IS A PRISON (Paolo
+8/1) and a player whose fingers cannot pinch still needs one. It survives at the
+size of a preference instead of the size of the primary verb.
+
+MEASURED, ON HIS OWN FRONT DOOR:
+    standing in the open   ""       quiet
+    facing the door        ENTER
+    pressed                inside
+    inside                 LEAVE
+    pressed                walks onto the door
+    pressed                outside, and the button goes quiet again
+
+Two presses to leave, both REAL STEPS through the real door, no teleport --
+because __STEP_INSIDE__ (his own request: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT
+AND RIGHT") deliberately puts him one cell THROUGH the threshold, so the door is
+one step back and walking to it is the honest way out.
+
+
+THE ONE I SHIPPED WRONG, FORTY MINUTES AFTER GATING IT
+======================================================
+
+The first cut left the button saying ENTER while he was standing in the room. It
+offered to put him into the room he was already in. That is a control on screen
+that does not do what the screen says -- the same family as the STANDING card and
+the 8/18 wall -- and I did it in the same session as writing a gate about exactly
+that. Fixed, and the gate now holds it.
+
+
+AND TWO THINGS THE GATE HAD TO LEARN ABOUT ITSELF
+=================================================
+
+1. A FIGHT LEGITIMATELY TAKES THE SCREEN. Walking into a building rolls for one
+   (deterministic per footprint), and when it fires the shell shows the combat
+   frame -- so the city measures 0x0 and every button in it becomes unclickable.
+   THAT IS CORRECT BEHAVIOUR. My probe read it as "walking into a house destroys
+   the entire HUD, the pad and the action button included" and I was one sentence
+   from writing that up as a major bug. I checked the shell instead. SECOND TIME
+   TODAY a probe was confidently wrong about a working system, and both times the
+   thing that saved it was measuring one more layer instead of concluding.
+2. SO THE DOOR THE GATE USES IS HIS OWN FRONT DOOR, because
+   __NOT_YOUR_OWN_HOUSE__ makes "no ambush here" a LAW rather than luck, and
+   cityFightRoll() reads INSIDE and so cannot be asked before you are already in.
+
+MUTATION TESTED: both patches reverted turns 10 claims red, and the log reproduces
+the complaint verbatim -- facing a door, the button reads "CITY". One claim went
+green under that mutation because he was never inside, so "he is outside" was
+trivially true; it proves the round trip now.
+
+
+=============================================================================
+THE VALLEY HAS ANIMALS IN IT
+=============================================================================
+
+Same message:
+
+    "maybe I wanna fuck around and start putting, you know, dogs and and swarms
+     of flies as, like, low tier, you know, biome level one enemies or something"
+
+THE RESEARCH DELIVERED THE DAY HE FIRST ASKED ALREADY ANSWERED THIS, and nobody
+built it (records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md):
+
+    the reason the city feels dead is not that we lack enemies. It is that we
+    lack ANIMALS. Ravens on a roofline, rats at a bin, a coyote crossing the wash
+    three blocks away and not caring about you -- none of those are combat and
+    all of them are life. Tier 1 is mostly not an enemy system at all. It is set
+    dressing that moves, and it is the cheapest fix on this list for the loudest
+    complaint on his list.
+
+SHIPPED: FLIES, RATS, RAVENS. Every one is a small dark moving mark -- a swarm is
+specks orbiting a point, a rat is a dash at the foot of a wall, a raven is a
+silhouette on a roofline. NONE NEEDS A CHARACTER SPRITE, which is exactly why this
+lane can ship them without inventing creature art.
+
+A FLY SWARM IS A READ: it means SOMETHING DIED THERE. That is information the
+player can use before we own a corpse system at all.
+
+DETERMINISTIC, like the sky already is: life is hashed from (seed, cell), so a
+block holds the same animals every time it is walked and on every device. A valley
+that reshuffles its rats when you turn around reads as noise.
+
+DENSITY IS BY PLACE, which is the Valheim half of his ruling -- difficulty and
+life live in THE GROUND, never in a level number on the player. Eight districts,
+real numbers as a first attempt, all tagged as dials he has not ruled. Nothing
+here decides which FACTION holds anything; that is reserved and was not touched.
+
+THEY MOVE ON THE BEAT. 120 BPM LAW: drift, hop and wing-flick are phases of the
+same clock his footsteps are on.
+
+IT IS NOT AN ENEMY SYSTEM, and the gate holds that: no damage, no health, nothing
+that can hurt him. NO DAMAGE BEFORE THE DIAL is untouched. He said "enemies"; the
+ecology's own answer is that Tier 1 barely fights.
+
+*** THE DOG IS DELIBERATELY NOT BUILT. *** He named it first and the research
+calls it the headline ("somebody's pets, in a pack, ten years on ... the most
+Bohemia enemy imaginable"). But a dog is a BODY, and a body is character art. The
+45 DEGREE ART LAW and REUSE-FIRST both say a lane does not invent creature pixels
+because it is in a hurry. Its row sits at 0 in the density table, the gate fails
+if that row disappears, and an art request is filed. When the art lands it is one
+line.
+
+PERFORMANCE, because his item 7 is performance and answering "the city is dead"
+with a stutter answers nothing: window-culled, hard-capped per frame, and the
+whole pass is skipped at city zoom where a 2px mark is a dirty screen rather than
+an animal. FRAME BUDGET measured 22/0 with the pass in.
+
+MEASURED:
+    on the block he wakes on                18 animals
+    across 40 screens                       480 flies · 51 ravens · 24 rats
+    same cell asked twice                   same answer, 200 cells
+    marks between two frames                they move
+    at city zoom                            0 drawn
+
+
+THE ONE I GOT WRONG AND THE PROBE THAT HID IT
+=============================================
+
+RATS WERE BROKEN AND THE FIRST MEASUREMENT SAID THEY WERE FINE. The rule wanted a
+wall specifically to the SOUTH, and then hid them 62% of the time on top of the
+density roll: 9 rats against 480 flies across forty screens. That is not "the
+urban constant" the ecology calls them, it is rats that do not exist.
+
+AND WHEN I FIXED IT, THE NUMBER DID NOT MOVE -- because MY PROBE KEPT ITS OWN COPY
+of "a rat needs a wall beside it" and was measuring the copy, not the game. Fourth
+time this session a probe re-implemented the rule it was supposed to be checking.
+Ask the renderer what it drew; never re-derive its rule.
+
+Fixed both: any cardinal wall, and the rat runs along THAT edge. 9 -> 24.
+
+
+THE GATES
+=========
+
+gates/the_action_button_does_actions_gate.js -- ACTION BUTTON, 17 claims
+gates/the_valley_has_animals_gate.js         -- ANIMALS, 16 claims
+
+THE ANIMALS GATE ALSO HAD TO BE FIXED TWICE, both times the same disease as the
+probes: its movement check counted dark pixels over the whole canvas and came back
+BYTE-IDENTICAL (the world drowns eighteen specks), and its first version DROVE
+animalPass BY HAND -- so a mutation removing the renderer's call left it green. A
+gate that supplies the very call it is checking for cannot fail. It spies on a
+real render() now, and that mutation turns 6 claims red instead of 2.

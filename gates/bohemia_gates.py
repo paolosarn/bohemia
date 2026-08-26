@@ -518,6 +518,54 @@ GATES = [
      'chain driven end to end takes the job. Mutation-tested four ways, each hitting only its own '
      'claims: all three patches reverted 10/6, z-index only 15/1, the chip never dressing itself '
      '13/3, and the shout made permanent 15/1', True),
+    # 8/26, Paolo, twice: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON" and
+    # then "you haven't even done that". PLAYTEST DISPATCH item 6, LOCKED 8/25.
+    ('ACTION BUTTON', ['node', 'gates/the_action_button_does_actions_gate.js'],
+     'THE ACTION BUTTON DOES ACTIONS. His sentence has two halves and only one was built. '
+     'HALF ONE, ZOOM, WAS ALREADY DONE and this gate measures it instead of arguing: a real '
+     'two-finger pinch dispatched as actual touch walks street -> city -> sky and all the way '
+     'back. HALF TWO WAS NEVER BUILT: the biggest control in the game, in the middle of the '
+     'movement pad, wearing HIS CHARACTER\'S FACE, was wired to `transition` and said DROP IN / '
+     'CITY -- so the most reachable thing on screen was a camera toggle and the game had NO '
+     'BUTTON FOR DOING THE THING IN FRONT OF YOU. It is now the ONE CONTEXTUAL VERB (a person '
+     'by their own address, ENTER at a door he is facing, TRADE at a market, LEAVE from inside, '
+     'and SILENT when there is nothing), which is the rule #cttalk already had -- moved onto the '
+     'button his thumb is on. Each verb calls the owner that already existed (inEnter, ctOpen, '
+     'showMarket, stepOnce) rather than a copy of its insides, and the source half fails if that '
+     'stops being true. The camera toggle is NOT deleted -- NO DISTRICT IS A PRISON -- it is a '
+     'chip beside WHOLE MAP. TWO THINGS THIS GATE HAD TO LEARN ABOUT ITSELF: a fight '
+     'legitimately takes the screen when you enter a building (deterministic per footprint), so '
+     'the city measuring 0x0 is CORRECT and an earlier run was one sentence from writing that up '
+     'as "walking into a house destroys the HUD"; and the door it uses is HIS OWN FRONT DOOR, '
+     'because __NOT_YOUR_OWN_HOUSE__ makes no-ambush a LAW rather than luck. Mutation-tested: '
+     'both patches reverted turns 10 claims red and the log reproduces the complaint verbatim '
+     '(facing a door, the button reads "CITY"). One claim went green under that mutation because '
+     'he was never inside, so "he is outside" was trivially true -- it proves the round trip now',
+     True),
+    # 8/26, Paolo: "maybe I wanna fuck around and start putting dogs and swarms of
+    # flies as low tier biome level one enemies", + dispatch item 5 (the city is dead)
+    # and item 8 (bestiary / danger by place).
+    ('ANIMALS',       ['node', 'gates/the_valley_has_animals_gate.js'],
+     'THE VALLEY HAS ANIMALS IN IT. His loudest complaint was that the city is dead, and the '
+     'bestiary research delivered the same day already had the answer nobody built: "the reason '
+     'the city feels dead is not that we lack enemies. It is that we lack ANIMALS ... Tier 1 is '
+     'mostly not an enemy system at all. It is set dressing that moves, and it is the cheapest '
+     'fix on this list for the loudest complaint." Flies, rats and ravens now live on the ground, '
+     'hashed from (seed, cell) so a block holds the same life every time it is walked, moving on '
+     'the 120 BPM clock, denser or thinner BY DISTRICT -- which is the Valheim half of his ruling, '
+     'difficulty living in the GROUND and never in a level number on the player. A fly swarm is a '
+     'READ: something died there. IT IS NOT AN ENEMY SYSTEM and the gate holds that -- no damage, '
+     'no health, nothing that can hurt him (NO DAMAGE BEFORE THE DIAL). THE DOG IS DELIBERATELY '
+     'NOT BUILT: he named it first and the research calls it the headline, but a dog is a BODY and '
+     'a body is character art, so its row sits at 0 and an art request is filed rather than this '
+     'lane inventing creature pixels. Skipped entirely at city zoom and capped per frame, because '
+     'his item 7 is PERFORMANCE and answering "the city is dead" with a stutter answers nothing. '
+     'MEASURED: 18 on the block he wakes on, 480 flies / 51 ravens / 24 rats across 40 screens. '
+     'TWO THINGS THE GATE HAD TO LEARN ABOUT ITSELF: its first movement check counted dark pixels '
+     'over the whole canvas and came back byte-identical (the world drowns eighteen specks), and '
+     'its first version drove animalPass BY HAND -- so removing the renderer\'s call left it green, '
+     'a gate supplying the very call it was checking for. It spies on a real render() now: that '
+     'mutation turns 6 claims red instead of 2', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

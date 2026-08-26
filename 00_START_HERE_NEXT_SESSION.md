@@ -2091,6 +2091,115 @@ NEXT IN THIS LANE
 
 ---
 
+RUN (run-eak241): 8/26 LATEST -- *** THE ACTION BUTTON DOES ACTIONS, AND THE
+VALLEY HAS ANIMALS IN IT. TAB: RUN. Nothing to judge. ***
+
+HE HAD TO SAY IT TWICE AND HE WAS RIGHT BOTH TIMES: "the action button shouldn't
+be the city button, bro ... Like, you haven't even done that ... you're hurting my
+feelings, bro." LOCKED 8/25 as PLAYTEST DISPATCH item 6.
+
+*** HIS SENTENCE HAS TWO HALVES AND ONLY ONE WAS DONE. *** I measured before
+arguing, because "you haven't even done that" deserves a number. A real
+two-finger pinch dispatched as ACTUAL TOUCH, from the street:
+    human 44 -> CITY 0.351 -> SKY -> city -> city 1.77 -> HUMAN 44
+Street to city to sky and all the way back, one gesture, both directions. HALF ONE
+WAS BUILT (__ZOOM_SEAM__ 8/2, __ONE_ZOOM_TO_THE_MOON__ 8/12).
+HALF TWO WAS NEVER TOUCHED, and it is the half he names FIRST both times: the big
+round button in the middle of the pad -- the largest control in the game, under
+his right thumb, WEARING HIS OWN CHARACTER'S FACE -- still said DROP IN / CITY. The
+most reachable thing on screen was a camera toggle and the game had NO BUTTON AT
+ALL for doing the thing in front of you.
+
+IT IS THE ONE CONTEXTUAL VERB NOW: a person by their own address, ENTER at a door
+he is facing, TRADE at a market, LEAVE from inside, and SILENT when there is
+nothing. THE PATTERN IS NOT NEW -- #cttalk already said "THE BUTTON ONLY EXISTS
+WHEN SOMEBODY IS THERE. That is what makes it the ONE CONTEXTUAL VERB and not a
+menu." That rule was right and was stuck on a small pill while a bigger, rounder,
+better-placed button did camera work. EVERY VERB CALLS THE OWNER THAT ALREADY
+EXISTED (inEnter, ctOpen, showMarket, stepOnce), not a copy of its insides, and
+the gate fails if that stops being true.
+THE CAMERA TOGGLE IS NOT DELETED -- a chip beside WHOLE MAP. Zoom is the way and
+it is measured, but NO DISTRICT IS A PRISON and a player who cannot pinch needs one.
+MEASURED on his own front door: open "" -> ENTER -> inside -> LEAVE -> walks onto
+the door -> outside -> quiet. Two presses out, both REAL STEPS, no teleport,
+because __STEP_INSIDE__ (his own "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND
+RIGHT") puts him one cell THROUGH the threshold on the way in.
+I SHIPPED THE FIRST CUT WRONG: inside a room it still said ENTER -- it offered to
+put him into the room he was standing in. Same family as the STANDING card, forty
+minutes after gating exactly that. Fixed and held.
+
+*** AND THE VALLEY HAS ANIMALS IN IT. *** Same message: "maybe I wanna fuck around
+and start putting dogs and swarms of flies as low tier biome level one enemies."
+THE RESEARCH DELIVERED THE DAY HE FIRST ASKED ALREADY ANSWERED IT and nobody built
+it: "the reason the city feels dead is not that we lack enemies. It is that we
+lack ANIMALS ... Tier 1 is mostly not an enemy system at all. It is set dressing
+that moves, and it is the cheapest fix on this list for the loudest complaint."
+SHIPPED: FLIES, RATS, RAVENS -- every one a small dark MOVING MARK (specks, a
+dash, a silhouette), so none needs a character sprite. A fly swarm is a READ: it
+means SOMETHING DIED THERE, information before we own a corpse system. Hashed from
+(seed, cell) so a block holds the same life every time. Moves on the 120 BPM clock.
+DENSITY BY DISTRICT, eight rows, real numbers tagged as dials -- the Valheim half
+of his ruling, difficulty in THE GROUND and never in a level number on the player.
+NOT AN ENEMY SYSTEM and the gate holds it: no damage, no health. NO DAMAGE BEFORE
+THE DIAL untouched.
+*** THE DOG IS DELIBERATELY NOT BUILT. *** He named it first and the research calls
+it the headline, but a dog is a BODY and a body is character art; a lane does not
+invent creature pixels because it is in a hurry. Row sits at 0, the gate fails if
+it disappears, and ART REQUEST AR-006 is filed with a full spec (45-degree, 8
+facings, somebody's pet ten years on, reads at the 44px cell). When the art lands
+it is ONE LINE.
+MEASURED: 18 on the block he wakes on - 480 flies / 51 ravens / 24 rats over 40
+screens - same answer twice for 200 cells - marks move between frames - 0 drawn at
+city zoom. FRAME BUDGET 22/0 with the pass in, because his item 7 is PERFORMANCE
+and answering "the city is dead" with a stutter answers nothing.
+
+  GATES: ACTION BUTTON 17 claims, ANIMALS 16 claims. Both registered.
+  ACTION BUTTON mutation: both patches reverted turns 10 claims red and the log
+  reproduces the complaint verbatim (facing a door, the button reads "CITY"). One
+  claim went green under that mutation because he was never inside, so "he is
+  outside" was trivially true -- it proves the round trip now.
+  ANIMALS mutation: the renderer's call removed turns 6 claims red.
+
+*** FIVE PROBES WERE WRONG BEFORE THEY WERE RIGHT, AND FOUR OF THEM THE SAME WAY. ***
+  (1) the pinch probe made hand-rolled PointerEvents and setPointerCapture threw,
+      so it reported "the zoom does nothing" about a canvas it never touched. Real
+      touch through CDP.
+  (2) it then pinched while the OPENING OVERLAY was still up and the day card sat
+      behind it, so eight presses changed nothing and it blamed the canvas again.
+  (3) it read "walking into a house destroys the entire HUD, pad and action button
+      included" -- 378x763 to 0x0, on the real path. A FIGHT HAD LEGITIMATELY TAKEN
+      THE SCREEN. I was one sentence from writing a working system up as a major
+      bug. SECOND TIME TODAY (the other was "TAKE IT is broken").
+  (4) the rat probe KEPT ITS OWN COPY of "a rat needs a wall beside it" and did not
+      move when the game's rule was fixed -- it was measuring the probe.
+  (5) the ANIMALS GATE drove animalPass BY HAND, so a mutation removing the
+      renderer's call left it green. A gate that supplies the call it is checking
+      for cannot fail.
+THE RULE: ASK THE RENDERER WHAT IT DREW; NEVER RE-DERIVE ITS RULE, AND NEVER
+SUPPLY THE CALL YOU ARE CHECKING FOR.
+
+AND A REAL BUG FOUND AND FIXED ON THE WAY: rats wanted a wall specifically to the
+SOUTH and then hid 62% of the time on top of the density roll -- 9 rats against 480
+flies over forty screens, which is not "the urban constant" the ecology calls them.
+Any cardinal wall now, and the rat runs along THAT edge. 9 -> 24.
+
+RECORD: records/BOHEMIA_THE_ACTION_BUTTON_AND_THE_ANIMALS_8_26_26.txt
+
+NEXT IN THIS LANE, in order:
+  1. TIER 2, THE PACK, once AR-006 lands. Dog packs are where the RF4 movement work
+     lands -- "a pack that circles is the fight-has-to-move-you law with teeth
+     instead of a rule". Tier 3 (who holds the worst blocks) is RESERVED, his.
+  2. FT-JOURNEY, wiring engine/bohemia_encounters.js rather than writing one. That
+     director is 258 lines, approved 7/27, fully gated, and has ZERO CALLERS
+     anywhere in the repo. Its roster reads as if written for the fast-travel law.
+  3. LOOT. The dispatch's item 8(c): "right now there is not one loot idea in the
+     build". The research hands it over: a carcass is a resource, a raven flock
+     marks a body, a bee hive is a hazard AND food, a dog pack has a den.
+  4. RUN 0f, THE FEEDBACK CARD -- without it a friends round returns five texts
+     saying "it was cool".
+  5. WEBKIT-1. All 201 Playwright launches are chromium and the game is
+     iPhone-portrait, where every browser is WebKit.
+
 RUN (run-eak241): 8/25 (c) LATEST -- *** THE COLD HAND NEVER MET THE GAME.
 P0-MORNING AND P0-DOOR ARE BOTH CLOSED. TAB: RUN (it is what the link now opens
 on; the first morning, 06:00 day 1). Nothing to judge. ***

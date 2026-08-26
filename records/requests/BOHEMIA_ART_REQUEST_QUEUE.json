@@ -1,117 +1,138 @@
 {
-  "version": "BOHEMIA_ART_REQUEST_QUEUE_v1",
-  "law": "A LANE THAT NEEDS ART FILES A REQUEST. IT DOES NOT COOK IT AND IT DOES NOT BLOCK.",
-  "how_it_works": [
-    "ANY lane files a request here the moment it hits missing art. It keeps building around it.",
-    "The ART lane picks requests up, cooks candidates, and Paolo thumbs them.",
-    "A request is CLOSED only when the art is MEASURED in the surface he plays -- not when it is cooked, not when it is approved. gates/art_request_gate.js checks the marker.",
-    "That closes the loop that failed seven times in one month: approved art sitting in banks/ while the game drew something else."
-  ],
-  "status_values": [
-    "OPEN",
-    "COOKING",
-    "JUDGING",
-    "SHIPPED",
-    "KILLED"
-  ],
-  "requests": [
-    {
-      "id": "AR-001",
-      "status": "OPEN",
-      "filed": "8/6/26",
-      "by": "RUN",
-      "what": "WOOD FLOOR TILES, interior",
-      "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6). A house is floored like a house.",
-      "measured_gap": "Fifteen floor packs across HD_TILE_REPO parts 1-4 and INTERIOR_POOL_7_26_26: tile, concrete, cobblestone, metal, rusted metal, stone path, dirt, soil, burnt ground. ZERO wood.",
-      "spec": {
-        "size_px": 44,
-        "why_44": "the corpus cell. 48->44 is a 0.917 resample the MOBILE RENDER CONTRACT bans; ship 44 native or croppable to 44.",
-        "seamless": true,
-        "count_wanted": "8-16 variants so a room reads as a surface, not a repeat",
-        "rooms": "living, hall, bedrooms",
-        "act": "ACT 1 IS A DEAD WORLD -- worn, dusty, sun-bleached boards. Not glossy, not new.",
-        "bought_first": "BOUGHT BEATS PAINTED. Check the purchased library FIRST; only cook if nothing bought fits."
-      },
-      "blocks": "living rooms and bedrooms currently sit on TILE as a named interim",
-      "marker_when_shipped": "__HOUSE_FLOOR_WOOD__"
-    },
-    {
-      "id": "AR-002",
-      "status": "OPEN",
-      "filed": "8/6/26",
-      "by": "RUN",
-      "what": "CARPET FLOOR TILES, interior",
-      "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6).",
-      "measured_gap": "Same sweep as AR-001. ZERO carpet in anything he owns.",
-      "spec": {
-        "size_px": 44,
-        "seamless": true,
-        "count_wanted": "8-16 variants",
-        "rooms": "bedrooms first",
-        "act": "ACT 1: stained, flattened, filthy. Ten years cold.",
-        "bought_first": "check the purchased library FIRST"
-      },
-      "blocks": "bedrooms sit on TILE as a named interim",
-      "marker_when_shipped": "__HOUSE_FLOOR_CARPET__"
-    },
-    {
-      "id": "AR-003",
-      "status": "OPEN",
-      "filed": "8/6/26",
-      "by": "RUN",
-      "what": "SIDE DOOR (east/west facing wall) -- RECOOK, the old one is KILLED",
-      "why_paolo": "\"Your side doors were dogshit\" (8/6). KILL on the look, NOT the feature -- he asked for east/west doors four separate times.",
-      "measured_gap": "The shipped treatment was a 7px edge-on sliver from BOHEMIA_DOOR_EW_BANK_7_10_26. That bank flagged itself: \"7px was approved for the demo doors ONLY -- these are CANDIDATES; widths adjustable per doorway when judged.\" It was never judged. 7px of dark stone on a tan wall reads as a smudge.",
-      "spec": {
-        "problem_to_solve": "a fixed 3/4 camera cannot show a full door on an east or west wall -- that face points away from the viewer. The old answer was a thin sliver on the mass edge and it did not read as a door.",
-        "size_px": 44,
-        "must_read_as": "A DOOR, at a glance, from across the street, on the LEFT or RIGHT wall of a house",
-        "geometry_is_done": "placement, reachability and entry all work and are gated -- ewdoor_gate 7/0. ONLY the art changes.",
-        "45_law": "seen from the world's three-quarter 45 view like the corpus, never flat side-on"
-      },
-      "blocks": "nothing -- side doors still function, they just look wrong",
-      "marker_when_shipped": "__EW_DOOR_ART_V2__"
-    },
-    {
-      "id": "AR-004",
-      "status": "OPEN",
-      "filed": "8/11/26",
-      "by": "CITY",
-      "what": "THE STRIP + RESORT HERO ART, valley-view tier, EACH BUILDING UNIQUE",
-      "why_paolo": "\"RN WE ARE GOING TO MAKE THE STRIP HERO ART RN EACH BUILDING UNIQUE AS MUCH AS WE CAN LIKE WE ARE FOR EVERYTHING\" (8/11). Filed to the ART chat on his standing order: \"WE WILL DO ALL THE ART IF U NEED HELP ASK THE ART CHAT\".",
-      "measured_gap": "Measured in the running app, not estimated: 372 of the valley's 9,216 cells draw with NO hero art, and the two biggest are the two that matter most -- RESORT 118 cells and STRIP 81. HERO_IMG holds 59 district types; neither is one of them. They fall through to a flat coloured diamond in the isometric valley view.",
-      "where_it_shows": "THE VISTA -- the demo's money shot (demo plan row 11, shipped 8/9). You stand on the rim and the Strip is the one thing a human looks for in a Las Vegas skyline. Right now that part of the view is flat blocks. It is also every MAP tab glance and the whole city-builder overview.",
-      "spec": {
-        "tier": "district HERO art -- the isometric valley-view sprite, same rung as the other 59",
-        "projection": "45 DEGREE ART LAW: three-quarter iso like the corpus, never flat side-on",
-        "unique_per_building": "HIS RULING, and it is the point: each resort/tower reads as ITSELF. The Strip is not a texture, it is a row of landmarks -- if two towers read the same the shot is wallpaper.",
-        "act": "ACT 1 = DEAD. Dark glass, no lit signage. CLUSTERED POWER: 12% lit, owned, and the Strip is not automatically part of it -- lighting is LIGHT=TERRITORY canon, not decoration.",
-        "purple": "PURPLE RESERVATION -- purple is the Amalgamation alone. Vegas neon is Paolo's call, and in act 1 the signage is dead anyway.",
-        "count_wanted": "enough distinct masses that 118 resort + 81 strip cells never repeat side by side",
-        "consumer": "HERO_IMG[district] in the valley renderer. The moment a hero lands for 'resort'/'strip' the vista and the MAP tab pick it up with ZERO code change on my side."
-      },
-      "acceptance": "Open the LOOK tab's vista picture after the art lands: the Strip should read as a row of distinct buildings, not a coloured band. Measured: cells drawing without hero art drops by 199 (372 -> 173).",
-      "blocked_on": "nothing from CITY. The consumer is already built and live.",
-      "marker_when_shipped": "__STRIP_HERO_ART__",
-      "how_the_marker_is_checked": "vista_gate.js counts cells drawing without hero art. When HERO_IMG carries 'resort' and 'strip', that count drops by 199 and the marker istrue. No hand-flipping a status: the queue asks the running app."
-    },
-    {
-      "id": "AR-005",
-      "status": "OPEN",
-      "filed": "8/12/26",
-      "by": "RUN",
-      "what": "THE SKY ABOVE THE VALLEY: earth from orbit, and the moon",
-      "why_paolo": "\"you could keep zooming out and zooming out until it showed the moon you know. that was my original philosophy and i want to stick with that thats my flavor\" (8/12, LOCKED as laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md). The zoom now runs from his character's feet to the moon and back; the MECHANISM is shipped and gated, the SKY is placeholder.",
-      "measured_gap": "Measured, not estimated: the repository contains NO celestial art of any kind -- no planet, no moon, no star field in any bank. The PLANET and MOON bands currently draw procedural radial-gradient discs from the city's own palette, and the screen admits it in the corner ('placeholder sky'). Two of the five zoom bands are therefore un-cooked.",
-      "spec": [
-        "EARTH FROM ORBIT, looking down at the Mojave: desert southwest under thin cloud, the terminator falling across it, a thin atmosphere rim. Act 3 ends 'looking down at the planet' (7/19 LOCKED) -- this is the last image the dynasty ever sees, so it should be worth ending on.",
-        "THE MOON, destination of the one-way Act 3 moonshot. The full disc with readable seas, cold light. Not a crescent, not a cartoon.",
-        "THE STAR FIELD, if it should be more than single pixels.",
-        "NOT a 45-degree three-quarter subject, and this is a real exemption rather than a shortcut: canon already names this camera separately (7/19: 'the camera levels are street / city / PLANETARY zoom'). The valley diamond below stays on the 45 the whole way out."
-      ],
-      "blocks": "nothing -- the continuum ships and plays today. This replaces placeholder pixels with cooked ones.",
-      "marker_when_shipped": "__SKY_ART__",
-      "drops_into": "renderSky() / skyDisc() in slices/BOHEMIA_CITY_WORLD.html (marker __ONE_ZOOM_TO_THE_MOON__)"
-    }
-  ]
+ "version": "BOHEMIA_ART_REQUEST_QUEUE_v1",
+ "law": "A LANE THAT NEEDS ART FILES A REQUEST. IT DOES NOT COOK IT AND IT DOES NOT BLOCK.",
+ "how_it_works": [
+  "ANY lane files a request here the moment it hits missing art. It keeps building around it.",
+  "The ART lane picks requests up, cooks candidates, and Paolo thumbs them.",
+  "A request is CLOSED only when the art is MEASURED in the surface he plays -- not when it is cooked, not when it is approved. gates/art_request_gate.js checks the marker.",
+  "That closes the loop that failed seven times in one month: approved art sitting in banks/ while the game drew something else."
+ ],
+ "status_values": [
+  "OPEN",
+  "COOKING",
+  "JUDGING",
+  "SHIPPED",
+  "KILLED"
+ ],
+ "requests": [
+  {
+   "id": "AR-001",
+   "status": "OPEN",
+   "filed": "8/6/26",
+   "by": "RUN",
+   "what": "WOOD FLOOR TILES, interior",
+   "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6). A house is floored like a house.",
+   "measured_gap": "Fifteen floor packs across HD_TILE_REPO parts 1-4 and INTERIOR_POOL_7_26_26: tile, concrete, cobblestone, metal, rusted metal, stone path, dirt, soil, burnt ground. ZERO wood.",
+   "spec": {
+    "size_px": 44,
+    "why_44": "the corpus cell. 48->44 is a 0.917 resample the MOBILE RENDER CONTRACT bans; ship 44 native or croppable to 44.",
+    "seamless": true,
+    "count_wanted": "8-16 variants so a room reads as a surface, not a repeat",
+    "rooms": "living, hall, bedrooms",
+    "act": "ACT 1 IS A DEAD WORLD -- worn, dusty, sun-bleached boards. Not glossy, not new.",
+    "bought_first": "BOUGHT BEATS PAINTED. Check the purchased library FIRST; only cook if nothing bought fits."
+   },
+   "blocks": "living rooms and bedrooms currently sit on TILE as a named interim",
+   "marker_when_shipped": "__HOUSE_FLOOR_WOOD__"
+  },
+  {
+   "id": "AR-002",
+   "status": "OPEN",
+   "filed": "8/6/26",
+   "by": "RUN",
+   "what": "CARPET FLOOR TILES, interior",
+   "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6).",
+   "measured_gap": "Same sweep as AR-001. ZERO carpet in anything he owns.",
+   "spec": {
+    "size_px": 44,
+    "seamless": true,
+    "count_wanted": "8-16 variants",
+    "rooms": "bedrooms first",
+    "act": "ACT 1: stained, flattened, filthy. Ten years cold.",
+    "bought_first": "check the purchased library FIRST"
+   },
+   "blocks": "bedrooms sit on TILE as a named interim",
+   "marker_when_shipped": "__HOUSE_FLOOR_CARPET__"
+  },
+  {
+   "id": "AR-003",
+   "status": "OPEN",
+   "filed": "8/6/26",
+   "by": "RUN",
+   "what": "SIDE DOOR (east/west facing wall) -- RECOOK, the old one is KILLED",
+   "why_paolo": "\"Your side doors were dogshit\" (8/6). KILL on the look, NOT the feature -- he asked for east/west doors four separate times.",
+   "measured_gap": "The shipped treatment was a 7px edge-on sliver from BOHEMIA_DOOR_EW_BANK_7_10_26. That bank flagged itself: \"7px was approved for the demo doors ONLY -- these are CANDIDATES; widths adjustable per doorway when judged.\" It was never judged. 7px of dark stone on a tan wall reads as a smudge.",
+   "spec": {
+    "problem_to_solve": "a fixed 3/4 camera cannot show a full door on an east or west wall -- that face points away from the viewer. The old answer was a thin sliver on the mass edge and it did not read as a door.",
+    "size_px": 44,
+    "must_read_as": "A DOOR, at a glance, from across the street, on the LEFT or RIGHT wall of a house",
+    "geometry_is_done": "placement, reachability and entry all work and are gated -- ewdoor_gate 7/0. ONLY the art changes.",
+    "45_law": "seen from the world's three-quarter 45 view like the corpus, never flat side-on"
+   },
+   "blocks": "nothing -- side doors still function, they just look wrong",
+   "marker_when_shipped": "__EW_DOOR_ART_V2__"
+  },
+  {
+   "id": "AR-004",
+   "status": "OPEN",
+   "filed": "8/11/26",
+   "by": "CITY",
+   "what": "THE STRIP + RESORT HERO ART, valley-view tier, EACH BUILDING UNIQUE",
+   "why_paolo": "\"RN WE ARE GOING TO MAKE THE STRIP HERO ART RN EACH BUILDING UNIQUE AS MUCH AS WE CAN LIKE WE ARE FOR EVERYTHING\" (8/11). Filed to the ART chat on his standing order: \"WE WILL DO ALL THE ART IF U NEED HELP ASK THE ART CHAT\".",
+   "measured_gap": "Measured in the running app, not estimated: 372 of the valley's 9,216 cells draw with NO hero art, and the two biggest are the two that matter most -- RESORT 118 cells and STRIP 81. HERO_IMG holds 59 district types; neither is one of them. They fall through to a flat coloured diamond in the isometric valley view.",
+   "where_it_shows": "THE VISTA -- the demo's money shot (demo plan row 11, shipped 8/9). You stand on the rim and the Strip is the one thing a human looks for in a Las Vegas skyline. Right now that part of the view is flat blocks. It is also every MAP tab glance and the whole city-builder overview.",
+   "spec": {
+    "tier": "district HERO art -- the isometric valley-view sprite, same rung as the other 59",
+    "projection": "45 DEGREE ART LAW: three-quarter iso like the corpus, never flat side-on",
+    "unique_per_building": "HIS RULING, and it is the point: each resort/tower reads as ITSELF. The Strip is not a texture, it is a row of landmarks -- if two towers read the same the shot is wallpaper.",
+    "act": "ACT 1 = DEAD. Dark glass, no lit signage. CLUSTERED POWER: 12% lit, owned, and the Strip is not automatically part of it -- lighting is LIGHT=TERRITORY canon, not decoration.",
+    "purple": "PURPLE RESERVATION -- purple is the Amalgamation alone. Vegas neon is Paolo's call, and in act 1 the signage is dead anyway.",
+    "count_wanted": "enough distinct masses that 118 resort + 81 strip cells never repeat side by side",
+    "consumer": "HERO_IMG[district] in the valley renderer. The moment a hero lands for 'resort'/'strip' the vista and the MAP tab pick it up with ZERO code change on my side."
+   },
+   "acceptance": "Open the LOOK tab's vista picture after the art lands: the Strip should read as a row of distinct buildings, not a coloured band. Measured: cells drawing without hero art drops by 199 (372 -> 173).",
+   "blocked_on": "nothing from CITY. The consumer is already built and live.",
+   "marker_when_shipped": "__STRIP_HERO_ART__",
+   "how_the_marker_is_checked": "vista_gate.js counts cells drawing without hero art. When HERO_IMG carries 'resort' and 'strip', that count drops by 199 and the marker istrue. No hand-flipping a status: the queue asks the running app."
+  },
+  {
+   "id": "AR-005",
+   "status": "OPEN",
+   "filed": "8/12/26",
+   "by": "RUN",
+   "what": "THE SKY ABOVE THE VALLEY: earth from orbit, and the moon",
+   "why_paolo": "\"you could keep zooming out and zooming out until it showed the moon you know. that was my original philosophy and i want to stick with that thats my flavor\" (8/12, LOCKED as laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md). The zoom now runs from his character's feet to the moon and back; the MECHANISM is shipped and gated, the SKY is placeholder.",
+   "measured_gap": "Measured, not estimated: the repository contains NO celestial art of any kind -- no planet, no moon, no star field in any bank. The PLANET and MOON bands currently draw procedural radial-gradient discs from the city's own palette, and the screen admits it in the corner ('placeholder sky'). Two of the five zoom bands are therefore un-cooked.",
+   "spec": [
+    "EARTH FROM ORBIT, looking down at the Mojave: desert southwest under thin cloud, the terminator falling across it, a thin atmosphere rim. Act 3 ends 'looking down at the planet' (7/19 LOCKED) -- this is the last image the dynasty ever sees, so it should be worth ending on.",
+    "THE MOON, destination of the one-way Act 3 moonshot. The full disc with readable seas, cold light. Not a crescent, not a cartoon.",
+    "THE STAR FIELD, if it should be more than single pixels.",
+    "NOT a 45-degree three-quarter subject, and this is a real exemption rather than a shortcut: canon already names this camera separately (7/19: 'the camera levels are street / city / PLANETARY zoom'). The valley diamond below stays on the 45 the whole way out."
+   ],
+   "blocks": "nothing -- the continuum ships and plays today. This replaces placeholder pixels with cooked ones.",
+   "marker_when_shipped": "__SKY_ART__",
+   "drops_into": "renderSky() / skyDisc() in slices/BOHEMIA_CITY_WORLD.html (marker __ONE_ZOOM_TO_THE_MOON__)"
+  },
+  {
+   "id": "AR-006",
+   "status": "OPEN",
+   "filed": "8/26/26",
+   "by": "RUN",
+   "what": "THE DOG. A feral dog body, walkable, 8 facings, at the character ladder.",
+   "why_paolo": "\"maybe I wanna fuck around and start putting, you know, dogs and and swarms of flies as, like, low tier, you know, biome level one enemies or something\" (8/26). He named the dog FIRST. The bestiary research delivered 8/25 calls it the headline animal of Tier 1: \"FERAL DOGS. The one the ecology literature lists first among vertebrate scavengers and the one every collapse account features. Not wolves. Somebody's pets, in a pack, ten years on. That is the most Bohemia enemy imaginable and it costs nothing in fiction.\"",
+   "measured_gap": "Measured, not estimated: the repository contains NO animal body art of any kind -- no dog, no coyote, no four-legged anything, in any bank. THE VALLEY HAS ANIMALS IN IT (8/26) shipped flies, rats and ravens because every one of those is a small dark moving MARK (specks, a dash, a silhouette) and needs no character sprite. A dog is a BODY. The 45 DEGREE ART LAW and REUSE-FIRST both say a lane does not invent creature pixels because it is in a hurry, so the mechanism shipped with the dog's row present and set to 0 in ANIMAL_DENSITY, held there by gates/the_valley_has_animals_gate.js.",
+   "what_unblocks_it": "One row of numbers in ANIMAL_DENSITY and a draw branch beside the raven's. The placement rule, the determinism, the beat movement, the by-district density and the performance cap are all built and gated already. When the art lands the dog is one line.",
+   "notes": "45 DEGREE ART LAW applies: seen from the world's three-quarter view like everything else, never flat side-on. A PACK is Tier 2 (pack AI, flanking, breaking off and coming back) and is where the RF4 movement work lands -- but a single dog is Tier 1 and is enough to start. RESERVED AND NOT MINE: whether a dog is ever hostile, and what a den contains, are his.",
+   "spec": [
+    "A FERAL DOG, three-quarter 45 view like everything else in the world (45 DEGREE ART LAW) -- never flat side-on. Standing and walking, on the same pixel ladder the human bodies use so it scales through the same zoom stops without a fractional blit.",
+    "8 FACINGS, the same compass the player and the cast use (N NE E SE S SW W NW), so pplFace/dirOf can drive it with no new mapping.",
+    "SOMEBODY'S PET, TEN YEARS ON. The research is explicit that these are NOT wolves: shepherds, retrievers, pit mixes, the dogs a city actually had. Ribs showing, coat matted and sun-bleached, a collar on some of them -- the collar is the whole story and costs one row of pixels.",
+    "READS AT A GLANCE AT THE SMALL STOPS. It shares a screen with rats (a 2px dash) and ravens (a small silhouette); a dog has to be unmistakably bigger and four-legged at the 44px cell, or Tier 1 becomes a smear.",
+    "PALETTE: the world's own desert-washed range, no new hues. PURPLE RESERVATION applies -- purple belongs to the Amalgamation alone."
+   ],
+   "marker_when_shipped": "__THE_DOG_HAS_A_BODY__",
+   "drops_into": "animalPass() / ANIMAL_DENSITY in slices/BOHEMIA_CITY_WORLD.html (marker __THE_VALLEY_HAS_ANIMALS__): one draw branch beside the raven's and one row of numbers. Held at 0 today by gates/the_valley_has_animals_gate.js.",
+   "blocks": "nothing -- flies, rats and ravens ship and play today. This adds the animal he named FIRST and the one the research calls the headline."
+  }
+ ]
 }
