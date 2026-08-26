@@ -1,6 +1,6 @@
 {
  "sources": 256,
- "total_mb": 305.8,
+ "total_mb": 305.7,
  "unreached_mb": 302.0,
  "rows": [
   {
@@ -1789,10 +1789,10 @@
    "path": "engine/bohemia_people.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 8,
-   "hits_shown": 8,
-   "hits_loaded": 8,
-   "bytes": 82077
+   "samples": 6,
+   "hits_shown": 6,
+   "hits_loaded": 6,
+   "bytes": 47956
   },
   {
    "path": "engine/bohemia_personlook.js",
@@ -1828,7 +1828,7 @@
    "samples": 7,
    "hits_shown": 7,
    "hits_loaded": 7,
-   "bytes": 59838
+   "bytes": 58673
   },
   {
    "path": "engine/bohemia_powergrid.js",
@@ -2251,7 +2251,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 32,
-   "bytes": 12259
+   "bytes": 23290
   },
   {
    "path": "engine/bohemia_water.js",
@@ -2296,7 +2296,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 65208
+   "bytes": 66718
   },
   {
    "path": "engine/bohemia_world_resolve.js",
