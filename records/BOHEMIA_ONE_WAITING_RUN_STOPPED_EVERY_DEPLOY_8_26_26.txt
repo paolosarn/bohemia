@@ -1,0 +1,129 @@
+ONE WAITING RUN STOPPED EVERY DEPLOY, FOR EVERY LANE, FOR SEVENTY MINUTES
+8/26/26 -- RUN lane (this lane owns the suite and the deploy).
+
+
+WHAT IT LOOKED LIKE
+===================
+
+I pushed, then watched the `pages` workflow the way the 8/6 law says to. My run
+was CANCELLED. So was the next one. And the next.
+
+    635  cancelled  7c156e4   19:00     <- mine
+    636  cancelled  e93f939   19:02
+    637  cancelled  4eebd24   19:04
+    638  cancelled  3da7394   19:07
+    639  cancelled  35dab88   19:19
+    640  cancelled  429b942   19:25
+    641  pending    771e8a4   19:29
+
+    newest SUCCESS: 632, at 18:47.
+
+SEVENTY MINUTES, SIX LANES' WORK, NOTHING PUBLISHED. Every push succeeded. Every
+lane's git log looked perfect. The site was frozen at 18:47 and no lane could see
+it from inside its own turn -- which is the exact sentence the 8/6 record wrote
+about the last time this happened.
+
+
+WHY IT WAS NOT THE 8/6 DEADLOCK, AND WHY THAT MATTERED
+======================================================
+
+The 8/6 fix is `cancel-in-progress: false` in .github/workflows/pages.yml, and
+the first thing I did was check it. IT WAS THERE AND IT WAS CORRECT. That is the
+moment this could have gone wrong: the known fix is present, so the obvious
+conclusion is "this is just the queue being slow, wait it out". I waited three
+times, twenty-two minutes, and it got worse.
+
+THE TELL WAS AN EMPTY JOB LIST. Asking the pending run for its jobs returned
+`total_count: 0`. A run that is merely queued behind a running one still has a
+job. ZERO JOBS MEANS IT NEVER STARTED AT ALL -- it was never going to be slow,
+it was never going to run.
+
+So the group was held by something that was not running and not finishing.
+Listing runs filtered to `status: waiting` returned exactly one:
+
+    run 633, status WAITING since 18:26, sha 9d42677  (the UI lane's push)
+
+*** `waiting` IS NOT `queued`. *** It means the run is held at a DEPLOYMENT
+PROTECTION RULE on the `github-pages` environment -- a required reviewer or a
+wait timer -- before any runner is assigned. It never advances on its own. And
+because it holds the `pages` concurrency group, every later run queues behind it;
+GitHub keeps only ONE pending run per group, so each new push cancelled the
+previous pending one. Six in a row.
+
+    ONE RUN STUCK AT AN APPROVAL GATE STOPPED THE SITE FOR NINE LANES.
+
+`cancel-in-progress: false` is exactly the right setting and it did not help,
+because nothing was in progress. The 8/6 fix stops a RUNNING build being killed;
+it has nothing to say about a run that never runs.
+
+
+THE FIX, AND WHAT IT COST NOTHING
+=================================
+
+Cancelled run 633. The group released immediately; run 641 went from pending to
+SUCCESS within nine minutes.
+
+NOTHING WAS LOST BY CANCELLING IT. 633's content was already merged into main, so
+any later successful deploy carries it -- confirmed with the law's own check:
+
+    git merge-base --is-ancestor <my sha> <deployed sha>   -> contained
+    641's sha 771e8a4 carries 7c156e4 and everything between
+
+A stuck `waiting` run is pure cost: it publishes nothing and blocks everything.
+
+
+HOW TO SPOT IT NEXT TIME, IN ORDER
+==================================
+
+1. More than two consecutive `cancelled` pages runs, with no `success` between.
+2. Ask the newest pending run for its JOBS. `total_count: 0` means it never
+   started -- stop waiting, something is holding the group.
+3. List pages runs filtered to `status: waiting`. If one comes back, that is it.
+4. Cancel it. Then verify a run CONCLUDES SUCCESS and that
+   `git merge-base --is-ancestor <your sha> <deployed sha>` passes.
+
+DO NOT read "pending" as "nearly there". Do not read the correct
+`cancel-in-progress: false` as proof the deploy is healthy. And do not report a
+play link as live on the strength of a successful push: THE PUSH WORKING IS NOT
+THE SITE WORKING is the whole reason the 8/6 verify step exists, and this is the
+second distinct failure mode to hide behind a green git log.
+
+
+THE OPEN QUESTION THAT IS NOT MINE TO ANSWER
+============================================
+
+WHY does the `github-pages` environment have a protection rule at all? Nothing in
+the workflow asks for one; it is a repository/environment setting. If a required
+reviewer or wait timer is configured on that environment, THIS WILL HAPPEN AGAIN
+the next time a run trips it, and the next stuck run will freeze the site for
+however long it takes somebody to notice.
+
+Flagged rather than changed: environment protection settings are account-level
+configuration, not code, and turning one off is a repository security decision
+rather than a lane's call. [PENDING Paolo] -- or for whoever holds the repo
+settings: check Settings -> Environments -> github-pages for required reviewers
+or a wait timer, and remove it if nobody put it there deliberately.
+
+
+WHAT THIS COST TODAY
+====================
+
+Seventy minutes of published-site staleness across nine lanes, and roughly
+twenty-five minutes of this turn spent waiting on a queue that was never going to
+move. The waiting was the avoidable part: the empty job list was visible on the
+first check.
+
+
+A SMALL ONE, TWICE IN ONE SESSION
+=================================
+
+NO MARKERS went red on this file, and on the other record written earlier today,
+for the same reason both times: a section heading of exactly seven characters
+gets underlined with exactly seven `=`, which is byte-identical to a git conflict
+divider. "THE FIX" is seven characters. So is "THE GATE".
+
+The gate is right to be strict -- it exists because a session shipped real
+conflict markers into the handoff twice in one day, and a checker that has to
+guess whether a seven-equals line is a heading or a wound is no checker at all.
+The cheap habit that avoids it: never underline a heading to its exact width.
+Write "THE FIX, AND WHY" and underline that.

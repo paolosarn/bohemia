@@ -1537,6 +1537,40 @@ TWO REDS THAT ARE NOT MINE AND ARE NEW TODAY, FLAGGED RATHER THAN TOUCHED:
   NO BULLSHIT Qs -- lettered option menus in
     records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md, the coordinator's.
 
+*** AND THE SITE WAS FROZEN FOR SEVENTY MINUTES, FOR EVERY LANE, AND IT WAS NOT
+THE 8/6 DEADLOCK. *** After pushing I watched `pages` the way the law says and my
+run was CANCELLED -- and so were the five after it. Newest success was 632 at
+18:47; six lanes pushed after that and nothing published. Every push succeeded,
+every git log looked perfect, and no lane could see it from inside its own turn,
+which is the same sentence the 8/6 record wrote about the last one.
+IT WAS NOT THE SAME BUG, AND THAT IS THE TRAP. `cancel-in-progress: false` was
+present and correct, which makes the obvious read "the queue is just slow, wait".
+I waited three times, twenty-two minutes, and it got worse.
+THE TELL WAS AN EMPTY JOB LIST: the pending run reported `total_count: 0` jobs. A
+run merely queued behind a running one still HAS a job. Zero jobs means it never
+started and was never going to. Listing pages runs filtered to `status: waiting`
+returned exactly one: run 633, WAITING SINCE 18:26, the UI lane's push.
+`waiting` IS NOT `queued` -- it means held at a DEPLOYMENT PROTECTION RULE on the
+github-pages environment (a required reviewer or wait timer) before any runner is
+assigned. It never advances on its own, and it holds the `pages` concurrency
+group; GitHub keeps only ONE pending run per group, so every new push cancelled
+the previous pending one. ONE RUN STUCK AT AN APPROVAL GATE STOPPED THE SITE FOR
+NINE LANES. The 8/6 fix stops a RUNNING build being killed and has nothing to say
+about a run that never runs.
+FIXED BY CANCELLING 633. The group released and run 641 went pending -> SUCCESS in
+nine minutes. Nothing was lost: 633's content was already in main, so a later
+deploy carries it, confirmed with the law's own containment check (641's sha
+771e8a4 carries 7c156e4 and the twelve commits between).
+HOW TO SPOT IT, IN ORDER: (1) two or more consecutive cancelled pages runs with no
+success between; (2) ask the newest pending run for its JOBS -- total_count 0
+means stop waiting; (3) list pages runs with status `waiting`; (4) cancel that
+one, then verify a run CONCLUDES SUCCESS and merge-base --is-ancestor passes.
+NOT MINE TO CHANGE, FLAGGED: nothing in the workflow asks for a protection rule,
+so one is configured on the github-pages ENVIRONMENT. If it stays, this happens
+again. [PENDING Paolo or whoever holds repo settings] Settings -> Environments ->
+github-pages, check for required reviewers or a wait timer.
+RECORD: records/BOHEMIA_ONE_WAITING_RUN_STOPPED_EVERY_DEPLOY_8_26_26.txt
+
 NEXT IN THIS LANE, in order:
   1. FT-JOURNEY, wiring the encounter director rather than writing one. The spec
      is LOCKED (laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md) and the
