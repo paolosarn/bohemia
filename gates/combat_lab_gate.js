@@ -1109,7 +1109,11 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes('function chainAllowance(){ return Math.max(1,Math.min(perkKillshots(), chainWall())); }') &&   /* V98: the allowance is a PERK slider now; the WEAPON ceiling is what this check owns */
     demo.includes('if(G._chainN>chainWall()){') &&
     demo.includes('const _ww=WEAPON_WIDTH[WEAPON]||1;') &&
-    demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
+    /* V182 RE-POINTED: POWER (RF4-07/42) joins this line as _pwr. THE CLAIM IS
+       UNCHANGED -- the weapon's own width is a term in the dial -- and adding
+       Power here rather than beside applyDamage is what keeps NO DAMAGE BEFORE
+       THE DIAL intact: one stat, every weapon, and it moves the WINDOW. */
+    demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*_pinW*_pwr*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
     demo.includes("'SHOT '+(G._chainN||1)+' OF '+chainAllowance()"));
   // v63: two big swings -- overworld encounter music + the double hero beat
   ok('V63 OVERWORLD MUSIC: encounters play the real overworld creepers (6 night songs), the 8 missing overworld voices are ported into synthV, and owSong() sources them only in a SHUFFLE encounter (a lab faction pick still auditions the faction)',

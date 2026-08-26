@@ -91,6 +91,12 @@ LOW_BY_NATURE = {
     # benches - its tallest honest mass is a tree crown. Named here the same
     # day its buildings were removed from the hero.
     'park',
+    # 8/26: WATER. Its own builder docstring has said "LOW BY NATURE and
+    # named" since 8/4 - but it was never actually in this list, and the
+    # 6-unit floor was being cleared by SHORE ROCKS drawn tank-tall. The
+    # 8/25 verdict killed exactly that read; Lake Mead's whole subject is
+    # a HORIZONTAL, so the name finally lands where the docstring claimed.
+    'water',
     # 8/4, the terrain and the road surfaces. Forcing a tower onto any of these would be
     # a lie about the map, which is a worse failure than a low icon: OPEN DESERT has no
     # building in it, a LINED FLOOD CHANNEL is a trench, a GOLF COURSE is greens and

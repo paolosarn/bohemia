@@ -144,3 +144,26 @@
   Twentieth wired family. | REQUESTED BY: ART lane (inventory ranking)
   | DATE: 8/24/26 | PRIORITY: HIGH
 - BOARD ROW #: 96 | VERDICT: —
+
+## K. VOLUME 8/25/26: TANK ROOF + OVERFLOW (the siblings the form named)
+- MEASURED: 'tank roof' x3295 - huge rectangular blobs (26x106=1277,
+  13x37, 30x30), the concrete deck over the buried reservoir, ringed by
+  the water-tank wall cells; 'overflow' x1028 - small clusters and short
+  lines on the tank pad beside the valve/hatch rows. Both fell to
+  fallbacks.
+- WIRED: the deck as a jointed PANEL per cell (1px joints baked on the
+  north and west edges, self-seamless), plain panels five cells in
+  seven, a bitumen patch or a hairline crack one in seven each (the
+  first wire ran patches one-in-three and they read as polka squares -
+  thinned before shipping), a galv mushroom vent about every 31st cell
+  because a buried reservoir breathes through its deck. The overflow as
+  a splash basin riding on bought concrete: collar, dark weir mouth,
+  the dry stain fan of thirty years ago.
+- COOK: tools/tfcook/TF-ART-020_roofdeck_cook.py (7 pieces, deck and
+  collar from the approved kerb pale, vents from the approved galv).
+  Bank: banks/tileforms/TF-ART-020_ROOF_OVERFLOW_VOLUME_8_25_26.json.
+  Verified live at the reservoir (cell 60,10): the deck reads as a
+  jointed maintained plate against the pad, basins on the pad row.
+  STATUS: COOKED AND WIRED 8/25/26. The reservoir's ranking names are
+  now all wired except 'transmission main' (the buried pipe corridor's
+  own ground - the vault rows already mark it, plausible as-is).

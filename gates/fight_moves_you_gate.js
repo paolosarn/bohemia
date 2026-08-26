@@ -2095,6 +2095,85 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '. NO DAMAGE BEFORE THE DIAL is untouched, because experience is not damage and no item carries a combat effect',
     spoils.everyNameIsADraft === true && spoils.lootPct > 35 && spoils.lootPct < 75);
 
+/* ===== V182 THE TWO MISSING BARS + V183 NOBODY RUNS FROM YOU YET ====
+   Paolo 8/26 ruled ALL THREE BARS and "JUST IMAGINE ROGUE FABLE 4 WITH 120 BPM
+   EVERYTHING". It is TWO bars: SPEED POINTS were already built as G.stam, and the
+   code says so itself -- the comment over the refill clock reads "V163 THE
+   FREE-MOVEMENT BUDGET (RF4-08, machine 1)" and the constant is named SP_TICK. */
+  const bars = await frame.evaluate(() => {
+    const o = {};
+    BohemiaArena.set(3); setupCombat();
+    o.fresh = { pp:G.pp, ppMax:PP_MAX, power:G.power, stam:G.stam, spTick:SP_TICK };
+    /* RF4-05's whole character: unbreachable while ONE point stands */
+    G.pHP=100; G.pp=1; hurtPlayer(99);
+    o.unbreachable = { ppAfter:G.pp, hpLost:100-G.pHP };
+    G.pHP=100; G.pp=0; hurtPlayer(30); o.plateGoneHpLost = 100-G.pHP;
+    G.pHP=100; G.pp=20; hurtPlayer(7); o.partial = { pp:G.pp, hpLost:100-G.pHP };
+    /* POWER moves the WINDOW, never the damage -- NO DAMAGE BEFORE THE DIAL */
+    G.power=0; o.windowAt0 = powerMult();
+    G.power=5; o.windowAt5 = +powerMult().toFixed(3);
+    const dummy={hp:100,max:100,armor:0};
+    G.power=0; o.dmgAt0 = applyDamage(dummy,40); dummy.hp=100;
+    G.power=99; o.dmgAt99 = applyDamage(dummy,40);
+    /* the plate mends on THE SAME CLOCK the legs do. meleeTurnRun() bumps mTurn
+       as tickTurnEnd's first act, so the clock is set one SHORT -- the first
+       write of this arm set it TO SP_TICK and read a clean zero for BOTH bars,
+       including stamina, which is shipped code. An arm that breaks a working
+       mechanic is testing itself wrong. */
+    G.pp=0; G.stam=0; G.mTurn=SP_TICK-1; G.over=false;
+    try { tickTurnEnd(); } catch(e) {}
+    o.clock = { pp:G.pp, stam:G.stam };
+    return o;
+  });
+
+  const fear = await frame.evaluate(() => {
+    const run = (perk) => {
+      G.perks = perk ? {fear:true} : {};
+      let ran=0, gaveUp=0, bodies=0;
+      for (let A=1; A<=20; A++) {
+        BohemiaArena.set(A); setupCombat();
+        G.pHP=G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
+        for (let t=0; t<18 && !G.over; t++) {
+          try { visionTick(); } catch(e){}
+          const live=(G.e||[]).filter(e=>e&&!e.dead&&!e.downed);
+          if (live.length>1 && t%2===0){ live[0].dead=true; bodies++; try{checkClear();}catch(e){} }
+          if (!G.over) { try { endTurnReturn(true); } catch(e){} } }
+        ran += (G.e||[]).filter(e=>e&&e.fleeing).length;
+        gaveUp += (G.e||[]).filter(e=>e&&e.broken).length; }
+      return { ran, gaveUp, total:ran+gaveUp, bodies }; };
+    const off = run(false), on = run(true);
+    G.perks = {};
+    return { FEAR_ON, off, on };
+  });
+
+  console.log('  V182 the two missing bars:'
+    + '\n    fresh fight        plate ' + bars.fresh.pp + '/' + bars.fresh.ppMax
+    + ', power ' + bars.fresh.power + ', legs ' + bars.fresh.stam + ' (SP_TICK ' + bars.fresh.spTick + ')'
+    + '\n    1 plate vs a 99    hp lost ' + bars.unbreachable.hpLost + '  (unbreachable)'
+    + '\n    no plate vs a 30   hp lost ' + bars.plateGoneHpLost
+    + '\n    power 0 -> 5       window ' + bars.windowAt0 + ' -> ' + bars.windowAt5
+    + ', damage ' + bars.dmgAt0 + ' -> ' + bars.dmgAt99
+    + '\n    on the clock       plate ' + bars.clock.pp + ', legs ' + bars.clock.stam
+    + '\n  V183 who runs, over 20 fights and ' + fear.off.bodies + ' bodies:'
+    + '\n    default (no perk)  ' + fear.off.total + '\n    with the perk      ' + fear.on.total);
+
+  ok('V182 RF4-05 *** THE PLATE CANNOT BE PUNCHED THROUGH WHILE ONE POINT STANDS, which is the whole character of the bar. *** One point of plate eats a NINETY-NINE and the player loses ' + bars.unbreachable.hpLost
+    + ' hp; with the plate gone the same class of hit takes ' + bars.plateGoneHpLost
+    + '. That clause turns it into a TIMER YOU MANAGE rather than a sponge, and it is why RF4 players count turns instead of hit points. IT NEEDED ONE DOOR FIRST: eight separate sites did their own G.pHP=Math.max(0,G.pHP-dmg) -- the volley, the holders, the peekers, melee, the grenade, the car blast, the self-blast band -- and a bar that sits ABOVE hp has to stand in front of ALL of them or it is decoration. Same repair as V181 bodyFell. A RULE WITH SEVEN DOORS AND ONE LOCK IS NOT A RULE',
+    bars.unbreachable.hpLost === 0 && bars.unbreachable.ppAfter === 0
+    && bars.plateGoneHpLost > 0 && bars.partial.hpLost === 0 && bars.partial.pp === 13);
+
+  ok('V182 RF4-07/42 AND POWER MOVES THE DIAL, NEVER THE DAMAGE, which is how his ruling and his law both hold. "One unified offensive stat... anything modifying Power modifies ALL power" -- so Power is not a flat adder beside the dial, it is a term IN it, joining fg, the weapon width, the groove and the pin on the line that already decides the kill window. Power 0 to 5 takes the window ' + bars.windowAt0 + ' -> ' + bars.windowAt5
+    + ' while damage stays ' + bars.dmgAt0 + ' -> ' + bars.dmgAt99 + ' at 99 power. NO DAMAGE BEFORE THE DIAL is untouched: every gun gets easier to KILL with, none of them HIT for more',
+    bars.windowAt5 > bars.windowAt0 && bars.dmgAt0 === bars.dmgAt99);
+
+  ok('V182 AND IT IS TWO BARS, NOT THREE, BECAUSE SPEED POINTS WERE ALREADY BUILT AND NOBODY NOTICED. G.stam is a three-pip bar; sprint spends one AND YOUR TURN KEEPS GOING, which is RF4-08 word for word; dash spends two; a PERFECT press refunds one; STAM_MAX=3 is RF4-09 "deliberately hard to stack"; and the refill constant is LITERALLY NAMED SP_TICK under a comment reading "RF4-08, machine 1". Building a second speed bar beside it would have been the duplicate-system disease. The plate now mends on THAT SAME CLOCK -- "RF4 with 120 BPM everything" means the beat owns every clock, and there was already exactly one',
+    bars.clock.pp > 0 && bars.clock.stam > 0 && bars.fresh.spTick === 5);
+
+  ok('V183 *** NOBODY RUNS FROM A NOBODY, AND THAT IS THE FICTION AND THE MECHANIC IN ONE SENTENCE. *** Paolo, playing it: "I don\'t wanna see anyone run away anymore unless I have a perk that allows them to... YOU\'RE NOT SCARY ENOUGH." Across 20 fights and ' + fear.off.bodies
+    + ' bodies, ' + fear.off.total + ' men break or run by default and ' + fear.on.total + ' do with the perk switched on -- same boards, same bodies. AND "SO MANY PEOPLE" WAS THE DESIGN, NOT LUCK: V35 fires the moment HALF the room is down and then rolls EVERY man EVERY turn at 10% plus 5% a body, so the back half of nearly every fight was a rout. V35 IS GATED, NOT GRAVEYARDED -- he did not say it is wrong, he said it is not EARNED yet',
+    fear.FEAR_ON === false && fear.off.total === 0 && fear.on.total > 0);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

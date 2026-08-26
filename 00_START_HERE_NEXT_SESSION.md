@@ -1,3 +1,89 @@
+CHARACTER (character-0lurbs): 8/26 (b) LATEST -- *** SEVENTEEN THINGS HE COULD PUT
+ON DREW NOTHING AT ALL, AND THE GATE THAT GUARDS THEM WAS GREEN. TAB: LOOK for the
+picture, CHARACTER to put one on. Nothing to judge. ***
+
+HOW IT WAS FOUND IS THE POINT. The hair audit built for clause 1 of his 8/25 law
+found two of fifteen styles that were a mane from the front and a crop from the
+side, inside a green gate. The obvious next question was whether genHair was
+special. IT WAS NOT -- every generator branches on facing and nothing had ever
+asked the same question of the 204 canon garments. So the audit was ported
+(tools/bohemia_garment_identity_audit.js). It was looking for a coat that changes
+shape when you turn round.
+
+*** IT FOUND SEVENTEEN GARMENTS THAT WERE NOT THERE. ***
+    every KNIT CAP, WATCH CAP, FIELD CAP, WORK CAP and SLOUCH BEANIE
+    CHINESE RICE FARMER HAT
+    WRAPAROUND SHADES and GREY WRAPAROUNDS
+MEASURED ON THE REAL FRAME, wearing them: equipping one changed ZERO PIXELS. Not
+thin, not misplaced. ABSENT. He could pick one in CHARACTER and nothing happened.
+
+THE CAUSE: ONE LITERAL 56, TWICE, IN TWO GENERATORS. BAKED is RIG2X'd and its layer
+indices pack at BAKED.W = 112; both call sites divided by a hard-coded 56, which
+returns DOUBLE the row. In genHat a second error was stacked on the first --
+`rt*S` -- so the durag line hats may not cross came out at ROW -12, twelve rows
+above the top of the canvas. put() refuses everything below the line. Nothing drew.
+  The comment on that line reads "HAT_MAX_Y is RIG space, rt is 56 space -- scale rt
+  or the durag line lands at half depth". Half true. rt only LOOKED like 56 space
+  because of the literal 56 directly above it. A FIX APPLIED TO A MISREAD
+  MEASUREMENT MADE IT TWICE AS WRONG, and then the comment made it look considered.
+genAcc's shades had the same two errors in one expression (a 24-wide painted layer
+converted to 56 space and never scaled to the rig, plus the same /56 on BAKED).
+
+*** AND THE HEADWEAR GATE WAS GREEN THROUGH ALL OF IT, FOR TWO REASONS, AND BOTH
+ARE WORTH CARRYING TO EVERY LANE: ***
+  1. IT LIFTS genHat OUT OF THE ALPHA and runs it on a synthetic grid, so BAKED and
+     HAT_MAX_Y are undefined there and the broken path NEVER EXECUTES. A gate that
+     lifts a function out of its environment cannot see a bug that lives in the
+     environment. If your gate greps or lifts, it is not testing the game.
+  2. WHAT IT HOLDS IS "a hat never crosses the durag line", AND A HAT THAT DRAWS
+     NOTHING CROSSES NOTHING. A check a corpse passes is not checking for life.
+
+AND MY OWN FIRST VERSION OF THE NEW GATE WAS ALSO VACUOUS, which is the same lesson
+a third time in one day: it compared "wearing it" to "wearing nothing", and putting
+a garment on SUPPRESSES the painted layer of that slot (the 8/21 rule), so the frame
+differed by HIS DURAG DISAPPEARING even when the hat drew nothing. It was measuring
+"something changed", not "the garment appeared". It passed the mutation. The painted
+layer of the slot under test is pulled in BOTH frames now.
+
+MEASURED:
+    canon garments drawing NOTHING on every facing   17  ->  0
+    head/face garments that render facing S       10/27  ->  25/27
+    STORM KNIT CAP worn, pixels changed on frame      0  ->  242
+    WRAPAROUND SHADES                                 0  ->  188
+The five that still draw nothing on SOME facing are shades, the gas mask and the two
+bandanas on the three BACK facings. Deliberate and correct: you cannot see somebody's
+sunglasses from behind. The gate judges each garment where it should show.
+
+GATES: one_garment_per_slot 12/0 (new sweep, all 221 canon garments, real worn path,
+  MUTATION-PROVED -- restoring both original errors names 15 of the 17 by name).
+  hat_gate 13/0, hair 35/0, clothes_4x 13/0, craft_law 39/0, structure 134/0,
+  border 6/0, head_follows_rig 5/0, hood 11/0.
+LOOK: all 42 pictures retaken. Editing the alpha legitimately made every picture of
+  it stale and the look gate said so; I retook every one with its own recorded
+  shooter (the command the gate itself prints), including the world/city ones, and
+  spot-checked that they still show what their captions claim. 24/0.
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP -- P0-GARMENTID, and the first job is
+FIXING THE RULER, NOT THE TARGET:
+  1. The audit reports 52 garments changing by a tenth of the body or more in one
+     notch. MOST OF THAT IS THE RULER BEING WRONG for back-LAYER items: from behind,
+     a pack sits between you and the arms, so "sleeve coverage" is a property of the
+     VIEW there and not of the object -- the exact mistake the hair gate made with
+     area. Triage the ruler before chasing a single garment.
+  2. Then the two that look like real bugs: SMITH'S APRON / TRADES APRON hem 0.188
+     facing S and 0.000 from behind (an apron vanishing below the waist as he turns),
+     and ROAD CAPE / SHOULDER MANTLE switching on and off at the E->NE notch.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/one_garment_per_slot_gate.js        12/0
+  node tools/bohemia_the_missing_hats.js         the picture, LOOK tab
+  node tools/bohemia_garment_identity_audit.js   the audit that found them
+  records/BOHEMIA_SEVENTEEN_GARMENTS_DREW_NOTHING_8_25_26.txt
+
+================================================================================
+
+COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (i) LATEST -- *** HIS RULING: THE
+DEMO IS ITS OWN LINK, AND WE ARE NOT READY. MY ERROR, OWNED. Nothing to judge. ***
 SOUND (sound-xk7pjp): 8/25 (b) LATEST -- *** THE STALENESS GATE WAS GETTING
 HAPPIER EVERY TIME A SOUND DIED, AND RUN BEAT SPENT FOUR DAYS CALLING THE RUN
 BROKEN WHEN THE RUN WAS FINE. Both of this lane's assigned reds. Nothing to
@@ -225,6 +311,25 @@ WHAT I WOULD DO NEXT
 PROOF
   laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md   (his ten, verbatim)
   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+  records/BOHEMIA_RF4_ENEMY_DOSSIER_8_25_26.md  (his follow-up order, same day)
+    THE FIVE ARCHETYPES IN THE DESIGNER'S OWN WORDS -- plinker / nuker /
+    swarmer / summoner / tank -- and every one of RF4's 250+ monsters is one
+    of the five in a costume. Each is a different INSTRUCTION and the fight is
+    the argument between them. Stat block is SIX NUMBERS AND TWO VERBS.
+    Volume comes from a MODIFIER TABLE, which is our own FACTORY LAW in their
+    engine. THE SUMMONER IS THE ONE THAT BARKS, and it reuses the aggro-shout
+    we already took in the 8/17 lift.
+    *** THE FINDING: ONE OF THE FIVE DOES NOT SURVIVE THE TRANSLATION. ***
+    RF4 runs on mages and archers; animals have no ranged attack, so the
+    PLINKER vanishes and half the nukers with it. The pressure that says HURRY
+    must come from PEOPLE WITH GUNS or from THE ENVIRONMENT -- and we already
+    built the second: heat, the day clock, terrain kills. THE CLOCK IS OUR
+    PLINKER. That lets the animal tiers ship without waiting on the faction
+    roster he reserved.
+    BLOCKED AND SAID SO: rogue-fable-iv.fandom.com is refused by this
+    environment's egress proxy, so the full 250-monster table was NOT read.
+    The architecture is recovered; the roster is not, and nobody should guess
+    it. He owns the game -- one screenshot of the enemies page closes it.
   laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md (earlier today)
   records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
   Sweeps 14-21 records, all still routed and all still valid.
@@ -3977,7 +4082,89 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 (c) LATEST -- *** HIS SPANGLISH RULING REACHED THE
+PEOPLE (people-7h9sfy): 8/26 LATEST -- *** THE LINE SOMEBODY SAYS TO YOUR FACE
+WHEN YOU ASK THEIR NAME WAS THE LAST MONOLINGUAL ONE IN THE GAME. 44 -> 132
+LINES. TAB RUN: walk up, tap TALK, tap ask, and they answer in their own mouth. ***
+
+THE THING THAT WAS BACKWARDS: the ambient barks you overhear FROM ACROSS THE
+STREET got registers in the morning. The person standing in front of you did
+not. The quirk line is the FIRST true thing you ever learn about one specific
+human (Q014.W9) and it arrives through the game's only social verb, so it was
+the worst possible line to leave in one language.
+
+MEASURED ON THE REAL CARD, IN THE WALKED CITY, ONE PER REGISTER:
+  en  I'll write it. I don't say it, I write it. Give me a second, I'm using a
+      drink token from a floor that closed.
+  sg  Give me a minute, estoy doing the pump house at the end of the row. Nobody
+      asked me. Somebody has to y nadie asked me.
+  es  What day is today. No. Not tell me. I take it from reading the expiry dates
+      out loud. Like this I know. I am never wrong.
+Register 3 carries NO SPANISH AT ALL and that is the craft rule working: poor
+English is GRAMMAR, not vocabulary. The gate checks it for being DIFFERENT, not
+for carrying Spanish, because demanding Spanish there is demanding the cartoon.
+
+304 quirks x 2 lights x 3 mouths = 1,824 utterances. WORDS tab now holds 2,312
+lines (208 spanglish, 194 poor-english), every one draft and editable.
+
+ONE LEXICON, TWO MOUTHS, ONE CHECKER: the quirk factory does NOT keep its own
+word list. It imports the bark factory's and refuses to write a Spanish word
+that is not in the shared closed set (188 -> 224 words, each with its English
+meaning). A second lexicon is a hole straight through the hard rule. The
+register twins also run the SAME grammar contract as the English ones, which
+caught one of my own 88 lines before it shipped.
+
+*** THIRD TIME THIS LANE PAID FOR TWO COPIES OF ONE RULE. *** The Python side
+learned that a LEADING apostrophe is a quote mark and not a clitic ("'He turn."
+opens a spoken line) and was fixed there; the gate had the same rule typed out
+again, did not learn it, and went red on those exact two lines. esStems() now
+ships from the factory into the engine and BOTH call it. Two tab switchers with
+one routing rule, a generator and its output, now a tokenizer: WRITING THE RULE
+DOWN TWICE IS THE BUG, EVERY TIME.
+
+AND A PROBE THAT REPORTED "NO SUCH THING" WHEN IT HAD NEVER LOOKED: the first
+run of the new claims came back all empty. The block above them leaves a card
+OPEN and ctVerb() correctly hides the one button while a card is up, so the loop
+found the button hidden on every person and measured nothing. A probe that
+cannot reach its subject reports the same thing as a broken feature.
+
+MUTATIONS: the two call sites stop passing the register (the state that shipped
+this morning) 1 RED printing the English line the Spanglish person would have
+said; one "spanglish" line replaced by its English twin, THE FACTORY REFUSES TO
+WRITE and names it.
+
+THREE GATES WENT RED AND ALL THREE WERE MINE TO TEACH, not to work around:
+quirk_gate compared the card against the English table (it asks for the person's
+own mouth now, and counts 132 authored lines instead of 44); dialogue_catalogue
+_gate's INDEPENDENT line counter did not know the register lines existed, book
+2,312 vs counted 2,224, which is exactly the claim that must never drift; and
+organ_reach RULE 3 fired on a STALE EXEMPTION and was RIGHT -- cardFor is on the
+surface now so its entry had to go, which is the whole reason that allowlist is
+a ledger and not a hiding place. 39/0, 63/0, 8/0.
+
+STAMP COLLISION, AND THE RIGHT RESOLUTION: COMBAT took 8/26c while I was
+verifying, so I took 8/26d. Keeping mine would have put TWO DIFFERENT BUILDS ON
+ONE STAMP, which is worse than a stamp going backwards -- he would have no way
+to tell which one he has. Read main's stamp at the LAST moment, not the first.
+
+VERIFIED on the merged tree, twelve gates and 552 claims: LANGUAGE 71/0,
+PEOPLE 158/0, CARD FOLD 18/0, CITY MEMORY 34/0, CITY BARKS 13/0, TIES 40/0,
+INTRODUCTIONS 46/0, REACTION REACH 17/0, THE WHOLE DEMO 23/0.
+
+Deploy of the previous ship CONFIRMED: 7610790 pages run SUCCESS, and it carries
+b62d42a (the card fix). Note b62d42a's OWN run shows `failure` with its deploy
+job never leaving `queued` -- that is the SUPERSEDED shape, not a broken build,
+and it is why the rule is "a run whose sha CONTAINS your content".
+
+WHAT I WOULD DO NEXT: the four Act 1 scenes and the nine canon quests are still
+monolingual. Those are the demo's actual story words. The law reserves WHICH
+NAMED STORY PEOPLE sit in which register as HIS, and I put that question to him;
+the UNNAMED voices in those scenes are mine to draft either way.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md
+(addendum 2 at the bottom).
+
+---- PREVIOUS (8/25) ----
+*** HIS SPANGLISH RULING REACHED THE
 ENGINE AND STOPPED ONE FRAME SHORT OF HIM, AND MY OWN GATE WAS DEFENDING THAT.
 FIXED. TAB RUN: walk up to somebody, tap the one button, the card now says what
 they speak. ***

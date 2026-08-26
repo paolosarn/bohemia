@@ -4488,6 +4488,49 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+BESTIARY-VOLUME. *** HE ASKED FOR VOLUME: "OKAY BRO WE NEED A BUNCH MORE
+   ENEMIES SO TELL WHATEVER CHAT" (Paolo 8/25). THIS IS THE ORDER TO COOK,
+   AND IT IS A FACTORY ORDER, NOT A LIST.
+   READ FIRST: records/BOHEMIA_RF4_ENEMY_DOSSIER_8_25_26.md and
+   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md.
+   The spec is already written; this row is the batch.
+   THE SHAPE: FIVE ARCHETYPES x THREE TIERS = 15 BASE ENEMIES, and the
+   MODIFIER TABLE multiplies them into the "bunch" he is asking for
+   without fifteen more designs. That is FACTORY LAW and it is exactly
+   how RF4 gets 250 out of five.
+   *** COVERAGE, NOT COUNT, AND THIS IS NOT A STYLE NOTE. *** SHARED -8
+   measured it across every verdict he has ever filed: the sfx ballot grew
+   ~6x while the keep rate HALVED (62% -> 32%), and SFX-06 came back 34
+   OF 35 DEAD. A batch of 60 near-identical enemies would repeat that
+   exactly. SO: FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO NOT.
+   Every cell of archetype x tier filled once, then modifiers.
+   THE GRID, from the dossier and the ecology:
+     SWARMER  rats, flies, and at tier 2 a dog pack's bodies
+     SUMMONER *** THE ONE THAT BARKS *** -- a howling dog or coyote really
+              does fill the field with a shield, and the 50%-aggro-shout
+              machinery from the 8/17 lift is ALREADY BUILT. Kill the one
+              barking or the block arrives. Highest-priority target, and
+              the backline AI that keeps it out of your line of sight is
+              also already specced.
+     TANK     the thing you walk around: a burro that will not move, a
+              wreck with something living in it. Low mobility is the point.
+     NUKER    the one hit you cannot take: a hive in a wall, a person with
+              a rifle.
+     PLINKER  *** THE ARCHETYPE THAT DOES NOT SURVIVE ANIMALS. *** No
+              coyote chips you from nine tiles. THE CLOCK IS OUR PLINKER
+              -- heat (the daily condition, 7/31), the day advancing 0.084
+              per cell, terrain kills. A timer is a plinker that never
+              misses. Build the pressure, not an archer.
+   THE STAT BLOCK IS SIX NUMBERS AND TWO VERBS (HP, speed as a WORD, size
+   as a CATEGORY, level, range, two abilities). If an enemy needs a
+   spreadsheet it has failed RF4's own test and his.
+   NO DAMAGE BEFORE THE DIAL STILL HOLDS. Behaviour, movement, aggro,
+   shouts, packs and loot ship; the numbers wait for him.
+   RESERVED AND EMPTY: names, which animals are canon, tier 3's owners,
+   whether hostile PEOPLE join the roster, and every value.
+   | fifteen filled cells met on a real walk, each readable in one line |
+   names + roster + numbers = HIS | he plays it, he does not thumb a
+   ballot -- coverage is judged by playing, not by a grid of icons. ***
 BESTIARY. *** ENEMIES, AND HE CALLED IT A TURNING POINT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "WE NEED MORE ENEMIES IN THE GAMES... I REALLY DO BELIEVE I
    MAY BE AT A TURNING POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING
@@ -4515,6 +4558,51 @@ BESTIARY. *** ENEMIES, AND HE CALLED IT A TURNING POINT (Paolo 8/25 PLAYTEST DIS
    AND VENOM IS TERRAIN, NOT ENCOUNTERS: rattlesnakes, bark scorpions,
    widows and centipedes are the thing under the rubble and in the dark
    room, which fits the RF4 terrain-kills machinery we already took.
+   *** AMENDED SAME DAY — THE ENEMY DOSSIER (records/BOHEMIA_RF4_ENEMY_
+   DOSSIER_8_25_26.md, on his "DO BIG BRAIN RESEARCH ON ALL THE ENEMIES OF
+   ROGUE FABLE 4"). AUTHOR THE VALLEY AS FIVE ARCHETYPES x A MODIFIER
+   TABLE x A DISTRICT PALETTE, NOT AS A LIST OF ANIMALS. The archetype is
+   the design; the animal is the costume. That is how RF4 gets 250
+   monsters out of five ideas, and it is this repo's own FACTORY LAW in
+   somebody else's engine.
+   THE FIVE, IN THE DESIGNER'S OWN WORDS: PLINKER (ranged chip, low
+   priority, "due to their range they apply CONSTANT PRESSURE ON THE
+   PLAYER TO FINISH THE FIGHT QUICKLY"); NUKER ("dump a ton of damage...
+   must pay very close attention"); SWARMER (weak, many, "can quickly
+   SURROUND the player"); SUMMONER ("fill the battlefield with monsters
+   WHICH TEND TO ACT AS A SHIELD"); TANK (high damage, low mobility,
+   "best ignored until the end of the fight").
+   EACH ONE IS A DIFFERENT INSTRUCTION AND THE FIGHT IS THE ARGUMENT
+   BETWEEN THEM: hurry / ignore me / come here now / do not let me
+   surround you / watch me and nothing else.
+   *** THE SUMMONER IS THE ONE THAT BARKS. *** Best fit in the whole
+   mapping and it is free realism: a dog or coyote that howls really does
+   fill the field with a shield of bodies, and we ALREADY took RF4's
+   50%-chance aggro shout in the 8/17 lift, so the shout machinery and the
+   summoner archetype are the same animal behaviour. Kill the one barking
+   or the block arrives.
+   THE STAT BLOCK IS SIX NUMBERS AND TWO VERBS. Recovered example, Goblin
+   Shaman: HP 12, Speed NORMAL, Size SMALL, Level 3, Range 5, abilities
+   HEAL and SLOW. Speed is a WORD, size is a category. If a Bohemia enemy
+   needs a spreadsheet to explain it has failed RF4's own test AND his
+   ("spreadsheet simulators and I'm not a fan").
+   MODIFIERS DO THE VOLUME: FAST / TOUGH (125-200% HP) / DEADLY
+   (150-300% dmg) / REGENERATION / REFLECTIVE / RAPID-HEALING /
+   CONSUMABLE-LOCK, stacked in tiers.
+   *** AND THE FINDING THAT BITES: ONE OF THE FIVE DOES NOT SURVIVE THE
+   TRANSLATION. *** RF4's roster runs on MAGES AND ARCHERS. Animals have
+   no ranged attack -- a coyote cannot chip you from nine tiles -- so the
+   PLINKER mostly vanishes and half the nukers with it. The constant
+   pressure that says HURRY, the thing that stops a fight becoming "stand
+   in the doorway and swing", has to come from somewhere. Two candidates
+   only: PEOPLE WITH GUNS (which would make hostile humans structurally
+   required, not flavour) or THE ENVIRONMENT.
+   *** WE ALREADY BUILT THE SECOND ONE: THE CLOCK IS OUR PLINKER. *** Heat
+   is the daily condition (7/31), the day advances 0.084 per cell, and the
+   lift already took terrain kills. A timer is a plinker that never
+   misses, it is far more Bohemia than an archer would ever be, and it
+   means the animal tiers can ship WITHOUT waiting on the faction roster
+   he reserved. Whether hostile PEOPLE join the bestiary is HIS call.
    | a walk through the valley meets living things at three difficulties
    | names, roster and every number = HIS | he plays it. ***
 DANGER-TIERS. *** DISTRICTS ARE THE DIFFICULTY, VALHEIM-STYLE (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
@@ -6550,6 +6638,26 @@ P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
    reconciled where they disagree rather than the ratchet loosened.
    | every canon style's identity holds across all 8 facings, gated, on the
    real surface | — | no. He already ruled; this is work, not a question. ***
+P0-GARMENTID. *** THE IDENTITY AUDIT IS PORTED TO CLOTHES AND ITS FIRST RUN
+   FOUND 17 GARMENTS THAT DREW NOTHING AT ALL. FIXED 8/25. THE REST OF WHAT IT
+   FOUND IS THIS ROW. *** Every knit cap, watch cap, field cap, work cap and
+   slouch beanie, the rice farmer hat and both pairs of shades changed ZERO
+   pixels when worn -- one literal 56 where BAKED.W (112) belonged, twice, in
+   two generators, with a second scale error stacked on top in genHat. The hat
+   line came out at row -12, twelve rows above the canvas. Gated on the real
+   worn path in one_garment_per_slot_gate (mutation-proved).
+   records/BOHEMIA_SEVENTEEN_GARMENTS_DREW_NOTHING_8_25_26.txt
+   *** WHAT IS LEFT, AND THE FIRST JOB IS FIXING THE RULER NOT THE TARGET: ***
+   the audit reports 52 garments changing by a tenth of the body or more in one
+   notch of turn, and most of that is the ruler being wrong for back-LAYER
+   items (a pack sits between you and the arms from behind, so "sleeve
+   coverage" is a property of the VIEW there, not of the object -- exactly the
+   mistake the hair gate made with area). TRIAGE THE RULER FIRST. Then the two
+   that look like real bugs: SMITH'S APRON / TRADES APRON hem 0.188 facing S
+   and 0.000 from behind (an apron vanishing below the waist as he turns), and
+   the ROAD CAPE / SHOULDER MANTLE on/off at the E->NE notch.
+   | every canon garment holds its identity across 8 facings, gated, measured
+   on the real worn path | -- | no. He already ruled; this is work. ***
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never
@@ -7180,6 +7288,11 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 ## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
 ## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
 ## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
+UI-0. *** THE LANE BRIEF EXISTS: laws/BOHEMIA_SESSION_BRIEF_UI_8_25_26.md.
+   READ IT FIRST, before CLAUDE.md's laws list, if your first word is
+   "ui". He asked for it by name on 8/25 ("can u regive me the ui
+   instructions please for the ui chat"), so it is written down once and
+   never reconstructed from memory again. ***
 UI-1. *** THE BOHEMIA LOOK, AND HE WANTS TO MAKE IT WITH YOU, NOT RECEIVE
    IT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME AND I NEED TO

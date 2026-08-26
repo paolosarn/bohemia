@@ -1,6 +1,20 @@
 # BOHEMIA — CLAUDE.md (repo root — read before any work, every session)
 
-This repo is the ONE home of Bohemia, a roguelite hardcore RPG city-builder set
+*** THERE ARE NO RUNS (Paolo 8/26/26, LOCKED). *** This line said "roguelite" from
+the first day and EVERY SESSION READS IT FIRST, so every session inherited a
+premise he had never agreed to. His words: "BRO THERE ARE NO RUNS. IT IS A FULL
+GAME THAT WILL TAKE YOU 100 HOURS TO COMPLETE BRO." One character, ~100 hours, a
+PERSISTENT experience tree (his reference: Cyberpunk / Elder Scrolls perks and
+bonuses), and 60 MINI BOSSES that each hand you A NEW WAY TO INTERACT WITH
+BOHEMIA. The tree, the abilities and the bosses are ONE system, not three.
+Anything that assumes a run resets is built on a premise that does not exist.
+Full law: laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md
+AND COMBAT IS ONE SENTENCE (same message): "JUST IMAGINE ROGUE FABLE 4 WITH 120
+BPM EVERYTHING BRO LIEK THATS ALL?" The beat is the clock RF4's turns run on; they
+were never in tension. All three bars ship (Protection, Power, Speed) and a real
+kit of abilities recharged by VERBS, not timers.
+
+This repo is the ONE home of Bohemia, a hardcore RPG city-builder set
 in post-economic-apocalypse Las Vegas. Single HTML/JS build, iPhone portrait.
 Paolo Alexandre Sarnataro (Punk / Babypunk) is the creative director and sole
 human. You are the full technical implementer, art production pipeline, and

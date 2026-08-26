@@ -1,0 +1,128 @@
+SEVENTEEN THINGS HE COULD PUT ON DREW NOTHING AT ALL
+CHARACTER lane, 8/25/26.
+
+--------------------------------------------------------------------------------
+HOW IT WAS FOUND, WHICH IS THE POINT
+--------------------------------------------------------------------------------
+The hair audit built for clause 1 ("a haircut is one haircut from every angle")
+found two of fifteen styles that were a mane from the front and a crop from the
+side, sitting inside a green gate. The obvious next question was whether genHair
+was special. IT WAS NOT: every generator in the wardrobe branches on facing, and
+nothing had ever asked the same question of the 204 canon garments.
+
+tools/bohemia_garment_identity_audit.js is that question, ported. It was looking
+for a coat that changes shape when you turn round.
+
+IT FOUND SEVENTEEN GARMENTS THAT WERE NOT THERE.
+
+    every KNIT CAP, WATCH CAP, FIELD CAP, WORK CAP and SLOUCH BEANIE
+    CHINESE RICE FARMER HAT
+    WRAPAROUND SHADES and GREY WRAPAROUNDS
+
+MEASURED ON THE REAL FRAME, wearing them, not on a generator's return value:
+equipping one changed ZERO PIXELS. Not thin, not misplaced, not subtly wrong.
+ABSENT. He could pick one in the CHARACTER tab and nothing happened.
+
+--------------------------------------------------------------------------------
+THE CAUSE: ONE LITERAL 56, TWICE, IN TWO DIFFERENT GENERATORS
+--------------------------------------------------------------------------------
+BAKED is RIG2X'd. Its layer indices pack as y*BAKED.W and BAKED.W IS 112. Both
+call sites divided by a hard-coded 56, which returns DOUBLE THE ROW.
+
+genHat, and this one had a SECOND error stacked on the first:
+
+    var ry=(L[li]/56)|0;                    // 20 for a head whose top row is 10
+    hl = hTop + (HAT_MAX_Y[gd2] - rt*S);    // and then doubled AGAIN
+       = 10 + (18 - 40) = -12
+
+put() refuses every pixel below the hat line, and the hat line was TWELVE ROWS
+ABOVE THE TOP OF THE CANVAS. Every hat drew nothing, on every facing.
+
+The comment on that line reads "HAT_MAX_Y is RIG space, rt is 56 space -- scale rt
+or the durag line lands at half depth". Half of that is true: HAT_MAX_Y is rig
+space. rt was NOT 56 space; it only looked like it because of the literal 56 in
+the expression directly above. A FIX APPLIED TO A MISREAD MEASUREMENT MADE IT
+TWICE AS WRONG, and the comment then made the mistake look considered.
+
+genAcc's shades, same two errors in one expression:
+    ry3 = ((+fk2/24)|0)+G24_OY;             // 56 space, never scaled to the rig
+    yy3 = (L3[lj3]/56)|0;                   // double the row again
+dHead came out at -10, the lens band was pushed ten rows above the eyes and off
+the head, and put() dropped all of it.
+
+FIXED: BAKED.W is the only correct divisor and no scale factor belongs on top.
+    hl is 18 facing S and E, 24 facing N -- eight rows down a 22-row head, deeper
+    at the back, which is exactly what a durag does and exactly what the comment
+    below it has always said it should be.
+
+--------------------------------------------------------------------------------
+*** AND THE HEADWEAR GATE WAS GREEN THROUGH ALL OF IT, FOR TWO REASONS ***
+--------------------------------------------------------------------------------
+1. IT LIFTS genHat OUT OF THE ALPHA and runs it against a synthetic grid, so
+   BAKED and HAT_MAX_Y are undefined in its harness and `hl` falls back to the 30%
+   band. THE BROKEN PATH NEVER EXECUTES THERE. A gate that lifts a function out of
+   its environment cannot see a bug that lives in the environment.
+2. WHAT IT HOLDS IS "a hat never crosses the durag line", AND A HAT THAT DRAWS
+   NOTHING CROSSES NOTHING. A check a corpse passes is not checking for life.
+
+Both halves are the same failure the pictures kept making this week: an
+instrument that cannot tell "no defect" from "nothing ran" always reports the
+comfortable answer.
+
+--------------------------------------------------------------------------------
+THE NEW GATE, AND MY FIRST VERSION OF IT WAS ALSO VACUOUS
+--------------------------------------------------------------------------------
+gates/one_garment_per_slot_gate.js now sweeps all 221 canon garments on the REAL
+worn path -- the only surface that could ever have caught this -- and fails if any
+of them changes zero pixels.
+
+FIRST CUT PASSED THE MUTATION THAT REINTRODUCED THE BUG. It compared "wearing it"
+against "wearing nothing", and putting a garment on SUPPRESSES the painted layer
+of that slot (the 8/21 rule), so the frame differed by his DURAG DISAPPEARING even
+when the hat drew nothing. It was measuring "something changed", not "the garment
+appeared". The painted layer of the slot under test is now pulled in BOTH frames,
+so the only thing that can differ is the garment itself.
+
+MUTATION PROOF, with both original errors restored:
+    > FAIL EVERY GARMENT HE CAN PUT ON ACTUALLY APPEARS (206/221 -- DRAWS NOTHING:
+      CHINESE RICE FARMER HAT, CHARCOAL WATCH CAP, RUST WATCH CAP, OLIVE FIELD CAP,
+      STORM KNIT CAP, SAND KNIT CAP, SLATE WORK CAP, OXBLOOD SLOUCH BEANIE, ...)
+
+--------------------------------------------------------------------------------
+MEASURED
+--------------------------------------------------------------------------------
+    canon garments that draw NOTHING on every facing   17  ->  0
+    head/face garments that render facing S         10/27  ->  25/27
+    STORM KNIT CAP, worn, pixels changed on the frame   0  ->  242
+    SLATE WORK CAP                                     0  ->  258
+    CHINESE RICE FARMER HAT                            0  ->  208
+    WRAPAROUND SHADES                                  0  ->  188
+
+The five that still draw nothing on SOME facing are shades, the gas mask and the
+two bandanas on the three BACK facings, and that is deliberate and correct: you
+cannot see somebody's sunglasses from behind. The gate judges each garment on the
+facings where it should show.
+
+--------------------------------------------------------------------------------
+WHAT THE IDENTITY AUDIT ALSO FOUND AND I HAVE NOT FIXED
+--------------------------------------------------------------------------------
+Recorded rather than half-done, so the next session inherits the list:
+    SMITH'S APRON / TRADES APRON   hem 0.188 facing S, 0.000 from behind. An apron
+        that vanishes below the waist when he turns. Plausibly correct (an apron
+        hangs at the front and its skirt hides behind the body) but it is a hard
+        on/off across one notch, which is the shape of a bug.
+    ROAD CAPE / SHOULDER MANTLE / RUCK PACK   sleeve coverage 0.03 facing E and
+        0.97 facing NE. Probably view geometry (from behind, a pack is between you
+        and the arms) rather than a defect -- WHICH MEANS THE RULER IS WRONG FOR
+        back-LAYER ITEMS, and that is the thing to fix before judging them.
+    52 garments change by a tenth of the body or more in a single notch. Most of
+        that is the same back-layer ruler problem. Triage it before chasing any of
+        them; the hair work says an area-shaped ruler will lie to you.
+
+--------------------------------------------------------------------------------
+WHERE HE SEES IT
+--------------------------------------------------------------------------------
+LOOK tab, "SEVENTEEN THINGS THAT WERE NOT THERE". CHARACTER tab to put one on.
+  node tools/bohemia_the_missing_hats.js            the before/after
+  node tools/bohemia_garment_identity_audit.js      the audit that found them
+  node gates/one_garment_per_slot_gate.js           12/0

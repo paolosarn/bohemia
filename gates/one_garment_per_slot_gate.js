@@ -170,9 +170,58 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
     for (let i = 0; i < ff.CW * ff.CH; i++) { const c = ff.px[i]; if (!c) continue;
       for (const r of faceRamp) if (c[0] === r[0] && c[1] === r[1] && c[2] === r[2]) { facePx++; break; } }
 
+    /* 4. *** AND EVERY GARMENT HE CAN PUT ON ACTUALLY APPEARS. ***
+       Added 8/25 after the garment identity audit found SEVENTEEN canon garments --
+       every knit cap, watch cap, field cap, work cap and slouch beanie, the rice
+       farmer hat, both pairs of shades -- that changed ZERO PIXELS OF THE FRAME when
+       worn. Not thin, not misplaced: absent. He could equip one and nothing happened.
+       WHY NO GATE SAW IT: the headwear gate lifts genHat OUT of the alpha and runs it
+       against a synthetic grid, so BAKED and HAT_MAX_Y are undefined there and the
+       durag-line path -- the one that was broken -- never executes. It also holds "a
+       hat never crosses the durag line", and A HAT THAT DRAWS NOTHING CROSSES NOTHING.
+       A check a corpse passes is not checking for life.
+       So this one measures THE PIXELS HE ACTUALLY SEES, wearing it, on the real frame,
+       which is the only surface that could ever have caught it. A garment legitimately
+       invisible from behind (shades, a mask) is judged on the facings where it shows. */
+    const VISIBLE = { face: ['S', 'SE', 'E'], back: ['N', 'NE', 'E'] };
+    const invisible = [];
+    /* *** AND THE BASELINE HAS TO BE THE SAME BODY, OR THIS MEASURES THE WRONG THING.
+       The first cut of this check compared "wearing it" against "wearing nothing" and
+       passed the mutation that reintroduced the bug. Reason: putting a garment on
+       SUPPRESSES the painted layer of that slot (rule 2 above), so the frame changed by
+       his durag DISAPPEARING even when the hat drew nothing. It was measuring "something
+       changed", not "the garment appeared" -- the same failure as every lying picture
+       this week. So the painted layer of the slot under test is pulled in BOTH frames,
+       and the only thing that can differ is the garment itself. */
+    const SLOTPD = { head: 'hat', face: 'glasses', base: 'shirt', outer: 'jacket',
+                     legs: 'pants', feet: 'shoes' };
+    const keepEq = {}; for (const k in G.equipped) keepEq[k] = G.equipped[k];
+    for (const g of CANON) {
+      if (g.layer === 'hair') continue;                 /* hair has its own gate */
+      const dirs = VISIBLE[g.layer] || ['S', 'E', 'N'];
+      const pdSlot = SLOTPD[g.layer];
+      let best = 0;
+      for (const d of dirs) {
+        if (pdSlot) G.equipped[pdSlot] = '';
+        window.G_WORN = {};
+        try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+        const a = buildFrame(d, 'idle', 0);
+        window.G_WORN = {}; window.G_WORN[g.layer] = g.n;
+        try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+        const c2 = buildFrame(d, 'idle', 0);
+        let n2 = 0;
+        for (let i = 0; i < a.px.length; i++) { const x = a.px[i], y = c2.px[i];
+          if (!x !== !y || (x && y && (x[0] !== y[0] || x[1] !== y[1] || x[2] !== y[2]))) n2++; }
+        if (n2 > best) best = n2;
+        if (pdSlot) G.equipped[pdSlot] = keepEq[pdSlot];
+      }
+      if (best === 0) invisible.push(g.n + ' [' + g.layer + ']');
+    }
+    for (const k in keepEq) G.equipped[k] = keepEq[k];
+
     window.G_WORN = keep;
     try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
-    return { dflt, leaks, facePx };
+    return { dflt, leaks, facePx, invisible, sweptN: CANON.filter(g => g.layer !== 'hair').length };
   });
 
   await b.close();
@@ -200,6 +249,11 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
 
   ok('HIS FACE SURVIVES BEING FULLY DRESSED (' + R.facePx + ' painted face pixels on screen)',
      R.facePx > 0);
+
+  ok('*** EVERY GARMENT HE CAN PUT ON ACTUALLY APPEARS ON THE FRAME *** (' +
+     (R.sweptN - R.invisible.length) + '/' + R.sweptN + ' canon garments swept on the real ' +
+     'worn path' + (R.invisible.length ? ' -- DRAWS NOTHING: ' + R.invisible.slice(0, 20).join(', ') : '') + ')',
+     R.invisible.length === 0);
 
   done();
 })();

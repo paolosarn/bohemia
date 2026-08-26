@@ -150,12 +150,23 @@ function qkOf(key){
    register MOVES. Night is 11 hours of 24, so roughly half of meetings land in
    each, and the player can cross between them by walking onto a live block OR
    by waiting for morning. Walking between them IS the tone transition. */
-function qkLine(key){
+function qkLine(key, lang){
   var q = qkOf(key);
   if (!q) return null;
   var dark = false;
   try { dark = !!isNight() && !!dayDark(); } catch (_e) { dark = false; }
-  return dark ? q.dark : q.lit;
+  var k = dark ? 'dark' : 'lit';
+  /* *** AND IN THE LANGUAGE THEY SPEAK (8/25, THEY SPEAK SPANGLISH). ***
+     This is the line somebody says TO YOUR FACE when you ask their name, and it
+     was the LAST monolingual line in the game: the ambient barks you overhear
+     across the street had registers before the person standing in front of you
+     did, which is exactly backwards.
+     The register is a THIRD axis on the same person. The shape, the noun and the
+     light are untouched -- only the mouth moves. And a shape with no register
+     written for it speaks ENGLISH rather than going silent, which is the hard
+     rule: language never gates required information. */
+  var r = lang && q[lang];
+  return (r && r[k]) || q[k];
 }
 ''' + RT_END
 

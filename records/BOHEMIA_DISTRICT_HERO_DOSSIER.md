@@ -353,7 +353,7 @@ _Detention center — matched, on the CLARK COUNTY DETENTION CENTER (JMA with HO
 - guard towers — four, one at each corner of the yard, glazed cabs (code 6 "guard tower")
 - pole light — in the yard (code 9 "pole light")
 
-## LANDFILL  (1724x1056, anchor 874,1290)
+## LANDFILL  (1724x902, anchor 874,1290)
 _Landfill — matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond._
 
 - terraced mound — four stepped benches, each smaller and lighter (code 6 "waste fill")

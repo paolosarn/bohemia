@@ -278,6 +278,19 @@ def parse_quirks(path):
         out.append(dict(base, id=rel + '#' + q['id'] + '.dark',
                         node=q['id'] + ' (asked in the dark, SAME person)',
                         text=q.get('dark') or ''))
+        # THE SAME PERSON IN THEIR OWN MOUTH (8/25, THEY SPEAK SPANGLISH). These
+        # are the lines somebody says TO YOUR FACE when you ask their name, so
+        # they are the ones he is most likely to want to retype. Tagged with the
+        # register so the WORDS tab can chip them and he can search "spanglish".
+        for reglang in ('spanglish', 'es'):
+            r = q.get(reglang) or {}
+            for light in ('lit', 'dark'):
+                if not r.get(light):
+                    continue
+                out.append(dict(base, id=rel + '#' + q['id'] + '.' + reglang + '.' + light,
+                                node=q['id'] + ' (' + reglang + ', asked in the '
+                                     + ('light' if light == 'lit' else 'dark') + ')',
+                                lang=reglang, text=r[light]))
     for kind, pool in (d.get('specifics') or {}).items():
         for i, n in enumerate(pool):
             out.append({'kind': 'quirk', 'src': rel, 'speaker': '(' + kind + ')',

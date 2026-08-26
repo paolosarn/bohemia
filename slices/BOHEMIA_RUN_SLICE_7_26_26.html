@@ -1259,6 +1259,26 @@ function drawSolarform(gx,gy,X,Y,S){
     var vt=tf(vp+th(gx,gy,2)); if(vt) ctx.drawImage(look(vt),X,Y,S,S);
     return true;
   }
+  if(n==='tank roof'){
+    /* TF-ART-020 volume (8/25, measured): 3295 cells - the concrete deck
+       over the buried reservoir, in huge rectangular blobs ringed by the
+       water tank walls. A jointed panel per cell (self-seamless N+W
+       joints), a mushroom vent about every 31st cell because a buried
+       reservoir breathes through its deck. */
+    var tdv=th(gx,gy,7); tdv=(tdv===0)?1:(tdv===1)?2:0;   /* patch and crack 1-in-7 each, not 1-in-3: at 1-in-3 the patches read as polka squares */
+    var td=tf('tr_deck_'+tdv); if(!td) return false;
+    ctx.drawImage(look(td),X,Y,S,S);
+    if(th(gx*5+3,gy*3+1,31)===0){ var tv=tf('tr_vent_'+th(gy,gx,2)); if(tv) ctx.drawImage(look(tv),X,Y,S,S); }
+    return true;
+  }
+  if(n==='overflow'){
+    /* TF-ART-020 volume (8/25, measured): 1028 cells in small clusters on
+       the tank pad - the overflow splash structures. Collar + dark weir
+       mouth + the dry stain fan, riding on bought concrete. */
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete_0',X,Y,S);
+    var ob=tf('of_basin_'+th(gx,gy,2)); if(ob) ctx.drawImage(look(ob),X,Y,S,S);
+    return true;
+  }
   if(n==='landscaping'){
     /* TF-ART-024 (8/25, measured): 1131 cells - one connected web of bed
        strips ringing the police station, its lot and secure yard. Dead

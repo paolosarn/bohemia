@@ -358,3 +358,96 @@ none of them filed as a finding.**
 |---|---|
 | `tools/bohemia_city_speaks_row_patch.py` | the SPEAKS row on the card he actually opens |
 | `gates/language_gate.js` | 63 -> 67 claims; G reads pixels, F checks the right drawer |
+
+---
+
+# ADDENDUM 2: THE LINE THEY SAY TO YOUR FACE WAS THE LAST MONOLINGUAL ONE
+
+The ambient barks you overhear **from across the street** got registers in the
+morning. The line somebody says **standing in front of you, when you ask their
+name** did not. That is exactly backwards, and it is the wrong way round for the
+one line that matters most: the quirk is the FIRST true thing you ever learn
+about one specific human (`Q014.W9` PERSONALITY AS THE PUZZLE), and it arrives
+through the game's only social verb.
+
+## 44 -> 132 LINES
+
+Every one of the 22 quirks is now authored in three mouths, in both lights:
+
+```
+en   lit   Sorry. I know. I keep {r}. My mother did it, I hated it, and here we absolutely are.
+sg   lit   Perdón. I know. I keep {r}. Mi mamá did it, I hated it, and here we absolutely are.
+es   lit   Sorry. I know. I do {r} always. My mother do it. I hate it. And now, here.
+sg   dark  I keep {r}. Ya sé what it looks like. I'd stop if it were safe to stop.
+```
+
+304 distinct quirks x 2 lights x 3 mouths = **1,824 utterances**, every one
+`draft:true` and editable in the WORDS tab, which now holds **2,312** lines
+(208 spanglish, 194 spanish-dominant).
+
+**MEASURED ON THE REAL CARD, IN THE WALKED CITY, ONE PER REGISTER:**
+
+```
+en   I'll write it. I don't say it, I write it. Give me a second, I'm using a drink
+     token from a floor that closed.
+sg   Give me a minute, estoy doing the pump house at the end of the row. Nobody
+     asked me. Somebody has to y nadie asked me.
+es   What day is today. No. Not tell me. I take it from reading the expiry dates
+     out loud. Like this I know. I am never wrong.
+```
+
+Register 3 carries **no Spanish words at all**, and that is the craft rule
+working: poor English is GRAMMAR, not vocabulary. The gate checks it for being
+DIFFERENT rather than for carrying Spanish, because a claim demanding Spanish
+there would be demanding the cartoon the law forbids.
+
+## ONE LEXICON, TWO MOUTHS, ONE CHECKER
+
+The quirk factory does **not** keep its own word list. It imports the bark
+factory's `ES_GLOSS` and its English yardstick and refuses to write a Spanish
+word that is not in the shared closed set. A second lexicon would put a hole
+straight through the hard rule: a word the quirks say and the sweep has never
+heard of is invisible to the sweep, and the claim goes green while the bug walks
+past. 188 -> 224 words, every one with its English meaning.
+
+The register twins also run the **same grammar contract** as the English ones:
+they must use their slot, must not open a sentence with it, and must not be a
+copy. That caught one of my own 88 lines before it shipped (`not-for-trade`
+spanglish:dark had lost its `{it}`).
+
+## THE THIRD TIME THIS LANE PAID FOR TWO COPIES OF ONE RULE
+
+The Python side learned that a **leading apostrophe is a quote mark, not a
+clitic** (`'He turn.` opens a spoken line), and was fixed there. The gate's own
+tokenizer had the identical rule typed out a second time, did not learn it, and
+went red on those exact two lines.
+
+The rule now lives in **one** place: `esStems()` ships from the factory into the
+engine, and `esWordsIn` and the gate both call it. That is the third instance of
+this shape in two days (two tab switchers with one routing rule; a generator and
+its output; now a tokenizer). **Writing the rule down twice is the bug, every
+time.**
+
+## AND A PROBE THAT REPORTED "NO SUCH THING" WHEN IT HAD NEVER LOOKED
+
+The first run of the new claims came back with all four empty. The block above
+them ends with a card OPEN, and `ctVerb()` correctly hides the one button while
+a card is up -- you cannot start a second conversation without ending the first.
+So the loop found the button hidden on every person and measured nothing.
+**A probe that cannot reach its subject reports the same thing as a broken
+feature**, and the only difference is whether you check.
+
+## MUTATIONS
+
+| break | result |
+|---|---|
+| **M9** the two call sites stop passing the register (**the state that shipped this morning**) | **1 red**, printing the English line the Spanglish person would have said |
+| **M10** one "spanglish" line replaced with its English twin (a tag, not a voice) | the factory **REFUSES TO WRITE**, naming the line |
+
+| file | what |
+|---|---|
+| `tools/bohemia_quirk_factory.py` | 88 register lines, the grammar contract on the twins, the shared-lexicon check |
+| `tools/bohemia_city_quirk_patch.py` | `qkLine(key, lang)` |
+| `tools/bohemia_city_quirk_lang_patch.py` | the card row and the spoken line, in one register |
+| `tools/bohemia_bark_factory.py` | `esStems()`, 36 more glossed words, the leading-quote fix |
+| `gates/language_gate.js` | 67 -> 71 claims |
