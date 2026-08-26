@@ -203,7 +203,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       try{
         KILLMUS.reset();
         MUS.step=17;                       // 17 % 16 = 1: just past the line
-        KILLMUS.kills=1; KILLMUS.killed();  // -> 2 kills, wants layer 2
+        KILLMUS.kills=1; KILLMUS.killed();  // -> 2 kills, which is now LEVEL 3
         await wait(400);
         r.held={step:MUS.step%16, want:KILLMUS.want, layers:MUS.layers};
         MUS.step=32;                       // 32 % 16 = 0: the top of a bar
@@ -420,22 +420,31 @@ def main():
            (kl.get('atStart') or {}).get('layers') == 0)
         ok('a killshot is COUNTED (%s)' % [x['kills'] for x in st],
            [x['kills'] for x in st] == [1, 2, 3, 4, 5])
-        # HIS OWN BUTTON'S THRESHOLDS: CALM / 2 KILLS / 4 KILLS
+        # HIS 8/26 LADDER REPLACES HIS 8/20 BUTTON, AND THE NEWEST DATE WINS.
+        # This asserted CALM / 2 KILLS -> layer 2 / 4 KILLS -> layer 4, which
+        # was right when the only input was kills. On 8/26 he re-cut it into
+        # three levels and moved the top from four kills to TWO:
+        #   "you either kill 2 enemies or theresa whole bunch of people close
+        #    together talking type shit for lvl 3"
+        # A GATE MUST NEVER OUTRANK A RULING (8/1). The old numbers are not a
+        # regression to defend, they are a spec he replaced, so this leg now
+        # holds the new one. Law:
+        # laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
         got = [x['layers'] for x in st]
         ok('one kill is still CALM (%s)' % got[:1], got and got[0] == 0)
-        ok('two kills lift the arrangement to layer 2, four to layer 4 '
-           '(layers after each kill: %s)' % got,
-           len(got) == 5 and got[-1] == 4 and 2 in got and got.index(2) >= 1)
+        ok('TWO KILLS GO STRAIGHT TO THE TOP, layer 4 -- his 8/26 ladder, down '
+           'from the four kills that shipped (layers after each kill: %s)' % got,
+           len(got) == 5 and got[1] == 4 and all(g == 4 for g in got[1:]))
         # DRIVEN, not observed in passing. See the note in the browser leg:
         # watching the five kills above for a gap is timing-dependent and went
         # red on correct code.
         held, landed = kl.get('held') or {}, kl.get('landed') or {}
         ok('the lift is HELD when the transport is mid-bar (step%%16=%s, want %s, '
            'layers %s)' % (held.get('step'), held.get('want'), held.get('layers')),
-           held.get('want') == 2 and held.get('layers') == 0)
+           held.get('want') == 4 and held.get('layers') == 0)
         ok('and LANDS at the top of the next bar (want %s, layers %s)'
            % (landed.get('want'), landed.get('layers')),
-           landed.get('layers') == 2)
+           landed.get('layers') == 4)
         ok('the fight settling puts it back to CALM (%s)'
            % (kl.get('afterReset') or {}).get('layers'),
            (kl.get('afterReset') or {}).get('layers') == 0)

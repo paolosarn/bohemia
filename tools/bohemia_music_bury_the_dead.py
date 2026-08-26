@@ -56,18 +56,25 @@ REGISTRY = 'gates/bohemia_graveyard.txt'
 # VARIETY LAW prose, inside batch summaries that list SURVIVORS, and inside a
 # note about a song being PROMOTED whose old arrangement became the graveyard
 # record. A checker that cannot tell those apart from a kill is the broken one.
-NOTICE = re.compile(r'/\*\s*[^\w\s]*\s*GRAVEYARD\s*\(down [^)]*\):\s*(.+?)\s*\*/')
+NOTICE = re.compile(r'/\*\s*[^\w\s]*\s*GRAVEYARD\s*\(down ([^,)]*)[^)]*\):\s*(.+?)\s*\*/')
 
 
 def dead_names(src):
     head = src[:src.index('const MLOOPS=[')]
-    return sorted({m.group(1).strip() for m in NOTICE.finditer(head)})
+    return sorted({m.group(2).strip() for m in NOTICE.finditer(head)})
+
+
+def dead_dates(src):
+    """song name -> the date written on its own death notice."""
+    head = src[:src.index('const MLOOPS=[')]
+    return {m.group(2).strip(): m.group(1).strip() for m in NOTICE.finditer(head)}
 
 
 def main():
     write = '--write' in sys.argv
     s = open(ALPHA, encoding='utf8').read()
     dead = dead_names(s)
+    down_date = dead_dates(s)
     print('=== BURY THE DEAD SONGS — %d death notices in the embedded repo ===' % len(dead))
 
     i0 = s.index('const MLOOPS=[')
@@ -133,17 +140,28 @@ def main():
     for n in walking:
         if n.upper() in reg.upper():
             continue
-        add.append("n:'%s'    | 7/8/26 | DOWN (batch 6/7 horror). GRAVEYARD FINAL, no remake. "
-                   "Buried in code 8/19/26: the kill was only ever a COMMENT in the alpha's "
-                   "music repo, so this song sat in MLOOPS baked CANON for six weeks and "
-                   "THE CHOIR THAT STAYED was tagged OVERWORLD NIGHT and actually playing. "
-                   "Its VOICES are NOT retired -- batch 6 killed songs, not voices." % n)
+        # THE TOMBSTONE HAS TO SAY WHEN HE KILLED IT, NOT WHEN THIS TOOL WAS
+        # WRITTEN (8/26 fix). This line was hardcoded to the 8/19 batch's own
+        # story -- "7/8/26 | DOWN (batch 6/7 horror) ... Buried in code
+        # 8/19/26" -- so every future burial recorded somebody else's date and
+        # somebody else's reason. Three songs Paolo killed on 8/26 in his music
+        # export were filed under a July batch they had nothing to do with, and
+        # GIT IS THE MEMORY: a registry that lies is worse than no registry.
+        # The date comes from the death notice the alpha already carries, which
+        # is the same string this tool reads to know the song is dead at all.
+        add.append("n:'%s'    | %s | DOWN. GRAVEYARD FINAL, no remake. Buried in "
+                   "code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, "
+                   "CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED unless a "
+                   "ruling says so separately -- a song dying is not its voice "
+                   "dying, and reading silence as a retirement has killed live "
+                   "voices in this repo before." % (n, down_date.get(n, 'date unrecorded')))
     if add:
         if not reg.endswith('\n'):
             reg += '\n'
-        reg += ('\n# --- MUSIC, BURIED IN CODE 8/19/26 (tools/bohemia_music_bury_the_dead.py).\n'
-                '# Each of these already had a death notice inside the alpha and none of them\n'
-                '# had a line here, which is why the graveyard gate never saw them.\n'
+        reg += ('\n# --- MUSIC, BURIED IN CODE (tools/bohemia_music_bury_the_dead.py).\n'
+                '# Each had a death notice inside the alpha and no line here, which is\n'
+                '# why the graveyard gate could not see it. The date on each row is the\n'
+                '# date on ITS OWN notice, never the date of this run.\n'
                 + '\n'.join(add) + '\n')
         open(REGISTRY, 'w', encoding='utf8').write(reg)
         print('  wrote %d tombstone(s) into %s' % (len(add), REGISTRY))

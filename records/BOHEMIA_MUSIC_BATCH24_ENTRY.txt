@@ -43,7 +43,7 @@ ENTRIES (verbatim):
 {n:'THE VOICE THAT STILL ANNOUNCES FLOORS',acc:'#6a7f8e',root:44,scale:[0,1,3,7,8],wave:'sine',kick:[0,6,11],bass:[0,3,7,8],hat:[4,12],inst:{b:'abyssbass',l:'atriumvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
 {n:'THE LAST BROADCAST CORRODES',acc:'#b07a3a',root:51,scale:[0,2,3,6,8,10],wave:'sawtooth',kick:[0,4,7,10,13],bass:[0,6,8,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'signalrot'},am:'vacancyhum',kit:{k:'punchk',h:'tight'},mel:'call',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
 {n:'THE BELLS DISAGREE',acc:'#8e6a9a',root:39,scale:[0,3,6,7,10],wave:'triangle',kick:[0,9],bass:[0,6,7,10],hat:[6,14],inst:{b:'boneyardbass',l:'twintoll'},am:'styxhaze',kit:{k:'knock',h:'clickh'},mel:'call',swing:0.14,feel:'normal',klay:'stabs',ff:true,nu:true},
-{n:'THE NOTE THAT WOULD NOT STAY ONE',acc:'#7f9a86',root:57,scale:[0,2,5,6,9,11],wave:'sine',kick:[0,5,8,12],bass:[0,5,9,11],hat:[3,7,11,15],inst:{b:'reservoirbass',l:'fissionhymn'},am:'edenmist',kit:{k:'boom',h:'shakerh'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true}
+{n:'THE NOTE THAT WOULD NOT STAY ONE',acc:'#7f9a86',root:57,scale:[0,2,5,6,9,11],wave:'sine',kick:[0,5,8,12],bass:[0,5,9,11],hat:[3,7,11,15],inst:{b:'reservoirbass',l:'fissionhymn'},am:'edenmist',kit:{k:'boom',h:'shakerh'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,nu:true}   /* DOWN 8/26, GRAVEYARD FINAL: kept as the record of what was cooked, never re-added */
 
 ALL FOUR UNJUDGED, NEW badges live. NEW_VIBES was APPENDED TO, NOT REPLACED:
 the three menu songs already badged are unjudged, and overwriting the list

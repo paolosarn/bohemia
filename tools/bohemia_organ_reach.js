@@ -76,6 +76,11 @@ const GLOBALS = {
   bohemia_introductions: 'BohemiaIntros',
   bohemia_ties: 'BohemiaTies',
   bohemia_people: 'BohemiaPeople',
+  /* 8/26: registered THE SAME TURN the module shipped. The whole point of this
+     sweep is that an organ nothing calls is not a feature, and a module the
+     sweep does not know about is invisible to exactly that check -- which is
+     the rot this file exists to kill, wearing the sweep's own uniform. */
+  bohemia_between: 'BohemiaBetween',
 };
 
 const argv = process.argv.slice(2);
@@ -190,18 +195,78 @@ for (const m of MODS) {
   catch (e) { console.log('  ' + m + ': LOAD FAIL ' + e.message); continue; }
 
   /* is the module handed to somebody as a VALUE? then a textual count is a lie */
-  const injected = new RegExp('[:(,]\\s*' + g + '\\s*[,)}]').test(SURF);
+  /* PASSED AS A BARE VALUE -- two shapes, and the second was missing.
+     `{ties:BohemiaTies}` is the plain one. But this codebase overwhelmingly
+     writes the GUARDED form, because a module that might not be inlined must
+     not throw:
+         between:(typeof BohemiaBetween!=='undefined'?BohemiaBetween:null)
+     There the name is followed by `:null)`, so the original character class
+     [,)}] could never match it, and a correctly injected module read as seven
+     dead organs. Found 8/26 by pointing this sweep at a module written that
+     way the same turn it shipped.
+     A SWEEP THAT CANNOT TELL AN INJECTED MODULE FROM A DEAD ONE IS THE BROKEN
+     THING, NOT THE MODULE -- this file's own docstring, four lines of it, and
+     it applies to this file. FIX THE RULER, NEVER THE TARGET. */
+  const injected = new RegExp('[:(,]\\s*' + g + '\\s*[,)}]').test(SURF)
+                || new RegExp('\\?\\s*' + g + '\\s*:').test(SURF);
   const fns = Object.keys(api).filter(k => typeof api[k] === 'function');
   const rows = fns.map(f => {
     const surf = (SURF.match(new RegExp('\\b' + g + '\\.' + f + '\\s*\\(', 'g')) || []).length;
     /* engine-internal: any call to .f( inside engine/, minus the definition line.
        A helper called by its OWN module is reached, not dead. */
-    const eng = Math.max(0, grepCount('[^.a-zA-Z]' + f + '\\s*\\(', 'engine/') - 1);
-    /* A COMMENT IS NOT A CALLER — see stripComments above. This tier used a
-       raw grep and counted my own explanatory prose as states()'s only
-       caller, which made a deleted call look alive. */
+    /* A COMMENT IS NOT A CALLER, AND THIS TIER STILL BELIEVED THEY WERE.
+       The lesson below was learned on 8/25 for the gates/tools tier and never
+       applied here, one line up. This used a RAW grep, so on 8/26 a sentence
+       inside bohemia_between.js reading "what keys() enumerates for a gate to
+       sweep" became keys()'s only engine caller, moved it out of tooling-only,
+       and made a correct exemption look stale. A dead organ that reads as
+       wired is the quiet failure this whole file exists to prevent.
+       codeCount strips comments; grepCount does not. Same fix, same file, the
+       tier that was missed. */
+    const eng = Math.max(0, codeCount('[^.a-zA-Z]' + f + '\\s*\\(', ['engine']) - 1);
     const tool = codeCount(g + '\\.' + f + '\\s*\\(', ['gates', 'tools']);
-    return { f, surf, eng, tool };
+    /* AND AN INJECTED MODULE IS CALLED THROUGH AN ALIAS, WHICH NEITHER TIER
+       ABOVE CAN SEE. `eng` deliberately excludes dotted calls ([^.a-zA-Z]) so
+       that Module.fn( is not double counted as an internal helper -- and that
+       same exclusion blinds it to B.fn(, which is the ONLY way an injected
+       module is ever called. bohemia_commitment.js line 479 reads
+           var w = B.weigh(sided, h.faction, lose);
+       and the sweep reported weigh as dead. Second ruler bug of the same shape
+       in one afternoon: the detector could name the injection and still could
+       not follow it.
+       ONLY FOR INJECTED MODULES, because a dotted-anything match is broad. The
+       standard-library receivers are excluded by name or Object.keys( would
+       make every module's keys() look alive forever, which is the opposite
+       failure and a quieter one. */
+    /* AND THE ALIAS TIER IS BLIND ON A NAME THE LANGUAGE ALREADY OWNS.
+       The first cut of this excluded the standard-library RECEIVERS by name
+       (Object, Array, Map...) and that is not where the collision lives. The
+       receivers in real code are VARIABLES holding those things:
+           [...rooms.keys()]        bohemia_floorplan.js:71
+           [...this.districts.keys()]   bohemia_engine.js:269
+           [...ctx.factions.factions.keys()]  bohemia_loop.js:385
+       so BohemiaBetween.keys() -- which nothing in engine/ calls -- read as
+       alive off three Map iterations it has no relationship with. That is the
+       QUIETER failure this tier risks: a dead organ that looks wired, which is
+       the exact thing this whole file exists to catch, produced by the file
+       itself.
+       So the tier SITS OUT on any name the language already owns. Those
+       functions fall back to the honest tiers, which is a real answer rather
+       than a confident wrong one. A sweep that cannot tell your keys() from a
+       Map's keys() should say so by declining, not by guessing. */
+    const AMBIGUOUS = new Set(['keys', 'values', 'entries', 'get', 'set', 'has',
+      'add', 'delete', 'clear', 'map', 'filter', 'forEach', 'find', 'some',
+      'every', 'includes', 'indexOf', 'push', 'pop', 'slice', 'splice', 'join',
+      'concat', 'sort', 'reverse', 'next', 'then', 'catch', 'call', 'apply',
+      'bind', 'toString', 'valueOf', 'test', 'exec', 'match', 'replace',
+      'split', 'trim', 'close', 'open', 'read', 'write', 'on', 'off', 'emit']);
+    const canAlias = injected && !AMBIGUOUS.has(f);
+    const ALIASABLE = '(?<![.\\w])(?!Object\\b|Array\\b|Math\\b|JSON\\b|String\\b'
+                    + '|Number\\b|Date\\b|Promise\\b|Reflect\\b|Map\\b|Set\\b)'
+                    + '[A-Za-z_$][\\w$]*\\.' + f + '\\s*\\(';
+    const engAlias  = canAlias ? codeCount(ALIASABLE, ['engine']) : 0;
+    const toolAlias = canAlias ? codeCount(ALIASABLE, ['gates', 'tools']) : 0;
+    return { f, surf, eng: eng + engAlias, tool: tool + toolAlias };
   });
   const onSurface = rows.filter(r => r.surf > 0);
   const viaEngine = rows.filter(r => r.surf === 0 && r.eng > 0);

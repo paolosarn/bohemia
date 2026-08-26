@@ -224,6 +224,100 @@ const done = () => { console.log('=== ONE GARMENT PER SLOT GATE: ' + pass + ' pa
     return { dflt, leaks, facePx, invisible, sweptN: CANON.filter(g => g.layer !== 'hair').length };
   });
 
+
+  /* ---- AND A GARMENT IS THE SAME GARMENT FROM EVERY ANGLE ------------------
+     Clause 1 of laws/BOHEMIA_LAW_HAIR_AT_FOUR_TIMES_THE_PIXELS_8_25_26.md, which he
+     said about hair and which is not a fact about hair. Ported to the wardrobe 8/26.
+
+     *** THE RULER TOOK FOUR REWRITES AND EVERY ONE OF THEM WAS ME MEASURING THE
+     CAMERA INSTEAD OF THE CLOTHES. *** First run: 52 garments "failing", led by a cape
+     at 0.94 on sleeve coverage. Every one was geometry:
+       SLEEVE on a backpack -- a pack hangs BEHIND the arms, so from behind it is
+         between you and them and paints them, and side-on the near arm is in front of
+         it. Asked only of layers that have sleeves now, and never off the profile,
+         where the near arm sits in front of the torso and a SLEEVELESS apron scored
+         0.68 because there is no way to tell a sleeve from an occlusion in a flat grid.
+       REACH -- how far a garment stands off the body SIDEWAYS is not a property of the
+         garment. A cap brim points at the camera head-on and lies across the frame
+         side-on. That is foreshortening, the whole reason a 3/4 view reads as depth.
+         Printed by the tool, never judged.
+       OCCLUSION -- SMITH'S APRON reads 0.188 of fall facing south and 0.000 from
+         behind. I wrote the fix (draw the skirt's edges past the body) and IT PAINTED
+         ZERO PIXELS: the panel is 17px wide and his hips are 22, so it is genuinely
+         hidden. Threw the change away. A facing showing under a quarter of a garment's
+         biggest view is judged as occluded, not as absent.
+     WHAT SURVIVES IS VERTICAL -- hem, rise, sleeve off the profile. A hem does not
+     foreshorten when he turns, which is exactly why hem was the measure that caught
+     the hair bug that started all of this.
+
+     AND THE ANSWER, ONCE THE RULER WAS HONEST: THE WARDROBE HOLDS. Worst one-notch
+     change across all 221 canon garments is 0.087 of a body height. The 52 were mine.
+     MUTATION-PROVED, because a ruler narrowed four times has to be shown to still have
+     teeth: making every long coat knee-length in profile only takes hem 0.087 -> 0.248
+     and flags 13 garments. */
+  const PINNED_HEM = 0.09;      // body-heights of fall, one notch of turn; only shrinks
+  const PINNED_RISE = 0.04;
+  const PINNED_SLEEVE = 0.11;   // fraction of the arm's own length
+  const ID = await pg.evaluate(() => {
+    const G2 = (window.GARMENTS || []).filter(g => g.st === 'canon' && g.layer !== 'hair');
+    const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+    const SEEN = { face: ['S', 'SE', 'SW', 'E', 'W'], back: ['E', 'NE', 'N', 'NW', 'W'] };
+    const HAS_SLEEVES = { base: 1, outer: 1, coverall: 1 };
+    const per = {};
+    for (const d of DIRS) {
+      if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
+      const fr2 = buildFrame(d, 'idle', 0);
+      let bTop = 1e9, bBot = -1, torsoBot = -1, torsoTop = 1e9, armTop = 1e9, armBot = -1;
+      for (let i = 0; i < fr2.grid.length; i++) { const gv = fr2.grid[i]; if (!gv) continue;
+        const y = (i / fr2.CW) | 0;
+        if (y < bTop) bTop = y; if (y > bBot) bBot = y;
+        if (gv === 4) { if (y > torsoBot) torsoBot = y; if (y < torsoTop) torsoTop = y; }
+        if (gv === 5 || gv === 6) { if (y < armTop) armTop = y; if (y > armBot) armBot = y; } }
+      const bH = bBot - bTop + 1, armH = Math.max(1, armBot - armTop + 1);
+      for (const g of G2) {
+        if (SEEN[g.layer] && SEEN[g.layer].indexOf(d) < 0) continue;
+        let o = null; try { o = g.gen(fr2.grid, fr2.CW, fr2.CH, { name: g.n }); } catch (e) {}
+        if (!o || typeof o !== 'object') continue;
+        let top = 1e9, bot = -1, n = 0, armReach = -1;
+        for (const k in o) { const i = +k, y = (i / fr2.CW) | 0;
+          if (y < top) top = y; if (y > bot) bot = y; n++;
+          const gv = fr2.grid[i]; if ((gv === 5 || gv === 6) && y > armReach) armReach = y; }
+        if (!n) continue;
+        const asked = HAS_SLEEVES[g.layer] && d !== 'E' && d !== 'W';
+        (per[g.n] = per[g.n] || {})[d] = {
+          hem: Math.max(0, bot - torsoBot) / bH,
+          rise: Math.max(0, torsoTop - top) / bH,
+          sleeve: asked ? (armReach < 0 ? 0 : Math.max(0, armReach - armTop) / armH) : null,
+          area: n };
+      }
+    }
+    if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
+    const worst = { hem: 0, rise: 0, sleeve: 0 }, who = { hem: '', rise: '', sleeve: '' };
+    let swept = 0;
+    for (const n in per) { swept++;
+      const mx = Math.max(...DIRS.filter(d => per[n][d]).map(d => per[n][d].area));
+      for (const k of ['hem', 'rise', 'sleeve']) {
+        for (let i = 0; i < DIRS.length; i++) {
+          const a = per[n][DIRS[i]], c = per[n][DIRS[(i + 1) % DIRS.length]];
+          if (!a || !c || a[k] === null || c[k] === null) continue;
+          if (a.area < mx * 0.25 || c.area < mx * 0.25) continue;
+          const j = Math.abs(a[k] - c[k]);
+          if (j > worst[k]) { worst[k] = j; who[k] = n + ' ' + DIRS[i] + '->' + DIRS[(i + 1) % DIRS.length]; }
+        } }
+    }
+    return { worst, who, swept };
+  });
+  ok('*** CLAUSE 1 FOR CLOTHES: a garment\'s HEM may not change as he turns one notch ***' +
+     ' (' + ID.worst.hem.toFixed(3) + ' body-heights, pinned ' + PINNED_HEM.toFixed(2) +
+     ', worst ' + (ID.who.hem || 'none') + ', ' + ID.swept + ' garments)',
+     ID.worst.hem <= PINNED_HEM);
+  ok('CLAUSE 1 FOR CLOTHES: a garment\'s RISE up the shoulders holds across one notch (' +
+     ID.worst.rise.toFixed(3) + ', pinned ' + PINNED_RISE.toFixed(2) + ', worst ' + (ID.who.rise || 'none') + ')',
+     ID.worst.rise <= PINNED_RISE);
+  ok('CLAUSE 1 FOR CLOTHES: a SLEEVE stays the same length across one notch (' +
+     ID.worst.sleeve.toFixed(3) + ', pinned ' + PINNED_SLEEVE.toFixed(2) + ', worst ' + (ID.who.sleeve || 'none') + ')',
+     ID.worst.sleeve <= PINNED_SLEEVE);
+
   await b.close();
 
   /* HIS DEFAULT LOOK STILL WEARS HIS OWN PAINT. If the suppression ever fired with an

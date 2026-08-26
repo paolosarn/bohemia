@@ -78,6 +78,34 @@ function cityBlob(_a){ const x = require('./bohemia_city_app.js').read(); return
       if (up) break;
     }
     ok('the world frame booted', !!f);
+    /* THE ART ARRIVES AFTER THE WORLD DOES NOW (8/25, WORLD lane), and this gate read the
+       clips the instant the frame was up, which used to be the same moment. It is not any
+       more: the 26 MB tile bank stopped being blocking script tags so the world can appear
+       off 1.75 MB -- measured, 28.6 s -> 10.8 s before a drawn city on a 3 Mbit phone. The
+       sprites are pulled by a loader once there is a world on screen, so DOOR_ANIM_IMG is
+       legitimately empty for a moment and then fills.
+       SO THE WAIT IS MEASURED, NOT ASSUMED AWAY. A bounded poll, and the number is printed:
+       that is how long after the world appears a door has no swing to draw, which is a real
+       cost of the load win and belongs on screen instead of buried in a passing gate. */
+    let artMs = -1;
+    if (f) {
+      const t0 = Date.now();
+      try {
+        await f.waitForFunction(() => typeof DOOR_ANIM_IMG !== 'undefined' && DOOR_ANIM_IMG.length > 0
+          && DOOR_ANIM_IMG[0][0] && DOOR_ANIM_IMG[0][0].complete && DOOR_ANIM_IMG[0][0].naturalWidth > 0,
+          null, { timeout: 90000 });
+        artMs = Date.now() - t0;
+      } catch (e) { artMs = -1; }
+      console.log('  the door clips landed ' + (artMs >= 0 ? (artMs / 1000).toFixed(1) + 's'
+        : 'NEVER (90s)') + ' after the world frame came up');
+      /* AND HELD TO A CEILING, because "it arrives eventually" is how a two-second gap
+         becomes a thirty-second one nobody noticed. Measured 2.6 s on localhost; 30 s is
+         that with room for a slow box and none for putting the art back behind something. */
+      ok('and they land within 30s of the world appearing (measured '
+         + (artMs >= 0 ? (artMs / 1000).toFixed(1) + 's' : 'never') + '), so a door opened '
+         + 'early is a moment without a swing and not a permanently dead animation',
+         artMs >= 0 && artMs <= 30000);
+    }
     if (f) {
       const r = await f.evaluate(async () => {
         const out = { loadedClips: 0, drew: 0 };

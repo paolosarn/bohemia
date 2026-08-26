@@ -271,6 +271,249 @@ PROOF
   gate now sweeps EVERY word the page itself says, not one paragraph.
 
 ------------------------------------------------------------------------------
+FACTIONS (factions-ovkjpf): 8/26 (q) LATEST -- *** THE OUTFITS ARE AT WAR WITH
+EACH OTHER AND THE CARD SAYS SO. Paolo ruled it this turn and half of it was
+already sitting in the repo unread. Nothing to judge. ***
+
+TAB: **RUN**. Walk up to anybody who runs with an outfit and the card now has a
+row under RUNS WITH saying who they are up against. Cartel members read
+"AND ARE UP AGAINST :: CARAVANS, REMNANTS".
+
+THE RULING (Paolo 8/26, verbatim)
+  "custom is your own personal faction!!!!!! and you can imagine if you play the
+   game with your custom faction the values arent just for you its for how your
+   factions treated bro but u prob Already have that. But, yeah, for the other
+   factions."
+
+WHAT WAS ALREADY IN THE REPO AND HAD NEVER BEEN READ
+  engine/BOHEMIA_faction_graph.json holds NINE directed canon relations
+  (permanent-war, prey-tax, professional-respect, adjacent, hands-off). Its own
+  _meta says "All canon; nothing invented". bohemia_engine.js FactionCanon
+  priced every one of those labels on 7/2. THE CITY HAS NEVER READ EITHER:
+  `grep -c BohemiaEngine slices/BOHEMIA_CITY_WORLD.html` was 0.
+  So costs() charged every hearer the same number, and the Remnants -- at
+  permanent war with the Cartel -- took exactly what the Church took.
+
+WHAT SHIPPED
+  engine/bohemia_between.js        what two OUTFITS are to each other. Not about
+                                   the player. Pairs copied from the graph,
+                                   numbers PARSED out of FactionCanon.REL_SPEC
+                                   at build time so the two can never drift.
+  tools/bohemia_between.py         the generator
+  tools/bohemia_city_between_patch.py  the wire
+  gates/faction_between_gate.js    40 claims, 0 failed, registered as
+                                   FACTION BETWEEN. Eleven of them load the
+                                   SHIPPED CITY IN A REAL BROWSER at 390x844.
+  records/BOHEMIA_THE_GAME_HELD_A_WAR_AND_COULD_NOT_FEEL_IT_8_26_26.md
+
+THREE DEFECTS, NONE VISIBLE IN A DIFF, ALL VISIBLE IN A CARD
+  1. THE DEAD ZONE. The Cartel tax the Caravans (init -45). At base cost 1 --
+     the most common case in the game -- the proportion rounded to ZERO. A canon
+     position is now an INVARIANT, which is FactionCanon's own lesson ("a
+     starting value decays; an invariant holds") applied to the cost side.
+  2. THE ROW BEHIND THE WRONG GUARD. The world-fact row went into ctHearRows,
+     which is only called at `if(ctLadder && ctWall && ctWall.atWall && ...)`,
+     so it rendered on no ordinary card at all. Same shape as the tertius row
+     that sat behind an early return on the exact condition it described.
+  3. THE CARD THAT CONTRADICTED ITSELF. There are TWO whoHears calls in the
+     city. Teaching one shipped a card reading "WILL HEAR IT AS FACT: CARAVANS,
+     REMNANTS" three lines above "NOBODY WHO COULD CHARGE YOU FOR IT IS CLOSE
+     ENOUGH TO KNOW".
+
+AND IT COULD NOT FIRE, WHICH WAS MEASURED BEFORE IT WAS FIXED
+  A sweep of the live city -- every base, every affiliated person, the real
+  whoHears against the real roster -- found TWO hearing pairs in the ENTIRE
+  VALLEY (Mob<->Network), and neither is a pair canon holds a position on. The
+  acquaintance walk needs a chain of housemates between two outfits and a thin
+  population has none. And the chain is the WRONG TEST anyway: this module's own
+  words say sided is "Said in front of people" and burned is "they know which
+  somebody". whoHears grew opts.watching -- a canon position is a reason to be
+  already looking. A neutral arrangement is NOT surveillance (hands-off made the
+  Volunteers charge for every Cartel commitment under their own shipped sentence
+  "There is no side to be on here").
+
+THREE THINGS THE FLEET SHOULD KNOW
+  1. THE VALLEY IS TOO THIN FOR WORD TO TRAVEL. Two hearing pairs on the whole
+     map. The watcher rule routes around it for canon-related outfits and does
+     nothing for the other ~200 pairs. Whatever thickens the population or the
+     tie graph will make a lot of already-built machinery start firing at once.
+  2. FIVE OF SIXTEEN OUTFITS ARE UNREACHABLE. Blues and Anarchists have bases at
+     the top edge (y=0, y=3) and zero members; Karens, Social Forces and
+     Amalgamation have belonging rules and no base at all.
+  3. HIS OWN OUTFIT IS EMPTY ON PURPOSE. Custom has relations:{} and canon's note
+     is "Player faction... Identity emerges from three generations of action."
+     Gate claim C4 asserts that is CORRECT, because on 8/21 this lane reported
+     his own faction as a defect and he had to correct it.
+
+BOTH NEW ARGUMENTS ARE OPT-IN. costs(...,opts) and whoHears(...,{watching}) with
+nothing passed return exactly yesterday's numbers, so no other lane's surface
+moves underneath it.
+
+--------------------------------------------------------------------------------
+SOUND (sound-xk7pjp): 8/26 (b) LATEST -- *** HIS VERDICT EXPORT LANDED. THE MENU
+WAS PLAYING A FIGHT'S ARRANGEMENT -- he heard it on one song, it was hitting ALL
+EIGHT, and the worst was SEVENFOLD. Fixed, gated, and his new three-level
+intensity ladder is built. Nothing to judge. ***
+
+TAB: MUSIC. The menu songs now sound the same wherever the KILL LAYERS button is
+set. Build 8/26i - THE MENU STAYS CALM.
+
+HIS RULING, RECORDED THE SAME TURN
+  laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
+  "menu music doesnt get impacted by intensity type shit" + the three-level
+  ladder + "we need more voices and different instruments sounds and shit."
+
+WHAT WAS ACTUALLY WRONG
+  He named MENU - THE POWER STILL ON SOMEWHERE, "really bad on intensity 2".
+  Measured, one bar of every menu song rendered through the real playStep:
+      THE POWER STILL ON SOMEWHERE   479 -> 1539 -> 2063
+      LIGHTS ACROSS THE VALLEY      1374 -> 7084 -> 9732   (sevenfold)
+      DEAD VALLEY DAWN               926 -> 1568 -> 2076
+  All eight, not one. FIXED at the single place the intensity NUMBER becomes an
+  ARRANGEMENT (`const sk = f.menu ? 0 : this.layers` in MUS.playStep), because
+  fixing it at the KILLMUS end would leave the JUDGE PAGE able to audition a
+  menu song at 2 -- which is the surface he heard it on.
+
+THE LADDER (part two of the same ruling)
+  Level 1 overworld / 2 threat or somebody talking to you / 3 two kills or a
+  crowd talking. Two things changed: the top moved from FOUR kills to TWO, and
+  kills stopped being the only input. window.INTENSITY is the front door;
+  KILLMUS is the same object under its old name.
+  WIRED: kills, threat (COMBAT_STARTED + PLAYER_HIT).
+  UNWIRED AND SAID SO: talking, crowd -- a conversation starts INSIDE the city
+  frame and nothing crosses to the shell. One line each from the lane that owns
+  that surface: INTENSITY.talking(true) / INTENSITY.crowd(true). Not edited here,
+  ONE SYSTEM ONE SESSION, and reported as unwired rather than counted as shipped.
+
+A GATE HELD THE OLD LADDER
+  fight_music_gate asserted "two kills -> layer 2, four -> layer 4". Right on
+  8/20, superseded on 8/26. A GATE MUST NEVER OUTRANK A RULING: updated, 47/0.
+
+THE THREE HE KILLED, AND TWO REAL BUGS BEHIND THEM
+  MENU - WHAT THE VALLEY KEPT, MENU - NOBODY IS COMING, THE NOTE THAT WOULD NOT
+  STAY ONE. Buried: MLOOPS 131 -> 128, tags pruned, song lock regenerated.
+  1. THE BURIAL WROTE A FALSE RECORD. bohemia_music_bury_the_dead.py had the
+     8/19 batch's story HARDCODED, so songs he killed on 8/26 were filed as
+     "7/8/26 | DOWN (batch 6/7 horror)". Every future burial by any lane would
+     have inherited it. Fixed at the tool; the date now comes from each song's
+     own death notice. Three rows corrected.
+  2. *** A GENERATOR CAN RESURRECT THE DEAD. *** Burying takes a song out of
+     MLOOPS; the batch tool that cooked it still holds its full text, so
+     RE-RUNNING THAT TOOL PUTS IT BACK. The graveyard gate saw it instantly:
+     live references 10 -> 16 the moment the three were buried. Both batch tools
+     now REFUSE. Verified the way that matters: after re-running batch21, MLOOPS
+     is still 128. Live refs back to the pre-existing 10 (all character lane).
+     THIS APPLIES TO EVERY LANE THAT COOKS BATCHES, not just music.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  "we need more voices and different instruments sounds and shit. so yeah keep
+  cooking" -- a STANDING order and the next thing this lane does. It does NOT
+  reopen particle and air: the 8/14 post-mortem barred those from new cooks
+  "unless he asks for one", and he asked for MUSIC voices in a MUSIC verdict.
+
+PROOF
+  records/BOHEMIA_THE_MENU_WAS_FIGHTING_8_26_26.md
+  gates/menu_music_gate.py     17 passed, 0 FAILED   (new, registered as MENU MUSIC)
+  gates/fight_music_gate.py    47 passed, 0 FAILED   (ladder updated to his 8/26)
+  SONG LOCK / DEMO BUILD / TOOL IDEMPOTENT / MUSIC REACH / ALPHA LOADS all green
+  MUTATED, five: the bug put back (all 8 menu songs red); intensity killed for
+  everyone ("not turn it all off" red); two kills back to four; threat removed;
+  COMBAT_STARTED unwired -- that last one goes red while the API stays green,
+  which is exactly what it is there to catch.
+  AND FOUR RULER MISTAKES OF MY OWN, all caught by measuring, all written up:
+  the probe set MUS.idx which is not a thing; a 1e-9 tolerance called float noise
+  a difference; a relative tolerance failed the quietest song for being quiet;
+  and the real answer was that playStep is NOT DETERMINISTIC (one song, one
+  intensity, three renders: zc 122/120/122). The gate now measures each song
+  against its own spread.
+
+------------------------------------------------------------------------------
+
+CHARACTER (character-0lurbs): 8/26 (n) LATEST -- *** ONE IN THREE PEOPLE IN THE CITY
+HAD A HAT ON AND YOU COULD NOT SEE IT. AND ALL 52 OTHER "FINDINGS" WERE MY RULER.
+TAB: LOOK for the picture, CITY to walk through the crowd. Nothing to judge. ***
+
+PART ONE: THE HAT BUG WAS FOUR TIMES BIGGER THAN "SEVENTEEN GARMENTS".
+Yesterday's fix restored 17 canon garments that rendered nothing. Counting them as
+menu items undersells it, because THE CITY DRESSES ITSELF OUT OF THE SAME CATALOGUE.
+MEASURED on 5,000 people generated exactly the way the game generates them
+(BOH_PERSONLOOK.lookFor with the canon pool -- the same call the crowd makes):
+    29.6%  of everybody in the city wears headwear
+    88.2%  of the hats they were wearing DREW NOTHING
+    28.4%  of EVERY PERSON IN THE CITY put something on their head and stayed bare
+Only TWO of the seventeen head garments in the game worked (shemagh, scrap helm).
+The town read as a place where almost nobody owns a hat. That is the honest measure
+of a bug that was, in code, one literal `56`.
+
+PART TWO: THE IDENTITY AUDIT ON CLOTHES. FIRST RUN SAID 52 GARMENTS CHANGE BY A
+TENTH OF THE BODY OR MORE IN ONE NOTCH OF TURN. *** EVERY ONE OF THEM WAS ME
+MEASURING THE CAMERA INSTEAD OF THE CLOTHES. *** Three separate ruler bugs:
+  SLEEVE ON A BACKPACK -- a pack hangs BEHIND the arms, so from behind it is between
+    you and them and paints them, side-on the near arm is in front of it. Asked only
+    of layers that HAVE sleeves now, and NEVER off the profile: side-on the near arm
+    sits in front of the torso and a SLEEVELESS apron scored 0.68. You cannot tell a
+    sleeve from an occlusion in a flat grid seen edge-on.
+  REACH -- and this was the hardest to admit because I wrote it as an identity
+    measure. How far a garment stands off the body SIDEWAYS IS NOT A PROPERTY OF THE
+    GARMENT. A cap brim points at the camera head-on and lies across the frame
+    side-on. That is FORESHORTENING, the whole reason a 3/4 view reads as depth.
+    Printed now, never judged.
+  OCCLUSION -- and this one cost me a change I threw away. SMITH'S APRON: hem 0.188
+    facing S, EXACTLY 0.000 from behind. I read it as an apron that stops existing
+    when he turns, wrote the fix (draw the skirt edges where the body does not cover
+    them, per row, off the part grid) and IT PAINTED ZERO PIXELS. The panel is 17px
+    and his hips are 22. IT IS GENUINELY HIDDEN and the code was right all along.
+    Reverted rather than shipped -- a change that draws nothing is exactly the class
+    of lie I have spent this week catching. A garment can be OCCLUDED rather than
+    ABSENT and a hem read off visible pixels cannot tell those apart, so a facing
+    showing under a quarter of a garment's biggest view is skipped as occluded.
+
+WHAT SURVIVES IS VERTICAL: hem, rise, sleeve off the profile. A hem does not
+foreshorten when he turns, which is exactly why hem caught the hair bug.
+
+    worst one-notch HEM, all 221 canon garments   0.087 body-heights
+    worst one-notch RISE                          0.032
+    worst one-notch SLEEVE                        0.100
+    garments over a tenth of a body in one notch  52 -> 0
+
+*** THE WARDROBE HOLDS. IT HELD BEFORE I STARTED. *** The only real defect in the
+clothes was the 17 that were not drawing -- found by this same audit on its first
+run, fixed yesterday, shipped.
+
+AND A RULER NARROWED FOUR TIMES HAS TO BE SHOWN TO STILL HAVE TEETH, because "I
+loosened it until it went green" is the exact failure this project has a law about.
+MUTATION: make every long coat knee-length IN PROFILE ONLY, one line in genCoat.
+    worst hem 0.087 -> 0.248, garments flagged 0 -> 13, gate names SPLIT-TAIL DUSTER.
+
+GATES: one_garment_per_slot 15/0 -- three new ratchets (hem 0.09, rise 0.04, sleeve
+  0.11), all mutation-proved, plus the 8/25 every-garment-appears sweep and the 8/21
+  slot rules. All on the REAL worn path, the only surface that has caught anything
+  this week. look 24/0 (44 pictures).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. *** THE THING I KEEP LEARNING AND WOULD TELL ANY LANE: A METRIC THAT MOVES WHEN
+     THE CAMERA MOVES CANNOT CATCH A DEFECT. *** Four rulers in two days died of it --
+     hair AREA, garment SLEEVE, garment REACH, and hem-under-occlusion. Before you
+     pin a number, ask what it does when nothing is wrong and the view changes. If
+     the answer is "it moves", it is not a defect detector, it is a camera detector.
+  2. The wardrobe and the hair now both hold identity across 8 facings and both are
+     gated. The next honest question for this lane is ANIMATION: does a garment hold
+     its identity across the FRAMES of a walk cycle, not just the facings? Nothing
+     has ever asked. Same audit, time axis instead of turn axis.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/one_garment_per_slot_gate.js        15/0
+  node tools/bohemia_the_bald_crowd.js           the picture, LOOK tab
+  node tools/bohemia_garment_identity_audit.js   the audit, ruler and all
+  records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
+
+=========================================================================
 
 SOUND (sound-xk7pjp): 8/26 (a) LATEST -- *** THE DEMO BUILD EXISTS. Item A on the
 gap list, the one the coordinator put in capitals as the headline, is done: a
@@ -1372,6 +1615,40 @@ TWO REDS THAT ARE NOT MINE AND ARE NEW TODAY, FLAGGED RATHER THAN TOUCHED:
     and they may still be in-session on it -- ONE SYSTEM ONE SESSION.
   NO BULLSHIT Qs -- lettered option menus in
     records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md, the coordinator's.
+
+*** AND THE SITE WAS FROZEN FOR SEVENTY MINUTES, FOR EVERY LANE, AND IT WAS NOT
+THE 8/6 DEADLOCK. *** After pushing I watched `pages` the way the law says and my
+run was CANCELLED -- and so were the five after it. Newest success was 632 at
+18:47; six lanes pushed after that and nothing published. Every push succeeded,
+every git log looked perfect, and no lane could see it from inside its own turn,
+which is the same sentence the 8/6 record wrote about the last one.
+IT WAS NOT THE SAME BUG, AND THAT IS THE TRAP. `cancel-in-progress: false` was
+present and correct, which makes the obvious read "the queue is just slow, wait".
+I waited three times, twenty-two minutes, and it got worse.
+THE TELL WAS AN EMPTY JOB LIST: the pending run reported `total_count: 0` jobs. A
+run merely queued behind a running one still HAS a job. Zero jobs means it never
+started and was never going to. Listing pages runs filtered to `status: waiting`
+returned exactly one: run 633, WAITING SINCE 18:26, the UI lane's push.
+`waiting` IS NOT `queued` -- it means held at a DEPLOYMENT PROTECTION RULE on the
+github-pages environment (a required reviewer or wait timer) before any runner is
+assigned. It never advances on its own, and it holds the `pages` concurrency
+group; GitHub keeps only ONE pending run per group, so every new push cancelled
+the previous pending one. ONE RUN STUCK AT AN APPROVAL GATE STOPPED THE SITE FOR
+NINE LANES. The 8/6 fix stops a RUNNING build being killed and has nothing to say
+about a run that never runs.
+FIXED BY CANCELLING 633. The group released and run 641 went pending -> SUCCESS in
+nine minutes. Nothing was lost: 633's content was already in main, so a later
+deploy carries it, confirmed with the law's own containment check (641's sha
+771e8a4 carries 7c156e4 and the twelve commits between).
+HOW TO SPOT IT, IN ORDER: (1) two or more consecutive cancelled pages runs with no
+success between; (2) ask the newest pending run for its JOBS -- total_count 0
+means stop waiting; (3) list pages runs with status `waiting`; (4) cancel that
+one, then verify a run CONCLUDES SUCCESS and merge-base --is-ancestor passes.
+NOT MINE TO CHANGE, FLAGGED: nothing in the workflow asks for a protection rule,
+so one is configured on the github-pages ENVIRONMENT. If it stays, this happens
+again. [PENDING Paolo or whoever holds repo settings] Settings -> Environments ->
+github-pages, check for required reviewers or a wait timer.
+RECORD: records/BOHEMIA_ONE_WAITING_RUN_STOPPED_EVERY_DEPLOY_8_26_26.txt
 
 NEXT IN THIS LANE, in order:
   1. FT-JOURNEY, wiring the encounter director rather than writing one. The spec
@@ -50875,7 +51152,229 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (b) LATEST -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
+WORLD (city-1eztay): 8/26 (a) LATEST -- *** ONE YARD, NOT SIX. The valley's railyard is a 3x2
+blob and every one of its six cells built a COMPLETE classification yard -- six engine sheds and
+six gantry cranes in a block 288 m across. It is one yard now. AND THE PAGE DID NOT GET IT UNTIL
+I WENT AND LOOKED, WHICH IS THE SECOND TIME IN TWO DAYS. Nothing to judge. ***
+Gates: RAILYARD 18/0 (mutation-tested), WALKED SURFACE 13/0 (page-level check for BOTH the yard
+and the wash, both mutation-tested), WORLD MODEL 29/0, TILESPEC 310/0, WALKABLE-LAND 73/0,
+CITY TAB 64/0.
+
+TAB: RUN. Walk the train yard. One engine shed and one gantry crane instead of six of each.
+
+*** A YARD TAKES BOUNDS. A CHANNEL TAKES NEIGHBOURS. *** The wash is a LINE -- it needs to know
+which sides it arrives and leaves on, because it turns corners and a bounding box cannot express
+that. A classification yard is an AREA: one shed west, one container stack east, a fan of tracks
+running the length between. That is the SOLAR FARM's shape and it gets the solar farm's
+treatment. Both mechanisms now sit side by side in world.js and on the page.
+
+TWO THINGS THAT ONLY APPEAR ONCE IT SPANS CELLS:
+  - THE TRAINS HAD TO STOP BEING RANDOM PER CELL. Every cell has its own seed, so a boxcar
+    decided with the cell's r() exists in one cell and not in the neighbour sharing that rail --
+    a wagon cut in half at every boundary, on every rail. Gaps and locos come from a hash of the
+    VALLEY coordinate and the BLOB now.
+  - DRIVE ACCESS FAILED FOR FOUR OF SIX CELLS. One lane along the south front is what a
+    single-cell yard has; across a 3x2 blob the whole top row had no drivable surface at all. A
+    yard this size has a PERIMETER ACCESS ROAD inside the fence, which is how they are built.
+    worst void 0.091 -> 0.030, min drive reach 0.974, min content 22.3%.
+
+THE SEAM CHECK IS EAST-WEST ONLY AND THAT IS DELIBERATE: the rails run east-west so cells side
+by side share rail rows and their touching COLUMNS must agree; cells stacked north-south share
+no rail and adjacent ROWS legitimately differ. My first scratch probe demanded they match and
+reported three "broken" seams that were the yard working correctly. AND ON THIS DISTRICT THE
+SEAM COUNT IS NOT THE DISCRIMINATOR -- under mutation it reads 0 broken either way, because a
+per-cell yard puts its own fence on its own edge and fence meets fence. THE SHED AND GANTRY
+COUNTS ARE WHAT MOVE. A number that does not move under mutation is not evidence and does not go
+in the gate as though it were.
+
+*** AND THE PAGE DID NOT HAVE IT -- AGAIN, ONE LAYER DOWN. *** Yesterday it was world.js not
+being on the page. Today: THE WALKED SURFACE CARRIES ITS OWN INLINED COPY OF ALL 95 ENGINE
+MODULES and that copy was the old railyard. One tool resyncs it and nothing forces anybody to
+run it: python3 tools/bohemia_city_module_resync.py -> "95 embedded, 94 already fresh, RESYNCED:
+engine/bohemia_railyard.js".
+  on the page before   6 engine sheds, 6 gantries, in 6 cells
+  on the page after    1 engine shed,  1 gantry
+  mutation             stop the page treating it as a cluster -> 6 and 6 again
+TWO DAYS, TWO DISTRICT FIXES, TWO TIMES THE MODEL WAS RIGHT AND THE GAME WAS NOT. Engine module,
+world model, page dispatch and page module copy are FOUR PLACES and only the last is what he
+sees. EVERY DISTRICT FIX FROM HERE ENDS WITH A PAGE-LEVEL ASSERTION IN walked_surface_gate.
+
+NEXT IN THIS LANE
+  1. STADIUM -- FOUR STADIUMS in a 2x2 and a stadium is a singular landmark. It is an AREA, so
+     it is the railyard's shape, not the wash's; the mechanism is sitting there. Then GOLF (9
+     cells, nine golf courses in a 3x3). Remaining multi-cell blobs on the canon seed:
+       wash 51 DONE · railyard 6 DONE · farm 93 (13 blobs) · golf 9 · stadium 4 · landfill 4 ·
+       cemetery 4 · park 3 · medical 2
+  2. THE LOAD NUMBER IS MEASURED WITHOUT COMPRESSION AND GITHUB PAGES GZIPS ON THE FLY
+     (confirmed by research, no brotli). The three critical-path files are 6.15 MB raw and
+     3.54 MB gzipped, so the real wait is likely nearer 6s than the 11s the gate reports -- it
+     is measuring a phone that does not exist. Make the test server compress, then re-ratchet.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_ONE_YARD_NOT_SIX_8_26_26.md
+
+WORLD (city-1eztay): 8/25 (d) -- *** A WASH IS A RIVER, NOT FIFTY-ONE RIVERS. The
+valley's flood channel is 51 cells long and every one of them was building a COMPLETE wash
+with its own tunnel mouth -- 34 parallel north-south channels shoulder to shoulder along a
+run that goes east. It is one channel now. And chasing it found a collision between two
+lanes that neither could see. Nothing to judge. ***
+Gates: WASH 19/0 (new seam checks, mutation-tested), WALKED SURFACE 12/0 (new: the page's
+own river check, mutation-tested), TOOL IDEMPOTENT 5/0 (was 5/0 on main,
+2 failed on mine -- fixed), WALKED SURFACE 11/0, WORLD MODEL 29/0, TILESPEC 310/0,
+WALKABLE-LAND 73/0, LANDLOCKED 16/0.
+
+TAB: RUN. Walk the dry riverbed east of the middle of the map. It runs continuously now
+instead of restarting every 96 metres.
+
+*** WHY NEIGHBOURS AND NOT BOUNDS. *** Solar (8/24) got its blob as a bounding BOX and filled
+it, which is right for a FIELD. A channel is a LINE and this one TURNS A CORNER: the bounding
+box of the corner run is 4x7 cells and a straight line through it misses most of the cells
+that are actually wash. What a linear district needs is not extent, it is WHICH SIDES IT
+ARRIVES AND LEAVES ON -- the four neighbours. E+W runs across, N+S runs down, E+S turns, one
+only ends here and that is where the mouth goes, none is a lone cell and is left alone.
+Straight runs, corners, tees and orphans, no special cases. sameNeighbours() in the world
+model is six lines and every cluster district can use it now.
+
+TWO THINGS I GOT WRONG FIRST AND CAUGHT BY LOOKING:
+  - PAINTING TWO ARMS OVERWRITES. The second arm's BANKS cut across the first arm's invert,
+    so a channel that turned a corner ran into a wall halfway through the turn. It classifies
+    each tile from the NEARER centre-line now, so a corner is a confluence by construction.
+  - A TURN AND AN END STOP IN DIFFERENT PLACES. An end needs CL+51 (the headwall sits at
+    CL+40); a turn only needs CL+42, the other arm's bank, and stopping there is what lets the
+    riprap/road/fence wrap the OUTSIDE of the bend instead of the riverbed running out into
+    open desert.
+  - and the desert dressing was clumped down the LEFT and RIGHT strips, which on an east-west
+    run lands IN THE WATER. It walks a lattice now and dresses whatever is still bare.
+
+MEASURED: 51 wash cells, 44 seams, 0 broken, tunnel mouths 51 -> 14 (one at each end of each
+of the 7 runs -- the channel dives under the cross street and comes back out, which is how the
+real Las Vegas system behaves). LONE CELL 48 of 48 BYTE-IDENTICAL. Mutation: make the cluster
+path unreachable and the gate reproduces the original defect exactly (51 mouths, 21 broken
+seams, 3 named failures).
+
+*** AND THEN IT WAS ALL GREEN AND THE GAME STILL DREW SIXTY RIVERS. READ THIS BEFORE YOU FIX
+ANYTHING IN A DISTRICT GENERATOR. *** WASH 19/0, WORLD MODEL 29/0, WALKED SURFACE 11/0,
+TILESPEC 310/0, all mutation-tested -- and the page a player loads still had 60 complete
+channels with 60 mouths, because THE WALKED SURFACE DOES NOT CARRY world.js. Its own comment
+has said so since 8/21 (I read that comment earlier the same session and still called the
+model fix done). The page keeps its OWN district dispatch. And the first page fix missed too:
+WASH IS FILED TERRAIN, so it is served by a KIT_TERRAIN branch that returns BEFORE the cluster
+branch -- adding wash to the page's CLUSTER_KIT changed nothing and the probe still read 60.
+A LINEAR DISTRICT IS NOT A CLUSTER ONE: a cluster gets BOUNDS and fills them, a line gets its
+four NEIGHBOURS and runs through the cell on the axis they name.
+ON THE PAGE: 60 mouths -> 21 (18 ends + 3 lone cells, exactly). Mutation: stop the page
+passing neighbours -> 60 again.
+AND THE PAGE PROBE LIED FIRST, for the fifth time this session: m.kit is a FLAT Uint16Array
+of 16384, NOT ROWS. g[r][c] is undefined for every tile and undefined!==undefined is FALSE, so
+a wrongly-indexed probe reports a PERFECT world -- it said 0 mouths, 0 broken seams. Indexed
+as g[r*128+c] it said 60 of 60 immediately. The page seam check does NOT move under mutation
+(it is blind), so it is not evidence and it is not in the gate; the mouth count moves 21<->60
+and that is what went in. walked_surface_gate asks the PAGE now, 12/0. THE FIX AND THE GATE
+HAVE TO BE ON THE SAME SURFACE, and for this game that surface is the page, not the module.
+
+*** AND THE COLLISION, WHICH IS THE PART THE NEXT SESSION NEEDS. *** tool_idempotent went RED
+on my tree and GREEN on plain main, which is how I knew it was mine.
+bohemia_city_hero_wire_patch.py writes `var HERO_SRC=` into whichever page-referenced script
+DECLARES that name. Since the bank was chunked on 8/24 that file is CHUNK 1 -- the small
+BLOCKING script whose whole job is to be small. Running the hero tool puts 2.85 MB of hero art
+back on it: 1.75 MB -> 4.47 MB, past the browser cache wall, and the wait before a world
+appears goes up with it. It printed "already wired; nothing to write" while doing it, which is
+the exact disease T2 in its own gate exists to catch.
+MAIN IS CARRYING THE RESULT RIGHT NOW: chunk 1 on main is 4.47 MB.
+The tool now checks whether the chunks already carry exactly these heroes and touches nothing
+if so; if the art really is new it writes and SAYS the chunker has to run after, because only
+the chunker decides which chunk a bank lives in. TWO LANES OWNED THE SAME BYTES UNDER
+DIFFERENT PLACEMENT RULES AND NEITHER COULD SEE THE OTHER.
+
+NEXT IN THIS LANE
+  1. RAILYARD, same shape of problem, and sameNeighbours() is already there for it: 6 cells in
+     a row, each building a whole railyard, and a yard is linear. Then STADIUM -- only 4 cells
+     but the most absurd per cell, FOUR STADIUMS in a 2x2, and a stadium is a landmark.
+     Full multi-cell census on the canon seed (the old handoff list was short):
+       wash 51 DONE · farm 93 (13 blobs) · golf 9 · railyard 6 · stadium 4 · landfill 4 ·
+       cemetery 4 · park 3 · medical 2
+  2. THE LOAD NUMBER IS MEASURED WITHOUT COMPRESSION AND GITHUB PAGES GZIPS. The gate's test
+     server sends everything raw; Pages does on-the-fly gzip. Those three critical-path files
+     are 6.15 MB raw and 3.54 MB gzipped, so the real wait is likely nearer 6s than 10.8s and
+     the gate is measuring a phone that does not exist. Make the test server compress like a
+     real host, then re-ratchet.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_A_WASH_IS_A_RIVER_NOT_FIFTY_ONE_8_25_26.md
+
+WORLD (city-1eztay): 8/25 (c) -- *** TWENTY-NINE SECONDS TO TEN. A friend on a weak
+phone who taps the splash the second it appears now waits 10.8s for the city instead of 28.6.
+The 26 MB of sprite art is off the critical path and streams in behind him. Two gates hold it,
+both mutation-tested. Nothing to judge. ***
+Gates: LATE ART 21/0 (new, mutation-tested), TIME TO PLAY 13/0 (ceiling 30s -> 16s,
+mutation-tested).
+
+TAB: RUN. The world opens about three times faster on a phone. Same city, same everything.
+
+*** FIRST, THE THING THAT COST TWO DAYS: FOUR PROBES TOLD ME THE TRUTH AND I CALLED ALL FOUR
+BROKEN. *** a data-URL tail (matched three different worlds), a raw pixel checksum (different
+on EVERY repaint of the same build -- three values in one run, nothing touched but a forced
+redraw), distinct colour counting (8028 vs 8028), neighbour edge density (325 vs 325). Every
+one failed its own control: 24 sprite families and ZERO measured the same. Three probe
+generations went into fixing the ruler.
+THEY WERE ALL RIGHT. I saved the two pictures and looked, and they are identical, because
+NONE OF THE LATE ART IS ON THE SPAWN SCREEN: HERO_SRC is read only by renderCity(), TP_TILES
+only by the tile painter, DOOR_ANIM only when a door swings. The walked view is drawn from
+chunk 1. In CITY MODE the difference is not subtle -- 631 detail vs 218, painted grey blocks
+vs flat red prisms.
+VERIFY ON THE REAL SURFACE HAS A SECOND HALF NOBODY WROTE DOWN: the real surface is the one
+where THE THING YOU CHANGED is visible. A correct instrument aimed at the wrong screen is
+confidently wrong, and confidently wrong outlives red by a long way.
+
+THE REAL BUG UNDERNEATH: the re-bake was right from the first attempt and was ANNOUNCING
+ITSELF TO AN EMPTY STAGE. Banks 24/69/10 and 100% decoded, canvas still on the no-art
+checksum, one hand-fired repaint and it became the fully-textured world exactly. saFlush()
+throws away drawn chunks and re-renders; run before a single chunk has EVER been drawn it
+clears an empty cache, renders nothing, and (once-only) never comes back. It waits on
+chunkCache having something now. If the world never draws, no repaint is needed -- the banks
+are full, so whenever it does draw, it draws with the art.
+
+*** AND THE THING THAT ACTUALLY MADE IT FAST: `defer` WAS THE WRONG TOOL. *** It delays
+EXECUTION, not the DOWNLOAD. The browser saw all eight tags during the parse and opened all
+eight transfers next to the one blocking chunk the world waits on. Request-by-request on a
+3 Mbit phone, tapping at once:
+    0.9s -> 28.9s   1.75 MB  BOHEMIA_CITY_TILES_01.js   <-- five seconds of work
+    0.9s -> 28.5s   1.72 MB  BOHEMIA_CITY_PROPS.js
+So the chunks are NOT TAGS any more. A 2 KB deferred loader waits until the canvas actually
+has a city on it, then pulls them itself, IN ORDER, one at a time, and calls the re-bake.
+Order is correctness not speed: every chunk after the first MUTATES what chunk 1 declared.
+    DRAWN WORLD at 11.6s  (wait after the tap 10.8s)
+
+TWO SMALLER CORRECTIONS, BOTH THE SAME MISTAKE:
+  - THE WARM-UP WAS HURTING THE IMPATIENT PLAYER. A warm fetch that has not FINISHED has not
+    filled the cache, so the iframe opens a SECOND download of the same file. Chunk 1 and the
+    props were each in flight twice. It now does nothing for 2s, so a player who taps inside
+    that window never starts one; the tap pauses the queue, the city frame resumes it. And
+    the world page came OUT of the warm list -- sw.js is network-first for NAVIGATIONS, an
+    iframe load IS one, so warming it cost 2.68 MB and bought nothing.
+  - THE GATE'S OWN CLOCK WAS FLATTERING ME. It waited for `#cv` to EXIST, and #cv is on line
+    181 of a 2.6 MB page -- the parser reaches it before a single script runs. It measured
+    "has the page started arriving". It waits for PIXELS now (>8 distinct colours), which is
+    why the honest number moved from a bogus 24.1s to a real 28.7s before any of today's work
+    counted at all.
+
+NOTE FOR WHOEVER TOUCHES THE BANK NEXT: another lane re-baked 69 hero icons into the OLD
+monolith path slices/BOHEMIA_CITY_TILES.js, which the page no longer loads. The chunker
+handles it (monolith present -> read it and re-chunk; absent -> read the chunks back), so this
+ship folded that work in. But a bake that lands there and never gets re-chunked is invisible.
+
+NEXT IN THIS LANE
+  1. 10.8s is now CITY_WORLD.html (2.62 MB) + chunk 1 (1.75 MB) + props (1.72 MB) and nothing
+     else. 6.1 MB at 375 KB/s is 16s of transfer, overlapped down to 11. THERE IS NO ORDERING
+     TRICK LEFT -- one of those three has to shrink. The world page is the biggest and the
+     least examined.
+  2. Cluster seam for golf/railyard/landfill/farm -- open, correct, 19 cells.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_TWENTY_NINE_SECONDS_TO_TEN_8_25_26.md
+Stamp:  BUILD 8/25t - THE WORLD OPENS 3X FASTER
+
+WORLD (city-1eztay): 8/25 (b) -- *** TWENTY-FOUR SECONDS ON A REAL PHONE. Every load
 number this lane ever produced was LOCALHOST. Throttled to weak 4G, a friend who taps at once
 waits 24.2s for the world. Gated. And the fix is no longer a guess -- it is measured, with a
 probe that finally passes its own control. ***

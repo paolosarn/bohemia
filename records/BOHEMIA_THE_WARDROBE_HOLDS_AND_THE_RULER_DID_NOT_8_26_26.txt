@@ -1,0 +1,107 @@
+ONE IN THREE PEOPLE IN THE CITY HAD A HAT ON AND YOU COULD NOT SEE IT
+AND THE 52 OTHER "FINDINGS" WERE ALL MY RULER
+CHARACTER lane, 8/26/26.
+
+--------------------------------------------------------------------------------
+PART ONE: THE HAT BUG WAS FOUR TIMES BIGGER THAN "SEVENTEEN GARMENTS"
+--------------------------------------------------------------------------------
+Yesterday's fix restored 17 canon garments that rendered nothing. Counting them as
+menu items undersells it, because THE CITY DRESSES ITSELF OUT OF THE SAME
+CATALOGUE.
+
+MEASURED, 5,000 people generated exactly the way the game generates them
+(BOH_PERSONLOOK.lookFor with the canon pool, the same call bohemia's crowd makes):
+
+    29.6%   of everybody in the city is wearing headwear
+    88.2%   of the hats they were wearing DREW NOTHING
+    28.4%   of EVERY PERSON IN THE CITY put something on their head and stayed bare
+
+Only TWO of the seventeen head garments in the whole game worked -- the shemagh and
+the scrap helm. A crowd that should read as a working town read as a town where
+almost nobody owns a hat.
+
+That number is the honest measure of a bug that was, in code, one literal `56`.
+
+--------------------------------------------------------------------------------
+PART TWO: THE IDENTITY AUDIT ON CLOTHES, AND EVERY ROUND OF IT WAS ME MEASURING
+THE CAMERA INSTEAD OF THE CLOTHES
+--------------------------------------------------------------------------------
+Clause 1 of the 8/25 law ported from hair to the 204 canon garments. First run:
+
+    52 GARMENTS CHANGE BY A TENTH OF THE BODY OR MORE IN ONE NOTCH OF TURN
+
+Led by ROAD CAPE at 0.94 on sleeve coverage. Every single one was geometry.
+
+  SLEEVE ON A BACKPACK. A pack hangs BEHIND the arms: from behind it is between you
+    and them and paints them, side-on the near arm is in front of it. Asked only of
+    layers that HAVE sleeves now -- and never off the profile, because side-on the
+    near arm sits in front of the torso and a SLEEVELESS apron scored 0.68. There is
+    no way to tell a sleeve from an occlusion in a flat grid seen edge-on.
+
+  REACH, AND THIS WAS THE HARDEST TO ADMIT BECAUSE I WROTE IT AS AN IDENTITY
+    MEASURE. How far a garment stands off the body SIDEWAYS is not a property of the
+    garment at all. A cap brim projects FORWARD: head-on it points at the camera and
+    adds nothing to the silhouette, side-on the whole of it lies across the frame. A
+    gas mask's filter snout does the same. THAT IS FORESHORTENING -- the entire
+    reason a three-quarter view reads as depth. Printed by the tool now, never
+    judged.
+
+  OCCLUSION, AND THIS ONE COST ME A CHANGE I HAD TO THROW AWAY. After the two fixes
+    above the loudest survivor was SMITH'S APRON: hem 0.188 body-heights facing
+    SOUTH, EXACTLY 0.000 from behind. I read that as an apron that stops existing
+    when he turns round -- the same shape as the hair bug -- and wrote the fix: draw
+    the skirt's edges wherever the body does not cover them, measured per row off
+    the part grid so it could never paint over his legs.
+        IT PAINTED ZERO PIXELS.
+    The apron panel is 17 px wide and his hips are 22. IT IS GENUINELY HIDDEN FROM
+    BEHIND and the code was right the whole time. Reverted rather than shipped,
+    because a change that draws nothing is exactly the class of lie I have spent the
+    week catching. A garment can be OCCLUDED rather than ABSENT, and a hem read off
+    the pixels you can SEE cannot tell those apart. A facing showing under a quarter
+    of a garment's biggest view is now judged as occluded and skipped.
+
+WHAT SURVIVES IS VERTICAL: hem, rise, and sleeve off the profile. A hem does not
+foreshorten when he turns, which is precisely why hem was the measure that caught
+the hair bug that started all of this.
+
+--------------------------------------------------------------------------------
+THE ANSWER, ONCE THE RULER WAS HONEST
+--------------------------------------------------------------------------------
+    worst one-notch HEM change, all 221 canon garments    0.087 body-heights
+    worst one-notch RISE                                  0.032
+    worst one-notch SLEEVE                                0.100
+    garments over a tenth of a body in one notch      52  ->  0
+
+THE WARDROBE HOLDS. It held before I started. The 52 were mine, all of them, and
+the only real defect in the clothes was the 17 that were not drawing -- found by
+this same audit on its first run, fixed, and shipped.
+
+--------------------------------------------------------------------------------
+AND A RULER NARROWED FOUR TIMES HAS TO BE SHOWN TO STILL HAVE TEETH
+--------------------------------------------------------------------------------
+Verification is never self-attestation, and "I loosened it until it went green" is
+the exact failure this project has a law about.
+
+MUTATION: make every long coat knee-length IN PROFILE ONLY (one line in genCoat).
+    worst hem       0.087  ->  0.248
+    garments flagged    0  ->  13
+    the gate names it:  "SPLIT-TAIL DUSTER E->NE"
+
+--------------------------------------------------------------------------------
+THE GATES
+--------------------------------------------------------------------------------
+gates/one_garment_per_slot_gate.js, 15 checks, three new and all mutation-proved:
+    a garment's HEM may not change as he turns one notch     pinned 0.09
+    a garment's RISE up the shoulders holds                  pinned 0.04
+    a SLEEVE stays the same length                           pinned 0.11
+plus the 8/25 sweep (every canon garment actually appears on the frame) and the
+8/21 slot rules. All on the REAL worn path, which is the only surface that has
+caught anything this week.
+
+--------------------------------------------------------------------------------
+WHERE HE SEES IT
+--------------------------------------------------------------------------------
+LOOK tab, "ONE IN THREE HAD A HAT ON". CITY tab to walk through the crowd.
+  node tools/bohemia_the_bald_crowd.js             the picture
+  node tools/bohemia_garment_identity_audit.js     the audit, ruler and all
+  node gates/one_garment_per_slot_gate.js          15/0

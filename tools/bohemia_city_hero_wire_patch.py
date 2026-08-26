@@ -129,13 +129,52 @@ def main():
             break
 
     src_js = "var HERO_SRC=" + json.dumps(src, separators=(',', ':')) + ";"
+    # A PLACEHOLDER IS NOT A HOME (8/25, WORLD lane). The bank was split into chunks on 8/24
+    # and the shape changed under this tool: chunk 1 is a small BLOCKING script that DECLARES
+    # all eight bank names empty, and the art arrives later, in chunks the page pulls once a
+    # world is on screen. `var HERO_SRC={};` in chunk 1 is that declaration -- so the search
+    # above finds chunk 1, and rewriting the line there puts 2.85 MB of hero art back on the
+    # blocking chunk. Measured: chunk 1 goes 1.75 MB -> 4.47 MB, past the browser cache wall,
+    # and the wait before a world appears goes back up with it. The tool printed "already
+    # wired; nothing to write" while doing it, which is the T2 disease in its own gate.
+    # So: if the line found is an empty declaration and the chunks ALREADY carry exactly
+    # these heroes, there is nothing to do and nothing is touched. If they carry something
+    # else, the art really is new and it is written -- and the chunker has to run after, which
+    # is what the message says, because only the chunker decides which chunk a bank lives in.
+    carried = False
     if extern:
+        cur = open(extern, encoding='utf8').read()
+        _hl = next((ln for ln in cur.split('\n') if ln.startswith('var HERO_SRC=')), '')
+        if len(_hl) < 64:                                   # a declaration, not the data
+            # MATCH THE DATA, NOT THE TEXT. The first cut compared the whole
+            # `Object.assign(HERO_SRC,{...})` string and never matched, because the chunker
+            # writes that object with its own separators -- identical art, different bytes,
+            # and the tool wrote 2.85 MB every run on the strength of a formatting
+            # difference. Asking whether every hero's own data URL is in the chunks is
+            # independent of how the object was printed, and it is still exact: change one
+            # sprite and that one URL is absent, so the art is correctly written.
+            d = os.path.dirname(extern)
+            blob = ''.join(open(os.path.join(d, f), encoding='utf8').read()
+                           for f in sorted(os.listdir(d))
+                           if re.match(r'^BOHEMIA_CITY_TILES_\d+\.js$', f))
+            carried = bool(src) and all(v in blob for v in src.values())
+    _extern_note = ('/* HERO_SRC lives in ' + os.path.basename(extern) + ' (8/6, repo budget: this page '
+                    'is rewritten daily and was carrying 27 MB of art it never edits) */\n') if extern else ''
+    if extern and carried:
+        print('HERO WIRE: the %d district heroes are already in the chunked bank; '
+              'chunk 1 only declares the name. Nothing written.' % len(src))
+        src_line = _extern_note
+    elif extern:
         lines = open(extern, encoding='utf8').read().split('\n')
         for i, ln in enumerate(lines):
             if ln.startswith('var HERO_SRC='):
                 lines[i] = src_js
                 break
         open(extern, 'w', encoding='utf8').write('\n'.join(lines))
+        if len(_hl) < 64:
+            print('HERO WIRE: new hero art written into %s, which is the DECLARATION chunk. '
+                  'Run tools/bohemia_city_chunk_tile_bank.py now or the blocking chunk stays '
+                  '2.85 MB heavier and the world takes longer to appear.' % os.path.basename(extern))
         src_line = ('/* HERO_SRC lives in ' + os.path.basename(extern) + ' (8/6, repo budget: this page '
                     'is rewritten daily and was carrying 27 MB of art it never edits) */\n')
     else:

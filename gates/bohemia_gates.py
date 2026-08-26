@@ -364,6 +364,18 @@ GATES = [
     # 412 gates and not one of them asked. Measured: 40.5 MB total, 32.4 MB of it AFTER the
     # tap, 28 MB of that a single tile bank. This holds the ceiling while the bank waits to
     # be split; it serves the repo over real HTTP because file:// has no cache semantics.
+    # 8/25: the 26 MB of sprites came off the critical path. Chunk 1 declares the bank names
+    # and blocks; the rest are pulled by a loader once a world is drawn. Every step of that
+    # fails SILENTLY -- a bank baked at parse time from an empty object stays empty forever,
+    # a repaint fired before the world exists clears an empty cache and never returns, a
+    # chunk run out of order corrupts the banks rather than delaying them. Nothing throws.
+    # Proved in CITY MODE, which is the only place the late art is visible at all, with a
+    # control boot that has to look different before the answer is believed.
+    ('LATE ART',       ['node', 'gates/late_art_gate.js'],
+     'the art that no longer blocks the world still ARRIVES and still gets DRAWN: the '
+     'shipped page renders the same city as one with every chunk blocking, all three late '
+     'banks re-bake and decode, and a no-art control proves the comparison can see a '
+     'difference at all', True),
     ('TIME TO PLAY',   ['node', 'gates/time_to_play_gate.js'],
      'a friend on a phone can actually reach the world: the download before first play is '
      'measured over real HTTP and held to a ceiling that only ever comes down, and any file '
@@ -938,6 +950,13 @@ GATES = [
      "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
      "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
      "speech; pitch declines across a statement and rises at a question", True),
+    ('MENU MUSIC',     ['python3', 'gates/menu_music_gate.py'],
+     "Paolo 8/26 LOCKED: 'menu music doesnt get impacted by intensity type "
+     "shit' -- he liked THE POWER STILL ON SOMEWHERE calm and it was 'really bad "
+     "on intensity 2'. Measured, it was hitting ALL EIGHT menu songs and the "
+     "worst was sevenfold. Every menu song now renders the same at 0/2/4 while "
+     "ordinary songs still build. Plus part two of the same ruling: intensity is "
+     "THREE levels, two kills not four, and threat and conversation raise it too", True),
     ('DEMO BUILD',     ['node', 'gates/demo_build_gate.js'],
      "Paolo 8/25 LOCKED: 'THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS "
      "WORKSHOP LINK.' TWO SURFACES. The demo build exists as its own published "
@@ -2179,6 +2198,26 @@ GATES = [
      "BohemiaTies is handed to whoHears AS A VALUE, so a textual count cannot see its "
      "methods -- the first sweep called the whole module dead and was COMPLETELY WRONG, and "
      "a claim here fails if that INJECTED flag ever stops being reported", False),
+    ('FACTION BETWEEN', ['node', 'gates/faction_between_gate.js'],
+     "THE OUTFITS HOLD POSITIONS ON EACH OTHER AND THE WALKED SURFACE HAS TO FEEL THEM. "
+     "engine/BOHEMIA_faction_graph.json has carried nine directed canon relations since "
+     "before the factions lane started -- permanent-war, prey-tax, professional-respect, "
+     "adjacent, hands-off -- and bohemia_engine.js FactionCanon priced every one of those "
+     "labels on 7/2. NEITHER HAD EVER BEEN READ BY THE CITY: grep -c BohemiaEngine on the "
+     "city was 0. So costs() charged every outfit that heard the SAME NUMBER, and the "
+     "Remnants (at permanent war with the Cartel) took exactly what the Church took. The "
+     "game held a war and the cost engine could not feel it. Paolo 8/26 ruled it: 'the "
+     "values arent just for you its for how your factions treated bro ... But, yeah, for "
+     "the other factions.' THIS GATE IS NOT FOR THE ARITHMETIC, which was right on the "
+     "second try. It is for THE WIRE, and eleven of its forty claims LOAD THE SHIPPED CITY "
+     "IN A REAL BROWSER at 390x844 and read the rows a person would actually see -- because "
+     "all three defects it was written for were invisible in the source: a canon hostile "
+     "position that priced to ZERO at the most common base cost; a world-fact row placed "
+     "inside ctHearRows, which only runs AT THE WALL, so it rendered on no ordinary card at "
+     "all; and a card that read 'WILL HEAR IT AS FACT: CARAVANS, REMNANTS' three lines above "
+     "'NOBODY WHO COULD CHARGE YOU FOR IT IS CLOSE ENOUGH TO KNOW' because there are TWO "
+     "whoHears calls in the city and only one had been taught. Seven mutations, each biting "
+     "the claim written for it.", True),
     ('FACTION ARC',    ['node', 'gates/faction_arc_gate.js'],
      "NINE GATES COVER THIS STACK AND EVERY ONE OF THEM VERIFIES A LAYER -- the organ "
      "clamps, the card displays, the rule derives, the save round-trips -- and every one "

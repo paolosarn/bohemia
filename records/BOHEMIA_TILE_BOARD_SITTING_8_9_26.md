@@ -1126,3 +1126,25 @@ Verified live at a commercial lot: crates, tarped cargo, tires, sacks,
 an emptied stall, one modest campfire - a lot people LEFT, not a market
 morning. Wave 3 of the icon kills and the industrial 'truck court'
 surface-map gap (measured, unpropped today) are next.
+
+## 8/26 FIFTY-FOURTH PASS: THE WORKING DISTRICTS GET THEIR PROPS (surface-map gap)
+
+Measured yesterday while probing the widened pool: INDUSTRIAL - a
+district of 6,863 'asphalt drive' and 1,893 'truck court' cells - had
+ZERO prop surfaces, because the surface map never learned its
+vocabulary ('truck court' is not 'lot'; 'yard road' is not 'road').
+Same gap: the granary's 3,828-cell dump apron, the wash's maintenance
+road, the reservoir's access roads, the arsenal's storage ground.
+Widened the map by the measured names: any name carrying 'road' or
+'asphalt drive' is a road (the NEVER list still pulls driveways and
+rail track out first), 'truck court' / 'apron' / 'stall stripe' join
+the hardstanding class, 'storage ground' joins the waste class.
+Verified live at the industrial truck court: dead trucks where they
+stopped, rubble, pallets, a tarp shelter, a boarded gate - a yard
+people abandoned, not empty asphalt. His own approved wrecks and
+props, drawing in five more districts. ALSO RECORDED, PENDING HIS
+WORD: he said he will explain "act one approve and other act approve"
+- no assumption made about act-scoping of the 7/13 sweep until he
+does. Wave-3 icon bake (8 low-by-nature districts uninflated, farm
+refielded, the drive-in's black-slab frame bug fixed) is grinding in
+the background and ships when it lands.

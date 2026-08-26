@@ -97,6 +97,12 @@ LOW_BY_NATURE = {
     # 8/25 verdict killed exactly that read; Lake Mead's whole subject is
     # a HORIZONTAL, so the name finally lands where the docstring claimed.
     'water',
+    # 8/26 wave 3: a monolithic DOME and a PIT going down are their own forms
+    # (nothing else in the valley is a hemisphere; the quarry is the only
+    # landmark that goes down); the waterpark's subject is basins and a slide
+    # stack that reads at pool scale. Forcing a six-unit tower onto any of
+    # them re-inflates exactly what the full-board verdict killed.
+    'quarry', 'gypsum', 'waterpark',
     # 8/4, the terrain and the road surfaces. Forcing a tower onto any of these would be
     # a lie about the map, which is a worse failure than a low icon: OPEN DESERT has no
     # building in it, a LINED FLOOD CHANNEL is a trench, a GOLF COURSE is greens and

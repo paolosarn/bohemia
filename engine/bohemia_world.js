@@ -109,7 +109,12 @@
        the bounds of the whole field so it lays out once, in valley coordinates. */
     solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office', cluster:true },
     park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' },
-    wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default' },
+    /* A WASH IS A RIVER, NOT FIFTY-ONE RIVERS (8/25). The canon valley's channel is 51
+       cells long, and every one of them was building a complete self-contained channel
+       with its own box-culvert tunnel mouth -- along the east-west run that is 34 parallel
+       north-south channels shoulder to shoulder. cluster:true is what hands the generator
+       its four neighbours so the channel runs THROUGH a cell and lines up with the next. */
+    wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
     cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
     golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
@@ -124,7 +129,11 @@
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
     landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
+       cells was building a COMPLETE yard -- six engine sheds, six gantry cranes, six
+       perimeter fences in a block 288 m across. A classification yard is an AREA, so it
+       takes BOUNDS like the solar farm does, not neighbours like the wash. */
+    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
@@ -239,6 +248,20 @@
               y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys), cells:cells.length };
     cells.forEach(function(c){ m.__clusters[kind+':'+c[0]+','+c[1]] = b; });
     return b;
+  }
+
+  /* WHICH SIDES THE BLOB CONTINUES ON (8/25). Bounds answer "how big is this thing";
+     for a LINEAR district they answer the wrong question. A wash is a channel, and the
+     canon valley's runs east for 34 cells and then turns south for 17 -- the bounding box
+     of that corner is a 4x7 rectangle, and a line drawn through it misses most of the
+     cells that are actually wash. What a channel needs to know is which sides it arrives
+     and leaves on, which is exactly the four neighbours: east and west -> it runs across,
+     north and south -> it runs down, east and south -> it turns, one only -> it ends here
+     and that is where the tunnel mouth goes. Straight runs, corners, tees and lone cells
+     all fall out of the same four booleans with no special cases. */
+  function sameNeighbours(m,x,y,kind){
+    function is(dx,dy){ var c=m.at(x+dx,y+dy); return !!(c && c.district===kind); }
+    return { n:is(0,-1), s:is(0,1), e:is(1,0), w:is(-1,0) };
   }
 
   /* WHICH APPROACHES A CLUSTER ACTUALLY HAS. An interchange has to put its ramps on the
@@ -582,7 +605,8 @@
            own window, so the seams line up by construction. */
         var _co = {cw:1,ch:1,streets:streets,district:cell.district};
         if(dg.cluster){ _co.bounds=clusterBoundsOf(m,x,y,cell.district);
-                        _co.cellX=x; _co.cellY=y; _co.kind=cell.district; }
+                        _co.cellX=x; _co.cellY=y; _co.kind=cell.district;
+                        _co.neigh=sameNeighbours(m,x,y,cell.district); }
         var gres=dg.mod.generate(cell.seed>>>0, _co);
         var feet=dg.foot(gres)||[];
         // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the

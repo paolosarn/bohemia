@@ -1311,8 +1311,21 @@ function requirePlaywright() {
             if (!el || el.style.display === 'none') continue;
             let organ = null;
             try {
+              /* THE PROBE ASKS THE QUESTION THE CARD ASKS, and on 8/26 it
+                 stopped doing so. whoHears grew opts.watching (an outfit canon
+                 says is at war with the people you are siding with hears it as
+                 fact, no housemate chain required); the shipped card passes it
+                 and this probe did not, so the organ answer and the row
+                 disagreed and M2 went red.
+                 M2'S OWN CLAIM TEXT IS THE DIAGNOSIS -- "two calls are two
+                 opinions about one graph" -- and the second call turned out to
+                 be this one, inside the gate that says it. A probe that asks a
+                 different question than the surface is measuring a surface
+                 that does not exist. */
               const heard = BohemiaCommitment.whoHears(fid, R, ctCell(),
-                              { ties: BohemiaTies, keyOf: ctVKey });
+                              { ties: BohemiaTies, keyOf: ctVKey,
+                                watching: (typeof BohemiaBetween !== 'undefined'
+                                             ? BohemiaBetween : null) });
               organ = BohemiaCommitment.tertius(ctStandings(), heard);
             } catch (_e) {}
             if (!organ) continue;

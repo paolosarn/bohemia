@@ -208,7 +208,21 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      its headline number. Sizing a wait off the headline is how you ship a demo that only
      works in the office. */
   const NET = { down: 3 * 1024 * 1024 / 8, up: 5e5, lat: 150 };
-  const CEIL_TAP_TO_WORLD_MS = 30000;
+  /* 30 s -> 16 s on 8/25, and the ratchet is the point. Three things moved it, in this
+     order, and only the last one was big:
+       the bank split into cacheable chunks          32.4 MB -> 2.7 MB after the tap
+       the warm-up ordered, and told to get out of
+         the way the moment he taps                  no change on its own
+       chunks 2..N stopped being <script defer> tags
+         and became a loader that runs after the
+         world is drawn                              28.6 s -> 10.8 s
+     The middle one is worth naming as a near-miss: a deferred tag delays EXECUTION and not
+     the DOWNLOAD, so eight sprite transfers opened during the parse and starved the 1.75 MB
+     the world was waiting on. Reordering the warm-up could not fix that, because the warm-up
+     was never the thing filling the pipe.
+     16 s is 10.8 s with room for a slower CI box, and NOT room for anybody to put the art
+     back on the critical path. */
+  const CEIL_TAP_TO_WORLD_MS = 16000;
 
   const b3 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const c3 = await b3.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
@@ -224,11 +238,25 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
   await p3.evaluate(() => { const f = document.querySelector('#front, #fronttap'); if (f) f.click(); });
   const tapAt = Date.now() - t0;
   let worldMs = -1;
+  /* A DRAWN WORLD, NOT A CANVAS TAG. This waited on the EXISTENCE of #cv, and #cv is on
+     line 181 of a 2.6 MB page -- the parser reaches it long before a single script has run,
+     let alone drawn anything. That made the number track "has the page started arriving"
+     instead of "can he see the city", and it flattered every change made to it. So it now
+     reads PIXELS: a canvas with real width whose sampled colours are not all one value. A
+     blank or single-fill canvas has one colour; a world has dozens. Same lesson as the art
+     probes that ate this week -- an instrument pointed at the wrong surface is confidently
+     wrong, and confidently wrong is worse than red. */
   try {
     await p3.waitForFunction(() => {
       const fr = [...document.querySelectorAll('iframe')].find(f => /CITY_WORLD/.test(f.src || ''));
-      try { return !!(fr && fr.contentWindow && fr.contentWindow.document.getElementById('cv')); }
-      catch (e) { return false; }
+      try {
+        const c = fr && fr.contentWindow && fr.contentWindow.document.getElementById('cv');
+        if (!c || !c.width || !c.height) return false;
+        const d = c.getContext('2d').getImageData(0, 0, Math.min(c.width, 120), Math.min(c.height, 120)).data;
+        const seen = new Set();
+        for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 8) seen.add((d[i] << 16) | (d[i + 1] << 8) | d[i + 2]);
+        return seen.size > 8;
+      } catch (e) { return false; }
     }, null, { timeout: 300000 });
     worldMs = Date.now() - t0;
   } catch (e) {}

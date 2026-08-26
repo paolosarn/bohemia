@@ -30,7 +30,7 @@ verbatim.
 | UNSAMPLED | 0 | 0 |
 | **total** | **108** | **148** |
 
-**302.0 MB of 305.8 MB** sampled does not reach the shown surface.
+**305.1 MB of 308.9 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -47,9 +47,9 @@ verbatim.
 |---|---|---|
 | `banks/BOHEMIA_HD_TILE_REPO_part1.txt` | bank | 45.06 |
 | `banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt` | bank | 12.65 |
+| `banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt` | bank | 5.75 |
 | `banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt` | bank | 3.63 |
 | `banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt` | bank | 2.97 |
-| `banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt` | bank | 2.62 |
 | `banks/BOHEMIA_PERIMETER_8_2_26.txt` | bank | 2.43 |
 | `banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt` | bank | 2.01 |
 | `banks/BOHEMIA_DESERT_POOLS_7_18_26.txt` | bank | 1.90 |
@@ -177,6 +177,7 @@ verbatim.
 | `engine/bohemia_overmap.js` | engine | 32/32 |
 | `engine/bohemia_park.js` | engine | 32/32 |
 | `engine/bohemia_policestation.js` | engine | 32/32 |
+| `engine/bohemia_quirk.js` | engine | 32/32 |
 | `engine/bohemia_rail.js` | engine | 32/32 |
 | `engine/bohemia_railyard.js` | engine | 32/32 |
 | `engine/bohemia_resort.js` | engine | 32/32 |
@@ -202,4 +203,3 @@ verbatim.
 | `engine/bohemia_trailer.js` | engine | 31/31 |
 | `engine/bohemia_dead.js` | engine | 30/30 |
 | `engine/bohemia_jail.js` | engine | 30/30 |
-| `engine/bohemia_solar.js` | engine | 28/28 |

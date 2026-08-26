@@ -170,6 +170,16 @@ research partner. He DECIDES, you PRODUCE.
   A line he cannot reach is a line he cannot edit. Full law:
   laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md
   Gate: dialogue_catalogue_gate.js. Harvester: tools/bohemia_words_book.py
+  *** THE WORDS LANE EXISTS AS OF 8/26 (Paolo: "it's time we have a new chat,
+  like... write and sound like a human for Bohemia"). First word "words". THE
+  SEAM: QUESTS owns WHAT HAPPENS, WORDS owns HOW IT SOUNDS. Its honest premise:
+  THE WRITER IS A MACHINE AND MACHINES HAVE TELLS -- uniform rhythm, the same
+  rhetorical move repeated, the comfortable middle lane, recycled phrasing,
+  predictability. A line that could have come out of any game is a failed line.
+  And the month of research he dreaded is mostly already banked: 244 questbook
+  files, 152 studied quests, four masters, 3,672 findings, 1,910 authored lines.
+  The HOLE is that all of it is about WHAT HAPPENS and none of it is about how a
+  sentence SOUNDS. Brief: laws/BOHEMIA_SESSION_BRIEF_WORDS_8_26_26.md ***
 - THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED): "make them speak spanglish for our
   game i like that. have it very poor english ro spanglish to give it that
   flavor." Las Vegas is 418,400+ Spanish speakers and our valley had ZERO. It is

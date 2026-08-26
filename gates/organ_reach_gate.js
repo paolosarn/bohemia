@@ -64,6 +64,20 @@ process.chdir(ROOT);
    surface. A name may only sit here while it is STILL tooling-only (rule 3) and
    STILL exists (rule 4), so this list cannot quietly become a dumping ground. */
 const TOOLING_ONLY = {
+  'BohemiaBetween.myRipples':
+    'the player\'s OWN outfit\'s canon positions, for faction_between C4. It '
+    + 'returns EMPTY today and that is the correct answer, not a gap: canon\'s '
+    + 'note on Custom is "Player faction. No preset philosophy. Identity emerges '
+    + 'from three generations of action", so an emergent outfit has not made its '
+    + 'enemies yet. No card can show a list that is empty by construction, and '
+    + 'the claim that asserts the emptiness is CORRECT is the whole reason this '
+    + 'function exists — on 8/21 this lane reported his own faction as a defect '
+    + 'for exactly this shape and he had to correct it.',
+  'BohemiaBetween.keys':
+    'every outfit canon says anything about, as a list. Same shape as '
+    + 'BohemiaBelonging.keys and BohemiaIntros.keys directly below: a card asks '
+    + 'about ONE outfit, never about all of them. It exists so a gate can sweep '
+    + 'the whole roster rather than spot-check the three it happened to think of.',
   'BohemiaCommitment.states':
     'the commitment ladder as a list, for faction_arc J6. The card never asks '
     + 'for the whole ladder — it asks what YOUR state is and what the next one '

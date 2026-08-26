@@ -263,6 +263,70 @@
         queue.push({ key:t.key, hops:cur.hops+1, crossed:crossed });
       }
     }
+    /* ---- THE ONES WHO WERE ALREADY WATCHING (8/26) ----------------------
+       MEASURED FIRST, BUILT SECOND. A sweep of the live city -- every base,
+       every affiliated person, real whoHears against the real roster -- found
+       TWO hearing pairs in the entire valley, Mob<->Network, and NEITHER of
+       them is a pair canon holds a position on. So the canon wars were priced,
+       wired to the surface, and structurally unable to fire: the acquaintance
+       walk needs a chain of housemates and workmates between two outfits, and
+       in a thin population there almost never is one.
+
+       AND THE CHAIN IS THE WRONG TEST FOR THIS CASE ANYWAY, which is the part
+       that makes this a fix and not a cheat. This module's own STAGES say what
+       a commitment IS:
+           sided  -- "Said in front of people. That is the whole mechanism and
+                      it is enough."
+           burned -- "Something you had with somebody else is gone now, AND
+                      THEY KNOW WHICH SOMEBODY."
+       A public declaration does not travel by rumour. The Remnants have been
+       at war with the Cartel for longer than anyone alive; they do not need
+       your housemate to tell them who the Cartel just took in. They are
+       already looking.
+
+       SO: an outfit that CANON says holds a position on the outfit you are
+       committing to hears it as FACT, at zero hops, with no tie required.
+       Nothing here decides who those outfits are -- opts.watching supplies
+       them, and the only supplier is BohemiaBetween, which reads
+       BOHEMIA_faction_graph.json and invents nothing.
+
+       ORDER MATTERS AND IT IS DELIBERATE:
+         - a real tie at 0-1 hops WINS, because it is richer: it names the
+           room the news went through, and "your own housemate runs with them"
+           is the interesting half.
+         - a rumour at 2+ hops is UPGRADED, because an outfit that is watching
+           does not settle for half the story. The chain is kept in `through`
+           so the surface can still say who else knew.
+       OPT-IN, exactly like the between module in costs(): a caller that passes
+       nothing gets the old walk unchanged, so no surface moves under a lane
+       that has not been told. */
+    var W = opts.watching;
+    if(W && typeof W.ripples === 'function'){
+      var rip = [];
+      try { rip = W.ripples(fid) || []; } catch(_e){ rip = []; }
+      for(var wi=0; wi<rip.length; wi++){
+        var wf = norm(rip[wi].to);
+        if(!wf || wf === want) continue;
+        /* A NEUTRAL ARRANGEMENT IS NOT SURVEILLANCE, and the shipped sentence
+           is what settled it. The Cartel hold `hands-off` on the Volunteers,
+           init 0, and the first run of this made the Volunteers hear about
+           every Cartel commitment and charge a flat price for it -- while the
+           words printed underneath that very row read "Nobody is going to hold
+           this against you. There is no side to be on here."
+           A surface that contradicts itself in two adjacent lines is worse
+           than one that says nothing. Hostile and warm are POSITIONS, and a
+           position is a reason to be looking. Neutral is the absence of one. */
+        if(rip[wi].sign !== 'hostile' && rip[wi].sign !== 'warm') continue;
+        var had = heard[wf];
+        if(had && had.hops <= 1) continue;          /* a real tie is richer */
+        heard[wf] = { faction:wf, hops:0, via:'watch', crossed:false,
+                      through:(had ? had.through : null),
+                      watching:rip[wi],
+                      /* kept so a surface can say the rumour ALSO exists */
+                      alsoHeardAt:(had ? had.hops : null) };
+      }
+    }
+
     var out = Object.keys(heard).map(function(k){ return heard[k]; });
     out.sort(function(a,b){ return a.hops-b.hops || (a.faction<b.faction?-1:1); });
     return out;
@@ -374,23 +438,73 @@
      AND THIS IS WHAT MAKES TERTIUS A DECISION INSTEAD OF A CAPTION. Standing
      where the outfits have no line to each other (gaudens) means nobody hears
      as fact, so it costs you NOTHING. Burt's structural hole finally pays out
-     in the numbers rather than in a row of text. */
-  function costs(state, heard, standings){
+     in the numbers rather than in a row of text.
+
+     *** AND THE FOURTH THING, WHICH WAS MISSING UNTIL 8/26 AND IS THE WHOLE
+         REASON THIS FUNCTION GREW A FOURTH ARGUMENT. ***
+     Every hearer was charged THE SAME. `var lose = stateIndex(state)` is one
+     number for everybody, so the Remnants -- who are at PERMANENT WAR with the
+     Cartel in canon, written down in BOHEMIA_faction_graph.json, priced in
+     FactionCanon.REL_SPEC at -80 -- took exactly what the Church took, and the
+     Church have no canon position on the Cartel at all. The game held a war
+     and this function could not feel it.
+
+     PAOLO 8/26: "...But, yeah, for the other factions." The other outfits'
+     positions on EACH OTHER are the missing term. engine/bohemia_between.js
+     holds them (canon only, nothing invented) and `opts.between` passes it in.
+
+     IT IS AN OPTION, NOT A DEPENDENCY, and that is deliberate rather than
+     lazy: whoHears still decides WHETHER it lands, this only decides HOW HARD.
+     A caller with no between module gets exactly the old numbers, so no
+     surface silently changes underneath a lane that has not been told. A
+     caller that passes one gets a war that costs like a war.
+
+     A ZERO IS A ROW, NOT A GAP. Adjacency can take the cost to nothing, and
+     "they heard and they did not mind" is a real outcome the player should
+     see -- it is what standing beside somebody's ally BUYS you. Dropping the
+     row would hide the payoff and make the module look like it did nothing.
+     ---------------------------------------------------------------------- */
+  function costs(state, heard, standings, opts){
     var lose = stateIndex(state);
     if(lose <= 0) return [];
+    var B = opts && opts.between, sided = opts && opts.sided;
     var out = [];
     (heard||[]).forEach(function(h){
       if(landing(h).key !== 'direct') return;   /* a rumour names nothing */
       var want = norm(h.faction), have = 0;
       for(var k in (standings||{})) if(norm(k)===want) have = standings[k]|0;
       if(have <= 0) return;                     /* nothing to take */
-      out.push({ faction:h.faction, had:have,
-                 lose:Math.min(lose, have),     /* never below a stranger */
+      var base = lose, rel = null, moved = 0;
+      if(B && sided && typeof B.weigh === 'function'){
+        var w = B.weigh(sided, h.faction, lose);
+        base = w.weighted; rel = w.why; moved = w.moved;
+      }
+      var take = Math.min(base, have);          /* never below a stranger */
+      /* THE WORD DESCRIBES WHAT ACTUALLY HAPPENED, NOT WHAT THE RELATION
+         WANTED. Two ways the raw `moved` lies if you print it:
+           - a 2 -> 3 move is not "double", it is more, and saying double when
+             the number says 3 is the surface disagreeing with itself;
+           - the never-below-a-stranger clamp can eat the whole increase. Have
+             2 standing, permanent war doubles a cost of 2 to 4, and they still
+             only take 2 -- so the war cost you NOTHING EXTRA in the end and a
+             row crowing about it would be a lie about the number beside it.
+         So the comparison is against what a FLAT cost would have taken from
+         this same person, after the same clamp. */
+      var flatTake = Math.min(lose, have);
+      var real = take - flatTake;
+      out.push({ faction:h.faction, had:have, lose:take,
+                 flat:lose, flatLose:flatTake, moved:moved, realMoved:real,
+                 rel:rel,
                  through:h.through, via:h.via, hops:h.hops,
-                 word:'THEY HEARD, AND IT COST YOU',
-                 note:'Somebody close enough to know told them what you did. '
-                    + 'You are somebody else\'s now, and they have adjusted '
-                    + 'what you are worth to them accordingly.' });
+                 word: take === 0 ? 'THEY HEARD, AND THEY DID NOT MIND'
+                     : real > 0   ? 'THEY HEARD, AND IT COST YOU EXTRA'
+                     : real < 0   ? 'THEY HEARD, AND THEY LET IT GO CHEAP'
+                     : 'THEY HEARD, AND IT COST YOU',
+                 note: rel
+                     ? (rel.cost || rel.note)
+                     : 'Somebody close enough to know told them what you did. '
+                     + 'You are somebody else\'s now, and they have adjusted '
+                     + 'what you are worth to them accordingly.' });
     });
     return out;
   }
