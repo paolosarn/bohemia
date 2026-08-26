@@ -2236,7 +2236,14 @@ SEED-1. *** HIS LOCKED LAW SAYS "DIFFERENT SEED, DIFFERENT VALLEY" AND A
    Bohemia mechanic (your house, the neighbour one door down, walking the
    same blocks, the builder). RESHUFFLING THE GEOGRAPHY EVERY RUN WOULD
    DESTROY THE MECHANISM THAT MAKES HIM LOVE THE VALLEY. Keep the bones.
-   BUILD: a new run rolls a seed; the seed is DISPLAYED and ENTERABLE (he
+   *** CORRECTED 8/26 BY HIS "THERE ARE NO RUNS" RULING. My sweep-20
+   wording said "a new RUN rolls a new seed" and that phrase is built on a
+   premise he has now killed: one character, ~100 hours, no resets. THE
+   FINDING SURVIVES UNCHANGED -- the seed is still welded to a constant and
+   his 8/4 Valheim law still says different seed, different valley -- but
+   the trigger is A NEW GAME, not a new run. Nothing else in this row
+   changes. Recording the correction rather than quietly editing it. ***
+   BUILD: STARTING A NEW GAME rolls a seed; the seed is DISPLAYED and ENTERABLE (he
    named Valheim, and a seed you can send somebody is the cheapest social
    feature a world game has); 'bohemia' stays the default everywhere a
    gate, an art review or a verdict of his looks, so his thumbs stay
@@ -7328,6 +7335,67 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
+
+## WORDS  (NEW LANE, Paolo 8/26 — "it's time we have a new chat, like...
+## write and sound like a human for Bohemia." First word "words" (or
+## "writing"/"dialogue"/"human"). BRIEF: laws/BOHEMIA_SESSION_BRIEF_WORDS_
+## 8_26_26.md, READ IT FIRST. THE SEAM: QUESTS owns WHAT HAPPENS —
+## structure, stages, effects, consequence. WORDS owns HOW IT SOUNDS —
+## the line, the voice, the register, the craft. Neither writes the
+## other's half.)
+W-0. *** THE HONEST REASON THIS LANE EXISTS: THE WRITER IS A MACHINE AND
+   MACHINES HAVE TELLS. Not a put-down, a working condition. Every line in
+   this game is written by something trained to produce the most probable
+   next word, and the most probable next word is BY DEFINITION the least
+   surprising one. People do not talk in probable words.
+   THE TELLS, from editors who spot machine prose for a living, and every
+   one is a knob: UNIFORM RHYTHM (sentences of similar length and shape,
+   smooth and forgettable); THE SAME RHETORICAL MOVE REPEATED; THE
+   COMFORTABLE MIDDLE LANE (polite, even, bland — nobody is rude, nobody
+   trails off); RECYCLED PHRASING AND GENERIC SCENE-SETTING; and
+   PREDICTABILITY, where ideas develop the way you expect instead of
+   somebody changing the subject or saying nothing.
+   A LINE THAT COULD HAVE COME OUT OF ANY GAME IS A FAILED LINE. ***
+W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
+   *** AND THE MONTH OF RESEARCH HE IS DREADING IS MOSTLY ALREADY BANKED.
+   He said "I don't know if I have to do, like, a month of rounds of
+   research with this new chat." HE DOES NOT. questbook/ is 244 FILES and
+   152 QUESTS studied to the bone (Bloody Baron, Whispering Hillock, Disco
+   Elysium, Kingdom Come, the ME2 suicide mission, Vault 11, Dead Money,
+   Nocturne Op55N1), four MASTERS (CRAFT / FLAWS / PORTS / CONVERSATIONS),
+   3,672 citable findings in the law index, and 1,910 authored lines
+   already carrying citations. DO NOT START A MONTH OF READING. ***
+   *** THE HOLE, WHICH IS WHY THE LANE IS NEW: the catalogue is about WHAT
+   HAPPENS — structure, hooks, reversals, choices. It is very good at it.
+   IT IS NOT ABOUT HOW A SENTENCE SOUNDS. Nothing in 3,672 findings tells
+   you why one line lands and the next dies. That missing layer is the
+   whole lane. ***
+   BUILD: (a) read a real sample of the 1,910 lines the way an editor
+   reads for machine tells and report WHICH ONES WE ACTUALLY HAVE, with
+   counts and quotes FROM OUR OWN TEXT, measured not asserted; (b) THE
+   BOHEMIA VOICE CARD, five or six rules, one page, short enough to hold
+   in your head; (c) ONE SCENE REWRITTEN BOTH WAYS side by side, so the
+   difference is visible instead of described. Lands in the WORDS tab
+   where he edits every line anyway.
+   THE PRACTITIONERS, so nobody starts cold: AVELLONE says talking-head
+   conversations are "a dead end" and that the best game stories are shaped
+   by props, audio, environment and level design — know how to tell it
+   WITHOUT WORDS; learn grammar cold before breaking it; LEARN TO EDIT.
+   EMILY SHORT: conversation IS gameplay, and characters should speak from
+   their own KNOWLEDGE AND MEMORY in language specific to their mood —
+   which is exactly our problem, because our people are GENERATED, so
+   their lines must come from what they know, not from a bag of lines.
+   AND SUBTEXT IS THE CRAFT: people talk PAST each other, and a line whose
+   meaning is entirely on its surface is usually the weak one. THE BOHEMIA
+   VERSION: the best line in this game might be somebody refusing to
+   answer, and the second best might be a prop.
+   GATE, and be honest about what it can do: measure RHYTHM (sentence
+   length variance across a scene), REPEATED OPENERS, and BANNED PHRASES.
+   Those are tells a machine can see. IT CANNOT CHECK WHETHER A LINE IS
+   GOOD. Do not pretend it can.
+   | the diagnosis with counts, the voice card, one scene both ways, in
+   the WORDS tab | every word is HIS forever | NO — dialogue is never put
+   to him for approval (8/11). He edits. TAB: WORDS. ***
 
 ## UI  (NEW LANE, Paolo 8/25 — he asked "IDK IF ITS TIME TO MAKE A UI
 ## CHAT?" and the answer is YES. First word "ui". Owns EVERY PIXEL THE
