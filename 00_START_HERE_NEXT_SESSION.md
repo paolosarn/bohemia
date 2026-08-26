@@ -3812,7 +3812,64 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 (b) LATEST -- *** NOBODY IN THIS VALLEY SPOKE
+PEOPLE (people-7h9sfy): 8/25 (c) LATEST -- *** HIS SPANGLISH RULING REACHED THE
+ENGINE AND STOPPED ONE FRAME SHORT OF HIM, AND MY OWN GATE WAS DEFENDING THAT.
+FIXED. TAB RUN: walk up to somebody, tap the one button, the card now says what
+they speak. ***
+
+NOBODY HAD EVER WALKED UP TO A PERSON AND TALKED TO THEM INSIDE THE ALPHA. Every
+gate this lane owns drives the city STANDALONE or reads files; four boot the
+alpha and none of them opens a person card. That is SWEEP 13 word for word and
+it is the shape that made the vista bug.
+
+So I drove it the way a friend will: open the alpha, tap the splash, decline the
+opening, get up, stand next to the neighbour, tap the button. The card said
+  NAME / LIVES / RIGHT NOW / YOU HAVE MET / HOW YOU GET THE REST
+NO SPEAKS. The walked city does not call cardFor -- it builds its card ROW BY
+ROW, and organ_reach_gate has said so in writing for days. I read that exemption
+this morning and did not connect it.
+
+*** AND THE CLAIM THAT SHOULD HAVE CAUGHT IT WAS MINE. *** language_gate's "the
+card on the surface he taps says what they speak" called cardFor() FROM INSIDE
+THE CITY FRAME. Standing in the right frame made it look like the real surface.
+Green, true, and about a different card. A PROBE STANDING INSIDE THE RIGHT FRAME
+IS STILL A SIDE DOOR IF IT ASKS THE WRONG FUNCTION. It taps #cttalk and reads
+#ctcard.innerText now -- the text on the glass.
+A SECOND ONE, same shape, found while fixing the first: the file check looked for
+cardFor's `label: 'SPEAKS'` in both shipped frames and passed for both, because
+the CITY frame carries an inlined copy of cardFor containing that string in a
+function it never runs. Each frame is checked against the code that draws ITS
+card now.
+
+THE HARD RULE IS PROVED ON PIXELS NOW, not on strings in a file:
+  the ONE BUTTON   "TALK TO THE WATCH"                      0 Spanish words
+  the card         WATCH | NAME | YOU HAVE NOT ASKED | SPEAKS | ENGLISH | ...
+                                                            0 Spanish words
+
+language_gate 63 -> 67. MUTATIONS: the SPEAKS row taken off the city card (the
+exact state that shipped this morning) 3 RED printing the card that is missing
+it; the one button made to say HABLA CON THE WORKER 1 RED naming the string.
+
+A PROBE ERROR CAUGHT BEFORE IT WAS FILED: the first run said the TALK button was
+INVISIBLE while standing next to somebody, which would have been a demo blocker.
+It was my probe -- ctVerb() runs on render and I had moved the player by setting
+coordinates instead of letting the world draw. Fifth one caught this way across
+two sessions, none filed.
+
+CARD GATES HELD after adding a row to a height-capped card: CARD FOLD 18/0,
+CITY MEMORY 34/0, CITY BARKS 13/0, QUIRK 39/0, TIES 40/0, INTRODUCTIONS 46/0,
+FAVOUR 31/0.
+
+WHAT I WOULD DO NEXT: the four Act 1 scenes and the nine canon quests are still
+monolingual English -- the demo's actual story words. The law reserves WHICH
+NAMED STORY PEOPLE sit in which register as his, so the unnamed voices in those
+scenes are the part that is mine to draft.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md (addendum
+at the bottom).
+
+---- PREVIOUS (8/25, same day) ----
+*** NOBODY IN THIS VALLEY SPOKE
 SPANISH, AND THE FIRST TIME THEY DID, THE WALKED CITY TURNED THEM ALL BACK INTO
 ENGLISH. HIS SPANGLISH RULING IS BUILT AND MEASURED ON THE GROUND. TAB RUN
 (walk up to somebody: the card says what they speak, and their lines come out in

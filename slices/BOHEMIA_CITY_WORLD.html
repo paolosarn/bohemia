@@ -40034,6 +40034,19 @@ function ctDraw(){
   var ctTradeWord = BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY';
   if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
     body+=ctRow('TRADE', ctTradeWord);
+  /* __CITY_SPEAKS__ -- WHAT THEY SPEAK (8/25). THEY SPEAK SPANGLISH (Paolo
+     8/25, LOCKED). This shipped on BohemiaPeople.cardFor() and this card does
+     not call cardFor -- it builds itself row by row -- so his ruling reached
+     the engine and stopped one frame short of the only surface he opens. Found
+     by driving the talk loop inside the ALPHA rather than reading either file.
+     IT SITS WITH THE TRADE, NOT WITH THE ADDRESS. What somebody speaks is who
+     they are; where they sleep is not. And unlike NAME it needs no asking: you
+     have been standing in front of them while they talk, which makes it the
+     exact opposite of the row above it and the reason they belong together.
+     ENGLISH, ALWAYS. The row is the game telling him a fact, so it is required
+     information, so it is English whatever the person speaks. language_gate
+     sweeps this string with the rest of them. */
+  body+=ctRow('SPEAKS', BohemiaPeople.speaksLineOf(who));
   /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.
      This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two
      numbers no player can use, on the card he opens for every person in the

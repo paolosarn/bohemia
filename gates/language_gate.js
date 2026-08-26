@@ -33,6 +33,19 @@
  *   D  the sweep can actually fail (the anti-vacuity guard), the lexicon has a
  *      meaning for every word, and nothing in a register line is an invented
  *      word -- which is how "never phonetic accent spelling" is machine-held
+ *   E  somebody can actually SAY it, and a bucket with no register written for
+ *      it falls back to English rather than going mute
+ *   F  every shipped frame carries the current module, checked against the code
+ *      that draws THAT frame's card and not against a function it never runs
+ *   G  THE WALKED CITY, COUNTED: stand next to somebody, tap the real button,
+ *      read the text that is on the glass
+ *
+ * TWO OF ITS OWN CLAIMS HAVE ALREADY BEEN CAUGHT LYING, both the same way and
+ * both written down where they failed: a claim about "the card on the surface he
+ * taps" that asked cardFor() while the surface builds its card row by row, and a
+ * file check that matched cardFor's row in a frame that never calls it. A PROBE
+ * STANDING INSIDE THE RIGHT FRAME IS STILL A SIDE DOOR IF IT ASKS THE WRONG
+ * FUNCTION. Section G reads pixels now, not return values.
  *
  * WHY IT DOES NOT CARRY ITS OWN TOKENIZER: it calls the engine's esWordsIn().
  * This lane has now shipped two bugs whose entire cause was two copies of one
@@ -449,8 +462,17 @@ head('F. THE SHIPPED FRAMES CARRY THE CURRENT MODULE');
     ', esWordsIn ' + /function esWordsIn\s*\(/.test(src));
   ok(what + ' carries the register buckets, not just the English ones',
     src.indexOf('"worker:work@spanglish"') >= 0 && src.indexOf('"worker:work@es"') >= 0);
-  ok(what + ' shows what somebody speaks on the card',
-    /label: 'SPEAKS'/.test(src) || /label:"SPEAKS"/.test(src));
+  /* AND THE ROW HAS TO BE IN THE CODE THAT DRAWS *THIS* FRAME'S CARD.
+     The first cut looked for cardFor's `label: 'SPEAKS'` in both frames and
+     passed for both -- but the CITY does not call cardFor, it builds its card
+     row by row, so the string it matched was in a function that frame never
+     runs. True, green, and about a different card: the same vacuous pass as the
+     side-door probe below, caught the same way. Each frame is now checked
+     against the code that actually draws ITS card. */
+  ok(what + ' shows what somebody speaks on the card THAT FRAME DRAWS',
+    f.indexOf('CITY_WORLD') >= 0
+      ? src.indexOf("ctRow('SPEAKS'") >= 0
+      : (/label: 'SPEAKS'/.test(src) || /label:"SPEAKS"/.test(src)));
 });
 
 /* ==========================================================================
@@ -509,19 +531,44 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         if (n >= 3) blocks.push((here.spanglish + here.es) / n);
       }
       blocks.sort(function (a, b) { return a - b; });
-      var card = null, line = null;
+
+      /* *** AND NOW THE CARD THAT IS ACTUALLY ON SCREEN. ***
+         The first version of this asked BohemiaPeople.cardFor() for the card --
+         from inside the city frame, which LOOKS like the real surface and is
+         not: this card is built ROW BY ROW and never calls cardFor. So the
+         claim was green, and true, and about a different card, while the card
+         he opens had no SPEAKS row at all. A SIDE-DOOR PROBE IS A LIE (7/18),
+         and a probe standing inside the right frame is still a side door if it
+         asks the wrong function.
+         So: stand next to somebody, let the world render the way movement
+         does, TAP THE REAL BUTTON, and read the text that is on the glass. */
+      var card = null, line = null, verb = null, opened = false;
       try {
-        var RR = ctEveryone(), ww = ctPerson(RR[0]);
-        card = BohemiaPeople.cardFor(ww, ctAgent(RR[0]), 600, { times: 1 });
-        line = BohemiaPeople.linesFor(ww, { at: 'work' })[0];
-      } catch (e) { card = null; }
+        var RR = ctEveryone(), best = null, bd = 1e9;
+        RR.forEach(function (r) {
+          var at = ctAt(r), d = Math.abs(at[0] - hx) + Math.abs(at[1] - hy);
+          if (d < bd) { bd = d; best = { r: r, at: at }; }
+        });
+        if (best) {
+          var dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+          for (var di = 0; di < dirs.length; di++) {
+            hx = best.at[0] + dirs[di][0]; hy = best.at[1] + dirs[di][1];
+            try { render(); } catch (e2) {}
+            if (ctAdjacent()) break;
+          }
+          var vb = document.getElementById('cttalk');
+          if (vb && getComputedStyle(vb).display !== 'none') { verb = vb.innerText; vb.click(); }
+          var cc = document.getElementById('ctcard');
+          opened = !!(cc && getComputedStyle(cc).display !== 'none');
+          card = cc ? cc.innerText : null;
+          line = BohemiaPeople.linesFor(ctPerson(best.r), { at: 'work' })[0];
+        }
+      } catch (e) { card = 'THREW: ' + e.message; }
       return {
         seen: seen, blocks: blocks.length, mix: mix, rekeyed: rekeyed,
         low: blocks[Math.floor(blocks.length * 0.1)] || 0,
         high: blocks[Math.floor(blocks.length * 0.9)] || 0,
-        speaks: (card || []).filter(function (r) { return r.label === 'SPEAKS'; })[0] || null,
-        labels: (card || []).map(function (r) { return r.label; }),
-        line: line
+        verb: verb, opened: opened, card: card, line: line
       };
     });
 
@@ -545,19 +592,40 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
       m.rekeyed > m.seen * 0.05,
       m.rekeyed + ' of ' + m.seen + ' differ from what the raw block seed would have said');
 
-    ok('the card on the surface he taps says what they speak',
-      !!m.speaks && !!m.speaks.value, m.speaks ? m.speaks.label + ': ' + m.speaks.value : String(m.labels));
+    /* THE ONE BUTTON, AS RENDERED. It is how a player knows an action exists at
+       all, and a button you cannot read is not flavour, it is a broken button. */
+    ok('the ONE BUTTON is there when you stand next to somebody, and it is English',
+      !!m.verb && BohemiaPeople.esWordsIn(m.verb).length === 0, JSON.stringify(m.verb));
+    ok('tapping it opens the card he reads', m.opened === true,
+      String(m.card).slice(0, 80));
+    ok('*** THE CARD THAT IS ON THE GLASS SAYS WHAT THEY SPEAK ***',
+      /\bSPEAKS\b/.test(String(m.card)), String(m.card).replace(/\n/g, ' | ').slice(0, 200));
+    var cardWords = Object.keys(P.LANG).map(function (k) { return P.LANG[k].card; });
+    ok('and the value is one of the three registers, spelled the engine\'s way',
+      cardWords.some(function (w) { return String(m.card).indexOf(w) >= 0; }),
+      cardWords.join(' / '));
+    /* CLAIM C, ONE LAST TIME, ON PIXELS RATHER THAN ON STRINGS IN A FILE. */
+    ok('and NOT ONE WORD of that whole card is non-English',
+      BohemiaPeople.esWordsIn(String(m.card)).length === 0,
+      JSON.stringify(BohemiaPeople.esWordsIn(String(m.card))));
     /* IN THE IDENTITY HALF OF THE CARD, NOT THE FOOTER. The first cut of this
        claim demanded SPEAKS sit at exactly NAME+1 and went red because LIVES is
        between them -- AN ASSERTION THAT PINS TODAY'S LAYOUT INSTEAD OF TODAY'S
        RULE, which is the miss this lane has now made six times. The rule is
        that what somebody speaks is who they are, so it belongs above what they
        do and how often you have met. */
+    /* IN THE IDENTITY HALF, NOT THE FOOTER. The rule is that what somebody
+       speaks is who they are, so it belongs above where they sleep and above
+       how many times you have met. An EARLIER cut of this claim demanded SPEAKS
+       sit at exactly NAME+1 and went red because LIVES is between them: AN
+       ASSERTION THAT PINS TODAY'S LAYOUT INSTEAD OF TODAY'S RULE, the miss this
+       lane has now made six times. Measured on the rendered card's own order. */
     ok('and it sits in the identity half of the card, not the footer',
-      m.labels.indexOf('SPEAKS') > -1 &&
-      m.labels.indexOf('SPEAKS') < m.labels.indexOf('WORKS') &&
-      m.labels.indexOf('SPEAKS') < m.labels.indexOf('YOU HAVE MET'),
-      m.labels.join(' | '));
+      (function () {
+        var rows = String(m.card).split('\n').map(function (x) { return x.trim(); });
+        var i = rows.indexOf('SPEAKS'), l = rows.indexOf('LIVES'), h = rows.indexOf('YOU HAVE MET');
+        return i > -1 && (l < 0 || i < l) && (h < 0 || i < h);
+      })(), String(m.card).replace(/\n/g, ' | ').slice(0, 160));
     ok('somebody in the walked city has something to say', !!m.line, m.line);
   } catch (e) {
     ok('the walked city could be measured at all', false, String(e && e.message || e));

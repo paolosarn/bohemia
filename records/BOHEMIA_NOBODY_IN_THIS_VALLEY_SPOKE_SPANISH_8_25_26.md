@@ -280,3 +280,81 @@ dodge -- and the exemption carries the written reason RULE 2 demands.
 documents this blind spot for modules passed as VALUES ("a textual count is a
 lie"). The `require`-under-an-alias case is the same shape and it is not
 covered. Any function only ever called through an alias reads as dead.
+
+---
+
+# ADDENDUM, SAME DAY, TWO HOURS LATER: IT NEVER REACHED THE CARD HE OPENS,
+# AND MY OWN GATE WAS DEFENDING THAT
+
+## WHAT I DID: WALKED UP TO SOMEBODY INSIDE THE ALPHA, WHICH NOBODY HAD DONE
+
+Every gate this lane owns drives the city **standalone** or reads files. Four of
+them boot the alpha. **Not one had ever walked up to a person and talked to
+them inside the alpha, the way a friend will.** That is SWEEP 13's finding word
+for word, and it is the shape that made the vista bug: "`vista_beat_gate` drives
+the city STANDALONE and nobody opens it that way."
+
+So I drove it: open the alpha, tap the splash, decline the opening, get up,
+stand next to the neighbour, tap the one button. The card came back:
+
+```
+NAME / LIVES / RIGHT NOW / YOU HAVE MET / HOW YOU GET THE REST
+```
+
+**No SPEAKS.** His ruling reached the engine this morning and stopped one frame
+short of him. The walked city does not call `cardFor()`; it builds its person
+card ROW BY ROW, and `organ_reach_gate` has said so in writing for days. I read
+that exemption today and did not connect it.
+
+## AND THE CLAIM THAT SHOULD HAVE CAUGHT IT WAS MINE
+
+`language_gate` section G:
+
+> the card on the surface he taps says what they speak
+
+It called `BohemiaPeople.cardFor()` **from inside the city frame**. Standing in
+the right frame made it look like the real surface. It was green, it was true,
+and it was about a different card.
+
+**A PROBE STANDING INSIDE THE RIGHT FRAME IS STILL A SIDE DOOR IF IT ASKS THE
+WRONG FUNCTION.** Section G now stands next to somebody, taps `#cttalk`, and
+reads `#ctcard.innerText` -- the text on the glass.
+
+A second one, same shape, found while fixing the first: section F looked for
+`label: 'SPEAKS'` in both shipped frames and passed for both, because the CITY
+frame carries an inlined copy of `cardFor` containing that exact string in a
+function that frame never runs. Each frame is now checked against the code that
+draws **its** card.
+
+## AND THE HARD RULE IS NOW PROVED ON PIXELS
+
+The same section reads the rendered card and the rendered button:
+
+```
+the ONE BUTTON      "TALK TO THE WATCH"        0 Spanish words
+the card on glass   WATCH | NAME | YOU HAVE NOT ASKED | SPEAKS | ENGLISH |
+                    LIVES | ... | RUNS WITH | CHURCH | ...
+                                               0 Spanish words
+```
+
+## TWO MORE MUTATIONS
+
+| break | result |
+|---|---|
+| **M7** the SPEAKS row taken off the city card (**the exact state that shipped this morning**) | **3 red**, printing the card text that is missing it |
+| **M8** the one button starts speaking the person's language (`HABLA CON THE WORKER`) | **1 red**, the headline claim, naming the button string and the words |
+
+## AND A PROBE ERROR, CAUGHT BEFORE IT WAS FILED
+
+The first run reported **the TALK button invisible while standing next to
+somebody** -- which would have been a demo blocker: you cannot talk to anybody
+because the verb never appears. It was my probe. `ctVerb()` runs on render, and I
+had moved the player by setting coordinates instead of letting the world draw.
+Rendering the way movement does, the button is there and says `TALK TO THE
+WATCH`. **Fifth probe error caught by measuring twice across two sessions, and
+none of them filed as a finding.**
+
+| file | what |
+|---|---|
+| `tools/bohemia_city_speaks_row_patch.py` | the SPEAKS row on the card he actually opens |
+| `gates/language_gate.js` | 63 -> 67 claims; G reads pixels, F checks the right drawer |
