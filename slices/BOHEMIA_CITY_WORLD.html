@@ -25876,6 +25876,87 @@ const TEXKIND={
     x.fillRect(0,0,TPX,1);                                       /* the sky-lit top edge (45 LAW) */
     x.fillStyle=_rgb(B[0]-24,B[1]-24,B[2]-22); x.fillRect(0,TPX-1,TPX,1);
   },
+  /* CHAIN-LINK, AND THE POINT OF IT IS WHAT IS **NOT** DRAWN. Every other painter here fills
+     the tile; this one leaves most of it EMPTY, and the ground the renderer already drew
+     underneath shows straight through. That is not a trick -- it is what a chain-link fence
+     IS, and it is why a fence has never read as a fence in this game: a solid band of shingles
+     ringing a district is a WALL, whatever the legend calls it.
+     WHAT YOU ACTUALLY SEE, from the world's three-quarter view: the DIAMOND MESH as a haze of
+     fine diagonals crossing both ways, the TOP RAIL as the one solid line (it is the only part
+     of a chain-link fence that reads at distance, which is why every photograph of one is a
+     bright horizontal line over a grey blur), and the POSTS as verticals at a regular bay.
+     AND IT IS TEN YEARS DEAD, which every one of these legends says out loud -- "wire sagging",
+     "sagging, some down", "cut through in places", "pushed over where the last flood shoved a
+     tree into it". So a bay is sometimes simply GONE: no mesh, just the posts and the rail, and
+     the ground of the district on the other side. */
+  chainlink(x,B,r){
+    const M=[Math.min(255,B[0]+34),Math.min(255,B[1]+35),Math.min(255,B[2]+36)];
+    const gone=r()<0.22;                                          /* this bay is down */
+    if(!gone){
+      x.globalAlpha=0.44;                                         /* THE MESH, a haze not a wall */
+      x.fillStyle=_rgb(M[0],M[1],M[2]);
+      for(let k=-TPX;k<TPX*2;k+=4){
+        for(let i=0;i<TPX;i++){ const px2=k+i;
+          if(px2>=0&&px2<TPX) x.fillRect(px2,i,1,1);              /* one diagonal */
+          const qx=k-i+TPX;
+          if(qx>=0&&qx<TPX) x.fillRect(qx,i,1,1); }               /* and the other */
+      }
+      x.globalAlpha=1;
+    }
+    /* ONE POST, SOMETIMES, AND THAT IS A SCALE FACT NOT A STYLE CHOICE. The first cut drew a
+       post every 11 texture pixels, which is FOUR POSTS PER TILE -- one every 19 centimetres.
+       A chain-link line post is every 3 m. A tile is 0.75 m, so a post belongs in roughly one
+       tile in four, not four times in one. Caught by looking at the picture; the arithmetic was
+       there to be done and I had not done it.
+       (The mesh pitch was right by luck and is right on purpose now: 44 px across 0.75 m is
+       17 mm a pixel, and a 50 mm chain-link diamond is three of them. A 4 px lattice it is.) */
+    if(r()<0.28){
+      const px2=2+((r()*(TPX-4))|0);
+      x.fillStyle=_rgb(B[0]+10,B[1]+10,B[2]+10); x.fillRect(px2,0,1,TPX);
+      x.fillStyle=_rgb(B[0]-28,B[1]-28,B[2]-26); x.fillRect(px2+1,0,1,TPX); }
+    x.fillStyle=_rgb(Math.min(255,M[0]+16),Math.min(255,M[1]+16),Math.min(255,M[2]+15));
+    x.fillRect(0,1,TPX,1);                                        /* THE TOP RAIL, sky-lit (45 LAW) */
+    x.fillStyle=_rgb(B[0]-30,B[1]-30,B[2]-28); x.fillRect(0,2,TPX,1);
+    for(let k=0;k<2;k++){                                         /* rust off the fittings */
+      const sx=(r()*TPX)|0, sy=1+((r()*(TPX-6))|0), g0=(B[0]+B[1]+B[2])/3;
+      x.globalAlpha=0.6;
+      x.fillStyle=_rgb(Math.min(255,(g0*0.84+50)|0),(g0*0.50+16)|0,(g0*0.28+7)|0);
+      x.fillRect(sx,sy,1,2+((r()*5)|0)); x.globalAlpha=1; }
+  },
+  /* ADOBE. Not concrete, and the difference is the whole reason this is its own row.
+     Poured concrete is placed in LIFTS and leaches CALCIUM; adobe is BRICK, laid in courses, and
+     it does not leach, it MELTS. A mud brick is earth and straw dried in the sun, and what a
+     century and a half of weather does to it is round every edge off -- the courses slump, the
+     corners go soft, and where rain has run there are shallow vertical runnels washed into the
+     face. The fort's own legend says it: "mud brick under a century of weather, slumped in two
+     places", and the building beside it is "THE original adobe building -- the oldest standing
+     structure in the valley".
+     SO: NO STRAIGHT LINES. Paolo 8/1, about hair, and it is the same law -- a course line here
+     wobbles a pixel because a hand-laid mud course does. No specular anywhere: adobe is the
+     least reflective surface in the game, which is what separates it from steel at a glance,
+     and it is warmer and grainier than concrete, which separates it from that. */
+  adobe(x,B,r){
+    for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,13); x.fillRect(px2,py,1,1); }
+    for(let cy=5;cy<TPX;cy+=6){                                  /* THE COURSES, and they wobble */
+      let yy=cy;
+      for(let px2=0;px2<TPX;px2++){
+        if(r()<0.16) yy+=(r()<0.5?-1:1);                          /* laid by hand, not a ruler */
+        if(yy<0)yy=0; if(yy>=TPX)yy=TPX-1;
+        x.fillStyle=_rgb(B[0]-21,B[1]-19,B[2]-16); x.fillRect(px2,yy,1,1);
+        x.fillStyle=_rgb(Math.min(255,B[0]+11),Math.min(255,B[1]+9),Math.min(255,B[2]+6));
+        x.fillRect(px2,yy+1,1,1); }
+    }
+    for(let k=0;k<2;k++){                                        /* rain runnels, washed IN */
+      const sx=(r()*TPX)|0, sy=(r()*(TPX>>1))|0;
+      x.fillStyle=_rgb(B[0]-15,B[1]-14,B[2]-12);
+      x.fillRect(sx,sy,1,Math.min(TPX-sy,(TPX>>1)+((r()*(TPX>>1))|0))); }
+    for(let k=0;k<3;k++){                                        /* where a brick has gone */
+      const sx=(r()*(TPX-3))|0, sy=(r()*(TPX-3))|0;
+      x.fillStyle=_rgb(B[0]-27,B[1]-25,B[2]-21); x.fillRect(sx,sy,2+((r()*2)|0),2); }
+    x.fillStyle=_rgb(Math.min(255,B[0]+15),Math.min(255,B[1]+13),Math.min(255,B[2]+9));
+    x.fillRect(0,0,TPX,1);                                       /* the sun on top (45 LAW) */
+    x.fillStyle=_rgb(B[0]-20,B[1]-18,B[2]-15); x.fillRect(0,TPX-1,TPX,1);
+  },
 /* __CONCRETE_IS_NOT_A_ROOF_TEX__ END */
   rock(x,B,r){ for(let py=0;py<TPX;py++)for(let px2=0;px2<TPX;px2++){ x.fillStyle=_jit(B,r,13); x.fillRect(px2,py,1,1); }
     for(let k=0;k<8;k++){ const px2=(r()*(TPX-3))|0,py=(r()*(TPX-3))|0; x.fillStyle=_rgb(B[0]-28,B[1]-26,B[2]-24); x.fillRect(px2,py,3,3);
@@ -26101,6 +26182,17 @@ function texForKind(kind,col,variant){
    Rows are tried in order and the FIRST match wins, so the specific sits above the general. */
 var MATERIALS=[
   /* [material, the object IS this mass (matched on the NAME), the material text, a veto] */
+  /* ADOBE SITS ABOVE CONCRETE ON PURPOSE. "adobe wall" matches the concrete row's NAME pattern
+     (wall), so if concrete came first the fort would be poured concrete -- which is the
+     exact lie this row exists to stop. First match wins, so the specific goes above the
+     general, and that ordering is asserted by the gate.
+     It was pulled OUT of concrete on 8/25 because I could not photograph the fort to check.
+     tools/bohemia_material_peek.js is why it can come back: mud brick now has its own painter
+     and its own picture. */
+  ['adobe',
+   /\bwall\b|\bbuilding\b|bastion|parapet/i,
+   /adobe|mud ?brick|\bcob\b/i,
+   null],
   ['concrete',
    /\bwall\b|\bpier\b|\bcolumn\b|barrier|\bsilo\b|\bdike\b|revetment|culvert|storm drain|\barch\b|anchor block|traverse|facade|bollard|\bpad\b|clarifier|outlet works|flood structure|transmission main|drying tower/i,
    /concrete|masonry|cinder ?block|\bcmu\b|shotcrete|gunite|precast|reinforced/i,
@@ -26114,6 +26206,19 @@ var MATERIALS=[
      AND THE VETO EARNS ITS KEEP HERE: "screen tower" is a rock screen at the quarry and a
      MOVIE SCREEN at the drive-in. One name, two objects, and one of them is a painted sheet
      that must not become corrugated steel. Vetoed by name. */
+  /* CHAIN-LINK, AND IT IS THE FIRST MATERIAL HERE THAT IS MOSTLY NOT THERE. A fence you cannot
+     see through is not a fence, it is a wall -- and every perimeter fence in the valley has
+     been a solid band of house shingles ringing every district. This is the biggest population
+     of the three: 32 of them, in nearly every district that has a boundary at all.
+     MATCHED ON THE NAME, AND THE NAME MUST NOT SAY WALL. `prison:12 administration` mentions a
+     fence in its act-1 line and is a BUILDING; `suburb:4 wall` is "block perimeter wall, tan
+     stucco"; `courthouse:20 secure yard wall` is masonry with wire on top. All three stay out,
+     and all three would have come in on an act-1 match. minigp:12 "tyre barrier" is a stack of
+     tyres and is neither -- it waits for its own row. */
+  ['chainlink',
+   /fence|chain.?link|\bmesh\b/i,
+   /./,
+   /\bwall\b|stucco|masonry|\btyre\b|\btire\b|razor/i],
   ['steel',
    /gantry crane|catwalk|pipe gallery|pipe rack|pipe manifold|switchgear|busbar|conveyor|hoist|derrick|guardrail|water tank|surge tank|storage tank|headframe|screen tower|lattice|\bmast\b|scaffold|trestle|hopper|vent stack|calciner stack|crushed-car stack|\bcrane\b|\bsilo\b/i,
    /./,
@@ -26133,12 +26238,10 @@ function __materialOf(entry){
   }
   return null;
 }
-/* ADOBE IS DELIBERATELY ABSENT. The fort's curtain wall is MUD BRICK, and lift lines and
-   calcium leaching are signatures of POURED concrete -- they would be a lie on it. It was in
-   the first cut and came out because I could not photograph the fort to check. DO NOT SHIP A
-   MATERIAL YOU HAVE NOT LOOKED AT. tools/bohemia_material_peek.js exists now precisely so that
-   is never the reason again; adobe gets its own painter (warm, coursed, slumped, no leaching)
-   and until then the fort is UNCHANGED rather than wrong in a new way. */
+/* ADOBE CAME BACK, WITH ITS OWN PAINTER AND ITS OWN PICTURE. It was pulled out of the concrete
+   row on 8/25 because I could not photograph the fort to check, and shipping a material you
+   have not looked at is how the last one nearly went wrong. It has a row of its own now, above
+   concrete so "adobe wall" cannot fall into it. */
 function __concreteTile(entry){ return __materialOf(entry)==='concrete'; }
 /* __CONCRETE_IS_NOT_A_ROOF_PICK__ END */
 function texFor(col,isStruct,variant){ if(!isStruct){ const sp=SA_MAP[col]; if(sp){ const t2=saTex(sp,variant); if(t2)return t2; } } if(isStruct){ const wp=WALL_MAP[col]; if(wp){ const t3=saTex(wp,variant); if(t3)return t3; } } /* BUILDING ART (7/20): approved house-stamp roofs for residential structures */ if(isStruct&&(col==='#c04030'||col==='#7a5a48')){ const t3=saTex('roof',variant); if(t3)return t3; }

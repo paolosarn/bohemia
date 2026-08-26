@@ -24,6 +24,8 @@ const REPO = path.dirname(__dirname);
 // it for free; nobody quietly drops one.
 const CONCRETE_FLOOR = 21;
 const STEEL_FLOOR = 25;
+const CHAINLINK_FLOOR = 31;
+const ADOBE_FLOOR = 1;
 
 (async () => {
   let pass = 0, fail = 0;
@@ -80,10 +82,19 @@ const STEEL_FLOOR = 25;
       routed, shared, total, dam, byMat,
       hasPainter: typeof TEXKIND.concrete === 'function',
       hasSteel: typeof TEXKIND.steel === 'function',
+      hasChain: typeof TEXKIND.chainlink === 'function',
+      hasAdobe: typeof TEXKIND.adobe === 'function',
       /* THE VETO, BY EXAMPLE. "screen tower" is a rock screen at the quarry and a MOVIE SCREEN
          at the drive-in: one name, two objects, and one of them is a painted sheet that must
          not become corrugated steel. */
       movieScreen: __materialOf(K.get('drivein').legend[6]),
+      /* CHAIN-LINK IS MATCHED ON THE NAME AND THE NAME MUST NOT SAY WALL. All three of these
+         would have come in on an act-1 match and all three are wrong. */
+      prisonAdmin: (K.get('prison') ? __materialOf(K.get('prison').legend[12]) : null),
+      courtWall: (K.get('courthouse') ? __materialOf(K.get('courthouse').legend[20]) : null),
+      jailRazor: (K.get('jail') ? __materialOf(K.get('jail').legend[8]) : null),
+      tyreWall: (K.get('minigp') ? __materialOf(K.get('minigp').legend[12]) : null),
+      yardFence: (K.get('railyard') ? __materialOf(K.get('railyard').legend[12]) : null),
       rockScreen: __materialOf(K.get('quarry').legend[14]),
       gantry: __materialOf(K.get('railyard').legend[13]),
       /* the discriminator, by example: a roofed building made OF concrete must stay roofed */
@@ -118,9 +129,31 @@ const STEEL_FLOOR = 25;
      R.store === null);
   ok('...and neither does warehouse:2 tenant unit (tilt-up, and its act-1 line says concrete)',
      R.warehouse === null);
-  ok('ADOBE IS NOT CONCRETE: the fort\'s mud-brick curtain wall does not route (lift lines and ' +
-     'calcium leaching are signatures of POURED concrete and would be a lie on it)',
-     R.fort === null);
+  /* ADOBE IS NOT CONCRETE, and its row sits ABOVE concrete because "adobe wall" matches the
+     concrete row's NAME pattern -- first match wins, so the specific goes above the general.
+     If that ordering is ever lost the fort silently becomes poured concrete, which is exactly
+     the lie the row exists to stop. */
+  ok('ADOBE IS ITS OWN MATERIAL: the fort\'s mud-brick curtain wall is adobe, NOT concrete ' +
+     '(lift lines and calcium leaching are signatures of a POURED wall and would be a lie on ' +
+     'sun-dried brick)', R.fort === 'adobe');
+  ok('there is an ADOBE painter -- coursed, wobbling, no specular and NO leaching',
+     R.hasAdobe);
+  ok(`adobe is routed and the set only GROWS (${(R.byMat.adobe || []).length} of ${ADOBE_FLOOR})`,
+     (R.byMat.adobe || []).length >= ADOBE_FLOOR);
+
+  ok('there is a CHAIN-LINK painter -- the first material here that is mostly NOT DRAWN, ' +
+     'because a fence you cannot see through is a wall', R.hasChain);
+  ok(`the fences are routed and the set only GROWS (${(R.byMat.chainlink || []).length} of ` +
+     `${CHAINLINK_FLOOR})`, (R.byMat.chainlink || []).length >= CHAINLINK_FLOOR);
+  ok('a perimeter fence is chain-link', R.yardFence === 'chainlink');
+  ok('...but prison:12 "administration" is a BUILDING that merely MENTIONS a fence, and stays ' +
+     'a building', R.prisonAdmin === null);
+  ok('...and courthouse:20 "secure yard wall" is masonry with wire on top, not mesh',
+     R.courtWall === null);
+  ok('...and jail:8 "razor wire (wall top)" is a coil on a wall, not a fence',
+     R.jailRazor === null);
+  ok('...and minigp:12 "tyre barrier" is a stack of tyres and waits for its own row',
+     R.tyreWall === null);
 
   ok('the dam wall no longer carries the APPROVED HOUSE-ROOF pool' +
      (R.dam ? ' (artPool=' + R.dam.artPool + ')' : ' -- NO DAM CELL FOUND'),
@@ -145,6 +178,12 @@ const STEEL_FLOOR = 25;
      /var _mat=__materialOf\(entry\); if\(_mat\) c\.sTex=_mat;/.test(src));
   ok('ONE TABLE, MANY MATERIALS (FACTORY LAW): adding a material is a ROW, not a mechanism',
      /var MATERIALS=\[/.test(src));
+  /* FIRST MATCH WINS, so the SPECIFIC must sit above the GENERAL. adobe above concrete, and
+     chainlink above steel (a "catch fence" is mesh, not a mast). Asserted on the source order
+     rather than trusted, because losing it is silent: the fort just quietly becomes concrete. */
+  ok('THE TABLE IS ORDERED SPECIFIC-FIRST: adobe above concrete, chain-link above steel',
+     src.indexOf("['adobe'") < src.indexOf("['concrete'") &&
+     src.indexOf("['chainlink'") < src.indexOf("['steel'"));
   ok('APPROVED ART STILL WINS: the procedural branch sits AFTER the art-pool branches, so ' +
      'anything resolving to a judged pool keeps it',
      src.indexOf("else if(c.sTex) x.drawImage") > src.indexOf('if(_ht2){ x.drawImage'));

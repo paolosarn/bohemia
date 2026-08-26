@@ -77,7 +77,13 @@ if (!MATERIAL && (!DIST || CODE === null)) {
       if (d && t.district !== d) continue;
       let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
       const grid = m && (m.kit || m.sub); if (!grid) continue;
-      for (let ly = 12; ly < FN - 12; ly++) for (let lx = 12; lx < FN - 12; lx++) {
+      /* SEARCH THE WHOLE PLOT, NOT AN INSET OF IT. The first cut looked at 12..FN-12 to keep
+         the camera off the cell seam, and it reported MISS for substation:12 -- because a
+         PERIMETER FENCE lives on the perimeter, rows 7 and H-8, which the inset threw away.
+         An instrument that cannot see the edge of a plot cannot photograph a fence, a wall, a
+         sound wall or a gate: most of the boundary vocabulary of the game. It failed LOUDLY,
+         which is the only reason this was a two-minute fix and not a wrong picture. */
+      for (let ly = 2; ly < FN - 2; ly++) for (let lx = 2; lx < FN - 2; lx++) {
         if (want !== null && grid[ly * FN + lx] !== want) continue;
         if (mat) {
           const cell = realizeCell(tx * FN + lx, ty * FN + ly);

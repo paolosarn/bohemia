@@ -182,7 +182,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 501,
+   "kb": 508,
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only vista"
@@ -227,7 +227,7 @@
     "y": 900,
     "zoom": 26
    },
-   "kb": 146.6,
+   "kb": 149.9,
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-pit-dug"
@@ -492,6 +492,21 @@
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_one_haircut_eight_ways.js"
+  },
+  {
+   "id": "you-can-see-through-it",
+   "title": "A FENCE YOU CAN SEE THROUGH",
+   "caption": "Every perimeter fence in the city was a solid band of house roof tiles ringing every district. Thirty-one of them. A fence you cannot see through is a WALL, whatever the map calls it. These are chain-link now, and the trick is what is NOT drawn: the tile is mostly empty and the ground on the far side shows straight through the mesh, with the posts every three metres and the top rail catching the light. Some panels are simply gone, because the fences here have been down for ten years and every one of these legends already said so. RUN tab, walk up to any fence line.",
+   "file": "look/you-can-see-through-it.png",
+   "at": {
+    "x": 4360,
+    "y": 5002,
+    "zoom": 12
+   },
+   "kb": 276.5,
+   "stamp": "8/25/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_look_shots.js --only you-can-see-through-it"
   }
  ]
 }

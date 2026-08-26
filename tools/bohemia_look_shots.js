@@ -267,6 +267,23 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    /* ADDED 8/25 (c). Chain-link is the first material here that is mostly NOT DRAWN: the tile
+       is left transparent and the ground the renderer already drew shows through it. A fence
+       you cannot see through is a wall, whatever the legend calls it. */
+    id: 'you-can-see-through-it',
+    title: 'A FENCE YOU CAN SEE THROUGH',
+    caption: 'Every perimeter fence in the city was a solid band of house roof tiles ringing every district. Thirty-one of them. A fence you cannot see through is a WALL, whatever the map calls it. These are chain-link now, and the trick is what is NOT drawn: the tile is mostly empty and the ground on the far side shows straight through the mesh, with the posts every three metres and the top rail catching the light. Some panels are simply gone, because the fences here have been down for ten years and every one of these legends already said so. RUN tab, walk up to any fence line.',
+    find: `(() => {
+      for (let ty = 2; ty < om.n - 2; ty++) for (let tx = 2; tx < om.n - 2; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'substation') continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m || !m.kit) continue;
+        for (let ly = 2; ly < FN - 2; ly++) for (let lx = 2; lx < FN - 2; lx++)
+          if (m.kit[ly * FN + lx] === 12)
+            return { hx: tx * FN + lx, hy: ty * FN + ly, zoom: 12 };
+      } return null; })()`,
+  },
+  {
     /* ADDED 8/25 (b). Steel was the second material out of the house-roof art. A tank shell
        shows it better than a crane does: the crane is a thin structure and reads as ten tiles
        on screen, the tank is a mass you can actually judge a material on. */
@@ -574,7 +591,19 @@ async function restoreShellChrome(shell) {
        picture and says why. */
     if (s.open) {
       let got = null, err = '';
-      try { got = await ctx.evaluate(s.open); } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
+      /* A SUBJECT THAT HANGS MUST NOT TAKE THE WHOLE PASS WITH IT (8/25). `vista` opens a
+         camera MOMENT rather than hunting a place, and its open() sat for THIRTY MINUTES
+         without returning or throwing -- so a full LOOK pass never finished, every later
+         subject went untaken, and killing it killed the run. One subject blocked a lane.
+         A bounded wait turns a hang into a reported MISS, which is the same contract every
+         other failure in this file already has: produce a real frame, or write no picture and
+         SAY WHY. Never neither. */
+      try {
+        got = await Promise.race([
+          ctx.evaluate(s.open),
+          new Promise((_r, rej) => setTimeout(() => rej(new Error('open() did not return in 90s')), 90000)),
+        ]);
+      } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
       if (!got) { console.log('  MISS  ' + s.id.padEnd(16) + 'the moment did not open' + err); continue; }
       await shell.waitForTimeout(1400);
       await ctx.evaluate((keep) => {
