@@ -76,7 +76,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #app{position:fixed;inset:0;display:none;flex-direction:column}
 #tabs{display:flex;background:#0d0b09;border-bottom:1px solid #241c12;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:none;scrollbar-width:none;padding:0 10px;scroll-behavior:smooth;cursor:grab}#tabs::-webkit-scrollbar{display:none}#tabs.drag{cursor:grabbing;scroll-behavior:auto}#tabs::-webkit-scrollbar{display:none}#tabs .tab{flex:0 0 auto;touch-action:pan-x}
 .tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;letter-spacing:2px;color:#6a5a3e;cursor:pointer;border-bottom:2px solid transparent}
-.tab.on{color:#dbe4f2;border-bottom-color:#c81e8c}
+.tab.on{color:#dbe4f2;border-bottom-color:#d8a742}
 #stage{flex:1;position:relative;overflow:hidden;background:#0a0908}
 .panel{position:absolute;inset:0;display:none;overflow:auto;-webkit-overflow-scrolling:touch}
 .panel.on{display:block}
@@ -89,7 +89,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .row{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;align-items:center}
 .row b{width:100%;font-size:10px;letter-spacing:2px;color:#7a6a4a;margin-bottom:2px}
 button.opt{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:6px 10px;font-size:11px;border-radius:4px;cursor:pointer}
-button.opt.on{background:#2a1e10;border-color:#c81e8c;color:#fff}
+button.opt.on{background:#2a1e10;border-color:#d8a742;color:#fff}
 select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:5px;border-radius:4px;font-size:11px}
 #portraitCv{border-radius:50%;border:2px solid #2e2416;background:#12100c;margin:8px auto;display:block;cursor:pointer;width:132px;height:132px;image-rendering:pixelated}
 .swatch{width:22px;height:22px;border-radius:3px;border:1px solid #0008;cursor:pointer}
@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26f - A PLATE IS A THING YOU CARRY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26g - THE BOHEMIA LOOK, AND YOU PICK IT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1127,6 +1127,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
 <div id="app">
   <div id="tabs">
     <div class="tab" data-p="vote">VOTE</div>
+    <div class="tab" data-p="ui">UI</div>
     <div class="tab" data-p="look">LOOK</div><div class="tab" data-p="words">WORDS</div><div class="tab" data-p="cutscene">CUTSCENE</div><div class="tab" data-p="direct">DIRECT</div><div class="tab" data-p="run">RUN</div>
     <div class="tab on" data-p="char">CHARACTER</div>
     <div class="tab" data-p="clothes">CLOTHES</div>
@@ -1141,6 +1142,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   </div>
   <div id="syncBadge"></div><!-- EMPTY AT REST: this is the rig-rebuild indicator and it lives OUTSIDE #stage, so it renders on every tab including RUN. It speaks only when a rebuild lands, then goes quiet again. -->
   <div id="stage">
+    <div class="panel" id="p-ui"><iframe id="uiFrame" data-src="BOHEMIA_UI_CURRENT.html" title="the bohemia look, and what you pick" style="width:100%;height:100%;border:0;background:#0c0a07"></iframe></div>
     <div class="panel" id="p-vote"><iframe id="voteFrame" data-src="BOHEMIA_VOTE_CURRENT.html" title="vote on what is new" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
     <div class="panel" id="p-run" style="position:relative">
 <!-- ===== BOHEMIA OPENING OVERLAY (generated) ===== -->

@@ -1249,7 +1249,7 @@ RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
    target_screen_gate.py, so contract and code cannot drift. TWO CLAUSES ARE
    HONESTLY UNMET AND SAY SO IN THE DOC: (a) the 64-colour master ramp is
    DERIVED (records/target/BOHEMIA_MASTER_PALETTE.json) but the approved corpus
-   is continuous-tone, 59,377 colours across the plates — indexing lands with
+   is continuous-tone, 59,377 colours across the boxes — indexing lands with
    the act-1 tileset (item 2) and is held meanwhile by a ratchet ceiling;
    (b) live canvas memory vs the ~224MB iOS floor is NOT instrumented and the
    gate does not pretend to check it. Order note: amendment D landed on main
@@ -2342,7 +2342,7 @@ ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed
    records/BOHEMIA_WHAT_IS_IN_THE_ROOM_8_18_26.md. Three classes and only one hides you:
    COVER is chest-to-head and opaque, LOW blocks the body and never the look (no crouch,
    so a sofa cannot pretend), LOOSE blocks nothing. Stranded cells 9,630 -> 3,053 (-68%),
-   break point 320 -> 224 tiles and ratcheted. The smallest plates are IMPROVED and NOT
+   break point 320 -> 224 tiles and ratcheted. The smallest boxes are IMPROVED and NOT
    claimed fixed, because tuning density until a shed goes green would be lying. It
    landed the same day __CITY_FIGHT__ made the door the fight, so the furnished room IS
    the fight room. REUSE CHECK ended in a WARNING: both interior banks are generic asset
@@ -2618,13 +2618,13 @@ V0. [DONE 7/27 — HIS ORDER] JUDGE EVERYTHING, BULK AND ONE BY ONE.
    judged so a second pass only shows what is left. SUN MODE, global comment, export
    .txt. REACHABLE: a card at the top of the LIFE hub, so it is not another file he
    has to know the name of.
-   COOKS NOTHING (REUSE-FIRST): plates render from the existing grid dump, icons are
+   COOKS NOTHING (REUSE-FIRST): boxes render from the existing grid dump, icons are
    read verbatim out of the existing hero bank.
    FOUND DOING IT: tools/bohemia_district_grid_dump.js was missing suburb and
    substation, two real DISTGEN types — so every consumer of that dump has been blind
    to them. Added. (gated + estate legitimately share the suburb generator.)
    VERIFIED ON THE REAL SURFACE: booted the hub in a 390x844 browser, tapped the card,
-   landed on the page, 72 plates loaded, exercised bulk + individual + toggle-off +
+   landed on the page, 72 boxes loaded, exercised bulk + individual + toggle-off +
    comment + export and read the exported .txt back. Zero console errors.
 ICON LAW (Paolo 7/27, LOCKED — laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md):
 "anytime you build something like this you have to make a city builder icon as well like
@@ -2798,8 +2798,8 @@ stories the world cannot host yet.
           getting that wrong makes this the stadium district again. THE COORDINATE
           SYSTEM IS THE DESIGN: not x and y but a (how far ALONG a foul line) and q
           (how DEEP into foul territory), so the bowl is three bands of depth that wrap
-          the plate and run down both lines on their own. The first version used RADIUS
-          from home plate: a ring behind the plate is a ring, so the seating came out
+          the box and run down both lines on their own. The first version used RADIUS
+          from home plate: a ring behind the box is a ring, so the seating came out
           as two disconnected wings with a hole where the backstop belongs.
           THE BUGS: (1) G.rect takes (x0,y0,x1,y1) and I passed (x0,x1,y0,y1) —
           systematic, across both districts; the town's alleys and the ballpark's
@@ -2809,7 +2809,7 @@ stories the world cannot host yet.
           territory was one solid dirt apron and the park read as a brown blob.
           (4) The lot was a barcode too. All four found by measuring or by looking.
           THE ICONS: the ballpark's is drawn from BEHIND HOME PLATE, which is not a
-          style choice — put the plate at the front and the grandstand stands between
+          style choice — put the box at the front and the grandstand stands between
           the viewer and the whole park. Home at the back corner means the foul lines
           run along the two ground axes, so the infield square renders as a true
           DIAMOND in the 45-degree view for free. Two iterations after that: the bowl
@@ -7286,6 +7286,35 @@ UI-1. *** THE BOHEMIA LOOK, AND HE WANTS TO MAKE IT WITH YOU, NOT RECEIVE
    HE MUST BE ABLE TO DIRECT IT (8/12): whatever ships, he changes it
    himself in a tab. | one page of the look, in a tab, editable | the
    look itself is HIS | YES -- this one he judges, because he asked to. ***
+UI-1 SHIPPED 8/26, AND IT IS NOW WAITING ON HIM. The vocabulary page is in
+   the UI TAB (first tab in the bar): seven forks -- corner, line, colour,
+   letters, dirt, PRESSED, and what replaces the dead feed art -- each with
+   real pressable samples, each picked with ONE LETTER, and every pick
+   re-skins a live game screen at the top and the bottom of the page.
+   Picks save on his phone and export .txt. Record:
+   records/BOHEMIA_THE_UI_LANE_OPENS_AND_THE_CHROME_WAS_PURPLE_8_26_26.md
+   Gate: ui_vocab_gate (54 checks, 7 mutations, registered as UI VOCAB).
+   NOTHING DOWNSTREAM IS BUILT UNTIL HE PICKS -- that is the point of the
+   lane, not a stall. What IS already decided and shipped: the REFUSAL look
+   (ui_deny's visual twin, SHARED SILENT-2) and THE BOX, the one primitive
+   every box is made of.
+UI-3. *** THE SHARED CHROME WAS THE AMALGAMATION'S COLOUR (found + fixed
+   8/26, UI lane). PURPLE RESERVATION has been law since 7/10 and
+   bohemia_purity_gate.py sweeps 33 BANKS of world art -- it has never once
+   looked at the INTERFACE. Measured: `.tab.on` and `button.opt.on` were both
+   #c81e8c, so the underline under the tab he is standing in and the edge of
+   every selected button on seventeen panels were the rarest colour in the
+   game. Both are the shipped gold now, and ui_vocab_gate RATCHETS the rest of
+   the alpha: 30 occurrences left, the number may fall forever and may never
+   rise. WHAT IS LEFT IS OTHER LANES' PANELS and is filed as rows under MUSIC,
+   CLOTHES, RIG and CHARACTER below -- the fault seam (1) is LEGAL and stays.
+   | zero purple in the shared chrome, ratchet green | - | no. TAB: every tab. ***
+UI-4. *** THE GAME HAS NO TYPEFACE (found 8/26, UI lane). The alpha asks for
+   'Space Grotesk' in exactly one place, has no @font-face, no font file and
+   no network fetch, so it has NEVER rendered -- every letter in the build is
+   whatever the phone decided. It is fork 4 on the vocabulary page with three
+   system faces that need no download. Blocked on his letter, like the rest.
+   | one named face, actually loading | which face = HIS | it is on the page. ***
 UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
@@ -7304,6 +7333,25 @@ UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-15. *** FOUR PANELS ARE STILL PAINTED IN THE AMALGAMATION'S COLOUR (found
+   8/26 by the UI lane; the shared chrome is already fixed, these are inside
+   other lanes' panels so their lanes own them). PURPLE RESERVATION (7/10,
+   LOCKED) is enforced on 33 banks of world art and was NEVER enforced on the
+   interface. Whoever touches one of these panels next, fix it in passing --
+   each is a one-token colour swap with zero behaviour change, and every one
+   makes ui_vocab_gate's ratchet number fall:
+     MUSIC     the studio PLAY button (#c81e8c border, #e8c9de text) and the
+               mixer chrome (#8f6fd0, #c2a6f5). NOT the song `acc:` colours --
+               those are DATA, several belong to songs he has judged, and
+               nobody rewrites those without him.
+     CLOTHES   two sun-mode headings, #5a3fa0.
+     RIG       the skeleton debug overlay's strokeStyle, #c81e8c. Teal
+               (#61a89f) is in the palette and reads just as hard on skin.
+     CHARACTER the palette dev tool's locked-swatch outline and its colour
+               input default, both #c81e8c.
+   LEGAL AND STAYS: the Amalgamation fault seam. That is the law's own
+   blessing and the reason the colour is worth anything.
+   | the ratchet number falls | - | no. TAB: MUSIC / CLOTHES / RIG / CHARACTER. ***
 -14. *** CUT THE DEMO. IT DOES NOT EXIST AND THAT IS THE HEADLINE (Paolo
    8/25, LOCKED: "THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS
    WORKSHOP LINK... WE ARE NOT READY FOR THE DEMO YET!" Law:

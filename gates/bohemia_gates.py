@@ -2533,6 +2533,26 @@ GATES = [
      'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
      'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
      'does, because a tab that throws on open passes every source check ever written', False),
+    ('UI VOCAB',       ['node', 'gates/ui_vocab_gate.js'],
+     'Paolo 8/25: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME ... CRAFT THIS BOHEMIA LOOK '
+     'BY MYSELF WITH YOU." The UI lane\'s first page: seven forks (corner, line, colour, '
+     'letters, dirt, pressed, the feed post) with real live samples he picks with one letter, '
+     'in the UI tab. A PAGE OF DESIGN OPTIONS HAS ONE CLASSIC WAY OF LYING and it is not a '
+     'crash -- THE OPTIONS ALL LOOK THE SAME, which every source check ever written passes. '
+     'So the centre of this gate measures each option\'s RENDERED style on the real element '
+     'and proves the siblings differ; PRESSED is the one fork that does not exist standing '
+     'still, so it is measured under a real mouse-down instead, and skipping it turns a leg '
+     'red. Plus: a pick must visibly change the live preview, chosen is never colour alone '
+     '(heavier edge + a tick in the letter), his picks survive a reload, every control clears '
+     '44px, SUN MODE really goes light and still reads at 4.5:1, and a REFUSED button says so '
+     'in words and in shape, never sound or colour alone. AND IT CLOSES THE HALF OF THE '
+     'PURPLE RESERVATION NOBODY WAS ENFORCING: bohemia_purity_gate.py sweeps 33 banks of '
+     'world art and has never looked at the interface, so the workshop\'s own tab underline '
+     'and the edge of every selected button on every panel were the Amalgamation\'s magenta. '
+     'Both are gold now; the chrome is held at ZERO, the rest of the alpha is RATCHETED so it '
+     'can only fall, and the rendered page is swept pixel by pixel through the bank gate\'s '
+     'own arithmetic. Its reading-level leg was mutation-tested and FAILED TO FAIL -- an '
+     'average cannot see one bad sentence -- so the worst sentence is now measured on its own', True),
     ('LIGHT',          ['node', 'gates/light_gate.js'],
      'Paolo 8/3: "you\'re called the art direction chat and you\'re not doing a lot of art '
      'directing ... I can\'t even see it". Measured, he was right: the play area used 110 of '

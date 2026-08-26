@@ -261,11 +261,22 @@ async function walk(chromium, file) {
 
   /* ---- 6. AND THE BENCH IS EXACTLY WHERE HE LEFT IT --------------------- */
   const w = await walk(chromium, 'BOHEMIA_ALPHA_0_9.html');
-  ok('THE WORKSHOP IS UNTOUCHED: all sixteen tabs are still in his bar '
-    + '(' + w.cold.tabs.length + ': ' + w.cold.tabs.join(' ') + '). Seventeen '
-    + 'SURFACES, sixteen tabs -- CITY is the panel the RUN tab routes to and has '
-    + 'never been a tab of its own',
-    w.cold.tabs.length === 16 && w.cold.tabs.includes('run') && w.cold.tabs.includes('char'),
+  /* THE LAW IS "HIS BENCH MUST NOT LOSE A TAB TO MAKE A DEMO", so this asks
+     whether every protected tab is STILL THERE -- not whether the count is
+     exactly sixteen. An exact count also forbids a lane from ever ADDING one,
+     which the law does not, and which is not this gate's business: the UI lane
+     added its own tab on 8/26 and turned this red without going anywhere near
+     the demo. Losing any of the sixteen below is still red, which is the whole
+     point. (Seventeen SURFACES, sixteen protected tabs -- CITY is the panel the
+     RUN tab routes to and has never been a tab of its own.) */
+  const BENCH = ['vote', 'look', 'words', 'cutscene', 'direct', 'run', 'char',
+                 'clothes', 'anim', 'rig', 'combat', 'music', 'map', 'slice',
+                 'life', 'art'];
+  const lost = BENCH.filter(t => !w.cold.tabs.includes(t));
+  ok('THE WORKSHOP IS UNTOUCHED: every one of his sixteen tabs is still in his '
+    + 'bar (' + w.cold.tabs.length + ' present: ' + w.cold.tabs.join(' ') + ')'
+    + (lost.length ? ' -- LOST: ' + lost.join(' ') : ''),
+    lost.length === 0,
     'his bench must not lose a tab to make a demo');
   ok('and his tab bar is still SHOWN, which is the half of the law that protects '
     + 'him rather than the player', w.cold.barShown === true);
