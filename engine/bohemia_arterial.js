@@ -636,8 +636,18 @@
       for (var gi = 0; gi < give.length; gi++) s[String(give[gi]).toUpperCase().charAt(0)] = 1;
       var wantV = !!(s.N || s.S), wantH = !!(s.E || s.W);
       if (!wantV && !wantH) wantV = true;          // told nothing: the old default, unchanged
+      /* AND A RUN HAS ONE AXIS. That is what the word means, and it is what this type is
+         FOR: sidewalks down the two long edges, roadway filling everything between them,
+         no crosswalks and no signals. Handed both axes it would lay a crossing shape with
+         none of a crossing's markings -- an 85%-pavement cell with a bare junction box and
+         nothing to read in it, which is exactly what district_fill_gate caught the first
+         time this took the axis from the caller (arterial's worst config fell 29.1% ->
+         14.3% content). The world never asks for this: kitRoadLegs hands over ONE axis,
+         off roadAxis(), and a cell with a real crossing resolves to `arterial_x` instead.
+         So this is the nonsense case, and the answer to it is to pick one and stay a run. */
+      if (wantV && wantH) { wantH = !((s.N ? 1 : 0) + (s.S ? 1 : 0) >= (s.E ? 1 : 0) + (s.W ? 1 : 0)); wantV = !wantH; }
       o.links = [];
-      if (wantV) o.links.push('N', 'S');           // BOTH legs of every axis it serves
+      if (wantV) o.links.push('N', 'S');           // BOTH legs of the ONE axis it runs on
       if (wantH) o.links.push('E', 'W');
       o.streets = o.links;
       return generate(seed, o);

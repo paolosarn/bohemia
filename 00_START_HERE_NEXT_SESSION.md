@@ -1,3 +1,132 @@
+WORLD (world-9lfjtf): 8/26 (a) LATEST -- *** THE STREETS CONNECT NOW. One road join in
+three in the whole valley did not line up; the mile grid he walks is at ZERO. TAB: RUN to
+walk it. Nothing to judge. ***
+
+Executing PLAYTEST DISPATCH item 4 (Paolo 8/25, LOCKED): "IM SICK OF PLAYING THIS RUN AND
+NONE OF THE STREETS CONNECT EVER! ... LIKE CONSISTENT PUZZLE PIECES AND LEGO BLOCKS SO
+FUCKING BE IT BUT THAT NEEDS TO HAPPPEN."
+
+MEASURED ON THE REAL PAGE. Every place two road cells touch is a SEAM. There are 4,497.
+
+    all classes            1,405 broken (31.2%)  ->  270 (6.0%)
+    arterial to arterial   1,702 of 2,594        ->  ***  0 of 2,594  ***
+    freeway to freeway         0 of 1,415        ->      0 of 1,415
+    rail to rail               0 of    86        ->      0 of    86
+    interchange                3 of    24        ->      3 (named, ratcheting)
+    strip                      4 of   115        ->      4 (named, ratcheting)
+    two DIFFERENT road classes meet              ->    263 (named, ratcheting)
+
+THREE CAUSES, ALL STRUCTURAL, NONE VISIBLE FROM READING ANY ONE FILE.
+
+ 1. EVERY ARTERIAL IN THE VALLEY WAS BUILT NORTH-SOUTH. The registration read
+    `o.links = ['N','S']`. The comment above it is about forcing BOTH LEGS, which is right
+    -- a street that stops half way through a cell is not a street -- but the line forced
+    the AXIS too. 921 road cells (26.1% of every road cell in the game, 907 of them
+    arterials) ran across the way the world connects them. Worst seam: 93 rows of 128, an
+    arterial's SIDEWALK MARGIN against the next arterial's CARRIAGEWAY. The world was right
+    all along -- roadAxis() measures the run, kitRoadLegs() hands over links:['E','W'] for
+    an east-west street -- and this one line threw it away. 921 -> 14, all 14 freeway.
+    AND A RUN HAS ONE AXIS: handed both it now picks one and stays a run, because a
+    crossing shape with none of a crossing's markings is an 85%-pavement cell with nothing
+    to read in it. district_fill_gate caught exactly that (29.1% -> 14.3% content) the
+    first time this took the axis from the caller. The world never asks for both.
+
+ 2. AN ARTERIAL CROSSING AN ARTERIAL WAS NOT A CROSSING. kitRoadLegs decided what counts as
+    a cross street with `if (t.district === d) continue`, commented "my own other half is
+    not a cross street". True of a road running the SAME WAY I do, false of one running
+    ACROSS me, and both are called `arterial`. So the crossing arms were never built: the
+    north-south street ran to the edge of the east-west street's cell and stopped in bare
+    dirt 20 tiles (15 m) short of the roadway. 564 seams. A neighbour is now a cross street
+    when its roadway REACHES the edge we share and it runs across me; the NAME is not part
+    of the question. arterial_x and strip_x also stop forcing all four legs and take the
+    arms they are given, so a T is a T instead of a fourth arm into somebody's back yard.
+    The mile grid resolves to 1,894 runs, 267 T-junctions, 271 four-ways.
+
+ 3. THE CURB RAMP ATE THE CROSSING STREET -- the biggest class of all, and the last one
+    standing after the other two were fixed. At a junction the ramp is drawn out from the
+    corner across the full parkway and walk, twenty tiles, and it was allowed to overwrite
+    ASPHALT. At the far end of that run it landed on the PERPENDICULAR street's carriageway
+    right at the cell boundary and shaved two tiles off each side. The crossing read
+    22..106 and the straight run beside it read 20..108. *** 1,138 seams. One road join in
+    four in the entire game. From four tiles at a corner. ***
+
+AND THE RAMP WAS A LIE ABOUT WHAT IT IS. It was drawn with code 3, the ladder crosswalk,
+kind `marking` -- and a marking is DRIVABLE everywhere in this codebase (the kit counts it
+as a conductor, the drive network drives over it, the contract measures the corridor by
+it). The ramp runs from the curb out to the cell boundary across the whole parkway, so
+every corner of every arterial crossing was declaring FIFTEEN METRES of planted parkway to
+be roadway. It is a ramp. You walk up it. `arterial:18 curb ramp`, kind `walk`, in the
+sidewalk's own concrete -- no new colour cooked for it (REUSE-FIRST).
+
+THE GATE: gates/street_contract_gate.js, on the real page, 14 checks, routed in the suite.
+*** THE ONE DESIGN DECISION IN THE WHOLE THING: the connector is MEASURED OFF THE BUILT
+TILES, NEVER DECLARED. *** The obvious build is a table -- arterial: 6 lanes, centre 0,
+walk 6. That table would have been GREEN ALL DAY ON 8/25 while the valley was in the state
+he played, because a table describes what a street is supposed to be and the bug was always
+in what it actually was. Art and path cannot drift from the contract because the art IS the
+contract. It is also why the mutation test moves PIXELS and not a number.
+  - per family, NO allowance for arterial / freeway / rail: one mismatched edge fails
+  - interchange 3 and strip 4 written down, named, ratcheting; a new road family cannot
+    arrive with a silent allowance
+  - HIS ACCEPTANCE CRITERION IN HIS WORDS: walk a straight line across three districts
+    without the street breaking, on the real surface. 384 tiles, 288 m, two cell
+    boundaries, down the traffic lane AND down the sidewalk.
+  - MUTATION TEST: shift the arterial generator one tile sideways, drop both caches, re-run
+    the identical sweep. 0 broken becomes 631. Then the world is restored and proved
+    unchanged.
+
+THE LESSON, AND IT IS THE SAME ONE AGAIN: *** THE INSTRUMENT WAS THE BROKEN PART, THREE
+TIMES RUNNING. *** First metric counted any solidity change across a seam, which flags
+every legitimate wall. Second demanded a road continue across its own FLANK, which is
+nonsense. Third filtered on a "declared connector" flag that turned out to mean "a road
+neighbour exists in that direction" and therefore filtered nothing -- it returned 4,485 of
+4,485, the signature of a filter that is not filtering. A NEGATIVE RESULT IS A CLAIM ABOUT
+YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT COULD HAVE SEEN A POSITIVE ONE. Hence
+the mutation test, shipped with the gate and not after it. A fourth metric then flagged
+1,956 seams where a raised median met a junction box and where a burnt-out semi sat in a
+lane -- both correct world. THE QUESTION IS WHERE THE ROAD IS, NOT WHETHER EVERY TILE IS
+CLEAR: an island in the middle of a street does not move the street, and neither does a
+wreck.
+
+GATES: street_contract 14/0 (new, routed), street_connectivity 12/0, roadcell 45/0,
+  drive_network 15/0, district_kit 24/0, district_fill 53/0, walkable 73/0, sidewalk 17/0,
+  line_color 30/0, tilespec 310/0, interchange 43/0, rail 36/0, street_facing 16/0,
+  street_source 18/0, suburb_street 13/0.
+RECORD: records/BOHEMIA_THE_STREET_CONTRACT_8_26_26.md
+BUILD: 8/26e - THE STREETS CONNECT NOW
+
+WHAT I DID NOT DO, AND SOMEBODY SHOULD LOOK: I have numbers and green road gates on the
+crossings but NOT a judged picture of one. A four-way arterial is now far more common than
+it was (540 crossing cells where there were almost none), and the junction box is 92x128
+tiles of unmarked asphalt because the pavement is 66 m wide -- that width is Paolo's 8/11
+ruling ("THE STREETS SHOULD FILL THE WHOLE FUCKING BOX") so I did not touch it. If it plays
+like a car park, the fix is the junction box, not the contract.
+
+NEXT IN THIS LANE, IN ORDER:
+ 1. WALL-FADE (dispatch item 1). Two things. (a) reproduce the flicker -- two frames of the
+    same spot, the south building's wall tiles a DIFFERENT PATTERN in each and his face a
+    blank white block in the second. First hypothesis, from the warehouse-cars bug this
+    week: a wall texture drawing from a SHARED RNG stream, so anything drawn before it
+    shifts what it gets. (b) THERE IS NO WALL-OPACITY SYSTEM. Build it. Research done
+    8/26: only camera-side (south) faces can ever occlude; FADE, never delete (PZ shipped
+    full transparency and its own players called it worse than blacked-out rooms); open up
+    on APPROACH, not at the last step; fade the piece, not the tile, or the hole crawls
+    with the player. Buildings already know their footprints, so the piece is available.
+ 2. THE PIECE THAT BELONGS WHERE A STREET MEETS A FREEWAY. 97 seams where an arterial dies
+    on a freeway flank with roadway right up to the boundary. A frontage road, a cul-de-sac
+    or an underpass. NOT A RULE -- A PIECE.
+ 3. THE LEVEL CROSSING. 43 rail-to-road seams, same shape, same answer.
+ 4. The Strip needs a TWO-CELL-WIDE crossing piece (4 seams). It runs two cells abreast and
+    a boulevard's junction box is wider than a cell.
+ 5. The interchange blob's coordinate mapping is off by one (3 seams).
+ 6. 14 wrong-axis cells left, all freeway.
+ 7. The interchange is 87.9% connected: 479 drive tiles a car cannot reach.
+ 8. GLASS and WOOD materials; the tyre barrier and razor wire rows.
+ 9. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
+    wears steel. Wants its own code, not a routing exception.
+10. Ten dead legend codes left; four of them are one question (the fill-through margins on
+    arterial:0 / downtown:0 / freeway:0 / industrial:0).
+
 CHARACTER (character-0lurbs): 8/26 (b) LATEST -- *** SEVENTEEN THINGS HE COULD PUT
 ON DREW NOTHING AT ALL, AND THE GATE THAT GUARDS THEM WAS GREEN. TAB: LOOK for the
 picture, CHARACTER to put one on. Nothing to judge. ***
