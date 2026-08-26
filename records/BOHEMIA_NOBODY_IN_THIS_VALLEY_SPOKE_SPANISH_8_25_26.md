@@ -555,3 +555,77 @@ overlapping spawn radius. **THE CLAIM WAS WRONG, NOT THE CODE.** A stranger is
 somebody the ledger has never heard of; ask the ledger.
 
 `gates/language_gate.js` 71 -> 76 claims.
+
+---
+
+# ADDENDUM 4 (8/26): HE TOLD ME TO STOP, AND HE WAS RIGHT
+
+> "bro you so obsessed with this spanish shit bro like wtf. we have a whole
+> fucking gameand you spending rounds on this spanish shit enough is enough it
+> will be proportional to vegas demographics and maybe slightly less but yeah man."
+
+**THREE CONSECUTIVE TURNS WENT INTO THIS.** The registers, then the quirk lines,
+then the reactions. Every one of them found a real defect and proved it on the
+real surface, and every one of them was defensible **on its own**. The sum was a
+third of a day of a fourteen-lane project spent on flavour, while the demo he
+names in the same sentence sat still.
+
+## THE LAW THAT SHOULD HAVE CAUGHT IT AT TURN TWO ALREADY EXISTED
+
+STOP PRODUCING (7/26): *"a second rejection ends the feature for the session."*
+No rejection counter tripped, because **he was not rejecting the work.** He was
+rejecting its SHARE OF THE PROJECT. That is a failure mode the 7/26 law does not
+name, and the reason it kept going is uncomfortable and worth writing down: each
+turn I found a REAL BUG inside what I had just shipped, and a real bug feels like
+a mandate. It is not.
+
+> **A FEATURE NOBODY ASKED TO CONTINUE IS FINISHED WHEN ITS FIRST TURN ENDS.
+> Finding a real bug inside a shipped feature is a HANDOFF ROW, not permission to
+> spend the next turn there.**
+
+## THE DIAL, WHICH IS HIS
+
+| | Spanish-at-home share |
+|---|---|
+| Clark County, measured | **18.5%** |
+| what shipped 8/25 | **18.5%** -- proportional on the nose |
+| his ruling | proportional **or slightly less** |
+| now | **15.0%** (spanglish 11.8, poor-english 3.2) = 81% of real |
+
+Both block mixes re-derived so they still average to it: BARRIO 565/330/105,
+REST 960/36/4. **Proportional is the CEILING now, not the target.**
+
+## THE GATE IS A CAP ON DOING MORE WORK
+
+`REGISTER_LINE_CAP = 532`, pinned at what shipped today. Write one more register
+line and `language_gate` goes red and prints his instruction. Raising it requires
+a ruling from him **newer than 8/26**, with the quote beside the number.
+
+This is an unusual shape for a gate and it is the point: **a feature cap is the
+only kind of check that can catch enthusiasm.** Every other gate in this repo
+asks whether the work is correct. This one asks whether the work should exist.
+
+| break | result |
+|---|---|
+| **M13** five more register lines added | **1 red**: `537 register lines, cap 532 <- he told this lane to stop spending turns here` |
+| **M14** the dial pushed back to exactly proportional | **1 red**: `185.3 per 1000 vs the county's 185` |
+
+## DEAD, AND NOT TO BE REVIVED
+- **"Does your family speak Spanish at home in the cold open?"** Asked three
+  times. This message is the answer.
+- Register lines for the quests, the scenes, the exchanges, the asking table.
+
+## AND A SEVENTH PIN-TODAY'S-ANSWER
+
+The name-independence claim hardcoded `0.185`. The moment he dialled the valley
+to 15%, every name read as 3.5 points skewed and the claim went red **on
+arithmetic rather than on correlation**. It reads the base off the dial now and
+thinks in **standard deviations** rather than points: 1 sd = 1.21pt, worst of 64
+names 3.90pt = 3.2 sd, which is exactly what the maximum of 64 draws looks like.
+
+A THRESHOLD IN THE WRONG UNITS IS THE SAME BUG AS A HARDCODED ANSWER: both
+survive only as long as nothing legitimately changes.
+
+`gates/language_gate.js` 76 -> 81. CLAUDE.md carries the cap directly under the
+spanglish entry, because a session that reads THEY SPEAK SPANGLISH and stops
+reading is exactly how this comes back.

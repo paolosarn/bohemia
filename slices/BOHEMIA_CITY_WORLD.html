@@ -4018,7 +4018,16 @@ global.BohemiaOvermap=API;
        breakdowns. THAT HALF IS MY ESTIMATE AND IS SAID OUT LOUD RATHER THAN
        BURIED: 45% x ~50% = ~22% of Spanish speakers.
        -> es 18.5 x 0.22 = 4.1%   spanglish 18.5 - 4.1 = 14.4%   en 81.5% */
-  var VALLEY_MIX = { en: 815, spanglish: 144, es: 41 };
+  /* *** DIALLED DOWN 8/26 ON HIS RULING (LOCKED). *** "it will be proportional
+     to vegas demographics and maybe slightly less but yeah man."
+     What shipped 8/25 was proportional ON THE NOSE: 18.5%, the county's real
+     share. He capped it. 15.0% is 81% of the real number, which is this build's
+     reading of "maybe slightly less", and the reading is written down in the law
+     so the next session corrects THAT rather than guessing at this constant.
+     PROPORTIONAL IS THE CEILING NOW, NOT THE TARGET, and language_gate holds it.
+     Law: laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md */
+  var COUNTY_SPANISH = 185;        // per 1000, measured: 418,475 of 2,265,461
+  var VALLEY_MIX = { en: 850, spanglish: 118, es: 32 };
 
   /* AND IT CLUSTERS, WHICH IS THE PART THAT MAKES IT A MECHANIC INSTEAD OF A
      SPRINKLE. 139 CENSUS TRACTS in Clark County are places where more than 10%
@@ -4035,8 +4044,8 @@ global.BohemiaOvermap=API;
      language_gate claim B measures -- so the clustering costs the valley
      nothing in accuracy and buys it every neighbourhood. */
   var BARRIO_SHARE = 278;                                 // per 1000 blocks
-  var BARRIO_MIX = { en: 470, spanglish: 400, es: 130 };
-  var REST_MIX   = { en: 948, spanglish:  45, es:   7 };
+  var BARRIO_MIX = { en: 565, spanglish: 330, es: 105 };
+  var REST_MIX   = { en: 960, spanglish:  36, es:   4 };
 
   /* WHICH KIND OF BLOCK THIS IS. Derived from the block seed alone, so every
      person on a street agrees about the street without anybody storing it. */
@@ -5997,7 +6006,7 @@ global.BohemiaOvermap=API;
     ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC,
     esWordsIn: esWordsIn, esStems: esStems,
     VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
-    BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf,
+    BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf, COUNTY_SPANISH: COUNTY_SPANISH,
     langOf: langOf, speaksLineOf: speaksLineOf,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,

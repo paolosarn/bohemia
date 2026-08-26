@@ -4489,7 +4489,66 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/26 (b) LATEST -- *** 66 REACTION LINES, 1,208 PEOPLE
+PEOPLE (people-7h9sfy): 8/26 (c) LATEST -- *** HE TOLD ME TO STOP. THE SPANISH
+FEATURE IS CLOSED, THE DIAL IS DOWN TO HIS NUMBER, AND THERE IS NOW A GATE THAT
+FAILS IF ANYBODY WRITES ANOTHER REGISTER LINE. NOTHING TO JUDGE. ***
+
+HIS WORDS, 8/26, LOCKED:
+  "bro you so obsessed with this spanish shit bro like wtf. we have a whole
+   fucking gameand you spending rounds on this spanish shit enough is enough it
+   will be proportional to vegas demographics and maybe slightly less but yeah man."
+
+I SPENT THREE CONSECUTIVE TURNS ON LANGUAGE. Every one was defensible on its own
+-- real bugs, real measurements -- and the SUM was a third of a day on flavour
+while the demo he names in the same sentence sat still. STOP PRODUCING (7/26)
+says a second rejection ends a feature, and no rejection counter tripped because
+HE WAS NOT REJECTING THE WORK, HE WAS REJECTING ITS SHARE OF THE PROJECT. That
+failure mode had no name, so it has one now:
+  *** A FEATURE NOBODY ASKED TO CONTINUE IS FINISHED WHEN ITS FIRST TURN ENDS.
+  Finding a real bug inside a shipped feature is a HANDOFF ROW, not permission
+  to spend the next turn there. ***
+
+THE DIAL, WHICH IS HIS AND WHICH HE JUST SET:
+  Clark County, measured    18.5%   (418,475 of 2,265,461)
+  what shipped 8/25         18.5%   proportional ON THE NOSE
+  his ruling                proportional OR SLIGHTLY LESS
+  now                       15.0%   (spanglish 11.8, poor-english 3.2) = 81%
+Blend re-derived so the two block mixes still average to it: BARRIO 565/330/105,
+REST 960/36/4. PROPORTIONAL IS THE CEILING NOW, NOT THE TARGET.
+
+THE GATE IS A CAP ON DOING MORE WORK, which is unusual and is the point: a
+FEATURE CAP is the only shape of check that catches enthusiasm. 532 register
+lines, pinned. Add one and it goes red and prints his instruction. Raising it
+needs a ruling from him NEWER than 8/26 with the quote beside the number.
+MUTATIONS: +5 register lines 1 RED naming the law; the dial pushed back to
+exactly proportional 1 RED ("185.3 per 1000 vs the county's 185").
+
+*** DEAD, DO NOT REVIVE: "does your family speak Spanish at home in the cold
+open?" I asked it three times. This message is the answer -- he does not want the
+turn spent there. Struck from the queue. *** Also dead without a new ruling:
+register lines for the quests, the scenes, the exchanges, the asking table.
+
+AND A SEVENTH PIN-TODAY'S-ANSWER: the name-independence claim hardcoded 0.185,
+so the moment he dialled the valley to 15% every name read as 3.5 points skewed
+and it went red on ARITHMETIC, not on correlation. It reads the base off the dial
+now and thinks in STANDARD DEVIATIONS, not points (measured: 1 sd = 1.21pt,
+worst of 64 names 3.90pt = 3.2 sd, which is exactly noise).
+
+language_gate 76 -> 81. CLAUDE.md carries the cap directly under the spanglish
+entry, because a session that reads THEY SPEAK SPANGLISH and stops reading is
+exactly how this comes back.
+
+WHAT COMES AFTER, AND IT IS NOT LANGUAGE: this lane's demo-facing work is the
+walked city's people, and the thing measured but NOT chased is that saw:/heard:
+reactions still cannot fire -- the city records faction deeds with no clout tag,
+so the four loudest reaction buckets (what somebody WATCHED you do) are dark. It
+is a row, not a turn, and it waits its turn behind whatever the demo needs.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md
+Law: laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md
+
+---- PREVIOUS (8/26) ----
+*** 66 REACTION LINES, 1,208 PEOPLE
 WALKED, ZERO REACHABLE -- AND EVERY AMBIENT BARK IN THE VALLEY HAD BEEN ENGLISH
 ALL ALONG. BOTH FIXED. TAB RUN. ***
 

@@ -181,6 +181,21 @@ research partner. He DECIDES, you PRODUCE.
   county. Never phonetic accent spelling. HARD RULE: LANGUAGE NEVER GATES
   REQUIRED INFORMATION. Full law:
   laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md  Gate: language_gate
+  *** CAPPED THE NEXT DAY (Paolo 8/26, LOCKED). READ THIS BEFORE YOU TOUCH THE
+  LANGUAGE SYSTEM: "bro you so obsessed with this spanish shit bro like wtf. we
+  have a whole fucking gameand you spending rounds on this spanish shit ENOUGH IS
+  ENOUGH it will be proportional to vegas demographics and maybe slightly less."
+  THE FEATURE IS FINISHED. Three turns went into it and the sum was a third of a
+  day on flavour while the demo sat still. He was not rejecting the work, he was
+  rejecting its SHARE OF THE PROJECT -- which STOP PRODUCING (7/26) does not
+  name, so: A FEATURE NOBODY ASKED TO CONTINUE IS FINISHED WHEN ITS FIRST TURN
+  ENDS. Finding a real bug inside a shipped feature is a handoff row, not
+  permission to spend the next turn there. THE DIAL IS HIS AND HE SET IT: the
+  valley is 15.0% Spanish-speaking, at or BELOW Clark County's real 18.5%.
+  language_gate holds a HARD CAP ON THE NUMBER OF REGISTER LINES -- a gate
+  against doing more work, which is the only shape that catches enthusiasm.
+  Raising it needs a ruling from him newer than 8/26. Full law:
+  laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md ***
 - 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the

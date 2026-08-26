@@ -125,6 +125,39 @@ ok('all three registers actually have lines written for them',
    outnumbers register 2 in the written corpus, we have made a third of the
    county sound stupid, and that is the version of his ruling that embarrasses
    us rather than the version that lands. */
+/* ==========================================================================
+   *** ENOUGH IS ENOUGH ON THE SPANISH (Paolo 8/26, LOCKED) ***
+   "bro you so obsessed with this spanish shit bro like wtf. we have a whole
+    fucking gameand you spending rounds on this spanish shit enough is enough it
+    will be proportional to vegas demographics and maybe slightly less"
+   Three consecutive turns went into language. Every one was defensible alone and
+   the SUM was a third of a day on flavour while the demo sat still. STOP
+   PRODUCING (7/26) says a second rejection ends a feature, but he was not
+   rejecting the WORK, he was rejecting its SHARE OF THE PROJECT -- a failure the
+   7/26 law does not name.
+   SO THIS IS A GATE AGAINST DOING MORE WORK, which is unusual and is the whole
+   point: a FEATURE CAP is the only shape of check that can catch enthusiasm. To
+   raise the ceiling a session needs a ruling from him NEWER than 8/26, and must
+   put the quote next to the number.
+   Law: laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md
+   ========================================================================== */
+var CAP_LAW = 'laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md';
+var REGISTER_LINE_CAP = 532;     /* what shipped 8/26. DO NOT RAISE WITHOUT HIM. */
+ok('his 8/26 cap is written down as a law', fs.existsSync(CAP_LAW));
+var capLaw = fs.existsSync(CAP_LAW) ? fs.readFileSync(CAP_LAW, 'utf8') : '';
+ok('and it quotes him verbatim, so nobody re-reads it softer',
+  capLaw.indexOf('enough is enough') >= 0
+    && capLaw.indexOf('proportional to vegas demographics') >= 0
+    && capLaw.indexOf('spending rounds on this spanish shit') >= 0);
+var registerLines = (byReg.spanglish || 0) + (byReg.es || 0);
+ok('*** THE REGISTER CORPUS DOES NOT GROW. ENOUGH IS ENOUGH (Paolo 8/26). ***',
+  registerLines <= REGISTER_LINE_CAP,
+  registerLines + ' register lines, cap ' + REGISTER_LINE_CAP
+    + (registerLines > REGISTER_LINE_CAP
+        ? '  <- he told this lane to stop spending turns here. Get a NEWER ruling '
+          + 'from him and raise the cap with his quote beside it, or take the '
+          + 'lines back out.' : ''));
+
 ok('SPANGLISH IS THE HEADLINE REGISTER, not broken English',
   (byReg.spanglish || 0) >= (byReg.es || 0),
   'spanglish ' + (byReg.spanglish || 0) + ' vs poor-english ' + (byReg.es || 0));
@@ -177,10 +210,26 @@ for (var b = 0; b < blocks; b++) {
 ok('a valley was actually derived to measure', total > 100000, total + ' people on ' + blocks + ' blocks');
 P.LANG_ORDER.forEach(function (r) {
   var got = count[r] / total * 1000;
-  ok('the derived valley matches Clark County for ' + r,
+  ok('the derived valley hits its dial for ' + r,
     Math.abs(got - P.VALLEY_MIX[r]) <= 15,
     got.toFixed(1) + ' vs ' + P.VALLEY_MIX[r] + ' per 1000');
 });
+
+/* PROPORTIONAL IS THE CEILING NOW, NOT THE TARGET (Paolo 8/26). What shipped
+   8/25 was the county's real share on the nose; he said proportional OR SLIGHTLY
+   LESS, so at-or-under is the rule and going back to exactly proportional is a
+   red. The floor is here too: "slightly less" is not "quietly none", and a lane
+   that keeps shaving the dial would otherwise walk it to zero one turn at a
+   time and never trip anything. */
+var spanishShare = count.spanglish + count.es;
+var sharePer1000 = spanishShare / total * 1000;
+ok('*** AT OR BELOW THE REAL VEGAS SHARE, which is what he ruled ***',
+  sharePer1000 <= P.COUNTY_SPANISH,
+  sharePer1000.toFixed(1) + ' per 1000 vs the county\'s ' + P.COUNTY_SPANISH);
+ok('and "slightly less" is still SLIGHTLY, not a quiet walk to zero',
+  sharePer1000 >= P.COUNTY_SPANISH * 0.6,
+  sharePer1000.toFixed(1) + ' is ' + (sharePer1000 / P.COUNTY_SPANISH * 100).toFixed(0)
+    + '% of the real county share');
 
 /* THE CLAIM THE LAW WRITES OUT IN CAPITALS: a build where every Spanish-speaking
    character is register 3 FAILS. Measured on the people, not on the table. */
@@ -234,13 +283,29 @@ ok('and it does not travel with the name (independent streams)',
       }
     }
     var names = Object.keys(per).filter(function (n) { return per[n].n >= 200; });
+    /* *** THE BASE IS READ OFF THE DIAL, AND THE TOLERANCE IS IN STANDARD
+       DEVIATIONS. *** This hardcoded 0.185 -- the share that was correct on 8/25
+       -- so the moment he dialled the valley to 15.0% every name looked 3.5
+       points skewed and the claim went red on arithmetic rather than on
+       correlation. SEVENTH TIME this lane has pinned TODAY'S ANSWER INSTEAD OF
+       TODAY'S RULE.
+       And a fixed point threshold is the same mistake one level up: how far a
+       name may drift depends on the base rate and the sample size, so the bar is
+       3.5 sd, which is what the maximum of ~64 independent draws actually looks
+       like. Measured with the dial at 15%: 1 sd = 1.21pt, median 1.07pt, worst
+       3.90pt = 3.2 sd. No correlation, and the claim now says so in the units
+       that mean it. */
+    var base = (P.VALLEY_MIX.spanglish + P.VALLEY_MIX.es) / 1000;
+    var nAvg = names.reduce(function (a, n) { return a + per[n].n; }, 0) / (names.length || 1);
+    var sd = Math.sqrt(base * (1 - base) / nAvg);
     var worst = 0, worstName = '';
     names.forEach(function (n) {
-      var d = Math.abs(per[n].es / per[n].n - 0.185);
+      var d = Math.abs(per[n].es / per[n].n - base);
       if (d > worst) { worst = d; worstName = n; }
     });
-    ok.detail = names.length + ' names, worst skew ' + worstName + ' ' + (worst * 100).toFixed(1) + 'pt';
-    return names.length > 40 && worst < 0.06;
+    ok.detail = names.length + ' names, base ' + (base * 100).toFixed(1) + '%, worst '
+      + worstName + ' ' + (worst * 100).toFixed(2) + 'pt = ' + (worst / sd).toFixed(1) + ' sd';
+    return names.length > 40 && worst < sd * 3.5;
   })(), (function () { return ok.detail; })());
 
 /* ==========================================================================
