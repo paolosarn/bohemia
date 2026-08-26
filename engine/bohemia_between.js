@@ -176,8 +176,9 @@
   /* YOUR OUTFIT. Read from the graph note "Player faction", never typed. */
   var MINE = "Custom";
 
-  /* Ordinal power per act, and the alignment word. Display facts, already
-     written in canon, never used to compute a cost. */
+  /* Ordinal power per act, straight off the graph. Not a display fact and not
+     used to compute a cost: it is the only COMPLETE roster of outfits canon
+     names, which is what keys() enumerates for a gate to sweep. */
   var POWER = {
   "Anarchists": {
     "act1": 6,
@@ -236,26 +237,6 @@
     "act3": 3
   }
 };
-  var ALIGN = {
-  "Anarchists": "anti-establishment",
-  "Blues": "socialist",
-  "Caravans": "neutral",
-  "Cartel": "predatory",
-  "Church": "evangelical",
-  "Colorful": "community",
-  "Custom": "emergent",
-  "Homeless": "underground",
-  "La Familia": "identity-supremacist",
-  "Mob": "territorial",
-  "Network": "psyop",
-  "Panthers": "identity-supremacist",
-  "Pures": "identity-supremacist",
-  "Reds": "capitalist",
-  "Remnants": "military",
-  "Trades": "neutral",
-  "Triads": "identity-supremacist",
-  "Volunteers": "nonprofit"
-};
 
   function norm(f){ return String(f||'').toUpperCase().replace(/[\s_]/g,''); }
 
@@ -275,11 +256,6 @@
     }
     return null;
   }
-
-  /* The same question asked from either seat: is there ANY canon position
-     between these two, whichever way it was written down. Used when the
-     question is "do these two have history", not "what does A think". */
-  function either(a, b){ return between(a,b) || between(b,a); }
 
   function decorate(p){
     var s = SPEC[p.label] || null;
@@ -399,24 +375,32 @@
      line goes into that JSON, your outfit has a war and every surface below
      already knows what to do with it. */
   function mine(){ return MINE; }
-  function isMine(fid){ return !!MINE && norm(fid) === norm(MINE); }
   function myRipples(){ return MINE ? ripples(MINE) : []; }
 
-  /* Power is an ORDINAL RANK per act (1 = weakest), straight off the graph.
-     Returned raw with the act asked for; nothing here converts it to a
-     strength, because canon says rank and rank is what it says. */
-  function powerOf(fid, act){
-    var A=norm(fid);
-    for(var k in POWER) if(norm(k)===A)
-      return (act>=3 ? POWER[k].act3 : POWER[k].act1);
-    return null;
-  }
-  function alignOf(fid){
-    var A=norm(fid);
-    for(var k in ALIGN) if(norm(k)===A) return ALIGN[k];
-    return null;
-  }
+  /* FOUR FUNCTIONS THAT WERE HERE THIS MORNING ARE NOT ANY MORE, and this note
+     is the record of why. either(), isMine(), powerOf() and alignOf() were
+     written because they were the obvious things a module like this "should"
+     have. Nothing called any of them. tools/bohemia_organ_reach.js -- this
+     lane's own sweep, written to catch exactly this -- was pointed at the new
+     module the same turn it shipped and reported SEVEN of ten functions with no
+     caller anywhere. Its own sentence is the ruling: "An organ with no caller is
+     not a shipped feature. It is a candidate on a sheet."
 
+     AND alignOf() IS THE ONE WORTH READING TWICE. It nearly survived: the
+     alignment word is canon (predatory, territorial, psyop) and no surface had
+     ever shown it, so it got WIRED onto the RUNS WITH row instead of deleted --
+     `RUNS WITH :: CARTEL  PREDATORY`. That broke THIRTEEN claims in
+     faction_arc_gate, which reads that row deliberately:
+         const fid = row('RUNS WITH');   // the CARD's answer, not mine
+     and started reporting an outfit called "CARTEL  PREDATORY".
+
+     THE ROW WAS A CONTRACT AND I CHANGED WHAT IT MEANT. But the deeper problem
+     is the reason it was added: I put a player-facing word on the card to
+     justify keeping a function, which is the tail wagging the dog. If the
+     alignment deserves a place on that card it is a design decision on its own
+     merits, and it is not one Paolo asked for. So it is deleted with the other
+     three, and ALIGN goes with it -- dead data is the same rot as a dead
+     function wearing a different coat. */
   /* Every outfit canon has anything to say about, for a gate to sweep. */
   function keys(){
     var seen={}, out=[];
@@ -428,9 +412,8 @@
     return out.sort();
   }
 
-  var API = { PAIRS:PAIRS, SPEC:SPEC, WORDS:WORDS, POWER:POWER, ALIGN:ALIGN,
-              between:between, either:either, ripples:ripples, weigh:weigh,
-              mine:mine, isMine:isMine, myRipples:myRipples,
-              powerOf:powerOf, alignOf:alignOf, keys:keys };
+  var API = { PAIRS:PAIRS, SPEC:SPEC, WORDS:WORDS, POWER:POWER,
+              between:between, ripples:ripples, weigh:weigh,
+              mine:mine, myRipples:myRipples, keys:keys };
   if(HASREQ) module.exports=API; else root.BohemiaBetween=API;
 })(typeof globalThis!=='undefined'?globalThis:this);

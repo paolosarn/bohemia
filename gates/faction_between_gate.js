@@ -59,7 +59,13 @@ function requirePlaywright() {
   return require('playwright');
 }
 
-const B = require(path.join(ROOT, 'engine/bohemia_between.js'));
+/* NAMED, NOT ALIASED. This was `const B` and every call in this file read
+   BohemiaBetween.weigh(...) / BohemiaBetween.keys(...). tools/bohemia_organ_reach.js looks for the
+   module's real global to decide whether an organ has a caller, and a
+   one-letter alias hides that -- keys() read as NOTHING ANYWHERE while
+   this very file was calling it. Writing the real name does not change
+   what is true, it makes what is true visible to the check. */
+const BohemiaBetween = require(path.join(ROOT, 'engine/bohemia_between.js'));
 const C = require(path.join(ROOT, 'engine/bohemia_commitment.js'));
 const TIES = require(path.join(ROOT, 'engine/bohemia_ties.js'));
 const graph = JSON.parse(fs.readFileSync(GRAPH, 'utf8'));
@@ -78,7 +84,7 @@ console.log('\nA. NOTHING IS INVENTED. The graph is the content and it is his.')
     for (const [other, label] of Object.entries(d.relations || {}))
       graphPairs[N(fid) + '|' + N(other)] = label;
 
-  const invented = B.PAIRS.filter(p =>
+  const invented = BohemiaBetween.PAIRS.filter(p =>
     graphPairs[N(p.from) + '|' + N(p.to)] !== p.label);
   ok('A1 EVERY PAIR THE MODULE CARRIES IS IN BOHEMIA_faction_graph.json WITH THE '
     + 'SAME LABEL. MECHANISM-MINE / CONTENTS-PAOLO\'S: who is at war with whom '
@@ -87,7 +93,7 @@ console.log('\nA. NOTHING IS INVENTED. The graph is the content and it is his.')
     invented.length === 0, JSON.stringify(invented));
 
   const dropped = Object.keys(graphPairs).filter(k =>
-    !B.PAIRS.some(p => N(p.from) + '|' + N(p.to) === k));
+    !BohemiaBetween.PAIRS.some(p => N(p.from) + '|' + N(p.to) === k));
   ok('A2 AND NOTHING IN THE GRAPH WAS DROPPED. A canon relation the module '
     + 'silently omits is a war the player can never find out about, which is '
     + 'indistinguishable from it not being canon at all',
@@ -111,13 +117,13 @@ console.log('\nA. NOTHING IS INVENTED. The graph is the content and it is his.')
     + 'free to invent prices',
     Object.keys(engineSpec).length > 0, 'REL_SPEC did not parse out of the engine');
 
-  const drift = Object.keys(B.SPEC).filter(k => B.SPEC[k].init !== engineSpec[k]);
+  const drift = Object.keys(BohemiaBetween.SPEC).filter(k => BohemiaBetween.SPEC[k].init !== engineSpec[k]);
   ok('A4 AND EVERY init MATCHES IT EXACTLY. FactionCanon encoded all six canon '
     + 'labels into standings on 7/2 with a research note explaining why lore '
     + 'invariants are clamps and not starting values. This module PARSES that '
     + 'table rather than retyping it, and this claim is what keeps the two from '
     + 'ever disagreeing',
-    drift.length === 0, drift.map(k => k + ': ' + B.SPEC[k].init + ' vs ' + engineSpec[k]).join(', '));
+    drift.length === 0, drift.map(k => k + ': ' + BohemiaBetween.SPEC[k].init + ' vs ' + engineSpec[k]).join(', '));
 
   const noted = Object.entries(graph.factions)
     .filter(([, d]) => String(d.note || '').toLowerCase().includes('player faction'))
@@ -127,8 +133,8 @@ console.log('\nA. NOTHING IS INVENTED. The graph is the content and it is his.')
     + 'the graph note on Custom reads "Player faction. No preset philosophy." '
     + 'Read, so the day he renames it or hands the player another one, every '
     + 'surface follows without a code change',
-    noted.length === 1 && B.mine() === noted[0],
-    'graph says ' + JSON.stringify(noted) + ', module says ' + B.mine());
+    noted.length === 1 && BohemiaBetween.mine() === noted[0],
+    'graph says ' + JSON.stringify(noted) + ', module says ' + BohemiaBetween.mine());
 }
 
 /* ========================================================================== */
@@ -137,10 +143,10 @@ console.log('\nB. A CANON POSITION IS AN INVARIANT, NOT A HINT.');
 {
   const BASES = [1, 2, 3, 4];
   const rows = [];
-  for (const p of B.PAIRS) {
-    const rel = B.between(p.from, p.to);
+  for (const p of BohemiaBetween.PAIRS) {
+    const rel = BohemiaBetween.between(p.from, p.to);
     if (!rel || rel.init == null) continue;
-    for (const base of BASES) rows.push({ rel, base, w: B.weigh(p.to, p.from, base) });
+    for (const base of BASES) rows.push({ rel, base, w: BohemiaBetween.weigh(p.to, p.from, base) });
   }
   ok('B0 THERE IS SOMETHING TO CHECK. A sweep that silently found no priced '
     + 'pairs would pass every claim below it vacuously, which is how a gate '
@@ -174,15 +180,15 @@ console.log('\nB. A CANON POSITION IS AN INVARIANT, NOT A HINT.');
     rows.every(r => r.w.weighted >= 0));
 
   ok('B5 A ZERO BASE STAYS ZERO. No relation conjures a cost out of nothing',
-    B.PAIRS.every(p => B.weigh(p.to, p.from, 0).weighted === 0));
+    BohemiaBetween.PAIRS.every(p => BohemiaBetween.weigh(p.to, p.from, 0).weighted === 0));
 
-  const prey = B.weigh('Cartel', 'Caravans', 1);
+  const prey = BohemiaBetween.weigh('Cartel', 'Caravans', 1);
   ok('B6 THE EXACT CASE THAT WAS BROKEN, PINNED BY NAME. The Caravans are '
     + 'preyed-taxed by the Cartel; at base 1 that must cost more than 1. A '
     + 'regression here is the dead zone coming back',
     prey.weighted > 1, 'weighted ' + prey.weighted);
 
-  const noRel = B.weigh('Cartel', 'Church', 2);
+  const noRel = BohemiaBetween.weigh('Cartel', 'Church', 2);
   ok('B7 AND A PAIR CANON SAYS NOTHING ABOUT IS UNTOUCHED. Most pairs in this '
     + 'valley have no written position and inventing one for them would be '
     + 'inventing lore. null is a real answer here',
@@ -193,11 +199,11 @@ console.log('\nB. A CANON POSITION IS AN INVARIANT, NOT A HINT.');
 console.log('\nC. THE BOARD READS ONCE PER OUTFIT.');
 /* ========================================================================== */
 {
-  const all = B.keys();
+  const all = BohemiaBetween.keys();
   let dupes = [];
   for (const f of all) {
     const seen = {};
-    for (const r of B.ripples(f)) {
+    for (const r of BohemiaBetween.ripples(f)) {
       const k = N(r.to);
       if (seen[k]) dupes.push(f + ' -> ' + r.to);
       seen[k] = 1;
@@ -208,7 +214,7 @@ console.log('\nC. THE BOARD READS ONCE PER OUTFIT.');
     + 'twice on the Cartel\'s board and it read as two separate wars',
     dupes.length === 0, dupes.join(', '));
 
-  const cartel = B.ripples('Cartel');
+  const cartel = BohemiaBetween.ripples('Cartel');
   ok('C2 AND THE OUTFIT\'S OWN SEAT WINS. A board about the Cartel should say '
     + 'what THEY hold, not what is held about them; a mirrored row only '
     + 'survives where canon never wrote their side',
@@ -226,7 +232,7 @@ console.log('\nC. THE BOARD READS ONCE PER OUTFIT.');
     + 'three generations of action." The mechanism is live and empty. On 8/21 '
     + 'this lane reported his own faction as a DEFECT for exactly this shape of '
     + 'emptiness and he had to correct it; that is not happening twice',
-    B.myRipples().length === 0);
+    BohemiaBetween.myRipples().length === 0);
 }
 
 /* ========================================================================== */
@@ -249,7 +255,7 @@ console.log('\nD. THE OLD BEHAVIOUR DID NOT MOVE UNDER ANYBODY.');
   ok('D2 AND whoHears() WITH NO watching IS THE OLD WALK. Same contract',
     plain.length === 0, JSON.stringify(plain));
 
-  const watched = C.whoHears('Cartel', roster, { x: 0, y: 0 }, { ties: TIES, watching: B });
+  const watched = C.whoHears('Cartel', roster, { x: 0, y: 0 }, { ties: TIES, watching: BohemiaBetween });
   ok('D3 WITH watching, THE ONES ALREADY LOOKING HEAR IT AS FACT. Measured '
     + 'first: a sweep of the live city found TWO hearing pairs in the entire '
     + 'valley and neither was a pair canon holds a position on, so the weighted '
@@ -270,7 +276,7 @@ console.log('\nD. THE OLD BEHAVIOUR DID NOT MOVE UNDER ANYBODY.');
 
   const tieRoster = roster.concat(
     [{ id: 'c', faction: 'Remnants', home: { building: 1 }, job: { kind: 'scav' } }]);
-  const mixed = C.whoHears('Cartel', tieRoster, { x: 0, y: 0 }, { ties: TIES, watching: B });
+  const mixed = C.whoHears('Cartel', tieRoster, { x: 0, y: 0 }, { ties: TIES, watching: BohemiaBetween });
   const rem = mixed.find(h => N(h.faction) === 'REMNANTS');
   ok('D5 A REAL TIE BEATS A WATCHER. A housemate names the ROOM the news went '
     + 'through, and "your own housemate runs with them" is the interesting '
@@ -283,19 +289,19 @@ console.log('\nD. THE OLD BEHAVIOUR DID NOT MOVE UNDER ANYBODY.');
 console.log('\nE. THE WORDS SHIP WRITTEN AND HE CAN EDIT THEM.');
 /* ========================================================================== */
 {
-  const priced = Object.keys(B.SPEC);
-  const missing = priced.filter(l => !B.WORDS[l]);
+  const priced = Object.keys(BohemiaBetween.SPEC);
+  const missing = priced.filter(l => !BohemiaBetween.WORDS[l]);
   ok('E1 EVERY PRICED LABEL HAS ENGLISH. A canon war printing the raw slug '
     + '"permanent-war" at a player is the machine leaking through the world',
     missing.length === 0, missing.join(', '));
 
-  const notDraft = Object.entries(B.WORDS).filter(([, w]) => !w.draft);
+  const notDraft = Object.entries(BohemiaBetween.WORDS).filter(([, w]) => !w.draft);
   ok('E2 AND EVERY LINE IS draft:true. ALWAYS MAKE AN ATTEMPT (Paolo 8/11): a '
     + 'real attempt ships playable and tagged, so he can find every word he has '
     + 'not approved and edit it rather than face a blank page',
     notDraft.length === 0, notDraft.map(x => x[0]).join(', '));
 
-  const emdash = Object.entries(B.WORDS).filter(([, w]) =>
+  const emdash = Object.entries(BohemiaBetween.WORDS).filter(([, w]) =>
     ['word', 'they', 'you'].some(k => String(w[k] || '').includes('—')));
   ok('E3 NO EM DASHES ANYWHERE IN THE SHIPPED TEXT. Standing instruction, and '
     + 'it applies to the words the game says as much as to the words I say',

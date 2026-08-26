@@ -2198,6 +2198,26 @@ GATES = [
      "BohemiaTies is handed to whoHears AS A VALUE, so a textual count cannot see its "
      "methods -- the first sweep called the whole module dead and was COMPLETELY WRONG, and "
      "a claim here fails if that INJECTED flag ever stops being reported", False),
+    ('FACTION BETWEEN', ['node', 'gates/faction_between_gate.js'],
+     "THE OUTFITS HOLD POSITIONS ON EACH OTHER AND THE WALKED SURFACE HAS TO FEEL THEM. "
+     "engine/BOHEMIA_faction_graph.json has carried nine directed canon relations since "
+     "before the factions lane started -- permanent-war, prey-tax, professional-respect, "
+     "adjacent, hands-off -- and bohemia_engine.js FactionCanon priced every one of those "
+     "labels on 7/2. NEITHER HAD EVER BEEN READ BY THE CITY: grep -c BohemiaEngine on the "
+     "city was 0. So costs() charged every outfit that heard the SAME NUMBER, and the "
+     "Remnants (at permanent war with the Cartel) took exactly what the Church took. The "
+     "game held a war and the cost engine could not feel it. Paolo 8/26 ruled it: 'the "
+     "values arent just for you its for how your factions treated bro ... But, yeah, for "
+     "the other factions.' THIS GATE IS NOT FOR THE ARITHMETIC, which was right on the "
+     "second try. It is for THE WIRE, and eleven of its forty claims LOAD THE SHIPPED CITY "
+     "IN A REAL BROWSER at 390x844 and read the rows a person would actually see -- because "
+     "all three defects it was written for were invisible in the source: a canon hostile "
+     "position that priced to ZERO at the most common base cost; a world-fact row placed "
+     "inside ctHearRows, which only runs AT THE WALL, so it rendered on no ordinary card at "
+     "all; and a card that read 'WILL HEAR IT AS FACT: CARAVANS, REMNANTS' three lines above "
+     "'NOBODY WHO COULD CHARGE YOU FOR IT IS CLOSE ENOUGH TO KNOW' because there are TWO "
+     "whoHears calls in the city and only one had been taught. Seven mutations, each biting "
+     "the claim written for it.", True),
     ('FACTION ARC',    ['node', 'gates/faction_arc_gate.js'],
      "NINE GATES COVER THIS STACK AND EVERY ONE OF THEM VERIFIES A LAYER -- the organ "
      "clamps, the card displays, the rule derives, the save round-trips -- and every one "

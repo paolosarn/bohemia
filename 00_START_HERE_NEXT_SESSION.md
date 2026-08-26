@@ -1,167 +1,3 @@
-SOUND (sound-xk7pjp): 8/26 (b) LATEST -- *** HIS VERDICT EXPORT LANDED. THE MENU
-WAS PLAYING A FIGHT'S ARRANGEMENT -- he heard it on one song, it was hitting ALL
-EIGHT, and the worst was SEVENFOLD. Fixed, gated, and his new three-level
-intensity ladder is built. Nothing to judge. ***
-
-TAB: MUSIC. The menu songs now sound the same wherever the KILL LAYERS button is
-set. Build 8/26i - THE MENU STAYS CALM.
-
-HIS RULING, RECORDED THE SAME TURN
-  laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
-  "menu music doesnt get impacted by intensity type shit" + the three-level
-  ladder + "we need more voices and different instruments sounds and shit."
-
-WHAT WAS ACTUALLY WRONG
-  He named MENU - THE POWER STILL ON SOMEWHERE, "really bad on intensity 2".
-  Measured, one bar of every menu song rendered through the real playStep:
-      THE POWER STILL ON SOMEWHERE   479 -> 1539 -> 2063
-      LIGHTS ACROSS THE VALLEY      1374 -> 7084 -> 9732   (sevenfold)
-      DEAD VALLEY DAWN               926 -> 1568 -> 2076
-  All eight, not one. FIXED at the single place the intensity NUMBER becomes an
-  ARRANGEMENT (`const sk = f.menu ? 0 : this.layers` in MUS.playStep), because
-  fixing it at the KILLMUS end would leave the JUDGE PAGE able to audition a
-  menu song at 2 -- which is the surface he heard it on.
-
-THE LADDER (part two of the same ruling)
-  Level 1 overworld / 2 threat or somebody talking to you / 3 two kills or a
-  crowd talking. Two things changed: the top moved from FOUR kills to TWO, and
-  kills stopped being the only input. window.INTENSITY is the front door;
-  KILLMUS is the same object under its old name.
-  WIRED: kills, threat (COMBAT_STARTED + PLAYER_HIT).
-  UNWIRED AND SAID SO: talking, crowd -- a conversation starts INSIDE the city
-  frame and nothing crosses to the shell. One line each from the lane that owns
-  that surface: INTENSITY.talking(true) / INTENSITY.crowd(true). Not edited here,
-  ONE SYSTEM ONE SESSION, and reported as unwired rather than counted as shipped.
-
-A GATE HELD THE OLD LADDER
-  fight_music_gate asserted "two kills -> layer 2, four -> layer 4". Right on
-  8/20, superseded on 8/26. A GATE MUST NEVER OUTRANK A RULING: updated, 47/0.
-
-THE THREE HE KILLED, AND TWO REAL BUGS BEHIND THEM
-  MENU - WHAT THE VALLEY KEPT, MENU - NOBODY IS COMING, THE NOTE THAT WOULD NOT
-  STAY ONE. Buried: MLOOPS 131 -> 128, tags pruned, song lock regenerated.
-  1. THE BURIAL WROTE A FALSE RECORD. bohemia_music_bury_the_dead.py had the
-     8/19 batch's story HARDCODED, so songs he killed on 8/26 were filed as
-     "7/8/26 | DOWN (batch 6/7 horror)". Every future burial by any lane would
-     have inherited it. Fixed at the tool; the date now comes from each song's
-     own death notice. Three rows corrected.
-  2. *** A GENERATOR CAN RESURRECT THE DEAD. *** Burying takes a song out of
-     MLOOPS; the batch tool that cooked it still holds its full text, so
-     RE-RUNNING THAT TOOL PUTS IT BACK. The graveyard gate saw it instantly:
-     live references 10 -> 16 the moment the three were buried. Both batch tools
-     now REFUSE. Verified the way that matters: after re-running batch21, MLOOPS
-     is still 128. Live refs back to the pre-existing 10 (all character lane).
-     THIS APPLIES TO EVERY LANE THAT COOKS BATCHES, not just music.
-
-IN FLIGHT
-  Nothing half-built.
-
-BLOCKED ON
-  Nothing. "Nothing, I'm good."
-
-WHAT COMES AFTER
-  "we need more voices and different instruments sounds and shit. so yeah keep
-  cooking" -- a STANDING order and the next thing this lane does. It does NOT
-  reopen particle and air: the 8/14 post-mortem barred those from new cooks
-  "unless he asks for one", and he asked for MUSIC voices in a MUSIC verdict.
-
-PROOF
-  records/BOHEMIA_THE_MENU_WAS_FIGHTING_8_26_26.md
-  gates/menu_music_gate.py     17 passed, 0 FAILED   (new, registered as MENU MUSIC)
-  gates/fight_music_gate.py    47 passed, 0 FAILED   (ladder updated to his 8/26)
-  SONG LOCK / DEMO BUILD / TOOL IDEMPOTENT / MUSIC REACH / ALPHA LOADS all green
-  MUTATED, five: the bug put back (all 8 menu songs red); intensity killed for
-  everyone ("not turn it all off" red); two kills back to four; threat removed;
-  COMBAT_STARTED unwired -- that last one goes red while the API stays green,
-  which is exactly what it is there to catch.
-  AND FOUR RULER MISTAKES OF MY OWN, all caught by measuring, all written up:
-  the probe set MUS.idx which is not a thing; a 1e-9 tolerance called float noise
-  a difference; a relative tolerance failed the quietest song for being quiet;
-  and the real answer was that playStep is NOT DETERMINISTIC (one song, one
-  intensity, three renders: zc 122/120/122). The gate now measures each song
-  against its own spread.
-
-------------------------------------------------------------------------------
-
-CHARACTER (character-0lurbs): 8/26 (n) LATEST -- *** ONE IN THREE PEOPLE IN THE CITY
-HAD A HAT ON AND YOU COULD NOT SEE IT. AND ALL 52 OTHER "FINDINGS" WERE MY RULER.
-TAB: LOOK for the picture, CITY to walk through the crowd. Nothing to judge. ***
-
-PART ONE: THE HAT BUG WAS FOUR TIMES BIGGER THAN "SEVENTEEN GARMENTS".
-Yesterday's fix restored 17 canon garments that rendered nothing. Counting them as
-menu items undersells it, because THE CITY DRESSES ITSELF OUT OF THE SAME CATALOGUE.
-MEASURED on 5,000 people generated exactly the way the game generates them
-(BOH_PERSONLOOK.lookFor with the canon pool -- the same call the crowd makes):
-    29.6%  of everybody in the city wears headwear
-    88.2%  of the hats they were wearing DREW NOTHING
-    28.4%  of EVERY PERSON IN THE CITY put something on their head and stayed bare
-Only TWO of the seventeen head garments in the game worked (shemagh, scrap helm).
-The town read as a place where almost nobody owns a hat. That is the honest measure
-of a bug that was, in code, one literal `56`.
-
-PART TWO: THE IDENTITY AUDIT ON CLOTHES. FIRST RUN SAID 52 GARMENTS CHANGE BY A
-TENTH OF THE BODY OR MORE IN ONE NOTCH OF TURN. *** EVERY ONE OF THEM WAS ME
-MEASURING THE CAMERA INSTEAD OF THE CLOTHES. *** Three separate ruler bugs:
-  SLEEVE ON A BACKPACK -- a pack hangs BEHIND the arms, so from behind it is between
-    you and them and paints them, side-on the near arm is in front of it. Asked only
-    of layers that HAVE sleeves now, and NEVER off the profile: side-on the near arm
-    sits in front of the torso and a SLEEVELESS apron scored 0.68. You cannot tell a
-    sleeve from an occlusion in a flat grid seen edge-on.
-  REACH -- and this was the hardest to admit because I wrote it as an identity
-    measure. How far a garment stands off the body SIDEWAYS IS NOT A PROPERTY OF THE
-    GARMENT. A cap brim points at the camera head-on and lies across the frame
-    side-on. That is FORESHORTENING, the whole reason a 3/4 view reads as depth.
-    Printed now, never judged.
-  OCCLUSION -- and this one cost me a change I threw away. SMITH'S APRON: hem 0.188
-    facing S, EXACTLY 0.000 from behind. I read it as an apron that stops existing
-    when he turns, wrote the fix (draw the skirt edges where the body does not cover
-    them, per row, off the part grid) and IT PAINTED ZERO PIXELS. The panel is 17px
-    and his hips are 22. IT IS GENUINELY HIDDEN and the code was right all along.
-    Reverted rather than shipped -- a change that draws nothing is exactly the class
-    of lie I have spent this week catching. A garment can be OCCLUDED rather than
-    ABSENT and a hem read off visible pixels cannot tell those apart, so a facing
-    showing under a quarter of a garment's biggest view is skipped as occluded.
-
-WHAT SURVIVES IS VERTICAL: hem, rise, sleeve off the profile. A hem does not
-foreshorten when he turns, which is exactly why hem caught the hair bug.
-
-    worst one-notch HEM, all 221 canon garments   0.087 body-heights
-    worst one-notch RISE                          0.032
-    worst one-notch SLEEVE                        0.100
-    garments over a tenth of a body in one notch  52 -> 0
-
-*** THE WARDROBE HOLDS. IT HELD BEFORE I STARTED. *** The only real defect in the
-clothes was the 17 that were not drawing -- found by this same audit on its first
-run, fixed yesterday, shipped.
-
-AND A RULER NARROWED FOUR TIMES HAS TO BE SHOWN TO STILL HAVE TEETH, because "I
-loosened it until it went green" is the exact failure this project has a law about.
-MUTATION: make every long coat knee-length IN PROFILE ONLY, one line in genCoat.
-    worst hem 0.087 -> 0.248, garments flagged 0 -> 13, gate names SPLIT-TAIL DUSTER.
-
-GATES: one_garment_per_slot 15/0 -- three new ratchets (hem 0.09, rise 0.04, sleeve
-  0.11), all mutation-proved, plus the 8/25 every-garment-appears sweep and the 8/21
-  slot rules. All on the REAL worn path, the only surface that has caught anything
-  this week. look 24/0 (44 pictures).
-
-WHAT THE NEXT CHARACTER SESSION PICKS UP:
-  1. *** THE THING I KEEP LEARNING AND WOULD TELL ANY LANE: A METRIC THAT MOVES WHEN
-     THE CAMERA MOVES CANNOT CATCH A DEFECT. *** Four rulers in two days died of it --
-     hair AREA, garment SLEEVE, garment REACH, and hem-under-occlusion. Before you
-     pin a number, ask what it does when nothing is wrong and the view changes. If
-     the answer is "it moves", it is not a defect detector, it is a camera detector.
-  2. The wardrobe and the hair now both hold identity across 8 facings and both are
-     gated. The next honest question for this lane is ANIMATION: does a garment hold
-     its identity across the FRAMES of a walk cycle, not just the facings? Nothing
-     has ever asked. Same audit, time axis instead of turn axis.
-  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
-
-  node gates/one_garment_per_slot_gate.js        15/0
-  node tools/bohemia_the_bald_crowd.js           the picture, LOOK tab
-  node tools/bohemia_garment_identity_audit.js   the audit, ruler and all
-  records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
-
-================================================================================
 WORLD (world-9lfjtf): 8/26 (a) LATEST -- *** THE STREETS CONNECT NOW. One road join in
 three in the whole valley did not line up; the mile grid he walks is at ZERO. TAB: RUN to
 walk it. Nothing to judge. ***
@@ -435,6 +271,249 @@ PROOF
   gate now sweeps EVERY word the page itself says, not one paragraph.
 
 ------------------------------------------------------------------------------
+FACTIONS (factions-ovkjpf): 8/26 (q) LATEST -- *** THE OUTFITS ARE AT WAR WITH
+EACH OTHER AND THE CARD SAYS SO. Paolo ruled it this turn and half of it was
+already sitting in the repo unread. Nothing to judge. ***
+
+TAB: **RUN**. Walk up to anybody who runs with an outfit and the card now has a
+row under RUNS WITH saying who they are up against. Cartel members read
+"AND ARE UP AGAINST :: CARAVANS, REMNANTS".
+
+THE RULING (Paolo 8/26, verbatim)
+  "custom is your own personal faction!!!!!! and you can imagine if you play the
+   game with your custom faction the values arent just for you its for how your
+   factions treated bro but u prob Already have that. But, yeah, for the other
+   factions."
+
+WHAT WAS ALREADY IN THE REPO AND HAD NEVER BEEN READ
+  engine/BOHEMIA_faction_graph.json holds NINE directed canon relations
+  (permanent-war, prey-tax, professional-respect, adjacent, hands-off). Its own
+  _meta says "All canon; nothing invented". bohemia_engine.js FactionCanon
+  priced every one of those labels on 7/2. THE CITY HAS NEVER READ EITHER:
+  `grep -c BohemiaEngine slices/BOHEMIA_CITY_WORLD.html` was 0.
+  So costs() charged every hearer the same number, and the Remnants -- at
+  permanent war with the Cartel -- took exactly what the Church took.
+
+WHAT SHIPPED
+  engine/bohemia_between.js        what two OUTFITS are to each other. Not about
+                                   the player. Pairs copied from the graph,
+                                   numbers PARSED out of FactionCanon.REL_SPEC
+                                   at build time so the two can never drift.
+  tools/bohemia_between.py         the generator
+  tools/bohemia_city_between_patch.py  the wire
+  gates/faction_between_gate.js    40 claims, 0 failed, registered as
+                                   FACTION BETWEEN. Eleven of them load the
+                                   SHIPPED CITY IN A REAL BROWSER at 390x844.
+  records/BOHEMIA_THE_GAME_HELD_A_WAR_AND_COULD_NOT_FEEL_IT_8_26_26.md
+
+THREE DEFECTS, NONE VISIBLE IN A DIFF, ALL VISIBLE IN A CARD
+  1. THE DEAD ZONE. The Cartel tax the Caravans (init -45). At base cost 1 --
+     the most common case in the game -- the proportion rounded to ZERO. A canon
+     position is now an INVARIANT, which is FactionCanon's own lesson ("a
+     starting value decays; an invariant holds") applied to the cost side.
+  2. THE ROW BEHIND THE WRONG GUARD. The world-fact row went into ctHearRows,
+     which is only called at `if(ctLadder && ctWall && ctWall.atWall && ...)`,
+     so it rendered on no ordinary card at all. Same shape as the tertius row
+     that sat behind an early return on the exact condition it described.
+  3. THE CARD THAT CONTRADICTED ITSELF. There are TWO whoHears calls in the
+     city. Teaching one shipped a card reading "WILL HEAR IT AS FACT: CARAVANS,
+     REMNANTS" three lines above "NOBODY WHO COULD CHARGE YOU FOR IT IS CLOSE
+     ENOUGH TO KNOW".
+
+AND IT COULD NOT FIRE, WHICH WAS MEASURED BEFORE IT WAS FIXED
+  A sweep of the live city -- every base, every affiliated person, the real
+  whoHears against the real roster -- found TWO hearing pairs in the ENTIRE
+  VALLEY (Mob<->Network), and neither is a pair canon holds a position on. The
+  acquaintance walk needs a chain of housemates between two outfits and a thin
+  population has none. And the chain is the WRONG TEST anyway: this module's own
+  words say sided is "Said in front of people" and burned is "they know which
+  somebody". whoHears grew opts.watching -- a canon position is a reason to be
+  already looking. A neutral arrangement is NOT surveillance (hands-off made the
+  Volunteers charge for every Cartel commitment under their own shipped sentence
+  "There is no side to be on here").
+
+THREE THINGS THE FLEET SHOULD KNOW
+  1. THE VALLEY IS TOO THIN FOR WORD TO TRAVEL. Two hearing pairs on the whole
+     map. The watcher rule routes around it for canon-related outfits and does
+     nothing for the other ~200 pairs. Whatever thickens the population or the
+     tie graph will make a lot of already-built machinery start firing at once.
+  2. FIVE OF SIXTEEN OUTFITS ARE UNREACHABLE. Blues and Anarchists have bases at
+     the top edge (y=0, y=3) and zero members; Karens, Social Forces and
+     Amalgamation have belonging rules and no base at all.
+  3. HIS OWN OUTFIT IS EMPTY ON PURPOSE. Custom has relations:{} and canon's note
+     is "Player faction... Identity emerges from three generations of action."
+     Gate claim C4 asserts that is CORRECT, because on 8/21 this lane reported
+     his own faction as a defect and he had to correct it.
+
+BOTH NEW ARGUMENTS ARE OPT-IN. costs(...,opts) and whoHears(...,{watching}) with
+nothing passed return exactly yesterday's numbers, so no other lane's surface
+moves underneath it.
+
+--------------------------------------------------------------------------------
+SOUND (sound-xk7pjp): 8/26 (b) LATEST -- *** HIS VERDICT EXPORT LANDED. THE MENU
+WAS PLAYING A FIGHT'S ARRANGEMENT -- he heard it on one song, it was hitting ALL
+EIGHT, and the worst was SEVENFOLD. Fixed, gated, and his new three-level
+intensity ladder is built. Nothing to judge. ***
+
+TAB: MUSIC. The menu songs now sound the same wherever the KILL LAYERS button is
+set. Build 8/26i - THE MENU STAYS CALM.
+
+HIS RULING, RECORDED THE SAME TURN
+  laws/BOHEMIA_ADDENDUM_MENU_MUSIC_IS_NEVER_INTENSIFIED_8_26_26.md
+  "menu music doesnt get impacted by intensity type shit" + the three-level
+  ladder + "we need more voices and different instruments sounds and shit."
+
+WHAT WAS ACTUALLY WRONG
+  He named MENU - THE POWER STILL ON SOMEWHERE, "really bad on intensity 2".
+  Measured, one bar of every menu song rendered through the real playStep:
+      THE POWER STILL ON SOMEWHERE   479 -> 1539 -> 2063
+      LIGHTS ACROSS THE VALLEY      1374 -> 7084 -> 9732   (sevenfold)
+      DEAD VALLEY DAWN               926 -> 1568 -> 2076
+  All eight, not one. FIXED at the single place the intensity NUMBER becomes an
+  ARRANGEMENT (`const sk = f.menu ? 0 : this.layers` in MUS.playStep), because
+  fixing it at the KILLMUS end would leave the JUDGE PAGE able to audition a
+  menu song at 2 -- which is the surface he heard it on.
+
+THE LADDER (part two of the same ruling)
+  Level 1 overworld / 2 threat or somebody talking to you / 3 two kills or a
+  crowd talking. Two things changed: the top moved from FOUR kills to TWO, and
+  kills stopped being the only input. window.INTENSITY is the front door;
+  KILLMUS is the same object under its old name.
+  WIRED: kills, threat (COMBAT_STARTED + PLAYER_HIT).
+  UNWIRED AND SAID SO: talking, crowd -- a conversation starts INSIDE the city
+  frame and nothing crosses to the shell. One line each from the lane that owns
+  that surface: INTENSITY.talking(true) / INTENSITY.crowd(true). Not edited here,
+  ONE SYSTEM ONE SESSION, and reported as unwired rather than counted as shipped.
+
+A GATE HELD THE OLD LADDER
+  fight_music_gate asserted "two kills -> layer 2, four -> layer 4". Right on
+  8/20, superseded on 8/26. A GATE MUST NEVER OUTRANK A RULING: updated, 47/0.
+
+THE THREE HE KILLED, AND TWO REAL BUGS BEHIND THEM
+  MENU - WHAT THE VALLEY KEPT, MENU - NOBODY IS COMING, THE NOTE THAT WOULD NOT
+  STAY ONE. Buried: MLOOPS 131 -> 128, tags pruned, song lock regenerated.
+  1. THE BURIAL WROTE A FALSE RECORD. bohemia_music_bury_the_dead.py had the
+     8/19 batch's story HARDCODED, so songs he killed on 8/26 were filed as
+     "7/8/26 | DOWN (batch 6/7 horror)". Every future burial by any lane would
+     have inherited it. Fixed at the tool; the date now comes from each song's
+     own death notice. Three rows corrected.
+  2. *** A GENERATOR CAN RESURRECT THE DEAD. *** Burying takes a song out of
+     MLOOPS; the batch tool that cooked it still holds its full text, so
+     RE-RUNNING THAT TOOL PUTS IT BACK. The graveyard gate saw it instantly:
+     live references 10 -> 16 the moment the three were buried. Both batch tools
+     now REFUSE. Verified the way that matters: after re-running batch21, MLOOPS
+     is still 128. Live refs back to the pre-existing 10 (all character lane).
+     THIS APPLIES TO EVERY LANE THAT COOKS BATCHES, not just music.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  "we need more voices and different instruments sounds and shit. so yeah keep
+  cooking" -- a STANDING order and the next thing this lane does. It does NOT
+  reopen particle and air: the 8/14 post-mortem barred those from new cooks
+  "unless he asks for one", and he asked for MUSIC voices in a MUSIC verdict.
+
+PROOF
+  records/BOHEMIA_THE_MENU_WAS_FIGHTING_8_26_26.md
+  gates/menu_music_gate.py     17 passed, 0 FAILED   (new, registered as MENU MUSIC)
+  gates/fight_music_gate.py    47 passed, 0 FAILED   (ladder updated to his 8/26)
+  SONG LOCK / DEMO BUILD / TOOL IDEMPOTENT / MUSIC REACH / ALPHA LOADS all green
+  MUTATED, five: the bug put back (all 8 menu songs red); intensity killed for
+  everyone ("not turn it all off" red); two kills back to four; threat removed;
+  COMBAT_STARTED unwired -- that last one goes red while the API stays green,
+  which is exactly what it is there to catch.
+  AND FOUR RULER MISTAKES OF MY OWN, all caught by measuring, all written up:
+  the probe set MUS.idx which is not a thing; a 1e-9 tolerance called float noise
+  a difference; a relative tolerance failed the quietest song for being quiet;
+  and the real answer was that playStep is NOT DETERMINISTIC (one song, one
+  intensity, three renders: zc 122/120/122). The gate now measures each song
+  against its own spread.
+
+------------------------------------------------------------------------------
+
+CHARACTER (character-0lurbs): 8/26 (n) LATEST -- *** ONE IN THREE PEOPLE IN THE CITY
+HAD A HAT ON AND YOU COULD NOT SEE IT. AND ALL 52 OTHER "FINDINGS" WERE MY RULER.
+TAB: LOOK for the picture, CITY to walk through the crowd. Nothing to judge. ***
+
+PART ONE: THE HAT BUG WAS FOUR TIMES BIGGER THAN "SEVENTEEN GARMENTS".
+Yesterday's fix restored 17 canon garments that rendered nothing. Counting them as
+menu items undersells it, because THE CITY DRESSES ITSELF OUT OF THE SAME CATALOGUE.
+MEASURED on 5,000 people generated exactly the way the game generates them
+(BOH_PERSONLOOK.lookFor with the canon pool -- the same call the crowd makes):
+    29.6%  of everybody in the city wears headwear
+    88.2%  of the hats they were wearing DREW NOTHING
+    28.4%  of EVERY PERSON IN THE CITY put something on their head and stayed bare
+Only TWO of the seventeen head garments in the game worked (shemagh, scrap helm).
+The town read as a place where almost nobody owns a hat. That is the honest measure
+of a bug that was, in code, one literal `56`.
+
+PART TWO: THE IDENTITY AUDIT ON CLOTHES. FIRST RUN SAID 52 GARMENTS CHANGE BY A
+TENTH OF THE BODY OR MORE IN ONE NOTCH OF TURN. *** EVERY ONE OF THEM WAS ME
+MEASURING THE CAMERA INSTEAD OF THE CLOTHES. *** Three separate ruler bugs:
+  SLEEVE ON A BACKPACK -- a pack hangs BEHIND the arms, so from behind it is between
+    you and them and paints them, side-on the near arm is in front of it. Asked only
+    of layers that HAVE sleeves now, and NEVER off the profile: side-on the near arm
+    sits in front of the torso and a SLEEVELESS apron scored 0.68. You cannot tell a
+    sleeve from an occlusion in a flat grid seen edge-on.
+  REACH -- and this was the hardest to admit because I wrote it as an identity
+    measure. How far a garment stands off the body SIDEWAYS IS NOT A PROPERTY OF THE
+    GARMENT. A cap brim points at the camera head-on and lies across the frame
+    side-on. That is FORESHORTENING, the whole reason a 3/4 view reads as depth.
+    Printed now, never judged.
+  OCCLUSION -- and this one cost me a change I threw away. SMITH'S APRON: hem 0.188
+    facing S, EXACTLY 0.000 from behind. I read it as an apron that stops existing
+    when he turns, wrote the fix (draw the skirt edges where the body does not cover
+    them, per row, off the part grid) and IT PAINTED ZERO PIXELS. The panel is 17px
+    and his hips are 22. IT IS GENUINELY HIDDEN and the code was right all along.
+    Reverted rather than shipped -- a change that draws nothing is exactly the class
+    of lie I have spent this week catching. A garment can be OCCLUDED rather than
+    ABSENT and a hem read off visible pixels cannot tell those apart, so a facing
+    showing under a quarter of a garment's biggest view is skipped as occluded.
+
+WHAT SURVIVES IS VERTICAL: hem, rise, sleeve off the profile. A hem does not
+foreshorten when he turns, which is exactly why hem caught the hair bug.
+
+    worst one-notch HEM, all 221 canon garments   0.087 body-heights
+    worst one-notch RISE                          0.032
+    worst one-notch SLEEVE                        0.100
+    garments over a tenth of a body in one notch  52 -> 0
+
+*** THE WARDROBE HOLDS. IT HELD BEFORE I STARTED. *** The only real defect in the
+clothes was the 17 that were not drawing -- found by this same audit on its first
+run, fixed yesterday, shipped.
+
+AND A RULER NARROWED FOUR TIMES HAS TO BE SHOWN TO STILL HAVE TEETH, because "I
+loosened it until it went green" is the exact failure this project has a law about.
+MUTATION: make every long coat knee-length IN PROFILE ONLY, one line in genCoat.
+    worst hem 0.087 -> 0.248, garments flagged 0 -> 13, gate names SPLIT-TAIL DUSTER.
+
+GATES: one_garment_per_slot 15/0 -- three new ratchets (hem 0.09, rise 0.04, sleeve
+  0.11), all mutation-proved, plus the 8/25 every-garment-appears sweep and the 8/21
+  slot rules. All on the REAL worn path, the only surface that has caught anything
+  this week. look 24/0 (44 pictures).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. *** THE THING I KEEP LEARNING AND WOULD TELL ANY LANE: A METRIC THAT MOVES WHEN
+     THE CAMERA MOVES CANNOT CATCH A DEFECT. *** Four rulers in two days died of it --
+     hair AREA, garment SLEEVE, garment REACH, and hem-under-occlusion. Before you
+     pin a number, ask what it does when nothing is wrong and the view changes. If
+     the answer is "it moves", it is not a defect detector, it is a camera detector.
+  2. The wardrobe and the hair now both hold identity across 8 facings and both are
+     gated. The next honest question for this lane is ANIMATION: does a garment hold
+     its identity across the FRAMES of a walk cycle, not just the facings? Nothing
+     has ever asked. Same audit, time axis instead of turn axis.
+  3. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/one_garment_per_slot_gate.js        15/0
+  node tools/bohemia_the_bald_crowd.js           the picture, LOOK tab
+  node tools/bohemia_garment_identity_audit.js   the audit, ruler and all
+  records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
+
+=========================================================================
 
 SOUND (sound-xk7pjp): 8/26 (a) LATEST -- *** THE DEMO BUILD EXISTS. Item A on the
 gap list, the one the coordinator put in capitals as the headline, is done: a
