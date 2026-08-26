@@ -1053,3 +1053,16 @@ warm even band reads apart from the desert at a glance. Twenty-fourth
 wired family, full form, board row 92, tileform + reusefirst 0 by exit
 code. Targeted git adds only this ship - the hero bank was mid-bake in
 the background and a git add -A would have staged a half-written file.
+
+## 8/25 FIFTIETH PASS: THE RESERVOIR IS FINISHED (deck + overflow, volume)
+
+Second parallel ship while the icon rebake ground on: 'tank roof' x3295
+(the buried reservoir's concrete deck, blobs to 26x106) and 'overflow'
+x1028 (splash structures on the pad), volume under TF-ART-020 exactly
+as its form promised. The deck is a jointed panel per cell with
+self-seamless N+W joints, patches and cracks thinned to one-in-seven
+after the first wire's one-in-three read as polka squares (caught on
+the live surface before shipping), mushroom vents sparse. The overflow
+basin carries the dry stain fan of the last time water ever left. With
+this the reservoir's whole named vocabulary is wired except the buried
+transmission main, whose vault rows already mark it. Sitting pass 50.
