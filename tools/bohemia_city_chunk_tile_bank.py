@@ -100,6 +100,38 @@ else:
         sys.exit('CHUNK: could not evaluate the existing chunks to read the bank back: %s'
                  % (_r.stderr or '')[:300])
     _vals = json.loads(_r.stdout)
+
+    # A NON-EMPTY DECLARATION IN CHUNK 1 IS SOMEBODY ELSE'S UPDATE, AND IT WINS (8/26).
+    # This tool ALWAYS writes chunk 1's declarations empty and fills them from later chunks,
+    # so a populated one can only have been put there by another tool -- and one is:
+    # bohemia_city_hero_wire_patch.py rewrites `var HERO_SRC=` wherever it finds it, which
+    # since the split is chunk 1. Read back in load order, chunk 2's `Object.assign(HERO_SRC,
+    # {...})` then runs AFTER that declaration and overwrites the new art with the old.
+    # MEASURED: five district icons another lane baked (basin, cemetery, landfill, radio,
+    # water) survived the tool, went into chunk 1, and were silently reverted by the very
+    # next re-chunk -- and the tool then wrote them again, forever, which is what made
+    # tool_idempotent red and looked like the tool's fault.
+    # So chunk 1 is evaluated ALONE first. Anything non-empty there is newer than what the
+    # later chunks carry, by construction, and is kept.
+    _p1 = ('const fs=require("fs");\nconst O={};\n'
+           'eval(fs.readFileSync(%s,"utf8") + "\\n;" + '
+           '%s.map(n=>`O[${JSON.stringify(n)}]=${n};`).join(""));\n'
+           'process.stdout.write(JSON.stringify(O));\n') % (json.dumps(parts[0]),
+                                                             json.dumps(HEAD_NAMES))
+    open(_t, 'w', encoding='utf8').write(_p1)
+    _r1 = _sp.run(['node', '--stack-size=8000', '--max-old-space-size=6144', _t],
+                  capture_output=True, text=True)
+    if _r1.returncode == 0 and _r1.stdout:
+        _head = json.loads(_r1.stdout)
+        for _n in HEAD_NAMES:
+            _h = _head.get(_n)
+            if _h and len(_h) and len(_h) >= len(_vals.get(_n) or []):
+                if _h != _vals.get(_n):
+                    print('CHUNK: chunk 1 carries a NEWER %s than the later chunks '
+                          '(%d entries) -- keeping chunk 1\'s, it was written by another '
+                          'tool after the last split.' % (_n, len(_h)))
+                _vals[_n] = _h
+
     src = None      # the declaration scan is skipped; decls are built directly below
     decls = [(('var' if n == 'HERO_SRC' else 'const'), n, _vals[n]) for n in HEAD_NAMES]
 

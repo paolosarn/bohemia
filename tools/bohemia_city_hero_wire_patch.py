@@ -146,15 +146,18 @@ def main():
         cur = open(extern, encoding='utf8').read()
         _hl = next((ln for ln in cur.split('\n') if ln.startswith('var HERO_SRC=')), '')
         if len(_hl) < 64:                                   # a declaration, not the data
-            body = json.dumps(src, separators=(',', ':'))
-            want = 'Object.assign(HERO_SRC,' + body + ')'
+            # MATCH THE DATA, NOT THE TEXT. The first cut compared the whole
+            # `Object.assign(HERO_SRC,{...})` string and never matched, because the chunker
+            # writes that object with its own separators -- identical art, different bytes,
+            # and the tool wrote 2.85 MB every run on the strength of a formatting
+            # difference. Asking whether every hero's own data URL is in the chunks is
+            # independent of how the object was printed, and it is still exact: change one
+            # sprite and that one URL is absent, so the art is correctly written.
             d = os.path.dirname(extern)
-            for f in sorted(os.listdir(d)):
-                if not re.match(r'^BOHEMIA_CITY_TILES_\d+\.js$', f):
-                    continue
-                if want in open(os.path.join(d, f), encoding='utf8').read():
-                    carried = True
-                    break
+            blob = ''.join(open(os.path.join(d, f), encoding='utf8').read()
+                           for f in sorted(os.listdir(d))
+                           if re.match(r'^BOHEMIA_CITY_TILES_\d+\.js$', f))
+            carried = bool(src) and all(v in blob for v in src.values())
     _extern_note = ('/* HERO_SRC lives in ' + os.path.basename(extern) + ' (8/6, repo budget: this page '
                     'is rewritten daily and was carrying 27 MB of art it never edits) */\n') if extern else ''
     if extern and carried:
