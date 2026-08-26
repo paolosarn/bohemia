@@ -257,7 +257,20 @@
             var rx = vertical ? C + o2 : a2, ry = vertical ? a2 : C + o2;
             if (rx < 0 || ry < 0 || rx > 127 || ry > 127) continue;
             var cc = g[ry][rx];
-            if (cc === 5 || cc === 7 || cc === 6 || cc === 1 || cc === 2) g[ry][rx] = 3;
+            /* AND IT NEVER PAINTS OVER THE ROADWAY (8/26, STREET CONTRACT). `cc === 1 ||
+               cc === 2` was in this list, so the ramp could convert asphalt and lane
+               lines. At a crossing the ramp runs the full parkway-and-walk width out from
+               the corner -- twenty tiles -- and at the far end of that run it arrives on
+               the PERPENDICULAR street's carriageway, right at the cell boundary. It ate
+               two tiles off each side of the crossing street exactly where that street
+               hands over to the next cell, so the corridor read 22..106 on the crossing
+               and 20..108 on the straight run beside it and the two did not agree about
+               where the road was. That is 1,138 of the valley's 4,497 road seams, the
+               biggest single class of them.
+               A curb ramp crosses the gutter, the parkway and the walk. It does not cross
+               the travel lane -- the ladder crosswalk above already carries the crossing
+               over the roadway, so nothing is lost by saying so. */
+            if (cc === 5 || cc === 7 || cc === 6) g[ry][rx] = 18;
           }
         }
       }
@@ -503,7 +516,12 @@
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
     7: '#6a5f47', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
-    13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a'
+    13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
+    /* THE RAMP IS THE SIDEWALK, CARRIED OVER THE CURB, so it takes the sidewalk's own
+       concrete (6) rather than a new colour. REUSE-FIRST: nothing new is cooked for it.
+       It used to be drawn in the crosswalk's white (#b3ab97), which is why every corner
+       had fifteen metres of ladder paint across the planted parkway. */
+    18: '#8a8a92'
   };
 
   var LEGEND = {
@@ -529,7 +547,19 @@
     14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left at the curb, tyres flat, glass gone' },
     15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
     16: { name: 'storm drain inlet',  kind: 'ground',   act1: 'curb inlet to the flood system, grate half choked with silt' },
-    17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' }
+    17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' },
+    /* A CURB RAMP IS PAVEMENT YOU WALK ON, NOT PAINT ON A ROAD (8/26, STREET CONTRACT).
+       The ramp used to be drawn with code 3, the ladder crosswalk, which is kind
+       `marking` -- and a marking is DRIVABLE everywhere in this codebase (the kit counts
+       it as a conductor, the drive network drives over it, the street contract measures
+       the corridor by it). The ramp runs from the curb line right out to the cell
+       boundary across the whole parkway, so every corner of every arterial crossing was
+       declaring FIFTEEN METRES of planted parkway to be roadway. MEASURED: 1,138 of
+       4,497 road-to-road seams in the valley read a corridor two tiles wider on the
+       crossing side than on the straight run beside it -- the single biggest reason two
+       arterials did not agree about where the street was.
+       It is a ramp. You walk up it. `walk` is what it always was. */
+    18: { name: 'curb ramp',          kind: 'walk',     act1: 'concrete curb ramp cut through the gutter and carried across the parkway to the walk' }
   };
 
   var NOTES = {
@@ -586,8 +616,29 @@
       // a street CELL, and it is why the top third of every arterial grid was bare dirt with
       // a hard edge across it: one leg meant the roadway stopped half a cell short. A street
       // that dead-ends inside a block is not a street. Both legs, always.
+      //
+      // *** BUT BOTH LEGS OF **WHICH AXIS**. (Paolo 8/25 PLAYTEST DISPATCH, LOCKED: "IM SICK
+      // OF PLAYING THIS RUN AND NONE OF THE STREETS CONNECT EVER".) This line read
+      // `o.links = ['N','S']` -- it forced both legs AND it forced the AXIS, so EVERY
+      // ARTERIAL IN THE VALLEY WAS A NORTH-SOUTH ROAD however it actually ran. Measured on
+      // the built valley before touching it: 921 road cells (26.1% of every road cell in the
+      // game, 907 of them arterials) are built along an axis the world does not connect them
+      // on, and 23.7% of road-to-road seams lose drive surface at the join -- the worst of
+      // them 93 rows of 128, which is an arterial's SIDEWALK MARGIN butted against the next
+      // arterial's CARRIAGEWAY. That is his sentence, in tiles.
+      // The world already knew: roadAxis() reads the run and kitRoadLegs() hands over
+      // links:['E','W'] for an east-west arterial. It was correct all along and this line
+      // threw it away. Now the AXIS comes from the caller and only the BOTH-LEGS rule is
+      // forced, which is what the paragraph above was actually about.
       var o = {}; for (var k in opts) o[k] = opts[k];
-      o.links = ['N', 'S'];
+      var give = opts.links || opts.streets || [];
+      var s = {};
+      for (var gi = 0; gi < give.length; gi++) s[String(give[gi]).toUpperCase().charAt(0)] = 1;
+      var wantV = !!(s.N || s.S), wantH = !!(s.E || s.W);
+      if (!wantV && !wantH) wantV = true;          // told nothing: the old default, unchanged
+      o.links = [];
+      if (wantV) o.links.push('N', 'S');           // BOTH legs of every axis it serves
+      if (wantH) o.links.push('E', 'W');
       o.streets = o.links;
       return generate(seed, o);
     },
@@ -599,10 +650,33 @@
   K.register('arterial_x', {
     generate: function (seed, opts) {
       opts = opts || {};
-      // THE CROSSING. All four legs, always -- that is what makes it an intersection, and
-      // it is the one cell that gets the lights.
+      // THE CROSSING: BOTH LEGS OF MY OWN AXIS, PLUS AN ARM FOR EVERY STREET THAT
+      // ACTUALLY ARRIVES. This read `o.links = ['N','S','E','W']` -- all four legs,
+      // always -- with the reasoning "that is what makes it an intersection". It makes a
+      // FOUR-WAY an intersection. A T is also an intersection, and forcing the fourth arm
+      // builds half a cell of roadway running out to an edge with nothing on the other
+      // side: a street that dead-ends into somebody's back yard. The generator has always
+      // handled a three-leg set correctly (coverV stops the roadway at the junction box on
+      // the side with no leg), so the shape only ever needed to be told the truth.
+      // `cross` is the list of streets that reach this cell's edges (see kitRoadLegs), and
+      // both legs of my own axis stay forced for the reason the RUN forces them: a street
+      // cell that stops half way is not a street.
       var o = {}; for (var k in opts) o[k] = opts[k];
-      o.links = ['N', 'S', 'E', 'W'];
+      var give = opts.links || opts.streets || [];
+      var myV = false, myH = false, gi, ch;
+      for (gi = 0; gi < give.length; gi++) {
+        ch = String(give[gi]).toUpperCase().charAt(0);
+        if (ch === 'N' || ch === 'S') myV = true;
+        if (ch === 'E' || ch === 'W') myH = true;
+      }
+      if (!myV && !myH) { myV = myH = true; }          // told nothing: the old four-way
+      var s = {};
+      if (myV) { s.N = s.S = 1; }                      // BOTH legs of the axis I run on
+      if (myH) { s.E = s.W = 1; }
+      var cross = opts.cross || [];                    // plus an arm per arriving street
+      for (gi = 0; gi < cross.length; gi++) s[String(cross[gi]).toUpperCase().charAt(0)] = 1;
+      o.links = [];
+      ['N', 'S', 'E', 'W'].forEach(function (dir) { if (s[dir]) o.links.push(dir); });
       o.streets = o.links;
       return generate(seed, o);
     },

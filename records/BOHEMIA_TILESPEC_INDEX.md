@@ -42,7 +42,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [cityhall](tilespec/BOHEMIA_TILESPEC_cityhall.md) | civic | 28 | yes |
 | [battery](tilespec/BOHEMIA_TILESPEC_battery.md) | infrastructure | 14 | yes |
 | [terminal](tilespec/BOHEMIA_TILESPEC_terminal.md) | infrastructure | 23 | yes |
-| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 17 | yes |
+| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 18 | yes |
 | [freeway](tilespec/BOHEMIA_TILESPEC_freeway.md) | infrastructure | 18 | yes |
 | [desert](tilespec/BOHEMIA_TILESPEC_desert.md) | terrain | 14 | yes |
 | [mountain](tilespec/BOHEMIA_TILESPEC_mountain.md) | terrain | 10 | — |
@@ -56,7 +56,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [ballpark](tilespec/BOHEMIA_TILESPEC_ballpark.md) | leisure | 15 | yes |
 | [airbase](tilespec/BOHEMIA_TILESPEC_airbase.md) | infrastructure | 18 | yes |
 | [arsenal](tilespec/BOHEMIA_TILESPEC_arsenal.md) | industrial | 15 | yes |
-| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 17 | yes |
+| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 18 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
 | [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 16 | yes |
 | [convention](tilespec/BOHEMIA_TILESPEC_convention.md) | civic | 16 | yes |

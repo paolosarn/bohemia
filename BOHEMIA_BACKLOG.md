@@ -2111,6 +2111,32 @@ STREETS-LEGO. *** HIS RULING, TOP OF THIS LANE. "NONE OF THE STREETS
    row is the CONNECTOR CONTRACT over that bank, not a new art cook.
    | walk a straight line across three districts without the street
    breaking, on the real surface, gated | — | he plays it. TAB: RUN. ***
+   *** SHIPPED 8/26. records/BOHEMIA_THE_STREET_CONTRACT_8_26_26.md.
+   4,497 seams in the valley, 1,405 broken -> 270. ARTERIAL, the mile grid
+   he walks: 1,702 of 2,594 broken -> ZERO. Freeway 0/1,415, rail 0/86.
+   Three causes, all structural: (1) the arterial registration forced
+   `links=['N','S']` so EVERY arterial in the game was built north-south,
+   whatever way it ran -- 921 wrong-axis cells, now 14 and all freeway;
+   (2) kitRoadLegs threw away any cross street with the same district
+   NAME, so an arterial crossing an arterial was never a crossing and the
+   arms were never built -- the street stopped 15 m short in bare dirt,
+   564 seams; (3) the curb ramp was allowed to overwrite asphalt and ate
+   two tiles off each side of the perpendicular street at the cell
+   boundary -- 1,138 seams, one join in four, from four tiles at a corner.
+   The ramp also had the CROSSWALK's legend code, kind `marking`, which is
+   drivable, so every corner declared 15 m of planted parkway to be road;
+   it is `arterial:18 curb ramp`, kind `walk`, now.
+   GATE: gates/street_contract_gate.js -- connectors MEASURED off the
+   built tiles (never declared, or the table would have been green all day
+   on 8/25), per-family with no allowance for arterial/freeway/rail, the
+   three-district walk on the real surface down BOTH the traffic lane and
+   the sidewalk, and a mutation test that shifts one piece one tile and
+   takes it from 0 broken to 631.
+   STILL OPEN, NAMED AND RATCHETING: interchange 3 (a blob's coordinate
+   mapping off by one), strip 4 (the Strip runs two cells abreast and has
+   no two-cell-wide crossing piece), and 263 cross-class seams -- mostly
+   an arterial dying on a freeway flank (97) and level crossings with rail
+   (43). What is missing there is a PIECE, not a rule.
 WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "WTF IS GOING ON HERE WITH THE SOUTH PART OF THE BUILDING
    THE WALL CHANGES I HOPE THATS NOT FOR ME WHEN IM SUPPOSED TO BE BEHIND

@@ -591,11 +591,26 @@
     var out = ['N', 'S', 'E', 'W'].filter(function (d) { return s[d]; });
     return out.length ? out : ['N', 'S'];
   }
+  /* THE CROSSING TAKES THE ARMS IT IS ACTUALLY GIVEN (8/26, STREET CONTRACT).
+     `strip_x` was registered with force:true -- all four legs, always, ignoring whatever
+     the world handed it -- on the reasoning that this type "is a portrait, not a
+     placement". It is BOTH: kitRoadType() puts it on real cells. So a boulevard cell with
+     one cross street to the east also grew a full arm to the WEST, out to a cell boundary
+     whose neighbour is a plain north-south run with nothing on that edge. The two halves
+     of the Strip disagreed about where the road was. The portrait is unaffected: called
+     with no legs at all it still falls back to all four, which is what the icon renders. */
   function reg(name, legs, force) {
     var s = { generate: function (seed, opts) {
         var o = {}; for (var k in (opts || {})) o[k] = opts[k];
-        var given = (!force && (o.links || o.streets)) || null;
-        o.links = (given && given.length) ? bothLegs(given) : legs; o.streets = o.links;
+        var given = (o.links || o.streets) || null;
+        var want = (given && given.length) ? bothLegs(given) : legs;   // `force` retired
+        var cross = o.cross || [];                   // plus an arm per street that arrives
+        for (var ci = 0; ci < cross.length; ci++) {
+          var cd = String(cross[ci]).toUpperCase().charAt(0);
+          if (want.indexOf(cd) < 0) want = want.concat([cd]);
+        }
+        o.links = ['N', 'S', 'E', 'W'].filter(function (d) { return want.indexOf(d) >= 0; });
+        o.streets = o.links;
         return generate(seed, o); },
       /* the surface/world caller hands the network mask in, and it is the ONLY caller that
          can know whether the road beside this cell is a cross street or this boulevard's

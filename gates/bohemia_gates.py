@@ -85,6 +85,12 @@ GATES = [
      'yellow=direction, white=lane', False),
     ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
      'no street dead-ends into empty lots', False),
+    ('STREET CONTRACT', ['node', 'gates/street_contract_gate.js'],
+     'Paolo 8/25: "NONE OF THE STREETS CONNECT EVER ... LIKE CONSISTENT PUZZLE '
+     'PIECES AND LEGO BLOCKS". Every street piece\'s edge connector is measured off '
+     'its own built tiles, and every one of the valley\'s 4,497 road-to-road seams '
+     'must agree tile for tile within a road class. Carries a mutation test: nudge '
+     'one piece one tile sideways and this gate goes red.', False),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
     ('VERDICT FROZEN', ['python3', 'gates/verdict_frozen_gate.py'],

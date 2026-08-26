@@ -60,6 +60,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
 | 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | 12 |
 | 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
+| 18 | `#8a8a92` | curb ramp | walk | concrete curb ramp cut through the gutter and carried across the parkway to the walk | ground | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

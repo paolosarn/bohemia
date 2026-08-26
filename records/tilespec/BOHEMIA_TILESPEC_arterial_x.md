@@ -44,22 +44,23 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dirt shoulder | ground | the bare graded dirt between the block wall and the neighbouring lot | ground | no | — | — |
-| 1 | `#33333c` | asphalt roadway | drive | six lanes of cracked asphalt, patched and sun-bleached | ground | no | — | 13611 |
-| 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 308 |
-| 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | 960 |
-| 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | — |
-| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | — |
-| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 121 |
-| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 1076 |
+| 1 | `#33333c` | asphalt roadway | drive | six lanes of cracked asphalt, patched and sun-bleached | ground | no | — | 10220 |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 520 |
+| 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | — |
+| 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 640 |
+| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 500 |
+| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 1394 |
+| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 3026 |
 | 9 | `#8f8676` | streetlight | prop | cobra-head streetlight on the amenity strip, head dark | prop | yes | — | 2 |
-| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | 2 |
-| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | 20 |
-| 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm on the corner, every head dark | prop | yes | — | 4 |
-| 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | — |
-| 14 | `#55555f` | dead car | vehicle | a car left at the curb, tyres flat, glass gone | prop | yes | — | — |
-| 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | 140 |
-| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | — |
-| 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | 140 |
+| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | 4 |
+| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | 40 |
+| 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm on the corner, every head dark | prop | yes | — | — |
+| 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | 14 |
+| 14 | `#55555f` | dead car | vehicle | a car left at the curb, tyres flat, glass gone | prop | yes | — | 12 |
+| 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
+| 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | 12 |
+| 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
+| 18 | `#8a8a92` | curb ramp | walk | concrete curb ramp cut through the gutter and carried across the parkway to the walk | ground | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
