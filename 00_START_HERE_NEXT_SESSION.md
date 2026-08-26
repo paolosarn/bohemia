@@ -1,3 +1,92 @@
+SOUND (sound-xk7pjp): 8/26 (c) LATEST -- *** FOUR PHYSICS THIS RACK HAS NEVER
+HAD, answering his standing order. And the gate that measures them FAILED MY OWN
+BATCH TWICE -- I fixed the voices, not the gate. Four fresh songs badged NEW. ***
+
+TAB: MUSIC. Four new tracks carry them: THE STRING THAT KEEPS MOVING / A NOTE
+THAT CLIMBS WITHOUT RISING / SOMETHING IN THE PIPE IS SHAPING WORDS / THE BOW
+WILL NOT LET GO. Build 8/26r - FOUR NEW PHYSICS.
+
+HIS ORDER
+  "we need more voices and different instruments sounds and shit. so yeah keep
+  cooking" -- standing, not a one-off.
+
+HE SAID DIFFERENT, SO THE SEARCH WAS FOR PHYSICS, NOT NAMES
+  582 melodic voices already exist. The failure mode is a 583rd that lands on
+  top of one of them. The rack was grepped for the TECHNIQUE (FM 32, waveshaping
+  23, comb 24, pluck 22, formant 14, additive 9, FOF 1, Karplus 1...) and
+  SUPERSAW WAS RULED OUT on that evidence: fatsaw / saw3v / detune / unisonsplit
+  are already detuned-saw stacks.
+  WHAT WAS ACTUALLY ABSENT:
+    scanstring  SCANNED SYNTHESIS (Verplank/Shaw/Mathews 1998-99). 64 masses on
+                springs, struck, integrated slowly, read out at pitch. THE
+                WAVETABLE IS COMPUTED BY PHYSICS, and it evolves as it settles.
+    syncthorn   HARD SYNC. The word "sync" appears ZERO times in 582 voices.
+    pafvox      PHASE-ALIGNED FORMANT (Puckette 1995). Not formantvox (filters),
+                not atriumvox (FOF grains). Three ways to a vowel; we had two.
+    bowdrag     STICK-SLIP FRICTION, Helmholtz motion. THE OSCILLATION IS NOT
+                MADE BY AN OSCILLATOR. The first voice here whose pitch is a
+                consequence rather than a setting.
+
+bowdrag FAILED TWICE BEFORE IT WORKED, and both are worth knowing
+  zc 4 over a second: it was CREEPING, not slipping -- the string velocity was
+  scaled by 0.002 so the relative velocity never changed sign and the "friction"
+  was a DC push. Then it went SILENT above 440 Hz: a stiffer string needs a
+  harder press, so the normal force scales with pitch. 55-1200 Hz now.
+
+THE GATE, AND THE PART THAT MATTERS
+  gates/voice_variety_gate.py (registered as VOICE VARIETY). Renders at EVERY
+  pitch, keeps its timbre across the register, and DOES NOT LAND ON AN EXISTING
+  VOICE. THE RACK SETS ITS OWN BAR: it measures how far apart the 578 existing
+  renderable voices are from each other and demands a newcomer beat the median
+  pair, so nobody picks the number that judges their own batch.
+      median existing pair 0.0936
+      bowdrag 0.0960 (overpasslight) · pafvox 0.1052 (hoover)
+      scanstring 0.1143 (sawlead)    · syncthorn 0.1296 (anvil)
+  IT FAILED MY BATCH TWICE. First run: pafvox 0.0077 from `printer`, syncthorn
+  0.0109 from `ringmod`. Half of that was a real descriptor gap -- all four axes
+  were STATIC and these topologies are about CHANGE -- so two evolution axes went
+  in, applied to all 582 so the bar rises with them. Still under. At that point
+  more axes would have been Goodharting my own gate, so I STOPPED TOUCHING THE
+  RULER and made the voices genuinely more distinctive in the direction of their
+  own technique. Both cleared honestly.
+
+TWO FINDS THAT HAD NOTHING TO DO WITH VOICES
+  1. FOUR OF HIS CANON VERDICTS WERE NEVER IN THE GAME. Cross-checked all 106
+     CANON rulings in his export against CANON_DEFAULTS: 102 present, 4 missing
+     (MENU - THE POWER STILL ON SOMEWHERE, THE VOICE THAT STILL ANNOUNCES
+     FLOORS, THE LAST BROADCAST CORRODES, THE BELLS DISAGREE). Applied.
+  2. NEW_VIBES WAS STALE and it matters twice: it drives the NEW badge AND it is
+     the list voice_audible_gate walks, so the newest voices were the only ones
+     nobody was checking. Pointed at this batch.
+  AND I INVENTED A DRUM: kit h:'shaker' does not exist (it is 'shakerh'); that
+  song's hat would have been silent. batch25 now refuses to name an instrument
+  with no body -- and THAT checker was wrong on its first run too (it flagged
+  `clickh`, a real hat kept as an unquoted table key). It uses the game's rule now.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  KEEP COOKING -- it is a standing order and batch 26 is the next thing. The
+  search method is now written down and repeatable: grep the rack for the
+  TECHNIQUE, rule out the near misses by name, and let voice_variety_gate decide
+  whether the result is a sound or a name. Still absent and legal under SCREECH
+  LAW: pulsar synthesis, vector/wavetable spectral morph (check drawbarmorph
+  first), and a real waveguide is BARRED by the no-delay rule, so do not try.
+  Also still open from the 8/26 ruling: INTENSITY.talking() and INTENSITY.crowd()
+  have no callers -- one line each from the lane that owns the city frame.
+
+PROOF
+  records/BOHEMIA_FOUR_NEW_PHYSICS_8_26_26.md
+  gates/voice_variety_gate.py  15 passed, 0 FAILED   (-v prints the distances)
+  MUSIC 20/0 · VOICE AUDIBLE 10/0 · MENU MUSIC 17/0 · FIGHT MUSIC 47/0
+  SONG LOCK 20/0 · DEMO BUILD 25/0 · ALPHA LOADS 20/0 · graveyard unchanged at 10
+  MUTATED: a "new" voice secretly routed to sawlead -> nearest 0.0000 RED, which
+  is the whole reason the gate exists; and bowdrag's force stopped scaling with
+  pitch -> the register leg RED, reproducing the bug I actually shipped.
+
+------------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 8/26 (b) LATEST -- *** THE UIBOOK. He asked for the METHOD for
 studying other games' UI, then named Final Fantasy X as round one. Both shipped:
 four real instruments, four masters, citable ids, and a gate whose centre is

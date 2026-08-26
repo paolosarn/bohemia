@@ -962,6 +962,14 @@ GATES = [
      "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
      "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
      "speech; pitch declines across a statement and rises at a question", True),
+    ('VOICE VARIETY',  ['python3', 'gates/voice_variety_gate.py'],
+     "Paolo 8/26: 'we need more voices and different instruments sounds and "
+     "shit.' He said DIFFERENT, and with 582 voices already in the rack the "
+     "failure mode is a 583rd that lands on top of one of them. Every new voice "
+     "must render at EVERY pitch, keep its timbre across the register, and sit "
+     "further from its nearest existing neighbour than a typical pair of "
+     "existing voices sit from each other -- THE RACK SETS ITS OWN BAR, so "
+     "nobody picks the number that decides whether their own batch passed", True),
     ('MENU MUSIC',     ['python3', 'gates/menu_music_gate.py'],
      "Paolo 8/26 LOCKED: 'menu music doesnt get impacted by intensity type "
      "shit' -- he liked THE POWER STILL ON SOMEWHERE calm and it was 'really bad "
