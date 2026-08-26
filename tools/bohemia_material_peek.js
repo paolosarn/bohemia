@@ -55,8 +55,18 @@ const ZOOM = Number(arg('zoom', 22));
 const OUT = arg('out', path.join(ROOT, 'records', 'target', 'PEEK.png'));
 const STAND_OFF = 5;          /* the camera centres on the player; step off the subject */
 
-if (!MATERIAL && (!DIST || CODE === null)) {
-  console.log('usage: --district <name> --code <n>   |   --material <sTex>   |   --selftest');
+/* AND POINT IT AT A PLACE (8/26). Paolo: "I really need you to fix the streets, make them
+   line up together ... especially in the run, and it's looking like dog shit." Answering
+   that means STANDING IN A NAMED BLOCK and looking, not finding the first tile in the
+   valley that happens to carry a code. `--cell tx,ty` is the overmap cell; `--at gx,gy` is
+   a world tile if you already know one. Everything downstream is unchanged: same camera,
+   same chrome-hiding, same "report where the camera actually landed". */
+const CELL = arg('cell', null);
+const AT = arg('at', null);
+
+if (!MATERIAL && !CELL && !AT && (!DIST || CODE === null)) {
+  console.log('usage: --district <name> --code <n>   |   --material <sTex>   |' +
+              '   --cell <tx,ty>   |   --at <gx,gy>   |   --selftest');
   process.exit(2);
 }
 
@@ -70,7 +80,14 @@ if (!MATERIAL && (!DIST || CODE === null)) {
 
   /* FIND AN INSTANCE IN THE BUILT VALLEY, and say so if there is not one. A picture of the
      wrong place is worse than no picture: it reads as "the feature does not work". */
-  const spot = await page.evaluate(({ d, c, mat }) => {
+  const spot = await page.evaluate(({ d, c, mat, cell, at }) => {
+    if (cell || at) {
+      let gx, gy;
+      if (at) { const p = at.split(','); gx = +p[0]; gy = +p[1]; }
+      else { const p = cell.split(','); gx = (+p[0]) * FN + (FN >> 1); gy = (+p[1]) * FN + (FN >> 1); }
+      const t = om.at((gx / FN) | 0, (gy / FN) | 0);
+      return { hx: gx, hy: gy, district: t ? t.district : '?', code: -1 };
+    }
     const want = c === null ? null : Number(c);
     for (let ty = 2; ty < om.n - 2; ty++) for (let tx = 2; tx < om.n - 2; tx++) {
       const t = om.at(tx, ty); if (!t) continue;
@@ -94,7 +111,7 @@ if (!MATERIAL && (!DIST || CODE === null)) {
       }
     }
     return null;
-  }, { d: DIST, c: CODE, mat: MATERIAL });
+  }, { d: DIST, c: CODE, mat: MATERIAL, cell: CELL, at: AT });
 
   if (!spot) {
     console.log('MISS: no instance of ' + (MATERIAL ? ('material ' + MATERIAL)

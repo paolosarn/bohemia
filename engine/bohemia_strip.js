@@ -67,7 +67,10 @@
   var ROW = 64;        // and no wall: the resort podium next door is the edge
   // 64, NOT 63 — the arterial's truncation_gate lesson: a half-width of 63 misses row 0
   // and column 0, so two road cells side by side get a one-tile seam of bare dirt.
-  var BOX = 33;        // half-width of the curb-to-curb junction box (tracks CURB)
+  /* DERIVED, not a literal. It happens to equal CURB today; the arterial's copy of this
+     same line said "tracks CURB" and was a hard 46 that stopped tracking anything the
+     day the cross-section moved, and it cost that fix its picture (8/26). */
+  var BOX = CURB;      // half-width of the curb-to-curb junction box
 
   var LANE_A = 12, LANE_B = 19, LANE_C = 26;  // white lines between same-direction lanes
   var EDGE = 30;                              // solid white edge line
@@ -80,7 +83,23 @@
      the joint between: the KERB-SIDE WALK you actually move along, a PAVER BAND of
      patterned banding through the middle of it, and the BUILDING-LINE MARGIN where the
      resort's own frontage takes over the ground. Same width, three real things. */
-  var PAVER_A = 42, PAVER_B = 52;   // the banded middle of the promenade
+  /* *** AND HE COUNTED IT BY EYE AND HE WAS RIGHT (Paolo 8/26). ***
+     "The strip had a sidewalk that was super big. I don't know if it was that realistic.
+      And then it wasn't even in the correct place."
+     MEASURED: promenade 34..64 is THIRTY-ONE TILES = 23.2 metres of walk PER SIDE, and
+     codes 6, 21 and 22 are all kind `walk` in three shades of the same pale grey, so it
+     reads as one 46-metre slab of sidewalk across the boulevard. The real Strip promenade
+     is 4.5 to 9 m, wider only where a resort's own forecourt takes over -- and a resort's
+     forecourt is the RESORT'S ground, not the boulevard's. *** OURS WAS ~4x THE REAL
+     THING. *** The splitting-into-three pass on 8/18 was right that one slab was wrong and
+     wrong about the remedy: three names for the same width is still the same width.
+     So the walk is a real 12 m -- generous, which the Strip genuinely is -- and the last
+     11 m goes back to being the PROPERTY LINE it always was in the legend's own words.
+     (The other half of his sentence, "not even in the correct place", is the axis bug: a
+     boulevard built north-south while it runs east-west puts its promenade across the
+     road. Fixed the same day, in the same ship.) */
+  var PAVER_A = 42, PAVER_B = 49;   // the banded middle of the promenade
+  var FRONTLINE = 64;               // 50..64 the property line, 11.25 m, NOT sidewalk
   /* AND THE ROADWAY IS NOT ONE SLAB EITHER, for the same measured reason (33.5% as one
      code) and the same real one: the outside lane of Las Vegas Boulevard is the BUS AND
      TAXI lane, and on a street where a resort's whole arrival depends on the kerb it is
@@ -94,7 +113,7 @@
     if (b <= CURB) return 5;
     if (b < PAVER_A) return 6;      // kerb-side walk
     if (b <= PAVER_B) return 21;    // the paver band
-    if (b <= ROW) return 22;        // building-line margin
+    if (b <= FRONTLINE) return 22;  // building-line margin: the resort's ground, not walk
     return 0;
   }
 
@@ -427,6 +446,24 @@
         var s3 = (r() < 0.5 ? 1 : -1) * (CURB + 9 + Math.floor(r() * 14));
         put(alongAxis === 'v' ? C + s3 : v, alongAxis === 'v' ? v : C + s3, 11, onWalk);
       }
+      /* THE PALM ROW ALONG THE PROPERTY LINE (8/26). The building-line margin stopped being
+         a third grey sidewalk band and went back to being ground, and 11 m of bare ground
+         is the same defect in a different colour -- so it gets the one thing every resort
+         frontage on that street actually has: a ROW of palms, evenly spaced, marching down
+         the property line. Dead on their feet like every other living thing in Act 1.
+         Evenly spaced ON PURPOSE, unlike the scattered ones above: a planted row reads as
+         somebody's landscaping, and a scatter reads as weeds. */
+      for (var w = 5; w < 128; w += 8) {
+        if (!coverFn(w - C)) continue;
+        [-1, 1].forEach(function (side) {
+          var b2 = side * (PAVER_B + 4 + (((w / 8) | 0) % 3));
+          for (var a = 0; a < 2; a++) for (var c2 = 0; c2 < 2; c2++) {
+            var px2 = alongAxis === 'v' ? C + b2 + (side > 0 ? c2 : -c2) : w + a;
+            var py2 = alongAxis === 'v' ? w + a : C + b2 + (side > 0 ? c2 : -c2);
+            put(px2, py2, 11, function (c) { return c === 22; });
+          }
+        });
+      }
     }
     if (vert) dressWalk('v', coverV);
     if (horiz) dressWalk('h', coverH);
@@ -512,7 +549,7 @@
     7: '#4a4030', 9: '#8f8676', 11: '#4d4a38', 12: '#6a6a72', 14: '#55555f',
     15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
     18: '#7c8390', 19: '#6d7280', 20: '#5c5648',
-    21: '#7e7e86', 22: '#6f6f78', 23: '#2e2e36', 24: '#3b3b44'
+    21: '#7e7e86', 22: '#584f3f',   /* GROUND, not a third grey: granite and drifted sand */ 23: '#2e2e36', 24: '#3b3b44'
   };
 
   var LEGEND = {
@@ -535,7 +572,11 @@
     19: { name: 'bridge tower',       kind: 'structure',act1: 'the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight', enter: 'the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street' },
     20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  },
     21: { name: 'paver band',         kind: 'walk',     act1: 'the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them' },
-    22: { name: 'building-line margin',kind: 'walk',    act1: 'the last strip of promenade against the property line, where the resort frontage takes the ground over — sand drifted deep along it' },
+    /* NOT `walk` ANY MORE (8/26). This was the third pale grey band in a row and the third
+       thing called walk, which is how 23 m of sidewalk happened. It is the RESORT'S ground
+       at the property line -- decomposed granite and drifted sand under a row of dead
+       palms -- so it is ground, and it looks like ground. */
+    22: { name: 'building-line margin',kind: 'ground',  act1: 'the resort frontage at the property line: decomposed granite and sand drifted deep, the palm row along it dead on its feet' },
     23: { name: 'junction box',       kind: 'drive',    act1: 'the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing' },
     24: { name: 'bus / taxi lane',    kind: 'drive',    act1: 'the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day' }
   };

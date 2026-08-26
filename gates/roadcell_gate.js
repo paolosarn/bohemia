@@ -129,7 +129,20 @@ function largestComponent(g, isMine) {
   }
   return { total, best };
 }
-const WALK_ONLY = c => c === 6 || c === 13;            // sidewalk + the bus stop pad cut into it
+/* AND THE DRIVEWAY APRON, WHICH A BODY WALKS STRAIGHT OVER (8/26, code 22).
+   THIS IS A RULER FIX, NOT A LOOSENING, and the difference is worth stating because the
+   forbidden move looks identical from a distance. The claim this check makes is "a body
+   can walk the length of the street on each side without being blocked". It was written
+   as a test of CODE IDENTITY -- is this tile the sidewalk code -- which is a proxy, and
+   the proxy broke the moment the frontage arrived: a pad-site driveway crosses the walk
+   twice per cell, the walk is carried through it at grade the way Clark County requires,
+   and a body is not blocked for one step. Measured with the proxy: 282 of 720. Measured
+   as the claim actually reads: 384 of 768, which is exactly half, which is both sides
+   whole end to end.
+   THE GUARD THAT KEEPS THIS HONEST is two lines below: the apron must be a tile a body
+   can really stand on by the KIT'S OWN model, asserted separately, so this cannot be
+   widened again by pointing it at something solid. */
+const WALK_ONLY = c => c === 6 || c === 13 || c === 22;  // sidewalk, bus stop pad, drive apron
 const CROSSABLE = c => c === 6 || c === 13 || c === 3; // ...plus the crosswalks and curb ramps
 // A through street has TWO walks, one per side, and that is correct: the only legal way
 // across mid-block is nowhere. Each side must be unbroken end to end.
@@ -137,6 +150,20 @@ for (const links of [['N', 'S'], ['E', 'W']]) {
   const s = largestComponent(ART.generate(5, { links: links }).g, WALK_ONLY);
   ok('arterial ' + links.join('') + ': each side carries an unbroken walk (' +
      s.best + '/' + s.total + ')', s.total > 200 && s.best / s.total >= 0.45);
+}
+/* THE GUARD ON THE LINE ABOVE. Every code WALK_ONLY accepts has to be ground a body can
+   actually stand on, by the kit's own layer model -- not by this file's opinion. Without
+   this, "each side carries an unbroken walk" could be made true tomorrow by adding a wall
+   code to the list, and it would read exactly as green as it does now. */
+{
+  const bad = [6, 13, 22].filter(c => {
+    const e = ART.legend[c]; if (!e) return true;
+    const tl = K.tileLayer(e);
+    return tl.solid === true;
+  });
+  ok('and every tile the walk check counts is ground a body can stand on, by the kit\'s own ' +
+     'model -- so the check cannot be widened by pointing it at a wall (' +
+     (bad.length ? 'SOLID: ' + bad.join(',') : 'all standable') + ')', bad.length === 0);
 }
 // At a real crossing the walks must JOIN. The paint is a ladder with gaps in it (which
 // is what a crosswalk looks like), and paint blocks nobody, so the honest question is

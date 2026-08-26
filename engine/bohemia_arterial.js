@@ -43,8 +43,19 @@
         : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
 
   var C = 64;          // cell centre (128x128)
-  var BOX = 46;        // half-width of the curb-to-curb pavement box at an intersection
-                       // (tracks CURB: the junction is as wide as the road that makes it)
+  /* THE JUNCTION IS AS WIDE AS THE ROAD THAT MAKES IT, AND FOR FIFTEEN DAYS IT WAS NOT.
+     This read `var BOX = 46;` with the comment "(tracks CURB)" sitting right on it. It did
+     not track anything -- it was a literal, typed once on 8/11 to match a CURB of 46, and
+     the moment the cross-section moved it was just a number that used to be right. That is
+     the third time in this one file that A CONSTANT MOVED AND ITS DEPENDENT STAYED BEHIND
+     (the poles at SET-2, the bus stop guard, this), and it is why a comment claiming a
+     relationship is worth nothing next to code that expresses it.
+     IT COST THE WHOLE FIX ITS PICTURE. The cross-section was rebuilt to real Clark County
+     numbers, every gate went green, and the photograph of a junction came back PIXEL
+     IDENTICAL -- because the junction box was still 92 tiles across, swallowing the median,
+     the lane lines, the kerb and the walk for 69 m in every direction. A FIX THAT CHANGES
+     NO PIXELS IS NOT A FIX; the picture is what caught it, not the gates.
+     Declared below the cross-section now, derived, where it cannot drift again. */
   // WALL TO WALL, EDGE TO EDGE (fixed 7/26 after looking at the real map render). The
   // corridor first stopped at a 42-tile half-width and left 20 tiles of bare dirt out to
   // the cell edge, so on the map every street floated in a black moat between the
@@ -76,9 +87,30 @@
   // and the deep setback belongs to the PARCEL NEXT DOOR -- it is that district's ground,
   // not the street's. This cell is the street, so the street gets the cell: travel lanes,
   // turn lanes and parking out to the curb, then amenity and walk, then a narrow margin.
-  var MEDIAN = 2;      // 0..2   raised median island
-  var PAVE = 44;       // 3..44  6 travel lanes + turn lanes + parking + shoulder
-  var CURB = 46;       // 45..46 curb + gutter
+  /* *** AND THEN IT WENT TOO FAR THE OTHER WAY, AND HE SAW IT (Paolo 8/26). ***
+     "I really need you to fix the streets, make them line up together ... especially in
+      the run, and it's looking like dog shit. You wanna have these big ass sidewalks."
+     MEASURED THE DAY HE SAID IT, on the real page, standing on an arterial: the ENTIRE
+     PHONE SCREEN was one featureless grey field with a single traffic signal in it. Not a
+     road. A car park with a lamp post.
+     THE NUMBERS SAY THE SAME THING. The 8/11 pass killed 33 tiles of dead lawn per side by
+     making everything roadway, and the result was:
+         curb to curb   69.0 m   (226 ft)
+     A Clark County arterial right-of-way is 100 to 120 FEET TOTAL, of which about 25 m is
+     curb to curb. *** OURS WAS 2.7x THE REAL THING. *** At the zoom he plays at, one phone
+     screen is about 20 m, so every screen he walked was interior asphalt: no kerb, no
+     median, no lane line, no walk. There was nothing in frame that could tell him which way
+     the street ran, which is EXACTLY his other sentence -- "if it's going north to south,
+     the street goes north to south ... right now it's not doing that".
+     THE 8/11 RULING IS NOT REVERSED. "THE STREETS SHOULD FILL THE WHOLE FUCKING BOX" and
+     "THE STREETS DONT HAVE WALLS" both still hold: the cell is full, boundary to boundary,
+     and no wall is coming back. What changes is WHAT FILLS IT. A 96 m cell cannot be 96 m
+     of asphalt, because a 96 m road does not exist. It is a real 43 m right-of-way with
+     REAL FRONTAGE either side -- the parcel apron that lines every mile-grid arterial in
+     the valley -- which is dressed ground you can walk on, not lawn and not more asphalt. */
+  var MEDIAN = 3;      // 0..3   raised median island, 3.0 m
+  var PAVE = 17;       // 4..17  10.5 m per side: 3 travel lanes at 3.5 m
+  var CURB = 19;       // 18..19 curb + gutter, 1.5 m
   // THE SURPLUS WIDTH BELONGS TO THE PARKWAY, NOT TO THE SIDEWALK (8/20).
   // The 8/11 rewrite deleted the deep setback and ran the walk to the cell boundary,
   // which was right about the boundary and wrong about what fills it: AMEN 52 / WALK 63
@@ -92,9 +124,13 @@
   // (8/11): a 9 m sidewalk is not "a little", it is the widest single band outside the
   // roadway. Major Vegas arterials carry 10-20 ft of landscaped parkway and a narrow
   // meandering walk behind it, so the surplus goes where the real one puts it.
-  var AMEN = 58;       // 47..58 PARKWAY, 12 tiles / 9 m: trees, poles, lights, stops
-  var WALK = 64;       // 59..64 DETACHED sidewalk, 6 tiles / 4.5 m, out to the cell edge
+  var AMEN = 25;       // 20..25 PARKWAY, 6 tiles / 4.5 m: trees, poles, lights, stops
+  var WALK = 28;       // 26..28 DETACHED sidewalk, 3 tiles / 2.25 m
+  /* RIGHT-OF-WAY ENDS AT 28: 28 x 2 x 0.75 = 42 m = 138 ft, a real six-lane arterial with
+     a median, a planted parkway and a detached walk. Everything outside it is FRONTAGE. */
+  var FRONT = 64;      // 29..64 THE PARCEL THAT FRONTS THE STREET, 36 tiles / 27 m
   var SET = 64;        // no margin: the street owns the cell
+  var BOX = CURB;      // DERIVED. The junction is curb to curb, so it is the kerb offset.
   // AND NO BLOCK WALL. A street is public ground all the way to the boundary, so the
   // neighbouring district's own edge starts exactly where this cell stops.
 
@@ -110,7 +146,9 @@
      A real left-turn bay is 150 ft of storage plus a 120 ft taper, call it 270 ft; 60
      tiles is 45 m, a conservative read of that, and it now starts where the intersection
      box ends instead of 16 tiles inside it. */
-  var POCKET = 106;              // = BOX + 60: the bay runs 45 m back from the junction
+  var POCKET = BOX + 60;         // DERIVED, same lesson as BOX: this was the literal 106,
+                                 // which was BOX+60 on the day it was typed and nothing
+                                 // afterwards. The bay runs 45 m back from the junction.
 
   function bandCode(b) {
     if (b <= MEDIAN) return 4;
@@ -118,7 +156,12 @@
     if (b <= CURB) return 5;
     if (b <= AMEN) return 7;
     if (b <= WALK) return 6;
-    if (b <= SET) return 7;   // margin, not a setback -- and never a wall (Paolo 8/11)
+    /* THE FRONTAGE (8/26). Everything past the back of the walk is the parcel that fronts
+       the street: decomposed granite, which is what the valley is actually surfaced with
+       between a sidewalk and whatever is behind it. It is DRESSED further down (the apron
+       and its stalls, the dead oleander), never left as a bare field -- that was the
+       8/11 complaint and it is not being repeated in a new colour. */
+    if (b <= FRONT) return 19;
     /* AND THE LAST TILE IS WALK, NOT WALL (8/19). This read `if (b <= ROW) return 8`, and
        with WALK = SET = 63 and ROW = 64 that is EXACTLY ONE COLUMN -- b === 64, which is
        ox === -64, THE WEST EDGE OF EVERY ARTERIAL CELL. A one-tile block wall, 128 tiles
@@ -382,6 +425,83 @@
     if (vert) furnishArm('v', coverV);
     if (horiz) furnishArm('h', coverH);
 
+    /* ---- 3b. THE FRONTAGE (8/26) -----------------------------------------------------
+       Paolo 8/26: "it's looking like dog shit ... you can't just be doing one little niche
+       thing at a time." The right-of-way now stops at 42 m like a real arterial, which
+       leaves 27 m of parcel either side, and a bare 27 m is the SAME defect the 8/11 lawn
+       was -- just a different colour. So the frontage is dressed with the thing that
+       actually lines a mile-grid arterial out there: a pad-site apron with its stalls, its
+       drive approach across the walk, and dead oleander on the granite between them.
+       IT IS REACHABLE, WHICH IS THE POINT. The apron is drive surface, so it gets a real
+       DRIVE APPROACH cut across the walk, the parkway and the kerb to the travel lane --
+       one entrance, on the arm it fronts, which is the STREET-AWARE ACCESS LAW's own rule.
+       An apron with no approach is 27 m of road a car can never touch, which is exactly
+       what drive_network_gate exists to catch. */
+    function frontage(alongAxis, coverFn) {
+      var F0 = WALK + 3, F1 = FRONT - 4;          // granite margin stays at both edges
+      var padLen = 34, halfPad = padLen >> 1;
+      [-1, 1].forEach(function (side) {
+        // ONE pad per side, at a deterministic spot along the cell, off the junction
+        var at = 22 + Math.floor(r() * 84);
+        if (!coverFn(at - C) || inJunction(at - C)) return;
+        var t0 = Math.max(2, at - halfPad), t1 = Math.min(125, at + halfPad);
+        var isGranite = function (c) { return c === 19 || c === 11; };
+        for (var t = t0; t <= t1; t++) {
+          for (var b = F0; b <= F1; b++) {
+            var o = side * b;
+            var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+            put(px, py, 20, isGranite);
+          }
+          /* STALL STRIPES every 3 tiles = 2.25 m, which is a real 9 ft stall, and they run
+             ACROSS the bay so the apron reads as parking and not as more road. */
+          if ((t - t0) % 3 === 0) {
+            for (var b2 = F0; b2 <= F0 + 7 && b2 <= F1; b2++) {
+              var o2 = side * b2;
+              var sx = alongAxis === 'v' ? C + o2 : t, sy = alongAxis === 'v' ? t : C + o2;
+              put(sx, sy, 21, function (c) { return c === 20; });
+            }
+          }
+        }
+        /* THE DRIVE APPROACH: 8 tiles / 6 m wide, from the apron to the travel lane. It
+           overwrites walk, parkway and kerb -- that is what a driveway does -- and stops
+           at the asphalt, which is already drive surface. */
+        var dc = Math.min(t1 - 4, Math.max(t0 + 4, at));
+        for (var d = -4; d <= 3; d++) {
+          /* FROM THE ASPHALT, NOT FROM THE KERB. This started at CURB, and the kerb band
+             is TWO tiles -- so the tile between the approach and the travel lane stayed
+             kerb and the whole apron read as unreachable: 61.3% drive reach, 2,100 tiles
+             of parking a car could never enter. A driveway crosses the gutter. */
+          for (var b3 = PAVE + 1; b3 <= F0; b3++) {
+            var o3 = side * b3;
+            var dx = alongAxis === 'v' ? C + o3 : dc + d, dy = alongAxis === 'v' ? dc + d : C + o3;
+            /* THE WALK BAND KEEPS ITS OWN TILE, as a driveway apron: a body walks straight
+               through it, a car drives across it. Everything else on the way -- gutter,
+               parkway, granite -- is plain apron. */
+            var isWalkBand = (b3 > AMEN && b3 <= WALK);
+            put(dx, dy, isWalkBand ? 22 : 20,
+                function (c) { return c === 5 || c === 6 || c === 7 || c === 19; });
+          }
+        }
+      });
+      /* AND DEAD OLEANDER ON THE GRANITE. Act-1 dead, sparse, deterministic: the parcel
+         landscaping nobody has watered in thirty years. Clumps, not pixels -- the same
+         rule the parkway trees follow, because a one-tile shrub reads as noise. */
+      for (var v2 = 6; v2 < 126; v2 += 9) {
+        if (!coverFn(v2 - C) || inJunction(v2 - C)) continue;
+        [-1, 1].forEach(function (side) {
+          if (r() > 0.4) return;
+          var b4 = F0 + 2 + Math.floor(r() * Math.max(1, (F1 - F0 - 4)));
+          for (var a = 0; a < 2; a++) for (var b5 = 0; b5 < 2; b5++) {
+            var o4 = side * (b4 + b5);
+            var gxp = alongAxis === 'v' ? C + o4 : v2 + a, gyp = alongAxis === 'v' ? v2 + a : C + o4;
+            put(gxp, gyp, 11, function (c) { return c === 19; });
+          }
+        });
+      }
+    }
+    if (vert) frontage('v', coverV);
+    if (horiz) frontage('h', coverH);
+
     // signal mast arms on the four corners of a real intersection (heads dark)
     if (vert && horiz) {
       [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (q) {
@@ -515,13 +635,25 @@
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
-    7: '#6a5f47', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
+    7: '#6a5f47', 9: '#8f8676', 10: '#6a5f4a',
+    /* THE DEAD PALM WAS GREEN, AND ACT ONE HAS NOTHING GREEN IN IT (8/26). #3a4520 is
+       an olive, and on the real frame it reads as a healthy shrub -- little green blocks
+       down a street where the irrigation died thirty years ago. bohemia_strip.js already
+       had the right answer for the SAME CODE, 11, in its own palette (#4d4a38, a grey
+       brown): two modules that deliberately share one code vocabulary were painting it
+       two different colours, and only one of them was Act 1. Taking the strip's. */
+    11: '#4d4a38', 12: '#6a6a72',
     13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
     /* THE RAMP IS THE SIDEWALK, CARRIED OVER THE CURB, so it takes the sidewalk's own
        concrete (6) rather than a new colour. REUSE-FIRST: nothing new is cooked for it.
        It used to be drawn in the crosswalk's white (#b3ab97), which is why every corner
        had fifteen metres of ladder paint across the planted parkway. */
-    18: '#8a8a92'
+    18: '#8a8a92',
+    /* THE FRONTAGE. Granite takes the valley's own desert ground tone rather than a new
+       colour; the apron is asphalt gone grey (lighter and flatter than the roadway, which
+       is how you tell a parking lot from a street from across it); the stall stripe is the
+       same worn white every other marking on this street already uses. REUSE-FIRST. */
+    19: '#5a5140', 20: '#4a4a50', 21: '#b3ab97', 22: '#8f8f96'
   };
 
   var LEGEND = {
@@ -543,7 +675,15 @@
     10: { name: 'power pole',         kind: 'prop',     act1: 'overhead distribution pole down the setback, lines sagging' },
     11: { name: 'dead palm / shrub',  kind: 'tree-dead',act1: 'dead palm stump and dry oleander left in the setback' },
     12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm on the corner, every head dark' },
-    13: { name: 'bus stop',           kind: 'structure',act1: 'transit stop pad with a bent shelter frame, the ad panel long gone' },
+    /* solid:false ADDED 8/26, AND IT WAS ALWAYS WRONG WITHOUT IT. A transit stop is a PAD
+       you stand on waiting for a bus that is not coming; the bent frame over it is not a
+       wall. roadcell_gate has counted this tile as part of the unbroken sidewalk since the
+       day it was written -- and the kit defaults a `structure` to SOLID, so the walk it was
+       certifying ran straight through a body-blocking tile twice per cell. Nothing caught
+       it until the walk check was made to prove that every code it counts is standable by
+       the kit's own model. The kit models solidity PER TILE for exactly this (hazard_gate,
+       8/18: a solid:false in a legend is the author declaring a body may stand there). */
+    13: { name: 'bus stop',           kind: 'structure',act1: 'transit stop pad with a bent shelter frame, the ad panel long gone', solid: false },
     14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left at the curb, tyres flat, glass gone' },
     15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
     16: { name: 'storm drain inlet',  kind: 'ground',   act1: 'curb inlet to the flood system, grate half choked with silt' },
@@ -559,7 +699,24 @@
        crossing side than on the straight run beside it -- the single biggest reason two
        arterials did not agree about where the street was.
        It is a ramp. You walk up it. `walk` is what it always was. */
-    18: { name: 'curb ramp',          kind: 'walk',     act1: 'concrete curb ramp cut through the gutter and carried across the parkway to the walk' }
+    18: { name: 'curb ramp',          kind: 'walk',     act1: 'concrete curb ramp cut through the gutter and carried across the parkway to the walk' },
+    /* THE FRONTAGE (8/26). The right-of-way stops at 42 m; the parcel that fronts the
+       street is what fills the rest of the cell, and out there that is decomposed granite
+       with a pad-site apron cut into it. Named so it reads as GROUND you cross, not as a
+       setback nobody may enter -- there is no wall and there never will be (Paolo 8/11). */
+    19: { name: 'frontage granite',   kind: 'ground',   act1: 'decomposed granite across the parcel frontage, raked into drifts by thirty years of wind' },
+    20: { name: 'pad-site apron',     kind: 'drive',    act1: 'the parking apron of the pad site fronting the street, asphalt gone grey and split at the joints' },
+    21: { name: 'stall stripe',       kind: 'marking',  act1: 'a parking stall stripe on the apron, worn down to a ghost of itself' },
+    /* A DRIVEWAY DOES NOT CUT THE SIDEWALK IN HALF (8/26). The first cut of the frontage
+       laid the drive approach straight over the walk as plain apron, and roadcell_gate went
+       red on exactly the right claim: the longest unbroken walk on each side fell from 720
+       tiles to 282, because a car park entrance had eaten a hole in the pavement twice per
+       cell. OUT THERE THE WALK IS CARRIED THROUGH THE APPROACH AT GRADE -- Clark County
+       requires it -- and a body walks over it while a car drives across it.
+       `gate` is the kit's own word for exactly that: "A GATE IS THE HOLE YOU DRIVE THROUGH",
+       already a drive conductor and already standable ground. One tile, both jobs, no new
+       concept invented. */
+    22: { name: 'driveway apron',     kind: 'gate',     act1: 'the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels', solid: false }
   };
 
   var NOTES = {

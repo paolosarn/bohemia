@@ -47,7 +47,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#8a8a92` | promenade | walk | the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line | ground | no | — | 2035 |
 | 7 | `#4a4030` | planter | tree-dead | a tree well cut into the promenade, the tree gone, the pit full of grit and trash | prop | no | — | 19 |
 | 9 | `#8f8676` | streetlight | prop | a boulevard light standard on the promenade, head dark | prop | yes | — | 9 |
-| 11 | `#4d4a38` | dead palm | tree-dead | a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green | prop | yes | — | 23 |
+| 11 | `#4d4a38` | dead palm | tree-dead | a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green | prop | yes | — | 151 |
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm reaching out over the lanes, every head dark | prop | yes | — | — |
 | 14 | `#55555f` | dead car | vehicle | a car left in the lane where the traffic stopped, tyres flat, glass gone | prop | yes | — | — |
 | 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
@@ -56,8 +56,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 18 | `#7c8390` | pedestrian bridge | overhead | the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped | overhead | no | — | — |
 | 19 | `#6d7280` | bridge tower | structure | the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight | structure | yes | the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street | — |
 | 20 | `#5c5648` | marquee pylon | structure | a resort marquee pylon standing at the property line, the sign face dark and blank | structure | yes | — | 20 |
-| 21 | `#7e7e86` | paver band | walk | the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them | ground | no | — | 2793 |
-| 22 | `#6f6f78` | building-line margin | walk | the last strip of promenade against the property line, where the resort frontage takes the ground over — sand drifted deep along it | ground | no | — | 2923 |
+| 21 | `#7e7e86` | paver band | walk | the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them | ground | no | — | 2026 |
+| 22 | `#584f3f` | building-line margin | ground | the resort frontage at the property line: decomposed granite and sand drifted deep, the palm row along it dead on its feet | ground | no | — | 3562 |
 | 23 | `#2e2e36` | junction box | drive | the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing | ground | no | — | — |
 | 24 | `#3b3b44` | bus / taxi lane | drive | the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day | ground | no | — | 1660 |
 
