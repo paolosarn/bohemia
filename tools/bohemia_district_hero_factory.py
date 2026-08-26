@@ -2766,12 +2766,20 @@ def build_cemetery(P):
     POOL = P[9]   # the district's own unused palette entry, not a new colour
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(112, 108, 92), lotc=(60, 60, 62))
-    s.box((3.6, 3.0, 0), (5.2, 4.4, 5.0), {'top': _dark(MAUS, 0.9), 'px': _dark(MAUS, 1.0),
-          'py': _dark(MAUS, 0.84), 'nx': _dark(MAUS), 'ny': _dark(MAUS)})                 # THE MAUSOLEUM
-    for cx in (4.0, 5.4, 6.8, 8.2):                                                       # its colonnade front
-        s.box((cx, 7.4, 0), (0.5, 0.45, 4.2), {'c': _dark(MAUS, 1.12)['c']})
-    s.box((3.4, 2.8, 5.0), (5.6, 4.8, 0.42), {'c': _dark(MAUS, 1.16)['c']})
-    _door_face(s, (3.6, 3.0, 0), (5.2, 4.4, 5.0), width=1.3, ztop=2.4)
+    # PAOLO 8/25 (NO): the colonnaded 5-unit mausoleum read as a TEMPLE and the
+    # graves became its garnish - "not everything needs to be represented with
+    # buildings". A memorial park IS its headstone field; the mausoleum is a
+    # modest low vault at the head of it, no colonnade, no temple roof.
+    s.box((4.4, 3.6, 0), (3.4, 2.6, 2.4), {'top': _dark(MAUS, 0.9), 'px': _dark(MAUS, 1.0),
+          'py': _dark(MAUS, 0.84), 'nx': _dark(MAUS), 'ny': _dark(MAUS)})                 # THE MAUSOLEUM, low
+    s.box((4.2, 3.4, 2.4), (3.8, 3.0, 0.28), {'c': _dark(MAUS, 1.16)['c']})
+    _door_face(s, (4.4, 3.6, 0), (3.4, 2.6, 2.4), width=1.1, ztop=1.9)
+    for gy in (2.4, 4.0, 5.6):                                                            # stones reclaim the
+        for gx in (2, 3, 4, 5, 6):                                                        # old temple footprint
+            hx = -2.0 + gx * 1.42
+            if 4.0 <= hx <= 8.2 and 3.2 <= gy <= 6.4:
+                continue
+            s.box((hx, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
     for gy in (-2.0, -0.6, 0.8, 8.8, 10.2, 11.6, 13.0):                                   # THE HEADSTONE FIELD
         for gx in range(11):
             hx = -2.0 + gx * 1.42
@@ -2846,16 +2854,19 @@ def build_landfill(P):
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(104, 92, 74), lotc=(78, 72, 60))
     # THE TERRACED MOUND: four stepped benches, each smaller, each a value lighter
-    steps = [(-0.5, 0.0, 12.0, 11.5, 0.0, 2.4), (0.8, 1.2, 9.4, 9.0, 2.4, 2.2),
-             (2.1, 2.4, 6.8, 6.6, 4.6, 2.0), (3.4, 3.6, 4.2, 4.2, 6.6, 1.8)]
+    # PAOLO 8/25 (NO): four CONCENTRIC benches read as a ZIGGURAT MONUMENT (the
+    # mountain lesson, same day: concentric steps are a wedding cake). A real
+    # fill grows from one end - each bench SLIDES toward the working face.
+    steps = [(-0.5, 0.0, 12.0, 11.5, 0.0, 2.2), (0.2, 1.4, 9.8, 8.6, 2.2, 1.9),
+             (1.0, 3.0, 7.6, 6.4, 4.1, 1.7), (1.6, 4.6, 5.2, 4.4, 5.8, 1.5)]
     for i, (bx, by, bw, bd, bz, bh) in enumerate(steps):
         c = tuple(min(255, int(v * (0.88 + i * 0.07))) for v in FILL)
         s.box((bx, by, bz), (bw, bd, bh), {'top': _dark(c, 1.12), 'px': _dark(c, 1.0),
               'py': _dark(c, 0.82), 'nx': _dark(c, 1.0), 'ny': _dark(c, 0.82)})
         s.box((bx, by, bz + bh), (bw, bd, 0.16), {'c': BERM})                             # the cell berm lip
     # THE WORKING FACE: raw fill and a dozer on the top bench
-    s.box((3.8, 4.0, 8.4), (3.4, 3.4, 0.14), {'c': _dark(SOIL, 0.9)['c']})
-    _vehicle(s, 4.6, 5.2, CAR, DOZER, along='x')
+    s.box((2.4, 5.4, 7.3), (3.4, 3.0, 0.14), {'c': _dark(SOIL, 0.9)['c']})
+    _vehicle(s, 3.2, 6.4, CAR, DOZER, along='x')
     # THE GAS WELLS piped down the face, and the FLARE STACK
     for (wx, wy, wz) in [(1.4, 1.8, 2.4), (2.6, 3.0, 4.6), (4.0, 4.2, 6.6), (9.2, 8.0, 0.0), (1.0, 9.0, 0.0)]:
         s.box((wx, wy, wz), (0.22, 0.22, 1.1), {'c': GAS})
@@ -2865,8 +2876,10 @@ def build_landfill(P):
     # measured them twins). A real landfill gas flare stands ~40 ft clear of the working
     # face so the flame is nowhere near the fill; the stack is now that, and nothing else in
     # the valley has a lit pipe on top of a terraced mountain.
-    s.box((12.75, 1.35, 1.2), (0.7, 0.7, 12.6), {'c': GAS})
-    s.box((12.55, 1.15, 13.8), (1.1, 1.1, 0.9), {'c': _dark(GAS, 1.2)['c']})              # the flare head
+    # 8/25: at 12.6 units the flare read as a MONUMENT SMOKESTACK beside a
+    # pyramid. It stays the one vertical, at working height, not skyline height.
+    s.box((12.75, 1.35, 1.2), (0.55, 0.55, 4.6), {'c': GAS})
+    s.box((12.6, 1.2, 5.8), (0.85, 0.85, 0.7), {'c': _dark(GAS, 1.2)['c']})               # the flare head
     s.box((-2.4, 8.6, 0), (3.0, 2.6, 3.0), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 2, 5),
           'py': _dark(BLDG, 0.86), 'nx': _dark(BLDG), 'ny': _dark(BLDG)})                 # the scale house
     _door_face(s, (-2.4, 8.6, 0), (3.0, 2.6, 3.0), width=1.0, ztop=2.0)
@@ -3585,8 +3598,10 @@ def build_water(P):
           'py': {'c': RING}, 'nx': _dark(ROCK, 1.0), 'ny': {'c': RING}})
     s.box((-3.0, 9.4, 0), (17.0, 2.2, 3.8), {'top': {'c': SHELL}, 'px': _dark(ROCK, 1.0),
           'py': _dark(ROCK, 0.86), 'nx': _dark(ROCK, 1.0), 'ny': _dark(ROCK, 0.86)})
-    for (rx, ry, rr, rh) in [(0.6, 12.4, 1.5, 2.2), (7.4, 12.8, 1.8, 2.6), (12.4, 12.0, 1.3, 1.9)]:
-        s.prism(rx, ry, 3.8, rr, rh, 8, {'c': ROCK}, {'c': _dark(ROCK, 1.16)['c']})             # shore rock
+    # PAOLO 8/25 (NO): three fat prisms on the shelf read as TAN TANKS beside a
+    # pool - an industrial site, not a drought shoreline. Shore rock is LOW.
+    for (rx, ry, rr, rh) in [(0.6, 12.4, 1.0, 0.8), (7.4, 12.8, 1.2, 1.0), (12.4, 12.0, 0.8, 0.6)]:
+        s.prism(rx, ry, 3.8, rr, rh, 7, {'c': ROCK}, {'c': _dark(ROCK, 1.16)['c']})             # shore rock
     # THE LAUNCH RAMP, ending high and dry
     s.quad((3.2, 4.2, 0.1), (6.0, 4.2, 0.1), (6.0, 11.6, 3.8), (3.2, 11.6, 3.8), {'c': RAMP}, (0, -0.4, 1))
     # the ramp cleats are MARKS ON A SLOPE, not boxes standing on it -- drawn as quads so
@@ -3878,13 +3893,16 @@ def build_basin(P):
     # berm it would be draining the embankment. And its orifice and rack are on the +Y
     # face, because this projection shows a box's top, +x and +y and nothing else: the
     # same face the police station lost its only colour behind.
-    s.box((5.2, 3.6, 0), (2.4, 1.8, 4.9), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
-          'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE RISER TOWER
-    s.box((5.0, 3.4, 4.9), (2.8, 2.2, 0.3), {'top': _dark(CREST, 1.26), 'px': _dark(CREST, 1.08),
+    # PAOLO 8/25 (NO): at 4.9 units over a 1.25 crest the riser read as a slab
+    # BUILDING standing in a ditch. A riser stands proud of the pond, not of
+    # the skyline: twice the crest, no more.
+    s.box((5.2, 3.6, 0), (2.0, 1.5, 2.5), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
+          'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE RISER
+    s.box((5.0, 3.4, 2.5), (2.4, 1.9, 0.26), {'top': _dark(CREST, 1.26), 'px': _dark(CREST, 1.08),
           'py': _dark(CREST, 0.9), 'nx': _dark(CREST, 1.08), 'ny': _dark(CREST, 0.9)})     # its rack collar
     s.box((5.9, 5.32, 0.18), (0.9, 0.16, 0.95), {'c': (26, 28, 30)})                       # the low-flow orifice
     for i in range(5):
-        s.box((5.4 + i * 0.45, 5.42, 0.18), (0.12, 0.12, 4.4), {'c': _dark(CREST, 0.7)['c']})  # the trash rack
+        s.box((5.4 + i * 0.45, 5.12, 0.18), (0.12, 0.12, 2.1), {'c': _dark(CREST, 0.7)['c']})  # the trash rack
     s.box((8.6, 0.55, 0.72), (2.6, 0.95, 0.42), {'top': _dark(SLOPE, 1.06), 'px': _dark(SLOPE, 0.94),
           'py': _dark(SLOPE, 0.8), 'nx': _dark(SLOPE, 0.94), 'ny': _dark(SLOPE, 0.8)})     # THE SPILLWAY notch,
     # cut DOWN THROUGH the crest rather than floating over it -- an emergency spillway is a
@@ -3986,8 +4004,10 @@ def build_radio(P):
                        'nx': _dark(MAST, 0.84), 'ny': _dark(MAST, 0.7)})
         # THE MICROWAVE DRUMS. Every commercial site on the ridge backhauls to the next one,
         # so the dishes are stacked -- and they are the widest thing on the mast by far.
-        for di, (dz, drad) in enumerate([(hgt * 0.30, 1.30), (hgt * 0.46, 1.15),
-                                         (hgt * 0.63, 0.95), (hgt * 0.82, 0.72)]):
+        # 8/25 (NO): drums at 1.3 radius on a 0.78 face read as a FAT SEGMENTED
+        # TOWER, refinery not radio. A 2-3 m drum on a 1.5 m truss is HALF the
+        # face wider, not double - and two levels, not four.
+        for di, (dz, drad) in enumerate([(hgt * 0.42, 0.72), (hgt * 0.72, 0.55)]):
             s.prism(mx, my, dz, drad, drad * 1.5, 14, {'c': _dark(PLATE, 0.94)['c']},
                     {'c': _dark(PLATE, 1.12)['c']})
         s.box((mx - 0.45, my - 0.45, hgt + 0.32), (0.9, 0.9, 1.3), {'c': _dark(MAST, 1.2)['c']})  # top bay

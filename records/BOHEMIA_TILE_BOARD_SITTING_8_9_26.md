@@ -1066,3 +1066,19 @@ the live surface before shipping), mushroom vents sparse. The overflow
 basin carries the dry stain fan of the last time water ever left. With
 this the reservoir's whole named vocabulary is wired except the buried
 transmission main, whose vault rows already mark it. Sitting pass 50.
+
+## 8/26 FIFTY-FIRST PASS: ICON WAVE 2 (five more kills answered)
+
+The second ranked wave against the 8/25 board: cemetery (temple ->
+modest vault, the stones carry it), water (tank-tall shore rocks ->
+knee-high knobs on a horizontal), landfill (concentric ziggurat ->
+benches sliding toward the working face, flare cut from 12.6 to
+working height), basin (the 4.9-unit riser slab -> twice the crest),
+radio (drums from double the truss face to half over it - refinery
+becomes antenna farm). Verified on the baked pixels, all 69 rewired
+into the city page, gates 0 by exit code. The big_icons gate's
+low-by-nature list finally gained WATER - its builder docstring had
+claimed "named" since 8/4 while the list never carried it, and the
+tank-tall rocks were exactly what hid the gap. This bake took 160
+minutes of CPU (the first took 73); the poller that watches it now
+watches the PROCESS, not a fixed clock, after one false wake.
