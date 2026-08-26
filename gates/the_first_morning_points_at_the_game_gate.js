@@ -126,6 +126,39 @@ const LOUDNESS = `(function(){
   try {
     await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });
     await SETTLE(page, 4000);
+
+    /* ---- 0. THE DOOR, MEASURED BEFORE THE SPLASH IS DISMISSED (P0-DOOR) --- */
+    /* *** AND THE ROW WAS NARROWER THAN IT SOUNDED, WHICH I ONLY FOUND BY
+       MEASURING BOTH STATES. *** The row says the alpha "opens on the CHARACTER
+       workbench", and the markup did say `class="tab on" data-p="char"`. But the
+       first cut of these claims read the state AFTER the splash is tapped through
+       -- and passed with the markup reverted, because the boot already switches to
+       RUN by then. A CLAIM THAT PASSES WITH THE FIX REMOVED IS HOLDING NOTHING,
+       and I nearly shipped three of them.
+       WHAT IS ACTUALLY TRUE, measured: with the old markup the CHARACTER workbench
+       is the tab and panel mounted WHILE THE SPLASH IS UP -- so the workbench is
+       what a stranger sees behind it, what boots first, and what he lands on if
+       the splash is dismissed early or fails. So the claim is taken HERE, before
+       #front is touched, which is the only moment the two differ. */
+    const door = await page.evaluate(() => {
+      const t = document.querySelector('.tab.on'), p = document.querySelector('.panel.on');
+      return { tab: t ? t.getAttribute('data-p') : null, panel: p ? p.id : null,
+               charTabStillThere: !!document.querySelector('.tab[data-p="char"]') };
+    });
+    ok('*** THE DOOR OPENS ONTO THE GAME, NOT THE WORKBENCH *** (mounted behind the '
+      + 'splash: tab "' + door.tab + '", panel ' + door.panel + ') -- it was the '
+      + 'CHARACTER workbench, which is what boots first and what he lands on if the '
+      + 'splash is dismissed early', door.tab === 'run');
+    /* THE HALF-FIX IS A VISIBLY BROKEN SCREEN, so both halves are held. The RUN tab
+       does not show #p-run: `PANEL = (t.dataset.p==='run') ? 'city' : ...` maps it
+       to #p-city, and #p-run is display:none the whole time -- the ambience code
+       carries a comment about learning exactly that the hard way. */
+    ok('and the panel mounted with it is the one the RUN tab maps to (' + door.panel
+      + ') -- marking the tab alone would highlight RUN over the character workbench',
+      door.panel === 'p-city');
+    ok('and CHARACTER is still a tab like any other, one tap away, nothing removed',
+      door.charTabStillThere === true);
+
     await page.click('#front').catch(() => { });
     await SETTLE(page, 30000, async () => {
       const f = page.frames().find(x => x.name() === 'cityFrame');

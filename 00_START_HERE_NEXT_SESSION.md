@@ -1105,6 +1105,168 @@ NEXT IN THIS LANE
 
 ---
 
+RUN (run-eak241): 8/25 (c) LATEST -- *** THE COLD HAND NEVER MET THE GAME.
+P0-MORNING AND P0-DOOR ARE BOTH CLOSED. TAB: RUN (it is what the link now opens
+on; the first morning, 06:00 day 1). Nothing to judge. ***
+
+I BUILT THE TESTER THE ROW DESCRIBES instead of trusting its description. The cold
+hand scores every visible control by WHAT ITS PIXELS ACTUALLY DO (fill weighted
+hardest, then border, text, area), refuses anything it could not reach with a
+thumb (elementFromPoint at the control's own centre, so it cannot press through a
+modal), presses the winner, never reads a word.
+
+BEFORE, from a cold boot:
+    1. WATCH gold 89    2. GET UP 43    3. DROP IN 33  <- the game ends here
+    4. CITY 33   5..12 DROP IN / CITY / DROP IN / CITY ...
+    phone opened 0 - job taken 0 - clock 06:00 at tap 1 and 06:00 at tap 12
+*** HE NEVER EVEN REACHES SLEEP. *** The row had him ending day one by accident;
+the truth is quieter and worse -- he flips the camera between the street and the
+map until he puts the phone down, and nothing he can find spends a minute of the
+day. __OFFER_RANG was 1 the whole time: THE PHONE HAD RUNG and the hand never
+heard it, because a ringing phone was a dark chip with a hairline and a 14px dot.
+
+NORMAN, whom the row already cited: a badge is A SIGN ON A DOOR, and when you have
+to put a sign on a door the design already failed. So the fix could not be a
+tooltip, an arrow or a tutorial line -- each is a bigger sign on the same door. It
+had to change which thing LOOKS like the handle. NOT ONE WORD OF COPY WAS ADDED.
+
+THREE PATCHES:
+  the_phone_is_the_handle -- while a call is unread the chip wears the SOLID FILL
+    the opening's WATCH button already wears. Not a new signifier: it is the
+    treatment on the first thing the player ever presses. And it hangs off the
+    owner that already exists -- phoneBadge() computes (OFFER && !OFFER_TAKEN) and
+    is the one place in the file that knows, so the class is toggled THERE. NOT
+    day-one-only on purpose: "an unread call is the game asking for you" is true
+    every morning and has no date check to rot. It switches itself off when taken.
+  a_panel_outranks_the_chrome -- *** THE COLD HAND FOUND A SECOND BUG THE ROW DID
+    NOT KNOW. *** With the phone open over 378x763 of a 390x844 screen, sleepbtn,
+    bikebtn and rungbtn were STILL the topmost element at their own centres. SLEEP
+    ENDS THE DAY: he opens the phone, his thumb is already at the bottom, and the
+    button under it finishes day one with the job never taken. MINE, FROM 8/24:
+    __HUD_NEVER_OVERLAPS__ put the chips in a column at z-index 39 and #phonewrap
+    had been 30 since it was built; SLEEP used to be 7 and correctly underneath.
+    A LAYOUT FIX THAT CHANGES A STACKING CONTEXT IS A LAYERING CHANGE -- same shape
+    as the popcard's offsetTop and the see-through's playerBox, THREE TIMES IN ONE
+    WEEK. The file had 22 z-indexes and no rule; the rule is written down now
+    (world / chrome 6..45 / TAKEOVER PANELS 50+) and only #phonewrap moved, because
+    it is the only panel that covers the stage today. THE GATE DOES THE GENERAL
+    CASE: it sweeps every takeover panel, so the next one is caught by the machine.
+  take_it_is_the_yes -- with those two in, the hand got four taps deep and stalled
+    at the button that TAKES THE JOB: .mapgo, #2a2418, the map's small quiet GO
+    chip. MEASURED 35 on its own screen, beaten by an unread-post counter at 46.
+    LIVE.offer is true for exactly one state, and in that state it is the only
+    reason the screen is open. Same fill, so the whole morning is one sentence he
+    has already been taught: WATCH -> GET UP -> [gold] PHONE -> [gold] TAKE IT.
+    .mapgo untouched, so the map's GO links stay quiet. AND IT EDITED THE SOURCE
+    (BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html), not the generated CURRENT_SLICE --
+    CURRENT SLICE gate 6/0 confirms. BEFORE EDITING A FILE, ASK WHO GENERATES IT.
+
+MEASURED AFTER: phone 90 (was 18) vs the camera button 33 (unchanged, nothing was
+dimmed) - 0 world buttons through the open panel (was 3) - TAKE IT 90 and loudest
+on its own screen (was 35) - driving the chain takes the job and the day gets an
+objective. GET UP and SLEEP were not moved, dimmed or removed, exactly as the row
+requires.
+
+*** AND P0-DOOR IS CLOSED, AND THAT ROW WAS NARROWER THAN IT SOUNDED. *** The
+coordinator's 8/25 rollup item B: the markup still had `class="tab on"
+data-p="char"`, so the alpha "opens on the CHARACTER workbench". MEASURED BOTH
+STATES on the real surface with the old markup:
+    while the splash is up    tab CHARACTER, panel p-char
+    after #front is tapped    tab RUN, panel p-city, world alive at 06:00
+Something in the boot ALREADY switched to RUN, so a player who tapped through was
+always landing in the game. WHAT WAS ACTUALLY WRONG is the state BEHIND the
+splash: the workbench is the panel that MOUNTS FIRST, what shows behind the
+splash, and what he lands on if the splash is dismissed early or fails. The markup
+and the behaviour disagreed, and the markup is the half that runs before any
+script does. BOTH HALVES MOVED -- the tab AND #p-city, because
+`PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p` means #p-run is
+display:none the whole time (the ambience code carries a comment about learning
+that the hard way). Nothing removed; CHARACTER is one tap away in the same place.
+
+  GATE: gates/the_first_morning_points_at_the_game_gate.js, FIRST MORNING, 19
+  claims. It asserts an ORDER OF LOUDNESS computed from real computed styles, never
+  a list of ids I think should be bright -- otherwise it is my patch asserting
+  itself back at me and a lane that dims the phone tomorrow stays green.
+  MUTATION-TESTED FIVE WAYS, each hitting only its own claims: all three morning
+  patches reverted 10/6 (and the log reproduces the report in numbers), z-index
+  only 15/1, the chip never dressing itself 13/3, the shout made permanent 15/1,
+  the front door reverted 17/2.
+  *** AND THE FIRST CUT OF THE DOOR CLAIMS PASSED WITH THE PATCH REVERTED. ***
+  They read the state AFTER the splash, where the boot has already corrected it. A
+  CLAIM THAT IS GREEN WITH THE FIX REMOVED IS HOLDING NOTHING, and I nearly shipped
+  three of them next to a confident sentence that was also wrong. They read the
+  pre-splash state now, which is the only moment the two states differ.
+
+*** WHAT THE PROBE COST, WHICH IS THE REUSABLE PART. *** The cold hand was wrong
+FOUR times before it was right, every time a version of a bug this lane keeps
+finding in the game: (1) it swept [id] and crowned #cityFrame, the iframe holding
+the whole world, as the loudest button on screen; (2) it pressed THROUGH the wake
+card's scrim by JS and reported an order no human can perform -- this repo's own
+thumb-sweep finding, applied to a hand-rolled probe; (3) it swept a fixed selector
+list and could not see .lv-take, THE BUTTON THE WHOLE JOB WAS ABOUT, the same
+blind spot the panel gate had pressing close buttons BY NAME; and (4) THE ONE TO
+REMEMBER -- it pressed a handle recorded by an earlier evaluate, the phone
+re-renders on every state push, so it REPORTED A WORKING BUTTON AS BROKEN FOR FOUR
+RUNS. A real pointer takes the job (0 -> 1). Three of those made it blind; that
+one made it CONFIDENTLY WRONG, and I nearly wrote up a working button as a demo
+blocker. VERIFY ON THE REAL SURFACE is about THE GESTURE as much as the pixels.
+
+NOT FIXED, ON PURPOSE: the phone opens on a LOCK SCREEN and the job is one tap
+further in. Tapping a notification on a lock screen is the most universally
+understood gesture there is; the gate performs it rather than removing it.
+
+NEIGHBOURS GREEN: WHOLE DEMO 23/0, DEMO 23/0, EVERY PANEL 14/0, HUD OVERLAP 15/0,
+VISTA EXIT 21/0, HOME + PHONE 24/0, PHONE RINGS 21/0, CURRENT SLICE 6/0,
+ONE WORLD TAB 400/1 (its one red is pre-existing and about a tool file).
+RECORD: records/BOHEMIA_THE_COLD_HAND_NEVER_MET_THE_GAME_8_25_26.txt
+
+*** A FINDING FOR WHOEVER TAKES FT-JOURNEY, INCLUDING ME. *** A reuse survey for
+that row found engine/bohemia_encounters.js -- THE AMBIENT ENCOUNTER DIRECTOR, 258
+lines, approved by Paolo 7/27 ("Approve all"), fully gated by encounter_gate.js --
+with ZERO CALLERS ANYWHERE. A repo-wide grep for BohemiaEncounters returns exactly
+one file: itself. FIFTH member of this week's family, A FINISHED THING WITH A
+PUBLISHED SEAM AND NO CALLER. Its roster reads as if written for the fast-travel
+law: toll_crew ("raiders at a legible chokepoint who want a cut, not a corpse --
+pay / fight / detour") IS "being stopped and being robbed are one system";
+the_snatcher ("grabs an item and RUNS -- loss without death") IS "you carry
+something and it can be lost"; coyote_shadow already keys off being LOADED.
+FT-JOURNEY WIRES IT, it does not build one. Other survey findings: the free
+teleport to intercept is bohemiaPhoneGo (city :33296, moves the marker at ZERO
+clock cost); the clock helper to reuse is advance(mins) (:23094); distances are
+already shown to the player IN MINUTES (homeArrow, :33156); there is no
+holdsCell(x,y)->faction and the pieces to build one honestly are the baked bases
++ REACH_CELLS weight (agents.js:257) and POWER.at().owner (powergrid.js:30).
+
+TWO REDS THAT ARE NOT MINE AND ARE NEW TODAY, FLAGGED RATHER THAN TOUCHED:
+  ORGAN REACH -- "no longer tooling-only, delete the entry: BohemiaPeople.cardFor".
+    PEOPLE wired it this week, which is GOOD NEWS; the allowlist entry is now
+    stale and the gate is doing its job. One line, PEOPLE's file, PEOPLE's module,
+    and they may still be in-session on it -- ONE SYSTEM ONE SESSION.
+  NO BULLSHIT Qs -- lettered option menus in
+    records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md, the coordinator's.
+
+NEXT IN THIS LANE, in order:
+  1. FT-JOURNEY, wiring the encounter director rather than writing one. The spec
+     is LOCKED (laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md) and the
+     survey above is the reuse map. Biggest unbuilt thing this lane owns.
+  2. RUN 0f, THE FEEDBACK CARD -- coordinator's item D. Without it a friends round
+     returns five texts saying "it was cool". It is small and it is the difference
+     between spending the round and wasting it.
+  3. TWENTY-FOUR SECONDS TO FIRST PLAY (coordinator's item F, measured by this
+     lane on throttled weak 4G). A stranger who waits 24 seconds does not wait.
+  4. WEBKIT-1. All 201 Playwright launches are chromium and the game is
+     iPhone-portrait, where every browser is WebKit. Blocked at the proxy last
+     time; say so loudly rather than skipping quietly.
+  5. PLAY THE REST OF IT. Day 3 onward has never been walked. Both of this week's
+     biggest finds came from playing past where anybody had played.
+
+THE RULE THIS BUYS: BUILD THE TESTER, DO NOT IMAGINE HIM. Everything the row got
+right, it got right in outline; everything that actually blocked the demo -- SLEEP
+floating on the phone, the job button being the darkest thing on its own screen,
+the workbench mounting first -- only appeared when something pressed the loudest
+pixel and refused to read. AND CHECK THAT YOUR CLAIM GOES RED WITHOUT YOUR FIX,
+because two of mine did not.
+
 RUN (run-eak241): 8/25 (b) -- *** THE DEMO'S MONEY SHOT HAD NO DOOR.
 TAB: RUN (day 2, right after GET UP). Nothing to judge. ***
 

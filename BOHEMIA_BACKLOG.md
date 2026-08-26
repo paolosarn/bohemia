@@ -23,7 +23,23 @@
 ## If Paolo rules the other way the board flips — say so and it flips. ***
 ## *** RE-AUDITED 8/20, 188 COMMITS LATER: 8 CLOSED / 4 PARTIAL / 1 OPEN.
 ## THE DEMO IS THREE THINGS AWAY, IN THIS ORDER —
-##   1. RUN P0-DOOR   the alpha still boots on the CHARACTER workbench
+##   1. RUN P0-DOOR   **DONE 8/25 (RUN).** Held by the FIRST MORNING gate.
+##      AND THE ROW WAS NARROWER THAN IT SOUNDED. Measured on the real
+##      surface, old markup: WHILE THE SPLASH IS UP the tab and panel are
+##      CHARACTER/p-char; AFTER #front is tapped the boot already switches
+##      to RUN/p-city with the world alive at 06:00. So a player who taps
+##      through was always landing in the game. What was wrong is the state
+##      BEHIND the splash -- the workbench is what MOUNTS FIRST, what shows
+##      behind the splash, and what he lands on if the splash is dismissed
+##      early or fails. The markup and the behaviour disagreed and the
+##      markup is the half that runs before any script does. Both halves
+##      moved (the tab AND #p-city, because `PANEL = run ? 'city'` means
+##      #p-run is display:none the whole time). Nothing was removed;
+##      CHARACTER is one tap away in the same place.
+##      THE FIRST CUT OF THE GATE CLAIMS READ THE STATE AFTER THE SPLASH
+##      AND PASSED WITH THE PATCH REVERTED -- a claim that is green with
+##      the fix removed is holding nothing. They read the pre-splash state
+##      now: 19/0 with the fix, 17/2 without.
 ##   2. SOUNDS P0-WALK  the city sends ONE sfx message (phone_buzz) and
 ##      has zero footstep code, so his 97 approved sounds are silent when
 ##      he walks; the receiver already exists in the alpha

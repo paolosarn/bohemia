@@ -1115,7 +1115,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26i - THE PHONE IS THE HANDLE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26i - THE DOOR OPENS ON THE GAME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1128,8 +1128,8 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <div id="tabs">
     <div class="tab" data-p="vote">VOTE</div>
     <div class="tab" data-p="ui">UI</div>
-    <div class="tab" data-p="look">LOOK</div><div class="tab" data-p="words">WORDS</div><div class="tab" data-p="cutscene">CUTSCENE</div><div class="tab" data-p="direct">DIRECT</div><div class="tab" data-p="run">RUN</div>
-    <div class="tab on" data-p="char">CHARACTER</div>
+    <div class="tab" data-p="look">LOOK</div><div class="tab" data-p="words">WORDS</div><div class="tab" data-p="cutscene">CUTSCENE</div><div class="tab" data-p="direct">DIRECT</div><div class="tab on" data-p="run">RUN</div><!-- __THE_FRONT_DOOR_IS_THE_GAME__ (8/25, P0-DOOR): THE DOOR OPENS ONTO THE GAME. It opened on the CHARACTER workbench, so a stranger's first screen was a dressing room with sixteen other tabs over it. Nothing was removed; CHARACTER is one tap away, in the same place. NOTE the second half in #p-city below -- the RUN tab shows the CITY panel, not #p-run, so marking this tab alone would highlight RUN over the character workbench. -->
+    <div class="tab" data-p="char">CHARACTER</div>
     <div class="tab" data-p="clothes">CLOTHES</div>
     <div class="tab" data-p="anim">ANIMATION</div>
     <div class="tab" data-p="rig">RIG</div>
@@ -1226,7 +1226,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
     </div>
 <!-- ===== END DIRECT PANEL ===== -->
     <div class="panel" id="p-art"><iframe id="artFrame" data-src="BOHEMIA_ART_CURRENT.html" title="art, and what to judge" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
-    <div class="panel on" id="p-char">
+    <div class="panel" id="p-char">
       <div id="charStage" style="position:relative;width:min(92vw,420px);margin:8px auto;line-height:0">
         <canvas id="charCv" width="112" height="112" style="margin:0"></canvas>
         <div id="charClipLbl" style="position:absolute;left:7px;top:7px;font:11px ui-monospace,monospace;letter-spacing:1px;color:#c8b98a;background:rgba(20,18,26,.72);border:1px solid #3a3020;border-radius:3px;padding:3px 7px;line-height:1;cursor:pointer">idle</div>
@@ -1275,7 +1275,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
     <div class="panel" id="p-rig"></div>
     <div class="panel" id="p-combat"></div>
     <div class="panel" id="p-music"></div>
-    <div class="panel" id="p-city"></div>
+    <div class="panel on" id="p-city"></div><!-- __THE_FRONT_DOOR_IS_THE_GAME__: the other half. `var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p` -- the RUN tab shows THIS panel and #p-run is display:none the whole time, which the ambience code already learned the hard way. Both halves or neither: the tab alone highlights RUN over the workbench, the panel alone shows the city under a highlighted CHARACTER. -->
     <div class="panel" id="p-map"><iframe id="mapFrame" data-src="BOHEMIA_MAP_CURRENT.html" title="live valley map" style="width:100%;height:100%;border:0;background:#0d0b08"></iframe></div>
     <div class="panel" id="p-prefab"></div>
 
