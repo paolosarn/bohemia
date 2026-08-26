@@ -224,6 +224,42 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
      reach.pct >= REACH_FLOOR);
   console.log('  reachable on foot from spawn: ' + reach.cells + ' cells (' + reach.pct + '%)');
 
+  /* A LINEAR DISTRICT RUNS THROUGH A CELL, AND THIS ASKS THE PAGE, NOT THE MODULE (8/25).
+     The wash was fixed in engine/bohemia_wash.js, wired in engine/bohemia_world.js, gated,
+     mutation-tested, and every one of those was green while the game still drew 60 separate
+     channels -- because THIS PAGE DOES NOT CARRY world.js. It keeps its own district
+     dispatch, its own comment has said so since 8/21, and wash is filed TERRAIN so it is
+     served by a branch that had never heard of any of it.
+     A module gate cannot see that. Only asking the surface can, so it is asked here, where a
+     page is already booted. THE TEST IS THE TUNNEL MOUTHS: a channel goes underground where
+     it ENDS, so the count should track the number of ENDS, never the number of cells. 60 of
+     60 was the bug; 21 of 60 is 18 ends plus 3 lone cells, which is the whole answer in one
+     number. Mutation-tested by stopping the page passing neighbours: 21 -> 60. */
+  const wash = await fr.evaluate(() => {
+    const N = OM.OVER_N, W = 128;
+    const isW = (x, y) => { const c = om.at(x, y); return !!(c && c.district === 'wash'); };
+    let cells = 0, ends = 0, mouths = 0;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      if (!isW(x, y)) continue;
+      cells++;
+      const deg = (isW(x, y - 1) ? 1 : 0) + (isW(x, y + 1) ? 1 : 0) + (isW(x + 1, y) ? 1 : 0) + (isW(x - 1, y) ? 1 : 0);
+      if (deg <= 1) ends++;
+      const m = (typeof tileMeta === 'function') ? tileMeta(x, y) : null;
+      const g = m && m.kit;                    // a FLAT Uint16Array, not rows -- g[r][c] is undefined
+      if (!g || g.length !== W * W) continue;
+      for (let i = 0; i < g.length; i++) if (g[i] === 8) { mouths++; break; }
+    }
+    return { cells, ends, mouths };
+  });
+  if (wash.cells) {
+    console.log('  the wash: ' + wash.cells + ' cells, ' + wash.ends + ' ends, '
+      + wash.mouths + ' tunnel mouths (one per cell was the bug)');
+    ok('THE WASH IS A RIVER, NOT ONE RIVER PER CELL: the channel goes underground where it '
+       + 'ENDS, so the tunnel mouths track the ' + wash.ends + ' ends and not the '
+       + wash.cells + ' cells (measured ' + wash.mouths + ')',
+       wash.mouths <= wash.ends + 2 && wash.mouths >= Math.max(1, wash.ends - 2));
+  }
+
   const reached = rows.filter(r => !r.paths.includes('FALLBACK'))
     .reduce((a, r) => a + r.n, 0);
   const total = rows.reduce((a, r) => a + r.n, 0);

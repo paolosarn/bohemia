@@ -51073,7 +51073,96 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/25 (c) LATEST -- *** TWENTY-NINE SECONDS TO TEN. A friend on a weak
+WORLD (city-1eztay): 8/25 (d) LATEST -- *** A WASH IS A RIVER, NOT FIFTY-ONE RIVERS. The
+valley's flood channel is 51 cells long and every one of them was building a COMPLETE wash
+with its own tunnel mouth -- 34 parallel north-south channels shoulder to shoulder along a
+run that goes east. It is one channel now. And chasing it found a collision between two
+lanes that neither could see. Nothing to judge. ***
+Gates: WASH 19/0 (new seam checks, mutation-tested), WALKED SURFACE 12/0 (new: the page's
+own river check, mutation-tested), TOOL IDEMPOTENT 5/0 (was 5/0 on main,
+2 failed on mine -- fixed), WALKED SURFACE 11/0, WORLD MODEL 29/0, TILESPEC 310/0,
+WALKABLE-LAND 73/0, LANDLOCKED 16/0.
+
+TAB: RUN. Walk the dry riverbed east of the middle of the map. It runs continuously now
+instead of restarting every 96 metres.
+
+*** WHY NEIGHBOURS AND NOT BOUNDS. *** Solar (8/24) got its blob as a bounding BOX and filled
+it, which is right for a FIELD. A channel is a LINE and this one TURNS A CORNER: the bounding
+box of the corner run is 4x7 cells and a straight line through it misses most of the cells
+that are actually wash. What a linear district needs is not extent, it is WHICH SIDES IT
+ARRIVES AND LEAVES ON -- the four neighbours. E+W runs across, N+S runs down, E+S turns, one
+only ends here and that is where the mouth goes, none is a lone cell and is left alone.
+Straight runs, corners, tees and orphans, no special cases. sameNeighbours() in the world
+model is six lines and every cluster district can use it now.
+
+TWO THINGS I GOT WRONG FIRST AND CAUGHT BY LOOKING:
+  - PAINTING TWO ARMS OVERWRITES. The second arm's BANKS cut across the first arm's invert,
+    so a channel that turned a corner ran into a wall halfway through the turn. It classifies
+    each tile from the NEARER centre-line now, so a corner is a confluence by construction.
+  - A TURN AND AN END STOP IN DIFFERENT PLACES. An end needs CL+51 (the headwall sits at
+    CL+40); a turn only needs CL+42, the other arm's bank, and stopping there is what lets the
+    riprap/road/fence wrap the OUTSIDE of the bend instead of the riverbed running out into
+    open desert.
+  - and the desert dressing was clumped down the LEFT and RIGHT strips, which on an east-west
+    run lands IN THE WATER. It walks a lattice now and dresses whatever is still bare.
+
+MEASURED: 51 wash cells, 44 seams, 0 broken, tunnel mouths 51 -> 14 (one at each end of each
+of the 7 runs -- the channel dives under the cross street and comes back out, which is how the
+real Las Vegas system behaves). LONE CELL 48 of 48 BYTE-IDENTICAL. Mutation: make the cluster
+path unreachable and the gate reproduces the original defect exactly (51 mouths, 21 broken
+seams, 3 named failures).
+
+*** AND THEN IT WAS ALL GREEN AND THE GAME STILL DREW SIXTY RIVERS. READ THIS BEFORE YOU FIX
+ANYTHING IN A DISTRICT GENERATOR. *** WASH 19/0, WORLD MODEL 29/0, WALKED SURFACE 11/0,
+TILESPEC 310/0, all mutation-tested -- and the page a player loads still had 60 complete
+channels with 60 mouths, because THE WALKED SURFACE DOES NOT CARRY world.js. Its own comment
+has said so since 8/21 (I read that comment earlier the same session and still called the
+model fix done). The page keeps its OWN district dispatch. And the first page fix missed too:
+WASH IS FILED TERRAIN, so it is served by a KIT_TERRAIN branch that returns BEFORE the cluster
+branch -- adding wash to the page's CLUSTER_KIT changed nothing and the probe still read 60.
+A LINEAR DISTRICT IS NOT A CLUSTER ONE: a cluster gets BOUNDS and fills them, a line gets its
+four NEIGHBOURS and runs through the cell on the axis they name.
+ON THE PAGE: 60 mouths -> 21 (18 ends + 3 lone cells, exactly). Mutation: stop the page
+passing neighbours -> 60 again.
+AND THE PAGE PROBE LIED FIRST, for the fifth time this session: m.kit is a FLAT Uint16Array
+of 16384, NOT ROWS. g[r][c] is undefined for every tile and undefined!==undefined is FALSE, so
+a wrongly-indexed probe reports a PERFECT world -- it said 0 mouths, 0 broken seams. Indexed
+as g[r*128+c] it said 60 of 60 immediately. The page seam check does NOT move under mutation
+(it is blind), so it is not evidence and it is not in the gate; the mouth count moves 21<->60
+and that is what went in. walked_surface_gate asks the PAGE now, 12/0. THE FIX AND THE GATE
+HAVE TO BE ON THE SAME SURFACE, and for this game that surface is the page, not the module.
+
+*** AND THE COLLISION, WHICH IS THE PART THE NEXT SESSION NEEDS. *** tool_idempotent went RED
+on my tree and GREEN on plain main, which is how I knew it was mine.
+bohemia_city_hero_wire_patch.py writes `var HERO_SRC=` into whichever page-referenced script
+DECLARES that name. Since the bank was chunked on 8/24 that file is CHUNK 1 -- the small
+BLOCKING script whose whole job is to be small. Running the hero tool puts 2.85 MB of hero art
+back on it: 1.75 MB -> 4.47 MB, past the browser cache wall, and the wait before a world
+appears goes up with it. It printed "already wired; nothing to write" while doing it, which is
+the exact disease T2 in its own gate exists to catch.
+MAIN IS CARRYING THE RESULT RIGHT NOW: chunk 1 on main is 4.47 MB.
+The tool now checks whether the chunks already carry exactly these heroes and touches nothing
+if so; if the art really is new it writes and SAYS the chunker has to run after, because only
+the chunker decides which chunk a bank lives in. TWO LANES OWNED THE SAME BYTES UNDER
+DIFFERENT PLACEMENT RULES AND NEITHER COULD SEE THE OTHER.
+
+NEXT IN THIS LANE
+  1. RAILYARD, same shape of problem, and sameNeighbours() is already there for it: 6 cells in
+     a row, each building a whole railyard, and a yard is linear. Then STADIUM -- only 4 cells
+     but the most absurd per cell, FOUR STADIUMS in a 2x2, and a stadium is a landmark.
+     Full multi-cell census on the canon seed (the old handoff list was short):
+       wash 51 DONE · farm 93 (13 blobs) · golf 9 · railyard 6 · stadium 4 · landfill 4 ·
+       cemetery 4 · park 3 · medical 2
+  2. THE LOAD NUMBER IS MEASURED WITHOUT COMPRESSION AND GITHUB PAGES GZIPS. The gate's test
+     server sends everything raw; Pages does on-the-fly gzip. Those three critical-path files
+     are 6.15 MB raw and 3.54 MB gzipped, so the real wait is likely nearer 6s than 10.8s and
+     the gate is measuring a phone that does not exist. Make the test server compress like a
+     real host, then re-ratchet.
+  3. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
+  4. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
+Record: records/BOHEMIA_A_WASH_IS_A_RIVER_NOT_FIFTY_ONE_8_25_26.md
+
+WORLD (city-1eztay): 8/25 (c) -- *** TWENTY-NINE SECONDS TO TEN. A friend on a weak
 phone who taps the splash the second it appears now waits 10.8s for the city instead of 28.6.
 The 26 MB of sprite art is off the critical path and streams in behind him. Two gates hold it,
 both mutation-tested. Nothing to judge. ***

@@ -69,8 +69,169 @@
     return g;
   }
 
+
+  /* ONE WASH, NOT FIFTY-ONE (8/25). A wash is a RIVER. The canon valley's channel runs
+     east from cell (56,47) to (89,47) and then turns south down to (89,75) -- 51 cells of
+     one continuous flood-control channel. Handed only its own cell, every one of them built
+     a COMPLETE channel: full banks, invert, trickle, fence, and its own box-culvert tunnel
+     mouth. Along an east-west run of 34 cells that is 34 parallel NORTH-SOUTH channels
+     sitting shoulder to shoulder, each diving under a street. A comb, not a river.
+
+     WHY NEIGHBOURS AND NOT BOUNDS. Solar (8/24) got its blob as a bounding BOX and filled
+     it, which is right for a field. A channel is a LINE, and this one turns a corner: the
+     bounding box of the corner blob is 4x7 cells, and a straight line drawn through that
+     box misses most of the actual wash cells. What a linear district needs is not the
+     blob's extent but WHICH SIDES THE CHANNEL ARRIVES AND LEAVES ON, which is exactly the
+     four neighbours. E and W -> it runs across. N and S -> it runs down. E and S -> it
+     turns. One neighbour -> it ends here. That handles straight runs, corners, branches
+     and single cells with no special cases and no bounding box at all.
+
+     THE MOUTH IS A BLOB FEATURE, NOT A CELL FEATURE. Only an END of the channel gets the
+     headwall and the box culvert, because that is the one place a channel actually goes
+     underground. An interior cell gets an open channel that runs straight through -- which
+     is what makes the neighbour's channel line up with this one. */
+  var AX_NS=1, AX_EW=2;
+  function clusterChannel(seed,opts,nb){
+    var G=K.grid(seed>>>0), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    var streets=opts.streets||[];
+    function scatter(x0,y0,x1,y1,code,dens,over){ over=over||function(c){return c===0;};
+      for(var k=0;k<(x1-x0)*(y1-y0)*dens;k++){ var tx=x0+Math.floor(r()*(x1-x0)), ty=y0+Math.floor(r()*(y1-y0));
+        if(over(G.get(tx,ty))){ G.set(tx,ty,code); if(r()<0.4&&over(G.get(tx+1,ty)))G.set(tx+1,ty,code); } } }
+    function clump(cx,cy,rad,n,code,over){ over=over||function(c){return c===0;};
+      for(var k=0;k<n;k++){ var a=r()*6.283,d=Math.sqrt(r())*rad,tx=Math.round(cx+Math.cos(a)*d),ty=Math.round(cy+Math.sin(a)*d);
+        if(over(G.get(tx,ty))){ G.set(tx,ty,code); if(r()<0.4&&over(G.get(tx+1,ty)))G.set(tx+1,ty,code); } } }
+
+    /* THE SAME CROSS-SECTION THE CANONICAL BUILD USES, kept to the tile so a cluster cell
+       and a lone cell read as the same piece of infrastructure: desert | fence | O&M road |
+       riprap | bank | invert | trickle | and back out again, mirrored. Written as offsets
+       from the channel centre-line so it can be laid along either axis. */
+    var CL=64;                                    // centre-line of a 128-tile cell
+    /* THE CROSS-SECTION, BY DISTANCE FROM THE CENTRE-LINE, taken tile for tile off the
+       canonical build so a cluster cell and a lone cell read as the same infrastructure:
+       trickle, invert, sloped bank, riprap shoulder, O&M road, fence, desert. */
+    function bandAt(d){ return d<=2?7 : d<=19?6 : d<=42?4 : d<=45?9 : d<=50?1 : d===51?10 : -1; }
+
+    var runNS = nb.n||nb.s, runEW = nb.e||nb.w;
+    if(!runNS && !runEW) runNS = true;                       // an orphan cell still gets a channel
+    /* HOW FAR EACH ARM REACHES. Toward a wash neighbour it runs to the cell edge, so the
+       two channels meet exactly; away from one it stops at its own bank, which is where the
+       headwall goes. */
+    /* A TURN AND AN END STOP IN DIFFERENT PLACES, and getting that wrong squares off the
+       bend. At an END the arm has to reach CL+51 because the headwall sits at CL+40 and the
+       culvert beyond it. At a TURN there is no headwall -- the arm just has to reach the
+       other arm's BANK (CL+42), and stopping there is what lets the riprap, the O&M road
+       and the fence wrap around the OUTSIDE of the bend instead of being paved over by an
+       invert that carries on past the corner into open desert. */
+    var turn = runNS && runEW, far = turn ? 42 : 51;
+    var nsA = runNS ? (nb.n?0:CL-far) : 1, nsB = runNS ? (nb.s?H-1:CL+far) : 0;
+    var ewA = runEW ? (nb.w?0:CL-far) : 1, ewB = runEW ? (nb.e?W-1:CL+far) : 0;
+
+    /* AND THE ELBOW IS WHY THIS IS A PER-TILE CLASSIFY AND NOT TWO PAINTS. Painting the
+       north-south arm and then the east-west arm over it looked right and was wrong: in the
+       overlap the second arm's BANKS cut across the first arm's invert, so a channel that
+       turns a corner ran into a wall halfway through the turn. Asking each tile which
+       centre-line it is NEAREST to makes the corner a confluence by construction -- invert
+       wherever either arm has invert -- and leaves a straight run bit-for-bit what a single
+       painted section would have drawn. */
+    for(y=0;y<H;y++) for(x=0;x<W;x++){
+      var d=999;
+      if(runNS && y>=nsA && y<=nsB) d=Math.min(d,Math.abs(x-CL));
+      if(runEW && x>=ewA && x<=ewB) d=Math.min(d,Math.abs(y-CL));
+      var c=bandAt(d); if(c>=0) g[y][x]=c;
+    }
+
+    /* DESERT MARGINS, DRESSED WHEREVER THEY ACTUALLY ARE. The canonical build clumps brush
+       and rock down the LEFT and RIGHT strips, because its channel always runs north-south
+       so the desert is always east and west of it. A cluster channel runs whichever way its
+       neighbours do, and on an east-west run that dressing lands in the middle of the water
+       and leaves the real margins -- north and south -- a blank slab. So the dressing walks
+       a lattice and clumps into whatever is still bare, which gets the margins right on any
+       axis and dresses the ground behind a headwall too. */
+    var deadOK=function(c){ return c===0; };
+    for(y=4;y<H;y+=12) for(x=4;x<W;x+=12){
+      if(g[y][x]!==0) continue;
+      clump(x+Math.floor(r()*7)-3, y+Math.floor(r()*7)-3, 5, 20, 3, deadOK);
+      if(r()<0.65) clump(x+Math.floor(r()*7)-3, y+Math.floor(r()*7)-3, 4, 7, 9, deadOK);
+    }
+    /* AND THE DRESSING KEEPS OFF THE SEAM, inset by one tile on every side. A tumbleweed
+       is scattered and does not line up with the neighbour's, so a single one landing on
+       the boundary row makes one cell's concrete meet the next cell's brush -- seven of the
+       forty-four seams, every one of them a tile or two of litter. That is not a broken
+       river, but a seam check that has to forgive dressing cannot see a real break either.
+       Cheaper to keep the confetti a tile back from the edge and leave the check strict.
+       The in-channel scatter also runs over the WHOLE cell rather than a fixed middle
+       band: `over` already restricts it to invert, and where the invert is depends on which
+       way this cell's channel runs. */
+    var inset=function(x0,y0,x1,y1,code,dens,over){ scatter(Math.max(1,x0),Math.max(1,y0),
+      Math.min(W-2,x1),Math.min(H-2,y1),code,dens,over); };
+    inset(0,0,W-1,H-1,3,0.004,deadOK);
+    inset(0,0,W-1,H-1,3,0.006,function(c){return c===6;});   // brush caught in the channel
+    inset(0,0,W-1,H-1,11,0.003,function(c){return c===6;});  // stray trash on the invert
+
+    /* THE END OF THE CHANNEL: headwall, box culvert, the hole in the fence and the camp.
+       An END is a cell with at most one wash neighbour. The mouth faces the side with NO
+       neighbour, because that is the direction the channel has nowhere left to go. */
+    var ends=0; if(nb.n)ends++; if(nb.s)ends++; if(nb.e)ends++; if(nb.w)ends++;
+    var gates=[];
+    if(ends<=1){
+      var face = nb.n?'S': nb.s?'N': nb.e?'W': nb.w?'E' : 'S';
+      mouth(face);
+    }
+    function mouth(face){
+      /* Built in the canonical SOUTH orientation and then mapped, so the shape below is the
+         same headwall-wings-culvert-camp the lone-cell wash has always drawn. */
+      var botOpen = CL+40, i2, y2, x2;
+      function put(u,v,c){ /* u = across the channel, v = along it, 0 at the far end */
+        var tx,ty;
+        if(face==='S'){ tx=CL+u; ty=v; } else if(face==='N'){ tx=CL+u; ty=H-1-v; }
+        else if(face==='E'){ tx=v; ty=CL+u; } else { tx=W-1-v; ty=CL+u; }
+        if(tx>=0&&ty>=0&&tx<W&&ty<H) g[ty][tx]=c;
+      }
+      function pr(u0,v0,u1,v1,c){ for(var v=v0;v<=v1;v++) for(var u=u0;u<=u1;u++) put(u,v,c); }
+      pr(-42,botOpen+1,42,botOpen+3,2);                    // headwall across the channel
+      pr(-8,botOpen+4,8,H-9,8);                            // the BOX-CULVERT MOUTH
+      pr(-14,botOpen+4,-9,H-10,9); pr(9,botOpen+4,14,H-10,9);   // riprap flanking the mouth
+      for(y2=32;y2<=50;y2++) put(51,y2,0);                 // the hole cut in the fence
+      pr(46,H-19,42,H-11,0);                               // scramble path down from the street side
+      /* THE CAMP AT THE MOUTH -- carts, crates and the blue tarps. It belongs to the mouth,
+         so a blob has exactly one of it however many cells long the channel is. */
+      var mcx = (face==='S'||face==='N') ? CL : (face==='E'? botOpen-8 : W-1-(botOpen-8));
+      var mcy = (face==='S') ? botOpen-8 : (face==='N') ? H-1-(botOpen-8) : CL;
+      clump(mcx,mcy,10,60,11,function(c){return c===6||c===7;});
+      pr(-10,botOpen-8,-8,botOpen-5,11); pr(8,botOpen-12,10,botOpen-9,11);
+      pr(-11,botOpen-13,-7,botOpen-10,14); pr(7,botOpen-4,11,botOpen-1,14);
+      pr(12,botOpen,17,botOpen+4,14); pr(13,botOpen+5,16,botOpen+7,11);
+    }
+
+    /* THE MAINTENANCE GATE, on every street edge this cell actually fronts. The O&M roads
+       run the length of the channel, so a truck that gets in anywhere can reach all of it --
+       which is how a flood district actually services a channel, and it is what keeps the
+       drivable-access law true on a cell that is nowhere near the mouth. */
+    streets.forEach(function(edge){
+      var gx, gy, s2, w2, c2;
+      if(edge==='S'||edge==='N'){ gx=Math.round(W*0.5); gy=(edge==='S')?H-1:0;
+        for(i=-3;i<=3;i++) g[gy][gx+i]=5;
+        for(s2=1;s2<=M(8);s2++){ var yy=gy+((edge==='S')?-s2:s2); if(yy<=0||yy>=H-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[yy][gx+w2]; if(c2===0||c2===3||c2===9) g[yy][gx+w2]=1; } }
+        gates.push({edge:edge,x:gx,y:gy});
+      } else { gy=Math.round(H*0.5); gx=(edge==='E')?W-1:0;
+        for(i=-3;i<=3;i++) g[gy+i][gx]=5;
+        for(s2=1;s2<=M(8);s2++){ var xx=gx+((edge==='E')?-s2:s2); if(xx<=0||xx>=W-1)break;
+          for(w2=-2;w2<=2;w2++){ c2=g[gy+w2][xx]; if(c2===0||c2===3||c2===9) g[gy+w2][xx]=1; } }
+        gates.push({edge:edge,x:gx,y:gy});
+      }
+    });
+    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:[]};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE WASH CELL IS UNCHANGED. The canonical-south build plus rotateToStreet is the
+       right answer for one cell -- the channel crosses it and dives under its own street --
+       and it is art that has already shipped. Only a cell with a wash NEXT to it takes the
+       cluster path, because only then is there a neighbouring channel to line up with. */
+    var nb=opts.neigh;
+    if(nb && (nb.n||nb.s||nb.e||nb.w)) return clusterChannel(seed,opts,nb);
     var soft=function(c){ return c===0||c===3; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
     var g=res.g;
