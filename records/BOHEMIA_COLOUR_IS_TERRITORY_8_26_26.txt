@@ -1,0 +1,186 @@
+THE COLOURS WERE BUILT FIVE WEEKS AGO AND NEVER PUT ON ANYBODY
+AND THE FACE LEARNED TO TALK
+CHARACTER lane, 8/26/26.
+
+================================================================================
+PART ONE: COLOUR IS TERRITORY
+================================================================================
+"I would like to see more color coordination, to be honest, uh, how I've kinda
+ directed it. Like, the colorful, like, that guy was not colorful, bro. Like,
+ that shit was crazy... I understand it's a game. It's kinda realistic, but, you
+ know, I think that's part of, like, the... what would happen in post economic
+ society. Like, you know, people get shot in Los Angeles for wearing the wrong
+ color or whatever. Like, the whole enchilada, bro. So you know, when when it
+ comes down to how we wanna communicate, like, who would defend us, you know, I
+ think it'd be kinda like that."
+
+*** AND HE ASKED FOR THIS ONCE ALREADY, ON 7/21. ***
+His words that day, quoted in the alpha's own comment: "not even a single color,
+like rainbow literally". Four saturated garments were cooked that week, FOR
+COLORFUL, with a comment saying so. MEASURED FIVE WEEKS LATER:
+
+    TEAL WORK SHIRT      worn by NOBODY
+    COBALT WORK PANTS    worn by NOBODY
+    ROSE BANDANA         worn by NOBODY
+    MOSS GREEN SHIRT     worn by BLUES -- the one faction it is wrong for
+
+    COLORFUL   saturation 0.22, 54% of its cloth in the grey/brown bucket.
+               THE SECOND LEAST COLOURFUL OF THE THIRTEEN, beaten only by the
+               Volunteers, who are supposed to be drab.
+               Bone duster, bone knit cap, bone sneakers.
+
+The colours were built for it and never put on it. THAT IS THE SAME FAILURE AS
+THE SEVENTEEN HATS THAT DREW NOTHING ON 8/25 -- the material exists, nobody
+wires it, the player never sees it -- and this one had HIS OWN WORDS attached to
+it for five weeks.
+
+*** AND A SECOND ONE HE DID NOT ASK ABOUT, WHICH IS WORSE. ***
+
+    BLUES   67% of its cloth in the RED hue bucket.
+
+DRIFTER'S COAT is oxblood and a coat is most of a person, and the shirt under it
+was MOSS GREEN. A faction named for a colour was wearing neither that colour nor
+one colour. In his own framing -- a colour is who would defend you -- the Blues
+were walking the valley flagged as the Reds.
+
+--------------------------------------------------------------------------------
+WHY THIS IS REALISM, RESEARCHED THE DAY HE SAID IT
+--------------------------------------------------------------------------------
+His reference is exact and the history holds it up:
+  - colours signal allegiance, claim territory and IDENTIFY RIVALS AT A DISTANCE,
+    and that distance is the entire function
+  - the practice began as PRACTICAL NECESSITY in dense urban areas: it lets a
+    group project presence WITHOUT VERBAL CONFRONTATION
+  - the choices were OPPOSITIONAL -- the Bloods took red deliberately to contrast
+    the Crips' blue. A colour only means something against another colour
+  - the origins were MUNDANE AND MATERIAL: one account of the Crips' blue is
+    simply which bandanas the local surplus store had in bulk
+  - and they are EASY TO TAKE OFF if you are stopped
+That last one is a mechanic waiting to happen: wearing your colours is a decision
+with a cost, made every time you go out.
+
+--------------------------------------------------------------------------------
+WHAT WAS BUILT
+--------------------------------------------------------------------------------
+ELEVEN COLOURWAYS, ZERO NEW GEOMETRY, exactly as the 7/21 batch was done: every
+one is an EXISTING generator shape with a saturated ramp. TEAL STRIPED TEE, GRASS
+DUSTER, ROSE KNIT CAP, COBALT KNIT CAP, GOLD WRAP SKIRT, COBALT SNEAKERS, GRASS
+SNEAKERS, ROSE DUSTER, COBALT SHIRT, COBALT COAT, COBALT BOOTS (plus a charcoal
+cape and skirt cooked, measured, and left unused -- see the Mob note).
+
+    COLORFUL   grass duster, teal striped tee, gold wrap skirt, rose knit cap,
+               cobalt sneakers.  saturation 0.22 -> 0.64, grey share 54% -> 5%.
+               It owns hue 90, which nobody else does.
+    BLUES      cobalt shirt, cobalt coat, cobalt work pants, cobalt boots.
+               dominant hue RED -> BLUE at 93%, saturation 0.48 -> 0.71.
+
+THE SHAPES ARE UNTOUCHED. Every swap is the same generator with the same options
+-- a duster stays a duster at len 0.88, a beanie stays a beanie -- so the measured
+silhouette set from the 880-fit search is what it was. faction_outfit_gate: same
+16 passed / 2 failed as before, and its spread MEAN WENT UP (0.071 -> 0.073).
+
+--------------------------------------------------------------------------------
+WHAT I DID NOT DO, AND WHY IT IS A DECISION AND NOT AN OVERSIGHT
+--------------------------------------------------------------------------------
+THE MOB SHARE RED WITH THE REDS (Mob 54%, Reds 87%). I built a charcoal cape and
+a charcoal skirt, put the Mob in them, MEASURED IT -- and it buried their mustard
+pinstripe under 56% grey and collided them with three other neutral factions. So
+I reverted it and wrote it down.
+WHICH FACTION OWNS WHICH COLOUR IS HIS. The two I changed were self-evident
+CONTRADICTIONS: a faction named COLORFUL dressed in bone, a faction named BLUES
+dressed in red. "The Mob should own charcoal" is not a contradiction, it is
+taste, and inventing it would be filling in canon he reserved
+(MECHANISM-MINE / CONTENTS-PAOLO'S). It is a row on the vote board for him.
+
+--------------------------------------------------------------------------------
+THE INSTRUMENT HE ASKED FOR IN THE SAME BREATH
+--------------------------------------------------------------------------------
+"I wish you could change it in the character menu to be, like, thumbs up, thumbs
+ down because I definitely would have voted."
+
+HE MUST BE ABLE TO DIRECT IT (8/12) had a hole here. The faction board could WEAR
+a fit and SAVE a fit -- so he could rebuild one from scratch -- and there was no
+way to simply say YES or NO to the thirteen I handed him. REBUILDING IS NOT
+VOTING. The board now carries thumbs per faction, a notes box, and a .txt export
+(never .json), the same pattern the hair board has had since 8/1: one mechanism
+in two places, not a second one. The sheet exports the faction, its shape line
+AND what it is wearing, because "Colorful: down" tells the next session nothing
+about which Colorful he was looking at.
+TAB: CHARACTER.
+
+================================================================================
+PART TWO: THE FACE TALKS
+================================================================================
+"every time you speak to someone, their portrait will pop up on screen so you
+ feel like you're relating to them... I said facial animations too, bro, like
+ talking and shit and, like... from eyebrows moving"
+
+THREE KNOBS ON renderFace, all optional, all defaulting to EXACTLY the approved
+face -- which is the only way to add performance to art that is already approved:
+
+  MOUTH   'closed' | 'mid' | 'open' | 'wide'
+  BLINK   0 (open) .. 1 (shut)
+  BROW    -1 (lowered, angry) .. +1 (raised, asking)
+
+*** THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE ACTUALLY SAYING. *** Not a random
+flap. The line is walked one sound at a time and each sound picks a shape, so a
+person saying "oye, mira" makes an O and a person saying "no se" does not, and
+THE SAME LINE ALWAYS LOOKS THE SAME. Spanglish is IN the line so it is in the
+mouth: accented vowels map with their plain twins and n-tilde closes like an n.
+
+FOUR SHAPES, NOT PRESTON BLAIR'S TEN. His chart is the standard and it is for a
+face with a thousand pixels. THIS MOUTH IS NINE PIXELS WIDE AND THREE TALL. Ten
+shapes into nine pixels is the same mistake as the overworld face scale he killed
+on 8/11 -- asking geometry to express what it has no room for. Four that READ
+beat ten that do not, and that is the 8/25 hair law in a different organ: draw in
+the pixels we actually have.
+
+EVERY NUMBER IS MEASURED FROM PEOPLE, NOT INVENTED:
+    a spontaneous blink is 100-400ms, mean ~285ms
+    people blink 15-20 times a minute at rest, 3-7 while concentrating,
+      2-10 seconds apart
+    speech runs 4-5 syllables a second, so a shape holds about 200-250ms
+250ms is inside that speech range AND exactly half a BEAT at 120 BPM, so the
+mouth lands on the same grid as everything else in the game (120 BPM LAW).
+A LISTENING FACE BLINKS MORE THAN A TALKING ONE, which is the measured result and
+also the right read: somebody mid-sentence is concentrating.
+
+DETERMINISTIC, ALWAYS. Everything keys off the person's id. No Math.random, so
+the same person blinks on their own rhythm every time you meet them and nobody in
+a crowd shimmers -- the same rule the hair wobble lives under.
+
+AND THE PICTURE LIED ON ITS FIRST CUT, for the fourth time this week. The blink
+row asked facePerform for a person whose blink was not due in that 285ms window
+and drew eight identical open eyes -- a picture saying "the blink does nothing"
+about code that works. The row now walks the blink through its own shape AND
+prints the schedule separately, so neither claim can hide behind the other.
+
+--------------------------------------------------------------------------------
+THE LAW AND THE GATES
+--------------------------------------------------------------------------------
+laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md
+  It AMENDS STRUCTURE-NOT-COLOR and does not kill it: silhouette still carries
+  identity and still answers accessibility, because the valley opens at 06:00 in
+  the dark. Colour is the REQUIRED SECOND CHANNEL. A recolour is still never
+  PROGRESS; what changed is that it can be IDENTITY.
+
+gates/faction_colour_gate.js, 9 checks, on rendered cloth pixels with skin and
+outline removed so a suntan cannot pass for a flag:
+  the name is not a lie          Blues blue, Reds red        pinned 0 wrong
+  saturated enough to signal     floor 0.28, drab factions exempt BY NAME
+  the drab exemption is earned   they must actually still be drab
+  coordinated with itself        biggest hue >= 38% of the cloth
+  nobody else's colour           5 sharing, pinned, downward-only ratchet
+  plus the thumbs, the .txt export and the notes box
+MUTATION-PROVED: putting COLORFUL back in bone and the BLUES back in oxblood
+fires two checks by name -- "Blues is dominantly 0, not 210" and "WASHED OUT:
+Colorful 0.22".
+
+--------------------------------------------------------------------------------
+WHERE HE SEES IT
+--------------------------------------------------------------------------------
+LOOK tab: "THE COLOURS WERE NEVER PUT ON ANYBODY" and "THE FACE TALKS".
+CHARACTER tab: the faction board, with thumbs, and the portrait.
+  node tools/bohemia_colour_is_territory.js   the before and after
+  node tools/bohemia_the_face_talks.js        the talking face
+  node gates/faction_colour_gate.js           9/0

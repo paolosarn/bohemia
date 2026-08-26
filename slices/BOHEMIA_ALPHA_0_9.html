@@ -1122,7 +1122,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/26af - NOBODY IN BOHEMIA IS WISE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/27b - COLOUR IS TERRITORY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1262,6 +1262,14 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
         <span id="facStat" class="mini"></span>
       </div>
       <div id="outfitBoard"></div>
+      <!-- HIS VOTE ON THE THIRTEEN (Paolo 8/26: "I definitely would have voted").
+           Exports .txt, never .json, and carries a notes box, because that is the
+           verdict workflow and it has been the same on every judge board since 7/7. -->
+      <div class="row"><button id="facExport" class="opt" style="border-color:#6f6">EXPORT VERDICTS</button><span id="facStat" class="mini" style="margin-left:6px"></span></div>
+      <div class="row" style="flex-direction:column;align-items:stretch;gap:3px">
+        <span class="mini">NOTES (ships with the export)</span>
+        <textarea id="facNotes" style="width:100%;min-height:52px;background:#131018;color:#d8cbb0;border:1px solid #3a3020;border-radius:3px;font:11px ui-monospace,monospace;padding:4px"></textarea>
+      </div>
       <div class="mini" id="facNote" style="line-height:1.55;max-width:min(94vw,440px);margin:4px auto 0"></div>
       <div id="rampEditor"></div>
     </div>
@@ -3414,17 +3422,81 @@ function renderFace(spec,opts){
  P(cx-cw+1,chY,Sh);P(cx+cw-1,chY,Sh);
  line(cx+jw-1,jcY,cx+chw,chin-3,Sh);line(cx-jw+1,jcY,cx-chw,chin-3,Sh);
  P(cx-cw,chY,Mn);P(cx-cw,chY+1,Sh);P(cx+cw,chY,Mn);P(cx+cw,chY+1,Sh);
- const b=spec.brows,by=f.browY;
- for(const side of [-1,1]){let x0=cx+side*b.gap,x1=cx+side*(b.gap+b.len);let lo=Math.min(x0,x1),hi=Math.max(x0,x1);for(let i=0;i+lo<=hi;i++){let xx=lo+i;let yy=by-((i>1&&i<b.len-1&&b.arch)?1:0)+((b.angle*(i/Math.max(1,b.len)))|0)*(-side);for(let t=0;t<b.thick;t++)P(xx,yy+t,b.color);}}
+ /* ===== THE FACE PERFORMS (Paolo 8/26) ==================================
+    "every time you speak to someone, their portrait will pop up on screen so you
+     feel like you're relating to them ... I said facial animations too, bro, like
+     talking and shit and, like ... from eyebrows moving"
+    THREE KNOBS, all optional, all defaulting to EXACTLY the face he approved:
+      opts.brow   -1 (lowered, angry/concerned) .. +1 (raised, asking/surprised)
+      opts.blink   0 (open) .. 1 (shut)
+      opts.mouth  'closed' | 'mid' | 'open' | 'wide'   (see the mouth block below)
+    A face with no opts is byte-identical to the one that has been shipping, which
+    is the only way to add performance to art that is already approved. */
+ const PERF = {
+   brow:  Math.max(-1, Math.min(1, +(opts.brow || 0))),
+   blink: Math.max(0, Math.min(1, +(opts.blink || 0))),
+   mouth: opts.mouth || 'closed'
+ };
+ const b=spec.brows,by=f.browY+Math.round(-PERF.brow*2);
+ /* A RAISED BROW IS NOT JUST A HIGHER BROW. Raising lifts the inner end most and
+    flattens the arch; lowering drives the INNER end down and steepens it, which is
+    the anger shape. Both ride his own arch/angle spec rather than replacing it. */
+ const bArch = PERF.brow > 0.35 ? 0 : b.arch;
+ const bTilt = b.angle + Math.round(PERF.brow * -2);
+ for(const side of [-1,1]){let x0=cx+side*b.gap,x1=cx+side*(b.gap+b.len);let lo=Math.min(x0,x1),hi=Math.max(x0,x1);for(let i=0;i+lo<=hi;i++){let xx=lo+i;let yy=by-((i>1&&i<b.len-1&&bArch)?1:0)+((bTilt*(i/Math.max(1,b.len)))|0)*(-side);for(let t=0;t<b.thick;t++)P(xx,yy+t,b.color);}}
  const e=spec.eyes,ey=f.eyeY;
- for(const side of [-1,1]){let ex=cx+side*e.gap;line(ex-(e.w>>1),ey-1,ex+(e.w>>1),ey-1,Ln);rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,[230,231,228]);let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);if(e.hood){P(ex-(e.w>>1),ey-1,Sh);P(ex+(e.w>>1),ey-1,Sh);}P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);}
+ /* THE BLINK. The single strongest "this is a person" cue there is, and the
+    cheapest: an eye here is 7 wide and 4 tall, so a lid is ONE LINE. Measured
+    human numbers, not invented ones -- a spontaneous blink runs 100-400ms (mean
+    ~285ms) and people blink 15-20 times a minute at rest, dropping to 3-7 while
+    concentrating. Those are the numbers facePerform() below schedules with.
+    THE LID COMES DOWN FROM THE TOP, which is what an eyelid does; a shut eye is
+    the lash line sitting on the lower rim, in the skin's own shadow so it reads
+    as a crease and not as a drawn-on stripe. */
+ const lidRows = Math.round(PERF.blink * e.h);
+ for(const side of [-1,1]){let ex=cx+side*e.gap;
+   line(ex-(e.w>>1),ey-1,ex+(e.w>>1),ey-1,Ln);
+   if(lidRows>=e.h){
+     /* fully shut: skin across the socket, one dark lash line on the rim */
+     rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,Mn);
+     line(ex-(e.w>>1),ey+e.h-2,ex+(e.w>>1),ey+e.h-2,Ln);
+     P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);
+     continue; }
+   rect(ex-(e.w>>1),ey,ex+(e.w>>1),ey+e.h-1,[230,231,228]);let ix=ex;rect(ix-1,ey,ix,ey+e.h-1,e.iris);P(ix,ey+1,[38,40,42]);P(ix,ey+2,[38,40,42]);P(side<0?ix-1:ix+1,ey,[238,244,242]);
+   /* half-shut: the lid eats the top rows, so a blink has a real middle frame
+      instead of snapping between open and closed. */
+   if(lidRows>0){ for(let ly=0;ly<lidRows;ly++)line(ex-(e.w>>1),ey+ly,ex+(e.w>>1),ey+ly,Mn);
+     line(ex-(e.w>>1),ey+lidRows-1,ex+(e.w>>1),ey+lidRows-1,Ln); }
+   if(e.hood){P(ex-(e.w>>1),ey-1,Sh);P(ex+(e.w>>1),ey-1,Sh);}P(ex-(e.w>>1),ey+e.h-1,Sh);P(ex+(e.w>>1),ey+e.h-1,Sh);}
  const n=spec.nose,ny1=f.noseY,nw=n.w;
  for(let yy=ey+3;yy<ny1-1;yy++)P(cx+1,yy,ShSoft);
  P(cx-1,ey+4,L);P(cx-1,ny1-3,L);P(cx-(nw>>1)-1,ny1-1,Sh);P(cx+(nw>>1)+1,ny1-1,Sh);
  P(cx-(nw>>1),ny1,Ln);P(cx+(nw>>1),ny1,Ln);P(cx,ny1-1,L);P(cx+1,ny1-1,L);
- const m=spec.mouth,my=f.mouthY,mw=m.w;
+ /* ===== THE MOUTH TALKS =================================================
+    Preston Blair's chart is TEN shapes and that is a chart for a face with a
+    thousand pixels. THIS mouth is NINE PIXELS WIDE AND THREE TALL. Ten shapes
+    into nine pixels is the same mistake as the overworld face scale that got
+    killed on 8/11 -- asking geometry to express something it does not have room
+    for -- so this is the Aardman-simplified read of that chart, cut to what the
+    pixels can actually hold, and every one of the four is VISIBLY different at
+    64px rather than four names for the same line:
+      closed  M B P and every rest      his approved mouth, UNCHANGED
+      mid     E I and most consonants   narrower, a dark seam opening
+      open    A O                       a real dark hole, jaw down one row
+      wide    U W OO                    narrow and tall, lips pushed forward
+    DRAW IN THE PIXELS WE ACTUALLY HAVE. That is the 8/25 hair law, and it is the
+    same law here: the answer is not more shapes, it is shapes that read. */
+ const m=spec.mouth,my=f.mouthY;
+ let mw=m.w, mOpen=0, mLower=m.fullLower;
+ if(PERF.mouth==='mid'){ mw=Math.max(3,m.w-2); mOpen=1; }
+ else if(PERF.mouth==='open'){ mw=Math.max(4,m.w-1); mOpen=2; mLower=Math.max(1,m.fullLower-1); }
+ else if(PERF.mouth==='wide'){ mw=Math.max(3,m.w-4); mOpen=2; mLower=m.fullLower+1; }
+ const dark=[Math.max(0,(m.color[0]*0.30)|0),Math.max(0,(m.color[1]*0.24)|0),Math.max(0,(m.color[2]*0.24)|0)];
  line(cx-(mw>>1),my,cx+(mw>>1),my,m.color);
- for(let t=0;t<m.fullLower;t++)line(cx-(mw>>1)+1,my+1+t,cx+(mw>>1)-1,my+1+t,m.color.map(c=>Math.min(255,c+16)));
+ /* the inside of the mouth: his lip colour taken right down, never black, so a
+    talking face still belongs to the same palette as the one at rest */
+ for(let o=0;o<mOpen;o++)line(cx-(mw>>1)+1,my+1+o,cx+(mw>>1)-1,my+1+o,dark);
+ for(let t=0;t<mLower;t++)line(cx-(mw>>1)+1,my+1+mOpen+t,cx+(mw>>1)-1,my+1+mOpen+t,m.color.map(c=>Math.min(255,c+16)));
  P(cx-(mw>>1),my,Ln);P(cx+(mw>>1),my,Ln);P(cx-1,my-1,Sh);P(cx+1,my-1,Sh);
  if(blood){for(const p of [[cx+1,ny1],[cx+1,ny1+2],[cx+2,ny1+4],[cx+2,my-1],[cx+2,my+1],[cx+3,my+3]]){P(p[0],p[1],[168,28,28]);P(p[0],p[1]+1,[120,18,18]);}}
  /* ===== V131 REAL DAMAGE ON THE BONES ==============================
@@ -3602,10 +3674,21 @@ var FACTION_LOOKS = [
     worn:{hair:'DUSK SHAG',base:'DUST PLAID SHIRT',back:'OLIVE SHOULDER MANTLE',
           head:'CHINESE RICE FARMER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
   { faction:'Colorful', draft:true, age:'adult', shape:'small / long coat / knit cap / long hem',
-    why:'smallest body carrying the most line: the one silhouette built to be seen on purpose',
+    why:'smallest body carrying the most line: the one silhouette built to be seen on purpose -- AND THE ONLY FACTION THAT REFUSES A SINGLE FLAG. Everybody else in the valley picks one colour so you know at fifty yards who would defend them. These wear five, which is its own answer to the same question.',
+    /* *** THIS LINE WAS BONE ON BONE ON BONE. (Paolo 8/26: "the colorful, like,
+       that guy was not colorful, bro. Like, that shit was crazy.") ***
+       MEASURED before the fix, cloth pixels only: saturation 0.22 and 54% of it in
+       the grey/brown bucket -- THE SECOND LEAST COLOURFUL OF THE THIRTEEN, beaten
+       only by Volunteers, who are supposed to be drab. Bone duster, bone knit cap,
+       bone sneakers, on the faction named COLORFUL.
+       THE SHAPE IS UNTOUCHED. Every garment below is the same generator with the
+       same options as the bone one it replaces -- duster stays a duster at len
+       0.88, beanie stays a beanie, sneakers stay sneakers -- so the measured
+       silhouette set from the 880-fit search is exactly what it was. Only the
+       ramps moved, which is the half of identity his 8/26 ruling adds. */
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'SHAG',base:'STRIPED TEE',outer:'BONE DUSTER',head:'BONE KNIT CAP',
-          legs:'ANKLE WRAP SKIRT',feet:'BONE SNEAKERS'} },
+    worn:{hair:'SHAG',base:'TEAL STRIPED TEE',outer:'GRASS DUSTER',head:'ROSE KNIT CAP',
+          legs:'GOLD WRAP SKIRT',feet:'COBALT SNEAKERS'} },
   { faction:'Anarchists', draft:true, age:'adult', shape:'lanky / split-tail / knit cap',
     why:'the only torn hem in the valley -- the outline itself refuses to be tidy',
     dials:{height:0.45,belly:-0.45,arms:0.35,shoulders:-0.25,hips:-0.25},
@@ -3614,8 +3697,15 @@ var FACTION_LOOKS = [
   { faction:'Blues', draft:true, age:'adult', shape:'broad / mid coat / bare head',
     why:'the biggest headcount and the least performance: bulk, no signal, nothing on the head',
     dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
-    worn:{hair:'CROP',base:'MOSS GREEN SHIRT',outer:"DRIFTER'S COAT",
-          legs:'DUST TROUSERS',feet:'FIELD BOOTS'} },
+    /* *** THE BLUES WERE 67% RED. *** Measured on the real frame, cloth pixels
+       only, red the single biggest hue bucket -- because DRIFTER'S COAT is oxblood
+       and a coat is most of a person, and the shirt under it was MOSS GREEN. A
+       faction named for a colour was wearing neither that colour nor one colour.
+       In his own framing (8/26: "who would defend us") they were walking the
+       valley flagged as the Reds. Same shapes in cobalt: long crew shirt, mid coat
+       at len 0.82, work pants, boots. */
+    worn:{hair:'CROP',base:'COBALT SHIRT',outer:'COBALT COAT',
+          legs:'COBALT WORK PANTS',feet:'COBALT BOOTS'} },
   { faction:'Homeless', draft:true, age:'adult', shape:'small / mantle / bare head / long hem',
     why:'a blanket over the shoulders reads as a mantle at this size, and it is the most Amalgamation-resistant thing anybody wears: nothing bought',
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
@@ -3644,6 +3734,15 @@ var FACTION_LOOKS = [
   { faction:'Mob', draft:true, age:'adult', shape:'lanky / cape / bare head / long hem',
     why:'the Strip: tall, caped and hemmed, and it is the only outline that reads as ownership',
     dials:{height:0.45,belly:-0.45,arms:0.35,shoulders:-0.25,hips:-0.25},
+    /* THE MOB SHARE RED WITH THE REDS (measured: Mob 54% in the red bucket, Reds
+       87%) and I am NOT fixing that here. Which faction OWNS which colour is a
+       canon ruling and it is his -- the two I changed were self-evident
+       contradictions, a faction named COLORFUL dressed in bone and a faction
+       named BLUES dressed in red. "The Mob should own charcoal" is not a
+       contradiction, it is taste, and inventing it would be filling in canon he
+       reserved. Tried it, measured it (it buried their mustard under 56% grey and
+       collided them with three other neutral factions), reverted it, wrote it
+       down. It is a row in the CLOTHES tab's vote board for him. */
     worn:{hair:'SLICK BACK',base:'MOB PINSTRIPE SHIRT',back:'ROAD CAPE',
           legs:'ANKLE WRAP SKIRT',feet:'OXBLOOD BOOTS',waist:'LEATHER BELT'} },
   { faction:'Network', draft:true, age:'adult', shape:'tall / nothing / nothing',
@@ -3864,6 +3963,58 @@ var FAC_CARDS = [];
    Building on first sight removes the race AND takes thirteen rig rebuilds off the
    startup path, which is real time on a phone -- and the board is not needed until he
    is looking at the CHARACTER tab. */
+/* HIS FACTION VERDICTS. Same shape as the hair board's: localStorage on his phone,
+   one round at a time, exported as .txt and never .json (the verdict workflow). */
+var FAC_VOTE_KEY = 'bohemia_faction_votes_v1';
+function facVotes(){ try { return JSON.parse(localStorage.getItem(FAC_VOTE_KEY) || '{}') || {}; }
+  catch(e){ return {}; } }
+function facVotesSave(v){ try { localStorage.setItem(FAC_VOTE_KEY, JSON.stringify(v)); } catch(e){} }
+/* A REBUILD IS THIRTEEN RIG REBUILDS. Tapping a thumb must not cost that, so the
+   refresh only re-paints the two buttons it owns rather than the whole board --
+   the board itself is built once, on first sight, for the boot-race reason below. */
+function factionBoardRefresh(){
+  var V = facVotes();
+  for (var i = 0; i < FAC_CARDS.length; i++) {
+    var c = FAC_CARDS[i]; if (!c || !c.up || !c.dn) continue;
+    c.up.className = 'opt' + (V[c.look.faction] === 'up' ? ' on' : '');
+    c.dn.className = 'opt' + (V[c.look.faction] === 'down' ? ' on' : '');
+  }
+  var st = document.getElementById('facStat');
+  if (st) { var un = 0, k;
+    for (k = 0; k < FAC_CARDS.length; k++) if (!V[FAC_CARDS[k].look.faction]) un++;
+    st.textContent = FAC_CARDS.length + ' factions \u00b7 ' + un + ' unvoted'; }
+}
+if (typeof window !== 'undefined') window.factionBoardRefresh = factionBoardRefresh;
+/* EXPORT AS .txt, NEVER .json (the verdict workflow, standing since 7/7). The sheet
+   carries WHAT HE VOTED ON -- the faction, its shape line, and the colour it is
+   actually wearing -- because a verdict that says only "Colorful: down" tells the
+   next session nothing about which Colorful he was looking at. */
+function facExportSetup(){
+  var ta = document.getElementById('facNotes');
+  if (ta) { try { ta.value = localStorage.getItem('bohemia_faction_notes') || ''; } catch(e){}
+    ta.oninput = function(){ try { localStorage.setItem('bohemia_faction_notes', ta.value); } catch(e){} }; }
+  var xb = document.getElementById('facExport');
+  if (!xb) return;
+  xb.onclick = function(){
+    var V = facVotes(), L = ['BOHEMIA - FACTION OUTFIT VERDICTS', ''];
+    var looks = (typeof FACTION_LOOKS !== 'undefined') ? FACTION_LOOKS : [];
+    ['up','down',''].forEach(function(want){
+      L.push(want === 'up' ? 'KEEP:' : want === 'down' ? 'KILL:' : 'UNVOTED:');
+      looks.forEach(function(f){ if ((V[f.faction] || '') !== want) return;
+        L.push('  ' + f.faction + '   [' + (f.shape || '') + ']');
+        var w = f.worn || {}, parts = [];
+        for (var k in w) parts.push(k + '=' + w[k]);
+        L.push('      ' + parts.join('  ')); });
+      L.push(''); });
+    L.push('NOTES:', (document.getElementById('facNotes')||{}).value || '');
+    var blob = new Blob([L.join('\n')], {type:'text/plain'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'BOHEMIA_FACTION_OUTFIT_VERDICTS.txt';
+    a.click();
+  };
+}
+if (typeof window !== 'undefined') window.facExportSetup = facExportSetup;
 var OUTFIT_BUILT = false;
 function outfitBuild(){
   var host = document.getElementById('outfitBoard');
@@ -3915,11 +4066,36 @@ function outfitBuild(){
         famPaintBody(bd, {role:f.faction,name:f.faction,age:f.age,dials:f.dials,worn:f.worn}, 'S');
         facSay(f.faction + ' now wears what you have on. it stays on this phone.'); }
     };
+    /* *** THUMBS ON THE FACTION BOARD (Paolo 8/26) ***
+       "I'm pretty impressed that you made faction clothing, um, but I wish you
+        could change it in the character menu to be, like, thumbs up, thumbs down
+        because I definitely would have voted."
+       He is right and it is the HE MUST BE ABLE TO DIRECT IT law (8/12) with a
+       hole in it: the board could WEAR a fit and SAVE a fit, so he could rebuild
+       one from scratch, and there was no way to simply say YES or NO to the
+       thirteen I handed him. Rebuilding is not voting. Same thumbs the hair board
+       has had since 8/1, same localStorage, same .txt export, so this is one
+       pattern in two places and not a second mechanism. */
+    var facUp = document.createElement('button');
+    facUp.className = 'opt' + (facVotes()[f.faction] === 'up' ? ' on' : '');
+    facUp.style.cssText = 'font-size:11px;padding:2px 6px';
+    facUp.textContent = '\u{1F44D}';
+    facUp.onclick = function(ev){ ev.stopPropagation(); var v = facVotes();
+      v[f.faction] = (v[f.faction] === 'up' ? '' : 'up'); facVotesSave(v);
+      if (window.factionBoardRefresh) window.factionBoardRefresh(); };
+    var facDn = document.createElement('button');
+    facDn.className = 'opt' + (facVotes()[f.faction] === 'down' ? ' on' : '');
+    facDn.style.cssText = 'font-size:11px;padding:2px 6px';
+    facDn.textContent = '\u{1F44E}';
+    facDn.onclick = function(ev){ ev.stopPropagation(); var v = facVotes();
+      v[f.faction] = (v[f.faction] === 'down' ? '' : 'down'); facVotesSave(v);
+      if (window.factionBoardRefresh) window.factionBoardRefresh(); };
+    bar.appendChild(facUp); bar.appendChild(facDn);
     bar.appendChild(wear); bar.appendChild(save);
     card.appendChild(stage); card.appendChild(lbl); card.appendChild(shp);
     card.appendChild(dr); card.appendChild(bar);
     host.appendChild(card);
-    FAC_CARDS.push({cv:bd, look:f});
+    FAC_CARDS.push({cv:bd, look:f, up:facUp, dn:facDn});
   });
   /* AND PUT THE CROWD BACK, because painting this board rebuilds the rig thirteen
      times and ANYTHING already on screen was drawn before that happened. Moving the
@@ -3931,6 +4107,7 @@ function outfitBuild(){
      whatever is displayed matches what a redraw would produce. One line, and it is
      true no matter when the board happens to build. */
   try { if (window.crowdRefresh) crowdRefresh(); } catch (_e) {}
+  try { facExportSetup(); factionBoardRefresh(); } catch(_e){}
   var note = document.getElementById('facNote');
   if (note) note.textContent =
     'These are the 13 factions that can be joined. The four supremacist groups are ' +
@@ -3963,6 +4140,121 @@ function facExport(){
   a.download='BOHEMIA_THE_THIRTEEN_OUTFITS.txt'; a.click();
   facSay('exported.');
 }
+
+/* ============================================================================
+   THE FACE PERFORMS -- the driver for renderFace's three knobs (Paolo 8/26).
+
+   "every time you speak to someone, their portrait will pop up on screen so you
+    feel like you're relating to them ... I said facial animations too, bro, like
+    talking and shit ... from eyebrows moving"
+
+   *** THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE ACTUALLY SAYING. *** Not a
+   random flap. The line of dialogue is walked one sound at a time and each one
+   picks a shape, so a person saying "oye, mira" makes an O and a person saying
+   "no se" does not, and THE SAME LINE ALWAYS LOOKS THE SAME. That is what makes
+   it read as speech rather than as a mouth opening and closing.
+   SPANGLISH IS IN THE LINE, so it is in the mouth: the accented vowels map with
+   their plain twins (a/á, e/é, i/í, o/ó, u/ú, and ñ closes like an n does).
+
+   EVERY NUMBER BELOW IS MEASURED FROM PEOPLE, NOT INVENTED:
+     a spontaneous blink is 100-400ms, mean ~285ms
+     people blink 15-20 times a minute at rest, 3-7 while concentrating,
+       with 2-10 seconds between them
+     speech runs about 4-5 syllables a second, so a shape holds ~200ms
+   250ms is both inside that speech range AND exactly half a BEAT at 120 BPM, so
+   the mouth lands on the same grid as everything else in this game (120 BPM LAW).
+
+   DETERMINISTIC, ALWAYS. Everything keys off the person's id, so the same person
+   blinks on their own rhythm every time you meet them and nobody in a crowd
+   shimmers. No Math.random anywhere in here, which is the same rule the hair
+   wobble lives under.
+   ============================================================================ */
+var FACE_BEAT_MS = 500;                 /* the 120 BPM law's beat */
+var VISEME_MS    = FACE_BEAT_MS / 2;    /* 250ms: half a beat, inside 200-250ms speech */
+var BLINK_MS     = 285;                 /* measured mean spontaneous blink */
+var BLINK_MIN_MS = 2000, BLINK_MAX_MS = 9000;   /* measured 2-10s between blinks */
+
+function faceHash(s){ var h=2166136261>>>0, i;
+  s = String(s == null ? '' : s);
+  for(i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  return h; }
+
+/* ONE SOUND, ONE SHAPE. Four shapes because the mouth is nine pixels wide -- see
+   the note in renderFace. Anything not listed is a consonant, which reads as the
+   narrow shape; that is also true of real speech, where most consonants sit
+   between vowels without their own visible pose. */
+function visemeFor(ch){
+  ch = String(ch || '').toLowerCase();
+  if ('aá'.indexOf(ch) >= 0) return 'open';
+  if ('oóuúw'.indexOf(ch) >= 0) return 'wide';
+  if ('eéiíyí'.indexOf(ch) >= 0) return 'mid';
+  if ('mbpñ'.indexOf(ch) >= 0) return 'closed';
+  if (' \t\n.,!?;:-—"\''.indexOf(ch) >= 0) return 'closed';
+  return 'mid';
+}
+
+/* THE SOUNDS OF A LINE, IN ORDER. Consonant runs collapse -- "str" is one shape,
+   not three, because at 250ms each a real word would take four seconds to say. */
+function visemesOf(line){
+  var out = [], i, v, prev = null;
+  line = String(line || '');
+  for (i = 0; i < line.length; i++) {
+    v = visemeFor(line[i]);
+    if (v === 'mid' && prev === 'mid') continue;      /* one shape per consonant run */
+    out.push(v); prev = v;
+  }
+  if (!out.length) out.push('closed');
+  return out;
+}
+
+/* WHAT THE FACE IS DOING AT THIS MOMENT.
+     id     who it is (their blink rhythm is theirs and never changes)
+     tMs    milliseconds since the portrait came up
+     line   what they are saying right now, or null/'' if they are just listening
+     opts   {mood:-1..1} to lean the brows without a line to read them off */
+function facePerform(id, tMs, line, opts){
+  opts = opts || {};
+  var t = Math.max(0, +tMs || 0);
+  var seed = faceHash('bohemia-face:' + String(id == null ? '' : id));
+
+  /* --- the blink ------------------------------------------------------- */
+  /* A LISTENING FACE BLINKS MORE THAN A TALKING ONE, which is the measured
+     result and also the right read: somebody mid-sentence is concentrating. */
+  var span = line ? BLINK_MAX_MS : (BLINK_MIN_MS + BLINK_MAX_MS) / 2;
+  var phase = (seed % span);
+  var since = (t + phase) % span;
+  var blink = 0;
+  if (since < BLINK_MS) {
+    /* down fast, up slower -- a real lid drops quicker than it opens */
+    var u = since / BLINK_MS;
+    blink = u < 0.4 ? (u / 0.4) : (1 - (u - 0.4) / 0.6);
+  }
+
+  /* --- the mouth ------------------------------------------------------- */
+  var mouth = 'closed';
+  if (line) {
+    var seq = visemesOf(line);
+    var k = Math.floor(t / VISEME_MS);
+    mouth = (k < seq.length) ? seq[k] : 'closed';    /* the line ends, the mouth rests */
+  }
+
+  /* --- the brows ------------------------------------------------------- */
+  /* PUNCTUATION IS THE ONLY EMOTION MARKUP WE HAVE AND IT IS ENOUGH. A question
+     lifts the brows, an exclamation drives them down and forward. mood overrides
+     both when a scene actually knows how somebody feels. */
+  var brow = 0;
+  if (typeof opts.mood === 'number') brow = Math.max(-1, Math.min(1, opts.mood));
+  else if (line) {
+    if (line.indexOf('?') >= 0) brow = 0.6;
+    else if (line.indexOf('!') >= 0) brow = -0.5;
+  }
+  /* and a face at rest is never perfectly still: one pixel of drift, on its own
+     slow clock, so a portrait left on screen does not turn into a photograph. */
+  if (!line && !opts.mood) brow = (Math.sin((t + seed % 4000) / 2600) > 0.86) ? 0.35 : 0;
+
+  return { blink: blink, mouth: mouth, brow: brow };
+}
+if (typeof window !== 'undefined') { window.facePerform = facePerform; window.visemesOf = visemesOf; }
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();x.drawImage(cc,0,0,64,64,0,0,canvas.width,canvas.height);x.restore();}
@@ -23510,6 +23802,56 @@ window.CLO=(function(){
     {n:'TEAL WORK SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:TEALBRT,sleeves:'short',neck:'crew'}),TEALBRT,10);}},
     {n:'COBALT WORK PANTS',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:COBALT}),COBALT,10);}},
     {n:'ROSE BANDANA',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ROSEBRT,kind:'bandana'}),ROSEBRT,8);}},
+    /* ---- COLOUR IS TERRITORY (Paolo 8/26, LOCKED) -------------------------
+       "the colorful, like, that guy was not colorful, bro. Like, that shit was
+        crazy ... I would like to see more color coordination ... people get shot
+        in Los Angeles for wearing the wrong color or whatever ... when it comes
+        down to how we wanna communicate, like, who would defend us"
+       AND HE ASKED FOR THIS ONCE ALREADY. The RAINBOW FOUR directly above were
+       cooked on 7/21 off his words "not even a single color, like rainbow
+       literally", FOR COLORFUL. MEASURED 8/26, five weeks later:
+           TEAL WORK SHIRT     worn by NOBODY
+           COBALT WORK PANTS   worn by NOBODY
+           ROSE BANDANA        worn by NOBODY
+           MOSS GREEN SHIRT    worn by BLUES, the one faction it is wrong for
+       and COLORFUL was dressed head to foot in BONE: bone duster, bone knit cap,
+       bone sneakers. The colours were built for it and never put on it. Same
+       failure as the seventeen hats that drew nothing -- the material existed and
+       never reached the player -- and this one had his own words attached to it.
+       ZERO NEW GEOMETRY, exactly like the 7/21 batch: every one of these is an
+       EXISTING shape with a saturated ramp. A recolour is never PROGRESS
+       (STRUCTURE-NOT-COLOR, 7/19) and this is not progress, it is IDENTITY, which
+       is the half his 8/26 ruling adds. ---- */
+    {n:'TEAL STRIPED TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:TEALBRT,sleeves:'short',neck:'crew',pattern:'stripe'}),TEALBRT,12);}},
+    {n:'COBALT DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.88}),COBALT,15);}},
+    {n:'ROSE KNIT CAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:ROSEBRT,kind:'beanie'}),ROSEBRT,10);}},
+    {n:'COBALT KNIT CAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:COBALT,kind:'beanie'}),COBALT,10);}},
+    {n:'GOLD WRAP SKIRT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:GOLDLEAF,cut:'longskirt'}),GOLDLEAF,10);}},
+    {n:'GRASS SNEAKERS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:GRASSGRN}),GRASSGRN,12);}},
+    /* AND THE BLUES WERE WEARING RED. Measured on the real frame, cloth pixels
+       only: 67% of the Blues outfit sat in the RED hue bucket, because
+       DRIFTER'S COAT is oxblood and a coat is most of a person. In his own
+       framing -- a colour is who would defend you -- the Blues were walking the
+       valley flagged as the Reds. These four are the same shapes in cobalt. */
+    {n:'COBALT SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:COBALT,sleeves:'long',neck:'crew'}),COBALT,10);}},
+    {n:'COBALT COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.82}),COBALT,15);}},
+    {n:'COBALT BOOTS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:COBALT}),COBALT,12);}},
+    /* AND NO TWO FACTIONS MAY OWN THE SAME COLOUR, which is the whole point of a
+       colour: you read it at fifty yards and you know. The first cut of this work
+       put COLORFUL in a cobalt duster and gave the valley THREE blue factions --
+       Colorful, Blues and Network -- so a rainbow faction's biggest garment was
+       the Blues' flag. Rose is nobody's, so it is theirs. */
+    {n:'ROSE DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ROSEBRT,len:0.88}),ROSEBRT,15);}},
+    /* THE MOB WERE ALSO WEARING RED (54%), colliding with the Reds at 87%, because
+       ROAD CAPE is oxblood and a cape is the whole back of a person. Their own
+       colour was already on them and drowned: MOB PINSTRIPE SHIRT is mustard, his
+       7/21 spec, "gold different from the mob's gold". A dark cape lets the gold
+       be the thing you see. Same cape, same shape, charcoal. */
+    {n:'CHARCOAL ROAD CAPE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:CHARCLOTH}),CHARCLOTH,8);}},
+    {n:'GRASS DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,len:0.88}),GRASSGRN,15);}},
+    {n:'COBALT SNEAKERS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:COBALT}),COBALT,12);}},
+    {n:'CHARCOAL WRAP SKIRT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'longskirt'}),CHARCLOTH,10);}},
+    {n:'CHARCOAL BOOTS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARCLOTH}),CHARCLOTH,12);}},
     /* ---- COOK BATCH 18 (7/20): STRUCTURE WAVE 4 -- the hood goes UP and armor
        arrives. HOOD-UP hoodies (the skull becomes garment, face open), a HOODED
        poncho, and a scavenged CHEST PLATE with an X harness. Zero recolors. ---- */

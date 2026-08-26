@@ -1205,6 +1205,16 @@ GATES = [
      'as "the fastest move". It caught three defects reading could not: the wound was '
      'out of arm reach (thigh 19.1px, arm 16px), the jab was shorter than a keyframe so '
      'it never rendered, and the tremor was sampled exactly at its own zero crossings', False),
+    ('FACTION COLOUR', ['node', 'gates/faction_colour_gate.js'],
+     'COLOUR IS TERRITORY (Paolo 8/26): "the colorful, like, that guy was not '
+     'colorful, bro ... people get shot in Los Angeles for wearing the wrong color '
+     '... when it comes down to how we wanna communicate, like, who would defend '
+     'us". Silhouette still carries identity in the dark (OUTFITS 13 below); this '
+     'holds the SECOND channel his ruling adds. Four tests on rendered cloth pixels '
+     'with skin and outline removed: a faction coordinated with itself, saturated '
+     'enough to be a signal unless drabness IS the statement, owning a hue nobody '
+     'else owns, and NOT LYING ABOUT ITS OWN NAME -- the Blues were 67% red for five '
+     'weeks. Also holds the thumbs he asked for on the same day.', False),
     ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
      'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
      'of their own, chosen by searching 880 rendered fits rather than by eye, and '

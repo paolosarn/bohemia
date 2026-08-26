@@ -81,8 +81,17 @@ ok('clause 2 in code: the back AND profile facings cover the whole skull',
   /var sideBot=\(back\|\|prof\)\?(hBot|Math\.max\(hBot,)/.test(src));
 ok('clause 3 in code: row edges take a deterministic wobble',
   /var wob=function\(y,side\)/.test(src) && /mn-=wob\(y,0\); mx\+=wob\(y,1\)/.test(src));
+/* *** AND THIS ONE FIRED ON A COMMENT SAYING THE OPPOSITE. (fixed 8/26) ***
+   The 8/26 facePerform block carries the line "No Math.random anywhere in here,
+   which is the same rule the hair wobble lives under" -- a promise NOT to roll
+   dice -- and the regex saw `Math.random` within 200 characters of `wob` and
+   went red. A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE
+   (8/1), which is a process lesson THIS GATE PINS SIX LINES ABOVE. Comments are
+   stripped before the test now, so it reads code and not prose. Nothing is
+   weakened: a real Math.random near a wobble still fires, proved by mutation. */
+const CODE = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/[^\n]*/g, '$1');
 ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimmer)',
-  /_wseed/.test(src) && !/Math\.random[\s\S]{0,200}wob/.test(src));
+  /_wseed/.test(src) && !/Math\.random[\s\S]{0,200}wob/.test(CODE));
 /* AMENDED 8/1 the same day: 2 HAIR : 1 SKIN, not 1:1. The original %3 was already
    right; I changed it to %2 on an over-reading of his first note and he corrected
    me. The gate now pins the ratio he actually specified, and pins it for EVERY

@@ -1,3 +1,125 @@
+CHARACTER (character-0lurbs): 8/27 (b) LATEST -- *** THE COLOURS HE ASKED FOR IN
+JULY WERE NEVER PUT ON ANYBODY, AND THE FACE LEARNED TO TALK. TAB: LOOK for both
+pictures, CHARACTER to vote on the thirteen. Nothing to judge -- he already ruled. ***
+
+FIRST, TWO APPROVALS ON RECORD (NOTES ARE RULINGS -- do not re-ask him):
+  HAIR IS PASSED. "I will give you kudos, some very proud of how the hair's
+  looking... it's come a long way... still not really perfect perfect, but, hey.
+  I'll take it for now. You you learned a lot. It's awesome."
+  FACTION CLOTHING IS PASSED IN PRINCIPLE. "I'm pretty impressed that you made
+  faction clothing" -- with the correction below.
+
+=== PART ONE: COLOUR IS TERRITORY (his ruling, LOCKED, law written same turn) ===
+"the colorful, like, that guy was not colorful, bro. Like, that shit was crazy...
+ people get shot in Los Angeles for wearing the wrong color or whatever... when it
+ comes down to how we wanna communicate, like, who would defend us, I think it'd
+ be kinda like that."
+
+*** AND HE HAD ASKED FOR IT ONCE ALREADY, ON 7/21. *** His words that day, sitting
+in the alpha's own comment: "not even a single color, like rainbow literally".
+Four saturated garments were cooked that week, FOR COLORFUL, with a comment saying
+so. MEASURED FIVE WEEKS LATER:
+    TEAL WORK SHIRT     worn by NOBODY
+    COBALT WORK PANTS   worn by NOBODY
+    ROSE BANDANA        worn by NOBODY
+    MOSS GREEN SHIRT    worn by BLUES -- the one faction it is wrong for
+    COLORFUL  saturation 0.22, 54% grey/brown. SECOND LEAST COLOURFUL OF THIRTEEN.
+              Bone duster, bone knit cap, bone sneakers.
+THE MATERIAL EXISTED AND NEVER REACHED THE PLAYER, with his own words attached to
+it for five weeks. Same failure as the seventeen invisible hats on 8/25. If you
+take one thing from this handoff: WHEN HE ASKS FOR SOMETHING, CHECK LATER THAT IT
+ACTUALLY GOT WORN.
+
+AND A SECOND ONE HE DID NOT ASK ABOUT: *** THE BLUES WERE 67% RED. *** DRIFTER'S
+COAT is oxblood and a coat is most of a person; the shirt under it was moss green.
+A faction named for a colour was wearing neither that colour nor one colour. In
+his own framing they were walking the valley flagged as the Reds.
+
+FIXED with ELEVEN COLOURWAYS IN EXISTING SHAPES, zero new geometry, exactly how
+the 7/21 batch was done:
+    COLORFUL  grass duster, teal striped tee, gold wrap skirt, rose knit cap,
+              cobalt sneakers.  0.22 -> 0.64 saturation, 54% -> 5% grey.
+              Owns hue 90, which nobody else does.
+    BLUES     cobalt shirt / coat / work pants / boots.  RED -> BLUE at 93%.
+SHAPES UNTOUCHED -- same generator, same options, different ramp -- so the 880-fit
+silhouette set is what it was: faction_outfit_gate 16/2, SAME two pre-existing
+failures, and its spread mean went UP (0.071 -> 0.073).
+
+RESEARCHED, because REALISM FIRST and he named a real thing: colours signal at a
+DISTANCE (that is the whole function), the practice began as practical necessity
+letting a group project presence WITHOUT VERBAL CONFRONTATION, choices were
+OPPOSITIONAL (Bloods took red to contrast Crips' blue), origins were mundane and
+material (one account of Crips blue is which bandanas the surplus store had in
+bulk), and they are EASY TO TAKE OFF. That last one is a mechanic waiting to
+happen: wearing your colours is a decision with a cost, made every time you go out.
+
+*** WHAT I DID NOT DO AND WHY IT IS A DECISION: THE MOB SHARE RED WITH THE REDS ***
+(Mob 54%, Reds 87%). I built the charcoal alternative, put them in it, MEASURED it
+-- it buried their mustard pinstripe under 56% grey and collided them with three
+other neutral factions -- and reverted it. WHICH FACTION OWNS WHICH COLOUR IS HIS.
+The two I changed were self-evident CONTRADICTIONS (a faction named COLORFUL in
+bone, a faction named BLUES in red). "The Mob should own charcoal" is taste, and
+inventing it fills in canon he reserved. It is a row on the vote board now.
+
+THE INSTRUMENT HE ASKED FOR IN THE SAME BREATH: "I wish you could change it in the
+character menu to be, like, thumbs up, thumbs down because I definitely would have
+voted." HE MUST BE ABLE TO DIRECT IT (8/12) had a hole here -- the board could WEAR
+a fit and SAVE a fit, so he could rebuild one from scratch, and there was no way to
+say YES or NO to the thirteen. REBUILDING IS NOT VOTING. Thumbs, notes box and
+.txt export (never .json) on the faction board now, the same pattern the hair board
+has had since 8/1. The sheet exports the faction, its shape line AND what it wears.
+
+=== PART TWO: THE FACE PERFORMS ===
+"every time you speak to someone, their portrait will pop up on screen so you feel
+ like you're relating to them... facial animations too, bro, like talking and
+ shit... from eyebrows moving"
+renderFace takes three optional knobs -- mouth, blink, brow -- and A FACE WITH NONE
+ASKED OF IT IS EXACTLY THE APPROVED FACE, which is the only way to add performance
+to art that is already signed off.
+*** THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE ACTUALLY SAYING. *** The line is
+walked one sound at a time and each sound picks a shape, so an O in the words is an
+O on the face and the same line always looks the same. Spanglish is IN the line so
+it is in the mouth: accented vowels map with their plain twins, n-tilde closes.
+FOUR SHAPES, NOT PRESTON BLAIR'S TEN. His chart is for a face with a thousand
+pixels; this mouth is NINE WIDE AND THREE TALL. Ten into nine is the overworld
+face scale he killed on 8/11 -- asking geometry to express what it has no room for.
+MEASURED FROM PEOPLE: blink 285ms (100-400 range), 15-20/min at rest and 3-7 while
+concentrating, 2-10s apart; speech 4-5 syllables/sec so a shape holds 200-250ms.
+250ms is inside that AND exactly half a BEAT at 120bpm. Deterministic off the
+person's id -- no dice, so nobody in a crowd shimmers.
+
+*** THE HALF HE WANTED MOST IS NOT DONE: THE PORTRAIT DOES NOT POP UP WHEN YOU TALK
+TO SOMEBODY YET. *** The performance exists and is gated; the WIRING into the
+dialogue surface is the next session's first job, along with his idea of putting
+the portrait in the action button "to keep that part of the UI decent and composed".
+ALSO OPEN from the same message: EYE COLOURS MATCHING between the portrait and the
+person in the world. He said "eye colors matching the portrait again". I HAVE NOT
+MEASURED WHETHER THEY CURRENTLY AGREE. MEASURE IT BEFORE BUILDING ANYTHING.
+
+GATES: faction_colour_gate NEW, 9/0, registered in the suite, MUTATION-PROVED
+  (putting Colorful back in bone and Blues back in oxblood fires two checks by
+  name). craft_law 39/0 -- and it went RED on my own comment saying "No
+  Math.random anywhere in here": the regex saw Math.random near "wobble" in PROSE.
+  A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE, which is a
+  lesson THAT GATE PINS SIX LINES ABOVE THE CHECK. Comments stripped before the
+  test; a real dice roll beside the wobble still fires, proved by mutation.
+  hair 35/0, one_garment_per_slot 15/0, clothes_4x 13/0, look 24/0 (46 pictures).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP:
+  1. WIRE THE PORTRAIT INTO DIALOGUE. It is the thing he actually asked for and
+     the performance is sitting there unused. Then the action-button idea.
+  2. MEASURE EYE COLOUR AGREEMENT portrait vs world body before touching it.
+  3. The colour law's open row: the Mob/Reds red, and five factions sharing the
+     desert hue. HIS to rule on, on the vote board. Do not invent ownership.
+  4. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+
+  node gates/faction_colour_gate.js            9/0
+  node tools/bohemia_colour_is_territory.js    the before and after, LOOK tab
+  node tools/bohemia_the_face_talks.js         the talking face, LOOK tab
+  records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt
+  laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md
+
+================================================================================
 WORDS (words-8dqrnq): 8/26 (a) LATEST -- *** THE LANE OPENED AND THE FIRST THING IT DID WAS
 COUNT. Our quest scenes contract 2.2% of the time. Our street barks contract 75%. TAB: WORDS,
 open THE VOICE PASS at the top to see one scene written both ways. Nothing to judge. ***

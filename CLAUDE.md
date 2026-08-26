@@ -236,6 +236,35 @@ research partner. He DECIDES, you PRODUCE.
   reaches EVERY stall from the curb. Authored once via kit rotateToStreet (build
   canonical-south, rotate to the real street). Gates: district_kit_gate.js (the
   machinery) + each district's gate (park_gate.js is the reference). Full law in /laws.
+- COLOUR IS TERRITORY (Paolo 8/26, LOCKED, AMENDS STRUCTURE-NOT-COLOR): "the
+  colorful, like, that guy was not colorful, bro. Like, that shit was crazy... people
+  get shot in Los Angeles for wearing the wrong color or whatever... when it comes down
+  to how we wanna communicate, like, who would defend us, I think it'd be kinda like
+  that." SILHOUETTE STILL CARRIES IDENTITY and still answers accessibility -- the valley
+  opens at 06:00 in the dark. What this ADDS is the second channel: a faction's colour
+  is a statement of who would defend you, and it must be COORDINATED, SATURATED, and
+  NOBODY ELSE'S, and a faction named for a colour wears it. Grounded, not styled: real
+  colours signal at a DISTANCE, were chosen OPPOSITIONALLY, came from whatever was in
+  bulk, and are EASY TO TAKE OFF -- which makes wearing them a decision with a cost.
+  A recolour is still never PROGRESS (7/19 stands); what changed is that it can be
+  IDENTITY. *** AND HE HAD ASKED ONCE ALREADY: on 7/21 he said "not even a single color,
+  like rainbow literally", four bright garments were cooked FOR COLORFUL, and five weeks
+  later THREE WERE WORN BY NOBODY while COLORFUL sat in bone at 0.22 saturation and the
+  BLUES were 67% RED. Same failure as the 17 invisible hats -- the material existed and
+  never reached the player. *** WHICH FACTION OWNS WHICH COLOUR IS HIS; the machine only
+  fixes CONTRADICTIONS (a faction named COLORFUL in bone), never taste. Full law:
+  laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md  Gate: faction_colour_gate.js
+- THE FACE PERFORMS (Paolo 8/26): "every time you speak to someone, their portrait will
+  pop up on screen so you feel like you're relating to them... facial animations too,
+  bro, like talking and shit... from eyebrows moving." renderFace takes three optional
+  knobs -- mouth, blink, brow -- and a face with none asked of it is EXACTLY the approved
+  face. THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE ACTUALLY SAYING (an O in the words is
+  an O on the face, same line same look, Spanglish vowels mapped). FOUR shapes not
+  Preston Blair's ten, because the mouth is NINE PIXELS WIDE -- ten into nine is the
+  overworld-face-scale mistake he killed on 8/11. Measured human numbers: blink 285ms,
+  15-20/min at rest and 3-7 concentrating; a viseme holds 250ms, which is half a BEAT at
+  120 BPM. Deterministic off the person's id, so nobody in a crowd shimmers.
+  Tab: CHARACTER. records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.

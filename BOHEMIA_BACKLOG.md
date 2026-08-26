@@ -6767,6 +6767,45 @@ P0-GARMENTID. *** DONE 8/26. THE WARDROBE HOLDS, AND ALL 52 OTHER "FINDINGS"
    the ROAD CAPE / SHOULDER MANTLE on/off at the E->NE notch.
    | every canon garment holds its identity across 8 facings, gated, measured
    on the real worn path | -- | no. He already ruled; this is work. ***
+COL. *** COLOUR IS TERRITORY, AND THE COLOURS HE ASKED FOR IN JULY WERE NEVER
+   PUT ON ANYBODY. LAW WRITTEN AND GATED 8/26. *** Paolo 8/26: "the colorful,
+   like, that guy was not colorful, bro... people get shot in Los Angeles for
+   wearing the wrong color... who would defend us." MEASURED: COLORFUL sat at
+   0.22 saturation and 54% grey/brown, the SECOND LEAST COLOURFUL of thirteen,
+   in bone duster / bone cap / bone sneakers -- and the four bright garments
+   cooked FOR IT on 7/21 off his own words ("not even a single color, like
+   rainbow literally") were worn by NOBODY, three of four, for five weeks. The
+   BLUES were 67% RED because their coat is oxblood. Both fixed with eleven
+   colourways in EXISTING shapes (zero new geometry): Colorful 0.22 -> 0.64 and
+   owns a hue nobody else does; Blues red -> 93% blue. Silhouette set untouched,
+   faction_outfit_gate unchanged at 16/2 with its spread mean UP.
+   laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md, gates/faction_colour_gate.js
+   9/0 mutation-proved, records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt.
+   *** OPEN AND HIS: THE MOB SHARE RED WITH THE REDS *** (Mob 54%, Reds 87%). I
+   built the charcoal alternative, measured it, and it buried their mustard under
+   56% grey and collided them with three neutral factions -- so I reverted it.
+   Which faction OWNS which colour is a canon ruling. It is a row on the vote
+   board in the CHARACTER tab. Five factions share hue 30 (leather/dust/canvas)
+   for the same reason; the gate ratchets that number downward rather than
+   pinning it at zero, because zero would mean inventing five ownerships. | his
+   thumbs on the board | WHO OWNS WHICH COLOUR IS HIS | yes -- it is on the board.
+FACE. *** THE FACE PERFORMS: TALKING, BLINKING, EYEBROWS. SHIPPED 8/26. ***
+   Paolo 8/26: "every time you speak to someone, their portrait will pop up on
+   screen so you feel like you're relating to them... facial animations too, bro,
+   like talking and shit... from eyebrows moving." renderFace takes three
+   optional knobs and a face with none asked of it is byte-identical to the
+   approved one. THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE SAYING. Four shapes
+   not ten, because the mouth is nine pixels wide. Blink 285ms, viseme 250ms =
+   half a beat at 120bpm, all measured from people. Deterministic per person.
+   *** WHAT IS NOT DONE, AND IT IS THE HALF HE ASKED FOR MOST: THE PORTRAIT DOES
+   NOT YET POP UP WHEN YOU TALK TO SOMEBODY. *** The performance exists and is
+   gated; the WIRING into the dialogue surface, and his idea of putting the
+   portrait in the action button "to keep that part of the UI decent and
+   composed", are the next session's first job. Also open from the same message:
+   EYE COLOURS MATCHING between the portrait and the person in the world -- he
+   said "eye colors matching the portrait again", and I have not measured whether
+   they currently agree. MEASURE IT BEFORE BUILDING ANYTHING.
+   | the portrait on screen when somebody speaks, in a tab | -- | no, this is work.
 SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
    COLOR_8_15_26.md). His 7/19 law says colourways are legal but never
