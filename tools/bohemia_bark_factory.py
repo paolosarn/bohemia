@@ -645,6 +645,21 @@ ES_GLOSS = {
     'trabajo': 'I work, or work', 'traigo': 'I bring', 'tu': 'your',
     'turno': 'the shift', 'tú': 'you', 'una': 'a, one', 'vamos': 'we go, let us go',
     'vez': 'a time, once', 'voy': 'I am going', 'vuelvo': 'I come back', 'yo': 'I',
+    # ---- and what the QUIRK lines say (8/25). ONE LEXICON, TWO MOUTHS: the
+    # quirk factory imports this table and refuses to write a word that is not
+    # in it, so the sweep that proves the hard rule can never have a hole the
+    # size of the most personal line in the game.
+    'allí': 'there', 'comiste': 'did you eat', 'contando': 'counting',
+    'cuarenta': 'forty', 'digas': 'tell, in "no me digas"', 'digo': 'I say',
+    'dijeron': 'they said', 'doy': 'I give', 'empiezo': 'I start',
+    'entero': 'whole', 'entonces': 'then', 'equivoco': 'get it wrong',
+    'espérate': 'hold on', 'estado': 'been', 'esto': 'this', 'feo': 'ugly, bad',
+    'invierno': 'winter', 'mamá': 'mom', 'nuevo': 'new, in "de nuevo", again',
+    'nunca': 'never', 'oigo': 'I hear', 'pensé': 'I thought', 'perdón': 'sorry',
+    'preguntes': 'ask, in "no preguntes"', 'primero': 'first', 'puso': 'it turned',
+    'quién': 'who', 'sigue': 'keep going', 'sé': 'I know', 'también': 'also',
+    'tengo': 'I have', 'todavía': 'still', 'tuyo': 'yours', 'vendo': 'I sell',
+    'ándale': 'go on', 'único': 'the only one',
 }
 
 # ---- CITATIONS FOR THE REGISTER WORK. Ids resolve, titles verbatim.
@@ -1178,7 +1193,7 @@ EN_EXTRA = {
     'hinge', 'window', 'block', 'shift', 'sweep', 'ticking', 'barrel',
     'offence', 'complaint', 'suggestion', 'serial', 'photo', 'uncle',
     'repeat', 'crash', 'having', 'barks', 'steal', 'irony', 'funny',
-    'sweeping', 'shade', 'thirst',
+    'sweeping', 'shade', 'thirst', 'nice',
 }
 
 
@@ -1207,11 +1222,24 @@ def base_forms(word):
     """
     w = word.lower()
     out = [w]
+    # A LEADING APOSTROPHE IS A QUOTE MARK, NOT A CLITIC. The quirk lines open
+    # with a spoken quote ("'He turn. He give the name.") and the tokenizer keeps
+    # the mark, so the first word arrived as "'he" and was reported as an
+    # unglossed Spanish word. Measured the first time the two mouths were checked
+    # against one lexicon. Strip it before anything else looks at the token.
+    if w.startswith("'"):
+        w = w.lstrip("'")
+        out = [w]
     if "'" in w:
         head, _sep, tail = w.partition("'")
         if head and tail in CLITICS:
             out.append(head)
-    return [x for x in out if x]
+    # NEVER RETURN NOTHING. A lone apostrophe reduces to the empty string and the
+    # caller indexes [-1] on this list; an empty list is an IndexError in a
+    # CHECKER, which is the worst place for one. A token with nothing left in it
+    # is not a word, so it comes back as itself and matches nothing.
+    out = [x for x in out if x]
+    return out or [word.lower()]
 
 
 def english_vocabulary():
@@ -1424,7 +1452,21 @@ def main():
         '  /* WHAT MAY FOLLOW AN APOSTROPHE AND STILL LEAVE A WORD BEHIND. ONE LIST,\n'
         '     shipped from the factory, read by esWordsIn below and by the gate through\n'
         '     it -- never re-typed into a second regex somewhere. */\n'
-        '  var ES_CLITIC = ' + json.dumps(list(CLITICS)) + ';\n')
+        '  var ES_CLITIC = ' + json.dumps(list(CLITICS)) + ';\n'
+        '  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this\n'
+        '     lane has paid for two copies of one rule. The Python side learned that a\n'
+        '     LEADING apostrophe is a quote mark and not a clitic ("\'He turn." opens a\n'
+        '     spoken line), fixed it there, and the gate\'s own tokenizer went red on the\n'
+        '     very same two lines because the rule had not travelled. It lives HERE now\n'
+        '     and everything that needs it calls it: esWordsIn below, and the gate. */\n'
+        '  function esStems(word) {\n'
+        '    var w = String(word == null ? "" : word).toLowerCase();\n'
+        '    while (w.charAt(0) === "\'") w = w.slice(1);\n'
+        '    if (!w) return [];\n'
+        '    var out = [w], ap = w.indexOf("\'");\n'
+        '    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));\n'
+        '    return out;\n'
+        '  }\n')
     pat = (r'\n  var ES_LEX = [\s\S]*?;\n'
            r'(  /\* THE HALF[\s\S]*?var ES_ONLY = [\s\S]*?;\n)?'
            r'(  /\* WHAT MAY FOLLOW[\s\S]*?var ES_CLITIC = [\s\S]*?;\n)?')

@@ -309,7 +309,13 @@ function blockKeys(seed) {
       /* what the module says it should be, so this compares the SURFACE against
          the TABLE rather than against itself */
       const who = ctPerson(CT_OPEN);
-      return { line: m ? m[1] : null, want: qkLine(who.key),
+      /* IN THE REGISTER THEY SPEAK (8/25, THEY SPEAK SPANGLISH). The card asks
+         qkLine(key, lang) now, so asking it without the register compares the
+         surface against a DIFFERENT PERSON'S mouth and reports a drift that is
+         not there. The claim is unchanged -- it is still THIS person's line from
+         the table -- it just has to name the same person the card did. */
+      return { line: m ? m[1] : null, want: qkLine(who.key, who.lang),
+               lang: who.lang || 'en',
                asked: !!(CT_MET && CT_MET.asked(who.key)) };
     });
     ok('B5 asking their name gets you a person, not just a surname',
@@ -322,16 +328,26 @@ function blockKeys(seed) {
        drifted they would drift together and agree. This checks the pixels he
        reads against records/BOHEMIA_QUIRKS.json, which is outside the browser
        entirely, so a wrong-but-consistent surface still fails. */
-    let authored = false;
+    /* EVERY MOUTH COUNTS AS AUTHORED, and only mouths this repo wrote. The
+       English pair plus each register's pair: 132 lines rather than 44. Walking
+       only the English pair would fail every Spanglish neighbour, and widening
+       it to "anything that looks similar" would stop checking anything. */
+    let authored = false, authoredN = 0;
     for (const q of REC.quirks) {
-      for (const n of REC.specifics[q.kind]) {
-        for (const reg of ['lit', 'dark']) {
-          if (q[reg].replace(/\{(it|p|r)\}/g, n) === warm.line) authored = true;
+      const mouths = [q];
+      for (const r of ['spanglish', 'es']) if (q[r]) mouths.push(q[r]);
+      for (const mo of mouths) {
+        for (const reg of ['lit', 'dark']) authoredN++;
+        for (const n of REC.specifics[q.kind]) {
+          for (const reg of ['lit', 'dark']) {
+            if (mo[reg] && mo[reg].replace(/\{(it|p|r)\}/g, n) === warm.line) authored = true;
+          }
         }
       }
     }
-    ok('B7 and that line is one of the ' + (REC.quirks.length * 2) + ' this repo '
-      + 'authored, checked outside the browser', authored, String(warm.line).slice(0, 70));
+    ok('B7 and that line is one of the ' + authoredN + ' this repo authored, '
+      + 'checked outside the browser (register: ' + warm.lang + ')',
+      authored, String(warm.line).slice(0, 70));
 
     /* B7: THE LIGHT PICKS THE REGISTER, and it is the SAME person both times.
        Driven by forcing dayDark() rather than walking two blocks, because what

@@ -376,6 +376,20 @@ if (fs.existsSync('records/BOHEMIA_QUIRKS.json')) {
   var QJ = JSON.parse(fs.readFileSync('records/BOHEMIA_QUIRKS.json', 'utf8'));
   (QJ.quirks || []).forEach(function (q) {
     qkN += 3;                                  /* tell + lit + dark */
+    /* AND EVERY OTHER MOUTH (8/25, THEY SPEAK SPANGLISH). The quirk line is what
+       somebody says when you ask their name, and each shape now carries it in
+       three registers. This counter knew about one, so the book held 2,312 lines
+       and this said 2,224 -- and the claim it feeds is "the book holds EVERY line
+       on disk", which is exactly the claim that must not be allowed to drift. */
+    ['spanglish', 'es'].forEach(function (r) {
+      var m = q[r];
+      if (!m) return;
+      qkN += 2;                                /* lit + dark, in that mouth */
+      if (String(m.lit || '').trim() === String(m.dark || '').trim())
+        qkSame.push(q.id + ' ' + r);
+      if (String(m.lit || '').trim() === String(q.lit || '').trim())
+        qkBad.push(q.id + ' ' + r + ':lit is a copy of the english line');
+    });
     if (!q.draft) qkBad.push(q.id + ' not tagged draft');
     if (String(q.lit || '').trim() === String(q.dark || '').trim()) qkSame.push(q.id);
     if (!q.study || q.study.length < 2) { qkBad.push(q.id + ' (<2 studies)'); return; }

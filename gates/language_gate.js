@@ -364,11 +364,16 @@ var barks = JSON.parse(fs.readFileSync('records/BOHEMIA_BARKS.json', 'utf8'));
 var invented = [];
 allLines.forEach(function (l) {
   if (!l.lang || l.lang === 'en') return;
+  /* THE STEMS COME FROM THE ENGINE, NOT FROM A SECOND REGEX HERE. This block
+     used to re-type the clitic rule, so when the Python side learned that a
+     LEADING apostrophe is a quote mark and not a clitic, this did not, and it
+     went red on two perfectly good lines that open with somebody speaking.
+     THIRD TIME THIS LANE HAS PAID FOR TWO COPIES OF ONE RULE. */
   String(l.text || '').replace(/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ']+/g, function (w) {
-    var lw = w.toLowerCase(), ap = lw.indexOf("'");
-    var stem = (ap > 0 && P.ES_CLITIC.indexOf(lw.slice(ap + 1)) >= 0) ? lw.slice(0, ap) : null;
-    if (lex[lw] || (stem && lex[stem])) return w;
-    if (enVocab[lw] || (stem && enVocab[stem])) return w;
+    var forms = BohemiaPeople.esStems(w);
+    if (!forms.length) return w;
+    if (forms.some(function (f) { return lex[f]; })) return w;
+    if (forms.some(function (f) { return enVocab[f]; })) return w;
     invented.push(l.id + ': ' + w);
     return w;
   });
@@ -564,11 +569,55 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
           line = BohemiaPeople.linesFor(ctPerson(best.r), { at: 'work' })[0];
         }
       } catch (e) { card = 'THREW: ' + e.message; }
+      /* *** AND THE LINE THEY SAY TO YOUR FACE, ONE PER REGISTER, OFF THE REAL
+         CARD. *** The quirk line is what somebody says when you ask their name:
+         the closest moment this game has, and the LAST monolingual one -- the
+         barks you overhear across the street had registers before the person
+         standing in front of you did. Read the same way as everything else
+         here: stand next to them, tap the button, tap ask, read the glass. */
+      var said = {};
+      /* CLOSE THE CARD FIRST, AND THIS COST A RED TO LEARN. The block above ends
+         with a card OPEN, and ctVerb() hides the one button whenever a card is
+         up -- correctly, because you cannot start a second conversation without
+         ending the first. So the loop below found the button hidden on every
+         single person and silently measured nothing, which is the shape of a
+         probe that reports "no such thing" when the truth is "I never looked". */
+      try { ctClose(); } catch (e8) {}
+      try {
+        for (var qx = 8; qx < 26 && !(said.en && said.spanglish && said.es); qx++)
+        for (var qy = 8; qy < 26 && !(said.en && said.spanglish && said.es); qy++) {
+          hx = qx * sp + 4; hy = qy * sp + 4; CT_SPAWN = null;
+          var QR = [];
+          try { ctSpawn(); QR = ctEveryone(); } catch (e3) { continue; }
+          for (var qi = 0; qi < QR.length; qi++) {
+            var qw = null;
+            try { qw = ctPerson(QR[qi]); } catch (e4) { continue; }
+            if (!qw || said[qw.lang]) continue;
+            var qat = ctAt(QR[qi]), stood = false, dd = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+            for (var qd = 0; qd < dd.length; qd++) {
+              hx = qat[0] + dd[qd][0]; hy = qat[1] + dd[qd][1];
+              try { render(); } catch (e5) {}
+              if (ctAdjacent()) { stood = true; break; }
+            }
+            if (!stood) continue;
+            var qb = document.getElementById('cttalk');
+            if (!qb || getComputedStyle(qb).display === 'none') continue;
+            qb.click();
+            var qa = document.getElementById('ctask'); if (qa) qa.click();
+            var qc = document.getElementById('ctcard');
+            var qt = qc ? qc.innerText : '';
+            var qm = /THEY SAID\n[\u201c"]?([^\n]*)/.exec(qt);
+            if (qm) said[qw.lang] = qm[1].replace(/[\u201d"]\s*$/, '');
+            try { ctClose(); } catch (e6) {}
+          }
+        }
+      } catch (e7) { said.THREW = String(e7 && e7.message); }
+
       return {
         seen: seen, blocks: blocks.length, mix: mix, rekeyed: rekeyed,
         low: blocks[Math.floor(blocks.length * 0.1)] || 0,
         high: blocks[Math.floor(blocks.length * 0.9)] || 0,
-        verb: verb, opened: opened, card: card, line: line
+        verb: verb, opened: opened, card: card, line: line, said: said
       };
     });
 
@@ -627,6 +676,21 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         return i > -1 && (l < 0 || i < l) && (h < 0 || i < h);
       })(), String(m.card).replace(/\n/g, ' | ').slice(0, 160));
     ok('somebody in the walked city has something to say', !!m.line, m.line);
+
+    /* THE MOST PERSONAL LINE IN THE GAME, ONE PER REGISTER, OFF THE GLASS. */
+    ok('an english neighbour answers in english when you ask their name',
+      !!m.said.en && BohemiaPeople.esWordsIn(m.said.en).length === 0, m.said.en);
+    ok('*** A SPANGLISH NEIGHBOUR ANSWERS IN SPANGLISH ***',
+      !!m.said.spanglish && BohemiaPeople.esWordsIn(m.said.spanglish).length > 0,
+      m.said.spanglish + '   ' + JSON.stringify(BohemiaPeople.esWordsIn(m.said.spanglish || '')));
+    /* REGISTER 3 IS GRAMMAR, NOT VOCABULARY (the law's own craft rule), so this
+       one is checked for being DIFFERENT rather than for carrying Spanish. A
+       claim demanding Spanish words here would be demanding the cartoon. */
+    ok('and a spanish-dominant neighbour answers in short, plain, broken english',
+      !!m.said.es && m.said.es !== m.said.en, m.said.es);
+    ok('all three answers are different lines, so the register is not decoration',
+      m.said.en && m.said.spanglish && m.said.es
+        && m.said.en !== m.said.spanglish && m.said.spanglish !== m.said.es);
   } catch (e) {
     ok('the walked city could be measured at all', false, String(e && e.message || e));
   } finally {

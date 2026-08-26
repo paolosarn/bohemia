@@ -4048,6 +4048,7 @@ global.BohemiaOvermap=API;
   "al": "to the",
   "alguien": "somebody",
   "alguna": "some",
+  "allí": "there",
   "ambos": "both",
   "amá": "mom",
   "antes": "before",
@@ -4078,11 +4079,14 @@ global.BohemiaOvermap=API;
   "comadre": "a close woman friend, godmother to your kids",
   "comer": "to eat",
   "comida": "the food",
+  "comiste": "did you eat",
   "compa": "buddy",
   "compraron": "they bought",
   "con": "with",
   "conozco": "I know",
+  "contando": "counting",
   "cualquier": "any",
+  "cuarenta": "forty",
   "cuenta": "count",
   "cuidado": "careful",
   "cómo": "how",
@@ -4092,23 +4096,35 @@ global.BohemiaOvermap=API;
   "después": "after, afterwards",
   "diciendo": "saying",
   "diez": "ten",
+  "digas": "tell, in \"no me digas\"",
+  "digo": "I say",
+  "dijeron": "they said",
   "dinero": "money",
   "dios": "god",
   "dos": "two",
+  "doy": "I give",
   "día": "day",
   "el": "the",
   "ella": "she",
+  "empiezo": "I start",
   "en": "in, on",
+  "entero": "whole",
+  "entonces": "then",
   "entres": "go in",
+  "equivoco": "get it wrong",
   "es": "is",
   "esa": "that",
   "eso": "that",
+  "espérate": "hold on",
   "esquina": "the corner",
   "esta": "this",
+  "estado": "been",
+  "esto": "this",
   "estoy": "I am",
   "está": "is",
   "están": "they are",
   "familia": "family",
+  "feo": "ugly, bad",
   "flojo": "loose, slack",
   "foto": "a photo",
   "frío": "cold",
@@ -4126,6 +4142,7 @@ global.BohemiaOvermap=API;
   "hombre": "man",
   "hora": "the hour",
   "igual": "the same",
+  "invierno": "winter",
   "ironía": "irony",
   "la": "the",
   "las": "the",
@@ -4136,6 +4153,7 @@ global.BohemiaOvermap=API;
   "los": "the",
   "luz": "the light, the power",
   "madre": "mother",
+  "mamá": "mom",
   "mano": "brother, short for hermano",
   "martes": "Tuesday",
   "mañana": "tomorrow, or the morning",
@@ -4157,9 +4175,12 @@ global.BohemiaOvermap=API;
   "nomás": "just, only",
   "nos": "us",
   "nosotros": "us",
+  "nuevo": "new, in \"de nuevo\", again",
+  "nunca": "never",
   "o": "or",
   "ocho": "eight",
   "ofender": "to offend",
+  "oigo": "I hear",
   "ojalá": "God willing, hopefully",
   "olvida": "forget",
   "oscuridad": "the dark",
@@ -4168,23 +4189,29 @@ global.BohemiaOvermap=API;
   "paga": "pays",
   "para": "for",
   "pasada": "last, past",
+  "pensé": "I thought",
   "peor": "the worst",
+  "perdón": "sorry",
   "pero": "but",
   "poco": "a little",
   "por": "for",
   "porque": "because",
   "precio": "a price",
   "pregunta": "ask",
+  "preguntes": "ask, in \"no preguntes\"",
   "pregúntame": "ask me",
+  "primero": "first",
   "primo": "cousin",
   "puede": "can",
   "puedo": "I can",
   "puerta": "the door",
   "puertas": "the doors",
   "pues": "well",
+  "puso": "it turned",
   "pájaro": "a bird",
   "que": "that",
   "quedarse": "to stay",
+  "quién": "who",
   "qué": "what",
   "rato": "a while",
   "regla": "a rule",
@@ -4200,35 +4227,44 @@ global.BohemiaOvermap=API;
   "serio": "serious, in \"en serio\"",
   "si": "if",
   "siempre": "always",
+  "sigue": "keep going",
   "sin": "without",
   "siéntate": "sit down",
   "sol": "the sun",
   "son": "they are",
+  "sé": "I know",
   "sí": "yes",
+  "también": "also",
   "tampoco": "either, neither",
   "tarde": "late, or the afternoon",
   "te": "you",
+  "tengo": "I have",
   "ti": "you",
   "toca": "is my turn, in \"me toca\"",
+  "todavía": "still",
   "todo": "everything",
   "todos": "everybody",
   "trabajo": "I work, or work",
   "traigo": "I bring",
   "tu": "your",
   "turno": "the shift",
+  "tuyo": "yours",
   "tía": "aunt",
   "tío": "uncle",
   "tú": "you",
   "una": "a, one",
   "vamos": "we go, let us go",
   "ven": "come",
+  "vendo": "I sell",
   "vez": "a time, once",
   "viejo": "old man",
   "voy": "I am going",
   "vuelvo": "I come back",
   "y": "and",
   "ya": "already, or enough",
-  "yo": "I"
+  "yo": "I",
+  "ándale": "go on",
+  "único": "the only one"
 };
   /* THE HALF OF THE LEXICON THAT CANNOT BE MISTAKEN FOR ENGLISH.
      Derived by the factory against this game's own English corpus, never
@@ -4236,11 +4272,25 @@ global.BohemiaOvermap=API;
      sweep that flagged them would go red on every English objective in the
      build. THIS is the list language_gate claim C sweeps the required-
      information surfaces with. DO NOT HAND-EDIT: re-run the factory. */
-  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "compa", "compraron", "con", "conozco", "cualquier", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "dinero", "dios", "dos", "día", "el", "ella", "en", "entres", "es", "esa", "eso", "esquina", "esta", "estoy", "está", "están", "familia", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "o", "ocho", "ofender", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "peor", "pero", "poco", "por", "porque", "precio", "pregunta", "pregúntame", "primo", "puede", "puedo", "puerta", "puertas", "pues", "pájaro", "que", "quedarse", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sin", "siéntate", "sol", "sí", "tampoco", "tarde", "te", "ti", "toca", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tía", "tío", "tú", "una", "vamos", "ven", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo"];
+  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "allí", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "comiste", "compa", "compraron", "con", "conozco", "contando", "cualquier", "cuarenta", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "digas", "digo", "dijeron", "dinero", "dios", "dos", "doy", "día", "el", "ella", "empiezo", "en", "entero", "entonces", "entres", "equivoco", "es", "esa", "eso", "espérate", "esquina", "esta", "estado", "esto", "estoy", "está", "están", "familia", "feo", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "invierno", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mamá", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "nuevo", "nunca", "o", "ocho", "ofender", "oigo", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "pensé", "peor", "perdón", "pero", "poco", "por", "porque", "precio", "pregunta", "preguntes", "pregúntame", "primero", "primo", "puede", "puedo", "puerta", "puertas", "pues", "puso", "pájaro", "que", "quedarse", "quién", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sigue", "sin", "siéntate", "sol", "sé", "sí", "también", "tampoco", "tarde", "te", "tengo", "ti", "toca", "todavía", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tuyo", "tía", "tío", "tú", "una", "vamos", "ven", "vendo", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo", "ándale", "único"];
   /* WHAT MAY FOLLOW AN APOSTROPHE AND STILL LEAVE A WORD BEHIND. ONE LIST,
      shipped from the factory, read by esWordsIn below and by the gate through
      it -- never re-typed into a second regex somewhere. */
   var ES_CLITIC = ["s", "t", "re", "ve", "ll", "d", "m"];
+  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
+     lane has paid for two copies of one rule. The Python side learned that a
+     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
+     spoken line), fixed it there, and the gate's own tokenizer went red on the
+     very same two lines because the rule had not travelled. It lives HERE now
+     and everything that needs it calls it: esWordsIn below, and the gate. */
+  function esStems(word) {
+    var w = String(word == null ? "" : word).toLowerCase();
+    while (w.charAt(0) === "'") w = w.slice(1);
+    if (!w) return [];
+    var out = [w], ap = w.indexOf("'");
+    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
+    return out;
+  }
 
   /* WHICH SPANISH WORDS A STRING CONTAINS -- ONE IMPLEMENTATION, FOR EVERYBODY.
      gates/language_gate.js calls THIS to sweep the objectives, the resolution
@@ -4255,10 +4305,10 @@ global.BohemiaOvermap=API;
     for (i = 0; i < ES_ONLY.length; i++) only[ES_ONLY[i]] = 1;
     var m, re = /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ']+/g, s = String(text == null ? '' : text);
     while ((m = re.exec(s))) {
-      var w = m[0].toLowerCase();
-      if (only[w]) { out.push(m[0]); continue; }
-      var ap = w.indexOf("'");
-      if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0 && only[w.slice(0, ap)]) out.push(m[0]);
+      var forms = esStems(m[0]);
+      for (var f = 0; f < forms.length; f++) {
+        if (only[forms[f]]) { out.push(m[0]); break; }
+      }
     }
     return out;
   }
@@ -5624,7 +5674,8 @@ global.BohemiaOvermap=API;
     hash: hash, keyOf: keyOf, seatOf: seatOf,
     // LANG-1 (8/25): what somebody speaks, derived exactly like their name.
     LANG: LANG, LANG_ORDER: LANG_ORDER,
-    ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC, esWordsIn: esWordsIn,
+    ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC,
+    esWordsIn: esWordsIn, esStems: esStems,
     VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
     BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf,
     langOf: langOf, speaksLineOf: speaksLineOf,
@@ -27423,317 +27474,6 @@ function pplFace(p, at) {
    NOTHING IS AUTHORED HERE. Every string comes out of his LINES table (the same
    rows the WORDS tab edits), chosen by facts the city already knows about that
    person. If he rewrites a line in WORDS, the street says the new one. */
-/* ==== engine/bohemia_quirk.js (ONE THING THAT IS THEIRS, 8/19) ==== */
-// BOHEMIA QUIRK -- one thing that is theirs, and you meet it when you ask.
-//
-// GENERATED by tools/bohemia_quirk_factory.py. EDIT THE TOOL, NEVER THIS FILE.
-//
-// A CHARACTER NOBODY LAUGHED WITH IS A CHARACTER NOBODY MOURNS (tone research R1,
-// finding 1). The valley had 58 bucket lines and 19 player-reactions and ZERO things
-// that belonged to one specific human. Every Blue said the same five sentences.
-//
-// FUNNY AND SCARY ARE ONE DIAL. R1 finding 3, benign violation theory: humour is a
-// violation appraised as SAFE, and the switch is perceived distance. LIGHT=TERRITORY
-// already draws that switch across the map in 12% clustered power, so every quirk is
-// authored TWICE AS THE SAME PERSON -- lit is the joke, dark is the same trait with
-// the safety taken out. Never a different quirk. Never a different person.
-//
-// DERIVED, NEVER STORED. Same doctrine as bohemia_people.js: a person is
-// (blockSeed, house, slot), so their quirk is too. Nothing saved, nothing to desync.
-//
-// CONTENTS ARE DRAFTS (ALWAYS MAKE AN ATTEMPT, 8/11). Every line is a real attempt,
-// tagged draft:true in records/BOHEMIA_QUIRKS.json, editable in the WORDS tab. No
-// person is named and no establishment is named -- both are Paolo's canon.
-(function (root) {
-  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
-
-  /* THE TYPED NOUNS. A shape declares which of these it can read, so the machine
-     can never hand a ritual to a shape that wanted a thing you can hold. */
-  var SPECIFICS = {
-    object: [
-      "a drink token from a floor that closed",
-      "a keno card with the numbers still circled",
-      "a room key with the plastic melted flat",
-      "one blue chip",
-      "a marquee bulb that never blew",
-      "a valet ticket numbered forty-one",
-      "a cocktail straw still in its paper",
-      "a folded pool towel",
-      "a slot handle snapped off at the base",
-      "a laminated buffet menu",
-      "a lanyard with somebody else's photo on it",
-      "a nickel that will not spend anywhere",
-      "a house deck with the queens missing",
-      "a room-service pen that still writes",
-      "half a pair of dice",
-      "a luggage tag for a flight that left",
-    ],
-    place: [
-      "the loading dock behind the kitchens",
-      "the third floor of the parking garage",
-      "the drained pool deck",
-      "the stairwell that still has its light",
-      "the service corridor under the floor",
-      "the bus shelter with the ad still lit",
-      "the roof of the laundry",
-      "the dry fountain basin",
-      "the long ramp where the buses turned",
-      "the loading bay with the clock over it",
-      "the pump house at the end of the row",
-      "the alley behind the shuttered row",
-    ],
-    ritual: [
-      "counting the lit windows",
-      "saying the day of the week out loud",
-      "checking the same dead payphone",
-      "straightening what is already straight",
-      "tapping the doorframe twice on the way out",
-      "washing up before eating",
-      "winding a watch that does not run",
-      "reading the expiry dates out loud",
-      "walking the block backwards once a week",
-      "keeping one light on for somebody",
-      "shaking out boots before putting them on",
-      "saying goodnight to the block",
-    ],
-  };
-
-  /* THE SHAPES. tell = what you can SEE (third person, never dialogue).
-     lit/dark = what they SAY when you ask, on a powered block and off one. */
-  var SHAPES = [
-    { key: "shows-you-first", kind: "object",
-      tell: "carries one thing everywhere and will get it out of their coat given any excuse",
-      lit:  "Yeah, in a second. Look at this first. I've been carrying {it} two years now.",
-      dark: "You want a name out here? Fine. Hold {it} where I can see your hands." },
-    { key: "not-for-trade", kind: "object",
-      tell: "answers questions with one hand over a pocket",
-      lit:  "Sure. And before you work up to it, I'm not trading {it}. Nothing personal.",
-      dark: "Whatever you came for, you're not getting {it} either. Keep walking, friend." },
-    { key: "belonged-to-somebody", kind: "object",
-      tell: "keeps two of the same small thing when one would do",
-      lit:  "Mine's the same as his was. We both carried {it}. I kept the pair when he stopped needing his.",
-      dark: "He carried {it} too. He isn't here. Neither's the name, if you're following me." },
-    { key: "collects-them", kind: "object",
-      tell: "stops mid-sentence to add to a count nobody asked about",
-      lit:  "Hang on. Forty. Forty-one. Sorry, I'm counting. Number one was {it} and I never stopped.",
-      dark: "Forty-one. I started on {it} and I have to reach fifty before it's light or it doesn't count." },
-    { key: "superstitious-about-it", kind: "object",
-      tell: "will not answer while holding a certain thing, and is embarrassed about it",
-      lit:  "Not while I'm carrying {it}. I know. I know it's stupid. Ask me tomorrow and you'll get it.",
-      dark: "Not while I'm carrying {it}. Not out here. You wouldn't either, if you'd been out here longer." },
-    { key: "writes-it-down", kind: "object",
-      tell: "does not say things out loud that can be written instead",
-      lit:  "I'll write it. I don't say it, I write it. Give me a second, I'm using {it}.",
-      dark: "I'm not saying it out loud tonight. I'll put it down with {it} and you read it somewhere else." },
-    { key: "thinks-it-is-worth-something", kind: "object",
-      tell: "talks about a sale that has not happened for a long time",
-      lit:  "Ask me again once I've sold {it}. I'll have a nicer name by then. People say it nicer.",
-      dark: "The night I sell {it} I'm gone. You won't need to know what to call me." },
-    { key: "talks-about-it-instead", kind: "object",
-      tell: "answers a question with an offer",
-      lit:  "Sure, sure. Have you eaten? I've got {it}. That's not food, I know that. I was getting to the food.",
-      dark: "Don't need my name. Need you to take {it} and go on up the street. Please. Take it." },
-    { key: "narrates-themselves", kind: "object",
-      tell: "says out loud what they are doing while they do it",
-      lit:  "'They turn. They give the name. They are still holding {it}.' Sorry. I do that. I've been alone a lot.",
-      dark: "'They do not give the name. They are still holding {it}.' ...That's how it goes tonight." },
-    { key: "mishears-and-runs-with-it", kind: "object",
-      tell: "answers the question they wanted rather than the one asked",
-      lit:  "My what? Oh. I thought you said trade. I'd much rather talk trade. Look at {it}, go on.",
-      dark: "What? Speak up, I can't hear anything out here past {it} rattling in my coat." },
-    { key: "swears-by-a-place", kind: "place",
-      tell: "mentions the same location in every conversation regardless of subject",
-      lit:  "Ask me at {p}. I'm better there. Everybody's better there, that's not just me.",
-      dark: "Not here. Come to {p} and I'll say it. I won't say it anywhere else, so." },
-    { key: "will-not-go-there", kind: "place",
-      tell: "routes around one specific place, every time, without explaining",
-      lit:  "You'll get it out of me anywhere except {p}. Don't ask, it's the stupidest reason you ever heard.",
-      dark: "It went wrong at {p}. You want a name, don't stand this close to {p}." },
-    { key: "slept-there-once", kind: "place",
-      tell: "mentions a winter they do not elaborate on",
-      lit:  "I slept a whole winter at {p}. Ask me anything except that and I'm an open book.",
-      dark: "I slept at {p}. I still hear it. Stand still a second. You hear it?" },
-    { key: "keeps-a-place-clean", kind: "place",
-      tell: "tidies a public place nobody has asked them to tidy",
-      lit:  "Give me a minute, I'm doing {p}. Nobody asked me. Somebody has to and nobody asked me.",
-      dark: "I still do {p}. Nobody comes through there any more. I still do it." },
-    { key: "waiting-at-a-place", kind: "place",
-      tell: "looks past you toward the same direction while you talk",
-      lit:  "I'm supposed to be met at {p}. Have been supposed to for a while now. It's fine.",
-      dark: "They're coming to {p}. They said so. You didn't see anybody at {p}, did you." },
-    { key: "gives-the-wrong-one-first", kind: "place",
-      tell: "gives an answer with the air of somebody who has a second one ready",
-      lit:  "The one I give first isn't the real one. Not a trick, just habit. Ask me again by {p}.",
-      dark: "You already got the one I give out. Ask again by {p}. If I'm still standing there." },
-    { key: "asks-yours-first", kind: "place",
-      tell: "will not go first",
-      lit:  "You go. That's the rule at {p} and I've decided it's the rule everywhere now.",
-      dark: "You first. Whoever was at {p} tonight got asked the same and they didn't answer either." },
-    { key: "finish-it-first", kind: "ritual",
-      tell: "cannot be interrupted partway through a small routine",
-      lit:  "Hang on, I'm {r}. You can't interrupt it. It doesn't work if you interrupt it.",
-      dark: "Don't. I'm {r}. If I lose count I start again and I don't want to be out here that long." },
-    { key: "apologises-for-it", kind: "ritual",
-      tell: "does a small thing and apologises for it in the same motion",
-      lit:  "Sorry. I know. I keep {r}. My mother did it, I hated it, and here we absolutely are.",
-      dark: "I keep {r}. I know exactly what it looks like. I'd stop if it were safe to stop." },
-    { key: "insists-you-do-it-too", kind: "ritual",
-      tell: "expects other people to observe their routine and is genuinely wounded when they do not",
-      lit:  "You didn't. You're meant to. Try {r}. Go on, I'll wait. There. Now we're properly introduced.",
-      dark: "You have to as well. Start {r}. I'm not telling you my name until you've done it." },
-    { key: "keeps-time-by-it", kind: "ritual",
-      tell: "does not read clocks",
-      lit:  "What day is it. No, don't tell me. I get it from {r}. That's how I know, and I'm never wrong.",
-      dark: "I get it from {r}. It's the only clock I trust and it's been wrong twice this week." },
-    { key: "remembers-everybody", kind: "ritual",
-      tell: "greets people by trade before they have spoken",
-      lit:  "I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
-      dark: "I know yours. I know who's stopped being on this block, too. Six. It's {r}." },
-  ];
-
-  var SLOT = { object: /\{it\}/g, place: /\{p\}/g, ritual: /\{r\}/g };
-
-  /* THE DERIVATION. bohemia_people.js hashes a key string with imul-31 and then
-     mixes; mix32 is not exported, so the same documented pattern is restated here
-     with the same constants and a DIFFERENT salt. Different on purpose: a person's
-     quirk must not be correlated with the name they were given, or every ODELL in
-     the valley would count lit windows.
-     TWO INDEPENDENT STREAMS. The shape and the noun are drawn from separately mixed
-     words, because drawing both off one number makes shape and noun move together --
-     which reads, on a block, as three people with the same bit. */
-  function mix32(h) {
-    h = (h ^ (h >>> 16)) >>> 0;
-    h = Math.imul(h, 0x85ebca6b) >>> 0;
-    h = (h ^ (h >>> 13)) >>> 0;
-    h = Math.imul(h, 0xc2b2ae35) >>> 0;
-    return (h ^ (h >>> 16)) >>> 0;
-  }
-  function strHash(key) {
-    var h = 0, s = String(key == null ? "" : key);
-    for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
-    return h >>> 0;
-  }
-  var SALT_SHAPE = 0x71717 >>> 0;   /* not 0x9e3779b9: that is generatedName's */
-  var SALT_NOUN  = 0x1d3f5b >>> 0;
-
-  /* THE ONE LOOKUP. Takes a person, a person KEY, or anything with .key. */
-  function keyOf(who) {
-    if (who == null) return null;
-    if (typeof who === 'string') return who;
-    return who.key || null;
-  }
-  /* THE ONE PLACE SUBSTITUTION HAPPENS. Both the plain draw and the block spread
-     come through here, so a person met on the card and the same person counted in
-     the spread can never be rendered by two different bits of code. */
-  function render(key, s, noun) {
-    return { key: key, shape: s.key, kind: s.kind, specific: noun,
-             tell: s.tell,
-             lit:  s.lit.replace(SLOT[s.kind], noun),
-             dark: s.dark.replace(SLOT[s.kind], noun) };
-  }
-  function quirkOf(who) {
-    var key = keyOf(who);
-    if (!key) return null;
-    var h = strHash(key);
-    var s = SHAPES[mix32((h ^ SALT_SHAPE) >>> 0) % SHAPES.length];
-    var pool = SPECIFICS[s.kind];
-    return render(key, s, pool[mix32((h ^ SALT_NOUN) >>> 0) % pool.length]);
-  }
-
-  /* ---- NOBODY ON YOUR BLOCK HAS YOUR BIT --------------------------------
-     MEASURED, not assumed: 304 combinations drawn 32 times (one block of people)
-     is a BIRTHDAY PROBLEM, and it lands where the maths says -- 1.63 duplicate
-     pairs per block on average and SEVEN on the worst block in 300. The hash is
-     fine; all 22 shapes and all 304 combinations come out evenly. The POOL is just
-     smaller than a block, and it always will be, because a bigger pool only moves
-     the number instead of removing it.
-
-     So the guarantee is made EXACT instead of probabilistic. Hand this the keys of
-     everybody on a block and it walks them in sorted order -- sorted so the answer
-     can never depend on which order the caller happened to iterate -- and moves
-     anybody who landed on a taken combination to the next free one.
-
-     IT ADVANCES THE NOUN BEFORE THE SHAPE, on purpose. Four people on a block who
-     all drew `finish-it-first` become four people with four different routines,
-     which is a street. Four people pushed onto four different shapes would flatten
-     the shape distribution to hide a collision nobody would have seen.
-
-     STILL DERIVED, STILL STORES NOTHING. Same block, same people, same answer, on
-     any device, on any load. */
-  function spreadOver(keys) {
-    var out = {}, taken = {}, list = [], i;
-    for (i = 0; i < (keys || []).length; i++) {
-      var k = keyOf(keys[i]);
-      if (k && !out.hasOwnProperty(k)) { out[k] = null; list.push(k); }
-    }
-    list.sort();
-    for (i = 0; i < list.length; i++) {
-      var q = quirkOf(list[i]), placed = null;
-      var tries = candidatesFor(q);
-      for (var t = 0; t < tries.length; t++) {
-        var id = tries[t].shape.key + "\u0000" + tries[t].noun;
-        if (taken[id]) continue;
-        taken[id] = 1;
-        placed = render(list[i], tries[t].shape, tries[t].noun);
-        break;
-      }
-      /* MORE PEOPLE THAN COMBINATIONS is not a bug to hide: with the pool spent the
-         honest answer is the person's own draw, and the caller gets a duplicate it
-         can see rather than a silent reshuffle. */
-      out[list[i]] = placed || q;
-    }
-    return out;
-  }
-  /* EVERY COMBINATION, IN THE ORDER THIS PERSON WOULD PREFER IT: their own draw
-     first, then the rest of their own shape's nouns, then every other shape. One
-     flat list, taken in order -- no arithmetic to get wrong. */
-  function candidatesFor(q) {
-    var out = [], i, j, si = 0, ni = 0;
-    for (i = 0; i < SHAPES.length; i++) if (SHAPES[i].key === q.shape) si = i;
-    var own = SPECIFICS[SHAPES[si].kind];
-    for (j = 0; j < own.length; j++) if (own[j] === q.specific) ni = j;
-    for (j = 0; j < own.length; j++)
-      out.push({ shape: SHAPES[si], noun: own[(ni + j) % own.length] });
-    for (i = 1; i < SHAPES.length; i++) {
-      var sh = SHAPES[(si + i) % SHAPES.length], pool = SPECIFICS[sh.kind];
-      for (j = 0; j < pool.length; j++)
-        out.push({ shape: sh, noun: pool[(ni + j) % pool.length] });
-    }
-    return out;
-  }
-
-  /* WHAT THEY SAY WHEN YOU ASK. The CALLER decides `dark`, because what counts as
-     dark belongs to the surface, not to a word table.
-     AND THE WALKED SURFACE LEARNED THIS THE HARD WAY, so do not re-derive it:
-     "on a live circuit" ALONE is the wrong question. Measured on the real city,
-     358 of 9,216 valley tiles are live (3.9%) and 131 of 5,007 people live on one
-     (2.6%) -- so a register decided by the power grid alone makes 97.4% of every
-     conversation the dark one and the joke never plays. An unpowered lot at noon is
-     a lot. The city asks `isNight() && !POWER.live`, which is the same test its own
-     renderer uses to decide whether a room is dark. Ask it that way. */
-  function lineFor(who, dark) {
-    var q = quirkOf(who);
-    return q ? (dark ? q.dark : q.lit) : null;
-  }
-  /* WHAT YOU CAN SEE. Third person, no quotes, same in any light -- a habit does
-     not change with the power, only what it sounds like does. */
-  function tellFor(who) {
-    var q = quirkOf(who);
-    return q ? q.tell : null;
-  }
-  function count() {
-    var n = 0;
-    for (var i = 0; i < SHAPES.length; i++) n += SPECIFICS[SHAPES[i].kind].length;
-    return n;
-  }
-
-  var API = { VERSION: "8.19.26", SHAPES: SHAPES, SPECIFICS: SPECIFICS,
-              quirkOf: quirkOf, spreadOver: spreadOver,
-              lineFor: lineFor, tellFor: tellFor, count: count };
-  if (HASREQ) module.exports = API; else root.BohemiaQuirk = API;
-})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
-
-/* ==== /engine/bohemia_quirk.js (ONE THING THAT IS THEIRS) ==== */
 
 /* ==== engine/bohemia_memory.js (THE WITNESS ORGAN, inlined verbatim) ==== */
 // BOHEMIA MEMORY — what people remember seeing (7/19/26, LIFE session)
@@ -29145,6 +28885,455 @@ function ctKnownDeeds(id, limit){
 /* ==== /__CITY_DEEDS__ store ==== */
 
 
+/* ==== engine/bohemia_quirk.js (ONE THING THAT IS THEIRS, 8/19) ==== */
+// BOHEMIA QUIRK -- one thing that is theirs, and you meet it when you ask.
+//
+// GENERATED by tools/bohemia_quirk_factory.py. EDIT THE TOOL, NEVER THIS FILE.
+//
+// A CHARACTER NOBODY LAUGHED WITH IS A CHARACTER NOBODY MOURNS (tone research R1,
+// finding 1). The valley had 58 bucket lines and 19 player-reactions and ZERO things
+// that belonged to one specific human. Every Blue said the same five sentences.
+//
+// FUNNY AND SCARY ARE ONE DIAL. R1 finding 3, benign violation theory: humour is a
+// violation appraised as SAFE, and the switch is perceived distance. LIGHT=TERRITORY
+// already draws that switch across the map in 12% clustered power, so every quirk is
+// authored TWICE AS THE SAME PERSON -- lit is the joke, dark is the same trait with
+// the safety taken out. Never a different quirk. Never a different person.
+//
+// DERIVED, NEVER STORED. Same doctrine as bohemia_people.js: a person is
+// (blockSeed, house, slot), so their quirk is too. Nothing saved, nothing to desync.
+//
+// CONTENTS ARE DRAFTS (ALWAYS MAKE AN ATTEMPT, 8/11). Every line is a real attempt,
+// tagged draft:true in records/BOHEMIA_QUIRKS.json, editable in the WORDS tab. No
+// person is named and no establishment is named -- both are Paolo's canon.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  /* THE TYPED NOUNS. A shape declares which of these it can read, so the machine
+     can never hand a ritual to a shape that wanted a thing you can hold. */
+  var SPECIFICS = {
+    object: [
+      "a drink token from a floor that closed",
+      "a keno card with the numbers still circled",
+      "a room key with the plastic melted flat",
+      "one blue chip",
+      "a marquee bulb that never blew",
+      "a valet ticket numbered forty-one",
+      "a cocktail straw still in its paper",
+      "a folded pool towel",
+      "a slot handle snapped off at the base",
+      "a laminated buffet menu",
+      "a lanyard with somebody else's photo on it",
+      "a nickel that will not spend anywhere",
+      "a house deck with the queens missing",
+      "a room-service pen that still writes",
+      "half a pair of dice",
+      "a luggage tag for a flight that left",
+    ],
+    place: [
+      "the loading dock behind the kitchens",
+      "the third floor of the parking garage",
+      "the drained pool deck",
+      "the stairwell that still has its light",
+      "the service corridor under the floor",
+      "the bus shelter with the ad still lit",
+      "the roof of the laundry",
+      "the dry fountain basin",
+      "the long ramp where the buses turned",
+      "the loading bay with the clock over it",
+      "the pump house at the end of the row",
+      "the alley behind the shuttered row",
+    ],
+    ritual: [
+      "counting the lit windows",
+      "saying the day of the week out loud",
+      "checking the same dead payphone",
+      "straightening what is already straight",
+      "tapping the doorframe twice on the way out",
+      "washing up before eating",
+      "winding a watch that does not run",
+      "reading the expiry dates out loud",
+      "walking the block backwards once a week",
+      "keeping one light on for somebody",
+      "shaking out boots before putting them on",
+      "saying goodnight to the block",
+    ],
+  };
+
+  /* THE SHAPES. tell = what you can SEE (third person, never dialogue).
+     lit/dark = what they SAY when you ask, on a powered block and off one. */
+  var SHAPES = [
+    { key: "shows-you-first", kind: "object",
+      tell: "carries one thing everywhere and will get it out of their coat given any excuse",
+      lit:  "Yeah, in a second. Look at this first. I've been carrying {it} two years now.",
+      dark: "You want a name out here? Fine. Hold {it} where I can see your hands.",
+      spanglish: { lit:  "Yeah, in a second. Mira esto first. I've been carrying {it} two years now.",
+                  dark: "You want a name out here? Bueno. Hold {it} where I can see your hands." },
+      es: { lit:  "Yes. One second. Look this first. Two years I carry {it}.",
+           dark: "You want the name? Fine. Hold {it}. Where I see your hand." },
+    },
+    { key: "not-for-trade", kind: "object",
+      tell: "answers questions with one hand over a pocket",
+      lit:  "Sure. And before you work up to it, I'm not trading {it}. Nothing personal.",
+      dark: "Whatever you came for, you're not getting {it} either. Keep walking, friend.",
+      spanglish: { lit:  "Sure. And before you work up to it, no vendo {it}. Nothing personal.",
+                  dark: "Whatever you came for, no te doy {it} either. Keep walking, compa." },
+      es: { lit:  "Yes. But first: {it} is not for trade. Is nothing personal.",
+           dark: "What you come for, you not get it. And not {it}. You walk now." },
+    },
+    { key: "belonged-to-somebody", kind: "object",
+      tell: "keeps two of the same small thing when one would do",
+      lit:  "Mine's the same as his was. We both carried {it}. I kept the pair when he stopped needing his.",
+      dark: "He carried {it} too. He isn't here. Neither's the name, if you're following me.",
+      spanglish: { lit:  "Mine's the same as his was. Los dos carried {it}. I kept the pair when he stopped needing his.",
+                  dark: "El también carried {it}. He isn't here. Neither's the name, if you follow me." },
+      es: { lit:  "His was the same like mine. We both carry {it}. When he not need his, I keep the two.",
+           dark: "He carry {it} also. He is not here. The name is not here also." },
+    },
+    { key: "collects-them", kind: "object",
+      tell: "stops mid-sentence to add to a count nobody asked about",
+      lit:  "Hang on. Forty. Forty-one. Sorry, I'm counting. Number one was {it} and I never stopped.",
+      dark: "Forty-one. I started on {it} and I have to reach fifty before it's light or it doesn't count.",
+      spanglish: { lit:  "Hang on. Cuarenta. Forty-one. Sorry, estoy contando. Number one was {it} and I never stopped.",
+                  dark: "Forty-one. I started on {it} y tengo que reach fifty before it's light or it doesn't count." },
+      es: { lit:  "Wait. Forty. Forty-one. I am counting. Number one is {it}. I never stop.",
+           dark: "Forty-one. I start with {it}. Fifty before light, or it not count." },
+    },
+    { key: "superstitious-about-it", kind: "object",
+      tell: "will not answer while holding a certain thing, and is embarrassed about it",
+      lit:  "Not while I'm carrying {it}. I know. I know it's stupid. Ask me tomorrow and you'll get it.",
+      dark: "Not while I'm carrying {it}. Not out here. You wouldn't either, if you'd been out here longer.",
+      spanglish: { lit:  "Not while I'm carrying {it}. Ya sé, I know it's stupid. Ask me tomorrow and you'll get it.",
+                  dark: "Not while I'm carrying {it}. No aquí. You wouldn't either, if you'd been out here longer." },
+      es: { lit:  "Not when I hold {it}. I know. Is stupid. Tomorrow you ask me, I tell you.",
+           dark: "Not when I hold {it}. Not here. You also, if you stay here more time." },
+    },
+    { key: "writes-it-down", kind: "object",
+      tell: "does not say things out loud that can be written instead",
+      lit:  "I'll write it. I don't say it, I write it. Give me a second, I'm using {it}.",
+      dark: "I'm not saying it out loud tonight. I'll put it down with {it} and you read it somewhere else.",
+      spanglish: { lit:  "I'll write it. No lo digo, I write it. Give me a second, I'm using {it}.",
+                  dark: "I'm not saying it out loud esta noche. I'll put it down with {it} and you read it somewhere else." },
+      es: { lit:  "I write it. I not say it. I write it. One second, I use {it}.",
+           dark: "Tonight I not say it loud. I write with {it}. You read it other place." },
+    },
+    { key: "thinks-it-is-worth-something", kind: "object",
+      tell: "talks about a sale that has not happened for a long time",
+      lit:  "Ask me again once I've sold {it}. I'll have a nicer name by then. People say it nicer.",
+      dark: "The night I sell {it} I'm gone. You won't need to know what to call me.",
+      spanglish: { lit:  "Ask me again once I've sold {it}. I'll have a nicer name entonces. People say it nicer.",
+                  dark: "The night I sell {it} me voy. You won't need to know what to call me." },
+      es: { lit:  "Ask me after I sell {it}. Then I have better name. People say it more nice.",
+           dark: "The night I sell {it}, I go. You not need to call me nothing." },
+    },
+    { key: "talks-about-it-instead", kind: "object",
+      tell: "answers a question with an offer",
+      lit:  "Sure, sure. Have you eaten? I've got {it}. That's not food, I know that. I was getting to the food.",
+      dark: "Don't need my name. Need you to take {it} and go on up the street. Please. Take it.",
+      spanglish: { lit:  "Sure, sure. Ya comiste? I've got {it}. That's not food, I know that. I was getting to the food.",
+                  dark: "Don't need my name. Need you to take {it} y sigue up the street. Por favor. Take it." },
+      es: { lit:  "Yes, yes. You eat today? I have {it}. Is not food. I know. The food is coming.",
+           dark: "My name, no. You take {it}. You go up the street. Please. Take." },
+    },
+    { key: "narrates-themselves", kind: "object",
+      tell: "says out loud what they are doing while they do it",
+      lit:  "'They turn. They give the name. They are still holding {it}.' Sorry. I do that. I've been alone a lot.",
+      dark: "'They do not give the name. They are still holding {it}.' ...That's how it goes tonight.",
+      spanglish: { lit:  "'They turn. They give the name. Todavía holding {it}.' Sorry. I do that. He estado alone a lot.",
+                  dark: "'They do not give the name. Todavía holding {it}.' ...That's how it goes tonight." },
+      es: { lit:  "'He turn. He give the name. Still he hold {it}.' Sorry. I do this. I am alone much time.",
+           dark: "'He not give the name. Still he hold {it}.' ...Tonight is like this." },
+    },
+    { key: "mishears-and-runs-with-it", kind: "object",
+      tell: "answers the question they wanted rather than the one asked",
+      lit:  "My what? Oh. I thought you said trade. I'd much rather talk trade. Look at {it}, go on.",
+      dark: "What? Speak up, I can't hear anything out here past {it} rattling in my coat.",
+      spanglish: { lit:  "My what? Oh. Pensé you said trade. I'd much rather talk trade. Look at {it}, go on.",
+                  dark: "Qué? Speak up, I can't hear anything out here past {it} rattling in my coat." },
+      es: { lit:  "My what? Ah. I think you say trade. Trade is better. Look {it}. Go on.",
+           dark: "What? More loud. I hear nothing here. Only {it} in my coat." },
+    },
+    { key: "swears-by-a-place", kind: "place",
+      tell: "mentions the same location in every conversation regardless of subject",
+      lit:  "Ask me at {p}. I'm better there. Everybody's better there, that's not just me.",
+      dark: "Not here. Come to {p} and I'll say it. I won't say it anywhere else, so.",
+      spanglish: { lit:  "Ask me at {p}. Allí I'm better. Everybody's better there, that's not just me.",
+                  dark: "Not here. Come to {p} y te lo digo. I won't say it anywhere else, so." },
+      es: { lit:  "Ask me in {p}. There I am better. Everybody is better there. Not only me.",
+           dark: "Not here. You come to {p}. There I say it. Other place, no." },
+    },
+    { key: "will-not-go-there", kind: "place",
+      tell: "routes around one specific place, every time, without explaining",
+      lit:  "You'll get it out of me anywhere except {p}. Don't ask, it's the stupidest reason you ever heard.",
+      dark: "It went wrong at {p}. You want a name, don't stand this close to {p}.",
+      spanglish: { lit:  "You'll get it out of me anywhere except {p}. No preguntes, it's the stupidest reason you ever heard.",
+                  dark: "Se puso feo at {p}. You want a name, don't stand this close to {p}." },
+      es: { lit:  "Any place I tell you. Not {p}. Not ask why. Is a stupid reason.",
+           dark: "In {p} it go bad. You want the name, not stand so close to {p}." },
+    },
+    { key: "slept-there-once", kind: "place",
+      tell: "mentions a winter they do not elaborate on",
+      lit:  "I slept a whole winter at {p}. Ask me anything except that and I'm an open book.",
+      dark: "I slept at {p}. I still hear it. Stand still a second. You hear it?",
+      spanglish: { lit:  "I slept un invierno entero at {p}. Ask me anything except that and I'm an open book.",
+                  dark: "I slept at {p}. Todavía lo oigo. Stand still a second. You hear it?" },
+      es: { lit:  "One winter I sleep in {p}. All winter. Ask me other thing, I tell you everything.",
+           dark: "I sleep in {p}. I hear it still. Stay quiet one second. You hear?" },
+    },
+    { key: "keeps-a-place-clean", kind: "place",
+      tell: "tidies a public place nobody has asked them to tidy",
+      lit:  "Give me a minute, I'm doing {p}. Nobody asked me. Somebody has to and nobody asked me.",
+      dark: "I still do {p}. Nobody comes through there any more. I still do it.",
+      spanglish: { lit:  "Give me a minute, estoy doing {p}. Nobody asked me. Somebody has to y nadie asked me.",
+                  dark: "I still do {p}. Ya nadie comes through there. I still do it." },
+      es: { lit:  "One minute. I do {p}. Nobody ask me. Somebody must, and nobody ask me.",
+           dark: "I do {p} still. Nobody pass there now. I do it still." },
+    },
+    { key: "waiting-at-a-place", kind: "place",
+      tell: "looks past you toward the same direction while you talk",
+      lit:  "I'm supposed to be met at {p}. Have been supposed to for a while now. It's fine.",
+      dark: "They're coming to {p}. They said so. You didn't see anybody at {p}, did you.",
+      spanglish: { lit:  "I'm supposed to be met at {p}. Hace rato I've been supposed to. It's fine.",
+                  dark: "They're coming to {p}. Dijeron que sí. You didn't see anybody at {p}, did you." },
+      es: { lit:  "Somebody must meet me in {p}. Long time now. Is fine.",
+           dark: "They come to {p}. They say it. You see nobody in {p}? No?" },
+    },
+    { key: "gives-the-wrong-one-first", kind: "place",
+      tell: "gives an answer with the air of somebody who has a second one ready",
+      lit:  "The one I give first isn't the real one. Not a trick, just habit. Ask me again by {p}.",
+      dark: "You already got the one I give out. Ask again by {p}. If I'm still standing there.",
+      spanglish: { lit:  "The one I give first no es la real. Not a trick, just habit. Ask me again by {p}.",
+                  dark: "You already got the one I give out. Pregúntame again by {p}. If I'm still standing there." },
+      es: { lit:  "The first one I give, is not the real. Is not a trick. Is habit. Ask me again in {p}.",
+           dark: "You have the one I give everybody. Ask again in {p}. If I am there." },
+    },
+    { key: "asks-yours-first", kind: "place",
+      tell: "will not go first",
+      lit:  "You go. That's the rule at {p} and I've decided it's the rule everywhere now.",
+      dark: "You first. Whoever was at {p} tonight got asked the same and they didn't answer either.",
+      spanglish: { lit:  "Tú primero. That's the rule at {p} and I've decided it's the rule everywhere now.",
+                  dark: "You first. Whoever was at {p} tonight got asked the same y tampoco answered." },
+      es: { lit:  "You first. Is the rule in {p}. Now I make it the rule every place.",
+           dark: "You first. In {p} tonight they ask the same. Nobody answer." },
+    },
+    { key: "finish-it-first", kind: "ritual",
+      tell: "cannot be interrupted partway through a small routine",
+      lit:  "Hang on, I'm {r}. You can't interrupt it. It doesn't work if you interrupt it.",
+      dark: "Don't. I'm {r}. If I lose count I start again and I don't want to be out here that long.",
+      spanglish: { lit:  "Espérate, I'm {r}. You can't interrupt it. No funciona if you interrupt it.",
+                  dark: "No. I'm {r}. If I lose count empiezo de nuevo and I don't want to be out here that long." },
+      es: { lit:  "Wait. I am {r}. You not interrupt. If you interrupt, it not work.",
+           dark: "No. I am {r}. I lose the count, I start again. I not want be here so long." },
+    },
+    { key: "apologises-for-it", kind: "ritual",
+      tell: "does a small thing and apologises for it in the same motion",
+      lit:  "Sorry. I know. I keep {r}. My mother did it, I hated it, and here we absolutely are.",
+      dark: "I keep {r}. I know exactly what it looks like. I'd stop if it were safe to stop.",
+      spanglish: { lit:  "Perdón. I know. I keep {r}. Mi mamá did it, I hated it, and here we absolutely are.",
+                  dark: "I keep {r}. Ya sé what it looks like. I'd stop if it were safe to stop." },
+      es: { lit:  "Sorry. I know. I do {r} always. My mother do it. I hate it. And now, here.",
+           dark: "I do {r}. I know how it look. If is safe to stop, I stop." },
+    },
+    { key: "insists-you-do-it-too", kind: "ritual",
+      tell: "expects other people to observe their routine and is genuinely wounded when they do not",
+      lit:  "You didn't. You're meant to. Try {r}. Go on, I'll wait. There. Now we're properly introduced.",
+      dark: "You have to as well. Start {r}. I'm not telling you my name until you've done it.",
+      spanglish: { lit:  "You didn't. You're meant to. Try {r}. Ándale, I'll wait. There. Now we're properly introduced.",
+                  dark: "Tú también. Start {r}. I'm not telling you my name until you've done it." },
+      es: { lit:  "You not do it. You must. Do {r}. Go. I wait. There. Now we know each other.",
+           dark: "You also. Start {r}. I not say my name before you do it." },
+    },
+    { key: "keeps-time-by-it", kind: "ritual",
+      tell: "does not read clocks",
+      lit:  "What day is it. No, don't tell me. I get it from {r}. That's how I know, and I'm never wrong.",
+      dark: "I get it from {r}. It's the only clock I trust and it's been wrong twice this week.",
+      spanglish: { lit:  "What day is it. No, no me digas. I get it from {r}. That's how I know, y nunca me equivoco.",
+                  dark: "I get it from {r}. Es el único clock I trust and it's been wrong twice this week." },
+      es: { lit:  "What day is today. No. Not tell me. I take it from {r}. Like this I know. I am never wrong.",
+           dark: "I take it from {r}. Is the only clock I trust. This week it is wrong two times." },
+    },
+    { key: "remembers-everybody", kind: "ritual",
+      tell: "greets people by trade before they have spoken",
+      lit:  "I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
+      dark: "I know yours. I know who's stopped being on this block, too. Six. It's {r}.",
+      spanglish: { lit:  "Ya sé el tuyo. I know everybody's on this block. It's {r}, that's the whole trick.",
+                  dark: "I know yours. Y sé quién stopped being on this block, too. Seis. It's {r}." },
+      es: { lit:  "I know yours already. I know everybody in this block. Is {r}. Is all the trick.",
+           dark: "I know yours. And I know who is not in this block now. Six. Is {r}." },
+    },
+  ];
+
+  var SLOT = { object: /\{it\}/g, place: /\{p\}/g, ritual: /\{r\}/g };
+  /* The registers this module carries. THEY SPEAK SPANGLISH (Paolo 8/25).
+     Read from here rather than typed into three places. */
+  var REGISTERS = ["spanglish", "es"];
+
+  /* THE DERIVATION. bohemia_people.js hashes a key string with imul-31 and then
+     mixes; mix32 is not exported, so the same documented pattern is restated here
+     with the same constants and a DIFFERENT salt. Different on purpose: a person's
+     quirk must not be correlated with the name they were given, or every ODELL in
+     the valley would count lit windows.
+     TWO INDEPENDENT STREAMS. The shape and the noun are drawn from separately mixed
+     words, because drawing both off one number makes shape and noun move together --
+     which reads, on a block, as three people with the same bit. */
+  function mix32(h) {
+    h = (h ^ (h >>> 16)) >>> 0;
+    h = Math.imul(h, 0x85ebca6b) >>> 0;
+    h = (h ^ (h >>> 13)) >>> 0;
+    h = Math.imul(h, 0xc2b2ae35) >>> 0;
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function strHash(key) {
+    var h = 0, s = String(key == null ? "" : key);
+    for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
+    return h >>> 0;
+  }
+  var SALT_SHAPE = 0x71717 >>> 0;   /* not 0x9e3779b9: that is generatedName's */
+  var SALT_NOUN  = 0x1d3f5b >>> 0;
+
+  /* THE ONE LOOKUP. Takes a person, a person KEY, or anything with .key. */
+  function keyOf(who) {
+    if (who == null) return null;
+    if (typeof who === 'string') return who;
+    return who.key || null;
+  }
+  /* THE ONE PLACE SUBSTITUTION HAPPENS. Both the plain draw and the block spread
+     come through here, so a person met on the card and the same person counted in
+     the spread can never be rendered by two different bits of code. */
+  /* THE NOUN GOES INTO EVERY MOUTH, not just the English one. The register
+     twins carry the SAME slot and the same substitution: a rendered quirk that
+     dropped them would hand lineFor an object with no register on it, and
+     lineFor would fall back to English forever while looking completely
+     correct. Measured exactly that way the first time it was wired. */
+  function render(key, s, noun) {
+    var out = { key: key, shape: s.key, kind: s.kind, specific: noun,
+                tell: s.tell,
+                lit:  s.lit.replace(SLOT[s.kind], noun),
+                dark: s.dark.replace(SLOT[s.kind], noun) };
+    for (var ri = 0; ri < REGISTERS.length; ri++) {
+      var rk = REGISTERS[ri], r = s[rk];
+      if (!r) continue;
+      out[rk] = { lit:  r.lit.replace(SLOT[s.kind], noun),
+                  dark: r.dark.replace(SLOT[s.kind], noun) };
+    }
+    return out;
+  }
+  function quirkOf(who) {
+    var key = keyOf(who);
+    if (!key) return null;
+    var h = strHash(key);
+    var s = SHAPES[mix32((h ^ SALT_SHAPE) >>> 0) % SHAPES.length];
+    var pool = SPECIFICS[s.kind];
+    return render(key, s, pool[mix32((h ^ SALT_NOUN) >>> 0) % pool.length]);
+  }
+
+  /* ---- NOBODY ON YOUR BLOCK HAS YOUR BIT --------------------------------
+     MEASURED, not assumed: 304 combinations drawn 32 times (one block of people)
+     is a BIRTHDAY PROBLEM, and it lands where the maths says -- 1.63 duplicate
+     pairs per block on average and SEVEN on the worst block in 300. The hash is
+     fine; all 22 shapes and all 304 combinations come out evenly. The POOL is just
+     smaller than a block, and it always will be, because a bigger pool only moves
+     the number instead of removing it.
+
+     So the guarantee is made EXACT instead of probabilistic. Hand this the keys of
+     everybody on a block and it walks them in sorted order -- sorted so the answer
+     can never depend on which order the caller happened to iterate -- and moves
+     anybody who landed on a taken combination to the next free one.
+
+     IT ADVANCES THE NOUN BEFORE THE SHAPE, on purpose. Four people on a block who
+     all drew `finish-it-first` become four people with four different routines,
+     which is a street. Four people pushed onto four different shapes would flatten
+     the shape distribution to hide a collision nobody would have seen.
+
+     STILL DERIVED, STILL STORES NOTHING. Same block, same people, same answer, on
+     any device, on any load. */
+  function spreadOver(keys) {
+    var out = {}, taken = {}, list = [], i;
+    for (i = 0; i < (keys || []).length; i++) {
+      var k = keyOf(keys[i]);
+      if (k && !out.hasOwnProperty(k)) { out[k] = null; list.push(k); }
+    }
+    list.sort();
+    for (i = 0; i < list.length; i++) {
+      var q = quirkOf(list[i]), placed = null;
+      var tries = candidatesFor(q);
+      for (var t = 0; t < tries.length; t++) {
+        var id = tries[t].shape.key + "\u0000" + tries[t].noun;
+        if (taken[id]) continue;
+        taken[id] = 1;
+        placed = render(list[i], tries[t].shape, tries[t].noun);
+        break;
+      }
+      /* MORE PEOPLE THAN COMBINATIONS is not a bug to hide: with the pool spent the
+         honest answer is the person's own draw, and the caller gets a duplicate it
+         can see rather than a silent reshuffle. */
+      out[list[i]] = placed || q;
+    }
+    return out;
+  }
+  /* EVERY COMBINATION, IN THE ORDER THIS PERSON WOULD PREFER IT: their own draw
+     first, then the rest of their own shape's nouns, then every other shape. One
+     flat list, taken in order -- no arithmetic to get wrong. */
+  function candidatesFor(q) {
+    var out = [], i, j, si = 0, ni = 0;
+    for (i = 0; i < SHAPES.length; i++) if (SHAPES[i].key === q.shape) si = i;
+    var own = SPECIFICS[SHAPES[si].kind];
+    for (j = 0; j < own.length; j++) if (own[j] === q.specific) ni = j;
+    for (j = 0; j < own.length; j++)
+      out.push({ shape: SHAPES[si], noun: own[(ni + j) % own.length] });
+    for (i = 1; i < SHAPES.length; i++) {
+      var sh = SHAPES[(si + i) % SHAPES.length], pool = SPECIFICS[sh.kind];
+      for (j = 0; j < pool.length; j++)
+        out.push({ shape: sh, noun: pool[(ni + j) % pool.length] });
+    }
+    return out;
+  }
+
+  /* WHAT THEY SAY WHEN YOU ASK. The CALLER decides `dark`, because what counts as
+     dark belongs to the surface, not to a word table.
+     AND THE WALKED SURFACE LEARNED THIS THE HARD WAY, so do not re-derive it:
+     "on a live circuit" ALONE is the wrong question. Measured on the real city,
+     358 of 9,216 valley tiles are live (3.9%) and 131 of 5,007 people live on one
+     (2.6%) -- so a register decided by the power grid alone makes 97.4% of every
+     conversation the dark one and the joke never plays. An unpowered lot at noon is
+     a lot. The city asks `isNight() && !POWER.live`, which is the same test its own
+     renderer uses to decide whether a room is dark. Ask it that way. */
+  /* *** AND IT COMES OUT IN THE LANGUAGE THEY SPEAK (8/25, THEY SPEAK
+     SPANGLISH). This is the line somebody says TO YOUR FACE when you ask
+     their name -- the closest, most personal moment this game has -- and it
+     was the LAST monolingual one. The ambient street barks had registers
+     before this did, which is exactly backwards.
+     The register is a THIRD axis on the same person, not a fourth table: the
+     shape, the noun and the light are unchanged, only the mouth moves. And
+     the fallback is the hard rule again -- a shape with no register written
+     for it speaks English rather than going silent. */
+  function lineFor(who, dark, lang) {
+    var q = quirkOf(who);
+    if (!q) return null;
+    var k = dark ? "dark" : "lit";
+    var r = lang && q[lang];
+    return (r && r[k]) || q[k];
+  }
+  /* WHAT YOU CAN SEE. Third person, no quotes, same in any light -- a habit does
+     not change with the power, only what it sounds like does. */
+  function tellFor(who) {
+    var q = quirkOf(who);
+    return q ? q.tell : null;
+  }
+  function count() {
+    var n = 0;
+    for (var i = 0; i < SHAPES.length; i++) n += SPECIFICS[SHAPES[i].kind].length;
+    return n;
+  }
+
+  var API = { VERSION: "8.19.26", SHAPES: SHAPES, SPECIFICS: SPECIFICS,
+              quirkOf: quirkOf, spreadOver: spreadOver,
+              lineFor: lineFor, tellFor: tellFor, count: count,
+              REGISTERS: REGISTERS };
+  if (HASREQ) module.exports = API; else root.BohemiaQuirk = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== /engine/bohemia_quirk.js (ONE THING THAT IS THEIRS) ==== */
 /* ==== engine/bohemia_asking.js (ASKING, 8/17) ==== */
 // BOHEMIA ASKING -- what somebody tells you when you ask about what you heard
 // (8/17/26, PEOPLE lane). GENERATED by tools/bohemia_asking_factory.py.
@@ -39407,12 +39596,23 @@ function qkOf(key){
    register MOVES. Night is 11 hours of 24, so roughly half of meetings land in
    each, and the player can cross between them by walking onto a live block OR
    by waiting for morning. Walking between them IS the tone transition. */
-function qkLine(key){
+function qkLine(key, lang){
   var q = qkOf(key);
   if (!q) return null;
   var dark = false;
   try { dark = !!isNight() && !!dayDark(); } catch (_e) { dark = false; }
-  return dark ? q.dark : q.lit;
+  var k = dark ? 'dark' : 'lit';
+  /* *** AND IN THE LANGUAGE THEY SPEAK (8/25, THEY SPEAK SPANGLISH). ***
+     This is the line somebody says TO YOUR FACE when you ask their name, and it
+     was the LAST monolingual line in the game: the ambient barks you overhear
+     across the street had registers before the person standing in front of you
+     did, which is exactly backwards.
+     The register is a THIRD axis on the same person. The shape, the noun and the
+     light are untouched -- only the mouth moves. And a shape with no register
+     written for it speaks ENGLISH rather than going silent, which is the hard
+     rule: language never gates required information. */
+  var r = lang && q[lang];
+  return (r && r[k]) || q[k];
 }
 /* ==== /BOHEMIA QUIRK RUNTIME ==== */
 function ctRow(k,v){ return '<div class="r"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
@@ -40125,7 +40325,8 @@ function ctDraw(){
      powered block it is the joke and past the power it is the thing that is
      wrong with them. */
   if (CT_MET.asked(who.key)) {
-    var qkSaid = qkLine(who.key);
+    /* __CITY_QUIRK_LANG__ -- in the language they speak (8/25). */
+    var qkSaid = qkLine(who.key, who.lang);
     if (qkSaid) body += ctRow('THEY SAID', '\u201c' + qkSaid + '\u201d');
   }
   /* THE TRADE IS THE TRADE, ALWAYS. headingOf() returns the NAME once you have
@@ -40470,7 +40671,9 @@ function ctDraw(){
        ASK ABOUT reply, never a second path: a first laugh delivered in
        silence on a surface that speaks reads as a caption. */
     try {
-      var qkS = qkLine(who.key);
+      /* __CITY_QUIRK_LANG__ -- the same register the card shows, so a
+         person's mouth and their subtitle can never disagree. */
+      var qkS = qkLine(who.key, who.lang);
       if (qkS && window.parent && window.parent !== window)
         window.parent.postMessage({ type: 'BOHEMIA_VOICE',
           speaker: 'city:' + (who.key || ''), text: qkS }, '*');

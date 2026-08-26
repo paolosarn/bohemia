@@ -209,6 +209,7 @@
   "al": "to the",
   "alguien": "somebody",
   "alguna": "some",
+  "allí": "there",
   "ambos": "both",
   "amá": "mom",
   "antes": "before",
@@ -239,11 +240,14 @@
   "comadre": "a close woman friend, godmother to your kids",
   "comer": "to eat",
   "comida": "the food",
+  "comiste": "did you eat",
   "compa": "buddy",
   "compraron": "they bought",
   "con": "with",
   "conozco": "I know",
+  "contando": "counting",
   "cualquier": "any",
+  "cuarenta": "forty",
   "cuenta": "count",
   "cuidado": "careful",
   "cómo": "how",
@@ -253,23 +257,35 @@
   "después": "after, afterwards",
   "diciendo": "saying",
   "diez": "ten",
+  "digas": "tell, in \"no me digas\"",
+  "digo": "I say",
+  "dijeron": "they said",
   "dinero": "money",
   "dios": "god",
   "dos": "two",
+  "doy": "I give",
   "día": "day",
   "el": "the",
   "ella": "she",
+  "empiezo": "I start",
   "en": "in, on",
+  "entero": "whole",
+  "entonces": "then",
   "entres": "go in",
+  "equivoco": "get it wrong",
   "es": "is",
   "esa": "that",
   "eso": "that",
+  "espérate": "hold on",
   "esquina": "the corner",
   "esta": "this",
+  "estado": "been",
+  "esto": "this",
   "estoy": "I am",
   "está": "is",
   "están": "they are",
   "familia": "family",
+  "feo": "ugly, bad",
   "flojo": "loose, slack",
   "foto": "a photo",
   "frío": "cold",
@@ -287,6 +303,7 @@
   "hombre": "man",
   "hora": "the hour",
   "igual": "the same",
+  "invierno": "winter",
   "ironía": "irony",
   "la": "the",
   "las": "the",
@@ -297,6 +314,7 @@
   "los": "the",
   "luz": "the light, the power",
   "madre": "mother",
+  "mamá": "mom",
   "mano": "brother, short for hermano",
   "martes": "Tuesday",
   "mañana": "tomorrow, or the morning",
@@ -318,9 +336,12 @@
   "nomás": "just, only",
   "nos": "us",
   "nosotros": "us",
+  "nuevo": "new, in \"de nuevo\", again",
+  "nunca": "never",
   "o": "or",
   "ocho": "eight",
   "ofender": "to offend",
+  "oigo": "I hear",
   "ojalá": "God willing, hopefully",
   "olvida": "forget",
   "oscuridad": "the dark",
@@ -329,23 +350,29 @@
   "paga": "pays",
   "para": "for",
   "pasada": "last, past",
+  "pensé": "I thought",
   "peor": "the worst",
+  "perdón": "sorry",
   "pero": "but",
   "poco": "a little",
   "por": "for",
   "porque": "because",
   "precio": "a price",
   "pregunta": "ask",
+  "preguntes": "ask, in \"no preguntes\"",
   "pregúntame": "ask me",
+  "primero": "first",
   "primo": "cousin",
   "puede": "can",
   "puedo": "I can",
   "puerta": "the door",
   "puertas": "the doors",
   "pues": "well",
+  "puso": "it turned",
   "pájaro": "a bird",
   "que": "that",
   "quedarse": "to stay",
+  "quién": "who",
   "qué": "what",
   "rato": "a while",
   "regla": "a rule",
@@ -361,35 +388,44 @@
   "serio": "serious, in \"en serio\"",
   "si": "if",
   "siempre": "always",
+  "sigue": "keep going",
   "sin": "without",
   "siéntate": "sit down",
   "sol": "the sun",
   "son": "they are",
+  "sé": "I know",
   "sí": "yes",
+  "también": "also",
   "tampoco": "either, neither",
   "tarde": "late, or the afternoon",
   "te": "you",
+  "tengo": "I have",
   "ti": "you",
   "toca": "is my turn, in \"me toca\"",
+  "todavía": "still",
   "todo": "everything",
   "todos": "everybody",
   "trabajo": "I work, or work",
   "traigo": "I bring",
   "tu": "your",
   "turno": "the shift",
+  "tuyo": "yours",
   "tía": "aunt",
   "tío": "uncle",
   "tú": "you",
   "una": "a, one",
   "vamos": "we go, let us go",
   "ven": "come",
+  "vendo": "I sell",
   "vez": "a time, once",
   "viejo": "old man",
   "voy": "I am going",
   "vuelvo": "I come back",
   "y": "and",
   "ya": "already, or enough",
-  "yo": "I"
+  "yo": "I",
+  "ándale": "go on",
+  "único": "the only one"
 };
   /* THE HALF OF THE LEXICON THAT CANNOT BE MISTAKEN FOR ENGLISH.
      Derived by the factory against this game's own English corpus, never
@@ -397,11 +433,25 @@
      sweep that flagged them would go red on every English objective in the
      build. THIS is the list language_gate claim C sweeps the required-
      information surfaces with. DO NOT HAND-EDIT: re-run the factory. */
-  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "compa", "compraron", "con", "conozco", "cualquier", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "dinero", "dios", "dos", "día", "el", "ella", "en", "entres", "es", "esa", "eso", "esquina", "esta", "estoy", "está", "están", "familia", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "o", "ocho", "ofender", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "peor", "pero", "poco", "por", "porque", "precio", "pregunta", "pregúntame", "primo", "puede", "puedo", "puerta", "puertas", "pues", "pájaro", "que", "quedarse", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sin", "siéntate", "sol", "sí", "tampoco", "tarde", "te", "ti", "toca", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tía", "tío", "tú", "una", "vamos", "ven", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo"];
+  var ES_ONLY = ["abuela", "acuerdo", "agua", "ahorita", "al", "alguien", "alguna", "allí", "ambos", "amá", "antes", "apaga", "apurado", "aquí", "así", "ay", "ayúdame", "bendito", "bien", "bueno", "buscas", "cabrón", "calle", "calor", "camino", "carnal", "casi", "cerrado", "chamba", "chingado", "ciento", "cierra", "cinco", "claro", "cobre", "comadre", "comer", "comida", "comiste", "compa", "compraron", "con", "conozco", "contando", "cualquier", "cuarenta", "cuenta", "cuidado", "cómo", "da", "de", "demás", "después", "diciendo", "diez", "digas", "digo", "dijeron", "dinero", "dios", "dos", "doy", "día", "el", "ella", "empiezo", "en", "entero", "entonces", "entres", "equivoco", "es", "esa", "eso", "espérate", "esquina", "esta", "estado", "esto", "estoy", "está", "están", "familia", "feo", "flojo", "foto", "frío", "funciona", "gracias", "gusta", "güey", "hace", "hambre", "hasta", "hay", "hermano", "hija", "hijo", "hombre", "hora", "igual", "invierno", "ironía", "la", "las", "llave", "llegamos", "lluvia", "lo", "los", "luz", "madre", "mamá", "mano", "martes", "mañana", "medidor", "mi", "mientas", "mija", "mijo", "mira", "mires", "misma", "mismas", "nada", "nadie", "niños", "noche", "nomás", "nos", "nosotros", "nuevo", "nunca", "o", "ocho", "ofender", "oigo", "ojalá", "olvida", "oscuridad", "otra", "oye", "paga", "para", "pasada", "pensé", "peor", "perdón", "pero", "poco", "por", "porque", "precio", "pregunta", "preguntes", "pregúntame", "primero", "primo", "puede", "puedo", "puerta", "puertas", "pues", "puso", "pájaro", "que", "quedarse", "quién", "qué", "rato", "regla", "revés", "sabes", "sabrás", "saca", "se", "sea", "segunda", "seis", "semana", "serio", "si", "siempre", "sigue", "sin", "siéntate", "sol", "sé", "sí", "también", "tampoco", "tarde", "te", "tengo", "ti", "toca", "todavía", "todo", "todos", "trabajo", "traigo", "tu", "turno", "tuyo", "tía", "tío", "tú", "una", "vamos", "ven", "vendo", "vez", "viejo", "voy", "vuelvo", "y", "ya", "yo", "ándale", "único"];
   /* WHAT MAY FOLLOW AN APOSTROPHE AND STILL LEAVE A WORD BEHIND. ONE LIST,
      shipped from the factory, read by esWordsIn below and by the gate through
      it -- never re-typed into a second regex somewhere. */
   var ES_CLITIC = ["s", "t", "re", "ve", "ll", "d", "m"];
+  /* ONE TOKEN, EVERY FORM WORTH LOOKING UP -- and this is the THIRD time this
+     lane has paid for two copies of one rule. The Python side learned that a
+     LEADING apostrophe is a quote mark and not a clitic ("'He turn." opens a
+     spoken line), fixed it there, and the gate's own tokenizer went red on the
+     very same two lines because the rule had not travelled. It lives HERE now
+     and everything that needs it calls it: esWordsIn below, and the gate. */
+  function esStems(word) {
+    var w = String(word == null ? "" : word).toLowerCase();
+    while (w.charAt(0) === "'") w = w.slice(1);
+    if (!w) return [];
+    var out = [w], ap = w.indexOf("'");
+    if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0) out.push(w.slice(0, ap));
+    return out;
+  }
 
   /* WHICH SPANISH WORDS A STRING CONTAINS -- ONE IMPLEMENTATION, FOR EVERYBODY.
      gates/language_gate.js calls THIS to sweep the objectives, the resolution
@@ -416,10 +466,10 @@
     for (i = 0; i < ES_ONLY.length; i++) only[ES_ONLY[i]] = 1;
     var m, re = /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ']+/g, s = String(text == null ? '' : text);
     while ((m = re.exec(s))) {
-      var w = m[0].toLowerCase();
-      if (only[w]) { out.push(m[0]); continue; }
-      var ap = w.indexOf("'");
-      if (ap > 0 && ES_CLITIC.indexOf(w.slice(ap + 1)) >= 0 && only[w.slice(0, ap)]) out.push(m[0]);
+      var forms = esStems(m[0]);
+      for (var f = 0; f < forms.length; f++) {
+        if (only[forms[f]]) { out.push(m[0]); break; }
+      }
     }
     return out;
   }
@@ -1785,7 +1835,8 @@
     hash: hash, keyOf: keyOf, seatOf: seatOf,
     // LANG-1 (8/25): what somebody speaks, derived exactly like their name.
     LANG: LANG, LANG_ORDER: LANG_ORDER,
-    ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC, esWordsIn: esWordsIn,
+    ES_LEX: ES_LEX, ES_ONLY: ES_ONLY, ES_CLITIC: ES_CLITIC,
+    esWordsIn: esWordsIn, esStems: esStems,
     VALLEY_MIX: VALLEY_MIX, BARRIO_MIX: BARRIO_MIX, REST_MIX: REST_MIX,
     BARRIO_SHARE: BARRIO_SHARE, blockMixOf: blockMixOf,
     langOf: langOf, speaksLineOf: speaksLineOf,

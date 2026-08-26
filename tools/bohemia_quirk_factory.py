@@ -199,93 +199,181 @@ SHAPES = [
     dict(key='shows-you-first', kind='object',
          tell="carries one thing everywhere and will get it out of their coat given any excuse",
          lit="Yeah, in a second. Look at this first. I've been carrying {it} two years now.",
-         dark="You want a name out here? Fine. Hold {it} where I can see your hands."),
+         dark="You want a name out here? Fine. Hold {it} where I can see your hands.",
+         spanglish=dict(lit="Yeah, in a second. Mira esto first. I've been carrying {it} two years now.",
+                        dark="You want a name out here? Bueno. Hold {it} where I can see your hands."),
+         es=dict(lit="Yes. One second. Look this first. Two years I carry {it}.",
+                 dark="You want the name? Fine. Hold {it}. Where I see your hand.")),
     dict(key='not-for-trade', kind='object',
          tell="answers questions with one hand over a pocket",
          lit="Sure. And before you work up to it, I'm not trading {it}. Nothing personal.",
-         dark="Whatever you came for, you're not getting {it} either. Keep walking, friend."),
+         dark="Whatever you came for, you're not getting {it} either. Keep walking, friend.",
+         spanglish=dict(lit="Sure. And before you work up to it, no vendo {it}. Nothing personal.",
+                        dark="Whatever you came for, no te doy {it} either. Keep walking, compa."),
+         es=dict(lit="Yes. But first: {it} is not for trade. Is nothing personal.",
+                 dark="What you come for, you not get it. And not {it}. You walk now.")),
     dict(key='belonged-to-somebody', kind='object',
          tell="keeps two of the same small thing when one would do",
          lit="Mine's the same as his was. We both carried {it}. I kept the pair when he stopped needing his.",
-         dark="He carried {it} too. He isn't here. Neither's the name, if you're following me."),
+         dark="He carried {it} too. He isn't here. Neither's the name, if you're following me.",
+         spanglish=dict(lit="Mine's the same as his was. Los dos carried {it}. I kept the pair when he stopped needing his.",
+                        dark="El también carried {it}. He isn't here. Neither's the name, if you follow me."),
+         es=dict(lit="His was the same like mine. We both carry {it}. When he not need his, I keep the two.",
+                 dark="He carry {it} also. He is not here. The name is not here also.")),
     dict(key='collects-them', kind='object',
          tell="stops mid-sentence to add to a count nobody asked about",
          lit="Hang on. Forty. Forty-one. Sorry, I'm counting. Number one was {it} and I never stopped.",
-         dark="Forty-one. I started on {it} and I have to reach fifty before it's light or it doesn't count."),
+         dark="Forty-one. I started on {it} and I have to reach fifty before it's light or it doesn't count.",
+         spanglish=dict(lit="Hang on. Cuarenta. Forty-one. Sorry, estoy contando. Number one was {it} and I never stopped.",
+                        dark="Forty-one. I started on {it} y tengo que reach fifty before it's light or it doesn't count."),
+         es=dict(lit="Wait. Forty. Forty-one. I am counting. Number one is {it}. I never stop.",
+                 dark="Forty-one. I start with {it}. Fifty before light, or it not count.")),
     dict(key='superstitious-about-it', kind='object',
          tell="will not answer while holding a certain thing, and is embarrassed about it",
          lit="Not while I'm carrying {it}. I know. I know it's stupid. Ask me tomorrow and you'll get it.",
-         dark="Not while I'm carrying {it}. Not out here. You wouldn't either, if you'd been out here longer."),
+         dark="Not while I'm carrying {it}. Not out here. You wouldn't either, if you'd been out here longer.",
+         spanglish=dict(lit="Not while I'm carrying {it}. Ya sé, I know it's stupid. Ask me tomorrow and you'll get it.",
+                        dark="Not while I'm carrying {it}. No aquí. You wouldn't either, if you'd been out here longer."),
+         es=dict(lit="Not when I hold {it}. I know. Is stupid. Tomorrow you ask me, I tell you.",
+                 dark="Not when I hold {it}. Not here. You also, if you stay here more time.")),
     dict(key='writes-it-down', kind='object',
          tell="does not say things out loud that can be written instead",
          lit="I'll write it. I don't say it, I write it. Give me a second, I'm using {it}.",
-         dark="I'm not saying it out loud tonight. I'll put it down with {it} and you read it somewhere else."),
+         dark="I'm not saying it out loud tonight. I'll put it down with {it} and you read it somewhere else.",
+         spanglish=dict(lit="I'll write it. No lo digo, I write it. Give me a second, I'm using {it}.",
+                        dark="I'm not saying it out loud esta noche. I'll put it down with {it} and you read it somewhere else."),
+         es=dict(lit="I write it. I not say it. I write it. One second, I use {it}.",
+                 dark="Tonight I not say it loud. I write with {it}. You read it other place.")),
     dict(key='thinks-it-is-worth-something', kind='object',
          tell="talks about a sale that has not happened for a long time",
          lit="Ask me again once I've sold {it}. I'll have a nicer name by then. People say it nicer.",
-         dark="The night I sell {it} I'm gone. You won't need to know what to call me."),
+         dark="The night I sell {it} I'm gone. You won't need to know what to call me.",
+         spanglish=dict(lit="Ask me again once I've sold {it}. I'll have a nicer name entonces. People say it nicer.",
+                        dark="The night I sell {it} me voy. You won't need to know what to call me."),
+         es=dict(lit="Ask me after I sell {it}. Then I have better name. People say it more nice.",
+                 dark="The night I sell {it}, I go. You not need to call me nothing.")),
     dict(key='talks-about-it-instead', kind='object',
          tell="answers a question with an offer",
          lit="Sure, sure. Have you eaten? I've got {it}. That's not food, I know that. I was getting to the food.",
-         dark="Don't need my name. Need you to take {it} and go on up the street. Please. Take it."),
+         dark="Don't need my name. Need you to take {it} and go on up the street. Please. Take it.",
+         spanglish=dict(lit="Sure, sure. Ya comiste? I've got {it}. That's not food, I know that. I was getting to the food.",
+                        dark="Don't need my name. Need you to take {it} y sigue up the street. Por favor. Take it."),
+         es=dict(lit="Yes, yes. You eat today? I have {it}. Is not food. I know. The food is coming.",
+                 dark="My name, no. You take {it}. You go up the street. Please. Take.")),
     dict(key='narrates-themselves', kind='object',
          tell="says out loud what they are doing while they do it",
          lit="'They turn. They give the name. They are still holding {it}.' Sorry. I do that. I've been alone a lot.",
-         dark="'They do not give the name. They are still holding {it}.' ...That's how it goes tonight."),
+         dark="'They do not give the name. They are still holding {it}.' ...That's how it goes tonight.",
+         spanglish=dict(lit="'They turn. They give the name. Todavía holding {it}.' Sorry. I do that. He estado alone a lot.",
+                        dark="'They do not give the name. Todavía holding {it}.' ...That's how it goes tonight."),
+         es=dict(lit="'He turn. He give the name. Still he hold {it}.' Sorry. I do this. I am alone much time.",
+                 dark="'He not give the name. Still he hold {it}.' ...Tonight is like this.")),
     dict(key='mishears-and-runs-with-it', kind='object',
          tell="answers the question they wanted rather than the one asked",
          lit="My what? Oh. I thought you said trade. I'd much rather talk trade. Look at {it}, go on.",
-         dark="What? Speak up, I can't hear anything out here past {it} rattling in my coat."),
+         dark="What? Speak up, I can't hear anything out here past {it} rattling in my coat.",
+         spanglish=dict(lit="My what? Oh. Pensé you said trade. I'd much rather talk trade. Look at {it}, go on.",
+                        dark="Qué? Speak up, I can't hear anything out here past {it} rattling in my coat."),
+         es=dict(lit="My what? Ah. I think you say trade. Trade is better. Look {it}. Go on.",
+                 dark="What? More loud. I hear nothing here. Only {it} in my coat.")),
     # ---- PLACE -----------------------------------------------------------
     dict(key='swears-by-a-place', kind='place',
          tell="mentions the same location in every conversation regardless of subject",
          lit="Ask me at {p}. I'm better there. Everybody's better there, that's not just me.",
-         dark="Not here. Come to {p} and I'll say it. I won't say it anywhere else, so."),
+         dark="Not here. Come to {p} and I'll say it. I won't say it anywhere else, so.",
+         spanglish=dict(lit="Ask me at {p}. Allí I'm better. Everybody's better there, that's not just me.",
+                        dark="Not here. Come to {p} y te lo digo. I won't say it anywhere else, so."),
+         es=dict(lit="Ask me in {p}. There I am better. Everybody is better there. Not only me.",
+                 dark="Not here. You come to {p}. There I say it. Other place, no.")),
     dict(key='will-not-go-there', kind='place',
          tell="routes around one specific place, every time, without explaining",
          lit="You'll get it out of me anywhere except {p}. Don't ask, it's the stupidest reason you ever heard.",
-         dark="It went wrong at {p}. You want a name, don't stand this close to {p}."),
+         dark="It went wrong at {p}. You want a name, don't stand this close to {p}.",
+         spanglish=dict(lit="You'll get it out of me anywhere except {p}. No preguntes, it's the stupidest reason you ever heard.",
+                        dark="Se puso feo at {p}. You want a name, don't stand this close to {p}."),
+         es=dict(lit="Any place I tell you. Not {p}. Not ask why. Is a stupid reason.",
+                 dark="In {p} it go bad. You want the name, not stand so close to {p}.")),
     dict(key='slept-there-once', kind='place',
          tell="mentions a winter they do not elaborate on",
          lit="I slept a whole winter at {p}. Ask me anything except that and I'm an open book.",
-         dark="I slept at {p}. I still hear it. Stand still a second. You hear it?"),
+         dark="I slept at {p}. I still hear it. Stand still a second. You hear it?",
+         spanglish=dict(lit="I slept un invierno entero at {p}. Ask me anything except that and I'm an open book.",
+                        dark="I slept at {p}. Todavía lo oigo. Stand still a second. You hear it?"),
+         es=dict(lit="One winter I sleep in {p}. All winter. Ask me other thing, I tell you everything.",
+                 dark="I sleep in {p}. I hear it still. Stay quiet one second. You hear?")),
     dict(key='keeps-a-place-clean', kind='place',
          tell="tidies a public place nobody has asked them to tidy",
          lit="Give me a minute, I'm doing {p}. Nobody asked me. Somebody has to and nobody asked me.",
-         dark="I still do {p}. Nobody comes through there any more. I still do it."),
+         dark="I still do {p}. Nobody comes through there any more. I still do it.",
+         spanglish=dict(lit="Give me a minute, estoy doing {p}. Nobody asked me. Somebody has to y nadie asked me.",
+                        dark="I still do {p}. Ya nadie comes through there. I still do it."),
+         es=dict(lit="One minute. I do {p}. Nobody ask me. Somebody must, and nobody ask me.",
+                 dark="I do {p} still. Nobody pass there now. I do it still.")),
     dict(key='waiting-at-a-place', kind='place',
          tell="looks past you toward the same direction while you talk",
          lit="I'm supposed to be met at {p}. Have been supposed to for a while now. It's fine.",
-         dark="They're coming to {p}. They said so. You didn't see anybody at {p}, did you."),
+         dark="They're coming to {p}. They said so. You didn't see anybody at {p}, did you.",
+         spanglish=dict(lit="I'm supposed to be met at {p}. Hace rato I've been supposed to. It's fine.",
+                        dark="They're coming to {p}. Dijeron que sí. You didn't see anybody at {p}, did you."),
+         es=dict(lit="Somebody must meet me in {p}. Long time now. Is fine.",
+                 dark="They come to {p}. They say it. You see nobody in {p}? No?")),
     dict(key='gives-the-wrong-one-first', kind='place',
          tell="gives an answer with the air of somebody who has a second one ready",
          lit="The one I give first isn't the real one. Not a trick, just habit. Ask me again by {p}.",
-         dark="You already got the one I give out. Ask again by {p}. If I'm still standing there."),
+         dark="You already got the one I give out. Ask again by {p}. If I'm still standing there.",
+         spanglish=dict(lit="The one I give first no es la real. Not a trick, just habit. Ask me again by {p}.",
+                        dark="You already got the one I give out. Pregúntame again by {p}. If I'm still standing there."),
+         es=dict(lit="The first one I give, is not the real. Is not a trick. Is habit. Ask me again in {p}.",
+                 dark="You have the one I give everybody. Ask again in {p}. If I am there.")),
     dict(key='asks-yours-first', kind='place',
          tell="will not go first",
          lit="You go. That's the rule at {p} and I've decided it's the rule everywhere now.",
-         dark="You first. Whoever was at {p} tonight got asked the same and they didn't answer either."),
+         dark="You first. Whoever was at {p} tonight got asked the same and they didn't answer either.",
+         spanglish=dict(lit="Tú primero. That's the rule at {p} and I've decided it's the rule everywhere now.",
+                        dark="You first. Whoever was at {p} tonight got asked the same y tampoco answered."),
+         es=dict(lit="You first. Is the rule in {p}. Now I make it the rule every place.",
+                 dark="You first. In {p} tonight they ask the same. Nobody answer.")),
     # ---- RITUAL ----------------------------------------------------------
     dict(key='finish-it-first', kind='ritual',
          tell="cannot be interrupted partway through a small routine",
          lit="Hang on, I'm {r}. You can't interrupt it. It doesn't work if you interrupt it.",
-         dark="Don't. I'm {r}. If I lose count I start again and I don't want to be out here that long."),
+         dark="Don't. I'm {r}. If I lose count I start again and I don't want to be out here that long.",
+         spanglish=dict(lit="Espérate, I'm {r}. You can't interrupt it. No funciona if you interrupt it.",
+                        dark="No. I'm {r}. If I lose count empiezo de nuevo and I don't want to be out here that long."),
+         es=dict(lit="Wait. I am {r}. You not interrupt. If you interrupt, it not work.",
+                 dark="No. I am {r}. I lose the count, I start again. I not want be here so long.")),
     dict(key='apologises-for-it', kind='ritual',
          tell="does a small thing and apologises for it in the same motion",
          lit="Sorry. I know. I keep {r}. My mother did it, I hated it, and here we absolutely are.",
-         dark="I keep {r}. I know exactly what it looks like. I'd stop if it were safe to stop."),
+         dark="I keep {r}. I know exactly what it looks like. I'd stop if it were safe to stop.",
+         spanglish=dict(lit="Perdón. I know. I keep {r}. Mi mamá did it, I hated it, and here we absolutely are.",
+                        dark="I keep {r}. Ya sé what it looks like. I'd stop if it were safe to stop."),
+         es=dict(lit="Sorry. I know. I do {r} always. My mother do it. I hate it. And now, here.",
+                 dark="I do {r}. I know how it look. If is safe to stop, I stop.")),
     dict(key='insists-you-do-it-too', kind='ritual',
          tell="expects other people to observe their routine and is genuinely wounded when they do not",
          lit="You didn't. You're meant to. Try {r}. Go on, I'll wait. There. Now we're properly introduced.",
-         dark="You have to as well. Start {r}. I'm not telling you my name until you've done it."),
+         dark="You have to as well. Start {r}. I'm not telling you my name until you've done it.",
+         spanglish=dict(lit="You didn't. You're meant to. Try {r}. Ándale, I'll wait. There. Now we're properly introduced.",
+                        dark="Tú también. Start {r}. I'm not telling you my name until you've done it."),
+         es=dict(lit="You not do it. You must. Do {r}. Go. I wait. There. Now we know each other.",
+                 dark="You also. Start {r}. I not say my name before you do it.")),
     dict(key='keeps-time-by-it', kind='ritual',
          tell="does not read clocks",
          lit="What day is it. No, don't tell me. I get it from {r}. That's how I know, and I'm never wrong.",
-         dark="I get it from {r}. It's the only clock I trust and it's been wrong twice this week."),
+         dark="I get it from {r}. It's the only clock I trust and it's been wrong twice this week.",
+         spanglish=dict(lit="What day is it. No, no me digas. I get it from {r}. That's how I know, y nunca me equivoco.",
+                        dark="I get it from {r}. Es el único clock I trust and it's been wrong twice this week."),
+         es=dict(lit="What day is today. No. Not tell me. I take it from {r}. Like this I know. I am never wrong.",
+                 dark="I take it from {r}. Is the only clock I trust. This week it is wrong two times.")),
     dict(key='remembers-everybody', kind='ritual',
          tell="greets people by trade before they have spoken",
          lit="I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
-         dark="I know yours. I know who's stopped being on this block, too. Six. It's {r}."),
+         dark="I know yours. I know who's stopped being on this block, too. Six. It's {r}.",
+         spanglish=dict(lit="Ya sé el tuyo. I know everybody's on this block. It's {r}, that's the whole trick.",
+                        dark="I know yours. Y sé quién stopped being on this block, too. Seis. It's {r}."),
+         es=dict(lit="I know yours already. I know everybody in this block. Is {r}. Is all the trick.",
+                 dark="I know yours. And I know who is not in this block now. Six. Is {r}.")),
 ]
 
 # ===========================================================================
@@ -415,6 +503,32 @@ def check_shapes():
                 before = line[:m.start()]
                 if not before.strip() or re.search(r'[.!?…]["\']?\s+$', before):
                     bad.append(s['key'] + ' ' + reg + ' opens a sentence with its noun')
+        # THE REGISTER TWINS OBEY THE SAME CONTRACT (8/25, THEY SPEAK SPANGLISH).
+        # A register line is the SAME PERSON in a different mouth, so it must use
+        # the same slot, must not open a sentence with it, and must not be a copy
+        # of the English one -- a "spanglish" line that never switches is a tag,
+        # not a voice. Running the grammar contract on the twins is what stops 88
+        # new lines from being 88 new ways to break the substitution.
+        for reglang in ('spanglish', 'es'):
+            r = s.get(reglang)
+            if not r:
+                continue
+            for reg in ('lit', 'dark'):
+                line = r[reg]
+                where = s['key'] + ' ' + reglang + ':' + reg
+                if slot not in line:
+                    bad.append(where + ' never uses its ' + s['kind'] + ' slot')
+                for other in SLOT.values():
+                    if other != slot and other in line:
+                        bad.append(where + ' uses a slot it did not declare')
+                for m in re.finditer(re.escape(slot), line):
+                    before = line[:m.start()]
+                    if not before.strip() or re.search(r'[.!?\u2026]["\']?\s+$', before):
+                        bad.append(where + ' opens a sentence with its noun')
+                if line.strip() == s[reg].strip():
+                    bad.append(where + ' is a copy of the English line')
+            if r['lit'].strip() == r['dark'].strip():
+                bad.append(s['key'] + ' ' + reglang + ' lit and dark are the same line')
         if s['lit'].strip() == s['dark'].strip():
             bad.append(s['key'] + ' lit and dark are the same line')
         if not s['tell'].strip():
@@ -427,6 +541,53 @@ def check_shapes():
         sys.exit(1)
 
 
+def assert_quirk_spanish_is_glossed():
+    """ONE CLOSED SET OF SPANISH, TWO MOUTHS, ONE CHECKER.
+
+    LANGUAGE NEVER GATES REQUIRED INFORMATION (Paolo 8/25) is provable only
+    because the Spanish this game may say is a CLOSED, DECLARED set with an
+    English meaning for every word -- gates/language_gate.js sweeps every
+    objective and every button against it. A SECOND lexicon living over here
+    would put a hole straight through that: a word the quirks say and the
+    lexicon has never heard of is invisible to the sweep, and the claim goes
+    green while the bug walks past it.
+
+    So this does not keep its own list. It imports the bark factory's ES_GLOSS
+    and its English yardstick and runs the same check on these 88 lines. Adding
+    a Spanish word here means adding it THERE, which is the point.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    try:
+        import bohemia_bark_factory as BF
+    except Exception as e:                      # the check must never be silent
+        sys.stderr.write('QUIRK FACTORY REFUSES TO WRITE: cannot reach the shared '
+                         'lexicon (%s). One closed set or no claim.\n' % e)
+        sys.exit(1)
+    vocab = BF.english_vocabulary()
+    missing = {}
+    for sh in SHAPES:
+        for reglang in ('spanglish', 'es'):
+            r = sh.get(reglang)
+            if not r:
+                continue
+            for reg in ('lit', 'dark'):
+                for w in BF.TOKEN.findall(r[reg]):
+                    forms = BF.base_forms(w)
+                    if any(f in BF.ES_GLOSS for f in forms):
+                        continue
+                    if any(f in vocab for f in forms):
+                        continue
+                    missing.setdefault(forms[-1], []).append(sh['key'] + ' ' + reglang + ':' + reg)
+    if missing:
+        sys.stderr.write(
+            'QUIRK FACTORY REFUSES TO WRITE.\n'
+            'THESE WORDS SHIP WITHOUT A MEANING, and a closed set with a hole in it\n'
+            'cannot prove the hard rule. Add them to ES_GLOSS in\n'
+            'tools/bohemia_bark_factory.py (ONE lexicon, not two):\n  '
+            + '\n  '.join('%-14s %s' % (w, missing[w][0]) for w in sorted(missing)) + '\n')
+        sys.exit(1)
+
+
 def js_str(s):
     return json.dumps(s, ensure_ascii=False)
 
@@ -435,6 +596,7 @@ def build():
     idx = load_index()
     studies, masters = check_citations(idx)
     check_shapes()
+    assert_quirk_spanish_is_glossed()
 
     combos = sum(len(SPECIFICS[s['kind']]) for s in SHAPES)
     by_kind = {}
@@ -457,11 +619,20 @@ def build():
             'shapes': len(SHAPES),
             'specifics': {k: len(v) for k, v in SPECIFICS.items()},
             'combinations': combos,
-            'lines': len(SHAPES) * 2,
+            'lines': sum(2 + 2 * len([r for r in ('spanglish', 'es') if s.get(r)])
+                         for s in SHAPES),
+            'registers': 'THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). Each shape is authored '
+                         'in three mouths: plain English, spanglish, and spanish-dominant. '
+                         'This is the line somebody says TO YOUR FACE when you ask their '
+                         'name, and it was the last monolingual one in the game. A shape '
+                         'with no register written for it speaks English rather than going '
+                         'silent, which is the hard rule: language never gates required '
+                         'information.',
             'spans': {'studies': studies, 'masters': masters},
         },
         'quirks': [
             dict(id=s['key'], kind=s['kind'], tell=s['tell'], lit=s['lit'], dark=s['dark'],
+                 spanglish=s.get('spanglish'), es=s.get('es'),
                  draft=True, study=STUDY)
             for s in SHAPES
         ],
@@ -514,10 +685,20 @@ def build():
         A('    { key: ' + js_str(s['key']) + ', kind: ' + js_str(s['kind']) + ',')
         A('      tell: ' + js_str(s['tell']) + ',')
         A('      lit:  ' + js_str(s['lit']) + ',')
-        A('      dark: ' + js_str(s['dark']) + ' },')
+        A('      dark: ' + js_str(s['dark']) + ',')
+        for reg in ('spanglish', 'es'):
+            r = s.get(reg)
+            if not r:
+                continue
+            A('      ' + reg + ': { lit:  ' + js_str(r['lit']) + ',')
+            A('      ' + (' ' * len(reg)) + '   dark: ' + js_str(r['dark']) + ' },')
+        A('    },')
     A('  ];')
     A('')
     A('  var SLOT = { object: /\\{it\\}/g, place: /\\{p\\}/g, ritual: /\\{r\\}/g };')
+    A('  /* The registers this module carries. THEY SPEAK SPANGLISH (Paolo 8/25).')
+    A('     Read from here rather than typed into three places. */')
+    A('  var REGISTERS = ["spanglish", "es"];')
     A('')
     A('  /* THE DERIVATION. bohemia_people.js hashes a key string with imul-31 and then')
     A('     mixes; mix32 is not exported, so the same documented pattern is restated here')
@@ -551,11 +732,23 @@ def build():
     A('  /* THE ONE PLACE SUBSTITUTION HAPPENS. Both the plain draw and the block spread')
     A('     come through here, so a person met on the card and the same person counted in')
     A('     the spread can never be rendered by two different bits of code. */')
+    A('  /* THE NOUN GOES INTO EVERY MOUTH, not just the English one. The register')
+    A('     twins carry the SAME slot and the same substitution: a rendered quirk that')
+    A('     dropped them would hand lineFor an object with no register on it, and')
+    A('     lineFor would fall back to English forever while looking completely')
+    A('     correct. Measured exactly that way the first time it was wired. */')
     A('  function render(key, s, noun) {')
-    A('    return { key: key, shape: s.key, kind: s.kind, specific: noun,')
-    A('             tell: s.tell,')
-    A('             lit:  s.lit.replace(SLOT[s.kind], noun),')
-    A('             dark: s.dark.replace(SLOT[s.kind], noun) };')
+    A('    var out = { key: key, shape: s.key, kind: s.kind, specific: noun,')
+    A('                tell: s.tell,')
+    A('                lit:  s.lit.replace(SLOT[s.kind], noun),')
+    A('                dark: s.dark.replace(SLOT[s.kind], noun) };')
+    A('    for (var ri = 0; ri < REGISTERS.length; ri++) {')
+    A('      var rk = REGISTERS[ri], r = s[rk];')
+    A('      if (!r) continue;')
+    A('      out[rk] = { lit:  r.lit.replace(SLOT[s.kind], noun),')
+    A('                  dark: r.dark.replace(SLOT[s.kind], noun) };')
+    A('    }')
+    A('    return out;')
     A('  }')
     A('  function quirkOf(who) {')
     A('    var key = keyOf(who);')
@@ -637,9 +830,21 @@ def build():
     A('     conversation the dark one and the joke never plays. An unpowered lot at noon is')
     A('     a lot. The city asks `isNight() && !POWER.live`, which is the same test its own')
     A('     renderer uses to decide whether a room is dark. Ask it that way. */')
-    A('  function lineFor(who, dark) {')
+    A('  /* *** AND IT COMES OUT IN THE LANGUAGE THEY SPEAK (8/25, THEY SPEAK')
+    A('     SPANGLISH). This is the line somebody says TO YOUR FACE when you ask')
+    A('     their name -- the closest, most personal moment this game has -- and it')
+    A('     was the LAST monolingual one. The ambient street barks had registers')
+    A('     before this did, which is exactly backwards.')
+    A('     The register is a THIRD axis on the same person, not a fourth table: the')
+    A('     shape, the noun and the light are unchanged, only the mouth moves. And')
+    A('     the fallback is the hard rule again -- a shape with no register written')
+    A('     for it speaks English rather than going silent. */')
+    A('  function lineFor(who, dark, lang) {')
     A('    var q = quirkOf(who);')
-    A('    return q ? (dark ? q.dark : q.lit) : null;')
+    A('    if (!q) return null;')
+    A('    var k = dark ? "dark" : "lit";')
+    A('    var r = lang && q[lang];')
+    A('    return (r && r[k]) || q[k];')
     A('  }')
     A('  /* WHAT YOU CAN SEE. Third person, no quotes, same in any light -- a habit does')
     A('     not change with the power, only what it sounds like does. */')
@@ -655,7 +860,8 @@ def build():
     A('')
     A('  var API = { VERSION: ' + js_str('8.19.26') + ', SHAPES: SHAPES, SPECIFICS: SPECIFICS,')
     A('              quirkOf: quirkOf, spreadOver: spreadOver,')
-    A('              lineFor: lineFor, tellFor: tellFor, count: count };')
+    A('              lineFor: lineFor, tellFor: tellFor, count: count,')
+    A('              REGISTERS: REGISTERS };')
     A('  if (HASREQ) module.exports = API; else root.BohemiaQuirk = API;')
     A("})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));")
     A('')
@@ -668,11 +874,14 @@ def build():
         '%s:%d' % (k, by_kind.get(k, 0)) for k in ('object', 'place', 'ritual'))))
     print('  specifics   %d object, %d place, %d ritual'
           % (len(SPECIFICS['object']), len(SPECIFICS['place']), len(SPECIFICS['ritual'])))
-    print('  quirks      %d distinct, each authored in TWO registers = %d utterances'
-          % (combos, combos * 2))
-    print('  authored    %d lines + %d tells + %d nouns'
-          % (len(SHAPES) * 2, len(SHAPES),
-             sum(len(v) for v in SPECIFICS.values())))
+    mouths = 1 + len([r for r in ('spanglish', 'es') if all(x.get(r) for x in SHAPES)])
+    print('  quirks      %d distinct, each in LIT and DARK across %d mouths = %d utterances'
+          % (combos, mouths, combos * 2 * mouths))
+    print('  authored    %d lines (%d english + %d register) + %d tells + %d nouns'
+          % (sum(2 + 2 * len([r for r in ('spanglish', 'es') if x.get(r)]) for x in SHAPES),
+             len(SHAPES) * 2,
+             sum(2 * len([r for r in ('spanglish', 'es') if x.get(r)]) for x in SHAPES),
+             len(SHAPES), sum(len(v) for v in SPECIFICS.values())))
     print('  cites       %d findings, %d studies, %d masters (%s)'
           % (len(STUDY), len(studies), len(masters), ', '.join(masters)))
     print('  wrote       engine/bohemia_quirk.js, records/BOHEMIA_QUIRKS.json')

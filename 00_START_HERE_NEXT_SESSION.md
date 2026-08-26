@@ -4082,7 +4082,77 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/25 (c) LATEST -- *** HIS SPANGLISH RULING REACHED THE
+PEOPLE (people-7h9sfy): 8/26 LATEST -- *** THE LINE SOMEBODY SAYS TO YOUR FACE
+WHEN YOU ASK THEIR NAME WAS THE LAST MONOLINGUAL ONE IN THE GAME. 44 -> 132
+LINES. TAB RUN: walk up, tap TALK, tap ask, and they answer in their own mouth. ***
+
+THE THING THAT WAS BACKWARDS: the ambient barks you overhear FROM ACROSS THE
+STREET got registers in the morning. The person standing in front of you did
+not. The quirk line is the FIRST true thing you ever learn about one specific
+human (Q014.W9) and it arrives through the game's only social verb, so it was
+the worst possible line to leave in one language.
+
+MEASURED ON THE REAL CARD, IN THE WALKED CITY, ONE PER REGISTER:
+  en  I'll write it. I don't say it, I write it. Give me a second, I'm using a
+      drink token from a floor that closed.
+  sg  Give me a minute, estoy doing the pump house at the end of the row. Nobody
+      asked me. Somebody has to y nadie asked me.
+  es  What day is today. No. Not tell me. I take it from reading the expiry dates
+      out loud. Like this I know. I am never wrong.
+Register 3 carries NO SPANISH AT ALL and that is the craft rule working: poor
+English is GRAMMAR, not vocabulary. The gate checks it for being DIFFERENT, not
+for carrying Spanish, because demanding Spanish there is demanding the cartoon.
+
+304 quirks x 2 lights x 3 mouths = 1,824 utterances. WORDS tab now holds 2,312
+lines (208 spanglish, 194 poor-english), every one draft and editable.
+
+ONE LEXICON, TWO MOUTHS, ONE CHECKER: the quirk factory does NOT keep its own
+word list. It imports the bark factory's and refuses to write a Spanish word
+that is not in the shared closed set (188 -> 224 words, each with its English
+meaning). A second lexicon is a hole straight through the hard rule. The
+register twins also run the SAME grammar contract as the English ones, which
+caught one of my own 88 lines before it shipped.
+
+*** THIRD TIME THIS LANE PAID FOR TWO COPIES OF ONE RULE. *** The Python side
+learned that a LEADING apostrophe is a quote mark and not a clitic ("'He turn."
+opens a spoken line) and was fixed there; the gate had the same rule typed out
+again, did not learn it, and went red on those exact two lines. esStems() now
+ships from the factory into the engine and BOTH call it. Two tab switchers with
+one routing rule, a generator and its output, now a tokenizer: WRITING THE RULE
+DOWN TWICE IS THE BUG, EVERY TIME.
+
+AND A PROBE THAT REPORTED "NO SUCH THING" WHEN IT HAD NEVER LOOKED: the first
+run of the new claims came back all empty. The block above them leaves a card
+OPEN and ctVerb() correctly hides the one button while a card is up, so the loop
+found the button hidden on every person and measured nothing. A probe that
+cannot reach its subject reports the same thing as a broken feature.
+
+MUTATIONS: the two call sites stop passing the register (the state that shipped
+this morning) 1 RED printing the English line the Spanglish person would have
+said; one "spanglish" line replaced by its English twin, THE FACTORY REFUSES TO
+WRITE and names it.
+
+TWO GATES WENT RED AND BOTH WERE MINE TO TEACH, not to work around: quirk_gate
+compared the card against the English table (it asks for the person's own mouth
+now, and counts 132 authored lines instead of 44) and dialogue_catalogue_gate's
+independent line counter did not know the register lines existed, which is
+exactly the claim that must never drift. Both green.
+
+Deploy of the previous ship CONFIRMED: 7610790 pages run SUCCESS, and it carries
+b62d42a (the card fix). Note b62d42a's OWN run shows `failure` with its deploy
+job never leaving `queued` -- that is the SUPERSEDED shape, not a broken build,
+and it is why the rule is "a run whose sha CONTAINS your content".
+
+WHAT I WOULD DO NEXT: the four Act 1 scenes and the nine canon quests are still
+monolingual. Those are the demo's actual story words. The law reserves WHICH
+NAMED STORY PEOPLE sit in which register as HIS, and I put that question to him;
+the UNNAMED voices in those scenes are mine to draft either way.
+
+Record: records/BOHEMIA_NOBODY_IN_THIS_VALLEY_SPOKE_SPANISH_8_25_26.md
+(addendum 2 at the bottom).
+
+---- PREVIOUS (8/25) ----
+*** HIS SPANGLISH RULING REACHED THE
 ENGINE AND STOPPED ONE FRAME SHORT OF HIM, AND MY OWN GATE WAS DEFENDING THAT.
 FIXED. TAB RUN: walk up to somebody, tap the one button, the card now says what
 they speak. ***
