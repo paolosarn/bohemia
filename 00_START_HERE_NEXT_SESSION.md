@@ -3858,7 +3858,22 @@ two sessions, none filed.
 
 CARD GATES HELD after adding a row to a height-capped card: CARD FOLD 18/0,
 CITY MEMORY 34/0, CITY BARKS 13/0, QUIRK 39/0, TIES 40/0, INTRODUCTIONS 46/0,
-FAVOUR 31/0.
+FAVOUR 31/0, STREET EXCHANGE 32/0, CLAIM 45/0, COMMITMENT 72/0, BELONGING 58/0,
+CITY DEEDS 43/0, CITY DIAL 22/0. Twelve gates, 428 claims, zero failures.
+THE DEMO STILL PLAYS on the surface I changed: WHOLE DEMO 23/0, DEMO 23/0,
+OPENING 63/0, FIRST NIGHT 55/0.
+
+*** FOR WHOEVER SHIPS NEXT, AND IT IS NOT MINE TO FIX (SHARED/COORDINATOR):
+THE PAGES QUEUE IS BACKING UP AGAIN. Three pushes landed in SEVEN minutes
+(15:35, 15:36, 15:42 UTC) and at 15:50 there were TWO runs still queued with one
+marked failure -- 78dedf2, whose deploy job never left `queued` while the run
+was recorded as failed. That is the SUPERSEDED shape, not a broken build: with
+cancel-in-progress:false the RUNNING deploy is protected but a PENDING one is
+still replaced by a newer push. The 8/6 measurement was ~13 minutes between
+pushes; today it is closer to three. A failed pages run is not automatically
+somebody's bug, and the link is only true once a run whose sha CONTAINS your
+content concludes SUCCESS. Mine (b62d42a) was still queued when this was
+written -- pushed and correct on main, not yet confirmed live. ***
 
 WHAT I WOULD DO NEXT: the four Act 1 scenes and the nine canon quests are still
 monolingual English -- the demo's actual story words. The law reserves WHICH
