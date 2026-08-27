@@ -334,6 +334,12 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     solar:    { max: 4,  why: 'ONE control building per plant, not per cell.' },
     golf:     { max: 2,  why: 'ONE clubhouse on an eighteen-hole course. Nine cells built nine.' },
     farm:     { max: 4,  why: 'ONE farmhouse and ONE barn per parcel. Nine cells built nine of each.' },
+    /* A CONSTANT AND NOT THE `runs < cells` RULE BELOW, on purpose: a treatment plant has
+       exactly THREE buildings -- control, blower, chemical -- however much ground it covers,
+       because a bigger plant adds parallel TRAINS and not a second plant. So 3 is right at
+       every size, while `fewer than cells` would go red on a two-cell plant that is
+       perfectly correct. Four cells built four plants and twelve buildings. */
+    watertreat: { max: 3, why: 'ONE control, blower and chemical house. Four cells built four plants.' },
   };
   /* THE TWELVE UTILITY LANDMARKS ARE ASKED A DIFFERENT QUESTION (8/27), and it is a better
      one. Every ceiling above is a CONSTANT somebody measured on one valley -- which works,

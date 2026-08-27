@@ -131,7 +131,10 @@
     firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
     swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
     storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    /* ONE PLANT PER BLOB (8/27): four cells built four treatment plants, four fences, four
+       car gates. A bigger plant is more PARALLEL TRAINS off one headworks, which is how a
+       real one adds capacity -- see engine/bohemia_watertreat.js. */
+    watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },

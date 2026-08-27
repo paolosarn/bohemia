@@ -874,23 +874,11 @@
      would shear at every seam, so the WHOLE blob is rotated once, as one grid, and only
      then does a cell take its window -- at its own index AFTER the same turns. Cells are
      square, so a quarter turn maps cell (i,j) of a bw x bh blob to (bh-1-j, i). */
-  /* THE UNIT BLOCK, MOVED. A layout written against a 128x128 cell keeps thinking it is in
-     one -- W and H still read SZ, and every coordinate lands dx,dy further along the blob.
-     Mirrors K.grid's whole surface, because a layout is allowed to use any of it and a
-     partial mirror fails silently on the one method nobody tested. */
-  function shifted(G, dx, dy){
-    var A={ g:G.g, W:K.SZ, H:K.SZ, seed:G.seed, rnd:G.rnd,
-      set:function(x,y,c){ G.set(x+dx,y+dy,c); return A; },
-      get:function(x,y){ return G.get(x+dx,y+dy); },
-      rect:function(x0,y0,x1,y1,c){ G.rect(x0+dx,y0+dy,x1+dx,y1+dy,c); return A; },
-      hbar:function(x0,x1,y,c,t){ G.hbar(x0+dx,x1+dx,y+dy,c,t); return A; },
-      vbar:function(y0,y1,x,c,t){ G.vbar(y0+dy,y1+dy,x+dx,c,t); return A; },
-      frame:function(c){ var n=K.SZ,x,y;
-        for(x=0;x<n;x++){ A.set(x,0,c); A.set(x,n-1,c); }
-        for(y=0;y<n;y++){ A.set(0,y,c); A.set(n-1,y,c); } return A; },
-      disc:function(cx,cy,r,c){ G.disc(cx+dx,cy+dy,r,c); return A; } };
-    return A;
-  }
+  /* THE UNIT BLOCK, MOVED, now lives in the kit as K.shift -- the water treatment plant
+     wants exactly the same thing and a second copy is how one mechanism becomes two that
+     drift. (FACTORY LAW, and the reason K.blob exists at all.) */
+  var shifted = K.shift;
+
   // the fence line alone, at the same insets frame() uses -- WITHOUT frame's two wiping rects
   function fenceOnly(G){
     var W=G.W,H=G.H,x,y;

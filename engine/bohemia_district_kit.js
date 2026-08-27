@@ -57,6 +57,31 @@
      ONE CELL IS NOT A BLOB. `many` is false when the bounds are a single cell, and every
      district that uses this keeps its original single-cell build for that case -- the art
      already shipped, and there is no neighbour to line up with. */
+  /* THE UNIT BLOCK, MOVED (8/27). A layout written against a 128x128 cell keeps thinking it
+     is in one -- W and H still read SZ, and every coordinate lands dx,dy further along a
+     blob-sized grid. That is what lets a district whose plan is written at LITERAL
+     coordinates (the ammunition depot's magazines at [16+i*26, 18+j*28], the treatment
+     plant's clarifiers at 30,58) cover more ground by REPEATING its unit, instead of drawing
+     one small cluster in the corner of an enormous empty yard.
+     Mirrors grid()'s whole surface on purpose: a layout may use any of it, and a partial
+     mirror fails silently on the one method nobody happened to test.
+     WHEN NOT TO USE IT: a district whose plan is written against W and H already grows on
+     its own, and repeating it would multiply the very facility K.blob exists to keep single.
+     Repeat the units a bigger site HAS MORE OF; never repeat the thing it is named after. */
+  function shift(G, dx, dy){
+    var A={ g:G.g, W:SZ, H:SZ, seed:G.seed, rnd:G.rnd,
+      set:function(x,y,c){ G.set(x+dx,y+dy,c); return A; },
+      get:function(x,y){ return G.get(x+dx,y+dy); },
+      rect:function(x0,y0,x1,y1,c){ G.rect(x0+dx,y0+dy,x1+dx,y1+dy,c); return A; },
+      hbar:function(x0,x1,y,c,t){ G.hbar(x0+dx,x1+dx,y+dy,c,t); return A; },
+      vbar:function(y0,y1,x,c,t){ G.vbar(y0+dy,y1+dy,x+dx,c,t); return A; },
+      frame:function(c){ var x,y;
+        for(x=0;x<SZ;x++){ A.set(x,0,c); A.set(x,SZ-1,c); }
+        for(y=0;y<SZ;y++){ A.set(0,y,c); A.set(SZ-1,y,c); } return A; },
+      disc:function(cx,cy,r,c){ G.disc(cx+dx,cy+dy,r,c); return A; } };
+    return A;
+  }
+
   function blob(seed, opts){
     opts = opts || {};
     var g = grid(seed >>> 0), W = g.W, H = g.H;
@@ -752,7 +777,7 @@
     return n;
   }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,blob:blob,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,blob:blob,shift:shift,ROADSET:ROADSET,landStats:landStats,stencil:stencil,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
