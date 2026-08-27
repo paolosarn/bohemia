@@ -575,7 +575,19 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #daycardIn .mgood{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ink)}
 #daycardIn .mnote{font-size:10px;color:#8d7c5e;letter-spacing:.5px}
 #daycardIn .mprice{font-size:12px;font-weight:700;color:var(--acc);white-space:nowrap}
-#daycard{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;
+/* __CITY_FEEDBACK__ 8/27 -- THE CARD WAS UNDER THE CHROME AND ONLY LOOKING SAW IT.
+   The 8/25 rule three hundred lines below is written down and correct: world under
+   everything, chrome 6..45, TAKEOVER PANELS 50 and up. #daycard is inset:0 with a
+   full scrim over the stage, which is that rule's own definition of a takeover
+   panel, and it has sat at 20 since it was built. So #blstack at 39 draws STANDING,
+   CITY, BIKE and SLEEP straight through every card the day loop shows: through the
+   ending, and through the send button of the feedback card, where a tester's thumb
+   goes. IDENTICAL to the bug RUN fixed for the phone on 8/25 and one the sweep that
+   was supposed to catch the general case could not see, because its list of panels
+   is typed by hand and this one was never on it.
+   51, NOT 50: a card is an interruption and it has to be answerable, so it sits one
+   above the panel it can interrupt. Nothing else moves. */
+#daycard{position:absolute;inset:0;z-index:51;display:none;align-items:center;justify-content:center;
   background:rgba(6,5,4,.86);padding:14px}
 #daycard.on{display:flex}
 /* __THE_ROAD_CARD_IS_NOT_A_LOCK__ (8/27): A ROAD MOMENT IS SOMETHING YOU READ, NOT SOMEWHERE

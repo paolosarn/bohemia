@@ -172,7 +172,42 @@ underneath, in its own block.
 
 ---
 
-## TWO REAL HOLES THE GATE FOUND
+## AND THE WORST ONE ONLY LOOKING FOUND
+
+Fifty-five claims were green and the card had been driven end to end six times
+before anybody took a screenshot of it. In the screenshot, STANDING, CITY, BIKE
+and SLEEP are drawn straight through the card, over the send button, where a
+tester's thumb goes.
+
+`#daycard` is `inset:0` with a full scrim over the stage and it has been at
+z-index 20 since it was built. The day-loop chips went into a column at 39 on
+8/24. So every card the day loop has ever shown has had the chrome drawn over
+it, including the ending that shipped yesterday.
+
+**IT IS THE SAME BUG RUN FIXED FOR THE PHONE TWO DAYS AGO**, and the rule they
+wrote down while fixing it is three hundred lines below this in the same file:
+world under everything, chrome 6 to 45, TAKEOVER PANELS 50 and up. Their note
+says "only this one covers the stage today", and that was not true when it was
+written. The sweep that was supposed to catch the general case runs over a list
+of panel ids typed by hand, and `#daycard` was never on it.
+
+`#daycard` is 51 now, one above the panel it can interrupt, because a card is an
+interruption and it has to be answerable. `daycard` is on that sweep's list now
+too, one word, so the machine holds it rather than the next person's eyes.
+
+**AND THE CLAIM I WROTE FOR IT WAS GREEN OVER THE LIVE BUG TWICE.** First
+because it measured the button on a freshly opened card, where it sits below the
+fold and over nothing. Then, scrolled to where a tester actually is, because it
+read the button's CENTRE: eight of nine points on that button are the button,
+and the ninth, its bottom left corner, is a chip.
+
+A CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS MIDDLE HAPPENS TO
+BE. Nine points now, and it prints what the browser actually found at each one
+rather than a yes. Re-mutated: red, naming `rungbtn` and `note`.
+
+---
+
+## TWO MORE HOLES THE GATE FOUND
 
 **1. A TWO SECOND TICKER CANNOT SEE A CARD THAT OPENS AND CLOSES BETWEEN TWO OF
 ITS LOOKS.** The "got out of bed" beat was read off the wake card going away,
@@ -212,6 +247,40 @@ cannot do, on its last: "nothing gets sent from here. this builds a block of
 text and you paste it wherever you want." This is a static page on a phone.
 There is no server. Implying otherwise is the one lie a feedback card cannot
 afford.
+
+---
+
+## AND A ROUND OF THEM HAS TO BE READABLE
+
+`tools/bohemia_read_the_round.py`. The protocol already says this has to happen,
+in its own words: "the coordinator compiles all rounds into one digest (where
+they quit, what confused, what they said)." The card collects and nothing read.
+
+    python3 tools/bohemia_read_the_round.py round1/*.txt
+    python3 tools/bohemia_read_the_round.py round1/*.txt --against round0/*.txt
+
+It prints which build and which seed each tester was on (and shouts if a round
+spans more than one of either, because then their quit points are not
+comparable), the device list, HOW FAR EACH ONE GOT as a histogram plus how long
+they sat there before they stopped, what nobody reached, the three tallies, and
+every word anybody wrote, verbatim.
+
+**A FORMAT IS NOT PROVEN READABLE UNTIL SOMETHING READS IT.** This is as much a
+test of the paste as it is a tool. If eight of them could not be laid side by
+side and diffed against round two, the time to find that out is before the
+round, not after, and the gate's claim renders its test pastes WITH THE MODULE
+THE CARD USES rather than typing them out, so it proves the round trip instead
+of proving the reader can read my typing.
+
+Two refusals are built in. **An unreadable paste is reported, never dropped**,
+because a tester whose paste we could not read is a finding about us and
+silently skipping them turns eight testers into six with nobody noticing. And
+**nothing is averaged into a score**: five people is five people, and a mean of
+five opinions is a number that looks like evidence.
+
+Nothing in the tool is retyped from the card. The questions and the limits are
+read out of the module at run time, so a session that rewords a question cannot
+leave the digest quoting the old one.
 
 ---
 

@@ -218,7 +218,15 @@ const LOUDNESS = `(function(){
     await SETTLE(page, 2500);
     const through = await city.evaluate(() => {
       var res = [];
-      ['phonewrap', 'savepanel', 'keypanel', 'pfpanel', 'buildpanel'].forEach(function (id) {
+      /* 'daycard' ADDED 8/27 (PEOPLE lane, one word, nothing else touched). This
+         sweep is described as doing the general case, and it does -- over a list
+         of panels typed by hand, which #daycard was never on. It is inset:0 with
+         a full scrim, so it is a takeover panel by this rule's own definition,
+         and it had been at z-index 20 since it was built: #blstack at 39 drew
+         STANDING, CITY, BIKE and SLEEP straight through every card the day loop
+         shows, including the ending and the feedback card's send button. Found
+         by LOOKING at a screenshot, not by any number. The panel is at 51 now. */
+      ['phonewrap', 'savepanel', 'keypanel', 'pfpanel', 'buildpanel', 'daycard'].forEach(function (id) {
         var el = document.getElementById(id);
         if (!el || el.offsetParent === null) return;
         var r = el.getBoundingClientRect();

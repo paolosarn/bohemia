@@ -1643,7 +1643,30 @@ cannot have an opinion about is an invitation to make one up. Only possible
 because the recorder ran while they played. THE ROW'S SHAPE IS UNCHANGED: three
 taps, one box, one paste, out the save blob's own .txt export door.
 
-TWO REAL HOLES THE GATE FOUND, and both are the same class:
+*** AND THE WORST ONE ONLY LOOKING FOUND. *** Fifty-five claims were green and
+the card had been driven end to end six times before anybody took a screenshot
+of it. In the screenshot, STANDING, CITY, BIKE and SLEEP are drawn straight
+THROUGH the card, over the send button, where a tester's thumb goes. #daycard is
+inset:0 with a full scrim and has sat at z-index 20 since it was built; the
+day-loop chips went into a column at 39 on 8/24. So every card the day loop has
+ever shown has had the chrome over it, INCLUDING YESTERDAY'S ENDING.
+IT IS THE SAME BUG RUN FIXED FOR THE PHONE TWO DAYS AGO, and their rule is
+written three hundred lines below it in the same file: chrome 6..45, TAKEOVER
+PANELS 50 and up. Their note says "only this one covers the stage today" and
+that was not true when it was written, and the sweep that catches the general
+case runs over a list of panel ids TYPED BY HAND that #daycard was never on.
+FIXED: #daycard is 51 (one above the panel it can interrupt, because a card is
+an interruption and has to be answerable) and `daycard` is on that sweep's list
+now, one word, nothing else touched. THE FIRST MORNING gate re-run: 19/0.
+AND MY CLAIM FOR IT WAS GREEN OVER THE LIVE BUG TWICE -- first measuring the
+button on a freshly opened card where it sits below the fold and over nothing,
+then, scrolled to where a tester is, reading its CENTRE: eight of nine points on
+that button are the button and the ninth, its bottom left corner, is a chip.
+A CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS MIDDLE HAPPENS TO
+BE. Nine points now, printing what the browser found at each. Re-mutated: red,
+naming rungbtn and note.
+
+TWO MORE HOLES THE GATE FOUND, and both are the same class:
   A TWO SECOND TICKER CANNOT SEE A CARD THAT OPENS AND CLOSES BETWEEN TWO OF ITS
   LOOKS. "Got out of bed" was read off the wake card going away, and a fast
   player dismissed it inside one tick, so the paste said he never got up.
@@ -1664,7 +1687,23 @@ it is on its first line ("not the game, thirty seconds") and what it cannot do
 on its last ("nothing gets sent from here"), because this is a static page on a
 phone and implying a server is the one lie a feedback card cannot afford.
 
-  GATE: gates/feedback_gate.js, FEEDBACK, 54 claims, 0 red. IT PLAYS AND IT
+AND A ROUND OF THEM HAS TO BE READABLE, so the other half shipped in the same
+turn: tools/bohemia_read_the_round.py. The protocol already required it ("the
+coordinator compiles all rounds into one digest -- where they quit, what
+confused, what they said") and nothing read anything.
+    python3 tools/bohemia_read_the_round.py round1/*.txt --against round0/*.txt
+Which build and which seed each tester was on (and it SHOUTS if a round spans
+more than one of either, because then their quit points are not comparable), the
+devices, HOW FAR EACH ONE GOT as a histogram plus how long they sat there before
+they stopped, what nobody reached, the three tallies, every word verbatim.
+A FORMAT IS NOT PROVEN READABLE UNTIL SOMETHING READS IT, so the gate's test
+pastes are RENDERED BY THE MODULE THE CARD USES rather than typed out: it proves
+the round trip instead of proving the reader can read my typing. Two refusals
+are built in: an unreadable paste is REPORTED never dropped (silently skipping
+one turns eight testers into six), and NOTHING IS AVERAGED INTO A SCORE, because
+five people is five people and a mean of five opinions looks like evidence.
+
+  GATE: gates/feedback_gate.js, FEEDBACK, 65 claims, 0 red. IT PLAYS AND IT
   NEVER CALLS mark() -- the ending gate learned one day earlier that a probe
   which sends the message the real sender is supposed to send is still a side
   door. Mutations: a beat that re-stamps 1 red, the taps offering everybody the

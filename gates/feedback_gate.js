@@ -207,6 +207,73 @@ ok('a tester who never opened it is a hole the paste admits to',
   && B.CANNOT.length >= 3, B.CANNOT.length + ' things it says it cannot answer');
 
 /* ==========================================================================
+   D2. AND A ROUND OF THEM HAS TO BE READABLE
+   ========================================================================== */
+head('D2. EIGHT PASTES IN, ONE PAGE OUT');
+/* THE PROTOCOL SAYS THIS HAS TO HAPPEN: "the coordinator compiles all rounds
+   into one digest (where they quit, what confused, what they said)." The card
+   collects and nothing reads. AND A FORMAT IS NOT PROVEN READABLE UNTIL
+   SOMETHING READS IT: if eight of these cannot be laid side by side, the time
+   to find that out is before the round, not after. */
+var cp = require('child_process');
+var os = require('os');
+var tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'bohround-'));
+function paste(name, beats, answers, words, ms) {
+  var r = B.blank();
+  r.build = 'DEMO - BUILD 8/28x - A BUILD'; r.seed = 2691674296; r.seedText = 'bohemia';
+  r.device = 'iPhone 13 390x844 @3 en-US'; r.ms = ms; r.day = 1; r.min = 900;
+  beats.forEach(function (b, i) { B.mark(r, b, { ms: Math.round(ms * (i + 1) / (beats.length + 1)) }); });
+  fs.writeFileSync(path.join(tmp, name), B.render(r, answers, words));
+}
+paste('a.txt', B.beatKeys(), { send: 'I already want to', work: 'none of it did', lost: 'I always knew' },
+  'the walk was long and i liked it', 1080000);
+paste('b.txt', ['open', 'up', 'rang', 'took'], { send: 'if it were finished', work: 'the phone', lost: 'the phone' },
+  'i didnt know the phone was a thing', 420000);
+paste('c.txt', ['open', 'up', 'rang'], { send: 'no', work: 'the morning', lost: 'the morning' }, '', 190000);
+fs.writeFileSync(path.join(tmp, 'junk.txt'), 'hey it was cool bro');
+var digest = '';
+try {
+  digest = cp.execFileSync('python3', ['tools/bohemia_read_the_round.py',
+    path.join(tmp, 'a.txt'), path.join(tmp, 'b.txt'),
+    path.join(tmp, 'c.txt'), path.join(tmp, 'junk.txt')], { encoding: 'utf8' });
+} catch (e) { digest = 'THREW: ' + String(e.message).slice(0, 200); }
+/* *** THE ROUND TRIP, WHICH IS THE ONLY CLAIM HERE THAT MATTERS. *** These
+   pastes are RENDERED BY THE MODULE THE CARD USES, never typed out in this
+   file: a hand-written paste would prove the reader can read my typing. */
+ok('*** WHAT THE CARD WRITES IS WHAT THE READER READS ***',
+  /3 pastes read/.test(digest)
+  && /the walk was long and i liked it/.test(digest)
+  && /i didnt know the phone was a thing/.test(digest),
+  (digest.match(/THIS ROUND: .*/) || ['no digest'])[0]);
+ok('it says where each one stopped, and how long they sat there',
+  /went to bed/.test(digest) && /took the job/.test(digest)
+  && /sat \d+m \d+s/.test(digest), (digest.match(/ +took the job +sat .*/) || [''])[0].trim());
+/* A PASTE WE COULD NOT READ IS A FINDING ABOUT US. Dropping it silently turns
+   eight testers into six and nobody notices. */
+ok('*** AN UNREADABLE PASTE IS REPORTED, NEVER QUIETLY DROPPED ***',
+  /1 UNREADABLE/.test(digest) && /junk\.txt/.test(digest));
+ok('and the one number that is not politeness is called out by name',
+  /would send it TODAY/.test(digest),
+  (digest.match(/-> .*would send it TODAY.*/) || [''])[0].trim());
+ok('every word anybody wrote is printed verbatim and unedited',
+  /VERBATIM AND UNEDITED/.test(digest));
+ok('and the page says what it cannot tell you, in the module\'s own words',
+  B.CANNOT.every(function (c) { return digest.indexOf(c) >= 0; }));
+/* NEVER RETYPED. A session that rewords a question must not leave this tool
+   quoting the old one, so the reader parses the module at run time. */
+ok('*** THE READER QUOTES THE CARD\'S OWN QUESTIONS, IT DOES NOT KEEP A COPY ***',
+  B.QUESTIONS.every(function (q) { return digest.indexOf(q.ask) >= 0; })
+  && digest.indexOf(B.WORDS.ask.toUpperCase()) >= 0);
+var readerSrc = fs.readFileSync('tools/bohemia_read_the_round.py', 'utf8');
+ok('and it refuses to guess if the card changes shape under it',
+  /will not guess/.test(readerSrc) && /engine\/bohemia_blackbox\.js/.test(readerSrc));
+ok('nothing anywhere in it is averaged into a score',
+  !/mean\(|average\(|sum\(.*\)\s*\/|score =/.test(readerSrc)
+  && /looks like evidence/.test(digest),
+  'five people is five people');
+try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (_e) {}
+
+/* ==========================================================================
    E..G  THE REAL SURFACE
    ========================================================================== */
 function requirePlaywright() {
@@ -318,7 +385,38 @@ function cityOf(page) {
       for (var i = 0; i < all.length; i++)
         if (all[i].textContent === 'the phone') { all[i].click(); break; }
       document.getElementById('fbwords').value = 'the phone took me ages to find';
-      document.querySelector('#daycardIn .fbgo').click();
+      /* *** AND THE BUTTON HAS TO BE THE THING UNDER THE THUMB. *** Found by
+         LOOKING at a screenshot rather than by any number: #daycard has been at
+         z-index 20 since it was built while the day-loop chips sit at 39, so
+         STANDING, CITY, BIKE and SLEEP were drawn straight through every card
+         the day loop shows. Measured the way RUN measured the phone: what does
+         the browser say is at this control's own centre. */
+      var inn3 = document.getElementById('daycardIn');
+      /* SCROLLED TO WHERE A TESTER ACTUALLY IS WHEN THEY PRESS IT. The first cut
+         of this claim measured the button where it sat on a freshly opened card,
+         which is below the fold and over nothing, so mutating the z-index back to
+         20 left it green. THE SAME MISTAKE AS THE SILENCE CLAIM, one section down
+         and an hour later: a claim has to be taken at the moment and the place
+         the bug happens, not at the moment that is convenient to measure. */
+      inn3.scrollTop = inn3.scrollHeight;
+      var go = document.querySelector('#daycardIn .fbgo');
+      var gr = go.getBoundingClientRect();
+      out.sendOnScreen = gr.top >= 0 && gr.bottom <= innerHeight && gr.width > 40;
+      /* *** NINE POINTS, NOT THE CENTRE. *** RUN's phone sweep reads a control's
+         own centre and that was right for a panel covering the whole screen.
+         MEASURED HERE at the broken z-index: EIGHT of nine points on this button
+         are the button and the ninth, its bottom left corner, is a chip. A
+         CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS MIDDLE
+         HAPPENS TO BE. Two cuts of this claim were green over a live bug before
+         the numbers were printed instead of assumed. */
+      out.sendHits = [];
+      [[0.1, 0.5], [0.3, 0.5], [0.5, 0.5], [0.7, 0.5], [0.9, 0.5],
+       [0.1, 0.15], [0.1, 0.85], [0.9, 0.15], [0.9, 0.85]].forEach(function (p) {
+        var e = document.elementFromPoint(gr.left + gr.width * p[0], gr.top + gr.height * p[1]);
+        out.sendHits.push(e ? (e.id || e.className || e.tagName) : 'nothing');
+      });
+      out.sendReachable = out.sendHits.every(function (n) { return n === 'fbgo'; });
+      go.click();
       return out; });
     ok('three questions and a box are on the glass', card.qs.length === 4 && card.box === true,
       card.qs.join(' | '));
@@ -328,6 +426,12 @@ function cityOf(page) {
     ok('an answer lights up', card.lit.length === 1, card.lit.join(''));
     ok('and tapping it again takes it back, because a thumb misses',
       card.untapped === 0);
+    ok('the send button is on screen where a tester scrolls to it',
+      card.sendOnScreen === true);
+    ok('*** AND NOTHING IS DRAWN THROUGH THE BUTTON A TESTER HAS TO PRESS ***',
+      card.sendReachable === true,
+      'nine points across it, and the browser finds: '
+      + (card.sendHits || []).filter(function (n, i, a) { return a.indexOf(n) === i; }).join(', '));
 
     await wait(500);
     var shell = await page.evaluate(function () {
