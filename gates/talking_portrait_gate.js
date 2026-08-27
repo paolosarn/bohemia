@@ -91,13 +91,77 @@ const N              = 60;
        is noise: the first run of this read 10% against a true 5% and would have
        failed a correct build. Sample size is part of the claim, so the share gets
        its own bigger walk. */
+    /* MEASURED AGAINST THE LIST THE HAIR ACTUALLY COMES FROM. The first cut of
+       this check read the alpha's portrait palette HAIR_COLORS -- but since
+       "one id, one whole person" (8/27) hair comes from NPCFactory, whose pink
+       is [196,150,150] and whose red is [200,60,40]. The old check therefore
+       searched for a colour NOBODY WEARS ANY MORE and reported a confident
+       0.0%, which is a check that has stopped watching anything.
+       A CHECK THAT CANNOT FIND THE THING IT IS LOOKING FOR REPORTS PERFECTION. */
     let dyed = 0;
-    const dyeSet = {};
-    for (const [n, v] of HAIR_COLORS) if (v && (n === 'violet' || n === 'pink')) dyeSet[v.join(',')] = 1;
     const NBIG = 600;
+    const dyeSet = { '196,150,150': 1, '200,60,40': 1 };   /* NPCFactory's pink and red */
     for (let i = 0; i < NBIG; i++) { const c = faceFor('gate:pop:' + i).hair.color;
       if (c && dyeSet[c.join(',')]) dyed++; }
     out.dyedPct = 100 * dyed / NBIG; out.dyedOf = NBIG;
+    /* and prove the ruler can SEE those colours at all, so a future palette
+       change makes this go red instead of quietly reading zero forever */
+    out.dyeColoursExistInFactory = (typeof NPC_FACTORY !== 'undefined') &&
+      NPC_FACTORY.hairColors.filter(c => c && dyeSet[c.join(',')]).length === 2;
+
+    /* ---- 1f. *** ONE ID, ONE WHOLE PERSON *** (Paolo 8/26: "eye colors matching
+       the portrait again"). THE PORTRAIT AND THE BODY MUST BE THE SAME PERSON.
+       Measured 8/27, before the fix, over 200 citizens:
+           SKIN agreed  8.0%
+           HAIR agreed  0.0%   -- not one person in two hundred
+           EYES: the portrait had 6 colours, the body had ONE for everybody, the
+                 PLAYER'S, because the body's facial ramp read `pface`.
+       So the face that popped up when somebody talked was a different person from
+       the body in front of you. faceFor now READS NPCFactory for skin and hair
+       (deleting the younger of two mechanisms, ENGINE SYNC LAW) and the body takes
+       the person's own iris/brow/lip through G.faceAs. */
+    let skinOK = 0, hairOK = 0;
+    const NAG = 200;
+    const effHair = (np) => { if (np.hairColor) return np.hairColor.join(',');
+      try { const r = PD_DATA.ramps[np.equipped.hair];
+            return (r && r.length) ? (r[Math.min(1, r.length - 1)] || r[0]).join(',') : 'null';
+      } catch (e) { return 'null'; } };
+    for (let i = 0; i < NAG; i++) { const id = 'gate:agree:' + i;
+      const np = NPC_FACTORY.npcFrom(id), fc = faceFor(id);
+      if (fc._tone && fc._tone[0] === np.skinToneName) skinOK++;
+      if (fc.hair.color && fc.hair.color.join(',') === effHair(np)) hairOK++; }
+    out.skinAgreePct = 100 * skinOK / NAG;
+    out.hairAgreePct = 100 * hairOK / NAG;
+    /* *** AND THE BODY MUST ACTUALLY DRAW THOSE EYES. ***
+       THE FIRST CUT OF THIS CHECK WAS VACUOUS AND A MUTATION CAUGHT IT: it asserted
+       that G.faceAs held a spec with an iris in it, which is true whether or not the
+       renderer ever looks at it. Reverting the body to `var _pf=pface` -- deleting
+       the entire feature -- left this gate at 27/0.
+       A GATE THAT PASSES WITH THE FEATURE DELETED IS NOT A GATE, and this is the
+       second time this session I have written one (the other was the every-garment-
+       appears sweep on 8/26). The tell is the same both times: THE CHECK LOOKED AT
+       THE INPUT INSTEAD OF THE OUTPUT.
+       So: render a real body wearing somebody else's face and count the iris pixels
+       the renderer actually put down. */
+    const keepFace = G.faceAs, keepEq2 = G.equipped, keepVar2 = G.bodyVar, keepWorn2 = window.G_WORN;
+    const other = faceFor('gate:agree:3');
+    const npEq = NPC_FACTORY.npcFrom('gate:agree:3').equipped;
+    const irisPix = (spec) => {
+      G.equipped = npEq; G.bodyVar = {}; window.G_WORN = {};
+      G.faceAs = spec;
+      try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+      const fr = buildFrame('S', 'idle', 0);
+      const want = (spec ? spec.eyes.iris : pface.eyes.iris).map(v => v * 0.55 | 0);
+      let n = 0;
+      for (let i = 0; i < fr.px.length; i++) { const c = fr.px[i]; if (!c) continue;
+        if (c[0] === want[0] && c[1] === want[1] && c[2] === want[2]) n++; }
+      return n;
+    };
+    out.playerIrisPixels = irisPix(null);          /* the player's own eyes, drawn */
+    out.otherIrisPixels  = irisPix(other);         /* somebody else's, drawn */
+    out.otherIrisDiffers = other.eyes.iris.join(',') !== pface.eyes.iris.join(',');
+    G.faceAs = keepFace; G.equipped = keepEq2; G.bodyVar = keepVar2; window.G_WORN = keepWorn2;
+    try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
 
     /* 1e. A CHILD IS NOT A SMALL ADULT. */
     const kid = faceFor('gate:kid', { age: 'child' }), grown = faceFor('gate:kid', { age: 'adult' });
@@ -163,9 +227,20 @@ const N              = 60;
   ok('THE SAME PERSON IS THE SAME PERSON, on any device, with nothing stored', R.deterministic);
   ok('*** EVERY DIAL MOVES THE PIXELS *** (a dial stuck on one value is a comment' +
      (R.deadDials.length ? ' -- DEAD: ' + R.deadDials.join(', ') : '') + ')', R.deadDials.length === 0);
+  ok('the dye check is looking at colours that actually exist in the factory ' +
+     '(a check that cannot find its target reports perfection)', R.dyeColoursExistInFactory);
   ok('dyed hair is rare enough to be a statement (' + R.dyedPct.toFixed(1) + '% of ' + R.dyedOf + ' <= ' + DYE_CAP + '%)',
      R.dyedPct <= DYE_CAP);
   ok('a child is not a small adult (bigger cranium, shorter face)', R.childDiffersFromAdult);
+  ok('*** ONE ID, ONE WHOLE PERSON: the portrait\'s SKIN is the body\'s skin *** (' +
+     R.skinAgreePct.toFixed(1) + '% of 200, was 8.0%)', R.skinAgreePct >= 99.5);
+  ok('*** and the portrait\'s HAIR is the body\'s hair *** (' + R.hairAgreePct.toFixed(1) +
+     '% of 200, was 0.0% -- not one person)', R.hairAgreePct >= 99.5);
+  ok('*** AND THE BODY ACTUALLY DRAWS SOMEBODY ELSE\'S EYES *** (their iris on the ' +
+     'rendered body: ' + R.otherIrisPixels + 'px; the player\'s own: ' + R.playerIrisPixels +
+     'px) -- measured on pixels, because the first version of this check looked at ' +
+     'the input and passed with the whole feature deleted',
+     R.otherIrisDiffers && R.playerIrisPixels > 0 && R.otherIrisPixels > 0);
 
   /* ---- 2 ----------------------------------------------------------------- */
   ok('the cold open has a face canvas beside its words', R.canvasExists);

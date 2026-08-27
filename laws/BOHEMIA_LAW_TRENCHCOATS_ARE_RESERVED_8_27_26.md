@@ -88,7 +88,7 @@ coat stops being background noise, putting one on somebody becomes a statement.
 |---|---|---|
 | every person in the city | ~20% | **~1.5%** |
 | of the people who wore any coat | ~45% | **~3%** |
-| factions wearing one | 5 of 13 | **3 of 13** |
+| factions wearing one | 5 of 13 | 3 of 13 → **1 of 13** (amended, below) |
 
 **ROUNDED ON PURPOSE.** Three separate 5,000-person samples read 1.66% / 1.38% /
 1.34%. The honest number is "about one and a half", not whichever of the three a
@@ -100,9 +100,9 @@ The two factions that lost theirs are the two I mis-dressed on 8/26: **Blues** �
 COBALT CHORE COAT, **Colorful** → GRASS CAR COAT. Both are now in the new hip/thigh
 bands and both kept their faction colour, so COLOUR IS TERRITORY (8/26) is intact.
 
-**Anarchists, Reds and Remnants keep their long coats**, because each one's own
-`why` line is *about the coat*. Those three are the badasses. Who else earns one is
-**HIS** to say (MECHANISM-MINE / CONTENTS-PAOLO'S).
+~~**Anarchists, Reds and Remnants keep their long coats.**~~ **AMENDED THE SAME DAY
+to Anarchists alone (1 of 13 = 7.7%)** — see the foot of this file. Who that one is
+remains **HIS** to say (MECHANISM-MINE / CONTENTS-PAOLO'S).
 
 ## THE GATE
 
@@ -126,8 +126,13 @@ picker, not on the catalogue:
    **14.4%**. That gap *is* the feature. Separately mutation-proved by hand on
    8/27: deleting the filter line from the picker turns three of the nine checks
    red. A gate that still passes with the feature deleted is not a gate.
-6. **FACTIONS ARE NOT CAPPED.** The gate never reads `FACTION_LOOKS`. Faction dress
-   is his, and a machine must never overrule a ruling (8/1).
+6. ~~**FACTIONS ARE NOT CAPPED.** The gate never reads `FACTION_LOOKS`.~~
+   **SUPERSEDED THE SAME DAY — see the amendment at the foot of this file.** He
+   ruled 10% *"no matter what"*, which includes the thirteen. This clause is left
+   visible rather than deleted because it is the exact sentence that let a 23%
+   faction share sit under a green gate all morning: **an exemption I wrote for
+   myself, stated as a principle.** Faction *dress* is still his; a *ceiling he set*
+   is not something the gate gets to exempt anybody from.
 
 ## WHAT THIS LAW DOES NOT DO
 
@@ -148,3 +153,74 @@ you end up with a city where nobody owns a coat.
 Tab: **CHARACTER** (the outfit board) and **RUN** (the crowd on the street).
 Picture: `slices/look/the-trenchcoat-rule.png`.
 Record: `records/BOHEMIA_TRENCHCOATS_ARE_RESERVED_8_27_26.txt`.
+
+---
+
+# AMENDED THE SAME DAY — 10% NO MATTER WHAT, AND THE REASON IS THE DESERT
+
+## HIS WORDS (Paolo, 8/27, hours after the ruling above)
+
+> "BRO NEW RULE ONLY 10% OF PEOPLE NO MATTER WHAT MAXIMUM CAN WEAR TRANCH COATS
+> THAT ARE LONG LIKE THAT OKAY. **THIS IS A DESSERT GAME. ITS HOT!!!!**"
+
+and, in the same breath:
+
+> "YOU DONT NEED TO SEE IT SO MUCH FACTION BASED BRO"
+
+## WHAT I HAD MISSED, AND THE GATE HAD MISSED WITH ME
+
+The morning's fix took the random crowd from ~20% to ~1.5% and I reported that as
+done. **The factions were still at 3 of 13 — 23% — and the gate never looked at
+them,** because I wrote it to hold the RANDOM population and said so in its own
+header as though that were a virtue.
+
+**A cap that exempts the loudest, most-seen people in the game is not a cap.** The
+faction outfits are the most repeated silhouettes a player meets; putting the coat
+there is exactly where a 23% reads as "everyone has one" no matter what the crowd
+number says. His two sentences are one instruction: the long coat had quietly become
+a *faction uniform*, which is both over his ceiling and the wrong way to spend it.
+
+## THE NUMBER IS HIS AND IT IS NOT A RATCHET
+
+**10% of ANYBODY. Crowd, factions, named characters, all of it.** "No matter what"
+means I do not get to argue the exemption I had already written for myself.
+
+| | before | after |
+|---|---|---|
+| the random crowd | 1.4% | **1.4%** (already inside) |
+| the thirteen factions | 3 of 13 = **23%** | **1 of 13 = 7.7%** |
+
+Reds → **BRICK CAR COAT** (thigh), Remnants → **SPLIT-TAIL WORK COAT** (hip). Both
+are the **same ramp** at a shorter length, so COLOUR IS TERRITORY (8/26) is untouched
+and a faction named for a colour still wears it. **Anarchists keep the duster**,
+because their whole `why` line is the silhouette — and one of thirteen is inside his
+number. Who that one is remains **HIS**.
+
+## AND THE REASON IS BETTER THAN THE RULE
+
+> "THIS IS A DESSERT GAME. ITS HOT!!!!"
+
+Las Vegas summers run past 40°C. **A floor-length coat in that valley is a
+heat-stroke garment.** That is not taste, it is physics, and it upgrades the morning's
+rule: the long coat is not merely RESERVED, it is **climatically absurd on anybody who
+is not making a point with it.**
+
+Which is the same thing he said the first time, arrived at from the other end. A
+person wearing a duster at noon in the Mojave is telling you they care more about how
+they look than about being comfortable — **and that is precisely what "for badass
+motherfuckers" means.** The heat is what makes the coat cost something, and a garment
+that costs nothing to wear cannot signal anything. **The two rulings are one ruling.**
+
+REALISM FIRST (8/4) is satisfied without spending any of the fun: this is a case where
+the real-world constraint *is* the dramatic one.
+
+## THE GATE NOW HOLDS BOTH HALVES
+
+`gates/trenchcoat_gate.js` gained three checks: the **faction share** against his 10%,
+the **crowd share** against the same hard ceiling, and one that fails if this law stops
+recording **why** — because a number with its reason deleted is the thing that rots
+first.
+
+*Open: the heat should eventually cost something in the simulation, not just in the
+wardrobe. A coat at noon in a valley this hot is a stamina question, and that is a
+COMBAT/LIFE row, not a clothing one.*

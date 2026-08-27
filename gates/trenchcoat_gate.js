@@ -30,9 +30,32 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
 const done = () => { console.log('\n=== TRENCHCOAT GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
 
-/* THE PINS. Shares are CEILINGS that may only fall; band counts are FLOORS that may
-   only rise. Both were taken the day the law was written, off the numbers below. */
-const CROWD_CAP  = 4.0;   /* % of everybody. measured 1.6 */
+/* *** HIS HARD CAP, 8/27, SECOND RULING OF THE DAY: ***
+     "ONLY 10% OF PEOPLE NO MATTER WHAT MAXIMUM CAN WEAR TRENCH COATS THAT ARE LONG
+      LIKE THAT OKAY. THIS IS A DESSERT GAME. ITS HOT!!!!"
+   and, in the same breath: "YOU DONT NEED TO SEE IT SO MUCH FACTION BASED BRO".
+
+   TWO THINGS CHANGED AND THE SECOND IS THE ONE THAT BIT.
+   1. He gave a NUMBER, and "no matter what" means it is not a ratchet I get to
+      argue with -- 10% is the ceiling and HARD_CAP below is it.
+   2. "NO MATTER WHAT" ALSO MEANS IT COUNTS THE FACTIONS. The random crowd was
+      already at 1.4%, comfortably inside. THE FACTIONS WERE AT 23% -- three of
+      thirteen in floor-length coats -- and the first version of this gate never
+      looked at them, because it was written to hold the RANDOM population and
+      said so proudly. A cap that exempts the loudest, most-seen people in the
+      game from the cap is not a cap.
+
+   AND HE GAVE THE REASON, WHICH IS BETTER THAN THE RULE: IT IS A DESERT AND IT IS
+   HOT. Las Vegas summers run 40C+ and a floor-length coat is a heat-stroke garment.
+   That is not taste, it is physics, and it means the long coat is not merely
+   RESERVED (8/27 morning) but CLIMATICALLY ABSURD on anybody who is not making a
+   point with it. A person in a duster at noon in the valley is telling you they
+   care more about how they look than about being comfortable, which is exactly
+   what "for badass motherfuckers" means. The two rulings are the same ruling. */
+const HARD_CAP   = 10.0;  /* % of ANYBODY, crowd or faction. HIS number, 8/27. */
+const FACTION_CAP= 10.0;  /* the same number, applied to the 13 */
+const CROWD_CAP  = 4.0;   /* % of the random crowd. measured 1.4 -- tighter than his
+                             ceiling on purpose: the crowd is where volume lives */
 const COAT_CAP   = 12.0;  /* % of the people who wear ANY outer garment. measured 3.5 */
 const LONG_LEN   = 0.70;  /* at or past this, it is a long coat and must be tagged */
 const HIP_MIN    = 6;     /* garments with 0.20 <= len < 0.45 */
@@ -73,6 +96,10 @@ const N          = 3000;
 
     const live = walk();
 
+    /* THE FACTIONS COUNT TOO. This is the half the first gate did not hold. */
+    const FL = window.FACTION_LOOKS || [];
+    const facLong = FL.filter(f => f.worn && LONGSET[f.worn.outer]);
+
     /* MUTATION: is the reservation actually load-bearing? Re-run the walk with every
        `hard` flag stripped. If the number does not move, the filter is dead code and
        this gate would be passing on a feature that is not there. */
@@ -81,7 +108,9 @@ const N          = 3000;
     const noFlag = walk();
     outer.forEach((g, i) => { if (saved[i]) g.hard = saved[i]; });
 
-    return { bands, untagged, live, noFlag, nOuter: outer.length };
+    return { bands, untagged, live, noFlag, nOuter: outer.length,
+             factions: FL.length, factionsLong: facLong.length,
+             factionsLongNames: facLong.map(f => f.faction) };
   }, { LONG_LEN, N });
   await b.close();
 
@@ -122,6 +151,22 @@ const N          = 3000;
   ok('MUTATION: delete the reservation and the trenchcoats come back (' + pctAll.toFixed(1) +
      '% -> ' + mutPct.toFixed(1) + '%)', mutPct > pctAll * 3 && mutPct > 8);
 
+  /* ---- 5b. *** HIS HARD CAP: 10% OF ANYBODY, NO MATTER WHAT (8/27) *** -----
+     The crowd was never the problem by the time he said it -- the FACTIONS were,
+     at 3 of 13. He also said "you dont need to see it so much faction based", and
+     those two sentences are one instruction: the long coat had become a faction
+     uniform, which is both over his ceiling and the wrong way to spend it. */
+  const facPct = 100 * R.factionsLong / Math.max(1, R.factions);
+  ok('*** ONLY 10% OF ANYBODY WEARS A LONG COAT, NO MATTER WHAT (his number, 8/27) *** ' +
+     '-- factions: ' + R.factionsLong + ' of ' + R.factions + ' = ' + facPct.toFixed(1) + '% <= ' +
+     FACTION_CAP.toFixed(0) + '%' + (R.factionsLongNames.length ? ' (' + R.factionsLongNames.join(', ') + ')' : ''),
+     facPct <= FACTION_CAP);
+  ok('and the random crowd is inside the same hard cap (' + pctAll.toFixed(1) + '% <= ' +
+     HARD_CAP.toFixed(0) + '%)', pctAll <= HARD_CAP);
+  ok('IT IS A DESERT AND IT IS HOT: the law records the reason, not just the number',
+     /DESERT|desert/.test(require('fs').readFileSync(
+       path.join(__dirname, '../laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md'), 'utf8')));
+
   /* ---- 6. THE COAT IS NOT DELETED ----------------------------------------
      He never asked for fewer coats, he asked for fewer coats ON STRANGERS. Every one
      of them is still in the game and still wearable in the CHARACTER tab. */
@@ -138,6 +183,8 @@ const N          = 3000;
   console.log('    thigh  ' + String(R.bands.thigh.length).padStart(3) + '   ' + R.bands.thigh.join(', ').toLowerCase());
   console.log('    floor  ' + String(R.bands.long.length).padStart(3) + '   RESERVED');
   console.log('  street:  ' + pctAll.toFixed(1) + '% of everybody, ' + pctCoat.toFixed(1) + '% of coat-wearers');
+  console.log('  factions: ' + R.factionsLong + ' of ' + R.factions + ' = ' + facPct.toFixed(1) +
+              '% (his hard cap is ' + FACTION_CAP.toFixed(0) + '%)');
   console.log('  with the reservation deleted it would be ' + mutPct.toFixed(1) + '% -- that gap IS the feature');
   if (pctAll < CROWD_CAP - 1)
     console.log('  *** WELL UNDER THE CAP. Lower CROWD_CAP toward ' + (pctAll + 0.5).toFixed(1) + ' once the wardrobe settles. ***');

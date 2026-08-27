@@ -134,11 +134,13 @@ const OUT = path.join(REPO, 'slices/look/the-trenchcoat-rule.png');
 
     /* ---- ROW 3: THE RAIL IS STILL THERE, it is just reserved ---- */
     cx.fillStyle = '#c98a6a'; cx.font = 'bold 16px monospace';
-    cx.fillText('AND THE COAT IS STILL THERE  --  three factions wear one on purpose', PAD, y - 10);
-    const KEEP = [['Anarchists','SPLIT-TAIL DUSTER'], ['Reds','BRICK LONGCOAT'],
-                  ['Remnants','SPLIT-TAIL DUSTER'], ['','WASTELAND DUSTER'],
+    cx.fillText('AND THE COAT IS STILL THERE  --  ONE faction wears it, and the rest is earned', PAD, y - 10);
+    /* ONE faction, then the rail. He capped it at 10% of ANYBODY on 8/27 --
+       "THIS IS A DESSERT GAME. ITS HOT" -- and the factions were at 23%. */
+    const KEEP = [['Anarchists','SPLIT-TAIL DUSTER'], ['','WASTELAND DUSTER'],
                   ['','SOOT TRENCH'], ['','STORM GREY LONGCOAT'],
-                  ['','SLATE TRENCH'], ['','KHAKI DUSTER']];
+                  ['','SLATE TRENCH'], ['','KHAKI DUSTER'],
+                  ['','BONE DUSTER'], ['','BRICK LONGCOAT']];
     KEEP.forEach(([who, n], i) => {
       const x = PAD + i * (cw + PAD);
       const fl = (window.FACTION_LOOKS || []).filter(f => f.faction === who)[0];
@@ -156,9 +158,9 @@ const OUT = path.join(REPO, 'slices/look/the-trenchcoat-rule.png');
        so the honest sentence is "about one and a half", not whichever of the three I
        happened to draw this row from. A picture quoting two decimals off one sample is
        telling him a precision the measurement does not have. */
-    cx.fillText('across the whole city: about 20% of people were in a trenchcoat. it is about 1.5% now.', PAD, cv.height - 56);
-    cx.fillText('the coat is still there. it is just on the people it should be on, and three', PAD, cv.height - 36);
-    cx.fillText('factions still wear one on purpose. who else earns it is yours to say.', PAD, cv.height - 16);
+    cx.fillText('about 20% of people were in one. it is about 1.5% now, and ONE faction of thirteen', PAD, cv.height - 56);
+    cx.fillText('still wears it -- 7.7%, inside the 10% you set. the desert is the reason: a', PAD, cv.height - 36);
+    cx.fillText('floor-length coat at 40 degrees is a statement, which is what makes it cost something.', PAD, cv.height - 16);
     return cv.toDataURL('image/png').split(',')[1];
   });
 
