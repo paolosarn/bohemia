@@ -585,9 +585,23 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    goes. IDENTICAL to the bug RUN fixed for the phone on 8/25 and one the sweep that
    was supposed to catch the general case could not see, because its list of panels
    is typed by hand and this one was never on it.
-   51, NOT 50: a card is an interruption and it has to be answerable, so it sits one
-   above the panel it can interrupt. Nothing else moves. */
-#daycard{position:absolute;inset:0;z-index:51;display:none;align-items:center;justify-content:center;
+   *** AND IT IS 40, NOT 51, AND THAT COST A GATE TO LEARN. *** The first cut applied
+   the rule literally and put it in the takeover band at 51. That INVERTED two
+   relationships nothing had asked me to touch: the person card is 41 and the phone is
+   50, and cardfold_gate came back with the browser's own words, "#daycard subtree
+   intercepts pointer events" on a tap that had always landed. MOVING WHERE SOMETHING
+   SITS IS A LAYERING CHANGE, AND EVERYTHING THAT DEPENDED ON THE OLD POSITION HAS TO
+   BE FOUND AND MOVED WITH IT -- the sentence is in this file already, ten lines from
+   here, written by the lane that learned it, and I did the moving without doing the
+   finding.
+   40 is the SMALLEST move that fixes the defect that was actually measured: above the
+   chip column at 39, below the person card at 41, below the phone at 50. Nothing else
+   changes position.
+   WHAT IS LEFT UNDONE, SAID OUT LOUD: by the rule below, #daycard belongs in the
+   takeover band, and putting it there means moving the person card and the phone with
+   it. That is a whole-stack change and it belongs to the lane that owns them, not to a
+   feedback card. */
+#daycard{position:absolute;inset:0;z-index:40;display:none;align-items:center;justify-content:center;
   background:rgba(6,5,4,.86);padding:14px}
 #daycard.on{display:flex}
 /* __THE_ROAD_CARD_IS_NOT_A_LOCK__ (8/27): A ROAD MOMENT IS SOMETHING YOU READ, NOT SOMEWHERE

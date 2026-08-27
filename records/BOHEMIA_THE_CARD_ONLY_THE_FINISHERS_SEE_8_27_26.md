@@ -191,9 +191,29 @@ says "only this one covers the stage today", and that was not true when it was
 written. The sweep that was supposed to catch the general case runs over a list
 of panel ids typed by hand, and `#daycard` was never on it.
 
-`#daycard` is 51 now, one above the panel it can interrupt, because a card is an
-interruption and it has to be answerable. `daycard` is on that sweep's list now
-too, one word, so the machine holds it rather than the next person's eyes.
+**AND THE FIRST FIX WAS TOO BIG, WHICH THE MACHINE HAD TO TELL ME.** I applied
+the rule literally and put `#daycard` in the takeover band at 51. That inverted
+two relationships nothing had asked me to touch: the person card is 41 and the
+phone is 50. `cardfold_gate` came back with the browser's own words, "#daycard
+subtree intercepts pointer events", on a tap that had always landed.
+
+The sentence that names the mistake was already in that file, ten lines from
+where I was typing, written by the lane that learned it two days earlier:
+MOVING WHERE SOMETHING SITS IS A LAYERING CHANGE, AND EVERYTHING THAT DEPENDED
+ON THE OLD POSITION HAS TO BE FOUND AND MOVED WITH IT. I did the moving and not
+the finding, in the same week, in the same file, one z-index over.
+
+`#daycard` is **40**: above the chip column at 39, below the person card at 41,
+below the phone at 50. The smallest move that fixes the defect that was actually
+measured, and nothing else changes position. `daycard` is on that sweep's list
+now too, one word, so the machine holds it rather than the next person's eyes.
+
+WHAT IS LEFT UNDONE, SAID OUT LOUD RATHER THAN QUIETLY: by the written rule,
+`#daycard` belongs in the takeover band, and putting it there means moving the
+person card and the phone with it. That is a whole-stack change and it belongs
+to the lane that owns those panels, not to a feedback card.
+
+CARD FOLD after the correction: 18/0. FIRST MORNING: 19/0. FEEDBACK: 65/0.
 
 **AND THE CLAIM I WROTE FOR IT WAS GREEN OVER THE LIVE BUG TWICE.** First
 because it measured the button on a freshly opened card, where it sits below the

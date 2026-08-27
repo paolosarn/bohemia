@@ -1655,9 +1655,23 @@ written three hundred lines below it in the same file: chrome 6..45, TAKEOVER
 PANELS 50 and up. Their note says "only this one covers the stage today" and
 that was not true when it was written, and the sweep that catches the general
 case runs over a list of panel ids TYPED BY HAND that #daycard was never on.
-FIXED: #daycard is 51 (one above the panel it can interrupt, because a card is
-an interruption and has to be answerable) and `daycard` is on that sweep's list
-now, one word, nothing else touched. THE FIRST MORNING gate re-run: 19/0.
+*** AND MY FIRST FIX WAS TOO BIG AND THE MACHINE HAD TO TELL ME. *** I applied
+the rule literally and put #daycard in the takeover band at 51, which INVERTED two
+relationships nothing had asked me to touch: the person card is 41 and the phone
+is 50. cardfold_gate came back with the browser's own words, "#daycard subtree
+intercepts pointer events", on a tap that had always landed. The sentence that
+names the mistake was already in that file TEN LINES FROM WHERE I WAS TYPING,
+written by the lane that learned it two days earlier: MOVING WHERE SOMETHING SITS
+IS A LAYERING CHANGE, AND EVERYTHING THAT DEPENDED ON THE OLD POSITION HAS TO BE
+FOUND AND MOVED WITH IT. I did the moving and not the finding.
+FIXED AT 40: above the chip column at 39, below the person card at 41, below the
+phone at 50 -- the smallest move that fixes the defect that was actually measured,
+nothing else changes position. `daycard` is on that sweep's list now, one word.
+LEFT UNDONE AND SAID OUT LOUD: by the written rule #daycard belongs in the
+takeover band, and putting it there means moving the person card and the phone
+with it. That is a whole-stack change and it belongs to the lane that owns those
+panels, not to a feedback card.
+CARD FOLD 18/0 - FIRST MORNING 19/0 - FEEDBACK 65/0 after the correction.
 AND MY CLAIM FOR IT WAS GREEN OVER THE LIVE BUG TWICE -- first measuring the
 button on a freshly opened card where it sits below the fold and over nothing,
 then, scrolled to where a tester is, reading its CENTRE: eight of nine points on
@@ -1713,10 +1727,48 @@ five people is five people and a mean of five opinions looks like evidence.
   RECORD: records/BOHEMIA_THE_CARD_ONLY_THE_FINISHERS_SEE_8_27_26.md
   Row 0f is closed in BOHEMIA_BACKLOG.md and item D of the demo gap list.
 
+THE GATE PASS: 458 gates, two shards, 42 red, NONE OF THEM MINE and every one
+checked. FIRST MORNING went red in the pack and GREEN WHEN RUN ALONE, which was
+MY OWN FAULT: I ran three browser probes DURING the pass, and the suite's
+confirm-alone step is the only reason that did not get shipped as a mystery. DO
+NOT RUN A BROWSER WHILE THE SUITE IS RUNNING. INSTALL CARD is red on main's own
+city at 790b3ce, tested by checking that file out and running the gate against
+it, so it is standing and not this turn's. CARD FOLD was mine and is fixed above.
+Mine, all green: FEEDBACK 65/0, CONVERSATION 39/0, ADDRESS 41/0, CASTING 26/0,
+ENDING 26/0, CARD FOLD 18/0, FIRST MORNING 19/0.
+
 WHAT COMES AFTER, and it is not code: INVITE. The protocol has been written and
 waiting since 8/11. Five to eight people he trusts to be honest, at least two of
 whom are not gamers, on their own phones, no explanation from him beyond "play
 this". Each sends him one paste. HE NEVER GIVES ANYBODY THE WORKSHOP LINK.
+
+AND THE NEXT BUILD IS ALIVE-1, MEASURED THIS TURN AND NOT YET SHIPPED. Paolo's
+dispatch item 5: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT ... THE CITY SEEMS
+DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT." Measured on the real demo,
+standing where day one starts, block 12,12, 06:00, at the shipped dial of 1:
+    census in the player's own block             2 people
+    census in the whole 3x3 around him           4 people
+    bodies actually drawn on a 600 step walk     1
+    the id of that one body        12:12:900, archetype "watch"
+    the same block with the dial at 20          21 people
+*** THE ONE PERSON THE ENGINE EVER DRAWS IS A WATCH, AND HE SAID HE SAW ONE
+WATCH PERSON. The measurement and his sentence are the same body. ***
+TWO PROBE MISTAKES WORTH KEEPING, both the same class: sweeping the dial 1 to 20
+gave the identical number five times because PPL_PEOPLE is busted only by
+rulesVersion() and the dial does not clear it (A PROBE THAT CHANGES AN INPUT THE
+CACHE DOES NOT WATCH IS MEASURING THE CACHE); and sweeping the hours gave the
+identical number at every hour, which is not yet explained and is UNMEASURED
+rather than measured-flat. peoplePass has no cap of its own, so the draw budget
+(dialCap = max(24, min(240, 24*dial)) = 24 at dial 1) is not the limit here and
+raising the dial should reach the glass. STILL TO MEASURE BEFORE ANY NUMBER
+MOVES: the hour, and the frame cost at 390x844, because dispatch item 7 is
+performance and a livelier city must not be bought with the frame.
+The row grants the number: "how many = mine to pick, he corrects." The module's
+own landmarks are nobody 0 / today 1 / scale 1.1 / story 20 (GDD v5's ~69,000).
+Second half of the row, research already banked, section 3 of
+records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md: TIER 1, THE
+FED. Ravens, rats, flies, single coyotes. "Set dressing that moves, and it is the
+cheapest fix on this list for the loudest complaint on his list."
 
 --------------------------------------------------------------------------------
 PEOPLE (people-7h9sfy): 8/27 (a) -- *** THE DEMO HAS AN ENDING NOW, AND
