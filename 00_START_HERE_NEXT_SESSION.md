@@ -1,3 +1,82 @@
+FACTIONS (factions-ovkjpf): 8/26 (ad) LATEST -- *** YOUR OUTFIT EARNS ITS OWN
+ENEMIES NOW, AND THERE IS A BOARD TO SEE THEM ON. Nothing to judge. ***
+
+TAB: **RUN**. New chip in the topbar beside PHONE: **⚔ OUTFIT**. It rings the
+moment a commitment makes your outfit an enemy.
+
+THE RULING (Paolo 8/26)
+  "custom is your own personal faction!!!!!! ... the values arent just for you
+   its for how your factions treated bro."
+  Last turn did the OTHER outfits' wars. This turn does YOURS.
+
+THE RULE IS DAVIS 1967, WEAK STRUCTURAL BALANCE, and the choice of theory IS
+the design. Heider/Cartwright-Harary strong balance implies "the enemy of my
+enemy is my friend". Davis dropped exactly that: the ONLY implausible triad is
+the one with EXACTLY TWO POSITIVE EDGES, and the data agrees (two-positive
+triads are massively underrepresented in real signed networks, all-negative
+ones are OVERrepresented). So one inference is licensed:
+    you(+)Cartel, Cartel(-)Remnants  ->  you(-)Remnants
+THE ENEMY OF MY FRIEND IS MY ENEMY, and nothing else. The refusal is the point:
+being at odds with somebody NEVER hands you an ally. A strong-balance version
+would have manufactured alliances out of arithmetic, which is writing his lore.
+
+AND WHY THE OUTFIT CARRIES IT: TIROLE 1996, COLLECTIVE REPUTATIONS -- "new
+members of an organization may suffer from an original sin of their elders long
+after the latter are gone." In a three-generation game that is the save file.
+
+AN EARNED ENEMY IS A REPUTATION, NOT A FINE. whoHears() now asks watchers()
+instead of ripples(), which adds the second reason an outfit finds out with no
+chain: they have been watching YOU since the day you made them. Measured: side
+with the Cartel, then commit to the CHURCH (who the Remnants have no quarrel
+with at all) and it STILL reaches them, at 4 against a flat 2, forever.
+
+HOSTILE AND WARM ARE NOT EARNED ON THE SAME TERMS. Hostile lands at `sided`
+(siding is public by this game's own words). Warm costs `burned` -- you have to
+have actually paid something. The cheap half only ever makes you enemies.
+
+*** AND NOBODY IS BORN IN THE PLAYER'S OWN GANG ANY MORE. *** Measured: a
+census of every base cell had TWO STRANGERS running with CUSTOM, the outfit he
+named in capitals, which the player has not formed or recruited anybody into.
+They joined by living near its base. Fixed at the ASSIGNMENT, never on the map
+(MAP LAW -- the base stays, it is YOUR base). They went to Colorful, which
+holds that ground; total affiliated count unchanged.
+
+WHAT SHIPPED
+  engine/bohemia_between.js         + earn(), watchers(), weighRel(), the
+                                      earned layer. Authored canon always wins,
+                                      enforced by control flow.
+  engine/bohemia_commitment.js      whoHears asks watchers(); costs weighs by
+                                      the edge that is actually charging you
+  tools/bohemia_city_outfit_patch.py  the wire + the board
+  gates/faction_between_gate.js     65 claims, 0 failed (was 40). Parts H/I/J
+                                      new; ten press the REAL commit button in
+                                      a real browser and ask what the world
+                                      became. 8 mutations, all bite.
+  records/BOHEMIA_YOUR_OUTFIT_EARNS_ITS_ENEMIES_8_26_26.md
+
+TWO OF MY OWN CLAIMS PASSED FOR THE WRONG REASON and mutation found both. H2
+asserted "a siding buys no friends" while siding with the CARTEL, who have no
+warm relation at all, so it passed no matter what the rule did. H6 asserted
+canon beats an earned edge while planting the edge on a DIFFERENT PAIR than the
+one it asked about. A CLAIM THAT CANNOT FAIL IS NOT A CLAIM.
+
+FACTION ARC WENT 93 -> 91 CLAIMS AND THAT IS THE FIX WORKING, not lost cover.
+Its F section runs two claims PER OUTFIT YOU CAN MEET and Custom is correctly
+no longer one. F1's floor (>= 4 outfits) still passes.
+
+THE FLEET SHOULD KNOW: SIX OF FOURTEEN OUTFITS HAVE NOBODY AT THEIR OWN BASE,
+and for four of them it is arithmetic, not a bug. People living in each base's
+cell: Anarchists 1, Blues 1, Remnants 1, Caravans 2, Mob 3. At an affiliation
+rate of 0.30 that is an expected 0.3-0.6 affiliates, who must then pick THAT
+base out of everything within REACH_CELLS (12). Empty is the maths working.
+That is a PLACEMENT/POPULATION fact; AFFILIATED_RATE and REACH_CELLS are
+[PENDING Paolo] and MAP LAW forbids moving a base, so it is recorded not fixed.
+The consequence worth naming: you can now earn the Remnants as an enemy and
+never meet a Remnant. The board still says they exist and are watching, so it
+degrades into a fact rather than into nothing.
+
+--------------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 8/26 (c) LATEST -- *** HE OPENED THE UI TAB AND IT WAS BROKEN, AND
 BOTH THINGS HE SAID WERE RIGHT. The break was one CSS shape his phone drops and
 five other slices already avoid. The vote was supposed to be THUMBS and I invented
