@@ -1,0 +1,148 @@
+THREE RULERS AND TWO OF THEM COULD NEVER FAIL
+8/27/26 - RUN lane
+================================================================================
+
+WHAT WENT RED, AND IT WAS NOT THE GAME.
+
+gates/see_through_while_moving_gate.js held eleven claims. One of them went red
+on main:
+
+    "and the fade is aimed at him rather than being a filter over the whole
+     world (1044 of 3624 elsewhere solid)"
+
+It wanted more than half of every non-covering facade draw to be fully solid.
+It read 29%. When the gate shipped on 8/25 it read 3145 of 3771, which is 83%.
+
+THE LAW WAS NEVER BROKEN. THE RULER WENT OUT OF DATE.
+
+--------------------------------------------------------------------------------
+WHY THE NUMBER MOVED
+--------------------------------------------------------------------------------
+
+On 8/26 a lane built the thing Paolo asked for in the playtest dispatch, item
+one: "the wall changed under him AND there is no wall-opacity system at all,
+though he thinks there is -- build the fade."
+
+So it got built. XRAY_R is 5. Every wall within five cells of him now ramps open
+whether or not it is covering him, and xrayEase carries the value across frames
+instead of snapping it. That is a deliberate five-cell aperture that follows him
+around, and there are a LOT of facade draws inside five cells of a person.
+
+The old claim averaged over the whole screen. A correct new feature dragged a
+whole-screen average under a whole-screen threshold. Measured by distance, the
+build was doing exactly what the law says:
+
+    within XRAY_R (5)    20% solid     the aperture, on purpose
+    6 to 12              82% solid     the ease, trailing off
+    13 to 30            100% solid
+    beyond 30           100% solid
+
+THE FADE IS LOCAL TO HIM. That is the law. The gate just stopped being able to
+see it.
+
+FIX THE RULER, NEVER THE TARGET (8/1). This is that, and it is worth saying that
+the temptation ran the other way: the cheap move is to "fix" the game until the
+old number comes back, which would have deleted a feature he asked for by name.
+
+--------------------------------------------------------------------------------
+AND THEN I WROTE TWO RULERS THAT COULD NOT FAIL
+--------------------------------------------------------------------------------
+
+This is the part worth keeping.
+
+A gate that cannot go red is worse than no gate, because it reports safety. I
+mutation-test every claim now, which means: break the thing on purpose, and if
+the claim still passes, the claim is decoration. The mutation here is one line,
+forcing every wall in the world to draw faded:
+
+    a = WALL_SEE;   right before g.globalAlpha = a
+
+RULER 2. "A wall beyond XRAY_R plus six is solid," measured as Chebyshev
+distance from where the draw landed.
+    real build      322 of 322 solid
+    every wall faded 322 of 322 solid
+    IT NEVER MOVED.
+
+RULER 3. Same idea, measured in COLUMNS only, "beyond eleven columns."
+    real build      160 of 160 solid
+    every wall faded 160 of 160 solid
+    IT NEVER MOVED EITHER.
+
+BOTH FAILURES HAVE THE SAME ROOT AND IT IS GEOMETRY, NOT LOGIC.
+
+A facade draws its courses UPWARD from its own cell. A wall three cells north of
+him does not land three cells away on screen; it lands three cells PLUS its own
+height. So "far in screen rows" was catching walls that are near him in the
+world, and the far bucket filled up with things that were never going to fade.
+
+And the column version failed for a different reason that looks the same from
+outside: at HC 44 on a 390 pixel canvas the viewport is about NINE columns wide.
+A wall twelve columns away IS NEVER DRAWN AT ALL. That bucket held 160 draws of
+something that was not a facade, always solid, forever.
+
+TWO DIFFERENT WRONG ANSWERS, both of which printed a confident 100% and both of
+which would have sat green through any regression this gate exists to catch.
+
+--------------------------------------------------------------------------------
+WHAT ACTUALLY DISCRIMINATES
+--------------------------------------------------------------------------------
+
+The ring just OUTSIDE the game's own aperture and still on the screen. Measured
+both ways:
+
+                       within 5     the ring     beyond
+    real build          20% solid    82% solid    100%
+    every wall faded    20% solid     0% solid    100%
+
+That is a real gap, so the threshold sits between the two worlds at 35% rather
+than on the edge of either. Today it reads 342 of 582, which is 59%. Under
+mutation it reads 26 of 586, which is 4%. The claim dies on the thing it exists
+to catch and does not flicker on the thing it does not.
+
+TWO THINGS THE FINAL RULER DOES ON PURPOSE:
+
+1. THE INNER EDGE IS READ OFF XRAY_R, NOT HARDCODED. A lane that widens the
+   approach-fade widens this exemption with it, instead of turning a true claim
+   red six weeks from now. That is the whole failure above, prevented.
+
+2. THE COMMENT SAYS "SCREEN DISTANCE" BECAUSE IT IS SCREEN DISTANCE. It is not
+   world distance and a facade's drawn row includes its height. Writing "cells
+   from him" would have been a small lie that the next person debugs for an
+   hour. The first draft of this gate DID say that, and it had to be corrected
+   in the same turn it was written.
+
+A second claim was added underneath, because the first one alone would pass on a
+world with NO fade at all: something near him really is opening up.
+
+--------------------------------------------------------------------------------
+THE RULE THIS LEAVES BEHIND
+--------------------------------------------------------------------------------
+
+*** A WHOLE-SCREEN AVERAGE IS NOT A MEASUREMENT OF A LOCAL EFFECT. ***
+
+If the law says a thing is aimed at him, the claim has to ask about distance. An
+average over everything on screen answers a different question, and it will go
+red the first time somebody correctly makes the local effect bigger.
+
+And the older rule, which this is the third or fourth entry for: A CLAIM THAT
+PASSES WITH THE FIX REMOVED IS HOLDING NOTHING. Two of the three rulers here
+were written by somebody who believed they were being careful.
+
+--------------------------------------------------------------------------------
+STATE
+--------------------------------------------------------------------------------
+
+SEE-THROUGH WHILE MOVING    11 passed, 0 failed
+  MEASURED: box-vs-body worst 0px over 45 walked frames, 192 of 192 facade draws
+  on his body FADED, 342 of 582 in the ring 6..12 on screen SOLID
+  under mutation: 10 passed, 1 failed (26 of 586)
+
+WALK FEEL                   20 passed, 0 failed
+  This one was also red in a pack run and it is NOT a defect. Standing still the
+  grid moves 0.0%, walking the slide moves a median 49.2%, and the camera sits
+  between cells for 92.5% of a walked beat. It is a browser gate driving real
+  touch and real timing, and under a loaded box it misses its window. Correcting
+  my own earlier handoff, which called it a real red: it was not.
+
+The city file was restored from a byte copy after every mutation run and carries
+no residue.

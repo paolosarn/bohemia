@@ -166,11 +166,61 @@ const done = () => {
       const ctx = cv.getContext('2d');
       const orig = ctx.drawImage;
       let recording = false, over = [], notOver = [], box = null;
+      /* THE RING AROUND HIM, IN SCREEN SPACE.
+         *** THREE RULERS BEFORE THIS ONE AND TWO OF THEM COULD NEVER FAIL. ***
+         (1) The original asked whether MORE THAN HALF of all non-covering facade
+             draws were solid. It went red at 29% -- and the law was never broken.
+             On 8/26 a lane built the approach-fade Paolo asked for in the playtest
+             dispatch ("there is no wall-opacity system at all, though he thinks
+             there is -- build the fade"): every wall within XRAY_R of him now ramps
+             open whether or not it covers him, and the value eases over frames. A
+             deliberate five-cell aperture dragged the whole-screen average under
+             the threshold.
+         (2) Then "walls beyond XRAY_R+6 COLUMNS are solid" -- but a facade draws
+             its courses UPWARD, so the column is exact while the row is not, and
+             at HC 44 on a 390px canvas the viewport is about NINE columns wide.
+             A wall twelve columns away is never drawn. That bucket held 160 draws
+             of something else, always solid, and stayed 160/160 with EVERY WALL IN
+             THE WORLD faded.
+         (3) Same thing one ring closer. Same result.
+         WHAT ACTUALLY DISCRIMINATES, measured both ways: the ring just OUTSIDE
+         the game's own aperture and still on screen, IN SCREEN SPACE.
+             real build      within 5: 20% solid   ring: 82%   beyond: 100%
+             every wall faded within 5: 20% solid   ring:  0%   beyond: 100%
+         It is screen distance, not world distance, and the comment says so rather
+         than pretending otherwise -- a facade's drawn row includes its height. What
+         it holds is the thing the law is about: THE FADE IS LOCAL TO HIM. */
+      /* THE INNER EDGE IS THE GAME'S OWN APERTURE, NOT A NUMBER I PICKED. A lane
+         that widens the approach-fade widens this exemption with it, instead of
+         turning a true claim red. The outer edge is the screen: at HC 44 on a
+         390px canvas the viewport is about nine columns, so past ~12 nothing is
+         drawn at all and the bucket would hold no walls to judge. */
+      const R = (typeof XRAY_R !== 'undefined' && XRAY_R > 0) ? XRAY_R : 5;
+      let far = 0, farSolid = 0;
       ctx.drawImage = function (im, dx, dy, dw, dh) {
         if (recording && box && typeof dx === 'number' && typeof dw === 'number'
             && dw <= C * 1.5 && dh <= C * 3.5) {        /* a facade course, not a ground chunk */
           const hit = dx < box.x1 && dx + dw > box.x0 && dy < box.y1 && dy + dh > box.y0;
-          (hit ? over : notOver).push(this.globalAlpha);
+          if (hit) over.push(this.globalAlpha);
+          else {
+            /* HOW FAR FROM HIM IS THIS DRAW, ON SCREEN.
+               *** THIS IS SCREEN DISTANCE AND IT IS NOT THE SAME AS WORLD
+               DISTANCE. *** A facade draws its courses UPWARD from its own cell,
+               so a wall three cells north lands at a dy of roughly three PLUS the
+               wall's height. Calling that "three cells away" would be a lie, so
+               the comment does not: this measures where the paint LANDS relative
+               to where he is drawn. That is exactly the right question for this
+               claim, because the thing being held is that the translucency is
+               LOCAL TO HIM on the screen he is looking at. */
+            const _gc = camCell(hx, hy);
+            const _ox = Math.round(cv.width / 2 - _gc[0] * C);
+            const _oy = Math.round(cv.height / 2 - _gc[1] * C);
+            const _d = Math.max(Math.abs(Math.round((dx - _ox) / C) - hx),
+                                Math.abs(Math.round((dy - _oy) / C) - hy));
+            notOver.push(this.globalAlpha);
+            /* the ring outside the aperture and still on screen */
+            if (_d > R && _d <= R + 7) { far++; if (this.globalAlpha > 0.999) farSolid++; }
+          }
         }
         return orig.apply(this, arguments);
       };
@@ -188,7 +238,9 @@ const done = () => {
       return { spot: spot, onHim: over.length,
                fadedOnHim: over.filter(a => a < 0.999).length,
                elsewhere: notOver.length,
-               solidElsewhere: notOver.filter(a => a > 0.999).length };
+               solidElsewhere: notOver.filter(a => a > 0.999).length,
+               near: (R + 1) + '..' + (R + 7) + ' on screen',
+               far: far, farSolid: farSolid };
     });
     ok('the gauge found somewhere a wall really does cover him and walked him into '
       + 'it (' + (seen.err || JSON.stringify(seen.spot)) + ')', !seen.err);
@@ -197,9 +249,40 @@ const done = () => {
     ok('*** WHAT IS PAINTED OVER HIM WHILE HE WALKS IS FADED, SO HE CAN SEE '
       + 'HIMSELF *** (' + seen.fadedOnHim + ' of ' + seen.onHim + ')',
       seen.fadedOnHim > 0);
-    ok('and the fade is aimed at him rather than being a filter over the whole '
-      + 'world (' + seen.solidElsewhere + ' of ' + seen.elsewhere + ' elsewhere solid)',
-      seen.elsewhere > 0 && seen.solidElsewhere > seen.elsewhere * 0.5);
+    /* *** THIS CLAIM WAS RIGHT ABOUT THE LAW AND WRONG ABOUT THE MEASUREMENT
+       (fixed 8/27). *** It required more than half of ALL non-covering facade
+       draws to be fully solid, and went red at 29% -- but the law was never
+       broken. On 8/26 a lane built the approach-fade Paolo asked for in the
+       playtest dispatch ("there is no wall-opacity system at all, though he
+       thinks there is -- build the fade"): every wall within XRAY_R of him now
+       ramps open, covering him or not, and the value eases over frames instead
+       of snapping. Near him there are MANY facade draws, so a deliberate 5-cell
+       aperture dragged the whole-screen average under the threshold.
+       MEASURED BY DISTANCE, which is what the claim always meant:
+           within XRAY_R (5)   20% solid   <- the aperture, on purpose
+           6..12               82% solid   <- the ease, trailing off
+           13..30             100% solid
+           beyond 30          100% solid
+       THE FADE IS AIMED AT HIM. So the claim asks the question it means: is a
+       wall FAR from him solid. That cannot be fooled by the aperture growing or
+       by how many draws happen to land near him, and NEAR is read off XRAY_R so
+       widening the ramp widens the exemption rather than turning this red. */
+    ok('*** THE FADE IS AIMED AT HIM, NOT A FILTER OVER THE WHOLE WORLD *** -- '
+      + 'the ring ' + seen.near + ' around him is solid ('
+      + seen.farSolid + ' of ' + seen.far + ')',
+      /* THE THRESHOLD SITS BETWEEN THE TWO MEASURED WORLDS, not on the edge of
+         one. Today this ring reads about 60% solid; with every wall in the world
+         faded it reads 0%. 35% is comfortably between, so the claim dies on the
+         thing it exists to catch and does not flicker on the thing it does not.
+         A threshold parked on today's exact number is how a flaky gate is born,
+         and the printed value below makes any real drift visible anyway. */
+      seen.far > 20 && seen.farSolid >= seen.far * 0.35);
+    /* AND THE APERTURE IS REAL, not a rounding error: if nothing near him ever
+       faded, the first claim would pass trivially on a world with no fade at all. */
+    ok('and something near him really is opening up (' + seen.solidElsewhere
+      + ' of ' + seen.elsewhere + ' non-covering draws solid overall, so the '
+      + 'close ones are not)',
+      seen.elsewhere > 0 && seen.solidElsewhere < seen.elsewhere);
 
     ok('and nothing threw while he walked ('
       + (errs.length ? errs.slice(0, 2).join(' | ') : 'none') + ')', errs.length === 0);
@@ -207,7 +290,8 @@ const done = () => {
     console.log('  MEASURED: box-vs-body worst ' + track.worst + 'px over '
       + track.samples + ' walked frames \u00b7 ' + seen.fadedOnHim + ' of ' + seen.onHim
       + ' facade draws on his body FADED \u00b7 ' + seen.solidElsewhere + ' of '
-      + seen.elsewhere + ' elsewhere solid');
+      + seen.elsewhere + ' elsewhere solid \u00b7 ' + seen.farSolid + ' of '
+      + seen.far + ' in the ring ' + seen.near + ' SOLID');
   } catch (e) {
     ok('the gate ran to the end [' + String(e.message).slice(0, 160) + ']', false);
   }

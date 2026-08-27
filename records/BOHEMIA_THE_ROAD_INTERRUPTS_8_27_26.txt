@@ -1,0 +1,260 @@
+THE ROAD INTERRUPTS, AND THE PAD SAYS WHAT IT WILL DO
+8/27/26 - RUN lane
+================================================================================
+
+TWO THINGS SHIPPED. One is a wire to a system that has been finished and
+unreachable for a month. The other is the half of his bug report that yesterday
+did not fix.
+
+--------------------------------------------------------------------------------
+1. AN APPROVED SYSTEM WITH ZERO CALLERS
+--------------------------------------------------------------------------------
+
+    engine/bohemia_encounters.js
+    THE AMBIENT ENCOUNTER DIRECTOR. 258 lines.
+    Approved by Paolo 7/27 on the 12-candidate act-1 roster: "Approve all."
+    Fully gated by gates/encounter_gate.js. Green every day for a month.
+
+    A REPO-WIDE SEARCH FOR ITS NAME RETURNS ITS OWN GATE AND NOTHING ELSE.
+
+It was commissioned off one worry of his: "this game could be very boring if not
+done right." It answered that worry in July and the answer never reached him.
+
+This is the same failure this repo keeps naming and keeps repeating. The
+seventeen invisible hats. Four Colorful garments cooked in July and worn by
+nobody for five weeks. cardHide, finished and correct and with no caller, so a
+card he opened had no way out. vistaClose, same. A finished, approved, gated
+thing the player cannot reach DOES NOT EXIST, and REUSE-FIRST is not only about
+pixels.
+
+So this turn wired it instead of writing another one.
+
+--------------------------------------------------------------------------------
+WHAT HE ASKED FOR, THREE TIMES, FROM THREE DIRECTIONS
+--------------------------------------------------------------------------------
+
+8/24, LOCKED, laws/BOHEMIA_ADDENDUM_FAST_TRAVEL_IS_A_JOURNEY_8_24_26.md:
+    "Crossing the valley is something you PLAY, not something you skip."
+    A journey has a MIDDLE. The road interrupts.
+
+8/25, the playtest dispatch:
+    item 8, ENEMIES and Valheim-style DANGER BY PLACE.
+    item 5, the city is dead and DEAD IS NOT THE DEFAULT.
+
+8/27, in his own words:
+    "maybe I wanna fuck around and start putting dogs and swarms of flies as,
+     like, low tier, you know, biome level one enemies or something."
+
+The approved roster's token NUMBER ONE is `feral_dog_pack`. He asked for the
+thing that was already sitting in the repo with his own approval on it.
+
+--------------------------------------------------------------------------------
+THE WIRE
+--------------------------------------------------------------------------------
+
+The director asks its caller for three things and refuses to invent any of them.
+This turn supplied exactly those three and nothing else.
+
+1. THE TIME HE ACTUALLY SPENT. stepOnce's city branch has always spent ten
+   minutes per marker cell. That is 600 real seconds of his day, per press, and
+   until now it bought a moved marker and nothing else. It is now handed to the
+   director, which is the contract the director was built to: "It is PULLED: the
+   world asks it what happens as part of a block of time the player actually
+   spent."
+
+   NO CLOCK WAS ADDED. The director owns none on purpose, and neither does this.
+   The gate proves it: three seconds of standing still produces zero pulls.
+
+2. A DISTRICT TABLE. Seven road districts, day and night.
+
+3. AN ANSWER TO PRECONDITIONS. `lit` off the power grid's live flag, `seam` off
+   two different live owners being adjacent (LIGHT=TERRITORY, so that is the
+   grid's own data and not a metaphor).
+
+--------------------------------------------------------------------------------
+THE TABLE IS MINE, AND HERE IS WHY THAT IS ALLOWED
+--------------------------------------------------------------------------------
+
+The director shipped with no table because of MECHANISM-MINE / CONTENTS-PAOLO'S:
+"WHICH tokens appear in WHICH district, and how heavily, is NOT ruled anywhere."
+
+EVERYTHING IS A THUMB (8/9) flipped that default for exactly this case. A spawn
+table is not a NAME he reserved and it is not a fork with no defensible answer.
+It is work. So it is decided, built, and put where he meets it while playing.
+
+AND EVERY ROW IS DERIVED FROM THE ROSTER'S OWN WORDS, not from taste:
+
+    casino_security_bot  "still enforcing 2020s trespass rules on ITS OLD
+                          PROPERTY"  ->  the Strip and nowhere else
+    toll_crew            "raiders at A LEGIBLE CHOKEPOINT"
+                          ->  ramps and the interchange, never open street
+    spotter_drone        needs 'lit', "PATROLS OWNED LIGHT"  ->  lit cells
+    patrols_collide      needs 'seam', "at A TERRITORY SEAM"  ->  real seams
+    rattlesnake          a desert animal  ->  the wash and the rail corridor
+    bounty_squad         needs 'murders'  ->  and nothing in this build can
+                          answer that, so IT NEVER COMES
+
+That last one is worth its own line. There is no kill count because NO DAMAGE
+BEFORE THE DIAL. The director's own rule is that an unproven need is not a spawn,
+so the bounty squad is correctly silent, and the day the dial lands it starts
+coming on its own with nothing else to change. That is a correct silence, not a
+hole.
+
+--------------------------------------------------------------------------------
+WHAT AN INTERRUPTION COSTS, AND THE HALF OF THE SPEC THAT IS BLOCKED
+--------------------------------------------------------------------------------
+
+*** THE LOCKED SPEC'S OWN TEST IS: "did something happen between leaving and
+    arriving that COULD HAVE GONE DIFFERENTLY, and did what he did beforehand
+    change it?" THIS TURN ANSWERS THE FIRST HALF AND NOT THE SECOND, AND THAT IS
+    NOT A CHOICE I MADE. ***
+
+A real fork needs a real downside for pushing through. The downside of walking
+into a feral dog pack is damage. NO DAMAGE BEFORE THE DIAL. EVER. The dial is
+his.
+
+So no fake choice was shipped. A fork whose two arms are "free" and "worse" is a
+costume, and shipping one would be the loading screen the spec bans, wearing a
+second costume on top.
+
+WHAT IS HONEST, AND IS REAL, AND IS IN THE CURRENCY THE GAME ALREADY SPENDS:
+
+    ambient      0 extra minutes    he saw a thing and kept walking
+    interactive  10                 he had to deal with somebody
+    forced       20                 it did not let him past
+
+TIME IS SPENT BY ACTIONS is already law. The journey already costs ten minutes a
+cell. A fight in the road plainly costs more than a coyote walking beside you.
+
+AND IT MAKES DANGER BY PLACE REAL WITHOUT A DAMAGE NUMBER. The interchange at
+night runs a heavier table than the arterial at noon, so that route genuinely
+eats more of his day. Route becomes a cost, which is one of the things the spec
+locks, delivered in the only form available today.
+
+THE THREE NUMBERS ABOVE ARE MINE, NOT HIS, and so is the 7200-second repeat
+window. They print in the gate every run so they are visible and correctable
+rather than buried. The roster, the 70/20/10 mix, the 90-second floor and the
+spice cap are all HIS, approved 7/27, and were not touched.
+
+--------------------------------------------------------------------------------
+WHAT IT ACTUALLY DOES, MEASURED
+--------------------------------------------------------------------------------
+
+    12 road moments over 140 marker cells       one about every 12 cells
+    mix: 8 ambient / 3 interactive / 1 forced   his approved 70/20/10
+    minutes taken: ambient 0, interactive 10, forced 20
+    128 quiet steps, all of them NONE_OF_KIND
+
+THAT LAST NUMBER IS THE APPROVED LAW WORKING, NOT A FAILURE. When the story
+wants an ambient beat and no ambient token is available in that district, the
+director's rule is that NOTHING HAPPENS rather than a forced fight standing in
+for it: "70/20/10 is a promise about what the player actually experiences, and a
+substitution breaks the promise while keeping the arithmetic looking fine."
+
+An earlier probe run came out 7 / 2 / 1, which is 70/20/10 on the nose.
+
+--------------------------------------------------------------------------------
+THE WORDS
+--------------------------------------------------------------------------------
+
+Twelve road moments, one per approved token, written as if they ship and tagged
+draft:true. ALWAYS MAKE AN ATTEMPT (8/11): an empty field is a blank page, and he
+edits, he does not write from nothing.
+
+Against the VOICE CARD. Contracted. Sentence lengths broken on purpose. One
+physical detail nobody else would name. Nobody wise. No aphorism sitting where a
+punchline goes. Not one em dash. The scavenger asks the player a question and
+loses his thread mid-sentence, because in 504 NPC speeches there were two
+question marks and zero stumbles.
+
+    "Six of them come out of the wash, low and quiet. The lead one still has a
+     collar on, tag swinging. None of them are barking."
+
+    "A guy steps out with a length of pipe and he's already talking. 'Look.
+     Look, I don't want, I'm not, okay. Just what's in the bag. You got water in
+     there?' His hands aren't steady."
+
+    "An empty cab pulls to the curb ahead and opens its door for nobody. Waits
+     its ninety seconds. Pulls off."
+
+--------------------------------------------------------------------------------
+2. THE PAD SAYS WHAT IT IS ABOUT TO DO
+--------------------------------------------------------------------------------
+
+Yesterday's patch fixed the CONSEQUENCE of his report and left the CONFUSION.
+LOOKING AT THE MAP IS NOT TRAVELLING stopped a glance from moving his body 194
+tiles. But he did not say "it moved me". He said IT IS CONFUSING, and that is a
+different defect.
+
+    THE SAME CONTROL, IN THE SAME CORNER, UNDER THE SAME THUMB, LOOKING EXACTLY
+    THE SAME, MEANT TWO COMPLETELY DIFFERENT THINGS.
+
+        zoomed in     one tile. About a metre. Free.
+        zoomed out    one overmap cell. Ninety-six metres. TEN MINUTES of his
+                      day. And as of this turn, a road encounter that can eat
+                      twenty more.
+
+Norman's split is the one that applies. An AFFORDANCE is what a control can do; a
+SIGNIFIER is what it TELLS YOU it will do. The pad's affordance changed at the
+seam and its signifier never did.
+
+THE WRONG FIX IS A CAPTION. A sentence explaining the mismatch is words on his
+screen, and TALK TO HIM LIKE A PERSON prices words on his screen as a cost. So
+the CONTROL changes instead.
+
+THREE SIGNALS AT ONCE, because one can be missed:
+
+    SHAPE   round 50% -> square 7px. A circle is a thumbstick, which is a body
+            control. A square is a tile, which is a map control. Silhouette reads
+            before colour, which is the same argument the clothing law makes.
+    GLYPH   the single arrow becomes a double arrow. The arrow says "a long way",
+            which is the difference between one metre and ninety-six.
+    WEIGHT  rgb(184,154,106) warm walking accent -> rgb(159,180,196) map line.
+
+Driven from updHud, which all nineteen mode changes in the file already call,
+including both zoom seams and the chip. Hooking the seams by hand is how the next
+seam gets forgotten, and driving it from render() would be per-frame DOM work for
+something that changes twice a minute.
+
+--------------------------------------------------------------------------------
+THE GATES, AND WHAT THEY REFUSE TO DO
+--------------------------------------------------------------------------------
+
+THE ROAD INTERRUPTS       17 passed, 0 failed
+THE PAD SAYS WHAT IT WILL DO  11 passed, 0 failed
+
+*** THE ROAD GATE NEVER CALLS THE FUNCTION IT IS CHECKING FOR. *** Driving
+roadInterrupt() by hand would prove only that I can type its name. This lane made
+exactly that mistake this week: the ANIMALS gate drove animalPass itself, so
+deleting the renderer's call left it green. So this one SPIES. It replaces the
+function with a counter, presses the pad for real in map mode, and watches
+whether the game reaches for it on its own.
+
+    MUTATION, caller removed from stepOnce         17/0 -> 16/1
+    MUTATION, inlined engine copy drifted one number  17/0 -> 15/2
+    MUTATION, padMode unhooked from updHud         11/0 -> 7/4
+
+The road gate also holds ENGINE SYNC for a module the BOH_* sync gate cannot see.
+The director is an IIFE on window.BohemiaEncounters, not a `const BOH_x=`, so the
+existing gate is blind to it. The inlined body is compared, normalized, to the
+engine file, so the two can never drift into being two systems.
+
+The pad gate measures off COMPUTED STYLE after a REAL two-finger pinch, never by
+setting MODE by hand. The seam is the whole point, and a CSS rule that never
+applies is exactly how that claim would lie.
+
+--------------------------------------------------------------------------------
+WHAT IS STILL NOT BUILT, SAID PLAINLY
+--------------------------------------------------------------------------------
+
+FT-JOURNEY is not finished. Its locked spec is a real build and this turn
+delivered one pillar of it. What is left:
+
+  ROUTES. More than one way to get there, and they are not equal. Needs a road
+  graph over the overmap, and MAP LAW says Claude never designs map layouts.
+  CARGO. "You carry something, and it can be lost." Needs the purse and a
+  what-is-worth-carrying ruling, which the spec reserves to him.
+  PREPARATION. Hired guards, transport upgrades. An economy, not a patch.
+  THE FORK. Blocked on the damage dial, which is his. See above.
+  THE LAW/OUTLAW AXIS. Explicitly reserved: which Bohemia factions police the
+  roads and which rob them is his call and is not written anywhere.

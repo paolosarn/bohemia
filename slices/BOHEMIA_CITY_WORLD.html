@@ -81,6 +81,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #pad{position:absolute;inset:0;z-index:5}
 .pb{position:absolute;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#2a251d,#12100c 75%);border:1px solid var(--line);color:var(--acc);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .pb:active{border-color:#5a4a2a;color:#fff}
+/* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27): THE PAD LOOKS LIKE WHAT IT IS ABOUT TO DO.
+   Zoomed out, a press is not a step -- it is ninety-six metres and ten minutes,
+   and it can hand him a road encounter that costs twenty more. Same corner, same
+   thumb, so the CONTROL has to say it. Three changes at once, because one can be
+   missed: a circle is a thumbstick and a square is a map tile, the arrow doubles
+   because the distance does, and the ring cools off the walking accent onto the
+   map's own line. No caption anywhere: this is a signifier, not a tutorial. */
+#pad.mapmove .pb{border-radius:7px;width:46px;height:46px;
+  background:radial-gradient(circle at 50% 38%,#20242a,#0d1014 75%);
+  border:1px solid #4a5a68;color:#9fb4c4;font-size:17px}
+#pad.mapmove .pb:active{border-color:#7fa8c4;color:#fff}
 #keybtn{position:absolute;right:12px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
 #keybtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #savebtn{position:absolute;left:110px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
@@ -27727,12 +27738,457 @@ window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   gliding:function(){ return !!GLIDE; } };
 /* ==== end __WALK_FEEL_SLIDE__ ============================================= */
 let animRAF=0;
+/* ==== engine/bohemia_encounters.js (inlined verbatim, __THE_ROAD_INTERRUPTS__) ====
+   ONE CANONICAL BODY. This is a machine copy of the engine file, not a retype,
+   and the gate compares the two normalized bodies so they can never drift.
+   ENGINE SYNC LAW, held for a module the BOH_* sync gate cannot see (this one is
+   an IIFE on window.BohemiaEncounters, not a `const BOH_x=`). */
+/* ============================================================================
+   BOHEMIA — THE AMBIENT ENCOUNTER DIRECTOR   (bohemia_encounters.js, 7/27/26)
+
+   APPROVED WORK. records/BOHEMIA_VERDICT_ACT1_ROSTER_7_26_26.txt — Paolo, on the
+   12-candidate act-1 roster presented with the anti-boredom pacing package:
+   "Approve all". The verdict also says APPROVAL UNLOCKS VOLUME: design build may
+   begin. This is that build. Enemy ART is explicitly NOT this item (the verdict
+   files it as a separate fresh-look judge under approved-assets-first).
+
+   It was commissioned off one worry of his: "this game could be very boring if
+   not done right."
+
+   ----------------------------------------------------------------------------
+   THE PACING LAWS HE APPROVED, AND HOW EACH ONE IS HELD
+   ----------------------------------------------------------------------------
+   70/20/10 — about 70% ambient/vignette, 20% interactive, only 10% forced
+     combat. Held by a DEFICIT CHOOSER: the next encounter is drawn from whichever
+     class is furthest below its share of what has happened so far. That converges
+     on the ratio exactly and it is not dice, which is the next law.
+
+   STORYTELLER BUDGET, NOT DICE — tension spends big when the player is healthy
+     and it has been quiet, small after hard fights. Held by a real meter that
+     accrues on spent time and drains when it spends. Nothing here rolls: given
+     the same world and the same walk you get the same night, every time.
+
+   ~90 SECOND MINIMUM GAP — held as a hard floor before anything may fire.
+
+   DISTRICT + DAY/NIGHT KEY THE TABLE, NO GLOBAL SPAWNS EVER — held by
+     construction: there is no global table to fall back to. A district with no
+     table spawns NOTHING, and says so.
+
+   RARE IS SACRED — spice tokens carry a hard session cap and cannot repeat.
+
+   ----------------------------------------------------------------------------
+   NO BACKGROUND TICKING (Paolo, pacing, recorded in the backlog)
+   ----------------------------------------------------------------------------
+   This director has NO CLOCK. No timer, no interval, no Date.now, nothing that
+   advances while the player stands still. It is PULLED: the world asks it what
+   happens as part of a block of time the player actually spent, through the
+   encounters socket in engine/bohemia_world_resolve.js. A world that keeps
+   rolling at an idle player is the thing the ruling forbids, and the only way to
+   be sure is to own no clock at all.
+
+   ----------------------------------------------------------------------------
+   MECHANISM-MINE / CONTENTS-PAOLO'S
+   ----------------------------------------------------------------------------
+   The 12 tokens and the pacing numbers above are APPROVED and therefore real.
+   WHICH tokens appear in WHICH district, and how heavily, is NOT ruled anywhere,
+   so there is no such table in here: the caller supplies it and an absent one
+   means silence. The reserved act-2 roster (mountain lion, the named casino cat,
+   cannibal crew, micro-drone swarm, construction-bot siege, toxic zones) is
+   foreshadow-only in act 1 and appears nowhere in this file.
+
+   HEADLESS. Runs in node. Deterministic. Gate: gates/encounter_gate.js
+   ========================================================================== */
+(function (root) {
+  'use strict';
+
+  /* THE APPROVED TWELVE, in the verdict's own order and its own names. `kind` is
+     the 70/20/10 class. `verb` is the thing that makes it different, because
+     VARIETY IS A DIFFERENT VERB, NEVER A BIGGER HP BAR. `telegraph` is in BEATS
+     (120 BPM law) and only where the roster actually specified one. `needs` is a
+     precondition the roster states outright, never one invented here. */
+  var ROSTER = [
+    { id: 'feral_dog_pack', n: 1, name: 'feral dog pack', kind: 'forced',
+      verb: 'swarms and circles, darts on off-beats; rout the alpha and the pack flees',
+      ends: 'morale', spice: false },
+    { id: 'coyote_shadow', n: 2, name: 'coyote shadow', kind: 'ambient',
+      verb: 'follows you a block and commits only if you are hurt or loaded, bolts when hit',
+      ends: 'mostly never a fight', spice: false },
+    { id: 'rattlesnake', n: 3, name: 'rattlesnake', kind: 'interactive',
+      verb: 'a static tile trap with a venom timer', telegraph: 2, ends: 'timer', spice: false },
+    { id: 'scavenger_shakedown', n: 4, name: 'desperate scavenger shakedown', kind: 'interactive',
+      verb: 'pipe-armed and can be paid, scared or dropped — the moral mirror of attack-anyone',
+      ends: 'pay / scare / drop', spice: false },
+    { id: 'toll_crew', n: 5, name: 'toll crew', kind: 'interactive',
+      verb: 'raiders at a legible chokepoint who want a cut, not a corpse',
+      ends: 'pay / fight / detour', spice: false },
+    { id: 'the_snatcher', n: 6, name: 'the snatcher', kind: 'interactive',
+      verb: 'grabs an item and RUNS — a beat-timed chase', ends: 'loss without death', spice: false },
+    { id: 'crazed_wanderer', n: 7, name: 'crazed wanderer', kind: 'forced',
+      verb: 'attacks off-grid and syncopated, immune to intimidation, might just scream past',
+      ends: 'incentives do not work on him', spice: false },
+    { id: 'bounty_squad', n: 8, name: 'bounty squad', kind: 'forced',
+      verb: 'competent and escalating — the systemic price of attack-anyone',
+      ends: 'escalates', spice: true, needs: 'murders' },
+    { id: 'casino_security_bot', n: 9, name: 'dead casino security bot', kind: 'forced',
+      verb: 'still enforcing 2020s trespass rules on its old property: slow, lethal, perfectly learnable',
+      ends: 'alarm summons the district owners', spice: true },
+    { id: 'spotter_drone', n: 10, name: 'faction spotter drone', kind: 'interactive',
+      verb: 'patrols owned light and pings your position unless downed first',
+      telegraph: 2, ends: 'cut the light, ground the drones', spice: false, needs: 'lit' },
+    { id: 'ghost_robotaxi', n: 11, name: 'ghost robotaxi', kind: 'ambient',
+      verb: 'empty cabs still crawling pickup loops; an intact one is a spoofable ride',
+      ends: 'ride or rush', spice: false },
+    { id: 'patrols_collide', n: 12, name: 'patrols collide', kind: 'ambient',
+      verb: 'two squads fight EACH OTHER at a territory seam — join, third-party, loot after, or walk on',
+      ends: 'world on world', spice: true, needs: 'seam' }
+  ];
+
+  /* THE APPROVED PACING PACKAGE. These four numbers are his, out of the verdict. */
+  var MIX = { ambient: 0.70, interactive: 0.20, forced: 0.10 };
+  var MIN_GAP_S = 90;                 // "~90s min gap"
+  var SPICE_CAP = 1;                  // "rare is sacred: never twice a session"
+  var KINDS = ['ambient', 'interactive', 'forced'];
+
+  function byId(id) { for (var i = 0; i < ROSTER.length; i++) if (ROSTER[i].id === id) return ROSTER[i]; return null; }
+
+  /* Deterministic, and deliberately not a random number generator: it is a stable
+     hash used only to BREAK TIES between equally-eligible tokens, never to decide
+     whether something happens. What happens is decided by the budget and the
+     deficit, which is what "storyteller, not dice" means. */
+  function hash(a, b, c) {
+    var h = (a >>> 0) ^ Math.imul(b >>> 0, 374761393) ^ Math.imul(c >>> 0, 668265263);
+    h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  }
+
+  /* --------------------------------------------------------------------------
+     makeDirector(opts)
+       seed    : world seed. Same seed + same walk => the same night, forever.
+       tableFor: (district, phase) -> [tokenId, ...] | null      CALLER'S.
+                 There is NO fallback and no global table: a district with no
+                 entry spawns nothing. That is the "no global spawns ever" law
+                 held by construction rather than by discipline.
+       gapS    : override the approved 90s floor (the gate uses this; canon does not)
+       repeatAfterS : how long before a token may come round again. NOT RULED, so
+                 there is no default: without one, a token fires at most once in a
+                 session, which is the strictest reading of "no repeat-spam" and
+                 invents nothing.
+     ------------------------------------------------------------------------ */
+  function makeDirector(opts) {
+    opts = opts || {};
+    var seed = (opts.seed >>> 0) || 0;
+    var tableFor = typeof opts.tableFor === 'function' ? opts.tableFor : null;
+    var gapS = (opts.gapS != null) ? opts.gapS : MIN_GAP_S;
+    var repeatAfterS = (opts.repeatAfterS != null) ? opts.repeatAfterS : null;
+
+    var state = {
+      tension: 0, elapsedS: 0, lastFireS: -1e9, seq: 0,
+      counts: { ambient: 0, interactive: 0, forced: 0 }, total: 0,
+      fired: {}, spice: 0, log: []
+    };
+
+    /* THE STORYTELLER BUDGET. Spends big when the player is healthy and it has
+       been quiet; small after hard fights. `world.health` is 0..1 and `world.heat`
+       is how rough the recent past was, both supplied by the caller — this file
+       does not decide what a hard fight is. */
+    function budgetNow(world) {
+      var health = (world && world.health != null) ? world.health : 1;
+      var heat = (world && world.heat != null) ? world.heat : 0;
+      var quiet = Math.min(1, (state.elapsedS - state.lastFireS) / (gapS * 4));
+      return state.tension * health * quiet * (1 - Math.min(0.9, heat));
+    }
+
+    /* Which class is furthest below its approved share. Not dice: over a long
+       walk this lands ON 70/20/10 instead of near it. */
+    function neediestKind() {
+      var best = null, worst = -Infinity;
+      for (var i = 0; i < KINDS.length; i++) {
+        var k = KINDS[i];
+        var have = state.total ? state.counts[k] / state.total : 0;
+        var deficit = MIX[k] - have;
+        if (deficit > worst) { worst = deficit; best = k; }
+      }
+      return best;
+    }
+
+    function eligible(tok, world) {
+      if (!tok) return false;
+      if (tok.spice && state.spice >= SPICE_CAP) return false;      // rare is sacred
+      if (state.fired[tok.id]) return false;                        // no repeat-spam
+      if (!tok.needs) return true;
+      var f = world && world.can;
+      return typeof f === 'function' ? !!f(tok.needs, tok) : false; // unproven need = no spawn
+    }
+
+    /* --------------------------------------------------------------------
+       consider(world, spentSeconds)
+       The ONLY way this director advances. Called from the world resolver's
+       encounters socket with the time the player actually spent. Returns an
+       encounter or a reason it did not fire — never null-and-silent, because a
+       director that cannot explain itself cannot be tuned.
+       ------------------------------------------------------------------ */
+    function consider(world, spentSeconds) {
+      var spent = (spentSeconds > 0) ? spentSeconds : 0;
+      state.elapsedS += spent;
+      state.tension += spent;
+      if (repeatAfterS != null) refresh(repeatAfterS);
+      var since = state.elapsedS - state.lastFireS;
+      if (since < gapS) return { fired: false, reason: 'GAP', since: since, need: gapS };
+
+      var district = world && world.district, phase = world && world.phase;
+      if (!district || !phase) return { fired: false, reason: 'NO_PLACE' };
+      if (!tableFor) return { fired: false, reason: 'NO_TABLE' };
+      var ids = tableFor(district, phase);
+      /* NO GLOBAL SPAWNS EVER: nothing to fall back on, on purpose. */
+      if (!ids || !ids.length) return { fired: false, reason: 'NO_TABLE', district: district, phase: phase };
+
+      var budget = budgetNow(world);
+      if (budget < gapS) return { fired: false, reason: 'NO_BUDGET', budget: budget };
+
+      var want = neediestKind();
+      var pool = ids.map(byId).filter(function (t) { return t && eligible(t, world); });
+      if (!pool.length) return { fired: false, reason: 'NOTHING_ELIGIBLE', district: district, phase: phase };
+      /* THE CLASS IS NOT NEGOTIABLE, and getting this wrong is what made the first
+         run come out 40/42/18 instead of 70/20/10. If the story wants an ambient
+         beat and no ambient token is available here, the answer is that NOTHING
+         HAPPENS — not a forced fight standing in for it. 70/20/10 is a promise
+         about what the player actually experiences, and a substitution breaks the
+         promise while keeping the arithmetic looking fine. */
+      var use = pool.filter(function (t) { return t.kind === want; });
+      if (!use.length) return { fired: false, reason: 'NONE_OF_KIND', want: want,
+                                district: district, phase: phase };
+      // stable tie-break only — which of the equally-valid ones, never whether
+      var pick = use[Math.floor(hash(seed, state.seq, use.length) * use.length) % use.length];
+
+      state.seq++;
+      state.lastFireS = state.elapsedS;
+      state.tension = 0;
+      state.counts[pick.kind]++;
+      state.total++;
+      state.fired[pick.id] = state.elapsedS;
+      if (pick.spice) state.spice++;
+      var out = { fired: true, id: pick.id, name: pick.name, kind: pick.kind,
+                  verb: pick.verb, telegraph: pick.telegraph || null, ends: pick.ends,
+                  at: { district: district, phase: phase }, atS: state.elapsedS, seq: state.seq };
+      state.log.push(out);
+      return out;
+    }
+
+    /* A token may come round again once it is no longer the freshest thing that
+       happened. Spice never does. */
+    function refresh(afterS) {
+      Object.keys(state.fired).forEach(function (id) {
+        var t = byId(id);
+        if (t && t.spice) return;
+        if (state.elapsedS - state.fired[id] >= afterS) delete state.fired[id];
+      });
+    }
+
+    function mix() {
+      var out = {};
+      KINDS.forEach(function (k) { out[k] = state.total ? state.counts[k] / state.total : 0; });
+      out.total = state.total;
+      return out;
+    }
+
+    return { consider: consider, refresh: refresh, mix: mix,
+             get state() { return state; },
+             get log() { return state.log.slice(); } };
+  }
+
+  var API = { makeDirector: makeDirector, ROSTER: ROSTER.slice(), MIX: MIX,
+              MIN_GAP_S: MIN_GAP_S, SPICE_CAP: SPICE_CAP, KINDS: KINDS.slice(), byId: byId };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaEncounters = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== end engine/bohemia_encounters.js ==== */
+
+/* ============================================================================
+   __THE_ROAD_INTERRUPTS__ -- FT-JOURNEY, THE MIDDLE (8/27)
+   Everything below is the CALLER the director has been waiting a month for. It
+   supplies spent time, a district table and an answer to preconditions. It makes
+   no pacing decisions: the 70/20/10 mix, the 90 second floor, the storyteller
+   budget and the spice cap are all his, approved 7/27, and they live in the
+   engine above where they were approved.
+   ========================================================================== */
+
+/* WHICH TOKENS RIDE WHICH ROAD. Every row is read off the roster's own verb
+   text; see the patch tool's header for the derivation line by line. Only
+   ROAD districts appear, because the marker only ever walks roads. */
+var ROAD_TABLE = {
+  arterial:    { day:   ['coyote_shadow','scavenger_shakedown','feral_dog_pack'],
+                 night: ['coyote_shadow','ghost_robotaxi','the_snatcher',
+                         'feral_dog_pack','crazed_wanderer'] },
+  strip:       { day:   ['ghost_robotaxi','spotter_drone','casino_security_bot'],
+                 night: ['ghost_robotaxi','patrols_collide','spotter_drone',
+                         'the_snatcher','casino_security_bot'] },
+  freeway:     { day:   ['ghost_robotaxi','toll_crew','bounty_squad'],
+                 night: ['coyote_shadow','toll_crew','crazed_wanderer'] },
+  beltway:     { day:   ['ghost_robotaxi','toll_crew','feral_dog_pack'],
+                 night: ['coyote_shadow','toll_crew','feral_dog_pack'] },
+  interchange: { day:   ['patrols_collide','toll_crew','bounty_squad'],
+                 night: ['patrols_collide','toll_crew','crazed_wanderer'] },
+  rail:        { day:   ['coyote_shadow','rattlesnake','feral_dog_pack'],
+                 night: ['coyote_shadow','rattlesnake','crazed_wanderer'] },
+  wash:        { day:   ['coyote_shadow','rattlesnake','feral_dog_pack'],
+                 night: ['coyote_shadow','rattlesnake','feral_dog_pack'] }
+};
+
+/* WHAT AN INTERRUPTION COSTS, IN MINUTES OF HIS DAY. Mine, not his (see the
+   header: the real fork wants a damage dial and the dial is his). */
+var ROAD_COST = { ambient: 0, interactive: 10, forced: 20 };
+
+/* THE TWELVE ROAD MOMENTS. draft:true -- every word of this is his to rewrite in
+   the WORDS tab, and none of it was ever put to him for approval. */
+var ROAD_WORDS = {
+  feral_dog_pack:
+    "Six of them come out of the wash, low and quiet. The lead one still has a "
+    + "collar on, tag swinging. None of them are barking.",
+  coyote_shadow:
+    "A coyote picks you up at the corner and just walks. Your speed, thirty feet "
+    + "off, never looks over. It'll do a block of that and then it's gone.",
+  rattlesnake:
+    "Something under the slab moves, then rattles. Dry and close. You've got "
+    + "about two seconds to pick where your foot goes.",
+  scavenger_shakedown:
+    "A guy steps out with a length of pipe and he's already talking. \"Look. "
+    + "Look, I don't want, I'm not, okay. Just what's in the bag. You got water "
+    + "in there?\" His hands aren't steady.",
+  toll_crew:
+    "Four of them have the ramp. One's sitting on a cooler like it's his desk. "
+    + "\"Toll's a third. Argue if you want. Ramp's been ours since March.\"",
+  the_snatcher:
+    "A kid comes off your blind side, takes something off your belt, gone before "
+    + "you finish turning. He's already forty feet out. Fast.",
+  crazed_wanderer:
+    "A man comes up the middle of the road screaming at nobody. No shoes. He "
+    + "sees you and he doesn't slow down.",
+  bounty_squad:
+    "Three of them, spread wide, moving like they've done this before. One's "
+    + "carrying a folded piece of paper with your description on it. He checks "
+    + "it twice.",
+  casino_security_bot:
+    "It rolls out from under the porte cochere still running its script. \"THIS "
+    + "PROPERTY IS PRIVATE. PLEASE PRESENT.\" Half its face is gone. It keeps "
+    + "coming.",
+  spotter_drone:
+    "It's been over you a while and you're only now hearing it. Small, four "
+    + "rotors, holding still. Then it climbs and turns north.",
+  ghost_robotaxi:
+    "An empty cab pulls to the curb ahead and opens its door for nobody. Waits "
+    + "its ninety seconds. Pulls off.",
+  patrols_collide:
+    "Two crews find each other at the seam and it goes off before anybody says "
+    + "anything. Six, maybe eight. Neither of them has looked your way."
+};
+
+var ROAD_DIR = null, ROAD_LOG = [];
+
+/* THE PRECONDITIONS THE ROSTER STATES OUTRIGHT. Answered off systems that
+   already exist; anything this cannot prove returns false, and the director's
+   own rule is that an unproven need is not a spawn. */
+function roadCan(need){
+  try{
+    if(need==='lit') return !!(POWER.at(city.x,city.y)||{}).live;
+    if(need==='seam'){
+      /* A SEAM IS TWO OWNERS TOUCHING. LIGHT=TERRITORY: a live circuit's owner
+         is who holds that ground, so a seam is where two different live owners
+         are adjacent. Not a metaphor, the grid's own data. */
+      var me=POWER.at(city.x,city.y)||{};
+      if(!me.live||!me.owner) return false;
+      var d=[[1,0],[-1,0],[0,1],[0,-1]];
+      for(var i=0;i<d.length;i++){
+        var n=POWER.at(city.x+d[i][0],city.y+d[i][1])||{};
+        if(n.live&&n.owner&&n.owner!==me.owner) return true;
+      }
+      return false;
+    }
+    /* 'murders' HAS NO ANSWER IN THIS BUILD and inventing one would be inventing
+       canon. NO DAMAGE BEFORE THE DIAL means there is no kill count to read. So
+       the bounty squad correctly never comes, and the day the dial lands it will
+       start coming on its own. */
+  }catch(_e){}
+  return false;
+}
+
+function roadDirector(){
+  if(ROAD_DIR) return ROAD_DIR;
+  if(typeof BohemiaEncounters==='undefined') return null;
+  ROAD_DIR = BohemiaEncounters.makeDirector({
+    seed: (typeof seed!=='undefined' ? seed : 0),
+    /* A TOKEN MAY COME ROUND AGAIN AFTER TWO HOURS OF TRAVEL. Not ruled, so the
+       engine has no default and would otherwise fire each token at most ONCE
+       per session, which makes the road go permanently quiet after twelve
+       moments. Two hours of travel is about twelve cells at ten minutes a cell.
+       Mine, and it prints in the gate. */
+    repeatAfterS: 7200,
+    tableFor: function(district, phase){
+      var row = ROAD_TABLE[district];
+      /* NO GLOBAL SPAWNS EVER: a district with no row spawns nothing, and there
+         is deliberately nothing to fall back on. */
+      return row ? (row[phase] || null) : null;
+    }
+  });
+  return ROAD_DIR;
+}
+
+/* THE PULL. Called from stepOnce's city branch with the seconds his day just
+   lost. Returns the director's answer either way, because a director that
+   cannot explain itself cannot be tuned. */
+function roadInterrupt(spentSeconds){
+  var dir = roadDirector();
+  if(!dir) return { fired:false, reason:'NO_DIRECTOR' };
+  var cell = null;
+  try{ cell = om.at(city.x, city.y); }catch(_e){}
+  var world = {
+    district: cell && cell.district,
+    phase: (typeof isNight==='function' && isNight()) ? 'night' : 'day',
+    health: 1, heat: 0,
+    can: function(need){ return roadCan(need); }
+  };
+  var got = dir.consider(world, spentSeconds);
+  if(got && got.fired){
+    ROAD_LOG.push(got);
+    /* THE INTERRUPTION EATS THE DAY. In minutes, through the clock the whole
+       game already spends. */
+    var mins = ROAD_COST[got.kind] || 0;
+    if(mins>0){ try{ advance(mins); }catch(_e){} }
+    try{ roadCard(got, mins); }catch(_e){}
+  }
+  return got;
+}
+
+/* WHAT HE SEES. Reuses cardShow, which already gives every card a real close, a
+   scrim tap and Escape (__EVERY_PANEL_CLOSES__). No second modal. */
+function roadCard(ev, mins){
+  if(typeof cardShow!=='function') return;
+  var where = (ev.at && ev.at.district ? String(ev.at.district).toUpperCase() : 'THE ROAD');
+  var when  = (ev.at && ev.at.phase==='night') ? 'NIGHT' : 'DAY';
+  var words = ROAD_WORDS[ev.id] || '';
+  var cost  = mins>0 ? ('<div class="rrow"><span class="rk">THAT COST YOU</span>'
+                        + '<span class="rv">' + mins + ' MIN</span></div>') : '';
+  cardShow(
+    '<div class="rk" style="margin-bottom:8px">ON THE ROAD \u00b7 ' + esc(where)
+      + ' \u00b7 ' + when + '</div>'
+    + '<div class="rv" style="text-align:left;margin-bottom:10px">'
+      + esc(String(ev.name).toUpperCase()) + '</div>'
+    + '<div class="rwhy" data-draft="true">' + esc(words) + '</div>'
+    + cost
+    + '<div class="mrow" data-act="close"><span class="mgood">KEEP MOVING</span>'
+      + '<span class="mprice">\u2192</span></div>');
+}
+
 function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'); }
 function stepOnce(di){
   const [dx,dy]=DIRS[di];
   if(MODE==='city'){
     const nx=city.x+dx, ny=city.y+dy;
-    if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(10); moversAdvance(); return true; }
+    if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(10); moversAdvance();
+      /* __THE_ROAD_INTERRUPTS__: TEN MINUTES OF HIS DAY JUST WENT BY. Hand it to the
+         approved director and let the road have its say. This is the whole wiring:
+         the time was always being spent, it just never bought anything. */
+      try{ roadInterrupt(600); }catch(_e){}
+      return true; }
   } else {
     // VEHICLE LADDER (LOCKED 7/6): bike = 4 cells per beat, one REQUEST,
     // beat-executed like everything else. Blocked cell stops the ride there.
@@ -35759,7 +36215,29 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   try{ if(HOME_WAKE_PENDING&&MODE==='human') homeWake(); }catch(_e){}   /* __YOUR_HOUSE__ */
   try{ if(PHONE_ON)phonePush(false); }catch(_e){}   /* __PHONE_IN_POCKET__ */
   if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
+/* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27) -- THE PAD LOOKS LIKE WHAT IT WILL DO.
+   Paolo: "it's so confusing". The pad does not move or hide when he zooms out,
+   so his thumb is already on it, and a press there is a marker cell (96 metres,
+   ten minutes, and now possibly a road encounter) rather than a step. Yesterday
+   three presses he never meant cost him half an hour.
+   DRIVEN FROM updHud BECAUSE EVERY MODE CHANGE IN THIS FILE ALREADY CALLS IT --
+   both zoom seams, the chip, the vista, sleep, the lot. Hooking the seams by
+   hand is how the next seam gets forgotten, and calling it from render() would
+   be per-frame DOM work for something that changes twice a minute. */
+function padMode(){
+  const pad=document.getElementById('pad');
+  if(!pad) return;
+  const map=(typeof MODE!=='undefined'&&MODE==='city');
+  if(pad.classList.contains('mapmove')===map) return;   /* no churn, no relayout */
+  pad.classList.toggle('mapmove',map);
+  const bs=pad.querySelectorAll('.pb');
+  for(let i=0;i<bs.length;i++){
+    const g=map?bs[i].dataset.mapmove:bs[i].dataset.walk;
+    if(g) bs[i].textContent=g;
+  }
+}
 function updHud(){
+  try{ padMode(); }catch(_e){}
   if(typeof SKY!=='undefined'&&SKY){   /* __ONE_ZOOM_TO_THE_MOON__ */
     try{
       document.getElementById('hmode').textContent=skyBand();
@@ -36067,9 +36545,15 @@ document.getElementById('fitbtn').addEventListener('click',()=>{
 (function(){
   const pad=document.getElementById('pad');
   // ring around portrait center (90,90) in a 180 box, radius 66, 42px buttons (tl = center-21)
+  /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ -- the map face of each direction, in pos order.
+     A double arrow for a move that is ninety-six metres instead of one. */
+  const MAPGLYPH=['⇑','⇗','⇒','⇘','⇓','⇙','⇐','⇖'];
   const pos=[[69,3,'↑',0],[116,22,'↗',1],[135,69,'→',2],[116,116,'↘',3],[69,135,'↓',4],[22,116,'↙',5],[3,69,'←',6],[22,22,'↖',7]];
   pos.forEach(([x,y,ch,di])=>{
     const b=document.createElement('div'); b.className='pb'; b.textContent=ch;
+    /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__: both faces of the button live ON the button, so padMode
+       only ever swaps between two authored glyphs and can never invent one. */
+    b.dataset.walk=ch; b.dataset.mapmove=MAPGLYPH[di];
     b.style.left=x+'px'; b.style.top=y+'px';
     b.addEventListener('pointerdown',e=>{e.preventDefault();startHold(di);});
     b.addEventListener('pointerup',endHold); b.addEventListener('pointerleave',endHold);

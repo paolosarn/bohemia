@@ -73099,3 +73099,147 @@ stashed a clean tree; one copied the city to /tmp and broke its relative assets.
 A COMPARISON THAT DID NOT ACTUALLY COMPARE LOOKS EXACTLY LIKE A NULL RESULT.
 Assert the two sides DIFFER in the way you set them up to differ, before
 believing what they tell you.
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+RUN (run-eak241): 8/27 (b) LATEST -- *** AN APPROVED SYSTEM WITH ZERO CALLERS
+FINALLY HAS ONE: crossing the valley now has a MIDDLE. Plus the half of his bug
+report yesterday did not fix, and both of this lane's reds are closed.
+TAB: RUN. Nothing to judge. ***
+
+*** THE HEADLINE, AND IT IS THE OLDEST FAILURE IN THIS REPO ***
+engine/bohemia_encounters.js is THE AMBIENT ENCOUNTER DIRECTOR. 258 lines.
+Approved by Paolo 7/27 on the 12-token act-1 roster: "Approve all." Fully gated
+by encounter_gate.js. Green every day for a month. AND A REPO-WIDE SEARCH FOR
+ITS NAME RETURNED ITS OWN GATE AND NOTHING ELSE. Zero callers.
+It was commissioned off one worry of his -- "this game could be very boring if
+not done right" -- it answered that worry in July, and the answer never reached
+him. Seventeen invisible hats. Four Colorful garments worn by nobody for five
+weeks. cardHide with no caller. vistaClose with no caller. A finished, approved,
+gated thing the player cannot reach DOES NOT EXIST, and REUSE-FIRST is not only
+about pixels. SO THIS TURN WIRED IT INSTEAD OF WRITING ANOTHER ONE.
+
+HE ASKED FOR IT THREE TIMES FROM THREE DIRECTIONS:
+  8/24 LOCKED  "Crossing the valley is something you PLAY, not something you
+               skip." A journey has a MIDDLE. The road interrupts.
+  8/25 dispatch item 8: ENEMIES and Valheim-style DANGER BY PLACE. Item 5: the
+               city is dead and DEAD IS NOT THE DEFAULT.
+  8/27 his words: "maybe I wanna fuck around and start putting dogs and swarms
+               of flies as low tier biome level one enemies or something."
+The approved roster's token NUMBER ONE is feral_dog_pack. He asked for a thing
+already sitting in the repo with his own approval on it.
+
+WHAT THE WIRE IS. The director asks its caller for three things and refuses to
+invent any of them, so exactly those three were supplied and nothing else:
+spent time, a district table, and an answer to preconditions. stepOnce's city
+branch has ALWAYS spent ten minutes per marker cell and it bought nothing; those
+600 seconds now go to the director, which is the contract it was built to ("it
+is PULLED"). NO CLOCK WAS ADDED and the gate proves it: three seconds of
+standing still produces ZERO pulls.
+
+MEASURED ON THE REAL SURFACE:
+  12 road moments over 140 marker cells        one about every 12 cells
+  mix 8 ambient / 3 interactive / 1 forced     HIS APPROVED 70/20/10
+  minutes taken: ambient 0, interactive 10, forced 20
+  128 quiet steps, every one of them NONE_OF_KIND
+THAT LAST NUMBER IS THE APPROVED LAW WORKING, NOT A HOLE. When the story wants
+an ambient beat and the district has no ambient token, the director's rule is
+that NOTHING happens rather than a forced fight standing in for it.
+
+THE TABLE IS MINE AND EVERY ROW IS DERIVED FROM THE ROSTER'S OWN VERB TEXT, not
+from taste: the casino bot enforces trespass on ITS OLD PROPERTY so it is the
+Strip only; the toll crew wants A LEGIBLE CHOKEPOINT so it is ramps and the
+interchange; the drone needs lit; the collision needs a real owner seam; the
+rattlesnake is a desert animal so it is the wash and the rail. MECHANISM-MINE
+said leave it empty; EVERYTHING IS A THUMB (8/9) flipped that -- a spawn table
+is not a name he reserved and not a fork with no defensible answer, it is work.
+THE BOUNTY SQUAD NEEDS A KILL COUNT AND NOTHING CAN ANSWER THAT, so it never
+comes. Correct silence, not a hole: the day the damage dial lands it starts
+coming on its own with nothing else to change.
+
+*** AND I DID NOT SHIP A FAKE CHOICE. *** The locked spec's own test is "did
+something happen that COULD HAVE GONE DIFFERENTLY". A real fork needs a downside
+for pushing through and that downside is DAMAGE. NO DAMAGE BEFORE THE DIAL, and
+the dial is his. A fork whose two arms are "free" and "worse" is a costume, and
+shipping one would be the loading screen the spec bans wearing a second costume.
+So an interruption costs TIME, in the currency the game already spends: ambient
+0, interactive 10, forced 20 minutes. WHICH MAKES DANGER BY PLACE REAL WITHOUT A
+DAMAGE NUMBER -- the interchange at night runs a heavier table than the arterial
+at noon, so that route genuinely eats more of his day. Route becomes a cost.
+Those three numbers and the 7200s repeat window are MINE and they print in the
+gate every run. The roster, the 70/20/10 mix, the 90s floor and the spice cap
+are HIS, approved 7/27, and were not touched.
+
+TWELVE ROAD MOMENTS SHIP WRITTEN, tagged draft:true, against the VOICE CARD.
+Contracted, lengths broken on purpose, one detail nobody else would name, nobody
+wise, no aphorism in the last sentence, not one em dash. The scavenger asks the
+player a question and loses his thread mid-sentence, because in 504 NPC speeches
+there were two question marks and zero stumbles.
+
+*** AND THE OTHER HALF OF HIS BUG REPORT. *** Yesterday fixed the CONSEQUENCE
+and left the CONFUSION. He never said "it moved me", he said IT IS CONFUSING.
+The defect: the same control, same corner, same thumb, looking exactly the same,
+meant two different things -- one metre and free, or ninety-six metres and ten
+minutes of his day. Norman's split: an AFFORDANCE is what a control can do, a
+SIGNIFIER is what it TELLS you it will do, and only the affordance changed at
+the seam. THE WRONG FIX IS A CAPTION (words on his screen are a cost), so the
+CONTROL changes: THREE SIGNALS AT ONCE because one can be missed.
+  SHAPE   round 50% -> square 7px. A circle is a thumbstick, a square is a tile.
+  GLYPH   the arrow doubles, because the distance did.
+  WEIGHT  rgb(184,154,106) warm walking accent -> rgb(159,180,196) map line.
+Driven from updHud, which all 19 mode changes already call. Measured through a
+REAL two-finger pinch off computed style, never by setting MODE by hand.
+
+BOTH OF THIS LANE'S REDS ARE CLOSED, and one of them was a lesson.
+SEE-THROUGH MOVE went red at 29% on a claim that wanted >50%, AND THE LAW WAS
+NEVER BROKEN. On 8/26 a lane built the wall fade he asked for in the dispatch:
+every wall within XRAY_R of him ramps open now, covering him or not. A correct
+new feature dragged a WHOLE-SCREEN AVERAGE under a whole-screen threshold. Read
+by distance the build was doing exactly what the law says: within 5 20% solid,
+6..12 82%, beyond 13 100%. THE FADE IS LOCAL TO HIM.
+*** AND THEN I WROTE THREE RULERS AND TWO OF THEM COULD NEVER FAIL. *** Proved
+by mutation (fade every wall in the world): a Chebyshev-distance version read
+322/322 solid either way, a column version read 160/160 either way. Both because
+a facade draws its courses UPWARD, so a near wall lands in the far bucket, and
+because the viewport is only ~9 columns wide so the far bucket held non-facade
+draws. The ruler that works is the ring just outside the game's own aperture,
+in SCREEN space, stated honestly as screen space: 59% solid real, 4% mutated.
+THE RULE THIS LEAVES: A WHOLE-SCREEN AVERAGE IS NOT A MEASUREMENT OF A LOCAL
+EFFECT, and it will go red the first time somebody correctly makes the local
+effect bigger. Record: BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
+CORRECTING MY OWN EARLIER HANDOFF: I called WALK FEEL a real red. IT WAS NOT.
+It measures 20/0 alone (grid 0.0% standing, slide median 49.2% walking, camera
+between cells 92.5% of a beat). It drives real touch and real timing and misses
+its window on a loaded box. Load flake, not a defect.
+
+  ROAD INTERRUPTS   17 passed, 0 failed    PAD SAYS   11 passed, 0 failed
+  SEE-THROUGH MOVE  11 passed, 0 failed    WALK FEEL  20 passed, 0 failed
+  MUTATIONS: caller removed from stepOnce 17->16/1 · inlined engine drifted one
+  number 17->15/2 · padMode unhooked 11->7/4 · every wall faded 11->10/1
+THE ROAD GATE NEVER CALLS THE FUNCTION IT CHECKS FOR. It spies: replaces
+roadInterrupt with a counter and presses the pad for real. This lane made the
+opposite mistake THIS WEEK (the ANIMALS gate drove animalPass by hand, so
+deleting the renderer's call left it green). It also holds ENGINE SYNC for a
+module the BOH_* sync gate is blind to -- the director is an IIFE on
+window.BohemiaEncounters, not a `const BOH_x=` -- by comparing the inlined body
+to the engine file, normalized.
+
+WHAT IS NEXT IN THIS LANE, IN ORDER:
+  1. FT-JOURNEY IS NOT FINISHED. This turn delivered ONE pillar (the middle).
+     Left: ROUTES (needs a road graph over the overmap, and MAP LAW says Claude
+     never designs map layouts), CARGO (needs the purse plus a what-is-worth-
+     carrying ruling the spec reserves to him), PREPARATION (guards, transport
+     upgrades -- an economy, not a patch), THE FORK (blocked on the damage dial,
+     his), and THE LAW/OUTLAW AXIS (explicitly reserved: which factions police
+     the roads and which rob them is his call).
+  2. TIER 2, THE PACK, once AR-006 (the dog body) lands. feral_dog_pack now
+     FIRES and has no body to show, so the art request just became live content
+     rather than a queue row.
+  3. LOOT (dispatch item 8c). The road now hands him encounters and nothing
+     comes off them.
+  4. RUN 0f, THE FEEDBACK CARD.
+  5. WEBKIT-1. All 201 Playwright launches are chromium; the game is
+     iPhone-portrait WebKit. The UI lane proved this week that a real WebKit
+     exists in this repo now and that a chromium-only claim can be flat wrong.
+Records this turn: BOHEMIA_THE_ROAD_INTERRUPTS_8_27_26.txt and
+BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
