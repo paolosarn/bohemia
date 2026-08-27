@@ -134,6 +134,24 @@ def main():
 
     open(ALPHA, 'w', encoding='utf8').write(s)
 
+    # 3b. AND A BURIED SONG MUST NOT STILL BE BADGED "NEW" (8/27). NEW_VIBES
+    # drives the NEW badge in the MUSIC tab AND it is the list
+    # voice_audible_gate walks, so leaving a corpse in it points him at a song
+    # that is gone and points the gate at a lead it cannot render. Found when
+    # his whole batch-25 sweep was buried and four names stayed badged.
+    # AN EMPTY NEW_VIBES IS A CORRECT STATE, not a broken one: it means there is
+    # no fresh cook right now, which after a rejection is exactly the truth.
+    m_nv = re.search(r"(NEW_VIBES\s*=\s*\[)([^\]]*)(\])", s)
+    if m_nv:
+        names = re.findall(r"'([^']+)'", m_nv.group(2))
+        keep = [n for n in names if n not in walking]
+        if len(keep) != len(names):
+            s = (s[:m_nv.start(2)] + ','.join("'%s'" % n for n in keep)
+                 + s[m_nv.end(2):])
+            print('  pruned %d buried song(s) from NEW_VIBES; %d still badged NEW'
+                  % (len(names) - len(keep), len(keep)))
+            open(ALPHA, 'w', encoding='utf8').write(s)
+
     # 4. the registry, so the graveyard gate can see them from now on
     reg = open(REGISTRY, encoding='utf8').read()
     add = []

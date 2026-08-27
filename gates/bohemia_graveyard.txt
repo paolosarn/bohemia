@@ -1221,3 +1221,25 @@ n:'ICON v7 — INTAKE'    | 8/25/26 | KILL (district map icons, full board 8/25:
 n:'MENU — NOBODY IS COMING'    | 8/26/26 | DOWN on his music verdict export. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED -- he killed songs, not voices. Two of the three are MENU songs from the same sitting that produced "menu music doesnt get impacted by intensity type shit": he was hearing them at a fight's arrangement while judging them, which the same turn made impossible. They stay dead regardless; that is his call.
 n:'MENU — WHAT THE VALLEY KEPT'    | 8/26/26 | DOWN on his music verdict export. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED -- he killed songs, not voices. Two of the three are MENU songs from the same sitting that produced "menu music doesnt get impacted by intensity type shit": he was hearing them at a fight's arrangement while judging them, which the same turn made impossible. They stay dead regardless; that is his call.
 n:'THE NOTE THAT WOULD NOT STAY ONE'    | 8/26/26 | DOWN on his music verdict export. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED -- he killed songs, not voices. Two of the three are MENU songs from the same sitting that produced "menu music doesnt get impacted by intensity type shit": he was hearing them at a fight's arrangement while judging them, which the same turn made impossible. They stay dead regardless; that is his call.
+
+# --- MUSIC, BURIED IN CODE (tools/bohemia_music_bury_the_dead.py).
+# Each had a death notice inside the alpha and no line here, which is
+# why the graveyard gate could not see it. The date on each row is the
+# date on ITS OWN notice, never the date of this run.
+n:'A NOTE THAT CLIMBS WITHOUT RISING'    | 8/27 | DOWN. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED unless a ruling says so separately -- a song dying is not its voice dying, and reading silence as a retirement has killed live voices in this repo before.
+n:'SOMETHING IN THE PIPE IS SHAPING WORDS'    | 8/27 | DOWN. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED unless a ruling says so separately -- a song dying is not its voice dying, and reading silence as a retirement has killed live voices in this repo before.
+n:'THE BOW WILL NOT LET GO'    | 8/27 | DOWN. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED unless a ruling says so separately -- a song dying is not its voice dying, and reading silence as a retirement has killed live voices in this repo before.
+n:'THE STRING THAT KEEPS MOVING'    | 8/27 | DOWN. GRAVEYARD FINAL, no remake. Buried in code by tools/bohemia_music_bury_the_dead.py: out of MLOOPS, CANON_DEFAULTS 0, tag pruned. VOICES ARE NOT RETIRED unless a ruling says so separately -- a song dying is not its voice dying, and reading silence as a retirement has killed live voices in this repo before.
+
+# --- VOICES, HIS 8/27 SWEEP OF BATCH 25 ("I didn't like any of the new shit
+# that you made"). Zero for eight: four songs and the four voices they were
+# built for. The bodies stay in synthV rather than being deleted -- the same
+# call the 8/14 post-mortem made for particle and air, because 0/4 written by
+# one person in one sitting condemns THE WRITING and cannot cleanly separate it
+# from the technique. But the IDS ARE DEAD: nothing wires these into a song
+# again, and there is no batch 26 in this session.
+# Post-mortem: records/BOHEMIA_I_CHOSE_FROM_THE_GAP_LIST_8_27_26.md
+n:'scanstring'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Scanned synthesis (Verplank/Shaw/Mathews). The technique is not barred; this writing of it is dead.
+n:'syncthorn'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Hard sync. The technique is not barred; this writing of it is dead.
+n:'pafvox'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Phase-aligned formant (Puckette). The technique is not barred; this writing of it is dead.
+n:'bowdrag'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Stick-slip friction. The technique is not barred; this writing of it is dead.

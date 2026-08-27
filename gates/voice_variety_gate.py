@@ -68,7 +68,21 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.click('#front',{force:true}).catch(()=>{});
   await p.waitForTimeout(1100);
 
-  const out=await p.evaluate(async(NEWV)=>{
+  const out=await p.evaluate(async()=>{
+    /* THE FRESH COOK NAMES ITSELF (8/27). This held four voice names in a
+       hardcoded list, and when Paolo swept that batch the gate pointed at four
+       things that no longer exist. A gate written for ONE batch dies with it;
+       this one asks the game what is currently badged NEW and checks the leads
+       those songs use, so it keeps working for every batch after. An empty
+       NEW_VIBES means there is no fresh cook, which is a state and not a hole. */
+    const NEWV=[];
+    try{
+      for(const n of NEW_VIBES){
+        const song=MLOOPS.find(x=>x.n===n);
+        const l=song&&song.inst&&song.inst.l;
+        if(l && NEWV.indexOf(l)<0) NEWV.push(l);
+      }
+    }catch(e){}
     const SR=22050;                      /* half rate: 600+ renders, timbre survives */
     const hzOf=s=>440*Math.pow(2,(s-69)/12);
 
@@ -216,7 +230,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       R.newv[k].nearest={k:best.k, d:+best.d.toFixed(4)};
     }
     return R;
-  }, ['scanstring','syncthorn','pafvox','bowdrag']);
+  }, null);
 
   out.errors=errs.slice(0,3);
   console.log(JSON.stringify(out));
@@ -259,6 +273,11 @@ def main():
        'and were placed' % (d.get('total', 0), d.get('oldCount', 0)),
        d.get('total', 0) > 500 and d.get('oldCount', 0) > 300)
 
+    if not (d.get('newv') or {}):
+        print('  --  NO FRESH COOK IS BADGED RIGHT NOW, so there is no new voice to '
+              'place. That is a state, not a hole: batch 25 was swept 0 for 8 on '
+              '8/27 and nothing has been cooked since.')
+
     bar = d.get('bar') or 0
     ok('and THE RACK SET ITS OWN BAR rather than this gate picking a number: the '
        'median existing voice sits %.4f from its nearest neighbour' % bar, bar > 0)
@@ -284,8 +303,7 @@ def main():
 
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
-        print('  Four new physics, each further from anything that already exists '
-              'than a typical pair of existing voices are from each other.')
+        print('  Every voice in the current fresh cook is its own sound.')
     return 1 if f else 0
 
 

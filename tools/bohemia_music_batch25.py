@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 """
+*** DEAD. HE SWEPT THIS BATCH 0 FOR 8 ON 8/27: "I didn't like any of the new
+    shit that you made." All four songs and all four voices are GRAVEYARD FINAL
+    and the voice bodies have been deleted from synthV. DO NOT RUN THIS TOOL.
+    It is kept as the record of what was cooked and why it was wrong, which is
+    the useful half -- the post-mortem is
+    records/BOHEMIA_I_CHOSE_FROM_THE_GAP_LIST_8_27_26.md and its finding is that
+    every voice below was chosen by asking what PHYSICS THE RACK WAS MISSING and
+    never by asking what this game sounds like, straight past clause 2 of the
+    NEW VOICES LAW: "all new voices are POST-APOCALYPTIC FINAL FANTASY themed,
+    always". A cook starts from the world, not from the gap list. ***
+"""
+import sys as _sys
+print(__doc__)
+print('REFUSING TO RUN: every song and voice in this batch is graveyard-final.')
+_sys.exit(1)
+
+"""
 BOHEMIA — MUSIC BATCH 25 (8/26/26). FOUR TOPOLOGIES THIS RACK HAS NEVER HAD.
 
 HIS ORDER, on his 8/26 verdict export, verbatim:
@@ -270,19 +287,19 @@ VOICES = r"""  /* ===== BATCH 25 VOICES (8/26/26) — four topologies this rack 
 # deliberately a different scale, feel and kick from the others (VARIETY LAW).
 # WORDS: the names are an attempt and they ship; he edits what he hates.
 SONGS = (
-    " {n:'THE STRING THAT KEEPS MOVING',acc:'#7fa8a0',root:41,scale:[0,2,3,7,10],"
+    " {n:'THE STRING THAT KEEPS MOVING',acc:'#7fa8a0',root:41,scale:[0,2,3,7,10],"  # DEAD 8/27, GRAVEYARD FINAL
     "wave:'sine',kick:[0],bass:[0,7],hat:[],inst:{b:'boneyardbass',l:'scanstring'},"
     "am:'stillwater',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',"
     "klay:'melody',ff:true,nu:true},\n"
-    " {n:'A NOTE THAT CLIMBS WITHOUT RISING',acc:'#c87a5a',root:45,"
+    " {n:'A NOTE THAT CLIMBS WITHOUT RISING',acc:'#c87a5a',root:45,"  # DEAD 8/27, GRAVEYARD FINAL
     "scale:[0,1,5,7,8],wave:'sawtooth',kick:[0,6,10],bass:[0,5,7],hat:[4,12],"
     "inst:{b:'distbass',l:'syncthorn'},am:'signalrot',kit:{k:'knock',h:'clickh'},"
     "mel:'call',swing:0,feel:'normal',klay:'drive',ff:true,nu:true},\n"
-    " {n:'SOMETHING IN THE PIPE IS SHAPING WORDS',acc:'#9a86c8',root:38,"
+    " {n:'SOMETHING IN THE PIPE IS SHAPING WORDS',acc:'#9a86c8',root:38,"  # DEAD 8/27, GRAVEYARD FINAL
     "scale:[0,2,3,5,7,8,11],wave:'triangle',kick:[],bass:[0,3,7],hat:[8],"
     "inst:{b:'choirbass',l:'pafvox'},am:'atriumvox',kit:{k:'thud',h:'shakerh'},"
     "mel:'seed8',swing:0.08,feel:'half',klay:'stabs',ff:true,nu:true},\n"
-    " {n:'THE BOW WILL NOT LET GO',acc:'#b8a06a',root:36,scale:[0,3,5,6,7,10],"
+    " {n:'THE BOW WILL NOT LET GO',acc:'#b8a06a',root:36,scale:[0,3,5,6,7,10],"  # DEAD 8/27, GRAVEYARD FINAL
     "wave:'sawtooth',kick:[0,8],bass:[0,6,10],hat:[2,6,10,14],"
     "inst:{b:'reservoirbass',l:'bowdrag'},am:'mesawind',"
     "kit:{k:'boom',h:'ride'},mel:'longs',swing:0.16,feel:'normal',"

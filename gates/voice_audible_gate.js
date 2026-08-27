@@ -94,7 +94,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
         out[name] = { lead, rms: +Math.sqrt(sq / a.length).toFixed(5),
                       peak: +pk.toFixed(4), tail: +tail.toFixed(4) };
       }
-      return { out };
+      return { out, parsed: Array.isArray(NEW_VIBES) };
     });
   } catch (e) { d = { fatal: String(e && e.message || e) }; }
   await browser.close();
@@ -105,8 +105,21 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
     process.exit(1);
   }
   const rows = d.out || {};
-  ok('there are fresh songs to check (' + Object.keys(rows).length + ')',
-     Object.keys(rows).length > 0);
+  /* AN EMPTY NEW_VIBES IS A STATE, NOT A HOLE (8/27). This demanded at least one
+     fresh song, which was right for the reason A20 is right -- a checker that
+     silently sees nothing reads exactly like a checker that passed. But after
+     Paolo swept a whole batch ("I didn't like any of the new shit that you
+     made") the honest value of "what is badged NEW" is NOTHING, and a gate that
+     fails on the truth teaches people to bury the truth.
+     The defence is kept and moved: the thing that must never silently be zero is
+     that NEW_VIBES was FOUND AND PARSED. If it was, an empty list is reported
+     out loud and passes; if it was not, that still fails. */
+  ok('NEW_VIBES was found and parsed, so an empty list below means "no fresh '
+     + 'cook" and not "this gate lost the list"', d.parsed === true);
+  if (!Object.keys(rows).length) {
+    console.log('  --  NO FRESH COOK IS BADGED RIGHT NOW. Nothing to check, and '
+      + 'that is the truth rather than a hole: the last batch was swept.');
+  }
   for (const name of Object.keys(rows)) {
     const r = rows[name];
     if (r.err) { ok(name + ': its lead renders (' + (r.lead || '?') + ': ' + r.err + ')', false); continue; }

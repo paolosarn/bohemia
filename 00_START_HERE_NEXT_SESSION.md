@@ -1,3 +1,86 @@
+SOUND (sound-xk7pjp): 8/27 (a) LATEST -- *** HE SWEPT BATCH 25, 0 FOR 8: "I
+didn't like any of the new shit that you made." All of it is buried and the rack
+is byte-back where it was. THE POST-MORTEM IS THE DELIVERABLE, and it is NOT the
+tidy story I first wrote. Nothing to judge. NO BATCH 26 THIS SESSION. ***
+
+TAB: MUSIC, and there is LESS in it than yesterday, on purpose. 132 songs -> 128,
+586 voices -> 582. Build 8/27f - THE RACK IS BACK WHERE IT WAS.
+
+THREE THEORIES, AND MY OWN DATA KILLED ALL THREE
+  1. "My variety gate steered the batch away from his taste" -- it rewarded
+     distance from every existing voice, and existing voices are the ones he
+     approved. Tidy, and FALSE. Measured against the 98 lead voices his 120 CANON
+     songs actually use: a typical approved lead sits 0.6515 from the centre of
+     his taste, the farthest 0.9952, and my four sat at 0.35 / 0.64 / 0.70 /
+     0.73. ZERO of four outside his range; bowdrag is CLOSER to his centre than a
+     typical voice he approved.
+  2. "They sit in a thin acoustic region" -- false, and worse: his approved leads
+     span 0.32-0.995 from their own centre, so the descriptor cannot express
+     taste at all, only distinctness.
+  3. "They ignore the HORROR KIT the lawbook names" -- my detector scored
+     ashchoir and coldpiano, two of his OWN canon dread voices, at 0 of 7. A
+     detector that reads the reference set as empty cannot support a claim.
+  SO I STOPPED MEASURING. Three attempts, three rejections by my own evidence.
+
+THE ANSWER NEEDED NO METRIC AND IT WAS IN A LOCKED LAW I WALKED PAST
+  NEW VOICES LAW (Paolo 7/7, LOCKED) clause 2: "All new voices are
+  POST-APOCALYPTIC FINAL FANTASY themed, ALWAYS." My four were scanned
+  synthesis, hard sync, phase-aligned formant, stick-slip friction -- every one
+  an answer to "what physics is the rack missing", which is a question about the
+  ENGINE. A hard-sync scream is a 1990s trance lead and I put it in a horror game
+  about a dead Las Vegas because the rack had never done oscillator sync.
+  I READ THE LAW FOR WHAT IT FORBADE, NOT FOR WHAT IT REQUIRED. Variety is the
+  CONSTRAINT; clause 2 is the GOAL. I optimised the constraint.
+  *** A COOK STARTS FROM THE WORLD, NOT FROM THE GAP LIST. Name the moment in the
+  game and the feeling it carries, THEN find the technique. ***
+
+AND NOTHING HAS EVER ENFORCED CLAUSE 2
+  The lawbook says "Enforced by _newvoice_gate.js every ship". THAT FILE DOES NOT
+  EXIST -- it is in gates/bohemia_superseded.txt. A locked clause with no machine
+  since 7/7. I DID NOT BUILD ONE: three failed measurements this turn are enough
+  evidence that "is this post-apocalyptic Final Fantasy" is not a thing six
+  acoustic numbers can decide, and a gate that pretends otherwise is worse than
+  the hole because it lets the next person believe the question was asked.
+
+WHAT WAS REVERTED
+  4 songs out of MLOOPS (132->128), tags pruned, tombstones written.
+  4 VOICE BODIES DELETED from synthV (586->582, exactly the pre-batch rack).
+  Unlike particle/air on 8/14 -- those were METHODS, barred but kept. These are
+  four named IDs born and killed in one session with nothing calling them. The
+  TECHNIQUES ARE NOT BARRED; this writing of them is dead, and each tombstone
+  says so.
+  NEW_VIBES is EMPTY, which is the truth. Two gates had to learn that an empty
+  fresh cook is a STATE and not a hole without losing the defence they were built
+  for: voice_audible now asserts NEW_VIBES was FOUND AND PARSED (a lost list
+  still fails) and reports zero out loud; voice_variety reads the current fresh
+  cook instead of the four names it hardcoded. A GATE WRITTEN FOR ONE BATCH DIES
+  WITH THAT BATCH -- both are instruments for the next one now.
+  The burial tool prunes NEW_VIBES itself, so a buried song can never stay badged
+  NEW (it was pointing him at four songs that no longer existed AND pointing a
+  gate at leads it could not render).
+  tools/bohemia_music_batch25.py now REFUSES TO RUN and is kept as the record.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  NOT another voice batch. He said "keep cooking" BEFORE seeing the result; the
+  result is 0 for 8 and the newest signal wins. When a batch does happen it
+  starts from the world: pick the moment, pick the feeling, then the technique.
+  The demo order is still BUILD -> DOOR -> ENDING -> INSTRUMENT -> INVITE and
+  BUILD is done; DOOR, ENDING and 0f are RUN's. Still open from 8/26:
+  INTENSITY.talking() and INTENSITY.crowd() have no callers, one line each from
+  the lane that owns the city frame.
+
+PROOF
+  records/BOHEMIA_I_CHOSE_FROM_THE_GAP_LIST_8_27_26.md   (the post-mortem)
+  tools/bohemia_where_his_taste_lives.py                 (the measurement that
+    killed my own first theory: 98 approved leads placed, his centre, his radius)
+  MUSIC 20/0 · VOICE AUDIBLE 2/0 · VOICE VARIETY 3/0 · MENU MUSIC 17/0
+  SONG LOCK 20/0 · DEMO BUILD 25/0 · ALPHA LOADS 20/0 · graveyard back to 10
+
+------------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/26 (d) LATEST -- *** THE WALL WAS NEVER MISSING. It popped, and a
 "check" said it did not exist. A wall crossed 0.65 of alpha in ONE FOOTSTEP. TAB: RUN, walk
 up to any house. Nothing to judge. ***
