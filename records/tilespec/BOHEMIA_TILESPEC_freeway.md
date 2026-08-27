@@ -50,7 +50,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 336 |
 | 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 445 |
 | 6 | `#6a5f47` | embankment | ground | graded embankment slope, decomposed granite and rock | ground | no | — | 2422 |
-| 7 | `#3a4520` | dead brush | tree-dead | dry brush and tumbleweed piled up the embankment | prop | yes | — | 42 |
+| 7 | `#4d4a38` | dead brush | tree-dead | dry brush and tumbleweed piled up the embankment | prop | yes | — | 42 |
 | 8 | `#7a7266` | sound wall | structure | the tall block sound wall fronting the neighbourhood, tagged end to end | structure | yes | — | 1008 |
 | 9 | `#8f8676` | high-mast light | prop | high-mast freeway light, every head dark | prop | yes | — | 3 |
 | 10 | `#55555f` | dead car | vehicle | a car stopped in the lane where it died, doors open, glass gone | prop | yes | — | 132 |
@@ -61,7 +61,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 31 |
 | 16 | `#5a5348` | rail ballast | ground | the railway ballast running out from under the bridge, in the daylight between the abutments | ground | no | — | — |
 | 17 | `#8e8a84` | rail under bridge | ground | the UP mainline passing under the interstate, rails still bright on top | ground | no | — | — |
-| 18 | `#b3ab97` | deck stripe | overhead | the street's lane marking carried across the overpass deck, worn to a ghost | overhead | no | — | — |
+| 18 | `#8b867c` | deck stripe | overhead | the street's lane marking carried across the overpass deck, worn to a ghost | overhead | no | — | — |
 | 19 | `#6e6e78` | deck parapet | overhead | the concrete parapet along the edge of the overpass deck, tagged along its whole length | overhead | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 2659 |
 | 1 | `#3a3a42` | drive / lot | drive | the entrance drive + visitor lot + secure-yard lane (car-drivable) | ground | no | — | 1249 |
 | 2 | `#6a6f7a` | building (station) | building | the police HQ — public lobby front, dark, windows barred; the secure wing behind | structure | yes | station interior: public lobby + records + duty desk up front; behind the secure line, cells + evidence + squad + the sally-port bay | 3144 |
-| 3 | `#3a4526` | landscaping | tree-dead | a dead civic shrub / tree at the campus edge | prop | no | — | 1131 |
+| 3 | `#4d4a38` | landscaping | tree-dead | a dead civic shrub / tree at the campus edge | prop | no | — | 1131 |
 | 4 | `#4a4842` | secure-yard concrete | ground | the concrete of the fenced secure yard / campus ground, cracked | ground | no | — | 5428 |
 | 5 | `#c79a3f` | gate | gate | the campus drive entrance off the street, amber curb | portal | no | — | 2 |
 | 6 | `#5a5f66` | sally port | structure | the enclosed sally-port bay (prisoner transport) on the station back, door seized | structure | yes | — | 117 |

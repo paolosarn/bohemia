@@ -261,8 +261,8 @@
      families and 13% chromatic pixels against the reference's 12 and 88%. Faded is not
      the same instruction as brown — a faded maroon is still maroon. School colours are
      the last real colour on a dead campus, which is true of the real ones too. */
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a4038',3:'#514f40',4:'#49512e',5:'#c79a3f',
-    6:'#4f6038',7:'#9a4a38',8:'#3f5f66',9:'#8a929a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a4038',3:'#514f40',4:'#524b38',5:'#c79a3f',
+    6:'#635a42',7:'#9a4a38',8:'#3f5f66',9:'#8a929a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a',
     13:'#4e5138',14:'#2f5a52',15:'#a89878',16:'#b8912f',17:'#6a6e72',
     18:'#a7a08e',19:'#241f1a',20:'#3d5570'};
   var LEGEND={

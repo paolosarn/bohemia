@@ -36,7 +36,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 1 | `#33333c` | parking / drive asphalt | drive | cracked asphalt parking apron + drive lanes ringing the bowl (car-drivable) | ground | no | — | 6710 |
 | 2 | `#6f665a` | facade (outer stadium wall) | building | the outer stadium wall — concrete + dead signage, the gates cut through it | structure | yes | concourse interior: the ring corridor under the stands, ramps up to the seating bowl, boarded concession windows + restrooms | 560 |
 | 3 | `#4a4030` | dead weeds / rubble | tree-dead | weeds + spalled concrete rubble through the cracked lots and stands | prop | no | — | 159 |
-| 4 | `#5b6a44` | dead field turf | ground | the dead playing field — brown cracked turf, the crown still faintly there | ground | no | — | 1997 |
+| 4 | `#6d6449` | dead field turf | ground | the dead playing field — brown cracked turf, the crown still faintly there | ground | no | — | 1997 |
 | 5 | `#c79a3f` | gate / entrance | gate | a stadium entry gate cut through the facade, amber curb, turnstile husks | portal | no | — | 7 |
 | 6 | `#6a655c` | seating / stands (the bowl) | structure | the tiered seating bowl — rows of dead seats stepping down to the field (the ¾ face is the rake of the stands) | structure | yes | — | 2499 |
 | 7 | `#8f8676` | concourse (loop under the stands) | ground | the concourse ring + the aisle walkways / vomitory tunnels through the stands | ground | no | — | 1315 |

@@ -52,7 +52,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#6b6153` | shore rock | ground | broken rock above the old high-water mark | ground | no | — | 5839 |
 | 7 | `#a8a396` | launch ramp | ground | a concrete launch ramp running down and stopping in mid-air, a quarter mile short of the water | ground | no | — | 639 |
 | 8 | `#5c564a` | sunken boat | vehicle | a boat the lake gave back, hull open to the sky | prop | yes | — | 65 |
-| 9 | `#4a5230` | dead brush | tree-dead | brush that colonised the new ground and then died too | prop | no | — | 6 |
+| 9 | `#4d4a38` | dead brush | tree-dead | brush that colonised the new ground and then died too | prop | no | — | 6 |
 | 10 | `#6a6458` | mooring debris | prop | cleats, cable and dock section left where the marina was | prop | yes | — | 10 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

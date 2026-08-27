@@ -89,8 +89,16 @@ function requirePlaywright() {
    cross-section, and the honest answer for most of these is a piece that does not exist
    yet (a frontage road where an arterial dies on a freeway flank; a level crossing where
    a street meets rail). They are counted so the number can only ever go DOWN. Measured
-   8/26 after the three fixes above: 270. */
-const CROSS_CLASS_DEBT = 166;
+   8/26 after the three fixes above: 270.
+   RATCHETED 8/27: 270 -> 166 when the bridge deck started counting as corridor, then
+   166 -> 129 when the LEVEL CROSSING stopped inventing its own road width. The rail
+   module carried `var PAVE = 21, CURB = 23` under a comment that said, verbatim, "the
+   grade crossing borrows the arterial's own cross-section" -- it borrowed nothing, those
+   were the arterial's numbers on the day somebody typed them, and the arterial moved to
+   17/19 on 8/26. A street 35 tiles wide ran up to the railway, crossed on a 43-tile
+   crossing and came off 35 wide again. It reads ART.PAVE_HALF now. 37 seams, and the
+   FIFTH time this month a constant moved and its dependent stayed behind. */
+const CROSS_CLASS_DEBT = 129;
 
 /* AND THE TWO SAME-CLASS CAUSES STILL STANDING, EACH NAMED AND EACH COUNTED. Paolo's
    wording is "fails on a single mismatched edge", and that is exactly what ARTERIAL --

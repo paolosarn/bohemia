@@ -169,7 +169,7 @@
     /* EVERYTHING WAS THE SAME BROWN in the first version and the whole plot read as one
        material. The town now separates by MATERIAL, which is also the truth of the place:
        masonry shopfronts warm, timber houses grey and silvered, dirt pale, alley dark. */
-    0: '#1c1a15', 1: '#33333b', 2: '#8a6f4e', 3: '#3a4526', 4: '#6f6449', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#33333b', 2: '#8a6f4e', 3: '#4d4a38', 4: '#6f6449', 5: '#c79a3f',
     6: '#b0a184', 7: '#a8895f', 8: '#96604a', 9: '#6e6f66', 10: '#a8a08c', 11: '#9a948a',
     12: '#b0863a', 13: '#403a33', 14: '#5c554a', 15: '#57544a', 16: '#8e8a7c'
   };

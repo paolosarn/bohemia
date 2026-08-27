@@ -131,7 +131,7 @@
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#2c505c',
     1: '#3c6a76', 2: '#b8b09c', 3: '#8a8069', 4: '#948a72', 5: '#a49a80', 6: '#6b6153',
-    7: '#a8a396', 8: '#5c564a', 9: '#4a5230', 10: '#6a6458'
+    7: '#a8a396', 8: '#5c564a', 9: '#4d4a38', 10: '#6a6458'
   };
 
   var LEGEND = {

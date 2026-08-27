@@ -34,7 +34,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2627 |
 | 1 | `#4a4438` | street / drive | drive | the cracked internal park street / driveway pad (car-drivable) | ground | no | — | 1986 |
 | 2 | `#7a7266` | mobile home | building | a mobile home / trailer, aluminium skin dented + sun-bleached, windows dark | structure | yes | trailer interior: a single-wide railroad plan — living + kitchenette up front, a bath + bedroom down the hall | 3517 |
-| 3 | `#3a4520` | weed / brush | tree-dead | weeds + tumbleweed choking a dead lot | prop | no | — | 8 |
+| 3 | `#4d4a38` | weed / brush | tree-dead | weeds + tumbleweed choking a dead lot | prop | no | — | 8 |
 | 4 | `#565040` | lot dirt | ground | the packed-dirt / gravel lot the trailers sit on | ground | no | — | 6012 |
 | 5 | `#c79a3f` | gate | gate | the park entrance off the street, amber curb | portal | no | — | 5 |
 | 6 | `#6a6a72` | carport | overhead | a metal carport awning beside a trailer (you park/walk UNDER it), sagging | overhead | no | — | 767 |

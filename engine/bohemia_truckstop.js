@@ -85,7 +85,7 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#b8b4a8',5:'#c79a3f',6:'#9a5a3a',
-    7:'#5a5f63',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a675e',13:'#55603a'};
+    7:'#5a5f63',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a675e',13:'#605844'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback)'},
     1:{name:'forecourt / drive asphalt',kind:'drive',act1:'cracked forecourt + entry/exit lanes — the drivable apron cars pull across to the pumps'},

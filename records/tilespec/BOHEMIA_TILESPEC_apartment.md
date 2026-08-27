@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2385 |
 | 1 | `#33333c` | street / drive | drive | the cracked internal complex drive / driveway aisle (car-drivable) | ground | no | — | 2879 |
 | 2 | `#726a5c` | apartment building | building | a 2-3 story garden apartment block, stucco cracked, most windows dark, some boarded | structure | yes | garden apartment interior: exterior breezeway stairs up to a shared landing, then a railroad-plan unit off it | 3186 |
-| 3 | `#3a4520` | weed / brush | tree-dead | weeds + tumbleweed through the cracked lot | prop | no | — | 10 |
+| 3 | `#4d4a38` | weed / brush | tree-dead | weeds + tumbleweed through the cracked lot | prop | no | — | 10 |
 | 4 | `#524c3e` | parking asphalt | ground | the complex parking lot, faded striping | ground | no | — | 5168 |
 | 5 | `#c79a3f` | gate | gate | the complex entrance off the street, amber curb | portal | no | — | 7 |
 | 6 | `#6a6a72` | carport | overhead | a metal carport row along the building front (you park/walk UNDER it), sagging | overhead | no | — | 1087 |

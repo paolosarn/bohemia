@@ -46,7 +46,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#55555f` | abandoned vehicle | vehicle | a car or big rig left at a pump / in a stall, tyres flat, dust-caked | prop | yes | — | 60 |
 | 11 | `#c9c1aa` | parking / truck stall marking | marking | faded stall paint — customer parking + the long pull-through big-rig stalls | ground | no | — | 292 |
 | 12 | `#6a675e` | concrete pad / sidewalk | ground | the light concrete fuel-court pad (poured under the canopy for spill resistance) + the store sidewalk, cracked | ground | no | — | 1214 |
-| 13 | `#55603a` | dead landscaping planter | prop | a curb planter island gone to dead weed — the landscaping that once broke up the lot | prop | yes | — | 329 |
+| 13 | `#605844` | dead landscaping planter | prop | a curb planter island gone to dead weed — the landscaping that once broke up the lot | prop | yes | — | 329 |
 
 **Gate:** `gates/truckstop_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2617 |
 | 1 | `#33333c` | street / drive | drive | the cracked entrance drive (car-drivable) | ground | no | — | 77 |
 | 2 | `#726a5c` | locker building | building | the changing rooms / locker building, doors hanging | structure | yes | locker interior: rows of rusted lockers, a dead shower block | 165 |
-| 3 | `#3a4520` | weed / brush | tree-dead | weeds pushing through the cracked deck | prop | no | — | 2 |
+| 3 | `#4d4a38` | weed / brush | tree-dead | weeds pushing through the cracked deck | prop | no | — | 2 |
 | 4 | `#524c3e` | parking asphalt | ground | the entrance parking lot, faded striping | ground | no | — | 548 |
 | 5 | `#c79a3f` | gate | gate | the park entrance turnstile, amber curb | portal | no | — | 7 |
 | 6 | `#2e3a3c` | drained wave pool | water-dead | the wave pool, drained, cracked plaster, a beach-entry zigzag edge | ground | no | — | 2171 |

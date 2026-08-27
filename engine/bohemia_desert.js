@@ -182,7 +182,7 @@
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#6e6045',
-    1: '#8f8062', 2: '#4a5230', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
+    1: '#8f8062', 2: '#4e5440', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
     7: '#6a6258', 8: '#4a4038', 9: '#9a8d70', 10: '#a09684', 11: '#6f6551', 12: '#5a5334',
     13: '#b0a070'
   };

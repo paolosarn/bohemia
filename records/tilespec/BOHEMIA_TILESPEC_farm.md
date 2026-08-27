@@ -35,7 +35,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2627 |
 | 1 | `#4a4438` | farm road | drive | the dirt farm road — a truck/tractor reaches the farmstead from the gate (drivable) | ground | no | — | 327 |
 | 2 | `#6a5f50` | building (farmhouse/shed) | building | the farmhouse / equipment shed, weathered clapboard, windows dark | structure | yes | farmhouse interior: kitchen + rooms up front, the mud room + the shed's equipment bay off the yard | 310 |
-| 3 | `#3a4520` | windbreak tree | tree-dead | a dead windbreak tree lining the road / field edge | prop | yes | — | 15 |
+| 3 | `#4d4a38` | windbreak tree | tree-dead | a dead windbreak tree lining the road / field edge | prop | yes | — | 15 |
 | 4 | `#57503a` | field soil | ground | cracked dry field soil / a bare fallow patch | ground | no | — | 9019 |
 | 5 | `#c79a3f` | gate | gate | the farm gate off the street, amber curb, a cattle grid | portal | no | — | 5 |
 | 6 | `#8a8478` | silo | structure | a grain silo, corrugated steel, empty + rusting | structure | yes | — | 125 |

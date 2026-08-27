@@ -44,7 +44,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 128 |
 | 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 472 |
 | 6 | `#6a5f47` | embankment | ground | graded embankment slope, decomposed granite and rock | ground | no | — | 1357 |
-| 7 | `#3a4520` | dead brush | tree-dead | dry brush and tumbleweed standing waist high in the infield | prop | yes | — | 508 |
+| 7 | `#4d4a38` | dead brush | tree-dead | dry brush and tumbleweed standing waist high in the infield | prop | yes | — | 508 |
 | 8 | `#7a7266` | sound wall | structure | the block sound wall around the outside of the whole structure | structure | yes | — | 399 |
 | 9 | `#8f8676` | high-mast light | prop | a high-mast light tower over the junction, every head dark | prop | yes | — | 3 |
 | 10 | `#55555f` | dead car | vehicle | a car stopped in the queue that never moved again, doors open | prop | yes | — | 408 |

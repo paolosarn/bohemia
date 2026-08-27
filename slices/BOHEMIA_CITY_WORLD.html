@@ -11154,7 +11154,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#6a6a72',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#4d4a38',4:'#524c3e',5:'#c79a3f',6:'#6a6a72',
     7:'#5c5648',8:'#2e3a3c',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a6a72',13:'#8a7a4a',14:'#463f36',15:'#847c6c'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -12705,7 +12705,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===14;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#6a5f50',3:'#3a4520',4:'#57503a',5:'#c79a3f',6:'#8a8478',
+  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#6a5f50',3:'#4d4a38',4:'#57503a',5:'#c79a3f',6:'#8a8478',
     7:'#6a6238',8:'#46564f',9:'#8f8676',10:'#a86a3a',11:'#6a6a72',12:'#5a5540',13:'#8a7a44',14:'#8a4535'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -12828,7 +12828,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#565248',2:'#7a6f5c',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#8a2f22',
+  var PALETTE={0:'#1c1a15',1:'#565248',2:'#7a6f5c',3:'#4d4a38',4:'#524b38',5:'#c79a3f',6:'#8a2f22',
     7:'#6a6358',8:'#c0392b',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#b0863a',13:'#625d51'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the lot edge (setback)'},
@@ -12867,7 +12867,6 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaFirestation=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
-
 /* ==== engine/bohemia_golf.js (canon, married 7/22) ==== */
 // BOHEMIA GOLF COURSE (7/20/26). LEISURE, on the DISTRICT KIT. Research-first (golf course design
 // guides — Under Armour "Golf Course Layout 101", Keiser College of Golf, Archweb): every hole is
@@ -13107,7 +13106,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#6f6b62',2:'#7a6f5c',3:'#403a20',4:'#776d38',5:'#c79a3f',6:'#7d8a4a',
+  var PALETTE={0:'#1c1a15',1:'#6f6b62',2:'#7a6f5c',3:'#403a20',4:'#776d38',5:'#c79a3f',6:'#8b8064',
     7:'#c9be93',8:'#5a5b52',9:'#5c5a30',10:'#b04a3a',11:'#8f8676',12:'#2f2a18',13:'#8a6a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt out of bounds at the parcel edge'},
@@ -14320,7 +14319,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6a6f7a',3:'#3a4526',4:'#4a4842',5:'#c79a3f',6:'#5a5f66',
+  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#6a6f7a',3:'#4d4a38',4:'#4a4842',5:'#c79a3f',6:'#5a5f66',
     7:'#cfcfc6',8:'#7a5040',9:'#8f8676',10:'#8a8478',11:'#b0b0a4',12:'#6a6a72',13:'#b0863a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the campus edge (setback)'},
@@ -14845,8 +14844,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
      families and 13% chromatic pixels against the reference's 12 and 88%. Faded is not
      the same instruction as brown — a faded maroon is still maroon. School colours are
      the last real colour on a dead campus, which is true of the real ones too. */
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a4038',3:'#514f40',4:'#49512e',5:'#c79a3f',
-    6:'#4f6038',7:'#9a4a38',8:'#3f5f66',9:'#8a929a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a4038',3:'#514f40',4:'#524b38',5:'#c79a3f',
+    6:'#635a42',7:'#9a4a38',8:'#3f5f66',9:'#8a929a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a',
     13:'#4e5138',14:'#2f5a52',15:'#a89878',16:'#b8912f',17:'#6a6e72',
     18:'#a7a08e',19:'#241f1a',20:'#3d5570'};
   var LEGEND={
@@ -14910,7 +14909,6 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSchool=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
-
 /* ==== engine/bohemia_solar.js (canon, married 7/22) ==== */
 // BOHEMIA SOLAR FARM (7/18/26). INFRASTRUCTURE, on the DISTRICT KIT, built to research +
 // EXPLAIN-EVERY-TILE. Fits the CLUSTERED-POWER lore: the grid is eerily perfect — this
@@ -15235,7 +15233,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
   // NOTE: stands/scoreboard are NEUTRAL WARM GRAY, never purple (PURPLE RESERVATION LAW —
   // purple is the Amalgamation's alone; the purity gate sweeps).
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#5b6a44',5:'#c79a3f',6:'#6a655c',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#6d6449',5:'#c79a3f',6:'#6a655c',
     7:'#8f8676',8:'#c9c1aa',9:'#2c2c28',11:'#55555f',12:'#9a9488'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback)'},
@@ -15570,7 +15568,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#5f5a4e',2:'#6a5f50',3:'#4a4030',4:'#b0a690',5:'#c79a3f',6:'#7a5a44',
-    7:'#6f6656',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#55603a',13:'#a86a4a',14:'#5f7a72'};
+    7:'#6f6656',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#605844',13:'#a86a4a',14:'#5f7a72'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the market edge (setback)'},
     1:{name:'gravel parking / drive',kind:'drive',   act1:'the gravel parking lot + drive aisle (car-drivable — you park, then walk the market)'},
@@ -15663,7 +15661,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#7a7266',3:'#3a4520',4:'#565040',5:'#c79a3f',6:'#6a6a72',
+  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#7a7266',3:'#4d4a38',4:'#565040',5:'#c79a3f',6:'#6a6a72',
     7:'#6a5f50',8:'#332a26',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a6a72',13:'#a86a3a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -15787,7 +15785,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#b8b4a8',5:'#c79a3f',6:'#9a5a3a',
-    7:'#5a5f63',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a675e',13:'#55603a'};
+    7:'#5a5f63',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a675e',13:'#605844'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback)'},
     1:{name:'forecourt / drive asphalt',kind:'drive',act1:'cracked forecourt + entry/exit lanes — the drivable apron cars pull across to the pumps'},
@@ -15903,7 +15901,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===7;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#8a7a4a',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#4d4a38',4:'#524c3e',5:'#c79a3f',6:'#8a7a4a',
     7:'#5c6068',8:'#332a26',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a6a72',13:'#8a7050',14:'#463f36'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -16296,7 +16294,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===13;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#2e3a3c',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#4d4a38',4:'#524c3e',5:'#c79a3f',6:'#2e3a3c',
     7:'#27363c',8:'#6a6258',9:'#324248',10:'#8f8676',11:'#8a7a4a',12:'#6a6a72',13:'#5c5648',14:'#4a463c',15:'#726a5c'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
@@ -19358,7 +19356,7 @@ const BEAT=500; // 120BPM law
   function driveConnected(res) { return K.driveReachFromStreet(res.g, 1) > 0.85; }
 
   var PALETTE = {
-    0: '#1c1a15', 1: '#33333c', 2: '#7a6f5c', 3: '#3a4526', 4: '#49512e', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#33333c', 2: '#7a6f5c', 3: '#4d4a38', 4: '#524b38', 5: '#c79a3f',
     6: '#6a675e', 7: '#4c5a5f', 8: '#857a64', 9: '#6e6553', 10: '#c9c1aa', 11: '#5a5344',
     12: '#b0863a', 13: '#807561', 14: '#4e5a5f'
   };
@@ -19688,7 +19686,7 @@ const BEAT=500; // 120BPM law
   function driveConnected(res) { return K.driveReachFromStreet(res.g, 1) > 0.85; }
 
   var PALETTE = {
-    0: '#1c1a15', 1: '#3d3a33', 2: '#6f6858', 3: '#3a4520', 4: '#4a4c33', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#3d3a33', 2: '#6f6858', 3: '#4d4a38', 4: '#4a4c33', 5: '#c79a3f',
     6: '#3f3f47', 7: '#b3ab97', 8: '#6a6a72', 9: '#4a4a52', 10: '#8f8676', 11: '#6b6b74',
     12: '#8f8676', 13: '#2b2b31', 14: '#5c5c66'
   };
@@ -19921,7 +19919,7 @@ const BEAT=500; // 120BPM law
     /* EVERYTHING WAS THE SAME BROWN in the first version and the whole plot read as one
        material. The town now separates by MATERIAL, which is also the truth of the place:
        masonry shopfronts warm, timber houses grey and silvered, dirt pale, alley dark. */
-    0: '#1c1a15', 1: '#33333b', 2: '#8a6f4e', 3: '#3a4526', 4: '#6f6449', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#33333b', 2: '#8a6f4e', 3: '#4d4a38', 4: '#6f6449', 5: '#c79a3f',
     6: '#b0a184', 7: '#a8895f', 8: '#96604a', 9: '#6e6f66', 10: '#a8a08c', 11: '#9a948a',
     12: '#b0863a', 13: '#403a33', 14: '#5c554a', 15: '#57544a', 16: '#8e8a7c'
   };
@@ -20182,7 +20180,7 @@ const BEAT=500; // 120BPM law
     /* THE SEATING AND THE CONCOURSE WERE THE SAME GREY and the bowl read as one mass.
        Seats go dark and cool (folded plastic in shadow), the concourse goes pale
        concrete, so you can see where the stands stop and the walkway starts. */
-    0: '#1c1a15', 1: '#3d3a33', 2: '#4d4b53', 3: '#3a4520', 4: '#4a5533', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#3d3a33', 2: '#4d4b53', 3: '#4d4a38', 4: '#574f3b', 5: '#c79a3f',
     6: '#7a5f42', 7: '#c9c1aa', 8: '#5c5546', 9: '#847f73', 10: '#8f8676', 11: '#67676f',
     12: '#a09a88', 13: '#6d6455', 14: '#8a6a48'
   };
@@ -21810,7 +21808,7 @@ const BEAT=500; // 120BPM law
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
-    7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
+    7: '#4d4a38', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
     13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84',
     /* the deck's own paint takes the arterial's worn white, and the parapet a concrete a
        shade lighter than the deck so the edge reads from above. REUSE-FIRST: no new
@@ -22187,7 +22185,7 @@ const BEAT=500; // 120BPM law
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#6e6045',
-    1: '#8f8062', 2: '#4a5230', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
+    1: '#8f8062', 2: '#4e5440', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
     7: '#6a6258', 8: '#4a4038', 9: '#9a8d70', 10: '#a09684', 11: '#6f6551', 12: '#5a5334',
     13: '#b0a070'
   };
@@ -22456,7 +22454,7 @@ const BEAT=500; // 120BPM law
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#5b5346',
-    1: '#a09781', 2: '#463f36', 3: '#6e6656', 4: '#7f7666', 5: '#8b8270', 6: '#49512f',
+    1: '#a09781', 2: '#463f36', 3: '#6e6656', 4: '#7f7666', 5: '#8b8270', 6: '#4d5340',
     7: '#57503f', 8: '#8f8570', 9: '#b5ab93'
   };
 
@@ -22645,7 +22643,7 @@ const BEAT=500; // 120BPM law
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#2c505c',
     1: '#3c6a76', 2: '#b8b09c', 3: '#8a8069', 4: '#948a72', 5: '#a49a80', 6: '#6b6153',
-    7: '#a8a396', 8: '#5c564a', 9: '#4a5230', 10: '#6a6458'
+    7: '#a8a396', 8: '#5c564a', 9: '#4d4a38', 10: '#6a6458'
   };
 
   var LEGEND = {
@@ -22748,6 +22746,10 @@ const BEAT=500; // 120BPM law
 (function (root) {
   var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  /* THE CROSSING IS THE STREET'S WIDTH, AND THE STREET IS THE ONE THAT KNOWS IT. Read,
+     never copied -- see the PAVE/CURB note below for what copying it cost. */
+  var ART = (typeof module !== 'undefined') ? require('./bohemia_arterial.js')
+        : (typeof BohemiaArterial !== 'undefined' ? BohemiaArterial : root.BohemiaArterial);
 
   var T = 128, C = 64;
 
@@ -22762,9 +22764,22 @@ const BEAT=500; // 120BPM law
   var FEN0 = 30, FEN1 = 31;   // right-of-way fence, both sides
   var SID_C = 22, SID_HALF = 6;  // passing siding centre and its ballast half-width (+ side)
 
-  // the grade crossing borrows the arterial's own cross-section so the roadway arrives
-  // and leaves at exactly the tile it left the neighbouring street cell on
-  var PAVE = 21, CURB = 23;
+  /* *** THE COMMENT WAS TRUE AND THE CODE DID NOT DO IT (fixed 8/27). ***
+     It read, verbatim: "the grade crossing borrows the arterial's own cross-section so the
+     roadway arrives and leaves at exactly the tile it left the neighbouring street cell
+     on" -- and then `var PAVE = 21, CURB = 23`. It BORROWED NOTHING. Those were the
+     arterial's numbers on the day somebody typed them, and the arterial's cross-section was
+     rebuilt to real Clark County numbers on 8/26 (PAVE 17, CURB 19) while these sat still.
+     So a street 35 tiles wide ran up to the railway, crossed on a 43-tile crossing, and
+     came off 35 wide again: 37 broken seams, the largest class left in the valley.
+     *** FIFTH TIME THIS MONTH A CONSTANT MOVED AND ITS DEPENDENT STAYED BEHIND *** -- BOX,
+     POCKET, the arterial's pole offsets, the freeway's bridge deck, and now this. Four of
+     the five had a COMMENT beside them claiming exactly the relationship the code was not
+     expressing. A comment that asserts a dependency is worth nothing next to code that
+     evaluates it, and this file is the clearest case: the sentence above is a correct
+     description of a thing the next line refused to do. */
+  var PAVE = (ART && ART.PAVE_HALF) ? ART.PAVE_HALF : 17;
+  var CURB = (ART && ART.CURB_HALF) ? ART.CURB_HALF : 19;
 
   /* THE SIDING IS A MULTI-CELL FEATURE, so it is keyed off the CELL COORDINATE and not
      the cell seed: cells 0..15 of every 48 along the line carry the siding, which makes
@@ -22898,7 +22913,14 @@ const BEAT=500; // 120BPM law
     function layCrossing() {
       // the roadway arrives on the arterial's OWN pavement band (curb to curb), so it
       // lines up tile for tile with the street cell it came out of
-      var t0 = C - CURB, t1 = C + CURB;
+      /* PAVED ROADWAY TO ROADWAY, NOT KERB TO KERB (8/27). This was C +/- CURB, which
+         paves the full kerb-to-kerb width -- true of a real crossing, and two tiles wider
+         each side than the corridor the arterial actually hands over, because an arterial's
+         kerb is `ground` and not part of its drivable corridor. Deriving the width from the
+         street fixed the SIZE and left this OFFSET: 37 seams still broken, 47..81 meeting
+         45..83. The crossing carries the ROADWAY across; the kerb line is not roadway on
+         either side of the tracks, so it is not roadway between them either. */
+      var t0 = C - PAVE, t1 = C + PAVE;
       var w0 = crossW ? -C : -(FEN1 + 3);
       var w1 = crossE ? C - 1 : (FEN1 + 3);
       span(w0, w1, t0, t1, 12);                     // crossing pavement, straight through
@@ -22947,7 +22969,14 @@ const BEAT=500; // 120BPM law
     var OUT0 = FEN1 + 2;                                    // first tile outside the fence
 
     function padSide(side) {                                 // side: +1 east, -1 west
-      var p0 = side * OUT0, p1 = side * (C - 1);
+      /* THE YARD STOPS AT ITS OWN PROPERTY LINE (8/27). This ran the apron to side*(C-1) --
+         the cell boundary itself -- so a concrete loading pad, which is DRIVE surface,
+         reached the edge and spilled straight into whatever was next door. Where that next
+         door is an arterial, the street contract measured the rail cell's corridor as
+         6..121 against the street's 47..81 and called it a broken seam: 19 of them, and the
+         crossing itself was innocent. A yard has a fence and then a property line; the last
+         three tiles are the graded dirt frontage the band already draws there. */
+      var p0 = side * OUT0, p1 = side * (C - 4);
       var lo = Math.min(p0, p1), hi = Math.max(p0, p1);
       span(lo, hi, 6, T - 7, 19);                            // the concrete loading apron
       var wall = side * (C - 8);                             // the dock wall at the back
@@ -23079,7 +23108,7 @@ const BEAT=500; // 120BPM law
     0: '#57503f',
     1: '#5a5348', 2: '#4a4038', 3: '#8e8a84', 4: '#6a6152', 5: '#5b5647', 6: '#726853',
     7: '#6b6b74', 8: '#7d7a72', 9: '#6d675c', 10: '#4e4a46', 11: '#43413e', 12: '#3f3f47',
-    13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#3a4520', 17: '#8a867e', 18: '#7a7266',
+    13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#4d4a38', 17: '#8a867e', 18: '#7a7266',
     19: '#6e6a62', 20: '#7a7266', 21: '#7b7263'
   };
 
@@ -23997,7 +24026,7 @@ const BEAT=500; // 120BPM law
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
-    7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
+    7: '#4d4a38', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
     13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#38383f', 17: '#42424a',
     18: '#a8a08c', 19: '#4f4b3e', 20: '#6e6552'
   };
@@ -27400,7 +27429,7 @@ function realizeCell(gx,gy){
        across whatever they cover. Seen from a ¾ camera the overhead is the thing you SEE and
        the ground under it is the thing you do not, so it draws its own palette colour. It
        stays WALKABLE, which is the whole point of the layer: you pass under it. */
-    if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; return c; }
+    if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; c.ohH=ohHeight(entry); return c; }
     /* __GROUND_SOLIDITY_IS_PER_TILE__ -- the same defect the PROP branch had, one
        layer down, and my own occupancy_gate missed it because it only sampled props.
        This set walk=true for EVERY ground-layer tile and never looked at tl.solid,
@@ -30754,7 +30783,40 @@ function ewDoorPass(ox,oy,C){
    see is not a side. An overpass sits about five metres over the road, which is seven tiles
    at 0.75 m, and a wall in this engine is already drawn THREE cells tall for the same
    reason: apparent height here is counted in CELLS, like everything else that stands up. */
-const OH_H=2;                      /* cells of apparent height under a deck */
+/* AND THEN EVERY OVERHEAD IN THE GAME WAS EXACTLY THE SAME HEIGHT (fixed 8/27, the same
+   day the pass was written). OH_H was ONE CONSTANT, so a market stall tent, a shop awning,
+   a carport, a fuel canopy, an airport jet bridge, a substation busbar and an interstate
+   overpass all hung the identical distance off the ground. There are TWENTY-ONE distinct
+   overheads in this valley and they are not one object.
+   The real numbers, which are not close to each other:
+     interstate overpass   4.9 m   AASHTO minimum vertical clearance over a highway
+     freeway sign gantry   5.2 m   signs hang BELOW the structure, so the structure is higher
+     pedestrian bridge     5.2 m   it crosses the same road the trucks use
+     substation busbar     5-7 m   a 138 kV bus is the highest thing on a site
+     truck fuel canopy     4.3 m   sized for a tractor unit; a car-only canopy is 4.0
+     porte-cochere         4.3 m   an ambulance has to get under it
+     carport               2.4 m   a domestic one, and that is the whole difference
+     shop awning           2.4 m   head height plus a bit, over a sidewalk
+     market stall tent     2.1 m   a person puts it up by hand
+   A LEGEND NAME IS A ROUTING KEY IN THIS ENGINE, which is how the pool table already
+   works, so the height reads the same key. Apparent height is in CELLS: a house wall is
+   drawn WALL_H=3 for about 2.7 m, so a cell is roughly 0.9 m of apparent rise. */
+const OH_H=3;                      /* fallback: an unnamed overhead is roughly a storey up */
+const OH_HEIGHTS=[
+  [/overpass|deck|parapet|jet bridge/,        5],
+  [/gantry|pedestrian bridge|skybridge/,      6],
+  [/busbar|conductor/,                        7],
+  [/guy wire/,                                4],
+  [/fuel canopy roof/,                        5],   /* truck stop, sized for a tractor unit */
+  [/fuel canopy|porte|\bcanopy\b/,            4],
+  [/carport|blade sign/,                      3],
+  [/awning|stall canopy|tent/,                2],
+];
+function ohHeight(entry){
+  const n=String((entry&&entry.name)||'').toLowerCase();
+  for(const [re,h] of OH_HEIGHTS) if(re.test(n)) return h;
+  return OH_H;
+}
 function overheadPass(ox,oy,C,front,pgy){
   const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
   const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+2);
@@ -30762,14 +30824,25 @@ function overheadPass(ox,oy,C,front,pgy){
     if((gy>=pgy)!==front)continue;
     for(let gx=gx0;gx<=gx1;gx++){
       const c=cellAt(gx,gy); if(!c||!c.overhead)continue;
+      const h=c.ohH||OH_H;
       const s=cellAt(gx,gy+1);
-      if(s&&s.overhead)continue;                 /* only the last row of a run has a side */
+      /* only the last row of a run has a side -- and a run ENDS where the height changes,
+         or an awning that butts onto a canopy would vanish into it and neither would show
+         the step between them. Same height, same object; different height, two objects. */
+      if(s&&s.overhead&&(s.ohH||OH_H)===h)continue;
       const dx=Math.round(ox+gx*C), dy=Math.round(oy+gy*C);
-      const fh=OH_H*C;
+      const fh=h*C;
       if(typeof window!=='undefined') window.__OH_SIDES=(window.__OH_SIDES||0)+1;
-      /* THE SHADOW FIRST, on the ground beyond the beam, so the deck floats. */
-      g.fillStyle='rgba(0,0,0,0.34)'; g.fillRect(dx,dy+C+fh,C,Math.round(C*0.8));
-      g.fillStyle='rgba(0,0,0,0.16)'; g.fillRect(dx,dy+C+fh+Math.round(C*0.8),C,Math.round(C*0.7));
+      /* THE SHADOW FIRST, on the ground beyond the beam, so the deck floats. The sun sits
+         at one angle over this whole valley, so shadow length is PROPORTIONAL TO HEIGHT --
+         the numbers below reproduce the old fixed shadow exactly at h=2 and grow from
+         there, which is why an overpass now lays a long dark bar across the road and a
+         stall tent still only darkens the dirt beside it. A high edge also throws a
+         SOFTER shadow, because its penumbra has further to spread. */
+      const d0=Math.round(C*0.40*h), d1=Math.round(C*0.35*h);
+      const a0=0.34-Math.min(0.10,(h-2)*0.02);
+      g.fillStyle='rgba(0,0,0,'+a0.toFixed(3)+')'; g.fillRect(dx,dy+C+fh,C,d0);
+      g.fillStyle='rgba(0,0,0,'+(a0*0.47).toFixed(3)+')'; g.fillRect(dx,dy+C+fh+d0,C,d1);
       /* THEN THE SIDE OF IT, hanging off the deck's south edge toward the camera. */
       const base=(typeof c.g==='string'&&c.g[0]==='#')?c.g:'#6a6a72';
       g.fillStyle=(base[0]==='#'?shade(base,0.60):base); g.fillRect(dx,dy+C,C,fh);

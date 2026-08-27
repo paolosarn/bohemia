@@ -37,10 +37,10 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dirt frontage | ground | the wide dirt margin outside the fence, scrap and tag marks and nothing planted | ground | no | — | 1135 |
-| 1 | `#5a5348` | ballast | ground | crushed rock ballast prism, weeds coming up through it now | ground | no | — | 2571 |
-| 2 | `#4a4038` | tie | ground | creosote sleeper, split and bleached where the sun gets it | ground | no | — | 869 |
-| 3 | `#8e8a84` | rail | ground | running rail, still bright on top where the wheels polished it | ground | no | — | 368 |
+| 0 | `dead-dirt (kit ground)` | dirt frontage | ground | the wide dirt margin outside the fence, scrap and tag marks and nothing planted | ground | no | — | 1483 |
+| 1 | `#5a5348` | ballast | ground | crushed rock ballast prism, weeds coming up through it now | ground | no | — | 2551 |
+| 2 | `#4a4038` | tie | ground | creosote sleeper, split and bleached where the sun gets it | ground | no | — | 862 |
+| 3 | `#8e8a84` | rail | ground | running rail, still bright on top where the wheels polished it | ground | no | — | 362 |
 | 4 | `#6a6152` | cess | ground | the walking cess beside the ballast, where the track crews went | ground | no | — | 1892 |
 | 5 | `#5b5647` | drainage ditch | ground | the right-of-way ditch, dry, full of blown trash | ground | no | — | 406 |
 | 6 | `#726853` | service road | drive | the gravel maintenance road that runs the length of the line | ground | no | — | 1024 |
@@ -53,10 +53,10 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#a8a08c` | crossing marking | marking | the crossing X and the stop bar, worn down to ghosts | ground | no | — | — |
 | 14 | `#8f8676` | gate arm | prop | a crossing gate arm still down across the road, flashers dead | prop | yes | — | — |
 | 15 | `#585349` | scrap pile | prop | relay rail, ties and cut steel stacked on the frontage | prop | yes | — | 672 |
-| 16 | `#3a4520` | dead brush | tree-dead | tumbleweed packed into the ditch and against the fence | prop | yes | — | 603 |
+| 16 | `#4d4a38` | dead brush | tree-dead | tumbleweed packed into the ditch and against the fence | prop | yes | — | 603 |
 | 17 | `#8a867e` | turnout | ground | the point blades where the siding comes off the main | ground | no | — | 232 |
 | 18 | `#7a7266` | mile post | prop | a mile post, the number still legible if you get close | prop | yes | — | 3 |
-| 19 | `#6e6a62` | loading pad | drive | the concrete team-track pad, stained where the forklifts worked it | ground | no | — | 2545 |
+| 19 | `#6e6a62` | loading pad | drive | the concrete team-track pad, stained where the forklifts worked it | ground | no | — | 2230 |
 | 20 | `#7a7266` | dock wall | building | the loading dock and the blank back wall of the shed behind it | structure | yes | — | 590 |
 | 21 | `#7b7263` | material yard | ground | the graded yard where the railway keeps its own steel, gate hanging open | ground | no | — | 1504 |
 

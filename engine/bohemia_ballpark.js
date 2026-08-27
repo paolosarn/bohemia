@@ -190,7 +190,7 @@
     /* THE SEATING AND THE CONCOURSE WERE THE SAME GREY and the bowl read as one mass.
        Seats go dark and cool (folded plastic in shadow), the concourse goes pale
        concrete, so you can see where the stands stop and the walkway starts. */
-    0: '#1c1a15', 1: '#3d3a33', 2: '#4d4b53', 3: '#3a4520', 4: '#4a5533', 5: '#c79a3f',
+    0: '#1c1a15', 1: '#3d3a33', 2: '#4d4b53', 3: '#4d4a38', 4: '#574f3b', 5: '#c79a3f',
     6: '#7a5f42', 7: '#c9c1aa', 8: '#5c5546', 9: '#847f73', 10: '#8f8676', 11: '#67676f',
     12: '#a09a88', 13: '#6d6455', 14: '#8a6a48'
   };

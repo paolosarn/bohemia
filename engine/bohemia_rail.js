@@ -39,6 +39,10 @@
 (function (root) {
   var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  /* THE CROSSING IS THE STREET'S WIDTH, AND THE STREET IS THE ONE THAT KNOWS IT. Read,
+     never copied -- see the PAVE/CURB note below for what copying it cost. */
+  var ART = (typeof module !== 'undefined') ? require('./bohemia_arterial.js')
+        : (typeof BohemiaArterial !== 'undefined' ? BohemiaArterial : root.BohemiaArterial);
 
   var T = 128, C = 64;
 
@@ -53,9 +57,22 @@
   var FEN0 = 30, FEN1 = 31;   // right-of-way fence, both sides
   var SID_C = 22, SID_HALF = 6;  // passing siding centre and its ballast half-width (+ side)
 
-  // the grade crossing borrows the arterial's own cross-section so the roadway arrives
-  // and leaves at exactly the tile it left the neighbouring street cell on
-  var PAVE = 21, CURB = 23;
+  /* *** THE COMMENT WAS TRUE AND THE CODE DID NOT DO IT (fixed 8/27). ***
+     It read, verbatim: "the grade crossing borrows the arterial's own cross-section so the
+     roadway arrives and leaves at exactly the tile it left the neighbouring street cell
+     on" -- and then `var PAVE = 21, CURB = 23`. It BORROWED NOTHING. Those were the
+     arterial's numbers on the day somebody typed them, and the arterial's cross-section was
+     rebuilt to real Clark County numbers on 8/26 (PAVE 17, CURB 19) while these sat still.
+     So a street 35 tiles wide ran up to the railway, crossed on a 43-tile crossing, and
+     came off 35 wide again: 37 broken seams, the largest class left in the valley.
+     *** FIFTH TIME THIS MONTH A CONSTANT MOVED AND ITS DEPENDENT STAYED BEHIND *** -- BOX,
+     POCKET, the arterial's pole offsets, the freeway's bridge deck, and now this. Four of
+     the five had a COMMENT beside them claiming exactly the relationship the code was not
+     expressing. A comment that asserts a dependency is worth nothing next to code that
+     evaluates it, and this file is the clearest case: the sentence above is a correct
+     description of a thing the next line refused to do. */
+  var PAVE = (ART && ART.PAVE_HALF) ? ART.PAVE_HALF : 17;
+  var CURB = (ART && ART.CURB_HALF) ? ART.CURB_HALF : 19;
 
   /* THE SIDING IS A MULTI-CELL FEATURE, so it is keyed off the CELL COORDINATE and not
      the cell seed: cells 0..15 of every 48 along the line carry the siding, which makes
@@ -189,7 +206,14 @@
     function layCrossing() {
       // the roadway arrives on the arterial's OWN pavement band (curb to curb), so it
       // lines up tile for tile with the street cell it came out of
-      var t0 = C - CURB, t1 = C + CURB;
+      /* PAVED ROADWAY TO ROADWAY, NOT KERB TO KERB (8/27). This was C +/- CURB, which
+         paves the full kerb-to-kerb width -- true of a real crossing, and two tiles wider
+         each side than the corridor the arterial actually hands over, because an arterial's
+         kerb is `ground` and not part of its drivable corridor. Deriving the width from the
+         street fixed the SIZE and left this OFFSET: 37 seams still broken, 47..81 meeting
+         45..83. The crossing carries the ROADWAY across; the kerb line is not roadway on
+         either side of the tracks, so it is not roadway between them either. */
+      var t0 = C - PAVE, t1 = C + PAVE;
       var w0 = crossW ? -C : -(FEN1 + 3);
       var w1 = crossE ? C - 1 : (FEN1 + 3);
       span(w0, w1, t0, t1, 12);                     // crossing pavement, straight through
@@ -238,7 +262,14 @@
     var OUT0 = FEN1 + 2;                                    // first tile outside the fence
 
     function padSide(side) {                                 // side: +1 east, -1 west
-      var p0 = side * OUT0, p1 = side * (C - 1);
+      /* THE YARD STOPS AT ITS OWN PROPERTY LINE (8/27). This ran the apron to side*(C-1) --
+         the cell boundary itself -- so a concrete loading pad, which is DRIVE surface,
+         reached the edge and spilled straight into whatever was next door. Where that next
+         door is an arterial, the street contract measured the rail cell's corridor as
+         6..121 against the street's 47..81 and called it a broken seam: 19 of them, and the
+         crossing itself was innocent. A yard has a fence and then a property line; the last
+         three tiles are the graded dirt frontage the band already draws there. */
+      var p0 = side * OUT0, p1 = side * (C - 4);
       var lo = Math.min(p0, p1), hi = Math.max(p0, p1);
       span(lo, hi, 6, T - 7, 19);                            // the concrete loading apron
       var wall = side * (C - 8);                             // the dock wall at the back
@@ -370,7 +401,7 @@
     0: '#57503f',
     1: '#5a5348', 2: '#4a4038', 3: '#8e8a84', 4: '#6a6152', 5: '#5b5647', 6: '#726853',
     7: '#6b6b74', 8: '#7d7a72', 9: '#6d675c', 10: '#4e4a46', 11: '#43413e', 12: '#3f3f47',
-    13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#3a4520', 17: '#8a867e', 18: '#7a7266',
+    13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#4d4a38', 17: '#8a867e', 18: '#7a7266',
     19: '#6e6a62', 20: '#7a7266', 21: '#7b7263'
   };
 

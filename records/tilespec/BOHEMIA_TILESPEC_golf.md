@@ -39,7 +39,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 3 | `#403a20` | dead rough | ground | dry knee-high scrub + weeds between the holes (out of the short grass) | ground | no | — | 9726 |
 | 4 | `#776d38` | dead fairway | ground | the brown dead mown corridor of a hole — flat, walkable, cart-crossable | ground | no | — | 1822 |
 | 5 | `#c79a3f` | gate / entrance | gate | the drive-in entrance off the street, amber curb | portal | no | — | 7 |
-| 6 | `#7d8a4a` | green (putting surface) | ground | a dead putting green, the cup still cut, ringed by a collar | ground | no | — | 354 |
+| 6 | `#8b8064` | green (putting surface) | ground | a dead putting green, the cup still cut, ringed by a collar | ground | no | — | 354 |
 | 7 | `#c9be93` | sand bunker | ground | a sand trap, still pale, half-drifted with dust | ground | no | — | 155 |
 | 8 | `#5a5b52` | dry water hazard | ground | a cracked dry pond bed, cattails dead at the rim | ground | no | — | 272 |
 | 9 | `#5c5a30` | tee box | ground | a level tee pad, markers toppled, turf dead | ground | no | — | 100 |

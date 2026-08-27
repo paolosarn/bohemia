@@ -36,8 +36,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the lot edge (setback) | ground | no | — | 2649 |
 | 1 | `#565248` | concrete apron / drive | drive | the cracked concrete apparatus apron + drive — the rigs stage here and pull straight to the street (car-drivable) | ground | no | — | 2075 |
 | 2 | `#7a6f5c` | building (station quarters) | building | the station — living quarters + admin, windows boarded, the bell dead | structure | yes | station interior: the apparatus floor up front, the day room + dorm + kitchen + offices behind | 3205 |
-| 3 | `#3a4526` | dead landscaping | tree-dead | a dead shrub / tree at the lot edge | prop | no | — | 12 |
-| 4 | `#49512e` | dead lawn | ground | the dead lawn edging the apron | ground | no | — | 4598 |
+| 3 | `#4d4a38` | dead landscaping | tree-dead | a dead shrub / tree at the lot edge | prop | no | — | 12 |
+| 4 | `#524b38` | dead lawn | ground | the dead lawn edging the apron | ground | no | — | 4598 |
 | 5 | `#c79a3f` | gate / entrance | gate | the apron pull-out onto the street, amber curb, the rigs launched from here | portal | no | — | 2 |
 | 6 | `#8a2f22` | apparatus bay door | structure | a roll-up apparatus bay door on the station front, paint peeling, glass gone | structure | yes | — | 92 |
 | 7 | `#6a6358` | hose / drying tower | structure | the hose-drying + training tower, tall, concrete bleached, ladder rusted | structure | yes | — | 767 |

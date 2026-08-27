@@ -76,7 +76,7 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#5f5a4e',2:'#6a5f50',3:'#4a4030',4:'#b0a690',5:'#c79a3f',6:'#7a5a44',
-    7:'#6f6656',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#55603a',13:'#a86a4a',14:'#5f7a72'};
+    7:'#6f6656',8:'#b0863a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#605844',13:'#a86a4a',14:'#5f7a72'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the market edge (setback)'},
     1:{name:'gravel parking / drive',kind:'drive',   act1:'the gravel parking lot + drive aisle (car-drivable — you park, then walk the market)'},

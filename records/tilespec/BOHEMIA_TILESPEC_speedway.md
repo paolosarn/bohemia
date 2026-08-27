@@ -39,7 +39,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | blown grit and bare Mojave dirt at the site edge and across the racing line | ground | no | — | 501 |
 | 1 | `#3d3a33` | parking / drive | drive | the gravel parking apron, bigger than the track, empty | ground | no | — | 4075 |
 | 2 | `#6f6858` | grandstand | building | the front-stretch grandstand, tier on tier of dead seats, the sponsor panels sun-bleached blank | structure | yes | grandstand interior: the concourse under the seating bowl, shuttered stands either side | 1316 |
-| 3 | `#3a4520` | dead brush | tree-dead | tumbleweed and dry brush, thickest in the infield where nobody mows now | prop | no | — | 47 |
+| 3 | `#4d4a38` | dead brush | tree-dead | tumbleweed and dry brush, thickest in the infield where nobody mows now | prop | no | — | 47 |
 | 4 | `#4a4c33` | infield (dead turf) | ground | the infield, brown to the root, the road-course paint ghosting through it | ground | no | — | 3855 |
 | 5 | `#c79a3f` | gate / entrance | gate | the spectator entrance off the street, turnstiles standing open | portal | no | — | 11 |
 | 6 | `#3f3f47` | racing surface | drive | the banked asphalt oval, rubber still black on the racing line, grit drifting over it | ground | no | — | 2681 |

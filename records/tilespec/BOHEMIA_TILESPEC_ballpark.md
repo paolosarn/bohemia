@@ -44,8 +44,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the edge of the site | ground | no | — | 940 |
 | 1 | `#3d3a33` | parking / drive | drive | the ballpark lot, cracked, weeds down every joint | ground | no | — | 7470 |
 | 2 | `#4d4b53` | grandstand | building | the horseshoe of seating behind home plate, every seat folded and grey | structure | yes | grandstand interior: the concourse under the seating, shuttered stands either side | 1142 |
-| 3 | `#3a4520` | dead brush | tree-dead | brush and tumbleweed, thickest through the outfield nobody mows | prop | no | — | 60 |
-| 4 | `#4a5533` | outfield (dead turf) | ground | the outfield, brown to the root, the mow pattern still faintly in it | ground | no | — | 2772 |
+| 3 | `#4d4a38` | dead brush | tree-dead | brush and tumbleweed, thickest through the outfield nobody mows | prop | no | — | 60 |
+| 4 | `#574f3b` | outfield (dead turf) | ground | the outfield, brown to the root, the mow pattern still faintly in it | ground | no | — | 2772 |
 | 5 | `#c79a3f` | gate / entrance | gate | the gate off the street, turnstiles standing open | portal | no | — | 11 |
 | 6 | `#7a5f42` | infield dirt | ground | the skinned dirt of the diamond and the warning track, weed coming through | ground | no | — | 1738 |
 | 7 | `#c9c1aa` | base / chalk | marking | the bases and the chalked foul lines, ghosted but still readable | ground | no | — | 271 |

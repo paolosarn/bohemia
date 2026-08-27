@@ -157,7 +157,7 @@
 
   // NOTE: stands/scoreboard are NEUTRAL WARM GRAY, never purple (PURPLE RESERVATION LAW —
   // purple is the Amalgamation's alone; the purity gate sweeps).
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#5b6a44',5:'#c79a3f',6:'#6a655c',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6f665a',3:'#4a4030',4:'#6d6449',5:'#c79a3f',6:'#6a655c',
     7:'#8f8676',8:'#c9c1aa',9:'#2c2c28',11:'#55555f',12:'#9a9488'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback)'},

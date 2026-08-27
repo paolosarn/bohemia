@@ -46,7 +46,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | desert pavement | ground | compacted Mojave dirt, the fines long blown out of it | ground | no | — | 6027 |
 | 1 | `#8f8062` | rock lag | ground | a lag of small dark rock left standing on the pavement | ground | no | — | 2193 |
-| 2 | `#4a5230` | creosote bush | tree-dead | creosote, grey-green and half dead, standing in its own poisoned circle | prop | no | — | 139 |
+| 2 | `#4e5440` | creosote bush | tree-dead | creosote, grey-green and half dead, standing in its own poisoned circle | prop | no | — | 139 |
 | 3 | `#5c5a3a` | bursage / scrub | tree-dead | low bursage and dry grass clumps between the creosote | prop | no | — | 17 |
 | 4 | `#a89c7e` | caliche hardpan | ground | white cemented caliche breaking through the surface | ground | no | — | 865 |
 | 5 | `#7e7256` | dry rill | ground | a braided dry rill cut into the lot, sand and gravel in the bed | ground | no | — | 1259 |

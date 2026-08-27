@@ -236,7 +236,7 @@
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#6f6b62',2:'#7a6f5c',3:'#403a20',4:'#776d38',5:'#c79a3f',6:'#7d8a4a',
+  var PALETTE={0:'#1c1a15',1:'#6f6b62',2:'#7a6f5c',3:'#403a20',4:'#776d38',5:'#c79a3f',6:'#8b8064',
     7:'#c9be93',8:'#5a5b52',9:'#5c5a30',10:'#b04a3a',11:'#8f8676',12:'#2f2a18',13:'#8a6a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt out of bounds at the parcel edge'},
