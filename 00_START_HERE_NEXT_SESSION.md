@@ -261,7 +261,23 @@ PROOF
 
 ------------------------------------------------------------------------------
 
-ART (art-f3eu53): 8/27 (e) LATEST -- *** SEVEN DISTRICTS GOT THEIR REAL GROUND IN
+ART (art-f3eu53): 8/27 (f) LATEST -- *** BAKE 7 SHIPPED WAVE 4 (the mall is a dead
+mall, the waterpark is a slide tower, main 997f71a) -- AND THEN THE DAY'S REAL
+FINDING: ALL 32 WIRED TILE FAMILIES DRAW ONLY IN THE LEGACY RUN SLICE, WHICH THE
+ALPHA STOPPED DOWNLOADING ON 8/21. The player has never met the tile work on the
+surface he walks. Full finding + the road (the walked page's __TILE_BANK__ region
+and the chunker that now carries foreign tags):
+records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
+BOARD ROW 107, HIGH: THE GREAT TILE MIGRATION -- a port, not a paste (walked world
+is FN=32 per district tile, the run slice names 96x96); seam design is a two-lane
+decision with CITY/WORLD, flagged for the coordinator. NEW STANDING RULE: MEASURE
+ON THE WALKED SURFACE FIRST before cooking any new exterior family. The 5th
+composition audit also landed two fixes (tank yards read as rows-with-aisles, the
+invert stain runs continuous at any width). BAKE 8 grinds now with the squint/hue
+finishers (warm desert pad, deeper rail cess, faded street-name blades) -- the
+five twin pairs sit 0.0263-0.0300 against the 0.030 bar; squint/hue were red on
+main before this session (worktree-verified). PREVIOUS:
+ART (art-f3eu53): 8/27 (e) -- *** SEVEN DISTRICTS GOT THEIR REAL GROUND IN
 ONE DAY, THE ICON OVEN IS CURED, AND THE UNCLAIMED-NAME QUEUE IS EMPTY. TAB: RUN
 (walk the landfill, railyard, datafort, library, radio site, wash), CITY (the map
 icons), ART (seven new cards). Nothing to judge -- correct me in the game. ***

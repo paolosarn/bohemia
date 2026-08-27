@@ -415,6 +415,15 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
    rust) | structure layer over yard ground, 44px corpus cell | see
    form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
+107. OPEN | THE GREAT TILE MIGRATION (every exterior family to the walked
+   surface) | CITY - measured 8/27: all 32 wired families draw only in
+   the legacy run slice, which the alpha stopped downloading on 8/21;
+   the walked city surface has its own cell model (FN=32) and chunk
+   baker, so this is a port, not a paste - biggest read first (fills,
+   plazas, decks), payload-budgeted, seam design shared with the
+   CITY/WORLD lane | full finding:
+   records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
+   | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |
    RUN + CITY - 9,694 cells of the flood channel's own concrete drew as
    bare ground; jointed invert with the low-flow meander stain on

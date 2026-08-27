@@ -1402,3 +1402,24 @@ and caliche are the yellow-brown ones; every graded site is bladed
 grey - one change moves three pairs), the rail cess deepens a step,
 and the arterial gains its honest second hue FAMILY - faded D-series
 street-name blades on the light masts, signage green, not vegetation.
+
+## 8/27 SIXTY-EIGHTH PASS: THE FINDING THAT OUTRANKS EVERYTHING ABOVE IT
+
+Chasing the backlog for the lane's next item surfaced the coordinator's
+8/14 banner: THE CITY WORLD IS THE WALKED SURFACE, THE RUN SLICE IS
+LEGACY - and the alpha's own 8/21 comment goes further: the run slice
+is never even DOWNLOADED any more. Measured the same hour: the walked
+city page contains ZERO of the named-cell branches and zero tileform
+pieces. All thirty-two wired families - every pass in this record -
+draw on a surface the player never loads. This is the 7/21 colorful-
+clothes class the handoff itself warns about: the material existed and
+never reached the player, and every "TAB: RUN" line in these passes
+was true of the file and false of the product. Nothing is lost: the
+run slice is the harvest source by the coordinator's own words, the
+banks are approved, and the sound/combat/payday migrations plus the
+interiors floors prove the walked page takes lane wiring (main commit
+ad42288 even hardened the chunker to carry foreign data forward). THE
+GREAT TILE MIGRATION is board row 107, HIGH, seam design shared with
+CITY/WORLD. New standing rule, effective now: MEASURE ON THE WALKED
+SURFACE FIRST before any new exterior family is cooked. Full finding:
+records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
