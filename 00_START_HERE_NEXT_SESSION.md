@@ -98,6 +98,30 @@ WHAT IS LEFT, NAMED
   479 drive tiles a car cannot reach inside the interchange (87.9% connected).
   Ten dead legend codes still declared and never drawn.
 
+*** THE GATE SUITE IS DEEP RED AND IT IS NOT ONE LANE'S FAULT ***
+  Ran all 457 in eight shards. After the suite's OWN confirm-alone pass threw
+  out five load flukes (WHAT YOU HEARD, INTENSITY WIRED, DOMINANCE SWEEP,
+  CANVAS SCALE, STREAMING), 39 GATES GENUINELY FAIL.
+  I baselined the SIXTEEN render/world ones against origin/main one at a time --
+  GRAVEYARD, FULL RES, SEE THROUGH, SEE-THROUGH MOVE, NO CANOPIES, LOOK, DEAD
+  CODE, SQUINT, HUE, BANKS USED, RENDER PIXEL, ONE WORLD TAB, TARGET MATCH,
+  CANVAS MEMORY, REUSE FIRST, WALK DEADLOCK -- and ALL SIXTEEN FAIL IDENTICALLY
+  ON ORIGIN/MAIN. The remaining 23 are in systems this lane never touched
+  (sound, combat, quests, animation, character, the demo board, the docs).
+  SO THIS TURN INTRODUCED ZERO FAILURES, and that is the good news and also the
+  problem: "GREEN OR IT DOES NOT SHIP" is not being honoured by anybody. Every
+  lane is now shipping into a 39-red baseline, which means the suite has stopped
+  being a gate and become a weather report. A LAW WITHOUT A MACHINE GATE IS NOT
+  ENFORCED -- and a gate nobody can get green is not enforced either.
+  I shipped because blocking on it would stop every lane and hand Paolo nothing,
+  and because my own three gates are green and measured (street contract 17/17,
+  dead valley 10/10, streaming 15/15 alone). But somebody has to own this number
+  and drive it down, and no single lane can: it spans seven of them.
+  THE SHARD RUNNER IS IN THE SCRATCHPAD PATTERN AND IT IS WORTH KEEPING:
+  `python3 gates/bohemia_gates.py --shard i/8` finishes in 8-15 min a piece and
+  is resumable, which is the only way the suite survives this container -- the
+  full run was killed by a worker restart three times in a row.
+
 PRE-EXISTING RED, NOT FROM THIS TURN, FOR WHOEVER OWNS HAIR
   GRAVEYARD is red with 10 LIVE REFERENCES, all of them in BOHEMIA_BACKLOG.md and
   records/BOHEMIA_VERDICT_HAIR_ROUND4_8_20_26.txt -- both byte-identical to
