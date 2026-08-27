@@ -560,6 +560,25 @@ WHAT THE NEXT CHARACTER SESSION PICKS UP:
   7. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45, and the two duplicate
      COMBAT functions above.
 
+*** AND THE WHOLE SUITE ACTUALLY RAN, FOR THE FIRST TIME. *** The 448-gate suite
+cannot finish inside its own 2700s budget -- it measured 10.4s a gate and told me so,
+naming the shard commands. Running `--shard 1/3`, `2/3`, `3/3` in sequence ran ALL
+452 with ZERO "NEVER RAN" and zero unclassified reds. That is the honest one-pass
+verification from here on: three shards, not one run that quietly stops at 373.
+  shard 1  12 red: GRAVEYARD, SEE THROUGH, SEE-THROUGH MOVE, MIX, COMBAT LAB,
+           CAST SHAPES, WALK DEADLOCK, SQUINT, BANKS USED, NO PRISON,
+           NO BULLSHIT Qs, RF4 TEARDOWN
+  shard 2  13 red: LATE ART, DAY LOOP, COMBAT RUNS, MOTION VISIBLE, FIELD SURGERY,
+           DEAD CODE, HUE, QUEST PLACEMENT, RUN PEOPLE, TASTE, TARGET MATCH,
+           CANVAS MEMORY, TOP OF THE DOC
+  shard 3  12 red: FULL RES, TIME TO PLAY, VALLEY CENSUS, ROUND + DOORS,
+           VOICE SURFACES, SFX DIVERSITY, OUTFITS 13, THE RUN, RENDER PIXEL,
+           ONE WORLD TAB, INVISIBLE SCHEDULE, REUSE FIRST
+  NOT ONE OF THE 37 IS THIS TURN'S. The two that touch this lane are both standing
+  and both already verified against main: OUTFITS 13 (16/2, the same two failures
+  since 8/26) and CAST SHAPES. REUSE FIRST is bohemia_floor_cook.py, another lane's
+  file, already on main.
+
   node gates/talking_portrait_gate.js          23/0
   node tools/bohemia_the_portrait_pops_up.js   the picture, LOOK tab
   records/BOHEMIA_EVERYBODY_HAS_A_FACE_8_27_26.txt
