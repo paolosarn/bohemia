@@ -1,0 +1,123 @@
+TWO LANES BUILT ROW 0F AT THE SAME TIME, AND NEITHER COULD SEE THE OTHER
+8/27/26 - RUN lane. A coordination finding, written by the lane that lost.
+================================================================================
+
+I built the feedback card. So did somebody else, in the same hours, in the same
+file, for the same backlog row.
+
+I found out when a rebase produced a conflict whose two sides were both
+implementations of row 0f:
+
+    <<<<<<< HEAD
+      /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
+    =======
+      /* __THE_NOTE_KNOWS_THE_BUILD__: and the build, for the note to carry. */
+    >>>>>>>
+
+Two lanes, four hours apart, independently discovered that the city could not
+read the build stamp off its cross-origin parent, and independently fixed it by
+putting the build on the boot handshake that already existed. Same bug, same
+diagnosis, same fix, same day, twice.
+
+--------------------------------------------------------------------------------
+THE CALL: THEIRS WINS AND MINE IS DELETED
+--------------------------------------------------------------------------------
+
+Not reconciled. Not merged. DELETED, entire: the patch tools, the gate, the
+record, the card. This is the ONE ID, ONE WHOLE PERSON rule from 8/27 applied to
+myself -- when two mechanisms exist for the same thing, THE YOUNGER ONE IS
+DELETED, not reconciled -- and theirs is on main, so mine is the younger one.
+
+AND IT IS ALSO THE RIGHT CALL ON MERIT, WHICH MATTERS MORE THAN THE PRECEDENCE.
+Theirs is better than mine in three ways I did not think of:
+
+1. IT HAS A BLACK BOX. engine/bohemia_blackbox.js records the session as it
+   happens -- how long they really played, across how many sittings, which beat
+   they got to, and HOW LONG THEY STALLED THERE. Mine asked the tester to
+   remember. Theirs does not have to ask.
+2. ITS FIRST QUESTION IS BEHAVIOURAL, NOT EMOTIONAL. "WOULD YOU SEND THIS TO
+   SOMEBODY?" with its own note: "People who love a thing send it to somebody;
+   people who are being kind say they had fun." That is a better instrument than
+   my ten emotion words, because it asks about an ACTION rather than a feeling,
+   and an action is harder to be polite with.
+3. ITS CONFUSION QUESTION GIVES THEM A PLACE. "WHERE DID YOU NOT KNOW WHAT TO
+   DO?", with the options built from that tester's own session, against my free
+   text box. Their note says it: "Not 'was it confusing', which is a yes or a no
+   and neither one is a place."
+
+It also persists across sittings, captures the device string raw rather than a
+label somebody guessed, and delays its door five seconds so the ending's last
+line has time to land before anything asks the player a question.
+
+I was proud of mine four hours ago. Theirs is better and that is the end of it.
+
+--------------------------------------------------------------------------------
+THE ONE THING MINE HAD THAT THEIRS DOES NOT, HANDED OVER RATHER THAN INSERTED
+--------------------------------------------------------------------------------
+
+Their black box measures how long the session REALLY was. It never asks how long
+it FELT.
+
+That gap is worth something specific, and it is the one piece of research I would
+hand across:
+
+  THE PLAYTEST LITERATURE names "did you have fun?" as shallow enough to delete
+  outright, and offers a replacement: ASK HOW LONG IT FELT. Felt short means they
+  were enjoying it. Felt long means they were confused, bored or awkward.
+  DURATION NEGLECT (already researched in this repo, in the demo gap list) says
+  how long it actually was barely registers in memory.
+  PUT THOSE TOGETHER: felt-minus-real is not an opinion. It is the closest thing
+  to an objective read a feedback card can take, and the tester hands it over
+  without knowing they did. THE BLACK BOX ALREADY HOLDS THE "REAL" HALF. One
+  tapped question -- 5 / 10 / 20 / 30 / 45+ -- completes it.
+
+I AM NOT ADDING IT. It is their system, they are mid-flight in it, and reaching
+into somebody else's card to insert a fourth question is exactly the collision
+this record is about, committed a second time on purpose. It is written down
+here and in the handoff, and it is theirs to take or leave.
+
+--------------------------------------------------------------------------------
+WHAT ACTUALLY WENT WRONG, AND IT IS NOT EITHER LANE
+--------------------------------------------------------------------------------
+
+ONE SYSTEM, ONE SESSION is the law and BOTH LANES OBEYED THE PART THEY COULD SEE.
+Neither of us edited a system we knew somebody else was in. The failure is that
+NEITHER OF US COULD SEE IT.
+
+  - The demo gap list routed 0f to RUN. Both of us are working RUN-adjacent
+    surfaces, and the row does not say which session holds it.
+  - The handoff is the shared state, and it is written AT THE END of a turn. Both
+    cards were four hours of work each, so both existed long before either
+    handoff entry did.
+  - A backlog row is a claim on WORK, not a claim on a FILE, and nothing in the
+    repo turns one into the other.
+
+*** THE COST WAS ABOUT FOUR HOURS OF MY TURN AND IT WOULD HAVE BEEN WORSE IF THE
+RUN HAD SHIPPED. *** Two feedback cards in one build, both firing off the same
+ending, would have been a worse outcome than either card alone -- and the merge
+was clean enough on the surface that a lane in a hurry could have resolved the
+conflict "both sides" and shipped exactly that.
+
+WHAT WOULD HAVE CAUGHT IT, cheapest first, and none of these is mine to impose:
+  1. CLAIM THE ROW BEFORE BUILDING IT, not after. A one-line write to the handoff
+     at the START of a build, naming the row and the file, costs nothing and is
+     visible to every lane that fetches.
+  2. A REUSE CHECK AGAINST origin/main, NOT JUST THE LOCAL TREE. I ran the right
+     check -- it is what found the encounter director this morning and what
+     stopped me rewriting the ending this afternoon -- but I ran it against MY
+     checkout, which was already stale. `git fetch` first and the grep would have
+     found __CITY_FEEDBACK__ before I wrote a line.
+  3. That second one is the actionable one and I am adopting it in this lane
+     regardless of what anybody else does: BEFORE BUILDING ANYTHING, FETCH, THEN
+     GREP MAIN.
+
+--------------------------------------------------------------------------------
+WHAT THIS TURN KEPT
+--------------------------------------------------------------------------------
+
+Everything else shipped and is live: the road interrupts (the approved encounter
+director wired after a month with zero callers), the loot that comes off it, the
+pad that says what it will do, the card that stopped locking the controls, and
+the see-through ruler that was measuring the wrong thing.
+
+The feedback card is on main. It is just not mine.

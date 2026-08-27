@@ -74231,6 +74231,89 @@ believing what they tell you.
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+RUN (run-eak241): 8/27 (d) LATEST -- *** TWO LANES BUILT ROW 0F AT THE SAME TIME
+AND NEITHER COULD SEE THE OTHER. I lost, correctly, and deleted mine. Nothing to
+judge. ***
+
+I built the feedback card. So did somebody else, the same hours, the same file,
+the same backlog row. I found out when a rebase produced a conflict whose two
+sides were BOTH implementations of 0f:
+    <<<<<<< HEAD
+      /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
+    =======
+      /* __THE_NOTE_KNOWS_THE_BUILD__: and the build, for the note to carry. */
+Two lanes, hours apart, independently found that the city cannot read the build
+stamp off its cross-origin parent, and independently fixed it by putting the
+build on the boot handshake that already existed. Same bug, same diagnosis, same
+fix, same day, twice.
+
+*** THEIRS WINS. MINE IS DELETED ENTIRE *** -- patch tools, gate, record, card.
+That is ONE ID ONE WHOLE PERSON (8/27) applied to myself: when two mechanisms
+exist for one thing, THE YOUNGER ONE IS DELETED, not reconciled, and theirs is
+on main. AND IT IS THE RIGHT CALL ON MERIT, which matters more:
+  1. IT HAS A BLACK BOX (engine/bohemia_blackbox.js) that records how long they
+     really played, across how many sittings, which beat they reached and HOW
+     LONG THEY STALLED THERE. Mine asked the tester to remember.
+  2. ITS FIRST QUESTION IS BEHAVIOURAL: "WOULD YOU SEND THIS TO SOMEBODY?" with
+     its own note -- "people who love a thing send it to somebody; people who are
+     being kind say they had fun". Better than my ten emotion words, because an
+     action is harder to be polite with than a feeling.
+  3. ITS CONFUSION QUESTION GIVES THEM A PLACE: "WHERE DID YOU NOT KNOW WHAT TO
+     DO?", options built from that tester's own session, against my free text.
+It also persists across sittings, captures the device string raw, and delays its
+door five seconds so the ending's last line lands before anything asks a
+question. I was proud of mine four hours ago. Theirs is better.
+
+THE ONE THING MINE HAD THAT THEIRS DOES NOT, HANDED OVER AND NOT INSERTED:
+their black box measures how long the session REALLY was and never asks how long
+it FELT. The playtest literature names "did you have fun" as shallow enough to
+delete and offers exactly that replacement; duration neglect says the real length
+barely registers. So FELT MINUS REAL IS NOT AN OPINION, it is the closest thing
+to an objective read a card can take, and the tester gives it without knowing.
+THE BLACK BOX ALREADY HOLDS THE REAL HALF -- one tapped question (5/10/20/30/45+)
+completes it. I AM NOT ADDING IT: it is their system, they are mid-flight, and
+reaching into somebody else's card is this exact collision committed again on
+purpose. Theirs to take or leave.
+
+WHAT ACTUALLY WENT WRONG IS NOT EITHER LANE. Both of us obeyed ONE SYSTEM, ONE
+SESSION for the part we could see; neither of us could see this. The demo gap
+list routes 0f to RUN without naming a session; the handoff is written at the END
+of a turn, and both cards were hours of work before either handoff entry existed;
+and a backlog row is a claim on WORK, not on a FILE.
+COST: about four hours of my turn, AND IT WOULD HAVE BEEN WORSE IF IT HAD
+SHIPPED -- two feedback cards firing off the same ending is worse than either
+alone, and the conflict was clean enough that a lane in a hurry could have
+resolved it "both sides".
+*** THE ACTIONABLE FIX, AND I AM ADOPTING IT HERE REGARDLESS OF ANYBODY ELSE:
+BEFORE BUILDING ANYTHING, FETCH, THEN GREP MAIN. *** I ran the right reuse check
+-- it is what found the encounter director this morning and what stopped me
+rewriting the ending this afternoon -- but I ran it against MY checkout, which
+was already stale. One `git fetch` first and the grep finds __CITY_FEEDBACK__
+before I write a line. A reuse check against a stale tree is not a reuse check.
+(Cheaper still, and not mine to impose: CLAIM THE ROW BEFORE BUILDING IT. A
+one-line handoff write at the START of a build, naming row and file.)
+
+WHAT THIS TURN KEPT, all live on main: the road interrupts, the loot that comes
+off it, the pad that says what it will do, the card that stopped locking the
+controls, and the see-through ruler that was measuring the wrong thing.
+
+*** FLAG FOR THE LOOK LANE, NOT MINE. *** FENCE ORPHAN, a FLEET-WIDE gate, is RED
+on main: LOOK:BEGIN in BOHEMIA_ALPHA_0_9.html (1 open, 0 close), LOOK:END
+likewise, same pair in BOHEMIA_DEMO.html and BOHEMIA_RUN_CURRENT.html. PROVED
+pre-existing rather than assumed -- I checked origin/main out into a clean
+worktree and ran the gate there and it fails BYTE-IDENTICALLY. The 8/2 law it
+holds is that a fence the patch tool stops emitting is not a fence that goes
+away, so this one cannot be undone by any tool right now.
+
+NEXT IN THIS LANE, unchanged: item F of the demo list, TWENTY-FOUR SECONDS TO
+FIRST PLAY on throttled 4G -- the list calls it a blocker, not a nice-to-have,
+because the demo's first boundary moment is the loading screen. Then TIER 2 THE
+PACK (feral_dog_pack FIRES now and has no body, so AR-006 is live content rather
+than a queue row), then WEBKIT-1.
+Record: records/BOHEMIA_TWO_LANES_BUILT_ROW_0F_8_27_26.txt
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/27 (c) LATEST -- *** THE ROAD LEAVES SOMETHING BEHIND.
 Dispatch item 8's other half. TAB: RUN. Nothing to judge. ***
 
