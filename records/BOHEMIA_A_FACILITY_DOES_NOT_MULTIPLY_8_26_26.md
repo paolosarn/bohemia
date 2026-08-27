@@ -376,3 +376,82 @@ defect would be the mistake this record exists to prevent.
 
 **So this class of bug is closed.** It ran from 8/24 (solar) to 8/27 and took twenty-two
 districts. The gate stays as the net.
+
+---
+
+## POSTSCRIPT, SAME DAY: THE TWO THINGS THE GATES FOUND THAT NOBODY WAS LOOKING FOR
+
+### A TOOL WAS DELETING ANOTHER LANE'S WORK ON EVERY RUN
+
+`tools/bohemia_city_chunk_tile_bank.py` rewrote the whole `__TILE_BANK__` region of the
+walked page and **discarded whatever else lived inside it**. The ART lane's room-floor data
+loads from one line in there. So `slices/BOHEMIA_CITY_FLOORS.js` stayed tracked, stayed in
+the deploy list, and **nothing loaded it** — `FLOOR_POOL_B64` undefined on the page Paolo
+walks, every interior floor falling back to the default.
+
+**I diagnosed it as a rebase eating the tag and fixed it as one.** It came straight back
+the next time the chunker ran. That second failure is the only reason the real cause
+surfaced, and it is the lesson: *a fix that works once and does not survive the tool that
+caused it was never a fix.*
+
+**THE FILE SURVIVING IS WHY THIS IS INVISIBLE.** A deleted file is loud — git says so, the
+diff says so, a build says so. A file that still exists with nothing pointing at it looks
+exactly like a file that works.
+
+Two changes, because one of them is the net and the other is the hole:
+- the chunker **carries foreign tags forward**, unrecognised ones kept rather than dropped,
+  because when a tool cannot tell whose a tag is, the safe answer is the one that does not
+  delete somebody's work. Proved stable over three consecutive runs.
+- `gates/no_orphan_script_gate.js` — **every `.js` in `slices/` must be NAMED by something
+  that can load it.** A name check and not a tag check, deliberately: eight chunks load by
+  URL construction and have no tag anywhere. It caught the recurrence **live**, minutes
+  after it was written.
+
+### A RULER THAT PREDATES THE CHANGE IT MEASURES IS THE BROKEN PARTY
+
+`valley_census` calls a type flat when **every** sampled plot has no building. Correct while
+every generator got one cell; the **wrong question** for a clustered one, where a six-cell
+data fort is one cell with the hall and five without *by design*. It was measuring the fix
+and calling it damage. 11/3 → 14/0, with the clustered types read from the `cluster:true`
+declarations rather than a hand-list so they cannot drift.
+
+**And the fix exposed a hole in the gate written that same morning.** A leg meant to stop
+the exemption hiding a vanished facility failed on solar — and was **wrong**: the census
+*samples*, and a solar farm is hundreds of cells with one control building, so *"does not
+exist"* and *"the sample missed it"* are the same reading there. Looking for where the
+guarantee belonged found that **nowhere held it**: `nBlob < nCell` is satisfied by
+`nBlob === 0`, so *stopped multiplying* and *disappeared* are the same number, and
+vanishing is the worse failure.
+
+**Put the check where the evidence is, not where the symptom showed.**
+
+### AND THE PROCESS FAILURE THAT COST THE MOST HOURS
+
+I ran diagnostic browser gates **from a git worktree while the suite was running browser
+gates in the main tree** — two Chromiums, four cores — and then spent an hour concluding
+that four gates were "intermittent."
+
+`ONE SUITE AT A TIME` exists for precisely this. Its lock keys on the **repo root**, and a
+worktree is a different root, so it never fired. On a clean run with nothing else touching
+the machine, LOOK NOT TRAVEL, COMBAT SOUND, WALK FEEL and VISTA EXIT all came back green.
+
+**If you are diagnosing a suite red, kill the suite first, or your answer is about you.**
+
+### WHOSE EVERY RED WAS, MEASURED ON UNTOUCHED MAIN RATHER THAN ASSUMED
+
+| gate | on main | verdict |
+|---|---|---|
+| FLOOR | 18/0 | **mine** — fixed |
+| VALLEY CENSUS | 11/3 | **mine** — ruler fixed, 14/0 |
+| GRAVEYARD | same 10 live refs | pre-existing |
+| FULL RES | 12/1, same 15.2% | pre-existing |
+| XRAY | 3/2 at the same coordinate | pre-existing |
+| SEE-THROUGH MOVE | 9/1, same leg | pre-existing |
+| INSTALL CARD | 22/1 | pre-existing |
+| NO CANOPIES | same parapet | pre-existing |
+| LOOK | — | **not a real red**: see below |
+
+**LOOK measures the age of the working tree, not staleness.** It clocks each picture's
+mtime against its surface, every ship touches the alpha by law, so any tree older than six
+hours trips it. Reproduced on untouched main by ageing the pictures seven hours and touching
+the alpha: 23/1, the identical failure.

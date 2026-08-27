@@ -1,91 +1,81 @@
-WORLD (world-9lfjtf): 8/27 (b) LATEST -- *** PAOLO CAUGHT IT BY EYE FROM ONE SCREENSHOT:
-EVERY OVERHEAD IN THE GAME WAS PAINT ON THE FLOOR. Bridges, canopies, skybridges, awnings,
-busbars -- all drawn 90-degree flat in a 45-degree world. TAB: RUN, walk under the freeway
-bridge. Nothing to judge. ***
-
-HIS WORDS, mid-turn: "BRO PLEASE UNDERSTAND THE WORLD IS FROM AN OVER THE TOP 45 DEGREE
-VIEW DID YOU JUST MAKE SOMETHING THATS 90 DEGREE OVERHEAD VIEW?"
-
-*** THE FLAG WAS SET AND NOTHING EVER READ IT. *** realizeCell has set `c.overhead=true` on
-every overhead tile in this game since August. Grepped the whole walked surface: THAT FLAG
-IS NEVER READ BY THE DRAW. The entire overhead branch is one line --
-    if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; return c; }
--- a flat colour on the ground plane. So the freeway overpass decks (116 cells), the Strip's
-enclosed pedestrian bridges, fuel canopies, downtown skybridges, shop awnings and the
-substation busbars were ALL painted onto the floor and seen from straight above, in a game
-whose own 45 DEGREE ART LAW (7/17) says every original thing is seen from the three-quarter
-view and NEVER flat.
-
-WHAT THIS GRID CAN AND CANNOT DO, HONESTLY: it is ONE LAYER, so the ground under a deck is
-not stored anywhere and cannot be revealed -- there is no "under the bridge" pixel to show.
-But WHAT MAKES A THING READ AS ABOVE IN THIS PROJECTION IS NOT THE HOLE UNDER IT. It is the
-SIDE YOU SEE and the SHADOW IT THROWS. A wall gets exactly that (a front face drawn toward
-the camera) and that is precisely why walls read and overheads did not.
-overheadPass() now gives every overhead run, on its camera-facing edge:
-  THE FASCIA  the beam you look at from the south, in the deck's own colour darkened,
-    because a face turned away from the sky is darker than a top facing it -- the same rule
-    the wall pass and the 45-degree law already use.
-  THE SHADOW  thrown on the ground beyond the beam, fading over two cells like every other
-    cast shadow in this build, so the deck floats instead of lying down.
-  TWO EDGES   a sky-lit lip where the surface turns over into its own side, and the dark
-    underside line at the bottom of the beam. Those two lines say THIS HAS THICKNESS.
-Run in the SAME two-pass order as facades, so a deck between him and the camera covers him
-exactly as a wall does.
-
-THREE THINGS THE PICTURE CAUGHT THAT THE CODE LOOKED FINE ABOUT:
- 1. THE FIRST HEIGHT WAS TOO SMALL TO SEE. Written as a fraction of ONE cell it came out
-    THREE PIXELS at play zoom and the bridge still read flat. A side you cannot see is not a
-    side. An overpass sits ~5 m over the road (seven tiles at 0.75 m) and a wall in this
-    engine is already drawn THREE CELLS tall for the same reason. Height is counted in
-    CELLS here, like everything else that stands up.
- 2. THE BRIDGE GREW WALLS DOWN THE MIDDLE OF ITSELF. The pass finds a run's camera-facing
-    edge by asking whether the cell south is also overhead, and the deck's LANE STRIPES were
-    kind `marking`, which answered NO -- so every stripe put a bridge SIDE across the middle
-    of the bridge, a row of dark beams standing on the deck. A deck, its paint and its
-    parapet are ONE OBJECT AT ONE HEIGHT; the paint is not lying on the ground under the
-    bridge. All three are overhead now, and the street contract counts overhead as corridor,
-    so the crossing still measures exactly as wide as the road it carries.
- 3. THE STRIPE WAS TOO BRIGHT FOR A TOP SURFACE. roadcell_gate's visual-constitution check
-    caught it the moment the stripe moved onto the overhead layer: a top surface has its own
-    value band (72.8..137.4) and the arterial's worn white is 171. The band is right and the
-    colour was wrong -- a lane line on a deck that has taken thirty Mojave summers with
-    nobody repainting it is not white, it is a bleached ghost of white, which is what every
-    other marking in this game already says in its own act1 text. Measured to 134.4.
-
-VERIFIED ON TWO DIFFERENT OVERHEADS, NOT ONE. A change this broad cannot be checked on the
-thing that prompted it: photographed the freeway overpass AND a Strip pedestrian bridge in a
-different district. Both hang, both throw a shadow, both show a beam.
-
-THE LESSON: *** A FLAG THAT NOTHING READS IS NOT A FEATURE. *** c.overhead has been set
-correctly, on the right tiles, for weeks, and the world drew none of it. The layering system
-knew what these things were; the renderer never asked. Same shape as the six standable
-structures the walked surface discarded on 8/26 and the room roles the floor never spent:
-THE MODEL WAS RIGHT AND THE PICTURE NEVER LISTENED TO IT. And it took a human looking at one
-screenshot to find it, after a day of green gates.
-GATES: street_contract 17/0, roadcell 46/0, line_color 30/0, tilespec 310/0, drive_network
-  15/0, walkable 73/0, occupancy 16/0, hazard 74/0, street_facing 16/0, wall_fade 10/0,
-  art_45 16/0.
-RECORD: records/BOHEMIA_EVERY_OVERHEAD_WAS_PAINT_ON_THE_FLOOR_8_27_26.md
-
-WORLD LANE RUNNING ORDER (deliberately NOT under the header top_of_the_document_gate reads;
-that gate wants a row of the RF4 COMBAT teardown and there is no row in it for a street
-piece, so citing one would be a name-drop the machine checks and a human can see is a lie.
-This lane's order comes from Paolo's 8/25 dispatch. T4 has an escape for this and T3 does
-not, which looks like an oversight in a gate this lane does not own -- flagged, not edited):
- 1. THE LEVEL CROSSING. 37 seams where an arterial meets the railway. The rail module
-    ALREADY has the pieces (12 crossing pavement, 13 crossing marking, 14 gate arm) and its
-    own comment says it "borrows the arterial's own cross-section" via `var PAVE = 21,
-    CURB = 23` -- LITERALS, and the arterial's PAVE is 17 now. That is the bridge bug again,
-    in a third module, and the arterial exports PAVE_HALF/CURB_HALF for exactly this.
- 2. The Strip needs a TWO-CELL-WIDE crossing piece (4 seams).
- 3. The interchange blob's coordinate mapping is off by one (3 seams).
- 4. The 40 perpendicular-freeway seams need a MAP ruling, not a piece.
- 5. Give the overhead pass a per-KIND height: a bridge deck, a shop awning and a busbar are
-    not all 2 cells above the ground, and OH_H is one constant today.
- 6. The interchange is 87.9% connected: 479 drive tiles a car cannot reach.
- 7. GLASS and WOOD materials for exteriors; the tyre barrier and razor wire rows.
- 8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
-    wears steel. Wants its own code, not a routing exception.
+CITY (city-1eztay): 8/27 (b) LATEST -- *** THIRTEEN DISTRICTS STOPPED MULTIPLYING, THAT
+CLASS IS CLOSED, AND A TOOL WAS DELETING ANOTHER LANE'S WORK EVERY TIME IT RAN. ***
+A generator is handed ONE cell, so a data fort sited across six built SIX data forts.
+Measured before, 3x2 blob, all twelve utility landmarks: SIX CAR GATES each, up to
+forty-eight fence segments. After: ONE gate, one fence spanning the plot. On the walked
+page: datafort 6-of-6 -> 1-of-6, basin 4-of-4 -> 1-of-4, reclaim 2-of-2 -> 1-of-2,
+watertreat 6 buildings over 2 cells -> 3. Lone cells byte-identical: every type, four
+facings, four seeds.
+  ONE CHANGE COVERED TWELVE -- the FACTORY LAW paying out. The other nine clustered
+districts each needed a bespoke rewrite; the utility factory did not, because twelve
+landmarks already shared one frame, one layout dispatch, one dressing pass and one drive
+connector, and all of them talk to the grid only through get/set/rect/W/H. So the whole
+blob builds as a SINGLE OVERSIZED DISTRICT (K.grid always took a width and height) and all
+nine layout primitives ran against it UNCHANGED.
+  THE REUSABLE RULE: REPEAT THE UNITS A BIGGER SITE HAS MORE OF, NEVER THE THING IT IS
+NAMED AFTER. A depot twice the size has twice the magazines; nobody names an antenna farm
+after one mast; but there is exactly one control house, one fence, one gate. The first cut
+tiled the reclamation ponds and took the control building with them -- the gate caught it.
+K.shift lives in the kit with that rule written on it.
+  *** READ THIS ONE IF YOU READ NOTHING ELSE: A TOOL WAS DELETING THE ART LANE'S FLOORS ON
+EVERY RUN. *** tools/bohemia_city_chunk_tile_bank.py rewrote the whole __TILE_BANK__ region
+and discarded whatever else lived in it -- and the ART lane's room-floor data loads from
+ONE line in there. So BOHEMIA_CITY_FLOORS.js stayed tracked, stayed in the deploy list, and
+NOTHING LOADED IT: FLOOR_POOL_B64 undefined on the walked page, every interior floor
+falling back. I FIRST DIAGNOSED IT AS A REBASE EATING THE TAG AND FIXED IT AS ONE -- and it
+came back the next time the chunker ran, which is how the real cause surfaced. THE FILE
+SURVIVING IS WHY IT IS INVISIBLE: a deleted file is loud, an orphaned one looks exactly
+like a working one. The chunker now carries foreign tags forward (stable over three
+consecutive runs; the tag now sits outside the region entirely). The net:
+gates/no_orphan_script_gate.js -- every .js in slices/ must be NAMED by something that can
+load it. A NAME check, not a tag check: eight chunks load by URL construction with no tag
+anywhere. IT CAUGHT THE RECURRENCE LIVE, minutes after I wrote it.
+  VALLEY CENSUS 11/3 -> 14/0. It calls a type flat when EVERY sampled plot has no building,
+which was right when every generator got one cell and is the WRONG QUESTION for a clustered
+one -- a six-cell data fort is one cell with the hall and five without, BY DESIGN. A RULER
+THAT PREDATES THE CHANGE IT MEASURES IS THE BROKEN PARTY. Clustered types are read from the
+cluster:true rows in world.js, not a hand-list, so they cannot drift; the wash defers to its
+older reason (a lined channel has no buildings either way).
+  AND THAT FIX EXPOSED A HOLE IN MY OWN MORNING'S GATE. I wrote a census leg to stop the
+exemption hiding a vanished facility; it failed on solar and it was WRONG, because the
+census SAMPLES and a solar farm is hundreds of cells with one control building, so "does
+not exist" and "not sampled" are the same reading there. Hunting for where the guarantee
+belonged found that NOWHERE HELD IT: one_district_per_blob's rule `nBlob < nCell` is
+satisfied by nBlob === 0, so "stopped multiplying" and "disappeared" are the same number.
+Closed where both builds are in hand: leg "A CLUSTERED FACILITY IS BUILT ONCE, NOT ZERO
+TIMES". PUT THE CHECK WHERE THE EVIDENCE IS, NOT WHERE THE SYMPTOM SHOWED.
+  *** THE PROCESS LESSON THAT COST THE MOST HOURS: I WAS CAUSING THE FLAKINESS I WAS
+DIAGNOSING. *** I ran diagnostic browser gates FROM A WORKTREE while the suite ran browser
+gates in the main tree -- two Chromiums, four cores. ONE SUITE AT A TIME exists for exactly
+this and its lock keys on the REPO ROOT, and A WORKTREE IS A DIFFERENT ROOT, so it never
+fired. I spent an hour calling gates flaky. On a clean run with nothing else touching the
+machine, LOOK NOT TRAVEL, COMBAT SOUND, WALK FEEL and VISTA EXIT all came back green.
+IF YOU DIAGNOSE A SUITE RED, KILL THE SUITE FIRST OR YOUR ANSWER IS ABOUT YOU.
+  EVERY RED RUN AGAINST UNTOUCHED MAIN BEFORE CLAIMING WHOSE IT WAS. Pre-existing, NOT
+mine: GRAVEYARD (same 10 live refs), FULL RES (12/1, same 15.2%), XRAY (3/2 at the same
+coordinate [6190,6164]), SEE-THROUGH MOVE (9/1, same leg), INSTALL CARD (22/1), NO CANOPIES
+(same "freeway/deck parapet"). LOOK is not a real red at all: it clocks pictures by MTIME
+against a surface, every ship touches the alpha by law, so any working tree older than six
+hours trips it -- reproduced on untouched main by ageing the pictures seven hours and
+touching the alpha. IT MEASURES TREE AGE, NOT STALENESS.
+  WHAT COMES AFTER, in order: (1) THE SUITE IS BROKEN AS A SHIP GATE -- 453 gates, 4 cores,
+~2.5 HOURS, and ONE GATE PASS PER SHIP was written when it was 95 SECONDS. Sharding exists
+(--shard i/n) and suite_honesty_gate already argues for it; nothing routes ships through it.
+(2) The LOOK mtime ruler above. (3) GRAVEYARD's 10 live references -- repo hygiene with no
+owning lane, which is how it stays red forever. (4) Aperture mismatch (13 cells) + midpoint
+keep-out (2 cells) from 8/22. (5) 31 unplaced legend codes across 20 families.
+  DEBT LIST 20 FAMILIES -> 14, and every one left is out of scope BY DEFINITION: mountain,
+arterial, resort, water, rail, desert are roads and terrain with no facility to duplicate;
+downtown, town, commercial, ballpark, campus, industrial, park, medical are SUPPOSED to be
+many buildings. Treating those as this defect is the mistake the record exists to prevent.
+Ran 8/24 (solar) to 8/27, twenty-two districts. Record:
+records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md (8/27 section at the end).
+  STANDING GOTCHAS, both still true: run the CHUNKER after every rebase (main carries a
+4.4 MB chunk 1 from another lane's hero bake and the merge prefers it -- six seconds of load
+time), and slices/BOHEMIA_CITY_WORLD.html does NOT carry engine/bohemia_world.js: it has
+its own dispatch and its own INLINED COPY of ~98 engine modules, so cluster:true reaches the
+walked surface only when the name is ALSO in the page's CLUSTER_KIT and the module resync
+has run. TWO LISTS, BOTH OR NEITHER.
 
 SOUND (sound-xk7pjp): 8/27 (b) LATEST -- *** HIS 8/26 INTENSITY RULING HAD FOUR
 TRIGGERS AND ONLY TWO WERE WIRED. The other two are wired now, WITHOUT touching
@@ -186,88 +176,6 @@ ART (art-f3eu53): 8/27 (e) LATEST -- *** SEVEN DISTRICTS GOT THEIR REAL GROUND I
 ONE DAY, THE ICON OVEN IS CURED, AND THE UNCLAIMED-NAME QUEUE IS EMPTY. TAB: RUN
 (walk the landfill, railyard, datafort, library, radio site, wash), CITY (the map
 icons), ART (seven new cards). Nothing to judge -- correct me in the game. ***
-
-CITY (city-1eztay): 8/27 (a) LATEST -- *** THIRTEEN DISTRICTS STOPPED MULTIPLYING, AND
-THAT CLASS OF BUG IS NOW CLOSED. *** A district generator is handed ONE cell, so when the
-overmap sites a data fort across SIX cells every cell built a complete data fort. Measured
-before, on a 3x2 blob, on every one of the twelve utility landmarks: SIX CAR GATES, six
-fences, up to forty-eight fence segments. After: ONE car gate on all twelve, one fence
-spanning the whole plot. On the walked page, which is the surface that counts: datafort
-6-of-6 -> 1-of-6, basin 4-of-4 -> 1-of-4, reclaim 2-of-2 -> 1-of-2, watertreat 6 buildings
-over 2 cells -> 3. Lone cells byte-identical, every type, all four facings.
-  ONE CHANGE COVERED TWELVE, and that is the FACTORY LAW paying out. Solar, wash, railyard,
-stadium, landfill, cemetery, golf, farm and speedway each needed their own blob-scale
-rewrite. The utility factory did not: twelve landmarks already shared one frame, one layout
-dispatch, one dressing pass, one drive connector, and all of them talk to the grid through
-get/set/rect/W/H and nothing else. So the whole blob is built as a SINGLE OVERSIZED DISTRICT
-(K.grid always took a width and a height) and all nine layout primitives ran against it
-COMPLETELY UNCHANGED. The law promised the thirteenth landmark would be a spec and not a
-file; nobody had noticed it promised the same about the FIX for all twelve.
-  THE RULE THAT CAME OUT OF IT, and it is the reusable part: REPEAT THE UNITS A BIGGER SITE
-HAS MORE OF, NEVER THE THING IT IS NAMED AFTER. A depot twice the size honestly has twice
-the magazines; nobody names an antenna farm after one mast; but there is exactly one control
-house, one fence, one gate. Not hypothetical -- the first cut tiled the reclamation ponds and
-took the control building with them, and the gate went red on `reclaim (2 -> 2)`. K.shift
-lives in the kit now with that rule written on it.
-  A HASH CAUGHT WHAT READING COULD NOT. Lifting the plant's process train into its own
-function left the scum-drift loop running TWICE, invisible because the original bounds W-16
-and H-40 are exactly the 112 and 88 the copy used -- same shape drawn, rng consumed twice,
-every later draw shifted. Seven md5s over four seeds and four facings noticed on the first
-run. A byte-identity check on the path you did NOT mean to change is worth more than an
-inspection of the one you did.
-  *** AND A GATE THAT WOULD NOT GO GREEN FOUND SOMETHING FIVE WEEKS OLD. *** It flagged
-watertreat 24 -> 15 after the plant had genuinely stopped multiplying, and chasing the number
-that refused to fall found that EVERY CLARIFIER WAS COUNTED AS A BUILDING: the generator drew
-each clarifier's centre core as code 2, "building (control / blower / chem)", the ENTERABLE
-one, while that district's own legend has said since the day it was written that code 6 is
-"clarifier wall / core". A three-clarifier plant reported six buildings and three of them were
-concrete drums you could walk into and find a control room in. A generator contradicting its
-own recorded legend is a BUG, not a reading (TRUTH HIERARCHY). Fixed; three footprints now.
-That is the argument for gates that assert a PROPERTY rather than a number somebody wrote
-down: a property gate keeps pointing until you understand it, a threshold gate gets retuned.
-  THE NEW PAGE LEG asks a better question than the old ceilings, which are constants measured
-on one valley and go red on a new seed over nothing. The defect was never "more than N", it
-was "one per cell" -- so a facility built once has strictly FEWER structures than its ground
-has cells, and one built per cell has exactly as many. 1-of-6 passes at any size, 6-of-6 fails
-at any size. Mutation-tested both ways (datafort 6c/6r red, watertreat 2c/6r red, restored).
-The constant still wins where the property does not hold: a plant has exactly three buildings
-however big it gets, so `fewer than cells` would go red on a correct two-cell plant. PICK THE
-RULER FROM THE SHAPE OF THE CLAIM, NOT FROM HABIT.
-  THE DEBT LIST WENT 20 FAMILIES -> 14 AND THE CLASS IS CLOSED. Everything left is out of
-scope by definition: mountain, arterial, resort, water, rail, desert are roads and terrain
-with no facility to duplicate; downtown, town, commercial, ballpark, campus, industrial, park
-and medical are SUPPOSED to be many buildings, and treating them as this defect is the mistake
-the record exists to prevent. Ran 8/24 (solar) to 8/27, twenty-two districts. Gate stays.
-  BEFORE THAT, THE SAME TURN: a rebase left conflict markers in the alpha and the handoff and
-`git rebase --continue` COMMITTED THEM, because a python resolver walked five regions, hit one
-whose shape it did not expect, raised, and stopped. Git cannot tell a file you fixed from a
-file you gave up on. A LOOP THAT EDITS FILES MUST NOT BE ABLE TO STOP HALFWAY: resolve into a
-buffer, assert every region is accounted for, write only then. Every resolution after that
-one did exactly that. And the gate for this ALREADY EXISTED and is good --
-gates/nomarkers_gate.js, built 8/3 by LAB after the same failure twice in one day, matching
-markers at LINE START only so prose using ===== as a rule does not trip. It was never missing.
-I had not RUN it between the bad rebase and the commit. Also: the "two buildstamp divs" I
-chased were one div and the JAVASCRIPT THAT READS IT. The ruler was wrong again.
-  *** THE SHIP GATE IS BROKEN AS A SHIP GATE AND THAT IS THE ONE THING TO FIX NEXT. ***
-ONE GATE PASS PER SHIP was written when the suite was ~95 SECONDS. Measured today: 452 gates,
-4 cores, ~11.6s a gate, TWO AND A HALF HOURS. gates/suite_honesty_gate.js already documents
-the arithmetic and already shipped --shard i/n as the answer, but nothing routes ships through
-it, so every lane either waits 2.5h or runs a subset and says so. Worse in practice: any edit
-made while it runs invalidates the run, so the suite and the work cannot proceed in parallel.
-I lost three runs to that today before working in a git worktree. THE NEXT CITY/WORLD TURN
-SHOULD MAKE SHARDING THE DEFAULT SHIP PATH, not a flag nobody uses.
-  WHAT I RAN, honestly: one_district_per_blob 5/0, walked_surface 15/0 (both new legs
-mutation-tested), walkable 73/0, tilespec 310/0, world 29/0, landmark 107/0, blob_integrity
-107/0, nomarkers 6/0, plus a full-suite pass. Record:
-records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md (the 8/27 section at the end).
-  STANDING GOTCHA, still true: run `python3 tools/bohemia_city_chunk_tile_bank.py` after
-EVERY rebase -- main carries a 4.47 MB chunk 1 from another lane's hero bake and the merge
-prefers it over the 1.75 MB progressive one, which costs 6 seconds on the load ratchet.
-  AND THE SEAM THAT KEEPS BITING: slices/BOHEMIA_CITY_WORLD.html does NOT carry
-engine/bohemia_world.js. It has its own district dispatch and its own INLINED COPY of ~95
-engine modules. A row marked cluster:true in world.js reaches the walked surface only when
-its name is ALSO in the page's CLUSTER_KIT and `tools/bohemia_city_module_resync.py` has been
-run. TWO LISTS, BOTH OR NEITHER.
 
 FACTIONS (factions-ovkjpf): 8/27 (r) LATEST -- *** A GUARD THAT COMPARED TWO
 CONSTANTS, AND A LIST OF DIRECTIONS WITH NO REASONS ON IT. Nothing to judge. ***
