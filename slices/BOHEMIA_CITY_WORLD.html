@@ -28536,6 +28536,133 @@ function renderCity(){
       g.beginPath(); g.moveTo(p2.sx,p2.sy); g.lineTo(p2.sx+TW/2,p2.sy+TH/2);
       g.lineTo(p2.sx,p2.sy+TH); g.lineTo(p2.sx-TW/2,p2.sy+TH/2); g.closePath(); g.stroke(); }
   }
+  /* ==== __CITY_GROUND__ -- WHOSE GROUND IS WHOSE ======================
+     MEASURED FIRST: renderCity() did not call ctBases() once. Every call in
+     this file sat in the faction code, so you could open the map of the whole
+     valley and nothing on it said that anybody held any of it -- while the
+     canon says LIGHT=TERRITORY, CLUSTERED POWER, OWNED, and nobody patrols the
+     dark. Territory here is a thing you can SEE by construction, and the map
+     was the one place that never admitted it.
+
+     MAP LAW: NOTHING IS PLACED HERE. Every position is one the run's own boot
+     decided and the city baked. This marks what is already there.
+
+     NOT A HUD PIN: it does not follow him, it is not on the walking screen,
+     and it points at no quest. A map he chooses to open, showing a fact that
+     is true whether or not he is looking.
+
+     AND IT ASKS ctBases(), so after a reroll it correctly shows no territory
+     rather than confidently drawing the last valley's borders over this one.
+     One organ, one answer. */
+  try {
+    var __gb = (typeof ctBases === 'function') ? ctBases() : null;
+    if(__gb){
+      var __mine = null;
+      try { if(typeof BohemiaBetween !== 'undefined') __mine = BohemiaBetween.mine(); }
+      catch(_e){}
+      var __norm = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+      /* BIG ENOUGH TO READ. Fourteen names on a fully zoomed-out 96x96 is a
+         wall of text, so the ground is ALWAYS marked and the name arrives with
+         the zoom. Nothing is hidden that was not unreadable anyway. */
+      /* *** THE MARKER IS SCREEN-SIZED, NOT TILE-SIZED, AND THE FIRST VERSION
+         WAS NOT. *** It drew a diamond TW wide. At the ⤢ WHOLE MAP zoom the
+         whole 96x96 valley fits a phone, so TW is 3.74 PIXELS -- measured, on
+         the real canvas -- and every marker was a four-pixel smudge on the one
+         screen a person opens to plan a walk. It read fine in the source and
+         was invisible in the render. VERIFY ON THE REAL SURFACE.
+         So the size is clamped in SCREEN pixels: legible zoomed all the way
+         out, and it grows with the tiles when you zoom in. */
+      var __r = Math.max(4, Math.min(TW * 0.5, 15));
+      /* AND WHICH ONES GET A NAME. Fourteen labels on a 350px diamond is a
+         wall of text, so names arrive with the zoom -- EXCEPT the two a person
+         is actually looking for on a valley map: their own ground, and the
+         nearest ground that belongs to anybody. Those are the whole reason the
+         map is open. */
+      var __near = null, __nd = 1e9;
+      for(var __k in __gb){
+        var __kb = __gb[__k];
+        if(!__kb || __kb.x == null) continue;
+        if(__mine && __norm(__k) === __norm(__mine)) continue;
+        var __kd = Math.abs(__kb.x - city.x) + Math.abs(__kb.y - city.y);
+        if(__kd < __nd){ __nd = __kd; __near = __k; }
+      }
+      var __named = TW >= 26;
+      /* LABELS THAT WOULD SIT ON TOP OF EACH OTHER GET NUDGED UP. Seen on the
+         real canvas, not reasoned about: at whole-map zoom CUSTOM and COLORFUL
+         are nine cells apart, which is about twenty pixels, and CUSTOM's plate
+         painted straight over the front of COLORFUL's name. Two labels drawn
+         correctly and one of them unreadable. */
+      /* AND THE BOXES IT DREW ARE PUBLISHED, the same way this renderer already
+         publishes window.__LAMPQ. Not a side door: it is the render saying what
+         it actually did, which is the only way to check that two labels did not
+         land on top of each other. Counting coloured pixels near a marker
+         cannot -- a neighbour's label is the same colour and gets counted as
+         yours, which is exactly how the first version of that claim passed
+         while the collision was still in. */
+      var __boxes = [];
+      var __free = function(x, y, w, h){
+        for(var i=0;i<__boxes.length;i++){
+          var b=__boxes[i];
+          if(x < b.x+b.w && x+w > b.x && y < b.y+b.h && y+h > b.y) return false;
+        }
+        return true;
+      };
+      g.save();
+      for(var __n in __gb){
+        var __b = __gb[__n];
+        if(!__b || __b.x == null || __b.y == null) continue;
+        var __p = iso(__b.x|0, __b.y|0, ox, oy);
+        if(__p.sx < -40 || __p.sx > cv.width+40) continue;
+        if(__p.sy < -40 || __p.sy > cv.height+40) continue;
+        var __is = !!(__mine && __norm(__n) === __norm(__mine));
+        /* YOURS reads differently from theirs, because "that one is mine" is
+           the first thing anybody looks for on a map of who holds what. */
+        var __col = __is ? '#e8dcc0' : '#c8a558';
+        var __cy = __p.sy + TH/2;
+        g.globalAlpha = 0.95;
+        g.strokeStyle = __col; g.lineWidth = __is ? 2.5 : 1.5;
+        g.beginPath();
+        g.moveTo(__p.sx, __cy - __r);
+        g.lineTo(__p.sx + __r, __cy);
+        g.lineTo(__p.sx, __cy + __r);
+        g.lineTo(__p.sx - __r, __cy);
+        g.closePath(); g.stroke();
+        g.globalAlpha = __is ? 0.42 : 0.28;
+        g.fillStyle = __col; g.fill();
+        if(__named || __is || __norm(__n) === __norm(__near)){
+          g.globalAlpha = 1;
+          var __t = String(__n).toUpperCase();
+          g.font = '700 9px ui-monospace,Menlo,monospace';
+          g.textAlign = 'center';
+          var __w = g.measureText(__t).width;
+          var __lx = __p.sx - __w/2 - 3, __ly = __cy - __r - 13;
+          /* up to five nudges of one line each, then give up and draw it --
+             a label that never lands is worse than one slightly close. */
+          for(var __try=0; __try<5 && !__free(__lx, __ly, __w+6, 11); __try++)
+            __ly -= 12;
+          __boxes.push({ x:__lx, y:__ly, w:__w+6, h:11 });
+          /* A PLATE UNDER THE WORD. The valley floor is a light tan by day and
+             the label was unreadable on it -- checked on the real canvas, not
+             assumed from the hex. */
+          g.fillStyle = 'rgba(12,10,8,0.82)';
+          g.fillRect(__lx, __ly, __w + 6, 11);
+          g.fillStyle = __col;
+          g.fillText(__t, __p.sx, __ly + 8.5);
+          /* AND A LEADER BACK TO THE GROUND IT NAMES, once it has been nudged.
+             A floating word beside a diamond is ambiguous the moment it moves. */
+          if(__ly < __cy - __r - 14){
+            g.globalAlpha = 0.5; g.strokeStyle = __col; g.lineWidth = 1;
+            g.beginPath(); g.moveTo(__p.sx, __ly + 11); g.lineTo(__p.sx, __cy - __r);
+            g.stroke(); g.globalAlpha = 1;
+          }
+          g.textAlign = 'start';
+        }
+      }
+      g.restore();
+      g.globalAlpha = 1;
+      window.__GROUNDLABELS = __boxes;
+    }
+  } catch(_e){}
   // THE MARKER (you)
   { const p=iso(city.x,city.y,ox,oy);
     g.fillStyle='#fff'; g.beginPath(); g.arc(p.sx,p.sy+TH*0.2,5,0,7); g.fill();

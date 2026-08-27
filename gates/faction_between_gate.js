@@ -1099,10 +1099,199 @@ async function onWhyWalk() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   M. THE MAP OF THE VALLEY, AND WHETHER IT SAYS WHOSE GROUND IS WHOSE.
+   Every claim here reads PIXELS OFF THE REAL CANVAS. This is drawn art on a
+   surface, so a source check is a lie: the first version of this feature was
+   correct in the source and INVISIBLE in the render, because it sized the
+   markers in TILES and the whole-map zoom makes a tile 3.74 pixels wide.
+   ========================================================================== */
+async function onTheGround() {
+  console.log('\nM. THE WHOLE MAP, AND WHOSE GROUND IS WHOSE.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 9000);
+    /* the wake card covers the map, and a screenshot of a modal is not a
+       screenshot of the thing under it. */
+    await page.evaluate(() => {
+      const x = [...document.querySelectorAll('button,div')]
+        .filter(e => /^GET UP$/.test((e.textContent || '').trim()));
+      if (x.length) x[0].click();
+    });
+    await SETTLE(page, 2000);
+    await page.evaluate(() => {
+      if (typeof MODE !== 'undefined' && MODE !== 'city') {
+        const m = document.getElementById('modechip'); if (m) m.click();
+      }
+    });
+    await SETTLE(page, 2000);
+    await page.evaluate(() => {
+      const f = document.getElementById('fitbtn');
+      if (f && f.style.display !== 'none') f.click();
+    });
+    await SETTLE(page, 2500);
+
+    const probe = () => page.evaluate(() => {
+      const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
+      const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
+      const bases = ctBases() || {};
+      const ctx = cv.getContext('2d');
+      const out = { TW: TW, basesNull: !ctBases(), marker: {}, label: {},
+                    mine: null, nearest: null, count: 0 };
+      try { out.mine = BohemiaBetween.mine(); } catch (_e) {}
+      const N = v => String(v || '').toUpperCase().replace(/[\s_]/g, '');
+      let nd = 1e9;
+      for (const [n, b] of Object.entries(bases)) {
+        if (out.mine && N(n) === N(out.mine)) continue;
+        const d = Math.abs(b.x - city.x) + Math.abs(b.y - city.y);
+        if (d < nd) { nd = d; out.nearest = n; }
+      }
+      const isMineCol = (r, g2, b2) =>
+        Math.abs(r - 232) < 26 && Math.abs(g2 - 220) < 26 && Math.abs(b2 - 192) < 34;
+      const isThemCol = (r, g2, b2) =>
+        Math.abs(r - 200) < 34 && Math.abs(g2 - 165) < 34 && Math.abs(b2 - 88) < 40;
+      for (const [n, b] of Object.entries(bases)) {
+        out.count++;
+        const p = iso(b.x | 0, b.y | 0, ox, oy);
+        const cy = p.sy + TH / 2;
+        const R = Math.max(4, Math.min(TW * 0.5, 15));
+        const sx = Math.max(0, Math.round(p.sx - R - 2));
+        const sy = Math.max(0, Math.round(cy - R - 2));
+        const d = ctx.getImageData(sx, sy, Math.round(R * 2 + 5), Math.round(R * 2 + 5)).data;
+        let mineHit = 0, themHit = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          if (isMineCol(d[i], d[i+1], d[i+2])) mineHit++;
+          else if (isThemCol(d[i], d[i+1], d[i+2])) themHit++;
+        }
+        out.marker[n] = { mine: mineHit, them: themHit };
+        /* THE LABEL BAND above this marker, for the two that get named at this
+           zoom. Counting TEXT-COLOURED pixels in each one is what catches the
+           defect that actually happened: CUSTOM's plate painted over the front
+           of COLORFUL's name, so both labels were "drawn" and one was gone. */
+        const ly = Math.max(0, Math.round(cy - R - 80));
+        const lh = Math.max(1, Math.round(cy - R - 1) - ly);
+        const lx = Math.max(0, Math.round(p.sx - 45));
+        if (lh > 4) {
+          const ld = ctx.getImageData(lx, ly, 90, lh).data;
+          let txt = 0;
+          for (let i = 0; i < ld.length; i += 4)
+            if (isMineCol(ld[i], ld[i+1], ld[i+2]) || isThemCol(ld[i], ld[i+1], ld[i+2])) txt++;
+          out.label[n] = txt;
+        }
+      }
+      /* WHAT THE RENDER SAYS IT DREW, published by renderCity the same way it
+         already publishes window.__LAMPQ. */
+      out.labelBoxes = (window.__GROUNDLABELS || []).slice();
+      return out;
+    });
+
+    const R1 = await probe();
+
+    ok('M0 THE MAP IS OPEN AND ZOOMED ALL THE WAY OUT. TW is the width of one '
+      + 'cell in screen pixels; the whole 96x96 valley on a phone makes it tiny, '
+      + 'and that is the condition this feature has to survive',
+      R1.TW < 8 && R1.count >= 10,
+      JSON.stringify({ TW: R1.TW, bases: R1.count }));
+
+    const painted = Object.entries(R1.marker).filter(([, v]) => v.mine + v.them > 0);
+    ok('M1 *** EVERY OUTFIT\'S GROUND IS ACTUALLY PAINTED ON THE MAP. *** Read '
+      + 'as PIXELS off the real canvas at each base\'s own iso position, not as '
+      + 'a string in the source. renderCity() did not call ctBases() once before '
+      + 'this: you could open the map of the whole valley and nothing on it said '
+      + 'anybody held any of it, while the canon says LIGHT=TERRITORY, CLUSTERED '
+      + 'POWER, OWNED, and nobody patrols the dark',
+      painted.length === R1.count,
+      JSON.stringify(R1.marker));
+
+    /* *** THIS CLAIM WAS DECORATION UNTIL A MUTATION PROVED IT. *** It used to
+       assert `painted.length === count`, which is exactly what M1 already
+       says -- so reverting the marker to tile-sized left it GREEN. The marker
+       was still PAINTED, it was just four pixels of smudge, and "present" is
+       not the property that matters. The property is LEGIBLE.
+       So it counts AREA, and the floor is measured rather than picked:
+           screen-sized (shipped)   min 24 px per marker, avg 31, max 44
+           tile-sized   (the bug)   min 11 px per marker, avg 15, max 25
+       20 sits between the two minima with margin on both sides. */
+    const areas = Object.values(R1.marker).map(v => v.mine + v.them);
+    const worst = Math.min.apply(null, areas);
+    ok('M2 AND EVERY ONE OF THEM IS BIG ENOUGH TO SEE, not merely present. The '
+      + 'first version sized the diamond in TILES, and at this zoom a tile is '
+      + 'under four pixels wide -- correct in the source, a smudge in the '
+      + 'render, found by screenshotting it. Measured floor: the shipped marker '
+      + 'paints at least 24 pixels per base and the tile-sized bug paints 11',
+      R1.TW < 8 && worst >= 20,
+      JSON.stringify({ TW: R1.TW, worstMarkerPixels: worst, areas }));
+
+    const mineRow = R1.mine ? R1.marker[R1.mine] : null;
+    ok('M3 YOUR OWN GROUND READS DIFFERENTLY FROM THEIRS. "That one is mine" is '
+      + 'the first thing anybody looks for on a map of who holds what, and it is '
+      + 'a different colour rather than a different label',
+      !!mineRow && mineRow.mine > mineRow.them,
+      JSON.stringify({ mine: R1.mine, px: mineRow }));
+
+    ok('M4 AND AT THIS ZOOM THE TWO THAT MATTER ARE NAMED: your own ground, and '
+      + 'the nearest ground that belongs to anybody. Fourteen labels on a 350px '
+      + 'diamond is a wall of text; these two are the reason the map is open',
+      !!R1.mine && !!R1.nearest
+        && (R1.label[R1.mine] | 0) > 0 && (R1.label[R1.nearest] | 0) > 0,
+      JSON.stringify({ mine: R1.mine, mineTxt: R1.label[R1.mine],
+                       nearest: R1.nearest, nearTxt: R1.label[R1.nearest] }));
+
+    /* *** AND THIS CLAIM WAS DECORATION TOO, PROVEN BY MUTATION. *** It counted
+       text-coloured pixels in a band above each marker. Remove the collision
+       avoidance entirely and it stayed GREEN -- because the band is 90px wide
+       and the NEIGHBOUR'S label is the same colour, so one label's pixels were
+       being counted as the other's. It measured "is there any label near here",
+       which both the fixed and the broken render satisfy.
+       The only thing that can answer this is what the render says it DREW, so
+       renderCity publishes its label boxes (window.__GROUNDLABELS, the same
+       idiom it already uses for window.__LAMPQ) and this checks them for
+       overlap directly. */
+    const boxes = R1.labelBoxes || [];
+    let overlap = null;
+    for (let i = 0; i < boxes.length && !overlap; i++)
+      for (let j = i + 1; j < boxes.length && !overlap; j++) {
+        const a = boxes[i], b = boxes[j];
+        if (a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y)
+          overlap = [a, b];
+      }
+    ok('M5 AND NO TWO LABELS LAND ON TOP OF EACH OTHER. Seen on the real canvas: '
+      + 'CUSTOM and COLORFUL are nine cells apart, about twenty pixels at this '
+      + 'zoom, and CUSTOM\'s plate painted straight over the front of COLORFUL\'s '
+      + 'name. Both were "drawn" and one was unreadable. Checked against the '
+      + 'boxes the render publishes, because a pixel count near a marker reads '
+      + 'the neighbour\'s label as its own and passes either way',
+      boxes.length >= 2 && !overlap,
+      JSON.stringify({ boxes: boxes.length, overlap }));
+
+    /* AND IT COMPOSES WITH THE GUARD FIXED THIS MORNING. */
+    await page.evaluate(() => { document.getElementById('reroll').click(); });
+    await SETTLE(page, 6000);
+    await page.evaluate(() => {
+      const f = document.getElementById('fitbtn');
+      if (f && f.style.display !== 'none') f.click();
+    });
+    await SETTLE(page, 2500);
+    const R2 = await page.evaluate(() => ({ basesNull: !ctBases() }));
+
+    ok('M6 AFTER A REROLL THE MAP STOPS CLAIMING TERRITORY. It asks ctBases(), '
+      + 'which now knows the world moved out from under the bake, so it draws '
+      + 'nothing rather than confidently painting the last valley\'s borders '
+      + 'over this one. One organ, one answer, and this feature got it for free',
+      R2.basesNull === true, JSON.stringify(R2));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
   .then(onTheValley)
   .then(onWhyWalk)
+  .then(onTheGround)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
