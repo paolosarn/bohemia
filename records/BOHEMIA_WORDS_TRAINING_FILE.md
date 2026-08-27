@@ -571,3 +571,227 @@ how I would SOUND them, and he overrules any of it.
 - UNLV University Libraries, Oral History Research Center; the Penelope Ruchman
   casino-worker interviews (~100, 1999-2001) and the Boyer Early Las Vegas Oral
   History Project — *identified, not yet readable from this environment*
+
+---
+
+# ROUND 4 — 8/27/26. "know what you dont know"
+# He asked for two things and the second is harder. Rounds 1-3 chased gaps I had
+# already named. This round went looking for the ones I had not, and four of the
+# five best findings are things it had never occurred to me to be ignorant of.
+
+## 22. THE ONE THAT EMBARRASSES ME: THESE LINES LIVE ON A PHONE
+I have written and rewritten hundreds of lines this week without once asking how
+wide the screen is.
+
+The standards: **38 characters per line maximum on mobile**, and fewer on a phone.
+**Never more than two lines at once.** Reading speed 17 CPS for a general
+audience, 20 CPS for experienced readers, and above about 20 CPS text becomes
+hard to read at all.
+
+Bohemia is iPhone portrait. Two lines at 38 characters is about **76 characters
+on screen**.
+
+Now measure a line I was pleased with:
+> "I don't steal it. I move it. The grid doesn't belong to anybody so there's
+> nothing there to steal, I'm just faster than the meter. That's it."
+
+**About 145 characters. Roughly four phone lines. Nearly double the ceiling.**
+I was congratulating myself on the rhythm of a run-on that may be a wall of text
+on the only screen this game runs on.
+
+**THE HONEST CAVEAT, because overcorrecting would be its own error:** those are
+SUBTITLE standards, for text that disappears on a timer. If a Bohemia line waits
+for a tap, length is far less punishing, and a long line can be a deliberate
+effect. **I DO NOT CURRENTLY KNOW WHICH ONE BOHEMIA DOES.** That is a fact about
+our own build I have never checked, and it decides whether this finding is a
+crisis or a footnote. FIRST THING TO CHECK WHEN UNFROZEN.
+
+## 23. TERKEL AND KURVITZ ARE TWO HALVES OF ONE METHOD
+Round 2 got Terkel: **cut a million words to a hundred thousand.**
+Round 4 got the other half. Robert Kurvitz on Disco Elysium: they
+**"write every scene as hard as we can"**, including **every kind of weird or
+stupid thought that comes to them.**
+
+Put together, that is the whole thing:
+**WRITE EVERYTHING, INCLUDING THE STUPID THOUGHTS. THEN CUT NINE TENTHS.**
+
+And that is the exact diagnosis of machine prose, better than anything in the
+lane brief. A machine does NEITHER half. It writes the ONE most probable thought
+and keeps it. No overproduction, so nothing strange ever gets generated. No
+selection, so nothing average ever gets removed. Flat output is not a style
+failure, it is the absence of both halves of the process.
+
+## 24. OUR PLAYER IS NEVER ALLOWED TO BE A FOOL
+Disco Elysium will let a failed check make you say **"I want to have f— with
+you"**, and have the woman answer **"that's literally not how language works."**
+The game lets the player character humiliate himself.
+
+**All 558 of our player choices are competent.** Every one is composed, capable,
+and says the thing a person would say if they had thought about it first. Nobody
+in this game has ever misjudged a room, said the wrong thing, or been laughed at.
+That is not a player character, that is a spokesman.
+
+## 25. GALLOWS HUMOR — THE ENTIRE MISSING REGISTER, AND IT BELONGS TO OUR CAST
+Our corpus has **zero jokes** that I can find and zero exclamation marks in 504
+speeches. I had filed that under "the setting is bleak". That is wrong.
+
+Gallows humor is documented as a coping mechanism in exactly the jobs Bohemia is
+made of: **medical, police, military, disaster response** — the people who meet
+death as a routine. It is a pressure valve, and researchers describe it as
+psychological survival, not callousness.
+
+The ironworker's line from Round 2 is gallows humor:
+> "You ain't an Iron worker unless you get killed."
+A boast and a complaint and a joke, at once, in ten words.
+
+**SO OUR MEDIC, OUR WATCH, OUR LINEMEN AND OUR SCAVENGERS SHOULD BE MAKING JOKES
+ABOUT DYING.** Not comic relief characters: the specific, dry, unbothered humor
+of people who handle bad things for a living. Its absence is a large part of why
+everyone in our valley sounds like a mourner. **THE PEOPLE CLOSEST TO DEATH JOKE
+THE MOST. WE HAVE IT BACKWARDS.**
+
+## 26. RECIPIENT DESIGN — AND IT IS A SYSTEM BOHEMIA ALREADY HAS THE PARTS FOR
+Conversation analysis calls it **recipient design**: talk is built for the
+particular person hearing it, tuned to what the speaker assumes they know.
+> "If a speaker says 'Jane came for dinner', they are treating their recipient as
+> knowing who Jane is."
+Speakers also slow down and stretch their delivery when they know the listener
+does **not** share their knowledge.
+
+**OUR PLAYER IS A STRANGER TO EVERYONE, FOREVER.** So every NPC explains
+everything, which is realistic for a first meeting and is also why every NPC
+sounds like an exposition machine. Nobody ever treats you as an insider.
+
+**THE LEVER:** Bohemia already tracks bond and clout. A line for a stranger names
+the thing in full. A line for somebody known uses the shorthand and skips the
+explanation. **BEING TALKED TO IN SHORTHAND IS HOW A GAME MAKES YOU FEEL LIKE A
+LOCAL**, and it costs one condition on a line rather than any new system.
+[RECORDING THE IDEA ONLY. Systems belong to other lanes and I am touching nothing.]
+
+## 27. CHILDREN, FINALLY USEFUL
+Two rounds of clinical papers gave me pitch and comprehension speed. The craft
+sources gave me the actual thing:
+- **The two failure modes are TOO ELOQUENT and TOO CUTESY**, and writers reach for
+  one or the other. Both are the same mistake: writing an idea of a child.
+- **Kids do recipient design too** — simpler with younger kids, more complicated
+  questions aimed at adults.
+- **Topic jumping.** They change the subject.
+- **Age-appropriate concerns**, and this is the Bohemia one: a child in a
+  catastrophe worries about **their dog, their shoes, whether somebody is angry
+  with them.** Not about the collapse.
+- Context changes them: chatty at home, silent on the street.
+
+Put that beside Round 3's "born into ruin" and the valley's children write
+themselves: **no nostalgia, kid-sized worries, changes the subject, and says the
+true thing at the wrong moment.** Never a small philosopher.
+
+## 28. THE PLAYER'S LINES ARE A DIFFERENT CRAFT, AND WE ARE ACCIDENTALLY RIGHT
+Mass Effect's dialogue wheel showed **paraphrases**, not the line. Players picked
+"Don't try to study me" and Shepard said "I'm not some artifact you can take back
+to your lab, doctor." The complaint that followed was not about quality; it was
+that **the character said something the player did not choose.**
+
+**Our @OPT lines are the spoken line, verbatim.** That is the right side of this,
+and it was not a decision anybody wrote down, which means it can be lost by
+accident. Recording it so it is not: **in Bohemia, what you pick is what you say.**
+Our parentheticals — "(say nothing, just go)" — are the honest exception, because
+they promise an ACTION rather than a line, and they keep that promise.
+
+## 29. YOU CANNOT MEASURE "GOOD". YOU CAN MEASURE "UNDERSTOOD".
+The voice gate says out loud that it cannot tell whether a line is good, and that
+is true and it has bothered me. There is a real bridge and it has a name.
+
+**NARRATIVE USABILITY** (developed at Microsoft Studios): test the story early,
+find the twists that do not work and the conclusions that confuse, and remove
+**understanding blockers** so the characters can be seen. Studios ask narrative
+comprehension questions, score them (-2 to +2), and track the same questions
+across playtests to see the number move.
+
+**THE REFRAME I NEEDED:** beauty is not measurable, but COMPREHENSION IS. "Did
+you know what he wanted from you?" "Whose side did you think she was on?" "What
+did you think would happen if you cut it?" Those are answerable, scoreable and
+trackable, and they catch the failure that actually kills a scene, which is not
+an ugly line, it is a player who did not understand what they were being asked.
+[The demo gap list already wants a feedback card. Not proposing, not building.]
+
+## 30. THE HUMBLING ONE: HIS TWO LINES BEAT MY TWO THOUSAND
+There are exactly **two** lines in this game marked as his own words rather than
+a draft. From the grief dinner, in CLAUDE.md, verbatim:
+> **"I miss them so much, I can't."**
+> **"I hate this."**
+
+The first one **does not finish**. It breaks in the middle, because the person
+cannot get to the end of the sentence. The second is **three words**, blunt, no
+metaphor, no image, no lesson.
+
+Every single thing this week's research says about real speech is in those two
+lines: contracted, plain, short, unfinished, no wisdom, no balance, no punchline.
+**HE WROTE THEM BY INSTINCT BEFORE I HAD READ A WORD OF ANY OF THIS.**
+
+**THAT IS THE HOUSE VOICE.** Not a research-derived average of how humans talk:
+HIS two lines. When a rule from this file disagrees with the way those two lines
+sound, the rule is wrong. I should be measuring my drafts against them and I
+never have.
+
+---
+
+## 31. WHAT I NOW KNOW THAT I DID NOT KNOW I DID NOT KNOW
+Naming these plainly, because this is the half he asked for.
+1. **The screen has a width and I never asked.** Possibly the biggest practical
+   error of the week.
+2. **The people closest to death joke the most, and I wrote them all as
+   mourners.**
+3. **Our player is never allowed to say the wrong thing.**
+4. **Nobody ever treats the player as somebody they know.**
+5. **The human's two lines are better than my two thousand, and I had never
+   studied them.**
+
+## 32. AND WHAT I STILL DO NOT KNOW — HONEST LIST
+**About our own build (facts I could check but have not, and will not while
+frozen):**
+- Does a Bohemia line wait for a tap or run on a timer? Decides whether §22 is a
+  crisis or a footnote.
+- The talking portrait now drives mouth shapes **from the letters in the line**
+  (8/26-8/27 face work). So my vowel choices move a face. I have never once
+  thought about how a line LOOKS being said. This may be a whole craft dimension
+  I am blind to.
+- How many of our lines describe the state of the world rather than tonight
+  (§17). I would bet high.
+- Whether any of our 504 speeches is funny. I believe zero. Unverified.
+
+**About the world, still unreached:**
+- Terkel's *Hard Times* properly, and more WPA specimens. loc.gov and UNLV remain
+  blocked from this environment; I am still reading quotes about archives instead
+  of archives.
+- Greece 2010, Venezuela.
+- Line-level mechanics of Norco, Citizen Sleeper, Kentucky Route Zero. Three
+  attempts, three returns of praise rather than craft. My query shape is wrong,
+  not the material.
+- Ruskin's GDC talk in full, and how a writer authors FOR a fuzzy-matching system
+  instead of against it.
+- **NEW, and it may be the most important open question in this file:** how a
+  distinctive voice SURVIVES being scaled up with tools. I built a contraction
+  tool this week that touched 819 lines. It was careful and it was correct, and I
+  still do not know whether tools like it make a game sound more human or more
+  uniform. Terkel's answer would be that the tool is the wrong shape entirely,
+  because his method is subtraction and mine was substitution.
+
+## SOURCES, ROUND 4
+- Netflix subtitle requirements and general CPS/line-length standards; Canada
+  Media Fund, "Subtitles in Video Games: The Best Practices"; Ian Hamilton, "How
+  to do subtitles well"; GameAnalytics, "Adding Subtitles to Your Mobile Game"
+- Robert Kurvitz interviews (GameBanshee; Steam "Choose your own misadventure";
+  Rezzed 2018 via GameAnalytics; GameSpot Audio Logs)
+- Psychology Today, "In Praise of Gallows Humor"; general literature on gallows
+  humor in medical, police, military and disaster-response work
+- ACM, "Recipient Design for Conversational Agents"; Elizabeth Stokoe on
+  conversation analysis and conversation design; "The impact of shared knowledge
+  on speakers' prosody" (PMC6791546)
+- Jane Friedman, "Children's Dialogue: They Don't Talk Like Adults"; Indie Author
+  Magazine, "From the Mouths of Babes"; River Editor, "How to Write Child
+  Characters That Ring True at Any Age"
+- Mass Effect Wiki, "Dialogue"; TechRaptor, "Mass Effect's Dialogue Wheel and Its
+  Role In The RPG"; TheGamer on dialogue wheels
+- GDC Vault, "Using User Research to Improve Game Narratives" (narrative
+  usability, Microsoft Studios); PlaytestCloud, "Survey questions for assessing
+  your game's narrative in a playtest"
