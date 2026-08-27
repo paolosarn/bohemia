@@ -7264,6 +7264,12 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     var bseed = ((b.x0 * 73856093) ^ (b.y0 * 19349663) ^ ((seed >>> 0) & 0xffff)) >>> 0;
     var A = {
       g: g.g, W: W, H: H, cells: g, bounds: b, f: f,
+      /* THE BLOB'S OWN SEED, exposed (8/27). `rnd` already hashes off it, but a district
+         that builds the WHOLE blob into one oversized grid and then slices its own window
+         out needs the seed itself, so every cell hands K.grid the same number and gets the
+         same district back. Computing it a second time in the caller is how one definition
+         becomes two that drift. */
+      bseed: bseed,
       c: { x0: cx, y0: cy, x1: cx1, y1: cy1 },
       many: (b.x1 > b.x0 || b.y1 > b.y0),
       /* is this cell on the named side of the whole district? A gate, a fence run or an
@@ -18066,26 +18072,35 @@ const BEAT=500; // 120BPM law
     return best/A;
   }
   function dress(G, yard){
-    for(var round=0; round<24 && topShare(G)>0.27; round++) dressRound(G, yard);
+    /* DENSITY, NOT COUNT (8/27). dressRound lays a fixed number of windrows, tracked lanes
+       and blown junk, and that was right while every site was exactly one 128x128 cell. A
+       BLOB-SCALE site is up to nine of them, and nine windrows spread over nine cells is a
+       site that reads as one flat sheet -- which is the WALKABLE-LAND failure, arrived at
+       from the other direction. So the dressing scales with the AREA it has to cover, and
+       the loop's exit condition (topShare) is untouched because it was already scale-free.
+       Same lesson the file learned about windrow counts in the first place: HOW MUCH IS
+       DERIVED, NOT GUESSED. A lone cell computes mul===1 and is byte-identical. */
+    var mul = Math.max(1, Math.round((G.W*G.H) / (K.SZ*K.SZ)));
+    for(var round=0; round<24 && topShare(G)>0.27; round++) dressRound(G, yard, mul);
   }
-  function dressRound(G, yard){
-    var W=G.W,H=G.H,r=G.rnd,i,j;
+  function dressRound(G, yard, mul){
+    var W=G.W,H=G.H,r=G.rnd,i,j; mul=mul||1;
     // windrows / stockpiles of the site's own material, laid along the yard
-    for(i=0;i<9;i++){
+    for(i=0;i<9*mul;i++){
       var wx=8+Math.floor(r()*(W-30)), wy=12+Math.floor(r()*(H-36)), wl=8+Math.floor(r()*22);
       for(j=0;j<wl;j++){ var px=wx+j, py=wy+((j>>3)%2);
         if(G.get(px,py)===yard){ G.set(px,py,10); if(G.get(px,py+1)===yard) G.set(px,py+1,10); } }
     }
     // the tracked lane: where the plant has driven the same line for years, the surface is
     // a different material -- compacted and stained, not the graded yard beside it
-    for(i=0;i<5;i++){
+    for(i=0;i<5*mul;i++){
       var tx=10+Math.floor(r()*(W-24)), ty=12+Math.floor(r()*(H-30)), tl=14+Math.floor(r()*26);
       for(j=0;j<tl;j++){ var qx=tx+((i%2)?j:0), qy=ty+((i%2)?0:j);
         if(G.get(qx,qy)===yard) G.set(qx,qy,8);
         if(G.get(qx+1,qy)===yard) G.set(qx+1,qy,8); }
     }
     // and what has blown against the fence line and stayed
-    for(i=0;i<70;i++){ var bx=6+Math.floor(r()*(W-12)), by=8+Math.floor(r()*(H-16));
+    for(i=0;i<70*mul;i++){ var bx=6+Math.floor(r()*(W-12)), by=8+Math.floor(r()*(H-16));
       var edge=(bx<12||bx>W-13||by<14||by>H-17);
       if(edge && G.get(bx,by)===yard) G.set(bx,by,3); }
   }
@@ -18482,7 +18497,7 @@ const BEAT=500; // 120BPM law
 
   var SPECS = {
 
-    quarry: { lay:'pit', par:{benches:4}, cat:'infrastructure', yard:4,
+    quarry: { lay:'pit', par:{benches:4}, grow:{benches:'a'}, cat:'infrastructure', yard:4,
       /* hazard paint on the PLANT FLOOR (4), beside the crusher house (2) */
       mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#8a8070',5:'#c79a3f',6:'#a49a86',7:'#b8ae98',
@@ -18509,7 +18524,7 @@ const BEAT=500; // 120BPM law
            'Modern quarries work a BENCH system, taking rock off in layers that can be returned to year after year, stepped up to the original surface.',
            'Aggregate flow: feed hopper to primary crusher, across a vibrating screen, to secondary crushers, oversize recirculated.'] },
 
-    gypsum: { lay:'pit', par:{benches:3, dome:true}, cat:'infrastructure', yard:4,
+    gypsum: { lay:'pit', par:{benches:3, dome:true}, grow:{benches:'a'}, cat:'infrastructure', yard:4,
       /* hazard paint on the MILL FLOOR (4), beside the mill (2) */
       mark:{on:4, near:2, count:4},
       pal:{0:'#4a4335',1:'#5c5140',2:'#6e6558',3:'#3f382c',4:'#9a9282',5:'#c79a3f',6:'#c2b9a4',7:'#d2cab6',
@@ -18540,7 +18555,7 @@ const BEAT=500; // 120BPM law
            'A mobile conveyor belt moves the ore from the quarry directly into processing; the gypsum passes through Raymond IMP mills before calcination and storage.',
            'The PABCO storage dome is a monolithic dome — the reason this site has a hemisphere on it and nowhere else in the valley does.'] },
 
-    fueldepot: { lay:'tanks', par:{cols:3, rows:2, rad:13, dikes:true, rack:true}, cat:'industrial', yard:4,
+    fueldepot: { lay:'tanks', par:{cols:3, rows:2, rad:13, dikes:true, rack:true}, grow:{cols:'x', rows:'y'}, cat:'industrial', yard:4,
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#5b564b',5:'#c79a3f',6:'#8e968f',7:'#6f6a5e',
            8:'#3d4a46',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
       leg:{0:['dead-ground (setback)','ground','the setback outside the terminal fence, kept clear because of what is stored inside it'],
@@ -18563,7 +18578,7 @@ const BEAT=500; // 120BPM law
            'The Las Vegas terminal receives, stores, handles and loads petroleum into tank trucks; one local terminal holds 4 million gallons.',
            'Reinforced concrete dikes are the default for a permanent bulk plant — they take heavy equipment traffic, last 40+ years, and accept engineered drain valves and oil/water separators.'] },
 
-    reservoir: { lay:'tanks', par:{cols:2, rows:1, rad:20, dikes:false, rack:false}, cat:'infrastructure', yard:4,
+    reservoir: { lay:'tanks', par:{cols:2, rows:1, rad:20, dikes:false, rack:false}, grow:{cols:'x', rows:'y'}, cat:'infrastructure', yard:4,
       /* the identification band round the TANK BASE: the tank (6) where it meets its pad (4) */
       mark:{on:6, near:4, count:5},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6b6558',5:'#c79a3f',6:'#9aa0a2',7:'#7d8386',
@@ -18634,7 +18649,7 @@ const BEAT=500; // 120BPM law
       ref:['Lake Mead intake works: the valley draws its water from a lake whose surface has dropped far enough to leave a white mineral bathtub ring on the rock above it.',
            'Since Las Vegas sits in a basin with a single outlet, the Las Vegas Wash, everything that leaves the valley ends up back in this lake.'] },
 
-    granary: { lay:'silos', par:{count:9}, cat:'industrial', yard:4,
+    granary: { lay:'silos', par:{count:9}, grow:{count:'x'}, cat:'industrial', yard:4,
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#5f5a4e',5:'#c79a3f',6:'#a89f8a',7:'#8d8574',
            8:'#57503f',9:'#8f8676',10:'#9a9080',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#b0a894'},
       leg:{0:['dead-ground (setback)','ground','the setback outside the elevator yard, and the grain dust settled over all of it'],
@@ -18657,7 +18672,7 @@ const BEAT=500; // 120BPM law
            'A complex is elevator, storage silos, dust bins, headhouse and sheds for rail and truck; a railroad shed over the drive floor protects the rail scale and loading.',
            'Steel I-beams carry the headhouse and the upper conveyor gallery.'] },
 
-    arsenal: { lay:'bunkers', par:{}, cat:'industrial', yard:4,
+    arsenal: { lay:'bunkers', par:{}, tile:true, cat:'industrial', yard:4,
       /* the magazine NUMBER goes on the headwall: the arch face (7) where it meets open ground */
       mark:{on:7, near:4, count:4},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#54503f',5:'#c79a3f',6:'#5d5a44',7:'#7c7566',
@@ -18730,7 +18745,7 @@ const BEAT=500; // 120BPM law
            'Since 1991 the district has built 650 miles of channel and 100 basins for $1.9 billion, with another 25 years of projects planned.',
            'A real outlet: a concrete box storm drain with a 24-inch orifice leaving the basin. Las Vegas sits in a basin with ONE outlet, the Las Vegas Wash, and everything drains east to Lake Mead.'] },
 
-    reclaim: { lay:'ponds', par:{}, cat:'infrastructure', yard:4,
+    reclaim: { lay:'ponds', par:{}, tile:true, cat:'infrastructure', yard:4,
       /* the pond NUMBER on a weir box: the berm (7) where it meets the berm road (4) */
       mark:{on:7, near:4, count:3},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#5a5546',5:'#c79a3f',6:'#6b6f56',7:'#7d7461',
@@ -18757,7 +18772,7 @@ const BEAT=500; // 120BPM law
       ref:['Clark County water reclamation: treated effluent returns to the Las Vegas Wash and from there to Lake Mead, which is why the outfall channel points that way.',
            'Las Vegas is a basin with a single outlet, the Las Vegas Wash; all runoff and return flow drains east.'] },
 
-    radio: { lay:'masts', par:{}, cat:'infrastructure', yard:4,
+    radio: { lay:'masts', par:{}, tile:true, cat:'infrastructure', yard:4,
       /* call letters on the HUT DOOR: the equipment hut (2) where it faces the site ground */
       mark:{on:2, near:4, count:2},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#544f42',5:'#c79a3f',6:'#8a8478',7:'#7e7768',
@@ -18829,6 +18844,141 @@ const BEAT=500; // 120BPM law
     }
   }
 
+  /* ===================================================================================
+     ONE FACILITY PER BLOB -- AND TWELVE DISTRICTS GET IT IN ONE CHANGE (8/27)
+
+     THE DEFECT. A district generator is handed ONE cell. When the overmap sites a data
+     fort across SIX cells, every cell built a complete data fort: six fences, six gates,
+     six halls, six of the one hero mass the whole place is named for. Measured before this
+     change -- datafort 6, basin 4, watertreat 4 -- and the same for every other utility
+     landmark the overmap happens to draw big. `A FACILITY DOES NOT MULTIPLY` is already
+     the recorded law; this is the twelve districts it had not reached yet.
+
+     WHY THIS ONE IS CHEAP AND THE OTHER NINE WERE NOT. The solar farm, the wash, the
+     railyard, the stadium, the landfill, the cemetery, the golf course, the farm and the
+     speedway each needed their own blob-scale rewrite, because each one draws its own
+     thing its own way. THE UTILITY FACTORY DOES NOT: twelve landmarks share ONE frame, ONE
+     layout dispatch, ONE dressing pass and ONE drive connector, all of which talk to the
+     grid through get/set/rect/W/H and nothing else. So the whole blob can be built as a
+     SINGLE OVERSIZED DISTRICT -- K.grid already takes a width and height -- and every one
+     of the nine layout primitives runs against it completely unchanged. That is the payoff
+     of the FACTORY LAW arriving three weeks early: the thirteenth landmark is a spec, and
+     so is the fix for all twelve.
+
+     AND A BIGGER SITE IS A BIGGER FACILITY, NOT A SPARSER ONE. Every layout here positions
+     proportionally to the plot (W*0.16, W-29, Math.round(W*0.62)), so a quarry across three
+     cells is genuinely a three-cell pit and a data hall across six is genuinely a fortress
+     -- which is the right answer, and the reason no layout needed rewriting. The four that
+     carry a fixed COUNT (pit benches, tank columns and rows, silos, ponds) would have
+     spread the same handful of units over nine times the ground, so those grow with the
+     blob via `grow` in the spec. Dressing scales with area for the same reason.
+
+     THE ROTATION IS THE PART THAT IS EASY TO GET WRONG. Each cell rotates its canonical
+     build to face the real street. If a blob's cells each rotated on their own the district
+     would shear at every seam, so the WHOLE blob is rotated once, as one grid, and only
+     then does a cell take its window -- at its own index AFTER the same turns. Cells are
+     square, so a quarter turn maps cell (i,j) of a bw x bh blob to (bh-1-j, i). */
+  /* THE UNIT BLOCK, MOVED. A layout written against a 128x128 cell keeps thinking it is in
+     one -- W and H still read SZ, and every coordinate lands dx,dy further along the blob.
+     Mirrors K.grid's whole surface, because a layout is allowed to use any of it and a
+     partial mirror fails silently on the one method nobody tested. */
+  function shifted(G, dx, dy){
+    var A={ g:G.g, W:K.SZ, H:K.SZ, seed:G.seed, rnd:G.rnd,
+      set:function(x,y,c){ G.set(x+dx,y+dy,c); return A; },
+      get:function(x,y){ return G.get(x+dx,y+dy); },
+      rect:function(x0,y0,x1,y1,c){ G.rect(x0+dx,y0+dy,x1+dx,y1+dy,c); return A; },
+      hbar:function(x0,x1,y,c,t){ G.hbar(x0+dx,x1+dx,y+dy,c,t); return A; },
+      vbar:function(y0,y1,x,c,t){ G.vbar(y0+dy,y1+dy,x+dx,c,t); return A; },
+      frame:function(c){ var n=K.SZ,x,y;
+        for(x=0;x<n;x++){ A.set(x,0,c); A.set(x,n-1,c); }
+        for(y=0;y<n;y++){ A.set(0,y,c); A.set(n-1,y,c); } return A; },
+      disc:function(cx,cy,r,c){ G.disc(cx+dx,cy+dy,r,c); return A; } };
+    return A;
+  }
+  // the fence line alone, at the same insets frame() uses -- WITHOUT frame's two wiping rects
+  function fenceOnly(G){
+    var W=G.W,H=G.H,x,y;
+    for(x=5;x<=W-6;x++){ G.set(x,7,12); G.set(x,H-8,12); }
+    for(y=7;y<=H-8;y++){ G.set(5,y,12); G.set(W-6,y,12); }
+  }
+
+  var __BLOB = [];                          // at most four blobs held; a valley is never in RAM
+  function blobSite(type, B, streets){
+    var b=B.bounds, bw=b.x1-b.x0+1, bh=b.y1-b.y0+1;
+    var key=type+'|'+b.x0+','+b.y0+','+b.x1+','+b.y1+'|'+B.bseed+'|'+streets.join('');
+    for(var q=0;q<__BLOB.length;q++) if(__BLOB[q].key===key) return __BLOB[q];
+    var s=SPECS[type], G=K.grid(B.bseed, B.f.w, B.f.h), i, j, x, y;
+    var par={}; for(i in (s.par||{})) par[i]=s.par[i];
+    /* the four counts that do not scale themselves. 'x' grows with the blob's width in
+       cells, 'y' with its height, 'a' with its area -- a tank farm three cells wide has
+       three times the tank columns, and nine silos become a real grain terminal. */
+    if(s.grow) for(i in s.grow){
+      var by=s.grow[i], f=(by==='x'?bw:by==='y'?bh:bw*bh);
+      par[i]=Math.max(1, Math.round((par[i]||1)*f));
+    }
+    frame(G, s.yard);
+    /* PROPORTIONAL SITES GROW; FIELD SITES REPEAT. Seven of the nine layouts position
+       against W and H (W*0.16, Math.round(W*0.62), W-29), so handing them a blob-sized grid
+       makes a genuinely blob-sized facility -- a three-cell quarry pit, a six-cell data
+       fortress -- which is exactly right and needed no rewriting.
+       THREE DO NOT. The ammunition depot's magazines sit at [16+i*26, 18+j*28], the antenna
+       farm's five masts at literal coordinates, the reclamation ponds on a hardcoded 3x3 of
+       fixed-size cells. Run those against a 384-tile grid and they draw one small cluster in
+       the corner of an enormous empty yard -- the WALKABLE-LAND failure reached from the
+       opposite direction, and worse to look at than the bug this whole change fixes.
+       So they TILE: the unit block is drawn once per cell of the blob, offset. That is not
+       the multiplication defect coming back, because what must not multiply is the FACILITY
+       -- one fence, one gate, one site -- and a depot twice the size honestly has twice the
+       magazines. Nobody names an antenna farm after one mast. */
+    if(s.tile && (bw>1 || bh>1)){
+      for(j=0;j<bh;j++) for(i=0;i<bw;i++) LAY[s.lay](shifted(G, i*K.SZ, j*K.SZ), par);
+      fenceOnly(G);                     // a tile at the far edge draws over the fence line
+    } else {
+      LAY[s.lay](G, par);
+    }
+    dress(G, s.yard);
+    var gx=G.W>>1;
+    G.rect(gx-2,G.H-8,gx+2,G.H-1,1);
+    for(i=-2;i<=2;i++) G.set(gx+i,G.H-1,5);          // ONE car gate, on the DISTRICT's edge
+    G.rect(8,G.H-14,G.W-9,G.H-11,1);                 // and ONE perimeter ring, round it all
+    G.rect(8,9,G.W-9,11,1);
+    G.rect(8,9,10,G.H-11,1);
+    G.rect(G.W-11,9,G.W-9,G.H-11,1);
+    G.rect(gx-2,G.H-14,gx+2,G.H-8,1);
+    /* INTERNAL HAUL ROADS, ONE PER CELL SEAM. A perimeter lane serves a site 128 tiles
+       across; it does not serve one 384 tiles across, and an interior cell with no drive
+       surface touching its own border reads to every drive gate as a district a car cannot
+       enter. Real sites this size are gridded with haul roads for exactly this reason.
+       LAID ON SOFT GROUND ONLY -- dead ground, brush, yard, spill, junk, paint -- so a lane
+       never drives through the hero mass it exists to serve. connectDrive rejoins whatever
+       a building interrupts. */
+    function haul(x0,y0,x1,y1){
+      for(y=Math.max(y0,9);y<=Math.min(y1,G.H-11);y++) for(x=Math.max(x0,8);x<=Math.min(x1,G.W-9);x++){
+        var v=G.get(x,y);
+        if(v===0||v===3||v===s.yard||v===8||v===10||v===11) G.set(x,y,1);
+      }
+    }
+    for(i=1;i<bw;i++){ var rx=i*K.SZ; haul(rx-1,9,rx+1,G.H-11); }
+    for(i=1;i<bh;i++){ var ry=i*K.SZ; haul(8,ry-1,G.W-9,ry+1); }
+    connectDrive(G);
+    if(s.mark) K.stencil(G.g, {on:s.mark.on, near:s.mark.near, mark:11,
+                               count:(s.mark.count||3)*bw*bh, seed:B.bseed||1});
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(G.g, streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
+    var kmap={S:0,W:1,N:2,E:3};
+    var ent={ key:key, g:res.g, turns:kmap[res.primary]||0, bw:bw, bh:bh };
+    __BLOB.unshift(ent); if(__BLOB.length>4) __BLOB.pop();
+    return ent;
+  }
+  function clusterCanonical(type, seed, opts, streets){
+    var B=K.blob(seed, opts), b=B.bounds, E=blobSite(type, B, streets);
+    var i=(opts.cellX|0)-b.x0, j=(opts.cellY|0)-b.y0, bw=E.bw, bh=E.bh, t, ni, nj, sw;
+    for(t=0;t<E.turns;t++){ ni=bh-1-j; nj=i; i=ni; j=nj; sw=bw; bw=bh; bh=sw; }
+    var W=B.W, H=B.H, out=K.blank(W,H), x, y, ox=i*W, oy=j*H;
+    for(y=0;y<H;y++){ var row=E.g[oy+y]; for(x=0;x<W;x++) out[y][x]=row[ox+x]; }
+    return out;
+  }
+
   function buildCanonical(type, seed){
     var s=SPECS[type], G=K.grid(seed);
     frame(G, s.yard);
@@ -18864,10 +19014,19 @@ const BEAT=500; // 120BPM law
     return function(seed,opts){ opts=opts||{};
       var streets=opts.streets||['S'];
       var soft=function(c){ return c===0||c===3||c===4; };
-      var res=K.rotateToStreet(buildCanonical(type,seed>>>0), streets,
-        {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-      var g=res.g;
-      return { g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      /* ONE CELL IS NOT A BLOB. Bounds that span a single cell take the original build,
+         untouched, because that art already shipped and there is no neighbour to line up
+         with. Proven byte-identical, every type, both paths. */
+      var b=opts.bounds, g, gates;
+      if(b && (b.x1>b.x0 || b.y1>b.y0)){
+        g = clusterCanonical(type, seed>>>0, opts, streets);
+        gates = K.scanGates(g, 5);          // per CELL: an interior cell honestly has none
+      } else {
+        var res=K.rotateToStreet(buildCanonical(type,seed>>>0), streets,
+          {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
+        g=res.g; gates=res.gates;
+      }
+      return { g:g, W:g[0].length, H:g.length, streets:streets, gates:gates,
                footprints:K.footprints(g,function(v){return v===2;}) };
     };
   }
@@ -26335,7 +26494,13 @@ function kitClusterBounds(d,tx,ty){
 /* AND THE RAILYARD (8/26). Six cells, six complete yards. Unlike the wash this one needs
    nothing new from the page: railyard is INDUSTRIAL, so it already reaches the cluster
    branch below and only had to be named here. */
-const CLUSTER_KIT={airport:1,airbase:1,convention:1,prison:1,dam:1,minigp:1,fort:1,solar:1,railyard:1,stadium:1,landfill:1,cemetery:1,golf:1,farm:1,speedway:1};
+const CLUSTER_KIT={airport:1,airbase:1,convention:1,prison:1,dam:1,minigp:1,fort:1,solar:1,railyard:1,stadium:1,landfill:1,cemetery:1,golf:1,farm:1,speedway:1,
+  /* THE TWELVE UTILITY LANDMARKS (8/27). This page keeps its OWN district dispatch -- it does
+     not carry engine/bohemia_world.js -- so a row marked cluster:true over there reaches the
+     walked surface only when its name is also in here. That is the seam that silently ate the
+     wash fix on 8/26, so it is worth saying plainly: TWO LISTS, BOTH OR NEITHER. */
+  quarry:1,gypsum:1,fueldepot:1,reservoir:1,pumpstation:1,intake:1,
+  granary:1,arsenal:1,datafort:1,basin:1,reclaim:1,radio:1};
 /* AND WASH IS NOT IN THAT LIST, WHICH COST AN HOUR. It is filed TERRAIN, so it is served by
    the KIT_TERRAIN branch further down and never reaches the cluster branch at all -- adding
    it to CLUSTER_KIT changed nothing and the probe still counted 60 tunnel mouths in 60 cells.

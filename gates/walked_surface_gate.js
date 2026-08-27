@@ -335,6 +335,33 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     golf:     { max: 2,  why: 'ONE clubhouse on an eighteen-hole course. Nine cells built nine.' },
     farm:     { max: 4,  why: 'ONE farmhouse and ONE barn per parcel. Nine cells built nine of each.' },
   };
+  /* THE TWELVE UTILITY LANDMARKS ARE ASKED A DIFFERENT QUESTION (8/27), and it is a better
+     one. Every ceiling above is a CONSTANT somebody measured on one valley -- which works,
+     and is brittle: a different seed makes a bigger blob, a road splits one building into
+     two runs, and a green gate goes red over nothing. THE DEFECT WAS NEVER "more than N".
+     IT WAS "one per cell". So ask that directly: a facility built once has strictly FEWER
+     structures than the ground it covers has cells, and a facility built per cell has
+     EXACTLY as many. 1 of 6 passes at any size; 6 of 6 fails at any size.
+     MEASURED ON THIS PAGE, BEFORE AND AFTER: datafort 6 of 6 -> 1 of 6, basin 4 of 4 ->
+     1 of 4, reclaim 2 of 2 -> 1 of 2.
+     NOT ALL TWELVE. The ammunition depot's body code is the headwall door on each magazine
+     and the antenna farm's is the hut at each mast -- a bigger depot HAS more magazines, and
+     counting them is counting the point of the place. What must not multiply for those is
+     the fence and the car gate, which the model gate measures. */
+  const UTIL_ONE = ['quarry','gypsum','fueldepot','reservoir','pumpstation','intake',
+                    'datafort','basin','reclaim'];
+  const util = blobs.filter(b => UTIL_ONE.indexOf(b.d) >= 0 && b.n > 1);
+  const perCell = util.filter(b => b.runs >= b.n);
+  if (util.length) {
+    console.log('  utility landmarks on the page (cells/hero structures): '
+      + util.sort((a, b) => b.n - a.n).map(b => b.d + ' ' + b.n + 'c/' + b.runs + 'r').join('  '));
+  }
+  ok('ON THE PAGE, A UTILITY LANDMARK IS BUILT ONCE FOR ITS WHOLE BLOB, NOT ONCE PER CELL'
+     + ' (' + util.length + ' multi-cell blobs)'
+     + (perCell.length ? ' -> ' + perCell.map(b => b.d + ': ' + b.runs + ' structures over '
+         + b.n + ' cells, which is one apiece').join(', ') : ''),
+     perCell.length === 0);
+
   const watched = blobs.filter(b => EXPECT[b.d]);
   const scaled = watched.filter(b => b.runs > EXPECT[b.d].max);
   if (watched.length) {

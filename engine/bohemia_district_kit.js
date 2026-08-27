@@ -69,6 +69,12 @@
     var bseed = ((b.x0 * 73856093) ^ (b.y0 * 19349663) ^ ((seed >>> 0) & 0xffff)) >>> 0;
     var A = {
       g: g.g, W: W, H: H, cells: g, bounds: b, f: f,
+      /* THE BLOB'S OWN SEED, exposed (8/27). `rnd` already hashes off it, but a district
+         that builds the WHOLE blob into one oversized grid and then slices its own window
+         out needs the seed itself, so every cell hands K.grid the same number and gets the
+         same district back. Computing it a second time in the caller is how one definition
+         becomes two that drift. */
+      bseed: bseed,
       c: { x0: cx, y0: cy, x1: cx1, y1: cy1 },
       many: (b.x1 > b.x0 || b.y1 > b.y0),
       /* is this cell on the named side of the whole district? A gate, a fence run or an

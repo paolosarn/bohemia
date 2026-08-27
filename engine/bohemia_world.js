@@ -180,18 +180,25 @@
     // overmap with real geography behind it (Sloan quarry, the granary on the rail line,
     // the Lake Mead intake, the tank farm, the flood detention basins) and every one of
     // them generated bare ground until the census counted them. One factory, twelve specs.
-    quarry:     { mod:UTL.quarry,      foot:function(r){return r.footprints;}, zone:'warehouse' },
-    gypsum:     { mod:UTL.gypsum,      foot:function(r){return r.footprints;}, zone:'warehouse' },
-    fueldepot:  { mod:UTL.fueldepot,   foot:function(r){return r.footprints;}, zone:'warehouse' },
-    reservoir:  { mod:UTL.reservoir,   foot:function(r){return r.footprints;}, zone:'warehouse' },
-    pumpstation:{ mod:UTL.pumpstation, foot:function(r){return r.footprints;}, zone:'warehouse' },
-    intake:     { mod:UTL.intake,      foot:function(r){return r.footprints;}, zone:'warehouse' },
-    granary:    { mod:UTL.granary,     foot:function(r){return r.footprints;}, zone:'warehouse' },
-    arsenal:    { mod:UTL.arsenal,     foot:function(r){return r.footprints;}, zone:'warehouse' },
-    datafort:   { mod:UTL.datafort,    foot:function(r){return r.footprints;}, zone:'office' },
-    basin:      { mod:UTL.basin,       foot:function(r){return r.footprints;}, zone:'default' },
-    reclaim:    { mod:UTL.reclaim,     foot:function(r){return r.footprints;}, zone:'warehouse' },
-    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office' }
+    /* ONE UTILITY LANDMARK PER BLOB (8/27). Every row below is cluster:true, which is what
+       hands the generator the whole blob's bounds instead of one cell. Measured before the
+       change, on a 3x2 blob: SIX car gates and up to forty-eight fence segments on every one
+       of the twelve -- six quarries, six data forts, six of whatever the place is named for.
+       Measured after: ONE car gate, and one fence whose largest piece spans the entire plot.
+       The whole fix lives in engine/bohemia_utility.js, in ONE place, because twelve landmarks
+       already shared one frame and one layout dispatch: the FACTORY LAW paying out. */
+    quarry:     { mod:UTL.quarry,      foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    gypsum:     { mod:UTL.gypsum,      foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    fueldepot:  { mod:UTL.fueldepot,   foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    reservoir:  { mod:UTL.reservoir,   foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    pumpstation:{ mod:UTL.pumpstation, foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    intake:     { mod:UTL.intake,      foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    granary:    { mod:UTL.granary,     foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    arsenal:    { mod:UTL.arsenal,     foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    datafort:   { mod:UTL.datafort,    foot:function(r){return r.footprints;}, zone:'office', cluster:true },
+    basin:      { mod:UTL.basin,       foot:function(r){return r.footprints;}, zone:'default', cluster:true },
+    reclaim:    { mod:UTL.reclaim,     foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office', cluster:true }
   };
   /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
      world"). A road cell is NOT a district: it never becomes faction territory, an
