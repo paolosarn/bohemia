@@ -1849,8 +1849,8 @@ def build_farm(P):
     _ground(s, (-3, -3, 15, 15), patches=[(1.0, 4.2, 14.5, 14.5, _dark(FIELD, 0.9)['c'])],
             drive=(-3, -1, 4, 1.5), groundc=DIRT, lotc=(70, 62, 48))
     # dead crop rows fill the whole field, tighter rows read as furrows
-    for fy in range(0, 16, 2):
-        s.box((2.2, 5.0 + fy * 0.55, 0.02), (10.8, 0.45, 0.12), {'c': _dark(FIELD, 1.1)['c']})
+    for fy in range(0, 13, 2):
+        s.box((3.0, 5.2 + fy * 0.55, 0.02), (9.6, 0.45, 0.12), {'c': _dark(FIELD, 1.1)['c']})
     # the red BARN, modest, + the SILO beside it
     s.box((-2, -1, 0), (4.2, 3.4, 3.4), {'top': _dark(BARN, 0.7), 'px': _dark(BARN, 1.0),
           'py': _dark(BARN, 0.82), 'nx': _dark(BARN), 'ny': _dark(BARN)})
@@ -3091,9 +3091,14 @@ def build_drivein(P):
     # 8/27: the pale screen face pointed EAST (px) while the camera reads the
     # SOUTH face of an east-west wall - so the icon showed the dark back. The
     # bleached face goes on py, where the cars (and the viewer) actually look.
+    # 8/27 second pass: the py guess was wrong too - whichever long face this
+    # camera renders, it must be the SCREEN. Both long faces go bleached; the
+    # short ends stay steel-dark and the bracing still says which side is the
+    # back.
+    _pale={'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)}
     s.box((-1.0, -2.4, 0), (11.0, 0.55, 12.6),
-          {'top': _dark(SCREEN, 1.18), 'py': {'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)},
-           'px': _dark(SCREEN, 0.86), 'nx': _dark(SCREEN, 0.86), 'ny': _dark(SCREEN, 0.7)})
+          {'top': _dark(SCREEN, 1.18), 'py': _pale, 'ny': _pale,
+           'px': _dark(SCREEN, 0.86), 'nx': _dark(SCREEN, 0.86)})
     # 8/26: this frame sat SOUTH of the wall (y -2.7 vs -2.4) - camera-side -
     # so the whole pale screen face rendered as a black slab. The frame goes
     # BEHIND the screen where the bracing already lives.

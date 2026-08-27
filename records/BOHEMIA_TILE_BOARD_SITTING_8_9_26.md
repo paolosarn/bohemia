@@ -1184,3 +1184,14 @@ hole-that-was-never-there: solid stacked prisms render as a MOUND, the
 same bug the basin fixed 8/19, so the benches are annuli now with a
 low floor disc at the bottom. The five clean wins are wired and ship
 now; all icon gates 0 by exit code.
+
+## 8/27 FIFTY-SEVENTH PASS: THE QUARRY IS A HOLE AT LAST (and two stragglers re-oven)
+
+Bake 4 landed: the QUARRY finally reads as a PIT - ring benches around
+an open hole with a floor disc at the bottom, the basin's
+hole-is-a-frame lesson applied - wired and shipping. The farm's rows
+still bled at the plot edge (inset again, tighter) and the drive-in's
+screen STILL showed a dark long face: my face-key guess was wrong
+twice, so theory is fired and both long faces are bleached - whichever
+one this camera renders IS the screen, and the back bracing still says
+which side is the back. Bake 5 carries those two, nothing else.

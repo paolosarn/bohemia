@@ -125,7 +125,7 @@ _Library — matched to the rebuilt district, which is built on the real referen
 - the READING WING — a long low bar with nine CLERESTORY teeth running its length (code 2, code 11 "clerestory glazing")
 - ground entrance doors on the wing; entry plaza (code 7) + lot/drive (code 1) with one dead car (canon CAR, code 19)
 
-## FARM  (1723x1216, anchor 844,1180)
+## FARM  (1724x1227, anchor 790,1177)
 _Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass)._
 
 - red barn — the barn w/ a peaked roof cap (code 14 "barn")
