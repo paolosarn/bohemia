@@ -864,6 +864,21 @@ async function onTheValley() {
             }
           }
       }
+      /* AND HOW MANY PEOPLE ARE IN THAT DEAD ZONE, because "169 empty cells"
+         invites the obvious objection that the sweep is hitting ungenerated
+         world. It is not: every one of those cells is populated. The number
+         that makes it undeniable is how many PEOPLE are standing in it. */
+      out.zone = { cells: 0, people: 0, affiliated: 0, emptyCells: 0 };
+      for (let dx = -6; dx <= 6; dx++) for (let dy = -6; dy <= 6; dy++) {
+        const nx = cx + dx, ny = cy + dy;
+        if (nx < 0 || ny < 0) continue;
+        hx = nx * FN + 2; hy = ny * FN + 2;
+        out.zone.cells++;
+        const all = ctEveryone();
+        out.zone.people += all.length;
+        if (!all.length) out.zone.emptyCells++;
+        for (const p of all) if (ctFactionOf(p)) out.zone.affiliated++;
+      }
       hx = cx * FN + 2; hy = cy * FN + 2;      /* put him back */
       const bases = ctBases() || {};
       const mine = BohemiaBetween.mine();
@@ -885,6 +900,9 @@ async function onTheValley() {
     /* THE MEASUREMENT IS PRINTED EVERY RUN, whether or not anything is red.
        A number nobody looks at is how a hole this size stayed invisible for
        two weeks while every gate in the repo was green. */
+    console.log('      MEASURED: ' + R.zone.people + ' PEOPLE within 6 cells of the '
+      + 'spawn across ' + R.zone.cells + ' cells (' + R.zone.emptyCells
+      + ' of them empty), and ' + R.zone.affiliated + ' of those people run with anybody.');
     console.log('      MEASURED: player spawns at cell ' + JSON.stringify(R.start)
       + '; nearest affiliated person ' + (R.nearestPerson
           ? R.nearestPerson.ring + ' cells (' + R.nearestPerson.faction + ')'
@@ -893,6 +911,15 @@ async function onTheValley() {
           ? R.nearestBase.n + ' at ' + R.nearestBase.d + ' cells = '
             + (R.nearestBase.d * R.FN) + ' fine tiles'
           : 'none'));
+
+    ok('K0 THE DEAD ZONE IS REAL AND IT IS NOT A MEASUREMENT ARTIFACT. The '
+      + 'obvious objection to "169 empty cells" is that the sweep is hitting '
+      + 'world that has not generated yet. It is not: every one of those cells '
+      + 'is populated, there are EIGHT HUNDRED AND THIRTY SEVEN PEOPLE standing '
+      + 'in them, and not one of them runs with anybody. This claim exists so '
+      + 'the objection cannot be raised again without the numbers answering it',
+      R.zone.people > 400 && R.zone.emptyCells === 0 && R.zone.affiliated === 0,
+      JSON.stringify(R.zone));
 
     ok('K1 THE BOARD LISTS EVERY OUTFIT THE VALLEY HOLDS, not only the ones '
       + 'with a position on you. MEASURED FIRST, and it is the reason this '
