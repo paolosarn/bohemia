@@ -831,8 +831,150 @@ async function onTheBoard() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   K. THE VALLEY HALF OF THE BOARD, AND THE MEASUREMENT THAT FORCED IT.
+   ========================================================================== */
+async function onTheValley() {
+  console.log('\nK. AND WHETHER HE CAN REACH ANY OF THIS AT ALL.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 9000);
+
+    const R = await page.evaluate(() => {
+      const out = {};
+      out.start = ctCell();
+      /* HOW FAR TO THE FIRST PERSON WHO RUNS WITH ANYBODY, from the real
+         spawn, on the real surface, with no save. */
+      const [cx, cy] = out.start;
+      out.nearestPerson = null;
+      for (let r = 0; r <= 12 && !out.nearestPerson; r++) {
+        for (let dx = -r; dx <= r && !out.nearestPerson; dx++)
+          for (let dy = -r; dy <= r && !out.nearestPerson; dy++) {
+            if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+            const nx = cx + dx, ny = cy + dy;
+            if (nx < 0 || ny < 0) continue;
+            hx = nx * FN + 2; hy = ny * FN + 2;
+            for (const p of ctEveryone()) {
+              const f = ctFactionOf(p);
+              if (f) { out.nearestPerson = { ring: r, faction: f }; break; }
+            }
+          }
+      }
+      hx = cx * FN + 2; hy = cy * FN + 2;      /* put him back */
+      const bases = ctBases() || {};
+      const mine = BohemiaBetween.mine();
+      out.nearestBase = Object.entries(bases)
+        .filter(([n]) => n !== mine)
+        .map(([n, b]) => ({ n, d: Math.abs(b.x - cx) + Math.abs(b.y - cy) }))
+        .sort((a, b) => a.d - b.d)[0];
+      out.FN = FN;
+      out.rows = ctValleyRows();
+      ctOutfitOpen();
+      out.board = document.getElementById('outfitpanel').innerText || '';
+      ctOutfitClose();
+      out.baseCount = Object.keys(bases).length;
+      out.basePos = {};
+      for (const [n, b] of Object.entries(bases)) out.basePos[String(n).toUpperCase()] = { x: b.x, y: b.y };
+      return out;
+    });
+
+    /* THE MEASUREMENT IS PRINTED EVERY RUN, whether or not anything is red.
+       A number nobody looks at is how a hole this size stayed invisible for
+       two weeks while every gate in the repo was green. */
+    console.log('      MEASURED: player spawns at cell ' + JSON.stringify(R.start)
+      + '; nearest affiliated person ' + (R.nearestPerson
+          ? R.nearestPerson.ring + ' cells (' + R.nearestPerson.faction + ')'
+          : 'NOT FOUND within 12 cells')
+      + '; nearest base ' + (R.nearestBase
+          ? R.nearestBase.n + ' at ' + R.nearestBase.d + ' cells = '
+            + (R.nearestBase.d * R.FN) + ' fine tiles'
+          : 'none'));
+
+    ok('K1 THE BOARD LISTS EVERY OUTFIT THE VALLEY HOLDS, not only the ones '
+      + 'with a position on you. MEASURED FIRST, and it is the reason this '
+      + 'exists: from the player\'s real spawn there is not one affiliated '
+      + 'person within SIX cells, the nearest is nine cells out, and the '
+      + 'nearest base is twenty-nine. Two weeks of faction machinery sat '
+      + 'behind that walk and no surface in the game had ever mentioned that '
+      + 'any of it was there',
+      Array.isArray(R.rows) && R.rows.length === R.baseCount,
+      JSON.stringify({ rows: R.rows && R.rows.length, bases: R.baseCount }));
+
+    ok('K2 AND EVERY ROW CARRIES A DIRECTION AND A DISTANCE IN PLAIN WORDS. A '
+      + 'bearing is what a person carries in their head; a pin on a map is a '
+      + 'HUD. The working middle between a world full of markers and a world '
+      + 'with no signposts is "which way, and roughly how far"',
+      (R.rows || []).every(r => r.where && r.far),
+      JSON.stringify((R.rows || []).slice(0, 3)));
+
+    /* THE COMPASS IS CHECKED AGAINST THE ARITHMETIC, not trusted. Screen y
+       grows SOUTHWARD here, so a base with a smaller y is NORTH of you.
+       Getting that backwards ships a board that points confidently the wrong
+       way and reads perfectly fine in a diff. */
+    /* RECOMPUTED FROM THE BASE POSITIONS, not eyeballed. The first version of
+       this claim only checked that no row said NORTH and SOUTH at once, which
+       a completely inverted compass passes without blinking -- and an inverted
+       compass is the single most likely bug in this feature, because screen y
+       grows SOUTHWARD and every instinct says otherwise. A claim that cannot
+       catch the obvious failure of the thing it is about is decoration. */
+    const bearingWrong = (R.rows || []).filter(r => {
+      if (r.mine) return false;
+      const b = R.basePos[r.who];
+      if (!b) return true;                         /* a row with no base is worse */
+      const dx = b.x - R.start[0], dy = b.y - R.start[1];
+      const ns = dy < 0 ? 'NORTH' : dy > 0 ? 'SOUTH' : '';
+      const ew = dx < 0 ? 'WEST' : dx > 0 ? 'EAST' : '';
+      const ax = Math.abs(dx), ay = Math.abs(dy);
+      let want;
+      if (ns && ew) want = ax > ay * 2 ? ew : ay > ax * 2 ? ns : ns + ew;
+      else want = ns || ew || 'RIGHT HERE';
+      return String(r.where) !== want;
+    });
+    ok('K3 AND EVERY BEARING IS THE ONE THE ARITHMETIC GIVES, recomputed here '
+      + 'from the base positions rather than trusted from the code that '
+      + 'printed it. SCREEN Y GROWS SOUTHWARD in this world, so a base with a '
+      + 'SMALLER y is NORTH of you -- an inverted compass is the likeliest bug '
+      + 'this feature has and it reads perfectly fine in a diff',
+      bearingWrong.length === 0,
+      JSON.stringify(bearingWrong.slice(0, 4).map(r => r.who + ' said ' + r.where)));
+
+    ok('K4 THE NEAREST ONE IS CALLED OUT ON ITS OWN, because a list is not a '
+      + 'direction and a system with no next step has no next step',
+      /NEAREST GROUND THAT BELONGS TO ANYBODY/.test(R.board)
+        && !!R.nearestBase && R.board.indexOf(R.nearestBase.n.toUpperCase()) >= 0,
+      JSON.stringify({ nearest: R.nearestBase }));
+
+    ok('K5 AND IT IS THE ACTUALLY NEAREST ONE, checked against the base '
+      + 'positions rather than taken from the sort that produced it',
+      (() => {
+        const line = (R.board.match(/NEAREST GROUND THAT BELONGS TO ANYBODY: ([A-Z ]+),/) || [])[1];
+        return !!line && !!R.nearestBase
+          && line.trim() === R.nearestBase.n.toUpperCase();
+      })(),
+      JSON.stringify({ printed: (R.board.match(/NEAREST GROUND[^\n]*/) || [])[0],
+                       computed: R.nearestBase }));
+
+    ok('K6 YOUR OWN GROUND IS MARKED AS YOURS AND NOT OFFERED AS SOMEWHERE TO '
+      + 'GO. It is on the list because it is on the map, and it is greyed '
+      + 'because walking to your own base is not a next step',
+      (R.rows || []).some(r => r.mine && /YOURS/.test(r.where))
+        && !/NEAREST GROUND THAT BELONGS TO ANYBODY: CUSTOM/.test(R.board));
+
+    ok('K7 AND THE BOARD SAYS WHETHER YOU HAVE EVER DEALT WITH THEM. From a '
+      + 'cold start that is NEVER MET on every row, which is the true answer '
+      + 'and the one that makes the list worth reading twice',
+      /NEVER MET/.test(R.board), JSON.stringify(R.board.slice(0, 100)));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
+  .then(onTheValley)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');

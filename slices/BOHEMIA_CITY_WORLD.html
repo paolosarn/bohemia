@@ -285,6 +285,19 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 </div>
 </div>
 <style id="homePhoneCss">
+
+/* ==== __CITY_VALLEY__ -- the valley half of the board. Same tokens, same
+   geometry; nothing new is designed. */
+#outfitpanel .obhead2{color:var(--acc);font-size:11px;letter-spacing:3px;
+  padding:16px 4px 8px;border-top:1px solid var(--line);margin-top:10px}
+#outfitpanel .obnext{font-size:10px;line-height:1.6;opacity:.85;padding:2px 4px 10px}
+#outfitpanel .obnext b{color:var(--ink)}
+#outfitpanel .obv{display:flex;justify-content:space-between;align-items:baseline;
+  gap:6px;padding:5px 6px;border-bottom:1px solid var(--line);font-size:10px}
+#outfitpanel .obv.isyours{opacity:.55}
+#outfitpanel .obvwho{color:var(--ink);letter-spacing:2px;flex:0 0 auto}
+#outfitpanel .obvwhere{color:var(--acc);letter-spacing:1px;text-align:right;flex:1 1 auto}
+#outfitpanel .obvmet{font-size:8px;opacity:.5;letter-spacing:1px;flex:0 0 auto}
 /* ==== __CITY_OUTFIT__ -- board chrome. Reuses the city's own tokens
    (--face, --line, --acc, --ink) and #keypanel's panel geometry; nothing new
    is designed here. */
@@ -43045,6 +43058,116 @@ function ctOtherBases(){
   return (CT_OTHER_BASES = out);
 }
 
+
+/* ==== __CITY_VALLEY__ -- WHO IS OUT THERE, AND WHICH WAY ==============
+   MEASURED BEFORE IT WAS BUILT. Cold start, real surface: the player begins at
+   cell 48,48 and there is not one affiliated person within SIX CELLS in any
+   direction. The nearest is nine cells out. The nearest faction base is
+   twenty-nine cells away and REACH_CELLS is twelve, so a seventeen-cell radius
+   around the player's own front door CANNOT contain anybody who runs with
+   anybody. Two weeks of faction machinery sat behind that walk with nothing
+   anywhere saying it was there.
+
+   THE DIALS ARE NOT MINE (AFFILIATED_RATE and REACH_CELLS are both marked
+   [PENDING Paolo]) AND THE MAP IS NOT MINE (MAP LAW). The board is.
+
+   REALISM FIRST: a person living here would know whose ground is whose. That
+   is what territory MEANS, and this repo's own canon says it already --
+   LIGHT=TERRITORY, CLUSTERED POWER, owned, nobody patrols the dark. What you
+   do not know is any of them personally, and that half is untouched.
+
+   A BEARING, NOT A WAYPOINT. The useful middle between a HUD full of pins and
+   a world with no signposts at all is the thing a person actually carries in
+   their head: which way, and roughly how far. */
+
+/* PLAIN WORDS FOR A DISTANCE. These are WORDS, so they ship as a real attempt
+   he can edit (ALWAYS MAKE AN ATTEMPT, 8/11), and every threshold is a
+   description of a number the map already decided rather than a dial. */
+function ctFarWord(cells){
+  return cells <= 3  ? 'RIGHT AROUND HERE'
+       : cells <= 8  ? 'CLOSE'
+       : cells <= 16 ? 'A WALK'
+       : cells <= 30 ? 'A LONG WAY OFF'
+                     : 'THE FAR SIDE OF THE VALLEY';
+}
+/* THE COMPASS. Eight points off the raw offset, which is what a person would
+   say. Screen-space y grows southward in this world, so a base with a SMALLER
+   y is NORTH of you -- getting that backwards would have shipped a board that
+   confidently pointed the wrong way, and it is the kind of thing that reads
+   fine in a diff. */
+function ctBearing(dx, dy){
+  var ns = dy < 0 ? 'NORTH' : dy > 0 ? 'SOUTH' : '';
+  var ew = dx < 0 ? 'WEST'  : dx > 0 ? 'EAST'  : '';
+  var ax = Math.abs(dx), ay = Math.abs(dy);
+  if(ns && ew){
+    if(ax > ay * 2) return ew;          /* mostly sideways */
+    if(ay > ax * 2) return ns;          /* mostly up or down */
+    return ns + ew;                     /* genuinely diagonal */
+  }
+  return ns || ew || 'RIGHT HERE';
+}
+
+/* EVERY OUTFIT THE VALLEY HOLDS, FROM WHERE YOU ARE STANDING NOW.
+   Reads the bases the RUN already baked. Nothing is placed, moved or invented
+   here; MAP LAW. Sorted nearest first, because the only question a player has
+   in front of this list is "which one can I actually get to". */
+function ctValleyRows(){
+  var bases = (typeof ctBases === 'function') ? ctBases() : null;
+  if(!bases) return null;
+  var mine = null;
+  try { if(typeof BohemiaBetween !== 'undefined') mine = BohemiaBetween.mine(); }
+  catch(_e){}
+  var cell = ctCell(), out = [];
+  for(var name in bases){
+    var b = bases[name];
+    if(!b || b.x == null || b.y == null) continue;
+    var dx = b.x - cell[0], dy = b.y - cell[1];
+    var d  = Math.abs(dx) + Math.abs(dy);
+    var isMine = !!(mine && String(name).toUpperCase().replace(/[\s_]/g,'')
+                          === String(mine).toUpperCase().replace(/[\s_]/g,''));
+    out.push({ who:String(name).toUpperCase(), cells:d, mine:isMine,
+               where:isMine ? 'YOURS' : ctBearing(dx, dy),
+               far:isMine ? 'THIS IS YOUR GROUND' : ctFarWord(d),
+               met:ctMetAnyOf(name) });
+  }
+  out.sort(function(a,b){ return a.cells - b.cells; });
+  return out;
+}
+
+/* HAVE YOU EVER MET ANYBODY FROM THEM. Read off the standing ledger, which is
+   the only record that survives walking away -- CT_MET is per-person and the
+   roster is per-cell, so neither can answer a question about an OUTFIT. */
+function ctMetAnyOf(name){
+  try {
+    if(typeof BohemiaBelonging === 'undefined') return false;
+    return BohemiaBelonging.gaveOf(ctBelongSave(), name) > 0;
+  } catch(_e){ return false; }
+}
+
+function ctValleyHtml(){
+  var rows = ctValleyRows();
+  if(!rows || !rows.length) return '';
+  var others = rows.filter(function(r){ return !r.mine; });
+  var nearest = others[0];
+  var h = '<div class="obhead2">THE VALLEY</div>';
+  /* THE NEXT STEP, ON ITS OWN, because a list is not a direction. Measured
+     reason it exists: from the player's start the nearest of these is twenty
+     nine cells away, and nothing in the game has ever mentioned it. draft. */
+  if(nearest)
+    h += '<div class="obnext">NEAREST GROUND THAT BELONGS TO ANYBODY: <b>'
+       + nearest.who + '</b>, ' + nearest.where + ', ' + nearest.far + '.</div>';
+  for(var i=0;i<rows.length;i++){
+    var r = rows[i];
+    h += '<div class="obv' + (r.mine ? ' isyours' : '') + '">'
+       + '<span class="obvwho">' + r.who + '</span>'
+       + '<span class="obvwhere">' + r.where + ' \u00b7 ' + r.far + '</span>'
+       + '<span class="obvmet">' + (r.mine ? '' : (r.met ? 'YOU HAVE DEALT WITH THEM'
+                                                         : 'NEVER MET')) + '</span>'
+       + '</div>';
+  }
+  return h;
+}
+
 /* ==== __CITY_OUTFIT__ -- THE OUTFIT BOARD ==================================
    Paolo 8/26: "the values arent just for you its for how your factions treated
    bro." Until now the game could show him ONE STRANGER AT A TIME and nothing
@@ -43087,10 +43210,16 @@ function ctOutfitHtml(){
        preset philosophy. Identity emerges from three generations of action."
        An outfit with no enemies has not done anything yet, and saying so is
        more use than an empty box. draft:true. */
+    /* __CITY_VALLEY__ -- AND THEN IT SAYS WHERE THEY ALL ARE.
+       This used to end here, which was true and a dead end. Measured: from the
+       player's start the nearest affiliated person is NINE CELLS away and the
+       nearest base is TWENTY NINE, and no surface in the game had ever
+       mentioned that any of them existed. An empty state that does not point
+       anywhere is the same as no screen at all. */
     return h + '<div class="obempty">NOBODY IN THIS VALLEY HAS A POSITION ON YOU'
       + ' YET.<br><br>You have not thrown in with anybody far enough for it to'
       + ' reach the people they are at odds with. The day you do, this fills up'
-      + ' and it does not empty again.</div>';
+      + ' and it does not empty again.</div>' + ctValleyHtml();
   }
   for(var i=0;i<d.rows.length;i++){
     var r = d.rows[i];
@@ -43105,7 +43234,11 @@ function ctOutfitHtml(){
        + '<div class="obstand">WHAT THEY WILL STILL GIVE YOU: ' + r.standing + '</div>'
        + '</div>';
   }
-  return h;
+  /* __CITY_VALLEY__ -- the valley goes under your own positions on every
+     path, not only the empty one. Once you HAVE enemies you need the list
+     more, not less: it is the only place that says which of them you could
+     actually walk to. */
+  return h + ctValleyHtml();
 }
 
 function ctOutfitOpen(){
