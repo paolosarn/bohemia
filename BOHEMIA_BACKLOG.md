@@ -7797,8 +7797,15 @@ UI-9. *** HIS VERDICT ON THE LOOK LANDED 8/27, AND IT IS BUILT. NOTES ARE
    what STOP PRODUCING is about. The feed slot stays empty until he says what
    goes in it.
    Record: records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt
-   | the run wears the look he picked | the look is HIS and it is now decided |
-   no, it is answered. TAB: UI. ***
+   *** CLOSED 8/27 14:xx. THE RUN WEARS IT. tools/bohemia_look_factory.js takes
+   his verdict as its INPUT and writes engine/bohemia_look.css, one canonical
+   body, stamped into the run and the workshop. CUT 10px outer / 8.83px inner
+   (computed, not eyeballed), HEAVY 2px at 3.78:1, GOLD IS YOU and COLD IS THE
+   MACHINE applied BY MEANING, typewriter everywhere. NOT ONE LINE OF RUN LOGIC
+   TOUCHED -- THE BOX is applied by selector with a ::before inner face, because
+   a LOOK lane does not reach into another lane's DOM. Gate: look_gate.js, 53
+   checks on the real surface AND on a real WebKit, four mutations proved.
+   Record: records/BOHEMIA_THE_GAME_HAS_LETTERS_AND_THE_RUN_WEARS_HIS_LOOK_8_27_26.md ***
 UI-10. *** SHOW IT, DO NOT TYPE IT (Paolo 8/27: "so disrespectful and rude that
    like you would try to type out and explain what it's like to press buttons and
    not show me what it looks like in action"). PRESSED got NO VOTE AT ALL while
@@ -7810,7 +7817,11 @@ UI-10. *** SHOW IT, DO NOT TYPE IT (Paolo 8/27: "so disrespectful and rude that
    arithmetic. REBUILT: the presses play themselves with a ghost thumb that lands
    on and COVERS the middle. STANDING FOR EVERY LANE: if the thing you are asking
    him to judge only exists while he is touching it, it has to play itself.
-   | he votes on PRESSED | which press = HIS | YES. TAB: UI. ***
+   *** CLOSED 8/27 14:12, AND IT WORKED. He opened the page again and answered
+   in ONE TAP: PRESSED = A FLIP. THE FIX FOR A MISSING VOTE WAS NEVER A BETTER
+   EXPLANATION, IT WAS SHOWING HIM THE THING. It is in the game the same turn:
+   the whole box inverts to solid gold at 8.60:1, because a change that only
+   happens in the middle of a button is a change his thumb is sitting on. ***
 UI-11. *** THE GAME STILL HAS NO TYPEFACE, AND NOW IT IS A RULING NOT A GAP
    (was UI-4). He chose ALL TYPEWRITER-WIDTH on 8/27, and the alpha still asks
    for 'Space Grotesk', has no @font-face and no font file, so every letter is
@@ -7818,7 +7829,131 @@ UI-11. *** THE GAME STILL HAS NO TYPEFACE, AND NOW IT IS A RULING NOT A GAP
    loaded). His pick turns "which stack do we name" into "what do we go and get",
    and he has already said to download or make whatever is needed. A real
    monospace face, or a bitmap one drawn from the game's own pixels, is now a
-   build. | one named face actually loading | which face = HIS | he sees it. ***
+   build.
+   *** CLOSED 8/27. THE GAME HAS LETTERS. IBM Plex Mono 400 + 700, OFL, embedded
+   as a data URI so the offline single-file build still works with no network.
+   20,180 bytes. A TRUE monospace, proved and not claimed: every glyph 600/1000
+   em, and on the real surface ten i, ten W and ten full stops all measure the
+   same pixel width, on Chromium AND on a real WebKit.
+   HE RULED THE CATEGORY, THE FAMILY WAS MINE: IBM commissioned Plex for machine
+   documentation and IBM built the machines that printed the ledgers this game is
+   about the end of. Not taken: JetBrains Mono (reads as a code editor), Space
+   Mono (personality is 2016 web design), Courier Prime (too light at 12px in his
+   sun). Bank: banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt.
+   AND THE GENERAL RULE IS GATED NOW: a quoted family name is a REQUEST FOR A
+   FILE, and if no @font-face answers it the request is a lie. That is how this
+   game went a month with no letters while every gate was green. ***
+UI-15. *** THE RUN TAB DOES NOT SHOW THE RUN, AND NOTHING SAYS SO. *** The
+   workshop maps it with one line -- `var PANEL = (t.dataset.p==='run') ? 'city'
+   : t.dataset.p` -- so tapping RUN opens slices/BOHEMIA_CITY_WORLD.html and
+   slices/BOHEMIA_RUN_CURRENT.html sits behind a panel nothing routes to. That is
+   a deliberate 8/25 decision (__THE_FRONT_DOOR_IS_THE_GAME__) and it is fine as
+   a decision. WHAT IS NOT FINE is that the file named after the run still gets
+   built, gated and shipped every session while being unreachable from the one
+   link he taps. THIS TURN WALKED STRAIGHT INTO IT: his look went onto the run
+   and not onto the surface he plays, hours after the law about exactly that.
+   ui_look_gate now reads the route out of the workshop instead of trusting a
+   filename, so at least the LOOK follows the tab. The bigger question is whether
+   the run slice is still a product or is now a test fixture, and that is a
+   RUN-lane call. | one answer to "which file is the game" | run/world own it |
+   not blocked, and every lane should know. TAB: RUN.
+
+UI-14. THE LOGO ON THE FRONT DOOR SITS ON A GREY BOX. Photographed 8/27 on the
+   DEMO front splash at phone size: the wordmark PNG carries a flat grey noise
+   rectangle baked into the image, so it reads as a screenshot pasted onto the
+   black door rather than as the game's name. Everything ELSE on that door is
+   right now (typewriter letters, gold TAP TO ENTER, cold subtitle). THIS IS THE
+   FIRST THING ANYBODY SEES IN THE DEMO. Not fixed here on purpose: the grey is
+   in the ART, not in the CSS, and a LOOK lane does not repaint another lane's
+   pixels. Either the wordmark is re-cooked with a transparent ground, or the
+   door gets a plate the wordmark is supposed to sit on. | the door looks made,
+   not pasted | which of the two = whoever owns the wordmark | open, and it is
+   demo-critical. TAB: the front door of both builds.
+   *** CLOSED 8/27, THE SECOND WAY, AND NOT ONE PIXEL OF HIS ART WAS TOUCHED.
+   Measured first: the wordmark is 400x130 and FULLY OPAQUE, no alpha anywhere,
+   so the grey ground is his and it is staying. The plate was made DELIBERATE
+   instead -- the CUT corner and the HEAVY line he ruled the same morning -- so
+   the ground it always had reads as a stamped metal tag holding the name. THE
+   BOX, with his artwork as the fill.
+   AND THE DOOR'S OWN SUBTITLE DID NOT FIT ON THE DOOR: typewriter type is wider
+   than the sans that line used to ask for and never load, and tracking
+   multiplies per character, so 36 characters at 6px plus 5px of tracking
+   measured 396px against a 390px phone and broke LAS VEGAS onto a second line.
+   1px of tracking measures 276px with 57px of margin each side.
+   A RULING THAT CHANGES THE TYPE CHANGES EVERY LINE LENGTH IN THE GAME, and the
+   only way to find those is to look at them. Any lane with a nowrap line, a
+   fixed-width label or a tight button should re-measure it. ***
+
+SHARED -17. *** THE SUITE CANNOT FINISH, AND WHAT IT DROPS IS ALWAYS THE NEWEST
+   WORK. *** Measured 8/27 by the UI lane, from the suite's own report: "8.3s a
+   gate, so this run's 453 gates need ~3738s against a 2700s budget." It is not
+   slow, IT IS OVER ITS OWN CEILING BY 38%, so it stops at whatever is last in the
+   queue and prints that as UNFINISHED rather than red.
+   *** AND THE ELEVEN IT DROPPED THIS RUN WERE: WEBKIT, UI STUDY, UI LOOK, UI
+   VOCAB, LIGHT, COMBAT SCALE, CAMP DIAL, ACTION COST SHAPE, DOMINANCE SWEEP,
+   SKILL GAP, REFERENCE LAB -- i.e. every gate this session wrote. *** A net that
+   always drops the last thing added is worse than no net, because it drops
+   exactly the thing that has never been checked before while reporting a number
+   that looks like coverage.
+   THE FIX IS ALREADY PRINTED BY THE SUITE: --shard 1/3, 2/3, 3/3. Three shards
+   ship the same coverage inside the budget. A lane running the whole thing in one
+   go today is not doing what it thinks it is doing.
+   AND SEPARATELY, MAIN IS NOT GREEN: 45 gates failed this run. Every one the UI
+   lane checked was re-run against a CLEAN CHECKOUT OF origin/main in a second
+   worktree and came back byte-identical -- same numbers, same seeds, same wording
+   (GRAVEYARD, FULL RES, SEE THROUGH, SEE-THROUGH MOVE, LATE ART, TIME TO PLAY,
+   INSTALL CARD, PHONE RINGS, DAY LOOP, VALLEY CENSUS, NO CANOPIES, ROUND +
+   DOORS, LOOK, VOICE SURFACES, THE RUN, RUN PEOPLE, TOP OF THE DOC). They belong
+   to the world, art, sound, combat, quests and demo lanes and predate this
+   session. The 8/27 commit that says it was "the first run where ALL 452 gates
+   actually ran" is the clue: turning them on did not break anything, IT REVEALED
+   WHAT WAS ALREADY BROKEN, which is the 7/16 lesson exactly.
+   WHAT THIS LANE DID NOT DO: fix them. Other lanes' systems, and STOP PRODUCING
+   plus ONE SYSTEM ONE SESSION both say hands off. What it DID do is prove its own
+   two failures were its own, fix them, and prove the rest were not.
+   THE ASK IS A DECISION: either the reds get triaged and owned lane by lane, or
+   the ones that are accepted debt get DECLARED as debt inside the gate, which is
+   a pattern the repo already uses well ("CANOPY DEBT: 14 declared", "NO-ICON
+   DEBT: 2 declared").
+   | the suite finishes, and its red count only ever goes DOWN | which lane owns
+   which red = coordination | not blocked, and it is everybody's. TAB: none.
+
+SHARED -18. A NUMBER IS NOT A RULE, AND IT ROTS THE DAY HE ANSWERS. Measured 8/27:
+   THREE of this lane's four gates went red the moment Paolo voted, on a page doing
+   exactly what those gates exist to enforce. They had counted rows instead of
+   reading his verdict -- "four answered", "two killed", "exactly one still
+   asking", "three presses playing". He answered PRESSED at 14:12 and a correct
+   page became five answered, none asking, one press playing.
+   A GATE THAT STORES A SECOND COPY OF A FACT IS A GATE WAITING TO GO STALE, and
+   this repo already knows it: the whole reason the UI page is GENERATED from his
+   verdict rather than storing it. The gates now read the verdict out of the same
+   place the page does, so they follow him.
+   AND THEY GOT STRICTER IN THE PROCESS, which is the tell that the rewrite was
+   the rule and not a climbdown. The press test used to prove three candidates
+   looked different FROM EACH OTHER -- three buttons could pass that while all
+   three changed only their middles, which is the exact thing he complained about.
+   It now measures each real button against ITS OWN RESTING STATE and demands the
+   EDGE move, because a thumb covers the middle.
+   THE TEST FOR ANY GATE: if he changed his mind tomorrow, would this go red on a
+   correct page? Then it is holding a number, not a rule.
+
+UI-12. THE EIGHT ARROWS ARE DRAWN SHAPES NOW, AND THE LESSON IS BIGGER THAN THE
+   ARROWS. The nav ring was eight arrow GLYPHS and no font carries all eight in
+   one weight, so the cardinals arrived thin and the diagonals arrived heavy: one
+   control in two weights, photographed on the real surface. ANY GLYPH USED AS A
+   CONTROL IS THIS BUG WAITING -- check COMBAT's move ring and CITY's #nav for
+   the same split. Drawn triangle, one shape, eight rotations, measured within
+   0.4 degrees at device scale 8. | every glyph control is one font or no font |
+   look = mine | done for RUN, open for COMBAT and CITY. TAB: RUN. 
+
+UI-13. THE LOOK IS ONLY ON TWO SURFACES. engine/bohemia_look.css is stamped into
+   the run and the workshop shell. COMBAT, CITY, CHARACTER, MAP and the rest are
+   each another lane's room and a LOOK lane does not repaint somebody else's room
+   from the hallway. THE SEAM TO AGREE: each lane pulls the stamp when it is ready,
+   or UI does it with that lane's session. Nothing here is urgent and nothing here
+   is mine alone. | one look on every tab | which lane pulls when = coordination |
+   not blocked, not started. TAB: all of them. 
+
 UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE

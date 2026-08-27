@@ -214,9 +214,41 @@ ok('there is a way to switch between them', /class="vbtn"/.test(page));
   await p.goto('file://' + PAGE);
   await SETTLE(p, 1500);
 
-  ok('the page opens on the PICKS, because that is what is waiting on him',
-     await p.evaluate(() => document.getElementById('viewPick').classList.contains('on') &&
-                            !document.getElementById('viewStudy').classList.contains('on')));
+  /* *** THIS LEG NAMED A ROOM AND MEANT A RULE, AND THE ROOM CHANGED (8/27). ***
+     It required the page to open on the PICKS. The reason it gave is the real
+     rule: THE PAGE OPENS ON WHAT IS WAITING ON HIM. On 8/26 those were the same
+     sentence, because the picks were the only thing with an unanswered thumb.
+     They stopped being the same sentence the moment he answered all seven forks
+     and a new room went up with four unanswered thumbs in it. A gate that names
+     the room cannot tell that apart from a lane just moving his question
+     somewhere he will not find it.
+     So it checks the RULE now, on the rendered page: the room it opens on must
+     be a room that still has an unanswered thumb in it. It is STRICTER, not
+     looser -- landing on a finished room fails, landing on the study fails, and
+     if nothing anywhere is waiting it must fall back to the picks. */
+  const landing = await p.evaluate(() => {
+    const on = [...document.querySelectorAll('.view.on')].map(e => e.id);
+    const waiting = (id) => {
+      const v = document.getElementById(id);
+      if (!v) return false;
+      const groups = {};
+      v.querySelectorAll('.thumb[data-k]').forEach(t => {
+        const k = t.getAttribute('data-k');
+        (groups[k] = groups[k] || []).push(t.classList.contains('on'));
+      });
+      return Object.values(groups).some(g => !g.some(Boolean));
+    };
+    const rooms = [...document.querySelectorAll('.view')].map(e => e.id);
+    return { on, waiting: rooms.filter(waiting), rooms,
+             studyOn: (document.getElementById('viewStudy') || {}).classList
+                        ? document.getElementById('viewStudy').classList.contains('on') : false };
+  });
+  ok('*** THE PAGE OPENS ON WHAT IS WAITING ON HIM *** -- it opened on ' +
+     landing.on.join(', ') + ' and the rooms still holding an unanswered thumb are ' +
+     (landing.waiting.length ? landing.waiting.join(', ') : 'none, so it must be the picks'),
+     landing.on.length === 1 && !landing.studyOn &&
+     (landing.waiting.length ? landing.waiting.includes(landing.on[0])
+                             : landing.on[0] === 'viewPick'));
 
   await p.click('.vbtn[data-view="study"]');
   await SETTLE(p, 600);

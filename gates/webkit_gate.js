@@ -151,6 +151,20 @@ const SURFACES = [
      wearing a different hat, so WebKit is asked whether they move. */
   {
     const p = path.join(ROOT, 'slices/BOHEMIA_UI_CURRENT.html');
+    /* *** THE DEMOS MOVED ROOMS, SO THE GATE HAD TO FOLLOW THEM (8/27). ***
+       This measured the presses on whatever the page opened on. That worked while
+       the picks WERE the landing. They stopped being the landing the day he
+       answered all seven forks and the tab started opening on photographs of the
+       game instead -- and a hidden room's animations do not run, so WebKit
+       correctly reported "none" for two of three.
+       THE GATE WAS RIGHT TO GO RED: something it was told to watch had stopped
+       moving. It was wrong about WHY, and the fix is to look in the right room
+       rather than to drag the room back under the gate. It still fails if the
+       presses genuinely stop playing, and it still fails if the picks room is
+       gone entirely. */
+    /* unquoted attribute value on purpose: no quote escaping to get wrong */
+    const OPEN_PICKS = "var b = document.querySelector('.vbtn[data-view=pick]');" +
+                       " if (b) b.click(); return b ? 'clicked' : 'no picks tab';";
     const r = await webkit('file://' + p, `
       var out = { names: [], fingertips: document.querySelectorAll('.fingertip').length };
       ['A','B','C'].forEach(function(v){
@@ -160,16 +174,41 @@ const SURFACES = [
       var g = document.querySelector('.fingertip');
       out.thumbAnim = g ? getComputedStyle(g).animationName : 'NONE';
       out.thumbSize = g ? getComputedStyle(g).width : '0px';
-      return JSON.stringify(out);`, { settle: 2600 });
+      out.room = [].map.call(document.querySelectorAll('.view.on'), function(e){ return e.id; }).join(',');
+      return JSON.stringify(out);`,
+      { settle: 2600, pre: OPEN_PICKS, preWait: 1500 });
     ok('the pressed demos can be read on WebKit' + (r.ok ? '' : ' (' + r.error + ')'), r.ok);
     if (r.ok) {
       const v = JSON.parse(r.value);
-      ok('all three presses are RUNNING an animation on WebKit (' + v.names.join(', ') + ')',
-         v.names.length === 3 && v.names.every(n => n && n !== 'none' && n !== 'NONE'));
-      ok('and each one is a DIFFERENT animation, so they are three answers and ' +
-         'not three labels', new Set(v.names).size === 3);
-      ok('the ghost thumb is there and is thumb-sized on WebKit (' + v.thumbSize + ')',
-         v.fingertips === 3 && v.thumbAnim !== 'none' && parseInt(v.thumbSize, 10) >= 40);
+      /* *** AND THEN HIS OWN ANSWER REMOVED TWO OF THE THREE (8/27 14:12). ***
+         This asked for THREE presses playing. That was right at 06:07, when
+         PRESSED was the one fork he had not voted on. He voted FLIP that
+         afternoon, and an answered fork stops being a question and shows what he
+         chose -- so B and C are gone from the page, correctly, and WebKit
+         reported "none" for two demos that no longer exist.
+         THE RULE UNDERNEATH IS "A PRESS IS SHOWN, NEVER TYPED", and it does not
+         care how many candidates there are. So: every press demo ON the page must
+         really be animating, there must be at least one, and the count has to
+         agree with whether the fork is open (three) or answered (one). That is
+         stricter than the old leg, not looser: a page that answers the fork and
+         then stops moving still fails, and so does one that quietly drops the
+         demo altogether. */
+      const live = v.names.filter(n => n !== 'NONE');
+      ok('every press on the page is REALLY PLAYING on WebKit, and there is at ' +
+         'least one (' + (live.length ? live.join(', ') : 'none at all') + ')',
+         live.length >= 1 && live.every(n => n && n !== 'none'));
+      ok('and the number of them agrees with his verdict: ' + live.length +
+         (live.length === 1 ? ' because PRESSED is answered and an answered fork shows ' +
+          'the one he picked' : ' because the fork is still open and all three must show'),
+         live.length === 1 || live.length === 3);
+      ok('no two presses share an animation, so they are answers and not labels',
+         new Set(live).size === live.length);
+      ok('and it really was measured in the room the presses live in (' + v.room + ')',
+         /viewPick/.test(v.room));
+      ok('a ghost thumb rides every one of them and is thumb-sized on WebKit (' +
+         v.fingertips + ' thumbs, ' + v.thumbSize + ')',
+         v.fingertips === live.length && v.thumbAnim !== 'none' &&
+         parseInt(v.thumbSize, 10) >= 40);
     }
   }
 

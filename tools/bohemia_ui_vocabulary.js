@@ -148,6 +148,20 @@ if (!GRIME_B64 || GRIME_B64.length < 1000) { console.error('grime bank has no sh
    Seven forks. Each one is a decision everything else is downstream of.
    Each option carries the CSS variables that ARE that option -- there is no
    second copy of the look anywhere, the page is generated from this. */
+/* THE TAB WEARS THE RULING IT IS ASKING ABOUT. A page that tells him every letter
+   is the same width, in a face that is not the one the game loads, is arguing for
+   something it will not do itself. Same bank, same two weights, same data URI. */
+const TYPEBANK = JSON.parse(fs.readFileSync(__dirname + '/../banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt', 'utf8'));
+const TYPEFACES = TYPEBANK.faces.map((f) =>
+  "@font-face{ font-family:'BohemiaMono'; font-style:normal; font-weight:" + f.weight +
+  "; font-display:swap; src:url(data:font/woff2;base64," + f.b64 + ") format('woff2'); }").join('\n');
+
+/* ONE mono stack for this whole page, led by the face the GAME actually ships.
+   The type options used to each carry their own copy of the stack, so the winning
+   option quietly overrode the page's own token and the tab argued for a typeface
+   it was not wearing. */
+const MONO = "'BohemiaMono',ui-monospace,\"SF Mono\",Menlo,Consolas,monospace";
+
 const CUT = '10px';
 const poly = (c) => `polygon(${c} 0, 100% 0, 100% calc(100% - ${c}), calc(100% - ${c}) 100%, 0 100%, 0 ${c})`;
 
@@ -155,14 +169,20 @@ const poly = (c) => `polygon(${c} 0, 100% 0, 100% calc(100% - ${c}), calc(100% -
    is built from it and nobody re-asks. ANSWERED forks stop being questions and
    become the look; KILLED forks are gone and are not re-pitched (STOP PRODUCING,
    7/26); the one he could not SEE is the only thing still asking.
-   Record: records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt *** */
+   Record: records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt
+   *** AND PRESSED CAME BACK THE SAME DAY, 14:12: A FLIP. It had no vote at
+   06:07 for one reason -- I had TYPED what a press feels like instead of
+   showing him, and a thumb covers the button. The presses were rebuilt to
+   play themselves with a ghost fingertip, he opened the page again, and he
+   answered in one tap. THE FIX FOR A MISSING VOTE WAS NEVER A BETTER
+   EXPLANATION, IT WAS SHOWING HIM THE THING. *** */
 const VERDICT = {
   shape:   { yes: 'C', no: ['A', 'B'] },
   weight:  { yes: 'B', no: ['A', 'C'] },
   colour:  { yes: 'B', no: ['A', 'C'] },   /* he overruled my BONE, and he is right */
   type:    { yes: 'A', no: ['C'] },
   texture: { yes: null, no: ['A', 'B', 'C'] },   /* KILLED, all three */
-  press:   { yes: null, no: [] },                /* HE COULD NOT SEE IT */
+  press:   { yes: 'A',  no: [] },                /* RULED 8/27 14:12, once he could SEE it */
   feed:    { yes: null, no: ['A', 'B', 'C'] }    /* KILLED, all three */
 };
 /* a fork he has ruled on is ANSWERED and stops asking; a fork with every option
@@ -225,11 +245,11 @@ const SPEC = [
     ask: 'What do the words look like?',
     note: 'The game asks for a typeface called Space Grotesk and never loads it, so right now the letters are whatever your phone picks. The game has no typeface. These three all work with no download.',
     opts: [
-      { v: 'A', name: 'ALL TYPEWRITER-WIDTH', vars: { '--fc': 'ui-monospace,"SF Mono",Menlo,Consolas,monospace', '--fb': 'ui-monospace,"SF Mono",Menlo,Consolas,monospace' },
+      { v: 'A', name: 'ALL TYPEWRITER-WIDTH', vars: { '--fc': MONO, '--fb': MONO },
         why: 'Every letter the same width, everywhere. A receipt, a ledger, a printout. Perfect for a game about money that stopped working. Long sentences get harder to read.' },
-      { v: 'B', name: 'MIXED', vars: { '--fc': 'ui-monospace,"SF Mono",Menlo,Consolas,monospace', '--fb': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif' },
+      { v: 'B', name: 'MIXED', vars: { '--fc': MONO, '--fb': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif' },
         why: 'Typewriter width for labels and numbers, normal letters for what people say. This is what the game does today. Easiest to read, least distinctive.' },
-      { v: 'C', name: 'PAPER', vars: { '--fc': '"American Typewriter","Courier New",ui-monospace,monospace', '--fb': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif' },
+      { v: 'C', name: 'PAPER', vars: { '--fc': '"American Typewriter","Courier New",' + MONO, '--fb': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif' },
         why: 'An actual typewriter face on the labels, normal letters underneath. Ink on paper in a world with no printers left. Slightly softer and more human than A.' }
     ],
     today: 'B', rec: 'C',
@@ -460,6 +480,60 @@ function studyCard(f) {
       <p class="flens">looked at through: ${esc(f.lens)} &middot; seen on: ${esc(f.screen)}</p>
     </article>`;
 }
+/* ==== THE GAME WEARING IT, IN PICTURES ====================================
+   Paolo 8/27: "I think it's so disrespectful and rude that like you would try to
+   type out and explain what it's like to press buttons and not show me what it
+   looks like in action."
+   He said that about ONE fork. The same sentence convicts the whole turn that
+   followed it: his verdict went into the actual game today, and the honest way to
+   report that is not a paragraph saying so. These are photographs of the real run,
+   before and after, taken off the real screen at phone size. Nothing here is a
+   mock-up and nothing here is drawn for the page. ------------------------------ */
+const LOOKSHOT_DIR = __dirname + '/../records/uilook/';
+function shot(name) {
+  const p = LOOKSHOT_DIR + name + '.png';
+  if (!fs.existsSync(p)) { console.error('missing proof picture: ' + p); process.exit(2); }
+  return 'data:image/png;base64,' + fs.readFileSync(p).toString('base64');
+}
+const WEARS = [
+  { id: 'conv', title: 'THE CONVERSATION',
+    before: shot('conversation_before'), after: shot('conversation_after'),
+    say: 'Same words, same person, same moment in the quest. Your three answers used to be soft grey slabs in a font the game never loaded. Now they are cut at the corner, outlined at two pixels, and gold, because gold means you.' },
+  { id: 'press', title: 'PRESSED, THE ONE YOU JUST PICKED', single: shot('pressed'),
+    say: 'You voted FLIP this afternoon and it is already in the game. The whole button turns solid gold, not just the middle, because the middle is where your thumb is.' },
+  { id: 'bar', title: 'THE LINE AT THE TOP',
+    before: shot('bar_before'), after: shot('bar_after'),
+    say: 'What you are doing is gold. Where you are is blue-green, because the game is telling you that, you did not choose it. That split is the whole of your colour pick.' },
+  { id: 'ring', title: 'THE EIGHT ARROWS',
+    before: shot('ring_before'), after: shot('ring_after'),
+    say: 'These used to be eight letters borrowed from whatever font your phone had. No font has all eight arrows, so four came out thin and four came out fat, in the same ring. They are drawn now. One shape, eight turns, identical forever.' }
+];
+
+function wearsView() {
+  const cards = WEARS.map((w) => `
+  <div class="fork" id="w-${w.id}">
+    <div class="oname" style="margin-bottom:6px">${w.title}</div>
+    ${w.single
+      ? `<img class="wshot" src="${w.single}" alt="${w.title}">`
+      : `<div class="wpair">
+           <figure><figcaption>BEFORE</figcaption><img class="wshot" src="${w.before}" alt="${w.title} before"></figure>
+           <figure><figcaption>NOW</figcaption><img class="wshot" src="${w.after}" alt="${w.title} now"></figure>
+         </div>`}
+    <p class="why">${w.say}</p>
+    <div class="thumbs">
+      <button class="thumb up"   data-k="wear-${w.id}" data-v="ok" data-t="UP"   aria-label="yes">&#128077; YES</button>
+      <button class="thumb down" data-k="wear-${w.id}" data-v="ok" data-t="DOWN" aria-label="no">&#128078; NO</button>
+    </div>
+    <textarea class="note-in" data-k="wear-${w.id}" rows="2" placeholder="what is wrong with it"></textarea>
+  </div>`).join('\n');
+  return `
+<div id="viewWears" class="view">
+<p class="lede"><b>Your look is in the game now, not on this page.</b> These are photographs
+of the real run on a real phone screen, before and after. <b>Thumb anything you hate.</b></p>
+${cards}
+</div><!-- /viewWears -->`;
+}
+
 function studyView() {
   const laws = BOOK_IDS.map(k => BOOK.laws[k]);
   const rounds = BOOK._meta.rounds || [];
@@ -528,6 +602,8 @@ const HTML = `<!doctype html>
      Held by gates/ui_vocab_gate.js, which opens this page in a real browser at
      iPhone size, taps the letters like a thumb, and measures the PIXELS. -->
 <style>
+${TYPEFACES}
+
 :root{
   /* the shipped palette, harvested from the run he plays. nothing invented. */
   --bg:${C.bg}; --surface:${C.surface}; --ink:${C.ink}; --dim:${C.dim}; --faint:${C.faint};
@@ -539,7 +615,7 @@ const HTML = `<!doctype html>
   --r:${R.radius}px; --rin:${Math.max(0, R.radius - 1)}px; --clip:none;
   --bw:1px; --line:${C.line};
   --acc:${C.gold}; --acc2:${C.gold}; --accink:#14100a;
-  --fc:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fc:${MONO};
   --fb:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
   --grain:none; --wear:none;
   --fill:var(--surface);
@@ -657,6 +733,17 @@ h2{ font-family:var(--fc);font-size:13px;font-weight:400; letter-spacing:1.6px; 
 .orec{ border:1px solid var(--acc); color:var(--acc); }
 .samp{ display:flex; flex-direction:column; gap:7px; }
 .samp .bx{ }
+/* ---- THE PICTURES OF THE REAL GAME ---------------------------------------
+   Photographs, so they get a frame and nothing else. A shot of the game must
+   never be restyled by the page it is sitting on: the page is paper in sun
+   mode and the game is not, which is the same rule the samples live under. */
+.wpair{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.wpair figure{ margin:0; }
+.wpair figcaption{ font-family:var(--fc);font-size:9px; letter-spacing:1.4px; color:var(--faint);
+  margin:0 0 4px; }
+.wshot{ display:block; width:100%; height:auto; background:#000; border:1px solid var(--line);
+  image-rendering:auto; }
+body.sun .wpair figcaption{ color:#3d362a; }
 .why{ font-size:12.5px; color:var(--dim); margin:8px 0 0; }
 .recwhy{ font-size:12.5px; margin:10px 0 0; color:var(--ink); }
 .recwhy b{ font-family:var(--fc);font-size:10px;font-weight:400; letter-spacing:1.2px; color:var(--acc); }
@@ -881,9 +968,12 @@ body.sun .msub{ color:#3d362a; }
      that is actually waiting on him. The study is one tap away and never in
      front of the question. -->
 <div id="viewpick" role="tablist">
-  <button class="vbtn on" data-view="pick">PICK THE LOOK</button>
-  <button class="vbtn" data-view="study">WHAT FF10 TAUGHT US</button>
+  <button class="vbtn on" data-view="wears">IN THE GAME</button>
+  <button class="vbtn" data-view="pick">PICK THE LOOK</button>
+  <button class="vbtn" data-view="study">FF10 + MACHINE PARTY</button>
 </div>
+
+${wearsView()}
 
 <div id="viewPick" class="view">
 <p class="lede"><b>Four of the seven are decided and this page is wearing them.</b>
@@ -944,6 +1034,7 @@ ${studyView()}
      into the build, so it is the look before he touches anything -- he should
      never have to re-tap four things he already decided to see his own game. */
   var VERDICT = ${JSON.stringify(VERDICT)};
+  var WEARKEYS = ${JSON.stringify(WEARS.map((w) => 'wear-' + w.id))};
   var st = { up:{}, down:{}, note:{}, all:'' };
   try { var raw = localStorage.getItem(SAVE); if (raw) st = JSON.parse(raw); } catch(e){}
   st.up = st.up || {}; st.down = st.down || {}; st.note = st.note || {};
@@ -979,6 +1070,17 @@ ${studyView()}
         if (no.length) bits.push('NO to ' + no.map(function(v){ return v + ' ' + NAMES[k].o[v]; }).join(', '));
         lab.textContent = bits.length ? bits.join('  \u00B7  ') : 'Nothing said yet.';
       }
+    });
+    /* the pictures carry the same thumbs, so they light up the same way */
+    WEARKEYS.forEach(function(k){
+      var yes = st.up[k] || null, no = st.down[k] || [];
+      document.querySelectorAll('.thumb[data-k="'+k+'"]').forEach(function(b){
+        var t = b.getAttribute('data-t');
+        var on = (t === 'UP') ? (yes === 'ok') : (no.indexOf('ok') >= 0);
+        b.classList.toggle('on', on);
+        var base = t === 'UP' ? '\uD83D\uDC4D YES' : '\uD83D\uDC4E NO';
+        b.innerHTML = on ? (base + ' \u2713') : base;
+      });
     });
     ASKS.forEach(function(k){
       var yes = st.up[k] || null, no = st.down[k] || [];
@@ -1041,11 +1143,13 @@ ${studyView()}
   /* TWO ROOMS, ONE TAB. The picks are the door you land on, always: they are
      the thing actually waiting on him. Which room he was last in is remembered,
      because losing your place is the cheapest way to lose a reader. */
+  var ROOMS = { wears:'viewWears', pick:'viewPick', study:'viewStudy' };
   function showView(v){
-    document.getElementById('viewPick').classList.toggle('on', v !== 'study');
-    document.getElementById('viewStudy').classList.toggle('on', v === 'study');
+    if (!ROOMS[v]) v = 'wears';
+    Object.keys(ROOMS).forEach(function(k){
+      document.getElementById(ROOMS[k]).classList.toggle('on', k === v); });
     document.querySelectorAll('.vbtn').forEach(function(b){
-      var on = (b.getAttribute('data-view') === v) || (v !== 'study' && b.getAttribute('data-view') === 'pick');
+      var on = b.getAttribute('data-view') === v;
       b.classList.toggle('on', on);
       /* never colour alone: the room you are in is also ticked */
       var base = b.getAttribute('data-label') || b.textContent.replace(/\s*\u2713$/, '');
@@ -1058,7 +1162,7 @@ ${studyView()}
   document.querySelectorAll('.vbtn').forEach(function(b){
     b.addEventListener('click', function(){ showView(b.getAttribute('data-view')); });
   });
-  showView(st.view === 'study' ? 'study' : 'pick');
+  showView(ROOMS[st.view] ? st.view : 'wears');
 
   /* THE REFUSAL, live, so he can feel it and hate it if he hates it. */
   var db = document.getElementById('denybtn'), dw = document.getElementById('denyword');
@@ -1085,6 +1189,13 @@ ${studyView()}
          ruling: the graveyard is final and nobody re-cooks it. */
       L.push('    NO : ' + (no.length ? no.map(function(v){ return v + ' - ' + NAMES[k].o[v]; }).join(' | ') : 'nothing'));
       if (st.note[k]) L.push('    note: ' + st.note[k]);
+    });
+    L.push('');
+    L.push('THE GAME WEARING IT (the before-and-after photographs):');
+    WEARKEYS.forEach(function(k){
+      var nm = k.replace('wear-','').toUpperCase();
+      var v = st.up[k] === 'ok' ? 'GOOD' : ((st.down[k]||[]).indexOf('ok') >= 0 ? 'BAD' : 'nothing said');
+      L.push('    ' + nm + ': ' + v + (st.note[k] ? '   note: ' + st.note[k] : ''));
     });
     if (st.round2) L.push(''), L.push('ROUND TWO, THE NEXT GAME WE STUDY: ' + st.round2);
     L.push('');

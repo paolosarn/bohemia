@@ -67,8 +67,32 @@ const CEILING_MS = 12000;
   ok('NO external stylesheet blocks the parser (' + links.length + ' links, '
      + blocking.length + ' blocking)' + (blocking.length ? ' -- ' + blocking[0].slice(0, 90) : ''),
      blocking.length === 0);
-  ok('and the one we fixed still swaps itself in when the network IS good',
-     /onload\s*=\s*["']this\.media=/.test(src));
+  /* AND THE TYPEFACE STILL ARRIVES. *** THIS LEG USED TO ASK FOR ONE MECHANISM
+     AND IT WENT RED ON A BETTER ONE (8/27, UI lane). *** It required
+     onload="this.media='all'" -- the swap that pulls a DEFERRED webfont in once
+     the network answers. That was the right fix on 8/11, when the face lived on
+     fonts.googleapis.com.
+     The face is EMBEDDED now, as a data URI, on Paolo's 8/27 ALL TYPEWRITER-WIDTH
+     ruling. There is no deferred font left to swap in, so the machinery this leg
+     names is not missing, it is unnecessary: nothing is fetched, so nothing can
+     be late, and the offline case gets the real letters instead of the fallback.
+     FIX THE RULER, NEVER THE TARGET (8/1). The PROPERTY this gate exists to
+     protect is "the typeface never holds the game hostage AND the game still has
+     letters". Either shape satisfies it:
+       DEFERRED  an external font link that swaps itself in, or
+       EMBEDDED  no external font at all, because the face ships in the file.
+     AND IT CANNOT BE SATISFIED BY DELETING THE LINK AND SHIPPING NOTHING, which
+     is the failure this repo actually lived through: the workshop asked for
+     'Space Grotesk' for a month with no @font-face and no font file, so the game
+     had no letters at all while every gate was green. */
+  const swapsIn = /onload\s*=\s*["']this\.media=/.test(src);
+  const embedded = /@font-face[\s\S]{0,400}?url\(data:font\/woff2;base64,/.test(src);
+  const externalFont = /<link\b[^>]*fonts\.(googleapis|gstatic)\.com/i.test(noNoscript);
+  ok('THE TYPEFACE NEVER HOLDS THE GAME HOSTAGE, AND THE GAME STILL HAS LETTERS: '
+     + (embedded ? 'the face is EMBEDDED, so nothing is fetched and nothing can be late'
+                 : swapsIn ? 'the deferred face still swaps itself in when the network IS good'
+                 : 'NEITHER -- no embedded face and no swap'),
+     embedded || (swapsIn && externalFont));
 }
 
 /* ---- 2. THE SHARED FRAME PREDICATE PREFERS THE REAL CITY ---------------- */

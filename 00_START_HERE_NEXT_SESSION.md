@@ -1,3 +1,351 @@
+UI (ui-kmqmrf): 8/27 (b) LATEST -- *** THE GAME HAS LETTERS, AND THE RUN WEARS
+HIS LOOK. *** TAB: **UI** (it opens on IN THE GAME, four before-and-after
+photographs of the real run), and you SEE it in **RUN**.
+
+HE ANSWERED THE PAGE TWICE TODAY. 06:07: CUT corner, HEAVY line, GOLD AND COLD,
+ALL TYPEWRITER-WIDTH. 14:12, once the presses played themselves instead of being
+described to him: PRESSED = A FLIP, in ONE TAP.
+
+THE THING THAT HAD GONE WRONG, AND IT IS THE STANDING LESSON FOR EVERY LANE: for
+eight hours his verdict lived on a judge page and NOWHERE ELSE. The game he
+actually plays was still wearing the old chrome and the whole suite was green
+through all of it. A RULING THAT ONLY REACHES A RECORD IS A RULING THAT DID NOT
+SHIP.
+
+1. THE GAME HAD NO TYPEFACE AT ALL. Not one we disliked -- NONE. The alpha asked
+   for 'Space Grotesk' with no @font-face and no font file anywhere in this repo,
+   so for a month every letter was whatever the phone picked, on both engines.
+   IBM Plex Mono 400 + 700 is embedded now, OFL, as a data URI so the offline
+   single-file build still works with no network. 20,180 bytes. A TRUE monospace
+   proved rather than claimed: every glyph 600/1000 em, and on the real surface
+   ten i, ten W and ten full stops all measure the same pixel width.
+   HE RULED THE CATEGORY; THE FAMILY WAS MINE. Bank:
+   banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt with the licence text and the two
+   faces the runners-up lost on.
+   GATED GENERALLY, NOT SPECIFICALLY: a quoted family name is a REQUEST FOR A
+   FILE, and if no @font-face answers it the request is a lie. That is exactly
+   how this went a month unnoticed.
+
+2. tools/bohemia_look_factory.js TAKES HIS VERDICT AS ITS INPUT and writes
+   engine/bohemia_look.css -- ONE canonical body, stamped between LOOK:BEGIN /
+   LOOK:END markers into the run source and the workshop shell. There is no
+   second copy of the look anywhere and re-running is idempotent.
+   CUT 10px outer / 8.83px inner (COMPUTED: two parallel 45-degree lines a
+   border-width apart differ in intercept by bw*sqrt2, so the line follows the
+   diagonal at exactly 2px instead of the cut slicing through it).
+   HEAVY 2px #766f63 at 3.78:1 (the old hairline was 1.22).
+   FLIP at 8.60:1 inverted.
+   NOT ONE LINE OF RUN LOGIC WAS TOUCHED. THE BOX is applied BY SELECTOR with a
+   ::before inner face held under the text by a stacking context, because those
+   buttons are built by the RUN lane's JavaScript and a LOOK lane does not reach
+   into another lane's DOM.
+
+3. GOLD IS YOU. COLD IS THE MACHINE. Applied by MEANING, not decoration: gold is
+   the objective, the verb, the arrows, your choices, the feedback on what you
+   did; cold is the phone, the network, the place-name, every count and timestamp
+   you did not choose. NO ESSENTIAL INFO BY COLOUR ALONE -- they say WHOSE a
+   thing is, never WHAT it says, and every cold value still carries its word.
+   TWO THINGS ONLY LOOKING CAUGHT: the phone's button came out cold and was then
+   the one button in the game that is not the colour of a button (fixed, all
+   buttons gold); and the speaker's name was gold, which said "this is you" about
+   somebody who is not you (now plain ink -- A PERSON IS NEITHER).
+
+4. THE EIGHT ARROWS WERE EIGHT GLYPHS AND NO FONT HAS ALL EIGHT IN ONE WEIGHT.
+   Photographed: cardinals thin, diagonals heavy, one control in two weights.
+   Drawn triangles now, one shape rotated eight times, within 0.4 degrees at
+   device scale 8. *** THIS IS A BUG EVERY OTHER LANE MAY HAVE: any glyph used as
+   a control is this waiting. COMBAT's move ring and CITY's #nav are the same
+   shape of thing -- backlog UI-12. ***
+   AND THE MISTAKE INSIDE THE MISTAKE: the first triangle was 14 wide by 10 tall
+   and I MISREAD MY OWN ARROWS FOUR TIMES, about to "fix" a rotation that was
+   already right. Measuring proved the rotations had been correct all along and
+   THE SHAPE was the problem: a squat triangle has base corners further from its
+   middle than its own tip. Same lesson as the 8/25 hair audit, both directions:
+   when a number disagrees with your eye, suspect the number; when your eye
+   disagrees with the code, MEASURE BEFORE YOU CHANGE ANYTHING.
+
+*** AND THEN THE MACHINE CAUGHT ME DOING THE EXACT THING THIS TURN IS ABOUT.
+THE RUN TAB DOES NOT SHOW THE RUN. The workshop maps it with one line --
+`var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p` -- so tapping RUN
+opens slices/BOHEMIA_CITY_WORLD.html, and slices/BOHEMIA_RUN_CURRENT.html sits
+behind a panel nothing routes to. I HAD PUT HIS RULING ON A SURFACE HE DOES NOT
+OPEN, three hours after writing the law about exactly that. Found by opening the
+workshop and LOOKING, because the screenshot did not match the ones I had been
+taking all afternoon.
+AND THAT SURFACE WAS FETCHING ITS TYPEFACE FROM GOOGLE: a <link> to
+fonts.googleapis.com for Space Grotesk, a proportional sans. On a good network
+the game he plays contradicted his own ruling; on a bad one it was whatever the
+phone had; either way THE DEMO PHONED A THIRD PARTY ON LOAD and he demos off a
+phone on cellular. Fixed, and measured with the browser set to OFFLINE: two
+faces loaded, ZERO requests outside the file, typewriter-width true.
+ONLY THE TYPEFACE TRAVELLED, NOT THE LOOK. That file has its own --acc, --line,
+--ink and --bg, older than mine and another lane's. The letters are HIS RULING
+so they travel; the colours wait for that lane (UI-13).
+AND THE GATE READS THE ROUTE OUT OF THE WORKSHOP, not a filename, so if any lane
+re-points that tab the gate follows it instead of going quietly stale. ***
+
+*** AND A COLLISION, THE THIRD THIS WEEK: gates/look_gate.js ALREADY EXISTED as
+the 8/8 LOOK-tab pictures gate and the first cut of mine OVERWROTE IT. Restored
+from git the moment the suite printed the row. Mine is ui_look_gate.js now.
+GREP FOR A NAME BEFORE YOU CLAIM IT -- `.ghost` two turns ago, `--a` checked this
+turn because of that, `look_gate` missed. ***
+
+*** TWO FINDINGS THAT ARE NOT THIS LANE'S AND MATTER TO EVERY LANE (SHARED -17,
+SHARED -18). READ THESE BEFORE YOU TRUST A GREEN. ***
+
+1. THE SUITE CANNOT FINISH. Its own report: "8.3s a gate, so this run's 453 gates
+   need ~3738s against a 2700s budget." It is 38% over its own ceiling, so it
+   stops at whatever is last in the queue and prints UNFINISHED rather than red.
+   THE ELEVEN IT DROPPED THIS RUN WERE WEBKIT, UI STUDY, UI LOOK, UI VOCAB, LIGHT,
+   COMBAT SCALE, CAMP DIAL, ACTION COST SHAPE, DOMINANCE SWEEP, SKILL GAP,
+   REFERENCE LAB -- EVERY GATE THIS SESSION WROTE. A net that always drops the
+   newest work is worse than no net: it drops the one thing never checked before,
+   while printing a number that looks like coverage.
+   RUN IT AS THREE SHARDS. The suite prints the command itself:
+     python3 gates/bohemia_gates.py --shard 1/3   (then 2/3, then 3/3)
+   Same coverage, inside the budget. One-go runs today are not doing what you
+   think they are doing.
+2. MAIN IS NOT GREEN: 45 gates failed. Every one this lane checked was re-run
+   against a CLEAN CHECKOUT of origin/main in a second worktree and came back
+   BYTE-IDENTICAL. They predate this session and belong to world, art, sound,
+   combat, quests and demo. Not fixed here on purpose (other lanes' systems).
+   The 8/27 note that it was "the first run where ALL 452 gates actually ran" is
+   the clue: turning them on revealed what was already broken. 7/16 again.
+3. AND A NUMBER IS NOT A RULE. THREE of this lane's four gates went red the moment
+   he voted, on a page doing exactly what they exist to enforce, because they had
+   counted rows ("four answered", "exactly one still asking", "three presses
+   playing") instead of reading his verdict. They read the verdict now. THE TEST
+   FOR ANY GATE YOU WRITE: if he changed his mind tomorrow, would this go red on a
+   correct page? Then it holds a number, not a rule.
+
+GATE: gates/ui_look_gate.js, 59 checks, NEW. Plus ui_vocab 85, ui_study 52,
+webkit 17, all four confirmed green through the suite runner one at a time. Every leg reads the pixels of the real
+surface -- the run is loaded, walked out of the house, down the block, and into
+the conversation the player actually has -- and then asked the same questions on
+a REAL WEBKIT, because the data URI @font-face, the clip-path and the ::before
+inner face are three techniques none of the five surfaces he already plays were
+using before today.
+MUTATION-PROVED, six, all restored. THE INTERESTING ONE FAILED FIRST TIME:
+renaming the shipped @font-face left every font leg GREEN, because the fallback
+stack is also monospace and "ten i measure the same as ten W" cannot tell our
+face from the system's. The legs now read the family name OUT OF THE LOOK, check
+document.fonts.check, and check the body is actually WEARING it.
+
+NOTHING IS WAITING ON HIM. The UI tab has thumbs on all four photographs if he
+hates any of it. THE DIRT stays dead and THE FEED POST stays dead -- killed three
+times counting the ASCII art, and NOBODY COOKS A FOURTH SET.
+
+WHAT IS NEXT IN THIS LANE: UI-13, the look is only on two surfaces (the run and
+the shell); every other tab is another lane's room. UI-2, the action button must
+never mean two things. SHARED -14, the demo's front door and ending.
+Record: records/BOHEMIA_THE_GAME_HAS_LETTERS_AND_THE_RUN_WEARS_HIS_LOOK_8_27_26.md
+
+UI (ui-kmqmrf): 8/27 (a) -- *** I WAS WRONG ABOUT THE FONT AND SAID IT AS
+FACT. There is a real WEBKIT in this repo now and its first run proved it. His
+verdict on the look is BUILT. And PRESSED got no vote because a thumb covers the
+button, so it plays itself now. TAB: UI. ***
+READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
+  I told him the UI page broke on his phone because of the CSS `font:` shorthand
+  with a var() family. I put it in the commit, the record and the handoff and
+  rewrote 44 declarations off it. IT IS NOT TRUE. Real WebKit resolves the
+  shorthand and the longhand identically, same as Chromium, and the OLD build
+  renders fine on WebKit at 390x844: body 14px, seven forks, 21 options, no
+  errors. I diagnosed a bug I could not reproduce on an engine I could not run.
+  WHAT ACTUALLY BROKE IT IS STILL UNKNOWN and that is the honest answer. Best
+  remaining candidate is timing, not CSS: the Pages queue was measurably jammed
+  (two runs unstarted over half an hour, one of mine cancelled outright), so the
+  tab could have existed in the alpha while the page behind it had not published.
+  I cannot reach the live site from this container to confirm. The font rewrite
+  STAYS because it matches every other shipped surface and costs nothing, NOT
+  because it was the fix. Routed SHARED -16b.
+*** THERE IS A REAL WEBKIT NOW (SHARED -16, CLOSED) ***
+  He said "download whatever you need to download... you don't have to be so ho
+  about only cooking up on default bro", and he was right that I had reported a
+  wall without walking its length. Playwright's own webkit build IS 403 from the
+  egress proxy, on both hosts. BUT apt reaches the ubuntu mirrors and WebKitGTK
+  ships WebKitWebDriver, a real W3C WebDriver for the real engine; it wants a
+  display so xvfb gives it one.
+    apt-get install -y webkit2gtk-driver xvfb
+    gates/bohemia_webkit.js   a tiny WebDriver client, no new npm dependency
+    gates/webkit_gate.js      15 checks, registered WEBKIT
+  IT IS WEBKITGTK AND NOT IOS SAFARI (same family, different port and version)
+  and the gate says so out loud instead of letting a green tick imply more than
+  it earned. With no engine present it SKIPS LOUDLY rather than passing.
+  ITS CENTRE IS A CROSS-ENGINE DIFFERENTIAL: same probe, same page, both engines,
+  compared. A DISAGREEMENT IS THE ALARM. The first cut asserted absolutes and went
+  red on the alpha for a 16px body, which is just the browser default and which
+  Chromium reports too, so the ruler was fixed to COMPARE rather than to JUDGE.
+  ANY LANE CAN ADD ITS SURFACE to that gate's SURFACES list. It is three lines.
+*** HIS VERDICT IS THE LOOK NOW (records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt)
+  CORNER = C CUT. LINE = B HEAVY. COLOUR = B GOLD AND COLD. LETTERS = A ALL
+  TYPEWRITER-WIDTH. HE OVERRULED MY BONE ON COLOUR AND HE WAS RIGHT: I argued
+  bone off LIGHT = TERRITORY, and his answer keeps that AND buys a second
+  meaning, gold is you and cold is the machine. The world has no cold in it, so
+  nothing on screen fights a lamp and the phone reads as a different thing from
+  the street.
+  THE PAGE IS BUILT FROM THE VERDICT rather than storing it, so it opens wearing
+  his look on a phone that has never seen it. An answered fork stops asking.
+  DEAD AND STAYING DEAD: THE DIRT (all three) and THE FEED POST (all three, the
+  THIRD kill of that slot counting the ASCII art). NO REPLACEMENTS WERE COOKED.
+*** SHOW IT, DO NOT TYPE IT ***
+  "so disrespectful and rude that like you would try to type out and explain what
+  it's like to press buttons and not show me what it looks like in action."
+  HIS EXPORT PROVES IT: PRESSED got NO VOTE AT ALL while every fork he could see
+  got a decision. AND IT IS WORSE THAN HE KNOWS -- a press does not exist until a
+  thumb is on the button, and A THUMB COVERS THE BUTTON. The one fork whose whole
+  subject is what happens under a finger was the one he physically could not see,
+  and I answered with three paragraphs. That is FFX.R01 pointed at me: FF10 takes
+  a hidden simulation and SHOWS THE ANSWER, and I typed the arithmetic.
+  REBUILT: the three presses perform themselves on a loop and a ghost thumb comes
+  down, lands and lifts. 48px, because a fingertip is about 45. IT COVERS THE
+  MIDDLE OF THE BUTTON ON PURPOSE, so the claim I typed is a thing he watches.
+  Measured: FLIP 3 fill states, SINK 0 to 2px, EDGE lights, thumb 9 opacities,
+  and the gate checks the ghost lands within 6px of the button's centre.
+  A COLLISION CAUGHT BEFORE IT SHIPPED: .ghost was ALREADY the class on every
+  WALK AWAY button. 3 in the source, 9 matching in the DOM. Renamed .fingertip.
+*** ROUND TWO IS MACHINE PARTY, BECAUSE HE NAMED IT ***
+  "I'm really thinking it's gonna be Final Fantasy 10 meet machine party." He did
+  not vote on my three games, he said the answer. uibook now holds 32 findings
+  across two rounds. The 8/3 Machine Party dossier was about the WORLD and nobody
+  had opened it for the INTERFACE even though its own section is called THE
+  MACHINE IS THE INTERFACE.
+  MP.R01 TELL THEM THE COUNT, HIDE ONLY THE ORDER is the best information design
+    in either game: Buckshot Roulette tells you exactly how many live rounds and
+    how many blanks and never the order. Nothing is hidden to manufacture
+    difficulty so nobody feels cheated, and every pull is still a decision. IT IS
+    THE PAIR TO FFX.R01: FF10 says do the arithmetic and show the answer, Machine
+    Party says WHICH ONE THING TO WITHHOLD.
+  MP.R03 + FFX.W03 ARE THE SAME BILL TWICE. Both games have almost no interface.
+    FF10 can delete its HUD because it is a corridor; Klubnika can delete his
+    because the machine is at arm's length in first person. WE HAVE NEITHER
+    EXCUSE. Two great interfaces both paying for a quiet screen with something we
+    do not have is not a coincidence to admire, it is a bill to notice.
+  MP.L01 CORRECTS MY OWN AIM. Klubnika's grime unifies THE ROOM YOU STAND IN. I
+    put a world technique on a MENU, the one surface that is not part of the
+    room, and it read as a texture that failed. He killed it and he was right.
+    The finding belongs to the WORLD lane, where the sheet is already at 0.30.
+  MP.W03 IS THE THESIS AND IT IS HIS SENTENCE. FF10 is right about INFORMATION,
+    Machine Party is right about SUBSTANCE, and his own verdict already describes
+    the seam: the CUT corner is a stamped metal tag, the HEAVY line is welded
+    rather than drawn, GOLD AND COLD is two colours that MEAN two things, ALL
+    TYPEWRITER WIDTH is a readout on a device, and the dirt died because grime
+    belongs to the room and not the readout. THE LOOK HE PICKED IS ALREADY THE
+    SENTENCE HE SAID. Every next thing gets held against it: is it readable like
+    FF10, and is it made of something like Machine Party.
+ALSO: HIS EM DASH RULE HAD NEVER BEEN GATED. CLAUDE.md has said "never use em
+  dashes anywhere" since day one and nothing in the machine ever checked. This
+  page was shipping NINETEEN at him. Zero now, on the page and in the corpus that
+  feeds it, and gated. (The run slice still holds ~1029, nearly all inside
+  inlined engine comments and district notes rather than on screen. Not swept
+  this turn, named here so somebody can decide if any of them are visible.)
+*** AND THE FRONT SPLASH WAS BROKEN ON MAIN. NOT MINE, FIXED IN PASSING. ***
+  A lane's bad conflict resolution left a >>>>>>> marker in the alpha AND ATE THE
+  OPENING <!-- of the comment after the build stamp, so the marker plus seven
+  lines of internal prose were RENDERING ON THE FRONT SPLASH: the first thing
+  anybody sees on the one link he pastes to people. alpha_loads caught the
+  marker. front_door_gate was 8/8 GREEN THROUGH ALL OF IT, because every leg it
+  had asks whether the door OPENS and this is about what the door SAYS.
+  Fixed, and front_door_gate has A9/A9b now: no merge marker and no leaked source
+  on the splash, and it must be SHORT because it is a door and not a document.
+  86 chars now, 535 with the break. Mutation-proved by putting the bad merge back.
+  THE COMMENT THAT GOT EATEN IS ITSELF A WARNING ABOUT THIS EXACT ACCIDENT, from
+  8/2: "Twice a lane updating the build stamp ate it... the one link Paolo taps
+  went to a black rectangle. Both times it reached main." Third time.
+IN FLIGHT
+  Nothing half-built.
+BLOCKED ON
+  One thumb: PRESSED, in the UI tab, now that it plays itself.
+WHAT I WOULD DO NEXT
+  1. Whatever he says on PRESSED, then push the look into the RUN's real tokens.
+  2. UI-11, a real typeface, now that ALL TYPEWRITER-WIDTH is a ruling.
+  3. UI-6, the beat list (FFX.R01 + MP.R01 together).
+PROOF
+  records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md
+  records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt
+  gates/webkit_gate.js         15 passed, 0 FAILED  (new, on a REAL WebKit)
+  gates/ui_vocab_gate.js       80 passed, 0 FAILED  (was 67)
+  gates/ui_study_gate.js       52 passed, 0 FAILED  (was 45)
+  gates/front_door_gate.js     10 passed, 0 FAILED  (was 8, green on a broken splash)
+  MUTATED, five new, all restored:
+    press animations killed        -> WEBKIT red, "none, none, none"
+    all three presses made same    -> WEBKIT red, three labels not three answers
+    a round that indexes not shown -> STUDY red, "FFX 18" only
+    an em dash put back            -> VOCAB red
+    a font shorthand put back      -> VOCAB red (kept, for the house pattern)
+  AND THREE MORE THINGS THE MACHINE CAUGHT IN ME: .ghost was already taken; the
+  answered-fork leg counted .opt and went red on a page doing the right thing;
+  and the fork count included the study's own round card, so a correct page
+  looked like it had five answers.
+------------------------------------------------------------------------------
+WORDS (words-8dqrnq): 8/27 (a) LATEST -- *** THE WHOLE DEMO TALKS LIKE PEOPLE NOW. All five
+demo scenes voice-passed, days 1 to 5. They contracted 0-7% of the time; they contract 82-100%
+now. TAB: WORDS, tap THE VOICE PASS. Or just play the demo. Nothing to judge. ***
+He said: "WE HAVE a demo to ship more forward motion work we need to complete... know what
+comes after." So I asked the repo what the demo actually is, instead of guessing.
+*** THE DEMO IS FIVE QUESTS AND I HAD PASSED ONE OF THEM. *** engine/bohemia_demoquests.js
+schedules days 1-5, and those five .bq files are EVERY WORD A STRANGER READS:
+    day 1  S01 THE METER READER            passed 8/26
+    day 2  S09 THE BACK DOOR                0.0% contractions
+    day 3  S02 THE SAME CRATE TWICE         0.0%
+    day 4  S22 THE COLD ROOM                0.0%
+    day 5  S25 THE PRESSURE GOES BACKWARD   0.0%
+One scene passed and four at zero would mean THE DEMO CHANGES VOICE ON DAY TWO, which is worse
+than passing none of it. All four are done.
+    d1 The Meter Reader             95.0%  (was  7.1%)   rhythm 0.74 (was 0.49)
+    d2 The Back Door               100.0%  (was  0.0%)   rhythm 0.95 (was 0.87)
+    d3 The Same Crate Twice         81.8%  (was  0.0%)   rhythm 0.77 (was 0.64)
+    d4 The Cold Room                92.6%  (was  0.0%)   rhythm 0.70 (was 0.70)
+    d5 The Pressure Goes Backward   95.7%  (was  0.0%)   rhythm 0.79 (was 0.78)
+    whole build, quest scenes: 20.1% (was 2.2%).  Questions asked of the player: 8 (was 2).
+*** AND DAY 3 WAS BREAKING A LAW IN FRONT OF A STRANGER. *** THERE IS NO MONEY (7/26, narrowed
+8/15) allows the word only as the dead past, never a live transaction. THE SAME CRATE TWICE had
+FOUR live ones: "I pay better, and I pay now", "quiet money spends the same as loud money",
+"(take the money, say nothing)", and a journal line reading "Quiet money". The blues now offer
+what they are actually handing over: two cases of water and a full tank. Found by reading the
+demo's own script, not by a gate.
+*** THE PART THAT NEARLY SHIPPED WRONG, AND IT IS THE LESSON: REWRITING A .bq IS NOT THE DEMO
+SAYING IT. *** The quest text is inlined THREE times downstream, by three different tools --
+the current slice, THE CITY WORLD (which is where the day loop actually plays it), and the
+DIRECT tab's own table. I rewrote five quests, re-cut the demo, and THE DEMO STILL SPOKE EVERY
+OLD LINE, because the cut copies the alpha and nothing had re-inlined the alpha. Caught by
+grepping the built demo for its own words. voice_gate now asserts five new lines are IN the
+built demo file and five old ones are GONE, mutation-tested both ways. VERIFY ON THE REAL
+SURFACE, again.
+ALSO KILLED: the demo hand-typed each day's brief out of the .bq, so day 1's card said the old
+sentence while the quest said the new one. Two copies of one line. The log wins now
+(D.brief() reads the quest) and the table is a fallback only, with both halves gated.
+RESEARCH (he asked for it): records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md. The
+useful finding is measurable and we fail it -- A REFUSAL IS NEVER JUST "NO". A yes lands at a
+median ~269 ms and a no at ~561, and the gap gets filled: a breath, a preface, an appreciation,
+the reason BEFORE the refusal, often a trail-off that means no without saying it. Ours hedge
+4.8% of the time. That is TELL 8, counted every run. Second finding: class and region live in
+SYNTAX, never in spelling -- never respell a word for an accent, in any language.
+TWO RULERS WERE BROKEN AND BOTH WERE FLATTERING ME:
+ 1. The stumble count said ZERO. It asked for two identical ADJACENT tokens, so "Easy. Easy,
+    easy." (comma), "No. No, no." (case) and "don't, uh. Don't" (both) all read as clean. The
+    real as-found number is 12, not 0. The tell's direction is unchanged; the number was wrong
+    and wrong in my favour. The correction is printed in the report itself.
+ 2. voice_gate had `if (!ok(...)) return;` -- and ok() returns whatever ++ evaluated to, so it
+    was SILENTLY SKIPPING checks. Fixing it took the gate from 52 passing to 67.
+WHEN A METRIC AGREES WITH YOU TOO HARD, SUSPECT THE METRIC.
+AND ONE I BROKE SIDEWAYS: language_gate builds its English dictionary OUT OF THE GAME'S OWN
+ENGLISH LINES, so when my rewrite deleted the last lines containing "pass" and "closer", two
+Spanish-register lines using them read as phonetic respellings. The sweep was working, not
+failing. Both declared in the barks bank's englishAdditions with the reason written down.
+GATE: gates/voice_gate.js, 78 checks (was 44). Holds all five demo scenes on contractions,
+rhythm ratio and banned phrases; holds the words-only claim against the pre-pass commit; holds
+the built demo. Banned-phrase ratchet 44 -> 39. Nine gates green on the merged tree: voice,
+dialogue catalogue, quest study, attempt, language, handoff, current slice, demo build, direct.
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE DEMO'S OTHER WORDS. The five quests are done; the demo also has a phone, a wake card,
+    objectives and a journal, and none of those have been read as writing yet. That is the
+    rest of what a stranger actually reads.
+ 2. THE 22 UNPASSED SCENES, worst-first by rhythm ratio. Not demo-blocking.
+ 3. NOBODY EVER RAISES THEIR VOICE. Zero exclamation marks in 504 speeches, still true after
+    this pass. I did not force it; it wants a scene that earns one.
+WHAT IS PENDING HIM: nothing from this lane. No line is ever put to him for approval (8/11);
+every word is editable in the WORDS tab, both columns, export as .txt.
+
 CHARACTER (character-0lurbs): 8/28 (f) LATEST -- *** HE SENT A HAIR DISPATCH MID-TURN AND
 ALL FOUR THINGS IN IT WERE REAL. Hair side-on now has a hairline instead of a bald patch and
 a four-pixel strip, and long hair no longer lets go of the head at the jaw. TAB: CHARACTER to

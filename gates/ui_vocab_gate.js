@@ -365,32 +365,26 @@ function worst(text) {
      one is measured the only honest way: press each sample with a real mouse and
      read the style while the thumb is down. */
   const pressFp = [];
-  for (const v of ['A', 'B', 'C']) {
-    const sel = '.fork[data-k="press"] .opt[data-v="' + v + '"] .samp .btn';
-    const box = await q.evaluate((s) => {
-      const e = document.querySelector(s); if (!e) return null;
-      e.scrollIntoView({ block: 'center' });
-      const r = e.getBoundingClientRect();
-      return [r.x + r.width / 2, r.y + r.height / 2];
-    }, sel);
-    if (!box) { pressFp.push('MISSING ' + v); continue; }
-    await q.mouse.move(box[0], box[1]);
-    await q.mouse.down();
-    await SETTLE(q, 180);
-    pressFp.push(await q.evaluate((s) => {
-      const e = document.querySelector(s), i = e.querySelector('.in');
-      const c = getComputedStyle(e), ci = getComputedStyle(i);
-      return [c.backgroundColor, c.transform, ci.backgroundColor, ci.color, ci.filter].join(',');
-    }, sel));
-    await q.mouse.up();
-    await SETTLE(q, 120);
-  }
-  ok('the three PRESSED looks really are three different looks under a thumb (' +
-     new Set(pressFp).size + ' of 3 distinct)', new Set(pressFp).size === 3);
-  ok('and a press changes something at the EDGE of the box, not only its middle ' +
-     '(a thumb covers the middle)',
-     pressFp.every(f => typeof f === 'string' && f.indexOf('MISSING') < 0) &&
-     new Set(pressFp.map(f => f.split(',')[0] + f.split(',')[1])).size >= 2);
+  /* *** THIS BLOCK ASSUMED THREE PRESSES AND HE ANSWERED THE FORK (8/27 14:12).
+     *** It walked A, B and C, and after his verdict only the one he chose is on
+     the page -- so it read null twice and threw inside getComputedStyle.
+     THE RULE IT WAS PROTECTING IS THE IMPORTANT ONE AND IT SURVIVES INTACT:
+     A PRESS MUST CHANGE THE EDGE OF THE BOX, NOT ONLY ITS MIDDLE, BECAUSE A THUMB
+     COVERS THE MIDDLE. That is his 8/27 complaint in one sentence, and it is a
+     better test measured against the button's OWN RESTING STATE than against its
+     siblings: it holds with one candidate or with three, and it cannot be passed
+     by three options that merely differ from each other while all changing only
+     the middle. */
+  /* *** AND THE TARGET HAD TO CHANGE TOO, FOR A REASON WORTH WRITING DOWN. ***
+     The obvious place to test a press is the PRESSED fork's own sample. It is the
+     wrong place: those samples PLAY THEMSELVES on a loop now (his 8/27 note, "show
+     me what it looks like in action"), and a CSS animation beats :active on the
+     same property. Pressing a self-playing demo measures the animation, not the
+     press. The demos are proved to be MOVING by webkit_gate, which is the claim
+     that belongs to them.
+     So the press rule is tested on the page's REAL buttons -- the ones he can
+     actually push -- which is also where it matters. It holds no matter how many
+     candidates the fork has left. */
   /* *** HIS VERDICT LANDED 8/27, so most of these are not questions any more.
      A fork he ruled on shows what he chose; a fork where he killed everything is
      gone; only what he has not answered still asks. Re-showing thumbs on a
@@ -398,19 +392,87 @@ function worst(text) {
   const asking = forks.filter(f => !f.answered && !f.killed);
   const done   = forks.filter(f => f.answered);
   const killed = forks.filter(f => f.killed);
-  ok('the four he answered are shown as ANSWERED, not re-asked (' + done.length + ')',
-     done.length === 4);
+
+  /* THE PICKS ARE NOT THE LANDING ANY MORE (8/27): the tab opens on photographs
+     of the game wearing his look, because that is where the unanswered thumbs
+     are. A hidden room has zero-width buttons and no running animations, so the
+     gate has to walk into the room before it can measure anything in it. */
+  await q.evaluate(() => { const b = document.querySelector('.vbtn[data-view=pick]'); if (b) b.click(); });
+  await SETTLE(q, 800);
+
+  const pressed = [];
+  const realBtns = await q.evaluate(() => [...document.querySelectorAll('.bx.btn')]
+    .filter(e => !e.closest('.demo') && e.getBoundingClientRect().width > 0)
+    .slice(0, 3).map((e, i) => { e.setAttribute('data-gate-btn', String(i)); return i; }));
+  for (const i of realBtns) {
+    const sel = '[data-gate-btn="' + i + '"]';
+    const rest = await q.evaluate((s) => {
+      const e = document.querySelector(s); if (!e) return null;
+      const inn = e.querySelector('.in'); if (!inn) return null;
+      e.scrollIntoView({ block: 'center' });
+      const r = e.getBoundingClientRect(), c = getComputedStyle(e), ci = getComputedStyle(inn);
+      return { at: [r.x + r.width / 2, r.y + r.height / 2],
+               edge: [c.backgroundColor, c.transform].join(','),
+               mid:  [ci.backgroundColor, ci.color, ci.filter].join(',') };
+    }, sel);
+    if (!rest) continue;
+    await q.mouse.move(rest.at[0], rest.at[1]);
+    await q.mouse.down();
+    await SETTLE(q, 180);
+    const down = await q.evaluate((s) => {
+      const e = document.querySelector(s); if (!e) return null;
+      const inn = e.querySelector('.in'); if (!inn) return null;
+      const c = getComputedStyle(e), ci = getComputedStyle(inn);
+      return { edge: [c.backgroundColor, c.transform].join(','),
+               mid:  [ci.backgroundColor, ci.color, ci.filter].join(',') };
+    }, sel);
+    await q.mouse.up();
+    await SETTLE(q, 120);
+    if (down) pressed.push({ i, rest, down });
+  }
+  ok('there are real buttons on the page to put a thumb on (' + pressed.length + ')',
+     pressed.length >= 1);
+  ok('*** A PRESS CHANGES THE EDGE OF THE BOX, NOT ONLY ITS MIDDLE, because a ' +
+     'thumb covers the middle *** -- measured against each button\'s own resting ' +
+     'state, so it holds whether the fork has one candidate left or three',
+     pressed.length >= 1 && pressed.every(x => x.down.edge !== x.rest.edge));
+  ok('and the middle moves as well, so the whole box answers and not just its rim',
+     pressed.every(x => x.down.mid !== x.rest.mid));
+  ok('the PRESSED sample he votes on plays ITSELF, so he never has to cover it ' +
+     'with a thumb to see it', await q.evaluate(() => {
+       const d = document.querySelector('.fork[data-k="press"] .demo .bx');
+       return !!d && getComputedStyle(d).animationName !== 'none';
+     }));
+  /* *** THESE THREE LEGS COUNTED ROWS AND MEANT A RULE, AND THE COUNTS MOVED
+     THE SAME DAY (8/27 14:12). *** They hard-coded "four answered, two killed,
+     exactly one still asking". Then he answered PRESSED, and a correct page
+     became five answered and none asking -- so the gate went red on the page
+     doing exactly what the gate exists to enforce. A NUMBER IS NOT A RULE. The
+     rule is that the page agrees with HIS VERDICT, whatever it currently says, so
+     the counts are read out of the verdict the page was built from instead of
+     being written down here a second time. Two copies of a fact is how one of
+     them goes stale, which is the whole reason this page is generated from the
+     verdict rather than storing it. */
+  const VERDICT_YES = (tool.match(/^\s*[a-z]+:\s*\{\s*yes:\s*'[A-C]'/gm) || []).length;
+  const VERDICT_DEAD = (tool.match(/^\s*[a-z]+:\s*\{\s*yes:\s*null,\s*no:\s*\[\s*'[A-C]'/gm) || []).length;
+  ok('the verdict itself can be read, so the page and the gate cannot drift ' +
+     '(' + VERDICT_YES + ' answered, ' + VERDICT_DEAD + ' killed)',
+     VERDICT_YES > 0 && VERDICT_YES + VERDICT_DEAD <= forks.length);
+  ok('every fork HE ANSWERED is shown as ANSWERED, not re-asked (' + done.length +
+     ' of ' + VERDICT_YES + ')', done.length === VERDICT_YES);
   /* an ANSWERED fork has no options left -- that is the point -- so it is
      checked for SHOWING THE WINNER, not for still offering a choice. The first
      cut counted .opt and went red on a page doing exactly the right thing. */
   ok('and each of them SHOWS the option he chose, wearing it',
      done.every(f => f.answered && f.samples === 1 && f.picks === 0));
-  ok('the two where he killed every option are gone, not re-pitched (' + killed.length + ')',
-     killed.length === 2);
+  ok('every fork where he killed every option is gone, not re-pitched (' +
+     killed.length + ' of ' + VERDICT_DEAD + ')', killed.length === VERDICT_DEAD);
   ok('and a killed fork offers him nothing to vote on again',
      killed.every(f => f.picks === 0));
-  ok('exactly one fork is still asking, and it is the one he could not see (' +
-     asking.map(f => f.k).join(',') + ')', asking.length === 1 && asking[0].k === 'press');
+  ok('NOTHING IS ASKED TWICE: the only forks still asking are the ones his ' +
+     'verdict leaves open (' + (asking.length ? asking.map(f => f.k).join(',')
+      : 'none, he has answered or killed all seven') + ')',
+     asking.length === forks.length - VERDICT_YES - VERDICT_DEAD);
   ok('EVERY OPTION HE VOTES ON HAS A THUMBS UP AND A THUMBS DOWN',
      asking.every(f => f.picks === f.opts.length * 2));
   ok('every option shows a REAL sample, not just a label',
@@ -425,40 +487,57 @@ function worst(text) {
      whole subject is what happens under a finger was the one he could not see.
      It has to MOVE, on its own, with a thumb-sized thing landing on it -- and
      the three have to move DIFFERENTLY or they are three labels again. */
+  /* *** AND HIS ANSWER TOOK TWO OF THE THREE AWAY (8/27 14:12). *** This walked
+     A, B and C by name and read null twice once PRESSED was answered, because an
+     answered fork shows only what he chose.
+     THE RULE SURVIVES WHOLE and is what actually gets checked: EVERY press sample
+     on the page moves on its own, and a thumb-sized ghost comes down onto the
+     MIDDLE of it. Written against whatever candidates are there, so it holds at
+     one or at three, and it still fails the moment anything stops moving. */
   const moves = await q.evaluate(async () => {
-    const el = v => document.querySelector('.demo-' + v + ' .bx');
-    const inn = v => document.querySelector('.demo-' + v + ' .in');
-    const seen = { A: new Set(), B: new Set(), C: new Set(), thumb: new Set() };
+    const demos = [...document.querySelectorAll('.fork[data-k="press"] .demo')];
+    const seen = demos.map(() => new Set());
+    const thumbs = demos.map(() => new Set());
     for (let i = 0; i < 22; i++) {
-      seen.A.add(getComputedStyle(inn('A')).backgroundColor);
-      seen.B.add(getComputedStyle(el('B')).transform);
-      seen.C.add(getComputedStyle(el('C')).backgroundColor);
-      seen.thumb.add(Number(getComputedStyle(document.querySelector('.fingertip')).opacity).toFixed(1));
+      demos.forEach((d, n) => {
+        const box = d.querySelector('.bx'), inn = d.querySelector('.in');
+        const c = box ? getComputedStyle(box) : null, ci = inn ? getComputedStyle(inn) : null;
+        seen[n].add([c && c.backgroundColor, c && c.transform, ci && ci.backgroundColor].join('|'));
+        const g = d.querySelector('.fingertip');
+        if (g) thumbs[n].add(Number(getComputedStyle(g).opacity).toFixed(1));
+      });
       await new Promise(r => setTimeout(r, 170));
     }
-    const g = document.querySelector('.fingertip');
-    const btn = el('A').getBoundingClientRect();
-    const gr = g.getBoundingClientRect();
-    return {
-      A: seen.A.size, B: seen.B.size, C: seen.C.size, thumb: seen.thumb.size,
-      names: ['A', 'B', 'C'].map(v => getComputedStyle(el(v)).animationName),
-      thumbW: Math.round(gr.width),
-      /* the ghost has to sit ON the button's middle, because covering the middle
-         IS the argument */
-      coversMiddle: Math.abs((gr.left + gr.width / 2) - (btn.left + btn.width / 2)) < 6
-    };
+    return demos.map((d, n) => {
+      const box = d.querySelector('.bx'), g = d.querySelector('.fingertip');
+      const br = box ? box.getBoundingClientRect() : null;
+      const gr = g ? g.getBoundingClientRect() : null;
+      return {
+        cls: d.className,
+        states: seen[n].size,
+        anim: box ? getComputedStyle(box).animationName : 'NONE',
+        thumbStates: thumbs[n].size,
+        thumbW: gr ? Math.round(gr.width) : 0,
+        coversMiddle: !!(br && gr) &&
+          Math.abs((gr.left + gr.width / 2) - (br.left + br.width / 2)) < 6
+      };
+    });
   });
-  ok('THE PRESS PLAYS ITSELF: the FLIP really changes (' + moves.A + ' states seen)', moves.A >= 2);
-  ok('the SINK really moves (' + moves.B + ' positions seen)', moves.B >= 2);
-  ok('the EDGE really lights (' + moves.C + ' states seen)', moves.C >= 2);
-  ok('and a ghost thumb comes down and lifts off (' + moves.thumb + ' opacities seen)',
-     moves.thumb >= 3);
-  ok('the ghost is thumb-sized (' + moves.thumbW + 'px, a fingertip is about 45)',
-     moves.thumbW >= 40 && moves.thumbW <= 60);
+  ok('there is a PRESSED sample on the page at all (' + moves.length + ')', moves.length >= 1);
+  ok('*** THE PRESS PLAYS ITSELF *** -- every sample really changes on its own (' +
+     moves.map(m => m.states + ' states').join(', ') + ')',
+     moves.length >= 1 && moves.every(m => m.states >= 2 && m.anim !== 'none' && m.anim !== 'NONE'));
+  ok('a ghost thumb comes down and lifts off each one (' +
+     moves.map(m => m.thumbStates).join(', ') + ' opacities)',
+     moves.every(m => m.thumbStates >= 3));
+  ok('the ghost is thumb-sized (' + moves.map(m => m.thumbW + 'px').join(', ') +
+     '; a fingertip is about 45)',
+     moves.every(m => m.thumbW >= 40 && m.thumbW <= 60));
   ok('and it lands ON THE MIDDLE of the button, because covering the middle IS ' +
-     'the argument', moves.coversMiddle);
-  ok('the three presses are three DIFFERENT animations, not three labels (' +
-     moves.names.join(', ') + ')', new Set(moves.names).size === 3);
+     'the argument', moves.every(m => m.coversMiddle));
+  ok('no two presses share an animation, so they are answers and not labels (' +
+     moves.map(m => m.anim).join(', ') + ')',
+     new Set(moves.map(m => m.anim)).size === moves.length);
   ok('and a loop that will not stop has a still fallback for reduced motion',
      /prefers-reduced-motion:reduce\)\{[\s\S]{0,400}\.fingertip\{ animation:none/.test(page));
 
@@ -469,8 +548,10 @@ function worst(text) {
      under a real thumb instead, above, and that check is not optional -- if the
      press fork ever stops being measured there, the count below goes to 2 and
      this line goes red. */
-  ok('the PRESSED fork is covered by the thumb measurement, not skipped',
-     pressFp.length === 3 && forks.some(f => f.k === 'press'));
+  ok('the PRESSED fork is still covered by a real measurement, not skipped ' +
+     '(' + moves.length + ' sample(s) watched moving, ' + pressed.length +
+     ' real button(s) pressed)',
+     moves.length >= 1 && pressed.length >= 1 && forks.some(f => f.k === 'press'));
   const same = [];
   for (const f of forks) {
     if (f.k === 'press') continue;
@@ -506,23 +587,85 @@ function worst(text) {
   ok('and the two he killed are wearing nothing at all',
      !worn.texture && !worn.feed);
 
-  /* ---- and the fork still asking behaves like a vote --------------------- */
-  await q.click('.thumb.up[data-k="press"][data-v="A"]');
+  /* ---- and a thumb still behaves like a vote ------------------------------
+     *** THIS CLICKED PRESSED/A BY NAME AND HE ANSWERED PRESSED (8/27 14:12), ***
+     so the button it reached for no longer exists. The rule is not about that
+     button: IT IS THAT A THUMB HE CAN STILL TAP REALLY REGISTERS, VISIBLY, AND
+     NEVER BY COLOUR ALONE. So it finds whatever is genuinely unanswered on the
+     page -- today that is the photographs of the game wearing his look -- and
+     votes on that. If nothing anywhere is unanswered, it falls back to any thumb,
+     because the mechanism still has to work. */
+  const votable = await q.evaluate(() => {
+    const groups = {};
+    document.querySelectorAll('.thumb[data-k]').forEach(t => {
+      const k = t.getAttribute('data-k');
+      (groups[k] = groups[k] || []).push(t);
+    });
+    const open = Object.keys(groups).find(k => !groups[k].some(t => t.classList.contains('on')));
+    const k = open || Object.keys(groups)[0];
+    if (!k) return null;
+    const up = groups[k].find(t => t.getAttribute('data-t') === 'UP') || groups[k][0];
+    const other = groups[k].find(t => t !== up) || null;
+    up.setAttribute('data-gate-vote', 'up');
+    if (other) other.setAttribute('data-gate-vote', 'other');
+    /* AND IT HAS TO SAY WHICH ROOM IT IS IN. The tab has three rooms now and only
+       one is on screen at a time, so a thumb in a hidden room cannot be clicked
+       -- which is the honest reason the first cut of this timed out rather than
+       failing: it had found the right thumb in the wrong room. */
+    const room = up.closest('.view');
+    return { k, wasOpen: !!open, hasOther: !!other, room: room ? room.id : null };
+  });
+  ok('there is a thumb on this page he can still tap' +
+     (votable ? ' (' + votable.k + (votable.wasOpen ? ', unanswered' : ', already answered') + ')' : ''),
+     !!votable);
+  if (votable && votable.room) {
+    await q.evaluate((id) => {
+      const v = document.getElementById(id);
+      if (v && !v.classList.contains('on')) {
+        const tabs = [...document.querySelectorAll('.vbtn')];
+        const want = { viewWears: 'wears', viewPick: 'pick', viewStudy: 'study' }[id];
+        const b = tabs.find(t => t.getAttribute('data-view') === want);
+        if (b) b.click();
+      }
+    }, votable.room);
+    await SETTLE(q, 700);
+  }
+  ok('and the room it lives in can actually be opened to reach it (' +
+     (votable ? votable.room : 'n/a') + ')',
+     await q.evaluate((id) => { const v = document.getElementById(id);
+       return !!v && v.classList.contains('on'); }, votable ? votable.room : ''));
+  await q.click('[data-gate-vote="up"]');
   await SETTLE(q, 400);
   const stuck = await q.evaluate(() => {
-    const b = document.querySelector('.thumb.up[data-k="press"][data-v="A"]');
-    const u = document.querySelector('.thumb.up[data-k="press"][data-v="B"]');
+    const b = document.querySelector('[data-gate-vote="up"]');
+    const u = document.querySelector('[data-gate-vote="other"]') || b;
     const cb = getComputedStyle(b), cu = getComputedStyle(u);
+    const k = b.getAttribute('data-k');
     return { on: b.classList.contains('on'),
-             root: document.documentElement.getAttribute('data-press'),
+             root: b.getAttribute('data-v'),
              bw: cb.borderWidth, uw: cu.borderWidth,
              txt: b.textContent.trim(), utxt: u.textContent.trim(),
-             label: (document.getElementById('picked-press') || {}).textContent || '' };
+             label: (document.getElementById('picked-' + k) || {}).textContent || 'n/a' };
   });
   ok('the thumb sticks when tapped', stuck.on);
-  ok('and the whole page is wearing it (data-press=' + stuck.root + ')', stuck.root === 'A');
-  ok('and it says back in words what he just said (' + stuck.label.slice(0, 30) + ')',
-     /YES to A/.test(stuck.label));
+  /* *** THESE TWO ASKED ABOUT A FORK VOTE AND THE VOTE MOVED ROOMS. *** A fork
+     vote re-skins the whole page and writes his choice back in words under the
+     question. A vote on a PHOTOGRAPH of the game does neither, and should not:
+     there is nothing to re-skin, the page is showing him the game already.
+     So each shape is checked for what it actually owes him, and a fork vote is
+     still held to the full old standard whenever one is what got tapped. */
+  const isFork = forks.some(f => f.k === (votable && votable.k));
+  if (isFork) {
+    ok('a fork vote re-skins the WHOLE page, not just the row (' + stuck.root + ')',
+       !!stuck.root);
+    ok('and it says back in words what he just said (' + stuck.label.slice(0, 30) + ')',
+       /YES to /.test(stuck.label));
+  } else {
+    ok('a vote on a picture of the game registers on the thumb itself, which is ' +
+       'all it owes him (' + votable.k + ')', stuck.on === true);
+    ok('and it says YES in words, not only in colour (' + stuck.txt + ')',
+       /YES/i.test(stuck.txt));
+  }
   /* NO ESSENTIAL INFORMATION BY COLOUR ALONE (basic tier; ~1 in 12 men). */
   ok('A VOTE IS NEVER COLOUR ALONE: it also gets a heavier edge (' +
      stuck.uw + ' -> ' + stuck.bw + ')', stuck.bw !== stuck.uw);
@@ -530,14 +673,35 @@ function worst(text) {
      stuck.txt !== stuck.utxt && stuck.txt.length > stuck.utxt.length);
 
   /* SAYING NO IS A VOTE TOO, and it is the half that used to get thrown away:
-     a dead option is a ruling, and GRAVEYARD IS FINAL. */
-  await q.click('.thumb.down[data-k="press"][data-v="B"]');
-  await SETTLE(q, 300);
-  /* ---- 6e. HIS WORK SURVIVES A RELOAD ------------------------------------ */
+     a dead option is a ruling, and GRAVEYARD IS FINAL.
+     *** THIS ALSO NAMED PRESSED/B, AND HE ANSWERED PRESSED. *** It taps whatever
+     NO is next to the YES it just used, which is the same test on whatever the
+     page is actually offering. */
+  if (votable && votable.hasOther) {
+    await q.click('[data-gate-vote="other"]');
+    await SETTLE(q, 300);
+  }
+  ok('saying NO is a vote too, and there is one to say it with', !votable || votable.hasOther);
+
+  /* ---- 6e. HIS WORK SURVIVES A RELOAD ------------------------------------
+     *** AND THE RELOAD CHECK ASKED FOR data-press='A' -- which is now true
+     because HE RULED IT, not because the gate had just clicked it. That made the
+     leg pass for the wrong reason, which is worse than failing. It checks his
+     WHOLE verdict survives instead: every fork he answered is still worn after a
+     reload, on a page that has to rebuild itself from what it saved. */
   await q.reload();
   await SETTLE(q, 1200);
-  ok('his picks are still there after a reload',
-     await q.evaluate(() => document.documentElement.getAttribute('data-press') === 'A'));
+  const survived = await q.evaluate(() => {
+    const r = document.documentElement;
+    const out = {};
+    ['shape', 'weight', 'colour', 'type', 'press'].forEach(k => { out[k] = r.getAttribute('data-' + k); });
+    return out;
+  });
+  ok('HIS WHOLE VERDICT SURVIVES A RELOAD, not just the last thing tapped ' +
+     '(corner ' + survived.shape + ', line ' + survived.weight + ', colour ' +
+     survived.colour + ', letters ' + survived.type + ', pressed ' + survived.press + ')',
+     survived.shape === 'C' && survived.weight === 'B' && survived.colour === 'B' &&
+     survived.type === 'A' && survived.press === 'A');
 
   /* ---- 6f. THE THUMB (SHARED -5): iPhone portrait, one hand -------------- */
   const small = await q.evaluate(() => {

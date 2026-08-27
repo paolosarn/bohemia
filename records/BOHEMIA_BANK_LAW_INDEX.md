@@ -65,13 +65,14 @@ bank cannot quietly add a rule nobody checks.
 | 43 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
 | 44 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
 | 45 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
-| 46 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
-| 47 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
-| 48 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
-| 49 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
-| 50 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
-| 51 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 52 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 46 | `banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt` | `ruling` | Paolo 8/27 06:07, THE LETTERS, YES: A ALL TYPEWRITER-WIDTH. "Every letter the same width, everywhere, labels and body alike. A receipt, a ledger, a printout, for a game about money that stopped working." And the same message: "download whatever you need to download or make anything you need to make". |
+| 47 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
+| 48 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
+| 49 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
+| 50 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
+| 51 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
+| 52 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 53 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
 
-TOTAL: 52 rulings across 38 files.
+TOTAL: 53 rulings across 39 files.
 

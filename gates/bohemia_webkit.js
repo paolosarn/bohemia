@@ -95,6 +95,16 @@ async function webkit(url, script, opts) {
 
     await post('/session/' + sid + '/url', { url });
     await sleep(opts.settle || 2200);
+    /* OPTIONAL SETUP STEP, IN THE SAME SESSION (8/27). A page with more than one
+       room needs to be put in the right room before it can be measured, and a
+       second webkit() call cannot do it: every call is a fresh session and a
+       fresh page load, so whatever it clicked is gone. `pre` runs first, then
+       `preWait` gives the browser real frames to start animations in, and only
+       then does the measurement run. */
+    if (opts.pre) {
+      await post('/session/' + sid + '/execute/sync', { script: opts.pre, args: [] });
+      await sleep(opts.preWait || 1200);
+    }
     const r = await post('/session/' + sid + '/execute/sync', { script, args: [] });
     if (r.value === undefined || (r.value && r.value.error)) {
       return { ok: false, error: JSON.stringify(r).slice(0, 200) };

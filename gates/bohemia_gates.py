@@ -3041,6 +3041,14 @@ GATES = [
      'the corpus can never drift into two live copies of one truth. In the UI tab as its own '
      'view, with the picks still the door he lands on, and its own sun-mode sweep because '
      'ui_vocab_gate is structurally blind to a hidden view', True),
+    ('UI LOOK',        ['node', 'gates/ui_look_gate.js'],
+     "Paolo 8/27 06:07 and 14:12: CUT corner, HEAVY line, GOLD AND COLD, ALL TYPEWRITER-WIDTH, "
+     "PRESSED = FLIP. For eight hours that verdict lived on a judge page and NOWHERE ELSE while "
+     "the game he plays wore the old chrome and the whole suite stayed green -- a ruling that only "
+     "reaches a record is a ruling that did not ship. Every leg here reads the PIXELS of the real "
+     "run, walked out of the house and into the conversation the player actually has, and then asks "
+     "the same questions on a REAL WEBKIT, because the data-URI @font-face, the clip-path and the "
+     "::before inner face are three techniques none of his five played surfaces used before today", False),
     ('UI VOCAB',       ['node', 'gates/ui_vocab_gate.js'],
      'Paolo 8/25: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME ... CRAFT THIS BOHEMIA LOOK '
      'BY MYSELF WITH YOU." The UI lane\'s first page: seven forks (corner, line, colour, '
