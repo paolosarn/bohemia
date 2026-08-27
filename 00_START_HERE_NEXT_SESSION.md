@@ -1,3 +1,75 @@
+FACTIONS (factions-ovkjpf): 8/27 (r) LATEST -- *** A GUARD THAT COMPARED TWO
+CONSTANTS, AND A LIST OF DIRECTIONS WITH NO REASONS ON IT. Nothing to judge. ***
+
+TAB: **RUN**, the ⚔ OUTFIT chip.
+
+=== ONE. ctBases() HAD A CHECK THAT COULD NEVER FIRE ===
+    if(String(BOH_SEED_TEXT) !== String(CT_BASES_SEED)) return null;
+BOH_SEED_TEXT is a const ('bohemia'). CT_BASES_SEED is baked from that same
+const. TWO CONSTANTS. Its own comment says what it is for -- "a different seed
+gets NULL rather than a confidently wrong answer" -- and the intent is right
+while the variable is wrong.
+
+WHAT MAKES A DIFFERENT WORLD IS `seed`, which REROLL advances by one LCG step
+and never touches the text. MEASURED BY PRESSING THE REAL BUTTON:
+    seed      2691674296 -> 3182853632    the world IS new
+    ctBases() null? false -> false        the guard never fired
+Damage is not that factions vanish (people are keyed to cell coords, so the
+census is identical). It is that the bases then sit on whatever terrain the new
+overmap put under those coordinates.
+
+FIXED with the comparison the comment meant: seed === BOH_ONE_SEED(). The text
+check STAYS -- it catches somebody editing the seed and forgetting to re-bake.
+
+AND IT SAYS SO WHEN IT FIRES, which is the half that matters. Returning null in
+silence is how this lane lost thirteen days (factionOf answered null for all
+166 people and "nobody runs with anybody" looks exactly like a world where
+nobody does). A GUARD THAT GOES QUIET IS THE BUG IT WAS WRITTEN TO PREVENT.
+Board + one console line: "YOU REROLLED THE WORLD. The outfits' ground was
+mapped for the valley that was here before..."
+REROLL is in the builder drawer and hidden from the demo, so this is a workshop
+consequence, not a player one.
+
+=== TWO. THE VALLEY LIST TOLD HIM WHERE AND NEVER WHY ===
+Yesterday: nearest outfit is 29 cells from spawn = 3,712 tiles, and the board
+started listing every outfit with a bearing. That makes it FINDABLE and gives
+nobody a REASON.
+
+AND THE REASONS WERE ALREADY WRITTEN. bohemia_belonging RULES has anchorWant +
+pays for all sixteen:
+    COLORFUL  "To know whether you are safe to be around"
+              THEY PAY: A NETWORK INSIDE EVERY OTHER FACTION
+    MOB       "You ACCOUNTED FOR. Not loyal, not employed - listed"
+              THEY PAY: ENFORCEMENT OF A DEAL
+    CARTEL    "They want you to OWE them"
+              THEY PAY: WHATEVER YOU NEEDED THAT WEEK
+Every one shown ONLY on the card of somebody he had ALREADY MET -- one walk too
+late. Same shape as the four Colorful garments worn by nobody for five weeks.
+The board says it now, before he goes. Nothing authored: gate L4 compares every
+string against the module, so the board may move his words and never write new
+ones.
+
+  FACTION BETWEEN  81 passed, 0 failed (was 73)   CARD FOLD   18/0
+  ORGAN REACH       8/0   EVERY PANEL 14/0        ALPHA LOADS 20/0
+Three mutations, all bite: guard back to two constants (L6/L7/L8), guard firing
+silently (L7), the board inventing its own words (L4).
+
+HOW BOTH WERE FOUND: not by reading code. By asking what happens when somebody
+presses a button, and pressing it.
+
+*** STILL THE ONE THING BLOCKING THIS LANE, AND STILL NOT MINE ***
+837 people stand within six cells of the spawn and not one runs with anybody;
+nearest base is 29 cells. Three ways out:
+  1. THE SPAWN AND THE BASES ARE PLACED BY TWO SYSTEMS THAT HAVE NEVER HEARD OF
+     EACH OTHER. I checked for an existing answer to adopt: bohemia_loop.boot()
+     returns factionBases and NO player position at all, so reconciling them
+     means DECIDING where the player starts relative to the outfits. Placement.
+  2. The dials: AFFILIATED_RATE (0.30) and REACH_CELLS (12), both [PENDING].
+  3. Outfits get people who TRAVEL. Needs a new dial, so it needs a ruling.
+The board makes it findable and gives a reason to go. It does not make it near.
+
+--------------------------------------------------------------------------------
+
 WORDS (words-8dqrnq): 8/27 (b) LATEST -- *** THE INTERFACE WAS NEVER IN THE WORDS BOOK, AND
 THE 8/11 LAW NAMES IT BY NAME. 34 strings the demo actually paints, harvested, voice-passed,
 and editable by him for the first time. TAB: WORDS, search "screen". Nothing to judge. ***
