@@ -1,3 +1,68 @@
+FACTIONS (factions-ovkjpf): 8/28 (n) LATEST -- *** THE TOP OF THE LADDER BOUGHT
+NOTHING FOR SIXTEEN DAYS, AND THE RUNG ITSELF SAID WHAT IT WAS FOR. Nothing to
+judge. ***
+
+TAB: **RUN**. Get to INSIDE with an outfit, then walk up to somebody who runs
+with nobody. New button: PUT THEM UP FOR THE <OUTFIT>.
+
+MEASURED: the ladder is A STRANGER 0, SOMEBODY WHO SHOWED UP 1, USEFUL 3,
+COUNTED 6, INSIDE 10. bohemia_claim and bohemia_favour BOTH key off COUNTED, by
+name, at build time. NOTHING ANYWHERE KEYED OFF INSIDE -- every hit in the
+engine, the tools and the walked surface is the word inside a ladder literal or
+its own definition. So you climb the last four rungs THROUGH THE WALL (which
+costs a burned bridge, the most expensive thing this system asks) and the only
+thing that changes is the word on the card.
+bohemia_commitment's own docstring: "A ladder with no wall is a progress bar."
+A ladder whose TOP RUNG BUYS NOTHING is a progress bar with a wall in the middle.
+
+AND THE RUNG SAYS WHAT IT IS FOR. Its note has shipped since 8/12:
+    "The newcomer is the old-timer now, and the next newcomer is your problem."
+A specification, not flavour, and nothing implemented it. The mirror was even
+half-built -- bohemia_ties.vouchFor() finds somebody to vouch for a STRANGER TO
+YOU, and the direction the note describes did not exist. NOTHING IS INVENTED
+HERE: the feature is that sentence made true.
+
+IT COSTS ONE RUNG OF YOUR OWN (Portes 1998, EXCESS CLAIMS ON GROUP MEMBERS --
+being inside is a relationship that makes demands, not a prize). Through
+BohemiaBelonging.adjust, THE ONE WRITER. INSIDE at 10 -> 9, so the top rung buys
+exactly TWO before you climb back. And it is the first thing in this game that
+changes another PERSON rather than the player.
+
+HOW SOMEBODY JOINS WITHOUT A SECOND PLACEMENT RULE: allegiance is COMPUTED from
+bases + a seat hash, so there is nothing to write to. A vouch records an
+override in the save and ctFactionOf consults it FIRST, never blended with the
+roll, keyed 'P:city:'+id like the met-ledger so it survives walking away.
+
+*** AND I WROTE THE SAME BUG THIS FILE ALREADY HAS A COMMENT ABOUT. *** The
+explanatory rows referenced a `p` that does not exist inside ctIntroRows(body,
+intro, fid, ctOnwardKey), threw, and MY OWN try/catch ate it. The BUTTON worked
+the whole time (ctDraw really does have `var p = CT_OPEN`), so the offer
+appeared and the sentence explaining it silently did not. "A BARE CATCH HERE
+COST THIS LANE THREE DAYS" is already a comment in this file about ctFactionOf.
+I wrote another one twelve hours later. Fixed; the catch now speaks once.
+
+  FACTION BETWEEN  99 passed, 0 failed (was 88)   CARD FOLD 18/0
+  ORGAN REACH 8/0   ALPHA LOADS 20/0
+Three mutations, all bite.
+
+A THING I WENT LOOKING FOR AND DID NOT FIND, worth knowing so nobody re-finds
+it: over file:// the demo LOOKS like a stranger can reach the builder's drawer
+(devbtn visible, tray opens, REROLL a 95x31 button). Over HTTP -- which is what
+the published site is -- it is correctly hidden. The cutter's comment predicts
+exactly this and demo_build_gate already launches with
+--allow-file-access-from-files for the reason. I was measuring the harness.
+THE DEMO'S FACTION SYSTEM WORKS END TO END ON THE REAL PROTOCOL: chip, board,
+valley list, 14 bases, all live in BOHEMIA_DEMO.html.
+
+*** STILL THE ONE THING BLOCKING THIS LANE, AND STILL NOT MINE ***
+837 people within six cells of the spawn, none affiliated; nearest base 29
+cells. Findable, reasoned, mapped -- not NEAR. (1) spawn and bases come from two
+systems that have never heard of each other and boot() has no player position to
+reconcile against, so it is placement; (2) AFFILIATED_RATE / REACH_CELLS, both
+[PENDING]; (3) outfits with people who travel, needs a dial.
+
+--------------------------------------------------------------------------------
+
 CITY (city-1eztay): 8/28 (a) LATEST -- *** THE DEMO NOW CARRIES THE CITY, AND NOBODY HAD
 EVER MEASURED THE DEMO'S LOAD. *** THE DEMO IS ITS OWN LINK (his 8/25 law) makes it a
 separate build at a separate url, and says the workshop link is never given to a player --
