@@ -120,6 +120,27 @@ const CROSS_CLASS_DEBT = 129;
        signals, no second pair of bridge towers, and no median palms or parking pockets down
        a cross arm, because those belong to a boulevard and this is a street passing through.
        ONE RESIDUAL, NOT YET DIAGNOSED. It is written down as one rather than guessed at. */
+/* *** THE ROAD HAS TO MEET THE CITY, AND FOR TWO DAYS THIS GATE NEVER ASKED (8/28). ***
+   Every edge in the valley where a street reaches, road-to-road AND road-to-city AND
+   city-to-city, minus the ones that honestly die against desert or mountain.
+   MEASURED the day Paolo said "streets are stillls uper fucked" with this page green:
+   2,668 of 7,358. THE CAUSE WAS ONE-SIDED AND THE CITY WAS THE SIDE DOING ITS JOB --
+   every district out there obeys the STREET-AWARE ACCESS LAW and puts its car entrance at
+   the kerb, and the arterial had 27 m of parcel frontage in the way and never cut its
+   kerb to meet one. The world now measures where each neighbour's driveway arrives and
+   the road runs a real approach out to it. 2,668 -> 1,609 in one pass.
+   Two of the three fixes that got there were bugs in rules written the same hour: a
+   "widen a narrow mouth" rule that pushed 61..67 to 60..67 and turned 141 dead ends into
+   141 off-by-ones, and C-63 landing on tile 1 instead of tile 0 on the north and west
+   edges -- which is the exact off-by-one this module's own header warns about.
+   1609 -> 1616 for the last fix and it is a DELIBERATE seven: a reclamation yard whose
+   whole 90 m edge is drive surface used to make the road pave 90 m of its own frontage,
+   which broke five arterial-to-arterial seams. A ninety-metre yard has ONE GATE, so a run
+   wider than a real drive approach now gets a proper 12 m entrance at its centre instead,
+   and seven of those stop matching the yard tile for tile. That is the truthful state of
+   the valley, not a rounding: arterial is back to 0 of 2594 with no allowance. */
+const REACH_DEBT = 1616;
+
 const SAME_CLASS_DEBT = {
   interchange: 3,
   strip: 1,
@@ -230,6 +251,70 @@ const SAME_CLASS_DEBT = {
         }
         return out;
       };
+
+      /* *** AND THE CONTRACT ABOVE ONLY EVER ASKED THE ROAD ABOUT OTHER ROADS. ***
+         Paolo, after playing 8/28k, with every check on this page green and arterial at
+         0 of 2594: "streets are stillls uper fucked". He was right, and the two lines that
+         made him right are in __CONTRACT itself:
+             const t = om.at(tx, ty);           if (!t || !RD[t.district]) continue;
+             const u = om.at(tx+dx, ty+dy);     if (!u || !RD[u.district]) continue;
+         BOTH SIDES MUST BE A ROAD DISTRICT OR THE SEAM IS NOT LOOKED AT. Every edge where
+         a street meets a shop block, a neighbourhood, a farm, a plaza -- every edge a
+         person actually walks up to -- was skipped in silence. This gate governed the road
+         network talking to itself and said nothing at all about the road network talking
+         to the city, while reporting a number that sounded like it covered the valley.
+         MEASURED the day he said it: 4,497 road-to-road seams here, against 7,562 edges in
+         the valley where a street actually reaches one. 2,668 of those did not connect.
+         So the sweep is asked at EVERY edge now: if either side has a corridor reaching it,
+         the other side must have one too and it must be the same tiles. A road that runs to
+         a boundary and finds bare ground is a road that ends in dirt, whatever the district
+         on the far side is called. */
+      window.__REACH = function () {
+        const N = om.n;
+        /* THE VALLEY RIM. A street really does end at these. Counted APART so the headline
+           can never be padded with roads that stop at a mountain. */
+        const WILD = { desert: 1, mountain: 1, water: 1, wash: 1 };
+        function conn(tx, ty, edge) {
+          let m; try { m = tileMeta(tx, ty); } catch (e) { return null; }
+          const g = m.kit; if (!g) return null;
+          const L = deadLegendFor(m); if (!L) return null;
+          let lo = -1, hi = -1;
+          for (let i = 0; i < FN; i++) {
+            const lx = edge === 'W' ? 0 : edge === 'E' ? FN - 1 : i;
+            const ly = edge === 'N' ? 0 : edge === 'S' ? FN - 1 : i;
+            const e = L[g[ly * FN + lx]]; if (!e) continue;
+            const k = e.kind;
+            const over = BohemiaDistrictKit.tileLayer(e).layer === 'overhead';
+            if (k === 'drive' || k === 'marking' || k === 'gate' || over) { if (lo < 0) lo = i; hi = i; }
+          }
+          return { lo: lo, hi: hi, d: m.d };
+        }
+        const out = { looked: 0, ok: 0, oneSide: 0, offset: 0, atWild: 0, byPair: {}, worst: [] };
+        for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) {
+          const t = om.at(tx, ty); if (!t) continue;
+          for (const step of [['S', 0, 1, 'N'], ['E', 1, 0, 'W']]) {
+            const edge = step[0], dx = step[1], dy = step[2], opp = step[3];
+            const u = om.at(tx + dx, ty + dy); if (!u) continue;
+            const A = conn(tx, ty, edge), B = conn(tx + dx, ty + dy, opp);
+            if (!A || !B) continue;
+            const aHas = A.lo >= 0, bHas = B.lo >= 0;
+            if (!aHas && !bHas) continue;            // no street here: nothing is owed
+            out.looked++;
+            let verdict = 'OK';
+            if (!aHas || !bHas) verdict = 'ONE_SIDE';
+            else if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET';
+            if (verdict === 'OK') { out.ok++; continue; }
+            if ((!aHas && WILD[t.district]) || (!bHas && WILD[u.district])) { out.atWild++; continue; }
+            if (verdict === 'ONE_SIDE') out.oneSide++; else out.offset++;
+            const key = verdict + '  ' + t.district + ' -' + edge + '-> ' + u.district;
+            out.byPair[key] = (out.byPair[key] || 0) + 1;
+            if (out.worst.length < 10)
+              out.worst.push(key.replace(/  +/g, ' ') + '  (' + tx + ',' + ty + ')  ' +
+                             A.lo + '..' + A.hi + ' vs ' + B.lo + '..' + B.hi);
+          }
+        }
+        return out;
+      };
     });
 
     const R = await p.evaluate(() => window.__CONTRACT());
@@ -311,6 +396,31 @@ const SAME_CLASS_DEBT = {
       return { found: true, ty: best.ty, cells: use, steps: steps, nonwalk: nonwalk,
                dead: dead, wsteps: wsteps, wdead: wdead.length, wsample: wdead };
     });
+
+    /* ── DOES THE ROAD MEET THE CITY, OR ONLY OTHER ROADS ────────────────────────── */
+    const RE = await p.evaluate(() => window.__REACH());
+    console.log('       ' + RE.looked + ' edges in the valley have a street reaching them ' +
+                '(the road-to-road count above is ' + R.seams + '), ' +
+                RE.atWild + ' of them end honestly at desert or mountain.');
+    {
+      const badReach = RE.oneSide + RE.offset;
+      const pairs = Object.entries(RE.byPair).sort((a, b) => b[1] - a[1]).slice(0, 8);
+      if (pairs.length) { console.log('       what meets what, worst first:');
+        pairs.forEach(([k, v]) => console.log('         ' + String(v).padStart(4) + '  ' + k)); }
+      if (RE.worst.length) RE.worst.slice(0, 4).forEach(w => console.log('         ' + w));
+      ok('THE ROAD MEETS THE CITY, NOT JUST OTHER ROADS — every edge where a street reaches ' +
+         'is counted, including the ones where it meets a shop block or a neighbourhood, and ' +
+         'the number only ever goes down ' +
+         '(' + badReach + ' of ' + (RE.looked - RE.atWild) + ', ceiling ' + REACH_DEBT + ')',
+         badReach <= REACH_DEBT);
+      if (badReach < REACH_DEBT)
+        console.log('       RATCHET: reach breaks are down to ' + badReach + '; lower REACH_DEBT.');
+      /* AND THE SWEEP MUST BE BIGGER THAN THE ONE THAT WAS BLIND, or somebody has quietly
+         narrowed it back to road-to-road and the ceiling above means nothing. */
+      ok('and it really did look outside the road network — this sweep sees more edges than ' +
+         'the road-to-road one it was added to correct',
+         RE.looked > R.seams * 1.4);
+    }
 
     ok('there IS a three-cell straight run of street in the valley to walk',
        walk.found && walk.cells.length === 3);

@@ -1,3 +1,83 @@
+WORLD (world-9lfjtf): 8/28 (q) LATEST -- *** HE PLAYED IT AND SAID THE STREETS
+WERE STILL FUCKED WHILE MY GATE SAID 0 OF 2594. HE WAS RIGHT AND THE GATE WAS
+THE BROKEN PART: it only ever compared a road to another ROAD, so every edge
+where a street meets a shop, a neighbourhood or a farm was skipped in silence.
+36.3% of this valley's street edges did not connect. Now 22.0%. Nothing to
+judge. ***
+
+TAB: RUN. Walk up to any shop or plaza. Build 8/28q - THE ROAD REACHES BACK.
+
+THE TWO LINES THAT MADE HIM RIGHT, in my own gate:
+    const t = om.at(tx,ty);           if(!t || !RD[t.district]) continue;
+    const u = om.at(tx+dx,ty+dy);     if(!u || !RD[u.district]) continue;
+  Both sides had to be a ROAD DISTRICT or the seam was never looked at. The gate
+  governed the road network talking to ITSELF and said nothing about the road
+  network talking to the CITY, while printing a number that sounded like the
+  valley. 4,497 seams measured; 7,562 edges actually have a street reaching
+  them; 2,668 of those were broken.
+
+AND THE BREAK WAS ONE-SIDED, WITH THE CITY DOING ITS JOB
+  ONE_SIDE arterial(45,7) -E-> commercial(46,7)   -1..-1  vs  47..57
+  The shop block has a driveway at rows 47..57 reaching the shared edge. The
+  arterial has NOTHING there. Every district obeys the STREET-AWARE ACCESS LAW
+  and puts its car entrance at the kerb; the arterial has 27 m of parcel
+  frontage in the way and never cut its kerb to meet one. Photographed: a plaza
+  with a drive aisle, a driveway poking out of it, and FIFTY METRES OF BARE DIRT
+  between that driveway and the road. You could not drive into a single shop.
+
+THE FIX
+  The world measures where each non-road neighbour's driveway actually arrives,
+  off that neighbour's own built grid, and hands the road the list. The road
+  cuts its kerb exactly there and runs the approach across the gutter, kerb,
+  parkway, walk and the whole parcel out to the cell edge. NOT on the freeway:
+  an interstate is limited access and a driveway off one is a defect, not a fix.
+
+THREE OF THE FOUR BUGS ON THE WAY WERE IN RULES I WROTE THE SAME HOUR
+  1. A "widen a narrow mouth" rule. The kit hands most districts a 7-TILE
+     entrance, so 61..67 became 60..67 and 141 dead ends became 141 off-by-ones.
+     The district owns its own entrance; the road meets it and has no opinion.
+  2. C-63 lands on tile 1, not tile 0. C+63 is 127 which IS the east edge, so
+     those closed and the north and west stayed one short. 276 seams. THIS
+     MODULE'S OWN HEADER WARNS ABOUT THIS EXACT OFF-BY-ONE, in those words.
+  3. A driveway is a contiguous RUN, not an extent. arterial(22,40) fronts a
+     reclamation plant whose whole north edge is yard: the span came back 9..99
+     and the road paved ninety metres of frontage out to the corner, breaking 5
+     arterial-to-arterial seams on a ceiling of zero. A ninety-metre yard has
+     ONE GATE. Runs wider than a real approach get a 12 m entrance at centre.
+
+THE NUMBERS
+  broken edges valley-wide     2,668 -> 1,616      36.3% -> 22.0%
+  arterial <-> commercial        563 -> 0          both directions
+  arterial <-> arterial            0 -> 0          no allowance, still zero
+  rail, strip, cross-class     unchanged (0, 1, 129)
+  drive network, occupancy, sidewalk, district kit, walkable, roadcell: green
+
+THE GATE
+  The check went INTO street_contract_gate.js, not a new file, because that is
+  where the blindness was. It sweeps EVERY edge in the valley, counts the ones
+  that honestly die against desert or mountain apart so the headline cannot be
+  padded, ratchets, and asserts IT IS LOOKING AT MORE EDGES THAN THE
+  ROAD-TO-ROAD SWEEP IT WAS ADDED TO CORRECT -- so nobody can quietly narrow it
+  back and leave the ceiling meaning nothing. 19 checks, green.
+  New tool for the next person: tools/bohemia_street_reach_probe.js prints the
+  whole valley by what-meets-what with coordinates, and --pair filters it.
+
+WHAT IS LEFT, MEASURED NOT GUESSED
+  576  a desert two-track running up to an arterial and stopping. Biggest block.
+   99  arterial <-> freeway offsets (a ramp, not a piece)
+   57  strip <-> resort: the Strip needs the same serve treatment, next
+   40  freeway <-> freeway. I GUESSED AT THESE TWICE TODAY AND WAS WRONG BOTH
+       TIMES -- once as a map fact, once as the beltway's corners, and the second
+       fix was built, run, and changed nothing, so it was reverted. Do not guess
+       a third time: make the gate print their coordinates and go look at one.
+
+THE LESSON
+  A GREEN GATE IS A CLAIM ABOUT ITS OWN SCOPE BEFORE IT IS A CLAIM ABOUT THE
+  GAME. Mine was honest about everything it measured and silent about the three
+  quarters it did not, and the silence read as coverage for two days. He found
+  it by walking around. It took one screenshot.
+
+RECORD: records/BOHEMIA_THE_ROAD_NEVER_REACHED_BACK_8_28_26.md
 CHARACTER (character-0lurbs): 8/28 (o) LATEST -- *** TWO THINGS. THE PORTRAIT THAT POPS UP
 WHEN SOMEBODY TALKS IS WEARING THEIR ACTUAL HAIRCUT NOW, AND HE CAN BUILD HIS OWN FACE.
 TAB: RUN to talk to anybody, CHARACTER to tap your portrait. Nothing to judge. ***

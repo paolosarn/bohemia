@@ -21179,8 +21179,92 @@ const BEAT=500; // 120BPM law
         });
       }
     }
+    /* ---- 3c. THE DRIVEWAY THAT ACTUALLY MEETS THE NEIGHBOUR (8/28) ------------------
+       Paolo, after playing 8/28k: "streets are stillls uper fucked" -- with the street
+       contract green at arterial 0 of 2594. He was right and the CONTRACT was blind: it
+       only ever compared a road cell to another ROAD cell, so every edge where a street
+       meets a shop block, a neighbourhood or a farm was skipped in silence. Measured over
+       the whole valley: 7,562 edges have a street reaching them, 2,668 do not connect.
+       AND IT IS ONE-SIDED. Every district out there obeys the STREET-AWARE ACCESS LAW and
+       puts its one car entrance at the kerb: commercial(46,7) has a driveway at rows
+       47..57 arriving at its west edge. The arterial next to it has NOTHING there. The
+       city reaches for the road; the road has 27 m of parcel frontage in the way and never
+       cuts its kerb. Photographed: a plaza with a drive aisle, a driveway poking out of
+       it, and fifty metres of bare dirt between that driveway and the road.
+       The 3b pad-site approach above is a REAL driveway and it was still not this one: it
+       serves the arterial's OWN pad, it sits at a random spot along the cell, and it stops
+       four tiles short of the boundary. A driveway that does not reach the property line
+       does not serve the property.
+       So the world hands over `serve` -- where each non-road neighbour's driveway actually
+       arrives, measured off that neighbour's own built grid -- and the road cuts its kerb
+       exactly there and runs the approach out to the cell edge. ART AND PATH ARE ONE
+       CONTRACT: the road is told what it fronts instead of guessing.
+       DELIBERATELY NOT ON THE FREEWAY. An interstate is limited access; a driveway off one
+       is not a fix, it is a defect. The world does not send `serve` to freeway, beltway or
+       interchange at all. */
+    function serveApron(alongAxis) {
+      var list = opts.serve || [];
+      for (var si = 0; si < list.length; si++) {
+        var sv = list[si], dd = String(sv.dir || '').toUpperCase().charAt(0);
+        var perp = (alongAxis === 'v') ? (dd === 'E' || dd === 'W') : (dd === 'N' || dd === 'S');
+        if (!perp) continue;                       // a driveway leaves the road sideways
+        var lo = Math.max(0, sv.lo | 0), hi = Math.min(127, sv.hi | 0);
+        /* *** MATCH IT EXACTLY. NEVER WIDEN. ***
+           The first cut of this had a "a real commercial drive approach is 8 to 12 m, so
+           widen a narrower mouth" rule, and it turned 141 roads-that-end-in-dirt into 70
+           roads-that-are-one-tile-off: the kit hands most districts a 7-tile entrance and
+           the widener pushed 61..67 out to 60..67. MEASURED, all six samples identical.
+           A RULE I WROTE AN HOUR AGO WAS THE BROKEN PART, which is the same shape as every
+           other instrument bug this week. The district owns its own entrance -- the
+           STREET-AWARE ACCESS LAW put it there -- and the road's job is to meet it, not to
+           have an opinion about how wide it should have been.
+           *** EXCEPT WHEN WHAT ARRIVES IS NOT A DOOR. *** arterial(22,40) fronts a
+           reclamation plant whose ENTIRE north edge is yard: the run came back 9..99, and
+           the road dutifully paved ninety metres of its own frontage out to the corner,
+           which broke 5 arterial-to-arterial seams on a gate whose arterial ceiling is
+           zero. A ninety-metre yard still has ONE GATE. So a run wider than a real
+           commercial drive approach is treated as frontage rather than an entrance, and
+           gets a proper 12 m approach at its centre. The road never writes within two
+           tiles of its own perpendicular edges either -- a driveway in the corner of a
+           cell is not a thing, and that is the seam this cost. */
+        if (hi - lo > 15) { var mid2 = (lo + hi) >> 1; lo = mid2 - 8; hi = mid2 + 7; }
+        lo = Math.max(2, lo); hi = Math.min(125, hi);
+        if (hi < lo) continue;
+        var sign = (dd === 'E' || dd === 'S') ? 1 : -1;
+        for (var t = lo; t <= hi; t++) {
+          /* 64, NOT 63, AND THIS MODULE ALREADY SAYS SO AT THE TOP OF ITSELF: "a half-width
+             of 63 misses row 0 and column 0". C + 63 is 127, which IS the east/south edge,
+             so those worked; C - 63 is 1, which is one tile SHORT of the north/west edge, so
+             those did not. Measured: arterial-to-commercial closed going east and 276 seams
+             stayed open going north, with the identical -1..-1 on the road side. The bound
+             is 64 and the guard below drops the tile that falls off the far side. */
+          for (var b = PAVE + 1; b <= 64; b++) {
+            var o = sign * b;
+            var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+            if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+            /* THE WALK BAND KEEPS ITS OWN TILE as a driveway apron, exactly as 3b does:
+               a body walks straight through it and a car drives across it, so the 4 km
+               of continuous pavement this lane shipped on 8/26 is not cut in half by
+               every driveway in the valley. Everything else on the way is plain apron. */
+            /* A DRIVEWAY DOES NOT ERASE A CROSSING STREET. On a junction cell the cross
+               arm's own roadway, its paint and its junction box reach out past PAVE on
+               this very axis, and writing apron over them cost 5 arterial-to-arterial
+               seams the first time this ran -- on a gate whose arterial ceiling is ZERO,
+               no allowance, because that is the road he actually walks. The approach
+               crosses the gutter, the kerb, the parkway, the walk and the parcel; it
+               stops at anything that is already street. */
+            var cur = g[py][px];
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 15 || cur === 24) continue;
+            var isWalkBand = (b > AMEN && b <= WALK);
+            g[py][px] = isWalkBand ? 22 : 20;
+          }
+        }
+      }
+    }
     if (vert) frontage('v', coverV);
     if (horiz) frontage('h', coverH);
+    if (vert) serveApron('v');
+    if (horiz) serveApron('h');
 
     // signal mast arms on the four corners of a real intersection (heads dark)
     if (vert && horiz) {
@@ -26710,6 +26794,7 @@ function __kitBlock(gx4,gy4,type,legs){
                                    cellX:legs.cellX,cellY:legs.cellY,neigh:legs.neigh};
          else if(legs){ o={streets:legs.streets,links:legs.streets,cross:legs.cross,
                           same:legs.same,open:legs.open,rail:legs.rail,
+                          serve:legs.serve,
                           spanThrough:legs.spanThrough};
                         if(legs.cluster){ o.bounds=legs.cluster; o.kind=legs.kind;
                                           o.cellX=legs.cellX; o.cellY=legs.cellY;
@@ -26920,9 +27005,59 @@ function kitRoadLegs(d,tx,ty){
     if(t.district==='rail') rail.push(nm);
     if(!RD[t.district]) open.push(nm);
   }
-  const legs={streets:streets, cross:cross, spanThrough:spanThrough,
+  /* *** AND THE ROAD NEVER REACHED BACK (8/28). ***
+     Paolo, after playing 8/28k: "streets are stillls uper fucked", with the street
+     contract green at arterial 0 of 2594. HE WAS RIGHT AND THE GATE WAS THE BROKEN
+     PART: it skips any seam where either side is not a ROAD district, so every edge
+     where a street meets a shop block, a neighbourhood, a farm or a plaza -- every
+     edge a person actually walks up to -- was never looked at.
+     MEASURED with tools/bohemia_street_reach_probe.js: 7,562 edges in this valley have
+     a street reaching them and 2,668 of those do not connect. 36.3%.
+     AND THE SHAPE OF IT IS ONE-SIDED IN ONE DIRECTION. Every district in the valley
+     obeys the STREET-AWARE ACCESS LAW and builds its one car entrance at the kerb:
+     `commercial(46,7)` has a driveway at rows 47..57 reaching its west edge. The
+     arterial beside it has -1..-1 there. NOTHING. The city reaches for the road and
+     the road has 27 m of parcel frontage in the way and never cuts its kerb.
+     Photographed it: a shopping plaza with a drive aisle, a driveway poking out of it,
+     and about fifty metres of bare dirt between that driveway and the road.
+     So the world measures where each non-road neighbour's driveway arrives and hands
+     the road the list. A road that fronts something has to let you IN to it. */
+  const serve=[];
+  if(RD[d] && d!=='freeway' && d!=='beltway' && d!=='interchange'){
+    for(const [nm,dx,dy] of D){
+      const nt=om.at(tx+dx,ty+dy);
+      if(!nt||RD[nt.district]) continue;           // road-to-road is the contract's job
+      if(OPEN[nt.district]) continue;              // desert, mountain, water own no driveway
+      let mm=null; try{ mm=tileMeta(tx+dx,ty+dy); }catch(e){ continue; }
+      const ng=mm.kit; if(!ng) continue;
+      let L=null; try{ L=deadLegendFor(mm); }catch(e){ continue; }
+      if(!L) continue;
+      /* A DRIVEWAY IS A CONTIGUOUS RUN, NOT AN EXTENT. The first cut of this took the
+         OUTERMOST drive tile on the neighbour's edge the way the seam profile does, and a
+         district with a lot aisle running along that boundary reported 47..127 -- so the
+         road paved its whole frontage out to the corner and broke 5 arterial-to-arterial
+         seams on a gate whose arterial ceiling is zero. Outermost-extent is the right
+         measure for "where is the road" and the wrong one for "where is the door", and
+         that is the fifth time this week a profile answered a question it was not asked.
+         Every separate run is served: a district may honestly have two entrances. */
+      let run=-1;
+      for(let i=0;i<=FN;i++){
+        let isDrive=false;
+        if(i<FN){
+          const lx = nm==='W'?FN-1 : nm==='E'?0 : i;
+          const ly = nm==='N'?FN-1 : nm==='S'?0 : i;
+          const e=L[ng[ly*FN+lx]];
+          isDrive = !!e && (e.kind==='drive'||e.kind==='gate');
+        }
+        if(isDrive){ if(run<0) run=i; }
+        else if(run>=0){ serve.push({dir:nm, lo:run, hi:i-1}); run=-1; }
+      }
+    }
+  }
+  const legs={streets:streets, cross:cross, spanThrough:spanThrough, serve:serve,
               same:same.length?same:streets, open:open, rail:rail,
-              key:ax+':'+cross.join('')+'/'+same.join('')+(spanThrough?'+T':'')};
+              key:ax+':'+cross.join('')+'/'+same.join('')+(spanThrough?'+T':'')
+                  +(serve.length?'+S'+serve.map(v=>v.dir+v.lo+'-'+v.hi).join(''):'')};
   /* A STACK IS A BLOB AND IT NEEDS ITS APPROACHES, not just its outline. */
   if(d==='interchange'){
     legs.cluster=kitClusterBounds(d,tx,ty); legs.kind=d; legs.cellX=tx; legs.cellY=ty;
