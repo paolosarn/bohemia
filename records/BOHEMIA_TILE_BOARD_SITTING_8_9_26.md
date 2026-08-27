@@ -1364,3 +1364,22 @@ tower's own middle (now they exit AT the deck edge), and a flume bearing
 parallel to the camera diagonal projects as a vertical caterpillar
 (dx ~= dy - the bearings now avoid the diagonal). These two ride BAKE
 7 after bake 6 ships; the other eight ship with bake 6 as they stand.
+
+## 8/27 SIXTY-SIXTH PASS: THE FIFTH COMPOSITION AUDIT (second-order pieces, three findings)
+
+The audit rule this time: LOOK at the pieces the family ships shipped
+but the verification never framed - the locomotive, the vertical tray
+runs, the narrow invert. THE LOCO READS TRUE (fan rings, cab band, the
+dark deck among the pale cars - no fix). TWO REAL FINDINGS, both fixed
+and re-looked the same hour: (1) THE TANK CARPET - the radio site's
+big yards (up to 49x12 cells) drew one cylinder on EVERY cell, five
+hundred tanks wall to wall; a real farm stands in rows with working
+aisles, so yard-blob cells on alternate rows now draw bare ground and
+the site reads like a fuel depot instead of a pill box. (2) THE DASHED
+RIVER - the invert's centreline test demanded EXACT walk balance,
+which only exists at odd widths, so the stain dropped out on every
+even-width row; the tie-break (equal or one short on the near side)
+picks exactly one cell per row at any width and the line runs
+continuous now, braiding where the ragged basin edge genuinely shifts
+the centre - which is what a real low flow does. Bake 7 grinding
+behind the audit with the wave-4 and twin-cure source aboard.

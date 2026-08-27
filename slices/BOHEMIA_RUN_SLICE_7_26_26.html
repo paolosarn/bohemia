@@ -1295,7 +1295,11 @@ function drawSolarform(gx,gy,X,Y,S){
          carry it (perpendicular walks balanced), edge-pinned so it joins
          cell to cell; everything else is plain channel concrete. The
          first render stained every cell at its own offset - a barcode. */
-      var wcen = (wax==='h') ? Math.abs(wu-wd)<=0 : Math.abs(wl-wr)<=0;
+      /* AUDIT 8/27: exact balance only exists at ODD widths, so the stain
+         dropped out on every even-width row - a dashed river. The tie-break
+         (equal, or one short on the near side) picks EXACTLY one cell per
+         row at any width, so the line never breaks. */
+      var wcen = (wax==='h') ? (wu===wd || wu+1===wd) : (wl===wr || wl+1===wr);
       wp = wcen ? 'iv_'+wax+'_'+th(gx,gy,2) : 'iv_p_'+th(gx,gy,2);
     }else{
       wp = 'bk_'+wax+'_'+th(gx,gy,2);
@@ -1330,6 +1334,12 @@ function drawSolarform(gx,gy,X,Y,S){
     var pnm;
     if(Math.min(pwx,pwy)<=3 && Math.max(pwx,pwy)>=5){
       pnm = (pwx>=pwy ? 'ib_h_' : 'ib_v_')+th(gx,gy,2);
+    }else if(Math.min(pwx,pwy)>=4 && (gy&1)){
+      /* AUDIT 8/27: the big yards (up to 49x12) rendered as a CARPET of
+         five hundred cylinders wall to wall. A real tank farm stands in
+         ROWS with working aisles between them - alternate rows are the
+         aisle, bare yard ground. */
+      return true;
     }else{
       pnm = 'pt_tank_'+th(gx,gy,2);
     }
