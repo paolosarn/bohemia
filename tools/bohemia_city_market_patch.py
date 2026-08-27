@@ -240,11 +240,11 @@ function mktBtnSync(){
 # the button only exists where he is
 OLD_HUD = """  document.getElementById('note').textContent=MODE==='city'
     ? 'move on the streets. time moves when you move.'
-    : 'walking the neighborhood you dropped into.';
+    : 'walking your own block.';
 }"""
 NEW_HUD = """  document.getElementById('note').textContent=MODE==='city'
     ? 'move on the streets. time moves when you move.'
-    : 'walking the neighborhood you dropped into.';
+    : 'walking your own block.';
   try{ mktBtnSync(); }catch(_e){}   /* """ + MARK + """ */
 }"""
 

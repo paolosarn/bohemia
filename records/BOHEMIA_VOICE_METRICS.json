@@ -4,11 +4,11 @@
   "why": "The WORDS lane brief (Paolo 8/26): a DIAGNOSIS, measured not asserted.",
   "generator": "tools/bohemia_voice_diagnosis.py",
   "cannot": "These are SHAPES. Nothing here can tell you whether a line is good.",
-  "source_lines": 2442,
+  "source_lines": 2476,
   "baseline_ref": "41f2d679b07e4ba6b64e844d58de4171cd601dd0",
   "baseline_read": true
  },
- "lines": 2442,
+ "lines": 2476,
  "contractions": {
   "per_book": [
    {
@@ -1758,9 +1758,9 @@
   ]
  },
  "registers": {
-  "total": 2442,
+  "total": 2476,
   "register": 532,
-  "pct": 21.8,
+  "pct": 21.5,
   "quest_lines": 1277,
   "register_in_quests": 0
  },

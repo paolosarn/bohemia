@@ -297,6 +297,56 @@ OLD_IN_DEMO.forEach(([d, t]) =>
   ok('DEMO DAY ' + d + ': the OLD line is gone from the built demo ("' + t.slice(0, 34) + '")',
     demoHtml.indexOf(t) < 0));
 
+/* ---- 4d. THE WORDS BEFORE ANYBODY SPEAKS --------------------------------- */
+/* ALWAYS MAKE AN ATTEMPT (8/11) names the whole list of player-facing text and
+   it is not only dialogue: "UI copy, tooltips, notifications, failure messages".
+   The words book harvested 36 sources and every one was a quest, a scene or a
+   bark, so the wake card, the objectives and the save panel -- the FIRST words
+   a stranger reads, and the only words some of them read -- were never audited
+   and HE COULD NOT EDIT THEM, which is the half of that law that makes the rest
+   of it real. Harvested by DRIVING the built demo, never by grepping source:
+   the city world holds 368 quoted strings and a stranger sees almost none of
+   them, so the test for player-facing is "the game painted it". */
+const UI_PATH = 'records/BOHEMIA_INTERFACE_WORDS.json';
+ok('the interface words are harvested from the built demo', fs.existsSync(UI_PATH));
+const ui = fs.existsSync(UI_PATH) ? JSON.parse(fs.readFileSync(UI_PATH, 'utf8')) : { lines: [] };
+ok('and there are actually some (' + ui.lines.length + ' across ' +
+  (ui._meta ? ui._meta.screens.length : 0) + ' screens)', ui.lines.length >= 25);
+ok('they are DRIVEN off the real surface, not grepped out of source',
+  !!(ui._meta && /painted|Driven|driven/.test(ui._meta.how || '')));
+ok('every one is tagged draft so he can find it in the WORDS tab',
+  ui.lines.every(l => l.draft === true));
+/* read the tab file here rather than reusing `page`, which section 7 declares
+   below this point -- a const is not hoisted and the gate died on it. */
+ok('and the WORDS tab actually carries them',
+  fs.existsSync(WORDS_PAGE)
+    && fs.readFileSync(WORDS_PAGE, 'utf8').indexOf('WHAT THE SCREEN SAYS') >= 0);
+
+/* THE TWO THINGS THAT MUST NEVER BE ON A PLAYER'S SCREEN. Both were, until
+   8/27: the save panel printed "backend:" (a developer's word for a storage
+   API) and the walking hint read "the neighborhood you dropped into" -- drop-in
+   vocabulary from a genre this game is not. THERE ARE NO RUNS: one character,
+   about a hundred hours, and he LIVES on that block. */
+const DEV_WORDS = [
+  ['backend', /\bbackend\b/i],
+  ['localStorage / IndexedDB / API', /\b(localstorage|indexeddb|\bapi\b)\b/i],
+  ['null / undefined / NaN', /\b(null|undefined|NaN)\b/],
+  ['a state flag as prose ("not taken")', /\bnot taken\b/i],
+  ['run vocabulary ("dropped into", "this run", "restart")',
+    /\b(dropped into|this run|next run|restart the run)\b/i],
+  ['a stack trace or a file path', /\.(js|json|py)\b|\bfunction\s*\(/],
+];
+const devLeaks = [];
+ui.lines.forEach(l => DEV_WORDS.forEach(([name, re]) => {
+  if (re.test(l.text)) devLeaks.push(name + ' <- "' + l.text.slice(0, 46) + '" (' + l.screen + ')');
+}));
+ok('NO DEVELOPER LANGUAGE reaches a player'
+  + (devLeaks.length ? ':\n         ' + devLeaks.join('\n         ') : ''),
+  devLeaks.length === 0);
+/* MUTATION: the sweep has to actually bite, or it is decoration. */
+ok('MUTATION: the dev-language sweep fires on a planted leak',
+  DEV_WORDS.some(([, re]) => re.test('saved to backend: null')));
+
 /* ---- 5. CORPUS-WIDE, RATCHETING ------------------------------------------ */
 /* 5 of 27 scenes have had a voice pass -- the five the demo actually plays.
    The other 22 have not, and this gate does not pretend they have. What the gate holds is that nobody makes it WORSE while they wait:

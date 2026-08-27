@@ -34856,7 +34856,7 @@ function updHud(){
   { const bb=document.getElementById('bikebtn'); if(bb)bb.style.display=MODE==='human'?'block':'none'; }
   document.getElementById('note').textContent=MODE==='city'
     ? 'move on the streets. time moves when you move.'
-    : 'walking the neighborhood you dropped into.';
+    : 'walking your own block.';
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
 }
 
@@ -35624,7 +35624,7 @@ function showWake(){
        +' \u00b7 light until '+esc(DAY.hhmm(DAY.NIGHT_MIN))+'</div>';
   if(o){ h+='<p>Something came in on your phone overnight.</p>'
           +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
-          +'<div class="sub">on the network \u00b7 not taken</div>'; }
+          +'<div class="sub">nobody has picked it up yet</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
   cardShow(h,function(){ cardHide();
@@ -36772,7 +36772,7 @@ document.getElementById('savebtn').addEventListener('click',()=>{
   const p=document.getElementById('savepanel');
   if(p.style.display==='block'){ p.style.display='none'; return; }
   p.innerHTML='<b style="color:var(--acc);font-size:11px;letter-spacing:1px">SUSPEND SAVE</b>'+
-   '<div style="font-size:10px;opacity:0.7;margin:6px 0">autosaves as you move · one slot · resume only<br>backend: <span id="sv-mode">…</span></div>'+
+   '<div style="font-size:10px;opacity:0.7;margin:6px 0">saves itself as you go · one save · picks up where you left off<br>kept in: <span id="sv-mode">…</span></div>'+
    '<div class="sbtn" id="sv-exp">EXPORT SAVE</div><div class="sbtn" id="sv-imp">IMPORT</div><div class="sbtn" id="sv-close">CLOSE</div>'+
    '<div id="sv-impbox" style="display:none"><textarea id="sv-txt" placeholder="paste save text"></textarea><div class="sbtn" id="sv-apply">APPLY</div></div>';
   p.style.display='block';

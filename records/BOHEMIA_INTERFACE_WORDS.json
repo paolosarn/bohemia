@@ -1,0 +1,277 @@
+{
+ "_meta": {
+  "what": "Every word the built demo actually paints that is NOT dialogue.",
+  "why": "ALWAYS MAKE AN ATTEMPT (8/11) names \"UI copy, tooltips, notifications, failure messages\" as player-facing text he must be able to edit. The words book held zero of it.",
+  "how": "Driven, not grepped: the built demo is walked down its own path and the RENDERED text nodes are read. If a stranger could not have seen it, it is not in here.",
+  "generator": "tools/bohemia_interface_words.py",
+  "surface": "slices/BOHEMIA_DEMO.html",
+  "screens": [
+   {
+    "name": "front-splash",
+    "n": 3
+   },
+   {
+    "name": "shell",
+    "n": 4
+   },
+   {
+    "name": "first-morning",
+    "n": 19
+   },
+   {
+    "name": "after-get-up",
+    "n": 13
+   },
+   {
+    "name": "phone",
+    "n": 14
+   },
+   {
+    "name": "save",
+    "n": 21
+   }
+  ],
+  "strings": 34,
+  "draft": true
+ },
+ "lines": [
+  {
+   "id": "ui#front-splash#0",
+   "text": "POST-ECONOMIC APOCALYPSE - LAS VEGAS",
+   "where": "front-splash",
+   "screen": "front-splash",
+   "draft": true
+  },
+  {
+   "id": "ui#front-splash#1",
+   "text": "TAP TO ENTER",
+   "where": "front-splash",
+   "screen": "front-splash",
+   "draft": true
+  },
+  {
+   "id": "ui#front-splash#2",
+   "text": "DEMO - BUILD 8/27p - THE SCREEN TALKS LIKE PEOPLE TOO",
+   "where": "front-splash",
+   "screen": "front-splash",
+   "draft": true
+  },
+  {
+   "id": "ui#shell#3",
+   "text": "DAY 1 BEGINS BEFORE THE DAY",
+   "where": "shell",
+   "screen": "shell",
+   "draft": true
+  },
+  {
+   "id": "ui#shell#4",
+   "text": "The family, the table, ten years ago.",
+   "where": "shell",
+   "screen": "shell",
+   "draft": true
+  },
+  {
+   "id": "ui#shell#5",
+   "text": "▶ WATCH",
+   "where": "shell",
+   "screen": "shell",
+   "draft": true
+  },
+  {
+   "id": "ui#shell#6",
+   "text": "NOT NOW",
+   "where": "shell",
+   "screen": "shell",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#7",
+   "text": "HUMAN MODE",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#8",
+   "text": "DAY 1 · 06:00",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#9",
+   "text": "SUBURB · ON FOOT",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#10",
+   "text": "DAY 1",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#11",
+   "text": "06:00 · light until 22:00",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#12",
+   "text": "Something came in on your phone overnight.",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#13",
+   "text": "THE METER READER",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#14",
+   "text": "nobody has picked it up yet",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#15",
+   "text": "GET UP",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#16",
+   "text": "🎵 SLOW BLEED",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#17",
+   "text": "💾",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#18",
+   "text": "📱 PHONE",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#19",
+   "text": "⚔ OUTFIT",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#20",
+   "text": "🛠",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#21",
+   "text": "🛏 SLEEP",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#22",
+   "text": "🚲 BIKE",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#23",
+   "text": "⤒ CITY",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#24",
+   "text": "◆ STANDING",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#first-morning#25",
+   "text": "walking your own block.",
+   "where": "first-morning",
+   "screen": "first-morning",
+   "draft": true
+  },
+  {
+   "id": "ui#phone#26",
+   "text": "SUBURB · DAY 1 · 06:00",
+   "where": "phone",
+   "screen": "phone",
+   "draft": true
+  },
+  {
+   "id": "ui#save#27",
+   "text": "SUSPEND SAVE",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#28",
+   "text": "saves itself as you go · one save · picks up where you left off",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#29",
+   "text": "kept in:",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#30",
+   "text": "Saved to this device. Autosaves survive a reload.",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#31",
+   "text": "EXPORT SAVE",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#32",
+   "text": "IMPORT",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#save#33",
+   "text": "CLOSE",
+   "where": "save",
+   "screen": "save",
+   "draft": true
+  }
+ ]
+}
