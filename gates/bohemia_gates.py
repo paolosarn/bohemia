@@ -3091,6 +3091,22 @@ GATES = [
      'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
      'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
+    ('NO ORPHAN SCRIPT', ['node', 'gates/no_orphan_script_gate.js'],
+     'A REBASE ATE ANOTHER LANE\'S SCRIPT TAG AND NOTHING CONFLICTED (8/27). The ART lane '
+     'shipped room-aware floors as a data file plus ONE line loading it; in the same region of '
+     'the same file this lane had DELETED a run of tile-bank tags. Git merged a deletion '
+     'against an adjacent insertion, kept the deletion, dropped the insertion, and reported no '
+     'conflict -- so the 69 KB floor file stayed tracked, stayed in the deploy list, and '
+     'NOTHING LOADED IT. window.FLOOR_POOL_B64 was undefined on the page he walks and every '
+     'interior floor fell back. THE FILE SURVIVING IS WHY IT IS INVISIBLE: a deleted file is '
+     'loud, an orphaned one looks exactly like a working one, and nothing compared what is in '
+     'slices/ against what the page actually asks for. floor_gate caught it on the real '
+     'surface, red, doing its job -- but it only covers FLOORS, so the next lane to lose a tag '
+     'this way loses it in silence. This asks the general question once, for every file: is '
+     'every .js in slices/ NAMED by something that can load it. A name check and not a parse, '
+     'because the chunk loader builds its URLs by construction -- eight files load correctly '
+     'with no tag anywhere. Mutation-tested by deleting the exact line the rebase ate: 3 legs '
+     'red, restored 5/0.', False),
     ('NO MARKERS', ['node', 'gates/nomarkers_gate.js'],
      'TWICE IN ONE DAY (8/3) a session committed git CONFLICT MARKERS into '
      '00_START_HERE_NEXT_SESSION.md, the one file every session must read first -- once by me, '
