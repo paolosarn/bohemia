@@ -1072,6 +1072,14 @@ GATES = [
      "further from its nearest existing neighbour than a typical pair of "
      "existing voices sit from each other -- THE RACK SETS ITS OWN BAR, so "
      "nobody picks the number that decides whether their own batch passed", True),
+    ('INTENSITY WIRED',['python3', 'gates/intensity_wired_gate.py'],
+     "Paolo 8/26 LOCKED, all FOUR triggers of his three-level ladder driven on "
+     "the real surface: calm, an enemy trying to hurt you, somebody talking to "
+     "you, two kills, a crowd close together. Two of them shipped unwired on "
+     "8/26 and a ruling half-built is a ruling that does not exist. Also holds "
+     "the trap permanently: __CT.open() READS like a getter and is an ACTION "
+     "that opens a conversation, so a watcher polling it would put a dialogue "
+     "card in the player's face forever", True),
     ('MENU MUSIC',     ['python3', 'gates/menu_music_gate.py'],
      "Paolo 8/26 LOCKED: 'menu music doesnt get impacted by intensity type "
      "shit' -- he liked THE POWER STILL ON SOMEWHERE calm and it was 'really bad "

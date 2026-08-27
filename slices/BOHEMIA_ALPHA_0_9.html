@@ -1135,7 +1135,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/27x - THE DEMO HAS AN ENDING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/27y - THE MUSIC HEARS THE ROOM</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13653,6 +13653,84 @@ window.KILLMUS=KILLMUS;
    second copy of the state -- under the name that describes what it does since
    kills stopped being the only thing that drives it. */
 window.INTENSITY=KILLMUS;
+/* ===== __INTENSITY_WATCHER__ (8/27) -- THE OTHER TWO TRIGGERS ==============
+   Paolo 8/26, LOCKED: "...an enemy trying to hurt you or SOMEONE IS TALKING TO
+   YOU is lvl 2 then you either kill 2 enemies or THERESA WHOLE BUNCH OF PEOPLE
+   CLOSE TOGETHER TALKING type shit for lvl 3."
+   Kills and threat were wired that day. These two were not, and were reported
+   as unwired rather than quietly counted as shipped. A ruling half-built is a
+   ruling that does not exist.
+
+   IT READS THE CITY, IT DOES NOT EDIT THE CITY. BOHEMIA_CITY_WORLD.html is
+   another lane's file. It does not need touching: the frame already publishes
+   window.__CT and the frame's own DOM, and both questions are answerable from
+   outside --
+     #ctcard's display   a conversation card is up
+     __CT.everyone()     [{key,tier,name,heading,x,y,d}...]  and d IS the distance
+   Same-origin, in a try/catch, polled off the game's own clock. If a browser
+   ever refuses the frame, the catch leaves the ladder exactly where it is
+   today rather than breaking it.
+
+   THE TWO NUMBERS ARE MINE AND THEY ARE SAID OUT LOUD. He said "a whole bunch
+   close together" and gave no count and no radius, so the mechanism ships with
+   a defensible default and the numbers are his to move: THREE people within
+   FIVE tiles. Three is the smallest number that is a group rather than a pair;
+   five tiles is one gathering rather than three strangers who happen to be on
+   screen.
+
+   AND THE LIMIT, STATED: the city models people, where they are, and whether
+   one is talking to YOU. It does not model NPCs talking to EACH OTHER. CROWD is
+   therefore the nearest observable truth -- a cluster around you -- and if he
+   wants literal chatter between them, that is a city feature that does not
+   exist yet. */
+(function intensityWatcher(){
+  var CROWD_MIN = 3;      /* smallest number that is a group, not a pair */
+  var CROWD_R   = 5;      /* tiles: one gathering, not three separate people */
+  var lastTalk = null, lastCrowd = null;
+  function look(){
+    try{
+      if(!window.INTENSITY) return;
+      var f = document.getElementById('cityFrame');
+      if(!f) return;
+      var w = f.contentWindow;
+      if(!w || !w.__CT) return;
+      var talking = false, crowd = false;
+      /* READ THE CARD, NEVER CALL __CT.open() (8/27, caught before it shipped).
+         `open` READS LIKE A GETTER AND IS AN ACTION:
+             open:function(){ ctOpen(); return !!CT_OPEN; }
+         It OPENS a conversation and then reports that one is open. A watcher
+         polling it twice a second would have shoved a dialogue card in the
+         player's face continuously from the moment they stood next to anybody.
+         Probing its RETURN VALUE looked exactly like a getter; only reading its
+         body showed what it does. A NAME IS NOT A CONTRACT.
+         The visible card is the same fact and reading it costs nothing. */
+      try{
+        var card = w.document.getElementById('ctcard');
+        talking = !!(card && w.getComputedStyle(card).display !== 'none');
+      }catch(_e){}
+      try{
+        var all = w.__CT.everyone() || [];
+        var n = 0;
+        for(var i=0;i<all.length;i++){
+          var d = all[i] && all[i].d;
+          if(typeof d === 'number' && d <= CROWD_R) n++;
+        }
+        crowd = n >= CROWD_MIN;
+      }catch(_e){}
+      /* only speak when it CHANGES: INTENSITY.apply() already returns early on
+         a repeat, but calling it four times a second forever is noise in every
+         profile and in every gate that counts calls */
+      if(talking !== lastTalk){ lastTalk = talking; INTENSITY.talking(talking); }
+      if(crowd   !== lastCrowd){ lastCrowd = crowd;  INTENSITY.crowd(crowd); }
+    }catch(_e){}
+  }
+  setInterval(look, 500);
+  /* exposed so a gate can drive one look without waiting on a timer, and so the
+     numbers are inspectable rather than buried */
+  window.__intensityWatch = { look: look, CROWD_MIN: CROWD_MIN, CROWD_R: CROWD_R,
+    state: function(){ return { talking:lastTalk, crowd:lastCrowd }; } };
+})();
+
 
 
 
