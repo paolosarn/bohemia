@@ -1727,8 +1727,18 @@ five people is five people and a mean of five opinions looks like evidence.
   RECORD: records/BOHEMIA_THE_CARD_ONLY_THE_FINISHERS_SEE_8_27_26.md
   Row 0f is closed in BOHEMIA_BACKLOG.md and item D of the demo gap list.
 
-THE GATE PASS: 458 gates, two shards, 42 red, NONE OF THEM MINE and every one
-checked. FIRST MORNING went red in the pack and GREEN WHEN RUN ALONE, which was
+THE GATE PASS, AND THE HONEST SHAPE OF IT. The FULL 463-gate suite ran twice on
+this work, two shards each, 44 red on the second run and NONE OF THEM MINE. Then
+MAIN MOVED NINETEEN COMMITS while that second pass was running -- 94 files, 8,204
+insertions, 652 lines inside the city file this patch lives in. Re-running the
+whole suite after every rebase loses that race forever, so the merged tree got a
+NAMED, TARGETED pass instead and this says so rather than claiming a full one:
+  FEEDBACK 65/0 - CARD FOLD 18/0 - FIRST MORNING 19/0 - CONVERSATION 39/0 -
+  ADDRESS 41/0 - CASTING 26/0 - ENDING 26/0 - DEMO BUILD - BLOB - NO MARKERS -
+  ORGAN REACH, all green on the merged tree, plus the module banner, the marks,
+  the z-index, the export handler, the resync and the demo cut all verified
+  present after the merge.
+The full-suite numbers below are from the pre-merge tree. FIRST MORNING went red in the pack and GREEN WHEN RUN ALONE, which was
 MY OWN FAULT: I ran three browser probes DURING the pass, and the suite's
 confirm-alone step is the only reason that did not get shipped as a mystery. DO
 NOT RUN A BROWSER WHILE THE SUITE IS RUNNING. INSTALL CARD is red on main's own
