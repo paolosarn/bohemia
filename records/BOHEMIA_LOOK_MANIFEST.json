@@ -182,7 +182,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 514.4,
+   "kb": 530.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only vista"
