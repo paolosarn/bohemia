@@ -1,7 +1,7 @@
 {
- "sources": 257,
- "total_mb": 309.0,
- "unreached_mb": 305.1,
+ "sources": 259,
+ "total_mb": 308.7,
+ "unreached_mb": 304.8,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -154,7 +154,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 29549950
+   "bytes": 29148535
   },
   {
    "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
@@ -353,6 +353,15 @@
    "hits_shown": 0,
    "hits_loaded": 21,
    "bytes": 102624
+  },
+  {
+   "path": "banks/BOHEMIA_INTERIOR_FLOOR_POOL_8_26_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 24,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 69866
   },
   {
    "path": "banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt",
@@ -1090,7 +1099,7 @@
    "samples": 11,
    "hits_shown": 11,
    "hits_loaded": 0,
-   "bytes": 15876
+   "bytes": 27827
   },
   {
    "path": "engine/bohemia_blockgen.js",
@@ -1243,7 +1252,16 @@
    "samples": 6,
    "hits_shown": 6,
    "hits_loaded": 0,
-   "bytes": 27979
+   "bytes": 29566
+  },
+  {
+   "path": "engine/bohemia_conversation.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 5027
   },
   {
    "path": "engine/bohemia_courthouse.js",
@@ -1306,7 +1324,7 @@
    "samples": 4,
    "hits_shown": 4,
    "hits_loaded": 1,
-   "bytes": 14191
+   "bytes": 16244
   },
   {
    "path": "engine/bohemia_desert.js",
@@ -1798,10 +1816,10 @@
    "path": "engine/bohemia_people.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 9,
-   "hits_shown": 9,
-   "hits_loaded": 9,
-   "bytes": 95999
+   "samples": 10,
+   "hits_shown": 10,
+   "hits_loaded": 10,
+   "bytes": 101924
   },
   {
    "path": "engine/bohemia_personlook.js",
@@ -2043,7 +2061,7 @@
    "verdict": "SHOWN (all)",
    "samples": 32,
    "hits_shown": 32,
-   "hits_loaded": 29,
+   "hits_loaded": 32,
    "bytes": 16791
   },
   {
@@ -2304,7 +2322,7 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 29,
+   "hits_loaded": 32,
    "bytes": 68009
   },
   {
