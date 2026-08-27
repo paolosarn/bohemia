@@ -1539,7 +1539,17 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       window.chewCover = function(P){ chews++; return real(P); };
       for (let A = 1; A <= 30; A++) {
         BohemiaArena.set(A); setupCombat();
-        if (!(G.e||[]).some(e => e && e.E && e.E.breach)) continue;
+        /* V187 RE-POINTED: this used to SKIP any fight without a breacher, which
+           was fine when every roster carried one. Now he is CONCENTRATED IN THE
+           ANVIL, so skipping starved the arm to 18 bites against a threshold of
+           20 and took a true claim red. THIS ARM IS ABOUT THE MECHANIC, NOT ABOUT
+           HOW OFTEN HE TURNS UP -- frequency has its own claim below now -- so
+           STAGE HIM instead of hoping the roll provides one. Converting a body
+           already on the board keeps the fight the same size and shape. */
+        if (!(G.e||[]).some(e => e && e.E && e.E.breach)) {
+          const v = (G.e||[]).find(e => e && !e.dead && !e.melee);
+          if (!v) continue;
+          v.E = JSON.parse(JSON.stringify(ARCH.breacher)); v.arch = 'breacher'; v.n = ARCH.breacher.n; }
         fights++;
         G.pHP = G.pMax||100; G.phase='cover'; G.over=false; G.inc=null;
         const tall0 = (G.pillars||[]).filter(P => P.tall!==false).length;
@@ -1575,6 +1585,15 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     let inRoster = 0, tried = 0;
     for (let A = 1; A <= 30; A++) { BohemiaArena.set(A); setupCombat(); tried++;
       if ((G.e||[]).some(e => e && e.E && e.E.breach)) inRoster++; }
+    /* V187 RE-POINTED: he is no longer sprinkled through every roster, he is
+       CONCENTRATED IN THE ANVIL, which is the shape built around him. A blanket
+       count across all shapes is now the wrong question -- so ask the right one:
+       does the shape that is ABOUT him actually carry him? */
+    let anvilTried = 0, anvilHad = 0;
+    for (let k = 0; k < 40; k++) {
+      const sh = SHAPES.find(x => x.id === 'anvil');
+      const r = composeShaped(5, sh); anvilTried++;
+      if (r.indexOf('breacher') >= 0) anvilHad++; }
     /* AND THE UNREACHABLE MECHANIC, measured on its own terms: how many guns are
        in the volley, and how many of those have a pillar covering you from them
        -- which is the exact and only condition V152's chew waits on. */
@@ -1592,7 +1611,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
         if (G.over || G.pHP <= 0) break;
       }
     }
-    return { on, off, rosters: { tried, inRoster },
+    return { on, off, rosters: { tried, inRoster, anvilTried, anvilHad },
              catch22: { states, volley, both },
              sameNumbers: ARCH.human.hp === ARCH.breacher.hp
                        && ARCH.human.acc === ARCH.breacher.acc
@@ -1621,9 +1640,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V177 AND HE IS A GOON WITH A JOB, the V173 pattern: hp, accuracy and damage COPIED from ARCH.human rather than chosen, so a whole new archetype sets no damage number and the measurement has nothing to point at except behaviour. He also costs no damage while he works -- his turn goes into the stone instead of into you, and the bill arrives as geometry when the cover goes',
     breach.sameNumbers === true);
 
-  ok('V177 AND HE IS ACTUALLY IN THE FIGHT (' + breach.rosters.inRoster + ' of ' + breach.rosters.tried
-    + ' rosters), filling after the blades so his 7/19 melee mix still takes its slots first -- the ruling V173 broke and had to be fixed',
-    breach.rosters.inRoster >= 5);
+  ok('V177 AND HE IS ACTUALLY IN THE FIGHT, THOUGH V187 MOVED WHERE. He turns up in ' + breach.rosters.inRoster
+    + ' of ' + breach.rosters.tried + ' rosters across the whole pool now, down from 10, AND THAT IS THE DESIGN RATHER THAN A REGRESSION: he is no longer sprinkled everywhere, he is CONCENTRATED IN THE ANVIL, the shape built around him, which carries him '
+    + breach.rosters.anvilHad + ' times in ' + breach.rosters.anvilTried
+    + '. A blanket count across every shape became the wrong question the moment rooms stopped asking the same one. He still fills after the blades, so his 7/19 melee mix takes its slots first -- the ruling V173 broke and had to be fixed',
+    breach.rosters.inRoster >= 1 && breach.rosters.anvilHad === breach.rosters.anvilTried);
 
 
 /* ===== V179 THE EYES ON YOU (RF4-53 layer 2) =====================
@@ -2329,6 +2350,63 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     kit.used === true && kit.plateWent.after === kit.plateWent.before + 1
     && kit.plateWent.readyAfter === false && kit.unchargedRefuses === true
     && kit.damage.before === kit.damage.after);
+
+/* ===== V187 EVERY ROOM IS A DIFFERENT QUESTION (RF4-25, RF4-26) =====
+   Paolo 8/26: "Rogue Fable four isn't necessarily a puzzle game, but IT KIND OF
+   IS... it should almost be, like, HOW IS BEST TO SOLVE THIS PUZZLE GIVEN MY
+   STATS AT THE TIME." composeRoster was never random -- it was a good "spine at
+   every size" recipe and THE ONLY ONE, so every arena asked the same question. */
+  const shapes = await frame.evaluate(() => {
+    const o = {};
+    o.count = SHAPES.length;
+    o.allDraft = SHAPES.every(s => s.draft === true);
+    const at5 = {};
+    for (const s of SHAPES) { G.meleeMix = 1;
+      const r = s.want ? composeShaped(5, s) : composeSpine(5);
+      const c = {}; for (const x of r) c[x] = (c[x] || 0) + 1;
+      at5[s.id] = c; }
+    o.at5 = at5;
+    o.distinct = new Set(SHAPES.map(s => JSON.stringify(Object.keys(at5[s.id]).sort()))).size;
+    /* THE OPPOSITION MOVED WHEN V167'S "EXACTLY ONE WORST MAN" WAS RESPECTED.
+       Every shape now carries one sniper, so "nest has a sniper, rush does not"
+       stopped being the contrast. The real one is what stands BESIDE him:
+       THE NEST is machines that hold their ground and NO blades; THE RUSH is
+       blades and no machine at all. Holders against closers. */
+    o.opposite = !!(at5.nest.bot && !(at5.nest.shiv || at5.nest.bat || at5.nest.spear)
+                 && (at5.rush.shiv || at5.rush.bat || at5.rush.spear) && !at5.rush.bot);
+    /* HIS 7/19 MELEE RULING MUST WIN OVER A SHAPE */
+    const bladeCount = (r) => r.filter(x => ['shiv','bat','spear'].includes(x)).length;
+    G.meleeMix = 0;
+    o.noBlades = SHAPES.map(s => bladeCount(s.want ? composeShaped(5, s) : composeSpine(5)));
+    G.meleeMix = 2;
+    o.pack = SHAPES.map(s => bladeCount(s.want ? composeShaped(6, s) : composeSpine(6)));
+    G.meleeMix = 1;
+    const seen = {};
+    for (let i = 0; i < 200; i++) { composeRoster(5); seen[G.shape.id] = (seen[G.shape.id] || 0) + 1; }
+    o.seen = seen; o.everyShapeAppears = Object.keys(seen).length === SHAPES.length;
+    return o;
+  });
+
+  console.log('  V187 the shapes, at five men:'
+    + '\n    ' + Object.keys(shapes.at5).map(k => k + ' ' + JSON.stringify(shapes.at5[k])).join('\n    ')
+    + '\n    distinct rosters ' + shapes.distinct + ' of ' + shapes.count
+    + '\n    blades at NO-BLADES ' + JSON.stringify(shapes.noBlades)
+    + '  at PACK ' + JSON.stringify(shapes.pack)
+    + '\n    seen over 200 fights ' + JSON.stringify(shapes.seen));
+
+  ok('V187 RF4-26 *** EVERY ROOM ASKS A DIFFERENT QUESTION NOW, WHICH IS WHAT HE MEANT BY A PUZZLE. *** composeRoster was never random -- it was a good spine and THE ONLY ONE, so five men was ALWAYS sniper + bot + blade + medic + breacher and you learned one answer on fight three and repeated it forever. '
+    + shapes.count + ' shapes, ' + shapes.distinct + ' distinct rosters, and all of them turn up over 200 fights (' + JSON.stringify(shapes.seen) + ')',
+    shapes.count === 5 && shapes.distinct === 5 && shapes.everyShapeAppears === true);
+
+  ok('V187 AND TWO OF THEM WANT OPPOSITE THINGS FROM YOU, which is the whole design rather than a longer list: THE NEST is machines that hold their ground and NOT ONE BLADE (' + JSON.stringify(shapes.at5.nest)
+    + ') and it punishes CAMPING; THE RUSH is blades and NOT ONE MACHINE (' + JSON.stringify(shapes.at5.rush)
+    + ') and it punishes STANDING STILL BADLY. HOLDERS AGAINST CLOSERS -- the contrast moved off the sniper when V167\'s "exactly one worst man" was respected and every shape got one. No single habit survives the pool -- and "given my stats at the time" is what makes it a puzzle rather than a quiz, because with a plate in hand THE RUSH is survivable head on and without one it has to be kited',
+    shapes.opposite === true);
+
+  ok('V187 AND HIS 7/19 MELEE RULING STILL WINS OVER EVERY SHAPE, because a new system must never quietly eat a slot a ruling already claimed -- the exact mistake V173 made. At NO-BLADES every shape puts down ' + JSON.stringify(shapes.noBlades)
+    + ' blades, and at PACK every shape gives him his half: ' + JSON.stringify(shapes.pack) + '. A shape BENDS the mix, it never replaces it',
+    shapes.noBlades.every(n => n === 0) && shapes.pack.every(n => n === 3)
+    && shapes.allDraft === true);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

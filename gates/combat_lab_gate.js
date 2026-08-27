@@ -4781,12 +4781,29 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /if\(!inHisRange\(e\)\)continue;/.test(demo));
 
   ok('V177 AND HE FILLS AFTER THE BLADES, so his 7/19 MELEE MIX still takes its slots first. That is the ruling V173 broke by inserting an archetype ahead of them -- at PACK the recipe wants floor(N/2) knives and the medic was eating one -- and a second new body must not repeat it',
-    demo.indexOf("out.push('breacher')") > demo.indexOf("const BL=['shiv','bat','spear'];")
-    /* AND EXACTLY ONE PLACE PUTS HIM IN, because an ordering claim that reads
-       indexOf is defeated by a duplicate sitting in front of the one it finds --
-       precisely the hole V174's car-tap claim had, found by mutation the same
-       way. Ordering only means something when there is one of the thing. */
-    && (demo.match(/out\.push\('breacher'\)/g) || []).length === 1);
+    /* V187 RE-POINTED, AND THE OLD GUARD IS THE REASON IT HAD TO BE. This read a
+       GLOBAL indexOf plus "there must be exactly ONE place that pushes him",
+       written by a session that knew an ordering claim is defeated by a
+       duplicate. V187 legitimately adds a SECOND recipe (composeShaped beside
+       composeSpine), so the count guard fires on a correct change.
+       THE INTENT SURVIVES AND GETS STRONGER: the rule was never "one push site",
+       it was "he never jumps ahead of the blades". So check it IN EVERY RECIPE,
+       scoped, instead of once across the file -- which is the same repair the
+       V180 no-second-cap claim needed when it negated a string belonging to
+       somebody else's function. */
+    (() => {
+      const recipes = ['function composeSpine(N){', 'function composeShaped(N,sh){']
+        .map(sig => { const a = demo.indexOf(sig);
+          if (a < 0) return null;
+          const b = demo.indexOf('\nfunction ', a + sig.length);
+          return demo.slice(a, b < 0 ? a + 4000 : b); })
+        .filter(Boolean);
+      if (recipes.length !== 2) return false;
+      return recipes.every(r => {
+        const bl = r.indexOf("const BL=['shiv','bat','spear'];");
+        const br = r.indexOf("out.push('breacher')");
+        if (bl < 0) return false;
+        return br < 0 || br > bl; }); })());
 
 /* ===== V176 THE FINISHER (RF4-12) ================================
    "Charge up a more impactful ability after say 10 attacks, WHICH TAKES
