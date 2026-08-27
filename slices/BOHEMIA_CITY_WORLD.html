@@ -286,6 +286,15 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 </div>
 <style id="homePhoneCss">
 
+
+/* ==== __CITY_WHYWALK__ -- the reason-to-walk lines. Same tokens, and the
+   row grows downward rather than sideways so a long want does not squeeze the
+   bearing off the right edge of a phone. */
+#outfitpanel .obv{flex-wrap:wrap}
+#outfitpanel .obvwhy{flex:1 1 100%;padding:3px 0 1px;line-height:1.5}
+#outfitpanel .obvwant{display:block;font-size:9px;opacity:.75}
+#outfitpanel .obvpays{display:block;font-size:9px;color:var(--acc);opacity:.9;
+  letter-spacing:1px;padding-top:2px}
 /* ==== __CITY_VALLEY__ -- the valley half of the board. Same tokens, same
    geometry; nothing new is designed. */
 #outfitpanel .obhead2{color:var(--acc);font-size:11px;letter-spacing:3px;
@@ -34760,7 +34769,7 @@ var INSTALL_ASKED=false;
 /* WORDS, NOT A DECISION (ALWAYS MAKE AN ATTEMPT, 8/11) -- a real attempt, written
    as if it ships, draft:true so he can find and edit every word in the WORDS tab. */
 var INSTALL_WORDS={ draft:true,
-  title:'KEEP THIS RUN',
+  title:'KEEP THIS VALLEY',
   body:'Bohemia lives in your browser. Put it on your home screen and it opens '
      + 'like an app, full screen, straight back into this valley.',
   ios:'Tap \u22ef at the bottom of Safari, then Share, then Add to Home Screen.',
@@ -35018,7 +35027,7 @@ function updHud(){
   { const bb=document.getElementById('bikebtn'); if(bb)bb.style.display=MODE==='human'?'block':'none'; }
   document.getElementById('note').textContent=MODE==='city'
     ? 'move on the streets. time moves when you move.'
-    : 'walking the neighborhood you dropped into.';
+    : 'walking your own block.';
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
 }
 
@@ -35786,7 +35795,7 @@ function showWake(){
        +' \u00b7 light until '+esc(DAY.hhmm(DAY.NIGHT_MIN))+'</div>';
   if(o){ h+='<p>Something came in on your phone overnight.</p>'
           +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
-          +'<div class="sub">on the network \u00b7 not taken</div>'; }
+          +'<div class="sub">nobody has picked it up yet</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
   cardShow(h,function(){ cardHide();
@@ -35900,7 +35909,7 @@ function showReckoning(){
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
         +(DQ.tags().length?' ('+esc(DQ.tags()[0])+')':'')+'</li>';
   /* __THE_PHONE_RINGS__ */
-  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';
+  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': nobody picked it up</li>';
   /* __THE_DAY_PAYS__ -- WHAT THE DAY WAS WORTH, and the refusal is not a bug.
      Amounts are CONTENTS (ALWAYS MAKE AN ATTEMPT, 8/11: "numbers, dials, rates,
      prices" still wait for him), so this never fakes one. It says who has not
@@ -36934,7 +36943,7 @@ document.getElementById('savebtn').addEventListener('click',()=>{
   const p=document.getElementById('savepanel');
   if(p.style.display==='block'){ p.style.display='none'; return; }
   p.innerHTML='<b style="color:var(--acc);font-size:11px;letter-spacing:1px">SUSPEND SAVE</b>'+
-   '<div style="font-size:10px;opacity:0.7;margin:6px 0">autosaves as you move · one slot · resume only<br>backend: <span id="sv-mode">…</span></div>'+
+   '<div style="font-size:10px;opacity:0.7;margin:6px 0">saves itself as you go · one save · picks up where you left off<br>kept in: <span id="sv-mode">…</span></div>'+
    '<div class="sbtn" id="sv-exp">EXPORT SAVE</div><div class="sbtn" id="sv-imp">IMPORT</div><div class="sbtn" id="sv-close">CLOSE</div>'+
    '<div id="sv-impbox" style="display:none"><textarea id="sv-txt" placeholder="paste save text"></textarea><div class="sbtn" id="sv-apply">APPLY</div></div>';
   p.style.display='block';
@@ -42885,8 +42894,57 @@ var CT_BASES_SEED  = "bohemia";
    at patch time and keyed to the seed TEXT they were produced for: a different
    seed gets NULL rather than a confidently wrong answer. */
 function ctBases(){
+  /* __CITY_WHYWALK__ -- THIS CHECK COULD NOT FIRE.
+     It compared BOH_SEED_TEXT (a const, 'bohemia') against CT_BASES_SEED
+     (baked, "bohemia"). Two constants. Its own comment says what it is for --
+     "a different seed gets NULL rather than a confidently wrong answer" --
+     and the intent is right while the variable is wrong.
+     WHAT MAKES A DIFFERENT WORLD IS `seed`:
+         let seed = BOH_ONE_SEED();            // boot, derived from the text
+         seed=(seed*1103515245+12345)>>>0;     // REROLL, one LCG step
+     REROLL builds an entire new overmap off that number and never touches the
+     text, so the bases end up describing a world that no longer exists while
+     the guard watches a variable that cannot move.
+     MEASURED by pressing the real button: seed 2691674296 -> 3182853632, and
+     ctBases() went on answering. Both checks are kept -- the text one catches
+     somebody editing the seed and forgetting to re-bake, this one catches the
+     world moving underneath the bake. */
   if(String(BOH_SEED_TEXT) !== String(CT_BASES_SEED)) return null;
+  try {
+    if(typeof seed !== 'undefined' && typeof BOH_ONE_SEED === 'function'
+       && (seed >>> 0) !== (BOH_ONE_SEED() >>> 0)){
+      /* AND IT SAYS SO, ONCE. Returning null in silence is how this lane lost
+         thirteen days: factionOf answered null for all 166 people and "nobody
+         in Las Vegas runs with anybody" looks exactly like a world where
+         nobody does. A guard that goes quiet IS the bug it was written to
+         prevent. */
+      if(!ctBases.__said){
+        ctBases.__said = 1;
+        console.warn('BOHEMIA: the world was rerolled, so the baked faction '
+          + 'bases are for a world that no longer exists. Nobody will run with '
+          + 'anybody until the city is re-baked (tools/bohemia_city_factions_'
+          + 'patch.py). This is a builder-tool consequence, not a save bug.');
+      }
+      return null;
+    }
+  } catch(_e){}
   return CT_BASES_BAKED;
+}
+/* __CITY_WHYWALK__ -- and the ONE place that can explain an empty valley.
+   Kept beside the guard rather than inside the board, so the board and the
+   console cannot drift into two different explanations of one fact. */
+function ctBasesWhyNone(){
+  try {
+    if(String(BOH_SEED_TEXT) !== String(CT_BASES_SEED))
+      return 'THE FACTION GROUND WAS BAKED FOR A DIFFERENT SEED. Nobody runs '
+           + 'with anybody until the city is re-baked.';
+    if(typeof seed !== 'undefined' && typeof BOH_ONE_SEED === 'function'
+       && (seed >>> 0) !== (BOH_ONE_SEED() >>> 0))
+      return 'YOU REROLLED THE WORLD. The outfits\' ground was mapped for the '
+           + 'valley that was here before, so none of it applies any more and '
+           + 'nobody runs with anybody. Reload to get that valley back.';
+  } catch(_e){}
+  return null;
 }
 /* the overmap cell you are standing in. hx,hy are GLOBAL FINE coords and FN is the
    fine tiles per cell, so this is the same cell the rest of the world means. */
@@ -43783,9 +43841,17 @@ function ctValleyRows(){
     var d  = Math.abs(dx) + Math.abs(dy);
     var isMine = !!(mine && String(name).toUpperCase().replace(/[\s_]/g,'')
                           === String(mine).toUpperCase().replace(/[\s_]/g,''));
+    /* __CITY_WHYWALK__ -- what they want and what they pay, read from the
+       rules table. A missing rule is a real answer (not every base on the map
+       has one) and prints nothing rather than an empty label. */
+    var rule = null;
+    try { if(typeof BohemiaBelonging !== 'undefined')
+            rule = BohemiaBelonging.ruleOf(name); } catch(_e){}
     out.push({ who:String(name).toUpperCase(), cells:d, mine:isMine,
                where:isMine ? 'YOURS' : ctBearing(dx, dy),
                far:isMine ? 'THIS IS YOUR GROUND' : ctFarWord(d),
+               want:(isMine || !rule) ? null : (rule.anchorWant || null),
+               pays:(isMine || !rule) ? null : (rule.pays || null),
                met:ctMetAnyOf(name) });
   }
   out.sort(function(a,b){ return a.cells - b.cells; });
@@ -43804,7 +43870,17 @@ function ctMetAnyOf(name){
 
 function ctValleyHtml(){
   var rows = ctValleyRows();
-  if(!rows || !rows.length) return '';
+  if(!rows || !rows.length){
+    /* __CITY_WHYWALK__ -- AN EMPTY VALLEY IS EXPLAINED, NEVER BLANK.
+       ctValleyRows returns null when ctBases() does, and the only reason that
+       happens is a guard firing. Rendering '' there would show him a board
+       with a missing half and no way to know why -- which is the silent-null
+       failure this lane already paid thirteen days for, moved up one level. */
+    var why = (typeof ctBasesWhyNone === 'function') ? ctBasesWhyNone() : null;
+    return why ? '<div class="obhead2">THE VALLEY</div>'
+                 + '<div class="obempty">' + why + '</div>'
+               : '';
+  }
   var others = rows.filter(function(r){ return !r.mine; });
   var nearest = others[0];
   var h = '<div class="obhead2">THE VALLEY</div>';
@@ -43821,7 +43897,21 @@ function ctValleyHtml(){
        + '<span class="obvwhere">' + r.where + ' \u00b7 ' + r.far + '</span>'
        + '<span class="obvmet">' + (r.mine ? '' : (r.met ? 'YOU HAVE DEALT WITH THEM'
                                                          : 'NEVER MET')) + '</span>'
-       + '</div>';
+       + '</div>'
+       /* __CITY_WHYWALK__ -- AND WHY YOU WOULD MAKE THAT WALK.
+          The nearest of these is 29 cells from the spawn, which is 3,712
+          tiles. A bearing tells him where; it does not tell him what is at the
+          end of it. Both answers are already written in bohemia_belonging's
+          RULES (anchorWant, pays) and both were only ever shown on the card of
+          somebody he had ALREADY MET -- shown, in other words, one walk too
+          late. Nothing is authored here; it is read out of the table and
+          printed one screen earlier. */
+       + (r.want || r.pays
+            ? '<div class="obvwhy">'
+              + (r.want ? '<span class="obvwant">' + r.want + '</span>' : '')
+              + (r.pays ? '<span class="obvpays">THEY PAY: ' + r.pays + '</span>' : '')
+              + '</div>'
+            : '');
   }
   return h;
 }
@@ -45543,12 +45633,22 @@ function showStanding(){
      on the overmap carries a faction owner: who holds which ground is HIS canon, and MAP
      LAW says Claude never designs map layouts. An invented owner would be canon nobody
      ruled, shipped quietly inside a UI. */
-  h += '<div class="rpend">Nobody holds this ground yet. Which faction claims which '
-     + 'district is yours to set, so this card cannot tell you whose permission you would '
-     + 'be needing here.</div>';
+  /* THE CARD IS NOT A NOTE TO THE DEVELOPER (8/27, WORDS). This read "which
+     faction claims which district is YOURS TO SET" -- addressed to Paolo, on a
+     card a stranger opens. Which faction holds what is still his ruling and
+     still unset; the card still says nobody holds it. Only the audience
+     changed. */
+  h += '<div class="rpend">Nobody holds this ground yet. No faction has claimed '
+     + 'this district, so there is nobody here to ask.</div>';
   if(r.mayorOpen){
-    h += '<div class="rpend">The top rung has no number yet. You said "enough done, enough '
-       + 'love", which is not a share, so it stays out of reach until you name one.</div>';
+    /* THE CARD IS NOT A NOTE TO THE DEVELOPER (8/27, WORDS). This read: 'You
+       said "enough done, enough love", which is not a share, so it stays out of
+       reach until you name one.' That is addressed to PAOLO, quoting him, on a
+       card a stranger opens in the demo. MAYOR_SHARE is still null and this
+       still says the rung is unreachable -- the dial did not move and no canon
+       was invented. Only the audience changed. */
+    h += '<div class="rpend">The top rung is still out of reach. Nobody has said '
+       + 'what it takes to stand there.</div>';
   }
   /* __EVERY_PANEL_CLOSES__ -- this row USED to read "TAP / CLOSE" and was not a
      button: no data-act, so the card's own click delegate never matched it and

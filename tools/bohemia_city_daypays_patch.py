@@ -102,9 +102,9 @@ NEW_NIGHT = """  if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline();
 
 # the reckoning tells him what the day was worth, or that nobody has said
 OLD_RECK = """  /* __THE_PHONE_RINGS__ */
-  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';"""
+  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': nobody picked it up</li>';"""
 NEW_RECK = """  /* __THE_PHONE_RINGS__ */
-  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';
+  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': nobody picked it up</li>';
   /* """ + MARK + """ -- WHAT THE DAY WAS WORTH, and the refusal is not a bug.
      Amounts are CONTENTS (ALWAYS MAKE AN ATTEMPT, 8/11: "numbers, dials, rates,
      prices" still wait for him), so this never fakes one. It says who has not

@@ -46,6 +46,15 @@ OUT_HTML = os.path.join(ROOT, 'slices', 'BOHEMIA_WORDS_CURRENT.html')
 # It rides in THIS page because this is where he already edits every line --
 # a comparison living in a records/ file is a comparison he never sees.
 REWRITE_PATH = os.path.join(RECORDS, 'BOHEMIA_VOICE_REWRITE_8_26_26.json')
+# THE INTERFACE IS PLAYER-FACING TEXT AND IT WAS NEVER IN THIS BOOK (8/27).
+# ALWAYS MAKE AN ATTEMPT (8/11) names the list itself -- "UI copy, tooltips,
+# notifications, failure messages" -- and this harvester read 36 sources, all of
+# them quests, scenes and barks. So the wake card, the objectives, the save
+# panel and the buttons, which are the FIRST words a stranger reads and the only
+# ones some of them will read, were unaudited and HE COULD NOT EDIT THEM. They
+# are harvested by driving the built demo (tools/bohemia_interface_words.py) and
+# they join the book as their own source, editable in place like every line.
+INTERFACE_PATH = os.path.join(RECORDS, 'BOHEMIA_INTERFACE_WORDS.json')
 
 
 def load_index():
@@ -396,7 +405,42 @@ def harvest():
             books.append(parse_quirks(p))
         else:
             books.append(parse_scene(p))
+    books.extend(parse_interface())
     return stamp_language(books)
+
+
+def parse_interface():
+    """The words the built demo actually paints, grouped by the screen they are on.
+
+    Driven, not grepped: if a stranger could not have seen it, it is not here.
+    No catalogue citation -- these are not dialogue and the questbook has nothing
+    to say about a save panel, so claiming a citation would be a name-drop, which
+    the 8/11 law calls out by name.
+    """
+    if not os.path.exists(INTERFACE_PATH):
+        return []
+    with open(INTERFACE_PATH, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    by_screen = {}
+    for r in data.get('lines', []):
+        by_screen.setdefault(r['screen'], []).append(r)
+    order = ['front-splash', 'shell', 'first-morning', 'after-get-up', 'phone', 'save']
+    keys = [k for k in order if k in by_screen] + \
+           [k for k in by_screen if k not in order]
+    out = []
+    for k in keys:
+        out.append({
+            'src': 'records/BOHEMIA_INTERFACE_WORDS.json',
+            'title': 'WHAT THE SCREEN SAYS: ' + k.replace('-', ' ').upper(),
+            'kind': 'interface',
+            'cites': [],
+            'lines': [{'kind': 'screen', 'speaker': 'THE GAME', 'node': k,
+                       'text': r['text'], 'id': r['id'],
+                       'src': 'records/BOHEMIA_INTERFACE_WORDS.json',
+                       'cites': [], 'citeLevel': 'file',
+                       'title': k, 'draft': True} for r in by_screen[k]],
+        })
+    return out
 
 
 # ---- LANG-2: EVERY LINE KNOWS WHAT LANGUAGE IT IS IN (8/25/26) -------------

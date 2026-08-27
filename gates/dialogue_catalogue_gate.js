@@ -565,8 +565,22 @@ if (BOOK) {
      two-person exchanges are all in the book too. ALL FOUR turns of an
      exchange count, including the opening line the player never hears: he
      cannot edit what the second line is answering if he cannot see it. */
-  ok(BOOK._meta.lines === mine, 'the book holds EVERY line on disk (book ' +
-    BOOK._meta.lines + ', counted here ' + mine + ')');
+  /* AND THE INTERFACE (8/27). This law's own list of player-facing text names
+     "UI copy, tooltips, notifications, failure messages", and for six weeks the
+     book held none of it -- so the first words a stranger reads, and the only
+     words some of them read, were text HE COULD NOT EDIT. They are harvested by
+     driving the built demo and reading what it actually paints
+     (tools/bohemia_interface_words.py), so they are counted here the same way:
+     independently, off the harvest, never from the generator's own summary. */
+  var uiPath = 'records/BOHEMIA_INTERFACE_WORDS.json';
+  var uiN = 0;
+  if (fs.existsSync(uiPath)) {
+    uiN = (JSON.parse(fs.readFileSync(uiPath, 'utf8')).lines || []).length;
+  }
+  mine += uiN;
+  ok(BOOK._meta.lines === mine, 'the book holds EVERY line on disk, interface ' +
+    'included (book ' + BOOK._meta.lines + ', counted here ' + mine +
+    ', of which ' + uiN + ' are screens)');
   ok(BOOK._meta.fingerprint === want, 'and the machine copy is current too');
   /* every scene line's CURRENT text is actually in the page he opens */
   var missing = [];
