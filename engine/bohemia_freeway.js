@@ -30,6 +30,11 @@
 (function (root) {
   var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  /* THE BRIDGE IS AS WIDE AS THE ROAD IT CARRIES, AND THAT IS THE STREET'S FACT, NOT THE
+     FREEWAY'S. Read from bohemia_arterial.js rather than copied, so the deck can never
+     again be a number that used to be right. See the deck pass below for what it cost. */
+  var ART = (typeof module !== 'undefined') ? require('./bohemia_arterial.js')
+        : (typeof BohemiaArterial !== 'undefined' ? BohemiaArterial : root.BohemiaArterial);
 
   var C = 64;
   var BARRIER = 1;    // 0..1   concrete F-shape median barrier
@@ -153,14 +158,74 @@
       if (vert && !horiz && wantH) deckAxis = 'h';
       else if (horiz && !vert && wantV) deckAxis = 'v';
     }
+    /* *** AND A BRIDGE OVER A TWO-CELL FREEWAY DOES NOT STOP HALF WAY ACROSS. *** (8/27)
+       Paolo 8/16, on this very module: "you gotta recognize when the freeway is two grids
+       wide two tiles wide that it has to WORK TOGETHER." bohemia_strip.js took that ruling
+       on 8/18 and wired `spanThrough` -- my sibling half has the crossing, so my half has
+       to carry it on across. THE FIX NEVER TRAVELLED HERE. An interstate is laid two cells
+       abreast, and only the carriageway that actually touches the arterial was handed a
+       `cross`, so the overpass was built on ONE carriageway and simply ended at the cell
+       boundary: a bridge over an eight-lane freeway that stops in mid-air over the far
+       carriageway. Invisible in any single cell, which is why it survived a month.
+       The deck runs PERPENDICULAR to the carriageway it crosses, so a half that is only
+       spanning-through does not need to know which way the street came from -- it knows
+       its own axis, and that is enough. */
+    /* *** THE DECK AXIS COMES FROM THE AXIS THE FREEWAY RUNS ON, NOT FROM ITS FAMILY. ***
+       `vert`/`horiz` above are derived from `same` -- the cells of the same family beside
+       me -- and at a corner, at a merge, or on a cell whose run length TIES, `same` is
+       L-shaped, so both are true and the branch above chooses NO axis at all. Those cells
+       built no deck while the carriageway beside them built a full one, and the bridge
+       ended in mid-air: 40 freeway-to-freeway seams.
+       The world already computes the run axis and hands it over as `streets` (roadAxis
+       measures RUN LENGTH, which is the same machinery the strip and the arterial use).
+       A deck runs PERPENDICULAR to the carriageway it crosses, so knowing the run is
+       enough and the family shape is irrelevant. */
+    if (!deckAxis) {
+      var runAx = null;
+      if (opts.streets && opts.streets.length) {
+        var s0 = String(opts.streets[0]).toUpperCase().charAt(0);
+        runAx = (s0 === 'N' || s0 === 'S') ? 'v' : 'h';
+      }
+      if (runAx) {
+        var perp = runAx === 'v' ? 'h' : 'v';
+        var wantPerp = perp === 'h'
+          ? cross.some(function (d) { return d === 'E' || d === 'W'; })
+          : cross.some(function (d) { return d === 'N' || d === 'S'; });
+        if (wantPerp || opts.spanThrough) deckAxis = perp;
+      }
+    }
     if (deckAxis) {
-      var half = 11;                                  // ~17 m of deck, a real overpass width
+      /* *** THE BRIDGE WAS TWO THIRDS THE WIDTH OF ITS OWN ROAD (fixed 8/27). ***
+         This read `var half = 11` with the comment "~17 m of deck, a real overpass width".
+         It WAS a real overpass width -- for the arterial as it stood the day it was typed.
+         The arterial's cross-section was rebuilt to real Clark County numbers on 8/26 and
+         this number did not move, so MEASURED across the valley: the deck spans 23 tiles
+         where the roadway it carries spans 35, on all 116 freeway cells that carry one.
+         An arterial ran up to the freeway 35 tiles wide, climbed onto a 23-tile bridge,
+         and came off 35 tiles wide again -- and that mismatch is 196 of the 270 broken
+         seams left in the whole valley's street contract, the single biggest class.
+         FOURTH TIME THIS MONTH a constant moved and its dependent stayed behind (BOX,
+         POCKET, the pole offsets, this). So it is not a constant any more: the width of a
+         bridge is a fact about the STREET, and the street now exports it. */
+      var half = (ART && ART.PAVE_HALF) ? ART.PAVE_HALF : 17;
       for (i = -half; i <= half; i++) {
         for (var t2 = 0; t2 < 128; t2++) {
           var px2 = deckAxis === 'h' ? t2 : C + i, py2 = deckAxis === 'h' ? C + i : t2;
           var cur = g[py2][px2];
           if (cur === 0) continue;                    // the deck only spans the corridor
-          g[py2][px2] = 12;
+          /* THE DECK CARRIES THE STREET'S OWN ANATOMY (8/27). `i` is the offset across the
+             deck, which is the same coordinate the arterial's cross-section is written in,
+             so the bridge can wear the street's parapet at its edges and the street's lane
+             lines inside -- rather than being a blank plank with a road at each end. */
+          /* THE PARAPET IS THE DECK'S OUTERMOST TILE, INSIDE its span -- not two tiles
+             beyond it. Drawn outside, it widened the bridge past the road it carries and
+             the seam stopped matching the arterial again (cross-class went 166 -> 263 in
+             one edit). The bridge is exactly as wide as the street; the edge of it is the
+             last tile of the bridge. */
+          if (Math.abs(i) === half) { g[py2][px2] = 19; continue; }        // parapet edge
+          var lane = (Math.abs(i) === 8 || Math.abs(i) === 13);             // ARTERIAL's LANE_A/LANE_B
+          var dash = (Math.floor((t2 % 12) / 6) === 0);
+          g[py2][px2] = (lane && dash) ? 18 : 12;
         }
       }
       // columns: a centre pier in the median plus one on each shoulder
@@ -315,7 +380,11 @@
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
     7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
-    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84'
+    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84',
+    /* the deck's own paint takes the arterial's worn white, and the parapet a concrete a
+       shade lighter than the deck so the edge reads from above. REUSE-FIRST: no new
+       colour invented, both are values already in this game's street vocabulary. */
+    18: '#b3ab97', 19: '#6e6e78'
   };
 
   var LEGEND = {
@@ -336,7 +405,33 @@
     14: { name: 'sign gantry',      kind: 'overhead',  act1: 'overhead sign gantry, panels gone or hanging' },
     15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false },
     16: { name: 'rail ballast',     kind: 'ground',    act1: 'the railway ballast running out from under the bridge, in the daylight between the abutments' },
-    17: { name: 'rail under bridge',kind: 'ground',    act1: 'the UP mainline passing under the interstate, rails still bright on top' }
+    17: { name: 'rail under bridge',kind: 'ground',    act1: 'the UP mainline passing under the interstate, rails still bright on top' },
+    /* *** A BRIDGE IS A ROAD, AND OURS WAS A BLANK SLAB (8/27). *** Photographed the
+       overpass at 76,5 the moment it was the right width, and it read as a plain tan plank
+       laid across the freeway: no lane line, no edge. It is carrying an ARTERIAL -- the
+       same six-lane street that has a median and lane markings on either side of it -- and
+       a driver coming off the street onto the bridge should not lose the road.
+       THE PARAPET IS THE OTHER HALF, and it is the thing that makes a bridge read as a
+       bridge from above: a deck that simply stops at its edge looks like a ramp. It is
+       `structure` and solid, which is also true -- you cannot walk off the side. */
+    /* NAMED `deck stripe`, NOT `deck lane line`, AND THE NAME IS THE BUG FIX (8/27).
+       The walked surface routes any legend name matching /lane line/ to the approved
+       harmonized LANE POOL -- and those tiles are painted white ON ASPHALT, background
+       included. Blitted onto a bridge deck they stamped dark asphalt rectangles across it:
+       photographed it and the bridge came back wearing a row of dark blocks instead of a
+       lane line. The pool is right for a road on the ground and wrong for a deck, so this
+       stripe draws flat from its own palette entry. A LEGEND NAME IS NOT JUST A LABEL HERE
+       -- it is a routing key, and this is the second time this month a name has silently
+       chosen a renderer (the first was concrete falling through to the house-roof pool). */
+    18: { name: 'deck stripe',      kind: 'marking',   act1: 'the street\'s lane marking carried across the overpass deck, worn to a ghost' },
+    /* `overhead`, NOT `structure`, and that cost two gates to learn (8/27). A parapet IS
+       solid in the world -- you cannot walk off the side of a bridge -- but this grid is
+       ONE LAYER, so a solid tile drawn where the deck is also says "the ground here blocks
+       a body". roadcell_gate went straight red: the corridor's largest traversable space
+       fell from 14,133 tiles to 3,959, because a parapet running the length of the deck
+       severed the freeway underneath it. The deck already solves this exact problem by
+       being an overhead you pass UNDER; its own edge is part of the same object. */
+    19: { name: 'deck parapet',     kind: 'overhead',  act1: 'the concrete parapet along the edge of the overpass deck, tagged along its whole length', solid: false }
   };
 
   var NOTES = {

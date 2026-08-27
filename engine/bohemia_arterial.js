@@ -887,6 +887,17 @@
 
   var API = { generate: generate, throughDrivable: throughDrivable,
               footprints: function (r) { return r.footprints; },
+              /* THE CORRIDOR HALF-WIDTH, EXPORTED (8/27). An overpass carries THIS road,
+                 so the bridge deck's width is not the bridge's business to invent -- it is
+                 a fact about the street underneath it. bohemia_freeway.js had `var half =
+                 11` with the comment "~17 m of deck, a real overpass width", which was true
+                 of the arterial as it stood the day it was typed and stopped being true the
+                 moment the cross-section moved. MEASURED: the deck came out 23 tiles wide
+                 across a roadway 35 tiles wide -- a bridge two thirds the width of its own
+                 road, on 116 freeway cells. That is the FOURTH time this month a constant
+                 moved and its dependent stayed behind (BOX, POCKET, the pole offsets, this),
+                 so it is exported rather than copied and the freeway reads it. */
+              PAVE_HALF: PAVE, CURB_HALF: CURB, WALK_HALF: WALK,
               palette: PALETTE, legend: LEGEND, notes: NOTES };
   if (typeof module !== 'undefined') module.exports = API;
   root.BohemiaArterial = API;

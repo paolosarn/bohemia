@@ -43,7 +43,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [battery](tilespec/BOHEMIA_TILESPEC_battery.md) | infrastructure | 14 | yes |
 | [terminal](tilespec/BOHEMIA_TILESPEC_terminal.md) | infrastructure | 23 | yes |
 | [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 22 | yes |
-| [freeway](tilespec/BOHEMIA_TILESPEC_freeway.md) | infrastructure | 18 | yes |
+| [freeway](tilespec/BOHEMIA_TILESPEC_freeway.md) | infrastructure | 20 | yes |
 | [desert](tilespec/BOHEMIA_TILESPEC_desert.md) | terrain | 14 | yes |
 | [mountain](tilespec/BOHEMIA_TILESPEC_mountain.md) | terrain | 10 | — |
 | [water](tilespec/BOHEMIA_TILESPEC_water.md) | terrain | 11 | — |

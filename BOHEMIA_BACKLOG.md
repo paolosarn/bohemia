@@ -2222,6 +2222,42 @@ STREETS-LEGO. *** HIS RULING, TOP OF THIS LANE. "NONE OF THE STREETS
    no two-cell-wide crossing piece), and 263 cross-class seams -- mostly
    an arterial dying on a freeway flank (97) and level crossings with rail
    (43). What is missing there is a PIECE, not a rule.
+   *** AND 8/27: THE BRIDGE. records/BOHEMIA_THE_BRIDGE_WAS_TOO_NARROW_8_27_26.md.
+   270 broken seams -> 206; cross-class 263 -> 166; ARTERIAL-TO-FREEWAY 196 -> ZERO.
+   THE CONTRACT WAS BLIND TO BRIDGES: an arterial crossing a freeway rides over on
+   a DECK and a car drives on it, but the deck's tiles are kind `overhead` and the
+   contract counted drive/marking/gate only -- so every crossing in the valley read
+   as a street that simply ended. The kit has treated an overhead as a drive
+   CONDUCTOR since August; the contract was the one place that did not.
+   THEN THE REAL DEFECT CAME OUT FROM UNDER IT: `var half = 11` with the comment
+   "a real overpass width". It was -- for the arterial as it stood the day it was
+   typed. The cross-section moved on 8/26 and the number did not, so the deck spans
+   23 tiles across a roadway 35 wide, on all 116 cells that carry one. FOURTH TIME
+   THIS MONTH a constant moved and its dependent stayed behind (BOX, POCKET, the
+   pole offsets, this). The width of a bridge is a fact about the STREET, so the
+   arterial exports it and the freeway reads it.
+   THREE MORE UNDERNEATH: the bridge ENDED IN MID-AIR over the far carriageway (the
+   strip solved this on 8/18 with spanThrough and the fix never travelled here,
+   though Paolo ruled it on 8/16 -- "when the freeway is two grids wide it has to
+   WORK TOGETHER"); the deck axis came from `same` (L-shaped at a corner, so those
+   cells chose no axis and built no bridge) instead of the axis it RUNS on; and
+   roadAxis returned '' on a tie while every caller wrote `||'ns'`, so an ambiguous
+   cell became a NORTH-SOUTH ROAD BY DEFAULT -- the identical shape as the 8/26
+   arterial bug. It polls its own ribbon now.
+   AND THE BRIDGE WAS TAN WITH DARK BLOCKS ON IT. Photographed it: the deck's kind
+   `overhead` fell through the pool table to `hyard`, the granite YARD pool, and its
+   stripe's kind `marking` routed to `street`, ASPHALT BACKGROUND INCLUDED. Both
+   correct lookups, both nonsense on a bridge. A LEGEND NAME IS A ROUTING KEY IN
+   THIS ENGINE, not a label -- second time this month (the first put brickwork on a
+   dam). Deck, parapet and paint are concrete now, told apart by palette.
+   AND THE PARAPET RE-TAUGHT THE SINGLE-LAYER LESSON: declared `structure` it is
+   honestly solid, and it SEVERED THE FREEWAY UNDERNEATH (traversable space 14,133
+   -> 3,959). The deck already solves that by being an overhead you pass under; its
+   edge is part of the same object.
+   LEFT, NAMED: 40 freeway-to-freeway breaks, newly VISIBLE rather than new. Two
+   freeway cells running perpendicular and meeting, where `interchange` belongs.
+   No piece can fix that -- the two cells are honestly building different roads.
+   MAP LAW: not mine to design. Counted and ratcheting. ***
 WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "WTF IS GOING ON HERE WITH THE SOUTH PART OF THE BUILDING
    THE WALL CHANGES I HOPE THATS NOT FOR ME WHEN IM SUPPOSED TO BE BEHIND

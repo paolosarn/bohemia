@@ -1,3 +1,90 @@
+WORLD (world-9lfjtf): 8/27 (a) LATEST -- *** THE BRIDGE WAS TWO THIRDS THE WIDTH OF ITS
+OWN ROAD, AND THE CONTRACT COULD NOT SEE BRIDGES AT ALL. 196 broken seams -> ZERO.
+TAB: RUN, walk to where a street crosses the freeway. Nothing to judge. ***
+
+    broken seams, whole valley        270  ->  206
+    where two road classes meet       263  ->  166
+    ARTERIAL TO FREEWAY               196  ->  *** 0 ***
+    arterial to arterial                0  ->  0
+
+*** THE CONTRACT WAS BLIND TO BRIDGES. *** An arterial crossing a freeway does not stop at
+the freeway -- it rides over on a DECK and a car drives along it. The deck's tiles are kind
+`overhead`, and the street contract counted drive/marking/gate only, so every one of those
+crossings read as a street that simply ENDED: 97 seams of ONE_SIDE plus 99 of OFFSET, 196 of
+the 270 left in the valley. The kit has treated an overhead as a drive CONDUCTOR since
+August, for exactly this reason. The contract was the one place that did not.
+
+*** AND THEN THE REAL DEFECT CAME OUT FROM UNDER IT. ***
+    var half = 11;   // "~17 m of deck, a real overpass width"
+It WAS a real overpass width -- for the arterial as it stood the day it was typed. The
+cross-section was rebuilt to real Clark County numbers on 8/26 and THIS NUMBER DID NOT MOVE.
+Measured: the deck spans 23 tiles across a roadway that spans 35, on all 116 freeway cells
+that carry one. An arterial ran up to the freeway 35 tiles wide, climbed onto a 23-tile
+bridge, and came off 35 tiles wide again.
+FOURTH TIME THIS MONTH A CONSTANT MOVED AND ITS DEPENDENT STAYED BEHIND -- BOX (which cost
+a whole fix its picture), POCKET, the pole offsets, this. So it is not a constant any more:
+THE WIDTH OF A BRIDGE IS A FACT ABOUT THE STREET, and bohemia_arterial.js exports it.
+
+THREE MORE UNDERNEATH THAT:
+  THE BRIDGE ENDED IN MID-AIR. Paolo 8/16, on this very module: "you gotta recognize when
+    the freeway is two grids wide two tiles wide that it has to WORK TOGETHER." The strip
+    took that ruling on 8/18 and wired spanThrough. THE FIX NEVER TRAVELLED HERE. The deck
+    was built on whichever carriageway touched the arterial and stopped at the cell
+    boundary -- a bridge over an eight-lane freeway that stops half way across.
+  THE DECK AXIS CAME FROM THE WRONG QUESTION. Derived from `same` (the family cells beside
+    me), which is L-shaped at a corner or on a tied cell, so both axes read true and the
+    branch chose NO axis: those cells built no deck at all. It reads `streets` now -- the
+    axis the freeway actually runs on.
+  A TIE WAS NOT AN ANSWER AND EVERY CALLER TURNED IT INTO ONE. roadAxis returned '' for
+    "genuinely a crossing" and every caller wrote `roadAxis(...)||'ns'`, so an ambiguous
+    cell did not become a crossing, IT BECAME A NORTH-SOUTH ROAD BY DEFAULT -- the identical
+    shape as the arterial bug fixed on 8/26. It polls its own ribbon one level deep now.
+
+AND THE BRIDGE WAS TAN, WITH DARK BLOCKS ON IT. Photographed it the moment the width was
+right: the deck came back the colour of a GRAVEL DRIVE with a row of DARK ASPHALT
+RECTANGLES where the lane line should be. The deck's kind `overhead` fell through the pool
+table's else branch to `hyard`, the decomposed-granite YARD pool; its stripe's kind
+`marking` routed to `street` -- asphalt, BACKGROUND INCLUDED. Both correct table lookups.
+Both nonsense on a bridge. *** A LEGEND NAME IS A ROUTING KEY IN THIS ENGINE, NOT A LABEL
+*** -- second time this month a name silently chose a renderer (the first put brickwork on
+a dam). Deck, parapet and paint are concrete now, told apart by their own palette entries.
+
+AND THE PARAPET RE-TAUGHT THE SINGLE-LAYER LESSON. A parapet IS solid -- you cannot walk
+off the side of a bridge -- so it was declared `structure`, and roadcell_gate went straight
+red: traversable space fell from 14,133 tiles to 3,959, because a parapet running the length
+of the deck SEVERED THE FREEWAY UNDERNEATH IT. One layer. The deck already solves that by
+being an overhead you pass under; its edge is part of the same object. It also has to sit
+INSIDE the deck's span -- drawn two tiles outside it, the bridge got wider than the road it
+carries and cross-class went 166 -> 263 in one edit.
+
+LEFT, NAMED, AND NOT MINE TO FIX: 40 freeway-to-freeway breaks, newly VISIBLE rather than
+new. Sampled: freeway(13,13) runs N/S crossed east and west, freeway(14,13) beside it runs
+E/W crossed south -- TWO FREEWAY CELLS RUNNING PERPENDICULAR AND MEETING, where this valley
+has a district for exactly that (`interchange`). No piece can make that seam agree; the two
+cells are honestly building two different roads. MAP LAW: Claude never designs map layouts.
+Counted, named, ratcheting.
+GATE: street_contract 17/0, ceilings ratcheted (cross-class 263 -> 166, named freeway 40).
+  Arterial, rail and strip-to-strip stay at ZERO with no allowance.
+RECORD: records/BOHEMIA_THE_BRIDGE_WAS_TOO_NARROW_8_27_26.md
+
+WORLD LANE RUNNING ORDER (deliberately NOT under the header top_of_the_document_gate reads;
+that gate wants a row of the RF4 COMBAT teardown and there is no row in it for a street
+piece, so citing one would be a name-drop the machine checks and a human can see is a lie.
+This lane's order comes from Paolo's 8/25 dispatch. T4 has an escape for this and T3 does
+not, which looks like an oversight in a gate this lane does not own -- flagged, not edited):
+ 1. THE LEVEL CROSSING. 37 seams where an arterial meets the railway. Now the largest
+    remaining class, and a genuinely new piece: crossbucks, the rails carried across the
+    roadway, a stalled freight. Fun as well as correct.
+ 2. The Strip needs a TWO-CELL-WIDE crossing piece (4 seams).
+ 3. The interchange blob's coordinate mapping is off by one (3 seams).
+ 4. The 40 perpendicular-freeway seams need a MAP ruling, not a piece (see above).
+ 5. The interchange is 87.9% connected: 479 drive tiles a car cannot reach.
+ 6. GLASS and WOOD materials for exteriors; the tyre barrier and razor wire rows.
+ 7. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
+    wears steel. Wants its own code, not a routing exception.
+ 8. Ten dead legend codes left; four are one question (the fill-through margins on
+    arterial:0 / downtown:0 / freeway:0 / industrial:0).
+
 FACTIONS (factions-ovkjpf): 8/27 (i) LATEST -- *** 837 PEOPLE STAND WITHIN SIX
 CELLS OF WHERE HE SPAWNS AND NOT ONE OF THEM RUNS WITH ANYBODY. Two weeks of
 faction work sat 29 cells away behind a green suite. Nothing to judge. ***

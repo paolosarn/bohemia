@@ -90,7 +90,7 @@ function requirePlaywright() {
    yet (a frontage road where an arterial dies on a freeway flank; a level crossing where
    a street meets rail). They are counted so the number can only ever go DOWN. Measured
    8/26 after the three fixes above: 270. */
-const CROSS_CLASS_DEBT = 263;
+const CROSS_CLASS_DEBT = 166;
 
 /* AND THE TWO SAME-CLASS CAUSES STILL STANDING, EACH NAMED AND EACH COUNTED. Paolo's
    wording is "fails on a single mismatched edge", and that is exactly what ARTERIAL --
@@ -105,7 +105,30 @@ const CROSS_CLASS_DEBT = 263;
        junction box is wider than a cell, so at a crossing the box reaches the far edge of
        the cell and meets the sibling half's plain margin. The Strip needs a two-cell-wide
        crossing piece; it does not have one. */
-const SAME_CLASS_DEBT = { interchange: 3, strip: 4 };
+const SAME_CLASS_DEBT = {
+  interchange: 3,
+  strip: 4,
+  /* FREEWAY, 40, AND IT IS A MAP FACT RATHER THAN A PIECE FACT (8/27). These are NOT new
+     breaks -- they are newly VISIBLE ones. Until today this contract did not count a
+     bridge deck as corridor, so an arterial crossing a freeway on an overpass read as a
+     street that simply ended, and 196 seams were mis-filed as arterial-to-freeway breaks.
+     Counting the deck closed all 196 and revealed what was underneath: 40 seams where one
+     freeway carriageway carries a deck 35 tiles wide and the carriageway beside it carries
+     none.
+     THE CAUSE IS UPSTREAM OF ANY GENERATOR. Sampled: freeway(13,13) has streets N/S with
+     cross E+W, and freeway(14,13) beside it has streets E/W with cross S -- two freeway
+     cells running PERPENDICULAR TO EACH OTHER and meeting. That is a freeway-on-freeway
+     crossing, and this valley has a district for exactly that: `interchange`. Where the
+     overmap laid two interstates across each other without marking the junction, no piece
+     can make the seam agree, because the two cells are honestly building two different
+     roads. MAP LAW (Paolo): Claude never designs map layouts, plumbing only. So it is
+     counted, named, and left for a ruling rather than papered over with a special case.
+     Two things were fixed on the way here and both stay fixed: the deck was 23 tiles wide
+     carrying a 35-tile road (a literal that stopped tracking when the arterial moved), and
+     the deck axis was taken from the freeway's FAMILY neighbours instead of the axis it
+     runs on, so corner and tied cells chose no axis and built no bridge at all. */
+  freeway: 40
+};
 
 (async () => {
   console.log('THE STREET CONTRACT — every seam in the valley, measured off the tiles\n');
@@ -137,7 +160,15 @@ const SAME_CLASS_DEBT = { interchange: 3, strip: 4 };
             const ly = edge === 'N' ? 0 : edge === 'S' ? FN - 1 : i;
             const e = L[g[ly * FN + lx]]; if (!e) continue;
             const k = e.kind;
-            if (k === 'drive' || k === 'marking' || k === 'gate') { if (lo < 0) lo = i; hi = i; }
+            /* AND A BRIDGE DECK IS THE STREET CONTINUING (8/27). An arterial crossing a
+               freeway does not stop at the freeway -- it rides over on a deck, and a car
+               drives along that deck. The deck's tiles are kind `overhead`, which this
+               profile did not count, so every one of those crossings read as a street that
+               simply ended: 97 seams of ONE_SIDE plus 99 of OFFSET, 196 of the 270 breaks
+               left in the valley. The kit already treats an overhead as a drive CONDUCTOR
+               for exactly this reason; the contract was the one place that did not. */
+            const over = BohemiaDistrictKit.tileLayer(e).layer === 'overhead';
+            if (k === 'drive' || k === 'marking' || k === 'gate' || over) { if (lo < 0) lo = i; hi = i; }
             else if (k === 'walk') walk = true;
           }
           return { lo: lo, hi: hi, walk: walk, d: m.d };
