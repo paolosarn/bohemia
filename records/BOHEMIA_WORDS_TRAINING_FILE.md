@@ -795,3 +795,169 @@ frozen):**
 - GDC Vault, "Using User Research to Improve Game Narratives" (narrative
   usability, Microsoft Studios); PlaytestCloud, "Survey questions for assessing
   your game's narrative in a playtest"
+
+---
+
+# ROUND 5 — 8/27/26. Still hunting the unknown unknowns.
+
+## 33. THE BIGGEST ONE THIS ROUND, AND IT IS ABOUT BOHEMIA'S CORE SHAPE
+Named plainly in the craft literature as the worst habit in the medium:
+> **"One of the least person-like habits of typical NPC dialogue is that they
+> always answer the same questions in the exact same words, regardless of how
+> many times the player has asked."**
+
+**NOW PUT THAT NEXT TO WHAT BOHEMIA IS.** There are no runs. One character. About
+a hundred hours. You live on a block, with the same neighbours, for the length of
+the whole game. Our @TALK nodes are static: the lineman says the same three lines
+tonight, tomorrow, and in eighty hours.
+
+**IN A GAME BUILT ON PERSISTENCE, A PERSON WHO REPEATS HERSELF VERBATIM IS THE
+SINGLE MOST IMMERSION-BREAKING THING THERE IS**, and it gets worse the longer
+somebody plays, which means it is worst for exactly the player we want. A game
+with runs hides this. Ours cannot.
+
+I have never checked whether our build does this. I believe it does. That belief
+is the most important unverified claim in this file.
+
+## 34. AND THE ARCHITECTURE THAT FIXES IT IS ALREADY DESCRIBED
+Two memories, not one:
+- **CONVERSATIONAL MEMORY** — what has passed between this person and you
+- **WORLD KNOWLEDGE MEMORY** — what this person knows about the world
+
+And the part that made me sit up: **dialogue checks each participant's memories
+INDIVIDUALLY**, which buys **one-sided recollections, misunderstandings, and
+hidden information.** Somebody remembers a thing you did that you have forgotten.
+Somebody remembers it WRONG. Somebody knows a thing about you and never says so.
+
+The relationship arc most systems use is: polite and distant at first, warmer and
+more familiar as it goes.
+
+## 35. TWO SEPARATE RESEARCH PATHS ARRIVED AT THE SAME LEVER
+Round 4 got **recipient design** out of conversation analysis: talk is built for
+what the speaker assumes you already know, and a speaker who thinks you do not
+share their knowledge slows down and explains.
+Round 5 got **favorability arcs** out of game systems work: distant and formal
+first, shorthand and warm later.
+
+**THOSE ARE THE SAME MECHANISM DESCRIBED BY A LINGUIST AND BY AN ENGINEER.**
+Independent paths, one lever, and it is a lever Bohemia already has the parts
+for — bond, clout, factions, and a deeds layer that already publishes what you
+did and can already compute WHY somebody feels about you the way they do.
+**The machinery may exist and the WORDS may be the missing half.**
+[Recording the convergence, not proposing anything. Systems are other lanes'.]
+
+## 36. THE GREETING IS THE HIGHEST-FREQUENCY LINE IN A GAME AND I NEVER THOUGHT
+## ABOUT IT ONCE
+A greeting can be about: the player (how they look, what is suspected of them),
+the surroundings (recent events, who is fighting whom), something personal to the
+speaker, a complaint about the neighbours, or a belief. The failure is the
+introduction: *"hi there, sorry to bother you, I'm the town blacksmith."*
+Also technical and easily missed: a greeting should be ONE line, because the
+player can pick an option or walk before a second one appears.
+**For Bohemia the greeting is enormous** — a hundred hours on one block means the
+same hello, hundreds of times. It is the line most worth varying and the one I
+have spent the least thought on.
+
+## 37. SWEARING IS AN INDIVIDUALIZER, AND OUR VALLEY IS UNIFORM
+The craft finding is not "swear more". It is:
+> **"Having a character who habitually uses profanity in contrast to others who
+> don't is, in itself, a good individualizer."**
+And: **when a character's language shifts, the shift should be doing work** —
+escalation, a change in power, a loss of composure that means something.
+
+So profanity is a DIAL PER PERSON, and the value is in the CONTRAST. If nobody
+swears, we lose a free way to tell people apart AND we lose the moment where the
+one who never swears finally does. If everybody swears, the same loss.
+**Our corpus is uniform, at zero.** Given who Paolo is and how he talks, I would
+guess the valley is under-salted rather than over. But this is HIS call about HIS
+world, it is not a research question, and I am recording the mechanism only.
+
+## 38. WITH NO PROPER NAMES, WHAT PEOPLE CALL YOU IS THE WHOLE RELATIONSHIP
+Our quests forbid proper names by design (W8), so a quest can cast against
+whoever actually exists. I had been treating that as a limitation to work around.
+It is not. It forces the **term of address** to carry everything.
+
+Sociolinguistics gives the two axes: **POWER and SOLIDARITY** (Brown and Gilman).
+Address terms "enact intimacy, foster collective belonging, and enhance
+solidarity", and the choice signals how the speaker imagines their relationship
+with you.
+So in Bohemia: *nothing at all* / "hey" / "man" / "kid" / "friend" / "brother" /
+"boss" / "sir" is not decoration. **IT IS THE RELATIONSHIP, STATED.** And it can
+move: the man who called you nothing in week one calling you "kid" in week six is
+a whole arc with no new system behind it.
+**W8 IS NOT A CONSTRAINT ON THE WRITING. IT IS THE WRITING.**
+
+## 39. THE ANSWER TO MY OWN BIGGEST OPEN QUESTION, AND I DO NOT LIKE IT
+Round 4 ended asking whether a distinctive voice can survive being scaled with
+tools. The industry answer is clear and it is not a tool.
+
+Studios scale voice with **A HUMAN EDITORIAL PASS.** A game editor exists whose
+job is refining narrative and content quality and **ensuring consistency in
+character arcs, tone and pacing**. Leads mentor, leads revise. The written
+artifacts — **world bibles, character bios, style documents** — are INPUTS TO
+HUMANS, not transformers of text.
+
+**SO MY CONTRACTION TOOL WAS NOT A VOICE MECHANISM. IT WAS A SPELLING
+NORMALIZER**, and I was right to hold "contraction-passed" apart from
+"voice-passed" but I did not fully understand why until now. Voice does not
+scale through substitution. **It scales through a person reading every scene and
+cutting.** Which is Terkel again, from the other direction.
+**WHAT THAT MEANS FOR MY WORK WHEN UNFROZEN:** the job is not more tools. It is
+reading scenes as an editor, one at a time. And the cast sheet in this file is a
+proto **character bible**, which is exactly the right artifact to be building
+while frozen.
+
+---
+
+## 40. WHAT I NOW KNOW I DID NOT KNOW — ROUND 5 ADDITIONS
+6. **Our people probably repeat themselves word for word forever, in a game
+   designed around never resetting.** (§33)
+7. **The greeting is the most-read line in the game and got none of my
+   attention.** (§36)
+8. **Uniform profanity costs a free individualizer in both directions.** (§37)
+9. **No-proper-names is not a limitation, it is where the relationship lives.**
+   (§38)
+10. **Voice scales by editor, never by tool.** My instinct to build a tool was
+    the wrong shape of answer. (§39)
+
+## 41. STILL OPEN — HONEST, AND ONE OF THESE HAS FAILED FOUR TIMES
+**About our own build (not checking while frozen):**
+- Does a line wait for a tap or run on a timer? (§22, still the first thing to
+  check)
+- Do our NPCs repeat verbatim on a second conversation? (§33 — I believe yes)
+- Does anybody in our valley swear, or joke, or greet you differently the second
+  time?
+- The talking portrait drives mouth shapes from the letters in a line. I still
+  have no idea what that means for word choice.
+
+**About the world:**
+- **Terkel's *Hard Times* properly, and real WPA pages.** loc.gov and UNLV are
+  blocked from this environment. Unchanged.
+- **Greece 2010, Venezuela.** Named in three rounds, attempted in none. I keep
+  deprioritising it and I should stop.
+- **LINE-LEVEL MECHANICS OF THE PROSE GAMES. FOUR ATTEMPTS, FOUR FAILURES.** Every
+  query returns praise rather than technique. The material may simply not exist
+  as published craft analysis, in which case the honest move is to stop searching
+  and go read the games' own text closely instead. **I am recording this as a
+  probable dead end rather than pretending the next search will work.**
+- **Emily Short's "Conversation" article in full.** Named in the lane brief, cited
+  by others all week, and I have still only read summaries of it.
+- **Ruskin's GDC talk in full.**
+- **NEW:** how a conversation is PACED — how many beats a scene should run before
+  a choice, and whether our 2-3 beats per node is right or just habitual.
+
+## SOURCES, ROUND 5
+- Beyond Skyrim, "Arcane University: Dialogue Systems for Writers"; UESP,
+  "Skyrim: Generic Dialogue"; Game Developer, "Worldbuilding With NPC Dialogue";
+  Emily Short, "Conversation" (emshort.blog) — *still unread in full*
+- ACL Digital, "Real-time NPC Interaction and Dialogue Systems in Video Games";
+  Games by Hyper, "Memory System"; arXiv 2511.10277, "Fixed-Persona SLMs with
+  Modular Memory"
+- Writer's Digest, "How to Use Profanity and Other Raw Talk in Your Fiction";
+  James Field, "Profanity in Fiction: What Works (and What the F* Doesn't) by
+  Genre"; September C. Fawkes, "Writing with Profanity"
+- Brown and Gilman on power and solidarity in address forms; "Choice of address
+  terms in conversational setting"; Wikipedia, "Social network (sociolinguistics)"
+- Game Developer, "A Practical Guide to Game Writing"; Sarah Beaulieu, FAQ on
+  writers and narrative designers; Guerrilla Games and other studio postings for
+  Lead Narrative Designer / Game Editor role definitions
