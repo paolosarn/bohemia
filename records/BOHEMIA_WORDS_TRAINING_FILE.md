@@ -961,3 +961,170 @@ while frozen.
 - Game Developer, "A Practical Guide to Game Writing"; Sarah Beaulieu, FAQ on
   writers and narrative designers; Guerrilla Games and other studio postings for
   Lead Narrative Designer / Game Editor role definitions
+
+---
+
+# ROUND 6 — 8/27/26. Paying a debt, and finding the doc I had failed at four times.
+
+## 42. THE BEST CRAFT SENTENCE I HAVE FOUND ALL WEEK, AND IT IS SIX WORDS
+From Failbetter Games' published writer guidelines:
+> **"Don't tell them they're scared; scare them."**
+
+That is the entire method in six words, and it is the exact failure our corpus has.
+We have characters SAYING they are frightened in composed sentences. The rule
+says: put the cold pipe in their hand, name the hour, take their words away, and
+let the player supply the fear.
+The same passage: **"focus on the character's senses and what is observable to
+them."** Not their interior. What is in front of them.
+
+## 43. AND FAILBETTER IS THE SOURCE I HAD BEEN LOOKING FOR SINCE ROUND 2
+Four rounds of failed searches for line-level craft from the prose games. I was
+chasing essays ABOUT Disco Elysium. **The published craft doc exists, and it is
+from the studio with Bohemia's exact problem: enormous volume of high-quality
+text, systemic, replayed forever.** Fallen London.
+
+**THEIR HARD NUMBERS** (and I have never had a number for any of this):
+- **root description: no longer than 30 words** (the situation you arrive in)
+- **branch description: no longer than 20 words** (the choice you pick)
+- **result description: no longer than 100 words** (what happens after)
+
+Mapped onto us: our player choices average **5.6 words**, well inside their 20.
+A three-beat NPC node runs maybe 60-80 words, inside their 100. **So we are not
+as far out as Round 22 feared.** The 145-character single LINE is still a wall on
+a phone, but the SCENE-level budget is roughly right, and I would rather know
+that than keep worrying about the wrong thing.
+
+**THEIR OTHER RULES, which read like a list of my own mistakes:**
+- **"Be wary of putting words in the player's mouth, thoughts in their head, or
+  feelings in their heart."** Our @LOG journal lines are the player's own diary,
+  and any of them that assert a feeling break this. (Mine mostly do not, by luck
+  rather than by rule: "Left it alone. Block goes dark again tonight, same hour."
+  states a fact, not a mood. Now it is a rule instead of luck.)
+- **A branch is a CLEAR IN-CHARACTER ACTION**, and the button text must make
+  plain what you are about to DO. This is the anti-paraphrase rule from Round 4
+  stated positively, and "(cut the tap, right now)" is exactly it.
+- **If a result has the character doing a string of things, break it up.**
+- **You cannot assume the player's gender, dress, or skin colour.**
+
+## 44. A COUNTABLE TELL I HAVE NEVER COUNTED
+> **"Passive voice can drain energy from prose. Often, you'll find yourself
+> retreating into the passive voice when you're distant from the text."**
+
+That is a diagnostic, not a style preference: **passive voice is a symptom of the
+WRITER not being in the scene.** Which makes it a near-perfect machine tell,
+because a model is never in the scene. And it is COUNTABLE, like contractions
+were, and I never counted it.
+[Not measuring while frozen. Adding it to the list of things to count on day one.]
+
+## 45. GREECE — AND OUR FIRST QUEST TURNS OUT TO BE A REAL EVENT
+I named Greece as a gap in three rounds and attempted it in none. Paid now, and
+it repaid immediately.
+
+**PROPERTY TAX WAS COLLECTED THROUGH THE ELECTRICITY BILL, WITH THE THREAT THAT
+NON-PAYMENT MEANT THE POWER GOES OFF.** Families ended up "living in the dark".
+Prescriptions that had cost 10-25% went to full price. Youth unemployment
+**59.3%**. The average family lost **over 40%** of its income.
+
+**THE POWER IS HOW THE STATE REACHES YOU.** That is not a Bohemia invention; it
+happened, in Europe, in this century. THE METER READER and LIGHT=TERRITORY are
+standing on real ground, and I did not know that when I rewrote the quest.
+
+## 46. DIGNITY IS A REFUSAL OF ONE SPECIFIC ACT, NEVER A STATEMENT ABOUT STATUS
+The hardest thing I read this round. A 77-year-old retired pharmacist killed
+himself outside the Greek parliament, and what he gave as his reason was that he
+**refused to scrounge for food in the garbage.**
+
+Not "I am poor." Not "the system failed me." **One specific act he would not
+perform.** That is how people at the edge actually frame it, and it is the
+opposite of how our characters talk. Ours describe their situation. Real people
+name the line they will not cross, and the line is always a concrete physical
+action: the bin, the handout, the asking.
+**THE WRITING RULE:** a character's dignity is never stated. It is one thing they
+will not do, named exactly.
+
+## 47. NOBODY KNOWS HOW MUCH OF THIS ANYONE READS, INCLUDING THE STUDIOS THAT DO
+I went looking for read rates and skip telemetry. **There are no public numbers.**
+Studios track it internally and do not publish. So the honest position is that I
+cannot find out how much of my writing is read, and I should stop assuming.
+
+What IS documented is a contradiction worth holding on to: casual players will
+say **"I wish this game had more story"** and then skip briskly through the
+dialogue that is the story. **What they want is the FEELING of a story, not the
+reading of one.**
+
+**AND BOHEMIA'S OWN LAW ALREADY GENERALISES THE FIX.** THEY SPEAK SPANGLISH (8/25)
+says **LANGUAGE NEVER GATES REQUIRED INFORMATION.** That was written about
+Spanish. It is true of ALL text a player can skip: if a line can be skipped, the
+thing the player needs cannot live only in that line. Which is Avellone's
+"talking heads are a dead end" and "the second best line might be a prop",
+arriving from a third direction.
+
+## 48. A HARD FACT ABOUT THIS ENVIRONMENT, NOW CONFIRMED THREE TIMES
+**WebFetch is effectively unusable for research here.** Blocked so far:
+`loc.gov`, `special.library.unlv.edu`, `www.failbettergames.com`. Three for three,
+across government, university and studio domains. **Search results are the only
+channel that reaches me**, which means I read what a search engine chose to quote
+rather than what a document actually says.
+**That is a real ceiling on the quality of this training** and I should stop
+planning rounds around "go and read X". Everything in this file is quoted at one
+remove. When he unfreezes me, one of the most valuable things he could do is put
+a text file in the repo — Terkel, the WPA pages, the Failbetter guidelines — and
+I could read it properly for the first time.
+
+---
+
+## 49. WHAT WE ARE ALREADY DOING RIGHT — recording it so it is not lost by accident
+Six rounds in, this list matters as much as the failures:
+- player choices are **verbatim, not paraphrased** (§28)
+- choices average **5.6 words**, well inside the 20-word guideline (§43)
+- **no proper names** in quests, which turns out to be where the relationship
+  lives rather than a limitation (§38)
+- **no em dashes**, ever
+- **no money as a live transaction**, which the Argentina material says is exactly
+  how collapse speech works (§3)
+- our **street barks already sound like people** at 75% contractions; they were
+  never the problem and must not be "fixed" toward the quest voice
+- journal lines state **facts, not moods** — currently by luck, now by rule (§43)
+
+## 50. WHAT I NOW KNOW I DID NOT KNOW — ROUND 6 ADDITIONS
+11. **There are published word budgets for exactly this kind of writing, and I
+    had never had a number for anything.** (§43)
+12. **Passive voice is a distance signal and a countable machine tell.** (§44)
+13. **"Don't tell them they're scared; scare them."** I have been writing
+    characters who announce their states. (§42)
+14. **Dignity is a refusal of one named act.** Our people describe their
+    situation instead. (§46)
+15. **Nobody publishes read rates, so I cannot know how much is read** — and the
+    fix is already in our own law: required information never lives only in
+    skippable text. (§47)
+16. **This environment cannot fetch pages at all.** Everything I have is
+    second-hand quotation. (§48)
+
+## 51. STILL OPEN
+**Paid this round:** Greece. The prose-game craft hunt, which turned out to be
+solvable by looking at a different studio rather than a different query.
+**Still owed:**
+- Venezuela.
+- Terkel's *Hard Times* and real WPA pages — now known to be **unfetchable from
+  here**, so this needs him, not another search.
+- Emily Short's "Conversation" in full. Still summaries only. Same problem.
+- Ruskin's GDC talk in full.
+- Conversation PACING: how many beats before a choice, and whether our 2-3 is
+  considered or habitual. Failbetter's word budgets are the closest I have come
+  and they measure length, not beats.
+- **NEW:** the journal voice. Our @LOG lines are the player's diary in first
+  person past tense. I have never asked whether that is the right voice for them,
+  or examined diary/testimony writing as its own craft. Failbetter's "no thoughts
+  in their head" rule makes this urgent, because a diary is nothing BUT thoughts.
+
+## SOURCES, ROUND 6
+- Failbetter Games, "Fallen London Writer Guidelines" Parts I, II and III (2022),
+  and "Useful Posts for Writers" — *page fetch blocked; read via search excerpts*
+- UN News, "Austerity measures in Greece undermining human rights"; The Lancet,
+  "Greece's health crisis: from austerity to denialism"; World Socialist Web Site,
+  "The human cost of Greece's austerity measures"; NBC News and Fox News coverage
+  of the April 2012 Syntagma Square suicide
+- MY.GAMES, "The Big Skip: let's talk about dialogues in games"; Fred Z., "Why do
+  Players Skip?"; PC Gamer, "Do you listen to dialogue, or read it and skip
+  ahead?"
+- Failbetter Games, "Narrative Snippets: Pacing"
