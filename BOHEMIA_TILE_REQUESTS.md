@@ -426,9 +426,14 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    into SA_IMG, and thirteen name rows route them; the wash bank picks
    its axis from the kit's own run. VERIFIED ON FOOT: 6,803 fill cells
    at the landfill and 5,898 plaza/plinth cells at the library draw the
-   real art in human mode. PHASE 2 (open): structure-layer families
-   (hall roofs, cooling units, tanks, boxcars via the prop/post path),
-   the centreline stain, the blob-aware planter | full finding:
+   real art in human mode. PHASE 2A SHIPPED same
+   day: the railyard's rolling stock rides the vehicle-post contract
+   (masters repackaged nose-up; a 7x4 lattice replaces the sedan
+   lattice that was parking three squashed cars on every boxcar) -
+   verified on foot: 118 boxcar + 14 loco posts, the exact measured
+   blob counts. PHASE 2B (open): datafort structure roofs + cooling
+   units, radio tanks/trays, the centreline stain, the blob-aware
+   planter bed | full finding:
    records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
    | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |

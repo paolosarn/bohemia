@@ -27029,6 +27029,12 @@ const PROP_IMG = (function(){ var out={};
   if(typeof PROP_B64==='undefined') return out;
   for(var k in PROP_B64){ out[k]=PROP_B64[k].map(function(b){
     var im=new Image(); im.src='data:image/png;base64,'+b; return im; }); }
+  /* __TILEFORM_POOL__ PHASE 2A (8/28, ART lane, board row 107): the railyard's
+     rolling stock joins the same vehicle-post contract - the pool file ships
+     the masters nose-up like every car master, so the stall draw's quarter
+     turn serves them unchanged. */
+  if(window.TF_PROP_B64){ for(var k2 in TF_PROP_B64){ out[k2]=TF_PROP_B64[k2].map(function(b){
+    var im=new Image(); im.src='data:image/png;base64,'+b; return im; }); } }
   return out; })();
 var PROP_NAME = [
   /* a legend name that matches -> the family that stands up for it. Ordered: the first
@@ -27175,11 +27181,22 @@ function realizeCell(gx,gy){
       var _oy=ly; while(_oy>0 && m.kit[(_oy-1)*FN+lx]===code) _oy--;
       var _ey=ly; while(_ey<FN-1 && m.kit[(_ey+1)*FN+lx]===code) _ey++;
       var _lie=(_ex-_ox) > (_ey-_oy);            /* the rank lies ACROSS, not up the page */
-      var _sx=_lie?4:2, _sy=_lie?2:4;
+      /* __TILEFORM_POOL__ PHASE 2A (8/28, ART lane): a boxcar is NOT a car.
+         The railyard authors 'rolling stock (boxcar)' and 'locomotive' as
+         7x4 blobs (measured 8/27: 101 of 118 exactly), and this branch was
+         parking a 2x4 SEDAN lattice on them - three squashed cars per
+         boxcar. Their own masters ride the same nose-up contract on their
+         own 7x4 lattice; everything else stays a car. */
+      var _vnm=String((entry&&entry.name)||'').toLowerCase();
+      var _vfam='car', _vlong=4, _vshort=2;
+      if(_vnm.indexOf('rolling stock')>=0||_vnm.indexOf('boxcar')>=0){ _vfam='boxcar'; _vlong=7; _vshort=4; }
+      else if(_vnm==='locomotive'){ _vfam='loco'; _vlong=7; _vshort=4; }
+      if(!PROP_IMG[_vfam]||!PROP_IMG[_vfam].length){ _vfam='car'; _vlong=4; _vshort=2; }
+      var _sx=_lie?_vlong:_vshort, _sy=_lie?_vshort:_vlong;
       if((((lx-_ox)%_sx)===0) && (((ly-_oy)%_sy)===0)){
         var _cw=Math.min(_sx, _ex-lx+1), _chh=Math.min(_sy, _ey-ly+1);
         var _cvh=(Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0;
-        c.post={p:'car', v:_cvh%PROP_IMG.car.length, w:_cw, h:_chh};
+        c.post={p:_vfam, v:_cvh%PROP_IMG[_vfam].length, w:_cw, h:_chh};
       }
     }
     if(!c.lamp && !c.post){ var _pf=__propFamily(entry);

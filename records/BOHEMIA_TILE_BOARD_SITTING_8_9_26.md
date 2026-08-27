@@ -1462,3 +1462,18 @@ library (3,519 + 2,379). One day after the stranded-tiles finding,
 the biggest surfaces reach the player. Phase 2: the structure-layer
 families through the prop/post path, the centreline stain, the
 planter beds.
+
+## 8/28 SEVENTY-FIRST PASS: PHASE 2A - A BOXCAR IS NOT A CAR
+
+The migration's second act, hours after the first: the walked city's
+vehicle branch was parking a 2x4 SEDAN lattice on every kind:'vehicle'
+blob, so the railyard's 7x4 boxcars drew as three squashed cars each.
+The rolling stock now rides the same vehicle-post contract as the
+cars - the pool tool repackages the approved TF-ART-027 masters
+NOSE-UP (a quarter turn at package time, so the stall draw's own
+rotation serves them unchanged) and the branch gives boxcar and loco
+their own 7x4 lattice. Verified on foot at the railyard: 118 boxcar
+posts and 14 loco posts, the EXACT blob counts measured on 8/27, two
+of them filling the screen either side of the player as a boxcar
+should. Structural gates green. Phase 2B holds the structure-layer
+roofs, the tanks, the stain and the planter beds.
