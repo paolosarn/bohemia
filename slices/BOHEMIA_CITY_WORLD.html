@@ -485,6 +485,18 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 #daycard{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;
   background:rgba(6,5,4,.86);padding:14px}
 #daycard.on{display:flex}
+/* __THE_ROAD_CARD_IS_NOT_A_LOCK__ (8/27): A ROAD MOMENT IS SOMETHING YOU READ, NOT SOMEWHERE
+   YOU GO. cardShow is modal by construction -- a full-screen scrim at z-index 20
+   -- which is right for the wake card and the market, because those are places.
+   It is wrong for a thing that happens to you WHILE YOU ARE MOVING: the scrim
+   sat on the pad, the chip and the canvas, so the pad went dead and a pinch back
+   to his body did nothing. LOOK NOT TRAVEL caught it, twice, alone.
+   The scrim stops catching touches; the card still does. The valley stays
+   visible, because an interruption you cannot see past is a loading screen. */
+#daycard.roadcard{background:transparent;pointer-events:none;
+  align-items:flex-end;padding-bottom:200px}
+#daycard.roadcard #daycardIn{pointer-events:auto;
+  box-shadow:0 18px 50px rgba(0,0,0,.85)}
 #daycardIn{width:100%;max-width:420px;max-height:100%;overflow-y:auto;touch-action:pan-y;
   background:var(--face);border:1px solid var(--line);border-radius:12px;padding:16px 15px;
   box-shadow:0 18px 50px rgba(0,0,0,.7)}
@@ -28084,6 +28096,20 @@ var ROAD_WORDS = {
 
 var ROAD_DIR = null, ROAD_LOG = [];
 
+/* __THE_ROAD_CARD_IS_NOT_A_LOCK__ -- AND IT GETS OUT OF THE WAY BY ITSELF.
+   Shaped after vistaBail, and for the same reason it exists: "a direction is not
+   'get me out of here', it is 'go that way'." His next press closes the road
+   card and still does what he pressed, so a road moment can never stack or sit
+   there. Only ever closes OUR card: the wake card and the market still hold the
+   screen, because those are places he went to on purpose. */
+function roadBail(){
+  var c=document.getElementById('daycard');
+  if(!c || !c.classList.contains('roadcard')) return false;
+  c.classList.remove('roadcard');
+  try{ cardHide(); }catch(_e){}
+  return true;
+}
+
 /* THE PRECONDITIONS THE ROSTER STATES OUTRIGHT. Answered off systems that
    already exist; anything this cannot prove returns false, and the director's
    own rule is that an unproven need is not a spawn. */
@@ -28162,13 +28188,22 @@ function roadInterrupt(spentSeconds){
    scrim tap and Escape (__EVERY_PANEL_CLOSES__). No second modal. */
 function roadCard(ev, mins){
   if(typeof cardShow!=='function') return;
+  /* __THE_ROAD_CARD_IS_NOT_A_LOCK__: this one card is not modal. Set BEFORE cardShow so the
+     class is on the element the same frame it becomes visible. */
+  var _dc=document.getElementById('daycard');
+  if(_dc) _dc.classList.add('roadcard');
   var where = (ev.at && ev.at.district ? String(ev.at.district).toUpperCase() : 'THE ROAD');
   var when  = (ev.at && ev.at.phase==='night') ? 'NIGHT' : 'DAY';
   var words = ROAD_WORDS[ev.id] || '';
   var cost  = mins>0 ? ('<div class="rrow"><span class="rk">THAT COST YOU</span>'
                         + '<span class="rv">' + mins + ' MIN</span></div>') : '';
   cardShow(
-    '<div class="rk" style="margin-bottom:8px">ON THE ROAD \u00b7 ' + esc(where)
+    /* THE HEADER KEEPS ITS HANDS OFF THE CLOSE BUTTON. cardShow's close is
+       float:right, and a block box does not sit BESIDE a float, it sits UNDER
+       it -- so this line landed on top of it and swallowed the press. Measured:
+       the button at [324,432,34,34] and elementFromPoint at its centre returning
+       this very div. The card was readable and could not be closed by thumb. */
+    '<div class="rk" style="margin-bottom:8px;overflow:hidden">ON THE ROAD \u00b7 ' + esc(where)
       + ' \u00b7 ' + when + '</div>'
     + '<div class="rv" style="text-align:left;margin-bottom:10px">'
       + esc(String(ev.name).toUpperCase()) + '</div>'
@@ -28387,6 +28422,8 @@ function startHold(di){
      swallowing the press would make the first step out of every vista dead,
      which is the same class of not-working-button he reported on STANDING. */
   try{ if(typeof vistaBail==='function') vistaBail(); }catch(_e){}
+  /* __THE_ROAD_CARD_IS_NOT_A_LOCK__: and the road card goes with it, same rule. */
+  try{ if(typeof roadBail==='function') roadBail(); }catch(_e){}
   held=di; pend=di; heldBeats=0; }
 function endHold(){ held=null; heldBeats=0; }
 

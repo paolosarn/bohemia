@@ -236,6 +236,53 @@ const CITY_SRC = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.h
     ok('the card offers a real way out of itself',
       !!(run.card && /KEEP MOVING/.test(run.card.text)));
 
+    /* ---- AND IT IS NOT A LOCK ------------------------------------------- */
+    /* *** THIS CLAIM EXISTS BECAUSE I SHIPPED THE BUG AN HOUR EARLIER. ***
+       cardShow is modal by construction: a full-screen scrim at z-index 20. Right
+       for the wake card and the market, because those are PLACES YOU GO. Wrong
+       for a thing that happens to you WHILE YOU ARE MOVING -- the scrim sat on
+       the pad, the chip and the canvas, so the pad went dead and a pinch back to
+       his body did nothing at all. LOOK NOT TRAVEL caught it and reproduced it
+       alone, twice: "he is back on his feet in the walked world (city)" FAIL.
+       Same class as the vista press he reported on STANDING: a card that eats
+       his next gesture is a button that does not work. Measured as reachability,
+       not as CSS, because the whole failure was that a rule I could read said
+       nothing about what a thumb could press. */
+    const reach = await city.evaluate(async () => {
+      MODE = 'city';
+      let ev = null;
+      for (let i = 0; i < 60 && !ev; i++) {
+        const nx = city.x + 1;
+        if (cityWalkable(nx, city.y)) { city.x = nx; advance(10); }
+        const g = roadInterrupt(600);
+        if (g && g.fired) ev = g;
+      }
+      if (!ev) return { none: true };
+      const hit = el => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        const t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return !!(t && (t === el || el.contains(t)));
+      };
+      const cv = document.getElementById('cv');
+      const cr = cv.getBoundingClientRect();
+      const onCanvas = document.elementFromPoint(cr.left + cr.width / 2,
+                                                 cr.top + cr.height * 0.35);
+      return { up: document.getElementById('daycard').classList.contains('on'),
+               pad: hit(document.querySelector('#pad .pb')),
+               chip: hit(document.getElementById('modechip')),
+               world: !!(onCanvas && onCanvas.id === 'cv'),
+               closes: hit(document.querySelector('#daycardIn [data-act="close"]')) };
+    });
+    ok('*** AND THE ROAD CARD IS NOT A LOCK *** -- with it on screen the pad, the '
+      + 'camera chip and the world itself are all still pressable (pad='
+      + reach.pad + ' chip=' + reach.chip + ' world=' + reach.world + ')',
+      !reach.none && reach.up === true && reach.pad === true
+      && reach.chip === true && reach.world === true);
+    ok('and the card itself still takes a press, so it is readable and closable, '
+      + 'not merely transparent (close=' + reach.closes + ')',
+      reach.closes === true);
+
     ok('and nothing threw across the whole crossing ('
       + (errs.length ? errs.slice(0, 2).join(' | ') : 'none') + ')', errs.length === 0);
 

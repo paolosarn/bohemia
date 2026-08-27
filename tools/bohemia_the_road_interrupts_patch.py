@@ -316,7 +316,13 @@ function roadCard(ev, mins){
   var cost  = mins>0 ? ('<div class="rrow"><span class="rk">THAT COST YOU</span>'
                         + '<span class="rv">' + mins + ' MIN</span></div>') : '';
   cardShow(
-    '<div class="rk" style="margin-bottom:8px">ON THE ROAD \\u00b7 ' + esc(where)
+    /* THE HEADER KEEPS ITS HANDS OFF THE CLOSE BUTTON. cardShow's ✕ is
+       float:right, and a block box does not sit BESIDE a float, it sits UNDER
+       it -- so this line landed on top of the ✕ and swallowed the press.
+       Measured: the ✕ at [324,432,34,34] and elementFromPoint at its centre
+       returning this very div. The card was readable and could not be closed by
+       thumb. padding-right clears the 34px button plus its margin. */
+    '<div class="rk" style="margin-bottom:8px;overflow:hidden">ON THE ROAD \\u00b7 ' + esc(where)
       + ' \\u00b7 ' + when + '</div>'
     + '<div class="rv" style="text-align:left;margin-bottom:10px">'
       + esc(String(ev.name).toUpperCase()) + '</div>'
