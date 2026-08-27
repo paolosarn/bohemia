@@ -3959,6 +3959,17 @@ def build_basin(P):
     # THE FLOOR OF IT, which no version of this icon has ever shown. Hole: x 2.0..9.6,
     # y 3.0..8.6, and it sits just clear of the ground pad's own top face at z=0.05.
     s.box((2.0, 3.0, 0.06), (7.6, 5.6, 0.05), {'c': _dark(SLOPE, 0.58)['c']})              # the silt floor, graded DARK - squint 8/27: at map zoom the old tan floor made the basin a desert twin
+    # squint 8/28: basin=wash and basin=rail were the last two twin pairs, and
+    # the basin's honest distinguisher is LIFE - a detention basin is the one
+    # floor in the valley that occasionally holds water, so dead salt cedar
+    # and weed scrub grow THICK on it (the trickle channel already says so).
+    # Dead-olive scrub mats over the dark silt; neither the bare lined wash
+    # nor the ballast corridor has anything like it.
+    for (mx, my, mw, md) in ((2.4, 3.3, 2.2, 1.4), (5.4, 4.2, 2.0, 1.2),
+                             (3.2, 6.4, 2.6, 1.5), (7.0, 6.9, 1.9, 1.2),
+                             (6.6, 3.2, 1.5, 1.0), (2.2, 5.2, 1.4, 1.0)):
+        s.box((mx, my, 0.10), (mw, md, 0.04), {'c': (78, 74, 48)})
+        s.box((mx + 0.3, my + 0.2, 0.13), (mw * 0.55, md * 0.55, 0.04), {'c': (92, 86, 54)})
     # THE LOW-FLOW CHANNEL. A basin that is dry 360 days a year still carries a trickle
     # line, and it is the one living-coloured thing on the site: algae and salt cedar take
     # the wet strip and nothing in this plot is green except the water's own path.

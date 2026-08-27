@@ -1423,3 +1423,19 @@ GREAT TILE MIGRATION is board row 107, HIGH, seam design shared with
 CITY/WORLD. New standing rule, effective now: MEASURE ON THE WALKED
 SURFACE FIRST before any new exterior family is cooked. Full finding:
 records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
+
+## 8/28 SIXTY-NINTH PASS: HUE GOES GREEN FOR THE FIRST TIME (bake 8)
+
+The container restart ate bake 8 mid-run; relaunched, landed, and the
+finishers did their work: HUE IS GREEN - the arterial's faded
+street-name blades are its honest second hue family - and the warm
+desert pad cleared ALL THREE desert twin pairs at once (basin=desert
+0.0336, desert=wash 0.0362, desert=rail 0.0374, all clear of the
+0.030 bar). Two pairs remain, both sharing the BASIN (basin=wash
+0.0280, basin=rail 0.0291), and the basin's honest distinguisher is
+authored for bake 9: LIFE - a detention basin is the one floor in the
+valley that occasionally holds water, so dead salt-cedar scrub mats
+thick over its silt, which neither the bare lined wash nor the
+ballast corridor can ever grow. Wired, icon gates 0 by exit code,
+shipping now; squint is down from five pairs to two and main was
+carrying three before this session started.
