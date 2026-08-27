@@ -1141,7 +1141,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/27l - LOOKING AT THE MAP IS NOT TRAVELLING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/27m - TRENCHCOATS ARE FOR BADASSES</div>  <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
        AND the entire game, and the one link Paolo taps went to a black
@@ -1507,6 +1507,25 @@ const RIG_RS = (BAKED.W / 56) | 0;
          `lux` FLAG on the garment -- data, not a name -- so this module still holds
          no garment names and he can retag anything without touching code. */
       var _luxOdds = 0.22;
+      /* *** A TRENCHCOAT IS RESERVED (Paolo 8/27, LOCKED). ***
+         "everyone's getting a fucking trenchcoat and I think that's fucking
+          ridiculous... trenchcoats are for bad ass motherfuckers bro cowboy shit
+          like killers like for real"
+         MEASURED THE DAY HE SAID IT: 16 of the 35 outer garments were long coats
+         and ONE IN FIVE PEOPLE IN THE CITY was wearing one. Not because anybody
+         chose that -- because the pick is uniform over the pool, and half the pool
+         was trenchcoats.
+         THIS IS NOT THE LUXURY DIAL AGAIN. `lux` means RARE (a fresh fade costs
+         money); `hard` means RESERVED (this garment says something about you that
+         most people cannot say). A rare thing is thin on the ground; a reserved
+         thing is on the wrong person or the right one. Different rule, own odds.
+         DATA, NOT NAMES, exactly like lux: this module still contains no garment
+         name anywhere, so he can tag or untag anything without touching code.
+         WHICH PEOPLE EARN ONE is HIS -- a faction can still be dressed in a coat
+         by hand in FACTION_LOOKS, and this only governs the anonymous street. */
+      var _hardOdds = 0.10;
+      var _soft = pool.filter(function (x) { return !x.hard; });
+      pool = (_soft.length && unit(id, 'hard:' + cat) > _hardOdds) ? _soft : pool;
       var _plain = pool.filter(function (x) { return !x.lux; });
       var _use = (_plain.length && unit(id, 'lux:' + cat) > _luxOdds) ? _plain : pool;
       out[cat] = _use[Math.floor(unit(id, 'pick:' + cat) * _use.length) % _use.length].n;
@@ -3705,7 +3724,7 @@ var FACTION_LOOKS = [
        silhouette set from the 880-fit search is exactly what it was. Only the
        ramps moved, which is the half of identity his 8/26 ruling adds. */
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
-    worn:{hair:'SHAG',base:'TEAL STRIPED TEE',outer:'GRASS DUSTER',head:'ROSE KNIT CAP',
+    worn:{hair:'SHAG',base:'TEAL STRIPED TEE',outer:'GRASS CAR COAT',head:'ROSE KNIT CAP',
           legs:'GOLD WRAP SKIRT',feet:'COBALT SNEAKERS'} },
   { faction:'Anarchists', draft:true, age:'adult', shape:'lanky / split-tail / knit cap',
     why:'the only torn hem in the valley -- the outline itself refuses to be tidy',
@@ -3722,7 +3741,7 @@ var FACTION_LOOKS = [
        In his own framing (8/26: "who would defend us") they were walking the
        valley flagged as the Reds. Same shapes in cobalt: long crew shirt, mid coat
        at len 0.82, work pants, boots. */
-    worn:{hair:'CROP',base:'COBALT SHIRT',outer:'COBALT COAT',
+    worn:{hair:'CROP',base:'COBALT SHIRT',outer:'COBALT CHORE COAT',
           legs:'COBALT WORK PANTS',feet:'COBALT BOOTS'} },
   { faction:'Homeless', draft:true, age:'adult', shape:'small / mantle / bare head / long hem',
     why:'a blanket over the shoulders reads as a mantle at this size, and it is the most Amalgamation-resistant thing anybody wears: nothing bought',
@@ -23396,10 +23415,10 @@ window.CLO=(function(){
        (skirt panel fills the gap between the legs, hangs to the ankle, flares) and
        sits in the OUTER/jacket layer -- shown OVER a shirt. Fresh names; the 4 v1
        coats are graveyard-final. Dusty world tones, no purple, worn. ---- */
-    {n:'WASTELAND DUSTER',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTSAND,len:0.88}),DUSTSAND,15);}},
-    {n:'SOOT TRENCH',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ASHGREY,len:0.9}),ASHGREY,15);}},
-    {n:"DRIFTER'S COAT",st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OXBLOOD,len:0.82}),OXBLOOD,15);}},
-    {n:'RANGER LONGCOAT',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COPPEROX,len:0.86}),COPPEROX,15);}},
+    {n:'WASTELAND DUSTER',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTSAND,len:0.88}),DUSTSAND,15);}},
+    {n:'SOOT TRENCH',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ASHGREY,len:0.9}),ASHGREY,15);}},
+    {n:"DRIFTER'S COAT",st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OXBLOOD,len:0.82}),OXBLOOD,15);}},
+    {n:'RANGER LONGCOAT',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COPPEROX,len:0.86}),COPPEROX,15);}},
     /* ---- COOK BATCH 5 (7/18): VOLUME. More world-grounded colorways across every
        layer + a NEW garment type: the open VEST (sleeveless outer over a shirt). ---- */
     {n:'OLIVE DRAB TEE',st:'canon',layer:'base',gen:function(g){return wear(genTop(g,{ramp:OLIVEDRAB,sleeves:true}),OLIVEDRAB,13);}},
@@ -23414,9 +23433,9 @@ window.CLO=(function(){
     {n:'RED CLAY BOOTS',st:'canon',layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:REDCLAY}),REDCLAY,14);}},
     {n:'GREY SNEAKERS',st:'canon',layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:GREYSNK}),GREYSNK,12);}},
     {n:'OXBLOOD BOOTS',st:'canon',layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:OXBOOT}),OXBOOT,14);}},
-    {n:'FIELD GREEN COAT',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:FIELDGRN,len:0.8}),FIELDGRN,15);}},
-    {n:'DUST BROWN TRENCH',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTBRN,len:0.9}),DUSTBRN,15);}},
-    {n:'STORM GREY LONGCOAT',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,len:0.86}),STORMGRY,15);}},
+    {n:'FIELD GREEN COAT',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:FIELDGRN,len:0.8}),FIELDGRN,15);}},
+    {n:'DUST BROWN TRENCH',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTBRN,len:0.9}),DUSTBRN,15);}},
+    {n:'STORM GREY LONGCOAT',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,len:0.86}),STORMGRY,15);}},
     {n:'LEATHER VEST',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,vest:true}),LEATHERV,14);}},
     {n:'TACTICAL VEST',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:TACV,vest:true}),TACV,15);}},
     {n:'QUILTED VEST',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:QUILTV,vest:true}),QUILTV,13);}},
@@ -23531,11 +23550,11 @@ window.CLO=(function(){
     {n:'FIELD BOOTS',st:'canon',cw:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:FIELDGRN}),FIELDGRN,14);}},
     {n:'RUST BOOTS',st:'canon',cw:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:RUSTIRON}),RUSTIRON,14);}},
     /* outer: coats + vests */
-    {n:'SAGE FIELD COAT',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SAGE,len:0.8}),SAGE,15);}},
-    {n:'SLATE TRENCH',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SLATEW,len:0.9}),SLATEW,15);}},
-    {n:'BONE DUSTER',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,len:0.88}),BONECLO,15);}},
-    {n:'BRICK LONGCOAT',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,len:0.84}),BRICK,15);}},
-    {n:'KHAKI DUSTER',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:KHAKI,len:0.88}),KHAKI,15);}},
+    {n:'SAGE FIELD COAT',st:'canon',hard:true,cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SAGE,len:0.8}),SAGE,15);}},
+    {n:'SLATE TRENCH',st:'canon',hard:true,cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SLATEW,len:0.9}),SLATEW,15);}},
+    {n:'BONE DUSTER',st:'canon',hard:true,cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,len:0.88}),BONECLO,15);}},
+    {n:'BRICK LONGCOAT',st:'canon',hard:true,cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,len:0.84}),BRICK,15);}},
+    {n:'KHAKI DUSTER',st:'canon',hard:true,cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:KHAKI,len:0.88}),KHAKI,15);}},
     {n:'STORM VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,vest:true}),STORMGRY,14);}},
     {n:'OLIVE VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEDRAB,vest:true}),OLIVEDRAB,14);}},
     {n:'RUST VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:RUSTIRON,vest:true}),RUSTIRON,14);}},
@@ -23613,7 +23632,7 @@ window.CLO=(function(){
     {n:'TRAILING SCARF',st:'canon',layer:'neck',gen:function(g){return wear(genAcc(g,{ramp:OXBLOOD,kind:'scarf',tail:'long'}),OXBLOOD,8);}},
     /* ---- COOK BATCH 20 (7/20, wave 6): four real new shapes. ---- */
     {n:'WORK COVERALLS',st:'canon',layer:'base',gen:function(g){return wear(genCoverall(g,{ramp:TACV}),TACV,12);}},
-    {n:'SPLIT-TAIL DUSTER',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,len:1.0,split:true}),LEATHERV,12);}},
+    {n:'SPLIT-TAIL DUSTER',st:'canon',hard:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,len:1.0,split:true}),LEATHERV,12);}},
     {n:'ROAD CAPE',st:'canon',layer:'back',gen:function(g){return wear(genCape(g,{ramp:OXBLOOD}),OXBLOOD,8);}},
     {n:'SHELL BANDOLIER',st:'canon',layer:'gear',gen:function(g){return genGear(g,{ramp:LEATHERV,kind:'bandolier'});}},
     /* ---- COOK BATCH 21 (7/20, wave 7): four real new shapes. ---- */
@@ -23679,7 +23698,7 @@ window.CLO=(function(){
        (STRUCTURE-NOT-COLOR, 7/19) and this is not progress, it is IDENTITY, which
        is the half his 8/26 ruling adds. ---- */
     {n:'TEAL STRIPED TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:TEALBRT,sleeves:'short',neck:'crew',pattern:'stripe'}),TEALBRT,12);}},
-    {n:'COBALT DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.88}),COBALT,15);}},
+    {n:'COBALT DUSTER',st:'canon',hard:true,fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.88}),COBALT,15);}},
     {n:'ROSE KNIT CAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:ROSEBRT,kind:'beanie'}),ROSEBRT,10);}},
     {n:'COBALT KNIT CAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:COBALT,kind:'beanie'}),COBALT,10);}},
     {n:'GOLD WRAP SKIRT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:GOLDLEAF,cut:'longskirt'}),GOLDLEAF,10);}},
@@ -23690,24 +23709,60 @@ window.CLO=(function(){
        framing -- a colour is who would defend you -- the Blues were walking the
        valley flagged as the Reds. These four are the same shapes in cobalt. */
     {n:'COBALT SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:COBALT,sleeves:'long',neck:'crew'}),COBALT,10);}},
-    {n:'COBALT COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.82}),COBALT,15);}},
+    {n:'COBALT COAT',st:'canon',hard:true,fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.82}),COBALT,15);}},
     {n:'COBALT BOOTS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:COBALT}),COBALT,12);}},
     /* AND NO TWO FACTIONS MAY OWN THE SAME COLOUR, which is the whole point of a
        colour: you read it at fifty yards and you know. The first cut of this work
        put COLORFUL in a cobalt duster and gave the valley THREE blue factions --
        Colorful, Blues and Network -- so a rainbow faction's biggest garment was
        the Blues' flag. Rose is nobody's, so it is theirs. */
-    {n:'ROSE DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ROSEBRT,len:0.88}),ROSEBRT,15);}},
+    {n:'ROSE DUSTER',st:'canon',hard:true,fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ROSEBRT,len:0.88}),ROSEBRT,15);}},
     /* THE MOB WERE ALSO WEARING RED (54%), colliding with the Reds at 87%, because
        ROAD CAPE is oxblood and a cape is the whole back of a person. Their own
        colour was already on them and drowned: MOB PINSTRIPE SHIRT is mustard, his
        7/21 spec, "gold different from the mob's gold". A dark cape lets the gold
        be the thing you see. Same cape, same shape, charcoal. */
     {n:'CHARCOAL ROAD CAPE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:CHARCLOTH}),CHARCLOTH,8);}},
-    {n:'GRASS DUSTER',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,len:0.88}),GRASSGRN,15);}},
+    {n:'GRASS DUSTER',st:'canon',hard:true,fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,len:0.88}),GRASSGRN,15);}},
     {n:'COBALT SNEAKERS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:COBALT}),COBALT,12);}},
     {n:'CHARCOAL WRAP SKIRT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'longskirt'}),CHARCLOTH,10);}},
     {n:'CHARCOAL BOOTS',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARCLOTH}),CHARCLOTH,12);}},
+    /* ---- THE MIDDLE OF THE WARDROBE WAS EMPTY (Paolo 8/27, LOCKED) ----------
+       "everyone's getting a fucking trenchcoat and I think that's fucking ridiculous
+        ... trenchcoats are for bad ass motherfuckers bro cowboy shit like killers
+        like for real ... I know we still need to make a lot more clothing"
+       HE IS RIGHT AND HE NAMED THE CAUSE HIMSELF. MEASURED before this batch:
+           16 of the 35 outer garments were LONG COATS -- 46% of the slot
+           5 of the 13 factions wore one
+           ONE IN FIVE PEOPLE IN THE CITY (20.6%) was in a trenchcoat
+       And the reason is a HOLE, not a preference: every long coat is len 0.80-0.90
+       and everything else stops at the WAIST (vest, jacket). THERE WAS NOTHING IN
+       BETWEEN. If the only outer garments are a waistcoat and a floor-length duster,
+       half the valley ends up in a duster.
+       FOUR OF THOSE SIXTEEN WERE MINE, COOKED THE DAY BEFORE HE SAID THIS. Reserving
+       long coats without filling the hole would just strip the coat off half the city,
+       so this batch is the hole: a HIP band and a THIGH band that did not exist.
+       NEW LENGTHS ARE NEW SHAPES, not recolours -- STRUCTURE-NOT-COLOR is satisfied
+       by the geometry, and structure_gate scores it. ---- */
+    {n:'CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTBRN,len:0.34}),DUSTBRN,14);}},
+    {n:'BARN COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:KHAKI,len:0.34}),KHAKI,14);}},
+    {n:'OLIVE CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEPANT,len:0.34}),OLIVEPANT,14);}},
+    {n:'STORM CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,len:0.34}),STORMGRY,14);}},
+    {n:'RUST WORK COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:RUSTIRON,len:0.34}),RUSTIRON,14);}},
+    {n:'CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:CHARCLOTH,len:0.56}),CHARCLOTH,14);}},
+    {n:'SAND CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,len:0.56}),BONECLO,14);}},
+    {n:'SAGE CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SAGE,len:0.56}),SAGE,14);}},
+    {n:'SLATE CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SLATEW,len:0.56}),SLATEW,14);}},
+    /* and more of the shape that already stops at the waist, because three jackets
+       for a whole valley is the same shortage one band up */
+    {n:'WORK JACKET',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:DUSTBRN,jacket:true}),DUSTBRN,14);}},
+    {n:'STORM JACKET',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,jacket:true}),STORMGRY,14);}},
+    {n:'KHAKI JACKET',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:KHAKI,jacket:true}),KHAKI,14);}},
+    {n:'OXBLOOD JACKET',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OXBLOOD,jacket:true}),OXBLOOD,12);}},
+    {n:'SAGE VEST',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SAGE,vest:true}),SAGE,14);}},
+    {n:'BONE VEST',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,vest:true}),BONECLO,14);}},
+    {n:'COBALT CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.34}),COBALT,14);}},
+    {n:'GRASS CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,len:0.56}),GRASSGRN,14);}},
     /* ---- COOK BATCH 18 (7/20): STRUCTURE WAVE 4 -- the hood goes UP and armor
        arrives. HOOD-UP hoodies (the skull becomes garment, face open), a HOODED
        poncho, and a scavenged CHEST PLATE with an X harness. Zero recolors. ---- */

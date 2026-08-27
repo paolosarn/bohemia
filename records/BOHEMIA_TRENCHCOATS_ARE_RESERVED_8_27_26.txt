@@ -144,6 +144,43 @@ ONE HONEST NOTE ON THE PICTURE
   picture telling him a number I did not measure. Thrown away and replaced with eight
   real people as they are now, with the measured population figures in the caption.
 
+THREE THINGS THIS TURN FOUND ON THE WAY THROUGH, AND WHAT HAPPENED TO THEM
+
+  1. THE ENGINE COPY OF THE PICKER WAS NOT UPDATED (mine, fixed).
+     ENGINE SYNC LAW: BOH_PERSONLOOK lives in engine/bohemia_personlook.js and is
+     INLINED into the alpha, and the two must be the same bytes. I put the
+     reservation in the alpha only. personlook_gate caught it on the byte compare
+     -- the check that exists because an earlier prefix comparison let a fixed hash
+     function sit in the engine while the alpha kept the broken copy, green the
+     whole time. Mirrored into the module, re-synced, 22/0.
+
+  2. THE WARDROBE BANK WAS 32 GARMENTS BEHIND (mine, fixed, and it had been red
+     since 8/26 WITHOUT ME NOTICING). banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt is
+     the machine bank every agent dresses from; it held 236 items against 268 in
+     the alpha, missing every colourway from the 8/26 colour pass AND all 17 new
+     coats. dress_gate names the missing ones by name and I shipped past it once.
+     THAT IS THE LESSON, not the fix: A GATE THAT GOES RED IN A 448-GATE SUITE IS
+     ONLY AS GOOD AS THE PASS THAT READS THE LIST. Regenerated, 46/0, 268 items.
+
+  3. A MERGE CONFLICT MARKER WAS LIVE ON MAIN, ON THE FRONT SPLASH (not mine,
+     fixed anyway). Another lane's rebase ate the `<!--` that opens the comment
+     closing the splash and left a `>>>>>>> 7333cce` line directly under the build
+     stamp. With the opener gone, the marker AND the six lines of comment prose
+     under it were rendering as literal text on the front page of the one link
+     Paolo taps. alpha_loads_gate was red on main for it.
+     *** THE COMMENT THAT GOT EATEN IS THE COMMENT WARNING THAT IT GETS EATEN ***
+     -- it says "Twice on 8/2 a lane updating the build stamp above ate it... Both
+     times it reached main." Three times now. Restored the opener, deleted the
+     marker; ALPHA LOADS 20/0, FRONT DOOR 8/0. I touched it because my own build
+     stamp edit is on that exact line and the damage was one line below it.
+
+  AND ONE LEFT ALONE ON PURPOSE: slices/BOHEMIA_LIFE_SLICE_7_19_26.html carries an
+  EMBEDDED copy of the wardrobe bank stamped `count: 221` -- 47 garments behind.
+  Nothing gates its freshness. It was already stale before this turn (221 vs the
+  old 236), it belongs to another lane's slice, and ENOUGH IS ENOUGH (8/26) says a
+  real bug found inside somebody else's shipped feature is a HANDOFF ROW, not
+  permission to spend the turn there. It is a row now.
+
 FILES
   laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md
   gates/trenchcoat_gate.js                    (registered in gates/bohemia_gates.py)

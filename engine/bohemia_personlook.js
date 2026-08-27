@@ -146,6 +146,25 @@
          `lux` FLAG on the garment -- data, not a name -- so this module still holds
          no garment names and he can retag anything without touching code. */
       var _luxOdds = 0.22;
+      /* *** A TRENCHCOAT IS RESERVED (Paolo 8/27, LOCKED). ***
+         "everyone's getting a fucking trenchcoat and I think that's fucking
+          ridiculous... trenchcoats are for bad ass motherfuckers bro cowboy shit
+          like killers like for real"
+         MEASURED THE DAY HE SAID IT: 16 of the 35 outer garments were long coats
+         and ONE IN FIVE PEOPLE IN THE CITY was wearing one. Not because anybody
+         chose that -- because the pick is uniform over the pool, and half the pool
+         was trenchcoats.
+         THIS IS NOT THE LUXURY DIAL AGAIN. `lux` means RARE (a fresh fade costs
+         money); `hard` means RESERVED (this garment says something about you that
+         most people cannot say). A rare thing is thin on the ground; a reserved
+         thing is on the wrong person or the right one. Different rule, own odds.
+         DATA, NOT NAMES, exactly like lux: this module still contains no garment
+         name anywhere, so he can tag or untag anything without touching code.
+         WHICH PEOPLE EARN ONE is HIS -- a faction can still be dressed in a coat
+         by hand in FACTION_LOOKS, and this only governs the anonymous street. */
+      var _hardOdds = 0.10;
+      var _soft = pool.filter(function (x) { return !x.hard; });
+      pool = (_soft.length && unit(id, 'hard:' + cat) > _hardOdds) ? _soft : pool;
       var _plain = pool.filter(function (x) { return !x.lux; });
       var _use = (_plain.length && unit(id, 'lux:' + cat) > _luxOdds) ? _plain : pool;
       out[cat] = _use[Math.floor(unit(id, 'pick:' + cat) * _use.length) % _use.length].n;

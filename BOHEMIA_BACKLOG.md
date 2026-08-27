@@ -6758,6 +6758,30 @@ P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
    reconciled where they disagree rather than the ratchet loosened.
    | every canon style's identity holds across all 8 facings, gated, on the
    real surface | — | no. He already ruled; this is work, not a question. ***
+P0-COAT. *** DONE 8/27. HIS RULING, AND THE CAUSE WAS A HOLE NOT A TASTE. ***
+   Paolo 8/27: "everyone's getting a fucking trenchcoat and I think that's
+   fucking ridiculous... trenchcoats are for bad ass motherfuckers bro cowboy
+   shit like killers." MEASURED, 5,000 people through the real picker: 16 of 35
+   outer garments were long coats and 20.6% OF THE CITY was in one. Four of the
+   sixteen were mine, cooked the day before he said it.
+   THE CAUSE, which he named himself in the same breath ("I know we still need
+   to make a lot more clothing"): every long coat is len 0.80-0.90 and everything
+   else stopped at the WAIST. THE MIDDLE OF THE WARDROBE DID NOT EXIST, so the
+   uniform picker put half the valley in a duster nobody chose.
+   FIXED IN TWO HALVES, first one first: 17 NEW OUTER GARMENTS in two new length
+   bands, HIP (0.34) and THIGH (0.56) -- new length is new SHAPE, so
+   STRUCTURE-NOT-COLOR is satisfied by geometry -- and only THEN the reservation
+   (hard:true on all 17 long coats, held back from 9 strangers in 10, DATA NOT
+   NAMES like the existing lux flag). ~20% -> ~1.5%; not one coat deleted; a
+   named character is never touched, because WHO EARNS A COAT IS HIS.
+   GATE trenchcoat_gate 9/0, and the load-bearing checks are the BAND FLOORS
+   (>=6 hip, >=5 thigh), not the share cap: a share cap alone is satisfied by
+   DELETING every coat, which is the bug wearing a disguise. Mutation lives
+   inside the gate (strip the flags, 1.4% -> 14.4%) and was proved by hand too.
+   LESSON: when something is everywhere, look at what it is COMPETING AGAINST
+   before you cap it. "Too much of X" is usually "not enough of everything else".
+   | ~1.5% of the city in a long coat, band floors held, gated | — | no. His
+   ruling; this was work, not a question. ***
 P0-GARMENTID. *** DONE 8/26. THE WARDROBE HOLDS, AND ALL 52 OTHER "FINDINGS"
    WERE MY RULER. *** Worst one-notch change across all 221 canon garments is
    0.087 body-heights of hem; 52 flagged garments -> 0. Every one was geometry:

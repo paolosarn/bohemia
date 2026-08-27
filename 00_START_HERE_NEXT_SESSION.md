@@ -449,126 +449,171 @@ own, so it is flagged here rather than edited to make my own work pass:
  9. Ten dead legend codes left; four are one question (the fill-through margins on
     arterial:0 / downtown:0 / freeway:0 / industrial:0).
 
-CHARACTER (character-0lurbs): 8/27 (b) LATEST -- *** THE COLOURS HE ASKED FOR IN
-JULY WERE NEVER PUT ON ANYBODY, AND THE FACE LEARNED TO TALK. TAB: LOOK for both
-pictures, CHARACTER to vote on the thirteen. Nothing to judge -- he already ruled. ***
+CHARACTER (character-0lurbs): 8/27 (c) LATEST -- *** EVERYBODY HAD A TRENCHCOAT AND
+IT WAS NOT A TASTE PROBLEM, IT WAS A HOLE IN THE WARDROBE. TAB: CHARACTER to try
+the new coats on, RUN for the crowd, LOOK for the picture. Nothing to judge. ***
 
-FIRST, TWO APPROVALS ON RECORD (NOTES ARE RULINGS -- do not re-ask him):
-  HAIR IS PASSED. "I will give you kudos, some very proud of how the hair's
-  looking... it's come a long way... still not really perfect perfect, but, hey.
-  I'll take it for now. You you learned a lot. It's awesome."
+THREE APPROVALS ON RECORD (NOTES ARE RULINGS -- do not re-ask him):
+  HAIR IS PASSED. "some very proud of how the hair's looking... it's come a long
+  way... still not really perfect perfect, but, hey. I'll take it for now."
   FACTION CLOTHING IS PASSED IN PRINCIPLE. "I'm pretty impressed that you made
-  faction clothing" -- with the correction below.
+  faction clothing."
+  COLOUR IS TERRITORY and THE FACE PERFORMS shipped 8/26 and are both LOCKED laws.
 
-=== PART ONE: COLOUR IS TERRITORY (his ruling, LOCKED, law written same turn) ===
-"the colorful, like, that guy was not colorful, bro. Like, that shit was crazy...
- people get shot in Los Angeles for wearing the wrong color or whatever... when it
- comes down to how we wanna communicate, like, who would defend us, I think it'd
- be kinda like that."
+=== HIS RULING, 8/27 ===
+"everyone's getting a fucking trenchcoat and I think that's fucking ridiculous. The
+ trenchcoat should just be reserved for like to be honest like mostly badass people
+ for real like killers and shit... I know we still need to make a lot more clothing
+ so this is like very early on but still bro... trenchcoats are for bad ass
+ motherfuckers bro cowboy shit like killers like for real"
 
-*** AND HE HAD ASKED FOR IT ONCE ALREADY, ON 7/21. *** His words that day, sitting
-in the alpha's own comment: "not even a single color, like rainbow literally".
-Four saturated garments were cooked that week, FOR COLORFUL, with a comment saying
-so. MEASURED FIVE WEEKS LATER:
-    TEAL WORK SHIRT     worn by NOBODY
-    COBALT WORK PANTS   worn by NOBODY
-    ROSE BANDANA        worn by NOBODY
-    MOSS GREEN SHIRT    worn by BLUES -- the one faction it is wrong for
-    COLORFUL  saturation 0.22, 54% grey/brown. SECOND LEAST COLOURFUL OF THIRTEEN.
-              Bone duster, bone knit cap, bone sneakers.
-THE MATERIAL EXISTED AND NEVER REACHED THE PLAYER, with his own words attached to
-it for five weeks. Same failure as the seventeen invisible hats on 8/25. If you
-take one thing from this handoff: WHEN HE ASKS FOR SOMETHING, CHECK LATER THAT IT
-ACTUALLY GOT WORN.
+*** HE WAS RIGHT AND IT WAS WORSE THAN HE SAID. *** Measured on 5,000 people through
+the real picker (BOH_PERSONLOOK.lookFor), not off the garment list:
+    16 of 35 outer garments were LONG COATS          46% of the whole slot
+    5 of 13 factions wore one
+    20.6% OF EVERY PERSON IN THE CITY was in a trenchcoat
+    45% of everyone wearing any coat wore a long one
+He said "everyone" and he was describing a real distribution.
+*** AND FOUR OF THOSE SIXTEEN WERE MINE, cooked the day before he said it. *** The
+8/26 colour pass needed a saturated outer garment for two factions and reached for
+a duster four times, because a duster was what the shelf held.
 
-AND A SECOND ONE HE DID NOT ASK ABOUT: *** THE BLUES WERE 67% RED. *** DRIFTER'S
-COAT is oxblood and a coat is most of a person; the shirt under it was moss green.
-A faction named for a colour was wearing neither that colour nor one colour. In
-his own framing they were walking the valley flagged as the Reds.
+*** THE CAUSE WAS A HOLE, NOT A WEIGHT, AND HE NAMED IT HIMSELF IN THE SAME BREATH:
+"I know we still need to make a lot more clothing". *** Every long coat is len
+0.80-0.90 and everything else in the outer slot stops at the WAIST (vest/jacket).
+THE MIDDLE OF THE WARDROBE DID NOT EXIST. The picker is uniform over what exists,
+so every person who wanted "a coat" and not "a waistcoat" came out in a duster.
+NOBODY CHOSE THAT. THE WARDROBE CHOSE IT.
 
-FIXED with ELEVEN COLOURWAYS IN EXISTING SHAPES, zero new geometry, exactly how
-the 7/21 batch was done:
-    COLORFUL  grass duster, teal striped tee, gold wrap skirt, rose knit cap,
-              cobalt sneakers.  0.22 -> 0.64 saturation, 54% -> 5% grey.
-              Owns hue 90, which nobody else does.
-    BLUES     cobalt shirt / coat / work pants / boots.  RED -> BLUE at 93%.
-SHAPES UNTOUCHED -- same generator, same options, different ramp -- so the 880-fit
-silhouette set is what it was: faction_outfit_gate 16/2, SAME two pre-existing
-failures, and its spread mean went UP (0.071 -> 0.073).
+IF YOU TAKE ONE THING FROM THIS HANDOFF: *** WHEN SOMETHING IS EVERYWHERE, LOOK AT
+WHAT IT IS COMPETING AGAINST BEFORE YOU CAP IT. *** "Too much of X" is usually "not
+enough of everything else". Capping X without checking that is how you end up with
+a city where nobody owns a coat, and a green gate certifying it.
 
-RESEARCHED, because REALISM FIRST and he named a real thing: colours signal at a
-DISTANCE (that is the whole function), the practice began as practical necessity
-letting a group project presence WITHOUT VERBAL CONFRONTATION, choices were
-OPPOSITIONAL (Bloods took red to contrast Crips' blue), origins were mundane and
-material (one account of Crips blue is which bandanas the surplus store had in
-bulk), and they are EASY TO TAKE OFF. That last one is a mechanic waiting to
-happen: wearing your colours is a decision with a cost, made every time you go out.
+TWO HALVES, AND THE FIRST ONE IS THE REAL ONE:
+  1. FILL THE MIDDLE -- 17 new outer garments in TWO NEW LENGTH BANDS:
+       HIP   (len 0.34)  chore / barn / olive chore / storm chore / rust work /
+                         cobalt chore coat
+       THIGH (len 0.56)  car / sand car / sage car / slate car / grass car coat
+       WAIST             work / storm / khaki / oxblood jacket, sage + bone vest
+     A new length is a new SHAPE, so STRUCTURE-NOT-COLOR (7/19) is satisfied by
+     geometry and not by argument. Verified DRAWING REAL PIXELS (chore coat 1245px,
+     car coat 1359px, work jacket 1025px, vests 326px), not merely registered --
+     that is the 17-invisible-hats lesson from 8/25 applied without being asked.
+  2. RESERVE THE LONG COAT -- all 17 carry hard:true, the picker holds them back
+     from nine strangers in ten, DATA NOT NAMES, in exactly the shape the existing
+     `lux` flag used. The module still names no garment anywhere, so a new duster is
+     reserved the moment somebody tags it, with no edit to the picker.
 
-*** WHAT I DID NOT DO AND WHY IT IS A DECISION: THE MOB SHARE RED WITH THE REDS ***
-(Mob 54%, Reds 87%). I built the charcoal alternative, put them in it, MEASURED it
--- it buried their mustard pinstripe under 56% grey and collided them with three
-other neutral factions -- and reverted it. WHICH FACTION OWNS WHICH COLOUR IS HIS.
-The two I changed were self-evident CONTRADICTIONS (a faction named COLORFUL in
-bone, a faction named BLUES in red). "The Mob should own charcoal" is taste, and
-inventing it fills in canon he reserved. It is a row on the vote board now.
+*** A NAMED CHARACTER IS NOT A CROWD MEMBER. *** Factions, bosses, killers and quest
+NPCs wear what their ruling says. The reservation governs the RANDOM population
+only. That is the whole point: once the coat stops being background noise, putting
+one on somebody becomes a statement. WHO EARNS ONE IS HIS and the picture says so.
 
-THE INSTRUMENT HE ASKED FOR IN THE SAME BREATH: "I wish you could change it in the
-character menu to be, like, thumbs up, thumbs down because I definitely would have
-voted." HE MUST BE ABLE TO DIRECT IT (8/12) had a hole here -- the board could WEAR
-a fit and SAVE a fit, so he could rebuild one from scratch, and there was no way to
-say YES or NO to the thirteen. REBUILDING IS NOT VOTING. Thumbs, notes box and
-.txt export (never .json) on the faction board now, the same pattern the hair board
-has had since 8/1. The sheet exports the faction, its shape line AND what it wears.
+RESULT                            before      after
+  every person in the city        ~20%        ~1.5%
+  of everyone wearing any coat    ~45%        ~3%
+  factions wearing one            5 of 13     3 of 13
+ROUNDED ON PURPOSE: three separate 5,000-person samples read 1.66 / 1.38 / 1.34, so
+the honest sentence is "about one and a half". Two decimals off one sample claims a
+precision the measurement does not have.
+The two factions that lost theirs are the two I MIS-DRESSED ON 8/26: Blues ->
+COBALT CHORE COAT, Colorful -> GRASS CAR COAT, both still in their faction colour so
+COLOUR IS TERRITORY is intact. ANARCHISTS, REDS AND REMNANTS KEEP THEIRS because
+each one's own `why` line is about the coat. Those three are the badasses.
 
-=== PART TWO: THE FACE PERFORMS ===
-"every time you speak to someone, their portrait will pop up on screen so you feel
- like you're relating to them... facial animations too, bro, like talking and
- shit... from eyebrows moving"
-renderFace takes three optional knobs -- mouth, blink, brow -- and A FACE WITH NONE
-ASKED OF IT IS EXACTLY THE APPROVED FACE, which is the only way to add performance
-to art that is already signed off.
-*** THE MOUTH IS DRIVEN BY THE LETTERS THEY ARE ACTUALLY SAYING. *** The line is
-walked one sound at a time and each sound picks a shape, so an O in the words is an
-O on the face and the same line always looks the same. Spanglish is IN the line so
-it is in the mouth: accented vowels map with their plain twins, n-tilde closes.
-FOUR SHAPES, NOT PRESTON BLAIR'S TEN. His chart is for a face with a thousand
-pixels; this mouth is NINE WIDE AND THREE TALL. Ten into nine is the overworld
-face scale he killed on 8/11 -- asking geometry to express what it has no room for.
-MEASURED FROM PEOPLE: blink 285ms (100-400 range), 15-20/min at rest and 3-7 while
-concentrating, 2-10s apart; speech 4-5 syllables/sec so a shape holds 200-250ms.
-250ms is inside that AND exactly half a BEAT at 120bpm. Deterministic off the
-person's id -- no dice, so nobody in a crowd shimmers.
+GATE: gates/trenchcoat_gate.js NEW, 9/0, registered as TRENCHCOATS. Measured on the
+REAL PICKER, 3,000 people -- a share read off the catalogue describes a shelf nobody
+stands in, and what he SAW was the street.
+    crowd ratchet         <= 4.0% of everybody         measured 1.4%
+    coat-wearer ratchet   <= 12% of coat-wearers       measured 3.1%
+    THE HIP BAND EXISTS   >= 6 garments 0.20-0.45      6
+    THE THIGH BAND EXISTS >= 5 garments 0.45-0.70      5
+    every len>=0.70 coat carries hard:true             17 of 17
+    MUTATION inside the gate: re-walk with flags stripped   1.4% -> 14.4%
+    not one coat was deleted                           17 still there
+*** TESTS 3 AND 4 ARE THE ONES THAT MATTER AND THEY ARE EASY TO LEAVE OUT. *** Tests
+1 and 2 are both satisfied by DELETING every duster, and both were satisfied on 8/26
+by a wardrobe with nothing between a waistcoat and the floor -- which IS the bug. A
+cap without band floors caps the symptom. The gate never reads FACTION_LOOKS and
+never decides who is a badass: A MACHINE MUST NEVER OVERRULE A RULING (8/1).
+Mutation-proved by hand the same turn: deleting the reservation line turns THREE of
+the nine checks red. Restored, re-verified green.
 
-*** THE HALF HE WANTED MOST IS NOT DONE: THE PORTRAIT DOES NOT POP UP WHEN YOU TALK
-TO SOMEBODY YET. *** The performance exists and is gated; the WIRING into the
-dialogue surface is the next session's first job, along with his idea of putting
-the portrait in the action button "to keep that part of the UI decent and composed".
-ALSO OPEN from the same message: EYE COLOURS MATCHING between the portrait and the
-person in the world. He said "eye colors matching the portrait again". I HAVE NOT
-MEASURED WHETHER THEY CURRENTLY AGREE. MEASURE IT BEFORE BUILDING ANYTHING.
+AND AN HONEST NOTE ON THE PICTURE, because it is the same class of error this lane
+keeps catching: the first cut of the middle row RECONSTRUCTED the "before" by
+re-picking each person's coat with a hash of my own rather than the one the old code
+used. The eight it drew were not the eight the old game dressed -- it showed ONE
+trenchcoat in eight when the real rate was closer to four. A PICTURE THAT UNDERSELLS
+A BUG IS STILL A PICTURE TELLING HIM A NUMBER I DID NOT MEASURE. Thrown away and
+rebuilt as eight real people as they are now, plus the reserved rail, with the
+measured population figures in the caption.
 
-GATES: faction_colour_gate NEW, 9/0, registered in the suite, MUTATION-PROVED
-  (putting Colorful back in bone and Blues back in oxblood fires two checks by
-  name). craft_law 39/0 -- and it went RED on my own comment saying "No
-  Math.random anywhere in here": the regex saw Math.random near "wobble" in PROSE.
-  A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE, which is a
-  lesson THAT GATE PINS SIX LINES ABOVE THE CHECK. Comments stripped before the
-  test; a real dice roll beside the wobble still fires, proved by mutation.
-  hair 35/0, one_garment_per_slot 15/0, clothes_4x 13/0, look 24/0 (46 pictures).
+THREE THINGS THIS TURN FOUND ON THE WAY THROUGH:
+  1. THE ENGINE COPY OF THE PICKER WAS NOT UPDATED (mine, fixed). I put the
+     reservation in the alpha only; ENGINE SYNC LAW says the inlined copy and
+     engine/bohemia_personlook.js must be the same BYTES. personlook_gate caught
+     it. Mirrored, re-synced, 22/0.
+  2. *** THE WARDROBE BANK WAS 32 GARMENTS BEHIND AND HAD BEEN RED SINCE 8/26
+     WITHOUT ME NOTICING. *** banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt is what
+     every agent dresses from: 236 items against 268 in the alpha, missing every
+     colourway from the colour pass AND all 17 new coats. dress_gate names the
+     missing garments BY NAME and I shipped past it once. THE LESSON IS NOT THE
+     FIX: a gate going red inside a 448-gate suite is only as good as the pass
+     that reads the list. Regenerated, 46/0.
+  3. A MERGE CONFLICT MARKER WAS LIVE ON MAIN, ON THE FRONT SPLASH (not mine,
+     fixed anyway). Another lane's rebase ate the `<!--` opening the comment that
+     closes the splash and left `>>>>>>> 7333cce` directly under the build stamp,
+     so the marker and six lines of comment prose were rendering AS TEXT on the
+     front page of the one link he taps. *** THE COMMENT THAT GOT EATEN IS THE
+     COMMENT WARNING THAT IT GETS EATEN *** -- "Twice on 8/2 a lane updating the
+     build stamp above ate it... Both times it reached main." Three times now.
+     Restored; ALPHA LOADS 20/0, FRONT DOOR 8/0. Touched because my own stamp edit
+     is on that exact line and the damage was one line below it.
 
-WHAT THE NEXT CHARACTER SESSION PICKS UP:
-  1. WIRE THE PORTRAIT INTO DIALOGUE. It is the thing he actually asked for and
-     the performance is sitting there unused. Then the action-button idea.
-  2. MEASURE EYE COLOUR AGREEMENT portrait vs world body before touching it.
-  3. The colour law's open row: the Mob/Reds red, and five factions sharing the
+AND ONE LEFT ALONE ON PURPOSE, now a row: slices/BOHEMIA_LIFE_SLICE_7_19_26.html
+embeds a copy of the wardrobe bank stamped `count: 221` -- 47 behind. NOTHING
+GATES ITS FRESHNESS. Already stale before this turn, belongs to another lane, and
+ENOUGH IS ENOUGH (8/26) makes it a handoff row, not this turn's work.
+
+GATES: trenchcoat NEW 9/0, hair 35/0, one_garment_per_slot 15/0, faction_colour
+  9/0, clothes_4x 13/0 (448/448 shapes), craft_law 39/0, personlook 22/0, dress
+  46/0, look 24/0 (47 pictures, all retaken), alpha_loads 20/0, front_door 8/0,
+  worn_persist 5/0, chin_law 10/0, head_follows_rig 5/0, face_feature_scale 7/0,
+  family_cast 26/0, family_anim 13/0, wired_in_tab 52/0, name_the_tab 23/0.
+  faction_outfit 16/2 -- the SAME two failures recorded on 8/26, spread mean
+  unchanged at 0.073, so re-dressing Blues and Colorful did not regress it.
+  THE SUITE ITSELF CANNOT FINISH: 448 gates at 10.4s each needs ~4650s against its
+  own 2700s budget, so 75 gates NEVER RAN and 4 reds went UNCLASSIFIED. It prints
+  the shard commands. I ran every CHARACTER gate in the never-ran set by hand and
+  they are all listed above. NOT MINE and confirmed on main: GRAVEYARD, FULL RES,
+  CAST SHAPES, RENDER PIXEL, MOTION VISIBLE, SQUINT, HUE, COMBAT *, SFX/VOICE/MIX,
+  THE RUN, RUN PEOPLE, BANKS USED, DEAD CODE, plus REUSE FIRST (bohemia_floor_cook
+  .py, another lane's file, already on main).
+
+WHAT THE NEXT CHARACTER SESSION PICKS UP (unchanged at the top -- this ruling
+arrived mid-queue and jumped it, correctly, because he sent it):
+  1. WIRE THE PORTRAIT INTO DIALOGUE. STILL THE THING HE ACTUALLY ASKED FOR ON 8/26
+     and the performance is sitting there gated and unused. Then his action-button
+     idea, "to keep that part of the UI decent and composed".
+  2. MEASURE EYE COLOUR AGREEMENT portrait vs world body before touching it. He said
+     "eye colors matching the portrait again". I STILL HAVE NOT MEASURED IT.
+  3. MORE CLOTHING. He said it twice now, and 8/27 proved it is not a nice-to-have:
+     a thin slot does not read as "a few options", it reads as EVERYBODY WEARING THE
+     SAME THING. Worth sweeping every other slot the same way the outer slot just
+     got swept -- count the bands, not the garments.
+  4. The colour law's open row: the Mob/Reds red, and five factions sharing the
      desert hue. HIS to rule on, on the vote board. Do not invent ownership.
-  4. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
+  5. THE LIFE SLICE'S EMBEDDED WARDROBE BANK IS 47 GARMENTS BEHIND (`count: 221`)
+     and nothing gates its freshness. One command regenerates it
+     (python3 tools/bohemia_life_slice.py) but it is another lane's slice --
+     coordinate rather than just running it.
+  6. NOT MINE: CANVAS MEMORY red, #354 TASTE, #356 ART 45.
 
-  node gates/faction_colour_gate.js            9/0
-  node tools/bohemia_colour_is_territory.js    the before and after, LOOK tab
-  node tools/bohemia_the_face_talks.js         the talking face, LOOK tab
-  records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt
-  laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md
+  node gates/trenchcoat_gate.js                9/0
+  node tools/bohemia_the_trenchcoat_rule.js    the ladder + the crowd, LOOK tab
+  records/BOHEMIA_TRENCHCOATS_ARE_RESERVED_8_27_26.txt
+  laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md
 
 ================================================================================
 WORDS (words-8dqrnq): 8/26 (a) LATEST -- *** THE LANE OPENED AND THE FIRST THING IT DID WAS

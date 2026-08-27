@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 236
+# count: 268
 SUN CROP|hair|#523a26|
 DUSK SHAG|hair|#201e1b|
 TEMPLE TAPER|hair|#201e1b|
@@ -211,6 +211,38 @@ MOSS GREEN SHIRT|base|#6ebe3c|
 TEAL WORK SHIRT|base|#28bea0|
 COBALT WORK PANTS|legs|#326ed2|
 ROSE BANDANA|face|#dc4655|
+TEAL STRIPED TEE|base|#28bea0|stripe
+COBALT DUSTER|outer|#326ed2|
+ROSE KNIT CAP|head|#dc4655|
+COBALT KNIT CAP|head|#326ed2|
+GOLD WRAP SKIRT|legs|#ffd75c|
+GRASS SNEAKERS|feet|#6ebe3c|
+COBALT SHIRT|base|#326ed2|
+COBALT COAT|outer|#326ed2|
+COBALT BOOTS|feet|#326ed2|
+ROSE DUSTER|outer|#dc4655|
+CHARCOAL ROAD CAPE|back|#363436|
+GRASS DUSTER|outer|#6ebe3c|
+COBALT SNEAKERS|feet|#326ed2|
+CHARCOAL WRAP SKIRT|legs|#363436|
+CHARCOAL BOOTS|feet|#363436|
+CHORE COAT|outer|#624e38|
+BARN COAT|outer|#7e6e50|
+OLIVE CHORE COAT|outer|#444a32|
+STORM CHORE COAT|outer|#46484e|
+RUST WORK COAT|outer|#724830|
+CAR COAT|outer|#363436|
+SAND CAR COAT|outer|#a29a86|
+SAGE CAR COAT|outer|#5a6856|
+SLATE CAR COAT|outer|#484e56|
+WORK JACKET|outer|#624e38|
+STORM JACKET|outer|#46484e|
+KHAKI JACKET|outer|#7e6e50|
+OXBLOOD JACKET|outer|#5c302a|
+SAGE VEST|outer|#5a6856|
+BONE VEST|outer|#a29a86|
+COBALT CHORE COAT|outer|#326ed2|
+GRASS CAR COAT|outer|#6ebe3c|
 HOOD-UP ASH HOODIE|base|#46484e|
 HOOD-UP COAL HOODIE|base|#303034|
 HOODED DUST PONCHO|outer|#806e50|
