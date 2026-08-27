@@ -25,6 +25,23 @@
      2. there is exactly ONE of it (no BOHEMIA_HANDOFF.md, no _OLD, no dated copy)
      3. NO conflict markers, in it or in any tracked text file
      4. it still leads with a lane head, so it has not been truncated to nothing
+     5. THE WHOLE FLEET IS STILL IN IT (8/27, added the day it wasn't)
+
+   ON CLAIM 5, AND WHY CLAIM 4 WAS NOT ENOUGH. On 8/27 this file reached main at
+   SIXTY-ONE LINES. It was 72,322 lines one commit earlier. One lane replaced the
+   whole file with its own entry, deleting the live state of nine other lanes
+   back through 8/2. Claim 4 exists for exactly that failure and it PASSED --
+   because the wreckage still led with a lane head. Its own lane head.
+
+   A check that only asks "is there anything here" cannot tell a handoff from a
+   fragment of one. Claim 5 asks the question that was actually meant: every lane
+   slug that was in this file at HEAD is still in it now. Lanes may be ADDED, and
+   an entry may be demoted, rewritten or shortened -- a lane may never VANISH.
+
+   AND IT CATCHES IT AT THE COMMIT, WHICH IS THE ONLY MOMENT IT CAN. Once a
+   truncation lands, the truncated file becomes the baseline and the loss is
+   invisible to any diff-based test forever after. That is not a weakness to
+   paper over, it is the reason this has to be a pre-push gate and not an audit.
 
    ON THE MARKER TEST, because a sloppy one would fail the fix it guards: only
    `<<<<<<<` and `>>>>>>>` at the START of a line count. `=======` alone is not
@@ -56,6 +73,48 @@ ok('there is exactly ONE handoff at the root (' + rootFiles.join(', ') + ')', ro
 ok('it is not empty and still leads with a lane head (first line: "'
   + text.split('\n')[0].slice(0, 48) + '...")',
   /^[A-Z][A-Z ]*\([a-z0-9-]+\):/.test(text.split('\n')[0] || ''));
+
+/* ---- 5. THE WHOLE FLEET IS STILL IN IT ----------------------------------
+   Lane heads look like `SOUND (sound-xk7pjp): 8/27 (b) LATEST -- ...`. The slug
+   in the parens is the lane's identity and it is stable across months, so the
+   SET of slugs is the fleet as this file knows it. Compare against HEAD: a lane
+   may be added, an entry may be demoted or rewritten or cut down, but a lane
+   that was in here yesterday and is gone today is somebody's memory deleted. */
+/* THE MATCHER HAD TO BE TIGHTENED BEFORE IT COULD BE BELIEVED. Its first cut
+   accepted any parenthesised lowercase token after a capitalised word and came
+   back with 31 "lanes" -- among them `a`, `d`, `03`, `7` and `unchanged`, all of
+   them prose. A list that is mostly noise cannot tell you a real name went
+   missing, and it would have gone red on any turn that reworded a sentence. A
+   lane head is `NAME (slug-xxxxxx): 8/27 ...`: hyphenated slug, then a date. */
+const lanes = (s) => {
+  const out = new Set();
+  const re = /^[A-Z][A-Z /]*\(([a-z0-9]+(?:-[a-z0-9]+)+)\):\s+\d/gm;
+  let m; while ((m = re.exec(s))) out.add(m[1]);
+  return out;
+};
+const now = lanes(text);
+let head = null;
+try {
+  head = lanes(execFileSync('git', ['show', 'HEAD:' + NAME],
+    { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }));
+} catch (e) { /* first commit, or not a checkout: nothing to compare against */ }
+
+if (head) {
+  const gone = [...head].filter(l => !now.has(l));
+  ok('THE WHOLE FLEET IS STILL IN THE HANDOFF: ' + now.size + ' lane(s), and none '
+    + 'of HEAD\'s ' + head.size + ' has vanished' + (gone.length ? ' -- LOST: ' + gone.join(', ') : ''),
+    gone.length === 0);
+  /* and the blunt one, because a lane can survive as a one-line stub while the
+     rest of its history is gone. 8/27's truncation was 99.9% of the bytes. */
+  const wasBytes = execFileSync('git', ['show', 'HEAD:' + NAME],
+    { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }).length;
+  const keptPct = wasBytes ? Math.round(text.length / wasBytes * 100) : 100;
+  ok('and it did not lose the bulk of itself in one write (' + keptPct + '% of HEAD\'s '
+    + wasBytes + ' bytes; this file only ever grows)', keptPct >= 80);
+} else {
+  ok('no HEAD copy to compare the fleet against (first commit, or not a checkout) '
+    + '-- ' + now.size + ' lane(s) present', now.size > 0);
+}
 
 /* the conflict itself */
 const START = /^<<<<<<< /m, END = /^>>>>>>> /m;

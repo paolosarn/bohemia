@@ -108,3 +108,73 @@ will read it:
 Not cooking a replacement batch. He said "keep cooking" *before* seeing the
 result; the result is in and it is 0 for 8, and the newest signal wins. Whenever
 the next batch does happen it starts from the world.
+
+---
+
+# APPENDIX, SAME DAY, HOURS LATER: THE HEADLINE ABOVE IS WRONG AND THE COUNTEREXAMPLE WAS ALREADY IN THE REPO
+
+I went looking for a way to put "a cook starts from the world, not from the gap
+list" behind a machine, since a conclusion with no gate is not enforced. Before
+writing it I checked the one thing that could kill it, which is what the three
+dead theories above taught me to do first.
+
+**IT IS KILLED. BATCH 24 STARTED FROM THE GAP LIST TOO, IN THOSE WORDS, AND WENT
+3 FOR 4.**
+
+From `tools/bohemia_music_batch24.py`, verbatim:
+
+> "So the four topologies below were chosen by first reading what the 577-voice
+> rack already does and ruling out the near misses"
+
+That is the gap list. It is the same method, written down in the same place, by
+the same lane, three days earlier. Its result:
+
+    THE BELLS DISAGREE                      ALIVE
+    THE LAST BROADCAST CORRODES             ALIVE
+    THE VOICE THAT STILL ANNOUNCES FLOORS   ALIVE
+    THE NOTE THAT WOULD NOT STAY ONE        buried
+
+Three of four. Against batch 25's zero of eight. **Same starting method, opposite
+outcome.** So the starting method is not the cause, and I had written a fourth
+theory into a record on the strength of it reading well. That is exactly the
+failure the first half of this document is about, committed again in the act of
+writing it up.
+
+## WHAT THE TWO BATCHES ACTUALLY DIFFER ON IS THE SECOND STEP
+
+Both read the rack for a hole. Then:
+
+    BATCH 24    atriumvox    fissionhymn    signalrot    twintoll
+    BATCH 25    scanstring   syncthorn      pafvox       bowdrag
+
+Batch 24 answered each hole with **a thing that exists in this world**: the voice
+of an atrium, a hymn coming apart, signal rot, two bells tolling against each
+other. Batch 25 shipped **the technique itself, wearing the technique's name**:
+scanned synthesis, hard sync, phase-aligned formant, stick-slip bow drag.
+
+Nobody chose a hole wrong. Batch 25 stopped after choosing.
+
+## AND THE SHARPEST PAIR IN THE DATA, WHICH IS ALSO THE THINNEST
+
+`atriumvox` and `pafvox` are the SAME SYNTHESIS FAMILY. Both are formant
+synthesis; atriumvox is FOF/CHANT grain-per-period, pafvox is Puckette's
+phase-aligned formant. One is named for a room in a dead building. One is named
+for the acronym in the paper. **The room is canon. The acronym is in the
+graveyard.**
+
+That is one pair. It is n=1, it is not proof of anything, and it is written down
+here as the most interesting thing in the data rather than as a finding. The
+difference in outcome may be entirely in how the two were WRITTEN and have
+nothing to do with what they were called. I am not building a gate on it.
+
+## WHAT I AM NOT BUILDING, AND WHY THAT IS THE POINT
+
+No `cook_from_the_world_gate`. Four theories now, four killed by this repo's own
+data, and a gate is a claim the machine can check — enshrining an unproven one
+would let the next person believe the question had been asked. That is the exact
+harm named earlier in this document about clause 2's missing gate, and it does
+not get better because the theory is mine.
+
+**What survives as guidance, with no machine behind it and labelled as such:**
+read the rack for the hole if you like, that part is fine and batch 24 proves it.
+Then do the second step. Do not ship a technique with the technique's name on it.
