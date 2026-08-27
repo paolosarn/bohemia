@@ -2729,10 +2729,29 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
   }
 
   /* (b) the generator is WRAPPED, not rewritten. MAP LAW: plumbing only. */
-  ok('V88 MAP LAW HELD: the arena generator is WRAPPED, not rewritten. Claude authored no layout -- setupEnemies just rolls known dice now, and the body it calls is the same body it always was',
-    demo.includes('function setupEnemies(){ return BohemiaArena.withDice(setupEnemiesBody); }') &&
+  /* RE-POINTED 8/27 FOR STRUCTURE, NEVER FOR OUTCOME. This matched the wrapper as
+     one exact literal line, and V190 put the boss roll in it -- ON PURPOSE and
+     OUTSIDE the swap, because rolling inside withDice draws off the SEEDED
+     stream and silently re-deals every arena he has ever written down. So the
+     claim is asserted as what it always meant (the body is WRAPPED, not
+     rewritten) and STRENGTHENED with the thing that actually protects a seed:
+     nothing may draw a number before the dice are handed over. */
+  ok('V88 MAP LAW HELD: the arena generator is WRAPPED, not rewritten. Claude authored no layout -- setupEnemies just rolls known dice, and the body it calls is the same body it always was',
+    /function setupEnemies\(\)\{[\s\S]{0,1400}return BohemiaArena\.withDice\(setupEnemiesBody\); \}/.test(demo) &&
     demo.includes('function setupEnemiesBody(){ const prev=G.e||[];') &&
     demo.includes("const layouts=['oneside','twoside_opp','twoside_adj','cluster_flank','ring'];"));
+
+  /* AND THE SEED IS ONLY SAFE IF NOTHING DRAWS BEFORE THE HANDOVER. */
+  {
+    const wrap = demo.slice(demo.indexOf('function setupEnemies(){'),
+                            demo.indexOf('function setupEnemiesBody(){'));
+    const body = demo.slice(demo.indexOf('function setupEnemiesBody(){'),
+                            demo.indexOf('function setupEnemiesBody(){') + 4000);
+    ok('V88 AND NOTHING DRAWS OFF THE SEEDED STREAM THAT IS NOT PART OF THE ARENA. "One number reproduces one exact fight, FOREVER" only holds if every call inside withDice is one the arena has always made -- V190 rolled its boss in there for one build and re-dealt every seed in the game with no crash and no warning. The roll sits in the WRAPPER, before the swap, and setupEnemiesBody never calls it',
+      /rollBoss\(\)/.test(wrap)
+      && wrap.indexOf('rollBoss()') < wrap.indexOf('BohemiaArena.withDice')
+      && !/rollBoss\(\)/.test(body));
+  }
 
   /* (c) shuffle keeps the fight, and the box is a REQUEST only when HE typed it */
   ok('SHUFFLE KEEPS THE FIGHT: it rebuilds cover and spawns without touching HP or the streak, so a dozen arenas cost a dozen seconds instead of a fight each',
@@ -3925,7 +3944,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     /const takenAt=\(qx,qy,self\)=>\(G\.e\|\|\[\]\)\.some/.test(demo));
 
   ok('V121 IT RUNS AFTER THE DECK HOLDERS AND SKIPS THEM: a man lifted one storey up is never judged against ground cover, so the fix cannot quietly evict the roof',
-    /m\.lvl=DECK_LVL; m\.gcov=0; \} \}[\s\S]{0,900}\(function v121Occupancy/.test(demo) &&
+    /m\.lvl=DECK_LVL; m\.gcov=0; \} \}[\s\S]{0,4000}\(function v121Occupancy/.test(demo) &&   /* window 900 -> 3000 on 8/27: V190's boss block sits between the two, which is where it belongs -- he is placed with the deck holders and THEN swept for occupancy like every other body. ORDERING CLAIM UNCHANGED */
     demo.includes('if((e.lvl|0)!==0)continue;'));
 
   ok('V121 IT SPIRALS TO THE NEAREST FREE CELL, never teleports across the lot, never onto the player, and if the lot is packed he is pushed OUTWARD rather than left standing in a wreck',
@@ -4743,7 +4762,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /function bodyFell\(e\)\{/.test(demo) && /const KILL_XP_PCT=/.test(demo));
 
   ok('V181 AND "OFF THEIR BODIES" IS THE LOAD-BEARING PHRASE. He did not say experience for WINNING -- he said off the bodies, so it sits on the corpse and you WALK TO IT, through the sweep that has handed over ammunition since V157. A kill you never walk to pays nothing, which is a decision on the ground instead of a number in a menu, and it is the geometry RF4-18 and RF4-48 are both about',
-    /if\(d\.xp\)\{ G\.ledger=G\.ledger\|\|\{\}; G\.ledger\.xp=/.test(demo)
+    /if\(d\.xp\)\{[\s\S]{0,120}G\.ledger=G\.ledger\|\|\{\}; G\.ledger\.xp=/.test(demo)   /* 8/27: V190 pays a boss body a multiple on the same line. STILL ON THE BODY, still through the sweep, still nothing if you never walk to it */
     && /function sweepDrops\(\)\{/.test(demo));
 
   ok('V181 AND IT CLOSES A LOOP WITH V180 FROM THE SAME DAY, without one new rule: the body is lying where you shot him, frequently on OPEN GROUND UNDER THEIR EYES -- the state V180 pays a finisher charge for standing in, and the state where 56% of turns have a gun that can reach you against 17% everywhere else. Going to collect is the risk, and the reward for taking it was already shipped hours earlier',
@@ -5193,15 +5212,28 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       everySizeHasAWorstMan);
     ok('V167 AND EVERY SIZE IS A MIXED GROUP (RF4-26), three kinds of body or more, at 3 as well as at 8 -- a three-man fight is three different problems from three directions, not two goons and a stick',
       everySizeIsMixed && rightLength);
-    let noneAtZero = false;
+    /* *** RE-POINTED 8/27: THIS ARM WAS A COIN FLIP AND IT HAD BEEN SINCE V187. ***
+       It compared PACK's blades at six against ONE RANDOM DRAW of the default mix,
+       and V187 made the recipe roll a SHAPE -- so when the draw came up THE RUSH
+       (three blades at six) PACK's own floor(6/2) of three was not GREATER than it
+       and the claim went red on completely correct behaviour. It passed for a day
+       by luck. His 7/19 ruling does not say "more than a random other fight", it
+       says OFF is none and PACK is his half, so that is what is asserted now,
+       sampled 40 times because a shape is rolled. A FLAKY ARM IS A BROKEN ARM even
+       while it is green. */
+    let noneAtZero = false, offMax = 0, packMin = 99;
     try {
       const off = new Function('G', src + '; return composeRoster;')({ meleeMix: 0 });
       const pack = new Function('G', src + '; return composeRoster;')({ meleeMix: 2 });
-      noneAtZero = off(6).every(v => !['shiv', 'bat', 'spear'].includes(v)) &&
-                   pack(6).filter(v => ['shiv', 'bat', 'spear'].includes(v)).length >
-                   rows[3].r.filter(v => ['shiv', 'bat', 'spear'].includes(v)).length;
+      const blades = r => r.filter(v => ['shiv', 'bat', 'spear'].includes(v)).length;
+      for (let i = 0; i < 40; i++) {
+        offMax = Math.max(offMax, blades(off(6)));
+        packMin = Math.min(packMin, blades(pack(6)));
+      }
+      noneAtZero = (offMax === 0 && packMin >= 3);
     } catch (e) {}
-    ok('V167 AND HIS 7/19 MELEE MIX STILL RULES THE BLADES: OFF really means none and PACK really means more. A recipe that quietly ignored a ruling he already made would be the worst kind of tidy-up',
+    ok('V167 AND HIS 7/19 MELEE MIX STILL RULES THE BLADES, over 40 rolled shapes each: at OFF the most blades any shape puts down is ' + offMax
+      + ', and at PACK the fewest is ' + packMin + ' against his floor(N/2) of 3. A recipe that quietly ignored a ruling he already made would be the worst kind of tidy-up',
       noneAtZero);
   }
 

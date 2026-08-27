@@ -9,6 +9,22 @@ bonuses), and 60 MINI BOSSES that each hand you A NEW WAY TO INTERACT WITH
 BOHEMIA. The tree, the abilities and the bosses are ONE system, not three.
 Anything that assumes a run resets is built on a premise that does not exist.
 Full law: laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md
+*** AND THE BOSSES ARE IN THE GAME AS OF 8/27. A BOSS DOES NOT DROP A TROPHY, IT
+HANDS YOU A VERB. *** His ladder held 53 of them -- name, hold, LOCK stated as an
+impossibility, GRANT -- for three weeks as a DOCUMENT nothing running had ever read.
+The game PARSES records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md at build time, so not
+one boss is written in code and editing that file changes the game. A boss is 2.2x
+health and ONE JOB (armour, spotter, breacher, the deck, bodies on him, the blade
+cadence -- every one a flag the engine already read); no accuracy or damage number
+moves. AND THE LOCK HAS TO BE REAL OR THE GRANT IS A CERTIFICATE: THE CLIMB holds
+the stairs and THE CHARGE holds the grenade until you beat them, and pressing either
+NAMES THE MAN WHO HAS IT. Keys ride V181's drop (off his body, his 8/25 ruling) and
+are published as window.bohemiaKeys so CITY/RUN/QUESTS can close their own doors.
+THE LESSON, and it cost an old gate to find: A FEATURE THAT COSTS A SEEDED STREAM
+ONE DRAW REWRITES THE WHOLE MAP -- rolling the boss inside BohemiaArena.withDice
+re-dealt every arena he has ever written down, with no crash and every new check
+green. Full law: laws/BOHEMIA_LAW_A_BOSS_HANDS_YOU_A_VERB_8_27_26.md
+Gate: fight_moves_you_gate.js (+ boss_ladder_gate.js on the record itself)
 AND COMBAT IS ONE SENTENCE (same message): "JUST IMAGINE ROGUE FABLE 4 WITH 120
 BPM EVERYTHING BRO LIEK THATS ALL?" The beat is the clock RF4's turns run on; they
 were never in tension. All three bars ship (Protection, Power, Speed) and a real

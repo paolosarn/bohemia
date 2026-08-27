@@ -1,3 +1,78 @@
+COMBAT (combat-nfnki9): 8/28 (c) LATEST -- *** FIFTY-THREE MINI BOSSES ARE IN
+THE GAME AND NOT ONE OF THEM WAS INVENTED. HIS LADDER HAS BEEN A DOCUMENT FOR
+THREE WEEKS; THE GAME PARSES IT NOW. *** Nothing to judge.
+
+TAB: COMBAT. Fight. The BOSSES row is in DEMO SETTINGS. Build 8/28c - THE MINI BOSSES.
+
+HIS RULING, 8/26: "IT WILL GO HAND IN HAND WITH ABILITIES AND THE 60 MINI BOSSES
+IN THE GAME THAT GIVE YOU A NEW WAY TO INTERACT WITH BOHEMIA BRO!"
+
+WHAT I FOUND BEFORE WRITING ANYTHING
+  records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md holds 53 bosses, each with a
+  name, a hold, a LOCK stated as an impossibility and a GRANT -- seven passes,
+  ten of his own rulings, an 87-check gate holding every lock distinct. It was a
+  DOCUMENT. You could not fight it and nothing running had ever read a byte of
+  it. Same shape as five finds this week: the material existed and never reached
+  the player.
+
+SO THE PATCH TOOL PARSES HIS RECORD AT BUILD TIME
+  All 53 emitted verbatim -- name, hold, lock, grant, kind, act. The gate
+  re-reads the record and compares every row character for character: 0 drifted.
+  MECHANISM-MINE / CONTENTS-PAOLO'S with the seam made out of a FILE. Seven more
+  names in that file is seven more bosses with no code written. 53 not 60 is
+  deliberate: the ladder's own first line says it is "a pool to cut from".
+
+A BOSS IS HEALTH AND A JOB, NEVER A BIGGER GUN
+  Six traits, every one a flag this engine already read: armour (makeEnemy has
+  accepted it since 7/4 and NOTHING EVER SET IT), V168's spotter, V177's
+  breacher, V90's deck, bodies standing with him, the blade cadence. Measured:
+  raw 30 lands as 21 on a plated boss and 30 on the man beside him; a guarded
+  boss's two nearest stand 2.59 tiles off against 4.31; the height man takes the
+  deck on 8 of 12 lots that have one. NOT ONE accuracy or damage number differs
+  from the archetype he was built from.
+
+THE LOCK IS REAL OR THE GRANT IS A CERTIFICATE
+  Two of his 53 name verbs this engine owns, so those two verbs are DARK.
+  THE CLIMB holds the stairs (level 0 before, 1 after). THE CHARGE holds the
+  grenade (false before, true after). Press either and it says WHO HAS IT: a
+  locked button that no-ops teaches nothing, a locked button that says a NAME is
+  a quest. And the key is ON HIS BODY (his 8/25 ruling): 188 xp against an
+  ordinary body's 15, and it survives every later fight.
+
+*** THE BUG THIS ALMOST SHIPPED, AND ONLY AN OLD GATE FOUND IT ***
+  A FEATURE THAT COSTS A SEEDED STREAM ONE DRAW REWRITES THE WHOLE MAP. The
+  first cut rolled the boss inside BohemiaArena.withDice -- V88's promise is
+  "one number reproduces one exact fight, forever" -- so one extra draw per
+  fight silently re-dealt EVERY ARENA HE HAS EVER WRITTEN DOWN. No crash, no
+  warning, every V190 check green. Two long-standing arms with nothing to do
+  with bosses went red, which is the whole argument for keeping old
+  measurements running.
+
+AND ONE ARM HAD BEEN A COIN FLIP SINCE V187, MINE
+  V167's melee-mix check compared PACK's blades against ONE RANDOM DRAW of the
+  default mix; V187 made the recipe roll a SHAPE, so when the draw came up THE
+  RUSH the claim went red on correct behaviour. It asserts his ruling now (OFF
+  is none, PACK is his half) over 40 shapes. A FLAKY ARM IS A BROKEN ARM EVEN
+  WHILE IT IS GREEN.
+
+GATES: fight_moves_you 122/0 (was 114/0, 8 new arms) - combat_lab 931/1 (the one
+red is another session's fight-music ladder, three runs, stable) - boss_ladder
+87/0 - one_engine 3/0 - tool_idempotent 6/0 - 0 page errors.
+LAW: laws/BOHEMIA_LAW_A_BOSS_HANDS_YOU_A_VERB_8_27_26.md
+RECORD: records/BOHEMIA_COMBAT_THE_MINI_BOSSES_8_27_26.md
+
+WHAT COMES AFTER, AND IT IS NOT COMBAT'S
+  The other 51 grants live outside combat -- the map, cooking, tattoos, the
+  workshop, the farm. The keys are published to the parent window as
+  window.bohemiaKeys (and postMessage), plain facts, so CITY / RUN / QUESTS can
+  close their own doors without knowing anything about combat.
+  Still open from his 8/25 dispatch and still named open: ammo is confusing
+  (readability), "it could be more hardcore if you wanted it to be" (permission,
+  not a ruling), and the pillars-and-stairs note -- half answered by V187's
+  shapes and by THE CLIMB making height something you earn, not by the terrain.
+
+------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 8/27 (c) LATEST -- *** THE DEMO'S LAST MOMENT MADE NO
 SOUND, AND THE THING YOU ARE NOT ALLOWED TO PRESS ANSWERED A TAP WITH NOTHING.
 Measured the day the ending shipped. 64 withheld verbs across the whole game

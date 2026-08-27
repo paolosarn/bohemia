@@ -2572,6 +2572,210 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V189 AND THE CACHE KEY LEARNED ABOUT IT, which is the whole reason this could have looked finished and done nothing: that button is CACHED on backdrop, wash, hp tier, stamina and lean, and anything not in the key repaints NEVER. Same class as V129\'s own finding that drawing the stamina fluid BEHIND an opaque portrait gave a byte-identical button at zero and at full. AND IT COULD NOT HAVE BEEN BUILT BEFORE YESTERDAY -- V188\'s tree is the first thing in this game that gives experience a destination and a NEXT LEVEL to be a fraction of',
     button.keyHasXp === true && button.fracZero === 0 && button.fracHalf === 0.5);
 
+  /* ================= V190 THE MINI BOSSES =============================
+     Paolo 8/26: "IT WILL GO HAND IN HAND WITH ABILITIES AND THE 60 MINI BOSSES
+     IN THE GAME THAT GIVE YOU A NEW WAY TO INTERACT WITH BOHEMIA BRO!"
+
+     *** THE CLAIM THIS GATE EXISTS FOR IS THAT NOT ONE BOSS WAS INVENTED. ***
+     His ladder is seven passes and ten of his own rulings, and the whole design
+     of V190 is that the game READS it rather than retyping it. So this opens
+     records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md itself and compares every
+     name, lock and grant in the running game against the row it came from,
+     character for character. A boss whose text drifted from his record is a
+     boss I wrote, which is the exact line MECHANISM-MINE / CONTENTS-PAOLO'S
+     draws, and the drift would be invisible any other way. */
+  const LADDER = require('fs').readFileSync(
+    path.join(__dirname, '..', 'records', 'BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md'), 'utf8');
+  const ladderRows = (() => {
+    const rows = []; let act = 0;
+    const clean = t => t.replace(/\*\*/g, '').replace(/—/g, '-').trim().replace(/\s+/g, ' ');
+    LADDER.split('\n').forEach(line => {
+      const h = line.match(/^##\s*ACT\s*([123])\b/); if (h) act = +h[1];
+      const m = line.match(/^\|\s*(\d+)\s*\|\s*\*\*([^*]+)\*\*\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|/);
+      if (m) rows.push({ i: +m[1], n: clean(m[2]), holds: clean(m[3]), lock: clean(m[4]),
+                         grant: clean(m[5]), kind: clean(m[6]), act });
+    });
+    return rows;
+  })();
+
+  const boss = await frame.evaluate(() => {
+    const o = {};
+    const keep = KEYS.taken.slice();
+    o.list = BOSSES.map(b => ({ i: b.i, n: b.n, holds: b.holds, lock: b.lock,
+                                grant: b.grant, kind: b.kind, act: b.act, trait: b.trait }));
+    o.traitNames = Object.keys(BOSS_TRAITS);
+    /* every trait has to land as a flag the ENGINE already reads, not a label */
+    keysForget();
+    o.traitFlags = {};
+    for (const t of o.traitNames) {
+      const b = BOSSES.find(x => x.trait === t);
+      G.bossPick = b.id; G.bossOff = false;
+      let hit = null, deck = 0, near = [];
+      for (let k = 0; k < 14; k++) {
+        BohemiaArena.roll(); setupEnemies();
+        const e = G.e.find(x => x.boss); if (!e) continue;
+        const ex = Math.cos(e.ea) * e.edist, ey = Math.sin(e.ea) * e.edist;
+        const ds = G.e.filter(q => q !== e).map(q =>
+          Math.hypot(Math.cos(q.ea) * q.edist - ex, Math.sin(q.ea) * q.edist - ey)).sort((a, b2) => a - b2);
+        near.push((ds[0] + ds[1]) / 2);
+        if (G.deck && G.deck.length && (e.lvl | 0) === DECK_LVL) deck++;
+        hit = hit || { armor: e.armor | 0, spotter: !!(e.E && e.E.spotter),
+                       breach: !!(e.E && e.E.breach), adv: e.adv | 0,
+                       acc: e.E.acc, dmg: (e.E.dmg || []).join('-') };
+        if (t === 'plated' && (e.armor | 0) > 0) break;
+        if (t === 'high' && (e.lvl | 0) === DECK_LVL) { hit.lvl = e.lvl | 0; break; }
+      }
+      o.traitFlags[t] = Object.assign({ deck, twoNearest: +(near.reduce((a, b2) => a + b2, 0) / near.length).toFixed(2) }, hit);
+    }
+    /* the plain body he is measured against -- NO number but health may move */
+    o.archAcc = { human: ARCH.human.acc, sniper: ARCH.sniper.acc, bot: ARCH.bot.acc };
+    o.archDmg = { human: ARCH.human.dmg.join('-'), bot: ARCH.bot.dmg.join('-') };
+    /* THE RESERVED BAND (RF4, quoted in V167): 7-8 is for boss fights */
+    G.bossPick = null; G.bossOff = true;
+    const plainN = []; for (let k = 0; k < 30; k++) { BohemiaArena.roll(); setupEnemies(); plainN.push(G.e.length); }
+    G.bossOff = false; G.bossPick = 'pot';
+    const bossN = []; for (let k = 0; k < 30; k++) { BohemiaArena.roll(); setupEnemies(); bossN.push(G.e.length); }
+    o.plainSize = [Math.min(...plainN), Math.max(...plainN)];
+    o.bossSize = [Math.min(...bossN), Math.max(...bossN)];
+    /* THE LOCK IS REAL: the two verbs this engine owns, pressed for real */
+    G.bossPick = null; G.bossOff = true;
+    keysForget();
+    let tries = 0;
+    do { BohemiaArena.roll(); setupEnemies(); } while ((!G.stairs || !G.stairs.length) && ++tries < 60);
+    G.over = false; G.phase = 'cover'; G.inc = null; G.lvl = 0;
+    const step = () => { const s = G.stairs[0]; worldShift(Math.cos(s.ea) * s.edist, Math.sin(s.ea) * s.edist); };
+    o.hasStairs = !!(G.stairs && G.stairs.length);
+    o.throwLocked = canThrow();
+    if (o.hasStairs) step();
+    G.stam = 4; doStairs(); o.climbLocked = G.lvl | 0;
+    keyWin('climb'); keyWin('charge');
+    o.throwOpen = canThrow();
+    if (o.hasStairs) step();
+    G.stam = 4; doStairs(); o.climbOpen = G.lvl | 0;
+    /* THE KEY IS ON HIS BODY (his 8/25 ruling), and you walk to it */
+    keysForget();
+    G.bossOff = false; G.bossPick = 'tooth';
+    BohemiaArena.roll(); setupEnemies();
+    const bb = G.e.find(x => x.boss);
+    bb.dead = true; bodyFell(bb);
+    const drop = (G.drops || []).find(d => d.key === 'tooth');
+    o.keyOnBody = !!drop; o.keyXp = drop ? drop.xp : 0;
+    o.heldBeforeWalk = keyHas('tooth');
+    const xp0 = TREE.xp;
+    worldShift(Math.cos(bb.ea) * bb.edist, Math.sin(bb.ea) * bb.edist);
+    o.heldAfterWalk = keyHas('tooth'); o.paid = TREE.xp - xp0;
+    /* and it survives the next fight, which is what NO RUNS means in code */
+    BohemiaArena.roll(); setupEnemies(); resetFightState();
+    o.survives = keyHas('tooth');
+    o.stored = (() => { try { return localStorage.getItem('bohemia.keys'); } catch (e) { return null; } })();
+    o.published = (window.bohemiaKeys || []).slice();
+    /* the roll only ever offers a man who still holds something you lack */
+    keysForget(); G.bossPick = null; G.bossOff = false;
+    let n = 0, seen = {};
+    for (let k = 0; k < 4000; k++) { const b = rollBoss(); if (b) { n++; seen[b.id] = 1; } }
+    o.rate = +(n / 4000).toFixed(3); o.distinct = Object.keys(seen).length;
+    for (const b of BOSSES) if (!keyHas(b.id)) KEYS.taken.push(b.id);
+    keysSave();
+    let after = 0; for (let k = 0; k < 2000; k++) if (rollBoss()) after++;
+    o.rollWhenAllHeld = after;
+    /* *** AND A SEED STILL DEALS THE SAME ARENA, WHICH THE FIRST CUT BROKE. ***
+       setupEnemiesBody runs inside BohemiaArena.withDice on a SEEDED stream --
+       V88's whole promise is "one number reproduces one exact fight, forever".
+       Rolling the boss in there drew one number off that stream on every fight
+       and silently re-dealt every arena he has ever written down. This measures
+       the ARENA ITSELF across a seed replayed with the roll live and with it
+       switched off: the signature has to be identical, or the boss is costing
+       him his map. */
+    keysForget();
+    const sig = () => (G.pillars || []).map(P => (P.ea.toFixed(4) + ',' + P.edist.toFixed(4) + ',' + P.r.toFixed(3))).join('|')
+      + '#' + (G.deck || []).length + '#' + (G.stairs || []).length;
+    G.bossPick = null; G.bossOff = true;
+    BohemiaArena.set(4); setupEnemies(); const sigOff = sig();
+    G.bossOff = false;
+    const sigSeen = new Set(); let withBoss = 0;
+    for (let k = 0; k < 40; k++) { BohemiaArena.set(4); setupEnemies();
+      if (G.boss) { withBoss++; continue; }        /* a boss fight IS a different fight */
+      sigSeen.add(sig()); }
+    o.seedStable = (sigSeen.size === 1 && sigSeen.has(sigOff));
+    o.seedSigs = sigSeen.size; o.seedBossFights = withBoss;
+    o.pillarsInSig = (G.pillars || []).length;
+
+    /* WHERE HE CHANGES IT HIMSELF (8/12) */
+    const sel = document.getElementById('bosssel');
+    o.rowPickable = sel ? [...sel.options].filter(x => !x.disabled && x.value && x.value !== 'off').length : 0;
+    o.rowText = (document.getElementById('bossrow') || {}).textContent || '';
+    o.forgetBtn = !!document.getElementById('bossforget');
+    /* and the tree lists what you took */
+    keysForget(); keyWin('climb');
+    const panel = document.getElementById('treepanel');
+    panel.style.display = 'block'; updTree();
+    o.treeShowsKey = panel.innerHTML.indexOf('THE CLIMB') >= 0;
+    keysForget(); updTree();
+    o.treeHidesUnowned = panel.innerHTML.indexOf('THE CLIMB') < 0;
+    panel.style.display = 'none';
+    KEYS.taken = keep; keysSave();
+    G.bossPick = null; G.bossOff = false;
+    return o;
+  });
+
+  const drift = boss.list.filter(b => {
+    const r = ladderRows.find(x => x.i === b.i);
+    return !r || r.n !== b.n || r.lock !== b.lock || r.grant !== b.grant
+        || r.holds !== b.holds || r.kind !== b.kind || r.act !== b.act;
+  });
+
+  console.log('  V190 the mini bosses:'
+    + '\n    in the game / in his record        ' + boss.list.length + ' / ' + ladderRows.length
+    + '\n    rows whose text drifted from his   ' + drift.length
+    + '\n    ordinary fight / boss fight size   ' + boss.plainSize.join('-') + '  vs  ' + boss.bossSize.join('-')
+    + '\n    climb locked / open (deck level)   ' + boss.climbLocked + ' / ' + boss.climbOpen
+    + '\n    grenade locked / open              ' + boss.throwLocked + ' / ' + boss.throwOpen
+    + '\n    key on the body, paid on the walk  ' + boss.keyOnBody + ' ' + boss.heldBeforeWalk + ' -> ' + boss.heldAfterWalk + '  (' + boss.paid + ' xp)'
+    + '\n    one turns up unasked               ' + (boss.rate * 100).toFixed(1) + '%, ' + boss.distinct + ' different, ' + boss.rollWhenAllHeld + ' once you hold them all');
+  for (const t of boss.traitNames) console.log('    ' + t.padEnd(8) + JSON.stringify(boss.traitFlags[t]));
+
+  ok('V190 *** FIFTY-THREE MINI BOSSES ARE IN THE GAME AND NOT ONE OF THEM WAS INVENTED HERE. *** His ladder has been seven passes, ten of his own rulings and a gate holding every lock distinct since 8/7, and it was a DOCUMENT -- you could not fight it and nothing running had ever read a byte of it. The patch tool parses that table at build time, so the game carries '
+    + boss.list.length + ' of his ' + ladderRows.length + ' rows and ' + drift.length + ' of them differ from his record in name, hold, lock, grant, kind or act. Edit the record and the game changes: MECHANISM-MINE / CONTENTS-PAOLO\'S with the seam made out of a file instead of a promise',
+    boss.list.length === ladderRows.length && ladderRows.length >= 50 && drift.length === 0);
+
+  ok('V190 A BOSS IS 2.2x HEALTH AND A JOB, NEVER A BIGGER GUN. NO DAMAGE BEFORE THE DIAL is the oldest standing rule here, so every one of the six traits is a flag this engine ALREADY reads, turned on for one man: armour that makeEnemy has accepted since 7/4 and nothing ever set ("elites/bosses/robots set it later"), V168\'s spotter, V177\'s breacher, V90\'s deck, bodies standing with him and the blade cadence. Not one accuracy or damage number differs from the archetype he was built from',
+    boss.traitFlags.plated.armor >= 5 && boss.traitFlags.eyes.spotter === true
+    && boss.traitFlags.breaker.breach === true && boss.traitFlags.high.deck > 0
+    && boss.traitFlags.quick.adv >= 3
+    && boss.traitFlags.guard.twoNearest < boss.traitFlags.quick.twoNearest
+    && boss.traitFlags.eyes.acc === boss.archAcc.human
+    && boss.traitFlags.eyes.dmg === boss.archDmg.human
+    && boss.traitFlags.plated.dmg === boss.archDmg.bot);
+
+  ok('V190 AND A BOSS FIGHT IS BIGGER, WHICH HIS OWN NOTES SAID BEFORE THERE WAS ANYTHING TO SAY IT ABOUT. V167 quotes RF4\'s designer -- "3-4 enemies with 5-6 being very hard and ANYTHING ABOVE THAT BEING RESERVED FOR BOSS FIGHTS" -- and we shipped the 3-6 band and left 7-8 unused because there was nothing in this game to reserve it FOR. Ordinary fights measure '
+    + boss.plainSize.join('-') + ' men and boss fights ' + boss.bossSize.join('-'),
+    boss.plainSize[1] <= 6 && boss.bossSize[0] >= 6 && boss.bossSize[1] >= 7);
+
+  ok('V190 *** THE LOCK IS REAL OR THE GRANT IS A CERTIFICATE. *** Two of his fifty-three name verbs this engine already owns, so those two verbs are DARK until you take them. THE CLIMB holds "the last hoist that lifts" and its lock in his record is "everything above the ground floor is scenery": pressing STAIRS on a lot that has them leaves you on level '
+    + boss.climbLocked + ' before and level ' + boss.climbOpen + ' after, and it names the man who has them instead of no-opping. THE CHARGE holds "who still has anything that goes off": the grenade reads ' + boss.throwLocked + ' before and ' + boss.throwOpen + ' after',
+    boss.hasStairs === true && boss.climbLocked === 0 && boss.climbOpen === 1
+    && boss.throwLocked === false && boss.throwOpen === true);
+
+  ok('V190 AND THE KEY IS ON HIS BODY, on his own ruling from 8/25 -- "you get experience and loot OFF THEIR BODIES". A key handed over at the killshot would be a cutscene; a key lying in the open with his people still shooting is the last decision of the fight. It is not held when he falls and it is held after the walk, paying ' + boss.paid
+    + ' xp against an ordinary body\'s fifteen, and it SURVIVES THE NEXT FIGHT, which is what THERE ARE NO RUNS means in code',
+    boss.keyOnBody === true && boss.heldBeforeWalk === false && boss.heldAfterWalk === true
+    && boss.paid >= 100 && boss.survives === true && /tooth/.test(boss.stored || '')
+    && boss.published.indexOf('tooth') >= 0);
+
+  ok('V190 ONE TURNS UP UNASKED, AND ONLY EVER A MAN WHO STILL HOLDS SOMETHING YOU LACK. Measured over 4,000 rolls: ' + (boss.rate * 100).toFixed(1)
+    + '% of fights, ' + boss.distinct + ' different men, and ' + boss.rollWhenAllHeld + ' out of 2,000 once every key is already yours -- meeting a boss whose door you already opened is a fight with nothing behind it',
+    boss.rate > 0.05 && boss.rate < 0.30 && boss.distinct >= 40 && boss.rollWhenAllHeld === 0);
+
+  ok('V190 *** AND A SEED STILL DEALS THE SAME ARENA, WHICH THE FIRST CUT OF THIS FEATURE BROKE AND ONLY A GATE FOUND. *** setupEnemiesBody runs inside BohemiaArena.withDice on a SEEDED stream, and V88\'s whole promise is "one number reproduces one exact fight, FOREVER". Rolling the boss in there drew one number off that stream on EVERY fight and silently re-dealt every arena he has ever written down -- no crash, no warning, and two long-standing arms with nothing to do with bosses went red on the spot. The roll now happens OUTSIDE the swap: seed 4 replayed 40 times gives '
+    + boss.seedSigs + ' distinct arena signature(s) across ' + boss.pillarsInSig + ' pieces of cover, identical to the same seed with the roll switched off, and the ' + boss.seedBossFights
+    + ' of those that drew a boss are excluded because a boss fight IS a different fight. A FEATURE THAT COSTS A SEEDED STREAM ONE DRAW REWRITES THE WHOLE MAP',
+    boss.seedStable === true && boss.seedSigs === 1 && boss.pillarsInSig > 10);
+
+  ok('V190 WHERE HE CHANGES IT HIMSELF (8/12): a BOSS row in the COMBAT tab\'s settings with ' + boss.rowPickable
+    + ' of them in a list, pick one and the next fight is him, what you hold spelled out, and a button that hands it all back. Without that row a boss is something I can measure and he cannot reach, which is the exact failure that law exists to kill. And the tree lists what you took off somebody, because a perk makes you better at the fight while a key changes what the world will let you do',
+    boss.rowPickable === boss.list.length && boss.forgetBtn === true
+    && /YOU HOLD/.test(boss.rowText) && boss.treeShowsKey === true && boss.treeHidesUnowned === true);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
