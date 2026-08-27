@@ -6236,7 +6236,73 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/26 (e) LATEST -- *** THE GAME HAS A CONVERSATION NOW.
+PEOPLE (people-7h9sfy): 8/26 (f) LATEST -- *** THE MAN THE QUEST WAS ABOUT WAS
+TWO KILOMETRES AWAY AND NOTHING SAID SO. THE JOB HAS AN ADDRESS NOW. TAB RUN:
+the objective line says which way to walk, and the number counts down. ***
+
+THE MEASUREMENT THAT STARTED IT, from the block he wakes up on (a block is 384m):
+  people within 3 blocks                  23
+  of those, running with any outfit       ZERO
+  nearest TRADES                          5 blocks (~1.9 km)
+  nearest NETWORK                         6 blocks (~2.3 km)
+Day one's quest demands faction=TRADES for its one REQUIRED role. So the person
+that quest is about stood a two-kilometre walk from the front door, in an unnamed
+direction, and NOTHING ON SCREEN SAID SO.
+
+AND YESTERDAY'S FIX MADE IT WORSE WITHOUT EVER LOOKING WRONG: casting ran against
+whatever block you stood on, so "the fixer" was a DIFFERENT PERSON ON EVERY BLOCK
+and the row said so honestly ("on this block, that is them"). The sentence was
+true and the thing it described was not a story. A QUEST WHOSE CAST CHANGES WHEN
+YOU CROSS THE STREET IS NOT A QUEST, IT IS A MOOD. Nothing was red.
+
+AND THE FIRST FIX WAS WRONG TOO, AND THE VALLEY SAID SO. One address per quest --
+ring outward, take the nearest block that fills EVERY required role -- cast day 1
+and day 2 and left days 3, 4 and 5 WITH NOTHING. The world was right: THREE
+OUTFITS NEVER SHARE A BLOCK, which is what holding territory MEANS. So a quest
+does not have an address. IT HAS ONE PER ROLE, AND GOING FROM ONE TO THE OTHER IS
+THE JOB. Which is what the corpus already does: S07's dying woman is in the
+church and the man who wronged her is somewhere else, and the walk is the quest.
+
+EACH PART IS LOOKED FOR ON ITS OWN OUTFIT'S GROUND. Measured: 11 of 14 outfits
+have a real member within 2 blocks of their base. Mutation M24 makes that a
+number rather than a preference -- search from the player instead and TWELVE
+CLAIMS GO RED, day 1 at 0/1, day 3 at 0/2, day 4 at 0/3, day 5 at 0/3.
+
+ON THE GLASS: "Find why the block browns out · get inside somewhere the power is
+out · 6 blocks south west, out by the houses", counting 3 -> 2 -> a block ->
+"right here" as he walks. The lineman is on TRADES ground [8,18] and the fixer on
+NETWORK ground [5,13]. 1 OF 81 BLOCKS CASTS ANYBODY. The card's hedge is gone.
+
+WORDS, NOT AN ARROW, AND THAT IS RESEARCHED. Morrowind put directions in dialogue
+and no marker on the map and what players remember is the valley; the marker games
+trade that memory for the convenience and the writing shortens to match. Bohemia
+is a city whose phones do not work, so a compass that always knows where everybody
+is would be the strangest object in it. Ground words are a real attempt and his to
+retype: industrial says "the workshops", suburb says "the houses", arterial says
+"the big road", and an unwritten type still gives the direction.
+
+address_gate, 33 claims, registered as ADDRESS. MUTATIONS: search from the player
+12 RED; the cast not confined to its block 1 RED ("81 of 81"); the address not
+appended 2 RED; the countdown hook removed 1 RED ("6 blocks ... 6 blocks" while
+standing on the man); the cast not saved 1 RED.
+
+AND A GATE I HAD TO REWRITE THE SAME WEEK I WROTE IT: casting_gate demanded
+castBlocks > 5, which was right for a per-block cast and became A GATE DEMANDING
+THE BUG BACK. It went red on the fix. A GATE MUST NEVER OUTRANK A RULING, FIX THE
+RULER NEVER THE TARGET. The replacement is strictly stronger: not "several",
+EXACTLY ONE, out of every populated block in the valley.
+
+SAID OUT LOUD RATHER THAN PAPERED OVER: day 3 fills 1 of 2 required parts and day
+5 fills 2 of 3, both because BLUES HOLDS GROUND WITH NOBODY ON IT (its base is on
+the north edge, where 81 blocks hold 8 people). That is a world fact for the lanes
+that own the world and the outfits. Handing those parts to a nearby stranger would
+be exactly the fake this whole system refuses.
+
+Record: records/BOHEMIA_THE_JOB_HAS_AN_ADDRESS_8_26_26.md
+
+---- AND WHAT IT WAS BUILT ON, SAME DAY ----
+
+PEOPLE (people-7h9sfy): 8/26 (e) -- *** THE GAME HAS A CONVERSATION NOW.
 FIVE HUNDRED WRITTEN LINES WERE IN THE REPO, PARSED, AND MUTE. TAB RUN: walk up
 to the person the job wants, press the objective, and they talk to you. ***
 
@@ -6394,15 +6460,19 @@ HAS TO BE BUILT SO THE RULE IT NAMES IS THE ONLY THING THAT CAN MAKE IT PASS.
 Record: records/BOHEMIA_NOBODY_WAS_EVER_THE_LINEMAN_8_26_26.md
 
 WHAT COMES NEXT FOR THIS LANE:
+  0. [DONE, same day, see 8/26 (f) above] THE ADDRESS.
   1. [DONE, same day, see 8/26 (e) above] THE CONVERSATION.
   2. The CONFERRED traits are computed and shown nowhere. roleTraits() already
      returns "keeps_the_tunnel", "reads_the_sky", "found_the_stairwell" -- the
      most interesting sentence a quest ever writes about a stranger -- and the
      card prints only the role name. One row, big payoff, cheap.
-  3. THE SECOND SPEAKER IS NEVER REACHED. S01 casts a `fixer` too, and its node
-     `split` opens at stage>=20 -- which the conversation can now reach. Nothing
-     yet tells the player WHERE that person is, so the second half of a quest is
-     found by walking into them. That is the PLACE half wearing a different hat.
+  3. [DONE 8/26 (f)] THE SECOND SPEAKER now has its own address: the fixer sits
+     on NETWORK ground and the objective line points at whichever part the quest
+     is ready for, because ctJobRole reads the runtime's own available() rather
+     than picking a role itself.
+  3b. BLUES HOLDS EMPTY GROUND and it costs two demo days a required part (day 3
+     1/2, day 5 2/3). NOT MINE: that is where a faction's base sits and how many
+     people the north edge carries. FACTIONS or WORLD, one dial each.
   4. saw:/heard: reactions stay dark: 66 written lines, 0 reachable, because the
      city's deeds carry no clout tag. That is the deeds system's field to set,
      not a lines problem, and it stays a handoff row rather than my next turn.

@@ -2049,6 +2049,149 @@
     return out;
   }
 
+  /* ---- THE DAY'S JOB HAS AN ADDRESS -------------------------------------
+     MEASURED ON THE WALKED CITY BEFORE THIS WAS WRITTEN, from the block the
+     player actually wakes up on:
+       within 3 blocks   23 people, ZERO of them running with anybody
+       nearest TRADES    5 blocks  (~1.9 km; a block is 384 m)
+       nearest NETWORK   6 blocks  (~2.3 km)
+       the TRADES BASE   7 blocks  (~2.7 km)
+     Day one's quest demands `faction=TRADES` for its one REQUIRED role. So the
+     person that quest is about was a two-kilometre walk from the front door, in
+     an unnamed direction, with nothing anywhere on screen saying so. That is
+     Paolo's dispatch item 2 in one number: A QUEST THAT IS NOT ATTACHED TO A
+     PLACE IS NOT A QUEST.
+
+     AND THE FIRST CUT OF CASTING MADE IT WORSE WITHOUT LOOKING WRONG. It cast
+     against whatever block you were standing on, so "the fixer" was a different
+     person on every block, and the row honestly said "on this block". A quest
+     whose cast changes when you cross the street is not a quest, it is a mood.
+
+     SO THE CAST GETS AN ADDRESS, FOUND ONCE. Deterministic: rings in order,
+     blocks inside a ring sorted, first win kept. Nothing is relaxed to make a
+     hit -- no candidate in range means NULL, and null still means the outfit is
+     not here rather than a stranger being handed an insider's part.
+
+     `peopleAt(bx, by)` is the caller's: the walked city knows who stands where
+     and which outfit they run with, and this module must not learn a second
+     idea of either.
+
+     *** AND THE FIRST VERSION OF THIS WAS WRONG, AND THE VALLEY SAID SO. ***
+     It looked for ONE block that could fill EVERY required role, which works for
+     a quest with one outfit in it and fails for every other kind. Measured
+     across the five demo days the moment it was built:
+         day 1  lineman=TRADES                              cast, 5 blocks out
+         day 2  neighbor (no outfit)                        cast, right here
+         day 3  red_boss=REDS + blue_boss=BLUES             NOTHING
+         day 4  VOLUNTEERS + TRADES + NETWORK               NOTHING
+         day 5  VOLUNTEERS + TRADES + BLUES                 NOTHING
+     Three of the five demo days could not be cast at all, and the world was
+     right: THREE OUTFITS NEVER SHARE A BLOCK -- that is what holding territory
+     MEANS. A quest that demands three of them is not a quest with an address, it
+     is a quest that spans the city. So a quest does not have AN address, IT HAS
+     ONE PER ROLE, and going from one to the other IS the job.
+
+     AND EACH ROLE IS LOOKED FOR WHERE ITS PEOPLE ACTUALLY ARE. Ringing outward
+     from the player finds nobody, because affiliation clusters on faction
+     ground: measured, 11 of the valley's 14 outfits have a real member within
+     TWO BLOCKS of their own base, and the three that do not (two of them on
+     ground holding 2 and 8 people across 81 blocks) get a null rather than a
+     stand-in. The caller says where to start looking; this decides who. */
+  function castAddresses(roles, opts) {
+    opts = opts || {};
+    var peopleAt = opts.peopleAt, originFor = opts.originFor;
+    if (!roles || !roles.length || !peopleAt || !originFor) return null;
+    var R = (opts.radius == null) ? 3 : Math.max(0, opts.radius | 0);
+    /* REQ FIRST, so a required part is never left holding nobody because an
+       optional one took the only candidate. Same rule castQuest uses. */
+    var ordered = roles.slice().sort(function (a, b) {
+      return (b.req ? 1 : 0) - (a.req ? 1 : 0);
+    });
+    var out = {}, taken = {};
+    for (var i = 0; i < ordered.length; i++) {
+      var role = ordered[i];
+      var origin = originFor(role);
+      if (!origin) continue;
+      var got = null;
+      for (var r = 0; r <= R && !got; r++) {
+        var ring = [];
+        for (var dy = -r; dy <= r; dy++) for (var dx = -r; dx <= r; dx++) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+          ring.push([(origin[0] | 0) + dx, (origin[1] | 0) + dy]);
+        }
+        /* SORTED, so the answer cannot depend on the order this loop happened to
+           walk the ring in. Same trap the caster itself names. */
+        ring.sort(function (a, b) { return (a[0] - b[0]) || (a[1] - b[1]); });
+        for (var j = 0; j < ring.length && !got; j++) {
+          var here = peopleAt(ring[j][0], ring[j][1]);
+          if (!here || !here.length) continue;
+          var free = here.filter(function (p) { return !taken[keyFor(p)]; });
+          var c = castRole(role, free, opts);
+          if (!c) continue;
+          taken[c.key] = 1;
+          c.block = [ring[j][0], ring[j][1]];
+          c.rings = r;
+          got = c;
+        }
+      }
+      if (got) out[role.name] = got;
+    }
+    return out;
+  }
+
+  /* WHICH WAY, IN THE WORDS THE GAME ALREADY SPEAKS. The card's WORKS row has
+     said NORTH / SOUTH / EAST / WEST since the 7/31 address book, so a direction
+     is not new vocabulary here, it is the same vocabulary pointed at a job. */
+  var BEARINGS = [['NORTH', 'NORTH EAST', 'EAST', 'SOUTH EAST'],
+                  ['SOUTH', 'SOUTH WEST', 'WEST', 'NORTH WEST']];
+  function bearingOf(from, to) {
+    var dx = (to[0] | 0) - (from[0] | 0), dy = (to[1] | 0) - (from[1] | 0);
+    if (!dx && !dy) return null;
+    var ax = Math.abs(dx), ay = Math.abs(dy);
+    /* diagonal only when both legs are real, so "north east" means it, and one
+       stray block sideways does not turn a straight walk into a diagonal. */
+    var diag = ax && ay && Math.min(ax, ay) * 2 >= Math.max(ax, ay);
+    if (diag) return (dy < 0 ? 'NORTH ' : 'SOUTH ') + (dx > 0 ? 'EAST' : 'WEST');
+    if (ax > ay) return dx > 0 ? 'EAST' : 'WEST';
+    return dy > 0 ? 'SOUTH' : 'NORTH';
+  }
+  /* THE SENTENCE HE READS. draft:true -- these are my words until he retypes
+     them, and they carry no arrow on purpose: the research is unanimous that a
+     marker deletes the place it points at, and Bohemia is a city with no working
+     phones, so a compass that always knows would be the strangest object in it.
+     A direction, a rough distance, and what the ground is. */
+  /* WHAT TO CALL THE GROUND OUT LOUD. The overmap's district words are types
+     ('industrial', 'arterial', 'railyard'), and a type is not a thing a person
+     says. These are the same places in a mouth. Every one is draft:true and his
+     to retype; anything not listed falls through to its own word rather than
+     going silent, because a missing entry must never cost him the direction. */
+  var GROUND_WORDS = {
+    suburb: 'the houses', gated: 'the walled-off houses', estate: 'the big houses',
+    downtown: 'the towers', commercial: 'the shopfronts', mall: 'the mall',
+    industrial: 'the workshops', railyard: 'the rail yard', rail: 'the tracks',
+    arterial: 'the big road', freeway: 'the freeway', beltway: 'the ring road',
+    interchange: 'the overpass', wash: 'the wash', water: 'the water',
+    park: 'the park', golf: 'the old fairways', desert: 'the open desert',
+    mountain: 'the hills', strip: 'the Strip', resort: 'the resorts',
+    casino: 'the casino', stadium: 'the stadium', speedway: 'the speedway',
+    convention: 'the convention halls', waterpark: 'the waterpark',
+    airport: 'the airport', airbase: 'the airbase', campus: 'the campus',
+    school: 'the school', medical: 'the hospital', solar: 'the solar farm',
+    dam: 'the dam', town: 'the old town', minigp: 'the go-kart track'
+  };
+  function addressLine(from, to, ground) {
+    if (!from || !to) return null;
+    var b = bearingOf(from, to);
+    var n = Math.max(Math.abs(to[0] - from[0]), Math.abs(to[1] - from[1]));
+    var g = ground ? (GROUND_WORDS[String(ground).toLowerCase()]
+                      || ('the ' + String(ground).replace(/_/g, ' '))) : null;
+    if (!b || !n) return g ? ('right here, by ' + g) : 'right here';
+    var far = (n === 1) ? 'a block' : (n + ' blocks');
+    var s = far + ' ' + b.toLowerCase();
+    if (g) s += ', out by ' + g;
+    return s;                                                   /* draft:true */
+  }
+
   /* THE CARD WORDS FOR A REGISTER. Plain English on purpose: this row is the
      game telling the player a fact about somebody, which is required
      information, and required information is English. */
@@ -2249,6 +2392,8 @@
     // CASTING (8/26): a quest role becomes a real person on real ground.
     roleFaction: roleFaction, roleTraits: roleTraits,
     castRole: castRole, castQuest: castQuest,
+    // THE ADDRESS (8/26): one block PER ROLE, found once, and which way it is.
+    castAddresses: castAddresses, bearingOf: bearingOf, addressLine: addressLine,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,

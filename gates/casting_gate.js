@@ -252,14 +252,19 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
     ok('the city was walked with a real quest running', !!m.quest && !!m.quest.id,
       m.quest ? m.quest.id + ' (' + m.quest.title + ')' : 'NO QUEST');
     ok('nothing threw while walking it', errs.length === 0, errs.slice(0, 2).join(' | '));
-    ok('*** A ROLE RESOLVES TO A REAL PERSON ON REAL GROUND ***',
-      m.castBlocks > 5,
+    /* *** THIS CLAIM WAS REWRITTEN THE SAME WEEK IT WAS WRITTEN, BECAUSE THE
+       TRUTH GOT BETTER. *** It used to demand `castBlocks > 5`, which was the
+       right claim for a cast computed against whatever block you stood on: many
+       blocks casting meant the caster was alive. The cast is the DAY'S now, one
+       part to one person on one block, so the old floor would have been a gate
+       DEMANDING THE BUG BACK. A GATE MUST NEVER OUTRANK A RULING -- fix the
+       ruler, never the target -- and the replacement is strictly stronger: not
+       "several", exactly ONE, out of every populated block in the valley. It
+       still catches a caster that quietly stops working (that reads zero) and it
+       now also catches one that starts working everywhere again. */
+    ok('*** A ROLE RESOLVES TO ONE REAL PERSON, ON ONE REAL BLOCK ***',
+      m.castBlocks === 1,
       m.castBlocks + ' of ' + m.blocks + ' populated blocks can cast somebody');
-    /* NOT EVERY BLOCK, AND THAT IS RIGHT. 7.7% of the valley runs with anybody,
-       so a claim demanding a cast everywhere would be demanding a lie. The floor
-       is here to catch the OTHER failure: a caster that quietly stops working. */
-    ok('and not on every block, because most people run with nobody',
-      m.castBlocks < m.blocks, m.castBlocks + ' / ' + m.blocks);
     ok('the quest declares roles for the caster to fill',
       !!m.quest && m.quest.roles.length > 0, m.quest && m.quest.roles.join(', '));
 

@@ -5967,6 +5967,149 @@ global.BohemiaOvermap=API;
     return out;
   }
 
+  /* ---- THE DAY'S JOB HAS AN ADDRESS -------------------------------------
+     MEASURED ON THE WALKED CITY BEFORE THIS WAS WRITTEN, from the block the
+     player actually wakes up on:
+       within 3 blocks   23 people, ZERO of them running with anybody
+       nearest TRADES    5 blocks  (~1.9 km; a block is 384 m)
+       nearest NETWORK   6 blocks  (~2.3 km)
+       the TRADES BASE   7 blocks  (~2.7 km)
+     Day one's quest demands `faction=TRADES` for its one REQUIRED role. So the
+     person that quest is about was a two-kilometre walk from the front door, in
+     an unnamed direction, with nothing anywhere on screen saying so. That is
+     Paolo's dispatch item 2 in one number: A QUEST THAT IS NOT ATTACHED TO A
+     PLACE IS NOT A QUEST.
+
+     AND THE FIRST CUT OF CASTING MADE IT WORSE WITHOUT LOOKING WRONG. It cast
+     against whatever block you were standing on, so "the fixer" was a different
+     person on every block, and the row honestly said "on this block". A quest
+     whose cast changes when you cross the street is not a quest, it is a mood.
+
+     SO THE CAST GETS AN ADDRESS, FOUND ONCE. Deterministic: rings in order,
+     blocks inside a ring sorted, first win kept. Nothing is relaxed to make a
+     hit -- no candidate in range means NULL, and null still means the outfit is
+     not here rather than a stranger being handed an insider's part.
+
+     `peopleAt(bx, by)` is the caller's: the walked city knows who stands where
+     and which outfit they run with, and this module must not learn a second
+     idea of either.
+
+     *** AND THE FIRST VERSION OF THIS WAS WRONG, AND THE VALLEY SAID SO. ***
+     It looked for ONE block that could fill EVERY required role, which works for
+     a quest with one outfit in it and fails for every other kind. Measured
+     across the five demo days the moment it was built:
+         day 1  lineman=TRADES                              cast, 5 blocks out
+         day 2  neighbor (no outfit)                        cast, right here
+         day 3  red_boss=REDS + blue_boss=BLUES             NOTHING
+         day 4  VOLUNTEERS + TRADES + NETWORK               NOTHING
+         day 5  VOLUNTEERS + TRADES + BLUES                 NOTHING
+     Three of the five demo days could not be cast at all, and the world was
+     right: THREE OUTFITS NEVER SHARE A BLOCK -- that is what holding territory
+     MEANS. A quest that demands three of them is not a quest with an address, it
+     is a quest that spans the city. So a quest does not have AN address, IT HAS
+     ONE PER ROLE, and going from one to the other IS the job.
+
+     AND EACH ROLE IS LOOKED FOR WHERE ITS PEOPLE ACTUALLY ARE. Ringing outward
+     from the player finds nobody, because affiliation clusters on faction
+     ground: measured, 11 of the valley's 14 outfits have a real member within
+     TWO BLOCKS of their own base, and the three that do not (two of them on
+     ground holding 2 and 8 people across 81 blocks) get a null rather than a
+     stand-in. The caller says where to start looking; this decides who. */
+  function castAddresses(roles, opts) {
+    opts = opts || {};
+    var peopleAt = opts.peopleAt, originFor = opts.originFor;
+    if (!roles || !roles.length || !peopleAt || !originFor) return null;
+    var R = (opts.radius == null) ? 3 : Math.max(0, opts.radius | 0);
+    /* REQ FIRST, so a required part is never left holding nobody because an
+       optional one took the only candidate. Same rule castQuest uses. */
+    var ordered = roles.slice().sort(function (a, b) {
+      return (b.req ? 1 : 0) - (a.req ? 1 : 0);
+    });
+    var out = {}, taken = {};
+    for (var i = 0; i < ordered.length; i++) {
+      var role = ordered[i];
+      var origin = originFor(role);
+      if (!origin) continue;
+      var got = null;
+      for (var r = 0; r <= R && !got; r++) {
+        var ring = [];
+        for (var dy = -r; dy <= r; dy++) for (var dx = -r; dx <= r; dx++) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+          ring.push([(origin[0] | 0) + dx, (origin[1] | 0) + dy]);
+        }
+        /* SORTED, so the answer cannot depend on the order this loop happened to
+           walk the ring in. Same trap the caster itself names. */
+        ring.sort(function (a, b) { return (a[0] - b[0]) || (a[1] - b[1]); });
+        for (var j = 0; j < ring.length && !got; j++) {
+          var here = peopleAt(ring[j][0], ring[j][1]);
+          if (!here || !here.length) continue;
+          var free = here.filter(function (p) { return !taken[keyFor(p)]; });
+          var c = castRole(role, free, opts);
+          if (!c) continue;
+          taken[c.key] = 1;
+          c.block = [ring[j][0], ring[j][1]];
+          c.rings = r;
+          got = c;
+        }
+      }
+      if (got) out[role.name] = got;
+    }
+    return out;
+  }
+
+  /* WHICH WAY, IN THE WORDS THE GAME ALREADY SPEAKS. The card's WORKS row has
+     said NORTH / SOUTH / EAST / WEST since the 7/31 address book, so a direction
+     is not new vocabulary here, it is the same vocabulary pointed at a job. */
+  var BEARINGS = [['NORTH', 'NORTH EAST', 'EAST', 'SOUTH EAST'],
+                  ['SOUTH', 'SOUTH WEST', 'WEST', 'NORTH WEST']];
+  function bearingOf(from, to) {
+    var dx = (to[0] | 0) - (from[0] | 0), dy = (to[1] | 0) - (from[1] | 0);
+    if (!dx && !dy) return null;
+    var ax = Math.abs(dx), ay = Math.abs(dy);
+    /* diagonal only when both legs are real, so "north east" means it, and one
+       stray block sideways does not turn a straight walk into a diagonal. */
+    var diag = ax && ay && Math.min(ax, ay) * 2 >= Math.max(ax, ay);
+    if (diag) return (dy < 0 ? 'NORTH ' : 'SOUTH ') + (dx > 0 ? 'EAST' : 'WEST');
+    if (ax > ay) return dx > 0 ? 'EAST' : 'WEST';
+    return dy > 0 ? 'SOUTH' : 'NORTH';
+  }
+  /* THE SENTENCE HE READS. draft:true -- these are my words until he retypes
+     them, and they carry no arrow on purpose: the research is unanimous that a
+     marker deletes the place it points at, and Bohemia is a city with no working
+     phones, so a compass that always knows would be the strangest object in it.
+     A direction, a rough distance, and what the ground is. */
+  /* WHAT TO CALL THE GROUND OUT LOUD. The overmap's district words are types
+     ('industrial', 'arterial', 'railyard'), and a type is not a thing a person
+     says. These are the same places in a mouth. Every one is draft:true and his
+     to retype; anything not listed falls through to its own word rather than
+     going silent, because a missing entry must never cost him the direction. */
+  var GROUND_WORDS = {
+    suburb: 'the houses', gated: 'the walled-off houses', estate: 'the big houses',
+    downtown: 'the towers', commercial: 'the shopfronts', mall: 'the mall',
+    industrial: 'the workshops', railyard: 'the rail yard', rail: 'the tracks',
+    arterial: 'the big road', freeway: 'the freeway', beltway: 'the ring road',
+    interchange: 'the overpass', wash: 'the wash', water: 'the water',
+    park: 'the park', golf: 'the old fairways', desert: 'the open desert',
+    mountain: 'the hills', strip: 'the Strip', resort: 'the resorts',
+    casino: 'the casino', stadium: 'the stadium', speedway: 'the speedway',
+    convention: 'the convention halls', waterpark: 'the waterpark',
+    airport: 'the airport', airbase: 'the airbase', campus: 'the campus',
+    school: 'the school', medical: 'the hospital', solar: 'the solar farm',
+    dam: 'the dam', town: 'the old town', minigp: 'the go-kart track'
+  };
+  function addressLine(from, to, ground) {
+    if (!from || !to) return null;
+    var b = bearingOf(from, to);
+    var n = Math.max(Math.abs(to[0] - from[0]), Math.abs(to[1] - from[1]));
+    var g = ground ? (GROUND_WORDS[String(ground).toLowerCase()]
+                      || ('the ' + String(ground).replace(/_/g, ' '))) : null;
+    if (!b || !n) return g ? ('right here, by ' + g) : 'right here';
+    var far = (n === 1) ? 'a block' : (n + ' blocks');
+    var s = far + ' ' + b.toLowerCase();
+    if (g) s += ', out by ' + g;
+    return s;                                                   /* draft:true */
+  }
+
   /* THE CARD WORDS FOR A REGISTER. Plain English on purpose: this row is the
      game telling the player a fact about somebody, which is required
      information, and required information is English. */
@@ -6167,6 +6310,8 @@ global.BohemiaOvermap=API;
     // CASTING (8/26): a quest role becomes a real person on real ground.
     roleFaction: roleFaction, roleTraits: roleTraits,
     castRole: castRole, castQuest: castQuest,
+    // THE ADDRESS (8/26): one block PER ROLE, found once, and which way it is.
+    castAddresses: castAddresses, bearingOf: bearingOf, addressLine: addressLine,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
@@ -35117,6 +35262,7 @@ function citySnapshot(){
   return { v:CITY_SAVE_V,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
     riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
     loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
+    daycast:(function(){ try{ return ctDayCast(); }catch(_e){ return null; } })(),  /* __CITY_ADDRESS__ */
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
@@ -35253,7 +35399,22 @@ function dayDark(){
   try{ const p=POWER.at((hx/FN)|0,(hy/FN)|0); return !(p&&p.live); }catch(_e){ return true; }
 }
 let _lastDistrict=null;
+/* __CITY_ADDRESS__ -- THE NUMBER HAS TO COME DOWN OR IT IS NOT A DIRECTION.
+   updQline() only ran when the QUEST moved, so an address written at day open
+   would have said "5 blocks south west" for the whole walk, including while
+   standing on top of the man. This is the one hook that already runs on
+   movement and already refuses to do work unless something changed, so the
+   countdown costs one string compare per block crossed and nothing per frame. */
+let _lastJobBlock='';
+function dayAddressTick(){
+  try{
+    var b=ctBlockOf(hx,hy), k=b[0]+','+b[1];
+    if(k===_lastJobBlock) return;
+    _lastJobBlock=k; updQline();
+  }catch(_e){}
+}
 function dayDistrictCheck(){
+  dayAddressTick();
   const d=dayWhere();
   if(!d||d===_lastDistrict)return;
   _lastDistrict=d;
@@ -35275,7 +35436,22 @@ function dayAfterQuest(r){
 }
 function updQline(){
   const el=document.getElementById('qline'); if(!el)return;
-  el.textContent=DQ.hudLine()||'';
+  let s=DQ.hudLine()||'';
+  /* __CITY_ADDRESS__ -- AND WHICH WAY IT IS. Composed HERE and not in
+     DQ.hudLine(), because where somebody is standing is the city's fact and the
+     day-loop module has no business learning a second idea of the map.
+     WORDS, NOT AN ARROW, and that is researched rather than preferred: the games
+     that put a marker on it trade the player's memory of the place for the
+     convenience, and their directions get shorter to match. This is a bearing, a
+     rough distance and what the ground is called. Recomputed every time the line
+     is drawn, so it counts down as he walks. */
+  try {
+    if (s && !(DQ.rt && DQ.rt.state && DQ.rt.state.done)) {
+      const a = ctAddress();
+      if (a) s += ' \u00b7 ' + a;
+    }
+  } catch(_e){}
+  el.textContent=s;
 }
 
 /* ---- the cards ---------------------------------------------------------- */
@@ -36417,6 +36593,14 @@ function applyRestore(st){
   if(st.installAsked){ try{ INSTALL_ASKED=true; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
+    /* __CITY_ADDRESS__ -- WHO THE JOB IS ABOUT SURVIVES A RELOAD. Restored
+       BEFORE the line is drawn, and only for the same quest on the same day, so
+       a saved cast can never be handed to tomorrow's quest. Without this the
+       ring search runs again on load and can land on a different block as the
+       roster caches rebuild -- the person you walked an hour toward becomes
+       somebody else because you closed the tab. */
+    try{ if(st.daycast && st.daycast.q === String(DQ.spec&&DQ.spec.id)
+             && st.daycast.day === DAY.day) CT_DAYCAST = st.daycast; }catch(_e){}
     try{ updQline(); }catch(_e){}
     if(DAY.phase==='ended')try{ showReckoning(); }catch(_e){} }
   city.x=st.cx; city.y=st.cy;
@@ -42438,34 +42622,138 @@ function ctCell(){ return [Math.floor(hx/FN), Math.floor(hy/FN)]; }
    already prints as RUNS WITH, so a cast and a card can never disagree).
    CACHED PER BLOCK AND PER STAGE, not per draw: the card redraws constantly and
    re-sorting every person on the block for every redraw is work nobody sees. */
-var CT_CAST = null, CT_CAST_KEY = '';
+/* __CITY_ADDRESS__ -- THE DAY'S CAST, FOUND ONCE, IN ONE PLACE.
+   MEASURED FROM THE WAKING BLOCK before this was written (a block is 384 m):
+   23 people within 3 blocks and NOT ONE of them runs with anybody; the nearest
+   TRADES is 5 blocks and the nearest NETWORK is 6, while day one's quest demands
+   faction=TRADES. The person the quest was about was a two-kilometre walk away
+   in an unnamed direction, and the row on the card said "on this block" because
+   the cast was recomputed wherever you stood -- a different fixer on every
+   block. A QUEST WHOSE CAST CHANGES WHEN YOU CROSS THE STREET IS NOT A QUEST.
+   RADIUS IS BOUNDED AND THAT IS DELIBERATE. Ringing the whole 24x24-block valley
+   would always find somebody and would sometimes put the day's work an hour's
+   walk away; a bounded ring says "not near you" honestly instead. */
+var CT_DAYCAST = null;               /* {q, day, cast:{role->{key, block, rings}}} */
+var CT_DAYCAST_R = 3;                /* blocks to search AROUND EACH ROLE'S OWN GROUND */
+function ctBlockOf(fx, fy){
+  var nb = (typeof BohemiaPopulation !== 'undefined' && BohemiaPopulation.NB) || 1;
+  var span = nb * FN;
+  return [Math.floor(fx / span), Math.floor(fy / span)];
+}
+/* everyone who really lives on one block, keyed the way the caster wants them.
+   pplPeople takes coordinates, so this asks about a block WITHOUT moving the
+   player -- the alternative (teleporting hx,hy to sample) would be a probe that
+   changes the thing it measures. */
+function ctPeopleAt(bx, by){
+  var list = [];
+  try { list = pplPeople(bx, by) || []; } catch(_e){ return []; }
+  var out = [];
+  for (var i = 0; i < list.length; i++)
+    out.push({ key: 'P:city:' + list[i].id, __p: list[i] });
+  return out;
+}
+/* WHERE TO GO LOOKING FOR A ROLE: ITS OUTFIT'S OWN GROUND.
+   MEASURED: 11 of the valley's 14 outfits have a real member within TWO BLOCKS
+   of their own base, and searching outward from the PLAYER instead finds nobody
+   at all -- 23 people within 3 blocks of the waking block and not one of them
+   runs with anybody. A role with no outfit is looked for where you are, because
+   a neighbour is a neighbour. */
+function ctOriginFor(role){
+  try {
+    var want = BohemiaPeople.roleFaction(role);
+    var s = ctSpawn() || [hx, hy];
+    if (!want) return ctBlockOf(s[0], s[1]);
+    var bases = ctBases(); if (!bases) return null;
+    var nb = BohemiaPopulation.NB;
+    for (var k in bases) {
+      if (String(k).toUpperCase().replace(/[\s_]/g,'') !== String(want).toUpperCase().replace(/[\s_]/g,'')) continue;
+      return [Math.floor(bases[k].x / nb), Math.floor(bases[k].y / nb)];
+    }
+    return null;                     /* an outfit with no ground has no address */
+  } catch(_e){ return null; }
+}
+function ctDayCast(){
+  try {
+    if (typeof DQ === 'undefined' || !DQ || !DQ.Q || !DQ.Q.roles) return null;
+    if (DQ.rt && DQ.rt.state && DQ.rt.state.done) return null;
+    var qid = String(DQ.spec && DQ.spec.id), day = (T && T.day) || 1;
+    if (CT_DAYCAST && CT_DAYCAST.q === qid && CT_DAYCAST.day === day) return CT_DAYCAST;
+    var found = BohemiaPeople.castAddresses(DQ.Q.roles, {
+      peopleAt: ctPeopleAt, originFor: ctOriginFor, radius: CT_DAYCAST_R,
+      questId: (DQ.Q && DQ.Q.id) || '',
+      factionOf: function(w){ return ctFactionOf(w.__p); } });
+    var slim = {};
+    for (var r in (found || {})) if (found.hasOwnProperty(r))
+      slim[r] = { key: found[r].key, role: r, faction: found[r].faction,
+                  traits: found[r].traits, block: found[r].block, rings: found[r].rings };
+    CT_DAYCAST = { q: qid, day: day, cast: slim };
+    return CT_DAYCAST;
+  } catch(_e){ return null; }
+}
+/* WHICH PART THE QUEST IS READY FOR RIGHT NOW. The runtime already answers
+   "which conversations can be started", so the HUD points at the person behind
+   the next one rather than at a role picked by this file. */
+function ctJobRole(){
+  var d = ctDayCast(); if (!d || !d.cast) return null;
+  try {
+    var ids = DQ.rt.available() || [], by = {};
+    (DQ.Q.talks || []).forEach(function(t){ by[t.id] = t; });
+    for (var i = 0; i < ids.length; i++) {
+      var t = by[ids[i]];
+      if (t && t.speaker && d.cast[t.speaker]) return t.speaker;
+    }
+  } catch(_e){}
+  /* no node is open yet: point at a REQUIRED part, in the quest's own order. */
+  try {
+    var rs = DQ.Q.roles || [];
+    for (var j = 0; j < rs.length; j++)
+      if (rs[j].req && d.cast[rs[j].name]) return rs[j].name;
+  } catch(_e){}
+  return null;
+}
+/* WHAT THE GROUND OUT THERE IS CALLED, off the overmap, never invented here. */
+function ctGroundAt(block){
+  try {
+    var nb = BohemiaPopulation.NB;
+    var t = om.at(block[0] * nb + ((nb / 2) | 0), block[1] * nb + ((nb / 2) | 0));
+    return t ? t.district : null;
+  } catch(_e){ return null; }
+}
+/* THE SENTENCE, FROM WHERE HE IS STANDING RIGHT NOW, TO WHOEVER IS NEXT. */
+function ctAddress(){
+  var d = ctDayCast(); if (!d || !d.cast) return null;
+  var role = ctJobRole(); if (!role) return null;
+  var c = d.cast[role]; if (!c || !c.block) return null;
+  return BohemiaPeople.addressLine(ctBlockOf(hx, hy), c.block, ctGroundAt(c.block));
+}
+function ctOnJobBlock(){
+  var d = ctDayCast(); if (!d || !d.cast) return false;
+  var here = ctBlockOf(hx, hy);
+  for (var r in d.cast) if (d.cast.hasOwnProperty(r)) {
+    var b = d.cast[r].block;
+    if (b && b[0] === here[0] && b[1] === here[1]) return true;
+  }
+  return false;
+}
+/* THE CAST, WHERE THE JOB IS AND NOWHERE ELSE. The old body cast against
+   whoever stood on the block under your feet and cached on that block; it is
+   gone rather than kept beside this, because two ideas of who the quest is about
+   is exactly the bug this replaces.
+   ONLY THE PARTS WHOSE GROUND THIS IS: on TRADES ground the card knows about the
+   lineman and nothing else, which is the whole point of a quest having more than
+   one address. */
 function ctCast(){
   try {
     if (typeof DQ === 'undefined' || !DQ || !DQ.Q || !DQ.Q.roles) return null;
     if (DQ.rt && DQ.rt.state && DQ.rt.state.done) return null;
-    var people = ctEveryone();
-    if (!people || !people.length) return null;
-    /* *** KEYED ON THE BLOCK, NOT ON WHERE YOU ARE STANDING IN IT, AND A
-       MUTATION TAUGHT ME THAT. *** The first cut keyed on hx,hy and the roster
-       LENGTH, so taking one step re-cast the quest -- harmless while the pool is
-       two or three affiliated people (the answer is deterministic, so it came
-       out the same), and NOT harmless the moment the roster shifts under you:
-       the person the card was opened on stopped being the person the quest
-       wanted, mid-conversation. A CAST THAT MOVES WHILE YOU WALK TOWARD IT IS
-       NOT A CAST. The block is what the roster belongs to, so the block is the
-       key, and BohemiaPopulation.NB is the cell size the spawn itself uses. */
-    var cell = ctCell ? ctCell() : [0, 0];
-    var nb = (typeof BohemiaPopulation !== 'undefined' && BohemiaPopulation.NB) || 1;
-    var k = String(DQ.spec && DQ.spec.id) + '|'
-          + Math.floor(cell[0] / nb) + ',' + Math.floor(cell[1] / nb);
-    if (CT_CAST_KEY === k) return CT_CAST;
-    var keyed = people.map(function(p){ return { key: 'P:city:' + p.id, __p: p }; });
-    CT_CAST = BohemiaPeople.castQuest(DQ.Q.roles, keyed, {
-      questId: (DQ.Q && DQ.Q.id) || '',
-      factionOf: function(w){ return ctFactionOf(w.__p); }
-    });
-    CT_CAST_KEY = k;
-    return CT_CAST;
+    var d = ctDayCast(); if (!d || !d.cast) return null;
+    var here = ctBlockOf(hx, hy), out = null;
+    for (var r in d.cast) if (d.cast.hasOwnProperty(r)) {
+      var b = d.cast[r].block;
+      if (!b || b[0] !== here[0] || b[1] !== here[1]) continue;
+      (out || (out = {}))[r] = d.cast[r];
+    }
+    return out;
   } catch(_e){ return null; }
 }
 /* __CITY_CONVERSATION__ -- THE QUEST'S OWN WORDS, IN A REAL MOUTH.
@@ -42514,8 +42802,12 @@ function ctCastRow(who){
       if (!cast.hasOwnProperty(name)) continue;
       if (cast[name].key !== who.key) continue;
       var title = (DQ.Q && DQ.Q.title) || 'the job';
+      /* __CITY_ADDRESS__ -- IT USED TO SAY "on this block, that is them", and
+         that was the honest sentence for a cast that was recomputed wherever you
+         happened to stand. The cast is the DAY'S now: one person, one block, all
+         day. So the sentence stops hedging. draft:true. */
       return title + ' wants the ' + String(name).replace(/_/g, ' ')
-             + '. On this block, that is them.';
+             + '. That is them.';
     }
   } catch(_e){}
   return null;
