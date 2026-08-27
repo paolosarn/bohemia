@@ -45,7 +45,94 @@
     for(i=-2;i<=2;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE FARM, NOT ONE PER CELL (8/26). The valley has 93 farm cells in thirteen blobs, and
+     every cell was building a COMPLETE farmstead: a farmhouse, a barn, three grain silos, an
+     equipment shed, a farmyard and its own fence ring. A nine-cell farm therefore had NINE
+     FARMHOUSES AND NINE BARNS inside one boundary.
+
+     THE THIRTEEN BLOBS ARE RIGHT AND STAY THIRTEEN. This is the one district where "one per
+     blob" had to be checked rather than assumed: separate parcels really are separate farms.
+     What is wrong is INSIDE a parcel. And the arithmetic settles it -- nine cells is 288 m
+     square, about 8 hectares, which is ONE SMALL FARM. Nine farmsteads on eight hectares is
+     not a hamlet, it is a rendering bug.
+
+     SO: one farmstead per parcel, at the road, and the FIELDS get the rest -- which is what
+     makes a farm read as a farm from the air. The furrows now run the full length of the
+     parcel instead of stopping at every cell boundary, which is the difference between a
+     ploughed field and a patchwork quilt. */
+  function clusterFarm(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+6,f.y0+8,f.x1-7,f.y1-7,4);              // field soil over the parcel
+    A.vframe(11);                                         // the PARCEL's fence, never a cell's
+
+    /* THE FURROWS RUN THE LENGTH OF THE PARCEL. Laid off the DISTRICT with firstAt, so a row
+       that starts outside this cell still lands on exactly the rows the neighbour's does --
+       and a plough line crosses a cell boundary the way it crosses a field. */
+    var fx0=f.x0+10, fx1=f.x1-11;
+    for(var ry=A.firstAt(f.y0+11,3,A.c.y0-3); ry<=Math.min(f.y1-11,A.c.y1+3); ry+=3){
+      for(var rx=fx0; rx<=fx1; rx++){
+        if(A.vget(rx,ry)!==4) continue;
+        if(A.rnd(rx,ry)<0.82) A.vset(rx,ry,7);
+      }
+    }
+    /* IRRIGATION DITCHES splitting the parcel into fields, on the district's own grid so a
+       ditch is one ditch and not one per cell. */
+    var FW=Math.max(60,Math.round(f.w/3)), FH=Math.max(60,Math.round(f.h/3));
+    /* AND A TRACK RUNS BESIDE EACH DITCH, which is not decoration either. A headland ring
+       round the parcel is what a one-cell farm has, and on a 3x3 it leaves the CENTRE cell
+       with no drivable surface at all -- a tractor could not reach the middle of the farm from
+       any gate, and driveConnected said so. Real farms have a track between every pair of
+       fields; that is what the ditch bank IS. */
+    for(var dx2=A.firstAt(f.x0+FW,FW,A.c.x0-FW); dx2<=Math.min(f.x1-20,A.c.x1+FW); dx2+=FW){
+      A.vrect(dx2,f.y0+10,dx2+2,f.y1-10,8);
+      A.vrect(dx2+3,f.y0+10,dx2+5,f.y1-10,1);
+    }
+    for(var dy2=A.firstAt(f.y0+FH,FH,A.c.y0-FH); dy2<=Math.min(f.y1-20,A.c.y1+FH); dy2+=FH){
+      A.vrect(f.x0+10,dy2,f.x1-11,dy2+2,8);
+      A.vrect(f.x0+10,dy2+3,f.x1-11,dy2+5,1);
+    }
+    A.dress(8,40,7);                                      // pivot sprinkler heads out in the crop
+
+    /* ---- THE FARMSTEAD, ONCE, at the parcel's south-east, where the road reaches it ---- */
+    var hx=f.x1-58, hy=f.y1-40;
+    A.vrect(hx,hy,hx+20,hy+16,2);                                        // farmhouse
+    A.vrect(hx-4,hy-2,hx+24,hy,12); A.vrect(hx-4,hy+16,hx+24,hy+28,12);  // its yard
+    A.vrect(hx+28,hy-4,hx+46,hy+16,14);                                  // the BARN
+    for(var vx=hx+30; vx<=hx+44; vx+=4) A.vset(vx,hy-4,2);               // roof vents
+    A.vell(hx+26,hy+22,4,4,6); A.vell(hx+36,hy+22,4,4,6); A.vell(hx+44,hy+22,3,3,6);   // grain SILOS
+    A.vrect(hx+2,hy+20,hx+18,hy+26,2);                                   // equipment shed
+    A.vrect(hx+8,hy+12,hx+10,hy+17,10); A.vrect(hx+30,hy+18,hx+32,hy+23,10);  // tractor + combine
+    A.vrect(hx,hy+18,hx+4,hy+22,13); A.vrect(hx+22,hy+2,hx+26,hy+6,13);  // hay bales
+
+    /* ---- THE FARM ROAD: from the parcel's road edge to the yard, and a headland track round
+       the fields so a tractor reaches every one of them. On nine cells a single spur to the
+       farmyard leaves most of the parcel unreachable from any gate. ---- */
+    A.vrect(f.x0+7,f.y0+9,f.x1-8,f.y0+11,1); A.vrect(f.x0+7,f.y1-11,f.x1-8,f.y1-9,1);
+    A.vrect(f.x0+7,f.y0+9,f.x0+9,f.y1-9,1); A.vrect(f.x1-10,f.y0+9,f.x1-8,f.y1-9,1);
+    A.vrect(hx+10,hy+28,hx+14,f.y1-9,1);                                 // yard down to the headland
+    A.vrect(f.x1-58,hy+26,f.x1-12,hy+28,1);                              // farmyard access lane
+
+    // ---- WINDBREAK TREES down the west fence and along the north, pole lights on the corners
+    for(var ty=A.firstAt(f.y0+12,7,A.c.y0-7); ty<=Math.min(f.y1-12,A.c.y1+7); ty+=7) A.vset(f.x0+8,ty,3);
+    for(var tx=A.firstAt(f.x0+12,9,A.c.x0-9); tx<=Math.min(f.x1-12,A.c.x1+9); tx+=9)
+      if(A.vget(tx,f.y0+8)===11) A.vset(tx,f.y0+8,3);
+    [[f.x0+3,f.y0+4],[f.x1-3,f.y0+4],[f.x0+3,f.y1-4],[f.x1-3,f.y1-4]]
+      .forEach(function(p){ A.vset(p[0],p[1],9); });
+
+    var gates=A.gates(streets,5,1,[0,3,4,11,12],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2||v===14;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE FARM CELL IS UNCHANGED: one cell is one small holding, and that art shipped. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterFarm(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,

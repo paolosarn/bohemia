@@ -11,7 +11,7 @@
 <!-- engine-md5:engine/bohemia_wash.js:d06fbb27ed01add6afa063a6ef6a715f -->
 <!-- engine-md5:engine/bohemia_cemetery.js:314d441ca99896bfbf98121313d31351 -->
 <!-- engine-md5:engine/bohemia_drivein.js:4c88aa8c118d1e21f2f209c3edeedc1d -->
-<!-- engine-md5:engine/bohemia_golf.js:8d6aa3e0d351e2c2bc7975df9b482588 -->
+<!-- engine-md5:engine/bohemia_golf.js:993c16f4d439a50d954ffacb12b37765 -->
 <!-- engine-md5:engine/bohemia_stadium.js:b3ecca998feef5ae9a6c76766e569d5e -->
 <!-- engine-md5:engine/bohemia_truckstop.js:1f1eb4e1c2628bb71370abc3f8a213a4 -->
 <!-- engine-md5:engine/bohemia_school.js:99b3567e12ef788a49efd328996d0dc7 -->
@@ -28,7 +28,7 @@
 <!-- engine-md5:engine/bohemia_chapel.js:ef0730d226036c219cd16535ee2e6cff -->
 <!-- engine-md5:engine/bohemia_courthouse.js:4df8d3d672db3eb5ee210ee64f28f4c4 -->
 <!-- engine-md5:engine/bohemia_jail.js:e4a6060b3e71308e65b546aeb72bdf1b -->
-<!-- engine-md5:engine/bohemia_farm.js:e462bae0ce7d8df37f2c5752824d845b -->
+<!-- engine-md5:engine/bohemia_farm.js:1b3d0e2445999a3b7c1bdc87a677b59c -->
 <!-- engine-md5:engine/bohemia_downtown.js:78cfa425b632578574f573eeadaef4db -->
 <!-- engine-md5:engine/bohemia_trailer.js:8b0e3b010afe313cddcfcf3c437c4eb1 -->
 <!-- engine-md5:engine/bohemia_apartment.js:84574bed8ee4b0106df0dcf58bfc487b -->
@@ -62,7 +62,7 @@
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
 <!-- engine-md5:engine/bohemia_utility.js:b8fd7c75dbef7635ce99ed2ceee54f86 -->
 <!-- engine-md5:engine/bohemia_rooms.js:22bc9a94d23596d77c83183ea1f50ae0 -->
-<!-- engine-md5:engine/bohemia_world.js:16b4071a69b93d3e2b91eb6bb16b8d4a -->
+<!-- engine-md5:engine/bohemia_world.js:017a395a9a9b0202ff1fc3929910944c -->
 <!-- engine-md5:engine/bohemia_valleymap.js:36a0564d30ad03bd11f7a383d301adc4 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
@@ -3191,8 +3191,138 @@
     return g;
   }
 
+
+  /* NINE COURSES IN A 3x3, AND IT SHOULD HAVE BEEN ONE (8/26). Every cell of the valley's golf
+     blob built a COMPLETE course: three holes, a clubhouse, a pro shop, a driving range, two
+     car parks. Nine clubhouses inside one boundary.
+
+     AND THE ARITHMETIC IS THE NICE PART. A 3x3 blob is 288 m square -- about 83 hectares. A
+     real eighteen-hole course is 50 to 75. So the ground was always there for the actual
+     thing; it was being cut into nine pieces and a three-hole pitch-and-putt built on each.
+     One course, EIGHTEEN HOLES, one clubhouse.
+
+     ROUTED THE WAY COURSES ARE ROUTED: two loops of nine, each leaving the clubhouse and
+     coming back to it, so 9 and 18 both finish where 1 and 10 started. That is not decoration
+     -- it is why a clubhouse sits where it sits, and it falls out of the geometry for free
+     once the course is allowed to be one course. The front nine takes the outer ring, the back
+     nine the inner one.
+
+     AND THE ROUTING IS DECIDED BY THE BLOB, NOT THE CELL. Every cell carries its own seed, so
+     a fairway bend chosen with the cell's rng would bend one way on one side of a boundary and
+     the other way just across it. Every hole here is placed from a hash of the blob. */
+  function clusterCourse(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    // ---- BASE: dead rough over the whole property, desert at the property's own margins ----
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+5,f.y0+5,f.x1-5,f.y1-5,3);
+
+    /* A FAIRWAY WORM in valley tiles: overlapping discs along a polyline, because real
+       fairways bend and are never rectangles. The wobble comes from the blob hash so the same
+       corridor bends the same way seen from either side of a cell boundary. */
+    function worm(pts,rad,code){
+      for(var i=0;i<pts.length-1;i++){
+        var a=pts[i], c=pts[i+1];
+        var steps=Math.max(1,Math.round(Math.hypot(c[0]-a[0],c[1]-a[1])/2));
+        for(var s=0;s<=steps;s++){
+          var t=s/steps, px=Math.round(a[0]+(c[0]-a[0])*t), py=Math.round(a[1]+(c[1]-a[1])*t);
+          var rr=rad + (A.rnd(px,py)<0.5?0:1) - (A.rnd(py,px)<0.25?1:0);
+          A.vell(px,py,Math.max(3,rr),Math.max(3,rr),code);
+        }
+      }
+    }
+
+    /* THE CLUBHOUSE SITS AT THE SOUTH, ON THE STREET, and both nines are hung off it. */
+    var hx=f.mx, hy=f.y1-Math.round(f.h*0.08);
+
+    /* EIGHTEEN HOLES ON TWO RINGS. A hole's tee sits beside the previous hole's green, which
+       is how a person actually walks a course, so the chain is: clubhouse -> 1 -> ... -> 9 ->
+       clubhouse -> 10 -> ... -> 18 -> clubhouse. */
+    function ring(i,n,rx,ry,phase){
+      var a=phase + (i/n)*Math.PI*2;
+      return [Math.round(f.mx+Math.cos(a)*rx), Math.round(f.my+Math.sin(a)*ry)];
+    }
+    var ORX=Math.round(f.w*0.38), ORY=Math.round(f.h*0.38);
+    var IRX=Math.round(f.w*0.20), IRY=Math.round(f.h*0.20);
+    var greens=[], tee=[hx,hy-10];
+    for(var loop=0; loop<2; loop++){
+      var rx=loop?IRX:ORX, ry=loop?IRY:ORY;
+      for(var h=0; h<9; h++){
+        /* going the other way round on the back nine, which is what keeps the two loops from
+           lying on top of each other and is what a real routing does */
+        var idx = loop ? (8-h) : h;
+        var g2 = ring(idx, 9, rx, ry, Math.PI*0.5 + (loop?Math.PI/9:0));
+        var midx = Math.round((tee[0]+g2[0])/2 + (A.rnd(g2[0],g2[1])-0.5)*Math.min(f.w,f.h)*0.10);
+        var midy = Math.round((tee[1]+g2[1])/2 + (A.rnd(g2[1],g2[0])-0.5)*Math.min(f.w,f.h)*0.10);
+        worm([tee,[midx,midy],g2], 5, 4);                                  // the mown corridor
+        A.vell(g2[0],g2[1],8,7,6);                                          // the GREEN
+        A.vrect(tee[0]-3,tee[1]-2,tee[0]+3,tee[1]+2,9);                    // the TEE BOX
+        // greenside bunkers, on the side the fairway does not come in from
+        var bx=g2[0]+Math.round((g2[0]-midx)*0.18), by=g2[1]+Math.round((g2[1]-midy)*0.18);
+        A.vell(bx,by,4,3,7);
+        if(A.rnd(g2[0]+7,g2[1])<0.55) A.vell(midx,midy,5,4,7);             // a fairway bunker
+        greens.push(g2);
+        /* the next tee is beside this green -- walk off, walk on */
+        tee=[g2[0]+Math.round((A.rnd(g2[1],g2[0])-0.5)*22), g2[1]+Math.round((A.rnd(g2[0],g2[1])-0.5)*22)];
+      }
+      tee=[hx,hy-10];                       // each nine goes back out from the clubhouse
+    }
+
+    /* WATER: two dry, cracked ponds guarding holes on the outer loop. Dry because act one is
+       dead -- a lake on a dead course is the one thing nobody would still be paying for. */
+    for(var w=0; w<2; w++){
+      var gp=greens[(w*5+3)%greens.length];
+      A.vell(gp[0]+18,gp[1]+14,11,8,8);
+    }
+
+    // ---- THE CLUBHOUSE COMPLEX, ONCE: pro shop, two car parks, the range, a putting green ----
+    A.vrect(hx-20,hy-6,hx+20,hy+8,2);                                     // clubhouse + pro shop
+    A.vrect(hx-40,hy-6,hx-24,hy+8,1); A.vrect(hx+24,hy-6,hx+40,hy+8,1);   // the car parks
+    for(var py=hy-5; py<=hy+7; py+=3) A.vset(hx-33,py,13);                // a cart left in the lot
+    A.vrect(hx-42,hy-26,hx-14,hy-10,4); A.vrect(hx-42,hy-26,hx-42,hy-10,9);   // DRIVING RANGE
+    for(var mx2=hx-40; mx2<=hx-16; mx2+=5) A.vset(mx2,hy-25,11);              // mats on the tee line
+    for(var ty2=hy-46; ty2<=hy-30; ty2+=5) for(var tx2=hx-40; tx2<=hx-16; tx2+=7) A.vset(tx2,ty2,11);
+    A.vell(hx+30,hy-20,10,8,6);                                            // the practice putting green
+
+    /* THE CART PATH: a loop round the property tying the clubhouse to both nines. It is the
+       drivable surface, and across nine cells a single path by the clubhouse would have left
+       most of the course unreachable from any gate. */
+    A.vrect(f.x0+9,f.y0+9,f.x1-9,f.y0+12,1); A.vrect(f.x0+9,f.y1-12,f.x1-9,f.y1-9,1);
+    A.vrect(f.x0+9,f.y0+9,f.x0+12,f.y1-9,1); A.vrect(f.x1-12,f.y0+9,f.x1-9,f.y1-9,1);
+    /* AND IT HAS TO ACTUALLY JOIN UP. The first cut ran the spine from the north ring down to
+       the clubhouse -- and the CLUBHOUSE IS SOLID, so it stood between the spine and the south
+       ring and stranded every path tile north of it. One cell of nine came back unreachable
+       from any gate. The spine stops above the building now, a cross-link ties it to both car
+       parks, and the parks run down to the south ring: clubhouse, course and street on one
+       connected surface, which is what a cart path is for. */
+    A.vrect(hx-2,f.y0+12,hx+2,hy-11,1);
+    A.vrect(hx-40,hy-10,hx+40,hy-7,1);
+    A.vrect(hx-40,hy+8,hx-24,f.y1-9,1); A.vrect(hx+24,hy+8,hx+40,f.y1-9,1);
+
+    A.dress(12,120,3);                                                     // dead landscaping trees
+    A.dress(13,20,1);                                                      // abandoned carts
+
+    /* THE PINS GO IN ABSOLUTELY LAST, AND THAT IS NOT TIDINESS. A pin is ONE TILE. Set it
+       beside its own green and the next hole's fairway paints over it -- the back nine
+       crosses the front nine, which is exactly what a real routing does -- and then the ponds,
+       the clubhouse and the cart path take a couple more. Eighteen holes measured EIGHT, then
+       SIXTEEN, and nothing anywhere complained either time. Drawn after everything, they are
+       eighteen. */
+    for(var pi=0; pi<greens.length; pi++) A.vset(greens[pi][0],greens[pi][1],10);
+
+    var gates=A.gates(streets,5,1,[0,3,4],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED: three holes and a clubhouse is the right answer for 96 m of
+       ground, and it is art that already shipped. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterCourse(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
     var g=res.g;
@@ -5881,7 +6011,94 @@
     for(i=-2;i<=2;i++)set(gx+i,H-1,5);
     return g;
   }
+
+  /* ONE FARM, NOT ONE PER CELL (8/26). The valley has 93 farm cells in thirteen blobs, and
+     every cell was building a COMPLETE farmstead: a farmhouse, a barn, three grain silos, an
+     equipment shed, a farmyard and its own fence ring. A nine-cell farm therefore had NINE
+     FARMHOUSES AND NINE BARNS inside one boundary.
+
+     THE THIRTEEN BLOBS ARE RIGHT AND STAY THIRTEEN. This is the one district where "one per
+     blob" had to be checked rather than assumed: separate parcels really are separate farms.
+     What is wrong is INSIDE a parcel. And the arithmetic settles it -- nine cells is 288 m
+     square, about 8 hectares, which is ONE SMALL FARM. Nine farmsteads on eight hectares is
+     not a hamlet, it is a rendering bug.
+
+     SO: one farmstead per parcel, at the road, and the FIELDS get the rest -- which is what
+     makes a farm read as a farm from the air. The furrows now run the full length of the
+     parcel instead of stopping at every cell boundary, which is the difference between a
+     ploughed field and a patchwork quilt. */
+  function clusterFarm(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+6,f.y0+8,f.x1-7,f.y1-7,4);              // field soil over the parcel
+    A.vframe(11);                                         // the PARCEL's fence, never a cell's
+
+    /* THE FURROWS RUN THE LENGTH OF THE PARCEL. Laid off the DISTRICT with firstAt, so a row
+       that starts outside this cell still lands on exactly the rows the neighbour's does --
+       and a plough line crosses a cell boundary the way it crosses a field. */
+    var fx0=f.x0+10, fx1=f.x1-11;
+    for(var ry=A.firstAt(f.y0+11,3,A.c.y0-3); ry<=Math.min(f.y1-11,A.c.y1+3); ry+=3){
+      for(var rx=fx0; rx<=fx1; rx++){
+        if(A.vget(rx,ry)!==4) continue;
+        if(A.rnd(rx,ry)<0.82) A.vset(rx,ry,7);
+      }
+    }
+    /* IRRIGATION DITCHES splitting the parcel into fields, on the district's own grid so a
+       ditch is one ditch and not one per cell. */
+    var FW=Math.max(60,Math.round(f.w/3)), FH=Math.max(60,Math.round(f.h/3));
+    /* AND A TRACK RUNS BESIDE EACH DITCH, which is not decoration either. A headland ring
+       round the parcel is what a one-cell farm has, and on a 3x3 it leaves the CENTRE cell
+       with no drivable surface at all -- a tractor could not reach the middle of the farm from
+       any gate, and driveConnected said so. Real farms have a track between every pair of
+       fields; that is what the ditch bank IS. */
+    for(var dx2=A.firstAt(f.x0+FW,FW,A.c.x0-FW); dx2<=Math.min(f.x1-20,A.c.x1+FW); dx2+=FW){
+      A.vrect(dx2,f.y0+10,dx2+2,f.y1-10,8);
+      A.vrect(dx2+3,f.y0+10,dx2+5,f.y1-10,1);
+    }
+    for(var dy2=A.firstAt(f.y0+FH,FH,A.c.y0-FH); dy2<=Math.min(f.y1-20,A.c.y1+FH); dy2+=FH){
+      A.vrect(f.x0+10,dy2,f.x1-11,dy2+2,8);
+      A.vrect(f.x0+10,dy2+3,f.x1-11,dy2+5,1);
+    }
+    A.dress(8,40,7);                                      // pivot sprinkler heads out in the crop
+
+    /* ---- THE FARMSTEAD, ONCE, at the parcel's south-east, where the road reaches it ---- */
+    var hx=f.x1-58, hy=f.y1-40;
+    A.vrect(hx,hy,hx+20,hy+16,2);                                        // farmhouse
+    A.vrect(hx-4,hy-2,hx+24,hy,12); A.vrect(hx-4,hy+16,hx+24,hy+28,12);  // its yard
+    A.vrect(hx+28,hy-4,hx+46,hy+16,14);                                  // the BARN
+    for(var vx=hx+30; vx<=hx+44; vx+=4) A.vset(vx,hy-4,2);               // roof vents
+    A.vell(hx+26,hy+22,4,4,6); A.vell(hx+36,hy+22,4,4,6); A.vell(hx+44,hy+22,3,3,6);   // grain SILOS
+    A.vrect(hx+2,hy+20,hx+18,hy+26,2);                                   // equipment shed
+    A.vrect(hx+8,hy+12,hx+10,hy+17,10); A.vrect(hx+30,hy+18,hx+32,hy+23,10);  // tractor + combine
+    A.vrect(hx,hy+18,hx+4,hy+22,13); A.vrect(hx+22,hy+2,hx+26,hy+6,13);  // hay bales
+
+    /* ---- THE FARM ROAD: from the parcel's road edge to the yard, and a headland track round
+       the fields so a tractor reaches every one of them. On nine cells a single spur to the
+       farmyard leaves most of the parcel unreachable from any gate. ---- */
+    A.vrect(f.x0+7,f.y0+9,f.x1-8,f.y0+11,1); A.vrect(f.x0+7,f.y1-11,f.x1-8,f.y1-9,1);
+    A.vrect(f.x0+7,f.y0+9,f.x0+9,f.y1-9,1); A.vrect(f.x1-10,f.y0+9,f.x1-8,f.y1-9,1);
+    A.vrect(hx+10,hy+28,hx+14,f.y1-9,1);                                 // yard down to the headland
+    A.vrect(f.x1-58,hy+26,f.x1-12,hy+28,1);                              // farmyard access lane
+
+    // ---- WINDBREAK TREES down the west fence and along the north, pole lights on the corners
+    for(var ty=A.firstAt(f.y0+12,7,A.c.y0-7); ty<=Math.min(f.y1-12,A.c.y1+7); ty+=7) A.vset(f.x0+8,ty,3);
+    for(var tx=A.firstAt(f.x0+12,9,A.c.x0-9); tx<=Math.min(f.x1-12,A.c.x1+9); tx+=9)
+      if(A.vget(tx,f.y0+8)===11) A.vset(tx,f.y0+8,3);
+    [[f.x0+3,f.y0+4],[f.x1-3,f.y0+4],[f.x0+3,f.y1-4],[f.x1-3,f.y1-4]]
+      .forEach(function(p){ A.vset(p[0],p[1],9); });
+
+    var gates=A.gates(streets,5,1,[0,3,4,11,12],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2||v===14;})};
+  }
+
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE FARM CELL IS UNCHANGED: one cell is one small holding, and that art shipped. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterFarm(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3||c===4; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
@@ -15802,7 +16019,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
     cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional', cluster:true },
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
-    golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
+    /* ONE COURSE, EIGHTEEN HOLES (8/26). Nine cells were building nine three-hole courses
+       with nine clubhouses. A 3x3 blob is 83 hectares and a real eighteen is 50-75, so the
+       ground was always there -- it was being cut into nine pieces. */
+    golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     /* ONE OF IT, NOT ONE PER CELL (8/26). Four stadiums in a 2x2, four landfills, four
        cemeteries -- each cell was building the whole facility. All three are AREA districts,
        so they take the blob's BOUNDS like the solar farm and the railyard do, not its
@@ -15827,7 +16047,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
     jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' },
-    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
+    /* ONE FARM PER PARCEL (8/26). Thirteen blobs is RIGHT -- separate parcels are separate
+       farms -- and the defect was INSIDE a parcel: nine cells meant nine farmhouses and nine
+       barns on eight hectares, which is not a hamlet, it is a rendering bug. */
+    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
     downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
     trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
     apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },

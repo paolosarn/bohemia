@@ -1404,8 +1404,8 @@
    "verdict": "SHOWN (all)",
    "samples": 32,
    "hits_shown": 32,
-   "hits_loaded": 32,
-   "bytes": 9340
+   "hits_loaded": 29,
+   "bytes": 14786
   },
   {
    "path": "engine/bohemia_favour.js",
@@ -1476,8 +1476,8 @@
    "verdict": "SHOWN (all)",
    "samples": 32,
    "hits_shown": 32,
-   "hits_loaded": 32,
-   "bytes": 13208
+   "hits_loaded": 29,
+   "bytes": 21096
   },
   {
    "path": "engine/bohemia_graphics_tests.js",
@@ -2304,8 +2304,8 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 31,
-   "bytes": 67459
+   "hits_loaded": 29,
+   "bytes": 68009
   },
   {
    "path": "engine/bohemia_world_resolve.js",

@@ -62,8 +62,8 @@ verbatim.
 | `banks/BOHEMIA_GRIME_8_3_26.txt` | bank | 0.11 |
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
-| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.07 |
+| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt` | bank | 0.01 |

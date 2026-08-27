@@ -52129,11 +52129,37 @@ accounting counting what crossed the wire instead of what sits on disk:
 NOTHING IN THE GAME CHANGED TO EARN ANY OF THAT. Three ratchets came down with it: total
 44->30 MB, after-the-tap 6->2 MB, the wait 16->12s. All three mutation-tested.
 
+*** AND THEN GOLF AND FARM, THE SAME DAY. FIVE DISTRICTS TOTAL. ***
+GOLF: nine courses in a 3x3, nine clubhouses in one boundary. THE ARITHMETIC IS THE NICE PART:
+a 3x3 blob is 288m square, ~83 HECTARES, and a real eighteen-hole course is 50-75. The ground
+was always there; it was being cut into nine pieces with a three-hole pitch-and-putt on each.
+ONE COURSE, EIGHTEEN HOLES, ONE CLUBHOUSE, routed as two loops of nine each leaving and
+returning to the clubhouse so 9 and 18 finish where 1 and 10 started -- which is WHY a
+clubhouse sits where it sits. 45 hero structures -> 1. GOLF GATE 16/0.
+  AND THE HOLE COUNT WAS WRONG TWICE, SILENTLY. A pin is ONE TILE; set beside its own green the
+  next hole's fairway paints over it, because THE BACK NINE CROSSES THE FRONT NINE, which is
+  what a real routing does. 18 holes measured EIGHT. Moved after the fairways: SIXTEEN. Only
+  drawn ABSOLUTELY last (after ponds, clubhouse, cart path) are there eighteen. Nothing
+  complained either time -- that is why the count is a gate line now.
+  AND THE CART PATH DID NOT JOIN UP: the spine ran from the north ring down to the clubhouse
+  and THE CLUBHOUSE IS SOLID, so it stood between the spine and the south ring and stranded
+  every path tile north of it. One cell of nine unreachable from any gate.
+FARM: THIRTEEN BLOBS AND THIRTEEN IS RIGHT -- separate parcels ARE separate farms, and this is
+the one where that had to be CHECKED not assumed. The defect was INSIDE a parcel: every cell
+built a farmhouse, a barn, three silos, a shed, a yard and its own fence ring, so a nine-cell
+farm had NINE FARMHOUSES AND NINE BARNS. Nine cells is ~8 HECTARES = ONE SMALL FARM; nine
+farmsteads on eight hectares is not a hamlet, it is a rendering bug. All 13 blobs 45->3, 20->3,
+15->3, 10->3. FARM GATE 11/0. The furrows run the parcel's full length now instead of stopping
+at every boundary -- a ploughed field instead of a patchwork quilt. AND THE CENTRE CELL OF A
+3x3 HAD NO ROAD: a headland ring is what a one-cell farm has and it never reaches the middle.
+Real farms have a track between every pair of fields; that is what a ditch bank IS.
+
 NEXT IN THIS LANE
-  1. GOLF -- nine golf courses in a 3x3. An AREA district, so it is the stadium's shape and
-     K.blob is already there. Then FARM, the biggest by area (93 cells, 13 blobs) and the ONLY
-     one where "one farm each" may actually be correct -- LOOK BEFORE BUILDING.
-     The gate prints the rest itself: town:9 · datafort:6 · speedway:6 · park:3 · medical:2.
+  1. THE REAL REMAINDER IS THREE: AIRPORT (24 cells), DATAFORT (6), SPEEDWAY (6). Each is ONE
+     facility and each is the stadium's shape, so K.blob is sitting there. The rest of the
+     gate's backlog is NOT this defect and must not be treated as it: downtown:9, town:9,
+     commercial:4, ballpark:4 are SUPPOSED to be many buildings, and roads/terrain have no
+     facility to duplicate. The gate's own list is where that distinction lives now.
   2. Aperture mismatch (13 cells) + midpoint keep-out (2 cells) from 8/22.
   3. 31 unplaced legend codes across 20 families (legend_kept ratchet, green).
 Record: records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md
