@@ -103,6 +103,12 @@ LOW_BY_NATURE = {
     # stack that reads at pool scale. Forcing a six-unit tower onto any of
     # them re-inflates exactly what the full-board verdict killed.
     'quarry', 'gypsum', 'waterpark',
+    # 8/27 wave 4: the MALL. The probe caught widen-and-raise re-inflating
+    # its lowered anchors into mid-rise blocks - downtown, not a mall. A
+    # Vegas mall is two storeys of blank tilt-up by definition; its whole
+    # identity is LOW AND VAST, so a six-unit mall is a lie about the form,
+    # the same class the full-board verdict killed.
+    'mall',
     # 8/4, the terrain and the road surfaces. Forcing a tower onto any of these would be
     # a lie about the map, which is a worse failure than a low icon: OPEN DESERT has no
     # building in it, a LINED FLOOD CHANNEL is a trench, a GOLF COURSE is greens and
