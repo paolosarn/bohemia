@@ -1287,11 +1287,164 @@ async function onTheGround() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   N. THE TOP OF THE LADDER, WHICH BOUGHT NOTHING FOR SIXTEEN DAYS.
+   ========================================================================== */
+async function onTheVouch() {
+  console.log('\nN. WHAT INSIDE ACTUALLY BUYS.');
+  const BEL = require(path.join(ROOT, 'engine/bohemia_belonging.js'));
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+
+  /* THE FIND, RE-MEASURED HERE RATHER THAN ASSERTED FROM A COMMENT. If some
+     future turn wires INSIDE to something else, this stops being true and the
+     claim below should be rewritten rather than quietly kept. */
+  const rungs = (BEL.RUNGS || []).map(r => r.word);
+  ok('N0 THE LADDER STILL ENDS AT INSIDE, and the claims below are about the '
+    + 'rung that is actually last rather than one that used to be',
+    rungs.length >= 2 && rungs[rungs.length - 1] === 'INSIDE',
+    JSON.stringify(rungs));
+
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 9000);
+    const R = await page.evaluate(() => {
+      const out = {};
+      const bases = ctBases() || {};
+      let who = null;
+      for (const bse of Object.values(bases)) {
+        hx = bse.x * FN + 2; hy = bse.y * FN + 2;
+        for (const p of ctEveryone()) if (!ctFactionOf(p)) { who = p; break; }
+        if (who) break;
+      }
+      if (!who) return { err: 'no unaffiliated person anywhere' };
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
+      sv.meta.commit = {}; sv.meta.vouched = {};
+      ctSawCell(); ctOpen(); for (let i = 0; i < 3; i++) { ctClose(); ctOpen(); }
+      out.met = !!CT_MET.get('P:city:' + who.id);
+
+      /* NOT INSIDE ANYWHERE: no offer, no button. */
+      out.offerCold = !!ctVouchFor(who);
+      out.btnCold = !!document.getElementById('ctvouch');
+
+      /* ONE RUNG SHORT of the top: still nothing. This is the claim that makes
+         it about INSIDE rather than about "having some standing". */
+      const top = (BohemiaBelonging.RUNGS || []).slice(-1)[0];
+      sv.meta.gave['CHURCH'] = Math.max(0, (top.at | 0) - 1);
+      ctClose(); ctOpen();
+      out.nearMissRung = (BohemiaBelonging.bargain(
+        BohemiaBelonging.ruleOf('CHURCH'), BohemiaBelonging.gaveOf(sv, 'CHURCH')).rung || {}).word;
+      out.offerNearMiss = !!ctVouchFor(who);
+      out.btnNearMiss = !!document.getElementById('ctvouch');
+
+      /* AT the top. */
+      sv.meta.gave['CHURCH'] = top.at | 0;
+      ctClose(); ctOpen();
+      out.can = ctVouchFor(who);
+      out.btn = !!document.getElementById('ctvouch');
+      out.btnLabel = (document.getElementById('ctvouch') || {}).textContent || null;
+      out.rows = [...document.querySelectorAll('.r')].map(r => {
+        const k = r.querySelector('.k'), v = r.querySelector('.v');
+        return (k ? k.textContent : '') + ' :: ' + (v ? v.textContent : '');
+      });
+      out.standBefore = BohemiaBelonging.gaveOf(sv, 'CHURCH');
+      out.facBefore = ctFactionOf(who);
+
+      const b = document.getElementById('ctvouch'); if (b) b.click();
+      out.facAfter = ctFactionOf(who);
+      out.standAfter = BohemiaBelonging.gaveOf(ctBelongSave(), 'CHURCH');
+      out.bag = JSON.parse(JSON.stringify(ctBelongSave().meta.vouched || {}));
+      out.offerAgain = !!ctVouchFor(who);
+
+      /* AND IT SURVIVES WALKING AWAY. The per-cell roster does not persist; the
+         save does, and that is the whole reason the override is keyed the way
+         the met-ledger is. */
+      const far = [hx, hy];
+      hx = far[0] + FN * 3; hy = far[1] + FN * 3; ctSawCell();
+      hx = far[0]; hy = far[1]; ctSawCell();
+      let again = null;
+      for (const p of ctEveryone()) if (p.id === who.id) { again = p; break; }
+      out.facAfterWalk = again ? ctFactionOf(again) : 'person not found again';
+      return out;
+    });
+
+    ok('N1 THERE IS SOMEBODY TO PUT UP AND YOU HAVE MET THEM. A vouch for a '
+      + 'stranger you have never spoken to is a guess, not a vouch',
+      !R.err && R.met === true, JSON.stringify({ err: R.err, met: R.met }));
+
+    ok('N2 WITH NO STANDING ANYWHERE, THE OFFER IS NOT THERE',
+      R.offerCold === false && R.btnCold === false,
+      JSON.stringify({ offer: R.offerCold, btn: R.btnCold }));
+
+    ok('N3 *** AND ONE RUNG SHORT OF THE TOP IT IS STILL NOT THERE. *** This is '
+      + 'the claim that makes the feature about INSIDE rather than about having '
+      + 'some standing. bohemia_claim and bohemia_favour both key off COUNTED; '
+      + 'nothing anywhere keyed off INSIDE, so you climbed the last four rungs '
+      + 'THROUGH A WALL that costs a burned bridge and the only thing that '
+      + 'changed was the word on the card',
+      R.offerNearMiss === false && R.btnNearMiss === false,
+      JSON.stringify({ rung: R.nearMissRung, offer: R.offerNearMiss }));
+
+    ok('N4 AT INSIDE, THE DOOR IS OPEN AND IT SAYS WHOSE. The rung\'s own note '
+      + 'has shipped since 8/12: "The newcomer is the old-timer now, and the '
+      + 'next newcomer is your problem." That is a specification and nothing '
+      + 'implemented it',
+      !!R.can && R.btn === true && /PUT THEM UP FOR THE CHURCH/.test(R.btnLabel || ''),
+      JSON.stringify({ can: R.can, label: R.btnLabel }));
+
+    ok('N5 AND THE CARD EXPLAINS IT, not just the button. The first version '
+      + 'referenced a `p` that does not exist inside ctIntroRows, threw, and my '
+      + 'own try/catch swallowed it -- so the OFFER appeared and the sentence '
+      + 'explaining it silently did not. "A BARE CATCH HERE COST THIS LANE '
+      + 'THREE DAYS" is already a comment in this file about ctFactionOf; I '
+      + 'wrote another one twelve hours later',
+      (R.rows || []).some(r => /YOU COULD PUT THEM UP/.test(r))
+        && (R.rows || []).some(r => /RUNS WITH :: NOBODY/.test(r)),
+      JSON.stringify((R.rows || []).filter(r => /PUT THEM UP|RUNS WITH/.test(r))));
+
+    ok('N6 PRESSING IT CHANGES SOMEBODY ELSE\'S LIFE. They ran with nobody and '
+      + 'now they run with the Church. It is the first thing in this game that '
+      + 'alters another person rather than the player',
+      R.facBefore === null && R.facAfter === 'CHURCH',
+      JSON.stringify({ before: R.facBefore, after: R.facAfter }));
+
+    ok('N7 AND IT COSTS EXACTLY ONE RUNG OF YOUR OWN. PORTES 1998, EXCESS '
+      + 'CLAIMS ON GROUP MEMBERS: being inside is a relationship that can make '
+      + 'demands of you, not a prize you collect. Taken through '
+      + 'BohemiaBelonging.adjust, THE ONE WRITER, so the top rung buys exactly '
+      + 'two of these before you have to climb back',
+      R.standBefore - R.standAfter === 1,
+      JSON.stringify({ before: R.standBefore, after: R.standAfter }));
+
+    ok('N8 AND YOU CANNOT DO IT TWICE TO THE SAME PERSON. They have an outfit '
+      + 'now; you cannot hand somebody to a second one',
+      R.offerAgain === false);
+
+    ok('N9 AND IT SURVIVES WALKING AWAY AND COMING BACK. Allegiance here is '
+      + 'COMPUTED from a seat hash, so a vouch has to be an override in the '
+      + 'save rather than a value somewhere -- keyed the way the met-ledger is '
+      + 'keyed, because the per-cell roster does not persist and the save does',
+      R.facAfterWalk === 'CHURCH', JSON.stringify({ afterWalk: R.facAfterWalk }));
+
+    ok('N10 AND NOTHING WAS SWALLOWED WHILE DOING IT',
+      warns.filter(w => /vouch row threw/.test(w)).length === 0,
+      JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
   .then(onTheValley)
   .then(onWhyWalk)
   .then(onTheGround)
+  .then(onTheVouch)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
