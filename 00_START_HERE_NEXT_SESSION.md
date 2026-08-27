@@ -2610,6 +2610,25 @@ down on 8/24 as "red in the pack and green alone today".
 
 RECORD: records/BOHEMIA_LOOKING_AT_THE_MAP_IS_NOT_TRAVELLING_8_27_26.txt
 
+*** AND I SHIPPED CONFLICT MARKERS TO MAIN TODAY. NOT "NEARLY". *** A malformed
+leftover conflict block in the alpha's buildstamp survived a rebase, my stamp
+resolver did not recognise its shape and reported "no stamp conflict", and I
+staged the file anyway on the strength of "Successfully rebased". It reached main,
+it reached the LIVE SPLASH SCREEN the play link opens, and it also ATE the opening
+`<!--` of the comment after the stamp so the marker text rendered as visible words
+under BUILD 8/27j. ANOTHER LANE FOUND IT AND CLEANED IT UP, and wrote it up in
+records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md.
+CHECK THE FILE, NOT THE EXIT CODE. "Successfully rebased" says the rebase finished,
+not that your work survived or that the result is valid. Every rebase in this lane
+now ends with: grep for markers, count the markers of everything you touched, and
+run NO MARKERS before committing.
+AND THE GATE COULD NOT TELL A QUOTE FROM A WOUND: it then went red on that lane's
+write-up, because the write-up PASTES the broken line into a ``` fence so the next
+session can recognise it. Punishing the documentation of a bug is a good way to
+stop people documenting bugs. Fixed the ruler, narrowly -- ``` fences in .md files
+only, everything else still a wound -- and mutation-tested by putting a real marker
+outside a fence in that same file, which is still caught.
+
 *** TWO OF THIS LANE'S OWN GATES WENT RED ON MAIN TODAY AND THEY ARE NOT FROM
 THIS TURN. *** Proved by running both against the city file at HEAD~1, before this
 turn touched it -- identical failures:

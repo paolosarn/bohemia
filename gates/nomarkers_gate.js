@@ -91,7 +91,19 @@ files.forEach(f => {
      but by PATH, never by "does it look like a gate", or the exemption becomes a hole
      any file could crawl through. */
   if (f === 'gates/nomarkers_gate.js') return;
-  MARKERS.forEach(([re, what]) => { if (re.test(src)) hits.push(f + ': ' + what); });
+  /* *** A MARKER QUOTED INSIDE A FENCED CODE BLOCK IS A MENTION, NOT A WOUND
+     (8/27). *** This went red on a records file that was DOCUMENTING a real
+     marker bug -- pasting the broken line into a ``` fence so the next session
+     could recognise it. A checker that cannot tell a mention from a use is the
+     broken one (8/1), and punishing the write-up of a bug is a good way to stop
+     people writing bugs up.
+     NARROW ON PURPOSE: only ``` fences, only in .md files. A marker anywhere
+     else in that same file, or anywhere at all in code, is still a wound -- and
+     the reason this gate exists is that real ones have shipped to main more than
+     once, including on 8/27 straight onto the splash screen the play link
+     opens. */
+  const scan = /\.md$/.test(f) ? src.replace(/^```[\s\S]*?^```/gm, '') : src;
+  MARKERS.forEach(([re, what]) => { if (re.test(scan)) hits.push(f + ': ' + what); });
 });
 ok('B1 no tracked text file carries a conflict marker (' + files.length + ' swept)' +
    (hits.length ? ' -> ' + hits.slice(0, 5).join('; ') : ''), hits.length === 0);
