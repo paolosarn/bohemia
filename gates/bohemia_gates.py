@@ -652,6 +652,34 @@ GATES = [
      'travel calls it, it replaces it with a counter and presses the pad for real -- removing '
      'the caller from stepOnce turns that claim red. It also holds ENGINE SYNC for a module the '
      'BOH_* sync gate cannot see, comparing the inlined body to the engine file', True),
+    # 8/27 -- dispatch item 8's other half. The enemies landed this morning and
+    # nothing came off them.
+    ('ROAD LEAVINGS',  ['node', 'gates/the_road_leaves_something_gate.js'],
+     'THE ROAD LEAVES SOMETHING BEHIND. Paolo 8/25, dispatch item 8: "ENEMIES, LOOT, and '
+     'Valheim-style DANGER BY PLACE." The enemies landed this morning and NOTHING CAME OFF '
+     'THEM -- a road that stops you twelve times on the way across the valley and hands you '
+     'nothing is a toll booth. AND LOOT IS NOT A NEW SYSTEM HERE, which is the whole point: '
+     'engine/bohemia_economy.js already holds GOODS with researched values and SALVAGE as the '
+     'numeraire ("the numeraire until Paolo names the money"), and bohemia_purse.js already '
+     'holds the ledger and his three LOCKED currencies. So loot is resources landing in the '
+     'ledger the game already keeps, and it means something the instant it drops instead of '
+     'being an orphan number waiting five weeks for a system to give it a job -- the '
+     'invisible-hats failure prevented in advance rather than discovered later. MOST OF IT IS '
+     'NOTHING AND THAT IS THE FEATURE: real collapse looting takes the food and water inside '
+     '48 hours and the crash was TEN YEARS ago (TEN YEARS COLD, 7/31), and survival designers '
+     'leave most containers empty for the same pacing reason, so realism and fun agree and '
+     'nothing had to be traded. Measured: 8 of 12 road moments left nothing. THE AMOUNT IS '
+     'DERIVED, NOT PICKED -- it answers one question, how much MANUFACTURED stuff was that '
+     'thing carrying, because a salvage economy wants metal and not meat: the animals and the '
+     'man with no shoes give zero, the dead casino bot gives the most. NOTHING IS EVER TAKEN '
+     'FROM HIM: the snatcher\'s approved ends is "loss without death", but the beat-timed '
+     'chase that makes that fair is not built, and an unavoidable loss you cannot win back is '
+     'a tax wearing the mechanic\'s name. A TAG IS FINE, A MARKET IS NOT (TEN YEARS COLD cl.2, '
+     'its own boundary): every entry is kind "source", a pure faucet, and the two [PENDING '
+     'Paolo] tables stay empty. Mutation-tested twice: removing the pickup turns 4 claims red, '
+     'adding a debit turns 3 red. AND A MUTATION CAUGHT THE GATE\'S OWN SUMMARY LYING -- it '
+     'printed a hardcoded "0 debits" on a run where the claim above it reported 3; every '
+     'number in that line is measured now', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

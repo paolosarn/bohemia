@@ -28105,7 +28105,48 @@ var ROAD_WORDS = {
     + "anything. Six, maybe eight. Neither of them has looked your way."
 };
 
-var ROAD_DIR = null, ROAD_LOG = [];
+/* __THE_ROAD_LEAVES_SOMETHING__ (8/27) -- WHAT IS LEFT ON THE ROAD, in kg of salvage,
+   which is the economy's own numeraire. Dispatch item 8: "ENEMIES, LOOT, and
+   Valheim-style DANGER BY PLACE."
+   THE AMOUNT ANSWERS ONE QUESTION: how much MANUFACTURED STUFF was that thing
+   carrying? A salvage economy wants metal and parts, not meat. So the animals
+   give nothing, the man with no shoes gives nothing, and the dead machine gives
+   the most -- which is the one place the fiction and the economy say the same
+   thing out loud.
+   FIVE OF TWELVE LEAVE NOTHING, and that is the feature. TEN YEARS COLD: the
+   food and water went in the first 48 hours of a crash that happened a decade
+   ago. What is left is what nobody wanted in year one.
+   NOTHING IS EVER TAKEN. the_snatcher's approved ends is "loss without death",
+   but the beat-timed chase that makes that fair is not built, and an unavoidable
+   loss with no way to win it back is a tax wearing the mechanic's name. */
+var ROAD_LEAVINGS = {
+  feral_dog_pack: 0, coyote_shadow: 0, rattlesnake: 0, crazed_wanderer: 0,
+  the_snatcher: 0, bounty_squad: 0,
+  scavenger_shakedown: 1, ghost_robotaxi: 1,
+  spotter_drone: 2, toll_crew: 2,
+  patrols_collide: 3, casino_security_bot: 3
+};
+
+var ROAD_DIR = null, ROAD_LOG = [], ROAD_TAKEN = 0;
+
+/* THE FAUCET, AND IT IS ONLY EVER A FAUCET. TEN YEARS COLD clause 2 bans a price
+   that MOVES BY ITSELF and explicitly permits one that exists: "A tag is fine. A
+   market is not." So this credits `resources` with the ledger's own kind
+   `source` -- created from nothing and injected -- and touches no rate, no
+   conversion and neither of the two [PENDING Paolo] tables. */
+function roadLeave(ev){
+  var kg = ROAD_LEAVINGS[ev.id] || 0;
+  if(kg <= 0) return 0;
+  try{
+    var p = purseGet(); if(!p) return 0;
+    var day = (typeof DAY !== 'undefined' && DAY.day) ? DAY.day : 0;
+    var r = BohemiaPurse.credit(p, 'resources', kg,
+              'left on the road: ' + ev.id, 'road:' + ev.seq, day);
+    if(!r || !r.applied) return 0;
+    ROAD_TAKEN += kg;
+    return kg;
+  }catch(_e){ return 0; }
+}
 
 /* __THE_ROAD_CARD_IS_NOT_A_LOCK__ -- AND IT GETS OUT OF THE WAY BY ITSELF.
    Shaped after vistaBail, and for the same reason it exists: "a direction is not
@@ -28190,14 +28231,17 @@ function roadInterrupt(spentSeconds){
        game already spends. */
     var mins = ROAD_COST[got.kind] || 0;
     if(mins>0){ try{ advance(mins); }catch(_e){} }
-    try{ roadCard(got, mins); }catch(_e){}
+    /* __THE_ROAD_LEAVES_SOMETHING__: and what it left behind, if anything. Most of the time
+       nothing, on purpose. */
+    var kg = 0; try{ kg = roadLeave(got); }catch(_e){}
+    try{ roadCard(got, mins, kg); }catch(_e){}
   }
   return got;
 }
 
 /* WHAT HE SEES. Reuses cardShow, which already gives every card a real close, a
    scrim tap and Escape (__EVERY_PANEL_CLOSES__). No second modal. */
-function roadCard(ev, mins){
+function roadCard(ev, mins, kg){
   if(typeof cardShow!=='function') return;
   /* __THE_ROAD_CARD_IS_NOT_A_LOCK__: this one card is not modal. Set BEFORE cardShow so the
      class is on the element the same frame it becomes visible. */
@@ -28208,6 +28252,10 @@ function roadCard(ev, mins){
   var words = ROAD_WORDS[ev.id] || '';
   var cost  = mins>0 ? ('<div class="rrow"><span class="rk">THAT COST YOU</span>'
                         + '<span class="rv">' + mins + ' MIN</span></div>') : '';
+  /* __THE_ROAD_LEAVES_SOMETHING__: no row at all when there is nothing, because an empty
+     "LEFT BEHIND: 0" every single time teaches him to stop reading the card. */
+  var left  = (kg>0) ? ('<div class="rrow"><span class="rk">LEFT ON THE ROAD</span>'
+                        + '<span class="rv">' + kg + ' KG SALVAGE</span></div>') : '';
   cardShow(
     /* THE HEADER KEEPS ITS HANDS OFF THE CLOSE BUTTON. cardShow's close is
        float:right, and a block box does not sit BESIDE a float, it sits UNDER
@@ -28219,7 +28267,7 @@ function roadCard(ev, mins){
     + '<div class="rv" style="text-align:left;margin-bottom:10px">'
       + esc(String(ev.name).toUpperCase()) + '</div>'
     + '<div class="rwhy" data-draft="true">' + esc(words) + '</div>'
-    + cost
+    + cost + left
     + '<div class="mrow" data-act="close"><span class="mgood">KEEP MOVING</span>'
       + '<span class="mprice">\u2192</span></div>');
 }

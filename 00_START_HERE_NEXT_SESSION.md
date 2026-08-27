@@ -73593,6 +73593,73 @@ believing what they tell you.
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+RUN (run-eak241): 8/27 (c) LATEST -- *** THE ROAD LEAVES SOMETHING BEHIND.
+Dispatch item 8's other half. TAB: RUN. Nothing to judge. ***
+
+The enemies landed this morning and NOTHING CAME OFF THEM. A road that stops you
+twelve times on the way across the valley and hands you nothing is a toll booth.
+
+*** LOOT IS NOT A NEW SYSTEM AND THAT IS THE WHOLE POINT. *** The obvious build
+is an item table, a rarity roll and an inventory, and it would have been wrong.
+BOHEMIA ALREADY HAS AN ECONOMY: engine/bohemia_economy.js holds GOODS with
+researched anchors -- water 4.0 L/adult/day, food as ~2000 kcal rations, meds by
+the dose -- and SALVAGE (kg), whose own note reads "the numeraire until Paolo
+names the money". bohemia_purse.js holds the ledger, his three LOCKED currencies
+and four entry kinds. So loot is resources landing in the ledger the game already
+keeps, and it MEANS something the instant it drops instead of being an orphan
+number waiting for a system to give it a job. That is the invisible-hats failure
+prevented in advance instead of discovered in five weeks.
+
+MOST OF IT IS NOTHING AND THAT IS THE FEATURE. Real collapse looting takes the
+food and water inside 24-48 hours, then crews take the pharmacies; in this world
+THAT HAPPENED TEN YEARS AGO (TEN YEARS COLD, 7/31). And survival designers leave
+most containers empty for the same pacing reason -- scarcity is what makes a find
+feel like anything. REALISM AND FUN AGREE HERE, so under REALISM FIRST as amended
+8/25 there was no tie to break. MEASURED: 8 of 12 road moments left nothing.
+
+THE AMOUNT IS DERIVED, NOT PICKED. One question: how much MANUFACTURED stuff was
+that thing carrying? A salvage economy wants metal, not meat. Dogs, coyote and
+snake 0. The man with no shoes 0. The desperate scavenger 1, because he has
+almost nothing and that IS him. Drone and toll crew 2. Two crews colliding 3,
+because the roster's own verb says "join, third-party, LOOT AFTER, or walk on".
+The dead casino bot 3 -- the one place the fiction and the economy say the same
+thing out loud.
+
+NOTHING IS EVER TAKEN FROM HIM. the_snatcher's approved ends is "loss without
+death", so a loss IS the approved design and I am not overruling it. It is not
+built because THE CHASE IS NOT BUILT, and an unavoidable loss you cannot win back
+is a tax wearing the mechanic's name. Written down rather than shipping half an
+approved idea quietly. The gate holds zero debits, ever.
+
+A TAG IS FINE, A MARKET IS NOT -- TEN YEARS COLD clause 2's own boundary. Every
+entry is currency `resources`, kind `source`, a pure faucet. No rate, no drift,
+no conversion. PRICES and PAYOUT stay empty and stay his. The numbers 0-3 are
+MINE and print in the gate every run.
+
+  ROAD LEAVINGS  15 passed, 0 failed
+  MEASURED: 12 road moments over 140 cells, 8 left nothing, purse 0 -> 6
+  resources across 4 road entries (source), 0 debits
+  MUTATIONS: pickup removed 15 -> 11/4 · a debit added 15 -> 12/3
+
+*** TWO THINGS THE MUTATIONS FOUND, AND BOTH ARE LESSONS. ***
+1. THE GATE'S OWN SUMMARY LINE WAS LYING. It printed "... across N source
+   entries · 0 debits" with BOTH "source" and "0 debits" HARDCODED, and on the
+   debit mutation it printed "0 debits" on the same run where the claim three
+   lines above reported 3. THIRD TIME this shape has shown up in this lane's
+   gates this week. Every number in that line is measured now.
+2. THE FIRST DEBIT MUTATION PROVED NOTHING AND I NEARLY BELIEVED IT. It made
+   the_snatcher take 1 kg and the gate stayed 15/0. The tempting read is "the
+   claim is decoration". The real answer: THE SNATCHER NEVER FIRED IN THAT WALK,
+   so the mutated line never executed. CHECK THAT A MUTATION ACTUALLY EXECUTED
+   BEFORE YOU TRUST WHAT IT TELLS YOU.
+
+WHAT THIS DOES NOT DO: no inventory (the purse is the inventory), no rarity roll
+(the amount comes from the fiction), nothing to spend it on yet (PRICES is empty
+and it is his), and the snatcher does not steal until the chase exists.
+Record: records/BOHEMIA_THE_ROAD_LEAVES_SOMETHING_8_27_26.txt
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/27 (b) LATEST -- *** AN APPROVED SYSTEM WITH ZERO CALLERS
 FINALLY HAS ONE: crossing the valley now has a MIDDLE. Plus the half of his bug
 report yesterday did not fix, and both of this lane's reds are closed.

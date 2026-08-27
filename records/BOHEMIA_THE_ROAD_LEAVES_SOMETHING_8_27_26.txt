@@ -1,0 +1,153 @@
+THE ROAD LEAVES SOMETHING BEHIND
+8/27/26 - RUN lane. Dispatch item 8's other half.
+================================================================================
+
+    Paolo 8/25, the playtest dispatch, item 8:
+    "ENEMIES, LOOT, and Valheim-style DANGER BY PLACE."
+
+The enemies landed this morning. NOTHING CAME OFF THEM. A road that stops you
+twelve times on the way across the valley and hands you nothing is a toll booth.
+
+--------------------------------------------------------------------------------
+LOOT IS NOT A NEW SYSTEM, AND THAT IS THE WHOLE POINT
+--------------------------------------------------------------------------------
+
+The obvious build is an item table, a rarity roll and an inventory. That build
+would have been wrong, and this repo has five weeks of receipts for why.
+
+BOHEMIA ALREADY HAS AN ECONOMY:
+
+    engine/bohemia_economy.js   GOODS -- water (L, 4.0/adult/day), food (ration,
+                                ~2000 kcal), meds (dose), fuel (L), power (kWh),
+                                and SALVAGE (kg), whose own note reads "the
+                                numeraire until Paolo names the money". Every one
+                                carries a researched anchor.
+    engine/bohemia_purse.js     the ledger, his three LOCKED currencies
+                                (resources, electricity, clout), and four honest
+                                entry kinds: source, drain, convert, transfer.
+
+So loot is SALVAGE, in the currency the game already counts, landing in the
+ledger the game already keeps. Which means the moment something drops it ALREADY
+MEANS SOMETHING, instead of being an orphan number waiting for a system to give
+it a job.
+
+That is the invisible-hats failure prevented in advance instead of discovered in
+five weeks. Seventeen hats nobody could see. Four Colorful garments worn by
+nobody. An encounter director with zero callers, wired this morning. The pattern
+is always the same: a finished thing with no connection to the rest.
+
+--------------------------------------------------------------------------------
+MOST OF IT IS NOTHING, AND THAT IS THE FEATURE
+--------------------------------------------------------------------------------
+
+TEN YEARS COLD (Paolo 7/31, LOCKED): the crash is a decade in the past.
+
+The research on real collapse looting is unambiguous about the order. Food and
+water go in the first 24 to 48 hours. Then organised crews take the pharmacies
+and the gun shops. IN THIS WORLD THAT HAPPENED TEN YEARS AGO. Anything a
+desperate person could carry has been carried, twice.
+
+And the game-design research lands in the same place from the other side:
+scarcity is what makes a find feel like anything, and survival designers
+deliberately leave most containers empty for exactly that reason.
+
+REALISM AND FUN AGREE HERE, WHICH IS RARE, SO NOTHING HAD TO BE TRADED. Under
+REALISM FIRST as amended 8/25 (fun carries the tie), there was no tie to break.
+
+    MEASURED ON A REAL CROSSING: 8 of 12 road moments left nothing.
+
+--------------------------------------------------------------------------------
+THE AMOUNT IS DERIVED, NOT PICKED
+--------------------------------------------------------------------------------
+
+It answers exactly one question: HOW MUCH MANUFACTURED STUFF WAS THAT THING
+CARRYING? A salvage economy wants metal and parts, not meat.
+
+    feral_dog_pack       0   dogs do not carry cargo
+    coyote_shadow        0   neither do coyotes
+    rattlesnake          0   it is a snake
+    crazed_wanderer      0   his own line says he has no shoes
+    the_snatcher         0   deliberate, see below
+    bounty_squad         0   needs a kill count nothing can answer, never fires
+    scavenger_shakedown  1   he is desperate and has almost nothing. That IS him.
+    ghost_robotaxi       1   a cab still running its loop has parts on it
+    spotter_drone        2   four rotors and a battery
+    toll_crew            2   "they want a cut, not a corpse" -- a crew with kit
+    patrols_collide      3   the roster's own verb says "join, third-party, LOOT
+                             AFTER, or walk on"
+    casino_security_bot  3   A DEAD MACHINE IS THE BEST SALVAGE IN A DEAD CITY,
+                             and it is the one place the fiction and the economy
+                             say the same thing out loud
+
+--------------------------------------------------------------------------------
+NOTHING IS EVER TAKEN FROM HIM
+--------------------------------------------------------------------------------
+
+the_snatcher's approved verb is "grabs an item and RUNS -- a beat-timed chase"
+and its ends is "loss without death". So A LOSS IS THE APPROVED DESIGN and I am
+not overruling it.
+
+It is not built here because THE CHASE IS NOT BUILT. An unavoidable loss with no
+way to win it back is not the approved mechanic; it is a tax wearing its name.
+When the chase exists, the snatcher takes something.
+
+Today he takes nothing, and this is written down rather than half of an approved
+idea being shipped quietly. The gate holds it: zero debits, ever.
+
+--------------------------------------------------------------------------------
+A TAG IS FINE, A MARKET IS NOT
+--------------------------------------------------------------------------------
+
+TEN YEARS COLD clause 2 bans the whole CATEGORY of economic gameplay: "exchange
+rates. inflation. prices that move on a clock ... any market the player reads or
+plays." And it draws the boundary itself:
+
+    "What is banned is a price that MOVES BY ITSELF, not a price that exists.
+     A tag is fine. A market is not."
+
+This adds a FAUCET and nothing else. Every entry is currency `resources`, kind
+`source` -- the ledger's own words for "created from nothing and injected". No
+rate, no drift, no multiplier, no conversion, nothing the player can watch move.
+The PRICES and PAYOUT tables stay empty and stay his.
+
+THE NUMBERS 0 TO 3 ARE MINE. EVERYTHING COSTS ONE (8/15) reaches "any future
+resource price anybody is tempted to invent", so these are small whole numbers
+with a stated derivation instead of a curve, and they print in the gate every run
+so he can move any of them with one word.
+
+--------------------------------------------------------------------------------
+THE GATE, AND THE TWO THINGS THE MUTATIONS FOUND
+--------------------------------------------------------------------------------
+
+THE ROAD LEAVES SOMETHING    15 passed, 0 failed
+  MEASURED: 12 road moments over 140 cells, 8 left nothing, purse 0 -> 6
+  resources across 4 road entries (source), 0 debits.
+
+    MUTATION, the pickup removed     15/0 -> 11/4
+    MUTATION, a debit added          15/0 -> 12/3
+
+*** AND A MUTATION CAUGHT THE GATE'S OWN SUMMARY LINE LYING. *** It printed
+
+    "... across N source entries · 0 debits"
+
+with BOTH "source" and "0 debits" HARDCODED. On the debit mutation it cheerfully
+printed "0 debits" on the same run where the claim three lines above it reported
+3. A summary that cannot disagree with me is decoration, and this is the THIRD
+time this exact shape has appeared in this lane's gates this week. Every number
+in that line is measured now.
+
+*** AND THE FIRST DEBIT MUTATION PROVED NOTHING AND I NEARLY BELIEVED IT. *** It
+made the_snatcher take 1 kg, and the gate stayed green at 15/0. The tempting
+read is "the claim is decoration". The real answer is that THE SNATCHER NEVER
+FIRED IN THAT WALK, so the mutated line never executed. A mutation that does not
+run is not evidence either way. Re-run unconditionally, it turned 3 claims red.
+CHECK THAT THE MUTATION ACTUALLY EXECUTED BEFORE YOU TRUST WHAT IT TELLS YOU.
+
+--------------------------------------------------------------------------------
+WHAT THIS DOES NOT DO
+--------------------------------------------------------------------------------
+
+There is no inventory, because the purse is the inventory and it already exists.
+There is no rarity roll, because the amount is derived from the fiction.
+There is nothing to spend it on yet: PRICES is empty and it is his.
+The snatcher does not steal, and will when the chase is built.
