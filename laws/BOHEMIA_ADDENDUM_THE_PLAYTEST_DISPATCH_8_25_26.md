@@ -33,6 +33,28 @@ TWO SEPARATE THINGS, AND THE SECOND ONE IS THE FINDING:
     a real one for a ¾ view game where the camera is on the south side.
 **BOTH ARE RULED IN: fix the flicker, and BUILD the wall fade.**
 
+> ### CORRECTION, 8/26 (WORLD lane) — (b) WAS WRONG, AND HIS WORDS SAID SO
+> **THE WALL-OPACITY SYSTEM EXISTS.** `__XRAY_WHOLE_BUILDING__` has been on the
+> walked surface since **8/3**, on his own ruling that day ("the building should
+> become see through", "Building should be absolutely transparent"). MEASURED on
+> the real page: it fires on **60 of 60** trials standing behind a wall in the
+> district he spawns in. The line above — "I checked: nothing fades, ghosts or
+> cuts away a wall" — checked the wrong thing and then routed a lane to build
+> something that already existed.
+> **HIS SENTENCE ALREADY SAID IT**: *"I HOPE THAT'S NOT FOR ME ... AND IT'S
+> SUPPOSED TO BE THE WALL OPCAICITY."* He is not reporting a missing feature. He
+> is asking whether the thing he just watched change was the wall opacity, because
+> it looked like a bug. **(a) and (b) were never two items. They were one.**
+> WHAT WAS ACTUALLY WRONG: all three fade rules were BINARY — 1, or WALL_SEE, or
+> XRAY_A, decided fresh every frame with nothing between — so **a wall crossed
+> 0.65 of alpha in a single footstep**. A hard step in opacity as you walk IS a
+> flicker; there is no other way for it to read. Fixed 8/26 with a ramp in space
+> and an ease in time: worst single-frame change 0.11, and it is gated.
+> THE LESSON IS THE ONE THIS REPO KEEPS RE-LEARNING: **a negative result is a
+> claim about your instrument until you have shown the instrument could have seen
+> a positive one.** "I checked and it is not there" needed a positive control.
+> Gate: `gates/wall_fade_gate.js`
+
 ## 2. THE QUESTS ARE NOT IN THE WORLD, AND THE FEED ART IS UNREADABLE
 > "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR PEOPLE IN THE
 > CITY. AND THE ART FOR THE QUEST LOGS IS SO FUCKING BAD WHEN ITS ON MY

@@ -2239,6 +2239,34 @@ WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DI
    and the same rule everywhere so it never reads as a bug.
    | he walks behind the south wall and can still see himself, gated on
    real pixels | — | he plays it. TAB: RUN. ***
+   *** SHIPPED 8/26. records/BOHEMIA_THE_WALL_WAS_NEVER_MISSING_8_26_26.md.
+   AND (b) OF THIS ROW WAS WRONG. THE WALL-OPACITY SYSTEM EXISTS -- it has since
+   8/3, on his own ruling that day, and it fires on 60 of 60 trials standing
+   behind a wall in the district he SPAWNS in. The "I checked the walked surface
+   and the engine, nothing fades" line checked the wrong thing and then routed a
+   lane to build something that was already there. HIS SENTENCE SAID SO: "I HOPE
+   THATS NOT FOR ME ... ITS SUPPOSED TO BE THE WALL OPCAICITY" is a man asking
+   whether the change he just watched WAS the feature, because it looked broken.
+   (a) and (b) were one item.
+   WHAT WAS WRONG: all three fade rules were BINARY -- 1, or WALL_SEE, or XRAY_A,
+   recomputed every frame with nothing between -- so A WALL CROSSED 0.65 OF ALPHA
+   IN ONE FOOTSTEP. That IS the flicker; there is no other way for a hard opacity
+   step to read while you walk. Each of the three rules is individually correct,
+   which is why reading them never finds it.
+   FIXED with a RAMP IN SPACE (continuous by distance to the footprint, radius
+   2 -> 5 tiles so it opens on approach) and an EASE IN TIME (per-cell, 0.22 a
+   frame, so no single frame can jump). Floor 0.12 -> 0.22: 12% is 88% deleted,
+   which is a hole, not glass. Largest single-frame change 0.65 -> 0.112.
+   GATE: gates/wall_fade_gate.js, 10 checks, walks 28 tiles on the real page and
+   fails on any wall moving >0.18 in a frame; asserts the fade is MOVING (a build
+   with no fade passes a no-change test); holds the 8/3 door ruling; and carries
+   a mutation that is honest about its own scope after the first version rebound
+   NOTHING and cleared the ceiling by 0.006.
+   THE LESSON: a negative result is a claim about your instrument until you have
+   shown the instrument could have seen a positive one. The correction is written
+   into the dispatch addendum itself, beside the sentence that was wrong. ***
+
+
 ALIVE-1. *** THE CITY IS DEAD AND DEAD IS NOT THE DEFAULT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT... THE CITY
    SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A

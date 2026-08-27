@@ -28635,9 +28635,54 @@ const WALL_SEE=0.35;            /* how much of a wall is left when it is hiding 
    he is at goes transparent: one object, resolved once a frame off inFootprint.
    0.12 and NOT skipped -- skipping deletes the wall instead of making it see-through, and
    it kills the reduced-alpha draw the 7/27 THREE-TILE WALL law asserts. */
-const XRAY_R=2;
-const XRAY_A=0.12;
+/* *** AND IT POPPED, WHICH IS THE BUG HE ACTUALLY FILED (8/26). ***
+   Paolo 8/25, PLAYTEST DISPATCH item 1: "WTF IS GOING ON HERE WITH THE SOUTH PART OF THE
+   BUILDING THE WALL CHANGES I HOPE THATS NOT FOR ME WHEN IM SUPPOSED TO BE BEHIND A WALL
+   FACING THE CAMERA AND ITS SUPPOSED TO BE THE WALL OPCAICITY."
+   THAT DISPATCH WAS READ WRONG AND THE RECORD SHOULD SAY SO. It was filed as two items --
+   "(a) a flicker bug" and "(b) THERE IS NO WALL-OPACITY SYSTEM IN THIS BUILD. I checked."
+   THERE IS ONE. It is this, it has been here since 8/3, and MEASURED ON THE REAL PAGE it
+   fires on 60 of 60 trials standing behind a wall in the district he spawns in. He was not
+   reporting a missing feature. He was reporting THIS FEATURE LOOKING WRONG, and his own
+   sentence says so: "I HOPE THAT'S NOT FOR ME ... IT'S SUPPOSED TO BE THE WALL OPACITY."
+   WHY IT LOOKED WRONG, measured by walking him 24 tiles past his own house and recording
+   the alpha of every wall cell each step: *** A WALL JUMPS 0.65 OF ALPHA IN ONE FOOTSTEP.
+   *** Solid to a third opacity between one tile and the next, because all three fade rules
+   here were BINARY -- 1, or WALL_SEE, or XRAY_A, decided fresh every frame with nothing
+   between. A hard step in opacity as you walk IS a flicker; there is no other way for it
+   to read.
+   THE FIX IS THE ONE EVERY GAME IN THIS GENRE USES, and the research says the same
+   (Project Zomboid shipped a hard cutaway and its own players called it worse than the
+   blacked-out rooms it replaced): FADE, NEVER SNAP. Two changes, and they are independent:
+     A RAMP IN SPACE -- the building starts opening while he is still walking up to it
+       instead of at the last step, so the change is spread over metres, not one tile.
+     AN EASE IN TIME  -- whatever the target is, the drawn alpha only ever moves a fraction
+       of the way there per frame, so no single step can produce a jump at all. This alone
+       makes a pop impossible even if a target does change abruptly.
+   AND 0.12 IS A HOLE, NOT A WINDOW. The comment below already argued that skipping the
+   draw "deletes the wall instead of making it see-through" -- 12% is 88% deleted, which is
+   the same complaint one step quieter. It reads as glass at 0.22. */
+const XRAY_R=5;              // OPEN ON APPROACH: was 2, which is the last step before contact
+const XRAY_A=0.22;           // glass, not a hole (was 0.12)
+const XRAY_IN=1.5;           // inside this, fully open; between here and XRAY_R it ramps
+const XRAY_LERP=0.22;        // per frame, so a target change takes ~5 frames to arrive
 let XRAY_FP=null, XRAY_FP_K='';
+/* THE EASE. One number per wall cell, moved a fraction toward its target each time that
+   cell is drawn. Bounded the way every other cache on this page is bounded -- a map that
+   grows with the walked world is a leak, and this one is keyed by world position. */
+const XRAY_EASE=new Map();
+function xrayEase(k,target){
+  let cur=XRAY_EASE.get(k);
+  /* FIRST SIGHT DOES NOT POP EITHER. A cell coming into view starts AT its target rather
+     than easing up from solid, or every wall would flash as it entered the frame -- which
+     would be a new flicker introduced by the fix for the old one. */
+  if(cur===undefined) cur=target;
+  else { cur+=(target-cur)*XRAY_LERP; if(Math.abs(cur-target)<0.004) cur=target; }
+  XRAY_EASE.set(k,cur);
+  if(XRAY_EASE.size>6000){ const it=XRAY_EASE.keys();
+    for(let i=0;i<1500;i++){ const n=it.next(); if(n.done)break; XRAY_EASE.delete(n.value); } }
+  return cur;
+}
 function xrayFootprint(){
   const k=hx+','+hy;
   if(k===XRAY_FP_K) return XRAY_FP;
@@ -28654,6 +28699,21 @@ function xrayFootprint(){
 function xrayHas(gx,gy){
   const fp=xrayFootprint(); if(!fp)return false;
   return gx>=fp.x&&gx<fp.x+fp.w&&gy>=fp.y&&gy<fp.y+fp.h;
+}
+/* HOW OPEN THE BUILDING IS, AS ONE NUMBER FOR THE WHOLE BUILDING. Paolo ruled on 8/3 that
+   the transparency is ONE OBJECT ("the building should become see through", "absolutely
+   transparent"), so the ramp is driven by his distance to the FOOTPRINT and every cell of
+   that building wears the same value. A per-cell gradient across one house would be a
+   different feature and he did not ask for it. */
+function xrayTarget(){
+  const fp=xrayFootprint(); if(!fp) return 1;
+  const dx=Math.max(fp.x-hx, 0, hx-(fp.x+fp.w-1));
+  const dy=Math.max(fp.y-hy, 0, hy-(fp.y+fp.h-1));
+  const d=Math.max(dx,dy);                       // chebyshev, same shape as the search
+  if(d<=XRAY_IN) return XRAY_A;
+  if(d>=XRAY_R)  return 1;
+  const t=(XRAY_R-d)/(XRAY_R-XRAY_IN);           // 0 at the outer edge, 1 at the inner
+  return 1-t*(1-XRAY_A);
 }
 const TALLCV=new Map();
 function tallTex(pool,v,n){
@@ -28849,16 +28909,30 @@ function facadePass(ox,oy,C,front,pgy,pbox){
       /* SEE-THROUGH: only a wall that is actually covering him fades, and only
          one that is in front. Everything else stays solid, so the world does
          not shimmer while he walks. */
+      /* *** ONE TARGET, THEN ONE EASE. NOTHING HERE SNAPS. *** (8/26)
+         This block used to pick between 1, WALL_SEE and XRAY_A and assign it straight to
+         globalAlpha, so a wall crossed 0.65 of alpha in a single footstep and the building
+         he was standing at blinked. Now the three rules only choose a TARGET, and the
+         drawn value is eased toward it, per cell, over frames. Same three rules, same
+         precedence, no pop. */
       let a=1;
       if(front&&pbox&&dx<pbox.x1&&dx+C>pbox.x0&&top<pbox.y1&&dy+C>pbox.y0)a=WALL_SEE;
       /* __XRAY_WHOLE_BUILDING__ -- his building, whole, absolutely transparent. */
       if(xrayHas(gx,gy)){
-        a=XRAY_A;
+        a=Math.min(a,xrayTarget());
         if(typeof window!=='undefined') window.__XRAY_WALLS=(window.__XRAY_WALLS||0)+1;
-      } else if(a===1&&Math.abs(gx-hx)<=XRAY_R&&Math.abs(gy-hy)<=XRAY_R){
-        a=WALL_SEE;
-        if(typeof window!=='undefined') window.__XRAY_WALLS=(window.__XRAY_WALLS||0)+1;
+      } else if(a===1){
+        /* AND THE SAME RAMP FOR A WALL HE IS SIMPLY STANDING AGAINST, which used to be a
+           hard box of radius XRAY_R around him -- a square of walls that switched on and
+           off as he walked, on a rule that never asked whether anything was in his way. */
+        const dd=Math.max(Math.abs(gx-hx),Math.abs(gy-hy));
+        if(dd<=XRAY_R){
+          const t=dd<=XRAY_IN?1:(XRAY_R-dd)/(XRAY_R-XRAY_IN);
+          a=1-t*(1-WALL_SEE);
+          if(typeof window!=='undefined') window.__XRAY_WALLS=(window.__XRAY_WALLS||0)+1;
+        }
       }
+      a=xrayEase(gx+','+gy,a);
       g.globalAlpha=a;
       /* WALL TAXONOMY (Paolo 7/17, LOCKED): "the walls of suburb communities,
          different than like building wall". The two classes never share a pool,

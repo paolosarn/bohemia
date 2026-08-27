@@ -85,6 +85,20 @@ GATES = [
      'yellow=direction, white=lane', False),
     ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
      'no street dead-ends into empty lots', False),
+    ('WALL FADE',      ['node', 'gates/wall_fade_gate.js'],
+     "Paolo 8/25 dispatch item 1: \"THE WALL CHANGES I HOPE THATS NOT FOR ME WHEN IM "
+     "SUPPOSED TO BE BEHIND A WALL ... ITS SUPPOSED TO BE THE WALL OPCAICITY\". The "
+     "dispatch filed that as TWO items and the second one -- 'THERE IS NO WALL-OPACITY "
+     "SYSTEM IN THIS BUILD, I checked' -- was WRONG: it has existed since 8/3 and fires "
+     "on 60 of 60 trials behind a wall in the district he spawns in. He was reporting the "
+     "feature LOOKING wrong, and his own sentence says so. What was wrong: all three fade "
+     "rules were binary, so a wall crossed 0.65 of alpha IN ONE FOOTSTEP -- which is what "
+     "a flicker is. Now a ramp in space plus an ease in time; this gate walks the real "
+     "page and fails if any wall moves more than 0.18 of alpha in a single frame, checks "
+     "the fade is really moving (a frozen build would pass a no-change test), holds his "
+     "8/3 ruling that the DOOR does not fade with its wall, and carries a mutation that "
+     "turns the ease off and must go red -- written honestly about its own scope after a "
+     "first version rebound nothing and cleared the ceiling by 0.006.", False),
     ('FLOOR',          ['node', 'gates/floor_gate.js'],
      "Paolo 8/26, and it is the SECOND time (first was 8/6 \"Tile wood and carpet bro "
      "ofc bro wtf\"): \"all the floors of the interior look like dog shit\". Every "
