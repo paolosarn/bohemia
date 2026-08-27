@@ -1,5 +1,5 @@
 {
- "built": "8/27/26",
+ "built": "8/8/26",
  "shots": [
   {
    "id": "the-way-in",
@@ -11,7 +11,7 @@
     "y": 11493,
     "zoom": 22
    },
-   "kb": 257,
+   "kb": 251.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-way-in"
@@ -41,7 +41,7 @@
     "y": 789,
     "zoom": 26
    },
-   "kb": 274.3,
+   "kb": 274.1,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-spawn-sidewalk"
@@ -126,7 +126,7 @@
     "y": 3352,
     "zoom": 44
    },
-   "kb": 301.9,
+   "kb": 301.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-suburb"
@@ -141,7 +141,7 @@
     "y": 3195,
     "zoom": 44
    },
-   "kb": 145.8,
+   "kb": 145.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-road"
@@ -156,7 +156,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 202.3,
+   "kb": 202.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-desert"
@@ -171,7 +171,7 @@
     "y": 3364,
     "zoom": 22
    },
-   "kb": 219.5,
+   "kb": 219.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-density"
@@ -197,7 +197,7 @@
     "y": 2183,
     "zoom": 30
    },
-   "kb": 179,
+   "kb": 178.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-pit"
@@ -212,7 +212,7 @@
     "y": 4305,
     "zoom": 30
    },
-   "kb": 96.5,
+   "kb": 96.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-cluster"
@@ -227,7 +227,7 @@
     "y": 953,
     "zoom": 26
    },
-   "kb": 175.4,
+   "kb": 175.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-pit-dug"
@@ -323,7 +323,7 @@
     "y": 770,
     "zoom": 22
    },
-   "kb": 419.8,
+   "kb": 419.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-bad-footing"
@@ -566,7 +566,7 @@
    "stamp": "8/27/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_portrait_pops_up.js",
-   "kb": 182.1
+   "kb": 181.7
   },
   {
    "id": "one-id-one-person",
