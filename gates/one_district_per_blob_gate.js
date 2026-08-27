@@ -168,7 +168,7 @@ ok('the districts that build across a blob are found by ASKING THEM, not by pars
    NOT been wired as a cluster are listed too -- not failed, because building them is work
    nobody has done yet, but named, because a silent list is how a backlog stops existing. */
 const todo = [];
-let checked = 0, multiplied = [];
+let checked = 0, multiplied = [], vanished = [];
 for (const b of blobs) {
   const spec = K.get(b.d);
   if (!spec || typeof spec.generate !== 'function' || typeof spec.body !== 'function') continue;
@@ -206,7 +206,22 @@ for (const b of blobs) {
   const perOne = nCell / b.cells.length;
   const constant = nBlob <= Math.max(2, Math.round(perOne * 2));
   if (!(constant && nBlob < nCell)) multiplied.push(b.d + ' (' + nCell + ' -> ' + nBlob + ')');
+  /* AND THE HOLE IN THE RULE ABOVE (8/27): `nBlob < nCell` is satisfied by nBlob === 0.
+     "Stopped multiplying" and "disappeared" are the same number to that test, so a district
+     whose facility VANISHED when it was clustered passes this gate in silence -- and
+     vanishing is the worse of the two failures, because a duplicated data fort is at least
+     visible from the street.
+     FOUND FROM THE OTHER END. valley_census grew a leg meaning to catch exactly this and
+     COULD NOT: the census SAMPLES plots, and a solar farm is hundreds of cells with one
+     control building in it, so a sample almost never lands on the building and "no facility"
+     and "not sampled" are the same reading there. THE CHECK BELONGS WHERE THE DISTRICT IS
+     ACTUALLY CONSTRUCTED, which is here, with both builds in hand and nothing sampled.
+     nCell > 0 is the qualifier: a district with no hero structure under EITHER build has
+     nothing to lose -- a lined flood channel has no buildings and never did. */
+  if (nCell > 0 && nBlob === 0) vanished.push(b.d + ' (' + nCell + ' per cell -> NOTHING as one district)');
 }
+ok('A CLUSTERED FACILITY IS BUILT ONCE, NOT ZERO TIMES: no district loses its hero structure altogether when it is built for its whole blob'
+   + (vanished.length ? ' -> ' + vanished.join(', ') : ''), vanished.length === 0);
 ok('every cluster blob in the valley was assembled and counted (' + checked + ' blobs)', checked >= 3);
 ok('A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT MORE GROUND: built as one district its '
    + 'hero structures stop scaling with the number of cells, and are strictly fewer than '
