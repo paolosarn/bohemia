@@ -1117,7 +1117,88 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/27 (c) LATEST -- *** THE DEMO'S LAST MOMENT MADE NO
+SOUND (sound-xk7pjp): 8/28 (a) LATEST -- *** NINETY NEW SOUNDS. He said "we need
+way more sounds bro!!!!" and this is ninety, eighteen pools, no plumbing. The
+biggest SFX batch this lane has ever cooked. TAB: MUSIC, they are on the judge
+board, five per moment, none of them canon. ***
+
+Build 8/28m - NINETY NEW SOUNDS.
+
+WHY THESE EIGHTEEN, MEASURED OFF THE SHIPPED BANK
+  55 moments carry an approved sound. TWELVE HAVE AN EFFECTIVE POOL OF ONE --
+  the game plays a byte-identical sample every single time. Two of those twelve
+  are siblings that never play alone, and casing is excluded, so NINE moments
+  repeat identically. Wave 2 takes the nine moments left on a pool of TWO,
+  because two samples under a repeated action is a two-beat pattern and in an
+  engine where everything quantises to 120 BPM an even pool locks to the meter.
+  THE MACHINE GUN EFFECT is the oldest known failure in game audio. The fix is
+  round-robin, and the non-obvious part is that the pool should be ODD so the
+  cycle never falls into step with the action. Five per moment. The engine's
+  shuffle already refuses an immediate repeat -- the mechanism was built and it
+  was starving.
+
+CASING IS NOT COOKED, AND HE DID ASK FOR MORE SOUNDS
+  brass_more is on the engine's own onceDeadWhole list: "casing stays at one
+  variant and does not get another cook unless he asks." He asked for MORE
+  SOUNDS; that is not asking for THIS sound again. Reading it the other way
+  would let any broad ask reopen every grave in the file.
+
+THE METHOD SPLIT IS HIS DATA
+  instrument 0.48, friction 0.46, modal 0.35, fm 0.13, particle and air BARRED
+  at 0 for 30. Nine friction, five modal, four instrument. No mat 'metal' (3 UP
+  / 22 DOWN). Every space at or under 0.2 -- DO NOT ANNOUNCE THE ROOM is the
+  reading his four whole-batch deaths gave, and both 5/5 sweeps sat at 0.14/0.16.
+
+MEASURED
+  SFX RENDER 7475/0 -- 600 candidates rendered, silent on time, identical twice
+  SFX SHUFFLE / SFX WIRED / INSTRUMENTS / SFX ENVELOPE / ALPHA LOADS all GREEN
+  SFX DIVERSITY still RED and this batch moved it a long way:
+      before  instrument 105 of 155 living = 67.7%   needs ~11 more moments
+      after   instrument 125 of 215 living = 58.1%   needs ~7 more moments
+  Not closed, and not closable by padding: the gate says so itself, 30 of the 32
+  silent moments are spent, particle and air are barred.
+
+*** FOUR MISTAKES, ALL MINE, ALL FOUND BY RUNNING IT ***
+  1. I BUILT THE WHOLE FIRST VERSION ON A STALE CHECKOUT. The container came
+     back rolled back to an 8/19 snapshot with origin/main pointing at 8/2. I
+     measured, wrote twelve recipes, cooked a batch -- and named it BATCH 10,
+     WHICH ALREADY EXISTS (this lane's own SFX-10, 8/20). `git fetch origin
+     <branch>` had been returning a stale ref; `git fetch origin --prune` did
+     not. FLEET NOTE: if your numbers disagree with the repo, check the ref
+     before you trust the number.
+  2. A COMMA AFTER A COMMENT IS A HOLE, NOT A TRAILING COMMA. Both engine tables
+     end in comment lines, so my injector produced `}, /* end */,` -- an
+     elision. Engine parsed, file read fine, judge board died on `Cannot read
+     properties of undefined (reading 'ev')`.
+  3. THE SAME HOLE BY THE OPPOSITE ROUTE. Anchoring on the last real brace
+     carried the ORIGINAL separator comma along, giving `},\n,\n`. Twice in one
+     turn: the fix is not a cleverer anchor, it is OWNING EVERY SEPARATOR.
+  4. `width` IS A SPEC VALUE; STEREO WIDTH IS AN OUTCOME. seton_more rendered
+     dead mono, I raised `width`, and THE FAILURE MOVED TO ANOTHER VARIANT --
+     the tell that the field I changed was not the one that mattered. refl 0 vs
+     refl 1 was the cause.
+  AND A FIFTH, ABOUT MY INSTRUMENT: a probe said 57 of 71 proven voices render
+  SILENT. They are in shipped instSets that instrument_gate proves green every
+  run. My probe used a flat operating point; bodyInstrument uses instStep(v) and
+  semiOf(v.hz). Sixth time this session the answer was "the ruler is wrong".
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  His thumbs. Ninety candidates, five per moment, MUSIC tab -- nothing plays in
+  the game until he approves it, and the sibling wiring widens the moment by
+  itself the second he does. After that: ~7 more non-instrument moments would
+  close SFX DIVERSITY honestly, and NOT another music/voice batch (batch 25 went
+  0 for 8 and the newest signal wins).
+
+PROOF
+  records/BOHEMIA_NINETY_NEW_SOUNDS_8_28_26.md
+  tools/bohemia_sfx_batch11.py · records/BOHEMIA_SFX_FINGERPRINTS_7_29_26.txt
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/27 (c) -- *** THE DEMO'S LAST MOMENT MADE NO
 SOUND, AND THE THING YOU ARE NOT ALLOWED TO PRESS ANSWERED A TAP WITH NOTHING.
 Measured the day the ending shipped. 64 withheld verbs across the whole game
 were silent, not 5. Nothing to judge. ***

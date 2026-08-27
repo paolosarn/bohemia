@@ -968,6 +968,26 @@ const BOH_SFX = (function () {
        version that is true here, needs nobody to have driven anything, and
        belongs to the world rather than to combat cover. ---- */
     { ev: 'metal_ticks', label: 'THE METAL MOVES',    why: 'sun-heated sheet metal contracting as the day comes off it. irregular, and the gaps get longer as it cools. no engine, no driver, just steel and the desert' },
+    /* ---- BATCH SFX-11 EVENTS (8/28/26) ---- */
+    { ev: 'door_more',   label: 'THE DOOR DRAGS — MORE',   why: 'his own note on the parent: it hauls, it does not creak. one sample for every door in the valley' },
+    { ev: 'dry_more',    label: 'EMPTY — MORE',            why: 'you counted wrong, and you have counted wrong to the same click every time' },
+    { ev: 'eat_more',    label: 'EAT — MORE',              why: 'wet and close and a little unpleasant. nobody else hears you eat, and it is the same mouthful twice a day' },
+    { ev: 'lungs_more',  label: 'LUNGS BURN — MORE',       why: 'running out of air is a state you sit inside, and a state on one sample is a loop' },
+    { ev: 'mag_more',    label: 'MAGAZINE HOME — MORE',    why: 'seating a magazine happens every fight and lands identically every time' },
+    { ev: 'sign_more',   label: 'THE SIGN IS ALIVE — MORE', why: 'the one thing in a dead block that still moves, and it moves the same way forever' },
+    { ev: 'chip_more',   label: 'COVER LOSES A PIECE — MORE', why: 'the stone you are behind is eaten while you use it, and it is eaten identically every time' },
+    { ev: 'down_more',   label: 'YOU GO DOWN — MORE',      why: 'the biggest thing that can happen to you, on one sample' },
+    { ev: 'quit_more',   label: 'HIS WILL GOES — MORE',    why: 'a shooter becomes a person running. more of his voices for the moment a man quits' },
+    { ev: 'swing_more',  label: 'SWING THROUGH AIR — MORE', why: 'a blade opens air. every melee that misses draws from two, under a 120 BPM clock' },
+    { ev: 'wind_more',   label: 'WIND GUST — MORE',        why: 'the most-heard sound in the game outside footsteps, and it has two' },
+    { ev: 'buzz_more',   label: 'THE PHONE — MORE',        why: 'it rings in the morning and it lands the last message of the demo, on two samples' },
+    { ev: 'cloth_more',  label: 'CLOTH ON — MORE',         why: 'dressing happens every morning of the run and fabric is literally rubbing, which is the method he scores best after his own rack' },
+    { ev: 'tape_more',   label: 'TAPE PULL — MORE',        why: 'patching yourself up on two samples. tape peeling is friction with nothing else in it' },
+    { ev: 'power_more',  label: 'POWER ON — MORE',         why: 'LIGHT IS TERRITORY, and taking a block sounds the same every time you take one' },
+    { ev: 'tread_more',  label: 'BOOTS — MORE',            why: 'a boot on a hard floor, on a two-beat pattern under a 120 BPM clock' },
+    { ev: 'hunker_more', label: 'GETTING BEHIND IT — MORE', why: 'cover_more is what BLOCK draws from, and it is two deep for the thing a whole firefight is made of' },
+    { ev: 'seton_more',  label: 'SET IT DOWN — MORE',      why: 'placing a thing, twice, forever' },
+
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -2431,7 +2451,234 @@ const BOH_SFX = (function () {
       jit:  { hz: [112, 190], decay: [0.0625, 0.1875], width: [0.3, 0.52],
               dark: [1300, 2500] },
       instSets: ['templeblock', 'spoonclack', 'boneplate', 'bones', 'ironstep']
-    }
+    },
+    /* ---- BATCH SFX-11 RECIPES (8/28/26) ---- */
+    /* FIVE friction, FOUR instrument, THREE modal -- his own method scoreboard,
+       best first. No particle, no air: both barred at 0 for 30. No `mat:
+       'metal'`: 3 UP / 22 DOWN. Every space at or under 0.2, because DO NOT
+       ANNOUNCE THE ROOM is the reading his four whole-batch deaths gave.
+       The instrument pools reuse only voices SFX-10 measured at a real
+       operating point. A voice that does not resolve is a silent sound. */
+
+    /* ---- FRICTION: things that RUB ---------------------------------- */
+    door_more: {
+      base: { synth: 'friction', mat: 'stone', hz: 74, rough: 31, modes: 5,
+              bright: 0.38, decay: 0.5, damp: 1.6, warble: 0.9, atk: 0.125,
+              slide: -5, trans: 0.16, transHz: 700, transQ: 0.9, grit: 0.9,
+              gritHz: 520, space: 0.15, room: 0.1875, refl: 1, dark: 900,
+              width: 0.6, drive: 0.09, mkup: 0.78, gain: 0.32 },
+      jit:  { hz: [58, 112], rough: [22, 42], decay: [0.375, 0.625],
+              slide: [-8, -2], bright: [0.28, 0.55], grit: [0.78, 1],
+              gritHz: [400, 800], width: [0.5, 0.8], dark: [700, 1400] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    eat_more: {
+      base: { synth: 'friction', mat: 'water', hz: 155, rough: 19, modes: 5,
+              bright: 0.66, decay: 0.1875, damp: 2.3, warble: 1.3, atk: 0,
+              slide: -4, trans: 0.5, transHz: 1150, transQ: 0.9, grit: 0.68,
+              gritHz: 760, space: 0.05, room: 0.0625, refl: 0, dark: 1000,
+              width: 0.38, drive: 0.18, mkup: 1.1, gain: 0.34 },
+      jit:  { hz: [115, 215], rough: [13, 28], decay: [0.125, 0.25],
+              transHz: [780, 1900], grit: [0.5, 0.85], gritHz: [560, 1250],
+              warble: [0.8, 2.1], damp: [1.8, 2.7], width: [0.3, 0.5] },
+      hitSets: [[0], [0, 0.0625], [0], [0, 0.09375], [0]]
+    },
+    lungs_more: {
+      base: { synth: 'friction', mat: 'ash', hz: 96, rough: 13, modes: 5,
+              bright: 0.44, decay: 0.6875, damp: 1.8, warble: 1.7, atk: 0.1875,
+              slide: -3, trans: 0.09, transHz: 620, transQ: 0.7, grit: 0.8,
+              gritHz: 540, space: 0.16, room: 0.1875, refl: 1, dark: 880,
+              width: 0.66, drive: 0.06, mkup: 0.9, gain: 0.31 },
+      jit:  { hz: [78, 140], rough: [9, 20], decay: [0.5, 0.875],
+              atk: [0.125, 0.3125], slide: [-6, -1], warble: [1.2, 2.4],
+              bright: [0.34, 0.62], width: [0.55, 0.85], dark: [700, 1500] },
+      hitSets: [[0], [0], [0, 0.375], [0], [0]]
+    },
+    swing_more: {
+      base: { synth: 'friction', mat: 'ash', hz: 340, rough: 11, modes: 4,
+              bright: 0.95, decay: 0.1875, damp: 2.5, warble: 0.3, atk: 0.03125,
+              slide: -9, trans: 0.2, transHz: 2600, transQ: 1.2, grit: 0.7,
+              gritHz: 2200, space: 0.08, room: 0.0625, refl: 0, dark: 3200,
+              width: 0.58, drive: 0.07, mkup: 0.74, gain: 0.32 },
+      jit:  { hz: [250, 470], rough: [7, 17], decay: [0.125, 0.25],
+              slide: [-13, -5], bright: [0.75, 1.25], gritHz: [1700, 3100],
+              damp: [2, 2.7], width: [0.48, 0.78], dark: [2400, 4400] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    wind_more: {
+      base: { synth: 'friction', mat: 'ash', hz: 62, rough: 8, modes: 5,
+              bright: 0.34, decay: 1.25, damp: 1.3, warble: 2.1, atk: 0.375,
+              slide: 3, trans: 0.05, transHz: 480, transQ: 0.6, grit: 0.72,
+              gritHz: 420, space: 0.19, room: 0.25, refl: 1, dark: 700,
+              width: 0.8, drive: 0.04, mkup: 0.9, gain: 0.28 },
+      jit:  { hz: [48, 96], rough: [5, 14], decay: [1, 1.5],
+              atk: [0.25, 0.5], slide: [1, 5], warble: [1.5, 2.9],
+              bright: [0.26, 0.5], width: [0.68, 1], dark: [560, 1100] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+
+    /* ---- MODAL: things that are STRUCK ------------------------------ */
+    dry_more: {
+      base: { synth: 'modal', mat: 'bone', hz: 300, modes: 5, bright: 0.9,
+              decay: 0.09375, damp: 2.5, warble: 0.25, atk: 0, trans: 0.72,
+              transHz: 3600, transQ: 1.8, grit: 0.42, gritHz: 2400,
+              space: 0.06, room: 0.0625, refl: 0, dark: 2900, width: 0.48,
+              drive: 0.06, mkup: 0.86, gain: 0.34 },
+      jit:  { hz: [220, 430], decay: [0.0625, 0.15625], bright: [0.72, 1.2],
+              transHz: [2600, 4800], damp: [2, 2.7], width: [0.38, 0.64],
+              dark: [2200, 4200] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    mag_more: {
+      base: { synth: 'modal', mat: 'wood', hz: 178, modes: 6, bright: 0.66,
+              decay: 0.125, damp: 2.2, warble: 0.35, atk: 0, trans: 0.66,
+              transHz: 1800, transQ: 1.4, grit: 0.38, gritHz: 1300,
+              space: 0.08, room: 0.0625, refl: 0, dark: 2000, width: 0.5,
+              drive: 0.09, mkup: 0.84, gain: 0.33 },
+      jit:  { hz: [140, 265], decay: [0.09375, 0.1875], bright: [0.52, 0.95],
+              transHz: [1400, 2700], damp: [1.8, 2.6], grit: [0.26, 0.52],
+              width: [0.4, 0.68], dark: [1600, 3000] },
+      hitSets: [[0], [0, 0.0625], [0], [0], [0, 0.09375]]
+    },
+    down_more: {
+      base: { synth: 'modal', mat: 'stone', hz: 58, modes: 7, bright: 0.4,
+              decay: 1, damp: 1.2, warble: 1.4, atk: 0.0625, slide: -6,
+              trans: 0.3, transHz: 620, transQ: 0.8, grit: 0.34, gritHz: 460,
+              space: 0.2, room: 0.25, refl: 1, dark: 780, width: 0.78,
+              drive: 0.05, mkup: 0.94, gain: 0.34 },
+      jit:  { hz: [46, 92], decay: [0.75, 1.25], slide: [-11, -3],
+              bright: [0.3, 0.6], width: [0.66, 1], dark: [620, 1300] },
+      hitSets: [[0], [0], [0, 0.5], [0], [0]]
+    },
+
+    /* ---- INSTRUMENT: objects with a grain, off HIS rack -------------- */
+    /* only voices SFX-10 measured at a real operating point */
+    sign_more: {
+      base: { synth: 'instrument', inst: 'guiro', mat: 'ash', hz: 128,
+              modes: 5, bright: 0.6, decay: 0.3125, damp: 2, warble: 0.8,
+              atk: 0, trans: 0.42, transHz: 1500, transQ: 1.1, grit: 0.6,
+              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1500,
+              width: 0.62, drive: 0.07, mkup: 0.86, gain: 0.33 },
+      jit:  { hz: [100, 205], decay: [0.25, 0.4375], width: [0.5, 0.82],
+              dark: [1100, 2400] },
+      instSets: ['guiro', 'ratchet', 'rubboard', 'washboard', 'brushkit'],
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    chip_more: {
+      base: { synth: 'instrument', inst: 'pickscrape', mat: 'stone', hz: 400,
+              modes: 6, bright: 1.05, decay: 0.1875, damp: 2, warble: 0.5,
+              atk: 0, trans: 0.52, transHz: 5200, transQ: 2, grit: 0.52,
+              gritHz: 2900, space: 0.11, room: 0.125, refl: 1, dark: 3400,
+              width: 0.7, drive: 0.06, mkup: 0.88, gain: 0.33 },
+      jit:  { hz: [280, 580], decay: [0.15625, 0.28125], width: [0.58, 0.92],
+              dark: [2500, 4800] },
+      instSets: ['pickscrape', 'claves', 'spoonclack', 'rimshotr', 'cabasa'],
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    quit_more: {
+      base: { synth: 'instrument', inst: 'rubboard', mat: 'ash', hz: 110,
+              modes: 6, bright: 0.5, decay: 0.375, damp: 1.9, warble: 1.4,
+              atk: 0.0625, slide: -4, trans: 0.2, transHz: 900, transQ: 0.8,
+              grit: 0.5, gritHz: 700, space: 0.17, room: 0.1875, refl: 1,
+              dark: 1100, width: 0.7, drive: 0.06, mkup: 0.92, gain: 0.34 },
+      jit:  { hz: [88, 180], decay: [0.3125, 0.5], slide: [-8, -1],
+              bright: [0.4, 0.78], width: [0.6, 0.95], dark: [880, 1900] },
+      instSets: ['rubboard', 'guiro', 'ratchet', 'sodahiss', 'brushkit'],
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    buzz_more: {
+      base: { synth: 'instrument', inst: 'ratchet', mat: 'bone', hz: 96,
+              modes: 6, bright: 0.58, decay: 0.3125, damp: 1.9, warble: 2.4,
+              atk: 0, trans: 0.6, transHz: 980, transQ: 1.1, grit: 0.5,
+              gritHz: 720, space: 0.07, room: 0.0625, refl: 0, dark: 1200,
+              width: 0.52, drive: 0.12, mkup: 0.88, gain: 0.33 },
+      jit:  { hz: [76, 155], decay: [0.28125, 0.4375], warble: [1.8, 2.9],
+              bright: [0.44, 0.85], width: [0.42, 0.72], dark: [900, 1900] },
+      instSets: ['ratchet', 'guiro', 'rubboard', 'washboard', 'brushkit'],
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+
+    /* ---- WAVE 2: FRICTION AND MODAL ONLY ---------------------------- */
+    /* Six moments with an EVEN pool of two. No instrument here on purpose --
+       not to move a gate number, but because every one of these is either a
+       rub or a strike, and because instrument already holds the largest share
+       of the rack by a distance. */
+    cloth_more: {
+      base: { synth: 'friction', mat: 'ash', hz: 210, rough: 15, modes: 4,
+              bright: 0.58, decay: 0.25, damp: 2.2, warble: 0.6, atk: 0.03125,
+              slide: -3, trans: 0.14, transHz: 1600, transQ: 0.9, grit: 0.82,
+              gritHz: 1200, space: 0.07, room: 0.0625, refl: 0, dark: 1700,
+              width: 0.5, drive: 0.06, mkup: 0.82, gain: 0.31 },
+      jit:  { hz: [165, 300], rough: [10, 22], decay: [0.1875, 0.375],
+              bright: [0.44, 0.85], grit: [0.7, 0.95], gritHz: [900, 1900],
+              width: [0.4, 0.7], dark: [1300, 2600] },
+      hitSets: [[0], [0, 0.09375], [0], [0], [0, 0.125]]
+    },
+    tape_more: {
+      base: { synth: 'friction', mat: 'ash', hz: 280, rough: 24, modes: 4,
+              bright: 0.8, decay: 0.3125, damp: 2.3, warble: 0.7, atk: 0.03125,
+              slide: 4, trans: 0.18, transHz: 2200, transQ: 1, grit: 0.88,
+              gritHz: 1800, space: 0.06, room: 0.0625, refl: 0, dark: 2400,
+              width: 0.46, drive: 0.08, mkup: 0.8, gain: 0.32 },
+      jit:  { hz: [210, 400], rough: [17, 34], decay: [0.25, 0.4375],
+              slide: [1, 6], bright: [0.62, 1.1], gritHz: [1400, 2800],
+              width: [0.36, 0.66], dark: [1900, 3600] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    power_more: {
+      base: { synth: 'friction', mat: 'stone', hz: 88, rough: 20, modes: 5,
+              bright: 0.46, decay: 0.4375, damp: 1.7, warble: 1.8, atk: 0.0625,
+              slide: 2, trans: 0.32, transHz: 820, transQ: 1.1, grit: 0.76,
+              gritHz: 600, space: 0.13, room: 0.125, refl: 1, dark: 1000,
+              width: 0.6, drive: 0.1, mkup: 0.86, gain: 0.33 },
+      jit:  { hz: [70, 140], rough: [14, 29], decay: [0.3125, 0.5625],
+              warble: [1.3, 2.6], bright: [0.36, 0.7], width: [0.5, 0.82],
+              dark: [800, 1800] },
+      hitSets: [[0], [0, 0.1875], [0], [0, 0.125, 0.3125], [0]]
+    },
+    tread_more: {
+      base: { synth: 'modal', mat: 'bone', hz: 232, modes: 5, bright: 0.62,
+              decay: 0.125, damp: 2.1, warble: 0.4, atk: 0, trans: 0.6,
+              transHz: 1600, transQ: 1.2, grit: 0.36, gritHz: 1100,
+              space: 0.09, room: 0.0625, refl: 0, dark: 1800, width: 0.52,
+              drive: 0.07, mkup: 0.84, gain: 0.33 },
+      jit:  { hz: [180, 330], decay: [0.09375, 0.1875], bright: [0.48, 0.9],
+              transHz: [1200, 2500], damp: [1.7, 2.5], grit: [0.24, 0.5],
+              width: [0.42, 0.72], dark: [1400, 2700] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    hunker_more: {
+      base: { synth: 'modal', mat: 'stone', hz: 132, modes: 6, bright: 0.5,
+              decay: 0.21875, damp: 1.9, warble: 0.6, atk: 0.03125,
+              trans: 0.44, transHz: 1100, transQ: 1, grit: 0.5, gritHz: 820,
+              space: 0.12, room: 0.125, refl: 1, dark: 1300, width: 0.6,
+              drive: 0.08, mkup: 0.86, gain: 0.33 },
+      jit:  { hz: [104, 210], decay: [0.15625, 0.3125], bright: [0.38, 0.75],
+              transHz: [850, 1900], grit: [0.36, 0.66], width: [0.5, 0.82],
+              dark: [1000, 2100] },
+      hitSets: [[0], [0, 0.09375], [0], [0], [0, 0.0625]]
+    },
+    seton_more: {
+      base: { synth: 'modal', mat: 'wood', hz: 156, modes: 6, bright: 0.6,
+              decay: 0.1875, damp: 2.2, warble: 0.4, atk: 0, trans: 0.58,
+              transHz: 1500, transQ: 1.2, grit: 0.34, gritHz: 1100,
+              space: 0.11, room: 0.125, refl: 1, dark: 1800, width: 0.64,
+              drive: 0.08, mkup: 0.84, gain: 0.32 },
+      /* refl 0 -> 1 IS THE ACTUAL CAUSE, AND RAISING `width` WAS NOT.
+         seton_more.4 rendered at a stereo width of 0.0193 and the gate called
+         it dead mono. I raised the `width` FIELD first; the failure simply
+         MOVED TO VARIANT 3, which is the tell that the field I changed was not
+         the one that mattered -- `width` is a spec value and the measured
+         stereo width is an outcome. The three modal recipes in this batch that
+         PASS all carry refl 1; this one carried refl 0. Early reflections are
+         where the stereo comes from. space stays at 0.11, well under the 0.2
+         ceiling this batch holds itself to. */
+      jit:  { hz: [124, 235], decay: [0.125, 0.28125], bright: [0.46, 0.9],
+              transHz: [1150, 2400], damp: [1.8, 2.6], width: [0.54, 0.86],
+              dark: [1400, 2700] },
+      hitSets: [[0], [0], [0, 0.09375], [0], [0]]
+    },
+
     /* ---- end batch SFX-08 recipes ---- */
   };
 
