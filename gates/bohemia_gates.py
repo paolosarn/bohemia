@@ -3091,6 +3091,22 @@ GATES = [
      'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
      'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
+    ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
+     'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
+     'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '
+     'nothing else changed: chunk 1 at 4.35 MB -> 14.3s after the tap (RED); re-split to '
+     '1.75 MB -> 8.7s (green). SIX SECONDS OF A STRANGER\'S PATIENCE for one file being the '
+     'wrong size, and it gets that way by MERGING rather than by anybody editing it -- git '
+     'reports no conflict because only one side touched the file. It has happened TWICE IN '
+     'ONE DAY; both times the remedy was a standing note ("run the chunker after every '
+     'rebase") and the second time it shipped anyway, because the rebase ran inside an '
+     'automated push loop where there was nobody to read the note. A STANDING NOTE IS NOT A '
+     'MACHINE GATE. Its own file rather than a leg on TIME TO PLAY because time_to_play DID '
+     'catch it -- red, correctly -- but costs ~43s and three throttled Chromium profiles to '
+     'say so, and a guard nobody can afford to run before every push runs after the damage. '
+     'This is a stat() call: 0.09s. Also asserts only ONE chunk is loaded by a tag, because '
+     'the whole saving comes from the other eight NOT being tags (a deferred tag still '
+     'DOWNLOADS during the parse). Mutation-tested against main\'s actual 4.35 MB chunk.', False),
     ('NO ORPHAN SCRIPT', ['node', 'gates/no_orphan_script_gate.js'],
      'A REBASE ATE ANOTHER LANE\'S SCRIPT TAG AND NOTHING CONFLICTED (8/27). The ART lane '
      'shipped room-aware floors as a data file plus ONE line loading it; in the same region of '
