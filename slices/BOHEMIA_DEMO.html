@@ -1141,7 +1141,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/28e - THE ROAD INTERRUPTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/28f - HAIR HAS A HAIRLINE NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3792,10 +3792,10 @@ var FACTION_LOOKS = [
     dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.25,hips:-0.10},
     worn:{hair:'ASH SWEEP',base:'VESTMENT GOLD SHIRT',back:'SHOULDER MANTLE',
           head:'BONE KNIT CAP',legs:'DUST TROUSERS',feet:'VESTMENT GOLD BOOTS'} },
-  { faction:'Reds', draft:true, age:'adult', shape:'tall / long coat / bare head',
+  { faction:'Reds', draft:true, age:'adult', shape:'tall / mid coat / bare head',
     why:'the money faction, not the military one: the tallest, narrowest column on the street',
     dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.25,hips:-0.10},
-    worn:{hair:'SLICK BACK',base:'SIGNAL RED SHIRT',outer:'BRICK LONGCOAT',
+    worn:{hair:'SLICK BACK',base:'SIGNAL RED SHIRT',outer:'BRICK CAR COAT',
           legs:'DUST TROUSERS',feet:'SIGNAL RED BOOTS'} },
   { faction:'Cartel', draft:true, age:'adult', shape:'small / cape / knit cap',
     why:'small and covered, and it does not advertise: a shape that is hard to read on purpose',
@@ -3831,9 +3831,9 @@ var FACTION_LOOKS = [
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},
     worn:{hair:'BOWL CUT',base:'WHITE TEE',legs:'DUST TROUSERS',feet:'WHITE SNEAKERS'} },
   { faction:'Remnants', draft:true, age:'adult', shape:'broad / split-tail / field cap',
-    why:'the floor of civilisation, still in the coat: the heaviest covered silhouette on the street',
+    why:'the floor of civilisation, still covered: the heaviest silhouette on the street',
     dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
-    worn:{hair:'BUZZ CUT',base:'OLIVE DRAB TEE',outer:'SPLIT-TAIL DUSTER',
+    worn:{hair:'BUZZ CUT',base:'OLIVE DRAB TEE',outer:'SPLIT-TAIL WORK COAT',
           head:'STORM KNIT CAP',legs:'DUST TROUSERS',feet:'OLIVE BOOTS'} }
 ];
 window.FACTION_LOOKS = FACTION_LOOKS;
@@ -3900,6 +3900,12 @@ function famPaintBody(cv, member, dir, clip, ph){
     window.G_WORN = member.worn;
     G.bodyVar = member.dials;
     G.age = member.age || 'adult';
+    /* THE FAMILY WEAR THEIR OWN FACES TOO (8/27), keyed the same way the cold
+       open keys them, so RAY's eyes on the CHARACTER tab are RAY's eyes in the
+       portrait that pops up when he speaks in the opening scene. */
+    try { G.faceAs = (typeof faceFor === 'function')
+        ? faceFor(member.role + ':' + member.name, Object.assign({age: member.age || 'adult'}, member.face || null))
+        : null; } catch(_e){ G.faceAs = null; }
     /* THE BODY IS REBUILT, NOT JUST RE-DRAWN, and this was the real bug in v1.
        rebuildFromRig() runs ONCE AT BOOT and sets the global RIG; G.age and
        G.bodyVar reach the renderer ONLY through it. Setting them and calling
@@ -3916,7 +3922,7 @@ function famPaintBody(cv, member, dir, clip, ph){
     /* PUT THE PLAYER'S BODY BACK. These are GLOBALS: leaving the sister's child
        rig installed would silently reshape every other surface in the game, and
        it would surface as a rendering bug somewhere with no connection to here. */
-    window.G_WORN = keepW; G.bodyVar = keepDials; G.age = keepAge;
+    window.G_WORN = keepW; G.bodyVar = keepDials; G.age = keepAge; G.faceAs = null;
     for (var _s in keepEq) G.equipped[_s] = keepEq[_s];
     try { rebuildFromRig(); } catch(e2) {}
     try { HD_CACHE.map.clear(); } catch(e3) {}
@@ -4409,14 +4415,27 @@ function faceFor(id, over){
 
   /* ---- THE SKULL --------------------------------------------------------- */
   var f = sp.face;
-  f.len      = Math.round(33 + B('len') * 3 - (child ? 4 : teen ? 2 : 0));
-  f.craniumH = Math.round(10 + B('cran') * 1.5 + (child ? 2 : teen ? 1 : 0));
-  f.top      = Math.round(17 + B('top') * 1);
+  /* THE RANGES WIDENED 8/27, AND HERE IS THE MEASUREMENT THAT FORCED IT. When skin
+     and hair moved to NPCFactory (one id, one whole person), two of the three colour
+     channels stopped being independent rolls -- and the closest two faces in sixty
+     fell from 0.0135 to 0.0080, which is not a metric wobble, it is TWINS: same
+     skin, same hair, jaw 23 vs 22, chin 11 vs 10, identical eyes and mouth line.
+     COLOUR HAD BEEN CARRYING IDENTITY THAT THE GEOMETRY WAS SUPPOSED TO CARRY, and
+     the moment colour was made honest the geometry's thinness showed.
+     The bell (two rolls averaged) is right for realism and WRONG for tails: it
+     concentrates everybody in the middle, and after rounding to whole pixels most
+     of the valley landed on the same four numbers. So the spans are wider now and
+     the anatomical guards below are what keep it human -- which is the correct
+     division of labour: the RANGE makes people different, the CLAMPS keep them
+     people. */
+  f.len      = Math.round(33 + B('len') * 4.5 - (child ? 4 : teen ? 2 : 0));
+  f.craniumH = Math.round(10 + B('cran') * 2 + (child ? 2 : teen ? 1 : 0));
+  f.top      = Math.round(17 + B('top') * 1.4);
   var wide   = B('wide');                       /* one dial so a face is coherent */
-  f.foreheadW = Math.round(24 + wide * 3 + B('fh') * 1.5 + (child ? 1 : 0));
-  f.cheekW    = Math.round(30 + wide * 3 + B('ck') * 1.5);
-  f.jawW      = Math.round(26 + wide * 3 + B('jw') * 2 - (child ? 2 : 0));
-  f.chinW     = Math.round(12 + wide * 2 + B('ch') * 2 + (child ? 1 : 0));
+  f.foreheadW = Math.round(24 + wide * 4 + B('fh') * 2 + (child ? 1 : 0));
+  f.cheekW    = Math.round(30 + wide * 4 + B('ck') * 2);
+  f.jawW      = Math.round(26 + wide * 4 + B('jw') * 2.5 - (child ? 2 : 0));
+  f.chinW     = Math.round(12 + wide * 2.5 + B('ch') * 2.5 + (child ? 1 : 0));
   /* A JAW MAY NOT BE WIDER THAN THE CHEEK IT HANGS FROM, and a chin may not be
      wider than the jaw. Without these two lines the dice eventually roll a head
      that is a triangle standing on its point. */
@@ -4434,10 +4453,10 @@ function faceFor(id, over){
      pixel boundary across the population, and no further -- one pixel IS a lot
      when the whole face is 33 tall. */
   var lo = child ? 0.02 : 0;                    /* a child's features sit lower */
-  f.browY  = Math.round(f.top + f.len * (0.27 + lo + B('by') * 0.055));
-  f.eyeY   = Math.round(f.top + f.len * (0.36 + lo + B('ey') * 0.050));
-  f.noseY  = Math.round(f.top + f.len * (0.63 + lo * 0.5 + B('ny') * 0.055));
-  f.mouthY = Math.round(f.top + f.len * (0.81 + lo * 0.5 + B('my') * 0.050));
+  f.browY  = Math.round(f.top + f.len * (0.27 + lo + B('by') * 0.075));
+  f.eyeY   = Math.round(f.top + f.len * (0.36 + lo + B('ey') * 0.070));
+  f.noseY  = Math.round(f.top + f.len * (0.63 + lo * 0.5 + B('ny') * 0.075));
+  f.mouthY = Math.round(f.top + f.len * (0.81 + lo * 0.5 + B('my') * 0.070));
   /* the ORDER is not negotiable, whatever the dice said */
   f.eyeY   = Math.max(f.browY + 2, f.eyeY);
   f.noseY  = Math.max(f.eyeY + 5,  f.noseY);
@@ -4446,14 +4465,14 @@ function faceFor(id, over){
   /* ---- EYES: the gap is about ONE EYE WIDE, which is the rule faces keep --- */
   sp.eyes.w   = 6;                               /* six is the whole budget */
   sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.45 ? 1 : 0));
-  sp.eyes.gap = Math.max(4, Math.min(9, Math.round(6 + B('eg') * 1.8 + (child ? 1 : 0))));
+  sp.eyes.gap = Math.max(4, Math.min(10, Math.round(6 + B('eg') * 2.6 + (child ? 1 : 0))));
   sp.eyes.hood = R('hood') < (child ? 0.15 : 0.5) ? 1 : 0;
   sp.eyes.iris = pick(IRIS, 'iris');
 
   /* ---- BROWS: the loudest thing on a face this size ----------------------- */
   sp.brows.color = pick(BROWC, 'browc');
   sp.brows.thick = child ? 1 : (R('bt') < 0.30 ? 1 : (R('bt') < 0.82 ? 2 : 3));
-  sp.brows.len   = Math.max(5, Math.min(9, Math.round(7 + B('bl') * 1.6)));
+  sp.brows.len   = Math.max(4, Math.min(10, Math.round(7 + B('bl') * 2.2)));
   sp.brows.gap   = Math.max(3, Math.min(7, Math.round(sp.eyes.gap - 1 + B('bg'))));
   sp.brows.arch  = R('ba') < 0.55 ? 1 : 0;
   sp.brows.angle = Math.round(B('ban') * 1.6);
@@ -4473,30 +4492,55 @@ function faceFor(id, over){
   sp.mouth.color    = pick(LIPS, 'lips');
 
   /* ---- HAIR + SKIN -------------------------------------------------------- */
-  var tone = SKIN_TONES[(R('skin') * SKIN_TONES.length) | 0];
+  /* *** ONE ID, ONE WHOLE PERSON. SKIN AND HAIR COME FROM THE BODY, NOT FROM HERE. ***
+     The first cut of faceFor rolled its OWN skin tone and its OWN hair colour. That
+     was a SECOND MECHANISM for two things the game already had one for: NPCFactory
+     has owned skinToneName and hairColor since 7/2 and is what the RUN actually
+     dresses the crowd from. ENGINE SYNC LAW says one canonical body per module, and
+     the crowd code says it out loud eight lines from where it calls both --
+     "No second mechanism is written for skin or hair".
+     MEASURED, WHICH IS THE ONLY REASON THIS WAS FOUND. Over 200 citizens, comparing
+     the face this function built against the body the game draws:
+         SKIN agreed  8.0% of the time
+         HAIR agreed  0.0% of the time -- not one person in two hundred
+     So the portrait that pops up when you talk to somebody was a DIFFERENT PERSON
+     from the body standing in front of you, ninety-two times in a hundred. He asked
+     for "eye colors matching the portrait" and the honest answer was that nothing
+     matched the portrait.
+     THE FIX IS TO DELETE THE YOUNGER MECHANISM, not to reconcile two. The weighting
+     work that was here is not lost -- it moved to NPCFactory, where it fixes every
+     BODY in the valley as well, which is the surface he actually looks at. */
+  var _np = null;
+  try { _np = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(id) : null; } catch (_e) { _np = null; }
+  var tone = null;
+  if (_np && _np.skinToneName)
+    for (var ti = 0; ti < SKIN_TONES.length; ti++)
+      if (SKIN_TONES[ti][0] === _np.skinToneName) tone = SKIN_TONES[ti];
+  if (!tone) tone = SKIN_TONES[(R('skin') * SKIN_TONES.length) | 0];   /* only if the factory is absent */
   sp._tone = tone;
-  /* HAIR COLOUR IS NOT A UNIFORM PICK, and the first cut of this made it one --
-     which handed a sixteen-person crowd THREE PINK HEADS, two violet-adjacent and
-     one red, because HAIR_COLORS lists pink and violet next to black and an even
-     roll treats them as equally likely. That is the trenchcoat bug of 8/27 exactly,
-     one day later: uniform over a list whose contents are not uniform in life.
-     Real distribution, and it is not close: black and brown dominate everywhere,
-     blonde is a minority, red is 1-2%. DYE IS RARE IN A COLLAPSED ECONOMY and is
-     therefore a STATEMENT -- which is COLOUR IS TERRITORY (8/26) applied to a head
-     instead of a coat. Grey is not a colour anybody picks, it is AGE, so it is
-     dealt from age and a child never gets it. */
-  var hcw = child
-    ? [['black',52],['auburn',26],['blonde',18],['violet',2],['pink',2]]
-    : (age === 'teen'
-       ? [['black',42],['auburn',22],['blonde',18],['platinum',6],['violet',6],['pink',6]]
-       : [['black',44],['auburn',22],['blonde',15],['white',9],['platinum',6],['violet',2],['pink',2]]);
-  var wsum = 0; for (var wi = 0; wi < hcw.length; wi++) wsum += hcw[wi][1];
-  var roll = R('hairc') * wsum, hcName = hcw[0][0];
-  for (var wj = 0; wj < hcw.length; wj++){ roll -= hcw[wj][1]; if (roll <= 0){ hcName = hcw[wj][0]; break; } }
-  for (var hk = 0; hk < HAIR_COLORS.length; hk++) if (HAIR_COLORS[hk][0] === hcName && HAIR_COLORS[hk][1]) {
-    sp.hair.color = HAIR_COLORS[hk][1].slice();
-    sp.hair.roots = HAIR_COLORS[hk][1].map(function(c){ return c * 0.4 | 0; });
+  if (_np && _np.hairColor) {
+    sp.hair.color = _np.hairColor.slice();
+    sp.hair.roots = _np.hairColor.map(function (c) { return c * 0.4 | 0; });
+  } else if (_np && _np.equipped && _np.equipped.hair) {
+    /* hairColor null means "USE THE PAINTED ART DEFAULT" -- the body draws that
+       hair layer in its own painted ramp. Leaving the portrait on PUNK's ash here
+       is what held agreement at 80%: 22% of the valley is exactly this case, and
+       for every one of them the head said one colour and the portrait said another.
+       So read the colour off the SAME painted ramp the body is about to use. The
+       mid entry is the one that covers most of the hair; the darkest is the roots,
+       which is what renderFace wants anyway. */
+    try {
+      var _hr = PD_DATA.ramps[_np.equipped.hair];
+      if (_hr && _hr.length) {
+        var _mid = _hr[Math.min(1, _hr.length - 1)] || _hr[0];
+        var _dk  = _hr[_hr.length - 1] || _mid;
+        sp.hair.color = _mid.slice();
+        sp.hair.roots = _dk.slice();
+        sp._hairFromArt = true;
+      }
+    } catch (_e2) {}
   }
+
   /* ONLY VALUES THE RENDERER ACTUALLY HONOURS. The first cut rolled five style
      names and three lengths; renderFace tests for 'wavy_mid' and 'curly' and
      nothing else, so 'straight', 'curls', 'crop' and 'swept' were four different
@@ -4504,9 +4548,8 @@ function faceFor(id, over){
      DIAL, IT IS A COMMENT -- which is written eighty lines above this and which I
      then broke in the very next block. Rolling a name the renderer ignores is
      worse than not rolling it: it makes the variety look solved.
-     WHAT IS STILL MISSING IS A ROW, NOT A SECRET: the face has three hair lengths
-     and two textures and that is the whole wardrobe. Real cuts -- a fade, a
-     ponytail, a shaved side -- are a cook of their own and are on the board. */
+     THE CUT ITSELF IS STILL THIS FUNCTION'S, because the BODY has no notion of a
+     hairstyle -- NPCFactory picks a painted hair LAYER, not a portrait cut. */
   sp.hair.style = R('hstyle') < 0.5 ? 'wavy_mid' : 'curly';
   sp.hair.part  = pick(['mid','left','right'], 'part');
   sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
@@ -5043,6 +5086,28 @@ var CORE_SLOTS=['body','facial','pants','shoes','shirt','hair'];   // always dre
 var OPT_SLOTS={jacket:0.55,hat:0.35,glasses:0.3};                  // chance to wear
 var SKIN_TONE_NAMES=['pale','fair','olive','tan','bronze','brown','deep','ebony','onyx']; // Paolo's locked ramps
 var HAIR_COLORS=[null,[20,18,22],[150,120,80],[110,70,50],[196,150,150],[80,80,90],[200,60,40]]; // null = art default
+/* HAIR COLOUR IS NOT A COIN FLIP BETWEEN BLACK AND PINK (8/27).
+   MEASURED ON 600 CITIZENS through this exact factory, before this line existed:
+       200,60,40  bright red   16.2%      <- one person in six
+       150,120,80 dark blonde  15.5%
+       80,80,90   grey         14.5%
+       110,70,50  brown        14.2%
+       null       art default  14.2%
+       196,150,150 PINK        12.8%      <- one person in eight
+       20,18,22   black        12.7%
+   Uniform over seven entries, so the two loudest colours in the list were the two
+   most common heads in the valley and BLACK WAS THE RAREST. This is the trenchcoat
+   bug (8/27) and the portrait clown-parade (8/27) for a THIRD time, in the oldest
+   of the three places, and it is the one that governs every BODY in the RUN -- the
+   thing he actually looks at.
+   THE WEIGHTS ARE THE REAL DISTRIBUTION: black and brown dominate everywhere on
+   earth, blonde is a minority, natural red is 1-2%. Grey is AGE, not a choice.
+   Dye is rare in a collapsed economy and is therefore a STATEMENT, which is
+   COLOUR IS TERRITORY (8/26) applied to a head.
+   EXACTLY ONE rng.next() IS CONSUMED, same as the uniform pick it replaces, so
+   every citizen's clothes, body and skin are byte-for-byte what they were and the
+   ONLY thing that moved is hair. Verified, not assumed. */
+var HAIR_WEIGHTS=[22, 34, 13, 20, 2, 7, 2];   // parallel to HAIR_COLORS
 
 function catalogsFromWardrobe(PD){
   var slots={};
@@ -5056,11 +5121,24 @@ function NPCFactory(opts){
   this.slots=opts.slots||catalogsFromWardrobe(PD);
   this.skinTones=opts.skinTones||SKIN_TONE_NAMES.slice();
   this.hairColors=opts.hairColors||HAIR_COLORS.slice();
+  this.hairWeights=opts.hairWeights||HAIR_WEIGHTS.slice();
   this.optOdds=opts.optOdds||OPT_SLOTS;
   this.RNG=opts.RNG||(typeof BohemiaEngine!=='undefined'&&BohemiaEngine.Core?BohemiaEngine.Core.RNG:null);
   if(!this.RNG)throw new Error('NPCFactory needs Core.RNG');
 }
 NPCFactory.prototype.pick=function(rng,arr){if(!arr||!arr.length)return null;return arr[Math.floor(rng.next()*arr.length)%arr.length];};
+/* ONE rng.next(), WEIGHTED. Falls back to the uniform pick if the weights are
+   missing or do not line up with the colour list, so an injected catalogue that
+   knows nothing about weights still works. */
+NPCFactory.prototype.pickHair=function(rng){
+  var a=this.hairColors,w=this.hairWeights;
+  if(!a||!a.length)return null;
+  if(!w||w.length!==a.length)return a[Math.floor(rng.next()*a.length)%a.length];
+  var t=0,i;for(i=0;i<w.length;i++)t+=w[i];
+  var r=rng.next()*t;
+  for(i=0;i<w.length;i++){r-=w[i];if(r<=0)return a[i];}
+  return a[a.length-1];
+};
 NPCFactory.prototype.npcFrom=function(seed){
   var rng=new this.RNG('npc:'+seed);
   var equipped={};
@@ -5071,7 +5149,7 @@ NPCFactory.prototype.npcFrom=function(seed){
     seed:String(seed),
     equipped:equipped,
     skinToneName:this.pick(rng,this.skinTones),
-    hairColor:this.pick(rng,this.hairColors)
+    hairColor:this.pickHair(rng)
   };
   return look;
 };
@@ -7321,9 +7399,21 @@ function buildFrame(d,clip,ph,_noOutline){
     ramp=ramp.map(c=>{
       let cc=c.slice();
       if(slot==='facial'){
-        if(cc[0]===54&&cc[1]===44&&cc[2]===40)cc=pface.brows.color.slice();
-        else if(cc[0]===82&&cc[1]===88&&cc[2]===82)cc=pface.eyes.iris.map(v=>v*0.55|0);
-        else if(cc[0]===136&&cc[1]===88&&cc[2]===84)cc=pface.mouth.color.map(v=>v*0.74|0);
+        /* *** WHOSE EYES. *** This remap read `pface` -- THE PLAYER'S FACE -- for
+           every body it has ever drawn, so every person in the valley wore the
+           player's iris, the player's brows and the player's lips. Measured 8/27:
+           the portrait gave 6 different eye colours across 40 people and the body
+           gave ONE, the player's [150,160,150], to all of them.
+           That is what he meant by "eye colors matching the portrait". There was no
+           per-person mechanism to sync WITH -- so this is the first one, not a
+           second, and ENGINE SYNC LAW is satisfied by there being exactly one.
+           G.faceAs is set by whoever is drawing somebody who is not you, next to
+           the G.bodyVar and G_WORN they already set. Null means the player, so the
+           approved face is byte-for-byte untouched. */
+        var _pf=(typeof G!=='undefined'&&G.faceAs)?G.faceAs:pface;
+        if(cc[0]===54&&cc[1]===44&&cc[2]===40)cc=_pf.brows.color.slice();
+        else if(cc[0]===82&&cc[1]===88&&cc[2]===82)cc=_pf.eyes.iris.map(v=>v*0.55|0);
+        else if(cc[0]===136&&cc[1]===88&&cc[2]===84)cc=_pf.mouth.color.map(v=>v*0.74|0);
       }
       if(slot==='hair'&&hairColor){
         const lum=(0.3*cc[0]+0.59*cc[1]+0.11*cc[2])/255;const dk=hairColor.map(v=>v*0.32);
@@ -8011,7 +8101,11 @@ function lookKey(){let f='';try{f=JSON.stringify(buildSpec());}catch(_e){}
   /* FACE EVERYWHERE (Paolo 7/20): the bake key must carry the face
      calibration, or combat/city keep serving the OLD face after an editor
      recalibration until a full reload. Same for skin tone + detail. */
-  let fo='';try{fo=JSON.stringify([FACE_OFFSETS,typeof skinTone!=='undefined'?skinTone[0]:0,typeof eyeColor!=='undefined'?eyeColor:0]);}catch(_e){}
+  /* AND WHOSE FACE. G.faceAs joins the key for the same reason FACE_OFFSETS did:
+     without it, two citizens with different eyes share one baked sprite and the
+     second one silently wears the first one's face. */
+  let fo='';try{fo=JSON.stringify([FACE_OFFSETS,typeof skinTone!=='undefined'?skinTone[0]:0,typeof eyeColor!=='undefined'?eyeColor:0,
+    (typeof G!=='undefined'&&G.faceAs)?[G.faceAs.eyes.iris,G.faceAs.brows.color,G.faceAs.mouth.color]:0]);}catch(_e){}
   return JSON.stringify([G.equipped,G.tints,G.skinTint])+f+fo;}
 let CBAKE=null;
 /* CITY BRIDGE (7/6/26): the city tab is no longer a sealed island. When you
@@ -15161,13 +15255,17 @@ function buildUI(){
             var tn = SKIN_TONES.find(function(x){ return x[0] === np.skinToneName; });
             if (tn) skinTone = tn;
             hairColor = np.hairColor;
+            /* AND THEIR OWN FACE ON THEIR OWN BODY (8/27). The same id that picks
+               the body picks the face, so the eyes on the person standing in front
+               of you are the eyes in the portrait that pops up when they talk. */
+            G.faceAs = (typeof faceFor === 'function') ? faceFor(id) : null;
           } catch (e) {}
           var cv = host.children[k].firstChild;
           try { drawChar(cv, G.dir, 'idle', 0); drawn++; } catch (e) {}
         }
       } finally {
         G.bodyVar = keepVar; window.G_WORN = keepWorn; G.equipped = keepEq;
-        skinTone = keepSkin; hairColor = keepHair;
+        skinTone = keepSkin; hairColor = keepHair; G.faceAs = null;
       }
       var st = document.getElementById('crowdStat');
       if (st) st.textContent = drawn + ' people · page ' + (page + 1) +
@@ -22582,7 +22680,18 @@ window.CLO=(function(){
            One pixel is the whole point of the 4x law: it is a move the 56 grid could
            not make, and it is what turns a rule into a strand. */
         var _cr=prof?(x3-hMn):(y3-hTop); if(_cr<0)_cr=0;
-        var _wb=((Math.imul(_sd2^(((_cr/(2*S))|0)+1),2654435761)>>>0)%3)-1;
+        /* *** THE DRIFT STEPPED ONCE EVERY FOUR PIXELS, WHICH IS NOT A DRIFT ON A MASS
+           THIS WIDE. (Paolo 8/27, clause 3 again.) ***
+           It was written when hair in profile was a four-pixel strip: two segments across
+           the whole mass, so nobody could tell. Now that hair covers the side of the head
+           the same line runs fourteen pixels, and three segments of four read as a RULED
+           LINE with a couple of kinks in it -- I could see them stacked across the crown
+           the moment the mass got wide. A segment length has to be small against the
+           thing it is breaking up, and this one stopped being small when the mass grew.
+           Half the segment: it steps every cell, so a fourteen-pixel run gets seven
+           moves instead of three. Same hash, same determinism, no new travel -- the
+           parting still only ever moves by one pixel (8/25, and 8/1 clause 5). */
+        var _wb=((Math.imul(_sd2^(((_cr/S)|0)+1),2654435761)>>>0)%3)-1;
         if(((ax+_wb+4*S)%(4*S))!==_ph)continue;
         var c3=oo[k3];
         if(c3[0]===r.dk[0]&&c3[1]===r.dk[1]&&c3[2]===r.dk[2])continue;   /* already the shadow */
@@ -22668,6 +22777,71 @@ window.CLO=(function(){
          name: the face sits toward the front of the skull. */
       _fFront.dir=((_fMnAll+_fMxAll)>=(_hMnAll+_hMxAll))?1:-1;
       if(_fMxAll<0)_fFront=null; }
+    /* *** THE HAIRLINE IN PROFILE. (Paolo 8/27: "U HAVE TO FIX THE FOREHEAD SHIT YOU GOT
+       THE FOREHEAD ALL WRONG EAST AND WEST ... YOU HAVE THE HAIR BALDING BACK FURTHER
+       THAN IT SHOULD BE. AND MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE GOING
+       DOWN.") ***
+       TWO COMPLAINTS, ONE CAUSE, AND IT IS THE SAME LINE FOR BOTH. Printed the part grid
+       side-on and the whole thing falls out of it:
+           row 10-11   ########                  the crown: all skull
+           row 16-25   ####FFFFFFFFFFFF          FOUR columns of skull, TWELVE of face
+       In profile the head is 16-18 px across and only the back 4-6 are the skull part.
+       Everything else -- the forehead, the temple, the ear, the cheek, the jaw -- is
+       painted as the FACE region, because side-on the face IS most of the head.
+       put() then refuses face pixels on any facing that is not `back`, except above
+       frontLine. So hair got the top fifth of the head plus a four-pixel strip down the
+       back, and that is EXACTLY the two things he named: a hairline that stops a fifth of
+       the way down (balding back) and a four-pixel vertical band (a single line going
+       down). One rule produced both symptoms, which is why they arrived in one sentence.
+       AND THE 8/2 FIX ALREADY KNEW THIS AND ONLY DID HALF OF IT. That turn taught
+       sideBot that "profile joins back" -- how far DOWN the hair reaches -- and left
+       put(), which decides what it is allowed to reach ACROSS, believing that a face part
+       is a face. Side-on it is a head with a face on the front of it.
+       WHAT REPLACES IT IS A REAL HAIRLINE, because that is what you actually see side-on:
+       it crosses the forehead, drops at the temple, and runs back over the ear. So hair
+       may paint the face part BEHIND a per-row front limit -- everything down to the
+       style's own forehead depth, then receding over three cells to a temple line and
+       holding. THE STYLE'S `front` DIAL DRIVES IT, so a fringe still sits forward and a
+       slicked-back head still recedes: the dial that already means "how far down the
+       forehead" now also means "how far forward at the temple", which is the same fact
+       about the same haircut seen from two sides (8/25 clause 1, ONE haircut from every
+       angle).
+       NO STRAIGHT LINES (8/1 clause 3, LOCKED): the limit jags by a hashed cell per row,
+       deterministic off the style seed, so nobody in a crowd shimmers.
+       THE EYE, NOSE AND MOUTH ARE STILL SAFE. They live in the front 40% of the head and
+       the temple line never reaches them, and _fFront above still holds the air in front
+       of his face empty (8/20). */
+    var _pHair=null;
+    if(prof&&_fFront){ _pHair={};
+      var _hw=Math.max(1,_hMxAll-_hMnAll+1), _hh=Math.max(1,hBot-hTop);
+      /* HOW FAR BACK THE HAIRLINE SITS AT THE TEMPLE, as a share of the head, driven by
+         the style's own forehead dial: a deep fringe (front 0.34) gives up 43% of the
+         width to the face, a slicked-back head (front 0.06) gives up 55%. The floor is
+         what keeps the eye clear -- the eye, the nose and the mouth live in the front
+         40% of a profile and the hairline never reaches them. */
+      var _tmp=Math.max(2*S,Math.round(_hw*(0.58-(opt.front!=null?opt.front:0.22)*0.45)));
+      /* *** AND THEN IT RUNS BACK AND UP OVER THE EAR, WHICH IS ABOUT THE HEAD AND NOT
+         ABOUT THE HAIRCUT. ***
+         The first cut of this receded past the STYLE'S OWN LENGTH DIAL, and looking at it
+         killed the idea: BUZZ CUT came out as a four-pixel strip down the back of the
+         skull, which is the exact bug I was fixing. `side:0.30` says the hair does not
+         HANG below a third of the head. It does not say the scalp stops there -- a buzz
+         cut covers the whole cranium, it just has no fall. I had reached for the nearest
+         dial instead of asking what the dial meant.
+         The ear is a fact about the head, so the recede is measured on the head: hold the
+         temple line down to the ear, then pull back toward the nape across the jaw, where
+         a real hairline goes and where there is no scalp to cover anyway. Every style
+         gets the same hairline, because they all sit on the same skull; what still tells
+         them apart is how far the hair HANGS, which sideBot already owns. */
+      for(var _py=hTop;_py<=hBot;_py++){
+        var _ps=span(_py); if(!_ps)continue;
+        var _drop=_py-frontLine;                       /* rows below the top of the forehead */
+        var _set=_drop<=0?0:Math.min(_tmp,Math.round(_tmp*(_drop/(3*S))));
+        var _ear=(_py-hTop)/_hh;
+        if(_ear>0.72)_set=Math.min(_hw-3*S,_set+Math.round(_hw*0.34*((_ear-0.72)/0.28)));
+        var _jh3=(Math.imul((_wseed^((((_py/S)|0)+7)*2654435761))>>>0,2246822507))>>>0;
+        _set+=((_jh3>>>13)%2)*S;                       /* little off shapes, never a ruled edge */
+        _pHair[_py]=(_fFront.dir>0)?(_ps[1]-_set):(_ps[0]+_set); } }
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return;
       var hi=y*CW+x, gv=g[hi];
       /* AND THE CLAMP LINE IS NOT A RULER. Cutting every style off at the same column
@@ -22685,6 +22859,10 @@ window.CLO=(function(){
       if(y<=hBot){ /* ON the head: skull + background always; the face only from behind */
         if(gv===0||gv===1){ o[hi]=col; return; }
         if(gv===2&&(back||y<=frontLine)){ o[hi]=col; return; }
+        /* side-on, the face part is the SIDE OF THE HEAD: hair covers it behind the
+           hairline, exactly the way it covers the skull part. See _pHair above. */
+        if(gv===2&&_pHair&&_pHair[y]!=null){
+          if(_fFront.dir>0?(x<=_pHair[y]):(x>=_pHair[y])){ o[hi]=col; return; } }
         return; }
       /* BELOW the jaw hair may paint the body. THE FIRST VERSION FORBADE THIS and
          every long style silently rendered as a short one: below the jaw there is
@@ -22777,7 +22955,23 @@ window.CLO=(function(){
           if(_bias<0){ mx=mn+_fw; } else { mn=mx-_fw; } } }
       /* THE NAPE (Paolo 8/1): hair does not end in a straight horizontal line at the
          jaw, it comes to a nape. From behind, the last two rows draw in toward centre. */
-      if(back&&y>hBot-2*S&&y<=hBot){ var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
+      /* *** A NAPE IS WHERE HAIR ENDS. IF IT DOES NOT END THERE, THERE IS NO NAPE.
+         (Paolo 8/27: "THE VERY LONG PAST SHOULDER LENGTH HAIRS LIKE THEY BREAK IN THE
+         MIDDLE OF THE HAIR.") ***
+         This drew the taper on EVERY back view, however long the style was. Measured on
+         LONG LOOSE facing N: rows 28-29 drew 6 pixels and row 30 drew 11. The mass
+         pinched to a point at the jaw and then flared straight back out underneath it --
+         a waist in the middle of the hair, which is what "breaks in the middle" looks
+         like when the break is a narrowing rather than a hole.
+         It is the same mistake as the front curtains tracking the chin, on the other
+         side of the head: a shape that is right for hair ENDING at the nape, applied to
+         hair that is on its way past the shoulders. Real long hair has no nape line at
+         all; the mass runs straight down the back and the neck never shows.
+         SO IT ONLY DRAWS WHEN THE HAIR ACTUALLY STOPS THERE. Nothing about a crop, a
+         buzz or a bob changes -- those all end at or above the jaw and still come to a
+         nape, which is his 8/1 ruling and it stands. */
+      if(back&&y>hBot-2*S&&y<=hBot&&(sideBot+backEx)<=hBot+S){
+        var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
       if(!strip){ mn-=wob(y,0); mx+=wob(y,1);                      /* NO STRAIGHT LINES */
         /* A FALL IS A FALL WHICHEVER WAY HE FACES. wob() fires on one row in four,
            which is a hairline lying on bone; below the jaw the hair is hanging in air
@@ -22801,7 +22995,22 @@ window.CLO=(function(){
            I only saw it by looking at the render; every number I had said the length
            was correct, and it was. Hair leaves the head at the temples and falls
            STRAIGHT DOWN past a jaw that is narrower than it is. */
-        if(y>hBot-3*S){ fs=[Math.min(fs[0],hMn),Math.max(fs[1],hMx)]; }
+        /* *** AND THE FIX FOR THAT ONLY MOVED ONE OF THE TWO LOOP BOUNDS. (Paolo 8/27:
+           "AFTER THE HEAD THERES NOTHING UNTIL THE SHOULDERS FACING NORTH AND SOUTH.") ***
+           The two curtain loops below run from `mn` to `fs[0]+cw` and from `fs[1]-cw` to
+           `mx`. This line widened `fs` to the whole head so the fall would stop tracking
+           the chin -- and `mn`/`mx` were left where the mass loop put them, which on
+           these rows IS the chin. So the left loop started to the RIGHT of where it was
+           told to stop and the right loop stopped to the LEFT of where it started, and
+           BOTH RAN ZERO TIMES. Measured on LONG LOOSE facing S: rows 16-29 drew hair,
+           rows 30 and 31 drew NOTHING AT ALL, row 32 picked up again. Two blank rows
+           right at the jaw, so the hair let go of the head and started again at the
+           shoulder -- which is his sentence, exactly, as a pair of numbers.
+           A LOOP WITH TWO BOUNDS HAS TWO PLACES TO BE WRONG, and moving one of them is
+           not a fix, it is a fifty-fifty. Both move together now, and `mn`/`mx` can only
+           ever widen here -- a style whose mass already ran wider than the head keeps it. */
+        if(y>hBot-3*S){ var _wf=[Math.min(fs[0],hMn),Math.max(fs[1],hMx)];
+          mn=Math.min(mn,_wf[0]-wob(y,0)); mx=Math.max(mx,_wf[1]+wob(y,1)); fs=_wf; }
         /* A LONG STYLE PEEKS FROM THE FRONT (Paolo 8/1): "with more of the longer
            hairstyles even from the front I would like to see you know a couple pixels
            of hair ... even if it is in the back of the head." Below the jaw a style
@@ -24210,6 +24419,17 @@ window.CLO=(function(){
     {n:'OXBLOOD JACKET',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OXBLOOD,jacket:true}),OXBLOOD,12);}},
     {n:'SAGE VEST',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SAGE,vest:true}),SAGE,14);}},
     {n:'BONE VEST',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BONECLO,vest:true}),BONECLO,14);}},
+    /* TWO MID-LENGTH COATS FOR THE TWO FACTIONS THAT LOSE A DUSTER (8/27, his
+       second ruling of the day: "ONLY 10% OF PEOPLE NO MATTER WHAT MAXIMUM can
+       wear trench coats that are long like that... THIS IS A DESERT GAME. ITS
+       HOT" and "you dont need to see it so much faction based").
+       SAME RAMP, SHORTER COAT. A faction's colour is its territory (8/26) and a
+       faction named for a colour wears it -- so the Reds stay BRICK and the
+       Remnants stay LEATHERV, and the only thing that changes is the length.
+       Swapping them into an existing coat of somebody else's colour would have
+       fixed the heat and broken the flag. */
+    {n:'BRICK CAR COAT',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,len:0.56}),BRICK,15);}},
+    {n:'SPLIT-TAIL WORK COAT',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,len:0.34}),LEATHERV,12);}},
     {n:'COBALT CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.34}),COBALT,14);}},
     {n:'GRASS CAR COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:GRASSGRN,len:0.56}),GRASSGRN,14);}},
     /* ---- COOK BATCH 18 (7/20): STRUCTURE WAVE 4 -- the hood goes UP and armor

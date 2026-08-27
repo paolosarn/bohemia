@@ -1,5 +1,5 @@
 {
- "built": "8/8/26",
+ "built": "8/27/26",
  "shots": [
   {
    "id": "the-way-in",
@@ -51,7 +51,7 @@
    "title": "WHEN A PERSON STOPS BEING SOMEBODY",
    "caption": "I proved the thirteen faction outfits tell each other apart -- and I proved it at ONE of the four sizes this game draws a person at. This is the other two. At the zoom you actually walk around in they are thirteen people. One zoom out they are already closer together than the gap that once made two neighbours read as the same guy, and zoomed right out the body is twenty-five pixels tall and they are a crowd. That is not something a wider coat fixes; it is a limit worth knowing. What it means in practice: anything you need to RECOGNISE from far away -- whose street this is, somebody you are looking for -- needs something other than the outline. CHARACTER tab for the outfits themselves; this is what they look like from the CITY.",
    "file": "look/zoom-identity.png",
-   "kb": 94.9,
+   "kb": 99.4,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/19/26",
    "shooter": "node tools/bohemia_zoom_picture.js"
@@ -61,7 +61,7 @@
    "title": "THE DRUNK WALK JUMPED EVERY TWO SECONDS",
    "caption": "The drunk walk teleported sideways every two seconds and had done since it was written: one number in its maths ran at half the speed of everything beside it, so it ended each loop on the opposite side from where it started. The line under each row is the body's real centre, measured off the drawn pixels. Before, the whole 12.5px of movement happened in ONE frame, at the restart. After, the step across the restart is 0.3px. I found it by checking every animation in the game for the same defect -- 102 of the 103 were already fine, which is the more useful half of the answer. ANIMATION tab, pick drunk.",
    "file": "look/the-drunk-seam.png",
-   "kb": 88.4,
+   "kb": 83.8,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/18/26",
    "shooter": "node tools/bohemia_drunk_picture.js"
@@ -71,7 +71,7 @@
    "title": "TREATING A GUNSHOT WOUND",
    "caption": "Your five steps, the ones you wrote at a bedside, as animations you can watch: pour the iodine, inject the lidocaine, pick the pellets out. Three clips cover all five because the needle gets used twice and boiling the tweezers is a held prop. All three put both hands in the same spot -- it is the same wound -- so what tells them apart is HOW THEY MOVE, and the bars under each row are the hand speed: the pour has a long flat stretch where the hand has stopped, the injection is one tall spike, and the tweezing shakes. ANIMATION tab, pick the clip. Also CHARACTER tab on the body.",
    "file": "look/field-surgery.png",
-   "kb": 94.6,
+   "kb": 93.6,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/18/26",
    "shooter": "node tools/bohemia_field_surgery_picture.js"
@@ -81,7 +81,7 @@
    "title": "THE THIRTEEN OUTFITS",
    "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the valley goes DARK: night runs 19:00 to 06:00, and only about 4% of the map has live power, so most streets have no light even by day. Colour is the one channel you cannot count on. (I had been saying the demo OPENS in the dark -- it does not, 06:00 is exactly when night ends. Corrected.) These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
    "file": "look/thirteen-outfits.png",
-   "kb": 103.5,
+   "kb": 104.1,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/18/26",
    "shooter": "node tools/bohemia_faction_picture.js"
@@ -91,7 +91,7 @@
    "title": "THE SIX PEOPLE ON YOUR STREET",
    "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley goes DARK: night runs 19:00 to 06:00 and only about 4% of the map has live power, so colour is the one channel you cannot count on (06:00 itself is when night ENDS -- I had that wrong and it is corrected). They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
    "file": "look/six-neighbours.png",
-   "kb": 59.4,
+   "kb": 58.1,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/18/26",
    "shooter": "node tools/bohemia_city_cast_picture.js"
@@ -101,7 +101,7 @@
    "title": "THE BLACK BORDER, IN THE GAME",
    "caption": "His 8/14 ask, finished where it counts. The CHARACTER tab got the thin outline first, and the GAME kept doubling it: the city enlarges every body on an integer ladder, so the one pixel came along for the ride and landed 2px thick walking around and 4px zoomed in. The border is now drawn AFTER the enlargement, at the size you actually see it, for the player and every neighbour. RUN tab (and CITY), anywhere a person is drawn.",
    "file": "look/border-in-the-game.png",
-   "kb": 59.9,
+   "kb": 59.6,
    "stamp": "8/17/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_city_border_picture.js"
@@ -111,7 +111,7 @@
    "title": "THE BLACK BORDER IS ONE PIXEL NOW",
    "caption": "His 8/14 ask: \"the black border has to be thinner, like half as thin.\" It was always drawn as ONE pixel -- but it was drawn on the 56 composition and then DOUBLED by the upscale that takes the frame to 112, so it reached the screen at two. It is now drawn after the upscale and arrives at one. Same body, byte for byte: 0 of ~18,000 non-border pixels changed. CHARACTER tab, and anywhere a person is drawn -- RUN, CITY, COMBAT.",
    "file": "look/border-one-pixel.png",
-   "kb": 75.9,
+   "kb": 137.3,
    "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_border_picture.js"
@@ -293,7 +293,7 @@
    "caption": "Put stone between you and them and the guns do not miss, they turn OFF. One thing decides it -- whether a man can actually see you -- and five separate systems ask it: whether he can hold a bead, whether he may shoot, where he walks, whether he runs for cover, and whether he shouts. A man who loses you walks to WHERE YOU WERE, not to where you are. And the one who can still see you tells everyone within eight tiles, so he is the one worth shooting first. COMBAT tab.",
    "file": "look/they-lost-you.png",
    "at": null,
-   "kb": 2117,
+   "kb": 1773.1,
    "stamp": "8/19/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_vision_picture.js"
@@ -348,7 +348,7 @@
    "title": "THE WARDROBE AT 4X: what four times the pixels buys the clothes",
    "caption": "Twelve garments and two hairstyles, drawn twice at the same size on screen. LEFT is the way the 2x plan was going to ship them: generated at 56 and doubled into 2x2 squares, chunky cloth on a sharp body. RIGHT is the same garment composed natively, so a strap, a fold, a plaid and a cornrow each carry four times the detail. As of 8/20 the right-hand column is what the game draws: the rig is flipped and the wardrobe was made resolution-native the same day. CLOTHES tab is where you wear them; this picture lives in the LOOK tab.",
    "file": "look/wardrobe-4x.png",
-   "kb": 126.6,
+   "kb": 121.4,
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_4x_wardrobe_picture.js"
@@ -358,7 +358,7 @@
    "title": "IT LOOKS EXACTLY THE SAME: the 4x flip, before and after",
    "caption": "You looked at this and said it looks exactly the same, and you were right, so it shipped. The whole 4x flip had been built and switched off since 8/16 on my judgement that the head came out too square without the upscaler rounding its corners. Measured, the two columns differ on 5.9% of him and only 11% of that is on the head. Left is every build before 8/20, right is what you are playing now: the character is composed at four times the pixels, the upscaler is off, and the black border is one true pixel instead of a doubled one. Your painted art is untouched and still hashes byte for byte. LOOK tab.",
    "file": "look/the-box.png",
-   "kb": 66.6,
+   "kb": 67.9,
    "stamp": "8/20/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_2x_box_picture.js"
@@ -383,7 +383,7 @@
    "title": "THE HAIR STOPPED BEING STRAIGHT",
    "caption": "You told me on 8/1 that hair is little off shapes and that I was drawing a lot of straight lines. The fix that day worked, but it moved the edge by a whole block, so when the character went to four times the pixels the hair kept wobbling in the same chunky steps: sharper, not finer. Measured, half of every hair edge was running dead straight for four rows or more and some for sixteen. The edge now moves by a single pixel, which is only possible at the new resolution. 18.5% now, longest run six. Left is the old edge, right is the new one, same generator, same head. Your painted head is untouched. CHARACTER tab for the hair, LOOK tab for this picture.",
    "file": "look/hair-edge.png",
-   "kb": 63,
+   "kb": 63.2,
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_edge_picture.js"
@@ -393,7 +393,7 @@
    "title": "THE WHITE BLOB IN PROFILE",
    "caption": "You said to keep fixing east and west hair. Two things were wrong and both were profile only, which is why they survived three weeks of front views. First, your own painted curtain bob was still drawing underneath every hairstyle you put on. Front on, the hairstyle covered it and you could not tell. Side on, your paint reaches two pixels further out than the hairstyle knows about, and the near-white colour in your bob's palette stuck out over the forehead as a bright blob. 1,349 pixels of it across all fifteen styles, now zero. Second, the fade was stopping halfway down the head in profile instead of at the bottom of the hair. Your painted bob is untouched and comes straight back the moment you take a hairstyle off. LOOK tab for this picture, CHARACTER tab for the hair.",
    "file": "look/hair-profile.png",
-   "kb": 75.4,
+   "kb": 75.8,
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_profile_picture.js"
@@ -403,7 +403,7 @@
    "title": "IT WAS NEVER JUST THE HAIR",
    "caption": "The white blob you spotted on the side of his head was not a hair bug, it was a slot bug, so I went and checked the other eight painted layers the same way. Three more were doing it: your leather legwarmers showing through blue jeans, your Balenciagas through white sneakers, and your fuzz hoodie through the wasteland duster. 147 stray pixels in total, now zero. Be warned these are much smaller and less obvious than the hair blob was, so look at the hips and the boot edges rather than expecting something to jump out. Nothing of yours was edited, and with nothing worn you still look exactly as you painted yourself. LOOK tab for this picture, CHARACTER tab for the clothes.",
    "file": "look/slot-leak.png",
-   "kb": 70.1,
+   "kb": 70.5,
    "stamp": "8/21/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_slot_leak_picture.js"
@@ -423,7 +423,7 @@
    "title": "THE SMALL THINGS",
    "caption": "Carrying on from the boots. Your gloves had no knuckles, your belts had no stitching, your scarves had no weave and your masks had no hem, because at the old resolution there was no spare row to put any of it in. All four have one now. This is the same method as the boot stitch and the same rule with it: nothing you already ruled on got thinner, these are marks that did not exist before. 102 of your 200 clothes had no fine detail yesterday morning, 66 do now. Next are the gear pieces and the bags. LOOK tab for this picture, CLOTHES tab for the items.",
    "file": "look/fine-detail.png",
-   "kb": 72,
+   "kb": 72.1,
    "stamp": "8/23/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_fine_detail_picture.js"
@@ -453,7 +453,7 @@
    "title": "THE SIDE VIEW, FIXED",
    "caption": "ANSWERED 8/25: \"the side view is a lot better east and west.\" The hold on the other 21 haircuts is LIFTED. What was wrong: the hair was drawing IN FRONT OF HIS FACE. On the rows his eyes, nose and mouth are on, the hair spilled past the front of his face and hung in the air there, so every profile read as a helmet with a slot instead of a person. 546 stray pixels across all 15 styles, not one style clean. Now zero. Top row is his bare head, bottom row is the same head with hair on. LOOK tab for this picture, CHARACTER tab for the hair.",
    "file": "look/one-head.png",
-   "kb": 94.7,
+   "kb": 94.9,
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_one_head_picture.js"
@@ -463,7 +463,7 @@
    "title": "STRANDS IN THE HAIR",
    "caption": "You said the hair was still drawn in the old fat pixels. You were right, and the first number I took said you were wrong. That number was measuring the OUTLINE of the haircut, and the outline is not the haircut. Measuring the INSIDE instead: 9 of your 15 haircuts had nothing in them at all, one flat colour with a dark rim and no strand, parting or break anywhere. That is what the old small canvas could hold and nothing more. Now none are like that: 47 one-pixel marks across all the hair before, 820 now. The parting drifts by a pixel as it runs so it is a strand and not a ruled line, and it is worked out from the haircut's name so the same style comes out the same every time and nobody in a crowd shimmers. Nothing got thinner and no shape moved. LOOK tab for this picture, CHARACTER tab for the hair.",
    "file": "look/hair-strands.png",
-   "kb": 116.1,
+   "kb": 116.3,
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_strand_picture.js"
@@ -506,7 +506,7 @@
    "stamp": "8/25/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_one_haircut_eight_ways.js",
-   "kb": 157.5
+   "kb": 157.8
   },
   {
    "id": "the-missing-hats",
@@ -523,7 +523,7 @@
    "title": "ONE IN THREE HAD A HAT ON",
    "caption": "The hats I fixed yesterday were not just seventeen items in a menu. The city dresses itself out of that same wardrobe. I generated 5,000 townspeople the exact way the game makes them: 30 out of every 100 were wearing headwear, and 88 out of every 100 of those hats drew NOTHING. That is 28 out of every 100 people in your city putting something on their head and staying bare. Only 2 of the 17 hats in the whole game worked, so the town read as a place where almost nobody owns a hat, which is not the town you wrote. Top rows are what you actually saw. Bottom rows are the same ten people, same seed, same everything, wearing what they were always wearing. LOOK tab for this picture, CITY tab to walk through them.",
    "file": "look/the-bald-crowd.png",
-   "kb": 134.2,
+   "kb": 134.9,
    "stamp": "8/26/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_bald_crowd.js"
@@ -536,7 +536,7 @@
    "stamp": "8/26/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_face_talks.js",
-   "kb": 203.9
+   "kb": 203.7
   },
   {
    "id": "colour-is-territory",
@@ -546,17 +546,17 @@
    "stamp": "8/26/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_colour_is_territory.js",
-   "kb": 178.2
+   "kb": 178.7
   },
   {
    "id": "the-trenchcoat-rule",
    "title": "THE MIDDLE OF THE WARDROBE DID NOT EXIST",
-   "caption": "You said everyone has a trenchcoat and it is ridiculous. You were right and it was worse than you thought: one in five people in the city was wearing one. But nobody chose that. Every coat in the game was either a waistcoat or floor-length, and there was NOTHING in between, so anybody who wanted a coat and not a vest ended up in a duster. You said it yourself in the same breath: we still need to make a lot more clothing. So the fix is not a cap, it is seventeen new clothes in two new lengths: a HIP coat and a THIGH coat. Those are the two in the middle of the top row. Then the long coats got reserved: nine strangers in ten never see one. It went from about 20% of the city to about 1.5%. Not one coat was deleted, they are all still there and still wearable. Three factions keep theirs because the coat IS who they are. Who else earns one is yours to say. LOOK tab for this picture, CHARACTER tab to try the new coats on.",
+   "caption": "You said everyone is getting a fucking trenchcoat and it is ridiculous. One in five people in the city was wearing one, and it was not a taste problem: every coat in the game was either a waistcoat or floor-length, so anybody who wanted a coat and not a waistcoat came out in a duster. Nobody chose that, the wardrobe chose it. Seventeen new coats fill the two lengths that did not exist, and the long coat is held back from nine strangers in ten. Then you set a hard ceiling: only 10% of people no matter what, because this is a desert game and it is hot. The factions were at three of thirteen -- 23% -- and my own gate had exempted them by design. One faction wears it now, 7.7%, inside your number. Not one coat was deleted. About 20% before, about 1.5% now. CHARACTER tab to try them on, RUN tab for the crowd.",
    "file": "look/the-trenchcoat-rule.png",
    "stamp": "8/27/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_trenchcoat_rule.js",
-   "kb": 205.8
+   "kb": 207.9
   },
   {
    "id": "the-portrait-pops-up",
@@ -567,6 +567,26 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_portrait_pops_up.js",
    "kb": 182.1
+  },
+  {
+   "id": "one-id-one-person",
+   "title": "THE FACE AND THE BODY ARE THE SAME PERSON",
+   "caption": "You said the eye colors should match the portrait. They did not, and it was worse than eyes. Measured over two hundred people: their SKIN matched eight times in a hundred, and their HAIR matched ZERO times in two hundred. The portrait that popped up when somebody talked was a different human being from the body standing in front of you. Two causes, and only one was a missing feature. Skin and hair had TWO systems picking them, one seven weeks older than the other, so the younger one got deleted. Eyes had NO system at all -- the body drew YOUR iris for everybody in the valley. Same person on both sides now, every time, off one name. And the city stopped being a clown parade on the way: one person in six had bright orange hair and one in eight had pink, because the crowd picked evenly from a list where pink sits next to black. Black was the rarest at 12.7%. It is 34% now. RUN tab, talk to anybody.",
+   "file": "look/one-id-one-person.png",
+   "stamp": "8/27/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_one_id_one_person.js",
+   "kb": 116.4
+  },
+  {
+   "id": "hair-reference",
+   "title": "EVERY HAIRCUT, EVERY WAY HE TURNS",
+   "caption": "You said the forehead was all wrong east and west, the hair was balding back further than it should be, most hairs side-on were just a single line going down, and the very long ones broke in the middle with nothing between the head and the shoulders. All four were real and my numbers said you were wrong about every one of them, because all three of my measurements were asking a question that was nearly the right one. This picture is what found them. Side-on, the head is about seventeen pixels across and only the back four are counted as skull -- the rest is counted as FACE, and hair was forbidden from painting on a face. So every person in the valley got a hairline a fifth of the way down and a four-pixel strip down the back. Hair covers the side of the head now, with a real hairline that crosses the forehead, drops at the temple and runs back over the ear. The long hair let go of the head at the jaw because a fix moved one of a loop's two bounds. Balding styles went from eleven of fifteen to none. CHARACTER tab, try them on.",
+   "file": "look/hair-reference.png",
+   "stamp": "8/27/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_hair_reference_sheet.js",
+   "kb": 236.4
   }
  ]
 }

@@ -1,0 +1,223 @@
+BOHEMIA -- THE HAIRLINE IN PROFILE, AND HAIR IS ONE PIECE          8/27/26, CHARACTER lane
+================================================================================
+
+HIS WORDS
+  "OKAY FOR THE HAIRS I DONT WANT TO JUDGE ALL OF THEM DOWN BRO BUT HOLY SHIT. U HAVE TO
+   FIX THE FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST. AND ITS SO
+   CONFUSING WHEN ITS FACING EAST AND WEST LIKE YOU HAVE THE HAIR BALDING BACK FURTHER
+   THAN IT SHOULD BE. AND MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE GOING
+   DOWN. AND THE VERY LONG PAST SHOULDER LENGTH HAIRS LIKE THEY BREAK IN THE MIDDLE OF
+   THE HAIR. AFTER THE HEAD THERES NOTHING UNTIL THE SHOULDERS FACING NORTH AND SOUTH.
+   CMON MAN"
+
+FOUR COMPLAINTS, THREE CAUSES, AND TWO OF THE FOUR CAME OUT OF ONE LINE OF CODE.
+
+
+--------------------------------------------------------------------------------
+1.  EVERY NUMBER I HAD SAID HE WAS WRONG
+--------------------------------------------------------------------------------
+
+Before touching anything I wrote a measurement pass over all fifteen canon styles. It
+reported:
+
+    bare forehead in profile                 0px on all 15
+    typical row width                        11px
+    style/facing pairs with a break          1 of 45
+
+Green, green, green. All three were asking a question that was NEARLY the right one:
+
+    THE FOREHEAD   it walked only the rows ABOVE the face part -- two rows, side-on --
+                   and took the best of them. The bald patch is BESIDE the face.
+    THE WIDTH      it took the BOUNDING BOX of a row. A row with hair at both ends and a
+                   hole between measures eleven pixels wide and renders as two lines.
+    THE BREAK      it called a row unbroken if ANY pixel on it was hair. The break is
+                   HORIZONTAL -- the fall lets go of the head -- and every row involved
+                   still has hair somewhere on it.
+
+SECOND TIME IN THREE DAYS. On 8/25 an edge-parity audit read 50.9% "already native" over
+nine styles that were solid blocks, because it was measuring the outline and the shape is
+the inside. So this is a rule now, not a coincidence:
+
+    WHEN A NUMBER DISAGREES WITH HIM ABOUT A PICTURE, GO AND LOOK AT THE PICTURE, AND
+    THEN FIX THE RULER.
+
+What found all four was rendering every canon style in every direction and LOOKING -- his
+own PLAYTEST DISPATCH (8/25, item 3) said hair goes to reference first, all 8 directions,
+before another cook, and I had not done it.
+    slices/look/hair-reference.png   (LOOK tab)
+
+
+--------------------------------------------------------------------------------
+2.  CAUSE 1 -- SIDE-ON, A FACE IS MOST OF A HEAD
+--------------------------------------------------------------------------------
+
+The part grid in profile:
+
+    row 10-11   ########                  the crown: all skull
+    row 16-25   ####FFFFFFFFFFFF          FOUR columns of skull, TWELVE of face
+
+The head is 16-18px across side-on and only the back 4-6 are the SKULL part. Forehead,
+temple, ear, cheek and jaw are all painted as FACE, because side-on the face IS most of
+the head. put() refuses hair on a face pixel on any facing that is not `back`, except
+above the style's forehead line.
+
+So hair got the top fifth of the head plus a four-pixel strip down the back. That is BOTH
+of his first two complaints out of one rule -- a hairline that stops a fifth of the way
+down is "balding back", a four-pixel vertical band is "a single line going down". They
+arrived in one sentence because they are one bug.
+
+AND THE 8/2 FIX ALREADY KNEW THIS AND DID HALF OF IT. That turn taught sideBot that
+"profile joins back" -- how far DOWN hair may reach -- and left put(), which decides what
+it may reach ACROSS, still believing a face part is a face.
+
+FIX: hair may paint the face part behind a per-row front limit -- a real hairline. Down to
+the style's forehead depth, receding over three cells to a temple line, then holding, then
+pulling back over the ear toward the nape. The style's `front` dial drives the temple line
+(a fringe keeps 43% of the width for the face, a slicked-back head 55%), so the dial that
+meant "how far down the forehead" now also means "how far forward at the temple" -- the
+same fact about the same haircut from two sides. 8/25 clause 1.
+
+THE FIRST CUT OF THAT RECEDE KEYED OFF THE STYLE'S LENGTH DIAL AND LOOKING KILLED IT.
+`side: 0.30` says a buzz cut does not HANG below a third of the head; it does not say the
+scalp stops there. BUZZ CUT came back as a four-pixel strip -- the exact bug being fixed.
+I had reached for the nearest dial instead of asking what the dial meant. The ear is a
+fact about the head, so the recede is measured on the head.
+
+
+--------------------------------------------------------------------------------
+3.  CAUSE 2 -- A LOOP WITH TWO BOUNDS HAS TWO PLACES TO BE WRONG
+--------------------------------------------------------------------------------
+
+The front fall is two curtains. The loops run from `mn` to `fs[0]+cw`, and from
+`fs[1]-cw` to `mx`.
+
+An earlier fix -- correct in intent, and its comment says exactly the right thing, "HAIR
+HANGS FROM THE WIDEST PART OF THE HEAD, NOT FROM THE CHIN" -- widened `fs` to the whole
+head on the last rows of the skull, and left `mn`/`mx` where the mass loop had put them,
+which on those rows IS the chin.
+
+The left loop started to the right of where it was told to stop. The right loop stopped to
+the left of where it started. BOTH RAN ZERO TIMES.
+
+    LONG LOOSE facing S     rows 16-29  drew hair
+                            rows 30-31  DREW NOTHING AT ALL
+                            row  32     picked up again
+
+Two blank rows right at the jaw. The hair let go of the head and started again at the
+shoulder. That is his sentence as a pair of numbers.
+
+FIX: both bounds move together, and they can only ever widen.
+
+
+--------------------------------------------------------------------------------
+4.  CAUSE 3 -- A NAPE IS WHERE HAIR ENDS
+--------------------------------------------------------------------------------
+
+From behind the last two rows of the skull draw inward to a nape. His 8/1 ruling, and
+right -- for hair that ENDS there. It was drawing on every back view however long the
+style was.
+
+    LONG LOOSE facing N     rows 28-29 drew 6 pixels
+                            row  30    drew 11
+
+The mass pinched to a point at the jaw and flared straight back out underneath it. A WAIST
+IN THE MIDDLE OF THE HAIR, which is what "breaks in the middle" looks like when the break
+is a narrowing rather than a hole. Same mistake as cause 2 on the other side of the head.
+
+FIX: the taper only draws when the hair actually stops there. Crops, buzzes and bobs are
+untouched.
+
+
+--------------------------------------------------------------------------------
+5.  AND ONE THING ONLY LOOKING CAUGHT, AFTER THE FIX
+--------------------------------------------------------------------------------
+
+With hair covering the side of the head, the strand-separation shadow turned into RULED
+HORIZONTAL LINES across the crown. Its drift stepped once every four pixels, which was
+invisible when the mass was four pixels wide and reads as a straight line with two kinks
+across fourteen. A SEGMENT LENGTH HAS TO BE SMALL AGAINST THE THING IT IS BREAKING UP, and
+this one stopped being small when the mass grew. Halved. No new travel.
+
+
+--------------------------------------------------------------------------------
+6.  THE RESULT, MEASURED ON THE REAL RENDER
+--------------------------------------------------------------------------------
+
+                                                        before      after
+  profile styles balding at the brow (under 33%)        11 of 15    0 of 15
+  worst browline coverage in profile                    25%         56%
+  typical row of hair below the brow, in profile        10px        12-16px
+  style/facings with a piece of hair floating off       6 of 75     0
+  style/facings whose fall chokes at the neck           8 of 75     0
+  style/facings drawn in more than one piece            11 of 75    5 of 75
+
+The five that remain are short styles on the FRONT facing -- SLICK BACK, SALT CROWN, GREY
+WISPS -- whose crown band and temple hair meet only along the outline. Nothing floats and
+he did not name them. Recorded, not quietly capped.
+
+NOT ONE HAIRCUT WAS DELETED, SHORTENED OR RENAMED. All three past-shoulder styles still
+hang 6+ rows below the head, which the gate checks separately, because a haircut that is
+whole BECAUSE IT STOPPED AT THE JAW would pass every other test.
+
+THE 56 WARDROBE MOVED ON PURPOSE. 220 of 1744 pinned hashes, ALL genHair, no other
+generator touched. gates/clothes_56_pin.txt now carries a REBASELINE LOG in its header
+saying who ruled and what changed -- the pin exists so 4x work cannot disturb approved
+art, and it was never meant to outrank him (A GATE MUST NEVER OUTRANK A RULING, 8/1).
+
+
+--------------------------------------------------------------------------------
+7.  THE GATE
+--------------------------------------------------------------------------------
+
+  gates/hairline_gate.js     12 passed, 0 failed
+
+  1  the ruler proves its own eyes first -- runs on a bald head and asserts a bowl cut
+     moves 60+ pixels of the profile render. Three of four numbers in the first version
+     of this measurement reported green on a build broken in four visible ways.
+  2  no style is balding back in profile          (>= 33% of the browline is hair)
+  3  no style in profile is a line going down     (>= 11px in a typical row below the brow)
+  4  no piece of hair floats off the head         (flood fill; 6+px, 2+ rows = a piece)
+  5  no fall chokes at the neck                   (narrowest / widest >= 0.45)
+  6  the past-shoulder styles are whole from every angle, AND still hang past the jaw
+  7  this law records the CAUSE, not just the symptom
+
+  The measurement body is imported from tools/bohemia_hair_the_four_complaints.js, so the
+  gate and the report cannot drift into disagreeing about what a break is.
+
+  MUTATION-PROVED BY HAND, three separate mutations, each caught by a different check:
+    A  put() forgets the profile hairline    -> brow collapses to 25%, 11 styles named
+    B  the curtain's two bounds move apart   -> 6 loose pieces, 2 chokes, 11 split
+    C  the nape taper draws on every back    -> 6 chokes at 0.36-0.42
+  A gate that still passes with the feature deleted is not a gate.
+
+
+--------------------------------------------------------------------------------
+8.  THE LESSON UNDERNEATH
+--------------------------------------------------------------------------------
+
+TWO OF THESE THREE BUGS WERE HALF-FINISHED FIXES, AND BOTH LEFT A CORRECT COMMENT
+STANDING OVER INCORRECT CODE.
+
+  8/2   wrote "profile joins back" and taught it to ONE of the two places that needed it.
+  the curtain fix  wrote "hair hangs from the widest part of the head, not from the chin"
+                   and moved ONE of the two bounds that decide where it hangs.
+
+Both would survive any review that reads the comment and believes it. Only the pixels
+disagreed, and only somebody looking at them would know.
+
+
+--------------------------------------------------------------------------------
+WHERE HE SEES IT
+--------------------------------------------------------------------------------
+  CHARACTER tab   try the haircuts on, turn the model
+  RUN tab         everybody on the street
+  LOOK tab        "EVERY HAIRCUT, EVERY WAY HE TURNS"  (slices/look/hair-reference.png)
+
+  Law:    laws/BOHEMIA_LAW_THE_HAIRLINE_IN_PROFILE_8_27_26.md
+  Gate:   gates/hairline_gate.js
+  Ruler:  tools/bohemia_hair_the_four_complaints.js
+  Sheet:  tools/bohemia_hair_reference_sheet.js
+
+STILL OPEN, NOT DECIDED HERE
+  - the head carries three hair LENGTHS and two TEXTURES. More is a cook, not a fix.
+  - from behind, a long fall is a solid slab. Real, and not something he named.

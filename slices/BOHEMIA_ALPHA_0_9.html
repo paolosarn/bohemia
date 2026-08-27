@@ -1135,7 +1135,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/28e - THE ROAD INTERRUPTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/28f - HAIR HAS A HAIRLINE NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -22674,7 +22674,18 @@ window.CLO=(function(){
            One pixel is the whole point of the 4x law: it is a move the 56 grid could
            not make, and it is what turns a rule into a strand. */
         var _cr=prof?(x3-hMn):(y3-hTop); if(_cr<0)_cr=0;
-        var _wb=((Math.imul(_sd2^(((_cr/(2*S))|0)+1),2654435761)>>>0)%3)-1;
+        /* *** THE DRIFT STEPPED ONCE EVERY FOUR PIXELS, WHICH IS NOT A DRIFT ON A MASS
+           THIS WIDE. (Paolo 8/27, clause 3 again.) ***
+           It was written when hair in profile was a four-pixel strip: two segments across
+           the whole mass, so nobody could tell. Now that hair covers the side of the head
+           the same line runs fourteen pixels, and three segments of four read as a RULED
+           LINE with a couple of kinks in it -- I could see them stacked across the crown
+           the moment the mass got wide. A segment length has to be small against the
+           thing it is breaking up, and this one stopped being small when the mass grew.
+           Half the segment: it steps every cell, so a fourteen-pixel run gets seven
+           moves instead of three. Same hash, same determinism, no new travel -- the
+           parting still only ever moves by one pixel (8/25, and 8/1 clause 5). */
+        var _wb=((Math.imul(_sd2^(((_cr/S)|0)+1),2654435761)>>>0)%3)-1;
         if(((ax+_wb+4*S)%(4*S))!==_ph)continue;
         var c3=oo[k3];
         if(c3[0]===r.dk[0]&&c3[1]===r.dk[1]&&c3[2]===r.dk[2])continue;   /* already the shadow */
@@ -22760,6 +22771,71 @@ window.CLO=(function(){
          name: the face sits toward the front of the skull. */
       _fFront.dir=((_fMnAll+_fMxAll)>=(_hMnAll+_hMxAll))?1:-1;
       if(_fMxAll<0)_fFront=null; }
+    /* *** THE HAIRLINE IN PROFILE. (Paolo 8/27: "U HAVE TO FIX THE FOREHEAD SHIT YOU GOT
+       THE FOREHEAD ALL WRONG EAST AND WEST ... YOU HAVE THE HAIR BALDING BACK FURTHER
+       THAN IT SHOULD BE. AND MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE GOING
+       DOWN.") ***
+       TWO COMPLAINTS, ONE CAUSE, AND IT IS THE SAME LINE FOR BOTH. Printed the part grid
+       side-on and the whole thing falls out of it:
+           row 10-11   ########                  the crown: all skull
+           row 16-25   ####FFFFFFFFFFFF          FOUR columns of skull, TWELVE of face
+       In profile the head is 16-18 px across and only the back 4-6 are the skull part.
+       Everything else -- the forehead, the temple, the ear, the cheek, the jaw -- is
+       painted as the FACE region, because side-on the face IS most of the head.
+       put() then refuses face pixels on any facing that is not `back`, except above
+       frontLine. So hair got the top fifth of the head plus a four-pixel strip down the
+       back, and that is EXACTLY the two things he named: a hairline that stops a fifth of
+       the way down (balding back) and a four-pixel vertical band (a single line going
+       down). One rule produced both symptoms, which is why they arrived in one sentence.
+       AND THE 8/2 FIX ALREADY KNEW THIS AND ONLY DID HALF OF IT. That turn taught
+       sideBot that "profile joins back" -- how far DOWN the hair reaches -- and left
+       put(), which decides what it is allowed to reach ACROSS, believing that a face part
+       is a face. Side-on it is a head with a face on the front of it.
+       WHAT REPLACES IT IS A REAL HAIRLINE, because that is what you actually see side-on:
+       it crosses the forehead, drops at the temple, and runs back over the ear. So hair
+       may paint the face part BEHIND a per-row front limit -- everything down to the
+       style's own forehead depth, then receding over three cells to a temple line and
+       holding. THE STYLE'S `front` DIAL DRIVES IT, so a fringe still sits forward and a
+       slicked-back head still recedes: the dial that already means "how far down the
+       forehead" now also means "how far forward at the temple", which is the same fact
+       about the same haircut seen from two sides (8/25 clause 1, ONE haircut from every
+       angle).
+       NO STRAIGHT LINES (8/1 clause 3, LOCKED): the limit jags by a hashed cell per row,
+       deterministic off the style seed, so nobody in a crowd shimmers.
+       THE EYE, NOSE AND MOUTH ARE STILL SAFE. They live in the front 40% of the head and
+       the temple line never reaches them, and _fFront above still holds the air in front
+       of his face empty (8/20). */
+    var _pHair=null;
+    if(prof&&_fFront){ _pHair={};
+      var _hw=Math.max(1,_hMxAll-_hMnAll+1), _hh=Math.max(1,hBot-hTop);
+      /* HOW FAR BACK THE HAIRLINE SITS AT THE TEMPLE, as a share of the head, driven by
+         the style's own forehead dial: a deep fringe (front 0.34) gives up 43% of the
+         width to the face, a slicked-back head (front 0.06) gives up 55%. The floor is
+         what keeps the eye clear -- the eye, the nose and the mouth live in the front
+         40% of a profile and the hairline never reaches them. */
+      var _tmp=Math.max(2*S,Math.round(_hw*(0.58-(opt.front!=null?opt.front:0.22)*0.45)));
+      /* *** AND THEN IT RUNS BACK AND UP OVER THE EAR, WHICH IS ABOUT THE HEAD AND NOT
+         ABOUT THE HAIRCUT. ***
+         The first cut of this receded past the STYLE'S OWN LENGTH DIAL, and looking at it
+         killed the idea: BUZZ CUT came out as a four-pixel strip down the back of the
+         skull, which is the exact bug I was fixing. `side:0.30` says the hair does not
+         HANG below a third of the head. It does not say the scalp stops there -- a buzz
+         cut covers the whole cranium, it just has no fall. I had reached for the nearest
+         dial instead of asking what the dial meant.
+         The ear is a fact about the head, so the recede is measured on the head: hold the
+         temple line down to the ear, then pull back toward the nape across the jaw, where
+         a real hairline goes and where there is no scalp to cover anyway. Every style
+         gets the same hairline, because they all sit on the same skull; what still tells
+         them apart is how far the hair HANGS, which sideBot already owns. */
+      for(var _py=hTop;_py<=hBot;_py++){
+        var _ps=span(_py); if(!_ps)continue;
+        var _drop=_py-frontLine;                       /* rows below the top of the forehead */
+        var _set=_drop<=0?0:Math.min(_tmp,Math.round(_tmp*(_drop/(3*S))));
+        var _ear=(_py-hTop)/_hh;
+        if(_ear>0.72)_set=Math.min(_hw-3*S,_set+Math.round(_hw*0.34*((_ear-0.72)/0.28)));
+        var _jh3=(Math.imul((_wseed^((((_py/S)|0)+7)*2654435761))>>>0,2246822507))>>>0;
+        _set+=((_jh3>>>13)%2)*S;                       /* little off shapes, never a ruled edge */
+        _pHair[_py]=(_fFront.dir>0)?(_ps[1]-_set):(_ps[0]+_set); } }
     var put=function(x,y,col){ if(x<0||x>=CW||y<0||y>=CH)return;
       var hi=y*CW+x, gv=g[hi];
       /* AND THE CLAMP LINE IS NOT A RULER. Cutting every style off at the same column
@@ -22777,6 +22853,10 @@ window.CLO=(function(){
       if(y<=hBot){ /* ON the head: skull + background always; the face only from behind */
         if(gv===0||gv===1){ o[hi]=col; return; }
         if(gv===2&&(back||y<=frontLine)){ o[hi]=col; return; }
+        /* side-on, the face part is the SIDE OF THE HEAD: hair covers it behind the
+           hairline, exactly the way it covers the skull part. See _pHair above. */
+        if(gv===2&&_pHair&&_pHair[y]!=null){
+          if(_fFront.dir>0?(x<=_pHair[y]):(x>=_pHair[y])){ o[hi]=col; return; } }
         return; }
       /* BELOW the jaw hair may paint the body. THE FIRST VERSION FORBADE THIS and
          every long style silently rendered as a short one: below the jaw there is
@@ -22869,7 +22949,23 @@ window.CLO=(function(){
           if(_bias<0){ mx=mn+_fw; } else { mn=mx-_fw; } } }
       /* THE NAPE (Paolo 8/1): hair does not end in a straight horizontal line at the
          jaw, it comes to a nape. From behind, the last two rows draw in toward centre. */
-      if(back&&y>hBot-2*S&&y<=hBot){ var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
+      /* *** A NAPE IS WHERE HAIR ENDS. IF IT DOES NOT END THERE, THERE IS NO NAPE.
+         (Paolo 8/27: "THE VERY LONG PAST SHOULDER LENGTH HAIRS LIKE THEY BREAK IN THE
+         MIDDLE OF THE HAIR.") ***
+         This drew the taper on EVERY back view, however long the style was. Measured on
+         LONG LOOSE facing N: rows 28-29 drew 6 pixels and row 30 drew 11. The mass
+         pinched to a point at the jaw and then flared straight back out underneath it --
+         a waist in the middle of the hair, which is what "breaks in the middle" looks
+         like when the break is a narrowing rather than a hole.
+         It is the same mistake as the front curtains tracking the chin, on the other
+         side of the head: a shape that is right for hair ENDING at the nape, applied to
+         hair that is on its way past the shoulders. Real long hair has no nape line at
+         all; the mass runs straight down the back and the neck never shows.
+         SO IT ONLY DRAWS WHEN THE HAIR ACTUALLY STOPS THERE. Nothing about a crop, a
+         buzz or a bob changes -- those all end at or above the jaw and still come to a
+         nape, which is his 8/1 ruling and it stands. */
+      if(back&&y>hBot-2*S&&y<=hBot&&(sideBot+backEx)<=hBot+S){
+        var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
       if(!strip){ mn-=wob(y,0); mx+=wob(y,1);                      /* NO STRAIGHT LINES */
         /* A FALL IS A FALL WHICHEVER WAY HE FACES. wob() fires on one row in four,
            which is a hairline lying on bone; below the jaw the hair is hanging in air
@@ -22893,7 +22989,22 @@ window.CLO=(function(){
            I only saw it by looking at the render; every number I had said the length
            was correct, and it was. Hair leaves the head at the temples and falls
            STRAIGHT DOWN past a jaw that is narrower than it is. */
-        if(y>hBot-3*S){ fs=[Math.min(fs[0],hMn),Math.max(fs[1],hMx)]; }
+        /* *** AND THE FIX FOR THAT ONLY MOVED ONE OF THE TWO LOOP BOUNDS. (Paolo 8/27:
+           "AFTER THE HEAD THERES NOTHING UNTIL THE SHOULDERS FACING NORTH AND SOUTH.") ***
+           The two curtain loops below run from `mn` to `fs[0]+cw` and from `fs[1]-cw` to
+           `mx`. This line widened `fs` to the whole head so the fall would stop tracking
+           the chin -- and `mn`/`mx` were left where the mass loop put them, which on
+           these rows IS the chin. So the left loop started to the RIGHT of where it was
+           told to stop and the right loop stopped to the LEFT of where it started, and
+           BOTH RAN ZERO TIMES. Measured on LONG LOOSE facing S: rows 16-29 drew hair,
+           rows 30 and 31 drew NOTHING AT ALL, row 32 picked up again. Two blank rows
+           right at the jaw, so the hair let go of the head and started again at the
+           shoulder -- which is his sentence, exactly, as a pair of numbers.
+           A LOOP WITH TWO BOUNDS HAS TWO PLACES TO BE WRONG, and moving one of them is
+           not a fix, it is a fifty-fifty. Both move together now, and `mn`/`mx` can only
+           ever widen here -- a style whose mass already ran wider than the head keeps it. */
+        if(y>hBot-3*S){ var _wf=[Math.min(fs[0],hMn),Math.max(fs[1],hMx)];
+          mn=Math.min(mn,_wf[0]-wob(y,0)); mx=Math.max(mx,_wf[1]+wob(y,1)); fs=_wf; }
         /* A LONG STYLE PEEKS FROM THE FRONT (Paolo 8/1): "with more of the longer
            hairstyles even from the front I would like to see you know a couple pixels
            of hair ... even if it is in the back of the head." Below the jaw a style

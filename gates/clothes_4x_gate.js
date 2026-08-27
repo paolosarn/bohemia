@@ -319,7 +319,25 @@ if (process.argv.includes('--pin')) {
   fs.writeFileSync(PIN, '# CLOTHES 56 PIN -- one sha256 per (facing, garment). Regenerating this file\n' +
     '# says "the wardrobe Paolo plays CHANGED ON PURPOSE". Never regenerate to clear a\n' +
     '# red; a red here means a 4x edit moved a pixel in today\'s build, which is a bug,\n' +
-    '# not a stale pin. Rewrite with: node gates/clothes_4x_gate.js --pin\n' + now);
+    '# not a stale pin. Rewrite with: node gates/clothes_4x_gate.js --pin\n' +
+    '#\n' +
+    '# THE ONE THING THAT IS NOT A BUG, and the only reason this file ever moves: PAOLO\n' +
+    '# RULED THAT THE SHAPE WAS WRONG. This pin exists so 4x work cannot disturb the art\n' +
+    '# he already approved. It was never meant to outrank him -- A GATE MUST NEVER\n' +
+    '# OUTRANK A RULING (8/1). When it moves for that reason, the reason goes in the log\n' +
+    '# below, with what changed and how much, or the next session cannot tell an honest\n' +
+    '# rebaseline from somebody clearing a red.\n' +
+    '#\n' +
+    '# REBASELINE LOG\n' +
+    '#   8/27/26  220 of 1744, ALL genHair, no other generator moved. Paolo: "U HAVE TO\n' +
+    '#            FIX THE FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ...\n' +
+    '#            MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE GOING DOWN ...\n' +
+    '#            AFTER THE HEAD THERES NOTHING UNTIL THE SHOULDERS." Three fixes: the\n' +
+    '#            profile hairline (hair may cover the side of the head, not just the\n' +
+    '#            four-pixel strip of skull behind the face), the front curtain\'s two\n' +
+    '#            loop bounds moving together at the jaw, and the nape taper only drawing\n' +
+    '#            where the hair actually ends. Law:\n' +
+    '#            laws/BOHEMIA_LAW_THE_HAIRLINE_IN_PROFILE_8_27_26.md\n' + now);
   console.log('  PIN REWRITTEN: ' + lines.length + ' hashes');
 }
 ok('the 56 pin exists (' + CASES.length + ' cases x 8 facings)', fs.existsSync(PIN));

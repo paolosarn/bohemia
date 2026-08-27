@@ -192,3 +192,72 @@ TAB
   CHARACTER — the outfit board, to try the new coats on and to vote on the factions.
   RUN — the crowd on the street, which is where he saw the problem.
   LOOK — the picture.
+
+
+================================================================================
+AMENDED THE SAME DAY -- 10% NO MATTER WHAT, AND THE REASON IS THE DESERT
+================================================================================
+
+HIS WORDS (hours after the ruling above)
+  "BRO NEW RULE ONLY 10% OF PEOPLE NO MATTER WHAT MAXIMUM CAN WEAR TRANCH COATS
+   THAT ARE LONG LIKE THAT OKAY. THIS IS A DESSERT GAME. ITS HOT!!!!"
+and in the same breath
+  "YOU DONT NEED TO SEE IT SO MUCH FACTION BASED BRO"
+
+WHAT I HAD MISSED, AND THE GATE HAD MISSED WITH ME
+  The morning's fix took the random crowd from ~20% to ~1.5% and I reported that as
+  done. THE FACTIONS WERE STILL AT 3 OF 13 -- 23% -- AND THE GATE NEVER LOOKED AT
+  THEM, because I wrote it to hold the RANDOM population and said so in its own
+  header as though that were a virtue.
+
+  A CAP THAT EXEMPTS THE LOUDEST, MOST-SEEN PEOPLE IN THE GAME IS NOT A CAP. The
+  faction outfits are the most repeated silhouettes a player meets. An exemption
+  written for myself and stated as a principle is exactly how a 23% sits under a
+  green gate all morning.
+
+THE NUMBER IS HIS AND IT IS NOT A RATCHET
+  10% of ANYBODY. Crowd, factions, named characters, all of it.
+
+                                  before          after
+    the random crowd              1.4%            1.4%   (already inside)
+    the thirteen factions         3 of 13 = 23%   1 of 13 = 7.7%
+
+  Reds       -> BRICK CAR COAT       (thigh, 0.56, the same BRICK ramp)
+  Remnants   -> SPLIT-TAIL WORK COAT (hip,   0.34, the same LEATHERV ramp)
+  Anarchists -> keeps the SPLIT-TAIL DUSTER; their whole `why` line is the
+                silhouette, and one of thirteen is inside his number.
+
+  Both replacements are the SAME RAMP at a shorter length, so COLOUR IS TERRITORY
+  (8/26) is untouched and a faction named for a colour still wears it. Both draw
+  real pixels: 1385px and 1259px on the render, checked, not assumed.
+  WHO THAT ONE FACTION IS REMAINS HIS.
+
+AND THE REASON IS BETTER THAN THE RULE
+  Las Vegas summers run past 40C. A floor-length coat in that valley is a
+  heat-stroke garment. That is physics, not taste, and it UPGRADES the morning's
+  rule: the long coat is not merely reserved, it is climatically absurd on anybody
+  who is not making a point with it.
+
+  Which is the same thing he said the first time, arrived at from the other end. A
+  person wearing a duster at noon in the Mojave cares more about how they look than
+  about being comfortable -- and that is precisely what "for badass motherfuckers"
+  means. The heat is what makes the coat COST something, and a garment that costs
+  nothing to wear cannot signal anything. THE TWO RULINGS ARE ONE RULING.
+
+  REALISM FIRST (8/4) is satisfied without spending any of the fun: the real-world
+  constraint IS the dramatic one.
+
+THE GATE NOW HOLDS BOTH HALVES        gates/trenchcoat_gate.js   12 passed, 0 failed
+  + the FACTION share against his 10%          (reports 1 of 13 = 7.7% at run time)
+  + the CROWD share against the same hard ceiling, separate from the 4% ratchet
+  + one that fails if this law stops recording WHY -- a number with its reason
+    deleted is the thing that rots first
+
+  The stale clause in the law ("FACTIONS ARE NOT CAPPED") is struck through and
+  annotated rather than deleted, because it is the exact sentence that let 23% sit
+  under a green gate.
+
+OPEN, NOT DECIDED HERE
+  The heat should eventually cost something in the SIMULATION and not just in the
+  wardrobe. A coat at noon in a valley this hot is a stamina question, which is a
+  COMBAT/LIFE row, not a clothing one.

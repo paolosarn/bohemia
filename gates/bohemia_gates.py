@@ -1384,6 +1384,23 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('HAIRLINE',      ['node', 'gates/hairline_gate.js'],
+     'THE HAIRLINE IN PROFILE, AND HAIR IS ONE PIECE (Paolo 8/27): "U HAVE TO FIX '
+     'THE FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ... THE HAIR '
+     'BALDING BACK FURTHER THAN IT SHOULD BE ... MOST HAIRS EAST AND WEST ARE JUST '
+     'LIKE A SINGLE LINE GOING DOWN ... AFTER THE HEAD THERES NOTHING UNTIL THE '
+     'SHOULDERS". Side-on the head is 16-18px across and only the BACK 4-6 are the '
+     'skull part -- the rest is painted FACE, and put() refused hair on a face '
+     'pixel, so every person in the valley got a hairline a fifth of the way down '
+     'and a four-pixel strip down the back. Two of his four complaints, one line. '
+     'It holds his four things on RENDERED PIXELS: the browline is at least a third '
+     'hair, a typical row below the brow is at least 11px, NO PIECE OF HAIR FLOATS '
+     'OFF THE HEAD (flood fill -- the check no per-row test can make, and the reason '
+     'my first ruler reported green on a build broken four visible ways), no fall '
+     'chokes at the neck, and the past-shoulder styles are whole from every angle '
+     'AND STILL HANG PAST THE JAW, because a haircut that is whole because it got '
+     'shorter would pass everything else. Test 1 proves the ruler can tell a haircut '
+     'from a shaved head before any of that counts.', False),
     ('TRENCHCOATS',    ['node', 'gates/trenchcoat_gate.js'],
      'TRENCHCOATS ARE FOR BADASSES (Paolo 8/27): "everyone\'s getting a fucking '
      'trenchcoat and I think that\'s fucking ridiculous ... trenchcoats are for bad '

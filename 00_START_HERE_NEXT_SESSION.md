@@ -1,3 +1,80 @@
+CHARACTER (character-0lurbs): 8/28 (f) LATEST -- *** HE SENT A HAIR DISPATCH MID-TURN AND
+ALL FOUR THINGS IN IT WERE REAL. Hair side-on now has a hairline instead of a bald patch and
+a four-pixel strip, and long hair no longer lets go of the head at the jaw. TAB: CHARACTER to
+try them on, RUN for the crowd, LOOK for the reference sheet. Nothing to judge. ***
+
+READ THIS PART BEFORE ANYTHING ELSE IN THIS LANE. *** EVERY NUMBER I HAD SAID HE WAS WRONG. ***
+I wrote a measurement pass over all fifteen canon hairstyles BEFORE touching anything. It
+reported zero bare forehead in profile, an 11px median row, and one break in forty-five
+style/facing pairs. Green, green, green, against a man saying "HOLY SHIT" and naming four
+specific things. All three measurements were asking a question that was NEARLY the right one:
+the forehead check walked only the two rows ABOVE the face part when the bald patch is BESIDE
+it; the width took a BOUNDING BOX, so a row with hair at both ends and a hole between measured
+eleven pixels; the break test called a row unbroken if ANY pixel on it was hair, when the break
+is HORIZONTAL. SECOND TIME IN THREE DAYS -- 8/25's edge-parity audit read 50.9% "already
+native" over nine styles that were solid blocks. IT IS A RULE NOW: WHEN A NUMBER DISAGREES WITH
+HIM ABOUT A PICTURE, GO AND LOOK AT THE PICTURE, AND THEN FIX THE RULER. What found all four
+was rendering every style in every direction and looking, which his own 8/25 dispatch (item 3)
+had already ordered and I had not done.
+
+THE THREE CAUSES:
+  1. SIDE-ON, A FACE IS MOST OF A HEAD. The head is 16-18px across in profile and ONLY THE BACK
+     4-6 COLUMNS ARE THE SKULL PART -- forehead, temple, ear, cheek and jaw are all painted
+     FACE. put() refuses hair on a face pixel unless you are looking at the back of the head.
+     So hair got the top fifth plus a four-pixel strip: "balding back" AND "a single line going
+     down", TWO OF HIS FOUR COMPLAINTS FROM ONE RULE. The 8/2 fix already knew this and taught
+     it to sideBot (how far DOWN) and never to put() (how far ACROSS).
+  2. A LOOP WITH TWO BOUNDS HAS TWO PLACES TO BE WRONG. An earlier fix widened `fs` to the whole
+     head at the jaw and left mn/mx tracking the CHIN, so both curtain loops ran ZERO TIMES.
+     LONG LOOSE facing S drew hair on rows 16-29, NOTHING on 30-31, and picked up at 32.
+  3. A NAPE IS WHERE HAIR ENDS. The nape taper drew on every back view however long the style
+     was, pinching the mass to a point at the jaw and flaring out under it.
+
+TWO OF THOSE THREE WERE HALF-FINISHED FIXES THAT LEFT A CORRECT COMMENT STANDING OVER INCORRECT
+CODE. Both would survive any review that reads the comment and believes it.
+
+MEASURED: balding styles in profile 11 of 15 -> 0 (worst browline coverage 25% -> 56%); pieces
+of hair floating off the head 6 -> 0; falls choking at the neck 8 -> 0; typical row below the
+brow 10px -> 12-16px. NOT ONE HAIRCUT DELETED OR SHORTENED, which the gate checks separately
+because a haircut that is whole BECAUSE IT STOPPED AT THE JAW passes every other test.
+
+THE 56 PIN MOVED ON PURPOSE: 220 of 1744 hashes, ALL genHair, nothing else. It exists so 4x
+work cannot disturb approved art and was never meant to outrank a ruling (8/1).
+gates/clothes_56_pin.txt now carries a REBASELINE LOG in its header saying who ruled and what
+changed, so nobody reads this as somebody clearing a red.
+
+GATE: gates/hairline_gate.js, 12 checks, MUTATION-PROVED by hand with three separate mutations,
+each caught by a different check. Its first test proves the ruler can tell a haircut from a
+shaved head before any other number counts.
+
+ALSO SHIPPED THIS TURN (both from earlier in the same session):
+  - ONE ID, ONE WHOLE PERSON. His "eye colors matching the portrait again" was much worse than
+    eyes: SKIN agreed 8%, HAIR agreed 0.0% over 200 people, and every body in the game drew THE
+    PLAYER'S IRIS. Two mechanisms existed for skin and hair (ENGINE SYNC -- the younger one is
+    deleted); NO mechanism existed for eyes. And the city's own hair was a clown parade: red
+    16.2%, pink 12.8%, black RAREST at 12.7%. Now 2.0/3.0/34.2. Skin proved byte-identical.
+  - THE 10% COAT CAP. He set a hard ceiling "no matter what" because it is a desert game. The
+    factions were at 3 of 13 = 23% and my own gate had exempted them BY DESIGN and said so in
+    its header as though that were a virtue. One faction now, 7.7%.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. HE NAMED THREE HAIR LENGTHS AND TWO TEXTURES and that is the whole vocabulary the renderer
+    reads. More is a COOK, not a fix, and it is the next real thing in this lane.
+ 2. FROM BEHIND, A LONG FALL IS A SOLID SLAB. Real, measured, and NOT something he named --
+    do not spend a turn on it before item 1.
+ 3. FACE CUSTOMISATION, never built, is still on the board from the 8/25 dispatch (item 10).
+
+WHAT IS PENDING HIM: nothing from this lane. WHO LIVES IN THE VALLEY (skin tone is uniform
+across nine) is a demographic question and therefore his, flagged not decided.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face (another lane's file); the LIFE
+slice carries an embedded wardrobe bank 47 garments behind and nothing gates it; two duplicate
+top-level function names in COMBAT (CombatBridge, clampPkg) found by talking_portrait_gate.
+
+================================================================================
+
+================================================================================
+
 FACTIONS (factions-ovkjpf): 8/28 (d) LATEST -- *** YOU COULD OPEN THE MAP OF THE
 VALLEY AND IT DID NOT SAY WHOSE GROUND WAS WHOSE. Nothing to judge. ***
 

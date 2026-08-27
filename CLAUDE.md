@@ -330,12 +330,99 @@ research partner. He DECIDES, you PRODUCE.
   nine strangers in ten, in the same DATA-NOT-NAMES shape the `lux` flag already used.
   A NAMED CHARACTER IS NOT A CROWD MEMBER: factions, bosses, killers and quest NPCs wear
   what their ruling says, and WHO EARNS A COAT IS HIS. Result ~20% -> ~1.5%; not one coat
-  deleted. Anarchists/Reds/Remnants keep theirs. THE LESSON: when something is everywhere,
-  look at what it is COMPETING AGAINST before you cap it -- "too much of X" is usually
-  "not enough of everything else", and a share cap alone is satisfied by DELETING X, which
-  is why the gate holds the band floors (>=6 hip, >=5 thigh) as hard as the share ceiling.
+  deleted. ~~Anarchists/Reds/Remnants keep theirs.~~ THE LESSON: when something is
+  everywhere, look at what it is COMPETING AGAINST before you cap it -- "too much of X" is
+  usually "not enough of everything else", and a share cap alone is satisfied by DELETING
+  X, which is why the gate holds the band floors (>=6 hip, >=5 thigh) as hard as the share
+  ceiling.
+  *** CAPPED AT 10% THE SAME DAY (Paolo 8/27, LOCKED): "BRO NEW RULE ONLY 10% OF PEOPLE NO
+  MATTER WHAT MAXIMUM CAN WEAR TRANCH COATS THAT ARE LONG LIKE THAT OKAY. THIS IS A DESSERT
+  GAME. ITS HOT!!!!" plus "YOU DONT NEED TO SEE IT SO MUCH FACTION BASED BRO". The morning
+  fix took the CROWD 20% -> 1.5% and I reported that as done. THE FACTIONS WERE STILL AT 3
+  OF 13 = 23% AND THE GATE NEVER LOOKED AT THEM, because I wrote it to hold the random
+  population and SAID SO IN ITS OWN HEADER AS THOUGH THAT WERE A VIRTUE. An exemption
+  written for yourself and stated as a principle is how a 23% sits under a green gate all
+  morning; "no matter what" means I do not get to argue it. Reds -> BRICK CAR COAT (thigh),
+  Remnants -> SPLIT-TAIL WORK COAT (hip), both the SAME RAMP at a shorter length so COLOUR
+  IS TERRITORY is untouched; ANARCHISTS ALONE KEEP THE DUSTER, 1 of 13 = 7.7%, and WHO THAT
+  ONE IS STAYS HIS. AND THE REASON IS BETTER THAN THE RULE: Vegas runs past 40C, so a
+  floor-length coat is a heat-stroke garment, and somebody wearing one at noon in the
+  Mojave cares more about how they look than about being comfortable -- which is exactly
+  what "for badass motherfuckers" means. THE HEAT IS WHAT MAKES THE COAT COST SOMETHING,
+  and a garment that costs nothing to wear cannot signal anything. THE TWO RULINGS ARE ONE
+  RULING, and REALISM FIRST is satisfied without spending any of the fun. ***
   Tab: CHARACTER (try them on) / RUN (the crowd). Full law:
   laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md  Gate: trenchcoat_gate.js
+- ONE ID, ONE WHOLE PERSON (Paolo 8/26 "Eye colors matching the portrait again", built
+  8/27): five words, and the honest answer was much worse than eyes. MEASURED over 200
+  citizens before touching anything: their SKIN agreed 8.0% of the time, their HAIR agreed
+  0.0% -- NOT ONE PERSON IN TWO HUNDRED -- and the body drew THE PLAYER'S IRIS for
+  everybody in the valley, because the facial ramp read `pface` by name. The portrait that
+  pops up when somebody talks was A DIFFERENT HUMAN BEING from the body in front of you; he
+  noticed the eyes because eyes are what you look at, and the eyes were the smallest of the
+  three. TWO CAUSES AND ONLY ONE WAS A MISSING FEATURE: skin and hair had TWO MECHANISMS
+  (NPCFactory has owned them since 7/2 and is what the RUN dresses the crowd from; faceFor
+  rolled its own because I never looked for one) -- ENGINE SYNC LAW, so THE YOUNGER ONE IS
+  DELETED, not reconciled. Eyes had NO mechanism at all, so that one is a new thing:
+  G.faceAs is THE FACE A BODY WEARS, null = the player. THE TEST BEFORE ADDING ANY
+  PER-PERSON TRAIT: DOES SOMETHING ALREADY PICK THIS? A second picker for a thing already
+  picked does not make variety, it makes two people. *** AND THE CITY'S OWN HAIR WAS A
+  CLOWN PARADE, visible only once the portrait started reading from it: NPCFactory picked
+  UNIFORMLY over seven colours, so bright red was 16.2% of the valley, pink 12.8%, and
+  BLACK WAS THE RAREST AT 12.7%. That is the trenchcoat bug for a THIRD time in the OLDEST
+  of the three places, and it governed every BODY in the RUN -- uniform over a list whose
+  contents are not uniform in life. A LIST IS NOT A DISTRIBUTION. Now black 34.2%, red
+  2.0%, pink 3.0%; skin proved BYTE-IDENTICAL across the change (one rng.next(), same
+  order). WHO LIVES IN THE VALLEY is demographic and therefore HIS -- skin stays uniform
+  across nine tones until he rules. *** Gate lesson: bodyTakesAFace was VACUOUS as first
+  written -- it tested the INPUT (was G.faceAs set) not the OUTPUT, and a mutation deleting
+  the whole feature passed 27 of 27. It counts rendered iris pixels now. A CHECK THAT READS
+  WHAT YOU HANDED IT IS NOT A CHECK. Tab: RUN (talk to anybody) / LOOK. Full law:
+  laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md  Gate: talking_portrait_gate.js
+- THE HAIRLINE IN PROFILE, AND HAIR IS ONE PIECE (Paolo 8/27, LOCKED): "U HAVE TO FIX THE
+  FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ... YOU HAVE THE HAIR BALDING
+  BACK FURTHER THAN IT SHOULD BE. AND MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE
+  GOING DOWN. AND THE VERY LONG PAST SHOULDER LENGTH HAIRS LIKE THEY BREAK IN THE MIDDLE OF
+  THE HAIR. AFTER THE HEAD THERES NOTHING UNTIL THE SHOULDERS." *** READ THIS PART FIRST:
+  EVERY NUMBER I HAD SAID HE WAS WRONG. A measurement pass over all fifteen canon styles,
+  written before touching anything, reported zero bare forehead, an 11px median row and one
+  break in forty-five. All three were asking a question that was NEARLY right -- the
+  forehead check walked only the two rows ABOVE the face part when the bald patch is BESIDE
+  it, the width took a BOUNDING BOX so a row with a hole in it measured eleven, and the
+  break test called a row unbroken if ANY pixel on it was hair when the break is
+  HORIZONTAL. SECOND TIME IN THREE DAYS (8/25's edge-parity audit read 50.9% "already
+  native" over nine solid blocks), so it is a rule: WHEN A NUMBER DISAGREES WITH HIM ABOUT
+  A PICTURE, GO AND LOOK AT THE PICTURE, AND THEN FIX THE RULER. What found all four was
+  rendering every style in every direction and LOOKING, which his own 8/25 dispatch (item 3)
+  had already ordered. *** FOUR COMPLAINTS, THREE CAUSES, AND TWO OF THE FOUR ARE ONE LINE:
+  side-on the head is 16-18px across and ONLY THE BACK 4-6 ARE THE SKULL PART -- forehead,
+  temple, ear, cheek and jaw are all painted FACE, and put() refuses hair on a face pixel
+  unless you are looking at the back of the head. So hair got the top fifth plus a
+  four-pixel strip: "balding back" AND "a single line going down", one bug. THE 8/2 FIX
+  ALREADY KNEW THIS AND DID HALF OF IT (it taught sideBot how far DOWN, never put() how far
+  ACROSS). Now hair paints the face part behind A REAL HAIRLINE -- forehead, temple, then
+  back over the ear -- driven by the style's own `front` dial, so the dial that meant "how
+  far down the forehead" also means "how far forward at the temple", ONE haircut from every
+  angle (8/25 clause 1). The first cut of the recede keyed off the LENGTH dial and turned
+  BUZZ CUT back into a four-pixel strip, killed by LOOKING: `side:0.30` says the hair does
+  not HANG below a third of the head, not that the scalp stops there. I HAD REACHED FOR THE
+  NEAREST DIAL INSTEAD OF ASKING WHAT THE DIAL MEANT. *** AND THE BREAK WAS A LOOP WITH TWO
+  BOUNDS AND ONLY ONE OF THEM MOVED. An earlier fix widened `fs` to the whole head at the
+  jaw and left `mn`/`mx` tracking the CHIN, so the left loop started right of its stop and
+  the right loop stopped left of its start and BOTH RAN ZERO TIMES: LONG LOOSE facing S drew
+  hair on rows 16-29, NOTHING on 30-31, and picked up again at 32. His sentence as a pair of
+  numbers. Third cause: the nape taper drew on EVERY back view however long the style was,
+  pinching the mass to a point at the jaw and flaring out under it -- a WAIST in the middle
+  of the hair. A nape is where hair ENDS. *** THE LESSON: TWO OF THE THREE WERE
+  HALF-FINISHED FIXES THAT LEFT A CORRECT COMMENT STANDING OVER INCORRECT CODE, and both
+  would survive any review that reads the comment and believes it. Balding styles 11 of 15
+  -> 0; loose pieces 6 -> 0; neck chokes 8 -> 0; not one haircut deleted or shortened, which
+  the gate checks separately because a haircut that is whole BECAUSE IT STOPPED AT THE JAW
+  passes every other test. The 56 pin moved 220 of 1744 hashes, ALL genHair -- it exists so
+  4x work cannot disturb approved art and was never meant to outrank him, and
+  gates/clothes_56_pin.txt now carries a REBASELINE LOG saying who ruled and what changed.
+  Tab: CHARACTER (try them on) / RUN (the crowd) / LOOK (the reference sheet). Full law:
+  laws/BOHEMIA_LAW_THE_HAIRLINE_IN_PROFILE_8_27_26.md  Gate: hairline_gate.js
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.
