@@ -1072,6 +1072,17 @@ GATES = [
      "further from its nearest existing neighbour than a typical pair of "
      "existing voices sit from each other -- THE RACK SETS ITS OWN BAR, so "
      "nobody picks the number that decides whether their own batch passed", True),
+    ('ENDING SOUND',['python3', 'gates/ending_sound_gate.py'],
+     "THE LAST THING ANYBODY HEARS. PEAK-END says the final moment is half of "
+     "what a person keeps of the demo, and driven on the real surface the day "
+     "the ending shipped it made NO SOUND AT ALL -- not when it landed, and not "
+     "when you pressed the one thing it deliberately will not let you say. A "
+     "refusal with no sound is indistinguishable from a broken button, so the "
+     "designed beat read as a bug. 64 withheld verbs (59 in the quest corpus, 5 "
+     "in the ending) went through a too-narrow matcher, the fifth this month, "
+     "in the function whose own comment warns about the fourth. Holds both "
+     "sounds, one sound per tap, the class contract in the source, and that the "
+     "ordinary controls still behave", True),
     ('INTENSITY WIRED',['python3', 'gates/intensity_wired_gate.py'],
      "Paolo 8/26 LOCKED, all FOUR triggers of his three-level ladder driven on "
      "the real surface: calm, an enemy trying to hurt you, somebody talking to "

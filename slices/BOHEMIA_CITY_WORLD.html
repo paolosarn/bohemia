@@ -36593,6 +36593,19 @@ function showEnding(){
   h += '<div class="endnoverb">' + esc(e.noverb) + '</div>';
   h += '<div class="endstop">THAT IS AS FAR AS THIS GOES FOR NOW.</div>';   /* draft:true */
   window.__ENDING = { key: e.key, from: e.from, says: e.says.slice(), noverb: e.noverb };
+  /* __THE_LAST_THIRTY_SECONDS_SOUND__ (8/27, SOUND lane). MEASURED SILENT the
+     day this shipped: heardOnShow [] on every branch. Peak-end says the last
+     moment is half of what anybody keeps, and half of what anybody keeps was
+     arriving with no sound at all.
+     phone_buzz, NOT something new: it is approved, it is already the morning
+     call's sound in this same file, and this is literally the same event -- a
+     message from a person landing on your phone. REUSE-FIRST is answered by
+     the moment already having a twin, not by cooking a second one.
+     NO STING HERE ON PURPOSE. The reckoning one screen earlier already
+     announces the day's verdict; re-announcing it over a friend's text would
+     score a phone call like a boss kill. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'phone_buzz'}},'*'); }catch(_e){}
   cardShow(h, function(){ /* nothing to press: the day does not come */ });
 }
 function onNightfall(){
@@ -46446,12 +46459,30 @@ document.getElementById('rungbtn').addEventListener('click', showStanding);
          The city's chrome is #topbar and #devtray, one div per control, so ask
          for a direct child of those (closest() resolves the badge SPAN inside
          PHONE up to the control itself). */
-      var btn=t.closest('button')||t.closest('.dcbtn')||t.closest('.tab')||t.closest('.opt')
+      /* __THE_WITHHELD_VERB_ANSWERS__ (8/27, SOUND lane). A FIFTH TOO-NARROW
+         MATCHER, IN THE FUNCTION WHOSE OWN COMMENT ABOVE WARNS ABOUT THE FOURTH.
+         `@NOVERB` is the corpus's most repeated craft device -- the line the game
+         refuses to let you speak -- and it renders as a bare div: 59 across the
+         quest corpus and 5 more in the ending. Every one of them was silent,
+         because a div matches nothing above and the handler returned.
+         AND SILENCE IS THE WORST POSSIBLE ANSWER HERE, not merely a missing one:
+         "a refusal with no sound is indistinguishable from A BROKEN BUTTON. It
+         does not merely lose information, it teaches the wrong thing." The demo
+         now ENDS on one of these, so the last thing a stranger does in this game
+         is press something that refuses them -- and if it is silent they file it
+         as broken, not as deliberate, and the whole designed effect inverts. */
+      var nov=t.closest('.noverb')||t.closest('.endnoverb');
+      var btn=nov||t.closest('button')||t.closest('.dcbtn')||t.closest('.tab')||t.closest('.opt')
              ||t.closest('#topbar>div')||t.closest('#devtray>div');
       if(!btn) return;
       var lab=(((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
                 (btn.textContent||''))).trim().toLowerCase();
-      var refused = btn.disabled===true
+      /* A WITHHELD VERB IS A REFUSAL BY CONSTRUCTION, never by reading a label.
+         It carries no `disabled` and no `.off` because it is not a disabled
+         control -- it is a sentence the game will not let you finish, which is
+         the same fact stated in the author's grammar instead of the DOM's. */
+      var refused = nov
+                 || btn.disabled===true
                  || (btn.classList && (btn.classList.contains('off')
                                     || btn.classList.contains('disabled')));
       var ev = refused ? 'ui_deny'
