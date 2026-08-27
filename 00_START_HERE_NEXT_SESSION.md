@@ -1,3 +1,67 @@
+FACTIONS (factions-ovkjpf): 8/28 (d) LATEST -- *** YOU COULD OPEN THE MAP OF THE
+VALLEY AND IT DID NOT SAY WHOSE GROUND WAS WHOSE. Nothing to judge. ***
+
+TAB: **RUN**, then **⤢ WHOLE MAP**. Every outfit's ground is marked. Yours reads
+differently from theirs. Your ground and the nearest one are named even zoomed
+all the way out; the rest name themselves as you zoom in.
+
+WHY: yesterday the board learned to say COLORFUL, NORTHWEST, A LONG WAY OFF.
+That is a bearing, and a remembered compass word is NOT navigation across 29
+cells. The open-world research's working middle -- "see it in the distance, go,
+spot the next thing from there" -- ASSUMES YOU CAN SEE IT, and in a top-down
+valley 3,712 tiles wide you cannot.
+
+MEASURED: renderCity() did not call ctBases() ONCE. Every ctBases() call in the
+file sat in the faction code. The map of the whole valley said nothing about
+anybody holding any of it, while the canon says LIGHT=TERRITORY, CLUSTERED
+POWER (12% lit, OWNED), NOBODY PATROLS THE DARK. Territory here is visible by
+construction and the map was the one place that never admitted it.
+
+MAP LAW respected: NOTHING IS PLACED. Every position is one bohemia_loop.boot()
+decided and the city baked. NOT A HUD PIN either: it does not follow him, it is
+not on the walking screen, it points at no quest.
+
+IT COMPOSES WITH THIS MORNING'S GUARD FOR FREE. The map asks ctBases(), which
+now knows when the world was rerolled out from under the bake, so after a reroll
+it draws nothing instead of painting the last valley's borders over this one.
+
+*** TWO DEFECTS THAT WERE CORRECT IN THE SOURCE AND WRONG IN THE RENDER ***
+  1. The markers were sized in TILES. At WHOLE MAP zoom TW is 3.74 PIXELS, so
+     every marker was a four-pixel smudge on the one screen you open to plan a
+     walk. Screen-sized now. Found by screenshotting it.
+  2. CUSTOM and COLORFUL are nine cells apart, about twenty pixels at that zoom,
+     and CUSTOM's plate painted over the front of COLORFUL's name. Both "drawn",
+     one unreadable. Labels nudge now, with a leader line back to their ground.
+
+*** AND TWO OF MY OWN GATE CLAIMS WERE DECORATION UNTIL MUTATION PROVED IT ***
+  M2 said the markers are screen-sized by checking they were PAINTED, which is
+     what M1 already says. Tile-sized markers left it GREEN -- still painted,
+     just a smudge. It counts AREA now against a MEASURED floor: shipped paints
+     min 24 px per marker, the bug paints min 11, so the floor is 20.
+  M5 said no label is buried under another by counting text-coloured pixels in
+     a band above each marker. Removing the collision fix left it GREEN, because
+     the band is 90px wide and THE NEIGHBOUR'S LABEL IS THE SAME COLOUR. The
+     render now publishes its label boxes (window.__GROUNDLABELS, the idiom
+     renderCity already uses for window.__LAMPQ) and the claim checks overlap.
+  A CLAIM THAT CANNOT FAIL IS NOT A CLAIM, and pixel-counting claims are
+  especially good at looking rigorous while proving nothing.
+
+  FACTION BETWEEN  88 passed, 0 failed (was 81)   CARD FOLD   18/0
+  ORGAN REACH       8/0   EVERY PANEL 14/0        ALPHA LOADS 20/0
+Four mutations, all bite.
+
+*** STILL THE ONE THING BLOCKING THIS LANE, AND STILL NOT MINE ***
+837 people stand within six cells of the spawn and not one runs with anybody;
+nearest base 29 cells. The board makes it findable, gives a reason to go, and
+the map now shows where. NONE OF THAT MAKES IT NEAR. Three ways out:
+  1. The spawn and the bases come from two systems that have never heard of each
+     other. bohemia_loop.boot() returns factionBases and NO player position, so
+     reconciling them means DECIDING placement. His.
+  2. The dials: AFFILIATED_RATE (0.30), REACH_CELLS (12), both [PENDING].
+  3. Outfits get people who TRAVEL. Needs a new dial, needs a ruling.
+
+--------------------------------------------------------------------------------
+
 COMBAT (combat-nfnki9): 8/28 (c) LATEST -- *** FIFTY-THREE MINI BOSSES ARE IN
 THE GAME AND NOT ONE OF THEM WAS INVENTED. HIS LADDER HAS BEEN A DOCUMENT FOR
 THREE WEEKS; THE GAME PARSES IT NOW. *** Nothing to judge.
