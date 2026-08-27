@@ -286,6 +286,15 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 </div>
 <style id="homePhoneCss">
 
+
+/* ==== __CITY_WHYWALK__ -- the reason-to-walk lines. Same tokens, and the
+   row grows downward rather than sideways so a long want does not squeeze the
+   bearing off the right edge of a phone. */
+#outfitpanel .obv{flex-wrap:wrap}
+#outfitpanel .obvwhy{flex:1 1 100%;padding:3px 0 1px;line-height:1.5}
+#outfitpanel .obvwant{display:block;font-size:9px;opacity:.75}
+#outfitpanel .obvpays{display:block;font-size:9px;color:var(--acc);opacity:.9;
+  letter-spacing:1px;padding-top:2px}
 /* ==== __CITY_VALLEY__ -- the valley half of the board. Same tokens, same
    geometry; nothing new is designed. */
 #outfitpanel .obhead2{color:var(--acc);font-size:11px;letter-spacing:3px;
@@ -42723,8 +42732,57 @@ var CT_BASES_SEED  = "bohemia";
    at patch time and keyed to the seed TEXT they were produced for: a different
    seed gets NULL rather than a confidently wrong answer. */
 function ctBases(){
+  /* __CITY_WHYWALK__ -- THIS CHECK COULD NOT FIRE.
+     It compared BOH_SEED_TEXT (a const, 'bohemia') against CT_BASES_SEED
+     (baked, "bohemia"). Two constants. Its own comment says what it is for --
+     "a different seed gets NULL rather than a confidently wrong answer" --
+     and the intent is right while the variable is wrong.
+     WHAT MAKES A DIFFERENT WORLD IS `seed`:
+         let seed = BOH_ONE_SEED();            // boot, derived from the text
+         seed=(seed*1103515245+12345)>>>0;     // REROLL, one LCG step
+     REROLL builds an entire new overmap off that number and never touches the
+     text, so the bases end up describing a world that no longer exists while
+     the guard watches a variable that cannot move.
+     MEASURED by pressing the real button: seed 2691674296 -> 3182853632, and
+     ctBases() went on answering. Both checks are kept -- the text one catches
+     somebody editing the seed and forgetting to re-bake, this one catches the
+     world moving underneath the bake. */
   if(String(BOH_SEED_TEXT) !== String(CT_BASES_SEED)) return null;
+  try {
+    if(typeof seed !== 'undefined' && typeof BOH_ONE_SEED === 'function'
+       && (seed >>> 0) !== (BOH_ONE_SEED() >>> 0)){
+      /* AND IT SAYS SO, ONCE. Returning null in silence is how this lane lost
+         thirteen days: factionOf answered null for all 166 people and "nobody
+         in Las Vegas runs with anybody" looks exactly like a world where
+         nobody does. A guard that goes quiet IS the bug it was written to
+         prevent. */
+      if(!ctBases.__said){
+        ctBases.__said = 1;
+        console.warn('BOHEMIA: the world was rerolled, so the baked faction '
+          + 'bases are for a world that no longer exists. Nobody will run with '
+          + 'anybody until the city is re-baked (tools/bohemia_city_factions_'
+          + 'patch.py). This is a builder-tool consequence, not a save bug.');
+      }
+      return null;
+    }
+  } catch(_e){}
   return CT_BASES_BAKED;
+}
+/* __CITY_WHYWALK__ -- and the ONE place that can explain an empty valley.
+   Kept beside the guard rather than inside the board, so the board and the
+   console cannot drift into two different explanations of one fact. */
+function ctBasesWhyNone(){
+  try {
+    if(String(BOH_SEED_TEXT) !== String(CT_BASES_SEED))
+      return 'THE FACTION GROUND WAS BAKED FOR A DIFFERENT SEED. Nobody runs '
+           + 'with anybody until the city is re-baked.';
+    if(typeof seed !== 'undefined' && typeof BOH_ONE_SEED === 'function'
+       && (seed >>> 0) !== (BOH_ONE_SEED() >>> 0))
+      return 'YOU REROLLED THE WORLD. The outfits\' ground was mapped for the '
+           + 'valley that was here before, so none of it applies any more and '
+           + 'nobody runs with anybody. Reload to get that valley back.';
+  } catch(_e){}
+  return null;
 }
 /* the overmap cell you are standing in. hx,hy are GLOBAL FINE coords and FN is the
    fine tiles per cell, so this is the same cell the rest of the world means. */
@@ -43621,9 +43679,17 @@ function ctValleyRows(){
     var d  = Math.abs(dx) + Math.abs(dy);
     var isMine = !!(mine && String(name).toUpperCase().replace(/[\s_]/g,'')
                           === String(mine).toUpperCase().replace(/[\s_]/g,''));
+    /* __CITY_WHYWALK__ -- what they want and what they pay, read from the
+       rules table. A missing rule is a real answer (not every base on the map
+       has one) and prints nothing rather than an empty label. */
+    var rule = null;
+    try { if(typeof BohemiaBelonging !== 'undefined')
+            rule = BohemiaBelonging.ruleOf(name); } catch(_e){}
     out.push({ who:String(name).toUpperCase(), cells:d, mine:isMine,
                where:isMine ? 'YOURS' : ctBearing(dx, dy),
                far:isMine ? 'THIS IS YOUR GROUND' : ctFarWord(d),
+               want:(isMine || !rule) ? null : (rule.anchorWant || null),
+               pays:(isMine || !rule) ? null : (rule.pays || null),
                met:ctMetAnyOf(name) });
   }
   out.sort(function(a,b){ return a.cells - b.cells; });
@@ -43642,7 +43708,17 @@ function ctMetAnyOf(name){
 
 function ctValleyHtml(){
   var rows = ctValleyRows();
-  if(!rows || !rows.length) return '';
+  if(!rows || !rows.length){
+    /* __CITY_WHYWALK__ -- AN EMPTY VALLEY IS EXPLAINED, NEVER BLANK.
+       ctValleyRows returns null when ctBases() does, and the only reason that
+       happens is a guard firing. Rendering '' there would show him a board
+       with a missing half and no way to know why -- which is the silent-null
+       failure this lane already paid thirteen days for, moved up one level. */
+    var why = (typeof ctBasesWhyNone === 'function') ? ctBasesWhyNone() : null;
+    return why ? '<div class="obhead2">THE VALLEY</div>'
+                 + '<div class="obempty">' + why + '</div>'
+               : '';
+  }
   var others = rows.filter(function(r){ return !r.mine; });
   var nearest = others[0];
   var h = '<div class="obhead2">THE VALLEY</div>';
@@ -43659,7 +43735,21 @@ function ctValleyHtml(){
        + '<span class="obvwhere">' + r.where + ' \u00b7 ' + r.far + '</span>'
        + '<span class="obvmet">' + (r.mine ? '' : (r.met ? 'YOU HAVE DEALT WITH THEM'
                                                          : 'NEVER MET')) + '</span>'
-       + '</div>';
+       + '</div>'
+       /* __CITY_WHYWALK__ -- AND WHY YOU WOULD MAKE THAT WALK.
+          The nearest of these is 29 cells from the spawn, which is 3,712
+          tiles. A bearing tells him where; it does not tell him what is at the
+          end of it. Both answers are already written in bohemia_belonging's
+          RULES (anchorWant, pays) and both were only ever shown on the card of
+          somebody he had ALREADY MET -- shown, in other words, one walk too
+          late. Nothing is authored here; it is read out of the table and
+          printed one screen earlier. */
+       + (r.want || r.pays
+            ? '<div class="obvwhy">'
+              + (r.want ? '<span class="obvwant">' + r.want + '</span>' : '')
+              + (r.pays ? '<span class="obvpays">THEY PAY: ' + r.pays + '</span>' : '')
+              + '</div>'
+            : '');
   }
   return h;
 }

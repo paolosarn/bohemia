@@ -999,9 +999,110 @@ async function onTheValley() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   L. A GUARD THAT COULD NOT FIRE, AND A LIST OF DIRECTIONS WITH NO REASONS.
+   ========================================================================== */
+async function onWhyWalk() {
+  console.log('\nL. WHY HE WOULD MAKE THE WALK, AND WHAT HAPPENS IF HE REROLLS.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const BEL = require(path.join(ROOT, 'engine/bohemia_belonging.js'));
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 9000);
+
+    const before = await page.evaluate(() => {
+      ctOutfitOpen();
+      const txt = document.getElementById('outfitpanel').innerText || '';
+      ctOutfitClose();
+      return { txt, rows: ctValleyRows(), basesNull: !ctBases(),
+               seed: seed >>> 0, boot: BOH_ONE_SEED() >>> 0 };
+    });
+
+    ok('L1 IN THE WORLD THE BASES WERE BAKED FOR, THE GUARD STAYS OUT OF THE '
+      + 'WAY. seed and BOH_ONE_SEED() agree at boot, so nothing is withheld',
+      before.seed === before.boot && !before.basesNull,
+      JSON.stringify({ seed: before.seed, boot: before.boot, basesNull: before.basesNull }));
+
+    /* WHAT THEY WANT AND WHAT THEY PAY, READ OUT OF THE RULES TABLE. */
+    const withRule = (before.rows || []).filter(r => !r.mine && BEL.ruleOf(r.who));
+    ok('L2 THERE ARE OUTFITS WITH RULES ON THE BOARD TO CHECK. A sweep that '
+      + 'found none would pass every claim below it having measured nothing',
+      withRule.length >= 5, withRule.length + ' of ' + (before.rows || []).length);
+
+    ok('L3 EVERY OUTFIT WITH A RULE SAYS WHAT IT WANTS AND WHAT IT PAYS. The '
+      + 'nearest of these is 29 cells from the spawn -- 3,712 tiles. A bearing '
+      + 'says where; it does not say what is at the end of it. Both answers '
+      + 'have been written in bohemia_belonging RULES the whole time and both '
+      + 'were only ever shown on the card of somebody he had ALREADY MET, '
+      + 'which is one walk too late. Same shape as the four garments cooked '
+      + 'for the Colorful in July and worn by nobody for five weeks',
+      withRule.every(r => r.want && r.pays),
+      JSON.stringify(withRule.filter(r => !r.want || !r.pays).slice(0, 3)));
+
+    /* NOTHING WAS AUTHORED IN THE CITY. This is the claim that keeps the board
+       honest: every line it prints must be the module's own words. */
+    const invented = withRule.filter(r => {
+      const rule = BEL.ruleOf(r.who);
+      return r.want !== (rule.anchorWant || null) || r.pays !== (rule.pays || null);
+    });
+    ok('L4 AND EVERY WORD OF IT IS THE RULES TABLE\'S OWN, compared string for '
+      + 'string against engine/bohemia_belonging.js. MECHANISM-MINE / '
+      + 'CONTENTS-PAOLO\'S: the board may move his words one screen earlier, it '
+      + 'may not write new ones',
+      invented.length === 0,
+      JSON.stringify(invented.slice(0, 2).map(r => r.who)));
+
+    ok('L5 AND THEY ARE ACTUALLY ON THE SCREEN, not merely in the row object',
+      withRule.slice(0, 3).every(r => before.txt.indexOf(r.pays) >= 0),
+      JSON.stringify(before.txt.slice(0, 120)));
+
+    /* THE GUARD, DRIVEN BY THE REAL BUTTON. */
+    await page.evaluate(() => { document.getElementById('reroll').click(); });
+    await SETTLE(page, 6000);
+    const after = await page.evaluate(() => {
+      ctOutfitOpen();
+      const txt = document.getElementById('outfitpanel').innerText || '';
+      ctOutfitClose();
+      return { txt, basesNull: !ctBases(), seed: seed >>> 0 };
+    });
+
+    ok('L6 *** THE GUARD IN ctBases() CAN FIRE NOW. *** It compared '
+      + 'BOH_SEED_TEXT (a const) against CT_BASES_SEED (baked from that same '
+      + 'const). TWO CONSTANTS. It could never fire, while its own comment '
+      + 'said "a different seed gets NULL rather than a confidently wrong '
+      + 'answer". What actually makes a different world is `seed`, which '
+      + 'REROLL advances by one LCG step without touching the text. Measured '
+      + 'by pressing the real button: 2691674296 -> 3182853632, and the guard '
+      + 'went on answering',
+      after.seed !== before.seed && after.basesNull === true,
+      JSON.stringify({ seedBefore: before.seed, seedAfter: after.seed,
+                       basesNull: after.basesNull }));
+
+    ok('L7 AND IT SAYS WHY, ON THE BOARD. Returning null in silence is how '
+      + 'this lane lost thirteen days: factionOf answered null for all 166 '
+      + 'people and "nobody in Las Vegas runs with anybody" looks exactly like '
+      + 'a world where nobody does. A guard that goes quiet IS the bug it was '
+      + 'written to prevent',
+      /YOU REROLLED THE WORLD/.test(after.txt),
+      JSON.stringify(after.txt.slice(0, 160)));
+
+    ok('L8 AND ONCE IN THE CONSOLE, not on every call. A warning that repeats '
+      + 'per person per frame is noise nobody reads',
+      warns.filter(w => /rerolled/.test(w)).length === 1,
+      JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
   .then(onTheValley)
+  .then(onWhyWalk)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
