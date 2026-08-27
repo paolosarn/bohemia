@@ -1,0 +1,151 @@
+LOOKING AT THE MAP IS NOT TRAVELLING
+8/27/26 -- RUN lane. His report, and I made it loud the day before.
+
+
+WHAT HE SAID
+============
+
+    "how come in the run like it wants to keep spawning me like outside of like
+     my starter Neighbourhood it's so confusing like I'll just throw me some
+     randomly on the map it's it's really weird bro. You gotta fix this shit."
+
+
+WHAT I CHECKED FIRST, AND IT WAS ALL CLEAN
+==========================================
+
+He said SPAWNING, so I measured spawning, four ways, before touching anything:
+
+    two fresh boots            cell [48,48], suburb, home 0 cells away
+    four mornings each         cell [48,48], every single one
+    walk, save, reload         0 tiles moved across the reload
+    WATCH the opening          identical to SKIP, [48,48], 0 away
+
+*** EVERY PROBE I HAD EVER WRITTEN SKIPS THE OPENING, so I ran that one too --
+he watches it. Also clean. If I had stopped at "spawning is fine" I would have
+told him he was wrong, and he was not.
+
+
+WHAT IT ACTUALLY IS, REPRODUCED WITH REAL TOUCH
+===============================================
+
+    standing                 tile 6205,6271   cell [48,48]   marker [48,48]
+    pinch out to the map      tile 6205,6271   cell [48,48]   marker [48,48]
+    three taps on the pad     tile 6205,6271   cell [48,48]   marker [49,48]
+    pinch back in             tile 6336,6208   cell [49,48]   194 TILES AWAY
+
+*** HE LOOKED AT THE MAP AND CAME BACK 194 TILES FROM WHERE HE WAS STANDING. ***
+"Randomly on the map" is exactly right, and it is not spawn code at all.
+
+
+TWO HALVES, AND THE FIRST IS WHY IT FEELS RANDOM
+================================================
+
+1. THE PAD DOES NOT MEAN THE SAME THING AT BOTH ZOOMS. Zoomed out, the movement
+   pad is still in the same corner under the same thumb -- it does not move, dim
+   or hide -- and a press there moves the MARKER a whole overmap cell (96 metres)
+   and silently spends TEN MINUTES of his day. Three taps he never meant to be
+   travel. Nothing on screen distinguishes that from walking.
+
+2. AND COMING BACK NEVER RETURNED HIM TO HIS BODY. swapMode's city->human branch
+   opens by throwing away where he was standing:
+
+       hx=city.x*FN+(FN>>1); hy=city.y*FN+(FN>>1);
+
+   the centre of the marker cell, then a spiral of up to FN rings hunting a
+   road-touching tile. That is CORRECT for arriving somewhere you chose to go,
+   and completely wrong for a glance at the map.
+
+
+*** AND I MADE IT LOUD YESTERDAY ***
+====================================
+
+Before 8/26 you had to deliberately press DROP IN to cross that seam, so this
+only cost you something when you asked for it. THE ACTION BUTTON DOES ACTIONS
+made zoom the primary way in and out -- his ruling, and correct -- which routed
+EVERY GLANCE AT THE MAP through a landing built for arrival.
+
+A CHANGE CAN BE RIGHT AND STILL HAND A LATENT BUG A MUCH BIGGER AUDIENCE. The
+bug was always there; making the gesture cheap is what made it constant. That is
+worth remembering the next time a control is made easier to reach.
+
+
+THE RULE, AND THE GAME ALREADY SAID IT SOMEWHERE ELSE
+=====================================================
+
+From the phone's GO handler, written long before any of this:
+
+    "GO on the phone posts a cell; the run moves the CITY MARKER to it...
+     IT NEVER MOVES HIS BODY."
+
+THE MARKER IS A CAMERA. That was already the stated rule in one place and the
+zoom seam was the one place that disagreed with it.
+
+
+THE FIX: TWO GESTURES, TWO MEANINGS
+===================================
+
+    A PINCH IS A LOOK.  He comes back to the exact tile he left, wherever the
+                        marker wandered while he was up there. 194 -> 0.
+    THE CHIP IS A GO.   Pressing DROP IN still lands him where the marker is,
+                        because that is deliberate and it is the travel the game
+                        currently has.
+
+BOTH HALVES OR IT IS A DIFFERENT BUG. Without the first, a glance teleports him.
+Without the second the marker is scenery and he can never cross the valley --
+NO DISTRICT IS A PRISON (Paolo 8/1).
+
+THE PATTERN IS NOT INVENTED HERE: the VISTA has done exactly this since 8/23
+with returnTo {hx,hy,mode,cx,cy} -- go and look at something, come back to your
+feet. The overlook had it. The map never did.
+
+NOT CHANGED: walking the marker still travels, still costs ten minutes a cell,
+still lands you by a road. Removing that is not this patch's business --
+FT-JOURNEY is the locked ruling about what travel becomes and it is a build of
+its own.
+
+
+AND A SECOND BUG I HAD SHIPPED THE DAY BEFORE, FOUND ON THE WAY
+===============================================================
+
+The DROP IN chip I created yesterday was UNREACHABLE. I gave it a hardcoded
+left:12/bottom:46 in .wrap -- underneath #blstack, the column that owns that
+corner at z-index 39. A real click on it timed out.
+
+*** THAT IS WORD FOR WORD THE BUG THAT COLUMN EXISTS TO PREVENT, COMMITTED BY
+THE PERSON WHO FIXED IT, ONE DAY LATER. *** blStack's own comment says it:
+"THE DAY LOOP ADDED THREE MORE CHIPS TO THIS CORNER AND NEVER JOINED THE COLUMN
+-- each an absolute hardcoded offset, which is word for word the bug the note
+above this function describes fixing."
+
+AND MY OWN GATE SAID IT WAS FINE. The ACTION BUTTON claim read the chip's TEXT
+and never asked whether a thumb could reach it. A CONTROL IS NOT OFFERED BECAUSE
+IT EXISTS; IT IS OFFERED BECAUSE IT CAN BE PRESSED. Both fixed: the chip joins
+the column like every other chip, and that claim now measures reachability the
+way the panel sweep does.
+
+
+THE GATE
+========
+
+gates/looking_at_the_map_is_not_travelling_gate.js -- LOOK NOT TRAVEL, 11 claims.
+
+It taps the pad while he is zoomed out on purpose, because that is not a
+contrived input -- it is where his hand already is.
+
+MUTATION TESTED BOTH WAYS, each hitting only its own half:
+    everything is a GO again    8 passed, 3 failed -- and the log reproduces his
+                                report exactly: "moved him 194 tiles"
+    everything is a LOOK        9 passed, 2 failed -- travel deleted, the marker
+                                becomes scenery
+
+ACTION BUTTON is 18 claims now (was 17) with the reachability claim added.
+
+
+A NOTE ON THIS BOX
+==================
+
+Browser gates that drive real touch and real timing go red under load here --
+LOOK NOT TRAVEL measured 8/3 when run fifth in a back-to-back batch and 11/0
+twice when run alone; FIRST MORNING did the same thing earlier in the day. This
+repo already wrote that down on 8/24 as "red in the pack and green alone today".
+Worth knowing before chasing a phantom: run the gate alone before believing it.

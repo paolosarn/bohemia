@@ -580,6 +580,30 @@ GATES = [
      'its first version drove animalPass BY HAND -- so removing the renderer\'s call left it green, '
      'a gate supplying the very call it was checking for. It spies on a real render() now: that '
      'mutation turns 6 claims red instead of 2', True),
+    # 8/27, Paolo: "it wants to keep spawning me outside of my starter Neighbourhood
+    # ... it'll just throw me somewhere randomly on the map".
+    ('LOOK NOT TRAVEL', ['node', 'gates/looking_at_the_map_is_not_travelling_gate.js'],
+     'LOOKING AT THE MAP IS NOT TRAVELLING. REPRODUCED with real touch: standing at tile '
+     '6205,6271, pinch out to the map, three taps of the movement pad -- which is still in the '
+     'same corner under the same thumb when he is zoomed out, where a press slides the MARKER a '
+     'whole overmap cell and spends TEN MINUTES -- pinch back in, and he is 194 TILES from where '
+     'he was standing. TWO HALVES: the pad means two different things at two zooms with no '
+     'signal, and swapMode\'s city->human branch opens by throwing away where he was standing '
+     'and centring him in the marker cell, which is right for ARRIVING and wrong for a glance. '
+     'AND THE 8/26 ACTION BUTTON WORK MADE IT LOUD: before that you pressed DROP IN on purpose '
+     'to cross the seam, and making zoom the primary way in and out routed every glance through '
+     'a landing built for arrival -- a change can be correct and still hand a latent bug a huge '
+     'audience. THE RULE WAS ALREADY WRITTEN ELSEWHERE IN THE FILE: the phone\'s GO "moves the '
+     'CITY MARKER to it ... IT NEVER MOVES HIS BODY". The marker is a camera; the zoom seam was '
+     'the one place that disagreed. So the two gestures mean two things now and BOTH are held: '
+     'a PINCH is a LOOK and returns him to the exact tile he left wherever the marker wandered '
+     '(194 tiles -> 0), and the CHIP is a GO and still lands him where the marker is, because '
+     'without that half the marker is scenery and he can never cross the valley (NO DISTRICT IS '
+     'A PRISON). Mutation-tested both ways, each hitting only its own half: everything-a-GO '
+     'reproduces the 194 tiles, everything-a-LOOK deletes travel. It also holds the camera chip '
+     'REACHABLE rather than merely present -- the first version of that claim passed while the '
+     'chip sat unclickable under the bottom-left column at z-index 39, which is the exact bug '
+     'that column exists to prevent, committed one day after this lane fixed it', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

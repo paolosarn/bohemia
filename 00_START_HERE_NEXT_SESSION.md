@@ -2542,6 +2542,90 @@ NEXT IN THIS LANE
 
 ---
 
+RUN (run-eak241): 8/27 LATEST -- *** LOOKING AT THE MAP IS NOT TRAVELLING.
+TAB: RUN. Nothing to judge. ***
+
+HIS REPORT: "it wants to keep spawning me outside of my starter Neighbourhood ...
+it'll just throw me somewhere randomly on the map."
+
+*** I CHECKED SPAWNING FIRST AND IT WAS ALL CLEAN, WHICH IS WHY THE NEXT STEP
+MATTERED. *** Two fresh boots, four mornings each, walk-save-reload, and WATCHING
+the opening instead of skipping it (every probe this lane has ever written skips
+it, and he does not) -- all landed [48,48], suburb, home 0 cells away, 0 tiles
+across the reload. If I had stopped there I would have told him he was wrong.
+
+REPRODUCED WITH REAL TOUCH, and it is not spawn code at all:
+    standing              tile 6205,6271  cell [48,48]  marker [48,48]
+    pinch out to the map  tile 6205,6271  cell [48,48]  marker [48,48]
+    three taps of the pad tile 6205,6271  cell [48,48]  marker [49,48]
+    pinch back in         tile 6336,6208  cell [49,48]  *** 194 TILES AWAY ***
+
+TWO HALVES. (1) THE PAD MEANS TWO DIFFERENT THINGS AT TWO ZOOMS: zoomed out it is
+still in the same corner under the same thumb and a press slides the MARKER a
+whole cell and silently spends TEN MINUTES. (2) swapMode's city->human branch
+opens by throwing away where he was standing and centring him in the marker cell,
+then spiralling up to FN rings for a road -- right for ARRIVING, wrong for a
+glance.
+
+*** AND YESTERDAY'S WORK MADE IT LOUD. *** Before THE ACTION BUTTON DOES ACTIONS
+you pressed DROP IN on purpose to cross that seam. Making zoom the primary way in
+and out -- his ruling, and correct -- routed EVERY GLANCE at the map through a
+landing built for arrival. A CHANGE CAN BE RIGHT AND STILL HAND A LATENT BUG A
+MUCH BIGGER AUDIENCE.
+
+THE RULE WAS ALREADY WRITTEN IN THIS FILE, in the phone's GO handler: "the run
+moves the CITY MARKER to it ... IT NEVER MOVES HIS BODY." The marker is a camera.
+The zoom seam was the one place that disagreed.
+FIXED AS TWO GESTURES WITH TWO MEANINGS: a PINCH is a LOOK and returns him to the
+exact tile he left wherever the marker wandered (194 -> 0); the CHIP is a GO and
+still lands him at the marker. BOTH HALVES OR IT IS A DIFFERENT BUG -- without the
+first a glance teleports him, without the second the marker is scenery and he can
+never cross the valley (NO DISTRICT IS A PRISON). Same shape as the vista's
+returnTo, which has done this since 8/23; the map never had it.
+NOT CHANGED: walking the marker still travels and still costs ten minutes a cell.
+FT-JOURNEY is the locked ruling about what travel becomes.
+
+*** AND A SECOND BUG I SHIPPED THE DAY BEFORE, FOUND ON THE WAY. *** The DROP IN
+chip I created yesterday was UNREACHABLE -- hardcoded left:12/bottom:46 in .wrap,
+underneath #blstack which owns that corner at z-index 39. A real click timed out.
+THAT IS WORD FOR WORD THE BUG THAT COLUMN EXISTS TO PREVENT, committed by the
+person who fixed it, one day later. AND MY OWN GATE SAID IT WAS FINE because its
+claim read the chip's TEXT and never asked whether a thumb could reach it. A
+CONTROL IS NOT OFFERED BECAUSE IT EXISTS; IT IS OFFERED BECAUSE IT CAN BE PRESSED.
+The chip joins the column now and the claim measures reachability. ACTION BUTTON
+17 -> 18 claims.
+
+  GATE: gates/looking_at_the_map_is_not_travelling_gate.js, LOOK NOT TRAVEL, 11
+  claims. It taps the pad while zoomed out ON PURPOSE, because that is not a
+  contrived input, it is where his hand already is. MUTATION TESTED BOTH WAYS,
+  each hitting only its own half: everything-a-GO goes 8/3 and the log reproduces
+  his report ("moved him 194 tiles"); everything-a-LOOK goes 9/2 and travel is
+  gone.
+
+A NOTE ON THIS BOX, worth knowing before chasing a phantom: browser gates that
+drive real touch and real timing go red UNDER LOAD here. LOOK NOT TRAVEL measured
+8/3 when run fifth in a back-to-back batch and 11/0 twice alone; FIRST MORNING did
+the same earlier. Run the gate alone before believing it. This repo wrote that
+down on 8/24 as "red in the pack and green alone today".
+
+RECORD: records/BOHEMIA_LOOKING_AT_THE_MAP_IS_NOT_TRAVELLING_8_27_26.txt
+
+NEXT IN THIS LANE, in order:
+  1. THE PAD SHOULD SAY WHAT IT IS ABOUT TO DO. This turn fixed the CONSEQUENCE
+     (a look no longer moves him) but not the CONFUSION: zoomed out, the pad still
+     silently moves a marker and spends ten minutes with no signal at all. That is
+     a signifier problem of exactly the kind P0-MORNING was, and the same Norman
+     answer applies -- change what the control LOOKS like, do not add a caption.
+  2. TIER 2, THE PACK, once AR-006 (the dog body) lands. Dog packs are where the
+     RF4 movement work lands. Tier 3 is RESERVED, his.
+  3. FT-JOURNEY, wiring engine/bohemia_encounters.js rather than writing one -- 258
+     lines, approved 7/27, fully gated, ZERO CALLERS anywhere in the repo.
+  4. LOOT (dispatch item 8c: "not one loot idea in the build"). The research hands
+     it over: a carcass is a resource, a raven flock marks a body, a den has what
+     the dogs dragged home.
+  5. RUN 0f, THE FEEDBACK CARD, or a friends round returns five texts saying "it
+     was cool".
+
 RUN (run-eak241): 8/26 LATEST -- *** THE ACTION BUTTON DOES ACTIONS, AND THE
 VALLEY HAS ANIMALS IN IT. TAB: RUN. Nothing to judge. ***
 

@@ -134,8 +134,29 @@ ok('and each verb calls the thing that already owned it (inEnter, ctOpen, '
     /* ---- E. THE CAMERA TOGGLE SURVIVES ---------------------------------- */
     /* NO DISTRICT IS A PRISON (Paolo 8/1): zoom is the way, but a player whose
        fingers cannot pinch must still have one. It just is not the big button. */
+    /* *** AND REACHABLE, NOT MERELY PRESENT. *** This claim read the chip's TEXT
+       and nothing else, and it stayed GREEN while the chip was UNREACHABLE: I
+       created it at a hardcoded corner offset underneath #blstack, the column that
+       owns that corner at z-index 39, which is the exact bug that column exists to
+       prevent -- made one day after I fixed it. A real click on it timed out and
+       this gate never noticed. A control is not offered because it exists; it is
+       offered because a thumb can press it. NO DISTRICT IS A PRISON depends on this
+       one being pressable, so it is measured the way the panel sweep measures. */
+    const chipReach = await city.evaluate(() => {
+      const b = document.getElementById('modechip');
+      if (!b) return { missing: true };
+      const r = b.getBoundingClientRect();
+      if (r.width < 8 || r.height < 8) return { tiny: true, box: [r.width, r.height] };
+      const t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return { on: t ? (t.id || t.className || t.tagName) : null,
+               reachable: !!(t && (t === b || b.contains(t))) };
+    });
     ok('the camera toggle still exists, at the size of a preference ("'
       + idle.chip + '")', /DROP IN|CITY/.test(idle.chip || ''));
+    ok('*** AND A THUMB CAN ACTUALLY PRESS IT *** (' + JSON.stringify(chipReach)
+      + ') -- NO DISTRICT IS A PRISON depends on this one, and reading its text '
+      + 'proved nothing while it sat under the chip column',
+      chipReach.reachable === true);
 
     /* ---- C + D. ENTER AND LEAVE, ON HIS OWN FRONT DOOR ------------------ */
     const placed = await city.evaluate(() => {

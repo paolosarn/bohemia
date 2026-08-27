@@ -27004,7 +27004,9 @@ function setZoomAt(z,pvx,pvy){
   /* __ZOOM_SEAM__ -- the seam runs BOTH ways. Already at the overview's own
      closest zoom and still pinching in means he is asking to walk. Same swapMode(),
      same transition, so the round button and the pinch always agree. */
-  if(z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){ swapMode(); return; }
+  if(z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
+    SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
+    swapMode(); return; }
   /* __ONE_ZOOM_TO_THE_MOON__ -- THE SEAM RUNS THE OTHER WAY TOO (Paolo 8/12: "you could
      keep zooming out and zooming out until it showed the moon... that's my flavor").
      zmax already had a seam: pinch in at the closest city zoom and you become your
@@ -27602,6 +27604,7 @@ function setHZoom(z){
      way to REACH it, so the two surfaces can never drift apart. The ZOOM LEVEL LAW
      is untouched: HC still snaps to the same four pixel-true stops below. */
   if(MODE==='human'&&!transing&&z<HLEVELS[0]&&HZOOM===HLEVELS[0]&&typeof swapMode==='function'){
+    SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: a pinch is a look */
     swapMode(); return;
   }
   _zacc=Math.max(HLEVELS[0],Math.min(HLEVELS[HLEVELS.length-1],z));
@@ -28540,7 +28543,15 @@ function blStack(){
      position depended on which system happened to build it first; this list is
      bottom-up (the column is column-reverse, so DOM order runs bottom to top) and
      is re-asserted every pass, so a rebuilt chip goes back to its own place. */
-  ['sleepbtn','bikebtn','fitbtn','mktbtn','rungbtn','note'].forEach(function(id){
+  /* __LOOKING_IS_NOT_TRAVELLING__ (8/27): #modechip JOINS THE COLUMN. I created it
+     yesterday at a hardcoded left:12/bottom:46 -- underneath #blstack, which owns
+     that corner at z-index 39 -- so the camera toggle was UNREACHABLE. Measured: a
+     real click on it timed out. That is word for word the bug the note above this
+     function describes fixing, made by the person who fixed it, one day later.
+     AND MY OWN GATE SAID IT WAS FINE, because its claim read the chip's TEXT and
+     never asked whether a thumb could get to it. A control is not offered because
+     it exists; it is offered because it can be pressed. */
+  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
     /* NEVER DETACH A HIDDEN CHIP, AND THE FIRST CUT OF THIS DID. It said "a
@@ -34594,6 +34605,32 @@ let transing=false;
 function ease(u){ return u<0.5? 2*u*u : 1-Math.pow(-2*u+2,2)/2; }
 function swapMode(){
   if(MODE==='city'){
+    /* __LOOKING_IS_NOT_TRAVELLING__ (8/27) -- DID HE TRAVEL, OR WAS HE LOOKING?
+       If the marker is still on the cell he left, he was LOOKING: put him back on
+       the exact tile and do not run the landing at all. The landing below centres
+       him in the cell and spirals up to FN rings for a road, which is right when
+       you have moved the marker somewhere and WRONG when you glanced at the map.
+       He measured this himself: 194 tiles from a look.
+       AND IT ONLY GOT LOUD YESTERDAY: before THE ACTION BUTTON DOES ACTIONS you
+       had to press DROP IN on purpose to come through here. Making zoom the way in
+       and out -- his ruling, and correct -- routed every glance at the map through
+       a landing built for arrival. */
+    /* A LOOK COMES BACK TO HIS FEET WHEREVER THE MARKER WANDERED. The first cut
+       only did this when the marker had NOT moved -- and his actual report is that
+       it HAD moved, because the movement pad is still under his thumb when he is
+       zoomed out, and a press there slides the marker a whole cell and spends ten
+       minutes. Three taps he never meant, 194 tiles.
+       THE GAME ALREADY STATES THIS RULE SOMEWHERE ELSE: the phone's GO "moves the
+       CITY MARKER to it ... IT NEVER MOVES HIS BODY." The marker is a camera. The
+       zoom seam was the one place that disagreed with that. */
+    if(SEAM_INTENT==='look' && typeof LOOKED_FROM!=='undefined' && LOOKED_FROM){
+      hx=LOOKED_FROM.hx; hy=LOOKED_FROM.hy;
+      LOOKED_FROM=null;
+      MODE='human';
+      updHud();
+      return;
+    }
+    LOOKED_FROM=null;              /* he moved the marker: that is travel, land him */
     // DROP IN = camera change: land at the center of the CURRENT neighborhood
     hx=city.x*FN+(FN>>1); hy=city.y*FN+(FN>>1);
     /* YOU LAND ON THE STREET (Paolo 8/1, NO DISTRICT IS A PRISON: "the streets
@@ -34633,6 +34670,16 @@ function swapMode(){
     MODE='human';
   } else {
     // SURFACE: the marker follows your feet, the walk WAS the travel
+    /* __LOOKING_IS_NOT_TRAVELLING__ (8/27): AND HIS BODY IS REMEMBERED, so that coming back
+       from a LOOK is not a journey. Paolo: "it wants to keep spawning me outside
+       of my starter Neighbourhood ... it'll just throw me somewhere randomly on
+       the map." MEASURED: pinch out, three taps of the pad that is still under
+       his thumb, pinch back in -- 194 TILES from where he was standing, and the
+       pad presses were the marker moving, not him.
+       Same shape as the vista's returnTo, which has let him go and look at the
+       valley and come back to his feet since 8/23. The map never had it. */
+    LOOKED_FROM = { hx: hx, hy: hy, cx: Math.max(0,Math.min(om.n-1,(hx/FN)|0)),
+                                     cy: Math.max(0,Math.min(om.n-1,(hy/FN)|0)) };
     city.x=Math.max(0,Math.min(om.n-1,(hx/FN)|0));
     city.y=Math.max(0,Math.min(om.n-1,(hy/FN)|0));
     MODE='city';
@@ -34640,6 +34687,11 @@ function swapMode(){
   updHud();
 }
 function transition(){
+  /* __LOOKING_IS_NOT_TRAVELLING__ (8/27): THE CHIP IS THE DELIBERATE ONE. Pressing
+     DROP IN is asking to be put where the marker is; pinching is asking to look.
+     They used to be the same call and therefore had the same consequence, which is
+     how a glance at the map moved him 194 tiles. */
+  SEAM_INTENT='go';
   /* __EVERY_CONTROL_LEAVES_THE_VISTA__: while the overlook is up this button means COME BACK, and
      nothing else. It used to run the whole dive animation on top of the vista --
      MODE flipped underneath the card, so the title of the valley ended up
@@ -34798,9 +34850,12 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
   if(!b){
     b=document.createElement('div'); b.id='modechip';
     var st=document.createElement('style');
-    st.textContent='#modechip{position:absolute;left:12px;bottom:46px;padding:7px 10px;'
+    /* NO HARDCODED CORNER OFFSET. blStack() adopts this and flexbox places it;
+       left/bottom/z-index here would be exactly the drift that column exists to
+       kill, and #blstack>* forces position:static over any of it anyway. */
+    st.textContent='#modechip{padding:7px 10px;'
       +'border-radius:5px;background:var(--face);border:1px solid var(--line);'
-      +'color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}'
+      +'color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px}'
       +'#modechip:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}'
       /* the round button, when there is nothing in front of him, is quiet rather
          than gone -- a control that vanishes reads as broken. */
@@ -35433,6 +35488,15 @@ function showReckoning(){
    earlier code can touch these safely. A silent catch around a TDZ error is a bug
    that looks exactly like a feature quietly not working, which is what it did. */
 var HOME=null, HOME_KEY=null, LANDED=null;
+/* __LOOKING_IS_NOT_TRAVELLING__: the tile he was standing on when he last left the walked
+   world. var, not let, for the same temporal-dead-zone reason as HOME above --
+   swapMode is defined earlier in the file than this line. */
+var LOOKED_FROM=null;
+/* __LOOKING_IS_NOT_TRAVELLING__: WAS THIS A LOOK OR A GO? The seam has two callers
+   with two different meanings and they were indistinguishable inside swapMode.
+   'go' is the default, so anything that has not thought about it lands the old way
+   rather than silently carrying him home. */
+var SEAM_INTENT='go';
 function homeFind(){
   /* __HIS_FEET_ARE_THE_TRUTH__ -- FROM WHERE THE PLAYER IS, NOT WHERE THE CAMERA IS.
      This keyed on city.x/city.y, the overmap MARKER. In human mode the marker is
