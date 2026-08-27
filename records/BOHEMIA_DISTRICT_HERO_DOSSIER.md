@@ -125,7 +125,7 @@ _Library — matched to the rebuilt district, which is built on the real referen
 - the READING WING — a long low bar with nine CLERESTORY teeth running its length (code 2, code 11 "clerestory glazing")
 - ground entrance doors on the wing; entry plaza (code 7) + lot/drive (code 1) with one dead car (canon CAR, code 19)
 
-## FARM  (1724x1743, anchor 954,1159)
+## FARM  (1723x1216, anchor 844,1180)
 _Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass)._
 
 - red barn — the barn w/ a peaked roof cap (code 14 "barn")
@@ -170,7 +170,7 @@ _Stadium — matched: the oval seating BOWL + facade + a field + four LIGHT TOWE
 - scoreboard — the jumbotron/scoreboard mast (code 9 "scoreboard / jumbotron")
 - abandoned car (canon CAR) — a car in the lot (code 11); parking field (codes 1)
 
-## STORAGE  (1724x1238, anchor 874,1289)
+## STORAGE  (1724x951, anchor 874,1289)
 _Self-storage — matched: unit rows wall-to-wall with ORANGE roll-up doors + a leasing office + a fortress fence._
 
 - unit rows x3 — self-storage bays wall-to-wall (code 2 "storage-unit building") w/ a roof ridge (code 4)
@@ -312,7 +312,7 @@ _Garden apartments — matched: three walk-up BLOCKS around a court, their circu
 - clubhouse — the low office/laundry mass with its door (code 7 "clubhouse")
 - perimeter fence posts — the corner posts of the property fence (code 12 "fence")
 
-## SUBURB  (1724x1318, anchor 874,1291)
+## SUBURB  (1724x1038, anchor 874,1291)
 _Subdivision — matched: a CUL-DE-SAC bulb with eight houses shoulder to shoulder around it, gabled roofs, GARAGE doors facing the street, and the continuous BLOCK WALL that rings the whole thing — the defining feature of a Sun Belt subdivision from the air (7/21 Vegas urbanism research)._
 
 - houses — eight on the bulb, majority two-storey which is what Summerlin is (code 2 "house", code 9 "house upper floor")
@@ -322,7 +322,7 @@ _Subdivision — matched: a CUL-DE-SAC bulb with eight houses shoulder to should
 - cul-de-sac bulb — the road disc the lots ring (code 1 "road", code 3 "driveway")
 - block wall — the continuous privacy wall round the whole subdivision (code 4 "wall"), the defining Sun Belt feature
 
-## TRAILER  (1724x1179, anchor 874,1294)
+## TRAILER  (1724x932, anchor 874,1294)
 _Mobile home park — matched: fifteen SINGLE-WIDES on their pads, all the same way round, skirted, with a ridge cap, a SHED and a PROPANE BOTTLE beside each one — and the one BURNED-OUT unit that stopped a row. A trailer park reads as a barcode from above and this one does._
 
 - single-wides — long narrow units in echelon off the loop (code 2 "mobile home"), ridge cap on each
@@ -397,7 +397,7 @@ _Water reclamation plant — matched: CIRCLES, which no other industrial site ha
 - blower house — the control mass with its door (code 2)
 - pipe gallery — the run along the back on its stands (code 8)
 
-## WATERPARK  (1724x1331, anchor 874,1290)
+## WATERPARK  (1724x1029, anchor 874,1290)
 _Water park — matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-2004): the SLIDE TOWER, four stacked platforms with FLUMES spiralling off all four corners, the drained WAVE POOL with its wave wall and shallow end, a splash pool, the locker building, the snack bar and the lounger row._
 
 - slide tower — four stacked platforms, the tallest thing on site (code 8 "slide tower")
@@ -420,7 +420,7 @@ _Golf course — matched: three GREENS each ringed by its SAND BUNKER with the p
 - dead trees — the landscaping (code 12 "dead tree / landscaping")
 - abandoned cart — left mid-round (code 13 "abandoned golf cart")
 
-## DRIVEIN  (1724x1737, anchor 874,1290)
+## DRIVEIN  (1724x1381, anchor 874,1290)
 _Drive-in theater — matched: the SCREEN TOWER, a flat wall four storeys high standing alone with its back bracing and nothing behind it, which is the most recognisable silhouette the American roadside has. Seven RAMPED ROWS of earth with speaker poles and the cars that never left, and the projection booth._
 
 - screen tower — a flat wall four storeys high standing alone (code 6 "screen tower")
@@ -621,7 +621,7 @@ _Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. Wh
 - sunken boat — the punchline (code 8 "sunken boat")
 - dead brush — on the benches (code 9 "dead brush")
 
-## QUARRY  (1724x1247, anchor 874,1290)
+## QUARRY  (1724x924, anchor 874,1290)
 _QUARRY_
 
 - the pit -- four benches stepping DOWN to a floor, which makes it the only landmark in the valley that is a hole instead of a thing (code 6 "rock bench", code 4 "quarry floor")
@@ -632,7 +632,7 @@ _QUARRY_
 - conveyor -- down off the rim to the stockpiles (code 13 "conveyor run")
 - stockpile -- a cone of graded stone (code 10 "shot rock / stockpile")
 
-## GYPSUM  (1724x1399, anchor 874,1287)
+## GYPSUM  (1724x1095, anchor 874,1287)
 _GYPSUM WORKS_
 
 - the storage dome -- a real hemisphere built as nine stacked lifts on a cosine, and there is no other dome anywhere in this valley (code 7 "dome shell")

@@ -1167,3 +1167,20 @@ escapees, but measuring the pool by red+green found nothing - they are
 another system's street furniture, pre-existing, not the pool's. The
 twenty-fifth wired family; the wave-3 icon bake still grinding behind
 all of it.
+
+## 8/27 FIFTY-SIXTH PASS: ICON WAVE 3 LANDS (five clean, three to the oven again)
+
+The overnight bake landed and the look sorted it: SUBURB reads as a
+single-storey subdivision again, TRAILER as rows of single-wides with
+hitches, STORAGE as long low unit rows, GOLF as greens and bunkers
+with a low clubhouse, and the GYPSUM DOME is finally a smooth
+hemisphere with no wedding-cake stripes - the inflate/dress exclusion
+did exactly what the diagnosis said. Three imperfects went straight
+back to the oven in one batch: the FARM's furrow rows bled past the
+plot's diamond edge (inset), the DRIVE-IN's bleached face pointed EAST
+while the camera reads the SOUTH face of an east-west wall (the icon
+showed the dark back - face swapped), and the QUARRY was still the
+hole-that-was-never-there: solid stacked prisms render as a MOUND, the
+same bug the basin fixed 8/19, so the benches are annuli now with a
+low floor disc at the bottom. The five clean wins are wired and ship
+now; all icon gates 0 by exit code.

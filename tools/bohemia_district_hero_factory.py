@@ -1849,8 +1849,8 @@ def build_farm(P):
     _ground(s, (-3, -3, 15, 15), patches=[(1.0, 4.2, 14.5, 14.5, _dark(FIELD, 0.9)['c'])],
             drive=(-3, -1, 4, 1.5), groundc=DIRT, lotc=(70, 62, 48))
     # dead crop rows fill the whole field, tighter rows read as furrows
-    for fy in range(0, 20, 2):
-        s.box((1.4, 4.8 + fy * 0.5, 0.02), (12.6, 0.45, 0.12), {'c': _dark(FIELD, 1.1)['c']})
+    for fy in range(0, 16, 2):
+        s.box((2.2, 5.0 + fy * 0.55, 0.02), (10.8, 0.45, 0.12), {'c': _dark(FIELD, 1.1)['c']})
     # the red BARN, modest, + the SILO beside it
     s.box((-2, -1, 0), (4.2, 3.4, 3.4), {'top': _dark(BARN, 0.7), 'px': _dark(BARN, 1.0),
           'py': _dark(BARN, 0.82), 'nx': _dark(BARN), 'ny': _dark(BARN)})
@@ -3088,9 +3088,12 @@ def build_drivein(P):
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(100, 92, 78), lotc=(58, 58, 62))
     # THE SCREEN TOWER: a wall, its back bracing, and the dark deck it stands on
+    # 8/27: the pale screen face pointed EAST (px) while the camera reads the
+    # SOUTH face of an east-west wall - so the icon showed the dark back. The
+    # bleached face goes on py, where the cars (and the viewer) actually look.
     s.box((-1.0, -2.4, 0), (11.0, 0.55, 12.6),
-          {'top': _dark(SCREEN, 1.18), 'px': {'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)},
-           'py': _dark(SCREEN, 0.7), 'nx': _dark(SCREEN, 0.86), 'ny': _dark(SCREEN, 0.7)})
+          {'top': _dark(SCREEN, 1.18), 'py': {'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)},
+           'px': _dark(SCREEN, 0.86), 'nx': _dark(SCREEN, 0.86), 'ny': _dark(SCREEN, 0.7)})
     # 8/26: this frame sat SOUTH of the wall (y -2.7 vs -2.4) - camera-side -
     # so the whole pale screen face rendered as a black slab. The frame goes
     # BEHIND the screen where the bracing already lives.
@@ -3641,10 +3644,15 @@ def build_quarry(P):
     PLANT, BENCH, LIP, WATER, TOWER = P[2], P[6], P[7], P[8], P[14]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(122, 116, 100), lotc=(96, 92, 80))
-    # THE PIT: four benches stepping DOWN, each ring narrower and each floor lower
-    for i, (rad, z) in enumerate([(5.4, 4.4), (4.2, 3.0), (3.1, 1.6), (2.0, 0.4)]):
+    # THE PIT, 8/27: solid stacked prisms rendered as a MOUND - the same
+    # hole-that-was-never-there bug the basin fixed 8/19. A pit is RINGS:
+    # each bench is an annulus (inner radius holds the hole open) and the
+    # floor is a low disc at the bottom, so the eye falls INTO it.
+    for i, (rad, z) in enumerate([(5.4, 4.4), (4.2, 3.0), (3.1, 1.6)]):
         s.prism(3.2, 5.4, 0, rad, z, 26, {'c': _dark(BENCH, 0.94 - i * 0.05)['c']},
-                {'c': _dark(LIP, 1.02 - i * 0.05)['c']}, inner=0.0)
+                {'c': _dark(LIP, 1.02 - i * 0.05)['c']}, inner=rad - 1.15)
+    s.prism(3.2, 5.4, 0, 2.0, 0.35, 26, {'c': _dark(BENCH, 0.72)['c']},
+            {'c': _dark(LIP, 0.9)['c']}, inner=0.0)
     s.prism(3.2, 5.4, 0, 1.7, 0.18, 22, {'c': _dark(WATER, 0.9)['c']}, {'c': WATER})   # water in the bottom
     # THE PLANT on the rim: crusher house, screen tower over it, conveyor out to a stockpile
     s.box((9.8, 6.4, 0), (4.0, 4.4, 5.6), {'top': _dark(PLANT, 0.9), 'px': _win(PLANT, 3, 4, 4),
