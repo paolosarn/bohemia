@@ -4811,7 +4811,13 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
    The behaviour is measured in a browser by fight_moves_you_gate. Pinned here:
    the shape, and above all that the feature touches ONE line. */
   ok('V176 RF4-12 A COUNTER AND A READY STATE, WHICH IS EXACTLY WHAT THE DIFF COLUMN ASKED FOR ("it converts luck into agency, and it costs no new UI"). No button, no HUD element, no toggle -- it announces itself in the readout he already reads, when it fills and when it spends',
-    /function finisherReady\(\)\{ return \(G\._finCharge\|\|0\)>=FINISH_AT; \}/.test(demo) &&
+    /* V188 RE-POINTED: the CLOSER perk lowers the threshold, so the read is
+       now `>=Math.max(1,FINISH_AT-(G.perkFinish||0))`. THE CLAIM IS UNCHANGED --
+       a counter and a ready state, with no button and no HUD element -- and the
+       expression is INLINE rather than a helper call on purpose: gates in this
+       repo slice functions out and execute them with fixed bindings, and a
+       helper called from inside one of those is undefined there. */
+    /function finisherReady\(\)\{ return \(G\._finCharge\|\|0\)>=Math\.max\(1,FINISH_AT-\(G\.perkFinish\|\|0\)\); \}/.test(demo) &&
     /function finisherFeed\(\)\{/.test(demo) &&
     !/id="finisher"/.test(demo) && !/id="finbtn"/.test(demo));
 

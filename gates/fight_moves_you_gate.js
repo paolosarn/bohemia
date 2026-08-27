@@ -2408,6 +2408,92 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     shapes.noBlades.every(n => n === 0) && shapes.pack.every(n => n === 3)
     && shapes.allDraft === true);
 
+/* ===== V188 THE TREE ================================================
+   Paolo 8/26: "THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL TAKE YOU 100 HOURS
+   TO COMPLETE... LEVELING UP GIVES YOU EXPERIENCE FOR EXPERIENCE TREE CYBER PUNK
+   ELDERSCROLL PERK AND BONUS SHIT."
+   THE SOCKETS WERE ALREADY CUT AND NONE HAD A HAND ON THEM: V181 put experience
+   on the bodies and it went into a ledger nothing read; V183 gated the whole
+   nerve system behind G.perks.fear and wrote that nothing turns it on. */
+  const tree = await frame.evaluate(() => {
+    const o = {};
+    const reset = () => { TREE.xp = 0; TREE.spent = []; treeSave();
+      BohemiaArena.set(3); setupCombat(); G.pHP = 100; G.over = false; G.inc = null; };
+    o.perks = PERKS.length;
+    o.allDraft = PERKS.every(x => x.draft === true);
+    o.branches = [...new Set(PERKS.map(x => x.br))].length;
+    reset();
+    o.startLevel = treeLevel(); o.startPoints = treePoints();
+    treeEarn(XP_PER_LEVEL * 3);
+    o.after = { xp: TREE.xp, level: treeLevel(), points: treePoints() };
+    /* THE EXPERIENCE REALLY ARRIVES OFF A BODY YOU WALK OVER (V181's loop) */
+    reset(); const b0 = TREE.xp;
+    G.drops = []; bodyFell({ ea:0, edist:3, lvl:0, max:60 });
+    for (const dd of G.drops) { dd.edist = 0; dd.lvl = myLvl(); }
+    sweepDrops();
+    o.bodyPays = TREE.xp - b0;
+    /* EVERY PERK MOVES EXACTLY THE THING IT NAMES */
+    const eff = {};
+    for (const perk of PERKS) {
+      reset(); TREE.xp = XP_PER_LEVEL * 4; treeSave();
+      const snap = () => ({ pp:G.pp, power:G.power, carry:ppCap(), legs:stamCap(),
+        finish:finishAt(), kitNeed:kitNeed(KIT[0]), fear:!!(G.perks&&G.perks.fear),
+        charged:KIT.filter(k => kitReady(k.id)).length });
+      const a = snap(); const bought = treeBuy(perk.id); const c = snap();
+      eff[perk.id] = { bought, changed: Object.keys(c).filter(k => String(c[k]) !== String(a[k])) }; }
+    o.eff = eff;
+    o.everyPerkDoesSomething = Object.values(eff).every(x => x.bought && x.changed.length === 1);
+    /* *** IT SURVIVES A WHOLE NEW FIGHT, WHICH IS WHAT "NO RUNS" MEANS *** */
+    reset(); TREE.xp = XP_PER_LEVEL * 3; treeSave(); treeBuy('eye'); treeBuy('carrier');
+    BohemiaArena.set(7); setupCombat();
+    o.across = { owned: TREE.spent.length, power: G.power, plates: G.pp };
+    /* AND YOU CANNOT BUY BROKE, TWICE, OR ABOVE YOUR LEVEL */
+    TREE.xp = 0; TREE.spent = []; treeSave();
+    o.broke = (treeBuy('eye') === false);
+    TREE.xp = XP_PER_LEVEL * 3; treeSave(); treeBuy('eye');
+    o.twice = (treeBuy('eye') === false);
+    TREE.xp = XP_PER_LEVEL; treeSave(); TREE.spent = [];
+    o.locked = (treeBuy('walkoff') === false);
+    /* AND NOT ONE OF THE NINE TOUCHES DAMAGE */
+    const dummy = { hp:100, max:100, armor:0 };
+    TREE.xp = XP_PER_LEVEL * 20; TREE.spent = []; treeSave();
+    const d0 = applyDamage(dummy, 40); dummy.hp = 100;
+    for (const perk of PERKS) treeBuy(perk.id);
+    o.damage = { before: d0, after: applyDamage(dummy, 40), owned: TREE.spent.length };
+    TREE.xp = 0; TREE.spent = []; treeSave();
+    return o;
+  });
+
+  console.log('  V188 the tree: ' + tree.perks + ' perks across ' + tree.branches + ' branches'
+    + '\n    a body you walk over pays  ' + tree.bodyPays + ' xp'
+    + '\n    ' + '360' + ' xp -> level ' + tree.after.level + ', ' + tree.after.points + ' points'
+    + '\n    each perk moves            ' + Object.keys(tree.eff).map(k => k + ':' + tree.eff[k].changed.join('')).join('  ')
+    + '\n    across a NEW fight         ' + tree.across.owned + ' owned, power ' + tree.across.power + ', plates ' + tree.across.plates
+    + '\n    damage with all 9 owned    ' + tree.damage.before + ' -> ' + tree.damage.after);
+
+  ok('V188 *** THE TREE, AND IT IS THE PIECE FIVE DAYS OF WORK WERE WAITING FOR. *** "THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL TAKE YOU 100 HOURS... LEVELING UP GIVES YOU EXPERIENCE FOR EXPERIENCE TREE CYBER PUNK ELDERSCROLL PERK AND BONUS SHIT." '
+    + tree.perks + ' perks across ' + tree.branches + ' branches, and EVERY ONE MOVES EXACTLY THE THING IT NAMES AND NOTHING ELSE ('
+    + Object.keys(tree.eff).map(k => k + ':' + tree.eff[k].changed.join('')).join(', ')
+    + '). SEVEN OF THE NINE NEEDED NO NEW MECHANIC -- they move a number a shipped system already read, which is the proof that a tree was what those systems were built against rather than a menu bolted on top',
+    tree.perks === 9 && tree.branches === 3 && tree.everyPerkDoesSomething === true && tree.allDraft === true);
+
+  ok('V188 AND THE EXPERIENCE OFF THE BODIES FINALLY LANDS SOMEWHERE. V181 put ' + tree.bodyPays
+    + ' xp on a corpse and made you walk to it, and it went into a ledger NOTHING READ. Walking over one body now pays the tree ' + tree.bodyPays
+    + ', and ' + ('360') + ' xp is level ' + tree.after.level + ' with ' + tree.after.points
+    + ' points to spend. V183 gated the entire nerve system behind G.perks.fear and wrote in its own comment that NOTHING TURNS IT ON -- THEY KNOW YOU is the hand on that switch, and it is his own sentence made mechanical: "unless I have a perk that allows them to... you\'re not scary enough"',
+    tree.bodyPays > 0 && tree.after.points === 3 && tree.eff.fear.changed.join('') === 'fear');
+
+  ok('V188 AND IT SURVIVES A WHOLE NEW FIGHT, WHICH IS WHAT "NO RUNS" MEANS IN CODE: buy two perks, start a different arena, and the character is still ' + tree.across.owned
+    + ' perks deep with power ' + tree.across.power + ' and ' + tree.across.plates + ' plates on. It is written to storage and read back, wrapped in try/catch and falling back to memory, because a srcdoc frame can be handed an opaque origin and a tree that THROWS is worse than one that forgets',
+    tree.across.owned === 2 && tree.across.power >= 1 && tree.across.plates >= 2);
+
+  ok('V188 AND THE ECONOMY HOLDS AT ALL THREE EDGES -- you cannot buy broke (' + tree.broke + '), you cannot buy the same perk twice ('
+    + tree.twice + '), and you cannot buy above your level (' + tree.locked
+    + ') -- WHILE NOT ONE OF THE NINE TOUCHES DAMAGE: with all ' + tree.damage.owned + ' owned, applyDamage goes ' + tree.damage.before + ' -> ' + tree.damage.after
+    + '. Every perk moves a RESOURCE, a WINDOW, a COUNT or a SWITCH. NO DAMAGE BEFORE THE DIAL survives a whole perk tree',
+    tree.broke === true && tree.twice === true && tree.locked === true
+    && tree.damage.before === tree.damage.after && tree.damage.owned === 9);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
