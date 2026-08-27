@@ -2174,6 +2174,79 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+WASH-FILL. *** HE SAID THE WASHES ARE BACK TO BACK AND BAD. I MEASURED IT
+   AND HE IS RIGHT ABOUT WHAT HE SEES AND WRONG ABOUT WHY (8/28 —
+   records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md).
+   HIS WORDS: "why is there so many washes together like that? a wash
+   should be a rare occurrence on the map, really, like, not super rare,
+   but definitely, like, NEVER BACK TO BACK like that, bro. Like, so bad."
+   MEASURED, canonical seed, 96x96: WASH IS 51 CELLS OF 9,216 = 0.55% OF
+   THE VALLEY. It is ALREADY rare and he guessed that himself. 44 of the
+   51 touch another wash cell (86%) AND THAT IS CORRECT -- a wash is a
+   drainage CHANNEL, the real Las Vegas Wash is one continuous channel to
+   Lake Mead, and scattered single cells would not be rare washes, they
+   would be HOLES. bohemia_overmap.js:607 draws it as a polyline and takes
+   everything within 0.8 of the line, which is how you draw a channel.
+   AND THE 8-CELL RUN IS NOT A BUG EITHER: arterials sit on every ninth
+   row and column and resolve BEFORE the wash, so eight is the longest a
+   channel can run before a street crosses it. THE SYSTEM IS DOING
+   EXACTLY WHAT IT WAS TOLD.
+   *** SO THE DEFECT IS NOT FREQUENCY, IT IS EMPTINESS. *** His screenshot
+   is a long dark gravel corridor with nothing in it. Walking eight cells
+   of wash is eight cells of NOTHING, at 0.084 of a day per cell.
+   THE FINDING THAT CHALLENGES OUR OWN LAW: the Valheim law says the
+   unexplored ocean is a FEATURE, and that is true for a world you look at
+   FROM A DISTANCE. It is false for a corridor you are made to WALK. The
+   streets cross the wash, so he walks INTO it, not past it. Distance
+   decides whether emptiness is atmosphere or a chore, and the law only
+   ever considered one distance. THAT IS WHY HE COMPLAINED ABOUT THE WASH
+   AND HAS NEVER ONCE COMPLAINED ABOUT THE DESERT, which is far emptier.
+   BUILD: DRESS THE CHANNEL. The water line on the wall, the silt, the
+   trolley, the graffiti, a mattress, the mouth of a pipe. DO NOT change
+   its frequency and DO NOT break its continuity -- the numbers above are
+   the argument, and his diagnosis is the one part of his report that is
+   not being executed, recorded openly rather than quietly ignored.
+   | eight cells of wash that are worth walking through | — | he plays it.
+   TAB: RUN. ***
+UNDER-1. *** ONE TUNNEL. THE ENGINE PROMISED THIS MONTHS AGO AND NOBODY
+   BUILT IT (8/28, same record. WORLD owns the space, PEOPLE owns who is
+   in it.) bohemia_overmap.js says it ITSELF, directly above the wash
+   placement: "You can hop down into it; IT IS THE ENTRANCE TO THE STORM/
+   SEWER SYSTEM UNDERNEATH THE CITY WHERE THE HOMELESS LIVE."
+   THAT SYSTEM DOES NOT EXIST. The wash is a door with nothing behind it,
+   which is the actual reason it reads as a void.
+   AND IT IS THE MOST FAMOUS TRUE THING ABOUT THE UNDERSIDE OF LAS VEGAS:
+   OVER 300 MILES of flood tunnels, built as storm drains for monsoon
+   season, with HUNDREDS OF PEOPLE LIVING IN THEM under the casinos.
+   Documented, not folklore -- Snopes fact-checked it, and the journalist
+   Matthew O'Brien spent years down there and wrote Beneath the Neon.
+   THE DETAILS ARE THE GAME: a man sleeping in an elevated bed suspended
+   above the water, another in a plywood hut, and people down there in
+   summer SIMPLY BECAUSE IT IS COOL -- which lands straight on our heat
+   law, where heat is the daily condition of the Mojave. And the danger is
+   built in: the tunnels exist because of flash flooding, so a storm on
+   the surface is a lethal event underground. A hazard with a real cause,
+   a warning, and a clock.
+   *** THE WARNING, AND READ IT BEFORE BUILDING: FALLOUT 3'S DC METRO. ***
+   Bethesda routed a ruined city's traversal underground. Their own level
+   designer names the cost -- it "made it more difficult to design gameplay
+   to be compelling regardless of the player's direction" -- and the
+   player verdict is consistent: confusing, mazy, dead ends, lines that
+   connect in ways that make no sense. The sharpest version applies to us
+   directly: an open world where the only way from A to B is an
+   underground tunnel is not good open world design.
+   SO: THE UNDERGROUND IS NEVER THE ONLY WAY ANYWHERE. A shortcut, a
+   hiding place, a resource, a neighbourhood. Never mandatory traversal.
+   That one constraint is the difference between the best idea on the
+   board and Fallout 3's most criticised system.
+   AND THE PEOPLE DOWN THERE ARE PEOPLE. Not a monster tier. This valley
+   already has a faction of the phoneless whom the quest feed deliberately
+   cannot reach. If it ever reads as a dungeon full of enemies, it went
+   wrong.
+   SCOPE: ONE TUNNEL. The mouth in the wash, one stretch of drain, and it
+   goes somewhere. Not 300 miles.
+   | a pipe mouth you can enter, one stretch, one reason to be down there
+   | who lives there and every name = HIS | he plays it. TAB: RUN. ***
 STREETS-LEGO. *** HIS RULING, TOP OF THIS LANE. "NONE OF THE STREETS
    CONNECT EVER" (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "YOU NEED A FUCKING STANDARD AWESOME WAY TO MAKE SURE IF ITS

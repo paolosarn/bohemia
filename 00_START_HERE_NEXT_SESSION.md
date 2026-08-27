@@ -1,3 +1,84 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 LATEST -- *** SWEEP 22. THE WASH IS
+A DOOR NOBODY BUILT. Plus a correction to my own work that becomes a standing
+rule. Nothing to judge. ***
+
+READ-BACK: from the handoff I took that WORLD killed the green in a dead valley
+across 26 tiles and 24 modules (and that it had been fixed three times one file
+at a time), COMBAT shipped a boss handing you an ability, UI shipped letters and
+the look he picked, RUN shipped the road leaving something behind, and the suite
+is 39-red with none of it from this turn.
+
+*** THE CORRECTION, AND IT IS THE MOST USEFUL THING IN THIS ENTRY. ***
+WORLD caught me. I wrote "there is no wall-opacity system in this build" and
+routed a lane to build one. IT HAS EXISTED SINCE 8/3, on his own ruling that day,
+and it fires 60 of 60. The real bug was that all three fade rules were BINARY, so
+a wall crossed 0.65 of alpha in ONE FOOTSTEP -- which is exactly what he saw.
+They fixed it, ramped it, gated it.
+THEIR LESSON IS NOW MY STANDING RULE: **A NEGATIVE RESULT IS A CLAIM ABOUT YOUR
+INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT COULD HAVE SEEN A POSITIVE ONE.**
+I have written "nobody has started this" in eight sweeps this month. None of them
+had a positive control. From here they get one.
+
+DEMO PATH GUARDED: the_whole_demo_gate 23/23.
+
+HIS TWO STATUS COMPLAINTS, ANSWERED HONESTLY:
+  "THE STREETS ARENT FIXED YET" -- PARTLY WRONG AND WORTH KNOWING WHY. WORLD
+  shipped street_contract_gate.js on 8/26 and it passes 17/0 against 4,497 real
+  seams. THE ARTERIALS -- the grid he actually walks -- ARE 0 BROKEN OF 2,594.
+  What remains is 44 DECLARED, RATCHETED breaks on FREEWAY (40 of 1,415),
+  INTERCHANGE (3) and STRIP (1), held at a written ceiling that can only come
+  down. So if he saw a break on an ordinary street that contradicts a
+  0-of-2,594 measurement and is worth a screenshot; if it was on a freeway or an
+  interchange it is one of the 44 and it is on the books.
+  "COMBAT AND THE RUN STILL ARENT FULL SCREEN" -- CORRECT, NOT STARTED. No
+  desktop gate exists. UI WIDE-1 and RUN WIDE-2 are still open, and the
+  constraint I put on them was lifted by him on 8/26, so there is nothing in the
+  way of it.
+
+*** THE WASH, MEASURED, AND HIS DIAGNOSIS IS THE PART THAT IS WRONG ***
+Generated the canonical seed and counted: WASH IS 51 CELLS OF 9,216 = 0.55% OF
+THE VALLEY. Already rare, and he guessed that himself. 44 of 51 touch another
+wash cell (86%) AND THAT IS CORRECT -- a wash is a drainage CHANNEL and the real
+Las Vegas Wash is one continuous channel to Lake Mead. Scattered single cells
+would be holes, not washes. AND THE 8-CELL RUN IS THE ARTERIAL SPACING: arterials
+sit every ninth row and column and resolve before the wash, so eight is the
+longest a channel can run before a street crosses it. The system is doing exactly
+what it was told.
+THE DEFECT IS NOT FREQUENCY, IT IS EMPTINESS. Eight cells of nothing at 0.084 of
+a day per cell.
+AND IT CHALLENGES ONE OF HIS OWN LAWS: the Valheim law says the unexplored ocean
+is a FEATURE, which is true for a world you look at FROM A DISTANCE and FALSE for
+a corridor you are made to WALK. The streets cross the wash, so he walks INTO it,
+not past it. THAT is why he complained about the wash and has never once
+complained about the desert, which is far emptier.
+
+*** THE HORIZON ITEM: THE ENGINE PROMISED AN UNDERGROUND AND NOBODY BUILT IT ***
+bohemia_overmap.js says it itself, directly above the wash placement: "You can
+hop down into it; IT IS THE ENTRANCE TO THE STORM/SEWER SYSTEM UNDERNEATH THE
+CITY WHERE THE HOMELESS LIVE." That system does not exist. The wash is a door
+with nothing behind it, which is the real reason it reads as a void.
+AND IT IS THE MOST FAMOUS TRUE THING ABOUT THE UNDERSIDE OF LAS VEGAS: over 300
+MILES of flood tunnels, hundreds of people living in them under the casinos,
+fact-checked and documented across two books by Matthew O'Brien. A man in an
+elevated bed above the water. A plywood hut. People down there in summer BECAUSE
+IT IS COOL, which lands straight on our heat law. And the danger is built in --
+the tunnels exist because of flash flooding, so a storm on the surface is a
+lethal event underground.
+THE WARNING, READ BEFORE BUILDING: FALLOUT 3'S DC METRO. Their own level designer
+names the cost, and the player verdict is consistent -- confusing, mazy, dead
+ends. The sharpest version applies to us directly: an open world where the only
+way from A to B is a tunnel is not good open world design. SO THE UNDERGROUND IS
+NEVER THE ONLY WAY ANYWHERE, and THE PEOPLE DOWN THERE ARE PEOPLE, not a monster
+tier. Scope is ONE TUNNEL, not 300 miles.
+
+  RECORD: records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md
+  ROUTED: WORLD WASH-FILL (dress the channel, do NOT change its frequency) and
+  WORLD/PEOPLE UNDER-1 (one tunnel). NOT ROUTED on purpose: any wash-frequency
+  change, and any treatment of the tunnel population as enemies.
+  NO CODE TOUCHED -- coordinator is read-only.
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/28 (k) LATEST -- *** THE DEAD VALLEY WAS STILL GREEN, AND
 IT HAD ALREADY BEEN FIXED THREE TIMES ONE FILE AT A TIME. Plus the level
 crossing, the cross street that stopped in the middle of Las Vegas Boulevard,
@@ -3188,8 +3269,6 @@ FIXING THE RULER, NOT THE TARGET:
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (i) LATEST -- *** HIS RULING: THE
-DEMO IS ITS OWN LINK, AND WE ARE NOT READY. MY ERROR, OWNED. Nothing to judge. ***
 SOUND (sound-xk7pjp): 8/25 (b) -- *** THE STALENESS GATE WAS GETTING
 HAPPIER EVERY TIME A SOUND DIED, AND RUN BEAT SPENT FOUR DAYS CALLING THE RUN
 BROKEN WHEN THE RUN WAS FINE. Both of this lane's assigned reds. Nothing to
@@ -3335,112 +3414,6 @@ NEXT IN THIS LANE, in this order:
     red against origin/main in a worktree.
 
 ---
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/25 (j) -- *** HE PLAYED IT AND
-FILED TEN THINGS. ALL TEN ARE RULINGS AND ALL TEN ARE ROUTED. A NEW LANE EXISTS
-(UI). Nothing to judge from me. ***
-
-*** EVERY LANE READ THIS. THE SECOND BIG DISPATCH.
-laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md + a CLAUDE.md block. ***
-THE FRAME IS THE MOST IMPORTANT PART: "I KNOW WE MADE EVERYTHING REALISTIC AS
-FUCK EVEN THE TIMING OF THE CITY BUT I REALLY DO BELIEVE I MAY BE AT A TURNING
-POINT BECAUSE WE NEED TO MAKE THIS GAME FUCKING FUN." REALISM FIRST (8/4) always
-contained the clause that realism is sacrificed for fun AND THAT THE TRADE IS
-HIS. HE JUST MADE IT. From here FUN CARRIES THE TIE unless he rules otherwise on
-a specific item. That is the clause firing, not a loosening.
-
-WHAT HE FILED, AND WHO HAS IT
-  WORLD STREETS-LEGO  "NONE OF THE STREETS CONNECT EVER." Every street piece
-      declares its edge connectors (lane count, lane centre, sidewalk width,
-      kerb) and may only be placed where EVERY TOUCHING EDGE AGREES. ART AND
-      WALKABLE PATH ARE ONE CONTRACT -- that split is why he can see a street
-      and not walk it. Socket-and-stud, therefore machine-checkable, therefore
-      gated with a mutation test.
-  WORLD WALL-FADE  the south wall changed under him between two frames AND his
-      face rendered as a blank white block. Reproduce first. AND THE FINDING:
-      *** THERE IS NO WALL-OPACITY SYSTEM IN THIS BUILD. *** He believes we have
-      one. We do not. Nothing fades a wall when he stands behind it. Build it.
-  WORLD ALIVE-1  "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE
-      DEFAULT." A slider existing is not an answer. And the cheapest half is not
-      people, it is ANIMALS -- tier 1 is set dressing that moves.
-  COMBAT BESTIARY  the research he ordered, delivered same turn:
-      records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md.
-      A mass-mortality event is a FEEDING EVENT and carrion ecology hands us a
-      roster AND an arrival order free: flies first, ravens first of the big
-      ones, then the guild the literature lists almost as our enemy list --
-      dogs, cats, rats, coyotes, crows, ravens, vultures. Coyotes really have
-      thrived in Las Vegas using THE WASHES AND GOLF COURSES, which we already
-      built. TIER 2 IS DOG PACKS -- not wolves, SOMEBODY'S PETS ten years on --
-      and that is where the RF4 movement work lands. Venom is TERRAIN, not
-      encounters. Tier 3 reserved: the Amalgamation is his.
-  COMBAT DANGER-TIERS  Valheim-style: difficulty gated BY PLACE, not by a level
-      number on the player. Composes with WORLD SEED-1. Loot rides along.
-  CHARACTER HAIR-REF  "LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND
-      WE CAN GO FROM FUCKING THERE." Research-first, the thing that made the
-      districts good, finally pointed at the system that has been cooked blind.
-      Reference beside our 8 facings BEFORE another cook. His 87% kill rate on
-      round 4 and "east and west look like absolute dog shit" is the evidence.
-  CHARACTER FACES  face customisation has never been built. Build the
-      INSTRUMENT, not just art (HE MUST BE ABLE TO DIRECT IT, 8/12).
-  CHARACTER ANIMS  audit first, cook second. Show him the broken list.
-  QUESTS QW  "NOT WIRED TO ANY LOCATIONS OR PEOPLE." Demand-side now, not
-      [PENDING]. The people exist and every district has a way in as of today.
-  QUESTS FEED-ART  *** THE TEXT-CAM ASCII PICTURES ARE DEAD. *** Second time he
-      has said it, so the feature ends (STOP PRODUCING, 7/26). Graveyard with a
-      post-mortem, and GRAVEYARD IS FINAL -- no "improved ASCII". What replaces
-      them is a LOOK decision and belongs to UI-1.
-  *** UI -- A NEW LANE. HE ASKED, THE ANSWER IS YES. First word "ui". Owns every
-      pixel the player touches that is not the world: buttons, cards, panels,
-      phone chrome, type, HUD, the feed. A LOOK lane; RUN keeps owning what
-      buttons DO. UI-1: one page of the BOHEMIA LOOK vocabulary he reacts to and
-      edits, because he said "craft this bohemia look BY MYSELF WITH YOU" --
-      a conversation surface, not a delivery. UI-2: THE ACTION BUTTON IS NOT THE
-      CITY BUTTON. Zoom is the way in and out; the action button never changes
-      meaning; and it must not force him into the city at a zoom step he did not
-      ask for. ***
-  RUN  performance is his second witness to the 24.2s-on-4G measurement.
-
-WHERE THIS LANE IS
-  Read-only across every lane. Records his rulings as law the same turn, routes,
-  guards the demo path. Never writes code.
-
-BLOCKED ON
-  Nothing for me. THE DEMO ORDER STILL STANDS AND THIS DISPATCH DOES NOT REORDER
-  IT: SHARED -14 (cut the demo build) -> RUN P0-DOOR -> RUN DEMO-END -> RUN 0f +
-  P0-MORNING -> invite. Most of the ten above are exactly what a demo gets
-  judged on, and shipping them into a build with no front door helps nobody.
-
-WHAT I WOULD DO NEXT
-  Sweep 22. Standing watch: nobody hands anybody the workshop link, and nobody
-  re-cooks hair before the reference sheet exists.
-
-PROOF
-  laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md   (his ten, verbatim)
-  records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
-  records/BOHEMIA_RF4_ENEMY_DOSSIER_8_25_26.md  (his follow-up order, same day)
-    THE FIVE ARCHETYPES IN THE DESIGNER'S OWN WORDS -- plinker / nuker /
-    swarmer / summoner / tank -- and every one of RF4's 250+ monsters is one
-    of the five in a costume. Each is a different INSTRUCTION and the fight is
-    the argument between them. Stat block is SIX NUMBERS AND TWO VERBS.
-    Volume comes from a MODIFIER TABLE, which is our own FACTORY LAW in their
-    engine. THE SUMMONER IS THE ONE THAT BARKS, and it reuses the aggro-shout
-    we already took in the 8/17 lift.
-    *** THE FINDING: ONE OF THE FIVE DOES NOT SURVIVE THE TRANSLATION. ***
-    RF4 runs on mages and archers; animals have no ranged attack, so the
-    PLINKER vanishes and half the nukers with it. The pressure that says HURRY
-    must come from PEOPLE WITH GUNS or from THE ENVIRONMENT -- and we already
-    built the second: heat, the day clock, terrain kills. THE CLOCK IS OUR
-    PLINKER. That lets the animal tiers ship without waiting on the faction
-    roster he reserved.
-    BLOCKED AND SAID SO: rogue-fable-iv.fandom.com is refused by this
-    environment's egress proxy, so the full 250-monster table was NOT read.
-    The architecture is recovered; the roster is not, and nobody should guess
-    it. He owns the game -- one screenshot of the enemies page closes it.
-  laws/BOHEMIA_ADDENDUM_THE_DEMO_IS_ITS_OWN_LINK_8_25_26.md (earlier today)
-  records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md
-  Sweeps 14-21 records, all still routed and all still valid.
-
-================================================================================
 
 CHARACTER (character-0lurbs): 8/25 (y) -- *** A SHOULDER-LENGTH HAIRCUT WAS
 A CROP THE MOMENT HE TURNED HIS HEAD, AND THE GATE THAT WAS SUPPOSED TO CATCH THAT
