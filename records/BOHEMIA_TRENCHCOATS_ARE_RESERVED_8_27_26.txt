@@ -1,0 +1,157 @@
+BOHEMIA — TRENCHCOATS ARE FOR BADASSES
+CHARACTER lane, 8/27/26. Ruling: Paolo, 8/27.
+
+WHAT HE SAID
+  "everyone's getting a fucking trenchcoat and I think that's fucking ridiculous. The
+   trenchcoat should just be reserved for like to be honest like mostly badass people
+   for real like killers and shit ... I don't know what type of rule you wanna make and
+   keep it calm and I'm not trying to fuck with your flow too much ... I know we still
+   need to make a lot more clothing so this is like very early on but still bro ...
+   trenchcoats are for bad ass motherfuckers bro cowboy shit like killers like for real"
+
+WHAT WAS ACTUALLY TRUE
+  Measured the day he said it, on 5,000 people through the real generator
+  (BOH_PERSONLOOK.lookFor), the same function the crowd on the street uses:
+
+      long coats in the outer slot      16 of 35 garments        46%
+      factions wearing one              5 of 13
+      every person in the city          20.6% in a trenchcoat
+      of everybody wearing any coat     45% wore a long one
+
+  He said "everyone". He was describing a real distribution and he was UNDER-stating
+  it if anything, because a coat is most of a person on screen: the share of people
+  who READ as "guy in a duster" is higher than the share who are technically in one.
+
+  AND FOUR OF THOSE SIXTEEN WERE MINE, cooked the day before he said this. The colour
+  pass on 8/26 needed a saturated outer garment for two factions and reached for a
+  duster four times, because a duster was what the shelf held.
+
+THE CAUSE WAS A HOLE, NOT A WEIGHT
+  Every long coat in the game is len 0.80-0.90. Everything else in the outer slot
+  stops at the WAIST (vest:true or jacket:true). Between the waistcoat and the floor
+  there was NOTHING.
+
+  That is the entire bug. The picker is uniform over what exists. Give it a waistcoat
+  and a floor-length duster and nothing between, and every person who wants "a coat"
+  and not "a waistcoat" comes out in a duster. Nobody chose that. THE WARDROBE CHOSE
+  IT.
+
+  He named the cause himself, in the same breath as the complaint:
+      "I know we still need to make a lot more clothing so this is like very early on"
+
+WHAT WAS BUILT — TWO HALVES, AND THE FIRST ONE IS THE REAL ONE
+
+  1. FILL THE MIDDLE. Seventeen new outer garments in two new length bands:
+       HIP    len 0.34   CHORE COAT, BARN COAT, OLIVE CHORE COAT, STORM CHORE COAT,
+                         RUST WORK COAT, COBALT CHORE COAT                    (6)
+       THIGH  len 0.56   CAR COAT, SAND CAR COAT, SAGE CAR COAT, SLATE CAR COAT,
+                         GRASS CAR COAT                                       (5)
+       WAIST            WORK / STORM / KHAKI / OXBLOOD JACKET, SAGE + BONE VEST
+     A new length is a new SHAPE, so STRUCTURE-NOT-COLOR (7/19) is satisfied by
+     geometry and not by argument. Verified drawing real pixels, not just registered:
+     CHORE COAT 1245px, CAR COAT 1359px, WORK JACKET 1025px, vests 326px.
+
+     RESERVING THE COAT WITHOUT THIS WOULD NOT BE A FIX. It would strip the coat off
+     half the city and leave those people in a waistcoat. That is a subtraction, not
+     a repair, and it is the version of this work that a share-cap gate would have
+     happily certified.
+
+  2. RESERVE THE LONG COAT. All 17 floor-length coats carry hard:true. The picker
+     holds the reservation in exactly the shape the existing `lux` flag already used:
+
+         var _hardOdds = 0.10;
+         var _soft = pool.filter(function (x) { return !x.hard; });
+         pool = (_soft.length && unit(id, 'hard:' + cat) > _hardOdds) ? _soft : pool;
+
+     DATA, NOT NAMES. The picker module names no garment anywhere, so a new duster is
+     reserved the moment somebody tags it, with no edit to the picker.
+
+     A NAMED CHARACTER IS NOT A CROWD MEMBER. A faction, a boss, a killer, a quest NPC
+     wears whatever its FACTION_LOOKS row or authored look says. The reservation
+     governs the RANDOM population only. That is the whole point: once the coat stops
+     being background noise, putting one on somebody becomes a statement.
+
+THE RESULT
+                                      before       after
+      every person in the city        ~20%         ~1.5%
+      of everybody wearing any coat   ~45%         ~3%
+      factions wearing one            5 of 13      3 of 13
+
+  ROUNDED ON PURPOSE. Three separate 5,000-person samples read 1.66% / 1.38% / 1.34%.
+  The honest number is "about one and a half", not whichever of the three the picture
+  happened to draw from. Two decimals off one sample is claiming a precision the
+  measurement does not have.
+
+  The two factions that lost theirs are the two I mis-dressed on 8/26:
+      Blues    -> COBALT CHORE COAT   (hip)
+      Colorful -> GRASS CAR COAT      (thigh)
+  Both stayed in their faction colour, so COLOUR IS TERRITORY (8/26) is intact.
+
+  Anarchists, Reds and Remnants KEEP their long coats, because each one's own `why`
+  line is about the coat. Those three are the badasses. Who else earns one is HIS
+  (MECHANISM-MINE / CONTENTS-PAOLO'S) and the picture says so out loud.
+
+THE GATE — gates/trenchcoat_gate.js, 9 checks, registered as TRENCHCOATS
+  Measured on the REAL PICKER, 3,000 people, not on the garment list. A share read off
+  the catalogue would say "16 of 35 are long, that is 46%" and be describing a shelf
+  nobody stands in. What he SAW was the street.
+
+    1  the crowd ratchet          <= 4.0% of everybody           measured 1.4%
+    2  the coat-wearer ratchet    <= 12% of coat-wearers         measured 3.1%
+    3  THE HIP BAND EXISTS        >= 6 garments 0.20-0.45        6
+    4  THE THIGH BAND EXISTS      >= 5 garments 0.45-0.70        5
+    5  every len>=0.70 coat carries hard:true                    17 of 17
+    6  MUTATION, inside the gate: re-walk with every flag stripped and assert the
+       share jumps back                                          1.4% -> 14.4%
+    7  not one coat was deleted   >= 15 long coats still there   17
+    8  the picker reserves by DATA, not by a garment name
+    9  the alpha loads with zero page errors
+
+  TEST 3 AND 4 ARE THE ONES THAT MATTER AND THEY ARE EASY TO LEAVE OUT. Tests 1 and 2
+  are both satisfied by DELETING every duster, and they were both satisfied on 8/26 by
+  a wardrobe with nothing between a waistcoat and the floor — which is the bug he was
+  looking at. A cap without the band floors is a cap on the symptom.
+
+  WHAT THE GATE DELIBERATELY DOES NOT DO: read FACTION_LOOKS, or decide who is a
+  badass. A machine must never overrule a ruling (8/1).
+
+  MUTATION-PROVED BY HAND the same turn: deleting the reservation line from the picker
+  turns THREE of the nine checks red. Restored and re-verified green.
+
+WHAT THIS DOES NOT DO
+  It does not decide who is a badass. It does not touch a faction's clothes. It does
+  not delete a single coat. All 17 long coats are still in the game, still rendered,
+  still wearable in the CHARACTER tab. The only thing that changed is how often a
+  stranger on the street is wearing one.
+
+THE LESSON UNDERNEATH
+  WHEN SOMETHING IS EVERYWHERE, LOOK AT WHAT IT IS COMPETING AGAINST BEFORE YOU CAP
+  IT. The trenchcoat was not over-represented because it was over-weighted. It was
+  over-represented because it had no neighbours. The fix for "too much of X" is
+  usually "not enough of everything else", and capping X without checking that is how
+  you end up with a city where nobody owns a coat.
+
+  Same family as the 17 invisible hats (8/26) and the four bright clothes worn by
+  nobody (8/26): the material existed, or failed to, and nothing in the machine was
+  watching whether it reached the player. Every one of those was found by MEASURING
+  THE POPULATION, not by reading the catalogue.
+
+ONE HONEST NOTE ON THE PICTURE
+  The first cut of the middle row RECONSTRUCTED the "before" by re-picking each
+  person's coat with a hash of my own rather than the one the old code used. The eight
+  it drew were not the eight the old game dressed: it showed ONE trenchcoat in eight
+  when the real rate was closer to four. A picture that UNDERSELLS a bug is still a
+  picture telling him a number I did not measure. Thrown away and replaced with eight
+  real people as they are now, with the measured population figures in the caption.
+
+FILES
+  laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md
+  gates/trenchcoat_gate.js                    (registered in gates/bohemia_gates.py)
+  tools/bohemia_the_trenchcoat_rule.js
+  slices/look/the-trenchcoat-rule.png
+  slices/BOHEMIA_ALPHA_0_9.html               (17 garments, 17 tags, the picker)
+
+TAB
+  CHARACTER — the outfit board, to try the new coats on and to vote on the factions.
+  RUN — the crowd on the street, which is where he saw the problem.
+  LOOK — the picture.

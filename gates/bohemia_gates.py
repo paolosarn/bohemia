@@ -1301,6 +1301,19 @@ GATES = [
      'enough to be a signal unless drabness IS the statement, owning a hue nobody '
      'else owns, and NOT LYING ABOUT ITS OWN NAME -- the Blues were 67% red for five '
      'weeks. Also holds the thumbs he asked for on the same day.', False),
+    ('TRENCHCOATS',    ['node', 'gates/trenchcoat_gate.js'],
+     'TRENCHCOATS ARE FOR BADASSES (Paolo 8/27): "everyone\'s getting a fucking '
+     'trenchcoat and I think that\'s fucking ridiculous ... trenchcoats are for bad '
+     'ass motherfuckers bro cowboy shit like killers". Measured on the REAL PICKER, '
+     '3,000 people through lookFor, because what he SAW was the street and not the '
+     'garment list. The cause was a HOLE: every long coat is len 0.80-0.90 and '
+     'everything else stopped at the waist, so half the valley ended in a duster '
+     'nobody chose. So the gate holds the MIDDLE OF THE WARDROBE OPEN (>=6 hip coats, '
+     '>=5 thigh coats) as hard as it holds the long-coat share down -- a share cap '
+     'alone is satisfied by deleting every coat, which is the bug wearing a disguise. '
+     'Every len>=0.70 coat must carry hard:true, so the NEXT cook cannot quietly '
+     'climb back to 20%. Mutation lives inside the gate: it re-walks with the flags '
+     'stripped and asserts 1.4% -> 14.4%.', False),
     ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
      'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
      'of their own, chosen by searching 880 rendered fits rather than by eye, and '

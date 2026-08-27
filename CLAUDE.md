@@ -265,6 +265,29 @@ research partner. He DECIDES, you PRODUCE.
   15-20/min at rest and 3-7 concentrating; a viseme holds 250ms, which is half a BEAT at
   120 BPM. Deterministic off the person's id, so nobody in a crowd shimmers.
   Tab: CHARACTER. records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt
+- TRENCHCOATS ARE FOR BADASSES (Paolo 8/27, LOCKED): "everyone's getting a fucking
+  trenchcoat and I think that's fucking ridiculous... trenchcoats are for bad ass
+  motherfuckers bro cowboy shit like killers like for real." MEASURED THE DAY HE SAID IT
+  on the real picker: 16 of 35 outer garments were long coats and ONE IN FIVE PEOPLE IN
+  THE CITY was in one. *** AND THE CAUSE WAS A HOLE, NOT A WEIGHT -- which he named
+  himself in the same breath ("I know we still need to make a lot more clothing"). Every
+  long coat is len 0.80-0.90 and everything else stopped at the WAIST. THE MIDDLE OF THE
+  WARDROBE DID NOT EXIST, so every person who wanted a coat and not a waistcoat came out
+  in a duster. Nobody chose that; the wardrobe chose it. *** SO THE RULE HAS TWO HALVES
+  AND THE FIRST IS THE REAL ONE: (1) FILL THE MIDDLE -- 17 new outer garments in two new
+  length bands, HIP (0.34) and THIGH (0.56), because reserving the coat without filling
+  the hole just strips it off half the city and calls that a fix. A new length is a new
+  SHAPE, so STRUCTURE-NOT-COLOR is satisfied by geometry not argument. (2) RESERVE THE
+  LONG COAT -- every len>=0.70 coat carries `hard:true` and the picker holds it back from
+  nine strangers in ten, in the same DATA-NOT-NAMES shape the `lux` flag already used.
+  A NAMED CHARACTER IS NOT A CROWD MEMBER: factions, bosses, killers and quest NPCs wear
+  what their ruling says, and WHO EARNS A COAT IS HIS. Result ~20% -> ~1.5%; not one coat
+  deleted. Anarchists/Reds/Remnants keep theirs. THE LESSON: when something is everywhere,
+  look at what it is COMPETING AGAINST before you cap it -- "too much of X" is usually
+  "not enough of everything else", and a share cap alone is satisfied by DELETING X, which
+  is why the gate holds the band floors (>=6 hip, >=5 thigh) as hard as the share ceiling.
+  Tab: CHARACTER (try them on) / RUN (the crowd). Full law:
+  laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md  Gate: trenchcoat_gate.js
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.

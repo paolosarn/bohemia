@@ -547,6 +547,16 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_colour_is_territory.js",
    "kb": 178.2
+  },
+  {
+   "id": "the-trenchcoat-rule",
+   "title": "THE MIDDLE OF THE WARDROBE DID NOT EXIST",
+   "caption": "You said everyone has a trenchcoat and it is ridiculous. You were right and it was worse than you thought: one in five people in the city was wearing one. But nobody chose that. Every coat in the game was either a waistcoat or floor-length, and there was NOTHING in between, so anybody who wanted a coat and not a vest ended up in a duster. You said it yourself in the same breath: we still need to make a lot more clothing. So the fix is not a cap, it is seventeen new clothes in two new lengths: a HIP coat and a THIGH coat. Those are the two in the middle of the top row. Then the long coats got reserved: nine strangers in ten never see one. It went from about 20% of the city to about 1.5%. Not one coat was deleted, they are all still there and still wearable. Three factions keep theirs because the coat IS who they are. Who else earns one is yours to say. LOOK tab for this picture, CHARACTER tab to try the new coats on.",
+   "file": "look/the-trenchcoat-rule.png",
+   "stamp": "8/27/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_the_trenchcoat_rule.js",
+   "kb": 205.8
   }
  ]
 }
