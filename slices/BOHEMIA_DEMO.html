@@ -3855,8 +3855,14 @@ var FACTION_LOOKS = [
        edge you are looking at. A thigh coat (len 0.56) hangs past the hip and does
        move the silhouette, which is also the right read of their own why line: the
        heaviest silhouette on the street should be the one carrying the most cloth.
-       SAGE is nobody else's -- Reds hold BRICK, Colorful holds GRASS, Blues COBALT --
-       and it sits with the olive tee and olive boots they already wore. */
+       *** AND MY FIRST PICK WAS SAGE, WHICH faction_colour_gate KILLED AT 0.23 AGAINST
+       A 0.28 FLOOR. *** Sage is nobody else's, which is the test I ran, and it is also
+       too washed out to be a signal -- COLOUR IS TERRITORY (8/26) says a faction's
+       colour has to READ AT A DISTANCE, and "unclaimed" is only half of that. I had
+       checked that the colour was free and not that it was strong.
+       So the coat is cooked in OLIVEDRAB, the ramp their own tee and boots already
+       wear, which is stronger AND is already theirs -- no new hue enters the valley
+       and nothing is taken off another faction. */
     why:'the floor of civilisation, still covered: the heaviest silhouette on the street',
     /* AND THE WHY LINE AND THE DIALS DISAGREED, WHICH IS A BUG AND NOT A READING.
        "The heaviest silhouette on the street" was carrying the SAME five numbers as
@@ -3867,7 +3873,7 @@ var FACTION_LOOKS = [
        heavier. Nothing here invents canon -- it delivers the shape line that was
        already written. */
     dials:{height:-0.18,belly:0.85,arms:0.45,shoulders:0.80,hips:0.30},
-    worn:{hair:'BUZZ CUT',base:'OLIVE DRAB TEE',outer:'SAGE CAR COAT',
+    worn:{hair:'BUZZ CUT',base:'OLIVE DRAB TEE',outer:'OLIVE CAR COAT',
           head:'STORM KNIT CAP',legs:'DUST TROUSERS',feet:'OLIVE BOOTS'} }
 ];
 window.FACTION_LOOKS = FACTION_LOOKS;
@@ -24462,6 +24468,7 @@ window.CLO=(function(){
        Remnants stay LEATHERV, and the only thing that changes is the length.
        Swapping them into an existing coat of somebody else's colour would have
        fixed the heat and broken the flag. */
+    {n:'OLIVE CAR COAT',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEDRAB,len:0.56}),OLIVEDRAB,14);}},
     {n:'BRICK CAR COAT',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:BRICK,len:0.56}),BRICK,15);}},
     {n:'SPLIT-TAIL WORK COAT',st:'canon',layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:LEATHERV,len:0.34}),LEATHERV,12);}},
     {n:'COBALT CHORE COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:COBALT,len:0.34}),COBALT,14);}},

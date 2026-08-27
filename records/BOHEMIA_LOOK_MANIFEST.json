@@ -81,7 +81,7 @@
    "title": "THE THIRTEEN OUTFITS",
    "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the valley goes DARK: night runs 19:00 to 06:00, and only about 4% of the map has live power, so most streets have no light even by day. Colour is the one channel you cannot count on. (I had been saying the demo OPENS in the dark -- it does not, 06:00 is exactly when night ends. Corrected.) These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
    "file": "look/thirteen-outfits.png",
-   "kb": 104.1,
+   "kb": 104.3,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "stamp": "8/18/26",
    "shooter": "node tools/bohemia_faction_picture.js"

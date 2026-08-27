@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 268
+# count: 271
 SUN CROP|hair|#523a26|
 DUSK SHAG|hair|#201e1b|
 TEMPLE TAPER|hair|#201e1b|
@@ -241,6 +241,9 @@ KHAKI JACKET|outer|#7e6e50|
 OXBLOOD JACKET|outer|#5c302a|
 SAGE VEST|outer|#5a6856|
 BONE VEST|outer|#a29a86|
+OLIVE CAR COAT|outer|#4a5036|
+BRICK CAR COAT|outer|#703a30|
+SPLIT-TAIL WORK COAT|outer|#5c422c|
 COBALT CHORE COAT|outer|#326ed2|
 GRASS CAR COAT|outer|#6ebe3c|
 HOOD-UP ASH HOODIE|base|#46484e|
