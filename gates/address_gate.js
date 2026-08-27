@@ -308,6 +308,117 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         }
       }
 
+      /* ---- __CITY_HUNT__: THE LAST TWO HUNDRED METRES ------------------- */
+      /* THE ROLE THE QUEST IS ON *NOW*, not the one it opened on: the section
+         above played the first conversation to its end, so the job has already
+         handed off to the second part. Measuring the tell at the OLD block is
+         how this claim first went red -- it read "5 blocks north west" while
+         standing exactly where it had been told to stand. */
+      var hRole = ctJobRole();
+      var hBlk = (hRole && out.cast[hRole]) ? out.cast[hRole].block : blk;
+      out.tellRole = hRole;
+      if (hBlk) {
+        hx = hBlk[0] * span + 8; hy = hBlk[1] * span + 8; CT_SPAWN = null;
+        try { ctSpawn(); render(); updQline(); } catch (e) {}
+        out.tellLine = (document.getElementById('qline') || {}).textContent;
+        out.peopleOnBlock = ctEveryone().length;
+        out.tellOf = (function () {
+          try { var q = qkOf(out.cast[hRole].key); return q && q.tell; }
+          catch (e) { return null; }
+        })();
+        /* a stranger standing on the same block must still be a stranger */
+        var others = ctEveryone().filter(function (p) {
+          return 'P:city:' + p.id !== out.cast[hRole].key; });
+        if (others.length) {
+          try { ctClose(); } catch (e) {}
+          var sa = ctAt(others[0]), sdd = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+          for (var sk = 0; sk < sdd.length; sk++) {
+            hx = sa[0] + sdd[sk][0]; hy = sa[1] + sdd[sk][1];
+            try { render(); } catch (e) {}
+            if (ctAdjacent()) break;
+          }
+          var svb = document.getElementById('cttalk');
+          if (svb && getComputedStyle(svb).display !== 'none') {
+            svb.click();
+            out.strangerCard = document.getElementById('ctcard').innerText;
+            try { ctClose(); } catch (e) {}
+          }
+        }
+      }
+      /* AND THE CONFERRED HALF. Day one's lineman is `block=browned`, one of the
+         machine flags this deliberately drops, so THE ROW NEVER RENDERS ON DAY
+         ONE AT ALL -- which means a claim measured only on day one is a claim
+         that can never see the row. (Mutation M32 proved that the hard way: it
+         made the row show on every stranger and NOTHING went red.) So the sweep
+         finds the first demo day whose role carries a real phrase, walks to that
+         person, and reads the card. */
+      out.traitDays = [];
+      for (var td = 1; td <= 5; td++) {
+        try { DQ.openDay(td); } catch (e) { continue; }
+        (DQ.Q.roles || []).forEach(function (r) {
+          var tw = BohemiaPeople.traitWords(BohemiaPeople.roleTraits(r));
+          if (tw.length) out.traitDays.push('day ' + td + ' ' + r.name + ': ' + tw.join(', '));
+        });
+      }
+      out.traitCard = null; out.traitStranger = null; out.traitWant = null; out.traitWhy = [];
+      for (var td2 = 1; td2 <= 5 && !out.traitCard; td2++) {
+        try { DQ.openDay(td2); } catch (e) { continue; }
+        CT_DAYCAST = null; T.day = td2;
+        var dc = ctDayCast();
+        if (!dc || !dc.cast) { out.traitWhy.push('day ' + td2 + ': no cast'); continue; }
+        for (var rn in dc.cast) {
+          var tw2 = BohemiaPeople.traitWords(dc.cast[rn].traits);
+          if (!tw2.length) continue;
+          var tb = dc.cast[rn].block;
+          /* *** AND HOW MANY OTHER RESIDENTS SHARE THAT BLOCK, COUNTED RATHER
+             THAN ASSUMED. *** Answer: none, on any of the five demo days. The
+             one apparent exception was the player's own next-door NEIGHBOUR, an
+             authored fixture the people pass appends to whichever neighbourhood
+             he spawned in, and it moves when the probe moves. So a claim about
+             "a stranger standing on the job's block" has no witness in this
+             world today, and the gate says that out loud below instead of
+             inventing one. */
+          out.traitMates = (pplPeople(tb[0], tb[1]) || []).length - 1;
+          hx = tb[0] * span + 8; hy = tb[1] * span + 8; CT_SPAWN = null;
+          try { ctSpawn(); render(); } catch (e) {}
+          /* *** THE STRANGER HAS TO BE ON THE SAME BLOCK, AND A MUTATION
+             TAUGHT ME THAT. *** ctEveryone() returns the 3x3 NEIGHBOURHOOD, so
+             the first non-cast body it hands back is usually standing on the
+             block next door -- where ctCast() correctly returns null and no row
+             could ever appear. M32 made the row show for everybody and this
+             claim stayed green, because the person it was reading was not in the
+             place the claim is about. */
+          var TR = ctEveryone(), th = null, tstranger = null;
+          for (var ti = 0; ti < TR.length; ti++) {
+            if ('P:city:' + TR[ti].id === dc.cast[rn].key) { th = TR[ti]; continue; }
+            if (tstranger) continue;
+            var hb = ctBlockOf(TR[ti].home[0], TR[ti].home[1]);
+            if (hb[0] === tb[0] && hb[1] === tb[1]) tstranger = TR[ti];
+          }
+          if (!th) { out.traitWhy.push('day ' + td2 + ' ' + rn + ': not found on the block'); continue; }
+          out.traitWant = 'the one who ' + tw2.join(', and ');
+          out.traitDay = td2 + ' ' + rn;
+          [[th, 'traitCard'], [tstranger, 'traitStranger']].forEach(function (pair) {
+            if (!pair[0]) return;
+            try { ctClose(); } catch (e) {}
+            var pa = ctAt(pair[0]), pd = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+            for (var pk = 0; pk < pd.length; pk++) {
+              hx = pa[0] + pd[pk][0]; hy = pa[1] + pd[pk][1];
+              try { render(); } catch (e) {}
+              if (ctAdjacent()) break;
+            }
+            var pvb = document.getElementById('cttalk');
+            if (pvb && getComputedStyle(pvb).display !== 'none') {
+              pvb.click();
+              out[pair[1]] = document.getElementById('ctcard').innerText;
+              try { ctClose(); } catch (e) {}
+            }
+          });
+          break;
+        }
+      }
+      try { DQ.openDay(1); CT_DAYCAST = null; T.day = 1; } catch (e) {}
+
       /* ---- AND IT SURVIVES A SAVE --------------------------------------- */
       try {
         var snap = citySnapshot();
@@ -411,6 +522,48 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
       console.log('       day ' + d.day + ' (' + d.quest + ') can fill only ' + d.filled
         + ' of ' + d.of + ': ' + d.req.join(', ') + ' -- an outfit with nobody on its ground');
     });
+
+    head('G. THE LAST TWO HUNDRED METRES');
+    ok('the block he walked to really has a crowd on it',
+      m.peopleOnBlock > 1, m.peopleOnBlock + ' people standing there');
+    /* THE ADDRESS STOPPED BEING USEFUL AT EXACTLY THE MOMENT THE WALK WAS FOR:
+       a block with a crowd on it and no way to tell which one the job wants. */
+    ok('*** AND WHEN HE ARRIVES, THE LINE SAYS WHICH ONE ***',
+      !!m.tellOf && String(m.tellLine).indexOf('look for the one who ' + m.tellOf) >= 0,
+      String(m.tellLine || '').split('\u00b7').pop().trim());
+    ok('and it is a description, never an arrow over anybody\'s head',
+      !/[\u2192\u2190\u2191\u2193\u27a1]|marker|waypoint|arrow/i.test(String(m.tellLine)));
+    ok('*** AND A STRANGER ON THE SAME BLOCK IS STILL A STRANGER ***',
+      !!m.strangerCard && !/THE JOB/.test(String(m.strangerCard)),
+      String(m.strangerCard || '').split('\n').slice(0, 4).join(' | '));
+    /* WHAT THE QUEST THINKS THEY ARE, absent where the predicate is a machine
+       flag -- 11 of the corpus's 69, including day one's lineman. */
+    ok('the corpus really does carry phrases worth saying',
+      m.traitDays.length > 0, m.traitDays.slice(0, 4).join('  \u00b7  '));
+    /* AND ON THE GLASS, not just in the corpus. Read on the first demo day whose
+       role carries a phrase, because day one's does not and a claim that only
+       ever looks at day one cannot see this row at all. */
+    ok('*** AND THE CARD SAYS WHAT THE JOB THINKS THEY ARE ***',
+      !!m.traitCard && !!m.traitWant
+      && m.traitCard.indexOf('THE JOB SAYS') >= 0
+      && m.traitCard.indexOf(m.traitWant) >= 0,
+      'day ' + m.traitDay + ': ' + JSON.stringify(m.traitWant)
+      + (m.traitCard ? '' : '   skipped: ' + (m.traitWhy || []).join('; ')));
+    /* *** NO SILENT CAPS: THE CASE THIS GATE CANNOT WITNESS, SAID OUT LOUD. ***
+       The row is gated on ctCast(), whose block-confinement is already proved
+       above (M25 turns "exactly one block" into 81 of 81). The one slice left
+       is a NON-CAST PERSON STANDING ON A CAST BLOCK -- and measured across all
+       five demo days, THERE IS NEVER ONE: the cast person is the only census
+       resident of their block, and the apparent second body was the player's own
+       authored neighbour, which follows the probe around. Mutation M32 (drop the
+       key check, show the row to everybody) is therefore OBSERVATIONALLY
+       IDENTICAL to correct behaviour in this world, and no claim written here
+       could catch it. The guard stays, because it is right and it costs nothing,
+       and it starts being checkable the day a job block holds two people. */
+    console.log('       NOT WITNESSED, and not pretended: no demo day has a second '
+      + 'resident on a job block (' + m.traitMates + ' beside the cast person), so '
+      + '"a stranger there gets no row" has nobody to be about yet.');
+
   } catch (e) {
     ok('the address could be measured at all', false, String(e && e.message || e));
   } finally {

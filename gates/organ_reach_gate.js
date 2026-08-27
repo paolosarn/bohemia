@@ -63,6 +63,12 @@ process.chdir(ROOT);
 /* ---- RULE 2: the declared helpers, each with the reason it is not on the
    surface. A name may only sit here while it is STILL tooling-only (rule 3) and
    STILL exists (rule 4), so this list cannot quietly become a dumping ground. */
+/* *** THREE ENTRIES CAME OUT OF THIS LIST ON 8/27, WHICH IS RULE 3 DOING ITS
+   JOB. *** BohemiaBetween.keys, BohemiaBelonging.keys and BohemiaIntros.keys were
+   declared tooling-only because "a card asks about ONE outfit, never about all of
+   them". The outfit board changed that: the surface asks for the whole roster
+   now, all three read `surface` in the sweep, and an exemption for something the
+   player can reach is the beginning of a list that means nothing. */
 const TOOLING_ONLY = {
   'BohemiaBetween.myRipples':
     'the player\'s OWN outfit\'s canon positions, for faction_between C4. It '
@@ -73,23 +79,11 @@ const TOOLING_ONLY = {
     + 'the claim that asserts the emptiness is CORRECT is the whole reason this '
     + 'function exists — on 8/21 this lane reported his own faction as a defect '
     + 'for exactly this shape and he had to correct it.',
-  'BohemiaBetween.keys':
-    'every outfit canon says anything about, as a list. Same shape as '
-    + 'BohemiaBelonging.keys and BohemiaIntros.keys directly below: a card asks '
-    + 'about ONE outfit, never about all of them. It exists so a gate can sweep '
-    + 'the whole roster rather than spot-check the three it happened to think of.',
   'BohemiaCommitment.states':
     'the commitment ladder as a list, for faction_arc J6. The card never asks '
     + 'for the whole ladder — it asks what YOUR state is and what the next one '
     + 'costs — but a gate pinning "none, sided, burned and nothing after it" has '
     + 'to read the organ to catch a fourth stage being added behind J1.',
-  'BohemiaBelonging.keys':
-    'the registry of outfit ids, for gates that must sweep every outfit by name '
-    + 'rather than trust a hardcoded list. The player never asks for a list of '
-    + 'factions; a gate always must.',
-  'BohemiaIntros.keys':
-    'same, for the sixteen name mechanics. introductions_gate walks every one of '
-    + 'them by id, which is the only way "all sixteen" can be a checked claim.',
   'BohemiaTies.degrees':
     'how many people each person knows, for a gate measuring the SHAPE of the '
     + 'graph rather than one edge of it. It produced the 199-of-298 finding. A '

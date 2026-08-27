@@ -2133,6 +2133,29 @@
     return out;
   }
 
+  /* WHAT THE QUEST SAYS THIS PERSON IS, IN ENGLISH.
+     The conferred half of a role has been computed since casting shipped and
+     shown NOWHERE: roleTraits() returns the predicates that are not a faction,
+     and they are the most interesting sentence a quest ever writes about a
+     stranger. MEASURED ACROSS THE CORPUS: 69 conferred predicates on 64 roles,
+     and 58 of them are `some_words_here=true`, which is already a phrase --
+     "keeps the tunnel", "wronged the dying", "named on the board", "near the
+     end". The other 11 are bare flags (`block=browned`, `met_before=false`) that
+     read as machine, so they are DROPPED rather than mangled into prose. A row
+     that is absent when there is nothing good to say beats a row that is always
+     there and usually gibberish. */
+  function traitWords(traits) {
+    var out = [];
+    (traits || []).forEach(function (t) {
+      var m = /^([a-z_]+)=(\w+)$/.exec(String(t));
+      if (!m) return;
+      if (m[2] !== 'true') return;                 /* a flag, not a description */
+      if (m[1].indexOf('_') < 0) return;           /* one word is a switch, not a phrase */
+      out.push(m[1].replace(/_/g, ' '));
+    });
+    return out;
+  }
+
   /* WHICH WAY, IN THE WORDS THE GAME ALREADY SPEAKS. The card's WORKS row has
      said NORTH / SOUTH / EAST / WEST since the 7/31 address book, so a direction
      is not new vocabulary here, it is the same vocabulary pointed at a job. */
@@ -2388,6 +2411,7 @@
     castRole: castRole,
     // THE ADDRESS (8/26): one block PER ROLE, found once, and which way it is.
     castAddresses: castAddresses, bearingOf: bearingOf, addressLine: addressLine,
+    traitWords: traitWords,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,

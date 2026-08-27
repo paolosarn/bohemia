@@ -6060,6 +6060,29 @@ global.BohemiaOvermap=API;
     return out;
   }
 
+  /* WHAT THE QUEST SAYS THIS PERSON IS, IN ENGLISH.
+     The conferred half of a role has been computed since casting shipped and
+     shown NOWHERE: roleTraits() returns the predicates that are not a faction,
+     and they are the most interesting sentence a quest ever writes about a
+     stranger. MEASURED ACROSS THE CORPUS: 69 conferred predicates on 64 roles,
+     and 58 of them are `some_words_here=true`, which is already a phrase --
+     "keeps the tunnel", "wronged the dying", "named on the board", "near the
+     end". The other 11 are bare flags (`block=browned`, `met_before=false`) that
+     read as machine, so they are DROPPED rather than mangled into prose. A row
+     that is absent when there is nothing good to say beats a row that is always
+     there and usually gibberish. */
+  function traitWords(traits) {
+    var out = [];
+    (traits || []).forEach(function (t) {
+      var m = /^([a-z_]+)=(\w+)$/.exec(String(t));
+      if (!m) return;
+      if (m[2] !== 'true') return;                 /* a flag, not a description */
+      if (m[1].indexOf('_') < 0) return;           /* one word is a switch, not a phrase */
+      out.push(m[1].replace(/_/g, ' '));
+    });
+    return out;
+  }
+
   /* WHICH WAY, IN THE WORDS THE GAME ALREADY SPEAKS. The card's WORKS row has
      said NORTH / SOUTH / EAST / WEST since the 7/31 address book, so a direction
      is not new vocabulary here, it is the same vocabulary pointed at a job. */
@@ -6315,6 +6338,7 @@ global.BohemiaOvermap=API;
     castRole: castRole,
     // THE ADDRESS (8/26): one block PER ROLE, found once, and which way it is.
     castAddresses: castAddresses, bearingOf: bearingOf, addressLine: addressLine,
+    traitWords: traitWords,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
@@ -24887,6 +24911,157 @@ root.BQRuntime=API;
   root.BohemiaConversation = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== engine/bohemia_conversation.js ==== */
+/* ==== engine/bohemia_ending.js ==== */
+/* BOHEMIA ENDING — the last thirty seconds of the demo, which nobody had built.
+   (8/27/26, PEOPLE lane. Demo critical path row DEMO-END.)
+
+   WHY IT EXISTS, AND IT IS THE ONE ROW ON THE PATH WITH NO OWNER. The handoff's
+   own line: "BUILD -> DOOR -> ENDING -> INSTRUMENT -> INVITE ... DEMO-END (the
+   last thirty seconds, which nobody has designed and which peak-end says is half
+   of what anybody keeps)". The RUN lane it was assigned to has not shipped since
+   8/12. This is a message from a person, on a phone, at the end of a day, which
+   is this lane's whole subject.
+
+   THE RESEARCH IT IS BUILT ON, already banked in
+   records/BOHEMIA_WHAT_THE_DEMO_IS_STILL_MISSING_8_25_26.md:
+     - KAHNEMAN AND FREDRICKSON'S PEAK-END RULE: what a person keeps of an
+       episode is predicted almost entirely by TWO MOMENTS, the most intense one
+       and the LAST one. Not the average. Not the total.
+     - DURATION NEGLECT: how long it went barely registers at all.
+     - Zukowski's demo work, from the other direction: a demo's ending is not
+       neutral, and ending without giving a reason to come back actively hurts
+       it. It has to leave a person thinking "I need to play more of this",
+       never "that was annoying".
+   His ruled demo cut is COLD OPEN -> THE VISTA -> ONE GOOD DAY -> sleep, and the
+   coordinator's finding was that BOTH PEAKS ARE IN THE FIRST FIVE MINUTES AND
+   THE LAST THING THE PLAYER FEELS IS GOING TO BED. The cut is his and it is
+   good. This is the thirty seconds after it.
+
+   *** AND THE DEMO ENDS ON A THING YOU ARE NOT ALLOWED TO SAY. *** The corpus's
+   single most repeated craft finding is the withheld verb: seven of the
+   CONVERSATIONS MASTER's marquee nodes are remembered for the line the game
+   refused to let the player speak. The message that lands here asks the player
+   something, and the reply they want to send is sitting right there, greyed and
+   dead. That is the game's own grammar, used once, at the end, on purpose.
+
+   IT SPEAKS TO WHAT THEY ACTUALLY DID. The quest already classifies its own
+   outcome (#quiet / #notable / #reckless, plus its author's FAIL branch, plus
+   never having taken the job at all), so the last beat is different for each
+   without anybody inventing a fifth thing to measure. Peak-end says the last
+   moment is half of what they keep; a last moment that is the same whatever they
+   did is half of what they keep spent on nothing.
+
+   WORDS ARE A REAL ATTEMPT AND HIS TO RETYPE (ALWAYS MAKE AN ATTEMPT, 8/11).
+   Every line here is draft:true, written against laws/BOHEMIA_VOICE_CARD_8_26_26:
+   contracted, varied hard in length, no aphorism in the last sentence, and one
+   physical detail per speech that only this person could have said. NOBODY IN
+   BOHEMIA IS WISE.
+
+   REUSE CHECK: cooks no graphic pixels and opens no bank. It draws nothing. */
+(function (root) {
+  'use strict';
+
+  /* THE FIVE WAYS ONE GOOD DAY CAN END, and the game already knows which. The
+     keys are the quest's OWN tags, not a vocabulary invented here. */
+  /* *** NOT ONE LINE HERE ASSUMES A GENDER, AND THAT IS A BUG I SHIPPED FIRST. ***
+     The first cut of the withheld verbs said "Tell him it was you", and the
+     probe that proved the ending working printed it under the header LOURDES
+     IBARRA. The cast is PROCEDURAL -- the person the quest lands on is whoever
+     really stands on that block -- so a line that names a pronoun is a line that
+     will be wrong for half the valley. They/them, every time, for everybody.
+     Same rule the names themselves already follow. */
+  var ENDINGS = {
+    quiet: {
+      says: [
+        'Light all night. Right through nine, past ten, past when I gave up waiting for it to go.',
+        "I still went out at nine. Forty years standing on that corner at nine o'clock, you don't stop just because the lights stayed on.",
+        "Nobody's said a word. Not one.",
+        'Was it you?'
+      ],
+      noverb: 'Tell them it was you'
+    },
+    notable: {
+      says: [
+        'They came in daylight. Two of them, a clipboard, a van with the doors open and half the street watching them do it.',
+        "My name's on that order.",
+        'Mine. Not theirs.',
+        "I don't know yet what I think about that. Ask me in a week.",
+        'You still around?'
+      ],
+      noverb: "Tell them you're still around"
+    },
+    reckless: {
+      says: [
+        'Sparks went up past the second floor.',
+        "Half this street saw it and the other half heard it, and by breakfast three people had asked me who you were, and I told all three I didn't know you.",
+        'That was true when I said it.',
+        "It isn't now.",
+        "They're coming to look. You get that, right?"
+      ],
+      noverb: 'Warn them'
+    },
+    failed: {
+      says: [
+        'Brown at nine. Same as always.',
+        "I waited out front a good while, longer than I meant to, watching the corner for somebody I'd met the once.",
+        'Got cold. Went in.',
+        "I'm not asking again. I don't think.",
+        'You still out there?'
+      ],
+      noverb: "Tell them you'll come tomorrow"
+    },
+    untaken: {
+      says: [
+        'This is the number that called you this morning.',
+        "You didn't pick up. That's fine. People don't.",
+        "Nine tonight it goes brown again and I'll be stood out front like a fool with a torch in my mouth.",
+        'Anyway.'
+      ],
+      noverb: 'Pick up'
+    }
+  };
+
+  /* WHICH ONE. Reads the day the player actually had: the quest's own outcome
+     and its own hashtag, or the fact that the phone rang and nobody answered.
+     UNTAKEN IS FIRST because it is the only branch where no quest ever ran, and
+     asking a quest that never started what its outcome was is how a "failed"
+     ending gets shown to somebody who simply had a quiet day. */
+  function pick(ctx) {
+    ctx = ctx || {};
+    if (!ctx.taken) return 'untaken';
+    if (ctx.outcome === 'FAIL') return 'failed';
+    var tag = String((ctx.tags && ctx.tags[0]) || '').toLowerCase();
+    if (ENDINGS[tag] && tag !== 'untaken' && tag !== 'failed') return tag;
+    /* A COMPLETE WITH A TAG NOBODY WROTE AN ENDING FOR IS NOT A CRASH. It reads
+       as the quietest version, which is the truthful default: the job got done
+       and the valley did not hear about it. */
+    return ctx.outcome === 'COMPLETE' ? 'quiet' : 'failed';
+  }
+
+  /* THE WHOLE BEAT, as plain data. Renders nothing: the surface owns pixels and
+     this owns which words, exactly like every other organ in this lane. */
+  function endingFor(ctx) {
+    ctx = ctx || {};
+    var key = pick(ctx);
+    var e = ENDINGS[key];
+    if (!e) return null;
+    return {
+      key: key,
+      from: ctx.from || null,        /* the cast person, when the day had one */
+      says: e.says.slice(),
+      noverb: e.noverb,
+      draft: true                    /* every word above is his to retype */
+    };
+  }
+
+  function keys() { var out = []; for (var k in ENDINGS) out.push(k); return out.sort(); }
+
+  var API = { endingFor: endingFor, pick: pick, keys: keys, ENDINGS: ENDINGS,
+              VERSION: 'bohend-1.0.0' };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaEnding = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== engine/bohemia_ending.js ==== */
 /* ==== engine/bohemia_demoquests.js ==== */
 // BOHEMIA DEMO QUESTS (8/11/26) — SCAFFOLDING, AND IT SAYS SO.
 //
@@ -35882,6 +36057,91 @@ function showChoice(card){
   });
 }
 
+/* __THE_ENDING__ -- WHICH SURFACE AM I. Told by the shell on frame load; false
+   until told, because the workshop is the safe default and a demo that never
+   ends is a smaller failure than a bench that stops on day two. */
+var CT_IS_DEMO = false;
+window.addEventListener('message', function(ev){
+  try { if (ev && ev.data && typeof ev.data.bohemiaIsDemo === 'boolean')
+          CT_IS_DEMO = ev.data.bohemiaIsDemo; } catch(_e){}
+});
+/* *** AND THE CITY ASKS, BECAUSE WAITING TO BE TOLD DOES NOT WORK. *** The first
+   cut had the shell push this on the frame's `load` event, and MEASURED ON THE
+   REAL DEMO BUILD it never arrived: this document's readyState is still
+   "interactive" while the player is already walking around in it. A four
+   megabyte page's load event is not a thing anybody should be waiting on.
+   THE FRAME KNOWS WHEN IT IS READY AND THE SHELL DOES NOT. Asked a few times
+   over the first two seconds, because the shell's own listener may not be up on
+   the first tick, and answering twice is free. */
+(function ctAskWhoAmI(){
+  var tries = 0;
+  function ask(){
+    tries++;
+    try { if (window.parent && window.parent !== window)
+            window.parent.postMessage({ bohemiaWhoAmI: true }, '*'); } catch(_e){}
+    if (tries < 6) setTimeout(ask, 300);
+  }
+  ask();
+})();
+/* HIS RULED DEMO CUT IS "ONE GOOD DAY" (8/4): cold open, the vista, one day,
+   sleep. So the demo ends when day one is slept through, and the workshop never
+   ends at all. */
+var CT_DEMO_DAYS = 1;
+function ctDemoOver(day){ return CT_IS_DEMO && (day|0) >= CT_DEMO_DAYS; }
+/* WHO IS TEXTING. The person the day's quest was actually about, if the casting
+   found one. It is the same cast the card and the conversation used, so the
+   voice at the end is somebody he can place. */
+function ctEndingFrom(){
+  try {
+    /* *** THE CACHE, NOT ctDayCast(). *** ctDayCast() refuses once the quest is
+       done, which is correct for the card -- THE JOB row must stop pointing at
+       somebody after the job is over -- and exactly wrong here, because by the
+       time this runs the job is ALWAYS over. Measured: it returned null on every
+       finished day, so the last message in the demo came from nobody. */
+    var d = CT_DAYCAST; if (!d || !d.cast) return null;
+    var role = null;
+    var rs = (DQ.Q && DQ.Q.roles) || [];
+    for (var i = 0; i < rs.length; i++)
+      if (rs[i].req && d.cast[rs[i].name]) { role = rs[i].name; break; }
+    if (!role) for (var k in d.cast) { role = k; break; }
+    if (!role) return null;
+    /* *** AND WHETHER IT SAYS THEIR NAME IS UP TO HIM, WHICH IS FREE. *** YOU
+       HAVE TO ASK (7/31) already governs names: nameOf returns null for anybody
+       he never asked. So a player who took the trouble gets a person texting
+       them, and a player who did not gets a job title. Nothing here decides
+       that; the ledger he already wrote decides it. */
+    var c = d.cast[role];
+    try {
+      var b = c.block, list = pplPeople(b[0], b[1]) || [];
+      for (var j = 0; j < list.length; j++) {
+        if ('P:city:' + list[j].id !== c.key) continue;
+        var nm = BohemiaPeople.nameOf(ctPerson(list[j]));
+        if (nm) return String(nm).toUpperCase();
+        break;
+      }
+    } catch(_e){}
+    return String(role).replace(/_/g, ' ').toUpperCase();
+  } catch(_e){ return null; }
+}
+/* *** THE LAST THIRTY SECONDS. *** The screen has gone; one message lands; the
+   reply he wants to send is under it, greyed and dead to the touch. */
+function showEnding(){
+  var ctx = { taken: !!OFFER_TAKEN,
+              outcome: (function(){ try { return OFFER_TAKEN ? DQ.outcome() : null; } catch(_e){ return null; } })(),
+              tags: (function(){ try { return OFFER_TAKEN ? DQ.tags() : []; } catch(_e){ return []; } })(),
+              from: ctEndingFrom() };
+  var e = null;
+  try { e = BohemiaEnding.endingFor(ctx); } catch(_e){}
+  if (!e) { DAY.nextDay(); daySync(); showWake(); return; }   /* never strand him on black */
+  var h = '<h2>' + esc(e.from || 'A NUMBER YOU DO NOT HAVE') + '</h2>'
+        + '<div class="sub">' + esc(DAY.hhmm(DAY.min)) + ' \u00b7 the phone, after</div>';
+  e.says.forEach(function(s){ h += '<div class="endsay">' + esc(s) + '</div>'; });
+  /* THE WITHHELD VERB, and it is the whole point of ending here. */
+  h += '<div class="endnoverb">' + esc(e.noverb) + '</div>';
+  h += '<div class="endstop">THAT IS AS FAR AS THIS GOES FOR NOW.</div>';   /* draft:true */
+  window.__ENDING = { key: e.key, from: e.from, says: e.says.slice(), noverb: e.noverb };
+  cardShow(h, function(){ /* nothing to press: the day does not come */ });
+}
 function onNightfall(){
   /* __THE_PHONE_RINGS__ -- NOT TAKING A JOB IS NOT FAILING IT. The old code could not
      say this: a quest that started itself could only ever be resolved or FAILED at
@@ -35933,6 +36193,10 @@ function showReckoning(){
        the rollover, because the check is "did you turn up TODAY" and after
        nextDay() today is a different number. */
     try { ctNeglectFor(ctBelongSave(), (T && T.day) || 1); } catch(_e){}
+    /* __THE_ENDING__ -- IN THE DEMO, DAY TWO DOES NOT COME. The upkeep above
+       still runs, because the day he played really did happen. Everything below
+       is the rollover, and the rollover is what the demo does not get. */
+    if (ctDemoOver(s.day)) { try { showEnding(); return; } catch(_e){} }
     DAY.nextDay(); daySync(); _lastDistrict=null;
     showWake(); updHud(); render(); reportState(); });
 }
@@ -43061,7 +43325,23 @@ function ctAddress(){
   var d = ctDayCast(); if (!d || !d.cast) return null;
   var role = ctJobRole(); if (!role) return null;
   var c = d.cast[role]; if (!c || !c.block) return null;
-  return BohemiaPeople.addressLine(ctBlockOf(hx, hy), c.block, ctGroundAt(c.block));
+  var here = ctBlockOf(hx, hy);
+  var line = BohemiaPeople.addressLine(here, c.block, ctGroundAt(c.block));
+  /* __CITY_HUNT__ -- AND WHEN HE GETS THERE, WHO TO LOOK FOR.
+     The address stopped being useful at exactly the moment the walk was for: a
+     block with fifteen people on it and no way to tell which one the job wants
+     except walking up to all of them. The TELL has been printed on the glass
+     since 8/13 for whoever he is standing next to, de-collided so nobody on a
+     block has the same one, and it is already a description of somebody across
+     a street. A DESCRIPTION, NEVER AN ARROW: the research behind the address
+     holds at this range too, and a marker over their head would delete the
+     person the same way it deletes the place. */
+  if (line && here[0] === c.block[0] && here[1] === c.block[1]) {
+    var t = null;
+    try { var q = qkOf(c.key); t = q && q.tell; } catch(_e){}
+    if (t) line += ' \u00b7 look for the one who ' + t;   /* draft:true */
+  }
+  return line;
 }
 function ctOnJobBlock(){
   var d = ctDayCast(); if (!d || !d.cast) return false;
@@ -43335,7 +43615,18 @@ function ctAdjacent(){
     /* __CITY_CONVERSATION__ -- A SPOKEN LINE IS NOT A KEY/VALUE ROW. The card
        has only ever had .r/.k/.v, which is right for facts about a person and
        wrong for somebody talking: a quest line is prose and wants the width. */
-    '#ctcard .say{font:13px/1.45 "Space Grotesk",system-ui,sans-serif;color:var(--ink);'+
+        /* __THE_ENDING__ -- a text message reads bigger and slower than a card row.
+       It is the last thing anybody sees of this game, so it gets the room. */
+    '#daycardIn .endsay{font:15px/1.5 "Space Grotesk",system-ui,sans-serif;color:#e8e2d4;'+
+      'margin-top:12px}'+
+    /* AND THE REPLY HE CANNOT SEND. Same shape as a conversation's refusal,
+       which is deliberate: he has met this grammar four times by now and knows
+       exactly what a struck-through line means. */
+    '#daycardIn .endnoverb{font:italic 12px/1.4 "Space Grotesk",system-ui,sans-serif;'+
+      'color:#7b6c50;margin-top:20px;text-decoration:line-through;opacity:.8}'+
+    '#daycardIn .endstop{font:10px/1.6 ui-monospace,monospace;letter-spacing:2px;'+
+      'color:#6a5a3e;margin-top:26px}'+
+'#ctcard .say{font:13px/1.45 "Space Grotesk",system-ui,sans-serif;color:var(--ink);'+
       'margin-top:9px}'+
     /* AND THE THING YOU CANNOT SAY, WHICH THE CORPUS SAYS IS THE LOUDEST PART OF
        THE SCENE. Dim, struck through, and not a button, because it is not one. */
@@ -44647,6 +44938,22 @@ function ctDraw(){
      52 of the 62 entry nodes have an @OBJ whose target IS that node's speaker,
      so the button says the objective the HUD is already showing, verbatim. The
      other ten get an attempt (ALWAYS MAKE AN ATTEMPT, 8/11), tagged draft. */
+  /* __CITY_HUNT__ -- WHAT THE JOB SAYS THEY ARE, which is the conferred half of
+     the role and has been computed and shown nowhere since casting shipped. The
+     quest does not hunt for somebody who already keeps the tunnel; it makes the
+     person it cast INTO the one who keeps it, and this is where it says so.
+     ABSENT when the predicate is a machine flag rather than a phrase (11 of the
+     corpus's 69 are), because a row that is always there and usually gibberish
+     is worse than a row that turns up when there is something to say. */
+  try {
+    var ctCast0 = ctCast();
+    if (ctCast0) for (var ctR in ctCast0) {
+      if (!ctCast0.hasOwnProperty(ctR) || ctCast0[ctR].key !== who.key) continue;
+      var ctTw = BohemiaPeople.traitWords(ctCast0[ctR].traits);
+      if (ctTw.length) body += ctRow('THE JOB SAYS', 'the one who ' + ctTw.join(', and '));
+      break;
+    }
+  } catch(_e){}
   var ctCN = ctConvNode(who);
   if (ctCN) {
     var ctOp = BohemiaConversation.openerFor(DQ.Q, DQ.rt, ctCN.role);

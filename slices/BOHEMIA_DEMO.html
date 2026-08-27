@@ -1141,7 +1141,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/27v - EVERY SCENE TALKS LIKE PEOPLE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/27x - THE DEMO HAS AN ENDING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5207,6 +5207,20 @@ return API;
 const BRIDGE=new CombatBridgeAPI.CombatBridge({onResolve:(shot,res)=>{
   G.lastShot={shot:shot,res:res,t:Date.now()};
 }});
+/* __THE_ENDING__ -- THE CITY ASKS, AND THIS ANSWERS.
+   THE FIRST CUT PUSHED THE FLAG ON THE FRAME'S `load` EVENT AND IT NEVER
+   ARRIVED. Measured on the real demo build: the city's document.readyState is
+   still "interactive" while the player is already walking around in it -- a
+   four megabyte page whose load event fires long after the game is playable, if
+   at all. THE FRAME KNOWS WHEN IT IS READY AND THE SHELL DOES NOT, so the
+   direction is reversed: the city asks on boot and this replies. */
+window.addEventListener('message',function(ev){
+  try{
+    if(!ev||!ev.data||!ev.data.bohemiaWhoAmI)return;
+    if(ev.source&&ev.source.postMessage)
+      ev.source.postMessage({bohemiaIsDemo:!!window.__BOHEMIA_DEMO_BUILD},'*');
+  }catch(e){}
+});
 window.addEventListener('message',ev=>{const m=ev&&ev.data;if(!m||m.type!=='BOHEMIA_SHOT_RESULT')return;
   const shot=BRIDGE.beginShot({shooter:'player',target:(m.patMeta&&m.patMeta.target)||null,weapon:(m.patMeta&&m.patMeta.weapon)||null,packageId:(m.patMeta&&m.patMeta.pkg!=null)?m.patMeta.pkg:1});
   BRIDGE.resolve(shot.shotId,m);});
