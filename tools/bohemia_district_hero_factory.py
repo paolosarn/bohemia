@@ -2220,8 +2220,8 @@ def build_rail(P):
         _fence_box(s, (fx, 1.9, 0), (0.16, 0.16, 1.9), {'c': FENCE})                             # right-of-way fence
     # squint 8/27: desert=rail sat exactly at the look bar - a rail corridor's
     # ballast prism is DARK crushed basalt, so each track rides a dark cess band
-    s.box((-3, 4.0, 0.02), (18.0, 2.0, 0.03), {'c': _dark(BAL, 0.6)['c']})
-    s.box((-3, 7.6, 0.02), (18.0, 2.0, 0.03), {'c': _dark(BAL, 0.6)['c']})
+    s.box((-3, 3.8, 0.02), (18.0, 2.4, 0.03), {'c': _dark(BAL, 0.5)['c']})
+    s.box((-3, 7.4, 0.02), (18.0, 2.4, 0.03), {'c': _dark(BAL, 0.5)['c']})
     _track(s, -3, 15, 5.0, (BAL, TIE, STEEL))                                            # the second track
     _railcar(s, 8.6, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
     _railcar(s, 12.2, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
@@ -3479,6 +3479,10 @@ def build_arterial(P):
         ly = CY + sgn * 7.3
         s.box((lx, ly, 0.16), (0.24, 0.24, 6.1), {'c': LIGHT})
         s.box((lx, ly - sgn * 1.5, 5.9), (0.22, 1.5, 0.22), {'c': LIGHT})
+        # hue 8/28 bake: the street-name BLADE - faded D-series sign green,
+        # the arterial's honest second hue family (signage, not vegetation;
+        # thirty years kills it toward grey-green, never leaf green)
+        s.box((lx - 0.55, ly - sgn * 0.4, 5.15), (1.3, 0.14, 0.5), {'c': (62, 88, 70)})
     return s, 5.6
 
 
@@ -3620,7 +3624,11 @@ def build_desert(P):
     PAVE, LAG, CREO, BURSAGE, CALICHE, RILL, DEBRIS, BURNT, OUT, YUCCA = (
         P.get(0, P[4]), P[1], P[2], P[3], P[4], P[5], P[7], P[8], P[11], P[12])
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), groundc=PAVE, lotc=CALICHE)
+    # squint 8/28 bake: open Mojave is the WARM one - desert varnish and
+    # caliche run yellow-brown, while every graded site (basin, wash, rail)
+    # is bladed grey. Warming the pad separates three twin pairs at once.
+    _PAVEW = tuple(min(255, int(c * f)) for c, f in zip(PAVE, (1.14, 1.05, 0.88)))
+    _ground(s, (-3, -3, 15, 15), groundc=_PAVEW, lotc=CALICHE)
     for (px, py, pw, pd, col) in [(-2.0, -1.4, 6.0, 5.0, LAG), (6.4, 2.2, 5.4, 4.6, CALICHE),
                                   (-1.0, 7.4, 7.0, 5.2, LAG), (8.4, 8.6, 4.4, 4.0, CALICHE)]:
         s.box((px, py, 0.01), (pw, pd, 0.06), {'c': col})

@@ -1383,3 +1383,22 @@ picks exactly one cell per row at any width and the line runs
 continuous now, braiding where the ragged basin edge genuinely shifts
 the centre - which is what a real low flow does. Bake 7 grinding
 behind the audit with the wave-4 and twin-cure source aboard.
+
+## 8/27 SIXTY-SEVENTH PASS: BAKE 7 SHIPS WAVE 4 (and the twins are one hair from cured)
+
+Bake 7 landed with all seven changed icons reading true at bake
+quality: the MALL is a dead mall (low blank tilt-up, entry glass under
+its canopy, RTUs), the WATERPARK is a slide tower (open frame, three
+flumes to their runout pools), the BASIN is dark engineered ground
+inside its berms, the WASH is pale lined concrete with the stain, the
+RAIL rides dark ballast, the ARTERIAL wears its double yellow, and the
+LANDFILL's scale house stands clear of the mound. big_icons,
+round+doors, hero wire, icon, square and dossier gates all 0 by exit
+code. SQUINT and HUE remain red - both were red on main before this
+session (verified in a clean worktree) - but the five twin pairs
+measured 0.0263-0.0300 against the 0.030 bar, all within 0.004. The
+finishing moves are authored for BAKE 8: the desert pad WARMS (varnish
+and caliche are the yellow-brown ones; every graded site is bladed
+grey - one change moves three pairs), the rail cess deepens a step,
+and the arterial gains its honest second hue FAMILY - faded D-series
+street-name blades on the light masts, signage green, not vegetation.

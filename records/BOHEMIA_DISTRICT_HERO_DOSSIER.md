@@ -62,7 +62,7 @@ _Medical — matched: a hospital BLOCK with a RED CROSS + an entrance drop-off c
 - parking garage — the decked garage, horizontal deck bands (code 8 "parking garage")
 - parked cars x3 (canon CAR) — visitor/ambulance vehicles (code 11); visitor lot drive (code 1)
 
-## MALL  (1724x1317, anchor 874,1290)
+## MALL  (1724x922, anchor 874,1290)
 _Mall — matched: the DUMBBELL — a long concourse with a big-box ANCHOR at each end + a food-court bump + a parking field._
 
 - concourse — the long enclosed spine (code 2 "concourse"), a clerestory band
@@ -353,7 +353,7 @@ _Detention center — matched, on the CLARK COUNTY DETENTION CENTER (JMA with HO
 - guard towers — four, one at each corner of the yard, glazed cabs (code 6 "guard tower")
 - pole light — in the yard (code 9 "pole light")
 
-## LANDFILL  (1724x902, anchor 874,1290)
+## LANDFILL  (1724x926, anchor 874,1291)
 _Landfill — matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond._
 
 - terraced mound — four stepped benches, each smaller and lighter (code 6 "waste fill")
@@ -397,7 +397,7 @@ _Water reclamation plant — matched: CIRCLES, which no other industrial site ha
 - blower house — the control mass with its door (code 2)
 - pipe gallery — the run along the back on its stands (code 8)
 
-## WATERPARK  (1724x1029, anchor 874,1290)
+## WATERPARK  (1724x1084, anchor 874,1290)
 _Water park — matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-2004): the SLIDE TOWER, four stacked platforms with FLUMES spiralling off all four corners, the drained WAVE POOL with its wave wall and shallow end, a splash pool, the locker building, the snack bar and the lounger row._
 
 - slide tower — four stacked platforms, the tallest thing on site (code 8 "slide tower")
