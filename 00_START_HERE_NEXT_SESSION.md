@@ -1595,7 +1595,92 @@ recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
 exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
 promised.
 
-PEOPLE (people-7h9sfy): 8/27 (a) LATEST -- *** THE DEMO HAS AN ENDING NOW, AND
+PEOPLE (people-7h9sfy): 8/27 (b) LATEST -- *** THE DEMO CAN BE HANDED TO
+SOMEBODY NOW. The last row on the critical path is built: BUILD, DOOR, ENDING,
+INSTRUMENT all exist, and INVITE is his. TAB RUN in the demo build (the card
+under the ending, and the save drawer any time). Nothing to judge. ***
+
+THE ROW: 0f, the feedback card. "Three taps (fun? / confusing? / play again?) +
+an optional text box, exported exactly like the save blob so a tester can paste
+it into a chat", stamped with the build and the seed since the 8/25 amendment.
+Without it a friends round returns five texts saying "it was cool".
+
+MEASURED FIRST, ON THE REAL DEMO, BEFORE ANY OF IT WAS DESIGNED. Drove the
+shell, tapped the real splash, played a few beats, read every byte the page kept:
+    bohemia:look 1,517 - boh.city.minds 118 - boh.city.deedweight 2 - sfxvol 1
+    about how the session went for the person playing:   0 bytes
+    and CT_BUILD did not exist. The city has never known which build it is.
+
+*** AND THE ROW CONTRADICTS THE PROTOCOL, WHICH IS THE WHOLE FINDING. *** The
+closed-playtest protocol's standing rule: "a tester who stops playing is a
+FINDING, never a failure. Where and why is the whole point of the instrument."
+A CARD AT THE END IS FILLED IN ONLY BY PEOPLE WHO REACHED THE END. Everybody who
+stopped, which is the exact population the protocol calls the whole point, never
+sees it. So THE PASTE IS WRITTEN WHILE THEY PLAY: an eleven beat flight recorder
+that starts at the first tap, and the card only adds the words. Somebody who
+quits at minute four and comes back next week still has it.
+IT SAMPLES, IT DOES NOT HOOK, for the reason ctSave writes down in its own
+comment: "one seam, not twenty, and hooking each is five chances to miss one".
+No call site is touched by any of this.
+AND THERE IS A DOOR THAT IS NOT THE ENDING: the save drawer, which is already
+where somebody goes to get a block of text out of this game.
+
+THE THREE TAPS ARE NOT THE ROW'S LITERAL THREE, and the reasons are in the gate
+by name. Researched 8/27: PEOPLE ARE NICE AND THEY WILL LIE TO YOU, friends and
+family worst of all, which is exactly who round one is. "Did you have fun" is the
+textbook vague question and "would you play again" is the textbook polite one.
+Both were in the row. The fix every source gives is to ask about A BEHAVIOUR
+ONLY PEOPLE WHO LOVE A THING PERFORM:
+    1  WOULD YOU SEND THIS TO SOMEBODY?    I already want to / if it were
+       finished / no          (three, because Net Promoter's other half is that
+       the middle is not a pass)
+    2  WHAT PART FELT LIKE WORK?           the parts THEY reached + none of it did
+    3  WHERE DID YOU NOT KNOW WHAT TO DO?  the parts THEY reached + I always knew
+    box  IF YOU COULD CHANGE ONE THING
+Taps 2 and 3 offer their OWN session, never a generic list: a tester who quit
+before the phone rang is never asked about the phone, because an option somebody
+cannot have an opinion about is an invitation to make one up. Only possible
+because the recorder ran while they played. THE ROW'S SHAPE IS UNCHANGED: three
+taps, one box, one paste, out the save blob's own .txt export door.
+
+TWO REAL HOLES THE GATE FOUND, and both are the same class:
+  A TWO SECOND TICKER CANNOT SEE A CARD THAT OPENS AND CLOSES BETWEEN TWO OF ITS
+  LOOKS. "Got out of bed" was read off the wake card going away, and a fast
+  player dismissed it inside one tick, so the paste said he never got up.
+  A DURABLE FACT CAN BE SAMPLED; A TRANSIENT ONE NEEDS A WITNESS. The witness is
+  an observer on the card, which is still not a hook.
+  AND THIS GATE'S OWN SILENCE CLAIM WAS GREEN FOR THE WRONG REASON. "When the
+  ending lands there is nothing to press" read the door in the same synchronous
+  block as the ending, which is trivially empty for ANY setTimeout: mutating the
+  five second pause to zero left it green. A CLAIM THAT PASSES BECAUSE OF WHEN IT
+  LOOKED, NOT BECAUSE OF WHAT IS TRUE. It measures a second and a half in now,
+  which is an instant a person can be at. Re-mutated: 1 red.
+
+THE ENDING KEEPS ITS SILENCE. Peak-end is why there is nothing to press on the
+last card, so the door is not built into it: it arrives five seconds later,
+appended to the card already on screen, quiet, in monospace rather than the
+game's voice. A player who closes the ending never sees it. The card says what
+it is on its first line ("not the game, thirty seconds") and what it cannot do
+on its last ("nothing gets sent from here"), because this is a static page on a
+phone and implying a server is the one lie a feedback card cannot afford.
+
+  GATE: gates/feedback_gate.js, FEEDBACK, 54 claims, 0 red. IT PLAYS AND IT
+  NEVER CALLS mark() -- the ending gate learned one day earlier that a probe
+  which sends the message the real sender is supposed to send is still a side
+  door. Mutations: a beat that re-stamps 1 red, the taps offering everybody the
+  whole day 2 red, the shell refusing to name the build 4 red, the survey
+  arriving the instant the message lands 1 red, the card sampled instead of
+  watched 1 red.
+  RECORD: records/BOHEMIA_THE_CARD_ONLY_THE_FINISHERS_SEE_8_27_26.md
+  Row 0f is closed in BOHEMIA_BACKLOG.md and item D of the demo gap list.
+
+WHAT COMES AFTER, and it is not code: INVITE. The protocol has been written and
+waiting since 8/11. Five to eight people he trusts to be honest, at least two of
+whom are not gamers, on their own phones, no explanation from him beyond "play
+this". Each sends him one paste. HE NEVER GIVES ANYBODY THE WORKSHOP LINK.
+
+--------------------------------------------------------------------------------
+PEOPLE (people-7h9sfy): 8/27 (a) -- *** THE DEMO HAS AN ENDING NOW, AND
 IT ENDS ON A THING YOU ARE NOT ALLOWED TO SAY. TAB RUN in the demo build: sleep,
 and day two does not come. Nothing to judge. ***
 

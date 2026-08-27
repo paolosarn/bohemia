@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/28r - NINETY NEW SOUNDS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/28s - THE DEMO CAN BE HANDED TO SOMEBODY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5642,8 +5642,14 @@ const BRIDGE=new CombatBridgeAPI.CombatBridge({onResolve:(shot,res)=>{
 window.addEventListener('message',function(ev){
   try{
     if(!ev||!ev.data||!ev.data.bohemiaWhoAmI)return;
+    /* __CITY_FEEDBACK__ -- and the stamp rides along, because the city cannot
+       read its own splash and a feedback paste without a build id cannot be
+       answered. Read off the element rather than retyped: a retyped constant is
+       how this repo's dial said 19 when the truth was 1.1. */
+    var __bs=document.getElementById('buildstamp');
     if(ev.source&&ev.source.postMessage)
-      ev.source.postMessage({bohemiaIsDemo:!!window.__BOHEMIA_DEMO_BUILD},'*');
+      ev.source.postMessage({bohemiaIsDemo:!!window.__BOHEMIA_DEMO_BUILD,
+        bohemiaBuild:__bs?String(__bs.textContent||'').trim():null},'*');
   }catch(e){}
 });
 window.addEventListener('message',ev=>{const m=ev&&ev.data;if(!m||m.type!=='BOHEMIA_SHOT_RESULT')return;
@@ -9115,6 +9121,19 @@ function combatMsgIn(d){
     G._expName='bohemia_save.txt';   /* .txt per Paolo's law: iOS blanks .json on chat share */
     document.getElementById('expText').value=txt;
     document.getElementById('expStat').textContent='bohemia_save.txt: share, copy, or download here';
+    document.getElementById('exportModal').style.display='block';
+    return true;
+  }
+  /* __CITY_FEEDBACK__ -- row 0f: "exported exactly like the save blob so a
+     tester can paste it into a chat". This IS that path, the same modal with
+     the same iOS-safe share/copy/download and the same .txt rule, because a
+     second export mechanism is a second thing that can be broken on a phone
+     nobody in this project owns. */
+  if(d.bohemiaFeedbackExport!==undefined){
+    const txt=(d.bohemiaFeedbackExport&&d.bohemiaFeedbackExport.text)||'';
+    G._expName='bohemia_what_it_was_like.txt';
+    document.getElementById('expText').value=txt;
+    document.getElementById('expStat').textContent='paste this whole thing into the chat';
     document.getElementById('exportModal').style.display='block';
     return true;
   }

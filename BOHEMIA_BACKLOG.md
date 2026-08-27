@@ -1930,7 +1930,33 @@ E1-RUN. *** THE PAYDAY BRIDGE CAN FINALLY BE CALLED (8/15, off Paolo's
    Composes with time-is-spent + the bike (0v). WORLD supplies the pricing
    hooks. | travel menu on the real surface, costs shown before commit |
    supplement table detail = PENDING Paolo (GDD's own list) | no.
-0f. *** AMENDED 8/25 (sweep 21): THE CARD STAMPS THE BUILD AND THE SEED
+0f. *** BUILT 8/27/26 (PEOPLE lane). SHIPPED, GATED, AND THE ROW'S OWN SPEC
+   WAS WRONG IN ONE PLACE, WHICH IS RECORDED RATHER THAN QUIETLY FIXED.
+   records/BOHEMIA_THE_CARD_ONLY_THE_FINISHERS_SEE_8_27_26.md
+   Gate: gates/feedback_gate.js (FEEDBACK, 54 claims). Tab: RUN.
+   MEASURED FIRST on the real demo: a session that stops leaves 1,638 bytes
+   behind and NONE of it says how it went, and the city did not know which
+   build it was running.
+   THE CONTRADICTION: this row asks for an END-OF-DAY card; the protocol's
+   own standing rule says "a tester who stops playing is a FINDING ... where
+   and why is the whole point of the instrument". A CARD AT THE END IS
+   FILLED IN ONLY BY PEOPLE WHO REACHED THE END. So the paste is WRITTEN
+   WHILE THEY PLAY (an eleven beat flight recorder that SAMPLES rather than
+   hooks, per ctSave's own "one seam, not twenty"), the card only adds the
+   words, and there is a door into it that is NOT the ending (the save
+   drawer, already where a tester goes for text).
+   AND THE THREE TAPS ARE NOT THIS ROW'S LITERAL THREE. Researched 8/27:
+   PEOPLE ARE NICE AND THEY WILL LIE, friends worst of all, so "did you have
+   fun" is the textbook vague question and "would you play again" the
+   textbook polite one. Tap 1 asks about a BEHAVIOUR only people who love a
+   thing perform (would you send this to somebody, three answers because the
+   middle is not a pass); taps 2 and 3 are the fun/work cut and the confusion
+   map, and THEIR OPTIONS ARE THE PLAYER'S OWN SESSION. The box asks for one
+   change. THE SHAPE THIS ROW SPECIFIED IS UNCHANGED: three taps, one box,
+   one paste, out the save blob's own export door as .txt.
+   The build stamp and the seed are in every paste (the 8/25 amendment
+   below), plus the device string (row 0h's device matrix). ***
+   *** AMENDED 8/25 (sweep 21): THE CARD STAMPS THE BUILD AND THE SEED
    INTO EVERY PASTE. Two fields, and they cost nothing today because this
    card HAS NOT BEEN WRITTEN YET — they cannot be retrofitted onto pastes
    already collected. When a tester says "it froze when I went in the

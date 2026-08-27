@@ -44,8 +44,15 @@ THIS IS NOT A GAME THAT IS FAR AWAY. It is a game with no front door.
 **C. THE FIRST MORNING POINTS AT THE WRONG BUTTON (RUN P0-MORNING).**
    Tapping only the obvious primary button goes GET UP -> SLEEP -> DAY 2
    and never plays anything. A tester can finish without meeting the game.
-**D. THE FEEDBACK CARD (RUN 0f).** Not built. Without it a round returns
-   five texts saying "it was cool."
+**D. THE FEEDBACK CARD (RUN 0f).** ~~Not built. Without it a round returns
+   five texts saying "it was cool."~~ *** BUILT 8/27 (PEOPLE lane). Three
+   taps and a box, out the save blob's own export door, stamped with the
+   build, the seed and the device. AND THE PASTE IS WRITTEN WHILE THEY PLAY
+   rather than at the end, because a card at the end is filled in only by
+   people who reached the end, and the protocol's own rule says the tester
+   who STOPS is the finding that matters most. There is a door into it that
+   is not the ending. records/BOHEMIA_THE_CARD_ONLY_THE_FINISHERS_SEE_8_27_
+   26.md, gates/feedback_gate.js, 54 claims. ***
 **E. THREE MESSAGES ARE SOUND-ONLY** (SOUND's own classification):
    save_chime, ui_deny, STING:missed. `ui_deny` is the sharp one — a
    refusal with no sound looks exactly like a broken button.
