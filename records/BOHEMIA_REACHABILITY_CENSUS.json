@@ -2053,7 +2053,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 1,
-   "bytes": 16299
+   "bytes": 22348
   },
   {
    "path": "engine/bohemia_stadium.js",
@@ -2322,8 +2322,8 @@
    "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 32,
-   "bytes": 68009
+   "hits_loaded": 31,
+   "bytes": 68301
   },
   {
    "path": "engine/bohemia_world_resolve.js",

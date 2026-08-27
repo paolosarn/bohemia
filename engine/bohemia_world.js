@@ -161,7 +161,10 @@
     // THE LANDMARK SET (7/27): the biggest two of the 88 buildable cells that were
     // still flat. Both are real districts on the kit, street-aware and drivable.
     campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
-    speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' },
+    /* ONE OVAL, NOT SIX (8/26). And the size was the real insult: a single cell draws an
+       81 m oval, which is a GO-KART CIRCUIT. A short track -- the smallest thing anyone calls
+       a speedway -- is a half-mile lap, about 250 m across. Across the blob it is 200 m. */
+    speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     town:       { mod:TWN, foot:function(r){return r.footprints;},           zone:'residential' },
     ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' },
     // GAMING & RESORT (8/18): the two gaming PLOTS. `strip` is the boulevard itself and is

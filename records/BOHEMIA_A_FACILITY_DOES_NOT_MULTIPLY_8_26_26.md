@@ -203,6 +203,41 @@ had no road at all**: a headland ring round the parcel is what a one-cell farm h
 never reaches the middle. A tractor could not get to the middle of the farm from any gate. Real
 farms have a track between every pair of fields; that is what a ditch bank IS.
 
+## AND TWO MORE, WITH THE GATE'S OWN BACKLOG CORRECTED
+
+**THE GATE WAS WRONG ABOUT THE AIRPORT, AND IT WAS MY REGEX.** It decided which districts are
+cluster-built by reading `cluster:true` out of the world model's DISTGEN. That is only ONE of
+the two places a district can be cluster-fed: **the airfields are SURFACES, not districts** —
+they live in a different table in the same file, which passes bounds too, and their own dossier
+has said *"built across the CLUSTER, not the cell — a per-cell airport would have been thirty
+runway stubs"* since 7/26. So the gate listed the valley's **24-cell airport** as unfixed
+backlog while it had been correct for a month, **and never once tested it**.
+
+It asks the generator now instead of parsing a table: hand a district bounds spanning several
+cells and bounds spanning one, and see whether it draws something different. A behavioural test
+cannot drift from the thing it describes, which is more than can be said for a regex over
+somebody else's file. The airport is now measured — **8 structures per cell → 1** — and the
+interchange came into scope with it.
+
+**SPEEDWAY: SIX OVALS, AND THE SIZE WAS THE REAL INSULT.** Each cell drew an oval 54 tiles by
+40 — about **81 by 60 metres**. That is a go-kart circuit. A short track, the smallest thing
+anyone calls a speedway, is a half-mile lap: roughly **250 m** across. Across the blob the oval
+is 200 m and the lap comes out near half a mile, which is the thing the district is named
+after. Same story as the stadium: the drawing was never wrong, the ground it was given was.
+
+```
+speedway  6 cells: 84 hero structures if built per cell  ->  22 as one district
+lone cell 25 of 25 byte-identical · void 0.016 · legend and drive clean
+```
+
+**AND THE LOAD RATCHET CAUGHT ME.** The wait went 8.4 s → **14.2 s** and the gate went red on
+my own tree. The cause was not the districts: **rebasing onto main brings back a 4.47 MB
+blocking chunk**, because main still carries the fat one from another lane's hero bake, and the
+merge prefers it. Re-running the chunker puts it back to 1.75 MB and the wait back to 8.4 s.
+Two gates guard this — `late_art` holds the blocking chunk at 2 MB and `time_to_play` holds the
+wait — so the machine catches it, but **the chunker has to run after every rebase** and that is
+now written down.
+
 ## WHAT COMES AFTER
 
 The gate prints its own backlog, which is the point of it. What is left is roads, terrain, and
@@ -213,6 +248,13 @@ mountain:40 · arterial:35 · airport:24 · interchange:16 · resort:16 · water
 rail:13 · desert:13 · downtown:9 · town:9 · datafort:6 · speedway:6
 ```
 
-**airport (24 cells) and datafort (6) and speedway (6) are the real remainder** — each is one
-facility. downtown, town and commercial are not: those are supposed to be many buildings, and
-the gate's own list is the place that distinction now lives.
+**Airport turned out to be already correct and speedway is now done, which leaves the UTILITY
+FAMILY.** `datafort:6`, `basin:4` and `watertreat:4` all come out of ONE generic builder in
+`engine/bohemia_utility.js` — `buildCanonical(type, seed)` serving arsenal, datafort, basin,
+reclaim, radio, granary, reservoir, pumpstation and intake off a per-type layout table. **One
+change there covers every one of them**, which makes it the best-value item left and also the
+one that deserves its own turn rather than the tail of this one.
+
+downtown, town, commercial and ballpark are NOT this defect and must not be treated as it:
+those are supposed to be many buildings. Roads and terrain have no facility to duplicate at
+all. The gate's own list is where that distinction lives.

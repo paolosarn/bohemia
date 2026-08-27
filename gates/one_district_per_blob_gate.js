@@ -135,18 +135,34 @@ for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
   blobs.push({ d, cells, x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) });
 }
 
-/* THE DISTRICTS UNDER TEST are the ones the world model declares as clusters. Read from the
-   model rather than listed here, so wiring a district as a cluster is what puts it under this
-   gate -- one edit, not two. */
-const worldSrc = fs.readFileSync(path.join(ROOT, 'engine/bohemia_world.js'), 'utf8');
+/* WHICH DISTRICTS ARE CLUSTER-BUILT, ASKED OF THE CODE AND NOT OF A TABLE (8/26).
+   The first cut read `cluster:true` out of the world model's DISTGEN with a regex, and it was
+   wrong in both directions at once. The regex itself broke on a nested brace and found NONE.
+   And even fixed, it looks in only ONE of the two places a district can be cluster-fed: the
+   AIRFIELDS are SURFACES, not districts -- they live in a different table in the same file,
+   which passes bounds too, and their own dossier has said "built across the CLUSTER, not the
+   cell" since 7/26. So this gate reported the valley's 24-cell AIRPORT as unfixed backlog
+   while it had been correct for a month, and never once tested it.
+
+   SO IT ASKS THE GENERATOR INSTEAD. Hand a district bounds that span several cells and bounds
+   that span one, and see whether it draws something different. If it does, it is cluster-built,
+   however it got wired and whatever table it lives in. A behavioural test cannot drift from
+   the thing it describes, which is more than can be said for a regex over somebody else's
+   file. */
 const CLUSTERED = new Set();
-/* `[^}]*` looked right and matched NOTHING: every DISTGEN row carries
-   `foot:function(r){return r.footprints;}`, so the first `}` ends the class before
-   `cluster:true` is ever reached. The set came back empty and the gate reported that the
-   world model declares no clusters at all -- with six of them sitting in the file. */
-for (const m of worldSrc.matchAll(/^\s*([a-z_]+):\s*\{.*cluster:true/gm)) CLUSTERED.add(m[1]);
-ok('the world model declares which districts are clusters, and it declares some ('
-   + [...CLUSTERED].sort().join(', ') + ')', CLUSTERED.size >= 4);
+for (const t of K.types()) {
+  const spec = K.get(t);
+  if (!spec || typeof spec.generate !== 'function') continue;
+  try {
+    const wide = JSON.stringify(spec.generate(31, { streets: ['S'], cellX: 1, cellY: 1,
+      bounds: { x0: 0, x1: 2, y0: 0, y1: 2 }, neigh: { n: 1, s: 1, e: 1, w: 1 } }).g);
+    const lone = JSON.stringify(spec.generate(31, { streets: ['S'], cellX: 1, cellY: 1,
+      bounds: { x0: 1, x1: 1, y0: 1, y1: 1 }, neigh: { n: 0, s: 0, e: 0, w: 0 } }).g);
+    if (wide !== lone) CLUSTERED.add(t);
+  } catch (e) { /* a district that throws on bounds is not cluster-built */ }
+}
+ok('the districts that build across a blob are found by ASKING THEM, not by parsing a table ('
+   + [...CLUSTERED].sort().join(', ') + ')', CLUSTERED.size >= 6);
 
 /* A BLOB WITH A CLUSTER DISTRICT IN IT IS THE INTERESTING CASE. Blobs of a district that has
    NOT been wired as a cluster are listed too -- not failed, because building them is work
@@ -203,8 +219,21 @@ ok('A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT MORE GROUND: built as one dist
    its own single-cell bounds gives a different picture than handing it none. That is a shipped
    decision belonging to a lane that is not mine, recorded rather than quietly excluded or
    loudly failed. Anything else appearing here is a district changing art nobody asked it to. */
-const LONE_DEBT = { convention: 'wired as a cluster by another lane before this rule; its '
-  + 'cluster path also serves a 1x1 blob, so bounds change the single-cell picture. Not mine.' };
+const LONE_DEBT = {
+  convention: 'wired as a cluster by another lane before this rule; its cluster path also '
+    + 'serves a 1x1 blob, so bounds change the single-cell picture. Not mine.',
+  /* THE AIRFIELDS AND THE INTERCHANGE ARE SURFACES, not districts, and were built across the
+     blob from the start -- 7/26 for the airfield, 8/19 for the interchange. They have no
+     single-cell build to preserve, because a per-cell airport was never shipped: their own
+     dossier says "a per-cell airport would have been thirty runway stubs, and that is the kind
+     of thing that reads as fake instantly from the map". Naming them here rather than
+     excluding them silently, so if one ever grows a lone-cell path this list is where somebody
+     notices. */
+  airport:     'a SURFACE, cluster-built since 7/26. No single-cell build was ever shipped.',
+  airbase:     'a SURFACE, cluster-built since 7/26. No single-cell build was ever shipped.',
+  interchange: 'a SURFACE, cluster-built since 8/19 -- a 300 m flyover cannot be drawn 96 m at '
+    + 'a time. No single-cell build was ever shipped.',
+};
 
 /* AND THE LONE CELL IS UNTOUCHED, for every one of them. The single-cell art already shipped
    and Paolo has seen it; a cluster path that quietly changed it would be a redesign nobody
