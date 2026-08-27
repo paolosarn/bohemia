@@ -1,0 +1,92 @@
+BOHEMIA, THE UI VOCABULARY, PAOLO'S VERDICT
+exported by him 2026-08-27 06:07, recorded the same turn
+NOTES ARE RULINGS (7/19): he said it, so it is built. Nobody re-asks these.
+
+===============================================================================
+ANSWERED, THESE ARE THE LOOK NOW
+===============================================================================
+
+1. THE CORNER ............ YES: C  CUT          (killed: A SQUARE, B SOFT)
+   Two corners sliced at 45 degrees, 10px deep. The world is drawn at 45
+   degrees and now the interface agrees with it.
+
+2. THE LINE .............. YES: B  HEAVY        (killed: A HAIRLINE, C NO LINE)
+   2px, mixed 45% toward the ink: 3.78:1 against the panel. The old hairline
+   measured 1.22:1, which is invisible in his sun.
+
+3. THE COLOUR ............ YES: B  GOLD AND COLD (killed: A ONE GOLD, C BONE)
+   *** HE OVERRULED MY PICK, AND HE IS RIGHT. *** I argued for BONE off
+   LIGHT = TERRITORY: if the buttons are gold, gold stops meaning light.
+   HIS ANSWER IS BETTER because it keeps the law AND gets a second meaning:
+   gold is YOU and what you do, cold blue-green is THE MACHINE, the network,
+   the phone, the numbers. The world has no cold in it, so the interface still
+   never competes with a lamp, and now the phone reads as a different thing
+   from the street. FFX.L03 said the interface must live in a hue the world
+   does not use. Teal is that hue. Bone was only ever the safe version.
+
+4. THE LETTERS ........... YES: A  ALL TYPEWRITER-WIDTH   (killed: C PAPER)
+   Every letter the same width, everywhere, labels and body alike. A receipt,
+   a ledger, a printout, for a game about money that stopped working.
+   B MIXED was not voted either way and is now moot: A wins outright.
+   NOTE: the game still has no real typeface loaded (UI-4). "All typewriter
+   width" is now a RULING about what to load, not just which stack to name.
+
+===============================================================================
+KILLED, AND THEY STAY KILLED
+===============================================================================
+
+5. THE DIRT .............. NO to ALL THREE (A CLEAN, B DIRTY, C DIRTY AND WORN)
+   THE INTERFACE IS NOT TEXTURED. He said no to the grime on the panels, no to
+   the worn edge, AND no to plain flat. Nothing about the interface's surface
+   is settled, and the honest reading is that none of the three answers was
+   worth having. NO REPLACEMENT SET WAS COOKED THIS TURN. Re-pitching three
+   more textures at a man who just said no three times is the exact failure
+   STOP PRODUCING (7/26) is about.
+
+7. THE FEED POST ......... NO to ALL THREE (A WORDS ONLY, B THE STAMP, C THE PLACE)
+   THIRD TIME THE FEED SLOT HAS BEEN KILLED. The ASCII text-cam art was killed
+   twice (8/25), and now all three replacements are dead too, including the one
+   that was "no picture at all". THE SLOT IS EMPTY AND IT STAYS EMPTY until he
+   says what goes in it. Nobody cooks a fourth set.
+
+===============================================================================
+UNANSWERED, AND HE TOLD ME EXACTLY WHY
+===============================================================================
+
+6. PRESSED ............... NO VOTE AT ALL. Not one yes, not one no.
+
+   HIS WORDS, and this is the most important line in the export:
+
+     "I think it's so disrespectful and rude that like you would try to type
+      out and explain what it's like to press buttons and not show me what it
+      looks like in action. Is it fucking insane how you could do that to me?"
+
+   HE IS RIGHT AND IT IS WORSE THAN HE KNOWS. A press does not exist until a
+   thumb is on the button, and A THUMB COVERS THE BUTTON. So the one fork whose
+   whole subject is what happens under a finger was the one fork he physically
+   could not see, and I answered that by writing three paragraphs describing it.
+   That is the same failure FFX.R01 is about, pointed at myself: FFX takes a
+   hidden simulation and SHOWS THE ANSWER instead of teaching the arithmetic.
+   I took a hidden thing and typed the arithmetic.
+
+   REBUILT THE SAME TURN: the three presses now perform themselves on a loop,
+   with a ghost thumb that descends, lands, and lifts. He watches instead of
+   pressing. And the ghost is not decoration, IT COVERS THE MIDDLE OF THE
+   BUTTON, so the argument I typed ("your thumb hides the middle") is now a
+   thing he can see happen rather than a claim he has to take from me.
+
+===============================================================================
+HIS OTHER RULINGS IN THE SAME MESSAGE
+===============================================================================
+
+* "you don't have to be so ho about only cooking up on default bro like
+   download whatever you need to download or make anything you need to make"
+  STANDING PERMISSION TO GO GET THE TOOL. Acted on the same turn: a real
+  WebKit engine now runs in this container (see the WebKit record).
+
+* "I'm really thinking it's gonna be Final Fantasy 10 meet machine party"
+  THE DIRECTION FOR THE LOOK, and it is also the answer to the round-two
+  question he did not need to vote on. ROUND TWO IS MACHINE PARTY.
+
+* "we are trying tk create the best funnest deepest videogame ever"
+  Recorded. Not a task. The frame everything else is measured against.

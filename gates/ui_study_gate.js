@@ -275,34 +275,42 @@ ok('there is a way to switch between them', /class="vbtn"/.test(page));
   ok('and the study does not run off the side of the phone',
      await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1));
 
-  /* ROUND TWO IS A VOTE, SO IT HAS THUMBS. Paolo 8/26: "I should be seeing a
-     thumbs up and thumbs down in anything you want me to fucking vote." The
-     question about which game we study next was asked in chat only; a question
-     he cannot answer in the tab is a question he has to remember, and that is
-     the same failure NAME THE TAB is about. */
-  const r2 = await p.evaluate(() => ({
-    card: !!document.getElementById('fork-round2'),
-    ups: document.querySelectorAll('#fork-round2 .thumb.up').length,
-    downs: document.querySelectorAll('#fork-round2 .thumb.down').length,
-    opts: document.querySelectorAll('#fork-round2 .opt').length
-  }));
-  ok('ROUND TWO is asked in the tab, not only in chat', r2.card);
-  ok('and every game on it has a thumbs up AND a thumbs down (' +
-     r2.ups + ' up, ' + r2.downs + ' down, ' + r2.opts + ' games)',
-     r2.opts >= 3 && r2.ups === r2.opts && r2.downs === r2.opts);
-  await p.click('#fork-round2 .thumb.up[data-v="P5"]');
-  await SETTLE(p, 300);
-  const r2v = await p.evaluate(() => ({
-    on: document.querySelector('#fork-round2 .thumb.up[data-v="P5"]').classList.contains('on'),
-    label: document.getElementById('picked-round2').textContent,
-    /* AND IT MUST NOT RE-SKIN THE PAGE. Round two is a question, not a look. */
-    theme: document.documentElement.getAttribute('data-round2')
-  }));
-  ok('voting on round two sticks', r2v.on);
-  ok('and it reads back which game he chose (' + r2v.label.slice(0, 28) + ')',
-     /PERSONA/.test(r2v.label));
-  ok('and it does NOT re-skin the page, because it is a question and not a look',
-     r2v.theme === null);
+  /* ROUND TWO IS ANSWERED, SO IT IS NOT A VOTE ANY MORE. He did not tap my three
+     games, he named the answer instead: "Final Fantasy 10 meet machine party".
+     NOTES ARE RULINGS (7/19), so the card shows what he decided and asks for
+     round THREE instead. Re-offering thumbs on a question he already answered is
+     asking him to answer it twice. */
+  const r2 = await p.evaluate(() => {
+    const c = document.getElementById('fork-round2');
+    return {
+      card: !!c,
+      answered: c && c.getAttribute('data-answered'),
+      stillVoting: c ? c.querySelectorAll('.thumb').length : -1,
+      namesIt: c ? /MACHINE PARTY/i.test(c.textContent) : false,
+      asksNext: c ? !!c.querySelector('.note-in') : false
+    };
+  });
+  ok('ROUND TWO is in the tab, not only in chat', r2.card);
+  ok('and it shows what he ANSWERED rather than asking again (' + r2.answered + ')',
+     r2.answered === 'MP' && r2.namesIt);
+  ok('so there is nothing left to vote on there (' + r2.stillVoting + ' thumbs)',
+     r2.stillVoting === 0);
+  ok('and it asks for round three instead', r2.asksNext);
+
+  /* AND BOTH ROUNDS REACHED THE PAGE. A second round that indexes and never
+     renders is the questbook failure again: findings nobody can reach. */
+  const perGame = await p.evaluate(() => {
+    const out = {};
+    document.querySelectorAll('.fnd').forEach(e => {
+      const g = (e.getAttribute('data-id') || '').split('.')[0];
+      out[g] = (out[g] || 0) + 1;
+    });
+    return out;
+  });
+  const games = [...new Set(ids.map(k => laws[k].game))];
+  ok('every game in the book reached the page (' +
+     Object.entries(perGame).map(([g, n]) => g + ' ' + n).join(', ') + ')',
+     games.every(g => perGame[g] === ids.filter(k => laws[k].game === g).length));
 
   /* SUN MODE, IN THE SECOND ROOM. ui_vocab_gate sweeps sun-mode contrast over the
      PICKS view -- and it is blind to this one, because a hidden view has no

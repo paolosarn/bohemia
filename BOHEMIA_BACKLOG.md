@@ -7698,6 +7698,40 @@ UI-8. *** THUMBS, NOT LETTERS, ON ANYTHING HE VOTES ON (Paolo 8/26: "I should
    chat. STANDING: any new judge surface in any lane uses thumbs. Gate:
    ui_vocab_gate + ui_study_gate. | he can vote the way he always votes | - |
    YES, that is the whole point. TAB: UI. ***
+UI-9. *** HIS VERDICT ON THE LOOK LANDED 8/27, AND IT IS BUILT. NOTES ARE
+   RULINGS (7/19). CORNER = C CUT. LINE = B HEAVY. COLOUR = B GOLD AND COLD (he
+   OVERRULED my BONE and he was right: gold is you, cold is the machine, and the
+   world has no cold in it so nothing on screen fights a lamp). LETTERS = A ALL
+   TYPEWRITER-WIDTH. The page is BUILT from the verdict rather than storing it,
+   so it opens wearing his look on a phone that has never seen it.
+   DEAD, AND THEY STAY DEAD: THE DIRT (all three) and THE FEED POST (all three,
+   which is the THIRD kill of that slot counting the ASCII art). NO REPLACEMENTS
+   WERE COOKED. Re-pitching at a man who just said no three times is exactly
+   what STOP PRODUCING is about. The feed slot stays empty until he says what
+   goes in it.
+   Record: records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt
+   | the run wears the look he picked | the look is HIS and it is now decided |
+   no, it is answered. TAB: UI. ***
+UI-10. *** SHOW IT, DO NOT TYPE IT (Paolo 8/27: "so disrespectful and rude that
+   like you would try to type out and explain what it's like to press buttons and
+   not show me what it looks like in action"). PRESSED got NO VOTE AT ALL while
+   every fork he could see got a decision, and the reason is structural: A PRESS
+   DOES NOT EXIST UNTIL A THUMB IS ON THE BUTTON, AND A THUMB COVERS THE BUTTON.
+   The one fork whose whole subject is what happens under a finger was the one he
+   could not see, and I wrote three paragraphs about it. That is FFX.R01 pointed
+   at me: FF10 takes a hidden simulation and SHOWS THE ANSWER; I typed the
+   arithmetic. REBUILT: the presses play themselves with a ghost thumb that lands
+   on and COVERS the middle. STANDING FOR EVERY LANE: if the thing you are asking
+   him to judge only exists while he is touching it, it has to play itself.
+   | he votes on PRESSED | which press = HIS | YES. TAB: UI. ***
+UI-11. *** THE GAME STILL HAS NO TYPEFACE, AND NOW IT IS A RULING NOT A GAP
+   (was UI-4). He chose ALL TYPEWRITER-WIDTH on 8/27, and the alpha still asks
+   for 'Space Grotesk', has no @font-face and no font file, so every letter is
+   whatever the phone picked (measured on BOTH engines: 16px, family never
+   loaded). His pick turns "which stack do we name" into "what do we go and get",
+   and he has already said to download or make whatever is needed. A real
+   monospace face, or a bitmap one drawn from the game's own pixels, is now a
+   build. | one named face actually loading | which face = HIS | he sees it. ***
 UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
@@ -7716,7 +7750,34 @@ UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
--16. *** EVERY BROWSER GATE IN THIS REPO DRIVES CHROMIUM, AND HE PLAYS ON AN
+-16. *** CLOSED 8/27: THERE IS A REAL WEBKIT IN THIS REPO NOW. *** He said
+   "download whatever you need to download", and the wall turned out to have a
+   way round it: playwright's own webkit build is 403 from the egress proxy, BUT
+   apt reaches the ubuntu mirrors and WebKitGTK ships WebKitWebDriver, a real W3C
+   WebDriver for the real engine, driven under xvfb.
+   gates/webkit_gate.js, 15 checks, registered WEBKIT. It is WebKitGTK and NOT
+   iOS Safari (same family, different port and version) and it says so out loud;
+   with no engine present it SKIPS LOUDLY rather than passing. Its centre is a
+   CROSS-ENGINE DIFFERENTIAL: same probe, same page, both engines, compared,
+   because a disagreement is the only thing that predicts a break he sees and I
+   do not. AND ITS FIRST RUN PROVED ITS AUTHOR WRONG (see below).
+   STILL OPEN, SMALLER: only two surfaces are swept (the UI tab and the alpha).
+   Any lane may add its own to the SURFACES list in that gate; it is three lines.
+   | a browser gate runs on WebKit too | - | no. TAB: every tab he opens. ***
+-16b. *** THE 8/26 FONT DIAGNOSIS WAS WRONG AND IT WAS STATED AS FACT. I told him
+   the UI page broke on his phone because of the CSS `font:` shorthand with a
+   var() family, put it in the commit, the record and the handoff, and rewrote 44
+   declarations off the back of it. REAL WEBKIT SAYS BOTH ENGINES RESOLVE IT
+   IDENTICALLY, and the old build renders fine on WebKit at 390x844. That leg is
+   kept permanently in webkit_gate so the correction is something the machine
+   repeats rather than something I said once. WHAT ACTUALLY BROKE IT IS STILL
+   UNKNOWN; the best remaining candidate is the Pages queue, which was measurably
+   jammed at the time (two runs unstarted for over half an hour, one of mine
+   cancelled), so the tab could have existed while the page behind it had not
+   published. NOBODY SHOULD CITE THE FONT CLAIM. The rewrite stays because it
+   matches every other shipped surface and costs nothing, not because it was the
+   fix. | the cause is known or the guess is retracted | - | no. ***
+-16-OLD. *** EVERY BROWSER GATE IN THIS REPO DRIVES CHROMIUM, AND HE PLAYS ON AN
    IPHONE (found 8/26 by the UI lane, the hard way -- he opened the new UI tab
    and said "it looks like the fucking UI page was broken").
    ROOT CAUSE OF THAT ONE BREAK: the page set type with the CSS `font:`

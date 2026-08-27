@@ -1,4 +1,4 @@
-# BOHEMIA UIBOOK — ROUND 01: FINAL FANTASY X (Square, 2001)
+# BOHEMIA UIBOOK, ROUND 01: FINAL FANTASY X (Square, 2001)
 # Studied 8/26/26 under laws/BOHEMIA_ADDENDUM_THE_UI_STUDY_LAW_8_26_26.md
 # Paolo: "the first basis of all of this is gonna be Final Fantasy ten,
 #         my favorite UI of all time."
@@ -60,7 +60,7 @@ BECAUSE: MEASURED 8/26: BOHEMIA HAS NO TYPEFACE. The alpha asks for one called
 ### FFX.L03  THE INTERFACE LIVES IN A HUE THE WORLD DOES NOT USE
 LENS: clarity (Hodent)
 SCREEN: everywhere
-WHAT: Spira is tropical — turquoise water, wet sand, green, warm skin. The menus
+WHAT: Spira is tropical, turquoise water, wet sand, green, warm skin. The menus
   are deep indigo, a value and a hue the world barely touches. The interface and
   the world are never competing for the same part of the eye.
 WHY: Separation by HUE costs nothing and works before you read a single word.
@@ -68,7 +68,7 @@ PORT: TAKE
 BECAUSE: This answers fork 3 from inside his own favourite game. Bohemia's world
   is desert tan and GOLD LIGHT, and LIGHT = TERRITORY is law: gold means a lamp
   is on and somebody owns that ground. If the buttons are gold too, gold stops
-  meaning light. The UI has to live where the world does not — which is the
+  meaning light. The UI has to live where the world does not, which is the
   argument for BONE.
 
 ### FFX.L04  THE NUMBERS ARE BIG AND THEY FLY
@@ -109,10 +109,10 @@ SCREEN: battle
 WHAT: The CTB window is a stack of portraits along the upper right showing WHO
   ACTS NEXT, in order, several turns ahead. It is not a bar you interpret. It is
   a LIST you read.
-WHY: FFX runs a hidden simulation — agility, action rank, tick counters. Instead
+WHY: FFX runs a hidden simulation, agility, action rank, tick counters. Instead
   of teaching the player that arithmetic, it does the arithmetic and shows THE
   ANSWER. The player never computes anything and still plans four moves out.
-PORT: TAKE — AND THIS IS THE SINGLE MOST VALUABLE THING THIS ROUND FOUND.
+PORT: TAKE, AND THIS IS THE SINGLE MOST VALUABLE THING THIS ROUND FOUND.
 BECAUSE: Bohemia is I-MOVE-YOU-MOVE on a 120 BPM clock, and combat is "Rogue
   Fable 4 with 120 BPM everything". The beat is the clock the turns run on. Right
   now that clock is a FELT thing with no picture: the player hears it and never
@@ -133,7 +133,7 @@ WHY: The rule "weaker abilities cost less cooldown" is never written down
   commands. The system teaches itself by being visible.
 PORT: TAKE
 BECAUSE: Every Bohemia ability that costs beats should show its cost as a change
-  in the beat list BEFORE the player commits — not as a number in a tooltip and
+  in the beat list BEFORE the player commits, not as a number in a tooltip and
   not as a surprise afterwards. This is also how the 60 mini-boss abilities get
   taught without sixty tutorials.
 
@@ -147,7 +147,7 @@ WHY: The menu is not a list of buttons, it is a portrait. Identity is expressed
   in what a person is ALLOWED to do.
 PORT: ADAPT
 BECAUSE: THERE ARE NO RUNS and there is ONE character for a hundred hours, so a
-  menu cannot tell people apart here — there is only him. But the same law says
+  menu cannot tell people apart here, there is only him. But the same law says
   60 MINI BOSSES each hand you A NEW WAY TO INTERACT WITH BOHEMIA. So the action
   list IS the experience tree made visible: what you can do is what you have
   beaten. The menu stops being a control panel and becomes a trophy case, and it
@@ -169,8 +169,7 @@ BECAUSE: Cheap, invisible, and the demo will have people opening the phone and
 LENS: clarity (Hodent) · Pinelle/Wong/Stach (heuristics mined from what players
   actually complained about across 108 games)
 SCREEN: battle target select, item list
-WHAT: Selecting a target names it and shows the consequence in the same breath —
-  the enemy's name, and whether this will help or hurt. The information appears
+WHAT: Selecting a target names it and shows the consequence in the same breath, the enemy's name, and whether this will help or hurt. The information appears
   at the moment of the decision, not in a screen you have to go find.
 WHY: Information delivered late is information the player has to REMEMBER, and
   memory is the most expensive thing a UI can spend.
@@ -191,7 +190,7 @@ WHAT: CTB replaced the series' Active Time Battle. The world PAUSES on your turn
 WHY: This is the finding under the finding. FFX's famous turn preview only works
   because there is time to read it. A preview you have no time to read is
   decoration. Square did not add a preview to ATB; they removed the timer FIRST.
-PORT: REFUSE — AND THIS IS THE HARDEST THING IN THE ROUND
+PORT: REFUSE, AND THIS IS THE HARDEST THING IN THE ROUND
 BECAUSE: Bohemia is 120 BPM and EVERYTHING QUANTIZES TO THE BEAT. We want FFX's
   readable list while running something closer to ATB's clock. That is a real
   tension and pretending it is not is how a study becomes a fan page.
@@ -228,7 +227,7 @@ PORT: ADAPT
 BECAUSE: THERE ARE NO RUNS and there is no party, so the letter of it cannot
   come. The shape lands on the experience tree: the 60 mini bosses each hand you a
   new way to interact with Bohemia, and a hundred-hour kit needs a way to change
-  what is ready WITHOUT a loadout screen. FFX's answer is the one to copy — the
+  what is ready WITHOUT a loadout screen. FFX's answer is the one to copy, the
   change is free, but only on the beat you were about to spend anyway, and only to
   the slot you were about to spend it on. No pause menu, no cost, no abuse.
 
@@ -237,11 +236,11 @@ LENS: form follows function (Hodent)
 SCREEN: battle, character menu
 WHAT: Overdrive is a per-character gauge sitting next to their HP that fills from
   what HAPPENS, then unlocks one big move. And Overdrive MODES let the player
-  choose WHICH event charges it — taking damage, an ally taking damage, healing,
+  choose WHICH event charges it, taking damage, an ally taking damage, healing,
   and so on. You pick what your power is made of.
 WHY: The gauge is not a timer. It is a record of how you have been playing.
 PORT: TAKE
-BECAUSE: THE LAW SAYS IT IN OUR OWN WORDS — "a real kit of abilities recharged by
+BECAUSE: THE LAW SAYS IT IN OUR OWN WORDS, "a real kit of abilities recharged by
   VERBS, not timers" (8/26, THERE ARE NO RUNS). His favourite game shipped that
   exact idea in 2001 and we did not notice it was already solved. Overdrive Modes
   are the closest thing in any Final Fantasy to the rule we wrote down this week.
@@ -257,8 +256,7 @@ SCREEN: the world
 WHAT: A Save Sphere is a glowing object standing in the world. You walk to it and
   touch it. It saves, it heals, and its presence is a warning: something is about
   to happen, this is the last quiet place.
-WHY: One object doing four jobs — a save, a heal, a landmark, and a held breath —
-  and it costs zero screen space because it IS the screen.
+WHY: One object doing four jobs, a save, a heal, a landmark, and a held breath, and it costs zero screen space because it IS the screen.
 PORT: TAKE
 BECAUSE: Bohemia already puts SLEEP (8 HOURS, SAVES) on the action button. Making
   the save a PLACE instead of a menu row is more Bohemia than any menu will ever
@@ -270,15 +268,14 @@ BECAUSE: Bohemia already puts SLEEP (8 HOURS, SAVES) on the action button. Makin
 LENS: meta UI (Fagerholt & Lorentzon) · the fiction axis
 SCREEN: dialogue, everywhere
 WHAT: Al Bhed characters speak in what looks like gibberish. Scattered across the
-  world are Al Bhed Primers, and each one you find permanently decodes ONE LETTER
-  — everywhere, retroactively, for the rest of the game. Your interface literally
+  world are Al Bhed Primers, and each one you find permanently decodes ONE LETTER, everywhere, retroactively, for the rest of the game. Your interface literally
   becomes more legible the longer you play.
 WHY: Comprehension as progression. Nothing else in the medium does this. It makes
   a hundred-hour game reward attention with UNDERSTANDING rather than with stats.
 PORT: ADAPT, AND THERE IS A HARD LIMIT
 BECAUSE: THEY SPEAK SPANGLISH (8/25, LOCKED) and that law has a hard rule inside
   it: LANGUAGE NEVER GATES REQUIRED INFORMATION. FFX's version DOES gate
-  information behind language — that is the whole mechanic. So we cannot take it
+  information behind language, that is the whole mechanic. So we cannot take it
   as built. HIS OWN LAW AND HIS FAVOURITE GAME DISAGREE HERE, and naming that is
   the job. What ports is the shape applied to things that are NOT required: the
   graffiti, the faction tags, the radio, the parts of the valley that are
@@ -291,7 +288,7 @@ WHAT: Walking around Spira there is essentially nothing on screen. No minimap, n
   compass, no health bar, no quest marker. FFX is famous for it.
 WHY: It can afford that because FFX is a CORRIDOR. There is no world map for most
   of the game. The level does the navigating, so the interface does not have to.
-PORT: REFUSE — AND THIS IS THE ONE THAT CUTS AGAINST US HARDEST
+PORT: REFUSE, AND THIS IS THE ONE THAT CUTS AGAINST US HARDEST
 BECAUSE: Bohemia is an open valley of 27+ districts and he has already reported
   being "launched into a random part of the city" and walking through it lost.
   A clean empty screen is not a style you choose, IT IS SOMETHING A CORRIDOR PAYS
@@ -311,6 +308,6 @@ PORT: REFUSE
 BECAUSE: WE HAVE NO VOICE ACTING AND WILL NOT HAVE ANY. Every ounce of the
   performance in Bohemia is carried by the words and by a 112px pixel face. So our
   dialogue sheet must be the OPPOSITE of FFX's: bigger, with the speaker's face
-  IN it, with room for the line to breathe — which is what the run already does.
+  IN it, with room for the line to breathe, which is what the run already does.
   Copying FFX's thin band here would be copying the consequence of a budget we do
   not have. The current sheet is right and this study says so.

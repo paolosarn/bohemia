@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================================
-   BOHEMIA — THE UI VOCABULARY FACTORY (8/26/26, UI lane)
+   BOHEMIA, THE UI VOCABULARY FACTORY (8/26/26, UI lane)
 
    Paolo 8/25: "I REALLY CARE ABOUT THE UNIQUNESS OF MY GAME AND I NEED TO
    START WORKING ON HOW ALL THE BUTTON AND EVERYTHING IN THE WORLD WILL LOOK
@@ -151,6 +151,26 @@ if (!GRIME_B64 || GRIME_B64.length < 1000) { console.error('grime bank has no sh
 const CUT = '10px';
 const poly = (c) => `polygon(${c} 0, 100% 0, 100% calc(100% - ${c}), calc(100% - ${c}) 100%, 0 100%, 0 ${c})`;
 
+/* *** HIS VERDICT, 8/27 06:07. NOTES ARE RULINGS (7/19): he said it, so the page
+   is built from it and nobody re-asks. ANSWERED forks stop being questions and
+   become the look; KILLED forks are gone and are not re-pitched (STOP PRODUCING,
+   7/26); the one he could not SEE is the only thing still asking.
+   Record: records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt *** */
+const VERDICT = {
+  shape:   { yes: 'C', no: ['A', 'B'] },
+  weight:  { yes: 'B', no: ['A', 'C'] },
+  colour:  { yes: 'B', no: ['A', 'C'] },   /* he overruled my BONE, and he is right */
+  type:    { yes: 'A', no: ['C'] },
+  texture: { yes: null, no: ['A', 'B', 'C'] },   /* KILLED, all three */
+  press:   { yes: null, no: [] },                /* HE COULD NOT SEE IT */
+  feed:    { yes: null, no: ['A', 'B', 'C'] }    /* KILLED, all three */
+};
+/* a fork he has ruled on is ANSWERED and stops asking; a fork with every option
+   dead is KILLED and leaves the page entirely. */
+const ANSWERED = Object.keys(VERDICT).filter(k => VERDICT[k].yes);
+const KILLED   = Object.keys(VERDICT).filter(k => !VERDICT[k].yes && VERDICT[k].no.length);
+const ASKING   = Object.keys(VERDICT).filter(k => !VERDICT[k].yes && !VERDICT[k].no.length);
+
 const SPEC = [
   {
     k: 'shape', n: 1, title: 'THE CORNER',
@@ -165,6 +185,7 @@ const SPEC = [
         why: 'Two corners sliced off at 45 degrees, 10 pixels deep. A stamped metal tag, a punched ticket, a chip off a table. Nobody else does this, and it costs nothing to draw.' }
     ],
     today: 'B', rec: 'C',
+    settled_note: 'You picked the one nobody else does. It costs nothing to draw and the world is already at 45 degrees, so the interface is agreeing with it now instead of ignoring it.',
     rec_why: 'C. The world is drawn at 45 degrees already, so a cut corner is the interface agreeing with the world instead of ignoring it. Square is honest but cold. Soft is what we have and it is the one that looks like every other game.'
   },
   {
@@ -180,6 +201,7 @@ const SPEC = [
         why: 'No edge at all. Boxes are told apart by how light or dark they are, nothing else. Clean and modern. Weakest outdoors, because the whole screen flattens in bright light.' }
     ],
     today: 'A', rec: 'B',
+    settled_note: 'The old edge measured 1.22 to 1 against the panel. Yours measures 3.78. That is the difference between an edge and a rumour of one in the sun.',
     rec_why: 'B. The current edge measures ' + CT_LINE_TODAY + ' to 1 and that is not a taste call, it is invisible. Heavy also gives the cut corner something to be cut out of.'
   },
   {
@@ -195,6 +217,7 @@ const SPEC = [
         why: 'Off-white for everything on, ' + CT_INK + ' to 1, the brightest thing on this list. Colour is spent only on danger. Gold then belongs to the world alone, so a warm glow on screen always means a real light out there.' }
     ],
     today: 'A', rec: 'C',
+    settled_note: 'You overruled me and you were right. I wanted bone because gold already means LIGHT out in the world. Yours keeps that AND buys a second meaning: gold is you and what you do, cold is the machine. The world has no cold in it, so nothing on screen fights a lamp.',
     rec_why: 'C, and the reason is your own law. Light is territory in this game. If the buttons are gold too, gold stops meaning light. Bone leaves the only warm thing on the screen to be the world.'
   },
   {
@@ -210,6 +233,7 @@ const SPEC = [
         why: 'An actual typewriter face on the labels, normal letters underneath. Ink on paper in a world with no printers left. Slightly softer and more human than A.' }
     ],
     today: 'B', rec: 'C',
+    settled_note: 'Same width for every letter, labels and talking alike. A receipt, for a game about money that stopped working. The game still has no real face loaded, so this is now a decision about what to go and get.',
     rec_why: 'C. Mixed is the right structure and you already have it. Swapping the label face for a typewriter costs one line and instantly stops the game looking like a web page.'
   },
   {
@@ -225,6 +249,7 @@ const SPEC = [
         why: 'The dirt, plus the edges of every panel eaten darker, like a screen that has been rained on and rubbed with a thumb for ten years. Strongest look. Costs a little contrast at the edges.' }
     ],
     today: 'A', rec: 'B',
+    kill_note: 'The interface has no texture on it. Clean, dirty and worn are all out.',
     rec_why: 'B. C is beautiful and it darkens the edge exactly where the words go, which fights the sun problem in fork 2. Dirty without the wear gets the feeling and keeps the reading.'
   },
   {
@@ -255,6 +280,7 @@ const SPEC = [
         why: 'A thin strip of the actual street the post is about, cut from the real game. It cannot be unreadable because it is the same picture you walk through, and it ties every post to somewhere you can go.' }
     ],
     today: null, rec: 'C',
+    kill_note: 'That is the third time this slot has been killed. It stays empty until you say what goes in it.',
     rec_why: 'C, with B\'s stamp sitting on it. The strip is real game pixels so it can never turn into mush, and it does the other job you asked for the same day: it puts the quest somewhere you can walk to.'
   }
 ];
@@ -319,6 +345,16 @@ const PREVIEW = `
 /* ---- one fork card ------------------------------------------------------- */
 function sampleFor(f, o) {
   const cls = `v-${f.k}-${o.v}` + (o.cls ? ' ' + o.cls : '');
+  if (f.k === 'press') {
+    /* THE ONE HE COULD NOT SEE. It plays itself, with a thumb on it. */
+    return `<div class="samp ${cls}">
+      <div class="demo demo-${o.v}">
+        <button class="bx btn"><div class="in">TAKE THE JOB</div></button>
+        <div class="fingertip"></div>
+      </div>
+      <p class="demolab">WATCH IT. THE CIRCLE IS YOUR THUMB, ACTUAL SIZE.</p>
+    </div>`;
+  }
   if (f.k === 'feed') {
     return `<div class="samp ${cls}">${box(
       `<div class="pvcardhd"><b>ROSA</b><span class="pvtag">WORK</span></div>
@@ -341,13 +377,40 @@ function sampleFor(f, o) {
 }
 
 function forkCard(f) {
-  /* THUMBS ON EVERY OPTION. Paolo 8/26: "I should be seeing a thumbs up and
-     thumbs down in anything you want me to fucking vote." He is right and this
-     was already the house rule -- the verdict workflow in CLAUDE.md says he
-     judges by tapping thumbs, and the ART tab has done exactly this for weeks.
-     The first cut of this page invented a letter-picker instead. One voting
-     system, and it is the one he already knows: the same buttons, the same
-     words, the same green and red. */
+  const V = VERDICT[f.k] || { yes: null, no: [] };
+
+  /* *** A FORK HE HAS RULED ON IS NOT A QUESTION ANY MORE. *** NOTES ARE
+     RULINGS (7/19): he said it, so it is built, and re-showing him two thumbs
+     on a thing he already decided is asking him to decide it twice. It shows
+     what he chose, wearing it, with the reason he was right. */
+  if (V.yes) {
+    const win = f.opts.find(o => o.v === V.yes);
+    const dead = f.opts.filter(o => V.no.includes(o.v)).map(o => o.v + ' ' + o.name).join(' \u00B7 ');
+    return `
+  <section class="fork done" id="fork-${f.k}" data-k="${f.k}" data-answered="${V.yes}">
+    <h2><span class="n ndone">&#10003;</span>${esc(f.title)}</h2>
+    <p class="settled"><b>${esc(V.yes)} ${esc(win.name)}</b>. You said yes on 8/27. This is the look now.</p>
+    ${sampleFor(f, win)}
+    <p class="why">${esc(win.why)}</p>
+    ${dead ? `<p class="deadlist">dead: ${esc(dead)}</p>` : ''}
+    ${f.settled_note ? `<p class="note">${esc(f.settled_note)}</p>` : ''}
+  </section>`;
+  }
+
+  /* *** A FORK WHERE HE KILLED EVERY OPTION IS GONE. *** He said no to all
+     three, so there is nothing here to look at and nothing here to ask. Cooking
+     a fresh set of three at a man who just said no three times is exactly the
+     failure STOP PRODUCING (7/26) exists to stop. */
+  if (V.no.length && !V.yes) {
+    return `
+  <section class="fork killed" id="fork-${f.k}" data-k="${f.k}" data-killed="1">
+    <h2><span class="n nkill">&#10005;</span>${esc(f.title)}</h2>
+    <p class="settled">You said no to all ${f.opts.length}. It is dead and I did not
+    cook you three more. ${esc(f.kill_note || '')}</p>
+  </section>`;
+  }
+
+  /* AND THE ONE STILL ASKING gets the thumbs, because he votes with thumbs. */
   const opts = f.opts.map(o => `
     <div class="opt" data-k="${f.k}" data-v="${o.v}">
       <div class="ohd"><span class="oletter">${o.v}</span><span class="oname">${esc(o.name)}</span>${
@@ -399,8 +462,12 @@ function studyCard(f) {
 }
 function studyView() {
   const laws = BOOK_IDS.map(k => BOOK.laws[k]);
-  const round = (BOOK._meta.rounds || [])[0] || { counts: {} };
-  const c = round.counts || {};
+  const rounds = BOOK._meta.rounds || [];
+  /* TWO ROUNDS NOW. The totals are the book's, not one game's. */
+  const c = rounds.reduce((a, r) => {
+    for (const k of ['findings', 'take', 'adapt', 'refuse']) a[k] = (a[k] || 0) + ((r.counts || {})[k] || 0);
+    return a;
+  }, {});
   const groups = ['look', 'read', 'do', 'world'].map(m => {
     const fs2 = laws.filter(f => f.kind === m);
     if (!fs2.length) return '';
@@ -412,9 +479,14 @@ function studyView() {
   }).join('');
   return `
 <div id="viewStudy" class="view">
-  <p class="lede"><b>Round one: Final Fantasy X.</b> Not a list of things I like about it.
-  Eighteen things it does, why each one works, and <b>what Bohemia does about it</b>.
-  Four of them we cannot have, and those are the useful ones.</p>
+  <p class="lede"><b>Two games taken apart: Final Fantasy 10, and Machine Party.</b>
+  Not a list of things I like about them. ${c.findings} things they do, why each one
+  works, and <b>what Bohemia does about it</b>. ${c.refuse} of them we cannot have,
+  and those are the useful ones.</p>
+  <p class="note" style="margin:0 0 12px"><b>You said it is Final Fantasy 10 meets
+  Machine Party.</b> That is the last card in this list and it is the only thing here
+  that is a decision rather than a note. Read it and tell me if I got your sentence
+  right.</p>
   <div class="scoreboard">
     <div class="scoreplate"><div class="scorow">
         <span class="sc"><b>${c.findings || laws.length}</b>things found</span>
@@ -434,27 +506,15 @@ function studyView() {
   "let us do it like Final Fantasy", they have to say which one, and the machine
   checks that it is real.</p>
 
-  <section class="fork" id="fork-round2">
-    <h2><span class="n">&#9654;</span>ROUND TWO</h2>
-    <p class="ask">Which game do we take apart next?</p>
-    <p class="note">Say yes to one. Say no to any you do not care about. This is
-    the only thing on this page I am asking you for.</p>
-    ${[
-      ['P5', 'PERSONA 5', 'The loudest menus anybody has ever shipped, and the exact opposite of us. Best teacher alive on the question you are answering on the other page: how far a look can go before it stops working.'],
-      ['DS', 'DEATH STRANDING', 'A dead landscape and a phone in your hand. Closest to our mood of anything made. Would teach us the most about menus over an empty world.'],
-      ['DSP','DEAD SPACE', 'No menus at all. Health is on his spine, the map is a beam out of his hand. Would fill the hole Final Fantasy X left us: how do you put things on screen when you are not a hallway.']
-    ].map(g => `
-      <div class="opt" data-k="round2" data-v="${g[0]}">
-        <div class="ohd"><span class="oletter">${g[0]}</span><span class="oname">${g[1]}</span>${
-          g[0] === 'P5' ? '<span class="orec">MY PICK</span>' : ''}</div>
-        <p class="why">${g[2]}</p>
-        <div class="verdict">
-          <button class="thumb up" data-k="round2" data-v="${g[0]}" data-t="UP">&#128077; YES</button>
-          <button class="thumb down" data-k="round2" data-v="${g[0]}" data-t="DOWN">&#128078; NO</button>
-        </div>
-      </div>`).join('')}
-    <p class="picked" id="picked-round2">Nothing said yet.</p>
-    <textarea class="note-in" data-k="round2" placeholder="or name a different game here"></textarea>
+  <section class="fork done" id="fork-round2" data-k="round2" data-answered="MP">
+    <h2><span class="n ndone">&#10003;</span>ROUND TWO</h2>
+    <p class="settled"><b>MACHINE PARTY</b>. You did not vote on my three games, you
+    just said the answer, which is better. Fourteen findings above, mixed in with the
+    Final Fantasy ones.</p>
+    <p class="why">The dossier we already had on Machine Party was about the WORLD, and
+    nobody had ever opened it for the interface, even though its own section is called
+    THE MACHINE IS THE INTERFACE. That section is this round.</p>
+    <textarea class="note-in" data-k="round3" placeholder="round three: name a game and I will take it apart"></textarea>
   </section>
 </div>`;
 }
@@ -463,7 +523,7 @@ function studyView() {
 const HTML = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BOHEMIA &mdash; UI</title>
+<title>BOHEMIA, UI</title>
 <!-- GENERATED by tools/bohemia_ui_vocabulary.js. Do not hand-edit: rebuild it.
      Held by gates/ui_vocab_gate.js, which opens this page in a real browser at
      iPhone size, taps the letters like a thumb, and measures the PIXELS. -->
@@ -601,6 +661,62 @@ h2{ font-family:var(--fc);font-size:13px;font-weight:400; letter-spacing:1.6px; 
 .recwhy{ font-size:12.5px; margin:10px 0 0; color:var(--ink); }
 .recwhy b{ font-family:var(--fc);font-size:10px;font-weight:400; letter-spacing:1.2px; color:var(--acc); }
 
+/* ---- *** SHOW IT, DO NOT TYPE IT *** ---------------------------------------
+   Paolo 8/27: "I think it's so disrespectful and rude that like you would try to
+   type out and explain what it's like to press buttons and not show me what it
+   looks like in action."
+   He is right, and it is worse than he knows: A PRESS DOES NOT EXIST UNTIL A
+   THUMB IS ON THE BUTTON, AND A THUMB COVERS THE BUTTON. So the one fork whose
+   entire subject is what happens under a finger was the one fork he physically
+   could not see, and I answered that with three paragraphs.
+   These buttons press THEMSELVES, on a loop, and a ghost thumb comes down onto
+   them. The ghost is 48px because that is roughly a real fingertip, and it is
+   NOT decoration: IT COVERS THE MIDDLE OF THE BUTTON, so the claim I typed
+   ("your thumb hides the middle") is now something he watches happen. */
+.demo{ position:relative; }
+.fingertip{ position:absolute; left:50%; top:50%; width:48px; height:48px; margin:-24px 0 0 -24px;
+        border-radius:50%; pointer-events:none; z-index:3;
+        background:radial-gradient(circle at 40% 36%, rgba(236,226,207,.46), rgba(236,226,207,.24) 58%, rgba(236,226,207,.10) 74%, rgba(236,226,207,0) 80%);
+        box-shadow:inset 0 0 0 1.5px rgba(236,226,207,.5), 0 3px 12px rgba(0,0,0,.5);
+        animation:thumbdrop 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+@keyframes thumbdrop{
+  0%   { transform:translate3d(0,-64px,0) scale(.86); opacity:0; }
+  18%  { transform:translate3d(0,-12px,0) scale(.94); opacity:.85; }
+  30%  { transform:translate3d(0,0,0)     scale(1);   opacity:1; }
+  56%  { transform:translate3d(0,0,0)     scale(1);   opacity:1; }
+  74%  { transform:translate3d(0,-26px,0) scale(.93); opacity:.5; }
+  100% { transform:translate3d(0,-64px,0) scale(.86); opacity:0; }
+}
+/* THE THREE PRESSES, PERFORMING THEMSELVES, IN SYNC WITH THE THUMB.
+   The contact window is 30% to 56%, the same as the ghost's. */
+.demo-A .bx{ animation:demoA 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+.demo-A .in{ animation:demoAin 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+@keyframes demoA{ 0%,29%{ background:var(--line); } 30%,56%{ background:var(--acc); } 57%,100%{ background:var(--line); } }
+@keyframes demoAin{ 0%,29%{ background:var(--fill); color:var(--acc); }
+                    30%,56%{ background:var(--acc); color:var(--accink); }
+                    57%,100%{ background:var(--fill); color:var(--acc); } }
+.demo-B .bx{ animation:demoB 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+@keyframes demoB{ 0%,29%{ transform:translateY(0); filter:none; }
+                  30%,56%{ transform:translateY(2px); filter:brightness(.55); }
+                  57%,100%{ transform:translateY(0); filter:none; } }
+.demo-C .bx{ animation:demoC 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+@keyframes demoC{ 0%,29%{ background:var(--line); } 30%,56%{ background:var(--acc); } 57%,100%{ background:var(--line); } }
+/* A LOOP THAT WILL NOT STOP is a hostile thing on a phone he reads in bed, and
+   the same accessibility rule the refusal follows applies here. Reduced motion
+   parks every demo at the moment of contact, which is the frame that matters. */
+@media (prefers-reduced-motion:reduce){
+  .fingertip{ animation:none; opacity:1; transform:none; }
+  .demo-A .bx,.demo-A .in,.demo-B .bx,.demo-C .bx{ animation:none; }
+  .demo-A .bx{ background:var(--acc); } .demo-A .in{ background:var(--acc); color:var(--accink); }
+  .demo-B .bx{ transform:translateY(2px); filter:brightness(.55); }
+  .demo-C .bx{ background:var(--acc); }
+}
+.demolab{ font-family:var(--fc);font-size:9.5px; letter-spacing:1.2px; color:var(--faint);
+          margin:7px 0 0; text-align:center; }
+body.sun .demolab{ color:#5c5446; }
+body.sun .fingertip{ background:radial-gradient(circle at 42% 38%, rgba(26,23,18,.26), rgba(26,23,18,.11) 60%, rgba(26,23,18,0) 72%);
+                 box-shadow:inset 0 0 0 1px rgba(26,23,18,.2); }
+
 /* THE THUMBS. Same buttons, same words, same green and red as the ART tab, so
    there is exactly one thing in this build that means "vote". */
 .verdict{ display:flex; gap:8px; margin-top:10px; }
@@ -678,6 +794,17 @@ body.sun .picked{ color:#4d3a10; }
         background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:6px; }
 .done{ font-family:var(--fc);font-size:11px; color:var(--faint); text-align:center; margin-top:8px; min-height:16px; }
 .tally{ font-family:var(--fc);font-size:11px; letter-spacing:1px; color:var(--dim); margin:10px 0 0; }
+/* ---- SETTLED AND DEAD -------------------------------------------------- */
+.fork.done h2,.fork.killed h2{ margin-bottom:8px; }
+.n.ndone{ background:#4a8a52; color:#eaffea; }
+.n.nkill{ background:#8a4a4a; color:#ffeaea; }
+.settled{ font-size:13.5px; margin:0 0 11px; color:var(--ink); text-align:left; }
+.settled b{ font-family:var(--fc); font-size:12px; letter-spacing:1.2px; color:var(--acc); }
+.deadlist{ font-family:var(--fc);font-size:10px; letter-spacing:1px; color:var(--faint); margin:9px 0 0; }
+.fork.killed{ opacity:.72; }
+body.sun .settled{ color:#1a1712; }
+body.sun .settled b{ color:#4d3a10; }
+body.sun .deadlist{ color:#5c5446; }
 
 /* ---- TWO ROOMS, ONE TAB -------------------------------------------------- */
 #viewpick{ display:flex; gap:7px; margin:0 0 14px; }
@@ -746,7 +873,7 @@ body.sun .msub{ color:#3d362a; }
 </style>
 
 <header>
-  <h1>UI &middot; 8/26 &middot; THE BOHEMIA LOOK</h1>
+  <h1>UI &middot; 8/27 &middot; THE BOHEMIA LOOK</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
 
@@ -759,13 +886,13 @@ body.sun .msub{ color:#3d362a; }
 </div>
 
 <div id="viewPick" class="view">
-<p class="lede">This is the alphabet, not the book. <b>Seven choices that everything
-else is built out of.</b> Press the samples with your thumb, they are real. Pick a
-letter and the whole page turns into your pick, so you are looking at the game, not
-at swatches. Nothing here is decided. Write on anything you hate.</p>
+<p class="lede"><b>Four of the seven are decided and this page is wearing them.</b>
+Everything you see below and above is already your choice, not a sample. Two are dead
+because you said no to all of them, and I did not cook you replacements. <b>One is left,
+and it is the one you could not see, so now it plays itself.</b></p>
 
 <h3 style="font-family:var(--fc);font-size:11px;letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
-  YOUR PICKS, RIGHT NOW</h3>
+  YOUR GAME, WEARING WHAT YOU CHOSE</h3>
 ${PREVIEW}
 <p class="tally" id="tallytop">Nothing picked yet. This is the game as it looks today.</p>
 
@@ -787,7 +914,7 @@ ${SPEC.map(forkCard).join('\n')}
 </section>
 
 <h3 style="font-family:var(--fc);font-size:11px;letter-spacing:1.5px;color:var(--faint);margin:0 0 8px">
-  YOUR PICKS, AGAIN, AT THE BOTTOM WHERE YOU READ</h3>
+  AGAIN, AT THE BOTTOM WHERE YOU READ</h3>
 ${PREVIEW}
 <p class="tally" id="tallybot">Nothing picked yet.</p>
 
@@ -813,9 +940,16 @@ ${studyView()}
       Object.fromEntries(SPEC.map(f => [f.k, { t: f.title, o: Object.fromEntries(f.opts.map(o => [o.v, o.name])), rec: f.rec }])),
       { round2: { t: 'ROUND TWO', o: { P5: 'PERSONA 5', DS: 'DEATH STRANDING', DSP: 'DEAD SPACE' }, rec: 'P5' } }))};
   var SAVE = 'bohemia.ui.vocab.v1';
+  /* *** THE PAGE OPENS WEARING WHAT HE ALREADY CHOSE. *** His verdict is baked
+     into the build, so it is the look before he touches anything -- he should
+     never have to re-tap four things he already decided to see his own game. */
+  var VERDICT = ${JSON.stringify(VERDICT)};
   var st = { up:{}, down:{}, note:{}, all:'' };
   try { var raw = localStorage.getItem(SAVE); if (raw) st = JSON.parse(raw); } catch(e){}
   st.up = st.up || {}; st.down = st.down || {}; st.note = st.note || {};
+  /* his rulings are the floor, not a saved preference: they apply even on a
+     phone that has never opened this page */
+  for (var vk in VERDICT) { if (VERDICT[vk].yes) st.up[vk] = VERDICT[vk].yes; }
   /* AN OLDER SAVE ON HIS PHONE HOLDS st.pick. Carry it forward as a YES rather
      than dropping what he already told us. */
   if (st.pick) { for (var pk in st.pick) { if (st.pick[pk]) st.up[pk] = st.pick[pk]; } delete st.pick; }

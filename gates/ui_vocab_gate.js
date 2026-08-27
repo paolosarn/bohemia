@@ -212,6 +212,27 @@ ok('and it really opens the grime bank in code',
      /font-family:\s*var\(--fb\)/.test(bodyRule) && /font-size:\s*14px/.test(bodyRule));
 }
 
+/* ==== 3c. NO EM DASHES. HIS RULE, AND IT HAD NEVER BEEN GATED ============
+   CLAUDE.md, under how he works: "Direct, casual, swears freely, zero fluff.
+   Never use em dashes anywhere." It has been written down since the first day
+   and NOTHING IN THE MACHINE HAS EVER CHECKED IT -- which is the 7/16 ruling
+   exactly, a law enforced by memory is not enforced. Measured 8/27: this page
+   was shipping NINETEEN of them at him, most of them out of the study corpus.
+   A rule about the words on his screen belongs on the surface that carries the
+   words, so it is checked here and in the corpus that feeds it. */
+{
+  const dashes = (page.match(/&mdash;|\u2014/g) || []).length;
+  ok('ZERO em dashes on the page he reads (' + dashes + ')', dashes === 0);
+  const bookDir = path.join(ROOT, 'uibook');
+  let bookDashes = 0;
+  if (fs.existsSync(bookDir)) {
+    for (const f of fs.readdirSync(bookDir).filter(f => f.endsWith('.md'))) {
+      bookDashes += ((fs.readFileSync(path.join(bookDir, f), 'utf8').match(/\u2014/g) || []).length);
+    }
+  }
+  ok('and zero in the study corpus that feeds it (' + bookDashes + ')', bookDashes === 0);
+}
+
 /* ==== 4. THE .TXT RULE, standing on every judge surface in this repo ====== */
 ok('the export writes .txt, never .json', /download\s*=\s*'BOHEMIA_UI_PICKS\.txt'/.test(page));
 ok('there is ONE comment box at the bottom, always', /id="all"/.test(page));
@@ -317,7 +338,10 @@ function worst(text) {
   const forks = await q.evaluate((FPSRC) => {
     const fp = eval(FPSRC);
     const out = [];
-    document.querySelectorAll('.fork[data-k]').forEach(f => {
+    /* ONLY THE LOOK FORKS. The study view carries its own answered card (which
+       round we studied) and it is not one of the seven things about the look, so
+       counting it made a correct page look like it had five answers. */
+    document.querySelectorAll('#viewPick .fork[data-k]').forEach(f => {
       const k = f.getAttribute('data-k');
       const opts = [...f.querySelectorAll('.opt')].map(o => {
         const samp = o.querySelector('.samp');
@@ -328,7 +352,9 @@ function worst(text) {
           why: (o.querySelector('.why') || {}).textContent || ''
         };
       });
-      out.push({ k, opts, picks: f.querySelectorAll('.thumb').length });
+      out.push({ k, opts, picks: f.querySelectorAll('.thumb').length,
+                 answered: f.getAttribute('data-answered'), killed: !!f.getAttribute('data-killed'),
+                 samples: f.querySelectorAll('.samp').length });
     });
     return out;
   }, FP);
@@ -365,15 +391,76 @@ function worst(text) {
      '(a thumb covers the middle)',
      pressFp.every(f => typeof f === 'string' && f.indexOf('MISSING') < 0) &&
      new Set(pressFp.map(f => f.split(',')[0] + f.split(',')[1])).size >= 2);
-  ok('there are seven forks on the page (' + forks.length + ')', forks.length === 7);
-  ok('every fork offers at least two options',
-     forks.length > 0 && forks.every(f => f.opts.length >= 2));
+  /* *** HIS VERDICT LANDED 8/27, so most of these are not questions any more.
+     A fork he ruled on shows what he chose; a fork where he killed everything is
+     gone; only what he has not answered still asks. Re-showing thumbs on a
+     settled fork is asking him to decide it twice. *** */
+  const asking = forks.filter(f => !f.answered && !f.killed);
+  const done   = forks.filter(f => f.answered);
+  const killed = forks.filter(f => f.killed);
+  ok('the four he answered are shown as ANSWERED, not re-asked (' + done.length + ')',
+     done.length === 4);
+  /* an ANSWERED fork has no options left -- that is the point -- so it is
+     checked for SHOWING THE WINNER, not for still offering a choice. The first
+     cut counted .opt and went red on a page doing exactly the right thing. */
+  ok('and each of them SHOWS the option he chose, wearing it',
+     done.every(f => f.answered && f.samples === 1 && f.picks === 0));
+  ok('the two where he killed every option are gone, not re-pitched (' + killed.length + ')',
+     killed.length === 2);
+  ok('and a killed fork offers him nothing to vote on again',
+     killed.every(f => f.picks === 0));
+  ok('exactly one fork is still asking, and it is the one he could not see (' +
+     asking.map(f => f.k).join(',') + ')', asking.length === 1 && asking[0].k === 'press');
   ok('EVERY OPTION HE VOTES ON HAS A THUMBS UP AND A THUMBS DOWN',
-     forks.every(f => f.picks === f.opts.length * 2));
+     asking.every(f => f.picks === f.opts.length * 2));
   ok('every option shows a REAL sample, not just a label',
-     forks.every(f => f.opts.every(o => o.hasSample)));
+     asking.every(f => f.opts.every(o => o.hasSample)));
   ok('every option carries its own reasoning',
      forks.every(f => f.opts.every(o => o.why.trim().length > 40)));
+
+  /* *** SHOW IT, DO NOT TYPE IT (Paolo 8/27) ***
+     "you would try to type out and explain what it's like to press buttons and
+     not show me what it looks like in action". A press does not exist until a
+     thumb is on the button and a thumb COVERS the button, so the one fork whose
+     whole subject is what happens under a finger was the one he could not see.
+     It has to MOVE, on its own, with a thumb-sized thing landing on it -- and
+     the three have to move DIFFERENTLY or they are three labels again. */
+  const moves = await q.evaluate(async () => {
+    const el = v => document.querySelector('.demo-' + v + ' .bx');
+    const inn = v => document.querySelector('.demo-' + v + ' .in');
+    const seen = { A: new Set(), B: new Set(), C: new Set(), thumb: new Set() };
+    for (let i = 0; i < 22; i++) {
+      seen.A.add(getComputedStyle(inn('A')).backgroundColor);
+      seen.B.add(getComputedStyle(el('B')).transform);
+      seen.C.add(getComputedStyle(el('C')).backgroundColor);
+      seen.thumb.add(Number(getComputedStyle(document.querySelector('.fingertip')).opacity).toFixed(1));
+      await new Promise(r => setTimeout(r, 170));
+    }
+    const g = document.querySelector('.fingertip');
+    const btn = el('A').getBoundingClientRect();
+    const gr = g.getBoundingClientRect();
+    return {
+      A: seen.A.size, B: seen.B.size, C: seen.C.size, thumb: seen.thumb.size,
+      names: ['A', 'B', 'C'].map(v => getComputedStyle(el(v)).animationName),
+      thumbW: Math.round(gr.width),
+      /* the ghost has to sit ON the button's middle, because covering the middle
+         IS the argument */
+      coversMiddle: Math.abs((gr.left + gr.width / 2) - (btn.left + btn.width / 2)) < 6
+    };
+  });
+  ok('THE PRESS PLAYS ITSELF: the FLIP really changes (' + moves.A + ' states seen)', moves.A >= 2);
+  ok('the SINK really moves (' + moves.B + ' positions seen)', moves.B >= 2);
+  ok('the EDGE really lights (' + moves.C + ' states seen)', moves.C >= 2);
+  ok('and a ghost thumb comes down and lifts off (' + moves.thumb + ' opacities seen)',
+     moves.thumb >= 3);
+  ok('the ghost is thumb-sized (' + moves.thumbW + 'px, a fingertip is about 45)',
+     moves.thumbW >= 40 && moves.thumbW <= 60);
+  ok('and it lands ON THE MIDDLE of the button, because covering the middle IS ' +
+     'the argument', moves.coversMiddle);
+  ok('the three presses are three DIFFERENT animations, not three labels (' +
+     moves.names.join(', ') + ')', new Set(moves.names).size === 3);
+  ok('and a loop that will not stop has a still fallback for reduced motion',
+     /prefers-reduced-motion:reduce\)\{[\s\S]{0,400}\.fingertip\{ animation:none/.test(page));
 
   /* *** THE CENTRE OF THIS GATE ***
      PRESSED is skipped here ON PURPOSE and only here: standing still, the three
@@ -396,40 +483,47 @@ function worst(text) {
   ok('NO TWO OPTIONS IN A FORK RENDER THE SAME' + (same.length ? ' (' + same.join(', ') + ')' : ''),
      same.length === 0);
 
-  /* ---- 6d. A PICK HAS TO CHANGE WHAT HE IS LOOKING AT -------------------- */
-  const before = await q.evaluate(() => {
-    const s = getComputedStyle(document.querySelector('.prev .bx'));
-    const i = getComputedStyle(document.querySelector('.prev .bx .in'));
-    return [s.borderRadius, s.padding, s.backgroundColor, s.clipPath, i.fontFamily, i.backgroundImage.slice(0, 40)].join('|');
+  /* ---- 6d. THE PAGE OPENS WEARING WHAT HE ALREADY CHOSE ------------------
+     His verdict is baked into the build, not stored as a preference, so a phone
+     that has never opened this page still shows him HIS game. Making him re-tap
+     four things he settled on 8/27 to see his own look is asking him to decide
+     them twice. */
+  const worn = await q.evaluate(() => {
+    const r = document.documentElement;
+    return { shape: r.getAttribute('data-shape'), weight: r.getAttribute('data-weight'),
+             colour: r.getAttribute('data-colour'), type: r.getAttribute('data-type'),
+             texture: r.getAttribute('data-texture'), feed: r.getAttribute('data-feed'),
+             clip: getComputedStyle(document.querySelector('.prev .bx')).clipPath,
+             pad: getComputedStyle(document.querySelector('.prev .bx')).padding };
   });
-  for (const [k, v] of [['shape', 'C'], ['weight', 'B'], ['colour', 'C'], ['type', 'A'], ['texture', 'B']]) {
-    await q.click('.thumb.up[data-k="' + k + '"][data-v="' + v + '"]');
-  }
-  await SETTLE(q, 500);
-  const after = await q.evaluate(() => {
-    const s = getComputedStyle(document.querySelector('.prev .bx'));
-    const i = getComputedStyle(document.querySelector('.prev .bx .in'));
-    return [s.borderRadius, s.padding, s.backgroundColor, s.clipPath, i.fontFamily, i.backgroundImage.slice(0, 40)].join('|');
-  });
-  ok('picking letters CHANGES THE LIVE PREVIEW he is looking at', before !== after);
+  ok('THE PAGE OPENS WEARING HIS VERDICT, cold, with nothing tapped (' +
+     'corner ' + worn.shape + ', line ' + worn.weight + ', colour ' + worn.colour +
+     ', letters ' + worn.type + ')',
+     worn.shape === 'C' && worn.weight === 'B' && worn.colour === 'B' && worn.type === 'A');
+  ok('his CUT corner is really cut in the preview, not just recorded',
+     /polygon/.test(worn.clip));
+  ok('and his HEAVY line is really 2px there (' + worn.pad + ')', worn.pad === '2px');
+  ok('and the two he killed are wearing nothing at all',
+     !worn.texture && !worn.feed);
 
+  /* ---- and the fork still asking behaves like a vote --------------------- */
+  await q.click('.thumb.up[data-k="press"][data-v="A"]');
+  await SETTLE(q, 400);
   const stuck = await q.evaluate(() => {
-    const b = document.querySelector('.thumb.up[data-k="shape"][data-v="C"]');
-    const u = document.querySelector('.thumb.up[data-k="shape"][data-v="A"]');
+    const b = document.querySelector('.thumb.up[data-k="press"][data-v="A"]');
+    const u = document.querySelector('.thumb.up[data-k="press"][data-v="B"]');
     const cb = getComputedStyle(b), cu = getComputedStyle(u);
     return { on: b.classList.contains('on'),
-             root: document.documentElement.getAttribute('data-shape'),
+             root: document.documentElement.getAttribute('data-press'),
              bw: cb.borderWidth, uw: cu.borderWidth,
              txt: b.textContent.trim(), utxt: u.textContent.trim(),
-             bg: cb.backgroundColor, ubg: cu.backgroundColor,
-             label: (document.getElementById('picked-shape') || {}).textContent || '' };
+             label: (document.getElementById('picked-press') || {}).textContent || '' };
   });
   ok('the thumb sticks when tapped', stuck.on);
-  ok('and the whole page is wearing it (data-shape=' + stuck.root + ')', stuck.root === 'C');
+  ok('and the whole page is wearing it (data-press=' + stuck.root + ')', stuck.root === 'A');
   ok('and it says back in words what he just said (' + stuck.label.slice(0, 30) + ')',
-     /YES to C/.test(stuck.label));
-  /* NO ESSENTIAL INFORMATION BY COLOUR ALONE (basic tier; ~1 in 12 men).
-     A vote must ALSO be readable with every colour stripped out. */
+     /YES to A/.test(stuck.label));
+  /* NO ESSENTIAL INFORMATION BY COLOUR ALONE (basic tier; ~1 in 12 men). */
   ok('A VOTE IS NEVER COLOUR ALONE: it also gets a heavier edge (' +
      stuck.uw + ' -> ' + stuck.bw + ')', stuck.bw !== stuck.uw);
   ok('and it also gets a tick in its own label (' + stuck.utxt + ' -> ' + stuck.txt + ')',
@@ -437,22 +531,13 @@ function worst(text) {
 
   /* SAYING NO IS A VOTE TOO, and it is the half that used to get thrown away:
      a dead option is a ruling, and GRAVEYARD IS FINAL. */
-  await q.click('.thumb.down[data-k="shape"][data-v="A"]');
+  await q.click('.thumb.down[data-k="press"][data-v="B"]');
   await SETTLE(q, 300);
-  const nay = await q.evaluate(() => ({
-    on: document.querySelector('.thumb.down[data-k="shape"][data-v="A"]').classList.contains('on'),
-    stillC: document.documentElement.getAttribute('data-shape') === 'C',
-    label: document.getElementById('picked-shape').textContent
-  }));
-  ok('he can say NO to an option, and it sticks', nay.on);
-  ok('and a NO on one option does not disturb the YES on another', nay.stillC);
-  ok('and the page reads his NO back to him too', /NO to A/.test(nay.label));
-
   /* ---- 6e. HIS WORK SURVIVES A RELOAD ------------------------------------ */
   await q.reload();
   await SETTLE(q, 1200);
   ok('his picks are still there after a reload',
-     await q.evaluate(() => document.documentElement.getAttribute('data-shape') === 'C'));
+     await q.evaluate(() => document.documentElement.getAttribute('data-press') === 'A'));
 
   /* ---- 6f. THE THUMB (SHARED -5): iPhone portrait, one hand -------------- */
   const small = await q.evaluate(() => {

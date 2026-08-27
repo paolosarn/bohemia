@@ -2786,6 +2786,25 @@ GATES = [
      'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
      'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
      'does, because a tab that throws on open passes every source check ever written', False),
+    ('WEBKIT',         ['node', 'gates/webkit_gate.js'],
+     'Paolo 8/26: "It looks like the fucking UI page was broken." Paolo 8/27: "you don\'t '
+     'have to be so ho about only cooking up on default bro like download whatever you need '
+     'to download." 429 gates and EVERY BROWSER ONE OF THEM DROVE CHROMIUM, while he plays on '
+     'an iPhone, which is WebKit. VERIFY ON THE REAL SURFACE (7/18) says the surface is the '
+     'one HE sees; we honoured the FILE half for a month and quietly failed the ENGINE half, '
+     'so every PASS this repo printed about a rendered page was a claim about Chromium. '
+     'Playwright\'s webkit build is 403 from the egress proxy, but apt reaches the mirrors and '
+     'WebKitGTK ships a real W3C WebDriver, so this drives an actual WebKit under xvfb. It is '
+     'NOT iOS Safari (same engine family, different port and version) and it says so out loud '
+     'rather than letting a green tick imply more than it earned; with no engine present it '
+     'SKIPS LOUDLY instead of passing. *** AND THE FIRST THING IT DID WAS PROVE ITS AUTHOR '
+     'WRONG: the 8/26 root-cause claim that WebKit drops the `font:` shorthand with a var() '
+     'family is FALSE, both engines resolve it identically, and that leg is kept permanently '
+     'so the correction is something the machine repeats rather than something I said once. '
+     'Its centre is a CROSS-ENGINE DIFFERENTIAL: the same probe on the same page in both '
+     'engines, compared, because a disagreement is the only thing that predicts a break he '
+     'sees and I do not. An absolute assertion here went red on the alpha for a 16px body '
+     'that Chromium reports too, so the ruler was fixed to compare rather than to judge', True),
     ('UI STUDY',       ['node', 'gates/ui_study_gate.js'],
      'Paolo 8/26: "I need you to do big brain research on how to do big brain research on '
      'studying other games UI for one round ... the first basis of all of this is gonna be '

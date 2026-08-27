@@ -124,6 +124,28 @@ function requirePlaywright() {
 
     ok('A8 the door threw no errors opening', errors.length === 0,
       errors.slice(0, 3).join(' | '));
+
+    /* A9 *** THE SPLASH SAYS ONLY WHAT IT IS SUPPOSED TO SAY. ***
+       Found live on main 8/27: a lane's bad conflict resolution left a
+       `>>>>>>>` marker in the alpha AND ate the opening `<!--` of the comment
+       right after the build stamp, so the marker plus seven lines of internal
+       prose about a 8/2 incident were RENDERING ON THE FRONT SPLASH. First
+       thing anybody sees on the one link he pastes to people.
+       EVERY OTHER LEG IN THIS GATE WAS GREEN THROUGH IT, because they all ask
+       whether the door OPENS and this is about what the door SAYS. alpha_loads
+       caught the marker; nothing caught the seven lines of prose behind it.
+       So: read the splash the way a human reads it, and hold it to the few
+       words it is meant to carry. */
+    const splash = await page.evaluate(() => {
+      const f = document.getElementById('front');
+      return f ? f.innerText.replace(/\s+/g, ' ').trim() : '';
+    });
+    const LEAK = /<!--|-->|<<<<<<<|>>>>>>>|=======|function |var |px;|style=/;
+    ok('A9 the splash carries no merge marker and no leaked source',
+      !LEAK.test(splash), JSON.stringify(splash.slice(0, 140)));
+    ok('A9b …and it is SHORT, because it is a door and not a document (' +
+      splash.length + ' chars)', splash.length > 0 && splash.length < 220,
+      JSON.stringify(splash.slice(0, 140)));
   } finally { await browser.close(); }
 
   console.log('\nFRONT DOOR GATE: ' + pass + ' passed, ' + fail + ' failed');
