@@ -24281,6 +24281,111 @@ root.BQRuntime=API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* __DAY_LOOP__ */
+/* ==== engine/bohemia_conversation.js ==== */
+/* BOHEMIA CONVERSATION — the bridge between a quest's @TALK node and the person
+   standing in front of you. UI-AGNOSTIC, like the runtime it sits on.
+   (8/26/26, PEOPLE lane.)
+
+   THE FINDING THAT MADE THIS, COUNTED BEFORE A LINE WAS WRITTEN:
+     quests/bq        27 files
+     @TALK nodes     236
+     @SAY lines      504
+     @OPT choices    558
+     @NOVERB          59
+   bohemia_bq.js parses every one of them. bohemia_quest_runtime.js PLAYS every
+   one of them -- available() / begin() / view() / choose() have been finished and
+   correct since the day they were written. AND NOTHING HAS EVER RENDERED ONE.
+   bohemia_demoquests.js binds stages to WORLD EVENTS -- where you walked, whether
+   the block had power -- so a quest speaks to you through the phone and the
+   journal and NEVER THROUGH A MOUTH. Paolo, 8/11: "I HAVE A WHOLE 170 QUEST FILE
+   WITH DIALOGUE." Five hundred lines of it are in the repo, parsed, and mute.
+
+   WHY IT IS POSSIBLE TODAY AND WAS NOT YESTERDAY. A @TALK node's `speaker` is a
+   @ROLE NAME, and until this morning a role was a WORD: `@ROLE lineman REQ
+   faction=TRADES` resolved to the string "lineman" and nobody in the valley was
+   ever the lineman. BohemiaPeople.castQuest now resolves a role to a person who
+   is really standing on this block, so the chain closes:
+       speaker -> role -> cast -> key -> the person whose card is open.
+
+   THIS FILE IS THE CHAIN AND NOTHING ELSE. It renders nothing, styles nothing,
+   and invents no words: every line the player reads comes out of the .bq file.
+
+   REUSE CHECK: cooks no graphic pixels of any kind and opens no bank. It draws
+   nothing at all. */
+(function (root) {
+  'use strict';
+
+  function talkIndex(Q) {
+    var by = {};
+    ((Q && Q.talks) || []).forEach(function (t) { by[t.id] = t; });
+    return by;
+  }
+
+  /* WHICH NODE, IF ANY, THIS PERSON CAN OPEN RIGHT NOW.
+     available() is the runtime's own answer to "which entry conditions pass and
+     are not locked"; all this adds is the half the runtime cannot know -- WHO the
+     speaker is standing where. Returns null for the overwhelming majority of
+     people, which is the point: on a block of thirty, one of them has the job. */
+  function nodeFor(rt, Q, cast, key) {
+    if (!rt || !Q || !cast || !key) return null;
+    var by = talkIndex(Q), ids = [];
+    try { ids = rt.available() || []; } catch (_e) { return null; }
+    for (var i = 0; i < ids.length; i++) {
+      var t = by[ids[i]];
+      if (!t || !t.speaker) continue;
+      var c = cast[t.speaker];
+      if (!c || c.key !== key) continue;
+      return { id: t.id, role: t.speaker, node: t };
+    }
+    return null;
+  }
+
+  /* WHAT THE BUTTON THAT STARTS IT SAYS.
+     MEASURED ACROSS THE CORPUS: 52 of the 62 entry nodes have an @OBJ whose
+     `target` IS that node's speaker role. So the label is THE OBJECTIVE'S OWN
+     TEXT, verbatim -- the quest's words rather than mine, checkable byte for byte
+     by a gate, and literally the sentence the HUD is showing the player already.
+     The other ten get an attempt (ALWAYS MAKE AN ATTEMPT, 8/11) tagged draft. */
+  function openerFor(Q, rt, roleName) {
+    var objs = [];
+    try { objs = rt.objectives() || []; } catch (_e) { objs = []; }
+    for (var i = 0; i < objs.length; i++) {
+      if (objs[i].status !== 'active') continue;
+      if (objs[i].target !== roleName) continue;
+      return { text: objs[i].text, draft: false, from: 'objective' };
+    }
+    return { text: 'Ask them about the job', draft: true, from: 'fallback' };
+  }
+
+  /* THE ONE THING THE RUNTIME DOES NOT DO FOR ITSELF, AND IT HAS TO BE DONE.
+     ZERO @LOCK EXISTS IN THE WHOLE CORPUS (counted: 0 across 27 files), and
+     available() filters on nothing but state.locked -- so every entry node
+     re-opens forever, and _enter() re-runs that node's @DO verbs every time. A
+     player could stand still and press one button to farm the same bond. A
+     CONVERSATION YOU CAN HAVE AGAIN IS NOT A CONVERSATION. Locking the entry node
+     when the conversation ends uses the runtime's OWN field, which serialize()
+     already carries into the save, so this invents no state.
+     ONLY the node you entered from: sub-nodes reached by -> have no entry
+     condition and available() never offers them anyway. */
+  function close(rt, entryId) {
+    if (!rt || !entryId) return false;
+    try {
+      if (rt.state.locked[entryId]) return false;
+      rt.state.locked[entryId] = true;
+      return true;
+    } catch (_e) { return false; }
+  }
+
+  /* HAS THIS CONVERSATION ALREADY BEEN HAD. */
+  function closed(rt, entryId) {
+    try { return !!(rt && entryId && rt.state.locked[entryId]); } catch (_e) { return false; }
+  }
+
+  var API = { nodeFor: nodeFor, openerFor: openerFor, close: close, closed: closed,
+              VERSION: 'bohconv-1.0.0' };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaConversation = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== engine/bohemia_demoquests.js ==== */
 // BOHEMIA DEMO QUESTS (8/11/26) — SCAFFOLDING, AND IT SAYS SO.
 //
@@ -24404,7 +24509,12 @@ root.BQRuntime=API;
     var loop = cfg.loop || null;
     var shared = cfg.shared || { bonds: {} };
 
-    var D = { V: 1, shared: shared, active: null, spec: null, Q: null, rt: null, pending: null, seenDistricts: {} };
+    /* lastNarrated: the stage the JOURNAL has already been told about. It exists
+       because a conversation can move the quest (see D.spoke below) and the
+       journal has to hear about that exactly once -- never twice, and never a
+       second time after a reload. */
+    var D = { V: 1, shared: shared, active: null, spec: null, Q: null, rt: null, pending: null,
+              seenDistricts: {}, lastNarrated: null };
 
     D.specForDay = function (day) {
       if (!DAYS.length) return null;
@@ -24427,6 +24537,7 @@ root.BQRuntime=API;
       D.rt.start(spec.open);
       D.active = spec.id;
       if (loop) loop.stage(spec.id, spec.open, stageLog(Q, spec.open), null);
+      D.lastNarrated = spec.open;
       if (spec.choiceAt === spec.open) D.pending = D.choiceCard();
       return { id: spec.id, title: Q.title || spec.id, brief: spec.brief,
                objectives: D.rt.objectives(), log: stageLog(Q, spec.open) };
@@ -24479,8 +24590,33 @@ root.BQRuntime=API;
       D.rt.setStage(n);
       var log = stageLog(D.Q, n);
       if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      D.lastNarrated = n;
       var out = { stage: n, log: log, objectives: D.rt.objectives() };
       if (D.spec.choiceAt === n) { D.pending = D.choiceCard(); out.card = D.pending; }
+      return out;
+    };
+
+    /* A CONVERSATION MOVED THE QUEST, AND THE JOURNAL HAS TO HEAR ABOUT IT.
+       (8/26, PEOPLE lane, with the talk surface.)
+       NARRATE-ONLY, AND THAT IS THE WHOLE POINT OF IT EXISTING. A chosen @OPT can
+       carry `@DO set_stage 20`, and that verb goes straight through the canonical
+       Runtime.setStage -- so by the time the UI asks what happened, the stage has
+       ALREADY BEEN ENTERED and all of its @DO verbs have ALREADY RUN. Calling
+       _toStage here to "apply" it would run the stage A SECOND TIME: every bond
+       paid twice, every faction move doubled, in a way nothing on screen would
+       show. So this reports what already happened and makes nothing happen.
+       It is the same shape as a world event's return so the city can hand it to
+       the same dayAfterQuest() it hands everything else, rather than growing a
+       second path that would drift from the first. */
+    D.spoke = function () {
+      if (!D.rt || !D.spec || !D.Q) return null;
+      var n = D.rt.state.stage;
+      if (n == null || n === D.lastNarrated) return null;
+      D.lastNarrated = n;
+      var log = stageLog(D.Q, n);
+      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      var out = { stage: n, log: log, objectives: D.rt.objectives(), spoke: true };
+      if (D.spec.choiceAt === n && !D.rt.state.done) { D.pending = D.choiceCard(); out.card = D.pending; }
       return out;
     };
 
@@ -24578,6 +24714,10 @@ root.BQRuntime=API;
       D.rt = new RT.Runtime(D.Q, st.state || null, shared);
       D.active = spec.id;
       if (!st.state) D.rt.start(spec.open);
+      /* A RELOAD IS NOT A NEW EVENT. Seed the journal watermark to where the save
+         already is, or the first spoke() after loading would re-log a stage the
+         player watched happen yesterday. */
+      D.lastNarrated = D.rt.state.stage;
       return true;
     };
 
@@ -41859,6 +41999,42 @@ function ctCast(){
     return CT_CAST;
   } catch(_e){ return null; }
 }
+/* __CITY_CONVERSATION__ -- THE QUEST'S OWN WORDS, IN A REAL MOUTH.
+   CT_CONV is the open conversation: {entry, role, key}. It survives walking away
+   ON PURPOSE -- begin() is called exactly ONCE, and rt.view() still holds the
+   node you were on, so coming back picks the scene up where you left it instead
+   of re-running the top of it. */
+var CT_CONV = null;
+/* WHICH NODE THIS PERSON CAN OPEN RIGHT NOW, or null for almost everybody. */
+function ctConvNode(who){
+  try {
+    if (typeof DQ === 'undefined' || !DQ || !DQ.rt || !DQ.Q) return null;
+    if (DQ.rt.state && DQ.rt.state.done) return null;
+    var cast = ctCast(); if (!cast) return null;
+    return BohemiaConversation.nodeFor(DQ.rt, DQ.Q, cast, who.key);
+  } catch(_e){ return null; }
+}
+/* THE CARD, WHEN SOMEBODY IS TALKING. Every word on it comes out of the .bq
+   file; nothing here writes prose. */
+function ctConvBody(who){
+  var v; try { v = DQ.rt.view(); } catch(_e){ return null; }
+  if (!v || v.ended) return null;
+  var nm = BohemiaPeople.nameOf(who);
+  var body = '<div class="who">' + (nm ? nm.toUpperCase() : BohemiaPeople.headingOf(who)) + '</div>';
+  (v.says || []).forEach(function(s){ body += '<div class="say">' + esc(s) + '</div>'; });
+  (v.options || []).forEach(function(o){
+    /* THE TRAP IS NOT MARKED AND THE SILENCE IS NOT MARKED. o.trap and o.silence
+       are both right here in the data and both deliberately unused: a trap you
+       can see is not a trap, and "(say nothing, just go)" already reads as
+       silence because the author wrote the parentheses. */
+    body += '<button class="convopt" data-i="' + o.i + '">' + esc(o.text) + '</button>';
+  });
+  (v.noverbs || []).forEach(function(n){
+    body += '<div class="noverb">' + esc(n) + '</div>';
+  });
+  body += '<button id="ctconvgo">Leave it there</button>';   /* draft:true */
+  return body;
+}
 /* WHAT THIS PERSON IS WANTED FOR, or null. Plain English on purpose: it is the
    game telling you what to do next, which is required information, which under
    THEY SPEAK SPANGLISH's hard rule is always English. */
@@ -42035,6 +42211,15 @@ function ctAdjacent(){
     '#ctcard .k{font:9px/1 ui-monospace,monospace;letter-spacing:1.2px;color:#8a7a5a;'+
       'text-transform:uppercase;width:76px;flex:none}'+
     '#ctcard .v{font:12px/1.3 "Space Grotesk",system-ui,sans-serif;color:var(--ink)}'+
+    /* __CITY_CONVERSATION__ -- A SPOKEN LINE IS NOT A KEY/VALUE ROW. The card
+       has only ever had .r/.k/.v, which is right for facts about a person and
+       wrong for somebody talking: a quest line is prose and wants the width. */
+    '#ctcard .say{font:13px/1.45 "Space Grotesk",system-ui,sans-serif;color:var(--ink);'+
+      'margin-top:9px}'+
+    /* AND THE THING YOU CANNOT SAY, WHICH THE CORPUS SAYS IS THE LOUDEST PART OF
+       THE SCENE. Dim, struck through, and not a button, because it is not one. */
+    '#ctcard .noverb{font:italic 11px/1.35 "Space Grotesk",system-ui,sans-serif;'+
+      'color:#7b6c50;margin-top:9px;text-decoration:line-through;opacity:.75}'+
     '#ctcard button{margin-top:11px;margin-right:8px;padding:9px 13px;border:1px solid var(--line);'+
       'background:var(--face);color:var(--acc);font:700 11px/1 "Space Grotesk",system-ui,sans-serif;'+
       'letter-spacing:1.4px;border-radius:8px}';
@@ -43019,6 +43204,21 @@ function ctIntroRows(body, intro, fid, ctOnwardKey){
 function ctDraw(){
   var p=CT_OPEN; if(!p) return;
   var who=ctPerson(p);
+  /* __CITY_CONVERSATION__ -- IF THEY ARE TALKING, THAT IS THE CARD. It replaces
+     the identity rows rather than sitting under them: while somebody is telling
+     you their problem, their tan-wall address is not the thing on screen. */
+  if (CT_CONV && CT_CONV.key === who.key) {
+    var cb = ctConvBody(who);
+    if (cb) {
+      var cc = document.getElementById('ctcard');
+      cc.innerHTML = cb; cc.style.display = 'block';
+      ctCardToBottom();
+      document.getElementById('cttalk').style.display = 'none';
+      ctConvWire();
+      return;
+    }
+    CT_CONV = null;      /* the graph ended while the card was open */
+  }
   var met=CT_MET.get(who.key);
   var nm=BohemiaPeople.nameOf(who);
   var at=ctAt(p);
@@ -43169,6 +43369,16 @@ function ctDraw(){
      which door to knock on. */
   var ctJob = (typeof ctCastRow === 'function') ? ctCastRow(who) : null;
   if (ctJob) body += ctRow('THE JOB', ctJob);
+  /* __CITY_CONVERSATION__ -- AND THE DOOR INTO IT.
+     THE LABEL IS THE QUEST'S OWN WORDS, NOT MINE: measured across the corpus,
+     52 of the 62 entry nodes have an @OBJ whose target IS that node's speaker,
+     so the button says the objective the HUD is already showing, verbatim. The
+     other ten get an attempt (ALWAYS MAKE AN ATTEMPT, 8/11), tagged draft. */
+  var ctCN = ctConvNode(who);
+  if (ctCN) {
+    var ctOp = BohemiaConversation.openerFor(DQ.Q, DQ.rt, ctCN.role);
+    body += '<button id="ctconv" data-node="' + ctCN.id + '">' + esc(ctOp.text) + '</button>';
+  }
   /* __CITY_MEMORY__ -- WHERE THEY LIVE, IN WORDS HE CAN ACT ON.
      This row printed RAW FINE-GRID COORDINATES at him: "HERE, 6205 6269". Two
      numbers no player can use, on the card he opens for every person in the
@@ -43491,6 +43701,8 @@ function ctDraw(){
   card.innerHTML=body; card.style.display='block';
   ctCardToBottom();   /* __CITY_CARDFITS__ -- open where a bottom-anchored card already sat */
   document.getElementById('cttalk').style.display='none';
+  /* __CITY_CONVERSATION__ -- the door into the quest's own words. */
+  ctConvOpenWire();
   var ask=document.getElementById('ctask');
   if(ask) ask.addEventListener('click',function(){
     CT_MET.ask(who.key, T.day||1); ctSave();
@@ -43680,7 +43892,81 @@ function ctDraw(){
   document.getElementById('ctgo').addEventListener('click',ctClose);
   CT_MET.meet(who.key, T.day||1); ctSave();
 }
+/* __CITY_CONVERSATION__ -- THE HANDLERS. Kept in one place because a
+   conversation redraws itself after every choice, so the buttons are rebuilt
+   every time and re-wired every time. */
+function ctConvWire(){
+  var go = document.getElementById('ctconvgo');
+  if (go) go.addEventListener('click', function(){ ctClose(); });
+  var opts = document.querySelectorAll('#ctcard .convopt');
+  for (var i = 0; i < opts.length; i++) {
+    opts[i].addEventListener('click', function(){
+      var idx = parseInt(this.getAttribute('data-i'), 10);
+      ctConvChoose(idx);
+    });
+  }
+}
+/* AND THE DOOR ITSELF, which lives on the IDENTITY card and so has to be wired
+   from there. It is a separate function because the two cards are rebuilt at
+   different moments and a button with no listener is a button that lies. */
+function ctConvOpenWire(){
+  var b = document.getElementById('ctconv'); if (!b) return;
+  b.addEventListener('click', function(){
+    var id = this.getAttribute('data-node');
+    if (!CT_OPEN || !id) return;
+    var who = ctPerson(CT_OPEN);
+    var nd = ctConvNode(who); if (!nd || nd.id !== id) return;
+    /* begin() RUNS THE NODE, so it is called exactly once and never again for
+       this conversation: coming back after walking off resumes from rt.view(). */
+    try { DQ.rt.begin(id); } catch(_e){ return; }
+    CT_CONV = { entry: id, role: nd.role, key: who.key };
+    ctDraw();
+  });
+}
+function ctConvChoose(i){
+  if (!CT_CONV) return;
+  var v = null;
+  try { v = DQ.rt.choose(i); } catch(_e){ return; }
+  var over = (!v || v.ended);
+  /* THE JOURNAL HEARS ABOUT IT, AND IT HEARS ABOUT IT EXACTLY ONCE. A chosen
+     option can carry `@DO set_stage 20`, which has ALREADY run by the time we
+     get here -- so this NARRATES, it does not apply. DQ.spoke() exists for that
+     one reason and re-running the stage would pay every bond on it twice. */
+  try {
+    var r = DQ.spoke();
+    if (r) {
+      /* ONE DECISION SURFACE AT A TIME, AND THIS WAS FOUND BY TRACING RATHER
+         THAN BY LOOKING. The day's RESOLUTION stage for day one IS stage 20, and
+         answering "I will walk it back" reaches stage 20 in one tap -- so the
+         resolution card would have thrown itself up over somebody who is still
+         mid-sentence, two decisions on the glass at once, the second one
+         answering a question the first has not finished asking.
+         DQ.pending ALREADY HOLDS THAT CARD (it is how the phone hands the day's
+         first choice over), so nothing new has to store it: the card is simply
+         not passed through while the conversation is still running, and it is
+         shown the moment the scene ends. */
+      if (!over && r.card)
+        r = { stage: r.stage, log: r.log, objectives: r.objectives, spoke: true };
+      dayAfterQuest(r);
+    }
+  } catch(_e){}
+  if (over) {
+    /* THE GRAPH ENDED, SO THE DOOR CLOSES. Measured across the corpus: replaying
+       an entry node DOUBLES faction numbers. Locking is the runtime's own field
+       and rides the save already. */
+    try { BohemiaConversation.close(DQ.rt, CT_CONV.entry); } catch(_e){}
+    CT_CONV = null;
+    ctDraw();          /* back to who they are */
+    try { if (DQ.pending) showChoice(DQ.pending); } catch(_e){}
+    return;
+  }
+  ctDraw();
+}
 function ctClose(){ CT_OPEN=null;
+  /* __CITY_CONVERSATION__ -- CLOSING THE CARD IS NOT ENDING THE CONVERSATION.
+     You walked off, or you tapped away. Come back and the scene picks up on the
+     node you were on, because begin() ran once and the runtime still holds it.
+     The one thing that ends a conversation is the graph ending. */
   var c=document.getElementById('ctcard'); if(c) c.style.display='none';
   ctVerb(); }
 

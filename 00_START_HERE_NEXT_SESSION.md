@@ -5307,7 +5307,87 @@ WHAT COMES NEXT FOR THIS LANE:
      Prison 9.6% reachable, dam 0%, minigp 0%, fort 52.9%, convention 99.7%.
 
 
-PEOPLE (people-7h9sfy): 8/26 (d) LATEST -- *** NOBODY IN THIS VALLEY WAS EVER
+PEOPLE (people-7h9sfy): 8/26 (e) LATEST -- *** THE GAME HAS A CONVERSATION NOW.
+FIVE HUNDRED WRITTEN LINES WERE IN THE REPO, PARSED, AND MUTE. TAB RUN: walk up
+to the person the job wants, press the objective, and they talk to you. ***
+
+COUNTED BEFORE ANYTHING WAS BUILT, across quests/bq:
+  27 quest files · 236 @TALK nodes · 504 @SAY lines · 558 @OPT choices · 59 @NOVERB
+bohemia_bq.js parses every one. bohemia_quest_runtime.js PLAYS every one --
+available/begin/view/choose have been finished and correct since the day they
+were written. AND NOTHING HAD EVER RENDERED ONE. The demo day loop binds stages
+to WORLD EVENTS, so a quest spoke through the phone and the journal and NEVER
+THROUGH A MOUTH. Paolo 8/11: "I HAVE A WHOLE 170 QUEST FILE WITH DIALOGUE."
+
+WHY TODAY AND NOT YESTERDAY: a node's speaker is a @ROLE NAME, and this morning
+a role became a person. speaker -> role -> cast -> key -> the card that is open.
+That is why both halves shipped the same day; neither is worth much alone.
+
+ON THE GLASS, MEASURED: the button says "Find why the block browns out" (THE
+QUEST'S OWN OBJECTIVE, verbatim -- 52 of the 62 entry nodes have an @OBJ aimed at
+their own speaker). Press it and three written lines are on screen, four of the
+quest's own choices under them, and the @NOVERB -- "Tell me who runs the
+network" -- struck through and DEAD TO THE TOUCH. Answer and the quest moves 10
+-> 20.
+
+THE NOVERB IS NOT DECORATION. Seven of the CONVERSATIONS MASTER's marquee nodes
+(the Baron, Hildern, the Whodunit survivors, Jefferson Peralez, the Strange Man,
+Brisby, Shadowheart) are remembered for THE THING THE GAME WOULD NOT LET YOU SAY.
+A WITHHELD VERB NOBODY CAN SEE IS NOT WITHHELD, IT IS MISSING. And a TRAP is
+never marked: view() says trap:true and the glass ignores it, because a trap you
+can see is not a trap.
+
+THE ONE THAT WOULD HAVE SHIPPED AS A SILENT BUG: ZERO @LOCK exists in the whole
+corpus, and available() filters on nothing but state.locked -- so every entry
+node re-opened forever. Swept 218 option paths: replaying a scene DOUBLES the
+numbers (CARTEL 10 -> 20, TRADES -8 -> -16, BLUES 12 -> 24). Standing you can farm
+by pressing one button twice. Locked when the graph ends, using the runtime's own
+field, which the save already carries. WALKING AWAY DOES NOT LOCK IT -- begin()
+runs once, rt.view() holds the node, so you come back to the sentence you left.
+
+AND THE NARRATION SEAM, WHICH NOBODY WOULD HAVE SEEN GO WRONG: a chosen @OPT can
+carry @DO set_stage, which has ALREADY run by the time the UI asks. Narrating it
+with the day loop's _toStage would RUN THE STAGE AGAIN -- every bond twice, every
+faction move doubled, nothing on screen to show it. D.spoke() reports what
+happened and makes nothing happen. MY FIRST VERSION OF THE CLAIM GUARDING THAT
+WAS AIMED ONE STEP TOO LATE (it measured the second narration, which the
+watermark already refuses) and the mutation walked straight past it, green.
+
+AND A SECOND DEFECT, FOUND BY TRACING RATHER THAN BY LOOKING: day one's spec says
+choiceAt: 20, and the first answer in the conversation REACHES stage 20 -- so the
+day's RESOLUTION card would have thrown itself over somebody still mid-sentence.
+Two decisions on the glass at once, the second answering a question the first had
+not finished asking. Nothing was red and I did not see it; I found it by reading
+the day-one spec next to the .bq and noticing the two numbers were the same
+number. DQ.pending ALREADY holds that card, so nothing new stores it: it waits
+for the scene to end. ONE DECISION SURFACE AT A TIME.
+
+conversation_gate, 36 claims, registered as CONVERSATION. MUTATIONS: noverbs
+deleted 2 RED; lock deleted 2 RED; narrate-by-re-running 1 RED ("stage 20 ran 2
+time(s), was 1"); the cast ignored 2 RED; the spoken lines deleted 2 RED; the
+card hold dropped 1 RED ("day card up: true").
+
+AND TWO CLAIMS THAT PASSED ON AN EMPTY SCREEN before I caught them: both were
+[].some(...), which is FALSE ON AN EMPTY LIST, so both were green on a card with
+nothing drawn. Third time this week. A CLAIM HAS TO BE BUILT SO THE RULE IT NAMES
+IS THE ONLY THING THAT CAN MAKE IT PASS.
+
+AND A TOOL REFUSED TO WRITE, CORRECTLY: the city inlines its engine modules and
+the resync finds a module's END by scanning for the next module banner. Parked
+above ordinary code the new module had no end -- the cut came out 50,917 bytes
+against a 5,002 byte module and the tool refused. That guard was added 8/20 after
+this same file lost 1,159 lines to a bad cut. It just earned its keep. The module
+is parked immediately above another banner now.
+
+STILL NOT CLAIMED: the PLACE half. And the world events STILL WORK -- this is a
+second door into the same quest, not a replacement. You can get there by talking
+or by walking, which is more game, not less.
+
+Record: records/BOHEMIA_THE_CONVERSATION_HAS_NEVER_BEEN_PLAYED_8_26_26.md
+
+---- AND THE HALF THAT MADE IT POSSIBLE, SAME DAY ----
+
+PEOPLE (people-7h9sfy): 8/26 (d) -- *** NOBODY IN THIS VALLEY WAS EVER
 THE LINEMAN. A QUEST ROLE IS A PERSON YOU CAN WALK UP TO NOW. TAB RUN: walk up
 to somebody and the card says what the job wants them for. ***
 
@@ -5369,30 +5449,25 @@ HAS TO BE BUILT SO THE RULE IT NAMES IS THE ONLY THING THAT CAN MAKE IT PASS.
 Record: records/BOHEMIA_NOBODY_WAS_EVER_THE_LINEMAN_8_26_26.md
 
 WHAT COMES NEXT FOR THIS LANE:
-  1. *** THE CONVERSATION HAS NEVER BEEN PLAYED, AND IT IS THE BIGGEST HOLE IN
-     THE GAME. *** Counted this turn across quests/bq: 27 quest files, 236 @TALK
-     nodes, 504 @SAY lines, 558 @OPT choices, 59 @NOVERB refusals. The REAL
-     parser parses all of it (bohemia_bq.js builds talks/says/opts/locks/noverbs
-     and the linter checks node reachability, orphans and traps). NOTHING SPEAKS
-     IT. bohemia_demoquests.js binds stages to WORLD EVENTS -- where you walked,
-     whether the block had power -- so the quest talks to you through the phone
-     feed and the journal and NEVER through a person's mouth. His 8/11 words were
-     "I HAVE A WHOLE 170 QUEST FILE WITH DIALOGUE"; five hundred lines of it are
-     in the repo, parsed, and mute. Now that a @ROLE resolves to a real person,
-     the wire is short: walk up to the cast person, press their name, and the
-     quest's own @TALK node plays in their mouth, with its own options moving the
-     stage. THAT is what makes THE JOB row a quest instead of a label.
+  1. [DONE, same day, see 8/26 (e) above] THE CONVERSATION.
   2. The CONFERRED traits are computed and shown nowhere. roleTraits() already
      returns "keeps_the_tunnel", "reads_the_sky", "found_the_stairwell" -- the
      most interesting sentence a quest ever writes about a stranger -- and the
      card prints only the role name. One row, big payoff, cheap.
-  3. saw:/heard: reactions stay dark: 66 written lines, 0 reachable, because the
+  3. THE SECOND SPEAKER IS NEVER REACHED. S01 casts a `fixer` too, and its node
+     `split` opens at stage>=20 -- which the conversation can now reach. Nothing
+     yet tells the player WHERE that person is, so the second half of a quest is
+     found by walking into them. That is the PLACE half wearing a different hat.
+  4. saw:/heard: reactions stay dark: 66 written lines, 0 reachable, because the
      city's deeds carry no clout tag. That is the deeds system's field to set,
      not a lines problem, and it stays a handoff row rather than my next turn.
-  4. NOT MINE, and flagged rather than claimed: THE PLACE HALF of item 2.
+  5. NOT MINE, and flagged rather than claimed: THE PLACE HALF of item 2.
      bohemia_loop.js castTarget() has picked a real district cell since 7/26 and
      engine/bohemia_quest_placement.js already ranks better candidates per quest.
      The demo day loop still binds to world events. Day-loop lane's call.
+  6. NOT MINE: the WORDS lane opened today and owns HOW IT SOUNDS. Everything
+     above is WHO SAYS IT and WHERE. Every line this turn put on screen came out
+     of a .bq file byte for byte; not one word of dialogue was written here.
 
 ---- PREVIOUS (8/26) ----
 *** HE TOLD ME TO STOP. THE SPANISH

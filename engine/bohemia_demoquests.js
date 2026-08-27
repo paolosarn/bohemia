@@ -120,7 +120,12 @@
     var loop = cfg.loop || null;
     var shared = cfg.shared || { bonds: {} };
 
-    var D = { V: 1, shared: shared, active: null, spec: null, Q: null, rt: null, pending: null, seenDistricts: {} };
+    /* lastNarrated: the stage the JOURNAL has already been told about. It exists
+       because a conversation can move the quest (see D.spoke below) and the
+       journal has to hear about that exactly once -- never twice, and never a
+       second time after a reload. */
+    var D = { V: 1, shared: shared, active: null, spec: null, Q: null, rt: null, pending: null,
+              seenDistricts: {}, lastNarrated: null };
 
     D.specForDay = function (day) {
       if (!DAYS.length) return null;
@@ -143,6 +148,7 @@
       D.rt.start(spec.open);
       D.active = spec.id;
       if (loop) loop.stage(spec.id, spec.open, stageLog(Q, spec.open), null);
+      D.lastNarrated = spec.open;
       if (spec.choiceAt === spec.open) D.pending = D.choiceCard();
       return { id: spec.id, title: Q.title || spec.id, brief: spec.brief,
                objectives: D.rt.objectives(), log: stageLog(Q, spec.open) };
@@ -195,8 +201,33 @@
       D.rt.setStage(n);
       var log = stageLog(D.Q, n);
       if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      D.lastNarrated = n;
       var out = { stage: n, log: log, objectives: D.rt.objectives() };
       if (D.spec.choiceAt === n) { D.pending = D.choiceCard(); out.card = D.pending; }
+      return out;
+    };
+
+    /* A CONVERSATION MOVED THE QUEST, AND THE JOURNAL HAS TO HEAR ABOUT IT.
+       (8/26, PEOPLE lane, with the talk surface.)
+       NARRATE-ONLY, AND THAT IS THE WHOLE POINT OF IT EXISTING. A chosen @OPT can
+       carry `@DO set_stage 20`, and that verb goes straight through the canonical
+       Runtime.setStage -- so by the time the UI asks what happened, the stage has
+       ALREADY BEEN ENTERED and all of its @DO verbs have ALREADY RUN. Calling
+       _toStage here to "apply" it would run the stage A SECOND TIME: every bond
+       paid twice, every faction move doubled, in a way nothing on screen would
+       show. So this reports what already happened and makes nothing happen.
+       It is the same shape as a world event's return so the city can hand it to
+       the same dayAfterQuest() it hands everything else, rather than growing a
+       second path that would drift from the first. */
+    D.spoke = function () {
+      if (!D.rt || !D.spec || !D.Q) return null;
+      var n = D.rt.state.stage;
+      if (n == null || n === D.lastNarrated) return null;
+      D.lastNarrated = n;
+      var log = stageLog(D.Q, n);
+      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      var out = { stage: n, log: log, objectives: D.rt.objectives(), spoke: true };
+      if (D.spec.choiceAt === n && !D.rt.state.done) { D.pending = D.choiceCard(); out.card = D.pending; }
       return out;
     };
 
@@ -294,6 +325,10 @@
       D.rt = new RT.Runtime(D.Q, st.state || null, shared);
       D.active = spec.id;
       if (!st.state) D.rt.start(spec.open);
+      /* A RELOAD IS NOT A NEW EVENT. Seed the journal watermark to where the save
+         already is, or the first spoke() after loading would re-log a stage the
+         player watched happen yesterday. */
+      D.lastNarrated = D.rt.state.stage;
       return true;
     };
 
