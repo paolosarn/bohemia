@@ -1,3 +1,112 @@
+SOUND (sound-xk7pjp): 8/27 (c) LATEST -- *** THE DEMO'S LAST MOMENT MADE NO
+SOUND, AND THE THING YOU ARE NOT ALLOWED TO PRESS ANSWERED A TAP WITH NOTHING.
+Measured the day the ending shipped. 64 withheld verbs across the whole game
+were silent, not 5. Nothing to judge. ***
+
+TAB: RUN. Play a day to the end. Build 8/27z - THE LAST THIRTY SECONDS.
+
+WHAT I FOUND, DRIVEN NOT READ
+  PEOPLE shipped the demo's ending today, built on the PEAK-END RULE: what a
+  person keeps of an episode is predicted almost entirely by the most intense
+  moment and THE LAST ONE. I drove it on the real surface:
+    branch untaken   drew 4 lines   heardOnShow []   heardOnTapDeadVerb []
+    branch failed    drew 5 lines   heardOnShow []   heardOnTapDeadVerb []
+  The demo's last moment made NO SOUND AT ALL.
+
+AND THE SECOND SILENCE INVERTS THE DESIGN, IT IS NOT A MISSING NICETY
+  The demo gap list named this exact cue the sharp one five weeks ago: "a
+  refusal with no sound is INDISTINGUISHABLE FROM A BROKEN BUTTON. It does not
+  merely lose information, it teaches the wrong thing." So the last thing a
+  stranger did in this game was press something that refused them ON PURPOSE,
+  hear nothing, and file it as a bug -- at the one moment the research says is
+  half of everything they keep.
+
+IT WAS 64 MOMENTS, NOT 5
+  @NOVERB appears 59 TIMES ACROSS THE QUEST CORPUS and renders as a bare div in
+  every conversation card, plus the ending's 5. The game's single most repeated
+  craft device had never made a sound anywhere in it.
+
+THE CAUSE IS THE SAME TOO-NARROW MATCHER, A FIFTH TIME, IN THE FUNCTION WHOSE
+OWN COMMENT WARNS ABOUT THE FOURTH
+  __THE_CITY_ANSWERS_A_TAP__ (8/22, this lane), verbatim: "The first version of
+  this matched only `button` and missed #phonebtn entirely -- measured silent on
+  the walk, which is the FOURTH TIME THIS WEEK a too-narrow matcher has told me
+  something was missing when it was my selector that was." It was widened for
+  the city's chrome divs and stopped there. WRITING THE WARNING DOWN DID NOT
+  MAKE THE NEXT SELECTOR WIDE ENOUGH. Only driving the surface found it.
+
+WHAT SHIPPED -- THREE WIRES AND A CORRECTION, NOTHING COOKED
+  1. A withheld verb answers a tap with ui_deny. It is a refusal BY
+     CONSTRUCTION, never by reading a label: it carries no `disabled` and no
+     `.off` because it is not a disabled control, it is a sentence the game will
+     not let you finish. 64 moments.
+  2. The ending's message lands audibly -- phone_buzz. Approved, already the
+     morning call's sound in the same file, and literally the same event.
+     REUSE-FIRST answered by the moment already having a twin.
+  3. THE MUSIC LETS GO WHEN THE DAY DOES. Measured: kill two, end the day, and
+     the ladder was STILL AT LEVEL 3 -- a friend's text scored like the firefight
+     an hour earlier. __ENDING is published by the ending's own code, so the
+     shell sees it WITHOUT the city being edited.
+  4. A STALE COMMENT IN MY OWN LADDER. KILLMUS still said talking and crowd were
+     UNWIRED and that "this lane does not edit that surface". Both were wired one
+     turn ago, from the shell, without editing that surface. The 8/1 fade line
+     read [UNBUILT] for nineteen days; this one was one day old and it was mine.
+
+WHAT I DID NOT DO, ON PURPOSE
+  No sting at the ending (the reckoning already announces the verdict; doing it
+  again over a friend's text would score a phone call like a boss kill). No
+  pixels -- the greyed verb stays exactly as PEOPLE drew it, and whether it
+  should also FLINCH is RUN's SILENT-2 row. No new behaviour: the verb still
+  does nothing, it now SOUNDS like it does nothing on purpose.
+
+ENDING SOUND GATE, 24 CLAIMS, ALL DRIVEN
+  BOTH HALVES OR IT IS DECORATION: a probe that appends its own .noverb proves
+  the DELEGATE and nothing about whether the game emits that class, so the class
+  contract is asserted in the SOURCE and the delegate is driven LIVE.
+  MUTATIONS: A ending silent again -> RED both branches. B matcher narrows back
+  -> RED 3 legs. C the verb sounds but ui_tap not ui_deny -> RED 3 legs naming
+  the wrong sound (the one that matters -- a gate that only tells noise from
+  silence would pass it). D the ladder stops letting go -> RED naming level 3 /
+  kills 2. Restored 24/0.
+
+AND THE GATE'S FIRST VERSION WAS MEASURING ITS OWN SCRIPT
+  Claim D went red on a CORRECT build. The watcher acts on the TRANSITION into
+  the ending, once, and the gate tested the ladder after two branch probes had
+  already shown the ending, so the latch had fired. A GATE THAT DRIVES THE BEATS
+  IN THE WRONG ORDER IS MEASURING ITS SCRIPT, NOT THE GAME. The day-over test
+  runs first now, which is the only order a player can take.
+
+AND THE TOOL'S OWN IDEMPOTENCE CHECK WAS THE SAME BUG AGAIN
+  It asked whether new's FIRST LINE was in the file, and that line is part of
+  the ANCHOR, so one wire reported "already installed" on a file it had never
+  touched and would have been silently skipped. Every step carries its own
+  MARKER now. Recorded rather than quietly fixed: it is the exact mistake this
+  patch is about, committed inside the tool that fixes it.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  Demo gap list item E is two thirds closed: ui_deny has its moment and
+  STING:missed already fires at the reckoning. save_chime still has no visual
+  twin and that half is RUN's SILENT-2 row, not mine.
+  Still NOT another voice batch. SFX DIVERSITY stays a true red: instrument 105
+  of 155 living = 67.7%, and closing it honestly needs moments THE GAME WANTS.
+  Today added two of those without cooking anything, which is the shape.
+  *** AND THE SUITE CANNOT FINISH ANY MORE, WHICH IS A FLEET PROBLEM: 455 gates
+  at 10.6s each needs ~4,789s against a 2,700s budget, so 96 never ran on my
+  last full pass and 32 came back red. I checked the four SOUND reds against
+  plain main and all four fail identically there, so none are mine. The suite
+  itself prints "AT LEAST 3 SHARD(S)". Somebody has to shard it. ***
+
+PROOF
+  records/BOHEMIA_THE_LAST_THIRTY_SECONDS_MAKE_NO_SOUND_8_27_26.md
+  tools/bohemia_the_last_thirty_seconds_sound.py · gates/ending_sound_gate.py
+  ENDING SOUND 24/0 · INTENSITY WIRED GREEN · MENU MUSIC GREEN · SFX WIRED GREEN
+  ALPHA LOADS GREEN · HANDOFF 7/0
+
+------------------------------------------------------------------------------
+
 CITY (city-1eztay): 8/27 (b) LATEST -- *** THIRTEEN DISTRICTS STOPPED MULTIPLYING, THAT
 CLASS IS CLOSED, AND A TOOL WAS DELETING ANOTHER LANE'S WORK EVERY TIME IT RAN. ***
 A generator is handed ONE cell, so a data fort sited across six built SIX data forts.
@@ -166,7 +275,66 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-SOUND (sound-xk7pjp): 8/27 (b) LATEST -- *** HIS 8/26 INTENSITY RULING HAD FOUR
+ART (art-f3eu53): 8/27 (f) LATEST -- *** BAKE 7 SHIPPED WAVE 4 (the mall is a dead
+mall, the waterpark is a slide tower, main 997f71a) -- AND THEN THE DAY'S REAL
+FINDING: ALL 32 WIRED TILE FAMILIES DRAW ONLY IN THE LEGACY RUN SLICE, WHICH THE
+ALPHA STOPPED DOWNLOADING ON 8/21. The player has never met the tile work on the
+surface he walks. Full finding + the road (the walked page's __TILE_BANK__ region
+and the chunker that now carries foreign tags):
+records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
+BOARD ROW 107, HIGH: THE GREAT TILE MIGRATION -- a port, not a paste (walked world
+is FN=32 per district tile, the run slice names 96x96); seam design is a two-lane
+decision with CITY/WORLD, flagged for the coordinator. NEW STANDING RULE: MEASURE
+ON THE WALKED SURFACE FIRST before cooking any new exterior family. The 5th
+composition audit also landed two fixes (tank yards read as rows-with-aisles, the
+invert stain runs continuous at any width). BAKE 8 grinds now with the squint/hue
+finishers (warm desert pad, deeper rail cess, faded street-name blades) -- the
+five twin pairs sit 0.0263-0.0300 against the 0.030 bar; squint/hue were red on
+main before this session (worktree-verified). PREVIOUS:
+FACTIONS (factions-ovkjpf): 8/27 (r) LATEST -- *** A GUARD THAT COMPARED TWO
+CONSTANTS, AND A LIST OF DIRECTIONS WITH NO REASONS ON IT. Nothing to judge. ***
+
+SHIPPED TO MAIN (stamp 8/27w): TF-ART-026..032 -- the landfill's waste fill +
+berm rings (berms are PURE REUSE of the arsenal mag pieces), the railyard's 118
+boxcars + dead loco as roof-read sprites (101 blobs measured EXACTLY 7x4 = a real
+50-foot car), the datafort's membrane/generator roofs + 1,189 stopped cooling
+fans, the library's scored plazas + planter BEDS (a 5x7 blob is one bed, not 35
+boxes -- the look caught the waffle), the radio site's guy-wire fans (each cell
+BEARS ON ITS NEAREST MAST), its propane tanks + ice bridges (the measurement
+split the shared name), and the wash's invert + banks (stain on CENTRELINE CELLS
+ONLY, edge-pinned -- the first render was a barcode). Watertreat's dry basins
+joined the bed tiles free. Every family measured on the walked world first,
+verified live, full form + board row + ART card.
+
+THE ICON OVEN: bake 6 shipped -- farm rows ON the pad (the ground fit ignored
+flat patches), the drive-in screen finally WHITE (two diseases: the frame stood
+camera-side of the screen because +y faces the viewer, and SCREEN's palette can
+never bleach by multiplication). THE INSTRUMENT THAT FIXED IT: a 1.7-second
+single-hero probe (scratchpad hero_one.py pattern, rebuild if wiped) after three
+73-160min blind bakes each. Wave 4 judged by probe: 8 of 10 remaining kills stand
+on signature; MALL rebuilt low-and-blank (joined NOT_A_BUILDING + LOW_BY_NATURE),
+WATERPARK slide tower is an open frame with 3 flumes exiting AT the deck edge on
+bearings OFF the camera diagonal (dx~=dy projects as a vertical caterpillar).
+BAKE 7 IS GRINDING as this ships, carrying: mall, waterpark, the landfill scale
+house (was tunneling a bench), and the SQUINT/HUE twin cures (basin floor grades
+dark, wash invert pale + stained over grey corridor, rail rides dark cess bands,
+arterial draws the double yellow its palette always carried -- squint/hue were
+red on main BEFORE this session; verified in a worktree). When bake 7 lands: wire
+patch, icon gates by EXIT CODE, ship.
+
+SUITE TRIAGE (worktree-verified): every other red reproduces on clean main --
+RENDER PIXEL/FULL RES identical numbers, 19 stale LOOK pictures all CHARACTER
+lane's, GRAVEYARD's 10 live refs are hair tokens, REUSE FIRST is the floor cook.
+
+NEXT: (1) bake 7 lands -> verify pixels, wire, ship; (2) 5th composition audit;
+(3) daily re-probe (12 landmark grounds STILL sealed: strip/casino/freeway/
+speedway/resort/minigp/ballpark/interchange/strat/highroller/luxor/sphere;
+trailer awnings unnamed -- pounce when WORLD names them); (4) session-dead, no
+recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
+exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
+promised.
+
+SOUND (sound-xk7pjp): 8/27 (b) -- *** HIS 8/26 INTENSITY RULING HAD FOUR
 TRIGGERS AND ONLY TWO WERE WIRED. The other two are wired now, WITHOUT touching
 another lane's file, and one of them nearly shipped as a disaster that would
 have opened a dialogue card in the player's face forever. Nothing to judge. ***
@@ -261,29 +429,10 @@ PROOF
 
 ------------------------------------------------------------------------------
 
-ART (art-f3eu53): 8/27 (f) LATEST -- *** BAKE 7 SHIPPED WAVE 4 (the mall is a dead
-mall, the waterpark is a slide tower, main 997f71a) -- AND THEN THE DAY'S REAL
-FINDING: ALL 32 WIRED TILE FAMILIES DRAW ONLY IN THE LEGACY RUN SLICE, WHICH THE
-ALPHA STOPPED DOWNLOADING ON 8/21. The player has never met the tile work on the
-surface he walks. Full finding + the road (the walked page's __TILE_BANK__ region
-and the chunker that now carries foreign tags):
-records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
-BOARD ROW 107, HIGH: THE GREAT TILE MIGRATION -- a port, not a paste (walked world
-is FN=32 per district tile, the run slice names 96x96); seam design is a two-lane
-decision with CITY/WORLD, flagged for the coordinator. NEW STANDING RULE: MEASURE
-ON THE WALKED SURFACE FIRST before cooking any new exterior family. The 5th
-composition audit also landed two fixes (tank yards read as rows-with-aisles, the
-invert stain runs continuous at any width). BAKE 8 grinds now with the squint/hue
-finishers (warm desert pad, deeper rail cess, faded street-name blades) -- the
-five twin pairs sit 0.0263-0.0300 against the 0.030 bar; squint/hue were red on
-main before this session (worktree-verified). PREVIOUS:
 ART (art-f3eu53): 8/27 (e) -- *** SEVEN DISTRICTS GOT THEIR REAL GROUND IN
 ONE DAY, THE ICON OVEN IS CURED, AND THE UNCLAIMED-NAME QUEUE IS EMPTY. TAB: RUN
 (walk the landfill, railyard, datafort, library, radio site, wash), CITY (the map
 icons), ART (seven new cards). Nothing to judge -- correct me in the game. ***
-
-FACTIONS (factions-ovkjpf): 8/27 (r) LATEST -- *** A GUARD THAT COMPARED TWO
-CONSTANTS, AND A LIST OF DIRECTIONS WITH NO REASONS ON IT. Nothing to judge. ***
 
 SHIPPED TO MAIN (stamp 8/27w): TF-ART-026..032 -- the landfill's waste fill +
 berm rings (berms are PURE REUSE of the arsenal mag pieces), the railyard's 118
@@ -489,7 +638,7 @@ WHAT IS PENDING HIM: nothing from this lane.
 
 ------------------------------------------------------------------------------
 
-FACTIONS (factions-ovkjpf): 8/27 (i) LATEST -- *** 837 PEOPLE STAND WITHIN SIX
+FACTIONS (factions-ovkjpf): 8/27 (i) -- *** 837 PEOPLE STAND WITHIN SIX
 CELLS OF WHERE HE SPAWNS AND NOT ONE OF THEM RUNS WITH ANYBODY. Two weeks of
 faction work sat 29 cells away behind a green suite. Nothing to judge. ***
 TAB: **RUN**, the ⚔ OUTFIT chip. The board now has a second half: THE VALLEY.
@@ -846,7 +995,7 @@ PROOF
 
 ------------------------------------------------------------------------------
 
-WORLD (world-9lfjtf): 8/26 (d) LATEST -- *** THE WALL WAS NEVER MISSING. It popped, and a
+WORLD (world-9lfjtf): 8/26 (d) -- *** THE WALL WAS NEVER MISSING. It popped, and a
 "check" said it did not exist. A wall crossed 0.65 of alpha in ONE FOOTSTEP. TAB: RUN, walk
 up to any house. Nothing to judge. ***
 
@@ -53278,7 +53427,7 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/26 (b) LATEST -- *** A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT
+WORLD (city-1eztay): 8/26 (b) -- *** A FACILITY DOES NOT MULTIPLY WHEN YOU GIVE IT
 MORE GROUND. Three more districts stopped building themselves once per cell -- FOUR STADIUM
 BOWLS in a 2x2, four weighbridges in one landfill, four chapels in one burial ground. But the
 shipped thing is NOT the three districts: it is that this was the SIXTH TIME IN THREE DAYS, so
