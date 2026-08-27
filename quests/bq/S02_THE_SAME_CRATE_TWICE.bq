@@ -23,6 +23,22 @@
 #   applied: finishing is easy, finishing without either side hearing it is the real game, and it is self-imposed.
 # @STUDY Q002.P4  W5 (fully-built villain route
 #   applied: both betrayals are authored end to end; the double-cross is a designed route with its own scenes, not a punishment branch.
+#
+# ---- AND THE VOICE PASS (WORDS lane, 8/27/26). DEMO DAY 3. Same structure,
+# ---- same branches, same effects, only the WORDS.
+# ---- *** AND IT FIXED A LAW BREAK A STRANGER WOULD HAVE MET. *** THERE IS NO
+# ---- MONEY (7/26, narrowed 8/15): the only legal use of the word is the dead
+# ---- past, never a live transaction. This scene had FOUR: "I pay better and I
+# ---- pay now", "quiet money spends the same as loud money", "(take the money,
+# ---- say nothing)", and a journal line reading "Quiet money". The blues now
+# ---- offer what they are actually handing over: two cases of water and a full
+# ---- tank. Card: laws/BOHEMIA_VOICE_CARD_8_26_26.md
+# @STUDY Q100.N2  NODE LYNETTE_MINEFIELD
+#   applied: the blue boss never names the betrayal, he names the goods and lets you supply the word for what you are doing, and the offer ends on a question you have to answer to yourself.
+# @STUDY Q142.W6  SILENCE EXTRACTS
+#   applied: setting the crate down and saying nothing is a real branch with its own ending, and the boss reads your hands before you speak.
+# @STUDY Q152.W5  THE DESPAIR SCENE CHANGES REGISTER, ONCE
+#   applied: the red boss is transactional the whole scene and drops it once, for one sentence, to say what his block actually does after dark.
 # ----------------------------------------------------------------------------
 
 @QUEST   bq_same_crate   The Same Crate Twice
@@ -35,53 +51,53 @@
 @ROLE runner     OPT  faction_any    knows_the_load=true
 
 @STAGE 10
-  @LOG The reds are paying to move a crate of salvaged batteries to their block by dark.
+  @LOG The reds want a crate of salvaged batteries on their block by dark.
   @DO show_objective 10
 @STAGE 20
-  @LOG The blues stopped me on the way. They know what is in the crate. They are offering more.
+  @LOG The blues stopped me on the road. They know what's in the crate and they're offering more.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #notable
-  @LOG Delivered to the reds, clean, as promised. The blues heard I kept my word to someone else.
+  @LOG Delivered to the reds, closed, like I said I would. The blues heard about it.
   @DO faction REDS +10
   @DO faction_posture BLUES +1
   @DO complete_objective 20
 @STAGE 31 COMPLETE #risky
-  @LOG Doubled it to the blues. Quiet money. The reds will spend a year finding out it was me.
+  @LOG Took it to the blues instead. Water and a full tank, and nobody saw. The reds get a year to work out who.
   @DO faction BLUES +12
   @DO faction_posture REDS +1
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
-  @LOG Kept the crate for my own block and told both gangs to their faces. Two enemies, one night.
+  @LOG Kept the crate for my own block and said so to both their faces. Two enemies in one night.
   @DO faction_posture REDS +1
   @DO faction_posture BLUES +1
   @DO complete_objective 20
 @STAGE 33 FAIL #quiet
-  @LOG Put the crate down and walked. Both sides remember the ones who flinch.
+  @LOG Put the crate down and walked. Both sides watched me do it.
 
 @OBJ 10  "Move the crate to the red block"   target=red_boss
 @OBJ 20  "Decide who gets the batteries"      target=blue_boss
 
 @TALK hire  speaker=red_boss  entry=stage>=10
-  @SAY Batteries. Real ones, charged, not the swollen junk. My block has been dark four nights. #tired
-  @SAY Carry that crate to my door by dark and you eat well for a month. Do not open it. Do not weigh it.
-  @OPT "It is already moving."          [gate: none]  -> road  @DO learn carrying_batteries
-  @OPT "What is really in it?"          [gate: none]  -> what
+  @SAY Batteries. Real ones, charged, not that swollen junk. My block's been dark four nights. #tired
+  @SAY Get it to my door by dark and you eat for a month. Don't open it. Don't weigh it.
+  @OPT "It's already moving."          [gate: none]  -> road  @DO learn carrying_batteries
+  @OPT "What's really in it?"          [gate: none]  -> what
   @OPT (pick it up and go)              [gate: none]  SILENCE -> road  @DO learn carrying_batteries
   @NOVERB "Swear I will not double you"
 @END
 
 @TALK what  speaker=red_boss
-  @SAY Light. That is what is in it. The only thing anybody fights over anymore is who gets to see at night.
-  @SAY Now stop asking and start walking.
+  @SAY Light. That's what's in it. My people sit in the dark and listen to each other breathe.
+  @SAY So stop asking and start walking.
   @OPT "Walking."                       [gate: none]  -> road  @DO learn carrying_batteries
 @END
 
 # THE INTERCEPT. The other buyer. Reputation is about to start traveling.
 @TALK road  speaker=blue_boss  entry=stage>=10 and knows:carrying_batteries
-  @SAY Heavy crate. Charged cells hum a little. I can hear it from here. #wary
-  @SAY Those were promised to a block that lets its own elders freeze to look tough. Bring them to mine instead.
-  @SAY I pay better, and I pay now. Nobody has to know it was you. That is the beautiful part. Nobody ever knows.
+  @SAY Heavy crate. Charged cells hum a little. Hear it? From here. #wary
+  @SAY Those are going to a block that lets its own elders freeze so it looks tough. Bring them to mine.
+  @SAY Two cases of water and a full tank, tonight, in your hands. And nobody has to know it was you. Who's going to tell them? Me?
   @OPT "A deal is a deal. This goes to the reds."   [gate: none]  -> deliver_red   @DO set_flag chose
   @OPT "Fine. Your block gets the light."           [gate: none]  TRAP -> deliver_blue  @DO set_flag chose
   @OPT "Neither. My block has elders too."          [gate: none]  -> keep_it       @DO set_flag chose
@@ -90,26 +106,26 @@
 @END
 
 @TALK deliver_red  speaker=red_boss
-  @SAY On time and closed. I watched you pass a better offer and I know you passed it. #tired
-  @SAY That is worth more than the cells. Word travels. The blues will know you are a person who finishes.
+  @SAY On time. Still closed. And I know what they put in front of you on that road. #tired
+  @SAY Word travels. By Thursday the blues'll know you're somebody who finishes what he picks up.
   @OPT "Just a delivery."               [gate: none]  -> END  @DO set_stage 30
 @END
 
 @TALK deliver_blue  speaker=blue_boss
-  @SAY Smart. Quiet money spends the same as loud money and lives longer. #wary
-  @SAY But hear me: the ones you crossed tonight will spend a year learning your face. Quiet has a bill too.
-  @OPT "I will pay it when it comes."   [gate: none]  -> END  @DO set_stage 31
-  @OPT (take the money, say nothing)    [gate: none]  SILENCE -> END  @DO set_stage 31
+  @SAY Smart. Quiet's better. Water's by the door, take it and go home the long way. #wary
+  @SAY But listen. The ones you crossed tonight are going to spend a year learning your face.
+  @OPT "Let them learn it."   [gate: none]  -> END  @DO set_stage 31
+  @OPT (take the water, say nothing)    [gate: none]  SILENCE -> END  @DO set_stage 31
 @END
 
 @TALK keep_it  speaker=blue_boss
-  @SAY You will keep it. For your own block. And you are telling us both, to our faces, in the open. #dread
-  @SAY That is either the bravest thing I have seen this year or the last dumb thing you do. Two enemies in one night.
+  @SAY You're keeping it. For your own block. And you're standing here telling us both, to our faces. #dread
+  @SAY That's either the bravest thing I've seen this year or the last dumb thing you do. Two enemies in one night. Huh.
   @OPT "My block. My light."            [gate: none]  -> END  @DO set_stage 32
 @END
 
 @TALK walk_off  speaker=blue_boss
-  @SAY You are going to set it down and walk. I can see it. #wary
+  @SAY You're going to set it down and walk. I can see it in your hands. #wary
   @OPT "Not my fight."                  [gate: none]  -> END  @DO set_stage 33
-  @OPT "No. I am choosing."             [gate: none]  -> road
+  @OPT "No. I'm choosing."             [gate: none]  -> road
 @END

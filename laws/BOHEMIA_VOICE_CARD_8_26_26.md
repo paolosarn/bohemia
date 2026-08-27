@@ -43,6 +43,12 @@ stumbles. Every scene now carries at least one of each:
   than the person who is.
 A conversation is two people trying to find something out. A menu of statements
 with replies underneath is a vending machine with a face on it.
+**AND NOBODY LEADS WITH A NO.** This is science, not taste: a yes lands in about
+269 ms and a no in about 561, and the gap gets FILLED -- a breath, a preface, an
+appreciation, the reason before the refusal, often a trail-off that means no
+without saying it. So: a character who agrees answers instantly; a character who
+refuses buys a second first. Ours hedge 4.8% of the time. Free characterisation,
+one word.
 
 ## 4. NINE WORDS, THEN TWO
 Vary hard inside a single speech. Our flattest scene is the first quest in the
@@ -59,6 +65,11 @@ tell; a detail nobody else in the build could have said is the cure.
 And the register comes from the PERSON -- where they learned English, who raised
 them, who they are talking to. It is a fact about them, never seasoning
 sprinkled on a scene. Spanglish is a skill. It never gates required information.
+**CLASS AND REGION LIVE IN SYNTAX, NEVER IN SPELLING.** Never respell a word to
+show an accent, for any language, ever: it makes the reader work for nothing and
+it has a long history of making the speaker look stupid. Carry it in grammar
+("I seen him", "I been waiting", a double negative), in what they call things,
+and in rhythm. Not one respelled word.
 
 ## 6. THE LINE IS NOT THE POINT
 Everybody wants something they will not say out loud. The best line in this game
@@ -77,6 +88,13 @@ A line whose whole meaning sits on its surface is usually the weak one.
 - "out here" as the last two words of a speech
 - "nobody ever ___" / "most people never ___"
 - em dashes. Anywhere. Ever.
+
+## WHERE THIS CAME FROM
+The six rules answer eight measured tells in
+records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md. The craft under them, with sources,
+is records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md -- the layer the
+questbook does not hold, because 3,672 findings are about WHAT HAPPENS and none
+of them are about how a sentence sounds.
 
 ## WHAT THE GATE CAN AND CANNOT SEE
 gates/voice_gate.js measures RHYTHM (spread of sentence lengths in a scene),

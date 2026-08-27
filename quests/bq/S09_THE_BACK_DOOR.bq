@@ -25,6 +25,17 @@
 #   applied: you cannot fix his situation, only be trustworthy inside it.
 # @STUDY Q001.P8  W8 (reward the listener
 #   applied: the port form of rewarding attention: the solution is gated behind having actually heard how he said the back is his alone.
+#
+# ---- AND THE VOICE PASS (WORDS lane, 8/27/26). DEMO DAY 2. Same structure,
+# ---- same branches, same effects, only the WORDS. Card:
+# ---- laws/BOHEMIA_VOICE_CARD_8_26_26.md. This scene contracted ZERO times in
+# ---- 24 lines and closed two speeches on a sermon.
+# @STUDY Q142.W6  SILENCE EXTRACTS
+#   applied: the man tells you more by refusing than by explaining, and the branch that respects the door is the branch that earns the only warm thing he says all night.
+# @STUDY Q004.N1  NODE SPIRIT_OFFER
+#   applied: the game refuses to sell certainty at any depth -- no option anywhere reveals what is behind the back door, and pushing costs instead of paying.
+# @STUDY Q152.W5  THE DESPAIR SCENE CHANGES REGISTER, ONCE
+#   applied: he is flat and practical the whole way and breaks exactly twice, both mid-word: once stumbling on a thank you, once shouting.
 # ----------------------------------------------------------------------------
 
 @QUEST   bq_back_door   The Back Door
@@ -35,59 +46,59 @@
 @ROLE neighbor  REQ  is=the_neighbor  household=behind_fence
 
 @STAGE 10
-  @LOG The man behind the fence wants help making his place solid before dark. He is odd about the back.
+  @LOG The man behind the fence wants his place solid before dark. He's strange about the back of it.
   @DO show_objective 10
 @STAGE 20 COMPLETE #quiet
-  @LOG Boarded the front and side and let him keep the back to himself, no questions. He will not forget it. The wall feels closer.
+  @LOG Boarded the front and side. Left the back alone, asked nothing. He won't forget that.
   @DO bond neighbor +20
   @DO complete_objective 10
 @STAGE 21 COMPLETE #notable
-  @LOG Got the job done but drew a crowd to his door doing it. Solid house, rattled man. Eyes on his place is the one thing he did not want.
+  @LOG Job's done, but I brought half the block to his door doing it. Solid house. Rattled man.
   @DO bond neighbor +4
   @DO complete_objective 10
 @STAGE 22 FAIL #quiet
-  @LOG Pushed to see the back room. He shut down hard. Whatever trust was building took a step back tonight.
+  @LOG Pushed to see the back room. He shut the whole thing down and finished it himself.
   @DO bond neighbor -10
 
 @OBJ 10  "Help the neighbor make his place solid"   target=neighbor
 
 @TALK ask  speaker=neighbor  entry=stage>=10
-  @SAY Before dark I need the front and the side made solid. Boards, nails, whatever you have got. #tired
-  @SAY The back I do myself. Always the back myself. Do not go around back. I am not being rude. I am being careful. Just take the front for me.
-  @OPT "Front and side. You have got it."   [gate: none]  -> work  @DO learn respects_the_boundary
-  @OPT "What is in the back?"               [gate: none]  -> back
+  @SAY Front and side. Before dark. Boards, nails, whatever you've got in that pack. #tired
+  @SAY The back I do myself. Always have. And don't, uh. Don't go round back. I'm not being rude to you. Careful is all.
+  @OPT "Front and side. You got it."   [gate: none]  -> work  @DO learn respects_the_boundary
+  @OPT "What's in the back?"               [gate: none]  -> back
   @OPT (head around back to look)           [gate: none]  -> pry
   @NOVERB "Ask what he is protecting"
 @END
 
 @TALK back  speaker=neighbor
-  @SAY The back is mine. That is the whole answer and it is going to stay the whole answer. #dread
-  @SAY You want to earn something real out here, earn this: a man tells you a door is his, and you let it be his.
+  @SAY Look. It's mine. That's it. You can ask again and I'll say it slower. #dread
+  @SAY Front's got a gap by the hinge you could put your arm through. Start there.
   @OPT "Fair. Front and side."             [gate: none]  -> work  @DO learn respects_the_boundary
   @OPT (go look anyway)                     [gate: none]  -> pry
 @END
 
 @TALK work  speaker=neighbor
-  @SAY (you board the front and the side while he works the back alone, and neither of you talks much, and it is a good kind of quiet.)
-  @SAY Solid. First time in a long time this place feels solid. I will not forget that you did this and did not ask twice about the back.
-  @OPT "That is what neighbors are for."    [gate: none]  -> END  @DO set_stage 20
-  @OPT "Someday you will tell me."          [gate: none]  -> END  @DO set_stage 20
-  @OPT "Let us make it a whole thing, get some others out here."  [gate: none]  -> loud
+  @SAY (you take the front, he takes the back, and for two hours neither of you says anything at all.)
+  @SAY Solid. Feels solid. First time in a while. And you didn't ask twice about the back, that's. Yeah. Thanks.
+  @OPT "That's what neighbors are for."    [gate: none]  -> END  @DO set_stage 20
+  @OPT "Someday you'll tell me."          [gate: none]  -> END  @DO set_stage 20
+  @OPT "Let's make it a thing. Get some others out."  [gate: none]  -> loud
 @END
 
 @TALK pry  speaker=neighbor
-  @SAY STOP. I told you the back was mine. I told you plain. Get away from that door. #dread
-  @OPT "Okay. Okay. I am backing off."      [gate: none]  -> work
+  @SAY Hey. HEY. I told you the back was mine, I told you plain. Get away from that door. #dread
+  @OPT "Okay. Okay. Backing off."      [gate: none]  -> work
   @OPT "What are you so scared of?"         [gate: none]  -> fold
 @END
 
 @TALK fold  speaker=neighbor
-  @SAY Scared. Yeah. You do not get to see a man scared and keep it for free. Go home. #dread
-  @OPT "I am sorry. I crossed a line."      [gate: none]  -> END  @DO set_stage 22
+  @SAY Scared. Yeah. Okay. Go home. I'll do the front myself. #dread
+  @OPT "I'm sorry. That was over the line."      [gate: none]  -> END  @DO set_stage 22
 @END
 
 @TALK loud  speaker=neighbor
-  @SAY No crowd. I said front and side, not a block party at my door. #tired
-  @SAY You did good work. But eyes on my place is the exact opposite of what I asked for. Let it go now.
+  @SAY No. No, no. I said front and side. Not a block party at my door. #tired
+  @SAY Work's good. I'm not saying it isn't. But eyes on my place is the one thing I asked you not to do. Send them home.
   @OPT "Right. Sorry. Just us."             [gate: none]  -> END  @DO set_stage 21
 @END

@@ -13,6 +13,7 @@
    "barrel",
    "block",
    "boring",
+   "closer",
    "complaint",
    "copper",
    "crash",
@@ -24,6 +25,7 @@
    "machines",
    "nice",
    "offence",
+   "pass",
    "photo",
    "repeat",
    "serial",
@@ -40,7 +42,8 @@
    "window"
   ],
   "keys": "role:act (roles and acts are engine/bohemia_agents.js's own words), faction:<id> (from engine/BOHEMIA_faction_graph.json), when:<situation>",
-  "draft": "every line is draft:true and editable in the WORDS tab"
+  "draft": "every line is draft:true and editable in the WORDS tab",
+  "englishAdditionsWhy": "language_gate's invented-word sweep builds its English dictionary out of the game's own English lines, which makes the corpus load-bearing: if the last line using an ordinary word is rewritten, every Spanish-register line still using it reads as a phonetic respelling. That is the sweep working, not failing -- it is a check for a THING, not a word-hunt -- but it needs a declared floor of plain English words so a WORDS pass cannot orphan a register line by editing somewhere else. 'pass' and 'closer' were added 8/27 for exactly that: the demo voice pass deleted the only two English lines in the build that contained them."
  },
  "barks": {
   "faction:Anarchists": [

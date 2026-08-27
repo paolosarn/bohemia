@@ -69,6 +69,16 @@ WORD = re.compile(r"[A-Za-z0-9’']+")
 # This is the SHAPE of a maxim. It is not proof a line is one -- a short general
 # sentence can be an instruction ("Do not touch that, it is live"). The count is
 # a smoke alarm, not a verdict.
+# TELL 8's two rulers. LEADS_NEGATIVE: the turn opens on the refusal itself.
+# PREFACE: the turn buys a beat first, which is what real refusals do.
+LEADS_NEGATIVE = re.compile(
+    r"^\s*(no|not|never|nobody|nothing|forget it|absolutely not"
+    r"|i (can|will|wo|do|did)n[’']?t)\b", re.I)
+PREFACE = re.compile(
+    r"^\s*(well|look|listen|yeah|okay|ok|i mean|see|so|hm+|huh|uh|er"
+    r"|it[’']?s just|the thing is|honestly|sorry|i wish|i would|thank|alright"
+    r"|right|fine|easy|good)\b", re.I)
+
 GENERAL = re.compile(
     r"\b(is|are|does|do|never|always|no one|nobody|everybody|everyone|people"
     r"|a man|a person|the only|out here|anymore|any more)\b", re.I)
@@ -164,7 +174,12 @@ def tell_nobody_asks(say):
         'question_marks': n(r'\?'),
         'exclamations': n(r'!'),
         'ellipses': n(r'\.\.\.'),
-        'stumbles': n(r"\b(\w+)\s+\1\b"),
+        # A STUMBLE IS NOT ALWAYS TWO ADJACENT IDENTICAL TOKENS. This asked for
+        # \b(\w+)\s+\1\b, which misses every real one: "Easy. Easy, easy." has a
+        # comma in it, "No. No, no." changes case, and "don't, uh. Don't" has
+        # both. It read ZERO across four scenes that were written with stumbles
+        # in them on purpose. Punctuation and case are allowed between now.
+        'stumbles': n(r"\b(\w+)\b[\s,.\-]+\1\b"),
         'self_corrections': n(r"\b(i mean|no wait|forget it|whatever|hold on)\b"),
         'fillers': n(r"\b(yeah|okay|ok|look|listen|hey)\b"),
     }
@@ -216,6 +231,27 @@ def tell_rhythm(books):
             'median_sd': round(st.median([r['sd'] for r in rows]), 2) if rows else 0}
 
 
+def tell_refusals(say):
+    """TELL 8. Nobody buys a second before they answer.
+
+    Grounded in conversation analysis, not taste (the 8/27 research record):
+    a preferred response lands at a median ~269 ms and a dispreferred one at
+    ~561 ms, and the delay is filled -- a breath, a preface, an appreciation,
+    an account, often a trail-off that implies the no without saying it.
+    People who never hedge are people who have already finished thinking, and
+    a cast where NOBODY hedges is a cast of one person.
+    """
+    lead = [l for l in say if LEADS_NEGATIVE.match(l['text'])]
+    soft = [l for l in say if PREFACE.match(l['text'])]
+    return {'lines': len(say),
+            'bare_negation_first': len(lead),
+            'bare_pct': round(100.0 * len(lead) / max(1, len(say)), 1),
+            'prefaced': len(soft),
+            'preface_pct': round(100.0 * len(soft) / max(1, len(say)), 1),
+            'examples': [{'speaker': l['speaker'], 'book': l['book'],
+                          'text': l['text']} for l in lead[:10]]}
+
+
 def tell_registers(books):
     """TELL 7. Where the Spanglish actually lives."""
     tot = reg = in_quest = quest_lines = 0
@@ -245,6 +281,7 @@ def metrics(books, book):
         'openers': tell_openers(saychoice),
         'recycled': tell_recycled(say),
         'rhythm': tell_rhythm(books),
+        'refusals': tell_refusals(say),
         'registers': tell_registers(books),
     }
 
@@ -289,6 +326,7 @@ def main():
 def write_report(m, book, base=None):
     c, mx, na, op, rc, rh, rg = (m['contractions'], m['maxims'], m['nobody_asks'],
                                  m['openers'], m['recycled'], m['rhythm'], m['registers'])
+    rf = m['refusals']
     base_ref = m['_meta']['baseline_ref']
     # every tell below reports the AS-FOUND reading; NOW is shown in the summary
     # table at the top and in the one-line asides. A diagnosis records what was
@@ -297,6 +335,7 @@ def write_report(m, book, base=None):
     bm = base['maxims'] if base else mx
     bn = base['nobody_asks'] if base else na
     brh = base['rhythm'] if base else rh
+    brf = base.get('refusals') if base and base.get('refusals') else rf
     L = []
     w = L.append
     w('# BOHEMIA -- THE VOICE DIAGNOSIS (8/26/26, the WORDS lane)')
@@ -311,6 +350,9 @@ def write_report(m, book, base=None):
     w('WHAT THIS CANNOT DO. It counts SHAPES. A scene can pass every number on this')
     w('page and still be dead. The numbers catch what a reader stops noticing after')
     w('the fortieth line; they do not catch a bad line.')
+    w('')
+    w('EIGHT TELLS. Seven were found by reading our own text on 8/26; the eighth came')
+    w('out of the 8/27 research pass and is the only one with hard science under it.')
     w('')
     if not base:
         # A REPORT THAT LOSES ITS BASELINE MUST SAY SO. Degrading quietly here
@@ -403,6 +445,16 @@ def write_report(m, book, base=None):
     w('| repeats a word, stumbles | **%d** |' % bn['stumbles'])
     w('| corrects themselves mid-thought | **%d** |' % bn['self_corrections'])
     w('')
+    w('> **A CORRECTION, 8/27.** This table first reported ZERO stumbles. That was')
+    w('> the ruler, not the writing: it asked for two identical adjacent tokens, so')
+    w('> "Easy. Easy, easy." (comma), "No. No, no." (case) and "don\'t, uh. Don\'t"')
+    w('> (both) all read as clean. Corrected to allow punctuation and case between,')
+    w('> the real as-found number is **%d**, not 0. Still tiny across %d speeches,'
+      % (bn['stumbles'], bn['lines']))
+    w('> and the direction of the tell is unchanged, but the number was wrong and it')
+    w('> was wrong in the flattering direction. WHEN A METRIC AGREES WITH YOU TOO')
+    w('> HARD, SUSPECT THE METRIC.')
+    w('')
     w('%d questions in %d speeches. Our NPCs do not have conversations, they deliver'
       % (bn['question_marks'], bn['lines']))
     w('statements and wait for the player to pick a reply off a menu. That is a vending')
@@ -455,6 +507,36 @@ def write_report(m, book, base=None):
     w('one a new player meets before anything else, and it is the one where every')
     w('sentence is the same length as the last one.')
     w('')
+    w('## TELL 8 -- NOBODY BUYS A SECOND BEFORE THEY ANSWER')
+    w('')
+    w('The one tell with hard science under it rather than taste. Conversation')
+    w('analysts have timed this: a YES lands at a median of about 269 ms and a NO at')
+    w('about 561 ms, and the gap is FILLED -- a breath, a preface, an appreciation,')
+    w('an account, often a trail-off that implies the refusal without ever saying it.')
+    w('The delay is so reliable that a listener reads the pause itself as the start')
+    w('of a no, before a word arrives. Full research and sources:')
+    w('records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md')
+    w('')
+    w('AS FOUND, across %d NPC speeches:' % brf['lines'])
+    w('')
+    w('| | count | share |')
+    w('| --- | --- | --- |')
+    w('| opens with any hedge or preface | **%d** | %.1f%% |'
+      % (brf['prefaced'], brf['preface_pct']))
+    w('| leads with a bare negation | %d | %.1f%% |'
+      % (brf['bare_negation_first'], brf['bare_pct']))
+    w('')
+    w('Under five percent. Every person in this valley is fluent, composed, and has')
+    w('already finished thinking before they open their mouth. Nobody stalls, nobody')
+    w('softens, nobody talks their way toward the thing they do not want to say. A')
+    w('cast where nobody hedges is a cast of one person wearing different jobs.')
+    w('')
+    if brf['examples']:
+        w('Ours, leading straight with the refusal:')
+        w('')
+        for e in brf['examples'][:6]:
+            w('- **%s:** *"%s"*' % (e['speaker'], e['text'][:110]))
+        w('')
     w('## TELL 7 -- THE SPANGLISH NEVER REACHES A CONVERSATION')
     w('')
     w('**%d** lines carry a register other than plain English (%.1f%% of the build, at'

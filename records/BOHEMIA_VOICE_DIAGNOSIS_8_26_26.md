@@ -11,6 +11,9 @@ WHAT THIS CANNOT DO. It counts SHAPES. A scene can pass every number on this
 page and still be dead. The numbers catch what a reader stops noticing after
 the fortieth line; they do not catch a bad line.
 
+EIGHT TELLS. Seven were found by reading our own text on 8/26; the eighth came
+out of the 8/27 research pass and is the only one with hard science under it.
+
 **TWO COLUMNS, AND THE FIRST ONE IS THE POINT.** AS FOUND is the build as it
 stood on 8/26 before any voice pass touched it. NOW is the build today. A
 diagnosis that silently re-measures itself after the medicine stops being a
@@ -19,11 +22,11 @@ words book as it stood in commit `41f2d679b`, read out of git.
 
 | tell | AS FOUND (8/26) | NOW |
 | --- | --- | --- |
-| quest scenes contract | **2.2%** | 6.1% |
+| quest scenes contract | **2.2%** | 20.1% |
 | everything else contracts | 75.0% | 75.0% |
-| speeches ending on a lesson | **33.5%** | 31.9% |
-| questions asked of the player | **2** | 4 |
-| stumbles, repeated words | **0** | 0 |
+| speeches ending on a lesson | **33.5%** | 30.2% |
+| questions asked of the player | **2** | 8 |
+| stumbles, repeated words | **12** | 15 |
 | flattest scene, spread over mean | **0.49** | 0.54 |
 
 ONE SCENE of 27 has had a pass. Every NOW column below still describes a build
@@ -36,7 +39,7 @@ that is 26 scenes short, and it is meant to: the numbers only move by writing.
 AS FOUND: the 27 quest scenes contracted **2.2%** of the time (20 contractions
 against 880 phrases spelled out in full). Everything outside the quests -- the
 barks, the quirks, the two-person exchanges -- contracted **75.0%** of the time.
-One voice pass later it reads 6.1% and 75.0%; twenty-six scenes to go.
+One voice pass later it reads 20.1% and 75.0%; twenty-six scenes to go.
 
 That is not a style. That is two different games in one build. The street sounds
 like people and the story sounds like scripture, and the seam is audible the
@@ -59,7 +62,7 @@ whose."* *"That is worth more out here than you will understand for a few years.
 AS FOUND: **140 of 418** multi-sentence NPC speeches (**33.5%**) ended on a short
 general truth. Not a fact about this street, this night, this person: a truth
 about how the world works, delivered last, where a punchline goes.
-One voice pass later: 31.9%.
+One voice pass later: 30.2%.
 
 Every single person in this game is wise. The lineman is wise. The busker is
 wise. The forger is wise. Wisdom is the house voice, and a house voice is the
@@ -97,8 +100,17 @@ AS FOUND, across **504** NPC speeches in the quests:
 | asks the player a question | **2** |
 | raises their voice | **0** |
 | trails off | **3** |
-| repeats a word, stumbles | **0** |
+| repeats a word, stumbles | **12** |
 | corrects themselves mid-thought | **14** |
+
+> **A CORRECTION, 8/27.** This table first reported ZERO stumbles. That was
+> the ruler, not the writing: it asked for two identical adjacent tokens, so
+> "Easy. Easy, easy." (comma), "No. No, no." (case) and "don't, uh. Don't"
+> (both) all read as clean. Corrected to allow punctuation and case between,
+> the real as-found number is **12**, not 0. Still tiny across 504 speeches,
+> and the direction of the tell is unchanged, but the number was wrong and it
+> was wrong in the flattering direction. WHEN A METRIC AGREES WITH YOU TOO
+> HARD, SUSPECT THE METRIC.
 
 2 questions in 504 speeches. Our NPCs do not have conversations, they deliver
 statements and wait for the player to pick a reply off a menu. That is a vending
@@ -111,29 +123,29 @@ Across 1062 spoken and player lines in the quests, the openers stack up:
 
 | first two words | times |
 | --- | --- |
-| "i will..." | 24 |
-| "it is..." | 21 |
-| "that is..." | 20 |
-| "you are..." | 15 |
-| "then it..." | 15 |
-| "i am..." | 14 |
-| "there is..." | 14 |
-| "i have..." | 13 |
+| "i will..." | 22 |
+| "it is..." | 16 |
+| "that is..." | 15 |
+| "you are..." | 13 |
 | "then i..." | 13 |
+| "i have..." | 12 |
+| "then it..." | 12 |
 | "say nothing..." | 11 |
+| "take the..." | 11 |
+| "i am..." | 11 |
 
 And counting every sentence, not just every line, these words start it:
 
 | sentence begins | times |
 | --- | --- |
-| "i..." | 219 |
-| "it..." | 105 |
-| "that..." | 90 |
-| "you..." | 83 |
-| "the..." | 79 |
+| "i..." | 199 |
+| "it..." | 93 |
+| "that..." | 78 |
+| "you..." | 76 |
+| "the..." | 76 |
 | "then..." | 62 |
-| "no..." | 49 |
-| "there..." | 38 |
+| "no..." | 50 |
+| "and..." | 33 |
 
 ## TELL 5 -- THE SAME FOUR WORDS, IN DIFFERENT MOUTHS
 
@@ -142,17 +154,17 @@ midwife and a lineman are all using the same construction:
 
 | phrase | times |
 | --- | --- |
-| "that is the whole" | 8 |
 | "i am not going" | 7 |
 | "am not going to" | 7 |
-| "you are going to" | 6 |
+| "that is the whole" | 6 |
 | "and it is the" | 6 |
 | "that is the part" | 6 |
 | "do not tell me" | 5 |
-| "that is not a" | 5 |
+| "you are going to" | 5 |
 | "i am going to" | 5 |
 | "it is not a" | 4 |
 | "that is the only" | 4 |
+| "that is not a" | 4 |
 | "i want you to" | 4 |
 | "i have been doing" | 4 |
 | "and i have never" | 4 |
@@ -179,6 +191,37 @@ brief's first named tell. Corpus median is **6.82**.
 **The first quest in the game is the flattest scene in the game.** That is the
 one a new player meets before anything else, and it is the one where every
 sentence is the same length as the last one.
+
+## TELL 8 -- NOBODY BUYS A SECOND BEFORE THEY ANSWER
+
+The one tell with hard science under it rather than taste. Conversation
+analysts have timed this: a YES lands at a median of about 269 ms and a NO at
+about 561 ms, and the gap is FILLED -- a breath, a preface, an appreciation,
+an account, often a trail-off that implies the refusal without ever saying it.
+The delay is so reliable that a listener reads the pause itself as the start
+of a no, before a word arrives. Full research and sources:
+records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md
+
+AS FOUND, across 504 NPC speeches:
+
+| | count | share |
+| --- | --- | --- |
+| opens with any hedge or preface | **24** | 4.8% |
+| leads with a bare negation | 15 | 3.0% |
+
+Under five percent. Every person in this valley is fluent, composed, and has
+already finished thinking before they open their mouth. Nobody stalls, nobody
+softens, nobody talks their way toward the thing they do not want to say. A
+cast where nobody hedges is a cast of one person wearing different jobs.
+
+Ours, leading straight with the refusal:
+
+- **busker:** *"No amp. Just this. Sit up front so it does not feel empty."*
+- **neighbor:** *"No. No, you do not get to do that."*
+- **dying:** *"No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time."*
+- **wrongdoer:** *"Nobody will ever know you did this. It does not pay. Thank you for doing it anyway."*
+- **neighbor:** *"No crowd. I said front and side, not a block party at my door."*
+- **watcher:** *"Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you are al"*
 
 ## TELL 7 -- THE SPANGLISH NEVER REACHES A CONVERSATION
 

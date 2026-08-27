@@ -56,6 +56,18 @@ const DIAG = 'records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md';
 const REWRITE = 'records/BOHEMIA_VOICE_REWRITE_8_26_26.json';
 const BOOK = 'records/BOHEMIA_WORDS_BOOK.json';
 const QUEST = 'quests/bq/S01_THE_METER_READER.bq';
+/* THE DEMO'S ENTIRE SCRIPT (8/27). engine/bohemia_demoquests.js schedules five
+   quests across days 1-5 and they are every word a stranger reads. One of them
+   having a voice pass while the other four contract 0% of the time would mean
+   the demo changes voice on day 2, which is worse than not passing any. The
+   floors below are held for ALL FIVE, by scene, named. */
+const DEMO = [
+  { day: 1, title: 'The Meter Reader' },
+  { day: 2, title: 'The Back Door' },
+  { day: 3, title: 'The Same Crate Twice' },
+  { day: 4, title: 'The Cold Room' },
+  { day: 5, title: 'The Pressure Goes Backward' },
+];
 const WORDS_PAGE = 'slices/BOHEMIA_WORDS_CURRENT.html';
 
 /* ---- 1. THE CARD EXISTS, IS SHORT, AND ADMITS ITS OWN LIMIT -------------- */
@@ -86,8 +98,13 @@ ok('the diagnosis record exists', fs.existsSync(DIAG));
 const diag = fs.existsSync(DIAG) ? fs.readFileSync(DIAG, 'utf8') : '';
 ok('the diagnosis quotes our OWN lines, not an example from somewhere else',
   diag.indexOf('verbatim') >= 0 && diag.indexOf('WHAT THIS CANNOT DO') >= 0);
-ok('the diagnosis names all seven tells it found',
-  (diag.match(/^## TELL \d/gm) || []).length === 7);
+/* EIGHT since 8/27: seven found by reading our own text, plus the refusal tell
+   the research pass added, which is the only one with hard science under it. */
+ok('the diagnosis names all eight tells it found',
+  (diag.match(/^## TELL \d/gm) || []).length === 8);
+ok('and the eighth cites the research it came from, not a preference',
+  diag.indexOf('269 ms') >= 0 && diag.indexOf('561 ms') >= 0
+    && fs.existsSync('records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md'));
 /* THE DIAGNOSIS MUST STILL BE A DIAGNOSIS. It re-measures on every run, so
    without a pinned baseline it would quietly republish today's numbers under
    the word AS FOUND and the reason anybody opened this lane would evaporate one
@@ -165,6 +182,39 @@ ok('the words book is baked', fs.existsSync(BOOK));
 const book = JSON.parse(fs.readFileSync(BOOK, 'utf8'));
 const scene = book.books.find(b => b.title === 'The Meter Reader');
 ok('the passed scene is in the words book', !!scene);
+
+/* ---- 4a. ALL FIVE DEMO SCENES, THE THREE MEASURES ------------------------ */
+const EXPANDED_RE = new RegExp(
+  '\\b(do not|does not|did not|is not|are not|was not|were not|will not|would not'
+  + '|could not|should not|cannot|can not|have not|has not|had not|it is|that is'
+  + '|there is|they are|you are|we are|i am|i will|you will|we will|they will'
+  + '|i have|you have|it will|he is|she is|who is|what is|let us|i would'
+  + '|going to)\\b', 'gi');
+const CONTRACTED_RE = /[A-Za-z][’'](s|t|re|ll|ve|d|m)\b/g;
+DEMO.forEach(d => {
+  const sc = book.books.find(b => b.title === d.title);
+  /* NOT `if (!ok(...))` -- ok() returns whatever the ++ or the console.log
+     evaluated to, so branching on it silently skips checks. Test the thing. */
+  ok('DEMO DAY ' + d.day + ': "' + d.title + '" is in the words book', !!sc);
+  if (!sc) return;
+  const spoken2 = sc.lines.filter(l => l.kind === 'say').map(l => l.text);
+  const all = sc.lines.map(l => l.text).join(' ');
+  const e = (all.match(EXPANDED_RE) || []).length;
+  const c = (all.match(CONTRACTED_RE) || []).length;
+  const rate = 100 * c / Math.max(1, c + e);
+  /* 60% is well under every measured scene (81.8 to 100) and well over what any
+     of them read before the pass (0.0 to 7.1). It is a floor against regression,
+     not a target: a scene is not better for contracting more. */
+  ok('DEMO DAY ' + d.day + ' talks like people (' + rate.toFixed(1) + '% contracted, floor 60)',
+    rate >= 60);
+  const r2 = rhythm(spoken2);
+  ok('DEMO DAY ' + d.day + ' varies its rhythm (' + (r2 ? r2.cv.toFixed(2) : 'n/a') + ' >= 0.65)',
+    !!r2 && r2.cv >= 0.65);
+  const bans = [];
+  sc.lines.forEach(l => banned(l.text).forEach(b2 => bans.push(b2 + ' <- "' + l.text.slice(0, 40) + '"')));
+  ok('DEMO DAY ' + d.day + ' carries no banned phrase'
+    + (bans.length ? ': ' + bans.join('; ') : ''), bans.length === 0);
+});
 const spoken = scene ? scene.lines.filter(l => l.kind === 'say').map(l => l.text) : [];
 const r = rhythm(spoken);
 /* THE FLOOR IS THE MEASURED PASS, NOT A ROUND NUMBER. 0.74 is what the rewrite
@@ -195,21 +245,75 @@ const sayN = scene ? scene.lines.filter(l => l.kind === 'say').length : 1;
 ok('REPEATED OPENERS: no single word starts more than a quarter of the speeches ' +
   '(worst: "' + topOpener + '" ' + topN + '/' + sayN + ')', topN <= Math.ceil(sayN / 4));
 
+/* ---- 4b. THE DEMO CARD SAYS WHAT THE QUEST SAYS -------------------------- */
+/* The demo table hand-typed each day's brief out of the .bq, so the day-1 voice
+   pass left the quest saying one thing and the card the player reads saying
+   another. Two copies of one sentence is a drift waiting to happen; the log wins
+   now and the table is only a fallback. Both halves are checked. */
+const dq = fs.readFileSync('engine/bohemia_demoquests.js', 'utf8');
+ok('the demo brief is DERIVED from the quest, not a second copy of it',
+  /D\.brief = function/.test(dq) && dq.indexOf('brief: D.brief()') >= 0);
+const drift = [];
+DEMO.forEach(d => {
+  const sc = book.books.find(b => b.title === d.title);
+  if (!sc) return;
+  const first = sc.lines.filter(l => l.kind === 'journal')[0];
+  if (!first) return;
+  /* the fallback in the table must still match the quest it copies */
+  if (dq.indexOf(first.text.replace(/'/g, "\\'")) < 0) drift.push('day ' + d.day);
+});
+ok('and the fallback brief in the table still matches its quest'
+  + (drift.length ? ' (stale: ' + drift.join(', ') + ')' : ''), drift.length === 0);
+
+/* ---- 4c. THE WORDS REACHED THE DEMO, WHICH IS THE ONLY SURFACE THAT COUNTS - */
+/* THE PUSH WORKING IS NOT THE SITE WORKING, and rewriting a .bq is not the demo
+   saying it. The quest text is inlined THREE times downstream: the current
+   slice, the city world (which is where the day loop actually plays it), and
+   the DIRECT tab's own table -- each by a different tool. The first pass of this
+   work rewrote five quests, re-cut the demo, and the demo still spoke every old
+   line, because the cut copies the alpha and nothing had re-inlined the alpha.
+   So the claim is checked where the player meets it: in the built demo file. */
+const demoFile = 'slices/BOHEMIA_DEMO.html';
+ok('the demo build exists', fs.existsSync(demoFile));
+const demoHtml = fs.existsSync(demoFile) ? fs.readFileSync(demoFile, 'utf8') : '';
+const NEW_IN_DEMO = [
+  [1, 'Nine at night, every night'],
+  [2, 'Careful is all'],
+  [3, "Who's going to tell them"],
+  [4, "It's on, it's wet"],
+  [5, "What's that face"],
+];
+const OLD_IN_DEMO = [
+  [1, 'The block loses half its light at the same hour'],
+  [2, 'That is the whole answer'],
+  [3, 'quiet money spends'],
+  [3, 'I pay better, and I pay now'],
+  [4, 'It is on, it is wet'],
+];
+NEW_IN_DEMO.forEach(([d, t]) =>
+  ok('DEMO DAY ' + d + ": the rewritten words reached the built demo (\"" + t + '")',
+    demoHtml.indexOf(t) >= 0));
+OLD_IN_DEMO.forEach(([d, t]) =>
+  ok('DEMO DAY ' + d + ': the OLD line is gone from the built demo ("' + t.slice(0, 34) + '")',
+    demoHtml.indexOf(t) < 0));
+
 /* ---- 5. CORPUS-WIDE, RATCHETING ------------------------------------------ */
-/* The other 26 scenes have not had a voice pass and this turn does not pretend
-   they have. What the gate holds is that nobody makes it WORSE while they wait:
+/* 5 of 27 scenes have had a voice pass -- the five the demo actually plays.
+   The other 22 have not, and this gate does not pretend they have. What the gate holds is that nobody makes it WORSE while they wait:
    the counts below are today's, written down, and a new one fails. */
 let corpusBans = 0, corpusEmDash = 0;
 book.books.forEach(b => b.lines.forEach(l => {
   corpusBans += banned(l.text).length;
   if (l.text.indexOf('—') >= 0) corpusEmDash++;
 }));
-const BAN_CEILING = 44;   /* measured 8/26 across 2,442 lines. Only ever goes DOWN. */
+/* RATCHET. 44 on 8/26; 39 on 8/27 after the four demo scenes took their pass.
+   Only ever goes DOWN, and a lane that lowers it writes the new number here. */
+const BAN_CEILING = 39;
 ok('CORPUS: banned-phrase hits are not growing (' + corpusBans + ', ceiling ' +
   BAN_CEILING + ')', corpusBans <= BAN_CEILING);
 ok('CORPUS: zero em dashes in any authored line', corpusEmDash === 0);
-console.log('    (' + corpusBans + ' banned-phrase hits still standing in the 26 scenes ' +
-  'that have NOT had a voice pass. Named, not hidden.)');
+console.log('    (' + corpusBans + ' banned-phrase hits still standing in the 22 scenes ' +
+  'that have NOT had a voice pass. The demo\'s five are clean. Named, not hidden.)');
 
 /* ---- 6. THE PASS WAS WORDS ONLY. THE LANE BOUNDARY, MACHINE-CHECKED ------ */
 ok('the side-by-side record exists', fs.existsSync(REWRITE));

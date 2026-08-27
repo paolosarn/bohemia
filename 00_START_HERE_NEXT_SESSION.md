@@ -1,3 +1,84 @@
+WORDS (words-8dqrnq): 8/27 (a) LATEST -- *** THE WHOLE DEMO TALKS LIKE PEOPLE NOW. All five
+demo scenes voice-passed, days 1 to 5. They contracted 0-7% of the time; they contract 82-100%
+now. TAB: WORDS, tap THE VOICE PASS. Or just play the demo. Nothing to judge. ***
+
+He said: "WE HAVE a demo to ship more forward motion work we need to complete... know what
+comes after." So I asked the repo what the demo actually is, instead of guessing.
+
+*** THE DEMO IS FIVE QUESTS AND I HAD PASSED ONE OF THEM. *** engine/bohemia_demoquests.js
+schedules days 1-5, and those five .bq files are EVERY WORD A STRANGER READS:
+    day 1  S01 THE METER READER            passed 8/26
+    day 2  S09 THE BACK DOOR                0.0% contractions
+    day 3  S02 THE SAME CRATE TWICE         0.0%
+    day 4  S22 THE COLD ROOM                0.0%
+    day 5  S25 THE PRESSURE GOES BACKWARD   0.0%
+One scene passed and four at zero would mean THE DEMO CHANGES VOICE ON DAY TWO, which is worse
+than passing none of it. All four are done.
+
+    d1 The Meter Reader             95.0%  (was  7.1%)   rhythm 0.74 (was 0.49)
+    d2 The Back Door               100.0%  (was  0.0%)   rhythm 0.95 (was 0.87)
+    d3 The Same Crate Twice         81.8%  (was  0.0%)   rhythm 0.77 (was 0.64)
+    d4 The Cold Room                92.6%  (was  0.0%)   rhythm 0.70 (was 0.70)
+    d5 The Pressure Goes Backward   95.7%  (was  0.0%)   rhythm 0.79 (was 0.78)
+    whole build, quest scenes: 20.1% (was 2.2%).  Questions asked of the player: 8 (was 2).
+
+*** AND DAY 3 WAS BREAKING A LAW IN FRONT OF A STRANGER. *** THERE IS NO MONEY (7/26, narrowed
+8/15) allows the word only as the dead past, never a live transaction. THE SAME CRATE TWICE had
+FOUR live ones: "I pay better, and I pay now", "quiet money spends the same as loud money",
+"(take the money, say nothing)", and a journal line reading "Quiet money". The blues now offer
+what they are actually handing over: two cases of water and a full tank. Found by reading the
+demo's own script, not by a gate.
+
+*** THE PART THAT NEARLY SHIPPED WRONG, AND IT IS THE LESSON: REWRITING A .bq IS NOT THE DEMO
+SAYING IT. *** The quest text is inlined THREE times downstream, by three different tools --
+the current slice, THE CITY WORLD (which is where the day loop actually plays it), and the
+DIRECT tab's own table. I rewrote five quests, re-cut the demo, and THE DEMO STILL SPOKE EVERY
+OLD LINE, because the cut copies the alpha and nothing had re-inlined the alpha. Caught by
+grepping the built demo for its own words. voice_gate now asserts five new lines are IN the
+built demo file and five old ones are GONE, mutation-tested both ways. VERIFY ON THE REAL
+SURFACE, again.
+
+ALSO KILLED: the demo hand-typed each day's brief out of the .bq, so day 1's card said the old
+sentence while the quest said the new one. Two copies of one line. The log wins now
+(D.brief() reads the quest) and the table is a fallback only, with both halves gated.
+
+RESEARCH (he asked for it): records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md. The
+useful finding is measurable and we fail it -- A REFUSAL IS NEVER JUST "NO". A yes lands at a
+median ~269 ms and a no at ~561, and the gap gets filled: a breath, a preface, an appreciation,
+the reason BEFORE the refusal, often a trail-off that means no without saying it. Ours hedge
+4.8% of the time. That is TELL 8, counted every run. Second finding: class and region live in
+SYNTAX, never in spelling -- never respell a word for an accent, in any language.
+
+TWO RULERS WERE BROKEN AND BOTH WERE FLATTERING ME:
+ 1. The stumble count said ZERO. It asked for two identical ADJACENT tokens, so "Easy. Easy,
+    easy." (comma), "No. No, no." (case) and "don't, uh. Don't" (both) all read as clean. The
+    real as-found number is 12, not 0. The tell's direction is unchanged; the number was wrong
+    and wrong in my favour. The correction is printed in the report itself.
+ 2. voice_gate had `if (!ok(...)) return;` -- and ok() returns whatever ++ evaluated to, so it
+    was SILENTLY SKIPPING checks. Fixing it took the gate from 52 passing to 67.
+WHEN A METRIC AGREES WITH YOU TOO HARD, SUSPECT THE METRIC.
+
+AND ONE I BROKE SIDEWAYS: language_gate builds its English dictionary OUT OF THE GAME'S OWN
+ENGLISH LINES, so when my rewrite deleted the last lines containing "pass" and "closer", two
+Spanish-register lines using them read as phonetic respellings. The sweep was working, not
+failing. Both declared in the barks bank's englishAdditions with the reason written down.
+
+GATE: gates/voice_gate.js, 78 checks (was 44). Holds all five demo scenes on contractions,
+rhythm ratio and banned phrases; holds the words-only claim against the pre-pass commit; holds
+the built demo. Banned-phrase ratchet 44 -> 39. Nine gates green on the merged tree: voice,
+dialogue catalogue, quest study, attempt, language, handoff, current slice, demo build, direct.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE DEMO'S OTHER WORDS. The five quests are done; the demo also has a phone, a wake card,
+    objectives and a journal, and none of those have been read as writing yet. That is the
+    rest of what a stranger actually reads.
+ 2. THE 22 UNPASSED SCENES, worst-first by rhythm ratio. Not demo-blocking.
+ 3. NOBODY EVER RAISES THEIR VOICE. Zero exclamation marks in 504 speeches, still true after
+    this pass. I did not force it; it wants a scene that earns one.
+
+WHAT IS PENDING HIM: nothing from this lane. No line is ever put to him for approval (8/11);
+every word is editable in the WORDS tab, both columns, export as .txt.
+
 SOUND (sound-xk7pjp): 8/27 (a) LATEST -- *** HE SWEPT BATCH 25, 0 FOR 8: "I
 didn't like any of the new shit that you made." All of it is buried and the rack
 is byte-back where it was. THE POST-MORTEM IS THE DELIVERABLE, and it is NOT the

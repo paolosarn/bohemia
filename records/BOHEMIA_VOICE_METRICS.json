@@ -23,9 +23,9 @@
     "book": "The Same Crate Twice",
     "kind": "quest",
     "lines": 28,
-    "expanded": 17,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 4,
+    "contracted": 18,
+    "rate": 81.8
    },
    {
     "book": "One More Set",
@@ -79,9 +79,9 @@
     "book": "The Back Door",
     "kind": "quest",
     "lines": 22,
-    "expanded": 18,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 0,
+    "contracted": 19,
+    "rate": 100.0
    },
    {
     "book": "The Count That Does Not Add",
@@ -183,9 +183,9 @@
     "book": "The Cold Room",
     "kind": "quest",
     "lines": 50,
-    "expanded": 48,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 4,
+    "contracted": 50,
+    "rate": 92.6
    },
    {
     "book": "Dead Pool",
@@ -207,9 +207,9 @@
     "book": "The Pressure Goes Backward",
     "kind": "quest",
     "lines": 50,
-    "expanded": 37,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 2,
+    "contracted": 45,
+    "rate": 95.7
    },
    {
     "book": "What The Cold Did Not Kill",
@@ -300,21 +300,13 @@
     "rate": 74.4
    }
   ],
-  "quest_rate": 6.1,
-  "quest_expanded": 856,
-  "quest_contracted": 56,
+  "quest_rate": 20.1,
+  "quest_expanded": 746,
+  "quest_contracted": 188,
   "other_rate": 75.0,
   "other_expanded": 192,
   "other_contracted": 575,
   "worst": [
-   {
-    "book": "The Cold Room",
-    "kind": "quest",
-    "lines": 50,
-    "expanded": 48,
-    "contracted": 0,
-    "rate": 0.0
-   },
    {
     "book": "Say It Back",
     "kind": "quest",
@@ -340,27 +332,35 @@
     "rate": 0.0
    },
    {
-    "book": "The Pressure Goes Backward",
-    "kind": "quest",
-    "lines": 50,
-    "expanded": 37,
-    "contracted": 0,
-    "rate": 0.0
-   },
-   {
     "book": "What The Dog Knows",
     "kind": "quest",
     "lines": 36,
     "expanded": 35,
     "contracted": 0,
     "rate": 0.0
+   },
+   {
+    "book": "Behind the Fence",
+    "kind": "quest",
+    "lines": 24,
+    "expanded": 32,
+    "contracted": 0,
+    "rate": 0.0
+   },
+   {
+    "book": "The Last Good Doctor",
+    "kind": "quest",
+    "lines": 36,
+    "expanded": 31,
+    "contracted": 0,
+    "rate": 0.0
    }
   ]
  },
  "maxims": {
-  "multi": 420,
-  "count": 134,
-  "pct": 31.9,
+  "multi": 421,
+  "count": 127,
+  "pct": 30.2,
   "hits": [
    {
     "speaker": "lineman",
@@ -400,37 +400,16 @@
    {
     "speaker": "red_boss",
     "book": "The Same Crate Twice",
-    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#67",
-    "last": "Do not weigh it.",
-    "full": "Carry that crate to my door by dark and you eat well for a month. Do not open it. Do not weigh it."
-   },
-   {
-    "speaker": "red_boss",
-    "book": "The Same Crate Twice",
-    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#75",
-    "last": "The only thing anybody fights over anymore is who gets to see at night.",
-    "full": "Light. That is what is in it. The only thing anybody fights over anymore is who gets to see at night."
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#91",
+    "last": "My people sit in the dark and listen to each other breathe.",
+    "full": "Light. That's what's in it. My people sit in the dark and listen to each other breathe."
    },
    {
     "speaker": "blue_boss",
     "book": "The Same Crate Twice",
-    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#84",
-    "last": "Nobody ever knows.",
-    "full": "I pay better, and I pay now. Nobody has to know it was you. That is the beautiful part. Nobody ever knows."
-   },
-   {
-    "speaker": "red_boss",
-    "book": "The Same Crate Twice",
-    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#94",
-    "last": "The blues will know you are a person who finishes.",
-    "full": "That is worth more than the cells. Word travels. The blues will know you are a person who finishes."
-   },
-   {
-    "speaker": "blue_boss",
-    "book": "The Same Crate Twice",
-    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#106",
-    "last": "And you are telling us both, to our faces, in the open.",
-    "full": "You will keep it. For your own block. And you are telling us both, to our faces, in the open."
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#116",
+    "last": "The ones you crossed tonight are going to spend a year learning your face.",
+    "full": "But listen. The ones you crossed tonight are going to spend a year learning your face."
    },
    {
     "speaker": "busker",
@@ -673,9 +652,16 @@
    {
     "speaker": "neighbor",
     "book": "The Back Door",
-    "id": "quests/bq/S09_THE_BACK_DOOR.bq#64",
-    "last": "That is the whole answer and it is going to stay the whole answer.",
-    "full": "The back is mine. That is the whole answer and it is going to stay the whole answer."
+    "id": "quests/bq/S09_THE_BACK_DOOR.bq#67",
+    "last": "Careful is all.",
+    "full": "The back I do myself. Always have. And don't, uh. Don't go round back. I'm not being rude to you. Careful is all."
+   },
+   {
+    "speaker": "neighbor",
+    "book": "The Back Door",
+    "id": "quests/bq/S09_THE_BACK_DOOR.bq#96",
+    "last": "I'll do the front myself.",
+    "full": "Scared. Yeah. Okay. Go home. I'll do the front myself."
    },
    {
     "speaker": "canvasser",
@@ -1093,44 +1079,44 @@
    {
     "speaker": "keeper",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#90",
-    "last": "It is on, it is wet, and the room is ninety-one.",
-    "full": "It is on. That is what I keep telling people and it is what makes me sound stupid. It is on, it is wet, and the room is ninety-one."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#103",
+    "last": "It's on, it's wet, and the room is ninety-one.",
+    "full": "It's on. That's what I keep telling people and that's what makes me sound stupid. It's on, it's wet, and the room is ninety-one."
    },
    {
     "speaker": "keeper",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#139",
-    "last": "There is a pump in the box by the door.",
-    "full": "I am not arguing. You are the first person who has touched it instead of squinting at it. There is a pump in the box by the door."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#120",
+    "last": "Hot, and now damp, which is somehow worse.",
+    "full": "Air comes out. Comes out the same temperature it went in, near enough. Hot, and now damp, which is somehow worse."
    },
    {
     "speaker": "keeper",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#148",
-    "last": "Then you can tell me what it is before you open it.",
-    "full": "Good. Then you can tell me what it is before you open it."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#161",
+    "last": "Then tell me what it is before you open it.",
+    "full": "Good. Then tell me what it is before you open it."
    },
    {
     "speaker": "keeper",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#158",
-    "last": "That is the second time this month and the first one was me.",
-    "full": "Thank you. That is the second time this month and the first one was me."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#172",
+    "last": "You'd be asking in front of people.",
+    "full": "There's somebody two streets over with the tools and the knowledge and a very long memory about favours. You'd be asking in front of people."
    },
    {
-    "speaker": "keeper",
+    "speaker": "fixer",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#159",
-    "last": "You would be asking in front of people.",
-    "full": "There is somebody two streets over with the tools and the knowledge and a very long memory about favours. You would be asking in front of people."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#178",
+    "last": "Nobody remembers it in January when I'm the one knocking.",
+    "full": "Cold room. Right. Everybody remembers the cold room in July. Nobody remembers it in January when I'm the one knocking."
    },
    {
     "speaker": "line",
     "book": "The Cold Room",
-    "id": "quests/bq/S22_THE_COLD_ROOM.bq#178",
-    "last": "The question is whether you want this room on a list.",
-    "full": "There is a feed. There is always a feed. The question is whether you want this room on a list."
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#191",
+    "last": "Do you want this room on a list?",
+    "full": "There's a feed. There's always a feed. Do you want this room on a list?"
    },
    {
     "speaker": "hauler",
@@ -1212,58 +1198,23 @@
    {
     "speaker": "nurse",
     "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#93",
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#104",
     "last": "Look at where they are before you look at anything else.",
-    "full": "Here is the list. Look at where they are before you look at anything else."
+    "full": "Here's the list. Look at where they are before you look at anything else."
    },
    {
     "speaker": "nurse",
     "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#117",
-    "last": "Whatever this is, it did not care that we were cleaning the tank.",
-    "full": "Two more houses went bad while we were in there. Whatever this is, it did not care that we were cleaning the tank."
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#128",
+    "last": "Whatever this is, it didn't care that we were cleaning the tank.",
+    "full": "Two more houses went bad while we were in there. Whatever this is, it didn't care that we were cleaning the tank."
    },
    {
     "speaker": "fitter",
     "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#129",
-    "last": "Up the hill, if that is where the pipe goes.",
-    "full": "Take the pressure off and every place where somebody has joined something to that pipe stops being an outlet and becomes an inlet. It sucks. Backward. Up the hill, if that is where the pipe goes."
-   },
-   {
-    "speaker": "fitter",
-    "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#141",
-    "last": "There is a street full of people being sensible one at a time.",
-    "full": "There is no villain in this. There is a street full of people being sensible one at a time."
-   },
-   {
-    "speaker": "pumper",
-    "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#150",
-    "last": "What is that face.",
-    "full": "What. What is that face."
-   },
-   {
-    "speaker": "pumper",
-    "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#157",
-    "last": "It is not doing anything.",
-    "full": "It has been in there a month. It is a hose in a barrel. It is not doing anything."
-   },
-   {
-    "speaker": "pumper",
-    "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#158",
-    "last": "Is that what you are about to tell me.",
-    "full": "...It is not doing anything when the pressure is up. Is that what you are about to tell me."
-   },
-   {
-    "speaker": "fitter",
-    "book": "The Pressure Goes Backward",
-    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#166",
-    "last": "You do not wait for proof to stop drinking.",
-    "full": "They will hate it and about a third of them will not do it, and it is still the right call before you know whose connection it is. That is exactly what a precautionary notice is FOR. You do not wait for proof to stop drinking."
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#152",
+    "last": "It's a street full of people being sensible one at a time.",
+    "full": "Nobody did this on purpose. It's a street full of people being sensible one at a time."
    },
    {
     "speaker": "mother",
@@ -1304,19 +1255,19 @@
  },
  "nobody_asks": {
   "lines": 504,
-  "question_marks": 4,
+  "question_marks": 8,
   "exclamations": 0,
   "ellipses": 3,
-  "stumbles": 0,
+  "stumbles": 15,
   "self_corrections": 15,
-  "fillers": 27
+  "fillers": 33
  },
  "openers": {
   "lines": 1062,
   "first_word": [
    [
     "i",
-    95
+    87
    ],
    [
     "then",
@@ -1324,23 +1275,19 @@
    ],
    [
     "you",
-    50
-   ],
-   [
-    "the",
-    43
+    45
    ],
    [
     "no",
     43
    ],
    [
-    "it",
-    39
+    "the",
+    42
    ],
    [
-    "that",
-    25
+    "it",
+    32
    ],
    [
     "say",
@@ -1348,57 +1295,53 @@
    ],
    [
     "so",
-    19
+    20
    ],
    [
-    "what",
-    19
+    "that",
+    20
    ],
    [
     "take",
     18
    ],
    [
-    "there",
-    18
+    "what",
+    17
+   ],
+   [
+    "they",
+    15
    ]
   ],
   "first_two": [
    [
     "i will",
-    24
+    22
    ],
    [
     "it is",
-    21
+    16
    ],
    [
     "that is",
-    20
+    15
    ],
    [
     "you are",
-    15
-   ],
-   [
-    "then it",
-    15
-   ],
-   [
-    "i am",
-    14
-   ],
-   [
-    "there is",
-    14
-   ],
-   [
-    "i have",
     13
    ],
    [
     "then i",
     13
+   ],
+   [
+    "i have",
+    12
+   ],
+   [
+    "then it",
+    12
    ],
    [
     "say nothing",
@@ -1409,6 +1352,14 @@
     11
    ],
    [
+    "i am",
+    11
+   ],
+   [
+    "there is",
+    10
+   ],
+   [
     "do it",
     8
    ]
@@ -1416,23 +1367,23 @@
   "sentence_opener": [
    [
     "i",
-    219
+    199
    ],
    [
     "it",
-    105
+    93
    ],
    [
     "that",
-    90
+    78
    ],
    [
     "you",
-    83
+    76
    ],
    [
     "the",
-    79
+    76
    ],
    [
     "then",
@@ -1440,11 +1391,11 @@
    ],
    [
     "no",
-    49
+    50
    ],
    [
-    "there",
-    38
+    "and",
+    33
    ],
    [
     "say",
@@ -1455,20 +1406,16 @@
     30
    ],
    [
-    "and",
+    "not",
     29
    ],
    [
-    "not",
-    28
+    "there",
+    29
    ]
   ]
  },
  "recycled": [
-  {
-   "phrase": "that is the whole",
-   "n": 8
-  },
   {
    "phrase": "i am not going",
    "n": 7
@@ -1478,7 +1425,7 @@
    "n": 7
   },
   {
-   "phrase": "you are going to",
+   "phrase": "that is the whole",
    "n": 6
   },
   {
@@ -1494,7 +1441,7 @@
    "n": 5
   },
   {
-   "phrase": "that is not a",
+   "phrase": "you are going to",
    "n": 5
   },
   {
@@ -1507,6 +1454,10 @@
   },
   {
    "phrase": "that is the only",
+   "n": 4
+  },
+  {
+   "phrase": "that is not a",
    "n": 4
   },
   {
@@ -1523,18 +1474,6 @@
   },
   {
    "phrase": "and that is the",
-   "n": 4
-  },
-  {
-   "phrase": "is the part that",
-   "n": 4
-  },
-  {
-   "phrase": "and it is not",
-   "n": 4
-  },
-  {
-   "phrase": "i do not know",
    "n": 4
   }
  ],
@@ -1557,12 +1496,12 @@
     "shortpct": 37.1
    },
    {
-    "book": "The Same Crate Twice",
-    "sentences": 35,
-    "mean": 7.0,
-    "sd": 4.48,
-    "short": 6,
-    "shortpct": 17.1
+    "book": "The Back Door",
+    "sentences": 39,
+    "mean": 4.4,
+    "sd": 4.19,
+    "short": 23,
+    "shortpct": 59.0
    },
    {
     "book": "One More Set",
@@ -1571,6 +1510,14 @@
     "sd": 4.62,
     "short": 7,
     "shortpct": 28.0
+   },
+   {
+    "book": "The Same Crate Twice",
+    "sentences": 38,
+    "mean": 6.1,
+    "sd": 4.7,
+    "short": 16,
+    "shortpct": 42.1
    },
    {
     "book": "The Toll Road",
@@ -1595,6 +1542,14 @@
     "sd": 5.6,
     "short": 8,
     "shortpct": 21.1
+   },
+   {
+    "book": "The Cold Room",
+    "sentences": 51,
+    "mean": 8.2,
+    "sd": 5.77,
+    "short": 16,
+    "shortpct": 31.4
    },
    {
     "book": "The Count That Does Not Add",
@@ -1627,22 +1582,6 @@
     "sd": 6.46,
     "short": 8,
     "shortpct": 16.7
-   },
-   {
-    "book": "The Back Door",
-    "sentences": 28,
-    "mean": 7.6,
-    "sd": 6.61,
-    "short": 6,
-    "shortpct": 21.4
-   },
-   {
-    "book": "The Cold Room",
-    "sentences": 49,
-    "mean": 9.7,
-    "sd": 6.79,
-    "short": 13,
-    "shortpct": 26.5
    },
    {
     "book": "Dead Pool",
@@ -1685,6 +1624,14 @@
     "shortpct": 38.6
    },
    {
+    "book": "The Pressure Goes Backward",
+    "sentences": 53,
+    "mean": 9.7,
+    "sd": 7.67,
+    "short": 14,
+    "shortpct": 26.4
+   },
+   {
     "book": "What The Dog Knows",
     "sentences": 39,
     "mean": 11.2,
@@ -1699,14 +1646,6 @@
     "sd": 8.15,
     "short": 7,
     "shortpct": 14.6
-   },
-   {
-    "book": "The Pressure Goes Backward",
-    "sentences": 53,
-    "mean": 10.5,
-    "sd": 8.17,
-    "short": 11,
-    "shortpct": 20.8
    },
    {
     "book": "What The Cold Did Not Kill",
@@ -1758,6 +1697,65 @@
    }
   ],
   "median_sd": 6.82
+ },
+ "refusals": {
+  "lines": 504,
+  "bare_negation_first": 17,
+  "bare_pct": 3.4,
+  "prefaced": 29,
+  "preface_pct": 5.8,
+  "examples": [
+   {
+    "speaker": "fixer",
+    "book": "The Meter Reader",
+    "text": "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it."
+   },
+   {
+    "speaker": "busker",
+    "book": "One More Set",
+    "text": "No amp. Just this. Sit up front so it does not feel empty."
+   },
+   {
+    "speaker": "neighbor",
+    "book": "Behind the Fence",
+    "text": "No. No, you do not get to do that."
+   },
+   {
+    "speaker": "dying",
+    "book": "Say It Back",
+    "text": "No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time."
+   },
+   {
+    "speaker": "wrongdoer",
+    "book": "Say It Back",
+    "text": "Nobody will ever know you did this. It does not pay. Thank you for doing it anyway."
+   },
+   {
+    "speaker": "neighbor",
+    "book": "The Back Door",
+    "text": "No. No, no. I said front and side. Not a block party at my door."
+   },
+   {
+    "speaker": "watcher",
+    "book": "Sixty Seconds Of Rain",
+    "text": "Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you are already in it."
+   },
+   {
+    "speaker": "medic",
+    "book": "The Last Good Doctor",
+    "text": "Nobody else will ever know there was a second name. That part is mine to carry and I would rather carry it than have it read aloud."
+   },
+   {
+    "speaker": "holder",
+    "book": "The Paper That Says So",
+    "text": "Nobody in that building has anything but time in it. Time is not a claim. If time were a claim then the strongest man on any street owns everything he can sit on, and we have all seen where that ends."
+   },
+   {
+    "speaker": "owner",
+    "book": "The Lights Go Out At Nine",
+    "text": "Nobody sees me pay and nobody sees them win, and in twelve years that is the only kind of agreement that has never broken on me."
+   }
+  ]
  },
  "registers": {
   "total": 2442,
@@ -3108,7 +3106,7 @@
    "question_marks": 2,
    "exclamations": 0,
    "ellipses": 3,
-   "stumbles": 0,
+   "stumbles": 12,
    "self_corrections": 14,
    "fillers": 27
   },
@@ -3559,6 +3557,65 @@
     }
    ],
    "median_sd": 6.82
+  },
+  "refusals": {
+   "lines": 504,
+   "bare_negation_first": 15,
+   "bare_pct": 3.0,
+   "prefaced": 24,
+   "preface_pct": 4.8,
+   "examples": [
+    {
+     "speaker": "busker",
+     "book": "One More Set",
+     "text": "No amp. Just this. Sit up front so it does not feel empty."
+    },
+    {
+     "speaker": "neighbor",
+     "book": "Behind the Fence",
+     "text": "No. No, you do not get to do that."
+    },
+    {
+     "speaker": "dying",
+     "book": "Say It Back",
+     "text": "No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time."
+    },
+    {
+     "speaker": "wrongdoer",
+     "book": "Say It Back",
+     "text": "Nobody will ever know you did this. It does not pay. Thank you for doing it anyway."
+    },
+    {
+     "speaker": "neighbor",
+     "book": "The Back Door",
+     "text": "No crowd. I said front and side, not a block party at my door."
+    },
+    {
+     "speaker": "watcher",
+     "book": "Sixty Seconds Of Rain",
+     "text": "Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you are already in it."
+    },
+    {
+     "speaker": "medic",
+     "book": "The Last Good Doctor",
+     "text": "Nobody else will ever know there was a second name. That part is mine to carry and I would rather carry it than have it read aloud."
+    },
+    {
+     "speaker": "holder",
+     "book": "The Paper That Says So",
+     "text": "Nobody in that building has anything but time in it. Time is not a claim. If time were a claim then the strongest man on any street owns everything he can sit on, and we have all seen where that ends."
+    },
+    {
+     "speaker": "owner",
+     "book": "The Lights Go Out At Nine",
+     "text": "Nobody sees me pay and nobody sees them win, and in twelve years that is the only kind of agreement that has never broken on me."
+    },
+    {
+     "speaker": "trader",
+     "book": "The Seed That Does Not Come Back",
+     "text": "Nobody gets hurt. Things simply belong to different people afterward, and everybody agreed to it in a year when agreeing was easy."
+    }
+   ]
   },
   "registers": {
    "total": 2442,

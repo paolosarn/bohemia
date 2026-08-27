@@ -52,21 +52,21 @@
   var DAYS = [
     {
       day: 1, id: 'bq_meter_reader', file: 'S01_THE_METER_READER',
-      brief: 'The block loses half its light at the same hour every night.',
+      brief: 'Nine at night, every night, half this block goes brown.',
       open: 10,
       advance: { stage: 20, on: 'enter_building', require: 'dark' },
       choiceAt: 20, choices: [30, 31, 32], fail: 33
     },
     {
       day: 2, id: 'bq_back_door', file: 'S09_THE_BACK_DOOR',
-      brief: 'The man behind the fence wants his place solid before dark.',
+      brief: 'The man behind the fence wants his place solid before dark. He\'s strange about the back of it.',
       open: 10,
       advance: null,
       choiceAt: 10, choiceOn: 'enter_building', choices: [20, 21], fail: 22
     },
     {
       day: 3, id: 'bq_same_crate', file: 'S02_THE_SAME_CRATE_TWICE',
-      brief: 'Move a crate of salvaged batteries to the red block by dark.',
+      brief: 'The reds want a crate of salvaged batteries on their block by dark.',
       open: 10,
       advance: { stage: 20, on: 'enter_district', require: 'new' },
       choiceAt: 20, choices: [30, 31, 32], fail: 33
@@ -81,7 +81,7 @@
        AND BOTH ARE ABOUT WATER, which is what the valley is about. */
     {
       day: 4, id: 'bq_cold_room', file: 'S22_THE_COLD_ROOM',
-      brief: 'One cooled room on the block, and it is not cooling.',
+      brief: 'One cooled room on the block and it isn\'t cooling. Machine\'s running. Water\'s going in. Air\'s coming out. Room\'s at ninety-one and climbing.',
       open: 10,
       /* you have to GO IN AND LOOK at the machine; that is the whole quest.
          No `require` -- the cold room is an afternoon problem and the world's
@@ -92,7 +92,7 @@
     },
     {
       day: 5, id: 'bq_backward', file: 'S25_THE_PRESSURE_GOES_BACKWARD',
-      brief: 'Nine houses with the same bad water, and they are not neighbours.',
+      brief: 'Nine houses with the same bad water. They aren\'t next to each other and they aren\'t all downhill of anything.',
       open: 10,
       /* the sick houses are not next to each other -- crossing into somewhere
          you have not been IS the deduction, so a NEW district is exactly the
@@ -150,8 +150,24 @@
       if (loop) loop.stage(spec.id, spec.open, stageLog(Q, spec.open), null);
       D.lastNarrated = spec.open;
       if (spec.choiceAt === spec.open) D.pending = D.choiceCard();
-      return { id: spec.id, title: Q.title || spec.id, brief: spec.brief,
+      return { id: spec.id, title: Q.title || spec.id, brief: D.brief(),
                objectives: D.rt.objectives(), log: stageLog(Q, spec.open) };
+    };
+
+    /* THE BRIEF IS THE QUEST'S OWN OPENING LOG, NOT A COPY OF IT (8/27, WORDS).
+       Every `brief:` in the table above was hand-typed from the .bq, which made
+       it a SECOND COPY of a line that lives somewhere else -- and the moment the
+       WORDS lane rewrote day 1's voice, the quest said "Nine at night, every
+       night, half this block goes brown" while the demo's own card still said
+       "The block loses half its light at the same hour every night." Two truths,
+       one sentence, and the player reads the stale one. So the log wins and the
+       table entry is only a fallback for a quest whose text will not load. */
+    D.brief = function () {
+      if (D.Q && D.spec) {
+        var l = stageLog(D.Q, D.spec.open);
+        if (l) return l;
+      }
+      return D.spec ? D.spec.brief : '';
     };
 
     /* THE CARD: every option is the destination stage's own @LOG, verbatim. */
@@ -308,7 +324,7 @@
         try { step = D.nextStep(); } catch (e) { step = ''; }
         return step ? (objs[0].text + ' · ' + step) : objs[0].text;
       }
-      return D.spec ? D.spec.brief : '';
+      return D.brief();
     };
 
     D.serialize = function () {
