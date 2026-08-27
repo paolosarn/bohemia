@@ -17672,6 +17672,25 @@ const BEAT=500; // 120BPM law
     var xing = (opts.cross != null) ? xLegs.length > 0 : (vert && horiz);
     var through = !xing && !!opts.spanThrough;
 
+    /* AND THE CROSS STREET DOES NOT STOP IN THE MIDDLE OF LAS VEGAS BOULEVARD (8/27).
+       `spanThrough` was wired on 8/18 to carry the PEDESTRIAN BRIDGE across the sibling
+       half, and it carried only that. The ROADWAY underneath it still stopped at the cell
+       boundary, so a street ran up to a two-cell-wide boulevard, crossed the near
+       carriageway, and ended in the middle of it. That is the last four same-class seams
+       in the street contract, and it is the SAME defect as the freeway deck fixed earlier
+       today: a fix that travelled to the thing on top and not to the thing underneath.
+       So a through-half paves the cross arm edge to edge and carries its lane lines and
+       its pavements -- what actually continues across a road.
+       WHAT IT DOES NOT GET is the junction anatomy: `xing` stays false, so no crosswalks,
+       no stop bars, no signal masts, no second set of bridge towers. And no MEDIAN PALMS
+       or PARKING POCKETS down the cross arm, because those belong to a boulevard and the
+       thing crossing here is a street passing through. */
+    var throughH = false, throughV = false;
+    if (through) {
+      if (vert && !horiz) { set.E = set.W = 1; hasE = hasW = true; horiz = true; throughH = true; }
+      else if (horiz && !vert) { set.N = set.S = 1; hasN = hasS = true; vert = true; throughV = true; }
+    }
+
     var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
 
     function coverV(oy) { return vert && (oy <= 0 ? (hasN || oy >= -BOX) : (hasS || oy <= BOX)); }
@@ -17737,8 +17756,8 @@ const BEAT=500; // 120BPM law
         if (g[py][px] === 4) g[py][px] = 11;
       }
     }
-    if (vert) medianPalms('v', coverV);
-    if (horiz) medianPalms('h', coverH);
+    if (vert && !throughV) medianPalms('v', coverV);
+    if (horiz && !throughH) medianPalms('h', coverH);
 
     // THE TURN POCKET (LINE COLOR LAW: yellow lives only where opposing directions meet
     // with no island between them, and on this street that is the left-turn bay).
@@ -17759,8 +17778,8 @@ const BEAT=500; // 120BPM law
     /* THE LEFT-TURN BAY OPENS TOWARD THE CROSS STREET, and nowhere else. On a run the
        median is unbroken, because nothing turns across a run. */
     if (xing) {
-      if (vert) { pocket('v', -1); pocket('v', 1); }
-      if (horiz) { pocket('h', 1); pocket('h', -1); }
+      if (vert && !throughV) { pocket('v', -1); pocket('v', 1); }
+      if (horiz && !throughH) { pocket('h', 1); pocket('h', -1); }
     }
 
     function put(px, py, code, over) {
@@ -18361,11 +18380,13 @@ const BEAT=500; // 120BPM law
         // no footprint, no interior and no door.
         for(j=0;j<2;j++)for(i=0;i<2;i++){                                 // THE BURIED BASINS
           var qx=18+i*48, qy=my+6+j*20;
-          G.rect(qx,qy,qx+40,qy+16,6);                                    // the roof slab
-          G.rect(qx+2,qy+2,qx+38,qy+14,7);                                // its expansion joints
+          G.rect(qx,qy,qx+40,qy+16,17);                                   // the basin's own upstand
+          G.rect(qx+1,qy+1,qx+39,qy+15,15);                               // the concrete roof slab
+          for(var ej=8;ej<40;ej+=8) G.rect(qx+ej,qy+1,qx+ej+1,qy+15,16);  // its expansion joints
+          for(var ek=6;ek<16;ek+=6) G.rect(qx+1,qy+ek,qx+39,qy+ek+1,16);
           for(var h=0;h<4;h++) G.set(qx+8+h*8, qy+8, 10);                 // the access hatches
           G.rect(qx,qy+17,qx+40,qy+18,13); }                              // the basin's own main
-        G.rect(14,12,W-15,14,7);                                          // the cut slope above the pad
+        G.rect(14,12,W-15,14,4);                                          // the cut slope above the pad
         for(i=0;i<9;i++) G.set(18+i*12,13,10);                            // its slope drains
         G.rect(W-26,20,W-24,my+4,8);                                      // the overflow, running downhill
         G.rect(W-30,my+4,W-22,my+6,7);
@@ -18744,7 +18765,8 @@ const BEAT=500; // 120BPM law
       /* the identification band round the TANK BASE: the tank (6) where it meets its pad (4) */
       mark:{on:6, near:4, count:5},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6b6558',5:'#c79a3f',6:'#9aa0a2',7:'#7d8386',
-           8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
+           8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478',
+           15:'#a8a294',16:'#7e796e',17:'#6f6a5c'},
       leg:{0:['dead-ground (setback)','ground','the hillside outside the reservoir fence'],
            1:['access road','drive','the road up to the tank pad, switchbacked because the pad had to be this high (drivable)'],
            2:['building (valve house)','building','the valve house — the altitude valve that used to hold the level is still in there'],
@@ -18759,7 +18781,26 @@ const BEAT=500; // 120BPM law
            11:['marking','marking','the fading identification band round the tank base'],
            12:['perimeter fence','structure','the reservoir fence, ringing two tanks and a valve house and nothing else at all'],
            13:['transmission main','structure','the transmission main in and out — big enough that its trench reads from the air'],
-           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main']},
+           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main'],
+           /* A BURIED CONCRETE BASIN IS NOT A STEEL TANK (8/27). The basins were drawn with
+              code 6 -- "a welded steel reservoir, seams showing through the failed coating"
+              -- and their joints with code 7, "the tank roof, its centre vent and the hatch
+              beside it". Half the storage on this site is BURIED CONCRETE with a roof slab
+              you can drive a truck over, and it was wearing steel plate and a tank hatch.
+              A LEGEND NAME IS A ROUTING KEY IN THIS ENGINE, NOT A LABEL: the name picks the
+              renderer's pool, so calling a concrete slab a steel tank does not merely read
+              wrong in the dossier, it PAINTS wrong on the ground. Third instance this month
+              (concrete falling through to the house-roof pool and putting brickwork on a
+              dam; a bridge deck routed to the granite-yard pool and coming back tan).
+              A basin roof is FLUSH with the pad and you WALK ON IT, so it is ground, not a
+              structure that blocks -- which is also why it must not be code 6, a solid. */
+           15:['basin roof slab','ground','the roof slab over a buried concrete basin, poured flush with the pad and rated to drive a truck across, thirty years of grit lying in the low spots'],
+           16:['expansion joint','ground','the sealed joints gridding the slab, the sealant gone hard and shrunk back off both faces'],
+           /* GROUND, NOT STRUCTURE, and the picture is what said so. Declared a structure it
+              drew as a WALL -- the facade pass, in the district's warm palette, so a concrete
+              kerb came back a red-brown block ringing every slab. It is 150 mm high: you step
+              over it, you do not walk round it, and the concrete pool is the material. */
+           17:['basin edge','ground','the low upstand where the buried basin wall comes up through its own roof slab, kerb height, all the way round']},
       sum:'A water reservoir site: two big welded steel tanks on a graded pad cut high into the foothills, a valve house, and transmission mains leaving downhill.',
       ref:['Las Vegas Valley Water District: 84 reservoir basins and tanks holding nearly a billion gallons, serving more than 400,000 homes and businesses.',
            'LVVWD engineers site reservoirs by elevation and customer count, deliberately UPGRADIENT of customers so gravity pushes water through the lines and builds pressure.',
@@ -26960,6 +27001,12 @@ function __voidShade(col){
    LIGHT TOWERS in blobs of up to 25 tiles; this sprite is a street light and would be a lie
    on a floodlight mast (and 25 of them would stand 25 overlapping poles). Excluded by name
    until they get art of their own. */
+/* THE THINGS IN THIS VALLEY THAT ARE POURED CONCRETE, BY NAME. A legend name is a routing
+   key in this engine, not a label -- it picks which harmonized pool a tile is drawn from --
+   so anything poured has to be on this list or it comes out of the decomposed-granite yard
+   pool and reads as a gravel drive. Adding a concrete thing to a district legend means
+   adding its word here, and that is the whole maintenance cost. */
+const CONCRETE_NAME=/\bdeck\b|parapet|deck stripe|roof slab|expansion joint|basin edge|\bupstand\b|concrete (slab|apron|pad|panel)|\bslab\b/;
 function __lampTile(entry){
   var n=String((entry&&entry.name)||'');
   if(/tower|mast|floodlight/i.test(n)) return false;         /* a different object entirely */
@@ -27384,7 +27431,19 @@ function realizeCell(gx,gy){
          A deck, its parapet and its paint are all poured concrete, so they take the walk's
          concrete pool and are told apart by their own palette entries -- which needs the
          TINT to be on, or three different concretes render as one. */
-      if(/\bdeck\b|parapet|deck stripe/.test(_nm)) _pool='side';
+      /* *** AND IT WAS NOT ONLY THE DECK, SO THIS IS A LIST NOW (8/27, hours later). ***
+         Gave the reservoir's buried basins their own codes -- a poured concrete roof slab,
+         its expansion joints, the upstand where the basin wall comes up through it -- and
+         photographed them: they came back the colour of the district's DIRT PAD, joints and
+         all, for the identical reason the bridge came back tan. Kind `ground` and kind
+         `structure` both fall through this table's else branch to `hyard`, the
+         decomposed-granite yard pool.
+         FOURTH TIME THIS MONTH a name silently chose the wrong renderer (concrete to the
+         house-roof pool, putting brickwork on a dam; the bridge deck; the deck stripe; now
+         this) and the third time the fix was one more special case. So it is one NAMED LIST
+         of the things that are poured concrete, and the next one is an entry rather than an
+         edit. Deliberately NOT here: `tank pad`, which is graded dirt and says so. */
+      if(CONCRETE_NAME.test(_nm)) _pool='side';
       /* A MARKING IS PAINT, AND THE PAINT IS THE POINT. `street` is bare asphalt: giving
          it to a lane line draws a road with no line on it. These pools are ORIENTED, so
          the pool name is left for the pass that can see this cell's neighbours. */
@@ -27402,7 +27461,7 @@ function realizeCell(gx,gy){
          tint carries what material it is. */
       if(_pool){ c.gArtPool=_pool;
                  c.gArtVariant=((Math.imul(tx,2654435761)^Math.imul(ty,40503)^code)>>>0)%3;
-                 if(_pool==='hyard'||/\bdeck\b|parapet/.test(_nm)) c.gTint=pal; }
+                 if(_pool==='hyard'||CONCRETE_NAME.test(_nm)) c.gTint=pal; }
     }
     /* __PROP_SOLIDITY_IS_PER_TILE__ -- this line read `c.walk=false` for EVERY prop and
        never once looked at `tl.solid`, which the kit has computed per tile since July and

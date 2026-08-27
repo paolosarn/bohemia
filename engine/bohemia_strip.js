@@ -182,6 +182,25 @@
     var xing = (opts.cross != null) ? xLegs.length > 0 : (vert && horiz);
     var through = !xing && !!opts.spanThrough;
 
+    /* AND THE CROSS STREET DOES NOT STOP IN THE MIDDLE OF LAS VEGAS BOULEVARD (8/27).
+       `spanThrough` was wired on 8/18 to carry the PEDESTRIAN BRIDGE across the sibling
+       half, and it carried only that. The ROADWAY underneath it still stopped at the cell
+       boundary, so a street ran up to a two-cell-wide boulevard, crossed the near
+       carriageway, and ended in the middle of it. That is the last four same-class seams
+       in the street contract, and it is the SAME defect as the freeway deck fixed earlier
+       today: a fix that travelled to the thing on top and not to the thing underneath.
+       So a through-half paves the cross arm edge to edge and carries its lane lines and
+       its pavements -- what actually continues across a road.
+       WHAT IT DOES NOT GET is the junction anatomy: `xing` stays false, so no crosswalks,
+       no stop bars, no signal masts, no second set of bridge towers. And no MEDIAN PALMS
+       or PARKING POCKETS down the cross arm, because those belong to a boulevard and the
+       thing crossing here is a street passing through. */
+    var throughH = false, throughV = false;
+    if (through) {
+      if (vert && !horiz) { set.E = set.W = 1; hasE = hasW = true; horiz = true; throughH = true; }
+      else if (horiz && !vert) { set.N = set.S = 1; hasN = hasS = true; vert = true; throughV = true; }
+    }
+
     var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
 
     function coverV(oy) { return vert && (oy <= 0 ? (hasN || oy >= -BOX) : (hasS || oy <= BOX)); }
@@ -247,8 +266,8 @@
         if (g[py][px] === 4) g[py][px] = 11;
       }
     }
-    if (vert) medianPalms('v', coverV);
-    if (horiz) medianPalms('h', coverH);
+    if (vert && !throughV) medianPalms('v', coverV);
+    if (horiz && !throughH) medianPalms('h', coverH);
 
     // THE TURN POCKET (LINE COLOR LAW: yellow lives only where opposing directions meet
     // with no island between them, and on this street that is the left-turn bay).
@@ -269,8 +288,8 @@
     /* THE LEFT-TURN BAY OPENS TOWARD THE CROSS STREET, and nowhere else. On a run the
        median is unbroken, because nothing turns across a run. */
     if (xing) {
-      if (vert) { pocket('v', -1); pocket('v', 1); }
-      if (horiz) { pocket('h', 1); pocket('h', -1); }
+      if (vert && !throughV) { pocket('v', -1); pocket('v', 1); }
+      if (horiz && !throughH) { pocket('h', 1); pocket('h', -1); }
     }
 
     function put(px, py, code, over) {

@@ -73,7 +73,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [quarry](tilespec/BOHEMIA_TILESPEC_quarry.md) | infrastructure | 15 | yes |
 | [radio](tilespec/BOHEMIA_TILESPEC_radio.md) | infrastructure | 15 | yes |
 | [reclaim](tilespec/BOHEMIA_TILESPEC_reclaim.md) | infrastructure | 15 | yes |
-| [reservoir](tilespec/BOHEMIA_TILESPEC_reservoir.md) | infrastructure | 15 | yes |
+| [reservoir](tilespec/BOHEMIA_TILESPEC_reservoir.md) | infrastructure | 18 | yes |
 | [resort](tilespec/BOHEMIA_TILESPEC_resort.md) | gaming_resort | 16 | yes |
 | [strip](tilespec/BOHEMIA_TILESPEC_strip.md) | gaming_resort | 22 | yes |
 | [strip_x](tilespec/BOHEMIA_TILESPEC_strip_x.md) | (uncategorized) | 22 | yes |

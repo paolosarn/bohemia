@@ -195,11 +195,13 @@
         // no footprint, no interior and no door.
         for(j=0;j<2;j++)for(i=0;i<2;i++){                                 // THE BURIED BASINS
           var qx=18+i*48, qy=my+6+j*20;
-          G.rect(qx,qy,qx+40,qy+16,6);                                    // the roof slab
-          G.rect(qx+2,qy+2,qx+38,qy+14,7);                                // its expansion joints
+          G.rect(qx,qy,qx+40,qy+16,17);                                   // the basin's own upstand
+          G.rect(qx+1,qy+1,qx+39,qy+15,15);                               // the concrete roof slab
+          for(var ej=8;ej<40;ej+=8) G.rect(qx+ej,qy+1,qx+ej+1,qy+15,16);  // its expansion joints
+          for(var ek=6;ek<16;ek+=6) G.rect(qx+1,qy+ek,qx+39,qy+ek+1,16);
           for(var h=0;h<4;h++) G.set(qx+8+h*8, qy+8, 10);                 // the access hatches
           G.rect(qx,qy+17,qx+40,qy+18,13); }                              // the basin's own main
-        G.rect(14,12,W-15,14,7);                                          // the cut slope above the pad
+        G.rect(14,12,W-15,14,4);                                          // the cut slope above the pad
         for(i=0;i<9;i++) G.set(18+i*12,13,10);                            // its slope drains
         G.rect(W-26,20,W-24,my+4,8);                                      // the overflow, running downhill
         G.rect(W-30,my+4,W-22,my+6,7);
@@ -578,7 +580,8 @@
       /* the identification band round the TANK BASE: the tank (6) where it meets its pad (4) */
       mark:{on:6, near:4, count:5},
       pal:{0:'#463f30',1:'#4c483f',2:'#6a6358',3:'#3f382c',4:'#6b6558',5:'#c79a3f',6:'#9aa0a2',7:'#7d8386',
-           8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478'},
+           8:'#3a5560',9:'#8f8676',10:'#a39a86',11:'#c9c1aa',12:'#6a6a72',13:'#7a7266',14:'#8a8478',
+           15:'#a8a294',16:'#7e796e',17:'#6f6a5c'},
       leg:{0:['dead-ground (setback)','ground','the hillside outside the reservoir fence'],
            1:['access road','drive','the road up to the tank pad, switchbacked because the pad had to be this high (drivable)'],
            2:['building (valve house)','building','the valve house — the altitude valve that used to hold the level is still in there'],
@@ -593,7 +596,26 @@
            11:['marking','marking','the fading identification band round the tank base'],
            12:['perimeter fence','structure','the reservoir fence, ringing two tanks and a valve house and nothing else at all'],
            13:['transmission main','structure','the transmission main in and out — big enough that its trench reads from the air'],
-           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main']},
+           14:['standpipe','structure','the standpipe between the tanks, an open column whose water level WAS the pressure in the main'],
+           /* A BURIED CONCRETE BASIN IS NOT A STEEL TANK (8/27). The basins were drawn with
+              code 6 -- "a welded steel reservoir, seams showing through the failed coating"
+              -- and their joints with code 7, "the tank roof, its centre vent and the hatch
+              beside it". Half the storage on this site is BURIED CONCRETE with a roof slab
+              you can drive a truck over, and it was wearing steel plate and a tank hatch.
+              A LEGEND NAME IS A ROUTING KEY IN THIS ENGINE, NOT A LABEL: the name picks the
+              renderer's pool, so calling a concrete slab a steel tank does not merely read
+              wrong in the dossier, it PAINTS wrong on the ground. Third instance this month
+              (concrete falling through to the house-roof pool and putting brickwork on a
+              dam; a bridge deck routed to the granite-yard pool and coming back tan).
+              A basin roof is FLUSH with the pad and you WALK ON IT, so it is ground, not a
+              structure that blocks -- which is also why it must not be code 6, a solid. */
+           15:['basin roof slab','ground','the roof slab over a buried concrete basin, poured flush with the pad and rated to drive a truck across, thirty years of grit lying in the low spots'],
+           16:['expansion joint','ground','the sealed joints gridding the slab, the sealant gone hard and shrunk back off both faces'],
+           /* GROUND, NOT STRUCTURE, and the picture is what said so. Declared a structure it
+              drew as a WALL -- the facade pass, in the district's warm palette, so a concrete
+              kerb came back a red-brown block ringing every slab. It is 150 mm high: you step
+              over it, you do not walk round it, and the concrete pool is the material. */
+           17:['basin edge','ground','the low upstand where the buried basin wall comes up through its own roof slab, kerb height, all the way round']},
       sum:'A water reservoir site: two big welded steel tanks on a graded pad cut high into the foothills, a valve house, and transmission mains leaving downhill.',
       ref:['Las Vegas Valley Water District: 84 reservoir basins and tanks holding nearly a billion gallons, serving more than 400,000 homes and businesses.',
            'LVVWD engineers site reservoirs by elevation and customer count, deliberately UPGRADIENT of customers so gravity pushes water through the lines and builds pressure.',

@@ -109,13 +109,20 @@ const CROSS_CLASS_DEBT = 129;
      interchange 3 -- a stack is a BLOB drawn in valley coordinates across a cluster of
        cells, and three of its internal seams land one tile out. An off-by-one in a blob's
        coordinate mapping, not in the street contract.
-     strip       4 -- Las Vegas Boulevard runs TWO CELLS ABREAST, and a boulevard's
-       junction box is wider than a cell, so at a crossing the box reaches the far edge of
-       the cell and meets the sibling half's plain margin. The Strip needs a two-cell-wide
-       crossing piece; it does not have one. */
+     strip       1 -- was 4. THREE OF THE FOUR WERE ONE THING (8/27): a cross street that
+       ran up to a two-cell-wide boulevard, crossed the near carriageway, and STOPPED IN THE
+       MIDDLE OF LAS VEGAS BOULEVARD. `spanThrough` was wired on 8/18 to carry the pedestrian
+       BRIDGE across the sibling half and it carried only that -- the roadway underneath it
+       still ended at the cell boundary. Identical shape to the freeway deck fixed earlier
+       today: the fix travelled to the thing on top and not to the thing underneath. A
+       through-half now paves the cross arm edge to edge with its lane lines and its
+       pavements, and still gets NO junction anatomy -- no crosswalks, no stop bars, no
+       signals, no second pair of bridge towers, and no median palms or parking pockets down
+       a cross arm, because those belong to a boulevard and this is a street passing through.
+       ONE RESIDUAL, NOT YET DIAGNOSED. It is written down as one rather than guessed at. */
 const SAME_CLASS_DEBT = {
   interchange: 3,
-  strip: 4,
+  strip: 1,
   /* FREEWAY, 40, AND IT IS A MAP FACT RATHER THAN A PIECE FACT (8/27). These are NOT new
      breaks -- they are newly VISIBLE ones. Until today this contract did not count a
      bridge deck as corridor, so an arterial crossing a freeway on an overpass read as a

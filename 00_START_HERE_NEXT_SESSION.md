@@ -1,3 +1,119 @@
+WORLD (world-9lfjtf): 8/28 (k) LATEST -- *** THE DEAD VALLEY WAS STILL GREEN, AND
+IT HAD ALREADY BEEN FIXED THREE TIMES ONE FILE AT A TIME. Plus the level
+crossing, the cross street that stopped in the middle of Las Vegas Boulevard,
+and every overhead in the game finally having a real height. Nothing to judge. ***
+
+TAB: RUN. Walk anywhere. Build 8/28k - THE VALLEY IS DEAD AGAIN.
+Also visible in the CITY tab and the MAP tab.
+
+1. THE VALLEY WAS GREEN AND ACT ONE HAS NOTHING GREEN IN IT
+   #3a4520 is an olive green. It was the colour of tiles NAMED "dead brush",
+   "dead tree", "weed / brush", "windbreak tree", "dead landscaping", "dead
+   lawn", "outfield (dead turf)", "dead field turf" and "green (putting
+   surface)" -- in a game whose first act is a valley where the irrigation died
+   thirty years ago. On a real frame it reads as a healthy shrub.
+   IT HAD BEEN FIXED THREE TIMES ALREADY, ONE MODULE AT A TIME: the strip picked
+   the right answer, the jail wrote a post-mortem on 8/23, the arterial wrote
+   another on 8/26 -- and THAT ONE NAMES THE STRIP as already having the answer,
+   so the class was known and one file was still all that moved.
+   SWEPT: 26 tiles across 24 modules. Dead wood/brush/weed/palm/landscaping to
+   the strip's grey brown. Dead turf plates to bleached straw with LUMINANCE HELD
+   and only the hue rotated, so each district's composition is unchanged.
+   MEASURED on one frame: 25,024 green pixels -> 1,980. What is left is paint on
+   abandoned cars.
+   WHAT STAYS GREEN, EACH REASON WRITTEN DOWN: the creek grass at the Mormon
+   Fort ("the last grass in the valley, because the spring never stopped" -- the
+   fort is there BECAUSE the spring is); creosote and desert shrub, because the
+   open desert is on nobody's irrigation so the city's death does not touch it;
+   sulfate turquoise in the gypsum pit, dyed glycol under a datafort cooling
+   unit, algae in the basin trickle; a faded green Arts District storefront and
+   teal awnings, which are paint; and the crypt and garage exit markers.
+   GATE: gates/dead_valley_gate.js, 10 checks. A LAW WITHOUT A MACHINE GATE IS
+   NOT ENFORCED, and this law had three post-mortems and no gate.
+   THE GATE FOUND SIX MODULES MY OWN HAND SWEEP MISSED. #49512e is r73 g81 b46
+   and g-r is EXACTLY 8, one point outside the crude threshold I filtered with,
+   three separate times. The instrument was the broken part, again.
+   AND TWO OF THE GATE'S OWN DRAFTS WERE WRONG, BOTH WRITTEN INTO IT: it died
+   silently when a required engine module called process.exit (exit code 0, no
+   findings, would have read as a pass), and it went red on four hits that were
+   all COMMENTS -- the strip's, the jail's and the arterial's post-mortems for
+   this very bug. A checker that cannot tell a mention from a use is the broken
+   one.
+
+2. THE LEVEL CROSSING INVENTED ITS OWN ROAD WIDTH -- 37 SEAMS
+   bohemia_rail.js: "the grade crossing borrows the arterial's own cross-section"
+   and then `var PAVE = 21, CURB = 23`. It borrowed nothing. The arterial moved
+   to 17/19 on 8/26. A street 35 tiles wide ran up to the railway, crossed on a
+   43-tile crossing, and came off 35 wide again.
+   FIFTH TIME THIS MONTH a constant moved and its dependent stayed behind, and
+   FOUR OF THE FIVE had a comment beside them asserting the very dependency the
+   code refused to express.
+
+3. THE CROSS STREET STOPPED IN THE MIDDLE OF LAS VEGAS BOULEVARD -- 3 SEAMS
+   spanThrough was wired on 8/18 to carry the PEDESTRIAN BRIDGE across the
+   sibling carriageway. It carried only that; the roadway underneath it still
+   ended at the cell boundary. A through-half now paves the cross arm edge to
+   edge with its lane lines and pavements, and still gets no junction anatomy,
+   no second pair of bridge towers, no median palms and no parking pockets.
+
+   STREET CONTRACT: cross-class 166 -> 129, strip 4 -> 1. Arterial 0/2594 and
+   rail 0/86 with no allowance at all. 17 checks green, both ceilings ratcheted.
+
+4. EVERY OVERHEAD IN THE GAME WAS EXACTLY THE SAME HEIGHT
+   OH_H was one constant, so a market stall tent, a shop awning, a carport, a
+   fuel canopy, a jet bridge, a substation busbar and an interstate overpass all
+   hung the identical distance off the ground. There are 21 distinct overheads.
+   Height reads the legend name now, the way the pool table already does, against
+   real clearances: overpass 4.9 m (AASHTO), gantry and pedestrian bridge 5.2 m,
+   busbar 5-7 m, truck fuel canopy 4.3 m, carport and shop awning 2.4 m, market
+   tent 2.1 m. Two to seven cells. A run ENDS where the height changes, so an
+   awning butting onto a canopy shows the step. Shadow length is proportional to
+   height, reproducing the old fixed shadow exactly at h=2.
+
+5. THE RESERVOIR'S CONCRETE BASINS WORE WELDED STEEL
+   The buried basins were drawn with code 6, "a welded steel reservoir, seams
+   showing through the failed coating". They have their own codes now -- roof
+   slab, expansion joint, basin edge -- and the first photograph came back the
+   colour of the district's DIRT PAD, because kind `ground` and kind `structure`
+   both fall through the pool table to the granite yard pool.
+   FOURTH TIME THIS MONTH a legend name silently chose the wrong renderer, and
+   the third time the fix was one more special case. It is one named list now,
+   CONCRETE_NAME, so the next one is an entry rather than an edit.
+
+WHAT IS LEFT, NAMED
+  40 freeway-to-freeway seams, AND I GUESSED AT THEM TWICE AND WAS WRONG BOTH
+  TIMES. First filed as a MAP fact off two sampled cells. Then, after reading
+  bohemia_overmap.js ("a RECTANGLE ring with square corners, 2 wide", every ring
+  cell typed freeway), filed as the BELTWAY'S FOUR CORNERS -- a piece fact, and
+  the fix was built: the world hands the freeway its same-family perpendicular
+  arrivals separately from the streets it bridges over, and only those turn an
+  axis on. Measured: 40 of 1415, EXACTLY what it was before. A fix that changes
+  nothing is not a fix, so it was reverted rather than shipped looking plausible.
+  Every other seam class in this valley fell to the same method and it was never
+  guessing: count, look, change one thing, count again. THE NEXT STEP IS NOT
+  ANOTHER HYPOTHESIS -- make street_contract_gate print the coordinates and both
+  lo..hi profiles of every broken freeway seam, then go and look at one.
+  3 interchange seams are an off-by-one in a blob's coordinate mapping.
+  1 strip seam, undiagnosed, written down as one rather than guessed at.
+  479 drive tiles a car cannot reach inside the interchange (87.9% connected).
+  Ten dead legend codes still declared and never drawn.
+
+PRE-EXISTING RED, NOT FROM THIS TURN, FOR WHOEVER OWNS HAIR
+  GRAVEYARD is red with 10 LIVE REFERENCES, all of them in BOHEMIA_BACKLOG.md and
+  records/BOHEMIA_VERDICT_HAIR_ROUND4_8_20_26.txt -- both byte-identical to
+  origin/main, neither touched by this lane. They are a verdict record LISTING
+  which cuts went unjudged and a backlog note ABOUT the four fades, i.e. history
+  naming things that later died. That is "a checker that cannot tell a mention
+  from a use is the broken one" (Paolo 8/1), and under FIX THE RULER NEVER THE
+  TARGET the answer is probably the gate, not the records. Left alone because
+  ONE SYSTEM, ONE SESSION: it is not this lane's gate and not this lane's files.
+
+RECORDS
+  records/BOHEMIA_THE_VALLEY_WAS_STILL_GREEN_8_27_26.md
+  records/BOHEMIA_THE_ROAD_STOPPED_IN_THE_MIDDLE_OF_THE_BOULEVARD_8_27_26.md
+
+================================================================================
+
 COMBAT (combat-nfnki9): 8/28 (h) LATEST -- *** A BOSS NOW HANDS YOU AN ABILITY
 THAT DID NOT EXIST BEFORE YOU BEAT HIM, NOT JUST A DOOR HE WAS HOLDING SHUT. ***
 Nothing to judge.
