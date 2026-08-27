@@ -66,6 +66,32 @@ dark until you take them**:
 A locked button that no-ops teaches nothing. **A locked button that says a NAME is
 a quest.**
 
+### AND A HANDED-BACK VERB IS NOT YET A NEW WAY TO INTERACT (added same day)
+
+Stairs and the grenade are verbs the engine **already had**, switched off and
+returned. That proves the LOCK. It does not prove the GRANT. So a boss may also
+hand you an **ability that did not exist before you beat him**, and three do:
+
+| ability | the man | his grant, verbatim |
+|---|---|---|
+| **PATCH IT** | THE WARD | *"treat and dose, so a bad day stops being the last one"* |
+| **LIGHT IT** | THE BURN | *"light a fire anywhere, so you get the night back"* |
+| **SEND HIM** | THE DOGS | *"take a dog: it walks with you, or it holds your gate"* |
+
+Three clauses hold them:
+
+1. **AN ABILITY NOBODY HANDED YOU IS ABSENT, NOT GREYED OUT.** It is not in the
+   row, it does not charge, and pressing it does nothing. A fight quietly feeding
+   a button that is not in the game yet, then revealing it full, is a different
+   feature.
+2. **THE KEY GIVES YOU THE ABILITY; THE FIGHT STILL GIVES YOU THE CHARGE.** V185's
+   law — *recharge conditions are VERBS, not timers* — holds through the new door,
+   and each new ability gets a **condition nothing else reads**. Two abilities on
+   one verb is a menu getting longer, not a set of pressures getting wider.
+3. **A GRANT MAY COST YOU SOMETHING.** LIGHT IT un-halves the dark through V98's
+   single door, so it lights the lot **for them too**. A fire that lit only your
+   half would not be a fire, it would be a scope.
+
 ### AND THE KEY IS ON HIS BODY
 
 His ruling, 8/25: *"you get experience and loot OFF THEIR BODIES."* A key handed
@@ -99,9 +125,27 @@ bosses went red the moment it landed.** That is the entire argument for keeping 
 measurements running: the arm that catches a new feature's damage is almost never
 the arm written for it.
 
-The roll now happens in the wrapper, before the swap. Gated both ways: the seed's
-arena signature must be identical with the roll live and with it off, and
-`setupEnemiesBody` must never call `rollBoss` at all.
+The roll moved into the wrapper, before the swap — **and that broke the OTHER
+half of the same promise the same day.** V88 says "one exact FIGHT", not one exact
+lot: with the roll on the real `Math.random`, a pinned seed still rolled a
+different encounter every replay. An RF4-49 movement arm that had pinned seed 6
+for weeks started failing about one run in three, because the fight it drew was
+sometimes a boss fight with two guards standing on the cell it wanted to step
+into.
+
+**A THING THAT MUST BE REPRODUCIBLE CANNOT BE MOVED OFF THE SEED TO PROTECT THE
+SEED.** It needs its own stream, keyed off the same number. `bossDice()` builds a
+generator from the seed itself: the arena's draws are untouched to the byte, and
+seed 6 is seed 6 forever.
+
+Gated three ways: the arena signature is identical with the roll live and with it
+off, `setupEnemiesBody` never calls `rollBoss`, and one seed replayed gives one
+man while sixty seeds give many.
+
+**AND IT CHANGED WHAT AN OLD ARM IS ENTITLED TO ASSUME.** A seed an arm pinned for
+weeks is now either always a boss fight or never one, so every arm that predates
+the bosses declares an ordinary fight, once, at boot. A default is not a
+workaround when it is the thing being measured.
 
 ---
 
@@ -128,5 +172,7 @@ roll only offering a man who still holds something, the seed still stable, and t
 row he changes it in. Plus `gates/combat_lab_gate.js` holding the wrapper: nothing
 draws off the seeded stream that is not part of the arena.
 
-**TOOL:** `tools/bohemia_combat_the_mini_bosses_patch.py` (V190), idempotent,
-replayable onto fresh main.
+**TOOLS**, idempotent and replayable onto fresh main, in this order:
+`bohemia_combat_the_mini_bosses_patch.py` (V190),
+`bohemia_combat_the_kit_grows_patch.py` (V191),
+`bohemia_combat_one_number_is_one_fight_patch.py` (V192).

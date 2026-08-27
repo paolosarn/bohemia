@@ -58,6 +58,19 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   await page.mouse.click(215, 450); await SETTLE(page, 5000);
 
   const frame = page.frames().find(f => f.name() === 'combatFrame');
+
+  /* *** EVERY ARM IN THIS FILE THAT PREDATES V190 MEASURES AN ORDINARY FIGHT,
+     AND AFTER V192 IT HAS TO SAY SO. *** A boss is decided by the ARENA NUMBER
+     now -- that is the whole point, one number is one exact fight -- which means
+     a seed an arm has pinned for weeks is either always a boss fight or never
+     one, forever. Seed 6 draws THE SURVEYOR and six to eight men, and RF4-49's
+     sprint arm has pinned seed 6 since it was written: its two-tile step started
+     landing on a cell one of his guards was standing on, so a claim about the
+     MOVEMENT ECONOMY began failing on a fact about bosses.
+     The default is set here, once, loudly, instead of in eleven places: an arm
+     that wants a boss fight asks for one, and V190's and V191's arms do exactly
+     that. A DEFAULT IS NOT A WORKAROUND WHEN IT IS THE THING BEING MEASURED. */
+  try { await frame.evaluate(() => { G.bossOff = true; G.bossPick = null; }); } catch (e) {}
   if (!frame) {
     console.log('  FAIL could not reach the combat frame');
     console.log('=== FIGHT MOVES YOU GATE: 0 passed, 1 failed ===');
@@ -2270,8 +2283,21 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
    that makes a turn a choice; without it every turn is still shoot-or-walk. */
   const kit = await frame.evaluate(() => {
     const o = {};
+    /* *** V191 GREW THIS KIT AND THIS ARM HAD TO GROW WITH IT, NOT AROUND IT. ***
+       Three abilities now sit behind a named man, so with no keys held they
+       cannot charge and every claim below would read them as verbs with no
+       caller -- which is the exact defect this arm was written to catch, wearing
+       the wrong face. The probe HOLDS the three keys for its whole run and hands
+       them back at the end, so it tests the kit a player who has been playing
+       actually has, and V191's own arms test what a player who has not still
+       cannot reach. */
+    const _keptKeys = (typeof KEYS !== 'undefined') ? KEYS.taken.slice() : null;
+    if (typeof KEYS !== 'undefined') {
+      for (const k of KIT) if (k.key && KEYS.taken.indexOf(k.key) < 0) KEYS.taken.push(k.key);
+    }
     BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
     o.size = KIT.length;
+    o.behindAMan = KIT.filter(k => k.key).length;
     o.allDrafts = KIT.every(k => k.draft === true);
     o.distinctVerbs = new Set(KIT.map(k => k.verb)).size;
     o.emptyAtStart = Object.keys(G.kit||{}).length;
@@ -2311,6 +2337,23 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     try{ updateGeomCover(); visionTick(); }catch(e){}
     try{ openGroundTick(); }catch(e){}
     fired.open = ((G.kit||{}).read||0) > 0;
+    /* V191's three, staged the same way and driven through the SHIPPED tick.
+       Each is a condition nothing else in the kit reads, so each gets its own
+       board rather than being hoped for. */
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    for (const e of (G.e||[])) if (e) { e.dead = true; }     /* nobody has a line on you */
+    try{ visionTick(); }catch(e){}
+    try{ kitOwnTicks(); }catch(e){}
+    fired.quiet = ((G.kit||{}).patch||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    G.dayPhase = 'night'; G._litT = 0;
+    try{ kitOwnTicks(); }catch(e){}
+    fired.dark = ((G.kit||{}).light||0) > 0;
+    BohemiaArena.set(3); setupCombat(); G.pHP=100; G.over=false; G.inc=null;
+    for (const e of (G.e||[])) if (e) { e.dead = true; }
+    if (G.e && G.e[0]) { G.e[0].dead = false; G.e[0].ea = 0; G.e[0].edist = 2.0; G.e[0].lvl = 0; }
+    try{ kitOwnTicks(); }catch(e){}
+    fired.close = ((G.kit||{}).dog||0) > 0;
     o.fired = fired;
     o.everyVerbHasACaller = Object.values(fired).every(Boolean);
     /* SPENDING EMPTIES IT, AND AN UNCHARGED ONE REFUSES */
@@ -2325,6 +2368,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     G.kit={}; for(const k of KIT) G.kit[k.id]=99;
     for(const k of KIT){ try{ useKit(k.id); }catch(e){} }
     o.damage = { before, after: applyDamage(dummy,40) };
+    if (_keptKeys && typeof KEYS !== 'undefined') { KEYS.taken = _keptKeys; try{ keysSave(); }catch(e){} }
     return o;
   });
 
@@ -2336,9 +2380,9 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ', ready after ' + kit.plateWent.readyAfter
     + '\n    damage before/after all 6 ' + kit.damage.before + ' / ' + kit.damage.after);
 
-  ok('V185 RF4-13 *** SIX ABILITIES, SIX DIFFERENT VERBS, AND THE VERBS ARE THE POINT. *** "Recharge conditions are unique per item, and they are VERBS, NOT TIMERS." A timer recharges whatever you do and teaches nothing; a verb recharges only if you played a certain way. Each of the ' + kit.size
-    + ' charges on its own verb and nobody else\'s (' + JSON.stringify(kit.cross) + '), and the six were chosen to CONFLICT -- taking a hit, tucking behind stone and standing wide open cannot all be true in one turn, so no single style keeps everything lit. That is a set of pressures, not a bigger menu',
-    kit.size === 6 && kit.distinctVerbs === 6 && kit.oneToOne === true && kit.emptyAtStart === 0);
+  ok('V185 RF4-13 *** ONE ABILITY, ONE VERB, AND THE VERBS ARE THE POINT -- NOW ' + kit.size + ' OF THEM, ' + kit.behindAMan + ' BEHIND A NAMED MAN. *** "Recharge conditions are unique per item, and they are VERBS, NOT TIMERS." A timer recharges whatever you do and teaches nothing; a verb recharges only if you played a certain way. Each of the ' + kit.size
+    + ' charges on its own verb and nobody else\'s (' + JSON.stringify(kit.cross) + '), and they were chosen to CONFLICT -- taking a hit, tucking behind stone, standing wide open and having nobody looking at you cannot all be true in one turn, so no single style keeps everything lit. THIS ARM IS WHY V191\'s THREE HAVE THEIR OWN CONDITIONS: the first cut hung them on cover, move2 and kill, and this went red on its own law -- two abilities on one verb is a menu getting longer, not a set of pressures getting wider',
+    kit.size === 9 && kit.behindAMan === 3 && kit.distinctVerbs === 9 && kit.oneToOne === true && kit.emptyAtStart === 0);
 
   ok('V185 *** AND EVERY VERB HAS A REAL CALLER IN A PLAYED FIGHT, WHICH THE FIRST WRITE DID NOT. *** It hooked five and left move2 with NONE, so BREAK CONTACT could never charge -- shipped, correct and structurally unreachable, the fourth time today after V152\'s chewCover, V176\'s threshold and five of six deaths in V181. Driving the real events: ' + JSON.stringify(kit.fired)
     + '. spendMove is the one owner of a two-tile move, so sprint and dash both feed it',
@@ -2670,13 +2714,19 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     o.stored = (() => { try { return localStorage.getItem('bohemia.keys'); } catch (e) { return null; } })();
     o.published = (window.bohemiaKeys || []).slice();
     /* the roll only ever offers a man who still holds something you lack */
+    /* *** AND THE ARENA IS RE-ROLLED BETWEEN DRAWS, WHICH V192 MADE MANDATORY. ***
+       The first write called rollBoss() four thousand times on ONE seed and read
+       whatever that seed says four thousand times -- 100% or 0%, never 14%. A
+       decision that is deterministic per seed has to be sampled the way a player
+       meets it: a new number for every fight. */
     keysForget(); G.bossPick = null; G.bossOff = false;
     let n = 0, seen = {};
-    for (let k = 0; k < 4000; k++) { const b = rollBoss(); if (b) { n++; seen[b.id] = 1; } }
+    for (let k = 0; k < 4000; k++) { BohemiaArena.roll();
+      const b = rollBoss(); if (b) { n++; seen[b.id] = 1; } }
     o.rate = +(n / 4000).toFixed(3); o.distinct = Object.keys(seen).length;
     for (const b of BOSSES) if (!keyHas(b.id)) KEYS.taken.push(b.id);
     keysSave();
-    let after = 0; for (let k = 0; k < 2000; k++) if (rollBoss()) after++;
+    let after = 0; for (let k = 0; k < 2000; k++) { BohemiaArena.roll(); if (rollBoss()) after++; }
     o.rollWhenAllHeld = after;
     /* *** AND A SEED STILL DEALS THE SAME ARENA, WHICH THE FIRST CUT BROKE. ***
        setupEnemiesBody runs inside BohemiaArena.withDice on a SEEDED stream --
@@ -2699,6 +2749,24 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     o.seedStable = (sigSeen.size === 1 && sigSeen.has(sigOff));
     o.seedSigs = sigSeen.size; o.seedBossFights = withBoss;
     o.pillarsInSig = (G.pillars || []).length;
+    /* *** AND THE SECOND HALF OF V88's PROMISE: ONE NUMBER IS ONE EXACT FIGHT,
+       NOT ONE EXACT LOT. *** Moving the roll off the arena's stream fixed the
+       cover and left WHO TURNS UP on the real Math.random, so a pinned seed
+       still rolled a different encounter every time -- and a movement arm that
+       had pinned seed 6 for weeks started failing about one run in three,
+       because the fight it drew was sometimes a boss fight with two guards
+       standing on the cell it wanted to step into. The roll runs on a SECOND
+       stream keyed off the same number, so both halves hold at once. */
+    keysForget(); G.bossPick = null; G.bossOff = false;
+    const whoSeen = new Set();
+    for (let k = 0; k < 25; k++) { BohemiaArena.set(6); setupEnemies();
+      whoSeen.add(G.boss ? G.boss.id : 'nobody'); }
+    o.seedSameMan = whoSeen.size; o.seedManIs = [...whoSeen][0];
+    /* and a DIFFERENT number is allowed to be a different fight */
+    const acrossSeeds = new Set();
+    for (let k = 1; k <= 60; k++) { BohemiaArena.set(k); setupEnemies();
+      acrossSeeds.add(G.boss ? G.boss.id : 'nobody'); }
+    o.seedsDiffer = acrossSeeds.size;
 
     /* WHERE HE CHANGES IT HIMSELF (8/12) */
     const sel = document.getElementById('bosssel');
@@ -2715,6 +2783,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     panel.style.display = 'none';
     KEYS.taken = keep; keysSave();
     G.bossPick = null; G.bossOff = false;
+    G.bossOff = true; G.bossPick = null;   /* back to an ordinary fight for everything after */
     return o;
   });
 
@@ -2771,10 +2840,155 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' of those that drew a boss are excluded because a boss fight IS a different fight. A FEATURE THAT COSTS A SEEDED STREAM ONE DRAW REWRITES THE WHOLE MAP',
     boss.seedStable === true && boss.seedSigs === 1 && boss.pillarsInSig > 10);
 
+  ok('V190 AND ONE NUMBER IS ONE EXACT FIGHT, NOT ONE EXACT LOT -- the second half of the same promise, and the second cut broke it. Moving the roll off the arena stream fixed the COVER and left WHO TURNS UP on the real Math.random, so a pinned seed still rolled a different encounter every time and an old movement arm that has pinned seed 6 for weeks started failing about one run in three: the fight it drew was sometimes a six-to-eight man boss fight with two guards standing on the cell it wanted to step into. The roll runs on a SECOND stream keyed off the same number, so seed 6 gives '
+    + boss.seedManIs + ' in ' + boss.seedSameMan + ' distinct outcome(s) over 25 replays, while 60 different seeds give ' + boss.seedsDiffer + ' different answers',
+    boss.seedSameMan === 1 && boss.seedsDiffer >= 2);
+
   ok('V190 WHERE HE CHANGES IT HIMSELF (8/12): a BOSS row in the COMBAT tab\'s settings with ' + boss.rowPickable
     + ' of them in a list, pick one and the next fight is him, what you hold spelled out, and a button that hands it all back. Without that row a boss is something I can measure and he cannot reach, which is the exact failure that law exists to kill. And the tree lists what you took off somebody, because a perk makes you better at the fight while a key changes what the world will let you do',
     boss.rowPickable === boss.list.length && boss.forgetBtn === true
     && /YOU HOLD/.test(boss.rowText) && boss.treeShowsKey === true && boss.treeHidesUnowned === true);
+
+  /* ================= V191 THE KIT GROWS ==============================
+     Paolo 8/26 named THREE things in one breath and said they go hand in hand:
+     the tree, the bosses and the ABILITIES. Two of the three touched each other
+     after V190 and the kit was still exactly the six it shipped with -- same six
+     on turn one of fight one, same six on hour ninety, in a hundred-hour game
+     with sixty bosses in it. AND V190 ONLY PROVED THE LOCK, NEVER THE GRANT:
+     THE CLIMB hands back stairs and THE CHARGE hands back the grenade, and both
+     are verbs this engine already had, switched off and returned. */
+  const v191 = await frame.evaluate(() => {
+    const o = {};
+    const keep = KEYS.taken.slice();
+    keysForget();
+    G.bossOff = true; G.bossPick = null;
+    BohemiaArena.roll(); setupEnemies(); resetFightState();
+    G.over = false; G.phase = 'cover'; G.inc = null; G.mTurn = 1;
+    o.keyed = KIT.filter(k => k.key).map(k => ({ id: k.id, n: k.n, key: k.key }));
+    /* A LOCKED ABILITY MUST NOT EVEN ACCUMULATE. Charging it invisibly and then
+       revealing a full button is a different feature -- it would mean the fight
+       had been feeding something that is not in the game yet. */
+    const feedNew = () => { for (let i = 0; i < 12; i++) { kitVerb('quiet'); kitVerb('dark'); kitVerb('close'); } };
+    for (let i = 0; i < 12; i++) { kitVerb('cover'); kitVerb('move2'); kitVerb('kill'); }
+    feedNew();
+    updKit();
+    let row = document.getElementById('kitrow').innerHTML;
+    o.lockedCharge = o.keyed.map(k => (G.kit || {})[k.id] || 0);
+    o.lockedReady = o.keyed.map(k => kitReady(k.id));
+    o.lockedInRow = o.keyed.map(k => row.indexOf('data-kit="' + k.id + '"') >= 0);
+    o.lockedPressDoesNothing = o.keyed.map(k => useKit(k.id));
+    o.sixUnaffected = KIT.filter(k => !k.key).map(k => k.id).filter(id => kitReady(id)).length;
+    /* HAND THEM OVER. The button arrives, but NOT charged -- a key gives you the
+       ability, the fight still has to give you the charge, which is V185's whole
+       "recharge conditions are VERBS, not timers". */
+    keyWin('ward'); keyWin('burn'); keyWin('dogs');
+    row = document.getElementById('kitrow').innerHTML;
+    o.chargedByTheKey = /data-kit="(patch|light|dog)"/.test(row);
+    feedNew();
+    updKit(); row = document.getElementById('kitrow').innerHTML;
+    o.ownedInRow = o.keyed.map(k => row.indexOf('data-kit="' + k.id + '"') >= 0);
+    o.ownedReady = o.keyed.map(k => kitReady(k.id));
+    /* PATCH IT -- the first thing in this fight that gives health back */
+    G.pMax = 100; G.pHP = 40;
+    feedNew();
+    o.hpBefore = G.pHP; useKit('patch'); o.hpAfter = G.pHP;
+    o.hpBar = document.getElementById('phpf').style.width;
+    G.pHP = 95; feedNew(); useKit('patch');
+    o.hpCapped = G.pHP;
+    /* LIGHT IT -- through V160's ONE DOOR, so it lights the lot for THEM TOO */
+    G.dayPhase = 'night'; G._litT = 0; G.mTurn = 5;
+    o.darkMult = rangeMult();
+    o.darkMine = +maxRange(myRange()).toFixed(2);
+    o.darkTheirs = +maxRange(foeRange({ arch: 'sniper' })).toFixed(2);
+    feedNew();
+    useKit('light');
+    o.litMult = rangeMult();
+    o.litMine = +maxRange(myRange()).toFixed(2);
+    o.litTheirs = +maxRange(foeRange({ arch: 'sniper' })).toFixed(2);
+    G.mTurn = (G._litT | 0) + 1;
+    o.burntOut = +maxRange(myRange()).toFixed(2);
+    G.dayPhase = 'morning'; G._litT = 999; G.mTurn = 1; o.dayMult = rangeMult();
+    G.dayPhase = 'night'; G._litT = 0;
+    /* SEND HIM -- a STUN, not a suppress, and only the nearest man */
+    BohemiaArena.roll(); setupEnemies();
+    G.over = false; G.phase = 'cover'; G.inc = null; G.mTurn = 3;
+    const live = G.e.filter(e => !e.dead);
+    let near = live[0]; for (const e of live) if (e.edist < near.edist) near = e;
+    o.dogBefore = { stun: near.stun | 0, supp: near.supp | 0, hp: near.hp };
+    feedNew();
+    useKit('dog');
+    o.dogAfter = { stun: near.stun | 0, supp: near.supp | 0, hp: near.hp };
+    o.dogOthers = live.filter(e => e !== near && (e.stun | 0) > 0).length;
+    /* NO DAMAGE BEFORE THE DIAL, with all three owned and two of them spent */
+    /* *** READ WHAT applyDamage RETURNS, NOT AN HP DELTA. *** The first write of
+       this arm subtracted hp before from hp after, and the second hit KILLED the
+       man -- hp clamps at zero, so a clean 40 read as 35 and the arm reported a
+       damage change that had never happened. A measurement that can be changed by
+       the target's remaining health is not measuring damage. */
+    const t = G.e.find(e => !e.dead && !e.boss);
+    t.hp = t.max = 999;
+    o.dmgPlain = applyDamage(t, 40);
+    feedNew();
+    useKit('patch'); useKit('light');
+    t.hp = 999;
+    o.dmgWithAll = applyDamage(t, 40);
+    /* AND A FIRE DOES NOT SURVIVE THE FIGHT */
+    G.dayPhase = 'night'; G.mTurn = 2;
+    feedNew(); useKit('light');
+    o.fireDuring = rangeMult();
+    BohemiaArena.roll(); setupEnemies(); resetFightState();
+    o.fireAfterReset = rangeMult();
+    /* AND THE ROW HE DIRECTS IT FROM NAMES THEM */
+    keysForget(); updBossRow();
+    o.rowNames = document.getElementById('bossrow').textContent;
+    KEYS.taken = keep; keysSave(); updKit(); updBossRow();
+    G.bossOff = true; G.bossPick = null;   /* back to an ordinary fight for everything after */
+    return o;
+  });
+
+  console.log('  V191 the kit grows:'
+    + '\n    behind a man                       ' + v191.keyed.map(k => k.n + '<-' + k.key).join(', ')
+    + '\n    locked: charge / ready / in the row ' + JSON.stringify(v191.lockedCharge) + ' ' + JSON.stringify(v191.lockedReady) + ' ' + JSON.stringify(v191.lockedInRow)
+    + '\n    owned:  ready / in the row         ' + JSON.stringify(v191.ownedReady) + ' ' + JSON.stringify(v191.ownedInRow)
+    + '\n    PATCH IT  hp                       ' + v191.hpBefore + ' -> ' + v191.hpAfter + ' (bar ' + v191.hpBar + '), capped at ' + v191.hpCapped
+    + '\n    LIGHT IT  your reach / theirs      ' + v191.darkMine + ' -> ' + v191.litMine + '   /   ' + v191.darkTheirs + ' -> ' + v191.litTheirs + '   (out again at ' + v191.burntOut + ')'
+    + '\n    SEND HIM  stun / supp / hp         ' + JSON.stringify(v191.dogBefore) + ' -> ' + JSON.stringify(v191.dogAfter)
+    + '\n    damage plain / with all three      ' + v191.dmgPlain + ' -> ' + v191.dmgWithAll);
+
+  ok('V191 *** THE KIT GROWS, WHICH IS THE HALF OF HIS SENTENCE NOBODY BUILT. *** He named three things in one breath -- "IT WILL GO HAND IN HAND WITH ABILITIES AND THE 60 MINI BOSSES" -- and after V190 two of the three touched each other while the kit was still exactly the six it shipped with: the same six on turn one of fight one and on hour ninety. AND V190 ONLY PROVED THE LOCK, NEVER THE GRANT, because stairs and the grenade are verbs this engine ALREADY HAD, switched off and handed back. '
+    + v191.keyed.length + ' abilities now do not exist until a named man gives them to you',
+    v191.keyed.length === 3 && v191.keyed.every(k => k.key && k.n));
+
+  ok('V191 AN ABILITY NOBODY HANDED YOU IS ABSENT, NOT GREYED OUT. Twelve turns of every recharge verb in the game -- the shipped six AND the three new conditions -- leave the three locked ones at ' + JSON.stringify(v191.lockedCharge)
+    + ', not ready ' + JSON.stringify(v191.lockedReady) + ', out of the row ' + JSON.stringify(v191.lockedInRow) + ', and pressing them does nothing. It must not even ACCUMULATE: a fight quietly feeding a button that is not in the game yet, then revealing it full, is a different feature. And the six he already had are untouched -- ' + v191.sixUnaffected + ' of them charged in the same run. He has asked five times for things to come OFF that row',
+    v191.lockedCharge.every(v => v === 0) && v191.lockedReady.every(v => v === false)
+    && v191.lockedInRow.every(v => v === false)
+    && v191.lockedPressDoesNothing.every(v => v === false) && v191.sixUnaffected >= 2);
+
+  ok('V191 AND THE KEY GIVES YOU THE ABILITY WHILE THE FIGHT STILL GIVES YOU THE CHARGE. Taking all three keys puts nothing in the row (' + (v191.chargedByTheKey ? 'FAILED' : 'correct')
+    + ') and turns of their own new conditions (QUIET, DARK, CLOSE) put all three there, ready ' + JSON.stringify(v191.ownedReady) + '. That is V185\'s whole point held through a new door: "recharge conditions are VERBS, not timers", so a boss hands you a WAY TO PLAY rather than a charged button',
+    v191.chargedByTheKey === false && v191.ownedInRow.every(v => v === true) && v191.ownedReady.every(v => v === true));
+
+  ok('V191 PATCH IT (THE WARD -- "treat and dose, so a bad day stops being the last one") IS THE FIRST THING IN THIS FIGHT THAT GIVES HEALTH BACK. V182 built ONE DOOR for every point of damage that reaches the player and nothing has ever opened the other way, which is exactly why this sits behind a man instead of in the starting six: '
+    + v191.hpBefore + ' -> ' + v191.hpAfter + ', the bar reads ' + v191.hpBar + ', and it cannot overheal (95 -> ' + v191.hpCapped + ')',
+    v191.hpAfter - v191.hpBefore === 25 && v191.hpBar === '65%' && v191.hpCapped === 100);
+
+  ok('V191 *** LIGHT IT (THE BURN -- "light a fire anywhere, SO YOU GET THE NIGHT BACK") LIGHTS THE LOT FOR THEM TOO, AND THAT IS THE WHOLE DESIGN. *** V98\'s dark halves every range in this game and V160 made every reach -- yours, theirs, the sniper\'s -- come through ONE door, so un-halving it un-halves it for everybody who wants to shoot you. Measured at night: your reach '
+    + v191.darkMine + ' -> ' + v191.litMine + ' and a sniper\'s ' + v191.darkTheirs + ' -> ' + v191.litTheirs + ', back to ' + v191.burntOut
+    + ' when it burns out. A fire that only lit YOUR half would not be a fire, it would be a scope, and his grant would stop being a decision',
+    v191.darkMult === 0.5 && v191.litMult === 1 && v191.litMine > v191.darkMine
+    && v191.litTheirs > v191.darkTheirs && v191.burntOut === v191.darkMine && v191.dayMult === 1
+    && v191.fireDuring === 1 && v191.fireAfterReset === 0.5);
+
+  ok('V191 SEND HIM (THE DOGS -- "take a dog: it walks with you, or it holds your gate") TAKES THE NEAREST MAN OFF HIS FEET, and it is a STUN rather than a suppress so it is nothing CALL IT already does: CALL IT makes a man put his head down, the dog puts him on the floor. Stun '
+    + v191.dogBefore.stun + ' -> ' + v191.dogAfter.stun + ', suppression untouched at ' + v191.dogAfter.supp + ', HEALTH UNTOUCHED at ' + v191.dogAfter.hp + ', and ' + v191.dogOthers + ' other men affected',
+    v191.dogAfter.stun >= 2 && v191.dogAfter.supp === 0
+    && v191.dogAfter.hp === v191.dogBefore.hp && v191.dogOthers === 0);
+
+  ok('V191 AND NO DAMAGE BEFORE THE DIAL SURVIVES ALL THREE: with every ability owned and two of them spent, applyDamage goes ' + v191.dmgPlain + ' -> ' + v191.dmgWithAll
+    + '. One gives health BACK, one moves a RANGE both ways through V98\'s own single door, one sets the STUN a shove already sets. And the BOSSES row names all three of the men who hold them, so an ability he does not have is a name and an address rather than a mystery',
+    v191.dmgPlain === v191.dmgWithAll && v191.dmgPlain === 40
+    && /PATCH IT/.test(v191.rowNames) && /LIGHT IT/.test(v191.rowNames) && /SEND HIM/.test(v191.rowNames));
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

@@ -4733,14 +4733,30 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
      the broken one, same shape as the MEDIC_SHY claim that tripped on the
      comment explaining the deletion. */
   {
-    const _ogt = demo.slice(demo.indexOf('function openGroundTick(){'),
-                            demo.indexOf('function tickTurnEnd(){ meleeTurnRun();'));
+    /* NARROWED 8/27, and this is the third time this slice has had to move.
+       It ran from openGroundTick all the way to tickTurnEnd, so it swallowed
+       every function anybody added in between -- V185's kitCoverTick, then
+       V191's kitOwnTicks and the comment explaining it -- and the length rail
+       went red on a claim about a function nobody had touched. The slice now
+       ENDS AT THE NEXT FUNCTION, which is what "scoped to the function body"
+       meant in the first place, so it stops moving every time a neighbour
+       appears. */
+    const _ogtA = demo.indexOf('function openGroundTick(){');
+    const _ogtEnd = demo.indexOf('\nfunction ', _ogtA + 10);
+    const _ogt = demo.slice(_ogtA, _ogtEnd);
     ok('V180 AND IT SETS NO SECOND CAP, because a mutation test proved a second cap was a dead term: the first write re-checked finisherReady() inside openGroundTick, deleting that check left every gate green, and finisherFeed already refuses to fill past the threshold. THE MEDIC_SHY DEFECT, caught before it shipped this time rather than after',
       /* V185 RE-POINTED: openGroundTick gained the kit's 'open' verb, so the
          slice is longer. The bound is a sanity rail on the SLICE, never the
          claim -- what is asserted is that this function carries G.over and
          NOT a second finisherReady cap. */
-      _ogt.length > 100 && _ogt.length < 1600
+      /* AND THE RAIL IS CONTENT, NOT A MAGIC LENGTH. A character count on a
+         slice is a rail that fails every time somebody writes a longer comment
+         next door -- which is precisely what happened. What proves the slice
+         landed on the right function is that the right function's own calls are
+         in it. */
+      _ogt.length > 100
+      && /finisherFeed\(\);/.test(_ogt) && /wideOpen\(\)/.test(_ogt)
+      && !/\nfunction \w+\([^)]*\)\{[\s\S]*\n\}/.test(_ogt)
       && /if\(G\.over\)return;/.test(_ogt)
       && !/if\(G\.over\|\|finisherReady\(\)\)return;/.test(_ogt));
   }

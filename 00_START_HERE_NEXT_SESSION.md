@@ -1,3 +1,69 @@
+COMBAT (combat-nfnki9): 8/28 (h) LATEST -- *** A BOSS NOW HANDS YOU AN ABILITY
+THAT DID NOT EXIST BEFORE YOU BEAT HIM, NOT JUST A DOOR HE WAS HOLDING SHUT. ***
+Nothing to judge.
+
+TAB: COMBAT. Fight. The BOSSES row is in DEMO SETTINGS. Build 8/28h.
+
+HIS RULING, 8/26, NAMED THREE THINGS IN ONE BREATH
+  "IT WILL GO HAND IN HAND WITH ABILITIES AND THE 60 MINI BOSSES." The tree
+  (V188), the bosses (V190) and the ABILITIES (V185's kit). Two of the three
+  touched each other and the kit was still exactly the six it shipped with --
+  same six on turn one of fight one and on hour ninety, in a hundred-hour game.
+  AND V190 ONLY PROVED THE LOCK, NEVER THE GRANT: stairs and the grenade are
+  verbs the engine ALREADY HAD, switched off and handed back.
+
+THREE ABILITIES THAT DO NOT EXIST UNTIL SOMEBODY GIVES THEM TO YOU
+  PATCH IT  (THE WARD) hp 40 -> 65, cannot overheal. The only thing in this
+            fight that has ever given health back.
+  LIGHT IT  (THE BURN) your reach 11 -> 16 -- AND A SNIPER'S 8 -> 16. V98's dark
+            halves every range through ONE door, so a fire lights the lot FOR
+            THEM TOO. A fire that lit only your half would be a scope.
+  SEND HIM  (THE DOGS) the nearest man: stun 0 -> 2, health untouched, nobody
+            else touched. A stun, not a suppress -- CALL IT makes a man duck,
+            the dog takes him off his feet.
+  Locked ones are ABSENT, not greyed: 0 charge after twelve turns of every verb
+  in the game, out of the row, and pressing them does nothing.
+
+THREE OLD ARMS CAUGHT THREE REAL DEFECTS IN ONE TURN
+  1. V185: I hung the three on verbs the six already owned and its own law
+     ("recharge conditions are UNIQUE PER ITEM") refused it. They have their own
+     conditions now -- QUIET, DARK, CLOSE -- 9 abilities, 9 verbs, one each.
+  2. V188: OPENING MOVE started arming abilities the player does not have, which
+     reads as arming NOTHING. A feature that widens a list silently breaks every
+     random pick over that list.
+  3. RF4-49's sprint arm went intermittent -- see below.
+
+*** V192: ONE NUMBER IS ONE EXACT FIGHT, NOT ONE EXACT LOT ***
+  V190 broke V88's promise TWICE, in opposite directions, in one day. First cut
+  drew off the seeded stream and re-dealt every arena he has written down. THE
+  FIX MOVED IT OFF THE SEED ENTIRELY, which repaired the cover and left WHO
+  TURNS UP unseeded -- so a pinned seed still rolled a different encounter every
+  replay, and a movement arm that has pinned seed 6 for weeks started failing
+  one run in three. THE LESSON, AND IT IS NOT THE ONE I WROTE DOWN YESTERDAY:
+  a thing that must be reproducible cannot be moved OFF the seed to protect the
+  seed. It needs its own stream, keyed off the same number. Seed 6 now gives THE
+  SURVEYOR in 1 outcome over 25 replays; 60 seeds give 11 answers; the arena
+  signature is still 1 across 40 replays.
+  And every arm that predates the bosses now declares an ORDINARY fight, once,
+  at boot -- a seed pinned for weeks is otherwise always a boss fight or never
+  one. The V190 rate arm was also wrong: it rolled 4,000 times on ONE seed. Real
+  number, sampled the way a player meets it: 15.0%.
+
+GATES: fight_moves_you 130/0 (was 122/0), four runs stable - combat_lab 931/1
+(the one red is another session's fight-music ladder) - boss_ladder 87/0 -
+one_engine 3/0 - tool_idempotent 6/0 - 0 page errors.
+LAW:    laws/BOHEMIA_LAW_A_BOSS_HANDS_YOU_A_VERB_8_27_26.md (amended same day)
+RECORD: records/BOHEMIA_COMBAT_THE_KIT_GROWS_8_27_26.md
+
+WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
+  50 of his 53 grants live outside combat -- the map, cooking, tattoos, the
+  workshop, the farm, the summon. window.bohemiaKeys publishes what you hold so
+  CITY / RUN / QUESTS can close their own doors without knowing anything about
+  combat. Still open from his 8/25 dispatch: ammo is confusing (readability),
+  "it could be more hardcore if you wanted it to be" (permission, not a ruling).
+
+------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 8/27 (b) LATEST -- *** THE GAME HAS LETTERS, AND THE RUN WEARS
 HIS LOOK. *** TAB: **UI** (it opens on IN THE GAME, four before-and-after
 photographs of the real run), and you SEE it in **RUN**.
