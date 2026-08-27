@@ -1,3 +1,44 @@
+CITY (city-1eztay): 8/28 (a) LATEST -- *** THE DEMO NOW CARRIES THE CITY, AND NOBODY HAD
+EVER MEASURED THE DEMO'S LOAD. *** THE DEMO IS ITS OWN LINK (his 8/25 law) makes it a
+separate build at a separate url, and says the workshop link is never given to a player --
+yet every load number this repo ever produced was measured on the WORKSHOP. time_to_play
+opens BOHEMIA_ALPHA_0_9.html three times and had never once opened the demo. That is the
+VERIFY ON THE REAL SURFACE mistake, and a live risk rather than a theoretical one, because
+THE DEMO IS CUT BY A TOOL and a cut can drop the progressive-loading wiring while dropping
+no visible feature. Measured, both surfaces, same server/throttle/tap: workshop world 10.1s
+wait-after-tap 9.1s; DEMO world 10.5s wait 9.0s. The wiring survived -- but that was LUCK
+UNTIL SOMETHING CHECKED IT. time_to_play 13/0 -> 18/0, reusing its existing browser and
+server (a second browser gate costs ~40s, a second CONTEXT ~10s).
+  AND THE DEMO WAS A STALE CUT: demo_build_gate 24/1 on "it is a CUT OF THE CURRENT
+WORKSHOP, not a fork" -- it carried NONE of the day's city. Re-cut, 25/0. The thing he wants
+to ship now contains the work.
+  *** I HAD TO FIX MY OWN NEW LEG TWICE, BOTH TIMES BECAUSE I TESTED IT. *** (1) I wrote the
+cut-quality check as a CLOCK -- demo within 3s of the workshop -- and it FAILED ITS OWN
+MUTATION TEST: stripping the warm-up moved the demo 9.0 -> 9.8s and the leg stayed green.
+Tightening is not the fix; noise is a few tenths, so a threshold that catches one second
+reds on nothing. THE CLAIM IS "THE CUT KEPT THE WIRING", SO CHECK THE WIRING. (2) The
+replacement was TWO LEGS THAT WERE ONE LEG WRITTEN TWICE -- I looked for the late loader by
+name and that name sits INSIDE the warm-up block's own queue, so stripping the block failed
+both for one reason. TWO CHECKS THAT DIE TOGETHER ARE ONE CHECK. Replaced with the failure
+that happens separately: block kept, QUEUE EMPTIED, which looks identical from outside. Both
+now mutation-tested INDEPENDENTLY.
+  THE BLOCKING CHUNK GATE EARNED ITS KEEP ON ITS FIRST DAY: the rebase at the top of this
+turn brought main's 4.35 MB chunk 1 back AGAIN and it went red in 0.085s -- where the day
+before that cost a 43s three-browser gate to notice, or shipped. A guard nobody can afford
+to run before every push is a guard that runs after the damage.
+  AND THE STEP A NOTE COULD NOT ENFORCE IS NOW IN THE PUSH LOOP: it re-runs the chunker AND
+re-cuts the demo after any rebase, and REFUSES TO PUSH if the blocking chunk is still fat.
+"Run the chunker after every rebase" was followed correctly all day and still shipped the
+slow load once, because the rebase that undid it ran inside an automated loop where there is
+nobody to read a note.
+  WHAT COMES AFTER, unchanged and in order: (1) THE SUITE AS A SHIP GATE -- measured today:
+181 of 441 gates drive a browser, they are 90% of the wall clock (mean 27.3s vs 5.1s), and
+they run 2-wide while everything else runs 4-wide. Raising BROWSER_JOBS is NOT the fix --
+browser contention causes false reds, which I proved on myself. (2) LOOK clocks pictures by
+mtime against a surface every ship touches, so it measures TREE AGE. (3) GRAVEYARD's 10 live
+references, repo hygiene with no owning lane. (4) Aperture mismatch + midpoint keep-out from
+8/22. (5) 31 unplaced legend codes.
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/28 LATEST -- *** SWEEP 22. THE WASH IS
 A DOOR NOBODY BUILT. Plus a correction to my own work that becomes a standing
 rule. Nothing to judge. ***
@@ -957,85 +998,6 @@ PROOF
   ALPHA LOADS GREEN · HANDOFF 7/0
 
 ------------------------------------------------------------------------------
-
-CITY (city-1eztay): 8/27 (b) LATEST -- *** THIRTEEN DISTRICTS STOPPED MULTIPLYING, THAT
-CLASS IS CLOSED, AND A TOOL WAS DELETING ANOTHER LANE'S WORK EVERY TIME IT RAN. ***
-A generator is handed ONE cell, so a data fort sited across six built SIX data forts.
-Measured before, 3x2 blob, all twelve utility landmarks: SIX CAR GATES each, up to
-forty-eight fence segments. After: ONE gate, one fence spanning the plot. On the walked
-page: datafort 6-of-6 -> 1-of-6, basin 4-of-4 -> 1-of-4, reclaim 2-of-2 -> 1-of-2,
-watertreat 6 buildings over 2 cells -> 3. Lone cells byte-identical: every type, four
-facings, four seeds.
-  ONE CHANGE COVERED TWELVE -- the FACTORY LAW paying out. The other nine clustered
-districts each needed a bespoke rewrite; the utility factory did not, because twelve
-landmarks already shared one frame, one layout dispatch, one dressing pass and one drive
-connector, and all of them talk to the grid only through get/set/rect/W/H. So the whole
-blob builds as a SINGLE OVERSIZED DISTRICT (K.grid always took a width and height) and all
-nine layout primitives ran against it UNCHANGED.
-  THE REUSABLE RULE: REPEAT THE UNITS A BIGGER SITE HAS MORE OF, NEVER THE THING IT IS
-NAMED AFTER. A depot twice the size has twice the magazines; nobody names an antenna farm
-after one mast; but there is exactly one control house, one fence, one gate. The first cut
-tiled the reclamation ponds and took the control building with them -- the gate caught it.
-K.shift lives in the kit with that rule written on it.
-  *** READ THIS ONE IF YOU READ NOTHING ELSE: A TOOL WAS DELETING THE ART LANE'S FLOORS ON
-EVERY RUN. *** tools/bohemia_city_chunk_tile_bank.py rewrote the whole __TILE_BANK__ region
-and discarded whatever else lived in it -- and the ART lane's room-floor data loads from
-ONE line in there. So BOHEMIA_CITY_FLOORS.js stayed tracked, stayed in the deploy list, and
-NOTHING LOADED IT: FLOOR_POOL_B64 undefined on the walked page, every interior floor
-falling back. I FIRST DIAGNOSED IT AS A REBASE EATING THE TAG AND FIXED IT AS ONE -- and it
-came back the next time the chunker ran, which is how the real cause surfaced. THE FILE
-SURVIVING IS WHY IT IS INVISIBLE: a deleted file is loud, an orphaned one looks exactly
-like a working one. The chunker now carries foreign tags forward (stable over three
-consecutive runs; the tag now sits outside the region entirely). The net:
-gates/no_orphan_script_gate.js -- every .js in slices/ must be NAMED by something that can
-load it. A NAME check, not a tag check: eight chunks load by URL construction with no tag
-anywhere. IT CAUGHT THE RECURRENCE LIVE, minutes after I wrote it.
-  VALLEY CENSUS 11/3 -> 14/0. It calls a type flat when EVERY sampled plot has no building,
-which was right when every generator got one cell and is the WRONG QUESTION for a clustered
-one -- a six-cell data fort is one cell with the hall and five without, BY DESIGN. A RULER
-THAT PREDATES THE CHANGE IT MEASURES IS THE BROKEN PARTY. Clustered types are read from the
-cluster:true rows in world.js, not a hand-list, so they cannot drift; the wash defers to its
-older reason (a lined channel has no buildings either way).
-  AND THAT FIX EXPOSED A HOLE IN MY OWN MORNING'S GATE. I wrote a census leg to stop the
-exemption hiding a vanished facility; it failed on solar and it was WRONG, because the
-census SAMPLES and a solar farm is hundreds of cells with one control building, so "does
-not exist" and "not sampled" are the same reading there. Hunting for where the guarantee
-belonged found that NOWHERE HELD IT: one_district_per_blob's rule `nBlob < nCell` is
-satisfied by nBlob === 0, so "stopped multiplying" and "disappeared" are the same number.
-Closed where both builds are in hand: leg "A CLUSTERED FACILITY IS BUILT ONCE, NOT ZERO
-TIMES". PUT THE CHECK WHERE THE EVIDENCE IS, NOT WHERE THE SYMPTOM SHOWED.
-  *** THE PROCESS LESSON THAT COST THE MOST HOURS: I WAS CAUSING THE FLAKINESS I WAS
-DIAGNOSING. *** I ran diagnostic browser gates FROM A WORKTREE while the suite ran browser
-gates in the main tree -- two Chromiums, four cores. ONE SUITE AT A TIME exists for exactly
-this and its lock keys on the REPO ROOT, and A WORKTREE IS A DIFFERENT ROOT, so it never
-fired. I spent an hour calling gates flaky. On a clean run with nothing else touching the
-machine, LOOK NOT TRAVEL, COMBAT SOUND, WALK FEEL and VISTA EXIT all came back green.
-IF YOU DIAGNOSE A SUITE RED, KILL THE SUITE FIRST OR YOUR ANSWER IS ABOUT YOU.
-  EVERY RED RUN AGAINST UNTOUCHED MAIN BEFORE CLAIMING WHOSE IT WAS. Pre-existing, NOT
-mine: GRAVEYARD (same 10 live refs), FULL RES (12/1, same 15.2%), XRAY (3/2 at the same
-coordinate [6190,6164]), SEE-THROUGH MOVE (9/1, same leg), INSTALL CARD (22/1), NO CANOPIES
-(same "freeway/deck parapet"). LOOK is not a real red at all: it clocks pictures by MTIME
-against a surface, every ship touches the alpha by law, so any working tree older than six
-hours trips it -- reproduced on untouched main by ageing the pictures seven hours and
-touching the alpha. IT MEASURES TREE AGE, NOT STALENESS.
-  WHAT COMES AFTER, in order: (1) THE SUITE IS BROKEN AS A SHIP GATE -- 453 gates, 4 cores,
-~2.5 HOURS, and ONE GATE PASS PER SHIP was written when it was 95 SECONDS. Sharding exists
-(--shard i/n) and suite_honesty_gate already argues for it; nothing routes ships through it.
-(2) The LOOK mtime ruler above. (3) GRAVEYARD's 10 live references -- repo hygiene with no
-owning lane, which is how it stays red forever. (4) Aperture mismatch (13 cells) + midpoint
-keep-out (2 cells) from 8/22. (5) 31 unplaced legend codes across 20 families.
-  DEBT LIST 20 FAMILIES -> 14, and every one left is out of scope BY DEFINITION: mountain,
-arterial, resort, water, rail, desert are roads and terrain with no facility to duplicate;
-downtown, town, commercial, ballpark, campus, industrial, park, medical are SUPPOSED to be
-many buildings. Treating those as this defect is the mistake the record exists to prevent.
-Ran 8/24 (solar) to 8/27, twenty-two districts. Record:
-records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md (8/27 section at the end).
-  STANDING GOTCHAS, both still true: run the CHUNKER after every rebase (main carries a
-4.4 MB chunk 1 from another lane's hero bake and the merge prefers it -- six seconds of load
-time), and slices/BOHEMIA_CITY_WORLD.html does NOT carry engine/bohemia_world.js: it has
-its own dispatch and its own INLINED COPY of ~98 engine modules, so cluster:true reaches the
-walked surface only when the name is ALSO in the page's CLUSTER_KIT and the module resync
-has run. TWO LISTS, BOTH OR NEITHER.
 
 WORLD (world-9lfjtf): 8/27 (b) LATEST -- *** PAOLO CAUGHT IT BY EYE FROM ONE SCREENSHOT:
 EVERY OVERHEAD IN THE GAME WAS PAINT ON THE FLOOR. Bridges, canopies, skybridges, awnings,

@@ -455,3 +455,71 @@ the machine, LOOK NOT TRAVEL, COMBAT SOUND, WALK FEEL and VISTA EXIT all came ba
 mtime against its surface, every ship touches the alpha by law, so any tree older than six
 hours trips it. Reproduced on untouched main by ageing the pictures seven hours and touching
 the alpha: 23/1, the identical failure.
+
+---
+
+## AND THE DEMO, SAME DAY — WHAT THE GATES CAUGHT AFTER THE DISTRICTS WERE DONE
+
+### NOBODY HAD EVER MEASURED THE DEMO'S LOAD
+
+`THE DEMO IS ITS OWN LINK` (8/25) makes the demo a **separate published build at a separate
+url**, and says plainly that the workshop link is never given to a player. Every load number
+this repo has produced was measured on the **workshop**: `time_to_play` opens
+`BOHEMIA_ALPHA_0_9.html` three times and had never once opened the demo.
+
+Measuring one surface and asserting the other matches is what **VERIFY ON THE REAL SURFACE**
+exists to stop — and here it is a live risk, not a theoretical one, because the demo is **cut
+by a tool**, and a cut can drop the progressive-loading wiring while dropping no visible
+feature at all.
+
+| surface | world | wait after the tap |
+|---|---|---|
+| workshop | 10.1s | 9.1s |
+| **demo** (what a friend taps) | 10.5s | **9.0s** |
+
+The wiring survived the cut. **But that was luck until something checked it.**
+
+And the demo was a **stale cut** — `demo_build_gate` 24/1 on *"it is a CUT OF THE CURRENT
+WORKSHOP, not a fork"*. It carried none of the day's city. Re-cut: **25/0**.
+
+### I HAD TO FIX MY OWN NEW LEG TWICE, BOTH TIMES BECAUSE I TESTED IT
+
+**First, I wrote it as a clock.** "The demo's wait must be within 3s of the workshop's." It
+**failed its own mutation test**: stripping the warm-up out of the demo moved it 9.0s → 9.8s
+— a full second of a stranger's patience — and the leg stayed green. Tightening the tolerance
+is not the fix either: run-to-run noise here is a few tenths, so a threshold small enough to
+catch one second is a threshold that goes red on nothing, and today already proved what a
+crying-wolf gate costs.
+
+> **The claim is "the cut kept the wiring", so check the wiring.** Pick the ruler from the
+> shape of the claim, not from what is easy to measure.
+
+**Second, the replacement was two legs that were one leg written twice.** I checked for the
+late loader by name — and that name occurs **inside the warm-up block's own queue** (char
+2780128, inside 2777786..2781610). Stripping the warm-up failed both legs for a single
+reason.
+
+> **Two checks that die together are one check.**
+
+Replaced with the failure that can happen *separately*: a cut that keeps the block and
+**empties the queue**, which looks identical from the outside. Both legs are now
+mutation-tested **independently** — strip the block and only the block leg reds; empty the
+queue and only the queue leg reds.
+
+### THE BLOCKING CHUNK GATE EARNED ITS KEEP ON ITS FIRST DAY
+
+Written this morning after a merge handed the world's one blocking file another lane's
+4.35 MB hero bake, twice. On the very next rebase it happened **again**, and the gate went red
+in **0.085s** — where the day before, noticing it cost a 43-second three-browser gate, or
+shipped silently.
+
+That is the whole argument for a cheap guard beside an expensive one: *a guard nobody can
+afford to run before every push is a guard that runs after the damage.*
+
+### AND THE STEP A NOTE COULD NOT ENFORCE IS NOW IN THE LOOP
+
+"Run the chunker after every rebase" was a standing note in the handoff, followed correctly
+all day, and it still shipped the slow load once — because the rebase that undid it happened
+inside an **automated push loop**, where there is nobody to read a note. The loop now re-runs
+the chunker **and** re-cuts the demo after any rebase, and refuses to push if the blocking
+chunk is still fat.
