@@ -5600,8 +5600,18 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     demo.includes('id="ammoread"') &&
     /updGap\(\)\{ try\{updRangeRead\(\);\}catch\(_e\)\{\} try\{updAmmoRead\(\);\}catch\(_e\)\{\}/.test(demo));
 
+  /* RE-POINTED 8/27 FOR STRUCTURE, NEVER FOR OUTCOME. This matched the literal
+     string fillText('AMMO'), and the claim it is making is that the MARKER was
+     reused rather than reinvented -- same fieldPos, same pulsing disc, same
+     dashed ring, same label draw. V193 changed what the label SAYS, because
+     AMMO_ON has been false since 8/16 and that word was still on every corpse
+     while V181 put experience, V184 put plates and V190 put boss keys on the
+     same drop. "I'm kinda confused about what ammo does" was him reading a label
+     three features out of date. The marker is untouched; the word is not part of
+     this claim, so the check asks for the label DRAW at the marker's own
+     position instead of for one particular word inside it. */
   ok('V157 AND THE GROUND MARKER IS THE GRENADE MARKER, reused byte for byte the way V137\'s hold marker was -- same fieldPos, same pulsing disc, same dashed ring, same label draw. No second marker was invented',
-    demo.includes("x.fillText('AMMO',dp[0],dp[1])") &&
+    /x\.fillText\(_?\w+,\s*dp\[0\],\s*dp\[1\]\)/.test(demo) &&
     /x\.setLineDash\(\[6,5\]\);/.test(demo) &&
     demo.includes('const dp=fieldPos(_d,W,H,cx,cy)'));
 

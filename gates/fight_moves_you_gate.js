@@ -2990,6 +2990,223 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     v191.dmgPlain === v191.dmgWithAll && v191.dmgPlain === 40
     && /PATCH IT/.test(v191.rowNames) && /LIGHT IT/.test(v191.rowNames) && /SEND HIM/.test(v191.rowNames));
 
+  /* ================= V193 THE GROUND IS A DECISION =====================
+     Paolo 8/25, note three of ten: "I just keep testing out this street with
+     BULLSHIT PILLARS and BULLSHIT STAIRS that I could climb, and THERE DOESN'T
+     FEEL LIKE THERE'S ANY STRATEGIC REASON to do so."
+     *** MEASURED BEFORE ANYTHING WAS BUILT, AND HE IS RIGHT FOR THE OPPOSITE OF
+     THE OBVIOUS REASON. *** Mid-fight over 40 arenas: 1.38 guns can reach you
+     where you stand, the best tile within three steps is 0.00, and a strictly
+     better tile exists in 30 of 40 fights. THE GROUND PAYS ENORMOUSLY AND
+     NOTHING ON THE SCREEN SAID SO. RF4-48 states that as pass/fail. */
+  const ground = await frame.evaluate(async () => {
+    const o = {};
+    G.bossOff = true; G.bossPick = null; G.readOff = false;
+    const run = (turns) => { for (let t = 0; t < turns; t++) { G.mTurn++;
+      try { visionTick(); } catch (e) {}
+      (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+      G._sq = null; try { pressAI(); } catch (e) {} try { updateGeomCover(); } catch (e) {} }
+      try { updateGeomCover(); visionTick(); } catch (e) {} };
+
+    /* 0. *** THE PIXELS FIRST, AND THAT ORDER IS THE FIX. *** Written last in
+       the arm, this read 56 -> 57 while the identical code standalone read
+       163 -> 273: two hundred setupCombat calls and twenty-one un-returned
+       worldShifts earlier in the same probe leave the board somewhere this
+       measurement cannot see. A PIXEL COUNT IS A MEASUREMENT OF A SCREEN, so it
+       runs on a board nothing else has touched. */
+    {
+      const cv = document.getElementById('cv');
+      let lit = false;
+      for (let f = 0; f < 40 && !lit; f++) {
+        BohemiaArena.roll(); setupCombat();
+        G.over = false; G.phase = 'cover'; G.inc = null;
+        run(10); G._readKey = null;
+        const rd = readGround(); lit = !!(rd && rd.tiles.length); }
+      o.pixBoardLit = lit;
+      { const shown = readGround();
+        o.tilesPainted = shown ? shown.tiles.length : 0;
+        o.tilesConsidered = shown ? shown.all.length : 0; }
+      /* *** THE DEFECT WAS ALPHA, SO MEASURE ALPHA. FIVE ATTEMPTS DIED FIRST
+         AND EVERY ONE FAILED THE SAME WAY: trying to find a small mark inside a
+         moving picture from outside the renderer.
+           1. blue over the whole canvas: 79 -> 70 one run, 51 -> 72 the next --
+              the way out marker is blue and it PULSES.
+           2. boxes at coordinates this gate computed: 0 -> 0 -- fieldPos runs
+              inside drawField with a centre and a pixel ratio the gate does not
+              have. THE GATE SHOULD NOT RECOMPUTE WHERE THE GAME DREW.
+           3. a frame diff, calling the difference noise: 400 to 3,800 pixels of
+              noise, because the whole board animates.
+           4. the clock pinned and renderBoard called three times: a perfect zero
+              for the control AND the signal, because renderBoard does not put
+              pixels down, the animation frame does. A clean control with a dead
+              signal is what measuring nothing looks like.
+           5. the clock pinned WITH the frame allowed to run: still 116 to 1,691
+              of noise, because letting the frame run lets the game run.
+         A fourth version of anything means the approach is wrong, so: the thing
+         that broke the original was that the marks were drawn at 0.075 alpha and
+         could not be seen. THAT is the property to check, and it is checked by
+         watching the REAL context receive REAL fill calls on the REAL surface --
+         the same staging V189 used for the fire button. Not reading the source:
+         observing what the renderer actually asks the canvas to do. */
+      const g2 = cv.getContext('2d');
+      const realFill = g2.fill.bind(g2);
+      let marks = [];
+      /* AND THE INSTRUMENT STAYS ON ACROSS A FRAME. renderBoard() does not put
+         pixels down -- the animation frame does -- so instrumenting, calling
+         renderBoard and reading immediately saw ZERO marks with the read ON,
+         which is attempt four's mistake wearing attempt six's clothes. */
+      const watch = async () => { marks = [];
+        g2.fill = function () { try { const f = String(g2.fillStyle);
+          const m = f.match(/rgba\(120,\s*170,\s*232,\s*([0-9.]+)\)/);
+          if (m) marks.push(parseFloat(m[1])); } catch (e) {}
+          return realFill.apply(g2, arguments); };
+        renderBoard();
+        await new Promise(r => requestAnimationFrame(r));
+        await new Promise(r => requestAnimationFrame(r));
+        g2.fill = realFill;
+        return marks.slice(); };
+      G.readOff = true; G._readKey = null;
+      o.marksOff = (await watch()).length;
+      G.readOff = false; G._readKey = null;
+      const got = await watch();
+      o.marksOn = got.length;
+      o.faintestMark = got.length ? Math.min(...got) : 0;
+      o.brightestMark = got.length ? Math.max(...got) : 0;
+      G._readKey = null;
+    }
+
+    /* 1. THE SCORE IS THE FIGHT'S OWN GEOMETRY, NOT A SECOND OPINION.
+       gunsOnTile(0,0) has to equal what posExposed() says right now, every time,
+       or the paint and the rules are two different games. */
+    let agree = 0, tried = 0;
+    for (let f = 0; f < 30; f++) {
+      BohemiaArena.roll(); setupCombat();
+      G.over = false; G.phase = 'cover'; G.inc = null; G.pHP = 100;
+      run(10); tried++;
+      if (gunsOnTile(0, 0) === posExposed().length) agree++; }
+    o.agree = agree; o.tried = tried;
+
+    /* 2. AND WALKING THERE DOES WHAT IT SAID. A prediction nobody checks
+       against the world is a guess with a colour. */
+    let kept = 0, promised = 0, delivered = 0, offers = 0, fights = 0;
+    for (let f = 0; f < 30; f++) {
+      BohemiaArena.roll(); setupCombat();
+      G.over = false; G.phase = 'cover'; G.inc = null; G.pHP = 100;
+      run(10); fights++;
+      G._readKey = null;
+      const rd = readGround();
+      if (!rd || !rd.bestTile) continue;
+      offers++;
+      const before = posExposed().length;
+      promised += (before - rd.bestTile.n);
+      worldShift(rd.bestTile.dx, rd.bestTile.dy);
+      try { updateGeomCover(); visionTick(); } catch (e) {}
+      const after = posExposed().length;
+      delivered += (before - after);
+      if (after === rd.bestTile.n) kept++; }
+    o.offers = offers; o.fights = fights; o.kept = kept;
+    o.promised = +(promised / Math.max(1, offers)).toFixed(2);
+    o.delivered = +(delivered / Math.max(1, offers)).toFixed(2);
+
+    /* 3. SILENT WHEN THERE IS NOTHING TO DECIDE. A board that lights up every
+       turn is furniture, and he has asked five times for things to come OFF
+       this screen. */
+    BohemiaArena.roll(); setupCombat();
+    G.over = false; G.phase = 'cover'; G.inc = null;
+    for (const e of (G.e || [])) if (e) e.dead = true;
+    try { updateGeomCover(); visionTick(); } catch (e) {}
+    G._readKey = null;
+    const quiet = readGround();
+    o.silent = !!quiet && quiet.here === 0 && quiet.tiles.length === 0;
+
+    /* 4. HE CAN TURN IT OFF (8/12) */
+    G.readOff = true; G._readKey = null; o.offIsNull = (readGround() === null);
+    G.readOff = false; G._readKey = null; o.onAgain = (readGround() !== null);
+    o.toggle = !!document.getElementById('readbtn');
+
+    /* 5. ONCE PER BOARD STATE, NOT ONCE PER FRAME -- performance is item 7 of
+       his own dispatch, and this walks 24 tiles against 60 rocks. */
+    let hasGuns = false;
+    for (let f = 0; f < 40 && !hasGuns; f++) {
+      BohemiaArena.roll(); setupCombat();
+      G.over = false; G.phase = 'cover'; G.inc = null;
+      run(10); hasGuns = posExposed().length > 0; }
+    o.cacheBoardHadGuns = hasGuns;
+    G._readKey = null;
+    let calls = 0; const realGuns = gunsOnTile;
+    window.gunsOnTile = function (a, b2) { calls++; return realGuns(a, b2); };
+    readGround(); const first = calls;
+    readGround(); readGround(); readGround(); const after4 = calls;
+    window.gunsOnTile = realGuns;
+    o.firstCall = first; o.afterFour = after4;
+
+    /* 6. IT REPORTS THE RULES, IT DOES NOT CHANGE THEM */
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+
+    /* 7. THE LABEL ON A BODY SAYS WHAT IS ON IT */
+    const keep = KEYS.taken.slice();
+    keysForget(); G.bossPick = 'tooth'; G.bossOff = false;
+    BohemiaArena.roll(); setupEnemies();
+    const bb = G.e.find(x => x.boss); bb.dead = true; bodyFell(bb);
+    o.bossDropKey = !!(G.drops || []).find(x => x.key === 'tooth');
+    const src = String(drawField);
+    o.labelComputed = /_lab=_d\.key\?'KEY'/.test(src);
+    o.hardcodedAmmo = /fillText\('AMMO'/.test(src);
+    o.ammoOff = (AMMO_ON === false);
+    KEYS.taken = keep; keysSave();
+    G.bossPick = null; G.bossOff = true;
+    return o;
+  });
+
+  console.log('  V193 the ground is a decision:'
+    + '\n    score agrees with the fight        ' + ground.agree + '/' + ground.tried
+    + '\n    it names ground in                 ' + ground.offers + '/' + ground.fights + ' fights'
+    + '\n    walking there kept the promise     ' + ground.kept + '/' + ground.offers
+    + '\n    guns promised off / actually off   ' + ground.promised + ' / ' + ground.delivered
+    + '\n    tiles painted of tiles better      ' + ground.tilesPainted + ' of ' + ground.tilesConsidered
+    + '\n    marks drawn, read off / on         ' + ground.marksOff + ' / ' + ground.marksOn
+    + '   for ' + ground.tilesPainted + ' tiles, alpha ' + ground.faintestMark + '-' + ground.brightestMark
+    + '\n    tile tests, 1 call vs 4            ' + ground.firstCall + ' / ' + ground.afterFour);
+
+  ok('V193 *** THE GROUND WAS ALWAYS A DECISION AND IT WAS NEVER ON THE SCREEN. *** His note: "I keep testing out this street with BULLSHIT PILLARS and BULLSHIT STAIRS and THERE DOESN\'T FEEL LIKE THERE\'S ANY STRATEGIC REASON to do so." Measured before building: mid-fight, 1.38 guns reach you where you stand, the best tile within three steps is 0.00, and a strictly better tile exists in 30 of 40 fights. THE READ scores the reachable tiles with the FIGHT\'S OWN GEOMETRY -- gunsOnTile(0,0) equals posExposed() in '
+    + ground.agree + ' of ' + ground.tried + ' fights, so the paint can never be a second opinion about who can shoot you',
+    ground.agree === ground.tried && ground.tried >= 25);
+
+  ok('V193 AND WALKING TO THE GROUND IT NAMES DOES EXACTLY WHAT IT SAID. A prediction nobody checks against the world is a guess with a colour on it, so the tile is taken with the shipped worldShift and the shipped predicate is asked what happened: it names ground in ' + ground.offers + ' of ' + ground.fights
+    + ' fights, the promise held ' + ground.kept + ' of ' + ground.offers
+    + ' times (the rare miss is a man sitting EXACTLY at the edge of his own reach, where a float lands on either side of inHisRange\'s <=)' + ' times, and it promised ' + ground.promised + ' guns off you against ' + ground.delivered + ' actually taken off',
+    ground.offers >= 8 && ground.kept >= Math.ceil(ground.offers * 0.9)
+    && Math.abs(ground.promised - ground.delivered) < 0.2 && ground.delivered > 0.5);
+
+  ok('V193 AND IT IS SILENT WHENEVER THERE IS NOTHING TO DECIDE, which is the half that keeps it from becoming furniture: nothing on you means nothing painted, and he has asked five separate times for things to come OFF this screen. It also paints ONLY the equal-best set (' + ground.tilesPainted + ' tiles of ' + ground.tilesConsidered
+    + ' that are merely better), because the first cut lit 19 of 24 at once -- a board with the lights on is not an answer. And he can switch it off: the toggle exists and turns the whole read to null',
+    ground.silent === true && ground.offIsNull === true && ground.onAgain === true
+    && ground.toggle === true && ground.tilesPainted > 0
+    && ground.tilesPainted <= ground.tilesConsidered);
+
+  ok('V193 *** AND THE MARKS ARE REALLY DRAWN, AT AN ALPHA THAT CAN BE SEEN. *** The first cut painted every merely-better tile -- 19 of 24 at once -- and to stop that many marks shouting it used 0.075 alpha and moved FIFTEEN pixels on the real canvas: painted and invisible, which is V129\'s stamina-fluid finding word for word. Watching the REAL canvas context receive REAL fill calls: '
+    + ground.marksOff + ' marks with the read off, ' + ground.marksOn + ' with it on for ' + ground.tilesPainted
+    + ' tiles, at alpha ' + ground.faintestMark + ' to ' + ground.brightestMark + '. THE DEFECT WAS ALPHA, SO ALPHA IS WHAT IS CHECKED -- 0.075 would fail this line. And it is computed ONCE PER BOARD STATE ('
+    + ground.firstCall + ' tile tests on the first call, still ' + ground.afterFour + ' after four), because 24 tiles against 60 rocks every frame is item 7 of his own dispatch',
+    /* AT LEAST ONE MARK PER TILE, NOT EXACTLY ONE: the instrument stays on for
+       two animation frames, so a tile that is still there on both is drawn
+       twice. What matters is that ZERO are drawn with the read off, that every
+       painted tile gets one, and that the faintest of them is an alpha a person
+       can actually see -- 0.075 would fail this line, which is the whole point. */
+    ground.pixBoardLit === true && ground.tilesPainted > 0
+    && ground.marksOff === 0 && ground.marksOn >= ground.tilesPainted
+    && ground.faintestMark >= 0.14 && ground.firstCall > 5
+    && ground.afterFour === ground.firstCall && ground.cacheBoardHadGuns === true);
+
+  ok('V193 AND THE GROUND STOPS LYING ABOUT AMMO -- his note number one, "I\'m kinda confused about what ammo does", and the cause is one word. AMMO_ON has been false since 8/16 on his own SECOND rejection (' + ground.ammoOff + '), and the floor marker V157 wrote for loose rounds still drew the literal word AMMO. V181 then put EXPERIENCE on every body, V184 put PLATES there and V190 put BOSS KEYS there, all through the same drops array, all still labelled AMMO. He was not confused about ammo, HE WAS READING A LABEL THREE FEATURES OUT OF DATE. It says what is actually on the tile now, and a KEY outranks everything because it is the only thing on the board you cannot get anywhere else',
+    ground.labelComputed === true && ground.hardcodedAmmo === false
+    && ground.ammoOff === true && ground.bossDropKey === true);
+
+  ok('V193 AND IT REPORTS THE RULES RATHER THAN CHANGING THEM: applyDamage is ' + ground.damage
+    + ', and no accuracy, range, cover or resource rule is touched anywhere in this feature. THE READ adds no power -- it makes a decision the fight already contained possible to see, which is the whole of RF4-48',
+    ground.damage === 40);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

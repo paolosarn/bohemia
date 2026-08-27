@@ -1,3 +1,72 @@
+COMBAT (combat-nfnki9): 8/28 (t) LATEST -- *** THE GROUND WAS ALWAYS A DECISION
+AND IT WAS NEVER ON THE SCREEN. AND HE WAS NEVER CONFUSED ABOUT AMMO -- HE WAS
+READING A LABEL THREE FEATURES OUT OF DATE. *** Nothing to judge.
+
+TAB: COMBAT. Fight, and look at the floor. Build 8/28t.
+
+TWO OF HIS THREE REMAINING 8/25 NOTES, BOTH MEASURED BEFORE BUILDING
+
+HIS NOTE 3: "bullshit pillars and bullshit stairs... THERE DOESN'T FEEL LIKE
+THERE'S ANY STRATEGIC REASON to do so."
+  MEASURED, 40 fights, MID-fight: 1.38 guns can reach you where you stand, the
+  best tile within three steps is 0.00, and a strictly better tile exists in 30
+  OF 40 FIGHTS. In three fights in four there is a place within three steps that
+  takes EVERY GUN off you. THE GROUND PAYS ENORMOUSLY AND NOTHING SAID SO.
+  AND THE PROBE'S FIRST RUN SAID THE OPPOSITE: at the bell it read 0.28 and
+  would have proved the complaint imaginary. V140/V145 spawn everyone outside
+  your reach, so TURN ONE MEASURES A DESIGN DECISION, NOT A FIGHT.
+  SHIPPED -- THE READ: the equal-best tiles are painted on the floor and the
+  nearest names what it is worth. gunsOnTile(0,0) equals posExposed() in 30 of
+  30 fights, so the paint is never a second opinion; walking to the tile it
+  names delivers EXACTLY what it promised (1.68 guns promised off, 1.68 off);
+  silent when nothing is on you; computed once per board state; and there is an
+  off switch in DEMO SETTINGS.
+
+HIS NOTE 1: "I'm kinda confused about what ammo does."
+  BECAUSE EVERY CORPSE HAS BEEN LABELLED "AMMO" WITH AMMO SWITCHED OFF SINCE
+  8/16. AMMO_ON is false on his own SECOND rejection, and V181 put experience on
+  every body, V184 put plates there, V190 put boss keys there -- all through the
+  same drops array, all still saying AMMO. He was reading a label three features
+  out of date. It says KEY / PLATE / TAKE / AMMO now, whichever is true.
+
+THE PIXEL ARM TOOK SEVEN ATTEMPTS AND EVERY FAILURE WAS THE SAME MISTAKE
+  Trying to find a small mark inside a moving picture from outside the renderer.
+  Whole-canvas blue (the way out is blue and pulses); boxes at coordinates the
+  gate computed (fieldPos runs with a centre and pixel ratio the gate does not
+  have -- THE GATE SHOULD NOT RECOMPUTE WHERE THE GAME DREW); a frame diff (the
+  whole board animates); the clock pinned with renderBoard called three times (a
+  PERFECT ZERO for control and signal, because renderBoard does not put pixels
+  down, the animation frame does); the clock pinned with the frame running
+  (letting the frame run lets the game run). THE DEFECT WAS ALPHA, SO ALPHA IS
+  WHAT IS CHECKED: the real context, instrumented across a frame -- 0 marks with
+  the read off, one per tile with it on, alpha 0.15 to 0.357. The original 0.075
+  fails that line by construction.
+
+AND THE FIRST CUT OF THE FEATURE FAILED ITS OWN ARM
+  It painted every merely-better tile, 19 of 24 at once, and to keep that many
+  marks quiet they were drawn at 0.075 and moved FIFTEEN pixels. Painted and
+  invisible is V129's stamina-fluid finding word for word. A BOARD WITH THE
+  LIGHTS ON IS NOT AN ANSWER.
+  And one stray brace closed readGround early, ran its tail at load and killed
+  the whole combat script -- with node --check passing, because it was still
+  valid JavaScript. Spelled correctly, in the wrong place.
+
+GATES: fight_moves_you 136/0 (was 130/0), three runs stable - combat_lab 931/1
+(the one red is another session's fight-music ladder) - boss_ladder 87/0 -
+one_engine 3/0 - tool_idempotent 6/0 - 0 page errors.
+RECORD: records/BOHEMIA_COMBAT_THE_GROUND_IS_A_DECISION_8_27_26.md
+
+WHAT COMES AFTER
+  COMBAT's rows on his 8/25 dispatch are down to ONE: "it could be more hardcore
+  if you wanted it to be", which is permission and not a ruling, and it sits
+  behind the difficulty package that already exists. Everything else left on his
+  list belongs to other lanes: the demo build, the front door, the first
+  morning, the feedback card, the 24 seconds to first play. And 50 of the 53
+  boss grants live outside combat -- window.bohemiaKeys publishes what you hold
+  so CITY / RUN / QUESTS can close their own doors.
+
+------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/28 (q) LATEST -- *** HE PLAYED IT AND SAID THE STREETS
 WERE STILL FUCKED WHILE MY GATE SAID 0 OF 2594. HE WAS RIGHT AND THE GATE WAS
 THE BROKEN PART: it only ever compared a road to another ROAD, so every edge
