@@ -2494,6 +2494,84 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     tree.broke === true && tree.twice === true && tree.locked === true
     && tree.damage.before === tree.damage.after && tree.damage.owned === 9);
 
+/* ===== V189 THE EXPERIENCE GOES INTO THE BUTTON =====================
+   Paolo 8/27: "WHEN U KILLED PEOPLE OR DROPPED THEM BACK A MONTH AGO THE
+   EXPERIENCE WOULD LOAD INTO YOUR BAR INTO YOUR CHARACTER INTO THE ACTION BUTTON
+   WHERE YOUR FACE IS WHATS UP WITH THAT?" He remembered it exactly right. */
+  const button = await frame.evaluate(() => {
+    const o = {};
+    const reset = () => { TREE.xp = 0; TREE.spent = []; treeSave();
+      BohemiaArena.set(3); setupCombat(); G.pHP = 100; G.over = false; G.inc = null; G._fx = []; };
+    reset();
+    o.fracZero = xpFrac();
+    TREE.xp = Math.round(XP_PER_LEVEL * 0.5); o.fracHalf = +xpFrac().toFixed(2);
+    /* THE CHIPS COME OFF THE BODY YOU JUST WALKED ONTO */
+    reset();
+    G.drops = []; bodyFell({ ea:0.3, edist:4, lvl:0, max:60 });
+    for (const dd of G.drops) { dd.edist = 0; dd.lvl = myLvl(); }
+    const b4 = (G._fx||[]).filter(z => z.type === 'chip').length;
+    sweepDrops();
+    o.chips = { before: b4, after: (G._fx||[]).filter(z => z.type === 'chip').length, xp: TREE.xp };
+    /* *** THE RIM, MEASURED AS AN ANGLE AND NOT AS A STROKE COUNT. ***
+       V179's lesson: counting a draw proves it RUNS, never that it is
+       PROPORTIONAL -- a meter that always paints the same arc passes a stroke
+       count happily.
+       AND THE PORTRAITS ARE STAGED, WHICH HAS TO BE SAID: paintFireButton
+       returns false the instant SPR.portraits is missing, and in a headless boot
+       the parent never pushes them, so NOTHING inside that function runs. Handing
+       it a real 64x64 canvas is the smallest thing that lets the SHIPPED painter
+       run end to end. Everything measured after this line is shipped code. */
+    try { const c0 = document.createElement('canvas'); c0.width = 64; c0.height = 64;
+      const k0 = c0.getContext('2d'); k0.fillStyle = '#8a7d66'; k0.fillRect(0,0,64,64);
+      SPR.portraits = { you:c0, dying:c0, hurt:c0 }; } catch(e) {}
+    const realGet = HTMLCanvasElement.prototype.getContext;
+    const sweeps = []; let gold = 0;
+    HTMLCanvasElement.prototype.getContext = function(t, ...r) {
+      const c = realGet.call(this, t, ...r);
+      if (t === '2d' && this.width === 64 && this.height === 64 && !c.__wrapRim) {
+        c.__wrapRim = true;
+        const ra = c.arc.bind(c);
+        c.arc = function(cx, cy, rad, a0, a1, ccw) { c.__lastArc = (a1 - a0); return ra(cx, cy, rad, a0, a1, ccw); };
+        const rs = c.stroke.bind(c);
+        c.stroke = function() { try {
+            if (String(this.strokeStyle).replace(/\s/g,'').indexOf('255,200,70') >= 0) {
+              gold++; sweeps.push(+(c.__lastArc / (Math.PI*2)).toFixed(3)); }
+          } catch(e) {} return rs(); }; }
+      return c; };
+    const paint = (frac) => { TREE.xp = Math.round(XP_PER_LEVEL * frac);
+      try { _pbtnKey = null; } catch(e) {}
+      const g0 = gold; try { paintFireButton('rgba(30,24,14,0.30)'); } catch(e) {}
+      return gold - g0; };
+    o.goldAtZero = paint(0);
+    o.goldAtHalf = paint(0.5);
+    o.goldAtNine = paint(0.9);
+    o.sweeps = sweeps;
+    HTMLCanvasElement.prototype.getContext = realGet;
+    /* AND THE CACHE KEY KNOWS, which is the whole reason a meter can look done */
+    o.keyHasXp = /_xpK/.test(String(paintFireButton));
+    TREE.xp = 0; TREE.spent = []; treeSave();
+    return o;
+  });
+
+  console.log('  V189 the experience into the button:'
+    + '\n    chips off the body you walk onto  ' + button.chips.before + ' -> ' + button.chips.after + '  (xp ' + button.chips.xp + ')'
+    + '\n    gold rim strokes  0%/50%/90%      ' + button.goldAtZero + ' / ' + button.goldAtHalf + ' / ' + button.goldAtNine
+    + '\n    arc sweep as a fraction of a circle ' + JSON.stringify(button.sweeps));
+
+  ok('V189 *** THE EXPERIENCE GOES INTO THE BUTTON, WHICH HE REMEMBERED CORRECTLY AND WAS HALF-CONNECTED. *** The 7/3 ghost chip already arced out of a body and homed on the fire button -- the code labels its own target "the fire-button corner: you" -- but it fired at the KILLSHOT while V181 had moved the experience ONTO THE CORPSE and made you walk to it, so the mote and the money came apart. Walking onto a body now throws '
+    + button.chips.after + ' chips off it and pays ' + button.chips.xp + ' xp. The killshot chip is untouched: V85 already ruled they are separate moments, "the stop belongs to the kill, the reward comes after it"',
+    button.chips.before === 0 && button.chips.after > 0 && button.chips.xp > 0);
+
+  ok('V189 AND THE BUTTON FINALLY HAS A METER, MEASURED AS AN ANGLE RATHER THAN A STROKE COUNT. The 7/3 comment ends "THE GREEN METER IS XP-BOUND LATER" and later never came -- the button has carried his face, his health and a stamina orb since V129 and never carried experience, so the chips flew home to a button with nothing to fill. The gold rim paints '
+    + button.goldAtZero + ' times at an empty level and once at half and at nine tenths, sweeping ' + JSON.stringify(button.sweeps)
+    + ' of a circle. COUNTING A DRAW PROVES IT RUNS, NEVER THAT IT IS PROPORTIONAL (V179), and a meter that always painted the same arc would pass a stroke count happily',
+    button.goldAtZero === 0 && button.goldAtHalf === 1 && button.goldAtNine === 1
+    && button.sweeps.length === 2 && Math.abs(button.sweeps[0] - 0.5) < 0.02
+    && Math.abs(button.sweeps[1] - 0.9) < 0.02);
+
+  ok('V189 AND THE CACHE KEY LEARNED ABOUT IT, which is the whole reason this could have looked finished and done nothing: that button is CACHED on backdrop, wash, hp tier, stamina and lean, and anything not in the key repaints NEVER. Same class as V129\'s own finding that drawing the stamina fluid BEHIND an opaque portrait gave a byte-identical button at zero and at full. AND IT COULD NOT HAVE BEEN BUILT BEFORE YESTERDAY -- V188\'s tree is the first thing in this game that gives experience a destination and a NEXT LEVEL to be a fraction of',
+    button.keyHasXp === true && button.fracZero === 0 && button.fracHalf === 0.5);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

@@ -4387,7 +4387,14 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
   ok('V129 THE STAMINA ORB IS IN FRONT OF THE FACE, NOT BEHIND, AND I ONLY KNOW THAT BECAUSE I MEASURED IT: the first cut drew the fluid first and the painted button came out BYTE-IDENTICAL at zero stamina and at full, because his portrait is an opaque 64x64 image that covered every pixel of it',
     /IN FRONT, NOT BEHIND, AND I ONLY KNOW THAT BECAUSE I MEASURED IT/.test(demo) &&
-    /const lvl=Math\.max\(0,Math\.min\(1,\(G\.stam\|\|0\)\/STAM_MAX\)\);[\s\S]{0,900}if\(stateWash\)/.test(demo));
+    /* V189 RE-POINTED: the gold XP rim now sits between the orb and the wash,
+       so the gap outgrew 900 characters. THE CLAIM IS UNCHANGED and is about
+       ORDER -- the fluid is drawn IN FRONT of the face, before the wash, which
+       is the thing V129 could only learn by measuring (its first cut drew the
+       fluid behind an opaque portrait and produced a BYTE-IDENTICAL button at
+       zero stamina and at full). Fourth window widened today for a neighbour
+       rather than an outcome. */
+    /const lvl=Math\.max\(0,Math\.min\(1,\(G\.stam\|\|0\)\/STAM_MAX\)\);[\s\S]{0,1900}if\(stateWash\)/.test(demo));
 
   ok('V129 AND THE ORB IS QUIET, which I only know because I rendered all twenty states and LOOKED: at 0.34 alpha over the full height, full stamina turned the whole button green and DESTROYED the damage read -- and HP is the more important vital. It also filled to the very top so there was no waterline left to see',
     demo.includes("g.addColorStop(0,'rgba(120,232,150,0.15)');") &&
