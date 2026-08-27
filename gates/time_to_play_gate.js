@@ -306,8 +306,47 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
     }, null, { timeout: 300000 });
     worldMs = Date.now() - t0;
   } catch (e) {}
+  /* *** AND NOW THE SURFACE A STRANGER ACTUALLY OPENS (8/27). ***
+     Everything above measures slices/BOHEMIA_ALPHA_0_9.html -- the WORKSHOP, Paolo's bench.
+     THE DEMO IS ITS OWN LINK (his 8/25 law): a separate published build, cut from the
+     workshop, at a separate url, and IT is the file a friend taps. Nothing in this repo had
+     ever measured its load. Measuring one surface and assuming the other matches is exactly
+     the mistake VERIFY ON THE REAL SURFACE exists to stop -- and it is a live risk here,
+     because the demo is CUT by a tool, and a cut can drop the progressive-loading wiring
+     (the warm-up, the late loader) without dropping a single visible feature.
+     REUSES THIS BROWSER AND THIS SERVER on purpose. A second browser gate costs ~40s and
+     the suite is already 90% browser time; a second CONTEXT costs about ten seconds. */
+  const cDemo = await b3.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const pD = await cDemo.newPage();
+  const cdpD = await cDemo.newCDPSession(pD);
+  await cdpD.send('Network.enable');
+  await cdpD.send('Network.emulateNetworkConditions',
+    { offline: false, downloadThroughput: NET.down, uploadThroughput: NET.up, latency: NET.lat });
+  const dT0 = Date.now();
+  let demoWorldMs = -1, demoTapAt = -1, demoExists = fs.existsSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'));
+  if (demoExists) {
+    await pD.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_DEMO.html',
+      { waitUntil: 'load', timeout: 300000 });
+    await pD.evaluate(() => { const f = document.querySelector('#front, #fronttap'); if (f) f.click(); });
+    demoTapAt = Date.now() - dT0;
+    try {
+      await pD.waitForFunction(() => {
+        const fr = [...document.querySelectorAll('iframe')].find(f => /CITY_WORLD/.test(f.src || ''));
+        try {
+          const c = fr && fr.contentWindow && fr.contentWindow.document.getElementById('cv');
+          if (!c || !c.width || !c.height) return false;
+          const d = c.getContext('2d').getImageData(0, 0, Math.min(c.width, 120), Math.min(c.height, 120)).data;
+          const seen = new Set();
+          for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 8) seen.add((d[i] << 16) | (d[i + 1] << 8) | d[i + 2]);
+          return seen.size > 8;
+        } catch (e) { return false; }
+      }, null, { timeout: 300000 });
+      demoWorldMs = Date.now() - dT0;
+    } catch (e) {}
+  }
   await b3.close();
   const waitMs = worldMs > 0 ? worldMs - tapAt : -1;
+  const demoWaitMs = demoWorldMs > 0 ? demoWorldMs - demoTapAt : -1;
   console.log('  ON A WEAK 4G PHONE, TAPPING AT ONCE: splash ' + (splashMs / 1000).toFixed(1)
     + 's, world ' + (worldMs > 0 ? (worldMs / 1000).toFixed(1) + 's' : 'NEVER')
     + ', WAIT AFTER THE TAP ' + (waitMs > 0 ? (waitMs / 1000).toFixed(1) + 's' : '-'));
@@ -318,6 +357,50 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      + (waitMs > 0 ? (waitMs / 1000).toFixed(1) : '?') + 's). This is the number a friend '
      + 'experiences, and it only ever comes down',
      waitMs > 0 && waitMs <= CEIL_TAP_TO_WORLD_MS);
+
+  ok('THE DEMO EXISTS AS ITS OWN FILE -- his 8/25 law, and the surface every claim below '
+     + 'is about', demoExists);
+  console.log('  THE DEMO, THE SURFACE A STRANGER OPENS: world '
+    + (demoWorldMs > 0 ? (demoWorldMs / 1000).toFixed(1) + 's' : 'NEVER')
+    + ', WAIT AFTER THE TAP ' + (demoWaitMs > 0 ? (demoWaitMs / 1000).toFixed(1) + 's' : '-')
+    + '   (the workshop: ' + (waitMs > 0 ? (waitMs / 1000).toFixed(1) + 's' : '-') + ')');
+  ok('THE DEMO REACHES A DRAWN WORLD AT ALL on a weak 4G phone -- measured on the demo file '
+     + 'itself, not inferred from the workshop', !demoExists || demoWorldMs > 0);
+  ok('and the demo\'s wait after the tap is at most ' + (CEIL_TAP_TO_WORLD_MS / 1000)
+     + 's (measured ' + (demoWaitMs > 0 ? (demoWaitMs / 1000).toFixed(1) : '?') + 's). THIS IS '
+     + 'THE ONLY NUMBER A FRIEND EVER EXPERIENCES -- the workshop link is never given to a '
+     + 'player', !demoExists || (demoWaitMs > 0 && demoWaitMs <= CEIL_TAP_TO_WORLD_MS));
+  /* AND THE CUT KEPT THE PROGRESSIVE-LOADING WIRING -- CHECKED AS STRUCTURE, NOT AS A CLOCK.
+     The first version of this leg compared the demo's wait against the workshop's with a 3s
+     tolerance, and it FAILED ITS OWN MUTATION TEST: stripping the warm-up out of the demo
+     moved it 9.0s -> 9.8s, a whole second of a stranger's patience, and the leg stayed green.
+     Tightening the tolerance is not the fix either -- run-to-run noise on these numbers is a
+     few tenths, so a threshold small enough to catch one second is a threshold that goes red
+     on nothing, and a gate that cries wolf is worse than no gate.
+     THE CLAIM IS "THE CUT KEPT THE WIRING", SO CHECK THE WIRING. Both pieces are exact,
+     instant and deterministic: the splash warm-up that pulls the bank while a human reads the
+     front screen, and the late loader that pulls chunks 2..N once a world is on screen. A cut
+     that drops either keeps every visible feature and simply makes the demo slower for the
+     only people whose patience matters. PICK THE RULER FROM THE SHAPE OF THE CLAIM. */
+  if (demoExists) {
+    const demoSrc = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8');
+    ok('and THE CUT KEPT THE SPLASH WARM-UP -- the demo pulls the bank while a stranger reads '
+       + 'the front screen, exactly as the workshop does',
+       demoSrc.indexOf('__TILE_WARM__') >= 0 && /warmTheWorld/.test(demoSrc));
+    /* AND THE WARM-UP IS NOT PRESENT-BUT-EMPTY, which is a DIFFERENT failure from being
+       absent and the reason this leg is not the one it replaced. The first version here
+       looked for BOHEMIA_CITY_TILES_LATE.js in the demo and called that an independent
+       check of the late loader -- it is not: that name occurs INSIDE the warm-up block's own
+       queue (measured: char 2780128, inside 2777786..2781610), so the two legs were one leg
+       written twice, and stripping the warm-up failed both of them for a single reason.
+       TWO CHECKS THAT DIE TOGETHER ARE ONE CHECK. What can actually go wrong separately is a
+       cut that keeps the block and empties the queue, so ask about the queue. */
+    const q = (demoSrc.match(/var QUEUE=\[([^\]]*)\]/) || [, ''])[1];
+    const queued = (q.match(/BOHEMIA_CITY_[A-Z0-9_]+\.js/g) || []).length;
+    ok('and THE WARM-UP HAS A BANK TO WARM -- its queue names ' + queued + ' files, so the cut '
+       + 'kept the block AND its contents (an empty queue is a different failure from a '
+       + 'missing block, and looks identical from the outside)', queued >= 5);
+  }
 
   /* THE WORLD SURVIVES WITHOUT ITS ART, and this claim is the whole reason progressive
      loading is reachable at all. Measured 8/25: block the bank and the city used to be a
