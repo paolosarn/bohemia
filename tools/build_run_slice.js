@@ -474,6 +474,38 @@ grabPieces('banks/tileforms/TF-ART-021_GALLERY_VOLUME_8_26_26.json',
    pits' floors - tools/tfcook/TF-ART-025_drybeds_cook.py */
 grabPieces('banks/tileforms/TF-ART-025_CANDIDATES_8_26_26.json',
   ['bed_0', 'bed_1', 'bed_2', 'qf_0', 'qf_1', 'qf_2']);
+/* TF-ART-026 8/27: the landfill's dominant waste-fill surface (6,400+
+   cells per district cell, measured) - tools/tfcook/TF-ART-026_wastefill_cook.py
+   (its cell berms reuse the mag_ pieces already grabbed above) */
+grabPieces('banks/tileforms/TF-ART-026_CANDIDATES_8_27_26.json',
+  ['wf_0', 'wf_1', 'wf_2']);
+/* TF-ART-027 8/27: the railyard's 118 stranded boxcars + dead loco
+   (7x4-cell roof-read sprites) - tools/tfcook/TF-ART-027_rollingstock_cook.py */
+grabPieces('banks/tileforms/TF-ART-027_CANDIDATES_8_27_26.json',
+  ['boxcar_0', 'boxcar_1', 'boxcar_2', 'loco_box']);
+/* TF-ART-028 8/27: the datafort's hall membrane, generator deck and
+   cooling units - tools/tfcook/TF-ART-028_datafort_cook.py */
+grabPieces('banks/tileforms/TF-ART-028_CANDIDATES_8_27_26.json',
+  ['dh_0', 'dh_1', 'dh_2', 'gr_0', 'gr_1', 'gr_2', 'cu_0', 'cu_1']);
+/* TF-ART-029 8/27: the library's civic plazas - scored paving, plinth
+   slabs and dead planters - tools/tfcook/TF-ART-029_civicplaza_cook.py */
+/* TF-ART-032 8/27: the wash's channel invert + banks -
+   tools/tfcook/TF-ART-032_washchannel_cook.py */
+grabPieces('banks/tileforms/TF-ART-032_CANDIDATES_8_27_26.json',
+  ['iv_h_0', 'iv_h_1', 'iv_v_0', 'iv_v_1', 'iv_p_0', 'iv_p_1',
+   'bk_h_0', 'bk_h_1', 'bk_v_0', 'bk_v_1']);
+/* TF-ART-031 8/27: the radio site's propane tanks + ice-bridge trays -
+   tools/tfcook/TF-ART-031_tank_icebridge_cook.py */
+grabPieces('banks/tileforms/TF-ART-031_CANDIDATES_8_27_26.json',
+  ['pt_tank_0', 'pt_tank_1', 'ib_h_0', 'ib_h_1', 'ib_v_0', 'ib_v_1']);
+/* TF-ART-030 8/27: the radio site's guy-wire fans, eight direction-snapped
+   cables bearing on the nearest mast - tools/tfcook/TF-ART-030_guywire_cook.py */
+grabPieces('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json',
+  ['gw_0', 'gw_1', 'gw_2', 'gw_3', 'gw_4', 'gw_5', 'gw_6', 'gw_7']);
+grabPieces('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json',
+  ['pz_0', 'pz_1', 'pz_2', 'tp_0', 'tp_1', 'tp_2', 'pp_0', 'pp_1',
+   'pp_soil_0', 'pp_soil_1', 'pp_soil_2',
+   'pp_rim_n', 'pp_rim_s', 'pp_rim_e', 'pp_rim_w']);
 /* VOLUME 8/22: the industrial yard's 28 dead semi-trailers (4x16 each) -
    tools/tfcook/TF-ART-002_trailer_cook.py */
 grabPieces('banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json',

@@ -401,6 +401,60 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    corpus cell, self-seamless (hashed crack seeds, matched silt base,
    three variants) | see form | ART lane (fresh inventory ranking,
    8/26) | HIGH | FORM: TF-ART-025
+104. SHIPPED | GUY WIRES (the radio site's rigging fans) | RUN + CITY -
+   2,798 cells of mast rigging drew as plain ground; eight direction-
+   snapped steel-cable overlays, each wire cell BEARING ON ITS NEAREST
+   MAST (positions cached per district cell), glint sun-side, faint SE
+   shadow | ground overlay, 44px corpus cell | see form | ART lane
+   (fresh inventory ranking, 8/27) | MED | FORM: TF-ART-030
+105. SHIPPED | PROPANE TANK / ICE BRIDGE (the radio site's plant) | RUN +
+   CITY - 3,376 cells (139 blobs) drew as plain ground; the dims sort
+   the shared name into its two real things, so the wiring does too:
+   thin runs >=5 long become galvanised ICE-BRIDGE tray ribbons along
+   their axis, everything else becomes banks of bleached 500-gallon
+   TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
+   rust) | structure layer over yard ground, 44px corpus cell | see
+   form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
+106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |
+   RUN + CITY - 9,694 cells of the flood channel's own concrete drew as
+   bare ground; jointed invert with the low-flow meander stain on
+   CENTRELINE CELLS ONLY (edge-pinned so it joins; the first render
+   stained every cell and read as a barcode), banks streaked down their
+   slope. Same turn, pure wiring: watertreat's 'dry basin floor' x6920
+   joined the TF-ART-025 bed tiles, zero new pixels | ground layer,
+   44px corpus cell | see form | ART lane (riprap follow-through, 8/27)
+   | MED | FORM: TF-ART-032
+103. SHIPPED | CIVIC PLAZA (library paving, plinth terrace, planter beds) |
+   RUN + CITY - 6,415 cells of the valley's most formal ground fell to
+   gravel; scored paving with grime in the saw joints, lighter plinth
+   slabs, and BLOB-AWARE planters (a lone cell is a box, a 5x7 blob is
+   ONE bed with edge rims - the live look caught the waffle) | ground
+   layer, 44px corpus cell, self-seamless | see form | ART lane (fresh
+   inventory ranking, 8/27) | MED | FORM: TF-ART-029
+102. SHIPPED | DATAFORT ROOFS + COOLERS (hall membrane, generator deck,
+   cooling units) | RUN + CITY - 6,300+ cells of the datafort's built
+   mass drew as brown noise; per-cell membrane with N+W sheet seams
+   (the reservoir-deck contract), standing-seam generator deck, one
+   dead CRAC module per cooling cell with a stopped-fan cross; the
+   !body guard keeps every 3/4 front face | structure layer, 44px
+   corpus cell, self-seamless | see form | ART lane (fresh inventory
+   ranking, 8/27) | HIGH | FORM: TF-ART-028
+101. SHIPPED | ROLLING STOCK (the railyard's stranded boxcars + dead loco) |
+   RUN + CITY - 3,346 cells of the yard's signature content (118 boxcar
+   blobs, 101 exactly 7x4 cells, + 14 loco blobs) drew as windowless
+   wall mass; roof-read RGBA sprites, one per flood-walked blob at its
+   right-bottom anchor (the trailer law), three weathers hashed per
+   blob, no reporting mark or number ever | vehicle layer, 308x176 px
+   (7x4 cells) | see form | ART lane (fresh inventory ranking, 8/27) |
+   HIGH | FORM: TF-ART-027
+100. SHIPPED | WASTE FILL (the landfill's compacted trash + berm wiring) |
+   RUN + CITY - the dump's DOMINANT surface (6,400+ cells per district
+   cell, measured 8/27) drew as yard gravel and its 3-thick berm rings
+   drew as nothing; fill cooked from approved dirt/pale/rust, berms
+   wired as PURE REUSE of the approved mag_ ridge pieces, zero new berm
+   pixels | ground layer, 44px corpus cell, self-seamless (three hashed
+   variants, one carrying a dead compactor's track pass) | see form |
+   ART lane (fresh inventory ranking, 8/27) | HIGH | FORM: TF-ART-026
 92. SHIPPED | LANDSCAPING (dead xeriscape beds, police station) | RUN +
    CITY - 1,131 named cells fell to the gravel fallback, erasing the one
    manicured ground in the district | ground layer, 44px corpus cell,

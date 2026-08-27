@@ -1275,6 +1275,207 @@ function drawSolarform(gx,gy,X,Y,S){
     if(qf){ ctx.drawImage(look(qf),X,Y,S,S); return true; }
     return false;
   }
+  if(n==='channel invert' || n==='channel bank'){
+    /* TF-ART-032 (8/27, fresh ranking): the wash's 5,646 invert and
+       4,048 bank cells - the riprap form's promised second half. The
+       channel axis comes from the cell's own name-run (longer walk
+       wins); the invert wears the low-flow meander stain ALONG it, the
+       bank wears weep streaks DOWN its slope. */
+    var wcN=n;
+    function isWc(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()===wcN; }
+    var wu=0; while(wu<8&&isWc(gx,gy-1-wu))wu++;
+    var wd=0; while(wd<8&&isWc(gx,gy+1+wd))wd++;
+    var wl=0; while(wl<8&&isWc(gx-1-wl,gy))wl++;
+    var wr=0; while(wr<8&&isWc(gx+1+wr,gy))wr++;
+    var wax=(wl+wr>=wu+wd)?'h':'v';
+    var wp;
+    if(wcN==='channel invert'){
+      /* the low-flow stain is ONE line: only the run's centreline cells
+         carry it (perpendicular walks balanced), edge-pinned so it joins
+         cell to cell; everything else is plain channel concrete. The
+         first render stained every cell at its own offset - a barcode. */
+      var wcen = (wax==='h') ? Math.abs(wu-wd)<=0 : Math.abs(wl-wr)<=0;
+      wp = wcen ? 'iv_'+wax+'_'+th(gx,gy,2) : 'iv_p_'+th(gx,gy,2);
+    }else{
+      wp = 'bk_'+wax+'_'+th(gx,gy,2);
+    }
+    var wt2=tf(wp); if(!wt2) return false;
+    ctx.drawImage(look(wt2),X,Y,S,S);
+    return true;
+  }
+  if(n==='dry basin floor'){
+    /* TF-ART-025 wiring only (8/27, fresh ranking): the water plant's
+       6,920 drained-basin cells - thirty years of dried sludge cracks
+       into the same desiccation polygons the drought bed wears; the
+       approved bed tiles, zero new pixels. */
+    var dbf=tf('bed_'+th(gx,gy,3));
+    if(dbf){ ctx.drawImage(look(dbf),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='propane tank / ice bridge'){
+    /* TF-ART-031 (8/27, measured): 3,376 cells in 139 blobs, one name
+       for two real things. The dims sort them: small blobs are the
+       propane TANK banks, long thin runs are the elevated ICE BRIDGE
+       cable trays. Per cell: thin axis <=3 AND long axis >=5 is a
+       bridge along the long axis; everything else is a tank. */
+    function isPt(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='propane tank / ice bridge'; }
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    var pu=0; while(pu<8&&isPt(gx,gy-1-pu))pu++;
+    var pd=0; while(pd<8&&isPt(gx,gy+1+pd))pd++;
+    var pl=0; while(pl<8&&isPt(gx-1-pl,gy))pl++;
+    var pr=0; while(pr<8&&isPt(gx+1+pr,gy))pr++;
+    var pwx=pl+pr+1, pwy=pu+pd+1;
+    var pnm;
+    if(Math.min(pwx,pwy)<=3 && Math.max(pwx,pwy)>=5){
+      pnm = (pwx>=pwy ? 'ib_h_' : 'ib_v_')+th(gx,gy,2);
+    }else{
+      pnm = 'pt_tank_'+th(gx,gy,2);
+    }
+    var pt2=tf(pnm); if(pt2) ctx.drawImage(look(pt2),X,Y,S,S);
+    return true;
+  }
+  if(n==='guy wire'){
+    /* TF-ART-030 (8/27, measured): 2,798 cells of the radio site's
+       rigging - 132 radial fans from the guyed masts to their anchor
+       blocks - fell to plain ground. Ground first, then a steel cable
+       overlay BEARING ON THE NEAREST MAST, snapped to eight directions;
+       mast positions lazily cached per district cell. */
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    if(!window.__GW_MASTS || window.__GW_MASTS.key!==(CELL_XY()[0]+','+CELL_XY()[1])){
+      var gms=[];
+      for(var my2=0;my2<NAMEG.length;my2++)for(var mx2=0;mx2<NAMEG[0].length;mx2++){
+        if(String(NAMEG[my2][mx2]||'').toLowerCase()==='guyed mast') gms.push([mx2,my2]);
+      }
+      window.__GW_MASTS={key:CELL_XY()[0]+','+CELL_XY()[1], list:gms};
+    }
+    var gml=window.__GW_MASTS.list;
+    if(gml.length){
+      var bi=0,bd=1e9;
+      for(var gi=0;gi<gml.length;gi++){
+        var dd2=(gml[gi][0]-gx)*(gml[gi][0]-gx)+(gml[gi][1]-gy)*(gml[gi][1]-gy);
+        if(dd2<bd){bd=dd2;bi=gi;}
+      }
+      var ga=Math.atan2(gml[bi][1]-gy,gml[bi][0]-gx);
+      var gk=((Math.round(ga/(Math.PI/8))%8)+8)%8;
+      var gw2=tf('gw_'+gk); if(gw2) ctx.drawImage(look(gw2),X,Y,S,S);
+    }
+    return true;
+  }
+  if(n==='entry plaza' || n==='forecourt ground' || n==='courtyard'){
+    /* TF-ART-029 (8/27, measured): the library's civic plaza family -
+       3,520 cells of entry plaza, forecourt and courtyard fell to
+       gravel. Scored civic paving, grime settled into the saw joints. */
+    var pz=tf('pz_'+th(gx,gy,3));
+    if(pz){ ctx.drawImage(look(pz),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='terrace / plinth'){
+    /* TF-ART-029 (8/27): the 2,379-cell raised plinth the library
+       stands on - same concrete family, bigger slabs, half a step
+       lighter because rain sheets off a plinth. */
+    var tp=tf('tp_'+th(gx,gy,3));
+    if(tp){ ctx.drawImage(look(tp),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='plaza planter'){
+    /* TF-ART-029 (8/27): 516 planter cells. LIVE LOOK same day: a 5x7
+       blob drew 35 individual boxes and read as a waffle - a planter
+       that size is ONE BED. A lone cell keeps its full box; a blob
+       cell draws soil with the concrete rim only on its outside edges. */
+    function isPp(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='plaza planter'; }
+    var pN=isPp(gx,gy-1), pS=isPp(gx,gy+1), pE=isPp(gx+1,gy), pW=isPp(gx-1,gy);
+    if(!pN&&!pS&&!pE&&!pW){
+      var pp=tf('pp_'+th(gx,gy,2));
+      if(pp){ ctx.drawImage(look(pp),X,Y,S,S); return true; }
+      return false;
+    }
+    var ps=tf('pp_soil_'+th(gx,gy,3)); if(!ps) return false;
+    ctx.drawImage(look(ps),X,Y,S,S);
+    if(!pN){var rn=tf('pp_rim_n'); if(rn) ctx.drawImage(look(rn),X,Y,S,S);}
+    if(!pS){var rs2=tf('pp_rim_s'); if(rs2) ctx.drawImage(look(rs2),X,Y,S,S);}
+    if(!pE){var re2=tf('pp_rim_e'); if(re2) ctx.drawImage(look(re2),X,Y,S,S);}
+    if(!pW){var rw2=tf('pp_rim_w'); if(rw2) ctx.drawImage(look(rw2),X,Y,S,S);}
+    return true;
+  }
+  if(n==='data hall'){
+    /* TF-ART-028 (8/27, measured): the datafort's hero mass - 2,966 cells
+       of windowless hall - drew as brown noise. Pale membrane roof in
+       sheet courses, N+W seams self-seamless, thirty years of dirt
+       streaking. The !body guard keeps the 3/4 front face. */
+    var dh=tf('dh_'+th(gx,gy,3));
+    if(dh){ ctx.drawImage(look(dh),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='second roof / generator'){
+    /* TF-ART-028 (8/27): the generator wing's 2,167 roof cells - darker
+       galvanised standing-seam deck, oil stain and seam rust here and
+       there. */
+    var gr=tf('gr_'+th(gx,gy,3));
+    if(gr){ ctx.drawImage(look(gr),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='cooling unit'){
+    /* TF-ART-028 (8/27): 1,189 cooling units in rows along the halls'
+       faces, from 1x1 singles to 49x12 yards - one CRAC/chiller module
+       per cell, fan ring with dark throat, riding its own concrete. */
+    var cu=tf('cu_'+th(gx,gy,2));
+    if(cu){ ctx.drawImage(look(cu),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='rolling stock (boxcar)' || n==='locomotive'){
+    /* TF-ART-027 (8/27, measured): 118 boxcar blobs (101 exactly 7x4
+       cells) and 14 locomotive blobs drew as wall mass. Ballast ground
+       first, then ONE roof-read RGBA sprite per blob anchored at its
+       right-bottom cell - the established multi-cell prop law. A boxcar
+       picks its weather by blob seed; the loco has one body. */
+    var rsN=n;
+    function isRs(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()===rsN; }
+    if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+    if(isRs(gx+1,gy)||isRs(gx,gy+1)) return true;
+    var rx0=gx; while(isRs(rx0-1,gy)) rx0--;
+    var ry0=gy; while(isRs(gx,ry0-1)) ry0--;
+    var rw=gx-rx0+1, rh=gy-ry0+1;
+    var rs=tf(rsN==='locomotive' ? 'loco_box' : 'boxcar_'+th(rx0,ry0,3));
+    if(rs) ctx.drawImage(look(rs),X-(rw-1)*S,Y-(rh-1)*S,rw*S,rh*S);
+    return true;
+  }
+  if(n==='waste fill'){
+    /* TF-ART-026 (8/27, measured): 6,400+ cells per landfill cell - the
+       district's DOMINANT surface - fell to the gravel fallback. Compacted
+       fill: cover soil worn through to dark refuse, bleach flecks and rust
+       scrap, one variant carrying a dead compactor's track pass. */
+    var wf=tf('wf_'+th(gx,gy,3));
+    if(wf){ ctx.drawImage(look(wf),X,Y,S,S); return true; }
+    return false;
+  }
+  if(n==='cell berm'){
+    /* TF-ART-026 wiring only (8/27, measured): the landfill's berm rings
+       are 3 cells thick (1,917 of 2,406 measured cells), the same earth
+       ridge the arsenal magazines wear - the APPROVED mag_ berm pieces,
+       zero new pixels, banded by the thin axis exactly like the magazine
+       branch above. */
+    function isCb(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase()==='cell berm'; }
+    var cu=0; while(cu<8&&isCb(gx,gy-1-cu))cu++;
+    var cd=0; while(cd<8&&isCb(gx,gy+1+cd))cd++;
+    var cl=0; while(cl<8&&isCb(gx-1-cl,gy))cl++;
+    var cr=0; while(cr<8&&isCb(gx+1+cr,gy))cr++;
+    var cwx=cl+cr+1, cwy=cu+cd+1, cband;
+    if(Math.min(cwx,cwy)<=2){
+      cband = (cwx<=cwy) ? (cl===0?'crest':'edge_n') : (cu===0?'crest':'edge_s');
+    }else{
+      var ccen = (cwx<=cwy) ? Math.abs(cl-cr)<=1 : Math.abs(cu-cd)<=1;
+      var cedge = (cwx<=cwy) ? (cl===0||cr===0) : (cu===0||cd===0);
+      cband = ccen ? 'crest' : cedge ? ((cwx<=cwy? cr<cl : cd<cu) ? 'edge_s' : 'edge_n') : 'mid';
+    }
+    var cb=tf('mag_'+cband+'_'+th(gx,gy,2)); if(!cb) return false;
+    ctx.drawImage(look(cb),X,Y,S,S);
+    return true;
+  }
   if(n==='dead fairway'){
     /* TF-ART-025 wiring only (8/26): golf's 2074 fairway cells join the
        APPROVED turf family - row-locked mow stripes, the same pieces the

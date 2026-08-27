@@ -621,6 +621,14 @@ def _draw_ground(s, pad=1.6):
     y0 = min(q[1] for q in solids) - pad
     x1 = max(q[0] + q[3] for q in solids) + pad
     y1 = max(q[1] + q[4] for q in solids) + pad
+    # 8/27, THE FARM'S FLOATING ROWS: the fit counts solids >= 0.5 tall, so a
+    # hero whose SUBJECT is flat ground (furrow rows at 0.12) had its field
+    # sticking off the pad - three blind bakes chased row coordinates before
+    # the single-hero probe showed the pad itself was short. The declared
+    # ground PATCHES are part of the scene and the pad covers them too.
+    for (px0, py0, px1, py1, _c) in req.get('patches', []):
+        x0 = min(x0, px0 - pad); y0 = min(y0, py0 - pad)
+        x1 = max(x1, px1 + pad); y1 = max(y1, py1 + pad)
     # EVERYTHING SITS ON A SQUARE (Paolo, 8/8): "all the icons should be on a square,
     # everything should be on a square. It looks like they're just taking free shapes,
     # rectangles and shit."
@@ -1352,14 +1360,24 @@ def build_mall(P):
     s = Scene()
     _ground(s, (-4, -3, 14, 15), lot=(-4, 10, 14, 15), drive=(4, 9.5, 8, 15), groundc=(96, 94, 86), lotc=LOT)
     # DUMBBELL: a long concourse spine with a big-box anchor at each end + a food-court bump
-    s.box((-1, 1.5, 0), (13, 4.5, 5.0), {'top': _dark(CONC, 0.92), 'px': _win(CONC, 10, 2, 4, 0.18),
+    # 8/27 (wave 4, after the 8/25 NO): the probe showed three MID-RISE blocks
+    # with window walls - downtown, not a mall. A Vegas mall is LOW and BLANK:
+    # anchors are two storeys of windowless tilt-up, the only glass is the
+    # entry, and the roof carries its RTU boxes. Lowered, blanked, canopied.
+    s.box((-1, 1.5, 0), (13, 4.5, 3.6), {'top': _dark(CONC, 0.92), 'px': _dark(CONC, 0.9),
           'py': _dark(CONC, 0.95), 'nx': _dark(CONC), 'ny': _dark(CONC)})               # concourse
     for ax in (-2.0, 9.5):                                                              # anchor store at each end
-        s.box((ax, 0.5, 0), (4.5, 6.5, 6.4), {'top': _dark(ANCHOR, 0.9), 'px': _win(ANCHOR, 3, 3, 5, 0.16),
-              'py': _win(ANCHOR, 4, 3, 9, 0.16), 'nx': _dark(ANCHOR), 'ny': _dark(ANCHOR)})
-    s.box((4.5, 6.0, 0), (4.0, 2.6, 4.2), {'top': _dark(FOOD, 0.9), 'px': _win(FOOD, 4, 2, 7),
+        s.box((ax, 0.5, 0), (4.5, 6.5, 4.4), {'top': _dark(ANCHOR, 0.9), 'px': _dark(ANCHOR, 0.92),
+              'py': _dark(ANCHOR, 0.96), 'nx': _dark(ANCHOR), 'ny': _dark(ANCHOR)})
+    s.box((4.5, 6.0, 0), (4.0, 2.6, 3.2), {'top': _dark(FOOD, 0.9), 'px': _win(FOOD, 4, 2, 7),
           'py': _dark(FOOD, 0.9), 'nx': _dark(FOOD), 'ny': _dark(FOOD)})                # food-court bump-out
-    _door_face(s, (-1, 1.5, 0), (13, 4.5, 5.0), width=1.6, ztop=2.6,
+    # the mall entry: a glazed bay under a flat canopy slab - the one glass on the box
+    s.box((4.8, 5.9, 0), (3.4, 0.25, 2.4), {'py': _win(CONC, 3, 2, 3, 0.3), 'c': _dark(CONC, 0.8)['c']})
+    s.box((4.4, 5.4, 2.5), (4.2, 1.2, 0.35), {'c': _dark(CONC, 1.12)['c']})             # the canopy
+    for (rx, ry) in ((0.5, 3.0), (3.5, 2.2), (7.5, 3.2), (10.8, 2.6), (-1.2, 2.0)):     # the RTU boxes
+        s.box((rx, ry, 4.4 if rx in (-1.2,) or rx > 9 or rx < 1 else 3.6),
+              (1.1, 0.9, 0.55), {'c': _dark(CONC, 0.78)['c']})
+    _door_face(s, (-1, 1.5, 0), (13, 4.5, 3.6), width=1.6, ztop=2.4,
                doorc=_dark(CONC, 0.4)['c'], framec=tuple(min(255, int(c * 1.25)) for c in CONC))
     for cx in (1.5, 4.0, 6.5, 9.0, 11.0):                                               # abandoned cars in the lot (canon CAR size)
         _vehicle(s, cx, 12.2, CAR, CARC, along='x')
@@ -3019,20 +3037,33 @@ def build_waterpark(P):
     LOCK, WAVE, RIVER, TOWER, SPLASH, SNACK, CHAIR = P[2], P[6], P[7], P[8], P[9], P[13], P[11]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(114, 110, 96), lotc=(64, 64, 68))
-    # THE SLIDE TOWER: stacked platforms, each smaller, with flumes spiralling down
-    for i, (tz, half) in enumerate([(0.0, 1.9), (2.6, 1.55), (5.2, 1.2), (7.8, 0.85)]):
-        s.box((4.2 - half, 4.2 - half, tz), (half * 2, half * 2, 2.6),
+    # THE SLIDE TOWER, 8/27 (wave 4): the stacked shrinking boxes read as a
+    # WEDDING CAKE, which is the exact disease the 8/26 dome fix named. A real
+    # slide tower is an OPEN FRAME - four posts, equal platform decks, air
+    # between them - with the flumes riding down off the top deck.
+    for (px_, py_) in ((2.6, 2.6), (5.6, 2.6), (2.6, 5.6), (5.6, 5.6)):                     # the four legs
+        s.box((px_ - 0.18, py_ - 0.18, 0), (0.36, 0.36, 9.6), {'c': _dark(TOWER, 0.92)['c']})
+    for dz in (3.2, 6.4, 9.6):                                                              # equal open decks
+        s.box((2.2, 2.2, dz), (4.4, 4.4, 0.34),
               {'top': _dark(TOWER, 1.12), 'px': _dark(TOWER, 1.0), 'py': _dark(TOWER, 0.82),
                'nx': _dark(TOWER, 1.0), 'ny': _dark(TOWER, 0.82)})
-    s.box((3.7, 3.7, 10.4), (1.0, 1.0, 0.5), {'c': _dark(TOWER, 1.2)['c']})
-    for i, (fx, fy) in enumerate([(-1.2, -1.2), (9.6, -1.2), (9.6, 9.6), (-1.2, 9.6)]):     # THE FLUMES
-        steps = 7
+    s.box((2.2, 2.2, 9.94), (4.4, 0.2, 0.7), {'c': _dark(TOWER, 1.05)['c']})                # top-deck rail
+    s.box((2.2, 6.2, 9.94), (4.4, 0.2, 0.7), {'c': _dark(TOWER, 1.05)['c']})
+    # THE FLUMES: continuous ribbons pouring off the top deck to grade,
+    # overlapping segments so each reads as one tube, not a stair
+    # flume bearings avoid the camera diagonal (dx ~= dy projects as a
+    # vertical caterpillar in this iso - the probe caught it twice)
+    for (fx, fy, fc) in ((0.2, 9.8, 1.0), (10.6, 1.2, 1.16), (11.2, 6.8, 0.9)):
+        steps = 13
+        fdist = ((fx - 4.1)**2 + (fy - 4.1)**2) ** 0.5
+        t0 = 2.4 / fdist                                # exit AT the deck edge, never through the tower
         for k in range(steps):
-            t = k / float(steps - 1)
-            zx = 4.2 + (fx - 4.2) * t
-            zy = 4.2 + (fy - 4.2) * t
-            s.box((zx - 0.45, zy - 0.45, 9.0 - t * 8.2), (0.9, 0.9, 0.34),
-                  {'c': _dark(RIVER, 1.0 + (k % 2) * 0.16)['c']})
+            t = t0 + (1.0 - t0) * k / float(steps - 1)
+            zx = 4.1 + (fx - 4.1) * t
+            zy = 4.1 + (fy - 4.1) * t
+            s.box((zx - 0.38, zy - 0.38, 9.4 - (t - t0) / (1.0 - t0) * 8.9), (0.76, 0.76, 0.5),
+                  {'c': _dark(RIVER, fc)['c']})
+        s.box((fx - 0.9, fy - 0.9, -0.04), (1.8, 1.8, 0.1), {'c': SPLASH})                  # its runout pool
     s.box((-2.4, 10.2, -0.05), (8.6, 4.0, 0.12), {'c': _dark(WAVE, 0.72)['c']})             # THE WAVE POOL
     s.box((-2.4, 10.2, 0.06), (5.2, 4.0, 0.1), {'c': WAVE})                                 # its shallow end
     s.box((-2.6, 10.0, 0), (0.3, 4.4, 0.7), {'c': _dark(WAVE, 1.2)['c']})                   # the wave wall
@@ -3095,17 +3126,26 @@ def build_drivein(P):
     # camera renders, it must be the SCREEN. Both long faces go bleached; the
     # short ends stay steel-dark and the bracing still says which side is the
     # back.
-    _pale={'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)}
+    # 8/27 third pass, the two root diseases AT ONCE, both found by the
+    # single-hero probe (guessing face keys blind failed three bakes):
+    # (1) the camera. depth = x+y+z, nearest = MAX, so the viewer reads the
+    #     +y faces. The frame box sat at LARGER y than the screen and was
+    #     wider AND taller - the dark slab in every icon was the FRAME
+    #     covering the screen, with the bracing struts (y up to -0.5)
+    #     streaking across it. "Behind" in this projection is SMALLER y.
+    # (2) the paint. SCREEN's palette entry is itself dark slate, so no
+    #     multiplier bleaches it, and a +y face only ever gets ambient
+    #     (key light dots negative). Blend hard toward an absolute white -
+    #     a projection screen is painted white whatever the steel is.
+    _white=(252, 248, 236)
+    _pale={'c': tuple(int(c*0.1 + w*0.9) for c, w in zip(SCREEN, _white))}
     s.box((-1.0, -2.4, 0), (11.0, 0.55, 12.6),
           {'top': _dark(SCREEN, 1.18), 'py': _pale, 'ny': _pale,
            'px': _dark(SCREEN, 0.86), 'nx': _dark(SCREEN, 0.86)})
-    # 8/26: this frame sat SOUTH of the wall (y -2.7 vs -2.4) - camera-side -
-    # so the whole pale screen face rendered as a black slab. The frame goes
-    # BEHIND the screen where the bracing already lives.
-    s.box((-1.3, -1.85, 0), (11.6, 0.3, 13.1), {'c': _dark(SCREEN, 0.62)['c']})              # its frame edge
-    for bx in (0.0, 2.6, 5.2, 7.8):                                                          # the back bracing
-        s.box((bx, -2.4, 0), (0.3, -0.0 + 1.9, 0.3), {'c': _dark(SCREEN, 0.58)['c']})
-        s.quad((bx, -0.5, 0), (bx + 0.3, -0.5, 0), (bx + 0.3, -1.85, 8.0), (bx, -1.85, 8.0),
+    s.box((-1.3, -2.7, 0), (11.6, 0.3, 13.1), {'c': _dark(SCREEN, 0.62)['c']})               # its frame edge, BEHIND
+    for bx in (0.0, 2.6, 5.2, 7.8):                                                          # the back bracing, BEHIND
+        s.box((bx, -4.3, 0), (0.3, 1.9, 0.3), {'c': _dark(SCREEN, 0.58)['c']})
+        s.quad((bx, -4.2, 0), (bx + 0.3, -4.2, 0), (bx + 0.3, -2.7, 8.0), (bx, -2.7, 8.0),
                {'c': _dark(SCREEN, 0.58)['c']}, (0, -1, 0))
     # THE RAMPED ROWS: low arcs of earth, cars nose up on each one
     for i, ry in enumerate((1.6, 3.4, 5.2, 7.0, 8.8, 10.6, 12.4)):
@@ -4923,7 +4963,13 @@ NOT_A_BUILDING = {'park', 'mountain', 'desert', 'water', 'wash', 'golf',
                   # gypsum dome into a wedding cake. Their builders author the
                   # whole read.
                   'suburb', 'trailer', 'storage', 'quarry', 'gypsum',
-                  'drivein', 'farm', 'waterpark'}
+                  'drivein', 'farm', 'waterpark',
+                  # 8/27 wave 4: the mall is a BUILDING but its identity is
+                  # LOW AND BLANK - two storeys of windowless tilt-up. The
+                  # widen-and-raise pass re-inflated the lowered anchors into
+                  # mid-rise blocks (the probe caught it) and the wall dressing
+                  # put windows on walls whose whole point is blankness.
+                  'mall'}
 
 
 def main():

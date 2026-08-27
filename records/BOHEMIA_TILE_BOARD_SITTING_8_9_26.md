@@ -1195,3 +1195,172 @@ screen STILL showed a dark long face: my face-key guess was wrong
 twice, so theory is fired and both long faces are bleached - whichever
 one this camera renders IS the screen, and the back bracing still says
 which side is the back. Bake 5 carries those two, nothing else.
+
+## 8/27 FIFTY-EIGHTH PASS: THE PROBE THAT SHOULD HAVE EXISTED THREE BAKES AGO (+ the dump gets its ground)
+
+Bake 5 landed and the farm STILL bled and the drive-in was STILL dark -
+the third blind failure each, at 73-160 minutes per guess. So the
+missing instrument got built: a SINGLE-HERO local bake (one district
+through the exact pass pipeline at half supersampling, 1.7 seconds).
+Two probes found two root diseases no amount of re-reading found:
+(1) FARM - _draw_ground fits the pad only to solids at least 0.5 tall,
+so the 0.12-tall furrow rows never counted and the pad hugged the
+buildings; the fit now includes declared ground patches. (2) DRIVE-IN,
+two diseases at once - the camera reads +y faces (depth = x+y+z,
+nearest MAX), so the frame box at LARGER y sat IN FRONT of the screen
+and was wider and taller: the dark slab in every icon was the FRAME
+covering the screen, with the bracing struts streaking across it;
+"behind" in this projection is SMALLER y. And SCREEN's palette entry is
+itself dark slate, so no multiplier could ever bleach it - the face now
+blends hard toward absolute white, because a projection screen is
+painted white whatever the steel is. Both probed clean in seconds.
+Bake 6 grinds behind this pass.
+
+Meanwhile the board moved: TF-ART-026 WASTE FILL. Measured on the
+walked world: 'waste fill' is 6,400+ cells PER landfill cell - the
+dump's dominant surface - drawing as yard gravel, and 'cell berm' is
+2,400 cells per cell in rings measured EXACTLY 3 thick (1,917 of
+2,406), which is the same ridge grammar as the arsenal magazines. So:
+the fill cooked from approved dirt/pale/rust (cover soil worn through
+to dark refuse, bleach flecks, rust scrap, one variant carrying a dead
+compactor's track pass), and the berms wired as PURE REUSE of the
+approved mag_ pieces with zero new pixels. Verified live at the
+landfill: the fill field draws inside its banded berm ring. The
+twenty-sixth wired family, and cover soil already lands in the dirt
+family by name so the whole district ground now resolves.
+
+## 8/27 FIFTY-NINTH PASS: THE YARD KEEPS ITS DEAD TRAINS (TF-ART-027)
+
+'Rolling stock (boxcar)' x3012 was the second-biggest unclaimed name in
+the world and the measurement said something better than a count: 101
+of the 118 blobs are EXACTLY 7x4 cells - a true 50-foot boxcar - and
+the 14 locomotive blobs are the same footprint. That is the parked
+trailer situation to the letter, so the trailer's own law answered it:
+one roof-read RGBA sprite per flood-walked blob, anchored right-bottom,
+ballast drawn under every cell first. Three weathers hashed per blob
+(oxide, dusty bleach, bluegrey - a yard sorts cars from everywhere),
+rust blooming at the panel seams, the running board down the
+centreline, no reporting mark or number ever. The loco got its own
+body: darker painted steel, radiator fan rings, the cab band. Two
+craft catches on the contact sheet before wiring: the brake-wheel hint
+was a DOTTED run (the 8/21 stipple ban) and became a solid disc, and
+the bleached car read as fresh mill silver and got blended a step
+toward oxide - thirty dusty years, never new metal. Verified live on
+the classification tracks: cars standing at the true footprint. The
+twenty-seventh wired family.
+
+## 8/27 SIXTIETH PASS: THE FORT THAT KEPT THE INTERNET (TF-ART-028)
+
+'Data hall' x2966 was the third-biggest unclaimed name and the look
+explained why it mattered: the datafort's hero - the windowless
+four-hundred-thousand-square-foot box - rendered as a smear of brown
+static. Measured: the hero blob is 80x55, the generator wing is one
+76x51 plate, and 1,189 cooling units line the hall faces in rows from
+1x1 singles to a 49x12 yard. The reservoir deck's per-cell roof-plate
+law answered all three: pale membrane in sheet courses with N+W seams
+(cooled toward the approved galv so a roof never reads as desert
+sand), darker standing-seam generator deck with oil stain and seam
+rust, and one dead CRAC module per cooling cell - fan ring, dark
+throat, STOPPED fan cross, rusted base on the old ones. The run's
+!body guard means the per-cell skin dresses only the top; every 3/4
+front face keeps its wall material. Verified live at the fort: the
+brown static is gone, the campus reads like the Switch SUPERNAP
+satellite photo thirty years dead. The twenty-eighth wired family.
+
+## 8/27 SIXTY-FIRST PASS: THE PLAZA NOBODY READS ON ANYMORE (TF-ART-029)
+
+The library measure named a whole civic family in one sweep: terrace /
+plinth x2379, forecourt x1574, entry plaza x1171, courtyard x775,
+planters x516 - 6,415 cells of the most formal ground in the valley
+drawing as scrapyard gravel. Three pieces from three approved pools:
+scored paving with the grime settled INTO the half-metre saw joints
+(the grid darkens, the slabs stay pale - that is how real plazas age),
+the plinth in bigger lighter slabs, and the planters. TWO catches by
+looking: the straw rosette harvested a near-black pool and got lifted
+toward the pale (dead straw reads LIGHTER than the soil it died in),
+and the first live frame drew a 5x7 planter blob as 35 individual
+boxes - a WAFFLE - so the planter went blob-aware: a lone cell keeps
+its full box, a bed cell draws soil with the concrete rim only on its
+outside edges. Verified live at the library, un-waffled. The
+twenty-ninth wired family. Four families this window (fill, trains,
+fort, plaza); the icon bake still grinding behind all of it.
+
+## 8/27 SIXTY-SECOND PASS: THE WIRES THAT HOLD THE TOWERS (TF-ART-030)
+
+'Guy wire' x2798 sat flagged marginal until the measure showed the fans
+ARE the radio district's shape: 132 radial blobs running from the 45
+guyed-mast cells to the named anchor blocks. The method is geometry,
+not texture: each wire cell computes the bearing to its NEAREST mast
+(positions lazily cached, one scan per district cell) and lays a thin
+steel line snapped to eight directions - 1px steel, galv glint
+sun-side, faint shadow offset SE - so every line in the fan CONVERGES
+on its tower like the real KDWN array from the air. A taut guy has no
+sag from above; straight is honest here, it is rigging, not hair.
+Verified live: the radial runs continuous across cells. The thirtieth
+wired family. Same measure also surfaced 'propane tank / ice bridge'
+x3376 - BIGGER than the wires - logged as open board row 105 for the
+next pass, not chased now.
+
+## 8/27 SIXTY-THIRD PASS: WHAT FED THE LAST TRANSMITTER (TF-ART-031)
+
+Board row 105 answered the pass after it was logged: 'propane tank /
+ice bridge' x3376 in 139 blobs, one name for two real things, and the
+MEASUREMENT is what splits them - dozens of small blobs (1x2, 2x2:
+the tank banks) against long thin runs (21x3, 39x7: the elevated
+cable trays). The wiring carries the same split per cell: thin axis
+<=3 and long axis >=5 reads as a galvanised ICE-BRIDGE ribbon along
+its axis (lit rims, crosswise ribs, post shadows), everything else
+reads as a bank of bleached 500-gallon TANK cylinders - lit crown,
+shadowed belly, saddle shadows, weld rust on half of them, the valve
+dome over the top. Verified live: tank rows in the yards, silver
+ribbons converging on the masts, exactly the satellite read of a real
+transmitter site. The thirty-first wired family; the radio district's
+three big names (wires, plant, and its site ground by name fallback)
+all resolve in one day.
+
+## 8/27 SIXTY-FOURTH PASS: THE CHANNEL REMEMBERS ITS LAST FLOW (TF-ART-032 + a free floor)
+
+The riprap form's own promise ("the channel bank and invert are next")
+came due: invert x5646 + bank x4048, the wash's last two unclaimed
+names. Channel concrete from the kerb pale, and TWO catches by looking
+before it shipped: the weeps mixed in raw dirt and came out LIGHTER
+than the slope (a weep is a shadow, not a highlight - darkened), and
+the first live frame put the low-flow stain on EVERY invert cell at
+its own offset, which reads as a BARCODE, not a river. The fix is a
+rule, not a repaint: only the run's centreline cells carry the stain
+(perpendicular walks balanced), and the wander is edge-pinned to the
+tile centre at both edges so the line JOINS cell to cell - wide basin
+reaches go plain jointed concrete with sparse fragments, narrow runs
+carry one continuous line. Banks streak down their slope by axis.
+And the water plant got its floors for free: 'dry basin floor' x6920
+wired into the TF-ART-025 bed tiles, because dried sludge cracks into
+the same desiccation polygons a dried lake does - zero new pixels.
+The thirty-second wired family. Also re-ranked the whole world fresh:
+memorial lawn, sun deck and dead rough turned out already claimed
+(the ranking list was stale, the slice was not), so after this pass
+the biggest unclaimed names left are generic grounds the bought pools
+already own. The named-content queue is, for the first time, CLEARED.
+
+## 8/27 SIXTY-FIFTH PASS: ICON WAVE 4 JUDGED BY THE PROBE (two rebuilt, eight stand)
+
+The single-hero probe made wave 4 an afternoon instead of a week: all
+ten remaining kill-board icons baked locally in seconds and JUDGED ON
+SIGNATURE. Eight stand as they read post-pipeline-fix: battery (rack
+rows), campus (mid-rise cluster in trees), firestation (the red bay
+doors), arsenal (magazine rows), terminal (concourse drum), cityhall
+(civic drum), policestation and library (the Predock one-building
+composition he approved at 85% on 8/2 - not re-touched). Two failed
+their signature and got rebuilt: the MALL read as three mid-rise
+window blocks - downtown, not a mall - so it is LOW AND BLANK now
+(two-storey windowless tilt-up anchors, the one glass at the entry
+under its canopy, RTU boxes on the roof) and joined the pass-exclusion
+set because widen-and-raise kept re-inflating it, the probe catching
+the re-inflation in 1.7 seconds. And the WATERPARK's stacked shrinking
+platforms were the same wedding cake the dome fix named, so the slide
+tower is an OPEN FRAME now - four legs, equal decks, air between -
+with three flume ribbons pouring off the top deck to their own runout
+pools. TWO probe catches on the flumes alone: they exited through the
+tower's own middle (now they exit AT the deck edge), and a flume bearing
+parallel to the camera diagonal projects as a vertical caterpillar
+(dx ~= dy - the bearings now avoid the diagonal). These two ride BAKE
+7 after bake 6 ships; the other eight ship with bake 6 as they stand.
