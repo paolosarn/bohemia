@@ -56,33 +56,33 @@
 @OBJ 10  "Help the set finish"   target=busker
 
 @TALK stage  speaker=busker  entry=stage>=10
-  @SAY Do not walk off, the good part is coming, I promise the good part is coming. #hope
-  @SAY The cell is dying. Listen, you can hear it sag. One more set and it is gone and so is the crowd.
-  @SAY I do not need a hero. I need three more songs. Can you buy me three more songs?
+  @SAY Don't walk off, the good part is coming, I promise the good part is coming. #hope
+  @SAY The cell is dying. Listen, you can hear it sag. One more set and it's gone and so is the crowd.
+  @SAY I don't need a hero. I need three more songs. Can you buy me three more songs?
   @OPT "Kill the amp. Play it close."     [gate: none]  -> acoustic
-  @OPT "I will find you a charged cell."    [gate: none]  -> cell
+  @OPT "I'll find you a charged cell."    [gate: none]  -> cell
   @OPT "Splice it into the street line."    [gate: none]  TRAP -> splice
   @OPT "Pack it in for tonight."            [gate: none]  -> quit
   @NOVERB "Tell them to get a real job"
 @END
 
 @TALK acoustic  speaker=busker
-  @SAY No amp. Just this. Sit up front so it does not feel empty. #hope
+  @SAY No amp. Just this. Sit up front so it doesn't feel empty. #hope
   @SAY Funny. Every time the power dies is the only time anybody actually listens.
   @OPT "Then play."                       [gate: none]  -> END  @DO set_stage 20
   @OPT (sit down in front)                [gate: none]  SILENCE -> END  @DO set_stage 20
 @END
 
 @TALK cell  speaker=busker
-  @SAY You did it. Where does a person even find a charged cell on a night like this. Do not tell me. #hope
+  @SAY You did it. Where does a person even find a charged cell on a night like this. Don't tell me. #hope
   @SAY Stay. Get them to stay. A crowd that stays is the only rich I ever wanted to be.
   @OPT "Play the whole thing."            [gate: none]  -> END  @DO set_stage 21
 @END
 
 @TALK splice  speaker=busker
-  @SAY You are actually doing it. That line is live, you know that is live. #dread
-  @SAY If it holds, this is the loudest I have ever been in my life. If it does not, I never was.
-  @OPT "It will hold. Play loud."         [gate: none]  -> END  @DO set_stage 22
+  @SAY You're actually doing it. That line is live, you know that's live. #dread
+  @SAY If it holds, this is the loudest I have ever been in my life. If it doesn't, I never was.
+  @OPT "It'll hold. Play loud."         [gate: none]  -> END  @DO set_stage 22
   @OPT "Actually, no. Play it close instead."  [gate: none]  -> acoustic
 @END
 

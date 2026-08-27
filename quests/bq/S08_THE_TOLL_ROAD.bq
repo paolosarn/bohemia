@@ -67,33 +67,33 @@
 @OBJ 20  "Get the medicine past the toll"  target=boss
 
 @TALK caravan  speaker=hauler  entry=stage>=10
-  @SAY Third day sitting here. The cold room in the wagon is dying and so is what is in it. #dread
-  @SAY They call it a toll. It is not a toll. A toll you can pay and still eat. This just takes until there is nothing.
-  @SAY I cannot fight them and I cannot leave the load. If you have any pull, any at all, I am begging.
+  @SAY Third day sitting here. The cold room in the wagon is dying and so is what's in it. #dread
+  @SAY They call it a toll. It isn't a toll. A toll you can pay and still eat. This just takes until there's nothing.
+  @SAY I can't fight them and I can't leave the load. If you have any pull, any at all, I'm begging.
   @OPT "Let me talk to whoever runs it."    [gate: none]  -> gate      @DO learn saw_the_caravan
-  @OPT "What is in the wagon?"              [gate: none]  -> load
+  @OPT "What's in the wagon?"              [gate: none]  -> load
   @OPT "Not my problem."                    [gate: none]  -> leave
   @NOVERB "Promise nobody gets hurt"
 @END
 
 @TALK load  speaker=hauler
   @SAY Medicine. The real kind, from the granary, rationed for three blocks that have sick in them right now. #dread
-  @SAY Every hour it sits here somebody downstream gets worse. That is the arithmetic. That is why I have not slept.
-  @OPT "I will handle the checkpoint."      [gate: none]  -> gate  @DO learn saw_the_caravan
+  @SAY Every hour it sits here somebody downstream gets worse. That's the arithmetic. That's why I have not slept.
+  @OPT "I'll handle the checkpoint."      [gate: none]  -> gate  @DO learn saw_the_caravan
 @END
 
 @TALK leave  speaker=hauler
-  @SAY Fine. It is nobody's problem until it is everybody's, that is how it always goes out here. #tired
-  @OPT "Wait. I will look at it."           [gate: none]  -> gate  @DO learn saw_the_caravan
+  @SAY Fine. It's nobody's problem until it's everybody's, that's how it always goes out here. #tired
+  @OPT "Wait. I'll look at it."           [gate: none]  -> gate  @DO learn saw_the_caravan
   @OPT "Good luck."                         [gate: none]  -> END   @DO set_stage 34
 @END
 
 # THE CHECKPOINT. The boss is a lever, not a wall. So is the lieutenant beside him.
 @TALK gate  speaker=boss  entry=stage>=10 and knows:saw_the_caravan
   @SAY New face. The rate is the rate. It goes up the longer you make me look at you. #flat
-  @SAY That wagon pays until it is empty and then it can go. Those are the words. You want to add some of your own.
+  @SAY That wagon pays until it's empty and then it can go. Those are the words. You want to add some of your own.
   @DO set_stage 20
-  @OPT "I will pay the toll myself. Now."   [gate: none]  -> pay
+  @OPT "I'll pay the toll myself. Now."   [gate: none]  -> pay
   @OPT "Set a fair standing rate. In the open."  [gate: none]  -> deal
   @OPT "Your man there looks tired."         [gate: none]  TRAP -> turn
   @OPT (put a hand on your weapon)            [gate: none]  SILENCE -> break
@@ -101,7 +101,7 @@
 @END
 
 @TALK pay  speaker=boss
-  @SAY Out of your own pocket. For strangers. You know that is the rate again next week and you will not be here. #flat
+  @SAY Out of your own pocket. For strangers. You know that's the rate again next week and you won't be here. #flat
   @SAY But it clears today. Wagon rolls. Nobody remembers your name, which for you might be the whole point.
   @OPT "Just let it through."               [gate: none]  -> END  @DO set_stage 30
 @END
@@ -120,8 +120,8 @@
 @END
 
 @TALK break  speaker=boss
-  @SAY You are actually going to make this loud. Over someone else's medicine. #flat
-  @SAY Then it is loud. And loud gets remembered, upstream, by people who remember faces for a living. Last chance to be smart.
+  @SAY You're actually going to make this loud. Over someone else's medicine. #flat
+  @SAY Then it's loud. And loud gets remembered, upstream, by people who remember faces for a living. Last chance to be smart.
   @OPT "Move, or be moved."                 [gate: none]  -> END  @DO set_stage 33
   @OPT "Fine. Name a fair rate instead."    [gate: none]  -> deal
 @END

@@ -31,49 +31,49 @@
     "book": "One More Set",
     "kind": "quest",
     "lines": 21,
-    "expanded": 11,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 1,
+    "contracted": 10,
+    "rate": 90.9
    },
    {
     "book": "What Cries in the Deep",
     "kind": "quest",
     "lines": 37,
-    "expanded": 36,
-    "contracted": 2,
-    "rate": 5.3
+    "expanded": 1,
+    "contracted": 37,
+    "rate": 97.4
    },
    {
     "book": "The Standing Bounty",
     "kind": "quest",
     "lines": 23,
-    "expanded": 23,
-    "contracted": 1,
-    "rate": 4.2
+    "expanded": 2,
+    "contracted": 22,
+    "rate": 91.7
    },
    {
     "book": "Behind the Fence",
     "kind": "quest",
     "lines": 24,
-    "expanded": 32,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 6,
+    "contracted": 27,
+    "rate": 81.8
    },
    {
     "book": "Say It Back",
     "kind": "quest",
     "lines": 40,
-    "expanded": 42,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 3,
+    "contracted": 41,
+    "rate": 93.2
    },
    {
     "book": "The Toll Road",
     "kind": "quest",
     "lines": 32,
-    "expanded": 24,
-    "contracted": 3,
-    "rate": 11.1
+    "expanded": 4,
+    "contracted": 23,
+    "rate": 85.2
    },
    {
     "book": "The Back Door",
@@ -87,97 +87,97 @@
     "book": "The Count That Does Not Add",
     "kind": "quest",
     "lines": 36,
-    "expanded": 27,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 5,
+    "contracted": 23,
+    "rate": 82.1
    },
    {
     "book": "Sixty Seconds Of Rain",
     "kind": "quest",
     "lines": 34,
-    "expanded": 24,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 2,
+    "contracted": 22,
+    "rate": 91.7
    },
    {
     "book": "The Last Good Doctor",
     "kind": "quest",
     "lines": 36,
-    "expanded": 31,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 3,
+    "contracted": 29,
+    "rate": 90.6
    },
    {
     "book": "The Paper That Says So",
     "kind": "quest",
     "lines": 43,
-    "expanded": 39,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 8,
+    "contracted": 31,
+    "rate": 79.5
    },
    {
     "book": "What The Dog Knows",
     "kind": "quest",
     "lines": 36,
-    "expanded": 35,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 5,
+    "contracted": 32,
+    "rate": 86.5
    },
    {
     "book": "The Lights Go Out At Nine",
     "kind": "quest",
     "lines": 39,
-    "expanded": 20,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 2,
+    "contracted": 18,
+    "rate": 90.0
    },
    {
     "book": "The Voice At Three",
     "kind": "quest",
     "lines": 51,
-    "expanded": 46,
-    "contracted": 1,
-    "rate": 2.1
+    "expanded": 11,
+    "contracted": 37,
+    "rate": 77.1
    },
    {
     "book": "The Seed That Does Not Come Back",
     "kind": "quest",
     "lines": 44,
-    "expanded": 34,
-    "contracted": 2,
-    "rate": 5.6
+    "expanded": 4,
+    "contracted": 33,
+    "rate": 89.2
    },
    {
     "book": "The Patch Under The Collar",
     "kind": "quest",
     "lines": 42,
-    "expanded": 40,
-    "contracted": 1,
-    "rate": 2.4
+    "expanded": 6,
+    "contracted": 36,
+    "rate": 85.7
    },
    {
     "book": "The Midwife's Hour",
     "kind": "quest",
     "lines": 55,
-    "expanded": 53,
-    "contracted": 1,
-    "rate": 1.9
+    "expanded": 7,
+    "contracted": 51,
+    "rate": 87.9
    },
    {
     "book": "The Name On The Counterfeit",
     "kind": "quest",
     "lines": 46,
-    "expanded": 28,
-    "contracted": 2,
-    "rate": 6.7
+    "expanded": 2,
+    "contracted": 28,
+    "rate": 93.3
    },
    {
     "book": "The One Who Came Back",
     "kind": "quest",
     "lines": 39,
-    "expanded": 26,
-    "contracted": 1,
-    "rate": 3.7
+    "expanded": 1,
+    "contracted": 27,
+    "rate": 96.4
    },
    {
     "book": "The Cold Room",
@@ -191,17 +191,17 @@
     "book": "Dead Pool",
     "kind": "quest",
     "lines": 61,
-    "expanded": 52,
-    "contracted": 2,
-    "rate": 3.7
+    "expanded": 5,
+    "contracted": 51,
+    "rate": 91.1
    },
    {
     "book": "Fifty-Five Gallons A Foot",
     "kind": "quest",
     "lines": 45,
-    "expanded": 42,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 4,
+    "contracted": 41,
+    "rate": 91.1
    },
    {
     "book": "The Pressure Goes Backward",
@@ -215,17 +215,17 @@
     "book": "What The Cold Did Not Kill",
     "kind": "quest",
     "lines": 39,
-    "expanded": 40,
-    "contracted": 2,
-    "rate": 4.8
+    "expanded": 4,
+    "contracted": 40,
+    "rate": 90.9
    },
    {
     "book": "The Fifty Year Signature",
     "kind": "quest",
     "lines": 50,
-    "expanded": 29,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 4,
+    "contracted": 26,
+    "rate": 86.7
    },
    {
     "book": "THE MATCH-CUT OPEN",
@@ -300,67 +300,67 @@
     "rate": 74.4
    }
   ],
-  "quest_rate": 20.1,
-  "quest_expanded": 746,
-  "quest_contracted": 188,
+  "quest_rate": 89.3,
+  "quest_expanded": 102,
+  "quest_contracted": 855,
   "other_rate": 75.0,
   "other_expanded": 192,
   "other_contracted": 575,
   "worst": [
    {
-    "book": "Say It Back",
+    "book": "The Voice At Three",
     "kind": "quest",
-    "lines": 40,
-    "expanded": 42,
-    "contracted": 0,
-    "rate": 0.0
-   },
-   {
-    "book": "Fifty-Five Gallons A Foot",
-    "kind": "quest",
-    "lines": 45,
-    "expanded": 42,
-    "contracted": 0,
-    "rate": 0.0
+    "lines": 51,
+    "expanded": 11,
+    "contracted": 37,
+    "rate": 77.1
    },
    {
     "book": "The Paper That Says So",
     "kind": "quest",
     "lines": 43,
-    "expanded": 39,
-    "contracted": 0,
-    "rate": 0.0
-   },
-   {
-    "book": "What The Dog Knows",
-    "kind": "quest",
-    "lines": 36,
-    "expanded": 35,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 8,
+    "contracted": 31,
+    "rate": 79.5
    },
    {
     "book": "Behind the Fence",
     "kind": "quest",
     "lines": 24,
-    "expanded": 32,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 6,
+    "contracted": 27,
+    "rate": 81.8
    },
    {
-    "book": "The Last Good Doctor",
+    "book": "The Same Crate Twice",
+    "kind": "quest",
+    "lines": 28,
+    "expanded": 4,
+    "contracted": 18,
+    "rate": 81.8
+   },
+   {
+    "book": "The Count That Does Not Add",
     "kind": "quest",
     "lines": 36,
-    "expanded": 31,
-    "contracted": 0,
-    "rate": 0.0
+    "expanded": 5,
+    "contracted": 23,
+    "rate": 82.1
+   },
+   {
+    "book": "The Toll Road",
+    "kind": "quest",
+    "lines": 32,
+    "expanded": 4,
+    "contracted": 23,
+    "rate": 85.2
    }
   ]
  },
  "maxims": {
   "multi": 421,
-  "count": 127,
-  "pct": 30.2,
+  "count": 135,
+  "pct": 32.1,
   "hits": [
    {
     "speaker": "lineman",
@@ -379,6 +379,20 @@
    {
     "speaker": "fixer",
     "book": "The Meter Reader",
+    "id": "quests/bq/S01_THE_METER_READER.bq#122",
+    "last": "Don't touch that, it's live.",
+    "full": "Easy. Easy, easy. Don't touch that, it's live."
+   },
+   {
+    "speaker": "fixer",
+    "book": "The Meter Reader",
+    "id": "quests/bq/S01_THE_METER_READER.bq#123",
+    "last": "That's it.",
+    "full": "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it."
+   },
+   {
+    "speaker": "fixer",
+    "book": "The Meter Reader",
     "id": "quests/bq/S01_THE_METER_READER.bq#124",
     "last": "Which are you?",
     "full": "So. Put it back and go home and nobody hears a thing about it, or make it loud. Which are you?"
@@ -391,6 +405,20 @@
     "full": "Huh. That's the one question, isn't it. I don't know whose. Never have."
    },
    {
+    "speaker": "fixer",
+    "book": "The Meter Reader",
+    "id": "quests/bq/S01_THE_METER_READER.bq#137",
+    "last": "That's where I quit asking and you should quit there too.",
+    "full": "It runs down. Not up. Down, toward the water. That's where I quit asking and you should quit there too."
+   },
+   {
+    "speaker": "fixer",
+    "book": "The Meter Reader",
+    "id": "quests/bq/S01_THE_METER_READER.bq#138",
+    "last": "Put it back or don't, it's your block and it's your face they'll remember.",
+    "full": "I told you nothing. Understand me. Put it back or don't, it's your block and it's your face they'll remember."
+   },
+   {
     "speaker": "lineman",
     "book": "The Meter Reader",
     "id": "quests/bq/S01_THE_METER_READER.bq#157",
@@ -400,9 +428,30 @@
    {
     "speaker": "red_boss",
     "book": "The Same Crate Twice",
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#82",
+    "last": "My block's been dark four nights.",
+    "full": "Batteries. Real ones, charged, not that swollen junk. My block's been dark four nights."
+   },
+   {
+    "speaker": "red_boss",
+    "book": "The Same Crate Twice",
     "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#91",
     "last": "My people sit in the dark and listen to each other breathe.",
     "full": "Light. That's what's in it. My people sit in the dark and listen to each other breathe."
+   },
+   {
+    "speaker": "red_boss",
+    "book": "The Same Crate Twice",
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#110",
+    "last": "By Thursday the blues'll know you're somebody who finishes what he picks up.",
+    "full": "Word travels. By Thursday the blues'll know you're somebody who finishes what he picks up."
+   },
+   {
+    "speaker": "blue_boss",
+    "book": "The Same Crate Twice",
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#115",
+    "last": "Water's by the door, take it and go home the long way.",
+    "full": "Smart. Quiet's better. Water's by the door, take it and go home the long way."
    },
    {
     "speaker": "blue_boss",
@@ -412,18 +461,18 @@
     "full": "But listen. The ones you crossed tonight are going to spend a year learning your face."
    },
    {
-    "speaker": "busker",
-    "book": "One More Set",
-    "id": "quests/bq/S03_ONE_MORE_SET.bq#60",
-    "last": "One more set and it is gone and so is the crowd.",
-    "full": "The cell is dying. Listen, you can hear it sag. One more set and it is gone and so is the crowd."
+    "speaker": "blue_boss",
+    "book": "The Same Crate Twice",
+    "id": "quests/bq/S02_THE_SAME_CRATE_TWICE.bq#122",
+    "last": "And you're standing here telling us both, to our faces.",
+    "full": "You're keeping it. For your own block. And you're standing here telling us both, to our faces."
    },
    {
     "speaker": "busker",
     "book": "One More Set",
-    "id": "quests/bq/S03_ONE_MORE_SET.bq#70",
-    "last": "Sit up front so it does not feel empty.",
-    "full": "No amp. Just this. Sit up front so it does not feel empty."
+    "id": "quests/bq/S03_ONE_MORE_SET.bq#60",
+    "last": "One more set and it's gone and so is the crowd.",
+    "full": "The cell is dying. Listen, you can hear it sag. One more set and it's gone and so is the crowd."
    },
    {
     "speaker": "busker",
@@ -431,13 +480,6 @@
     "id": "quests/bq/S03_ONE_MORE_SET.bq#71",
     "last": "Every time the power dies is the only time anybody actually listens.",
     "full": "Funny. Every time the power dies is the only time anybody actually listens."
-   },
-   {
-    "speaker": "busker",
-    "book": "One More Set",
-    "id": "quests/bq/S03_ONE_MORE_SET.bq#77",
-    "last": "Do not tell me.",
-    "full": "You did it. Where does a person even find a charged cell on a night like this. Do not tell me."
    },
    {
     "speaker": "busker",
@@ -450,15 +492,15 @@
     "speaker": "busker",
     "book": "One More Set",
     "id": "quests/bq/S03_ONE_MORE_SET.bq#83",
-    "last": "That line is live, you know that is live.",
-    "full": "You are actually doing it. That line is live, you know that is live."
+    "last": "That line is live, you know that's live.",
+    "full": "You're actually doing it. That line is live, you know that's live."
    },
    {
     "speaker": "busker",
     "book": "One More Set",
     "id": "quests/bq/S03_ONE_MORE_SET.bq#84",
-    "last": "If it does not, I never was.",
-    "full": "If it holds, this is the loudest I have ever been in my life. If it does not, I never was."
+    "last": "If it doesn't, I never was.",
+    "full": "If it holds, this is the loudest I have ever been in my life. If it doesn't, I never was."
    },
    {
     "speaker": "elder",
@@ -468,46 +510,32 @@
     "full": "Every night it comes up the deep. Crying. Sometimes words, and the words are worse than the crying."
    },
    {
-    "speaker": "elder",
-    "book": "What Cries in the Deep",
-    "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#68",
-    "last": "You are not one of us, so you can.",
-    "full": "The little ones cannot sleep. We do not go down that far. You are not one of us, so you can."
-   },
-   {
-    "speaker": "elder",
-    "book": "What Cries in the Deep",
-    "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#69",
-    "last": "Do not tell me how.",
-    "full": "End it. I do not care how. I care that it stops. Do not tell me how."
-   },
-   {
     "speaker": "haunt",
     "book": "What Cries in the Deep",
     "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#92",
-    "last": "the other half stayed down here where it is cool and it remembers her.",
-    "full": "they took the half of me that could go home. the other half stayed down here where it is cool and it remembers her."
+    "last": "the other half stayed down here where it's cool and it remembers her.",
+    "full": "they took the half of me that could go home. the other half stayed down here where it's cool and it remembers her."
    },
    {
     "speaker": "haunt",
     "book": "What Cries in the Deep",
     "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#93",
-    "last": "so do it, or do not, but stop breathing at me.",
-    "full": "you have a stick or a wire or a bounty. i can hear it in how you breathe. so do it, or do not, but stop breathing at me."
+    "last": "so do it, or don't, but stop breathing at me.",
+    "full": "you have a stick or a wire or a bounty. i can hear it in how you breathe. so do it, or don't, but stop breathing at me."
    },
    {
     "speaker": "haunt",
     "book": "What Cries in the Deep",
     "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#103",
     "last": "or wall me off and lie, which is the coward's mercy and it works.",
-    "full": "so here is the whole menu. lead me out, which is slow and i might not make it. end me, which is fast and loud and you should not be loud down here. or wall me off and lie, which is the coward's mercy and it works."
+    "full": "so here is the whole menu. lead me out, which is slow and i might not make it. end me, which is fast and loud and you shouldn't be loud down here. or wall me off and lie, which is the coward's mercy and it works."
    },
    {
     "speaker": "haunt",
     "book": "What Cries in the Deep",
     "id": "quests/bq/S04_WHAT_CRIES_IN_THE_DEEP.bq#110",
-    "last": "people are not usually still here.",
-    "full": "you are still here. people are not usually still here."
+    "last": "people aren't usually still here.",
+    "full": "you're still here. people aren't usually still here."
    },
    {
     "speaker": "quartermaster",
@@ -519,121 +547,128 @@
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
-    "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#56",
-    "last": "I am not going to pretend it is not a harder look.",
-    "full": "Top name pays double. It is a harder look. I am not going to pretend it is not a harder look."
-   },
-   {
-    "speaker": "quartermaster",
-    "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#57",
     "last": "Which name do you want.",
-    "full": "You have done this before. You know the deal. Which name do you want."
+    "full": "You've done this before. You know the deal. Which name do you want."
    },
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#66",
-    "last": "There is always a tomorrow name.",
-    "full": "Bring it back closed and the medicine is yours. Come again tomorrow. There is always a tomorrow name."
+    "last": "There's always a tomorrow name.",
+    "full": "Bring it back closed and the medicine is yours. Come again tomorrow. There's always a tomorrow name."
    },
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#73",
-    "last": "He is just worth more.",
-    "full": "Look at your face. You want me to tell you he is a monster so it is easy. He is not. He is just worth more."
+    "last": "He's just worth more.",
+    "full": "Look at your face. You want me to tell you he's a monster so it's easy. He isn't. He's just worth more."
    },
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#74",
-    "last": "That is the only reason anything is ever double out here.",
-    "full": "The medicine is double because the name is heavy. That is the only reason anything is ever double out here."
+    "last": "That's the only reason anything is ever double out here.",
+    "full": "The medicine is double because the name is heavy. That's the only reason anything is ever double out here."
    },
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#82",
-    "last": "It is just the truest thing I know.",
-    "full": "There it is. It gets easier every time, doesn't it. That is not a threat. It is just the truest thing I know."
+    "last": "It's just the truest thing I know.",
+    "full": "There it is. It gets easier every time, doesn't it. That isn't a threat. It's just the truest thing I know."
    },
    {
     "speaker": "quartermaster",
     "book": "The Standing Bounty",
     "id": "quests/bq/S05_THE_STANDING_BOUNTY.bq#88",
-    "last": "The board does not care and neither do I.",
-    "full": "Your block runs a week shorter on medicine, then. The board does not care and neither do I."
+    "last": "The board doesn't care and neither do I.",
+    "full": "Your block runs a week shorter on medicine, then. The board doesn't care and neither do I."
    },
    {
     "speaker": "neighbor",
     "book": "Behind the Fence",
     "id": "quests/bq/S06_BEHIND_THE_FENCE.bq#71",
-    "last": "Not until the wall is down and you are sure.",
-    "full": "She has been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You do not tell people you have a child out here. Not until the wall is down and you are sure."
-   },
-   {
-    "speaker": "neighbor",
-    "book": "Behind the Fence",
-    "id": "quests/bq/S06_BEHIND_THE_FENCE.bq#72",
-    "last": "Do not make me wrong about that.",
-    "full": "Every time I came to your fence, every time I checked on you, I was measuring whether you were someone I could let her exist in front of. Today I decided you are. Do not make me wrong about that."
+    "last": "Not until the wall is down and you're sure.",
+    "full": "She's been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You don't tell people you have a child out here. Not until the wall is down and you're sure."
    },
    {
     "speaker": "neighbor",
     "book": "Behind the Fence",
     "id": "quests/bq/S06_BEHIND_THE_FENCE.bq#90",
-    "last": "No, you do not get to do that.",
-    "full": "No. No, you do not get to do that."
+    "last": "No, you don't get to do that.",
+    "full": "No. No, you don't get to do that."
    },
    {
     "speaker": "neighbor",
     "book": "Behind the Fence",
     "id": "quests/bq/S06_BEHIND_THE_FENCE.bq#98",
-    "last": "That is the face I was afraid of.",
-    "full": "There it is. That is the face I was afraid of."
+    "last": "That's the face I was afraid of.",
+    "full": "There it is. That's the face I was afraid of."
    },
    {
     "speaker": "dying",
     "book": "Say It Back",
     "id": "quests/bq/S07_SAY_IT_BACK.bq#63",
-    "last": "There is one thing left and I cannot walk it there myself.",
-    "full": "Come close, I do not have the breath to say it twice. There is one thing left and I cannot walk it there myself."
+    "last": "There's one thing left and I can't walk it there myself.",
+    "full": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself."
    },
    {
     "speaker": "dying",
     "book": "Say It Back",
     "id": "quests/bq/S07_SAY_IT_BACK.bq#80",
     "last": "Cheap forgiveness is just a debt paid on time.",
-    "full": "No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time."
+    "full": "No. He doesn't. That's the whole point of the word. Cheap forgiveness is just a debt paid on time."
    },
    {
     "speaker": "dying",
     "book": "Say It Back",
     "id": "quests/bq/S07_SAY_IT_BACK.bq#81",
-    "last": "Carry it anyway, or do not, but do not pretend it is small.",
-    "full": "Mine is not cheap. It cost me nine years. Carry it anyway, or do not, but do not pretend it is small."
+    "last": "Carry it anyway, or don't, but don't pretend it's small.",
+    "full": "Mine isn't cheap. It cost me nine years. Carry it anyway, or don't, but don't pretend it's small."
    },
    {
     "speaker": "dying",
     "book": "Say It Back",
     "id": "quests/bq/S07_SAY_IT_BACK.bq#88",
-    "last": "That is what dying makes you do.",
-    "full": "I am trusting a stranger with the last true thing I own. That is what dying makes you do."
+    "last": "That's what dying makes you do.",
+    "full": "I'm trusting a stranger with the last true thing I own. That's what dying makes you do."
+   },
+   {
+    "speaker": "hauler",
+    "book": "The Toll Road",
+    "id": "quests/bq/S08_THE_TOLL_ROAD.bq#70",
+    "last": "The cold room in the wagon is dying and so is what's in it.",
+    "full": "Third day sitting here. The cold room in the wagon is dying and so is what's in it."
    },
    {
     "speaker": "hauler",
     "book": "The Toll Road",
     "id": "quests/bq/S08_THE_TOLL_ROAD.bq#71",
-    "last": "This just takes until there is nothing.",
-    "full": "They call it a toll. It is not a toll. A toll you can pay and still eat. This just takes until there is nothing."
+    "last": "This just takes until there's nothing.",
+    "full": "They call it a toll. It isn't a toll. A toll you can pay and still eat. This just takes until there's nothing."
    },
    {
     "speaker": "hauler",
     "book": "The Toll Road",
     "id": "quests/bq/S08_THE_TOLL_ROAD.bq#81",
-    "last": "That is why I have not slept.",
-    "full": "Every hour it sits here somebody downstream gets worse. That is the arithmetic. That is why I have not slept."
+    "last": "That's why I have not slept.",
+    "full": "Every hour it sits here somebody downstream gets worse. That's the arithmetic. That's why I have not slept."
+   },
+   {
+    "speaker": "hauler",
+    "book": "The Toll Road",
+    "id": "quests/bq/S08_THE_TOLL_ROAD.bq#86",
+    "last": "It's nobody's problem until it's everybody's, that's how it always goes out here.",
+    "full": "Fine. It's nobody's problem until it's everybody's, that's how it always goes out here."
+   },
+   {
+    "speaker": "boss",
+    "book": "The Toll Road",
+    "id": "quests/bq/S08_THE_TOLL_ROAD.bq#104",
+    "last": "You know that's the rate again next week and you won't be here.",
+    "full": "Out of your own pocket. For strangers. You know that's the rate again next week and you won't be here."
    },
    {
     "speaker": "boss",
@@ -648,6 +683,13 @@
     "id": "quests/bq/S08_THE_TOLL_ROAD.bq#117",
     "last": "That kind of owing is worth more than medicine.",
     "full": "Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing is worth more than medicine."
+   },
+   {
+    "speaker": "boss",
+    "book": "The Toll Road",
+    "id": "quests/bq/S08_THE_TOLL_ROAD.bq#123",
+    "last": "Over someone else's medicine.",
+    "full": "You're actually going to make this loud. Over someone else's medicine."
    },
    {
     "speaker": "neighbor",
@@ -667,8 +709,8 @@
     "speaker": "canvasser",
     "book": "The Count That Does Not Add",
     "id": "quests/bq/S10_THE_COUNT_THAT_DOES_NOT_ADD.bq#73",
-    "last": "That is not a threat, that is arithmetic.",
-    "full": "The food line allocates by count. No count, no crates. That is not a threat, that is arithmetic."
+    "last": "That isn't a threat, that's arithmetic.",
+    "full": "The food line allocates by count. No count, no crates. That isn't a threat, that's arithmetic."
    },
    {
     "speaker": "canvasser",
@@ -681,15 +723,15 @@
     "speaker": "organizer",
     "book": "The Count That Does Not Add",
     "id": "quests/bq/S10_THE_COUNT_THAT_DOES_NOT_ADD.bq#102",
-    "last": "It is on your face.",
-    "full": "They already came to you. It is on your face."
+    "last": "It's on your face.",
+    "full": "They already came to you. It's on your face."
    },
    {
     "speaker": "organizer",
     "book": "The Count That Does Not Add",
     "id": "quests/bq/S10_THE_COUNT_THAT_DOES_NOT_ADD.bq#114",
-    "last": "That is the only part of this I am sure is fair.",
-    "full": "If the knock comes, it comes to my door too. That is the only part of this I am sure is fair."
+    "last": "That's the only part of this I'm sure is fair.",
+    "full": "If the knock comes, it comes to my door too. That's the only part of this I'm sure is fair."
    },
    {
     "speaker": "organizer",
@@ -709,15 +751,15 @@
     "speaker": "watcher",
     "book": "Sixty Seconds Of Rain",
     "id": "quests/bq/S11_SIXTY_SECONDS_OF_RAIN.bq#70",
-    "last": "Blue, all the way across, and that is exactly the problem.",
-    "full": "Look up. Blue, all the way across, and that is exactly the problem."
+    "last": "Blue, all the way across, and that's exactly the problem.",
+    "full": "Look up. Blue, all the way across, and that's exactly the problem."
    },
    {
     "speaker": "watcher",
     "book": "Sixty Seconds Of Rain",
     "id": "quests/bq/S11_SIXTY_SECONDS_OF_RAIN.bq#71",
-    "last": "The wash does not care that the sun is out over your head.",
-    "full": "It is raining hard twenty miles north where nobody lives. All of it comes here. The wash does not care that the sun is out over your head."
+    "last": "The wash doesn't care that the sun is out over your head.",
+    "full": "It's raining hard twenty miles north where nobody lives. All of it comes here. The wash doesn't care that the sun is out over your head."
    },
    {
     "speaker": "tunnel",
@@ -729,58 +771,51 @@
    {
     "speaker": "tunnel",
     "book": "Sixty Seconds Of Rain",
-    "id": "quests/bq/S11_SIXTY_SECONDS_OF_RAIN.bq#116",
-    "last": "Take my hand, do not take his.",
-    "full": "All right. All right, I am up. There are two more asleep at the bend and one of them will swing at you before he is awake. Take my hand, do not take his."
-   },
-   {
-    "speaker": "tunnel",
-    "book": "Sixty Seconds Of Rain",
     "id": "quests/bq/S11_SIXTY_SECONDS_OF_RAIN.bq#129",
     "last": "With people watching where we sleep.",
-    "full": "You are going to open the whole mouth. In daylight. With people watching where we sleep."
+    "full": "You're going to open the whole mouth. In daylight. With people watching where we sleep."
    },
    {
     "speaker": "medic",
     "book": "The Last Good Doctor",
     "id": "quests/bq/S12_THE_LAST_GOOD_DOCTOR.bq#75",
-    "last": "I have run the numbers four times hoping they were three people ago.",
-    "full": "One course. Two people. I have run the numbers four times hoping they were three people ago."
+    "last": "I've run the numbers four times hoping they were three people ago.",
+    "full": "One course. Two people. I've run the numbers four times hoping they were three people ago."
    },
    {
     "speaker": "medic",
     "book": "The Last Good Doctor",
     "id": "quests/bq/S12_THE_LAST_GOOD_DOCTOR.bq#94",
-    "last": "It sounds like mercy and it is the worst thing in this room.",
-    "full": "Half each. Everybody wants that one. It sounds like mercy and it is the worst thing in this room."
+    "last": "It sounds like mercy and it's the worst thing in this room.",
+    "full": "Half each. Everybody wants that one. It sounds like mercy and it's the worst thing in this room."
    },
    {
     "speaker": "medic",
     "book": "The Last Good Doctor",
     "id": "quests/bq/S12_THE_LAST_GOOD_DOCTOR.bq#102",
-    "last": "You are selling something, and he gets to name it later.",
-    "full": "If you talk to him, understand you are not buying medicine. You are selling something, and he gets to name it later."
+    "last": "You're selling something, and he gets to name it later.",
+    "full": "If you talk to him, understand you aren't buying medicine. You're selling something, and he gets to name it later."
    },
    {
     "speaker": "holder",
     "book": "The Paper That Says So",
     "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#82",
-    "last": "You are the block today.",
-    "full": "I am not going to throw anyone out with my hands. I am going to stand here holding this until the block decides paper still means something. You are the block today."
+    "last": "You're the block today.",
+    "full": "I'm not going to throw anyone out with my hands. I'm going to stand here holding this until the block decides paper still means something. You're the block today."
    },
    {
     "speaker": "holder",
     "book": "The Paper That Says So",
     "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#93",
     "last": "Every honest thing I own is written in a language nobody speaks anymore.",
-    "full": "That is the whole trouble. Every honest thing I own is written in a language nobody speaks anymore."
+    "full": "That's the whole trouble. Every honest thing I own is written in a language nobody speaks anymore."
    },
    {
     "speaker": "holder",
     "book": "The Paper That Says So",
     "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#107",
-    "last": "They are good patches.",
-    "full": "Eleven years of patched roof, I know. I have counted the patches. They are good patches."
+    "last": "They're good patches.",
+    "full": "Eleven years of patched roof, I know. I've counted the patches. They're good patches."
    },
    {
     "speaker": "tenant",
@@ -788,20 +823,6 @@
     "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#134",
     "last": "That means the next block does it too, and the block after.",
     "full": "Names on it. Everyone watching. That means the next block does it too, and the block after."
-   },
-   {
-    "speaker": "tenant",
-    "book": "The Paper That Says So",
-    "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#141",
-    "last": "Do not dress it.",
-    "full": "Say it plain then. Do not dress it."
-   },
-   {
-    "speaker": "tenant",
-    "book": "The Paper That Says So",
-    "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#142",
-    "last": "Do not come and help us carry anything, I could not stand it.",
-    "full": "Fine. The weekend. Do not come and help us carry anything, I could not stand it."
    },
    {
     "speaker": "tenant",
@@ -814,8 +835,8 @@
     "speaker": "welder",
     "book": "The Paper That Says So",
     "id": "quests/bq/S13_THE_PAPER_THAT_SAYS_SO.bq#159",
-    "last": "That is all the crew wants out of this.",
-    "full": "Whatever you settle, settle it so the next person who fixes something believes fixing it means anything. That is all the crew wants out of this."
+    "last": "That's all the crew wants out of this.",
+    "full": "Whatever you settle, settle it so the next person who fixes something believes fixing it means anything. That's all the crew wants out of this."
    },
    {
     "speaker": "scav",
@@ -828,22 +849,36 @@
     "speaker": "scav",
     "book": "What The Dog Knows",
     "id": "quests/bq/S14_WHAT_THE_DOG_KNOWS.bq#73",
-    "last": "That is worse, because a thing that holds has a reason.",
-    "full": "It does not chase. It does not bark much. It holds. That is worse, because a thing that holds has a reason."
+    "last": "That's worse, because a thing that holds has a reason.",
+    "full": "It doesn't chase. It doesn't bark much. It holds. That's worse, because a thing that holds has a reason."
    },
    {
     "speaker": "scav",
     "book": "What The Dog Knows",
     "id": "quests/bq/S14_WHAT_THE_DOG_KNOWS.bq#89",
-    "last": "It is on duty.",
-    "full": "Slow, then. Do not look it in the face and do not put your hand out yet. It is not angry. It is on duty."
+    "last": "It's on duty.",
+    "full": "Slow, then. Don't look it in the face and don't put your hand out yet. It isn't angry. It's on duty."
    },
    {
     "speaker": "sergeant",
     "book": "What The Dog Knows",
     "id": "quests/bq/S14_WHAT_THE_DOG_KNOWS.bq#135",
-    "last": "Do not do it because it will look good.",
-    "full": "Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Do not do it because it will look good."
+    "last": "Don't do it because it'll look good.",
+    "full": "Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Don't do it because it'll look good."
+   },
+   {
+    "speaker": "steward",
+    "book": "The Lights Go Out At Nine",
+    "id": "quests/bq/S15_THE_LIGHTS_GO_OUT_AT_NINE.bq#92",
+    "last": "That's the entire demand and it took us five weeks to agree on it.",
+    "full": "Weekly, not whenever. That's it. That's the entire demand and it took us five weeks to agree on it."
+   },
+   {
+    "speaker": "owner",
+    "book": "The Lights Go Out At Nine",
+    "id": "quests/bq/S15_THE_LIGHTS_GO_OUT_AT_NINE.bq#113",
+    "last": "Say your number, and tell me who's allowed to see me agree to it.",
+    "full": "So. Say your number, and tell me who's allowed to see me agree to it."
    },
    {
     "speaker": "owner",
@@ -856,43 +891,43 @@
     "speaker": "voice",
     "book": "The Voice At Three",
     "id": "quests/bq/S16_THE_VOICE_AT_THREE.bq#78",
-    "last": "It is a bulletin.",
-    "full": "I read weather, water levels, which line is out, who got taken and from where. It is not a movement. It is a bulletin."
+    "last": "It's a bulletin.",
+    "full": "I read weather, water levels, which line is out, who got taken and from where. It isn't a movement. It's a bulletin."
    },
    {
     "speaker": "voice",
     "book": "The Voice At Three",
     "id": "quests/bq/S16_THE_VOICE_AT_THREE.bq#88",
-    "last": "That is the entire trick and it has not changed in a hundred years.",
-    "full": "Two receivers, two bearings, one roof. That is the entire trick and it has not changed in a hundred years."
+    "last": "That's the entire trick and it has not changed in a hundred years.",
+    "full": "Two receivers, two bearings, one roof. That's the entire trick and it has not changed in a hundred years."
    },
    {
     "speaker": "voice",
     "book": "The Voice At Three",
     "id": "quests/bq/S16_THE_VOICE_AT_THREE.bq#89",
-    "last": "I know because they are polite and nobody is polite up here.",
-    "full": "They have been walking my street with a case for a week. I know because they are polite and nobody is polite up here."
+    "last": "I know because they're polite and nobody is polite up here.",
+    "full": "They've been walking my street with a case for a week. I know because they're polite and nobody is polite up here."
    },
    {
     "speaker": "tech",
     "book": "The Voice At Three",
     "id": "quests/bq/S16_THE_VOICE_AT_THREE.bq#105",
     "last": "People imagine something wicked and get disappointed.",
-    "full": "It is a receiver and a compass. That is all it is. People imagine something wicked and get disappointed."
+    "full": "It's a receiver and a compass. That's all it is. People imagine something wicked and get disappointed."
    },
    {
     "speaker": "voice",
     "book": "The Voice At Three",
     "id": "quests/bq/S16_THE_VOICE_AT_THREE.bq#176",
-    "last": "That is a door I cannot close.",
-    "full": "After that every roof in the valley knows how it is done, and every person who does it for a living is a face people recognize. That is not a broadcast. That is a door I cannot close."
+    "last": "That's a door I can't close.",
+    "full": "After that every roof in the valley knows how it's done, and every person who does it for a living is a face people recognize. That isn't a broadcast. That's a door I can't close."
    },
    {
     "speaker": "grower",
     "book": "The Seed That Does Not Come Back",
     "id": "quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq#81",
     "last": "Forever, and forever is a long word to sign.",
-    "full": "What comes up from his seed does not breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign."
+    "full": "What comes up from his seed doesn't breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign."
    },
    {
     "speaker": "grower",
@@ -906,14 +941,14 @@
     "book": "The Seed That Does Not Come Back",
     "id": "quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq#92",
     "last": "A private sacrifice is a rumor by spring and a grudge by summer.",
-    "full": "That only holds if it is public. A private sacrifice is a rumor by spring and a grudge by summer."
+    "full": "That only holds if it's public. A private sacrifice is a rumor by spring and a grudge by summer."
    },
    {
     "speaker": "grower",
     "book": "The Seed That Does Not Come Back",
     "id": "quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq#98",
-    "last": "Just do not come back and tell me his seed is a gift.",
-    "full": "So do not let me be noble at other people's expense. Go talk to him. Just do not come back and tell me his seed is a gift."
+    "last": "Just don't come back and tell me his seed is a gift.",
+    "full": "So don't let me be noble at other people's expense. Go talk to him. Just don't come back and tell me his seed is a gift."
    },
    {
     "speaker": "trader",
@@ -926,15 +961,15 @@
     "speaker": "trader",
     "book": "The Seed That Does Not Come Back",
     "id": "quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq#133",
-    "last": "That is honest advice and it costs me a customer next year.",
-    "full": "Plant it away from her rows if you are going to be sentimental about her rows. That is honest advice and it costs me a customer next year."
+    "last": "That's honest advice and it costs me a customer next year.",
+    "full": "Plant it away from her rows if you're going to be sentimental about her rows. That's honest advice and it costs me a customer next year."
    },
    {
     "speaker": "trader",
     "book": "The Seed That Does Not Come Back",
     "id": "quests/bq/S17_THE_SEED_THAT_DOES_NOT_COME_BACK.bq#141",
-    "last": "That is just how it goes and you can watch it happen from here.",
-    "full": "And next autumn you will need me, and the autumn after that, and by then it will not feel like a decision anybody made. That is not a threat. That is just how it goes and you can watch it happen from here."
+    "last": "That's just how it goes and you can watch it happen from here.",
+    "full": "And next autumn you'll need me, and the autumn after that, and by then it won't feel like a decision anybody made. That isn't a threat. That's just how it goes and you can watch it happen from here."
    },
    {
     "speaker": "grower",
@@ -947,120 +982,99 @@
     "speaker": "hand",
     "book": "The Patch Under The Collar",
     "id": "quests/bq/S18_THE_PATCH_UNDER_THE_COLLAR.bq#83",
-    "last": "I saw what is under his collar and so did one other person.",
-    "full": "I am not going to describe it and I am not going to argue about it. I saw what is under his collar and so did one other person."
+    "last": "I saw what's under his collar and so did one other person.",
+    "full": "I'm not going to describe it and I'm not going to argue about it. I saw what's under his collar and so did one other person."
    },
    {
     "speaker": "hand",
     "book": "The Patch Under The Collar",
     "id": "quests/bq/S18_THE_PATCH_UNDER_THE_COLLAR.bq#102",
-    "last": "It is inconvenient for everybody, mostly me.",
-    "full": "That is the part that makes it hard and I am not going to pretend it away for you. You wanted the honest answer. It is inconvenient for everybody, mostly me."
+    "last": "It's inconvenient for everybody, mostly me.",
+    "full": "That's the part that makes it hard and I'm not going to pretend it away for you. You wanted the honest answer. It's inconvenient for everybody, mostly me."
    },
    {
     "speaker": "foreman",
     "book": "The Patch Under The Collar",
     "id": "quests/bq/S18_THE_PATCH_UNDER_THE_COLLAR.bq#129",
-    "last": "I am not going to pretend that is nothing.",
-    "full": "It costs me a month on this job. It costs him work in a valley with not much of it. I am not going to pretend that is nothing."
+    "last": "I'm not going to pretend that's nothing.",
+    "full": "It costs me a month on this job. It costs him work in a valley with not much of it. I'm not going to pretend that's nothing."
    },
    {
     "speaker": "foreman",
     "book": "The Patch Under The Collar",
     "id": "quests/bq/S18_THE_PATCH_UNDER_THE_COLLAR.bq#150",
-    "last": "You will not know which is which until you do it.",
-    "full": "Half of them will back you before you finish the sentence, and the other half will find out today that they are the other half, and they work here too. You will not know which is which until you do it."
+    "last": "You won't know which is which until you do it.",
+    "full": "Half of them will back you before you finish the sentence, and the other half will find out today that they're the other half, and they work here too. You won't know which is which until you do it."
    },
    {
     "speaker": "nurse",
     "book": "The Patch Under The Collar",
     "id": "quests/bq/S18_THE_PATCH_UNDER_THE_COLLAR.bq#158",
-    "last": "That is the only thing I am asking anyone to protect.",
-    "full": "Whatever you decide, decide it in a way that still lets people come to me bleeding without checking who is in the room first. That is the only thing I am asking anyone to protect."
+    "last": "That's the only thing I'm asking anyone to protect.",
+    "full": "Whatever you decide, decide it in a way that still lets people come to me bleeding without checking who's in the room first. That's the only thing I'm asking anyone to protect."
    },
    {
     "speaker": "midwife",
     "book": "The Midwife's Hour",
     "id": "quests/bq/S19_THE_MIDWIFES_HOUR.bq#90",
-    "last": "That is normal, and normal kills people out here.",
-    "full": "It is a first baby and she is nineteen and terrified and it is going to be a long one. That is not bad. That is normal, and normal kills people out here."
-   },
-   {
-    "speaker": "midwife",
-    "book": "The Midwife's Hour",
-    "id": "quests/bq/S19_THE_MIDWIFES_HOUR.bq#97",
-    "last": "Ask him properly, he is not a stone.",
-    "full": "Chapel, back room, blue cans. Ask him properly, he is not a stone."
+    "last": "That's normal, and normal kills people out here.",
+    "full": "It's a first baby and she's nineteen and terrified and it's going to be a long one. That isn't bad. That's normal, and normal kills people out here."
    },
    {
     "speaker": "pastor",
     "book": "The Midwife's Hour",
     "id": "quests/bq/S19_THE_MIDWIFES_HOUR.bq#107",
-    "last": "That is the oldest medicine there is and I have watched it work.",
-    "full": "An hour of light is a room full of people who love her, singing, and her seeing their faces. That is not superstition. That is the oldest medicine there is and I have watched it work."
-   },
-   {
-    "speaker": "pastor",
-    "book": "The Midwife's Hour",
-    "id": "quests/bq/S19_THE_MIDWIFES_HOUR.bq#148",
-    "last": "Do not make me hear it from the street.",
-    "full": "Take the cans. And come and tell me afterward, whichever way it goes. Do not make me hear it from the street."
+    "last": "That's the oldest medicine there's and I've watched it work.",
+    "full": "An hour of light is a room full of people who love her, singing, and her seeing their faces. That isn't superstition. That's the oldest medicine there's and I've watched it work."
    },
    {
     "speaker": "banker",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#84",
-    "last": "That is all it has ever been.",
-    "full": "A token is a promise that somewhere there is a cell with that much left in it. That is all it has ever been."
+    "last": "That's all it has ever been.",
+    "full": "A token is a promise that somewhere there's a cell with that much left in it. That's all it has ever been."
    },
    {
     "speaker": "banker",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#86",
     "last": "Good ones make everybody wonder about the good tokens too.",
-    "full": "Whoever is stamping them is good. That is the frightening part. Bad forgeries are a nuisance. Good ones make everybody wonder about the good tokens too."
+    "full": "Whoever is stamping them is good. That's the frightening part. Bad forgeries are a nuisance. Good ones make everybody wonder about the good tokens too."
    },
    {
     "speaker": "banker",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#104",
-    "last": "It is one bench and one pair of hands.",
-    "full": "Same stamp, same batch marks, all of them from the east side of the yards. It is one bench and one pair of hands."
+    "last": "It's one bench and one pair of hands.",
+    "full": "Same stamp, same batch marks, all of them from the east side of the yards. It's one bench and one pair of hands."
    },
    {
     "speaker": "forger",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#133",
-    "last": "I will do that.",
-    "full": "That is four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I will do that."
+    "last": "I'll do that.",
+    "full": "That's four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I'll do that."
    },
    {
     "speaker": "forger",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#140",
-    "last": "And they will keep taking tokens tomorrow, because now there is a wall.",
-    "full": "People will check their pockets and about forty of them will find out today that they are poorer than they were this morning. And they will keep taking tokens tomorrow, because now there is a wall."
+    "last": "And they'll keep taking tokens tomorrow, because now there's a wall.",
+    "full": "People will check their pockets and about forty of them will find out today that they're poorer than they were this morning. And they'll keep taking tokens tomorrow, because now there's a wall."
    },
    {
     "speaker": "forger",
     "book": "The Name On The Counterfeit",
     "id": "quests/bq/S20_THE_NAME_ON_THE_COUNTERFEIT.bq#146",
-    "last": "They are very calm people and they are very consistent.",
-    "full": "The clearing house. They are very calm people and they are very consistent."
+    "last": "They're very calm people and they're very consistent.",
+    "full": "The clearing house. They're very calm people and they're very consistent."
    },
    {
     "speaker": "returned",
     "book": "The One Who Came Back",
     "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#97",
-    "last": "It is much worse for everybody than the version where I am certain.",
-    "full": "That is the honest version. It is much worse for everybody than the version where I am certain."
-   },
-   {
-    "speaker": "returned",
-    "book": "The One Who Came Back",
-    "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#105",
-    "last": "You either weigh the man or you do not weigh anything.",
-    "full": "I have boots that have been resoled twice and a sister who is not here anymore. Nobody who walks four hundred miles arrives carrying evidence. You either weigh the man or you do not weigh anything."
+    "last": "It's much worse for everybody than the version where I'm certain.",
+    "full": "That's the honest version. It's much worse for everybody than the version where I'm certain."
    },
    {
     "speaker": "sergeant",
@@ -1072,9 +1086,9 @@
    {
     "speaker": "sergeant",
     "book": "The One Who Came Back",
-    "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#150",
-    "last": "Same walk, same daylight, and you do not find out which for a year.",
-    "full": "If he is right you are the person who opened the door. If he is wrong you are the person who walked thirty people into whatever the other fifteen found. Same walk, same daylight, and you do not find out which for a year."
+    "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#149",
+    "last": "On one man's word and no proof at all.",
+    "full": "Thirty people. Out the east road. On one man's word and no proof at all."
    },
    {
     "speaker": "keeper",
@@ -1093,9 +1107,23 @@
    {
     "speaker": "keeper",
     "book": "The Cold Room",
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#152",
+    "last": "There's a pump in the box by the door.",
+    "full": "I'm not arguing. You're the first person who's touched it instead of squinting at it. There's a pump in the box by the door."
+   },
+   {
+    "speaker": "keeper",
+    "book": "The Cold Room",
     "id": "quests/bq/S22_THE_COLD_ROOM.bq#161",
     "last": "Then tell me what it is before you open it.",
     "full": "Good. Then tell me what it is before you open it."
+   },
+   {
+    "speaker": "keeper",
+    "book": "The Cold Room",
+    "id": "quests/bq/S22_THE_COLD_ROOM.bq#171",
+    "last": "That's the second time this month and the first one was me.",
+    "full": "Thank you. That's the second time this month and the first one was me."
    },
    {
     "speaker": "keeper",
@@ -1122,8 +1150,8 @@
     "speaker": "hauler",
     "book": "Dead Pool",
     "id": "quests/bq/S23_DEAD_POOL.bq#107",
-    "last": "It is running while you say it.",
-    "full": "That is the thing about a tap. It does not lie for you. It is running while you say it."
+    "last": "It's running while you say it.",
+    "full": "That's the thing about a tap. It doesn't lie for you. It's running while you say it."
    },
    {
     "speaker": "pumpman",
@@ -1137,63 +1165,56 @@
     "book": "Dead Pool",
     "id": "quests/bq/S23_DEAD_POOL.bq#121",
     "last": "Do the subtraction and tell me what you get.",
-    "full": "Now. Dead pool is eight ninety-five. That is the number where the dam stops letting anything go downstream. Do the subtraction and tell me what you get."
+    "full": "Now. Dead pool is eight ninety-five. That's the number where the dam stops letting anything go downstream. Do the subtraction and tell me what you get."
    },
    {
     "speaker": "pumpman",
     "book": "Dead Pool",
     "id": "quests/bq/S23_DEAD_POOL.bq#130",
-    "last": "That is the part I keep chewing.",
-    "full": "It was not sneaked in either. It cost a billion and a half and it was in the paper and there were tours. Everybody agreed it was prudent. It WAS prudent. That is the part I keep chewing."
+    "last": "That's the part I keep chewing.",
+    "full": "It wasn't sneaked in either. It cost a billion and a half and it was in the paper and there were tours. Everybody agreed it was prudent. It WAS prudent. That's the part I keep chewing."
    },
    {
     "speaker": "pumpman",
     "book": "Dead Pool",
     "id": "quests/bq/S23_DEAD_POOL.bq#131",
-    "last": "Go tell your caravan whatever you are going to tell them.",
-    "full": "We built a straw that outlives the river and then we were surprised to find ourselves the last ones drinking. Go tell your caravan whatever you are going to tell them."
+    "last": "Go tell your caravan whatever you're going to tell them.",
+    "full": "We built a straw that outlives the river and then we were surprised to find ourselves the last ones drinking. Go tell your caravan whatever you're going to tell them."
    },
    {
     "speaker": "pumpman",
     "book": "Dead Pool",
     "id": "quests/bq/S23_DEAD_POOL.bq#138",
-    "last": "There is an allocation and a compact and a whole shelf of paper.",
-    "full": "It is the most legal thing in the valley. There is an allocation and a compact and a whole shelf of paper."
-   },
-   {
-    "speaker": "hauler",
-    "book": "Dead Pool",
-    "id": "quests/bq/S23_DEAD_POOL.bq#190",
-    "last": "You know some of them do not know this.",
-    "full": "In front of your own people. You know some of them do not know this."
+    "last": "There's an allocation and a compact and a whole shelf of paper.",
+    "full": "It's the most legal thing in the valley. There's an allocation and a compact and a whole shelf of paper."
    },
    {
     "speaker": "plumber",
     "book": "Fifty-Five Gallons A Foot",
     "id": "quests/bq/S24_FIFTY_FIVE_GALLONS_A_FOOT.bq#129",
     "last": "Which is the single smartest thing anybody on this street is doing.",
-    "full": "It is not coming off the mains at all. Whoever built that is using the same water twice and the yard is the second use. Which is the single smartest thing anybody on this street is doing."
+    "full": "It isn't coming off the mains at all. Whoever built that's using the same water twice and the yard is the second use. Which is the single smartest thing anybody on this street is doing."
    },
    {
     "speaker": "owner",
     "book": "Fifty-Five Gallons A Foot",
     "id": "quests/bq/S24_FIFTY_FIVE_GALLONS_A_FOOT.bq#140",
-    "last": "You are the first one to use the gate.",
-    "full": "Four months. Four months of people slowing down at my fence and speeding up when I come out. You are the first one to use the gate."
+    "last": "You're the first one to use the gate.",
+    "full": "Four months. Four months of people slowing down at my fence and speeding up when I come out. You're the first one to use the gate."
    },
    {
     "speaker": "owner",
     "book": "Fifty-Five Gallons A Foot",
     "id": "quests/bq/S24_FIFTY_FIVE_GALLONS_A_FOOT.bq#142",
-    "last": "It is just not YOURS.",
-    "full": "Nobody asked. They did the sum instead. And the sum is right, that is the thing that has been killing me. It IS a hundred and ten thousand gallons. It is just not YOURS."
+    "last": "It's just not YOURS.",
+    "full": "Nobody asked. They did the sum instead. And the sum is right, that's the thing that's been killing me. It IS a hundred and ten thousand gallons. It's just not YOURS."
    },
    {
     "speaker": "neighbour",
     "book": "Fifty-Five Gallons A Foot",
     "id": "quests/bq/S24_FIFTY_FIVE_GALLONS_A_FOOT.bq#159",
-    "last": "That is a bell you cannot un-ring on a corner lot.",
-    "full": "You want it in front of everyone. All right. That is a bell you cannot un-ring on a corner lot."
+    "last": "That's a bell you can't un-ring on a corner lot.",
+    "full": "You want it in front of everyone. All right. That's a bell you can't un-ring on a corner lot."
    },
    {
     "speaker": "nurse",
@@ -1212,23 +1233,51 @@
    {
     "speaker": "fitter",
     "book": "The Pressure Goes Backward",
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#140",
+    "last": "Up the hill, if that's where the pipe goes.",
+    "full": "Take the pressure off and every place somebody's joined something to that pipe stops being an outlet and becomes an inlet. It sucks. Backward. Up the hill, if that's where the pipe goes."
+   },
+   {
+    "speaker": "fitter",
+    "book": "The Pressure Goes Backward",
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#141",
+    "last": "Ask what's CONNECTED to them, and then ask what's been sitting in a barrel.",
+    "full": "So stop asking what's downhill of the sick houses. Ask what's CONNECTED to them, and then ask what's been sitting in a barrel."
+   },
+   {
+    "speaker": "fitter",
+    "book": "The Pressure Goes Backward",
     "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#152",
     "last": "It's a street full of people being sensible one at a time.",
     "full": "Nobody did this on purpose. It's a street full of people being sensible one at a time."
    },
    {
+    "speaker": "pumper",
+    "book": "The Pressure Goes Backward",
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#161",
+    "last": "What's that face.",
+    "full": "What. What's that face."
+   },
+   {
+    "speaker": "pumper",
+    "book": "The Pressure Goes Backward",
+    "id": "quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq#169",
+    "last": "That's what you're about to tell me.",
+    "full": "...It isn't doing anything when the pressure's up. That's what you're about to tell me."
+   },
+   {
     "speaker": "mother",
     "book": "What The Cold Did Not Kill",
     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#146",
-    "last": "And it is the first offer anybody has made me that costs THEM something.",
-    "full": "That is not nothing you are asking. That is more than half of what is between her and finding out the hard way. And it is the first offer anybody has made me that costs THEM something."
+    "last": "And it's the first offer anybody has made me that costs THEM something.",
+    "full": "That isn't nothing you're asking. That's more than half of what's between her and finding out the hard way. And it's the first offer anybody has made me that costs THEM something."
    },
    {
     "speaker": "lineman",
     "book": "The Fifty Year Signature",
     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#104",
     "last": "It just IS, every morning, exactly as it was.",
-    "full": "So I watched. Nobody collects. Nobody adjusts. There is no meeting where it gets decided. It just IS, every morning, exactly as it was."
+    "full": "So I watched. Nobody collects. Nobody adjusts. There's no meeting where it gets decided. It just IS, every morning, exactly as it was."
    },
    {
     "speaker": "clerk",
@@ -1241,15 +1290,22 @@
     "speaker": "clerk",
     "book": "The Fifty Year Signature",
     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#124",
-    "last": "The end date printed on it is 2067.",
-    "full": "Signed in October. Runs fifty years. The end date printed on it is 2067."
+    "last": "The end date printed on it's 2067.",
+    "full": "Signed in October. Runs fifty years. The end date printed on it's 2067."
+   },
+   {
+    "speaker": "clerk",
+    "book": "The Fifty Year Signature",
+    "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#125",
+    "last": "There's no clause in it for the world stopping, because why would there be.",
+    "full": "Everything on this wall is still in force. It doesn't know. There's no clause in it for the world stopping, because why would there be."
    },
    {
     "speaker": "clerk",
     "book": "The Fifty Year Signature",
     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#173",
-    "last": "It is paper.",
-    "full": "You can. It is paper."
+    "last": "It's paper.",
+    "full": "You can. It's paper."
    }
   ]
  },
@@ -1266,16 +1322,12 @@
   "lines": 1062,
   "first_word": [
    [
-    "i",
-    87
-   ],
-   [
     "then",
     55
    ],
    [
-    "you",
-    45
+    "i",
+    51
    ],
    [
     "no",
@@ -1286,8 +1338,12 @@
     42
    ],
    [
-    "it",
-    32
+    "you",
+    26
+   ],
+   [
+    "i'll",
+    23
    ],
    [
     "say",
@@ -1298,51 +1354,23 @@
     20
    ],
    [
-    "that",
-    20
+    "it's",
+    19
    ],
    [
     "take",
     18
    ],
    [
-    "what",
-    17
+    "that's",
+    18
    ],
    [
-    "they",
+    "you're",
     15
    ]
   ],
   "first_two": [
-   [
-    "i will",
-    22
-   ],
-   [
-    "it is",
-    16
-   ],
-   [
-    "that is",
-    15
-   ],
-   [
-    "you are",
-    13
-   ],
-   [
-    "then i",
-    13
-   ],
-   [
-    "i have",
-    12
-   ],
-   [
-    "then it",
-    12
-   ],
    [
     "say nothing",
     11
@@ -1352,46 +1380,86 @@
     11
    ],
    [
-    "i am",
-    11
+    "then it's",
+    9
    ],
    [
-    "there is",
-    10
+    "i don't",
+    8
    ],
    [
     "do it",
     8
+   ],
+   [
+    "there's a",
+    8
+   ],
+   [
+    "i have",
+    8
+   ],
+   [
+    "i know",
+    8
+   ],
+   [
+    "say it",
+    8
+   ],
+   [
+    "show me",
+    7
+   ],
+   [
+    "that's the",
+    7
+   ],
+   [
+    "not my",
+    6
    ]
   ],
   "sentence_opener": [
    [
     "i",
-    199
-   ],
-   [
-    "it",
-    93
-   ],
-   [
-    "that",
-    78
-   ],
-   [
-    "you",
-    76
+    110
    ],
    [
     "the",
     76
    ],
    [
+    "that's",
+    72
+   ],
+   [
     "then",
     62
    ],
    [
+    "you",
+    52
+   ],
+   [
     "no",
     50
+   ],
+   [
+    "it",
+    49
+   ],
+   [
+    "it's",
+    48
+   ],
+   [
+    "i'll",
+    44
+   ],
+   [
+    "i'm",
+    36
    ],
    [
     "and",
@@ -1400,80 +1468,20 @@
    [
     "say",
     31
-   ],
-   [
-    "nobody",
-    30
-   ],
-   [
-    "not",
-    29
-   ],
-   [
-    "there",
-    29
    ]
   ]
  },
  "recycled": [
   {
-   "phrase": "i am not going",
-   "n": 7
-  },
-  {
-   "phrase": "am not going to",
-   "n": 7
-  },
-  {
-   "phrase": "that is the whole",
-   "n": 6
-  },
-  {
-   "phrase": "and it is the",
-   "n": 6
-  },
-  {
-   "phrase": "that is the part",
-   "n": 6
-  },
-  {
-   "phrase": "do not tell me",
-   "n": 5
-  },
-  {
-   "phrase": "you are going to",
-   "n": 5
-  },
-  {
-   "phrase": "i am going to",
-   "n": 5
-  },
-  {
-   "phrase": "it is not a",
-   "n": 4
-  },
-  {
-   "phrase": "that is the only",
-   "n": 4
-  },
-  {
-   "phrase": "that is not a",
-   "n": 4
+   "phrase": "i'm not going to",
+   "n": 8
   },
   {
    "phrase": "i want you to",
    "n": 4
   },
   {
-   "phrase": "i have been doing",
-   "n": 4
-  },
-  {
    "phrase": "and i have never",
-   "n": 4
-  },
-  {
-   "phrase": "and that is the",
    "n": 4
   }
  ],
@@ -1482,8 +1490,8 @@
    {
     "book": "The Standing Bounty",
     "sentences": 33,
-    "mean": 6.5,
-    "sd": 3.53,
+    "mean": 6,
+    "sd": 3.45,
     "short": 6,
     "shortpct": 18.2
    },
@@ -1504,12 +1512,20 @@
     "shortpct": 59.0
    },
    {
+    "book": "The Toll Road",
+    "sentences": 45,
+    "mean": 6.9,
+    "sd": 4.51,
+    "short": 12,
+    "shortpct": 26.7
+   },
+   {
     "book": "One More Set",
     "sentences": 25,
-    "mean": 6.8,
-    "sd": 4.62,
-    "short": 7,
-    "shortpct": 28.0
+    "mean": 6.5,
+    "sd": 4.53,
+    "short": 8,
+    "shortpct": 32.0
    },
    {
     "book": "The Same Crate Twice",
@@ -1520,28 +1536,36 @@
     "shortpct": 42.1
    },
    {
-    "book": "The Toll Road",
-    "sentences": 45,
-    "mean": 7.2,
-    "sd": 4.71,
-    "short": 10,
-    "shortpct": 22.2
-   },
-   {
     "book": "What Cries in the Deep",
     "sentences": 58,
-    "mean": 6.7,
-    "sd": 5.15,
-    "short": 15,
-    "shortpct": 25.9
+    "mean": 6.4,
+    "sd": 4.85,
+    "short": 18,
+    "shortpct": 31.0
    },
    {
     "book": "Sixty Seconds Of Rain",
     "sentences": 38,
-    "mean": 8.9,
-    "sd": 5.6,
+    "mean": 8.4,
+    "sd": 5.23,
     "short": 8,
     "shortpct": 21.1
+   },
+   {
+    "book": "Say It Back",
+    "sentences": 48,
+    "mean": 8.0,
+    "sd": 5.66,
+    "short": 15,
+    "shortpct": 31.2
+   },
+   {
+    "book": "The Count That Does Not Add",
+    "sentences": 45,
+    "mean": 8.8,
+    "sd": 5.72,
+    "short": 8,
+    "shortpct": 17.8
    },
    {
     "book": "The Cold Room",
@@ -1552,76 +1576,68 @@
     "shortpct": 31.4
    },
    {
-    "book": "The Count That Does Not Add",
-    "sentences": 45,
-    "mean": 9.2,
-    "sd": 5.97,
-    "short": 8,
-    "shortpct": 17.8
-   },
-   {
-    "book": "Say It Back",
-    "sentences": 48,
-    "mean": 8.6,
-    "sd": 6.13,
-    "short": 11,
-    "shortpct": 22.9
-   },
-   {
-    "book": "Fifty-Five Gallons A Foot",
-    "sentences": 55,
-    "mean": 9.9,
-    "sd": 6.45,
-    "short": 8,
-    "shortpct": 14.5
-   },
-   {
     "book": "The Seed That Does Not Come Back",
     "sentences": 48,
-    "mean": 11.3,
-    "sd": 6.46,
+    "mean": 10.7,
+    "sd": 6.13,
     "short": 8,
     "shortpct": 16.7
    },
    {
-    "book": "Dead Pool",
-    "sentences": 59,
-    "mean": 9.6,
-    "sd": 6.82,
+    "book": "Fifty-Five Gallons A Foot",
+    "sentences": 55,
+    "mean": 9.3,
+    "sd": 6.24,
     "short": 10,
-    "shortpct": 16.9
+    "shortpct": 18.2
    },
    {
-    "book": "The Lights Go Out At Nine",
-    "sentences": 46,
-    "mean": 9.5,
-    "sd": 6.88,
-    "short": 14,
-    "shortpct": 30.4
+    "book": "Dead Pool",
+    "sentences": 59,
+    "mean": 9.0,
+    "sd": 6.49,
+    "short": 11,
+    "shortpct": 18.6
    },
    {
     "book": "The Last Good Doctor",
     "sentences": 48,
-    "mean": 9.2,
-    "sd": 6.96,
-    "short": 12,
-    "shortpct": 25.0
+    "mean": 8.7,
+    "sd": 6.63,
+    "short": 14,
+    "shortpct": 29.2
    },
    {
     "book": "Behind the Fence",
     "sentences": 35,
-    "mean": 8.8,
-    "sd": 6.97,
-    "short": 7,
-    "shortpct": 20.0
+    "mean": 8.2,
+    "sd": 6.72,
+    "short": 8,
+    "shortpct": 22.9
+   },
+   {
+    "book": "The Lights Go Out At Nine",
+    "sentences": 46,
+    "mean": 9.2,
+    "sd": 6.78,
+    "short": 15,
+    "shortpct": 32.6
    },
    {
     "book": "The Fifty Year Signature",
     "sentences": 57,
-    "mean": 8.4,
-    "sd": 7.47,
-    "short": 22,
-    "shortpct": 38.6
+    "mean": 8.1,
+    "sd": 7.17,
+    "short": 23,
+    "shortpct": 40.4
+   },
+   {
+    "book": "What The Dog Knows",
+    "sentences": 39,
+    "mean": 10.5,
+    "sd": 7.46,
+    "short": 10,
+    "shortpct": 25.6
    },
    {
     "book": "The Pressure Goes Backward",
@@ -1632,76 +1648,68 @@
     "shortpct": 26.4
    },
    {
-    "book": "What The Dog Knows",
-    "sentences": 39,
-    "mean": 11.2,
-    "sd": 7.79,
-    "short": 7,
-    "shortpct": 17.9
-   },
-   {
-    "book": "The Paper That Says So",
-    "sentences": 48,
-    "mean": 10.7,
-    "sd": 8.15,
-    "short": 7,
-    "shortpct": 14.6
-   },
-   {
     "book": "What The Cold Did Not Kill",
     "sentences": 36,
-    "mean": 10.4,
-    "sd": 8.2,
-    "short": 9,
-    "shortpct": 25.0
+    "mean": 9.6,
+    "sd": 7.8,
+    "short": 10,
+    "shortpct": 27.8
    },
    {
     "book": "The Midwife's Hour",
     "sentences": 51,
-    "mean": 12.8,
-    "sd": 8.26,
-    "short": 3,
-    "shortpct": 5.9
+    "mean": 11.9,
+    "sd": 8.02,
+    "short": 6,
+    "shortpct": 11.8
+   },
+   {
+    "book": "The Paper That Says So",
+    "sentences": 48,
+    "mean": 10.1,
+    "sd": 8.09,
+    "short": 10,
+    "shortpct": 20.8
    },
    {
     "book": "The Name On The Counterfeit",
     "sentences": 40,
-    "mean": 12.9,
-    "sd": 8.37,
-    "short": 4,
-    "shortpct": 10.0
+    "mean": 12.3,
+    "sd": 8.22,
+    "short": 5,
+    "shortpct": 12.5
    },
    {
     "book": "The Voice At Three",
     "sentences": 50,
-    "mean": 12.3,
-    "sd": 9.02,
-    "short": 7,
-    "shortpct": 14.0
+    "mean": 11.7,
+    "sd": 8.69,
+    "short": 8,
+    "shortpct": 16.0
    },
    {
     "book": "The Patch Under The Collar",
     "sentences": 37,
-    "mean": 14.9,
-    "sd": 9.14,
+    "mean": 14.0,
+    "sd": 8.7,
     "short": 3,
     "shortpct": 8.1
    },
    {
     "book": "The One Who Came Back",
     "sentences": 42,
-    "mean": 12.4,
-    "sd": 9.24,
-    "short": 7,
-    "shortpct": 16.7
+    "mean": 11.8,
+    "sd": 8.83,
+    "short": 8,
+    "shortpct": 19.0
    }
   ],
-  "median_sd": 6.82
+  "median_sd": 6.49
  },
  "refusals": {
   "lines": 504,
-  "bare_negation_first": 17,
-  "bare_pct": 3.4,
+  "bare_negation_first": 23,
+  "bare_pct": 4.6,
   "prefaced": 29,
   "preface_pct": 5.8,
   "examples": [
@@ -1713,22 +1721,27 @@
    {
     "speaker": "busker",
     "book": "One More Set",
-    "text": "No amp. Just this. Sit up front so it does not feel empty."
+    "text": "I don't need a hero. I need three more songs. Can you buy me three more songs?"
+   },
+   {
+    "speaker": "busker",
+    "book": "One More Set",
+    "text": "No amp. Just this. Sit up front so it doesn't feel empty."
    },
    {
     "speaker": "neighbor",
     "book": "Behind the Fence",
-    "text": "No. No, you do not get to do that."
+    "text": "No. No, you don't get to do that."
    },
    {
     "speaker": "dying",
     "book": "Say It Back",
-    "text": "No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time."
+    "text": "No. He doesn't. That's the whole point of the word. Cheap forgiveness is just a debt paid on time."
    },
    {
     "speaker": "wrongdoer",
     "book": "Say It Back",
-    "text": "Nobody will ever know you did this. It does not pay. Thank you for doing it anyway."
+    "text": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway."
    },
    {
     "speaker": "neighbor",
@@ -1738,22 +1751,17 @@
    {
     "speaker": "watcher",
     "book": "Sixty Seconds Of Rain",
-    "text": "Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you are already in it."
+    "text": "Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you're already in it."
    },
    {
     "speaker": "medic",
     "book": "The Last Good Doctor",
-    "text": "Nobody else will ever know there was a second name. That part is mine to carry and I would rather carry it than have it read aloud."
+    "text": "Nobody else will ever know there was a second name. That part is mine to carry and I'd rather carry it than have it read aloud."
    },
    {
     "speaker": "holder",
     "book": "The Paper That Says So",
-    "text": "Nobody in that building has anything but time in it. Time is not a claim. If time were a claim then the strongest man on any street owns everything he can sit on, and we have all seen where that ends."
-   },
-   {
-    "speaker": "owner",
-    "book": "The Lights Go Out At Nine",
-    "text": "Nobody sees me pay and nobody sees them win, and in twelve years that is the only kind of agreement that has never broken on me."
+    "text": "Nobody in that building has anything but time in it. Time isn't a claim. If time were a claim then the strongest man on any street owns everything he can sit on, and we have all seen where that ends."
    }
   ]
  },
@@ -2116,8 +2124,8 @@
   },
   "maxims": {
    "multi": 418,
-   "count": 140,
-   "pct": 33.5,
+   "count": 142,
+   "pct": 34.0,
    "hits": [
     {
      "speaker": "lineman",
@@ -2468,6 +2476,13 @@
      "id": "quests/bq/S08_THE_TOLL_ROAD.bq#117",
      "last": "That kind of owing is worth more than medicine.",
      "full": "Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing is worth more than medicine."
+    },
+    {
+     "speaker": "boss",
+     "book": "The Toll Road",
+     "id": "quests/bq/S08_THE_TOLL_ROAD.bq#123",
+     "last": "Over someone else's medicine.",
+     "full": "You are actually going to make this loud. Over someone else's medicine."
     },
     {
      "speaker": "neighbor",
@@ -2881,6 +2896,13 @@
      "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#135",
      "last": "Everybody hears it at once from him instead of in pieces from each other.",
      "full": "The square, then. Everybody hears it at once from him instead of in pieces from each other."
+    },
+    {
+     "speaker": "sergeant",
+     "book": "The One Who Came Back",
+     "id": "quests/bq/S21_THE_ONE_WHO_CAME_BACK.bq#149",
+     "last": "On one man's word and no proof at all.",
+     "full": "Thirty people. Out the east road. On one man's word and no proof at all."
     },
     {
      "speaker": "sergeant",

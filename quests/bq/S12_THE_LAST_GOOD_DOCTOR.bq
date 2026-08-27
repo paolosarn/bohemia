@@ -46,7 +46,7 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
-  @LOG Gave the whole course to the one it could actually save. Never told anyone how I picked. I will not forget how I picked.
+  @LOG Gave the whole course to the one it could actually save. Never told anyone how I picked. I won't forget how I picked.
   @DO bond medic +18
   @DO faction VOLUNTEERS +6
   @DO complete_objective 20
@@ -72,8 +72,8 @@
 # she is asking you to be the one who signs it.
 # =====================================================================
 @TALK clinic  speaker=medic  entry=stage>=10,stage<20
-  @SAY One course. Two people. I have run the numbers four times hoping they were three people ago. #tired
-  @SAY I am not asking your opinion. I am asking you to be the one who says it, because if I say it again this month I am going to stop being able to.
+  @SAY One course. Two people. I've run the numbers four times hoping they were three people ago. #tired
+  @SAY I'm not asking your opinion. I'm asking you to be the one who says it, because if I say it again this month I'm going to stop being able to.
   @OPT "Tell me about both of them."        [gate: none]  -> both
   @OPT "Can it be stretched?"                [gate: none]  TRAP -> split
   @OPT "Is there anywhere else to get more?" [gate: none]  -> more  @DO cast runner
@@ -84,22 +84,22 @@
 @TALK both  speaker=medic
   @SAY One is forty, strong lungs, will be back on a roof in nine days with the full course. Nothing else wrong with him. #tired
   @SAY The other is sixty three, already thin, already tired, and has four people who sit in my doorway every night waiting. With the full course she has a chance. Not a good one. A chance.
-  @SAY The arithmetic says him. The doorway says her. I have both and I cannot carry both.
+  @SAY The arithmetic says him. The doorway says her. I have both and I can't carry both.
   @DO set_stage 20
 @END
 
 # THE TRAP: the humane-sounding option is the one that kills them both and
 # poisons the next course too. She tells you the truth. You can still do it.
 @TALK split  speaker=medic
-  @SAY Half each. Everybody wants that one. It sounds like mercy and it is the worst thing in this room. #dread
+  @SAY Half each. Everybody wants that one. It sounds like mercy and it's the worst thing in this room. #dread
   @SAY Half a course knocks a bug down and lets the survivors of it learn you. Both of them get one good week and then it comes back wearing armor, and so does the next one, and the next.
   @OPT "Then no. Tell me about both."       [gate: none]  -> both
-  @OPT "Split it anyway. I will not choose." [gate: none]  -> END  @DO set_stage 33
+  @OPT "Split it anyway. I won't choose." [gate: none]  -> END  @DO set_stage 33
 @END
 
 @TALK more  speaker=medic
-  @SAY There is one place. There is always one place. He is polite and he is punctual and he has never once raised his voice at me. #wary
-  @SAY If you talk to him, understand you are not buying medicine. You are selling something, and he gets to name it later.
+  @SAY There's one place. There's always one place. He's polite and he's punctual and he has never once raised his voice at me. #wary
+  @SAY If you talk to him, understand you aren't buying medicine. You're selling something, and he gets to name it later.
   @DO set_stage 20
 @END
 
@@ -110,8 +110,8 @@
 @TALK crate  speaker=runner  entry=stage>=20,role:runner
   @SAY She sent you. She always sends someone, she has never once come herself, and I have never held that against her. #flat
   @SAY Full crate. Twelve courses. Tonight, no charge, no interest, no paper.
-  @SAY One day, not soon, somebody knocks and asks the clinic for a small thing. You will not be there. She will be. That is the price and I am telling it to you straight, which is more than most people get.
-  @OPT "What is the small thing?"          [gate: none]  TRAP -> smallthing
+  @SAY One day, not soon, somebody knocks and asks the clinic for a small thing. You won't be there. She'll be. That's the price and I'm telling it to you straight, which is more than most people get.
+  @OPT "What's the small thing?"          [gate: none]  TRAP -> smallthing
   @OPT "Take the crate. Both of them live."  [gate: none]  -> END  @DO set_stage 32
   @OPT "No. We do it with what we have."     [gate: none]  -> both
   @NOVERB "Promise him it will never be collected"
@@ -119,7 +119,7 @@
 
 @TALK smallthing  speaker=runner
   @SAY If I knew, it would be a contract, and contracts are for people who plan to argue. #flat
-  @SAY It will be small. It always is. That is the whole craft of it, and you already know that, or you would not have asked.
+  @SAY It'll be small. It always is. That's the whole craft of it, and you already know that, or you wouldn't have asked.
   @OPT "Take the crate anyway."            [gate: none]  -> END  @DO learn the_price_is_later  @DO set_stage 32
   @OPT (walk out without answering)         [gate: none]  SILENCE -> both  @DO learn the_price_is_later
 @END
@@ -129,7 +129,7 @@
 # will do exactly what you say and she will not tell you if you were right.
 # =====================================================================
 @TALK sign  speaker=medic  entry=stage>=20
-  @SAY Say it, then. Out loud, to me, so it is a thing a person decided and not a thing that happened. #tired
+  @SAY Say it, then. Out loud, to me, so it's a thing a person decided and not a thing that happened. #tired
   @OPT "Him. The one it saves."             [gate: none]  -> quiet_end
   @OPT "Her. The doorway."                   [gate: none]  -> quiet_end
   @OPT "Not me. Ask the block, in the open."  [gate: none]  -> open_end
@@ -137,14 +137,14 @@
 @END
 
 @TALK quiet_end  speaker=medic
-  @SAY Then that is what we do. It goes in tonight. #tired
-  @SAY Nobody else will ever know there was a second name. That part is mine to carry and I would rather carry it than have it read aloud.
+  @SAY Then that's what we do. It goes in tonight. #tired
+  @SAY Nobody else will ever know there was a second name. That part is mine to carry and I'd rather carry it than have it read aloud.
   @OPT "Nobody hears about this."           [gate: none]  -> END  @DO set_stage 30
   @OPT (help her set the line and say nothing)  [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 @TALK open_end  speaker=medic
-  @SAY In front of both families. They will vote like it is a fair thing and go home knowing exactly what they voted for. #dread
-  @SAY It is the honest way and it is the cruelest room I will ever stand in. Fine. Call them.
+  @SAY In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for. #dread
+  @SAY It's the honest way and it's the cruelest room I'll ever stand in. Fine. Call them.
   @OPT "Call them. All of them."            [gate: none]  -> END  @DO set_stage 31
 @END

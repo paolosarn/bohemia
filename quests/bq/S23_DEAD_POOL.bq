@@ -56,7 +56,7 @@
   @LOG A caravan came up from downriver with empty bladders and a story about a dam that stopped giving. Our taps ran this morning the same as always.
   @DO show_objective 10
 @STAGE 20
-  @LOG Somebody in this valley knows why both of those things are true at once, and it is not a secret, it is just not something anybody says out loud.
+  @LOG Somebody in this valley knows why both of those things are true at once, and it isn't a secret, it's just not something anybody says out loud.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
@@ -65,7 +65,7 @@
   @DO learn the_third_intake
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
-  @LOG Said it in the market, in daylight: the reason our taps run is a tunnel under a lake that stopped being a river. Half the block did not know. Now they do.
+  @LOG Said it in the market, in daylight: the reason our taps run is a tunnel under a lake that stopped being a river. Half the block didn't know. Now they do.
   @DO faction Caravans +10
   @DO faction Network -8
   @DO learn the_third_intake
@@ -80,7 +80,7 @@
   @DO advance_territory
   @DO complete_objective 20
 @STAGE 33 FAIL #quiet
-  @LOG Told them we had nothing spare. They believed me, which was the worst part, and went back down to a river that is not a river. Nobody saw me not help.
+  @LOG Told them we had nothing spare. They believed me, which was the worst part, and went back down to a river that isn't a river. Nobody saw me not help.
   @DO bond hauler -25
   @DO faction Caravans -12
 
@@ -92,10 +92,10 @@
 # and that is worse to listen to than an accusation would be.
 # =====================================================================
 @TALK dry  speaker=hauler  entry=stage>=10,stage<20
-  @SAY Eleven days up from the low country. The channel down there is a road now. You can walk it. #wary
-  @SAY And I come up here and there is a tap running behind you into a bucket nobody is watching. I am not angry. I am trying to understand what I am looking at.
-  @SAY Somebody here knows why. Find out and come back and tell me, and I will decide whether I ever come up this way again.
-  @OPT "I will find out."                       [gate: none]  -> ask
+  @SAY Eleven days up from the low country. The channel down there's a road now. You can walk it. #wary
+  @SAY And I come up here and there's a tap running behind you into a bucket nobody is watching. I'm not angry. I'm trying to understand what I'm looking at.
+  @SAY Somebody here knows why. Find out and come back and tell me, and I'll decide whether I ever come up this way again.
+  @OPT "I'll find out."                       [gate: none]  -> ask
   @OPT "We have more than you think."           [gate: none]  -> ask
   @OPT "We have nothing spare."                 [gate: none]  TRAP -> nothing
   @OPT (fill his bottle without saying anything) [gate: none]  SILENCE -> ask
@@ -104,9 +104,9 @@
 
 @TALK nothing  speaker=hauler
   @SAY All right. #wary
-  @SAY That is the thing about a tap. It does not lie for you. It is running while you say it.
+  @SAY That's the thing about a tap. It doesn't lie for you. It's running while you say it.
   @OPT "I misspoke. Let me find out what we have." [gate: none]  -> ask
-  @OPT "I am sorry."                                [gate: none]  -> END  @DO set_stage 33
+  @OPT "I'm sorry."                                [gate: none]  -> END  @DO set_stage 33
   @OPT (say nothing further)                        [gate: none]  SILENCE -> END  @DO set_stage 33
 @END
 
@@ -117,45 +117,45 @@
 # =====================================================================
 @TALK ask  speaker=pumpman  entry=stage>=10
   @SAY Three intakes. First one goes dry when the lake drops past ten-fifty. Second one is done around a thousand. #wary
-  @SAY Third one sits at about eight-sixty. There is three miles of tunnel behind it, twenty feet across, and a pumping station that can move nine hundred million gallons a day.
-  @SAY Now. Dead pool is eight ninety-five. That is the number where the dam stops letting anything go downstream. Do the subtraction and tell me what you get.
+  @SAY Third one sits at about eight-sixty. There's three miles of tunnel behind it, twenty feet across, and a pumping station that can move nine hundred million gallons a day.
+  @SAY Now. Dead pool is eight ninety-five. That's the number where the dam stops letting anything go downstream. Do the subtraction and tell me what you get.
   @OPT "You drink thirty-five feet below where the river ends." [gate: none]  -> yes  @DO learn the_third_intake
   @OPT "So we planned for this."                                [gate: none]  -> yes  @DO learn the_third_intake
-  @OPT "That cannot be legal."                                  [gate: none]  -> legal
+  @OPT "That can't be legal."                                  [gate: none]  -> legal
   @NOVERB "Ask when they built it"
 @END
 
 @TALK yes  speaker=pumpman
-  @SAY That is what you get. #wary
-  @SAY It was not sneaked in either. It cost a billion and a half and it was in the paper and there were tours. Everybody agreed it was prudent. It WAS prudent. That is the part I keep chewing.
-  @SAY We built a straw that outlives the river and then we were surprised to find ourselves the last ones drinking. Go tell your caravan whatever you are going to tell them.
-  @OPT "I am telling them the truth."     [gate: none]  -> back
+  @SAY That's what you get. #wary
+  @SAY It wasn't sneaked in either. It cost a billion and a half and it was in the paper and there were tours. Everybody agreed it was prudent. It WAS prudent. That's the part I keep chewing.
+  @SAY We built a straw that outlives the river and then we were surprised to find ourselves the last ones drinking. Go tell your caravan whatever you're going to tell them.
+  @OPT "I'm telling them the truth."     [gate: none]  -> back
   @OPT "Who decides what goes out?"       [gate: none]  -> clerkq
   @OPT "Can I take them out there?"       [gate: none]  -> works
 @END
 
 @TALK legal  speaker=pumpman
-  @SAY It is the most legal thing in the valley. There is an allocation and a compact and a whole shelf of paper. #wary
-  @SAY Every drop that comes up that tunnel is somebody's lawful share of a lake. What there is not, is a line in any of that paper about the people standing at the bottom of a dry channel eleven days south.
-  @OPT "So it is legal and it is not right."  [gate: none]  -> yes  @DO learn the_third_intake
+  @SAY It's the most legal thing in the valley. There's an allocation and a compact and a whole shelf of paper. #wary
+  @SAY Every drop that comes up that tunnel is somebody's lawful share of a lake. What there isn't, is a line in any of that paper about the people standing at the bottom of a dry channel eleven days south.
+  @OPT "So it's legal and it isn't right."  [gate: none]  -> yes  @DO learn the_third_intake
   @OPT "Then nothing to be done."             [gate: none]  -> END  @DO set_stage 33
 @END
 
 # THE ADMINISTRATION. Polite, correct, and the most unsettling thing in
 # the quest, because nothing he says is untrue.
 @TALK clerkq  speaker=clerk  entry=stage>=20
-  @SAY Outflow is allocated. I do not decide it, I record it. If you want to give some of yours away that is entirely your business and I will note it as consumption. #cold
-  @SAY What I would ask is that you do not walk anybody out to the works. Not because of the water. Because of the works.
+  @SAY Outflow is allocated. I don't decide it, I record it. If you want to give some of yours away that's entirely your business and I'll note it as consumption. #cold
+  @SAY What I'd ask is that you don't walk anybody out to the works. Not because of the water. Because of the works.
   @OPT "Understood."                         [gate: none]  -> back
-  @OPT "You would rather they thought it was magic." [gate: none]  -> back
+  @OPT "You'd rather they thought it was magic." [gate: none]  -> back
   @OPT (say nothing and go)                  [gate: none]  SILENCE -> back
 @END
 
 @TALK works  speaker=pumpman
-  @SAY You can. There is no fence worth the name and there are four of us who know how to run it. #dread
+  @SAY You can. There's no fence worth the name and there are four of us who know how to run it. #dread
   @SAY Understand what that means. Right now the reason nobody takes this valley's water is that nobody outside it has ever seen where it comes from.
   @OPT "They should see it."                 [gate: none]  -> back
-  @OPT "You are right. Forget it."           [gate: none]  -> back
+  @OPT "You're right. Forget it."           [gate: none]  -> back
 @END
 
 # =====================================================================
@@ -164,39 +164,39 @@
 # =====================================================================
 @TALK back  speaker=hauler  entry=stage>=20
   @SAY Well. #wary
-  @SAY Say it plain. I have been lied to gently the whole way up and I would rather have it flat.
-  @OPT "There is a third intake. It drinks below where your river ends." [gate: knows:the_third_intake]  -> flat
+  @SAY Say it plain. I've been lied to gently the whole way up and I'd rather have it flat.
+  @OPT "There's a third intake. It drinks below where your river ends." [gate: knows:the_third_intake]  -> flat
   @OPT "Fill your bladders. Tonight, quietly."                            [gate: none]  -> quiet
-  @OPT "Come to the market. I will say it in front of everyone."          [gate: none]  -> loud
-  @OPT "I will take you out and show you."                                [gate: none]  -> show
+  @OPT "Come to the market. I'll say it in front of everyone."          [gate: none]  -> loud
+  @OPT "I'll take you out and show you."                                [gate: none]  -> show
   @OPT "We have nothing spare."                                           [gate: none]  TRAP -> END  @DO set_stage 33
 @END
 
 @TALK flat  speaker=hauler
   @SAY Thirty-five feet. #wary
-  @SAY That is the whole thing then. Not a war, not a theft. Thirty-five feet of pipe and a man in an office writing it down. I would almost rather it had been theft.
+  @SAY That's the whole thing then. Not a war, not a theft. Thirty-five feet of pipe and a man in an office writing it down. I'd almost rather it had been theft.
   @OPT "Fill up. Quietly, tonight."          [gate: none]  -> quiet
   @OPT "Come and hear me say it out loud."   [gate: none]  -> loud
-  @OPT "I will show you the works."          [gate: none]  -> show
+  @OPT "I'll show you the works."          [gate: none]  -> show
 @END
 
 @TALK quiet  speaker=hauler
-  @SAY After dark then. And I will not say where it came from. #wary
-  @OPT "Then we are square."                 [gate: none]  -> END  @DO set_stage 30
+  @SAY After dark then. And I won't say where it came from. #wary
+  @OPT "Then we're square."                 [gate: none]  -> END  @DO set_stage 30
   @OPT (start hauling in the dark)           [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 @TALK loud  speaker=hauler
-  @SAY In front of your own people. You know some of them do not know this. #wary
-  @SAY They are going to look at their own tap differently for the rest of their lives and they are not going to thank you.
+  @SAY In front of your own people. You know some of them don't know this. #wary
+  @SAY They're going to look at their own tap differently for the rest of their lives and they aren't going to thank you.
   @OPT "Say it anyway."                      [gate: none]  -> END  @DO set_stage 31
   @OPT "No. Quietly, tonight."               [gate: none]  -> quiet
 @END
 
 @TALK show  speaker=hauler
-  @SAY You would take me out there. #dread
-  @SAY I have nine people and a cart and we are thirsty, and you are going to walk us to the one place in this valley that matters. I want you to hear yourself offer it.
+  @SAY You'd take me out there. #dread
+  @SAY I have nine people and a cart and we're thirsty, and you're going to walk us to the one place in this valley that matters. I want you to hear yourself offer it.
   @OPT "Walk with me."                       [gate: none]  -> END  @DO set_stage 32
   @OPT (start walking toward the lake)       [gate: none]  SILENCE -> END  @DO set_stage 32
-  @OPT "You are right. Tonight, quietly."    [gate: none]  -> quiet
+  @OPT "You're right. Tonight, quietly."    [gate: none]  -> quiet
 @END

@@ -54,7 +54,7 @@
   @LOG Half a case of insulin in a back room, sealed since the grid went, and everybody on this block calls it spoiled. Nobody has opened it to look.
   @DO show_objective 10
 @STAGE 20
-  @LOG It is not spoiled. Unopened, in shade, this valley's heat does not kill it in months. The problem was never the medicine.
+  @LOG It isn't spoiled. Unopened, in shade, this valley's heat doesn't kill it in months. The problem was never the medicine.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
@@ -63,7 +63,7 @@
   @DO learn insulin_survives_heat
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
-  @LOG Called the block together and said it out loud: we have been throwing away medicine that works. Half believed me. The half that did not now has a reason to say I am dangerous.
+  @LOG Called the block together and said it out loud: we've been throwing away medicine that works. Half believed me. The half that didn't now has a reason to say I'm dangerous.
   @DO faction Volunteers +10
   @DO faction Church -8
   @DO learn insulin_survives_heat
@@ -78,7 +78,7 @@
   @DO advance_territory
   @DO complete_objective 20
 @STAGE 33 FAIL #quiet
-  @LOG I was right and I could not make it matter. The case is still sealed, she still measures out what she has, and nobody watched me be right about it.
+  @LOG I was right and I couldn't make it matter. The case is still sealed, she still measures out what she has, and nobody watched me be right about it.
   @DO bond mother -10
 
 @OBJ 10  "Find out what is actually in the sealed store"  target=keeper
@@ -89,12 +89,12 @@
 # somebody else asking her for it, which is a different job.
 # =====================================================================
 @TALK sealed  speaker=keeper  entry=stage>=10,stage<20
-  @SAY There is half a case of it in the back and I have said no to four people this month. #wary
-  @SAY It is spoiled. It has to be. No power since the grid went, and everyone knows what happens to that stuff without a fridge.
-  @SAY What I would like is for somebody to tell me I am right, so I can stop lying awake about it.
+  @SAY There's half a case of it in the back and I've said no to four people this month. #wary
+  @SAY It's spoiled. It has to be. No power since the grid went, and everyone knows what happens to that stuff without a fridge.
+  @SAY What I'd like is for somebody to tell me I'm right, so I can stop lying awake about it.
   @OPT "Show me a vial."                        [gate: none]  -> look
   @OPT "Everyone knows that and everyone is wrong." [gate: none]  -> wrong
-  @OPT "You are right. Keep it sealed."         [gate: none]  TRAP -> END  @DO set_stage 33
+  @OPT "You're right. Keep it sealed."         [gate: none]  TRAP -> END  @DO set_stage 33
   @OPT (hold your hand out for one)             [gate: none]  SILENCE -> look
   @NOVERB "Ask who the four people were"
 @END
@@ -106,20 +106,20 @@
 @TALK wrong  speaker=keeper
   @SAY Go on then. #wary
   @OPT "Unopened, under twenty-five, it holds for months. Not days."  [gate: none]  -> look  @DO learn insulin_survives_heat
-  @OPT "It has been in shade the whole time. That is the difference."  [gate: none]  -> look  @DO learn insulin_survives_heat
+  @OPT "It's been in shade the whole time. That's the difference."  [gate: none]  -> look  @DO learn insulin_survives_heat
 @END
 
 @TALK look  speaker=keeper
   @SAY Sealed. Cardboard's dry. The room's the coolest one in the building, which is why we put it there, and it swings maybe twenty-five at dawn to thirty-eight by four. #wary
-  @SAY Say the number that means something. I am listening properly now.
+  @SAY Say the number that means something. I'm listening properly now.
   @OPT "That swing is the mildest thing you could do to it."   [gate: none]  -> proof  @DO learn insulin_survives_heat
   @OPT "Two months at thirty-eight is a few percent, not nothing left." [gate: none]  -> proof  @DO learn insulin_survives_heat
-  @OPT "I do not actually know. I am guessing."                [gate: none]  -> END  @DO set_stage 33
+  @OPT "I don't actually know. I'm guessing."                [gate: none]  -> END  @DO set_stage 33
 @END
 
 @TALK proof  speaker=keeper
-  @SAY Then I have been sitting on the one thing this block needed. #dread
-  @SAY Do not tell me. Tell HER. She is the one measuring it out in halves and she will not take my word for anything, and I do not blame her.
+  @SAY Then I've been sitting on the one thing this block needed. #dread
+  @SAY Don't tell me. Tell HER. She's the one measuring it out in halves and she won't take my word for anything, and I don't blame her.
   @DO set_stage 20
 @END
 
@@ -129,13 +129,13 @@
 # number she can put in it.
 # =====================================================================
 @TALK hers  speaker=mother  entry=stage>=20
-  @SAY I know what you are going to say, because he already said it, badly. #wary
-  @SAY Here is mine. I have eleven days of what I trust. If I use what you say is good and you are wrong, I find out she is wrong by watching her, and by then I have nothing left to go back to.
-  @SAY So do not tell me it is fine. Tell me how you would KNOW.
+  @SAY I know what you're going to say, because he already said it, badly. #wary
+  @SAY Here is mine. I have eleven days of what I trust. If I use what you say is good and you're wrong, I find out she's wrong by watching her, and by then I have nothing left to go back to.
+  @SAY So don't tell me it's fine. Tell me how you'd KNOW.
   @OPT "Six days of temperature on a card, and I take the first dose."   [gate: knows:insulin_survives_heat]  -> card
-  @OPT "I will say it in front of the whole block."                      [gate: none]  -> block
-  @OPT "I am opening the store. Everyone can decide for themselves."     [gate: none]  -> store
-  @OPT "You are right to wait."                                          [gate: none]  -> END  @DO set_stage 33
+  @OPT "I'll say it in front of the whole block."                      [gate: none]  -> block
+  @OPT "I'm opening the store. Everyone can decide for themselves."     [gate: none]  -> store
+  @OPT "You're right to wait."                                          [gate: none]  -> END  @DO set_stage 33
   @NOVERB "Tell her she is being irrational"
 @END
 
@@ -143,25 +143,25 @@
 # quest does not pretend a week is nothing when she has eleven days.
 @TALK card  speaker=mother
   @SAY Six days. I have eleven. #wary
-  @SAY That is not nothing you are asking. That is more than half of what is between her and finding out the hard way. And it is the first offer anybody has made me that costs THEM something.
+  @SAY That isn't nothing you're asking. That's more than half of what's between her and finding out the hard way. And it's the first offer anybody has made me that costs THEM something.
   @OPT "Six days. Starting now."          [gate: none]  -> END  @DO set_stage 30
   @OPT (write the first reading down)     [gate: none]  SILENCE -> END  @DO set_stage 30
-  @OPT "Faster. I will tell the block."   [gate: none]  -> block
+  @OPT "Faster. I'll tell the block."   [gate: none]  -> block
 @END
 
 @TALK block  speaker=mother
   @SAY In front of everyone. #dread
-  @SAY Then it is not a thing I decided, it is a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.
+  @SAY Then it isn't a thing I decided, it's a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.
   @OPT "They need to hear it."            [gate: none]  -> END  @DO set_stage 31
-  @OPT "You are right. Six days, quietly." [gate: none]  -> card
+  @OPT "You're right. Six days, quietly." [gate: none]  -> card
 @END
 
 # THE LOUD ROAD, and the one person it costs. He is not a villain; a
 # thing everybody believes is worthless is a thing one man can price.
 @TALK store  speaker=trader  entry=stage>=20
   @SAY Open it and hand it out. Sure. #cold
-  @SAY You understand what I have been doing while everybody agreed that case was rubbish. I have been the only one bringing the good stuff up from the south, at what it costs to bring it.
-  @SAY After today nobody pays that again, and next winter when the road is shut, nobody is driving it either. I am not threatening you. I am telling you the arithmetic.
+  @SAY You understand what I've been doing while everybody agreed that case was rubbish. I've been the only one bringing the good stuff up from the south, at what it costs to bring it.
+  @SAY After today nobody pays that again, and next winter when the road is shut, nobody is driving it either. I'm not threatening you. I'm telling you the arithmetic.
   @OPT "Open it."                          [gate: none]  -> END  @DO set_stage 32
   @OPT (break the seal without answering)  [gate: none]  SILENCE -> END  @DO set_stage 32
   @OPT "Then we do it quietly. Six days."  [gate: none]  -> card

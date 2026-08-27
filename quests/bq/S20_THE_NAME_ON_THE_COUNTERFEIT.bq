@@ -57,7 +57,7 @@
   @DO set_flag posted_the_serials
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
-  @LOG Handed him to the clearing house and took the finder's cut. They will make an example and the example will be very effective and I will not be watching it.
+  @LOG Handed him to the clearing house and took the finder's cut. They'll make an example and the example will be very effective and I won't be watching it.
   @DO faction REDS +15
   @DO bond forger -25
   @DO set_flag sold_the_forger
@@ -81,9 +81,9 @@
 # and he knows exactly how thin that is because he clears them all day.
 # =====================================================================
 @TALK counter  speaker=banker  entry=stage>=10,stage<20
-  @SAY A token is a promise that somewhere there is a cell with that much left in it. That is all it has ever been. #flat
-  @SAY I cleared eleven yesterday that read full and were hollow, and the people holding them were not swindlers, they were a laundry and two kids and a man who sells eggs.
-  @SAY Whoever is stamping them is good. That is the frightening part. Bad forgeries are a nuisance. Good ones make everybody wonder about the good tokens too.
+  @SAY A token is a promise that somewhere there's a cell with that much left in it. That's all it has ever been. #flat
+  @SAY I cleared eleven yesterday that read full and were hollow, and the people holding them weren't swindlers, they were a laundry and two kids and a man who sells eggs.
+  @SAY Whoever is stamping them is good. That's the frightening part. Bad forgeries are a nuisance. Good ones make everybody wonder about the good tokens too.
   @OPT "What happens if people stop taking them?"  [gate: none]  TRAP -> stop
   @OPT "Where do they come from?"                   [gate: none]  -> where
   @OPT "Not my market."                              [gate: none]  -> END  @DO set_stage 34
@@ -94,14 +94,14 @@
 # THE TRAP: the answer is the reason the loud fix is the worst fix, and it
 # is delivered as accounting, not as a warning.
 @TALK stop  speaker=banker
-  @SAY Then a man with a wall of tinned food is exactly as rich tomorrow as he is today, and a woman holding forty small tokens has nothing at all. #dread
-  @SAY That is what a currency dying looks like. It does not take from everyone evenly. It takes everything from whoever was too poor to be holding anything but money.
+  @SAY Then a man with a wall of tinned food is exactly as rich tomorrow as he's today, and a woman holding forty small tokens has nothing at all. #dread
+  @SAY That's what a currency dying looks like. It doesn't take from everyone evenly. It takes everything from whoever was too poor to be holding anything but money.
   @OPT "Then it stays alive. Where is he?"   [gate: none]  -> where  @DO learn the_poor_hold_the_money
   @OPT (say nothing and keep listening)       [gate: none]  SILENCE -> where  @DO learn the_poor_hold_the_money
 @END
 
 @TALK where  speaker=banker
-  @SAY Same stamp, same batch marks, all of them from the east side of the yards. It is one bench and one pair of hands. #flat
+  @SAY Same stamp, same batch marks, all of them from the east side of the yards. It's one bench and one pair of hands. #flat
   @DO set_stage 20
 @END
 
@@ -110,9 +110,9 @@
 # cells, which is real and hard, and he stopped testing when he got behind.
 # =====================================================================
 @TALK bench  speaker=forger  entry=stage>=20
-  @SAY I recondition dead cells. That is a real trade, it takes real work, and about a third of them come back genuinely good. #wary
+  @SAY I recondition dead cells. That's a real trade, it takes real work, and about a third of them come back genuinely good. #wary
   @SAY The other two thirds I used to scrap. Then I got behind, and a scrapped cell pays nothing, and a stamped one pays whether or not anybody ever draws it down.
-  @SAY I have not slept properly in five weeks and I know exactly what I did, so do not do the part where you explain it to me.
+  @SAY I have not slept properly in five weeks and I know exactly what I did, so don't do the part where you explain it to me.
   @OPT "You work every hollow one good again."     [gate: none]  -> good
   @OPT "The serials go up on the market wall."      [gate: none]  -> serials
   @OPT "The clearing house can have you."            [gate: none]  -> sell
@@ -121,7 +121,7 @@
 @END
 
 @TALK bulk  speaker=forger
-  @SAY One buyer, in volume, who did not ask a single question about the test results and paid over the odds for that privilege. #dread
+  @SAY One buyer, in volume, who didn't ask a single question about the test results and paid over the odds for that privilege. #dread
   @SAY He knew. Of course he knew. He wanted hollow ones, because hollow ones travel and nobody can trace where a promise stopped being true.
   @OPT "Then you make them good, all of them."   [gate: none]  -> good     @DO cast muscle  @DO learn bought_in_bulk
   @OPT "Then everyone sees the serials."          [gate: none]  -> serials  @DO cast muscle  @DO learn bought_in_bulk
@@ -130,29 +130,29 @@
 
 @TALK good  speaker=forger
   @SAY Every hollow one, worked back to what it says on the stamp, on my own time, until the number is zero. #tired
-  @SAY That is four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I will do that.
+  @SAY That's four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I'll do that.
   @OPT "Cell by cell. Start tonight."         [gate: none]  -> END  @DO set_stage 30
   @OPT (put the hollow ones on his bench and leave)  [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 @TALK serials  speaker=forger
   @SAY Every bad number on the wall where anybody can read it. #dread
-  @SAY People will check their pockets and about forty of them will find out today that they are poorer than they were this morning. And they will keep taking tokens tomorrow, because now there is a wall.
+  @SAY People will check their pockets and about forty of them will find out today that they're poorer than they were this morning. And they'll keep taking tokens tomorrow, because now there's a wall.
   @OPT "It goes on the wall."                 [gate: none]  -> END  @DO set_stage 31
   @OPT "No. You work them good instead."       [gate: none]  -> good
 @END
 
 @TALK sell  speaker=forger
-  @SAY The clearing house. They are very calm people and they are very consistent. #dread
-  @SAY There is a finder's cut, so you will be paid for it, and that is the part you should sit with, not the rest.
+  @SAY The clearing house. They're very calm people and they're very consistent. #dread
+  @SAY There's a finder's cut, so you'll be paid for it, and that's the part you should sit with, not the rest.
   @OPT "Take him."                            [gate: none]  -> END  @DO set_stage 32
   @OPT (hand him over without a word)          [gate: none]  SILENCE -> END  @DO set_stage 32
-  @OPT "No. You are working them good."        [gate: none]  -> good
+  @OPT "No. You're working them good."        [gate: none]  -> good
 @END
 
 @TALK market  speaker=muscle  entry=stage>=20,role:muscle
-  @SAY You have been asking about a bench. I bought two hundred off that bench and I would buy two hundred more. #flat
-  @SAY A promise that cannot be checked is the best thing anyone has invented out here, and every one of you keeps inventing it again.
+  @SAY You've been asking about a bench. I bought two hundred off that bench and I'd buy two hundred more. #flat
+  @SAY A promise that can't be checked is the best thing anyone has invented out here, and every one of you keeps inventing it again.
   @OPT "The market is going to hear all of this."  [gate: none]  -> burnit
   @OPT "The serials go on the wall instead."        [gate: none]  -> serials
   @NOVERB "Ask him to buy the hollow ones back"
@@ -160,7 +160,7 @@
 
 @TALK burnit  speaker=muscle
   @SAY Tell them. Tell them the whole thing, that the token is a story about somebody else's battery, and watch what an afternoon does. #flat
-  @SAY By dark nobody takes one. Everybody with goods gets richer and everybody with tokens gets nothing, and you will have been completely honest.
+  @SAY By dark nobody takes one. Everybody with goods gets richer and everybody with tokens gets nothing, and you'll have been completely honest.
   @OPT "They should hear it anyway."          [gate: none]  -> END  @DO set_stage 33
   @OPT (say it out loud in the middle of the market)  [gate: none]  SILENCE -> END  @DO set_stage 33
   @OPT "No. The wall. The serials."            [gate: none]  -> serials

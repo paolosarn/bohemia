@@ -44,12 +44,12 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
-  @LOG One small sack for this winter, planted on the far side of the ridge where the pollen cannot reach her line. Nobody eats well and nobody loses anything permanent.
+  @LOG One small sack for this winter, planted on the far side of the ridge where the pollen can't reach her line. Nobody eats well and nobody loses anything permanent.
   @DO bond grower +18
   @DO faction BLUES +5
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
-  @LOG Got the whole block to sign a thin year on purpose. All saved seed, smaller plates, and a line that still belongs to them in ten years. Everybody had to agree out loud, which is why it will hold.
+  @LOG Got the whole block to sign a thin year on purpose. All saved seed, smaller plates, and a line that still belongs to them in ten years. Everybody had to agree out loud, which is why it'll hold.
   @DO faction BLUES +12
   @DO set_flag signed_the_thin_year
   @DO complete_objective 20
@@ -77,8 +77,8 @@
 # against what the sacks make you next year.
 # =====================================================================
 @TALK yard  speaker=grower  entry=stage>=10,stage<20
-  @SAY His sacks will feed this block through winter. I want to say that first because everything after it sounds like I am pretending it is not true. #tired
-  @SAY What comes up from his seed does not breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign.
+  @SAY His sacks will feed this block through winter. I want to say that first because everything after it sounds like I'm pretending it isn't true. #tired
+  @SAY What comes up from his seed doesn't breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign.
   @SAY Mine came off my mother's rows. It yields less. It has never once asked me for anything.
   @OPT "Then keep yours and take the thin year."   [gate: none]  -> thin
   @OPT "People have to eat this winter."            [gate: none]  -> eat
@@ -88,20 +88,20 @@
 @END
 
 @TALK thin  speaker=grower
-  @SAY A thin year on purpose. Smaller plates, every house, agreed out loud so nobody thinks they are the only one going short. #tired
-  @SAY That only holds if it is public. A private sacrifice is a rumor by spring and a grudge by summer.
+  @SAY A thin year on purpose. Smaller plates, every house, agreed out loud so nobody thinks they're the only one going short. #tired
+  @SAY That only holds if it's public. A private sacrifice is a rumor by spring and a grudge by summer.
   @DO set_stage 20
 @END
 
 @TALK eat  speaker=grower
-  @SAY I know. I have counted the block twice this month and I get the same number both times and it is not enough. #dread
-  @SAY So do not let me be noble at other people's expense. Go talk to him. Just do not come back and tell me his seed is a gift.
+  @SAY I know. I've counted the block twice this month and I get the same number both times and it isn't enough. #dread
+  @SAY So don't let me be noble at other people's expense. Go talk to him. Just don't come back and tell me his seed is a gift.
   @DO set_stage 20
 @END
 
 @TALK both  speaker=grower
-  @SAY Pollen does not know about fences. Plant his field next to my line and by autumn my line is his line with a worse yield. #tired
-  @SAY Far side of the ridge, wind off it, and it can be done. It is careful work and careful work is exactly what nobody has time for in a bad year.
+  @SAY Pollen doesn't know about fences. Plant his field next to my line and by autumn my line is his line with a worse yield. #tired
+  @SAY Far side of the ridge, wind off it, and it can be done. It's careful work and careful work is exactly what nobody has time for in a bad year.
   @DO set_stage 20  @DO learn pollen_crosses_fences
 @END
 
@@ -111,41 +111,41 @@
 # =====================================================================
 @TALK sacks  speaker=trader  entry=stage>=20
   @SAY Twice the yield. I have never once said otherwise and I have never once had to. #flat
-  @SAY She will tell you it does not breed true. She is right. I sell food, not heirlooms, and a family that starves this winter has no heirloom problem next winter.
-  @SAY Small sack, full load on credit, or nothing, and I am parked here until dark either way.
+  @SAY She'll tell you it doesn't breed true. She's right. I sell food, not heirlooms, and a family that starves this winter has no heirloom problem next winter.
+  @SAY Small sack, full load on credit, or nothing, and I'm parked here until dark either way.
   @OPT "One small sack. Far side of the ridge."   [gate: none]  -> small
   @OPT "The full load. On credit."                 [gate: none]  -> credit
-  @OPT "What happens if the block cannot pay?"      [gate: none]  TRAP -> cannotpay
+  @OPT "What happens if the block can't pay?"      [gate: none]  TRAP -> cannotpay
   @OPT "Your buyers should hear about the second generation."  [gate: none]  -> tell
   @NOVERB "Ask him where the seed is actually made"
 @END
 
 @TALK cannotpay  speaker=trader
-  @SAY Then we come back in the spring and we are pleasant about it, and there is a conversation about the water rights or the yard or the road. #flat
+  @SAY Then we come back in the spring and we're pleasant about it, and there's a conversation about the water rights or the yard or the road. #flat
   @SAY Nobody gets hurt. Things simply belong to different people afterward, and everybody agreed to it in a year when agreeing was easy.
-  @OPT "Small sack. That is all."           [gate: none]  -> small   @DO learn credit_buys_the_yard
+  @OPT "Small sack. That's all."           [gate: none]  -> small   @DO learn credit_buys_the_yard
   @OPT "Full load anyway."                   [gate: none]  -> credit  @DO learn credit_buys_the_yard
   @OPT (walk back to the farmhouse)           [gate: none]  SILENCE -> thin
 @END
 
 @TALK small  speaker=trader
-  @SAY One sack. Barely worth unhitching for, and it will get you to spring with a hungry face. #flat
-  @SAY Plant it away from her rows if you are going to be sentimental about her rows. That is honest advice and it costs me a customer next year.
+  @SAY One sack. Barely worth unhitching for, and it'll get you to spring with a hungry face. #flat
+  @SAY Plant it away from her rows if you're going to be sentimental about her rows. That's honest advice and it costs me a customer next year.
   @OPT "One sack. Over the ridge."          [gate: none]  -> END  @DO set_stage 30
   @OPT (load the one sack and go)            [gate: none]  SILENCE -> END  @DO set_stage 30
   @OPT "No. The block goes thin instead."     [gate: none]  -> plan
 @END
 
 @TALK credit  speaker=trader
-  @SAY The full load. Nine years since anybody around here saw a harvest like the one you are about to have. #flat
-  @SAY And next autumn you will need me, and the autumn after that, and by then it will not feel like a decision anybody made. That is not a threat. That is just how it goes and you can watch it happen from here.
+  @SAY The full load. Nine years since anybody around here saw a harvest like the one you're about to have. #flat
+  @SAY And next autumn you'll need me, and the autumn after that, and by then it won't feel like a decision anybody made. That isn't a threat. That's just how it goes and you can watch it happen from here.
   @OPT "The full load."                     [gate: none]  -> END  @DO set_stage 32
   @OPT "No. One sack, over the ridge."       [gate: none]  -> small
 @END
 
 @TALK tell  speaker=trader
   @SAY In my own yard. In front of the people who were going to buy from me at the next stop. #dread
-  @SAY Say it and it is true and it is finished for me here. Then think about who brings salt and medicine up this road next season, and whether they will bother.
+  @SAY Say it and it's true and it's finished for me here. Then think about who brings salt and medicine up this road next season, and whether they'll bother.
   @OPT "Say it loud enough for all of them." [gate: none]  -> END  @DO set_stage 33
   @OPT (turn to his buyers and say it)        [gate: none]  SILENCE -> END  @DO set_stage 33
   @OPT "No. One sack, over the ridge."        [gate: none]  -> small
@@ -153,7 +153,7 @@
 
 @TALK plan  speaker=grower  entry=stage>=20,knows:pollen_crosses_fences
   @SAY A thin year, signed by every house, or a small sack over the ridge. Those are the only two that leave anything standing in ten years. #tired
-  @SAY If it is the thin year, it happens in the open or not at all.
+  @SAY If it's the thin year, it happens in the open or not at all.
   @OPT "The whole block signs it."          [gate: none]  -> END  @DO set_stage 31
   @OPT "Nothing is signed. Let it lie."      [gate: none]  -> END  @DO set_stage 34
   @OPT (go back to the sacks)                [gate: none]  SILENCE -> small

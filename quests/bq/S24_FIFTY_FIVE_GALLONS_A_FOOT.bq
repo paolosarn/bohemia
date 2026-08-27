@@ -54,11 +54,11 @@
   @LOG Third person this week has mentioned the green square on the corner without being asked about it. Nobody on this block waters anything.
   @DO show_objective 10
 @STAGE 20
-  @LOG Paced it. Call it forty by fifty. Two thousand square feet of living grass, and every foot of it is fifty-five gallons a year. The block has already done that sum.
+  @LOG Paced it. Call it forty by fifty. Two thousand square feet of living grass, and every foot of it's fifty-five gallons a year. The block has already done that sum.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
-  @LOG Knocked on the door instead of talking about it. There is a greywater rig under the side of that house feeding the whole yard. Told the street it was handled and left it at that.
+  @LOG Knocked on the door instead of talking about it. There's a greywater rig under the side of that house feeding the whole yard. Told the street it was handled and left it at that.
   @DO bond owner +25
   @DO learn the_grey_rig
   @DO complete_objective 20
@@ -69,14 +69,14 @@
   @DO set_flag named_at_the_meeting
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
-  @LOG Cut the line into that yard in daylight with people watching. The grass will be straw in nine days. Whatever was feeding it is not feeding anything now, including the parts of that house I did not look at.
+  @LOG Cut the line into that yard in daylight with people watching. The grass will be straw in nine days. Whatever was feeding it isn't feeding anything now, including the parts of that house I didn't look at.
   @DO faction Blues +6
   @DO bond owner -40
   @DO set_flag cut_the_green_square
   @DO advance_territory
   @DO complete_objective 20
 @STAGE 33 FAIL #quiet
-  @LOG Decided it was not mine to look into. It is still green. Three people asked me about it again this week and I said I did not know, which by then was a choice rather than a fact.
+  @LOG Decided it wasn't mine to look into. It's still green. Three people asked me about it again this week and I said I didn't know, which by then was a choice rather than a fact.
   @DO faction Blues -10
 
 @OBJ 10  "Work out what the green square actually costs"  target=neighbour
@@ -87,9 +87,9 @@
 # arithmetic out loud, which is how this block asks.
 # =====================================================================
 @TALK green  speaker=neighbour  entry=stage>=10,stage<20
-  @SAY You have seen it. Everybody has seen it. Corner lot, past the dead one with the boat. #wary
+  @SAY You've seen it. Everybody has seen it. Corner lot, past the dead one with the boat. #wary
   @SAY Forty by fifty, near enough. Two thousand feet. And you know the number, everybody our age knows the number, they printed it on everything for twenty years. Fifty-five gallons a foot a year.
-  @SAY That is a hundred and ten thousand gallons. On grass. While I am rationing what I wash in. I am not telling you to do anything. I am telling you the number.
+  @SAY That's a hundred and ten thousand gallons. On grass. While I'm rationing what I wash in. I'm not telling you to do anything. I'm telling you the number.
   @OPT "Let me go and look at it properly." [gate: none]  -> yard
   @OPT "Where is it coming from?"           [gate: none]  -> where
   @OPT "The number could be right and the story still be wrong." [gate: none]  -> careful
@@ -98,16 +98,16 @@
 @END
 
 @TALK where  speaker=neighbour
-  @SAY That is the part nobody can answer and that is why it has got the teeth it has. #wary
-  @SAY There is no tanker. Nobody sees anybody hauling. The mains on that side run at nothing like the pressure you would need. So either it is a miracle or somebody is taking it from somewhere that has not been noticed yet.
-  @OPT "Or from somewhere that is not the mains." [gate: none]  -> yard
-  @OPT "I will go and look."                      [gate: none]  -> yard
+  @SAY That's the part nobody can answer and that's why it's got the teeth it has. #wary
+  @SAY There's no tanker. Nobody sees anybody hauling. The mains on that side run at nothing like the pressure you'd need. So either it's a miracle or somebody is taking it from somewhere that has not been noticed yet.
+  @OPT "Or from somewhere that isn't the mains." [gate: none]  -> yard
+  @OPT "I'll go and look."                      [gate: none]  -> yard
 @END
 
 @TALK careful  speaker=neighbour
   @SAY Maybe. #wary
-  @SAY But I have been doing that sum every time I walk past for four months and I have not once come up with a version where I am wrong about the gallons. Go on. Tell me I am wrong about the gallons.
-  @OPT "You are not. Let me look anyway." [gate: none]  -> yard
+  @SAY But I've been doing that sum every time I walk past for four months and I have not once come up with a version where I'm wrong about the gallons. Go on. Tell me I'm wrong about the gallons.
+  @OPT "You aren't. Let me look anyway." [gate: none]  -> yard
   @OPT "Not my business."                 [gate: none]  -> END  @DO set_stage 33
 @END
 
@@ -117,7 +117,7 @@
 # =====================================================================
 @TALK yard  speaker=neighbour
   @SAY Green all the way to the fence on three sides. And then the strip along the side of the house, where the drain would be, is the greenest part of the whole thing. #wary
-  @OPT "That is the wet line. It is coming out of the house, not into it." [gate: none]  -> rig  @DO learn the_grey_rig
+  @OPT "That's the wet line. It's coming out of the house, not into it." [gate: none]  -> rig  @DO learn the_grey_rig
   @OPT "Knock on the door."                                                 [gate: none]  -> door
   @OPT "Call the meeting. Put the number up."                               [gate: none]  -> meeting
   @OPT "Find the line and cut it."                                          [gate: none]  -> cut
@@ -125,8 +125,8 @@
 @END
 
 @TALK rig  speaker=plumber  entry=stage>=20
-  @SAY Side of the house, under the vent. That is a greywater rig and a decent one. Wash water, bath water, out the wall, through a filter bed, into the yard. #wary
-  @SAY It is not coming off the mains at all. Whoever built that is using the same water twice and the yard is the second use. Which is the single smartest thing anybody on this street is doing.
+  @SAY Side of the house, under the vent. That's a greywater rig and a decent one. Wash water, bath water, out the wall, through a filter bed, into the yard. #wary
+  @SAY It isn't coming off the mains at all. Whoever built that's using the same water twice and the yard is the second use. Which is the single smartest thing anybody on this street is doing.
   @SAY It also looks exactly like theft from forty feet away, and forty feet is as close as anybody has gone.
   @OPT "Then I go and knock."                [gate: none]  -> door
   @OPT "The block still deserves the number." [gate: none]  -> meeting
@@ -137,34 +137,34 @@
 # months for somebody to knock instead of talk, and she is angry about it.
 # =====================================================================
 @TALK door  speaker=owner
-  @SAY Four months. Four months of people slowing down at my fence and speeding up when I come out. You are the first one to use the gate. #wary
-  @SAY It is the wash water. All of it. Every drop that yard drinks has already been through this house once. I built it out of a bathtub and forty feet of pipe and I would show anybody who asked.
-  @SAY Nobody asked. They did the sum instead. And the sum is right, that is the thing that has been killing me. It IS a hundred and ten thousand gallons. It is just not YOURS.
-  @OPT "Then it is handled. I will tell them."     [gate: none]  -> handled
+  @SAY Four months. Four months of people slowing down at my fence and speeding up when I come out. You're the first one to use the gate. #wary
+  @SAY It's the wash water. All of it. Every drop that yard drinks has already been through this house once. I built it out of a bathtub and forty feet of pipe and I'd show anybody who asked.
+  @SAY Nobody asked. They did the sum instead. And the sum is right, that's the thing that's been killing me. It IS a hundred and ten thousand gallons. It's just not YOURS.
+  @OPT "Then it's handled. I'll tell them."     [gate: none]  -> handled
   @OPT "Show me the rig."                          [gate: none]  -> handled
   @OPT "Show the block, not me."                   [gate: none]  -> meeting
   @OPT (stand there and say nothing)               [gate: none]  SILENCE -> handled
 @END
 
 @TALK handled  speaker=owner
-  @SAY You can tell them whatever you like. They will believe it or they will not. #wary
-  @SAY If you want to do me an actual kindness, tell them how it works rather than that it is fine. Half of them have a bathtub and forty feet of pipe.
-  @OPT "I will tell them how it works." [gate: none]  -> END  @DO set_stage 30
+  @SAY You can tell them whatever you like. They'll believe it or they won't. #wary
+  @SAY If you want to do me an actual kindness, tell them how it works rather than that it's fine. Half of them have a bathtub and forty feet of pipe.
+  @OPT "I'll tell them how it works." [gate: none]  -> END  @DO set_stage 30
   @OPT (go and say it was handled)      [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 # THE MEETING. Naming somebody in front of people is a different act
 # from believing a thing, and the quest holds that difference open.
 @TALK meeting  speaker=neighbour
-  @SAY You want it in front of everyone. All right. That is a bell you cannot un-ring on a corner lot. #wary
-  @SAY Say the number and say the address and they will do the rest. And whatever the answer turns out to be, that house is the house with the green square from now on.
+  @SAY You want it in front of everyone. All right. That's a bell you can't un-ring on a corner lot. #wary
+  @SAY Say the number and say the address and they'll do the rest. And whatever the answer turns out to be, that house is the house with the green square from now on.
   @OPT "Put the number up. Say whose lot."  [gate: none]  -> END  @DO set_stage 31
-  @OPT "No. I am going to knock first."     [gate: none]  -> door
+  @OPT "No. I'm going to knock first."     [gate: none]  -> door
 @END
 
 @TALK cut  speaker=neighbour
   @SAY In daylight, with people watching. #dread
-  @SAY Understand you will not know what else that line was doing. Water in a house is not one thing. But it will be brown in nine days and everybody will have watched you do it.
+  @SAY Understand you won't know what else that line was doing. Water in a house isn't one thing. But it'll be brown in nine days and everybody will have watched you do it.
   @OPT "Cut it."                            [gate: none]  -> END  @DO set_stage 32
   @OPT (take the cutters and go)            [gate: none]  SILENCE -> END  @DO set_stage 32
   @OPT "No. The gate first."                [gate: none]  -> door

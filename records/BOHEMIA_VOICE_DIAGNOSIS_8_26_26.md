@@ -22,12 +22,12 @@ words book as it stood in commit `41f2d679b`, read out of git.
 
 | tell | AS FOUND (8/26) | NOW |
 | --- | --- | --- |
-| quest scenes contract | **2.2%** | 20.1% |
+| quest scenes contract | **2.2%** | 89.3% |
 | everything else contracts | 75.0% | 75.0% |
-| speeches ending on a lesson | **33.5%** | 30.2% |
+| speeches ending on a lesson | **34.0%** | 32.1% |
 | questions asked of the player | **2** | 8 |
 | stumbles, repeated words | **12** | 15 |
-| flattest scene, spread over mean | **0.49** | 0.54 |
+| flattest scene, spread over mean | **0.49** | 0.58 |
 
 ONE SCENE of 27 has had a pass. Every NOW column below still describes a build
 that is 26 scenes short, and it is meant to: the numbers only move by writing.
@@ -39,7 +39,7 @@ that is 26 scenes short, and it is meant to: the numbers only move by writing.
 AS FOUND: the 27 quest scenes contracted **2.2%** of the time (20 contractions
 against 880 phrases spelled out in full). Everything outside the quests -- the
 barks, the quirks, the two-person exchanges -- contracted **75.0%** of the time.
-One voice pass later it reads 20.1% and 75.0%; twenty-six scenes to go.
+One voice pass later it reads 89.3% and 75.0%; twenty-six scenes to go.
 
 That is not a style. That is two different games in one build. The street sounds
 like people and the story sounds like scripture, and the seam is audible the
@@ -59,10 +59,10 @@ whose."* *"That is worth more out here than you will understand for a few years.
 
 ## TELL 2 -- A THIRD OF EVERY SPEECH ENDS ON A LESSON
 
-AS FOUND: **140 of 418** multi-sentence NPC speeches (**33.5%**) ended on a short
+AS FOUND: **142 of 418** multi-sentence NPC speeches (**34.0%**) ended on a short
 general truth. Not a fact about this street, this night, this person: a truth
 about how the world works, delivered last, where a punchline goes.
-One voice pass later: 30.2%.
+One voice pass later: 32.1%.
 
 Every single person in this game is wise. The lineman is wise. The busker is
 wise. The forger is wise. Wisdom is the house voice, and a house voice is the
@@ -78,18 +78,18 @@ Twenty of ours, verbatim, all of them final sentences:
 - **quartermaster:** *"That is the only reason anything is ever double out here."*
 - **dying:** *"There is one thing left and I cannot walk it there myself."*
 - **lieutenant:** *"That kind of owing is worth more than medicine."*
-- **organizer:** *"Every name, out loud, so nobody is on a page they never agreed to."*
-- **medic:** *"It sounds like mercy and it is the worst thing in this room."*
-- **tenant:** *"Do not come and help us carry anything, I could not stand it."*
-- **owner:** *"There it is, and you got there faster than most."*
-- **grower:** *"It has never once asked me for anything."*
-- **hand:** *"I saw what is under his collar and so did one other person."*
-- **pastor:** *"That is the oldest medicine there is and I have watched it work."*
-- **forger:** *"They are very calm people and they are very consistent."*
-- **keeper:** *"Then you can tell me what it is before you open it."*
-- **pumpman:** *"That is the part I keep chewing."*
-- **neighbour:** *"That is a bell you cannot un-ring on a corner lot."*
-- **pumper:** *"Is that what you are about to tell me."*
+- **organizer:** *"Nobody will ever thank you for it, because nobody can be told."*
+- **medic:** *"I have run the numbers four times hoping they were three people ago."*
+- **tenant:** *"Do not dress it."*
+- **sergeant:** *"Do not do it because it will look good."*
+- **grower:** *"Forever, and forever is a long word to sign."*
+- **grower:** *"Those are the only two that leave anything standing in ten years."*
+- **midwife:** *"Ask him properly, he is not a stone."*
+- **forger:** *"And they will keep taking tokens tomorrow, because now there is a wall."*
+- **keeper:** *"It is on, it is wet, and the room is ninety-one."*
+- **pumpman:** *"Second one is done around a thousand."*
+- **owner:** *"You are the first one to use the gate."*
+- **pumper:** *"What is that face."*
 
 ## TELL 3 -- NOBODY ASKS THE PLAYER ANYTHING, AND NOBODY EVER STUMBLES
 
@@ -111,6 +111,14 @@ AS FOUND, across **504** NPC speeches in the quests:
 > and the direction of the tell is unchanged, but the number was wrong and it
 > was wrong in the flattering direction. WHEN A METRIC AGREES WITH YOU TOO
 > HARD, SUSPECT THE METRIC.
+>
+> **AND IT HAPPENED AGAIN, TWICE.** The maxim detector asked for the word
+> "is", so the moment the contraction pass turned "That is the whole point"
+> into "That's the whole point" the sermon count fell from 33.5% to 18.1%
+> WITHOUT A SINGLE SERMON BEING CUT. And the gate had `if (!ok(...)) return;`,
+> which silently skipped fifteen of its own checks. Three rulers, all broken
+> in the flattering direction, all found by disbelieving a number that moved
+> when nothing had been done to move it.
 
 2 questions in 504 speeches. Our NPCs do not have conversations, they deliver
 statements and wait for the player to pick a reply off a menu. That is a vending
@@ -123,29 +131,29 @@ Across 1062 spoken and player lines in the quests, the openers stack up:
 
 | first two words | times |
 | --- | --- |
-| "i will..." | 22 |
-| "it is..." | 16 |
-| "that is..." | 15 |
-| "you are..." | 13 |
-| "then i..." | 13 |
-| "i have..." | 12 |
-| "then it..." | 12 |
 | "say nothing..." | 11 |
 | "take the..." | 11 |
-| "i am..." | 11 |
+| "then it's..." | 9 |
+| "i don't..." | 8 |
+| "do it..." | 8 |
+| "there's a..." | 8 |
+| "i have..." | 8 |
+| "i know..." | 8 |
+| "say it..." | 8 |
+| "show me..." | 7 |
 
 And counting every sentence, not just every line, these words start it:
 
 | sentence begins | times |
 | --- | --- |
-| "i..." | 199 |
-| "it..." | 93 |
-| "that..." | 78 |
-| "you..." | 76 |
+| "i..." | 110 |
 | "the..." | 76 |
+| "that's..." | 72 |
 | "then..." | 62 |
+| "you..." | 52 |
 | "no..." | 50 |
-| "and..." | 33 |
+| "it..." | 49 |
+| "it's..." | 48 |
 
 ## TELL 5 -- THE SAME FOUR WORDS, IN DIFFERENT MOUTHS
 
@@ -154,19 +162,8 @@ midwife and a lineman are all using the same construction:
 
 | phrase | times |
 | --- | --- |
-| "i am not going" | 7 |
-| "am not going to" | 7 |
-| "that is the whole" | 6 |
-| "and it is the" | 6 |
-| "that is the part" | 6 |
-| "do not tell me" | 5 |
-| "you are going to" | 5 |
-| "i am going to" | 5 |
-| "it is not a" | 4 |
-| "that is the only" | 4 |
-| "that is not a" | 4 |
+| "i'm not going to" | 8 |
 | "i want you to" | 4 |
-| "i have been doing" | 4 |
 | "and i have never" | 4 |
 
 ## TELL 6 -- THE SCENES HE MEETS FIRST ARE THE FLATTEST ONES WE WROTE

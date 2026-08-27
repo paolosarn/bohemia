@@ -79,9 +79,15 @@ PREFACE = re.compile(
     r"|it[’']?s just|the thing is|honestly|sorry|i wish|i would|thank|alright"
     r"|right|fine|easy|good)\b", re.I)
 
+# CONTRACTIONS HIDE THE COPULA FROM A NAIVE WORD LIST. This asked for \bis\b,
+# so the moment the contraction pass turned "That is the whole point" into
+# "That's the whole point" the maxim count fell from 33.5% to 18.1% WITHOUT A
+# SINGLE MAXIM BEING CUT. Third ruler this session to flatter the work it was
+# measuring. The contracted forms are named here explicitly.
 GENERAL = re.compile(
-    r"\b(is|are|does|do|never|always|no one|nobody|everybody|everyone|people"
-    r"|a man|a person|the only|out here|anymore|any more)\b", re.I)
+    r"(\b(is|are|does|do|never|always|no one|nobody|everybody|everyone|people"
+    r"|a man|a person|the only|out here|anymore|any more)\b"
+    r"|[a-z](?:'s|’s|'re|’re)\b)", re.I)
 
 
 def sentences(t):
@@ -454,6 +460,14 @@ def write_report(m, book, base=None):
     w('> and the direction of the tell is unchanged, but the number was wrong and it')
     w('> was wrong in the flattering direction. WHEN A METRIC AGREES WITH YOU TOO')
     w('> HARD, SUSPECT THE METRIC.')
+    w('>')
+    w('> **AND IT HAPPENED AGAIN, TWICE.** The maxim detector asked for the word')
+    w('> "is", so the moment the contraction pass turned "That is the whole point"')
+    w('> into "That\'s the whole point" the sermon count fell from 33.5% to 18.1%')
+    w('> WITHOUT A SINGLE SERMON BEING CUT. And the gate had `if (!ok(...)) return;`,')
+    w('> which silently skipped fifteen of its own checks. Three rulers, all broken')
+    w('> in the flattering direction, all found by disbelieving a number that moved')
+    w('> when nothing had been done to move it.')
     w('')
     w('%d questions in %d speeches. Our NPCs do not have conversations, they deliver'
       % (bn['question_marks'], bn['lines']))

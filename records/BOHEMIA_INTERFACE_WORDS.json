@@ -75,7 +75,7 @@
   },
   {
    "id": "ui#front-splash#2",
-   "text": "DEMO - BUILD 8/27s - THE SCREEN TALKS LIKE PEOPLE TOO",
+   "text": "DEMO - BUILD 8/27u - EVERY SCENE TALKS LIKE PEOPLE",
    "where": "front-splash",
    "screen": "front-splash",
    "draft": true
@@ -173,7 +173,7 @@
   },
   {
    "id": "ui#first-morning#16",
-   "text": "🎵 CAMPFIRE CONFESSION",
+   "text": "🎵 THE ORGAN IN THE DROWNED CHAPEL",
    "where": "first-morning",
    "screen": "first-morning",
    "draft": true

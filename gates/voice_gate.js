@@ -358,6 +358,42 @@ ok('NO DEVELOPER LANGUAGE reaches a player'
 ok('MUTATION: the dev-language sweep fires on a planted leak',
   DEV_WORDS.some(([, re]) => re.test('saved to backend: null')));
 
+/* ---- 4e. CONTRACTION-PASSED IS NOT VOICE-PASSED -------------------------- */
+/* The 22 scenes the demo does not play took a MECHANICAL pass on 8/27
+   (tools/bohemia_contraction_pass.py): 819 contractions, no craft. That fixes
+   the loudest tell and NOT the other seven, and the two words are held apart
+   here on purpose, because "we passed 27 scenes" would be the most flattering
+   sentence in this repo and it would be false.
+   THE PROOF IS IN THE NUMBERS: quest contractions went 2.2% -> 89.3% while
+   maxim endings went 34.0% -> 32.1%. A pass that cut sermons would have moved
+   the second number. This one could not and did not. */
+const met2 = fs.existsSync('records/BOHEMIA_VOICE_METRICS.json')
+  ? JSON.parse(fs.readFileSync('records/BOHEMIA_VOICE_METRICS.json', 'utf8')) : {};
+ok('CORPUS: the quest scenes talk like people now (' +
+  (met2.contractions ? met2.contractions.quest_rate : 0) + '%, floor 70)',
+  !!met2.contractions && met2.contractions.quest_rate >= 70);
+ok('and the AS-FOUND rate is still on record as 2.2%',
+  !!met2.baseline && Math.abs(met2.baseline.contractions.quest_rate - 2.2) < 0.05);
+/* the honest half: the sermons did NOT go away, and the gate says so out loud */
+const maxNow = met2.maxims ? met2.maxims.pct : 0;
+const maxWas = met2.baseline && met2.baseline.maxims ? met2.baseline.maxims.pct : 0;
+ok('THE SERMONS ARE STILL THERE and nothing here pretends otherwise (' +
+  maxNow + '% of speeches end on one, was ' + maxWas + '%)', maxNow > 10);
+console.log('    (a mechanical pass cannot cut a maxim. 22 scenes are CONTRACTION-passed;');
+console.log('     only the 5 the demo plays are VOICE-passed, by hand, line by line.)');
+/* and the tool must keep its hands off the hand-written five */
+const cpTool = fs.existsSync('tools/bohemia_contraction_pass.py')
+  ? fs.readFileSync('tools/bohemia_contraction_pass.py', 'utf8') : '';
+ok('the mechanical pass refuses to touch the five hand-written scenes',
+  DEMO.every(d => {
+    const stem = { 1: 'S01_THE_METER_READER', 2: 'S09_THE_BACK_DOOR',
+                   3: 'S02_THE_SAME_CRATE_TWICE', 4: 'S22_THE_COLD_ROOM',
+                   5: 'S25_THE_PRESSURE_GOES_BACKWARD' }[d.day];
+    return cpTool.indexOf(stem) >= 0;
+  }));
+ok('and it knows a contracted auxiliary may not end a clause ("I can\'t promise I will")',
+  /STRANDED/.test(cpTool) && cpTool.indexOf('stranded') >= 0);
+
 /* ---- 5. CORPUS-WIDE, RATCHETING ------------------------------------------ */
 /* 5 of 27 scenes have had a voice pass -- the five the demo actually plays.
    The other 22 have not, and this gate does not pretend they have. What the gate holds is that nobody makes it WORSE while they wait:

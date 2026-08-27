@@ -40,7 +40,7 @@
   @LOG Something is snarling in a stairwell on the north side and nobody will go past the second floor.
   @DO show_objective 10
 @STAGE 20
-  @LOG It is a working dog. Its handler is dead on the landing and it has not left him.
+  @LOG It's a working dog. Its handler is dead on the landing and it has not left him.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
@@ -70,23 +70,23 @@
 # =====================================================================
 @TALK stairwell  speaker=scav  entry=stage>=10,stage<20
   @SAY Second floor and up is spoken for. Something big is holding the landing and it has not eaten in a while. #wary
-  @SAY It does not chase. It does not bark much. It holds. That is worse, because a thing that holds has a reason.
-  @OPT "I will go up."                    [gate: none]  -> landing
+  @SAY It doesn't chase. It doesn't bark much. It holds. That's worse, because a thing that holds has a reason.
+  @OPT "I'll go up."                    [gate: none]  -> landing
   @OPT "Holding what?"                     [gate: none]  -> holding
-  @OPT "Leave it. It will sort itself."    [gate: none]  -> END  @DO set_stage 33
+  @OPT "Leave it. It'll sort itself."    [gate: none]  -> END  @DO set_stage 33
   @OPT (start up the stairs)               [gate: none]  SILENCE -> landing
   @NOVERB "Ask him to go up first"
 @END
 
 @TALK holding  speaker=scav
-  @SAY There is a man up there who stopped moving four days ago, and there is a dog up there who has not accepted that. #dread
-  @SAY I got close enough once to see the collar and the kit. Then it stood up, and I decided I had seen plenty.
-  @OPT "I am going up."                   [gate: none]  -> landing
+  @SAY There's a man up there who stopped moving four days ago, and there's a dog up there who has not accepted that. #dread
+  @SAY I got close enough once to see the collar and the kit. Then it stood up, and I decided I'd seen plenty.
+  @OPT "I'm going up."                   [gate: none]  -> landing
   @OPT (go up without answering)           [gate: none]  SILENCE -> landing
 @END
 
 @TALK landing  speaker=scav
-  @SAY Slow, then. Do not look it in the face and do not put your hand out yet. It is not angry. It is on duty. #wary
+  @SAY Slow, then. Don't look it in the face and don't put your hand out yet. It isn't angry. It's on duty. #wary
   @DO set_stage 20
 @END
 
@@ -97,10 +97,10 @@
 # =====================================================================
 @TALK bottom  speaker=sergeant  entry=stage>=20
   @SAY I know whose dog that is. I knew before you told me, because I know who has not checked in. #flat
-  @SAY So there are three ways this goes and I have done all three. I can bring the crew and do it properly, poles and a blanket, and the whole street watches us be competent.
+  @SAY So there are three ways this goes and I've done all three. I can bring the crew and do it properly, poles and a blanket, and the whole street watches us be competent.
   @SAY Or somebody with more patience than sense sits on that step and waits it out, which takes hours and works better than anything I own.
   @SAY Or you make a parade of it, and every person in this valley learns one of mine died alone in a stairwell and lay there four days. Pick.
-  @OPT "I will sit with it."               [gate: none]  -> sit
+  @OPT "I'll sit with it."               [gate: none]  -> sit
   @OPT "Bring the crew. Do it properly."    [gate: none]  -> crew
   @OPT "The block should see this."         [gate: none]  -> parade
   @OPT "How long was he up there alone?"    [gate: none]  TRAP -> alone
@@ -111,29 +111,29 @@
 # once it is said out loud in a stairwell it cannot be unsaid.
 @TALK alone  speaker=sergeant
   @SAY Four days. He was two streets from a post with eleven people in it and nobody walked two streets. #dread
-  @SAY Ask me that again in front of my crew and you will find out what we are actually like. Ask me here and I will tell you it keeps me up.
-  @OPT "Then I will sit with it."          [gate: none]  -> sit    @DO learn nobody_walked_two_streets
+  @SAY Ask me that again in front of my crew and you'll find out what we're actually like. Ask me here and I'll tell you it keeps me up.
+  @OPT "Then I'll sit with it."          [gate: none]  -> sit    @DO learn nobody_walked_two_streets
   @OPT "Then the block should see it."      [gate: none]  -> parade @DO learn nobody_walked_two_streets
 @END
 
 @TALK sit  speaker=sergeant
-  @SAY Two hours. Maybe three. No talking, no reaching, and do not take the kit, the kit is what it is guarding. #flat
-  @SAY When it finally eats out of your hand it will lie down, and that is the part that will get you, not the smell and not the stairs.
+  @SAY Two hours. Maybe three. No talking, no reaching, and don't take the kit, the kit is what it's guarding. #flat
+  @SAY When it finally eats out of your hand it'll lie down, and that's the part that'll get you, not the smell and not the stairs.
   @OPT "I have the time."                  [gate: none]  -> END  @DO set_stage 30
   @OPT (sit down on the step and wait)      [gate: none]  SILENCE -> END  @DO set_stage 30
   @OPT "No. Bring the crew instead."        [gate: none]  -> crew
 @END
 
 @TALK crew  speaker=sergeant
-  @SAY Poles, blanket, two men, ten minutes. It is clean, it is public, and it is the correct way to do a thing you do not want to feel. #flat
-  @SAY The dog goes to the kennel, gets fed twice a day, and works for somebody else inside a month. That is a good outcome. I want you to notice that I said good and not kind.
+  @SAY Poles, blanket, two men, ten minutes. It's clean, it's public, and it's the correct way to do a thing you don't want to feel. #flat
+  @SAY The dog goes to the kennel, gets fed twice a day, and works for somebody else inside a month. That's a good outcome. I want you to notice that I said good and not kind.
   @OPT "Do it by the book."                [gate: none]  -> END  @DO set_stage 31
 @END
 
 @TALK parade  speaker=sergeant
   @SAY Through the middle of the block. In the light. With his dog walking behind him. #dread
-  @SAY Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Do not do it because it will look good.
+  @SAY Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Don't do it because it'll look good.
   @OPT "It needs doing."                   [gate: none]  -> END  @DO set_stage 32
   @OPT (lift him and start walking)         [gate: none]  SILENCE -> END  @DO set_stage 32
-  @OPT "No. Quietly. I will sit with it."   [gate: none]  -> sit
+  @OPT "No. Quietly. I'll sit with it."   [gate: none]  -> sit
 @END

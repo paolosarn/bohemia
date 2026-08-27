@@ -66,7 +66,7 @@
   @DO bond steward -25
   @DO complete_objective 20
 @STAGE 34 FAIL #quiet
-  @LOG Nothing agreed. The crew broke up over it inside a month and the lights are run by two frightened kids who will not ask for anything.
+  @LOG Nothing agreed. The crew broke up over it inside a month and the lights are run by two frightened kids who won't ask for anything.
   @DO faction TRADES -8
 
 @OBJ 10  "Hear the crew out"          target=steward
@@ -79,7 +79,7 @@
 @TALK crew  speaker=steward  entry=stage>=10,stage<20
   @SAY Five weeks. Everybody keeps saying the money is coming and the lights keep coming on anyway, which is the whole problem. #tired
   @SAY We have one thing. At nine, the marquee goes on, and the corner fills, and everybody on this side of the street eats off that crowd. Including us.
-  @SAY So if we pull it, we starve first and he starves second. That is our great weapon. You see why I need somebody else in the room.
+  @SAY So if we pull it, we starve first and he starves second. That's our great weapon. You see why I need somebody else in the room.
   @OPT "Then what do you actually want?"   [gate: none]  -> want
   @OPT "Why has nobody else asked him?"     [gate: none]  TRAP -> nobody
   @OPT "Pull it and see what he does."      [gate: none]  -> want
@@ -89,15 +89,15 @@
 @END
 
 @TALK want  speaker=steward
-  @SAY Weekly, not whenever. That is it. That is the entire demand and it took us five weeks to agree on it. #tired
-  @SAY How you get there is yours. Quiet is fine. Loud is fine. Just do not come back with a promise, we have a drawer full of those.
+  @SAY Weekly, not whenever. That's it. That's the entire demand and it took us five weeks to agree on it. #tired
+  @SAY How you get there's yours. Quiet is fine. Loud is fine. Just don't come back with a promise, we have a drawer full of those.
   @DO set_stage 20
 @END
 
 # THE TRAP: the answer names the two electricians who tried before you, and
 # hearing it is the moment this stops being about money.
 @TALK nobody  speaker=steward
-  @SAY Two did. One took a private number and moved off the corner and does not drink with us anymore. #dread
+  @SAY Two did. One took a private number and moved off the corner and doesn't drink with us anymore. #dread
   @SAY The other one asked in front of people. He still works. He works nights, alone, up the ladder, on the far side where nobody would see a fall.
   @OPT "Understood. What do you want?"     [gate: none]  -> want  @DO learn two_asked_before
   @OPT (say nothing and let it land)        [gate: none]  SILENCE -> want  @DO learn two_asked_before
@@ -108,33 +108,33 @@
 # about who gets to be seen deciding. That is the real negotiation.
 # =====================================================================
 @TALK backroom  speaker=owner  entry=stage>=20
-  @SAY The crew sent a stranger. That is smart, actually. A stranger can say a number without it being an insult. #flat
-  @SAY Here is my position and it is not the one you rehearsed. I do not care about the money. I have the money. I care that the corner never once goes dark, because the day it goes dark is the day somebody finds out it can.
-  @SAY So. Say your number, and tell me who is allowed to see me agree to it.
+  @SAY The crew sent a stranger. That's smart, actually. A stranger can say a number without it being an insult. #flat
+  @SAY Here is my position and it isn't the one you rehearsed. I don't care about the money. I have the money. I care that the corner never once goes dark, because the day it goes dark is the day somebody finds out it can.
+  @SAY So. Say your number, and tell me who's allowed to see me agree to it.
   @OPT "Weekly. Quietly. Just us."          [gate: none]  -> quietdeal
   @OPT "Weekly. Painted on the wall."        [gate: none]  -> wall
   @OPT "Weekly, or it goes dark at nine."    [gate: none]  -> threat
-  @OPT "What is it worth to keep them off the switch?"  [gate: none]  TRAP -> bribe
+  @OPT "What's it worth to keep them off the switch?"  [gate: none]  TRAP -> bribe
   @NOVERB "Tell him which crew members can be bought"
 @END
 
 @TALK quietdeal  speaker=owner
-  @SAY Weekly, in an envelope, from a man who does not talk. Done, and it was done before you sat down. #flat
-  @SAY Nobody sees me pay and nobody sees them win, and in twelve years that is the only kind of agreement that has never broken on me.
-  @OPT "Then it is done."                   [gate: none]  -> END  @DO set_stage 30
+  @SAY Weekly, in an envelope, from a man who doesn't talk. Done, and it was done before you sat down. #flat
+  @SAY Nobody sees me pay and nobody sees them win, and in twelve years that's the only kind of agreement that has never broken on me.
+  @OPT "Then it's done."                   [gate: none]  -> END  @DO set_stage 30
   @OPT (shake his hand and leave)            [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 @TALK wall  speaker=owner
   @SAY On the wall. In paint. Where every crew in this valley walks past it on the way to work. #dread
-  @SAY You understand that the number is cheap and the paint is expensive. Fine. I would rather be the man who posted a rate than the man whose corner went dark. Barely.
+  @SAY You understand that the number is cheap and the paint is expensive. Fine. I'd rather be the man who posted a rate than the man whose corner went dark. Barely.
   @OPT "Paint it."                          [gate: none]  -> END  @DO set_stage 31
   @OPT "No. Keep it between us."             [gate: none]  -> quietdeal
 @END
 
 @TALK threat  speaker=owner
   @SAY Then it goes dark, and four blocks go dark behind it, and everybody sees whose hand was on it. #dread
-  @SAY I will not forget that and neither will anyone standing in the street at nine. Say it again and mean it, or take the envelope.
+  @SAY I won't forget that and neither will anyone standing in the street at nine. Say it again and mean it, or take the envelope.
   @OPT "Nine o'clock. Watch."               [gate: none]  -> END  @DO set_stage 32
   @OPT (walk out and go to the switch)       [gate: none]  SILENCE -> END  @DO set_stage 32
   @OPT "Weekly, quietly. Nobody goes dark."   [gate: none]  -> quietdeal
@@ -142,8 +142,8 @@
 
 @TALK bribe  speaker=owner
   @SAY Ah. There it is, and you got there faster than most. #flat
-  @SAY Enough that you would not have to work a ladder again. The crew finds out eventually, they always do, and you keep living on their street with their money in your pocket.
-  @OPT "I will take it."                    [gate: none]  -> END  @DO set_stage 33
+  @SAY Enough that you wouldn't have to work a ladder again. The crew finds out eventually, they always do, and you keep living on their street with their money in your pocket.
+  @OPT "I'll take it."                    [gate: none]  -> END  @DO set_stage 33
   @OPT "No. Weekly, for all of them."        [gate: none]  -> quietdeal
   @OPT (leave without answering)              [gate: none]  SILENCE -> quietdeal
 @END

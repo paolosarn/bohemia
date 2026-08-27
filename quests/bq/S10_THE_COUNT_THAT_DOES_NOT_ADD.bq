@@ -48,7 +48,7 @@
   @DO bond organizer +12
   @DO complete_objective 20
 @STAGE 31 COMPLETE #risky
-  @LOG Handed up a short number. The ones who cannot be on any list stayed off it, and everyone eats a little less for that.
+  @LOG Handed up a short number. The ones who can't be on any list stayed off it, and everyone eats a little less for that.
   @DO faction VOLUNTEERS +3
   @DO set_flag shaved_the_count
   @DO complete_objective 20
@@ -69,8 +69,8 @@
 # that finds you. She says it herself before you can catch her at it.
 # =====================================================================
 @TALK count  speaker=canvasser  entry=stage>=10,stage<20
-  @SAY Head count. Not names if you would rather not give names. Just how many sleep on this block. #flat
-  @SAY The food line allocates by count. No count, no crates. That is not a threat, that is arithmetic.
+  @SAY Head count. Not names if you'd rather not give names. Just how many sleep on this block. #flat
+  @SAY The food line allocates by count. No count, no crates. That isn't a threat, that's arithmetic.
   @SAY So. How many.
   @OPT "How many, or how many I admit to?"  [gate: none]  -> why
   @OPT "Who reads it after you?"            [gate: none]  TRAP -> whoreads
@@ -80,16 +80,16 @@
 @END
 
 @TALK why  speaker=canvasser
-  @SAY Both, usually. I have been doing this eleven months and the second number is always the honest one. #flat
+  @SAY Both, usually. I've been doing this eleven months and the second number is always the honest one. #flat
   @SAY I write a number. The number becomes crates. Crates become a week where nobody here halves a meal.
-  @SAY The number also becomes a page in a room I have never stood in. Both things are true. I am not going to lie about the second one to sell you the first.
+  @SAY The number also becomes a page in a room I have never stood in. Both things are true. I'm not going to lie about the second one to sell you the first.
   @DO set_stage 20
 @END
 
 # THE TRAP: asking where it goes is exactly how a block gets a mark next to it.
 @TALK whoreads  speaker=canvasser
-  @SAY There it is. That question puts a mark beside a block, and I cannot unhear it. #wary
-  @SAY I hand it up. Up is a stairwell with no landings I have ever seen. I stopped asking what is at the top, because asking is how you stop being the one who counts.
+  @SAY There it is. That question puts a mark beside a block, and I can't unhear it. #wary
+  @SAY I hand it up. Up is a stairwell with no landings I have ever seen. I stopped asking what's at the top, because asking is how you stop being the one who counts.
   @OPT "Then I decide what you get."     [gate: none]  -> END  @DO learn count_goes_up  @DO set_stage 20
   @OPT (nod, and let it sit)             [gate: none]  SILENCE -> END  @DO learn count_goes_up  @DO set_stage 20
 @END
@@ -99,39 +99,39 @@
 # Every option feeds someone and exposes someone. No option is clean.
 # =====================================================================
 @TALK line  speaker=organizer  entry=stage>=20
-  @SAY They already came to you. It is on your face. #tired
-  @SAY Here is what the line knows. The crates are real, I have carried them. And twice now a block that gave a full honest count had two polite people knocking a month later, asking after names that were on it.
-  @SAY True number feeds everybody and lists everybody. Short number feeds most and hides the few who cannot survive a page. Loud feeds nobody and makes a point. Say it and I will back it.
+  @SAY They already came to you. It's on your face. #tired
+  @SAY Here is what the line knows. The crates are real, I've carried them. And twice now a block that gave a full honest count had two polite people knocking a month later, asking after names that were on it.
+  @SAY True number feeds everybody and lists everybody. Short number feeds most and hides the few who can't survive a page. Loud feeds nobody and makes a point. Say it and I'll back it.
   @OPT "True count. All of us."                 [gate: none]  -> true_end
-  @OPT "Short. Leave off the ones who cannot be listed."  [gate: none]  -> shave
+  @OPT "Short. Leave off the ones who can't be listed."  [gate: none]  -> shave
   @OPT "I read the list on the street first."   [gate: none]  -> public
   @OPT "Nobody gets counted. Not for food, not for anything."  [gate: none]  -> refuse
   @NOVERB "Ask her which neighbors are the ones who cannot be listed"
 @END
 
 @TALK true_end  speaker=organizer
-  @SAY Honest, then. It is the answer that feeds the most people and I still do not feel good handing it up. #tired
-  @SAY If the knock comes, it comes to my door too. That is the only part of this I am sure is fair.
+  @SAY Honest, then. It's the answer that feeds the most people and I still don't feel good handing it up. #tired
+  @SAY If the knock comes, it comes to my door too. That's the only part of this I'm sure is fair.
   @OPT "Send the true number."          [gate: none]  -> END  @DO set_stage 30
   @OPT (nod once and let her write it)  [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
 
 @TALK shave  speaker=organizer
-  @SAY Short it is. Four fewer crates, and four people who do not exist on paper get to keep not existing. #tired
+  @SAY Short it is. Four fewer crates, and four people who don't exist on paper get to keep not existing. #tired
   @SAY Everybody on this block eats a little less so that a few of them can stay invisible. Nobody will ever thank you for it, because nobody can be told.
-  @OPT "Short number. That is the trade."  [gate: none]  -> END  @DO set_stage 31
+  @OPT "Short number. That's the trade."  [gate: none]  -> END  @DO set_stage 31
 @END
 
 @TALK public  speaker=organizer
   @SAY In the open. Every name, out loud, so nobody is on a page they never agreed to. #dread
-  @SAY They will hear about that upstairs before the sun goes down, and they will hear it as a block that reads their mail. But not one person here gets listed in the dark.
+  @SAY They'll hear about that upstairs before the sun goes down, and they'll hear it as a block that reads their mail. But not one person here gets listed in the dark.
   @OPT "Read it out. All of it."       [gate: none]  -> END  @DO set_stage 32
   @OPT "Wait. Send the true number quietly instead."  [gate: none]  -> true_end
 @END
 
 @TALK refuse  speaker=organizer
-  @SAY Then we are a blank space on their page and an empty shelf on mine. #tired
-  @SAY I have watched two blocks do that. Both of them were very proud for about nine days.
-  @OPT "Blank space. That is final."        [gate: none]  -> END  @DO set_stage 33
+  @SAY Then we're a blank space on their page and an empty shelf on mine. #tired
+  @SAY I've watched two blocks do that. Both of them were very proud for about nine days.
+  @OPT "Blank space. That's final."        [gate: none]  -> END  @DO set_stage 33
   @OPT "No. Give them the true number."     [gate: none]  -> true_end
 @END

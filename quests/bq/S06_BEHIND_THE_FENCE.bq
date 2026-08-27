@@ -37,7 +37,7 @@
   @LOG The wall between the two backyards is coming down today. Two grieving houses becoming one.
   @DO show_objective 10
 @STAGE 20
-  @LOG The wall is down. He says there is something he could not tell me until it was.
+  @LOG The wall is down. He says there's something he couldn't tell me until it was.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
@@ -47,20 +47,20 @@
   @DO learn marco_has_a_daughter
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
-  @LOG Told the compound there is a child here now. More eyes, more followers, and the one thing he protected is no longer his secret. He thanked me and did not mean it.
+  @LOG Told the compound there's a child here now. More eyes, more followers, and the one thing he protected is no longer his secret. He thanked me and didn't mean it.
   @DO bond neighbor -15
   @DO learn marco_has_a_daughter
   @DO complete_objective 20
 @STAGE 32 FAIL #quiet
-  @LOG Took the reveal badly, and he saw my face do it. He took it back. There is no daughter, he said. The wall might as well have stayed up.
+  @LOG Took the reveal badly, and he saw my face do it. He took it back. There's no daughter, he said. The wall might as well have stayed up.
   @DO bond neighbor -10
 
 @OBJ 10  "Bring down the wall with the neighbor"   target=neighbor
 @OBJ 20  "Hear what he could not say before"        target=daughter
 
 @TALK wall  speaker=neighbor  entry=stage>=10
-  @SAY Last brick. Look at that. Two yards, one yard. I did not think I would live long enough to knock this down. #hope
-  @SAY There is a thing I have to tell you, and I could not tell you until this wall was on the ground. You will understand why in about ten seconds.
+  @SAY Last brick. Look at that. Two yards, one yard. I didn't think I'd live long enough to knock this down. #hope
+  @SAY There's a thing I have to tell you, and I couldn't tell you until this wall was on the ground. You'll understand why in about ten seconds.
   @OPT "Take your time."           [gate: none]  SILENCE -> reveal
   @OPT "Tell me."                  [gate: none]  -> reveal
   @NOVERB "Ask what he has been hiding"
@@ -68,35 +68,35 @@
 
 @TALK reveal  speaker=neighbor
   @SAY I have a daughter. #dread
-  @SAY She has been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You do not tell people you have a child out here. Not until the wall is down and you are sure.
-  @SAY Every time I came to your fence, every time I checked on you, I was measuring whether you were someone I could let her exist in front of. Today I decided you are. Do not make me wrong about that.
+  @SAY She's been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You don't tell people you have a child out here. Not until the wall is down and you're sure.
+  @SAY Every time I came to your fence, every time I checked on you, I was measuring whether you were someone I could let her exist in front of. Today I decided you are. Don't make me wrong about that.
   @DO set_stage 20
   @OPT (say nothing, and let it be as big as it is)      [gate: none]  SILENCE -> grace
-  @OPT "You have been protecting her this whole time."    [gate: none]  -> grace
-  @OPT "There is a kid here now. People should know."      [gate: none]  -> loud
+  @OPT "You've been protecting her this whole time."    [gate: none]  -> grace
+  @OPT "There's a kid here now. People should know."      [gate: none]  -> loud
   @OPT (step back, thrown by it)                          [gate: none]  -> recoil
   @NOVERB "Promise nothing will ever happen to her"
 @END
 
 @TALK grace  speaker=daughter
-  @SAY (a door opens behind him. she is small, and she does not come all the way out. she looks at you the way you look at weather you are not sure of yet.)
-  @SAY (her father does not say a word. he just watches the two of you deciding not to be afraid of each other, and something in his shoulders finally comes down, like a second wall.)
+  @SAY (a door opens behind him. she's small, and she doesn't come all the way out. she looks at you the way you look at weather you aren't sure of yet.)
+  @SAY (her father doesn't say a word. he just watches the two of you deciding not to be afraid of each other, and something in his shoulders finally comes down, like a second wall.)
   @OPT (nod to her, and let her decide the rest)   [gate: none]  SILENCE -> END  @DO set_stage 30
-  @OPT "Hey. I am just a neighbor. That is all."    [gate: none]  -> END  @DO set_stage 30
+  @OPT "Hey. I'm just a neighbor. That's all."    [gate: none]  -> END  @DO set_stage 30
   @NOVERB "Promise nothing will ever happen to her"
 @END
 
 @TALK loud  speaker=neighbor
-  @SAY No. No, you do not get to do that. #dread
-  @SAY I told you. One person. I did not tell the block, I did not put it on the feed, I told the one person who earned the wall coming down. And you want to hand her to a crowd.
-  @SAY It is done, they are looking now. Thank you for the wall. Go home. I need to go talk to my daughter.
-  @OPT "I did not think."          [gate: none]  -> END  @DO set_stage 31
+  @SAY No. No, you don't get to do that. #dread
+  @SAY I told you. One person. I didn't tell the block, I didn't put it on the feed, I told the one person who earned the wall coming down. And you want to hand her to a crowd.
+  @SAY It's done, they're looking now. Thank you for the wall. Go home. I need to go talk to my daughter.
+  @OPT "I didn't think."          [gate: none]  -> END  @DO set_stage 31
   @OPT (leave, ashamed)            [gate: none]  SILENCE -> END  @DO set_stage 31
 @END
 
 @TALK recoil  speaker=neighbor
-  @SAY There it is. That is the face I was afraid of. #dread
-  @SAY Forget I said it. There is no daughter. Help me stack these bricks back up, actually. On second thought, just go home.
-  @OPT "Wait. I did not mean it like that."   [gate: none]  -> reveal
-  @OPT "Okay. I am sorry."                     [gate: none]  -> END  @DO set_stage 32
+  @SAY There it is. That's the face I was afraid of. #dread
+  @SAY Forget I said it. There's no daughter. Help me stack these bricks back up, actually. On second thought, just go home.
+  @OPT "Wait. I didn't mean it like that."   [gate: none]  -> reveal
+  @OPT "Okay. I'm sorry."                     [gate: none]  -> END  @DO set_stage 32
 @END
