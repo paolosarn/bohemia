@@ -332,8 +332,19 @@ const DEV_WORDS = [
   ['localStorage / IndexedDB / API', /\b(localstorage|indexeddb|\bapi\b)\b/i],
   ['null / undefined / NaN', /\b(null|undefined|NaN)\b/],
   ['a state flag as prose ("not taken")', /\bnot taken\b/i],
-  ['run vocabulary ("dropped into", "this run", "restart")',
-    /\b(dropped into|this run|next run|restart the run)\b/i],
+  /* THERE ARE NO RUNS is the FIRST LINE of CLAUDE.md and the word was on a
+     BUTTON: the end-of-first-day card said KEEP THIS RUN. One character, about
+     a hundred hours. There is nothing to keep but the valley. */
+  ['run vocabulary ("this run", "dropped into", "restart")',
+    /\b(dropped into|this run|next run|keep this run|restart the run|per run|each run)\b/i],
+  /* THE GAME MAY NOT ADDRESS ITS DEVELOPER. The rung card told a stranger that
+     "which faction claims which district is YOURS TO SET" and quoted Paolo back
+     at them. An unset dial is allowed to say it is unset; it is not allowed to
+     ask the player to go and set it. */
+  ['the game talking to Paolo instead of the player',
+    /\b(yours to set|you said "|you have not (set|named|ruled)|pending paolo|\[pending)/i],
+  ['a state flag as prose ("never taken", "not set")',
+    /\b(never taken|not set|unset|undefined state)\b/i],
   ['a stack trace or a file path', /\.(js|json|py)\b|\bfunction\s*\(/],
 ];
 const devLeaks = [];

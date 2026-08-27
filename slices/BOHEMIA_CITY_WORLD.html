@@ -34607,7 +34607,7 @@ var INSTALL_ASKED=false;
 /* WORDS, NOT A DECISION (ALWAYS MAKE AN ATTEMPT, 8/11) -- a real attempt, written
    as if it ships, draft:true so he can find and edit every word in the WORDS tab. */
 var INSTALL_WORDS={ draft:true,
-  title:'KEEP THIS RUN',
+  title:'KEEP THIS VALLEY',
   body:'Bohemia lives in your browser. Put it on your home screen and it opens '
      + 'like an app, full screen, straight back into this valley.',
   ios:'Tap \u22ef at the bottom of Safari, then Share, then Add to Home Screen.',
@@ -35747,7 +35747,7 @@ function showReckoning(){
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
         +(DQ.tags().length?' ('+esc(DQ.tags()[0])+')':'')+'</li>';
   /* __THE_PHONE_RINGS__ */
-  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';
+  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': nobody picked it up</li>';
   /* __THE_DAY_PAYS__ -- WHAT THE DAY WAS WORTH, and the refusal is not a bug.
      Amounts are CONTENTS (ALWAYS MAKE AN ATTEMPT, 8/11: "numbers, dials, rates,
      prices" still wait for him), so this never fakes one. It says who has not
@@ -45471,12 +45471,22 @@ function showStanding(){
      on the overmap carries a faction owner: who holds which ground is HIS canon, and MAP
      LAW says Claude never designs map layouts. An invented owner would be canon nobody
      ruled, shipped quietly inside a UI. */
-  h += '<div class="rpend">Nobody holds this ground yet. Which faction claims which '
-     + 'district is yours to set, so this card cannot tell you whose permission you would '
-     + 'be needing here.</div>';
+  /* THE CARD IS NOT A NOTE TO THE DEVELOPER (8/27, WORDS). This read "which
+     faction claims which district is YOURS TO SET" -- addressed to Paolo, on a
+     card a stranger opens. Which faction holds what is still his ruling and
+     still unset; the card still says nobody holds it. Only the audience
+     changed. */
+  h += '<div class="rpend">Nobody holds this ground yet. No faction has claimed '
+     + 'this district, so there is nobody here to ask.</div>';
   if(r.mayorOpen){
-    h += '<div class="rpend">The top rung has no number yet. You said "enough done, enough '
-       + 'love", which is not a share, so it stays out of reach until you name one.</div>';
+    /* THE CARD IS NOT A NOTE TO THE DEVELOPER (8/27, WORDS). This read: 'You
+       said "enough done, enough love", which is not a share, so it stays out of
+       reach until you name one.' That is addressed to PAOLO, quoting him, on a
+       card a stranger opens in the demo. MAYOR_SHARE is still null and this
+       still says the rung is unreachable -- the dial did not move and no canon
+       was invented. Only the audience changed. */
+    h += '<div class="rpend">The top rung is still out of reach. Nobody has said '
+       + 'what it takes to stand there.</div>';
   }
   /* __EVERY_PANEL_CLOSES__ -- this row USED to read "TAP / CLOSE" and was not a
      button: no data-act, so the card's own click delegate never matched it and

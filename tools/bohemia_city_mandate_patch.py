@@ -170,11 +170,11 @@ function showStanding(){
      LAW says Claude never designs map layouts. An invented owner would be canon nobody
      ruled, shipped quietly inside a UI. */
   h += '<div class="rpend">Nobody holds this ground yet. Which faction claims which '
-     + 'district is yours to set, so this card cannot tell you whose permission you would '
+     + 'district is nobody\'s yet, so there is no one here to ask. '
      + 'be needing here.</div>';
   if(r.mayorOpen){
-    h += '<div class="rpend">The top rung has no number yet. You said "enough done, enough '
-       + 'love", which is not a share, so it stays out of reach until you name one.</div>';
+    h += '<div class="rpend">The top rung is still out of reach. Nobody has said '
+       + 'what it takes to stand there.</div>';
   }
   h += '<div class="rrow"><span class="rk">TAP</span><span class="rv">CLOSE</span></div>';
   cardShow(h, cardHide);

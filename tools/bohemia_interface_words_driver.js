@@ -93,15 +93,53 @@ const READ = `(() => {
     }).catch(() => false);
     if (ph) { await p.waitForTimeout(2500); await grab('phone', cf); }
 
-    /* whatever else the topbar offers a stranger */
+    /* EVERY OTHER SCREEN A STRANGER CAN OPEN. The first cut of this driver
+       guessed at five ids and four of them did not exist, so it reported six
+       screens and called the job done -- a harvester that silently reaches
+       nothing looks exactly like a game with no words in it. The ids are read
+       OUT OF THE SURFACE now instead of guessed, and each panel is closed again
+       before the next is opened so a stack of open panels cannot hide the one
+       underneath. */
     const chips = await cf.evaluate(() => {
-      const ids = ['journalbtn', 'objbtn', 'mapbtn', 'savebtn', 'musicbtn'];
-      return ids.filter(i => document.getElementById(i));
+      const want = ['savebtn', 'outfitbtn', 'sleepbtn', 'mktbtn', 'musbtn',
+                    'bikebtn', 'fitbtn', 'keybtn', 'popbtn', 'underbtn', 'rungbtn'];
+      /* A STRANGER CAN REACH IT ONLY IF IT IS ACTUALLY ON THE SCREEN.
+         The first cut asked getComputedStyle(el).display, which reads the
+         ELEMENT and not its ancestors -- so a button sitting inside the hidden
+         builder's drawer answered "block" and got clicked. That harvested THREE
+         DEV PANELS (157 strings, more than the whole real corpus) as if a player
+         read them. offsetParent goes null the moment any ancestor is display
+         none, and a real box on a real screen is the rest of the test. */
+      return want.filter(i => {
+        const e = document.getElementById(i);
+        if (!e || !e.offsetParent) return false;
+        const r = e.getBoundingClientRect();
+        return r.width > 4 && r.height > 4
+          && r.top < innerHeight && r.bottom > 0 && r.left < innerWidth && r.right > 0;
+      });
     }).catch(() => []);
     for (const id of chips) {
-      await cf.evaluate((i) => { const e = document.getElementById(i); if (e) e.click(); }, id).catch(() => {});
-      await p.waitForTimeout(1800);
+      await cf.evaluate((i) => {
+        /* close anything already open, so each screen is read alone */
+        ['savepanel', 'outfitpanel', 'keypanel', 'buildpanel', 'phonewrap', 'tjPanel']
+          .forEach(k => { const e = document.getElementById(k); if (e) e.style.display = 'none'; });
+        const b3 = document.getElementById(i); if (b3) b3.click();
+      }, id).catch(() => {});
+      await p.waitForTimeout(2000);
       await grab(id.replace('btn', ''), cf);
+    }
+
+    /* THE CARDS. A day card, a vista card and the sleep card are the game
+       talking to you at the loudest moments it has, and none of them is behind
+       a button with an id -- they appear. Read whatever is up. */
+    for (const card of ['daycard', 'ctcard', 'vistaCard']) {
+      const up = await cf.evaluate((c) => {
+        const e = document.getElementById(c);
+        if (!e) return false;
+        const cs = getComputedStyle(e);
+        return cs.display !== 'none' && (e.textContent || '').trim().length > 2;
+      }, card).catch(() => false);
+      if (up) await grab('card-' + card.toLowerCase(), cf);
     }
   }
 

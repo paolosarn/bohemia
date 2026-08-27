@@ -86,7 +86,7 @@ var INSTALL_ASKED=false;
 /* WORDS, NOT A DECISION (ALWAYS MAKE AN ATTEMPT, 8/11) -- a real attempt, written
    as if it ships, draft:true so he can find and edit every word in the WORDS tab. */
 var INSTALL_WORDS={ draft:true,
-  title:'KEEP THIS RUN',
+  title:'KEEP THIS VALLEY',
   body:'Bohemia lives in your browser. Put it on your home screen and it opens '
      + 'like an app, full screen, straight back into this valley.',
   ios:'Tap \\u22ef at the bottom of Safari, then Share, then Add to Home Screen.',

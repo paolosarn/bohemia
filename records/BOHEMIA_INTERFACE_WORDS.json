@@ -28,10 +28,34 @@
    },
    {
     "name": "save",
-    "n": 21
+    "n": 20
+   },
+   {
+    "name": "outfit",
+    "n": 13
+   },
+   {
+    "name": "sleep",
+    "n": 22
+   },
+   {
+    "name": "mus",
+    "n": 22
+   },
+   {
+    "name": "bike",
+    "n": 22
+   },
+   {
+    "name": "rung",
+    "n": 23
+   },
+   {
+    "name": "card-daycard",
+    "n": 23
    }
   ],
-  "strings": 34,
+  "strings": 54,
   "draft": true
  },
  "lines": [
@@ -51,7 +75,7 @@
   },
   {
    "id": "ui#front-splash#2",
-   "text": "DEMO - BUILD 8/27p - THE SCREEN TALKS LIKE PEOPLE TOO",
+   "text": "DEMO - BUILD 8/27s - THE SCREEN TALKS LIKE PEOPLE TOO",
    "where": "front-splash",
    "screen": "front-splash",
    "draft": true
@@ -149,7 +173,7 @@
   },
   {
    "id": "ui#first-morning#16",
-   "text": "🎵 SLOW BLEED",
+   "text": "🎵 CAMPFIRE CONFESSION",
    "where": "first-morning",
    "screen": "first-morning",
    "draft": true
@@ -271,6 +295,146 @@
    "text": "CLOSE",
    "where": "save",
    "screen": "save",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#34",
+   "text": "DAY 1 · TURNED IN",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#35",
+   "text": "06:00 · 0h lived · 16h given back",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#36",
+   "text": "THE DAY",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#37",
+   "text": "0 steps",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#38",
+   "text": "The Meter Reader: nobody picked it up",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#39",
+   "text": "KEEP THIS VALLEY",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#40",
+   "text": "Bohemia lives in your browser. Put it on your home screen and it opens like an app, full screen, straight back into this valley.",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#41",
+   "text": "Tap ⋯ at the bottom of Safari, then Share, then Add to Home Screen.",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#sleep#42",
+   "text": "SLEEP → DAY 2",
+   "where": "sleep",
+   "screen": "sleep",
+   "draft": true
+  },
+  {
+   "id": "ui#mus#43",
+   "text": "🎵 MUSIC",
+   "where": "mus",
+   "screen": "mus",
+   "draft": true
+  },
+  {
+   "id": "ui#bike#44",
+   "text": "SUBURB · RIDING",
+   "where": "bike",
+   "screen": "bike",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#45",
+   "text": "YOUR RUNG",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#46",
+   "text": "TERRITORY",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#47",
+   "text": "THE VALLEY",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#48",
+   "text": "0 of 16 factions with you",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#49",
+   "text": "TO BE BACKED",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#50",
+   "text": "8 of 16",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#51",
+   "text": "You build where you are loved, and nowhere else. Every plot is its own negotiation until enough of the valley is with you.",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#52",
+   "text": "Nobody holds this ground yet. No faction has claimed this district, so there is nobody here to ask.",
+   "where": "rung",
+   "screen": "rung",
+   "draft": true
+  },
+  {
+   "id": "ui#rung#53",
+   "text": "The top rung is still out of reach. Nobody has said what it takes to stand there.",
+   "where": "rung",
+   "screen": "rung",
    "draft": true
   }
  ]
