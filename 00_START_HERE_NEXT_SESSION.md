@@ -187,6 +187,91 @@ ONE DAY, THE ICON OVEN IS CURED, AND THE UNCLAIMED-NAME QUEUE IS EMPTY. TAB: RUN
 (walk the landfill, railyard, datafort, library, radio site, wash), CITY (the map
 icons), ART (seven new cards). Nothing to judge -- correct me in the game. ***
 
+CITY (city-1eztay): 8/27 (a) LATEST -- *** THIRTEEN DISTRICTS STOPPED MULTIPLYING, AND
+THAT CLASS OF BUG IS NOW CLOSED. *** A district generator is handed ONE cell, so when the
+overmap sites a data fort across SIX cells every cell built a complete data fort. Measured
+before, on a 3x2 blob, on every one of the twelve utility landmarks: SIX CAR GATES, six
+fences, up to forty-eight fence segments. After: ONE car gate on all twelve, one fence
+spanning the whole plot. On the walked page, which is the surface that counts: datafort
+6-of-6 -> 1-of-6, basin 4-of-4 -> 1-of-4, reclaim 2-of-2 -> 1-of-2, watertreat 6 buildings
+over 2 cells -> 3. Lone cells byte-identical, every type, all four facings.
+  ONE CHANGE COVERED TWELVE, and that is the FACTORY LAW paying out. Solar, wash, railyard,
+stadium, landfill, cemetery, golf, farm and speedway each needed their own blob-scale
+rewrite. The utility factory did not: twelve landmarks already shared one frame, one layout
+dispatch, one dressing pass, one drive connector, and all of them talk to the grid through
+get/set/rect/W/H and nothing else. So the whole blob is built as a SINGLE OVERSIZED DISTRICT
+(K.grid always took a width and a height) and all nine layout primitives ran against it
+COMPLETELY UNCHANGED. The law promised the thirteenth landmark would be a spec and not a
+file; nobody had noticed it promised the same about the FIX for all twelve.
+  THE RULE THAT CAME OUT OF IT, and it is the reusable part: REPEAT THE UNITS A BIGGER SITE
+HAS MORE OF, NEVER THE THING IT IS NAMED AFTER. A depot twice the size honestly has twice
+the magazines; nobody names an antenna farm after one mast; but there is exactly one control
+house, one fence, one gate. Not hypothetical -- the first cut tiled the reclamation ponds and
+took the control building with them, and the gate went red on `reclaim (2 -> 2)`. K.shift
+lives in the kit now with that rule written on it.
+  A HASH CAUGHT WHAT READING COULD NOT. Lifting the plant's process train into its own
+function left the scum-drift loop running TWICE, invisible because the original bounds W-16
+and H-40 are exactly the 112 and 88 the copy used -- same shape drawn, rng consumed twice,
+every later draw shifted. Seven md5s over four seeds and four facings noticed on the first
+run. A byte-identity check on the path you did NOT mean to change is worth more than an
+inspection of the one you did.
+  *** AND A GATE THAT WOULD NOT GO GREEN FOUND SOMETHING FIVE WEEKS OLD. *** It flagged
+watertreat 24 -> 15 after the plant had genuinely stopped multiplying, and chasing the number
+that refused to fall found that EVERY CLARIFIER WAS COUNTED AS A BUILDING: the generator drew
+each clarifier's centre core as code 2, "building (control / blower / chem)", the ENTERABLE
+one, while that district's own legend has said since the day it was written that code 6 is
+"clarifier wall / core". A three-clarifier plant reported six buildings and three of them were
+concrete drums you could walk into and find a control room in. A generator contradicting its
+own recorded legend is a BUG, not a reading (TRUTH HIERARCHY). Fixed; three footprints now.
+That is the argument for gates that assert a PROPERTY rather than a number somebody wrote
+down: a property gate keeps pointing until you understand it, a threshold gate gets retuned.
+  THE NEW PAGE LEG asks a better question than the old ceilings, which are constants measured
+on one valley and go red on a new seed over nothing. The defect was never "more than N", it
+was "one per cell" -- so a facility built once has strictly FEWER structures than its ground
+has cells, and one built per cell has exactly as many. 1-of-6 passes at any size, 6-of-6 fails
+at any size. Mutation-tested both ways (datafort 6c/6r red, watertreat 2c/6r red, restored).
+The constant still wins where the property does not hold: a plant has exactly three buildings
+however big it gets, so `fewer than cells` would go red on a correct two-cell plant. PICK THE
+RULER FROM THE SHAPE OF THE CLAIM, NOT FROM HABIT.
+  THE DEBT LIST WENT 20 FAMILIES -> 14 AND THE CLASS IS CLOSED. Everything left is out of
+scope by definition: mountain, arterial, resort, water, rail, desert are roads and terrain
+with no facility to duplicate; downtown, town, commercial, ballpark, campus, industrial, park
+and medical are SUPPOSED to be many buildings, and treating them as this defect is the mistake
+the record exists to prevent. Ran 8/24 (solar) to 8/27, twenty-two districts. Gate stays.
+  BEFORE THAT, THE SAME TURN: a rebase left conflict markers in the alpha and the handoff and
+`git rebase --continue` COMMITTED THEM, because a python resolver walked five regions, hit one
+whose shape it did not expect, raised, and stopped. Git cannot tell a file you fixed from a
+file you gave up on. A LOOP THAT EDITS FILES MUST NOT BE ABLE TO STOP HALFWAY: resolve into a
+buffer, assert every region is accounted for, write only then. Every resolution after that
+one did exactly that. And the gate for this ALREADY EXISTED and is good --
+gates/nomarkers_gate.js, built 8/3 by LAB after the same failure twice in one day, matching
+markers at LINE START only so prose using ===== as a rule does not trip. It was never missing.
+I had not RUN it between the bad rebase and the commit. Also: the "two buildstamp divs" I
+chased were one div and the JAVASCRIPT THAT READS IT. The ruler was wrong again.
+  *** THE SHIP GATE IS BROKEN AS A SHIP GATE AND THAT IS THE ONE THING TO FIX NEXT. ***
+ONE GATE PASS PER SHIP was written when the suite was ~95 SECONDS. Measured today: 452 gates,
+4 cores, ~11.6s a gate, TWO AND A HALF HOURS. gates/suite_honesty_gate.js already documents
+the arithmetic and already shipped --shard i/n as the answer, but nothing routes ships through
+it, so every lane either waits 2.5h or runs a subset and says so. Worse in practice: any edit
+made while it runs invalidates the run, so the suite and the work cannot proceed in parallel.
+I lost three runs to that today before working in a git worktree. THE NEXT CITY/WORLD TURN
+SHOULD MAKE SHARDING THE DEFAULT SHIP PATH, not a flag nobody uses.
+  WHAT I RAN, honestly: one_district_per_blob 5/0, walked_surface 15/0 (both new legs
+mutation-tested), walkable 73/0, tilespec 310/0, world 29/0, landmark 107/0, blob_integrity
+107/0, nomarkers 6/0, plus a full-suite pass. Record:
+records/BOHEMIA_A_FACILITY_DOES_NOT_MULTIPLY_8_26_26.md (the 8/27 section at the end).
+  STANDING GOTCHA, still true: run `python3 tools/bohemia_city_chunk_tile_bank.py` after
+EVERY rebase -- main carries a 4.47 MB chunk 1 from another lane's hero bake and the merge
+prefers it over the 1.75 MB progressive one, which costs 6 seconds on the load ratchet.
+  AND THE SEAM THAT KEEPS BITING: slices/BOHEMIA_CITY_WORLD.html does NOT carry
+engine/bohemia_world.js. It has its own district dispatch and its own INLINED COPY of ~95
+engine modules. A row marked cluster:true in world.js reaches the walked surface only when
+its name is ALSO in the page's CLUSTER_KIT and `tools/bohemia_city_module_resync.py` has been
+run. TWO LISTS, BOTH OR NEITHER.
+
+FACTIONS (factions-ovkjpf): 8/27 (r) LATEST -- *** A GUARD THAT COMPARED TWO
+CONSTANTS, AND A LIST OF DIRECTIONS WITH NO REASONS ON IT. Nothing to judge. ***
+
 SHIPPED TO MAIN (stamp 8/27w): TF-ART-026..032 -- the landfill's waste fill +
 berm rings (berms are PURE REUSE of the arsenal mag pieces), the railyard's 118
 boxcars + dead loco as roof-read sprites (101 blobs measured EXACTLY 7x4 = a real

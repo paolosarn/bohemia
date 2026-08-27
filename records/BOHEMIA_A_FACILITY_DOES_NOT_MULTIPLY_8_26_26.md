@@ -258,3 +258,121 @@ one that deserves its own turn rather than the tail of this one.
 downtown, town, commercial and ballpark are NOT this defect and must not be treated as it:
 those are supposed to be many buildings. Roads and terrain have no facility to duplicate at
 all. The gate's own list is where that distinction lives.
+
+---
+
+# THE UTILITY FAMILY AND THE PLANT — 8/27/26 (WORLD/CITY lane)
+
+The turn above ended by naming the utility family the best-value item left. It was, and it
+came in cheaper than anything before it.
+
+## THIRTEEN DISTRICTS, ONE CHANGE
+
+| | before, on a 3x2 blob | after |
+|---|---|---|
+| car gates, every one of the twelve | **6** | **1** |
+| fence segments | 6 to 48 | one fence, largest piece spans the whole plot |
+| datafort, on the walked page | **6 of 6 cells** | **1 of 6** |
+| basin, on the walked page | **4 of 4** | **1 of 4** |
+| reclaim, on the walked page | **2 of 2** | **1 of 2** |
+| watertreat, on the walked page | **6 buildings over 2 cells** | **3** |
+| lone cells | — | byte-identical, every type, all four facings |
+
+Solar, wash, railyard, stadium, landfill, cemetery, golf, farm and speedway each needed their
+own blob-scale rewrite, because each draws its own thing its own way. **The utility factory
+did not.** Twelve landmarks already shared one frame, one layout dispatch, one dressing pass
+and one drive connector, and every one of them talks to the grid through `get/set/rect/W/H`
+and nothing else. So the whole blob is built as a SINGLE OVERSIZED DISTRICT — `K.grid` already
+took a width and a height — and all nine layout primitives ran against it **completely
+unchanged**.
+
+That is the FACTORY LAW paying out three weeks after it was obeyed. The law promised that the
+thirteenth landmark would be a spec and not a file. It turned out the same was true of the FIX
+for all twelve at once, which nobody had thought to claim.
+
+## THE RULE THAT CAME OUT OF IT: REPEAT THE UNITS, NEVER THE NAME
+
+A bigger site is a bigger facility, not a sparser one, and there are three honest ways to grow
+one. Which one applies is a property of how the plan was written:
+
+- **Proportional** — the plan positions against W and H (`W*0.16`, `Math.round(W*0.62)`).
+  A three-cell quarry is genuinely a three-cell pit. Nothing to do. Seven of the nine.
+- **Grow the count** — the plan spreads a fixed number of units over whatever ground it has,
+  so the number scales with the blob. Tank columns, silos, pond grids, quarry benches.
+- **Repeat the unit** — the plan is written at literal coordinates and would otherwise draw
+  one small cluster in the corner of an enormous empty yard. The magazine rows of an
+  ammunition depot, the masts of an antenna farm, the treatment trains of a plant.
+
+**The line that decides it: repeat the units a bigger site HAS MORE OF, and never the thing it
+is named after.** A depot twice the size honestly has twice the magazines. Nobody names an
+antenna farm after one mast. But there is exactly one control house, one fence, one gate, and
+the moment you repeat those you have rebuilt the defect inside the fix.
+
+Which is not hypothetical: **the first cut tiled the reclamation ponds and took the control
+building along with them**, and `one_district_per_blob_gate` went red on `reclaim (2 -> 2)`.
+Ponds are a grid, so they grow, and the plant stays one plant.
+
+`K.shift(G,dx,dy)` is where that lives now — in the kit, not in two districts, with the rule
+written on it.
+
+## A HASH CAUGHT WHAT READING THE CODE COULD NOT
+
+Lifting the plant's process train into its own function left the scum-drift loop running
+**twice**. It was invisible: the original bounds are `W-16` and `H-40`, which on a 128 grid are
+exactly the 112 and 88 the extracted copy used, so the duplicate drew the same shape — it just
+consumed the rng twice and shifted every later draw. Nothing looked wrong. Seven md5s over
+four seeds and four facings noticed on the first run.
+
+**A byte-identity check on the path you did not mean to change is worth more than an inspection
+of the path you did.**
+
+## AND THE CLARIFIER THAT WAS PRETENDING TO BE A BUILDING
+
+The gate would not go green on `watertreat 24 -> 15` after the plant had genuinely stopped
+multiplying. Chasing the number that refused to fall found something five weeks old and
+nothing to do with blobs: **every CLARIFIER was counted as a BUILDING.**
+
+The generator drew each clarifier's centre core as code 2 — *"building (control / blower /
+chem)"*, the ENTERABLE one — while this district's own legend has said since the day it was
+written that code 6 is *"clarifier wall / core"*, *"the concrete wall + centre core of a
+circular clarifier tank"*. A three-clarifier plant reported six buildings, and three of them
+were round concrete drums you could walk into and find a control room inside.
+
+A generator contradicting its own recorded legend is a **BUG, not a reading** (TRUTH
+HIERARCHY). The core is code 6 now and a lone plant has three footprints instead of six.
+
+It was invisible for five weeks and surfaced only because a gate measuring something else
+refused to go green. **That is the argument for gates that assert a PROPERTY rather than a
+number somebody wrote down** — a property gate keeps pointing at the discrepancy until you
+understand it, and a threshold gate would have been retuned and forgotten.
+
+## THE PAGE LEG ASKS A BETTER QUESTION THAN THE OLD ONES
+
+Every existing ceiling in `walked_surface_gate` is a constant somebody measured on one valley.
+That works, and it is brittle: a different seed makes a bigger blob, a road splits one building
+into two runs, and a green gate goes red over nothing.
+
+**The defect was never "more than N". It was "one per cell".** So ask that directly: a facility
+built once has strictly FEWER structures than its ground has cells; one built per cell has
+EXACTLY as many. `1 of 6` passes at any size and `6 of 6` fails at any size. Mutation-tested by
+un-clustering the data fort on the page (6c/6r, red) and the plant (2c/6r, red), both restored.
+
+The constant still wins where the property does not hold — a plant has exactly three buildings
+however big it gets, so `fewer than cells` would go red on a correct two-cell plant. **Pick the
+ruler from the shape of the claim, not from habit.**
+
+## WHAT COMES AFTER
+
+The debt list went from 20 families to 14, and **every one left is out of scope by definition**:
+
+```
+mountain:40 · arterial:35 · resort:16 · water:16 · rail:13 · desert:13
+downtown:9 · town:9 · commercial:4 · ballpark:4 · campus:4 · industrial:3 · park:3 · medical:2
+```
+
+Roads and terrain have no facility to duplicate. downtown, town, commercial, ballpark, campus,
+industrial, park and medical are **supposed** to be many buildings, and treating them as this
+defect would be the mistake this record exists to prevent.
+
+**So this class of bug is closed.** It ran from 8/24 (solar) to 8/27 and took twenty-two
+districts. The gate stays as the net.
