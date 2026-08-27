@@ -1,3 +1,92 @@
+WORLD (world-9lfjtf): 8/27 (b) LATEST -- *** PAOLO CAUGHT IT BY EYE FROM ONE SCREENSHOT:
+EVERY OVERHEAD IN THE GAME WAS PAINT ON THE FLOOR. Bridges, canopies, skybridges, awnings,
+busbars -- all drawn 90-degree flat in a 45-degree world. TAB: RUN, walk under the freeway
+bridge. Nothing to judge. ***
+
+HIS WORDS, mid-turn: "BRO PLEASE UNDERSTAND THE WORLD IS FROM AN OVER THE TOP 45 DEGREE
+VIEW DID YOU JUST MAKE SOMETHING THATS 90 DEGREE OVERHEAD VIEW?"
+
+*** THE FLAG WAS SET AND NOTHING EVER READ IT. *** realizeCell has set `c.overhead=true` on
+every overhead tile in this game since August. Grepped the whole walked surface: THAT FLAG
+IS NEVER READ BY THE DRAW. The entire overhead branch is one line --
+    if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; return c; }
+-- a flat colour on the ground plane. So the freeway overpass decks (116 cells), the Strip's
+enclosed pedestrian bridges, fuel canopies, downtown skybridges, shop awnings and the
+substation busbars were ALL painted onto the floor and seen from straight above, in a game
+whose own 45 DEGREE ART LAW (7/17) says every original thing is seen from the three-quarter
+view and NEVER flat.
+
+WHAT THIS GRID CAN AND CANNOT DO, HONESTLY: it is ONE LAYER, so the ground under a deck is
+not stored anywhere and cannot be revealed -- there is no "under the bridge" pixel to show.
+But WHAT MAKES A THING READ AS ABOVE IN THIS PROJECTION IS NOT THE HOLE UNDER IT. It is the
+SIDE YOU SEE and the SHADOW IT THROWS. A wall gets exactly that (a front face drawn toward
+the camera) and that is precisely why walls read and overheads did not.
+overheadPass() now gives every overhead run, on its camera-facing edge:
+  THE FASCIA  the beam you look at from the south, in the deck's own colour darkened,
+    because a face turned away from the sky is darker than a top facing it -- the same rule
+    the wall pass and the 45-degree law already use.
+  THE SHADOW  thrown on the ground beyond the beam, fading over two cells like every other
+    cast shadow in this build, so the deck floats instead of lying down.
+  TWO EDGES   a sky-lit lip where the surface turns over into its own side, and the dark
+    underside line at the bottom of the beam. Those two lines say THIS HAS THICKNESS.
+Run in the SAME two-pass order as facades, so a deck between him and the camera covers him
+exactly as a wall does.
+
+THREE THINGS THE PICTURE CAUGHT THAT THE CODE LOOKED FINE ABOUT:
+ 1. THE FIRST HEIGHT WAS TOO SMALL TO SEE. Written as a fraction of ONE cell it came out
+    THREE PIXELS at play zoom and the bridge still read flat. A side you cannot see is not a
+    side. An overpass sits ~5 m over the road (seven tiles at 0.75 m) and a wall in this
+    engine is already drawn THREE CELLS tall for the same reason. Height is counted in
+    CELLS here, like everything else that stands up.
+ 2. THE BRIDGE GREW WALLS DOWN THE MIDDLE OF ITSELF. The pass finds a run's camera-facing
+    edge by asking whether the cell south is also overhead, and the deck's LANE STRIPES were
+    kind `marking`, which answered NO -- so every stripe put a bridge SIDE across the middle
+    of the bridge, a row of dark beams standing on the deck. A deck, its paint and its
+    parapet are ONE OBJECT AT ONE HEIGHT; the paint is not lying on the ground under the
+    bridge. All three are overhead now, and the street contract counts overhead as corridor,
+    so the crossing still measures exactly as wide as the road it carries.
+ 3. THE STRIPE WAS TOO BRIGHT FOR A TOP SURFACE. roadcell_gate's visual-constitution check
+    caught it the moment the stripe moved onto the overhead layer: a top surface has its own
+    value band (72.8..137.4) and the arterial's worn white is 171. The band is right and the
+    colour was wrong -- a lane line on a deck that has taken thirty Mojave summers with
+    nobody repainting it is not white, it is a bleached ghost of white, which is what every
+    other marking in this game already says in its own act1 text. Measured to 134.4.
+
+VERIFIED ON TWO DIFFERENT OVERHEADS, NOT ONE. A change this broad cannot be checked on the
+thing that prompted it: photographed the freeway overpass AND a Strip pedestrian bridge in a
+different district. Both hang, both throw a shadow, both show a beam.
+
+THE LESSON: *** A FLAG THAT NOTHING READS IS NOT A FEATURE. *** c.overhead has been set
+correctly, on the right tiles, for weeks, and the world drew none of it. The layering system
+knew what these things were; the renderer never asked. Same shape as the six standable
+structures the walked surface discarded on 8/26 and the room roles the floor never spent:
+THE MODEL WAS RIGHT AND THE PICTURE NEVER LISTENED TO IT. And it took a human looking at one
+screenshot to find it, after a day of green gates.
+GATES: street_contract 17/0, roadcell 46/0, line_color 30/0, tilespec 310/0, drive_network
+  15/0, walkable 73/0, occupancy 16/0, hazard 74/0, street_facing 16/0, wall_fade 10/0,
+  art_45 16/0.
+RECORD: records/BOHEMIA_EVERY_OVERHEAD_WAS_PAINT_ON_THE_FLOOR_8_27_26.md
+
+WORLD LANE RUNNING ORDER (deliberately NOT under the header top_of_the_document_gate reads;
+that gate wants a row of the RF4 COMBAT teardown and there is no row in it for a street
+piece, so citing one would be a name-drop the machine checks and a human can see is a lie.
+This lane's order comes from Paolo's 8/25 dispatch. T4 has an escape for this and T3 does
+not, which looks like an oversight in a gate this lane does not own -- flagged, not edited):
+ 1. THE LEVEL CROSSING. 37 seams where an arterial meets the railway. The rail module
+    ALREADY has the pieces (12 crossing pavement, 13 crossing marking, 14 gate arm) and its
+    own comment says it "borrows the arterial's own cross-section" via `var PAVE = 21,
+    CURB = 23` -- LITERALS, and the arterial's PAVE is 17 now. That is the bridge bug again,
+    in a third module, and the arterial exports PAVE_HALF/CURB_HALF for exactly this.
+ 2. The Strip needs a TWO-CELL-WIDE crossing piece (4 seams).
+ 3. The interchange blob's coordinate mapping is off by one (3 seams).
+ 4. The 40 perpendicular-freeway seams need a MAP ruling, not a piece.
+ 5. Give the overhead pass a per-KIND height: a bridge deck, a shop awning and a busbar are
+    not all 2 cells above the ground, and OH_H is one constant today.
+ 6. The interchange is 87.9% connected: 479 drive tiles a car cannot reach.
+ 7. GLASS and WOOD materials for exteriors; the tyre barrier and razor wire rows.
+ 8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
+    wears steel. Wants its own code, not a routing exception.
+
 SOUND (sound-xk7pjp): 8/27 (b) LATEST -- *** HIS 8/26 INTENSITY RULING HAD FOUR
 TRIGGERS AND ONLY TWO WERE WIRED. The other two are wired now, WITHOUT touching
 another lane's file, and one of them nearly shipped as a disaster that would

@@ -21406,7 +21406,14 @@ const BEAT=500; // 120BPM law
     /* the deck's own paint takes the arterial's worn white, and the parapet a concrete a
        shade lighter than the deck so the edge reads from above. REUSE-FIRST: no new
        colour invented, both are values already in this game's street vocabulary. */
-    18: '#b3ab97', 19: '#6e6e78'
+    /* 18 DARKENED (8/27). It was #b3ab97, the arterial's worn white, and roadcell_gate's
+       visual-constitution check caught it the moment the stripe moved onto the OVERHEAD
+       layer: a top surface has its own value band (72.8..137.4) and 171 is outside it.
+       The band is right and the colour was wrong. A lane line on a deck that has taken
+       thirty Mojave summers with nobody repainting it is not white -- it is a bleached
+       ghost of white, which is what every other marking in this game already says in its
+       act1 text. Measured to 134.4, inside the band. */
+    18: '#8b867c', 19: '#6e6e78'
   };
 
   var LEGEND = {
@@ -21445,7 +21452,15 @@ const BEAT=500; // 120BPM law
        stripe draws flat from its own palette entry. A LEGEND NAME IS NOT JUST A LABEL HERE
        -- it is a routing key, and this is the second time this month a name has silently
        chosen a renderer (the first was concrete falling through to the house-roof pool). */
-    18: { name: 'deck stripe',      kind: 'marking',   act1: 'the street\'s lane marking carried across the overpass deck, worn to a ghost' },
+    /* `overhead`, LIKE THE DECK IT IS PAINTED ON (8/27). It was `marking`, which is true
+       of what it depicts and false about where it is: the new overhead pass finds the
+       camera-facing edge of a deck by asking whether the cell to the south is also
+       overhead, and a marking answered NO -- so every stripe put a bridge SIDE across the
+       middle of the bridge, a row of dark beams standing on the deck. A deck, its paint
+       and its parapet are ONE OBJECT at one height; the paint is not lying on the ground
+       under the bridge. The street contract counts overhead as corridor, so the crossing
+       still measures exactly as wide as the road it carries. */
+    18: { name: 'deck stripe',      kind: 'overhead',  act1: 'the street\'s lane marking carried across the overpass deck, worn to a ghost', solid: false },
     /* `overhead`, NOT `structure`, and that cost two gates to learn (8/27). A parapet IS
        solid in the world -- you cannot walk off the side of a bridge -- but this grid is
        ONE LAYER, so a solid tile drawn where the deck is also says "the ground here blocks
@@ -29651,6 +29666,61 @@ function ewDoorPass(ox,oy,C){
     window.__EW_DOOR_DRAWS=(window.__EW_DOOR_DRAWS||0)+1;
   }
 }
+/* *** AN OVERHEAD IS ABOVE YOU, AND OURS WAS PAINT ON THE FLOOR (Paolo 8/27). ***
+   "BRO PLEASE UNDERSTAND THE WORLD IS FROM AN OVER THE TOP 45 DEGREE VIEW DID YOU JUST
+    MAKE SOMETHING THATS 90 DEGREE OVERHEAD VIEW?"
+   He is right, and it is not only the bridge. MEASURED: realizeCell sets `c.overhead=true`
+   on every overhead tile in the game -- and repo-wide THAT FLAG IS NEVER READ BY THE DRAW.
+   Every overhead is `c.g=pal` and nothing else: a flat colour on the ground plane. The
+   freeway overpass, the Strip's pedestrian bridges, fuel canopies, skybridges, shop
+   awnings, the substation busbars -- all of them painted onto the floor, seen from
+   straight above, in a game whose own 45 DEGREE ART LAW (7/17) says every original thing
+   is seen from the world's three-quarter view and NEVER flat.
+   WHAT THIS GRID CAN AND CANNOT DO, honestly: it is ONE LAYER, so the ground underneath a
+   deck is not stored anywhere and cannot be revealed. What makes a thing read as ABOVE in
+   this projection is not the hole under it -- it is the SIDE YOU SEE and the SHADOW IT
+   THROWS. A wall gets exactly that treatment (a front face drawn toward the camera) and
+   that is why walls read and overheads do not.
+   So an overhead now gets both, on the camera-facing edge of every run:
+     THE FASCIA -- the beam/soffit you look at from the south, in the deck's own colour
+       darkened, because a face turned away from the sky is darker than a top facing it.
+       That is the same rule the wall pass and the 45-degree law already use.
+     THE SHADOW -- thrown on the ground south of the fascia, so the deck floats instead of
+       lying down. It fades over two cells like every other cast shadow in this build.
+   Drawn in the SAME two-pass order as facades (behind him, then in front) so a deck
+   between him and the camera covers him exactly as a wall does. */
+/* HOW TALL, AND THE FIRST NUMBER WAS TOO SMALL TO SEE. Written as a fraction of ONE cell
+   it came out three pixels at play zoom and the bridge still read flat -- a side you cannot
+   see is not a side. An overpass sits about five metres over the road, which is seven tiles
+   at 0.75 m, and a wall in this engine is already drawn THREE cells tall for the same
+   reason: apparent height here is counted in CELLS, like everything else that stands up. */
+const OH_H=2;                      /* cells of apparent height under a deck */
+function overheadPass(ox,oy,C,front,pgy){
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+2);
+  for(let gy=gy0;gy<=gy1;gy++){
+    if((gy>=pgy)!==front)continue;
+    for(let gx=gx0;gx<=gx1;gx++){
+      const c=cellAt(gx,gy); if(!c||!c.overhead)continue;
+      const s=cellAt(gx,gy+1);
+      if(s&&s.overhead)continue;                 /* only the last row of a run has a side */
+      const dx=Math.round(ox+gx*C), dy=Math.round(oy+gy*C);
+      const fh=OH_H*C;
+      if(typeof window!=='undefined') window.__OH_SIDES=(window.__OH_SIDES||0)+1;
+      /* THE SHADOW FIRST, on the ground beyond the beam, so the deck floats. */
+      g.fillStyle='rgba(0,0,0,0.34)'; g.fillRect(dx,dy+C+fh,C,Math.round(C*0.8));
+      g.fillStyle='rgba(0,0,0,0.16)'; g.fillRect(dx,dy+C+fh+Math.round(C*0.8),C,Math.round(C*0.7));
+      /* THEN THE SIDE OF IT, hanging off the deck's south edge toward the camera. */
+      const base=(typeof c.g==='string'&&c.g[0]==='#')?c.g:'#6a6a72';
+      g.fillStyle=(base[0]==='#'?shade(base,0.60):base); g.fillRect(dx,dy+C,C,fh);
+      /* the two edges that say THIS HAS THICKNESS: a sky-lit lip where the deck's surface
+         turns over into its own side, and the dark underside line at the bottom of the
+         beam. Same rule the wall pass uses, which is why walls read and this did not. */
+      g.fillStyle='rgba(255,255,255,0.16)'; g.fillRect(dx,dy+C,C,1);
+      g.fillStyle='rgba(0,0,0,0.40)'; g.fillRect(dx,dy+C+fh-1,C,1);
+    }
+  }
+}
 function facadePass(ox,oy,C,front,pgy,pbox){
   const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
   const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+WALL_H);
@@ -35088,6 +35158,7 @@ function renderHuman(){
   doorSwingDraw(ox,oy,C);   /* __DOOR_SWINGS__ */
   /* THREE-TILE WALL: everything he is standing SOUTH of, at full opacity */
   const _pbox=playerBox(ox,oy,C,_gc);   /* __SEE_THROUGH_FOLLOWS_THE_BODY__: the box follows the body */
+  overheadPass(ox,oy,C,false,hy);
   facadePass(ox,oy,C,false,hy,null);
   /* CITY PEOPLE (7/29): residents draw AFTER the walls behind the player and
      BEFORE the player, so somebody standing north of you is occluded by the
@@ -35143,6 +35214,7 @@ function renderHuman(){
   }
   /* THREE-TILE WALL: what stands BETWEEN him and the camera draws last, and
      whatever is covering him goes see-through. */
+  overheadPass(ox,oy,C,true,hy);
   facadePass(ox,oy,C,true,hy,_pbox);
   function shade2(col,f){ if(col[0]==='#')return shade(col,f); return col; }
 }

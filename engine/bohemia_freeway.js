@@ -384,7 +384,14 @@
     /* the deck's own paint takes the arterial's worn white, and the parapet a concrete a
        shade lighter than the deck so the edge reads from above. REUSE-FIRST: no new
        colour invented, both are values already in this game's street vocabulary. */
-    18: '#b3ab97', 19: '#6e6e78'
+    /* 18 DARKENED (8/27). It was #b3ab97, the arterial's worn white, and roadcell_gate's
+       visual-constitution check caught it the moment the stripe moved onto the OVERHEAD
+       layer: a top surface has its own value band (72.8..137.4) and 171 is outside it.
+       The band is right and the colour was wrong. A lane line on a deck that has taken
+       thirty Mojave summers with nobody repainting it is not white -- it is a bleached
+       ghost of white, which is what every other marking in this game already says in its
+       act1 text. Measured to 134.4, inside the band. */
+    18: '#8b867c', 19: '#6e6e78'
   };
 
   var LEGEND = {
@@ -423,7 +430,15 @@
        stripe draws flat from its own palette entry. A LEGEND NAME IS NOT JUST A LABEL HERE
        -- it is a routing key, and this is the second time this month a name has silently
        chosen a renderer (the first was concrete falling through to the house-roof pool). */
-    18: { name: 'deck stripe',      kind: 'marking',   act1: 'the street\'s lane marking carried across the overpass deck, worn to a ghost' },
+    /* `overhead`, LIKE THE DECK IT IS PAINTED ON (8/27). It was `marking`, which is true
+       of what it depicts and false about where it is: the new overhead pass finds the
+       camera-facing edge of a deck by asking whether the cell to the south is also
+       overhead, and a marking answered NO -- so every stripe put a bridge SIDE across the
+       middle of the bridge, a row of dark beams standing on the deck. A deck, its paint
+       and its parapet are ONE OBJECT at one height; the paint is not lying on the ground
+       under the bridge. The street contract counts overhead as corridor, so the crossing
+       still measures exactly as wide as the road it carries. */
+    18: { name: 'deck stripe',      kind: 'overhead',  act1: 'the street\'s lane marking carried across the overpass deck, worn to a ghost', solid: false },
     /* `overhead`, NOT `structure`, and that cost two gates to learn (8/27). A parapet IS
        solid in the world -- you cannot walk off the side of a bridge -- but this grid is
        ONE LAYER, so a solid tile drawn where the deck is also says "the ground here blocks
