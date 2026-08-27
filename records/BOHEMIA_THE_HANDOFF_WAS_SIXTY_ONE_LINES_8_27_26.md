@@ -95,3 +95,48 @@ paper over. It is the reason this has to be a pre-push gate and not an audit.
 
 **This file is the fleet's, not your lane's. Every session PREPENDS its entry
 and demotes the previous one from LATEST. Nobody ever writes it whole.**
+
+---
+
+# IT HAPPENED AGAIN WHILE I WAS WRITING THIS
+
+Fetching main to rebase, an hour after the repair above, found the file at
+**fifty-five lines**. Not the same truncation. A second one, by a different
+lane, on top of the first. Tracing it through main's commits that afternoon:
+
+    4ec6177e        61 lines
+    5946e6b8       133 lines
+    05970abd        57 lines
+    4e13951d    72,409 lines     <- another lane restoring it, independently
+    a3f6f690       211 lines
+    d1260f55       211 lines
+    913165a0        55 lines
+    bffae231        55 lines
+
+**Three lanes truncated it that day and two lanes restored it, none of them
+aware of the others.** Every one of those writes replaced the whole file with
+that lane's own view, so each restore was itself overwritten by the next lane's
+write. That is not one careless commit. It is a pattern the file had no defence
+against, and two independent sessions each spending a turn repairing it is the
+cost of not having one.
+
+## REBUILT AS A UNION, NOT AS ANY ONE COPY
+
+Picking "the good one" would have been wrong, because there was no good one.
+Entries were split on their lane heads, keyed by lane + date + letter (ignoring
+the LATEST marker so a demoted copy is recognised as the same entry), and merged
+across every version in the chain. **Four entries existed in no single tip** and
+would have been lost whichever copy was chosen:
+
+    WORLD    8/27 (a)   THE BRIDGE WAS TWO THIRDS THE WIDTH OF ITS OWN ROAD
+    FACTIONS 8/27 (r)   A GUARD THAT COMPARED TWO CONSTANTS
+    WORDS    8/27 (c)   THE END-OF-DAY BUTTON SAID "KEEP THIS RUN"
+    WORDS    8/27 (d)   ALL 27 QUEST SCENES TALK LIKE PEOPLE
+
+The union was re-run against main on every rebase after that, twice more, each
+time recovering whatever had landed in between (ART 8/27 (e) and PEOPLE 8/27 (a)
+on the last one). Final: 13 lanes, exactly one LATEST each, nothing anybody
+wrote that day dropped.
+
+The gate above is what stops the next round. It could not have stopped these:
+it did not exist yet when they landed.
