@@ -6298,6 +6298,75 @@ the north edge, where 81 blocks hold 8 people). That is a world fact for the lan
 that own the world and the outfits. Handing those parts to a nearby stranger would
 be exactly the fake this whole system refuses.
 
+*** AND THE CLAIM THAT PROVES THE DESIGN FOUND A STUCK QUEST. *** The claim worth
+writing was "finish with this one and the address moves to the next part". It went
+RED the first time it ran: lineman (right here) -> lineman (right here). THE
+LINEMAN'S CONVERSATION NEVER ENDED. The runtime reports `ended` only when a chosen
+option runs out of graph, and A NODE WITH NO OPTIONS IS NEVER CHOSEN FROM, so it
+never reports anything -- choose(0) returns the same view forever. The lineman's
+scene finishes on exactly such a node ("Splits somewhere past the dead
+storefronts. Warm cable."), so the scene stayed open for the rest of the game, the
+entry node was never locked, and the address never moved on. MEASURED: 21 of the
+corpus's 236 nodes are terminal like that; none pays anything today, so it was not
+a farm yet, it was a farm the day somebody writes one -- and a visibly stuck quest
+already. A NODE WITH NOWHERE TO GO IS THE END OF THE CONVERSATION. atEnd() says so
+once, in the module, and both ways a scene can finish run through one ctConvFinish.
+AND THE FIX HAD ITS OWN TRAP: closing on atEnd inside the choice handler would
+lock the scene BEFORE that line was ever drawn, which is deleting a line the
+author wrote. A real node is always rendered; only the graph running out of nodes
+closes on its own. With it, measured:
+  lineman (right here, by the houses) -> fixer (5 blocks north west, out by the big road)
+
+*** AND THE WHOLE CONVERSATION FEATURE WAS GONE FROM MAIN WHEN I REBASED. ***
+The resync read 96 embedded modules where there had been 97: one commit took 114
+lines out of the walked city and 103 of them were engine/bohemia_conversation.js,
+while every call site stayed put. So BohemiaConversation was called three times
+and defined nowhere, every call threw, the bare catch turned every throw into
+null, and NULL IS THE HONEST ANSWER FOR ALMOST EVERYBODY -- so the symptom was
+people having nothing to say. Nothing on screen, nothing in the console.
+conversation_gate went 24/12. THE GATE CAUGHT IT AND THE FILE DID NOT.
+
+AND THE STRUCTURAL CAUSE IS MINE. I parked that module immediately above another
+module's banner ON PURPOSE the same morning, because the resync finds a module's
+END by scanning for the next banner and a module above ordinary code has no end
+(measured: a 50,917-byte cut against a 5,002-byte module, correctly refused).
+That placement made the resync safe and made this module THE THING THAT GETS
+SWALLOWED WHEN ANY TOOL CUTS THE MODULE BELOW IT. A PLACEMENT THAT MADE ONE TOOL
+SAFE MADE ANOTHER TOOL DANGEROUS.
+Three structural fixes, not a re-paste: (1) the module DELIMITS ITSELF, same
+banner top and bottom, so a boundary scan ends at the right byte wherever it is
+parked; (2) the patch tool REPAIRS instead of no-opping on its own marker -- it
+checks the module's own banner now, and cutting the 5,119 bytes out again and
+re-running brings the file back BYTE-IDENTICAL; (3) a missing module SAYS SO,
+once, by name, with the command to fix it. NULL IS A REAL ANSWER HERE, WHICH IS
+PRECISELY WHY IT MAY NEVER ALSO BE THE ERROR ANSWER.
+The words that commit shipped are good and every one of them is kept. This is
+about where a file sits, not about what anybody wrote.
+conversation_gate is 39 claims now: the module is in the file the game loads, its
+body is the canon body byte for byte, and a missing one is loud.
+
+*** AND A FUNCTION WHOSE JOB WAS ABSORBED IS AN ORPHAN, NOT A SPARE. ***
+organ_reach went red on BohemiaPeople.castQuest: nothing on the walked surface
+called it any more. It cast every role against ONE roster, which was right while a
+cast meant "who is on the block under your feet" and wrong the moment a quest got
+an address per role. Keeping it would have meant the REQ-FIRST ordering and the
+ONE-PERSON-ONE-PART dedupe written down in TWO PLACES, which is the bug this lane
+has now paid for four times in a week. DELETED, and every claim written against it
+still runs -- pointed at castAddresses with a ONE-BLOCK WORLD, so the hard-won
+ones (a block of ONE person proves the dedupe; one body proves REQ beats OPT) now
+exercise the code the game actually runs. organ_reach 7/1 -> 8/0, NO EXEMPTION
+ADDED, because an exemption would have been a shrug.
+
+*** AND THE FRONT SPLASH HAD A MERGE MARKER ON IT, LIVE ON MAIN. *** One line
+under the build stamp: ">>>>>>> 7333cce (0 FOR 8. I CHOSE FOUR VOICES FROM A GAP
+LIST...)". The conflict resolution that left it had eaten the "<!--" opening the
+comment underneath, so THAT MARKER AND THE WHOLE COMMENT AFTER IT WERE RENDERING
+AS VISIBLE TEXT ON THE FRONT SPLASH OF THE ONE LINK HE TAPS. Not my commit (my own
+push four hours earlier had zero markers) and not my lane, but it is the front
+door -- and the comment it broke is the one that says "Twice on 8/2 a lane
+updating the build stamp above ate it... Both times it reached main." IT HAPPENED
+A THIRD TIME. One line restored, BLOB INTEGRITY 106/1 -> 107/0.
+
 Record: records/BOHEMIA_THE_JOB_HAS_AN_ADDRESS_8_26_26.md
 
 ---- AND WHAT IT WAS BUILT ON, SAME DAY ----
@@ -6473,6 +6542,12 @@ WHAT COMES NEXT FOR THIS LANE:
   3b. BLUES HOLDS EMPTY GROUND and it costs two demo days a required part (day 3
      1/2, day 5 2/3). NOT MINE: that is where a faction's base sits and how many
      people the north edge carries. FACTIONS or WORLD, one dial each.
+  3c. NOT MINE, AND RED ON MAIN RIGHT NOW: gates/dayloop_gate.js lines 85 and 124
+     hardcode S01's OLD @LOG strings ("The block loses half its light at the same
+     hour every night." and "Put the current back myself..."), and the WORDS lane
+     rewrote both on 8/27. Two claims red. It is their content and their claim,
+     and the fix is the repo's own principle -- read the .bq instead of pinning
+     today's answer -- so it is one line each and theirs to make.
   4. saw:/heard: reactions stay dark: 66 written lines, 0 reachable, because the
      city's deeds carry no clout tag. That is the deeds system's field to set,
      not a lines problem, and it stays a handoff row rather than my next turn.

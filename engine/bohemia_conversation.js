@@ -19,7 +19,7 @@
    WHY IT IS POSSIBLE TODAY AND WAS NOT YESTERDAY. A @TALK node's `speaker` is a
    @ROLE NAME, and until this morning a role was a WORD: `@ROLE lineman REQ
    faction=TRADES` resolved to the string "lineman" and nobody in the valley was
-   ever the lineman. BohemiaPeople.castQuest now resolves a role to a person who
+   ever the lineman. BohemiaPeople.castAddresses now resolves a role to a person who
    is really standing on this block, so the chain closes:
        speaker -> role -> cast -> key -> the person whose card is open.
 
@@ -97,8 +97,26 @@
     try { return !!(rt && entryId && rt.state.locked[entryId]); } catch (_e) { return false; }
   }
 
+  /* *** IS THERE ANYWHERE LEFT TO GO, and it took a gate claim to find out there
+     usually is not. *** The runtime reports `ended` only when a chosen option
+     runs out of graph. A node with NO OPTIONS AT ALL never gets chosen from, so
+     it never reports anything: choose(0) on it returns the same view, forever.
+     MEASURED ACROSS THE CORPUS: 21 of 236 talk nodes are terminal like that --
+     the lineman's whole scene ends on one, "Splits somewhere past the dead
+     storefronts. Warm cable." -- so the first version of this feature left that
+     conversation OPEN FOR THE REST OF THE GAME. The scene never closed, the entry
+     node was never locked, and the quest's address never moved on to the second
+     person. None of the 21 pays anything today, so it is not a farm yet; it is a
+     farm the day somebody writes one, and it was a visibly stuck quest already.
+     A NODE WITH NOWHERE TO GO IS THE END OF THE CONVERSATION. */
+  function atEnd(view) {
+    if (!view) return true;
+    if (view.ended) return true;
+    return !((view.options || []).length);
+  }
+
   var API = { nodeFor: nodeFor, openerFor: openerFor, close: close, closed: closed,
-              VERSION: 'bohconv-1.0.0' };
+              atEnd: atEnd, VERSION: 'bohconv-1.1.0' };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaConversation = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

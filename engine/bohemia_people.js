@@ -2030,24 +2030,18 @@
              faction: want, traits: roleTraits(role), req: !!role.req };
   }
   function keyFor(p) { return (p && (p.key || p.id)) || ''; }
-  /* EVERY REQ ROLE AT ONCE, and OPT roles too when the ground can carry them.
-     One person may not hold two parts in the same quest: a story where the
-     lineman is also the fixer is not a story, it is a bug that reads as one. */
-  function castQuest(roles, people, opts) {
-    var out = {}, taken = {}, i, r, c;
-    var ordered = (roles || []).slice().sort(function (a, b) {
-      return (b.req ? 1 : 0) - (a.req ? 1 : 0);          /* REQ first, always */
-    });
-    for (i = 0; i < ordered.length; i++) {
-      r = ordered[i];
-      var free = (people || []).filter(function (p) { return !taken[keyFor(p)]; });
-      c = castRole(r, free, opts);
-      if (!c) continue;
-      taken[c.key] = 1;
-      out[r.name] = c;
-    }
-    return out;
-  }
+  /* *** castQuest IS GONE, AND ITS RULES LIVE IN castAddresses. ***
+     It cast every role against ONE roster: the right shape while a cast meant
+     "who on the block under your feet", and the wrong shape the moment a quest
+     got an address per role. Keeping it would have meant the REQ-FIRST ordering
+     and the ONE-PERSON-ONE-PART dedupe written down in two places, which is the
+     bug this lane has now paid for four times in a week -- and organ_reach put a
+     number on it the same run: nothing on the walked surface called it any more.
+     A FUNCTION WHOSE JOB WAS ABSORBED IS NOT A SPARE, IT IS AN ORPHAN.
+     Every claim that was written against it still runs, against castAddresses
+     with a one-block world, so the hard-won ones (a block of ONE person proves
+     the dedupe; one body proves REQ beats OPT) now exercise the code the game
+     actually runs. */
 
   /* ---- THE DAY'S JOB HAS AN ADDRESS -------------------------------------
      MEASURED ON THE WALKED CITY BEFORE THIS WAS WRITTEN, from the block the
@@ -2103,7 +2097,7 @@
     if (!roles || !roles.length || !peopleAt || !originFor) return null;
     var R = (opts.radius == null) ? 3 : Math.max(0, opts.radius | 0);
     /* REQ FIRST, so a required part is never left holding nobody because an
-       optional one took the only candidate. Same rule castQuest uses. */
+       optional one took the only candidate. */
     var ordered = roles.slice().sort(function (a, b) {
       return (b.req ? 1 : 0) - (a.req ? 1 : 0);
     });
@@ -2391,7 +2385,7 @@
     langOf: langOf, speaksLineOf: speaksLineOf,
     // CASTING (8/26): a quest role becomes a real person on real ground.
     roleFaction: roleFaction, roleTraits: roleTraits,
-    castRole: castRole, castQuest: castQuest,
+    castRole: castRole,
     // THE ADDRESS (8/26): one block PER ROLE, found once, and which way it is.
     castAddresses: castAddresses, bearingOf: bearingOf, addressLine: addressLine,
     personOf: personOf, peopleOf: peopleOf,

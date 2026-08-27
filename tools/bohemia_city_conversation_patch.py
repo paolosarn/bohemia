@@ -65,15 +65,23 @@ MARK = '__CITY_CONVERSATION__'
 # tools/bohemia_city_module_resync.py keeps it fresh from here on and ENGINE SYNC
 # LAW holds without anybody having to remember this file exists.
 #
-# AND IT SITS IMMEDIATELY ABOVE ANOTHER MODULE'S BANNER ON PURPOSE, WITH NO
-# CLOSING BANNER OF ITS OWN. The resync tool's last-resort path finds where a
-# module ENDS by scanning for the next '/* ==== engine/' banner, so a module
-# parked above ordinary code has no end and the cut runs on. Measured: parking it
-# above the quest-source block made the cut 50,917 bytes against a 5,002 byte
-# module, and the tool refused to write -- correctly, and permanently. Parked here
-# the cut is the module and nothing else.
+# *** IT CARRIES ITS OWN CLOSING BANNER, AND THAT COST A DAY TO LEARN. ***
+# The resync tool's last-resort path finds where a module ENDS by scanning for
+# the next '/* ==== engine/' banner. A module parked above ordinary code has no
+# end and the cut runs on: measured, 50,917 bytes against a 5,002 byte module,
+# and the tool refused to write. The first answer was to park it immediately
+# above ANOTHER module's banner so that banner would end the cut -- which worked,
+# and made this module the thing that gets swallowed when any tool cuts the
+# module BELOW it. THAT IS EXACTLY WHAT HAPPENED: a commit on 8/27 rewriting the
+# demo briefs took 114 lines out of the city and 103 of them were this module,
+# leaving BohemiaConversation referenced three times and defined nowhere.
+# A PLACEMENT THAT MADE ONE TOOL SAFE MADE ANOTHER TOOL DANGEROUS. So the module
+# is SELF-DELIMITING now: the same banner opens and closes it, which ends any
+# boundary scan at the right byte and cannot be confused for a second module
+# (the resync dedupes by path). Where it is parked stops mattering.
 MOD_ANCHOR = '/* ==== engine/bohemia_demoquests.js ==== */'
 MOD_SRC = 'engine/bohemia_conversation.js'
+MOD_BANNER = '/* ==== engine/bohemia_conversation.js ==== */'
 
 # ---- 1. the two shapes the card has never had: a spoken line, and a dead verb --
 CSS_ANCHOR = ("    '#ctcard button{margin-top:11px;margin-right:8px;padding:9px 13px;"
@@ -97,8 +105,25 @@ FN = """/* __CITY_CONVERSATION__ -- THE QUEST'S OWN WORDS, IN A REAL MOUTH.
    node you were on, so coming back picks the scene up where you left it instead
    of re-running the top of it. */
 var CT_CONV = null;
-/* WHICH NODE THIS PERSON CAN OPEN RIGHT NOW, or null for almost everybody. */
+/* WHICH NODE THIS PERSON CAN OPEN RIGHT NOW, or null for almost everybody.
+   *** NULL IS A REAL ANSWER HERE, WHICH IS PRECISELY WHY IT MUST NEVER ALSO BE
+   THE ERROR ANSWER. *** Almost nobody in the valley has anything to say, so a
+   bare catch returning null hides a missing dependency perfectly: on 8/27 the
+   inlined body of bohemia_conversation.js was cut out of this file by another
+   lane's tool, BohemiaConversation went undefined, every call threw, every throw
+   became "they have nothing to say", and the whole feature was gone with nothing
+   on screen or in the console to say so. The gate caught it; this file did not.
+   Same shape as ctFactionOf's 7/29 snapshot, which cost that lane thirteen days.
+   A missing module now says so, once, in a sentence. */
 function ctConvNode(who){
+  if (typeof BohemiaConversation === 'undefined') {
+    if (!ctConvNode.__warned) { ctConvNode.__warned = 1;
+      console.error('BOHEMIA: BohemiaConversation is missing -- the inlined body of '
+        + 'engine/bohemia_conversation.js is not in this file. Re-run '
+        + 'tools/bohemia_city_conversation_patch.py. Until then NO QUEST CAN BE '
+        + 'SPOKEN and that is a bug, not a quiet valley.'); }
+    return null;
+  }
   try {
     if (typeof DQ === 'undefined' || !DQ || !DQ.rt || !DQ.Q) return null;
     if (DQ.rt.state && DQ.rt.state.done) return null;
@@ -124,7 +149,13 @@ function ctConvBody(who){
   (v.noverbs || []).forEach(function(n){
     body += '<div class="noverb">' + esc(n) + '</div>';
   });
-  body += '<button id="ctconvgo">Leave it there</button>';   /* draft:true */
+  /* AND WHEN THERE IS NOWHERE LEFT TO GO, THE BUTTON SAYS SO AND MEANS IT. A
+     node with no options is the end of the scene (21 of the corpus's 236 nodes
+     are exactly that, including the lineman's last line), and pressing this
+     closes the conversation for good rather than leaving it standing open. */
+  body += BohemiaConversation.atEnd(v)
+    ? '<button id="ctconvend">That is that</button>'          /* draft:true */
+    : '<button id="ctconvgo">Leave it there</button>';        /* draft:true */
   return body;
 }
 """ + FN_ANCHOR
@@ -183,6 +214,9 @@ WIRE = """/* __CITY_CONVERSATION__ -- THE HANDLERS. Kept in one place because a
 function ctConvWire(){
   var go = document.getElementById('ctconvgo');
   if (go) go.addEventListener('click', function(){ ctClose(); });
+  /* THE END OF THE SCENE, WHICH IS NOT THE SAME AS WALKING OFF. */
+  var end = document.getElementById('ctconvend');
+  if (end) end.addEventListener('click', function(){ ctConvFinish(); });
   var opts = document.querySelectorAll('#ctcard .convopt');
   for (var i = 0; i < opts.length; i++) {
     opts[i].addEventListener('click', function(){
@@ -208,10 +242,29 @@ function ctConvOpenWire(){
     ctDraw();
   });
 }
+/* THE SCENE IS OVER: lock it, drop back to who they are, and let any held card
+   through. One place, so the two ways a conversation can finish -- answering the
+   last question, or reaching a line with no question after it -- cannot drift
+   apart. */
+function ctConvFinish(){
+  if (!CT_CONV) { ctClose(); return; }
+  try { BohemiaConversation.close(DQ.rt, CT_CONV.entry); } catch(_e){}
+  CT_CONV = null;
+  ctDraw();
+  try { updQline(); }catch(_e){}     /* the address moves on to the next part */
+  try { if (DQ.pending) showChoice(DQ.pending); } catch(_e){}
+}
 function ctConvChoose(i){
   if (!CT_CONV) return;
   var v = null;
   try { v = DQ.rt.choose(i); } catch(_e){ return; }
+  /* *** ENDED, NOT atEnd, AND THE DIFFERENCE IS A WRITTEN LINE. *** A chosen
+     option can land on a node with no options -- 21 of the corpus's 236 are
+     exactly that, and the lineman's scene ends on one: "Splits somewhere past
+     the dead storefronts. Warm cable." Closing here on atEnd would lock the
+     scene BEFORE that line was ever drawn, which is deleting a line the author
+     wrote. So a real node is always RENDERED; the graph running out of nodes
+     entirely is what closes on its own, and the end button closes the rest. */
   var over = (!v || v.ended);
   /* THE JOURNAL HEARS ABOUT IT, AND IT HEARS ABOUT IT EXACTLY ONCE. A chosen
      option can carry `@DO set_stage 20`, which has ALREADY run by the time we
@@ -239,10 +292,7 @@ function ctConvChoose(i){
     /* THE GRAPH ENDED, SO THE DOOR CLOSES. Measured across the corpus: replaying
        an entry node DOUBLES faction numbers. Locking is the runtime's own field
        and rides the save already. */
-    try { BohemiaConversation.close(DQ.rt, CT_CONV.entry); } catch(_e){}
-    CT_CONV = null;
-    ctDraw();          /* back to who they are */
-    try { if (DQ.pending) showChoice(DQ.pending); } catch(_e){}
+    ctConvFinish();
     return;
   }
   ctDraw();
@@ -262,10 +312,74 @@ CLOSE = """function ctClose(){ CT_OPEN=null;
   ctVerb(); }"""
 
 
+def module_body():
+    body = open(MOD_SRC, encoding='utf-8').read()
+    if not body.endswith('\n'):
+        body += '\n'
+    return MOD_BANNER + '\n' + body + MOD_BANNER + '\n'
+
+
+def repair(html):
+    """PUT THE MODULE BACK IF SOMETHING TOOK IT OUT, and say so.
+
+    A one-shot patch that no-ops on its own marker cannot heal, and this one had
+    to: on 8/27 another lane's tool cut 103 lines of the inlined module out of
+    the city while leaving every call site in place. THE FEATURE WAS GONE AND THE
+    ONLY SYMPTOM WAS PEOPLE HAVING NOTHING TO SAY. So the module is checked on
+    its OWN evidence -- its banner -- rather than on the patch marker, and
+    re-running this file is the repair.
+    """
+    healed = []
+    # (a) THE SILENT-NULL GUARD, for a city patched before the guard existed.
+    # The guarded body is taken from FN itself so the two can never drift.
+    HEAD = '/* WHICH NODE THIS PERSON CAN OPEN RIGHT NOW'
+    TAIL = '/* THE CARD, WHEN SOMEBODY IS TALKING.'
+    if 'ctConvNode.__warned' not in html and html.count(HEAD) == 1 and html.count(TAIL) == 1:
+        a, b = html.index(HEAD), html.index(TAIL)
+        html = html[:a] + FN[FN.index(HEAD):FN.index(TAIL)] + html[b:]
+        healed.append('the missing-module warning')
+    # (b) THE CARD BODY AND THE HANDLERS, for a city patched before atEnd existed.
+    # Same technique: the replacement is sliced out of the source constants above,
+    # so a repaired city and a freshly patched one can never differ.
+    for label, start_mark, end_mark, src in (
+            ('the end-of-scene card', '/* AND WHEN THERE IS NOWHERE LEFT TO GO',
+             '/* WHAT THIS PERSON IS WANTED FOR', FN),
+            ('the end-of-scene handlers', '/* __CITY_CONVERSATION__ -- THE HANDLERS.',
+             'function ctClose(){ CT_OPEN=null;', WIRE)):
+        if 'ctConvFinish' in html:
+            break
+        want = src[src.index(start_mark):src.index(end_mark)] if start_mark in src else None
+        if want is None:
+            continue
+        # the OLD text runs from wherever the old block started to the same end
+        old_start = ('  body += \'<button id="ctconvgo">Leave it there</button>\';'
+                     if 'card' in label else start_mark)
+        if old_start not in html or html.count(end_mark) != 1:
+            continue
+        a = html.index(old_start)
+        b = html.index(end_mark)
+        html = html[:a] + want + html[b:]
+        healed.append(label)
+    # (c) THE MODULE ITSELF.
+    if MOD_BANNER not in html:
+        if html.count(MOD_ANCHOR) != 1:
+            sys.exit('FAILED: cannot repair -- the day-loop module banner resolves %d times.'
+                     % html.count(MOD_ANCHOR))
+        html = html.replace(MOD_ANCHOR, module_body() + MOD_ANCHOR, 1)
+        healed.append('the inlined module, which had been cut out')
+    return html, healed
+
+
 def main():
     html = open(CITY, encoding='utf-8').read()
     if MARK in html:
-        print('  already applied  ' + CITY)
+        html, healed = repair(html)
+        if healed:
+            open(CITY, 'w', encoding='utf-8').write(html)
+            print('  REPAIRED  ' + CITY + '  -- put back: ' + '; '.join(healed)
+                  + '.  Re-run tools/bohemia_city_module_resync.py.')
+        else:
+            print('  already applied  ' + CITY)
         return
     steps = [('the card CSS', CSS_ANCHOR, CSS),
              ('ctCastRow', FN_ANCHOR, FN),
@@ -282,11 +396,7 @@ def main():
     if html.count(MOD_ANCHOR) != 1:
         sys.exit('FAILED: the day-loop module banner resolves %d times, expected 1.'
                  % html.count(MOD_ANCHOR))
-    body = open(MOD_SRC, encoding='utf-8').read()
-    if not body.endswith('\n'):
-        body += '\n'
-    mod = '/* ==== ' + MOD_SRC + ' ==== */\n' + body
-    html = html.replace(MOD_ANCHOR, mod + MOD_ANCHOR, 1)
+    html = html.replace(MOD_ANCHOR, module_body() + MOD_ANCHOR, 1)
     # ctClose first: the WIRE step inserts text ABOVE the same anchor line, and
     # rewriting the body afterwards would then have two candidate matches.
     html = html.replace(CLOSE_ANCHOR, CLOSE, 1)

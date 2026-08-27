@@ -116,6 +116,26 @@ ok('the quests really do carry a written conversation',
   C.files + ' files, ' + C.nodes + ' nodes, ' + C.says + ' say lines, ' + C.opts + ' options');
 ok('*** AND ' + C.noverbs + ' AUTHORED THINGS THE GAME REFUSES TO LET YOU SAY ***',
   C.noverbs > 20, C.noverbs + ' @NOVERB across ' + C.files + ' quests');
+/* *** AND THE FEATURE HAS TO BE IN THE FILE THE GAME ACTUALLY LOADS. ***
+   On 8/27 another lane's tool took 114 lines out of the walked city and 103 of
+   them were this module's inlined body, leaving BohemiaConversation called three
+   times and defined nowhere. Every call threw, the bare catch turned every throw
+   into "they have nothing to say", and the whole feature was gone with nothing on
+   screen and nothing in the console. THIS GATE CAUGHT IT AND THE FILE DID NOT.
+   Both halves are claims now: the module is SELF-DELIMITING (the same banner
+   opens and closes it, so a boundary scan ends at the right byte wherever it is
+   parked), and a missing one SAYS SO. */
+var CITY_SRC = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+var BANNER = '/* ==== engine/bohemia_conversation.js ==== */';
+ok('*** THE MODULE IS IN THE FILE THE GAME LOADS, AND IT DELIMITS ITSELF ***',
+  CITY_SRC.split(BANNER).length - 1 === 2,
+  (CITY_SRC.split(BANNER).length - 1) + ' banners (2 = opened and closed)');
+ok('and its body in the city is the canon body, byte for byte',
+  CITY_SRC.indexOf(fs.readFileSync(path.join(ROOT, 'engine/bohemia_conversation.js'), 'utf8')) > 0);
+ok('*** AND IF IT EVER GOES MISSING AGAIN, THE GAME SAYS SO OUT LOUD ***',
+  /typeof BohemiaConversation === 'undefined'/.test(CITY_SRC)
+  && /ctConvNode\.__warned/.test(CITY_SRC),
+  'null is a real answer here, so it may never also be the error answer');
 ok('every entry node has a speaker, so every one of them is castable',
   FILES.every(function (f) {
     return (parse(f).talks || []).filter(function (t) { return t.entry; })

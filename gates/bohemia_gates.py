@@ -2076,7 +2076,19 @@ GATES = [
      '12 red, the cast not confined to its block 1 red ("81 of 81"), the address not appended 2 '
      'red, the countdown hook removed 1 red, the cast not saved 1 red. It also says out loud '
      'which demo days CANNOT be cast in full and why (BLUES holds ground with nobody on it) '
-     'rather than papering over it with a stand-in', False),
+     'rather than papering over it with a stand-in. AND ITS STRONGEST CLAIM FOUND A STUCK '
+     'QUEST: "finish with this one and the address moves to the next part" went red because '
+     'THE LINEMAN\'S CONVERSATION NEVER ENDED -- the runtime reports ended only when a chosen '
+     'option runs out of graph, and a node with NO options is never chosen from, so it never '
+     'reports anything. 21 of the corpus\'s 236 nodes are terminal like that. A NODE WITH '
+     'NOWHERE TO GO IS THE END OF THE CONVERSATION. Measured after the fix: lineman (right '
+     'here, by the houses) -> fixer (5 blocks north west, out by the big road). AND IT LEFT AN '
+     'ORPHAN BEHIND IT: BohemiaPeople.castQuest cast every role against ONE roster, which was '
+     'right while a cast meant "who is on the block under your feet" and wrong the moment a '
+     'quest got an address per role. organ_reach found it the same run -- nothing on the walked '
+     'surface called it. DELETED rather than exempted, because keeping it meant the REQ-first '
+     'ordering and the one-person-one-part dedupe written down in two places; every claim '
+     'written against it now runs against castAddresses with a one-block world', False),
     ('LANGUAGE',       ['node', 'gates/language_gate.js'],
      'THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). A Las Vegas with 418,400+ Spanish speakers had '
      'exactly ZERO in the build -- every person spoke flawless monolingual English, including '

@@ -65,7 +65,7 @@ var P = require('../engine/bohemia_people.js');
    ========================================================================== */
 head('A. THE CASTER');
 ok('the identity module can cast a role',
-  typeof P.castRole === 'function' && typeof P.castQuest === 'function');
+  typeof P.castRole === 'function' && typeof P.castAddresses === 'function');
 
 function crowd(n, plan) {
   var out = [];
@@ -116,7 +116,22 @@ ok('an empty block casts nobody rather than throwing',
    B. A WHOLE QUEST
    ========================================================================== */
 head('B. A WHOLE QUEST AT ONCE');
-var full = P.castQuest([fixer, lineman], people, { questId: 'bq_meter_reader' });
+/* *** THESE CLAIMS USED TO CALL castQuest, WHICH IS GONE. *** It cast every role
+   against ONE roster, and its two rules -- REQ first, and nobody holds two parts
+   -- now live in castAddresses, which is what the game runs. Rather than delete
+   the claims with the function, they are pointed at castAddresses with a
+   ONE-BLOCK WORLD: same rules, same starving cases, and now exercising the
+   real path instead of a parallel one. */
+function onBlock(roles, roster, opts) {
+  return P.castAddresses(roles, {
+    peopleAt: function () { return roster; },
+    originFor: function () { return [0, 0]; },
+    radius: 0,
+    questId: (opts && opts.questId) || 'q',
+    factionOf: function (p) { return p.faction; }
+  });
+}
+var full = onBlock([fixer, lineman], people, { questId: 'bq_meter_reader' });
 ok('both roles cast', !!full.lineman && !!full.fixer,
   Object.keys(full).join(', '));
 /* TWO ROLES THAT WANT THE SAME OUTFIT, because that is the only case where a
@@ -125,7 +140,7 @@ ok('both roles cast', !!full.lineman && !!full.fixer,
    factions cannot land on one person, so the claim was named after the rule and
    never once exercised it. Same shape as the fallback claim caught yesterday:
    A CLAIM WHOSE SAMPLE DOES NOT CONTAIN ITS SUBJECT IS A VACUOUS PASS. */
-var twins = P.castQuest(
+var twins = onBlock(
   [{ name: 'crew_a', req: true, cond: 'faction=TRADES speaks_for_the_crew=true' },
    { name: 'crew_b', req: true, cond: 'faction=TRADES fixed_the_roof=true' }],
   people, { questId: 'bq_meter_reader' });
@@ -147,18 +162,18 @@ ok('and so are two roles wanting different outfits',
    same one this lane keeps paying for: a claim has to be built so that the rule
    it names is the ONLY thing that can make it pass. */
 var only = [{ key: 'P:city:1:1:1', faction: 'TRADES' }];
-var starved = P.castQuest([{ name: 'part_a', req: true, cond: 'faction_any' },
-                           { name: 'part_b', req: true, cond: 'faction_any' }],
-                          only, { questId: 'q' });
+var starved = onBlock([{ name: 'part_a', req: true, cond: 'faction_any' },
+                       { name: 'part_b', req: true, cond: 'faction_any' }],
+                      only, { questId: 'q' });
 ok('*** ONE PERSON NEVER HOLDS TWO PARTS IN ONE QUEST ***',
   Object.keys(starved).length === 1,
   Object.keys(starved).join(', ') + ' from a block of one person');
 
 /* REQ BEATS OPT, checked the same way: one person, one required part, one
    optional. The required one must get them. */
-var scarce = P.castQuest([{ name: 'opt_one', req: false, cond: 'faction_any' },
-                          { name: 'req_one', req: true, cond: 'faction_any' }],
-                         only, { questId: 'q' });
+var scarce = onBlock([{ name: 'opt_one', req: false, cond: 'faction_any' },
+                      { name: 'req_one', req: true, cond: 'faction_any' }],
+                     only, { questId: 'q' });
 ok('and when they can only fill one, the REQUIRED part gets them',
   !!scarce.req_one && !scarce.opt_one, Object.keys(scarce).join(', ') || 'nobody cast');
 

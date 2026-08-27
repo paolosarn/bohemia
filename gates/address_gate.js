@@ -278,6 +278,30 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
             out.opener = ob ? ob.textContent : null;
             if (ob) { ob.click();
               out.says = [].map.call(document.querySelectorAll('#ctcard .say'), function (e) { return e.textContent; });
+              /* *** AND THE WHOLE POINT: FINISH WITH THIS ONE AND THE ADDRESS
+                 MOVES TO THE NEXT. *** Walk the conversation to its end, then ask
+                 the HUD again -- it must be pointing somewhere else, at the other
+                 part, on the other outfit's ground. That is "going from one to
+                 the other IS the job", measured instead of asserted. */
+              out.roleBefore = ctJobRole();
+              out.addrBefore = ctAddress();
+              /* PLAY IT LIKE A PLAYER: answer while there are answers, and press
+                 the end button when the scene runs out of questions. A probe
+                 that only clicks options would stall on the terminal node the
+                 lineman's scene actually ends on. */
+              for (var g = 0; g < 8; g++) {
+                var nx = document.querySelector('#ctcard button.convopt');
+                if (nx) { nx.click(); continue; }
+                var fin = document.getElementById('ctconvend');
+                if (fin) { fin.click(); }
+                break;
+              }
+              out.roleAfter = ctJobRole();
+              out.addrAfter = ctAddress();
+              out.stageAfter = DQ.rt.state.stage;
+              var ca = out.cast[out.roleAfter];
+              out.blockAfter = ca ? ca.block : null;
+              out.factionAfter = ca ? ca.faction : null;
             }
             try { ctClose(); } catch (e) {}
           }
@@ -362,6 +386,16 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
     ok('*** AND THE CONVERSATION OPENS, WITH THE QUEST\'S OWN WORDS ***',
       !!m.opener && !!m.says && m.says.length > 0,
       JSON.stringify(m.opener) + ' -> ' + JSON.stringify((m.says || [])[0] || ''));
+    /* THE CLAIM THE WHOLE DESIGN IS FOR. One address is a waypoint; TWO, in
+       order, is a quest. */
+    ok('*** FINISH WITH THIS ONE AND THE ADDRESS MOVES TO THE NEXT PART ***',
+      !!m.roleBefore && !!m.roleAfter && m.roleAfter !== m.roleBefore
+      && !!m.addrAfter && m.addrAfter !== m.addrBefore,
+      m.roleBefore + ' (' + m.addrBefore + ')  ->  ' + m.roleAfter + ' (' + m.addrAfter + ')');
+    ok('and the next part is on a DIFFERENT outfit\'s ground',
+      !!m.blockAfter && !!m.factionAfter
+      && String(m.blockAfter) !== String((m.cast[m.roleBefore] || {}).block),
+      m.roleAfter + ' @' + JSON.stringify(m.blockAfter) + ' (' + m.factionAfter + ')');
 
     head('F. EVERY DEMO DAY, NOT JUST THE ONE THAT OPENS');
     var full = m.days.filter(function (d) { return d.filled === d.of; });

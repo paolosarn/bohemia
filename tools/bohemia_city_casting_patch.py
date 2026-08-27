@@ -50,7 +50,7 @@ FN_ANCHOR = "function ctFactionOf(p){"
 FN = """/* __CITY_CASTING__ -- WHO THE ACTIVE QUEST ACTUALLY WANTS, ON THIS BLOCK.
    Paolo 8/25: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR PEOPLE
    IN THE CITY." A role resolved to the WORD "lineman" and nobody was ever it.
-   The casting itself is BohemiaPeople.castQuest -- one implementation, in the
+   The casting itself is BohemiaPeople.castAddresses -- one implementation, in the
    identity module, because who somebody IS in a story is identity. This gives it
    the two things only the city can: the people standing here, and the bridge
    that says which outfit each of them runs with (ctFactionOf, which the card
