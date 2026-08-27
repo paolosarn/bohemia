@@ -117,7 +117,10 @@
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
     cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional', cluster:true },
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
-    golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
+    /* ONE COURSE, EIGHTEEN HOLES (8/26). Nine cells were building nine three-hole courses
+       with nine clubhouses. A 3x3 blob is 83 hectares and a real eighteen is 50-75, so the
+       ground was always there -- it was being cut into nine pieces. */
+    golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     /* ONE OF IT, NOT ONE PER CELL (8/26). Four stadiums in a 2x2, four landfills, four
        cemeteries -- each cell was building the whole facility. All three are AREA districts,
        so they take the blob's BOUNDS like the solar farm and the railyard do, not its
@@ -142,7 +145,10 @@
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
     jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' },
-    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
+    /* ONE FARM PER PARCEL (8/26). Thirteen blobs is RIGHT -- separate parcels are separate
+       farms -- and the defect was INSIDE a parcel: nine cells meant nine farmhouses and nine
+       barns on eight hectares, which is not a hamlet, it is a rendering bug. */
+    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default', cluster:true },
     downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
     trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
     apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },

@@ -96,8 +96,138 @@
     return g;
   }
 
+
+  /* NINE COURSES IN A 3x3, AND IT SHOULD HAVE BEEN ONE (8/26). Every cell of the valley's golf
+     blob built a COMPLETE course: three holes, a clubhouse, a pro shop, a driving range, two
+     car parks. Nine clubhouses inside one boundary.
+
+     AND THE ARITHMETIC IS THE NICE PART. A 3x3 blob is 288 m square -- about 83 hectares. A
+     real eighteen-hole course is 50 to 75. So the ground was always there for the actual
+     thing; it was being cut into nine pieces and a three-hole pitch-and-putt built on each.
+     One course, EIGHTEEN HOLES, one clubhouse.
+
+     ROUTED THE WAY COURSES ARE ROUTED: two loops of nine, each leaving the clubhouse and
+     coming back to it, so 9 and 18 both finish where 1 and 10 started. That is not decoration
+     -- it is why a clubhouse sits where it sits, and it falls out of the geometry for free
+     once the course is allowed to be one course. The front nine takes the outer ring, the back
+     nine the inner one.
+
+     AND THE ROUTING IS DECIDED BY THE BLOB, NOT THE CELL. Every cell carries its own seed, so
+     a fairway bend chosen with the cell's rng would bend one way on one side of a boundary and
+     the other way just across it. Every hole here is placed from a hash of the blob. */
+  function clusterCourse(seed,opts,b){
+    var A=K.blob(seed,{bounds:b,cellX:opts.cellX,cellY:opts.cellY}), f=A.f;
+    var streets=opts.streets||['S'];
+
+    // ---- BASE: dead rough over the whole property, desert at the property's own margins ----
+    A.vrect(A.c.x0,A.c.y0,A.c.x1,A.c.y1,0);
+    A.vrect(f.x0+5,f.y0+5,f.x1-5,f.y1-5,3);
+
+    /* A FAIRWAY WORM in valley tiles: overlapping discs along a polyline, because real
+       fairways bend and are never rectangles. The wobble comes from the blob hash so the same
+       corridor bends the same way seen from either side of a cell boundary. */
+    function worm(pts,rad,code){
+      for(var i=0;i<pts.length-1;i++){
+        var a=pts[i], c=pts[i+1];
+        var steps=Math.max(1,Math.round(Math.hypot(c[0]-a[0],c[1]-a[1])/2));
+        for(var s=0;s<=steps;s++){
+          var t=s/steps, px=Math.round(a[0]+(c[0]-a[0])*t), py=Math.round(a[1]+(c[1]-a[1])*t);
+          var rr=rad + (A.rnd(px,py)<0.5?0:1) - (A.rnd(py,px)<0.25?1:0);
+          A.vell(px,py,Math.max(3,rr),Math.max(3,rr),code);
+        }
+      }
+    }
+
+    /* THE CLUBHOUSE SITS AT THE SOUTH, ON THE STREET, and both nines are hung off it. */
+    var hx=f.mx, hy=f.y1-Math.round(f.h*0.08);
+
+    /* EIGHTEEN HOLES ON TWO RINGS. A hole's tee sits beside the previous hole's green, which
+       is how a person actually walks a course, so the chain is: clubhouse -> 1 -> ... -> 9 ->
+       clubhouse -> 10 -> ... -> 18 -> clubhouse. */
+    function ring(i,n,rx,ry,phase){
+      var a=phase + (i/n)*Math.PI*2;
+      return [Math.round(f.mx+Math.cos(a)*rx), Math.round(f.my+Math.sin(a)*ry)];
+    }
+    var ORX=Math.round(f.w*0.38), ORY=Math.round(f.h*0.38);
+    var IRX=Math.round(f.w*0.20), IRY=Math.round(f.h*0.20);
+    var greens=[], tee=[hx,hy-10];
+    for(var loop=0; loop<2; loop++){
+      var rx=loop?IRX:ORX, ry=loop?IRY:ORY;
+      for(var h=0; h<9; h++){
+        /* going the other way round on the back nine, which is what keeps the two loops from
+           lying on top of each other and is what a real routing does */
+        var idx = loop ? (8-h) : h;
+        var g2 = ring(idx, 9, rx, ry, Math.PI*0.5 + (loop?Math.PI/9:0));
+        var midx = Math.round((tee[0]+g2[0])/2 + (A.rnd(g2[0],g2[1])-0.5)*Math.min(f.w,f.h)*0.10);
+        var midy = Math.round((tee[1]+g2[1])/2 + (A.rnd(g2[1],g2[0])-0.5)*Math.min(f.w,f.h)*0.10);
+        worm([tee,[midx,midy],g2], 5, 4);                                  // the mown corridor
+        A.vell(g2[0],g2[1],8,7,6);                                          // the GREEN
+        A.vrect(tee[0]-3,tee[1]-2,tee[0]+3,tee[1]+2,9);                    // the TEE BOX
+        // greenside bunkers, on the side the fairway does not come in from
+        var bx=g2[0]+Math.round((g2[0]-midx)*0.18), by=g2[1]+Math.round((g2[1]-midy)*0.18);
+        A.vell(bx,by,4,3,7);
+        if(A.rnd(g2[0]+7,g2[1])<0.55) A.vell(midx,midy,5,4,7);             // a fairway bunker
+        greens.push(g2);
+        /* the next tee is beside this green -- walk off, walk on */
+        tee=[g2[0]+Math.round((A.rnd(g2[1],g2[0])-0.5)*22), g2[1]+Math.round((A.rnd(g2[0],g2[1])-0.5)*22)];
+      }
+      tee=[hx,hy-10];                       // each nine goes back out from the clubhouse
+    }
+
+    /* WATER: two dry, cracked ponds guarding holes on the outer loop. Dry because act one is
+       dead -- a lake on a dead course is the one thing nobody would still be paying for. */
+    for(var w=0; w<2; w++){
+      var gp=greens[(w*5+3)%greens.length];
+      A.vell(gp[0]+18,gp[1]+14,11,8,8);
+    }
+
+    // ---- THE CLUBHOUSE COMPLEX, ONCE: pro shop, two car parks, the range, a putting green ----
+    A.vrect(hx-20,hy-6,hx+20,hy+8,2);                                     // clubhouse + pro shop
+    A.vrect(hx-40,hy-6,hx-24,hy+8,1); A.vrect(hx+24,hy-6,hx+40,hy+8,1);   // the car parks
+    for(var py=hy-5; py<=hy+7; py+=3) A.vset(hx-33,py,13);                // a cart left in the lot
+    A.vrect(hx-42,hy-26,hx-14,hy-10,4); A.vrect(hx-42,hy-26,hx-42,hy-10,9);   // DRIVING RANGE
+    for(var mx2=hx-40; mx2<=hx-16; mx2+=5) A.vset(mx2,hy-25,11);              // mats on the tee line
+    for(var ty2=hy-46; ty2<=hy-30; ty2+=5) for(var tx2=hx-40; tx2<=hx-16; tx2+=7) A.vset(tx2,ty2,11);
+    A.vell(hx+30,hy-20,10,8,6);                                            // the practice putting green
+
+    /* THE CART PATH: a loop round the property tying the clubhouse to both nines. It is the
+       drivable surface, and across nine cells a single path by the clubhouse would have left
+       most of the course unreachable from any gate. */
+    A.vrect(f.x0+9,f.y0+9,f.x1-9,f.y0+12,1); A.vrect(f.x0+9,f.y1-12,f.x1-9,f.y1-9,1);
+    A.vrect(f.x0+9,f.y0+9,f.x0+12,f.y1-9,1); A.vrect(f.x1-12,f.y0+9,f.x1-9,f.y1-9,1);
+    /* AND IT HAS TO ACTUALLY JOIN UP. The first cut ran the spine from the north ring down to
+       the clubhouse -- and the CLUBHOUSE IS SOLID, so it stood between the spine and the south
+       ring and stranded every path tile north of it. One cell of nine came back unreachable
+       from any gate. The spine stops above the building now, a cross-link ties it to both car
+       parks, and the parks run down to the south ring: clubhouse, course and street on one
+       connected surface, which is what a cart path is for. */
+    A.vrect(hx-2,f.y0+12,hx+2,hy-11,1);
+    A.vrect(hx-40,hy-10,hx+40,hy-7,1);
+    A.vrect(hx-40,hy+8,hx-24,f.y1-9,1); A.vrect(hx+24,hy+8,hx+40,f.y1-9,1);
+
+    A.dress(12,120,3);                                                     // dead landscaping trees
+    A.dress(13,20,1);                                                      // abandoned carts
+
+    /* THE PINS GO IN ABSOLUTELY LAST, AND THAT IS NOT TIDINESS. A pin is ONE TILE. Set it
+       beside its own green and the next hole's fairway paints over it -- the back nine
+       crosses the front nine, which is exactly what a real routing does -- and then the ponds,
+       the clubhouse and the cart path take a couple more. Eighteen holes measured EIGHT, then
+       SIXTEEN, and nothing anywhere complained either time. Drawn after everything, they are
+       eighteen. */
+    for(var pi=0; pi<greens.length; pi++) A.vset(greens[pi][0],greens[pi][1],10);
+
+    var gates=A.gates(streets,5,1,[0,3,4],14);
+    return {g:A.g, W:A.W, H:A.H, streets:streets, gates:gates, bounds:b,
+      footprints:K.footprints(A.g,function(v){return v===2;})};
+  }
+
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
+    /* A LONE CELL IS UNCHANGED: three holes and a clubhouse is the right answer for 96 m of
+       ground, and it is art that already shipped. */
+    var __b=opts.bounds;
+    if(__b && (__b.x1>__b.x0 || __b.y1>__b.y0)) return clusterCourse(seed,opts,__b);
+
     var soft=function(c){ return c===0||c===3; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
     var g=res.g;

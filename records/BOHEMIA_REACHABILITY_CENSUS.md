@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 106 |
+| SHOWN (all) | 1 | 107 |
 | SHOWN (part) | 13 | 10 |
 | LOADED ONLY | 19 | 7 |
-| NO TRACE | 75 | 11 |
+| NO TRACE | 76 | 11 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **108** | **149** |
+| **total** | **109** | **150** |
 
-**305.1 MB of 309.0 MB** sampled does not reach the shown surface.
+**304.8 MB of 308.7 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -62,8 +62,8 @@ verbatim.
 | `banks/BOHEMIA_GRIME_8_3_26.txt` | bank | 0.11 |
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
-| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.07 |
+| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt` | bank | 0.01 |
@@ -79,7 +79,7 @@ verbatim.
 | `banks/BOHEMIA_HD_TILE_REPO_part4.txt` | bank | 45.66 |
 | `banks/BOHEMIA_HD_TILE_REPO_part3.txt` | bank | 44.90 |
 | `banks/BOHEMIA_HD_TILE_REPO_part2.txt` | bank | 44.72 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 29.55 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 29.15 |
 | `banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt` | bank | 10.30 |
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
@@ -119,6 +119,7 @@ verbatim.
 | `banks/BOHEMIA_STANDING_SET_7_10_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_TRANSITION_SET_7_10_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | bank | 0.07 |
+| `banks/BOHEMIA_INTERIOR_FLOOR_POOL_8_26_26.txt` | bank | 0.07 |
 | `banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt` | bank | 0.06 |
 | `banks/BOHEMIA_POWER_POLE_8_23_26.txt` | bank | 0.05 |
 | `banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt` | bank | 0.05 |
@@ -135,9 +136,8 @@ verbatim.
 | `engine/bohemia_brownout.js` | engine | 0.01 |
 | `banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_TILECAT_REDMAG_7_10_26.txt` | bank | 0.01 |
-| `engine/bohemia_light_registry.js` | engine | 0.01 |
 
-*(26 more, see the .json)*
+*(27 more, see the .json)*
 
 ## REACHES HIM
 

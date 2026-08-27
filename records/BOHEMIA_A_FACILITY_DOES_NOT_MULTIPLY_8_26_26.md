@@ -156,14 +156,63 @@ at once                11.1 s        8.4 s
 **Nothing in the game changed to earn any of that.** Three ratchets came down with it: total
 44 -> 30 MB, after-the-tap 6 -> 2 MB, the wait 16 -> 12 s. All three mutation-tested.
 
+## AND THEN THE TWO BIGGEST ONES, THE SAME DAY
+
+**GOLF: NINE COURSES IN A 3x3, AND THE ARITHMETIC IS THE NICE PART.** Every cell built a
+complete course — three holes, a clubhouse, a pro shop, a driving range, two car parks. Nine
+clubhouses inside one boundary.
+
+A 3x3 blob is 288 m square, about **83 hectares**. A real eighteen-hole course is **50 to 75**.
+The ground was always there for the actual thing; it was being cut into nine pieces with a
+three-hole pitch-and-putt on each. It is **one course, eighteen holes, one clubhouse**, routed
+the way courses are routed: two loops of nine, each leaving the clubhouse and coming back to
+it, so 9 and 18 finish where 1 and 10 started. That is not decoration — it is why a clubhouse
+sits where it sits, and it falls out for free once the course is allowed to be one course.
+
+```
+45 hero structures if built per cell  ->  1 as one district
+THE COURSE: 9 cells, 18 holes, 1 clubhouse       GOLF GATE: 16 passed, 0 failed
+```
+
+**And the hole count was wrong twice, silently.** A pin is ONE TILE. Set beside its own green
+it gets painted over by the next hole's fairway — the back nine crosses the front nine, which
+is exactly what a real routing does. Eighteen holes measured **EIGHT**. Moved after the
+fairways: **SIXTEEN**. Only drawn absolutely last, after the ponds and the clubhouse and the
+cart path, are there eighteen. Nothing anywhere complained either time, which is why the count
+is now a gate line.
+
+**And the cart path did not join up.** The spine ran from the north ring down to the clubhouse
+— and **the clubhouse is solid**, so it stood between the spine and the south ring and
+stranded every path tile north of it. One cell of nine came back unreachable from any gate.
+
+**FARM: THIRTEEN BLOBS, AND THIRTEEN IS RIGHT.** This is the one where "one per blob" had to be
+checked rather than assumed: separate parcels really are separate farms. What was wrong is
+INSIDE a parcel — every cell built a farmhouse, a barn, three silos, an equipment shed, a
+farmyard and its own fence ring, so a nine-cell farm had **nine farmhouses and nine barns**.
+
+The arithmetic settles it again: nine cells is about **8 hectares**, which is ONE SMALL FARM.
+Nine farmsteads on eight hectares is not a hamlet, it is a rendering bug.
+
+```
+all 13 blobs: 45 -> 3, 20 -> 3, 15 -> 3, 10 -> 3 ...   FARM GATE: 11 passed, 0 failed
+```
+
+The furrows run the full length of the parcel now instead of stopping at every cell boundary —
+the difference between a ploughed field and a patchwork quilt. **And the centre cell of a 3x3
+had no road at all**: a headland ring round the parcel is what a one-cell farm has, and it
+never reaches the middle. A tractor could not get to the middle of the farm from any gate. Real
+farms have a track between every pair of fields; that is what a ditch bank IS.
+
 ## WHAT COMES AFTER
 
-The gate prints its own backlog, which is the point of it. Left on the canon seed:
+The gate prints its own backlog, which is the point of it. What is left is roads, terrain, and
+districts that are SUPPOSED to have many buildings:
 
 ```
-farm 93 cells (13 blobs, biggest 9) · golf 9 · town 9 · datafort 6 · speedway 6 · park 3 · medical 2
+mountain:40 · arterial:35 · airport:24 · interchange:16 · resort:16 · water:16
+rail:13 · desert:13 · downtown:9 · town:9 · datafort:6 · speedway:6
 ```
 
-**Golf next** — nine golf courses in a 3x3, an AREA district, so it is the stadium's shape and
-the kit is already there. Then **farm**, which is the biggest by area and the only one where
-thirteen separate blobs make "one farm each" arguably correct — worth looking before building.
+**airport (24 cells) and datafort (6) and speedway (6) are the real remainder** — each is one
+facility. downtown, town and commercial are not: those are supposed to be many buildings, and
+the gate's own list is the place that distinction now lives.

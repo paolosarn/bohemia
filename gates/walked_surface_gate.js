@@ -332,6 +332,8 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
     cemetery: { max: 7,  why: 'ONE chapel, ONE office and a row of mausolea. Four cells built four sets.' },
     railyard: { max: 3,  why: 'ONE engine shed and ONE office. Six cells built six of each.' },
     solar:    { max: 4,  why: 'ONE control building per plant, not per cell.' },
+    golf:     { max: 2,  why: 'ONE clubhouse on an eighteen-hole course. Nine cells built nine.' },
+    farm:     { max: 4,  why: 'ONE farmhouse and ONE barn per parcel. Nine cells built nine of each.' },
   };
   const watched = blobs.filter(b => EXPECT[b.d]);
   const scaled = watched.filter(b => b.runs > EXPECT[b.d].max);

@@ -53,5 +53,45 @@ ok('clubhouse(2) enterable interior, fairway(4)+green(6) ground, cart path(1) dr
 
 ok('deterministic per seed', JSON.stringify(D.generate(70, { streets: ['S'] }).g) === JSON.stringify(D.generate(70, { streets: ['S'] }).g));
 
+
+/* ===================== ONE COURSE, EIGHTEEN HOLES (8/26) =====================
+   The valley's golf blob is 3x3 and every cell built a COMPLETE course: three holes, a
+   clubhouse, a pro shop, a driving range, two car parks. Nine clubhouses inside one boundary.
+
+   AND THE ARITHMETIC IS THE NICE PART: a 3x3 blob is 288 m square, about 83 hectares, and a
+   real eighteen-hole course is 50 to 75. The ground was always there for the actual thing.
+
+   ROUTED AS TWO LOOPS OF NINE, each leaving the clubhouse and returning to it, so 9 and 18
+   finish where 1 and 10 started. That is why a clubhouse sits where it sits.
+
+   THE COUNT IS CHECKED BECAUSE IT SILENTLY WASN'T RIGHT TWICE. A pin is ONE TILE, and the
+   back nine crosses the front nine -- which is what a real routing does -- so a later
+   fairway paints over an earlier flag. Eighteen holes measured EIGHT, then SIXTEEN once the
+   pins moved after the fairways, and only ABSOLUTELY last (after the ponds, the clubhouse and
+   the cart path) are there eighteen. Nothing anywhere complained either time. */
+const GB = { x0: 0, x1: 2, y0: 0, y1: 2 };
+const gcell = (x, y) => D.generate(4242, { streets: y === GB.y1 ? ['S'] : [], bounds: GB, cellX: x, cellY: y });
+let gPins = 0, gClub = 0, gTees = 0, gCells = 0, gBad = [];
+for (let y = GB.y0; y <= GB.y1; y++) for (let x = GB.x0; x <= GB.x1; x++) {
+  gCells++;
+  const r = gcell(x, y), t = counts(r);
+  gPins += (t[10] || 0); gTees += (t[9] || 0) ? 1 : 0;
+  if (t[2]) gClub++;
+  if (!K.legendOk(r.g, D.palette)) gBad.push('legend ' + x + ',' + y);
+  if (!D.driveConnected(r)) gBad.push('drive ' + x + ',' + y);
+}
+ok('THE COURSE HAS EIGHTEEN HOLES, not three per cell (counted ' + gPins + ' pins across '
+   + gCells + ' cells)', gPins === 18);
+ok('and ONE clubhouse, not nine (' + gClub + ' of ' + gCells + ' cells hold building mass)', gClub === 1);
+ok('every cell of the course names its tiles and a cart reaches the path from a gate'
+   + (gBad.length ? ' -> ' + gBad.join(', ') : ''), gBad.length === 0);
+let gLone = true;
+for (const cfg of CONFIGS) for (let s2 = 1; s2 <= 5; s2++) {
+  if (JSON.stringify(D.generate(s2 * 17 + 3, { streets: cfg }).g)
+   !== JSON.stringify(D.generate(s2 * 17 + 3, { streets: cfg, bounds: { x0: 4, x1: 4, y0: 4, y1: 4 }, cellX: 4, cellY: 4 }).g)) gLone = false;
+}
+ok('a golf cell on its own is BYTE-IDENTICAL to the three-hole course that shipped', gLone);
+console.log('  THE COURSE: ' + gCells + ' cells, ' + gPins + ' holes, ' + gClub + ' clubhouse');
+
 console.log('GOLF GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');
 process.exit(fail ? 1 : 0);
