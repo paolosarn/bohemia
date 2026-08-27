@@ -1,5 +1,5 @@
 {
- "built": "8/8/26",
+ "built": "8/28/26",
  "shots": [
   {
    "id": "the-way-in",
@@ -587,6 +587,16 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_hair_reference_sheet.js",
    "kb": 236.4
+  },
+  {
+   "id": "portrait-haircut",
+   "title": "THE FACE THAT POPS UP IS WEARING YOUR HAIRCUT NOW",
+   "caption": "The body has been picking from sixteen haircuts. The portrait that pops up when somebody talks could draw six of them, and five of the seven names it could be given drew the exact same pixels. So three people in four had one haircut standing in front of you and a different one in the portrait. They matched 24.7% of the time, which is WORSE than the 33% you would get from a coin. The cause was a sentence I wrote saying the body has no notion of a hairstyle -- it does, and it is set for 93% of the valley. I had checked one of the two things that dress a person and written down that there wasn't one. It is 88% now, and the portrait can draw fifty-six haircuts instead of six. AND YOU CAN BUILD YOUR OWN FACE: the editor only ever changed colours, so at a size where a face IS its proportions there was no way to change one. Fourteen sliders now, plus all fifteen haircuts and four hair textures. CHARACTER tab, tap your portrait. Your own face is byte-for-byte untouched.",
+   "file": "look/portrait-haircut.png",
+   "stamp": "8/28/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_the_portrait_wears_your_haircut.js",
+   "kb": 289.7
   }
  ]
 }

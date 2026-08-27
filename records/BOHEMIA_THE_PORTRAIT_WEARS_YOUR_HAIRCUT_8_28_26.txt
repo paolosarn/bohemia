@@ -1,0 +1,99 @@
+BOHEMIA -- THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING     8/28/26, CHARACTER lane
+================================================================================
+
+WHERE IT CAME FROM
+  Paolo, 8/26: "Eye colors matching the portrait again."
+  That produced ONE ID, ONE WHOLE PERSON on 8/27, which fixed SKIN, HAIR COLOUR and
+  EYES, and whose record says in my own words: "same person on both sides now, every
+  time."  THE HAIRCUT ITSELF WAS NEVER CHECKED. It is the largest shape on a head.
+
+MEASURED OVER 200 CITIZENS, BEFORE TOUCHING ANYTHING
+  distinct haircuts on the BODY                              16
+  distinct hair silhouettes the PORTRAIT could draw            6
+  of the 7 style names the spec could hold, how many
+    drew DIFFERENT pixels                                      2
+    (straight = coils = buzz = locs = afro, byte-identical)
+  how often the portrait's length matched the body's       24.7%
+
+  24.7% IS WORSE THAN THE 33% A COIN GIVES OVER THREE BANDS. Two independent hashes
+  are not merely unrelated -- they can land anti-correlated, so the system was doing
+  slightly worse than guessing. Three people in four had one haircut standing in
+  front of you and a different one in the portrait when they spoke.
+
+TWO CAUSES
+
+  1. A SENTENCE I WROTE THAT WAS FALSE WHEN I WROTE IT.
+     The 8/27 code carries, in faceFor:
+       "THE CUT ITSELF IS STILL THIS FUNCTION'S, because the BODY has no notion of a
+        hairstyle -- NPCFactory picks a painted hair LAYER, not a portrait cut."
+     NPCFactory picks a painted layer. True. But BOH_PERSONLOOK.lookFor -- which is
+     what actually dresses the crowd, and which faceFor was ALREADY CALLING for their
+     clothes -- hands back worn.hair, one of the fifteen canon genHair styles.
+     MEASURED: set for 93% of citizens.
+     I checked one of the two things that dress a person, found no haircut there, and
+     wrote down that there wasn't one. A CLAIM ABOUT THE CODEBASE MADE FROM ONE OF THE
+     TWO PLACES IS A GUESS (8/1: do not claim things about the codebase without
+     checking).
+
+  2. FIVE DEAD NAMES.
+     renderFace tested style==='wavy_mid'||style==='curly' and drew a zig down each
+     side; every other name fell through and drew nothing. A DIAL THAT CANNOT MOVE THE
+     PIXELS IS NOT A DIAL (8/27) -- third place that has been true this week.
+
+THE FIX: THE SAME VOCABULARY, NOT A SECOND ONE
+  The portrait reads the five dials the body's own generator reads -- side, front,
+  vol, flare, tex -- out of the one place a haircut's numbers are written down: the
+  genHair call that defines it. There were exactly two ways to get them, copy them
+  into a second table or read the first one, AND A SECOND TABLE IS HOW THE TWO ENDED
+  UP WEARING DIFFERENT HAIRCUTS IN THE FIRST PLACE (ENGINE SYNC LAW).
+
+  hairDialsFor reads the call, cached once. That is a real dependency on this file
+  never being minified, which it is not, and the gate asserts all fifteen resolve to
+  DISTINCT dial sets -- so a build step that ever mangles it goes red the same turn
+  instead of the crowd quietly going bald.
+
+TWO THINGS LOOKING CAUGHT THAT MEASURING DID NOT
+  `front` WAS WORTH THREE PIXELS. My first cut ran it from the top of the FACE to the
+  brow, about eight rows, so SLICK BACK and FRINGE came out as the same haircut with a
+  rounding error between them. The body measures the same dial from the top of the
+  SKULL to the chin. Matching that is not a style choice, it is the difference between
+  two renderers meaning the same thing by the same number. Spread after: 13px against 3.
+
+  THE MASS LET GO OF ITSELF. Moving the crown's outer corners with the hairline opened
+  a six-row stripe of bare scalp between the top of the head and the hair at the sides.
+  Only the three points of the front arc move now. Same failure as the body's fall
+  letting go at the jaw the day before: a shape that stops being one piece.
+
+THE RESULT
+                                                    before      after
+  portrait/body agreement on hair length            24.7%       88.2%
+  correlation, body's length dial vs fall drawn     ~0          0.924
+  distinct hair silhouettes the portrait can draw   6           56
+  textures that move pixels                         1 of 7      4 of 4
+
+  THE FACE PAOLO APPROVED IS BYTE-IDENTICAL. Hash c9856a89 on this tree and on
+  origin/main, checked rather than asserted. Every new dial is optional and defaults
+  to exactly the old drawing; the player's spec sets none of them.
+
+THE GATE                     gates/portrait_haircut_gate.js   12 passed, 0 failed
+  Measures RENDERED PIXELS, never spec fields, and the reason is written into it: the
+  report behind it first compared sp.hair.len, a STRING -- and the fix made the
+  renderer read sp.hair.side instead, so `len` stopped driving anything and the ruler
+  cheerfully reported the fix had changed nothing. THIRD BROKEN RULER IN A WEEK, same
+  shape every time: a number perfectly true about something nobody is asking about.
+  The ceiling probe was wrong the same way in the same run, reporting a ceiling of ONE
+  on a renderer that had just grown five dials.
+
+THE LESSON
+  WHEN YOU WRITE DOWN THAT SOMETHING DOES NOT EXIST, SAY WHERE YOU LOOKED. The comment
+  that cost this was not lazy and not vague -- it named a mechanism and described it
+  correctly. It just wasn't the only mechanism, and nothing in the sentence admitted
+  that only one had been checked. A confident negative is the most expensive kind of
+  wrong, because nobody re-opens it.
+
+WHERE HE SEES IT
+  RUN tab       talk to anybody
+  CHARACTER tab try the haircuts on
+  LOOK tab      "THE FACE THAT POPS UP IS WEARING YOUR HAIRCUT NOW"
+  Law:    laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md
+  Report: tools/bohemia_does_the_portrait_wear_your_haircut.js

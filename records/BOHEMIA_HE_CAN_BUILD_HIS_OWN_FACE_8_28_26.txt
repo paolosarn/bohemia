@@ -1,0 +1,78 @@
+BOHEMIA -- HE CAN BUILD HIS OWN FACE                              8/28/26, CHARACTER lane
+================================================================================
+
+WHERE IT CAME FROM
+  Paolo, 8/25, THE PLAYTEST DISPATCH item 10:
+    "animations get an audit and FACE CUSTOMISATION, never built, is on the board."
+  HE MUST BE ABLE TO DIRECT IT (8/12, LOCKED): every system he has to make decisions
+  about ships with the INSTRUMENT for making them, IN A TAB, the same turn.
+    THE TEST: WHERE DOES HE CHANGE THIS HIMSELF?
+    If the answer is "he tells me and I edit a file", it is not shipped.
+
+WHAT WAS ACTUALLY THERE
+  There WAS a thing called a face editor, reached by tapping the portrait in CHARACTER.
+  Five swatch rows -- skin, hair, eyes, lips, brows -- and a pad for nudging feature
+  offsets per facing.  NOT ONE CONTROL TOUCHED THE SHAPE OF THE HEAD.
+
+  At 64 pixels IDENTITY IS SIZE AND SPACING, NOT DETAIL (8/27). So the thing called a
+  face editor could not change a face; it could change what colour that one face was.
+
+  AND EVERYTHING IT NEEDED ALREADY EXISTED AND NONE OF IT WAS REACHABLE. faceFor has
+  rolled a full grounded shape vocabulary for every stranger in the valley since 8/27.
+  THE PLAYER WAS THE ONE PERSON IN BOHEMIA WHO COULD NOT HAVE A DIFFERENT HEAD.
+
+WHAT SHIPPED             TAB: CHARACTER, tap your portrait
+  14 SHAPE SLIDERS   face length, cranium, forehead, cheeks, jaw, chin, brow height,
+                     eye height, nose height, mouth height, eye spacing, brow length,
+                     mouth width, nose width. The portrait redraws as he drags.
+  THE HAIRCUT        picked from THE BODY'S OWN FIFTEEN. Choosing one writes the same
+                     five dials the crowd's portraits read (8/28), so the head he
+                     builds and the people he meets are described in one vocabulary.
+  4 HAIR TEXTURES    wavy, coiled, locs, smooth -- each moves pixels.
+  ROLL A FACE        faceFor itself, the same generator every stranger comes out of.
+                     It cannot produce anything the game could not already produce; it
+                     is a way of SEEING the space, not a second generator.
+  BACK TO PUNK       restores the approved face exactly and KEEPS the colours he
+                     picked, because rerolling a choice he just made is not a reset.
+  EXPORT THIS FACE   a .txt, the verdict workflow. A face he cannot send me is a face
+                     he cannot keep.
+
+THE ANATOMY IS MINE, THE FACE IS HIS      (MECHANISM-MINE / CONTENTS-PAOLO'S)
+  Every slider re-clamps against the same rules faceFor obeys for every stranger:
+  the cheeks are the widest part, the jaw is inside the cheeks, the chin is inside the
+  jaw, the features keep their order down the face, the mouth stays above the chin,
+  and the four row positions are stored as a FRACTION of the face so lengthening the
+  head moves the eyes with it instead of stranding them near the jaw.
+  HE CANNOT BUILD A HEAD THAT IS NOT A HEAD, AND INSIDE THAT HE CAN BUILD ANY HEAD HE
+  LIKES. Nothing is rejected -- the neighbour gives way -- so a slider always does
+  something.
+
+THE GATE                          gates/face_maker_gate.js   13 passed, 0 failed
+  IT DRIVES THE REAL PANEL. Opens CHARACTER, clicks the portrait the way he does,
+  finds the sliders actually in the DOM, moves each one and re-renders the player's
+  face to see whether the pixels moved. A gate that read the source for the word
+  "slider" would pass on a panel that does nothing (VERIFY ON THE REAL SURFACE, 7/18).
+    - every slider moves the pixels, each from a clean PUNK, at both ends
+    - he cannot build a head that is not a head: every slider to both extremes,
+      anatomy asserted, and it still renders
+    - all 15 canon haircuts pickable, and picking one changes his face
+    - ROLL A FACE varies; BACK TO PUNK restores the approved face BY HASH
+
+  AND THE HARNESS HAD TO BE FIXED FIRST. Its first version swept the sliders in order
+  without resetting and reported MOUTH HEIGHT as a dead dial. It was not: maxing FACE
+  LENGTH earlier in the loop had already pushed the mouth to its own ceiling through
+  the anatomy clamp, and restoring the length does not pull it back -- so by the time
+  the mouth was tested it was already at the value the test was about to set.
+  A HARNESS WITH STATE IN IT MEASURES THE STATE, NOT THE THING.
+  Fourth broken ruler this week, and the fourth time the failure was flattering-shaped.
+
+WHERE HE SEES IT
+  CHARACTER tab -- tap your portrait.
+  LOOK tab      -- "THE FACE THAT POPS UP IS WEARING YOUR HAIRCUT NOW", bottom row.
+  Law: laws/BOHEMIA_LAW_HE_CAN_BUILD_HIS_OWN_FACE_8_28_26.md
+
+STILL OPEN, NOT DECIDED HERE
+  - the face maker does not persist across a reload. It writes the live pface, which
+    is what the game plays, but nothing saves it. That is a SAVE-SYSTEM row.
+  - eyebrow SHAPE (arch, angle, thickness) and eye size are in the spec and not on a
+    slider yet. Four more rows, no new mechanism.

@@ -1412,6 +1412,38 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('PORTRAIT HAIRCUT', ['node', 'gates/portrait_haircut_gate.js'],
+     'THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28). ONE ID ONE WHOLE '
+     'PERSON (8/27) fixed skin, hair COLOUR and eyes and its record says "same person '
+     'on both sides now, every time" -- THE HAIRCUT ITSELF WAS NEVER CHECKED, and it '
+     'is the largest shape on a head. Measured over 200 citizens: the body had 16 '
+     'distinct haircuts, the portrait could draw SIX, five of its seven style names '
+     'drew IDENTICAL PIXELS, and agreement was 24.7% -- WORSE THAN THE 33% A COIN '
+     'GIVES, because two independent hashes are not merely unrelated, they can be '
+     'anti-correlated. Cause: a comment I wrote saying the body has no notion of a '
+     'hairstyle, which was false -- lookFor.worn.hair is set for 93% of the valley, '
+     'and I had checked one of the two things that dress a person. The portrait reads '
+     'the SAME five dials the body does now, out of the genHair call itself rather '
+     'than a second table, because a second table is how they drifted apart. Holds '
+     'agreement >=75% and correlation >=0.80 on RENDERED FALL, a ceiling of >=40 '
+     'silhouettes, every texture and every shape dial moving pixels on its own, and '
+     'the approved player face unmoved BY HASH. It never reads a spec field: the '
+     'report behind it compared sp.hair.len, a string the fix had just made dead, and '
+     'reported that nothing had changed.', False),
+    ('FACE MAKER',    ['node', 'gates/face_maker_gate.js'],
+     'HE CAN BUILD HIS OWN FACE (Paolo 8/25 dispatch item 10: "FACE CUSTOMISATION, '
+     'never built, is on the board"). There WAS a thing called a face editor and it '
+     'had five swatch rows and a nudge pad -- NOT ONE CONTROL TOUCHED THE SHAPE OF '
+     'THE HEAD, and at 64 pixels identity IS size and spacing. faceFor has rolled a '
+     'full shape vocabulary for every stranger since 8/27; the player was the one '
+     'person in Bohemia who could not have a different head. HE MUST BE ABLE TO '
+     'DIRECT IT (8/12): the test is WHERE DOES HE CHANGE THIS HIMSELF. The gate '
+     'DRIVES THE REAL PANEL -- opens CHARACTER, taps the portrait, moves every slider '
+     'from a clean PUNK at both ends and re-renders to see the pixels move; asserts '
+     'he cannot build a head that is not a head at any extreme; that all fifteen of '
+     'the body\'s haircuts are pickable; that ROLL A FACE varies; and that BACK TO '
+     'PUNK restores the approved face BY HASH. Its own first harness had state in it '
+     'and reported a live dial dead -- a harness with state measures the state.', False),
     ('HAIRLINE',      ['node', 'gates/hairline_gate.js'],
      'THE HAIRLINE IN PROFILE, AND HAIR IS ONE PIECE (Paolo 8/27): "U HAVE TO FIX '
      'THE FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ... THE HAIR '

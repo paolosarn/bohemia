@@ -379,6 +379,55 @@ research partner. He DECIDES, you PRODUCE.
   the whole feature passed 27 of 27. It counts rendered iris pixels now. A CHECK THAT READS
   WHAT YOU HANDED IT IS NOT A CHECK. Tab: RUN (talk to anybody) / LOOK. Full law:
   laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md  Gate: talking_portrait_gate.js
+- THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28, finishing his 8/26 "eye colors
+  matching the portrait again"): ONE ID ONE WHOLE PERSON fixed skin, hair COLOUR and eyes on
+  8/27 and its record says "same person on both sides now, every time". THE HAIRCUT ITSELF
+  WAS NEVER CHECKED and it is the largest shape on a head. MEASURED over 200 citizens: the
+  body wore 16 distinct haircuts, the portrait could draw SIX, five of the seven style names
+  it could hold drew IDENTICAL PIXELS, and agreement was 24.7% -- WORSE THAN THE 33% A COIN
+  GIVES over three bands, because two independent hashes are not merely unrelated, they can
+  land ANTI-CORRELATED. *** THE CAUSE WAS A SENTENCE I WROTE THAT WAS FALSE WHEN I WROTE IT:
+  "the BODY has no notion of a hairstyle -- NPCFactory picks a painted hair LAYER". True of
+  NPCFactory. But BOH_PERSONLOOK.lookFor, which actually dresses the crowd and which faceFor
+  WAS ALREADY CALLING FOR THEIR CLOTHES, hands back worn.hair, one of the fifteen canon cuts,
+  set for 93% of the valley. I CHECKED ONE OF THE TWO THINGS THAT DRESS A PERSON AND WROTE
+  DOWN THAT THERE WASN'T ONE. A confident negative is the most expensive kind of wrong,
+  because nobody re-opens it; WHEN YOU WRITE DOWN THAT SOMETHING DOES NOT EXIST, SAY WHERE
+  YOU LOOKED. *** The portrait reads the SAME five dials the body does -- side, front, vol,
+  flare, tex -- out of the genHair call itself, NOT a second table, because a second table
+  is how they drifted apart (ENGINE SYNC). Looking caught two things measuring did not:
+  `front` was worth THREE PIXELS because I ran it down the FACE when the body runs it down
+  the SKULL (13px after), and moving the crown's outer corners with the hairline opened a
+  six-row stripe of bare scalp -- the mass let go of itself, the same failure as the body's
+  fall at the jaw one day earlier. Result: agreement 88.2%, correlation 0.924, 6 -> 56
+  drawable haircuts. THE APPROVED PLAYER FACE IS BYTE-IDENTICAL (hash c9856a89, checked
+  against origin/main, and the gate hashes it every run). Gate lesson: the report behind it
+  compared sp.hair.len, a STRING the fix had just made dead, and reported nothing had
+  changed -- THIRD BROKEN RULER IN A WEEK, so the gate reads RENDERED PIXELS and never a
+  spec field. Tab: RUN (talk to anybody) / CHARACTER / LOOK. Full law:
+  laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md  Gate: portrait_haircut_gate.js
+- HE CAN BUILD HIS OWN FACE (Paolo 8/25, THE PLAYTEST DISPATCH item 10: "FACE CUSTOMISATION,
+  never built, is on the board"; built 8/28): there WAS a thing called a face editor -- five
+  swatch rows and a nudge pad -- and NOT ONE CONTROL TOUCHED THE SHAPE OF THE HEAD. At 64
+  pixels IDENTITY IS SIZE AND SPACING, NOT DETAIL (8/27), so the thing called a face editor
+  could not change a face, only what colour that one face was. AND EVERYTHING IT NEEDED
+  ALREADY EXISTED AND NONE OF IT WAS REACHABLE: faceFor has rolled a full grounded shape
+  vocabulary for every stranger since 8/27, so THE PLAYER WAS THE ONE PERSON IN BOHEMIA WHO
+  COULD NOT HAVE A DIFFERENT HEAD. HE MUST BE ABLE TO DIRECT IT (8/12) -- the test is WHERE
+  DOES HE CHANGE THIS HIMSELF, and until today the answer was "he tells me and I edit a
+  file", which is not shipped. NOW: 14 shape sliders, all fifteen of the body's haircuts,
+  four hair textures, ROLL A FACE (faceFor itself, so it cannot make anything the game could
+  not already make), BACK TO PUNK (restores the approved face and KEEPS the colours he
+  picked), and EXPORT. THE ANATOMY IS MINE, THE FACE IS HIS: every slider re-clamps against
+  the rules faceFor obeys -- cheeks widest, jaw inside them, chin inside the jaw, features in
+  order, row positions stored as a FRACTION of the face so lengthening the head moves the
+  eyes with it. HE CANNOT BUILD A HEAD THAT IS NOT A HEAD, and nothing is rejected -- the
+  neighbour gives way, so a slider always does something. Gate lesson: its own first harness
+  swept the sliders without resetting and reported a LIVE dial dead, because an earlier
+  slider had already pushed it to its ceiling through the clamp -- A HARNESS WITH STATE IN IT
+  MEASURES THE STATE, fourth broken ruler in a week and the fourth flattering-shaped one.
+  Tab: CHARACTER (tap your portrait). Full law:
+  laws/BOHEMIA_LAW_HE_CAN_BUILD_HIS_OWN_FACE_8_28_26.md  Gate: face_maker_gate.js
 - THE HAIRLINE IN PROFILE, AND HAIR IS ONE PIECE (Paolo 8/27, LOCKED): "U HAVE TO FIX THE
   FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ... YOU HAVE THE HAIR BALDING
   BACK FURTHER THAN IT SHOULD BE. AND MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE
