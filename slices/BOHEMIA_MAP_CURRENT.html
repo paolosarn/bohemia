@@ -38,7 +38,7 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:2db0b5d904feacaf74a253518930f9fd -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:f4908e676076464da836b5b771597558 -->
-<!-- engine-md5:engine/bohemia_arterial.js:b86dc855b23daf93b38d51916cfc7ccc -->
+<!-- engine-md5:engine/bohemia_arterial.js:4f67c3c39509e3b307880450ef975102 -->
 <!-- engine-md5:engine/bohemia_freeway.js:85d6c9c096e6337fae6e88f2a0df5e42 -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
 <!-- engine-md5:engine/bohemia_airfield.js:4e2fd12f16f7044e02f5e6571eeae884 -->
@@ -8184,8 +8184,92 @@
         });
       }
     }
+    /* ---- 3c. THE DRIVEWAY THAT ACTUALLY MEETS THE NEIGHBOUR (8/28) ------------------
+       Paolo, after playing 8/28k: "streets are stillls uper fucked" -- with the street
+       contract green at arterial 0 of 2594. He was right and the CONTRACT was blind: it
+       only ever compared a road cell to another ROAD cell, so every edge where a street
+       meets a shop block, a neighbourhood or a farm was skipped in silence. Measured over
+       the whole valley: 7,562 edges have a street reaching them, 2,668 do not connect.
+       AND IT IS ONE-SIDED. Every district out there obeys the STREET-AWARE ACCESS LAW and
+       puts its one car entrance at the kerb: commercial(46,7) has a driveway at rows
+       47..57 arriving at its west edge. The arterial next to it has NOTHING there. The
+       city reaches for the road; the road has 27 m of parcel frontage in the way and never
+       cuts its kerb. Photographed: a plaza with a drive aisle, a driveway poking out of
+       it, and fifty metres of bare dirt between that driveway and the road.
+       The 3b pad-site approach above is a REAL driveway and it was still not this one: it
+       serves the arterial's OWN pad, it sits at a random spot along the cell, and it stops
+       four tiles short of the boundary. A driveway that does not reach the property line
+       does not serve the property.
+       So the world hands over `serve` -- where each non-road neighbour's driveway actually
+       arrives, measured off that neighbour's own built grid -- and the road cuts its kerb
+       exactly there and runs the approach out to the cell edge. ART AND PATH ARE ONE
+       CONTRACT: the road is told what it fronts instead of guessing.
+       DELIBERATELY NOT ON THE FREEWAY. An interstate is limited access; a driveway off one
+       is not a fix, it is a defect. The world does not send `serve` to freeway, beltway or
+       interchange at all. */
+    function serveApron(alongAxis) {
+      var list = opts.serve || [];
+      for (var si = 0; si < list.length; si++) {
+        var sv = list[si], dd = String(sv.dir || '').toUpperCase().charAt(0);
+        var perp = (alongAxis === 'v') ? (dd === 'E' || dd === 'W') : (dd === 'N' || dd === 'S');
+        if (!perp) continue;                       // a driveway leaves the road sideways
+        var lo = Math.max(0, sv.lo | 0), hi = Math.min(127, sv.hi | 0);
+        /* *** MATCH IT EXACTLY. NEVER WIDEN. ***
+           The first cut of this had a "a real commercial drive approach is 8 to 12 m, so
+           widen a narrower mouth" rule, and it turned 141 roads-that-end-in-dirt into 70
+           roads-that-are-one-tile-off: the kit hands most districts a 7-tile entrance and
+           the widener pushed 61..67 out to 60..67. MEASURED, all six samples identical.
+           A RULE I WROTE AN HOUR AGO WAS THE BROKEN PART, which is the same shape as every
+           other instrument bug this week. The district owns its own entrance -- the
+           STREET-AWARE ACCESS LAW put it there -- and the road's job is to meet it, not to
+           have an opinion about how wide it should have been.
+           *** EXCEPT WHEN WHAT ARRIVES IS NOT A DOOR. *** arterial(22,40) fronts a
+           reclamation plant whose ENTIRE north edge is yard: the run came back 9..99, and
+           the road dutifully paved ninety metres of its own frontage out to the corner,
+           which broke 5 arterial-to-arterial seams on a gate whose arterial ceiling is
+           zero. A ninety-metre yard still has ONE GATE. So a run wider than a real
+           commercial drive approach is treated as frontage rather than an entrance, and
+           gets a proper 12 m approach at its centre. The road never writes within two
+           tiles of its own perpendicular edges either -- a driveway in the corner of a
+           cell is not a thing, and that is the seam this cost. */
+        if (hi - lo > 15) { var mid2 = (lo + hi) >> 1; lo = mid2 - 8; hi = mid2 + 7; }
+        lo = Math.max(2, lo); hi = Math.min(125, hi);
+        if (hi < lo) continue;
+        var sign = (dd === 'E' || dd === 'S') ? 1 : -1;
+        for (var t = lo; t <= hi; t++) {
+          /* 64, NOT 63, AND THIS MODULE ALREADY SAYS SO AT THE TOP OF ITSELF: "a half-width
+             of 63 misses row 0 and column 0". C + 63 is 127, which IS the east/south edge,
+             so those worked; C - 63 is 1, which is one tile SHORT of the north/west edge, so
+             those did not. Measured: arterial-to-commercial closed going east and 276 seams
+             stayed open going north, with the identical -1..-1 on the road side. The bound
+             is 64 and the guard below drops the tile that falls off the far side. */
+          for (var b = PAVE + 1; b <= 64; b++) {
+            var o = sign * b;
+            var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+            if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+            /* THE WALK BAND KEEPS ITS OWN TILE as a driveway apron, exactly as 3b does:
+               a body walks straight through it and a car drives across it, so the 4 km
+               of continuous pavement this lane shipped on 8/26 is not cut in half by
+               every driveway in the valley. Everything else on the way is plain apron. */
+            /* A DRIVEWAY DOES NOT ERASE A CROSSING STREET. On a junction cell the cross
+               arm's own roadway, its paint and its junction box reach out past PAVE on
+               this very axis, and writing apron over them cost 5 arterial-to-arterial
+               seams the first time this ran -- on a gate whose arterial ceiling is ZERO,
+               no allowance, because that is the road he actually walks. The approach
+               crosses the gutter, the kerb, the parkway, the walk and the parcel; it
+               stops at anything that is already street. */
+            var cur = g[py][px];
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 15 || cur === 24) continue;
+            var isWalkBand = (b > AMEN && b <= WALK);
+            g[py][px] = isWalkBand ? 22 : 20;
+          }
+        }
+      }
+    }
     if (vert) frontage('v', coverV);
     if (horiz) frontage('h', coverH);
+    if (vert) serveApron('v');
+    if (horiz) serveApron('h');
 
     // signal mast arms on the four corners of a real intersection (heads dark)
     if (vert && horiz) {
