@@ -1373,7 +1373,7 @@ def build_mall(P):
           'py': _dark(FOOD, 0.9), 'nx': _dark(FOOD), 'ny': _dark(FOOD)})                # food-court bump-out
     # the mall entry: a glazed bay under a flat canopy slab - the one glass on the box
     s.box((4.8, 5.9, 0), (3.4, 0.25, 2.4), {'py': _win(CONC, 3, 2, 3, 0.3), 'c': _dark(CONC, 0.8)['c']})
-    s.box((4.4, 5.4, 2.5), (4.2, 1.2, 0.35), {'c': _dark(CONC, 1.12)['c']})             # the canopy
+    s.box((4.4, 5.1, 2.5), (4.2, 0.85, 0.35), {'c': _dark(CONC, 1.12)['c']})            # the canopy, ending where the box begins
     for (rx, ry) in ((0.5, 3.0), (3.5, 2.2), (7.5, 3.2), (10.8, 2.6), (-1.2, 2.0)):     # the RTU boxes
         s.box((rx, ry, 4.4 if rx in (-1.2,) or rx > 9 or rx < 1 else 3.6),
               (1.1, 0.9, 0.55), {'c': _dark(CONC, 0.78)['c']})
@@ -2218,6 +2218,10 @@ def build_rail(P):
         s.box((dx, -0.68, 0.1), (1.5, 0.10, 1.9), {'c': _dark(DOCK, 0.6)['c']})          # dock doors
     for fx in (-2.6, 2.4, 7.4, 12.4):
         _fence_box(s, (fx, 1.9, 0), (0.16, 0.16, 1.9), {'c': FENCE})                             # right-of-way fence
+    # squint 8/27: desert=rail sat exactly at the look bar - a rail corridor's
+    # ballast prism is DARK crushed basalt, so each track rides a dark cess band
+    s.box((-3, 4.0, 0.02), (18.0, 2.0, 0.03), {'c': _dark(BAL, 0.6)['c']})
+    s.box((-3, 7.6, 0.02), (18.0, 2.0, 0.03), {'c': _dark(BAL, 0.6)['c']})
     _track(s, -3, 15, 5.0, (BAL, TIE, STEEL))                                            # the second track
     _railcar(s, 8.6, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
     _railcar(s, 12.2, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
@@ -2902,9 +2906,12 @@ def build_landfill(P):
     # pyramid. It stays the one vertical, at working height, not skyline height.
     s.box((12.75, 1.35, 1.2), (0.55, 0.55, 4.6), {'c': GAS})
     s.box((12.6, 1.2, 5.8), (0.85, 0.85, 0.7), {'c': _dark(GAS, 1.2)['c']})               # the flare head
-    s.box((-2.4, 8.6, 0), (3.0, 2.6, 3.0), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 2, 5),
+    # 8/27: the 8/26 bench slide reached the scale house corner, so the house
+    # poked through the bench's berm lip (round_and_doors caught the tunnel).
+    # The house moves fully off the mound's footprint.
+    s.box((-2.6, 11.8, 0), (3.0, 2.6, 3.0), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 2, 5),
           'py': _dark(BLDG, 0.86), 'nx': _dark(BLDG), 'ny': _dark(BLDG)})                 # the scale house
-    _door_face(s, (-2.4, 8.6, 0), (3.0, 2.6, 3.0), width=1.0, ztop=2.0)
+    _door_face(s, (-2.6, 11.8, 0), (3.0, 2.6, 3.0), width=1.0, ztop=2.0)
     s.box((8.6, 11.4, -0.05), (4.0, 2.6, 0.12), {'c': POND})                              # the leachate pond
     return s, 5.6
 
@@ -3213,7 +3220,10 @@ def build_wash(P):
     channels are where people actually live, and the mouth is a way IN."""
     CONC, INVERT, BANK, RIP, TUNNEL, FENCE, BRUSH = P[2], P[6], P[4], P[9], P[8], P[10], P[3]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), groundc=(112, 102, 82), lotc=(70, 68, 62))
+    # squint 8/27: the desert-tan pad made the wash a desert twin at map zoom.
+    # The corridor beside a lined channel is GRADED GREY aggregate (O&M road
+    # and bladed shoulder), not open Mojave.
+    _ground(s, (-3, -3, 15, 15), groundc=(95, 94, 88), lotc=(70, 68, 62))
     # THE LIP AND THE FENCE, which every lined channel in this valley has and this icon did
     # not: a raised concrete edge beam with chain-link standing on it, because a channel that
     # will drown you is fenced. It is also the wash's only skyline -- without it the icon was
@@ -3230,7 +3240,9 @@ def build_wash(P):
         s.box((-3.0, wy - 1.5 * ny, 0), (17.0, 1.2, 0.5), {'c': BANK})                        # the bank
         for rx in range(8):                                                                   # riprap
             s.box((-2.6 + rx * 2.1, wy - 1.3 * ny, 0.5), (0.7, 0.55, 0.42), {'c': RIP})
-    s.box((-3.0, 3.2, -1.5), (17.0, 6.0, 0.14), {'c': INVERT})                                # the invert floor
+    s.box((-3.0, 3.2, -1.5), (17.0, 6.0, 0.14), {'c': _dark(CONC, 1.08)['c']})                # the invert floor - PALE lined concrete (squint 8/27: the tan INVERT made the wash a desert twin)
+    for si2, sx2 in enumerate(range(-3, 14, 3)):                                              # the low-flow stain, wandering the length
+        s.box((sx2, 5.6 + (si2 % 3 - 1) * 0.5, -1.34), (3.4, 0.8, 0.03), {'c': _dark(CONC, 0.52)['c']})
     s.box((-3.0, 5.9, -1.42), (17.0, 0.7, 0.06), {'c': _dark(INVERT, 0.78)['c']})             # the low-flow trickle
     # THE SEWER TUNNEL MOUTH, in the north wall -- the way in
     s.box((4.4, 1.05, -1.4), (3.0, 0.35, 2.4), {'c': _dark(CONC, 1.1)['c']})
@@ -3445,6 +3457,13 @@ def build_arterial(P):
               {'c': _dark(WALK, 0.8)['c']})                                # the kerb face
     CY = (Y0 + Y1) * 0.5
     s.box((X0, CY - 0.5, 0.15), (X1 - X0, 1.0, 0.35), {'c': MEDIAN})       # unbroken median
+    # hue 8/27: the 8/26 palm fix (dead palms are grey-brown, HIS ruling) took
+    # the icon's only chroma with it. The palette's own worn yellow (code 17)
+    # is the street's honest second hue - the double yellow flanking a median
+    # is real US road grammar, and it was simply never drawn here.
+    YEL = _worn(P[17], ROAD)
+    for sgn in (-1, 1):
+        s.box((X0, CY + sgn * 0.72, 0.155), (X1 - X0, 0.16, 0.03), {'c': YEL})
     for k in range(5):
         px = X0 + 1.6 + k * 3.6
         s.box((px, CY - 0.15, 0.5), (0.3, 0.3, 3.4), {'c': PALM})
@@ -3900,7 +3919,9 @@ def build_basin(P):
     also goes down; the quarry is ROUND and stepped, this is SQUARE with one bite out."""
     SHED, SLOPE, CREST, TRICKLE, GAUGE = P[2], P[6], P[7], P[8], P[14]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), groundc=(112, 104, 82), lotc=(88, 82, 66))
+    # squint 8/27: same twin fix as the wash - an engineered basin site is
+    # BLADED grey-tan, not open desert.
+    _ground(s, (-3, -3, 15, 15), groundc=(101, 97, 86), lotc=(88, 82, 66))
     # THE EMBANKMENT, AND THE HOLE THAT WAS NEVER THERE (8/19). This was written as four
     # NESTED SOLID BOXES stepping down -- and a nested solid box has a TOP FACE, so the
     # outermost tier roofed over everything inside it. The "rectangular hole" in the
@@ -3929,7 +3950,7 @@ def build_basin(P):
         s.box((bx0 + bw - BAR, by0 + BAR, 0), (BAR, bh - BAR * 2, z), mat)                 # east bar
     # THE FLOOR OF IT, which no version of this icon has ever shown. Hole: x 2.0..9.6,
     # y 3.0..8.6, and it sits just clear of the ground pad's own top face at z=0.05.
-    s.box((2.0, 3.0, 0.06), (7.6, 5.6, 0.05), {'c': _dark(SLOPE, 0.86)['c']})              # the silt floor
+    s.box((2.0, 3.0, 0.06), (7.6, 5.6, 0.05), {'c': _dark(SLOPE, 0.58)['c']})              # the silt floor, graded DARK - squint 8/27: at map zoom the old tan floor made the basin a desert twin
     # THE LOW-FLOW CHANNEL. A basin that is dry 360 days a year still carries a trickle
     # line, and it is the one living-coloured thing on the site: algae and salt cedar take
     # the wet strip and nothing in this plot is green except the water's own path.

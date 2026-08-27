@@ -170,6 +170,11 @@ DOORLESS_BY_NATURE = {
     # doorless hero ever since, on a lane that had not changed. It is the same six lanes and
     # the same signal masts as the entry two lines above it. Same nature, same answer.
     'arterial_x',  # the same road, at a junction
+    # 8/25 full-board verdict, applied to the hero 8/25 and named here 8/27:
+    # "a park DOESNT NEED BUILDINGS IN IT." The shelter and restroom were
+    # removed from the hero on his ruling, so there is no building to cut a
+    # door into -- turf, a path, trees and benches. Same nature, same answer.
+    'park',
 }
 DOORLESS_DEBT = DOORLESS_DEBT | DOORLESS_BY_NATURE
 new_doorless = sorted(set(doorless) - DOORLESS_DEBT)
