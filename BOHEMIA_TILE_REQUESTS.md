@@ -415,13 +415,20 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
    rust) | structure layer over yard ground, 44px corpus cell | see
    form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
-107. OPEN | THE GREAT TILE MIGRATION (every exterior family to the walked
-   surface) | CITY - measured 8/27: all 32 wired families draw only in
-   the legacy run slice, which the alpha stopped downloading on 8/21;
-   the walked city surface has its own cell model (FN=32) and chunk
-   baker, so this is a port, not a paste - biggest read first (fills,
-   plazas, decks), payload-budgeted, seam design shared with the
-   CITY/WORLD lane | full finding:
+107. PHASE 1 SHIPPED 8/28 | THE GREAT TILE MIGRATION (every exterior
+   family to the walked surface) | CITY - measured 8/27: all 32 wired
+   families drew only in the legacy run slice, which the alpha stopped
+   downloading on 8/21. PHASE 1 (8/28): the walked page resolves every
+   kit cell to its legend entry and routes ground cells to art pools BY
+   NAME, so nine approved GROUND pools (fill, drought bed, pit floor,
+   plaza, plinth, invert, bank, xeriscape, tank deck - 90 KB) ride a
+   late-loading pool file on the floors precedent (main ad42288), merge
+   into SA_IMG, and thirteen name rows route them; the wash bank picks
+   its axis from the kit's own run. VERIFIED ON FOOT: 6,803 fill cells
+   at the landfill and 5,898 plaza/plinth cells at the library draw the
+   real art in human mode. PHASE 2 (open): structure-layer families
+   (hall roofs, cooling units, tanks, boxcars via the prop/post path),
+   the centreline stain, the blob-aware planter | full finding:
    records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
    | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |

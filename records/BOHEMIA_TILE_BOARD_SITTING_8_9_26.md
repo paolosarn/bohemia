@@ -1439,3 +1439,26 @@ thick over its silt, which neither the bare lined wash nor the
 ballast corridor can ever grow. Wired, icon gates 0 by exit code,
 shipping now; squint is down from five pairs to two and main was
 carrying three before this session started.
+
+## 8/28 SEVENTIETH PASS: THE GREAT TILE MIGRATION, PHASE 1 - THE TILES REACH THE PLAYER
+
+Board row 107 opened and its first phase SHIPPED the same day. The
+scout found the seam already built: the walked page resolves every kit
+cell to its legend entry and routes ground cells to approved art pools
+BY NAME (the proper-sidewalks table), and the floors precedent plus
+the hardened chunker (main ad42288) provide a payload-safe carrier.
+So Phase 1 is a REGISTRATION, not a rewrite: a 90 KB late-loading pool
+file (tools/bohemia_city_tileform_pool.py, approved banks only, law
+line asserted) merges nine ground pools into SA_IMG, and thirteen
+name rows route the cells - waste fill, drought bed (intake, terminal
+hardpan, watertreat basins), pit floors, plaza, plinth, invert, bank
+(axis from the kit's own run), xeriscape, tank deck. The variant
+hashes per cell, with the 7/14 one-material law kept by the pools
+themselves (same-material pattern variants cooked to break their own
+repeat). VERIFIED ON FOOT, on the surface Paolo actually walks:
+standing ON the waste fill at the landfill (6,803 cells assigned,
+counts matching the run world exactly) and ON the scored plaza at the
+library (3,519 + 2,379). One day after the stranded-tiles finding,
+the biggest surfaces reach the player. Phase 2: the structure-layer
+families through the prop/post path, the centreline stain, the
+planter beds.
