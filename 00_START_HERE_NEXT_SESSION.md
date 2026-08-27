@@ -1,8 +1,75 @@
+FACTIONS (factions-ovkjpf): 8/27 (i) LATEST -- *** 837 PEOPLE STAND WITHIN SIX
+CELLS OF WHERE HE SPAWNS AND NOT ONE OF THEM RUNS WITH ANYBODY. Two weeks of
+faction work sat 29 cells away behind a green suite. Nothing to judge. ***
+TAB: **RUN**, the ⚔ OUTFIT chip. The board now has a second half: THE VALLEY.
+WHY I WENT LOOKING: the CHARACTER lane's handoff this week ended with a line
+aimed at everybody -- "WHEN HE ASKS FOR SOMETHING, CHECK LATER THAT IT ACTUALLY
+GOT WORN" (four garments cooked for the Colorful in July, worn by NOBODY for
+five weeks). I pointed it at my own lane and asked the only question that
+matters about everything this session shipped: CAN HE REACH ANY OF IT.
+THE MEASUREMENT (real surface, cold start, no save):
+  player spawns at cell 48,48
+  169 cells swept around him, ZERO of them empty, 837 PEOPLE standing in them
+  ZERO of those 837 run with anybody
+  nearest affiliated person: 9 cells. Nearest base: Colorful, 29 cells.
+  FN is 128, so that is 3,712 fine tiles of walking
+  REACH_CELLS is 12, so nobody within ~17 cells of his front door CAN be
+    affiliated with anyone. Not sparse. Arithmetically empty.
+  The open-world research puts the useful gap between points of interest at
+    60-120 seconds of travel. This is 10-20x that.
+Belonging, the rungs, the wall, commitments, word travelling, the canon wars,
+earned enemies, the board -- ALL OF IT sits behind that walk and nothing
+anywhere told him it was there. It is the Colorful garments again, at the scale
+of a whole lane.
+WHAT I DID NOT DO: AFFILIATED_RATE (0.30) and REACH_CELLS (12) are both
+[PENDING Paolo] in bohemia_agents.js -- widening either affiliates the whole
+valley by MY decision, not his, and does it to every cell at once. MAP LAW: the
+bases do not move and the spawn is not mine. So it is REPORTED, not tuned.
+WHAT SHIPPED: the board's second half. Every outfit the map holds, which way
+their ground lies from where he is standing RIGHT NOW, how far in plain words,
+whether he has ever dealt with them, nearest first, with the nearest called out
+on its own line because a list is not a direction.
+    NEAREST GROUND THAT BELONGS TO ANYBODY: COLORFUL, NORTHWEST, A LONG WAY OFF.
+    COLORFUL   NORTHWEST · A LONG WAY OFF          NEVER MET
+    MOB        WEST · A LONG WAY OFF               NEVER MET
+    CUSTOM     YOURS · THIS IS YOUR GROUND
+GROUNDED IN HIS OWN CANON, not a preference. Would somebody living here know
+whose ground is whose? YES -- that is what territory MEANS. LIGHT=TERRITORY,
+CLUSTERED POWER (12% lit, OWNED), NOBODY PATROLS THE DARK. Territory is visible
+by construction. What he does NOT know is any of them personally, and that half
+is untouched. And it is a BEARING, NOT A WAYPOINT: the research puts the working
+middle between fully-guided (pins, markers) and fully-organic. A pin is a HUD.
+THE NUMBER PRINTS IN EVERY SUITE RUN NOW, red or green:
+  MEASURED: 837 PEOPLE within 6 cells of the spawn across 169 cells (0 of them
+  empty), and 0 of those people run with anybody.
+  MEASURED: player spawns at cell [48,48]; nearest affiliated person 9 cells
+  (Colorful); nearest base Colorful at 29 cells = 3712 fine tiles
+A number nobody looks at is exactly how a hole this size stayed invisible for
+two weeks behind a green suite. If somebody fixes the spawn or the placement,
+this line moves and everybody sees it move.
+AND I CAUGHT MY OWN CLAIM BEING DECORATION. K3 first checked only that no row
+said NORTH and SOUTH at once -- which a completely INVERTED COMPASS passes
+without blinking, and that is the likeliest bug this feature has because screen
+y grows SOUTHWARD and every instinct says otherwise. It now recomputes every
+bearing from the base positions; flipping north/south turns it red.
+  FACTION BETWEEN  73 passed, 0 failed (was 65)   CARD FOLD   18/0
+  ORGAN REACH       8 passed, 0 failed            EVERY PANEL 14/0
+*** WHAT THE FLEET NEEDS TO DECIDE, AND IT IS NOT A FACTION BUG ***
+The board makes the system FINDABLE. It does not make it NEAR. Three ways out
+and none of them is mine:
+  1. THE SPAWN AND THE FACTION BASES WERE PLACED BY TWO SYSTEMS THAT HAVE NEVER
+     HEARD OF EACH OTHER. The house comes from one rule, the bases from another,
+     nothing reconciles them. That is a fleet-level integration gap.
+  2. The dials move, and both are his.
+  3. Outfits get people who TRAVEL. Real gangs have territory AND runners; a
+     Cartel man in your neighbourhood is completely realistic. Needs a new dial,
+     so it needs his ruling first.
+--------------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 8/27 (a) LATEST -- *** I WAS WRONG ABOUT THE FONT AND SAID IT AS
 FACT. There is a real WEBKIT in this repo now and its first run proved it. His
 verdict on the look is BUILT. And PRESSED got no vote because a thumb covers the
 button, so it plays itself now. TAB: UI. ***
-
 READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
   I told him the UI page broke on his phone because of the CSS `font:` shorthand
   with a var() family. I put it in the commit, the record and the handoff and
@@ -17,7 +84,6 @@ READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
   I cannot reach the live site from this container to confirm. The font rewrite
   STAYS because it matches every other shipped surface and costs nothing, NOT
   because it was the fix. Routed SHARED -16b.
-
 *** THERE IS A REAL WEBKIT NOW (SHARED -16, CLOSED) ***
   He said "download whatever you need to download... you don't have to be so ho
   about only cooking up on default bro", and he was right that I had reported a
@@ -36,7 +102,6 @@ READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
   red on the alpha for a 16px body, which is just the browser default and which
   Chromium reports too, so the ruler was fixed to COMPARE rather than to JUDGE.
   ANY LANE CAN ADD ITS SURFACE to that gate's SURFACES list. It is three lines.
-
 *** HIS VERDICT IS THE LOOK NOW (records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt)
   CORNER = C CUT. LINE = B HEAVY. COLOUR = B GOLD AND COLD. LETTERS = A ALL
   TYPEWRITER-WIDTH. HE OVERRULED MY BONE ON COLOUR AND HE WAS RIGHT: I argued
@@ -48,7 +113,6 @@ READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
   his look on a phone that has never seen it. An answered fork stops asking.
   DEAD AND STAYING DEAD: THE DIRT (all three) and THE FEED POST (all three, the
   THIRD kill of that slot counting the ASCII art). NO REPLACEMENTS WERE COOKED.
-
 *** SHOW IT, DO NOT TYPE IT ***
   "so disrespectful and rude that like you would try to type out and explain what
   it's like to press buttons and not show me what it looks like in action."
@@ -65,7 +129,6 @@ READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
   and the gate checks the ghost lands within 6px of the button's centre.
   A COLLISION CAUGHT BEFORE IT SHIPPED: .ghost was ALREADY the class on every
   WALK AWAY button. 3 in the source, 9 matching in the DOM. Renamed .fingertip.
-
 *** ROUND TWO IS MACHINE PARTY, BECAUSE HE NAMED IT ***
   "I'm really thinking it's gonna be Final Fantasy 10 meet machine party." He did
   not vote on my three games, he said the answer. uibook now holds 32 findings
@@ -95,14 +158,12 @@ READ THIS FIRST IF YOU ARE ABOUT TO CITE THE 8/26 FONT CLAIM: DO NOT.
     belongs to the room and not the readout. THE LOOK HE PICKED IS ALREADY THE
     SENTENCE HE SAID. Every next thing gets held against it: is it readable like
     FF10, and is it made of something like Machine Party.
-
 ALSO: HIS EM DASH RULE HAD NEVER BEEN GATED. CLAUDE.md has said "never use em
   dashes anywhere" since day one and nothing in the machine ever checked. This
   page was shipping NINETEEN at him. Zero now, on the page and in the corpus that
   feeds it, and gated. (The run slice still holds ~1029, nearly all inside
   inlined engine comments and district notes rather than on screen. Not swept
   this turn, named here so somebody can decide if any of them are visible.)
-
 *** AND THE FRONT SPLASH WAS BROKEN ON MAIN. NOT MINE, FIXED IN PASSING. ***
   A lane's bad conflict resolution left a >>>>>>> marker in the alpha AND ATE THE
   OPENING <!-- of the comment after the build stamp, so the marker plus seven
@@ -116,18 +177,14 @@ ALSO: HIS EM DASH RULE HAD NEVER BEEN GATED. CLAUDE.md has said "never use em
   THE COMMENT THAT GOT EATEN IS ITSELF A WARNING ABOUT THIS EXACT ACCIDENT, from
   8/2: "Twice a lane updating the build stamp ate it... the one link Paolo taps
   went to a black rectangle. Both times it reached main." Third time.
-
 IN FLIGHT
   Nothing half-built.
-
 BLOCKED ON
   One thumb: PRESSED, in the UI tab, now that it plays itself.
-
 WHAT I WOULD DO NEXT
   1. Whatever he says on PRESSED, then push the look into the RUN's real tokens.
   2. UI-11, a real typeface, now that ALL TYPEWRITER-WIDTH is a ruling.
   3. UI-6, the beat list (FFX.R01 + MP.R01 together).
-
 PROOF
   records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md
   records/BOHEMIA_UI_VERDICT_THE_LOOK_8_27_26.txt
@@ -145,16 +202,12 @@ PROOF
   answered-fork leg counted .opt and went red on a page doing the right thing;
   and the fork count included the study's own round card, so a correct page
   looked like it had five answers.
-
 ------------------------------------------------------------------------------
-
 WORDS (words-8dqrnq): 8/27 (a) LATEST -- *** THE WHOLE DEMO TALKS LIKE PEOPLE NOW. All five
 demo scenes voice-passed, days 1 to 5. They contracted 0-7% of the time; they contract 82-100%
 now. TAB: WORDS, tap THE VOICE PASS. Or just play the demo. Nothing to judge. ***
-
 He said: "WE HAVE a demo to ship more forward motion work we need to complete... know what
 comes after." So I asked the repo what the demo actually is, instead of guessing.
-
 *** THE DEMO IS FIVE QUESTS AND I HAD PASSED ONE OF THEM. *** engine/bohemia_demoquests.js
 schedules days 1-5, and those five .bq files are EVERY WORD A STRANGER READS:
     day 1  S01 THE METER READER            passed 8/26
@@ -164,21 +217,18 @@ schedules days 1-5, and those five .bq files are EVERY WORD A STRANGER READS:
     day 5  S25 THE PRESSURE GOES BACKWARD   0.0%
 One scene passed and four at zero would mean THE DEMO CHANGES VOICE ON DAY TWO, which is worse
 than passing none of it. All four are done.
-
     d1 The Meter Reader             95.0%  (was  7.1%)   rhythm 0.74 (was 0.49)
     d2 The Back Door               100.0%  (was  0.0%)   rhythm 0.95 (was 0.87)
     d3 The Same Crate Twice         81.8%  (was  0.0%)   rhythm 0.77 (was 0.64)
     d4 The Cold Room                92.6%  (was  0.0%)   rhythm 0.70 (was 0.70)
     d5 The Pressure Goes Backward   95.7%  (was  0.0%)   rhythm 0.79 (was 0.78)
     whole build, quest scenes: 20.1% (was 2.2%).  Questions asked of the player: 8 (was 2).
-
 *** AND DAY 3 WAS BREAKING A LAW IN FRONT OF A STRANGER. *** THERE IS NO MONEY (7/26, narrowed
 8/15) allows the word only as the dead past, never a live transaction. THE SAME CRATE TWICE had
 FOUR live ones: "I pay better, and I pay now", "quiet money spends the same as loud money",
 "(take the money, say nothing)", and a journal line reading "Quiet money". The blues now offer
 what they are actually handing over: two cases of water and a full tank. Found by reading the
 demo's own script, not by a gate.
-
 *** THE PART THAT NEARLY SHIPPED WRONG, AND IT IS THE LESSON: REWRITING A .bq IS NOT THE DEMO
 SAYING IT. *** The quest text is inlined THREE times downstream, by three different tools --
 the current slice, THE CITY WORLD (which is where the day loop actually plays it), and the
@@ -187,18 +237,15 @@ OLD LINE, because the cut copies the alpha and nothing had re-inlined the alpha.
 grepping the built demo for its own words. voice_gate now asserts five new lines are IN the
 built demo file and five old ones are GONE, mutation-tested both ways. VERIFY ON THE REAL
 SURFACE, again.
-
 ALSO KILLED: the demo hand-typed each day's brief out of the .bq, so day 1's card said the old
 sentence while the quest said the new one. Two copies of one line. The log wins now
 (D.brief() reads the quest) and the table is a fallback only, with both halves gated.
-
 RESEARCH (he asked for it): records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md. The
 useful finding is measurable and we fail it -- A REFUSAL IS NEVER JUST "NO". A yes lands at a
 median ~269 ms and a no at ~561, and the gap gets filled: a breath, a preface, an appreciation,
 the reason BEFORE the refusal, often a trail-off that means no without saying it. Ours hedge
 4.8% of the time. That is TELL 8, counted every run. Second finding: class and region live in
 SYNTAX, never in spelling -- never respell a word for an accent, in any language.
-
 TWO RULERS WERE BROKEN AND BOTH WERE FLATTERING ME:
  1. The stumble count said ZERO. It asked for two identical ADJACENT tokens, so "Easy. Easy,
     easy." (comma), "No. No, no." (case) and "don't, uh. Don't" (both) all read as clean. The
@@ -207,17 +254,14 @@ TWO RULERS WERE BROKEN AND BOTH WERE FLATTERING ME:
  2. voice_gate had `if (!ok(...)) return;` -- and ok() returns whatever ++ evaluated to, so it
     was SILENTLY SKIPPING checks. Fixing it took the gate from 52 passing to 67.
 WHEN A METRIC AGREES WITH YOU TOO HARD, SUSPECT THE METRIC.
-
 AND ONE I BROKE SIDEWAYS: language_gate builds its English dictionary OUT OF THE GAME'S OWN
 ENGLISH LINES, so when my rewrite deleted the last lines containing "pass" and "closer", two
 Spanish-register lines using them read as phonetic respellings. The sweep was working, not
 failing. Both declared in the barks bank's englishAdditions with the reason written down.
-
 GATE: gates/voice_gate.js, 78 checks (was 44). Holds all five demo scenes on contractions,
 rhythm ratio and banned phrases; holds the words-only claim against the pre-pass commit; holds
 the built demo. Banned-phrase ratchet 44 -> 39. Nine gates green on the merged tree: voice,
 dialogue catalogue, quest study, attempt, language, handoff, current slice, demo build, direct.
-
 WHAT I WOULD DO NEXT, IN ORDER:
  1. THE DEMO'S OTHER WORDS. The five quests are done; the demo also has a phone, a wake card,
     objectives and a journal, and none of those have been read as writing yet. That is the
@@ -225,7 +269,6 @@ WHAT I WOULD DO NEXT, IN ORDER:
  2. THE 22 UNPASSED SCENES, worst-first by rhythm ratio. Not demo-blocking.
  3. NOBODY EVER RAISES THEIR VOICE. Zero exclamation marks in 504 speeches, still true after
     this pass. I did not force it; it wants a scene that earns one.
-
 WHAT IS PENDING HIM: nothing from this lane. No line is ever put to him for approval (8/11);
 every word is editable in the WORDS tab, both columns, export as .txt.
 
