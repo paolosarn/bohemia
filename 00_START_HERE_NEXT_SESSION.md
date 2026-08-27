@@ -1,3 +1,85 @@
+CHARACTER (character-0lurbs): 8/28 (o) LATEST -- *** TWO THINGS. THE PORTRAIT THAT POPS UP
+WHEN SOMEBODY TALKS IS WEARING THEIR ACTUAL HAIRCUT NOW, AND HE CAN BUILD HIS OWN FACE.
+TAB: RUN to talk to anybody, CHARACTER to tap your portrait. Nothing to judge. ***
+
+1. THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING
+   ONE ID ONE WHOLE PERSON (8/27) fixed skin, hair COLOUR and eyes, and its record says in
+   my own words "same person on both sides now, every time". THE HAIRCUT WAS NEVER CHECKED
+   and it is the largest shape on a head. MEASURED over 200 citizens before touching
+   anything: the body wore 16 distinct haircuts, the portrait could draw SIX, five of the
+   seven style names it could hold drew IDENTICAL PIXELS, and agreement was 24.7% -- WORSE
+   THAN THE 33% A COIN GIVES over three bands, because two independent hashes are not
+   merely unrelated, they can land ANTI-CORRELATED.
+
+   *** THE CAUSE WAS A SENTENCE I WROTE THAT WAS FALSE WHEN I WROTE IT. *** In faceFor:
+   "the BODY has no notion of a hairstyle -- NPCFactory picks a painted hair LAYER, not a
+   portrait cut." True of NPCFactory. But BOH_PERSONLOOK.lookFor, which is what actually
+   dresses the crowd and which faceFor WAS ALREADY CALLING FOR THEIR CLOTHES, hands back
+   worn.hair -- one of the fifteen canon cuts, set for 93% of the valley. I CHECKED ONE OF
+   THE TWO THINGS THAT DRESS A PERSON AND WROTE DOWN THAT THERE WASN'T ONE.
+   WHEN YOU WRITE DOWN THAT SOMETHING DOES NOT EXIST, SAY WHERE YOU LOOKED. A confident
+   negative is the most expensive kind of wrong because nobody re-opens it.
+
+   The portrait reads the SAME five dials the body does -- side, front, vol, flare, tex --
+   out of the genHair call itself and NOT a second table, because a second table is how the
+   two drifted apart (ENGINE SYNC LAW).
+   AGREEMENT 24.7% -> 88.2%, correlation 0.924, drawable haircuts 6 -> 56.
+   THE APPROVED PLAYER FACE IS BYTE-IDENTICAL (hash c9856a89 against origin/main; the gate
+   hashes it every run).
+
+2. HE CAN BUILD HIS OWN FACE   (his 8/25 dispatch item 10, never built)
+   There WAS a thing called a face editor: five swatch rows and a nudge pad, and NOT ONE
+   CONTROL TOUCHED THE SHAPE OF THE HEAD. At 64 pixels identity IS size and spacing, so it
+   could not change a face, only what colour that one face was. And everything it needed
+   already existed and none of it was reachable -- faceFor has rolled a full shape
+   vocabulary for every stranger since 8/27, so THE PLAYER WAS THE ONE PERSON IN BOHEMIA
+   WHO COULD NOT HAVE A DIFFERENT HEAD.
+   14 shape sliders, all 15 of the body's haircuts, 4 hair textures, ROLL A FACE (faceFor
+   itself, so it cannot make anything the game could not already make), BACK TO PUNK
+   (restores the approved face, KEEPS his colours), EXPORT.
+   THE ANATOMY IS MINE, THE FACE IS HIS: every slider re-clamps to the rules faceFor obeys,
+   so he cannot build a head that is not a head, and nothing is rejected -- the neighbour
+   gives way, so a slider always does something.
+
+TWO BROKEN RULERS THIS TURN, THIRD AND FOURTH OF THE WEEK, BOTH FLATTERING-SHAPED:
+  - the haircut report compared sp.hair.len, a STRING the fix had just made dead, and
+    reported the fix had changed nothing. Its ceiling probe was wrong the same way in the
+    same run and reported a ceiling of ONE on a renderer that had just grown five dials.
+  - the face-maker harness swept the sliders in order WITHOUT RESETTING and reported MOUTH
+    HEIGHT as a dead dial. It was not: an earlier slider had already pushed it to its own
+    ceiling through the anatomy clamp. A HARNESS WITH STATE IN IT MEASURES THE STATE.
+  Both gates now read RENDERED PIXELS only, and the face-maker gate DRIVES THE REAL PANEL.
+
+AND LOOKING CAUGHT TWO THINGS MEASURING DID NOT: `front` was worth THREE PIXELS because I
+ran it down the FACE when the body runs it down the SKULL (13px after), and moving the
+crown's outer corners with the hairline opened a six-row stripe of bare scalp -- the mass
+let go of itself, the same failure as the body's fall at the jaw one day earlier.
+
+GATES: portrait_haircut_gate 12/0 (new), face_maker_gate 13/0 (new), hairline 12/0,
+talking portrait 27/0, alpha loads 20/0, direct 33/0, look 24/0, demo build 25/0,
+dress 46/0. Both new gates registered in the suite. Build 8/28n.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE FACE HE BUILDS DOES NOT SURVIVE A RELOAD. It writes the live pface, which is what
+    the game plays, but nothing saves it. That is a SAVE-SYSTEM row and it is the next
+    thing that makes the face maker real rather than a toy.
+ 2. EYEBROW SHAPE and EYE SIZE are in the spec and not on a slider. Four more rows, no new
+    mechanism.
+ 3. THE BODY HAS NO TEXTURED HAIRCUT. The portrait can draw locs and coils; the fifteen
+    canon body styles are all tex 'solid', so the texture is the only part of a person's
+    hair the two surfaces do not agree on. That is a COOK.
+
+WHAT IS PENDING HIM: nothing from this lane. WHO LIVES IN THE VALLEY (skin tone is uniform
+across nine) stays his, flagged not decided.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carries an
+embedded wardrobe bank ~50 garments behind and nothing gates it; two duplicate top-level
+function names in COMBAT (CombatBridge, clampPkg).
+
+================================================================================
+
+================================================================================
+
 FACTIONS (factions-ovkjpf): 8/28 (n) LATEST -- *** THE TOP OF THE LADDER BOUGHT
 NOTHING FOR SIXTEEN DAYS, AND THE RUNG ITSELF SAID WHAT IT WAS FOR. Nothing to
 judge. ***

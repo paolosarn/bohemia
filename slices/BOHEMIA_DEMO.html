@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/28n - THE TOP RUNG BUYS SOMETHING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/28o - THE PORTRAIT WEARS YOUR HAIRCUT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3772,9 +3772,64 @@ function renderFace(spec,opts){
      is the one that reads as a man in a valley where everybody works.
      PUNK carries len:'jaw' and never takes this branch, so the approved face is
      byte-for-byte what it was -- checked, not assumed. */
-  const htop=headTop,part=h.part,style=h.style,
-        jaw=h.len==='short'?(chY+1):(h.len==='jaw'?chin-3:chin+3);
-  poly([[cx-fw-2,Y0+3],[cx-fw,htop+1],[cx-5,htop-2],[cx,htop-3],[cx+5,htop-2],[cx+fw,htop+1],[cx+fw+2,Y0+3],[cx+fw-1,Y0+1],[cx,Y0-1],[cx-fw+1,Y0+1]],hc);
+  /* *** THE PORTRAIT COULD DRAW SIX HAIRCUTS AND THE BODY WAS WEARING SIXTEEN. (8/28) ***
+     MEASURED over 200 citizens before touching anything, which is the only reason the
+     size of it was visible:
+         the body      16 distinct haircuts
+         the portrait   6 distinct silhouettes -- style x length, and style only ever
+                        meant "texture on" or "texture off"
+         of the SEVEN style names the spec can hold, FIVE draw identical pixels:
+                        straight = coils = buzz = locs = afro
+         length agreement between the two    24.7%  -- WORSE THAN THE 33% A COIN GIVES,
+                        because the portrait rolled its own length off its own hash and
+                        the two were not merely unrelated, they were anti-correlated
+     So ONE ID, ONE WHOLE PERSON (8/27) was one field short. That turn fixed skin, hair
+     COLOUR and eyes and I wrote "same person on both sides now, every time". The haircut
+     itself was never checked, and it is the largest shape on a head.
+     FIVE DEAD NAMES IS THE 8/27 LESSON AGAIN -- A DIAL THAT CANNOT MOVE THE PIXELS IS NOT
+     A DIAL -- and this is the third place it has been true this week.
+     SO THE FACE GETS A REAL VOCABULARY, and it is the SAME vocabulary the body already
+     uses: side, front, vol, flare, tex. Not a parallel set of names that has to be kept
+     in step by hand, which is how the two drifted apart in the first place.
+     EVERY ONE IS OPTIONAL AND EVERY ONE DEFAULTS TO EXACTLY TODAY'S DRAWING, so the face
+     Paolo approved is byte-for-byte what it was when nothing new is asked -- checked by
+     the gate, not assumed. */
+  const H_side =(typeof h.side ==='number'&&isFinite(h.side ))?h.side :null;
+  const H_front=(typeof h.front==='number'&&isFinite(h.front))?h.front:null;
+  const H_vol  =(typeof h.vol  ==='number'&&isFinite(h.vol  ))?h.vol  :null;
+  const H_flare=(typeof h.flare==='number'&&isFinite(h.flare))?h.flare:null;
+  const htop=headTop-(H_vol==null?0:Math.max(0,Math.min(4,Math.round(H_vol)))),
+        part=h.part,style=h.style,
+        jaw = H_side!=null
+              ? Math.max(chY+1,Math.min(60,Y0+Math.round(H_side*f.len)))
+              : (h.len==='short'?(chY+1):(h.len==='jaw'?chin-3:chin+3));
+  /* THE HAIRLINE. `front` is the same dial the body reads: how far down the forehead the
+     mass crosses. It may never reach the brow -- a hat's law is the durag line, hair's law
+     is the brow (7/x), and that ceiling is why this clamps against browY-2 rather than
+     against the eyes. */
+  /* *** AND IT IS MEASURED DOWN THE WHOLE HEAD, NOT DOWN THE FACE. *** The first cut ran
+     `front` from the top of the FACE to the brow, which is about eight pixels, so the
+     entire dial was worth three of them and SLICK BACK and FRINGE came out looking like
+     the same haircut with a rounding error between them. The body's genHair measures the
+     same dial from the top of the SKULL to the chin, and matching that is not a style
+     choice, it is the difference between the two renderers meaning the same thing by the
+     same number. Spread measured after: thirteen pixels between the highest hairline in
+     the game and the lowest, against three.
+     IT MAY GO NEGATIVE, and that is the point -- a hairline ABOVE the top of the face is
+     a forehead, which is exactly what SLICK BACK (front 0.06) is supposed to have. The
+     brow ceiling still holds it three rows clear of the eyes. */
+  const hlAbs = H_front==null ? (Y0-1)
+              : Math.max(htop+2, Math.min(f.browY-3,
+                  Math.round(headTop + Math.max(0,Math.min(1,H_front))*(chin-headTop))));
+  const hlY = hlAbs-(Y0-1);
+  /* THE TEMPLES STAY ATTACHED. My first cut moved the crown's OUTER corners with the
+     hairline too, and a receded style then opened a six-row stripe of bare scalp between
+     the top of the head and the hair at the sides -- the mass let go of itself, which is
+     the same failure the body's fall had at the jaw yesterday. Only the three points of
+     the front arc move; the temple corners are where they have always been, so the hair
+     is one piece at every setting and the default is byte-identical. */
+  const _fy = Y0+3;
+  poly([[cx-fw-2,_fy],[cx-fw,htop+1],[cx-5,htop-2],[cx,htop-3],[cx+5,htop-2],[cx+fw,htop+1],[cx+fw+2,_fy],[cx+fw-1,Y0+1+hlY],[cx,Y0-1+hlY],[cx-fw+1,Y0+1+hlY]],hc);
   poly([[cx-5,htop],[cx,htop-2],[cx+5,htop]],hi);
   /* THE PART DRIFTS (8/27). It was a perfectly straight dotted column down the
      crown -- one x, every other row -- which is HOW HAIR AND SHAPE WORK (8/1)
@@ -3788,15 +3843,53 @@ function renderFace(spec,opts){
      than one pixel either side -- a part that wanders further is a cowlick. */
   const px0=cx+(part==='left'?-1:part==='right'?1:0);
   const pseed=((hc[0]*7+hc[1]*13+hc[2]*3+f.len*29+f.cheekW*11)>>>0);
-  for(let ry=htop;ry<=Y0;ry++){
+  for(let ry=htop;ry<=Y0+hlY;ry++){
     if(ry%2!==0)continue;
     const seg=(ry/2)|0;
     let hsh=(Math.imul((pseed^(seg*2654435761))>>>0,40503))>>>0;
     P(px0+(((hsh>>>17)&3)===0?-1:(((hsh>>>19)&3)===0?1:0)),ry,hr);
   }
-  for(const side of [-1,1]){let outer=cx+side*(cw+3);poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer,Y0+11],[outer,(Y0+jaw)/2|0],[cx+side*(cw+1),jaw-1],[cx+side*jw,jaw-2],[cx+side*(cw-2),chY+2],[cx+side*(cw-1),chY-3]],hc);
-   if(style==='wavy_mid'||style==='curly'){let k=0;for(let yy=Y0+7;yy<jaw;yy+=3){P(outer-side*(k%2?1:2),yy,hs);P(outer-side*2,yy+1,hi);k++;}}}
-  for(let sx=cx-fw+1;sx<cx+fw;sx+=3)P(sx,Y0+1,hc);
+  /* FLARE widens the mass as it falls -- an afro or a shag, the same dial the body reads.
+     Zero flare reproduces the old fixed-width curtain exactly. */
+  const _fl=H_flare==null?0:Math.max(0,Math.min(0.5,H_flare));
+  const _fA=d=>Math.round(_fl*Math.max(0,d));
+  for(const side of [-1,1]){let outer=cx+side*(cw+3);const _mid=(Y0+jaw)/2|0;
+   poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer+side*_fA(11),Y0+11],[outer+side*_fA(_mid-Y0),_mid],[cx+side*(cw+1),jaw-1],[cx+side*jw,jaw-2],[cx+side*(cw-2),chY+2],[cx+side*(cw-1),chY-3]],hc);}
+  for(let sx=cx-fw+1;sx<cx+fw;sx+=3)P(sx,Y0+1+hlY,hc);
+  /* ===== THE MARK INSIDE THE MASS =====================================
+     `style` used to mean one bit: wavy_mid and curly drew a zig down each side, and the
+     other five names in the spec drew nothing and were therefore the same haircut. The
+     texture now paints over EVERY hair pixel rather than down the two side edges, which
+     is what lets a loc and a coil read as different things instead of as two edges.
+     WHICH PIXELS ARE HAIR IS READ OFF THE BUFFER, not guessed from the polygons: the mass
+     is three overlapping polys plus a highlight, and any bounding box around them clips
+     the temples and leaks at the crown. Highlight and shadow tones are left alone, so a
+     texture can never flatten the modelling underneath it.
+     'wave' IS TODAY'S MARK, UNCHANGED, and it is what an absent tex resolves to for the
+     two style names that had it -- so the approved face does not move. */
+  const _tex = h.tex || ((style==='wavy_mid'||style==='curly')?'wave':'solid');
+  if(_tex==='wave'){
+    for(const side of [-1,1]){let outer=cx+side*(cw+3);let k=0;
+      for(let yy=Y0+7;yy<jaw;yy+=3){P(outer-side*(k%2?1:2),yy,hs);P(outer-side*2,yy+1,hi);k++;}}
+  } else if(_tex==='locs'||_tex==='coils'){
+    const _over=(fn)=>{for(let yy=0;yy<N;yy++)for(let xx=0;xx<N;xx++){const i=(yy*N+xx)*4;
+      if(buf[i]===hc[0]&&buf[i+1]===hc[1]&&buf[i+2]===hc[2])fn(xx,yy);}};
+    if(_tex==='locs'){
+      /* ropes running with the fall. NO STRAIGHT LINES (8/1 clause 3, LOCKED): the column
+         drifts by one pixel every other row, deterministic off this head, so a rope reads
+         as a rope and not as a comb. Same method as the part above and the strand pass in
+         the body's own generator. */
+      _over((xx,yy)=>{const seg=(yy/2)|0;
+        const s=(Math.imul((pseed^(seg*2654435761))>>>0,2246822507))>>>0;
+        const d=((s>>>21)%3)-1;
+        if((((xx-cx)+d+96)%3)===0)P(xx,yy,hs);});
+    } else {
+      /* tight curl: short off marks on alternating rows, never a run. */
+      _over((xx,yy)=>{if(yy%2)return;
+        const s=(Math.imul((((yy/2)|0)*2654435761)^((xx+pseed)*40503),3266489909))>>>0;
+        if(((s>>>19)&3)===0)P(xx,yy,hs);else if(((s>>>25)&7)===0)P(xx,yy,hi);});
+    }
+  }
   if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}}
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
@@ -4588,6 +4681,38 @@ function faceRollHash(id, salt){
    uniform -- averaging two rolls is the cheapest honest bell and it keeps the
    extremes rare instead of making every third stranger a caricature */
 function faceBell(id, salt){ return faceRollHash(id,salt) + faceRollHash(id,salt+'~') - 1; }
+/* WHAT A HAIRCUT'S NUMBERS ARE, READ FROM THE ONE PLACE THEY ARE WRITTEN DOWN (8/28).
+   Every canon hairstyle in this game is a call to genHair with its dials in it:
+       genHair(g,{name:'SHAG',ramp:H_BRN,vol:1,side:0.82,front:0.30,flare:0.10})
+   The portrait needs those same five numbers, and there are exactly two ways to get
+   them: copy them into a second table, or read the first one. A SECOND TABLE IS HOW
+   THE PORTRAIT AND THE BODY ENDED UP WEARING DIFFERENT HAIRCUTS IN THE FIRST PLACE
+   (ENGINE SYNC LAW: one canonical body per module), so this reads the call.
+   Reading a function's own source is a real dependency on this file never being
+   minified, which it is not and which the gate asserts by requiring all fifteen canon
+   styles to resolve to distinct dials -- if a build step ever mangles this, the gate
+   goes red the same turn rather than the crowd quietly going bald.
+   Cached on first use: fifteen regexes once, not once per face. */
+var _HAIR_DIALS = null;
+function hairDialsFor(name){
+  if (!name) return null;
+  if (!_HAIR_DIALS) {
+    _HAIR_DIALS = {};
+    try {
+      var gs = (typeof GARMENTS !== 'undefined') ? GARMENTS
+             : ((typeof window !== 'undefined' && window.GARMENTS) || []);
+      for (var i = 0; i < gs.length; i++) {
+        var g = gs[i]; if (!g || g.layer !== 'hair' || typeof g.gen !== 'function') continue;
+        var src = String(g.gen), o = {}, m;
+        var re = /(vol|side|front|flare|back|fade|strip):\s*([0-9.]+)/g;
+        while ((m = re.exec(src))) o[m[1]] = parseFloat(m[2]);
+        var t = /tex:\s*'([a-z]+)'/.exec(src); if (t) o.tex = t[1];
+        if (o.side != null || o.front != null) _HAIR_DIALS[g.n] = o;
+      }
+    } catch (_e) { _HAIR_DIALS = {}; }
+  }
+  return _HAIR_DIALS[name] || null;
+}
 function faceFor(id, over){
   id = String(id == null ? 'nobody' : id);
   var ck = id + '#' + (over ? JSON.stringify(over) : '');
@@ -4736,9 +4861,49 @@ function faceFor(id, over){
      DIAL, IT IS A COMMENT -- which is written eighty lines above this and which I
      then broke in the very next block. Rolling a name the renderer ignores is
      worse than not rolling it: it makes the variety look solved.
-     THE CUT ITSELF IS STILL THIS FUNCTION'S, because the BODY has no notion of a
-     hairstyle -- NPCFactory picks a painted hair LAYER, not a portrait cut. */
-  sp.hair.style = R('hstyle') < 0.5 ? 'wavy_mid' : 'curly';
+     ~~THE CUT ITSELF IS STILL THIS FUNCTION'S, because the BODY has no notion of a
+     hairstyle -- NPCFactory picks a painted hair LAYER, not a portrait cut.~~
+     *** THAT SENTENCE WAS FALSE WHEN I WROTE IT, AND IT IS WHY THE TWO DRIFTED. (8/28) ***
+     NPCFactory picks a painted layer, true. But BOH_PERSONLOOK.lookFor -- which is what
+     actually dresses the crowd, and which this file already called for their clothes --
+     hands back `worn.hair`, one of the FIFTEEN canon genHair styles, and MEASURED over
+     200 citizens it is set for 93% of them. I checked one of the two things that dress a
+     person, found no haircut there, and wrote down that there wasn't one. A CLAIM ABOUT
+     THE CODEBASE MADE FROM ONE OF THE TWO PLACES IS A GUESS (8/1: do not claim things
+     about the codebase without checking).
+     WHAT IT COST, measured before the fix: the portrait's length matched the body's
+     24.7% of the time -- WORSE THAN THE 33% A COIN GIVES over three bands, because two
+     independent hashes are not merely unrelated, they can be anti-correlated. Three
+     quarters of the people in Bohemia had one haircut standing in front of you and a
+     different one in the portrait that popped up when they spoke.
+     SO THE CUT IS THE BODY'S NOW, and the portrait reads the SAME five dials the body's
+     own generator reads. It is not a translation table that has to be kept in step by
+     hand; that is the shape of thing that drifts. */
+  var _bodyHair = '', _hd = null;
+  try {
+    if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
+      var _lk = BOH_PERSONLOOK.lookFor(id, GARMENTS.filter(function (x) { return x.st === 'canon'; }));
+      _bodyHair = (_lk.worn || {}).hair || '';
+      _hd = hairDialsFor(_bodyHair);
+    }
+  } catch (_e3) { _bodyHair = ''; _hd = null; }
+  if (_hd) {
+    sp.hair.name  = _bodyHair;
+    if (_hd.side  != null) sp.hair.side  = _hd.side;
+    if (_hd.front != null) sp.hair.front = _hd.front;
+    if (_hd.vol   != null) sp.hair.vol   = _hd.vol;
+    if (_hd.flare != null) sp.hair.flare = _hd.flare;
+    /* AND A CHILD IS NOT A SMALL ADULT (8/27). The dials are the cut; the head they sit
+       on is still this person's, so a child in a shoulder-length cut gets a child's
+       shorter fall out of f.len without the cut changing its name. */
+  }
+  /* THE TEXTURE STAYS THE PERSON'S OWN ROLL, and that is honest rather than lazy: all
+     fifteen canon body styles are tex 'solid' (locs and braid belong to dead styles), so
+     there is nothing on the body to agree WITH yet. Four values that all move pixels,
+     against the two that used to collapse into "texture" and "no texture". When the body
+     grows a textured cut, this reads it the same way the shape dials do. */
+  sp.hair.tex   = pick(['wave','wave','coils','locs','solid'], 'htex');
+  sp.hair.style = sp.hair.tex === 'coils' ? 'curly' : 'wavy_mid';
   sp.hair.part  = pick(['mid','left','right'], 'part');
   sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
                         : (R('hlen') < 0.42 ? 'short' : (R('hlen') < 0.78 ? 'jaw' : 'long'));
@@ -14907,6 +15072,173 @@ function swRowUI(parent,label,arr,curJson,cb){
     s.onclick=()=>{cb(col);refresh();buildFaceEditor();};row.appendChild(s);});
   parent.appendChild(row);
 }
+/* ===== THE FACE MAKER (Paolo 8/25, THE PLAYTEST DISPATCH item 10: "FACE CUSTOMISATION,
+   never built, is on the board"; built 8/28) ===============================
+   THE EDITOR THAT WAS HERE ONLY CHANGED COLOURS. Skin, hair, eyes, lips, brows -- five
+   swatch rows and a per-facing offset pad. Not one control touched the SHAPE of the head,
+   which is the whole of what a face is: at 64 pixels IDENTITY IS SIZE AND SPACING, NOT
+   DETAIL (8/27, and it is what face recognition calls the identity channel too). So the
+   thing called a face editor could not change a face.
+   Everything it needs already existed and none of it was reachable. faceFor has rolled a
+   whole grounded shape vocabulary for every stranger in the valley since 8/27 -- length,
+   cranium, forehead, cheek, jaw, chin, and where the brow, eyes, nose and mouth sit on
+   them. The player was the ONE PERSON IN BOHEMIA WHO COULD NOT HAVE A DIFFERENT HEAD.
+   HE MUST BE ABLE TO DIRECT IT (8/12, LOCKED): a system he has to make decisions about
+   ships with the instrument for making them, IN A TAB, the same turn. The test is "where
+   does he change this himself?", and until today the answer was "he tells me and I edit a
+   file", which is not shipped.
+   THE ANATOMY IS MINE, THE FACE IS HIS (MECHANISM-MINE / CONTENTS-PAOLO'S). Every slider
+   re-clamps against the same rules faceFor obeys -- the cheeks are the widest part, the
+   jaw is narrower than the cheeks, the chin is narrower than the jaw, and the features
+   keep their order down the face. He cannot build a head that is not a head, and inside
+   that he can build any head he likes. */
+const FACE_SLIDERS=[
+  /* key                 label          lo  hi   where it lives */
+  ['face.len',          'FACE LENGTH',  28, 40],
+  ['face.craniumH',     'CRANIUM',       7, 15],
+  ['face.foreheadW',    'FOREHEAD',     19, 31],
+  ['face.cheekW',       'CHEEKS',       24, 38],
+  ['face.jawW',         'JAW',          20, 34],
+  ['face.chinW',        'CHIN',          7, 20],
+  ['face.browY',        'BROW HEIGHT',   0,  0],   /* 0,0 = derived, see rowFrac below */
+  ['face.eyeY',         'EYE HEIGHT',    0,  0],
+  ['face.noseY',        'NOSE HEIGHT',   0,  0],
+  ['face.mouthY',       'MOUTH HEIGHT',  0,  0],
+  ['eyes.gap',          'EYE SPACING',   3, 11],
+  ['brows.len',         'BROW LENGTH',   4, 11],
+  ['mouth.w',           'MOUTH WIDTH',   5, 15],
+  ['nose.w',            'NOSE WIDTH',    2,  5]
+];
+/* the four row positions are stored as a FRACTION of the face, not as a pixel row, so
+   lengthening the face moves the eyes with it instead of leaving them stranded near the
+   chin. Same reason faceFor writes them as fractions. */
+const ROW_FRAC={'face.browY':[0.20,0.34],'face.eyeY':[0.29,0.44],
+                'face.noseY':[0.55,0.74],'face.mouthY':[0.74,0.92]};
+function _fget(k){const [a,b]=k.split('.');return pface[a][b];}
+function _fset(k,v){const [a,b]=k.split('.');pface[a][b]=v;}
+/* A HEAD IS STILL A HEAD AFTERWARDS. The same three ordering rules faceFor applies to
+   every stranger, applied here so his dial cannot make an impossible skull. Nothing is
+   rejected -- the neighbour gives way, so a slider always does something. */
+function faceClamp(){
+  const f=pface.face;
+  f.cheekW=Math.max(f.cheekW,f.foreheadW+2);
+  f.jawW  =Math.min(f.jawW,  f.cheekW-1);
+  f.chinW =Math.min(f.chinW, f.jawW-6);
+  f.chinW =Math.max(4,f.chinW);
+  const chin=f.top+f.len;
+  f.cheekY    =f.top+Math.round(f.len*0.42);
+  f.jawCornerY=f.top+Math.round(f.len*0.79);
+  for(const k in ROW_FRAC){
+    const [lo,hi]=ROW_FRAC[k];
+    const cur=_fget(k);
+    _fset(k,Math.max(f.top+Math.round(f.len*lo),Math.min(f.top+Math.round(f.len*hi),cur)));
+  }
+  /* and they keep their order down the face */
+  if(f.eyeY  <=f.browY)f.eyeY  =f.browY+1;
+  if(f.noseY <=f.eyeY )f.noseY =f.eyeY+2;
+  if(f.mouthY<=f.noseY)f.mouthY=f.noseY+2;
+  if(f.mouthY>chin-2)f.mouthY=chin-2;
+  pface.mouth.w=Math.max(5,Math.min(f.jawW-6,pface.mouth.w));
+  pface.eyes.gap=Math.max(3,Math.min(11,pface.eyes.gap));
+}
+function faceSliderUI(parent){
+  const box=document.createElement('div');
+  box.style.cssText='margin-top:10px;border-top:1px solid #241c12;padding-top:8px';
+  const t=document.createElement('div');
+  t.style.cssText='font:800 12px system-ui;letter-spacing:1px;color:#b39ddb;margin-bottom:2px';
+  t.textContent='THE FACE ITSELF';box.appendChild(t);
+  const sub=document.createElement('div');
+  sub.style.cssText='font:11px system-ui;color:#8a7d68;margin-bottom:6px;line-height:1.4';
+  sub.textContent='at this size a face is size and spacing, not detail. drag anything. it cannot make a head that is not a head.';
+  box.appendChild(sub);
+  FACE_SLIDERS.forEach(([key,label,lo,hi])=>{
+    const f=pface.face;
+    const RF=ROW_FRAC[key];
+    const mn=RF?(f.top+Math.round(f.len*RF[0])):lo;
+    const mx=RF?(f.top+Math.round(f.len*RF[1])):hi;
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;margin:3px 0';
+    const l=document.createElement('b');
+    l.style.cssText='font:700 10px system-ui;letter-spacing:.5px;color:#c9bda4;min-width:104px';
+    l.textContent=label;row.appendChild(l);
+    const s=document.createElement('input');s.type='range';
+    s.min=mn;s.max=mx;s.step=1;s.value=_fget(key);
+    s.style.cssText='flex:1;accent-color:#b39ddb';
+    const v=document.createElement('span');
+    v.style.cssText='font:11px monospace;color:#9a8a6a;min-width:22px;text-align:right';
+    v.textContent=_fget(key);
+    s.oninput=()=>{_fset(key,+s.value);faceClamp();v.textContent=_fget(key);refresh();};
+    /* a released slider REBUILDS the panel, because clamping may have moved a neighbour
+       and a slider showing a number the face does not have is the dead-dial bug wearing
+       a different hat. */
+    s.onchange=()=>{buildFaceEditor();};
+    row.appendChild(s);row.appendChild(v);box.appendChild(row);
+  });
+  /* THE HAIRCUT, from the same fifteen the body wears (8/28). Picking one here writes the
+     same five dials the crowd's portraits read, so the head he builds and the people he
+     meets are described in one vocabulary. */
+  const hr=document.createElement('div');hr.className='row';
+  const hl=document.createElement('b');hl.textContent='HAIRCUT';hr.appendChild(hl);
+  const CUTS=(window.GARMENTS||[]).filter(g=>g.layer==='hair'&&g.st==='canon');
+  CUTS.forEach(g=>{const bt=document.createElement('button');bt.className='opt'+(pface.hair.name===g.n?' on':'');
+    bt.textContent=g.n.toLowerCase();bt.style.fontSize='10px';
+    bt.onclick=()=>{const d=hairDialsFor(g.n)||{};
+      pface.hair.name=g.n;
+      pface.hair.side =d.side !=null?d.side :null;
+      pface.hair.front=d.front!=null?d.front:null;
+      pface.hair.vol  =d.vol  !=null?d.vol  :null;
+      pface.hair.flare=d.flare!=null?d.flare:null;
+      refresh();buildFaceEditor();};
+    hr.appendChild(bt);});
+  box.appendChild(hr);
+  const tr=document.createElement('div');tr.className='row';
+  const tl=document.createElement('b');tl.textContent='HAIR TEXTURE';tr.appendChild(tl);
+  [['wave','wavy'],['coils','coiled'],['locs','locs'],['solid','smooth']].forEach(([k,lab])=>{
+    const bt=document.createElement('button');
+    bt.className='opt'+(((pface.hair.tex||'wave')===k)?' on':'');
+    bt.textContent=lab;bt.onclick=()=>{pface.hair.tex=k;refresh();buildFaceEditor();};
+    tr.appendChild(bt);});
+  box.appendChild(tr);
+  /* ROLL A FACE. The same faceFor every stranger in the valley is rolled from, so the
+     button cannot produce anything the game could not already produce -- it is a way of
+     SEEING the space, not a second generator. Colours are left alone: they are their own
+     rows above and rerolling them under him would undo a choice he just made. */
+  const br=document.createElement('div');br.style.cssText='display:flex;gap:6px;margin-top:8px';
+  const roll=document.createElement('button');roll.className='opt';roll.style.flex='1';
+  roll.textContent='ROLL A FACE';
+  roll.onclick=()=>{
+    window._faceRoll=(window._faceRoll||0)+1;
+    const sp=faceFor('maker:'+window._faceRoll);
+    for(const k of ['face','brows','eyes','nose','mouth'])
+      for(const k2 in sp[k]){ if(k2==='color'||k2==='iris')continue; pface[k][k2]=sp[k][k2]; }
+    for(const k2 of ['name','side','front','vol','flare','tex','part','len','style'])
+      if(sp.hair[k2]!==undefined)pface.hair[k2]=sp.hair[k2];
+    faceClamp();refresh();buildFaceEditor();};
+  const rst=document.createElement('button');rst.className='opt';rst.style.flex='1';
+  rst.textContent='BACK TO PUNK';
+  rst.onclick=()=>{const keep={hair:{color:pface.hair.color,roots:pface.hair.roots},
+      eyes:{iris:pface.eyes.iris},mouth:{color:pface.mouth.color},brows:{color:pface.brows.color}};
+    pface=JSON.parse(JSON.stringify(PUNK));
+    pface.hair.color=keep.hair.color;pface.hair.roots=keep.hair.roots;
+    pface.eyes.iris=keep.eyes.iris;pface.mouth.color=keep.mouth.color;pface.brows.color=keep.brows.color;
+    refresh();buildFaceEditor();};
+  br.appendChild(roll);br.appendChild(rst);box.appendChild(br);
+  const ex=document.createElement('button');ex.className='opt';ex.style.cssText='width:100%;margin-top:6px';
+  ex.textContent='EXPORT THIS FACE (to Claude)';
+  ex.onclick=()=>{const L=['=== BOHEMIA FACE (Paolo) ==='];
+    FACE_SLIDERS.forEach(([k,lab])=>L.push(lab.padEnd(14)+' '+_fget(k)));
+    L.push('HAIRCUT        '+(pface.hair.name||'(default)'));
+    L.push('HAIR TEXTURE   '+(pface.hair.tex||'wave'));
+    L.push('','--- as a spec, paste this at Claude ---');
+    L.push(JSON.stringify({face:pface.face,brows:{gap:pface.brows.gap,len:pface.brows.len,thick:pface.brows.thick,arch:pface.brows.arch,angle:pface.brows.angle},
+      eyes:{w:pface.eyes.w,h:pface.eyes.h,gap:pface.eyes.gap,hood:pface.eyes.hood},
+      nose:pface.nose,mouth:{w:pface.mouth.w,fullLower:pface.mouth.fullLower},
+      hair:{name:pface.hair.name,side:pface.hair.side,front:pface.hair.front,vol:pface.hair.vol,flare:pface.hair.flare,tex:pface.hair.tex}},null,1));
+    const blob=new Blob([L.join('\n')],{type:'text/plain'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='BOHEMIA_FACE.txt';document.body.appendChild(a);a.click();a.remove();};
+  box.appendChild(ex);
+  parent.appendChild(box);
+}
 function buildFaceEditor(){
   const fe=document.getElementById('faceEd');fe.innerHTML='';
   swRowUI(fe,'Skin',SKIN_TONES.map(s=>s[1][0]),JSON.stringify(skinTone[1][0]),
@@ -14915,6 +15247,7 @@ function buildFaceEditor(){
   swRowUI(fe,'Eyes',IRIS,JSON.stringify(pface.eyes.iris),(c)=>{pface.eyes.iris=c.slice();});
   swRowUI(fe,'Lips',LIPS,JSON.stringify(pface.mouth.color),(c)=>{pface.mouth.color=c.slice();});
   swRowUI(fe,'Brows',BROWC,JSON.stringify(pface.brows.color),(c)=>{pface.brows.color=c.slice();});
+  faceSliderUI(fe);
   /* FACE CALIBRATION (Paolo 7/19): nudge the eye/nose/lip POSITIONS per facing.
      Mechanism mine, placement his -- offsets ship all-zero until he rules them.
      The live character (above) shows the chosen facing; the shades re-cook once
