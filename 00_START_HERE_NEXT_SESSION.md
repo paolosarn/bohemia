@@ -2610,6 +2610,25 @@ down on 8/24 as "red in the pack and green alone today".
 
 RECORD: records/BOHEMIA_LOOKING_AT_THE_MAP_IS_NOT_TRAVELLING_8_27_26.txt
 
+*** TWO OF THIS LANE'S OWN GATES WENT RED ON MAIN TODAY AND THEY ARE NOT FROM
+THIS TURN. *** Proved by running both against the city file at HEAD~1, before this
+turn touched it -- identical failures:
+  SEE-THROUGH MOVE   "the fade is aimed at him rather than being a filter over the
+                     whole world": 966 of 3611 elsewhere solid, needs >50%. It was
+                     3145 of 3771 when the gate shipped on 8/25. So FAR MORE
+                     FACADES ELSEWHERE ARE NOW TRANSLUCENT -- the 7/27 see-through
+                     has stopped being aimed at him and is becoming a filter over
+                     everything. A gate named SEE THROUGH is newly red too, which
+                     says another lane has been in that pass (COMBAT's "walls are
+                     mechanics" landed 8/26).
+  WALK FEEL          "the world moves while he walks": SLIDE median 19.5% against
+                     GRID's 0.0%, needs 30%. It was 46-58% when it shipped. The
+                     glide is flattening out.
+BOTH ARE THIS LANE'S GATES AND THIS LANE OWNS FIXING THEM. They are first next
+run, ahead of everything below. Do not re-diagnose from scratch: the numbers above
+are the before/after, and the HEAD~1 comparison is the proof they predate the
+8/27 work.
+
 NEXT IN THIS LANE, in order:
   1. THE PAD SHOULD SAY WHAT IT IS ABOUT TO DO. This turn fixed the CONSEQUENCE
      (a look no longer moves him) but not the CONFUSION: zoomed out, the pad still
