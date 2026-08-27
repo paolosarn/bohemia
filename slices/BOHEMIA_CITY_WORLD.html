@@ -44203,6 +44203,18 @@ function actWayOut(){
   return -1;
 }
 function actFront(){
+  /* __THE_ACTION_BUTTON_DOES_ACTIONS__ (8/26) -- THE OVERLOOK COMES FIRST OF ALL,
+     AND THIS WAS A REGRESSION I CAUSED HOURS EARLIER THE SAME DAY. The round
+     button used to call transition(), and transition() calls vistaBail() -- so
+     "the MODE button brings him back off the rim" was one of the six ways out
+     that THE OVERLOOK HAS TO LET HIM LEAVE proves. Rewiring the button to the
+     verb quietly took that caller away and vista_lets_you_leave went 21/0 -> 19/2,
+     "5 of 6". WHEN YOU MOVE WHAT A BUTTON DOES, FIND EVERYTHING THAT DEPENDED ON
+     WHAT IT USED TO DO -- the fourth time this week (the popcard's offsetTop, the
+     see-through's playerBox, the chip column's z-index, and now this).
+     It is FIRST because while the valley is open on screen there is nothing else
+     the button could sensibly mean. */
+  try{ if(typeof VISTA!=='undefined' && VISTA) return { kind:'vista', label:'BACK' }; }catch(_e){}
   if(typeof MODE==='undefined'||MODE!=='human') return null;
   /* __THE_ACTION_BUTTON_LETS_YOU_OUT__: INSIDE FIRST. Measured before this existed: standing in a
      room, the button still said ENTER -- it offered to put him into the room he was
@@ -44268,6 +44280,8 @@ function actPress(){
      came in from" -- and lifting its four lines here is how the door predicate ended
      up copied into homeFind. The button hands it a direction and lets it move him,
      so both ways out spend the same half minute and can never disagree. */
+  /* the overlook's own closer, the same one every other way out calls */
+  if(f.kind==='vista'){ try{ return !!vistaBail(); }catch(_e){ return false; } }
   if(f.kind==='leave'){ try{ return !!stepOnce(f.di); }catch(_e){ return false; } }
   if(f.kind==='talk'){ try{ ctOpen(); }catch(_e){} return true; }
   if(f.kind==='enter'){ try{ return !!inEnter(f.at[0],f.at[1],hx,hy,false); }catch(_e){ return false; } }

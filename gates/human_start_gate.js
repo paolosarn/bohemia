@@ -102,13 +102,26 @@ function requirePlaywright() {
     /* R8: THE CITY VIEW IS NOT TAKEN AWAY FROM HIM. He asked to START in human
        mode, not to lose the city builder - and the zoom seam still has to reach
        it (ZOOM SEAM law, 8/2). Prove the swap still works from here. */
+    /* *** THIS CLAIM WAS PINNED TO WHERE THE OFFER LIVED, NOT TO WHETHER IT IS
+       OFFERED (fixed 8/26). *** It read #modeLbl and required the word CITY in it,
+       which was true while the big round button in the pad WAS the city toggle.
+       Paolo ruled on 8/26 that THE ACTION BUTTON DOES ACTIONS ("I HATE THAT THE
+       ACTION BUTTON IS THE CITY BUTTON"), so that button now says the verb in
+       front of him and the camera toggle moved to a chip beside WHOLE MAP. The
+       LAW this claim exists for -- R8's own words, "THE CITY VIEW IS NOT TAKEN
+       AWAY FROM HIM" -- is untouched and still true.
+       FIX THE RULER, NEVER THE TARGET (8/1): it asks whether the city view is
+       offered ANYWHERE a thumb can reach, which is what it always meant. */
     const swapped = await cf.evaluate(() => {
-      if (typeof window.__proof === 'undefined') return null;
-      const el = document.getElementById('modeLbl');
-      return el ? el.textContent : null;
+      const out = [];
+      ['modeLbl', 'modechip'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el && el.offsetParent !== null) out.push(el.textContent || '');
+      });
+      return out.join(' | ');
     });
     ok('R9 the city view is one tap away, still offered (' + swapped + ')',
-      /CITY/.test(String(swapped)));
+      /CITY|DROP IN/.test(String(swapped)));
   } finally { await browser.close(); }
 
   console.log((fail.length ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' +
