@@ -5383,6 +5383,22 @@ STILL NOT CLAIMED: the PLACE half. And the world events STILL WORK -- this is a
 second door into the same quest, not a replacement. You can get there by talking
 or by walking, which is more game, not less.
 
+AND THE DEMO WAS STALE, WHICH WAS MINE: the demo is a CUT of the workshop, so
+changing the workshop's stamp leaves it behind and DEMO BUILD goes red. Re-cut
+(16 dev tabs removed, one RUN tab kept), 25/0. AND THE DEMO LOADS THE SAME CITY
+FILE BY NAME, so the conversation is in the demo build too, with no extra work.
+
+FULL SUITE: 437 gates, 3246s, 36 red. NONE OF THEM MINE, checked by name rather
+than assumed: CASTING, CONVERSATION and LANGUAGE all green in the pack.
+QUEST PLACEMENT names its own stale modules and they are bohemia_wash.js,
+bohemia_railyard.js and bohemia_world.js -- WORLD's, one command, theirs.
+GRAVEYARD's 10 live references are all in records/BOHEMIA_VERDICT_HAIR_ROUND4_
+8_20_26.txt -- CHARACTER's. TASTE names three cook files, DEAD CODE names legend
+codes, TOP OF THE DOC names the RF4 thesis row, NO BULLSHIT Qs names the
+coordinator's 8/25 demo record. FULL RES, MOTION VISIBLE, WALK DEADLOCK and
+RENDER PIXEL are the standing reds this handoff already lists. MIX did not
+reproduce alone.
+
 Record: records/BOHEMIA_THE_CONVERSATION_HAS_NEVER_BEEN_PLAYED_8_26_26.md
 
 ---- AND THE HALF THAT MADE IT POSSIBLE, SAME DAY ----
