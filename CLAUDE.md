@@ -265,6 +265,38 @@ research partner. He DECIDES, you PRODUCE.
   15-20/min at rest and 3-7 concentrating; a viseme holds 250ms, which is half a BEAT at
   120 BPM. Deterministic off the person's id, so nobody in a crowd shimmers.
   Tab: CHARACTER. records/BOHEMIA_COLOUR_IS_TERRITORY_8_26_26.txt
+- EVERYBODY HAS A FACE, AND IT TALKS (Paolo 8/26, built 8/27): "every time you speak to
+  someone, their portrait will pop up on screen so you feel like you're relating to
+  them." *** THE 8/26 TURN BUILT THE PERFORMANCE AND NOTHING COULD CALL IT, and the
+  reason is one grep: renderFace has been invoked exactly ONE WAY in this whole
+  codebase -- renderFace(buildSpec()) -- and buildSpec() clones `pface`, THE PLAYER'S
+  FACE. Only the player had one. The cast had bodies and no face; the valley had bodies
+  and no face. THE MISSING PIECE WAS NEVER THE ANIMATION, IT WAS A FACE FOR SOMEBODY WHO
+  IS NOT YOU. *** faceFor(id, over) rolls one for anybody. IDENTITY AT 64x64 IS SIZE AND
+  SPACING, NOT DETAIL (which is also what face-recognition calls the identity channel),
+  and every field it dials already existed -- renderFace did not change. GROUNDED: the
+  vertical thirds hold, the eye gap is one eye wide, the mouth is a FRACTION of the face
+  and never a fixed number, jaw<=cheek and chin<=jaw, and A CHILD IS NOT A SMALL ADULT.
+  Deterministic off the id, no dice, so the person you met yesterday has the face you
+  remember and nobody in a crowd shimmers. Wired into THE COLD OPEN: the speaker's
+  portrait sits BESIDE the words and performs; a title card has no speaker so it has no
+  face; a REPAINT IS NOT A NEW LINE (the caption repaints several times a beat -- same
+  dedupe cutVoice needed, third time for that bug). LOOKING CAUGHT WHAT MEASURING DID
+  NOT, three times: a uniform hair-colour pick gave 3 pink heads in 16 (THE TRENCHCOAT
+  BUG ONE DAY LATER -- uniform over a list whose contents are not uniform in life); five
+  hair-style names when renderFace reads two, and an eyeY jitter smaller than one pixel,
+  i.e. A DIAL THAT CANNOT MOVE THE PIXELS IS NOT A DIAL, broken in the block right after
+  I wrote it; and a ruled straight part down every head (8/1 clause 3), fixed with the
+  8/25 strand-drift method at a cost of 8 pixels of 4096 on the approved player face.
+  *** AND THE WORST ONE ONLY A GATE FOUND: faceHash ALREADY EXISTED and I declared a
+  second one. Two same-named function declarations in one scope is not an error and not
+  a warning -- THE LAST ONE SILENTLY WINS FOR THE WHOLE FILE -- so my hash took over the
+  8/26 blink scheduler with salt undefined, no crash, every check still green. NOTHING
+  READS AS A BUG WHEN IT IS SPELLED CORRECTLY AND SITS IN THE WRONG PLACE (the 8/16
+  border lesson again). Now gated: NO TWO TOP-LEVEL FUNCTIONS SHARE A NAME. *** WHO
+  ANYBODY IS STAYS HIS: an explicit spec beats the roll outright.
+  Tab: RUN (the opening scene) / LOOK. Full law:
+  laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md  Gate: talking_portrait_gate.js
 - TRENCHCOATS ARE FOR BADASSES (Paolo 8/27, LOCKED): "everyone's getting a fucking
   trenchcoat and I think that's fucking ridiculous... trenchcoats are for bad ass
   motherfuckers bro cowboy shit like killers like for real." MEASURED THE DAY HE SAID IT

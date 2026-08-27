@@ -1170,8 +1170,20 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
            flex-direction:column;align-items:center;justify-content:center">
         <canvas id="openCv" width="360" height="470"
           style="max-width:100%;max-height:74%;display:block;image-rendering:pixelated"></canvas>
-        <div id="openCap" style="min-height:56px;width:92%;max-width:420px;margin-top:10px;padding:8px 10px;
-             font:13px/1.5 ui-monospace,monospace;color:#e8dfc8;text-align:center"></div>
+        <!-- __THE_PORTRAIT_POPS_UP_WHEN_SOMEBODY_TALKS__ (Paolo 8/26). The face
+             sits BESIDE the words, not above them: on a phone held in portrait
+             the caption is already near the bottom, and stacking a head on top
+             of it pushes the words into the thumb. Left of the text is also
+             where a reader's eye already starts. It is hidden with visibility
+             rather than display so the text does not jump sideways the moment
+             somebody stops talking. -->
+        <div id="openCapRow" style="display:flex;align-items:center;justify-content:center;gap:10px;
+             width:92%;max-width:420px;margin-top:10px">
+          <canvas id="openFace" width="56" height="56"
+             style="flex:0 0 auto;width:56px;height:56px;image-rendering:pixelated;visibility:hidden"></canvas>
+          <div id="openCap" style="min-height:56px;flex:1 1 auto;padding:8px 10px;
+             font:13px/1.5 ui-monospace,monospace;color:#e8dfc8;text-align:left"></div>
+        </div>
         <button id="openSkip" style="position:absolute;top:10px;right:10px;padding:6px 12px;
                 border:1px solid #3a2f1c;border-radius:4px;background:rgba(12,10,7,.8);
                 color:#9a8a5e;font:11px ui-monospace,monospace;letter-spacing:1px">SKIP</button>
@@ -3598,10 +3610,36 @@ function renderFace(spec,opts){
          buf[i+2]=buf[i+2]+(g*1.01-buf[i+2])*0.55*pal; } }
    } }
  if(!bald){const h=spec.hair,hc=h.color,hr=h.roots,hi=hc.map(c=>Math.min(255,c+22)),hs=hc.map(c=>c*0.8|0);
-  const htop=headTop,part=h.part,style=h.style,jaw=h.len==='jaw'?chin-3:chin+3;
+  /* SHORT HAIR EXISTS NOW (8/27). It read `jaw ? chin-3 : chin+3`, so EVERY value
+     that was not the literal 'jaw' fell through to below the chin and the only
+     two haircuts in the game were long and slightly longer. Measured the day
+     faces went into the world: sixteen generated people, sixteen curtains. A
+     third length is the single biggest silhouette this face was missing, and it
+     is the one that reads as a man in a valley where everybody works.
+     PUNK carries len:'jaw' and never takes this branch, so the approved face is
+     byte-for-byte what it was -- checked, not assumed. */
+  const htop=headTop,part=h.part,style=h.style,
+        jaw=h.len==='short'?(chY+1):(h.len==='jaw'?chin-3:chin+3);
   poly([[cx-fw-2,Y0+3],[cx-fw,htop+1],[cx-5,htop-2],[cx,htop-3],[cx+5,htop-2],[cx+fw,htop+1],[cx+fw+2,Y0+3],[cx+fw-1,Y0+1],[cx,Y0-1],[cx-fw+1,Y0+1]],hc);
   poly([[cx-5,htop],[cx,htop-2],[cx+5,htop]],hi);
-  const px0=cx+(part==='left'?-1:part==='right'?1:0);for(let ry=htop;ry<=Y0;ry++)if(ry%2===0)P(px0,ry,hr);
+  /* THE PART DRIFTS (8/27). It was a perfectly straight dotted column down the
+     crown -- one x, every other row -- which is HOW HAIR AND SHAPE WORK (8/1)
+     clause 3 broken in one line: "no straight lines, hair is little off shapes".
+     It survived because the player is one face and one ruled pixel is easy to
+     forgive; the day every person in the valley grew a face it became the same
+     mark repeated hundreds of times, which is what a machine tell looks like.
+     THE SAME FIX AS THE STRAND BARCODE ON 8/25, and for the same reason: drift it
+     by one pixel in short segments, deterministic off the head it is drawn on, so
+     a parting wanders the way a real one does and nobody shimmers. Never wider
+     than one pixel either side -- a part that wanders further is a cowlick. */
+  const px0=cx+(part==='left'?-1:part==='right'?1:0);
+  const pseed=((hc[0]*7+hc[1]*13+hc[2]*3+f.len*29+f.cheekW*11)>>>0);
+  for(let ry=htop;ry<=Y0;ry++){
+    if(ry%2!==0)continue;
+    const seg=(ry/2)|0;
+    let hsh=(Math.imul((pseed^(seg*2654435761))>>>0,40503))>>>0;
+    P(px0+(((hsh>>>17)&3)===0?-1:(((hsh>>>19)&3)===0?1:0)),ry,hr);
+  }
   for(const side of [-1,1]){let outer=cx+side*(cw+3);poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer,Y0+11],[outer,(Y0+jaw)/2|0],[cx+side*(cw+1),jaw-1],[cx+side*jw,jaw-2],[cx+side*(cw-2),chY+2],[cx+side*(cw-1),chY-3]],hc);
    if(style==='wavy_mid'||style==='curly'){let k=0;for(let yy=Y0+7;yy<jaw;yy+=3){P(outer-side*(k%2?1:2),yy,hs);P(outer-side*2,yy+1,hi);k++;}}}
   for(let sx=cx-fw+1;sx<cx+fw;sx+=3)P(sx,Y0+1,hc);
@@ -4287,6 +4325,301 @@ function facePerform(id, tMs, line, opts){
   return { blink: blink, mouth: mouth, brow: brow };
 }
 if (typeof window !== 'undefined') { window.facePerform = facePerform; window.visemesOf = visemesOf; }
+
+/* ===== A FACE FOR SOMEBODY WHO IS NOT THE PLAYER (8/27) =====================
+   Paolo 8/26: "every time you speak to someone, their portrait will pop up on
+   screen so you feel like you're relating to them."
+
+   *** THE PERFORMANCE WAS BUILT ON 8/26 AND COULD NOT BE USED, BECAUSE ONLY ONE
+   PERSON IN BOHEMIA HAD A FACE. *** renderFace has always been called exactly one
+   way -- renderFace(buildSpec()) -- and buildSpec() is a clone of `pface`, the
+   PLAYER's face. The whole cast, the whole valley, every stranger you can walk up
+   to: no face anywhere. So "their portrait pops up" had nothing to pop up. That is
+   the hole this fills, and it is why the 8/26 turn ended with a gated feature
+   nothing called.
+
+   WHAT CARRIES IDENTITY AT 64x64. Not detail -- there is no room for detail. It is
+   the SIZE AND SPACING OF THE FEATURES, which is also what the face-recognition
+   literature calls the identity channel (shape, and the relative position of the
+   organs). So this dials exactly those and leaves rendering alone:
+     head shape   craniumH, foreheadW, cheekW, jawW, chinW, len
+     spacing      browY, eyeY, noseY, mouthY, and the gap between the eyes
+     weight       brow thickness/length/angle -- the LOUDEST feature this small
+     colour       skin, iris, lips, brow, hair
+   Every one of those already existed as a field. Nothing about renderFace changed.
+
+   GROUNDED, NOT RANDOM (REALISM FIRST). The sampling holds the proportions real
+   faces hold, so a rolled face is a PERSON and not a monster:
+     - the face divides in vertical THIRDS (hairline->brow, brow->nose, nose->chin);
+       browY/noseY/mouthY are jittered inside their third, never across it
+     - the gap between the eyes is about ONE EYE WIDE
+     - the mouth is wider than the gap between the pupils, never wider than the jaw
+     - a CHILD is not a small adult: bigger cranium, rounder jaw, features sitting
+       LOWER in the head. age drives that, and FAMILY_CAST already carries `age`.
+
+   DETERMINISTIC. Same id, same face, forever, on any device, with nothing stored.
+   A person you met yesterday has the face you remember. No Math.random anywhere in
+   this block -- if a face shimmered, the person would stop being a person.
+
+   MECHANISM-MINE / CONTENTS-PAOLO'S: this decides how a face is BUILT. It never
+   decides who anybody IS. A named character can be handed an explicit spec and it
+   wins outright (see faceFor's `over` argument), which is how the family cast will
+   carry whatever he rules about their faces. */
+var FACE_CACHE = {};
+/* *** NAMED faceRollHash AND NOT faceHash, WHICH IS WHAT THE FIRST CUT CALLED IT. ***
+   `faceHash` ALREADY EXISTS eighty lines above this, taking one argument, and it is
+   what facePerform uses to schedule blinks. Two function declarations with the same
+   name in one scope is not an error and not a warning: the LAST one silently wins for
+   the whole file. So a second `faceHash(id, salt)` down here quietly became the hash
+   the 8/26 blink scheduler was calling, with `salt` undefined -- still deterministic,
+   still no crash, every gate still green, and every person in the game blinking to a
+   different clock than the one that was measured and approved.
+   NOTHING READS AS A BUG WHEN IT IS SPELLED CORRECTLY AND SITS IN THE WRONG PLACE.
+   That is the 8/16 border lesson (a pass can be individually right and wrong for where
+   it is in the pipeline) wearing a different hat, and only grepping for the name found
+   it. */
+function faceRollHash(id, salt){
+  var h = 2166136261 >>> 0, s = String(id) + '|' + salt;
+  for (var i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  h ^= h >>> 15; h = Math.imul(h, 2246822507) >>> 0; h ^= h >>> 13;
+  return (h >>> 0) / 4294967296;
+}
+/* a value in [-1,1] with the MIDDLE favoured, because real populations are not
+   uniform -- averaging two rolls is the cheapest honest bell and it keeps the
+   extremes rare instead of making every third stranger a caricature */
+function faceBell(id, salt){ return faceRollHash(id,salt) + faceRollHash(id,salt+'~') - 1; }
+function faceFor(id, over){
+  id = String(id == null ? 'nobody' : id);
+  var ck = id + '#' + (over ? JSON.stringify(over) : '');
+  if (FACE_CACHE[ck]) return FACE_CACHE[ck];
+  var sp = JSON.parse(JSON.stringify(PUNK));
+  var R = function(salt){ return faceRollHash(id, salt); };
+  var B = function(salt){ return faceBell(id, salt); };
+  var pick = function(arr, salt){ return arr[(R(salt) * arr.length) | 0]; };
+
+  /* AGE FIRST, because it moves the skull and everything else hangs off that. */
+  var age = (over && over.age) || (R('age') < 0.16 ? 'child' : (R('age') < 0.28 ? 'teen' : 'adult'));
+  var child = age === 'child', teen = age === 'teen';
+
+  /* ---- THE SKULL --------------------------------------------------------- */
+  var f = sp.face;
+  f.len      = Math.round(33 + B('len') * 3 - (child ? 4 : teen ? 2 : 0));
+  f.craniumH = Math.round(10 + B('cran') * 1.5 + (child ? 2 : teen ? 1 : 0));
+  f.top      = Math.round(17 + B('top') * 1);
+  var wide   = B('wide');                       /* one dial so a face is coherent */
+  f.foreheadW = Math.round(24 + wide * 3 + B('fh') * 1.5 + (child ? 1 : 0));
+  f.cheekW    = Math.round(30 + wide * 3 + B('ck') * 1.5);
+  f.jawW      = Math.round(26 + wide * 3 + B('jw') * 2 - (child ? 2 : 0));
+  f.chinW     = Math.round(12 + wide * 2 + B('ch') * 2 + (child ? 1 : 0));
+  /* A JAW MAY NOT BE WIDER THAN THE CHEEK IT HANGS FROM, and a chin may not be
+     wider than the jaw. Without these two lines the dice eventually roll a head
+     that is a triangle standing on its point. */
+  f.cheekW = Math.max(f.cheekW, f.foreheadW + 2);
+  f.jawW   = Math.min(f.jawW,   f.cheekW - 1);
+  f.chinW  = Math.min(f.chinW,  f.jawW - 6);
+  f.cheekY     = Math.round(f.top + f.len * (0.42 + B('cy') * 0.03));
+  f.jawCornerY = Math.round(f.top + f.len * (0.79 + B('jy') * 0.03));
+
+  /* ---- THE THIRDS. Jittered INSIDE each third, never across it. ----------- */
+  /* THE JITTER HAS TO BE BIG ENOUGH TO SURVIVE ROUNDING TO A WHOLE PIXEL, which
+     the first cut was not: at len 33 a +-0.022 jitter is +-0.7px and every single
+     face came out with eyeY exactly 29. A dial that cannot move the pixels is not
+     a dial, it is a comment. These are sized so each one crosses at least one
+     pixel boundary across the population, and no further -- one pixel IS a lot
+     when the whole face is 33 tall. */
+  var lo = child ? 0.02 : 0;                    /* a child's features sit lower */
+  f.browY  = Math.round(f.top + f.len * (0.27 + lo + B('by') * 0.055));
+  f.eyeY   = Math.round(f.top + f.len * (0.36 + lo + B('ey') * 0.050));
+  f.noseY  = Math.round(f.top + f.len * (0.63 + lo * 0.5 + B('ny') * 0.055));
+  f.mouthY = Math.round(f.top + f.len * (0.81 + lo * 0.5 + B('my') * 0.050));
+  /* the ORDER is not negotiable, whatever the dice said */
+  f.eyeY   = Math.max(f.browY + 2, f.eyeY);
+  f.noseY  = Math.max(f.eyeY + 5,  f.noseY);
+  f.mouthY = Math.max(f.noseY + 4, Math.min(f.top + f.len - 4, f.mouthY));
+
+  /* ---- EYES: the gap is about ONE EYE WIDE, which is the rule faces keep --- */
+  sp.eyes.w   = 6;                               /* six is the whole budget */
+  sp.eyes.h   = child ? 4 : (3 + (R('eh') < 0.45 ? 1 : 0));
+  sp.eyes.gap = Math.max(4, Math.min(9, Math.round(6 + B('eg') * 1.8 + (child ? 1 : 0))));
+  sp.eyes.hood = R('hood') < (child ? 0.15 : 0.5) ? 1 : 0;
+  sp.eyes.iris = pick(IRIS, 'iris');
+
+  /* ---- BROWS: the loudest thing on a face this size ----------------------- */
+  sp.brows.color = pick(BROWC, 'browc');
+  sp.brows.thick = child ? 1 : (R('bt') < 0.30 ? 1 : (R('bt') < 0.82 ? 2 : 3));
+  sp.brows.len   = Math.max(5, Math.min(9, Math.round(7 + B('bl') * 1.6)));
+  sp.brows.gap   = Math.max(3, Math.min(7, Math.round(sp.eyes.gap - 1 + B('bg'))));
+  sp.brows.arch  = R('ba') < 0.55 ? 1 : 0;
+  sp.brows.angle = Math.round(B('ban') * 1.6);
+
+  /* ---- NOSE + MOUTH ------------------------------------------------------- */
+  sp.nose.len = Math.max(7, Math.min(15, Math.round(f.noseY - f.eyeY + B('nl') * 2)));
+  sp.nose.w   = child ? 2 : (R('nw') < 0.35 ? 2 : (R('nw') < 0.85 ? 3 : 4));
+  /* A MOUTH IS A FRACTION OF THE FACE IT IS IN, NOT A FIXED NUMBER. The first cut
+     rolled around a constant 8 and handed the CHILD a 10px mouth on a 21px jaw --
+     wider than several adults had, which is exactly backwards and is the kind of
+     thing only a printed table catches. Anthropometry: mouth width runs about a
+     third of the width across the cheekbones, and a child's is proportionally
+     smaller still. */
+  sp.mouth.w = Math.round(f.cheekW * ((child ? 0.25 : 0.29) + B('mw') * 0.035));
+  sp.mouth.w = Math.max(5, Math.min(f.jawW - 8, sp.mouth.w));
+  sp.mouth.fullLower= child ? 2 : (R('fl') < 0.30 ? 1 : (R('fl') < 0.80 ? 2 : 3));
+  sp.mouth.color    = pick(LIPS, 'lips');
+
+  /* ---- HAIR + SKIN -------------------------------------------------------- */
+  var tone = SKIN_TONES[(R('skin') * SKIN_TONES.length) | 0];
+  sp._tone = tone;
+  /* HAIR COLOUR IS NOT A UNIFORM PICK, and the first cut of this made it one --
+     which handed a sixteen-person crowd THREE PINK HEADS, two violet-adjacent and
+     one red, because HAIR_COLORS lists pink and violet next to black and an even
+     roll treats them as equally likely. That is the trenchcoat bug of 8/27 exactly,
+     one day later: uniform over a list whose contents are not uniform in life.
+     Real distribution, and it is not close: black and brown dominate everywhere,
+     blonde is a minority, red is 1-2%. DYE IS RARE IN A COLLAPSED ECONOMY and is
+     therefore a STATEMENT -- which is COLOUR IS TERRITORY (8/26) applied to a head
+     instead of a coat. Grey is not a colour anybody picks, it is AGE, so it is
+     dealt from age and a child never gets it. */
+  var hcw = child
+    ? [['black',52],['auburn',26],['blonde',18],['violet',2],['pink',2]]
+    : (age === 'teen'
+       ? [['black',42],['auburn',22],['blonde',18],['platinum',6],['violet',6],['pink',6]]
+       : [['black',44],['auburn',22],['blonde',15],['white',9],['platinum',6],['violet',2],['pink',2]]);
+  var wsum = 0; for (var wi = 0; wi < hcw.length; wi++) wsum += hcw[wi][1];
+  var roll = R('hairc') * wsum, hcName = hcw[0][0];
+  for (var wj = 0; wj < hcw.length; wj++){ roll -= hcw[wj][1]; if (roll <= 0){ hcName = hcw[wj][0]; break; } }
+  for (var hk = 0; hk < HAIR_COLORS.length; hk++) if (HAIR_COLORS[hk][0] === hcName && HAIR_COLORS[hk][1]) {
+    sp.hair.color = HAIR_COLORS[hk][1].slice();
+    sp.hair.roots = HAIR_COLORS[hk][1].map(function(c){ return c * 0.4 | 0; });
+  }
+  /* ONLY VALUES THE RENDERER ACTUALLY HONOURS. The first cut rolled five style
+     names and three lengths; renderFace tests for 'wavy_mid' and 'curly' and
+     nothing else, so 'straight', 'curls', 'crop' and 'swept' were four different
+     spellings of the same haircut. A DIAL THAT CANNOT MOVE THE PIXELS IS NOT A
+     DIAL, IT IS A COMMENT -- which is written eighty lines above this and which I
+     then broke in the very next block. Rolling a name the renderer ignores is
+     worse than not rolling it: it makes the variety look solved.
+     WHAT IS STILL MISSING IS A ROW, NOT A SECRET: the face has three hair lengths
+     and two textures and that is the whole wardrobe. Real cuts -- a fade, a
+     ponytail, a shaved side -- are a cook of their own and are on the board. */
+  sp.hair.style = R('hstyle') < 0.5 ? 'wavy_mid' : 'curly';
+  sp.hair.part  = pick(['mid','left','right'], 'part');
+  sp.hair.len   = child ? pick(['jaw','short'], 'hlen')
+                        : (R('hlen') < 0.42 ? 'short' : (R('hlen') < 0.78 ? 'jaw' : 'long'));
+  sp.details = { stubble: (!child && !teen && R('stub') < 0.34) ? 1 : 0 };
+  sp.top = [20 + ((R('top1') * 26) | 0), 20 + ((R('top2') * 26) | 0), 24 + ((R('top3') * 26) | 0)];
+  sp._age = age;
+
+  /* A RULING WINS OUTRIGHT. Anything he sets on a named character is copied over
+     the roll last, so the dice can never argue with canon. */
+  if (over) for (var k in over) { if (k === 'age') continue;
+    if (over[k] && typeof over[k] === 'object' && sp[k]) { for (var k2 in over[k]) sp[k][k2] = over[k][k2]; }
+    else sp[k] = over[k]; }
+
+  FACE_CACHE[ck] = sp;
+  return sp;
+}
+/* the ramp that goes with a rolled face, the same shape portraitRamp() builds
+   for the player -- a face and its skin must come from the same roll or a person
+   changes race between the body and the portrait */
+function faceRampFor(sp){
+  var r = (sp && sp._tone) ? sp._tone[1] : skinTone[1];
+  return [r[0], r[1], r[2], r[2].map(function(c){ return c * 0.62 | 0; })];
+}
+if (typeof window !== 'undefined') { window.faceFor = faceFor; window.faceRampFor = faceRampFor; }
+
+/* ===== THE PORTRAIT THAT TALKS BACK (8/27) ==================================
+   Paolo 8/26: "every time you speak to someone, their portrait will pop up on
+   screen so you feel like you're relating to them... facial animations too, bro,
+   like talking and shit... from eyebrows moving."
+
+   This is the half that was missing. facePerform() has been able to say WHAT a
+   face should be doing at a given millisecond since 8/26; faceFor() (above) now
+   gives a face to somebody who is not the player; this is the thing that puts the
+   two together on a canvas and runs them.
+
+   THREE RULES IT KEEPS, all of them learned the hard way in this file:
+
+   1. A REPAINT IS NOT A NEW LINE. The cold open repaints its caption several
+      times per beat -- the SOUNDS lane measured it speaking 58 times for 7 lines.
+      A mouth restarted on every repaint is a stutter that looks like a fault, so
+      say() dedupes on speaker+text exactly the way cutVoice does. Same bug, same
+      shape, and it would have been the third time.
+
+   2. A FACE WITH NOTHING ASKED OF IT IS EXACTLY THE APPROVED FACE. When nobody is
+      talking the portrait renders with no knobs at all, which is the only way to
+      add performance to art that is already signed off (8/26 clause).
+
+   3. NO DICE. facePerform is deterministic off the person's id, so the same line
+      from the same person looks the same every time, and nobody in a crowd
+      shimmers. This adds no randomness of its own.
+
+   AND IT DOES NOT RE-RENDER SIXTY TIMES A SECOND. The face only has four mouths,
+   a blink in eight steps and three brow positions, so the whole performance is a
+   couple of dozen distinct images. They are rendered once each and reused, keyed
+   on the knobs -- which is what makes this affordable on a phone. Measured below
+   in the gate: cache hits per second, not renders per second. */
+var SPK_CACHE = {};
+function speakingPortrait(canvas, opts){
+  opts = opts || {};
+  var ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
+  var off = document.createElement('canvas'); off.width = off.height = 64;
+  var octx = off.getContext('2d');
+  var who = null, spec = null, ramp = null, line = null, t0 = 0, sig = null, raf = 0, dead = false;
+  var round = opts.round !== false;
+
+  function draw(perf){
+    /* THE CACHE. blink is bucketed to eighths and brow to fifths because the face
+       cannot show more resolution than that anyway -- 9 pixels of mouth and a
+       4-pixel eye do not have a 61st shade of half-shut. */
+    var bb = Math.round(perf.blink * 8), rb = Math.round(perf.brow * 4);
+    var key = who + '|' + perf.mouth + '|' + bb + '|' + rb;
+    var buf = SPK_CACHE[key];
+    if (!buf) {
+      buf = renderFace(spec, { ramp: ramp, mouth: perf.mouth, blink: bb / 8, brow: rb / 4 });
+      SPK_CACHE[key] = buf;
+    }
+    var idd = octx.createImageData(64, 64); idd.data.set(buf); octx.putImageData(idd, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    if (round) { ctx.beginPath(); ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2, 0, 7); ctx.clip(); }
+    ctx.drawImage(off, 0, 0, 64, 64, 0, 0, canvas.width, canvas.height);
+    ctx.restore();
+  }
+
+  function tick(){
+    if (dead || !spec) return;
+    var perf;
+    try { perf = facePerform(who, (typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0, line, {}); }
+    catch(_e){ perf = { blink: 0, mouth: 'closed', brow: 0 }; }
+    draw(perf);
+    raf = requestAnimationFrame(tick);
+  }
+
+  return {
+    /* somebody starts talking */
+    say: function(id, text, over){
+      var s = String(id) + '|' + String(text || '');
+      if (s === sig) return false;            /* rule 1: a repaint is not a new line */
+      sig = s;
+      who = String(id); line = String(text || '');
+      spec = faceFor(who, over); ramp = faceRampFor(spec);
+      t0 = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      if (!raf) raf = requestAnimationFrame(tick);
+      return true;
+    },
+    /* on screen, saying nothing -- rule 2 */
+    idle: function(id, over){
+      if (id != null && String(id) !== who) { who = String(id); spec = faceFor(who, over); ramp = faceRampFor(spec); }
+      sig = null; line = null;
+      if (spec) draw({ blink: 0, mouth: 'closed', brow: 0 });
+    },
+    stop: function(){ dead = true; if (raf) cancelAnimationFrame(raf); raf = 0; },
+    /* for the gate: what the face is doing right now, without reading pixels */
+    _perf: function(ms){ return facePerform(who, ms, line, {}); },
+    _who: function(){ return who; }
+  };
+}
+if (typeof window !== 'undefined') window.speakingPortrait = speakingPortrait;
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();x.drawImage(cc,0,0,64,64,0,0,canvas.width,canvas.height);x.restore();}
@@ -27546,18 +27879,58 @@ function openUnfinished(){
   } catch(_e){ return null; }
 }
 
+/* THE FACE ON THE COLD OPEN. One controller, reused for every speaker, because
+   the caption only ever holds one person at a time and building a new one per
+   line would throw away the render cache on every beat. */
+var OPEN_FACE = null;
+function openFace(){
+  if(OPEN_FACE) return OPEN_FACE;
+  var cv=document.getElementById('openFace');
+  if(!cv || typeof speakingPortrait!=='function') return null;
+  OPEN_FACE = speakingPortrait(cv, {});
+  return OPEN_FACE;
+}
+/* WHOSE FACE. The family are named characters and their look is HIS -- so the
+   only thing decided here is that a role maps to a stable id, and `age` is read
+   from FAMILY_CAST because the cast already carries it. Anything he later rules
+   about how RAY looks goes in FAMILY_CAST as a `face` block and lands here
+   without touching this function. */
+function openFaceFor(role){
+  var key=String(role||'').toUpperCase().replace(/_/g,' ');
+  var map={ 'MOTHER':'MOTHER','FATHER':'FATHER','SIBLING OLDER':'BROTHER','SIBLING LOST':'SISTER' };
+  var castRole = map[key] || key;
+  var m=null, C=window.FAMILY_CAST||[];
+  for(var i=0;i<C.length;i++) if(C[i].role===castRole) m=C[i];
+  return { id: m ? (m.role+':'+m.name) : ('speaker:'+key),
+           over: m ? Object.assign({age:m.age||'adult'}, m.face||null) : null };
+}
 function openCaption(s, ended){
   var cap=document.getElementById('openCap'); if(!cap) return;
-  if(ended || (s && s.ended)){ cap.textContent=''; return; }
+  var fcv=document.getElementById('openFace');
+  var hideFace=function(){ if(fcv) fcv.style.visibility='hidden'; };
+  if(ended || (s && s.ended)){ cap.textContent=''; hideFace(); return; }
   var L = s && s.line;
   if(!L || !L.text){
     cap.innerHTML='<span style="color:#6f6552;letter-spacing:2px">'+
       (((s && s.scene && s.scene.when) ? String(s.scene.when).toUpperCase() : null) || ((s && s.era==='pre_collapse') ? 'BEFORE' : 'TEN YEARS LATER'))+'</span>';
+    /* A TITLE CARD IS NOT SOMEBODY TALKING. No face on "TEN YEARS LATER" -- a
+       head next to a caption with no speaker is the game claiming a line has an
+       owner when it does not. */
+    hideFace();
     return;
   }
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
     (typeof cutSpeakerName==='function' ? cutSpeakerName(L.speaker) : String(L.speaker||''))+
     '</span><br>'+String(L.text).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  /* AND THE PERSON SAYING IT APPEARS. say() ignores a repeat of the same
+     speaker+text, so the several repaints this surface does per beat do not
+     restart the mouth -- the exact stutter the voice engine already had to fix. */
+  try{
+    var fp=openFace();
+    if(fp){ var w=openFaceFor(L.speaker);
+      fp.say(w.id, String(L.text), w.over);
+      if(fcv) fcv.style.visibility='visible'; }
+  }catch(_e){}
 }
 
 /* THE HANDOFF. However it ends -- played out, skipped, or thrown -- the player

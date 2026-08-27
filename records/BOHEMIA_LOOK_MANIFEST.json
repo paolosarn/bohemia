@@ -557,6 +557,16 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_trenchcoat_rule.js",
    "kb": 205.8
+  },
+  {
+   "id": "the-portrait-pops-up",
+   "title": "THE PORTRAIT POPS UP WHEN SOMEBODY TALKS",
+   "caption": "You asked for this: every time you speak to someone their portrait pops up so you feel like you are relating to them, with the face actually talking and the eyebrows moving. Last time I built the talking and it could not be used, and here is the honest reason: ONLY YOU HAD A FACE IN THIS WHOLE GAME. Everybody else was a body with nothing on the front of their head, so there was no portrait to pop up. Now every single person in the valley has one. The top row is the real opening scene of the game, photographed, not a mockup. The middle row is her mouth blown up so you can see it: the shape is made from the LETTERS she is actually saying, so an O in the words is an O on her face, and the same line always looks the same. The bottom row is your family and four strangers off the street, so you can see they are different people and not one face with the colours swapped. Nobody is random. The same person has the same face every time you meet them, on any phone, with nothing saved. They blink on real human timing and their eyebrows go up when they ask you something. Who anybody IS is still yours to say. LOOK tab for this picture, RUN tab to see it in the opening.",
+   "file": "look/the-portrait-pops-up.png",
+   "stamp": "8/27/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_the_portrait_pops_up.js",
+   "kb": 182.1
   }
  ]
 }

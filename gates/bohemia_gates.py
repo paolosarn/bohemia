@@ -1301,6 +1301,22 @@ GATES = [
      'enough to be a signal unless drabness IS the statement, owning a hue nobody '
      'else owns, and NOT LYING ABOUT ITS OWN NAME -- the Blues were 67% red for five '
      'weeks. Also holds the thumbs he asked for on the same day.', False),
+    ('TALKING PORTRAIT', ['node', 'gates/talking_portrait_gate.js'],
+     'THE PORTRAIT POPS UP WHEN SOMEBODY TALKS (Paolo 8/26): "every time you speak '
+     'to someone, their portrait will pop up on screen so you feel like you\'re '
+     'relating to them... facial animations too, bro, like talking and shit... from '
+     'eyebrows moving". The 8/26 turn shipped the PERFORMANCE and nothing could '
+     'call it, because ONLY THE PLAYER HAD A FACE -- renderFace has always been '
+     'invoked exactly one way, renderFace(buildSpec()), and buildSpec() clones '
+     'pface. faceFor() gives everybody one, rolled from their id, deterministic, '
+     'grounded in real proportions (thirds, one-eye gap, a child is not a small '
+     'adult). Holds three claims on RENDERED PIXELS: no two of 60 are the same '
+     'person, the face is there when somebody talks and gone on a title card, and '
+     'the mouth is driven by the LETTERS. Plus the lesson that cost this turn '
+     'twice: A DIAL THAT CANNOT MOVE THE PIXELS IS NOT A DIAL (five hair styles '
+     'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
+     'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
+     'blink scheduler with every other gate still green.', False),
     ('TRENCHCOATS',    ['node', 'gates/trenchcoat_gate.js'],
      'TRENCHCOATS ARE FOR BADASSES (Paolo 8/27): "everyone\'s getting a fucking '
      'trenchcoat and I think that\'s fucking ridiculous ... trenchcoats are for bad '

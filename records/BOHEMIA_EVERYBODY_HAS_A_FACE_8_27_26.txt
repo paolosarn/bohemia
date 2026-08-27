@@ -1,0 +1,149 @@
+BOHEMIA — EVERYBODY HAS A FACE, AND IT TALKS
+CHARACTER lane, 8/27/26. Ruling: Paolo, 8/26. Built 8/27.
+
+WHAT HE ASKED FOR
+  "every time you speak to someone, their portrait will pop up on screen so you
+   feel like you're relating to them... facial animations too, bro, like talking
+   and shit... from eyebrows moving."
+
+WHY THE 8/26 TURN COULD NOT DELIVER IT, AND IT WAS NOT THE ANIMATION
+  facePerform() shipped 8/26 and was correct: four visemes off the letters, blinks
+  on measured human timing, brows, deterministic, gated. NOTHING CALLED IT.
+  ONE GREP EXPLAINS THE WHOLE THING: renderFace has been invoked exactly one way in
+  this entire codebase -- renderFace(buildSpec()) -- and buildSpec() clones `pface`,
+  THE PLAYER'S FACE. The family cast had dials and worn and no face. Every stranger
+  in the valley had a body and no face.
+  ONLY THE PLAYER HAD A FACE. "Their portrait pops up" had nothing to pop up.
+  THE MISSING PIECE WAS NEVER THE ANIMATION. IT WAS A FACE FOR SOMEBODY WHO IS NOT
+  YOU.
+
+WHAT WAS BUILT
+  faceFor(id, over) -> a full face spec, rolled from the id.
+  IDENTITY AT 64x64 IS SIZE AND SPACING, NOT DETAIL -- which is also what the face
+  recognition literature calls the identity channel (shape, and the relative
+  position of the organs). Every field it dials already existed:
+      head shape   craniumH foreheadW cheekW jawW chinW len
+      spacing      browY eyeY noseY mouthY eyes.gap
+      weight       brow thick/len/angle -- the loudest feature this small
+      colour       skin iris lips brow hair
+  NOTHING ABOUT renderFace CHANGED TO MAKE THIS WORK.
+
+  GROUNDED (REALISM FIRST). A rolled face must be a PERSON:
+    - vertical THIRDS held; browY/noseY/mouthY jitter inside their third, never across
+    - the gap between the eyes is about ONE EYE WIDE
+    - the mouth is a FRACTION of the face (~1/3 cheek width), never a fixed number
+    - jaw <= cheek, chin <= jaw - 6, or the dice eventually roll a triangle
+      standing on its point
+    - A CHILD IS NOT A SMALL ADULT: bigger cranium, rounder jaw, features lower.
+      FAMILY_CAST already carried `age`, so it drives it.
+
+  DETERMINISTIC. Same id, same face, forever, any device, nothing stored. No
+  Math.random in the face or the performance -- a person who shimmers is not a person.
+
+  MECHANISM-MINE / CONTENTS-PAOLO'S. This decides how a face is BUILT, never who
+  anybody IS. faceFor(id, over) lets an explicit spec beat the roll outright, so a
+  `face` block on a FAMILY_CAST row lands with no code change.
+
+  speakingPortrait(canvas) -> the thing that runs it: rAF, facePerform, a render
+  cache keyed on (mouth, blink/8, brow/4) so the whole performance is a couple of
+  dozen images rendered once, not sixty a second.
+
+WHERE IT SHOWS UP
+  THE COLD OPEN -- the first thing anybody sees in the demo. It already had a
+  speaker and a line and no face.
+    - the face sits BESIDE the words: on a phone in portrait the caption is already
+      near the bottom and a head on top pushes the words into the thumb
+    - A TITLE CARD HAS NO SPEAKER, SO IT HAS NO FACE. A head next to "TEN YEARS
+      LATER" is the game claiming a line has an owner when it does not
+    - A REPAINT IS NOT A NEW LINE. The caption repaints several times a beat (the
+      SOUNDS lane measured it speaking 58 times for 7 lines), so say() dedupes on
+      speaker+text the way cutVoice does. Same bug, same shape, third time.
+
+THREE THINGS LOOKING CAUGHT THAT MEASURING DID NOT
+  1. A CLOWN PARADE. HAIR_COLORS lists pink and violet beside black and a uniform
+     pick treats them as equally likely: sixteen people, THREE PINK HEADS. That is
+     the trenchcoat bug of 8/27 EXACTLY, ONE DAY LATER -- uniform over a list whose
+     contents are not uniform in life. Weighted to real distribution now; dye ~5%
+     (measured 6.0% of 600) and therefore a statement, which is COLOUR IS TERRITORY
+     applied to a head. Grey is dealt from AGE, because grey is not a colour
+     anybody picks.
+  2. DIALS THAT COULD NOT MOVE THE PIXELS. The first cut rolled FIVE hair-style
+     names when renderFace tests for TWO ('wavy_mid','curly') -- so 'straight',
+     'curls', 'crop' and 'swept' were four spellings of one haircut -- and jittered
+     eyeY by +-0.7px so all forty people had IDENTICAL eyes. Both looked like
+     variety in the source and were nothing on screen.
+     A DIAL THAT CANNOT MOVE THE PIXELS IS NOT A DIAL, IT IS A COMMENT. That
+     sentence was written eighty lines above and broken in the very next block.
+     Rolling a name the renderer ignores is worse than not rolling it: it makes the
+     variety look solved.
+  3. A STRAIGHT LINE DOWN EVERY HEAD. The hair part was a perfectly ruled dotted
+     column -- HOW HAIR AND SHAPE WORK (8/1) clause 3 broken in one line. It
+     survived because the player is ONE face; the day everybody grew a face it
+     became the same mark repeated hundreds of times, which is what a machine tell
+     looks like. Same fix as the 8/25 strand barcode: drift a pixel in short
+     segments, deterministic off the head it is drawn on.
+     COST TO THE APPROVED PLAYER FACE: 8 PIXELS OF 4096 (0.20%), all of them the
+     part line. Measured against origin/main, not estimated.
+
+AND THE WORST ONE, WHICH ONLY A GATE FOUND
+  *** faceHash ALREADY EXISTED. *** One argument, eighty lines up, and it is what
+  the 8/26 blink scheduler calls. This turn declared a SECOND function faceHash(id,
+  salt) below it. Two function declarations with the same name in one scope is not
+  an error and not a warning: THE LAST ONE SILENTLY WINS FOR THE WHOLE FILE. So my
+  hash became the one facePerform was calling, with `salt` undefined -- still
+  deterministic, still no crash, EVERY CHECK STILL GREEN, and every person in the
+  game blinking to a clock nobody measured.
+  NOTHING READS AS A BUG WHEN IT IS SPELLED CORRECTLY AND SITS IN THE WRONG PLACE.
+  That is the 8/16 border lesson (a pass can be individually right and wrong for
+  WHERE IT IS) in a different hat. Renamed faceRollHash, and made mechanical:
+  NO TWO TOP-LEVEL FUNCTIONS SHARE A NAME.
+  On its first run that check also found TWO PRE-EXISTING collisions -- CombatBridge
+  and clampPkg, each inlined TWICE, byte-identical, another lane's. Identical copies
+  make last-wins a no-op so nothing is broken today, but the day somebody fixes one
+  copy and not the other, THE FIX SILENTLY LOSES -- the ENGINE SYNC failure mode
+  with no gate on it. Pinned at 2, named, handed over as a row. Not rewritten by
+  this lane mid-turn.
+
+THE GATE -- gates/talking_portrait_gate.js, 23 checks, registered TALKING PORTRAIT
+    closest of 60 faces      0.0135   (floor 0.012)
+    mean distance            0.0914   (floor 0.080)
+    dyed hair                6.0% of 600   (cap 8%)
+    ruled parts              4 of 60  (cap 6)
+    mouth shapes used        closed mid open wide
+    pixels moved             mouth 16/21/22, blink 56, brow 34
+    same id twice            byte-identical
+    nothing asked            === the approved face
+  MEASURED ON RENDERED PIXELS, not on the dials that produced them -- a face is
+  distinct if it LOOKS distinct, and the dials are only how it got there.
+  SAMPLE SIZE IS PART OF THE CLAIM: the pairwise distance is O(n^2) over 4096
+  pixels so it runs on 60, but the DYE SHARE runs on 600, because the first cut
+  measured 10% on 60 against a true 6% and would have failed a correct build.
+  MUTATION-PROVED THREE WAYS: flatten the roll -> "everybody is the same person"
+  fires; stop showing the canvas -> "the portrait pops up" fires; restore the ruled
+  part -> "no straight line down the crown" fires at 60 of 60.
+
+AN HONEST NOTE ON THE PICTURE
+  The mouth row first drew seven whole faces and the shapes were REAL AND INVISIBLE
+  -- 16 to 22 pixels of 4096 is a genuine movement and a useless picture. Rebuilt as
+  one face at actual size plus the SAME PIXELS around her mouth magnified 11x.
+  Nothing redrawn, nothing exaggerated, just a crop at a bigger zoom.
+  And before that it drew ONE face captioned "undefined", because the tool assumed
+  visemesOf() returned {ch,v} objects when it returns a flat array of strings. A
+  picture is a claim; a tool that guesses at an API it never read makes a false one.
+
+WHAT IS STILL MISSING, SAID OUT LOUD
+  The face has THREE hair lengths and TWO textures and that is the entire wardrobe
+  on a head. Real cuts (a fade, a ponytail, a shaved side) are a cook of their own.
+  The portrait is wired into the COLD OPEN only. The RUN's person-card and his
+  action-button idea from the same message are the next two.
+
+FILES
+  laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md
+  gates/talking_portrait_gate.js       (+ registered in gates/bohemia_gates.py)
+  tools/bohemia_the_portrait_pops_up.js  +  slices/look/the-portrait-pops-up.png
+  slices/BOHEMIA_ALPHA_0_9.html        (faceFor, speakingPortrait, the cold open row,
+                                        the part drift, short hair)
+
+TAB
+  RUN -- the opening scene, where the portrait now appears.
+  LOOK -- the picture.

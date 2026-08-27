@@ -6758,6 +6758,33 @@ P0-HAIRNATIVE. *** DONE 8/25 (build y). BOTH CLAUSES SHIPPED AND GATED, AND
    reconciled where they disagree rather than the ratchet loosened.
    | every canon style's identity holds across all 8 facings, gated, on the
    real surface | — | no. He already ruled; this is work, not a question. ***
+P0-FACE. *** DONE 8/27. HIS 8/26 ASK, AND THE REASON THE 8/26 TURN COULD NOT
+   FINISH IT. *** "every time you speak to someone, their portrait will pop up on
+   screen so you feel like you're relating to them... facial animations too, bro,
+   like talking and shit... from eyebrows moving."
+   THE PERFORMANCE SHIPPED 8/26 AND NOTHING CALLED IT. One grep says why:
+   renderFace has been invoked exactly ONE WAY in this codebase --
+   renderFace(buildSpec()) -- and buildSpec() clones `pface`, THE PLAYER'S FACE.
+   Only the player had a face. The cast had bodies. The valley had bodies. "Their
+   portrait pops up" had nothing to pop up.
+   BUILT: faceFor(id, over), a face for anybody, rolled from their id. Identity at
+   64x64 is SIZE AND SPACING, not detail, and every field it dials already existed
+   -- renderFace is untouched. Grounded: thirds held, eye gap one eye wide, mouth a
+   FRACTION of the face, jaw<=cheek, chin<=jaw, a child is not a small adult.
+   Deterministic, no dice. speakingPortrait() runs it off a render cache.
+   WIRED INTO THE COLD OPEN, the first thing anybody sees in the demo: the
+   speaker's face beside the words, performing; no face on a title card; a repaint
+   does not restart the mouth.
+   GATE talking_portrait_gate 23/0, mutation-proved three ways. Closest of 60 faces
+   0.0135, mean 0.091, dye 6.0% of 600, ruled parts 4/60, mouth 16/21/22 px, blink
+   56, brow 34.
+   LOOKING CAUGHT THREE THINGS MEASURING DID NOT (uniform hair colour = 3 pink in
+   16, the trenchcoat bug one day later; five style names the renderer never read
+   plus a sub-pixel eyeY jitter, i.e. a dial that cannot move the pixels; a ruled
+   part line down every head). AND A GATE CAUGHT THE WORST: a SECOND function
+   faceHash silently took over the 8/26 blink scheduler, no crash, all green.
+   | the portrait pops up and performs when somebody talks, gated | - | no. His
+   ruling; this was work, not a question. ***
 P0-COAT. *** DONE 8/27. HIS RULING, AND THE CAUSE WAS A HOLE NOT A TASTE. ***
    Paolo 8/27: "everyone's getting a fucking trenchcoat and I think that's
    fucking ridiculous... trenchcoats are for bad ass motherfuckers bro cowboy
