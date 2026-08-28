@@ -2324,3 +2324,233 @@ anything, put the CIRCLER in a suit.
 - The Whedon room rule (a line anyone could say gets dumped), via the criticism
   of quippy uniform dialogue.
 - Cuno in *Disco Elysium* as the worked example of tiny lexicon plus high force.
+
+# THE BENCHMARK ROUND -- 8/28/26
+# I had been reporting absolute numbers with nothing to compare them to. This
+# round gets a control group: 304,446 lines of professionally written film
+# dialogue from 617 movies, with character labels, run through the exact same
+# rulers as our own text. Every number below is measured, not asserted.
+
+## 97. I FOUND A CONTROL GROUP AND IT COST ONE CURL
+The Cornell Movie-Dialogs Corpus: 220,579 exchanges between 10,292 character
+pairs across 617 films, every line tagged with which character said it. It is on
+GitHub, which §81 established I can reach. 34 MB, 304,446 usable lines, zero
+malformed. That is the first time in this whole training I have had **writing by
+professionals, labelled by speaker, in a format my own tools can eat.**
+
+Everything I have said about Bohemia's voice up to now has been an absolute
+number with an imaginary standard behind it. That ends here.
+
+## 98. AND IT CORRECTS MY OWN HEADLINE FROM YESTERDAY
+Yesterday I wrote that 27 of 51 speakers score zero on the speaker-ID classifier
+and called half the cast interchangeable. **That number was measured at 54
+speakers with wildly unequal line counts, and I had no idea what good looks
+like.** So I built the matched experiment: 10 speakers, exactly 12 lines each,
+sampled at random, 120 trials per arm, identical classifier, chance = 10%.
+
+    arm                                accuracy    sd     % of speakers at zero
+    BOHEMIA (people only)                 29.9%   5.3%          5.4%
+    BOHEMIA (all voices incl. "any")      36.5%   6.5%          3.9%
+    FILM, within one movie                22.8%   7.5%         19.3%
+    NULL (our own lines, labels shuffled)  9.4%   2.9%         35.9%
+
+The null lands on 9.4% against a chance of 10.0%, so the classifier is honest.
+And then: **our characters are more separable than film characters, by seven
+points, with four times fewer faceless speakers.**
+
+I want to be exact about what that does and does not mean. It does not mean our
+dialogue is better than the movies. It means that if you hand a machine twelve
+lines from ten of our people, it can pick the right person more often than it can
+from ten people in a professionally written film. Yesterday's zero-scoring 27 is
+still a real map of which of our speakers are weakest **relative to each other**.
+It was never evidence that we are worse than the field, and I presented it as if
+it were.
+
+## 99. BUT THEN I ASKED WHETHER WE WERE CHEATING, AND WE PARTLY WERE
+Our speakers are labelled by ROLE. Medic, trader, sergeant, pastor. A movie
+character is labelled BIANCA. So the classifier might be reading **topic**, not
+voice: of course the medic is the one saying "wound".
+
+Mosteller and Wallace settled the Federalist Papers authorship question by
+throwing away every content word and classifying on function words alone, because
+function words carry style and content words carry subject. So I ran all three:
+
+    signal              BOHEMIA        FILM         NULL
+    all words            30.1%         22.8%        9.7%
+    content words only   27.0%         24.6%       10.3%
+    function words only  19.7%         18.0%        9.5%
+
+Read the last row. **Strip the subject matter away and our advantage collapses
+from 7.3 points to 1.7.** Most of what makes our people distinguishable is what
+they talk about, not how they talk.
+
+And the other half of that row is the finding I did not expect: **film collapses
+too, to 18.0%.** Professional screenwriters are also mostly separating characters
+by topic. Both of us land at about twice chance on pure style. So the standard I
+was holding us to yesterday, where every character has a verbal fingerprint, **is
+not a standard anybody actually meets.** Whedon's room rule is an aspiration
+that even great rooms hit maybe one line in five.
+
+That reframes the job. Distinct voices are not mainly built out of word choice.
+They are built out of **who talks about what**, which is casting and situation,
+which is his and the QUESTS lane's, not mine. What I own is the 18-to-20 percent
+band, and there is real room in it, but I should stop pretending it is the whole
+game.
+
+## 100. NOW THE ONE THAT ACTUALLY MATTERS. EVERY METRIC, AGAINST FILM.
+Same rulers, both corpora.
+
+    metric                    BOHEMIA   quest scenes   street barks   FILM (617)
+    words per line              13.1        21.1            8.5         10.4
+    contraction rate             85%         93%            94%          92%
+    rhythm (sd/mean)            0.78        0.78           0.57         0.82
+    QUESTION RATE               4.8%        1.5%           4.8%        31.0%
+    EXCLAMATION RATE            0.0%        0.0%           0.0%         8.8%
+    filled pauses /100 words    0.00        0.01           0.00         0.09
+    LINES OF 5 WORDS OR FEWER  10.8%        4.9%          11.4%        40.6%
+    LINES OF 3 WORDS OR FEWER   3.5%          --             --        23.7%
+    ends on a general truth    44.0%       55.5%          36.3%        31.1%
+    ALL CAPS                    1.3%         2.3%           1.6%         1.4%
+
+Contractions, rhythm and caps are fine. We match. Two things are catastrophically
+off and they are the same thing twice:
+
+**FILM ASKS QUESTIONS SIX AND A HALF TIMES MORE OFTEN THAN WE DO.**
+**FILM SPEAKS IN FRAGMENTS FOUR TIMES MORE OFTEN THAN WE DO.**
+
+And our quest scenes, the writing I am proudest of, are the worst offender on
+both: 1.5% questions and 4.9% short lines, in speeches averaging twenty-one words.
+
+## 101. I TRIED TO EXPLAIN THE QUESTION GAP AWAY AND COULD NOT
+Obvious objection: our lines are longer, and long lines are less likely to be
+questions. So I binned both corpora by length and compared like with like.
+
+    words per line     BOHEMIA q-rate    FILM q-rate
+    1 to 3                 8.5%             30.3%
+    4 to 6                 9.7%             35.4%
+    7 to 10                3.3%             31.9%
+    11 to 15               6.3%             28.3%
+    16 to 25               2.8%             27.4%
+    26 and up              0.6%             32.4%
+
+**Film holds between 27% and 35% at every single length.** We are at 0.6% in the
+long band. The gap is not an artifact of how long our lines are. Film characters
+ask questions in twenty-six-word speeches at the same rate they ask them in
+three-word ones, because a question is not a length, it is a **stance toward the
+person you are talking to.**
+
+## 102. AND THE SHORT-LINE VOCABULARY IS THE WHOLE FINDING IN ONE TABLE
+The thirty most common lines of three words or fewer in 617 films:
+
+    what?(448) no.(357) yes.(314) yeah.(251) why?(157) i don't know.(115)
+    okay.(101) sure.(80) thank you.(74) who?(72) i know.(66) yeah?(64)
+    why not?(63) yes?(61) what is it?(60) hi.(59) yes, sir.(56) right.(55)
+    that's right.(54) what's that?(53) what happened?(53) oh.(50) thanks.(50)
+    huh?(49) really?(49) where?(44) no!(43) i'm sorry.(41) nothing.(39) good.(37)
+
+Ours, same cut, whole game:
+
+    ...(12) still walking, then.(2) new face. huh.(2) so. how many.(1) once.(1)
+    you're sure.(1) all right.(1) well.(1) thirty-five feet.(1) maybe.(1)
+    you did.(1) go on then.(1) quietly, then.(1) say it again.(1)
+
+Look at the shape of the two lists. Theirs is **reactions**. Ours is **composed
+fragments**. "still walking, then" is a written line. "What?" is a reflex. Our
+single most common short line is an ellipsis, which is a punctuation mark
+standing in for a person.
+
+Marker by marker, over every speech line in both:
+
+    marker                  BOHEMIA    FILM     ratio
+    "yes / yeah / yep"        0.78%    4.53%     5.8x
+    "why"                     0.84%    2.79%     3.3x
+    "sorry"                   0.42%    1.06%     2.5x
+    "thanks"                  0.42%    1.06%     2.5x
+    "I don't know"            0.66%    1.22%     1.9x
+    bare "What?"              0.00%    0.53%     never
+    standalone "No."          0.00%    0.47%     never
+    "I don't understand"      0.00%    0.11%     never
+    an insult to their face   0.00%    0.04%     never
+    ---
+    "you"                    32.17%   35.16%     1.1x
+    "I"                      33.73%   31.58%     0.9x
+    starts with a command     2.88%    2.94%     1.0x
+
+**The bottom three are dead level with professional film.** We are not writing
+unnaturally across the board. Pronouns and imperatives are exactly right.
+
+Every single gap is in one specific layer: **acknowledgement.** Yes, no, what,
+why, huh, sorry, thanks, I don't know, I don't understand. The words people use
+to show they heard you. We write the content of conversation at professional
+rates and we have almost none of the part where two people confirm they are in a
+conversation at all.
+
+That is the mechanism under the original diagnosis. Back on 8/26 I measured two
+question marks in 504 speeches and wrote "our people do not have conversations,
+they deliver statements". I had the symptom. **This is the cause: the
+acknowledgement layer was never written.** And it is also the answer to his note
+about Shakespeare storytellers, from an angle I did not expect. A character who
+says "What?" is not a bad writer's character. He is a person who did not hear you.
+
+## 103. WHAT THIS CHANGES ON THE CARD
+Six rules on the card become eight, and two of the new ones have hard numbers
+behind them for the first time:
+
+7. **ONE LINE IN FOUR IS A QUESTION.** Film runs 31%. We run 4.8%. I am not
+   proposing 31% for a game where the player picks replies off a menu, because
+   the player is doing some of the asking. But 4.8% is not a style, it is an
+   absence. **Target 15% and hold the floor at 10%,** which is still half of what
+   professionals do.
+8. **ONE LINE IN FOUR IS FIVE WORDS OR FEWER.** Film runs 40.6%, we run 10.8% and
+   our quest scenes run 4.9%. **Target 25%.** A fragment is not laziness, it is
+   the most common shape a spoken sentence takes.
+
+Amended, with numbers replacing my guesses:
+- The maxim rule now has a target: film ends on a general truth 31.1% of the
+  time, so wisdom is not banned, it is **rationed**. We are at 44.0% overall and
+  55.5% in quests. Come down to film's rate, do not go to zero.
+- The contraction floor of 60 was too low and the ratchet was pointless. Film is
+  at 92%, we are at 85%. **Floor it at 85 and target 92.**
+- Rhythm at 0.78 against film's 0.82 is fine and I should stop worrying about it.
+  The barks at 0.57 are the only thing out of band.
+- Exclamation marks: film 8.8%, us 0.0%. I have no ruling from him on whether
+  Bohemia shouts, and the CAPS convention may already be doing that job at a
+  matched 1.3% versus 1.4%. **Not a rule, a question for him.**
+
+## 104. WHAT I NOW KNOW I DIDN'T KNOW
+42. **We beat professional film on speaker separability under matched
+    conditions**, 29.9% to 22.8%, and yesterday's "half the cast is
+    interchangeable" was a number with no control group. (§98)
+43. **Most character distinctness is topic, not style, for us AND for film.**
+    Strip content words and everybody falls to about twice chance. (§99)
+44. **The verbal-fingerprint standard is not one professionals meet**, so I
+    should stop holding us to it and start holding us to the parts they do meet.
+    (§99)
+45. **Film asks questions at 31% and we ask at 4.8%**, and the gap holds at every
+    line length, so it is not a length artifact. (§100, §101)
+46. **40.6% of film lines are five words or fewer. 4.9% of our quest lines are.**
+    (§100)
+47. **Our pronouns and imperatives are already at professional rates**, which
+    tells me the problem is not general unnaturalness but one missing layer.
+    (§102)
+48. **That layer is acknowledgement**, and it is the mechanism under the 8/26
+    diagnosis I only had the symptom of. (§102)
+49. **Nobody in this game has ever said "What?"** (§102)
+
+## 105. STILL OPEN
+- Cornell is film, not games, and film has an actor and a camera doing work our
+  text has to do alone. I would like the same run against a game corpus with
+  speaker labels and have not found one on a host I can reach.
+- Cornell's lines are stripped of stage direction, so the 8.8% exclamation rate
+  may be a screenwriting convention rather than a fact about speech.
+- **Does Bohemia shout?** Zero exclamation marks in 21,771 words is either a
+  strong style or an oversight, and I am not going to decide that one myself.
+- I still cannot measure whether a line is good. Nothing in this round changes
+  that and the gate must keep saying so.
+
+## SOURCES, THIS ROUND
+- Danescu-Niculescu-Mizil and Lee, "Chameleons in imagined conversations",
+  the Cornell Movie-Dialogs Corpus: 220,579 exchanges, 10,292 character pairs,
+  617 films, 304,446 speaker-labelled lines. Fetched from a GitHub mirror.
+- Mosteller and Wallace (1964), function-word stylometry on the Federalist
+  Papers: style lives in function words, subject lives in content words.
