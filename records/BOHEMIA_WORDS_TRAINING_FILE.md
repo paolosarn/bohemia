@@ -1449,3 +1449,154 @@ dress it up. Open question, not a finding.
   Depression: Music, Art, Literature"; Wikipedia, "Dance marathon" and
   "Entertainment during the Great Depression"
 - Anne Shoemaker, "Body Language in The Workplace" (the thin one, §64)
+
+---
+
+# ROUND 9 -- 8/27/26. I ran my own diagnosis on my own writing.
+
+NOTE ON THIS ROUND: I'm writing it with contractions and fewer bolded headers,
+because of what the audit below found. If it reads differently from rounds 1-8,
+that's the point.
+
+## 67. I FAIL MY OWN RULES HARDER THAN HIS GAME DID
+Round 8 ended asking whether I break other rules I enforce on him. I checked the
+em dash by counting one thing. Here's the rest, measured on 652 sentences of my
+own prose in this file, with the same instrument I built for his corpus.
+
+| my voice card rule | his game | me |
+| --- | --- | --- |
+| **1. contractions** | **89.3%** | **19.0%** |
+| 3. asks a question | 2 in 504 speeches | 10 in 652 sentences |
+| 4. rhythm ratio (floor 0.65) | 0.74 | **0.83, passes** |
+| banned: the negation flip | 7 in 2,496 lines | **19** |
+| banned: em dash | 0 | 0 (was 92, fixed) |
+| his eighth-grade rule | n/a | grade 8.6, passes |
+
+Two of those are bad enough to name plainly.
+
+**I write at 19% contractions.** I diagnosed his quest scenes at 2.2%, called it
+scripture, built a gate, and moved the whole game to 89.3%. I'm sitting at 19,
+which is closer to the thing I condemned than to the thing I built. I'm the
+voice I diagnosed.
+
+**And the negation flip, 19 times.** That's the "it is not a broken line, it is a
+shared one" construction. I put it on the banned list myself and called it the
+aphorism engine. His entire game, 2,496 lines, has 7 of them. I have 19 in one
+document. **I use the thing I banned nearly three times as often as the game I
+banned it in.**
+
+What I pass: rhythm, reading level, and em dashes now that I've fixed them.
+
+The pattern in the failures is the same one: **the rules I break are the ones
+about sounding like a person talking**, and I keep those for his characters and
+not for myself. That's a defensible split if I'd chosen it. I didn't. I just
+never looked.
+
+## 68. GOSSIP IS PHRASED WITH SHIELDS
+Round 8's debt. I knew gossip was two thirds of speech, hedged and deniable, and
+I had one sentence shape for it. Now I have the mechanism.
+
+Hedges come in two kinds:
+- **approximators** fuzz the CONTENT: "about", "sort of", "a couple of times",
+  "something like that"
+- **shields** fuzz the SPEAKER'S COMMITMENT: "I heard", "they say", "apparently",
+  "supposedly", "somebody told me"
+
+**Gossip runs on shields.** You put the claim in somebody else's mouth so you can
+take it back. And the deniability research says why: people go indirect when the
+plain version risks a response they don't want, and an implied meaning is much
+easier to revoke than a stated one.
+
+So the gossip register, as sentence shapes I can actually write:
+1. **shield the source** -- "I heard", "somebody said", "not from me, but"
+2. **approximate the content** -- "a couple of times", "something about a debt"
+3. **state the consequence, never the accusation** -- "I just wouldn't leave
+   anything with him." That's the whole move. She hasn't called him a thief.
+4. **say the innocent version and let the listener build the ugly one.** The
+   research's own example of a bribe is "I'd do that for anybody who needs
+   proper guidance."
+Not one of those sentences would survive a fight about what was actually said.
+That's the point of them.
+
+## 69. HOW A STORY CHANGES AS IT TRAVELS, AND IT'S A SPEC FOR HIS REACH SYSTEM
+Allport and Postman, the foundational rumor study, ran stories down chains of
+people and measured what happened. Three things, always, and at once:
+
+- **LEVELING.** The story gets **shorter** at every retelling. Details drop,
+  especially unfamiliar ones. It becomes easier to hold and easier to pass on.
+- **SHARPENING.** A few details get kept and blown up -- the ones that fit what
+  the teller already believes.
+- **ASSIMILATION.** The whole thing warps toward the teller's own interests and
+  expectations, and gets more coherent than the truth was.
+
+And the formula they gave: **R ~ i x a.** The amount of a rumor in circulation
+equals how much the subject **matters** to people, times how **ambiguous** the
+evidence is.
+
+**This is a writing spec for a system Bohemia already has.** There's a deeds
+layer, a reach model, and clout. So the same deed should be three different
+sentences depending on how far it's travelled:
+- **one hop:** long, specific, has the hour and the object in it
+- **two hops:** shorter, one detail blown up, the rest gone
+- **three hops:** shortest, and bent toward whoever is telling it -- a Red tells
+  your deed as a Red story
+And R ~ i x a says which deeds spread at all: **the ones that matter and that
+nobody actually saw.** A thing done in front of the whole block doesn't become a
+rumor. It becomes a fact. The quiet things travel.
+
+That also finishes Round 5's finding about one-sided recollection. People
+misremember in a direction, and the direction is themselves.
+
+---
+
+## 70. WHAT I NOW KNOW I DIDN'T KNOW -- ROUND 9
+27. **I fail my own rules harder than his game did**, and specifically the ones
+    about sounding like a person. 19% contractions against the 89% I enforced.
+    (§67)
+28. **I use the banned negation flip 19 times**, three times more often than his
+    entire game. (§67)
+29. **Gossip runs on shields**, and the move is to state the consequence instead
+    of the accusation. (§68)
+30. **A story gets shorter, sharper and more self-serving at every hop**, and how
+    much it spreads is importance times ambiguity. (§69)
+
+## 71. STILL OPEN
+Paid this round: my own rule-breaking, gossip phrasing.
+Still owed:
+- The five unfetchable documents (Terkel, WPA, Failbetter, Emily Short, Ruskin).
+  Needs him, not a search.
+- Conversation pacing: beats before a choice.
+- Talk during shared physical work. Still folk wisdom, no study.
+- **NEW:** whether writing in the voice I'm preaching actually makes this file
+  better or just shorter. This round is the first experiment. I can measure the
+  contraction rate next round and see whether the writing improved or only the
+  number did. **That's the same trap I've caught three times already**, so I
+  should watch for it in myself.
+
+## SOURCES, ROUND 9
+- Allport and Postman, *The Psychology of Rumor* (1947), and "An Analysis of
+  Rumor"; the Boston Rumor Clinic; Encyclopedia.com, "Rumor"
+- "Beyond the Implicit/Explicit Dichotomy: The Pragmatics of Plausible
+  Deniability" (Review of Philosophy and Psychology); "Communication and
+  deniability: Moral and epistemic reactions to denials" (PMC9845615);
+  "Pragmatic Competence: The Case of Hedging"; "Pragmatic Functions of Hedges and
+  Politeness Principles"
+
+## 72. THE EXPERIMENT, MEASURED IMMEDIATELY
+I wrote Round 9 deliberately in the voice I've been preaching. Then I measured it
+alone, against rounds 1-8:
+
+    rounds 1-8 contraction rate    19.0%
+    round 9 alone                  84.6%
+    his game after the pass        89.3%
+
+So the number moved, a lot, in one round, on purpose.
+
+**And that's exactly the shape of the three lies I've already caught.** A number
+that moves when you were trying to move it tells you almost nothing. I can say
+this round sounds more like a person talking. I can't say it's a better round,
+and I'd be doing the thing I keep catching if I claimed it.
+
+The honest test is whether somebody reading rounds 1-8 and round 9 back to back
+can tell which one they'd rather read. That's not a number, and I can't run it on
+myself. **It's his test, not mine**, and I'll leave it for him.
