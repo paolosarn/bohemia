@@ -1,4 +1,4 @@
-CHARACTER (character-0lurbs): 8/28 (LATEST) -- *** NINE NEW HAIRCUTS INCLUDING THE FIRST
+CHARACTER (character-0lurbs): 8/28 (q) LATEST -- *** NINE NEW HAIRCUTS INCLUDING THE FIRST
 TEXTURED ONES THE GAME HAS EVER HAD, AND FOURTEEN MORE CUT IN THE SAME TURN. 15 -> 24.
 TAB: CHARACTER to try them on and to build a face, RUN for the crowd, LOOK for the sheet.
 Nothing to judge. ***
