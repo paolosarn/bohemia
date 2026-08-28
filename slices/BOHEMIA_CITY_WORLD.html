@@ -27842,6 +27842,35 @@ function realizeCell(gx,gy){
          not cross, on a tile whose legend says solid:false. The declaration was made and the
          renderer threw it away, which is the whole reason the kit models this per tile. */
       c.s=pal; c.walk=!tl.solid;
+      /* __TILEFORM_POOL__ PHASE 2B (8/28, ART lane, board row 107): the
+         structure-layer families take their approved tileform art through
+         c.sPool - the pool override the baker honours ahead of the
+         procedural sTex kinds. Names, not colours, pick the art. */
+      {
+        const _snm=String((entry&&entry.name)||'').toLowerCase();
+        const _STF={'data hall':['tf_dh',3],'second roof / generator':['tf_gr',3],
+                    'cooling unit':['tf_cu',2]};
+        const _stf=_STF[_snm];
+        if(_stf){ c.sPool={p:_stf[0],
+          v:((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%_stf[1]}; }
+        else if(_snm==='propane tank / ice bridge'){
+          /* the 8/27 axis split, read from the kit's own runs: a thin long
+             run is the elevated tray on its axis, everything else is a tank
+             bank - and the 8/27 audit's rows-with-aisles rule rides along
+             (a big yard draws tanks on alternate rows only). */
+          let _tl2=0; while(_tl2<8&&lx-1-_tl2>=0&&m.kit[ly*FN+lx-1-_tl2]===code)_tl2++;
+          let _tr2=0; while(_tr2<8&&lx+1+_tr2<FN&&m.kit[ly*FN+lx+1+_tr2]===code)_tr2++;
+          let _tu2=0; while(_tu2<8&&ly-1-_tu2>=0&&m.kit[(ly-1-_tu2)*FN+lx]===code)_tu2++;
+          let _td2=0; while(_td2<8&&ly+1+_td2<FN&&m.kit[(ly+1+_td2)*FN+lx]===code)_td2++;
+          const _twx=_tl2+_tr2+1,_twy=_tu2+_td2+1;
+          const _tv=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2;
+          if(Math.min(_twx,_twy)<=3&&Math.max(_twx,_twy)>=5){
+            c.sPool={p:_twx>=_twy?'tf_ibh':'tf_ibv',v:_tv};
+          }else if(!(Math.min(_twx,_twy)>=4&&(gy&1))){
+            c.sPool={p:'tf_pt',v:_tv};
+          }
+        }
+      }
       /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile
          on this branch was given the ROOF pool tinted to its palette, which is right
          for a building and is BRICKWORK for limestone. Terrain structure (bedrock
@@ -28046,11 +28075,34 @@ function realizeCell(gx,gy){
         'hardpan':['tf_bed',3],'dry basin floor':['tf_bed',3],
         'quarry floor':['tf_qf',3],'entry plaza':['tf_pz',3],
         'forecourt ground':['tf_pz',3],'courtyard':['tf_pz',3],
-        'terrace / plinth':['tf_tp',3],'channel invert':['tf_iv',2],
+        'terrace / plinth':['tf_tp',3],
         'landscaping':['tf_ls',3],'tank roof':['tf_tr',3]};
       const _tf=_TF[_nm];
       if(_tf){ c.gArtPool=_tf[0];
         c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%_tf[1];
+        _pool=null; }
+      else if(_nm==='channel invert'){
+        /* PHASE 2B: the low-flow stain is ONE line - only the run's
+           centreline cells carry it, with the 8/27 audit's tie-break
+           (equal, or one short on the near side) so it never breaks at
+           even widths; everything else is plain jointed concrete. */
+        let _cl=0; while(_cl<8&&lx-1-_cl>=0&&m.kit[ly*FN+lx-1-_cl]===code)_cl++;
+        let _cr=0; while(_cr<8&&lx+1+_cr<FN&&m.kit[ly*FN+lx+1+_cr]===code)_cr++;
+        let _cu2=0; while(_cu2<8&&ly-1-_cu2>=0&&m.kit[(ly-1-_cu2)*FN+lx]===code)_cu2++;
+        let _cd2=0; while(_cd2<8&&ly+1+_cd2<FN&&m.kit[(ly+1+_cd2)*FN+lx]===code)_cd2++;
+        const _wax=(_cl+_cr>=_cu2+_cd2)?'h':'v';
+        const _cen=(_wax==='h')?(_cu2===_cd2||_cu2+1===_cd2):(_cl===_cr||_cl+1===_cr);
+        c.gArtPool=_cen?(_wax==='h'?'tf_ivh':'tf_ivv'):'tf_iv';
+        c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2;
+        _pool=null; }
+      else if(_nm==='plaza planter'){
+        /* PHASE 2B: the 8/27 blob-aware planter - a lone cell keeps its
+           full box, a bed cell is soil edge to edge (the bed's concrete
+           edge rims are a recorded debt: one texture per cell here). */
+        const _pn=(ly>0&&m.kit[(ly-1)*FN+lx]===code)||(ly<FN-1&&m.kit[(ly+1)*FN+lx]===code)
+                ||(lx>0&&m.kit[ly*FN+lx-1]===code)||(lx<FN-1&&m.kit[ly*FN+lx+1]===code);
+        c.gArtPool=_pn?'tf_pps':'tf_pp';
+        c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%(_pn?3:2);
         _pool=null; }
       else if(_nm==='channel bank'){
         /* the bank's weep streaks run DOWN the slope, so the piece follows
@@ -28080,7 +28132,28 @@ function realizeCell(gx,gy){
        own answer, six tiles came back walk:false on the running page, and I wrote down the
        wrong lesson ("a prop is not floor") instead of asking which of the two was lying.
        gates/occupancy_gate.js now compares them, tile by tile, in every district. */
-    if(tl.layer==='prop'){ c.s=pal; c.walk=!tl.solid; return c; }
+    if(tl.layer==='prop'){ c.s=pal; c.walk=!tl.solid;
+      /* __TILEFORM_POOL__ PHASE 2B: the datafort's cooling units and the
+         radio site's tanks/trays are prop-layer cells and returned here
+         before the structure routing could reach them. */
+      const _pnm=String((entry&&entry.name)||'').toLowerCase();
+      if(_pnm==='cooling unit'){
+        c.sPool={p:'tf_cu',v:((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2}; }
+      else if(_pnm==='propane tank / ice bridge'){
+        /* the 8/27 axis split + the audit's rows-with-aisles rule */
+        let _tl2=0; while(_tl2<8&&lx-1-_tl2>=0&&m.kit[ly*FN+lx-1-_tl2]===code)_tl2++;
+        let _tr2=0; while(_tr2<8&&lx+1+_tr2<FN&&m.kit[ly*FN+lx+1+_tr2]===code)_tr2++;
+        let _tu2=0; while(_tu2<8&&ly-1-_tu2>=0&&m.kit[(ly-1-_tu2)*FN+lx]===code)_tu2++;
+        let _td2=0; while(_td2<8&&ly+1+_td2<FN&&m.kit[(ly+1+_td2)*FN+lx]===code)_td2++;
+        const _twx=_tl2+_tr2+1,_twy=_tu2+_td2+1;
+        const _tv=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2;
+        if(Math.min(_twx,_twy)<=3&&Math.max(_twx,_twy)>=5){
+          c.sPool={p:_twx>=_twy?'tf_ibh':'tf_ibv',v:_tv};
+        }else if(!(Math.min(_twx,_twy)>=4&&(gy&1))){
+          c.sPool={p:'tf_pt',v:_tv};
+        }
+      }
+      return c; }
     if(tl.layer==='portal'){ c.g='#8a8a86'; c.walk=true;
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; c.portal=true; }   /* STEP-INSIDE: a door/ramp/open bay you step through */
       return c; }
@@ -30737,6 +30810,11 @@ function chunkCanvas(cx,cy){
                       x.fillRect(i2*TPX,y*TPX,TPX,TPX); x.globalAlpha=1; }
     if(c.s){ let _ht2=null;
       if(c.face&&c.artPool_face) _ht2=saTex(c.artPool_face,v);
+      /* __TILEFORM_POOL__ PHASE 2B: the NAME-specific approved pool outranks
+         the generic material pool - a data hall's membrane is what that roof
+         IS, where artPool only knows what it is made of (the same specific-
+         beats-generic rule the APPROVED FAMILIES FIRST pass runs on). */
+      else if(!c.face&&c.sPool) _ht2=saTex(c.sPool.p,c.sPool.v);
       else if(!c.face&&c.artPool) _ht2=saTex(c.artPool,v);
       if(_ht2){ x.drawImage(_ht2,i2*TPX,y*TPX); if(c.tint){ x.globalAlpha=0.16; x.fillStyle=c.tint; x.fillRect(i2*TPX,y*TPX,TPX,TPX); x.globalAlpha=1; } }
       else if(c.face)x.drawImage(texForKind('wall',c.s,v),i2*TPX,y*TPX);

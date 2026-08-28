@@ -63,6 +63,31 @@ POOLS = {
     # on the buried tank, which is why it rides in Phase 1
     'tf_tr':  ('banks/tileforms/TF-ART-020_ROOF_OVERFLOW_VOLUME_8_25_26.json',
                ['tr_deck_0', 'tr_deck_1', 'tr_deck_2']),
+    # PHASE 2B: the structure-layer families, served through c.sPool (the
+    # approved-pool override ahead of the procedural sTex kinds)
+    'tf_dh':  ('banks/tileforms/TF-ART-028_CANDIDATES_8_27_26.json',
+               ['dh_0', 'dh_1', 'dh_2']),
+    'tf_gr':  ('banks/tileforms/TF-ART-028_CANDIDATES_8_27_26.json',
+               ['gr_0', 'gr_1', 'gr_2']),
+    'tf_cu':  ('banks/tileforms/TF-ART-028_CANDIDATES_8_27_26.json',
+               ['cu_0', 'cu_1']),
+    'tf_pt':  ('banks/tileforms/TF-ART-031_CANDIDATES_8_27_26.json',
+               ['pt_tank_0', 'pt_tank_1']),
+    'tf_ibh': ('banks/tileforms/TF-ART-031_CANDIDATES_8_27_26.json',
+               ['ib_h_0', 'ib_h_1']),
+    'tf_ibv': ('banks/tileforms/TF-ART-031_CANDIDATES_8_27_26.json',
+               ['ib_v_0', 'ib_v_1']),
+    # PHASE 2B: the wash's centreline stain (axis pieces) and the planter
+    # (lone box vs bed soil; the bed's edge rims are a recorded debt - one
+    # texture per cell here, no overlay pass)
+    'tf_ivh': ('banks/tileforms/TF-ART-032_CANDIDATES_8_27_26.json',
+               ['iv_h_0', 'iv_h_1']),
+    'tf_ivv': ('banks/tileforms/TF-ART-032_CANDIDATES_8_27_26.json',
+               ['iv_v_0', 'iv_v_1']),
+    'tf_pp':  ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json',
+               ['pp_0', 'pp_1']),
+    'tf_pps': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json',
+               ['pp_soil_0', 'pp_soil_1', 'pp_soil_2']),
 }
 
 # PHASE 2A: the railyard's rolling stock through the post path. The city's

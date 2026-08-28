@@ -1477,3 +1477,23 @@ posts and 14 loco posts, the EXACT blob counts measured on 8/27, two
 of them filling the screen either side of the player as a boxcar
 should. Structural gates green. Phase 2B holds the structure-layer
 roofs, the tanks, the stain and the planter beds.
+
+## 8/28 SEVENTY-SECOND PASS: PHASE 2B - THE STRUCTURES CROSS OVER
+
+The migration's third act in twenty-four hours: the structure and prop
+layers route by name now. c.sPool carries the approved pool on the
+cell and the baker honours it AHEAD of the generic material pool -
+the first render proved why the order matters: the datafort's halls
+wore patchwork brick and corrugated (artPool knows what a roof is
+MADE OF; the name knows what it IS - specific beats generic, the same
+rule the APPROVED FAMILIES FIRST pass runs on). Two families sat
+behind a second ambush: the cooling units and the radio tanks are
+PROP-layer cells whose branch returns early, so the routing rode into
+that return too. The wash's centreline stain and the blob-aware
+planter came across with their 8/27 audit rules intact, reading the
+kit's own runs. Verified on foot in human mode, three districts: the
+membrane and generator decks underfoot at the datafort, tank rows
+with working aisles at the radio site, the pale jointed invert with
+its stain fragments and weep-streaked banks at the wash. 2C remains:
+guy wires (mast bearings), planter rims (overlay pass), and the
+boxcar polish.

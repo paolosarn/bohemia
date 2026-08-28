@@ -431,9 +431,15 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    (masters repackaged nose-up; a 7x4 lattice replaces the sedan
    lattice that was parking three squashed cars on every boxcar) -
    verified on foot: 118 boxcar + 14 loco posts, the exact measured
-   blob counts. PHASE 2B (open): datafort structure roofs + cooling
-   units, radio tanks/trays, the centreline stain, the blob-aware
-   planter bed | full finding:
+   blob counts. PHASE 2B SHIPPED same day: the structure and
+   prop layers route by name too (c.sPool, honored ahead of the generic
+   material pool - specific beats generic; the cooling units and tanks
+   sat behind the prop layer's early return and were caught by probes),
+   the wash's centreline stain and the blob-aware planter ride the kit's
+   own runs. Verified on foot: the datafort membrane underfoot, tank
+   rows with aisles at the radio site, the stained invert at the wash.
+   REMAINING (2C): guy wires (need mast bearings), planter bed rims
+   (need an overlay pass), boxcar running-order polish | full finding:
    records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
    | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |
