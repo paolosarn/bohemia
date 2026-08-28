@@ -379,6 +379,37 @@ research partner. He DECIDES, you PRODUCE.
   the whole feature passed 27 of 27. It counts rendered iris pixels now. A CHECK THAT READS
   WHAT YOU HANDED IT IS NOT A CHECK. Tab: RUN (talk to anybody) / LOOK. Full law:
   laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md  Gate: talking_portrait_gate.js
+- EVERY CHARACTER FACE COMES WITH A THUMB (Paolo 8/28, LOCKED): "from now on all the
+  character face shit is always gonna have to come with a ... thumbs up or a thumbs down
+  bro like you can't be doing shit without ... my thumb ... IF IT'S A VISUAL. and a lot of
+  them I'm gonna be thumbing down so you gotta do better." *** THIS AMENDS EVERYTHING IS A
+  THUMB (8/9) FOR ONE LANE AND NO MORE, AND NEWEST DATE WINS ON EXACTLY THAT MUCH. *** 8/9
+  flipped the default to correct-after because we had turned him into an approvals queue,
+  and it is still right: NOTHING BLOCKS ON HIM, the work ships the turn it is done, no
+  numbered verdict queue in a reply, no waiting. What changed is narrower and it is a real
+  gap he caught: on this lane a visual had been shipping with NO WAY TO SAY YES OR NO TO IT
+  AT ALL. THE VOTE TAB HAS EXISTED SINCE 8/7 AND HAD NEVER HELD A SINGLE FACE -- it read
+  one bank, the district map icons -- so every haircut, every portrait and the whole face
+  maker went out with nothing to tap. HE DID NOT ASK FOR THE THUMB BACK; THE THUMB WAS
+  NEVER THERE. Same failure as the seventeen invisible hats and the colours nobody wore:
+  the material existed and never reached him. ONE SURFACE, NOT TWO (he never digs): the
+  faces sit in the VOTE tab above the icons, same grid, same three-state tap (up / could be
+  better / down / clear), same per-item note, same batch comment, same SUN MODE, same .txt
+  export, same @VERDICT grammar. A HAIRCUT IS FOUR PICTURES, NOT ONE -- every haircut cell
+  is a strip (front, three-quarter, side, back) one per row at a size BIGGER than the game
+  draws it, because judging art below the size it ships at is judging a thumbnail, and a
+  front-only cell asks him to thumb a third of the thing. The queue is DERIVED, never
+  typed. *** AND THE PAGE HAD NEVER SAVED ANYTHING: three weeks of `var V={}` in memory, so
+  thumbing forty haircuts and tapping away lost all of it. A VERDICT THAT EVAPORATES IS NOT
+  A VERDICT, and the second time it happens he stops trusting the surface, which is the one
+  thing a judging surface cannot afford. Found by a gate that tried to prove the vote was
+  written down and could not. *** Gate lesson: that same gate's first persistence probe
+  tapped FOUR times -- up, could-be-better, down, back to nothing -- and then asked whether
+  the store held a verdict, so it was reading an ERASED vote and reporting the feature
+  broken while the feature worked. Ninth broken ruler this week, same shape as all of them.
+  Tab: VOTE. Bake with tools/bohemia_face_candidates.js then tools/bohemia_vote_tab.py.
+  Full law: laws/BOHEMIA_LAW_EVERY_FACE_COMES_WITH_A_THUMB_8_28_26.md
+  Gate: face_thumb_gate.js
 - A HAIRCUT READS FROM EVERY ANGLE OR IT IS NOT A HAIRCUT (Paolo 8/28, LOCKED): "Cool I
   like it, but it's tough to analyze without implementing all the new hairstyles and shit."
   The portrait could draw 92 haircuts and THE CITY OWNED FIFTEEN. *** FIRST, EVERY DEAD

@@ -1479,6 +1479,21 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('FACE THUMB',    ['node', 'gates/face_thumb_gate.js'],
+     'EVERY CHARACTER FACE COMES WITH A THUMB (Paolo 8/28): "from now on all the '
+     'character face shit is always gonna have to come with a thumbs up or a thumbs '
+     'down ... if it\'s a visual. and a lot of them I\'m gonna be thumbing down so you '
+     'gotta do better." AMENDS EVERYTHING IS A THUMB (8/9) for ONE lane and no more: '
+     'NOTHING BLOCKS ON HIM, the work still ships the turn it is done -- what changed '
+     'is that a face visual may no longer ship with NO WAY to say yes or no to it. THE '
+     'VOTE TAB HAS EXISTED SINCE 8/7 AND HAD NEVER HELD A SINGLE FACE, so he did not '
+     'ask for the thumb back, the thumb was never there. It DRIVES the real page: every '
+     'canon haircut must have a candidate baked (the ratchet -- cook one and forget and '
+     'this goes red the same turn), a haircut is shown from FOUR sides because one view '
+     'is a third of the thing, the candidates may not be stale against the build they '
+     'photograph, tapping cycles the verdict, AND THE VERDICT SURVIVES A RELOAD -- that '
+     'page held every vote in a plain object for three weeks, so thumbing forty haircuts '
+     'and tapping away lost all of it. A verdict that evaporates is not a verdict.', False),
     ('PORTRAIT HAIRCUT', ['node', 'gates/portrait_haircut_gate.js'],
      'THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28). ONE ID ONE WHOLE '
      'PERSON (8/27) fixed skin, hair COLOUR and eyes and its record says "same person '

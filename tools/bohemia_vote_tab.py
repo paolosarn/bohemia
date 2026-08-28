@@ -47,6 +47,26 @@ RECORDS = 'records'
 bank = json.load(open(BANK, encoding='utf8'))
 heroes = [h for h in bank['heroes'] if h.get('b64')]
 
+# ---- AND THE FACES (Paolo 8/28) ------------------------------------------------
+# "from now on all the character face shit is always gonna have to come with a ... thumbs
+#  up or a thumbs down bro like you can't be doing shit without ... my thumb ... if it's a
+#  visual. and a lot of them I'm gonna be thumbing down so you gotta do better."
+#
+# THIS TAB HAS EXISTED SINCE 8/7 AND HAD NEVER HELD A SINGLE FACE. It read one bank, the
+# district heroes, so every haircut, every portrait and the whole face maker shipped with
+# no way for him to say yes or no to any of it. He asked for the thumb back on this lane
+# and the thumb was never there in the first place.
+# ONE SURFACE, NOT TWO. He never digs; a second judge page reached from somewhere else is
+# the scavenger hunt this file was written to kill. Same grid, same thumbs, same note
+# field, same @VERDICT grammar, same export.
+FACEBANK = 'banks/BOHEMIA_FACE_CANDIDATES_8_28_26.txt'
+faces = []
+if os.path.exists(FACEBANK):
+    try:
+        faces = [x for x in json.load(open(FACEBANK, encoding='utf8'))['faces'] if x.get('b64')]
+    except Exception:
+        faces = []
+
 # ---- WHO HAS ALREADY BEEN JUDGED, read off his own verdict files ----------------
 # Any district named in a file with VERDICT in its name has had its say. This is
 # deliberately generous: a false "judged" only ever hides something from the queue, and he
@@ -70,7 +90,7 @@ heroes = [h for h in bank['heroes'] if h.get('b64')]
 DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z0-9_]+)\b', re.I | re.M)
 
 judged = set()
-names = {h['district'] for h in heroes}
+names = {h['district'] for h in heroes} | {x['id'] for x in faces}
 for fn in sorted(os.listdir(RECORDS)):
     if not fn.lower().endswith(('.txt', '.md')):
         continue
@@ -161,10 +181,43 @@ def _display_b64(h):
 # AN EMPTY QUEUE IS THE GOAL, AND THE PAGE HAS TO SAY SO. When he clears the last item the
 # grid wrapper renders as an empty box, which reads as broken rather than as finished --
 # and it is the state he SHOULD be in most of the time.
-cards_new = ('<div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue))
+cards_new = ('<h2>THE MAP ICONS &mdash; thumb what you like</h2><div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue))
              + '</div>') if queue else \
     '<div class="empty">Nothing waiting. You are all caught up.</div>'
 cards_old = '<div class="grid">' + ''.join(card(h, i, True) for i, h in enumerate(done)) + '</div>'
+
+# ---- THE FACE CELLS -------------------------------------------------------------
+# A HAIRCUT IS FOUR PICTURES, NOT ONE (8/28: a haircut reads from every angle or it is not
+# a haircut), so a haircut cell is a strip -- S, SE, E, N -- and it takes the strip's own
+# aspect ratio rather than being letterboxed into a square. A face cell is square because
+# a portrait is square. The cell is still edge to edge with no card around it (8/11).
+def facecard(x, judged_already):
+    tag = 'judged' if judged_already else 'new'
+    ar = '%d/%d' % (x.get('w') or 1, x.get('h') or 1)
+    return ('<button class="cel %s" data-d="%s" title="%s" '
+            'style="background:#17150f;aspect-ratio:%s">'
+            '<img alt="%s" src="data:image/png;base64,%s">'
+            '<span class="cn">%s</span><span class="mark"></span></button>'
+            % (tag, x['id'], x['label'], ar, x['label'], x['b64'], x['label']))
+
+
+fq = [x for x in faces if x['id'] not in judged]
+fd = [x for x in faces if x['id'] in judged]
+_hairq = [x for x in fq if x.get('kind') == 'haircut']
+_faceq = [x for x in fq if x.get('kind') != 'haircut']
+faces_html = ''
+if _hairq:
+    faces_html += ('<h2>THE HAIRCUTS &mdash; %d of them, each shown four ways</h2>'
+                   '<p class="blksub">front, three-quarter, side and back. thumb the '
+                   'haircut, not the picture: if it only works from the front it is not '
+                   'done.</p><div class="grid hair">%s</div>'
+                   % (len(_hairq), ''.join(facecard(x, False) for x in _hairq)))
+if _faceq:
+    faces_html += ('<h2>THE FACES &mdash; %d people off the street</h2>'
+                   '<p class="blksub">this is the portrait that pops up when somebody '
+                   'talks to you, at the size it pops up.</p><div class="grid faces">%s</div>'
+                   % (len(_faceq), ''.join(facecard(x, False) for x in _faceq)))
+faces_done = ''.join(facecard(x, True) for x in fd)
 
 # ---- DEMO BLOCKERS, ABOVE THE ICONS (8/9) -----------------------------------------
 # Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable." A thumb is a verdict on a
@@ -225,6 +278,14 @@ HTML = '''<!doctype html><meta charset="utf-8">
      looking at the map and not at fifty-nine picture frames. */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:0 0 4px;
         align-items:end;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  /* A HAIRCUT STRIP IS FOUR HEADS WIDE, SO IT GETS THE WHOLE ROW. Two per row put each
+     head at about fifty pixels, which is smaller than the thing renders in the game --
+     judging art below the size it ships at is judging a thumbnail. One per row makes each
+     head about a hundred, which is bigger than the RUN draws it, and that is the right
+     way round. Faces are square and stack three across. */
+  .grid.hair{grid-template-columns:1fr}
+  .grid.faces{grid-template-columns:repeat(3,1fr)}
+  .grid.hair .cn{font-size:11px;opacity:.85}
   .cel{position:relative;display:block;padding:0;margin:0;border:0;border-radius:0;
        background:#11110f;overflow:hidden;cursor:pointer;line-height:0}
   /* THE TILE FILLS THE 1x1 CELL (Paolo 8/11): "THESE HAVE TO FILL THE WHOLE 1X1 ICON GRID
@@ -304,8 +365,9 @@ HTML = '''<!doctype html><meta charset="utf-8">
   <div id="notebar" hidden><span id="notefor"></span>
     <textarea class="note" id="tilenote" rows="2" placeholder="what is wrong with it (optional)"></textarea>
   </div>
+  <div id="facelist">__FACES__</div>
   <div id="newlist">__NEW__</div>
-  <div id="oldwrap"><h2>ALREADY JUDGED &mdash; here so you can change your mind</h2>__OLD__</div>
+  <div id="oldwrap"><h2>ALREADY JUDGED &mdash; here so you can change your mind</h2>__OLDFACES____OLD__</div>
 </div>
 <footer>
   <textarea id="global" rows="2" placeholder="anything about the whole batch"></textarea>
@@ -313,13 +375,46 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </footer>
 <script>
 (function(){
+  /* *** HIS VERDICTS SURVIVE CLOSING THE TAB NOW (8/28). ***
+     This page has been live since 8/7 and held every vote in a plain object -- thumb forty
+     haircuts, tap away to the RUN, come back, and all of it is gone. A VERDICT THAT
+     EVAPORATES IS NOT A VERDICT, and the cost is worse than the lost taps: the second time
+     it happens he stops trusting the surface, which is the one thing a judging surface
+     cannot afford. Found by a gate that tried to prove the vote was written down and
+     could not.
+     Everything he can enter is saved -- thumbs, the per-tile notes, the blocker choices
+     and the batch comment -- keyed per surface, restored on load. Wrapped in try/catch
+     because a phone in private mode throws on the first write, and losing persistence is
+     survivable while a page that will not open is not. */
+  var LSK='bohemia.vote.v1';
   var V={}, N={}, B={}, BN={}, SEL=null;
+  function _load(){ try{ var raw=localStorage.getItem(LSK); if(!raw) return;
+      var o=JSON.parse(raw)||{};
+      V=o.V||{}; N=o.N||{}; B=o.B||{}; BN=o.BN||{};
+      if(o.G){var g=document.getElementById('global'); if(g)g.value=o.G;}
+    }catch(e){} }
+  function _save(){ try{
+      var g=document.getElementById('global');
+      localStorage.setItem(LSK,JSON.stringify({V:V,N:N,B:B,BN:BN,G:g?g.value:''}));
+    }catch(e){} }
+  /* PAINT BACK WHAT HE ALREADY SAID, so a reload looks like where he left off rather than
+     like a fresh queue. A restored vote he cannot SEE is the same bug wearing a hat. */
+  function _paint(){
+    document.querySelectorAll('.cel').forEach(function(c){
+      var d=c.getAttribute('data-d'), v=V[d];
+      c.classList.remove('v-up','v-cbb','v-down');
+      if(v)c.classList.add('v-'+v); });
+    document.querySelectorAll('.blk').forEach(function(blk){
+      var k=blk.getAttribute('data-b'), o=B[k]; if(!o)return;
+      blk.querySelectorAll('.ob').forEach(function(t){
+        t.classList.toggle('on', t.getAttribute('data-o')===o); }); });
+  }
   document.addEventListener('click',function(e){
     var ob=e.target.closest('.ob');
     if(ob){
       var blk=ob.closest('.blk'), k=blk.getAttribute('data-b');
       blk.querySelectorAll('.ob').forEach(function(t){t.classList.remove('on');});
-      ob.classList.add('on'); B[k]=ob.getAttribute('data-o'); tally(); return;
+      ob.classList.add('on'); B[k]=ob.getAttribute('data-o'); _save(); tally(); return;
     }
     // THE TILE IS THE VOTE. One tap cycles yes -> could be better -> no -> unvoted, so a
     // pass over sixty icons is sixty taps in the grid instead of a scroll through sixty
@@ -330,6 +425,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
     var nxt=order[(order.indexOf(cur)+1)%order.length];
     cel.classList.remove('v-up','v-cbb','v-down');
     if(nxt){cel.classList.add('v-'+nxt); V[d]=nxt;} else {delete V[d];}
+    _save();
     document.querySelectorAll('.cel.sel').forEach(function(x){x.classList.remove('sel');});
     cel.classList.add('sel');
     var nb=document.getElementById('notebar');
@@ -342,20 +438,25 @@ HTML = '''<!doctype html><meta charset="utf-8">
     if(e.target.classList.contains('bnote')){
       BN[e.target.closest('.blk').getAttribute('data-b')]=e.target.value; return;
     }
-    if(e.target.id==='tilenote'){ if(SEL) N[SEL]=e.target.value; return; }
+    if(e.target.id==='tilenote'){ if(SEL) N[SEL]=e.target.value; _save(); return; }
+    if(e.target.id==='global'){ _save(); return; }
     if(!e.target.classList.contains('note')) return;
   });
   function tally(){
-    var total=document.querySelectorAll('#newlist .cel').length;
+    /* THE FACES COUNT TOO (8/28). This read #newlist only, so the day the haircuts and
+       the portraits arrived the header said "0 / 0 voted" over forty things waiting for
+       a thumb -- a counter that cannot see half the queue is telling him he is done. */
+    var SEL='#newlist .cel,#facelist .cel';
+    var total=document.querySelectorAll(SEL).length;
     var done=Object.keys(V).filter(function(k){
-      return document.querySelector('#newlist .cel[data-d="'+k+'"]'); }).length;
+      return document.querySelector('#newlist .cel[data-d="'+k+'"],#facelist .cel[data-d="'+k+'"]'); }).length;
     var bt=document.querySelectorAll('.blk').length, bd=Object.keys(B).length;
     document.getElementById('count').textContent=
       (bt? bd+' / '+bt+' decided  \\u00b7  ' : '')+done+' / '+total+' voted';
   }
   document.getElementById('sun').onclick=function(){document.body.classList.toggle('sun');};
   function exp(){
-    var L=['BOHEMIA - VOTE, DISTRICT MAP ICONS','__STAMP__','',
+    var L=['BOHEMIA - VOTE','__STAMP__','',
            'YES = ship it.  COULD BE BETTER = ships frozen, fix later.  NO = kill it.',''];
     var blks=document.querySelectorAll('.blk');
     if(blks.length){
@@ -388,17 +489,21 @@ HTML = '''<!doctype html><meta charset="utf-8">
   }
   document.getElementById('exp').onclick=exp;
   document.getElementById('exp2').onclick=exp;
+  _load(); _paint();
   tally();
 })();
 </script>
 '''
 
 HTML = HTML.replace('__BLOCKERS__', blockers_html)
+HTML = HTML.replace('__FACES__', faces_html)
+HTML = HTML.replace('__OLDFACES__', faces_done)
 HTML = HTML.replace('__NEW__', cards_new)
 HTML = HTML.replace('__OLD__', cards_old)
-HTML = HTML.replace('__STAMP__', '%d waiting, %d already judged' % (len(queue), len(done)))
+HTML = HTML.replace('__STAMP__', '%d waiting, %d already judged' % (len(queue) + len(fq), len(done) + len(fd)))
 
 open(OUT, 'w', encoding='utf8').write(HTML)
 print('VOTE TAB: %s' % OUT)
 print('  %d waiting for a vote: %s' % (len(queue), ' '.join(h['district'] for h in queue)))
 print('  %d already judged: %s' % (len(done), ' '.join(sorted(h['district'] for h in done))))
+print('  FACES: %d haircuts + %d faces waiting, %d already judged' % (len(_hairq), len(_faceq), len(fd)))

@@ -1,3 +1,78 @@
+CHARACTER (character-0lurbs): 8/28 LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
+IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
+TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
+
+HE RULED: "from now on all the character face shit is always gonna have to come with a ...
+thumbs up or a thumbs down bro like you can't be doing shit without ... my thumb ... IF
+IT'S A VISUAL. and a lot of them I'm gonna be thumbing down so you gotta do better."
+
+*** THIS AMENDS EVERYTHING IS A THUMB (8/9) FOR ONE LANE AND NO MORE. *** 8/9 flipped the
+default to correct-after because we had turned him into an approvals queue, and it is
+STILL RIGHT: NOTHING BLOCKS ON HIM, the work ships the turn it is done, no numbered verdict
+queue in a reply, no waiting. What changed is narrower and it is a real gap he caught: on
+this lane a visual had been shipping with NO WAY TO SAY YES OR NO TO IT AT ALL.
+
+THE VOTE TAB HAS EXISTED SINCE 8/7 AND HAD NEVER HELD A SINGLE FACE. It read one bank --
+the district map icons -- so every haircut, every portrait and the whole face maker went
+out with nothing to tap. HE DID NOT ASK FOR THE THUMB BACK; THE THUMB WAS NEVER THERE.
+Same failure as the seventeen invisible hats and the colours nobody wore: the material
+existed and never reached him.
+
+WHAT SHIPPED
+  ONE SURFACE, NOT TWO (he never digs). The faces sit in the VOTE tab ABOVE the icons:
+  same grid, same three-state tap (up / could be better / down / clear), same per-item
+  note, same batch comment, same SUN MODE, same .txt export, same @VERDICT grammar.
+  A HAIRCUT IS FOUR PICTURES, NOT ONE -- every haircut cell is a strip (front,
+  three-quarter, side, back), ONE PER ROW, at a size BIGGER than the game draws it.
+  Judging art below the size it ships at is judging a thumbnail, and a front-only cell
+  asks him to thumb a third of the thing (A HAIRCUT READS FROM EVERY ANGLE, 8/28).
+  24 haircuts + 16 faces = 40 waiting. The queue is DERIVED, never typed.
+
+*** AND THE PAGE HAD NEVER SAVED ANYTHING. *** Three weeks of `var V={}` in memory: thumb
+forty haircuts, tap away to the RUN, come back, and all of it is gone. A VERDICT THAT
+EVAPORATES IS NOT A VERDICT, and the second time it happens he stops trusting the surface,
+which is the one thing a judging surface cannot afford. Found by a gate that tried to prove
+the vote was written down and could not. Everything he can enter now persists -- thumbs,
+per-tile notes, blocker choices, the batch comment -- and the gate RELOADS THE PAGE and
+asserts the vote is still painted, because writing to storage only proves the write.
+
+TWO MORE RULERS FIXED (ninth and tenth this week, same shape as all of them):
+  - the gate's own persistence probe tapped FOUR times -- up, could-be-better, down, back
+    to nothing -- and then asked whether the store held a verdict. It was reading an ERASED
+    vote and reporting the feature broken while the feature worked.
+  - the vote page's counter read #newlist only, so the day the haircuts arrived it said
+    "0 / 0 voted" over forty things waiting. A counter that cannot see half the queue is
+    telling him he is finished.
+
+GATE: gates/face_thumb_gate.js, 23 checks, and IT DRIVES THE REAL PAGE. The ratchet that
+makes the ruling survive the next cook: EVERY CANON HAIRCUT MUST HAVE A CANDIDATE BAKED --
+cook one and forget and it goes red the same turn. Also: candidates may not be stale
+against the build they photograph (a thumb on a picture of a build that no longer exists is
+worse than no thumb), a haircut must be shown from more than one side, and the verdict must
+survive a reload. Registered in the suite.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. WAIT FOR HIS THUMBS, then act on them. He said "a lot of them I'm gonna be thumbing
+    down" -- his export drops back in as @VERDICT lines and the queue shrinks by itself.
+    A thumb-down with a sentence in the note is worth more than a silent approval.
+ 2. THE CREST, PROPERLY. Head-on and from behind it has never had a shape -- only the
+    profile branch tapers. One bounded job, unlocks three cooked styles.
+ 3. THE TIE, PROPERLY. `!front` means a ponytail does not exist when you look at somebody.
+    Nobody in the valley has their hair up, and in a desert that is a real hole.
+ 4. THE FACE HE BUILDS DOES NOT SURVIVE A RELOAD either -- same class of bug as the vote
+    page, in the face maker. It writes the live pface, which is what the game plays, but
+    nothing saves it. A SAVE-SYSTEM row.
+
+WHAT IS PENDING HIM: 40 thumbs in the VOTE tab. Nothing blocks on them.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carries an
+embedded wardrobe bank far behind and nothing gates it; two duplicate top-level function
+names in COMBAT (CombatBridge, clampPkg).
+
+================================================================================
+
+================================================================================
+
 *** URGENT, FOR THE WORLD LANE, FROM RUN (8/28) -- HE REPORTED STREET FACING
 AGAIN TODAY AND A GREEN GATE HAS BEEN SITTING ON IT SINCE 8/15. ***
 
