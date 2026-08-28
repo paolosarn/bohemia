@@ -112,3 +112,63 @@ ROUND THREE, 8/28 18:03: TWO OF TWELVE
   WHAT IT PREDICTS: the next thing he says yes to will be light or material, and
   anything with a printed face on it is a wasted card. Round four tests that by
   pushing only the two survivors, six ways each.
+
+===============================================================================
+ROUND FOUR, 8/28: TWO OF TWELVE, AND BOTH ANCHORS DIED
+===============================================================================
+
+  ALIVE:  HOLOGRAM: BROKEN SIGNAL  .  METAL: RAISED, NOT SUNK
+  DEAD:   the ten others, INCLUDING BOTH ROUND-THREE ANCHORS (hologram in the
+          air, stamped into metal) that this round was built to push.
+
+  HIS WORDS, VERBATIM:
+    "Number nine the shadow has to be a lot less of the letter"
+    "Keep cooking those were decent yeah and the other there's two that I like
+     so when I told you about the lettering and then the other one is like the
+     hologram shit but like if you're gonna have that effect it'll be less and
+     honestly maybe it should be moving in the background, potentially like if
+     we are gonna go down the hologram route"
+
+  THREE RULINGS INSIDE THAT, AND THEY ARE NOT TASTE, THEY ARE DIRECTION:
+
+  1. THE SHADOW IS TOO STRONG. On RAISED, the drop under each letter was almost
+     as dark and as wide as the letter itself, so the type read DOUBLED, not
+     lit. A raised surface is read by a HINT of shadow. The shadow is evidence
+     of the light, it is not a second copy of the letter.
+
+  2. THE HOLOGRAM EFFECT IS TOO MUCH. Every round-three and round-four hologram
+     put the scanlines, the flicker and the tear ON TOP OF THE WORDS. That
+     degrades the thing you have to read, which is the one thing a UI may never
+     do. LESS.
+
+  3. AND HERE IS THE ONE THAT CHANGES THE BUILD: "MAYBE IT SHOULD BE MOVING IN
+     THE BACKGROUND." The motion belongs BEHIND the letters, not through them.
+     That is the whole answer to (2) as well: put the field on its own layer
+     under the text and the letters stay perfectly crisp while the panel is
+     still alive. Both notes are one instruction.
+
+  WHY BOTH ANCHORS DYING IS NOT A FAILED ROUND: he killed the two he had
+  already approved and kept two VARIANTS of them. That is not a reversal, it is
+  a refinement -- the same taste from the three-round pattern (LIGHT and RAW
+  MATERIAL, never ink or machinery), now with a tolerance on it. He is telling
+  me how MUCH of the effect, not whether.
+
+===============================================================================
+ROUND FIVE, BUILT FROM THOSE THREE NOTES
+===============================================================================
+
+  SIX RAISED METAL, walking his shadow note down: LESS SHADOW . BARELY THERE .
+  LIGHT ONLY NO SHADOW . DARKER PLATE . MORE AIR . SOFTER LIGHT.
+  Drop went from 0 2px 2px rgba(0,0,0,.9) plus a second 3px pass, down to a
+  single 0 1px 1px rgba(0,0,0,.55). One of the six has NO shadow at all, only
+  the lit top edge, to find the floor.
+
+  SIX HOLOGRAM, all rebuilt on his background note: DRIFTING BANDS . ONE SLOW
+  SWEEP . BREATHING . RARE TEAR . SLOW ROLL . FAINT STATIC.
+  EVERY effect moved to its own layer under the type (the field sits at z-index
+  1, the words at z-index 2), so nothing crosses a letter. Each one holds still
+  for reduced-motion.
+
+  *** A STILL PICTURE CANNOT JUDGE THE HOLOGRAM SIX. They differ ONLY by how
+  they move. Verified each genuinely animates by hashing two frames a second
+  apart: all six changed. He has to open the tab to judge them. ***

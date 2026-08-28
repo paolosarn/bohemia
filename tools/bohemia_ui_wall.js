@@ -89,179 +89,161 @@ const FACES = bank.faces.map((f) =>
    BUTTON, because a comparison where the content moves is not a comparison.
    Ordered roughly from cheapest to build to most expensive, but that is not why
    he should pick one and it is not shown to him. ------------------------- */
-/* ROUND FOUR. Six ways to push each of the two that survived round three.
-   NUMBER 1 AND NUMBER 7 ARE THE TWO HE ALREADY PICKED, UNCHANGED, because a
-   round of variations with nothing to measure against is a round judged from
-   memory. */
-const HOLO = `
-  .L .stage{ padding-bottom:36px; }
-  .L .pnl{ position:relative; border:0; border-top:1px solid rgba(150,245,225,.6);
-    border-bottom:1px solid rgba(150,245,225,.34);
-    background:linear-gradient(rgba(97,168,159,.13),rgba(97,168,159,.03));
-    box-shadow:0 0 30px rgba(97,168,159,.30), 0 0 64px rgba(97,168,159,.14); }
-  .L .pnl::before{ content:''; position:absolute; left:24%; right:24%; top:100%; height:40px;
-    background:linear-gradient(rgba(97,168,159,.24),transparent);
-    -webkit-clip-path:polygon(0 0,100% 0,68% 100%,32% 100%);
-    clip-path:polygon(0 0,100% 0,68% 100%,32% 100%); }
-  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(rgba(160,250,232,.10) 0 2px,transparent 2px 5px); }
-  .L .rd{ color:#7fd8c8; text-shadow:0 0 8px rgba(97,168,159,.9); }
-  .L .ttl,.L .bd{ color:#d4fff4; text-shadow:0 0 8px rgba(97,168,159,.95), 1px 0 0 rgba(255,120,120,.30), -1px 0 0 rgba(120,200,255,.30); }
-  .L .btn{ background:rgba(97,168,159,.12); border:1px solid rgba(150,245,225,.6); color:#e6fffa;
-    border-radius:0; text-shadow:0 0 9px rgba(97,168,159,.95); }
-  .L .btn:active{ background:rgba(150,245,225,.45); color:#04100d; text-shadow:none; }`;
+/* ROUND FIVE. Two survivors again, and THREE NOTES that change how both are built.
+   HIS WORDS, 8/28 21:38:
+     "Number nine the shadow has to be a lot less of the letter"
+     "if you're gonna have that effect it'll be less"
+     "honestly maybe it should be moving in the background, potentially"
+   THE THIRD NOTE IS THE BIG ONE AND IT IS BETTER DESIGN THAN WHAT I BUILT. I had
+   the glitch ON THE LETTERS, which fights the words for legibility every second
+   it is running. He wants it BEHIND them and MOVING. That keeps the text solid
+   and puts the life in the field, which is what a real projection does anyway:
+   the signal degrades, the message does not move.
+   So every hologram here has CRISP TEXT and a moving backdrop, and the effect is
+   dialled well under where round four had it.
+   REDUCED MOTION: every animation has a still fallback. A loop he cannot stop is
+   not a style, it is a problem. */
 
-const STAMP = `
-  .L .pnl{ background:linear-gradient(158deg,#8d8474,#5d564a); border-radius:2px;
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.42), inset 0 -3px 8px rgba(0,0,0,.5),
-      0 9px 18px rgba(0,0,0,.7); }
-  .L .rd,.L .ttl,.L .bd{ color:#655d50;
-    text-shadow:0 2px 0 rgba(255,252,238,.55), 0 -1px 1px rgba(0,0,0,.85); }
-  .L .rd{ color:#6f6759 }
-  .L .btn{ background:linear-gradient(158deg,#9a9080,#6a6255); border:0; border-radius:2px;
-    color:#5f5749; text-shadow:0 2px 0 rgba(255,252,238,.6), 0 -1px 1px rgba(0,0,0,.9);
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.5), 0 5px 0 #2e2a23, 0 9px 13px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(5px);
-    box-shadow:inset 0 3px 7px rgba(0,0,0,.6), 0 0 0 #2e2a23; }`;
-
-const LOOKS = [
-  { id: 'holo', name: 'HOLOGRAM: THE ONE YOU PICKED', from: 'unchanged, the anchor',
-    say: 'Exactly what you thumbed. The five under it are changes to this one.',
-    css: HOLO },
-
-  { id: 'emit', name: 'HOLOGRAM: FROM AN EMITTER', from: 'you can see what it comes out of',
-    say: 'A projector sitting under it with a lit slot. The light has a source you could kick over, so it stops being magic and becomes equipment.',
-    css: HOLO + `
-  .L .stage{ position:relative; padding-bottom:58px; }
-  .L .stage::after{ content:''; position:absolute; left:50%; bottom:6px; width:134px; height:22px;
-    transform:translateX(-50%); border-radius:3px;
-    background:linear-gradient(#4a453b,#211e19);
-    box-shadow:inset 0 1px 0 rgba(255,250,230,.28), inset 0 -3px 6px rgba(0,0,0,.7),
-      0 5px 0 #100e0b, 0 10px 16px rgba(0,0,0,.7); }
-  .L .stage::before{ content:''; position:absolute; left:50%; bottom:23px; width:66px; height:5px;
-    transform:translateX(-50%); z-index:2; border-radius:2px; background:#9ff0e0;
-    box-shadow:0 0 12px #61a89f, 0 0 26px rgba(97,168,159,.9); }` },
-
-  { id: 'dust', name: 'HOLOGRAM: DUST IN THE BEAM', from: 'the air becomes visible',
-    say: 'Motes drifting through the cone, catching the light. It is the only thing that proves the beam is passing through real air.',
-    css: HOLO + `
-  .L .pnl::before{ content:''; position:absolute; left:24%; right:24%; top:100%; height:40px;
-    background:
-      radial-gradient(circle 1.5px at 30% 22%,rgba(200,255,245,.9),transparent),
-      radial-gradient(circle 1px at 62% 48%,rgba(200,255,245,.75),transparent),
-      radial-gradient(circle 1.5px at 44% 74%,rgba(200,255,245,.6),transparent),
-      radial-gradient(circle 1px at 74% 16%,rgba(200,255,245,.7),transparent),
-      linear-gradient(rgba(97,168,159,.24),transparent);
-    -webkit-clip-path:polygon(0 0,100% 0,68% 100%,32% 100%);
-    clip-path:polygon(0 0,100% 0,68% 100%,32% 100%); }
-  .L .pnl{ background:
-      radial-gradient(circle 1.5px at 12% 24%,rgba(220,255,250,.55),transparent),
-      radial-gradient(circle 1px at 78% 38%,rgba(220,255,250,.45),transparent),
-      radial-gradient(circle 1.5px at 56% 76%,rgba(220,255,250,.40),transparent),
-      radial-gradient(circle 1px at 33% 62%,rgba(220,255,250,.5),transparent),
-      linear-gradient(rgba(97,168,159,.13),rgba(97,168,159,.03)); }` },
-
-  { id: 'torn', name: 'HOLOGRAM: BROKEN SIGNAL', from: 'the projector is damaged',
-    say: 'It tears into bands and slips sideways. Whatever is making this picture is not in good condition, which is the only one here that says something about the world it is standing in.',
-    css: HOLO + `
-  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
-    background:
-      repeating-linear-gradient(rgba(160,250,232,.10) 0 2px,transparent 2px 5px),
-      linear-gradient(rgba(0,0,0,0) 0 17%,rgba(160,250,232,.16) 17% 21%,rgba(0,0,0,0) 21% 44%,
-        rgba(0,0,0,.55) 44% 47%,rgba(0,0,0,0) 47% 71%,rgba(160,250,232,.13) 71% 74%,rgba(0,0,0,0) 74%); }
-  .L .ttl{ transform:translateX(5px); }
-  .L .bd{ text-shadow:0 0 8px rgba(97,168,159,.95), 4px 0 0 rgba(255,110,110,.42), -4px 0 0 rgba(110,190,255,.42); }` },
-
-  { id: 'solid', name: 'HOLOGRAM: SOLID LIGHT', from: 'less ghost, more slab',
-    say: 'Denser and brighter, closer to a block of light than a ghost. You could believe it would stop your hand.',
-    css: HOLO + `
-  .L .pnl{ background:linear-gradient(rgba(97,168,159,.40),rgba(97,168,159,.22));
-    border-top:2px solid rgba(190,255,242,.9); border-bottom:2px solid rgba(150,245,225,.6);
-    box-shadow:0 0 40px rgba(97,168,159,.55), 0 0 90px rgba(97,168,159,.28),
-      inset 0 0 34px rgba(190,255,242,.22); }
-  .L .ttl,.L .bd{ color:#f2fffc; text-shadow:0 0 6px rgba(230,255,250,.9),0 0 20px rgba(97,168,159,.9); }
-  .L .btn{ background:rgba(150,245,225,.28); border:2px solid rgba(200,255,246,.85); color:#f6fffd; }` },
-
-  { id: 'wire', name: 'HOLOGRAM: EDGE ONLY', from: 'outlines, nothing filled',
-    say: 'Only the edges are lit and the middle is empty air. The thinnest version there is, and the one you can still see the street through.',
-    css: HOLO + `
-  .L .pnl{ background:transparent; border:1px solid rgba(150,245,225,.75);
-    box-shadow:0 0 22px rgba(97,168,159,.35), inset 0 0 22px rgba(97,168,159,.10); }
-  .L .ttl,.L .bd{ color:transparent; -webkit-text-stroke:1px rgba(190,255,242,.92);
-    text-shadow:0 0 10px rgba(97,168,159,.8); }
-  .L .btn{ background:transparent; border:1px solid rgba(190,255,242,.85); color:transparent;
-    -webkit-text-stroke:1px rgba(230,255,250,.95); text-shadow:0 0 12px rgba(97,168,159,.9); }
-  .L .btn:active{ background:rgba(150,245,225,.35); color:#04100d; -webkit-text-stroke:0; }` },
-
-  { id: 'stamp', name: 'METAL: THE ONE YOU PICKED', from: 'unchanged, the anchor',
-    say: 'Exactly what you thumbed. Letters pressed into the plate, carrying no colour of their own.',
-    css: STAMP },
-
-  { id: 'deep', name: 'METAL: STRUCK HARDER', from: 'more force on the die',
-    say: 'Pressed much deeper. The shadow inside each letter goes almost black and the lit lip is sharp. Somebody leaned on it.',
-    css: STAMP + `
-  .L .pnl{ background:linear-gradient(158deg,#968d7c,#5a5348);
-    box-shadow:inset 0 3px 0 rgba(255,253,244,.55), inset 0 -4px 10px rgba(0,0,0,.6),
-      0 10px 20px rgba(0,0,0,.75); }
-  .L .rd,.L .ttl,.L .bd{ color:#4e483d;
-    text-shadow:0 3px 0 rgba(255,253,244,.75), 0 -2px 2px rgba(0,0,0,.95); }
-  .L .rd{ color:#5a5347 }
-  .L .btn{ color:#4a443a; text-shadow:0 3px 0 rgba(255,253,244,.8), 0 -2px 2px rgba(0,0,0,.95); }` },
-
-  { id: 'raised', name: 'METAL: RAISED, NOT SUNK', from: 'a licence plate',
-    say: 'The same idea turned inside out. The letters push OUT toward you instead of in, so the light sits on top of them and the shadow falls underneath.',
-    css: STAMP + `
-  .L .pnl{ background:linear-gradient(158deg,#7f7768,#4f483e);
+const RAISED = `
+  .L .pnl{ background:linear-gradient(158deg,#7f7768,#4f483e); border-radius:2px;
     box-shadow:inset 0 2px 0 rgba(255,252,240,.34), inset 0 -3px 8px rgba(0,0,0,.55),
       0 9px 18px rgba(0,0,0,.7); }
-  .L .rd,.L .ttl,.L .bd{ color:#a79d8b;
-    text-shadow:0 -1px 0 rgba(255,253,246,.75), 0 2px 2px rgba(0,0,0,.9), 0 3px 4px rgba(0,0,0,.55); }
-  .L .rd{ color:#97dccf; text-shadow:0 -1px 0 rgba(220,255,250,.6), 0 2px 3px rgba(0,0,0,.9); }
-  .L .btn{ background:linear-gradient(158deg,#8b8272,#544d42); color:#b3a996;
-    text-shadow:0 -1px 0 rgba(255,253,246,.8), 0 2px 3px rgba(0,0,0,.95); }` },
+  .L .rd{ color:#97dccf; }
+  .L .btn{ background:linear-gradient(158deg,#8b8272,#544d42); border:0; border-radius:2px;
+    box-shadow:inset 0 2px 0 rgba(255,252,240,.36), 0 5px 0 #2b2620, 0 9px 13px rgba(0,0,0,.6); }
+  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.6); }`;
 
-  { id: 'inked', name: 'METAL: PAINT IN THE GROOVES', from: 'struck, then wiped',
-    say: 'Stamped first, then paint dragged across the face and wiped off. Only the sunk letters keep it, so the colour is trapped in the damage.',
-    css: STAMP + `
-  .L .rd{ color:#1d4a44; text-shadow:0 2px 0 rgba(255,252,238,.5), 0 -1px 1px rgba(0,0,0,.6); }
-  .L .ttl,.L .bd{ color:#241a06;
-    text-shadow:0 2px 0 rgba(255,252,238,.55), 0 -1px 1px rgba(0,0,0,.55); }
-  .L .btn{ color:#241a06; text-shadow:0 2px 0 rgba(255,252,238,.6), 0 -1px 1px rgba(0,0,0,.6); }` },
+const HOLO = `
+  .L .stage{ padding-bottom:34px; }
+  .L .pnl{ position:relative; overflow:hidden; border:0;
+    border-top:1px solid rgba(150,245,225,.5); border-bottom:1px solid rgba(150,245,225,.28);
+    background:linear-gradient(rgba(97,168,159,.10),rgba(97,168,159,.025));
+    box-shadow:0 0 26px rgba(97,168,159,.22), 0 0 56px rgba(97,168,159,.10); }
+  .L .pnl > *{ position:relative; z-index:2; }
+  .L .rd{ color:#7fd8c8; text-shadow:0 0 6px rgba(97,168,159,.7); }
+  .L .ttl,.L .bd{ color:#dcfff7; text-shadow:0 0 6px rgba(97,168,159,.75); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(150,245,225,.5); color:#e6fffa;
+    border-radius:0; text-shadow:0 0 7px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(150,245,225,.42); color:#04100d; text-shadow:none; }`;
 
-  { id: 'brass', name: 'METAL: WORN BRASS', from: 'polished where hands land',
-    say: 'Warmer metal, brighter down the middle where thumbs have been rubbing it for years. The wear tells you which part actually gets used.',
-    css: STAMP + `
-  .L .pnl{ background:
-      radial-gradient(ellipse at 50% 55%,rgba(255,238,190,.30),transparent 62%),
-      linear-gradient(158deg,#9b8248,#5c4c26);
-    box-shadow:inset 0 2px 0 rgba(255,246,210,.5), inset 0 -3px 9px rgba(0,0,0,.55),
-      0 9px 18px rgba(0,0,0,.72); }
-  .L .rd,.L .ttl,.L .bd{ color:#6b5a2e;
-    text-shadow:0 2px 0 rgba(255,244,200,.6), 0 -1px 1px rgba(0,0,0,.8); }
-  .L .rd{ color:#75632f }
-  .L .btn{ background:
-      radial-gradient(ellipse at 50% 50%,rgba(255,240,195,.34),transparent 66%),
-      linear-gradient(158deg,#a98e4f,#66552a);
-    color:#63532a; text-shadow:0 2px 0 rgba(255,244,200,.65), 0 -1px 1px rgba(0,0,0,.85);
-    box-shadow:inset 0 2px 0 rgba(255,246,210,.55), 0 5px 0 #33290f, 0 9px 13px rgba(0,0,0,.6); }` },
+const LOOKS = [
+  { id: 'r_less', name: 'RAISED: LESS SHADOW', from: 'your note, applied',
+    say: 'Your note straight in: the shadow was most of the letter and now it is a fraction of it. The letters still stand up, you just are not reading the shadow instead of the word.',
+    css: RAISED + `
+  .L .rd,.L .ttl,.L .bd{ color:#b6ac99;
+    text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 1px rgba(0,0,0,.55); }
+  .L .rd{ color:#9fdfd2; text-shadow:0 -1px 0 rgba(220,255,250,.5), 0 1px 1px rgba(0,0,0,.55); }
+  .L .btn{ color:#c1b6a1; text-shadow:0 -1px 0 rgba(255,253,246,.65), 0 1px 1px rgba(0,0,0,.6); }` },
 
-  { id: 'dymo', name: 'METAL: EMBOSSED TAPE', from: 'a label gun',
-    say: 'The same idea in plastic: a strip squeezed through a label gun, and the plastic turns white exactly where it was stretched. The cheapest way anybody ever labelled anything.',
+  { id: 'r_hair', name: 'RAISED: BARELY THERE', from: 'one pixel of shadow',
+    say: 'As little as it can have and still look raised. One pixel under each letter, nothing more.',
+    css: RAISED + `
+  .L .rd,.L .ttl,.L .bd{ color:#c3b9a5;
+    text-shadow:0 -1px 0 rgba(255,253,246,.55), 0 1px 0 rgba(0,0,0,.45); }
+  .L .rd{ color:#a9e6d9; text-shadow:0 -1px 0 rgba(220,255,250,.45), 0 1px 0 rgba(0,0,0,.45); }
+  .L .btn{ color:#cec2ac; text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 0 rgba(0,0,0,.5); }` },
+
+  { id: 'r_top', name: 'RAISED: LIGHT ONLY, NO SHADOW', from: 'the shadow removed entirely',
+    say: 'No shadow at all. The letters only have a lit top edge, so the whole effect is the light and nothing else.',
+    css: RAISED + `
+  .L .rd,.L .ttl,.L .bd{ color:#b0a693; text-shadow:0 -1px 0 rgba(255,253,246,.85); }
+  .L .rd{ color:#9fdfd2; text-shadow:0 -1px 0 rgba(225,255,250,.75); }
+  .L .btn{ color:#bcb19c; text-shadow:0 -1px 0 rgba(255,253,246,.9); }` },
+
+  { id: 'r_dark', name: 'RAISED: DARKER PLATE', from: 'contrast instead of shadow',
+    say: 'The plate goes darker so the letters separate on their own. Less shadow needed because the difference is doing the work.',
     css: `
-  .L .pnl{ background:linear-gradient(#241f1b,#161311); border-radius:2px; padding:14px 11px 16px;
-    box-shadow:0 8px 16px rgba(0,0,0,.7); }
-  .L .rd,.L .ttl,.L .bd{ display:block; padding:6px 10px; margin-bottom:7px; border-radius:9px;
-    background:linear-gradient(#2f2723,#1c1715); color:#efe9df; letter-spacing:2.4px;
-    text-shadow:0 -1px 0 rgba(255,255,255,.55), 0 2px 2px rgba(0,0,0,.9);
-    box-shadow:inset 0 1px 0 rgba(255,250,240,.16), inset 0 -2px 4px rgba(0,0,0,.7),
-      0 2px 4px rgba(0,0,0,.6); }
-  .L .rd{ color:#bfeee4; }
-  .L .btn{ border:0; border-radius:9px; letter-spacing:3px; color:#fbf7ef;
-    background:linear-gradient(#3a2f16,#211a0c);
-    text-shadow:0 -1px 0 rgba(255,255,255,.6), 0 2px 2px rgba(0,0,0,.95);
-    box-shadow:inset 0 1px 0 rgba(255,250,230,.22), inset 0 -2px 5px rgba(0,0,0,.75),
-      0 4px 8px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(3px); }` }
+  .L .pnl{ background:linear-gradient(158deg,#4d473e,#2a2620); border-radius:2px;
+    box-shadow:inset 0 2px 0 rgba(255,252,240,.22), inset 0 -3px 8px rgba(0,0,0,.6),
+      0 9px 18px rgba(0,0,0,.72); }
+  .L .rd,.L .ttl,.L .bd{ color:#a79c88;
+    text-shadow:0 -1px 0 rgba(255,253,246,.5), 0 1px 1px rgba(0,0,0,.5); }
+  .L .rd{ color:#8fd8cc; text-shadow:0 -1px 0 rgba(220,255,250,.4), 0 1px 1px rgba(0,0,0,.5); }
+  .L .btn{ background:linear-gradient(158deg,#57503f,#312c24); border:0; border-radius:2px;
+    color:#b3a893; text-shadow:0 -1px 0 rgba(255,253,246,.55), 0 1px 1px rgba(0,0,0,.55);
+    box-shadow:inset 0 2px 0 rgba(255,252,240,.24), 0 5px 0 #17140f, 0 9px 13px rgba(0,0,0,.6); }
+  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.65); }` },
+
+  { id: 'r_wide', name: 'RAISED: MORE AIR', from: 'letters given room',
+    say: 'Same light shadow, but the letters are spaced further apart. Raised type needs air around it or the highlights start touching.',
+    css: RAISED + `
+  .L .rd,.L .ttl,.L .bd{ color:#b6ac99; letter-spacing:2.2px;
+    text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 1px rgba(0,0,0,.5); }
+  .L .rd{ color:#9fdfd2; letter-spacing:2.6px; }
+  .L .btn{ color:#c1b6a1; letter-spacing:3.2px;
+    text-shadow:0 -1px 0 rgba(255,253,246,.65), 0 1px 1px rgba(0,0,0,.55); }` },
+
+  { id: 'r_soft', name: 'RAISED: SOFTER LIGHT', from: 'a bigger, duller lamp',
+    say: 'The light hitting it is broader, so the top edge glows instead of flashing. Everything gets gentler without going flat.',
+    css: RAISED + `
+  .L .pnl{ background:linear-gradient(158deg,#6f6759,#443e35); }
+  .L .rd,.L .ttl,.L .bd{ color:#b9af9c;
+    text-shadow:0 -1px 2px rgba(255,253,246,.55), 0 2px 3px rgba(0,0,0,.4); }
+  .L .rd{ color:#a2e0d3; text-shadow:0 -1px 2px rgba(225,255,250,.5), 0 2px 3px rgba(0,0,0,.4); }
+  .L .btn{ background:linear-gradient(158deg,#7b7263,#484238); color:#c4b9a4;
+    text-shadow:0 -1px 2px rgba(255,253,246,.6), 0 2px 3px rgba(0,0,0,.45); }` },
+
+  { id: 'h_drift', name: 'HOLOGRAM: DRIFTING BANDS', from: 'moving, behind the words',
+    say: 'The bands slide slowly upward behind the text and the letters never move. All the life is in the field, none of it is in the message.',
+    css: HOLO + `
+  @keyframes bohDrift{ from{ background-position:0 0 } to{ background-position:0 -40px } }
+  .L .pnl::after{ content:''; position:absolute; inset:-40px 0; z-index:1; pointer-events:none;
+    background:repeating-linear-gradient(rgba(160,250,232,.11) 0 2px,transparent 2px 7px);
+    animation:bohDrift 5.5s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
+
+  { id: 'h_sweep', name: 'HOLOGRAM: ONE SLOW SWEEP', from: 'a single bar, every few seconds',
+    say: 'Almost completely still. One soft bar travels down the panel every seven seconds and that is the whole effect.',
+    css: HOLO + `
+  @keyframes bohSweep{ 0%{ transform:translateY(-120%) } 100%{ transform:translateY(320%) } }
+  .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:34%; z-index:1;
+    pointer-events:none;
+    background:linear-gradient(transparent,rgba(170,255,238,.16) 45%,rgba(170,255,238,.16) 55%,transparent);
+    animation:bohSweep 7s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:.5 } }` },
+
+  { id: 'h_breathe', name: 'HOLOGRAM: BREATHING', from: 'the field, not the letters',
+    say: 'The glow behind the words swells and fades, slowly, like the projector is not quite holding steady. Nothing tears and nothing jumps.',
+    css: HOLO + `
+  @keyframes bohBreathe{ 0%,100%{ opacity:.5 } 50%{ opacity:1 } }
+  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 50%,rgba(97,168,159,.20),transparent 72%);
+    animation:bohBreathe 4.5s ease-in-out infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
+
+  { id: 'h_rare', name: 'HOLOGRAM: RARE TEAR', from: 'clean, then once in a while it slips',
+    say: 'Clean nearly all the time. Every six seconds a band slides across the background for a fraction of a second and then it is gone. You notice it, you never fight it.',
+    css: HOLO + `
+  @keyframes bohTear{ 0%,88%,100%{ opacity:0; transform:translateY(30%) }
+    90%{ opacity:1; transform:translateY(28%) } 93%{ opacity:1; transform:translateY(52%) }
+    95%{ opacity:0; transform:translateY(56%) } }
+  .L .pnl::after{ content:''; position:absolute; left:-6%; right:-6%; top:0; height:16%; z-index:1;
+    pointer-events:none;
+    background:linear-gradient(rgba(170,255,238,.22),rgba(0,0,0,.34));
+    animation:bohTear 6s steps(1,end) infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:0 } }` },
+
+  { id: 'h_roll', name: 'HOLOGRAM: SLOW ROLL', from: 'a signal not quite locked',
+    say: 'A wide soft band rolls up the background forever, like a picture that never fully tunes in. Continuous, gentle, and the text stays hard.',
+    css: HOLO + `
+  @keyframes bohRoll{ from{ transform:translateY(100%) } to{ transform:translateY(-100%) } }
+  .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:100%; z-index:1;
+    pointer-events:none;
+    background:linear-gradient(transparent 0 30%,rgba(170,255,238,.13) 45%,rgba(170,255,238,.13) 55%,transparent 70% 100%);
+    animation:bohRoll 9s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
+
+  { id: 'h_static', name: 'HOLOGRAM: FAINT STATIC', from: 'noise in the field only',
+    say: 'A quiet grain crawling behind the words. The least structured of the six, and the closest to something simply not being solid.',
+    css: HOLO + `
+  @keyframes bohStat{ 0%{ background-position:0 0,0 0 } 100%{ background-position:37px -23px,-29px 31px } }
+  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.5;
+    background:
+      radial-gradient(circle 1px at 20% 30%,rgba(190,255,244,.5),transparent),
+      radial-gradient(circle 1px at 70% 65%,rgba(190,255,244,.45),transparent);
+    background-size:44px 38px,52px 46px;
+    animation:bohStat 2.6s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` }
 ];
 
 for (const L of LOOKS) {
@@ -291,7 +273,7 @@ const card = (L, i) => `
 
 const html = `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BOHEMIA &middot; LIGHT AND METAL</title>
+<title>BOHEMIA &middot; YOUR TWO, FIXED</title>
 <style>
 ${FACES}
 :root{ --bg:${C.bg}; --surface:${C.surface}; --ink:${C.ink}; --dim:${C.dim};
@@ -356,10 +338,10 @@ ${LOOKS.map((L) => L.css.replace(/\.L /g, '.L.' + L.id + ' ')).join('\n')}
 </style>
 
 <header>
-  <h1>LIGHT AND METAL &middot; ROUND 4</h1>
+  <h1>YOUR TWO, FIXED &middot; ROUND 5</h1>
   <button class="sun" id="sun">SUN MODE</button>
 </header>
-<p class="lede"><b>Two survived round three: the hologram and the stamped metal.</b> Six ways to push each. Number 1 and number 7 are the two you already picked, unchanged, so you can see exactly what every change did. <b>You can say yes to more than one.</b></p>
+<p class="lede"><b>Your three notes are all in here.</b> The shadow on the raised letters is a fraction of what it was. The hologram effect is dialled way down. And it MOVES, in the background, with the words held completely still. <b>You can say yes to more than one.</b></p>
 
 ${LOOKS.map(card).join('\n')}
 
@@ -372,7 +354,7 @@ ${LOOKS.map(card).join('\n')}
 
 <script>
 (function(){
-  var KEY='bohemia_ui_r4';
+  var KEY='bohemia_ui_r5';
   var NAMES=${JSON.stringify(LOOKS.map((L) => ({ id: L.id, name: L.name })))};
   var st={up:{},down:{},all:''};
   try{ var raw=localStorage.getItem(KEY); if(raw) st=JSON.parse(raw); }catch(e){}
@@ -401,7 +383,7 @@ ${LOOKS.map(card).join('\n')}
   document.getElementById('sun').addEventListener('click',function(){
     document.body.classList.toggle('sun'); });
   document.getElementById('exp').addEventListener('click',function(){
-    var L=[]; L.push('BOHEMIA - LIGHT AND METAL, ROUND 4 - PAOLO\\'S PICKS');
+    var L=[]; L.push('BOHEMIA - YOUR TWO FIXED, ROUND 5 - PAOLO\\'S PICKS');
     L.push('exported '+new Date().toISOString().slice(0,16).replace('T',' '));
     L.push('');
     var yes=[],no=[],non=[];
@@ -414,8 +396,8 @@ ${LOOKS.map(card).join('\n')}
     L.push(''); L.push('ANYTHING ELSE:'); L.push(st.all||'(nothing)');
     var b=new Blob([L.join('\\n')],{type:'text/plain'});
     var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-    a.download='BOHEMIA_UI_R4.txt'; a.click();
-    document.getElementById('done').textContent='saved as BOHEMIA_UI_R4.txt';
+    a.download='BOHEMIA_UI_R5.txt'; a.click();
+    document.getElementById('done').textContent='saved as BOHEMIA_UI_R5.txt';
   });
   apply();
 })();
