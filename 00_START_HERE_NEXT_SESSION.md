@@ -1465,7 +1465,29 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/27 (f) LATEST -- *** BAKE 7 SHIPPED WAVE 4 (the mall is a dead
+ART (art-f3eu53): 8/28 (g) LATEST -- *** THE GREAT TILE MIGRATION SHIPPED IN ONE
+DAY: PHASES 1, 2A AND 2B ARE ON MAIN AND THE TILE ART IS UNDER THE PLAYER'S FEET
+ON THE WALKED SURFACE. TAB: RUN (walk the landfill fill, the library plaza, the
+railyard boxcars, the datafort membrane roofs, the radio tank rows, the wash
+invert). Nothing to judge -- correct in the game. ***
+THE MACHINE: tools/bohemia_city_tileform_pool.py packages approved tileform
+banks (law line asserted) into slices/BOHEMIA_CITY_TILEFORMS.js (~430 KB, own
+late tag on the floors precedent, blocking chunk untouched); the walked page
+merges the pools into SA_IMG; the __PROPER_SIDEWALKS__ name table routes GROUND
+cells; c.sPool routes STRUCTURE cells (baker honours it AHEAD of the generic
+material pool -- specific beats generic; the halls wore patchwork brick until
+the order was fixed); the PROP layer's early return carries its own routing
+(cooling units, tanks/trays with the 8/27 axis split and rows-with-aisles); the
+centreline stain and blob-aware planter read the kit's own runs. THE VEHICLE
+FIX: the walked city parked a 2x4 SEDAN lattice on every vehicle blob, so the
+118 boxcars drew as three squashed cars each -- rolling stock rides the vehicle-
+post contract with its own nose-up masters and 7x4 lattice; verified 118 boxcar
++ 14 loco posts, the exact measured blob counts. Everything verified ON FOOT in
+human mode. 2C remains: guy wires (mast bearings), planter rims (overlay pass),
+Phase-2C names still art-less on the walked page from other families (sweep the
+city kits fresh). BAKE with the last two squint twins (basin scrub) still in
+the oven; hue went GREEN for the first time with bake 8. PREVIOUS:
+ART (art-f3eu53): 8/27 (f) -- *** BAKE 7 SHIPPED WAVE 4 (the mall is a dead
 mall, the waterpark is a slide tower, main 997f71a) -- AND THEN THE DAY'S REAL
 FINDING: ALL 32 WIRED TILE FAMILIES DRAW ONLY IN THE LEGACY RUN SLICE, WHICH THE
 ALPHA STOPPED DOWNLOADING ON 8/21. The player has never met the tile work on the
