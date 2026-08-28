@@ -2058,3 +2058,269 @@ craft essays, yes. Datasets, no, I can get those.**
   generally known English word lemmas", *Behavior Research Methods* (2014).
   39,954 lemmas, 1-5 scale, ~4,000 raters. Fetched via the ArtsEngine mirror.
 - George Orwell, "Politics and the English Language" (1946), six rules.
+
+# NOT EVERYONE IS A SHAKESPEARE STORYTELLER -- 8/28/26
+# His note: "keep doing research on how to write like a human and shit and
+# different characters not everyone has to be a shakespeare story teller."
+# This is a correction and I want to say so plainly. Every round of training
+# above this line has been about making a line GOOD. He is telling me that some
+# people should be BAD AT TALKING, and that a valley where everybody lands their
+# point is as fake as a valley where everybody says "the meter does not lie".
+
+## 88. FIRST I BUILT A BROKEN RULER, AGAIN. FIFTH ONE.
+I started by measuring how articulate each speaker is, using vocabulary richness
+(types divided by the square root of tokens, Guiraud's R). It gave me a clean
+ranking:
+
+    least rich   sibling_older 5.74, line 5.89, daughter 6.17, plumber 6.55
+    most rich    sergeant 11.06, trader 10.52, lineman 10.48, fitter 10.12
+    spread 5.32, stdev 1.45
+
+I nearly wrote that up as "your valley already has a five-point articulacy
+spread". Then I ran the honest test: **shuffle every line randomly among the
+speakers, keeping each speaker's line count, and see whether the spread survives.**
+It did. Permuted stdev averaged 1.402 against my observed 1.449, **p = 0.203**.
+
+That means the ranking was not measuring articulacy. It was measuring **who has
+the most words**. Every speaker in my "least rich" list had 60 to 97 words.
+Every speaker in my "most rich" list had 250 to 650. Guiraud's R is still
+sample-size dependent and I used it on samples that differ by a factor of ten.
+
+Fixed with MATTR, a moving-average type-token ratio over a fixed 50-word window,
+which does not care how long the sample is. Re-ran the permutation test on four
+measures:
+
+    measure               range                                  observed sd   permuted sd   p
+    vocabulary (MATTR)    0.66 (any) to 0.93 (worker:home)       0.050         0.038         <0.005
+    mean sentence length  4.8 words (scav) to 15.4 (foreman)     2.397         1.321         <0.005
+    long-word share       3.0% (elder) to 26.4% (ritual)         3.856         3.059         <0.005
+    contraction rate      0.0% (watch) to 13.5% (worker:free)    3.246         2.252         <0.005
+
+So the spread IS real, on all four, once the ruler stops rewarding word count.
+**Foreman speaks in sentences three times as long as scav. Elder uses long words
+one ninth as often as the ritual voice.** That is a genuine range and I did not
+put it there on purpose, which is its own problem: it is a side effect, not a
+design.
+
+THE LESSON, and it is the fifth broken ruler in a week and the fifth one shaped
+flatteringly: **a metric that correlates with sample size will always tell you
+your biggest characters are your best ones.** The permutation test is the cheap
+fix and I should run it on every per-speaker number from here on. If shuffling
+the lines gives you the same spread, you measured the bookkeeping, not the
+writing.
+
+## 89. THE REAL TEST: CAN A MACHINE TELL WHO SAID IT?
+Whedon's room had a rule I found while researching this: **if a line was written
+that anyone could say, it got dumped for a line only that character would say.**
+That is not an opinion, it is a classifier. So I built it.
+
+Leave-one-out naive Bayes over the 54 speakers with 8 or more lines. Hold out one
+line, remove it from its own speaker's counts, ask which speaker it most likely
+came from. Chance is 1.9%.
+
+    with real priors (bigger speakers favoured)   33.2%  (302/911)
+    uniform prior, length-normalised              31.1%  (283/911)
+
+Seventeen times chance. On the face of it, good. Then I broke it down per
+character, and the average was hiding the finding:
+
+    LEAST identifiable, 0% of their own lines correctly attributed:
+      boss, busker, clerk, fitter, fixer, forger, hauler, holder, keeper:home,
+      keeper:work, medic, midwife, neighbour, nurse, pumpman, returned,
+      scav:scav, tech, tenant, tunnel, watch:watch, watcher, worker:free,
+      worker:home, worker:work, worker:work@spanglish, wrongdoer
+
+    MOST identifiable:
+      any 79%, neighbor 50%, pastor 43%, (place) 42%, watch 36%, keeper 34%,
+      sergeant 33%, (object) 33%, owner 31%, mother 25%
+
+**27 of 51 speakers score exactly zero. Not one line of theirs can be traced back
+to them.** Fifty-three percent of the cast is interchangeable. The overall 31% is
+carried almost entirely by one bucket: `any`, which is 238 lines, the largest
+single voice in the game, and it is a **generic**. The most identifiable speaker
+in Bohemia is the one who is nobody.
+
+That is the Whedon problem measured on our own text, and it is exactly what he
+was pointing at with "not everyone has to be a Shakespeare storyteller", from the
+other side. I have been worrying about whether lines are good. **The lines are
+interchangeable, which is a different failure and a worse one.** A good line
+nobody owns is still a machine tell, because the tell is uniformity.
+
+## 90. SO NOBODY IN THE VALLEY IS BAD AT TALKING. HERE ARE THE NUMBERS.
+Over all 1,669 speech lines and 21,771 spoken words:
+
+    filled pause (uh, um, er, hm)          1 hit    0.1% of lines
+    word search ("what's it called")       0 hits   0.0%
+    exclamation mark                       0 hits   0.0%
+    adjacent repeated word                 8 hits   0.5%
+    trailing off (...)                    12 hits   0.7%
+    self-repair (a dash mid-line)         23 hits   1.3%
+    "I mean"                               5 hits   0.3%
+    "you know"                            18 hits   1.1%
+    hedge (kinda, sorta, maybe, I guess)  23 hits   1.3%
+    question mark                         85 hits   4.7%
+    vague noun (thing, stuff, whatever)  145 hits   8.1%
+
+Real conversation, measured: Bortfeld and colleagues (2001) put spontaneous
+speech at **about 6 disfluencies per 100 words**, men 6.80 and women 5.12, with
+fillers alone at 3.04 and 2.07. Ours is **0.00 filled pauses per 100 words.**
+One "uh" in the entire game.
+
+I am not going to turn that into "add 6 disfluencies per 100 words". Written
+dialogue is not a transcript and a page of "uh" is unreadable. Every craft source
+agrees on that. But zero is not stylisation, zero is **a cast that has never once
+lost its footing in a sentence**, and that is the same finding as the two
+question marks in 504 speeches from the original diagnosis. Nobody stumbles.
+Nobody gropes for the word. Nobody says the wrong thing and takes it back.
+
+## 91. WHAT "BAD AT TALKING" ACTUALLY MEANS, AND THE TRAP UNDER IT
+The trap is the one his own Spanglish law already named: **"Spanglish is a skill,
+not a broken language; writing everyone as broken English is bad linguistics and
+an insult to a third of the county."** The same sentence applies here with the
+word changed. A small vocabulary is not a small mind.
+
+The research backs him against my instinct. Bernstein's restricted/elaborated
+code (1971) got read for fifty years as working-class speech being deficient, and
+Labov took it apart in "The Logic of Nonstandard English": his fieldwork showed
+restricted, context-dependent speech is **logically coherent and rhetorically
+effective**, and that the educated speaker in his comparison was the one padding,
+hedging and taking four sentences to say nothing. His line about academic
+language: it is "easily taught and easily learnt so that words take the place of
+thought, and nothing can be found behind them". Bernstein himself said the
+restricted code carries its own aesthetic. The deficit reading was the misreading.
+
+So the axis is not smart to stupid. There are **at least four separate dials**
+and I have been treating them as one:
+
+    1. VOCABULARY SIZE      how many words they have
+    2. FLUENCY              whether the words come out in order
+    3. PRECISION            whether they say the thing they meant
+    4. FORCE                whether it lands
+
+Real spread on dial 1 is measured and bounded: Brysbaert (2016), 220,000
+participants, an average 20-year-old American knows **42,000 lemmas**, ranging
+from **27,000 at the bottom 5% to 52,000 at the top 5%**. That is a factor of
+1.9, not a factor of ten. So the inarticulate character in Bohemia is not a man
+with 500 words. He is a man with 27,000 words who **cannot get to the one he
+wants while you are looking at him.** That is dial 2 and 3, not dial 1.
+
+And the combinations are where characters live:
+- **low vocabulary, high force.** Says "no" and it is over. Most powerful person
+  in any room. Cuno in Disco Elysium is built entirely out of this: a tiny lexicon,
+  the same handful of words, third-person self-reference, and he is one of the
+  most remembered characters in a million-word game.
+- **high vocabulary, low force.** Talks beautifully, moves nothing. Labov's
+  educated speaker. Comic if you want it, tragic if you do not.
+- **high precision, low fluency.** Knows exactly what he means, cannot get it out
+  in one go. This is the one I have never written and it is the most human of the
+  four.
+- **high fluency, low precision.** Talks smoothly around the thing forever. Every
+  official in every collapse.
+
+## 92. HOW YOU WRITE SOMEBODY BAD AT TALKING WITHOUT BORING THE PLAYER
+Seven techniques, from Steinbeck, Pinter and the craft sources, all of which
+avoid the transcript problem:
+
+1. **REPETITION AS MEMORY, NOT AS FILLER.** Steinbeck's Lennie repeats a sentence
+   word for word to hold onto it. The trick is that all of Steinbeck's characters
+   repeat themselves; Lennie just does it more, and he also repeats *George*. The
+   repetition is doing characterisation work, not padding.
+2. **THE PAUSE CARRIES THE MEANING.** Pinter's whole method: each pause replaces
+   dialogue that could have been there. A character who stops is not a character
+   who has nothing to say. For us that is a real beat of silence in a talk scene,
+   not an ellipsis in the middle of a sentence.
+3. **THE WRONG WORD, NOT THE MISSING WORD.** Reaching for a big word and landing
+   next to it is specific and alive. Leaving a blank is dead.
+4. **SUBSTITUTION.** "That thing. The one by the door." Real people point with
+   words all the time and it never reads as stupid, it reads as somebody who
+   assumes you already know. Our vague-noun rate is already 8.1%, so this dial
+   is the one closest to being right.
+5. **SAY SOMETHING ELSE.** Craft consensus: a character covering a feeling says
+   an unrelated thing. That is subtext, and it is available to the most
+   inarticulate person in the game at no vocabulary cost at all.
+6. **GRAMMAR, NOT SPELLING.** Steinbeck used "he done" and "'em". Non-standard
+   grammar. Never phonetic accent spelling, which his Spanglish law already bans
+   for the same reason.
+7. **COMPETENCE DISPLACEMENT.** The man who cannot finish a sentence about his
+   daughter can tell you exactly which of the four pumps is going to fail and
+   why. Inarticulacy is domain-specific in real life and universal only in bad
+   writing.
+
+## 93. THE SIX ARTICULACY TYPES, AS A TYPED SPEC
+Factory law wants a typed spec, so here is the one this round produces. Every
+named speaker gets exactly one type. Dials are measurable, which means a gate can
+hold the *distribution* even though no gate can say whether a line is good.
+
+    type          vocab  fluency  precision  force   MATTR   sent.len  long%   share of cast
+    PLAIN          mid     high      high      mid    ~0.75    7-9       9-12%    ~40%
+    BLUNT          low     high      high      HIGH   ~0.68    4-6       3-7%     ~15%
+    STALLED        mid     LOW       high      mid    ~0.72    5-8       8-12%    ~10%
+    CIRCLER        high    high      LOW       low    ~0.85   12-16     14-20%    ~10%
+    FORMAL         high    high      high      mid    ~0.88   11-15     15-22%    ~10%
+    RITUAL         mid     high      high      HIGH   ~0.80    6-10     12-18%    ~5%
+    QUIET          low     n/a       n/a       HIGH   n/a      2-5       0-5%     ~10%
+
+The target is not "make everyone distinct". The target is **make the classifier
+in section 89 stop scoring 27 speakers at zero.** That is a number, it moves, and
+it cannot be gamed by writing better lines, only by writing different ones.
+
+The specific reading of his note: **PLAIN is 40% on purpose.** Most people in the
+valley are ordinary talkers. The mistake was not that we lacked exotic voices, it
+was that we lacked ordinary ones, because the house style made everybody sound
+like they had prepared a remark.
+
+## 94. AND THE FLOOR UNDER ALL OF IT
+One hard rule, taken straight from his own laws and not up for adjustment:
+**language never gates required information.** The stalled man, the blunt man and
+the quiet man all still hand the player what the player needs. Inarticulacy is
+texture, never an obstacle to knowing where the pump is. A player who has to
+replay a scene because a character could not finish a sentence will hate that
+character, and they will be right.
+
+Second floor: **nobody in this game is inarticulate because of where they are
+from.** That is the Bernstein misreading and it would land straight on the
+Spanglish register, which is the one place in the game where limited English is
+already visible. The stalled man and the circler are not Spanish speakers. If
+anything, put the CIRCLER in a suit.
+
+## 95. WHAT I NOW KNOW I DIDN'T KNOW
+36. **Half my cast is interchangeable and I had never tested it.** 27 of 51
+    speakers, zero lines correctly attributed. (§89)
+37. **My articulacy ruler was measuring word count**, and the permutation test is
+    the fix I should have been running all along. (§88)
+38. **Zero filled pauses in 21,771 words**, against a real-speech baseline of
+    about 6 disfluencies per 100. Nobody in Bohemia has ever lost their footing.
+    (§90)
+39. **Articulacy is four dials, not one**, and the interesting characters are the
+    mismatched pairs. (§91)
+40. **The real vocabulary spread between adults is 1.9x, not 10x**, so a small
+    vocabulary is the wrong way to write an inarticulate man. (§91)
+41. **"Bad at talking" is a craft trap with a fifty-year sociolinguistics fight
+    under it**, and his own Spanglish law already ruled on it. (§91)
+
+## 96. STILL OPEN
+- **Who gets which type is HIS.** I can build the spec and the gate. Naming the
+  blunt one, the circler and the quiet one is casting, and casting is a ruling.
+- I cannot measure FORCE. Vocabulary, fluency and sentence length are countable;
+  whether a line lands is not, and the gate must keep saying so out loud.
+- The `any` bucket is 238 lines under one generic name. Whether that is one
+  character or two hundred is a QUESTS question, not a WORDS one, but it is
+  distorting every voice number I produce and I should say that every time.
+
+## SOURCES, THIS ROUND
+- Bortfeld, Leon, Bloom, Schober and Brennan, "Disfluency Rates in Conversation:
+  Effects of Age, Relationship, Topic, Role, and Gender", *Language and Speech*
+  44(2), 2001. Men 6.80 and women 5.12 disfluencies per 100 words; fillers 3.04
+  and 2.07.
+- Brysbaert, Stevens, Mandera and Keuleers, "How Many Words Do We Know?",
+  *Frontiers in Psychology*, 2016. 42,000 lemmas average, 27,000 to 52,000 across
+  the 5th to 95th percentile, 220,000 participants.
+- Bernstein, *Class, Codes and Control* (1971), and the deficit-versus-difference
+  criticism; Labov, "The Logic of Nonstandard English" (1972).
+- Steinbeck's repetition method in *Of Mice and Men*, via the craft commentary on
+  Lennie's repeated sentences, mimicry of George, and non-standard grammar.
+- Pinter's pause as replaced dialogue, via the Harold Pinter Review comparison
+  with Annie Baker.
+- The Whedon room rule (a line anyone could say gets dumped), via the criticism
+  of quippy uniform dialogue.
+- Cuno in *Disco Elysium* as the worked example of tiny lexicon plus high force.
