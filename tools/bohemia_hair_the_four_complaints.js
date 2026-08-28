@@ -88,17 +88,48 @@ const MEASURE = `(() => {
         hair[i]=1; const y=(i/N)|0; rowN[y]=(rowN[y]||0)+1; if(y<top)top=y; if(y>bot)bot=y; }
       if (bot<0){ rows.push({n:h.n,dir,dead:true}); continue; }
 
+      /* *** THE QUESTION IS WHETHER THE MASS IS ONE PIECE, AND A TEXTURE HOLE IS NOT A
+         BREAK IN THE MASS. (8/28, hair wave 4.) ***
+         The moment textured haircuts entered the game this check reported ROPE LOCKS and
+         LONG WEAVE as broken on all five facings, and they are not: a loc style draws
+         two hairs and one parting, so the PAINT is separate ropes on purpose. Flood
+         filling the painted pixels was asking "is the paint connected", when what he
+         complained about was "does the hair let go of the head".
+         So the mask is CLOSED by one pixel first -- dilate, then erode -- which is
+         exactly wide enough to swallow a one-cell parting and far too narrow to swallow
+         a real break. THIS IS NOT AN EXEMPTION FOR TEXTURED STYLES, which is the shape of
+         thing that let a 23% faction share sit under a green gate two days ago: it is the
+         same measurement for every haircut, asked of the silhouette instead of the paint.
+         Mutation-checked: deleting the curtain fix still fails this, because two blank
+         ROWS do not close under a one-pixel dilate. */
+      const mask = new Uint8Array(N*N);
+      for (let y=0;y<N;y++) for (let x=0;x<N;x++) {
+        let on=0;
+        for (let dy=-1;dy<=1&&!on;dy++) for (let dx=-1;dx<=1&&!on;dx++) {
+          const yy=y+dy, xx=x+dx;
+          if (yy<0||yy>=N||xx<0||xx>=N) continue;
+          if (hair[yy*N+xx]) on=1; }
+        mask[y*N+x]=on; }
+      const solid = new Uint8Array(N*N);
+      for (let y=0;y<N;y++) for (let x=0;x<N;x++) {
+        let all=1;
+        for (let dy=-1;dy<=1&&all;dy++) for (let dx=-1;dx<=1&&all;dx++) {
+          const yy=y+dy, xx=x+dx;
+          if (yy<0||yy>=N||xx<0||xx>=N) { all=0; break; }
+          if (!mask[yy*N+xx]) all=0; }
+        solid[y*N+x]=all||hair[y*N+x]; }
+
       /* C -- CONNECTED BLOBS. one blob touching the head is a whole haircut. */
       const seen = new Uint8Array(N*N); const blobs = [];
       for (let i=0;i<N*N;i++){
-        if (!hair[i]||seen[i]) continue;
+        if (!solid[i]||seen[i]) continue;
         let st=[i], n=0, touch=false, by0=1e9, by1=-1;
         seen[i]=1;
         while (st.length){ const j=st.pop(); n++;
           const x=j%N, y=(j/N)|0; if(y<by0)by0=y; if(y>by1)by1=y;
           if (y>=hy0&&y<=hy1) touch=true;
           const nb=[j-1,j+1,j-N,j+N];
-          for (const k of nb){ if(k<0||k>=N*N||seen[k]||!hair[k]) continue;
+          for (const k of nb){ if(k<0||k>=N*N||seen[k]||!solid[k]) continue;
             if ((k===j-1&&x===0)||(k===j+1&&x===N-1)) continue;
             seen[k]=1; st.push(k); } }
         blobs.push({n, touch, by0, by1});
@@ -144,13 +175,30 @@ const MEASURE = `(() => {
       }
 
       /* D -- the neck pinch: narrowest row below the jaw against the widest */
+      /* the pinch is about the MASS too: a textured row is thin because it is a parting,
+         not because the hair is choking at the neck. */
+      const rowS = {};
+      for (let i=0;i<N*N;i++) if (solid[i]) { const y=(i/N)|0; rowS[y]=(rowS[y]||0)+1; }
+      /* *** A WAIST IS NARROW WITH WIDE ON BOTH SIDES OF IT. A TAIL IS JUST NARROW. ***
+         The first version took the narrowest row at the neck over the widest row of the
+         whole fall, and flagged NAPE TAIL and TIED ROPES -- a ponytail IS narrow at the
+         tie and stays narrow, which is a ponytail and not a defect. It also flagged MID
+         FALL at 0.14 on one thin row of a profile that looks right when you render it.
+         The bug he named was a WAIST: the mass pinches to a point at the jaw and FLARES
+         OUT AGAIN underneath. So the measurement needs the flare-back, not the narrowness
+         -- the widest row BELOW the pinch, against the widest row ABOVE it. A tail never
+         widens again and scores 1; a waist scores low, which is what it did before this
+         fix and still does. */
       let pinch = 0;
       if (bot > hy1+2){
-        let mnW=1e9, mxW=0;
-        for (let y=hy1-1; y<=Math.min(bot,hy1+8); y++){ const w=rowN[y]||0;
-          if (w<mnW) mnW=w; }
-        for (let y=hy1+1; y<=bot; y++){ const w=rowN[y]||0; if (w>mxW) mxW=w; }
-        pinch = mxW ? +(mnW/mxW).toFixed(2) : 1;
+        let mnW=1e9, mnY=-1;
+        for (let y=hy1-1; y<=Math.min(bot,hy1+8); y++){ const w=rowS[y]||0;
+          if (w<mnW) { mnW=w; mnY=y; } }
+        let above=0, below=0;
+        for (let y=Math.max(top,hy1-6); y<mnY; y++) above=Math.max(above,rowS[y]||0);
+        for (let y=mnY+1; y<=bot; y++) below=Math.max(below,rowS[y]||0);
+        /* only a flare-back counts: if the mass never gets wider again there is no waist */
+        pinch = (below>mnW && above>mnW) ? +(mnW/Math.min(above,below)).toFixed(2) : 1;
       }
       rows.push({ n:h.n, dir, med, brow, loose, second, pinch,
                   head:[hy0,hy1], bot, blobs: real.length });

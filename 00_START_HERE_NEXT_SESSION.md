@@ -1,3 +1,89 @@
+CHARACTER (character-0lurbs): 8/28 (LATEST) -- *** NINE NEW HAIRCUTS INCLUDING THE FIRST
+TEXTURED ONES THE GAME HAS EVER HAD, AND FOURTEEN MORE CUT IN THE SAME TURN. 15 -> 24.
+TAB: CHARACTER to try them on and to build a face, RUN for the crowd, LOOK for the sheet.
+Nothing to judge. ***
+
+HE RULED: "Cool I like it, but it's tough to analyze without implementing all the new
+hairstyles and shit." He is right and the number said so first: the portrait could draw 92
+haircuts and THE CITY OWNED FIFTEEN. A face maker with fifteen cuts in it is a demo of a
+face maker.
+
+*** READ THIS BEFORE YOU TOUCH THE GRAVEYARD. *** The wave-2 block says in plain text
+"SIDE PART, LIBERTY SPIKES, PONYTAIL and TOP KNOT are canon now" and quotes his "the
+cornrows is so much better very good". Read alone that says FIVE APPROVED HAIRCUTS HAVE
+BEEN SITTING SWITCHED OFF -- the invisible-hats shape, and exactly what I expected to find.
+READ TO THE END OF THE FILE IT DOES NOT: wave 3, one day later, killed all five, most for
+the second or third time, and a second kill is permanent. NEWEST DATE WINS + GRAVEYARD IS
+FINAL. A CONFIDENT YES IS AS EXPENSIVE AS A CONFIDENT NO -- yesterday's law says say where
+you looked; this is the same rule with the sign flipped: READ TO THE END OF THE RECORD
+BEFORE YOU ACT ON THE MIDDLE OF IT.
+
+23 COOKED, 9 SHIPPED, 14 CUT, and the cutting is the pipeline working:
+  3 CRESTS   head-on a crest is a HARD RECTANGLE. The taper that fixes it lives inside
+             `if(strip&&prof)` -- PROFILE ONLY, so the front has never had a shape. That
+             is the exact sentence MOHAWK was killed for in wave 3.
+  4 TIED     a ponytail is drawn `if(tie==='pony'&&!front)`, so the tail EXISTS FROM THE
+             SIDE AND NOT HEAD-ON: 1.05 head-heights of change in one notch, clause 1
+             exactly. The knot and tail are also literal rectangles (18-row straight edge).
+  6 MORE     after three mechanical fixes they still ran a straight edge 7-9 rows against
+             a locked limit of 6.
+A COOK THAT FAILS A LAW IS NOT A COOK, IT IS A REGRESSION WITH NEW NAMES.
+
+THREE MECHANICAL CAUSES FOUND AND FIXED, AND THEY IMPROVED THE FIFTEEN THAT WERE ALREADY
+IN (straight runs across the whole game 19.5% -> 17.2%, pin tightened):
+  - the loc parting ran DEAD STRAIGHT and read as a barcode. The first drift stepped every
+    TWO CELLS, which at 112 is FOUR PIXEL ROWS -- exactly the length the law calls a
+    straight run. A JITTER WHOSE STEP EQUALS THE THING YOU ARE HIDING FROM HIDES NOTHING.
+  - a braid was `(_ph%3===2)&&(_pq%3===2)`, a GRID OF HOLES, and rendered as a punched
+    card. The first fix then SEVERED THE ROPE and long hair came out as floating debris.
+  - a fall hangs off ONE FIXED SPAN below the jaw, so its edge only moved when a three-way
+    hash happened to change. It ALTERNATES now: guaranteed to move every cell.
+  - plus the strand pass now runs on TEXTURED styles. Their marks sit at his 2:1 ratio but
+    that ratio counts CELLS, so every mark was two pixels and 8/25 clause 2 asks for ONE.
+
+FOUR MORE BROKEN RULERS, FIFTH THROUGH EIGHTH THIS WEEK, ALL FLATTERING-SHAPED:
+  - hairline_gate counted PAINT, not MASS. A loc draws two hairs and one parting, so the
+    paint is separate ropes ON PURPOSE. The mask is CLOSED by one pixel now. THIS IS NOT AN
+    EXEMPTION FOR TEXTURED STYLES -- that is the shape of thing that let a 23% faction
+    share sit under a green gate -- it is the same question asked of the silhouette.
+  - its neck check could not tell a WAIST from a TAIL and flagged a ponytail for being
+    narrow. A waist is narrow with wide ABOVE AND BELOW; it measures the flare-back now.
+  - its piece cap was a COUNT on a list that is supposed to grow: set at 5 for fifteen
+    haircuts, red at thirty-five on a build whose RATE had improved.
+  - craft_law clause 4 was pinning CHARACTERS directly under its own comment saying twice
+    PIN THE BEHAVIOUR NOT THE CHARACTERS. FOURTH time that gate has done it to itself.
+
+THE RULE, NOW LOCKED: A HAIRCUT IS NOT DONE UNTIL IT READS FROM ALL EIGHT DIRECTIONS. Cook
+it, render every facing, and LOOK. A shape that only works head-on is not a haircut with a
+bug in it, it is a haircut that does not exist yet.
+
+GATES: hair 35/0 (pin tightened 0.195 -> 0.172), hairline 12/0, portrait haircut 12/0,
+face maker 13/0, craft law 39/0, structure 134/0, dress 46/0 (291 items), clothes 4x 13/0
+(56 pin rebaselined WITH THE REASON LOGGED: 264 hashes, all genHair, all tex locs/braid,
+and no canon garment used either texture before this turn), talking portrait 27/0, look 24/0.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE CREST, PROPERLY. Head-on and from behind it has never had a shape -- only the
+    profile branch tapers. That is one bounded job and it unlocks three cooked styles that
+    are sitting in the record rather than the game.
+ 2. THE TIE, PROPERLY. `!front` means a ponytail does not exist when you look at somebody.
+    Nobody in the valley has their hair up, and in a desert that is a real hole.
+ 3. THE FACE HE BUILDS DOES NOT SURVIVE A RELOAD. It writes the live pface, which is what
+    the game plays, but nothing saves it. A SAVE-SYSTEM row.
+
+WHAT IS PENDING HIM: nothing from this lane. WHO LIVES IN THE VALLEY (skin tone uniform
+across nine) stays his, flagged not decided.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carries an
+embedded wardrobe bank ~70 garments behind and nothing gates it; two duplicate top-level
+function names in COMBAT (CombatBridge, clampPkg).
+
+================================================================================
+
+================================================================================
+
+================================================================================
+
 COMBAT (combat-nfnki9): 8/28 (e) LATEST -- *** RF4-14 SAID OF ITSELF "NOT
 MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT". IT IS MEASURED NOW
 AND A THIRD OF EVERY FIGHT WAS A DEAD TURN. *** Nothing to judge.

@@ -23317,6 +23317,29 @@ window.CLO=(function(){
     /* the FALL's own step -- see the front-curtain branch below. Same cell-row grid and
        the same style seed as wob(), a different hash so the two edges of one curtain
        never move together like a printed ribbon. */
+    /* *** A FALL SWAYS. (8/28, hair wave 4, clause 3.) ***
+       Below the jaw the mass hangs off span(hBot), which is the SAME row for every row of
+       the fall, so a long style's outer edge is a straight column that only the two
+       one-cell wobbles ever move. That was invisible while the longest style fell about a
+       head-height; cook a fall of two and it is fourteen straight rows, and hair_gate
+       measured the whole game going 19.5% -> 22.0% straight runs the moment the batch
+       landed. THE ART WAS WRONG, NOT THE PIN -- checked against origin/main, which still
+       reads 19.5% on the same ruler.
+       So the whole fall drifts sideways by a cell every three cell-rows, deterministic off
+       the style seed. It moves BOTH edges together, so it is a sway and not a change of
+       thickness: the haircut keeps its width and stops being a ruler. Below hBot only, so
+       nothing on the head moves and no approved silhouette is touched, and S>1 only, so
+       the 56 wardrobe is byte-identical. */
+    var _sway=function(y){ if(S<2||y<=hBot)return 0;
+      var seg=(((y-hBot)/S)|0);   /* one cell per step, for the same reason as the parting */
+      var h=(Math.imul((_wseed^(((seg+11)*2654435761)>>>0))>>>0,3266489909))>>>0;
+      /* IT ALTERNATES, IT DOES NOT ROLL. A three-way hash per cell leaves the edge in the
+         same place two cells running about a third of the time and three cells running a
+         ninth of the time -- which is a four- and six-row straight edge, and hair_gate
+         asks for no run longer than six. A roll cannot promise anything; alternating
+         between nothing and a hashed one-cell step promises the edge moves every cell,
+         and the DIRECTION still comes off the seed so the sway is not a metronome. */
+      return (seg%2) ? (((h>>>15)&1)?S:-S) : 0; };
     var _fall=function(y,side){ var h=(Math.imul((_wseed^((((y/S)|0)*40503)>>>0))>>>0,3266489909))>>>0;
       var base=((h>>>(side?9:21))&1)?S:0;
       /* and the same sub-cell rule wob() follows: only where the cell step did NOT
@@ -23451,7 +23474,15 @@ window.CLO=(function(){
        SOLID STYLES ONLY: locs and braids already carry their own marks at his approved
        2:1 ratio and are not touched. S>1 only, so the 56 wardrobe is untouched. */
     var strandPass=function(oo){
-      if(S<2||tex!=='solid'||(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH))return oo;
+      /* *** IT RUNS ON TEXTURED STYLES TOO NOW (8/28). *** The header used to say "SOLID
+         STYLES ONLY: locs and braids already carry their own marks at his approved 2:1
+         ratio". They carry marks, but the 2:1 ratio counts CELLS, so at 112 every one of
+         those marks is TWO pixels wide -- and hair_gate, which asks for a mark ONE pixel
+         wide inside the silhouette (8/25 clause 2), was right to fail SHORT ROPES and
+         SCALP ROWS. A style can be textured and still be drawn at 56.
+         It only ever DARKENS a pixel the garment already owns, so it cannot thin a rope
+         or open a hole in one, and the 2:1 ratio is untouched. */
+      if(S<2||(typeof CLO_NOSTITCH!=='undefined'&&CLO_NOSTITCH))return oo;
       var _sd2=0, _sn=(opt.name||'');
       for(var _si=0;_si<_sn.length;_si++){_sd2=(Math.imul(_sd2^_sn.charCodeAt(_si),16777619))>>>0;}
       var _ph=(_sd2>>>11)%(4*S);
@@ -23494,8 +23525,40 @@ window.CLO=(function(){
          phase counts hairs -- cells -- not pixels. Counting pixels at 112 halves
          every cornrow and the whole head goes back to "closer to a comb". */
       var _ph=((prof?(y-hTop):(x-hMn))/S)|0, _pq=((prof?(x-hMn):(y-hTop))/S)|0;
-      if(tex==='locs')  return (_ph%3===2);                     /* 2 hair : 1 skin */
-      if(tex==='braid') return ((_ph%3===2)&&(_pq%3===2));
+      /* *** AND A PARTING THAT NEVER MOVES IS A BARCODE. (8/28, hair wave 4.) ***
+         The 2:1 ratio is his, exact, and it stays. What was wrong is that the parting
+         ran DEAD STRAIGHT the whole length of the head: cook a long loc style, render
+         the back of the head, and it is three ruled black bars on a light ground. I
+         looked at it at 9x and it read as a barcode, not as hair -- which is HOW HAIR
+         AND SHAPE WORK (8/1) clause 3, "hair is little off shapes ... I'm seeing you
+         make like a lot of straight lines and that's not realistic at all", broken by
+         the one mechanism in this generator that was supposed to be about hair.
+         IT DRIFTS BY ONE CELL, in segments two cells long down the CROSS axis,
+         deterministic off the style seed -- the identical method the strand pass and
+         the wobble already use, so a loc wanders the way a real one does and nobody in
+         a crowd shimmers. The RATIO is untouched: still two hairs to one parting, and
+         at S===1 the drift cannot fire, so the 56 wardrobe is byte-identical.
+         AND A BRAID IS A ROPE, NOT A NET. `(_ph%3===2)&&(_pq%3===2)` skipped only where
+         two independent stripes crossed, which is a GRID OF HOLES -- rendered on a long
+         style it read as a punched card. A braid is a loc with the strands crossing it,
+         so it is the loc parting plus a break every other cell ALONG the flow. */
+      var _dr=0;
+      if(S>1&&(tex==='locs'||tex==='braid')){
+        /* ONE CELL PER STEP, NOT TWO. At two the parting held still for two cells, which
+           at 112 is FOUR PIXEL ROWS -- exactly the length hair_gate calls a straight run,
+           so the drift was landing precisely on the threshold it was meant to defeat.
+           Measured: LONG WEAVE 37.7% of its edge rows in runs of 4+, SCALP ROWS 43.3%,
+           against a whole-game pin of 19.5%. A jitter whose step equals the thing you are
+           hiding from hides nothing. */
+        var _dh=(Math.imul((_wseed^((_pq+3)*2654435761))>>>0,2246822507))>>>0;
+        _dr=((_dh>>>17)%3)-1; }
+      if(tex==='locs')  return (((_ph+_dr)%3+3)%3===2);          /* 2 hair : 1 skin */
+      /* THE TICK MUST NOT SEVER THE ROPE. At every other cross-row it cut the second of
+         the two hair columns as well, and a two-wide rope with both columns gone is not
+         a braid segment, it is a hole -- LONG WEAVE came out as black debris floating on
+         the shoulders. Every third row instead, so a braid reads as segments that still
+         hold on to each other. */
+      if(tex==='braid') return ((((_ph+_dr)%3+3)%3===2)||(_pq%3===2&&(((_ph+_dr)%3+3)%3===1)));
       return false; };
     /* SKIN-TONED HAIR PIXELS (Paolo 8/1, REJECTING my first fade attempt):
        "I didn't like any of your new additions. I was actually thinking more in
@@ -23733,6 +23796,7 @@ window.CLO=(function(){
         mn=Math.ceil(_d2/2)-strip*S; mx=Math.floor(_d2/2)+strip*S; }
       if(y>hBot){                                                  /* past the jaw: the fall narrows */
         var t=y-hBot, _nw=Math.min(2*S,((t/(3*S))|0)*S); mn+=_nw; mx-=_nw;
+        var _sw=_sway(y); mn+=_sw; mx+=_sw;                        /* and it sways */
         /* THE FALL HANGS BEHIND THE HEAD, NOT DOWN THE MIDDLE (Paolo 8/2). Below the
            jaw it narrowed symmetrically toward the sprite centre. From the front the
            back of the head IS the centre; in PROFILE it is at one EDGE, so a centred
@@ -23834,7 +23898,7 @@ window.CLO=(function(){
            because this branch replaces the edges the shared wobble had already moved,
            and a fall drawn as two ruled columns is clause 3 all over again. */
         var _ciL=0,_ciR=0;
-        if(y>hBot){ fs=[hMn,hMx]; mn=fs[0]-wob(y,0); mx=fs[1]+wob(y,1);
+        if(y>hBot){ var _sw2=_sway(y); fs=[hMn+_sw2,hMx+_sw2]; mn=fs[0]-wob(y,0); mx=fs[1]+wob(y,1);
           var _tp=Math.min(Math.max(0,cw-S),(((y-hBot)/(4*S))|0)*S);
           cw=Math.min(cw-_tp,Math.max(S,(fs[1]-fs[0]+1)>>1));
           /* A FALL HAS TWO EDGES AND BOTH OF THEM ARE HAIR. The wobble above moves the
@@ -24833,6 +24897,96 @@ window.CLO=(function(){
     {n:'TOP KNOT',st:'dead',layer:'hair',gen:function(g){return genHair(g,{name:'TOP KNOT',ramp:H_BLK,vol:0,side:0.40,front:0.16,tie:'top'});}},
     {n:'LOW BUN',st:'dead',layer:'hair',gen:function(g){return genHair(g,{name:'LOW BUN',ramp:H_GRY,vol:0,side:0.60,front:0.22,tie:'bun'});}},
     {n:'GREY WISPS',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'GREY WISPS',ramp:H_WHT,vol:0,side:0.56,front:0.10});}},
+    /* ===== HAIR WAVE 4 (Paolo 8/28: "it's tough to analyze without implementing all
+       the new hairstyles and shit") ==========================================
+       HE IS RIGHT AND THE NUMBER SAYS SO: the portrait can draw 56 haircuts and the
+       CITY OWNS FIFTEEN. A face maker with fifteen cuts in it is a demo of a face
+       maker. So this is the batch, and it is a COOK, not a retune.
+
+       *** EVERY DEAD SLOT WAS CHECKED FIRST AND NOT ONE IS REVIVED. *** The graveyard's
+       wave-2 note says in plain words that SIDE PART, LIBERTY SPIKES, PONYTAIL and TOP
+       KNOT "are canon now", and CORNROWS carries his "so much better very good". Read
+       alone, that says five approved haircuts have been sitting switched off. READ TO
+       THE END OF THE FILE IT DOES NOT: wave 3, one day later, killed all five, most of
+       them for the second or third time, and a second kill is permanent with no third
+       look. NEWEST DATE WINS (truth hierarchy) and GRAVEYARD IS FINAL. Every name below
+       is new; none is a burned token; none is a retune of a dead shape.
+
+       AND THE SLOTS ARE OPEN BECAUSE THE MACHINE IS DIFFERENT NOW. Wave 3's own header
+       names the common cause -- "a lot of the sideways shit still fucked up" -- and that
+       is the thing that got fixed yesterday: hair covers the side of the head behind a
+       real hairline instead of a four-pixel strip. The crest tapers (mohawk's "rectangle
+       on someone's head"), the fall hangs behind the head in profile instead of down the
+       middle (mullet's kill), the 2px bulb was halved (the Oompa Loompa cause), and long
+       hair no longer lets go of the head at the jaw. The graveyard says of CORNROWS that
+       "its 2:1 texture mechanism LIVES and carries any future weave" -- this is that
+       future weave, in shapes he has never seen.
+
+       WHAT THE FIFTEEN DID NOT COVER, which is what this fills:
+         TEXTURE   not one canon cut had any. All fifteen are tex 'solid', which is the
+                   last thing the portrait and the body still disagreed about.
+         TIED      nobody in the valley had their hair up. Half of any real population
+                   does, and in a desert it is not a style choice.
+         A CREST   nothing with a strip.
+         VOLUME    flare stopped at 0.10 and vol at 2.
+         LENGTH    a hole between 0.82 and 1.30, and another between 1.60 and 2.40.
+         HAIRLINE  nothing past front 0.34.
+         TAPERS    the fade dial existed on five cuts and no cut was ABOUT it. */
+    /* *** THE THREE CRESTS WERE COOKED AND CUT IN THE SAME TURN, BY LOOKING. ***
+       RIDGE CREST, SPIKED CREST and WIDE CREST are not in this list and that is
+       deliberate. From the front the crest renders as a HARD RECTANGLE sitting on top
+       of the head -- which is the exact sentence MOHAWK was killed for in wave 3, "it's
+       like a rectangle on someone's head", and shipping it again under a new name would
+       be answering his verdict with a rename.
+       THE CAUSE IS ANOTHER HALF-FINISHED FIX, the third this week. genHair DOES taper
+       the crest -- "NOT A RECTANGLE ... a real crest is shorter at brow and nape,
+       tallest over the crown" -- and that taper lives inside `if(strip&&prof)`. PROFILE
+       ONLY. Head-on and from behind the crest has never had a shape at all.
+       A crest that reads from every angle is its own cook, not a dial on this batch,
+       and it is a named row in the handoff. Nothing was shipped broken to make a
+       number look bigger. */
+    /* *** AND THE FOUR TIED STYLES WENT THE SAME WAY, FOR THE SAME REASON. ***
+       WORK KNOT, NAPE TAIL, DESERT COIL and TIED ROPES were cooked and cut in this turn.
+       hair_gate found both halves of it and I could not argue with either:
+         CLAUSE 1  a ponytail is drawn `if(tie==='pony'&&!front)`, so the tail EXISTS from
+                   the side and DOES NOT EXIST head-on. Measured: the fall changed by 1.05
+                   head-heights between SE and E -- a haircut that grows a tail when you
+                   turn one notch, which is the exact failure clause 1 is named for.
+         CLAUSE 3  the knot and the tail are drawn as literal rectangles, and the longest
+                   straight edge in the game went to 18 rows. "Hair is little off shapes
+                   ... a lot of straight lines and that's not realistic at all" (8/1).
+       Nobody in the valley has their hair up, and in a desert that is a real hole -- it is
+       a named row in the handoff. But the tie mechanism has never been finished, and
+       shipping four styles built on it means shipping the thing two LOCKED clauses forbid.
+       A COOK THAT FAILS A LAW IS NOT A COOK, IT IS A REGRESSION WITH NEW NAMES. */
+    /* *** AND SIX MORE WERE CUT BY hair_gate, WHICH IS THE PIPELINE WORKING. ***
+       BIG COILS, LONG WEAVE, MID FALL, SCALP ROWS, CROWN LIFT and CHEST LENGTH were
+       cooked in this turn and are not in this list. HOW HAIR AND SHAPE WORK (8/1, LOCKED)
+       clause 3 allows no hair edge to run straight for more than six rows; the fifteen
+       styles that were already canon top out at exactly six, and these six measured
+       seven, eight and nine.
+       THREE MECHANICAL CAUSES WERE FOUND AND FIXED FIRST, and they are why the nine that
+       shipped are better than the batch would otherwise have been: the loc parting was
+       stepping every two cells, which at 112 is FOUR PIXEL ROWS -- exactly the length the
+       law calls a straight run, so the jitter was landing on the threshold it existed to
+       defeat; the fall below the jaw hung off one fixed span and only moved when a
+       three-way hash happened to change, so it now ALTERNATES and is guaranteed to move
+       every cell; and the strand pass was skipping textured styles, which is why two of
+       them carried no one-pixel mark at all.
+       AFTER ALL THREE, THESE SIX STILL MISSED, so they are cut rather than carried. A
+       fifth round of tuning one batch is the thing STOP PRODUCING is named after, and
+       moving the pin to fit the art would be a gate outranking a ruling with the sign
+       flipped. What they cost is written down: the 1.10 and 2.00 length bands and a
+       close-to-the-scalp weave are still holes, and they are a handoff row. */
+    {n:'ROPE LOCKS',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'ROPE LOCKS',ramp:H_BLK,vol:1,side:1.50,front:0.20,tex:'locs'});}},
+    {n:'SHORT ROPES',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'SHORT ROPES',ramp:H_BRN,vol:0,side:0.62,front:0.18,tex:'locs'});}},
+    {n:'DUST WEAVE',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'DUST WEAVE',ramp:H_BRN,vol:0,side:0.95,front:0.22,tex:'braid'});}},
+    {n:'COIL CROWN',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'COIL CROWN',ramp:H_BLK,vol:2,side:0.72,front:0.24,flare:0.20});}},
+    {n:'LAYERED FALL',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'LAYERED FALL',ramp:H_SND,vol:1,side:1.42,front:0.26,flare:0.12});}},
+    {n:'CURTAIN CUT',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'CURTAIN CUT',ramp:H_BRN,vol:0,side:0.78,front:0.42});}},
+    {n:'HEAVY FRINGE',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'HEAVY FRINGE',ramp:H_BLK,vol:1,side:0.64,front:0.46});}},
+    {n:'DRY TAPER',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'DRY TAPER',ramp:H_BRN,vol:1,side:0.36,front:0.16,fade:6});}},
+    {n:'DEEP TAPER',st:'canon',layer:'hair',gen:function(g){return genHair(g,{name:'DEEP TAPER',ramp:H_BLK,vol:1,side:0.32,front:0.14,fade:9});}},
 
     /* --- CANON base tops --- */
     {n:'RED SHIRT',st:'canon',layer:'base',gen:function(g){return genTop(g,{ramp:RED,sleeves:true});}},

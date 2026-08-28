@@ -379,6 +379,50 @@ research partner. He DECIDES, you PRODUCE.
   the whole feature passed 27 of 27. It counts rendered iris pixels now. A CHECK THAT READS
   WHAT YOU HANDED IT IS NOT A CHECK. Tab: RUN (talk to anybody) / LOOK. Full law:
   laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md  Gate: talking_portrait_gate.js
+- A HAIRCUT READS FROM EVERY ANGLE OR IT IS NOT A HAIRCUT (Paolo 8/28, LOCKED): "Cool I
+  like it, but it's tough to analyze without implementing all the new hairstyles and shit."
+  The portrait could draw 92 haircuts and THE CITY OWNED FIFTEEN. *** FIRST, EVERY DEAD
+  SLOT WAS CHECKED AND NOT ONE WAS REVIVED, AND THE TRAP IS WORTH THE WORDS: the graveyard's
+  WAVE 2 block says in plain text "SIDE PART, LIBERTY SPIKES, PONYTAIL and TOP KNOT are
+  canon now" and quotes his "the cornrows is so much better very good". Read alone that
+  says FIVE APPROVED HAIRCUTS HAVE BEEN SITTING SWITCHED OFF -- the invisible-hats shape,
+  and what I expected to find. READ TO THE END OF THE FILE IT DOES NOT: wave 3, one day
+  later, killed all five, most for the second or third time. NEWEST DATE WINS + GRAVEYARD
+  IS FINAL. A CONFIDENT YES IS AS EXPENSIVE AS A CONFIDENT NO -- yesterday's law says say
+  where you looked; this is the same rule with the sign flipped: READ TO THE END OF THE
+  RECORD BEFORE YOU ACT ON THE MIDDLE OF IT. *** 23 COOKED, NINE SHIPPED, FOURTEEN CUT IN
+  THE SAME TURN, which is the kill/approve pipeline working and not a failure of it: three
+  CRESTS because head-on a crest is a HARD RECTANGLE (the taper lives inside
+  `if(strip&&prof)` -- PROFILE ONLY, so the front has never had a shape) and that is the
+  exact sentence MOHAWK died for; four TIED styles because a ponytail is drawn
+  `if(tie==='pony'&&!front)` so the tail EXISTS FROM THE SIDE AND NOT HEAD-ON, measured at
+  1.05 head-heights of change in one notch, which is clause 1 exactly; six more because
+  their edges ran straight for 7-9 rows against a locked limit of 6. A COOK THAT FAILS A
+  LAW IS NOT A COOK, IT IS A REGRESSION WITH NEW NAMES. *** THREE MECHANICAL CAUSES FOUND
+  AND FIXED, AND THEY IMPROVED THE WHOLE GAME INCLUDING THE FIFTEEN THAT WERE ALREADY IN
+  (straight runs 19.5% -> 17.2%, pin tightened): the loc parting ran DEAD STRAIGHT and read
+  as a barcode, and the first drift stepped every TWO CELLS which at 112 is FOUR PIXEL ROWS
+  -- exactly the length the law calls a straight run, so A JITTER WHOSE STEP EQUALS THE
+  THING YOU ARE HIDING FROM HIDES NOTHING; a braid was `(_ph%3===2)&&(_pq%3===2)`, a GRID
+  OF HOLES that rendered as a punched card, and the first fix SEVERED THE ROPE; and a long
+  fall hangs off ONE FIXED SPAN so its edge only moved when a three-way hash happened to
+  change -- it ALTERNATES now, so it is guaranteed to move every cell. Plus the strand pass
+  runs on textured styles: their marks are at his 2:1 ratio but that ratio counts CELLS, so
+  every mark was two pixels and 8/25 clause 2 asks for ONE. Result: 15 -> 24 canon cuts,
+  the first TEXTURED haircuts the game has ever had, 56 -> 92 drawable in the portrait.
+  *** AND FOUR MORE BROKEN RULERS, FIFTH THROUGH EIGHTH THIS WEEK: hairline_gate counted
+  PAINT not MASS (a loc is separate ropes ON PURPOSE) -- fixed by CLOSING the mask one
+  pixel, which is NOT an exemption for textured styles, it is the same question asked of
+  the silhouette; its neck check could not tell a WAIST from a TAIL and flagged a ponytail
+  for being narrow; its piece cap was a COUNT on a list that is supposed to grow, so it
+  went red at 35 styles on a build whose RATE had improved; and craft_law clause 4 was
+  pinning CHARACTERS directly under its own comment saying twice PIN THE BEHAVIOUR NOT THE
+  CHARACTERS -- fourth time that gate has done it to itself. THE RULE: A HAIRCUT IS NOT
+  DONE UNTIL IT READS FROM ALL EIGHT DIRECTIONS. Cook it, render every facing, LOOK. The
+  crest and the tie are unfinished mechanisms and are NAMED ROWS, not silent omissions.
+  Tab: CHARACTER / RUN / LOOK. Full law:
+  laws/BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md  Gates: hair_gate.js,
+  hairline_gate.js, portrait_haircut_gate.js, craft_law_gate.js
 - THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28, finishing his 8/26 "eye colors
   matching the portrait again"): ONE ID ONE WHOLE PERSON fixed skin, hair COLOUR and eyes on
   8/27 and its record says "same person on both sides now, every time". THE HAIRCUT ITSELF

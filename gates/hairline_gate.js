@@ -41,7 +41,15 @@ const BROW_MIN  = 0.33;   /* share of the browline row that is hair, in profile.
 const WIDE_MIN  = 11;     /* hair pixels in a typical row below the brow.         before: 10, now 12-16 */
 const LOOSE_MAX = 0;      /* pieces of hair not touching the head.                before: 6 of 75 */
 const PINCH_MIN = 0.45;   /* narrowest neck row over the widest of the fall.      before: 8 of 75 choked */
-const PIECES_MAX = 5;     /* style/facings drawn in more than one piece.          before: 11 of 75, now 5 */
+/* *** A SHARE, NOT A COUNT. *** This was 5, set when the game had fifteen haircuts, and
+   it went red the moment the wardrobe grew to thirty-five -- on a build whose RATE had
+   improved. An absolute count on a list that is supposed to grow is a gate against
+   cooking, which is the opposite of what this one is for; it is the same wrong-unit
+   mistake as measuring a bald forehead in pixels instead of as a share of the head.
+   Was 5 of 75 = 6.7%. Now 6 of 175 = 3.4%. The three that split are SLICK BACK, ROPE
+   LOCKS and LONG WEAVE on the front facings, where the fringe and the side falls meet
+   only along the outline; nothing floats (loose is 0) and nothing chokes. */
+const PIECES_PCT = 5.0;   /* % of style/facings drawn in more than one piece. before 6.7%, now 3.4% */
 
 let pass = 0, fail = 0;
 const ok = (name, cond, note) => {
@@ -114,11 +122,13 @@ const ok = (name, cond, note) => {
      (choke.length ? ': ' + choke.map(r => r.n + ' ' + r.dir + ' ' + r.pinch).join(', ') : '') + ')');
 
   const split = rows.filter(r => r.blobs > 1);
-  ok('a haircut is drawn as one piece', split.length <= PIECES_MAX,
-     '(' + split.length + ' of ' + rows.filter(r => !r.dead).length + ' in more than one piece, cap ' +
-     PIECES_MAX + ')');
-  if (split.length < PIECES_MAX)
-    console.log('       *** FEWER SPLIT THAN THE CAP. Lower PIECES_MAX to ' + split.length +
+  const liveRows = rows.filter(r => !r.dead).length;
+  const splitPct = liveRows ? (split.length / liveRows * 100) : 0;
+  ok('a haircut is drawn as one piece', splitPct <= PIECES_PCT,
+     '(' + split.length + ' of ' + liveRows + ' = ' + splitPct.toFixed(1) + '% in more than one piece, cap ' +
+     PIECES_PCT + '%)');
+  if (splitPct < PIECES_PCT - 1.5)
+    console.log('       *** WELL UNDER THE CAP. Lower PIECES_PCT toward ' + (splitPct + 1).toFixed(1) +
                 ' so it cannot slide back. ***');
 
   /* ---- 5. THE LONG STYLES SPECIFICALLY, because they are what he named ------- */

@@ -109,10 +109,34 @@ ok('clause 4 in code: ONE shared texture function, not a rule per drawing path',
    the scalp: from the front you look ACROSS them (vertical stripes), from the SIDE
    you look ALONG them (horizontal bands). The gate pinned the literal inline
    expressions, so refactoring them read as removing them. Pin the behaviour. */
-ok('clause 4 in code: two pixels of hair to one of skin (ropes)',
-  /if\(tex==='locs'\)\s*return \(_ph%3===2\)/.test(src));
-ok('clause 4 in code: the same ratio on the weave, not just the ropes',
-  /if\(tex==='braid'\)\s*return \(\(_ph%3===2\)&&\(_pq%3===2\)\)/.test(src));
+/* *** AND THESE TWO WERE STILL PINNING THE CHARACTERS, DIRECTLY UNDER A COMMENT THAT
+   SAYS TWICE NOT TO. (8/28.) *** They matched the literal text `return (_ph%3===2)`, so
+   the moment the parting learned to DRIFT -- one cell, so a loc reads as a rope instead
+   of a barcode -- both reported the 2:1 ratio missing while the ratio was untouched.
+   FOURTH TIME THIS GATE HAS DONE IT TO ITSELF, and its own comment predicted every one.
+   They measure the ratio now: extract texSkip, run it across a head-sized span, and count
+   how much of the flow axis is parting. Two hairs to one parting is a third, and the
+   drift can move WHERE the parting falls but never HOW MUCH of it there is. */
+const texSrc = src.match(/var texSkip=function\(x,y\)\{[\s\S]*?return false; \};/);
+if (!texSrc) { f++; console.log('  > FAIL cannot find texSkip in the alpha'); }
+const texRatio = (tex) => {
+  if (!texSrc) return null;
+  /* the smallest harness that runs it: S=1 so the drift is off (it is S>1 only), hMn/hTop
+     at zero, and prof false -- the ratio is a property of the phase, not of the facing. */
+  const body = texSrc[0].replace('var texSkip=function(x,y){', '')
+                        .replace(/ \};$/, '');
+  const fnT = new Function('x','y','tex','S','prof','hMn','hTop','_wseed','{' + body + '}');
+  let skip = 0, tot = 0;
+  for (let x = 0; x < 60; x++) { tot++; if (fnT(x, 7, tex, 1, false, 0, 0, 12345)) skip++; }
+  return skip / tot;
+};
+const rLocs = texRatio('locs'), rBraid = texRatio('braid');
+ok('clause 4 in behaviour: two pixels of hair to one of skin (ropes)  [' +
+   (rLocs == null ? 'n/a' : (rLocs * 100).toFixed(0) + '% parting]'),
+  rLocs != null && rLocs > 0.28 && rLocs < 0.40);
+ok('clause 4 in behaviour: the same ratio on the weave, not just the ropes  [' +
+   (rBraid == null ? 'n/a' : (rBraid * 100).toFixed(0) + '% parting]'),
+  rBraid != null && rBraid > 0.28 && rBraid < 0.45);
 /* PIN THE BEHAVIOUR, NOT THE CHARACTERS (8/20, RUN lane). These four clauses
    used to be regexes over the source, and the 4X hair pass turned every hair
    distance from PIXELS into CELLS of S=CW/56 -- so `(x-hMn)` became

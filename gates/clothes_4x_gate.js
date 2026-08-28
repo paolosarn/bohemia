@@ -329,6 +329,15 @@ if (process.argv.includes('--pin')) {
     '# rebaseline from somebody clearing a red.\n' +
     '#\n' +
     '# REBASELINE LOG\n' +
+    '#   8/28/26  264 of 1744, ALL genHair AND ALL OF THEM tex locs or braid; no other\n' +
+    '#            generator and no untextured case moved. Paolo: "it\'s tough to analyze\n' +
+    '#            without implementing all the new hairstyles and shit". The batch needed\n' +
+    '#            the texture to READ -- the parting ran dead straight and a long loc style\n' +
+    '#            rendered as a barcode -- so it drifts by a cell now, and the phase is\n' +
+    '#            normalised so it also applies to hair drawn LEFT of the head origin,\n' +
+    '#            where a negative modulo used to switch it off. No canon garment used\n' +
+    '#            either texture before this turn, so nothing he has approved moved.\n' +
+    '#            laws/BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md\n' +
     '#   8/27/26  220 of 1744, ALL genHair, no other generator moved. Paolo: "U HAVE TO\n' +
     '#            FIX THE FOREHEAD SHIT YOU GOT THE FOREHEAD ALL WRONG EAST AND WEST ...\n' +
     '#            MOST HAIRS EAST AND WEST ARE JUST LIKE A SINGLE LINE GOING DOWN ...\n' +

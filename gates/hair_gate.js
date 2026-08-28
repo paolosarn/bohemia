@@ -258,7 +258,7 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      TWO JAG ATTEMPTS ARE RECORDED IN THE ALPHA rather than repeated here: a 1-in-4 step
      moved the number by 0.1 points and a 1-in-2 step by nothing, because the edge is
      tracing the face rather than wandering. That is the tell that it is anatomy. */
-  const PINNED_STRAIGHT = 0.195;   // non-profile facings: unchanged from 8/21
+  const PINNED_STRAIGHT = 0.172;   // non-profile facings: unchanged from 8/21
   const PINNED_PROFILE  = 0.40;    // E and W only: the hairline follows his painted face
   const PINNED_LONGEST  = 6;       // longest straight run, non-profile
   const PINNED_LONGEST_PROFILE = 10;
