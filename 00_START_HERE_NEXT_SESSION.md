@@ -1499,7 +1499,95 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/28 (a) LATEST -- *** NINETY NEW SOUNDS. He said "we need
+SOUND (sound-xk7pjp): 8/28 (b) LATEST -- *** HIS 599-OF-600 SWEEP IS IN THE
+GAME. Nine of my eighteen pools lived and FOUR SWEPT 5 OF 5 -- the record was
+two. Nine moments that played one sample forever now draw from up to seven. And
+he retired four materials, which nearly cost him his own best batch. ***
+
+TAB: RUN, and you hear it by walking. Build 8/28s - HIS THUMBS ARE IN THE GAME.
+
+THE RESULT: 29 of 90
+  door_more 5/5 *  swing_more 5/5 *  wind_more 5/5 *  tread_more 5/5 *
+  chip_more 3/5    seton_more 2/5    tape_more 2/5    buzz_more 1/5
+  cloth_more 1/5
+  DIED WHOLE (9): dry_more eat_more lungs_more mag_more sign_more down_more
+  quit_more power_more hunker_more
+  FOUR CLEAN SWEEPS IN ONE BATCH had never happened; the record was two (8/15).
+
+WHAT IT BOUGHT HIM IN PLAY (the machine gun, closed on nine moments)
+  door_drag 1->6   swing_air 2->7   wind_gust 2->7   boots_go 2->7
+  stone_bite 1->4  set_down 2->4    tape_pull 2->4   phone_buzz 2->3
+  cloth_on 2->3
+  The bank went 55 moments / 156 samples -> 65 moments / 185 samples.
+
+HIS RULING, AND THE GATE THAT WOULD HAVE DESTROYED HIS BEST BATCH
+  "Im tired of all these voices they ran their course no more wood stone ash
+   bone shit its COOKED"
+  Banning those four outright goes RED ON 80 OF 120 RECIPES -- including all
+  four clean sweeps he had just given, because door_more is stone, swing_more
+  and wind_more are ash, tread_more is bone. He did not say they sound bad. He
+  said HE IS TIRED OF THEM: a statement about the NEXT cook. So the 120 recipes
+  alive at the ruling are GRANDFATHERED BY NAME and only new cooks are bound.
+  Law: laws/BOHEMIA_ADDENDUM_THE_MATERIALS_ARE_COOKED_8_28_26.md
+  Gate: material_cooked_gate.py 11/0, three mutations red.
+
+*** AND I GOT METAL WRONG AND A GATE CAUGHT ME ***
+  I read his six metal approvals as reviving the material, newest-date-wins, and
+  wrote it into the law AND a gate. THE SAME SWEEP CONTAINED FIFTY-FOUR METAL
+  REJECTIONS. Counted across every verdict file: metal is 6 UP / 54 DOWN = 10%,
+  the worst material in the game. I cherry-picked the thumbs that agreed with me
+  out of evidence running nine to one the other way. sfx_envelope_gate went red
+  and named it. Palette is FOUR: bell, choir, crystal, glass.
+  AND THE REST OF THAT TABLE IS THE REAL FINDING: water 40, stone 36, bone 36,
+  bell 33, ash 33, crystal 30, wood 29, choir 28, glass 27. Every material
+  except metal sits in a 27-40% band. THERE IS NO MATERIAL SIGNAL IN THIS RACK
+  BEYOND "NOT METAL" -- worth knowing before anybody explains his taste with a
+  material again.
+
+FIVE THINGS THE VERDICTS BROKE (baking 185 approvals moves the whole build)
+  1. SFX WIRED: three approved pools had no call path because their PARENT
+     moments are already waived for verbs that do not exist. Each now inherits
+     the parent's waiver AND ITS EXPIRY NEEDLE, so they come back together. A
+     sibling with its own softer excuse would outlive the parent's.
+  2. SFX ENVELOPE: REGION, the box of everything he has approved, no longer
+     contained his own new canon (tape_more.4 rises 5.76, the box stopped at 5).
+     Re-recorded from the 185, deliberately, like the render fingerprints.
+  3. SILENT MOMENTS: the nine he killed need no caller (a caller for an emptied
+     pool plays silence), and the killed-moment ratchet moved 30 -> 40, which is
+     the number HE made it, with the reason written where the number is.
+  4. SILENT MOMENTS AGAIN, A REAL BUG: the gate cuts the engine out of its
+     haystack BY EXACT STRING MATCH. My engine edits landed after the last
+     inline, the copy in the alpha stopped matching, the cut failed, and it
+     started reporting live references to dead cash ids that were only in scope
+     because the whole engine suddenly was. Re-inlined.
+  5. SFX SHUFFLE: green on main, red on mine, and mine was the cause -- he left
+     EXACTLY ONE candidate unjudged (cloth_more.0) and the drive needs three
+     distinct items for YES/NO/SKIP. A one-item queue is its own state; the legs
+     that are arithmetically impossible on it are held back and NAMED.
+
+NOT MINE: GRAVEYARD fails identically on plain origin/main (10 live references,
+all hair-lane files). SFX DIVERSITY is the long-standing true red; my batch moved
+it 67.7% -> 58.1% earlier today.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  NOT another cook on the retired palette, and no second cook for the nine he
+  killed. Four materials remain and they are a different world from where this
+  rack has lived: bell, crystal and glass RING, choir is a VOICE. Nothing left
+  is dry matter, which is exactly the substance of what he asked for.
+
+PROOF
+  records/BOHEMIA_SFX_VERDICT_8_28_26.txt      his 599 thumbs, 185 UP
+  records/BOHEMIA_NINE_LIVED_NINE_DIED_8_28_26.md
+  records/BOHEMIA_MATERIALS_GRANDFATHERED_8_28_26.txt
+  SFX RENDER / SFX WIRED / SFX SHUFFLE / SFX ENVELOPE / SILENT MOMENTS /
+  INSTRUMENTS / ALPHA LOADS / NO CASH / SONG LOCK / MATERIAL COOKED all GREEN
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/28 (a) -- *** NINETY NEW SOUNDS. He said "we need
 way more sounds bro!!!!" and this is ninety, eighteen pools, no plumbing. The
 biggest SFX batch this lane has ever cooked. TAB: MUSIC, they are on the judge
 board, five per moment, none of them canon. ***

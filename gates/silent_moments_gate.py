@@ -185,13 +185,25 @@ def main():
     never = [e for e, l in real if not votes.get(e)]
     tried = [(e, votes[e]) for e, l in real if votes.get(e)]
     zero = [e for e, v in tried if v[0] == 0]
+    # RAISED 30 -> 40 ON 8/28, AND A RAISED RATCHET HAS TO EARN IT.
+    # His 599-of-600 sweep killed nine more pools whole (dry_more, eat_more,
+    # lungs_more, mag_more, sign_more, down_more, quit_more, power_more,
+    # hunker_more). That is HIS verdict, so the ceiling moves or the gate
+    # outranks the ruling -- but moving a ratchet is exactly how rot hides, so
+    # the number it moved to is the measured count and the reason is here.
+    # AND THE SAME BATCH IS NOT A FAILURE: eighteen pools went to him, NINE
+    # LIVED, and four of those swept 5 OF 5 -- door_more, swing_more,
+    # wind_more, tread_more -- the first time more than two clean sweeps have
+    # happened in one batch. A bigger batch kills more and lands more. What
+    # this ceiling is for is stopping a lane from showing him the SAME dead
+    # thing again, and none of the nine gets a second cook.
     # A CEILING ON THE DEAD ONES, NOT ON THE TOTAL. The first version capped
     # every silent moment together and went red the moment SFX-09 cooked six
     # NEW ones -- which is the lane working, not failing. A moment he has been
     # shown and killed is a defect; a moment he has never heard is work in
     # flight. Only the first is capped, and it going DOWN is the point.
     ok('the moments he has been shown and killed have not grown past their 8/20 '
-       'reading (%d, ceiling 30)' % len(zero), len(zero) <= 30)
+       'reading (%d, ceiling 40)' % len(zero), len(zero) <= 40)
     ok('nothing silent is waiting on a thumb it already got (%d never shown)'
        % len(never), True)
     print('  of the %d: %d have never been shown, %d were shown and got ZERO ups'
@@ -332,6 +344,14 @@ def main():
         'cloth_on', 'demolish', 'drink', 'pickup', 'power_on', 'set_down',
         'tape_pull', 'equip', 'build_place', 'deed', 'deed_stamp', 'patch_up',
         'lungs_burn',          # no sprint verb exists in the run
+        # ---- HIS 8/28 SWEEP KILLED THESE NINE WHOLE, 0 OF 5 EACH ----------
+        # A moment with no approved sound needs no wire: a caller for a pool he
+        # emptied would play silence. These are SIBLING pools, so their PARENT
+        # moments are all still wired and still play the sample they already
+        # had -- nothing got quieter. They are here rather than deleted because
+        # the graveyard entry is the record and this list is the reason.
+        'dry_more', 'eat_more', 'lungs_more', 'mag_more', 'sign_more',
+        'down_more', 'quit_more', 'power_more', 'hunker_more',
         # THE SHUT STAYS SILENT, ON PURPOSE, and it is a RULING not an
         # oversight: he killed all five door_clack candidates in the same 7/30
         # export where door_drag.0 lived. Playing the drag backwards for the

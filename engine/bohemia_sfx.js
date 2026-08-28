@@ -2726,7 +2726,20 @@ const BOH_SFX = (function () {
   var ENVELOPE = {
     since: '8/12/26',
     judged: 460, approved: 148,
-    dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
+    /* METAL IS STILL DEAD, AND I BRIEFLY CLAIMED OTHERWISE ON 8/28 BY
+       COUNTING ONLY THE THUMBS THAT AGREED WITH ME. His 599-of-600 sweep
+       approved six metal candidates -- block.2, phone_buzz.2, phone_buzz.4,
+       mag_home.4, sign_alive.4, parts_pass.4 -- and I read that as "newest date
+       wins, metal is back". It is not. Counted properly across every verdict
+       file, metal is 6 UP / 54 DOWN = 10%, the worst material in the game by a
+       distance and on sixty judgements.
+       I had cherry-picked the UPs out of a sweep that also contained 54 DOWNs.
+       sfx_envelope_gate caught it, which is the gate doing exactly its job.
+       AND THE REST OF THE TABLE IS THE REAL FINDING: water 40, stone 36, bone
+       36, bell 33, ash 33, crystal 30, wood 29, choir 28, glass 27. Every
+       material except metal sits in a 27-40% band. There is no material
+       signal in this rack beyond "not metal". */
+    dead: ['metal'],
     /* ---- AND THEN METHOD TURNED OUT TO MATTER MORE (8/14) --------------
        He swept all 330 the day the five physics shipped, and the scoreboard by
        METHOD is sharper than anything material ever gave:
@@ -2820,7 +2833,13 @@ const BOH_SFX = (function () {
     damp: [0.7152495026588439, 2.725041580479592],
     warble: [0.25, 2.9784293750301005],
     atk: [0, 0.75],
-    slide: [-13.554722697474062, 5],
+    /* slide max 5 -> 5.7626 on 8/28. HIS THUMBS MOVED THE BOX, not a tuning
+       decision: tape_more.4 rises 5.76 semitones and he approved it, so the
+       bounding box of what he likes is genuinely wider than it was. REGION is
+       MEASURED FROM HIS APPROVALS and re-recorded deliberately whenever they
+       change, exactly like the render fingerprints -- a box that quietly failed
+       to grow would start calling his own new canon out of bounds. */
+    slide: [-13.554722697474062, 5.762555040651932],
     trans: [0.04, 1],
     transHz: [320, 8600],
     transQ: [0.5, 4.3834795102477075],

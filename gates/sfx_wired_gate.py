@@ -1464,6 +1464,27 @@ def main():
                        'stamina system out of the SOUND lane, which is not this '
                        "lane's to invent",
                        'run', "verb:'sprint'"),
+        # ---- SFX-11 SIBLINGS INHERIT THEIR PARENT'S WAIVER (8/28) ----------
+        # He approved these in the 8/28 sweep and nothing can play them -- not
+        # because they are unwired, but because THE MOMENT THEY WIDEN IS ITSELF
+        # WAIVED a few rows up. A sibling's playability is exactly its parent's.
+        # THE NEEDLE IS THE PARENT'S NEEDLE, DELIBERATELY: when the verb that
+        # frees cloth_on arrives it frees cloth_more in the same breath, and
+        # both waivers expire on the same string. A sibling given its own softer
+        # excuse would outlive the parent's and become the hiding place this
+        # table's own comment warns about.
+        'tape_more':  ('inherits tape_pull: patching yourself up needs the '
+                       'healing system he ruled on 8/13, which is routed, not '
+                       'built. Approved 2 of 5 on 8/28',
+                       'run', "verb:'patch'"),
+        'seton_more': ('inherits set_down: placing a building is the '
+                       'city-builder verb and the builder can still place '
+                       'nothing. Approved 2 of 5 on 8/28',
+                       'run', "verb:'place'"),
+        'cloth_more': ('inherits cloth_on: equip() exists in the inventory '
+                       'module with ZERO callers, so no surface dresses '
+                       'anybody yet. Approved 1 of 5 on 8/28',
+                       'run', "verb:'equip'"),
     }
     _src = {'run': run, 'combat': demo, 'alpha': alpha_src}
     expired = []

@@ -84,7 +84,7 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
 BANK = 'banks/BOHEMIA_SFX_APPROVED_8_20_26.json'   # 8/20: he judged all 500
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_20_26.txt'
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_28_26.txt'   # 8/28: 599 of 600, 185 UP
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
@@ -161,7 +161,23 @@ def parent_block(bank):
        than a placeholder. The borrow costs nothing the day sand_more is
        approved: the pool simply gets wider. */
     step_sand: ['sand_more', 'step_dirt'],
-    step_wood: ['wood_more']
+    step_wood: ['wood_more'],
+    /* SFX-11 (8/28). NINE OF EIGHTEEN POOLS SURVIVED HIS SWEEP, four of them
+       5 OF 5 -- door_more, swing_more, wind_more and tread_more. The previous
+       record for clean sweeps in one batch was two. Every parent below was on
+       an effective pool of ONE or TWO before this, which is the machine gun
+       defect this repo already has a law about; these are the samples that
+       close it. Nothing here is a new moment: each row widens a moment the
+       game already fires. */
+    door_drag:  ['door_more'],
+    swing_air:  ['swing_more'],
+    wind_gust:  ['wind_more'],
+    boots_go:   ['tread_more'],
+    stone_bite: ['chip_more'],
+    set_down:   ['seton_more'],
+    tape_pull:  ['tape_more'],
+    phone_buzz: ['buzz_more'],
+    cloth_on:   ['cloth_more']
   };      /* moment -> extra event ids that also feed it */
   window.__sfxSiblings=SIBLINGS;
   function poolOf(ev){

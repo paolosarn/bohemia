@@ -1243,3 +1243,22 @@ n:'scanstring'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Sc
 n:'syncthorn'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Hard sync. The technique is not barred; this writing of it is dead.
 n:'pafvox'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Phase-aligned formant (Puckette). The technique is not barred; this writing of it is dead.
 n:'bowdrag'    | 8/27/26 | DOWN with its song. GRAVEYARD FINAL, no remake. Stick-slip friction. The technique is not barred; this writing of it is dead.
+
+# --- SFX-11, HIS 8/28 SWEEP. Nine of eighteen pools died whole (0 of 5). The
+# other nine live and four of them swept 5 OF 5 -- door_more, swing_more,
+# wind_more, tread_more -- which had never happened more than twice in one
+# batch. These nine are FIRST rejections, not twiceDead: STOP PRODUCING ends a
+# feature on the SECOND, so one more cook would technically be legal. It is not
+# happening without him asking, because the same message gave a reading -- the
+# materials are cooked -- and the honest response to a reading is to use it on
+# the next thing, not to re-cook the thing it was given about.
+# Record: records/BOHEMIA_NINE_LIVED_NINE_DIED_8_28_26.md
+n:'dry_more'    | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal/bone. The moment (dry_fire) keeps its one approved sample.
+n:'eat_more'    | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. friction/water. The moment (eat) keeps its one approved sample.
+n:'lungs_more'  | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. friction/ash. The moment (lungs_burn) keeps its one approved sample.
+n:'mag_more'    | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal/wood. The moment (mag_home) keeps its one approved sample.
+n:'sign_more'   | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. instrument/ash. The moment (sign_alive) keeps its one approved sample.
+n:'down_more'   | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal/stone. The moment (went_down) keeps its one approved sample.
+n:'quit_more'   | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. instrument/ash. The moment (will_goes) keeps its one approved sample.
+n:'power_more'  | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. friction/stone. The moment (power_on) keeps its two approved samples.
+n:'hunker_more' | 8/28/26 | DOWN 0 of 5. GRAVEYARD FINAL for this writing. modal/stone. The moment (cover_more) is itself a sibling and keeps feeding block.

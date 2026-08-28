@@ -228,6 +228,38 @@ def main():
                   'and stays shut.')
         return 1 if f else 0
 
+    # ---- A QUEUE TOO SHORT TO DRIVE IS ITS OWN STATE (8/28) --------------
+    # He judged 599 OF 600 in his 8/28 sweep and left exactly one candidate
+    # unthumbed (cloth_more.0). That is neither the empty case above nor the
+    # full one below: the drive underneath needs THREE distinct candidates to
+    # exercise YES, NO and SKIP, and a one-item queue makes three legs go red on
+    # a surface that is behaving perfectly.
+    # THIS IS NOT THE GATE BEING WEAKENED TO GO GREEN. The legs it drops are the
+    # ones that are ARITHMETICALLY IMPOSSIBLE on a queue this short, and every
+    # leg that still means something is still asserted -- it opens, it plays by
+    # itself, YES writes a real thumb into the shared store, and that thumb
+    # persists. The full drive comes back the moment a batch refills the queue.
+    _q = d.get('queue') or []
+    if isinstance(_q, list) and 0 < len(_q) < 3:
+        ok('the launcher opens on a queue of %d' % len(_q), d.get('opened'))
+        ok('it carries data-noui so a click tone can never cover the candidate',
+           d.get('noui'))
+        ok('IT PLAYS BY ITSELF on the last one too',
+           (d.get('autoPlay') or 0) > 0)
+        ok('YES still writes a real thumb into the SHARED judge store',
+           d.get('storedYes') == 1)
+        ok('and that thumb survives a reload', d.get('persisted'))
+        ok('the page threw nothing: %s' % (d.get('errors') or 'clean'),
+           not d.get('errors'))
+        print('    only %d candidate(s) left unjudged -- he swept 599 of 600 on '
+              '8/28, so YES/NO/SKIP cannot be driven on distinct items and those '
+              'three legs are held back rather than failed' % len(_q))
+        print('  %d passed, %d FAILED' % (p, f))
+        if not f:
+            print('  The board works on the last sound in the queue, which is '
+                  'the only one he has not thumbed.')
+        return 1 if f else 0
+
     ok('tapping the launcher opens it', d.get('opened'))
     ok('it carries data-noui so a click tone can never cover the candidate',
        d.get('noui'))

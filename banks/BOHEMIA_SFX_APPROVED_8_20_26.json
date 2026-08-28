@@ -27,8 +27,19 @@
 0,
 4
 ],
+"buzz_more": [
+0
+],
 "casing": [
 0
+],
+"chip_more": [
+0,
+1,
+2
+],
+"cloth_more": [
+3
 ],
 "cloth_on": [
 1,
@@ -58,6 +69,13 @@
 ],
 "door_drag": [
 0
+],
+"door_more": [
+0,
+1,
+2,
+3,
+4
 ],
 "drink": [
 0,
@@ -126,6 +144,9 @@
 3,
 4
 ],
+"parts_pass": [
+4
+],
 "phone_buzz": [
 2,
 4
@@ -156,6 +177,10 @@
 "set_down": [
 2,
 3
+],
+"seton_more": [
+3,
+4
 ],
 "shot": [
 3
@@ -215,11 +240,29 @@
 2,
 3
 ],
+"swing_more": [
+0,
+1,
+2,
+3,
+4
+],
+"tape_more": [
+2,
+4
+],
 "tape_pull": [
 1,
 4
 ],
 "time_pass": [
+0,
+1,
+2,
+3,
+4
+],
+"tread_more": [
 0,
 1,
 2,
@@ -260,6 +303,13 @@
 "wind_gust": [
 0,
 1
+],
+"wind_more": [
+0,
+1,
+2,
+3,
+4
 ],
 "wood_more": [
 0

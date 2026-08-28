@@ -1240,6 +1240,16 @@ GATES = [
      "now has five physics (modal / FM / PhISEM particle / friction / turbulence) and "
      "this gate renders a CONTROLLED PROBE -- every parameter fixed, only the method "
      "changed -- so two methods sharing one body cannot pass under two names", True),
+    ('MATERIAL COOKED',['python3', 'gates/material_cooked_gate.py'],
+     "Paolo 8/28 LOCKED at the bottom of a 599-of-600 sweep: 'no more wood "
+     "stone ash bone shit its COOKED'. Four materials retired for NEW cooks; "
+     "the legal palette is bell/choir/crystal/glass. THE OBVIOUS GATE WOULD "
+     "HAVE BEEN A DISASTER -- banning them outright goes red on 80 of 120 "
+     "recipes INCLUDING ALL FOUR 5/5 SWEEPS HE GAVE IN THE SAME BREATH, so the "
+     "120 recipes alive at the ruling are grandfathered by name and his canon "
+     "is untouched. Also holds metal dead: I claimed his six metal approvals "
+     "revived it and ignored the 54 rejections in the same sweep (6 UP / 54 "
+     "DOWN = 10%, worst in the game)", True),
     ('SFX ENVELOPE',   ['python3', 'gates/sfx_envelope_gate.py'],
      "Paolo 8/11: \"we may need way more voices and way more sounds for the whole "
      "game\". 28 moments became 54, and the 26 new ones were built out of a "
