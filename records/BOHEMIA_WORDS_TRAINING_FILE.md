@@ -1600,3 +1600,196 @@ and I'd be doing the thing I keep catching if I claimed it.
 The honest test is whether somebody reading rounds 1-8 and round 9 back to back
 can tell which one they'd rather read. That's not a number, and I can't run it on
 myself. **It's his test, not mine**, and I'll leave it for him.
+
+---
+---
+
+# THE FINAL RESEARCH -- 8/27/26
+# Training ends here. Everything above is the working. This is the usable part.
+
+## 73. THE PROCEDURE. I HAD THIRTY FINDINGS AND NO METHOD.
+Nine rounds of principles and I'd never once researched how a person actually
+sits down and writes a scene. Here it is, and it's specific.
+
+**STRUCTURE FIRST. DIALOGUE LAST.** Don't polish a line before the scene works.
+Professionals get the story down first and refine the words in later drafts,
+because polishing dialogue over broken structure is wasted work.
+
+**THEN THE DIALOGUE PASS, WHICH HAS FOUR NAMED JOBS:**
+1. cut waffle
+2. remove repetition
+3. make the voices more distinct
+4. **delete every line where two characters explain something they both already
+   know**
+
+That fourth one is a checkable defect and it's the recipient-design failure from
+earlier, stated as an edit. Two locals telling each other what a feed is.
+
+**THEN A PACING PASS.** Separate, after.
+
+**IT TAKES FOUR OR FIVE DRAFTS** before dialogue feels right. Not one careful one.
+
+**AND THE TABLE READ: THE WRITER DOESN'T READ.** Other people read it aloud and
+the writer sits back and listens. That's the part I'd have got wrong. I keep
+saying "read it out loud", but the author's own reading is compromised, because
+you supply the intention the words don't. **The whole value is hearing it from a
+mouth that doesn't know what you meant.**
+
+I can't run a table read. He can. That's the single best quality check available
+to this project and it costs nothing but a few people and an evening.
+
+## 74. WHAT A FACTION SOUNDS LIKE, AND IT ISN'T SLANG
+Thirteen factions in this game and I'd never researched group voice.
+
+The linguistics is clear and it's the opposite of the movie version. Labov's work
+showed that speech dismissed as ungrammatical gibberish was a **sophisticated,
+rule-governed system**, and the dismissal was the error. Ethnographies of real
+street groups find the same: what looks opaque becomes transparent when you study
+it, and it's an in-group system reflecting how the group is organised.
+
+**The finding I can actually use: PEER TERMINOLOGY MAPS THE SOCIAL STRUCTURE.**
+What a group calls its own members, and what it calls everybody else, tells you
+how it's built. That's the same axis as the address-terms work: power and
+solidarity.
+
+So a Bohemia faction doesn't sound different because it has invented slang. **It
+sounds different because of what it calls people and things.** Who's "one of
+ours". Who gets a name and who gets "that guy". What they call the thing they all
+do together. Invented gangster-speak would be bad craft, and it'd be the same
+insult as respelling somebody's accent.
+
+## 75. THERE ARE SEVEN WAYS A PLAYER LOVES SOMEBODY AND WE ONLY WRITE ONE
+The last search, and it explains everything else I found.
+
+Research on emotional attachment to game characters names seven kinds:
+**Cool and Capable. Respected Nemesis. Admired Paragon. Crush. Concern for one's
+Protege. Sympathetic Alter Ego. Trusted Close Friend.**
+
+And the structural distinction: **a player character is about IDENTIFICATION --
+that's the self. An NPC is about INTERPERSONAL RELATIONSHIP -- that's an other.**
+Which is why the player's lines and everybody else's lines are two different
+crafts, and now I know why rather than just that.
+
+**Now look at our valley.** Nearly every person in it is the same thing: a
+competent local with a problem who needs a favour. That isn't on the list. Nobody
+in Bohemia is somebody you worry about. Nobody is a nemesis you respect. Nobody is
+a friend you trust with something.
+
+That's the root of the sameness I've been measuring all week from the outside.
+The contractions, the sermons, the missing questions -- those are symptoms. **The
+cause is that we cast one relationship and wrote it two thousand times.**
+
+---
+---
+
+# THE MASTER. Everything above, boiled down. This is the page to work from.
+
+## THE FRAME
+**Nobody in Bohemia is wise.** They're tired, scared, busy, proud, lying, and in
+the middle of something else. Wisdom is what the player builds out of watching
+them. It's never what they say.
+
+**Realism is the floor, not the ceiling.** A line that merely sounds like a person
+isn't finished. It also has to land.
+
+## THE METHOD
+1. Structure first. Never polish a line over a broken scene.
+2. **Write everything, including the stupid thoughts.** (Kurvitz)
+3. **Then cut nine tenths.** (Terkel: a million words became a hundred thousand.)
+4. The dialogue pass: cut waffle, kill repetition, sharpen voices, and **delete
+   every line where two people explain what they both already know.**
+5. A separate pacing pass.
+6. Four or five drafts, not one careful one.
+7. **A table read where the writer doesn't read.**
+
+## THE NINE RULES FOR A LINE
+1. **Contract it.** Spelling out is a choice made once, for weight.
+2. **Anchor it to a number or a thing.** $14. Nine o'clock. Half a tank. Never
+   "resources", never "the economy".
+3. **End on what happened, not what it means.** Cut the last sentence if it's a
+   general truth. A maxim is only earned when somebody's at the end of their rope
+   about the exact thing destroying them, and then it's blunt and short and rare.
+4. **Don't tell them they're scared. Scare them.** Senses and what's observable.
+   Never their interior.
+5. **When they're afraid, take their words away.** Fear shortens speech. It
+   doesn't make it eloquent.
+6. **When they refuse, make them buy a second first.** Yes lands in 269ms, no in
+   561ms, and the gap gets filled: a breath, a preface, the reason before the
+   refusal, often no "no" at all.
+7. **Let them contradict themselves** inside one speech and not notice.
+8. **Let them ask.** Anger and fear both produce questions.
+9. **One noun only this person would reach for. One tic, used twice.**
+
+## THE PEOPLE
+- **Two generations.** Over 25 remembers the before and dates everything to it.
+  Under 20 was born into this, has no nostalgia, and finds the comparisons
+  boring.
+- **Nobody who lives in a ruin calls it a ruin.** They defend the place. The
+  collapse is the weather, and nobody explains the weather to somebody standing
+  in it.
+- **The people closest to death joke the most.** Medics, watch, dangerous trades.
+  Ours are written as mourners and that's backwards.
+- **Dignity is a refusal of one named act**, never a statement about status.
+- **Grief is measured in euphemism.** A stranger says "he died". Someone close
+  doesn't name it. The closest can't finish the sentence.
+- **Class and region live in syntax, never spelling.** "Ain't" is a word.
+  "Gittin'" is a respelling. Never the second one.
+- **A faction sounds different because of what it calls people**, not because of
+  invented slang.
+- **Seven ways a player can love somebody**, and we only cast one of them.
+
+## WHAT THE VALLEY TALKS ABOUT
+- **Two thirds of real conversation is gossip**, and it's about one thing: is this
+  person reliable, did they do what they said.
+- **Gossip runs on shields.** "I heard." "They say." State the consequence, never
+  the accusation: "I just wouldn't leave anything with him."
+- **A story shortens, sharpens and bends toward the teller at every hop.** How far
+  it spreads is how much it matters times how little anyone saw. **The quiet
+  things travel. A thing done in front of the block becomes a fact, not a
+  rumour.**
+- **They need something to talk about that isn't the collapse.** Real hard times
+  produced endurance contests, shared radios, cheap games. Give the valley a
+  match and it has gossip.
+
+## THE CHECKS
+- **Cover the names and read it.** If you can't tell who's speaking, every dial is
+  set the same.
+- **Count.** Contractions, sentence spread, repeated openers, questions, banned
+  phrases. Every tell I found in this game, I found by counting.
+- **When a number agrees with you too hard, suspect the number.** Four broken
+  rulers this week, every one broken in the flattering direction.
+- **You can't measure whether a line is good. You can measure whether it was
+  understood.** Ask a player what he wanted from you, whose side she was on, what
+  you thought would happen. That's scoreable and it catches what actually kills a
+  scene.
+
+## AND THE ONE THAT OUTRANKS THE REST
+The only two lines in this game that aren't drafts are his:
+> "I miss them so much, I can't."
+> "I hate this."
+One doesn't finish. The other is three words. **Every rule on this page is
+already in those two lines, and he wrote them by instinct before I'd read a word
+of any of this.** When a rule here disagrees with how those sound, the rule is
+wrong.
+
+---
+
+## WHAT I STILL DON'T KNOW, AT THE END
+**Needs him, not another search.** Five documents this machine physically can't
+reach -- Terkel's *Hard Times*, the WPA life histories, Failbetter's guidelines,
+Emily Short's "Conversation", Ruskin's GDC talk. Every domain I tried was blocked.
+Nine rounds of training are built on search excerpts, not sources.
+
+**Needs the repo, and I'm frozen.** Whether a line waits for a tap or runs on a
+timer. Whether our NPCs repeat themselves word for word forever. Whether anybody
+in the valley swears, jokes, or greets you differently the second time. How much
+of our dialogue is navigation the objective already carries. What the talking
+portrait does with the letters I choose.
+
+**Nobody knows.** How much of any of this a player reads. There are no public
+numbers, and the studios that have them don't publish.
+
+**And the one I'd most want.** I've never had a reader. Everything in this file
+is me measuring myself, and I proved this week that I can't see my own tics --
+92 em dashes, 108 bolded headers, and 19 uses of the construction I banned. **The
+table read is the answer to that and it's the one thing I can't do alone.**
