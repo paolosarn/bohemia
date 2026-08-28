@@ -1917,3 +1917,144 @@ Given to me by Paolo on 8/28. Read in full: 46,154 characters, 565 example swaps
 extracted and tested against the corpus. **The first primary source I have been
 able to read in nine rounds of training**, because every web domain I tried was
 blocked and this arrived as a file instead.
+
+---
+---
+
+# ENHANCEMENT ROUND -- 8/28/26
+# Pulling the thread his document opened, and correcting something I got wrong.
+
+## 81. I WAS WRONG ABOUT WHAT THIS MACHINE CAN REACH
+I wrote down, three times, that this environment cannot fetch anything and that
+all nine rounds were built on search snippets. **That was too broad and I should
+correct it.**
+
+Tested properly with curl:
+
+    raw.githubusercontent.com      HTTP 200, 1.6 MB    WORKS
+    gutenberg.org                  blocked
+    loc.gov                        blocked
+    emshort.blog                   blocked
+
+**One host works, and it happens to be the one that mirrors research datasets.**
+So the honest position is narrower and more useful than "I can't read anything":
+**I cannot get the craft essays. I CAN get the psycholinguistic databases.** Word
+norms, frequency lists, corpora, anything a researcher has parked in a repo.
+I had written off a whole class of source because I generalised from three
+failures. That is the same error shape as everything else I have caught this
+week: **a confident negative, stated once, that nobody re-opens.**
+
+## 82. ORWELL WROTE THE MACHINE TELL IN 1946
+The rule under his 500-word document has an ancestor, and it is worth having
+verbatim. Orwell's six rules from *Politics and the English Language*:
+
+1. **Never use a metaphor, simile, or other figure of speech which you are used
+   to seeing in print.**
+2. Never use a long word where a short one will do.
+3. If it is possible to cut a word out, always cut it out.
+4. Never use the passive where you can use the active.
+5. Never use a foreign phrase, a scientific word, or a jargon word if you can
+   think of an everyday English equivalent.
+6. **Break any of these rules sooner than say anything outright barbarous.**
+
+**Rule 1 is the machine tell, written seventy-eight years early.** A model
+produces the most probable next phrase, and the most probable phrase is by
+definition the one you are used to seeing in print. Orwell named the failure
+mode of a language model before there were any.
+
+Rule 3 is Terkel at sentence scale. Rule 4 is the passive-voice finding.
+**And rule 6 is the one I most need**, because I build gates: the rules lose to
+the ear, every time, and a writer who obeys a checklist into ugliness has
+obeyed the wrong thing.
+
+## 83. CONCRETENESS, MEASURED FOR THE FIRST TIME
+Brysbaert's norms: **39,954 English words rated 1 (abstract) to 5 (concrete)** by
+4,000 people. Fetched, loaded, and pointed at the corpus. This turns "they
+remember specificity" from a slogan into a number, which I have wanted all week.
+
+**The first attempt was a weak ruler and I nearly kept it.** Averaged over every
+word, his game scores 2.71 and my prose 2.55, a 6% gap. That is nearly nothing,
+because half of any English sentence is "the" and "of" and "was", and those are
+all rated abstract. **The grammar drowns the signal.**
+
+Filtering to content words sharpened it a little: **3.16 for his game, 3.08 for
+mine.** Still only 3%.
+
+**So average concreteness does not separate good writing from bad here, and I
+should say so rather than quietly dropping the measurement.**
+
+## 84. THE MEASURE THAT DOES WORK, AND IT BROKE ONE OF MY OWN RULES
+The problem was the average. "Name one real thing" is not a claim about the mean.
+It is a claim about **presence**: does this line contain at least one strongly
+concrete word, rated 4.0 or higher.
+
+    HIS SPOKEN LINES     479 of 527 anchored   90.9%
+    MY SENTENCES         569 of 811 anchored   70.2%
+
+**His lines name a real thing 1.3 times as often as mine.** Fifth measure this
+week where I lose to the game I am auditing.
+
+**AND THEN THE RESULT THAT MATTERS MOST.** I ran his own two lines through it:
+
+> "I miss them so much, I can't."   -- NOT anchored.
+> "I hate this."                    -- NOT anchored.
+
+**The two best lines in this game name nothing at all.** Miss. Hate. This. Not a
+single concrete noun between them.
+
+So the rule I wrote is wrong as an absolute, and here is the corrected version:
+**concrete detail is for the ordinary line. When the feeling is total, the words
+go abstract AND short.** At the peak of grief there is no object, because the
+person cannot get far enough outside themselves to name one. **The abstraction
+IS the grief.**
+
+The game agrees. Several of its best lines are unanchored:
+> "Funny. Every time the power dies is the only time anybody actually listens."
+> "If it holds, this is the loudest I have ever been in my life. If it doesn't, I
+> never was."
+
+**90.9% is not a failure to reach 100. It is probably close to right**, and
+forcing the last 9% would kill the best lines in the game. Anchoring is a FLOOR
+for the ordinary line, not a law for every line.
+
+By scene, the range is 79% to 100%, and the low end is not what I expected:
+THE FIFTY YEAR SIGNATURE at 79% is a scene about a document, and THE PRESSURE
+GOES BACKWARD at 100% is a scene about pipes. **The subject decides the score, so
+a low number is a question, not a verdict.**
+
+## 85. WHAT THIS ROUND CHANGES ON THE CARD
+Two edits, one addition, one correction.
+
+**ADD, from Orwell and the 500 swaps:** prefer the old short word, and never the
+figure of speech you are used to seeing in print. And the sixth rule above all of
+them: **break any of this sooner than write something ugly.**
+
+**CORRECT, from his own two lines:** "name one real thing" applies to the
+ordinary line. **A line at the peak of feeling is allowed to name nothing, and
+the best ones don't.**
+
+## 86. WHAT I NOW KNOW I DIDN'T KNOW
+31. **I can reach research datasets after all**, and wrote off a whole class of
+    source from three failures. (§81)
+32. **Orwell named the machine tell in 1946**, and his sixth rule is a warning to
+    people who build gates. (§82)
+33. **Average concreteness is a weak ruler** and I nearly shipped it as a finding.
+    (§83)
+34. **Per-line anchoring is the strong one**, and I lose that measure too: 90.9%
+    to 70.2%. (§84)
+35. **My own rule is wrong at the top of the emotional range**, and his two lines
+    are the proof. (§84)
+
+## 87. AND THE ASK I GAVE HIM WAS SLIGHTLY WRONG
+Last time I said the most useful thing he could do was put text in the repo. That
+still holds for Terkel, the WPA pages, Failbetter and Emily Short, which no
+amount of cleverness will get me.
+**But I should not have asked for anything that lives on GitHub, because I can
+fetch that myself and now have.** The ask is narrower: **copyrighted books and
+craft essays, yes. Datasets, no, I can get those.**
+
+## SOURCES
+- Brysbaert, Warriner and Kuperman, "Concreteness ratings for 40 thousand
+  generally known English word lemmas", *Behavior Research Methods* (2014).
+  39,954 lemmas, 1-5 scale, ~4,000 raters. Fetched via the ArtsEngine mirror.
+- George Orwell, "Politics and the English Language" (1946), six rules.
