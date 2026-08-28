@@ -38424,6 +38424,12 @@ function showReckoning(){
        the rollover, because the check is "did you turn up TODAY" and after
        nextDay() today is a different number. */
     try { ctNeglectFor(ctBelongSave(), (T && T.day) || 1); } catch(_e){}
+    /* __CITY_YOURPROBLEM__ -- AND THE PEOPLE YOUR WORD WAS HOLDING UP.
+       IMMEDIATELY AFTER the upkeep, on the same hook, because the sweep only
+       READS the standing neglect has just finished writing. It never writes
+       standing itself -- two writers on one day's number is the bug this lane
+       has fixed six times. */
+    try { ctVouchSweep(ctBelongSave(), (T && T.day) || 1); } catch(_e){}
     /* __THE_ENDING__ -- IN THE DEMO, DAY TWO DOES NOT COME. The upkeep above
        still runs, because the day he played really did happen. Everything below
        is the rollover, and the rollover is what the demo does not get. */
@@ -46341,8 +46347,49 @@ function ctVouchedFaction(p){
   try {
     var bag = ctVouchBag(); if(!bag || !p) return null;
     var v = bag[ctVouchKey(p)];
+    /* __CITY_YOURPROBLEM__ -- A PLACE YOU LOST IS NOT A PLACE.
+       The entry is KEPT rather than deleted, because "they were in, because of
+       you, until you let it go" is the whole point and a deleted row cannot
+       say it. Their card reads it back. */
+    if(v && v.lost) return null;
     return (v && v.faction) ? v.faction : null;
   } catch(_e){ return null; }
+}
+/* __CITY_YOURPROBLEM__ -- WHAT YOU DID TO THIS PERSON, IF ANYTHING.
+   Returns the whole entry including a lost one, which is what the card needs
+   and what ctVouchedFaction deliberately refuses to return. */
+function ctVouchRecord(p){
+  try {
+    var bag = ctVouchBag(); if(!bag || !p) return null;
+    return bag[ctVouchKey(p)] || null;
+  } catch(_e){ return null; }
+}
+/* THE SWEEP. Runs at day-end on the same hook that charges neglect, straight
+   after it, so it only ever reads a number neglect has just finished writing.
+   Two writers on one day's standing would be the bug this lane has fixed six
+   times; this one does not write standing at all. */
+function ctVouchSweep(sv, dayEnded){
+  var out = [];
+  try {
+    if(typeof BohemiaBelonging === 'undefined') return out;
+    var bag = (sv && sv.meta) ? sv.meta.vouched : null;
+    if(!bag) return out;
+    /* THE BOTTOM RUNG BY NAME, never a number I picked. If the ladder is
+       retuned this follows it. */
+    var floor = (BohemiaBelonging.RUNGS || [])[0];
+    if(!floor) return out;
+    for(var key in bag){
+      var v = bag[key];
+      if(!v || v.lost || !v.faction) continue;
+      var have = BohemiaBelonging.gaveOf(sv, v.faction);
+      var bar = BohemiaBelonging.bargain(BohemiaBelonging.ruleOf(v.faction), have);
+      if(!bar || !bar.rung) continue;
+      if(String(bar.rung.word) !== String(floor.word)) continue;
+      v.lost = (dayEnded != null ? dayEnded|0 : 1);
+      out.push({ key:key, faction:v.faction });
+    }
+  } catch(_e){}
+  return out;
 }
 /* CAN YOU PUT THIS PERSON UP, AND FOR WHOM.
    Three things have to be true and each one is a real answer on its own:
@@ -46508,6 +46555,33 @@ function ctMetAnyOf(name){
   } catch(_e){ return false; }
 }
 
+/* __CITY_YOURPROBLEM__ -- EVERYBODY YOU PUT UP, AND WHETHER THEY ARE STILL IN.
+   A place he can check, rather than a notification that interrupts him. The
+   world does not tell you these people fell; this is where you can go and
+   look. */
+function ctVouchedHtml(){
+  var bag = ctVouchBag();
+  if(!bag) return '';
+  var rows = [];
+  for(var k in bag){
+    var v = bag[k];
+    if(!v || !v.faction) continue;
+    rows.push({ faction:String(v.faction).toUpperCase(), day:v.day, lost:v.lost });
+  }
+  if(!rows.length) return '';
+  rows.sort(function(a,b){ return (a.day|0)-(b.day|0); });
+  var h = '<div class="obhead2">PEOPLE YOU PUT UP</div>';
+  for(var i=0;i<rows.length;i++){
+    var r = rows[i];
+    h += '<div class="obv' + (r.lost ? ' isyours' : '') + '">'
+       + '<span class="obvwho">' + r.faction + '</span>'
+       + '<span class="obvwhere">' + (r.lost
+            ? 'LOST THEIR PLACE ON DAY ' + r.lost
+            : 'STILL IN \u00b7 PUT UP ON DAY ' + (r.day || 1)) + '</span>'
+       + '</div>';
+  }
+  return h;
+}
 function ctValleyHtml(){
   var rows = ctValleyRows();
   if(!rows || !rows.length){
@@ -46607,7 +46681,7 @@ function ctOutfitHtml(){
     return h + '<div class="obempty">NOBODY IN THIS VALLEY HAS A POSITION ON YOU'
       + ' YET.<br><br>You have not thrown in with anybody far enough for it to'
       + ' reach the people they are at odds with. The day you do, this fills up'
-      + ' and it does not empty again.</div>' + ctValleyHtml();
+      + ' and it does not empty again.</div>' + ctVouchedHtml() + ctValleyHtml();
   }
   for(var i=0;i<d.rows.length;i++){
     var r = d.rows[i];
@@ -46626,7 +46700,10 @@ function ctOutfitHtml(){
      path, not only the empty one. Once you HAVE enemies you need the list
      more, not less: it is the only place that says which of them you could
      actually walk to. */
-  return h + ctValleyHtml();
+  /* __CITY_YOURPROBLEM__ -- the people you put up sit between your own positions
+     and the valley, because they are the one part of this board that is about
+     what you DID rather than about where anybody is. */
+  return h + ctVouchedHtml() + ctValleyHtml();
 }
 
 function ctOutfitOpen(){
@@ -47023,6 +47100,29 @@ function ctIntroRows(body, intro, fid, ctOnwardKey){
      only appears where the sentence applies: somebody with no outfit, whom you
      have actually met, while you are INSIDE somewhere. draft:true. */
   if(!fid){
+    /* __CITY_YOURPROBLEM__ -- AND IF THEY USED TO BE SOMEBODY'S, BECAUSE OF YOU.
+       There is no notification for this anywhere in the game. You find out by
+       walking past somebody you helped and reading their card. REALISM IS THE
+       FLOOR, NOT THE CEILING: the real version of this is a number crossing a
+       threshold; the memorable version is a person standing in the street who
+       is nobody again, and a sentence that says whose fault that is.
+       draft:true -- his to edit. */
+    try {
+      var ctLost = ctVouchRecord(CT_OPEN);
+      if(ctLost && ctLost.lost){
+        body += ctRow('THEY WERE IN, ONCE',
+          'WITH THE ' + String(ctLost.faction).toUpperCase()
+          + ' \u00b7 BECAUSE OF YOU');
+        body += ctNote('Your word put them there and nothing else did. You let '
+          + 'it go to nothing with the ' + String(ctLost.faction).toUpperCase()
+          + ', so their place went with it. They have not said anything about '
+          + 'it.');
+      }
+    } catch(_e){
+      if(!ctIntroRows.__lwarn){ ctIntroRows.__lwarn = 1;
+        console.error('BOHEMIA: the lost-vouch row threw and was swallowed. '
+          + _e.message); }
+    }
     /* CT_OPEN, NOT p -- AND MY OWN CATCH HID THAT FOR A ROUND.
        ctIntroRows(body, intro, fid, ctOnwardKey) has no person parameter, so
        the first version referenced a `p` that does not exist here, threw, and

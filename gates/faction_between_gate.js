@@ -1439,12 +1439,148 @@ async function onTheVouch() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   P. "AND AFTER THAT WHAT THIS PERSON DOES IS YOURS" -- A SENTENCE I SHIPPED
+   YESTERDAY WITH NOTHING BEHIND IT.
+   ========================================================================== */
+async function onYourProblem() {
+  console.log('\nP. THE HALF OF THE VOUCH THAT MAKES IT A DECISION.');
+  const BEL = require(path.join(ROOT, 'engine/bohemia_belonging.js'));
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  try {
+    await page.goto('file://' + CITY);
+    await SETTLE(page, 9000);
+    const R = await page.evaluate(() => {
+      const out = {};
+      const bases = ctBases() || {};
+      let who = null;
+      for (const bse of Object.values(bases)) {
+        hx = bse.x * FN + 2; hy = bse.y * FN + 2;
+        for (const p of ctEveryone()) if (!ctFactionOf(p)) { who = p; break; }
+        if (who) break;
+      }
+      if (!who) return { err: 'nobody unaffiliated' };
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
+      sv.meta.commit = {}; sv.meta.vouched = {};
+      ctSawCell(); ctOpen(); for (let i = 0; i < 3; i++) { ctClose(); ctOpen(); }
+      const top = (BohemiaBelonging.RUNGS || []).slice(-1)[0];
+      sv.meta.gave['CHURCH'] = top.at | 0;
+      ctClose(); ctOpen();
+      const b = document.getElementById('ctvouch'); if (b) b.click();
+      out.inNow = ctFactionOf(who);
+      ctOutfitOpen();
+      out.boardIn = document.getElementById('outfitpanel').innerText || '';
+      ctOutfitClose();
+
+      /* HALFWAY DOWN IS NOT DOWN. Standing at the rung ABOVE the floor must
+         NOT cut them loose -- otherwise the rule is "any slip" rather than
+         "your word became worth nothing". */
+      const rungs = BohemiaBelonging.RUNGS || [];
+      sv.meta.gave['CHURCH'] = (rungs[1] ? rungs[1].at | 0 : 1);
+      out.midRung = (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf('CHURCH'),
+        BohemiaBelonging.gaveOf(sv, 'CHURCH')).rung || {}).word;
+      out.sweptMid = ctVouchSweep(sv, 5);
+      out.stillInMid = ctFactionOf(who);
+
+      /* ALL THE WAY DOWN. */
+      sv.meta.gave['CHURCH'] = 0;
+      out.floorRung = (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf('CHURCH'),
+        0).rung || {}).word;
+      out.swept = ctVouchSweep(sv, 7);
+      out.afterSweep = ctFactionOf(who);
+      out.record = JSON.parse(JSON.stringify(ctVouchRecord(who) || {}));
+      out.sweptTwice = ctVouchSweep(sv, 8);   /* idempotent */
+
+      ctClose(); ctOpen();
+      out.rows = [...document.querySelectorAll('.r')].map(r => {
+        const k = r.querySelector('.k'), v = r.querySelector('.v');
+        return (k ? k.textContent : '') + ' :: ' + (v ? v.textContent : '');
+      });
+      ctOutfitOpen();
+      out.boardLost = document.getElementById('outfitpanel').innerText || '';
+      ctOutfitClose();
+
+      sv.meta.gave['CHURCH'] = top.at | 0;
+      ctClose(); ctOpen();
+      out.secondChance = !!ctVouchFor(who);
+      return out;
+    });
+
+    ok('P1 SOMEBODY IS PUT UP AND THE BOARD KEEPS THE LIST. A place he can go '
+      + 'and look, rather than a notification that interrupts him',
+      !R.err && R.inNow === 'CHURCH'
+        && /PEOPLE YOU PUT UP/.test(R.boardIn) && /STILL IN/.test(R.boardIn),
+      JSON.stringify({ err: R.err, inNow: R.inNow,
+                       board: (R.boardIn || '').match(/PEOPLE YOU PUT UP[\s\S]{0,60}/) }));
+
+    ok('P2 A SLIP IS NOT A FALL. At the rung ABOVE the floor they keep their '
+      + 'place, because the rule is "your word became worth nothing", not "you '
+      + 'missed a day". A threshold that fires on any decrease would make the '
+      + 'vouch a trap rather than a responsibility',
+      (R.sweptMid || []).length === 0 && R.stillInMid === 'CHURCH',
+      JSON.stringify({ rung: R.midRung, swept: R.sweptMid, still: R.stillInMid }));
+
+    ok('P3 *** AND WHEN YOU ARE A STRANGER AGAIN, SO ARE THEY. *** I shipped '
+      + 'this sentence on the card yesterday -- "and after that what this '
+      + 'person does is yours" -- and nothing read the vouch bag except the '
+      + 'line that grants the faction. A consequence written into a sentence '
+      + 'and never built, which is the exact bug this lane spent a week finding '
+      + 'in other people\'s code',
+      R.floorRung === 'A STRANGER' && (R.swept || []).length === 1
+        && R.afterSweep === null,
+      JSON.stringify({ floor: R.floorRung, swept: R.swept, after: R.afterSweep }));
+
+    ok('P4 THE ENTRY IS KEPT, NOT DELETED. "They were in, because of you, until '
+      + 'you let it go" is the whole point and a deleted row cannot say it',
+      R.record && R.record.faction === 'CHURCH' && (R.record.lost | 0) === 7,
+      JSON.stringify(R.record));
+
+    ok('P5 AND SWEEPING AGAIN CHANGES NOTHING. It runs every day on the day-end '
+      + 'hook, so a second pass must not re-date a loss that already happened',
+      (R.sweptTwice || []).length === 0, JSON.stringify(R.sweptTwice));
+
+    ok('P6 YOU FIND OUT BY WALKING PAST THEM, and their card says whose fault '
+      + 'it was. There is no notification anywhere for this. REALISM IS THE '
+      + 'FLOOR, NOT THE CEILING: the real version is a number crossing a '
+      + 'threshold, the memorable one is a person in the street who is nobody '
+      + 'again and a sentence naming you',
+      (R.rows || []).some(r => /THEY WERE IN, ONCE/.test(r))
+        && (R.rows || []).some(r => /Your word put them there/.test(r)),
+      JSON.stringify((R.rows || []).filter(r => /WERE IN|Your word/.test(r))));
+
+    ok('P7 AND THE BOARD SAYS WHEN. Both halves of the list render, and the '
+      + 'first version of this only patched ONE of ctOutfitHtml\'s two return '
+      + 'paths -- the list appeared in the branch nobody is in, because the '
+      + 'empty-state return fires for most of the game',
+      /LOST THEIR PLACE ON DAY 7/.test(R.boardLost),
+      JSON.stringify((R.boardLost || '').match(/PEOPLE YOU PUT UP[\s\S]{0,80}/)));
+
+    ok('P8 AND IT IS RECOVERABLE, which is what stops it being a punishment. '
+      + 'They run with nobody again, so the offer comes back: climb to INSIDE '
+      + 'and you can put them up a second time, at the same cost. The door that '
+      + 'closed is the same door',
+      R.secondChance === true);
+
+    ok('P9 AND NOTHING WAS SWALLOWED', warns.filter(w => /threw/.test(w)).length === 0,
+      JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
   .then(onTheValley)
   .then(onWhyWalk)
   .then(onTheGround)
   .then(onTheVouch)
+  .then(onYourProblem)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
