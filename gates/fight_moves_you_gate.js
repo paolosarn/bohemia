@@ -3207,6 +3207,168 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ', and no accuracy, range, cover or resource rule is touched anywhere in this feature. THE READ adds no power -- it makes a decision the fight already contained possible to see, which is the whole of RF4-48',
     ground.damage === 40);
 
+  /* ================= V194 THE KIT SHOWS ITS WORK ======================
+     RF4-14 is the row the teardown calls "the single most important line in
+     RF4's design notes", and its own status cell has read, for weeks: "NOT
+     MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT. This is the test
+     for whether a fight is dense or flat." Wang: "there is almost never a turn
+     in which the player is not either USING AN ABILITY or MOVING INTO POSITION
+     to use an ability in the next turn or two."
+     This arm runs that test. It plays real fights through the shipped verbs --
+     spendMove for movement, bodyFell for a death, tickTurnEnd for the turn --
+     because a harness that skips the shipped verb cannot measure the shipped
+     verb: the first write of this probe moved with worldShift and hurt with
+     applyDamage, and reported that BREAK CONTACT and CALL IT never charged in
+     591 turns. That was a fact about the probe. */
+  const idle = await frame.evaluate(() => {
+    G.bossOff = true; G.bossPick = null; G.readOff = false;
+    try { keysForget(); } catch (e) {}
+    const fires = {};
+    for (const k of KIT) fires[k.verb] = 0;
+    const realVerb = kitVerb;
+    window.kitVerb = function (v) { if (fires[v] !== undefined) fires[v]++; return realVerb(v); };
+
+    /* *** THE SAME FORTY-FIVE SEEDS, TWICE, WITH ONE NUMBER DIFFERENT. ***
+       Run alone this metric swung 66.8, 67.5 and 70.4 across three runs of
+       IDENTICAL code, because a fight's whole character sets all of its turns
+       and forty-five fights is not many fights. Loosening a threshold until the
+       swing fits underneath it is the flattering-shaped check this session has
+       already caught itself writing three times. So the before and the after are
+       measured in the SAME RUN, on the SAME BOARDS, with BREAK CONTACT's charge
+       threshold as the only difference -- which is the only way to say "this
+       pass improved it" and mean it. */
+    const play = () => {
+      const turns = [], seen = {};
+      for (const k of KIT) fires[k.verb] = 0;
+      for (let f = 1; f <= 45; f++) {
+        BohemiaArena.set(1000 + f); setupCombat();
+        G.over = false; G.phase = 'cover'; G.inc = null; G.pHP = G.pMax || 100;
+        G.stam = STAM_MAX; G.kit = {};
+        for (let t = 0; t < 22 && !G.over; t++) {
+          const ready = KIT.filter(k => kitReady(k.id)).map(k => k.id);
+          for (const id of ready) seen[id] = (seen[id] || 0) + 1;
+          const shoot = (G.e || []).filter(e => e && !e.dead && !e.downed && inMyRange(e)).length;
+          let better = 0, gain = 0;
+          try { G._readKey = null; const rd = readGround();
+            if (rd) { better = rd.tiles.length; gain = rd.here - rd.best; } } catch (e) {}
+          let gren = false, stair = false, fin = false, shove = false;
+          try { gren = canThrow(); } catch (e) {}
+          try { stair = !!stairNear(); } catch (e) {}
+          try { fin = finisherReady(); } catch (e) {}
+          try { shove = !!(G.e || []).find(e => e && !e.dead && e.edist <= 1.9); } catch (e) {}
+          turns.push({ ready: ready.length, shoot, better, gain,
+                       gren: gren ? 1 : 0, stair: stair ? 1 : 0, fin: fin ? 1 : 0, shove: shove ? 1 : 0 });
+          let acted = false;
+          if (ready.length) { try { acted = useKit(ready[0]); } catch (e) {} }
+          if (!acted && better > 0) {
+            try { const rd = readGround();
+              if (rd && rd.bestTile) { G.stam = Math.max(G.stam || 0, 2);
+                try { spendMove(1); } catch (e) {}
+                worldShift(rd.bestTile.dx, rd.bestTile.dy); acted = true; } } catch (e) {}
+          }
+          if (!acted && shoot > 0) {
+            try { const tg = (G.e || []).find(e => e && !e.dead && inMyRange(e));
+              if (tg) { try { kitVerb('shot'); } catch (e) {}
+                applyDamage(tg, 22);
+                if (tg.hp <= 0) { tg.dead = true; bodyFell(tg); } acted = true; } } catch (e) {}
+          }
+          if (!acted) { G.stam = Math.max(G.stam || 0, 2);
+            try { spendMove(1); } catch (e) {} try { worldShift(1, 0); } catch (e) {} }
+          G.mTurn++;
+          try { visionTick(); } catch (e) {}
+          (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+          G._sq = null;
+          try { tickTurnEnd(); } catch (e) {}
+          if (!(G.e || []).some(e => e && !e.dead)) break;
+        }
+      }
+      const n = turns.length, pct = (f) => +(100 * turns.filter(f).length / n).toFixed(1);
+      const cad = {};
+      for (const k of KIT) { const r = fires[k.verb] / n;
+        cad[k.id] = r > 0 ? +(k.need / r).toFixed(1) : 999; }
+      return { turns: n,
+        withEither: pct(t => t.ready > 0 || (t.better > 0 && t.gain > 0)),
+        shootOrWalkOnly: pct(t => t.ready === 0 && !(t.better > 0 && t.gain > 0)
+          && !t.gren && !t.stair && !t.fin && !t.shove),
+        noChoiceAtAll: pct(t => t.ready === 0 && t.better === 0 && t.shoot === 0
+          && !t.gren && !t.stair && !t.fin && !t.shove),
+        readyTurns: seen, turnsToCharge: cad,
+        slowest: Math.max(...KIT.filter(k => k.id !== 'slip').map(k => cad[k.id])),
+        everyBaseSeen: KIT.filter(k => !k.key).every(k => (seen[k.id] || 0) > 0) };
+    };
+
+    const smoke = KIT.find(k => k.id === 'smoke');
+    const shipped = smoke.need;
+    smoke.need = 3;                       /* what it was before this pass */
+    const was = play();
+    smoke.need = shipped;                 /* what it is now */
+    const now = play();
+    window.kitVerb = realVerb;
+
+    const o = { was: was, now: now, shippedNeed: shipped, turns: now.turns };
+    /* AND THE ROW SHOWS THE WORK. Empty at the bell, then a charging ability
+       appears DIM with its count and the thing it wants; a cold press says so. */
+    BohemiaArena.roll(); setupCombat();
+    G.over = false; G.phase = 'cover'; G.inc = null; G.kit = {};
+    updKit();
+    const row = document.getElementById('kitrow');
+    o.rowAtTheBell = row.innerHTML.length;
+    kitVerb('hit');                                  /* one hit: PLATE UP starts */
+    updKit();
+    o.showsCount = /1\/\d/.test(row.innerHTML);
+    o.showsWhat = /take a hit/.test(row.innerHTML);
+    o.coldNotGreen = !/border-color:#8fe89a[^>]*>PLATE UP/.test(row.innerHTML);
+    const before = (G.lastRead || {}).t || '';
+    o.coldPressDoesNothing = (useKit('plate') === false);
+    o.coldPressSpeaks = ((G.lastRead || {}).t || '') !== before
+      && /PLATE UP/.test((G.lastRead || {}).t || '');
+    let guard = 0;
+    while (!kitReady('plate') && guard++ < 20) kitVerb('hit');
+    updKit();
+    o.readyIsGreen = /border-color:#8fe89a/.test(row.innerHTML);
+    o.readyDropsTheCount = !/PLATE UP <span[^>]*>\d+\//.test(row.innerHTML);
+    o.untouchedAbsent = row.innerHTML.indexOf('data-kit="slip"') < 0;
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    G.bossOff = true; G.bossPick = null;
+    return o;
+  });
+
+  console.log('  V194 RF4-14, the anti-idle-turn rule, measured at last:'
+    + '\n    the SAME 45 boards, twice, one number different'
+    + '\n                                       BEFORE      AFTER'
+    + '\n    turns played                       ' + String(idle.was.turns).padEnd(12) + idle.now.turns
+    + '\n    a turn with an ability or ground   ' + String(idle.was.withEither + '%').padEnd(12) + idle.now.withEither + '%'
+    + '\n    shoot-or-walk and nothing else     ' + String(idle.was.shootOrWalkOnly + '%').padEnd(12) + idle.now.shootOrWalkOnly + '%'
+    + '\n    no real choice at all              ' + String(idle.was.noChoiceAtAll + '%').padEnd(12) + idle.now.noChoiceAtAll + '%'
+    + '\n    BREAK CONTACT, turns to charge     ' + String(idle.was.turnsToCharge.smoke).padEnd(12) + idle.now.turnsToCharge.smoke
+    + '\n    BREAK CONTACT, turns it was ready  ' + String(idle.was.readyTurns.smoke || 0).padEnd(12) + (idle.now.readyTurns.smoke || 0)
+    + '\n    turns to charge, by ability        ' + JSON.stringify(idle.now.turnsToCharge));
+
+  ok('V194 *** RF4-14 IS THE ROW THE TEARDOWN CALLS THE MOST IMPORTANT LINE IN RF4\'s DESIGN NOTES, AND ITS OWN STATUS CELL HAS READ "NOT MEASURED" FOR WEEKS. *** Wang: "there is almost never a turn in which the player is not either USING AN ABILITY or MOVING INTO POSITION to use an ability in the next turn or two." Run over the SAME 45 boards twice with one charge threshold as the only difference -- because alone this metric swung 66.8, 67.5 and 70.4 across three runs of identical code, and loosening a threshold until the swing fits under it is the flattering-shaped check this session has already caught itself writing three times. A turn offers an ability or ground worth taking '
+    + idle.was.withEither + '% -> ' + idle.now.withEither + '%, shoot-or-walk-and-nothing-else '
+    + idle.was.shootOrWalkOnly + '% -> ' + idle.now.shootOrWalkOnly + '%. THIS PLAYER SPENDS AN ABILITY THE INSTANT IT IS READY, the worst case for the question, so both numbers are floors. AND WE ARE NOT AT RF4\'s "ALMOST NEVER": roughly a quarter of turns is still shoot-or-shrug, which is worth knowing rather than rounding away',
+    idle.was.turns > 300 && idle.now.turns > 300
+    && idle.now.withEither > idle.was.withEither
+    && idle.now.shootOrWalkOnly < idle.was.shootOrWalkOnly);
+
+  ok('V194 *** AND BREAK CONTACT WAS NOT RARE, IT WAS NOT IN THE GAME. *** Turns to charge, measured per ability from the real firing rate of its OWN verb, ran 3.7 to 23.1 -- the slowest needing MORE TURNS THAN A FIGHT HAS. That is the sixth thing this month that shipped, worked and could not be reached, and the FIRST one no structural check could have caught, because the defect was in the ECONOMY rather than the wiring: its verb had a caller, its own gate arm was green, and the button never came up. On the same boards it goes '
+    + idle.was.turnsToCharge.smoke + ' turns to charge -> ' + idle.now.turnsToCharge.smoke + ', and ready on '
+    + (idle.was.readyTurns.smoke || 0) + ' turns -> ' + (idle.now.readyTurns.smoke || 0)
+    + '. Every one of the six base abilities now comes up in play: ' + JSON.stringify(idle.now.readyTurns),
+    idle.now.turnsToCharge.smoke < idle.was.turnsToCharge.smoke
+    && (idle.now.readyTurns.smoke || 0) > (idle.was.readyTurns.smoke || 0) * 2
+    && idle.now.slowest <= 14 && idle.now.everyBaseSeen === true);
+
+  ok('V194 AND THE BEST IDEA IN THE KIT STOPPED BEING INVISIBLE. V185\'s whole design is "RECHARGE CONDITIONS ARE VERBS, NOT TIMERS -- the kit tells you how the game wants to be played", and updKit drew a button ONLY once an ability was ready, so the condition and the progress were a private conversation between the engine and itself from the day it shipped. YOU CANNOT PLAY TOWARD SOMETHING YOU CANNOT SEE. The row is empty at the bell, a charging ability appears dim with its count and the thing it wants in plain words, a ready one is green with no count, and an ability nobody has touched is still absent -- because nine buttons at the bell is the furniture he has asked five separate times to have taken off this screen',
+    idle.rowAtTheBell === 0 && idle.showsCount === true && idle.showsWhat === true
+    && idle.coldNotGreen === true && idle.readyIsGreen === true
+    && idle.readyDropsTheCount === true && idle.untouchedAbsent === true);
+
+  ok('V194 AND A COLD BUTTON SAYS WHAT IT IS WAITING FOR RATHER THAN IGNORING THE TAP, because the demo gap list names that as the sharp one in exactly those words: "a refusal with no sound is INDISTINGUISHABLE FROM A BROKEN BUTTON". Pressing an uncharged ability returns false and speaks its condition. And NO DAMAGE BEFORE THE DIAL survives the whole pass: applyDamage is ' + idle.damage
+    + ', no ability\'s EFFECT changed, and the only number that moved is one charge threshold that was measured rather than picked',
+    idle.coldPressDoesNothing === true && idle.coldPressSpeaks === true && idle.damage === 40);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

@@ -1,3 +1,85 @@
+COMBAT (combat-nfnki9): 8/28 (e) LATEST -- *** RF4-14 SAID OF ITSELF "NOT
+MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT". IT IS MEASURED NOW
+AND A THIRD OF EVERY FIGHT WAS A DEAD TURN. *** Nothing to judge.
+
+TAB: COMBAT. Fight and watch the button row fill up. Build 8/28e.
+
+HE SAID "the best funnest DEEPEST videogame ever", AND THE TEARDOWN ALREADY
+NAMED THE DEPTH TEST AND NEVER RAN IT
+  RF4-14 is the row the teardown calls the most important line in RF4's design
+  notes: "there is almost never a turn in which the player is not either USING AN
+  ABILITY or MOVING INTO POSITION to use an ability in the next turn or two."
+  Its own status cell has read NOT MEASURED for weeks.
+
+MEASURED, 594 REAL TURNS THROUGH THE SHIPPED VERBS
+  a turn with an ability or ground worth taking   64.0%
+  a turn with NEITHER                             36.0%   <- RF4 says almost never
+  you could simply shoot                          96.1%
+  shoot-or-walk and nothing else                  20.2%
+
+AND THE CADENCE TABLE WAS WORSE THAN THE AVERAGE
+  Turns to charge, per ability, from the real firing rate of its OWN verb:
+  READ 3.7 / SEND HIM 4.2 / LIGHT IT 4.6 / PLATE 7.7 / STEADY 8.5 / PATCH 8.9 /
+  CALL 9.6 / SLIP 18.3 / *** BREAK CONTACT 23.1, IN A FIGHT THAT LASTS ABOUT
+  TWENTY. *** It was not rare, IT WAS NOT IN THE GAME -- the sixth unreachable
+  thing this month and the FIRST that no structural check could have caught,
+  because the defect was in the ECONOMY not the wiring: its verb had a caller,
+  its own gate arm was green, and the button never came up.
+
+AND THE BEST IDEA IN THE KIT HAD ALWAYS BEEN INVISIBLE
+  V185's design is "RECHARGE CONDITIONS ARE VERBS, NOT TIMERS -- the kit tells
+  you how the game wants to be played", and updKit drew a button ONLY once an
+  ability was already READY. The condition, the counter and the progress were a
+  private conversation between the engine and itself from the day it shipped.
+  YOU CANNOT PLAY TOWARD SOMETHING YOU CANNOT SEE.
+  SHIPPED: a charging ability is on the row, dim, with its count and what it
+  wants in plain words ("BREAK CONTACT 1/1 - cover ground"); one nobody has
+  touched is still absent so the row is empty at the bell; a cold press SAYS what
+  it needs instead of ignoring the tap; and BREAK CONTACT's threshold is 3 -> 1,
+  measured off its verb's real firing rate rather than picked.
+
+THE RESULT, AS A CONTROLLED EXPERIMENT
+  Alone this metric swung 66.8 / 67.5 / 70.4 across three runs of IDENTICAL
+  code, and loosening a threshold until the swing fits under it is the
+  flattering-shaped check this session has already caught itself writing three
+  times. So before and after run on the SAME 45 BOARDS with one number changed:
+    a turn with an ability or ground   66.0% -> 70.4%
+    shoot-or-walk and nothing else     18.3% -> 15.6%
+    no real choice at all               2.0% -> 1.0%
+    BREAK CONTACT turns to charge       22.6 -> 8.7
+    BREAK CONTACT turns it was ready      26 -> 100
+  AND WE ARE STILL NOT AT RF4's "ALMOST NEVER": about a quarter of turns is
+  still shoot-or-shrug. Said out loud rather than rounded away.
+
+TWO THINGS I GOT WRONG AND CAUGHT
+  1. The first probe reported that two abilities never charged in 591 turns. It
+     moved with worldShift and hurt with applyDamage, so spendMove and the gun
+     were never touched. A HARNESS THAT SKIPS THE SHIPPED VERB CANNOT MEASURE
+     THE SHIPPED VERB -- a fact about the probe, nearly filed as a defect.
+  2. I edited the teardown's BOHEMIA TODAY column to un-stale RF4-14 and
+     rf4_teardown_gate's G3 went red: COMBAT may move the STATUS column beside a
+     slice change and NOTHING ELSE, because the rest is LAB's. THE GATE WAS
+     RIGHT AND I WAS WRONG. Reverted.
+     [FLAGGED TO LAB] RF4-14's status cell still says NOT MEASURED. It has been
+     measured; the numbers are in the record below.
+
+GATES: fight_moves_you 140/0 (was 136/0), three runs stable - combat_lab 931/1
+(the one red is another session's fight-music ladder) - one_engine 3/0 -
+rf4_teardown 90/4, all four pre-existing - 0 page errors.
+  NOTE, NOT MINE: tool_idempotent is 5/1 on bohemia_city_hero_wire_patch.py and
+  bohemia_city_module_resync.py, two CITY tools that arrived with main. No combat
+  tool is implicated.
+RECORD: records/BOHEMIA_COMBAT_THE_ANTI_IDLE_TURN_RULE_MEASURED_8_27_26.md
+
+WHAT COMES AFTER
+  A quarter of turns is still shoot-or-shrug and one number explains it: YOU CAN
+  SIMPLY SHOOT ON 96% OF TURNS. The gun is always available and almost always
+  safe, so it is the default that always works. The teardown already names the
+  answer shape -- RF4-23 and RF4-37, "a target worth crossing the room for" and a
+  reason to IGNORE the nearest man. Both still marked PARTIAL, and both combat's.
+
+------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/28 (u) LATEST -- *** 36.3% OF THIS VALLEY'S STREET EDGES
 DID NOT CONNECT WHEN HE COMPLAINED. NOW 9.5%. The road learned to meet things
 that are not roads: shops, resorts, and the desert. Nothing to judge. ***
