@@ -151,3 +151,83 @@ There is no inventory, because the purse is the inventory and it already exists.
 There is no rarity roll, because the amount is derived from the fiction.
 There is nothing to spend it on yet: PRICES is empty and it is his.
 The snatcher does not steal, and will when the chase is built.
+
+
+================================================================================
+ADDENDUM, SAME DAY: THE ROAD IS A DECISION, AND I WAS WRONG ABOVE
+================================================================================
+
+The section above says, in the record and in the commit and in the handoff:
+
+    "A real fork needs a real downside for pushing through, and the downside of
+     walking into a feral dog pack is DAMAGE. NO DAMAGE BEFORE THE DIAL. So this
+     does not ship a fake choice."
+
+THE REASONING WAS SOUND AND THE PREMISE WAS WRONG, so the conclusion was too.
+
+I had framed the fork as PUSH THROUGH versus GO AROUND. One arm free, one arm
+costly. A free arm needs a hidden price to be a decision, and the only price on
+offer was damage, so I stopped.
+
+*** A FORK DOES NOT NEED DAMAGE IF BOTH ARMS COST SOMETHING REAL. ***
+
+    PAY THE TOLL      costs SALVAGE, saves TIME
+    GO AROUND         costs TIME, saves SALVAGE
+
+Neither is free. Neither dominates. Which one is right depends on what he is
+carrying and how much daylight is left, and both currencies already exist and
+are already spent by this game. No damage anywhere.
+
+It is also what the locked spec asked for in its own reference's words: "You can
+spend money on SURVIVING THE ROAD, not just on goods." It was there the whole
+time and I talked myself out of it.
+
+FOUR OF THE TWELVE NOW ASK HIM SOMETHING, and every option is read off the
+token's own approved `ends` string rather than invented:
+
+    scavenger_shakedown  'pay / scare / drop'
+        GIVE HIM SOMETHING (1 salvage) or FACE HIM DOWN (15 min)
+    toll_crew            'pay / fight / detour'
+        PAY THE CUT (2 salvage) or GO AROUND (20 min)
+    ghost_robotaxi       'ride or rush'
+        GET IN (2 cells free, THE CAB'S DIRECTION) or LET IT GO
+    patrols_collide      'join, third-party, LOOT AFTER, or walk on'
+        WAIT AND GO THROUGH IT (20 min, +3 salvage) or WALK ON
+
+The missing arms are the kills, and the card says so in one line instead of
+inventing a fake verb for a dog pack.
+
+--------------------------------------------------------------------------------
+AND THE GATE CAUGHT ME SHIPPING A FAKE CHOICE IN THE SAME TURN
+--------------------------------------------------------------------------------
+
+The first cut of the cab was GET IN (free, two cells, pure gain) against LET IT
+GO (nothing). One arm strictly wins, so it is a button with two labels, and I
+wrote it into a patch whose own header says I do not ship those. THE "NO FREE
+ARM" CLAIM WENT RED, 13 of 14, in the same hour.
+
+The fix came out of the roster rather than out of a dial: "empty cabs still
+crawling PICKUP LOOPS". So THE CAB DRIVES ITS LOOP, NOT HIS -- two cells for
+nothing, in a direction he does not choose, and the cost is the walk back. It is
+deterministic off the encounter's own seq, so no seeded stream is touched.
+
+TWO MORE THINGS THE BUILD GOT RIGHT ONLY BECAUSE THE VOCABULARY ALREADY EXISTED:
+
+  A PAYMENT IS A TRANSFER, NOT A DRAIN. The purse's own words: a drain is
+  destroyed and gone, a transfer moved to another holder. The toll crew HAS the
+  cut. Posting it as a drain would have been invisible and would have quietly
+  told the economy that matter evaporates.
+
+  AND IT DOES NOT BREAK "NOTHING IS EVER TAKEN FROM HIM". That claim is about
+  THEFT. A toll he chose to pay is not a theft, so payments carry their own
+  ledger ref and the older claim keeps holding exactly what it always held.
+
+AN OPTION HE CANNOT AFFORD IS SHOWN AND REFUSED, NOT HIDDEN, with the number.
+Hiding it tells him the crew does not take payment when the truth is he is
+broke, and he should feel broke. A refusal puts the other way out back, because
+being broke must never strand him in front of a card with nothing to press.
+
+    ROAD DECISION   14 passed, 0 failed
+    MUTATION, paying posted as a drain            14 -> 13/1
+    MUTATION, the unaffordable option hidden      14 -> 12/2
+    ROAD INTERRUPTS 19/0 · ROAD LEAVINGS 15/0 · WHOLE DEMO 23/0, all unchanged

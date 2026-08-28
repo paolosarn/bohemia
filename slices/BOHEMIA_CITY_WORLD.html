@@ -28983,6 +28983,109 @@ var ROAD_LEAVINGS = {
 
 var ROAD_DIR = null, ROAD_LOG = [], ROAD_TAKEN = 0;
 
+/* __THE_ROAD_IS_A_DECISION__ (8/27) -- WHAT YOU CAN ACTUALLY DO ABOUT IT.
+   Every option below is read off the token's own approved `ends` string, never
+   invented. The costs are TIME and SALVAGE, both of which this game already
+   spends, and NEITHER ARM OF ANY FORK IS FREE -- which is the whole reason this
+   needs no damage dial. `pay` is in salvage, `min` is minutes of his day, `give`
+   is salvage gained, `ride` is a free cell of travel.
+   THE ARMS THAT ARE MISSING ARE MISSING ON PURPOSE and the card says so: 'drop',
+   'fight', 'join' and 'third-party' are all kills, and NO DAMAGE BEFORE THE DIAL. */
+var ROAD_CHOICES = {
+  scavenger_shakedown: {
+    ends: 'pay / scare / drop',
+    opts: [ { a:'pay',   t:'GIVE HIM SOMETHING', pay:1,
+               say:'He takes it with both hands and is gone before you look up.' },
+            { a:'stare', t:'FACE HIM DOWN', min:15,
+               say:'You wait. He works up to it twice and then walks off down the wash.' } ],
+    /* draft:true */
+    why:'Dropping him is the third way out of this and it is a kill.' },
+  toll_crew: {
+    ends: 'pay / fight / detour',
+    opts: [ { a:'pay',    t:'PAY THE CUT', pay:2,
+               say:'The one on the cooler counts it, nods, and waves you through.' },
+            { a:'around', t:'GO AROUND', min:20,
+               say:'You take the frontage road. It adds a mile and nobody watches you do it.' } ],
+    why:'Fighting four of them for a ramp is the third way and it is a fight.' },
+  ghost_robotaxi: {
+    ends: 'ride or rush',
+    /* *** THE COST OF THE CAB IS THAT IT IS NOT GOING WHERE YOU ARE GOING. ***
+       The first cut of this was GET IN (free, two cells) against LET IT GO
+       (nothing), and MY OWN GATE KILLED IT: an arm that is free and pure gain is
+       not a fork, it is a button, and I had just written a header claiming I do
+       not ship those. The fix is in the roster's own verb -- "empty cabs still
+       crawling PICKUP LOOPS" -- so the cab drives ITS loop, not his. Two cells
+       for nothing, in a direction he does not choose, which is a real gamble
+       paid in the time it takes to walk back. `blind` is the cost, and it needs
+       no damage dial. */
+    opts: [ { a:'ride', t:'GET IN', ride:2, blind:1,
+               say:'The door shuts. It drives the loop it has always driven, and it is not your loop.' },
+            { a:'walk', t:'LET IT GO', 
+               say:'It waits its ninety seconds for nobody and pulls off.' } ] },
+  patrols_collide: {
+    ends: 'world on world',
+    opts: [ { a:'loot', t:'WAIT, THEN GO THROUGH IT', min:20, give:3,
+               say:'You give it twenty minutes. Whoever won is gone and they left in a hurry.' },
+            { a:'walk', t:'WALK ON',
+               say:'You keep the wall on your left and neither crew ever looks up.' } ],
+    why:'Joining a side, or taking both, are the other two ways and both are fights.' }
+};
+
+var ROAD_LASTDIR = null;   /* which way he was going, for the ride */
+
+/* THE PRESS. Costs land here and nowhere else, so there is exactly one place
+   that can spend his day or his salvage on the road. */
+function roadChoose(ev, act){
+  var C = ROAD_CHOICES[ev.id]; if(!C) return null;
+  var o = null;
+  for(var i=0;i<C.opts.length;i++) if(C.opts[i].a===act) o=C.opts[i];
+  if(!o) return null;
+
+  /* AN OPTION HE CANNOT AFFORD REFUSES WITH THE REASON. Hiding it would tell
+     him the crew does not take payment, when the truth is he is broke. */
+  if(o.pay){
+    var have = 0;
+    try{ have = BohemiaPurse.balance(purseGet(),'resources'); }catch(_e){}
+    if(have < o.pay) return { refused:true, need:o.pay, have:have,
+      say:'You do not have it. They can see that you do not have it.' };  /* draft:true */
+    try{
+      /* A TRANSFER, NOT A DRAIN. The purse's own words: a drain is destroyed and
+         gone, a transfer moved to another holder. The crew HAS the cut. */
+      BohemiaPurse.transferOut(purseGet(),'resources',o.pay,
+        'paid on the road: '+ev.id, 'roadpay:'+ev.seq,
+        (typeof DAY!=='undefined'&&DAY.day)?DAY.day:0);
+    }catch(_e){}
+  }
+  if(o.give){
+    try{ BohemiaPurse.credit(purseGet(),'resources',o.give,
+      'taken on the road: '+ev.id, 'road:'+ev.seq+'b',
+      (typeof DAY!=='undefined'&&DAY.day)?DAY.day:0); ROAD_TAKEN+=o.give; }catch(_e){}
+  }
+  if(o.min){ try{ advance(o.min); }catch(_e){} }
+  var rode = 0;
+  if(o.ride){
+    /* *** THE CAB DRIVES ITS LOOP, NOT HIS. *** The roster's verb is "empty cabs
+       still crawling PICKUP LOOPS", so the direction is the CAB'S and he does not
+       pick it. Two cells for nothing is the gain; not choosing where is the cost,
+       and it is paid later in the walk back. Deterministic off the encounter's
+       own seq so the same cab always goes the same way and nothing here rolls a
+       seeded stream (A FEATURE THAT COSTS A SEEDED STREAM ONE DRAW REWRITES THE
+       WHOLE MAP, 8/27). It still obeys the map: a cab cannot drive where there
+       is no road, and it stops the moment the road does. */
+    try{
+      var cd = ((ev.seq|0) * 2 + 1) % 8;              /* the cab's own heading */
+      for(var k=0;k<o.ride;k++){
+        var d = DIRS[cd], nx = city.x+d[0], ny = city.y+d[1];
+        if(!cityWalkable(nx,ny)) break;
+        city.x=nx; city.y=ny; rode++;
+      }
+    }catch(_e){}
+  }
+  return { ok:true, act:act, say:o.say, paid:o.pay||0, mins:o.min||0,
+           got:o.give||0, rode:rode };
+}
+
+
 /* THE FAUCET, AND IT IS ONLY EVER A FAUCET. TEN YEARS COLD clause 2 bans a price
    that MOVES BY ITSELF and explicitly permits one that exists: "A tag is fine. A
    market is not." So this credits `resources` with the ledger's own kind
@@ -29110,6 +29213,22 @@ function roadCard(ev, mins, kg){
      "LEFT BEHIND: 0" every single time teaches him to stop reading the card. */
   var left  = (kg>0) ? ('<div class="rrow"><span class="rk">LEFT ON THE ROAD</span>'
                         + '<span class="rv">' + kg + ' KG SALVAGE</span></div>') : '';
+  /* __THE_ROAD_IS_A_DECISION__: what he can do about it, if anything. */
+  var C = ROAD_CHOICES[ev.id];
+  var acts = '';
+  if(C){
+    C.opts.forEach(function(o){
+      var tag = o.pay ? (o.pay+' SALVAGE') : o.min ? (o.min+' MIN')
+              : o.ride ? 'A LIFT' : 'FREE';
+      acts += '<div class="mrow" data-act="ch:'+o.a+'"><span class="mgood">'
+           +  esc(o.t) + '</span><span class="mprice">' + tag + '</span></div>';
+    });
+    if(C.why) acts += '<div class="rwhy" data-draft="true">' + esc(C.why)
+           + ' Fighting is not in this build yet.</div>';
+  } else {
+    acts = '<div class="mrow" data-act="close"><span class="mgood">KEEP MOVING</span>'
+         + '<span class="mprice">\u2192</span></div>';
+  }
   cardShow(
     /* THE HEADER KEEPS ITS HANDS OFF THE CLOSE BUTTON. cardShow's close is
        float:right, and a block box does not sit BESIDE a float, it sits UNDER
@@ -29121,9 +29240,37 @@ function roadCard(ev, mins, kg){
     + '<div class="rv" style="text-align:left;margin-bottom:10px">'
       + esc(String(ev.name).toUpperCase()) + '</div>'
     + '<div class="rwhy" data-draft="true">' + esc(words) + '</div>'
-    + cost + left
-    + '<div class="mrow" data-act="close"><span class="mgood">KEEP MOVING</span>'
-      + '<span class="mprice">\u2192</span></div>');
+    + cost + left + acts,
+    function(act){
+      if(!act || act.indexOf('ch:')!==0) return;
+      var r = roadChoose(ev, act.slice(3));
+      if(!r) return;
+      var inn = document.getElementById('daycardIn');
+      if(!inn) return;
+      /* THE OUTCOME REPLACES THE OPTIONS. Leaving them up after a press invites
+         a second payment for one encounter, and it lies about what just
+         happened. */
+      var rows = inn.querySelectorAll('.mrow');
+      for(var i=0;i<rows.length;i++) rows[i].style.display='none';
+      var tell = r.refused
+        ? esc(r.say) + ' (' + r.need + ' salvage, you have ' + r.have + ')'
+        : esc(r.say);
+      var meta = [];
+      if(r.paid) meta.push('-' + r.paid + ' salvage');
+      if(r.got)  meta.push('+' + r.got + ' salvage');
+      if(r.mins) meta.push(r.mins + ' min');
+      if(r.rode) meta.push('a cell of road for nothing');
+      inn.insertAdjacentHTML('beforeend',
+        '<div class="rwhy" data-draft="true">' + tell + '</div>'
+        + (meta.length ? '<div class="rrow"><span class="rk">THAT COST</span>'
+            + '<span class="rv">' + esc(meta.join(' \u00b7 ')) + '</span></div>' : '')
+        + '<div class="mrow" data-act="close"><span class="mgood">KEEP MOVING</span>'
+        + '<span class="mprice">\u2192</span></div>');
+      /* A REFUSAL PUTS THE OTHER WAY OUT BACK, because being broke must not
+         strand him in front of a card with nothing to press. */
+      if(r.refused) for(var j=0;j<rows.length;j++)
+        if(rows[j].dataset.act!=='ch:pay') rows[j].style.display='';
+    });
 }
 
 function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'); }
@@ -29132,6 +29279,7 @@ function stepOnce(di){
   if(MODE==='city'){
     const nx=city.x+dx, ny=city.y+dy;
     if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(10); moversAdvance();
+      ROAD_LASTDIR=di;   /* __THE_ROAD_IS_A_DECISION__: which way the cab would be going */
       /* __THE_ROAD_INTERRUPTS__: TEN MINUTES OF HIS DAY JUST WENT BY. Hand it to the
          approved director and let the road have its say. This is the whole wiring:
          the time was always being spent, it just never bought anything. */

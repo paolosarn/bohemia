@@ -74398,6 +74398,82 @@ believing what they tell you.
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+RUN (run-eak241): 8/27 (e) LATEST -- *** THE ROAD IS A DECISION NOW, AND I WAS
+WRONG THIS MORNING ABOUT WHY IT COULD NOT BE. TAB: RUN, zoom out and walk the
+marker. Nothing to judge. ***
+
+THE ROAD INTERRUPTS shipped this morning and EVERY ONE OF THE TWELVE ENCOUNTERS
+HAD THE SAME VERB: read a card, tap KEEP MOVING. Twelve different things and one
+response, against the approved roster's own first principle -- VARIETY IS A
+DIFFERENT VERB, NEVER A BIGGER HP BAR -- and against the locked FT-JOURNEY test,
+"did something happen that COULD HAVE GONE DIFFERENTLY? If no, it is a loading
+screen wearing a costume."
+
+*** THE CORRECTION. *** I wrote this morning, in the record and the commit and
+the handoff: "a real fork needs a real downside for pushing through, and the
+downside of walking into a feral dog pack is DAMAGE. NO DAMAGE BEFORE THE DIAL."
+THE REASONING WAS SOUND AND THE PREMISE WAS WRONG. I had framed it as PUSH
+THROUGH versus GO AROUND -- one arm free, one costly -- so the free arm needed a
+hidden price and the only price on offer was damage.
+A FORK DOES NOT NEED DAMAGE IF BOTH ARMS COST SOMETHING REAL:
+    PAY THE TOLL   costs SALVAGE, saves TIME
+    GO AROUND      costs TIME, saves SALVAGE
+Neither free, neither dominant, and which is right depends on what he is carrying
+and how much daylight is left. Both currencies already existed and are already
+spent by this game. It is also what the locked spec asked for in its own
+reference's words -- "you can spend money on SURVIVING THE ROAD" -- and it was
+there the whole time. I talked myself out of it.
+
+FOUR OF THE TWELVE NOW ASK HIM SOMETHING, every option read off that token's own
+approved `ends` string and the gate CHECKS the traceability rather than trusting
+it: scavenger 'pay / scare / drop' -> give him something (1 salvage) or face him
+down (15 min); toll crew 'pay / fight / detour' -> pay the cut (2) or go around
+(20 min); robotaxi 'ride or rush' -> get in or let it go; patrols colliding
+'join, third-party, LOOT AFTER, or walk on' -> wait and go through it (20 min,
++3) or walk on. THE MISSING ARMS ARE THE KILLS and the card says so in one line
+rather than inventing a fake verb for a dog pack.
+
+*** AND THE GATE CAUGHT ME SHIPPING A FAKE CHOICE IN THE SAME TURN WHOSE HEADER
+SAYS I DO NOT. *** The cab was GET IN (free, two cells, pure gain) against LET IT
+GO (nothing) -- one arm strictly wins, so it is a button with two labels. The NO
+FREE ARM claim went red 13/14 within the hour. The fix came out of the roster and
+not out of a dial: "empty cabs still crawling PICKUP LOOPS", so THE CAB DRIVES
+ITS LOOP, NOT HIS. Two cells for nothing in a direction he does not choose, and
+the cost is the walk back. Deterministic off the encounter's own seq, so no
+seeded stream is touched (8/27's own lesson).
+
+TWO THINGS THE BUILD ONLY GOT RIGHT BECAUSE THE VOCABULARY ALREADY EXISTED:
+  A PAYMENT IS A TRANSFER, NOT A DRAIN. The purse's own words: a drain is
+  destroyed and gone, a transfer moved to another holder. The crew HAS the cut.
+  Posting it as a drain is invisible and quietly tells the economy that matter
+  evaporates.
+  AND IT DOES NOT BREAK "NOTHING IS EVER TAKEN FROM HIM" -- that claim is about
+  THEFT, and a toll he chose to pay is not a theft, so payments carry their own
+  ledger ref and the older claim keeps holding exactly what it held.
+AN OPTION HE CANNOT AFFORD IS SHOWN AND REFUSED WITH THE NUMBER, NOT HIDDEN.
+Hiding it says the crew does not take payment when the truth is he is broke, and
+he should feel broke. A refusal puts the other way out back, because being broke
+must never strand him in front of a card with nothing to press.
+
+  ROAD DECISION 14/0 · ROAD INTERRUPTS 19/0 · ROAD LEAVINGS 15/0 · WHOLE DEMO 23/0
+  MUTATIONS: paying posted as a drain 13/1 · the unaffordable option hidden 12/2
+
+*** AND THE 24-SECOND BLOCKER IS NOT MINE ANY MORE. *** My own handoff said item
+F was next in this lane. I fetched and grepped main BEFORE building -- the rule I
+adopted after losing four hours to the 0f collision -- and the CITY lane is in
+it and has already measured BOTH surfaces (workshop world 10.1s / demo world
+10.5s, wait-after-tap ~9s), found that time_to_play had never once opened the
+demo, and taken it 13/0 -> 18/0. ONE SYSTEM, ONE SESSION: I did not touch it.
+THE RULE PAID FOR ITSELF ON ITS FIRST USE, four hours after it cost me a build.
+
+NEXT IN THIS LANE: TIER 2 THE PACK is blocked on art, not on me -- AR-006 (the
+dog body) is still OPEN in the art queue, and feral_dog_pack FIRES on the road
+now, so that is LIVE CONTENT WITH NO ART rather than a queue row. Then WEBKIT-1
+(all Playwright launches are chromium; the game is iPhone-portrait WebKit, and
+the UI lane proved this week that a chromium-only claim can be flat wrong).
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/27 (d) LATEST -- *** TWO LANES BUILT ROW 0F AT THE SAME TIME
 AND NEITHER COULD SEE THE OTHER. I lost, correctly, and deleted mine. Nothing to
 judge. ***
