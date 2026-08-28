@@ -1667,9 +1667,13 @@ async function onTheirView() {
     }
     ok('Q1 the walked world is reached through the one link', !!city);
     if (!city) return;
-    ok('Q2 the character bake reached the world frame -- without it peoplePass '
-      + 'draws nobody, no mind exists, and every claim below is about a ghost town',
-      await city.evaluate(() => !!PLAYER_CV));
+    /* Q2 IS SAMPLED INSIDE THE MEASUREMENT, NOT HERE. The bake is POSTED IN
+       across the frame boundary, so it arrives some time after the frame itself
+       resolves -- asserting it the instant the frame is found reads false while
+       the feature is fine, and the first cut of this pass did exactly that and
+       went red beside a Q4 that had already proved a mind was stamped. A claim
+       about a precondition has to be read at the moment the precondition is
+       used. It is checked in R below, as out.bake. */
 
     await city.evaluate(() => { const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click(); });
     await SETTLE(page, 600);
@@ -1678,6 +1682,11 @@ async function onTheirView() {
 
     const R = await city.evaluate(() => {
       const out = {};
+      const ctCardText = () => [...document.querySelectorAll('.r')]
+        .map(r => {
+          const k = r.querySelector('.k'), v = r.querySelector('.v');
+          return (k ? k.textContent : '') + ' :: ' + (v ? v.textContent : '');
+        }).join('\n');
       /* stand beside somebody who runs with somebody */
       const bases = ctBases() || {};
       let target = null;
@@ -1691,6 +1700,7 @@ async function onTheirView() {
       }
       if (!target) return { err: 'nobody affiliated anywhere near a base' };
       out.target = target;
+      out.bake = !!PLAYER_CV;      /* read where it is USED, not on frame resolve */
 
       /* WALK. The witness pass runs once per GAME minute and this world is
          I-MOVE-YOU-MOVE, so standing still never advances the clock and never
@@ -1701,18 +1711,45 @@ async function onTheirView() {
         try { renderHuman(); } catch (_e) {}
       }
       out.minuteMoved = ctMinuteNow() !== m0;
-      out.stamped = Object.values(CT_MINDS).filter(m => m && m.fid === target.fid).length;
+      out.stampedAny = Object.values(CT_MINDS).filter(m => m && m.fid).length;
 
       /* --- WITH HIS TABLE EMPTY: THE SHIPPING DEFAULT --- */
       out.ruledBefore = ctDeedsRuled();
+
+      /* *** OPEN THE CARD THE WAY A PLAYER DOES, AND USE WHOEVER ACTUALLY
+         OPENS. *** Teleporting beside somebody and calling ctOpen() does NOT
+         guarantee their card: ctSawCell picks who is in the cell you are
+         reading, and the first cut of this pass asserted against a target it
+         had chosen itself while the card on screen was a passer-by with no
+         outfit at all -- six rows, none of them RUNS WITH. The claim is about
+         WHAT IS ON THE CARD, so the card decides who the subject is. */
+      let openFid = null;
+      const around = [[1,0],[-1,0],[0,1],[0,-1]];
+      outer:
+      for (const p of ctEveryone()) {
+        if (!ctFactionOf(p)) continue;
+        const at = ctAt(p);
+        for (const d of around) {
+          hx = at[0] + d[0]; hy = at[1] + d[1];
+          try { ctSawCell(); ctOpen(); } catch (_e) { continue; }
+          const f = (typeof CT_OPEN !== 'undefined' && CT_OPEN) ? ctFactionOf(CT_OPEN) : null;
+          if (f) { openFid = f; break outer; }
+        }
+      }
+      out.openFid = openFid;
+      if (!openFid) return { err: 'no affiliated person could be opened' };
+      target.fid = openFid;
       out.viewEmpty = ctTheirView(target.fid);
-      const who = ctEveryone().find(p => ctFactionOf(p) === target.fid);
-      if (who) { const at = ctAt(who); hx = at[0] + 1; hy = at[1]; ctSawCell(); ctOpen(); }
-      /* #ctcard, NOT #card. The first cut of this pass read an element that does
-         not exist, so innerText was '' and three claims failed while the feature
-         they were about was working -- the view object right beside them already
-         said HOSTILE. A reader that cannot see the surface is the broken half. */
-      out.cardEmpty = (document.getElementById('ctcard') || {}).innerText || '';
+      /* THE CARD IS READ OFF ITS OWN ROWS, and this reader took two goes to get
+         right. First it read #card, which does not exist. Then #ctcard.innerText,
+         which returns '' whenever the element is not being rendered -- innerText
+         is defined in terms of LAYOUT, so a hidden node answers empty and the
+         claim fails while the feature works. Both times the view object printed
+         beside the failure already said HOSTILE. textContent over the row divs
+         is what the surface actually holds. */
+      out.cardEmpty = ctCardText();
+      out.cardRows = document.querySelectorAll('.r').length;
+      out.cardOpen = !!(typeof CT_OPEN !== 'undefined' && CT_OPEN);
       ctOutfitOpen(); out.boardEmpty = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
 
       /* --- HE TURNS THE DIAL AND ONE OF THEIRS WATCHES YOU --- */
@@ -1725,8 +1762,8 @@ async function onTheirView() {
       }
       out.viewRuled = ctTheirView(target.fid);
       out.why = ctWhyTheyThinkThat(target.fid, 3);
-      ctClose(); ctOpen();
-      out.cardRuled = (document.getElementById('ctcard') || {}).innerText || '';
+      ctClose(); ctOpen();          /* same subject, redrawn with his ruling in */
+      out.cardRuled = ctCardText();
       ctOutfitOpen(); out.boardRuled = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
 
       /* --- AN OUTFIT YOU HAVE BEEN GIVING TO AND NEVER MET --- */
@@ -1749,6 +1786,10 @@ async function onTheirView() {
 
     if (R.err) { ok('Q3 there is somebody affiliated to stand next to', false, R.err); return; }
 
+    ok('Q2 the character bake reached the world frame -- without it peoplePass '
+      + 'draws nobody, no mind exists, and every claim below is about a ghost town',
+      R.bake === true);
+
     ok('Q3 the clock actually advanced -- the witness pass is once per GAME minute '
       + 'and this world only moves when you do',
       R.minuteMoved === true);
@@ -1757,7 +1798,7 @@ async function onTheirView() {
       + 'asks factionOfOwner(id) and ctFactionOf takes a PERSON; ctWitnessPass is '
       + 'the one place holding both, so if the stamp is not landing there the '
       + 'faction can never have a view of anybody',
-      R.stamped > 0, 'stamped=' + R.stamped);
+      R.stampedAny > 0, 'stamped=' + R.stampedAny);
 
     ok('Q5 standingOf IS CALLED FROM THE WALKED SURFACE. Rule 4 of '
       + 'bohemia_standing.js, and organ_reach reported it reached by NOTHING '
@@ -1778,7 +1819,7 @@ async function onTheirView() {
       + 'that outfit who have been where you have been -- and a headcount needs '
       + 'no ruling from anybody',
       /HAS SEEN YOU/.test(R.cardEmpty) && /OF ITS PEOPLE/.test(R.cardEmpty),
-      JSON.stringify((R.cardEmpty || '').match(/THE \w+ HAS SEEN YOU[\s\S]{0,40}/)));
+      'card=' + JSON.stringify(String(R.cardEmpty).slice(0, 300)));
 
     ok('Q8 AND ON THE BOARD, which is where he goes to look rather than being '
       + 'interrupted', /WHO HAS LAID EYES ON YOU/.test(R.boardEmpty));
