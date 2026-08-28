@@ -1295,7 +1295,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
 <div id="app">
   <div id="tabs">
     <div class="tab" data-p="vote">VOTE</div>
-    <div class="tab" data-p="ui">UI</div>
+    <div class="tab" data-p="ui">UI</div><div class="tab" data-p="looks">3D</div>
     <div class="tab" data-p="look">LOOK</div><div class="tab" data-p="words">WORDS</div><div class="tab" data-p="cutscene">CUTSCENE</div><div class="tab" data-p="direct">DIRECT</div><div class="tab on" data-p="run">RUN</div><!-- __THE_FRONT_DOOR_IS_THE_GAME__ (8/25, P0-DOOR): THE DOOR OPENS ONTO THE GAME. It opened on the CHARACTER workbench, so a stranger's first screen was a dressing room with sixteen other tabs over it. Nothing was removed; CHARACTER is one tap away, in the same place. NOTE the second half in #p-city below -- the RUN tab shows the CITY panel, not #p-run, so marking this tab alone would highlight RUN over the character workbench. -->
     <div class="tab" data-p="char">CHARACTER</div>
     <div class="tab" data-p="clothes">CLOTHES</div>
@@ -1311,6 +1311,11 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <div id="syncBadge"></div><!-- EMPTY AT REST: this is the rig-rebuild indicator and it lives OUTSIDE #stage, so it renders on every tab including RUN. It speaks only when a rebuild lands, then goes quiet again. -->
   <div id="stage">
     <div class="panel" id="p-ui"><iframe id="uiFrame" data-src="BOHEMIA_UI_CURRENT.html" title="the bohemia look, and what you pick" style="width:100%;height:100%;border:0;background:#0c0a07"></iframe></div>
+    <!-- PICK A LOOK (UI lane, 8/28). Paolo: "just show me pictures of a bunch
+         of UI ideas and I click them ... if the games 2-D I want the UI to look
+         like it's 3-D". Twelve looks, same words in every one, thumbs on each.
+         NOTHING HERE TOUCHES THE GAME. It is a page he taps. -->
+    <div class="panel" id="p-looks"><iframe id="looksFrame" data-src="BOHEMIA_UIWALL_CURRENT.html" title="pick a look" style="width:100%;height:100%;border:0;background:#0c0a07"></iframe></div>
     <div class="panel" id="p-vote"><iframe id="voteFrame" data-src="BOHEMIA_VOTE_CURRENT.html" title="vote on what is new" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
     <div class="panel" id="p-run" style="position:relative">
 <!-- ===== BOHEMIA OPENING OVERLAY (generated) ===== -->
