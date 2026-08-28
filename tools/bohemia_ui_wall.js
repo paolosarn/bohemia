@@ -1,6 +1,25 @@
 #!/usr/bin/env node
 /* ============================================================================
-   BOHEMIA -- THE 3D WALL  (UI lane, 8/28/26)
+   BOHEMIA -- THE 3D WALL  (UI lane, 8/28/26)   *** ROUND TWO: BEHIND GLASS ***
+
+   ROUND ONE'S ANSWER, and it is the cleanest verdict this lane has ever had:
+   ONE YES OUT OF TWELVE. BEHIND GLASS lives, the other eleven are dead, and he
+   said "The one i liked i like this direction. Its not done by any means."
+   SO HE PICKED A LANE, NOT A LOOK. Round two is twelve ways to push the SAME
+   idea, never twelve new ideas -- re-pitching a bevel now would be re-opening a
+   grave. Round one's verdict:
+     records/BOHEMIA_UI_VERDICT_PICK_A_LOOK_R1_8_28_26.txt
+
+   AND THE REAL CRT VOCABULARY IS USED HONESTLY HERE, because every one of these
+   effects exists for a physical reason and copying them without the reason is
+   how you get a filter instead of a screen:
+     SCANLINES     the beam traced discrete lines with unlit gaps between them
+     PHOSPHOR MASK a perforated barrier stopped each gun hitting the wrong colour
+     HALATION      the phosphor kept glowing after the beam had gone past
+     BARREL        the glass was physically curved
+     VIGNETTE      the beam hit the corners at a steeper angle, so less energy
+   None of it was designed. All of it is the visible cost of the technology,
+   which is exactly why it reads as a real object and not as decoration.
 
    REUSE CHECK: no new graphic pixels are cooked here at all. Every look on this
    page is CSS over the game's own colour tokens, read live out of the run slice,
@@ -71,76 +90,13 @@ const FACES = bank.faces.map((f) =>
    Ordered roughly from cheapest to build to most expensive, but that is not why
    he should pick one and it is not shown to him. ------------------------- */
 const LOOKS = [
-  { id: 'bevel', name: 'HARD BEVEL',
-    from: 'Windows 95, Fallout, Age of Empires',
-    say: 'Light on the top and left, dark on the bottom and right. That is the whole thing. The oldest trick there is and your eye still buys it instantly.',
-    css: `
-  .L .pnl{ background:#2a241a; border-top:3px solid #6f6044; border-left:3px solid #6f6044;
-    border-right:3px solid #0a0806; border-bottom:3px solid #0a0806; }
-  .L .btn{ background:#3a3224; border-top:3px solid #85734f; border-left:3px solid #85734f;
-    border-right:3px solid #0a0806; border-bottom:3px solid #0a0806; color:${C.gold}; }
-  .L .btn:active{ border-color:#0a0806 #85734f #85734f #0a0806; }` },
-
-  { id: 'stone', name: 'CARVED STONE',
-    from: 'Baldur\u2019s Gate, Icewind Dale',
-    say: 'Cut out of rock. Thick frame, deep shadow inside it, and the whole slab sits on the world with a shadow under it.',
-    css: `
-  .L .pnl{ background:linear-gradient(#241f17,#171309); border:7px solid #3d3427; border-radius:4px;
-    box-shadow:inset 0 4px 9px rgba(0,0,0,.95), inset 0 -2px 0 rgba(255,240,200,.07),
-      0 5px 0 #0a0806, 0 14px 22px rgba(0,0,0,.75); }
-  .L .btn{ background:linear-gradient(#332b1f,#1d1811); border:4px solid #4a3f2d; border-radius:3px;
-    color:${C.gold}; box-shadow:inset 0 2px 5px rgba(0,0,0,.8), inset 0 -1px 0 rgba(255,240,200,.10), 0 3px 0 #0a0806; }
-  .L .btn:active{ box-shadow:inset 0 3px 7px rgba(0,0,0,.95); transform:translateY(3px); }` },
-
-  { id: 'steel', name: 'RIVETED STEEL',
-    from: 'the machine, bolted on',
-    say: 'Brushed metal with screws in the corners. Somebody bolted this panel onto the game.',
-    css: `
-  .L .pnl{ position:relative; border:2px solid #4e4536; border-radius:2px;
-    background:repeating-linear-gradient(90deg,#2c2820 0 2px,#332e25 2px 4px);
-    box-shadow:inset 0 1px 0 rgba(255,245,220,.20), inset 0 -4px 10px rgba(0,0,0,.85),
-      0 8px 16px rgba(0,0,0,.65); }
-  /* four screws, not two: a plate bolted at two corners is a plate that swings */
-  .L .pnl::before,.L .pnl::after{ content:''; position:absolute; left:6px; right:6px;
-    height:8px; pointer-events:none;
-    background:radial-gradient(circle 4px at 4px 4px,#9c8e72 0 42%,#2a251c 45% 100%,transparent 100%),
-      radial-gradient(circle 4px at calc(100% - 4px) 4px,#9c8e72 0 42%,#2a251c 45% 100%,transparent 100%);
-    background-repeat:no-repeat; filter:drop-shadow(0 1px 1px rgba(0,0,0,.9)); }
-  .L .pnl::before{ top:6px } .L .pnl::after{ bottom:6px }
-  .L .btn{ background:linear-gradient(#4a4234,#2a251d); border:2px solid #5c5140; border-radius:2px;
-    color:${C.ink}; box-shadow:inset 0 1px 0 rgba(255,245,220,.28), 0 4px 0 #16130e, 0 8px 12px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(4px); box-shadow:inset 0 2px 6px rgba(0,0,0,.8); }` },
-
-  { id: 'slab', name: 'EXTRUDED SLAB',
-    from: 'the most literal answer to what you said',
-    say: 'The panel has a SIDE. It is a block of something lifted off the screen, and you can see its thickness under it.',
-    css: `
-  .L .pnl{ background:#241f16; border-top:1px solid #7d6c49; border-radius:2px;
-    box-shadow:0 7px 0 #14100b, 0 8px 0 #0a0806, 0 16px 22px rgba(0,0,0,.65); }
-  .L .btn{ background:${C.gold}; color:#14100a; border:0; border-radius:2px; font-weight:700;
-    box-shadow:0 6px 0 #7d5f1f, 0 7px 0 #4a3712, 0 12px 16px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(6px); box-shadow:0 1px 0 #4a3712; }` },
-
-  { id: 'iso', name: 'LYING IN THE WORLD',
-    from: 'your own 45 degree law',
-    say: 'The panel is tilted to sit in the world\u2019s own 45 degree space instead of flat against the glass. The interface is IN the city, not on top of it.',
-    css: `
-  .L .stage{ perspective:700px; }
-  .L .pnl{ transform:rotateX(19deg) rotateZ(-1.5deg); transform-origin:50% 100%;
-    background:linear-gradient(#2a2318,#191408); border:2px solid #6b5c3f; border-radius:2px;
-    box-shadow:0 5px 0 #12100a, 0 22px 30px rgba(0,0,0,.72); }
-  .L .btn{ background:linear-gradient(#4a3d22,#2b2313); border:2px solid ${C.gold}; color:${C.gold};
-    border-radius:2px; box-shadow:0 4px 0 #12100a; }
-  .L .btn:active{ transform:translateY(4px); box-shadow:none; }` },
-
-  { id: 'crt', name: 'BEHIND GLASS',
-    from: 'a CRT you are looking into',
-    say: 'A curved screen with a glare on it. The words are not on the surface, they are behind it, glowing.',
+  { id: 'asis', name: 'THE ONE YOU PICKED', from: 'unchanged, so you have something to judge against',
+    say: 'Exactly what you thumbed. Everything below is a change to this, so this one is here to compare against.',
     css: `
   .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
     background:radial-gradient(ellipse at 50% 38%,#16241f,#080d0b 78%);
     box-shadow:inset 0 0 34px rgba(0,0,0,.95), inset 0 2px 14px rgba(120,255,210,.10),
-      0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; color:${C.teal}; }
+      0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; }
   .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
     background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
       radial-gradient(ellipse at 30% 12%,rgba(255,255,255,.10),transparent 55%); }
@@ -149,81 +105,193 @@ const LOOKS = [
     border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.8); }
   .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; text-shadow:none; }` },
 
-  { id: 'float', name: 'FLOATING LIGHT',
-    from: 'Final Fantasy X',
-    say: 'No surface at all. A pane of coloured light hanging in front of the world, with a real shadow falling behind it so it still has depth.',
+  { id: 'flat', name: 'FLAT PANE', from: 'no bulge at all',
+    say: 'Same screen, but the glass is flat. Sharper, colder, more like something made recently and less like something salvaged.',
     css: `
-  .L .pnl{ background:linear-gradient(rgba(36,46,66,.58),rgba(10,16,26,.66));
-    border:1px solid rgba(160,205,255,.34); border-radius:8px; backdrop-filter:blur(2px);
-    box-shadow:0 0 22px rgba(90,150,220,.24), inset 0 1px 0 rgba(255,255,255,.26),
-      0 18px 30px rgba(0,0,0,.6); }
-  .L .btn{ background:linear-gradient(rgba(216,167,66,.24),rgba(216,167,66,.08));
-    border:1px solid rgba(216,167,66,.65); color:${C.gold}; border-radius:6px;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 8px 16px rgba(0,0,0,.45); }
-  .L .btn:active{ background:${C.gold}; color:#14100a; }` },
+  .L .pnl{ position:relative; overflow:hidden; border-radius:2px;
+    background:linear-gradient(#101c18,#070c0a);
+    box-shadow:inset 0 0 22px rgba(0,0,0,.85), 0 0 0 3px #191510, 0 8px 18px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.22) 0 1px,transparent 1px 3px),
+      linear-gradient(100deg,rgba(255,255,255,.07) 0 28%,transparent 42%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 5px rgba(97,168,159,.45); }
+  .L .btn{ background:rgba(97,168,159,.08); border:1px solid rgba(97,168,159,.6); color:${C.teal};
+    border-radius:2px; }
+  .L .btn:active{ background:${C.teal}; color:#04100d; }` },
 
-  { id: 'plastic', name: 'MOULDED PLASTIC',
-    from: 'the Pip-Boy',
-    say: 'A cheap plastic device you are holding. Rounded, chunky, with a soft highlight along the top like light on a moulded case.',
+  { id: 'deep', name: 'DEEP TUBE', from: 'a fat old monitor',
+    say: 'Much more curve. The glass bulges, the corners fall away into shadow, and the picture only really lives in the middle.',
     css: `
-  .L .pnl{ background:linear-gradient(#3d4536,#242a1f); border-radius:14px;
-    box-shadow:inset 0 2px 0 rgba(225,255,205,.24), inset 0 -8px 14px rgba(0,0,0,.7),
-      0 9px 0 #171b12, 0 18px 24px rgba(0,0,0,.62); }
-  .L .btn{ background:linear-gradient(#586148,#333a2a); border-radius:9px; color:#cfe0b8; border:0;
-    box-shadow:inset 0 2px 0 rgba(225,255,205,.30), 0 5px 0 #1d2216, 0 9px 12px rgba(0,0,0,.55); }
-  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.6); }` },
+  .L .pnl{ position:relative; overflow:hidden; border-radius:34px/46px;
+    background:radial-gradient(ellipse at 50% 42%,#16261f,#050908 82%);
+    box-shadow:inset 0 0 60px 12px rgba(0,0,0,.95), inset 0 3px 18px rgba(120,255,210,.12),
+      0 0 0 7px #17130f, 0 0 0 9px #090706, 0 12px 26px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.34) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 50% 50%,transparent 38%,rgba(0,0,0,.72) 92%),
+      radial-gradient(ellipse at 26% 10%,rgba(255,255,255,.13),transparent 48%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 9px rgba(97,168,159,.75); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:6px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.32); color:#04100d; }` },
 
-  { id: 'tag', name: 'STAMPED TAG, WITH THICKNESS',
-    from: 'the corner you already picked, given depth',
-    say: 'Your cut corner, but the metal is thick now. A lit top edge and a dark side under it, so the tag is a real object instead of a shape.',
+  { id: 'amber', name: 'AMBER PHOSPHOR', from: 'the warm terminal',
+    say: 'The same tube, orange instead of green. It is the colour the game already uses for you, so the screen stops feeling like a separate machine.',
     css: `
-  .L .pnl{ position:relative; background:linear-gradient(#2b2419,#1a150d);
-    -webkit-clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-    clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-    border-top:2px solid #8a7852; filter:drop-shadow(0 6px 0 #100d09) drop-shadow(0 14px 18px rgba(0,0,0,.7)); }
-  .L .btn{ background:${C.gold}; color:#14100a; border:0; font-weight:700;
-    -webkit-clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px);
-    clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px);
-    filter:drop-shadow(0 5px 0 #6d5219) drop-shadow(0 9px 10px rgba(0,0,0,.55)); }
-  .L .btn:active{ transform:translateY(5px); filter:drop-shadow(0 0 0 #6d5219); }` },
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#241a0c,#0c0805 78%);
+    box-shadow:inset 0 0 34px rgba(0,0,0,.95), inset 0 2px 14px rgba(255,190,90,.12),
+      0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 30% 12%,rgba(255,235,190,.10),transparent 55%); }
+  .L .rd{ color:#c98a2e; text-shadow:0 0 7px rgba(216,167,66,.7); }
+  .L .ttl,.L .bd{ color:#f0bd63; text-shadow:0 0 8px rgba(216,167,66,.75); }
+  .L .btn{ background:rgba(216,167,66,.10); border:1px solid rgba(216,167,66,.6); color:#f6cd81;
+    border-radius:4px; text-shadow:0 0 8px rgba(216,167,66,.9); }
+  .L .btn:active{ background:${C.gold}; color:#150f04; text-shadow:none; }` },
 
-  { id: 'backlit', name: 'LIT FROM BEHIND',
-    from: 'a machine\u2019s readout',
-    say: 'A dark panel with light leaking out from behind it. The depth comes from the glow, not from an edge.',
+  { id: 'green', name: 'GREEN PHOSPHOR', from: 'the oldest terminal there is',
+    say: 'Hard green on black. The cheapest screen anybody ever built, and the one everybody recognises instantly.',
     css: `
-  .L .pnl{ background:#0e0c08; border:2px solid #2f2718; border-radius:3px;
-    box-shadow:0 0 0 1px #000, 0 0 26px 3px rgba(216,167,66,.26),
-      inset 0 0 26px rgba(216,167,66,.07), 0 12px 22px rgba(0,0,0,.7); }
-  .L .ttl{ text-shadow:0 0 10px rgba(216,167,66,.55); }
-  .L .btn{ background:#131009; border:2px solid ${C.gold}; color:${C.gold}; border-radius:3px;
-    box-shadow:0 0 14px rgba(216,167,66,.35), inset 0 0 12px rgba(216,167,66,.14); }
-  .L .btn:active{ background:${C.gold}; color:#14100a; box-shadow:0 0 26px rgba(216,167,66,.85); }` },
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#0d1c0d,#050805 80%);
+    box-shadow:inset 0 0 34px rgba(0,0,0,.95), inset 0 2px 14px rgba(120,255,120,.10),
+      0 0 0 4px #171610, 0 0 0 6px #090806, 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.32) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 30% 12%,rgba(220,255,220,.09),transparent 55%); }
+  .L .rd{ color:#5fa85f; text-shadow:0 0 7px rgba(110,230,110,.6); }
+  .L .ttl,.L .bd{ color:#8ef08e; text-shadow:0 0 8px rgba(110,230,110,.8); }
+  .L .btn{ background:rgba(110,230,110,.08); border:1px solid rgba(110,230,110,.55); color:#9dff9d;
+    border-radius:4px; text-shadow:0 0 9px rgba(110,230,110,.9); }
+  .L .btn:active{ background:#7ee07e; color:#04150a; text-shadow:none; }` },
 
-  { id: 'stack', name: 'A STACK OF CARDS',
-    from: 'paper on a table',
-    say: 'Not one panel, a little pile of them. The depth is the stack itself, and it says there is more underneath.',
+  { id: 'noframe', name: 'NO FRAME AT ALL', from: 'the glass IS the panel',
+    say: 'Take the housing away. The screen runs right to the edge, so it is a window into the machine instead of a box sitting on the world.',
     css: `
-  .L .pnl{ background:#221d14; border:1px solid #4a3f2a; border-radius:3px;
-    box-shadow:
-      0 6px 0 -1px #17130d, 0 7px 0 -1px #55482f,
-      0 13px 0 -2px #14110b, 0 14px 0 -2px #4a3f2a,
-      0 20px 0 -3px #100d09, 0 21px 0 -3px #3e3524,
-      0 30px 30px rgba(0,0,0,.78); }
-  .L .btn{ background:#2c2417; border:1px solid #4a3f28; color:${C.gold}; border-radius:3px;
-    box-shadow:0 3px 0 #14110b, 0 6px 9px rgba(0,0,0,.5); }
-  .L .btn:active{ transform:translateY(3px); box-shadow:0 0 0 #14110b; }` },
+  .L .pnl{ position:relative; overflow:hidden; border-radius:20px/26px;
+    background:radial-gradient(ellipse at 50% 40%,#16241f,#070c0a 82%);
+    box-shadow:inset 0 0 40px rgba(0,0,0,.95), inset 0 2px 16px rgba(120,255,210,.12); }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 50% 50%,transparent 52%,rgba(0,0,0,.62) 96%),
+      radial-gradient(ellipse at 28% 10%,rgba(255,255,255,.10),transparent 52%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 7px rgba(97,168,159,.65); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; }` },
 
-  { id: 'neon', name: 'NEON TUBE',
-    from: 'the city it is set in',
-    say: 'The edge is a bent glass tube with light in it. Las Vegas, and the only look here that the setting hands you for free.',
+  { id: 'bezel', name: 'THICK PLASTIC BEZEL', from: 'a real monitor on a desk',
+    say: 'A chunky moulded surround around the glass, with a highlight along the top edge. The screen is set INTO something.',
     css: `
-  .L .pnl{ background:#0a0907; border:2px solid ${C.gold}; border-radius:5px;
-    box-shadow:0 0 7px ${C.gold}, 0 0 20px rgba(216,167,66,.55), inset 0 0 12px rgba(216,167,66,.28),
-      0 12px 26px #000; }
-  .L .ttl{ color:#fff3d6; text-shadow:0 0 8px ${C.gold},0 0 18px rgba(216,167,66,.8); }
-  .L .btn{ background:transparent; border:2px solid ${C.teal}; color:#dffaf4; border-radius:4px;
-    text-shadow:0 0 8px ${C.teal}; box-shadow:0 0 7px ${C.teal}, inset 0 0 10px rgba(97,168,159,.30); }
-  .L .btn:active{ background:${C.teal}; color:#04100d; text-shadow:none; box-shadow:0 0 26px ${C.teal}; }` }
+  .L .stage{ padding:14px 14px 20px; border-radius:16px;
+    background:linear-gradient(#3a382f,#22211a);
+    box-shadow:inset 0 2px 0 rgba(255,250,225,.22), inset 0 -8px 14px rgba(0,0,0,.6),
+      0 8px 0 #14130f, 0 16px 24px rgba(0,0,0,.65); }
+  .L .pnl{ position:relative; overflow:hidden; border-radius:12px/16px;
+    background:radial-gradient(ellipse at 50% 40%,#16241f,#070c0a 80%);
+    box-shadow:inset 0 0 30px rgba(0,0,0,.95), inset 0 0 0 2px #0b0a08, 0 2px 6px rgba(0,0,0,.8); }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 28% 10%,rgba(255,255,255,.11),transparent 52%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 7px rgba(97,168,159,.65); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; }` },
+
+  { id: 'bolted', name: 'BOLTED IN A HOUSING', from: 'salvaged and screwed down',
+    say: 'The tube in a metal frame with screws in the corners. Somebody pulled this out of something else and bolted it in here.',
+    css: `
+  .L .stage{ position:relative; padding:13px; border-radius:3px;
+    background:repeating-linear-gradient(90deg,#2c2820 0 2px,#332e25 2px 4px);
+    box-shadow:inset 0 1px 0 rgba(255,245,220,.20), inset 0 -4px 10px rgba(0,0,0,.85),
+      0 8px 16px rgba(0,0,0,.7); }
+  .L .stage::before,.L .stage::after{ content:''; position:absolute; left:5px; right:5px; height:8px;
+    background:radial-gradient(circle 4px at 4px 4px,#9c8e72 0 42%,#2a251c 45% 100%,transparent 100%),
+      radial-gradient(circle 4px at calc(100% - 4px) 4px,#9c8e72 0 42%,#2a251c 45% 100%,transparent 100%);
+    background-repeat:no-repeat; filter:drop-shadow(0 1px 1px rgba(0,0,0,.9)); }
+  .L .stage::before{ top:4px } .L .stage::after{ bottom:4px }
+  .L .pnl{ position:relative; overflow:hidden; border-radius:10px/14px; margin:8px 0;
+    background:radial-gradient(ellipse at 50% 40%,#16241f,#070c0a 80%);
+    box-shadow:inset 0 0 28px rgba(0,0,0,.95), 0 0 0 3px #100e0b; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 28% 10%,rgba(255,255,255,.10),transparent 52%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 7px rgba(97,168,159,.65); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:3px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; }` },
+
+  { id: 'dusty', name: 'DUSTY GLASS', from: 'the desert got in',
+    say: 'A haze of Vegas dust across the front. The picture is still fine, you are just looking at it through a year of nobody cleaning it.',
+    css: `
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#16241f,#080d0b 78%);
+    box-shadow:inset 0 0 34px rgba(0,0,0,.95), 0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.28) 0 1px,transparent 1px 3px),
+      radial-gradient(circle at 18% 26%,rgba(198,178,138,.16),transparent 26%),
+      radial-gradient(circle at 74% 62%,rgba(198,178,138,.13),transparent 30%),
+      radial-gradient(circle at 44% 84%,rgba(198,178,138,.11),transparent 24%),
+      radial-gradient(circle at 88% 18%,rgba(198,178,138,.10),transparent 22%),
+      linear-gradient(160deg,rgba(190,172,132,.10),transparent 60%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 9px rgba(97,168,159,.55); }
+  .L .btn{ background:rgba(97,168,159,.09); border:1px solid rgba(97,168,159,.45); color:${C.teal};
+    border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.7); }
+  .L .btn:active{ background:rgba(97,168,159,.28); color:#04100d; }` },
+
+  { id: 'cracked', name: 'CRACKED', from: 'it has been hit',
+    say: 'A fracture running out of one corner. Nothing behind it is broken, so it still works, it has just had a life before you got it.',
+    css: `
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#16241f,#080d0b 78%);
+    box-shadow:inset 0 0 34px rgba(0,0,0,.95), 0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.30) 0 1px,transparent 1px 3px),
+      linear-gradient(56deg,transparent 0 41%,rgba(220,255,246,.55) 41% 41.5%,transparent 41.5%),
+      linear-gradient(19deg,transparent 0 63%,rgba(220,255,246,.34) 63% 63.4%,transparent 63.4%),
+      linear-gradient(104deg,transparent 0 74%,rgba(220,255,246,.26) 74% 74.3%,transparent 74.3%),
+      radial-gradient(circle at 88% 88%,rgba(230,255,250,.20),transparent 16%),
+      radial-gradient(ellipse at 30% 12%,rgba(255,255,255,.09),transparent 55%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 7px rgba(97,168,159,.65); }
+  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; }` },
+
+  { id: 'bloom', name: 'HEAVY BLOOM', from: 'tired phosphor',
+    say: 'The letters bleed into the glass around them. The phosphor kept glowing after the beam went past, and this tube has been on for twenty years.',
+    css: `
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#173029,#080f0d 80%);
+    box-shadow:inset 0 0 40px rgba(0,0,0,.9), inset 0 0 30px rgba(120,255,210,.16),
+      0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 0 26px rgba(97,168,159,.22), 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.22) 0 1px,transparent 1px 3px),
+      radial-gradient(ellipse at 30% 12%,rgba(255,255,255,.10),transparent 55%); }
+  .L .rd{ color:#8fd8cc; text-shadow:0 0 5px #61a89f,0 0 14px rgba(97,168,159,.9); }
+  .L .ttl,.L .bd{ color:#d6fff5;
+    text-shadow:0 0 4px #61a89f,0 0 12px rgba(97,168,159,.95),0 0 26px rgba(97,168,159,.6); }
+  .L .btn{ background:rgba(97,168,159,.14); border:1px solid rgba(120,220,205,.7); color:#e6fffa;
+    border-radius:4px; text-shadow:0 0 6px #61a89f,0 0 18px rgba(97,168,159,.95);
+    box-shadow:0 0 18px rgba(97,168,159,.4), inset 0 0 14px rgba(97,168,159,.25); }
+  .L .btn:active{ background:#9fe6d9; color:#04100d; text-shadow:none; }` },
+
+  { id: 'reflect', name: 'YOU CAN SEE THE ROOM IN IT', from: 'real glass reflects',
+    say: 'A soft reflection sitting on the front of the glass. It says there is a room around you, and it is the one thing here that only works because the world behind it is dark.',
+    css: `
+  .L .pnl{ position:relative; overflow:hidden; border-radius:16px/22px;
+    background:radial-gradient(ellipse at 50% 38%,#13201c,#070b09 78%);
+    box-shadow:inset 0 0 34px rgba(0,0,0,.95), 0 0 0 4px #1b1712, 0 0 0 6px #0a0806, 0 10px 22px #000; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.28) 0 1px,transparent 1px 3px),
+      linear-gradient(114deg,rgba(255,247,225,.16) 0 16%,transparent 30%),
+      linear-gradient(114deg,transparent 0 52%,rgba(255,247,225,.07) 58% 68%,transparent 76%),
+      radial-gradient(ellipse at 78% 96%,rgba(216,167,66,.10),transparent 42%); }
+  .L .rd,.L .ttl,.L .bd{ color:${C.teal}; text-shadow:0 0 7px rgba(97,168,159,.6); }
+  .L .btn{ background:rgba(97,168,159,.09); border:1px solid rgba(97,168,159,.5); color:${C.teal};
+    border-radius:4px; text-shadow:0 0 8px rgba(97,168,159,.8); }
+  .L .btn:active{ background:rgba(97,168,159,.30); color:#04100d; }` }
 ];
 
 for (const L of LOOKS) {
@@ -253,7 +321,7 @@ const card = (L, i) => `
 
 const html = `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BOHEMIA &middot; PICK A LOOK</title>
+<title>BOHEMIA &middot; BEHIND GLASS</title>
 <style>
 ${FACES}
 :root{ --bg:${C.bg}; --surface:${C.surface}; --ink:${C.ink}; --dim:${C.dim};
@@ -318,12 +386,13 @@ ${LOOKS.map((L) => L.css.replace(/\.L /g, '.L.' + L.id + ' ')).join('\n')}
 </style>
 
 <header>
-  <h1>PICK A LOOK</h1>
+  <h1>BEHIND GLASS &middot; ROUND 2</h1>
   <button class="sun" id="sun">SUN MODE</button>
 </header>
-<p class="lede"><b>Twelve of them. The same words, the same button, twelve ways.</b>
-The game is flat, so the interface carries the weight. Thumb everything you like and
-everything you hate. <b>You can say yes to more than one.</b></p>
+<p class="lede"><b>You kept BEHIND GLASS and killed the other eleven.</b> So these are
+twelve ways to push that one, not twelve new ideas. Number 1 is exactly what you
+already thumbed, so you have something to judge the rest against.
+<b>You can say yes to more than one.</b></p>
 
 ${LOOKS.map(card).join('\n')}
 
@@ -336,7 +405,7 @@ ${LOOKS.map(card).join('\n')}
 
 <script>
 (function(){
-  var KEY='bohemia_ui_wall_v1';
+  var KEY='bohemia_ui_glass_r2';
   var NAMES=${JSON.stringify(LOOKS.map((L) => ({ id: L.id, name: L.name })))};
   var st={up:{},down:{},all:''};
   try{ var raw=localStorage.getItem(KEY); if(raw) st=JSON.parse(raw); }catch(e){}
@@ -365,7 +434,7 @@ ${LOOKS.map(card).join('\n')}
   document.getElementById('sun').addEventListener('click',function(){
     document.body.classList.toggle('sun'); });
   document.getElementById('exp').addEventListener('click',function(){
-    var L=[]; L.push('BOHEMIA - PICK A LOOK - PAOLO\\'S PICKS');
+    var L=[]; L.push('BOHEMIA - BEHIND GLASS, ROUND 2 - PAOLO\\'S PICKS');
     L.push('exported '+new Date().toISOString().slice(0,16).replace('T',' '));
     L.push('');
     var yes=[],no=[],non=[];
@@ -378,8 +447,8 @@ ${LOOKS.map(card).join('\n')}
     L.push(''); L.push('ANYTHING ELSE:'); L.push(st.all||'(nothing)');
     var b=new Blob([L.join('\\n')],{type:'text/plain'});
     var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-    a.download='BOHEMIA_UI_WALL.txt'; a.click();
-    document.getElementById('done').textContent='saved as BOHEMIA_UI_WALL.txt';
+    a.download='BOHEMIA_UI_GLASS_R2.txt'; a.click();
+    document.getElementById('done').textContent='saved as BOHEMIA_UI_GLASS_R2.txt';
   });
   apply();
 })();
