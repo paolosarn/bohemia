@@ -1793,3 +1793,127 @@ numbers, and the studios that have them don't publish.
 is me measuring myself, and I proved this week that I can't see my own tics --
 92 em dashes, 108 bolded headers, and 19 uses of the construction I banned. **The
 table read is the answer to that and it's the one thing I can't do alone.**
+
+---
+---
+
+# THE DOCUMENT HE GAVE ME -- 8/28/26
+# "500 Words That Make You Sound Like AI", Jay Orban. The first real document I
+# have been able to read in this whole training. 46,000 words extracted, 565
+# example swaps, five sections: overused action verbs (140), stiff connectors
+# (110), corporate buzzwords (120), stale stock phrases (90), filler adjectives
+# and intensifiers (40).
+
+## 76. I GOT THE ANSWER WRONG TWICE BEFORE I GOT IT RIGHT
+Worth writing down first, because it happened inside twenty minutes.
+
+**First try:** I pulled the terms by taking the first N entries of each section.
+The PDF table extracts as stacked columns, so I got the robotic words AND the
+recommended replacements in one bucket. Then I ran it and reported 1,929 hits,
+with the top offenders being "for", "with", "then", "but", "remember".
+**Those are the words the guide RECOMMENDS.** I was measuring how often his game
+takes the guide's advice and calling it a failure. I caught it because the hits
+looked wrong, not because the method was sound.
+
+**Second try:** I took the head word of each robotic phrase. That turned "That
+said" into "that" and "With regard to" into "with", so the count exploded again
+on the commonest words in English.
+
+**Third try, and the only honest one:** every example in the document is
+`"ROBOTIC" -> "HUMAN"`. The left side of the arrow is ground truth. Match those
+phrases WHOLE, and nothing is ambiguous.
+
+Three wrong rulers in one sitting. The pattern is always the same: **the wrong
+answer arrives first and it always looks like a big number.**
+
+## 77. THE CLEAN RESULT, AND IT IS NOT WHAT I EXPECTED
+534 robotic phrases from the guide, matched whole, against all 2,496 authored
+lines of Bohemia:
+
+    2 phrases hit. 3 occurrences total.
+      x2  "on the whole"
+      x1  "for what it's worth"
+
+And the distinctive stiff vocabulary tested on its own -- furthermore, moreover,
+consequently, nevertheless, notwithstanding, utilize, leverage, facilitate,
+robust, holistic, synergy, seamless, delve, underscore, pivotal, myriad:
+
+    HIS GAME:  0 hits in 29,193 words.
+    MY PROSE:  1 hit ("foster") in 14,607 words.
+
+**The guide barely touches either of us, and it touches me more than it touches
+him.**
+
+## 78. WHY, AND IT VALIDATES THE WHOLE APPROACH
+The document is aimed at business writing -- emails, sales pages, marketing copy.
+Its offenders are the vocabulary of an office. **A lineman never says "leverage
+synergies", so a checklist built from that world cannot find what is wrong with
+him.**
+
+Which means: **if I had started this training with a generic AI-word list, I would
+have found nothing and concluded the writing was fine.** Every real tell in this
+game was found by measuring OUR OWN TEXT against ITSELF: contractions at 2.2%
+against street barks at 75%, a third of speeches ending on a sermon, two question
+marks in 504 speeches, sentence spread flattest in the first quest.
+**Our failure was never vocabulary. It is SHAPE, and a word list is blind to
+shape.** That is the strongest confirmation I have that the diagnosis method was
+the right one.
+
+## 79. BUT THERE IS ONE REAL RULE UNDER ALL 500 SWAPS AND I DID NOT HAVE IT
+Read the swaps as a set and the same trade happens 500 times:
+
+    utilize -> use          implement -> start      execute -> do
+    facilitate -> help      demonstrate -> show     articulate -> explain
+    disseminate -> share    optimize -> improve     minimize -> cut
+
+**Every one of them trades a LATIN word for an ANGLO-SAXON one.** Long, abstract,
+imported, out. Short, concrete, old, in. That is Orwell's rule with a price list
+attached, and it is measurable, and it was not on my card.
+
+I measured it. Words with Latin endings (-tion, -ment, -ance, -ity, -ize, -ate,
+-ous, -ive, -able) per 1,000:
+
+| | latinate per 1,000 | words of 8+ letters |
+| --- | --- | --- |
+| **his game** | **1.7** | 4.8% |
+| **my prose** | **15.3** | 12.5% |
+| **his two own lines** | **0.0** | **0.0%** |
+
+**My writing is nine times more Latin than his game.** And his two hand-written
+lines -- "I miss them so much, I can't." and "I hate this." -- are ten words with
+no Latin in them at all and nothing longer than seven letters.
+
+That is the fourth separate measure this week where I lose to the game I was
+auditing, and the fourth where his own instinct lands at the extreme end. The
+others were contractions, em dashes, and the negation flip.
+
+Inside the game it is uneven and the ranking is useful:
+
+    most latinate   10.1  The Fifty Year Signature
+                     6.0  The Seed That Does Not Come Back
+                     4.5  What The Cold Did Not Kill
+    least            0.0  Fifty-Five Gallons A Foot / Behind the Fence
+
+A scene about a legal document runs Latin. A scene about water does not. That is
+probably correct rather than a defect, and it is the kind of thing a checklist
+would flag and a reader would not.
+
+## 80. WHAT GOES ON THE CARD
+One new rule, and it is cheap and countable:
+
+> **PREFER THE OLD SHORT WORD.** Use, not utilize. Start, not implement. Show, not
+> demonstrate. Help, not facilitate. If a word came from Latin and has a plain
+> English twin, the twin is the line. The game already runs at 1.7 per thousand.
+> Anything above about 5 in a scene is worth a look, and a scene about paperwork
+> is allowed to be the exception.
+
+And one for me, which is the more urgent half: **I write nine times more Latin
+than the game I am editing.** Every rule I have caught myself breaking this week
+is a rule about sounding like a person, and this is the fifth.
+
+## SOURCE
+Jay Orban, *500 Words That Make You Sound Like AI*, InstantSalesFunnels.com.
+Given to me by Paolo on 8/28. Read in full: 46,154 characters, 565 example swaps
+extracted and tested against the corpus. **The first primary source I have been
+able to read in nine rounds of training**, because every web domain I tried was
+blocked and this arrived as a file instead.
