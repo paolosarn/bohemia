@@ -1628,6 +1628,198 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+async function onTheirView() {
+  console.log('\nQ. A FACTION\'S VIEW IS ITS MEMBERS\' VIEWS -- RULE 4, FINALLY CALLED.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+
+  /* ***  THE ALPHA, NOT THE STANDALONE CITY, AND THE REASON IS THE WHOLE CLAIM. ***
+     Every browser pass above boots slices/BOHEMIA_CITY_WORLD.html directly, which
+     is correct for them: they ask functions questions. This pass asks whether a
+     RENDER PASS stamps a mind, and that page has no PLAYER_CV -- the character
+     bake is POSTED IN from the alpha -- so peoplePass returns before drawing
+     anybody, BARK_DREW stays empty, no mind is ever created and every claim below
+     would pass or fail for a reason that has nothing to do with the feature.
+     gates/city_barks_gate.js names this exact trap: "a probe there measures a
+     ghost town that does not exist." Measured here before writing a line of it:
+     drew=0, minds=0, stamped=0 on the standalone page with the code working. */
+  const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const warns = [], errs = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
+  try {
+    await page.goto('file://' + ALPHA);
+    await SETTLE(page, 10000);
+    /* the city frame is LAZY: every frame is about:blank until RUN is opened */
+    await page.evaluate(() => {
+      const t = [...document.querySelectorAll('[data-tab],.tab,button')]
+        .find(e => (e.textContent || '').trim() === 'RUN');
+      if (t) t.click();
+    });
+    await SETTLE(page, 12000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof pplPeople !== 'undefined'
+                                     && typeof ctMind !== 'undefined')) { city = f; break; } }
+      catch (_e) {}
+    }
+    ok('Q1 the walked world is reached through the one link', !!city);
+    if (!city) return;
+    ok('Q2 the character bake reached the world frame -- without it peoplePass '
+      + 'draws nobody, no mind exists, and every claim below is about a ghost town',
+      await city.evaluate(() => !!PLAYER_CV));
+
+    await city.evaluate(() => { const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click(); });
+    await SETTLE(page, 600);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 900);
+
+    const R = await city.evaluate(() => {
+      const out = {};
+      /* stand beside somebody who runs with somebody */
+      const bases = ctBases() || {};
+      let target = null;
+      for (const bse of Object.values(bases)) {
+        hx = bse.x * FN + 2; hy = bse.y * FN + 2;
+        for (const p of ctEveryone()) {
+          const f = ctFactionOf(p);
+          if (f) { target = { fid: f, id: String(p.id) }; const at = ctAt(p); hx = at[0] + 1; hy = at[1]; break; }
+        }
+        if (target) break;
+      }
+      if (!target) return { err: 'nobody affiliated anywhere near a base' };
+      out.target = target;
+
+      /* WALK. The witness pass runs once per GAME minute and this world is
+         I-MOVE-YOU-MOVE, so standing still never advances the clock and never
+         re-runs it. Forcing CT_SAW_MIN open would be measuring the poke. */
+      const m0 = ctMinuteNow();
+      for (let i = 0; i < 24 && ctMinuteNow() === m0; i++) {
+        try { stepOnce(i % 2 ? 6 : 2); } catch (_e) {}
+        try { renderHuman(); } catch (_e) {}
+      }
+      out.minuteMoved = ctMinuteNow() !== m0;
+      out.stamped = Object.values(CT_MINDS).filter(m => m && m.fid === target.fid).length;
+
+      /* --- WITH HIS TABLE EMPTY: THE SHIPPING DEFAULT --- */
+      out.ruledBefore = ctDeedsRuled();
+      out.viewEmpty = ctTheirView(target.fid);
+      const who = ctEveryone().find(p => ctFactionOf(p) === target.fid);
+      if (who) { const at = ctAt(who); hx = at[0] + 1; hy = at[1]; ctSawCell(); ctOpen(); }
+      /* #ctcard, NOT #card. The first cut of this pass read an element that does
+         not exist, so innerText was '' and three claims failed while the feature
+         they were about was working -- the view object right beside them already
+         said HOSTILE. A reader that cannot see the surface is the broken half. */
+      out.cardEmpty = (document.getElementById('ctcard') || {}).innerText || '';
+      ctOutfitOpen(); out.boardEmpty = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
+
+      /* --- HE TURNS THE DIAL AND ONE OF THEIRS WATCHES YOU --- */
+      out.applied = ctDialApply({ 'claim:refused': -4 }, false);
+      const now = ctMinuteNow();
+      for (const k in CT_MINDS) {
+        const m = CT_MINDS[k]; if (!m || m.fid !== target.fid) continue;
+        m.deeds = m.deeds || [];
+        m.deeds.push({ actor: '@', kind: 'claim:refused', turn: now, x: hx, y: hy, hops: 0, fid: target.fid });
+      }
+      out.viewRuled = ctTheirView(target.fid);
+      out.why = ctWhyTheyThinkThat(target.fid, 3);
+      ctClose(); ctOpen();
+      out.cardRuled = (document.getElementById('ctcard') || {}).innerText || '';
+      ctOutfitOpen(); out.boardRuled = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
+
+      /* --- AN OUTFIT YOU HAVE BEEN GIVING TO AND NEVER MET --- */
+      const sv = ctBelongSave();
+      const other = Object.keys(BohemiaBelonging.RULES || {}).find(k => k !== target.fid);
+      sv.meta.gave = sv.meta.gave || {}; sv.meta.gave[other] = 6;
+      out.other = other;
+      out.viewUnseen = ctTheirView(other);
+      ctOutfitOpen(); out.boardUnseen = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
+
+      /* --- AN OUTFIT YOU HAVE NEITHER MET NOR TOUCHED IS NOT NEWS --- */
+      const third = Object.keys(BohemiaBelonging.RULES || {})
+        .find(k => k !== target.fid && k !== other);
+      out.third = third;
+      out.thirdListed = third
+        ? new RegExp(String(third).toUpperCase() + '\\s*(HAS NEVER|\\d+ OF THEIR)')
+            .test(out.boardUnseen) : null;
+      return out;
+    });
+
+    if (R.err) { ok('Q3 there is somebody affiliated to stand next to', false, R.err); return; }
+
+    ok('Q3 the clock actually advanced -- the witness pass is once per GAME minute '
+      + 'and this world only moves when you do',
+      R.minuteMoved === true);
+
+    ok('Q4 THE OUTFIT IS STAMPED ON THE MIND BY THE REAL RENDER PATH. standingOf '
+      + 'asks factionOfOwner(id) and ctFactionOf takes a PERSON; ctWitnessPass is '
+      + 'the one place holding both, so if the stamp is not landing there the '
+      + 'faction can never have a view of anybody',
+      R.stamped > 0, 'stamped=' + R.stamped);
+
+    ok('Q5 standingOf IS CALLED FROM THE WALKED SURFACE. Rule 4 of '
+      + 'bohemia_standing.js, and organ_reach reported it reached by NOTHING '
+      + 'ANYWHERE -- not the page, not another module, not even a gate',
+      !!R.viewEmpty && R.viewEmpty.members > 0,
+      JSON.stringify(R.viewEmpty));
+
+    ok('Q6 WITH HIS TABLE EMPTY IT NEVER PRINTS A RUNG. rungFor(0) answers '
+      + 'NEUTRAL, which reads as "they took your measure and shrugged" when the '
+      + 'truth is nobody has ruled what anything is worth. MECHANISM-MINE / '
+      + 'CONTENTS-PAOLO\'S: the table ships empty and nothing here fills it',
+      R.ruledBefore === false && R.viewEmpty.rung === null
+        && !/WHAT THE .* THINKS/.test(R.cardEmpty)
+        && !/NEUTRAL/.test(R.boardEmpty));
+
+    ok('Q7 BUT THE HEADCOUNT IS TRUE TODAY AND IT IS ON THE CARD. A mind exists '
+      + 'only for somebody you have been near, so members counts the people in '
+      + 'that outfit who have been where you have been -- and a headcount needs '
+      + 'no ruling from anybody',
+      /HAS SEEN YOU/.test(R.cardEmpty) && /OF ITS PEOPLE/.test(R.cardEmpty),
+      JSON.stringify((R.cardEmpty || '').match(/THE \w+ HAS SEEN YOU[\s\S]{0,40}/)));
+
+    ok('Q8 AND ON THE BOARD, which is where he goes to look rather than being '
+      + 'interrupted', /WHO HAS LAID EYES ON YOU/.test(R.boardEmpty));
+
+    ok('Q9 THE MOMENT HE RULES, THE SAME ROWS CARRY THE RUNG. His dial is the '
+      + 'only thing that fills DEED_WEIGHT and it needed no further wiring',
+      R.applied > 0 && R.viewRuled.rung && R.viewRuled.whoSaw > 0
+        && /WHAT THE \w+ THINKS/.test(R.cardRuled),
+      JSON.stringify(R.viewRuled));
+
+    ok('Q10 becauseOf IS CALLED TOO, AND IT SAYS WHY IN THE WORDS ALREADY '
+      + 'WRITTEN. CT_DEED_WORDS holds a draft line per kind in both voices and '
+      + 'the organ already knows which of the two a memory is',
+      R.why.length > 0 && /watched you/.test(R.why[0].say)
+        && /Somebody in the/.test(R.cardRuled),
+      JSON.stringify(R.why[0] || null));
+
+    ok('Q11 EYEWITNESS, NOT HEARSAY, WHEN THEY WATCHED IT THEMSELVES',
+      R.why[0] && R.why[0].heard === false);
+
+    ok('Q12 *** AN OUTFIT YOU HAVE BEEN GIVING TO WHOSE PEOPLE HAVE NEVER SEEN '
+      + 'YOU SAYS SO. *** True for every outfit in this valley at the spawn -- '
+      + 'the nearest base is twenty-nine cells -- and no surface in the game had '
+      + 'ever said it out loud. Needs no dial, no placement and no ruling',
+      R.viewUnseen && R.viewUnseen.members === 0
+        && new RegExp(String(R.other).toUpperCase() + '\\s*HAS NEVER LAID EYES ON YOU')
+             .test(R.boardUnseen),
+      JSON.stringify((R.boardUnseen || '').match(/WHO HAS LAID EYES ON YOU[\s\S]{0,110}/)));
+
+    ok('Q13 AND AN OUTFIT YOU HAVE NEITHER MET NOR TOUCHED IS NOT NEWS. Bounded '
+      + 'by what you have actually done, so the board never becomes a wall of '
+      + 'fourteen zeroes',
+      R.third ? R.thirdListed === false : true, 'third=' + R.third);
+
+    ok('Q14 NOTHING WAS SWALLOWED AND NOTHING THREW',
+      warns.filter(w => /threw/.test(w)).length === 0 && errs.length === 0,
+      JSON.stringify(warns.slice(0, 2)) + JSON.stringify(errs.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 onTheCard()
   .then(onTheBoard)
   .then(onTheValley)
@@ -1635,6 +1827,7 @@ onTheCard()
   .then(onTheGround)
   .then(onTheVouch)
   .then(onYourProblem)
+  .then(onTheirView)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');

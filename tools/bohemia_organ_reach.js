@@ -81,6 +81,26 @@ const GLOBALS = {
      sweep does not know about is invisible to exactly that check -- which is
      the rot this file exists to kill, wearing the sweep's own uniform. */
   bohemia_between: 'BohemiaBetween',
+  /* 8/28: FIVE MODULES THIS SWEEP HAD NEVER LOOKED AT, every one of them inlined
+     in the walked page the whole time. The docstring six rows up says a module
+     the sweep does not know about is invisible to exactly the check this file
+     exists to perform -- and then the list itself was the thing carrying the
+     rot. Found by listing engine/ for the faction family and diffing it against
+     this table, which is a thing that should have been done the day the table
+     was written. Registering a module is not optional bookkeeping: an
+     unregistered organ is one this tool actively certifies as fine.
+     The first sweep with them in printed
+         BohemiaStanding  NOTHING ANYWHERE: standingOf, becauseOf, inherit, legendOf
+     which is rule 4 of the reputation organ, never called by anything. */
+  bohemia_standing: 'BohemiaStanding',
+  bohemia_known: 'BohemiaKnown',
+  bohemia_clout: 'BohemiaClout',
+  bohemia_asking: 'BohemiaAsking',
+  /* and the bridge from his quests to who saw it, dead in every function it
+     publishes. Registered even though this lane is not the one that will wire
+     it: a module nobody has looked at is worse than a module somebody decided
+     to leave alone, and the difference is written down. */
+  bohemia_deeds: 'BohemiaDeeds',
 };
 
 const argv = process.argv.slice(2);
