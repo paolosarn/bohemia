@@ -89,6 +89,38 @@ ok('A4 and every bulk role is one the zone ALREADY assigns, so no new role name 
    + 'floor map in another lane\'s file'
    + (invented.length ? ' -> ' + invented.join(', ') : ''), invented.length === 0);
 
+/* AND EVERY ROLE A ZONE ASSIGNS IS ONE THE FLOOR POOL CAN DRESS (8/28).
+   A4 above stops a BULK role being a new name; this is the wider version, and it is the rule
+   that made the `institutional` split possible at all. The ART lane's floor pool maps role ->
+   material. Measured today: it carries 36 names while the floorplan was assigning only 25 --
+   `garage`, `study`, `exam`, `plant`, `corridor`, `dining` and five more were already there,
+   unused. That headroom is why a school could be given classrooms and a fire station
+   apparatus bays without reaching into another lane's file at all (REUSE-FIRST: check the
+   approved bank before cooking anything new).
+   A role with no mapping does not crash -- it falls to the default floor -- which is exactly
+   why it needs a gate: the failure is a room quietly wearing lino because nobody noticed. If
+   this goes red, the answer is either to use a name the pool already has, or to ASK the lane
+   that owns the pool; it is not to add one and hope. */
+const FLOORS = path.join(ROOT, 'slices', 'BOHEMIA_CITY_FLOORS.js');
+if (fs.existsSync(FLOORS)) {
+  const m = fs.readFileSync(FLOORS, 'utf8').match(/ROOM_FLOOR_MAP\s*=\s*(\{[\s\S]*?\});/);
+  let mapped = null;
+  try { mapped = m ? Object.keys(eval('(' + m[1] + ')')) : null; } catch (e) {}
+  if (mapped && mapped.length) {
+    const assigned = new Set();
+    Object.keys(ZONES).forEach(z => {
+      ZONES[z].roles.forEach(r => assigned.add(r));
+      if (ZONES[z].bulk) assigned.add(ZONES[z].bulk);
+    });
+    const undressed = [...assigned].filter(r => mapped.indexOf(r) < 0);
+    ok('A5 every role any zone assigns is one the floor pool can dress (' + assigned.size
+       + ' assigned, ' + mapped.length + ' mapped, ' + (mapped.length - assigned.size)
+       + ' spare)' + (undressed.length ? ' -> ' + undressed.join(', ')
+         + ' would quietly fall back to the default floor' : ''),
+       undressed.length === 0);
+  }
+}
+
 /* ---- AND THEN THE ACTUAL BUILDINGS, because a table can be right and the code wrong. ---- */
 fs.readdirSync(path.join(ROOT, 'engine'))
   .filter(f => /^bohemia_.*\.js$/.test(f))

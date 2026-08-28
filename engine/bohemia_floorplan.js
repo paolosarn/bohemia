@@ -51,6 +51,34 @@ const BOH_FLOORPLAN=(function(){
     institutional:{roles:['ward','ward','office','service','bath'],bulk:'ward',minRoom:5},
     warehouse:  {roles:['floor_open','dock','office','bath'],bulk:'floor_open',minRoom:8},
     landmark:   {roles:['atrium','gallery','service','bath'],bulk:'gallery',minRoom:6},
+    /* *** THREE ZONES SPLIT OUT OF `institutional` (8/28). ***
+       Fixing the bathroom flood left `ward` as the COMMONEST ROOM IN THE VALLEY at 20.7%,
+       because one zone was carrying eleven different building types -- medical, school,
+       campus, firestation, policestation, jail, prison, terminal, airport, airbase, cemetery
+       -- and a ward is only right for the first of them. A school of hospital wards, a fire
+       station of hospital wards, an airport terminal of hospital wards.
+       EVERY ROLE NAME BELOW IS ONE THE FLOOR POOL ALREADY CARRIES (measured: it maps 36 names
+       and the floorplan was only assigning 25, so `garage`, `study`, `exam`, `plant`,
+       `corridor`, `dining` and five more were sitting there unused). REUSE-FIRST -- nothing
+       here reaches into the ART lane's map, which is what stopped this fix yesterday.
+       GROUNDED, not guessed:
+         school   - schools put 65-70% of gross floor area into INSTRUCTION and 30-35% into
+                    ancillary, so the bulk room is the classroom and `study` is the mapped
+                    name for it.
+         transit  - "in smaller airports the terminal and concourse are one and the same
+                    building", which is exactly Bohemia's scale: check-in, security and gates
+                    sharing one space. The bulk room is the concourse.
+         firehouse- the apparatus bay is the dominant volume of a fire station: bays run 15-18
+                    ft wide and 40 ft deep for a single, 80 for a double, and everything else
+                    (watch, bunks, office) is fitted around them. `garage` is the mapped name.
+       POLICE STATIONS ARE NOT FIREHOUSES and are moved to `civic` instead: a police station is
+       mostly desks and interview rooms with a motor pool attached, not a hall of vehicle bays.
+       WHAT STAYS `institutional`: medical, where a ward is exactly right, and prison/jail,
+       where a cellblock is a genuine ward-shaped repeated unit. Cemetery stays too -- its
+       buildings are a chapel and an office and it is too small to be worth a zone. */
+    school:     {roles:['hall','office','study','study','bath'],bulk:'study',minRoom:5},
+    transit:    {roles:['concourse','counter','office','locker','bath'],bulk:'concourse',minRoom:6},
+    firehouse:  {roles:['garage','office','locker','bath'],bulk:'garage',minRoom:6},
     // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
     // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
     // silently falling through to the nameless 'default' grammar — 46 buildings

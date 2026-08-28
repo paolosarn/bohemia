@@ -127,8 +127,8 @@
        neighbours like the wash (which is a line, and turns corners). */
     stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
-    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
-    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
+    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'school' },
+    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'firehouse' },
     swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
     storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' },
     /* ONE PLANT PER BLOB (8/27): four cells built four treatment plants, four fences, four
@@ -136,7 +136,7 @@
        real one adds capacity -- see engine/bohemia_watertreat.js. */
     watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
+    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'civic' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
     landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
@@ -160,10 +160,10 @@
     mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
     cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
     battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'transit' },
     // THE LANDMARK SET (7/27): the biggest two of the 88 buildable cells that were
     // still flat. Both are real districts on the kit, street-aware and drivable.
-    campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
+    campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'school' },
     /* ONE OVAL, NOT SIX (8/26). And the size was the real insult: a single cell draws an
        81 m oval, which is a GO-KART CIRCUIT. A short track -- the smallest thing anyone calls
        a speedway -- is a half-mile lap, about 250 m across. Across the blob it is 200 m. */
@@ -233,8 +233,8 @@
     // THE AIRFIELDS (7/26): a blob, not a cell. Surfaces, not districts, for the same
     // reason the roads are: nothing should be able to base a faction on a runway until
     // Paolo rules that an airfield is claimable ground.
-    airport:  { mod:AIR, zone:'institutional' },
-    airbase:  { mod:AIR, zone:'institutional' },
+    airport:  { mod:AIR, zone:'transit' },
+    airbase:  { mod:AIR, zone:'transit' },
     /* THE RAILWAY AND THE STACK (7/27). The last two network surfaces in the valley: one
        unbroken 90-cell mainline down column 54, and the 16-cell block where the two
        interstates cross. The interchange is CLUSTER-BUILT for the same reason the
