@@ -1,3 +1,134 @@
+FACTIONS (factions-ovkjpf): 8/28 (v) LATEST -- *** THE SWEEP THAT FINDS DEAD
+ORGANS HAD NEVER LOOKED AT FIVE OF THEM, AND ONE OF THEM WAS THE OUTFIT'S VIEW
+OF YOU. *** Nothing to judge.
+
+TAB: **RUN**. Walk up to somebody who runs with an outfit and read their card.
+Then open the OUTFIT board. Build 8/28v.
+
+HOW IT WAS FOUND, WHICH MATTERS MORE THAN WHAT IT IS.
+tools/bohemia_organ_reach.js exists to answer one question: does anything on the
+walked surface actually call this. Its own docstring warns that "a module the
+sweep does not know about is invisible to exactly that check, which is the rot
+this file exists to kill, wearing the sweep's own uniform." Then its module
+table was the thing carrying the rot. FIVE faction-family modules were inlined
+in the walked page and had never once been swept -- bohemia_standing,
+bohemia_known, bohemia_clout, bohemia_asking, bohemia_deeds. Found in ninety
+seconds by `ls engine/` and diffing against the table. AN UNREGISTERED ORGAN IS
+NOT MERELY UNCHECKED: the sweep actively certifies it as fine, because a green
+summary reads as "everything is wired".
+
+    BohemiaStanding  NOTHING ANYWHERE: standingOf, becauseOf, inherit, legendOf
+    BohemiaDeeds     NOTHING ANYWHERE: publishStage, sayWhy, labels
+
+RULE 4 WAS NEVER CALLED. bohemia_standing.js states four rules in its header;
+three are running in the city. The fourth, verbatim: "A FACTION'S VIEW IS ITS
+MEMBERS' VIEWS. standingOf() averages the opinions of the people who actually
+belong to it." The city witnesses four deed kinds and every one is an organ this
+lane built; ctWitnessPass records who saw you, ctGossipPass spreads it,
+ctOpinionOf shows ONE PERSON'S private view on their card. So you could turn the
+Church down in front of five of its people, all five would privately think less
+of you, AND THE CHURCH AS AN OUTFIT HAD NO VIEW OF YOU AND NEVER WOULD. The
+ladder in front of that door is BELONGING -- what you GAVE them. Two different
+things have shared the word "standing" in this lane for a week and only one was
+ever on the screen.
+
+A LIVE COMMENT ASSERTED THE MISSING WIRING. __CITY_DIAL__ said filling
+DEED_WEIGHT "lights up opinionOf, standingOf, becauseOf and the rungs with no
+other wiring at all." opinionOf, true. The other two were called by nothing, so
+his dial could fill the table perfectly and neither would ever run. Corrected in
+place, not deleted -- one warning to the next reader.
+
+WHAT SHIPS VS WHAT WAITS FOR HIS DIAL. DEED_WEIGHT still ships EMPTY and nothing
+here fills it; the DIRECT tab's STANDING dial is where that decision lives. So
+it NEVER PRINTS A RUNG -- rungFor(0) says NEUTRAL and printing it would invent
+the judgement he has not made. BUT `members` is true today with an empty table:
+a mind exists only for somebody you have been near, so it counts how many of
+that outfit's people have been where you have been, and a headcount needs no
+ruling. Measured on the real surface:
+
+    RUNS WITH                 CARTEL
+    THE CARTEL HAS SEEN YOU   1 OF ITS PEOPLE
+      That is how many of them have been close enough to you to remember it.
+
+and the same rows the moment he turns one dial, with no further wiring:
+
+    WHAT THE CARTEL THINKS    HOSTILE - 1 OF ITS PEOPLE CARRIES SOMETHING
+      Somebody in the CARTEL watched you turn an outfit down.
+
+*** AND THE HONEST ANSWER TO THIS LANE'S OLDEST FINDING. *** 837 people near the
+spawn, none affiliated, nearest base 29 cells. Still placement, still not mine,
+four turns running. WHAT WAS NEVER DONE IS SAYING SO IN THE GAME:
+
+    REMNANTS   HAS NEVER LAID EYES ON YOU
+
+True at spawn for every outfit in the valley. No dial, no placement, no ruling.
+It tells the player the outfit exists, that being seen is how it comes to know
+him, and that it is not here. Bounded by skin in the game: an outfit gets a row
+only if you have met one of its people OR given it something, so the board never
+becomes a wall of fourteen zeroes.
+
+THE ONE MODELLING DECISION. standingOf needs factionOfOwner(id) and ctFactionOf
+takes a PERSON, which an id cannot be turned back into. So the outfit is STAMPED
+on the mind in ctWitnessPass, the one place holding both. RE-STAMPED EVERY PASS
+on purpose: what you know is who they ran with THE LAST TIME YOU SAW THEM, so a
+vouch reads through next time you walk past and a lost place stops reading as
+anything, with no second notification system. Rides ctMindSave's whole-object
+JSON: no new save key, no migration.
+
+THE PROBE LIED FIRST AND THE REASON IS REUSABLE. drew=0, minds=0, stamped=0 WITH
+THE CODE WORKING. A probe on slices/BOHEMIA_CITY_WORLD.html measures a ghost
+town: that page has no PLAYER_CV because the character bake is POSTED IN from
+the alpha, so peoplePass returns before drawing anybody. Two more, both of which
+would have produced a false result: THE CITY FRAME IS LAZY (every frame is
+about:blank until the RUN tab is opened), and YOU HAVE TO WALK (ctWitnessPass
+runs once per GAME minute and this world is I-MOVE-YOU-MOVE, so standing still
+never advances the clock -- forcing CT_SAW_MIN open would measure the poke).
+
+AND A GATE CLAIM FAILED WHILE THE FEATURE WORKED. Three claims went red reading
+document.getElementById('card'), an element that does not exist; the card is
+#ctcard. innerText was '' while the view object printed beside them already said
+HOSTILE. FIX THE RULER, NEVER THE TARGET.
+
+STILL DEAD, NAMED RATHER THAN QUIETLY LEFT:
+  BohemiaStanding.inherit / legendOf -- reputation outliving the person who
+    earned it, which is the dynasty premise. Needs the story's handoff moment,
+    which does not exist in the demo yet.
+  BohemiaDeeds.publishStage / sayWhy / labels -- the bridge from a quest outcome
+    to who saw it. *** 82 FACTION DELTAS AND 203 CLOUT TAGS ARE AUTHORED ACROSS
+    quests/bq/*.bq AND NO RUNNING SURFACE HAS EVER READ ONE OF THEM. *** The
+    loudness half (reachOf/hopsFor) IS wired; the publish half is not, and the
+    quest sources are not in the city frame at all. That is the quest runtime's
+    surface, not this lane's -- named here so it stops being invisible.
+  BohemiaPeople.peopleOf -- unchanged.
+
+GATES: FACTION BETWEEN 122/0 (was 108) - FACTION ARC 91/0 - STANDING 35/0 -
+FACTION MEMBERSHIP 60/0 - COMMITMENT 72/0 - ALPHA LOADS 20/0 - DEMO BUILD 25/0.
+THREE MUTATIONS, ALL BITE: kill the stamp and seven claims die (Q4 Q5 Q7 Q8 Q9
+Q10 Q11); print a rung with the table empty and Q6/Q7/Q12 die; drop the
+never-seen outfit and Q12 dies alone.
+THE 469-GATE SUITE CANNOT FINISH IN THIS CONTAINER -- 63 gates in ten minutes,
+and background processes barely advance between tool calls, so everything here
+was run in the FOREGROUND. Two reds surfaced in the partial pass and NEITHER IS
+THIS CHANGE, checked rather than assumed: SOUND MESSAGE reads none of the files
+this touches, and COMBAT SOUND is killshot-dependent and flaky -- 4/2 on
+origin/main's own alpha, 6/0 on this tree, isolated by swapping just the alpha.
+
+RECORD: records/BOHEMIA_THE_OUTFIT_NEVER_HAD_A_VIEW_8_28_26.md
+
+WHAT IS PENDING HIM: nothing new. DEED_WEIGHT stays empty until he turns the
+STANDING dial in the DIRECT tab, which is where that decision already lives.
+AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain [PENDING Paolo].
+
+CONTAINER WARNING FOR WHOEVER IS NEXT IN THIS LANE: this session's container
+REWOUND THE WHOLE REPO TO THE 8/15 COMMIT mid-turn, remote-tracking refs
+included, and ate about forty minutes of finished work that had not been
+committed. Recovery is `git fetch origin main` (slow, ~4 min on this repo) then
+`git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN HERE; do not hold
+a change until the gates are green.
+
+
+--------------------------------------------------------------------------------
+
 CHARACTER (character-0lurbs): 8/28 (q) LATEST -- *** NINE NEW HAIRCUTS INCLUDING THE FIRST
 TEXTURED ONES THE GAME HAS EVER HAD, AND FOURTEEN MORE CUT IN THE SAME TURN. 15 -> 24.
 TAB: CHARACTER to try them on and to build a face, RUN for the crowd, LOOK for the sheet.
