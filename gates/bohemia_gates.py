@@ -709,6 +709,34 @@ GATES = [
      'out of the roster -- "empty cabs still crawling PICKUP LOOPS" -- so the cab drives ITS '
      'loop and the cost is not choosing the direction, paid later in the walk back. *** '
      'Mutation-tested: paying as a drain 1 red, hiding the unaffordable option 2 red', True),
+    # 8/28, Paolo on a screenshot: "do you not see the fucking streets that are not
+    # facing the correct direction? ... I keep trying to fucking tell you"
+    ('FACING MEASURED', ['node', 'gates/street_facing_is_measured_gate.js'],
+     'STREET FACING IS MEASURED, NOT ASSERTED. He said it again on 8/28 over a screenshot of '
+     'his own game, and gates/street_facing_gate.js OPENS WITH HIS WORDS FROM 8/15 asking for '
+     'exactly this -- and has been GREEN 16 OF 16 FOR THIRTEEN DAYS. *** IT HAS NEVER LOOKED '
+     'AT A STREET. *** Measured on that file: it renders a frame or reads om.at ZERO times, '
+     'and FOURTEEN of its checks are regexes against its own source text. It proves the code '
+     'CONTAINS the characters roadAxis(d,x,y), which is a MENTION and not a USE, and this repo '
+     'has a law about a checker that cannot tell them apart being the broken one. Same shape '
+     'the WORLD lane admitted the same morning about a DIFFERENT street gate ("he played it '
+     'and said the streets were still fucked while my gate said 0 of 2594; he was right and '
+     'the gate was the broken part") -- twice in one day, two gates, both about streets, both '
+     'green. WHAT IS ACTUALLY WRONG, measured on the real surface: roadAxis decides direction '
+     'by RUN LENGTH and answers on 3,458 of 3,573 road cells. ON 115 IT RETURNS NOTHING, and '
+     'its own 8/27 comment says what that costs -- "an ambiguous cell did not become a '
+     'crossing, it became a NORTH-SOUTH ROAD BY DEFAULT ... the code guessed, and the guess '
+     'was always the same direction". That was fixed for 14 freeway cells; THE SAME SENTENCE '
+     'IS STILL TRUE FOR 115 MORE, and 114 of them sit inside a real corridor with 2+ road '
+     'neighbours of their own district. 3.2% of the valley scattered everywhere, which is what '
+     'this looks like from the air. AND THE RULER GOT CHECKED FIRST: a neighbour-count measure '
+     'called 15 further cells wrong and THEY WERE NOT -- run length is right and the count was '
+     'the broken ruler, the fourth in this lane this week, caught before it reached him. '
+     'RATCHETED, NOT RED, because the street renderer is the WORLD lane\'s and they are in it '
+     'today (ONE SYSTEM ONE SESSION, and this lane lost four hours to that collision the same '
+     'day): it holds the number as a ceiling, prints it every run, and goes green on its own '
+     'as it comes down. Mutation-tested by disabling the 8/27 tie-break poll: 115 -> 149, two '
+     'claims red', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

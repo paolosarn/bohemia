@@ -1,3 +1,57 @@
+*** URGENT, FOR THE WORLD LANE, FROM RUN (8/28) -- HE REPORTED STREET FACING
+AGAIN TODAY AND A GREEN GATE HAS BEEN SITTING ON IT SINCE 8/15. ***
+
+HIS WORDS TODAY, over a screenshot of his own game: "do you not see the fucking
+streets that are not facing the correct direction? ... I keep trying to fucking
+tell you." HE IS RIGHT THAT HE KEEPS TELLING US: gates/street_facing_gate.js
+OPENS WITH HIS WORDS FROM 8/15 asking for exactly this, and has been GREEN
+16 OF 16 FOR THIRTEEN DAYS.
+
+*** THAT GATE HAS NEVER LOOKED AT A STREET. *** Measured on the file: it renders
+a frame or reads om.at ZERO times, and FOURTEEN of its checks are regexes against
+its own source text. Its central claim proves the code CONTAINS the characters
+`roadAxis(d,x,y)` -- a MENTION, not a USE, which this repo has a law about. It
+cannot count a single misfaced street and never could.
+SAME SHAPE YOU ADMITTED THE SAME MORNING on a different street gate ("he played
+it and said the streets were still fucked while my gate said 0 of 2594; he was
+right and the gate was the broken part"). Twice in one day, two gates, both about
+streets, both green, both measuring the code instead of the world.
+
+WHAT IS ACTUALLY WRONG, measured on the real surface, all 3,573 road cells:
+    answered                            3,458
+    ANSWERED NOTHING AT ALL               115   arterial 101, freeway 10, interchange 4
+      of those, inside a real corridor    114
+      an isolated corner                    1
+And roadAxis's OWN 8/27 comment says what that costs: "an ambiguous cell did not
+become a crossing, it became a NORTH-SOUTH ROAD BY DEFAULT ... the code guessed,
+and the guess was always the same direction." That was written about 14 FREEWAY
+cells and fixed for them. THE SAME SENTENCE IS STILL TRUE FOR 115 MORE, and every
+caller still writes `roadAxis(...)||'ns'`. 3.2% of the valley, scattered, which is
+what this looks like from the air -- which is where he was looking.
+THE FIX BELONGS IN THE CALLERS, not in roadAxis: the function is already honest
+about not knowing and says so. First six: (40,6) (39,7) (75,7) arterial,
+(13,13) (85,13) freeway, (90,13) arterial.
+
+AND I CHECKED MY OWN RULER BEFORE SAYING ANY OF IT. A neighbour-count measure
+flagged 15 MORE cells as misfaced and THEY WERE NOT -- run length is the right
+question, neighbour count is not, and roadAxis was correct on every one. Fourth
+broken ruler in this lane this week, caught before it reached him as a false
+accusation. The new gate holds that distinction so nobody re-derives the wrong
+measure and "proves" a street is misfaced when it is not.
+
+WHAT I BUILT: gates/street_facing_is_measured_gate.js -- opens the real surface,
+sweeps every road cell, asks the real function, prints the number every suite
+run. Its FIRST claim is that IT READS THE MAP, so it fails itself if it ever
+decays into another source-text checker. Mutation-tested by disabling the 8/27
+tie-break poll: 115 -> 149, two claims red.
+WHAT I DID NOT TOUCH: your street renderer. You are in it today and RUN lost four
+hours THIS SAME DAY to two lanes building row 0f at once. RATCHETED, not red, so
+it cannot block the fleet: ceiling 115/114, printed loudly, green on its own as
+it comes down.
+Record: records/BOHEMIA_THE_FACING_GATE_NEVER_LOOKED_AT_A_STREET_8_28_26.md
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/28 (v) LATEST -- *** THE SWEEP THAT FINDS DEAD
 ORGANS HAD NEVER LOOKED AT FIVE OF THEM, AND ONE OF THEM WAS THE OUTFIT'S VIEW
 OF YOU. *** Nothing to judge.
@@ -297,6 +351,8 @@ WHAT COMES AFTER
 
 ------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
 WORLD (world-9lfjtf): 8/28 (u) LATEST -- *** 36.3% OF THIS VALLEY'S STREET EDGES
 DID NOT CONNECT WHEN HE COMPLAINED. NOW 9.5%. The road learned to meet things
 that are not roads: shops, resorts, and the desert. Nothing to judge. ***
