@@ -3293,6 +3293,29 @@ GATES = [
      'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
      'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
+    ('ROOM PROGRAM',   ['node', 'gates/room_program_gate.js'],
+     'FIFTY-THREE PERCENT OF EVERY ROOM IN THE VALLEY WAS A BATHROOM. Interiors are real -- '
+     'you walk in, no loading screen -- and the floorplan names each room by RANK, distance '
+     'from the street door, public first and private last. One line did it: '
+     '`Z.roles[Math.min(rank, Z.roles.length-1)]`. Math.min CLAMPS, so every room past the end '
+     'of the list took the LAST role, and in seven of nine zones the last role is `bath` '
+     'because the list runs public-to-private and a toilet is the most private thing on it. '
+     'Measured over 277 buildings from the real generators: 1213 of 2287 rooms were bathrooms. '
+     'The convention centre 50 of 54, the library 50 of 54, THE CHAPEL 49 OF 53 -- a chapel '
+     'that is 92% toilet -- city hall 48, the courthouse 48, the school 43. You walked into '
+     'the library and found fifty lavatories. THE FIX WAS NOT A CAP: it was naming what a '
+     'bigger building actually has more of (`bulk`), which is a different question and the one '
+     'the clamp was answering wrong -- a bigger house has more BEDROOMS, a bigger shop is more '
+     'SALES FLOOR, a bigger warehouse is more OPEN FLOOR. 53.0% -> 4.1%, and that figure is '
+     'research-backed rather than chosen: restrooms are CORE space beside stairs and risers, '
+     'net-to-gross runs 60-80% so the core is 20-40% of a plan and restrooms are a slice of '
+     'THAT, and occupant load is 100-150 sq ft per person in an office against 500 in a '
+     'warehouse. It holds the SHAPE, not the number: no zone may scale with its private-most '
+     'room, no building may be mostly lavatory, and no bulk role may be a NEW name (that would '
+     'need a floor mapping in the ART lane\'s file). Mutation-tested by restoring the clamp: '
+     'reproduces 1213 / 53.0% exactly and fires three legs. B3 is stated ORDER-INDEPENDENTLY '
+     'because the first version assumed the rooms array came back in rank order -- it does '
+     'not, so that leg PASSED the mutation and was decoration until the mutation caught it.', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '
