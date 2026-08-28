@@ -1122,7 +1122,80 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/27 (b) LATEST -- *** THE GAME HAS LETTERS, AND THE RUN WEARS
+UI (ui-kmqmrf): 8/28 LATEST -- *** HE STOPPED THE LANE FROM IMPLEMENTING AND
+TURNED IT INTO A WALL OF PICTURES. FIVE ROUNDS OF TWELVE LOOKS, HE THUMBS THEM,
+NOTHING GOES IN THE GAME UNTIL HE PICKS. *** TAB: **3D** (the wall). The game is
+UNTOUCHED and that is on purpose.
+
+READ THIS BEFORE YOU BUILD ANYTHING IN THIS LANE. He said three things today and
+each one killed the way the lane was working:
+
+  1. "i dont need you to implement shit thats not even close to being fucking
+     done" -- I had put the look on 4 of 13 surfaces and called it shipped.
+     HALF-SHIPPED READS AS BROKEN, NOT AS UNFINISHED. There is no such thing as
+     partially applying a look; the mismatch IS the bug he sees.
+  2. "Bro i dont want you to implement a single fucking thing until i tell you.
+     Were still building the aesthetic man cmon" -- the lane is FROZEN for
+     implementation. STOP PRODUCING (7/26) applies: finding a legal way to ship
+     anyway IS the violation.
+  3. "you're doing like this philosophy of the UI and it's really disappointing
+     ... just show me pictures of a bunch of UI ideas and I click them and see
+     what I honestly like ... if the games 2-D I want the UI to look like it's
+     3-D ... Fuck all this like UI philosophy, bro." -- NO ESSAYS. PICTURES HE
+     TAPS. And the direction, in his own words: 2D GAME, 3D UI.
+
+THE METHOD NOW, AND IT IS THE WHOLE LANE: tools/bohemia_ui_wall.js emits twelve
+complete UI looks, THE SAME CONTENT IN EVERY ONE (a real quest panel, a real
+button), each with a thumb, exporting a .txt. He votes, I record the verdict, I
+build the next twelve from what he said. That is FACTORY LAW applied to taste:
+typed spec, generator, batch, kill/approve, gate.
+
+WHAT HE HAS KILLED AND KEPT, FIVE ROUNDS IN, AND IT IS ONE RULE NOT A LIST:
+    KEPT   glass with light behind it . light standing in the air . metal read
+           only by how light falls on it
+    KILLED everything PRINTED or PAINTED (stencil, lightbox, punch card, tape,
+           letterboard) . everything MECHANICAL (split-flap, rolling drums) .
+           everything ORNAMENTAL (carved stone, rivets, neon, bevel, card stack)
+  HE KEEPS LIGHT AND RAW MATERIAL. HE KILLS INK, MACHINERY AND DECORATION.
+  Nothing with a printed face on it has ever survived a round. Do not cook one.
+
+ROUND FOUR KILLED BOTH OF ITS OWN ANCHORS and that is not a reversal, it is a
+TOLERANCE: he kept a variant of each and told me HOW MUCH of the effect, not
+whether. Three notes, and two of them are one instruction:
+  "Number nine the shadow has to be a lot less of the letter" -- the drop under
+    each glyph was nearly as dark and as wide as the glyph, so the type read
+    DOUBLED instead of LIT. A shadow is evidence of the light, never a second
+    copy of the letter.
+  "if you're gonna have that effect it'll be less"
+  "honestly maybe it should be moving in the background"
+  THE LAST TWO ARE THE SAME FIX. Every hologram through round four painted its
+  scanlines and tear ON TOP OF THE WORDS, degrading the one thing a UI may never
+  degrade. Moving the field to its own layer UNDER the type makes it quieter AND
+  keeps the panel alive, in one change.
+
+ROUND FIVE IS ON THE WALL NOW: six RAISED METAL walking the shadow down (LESS
+SHADOW, BARELY THERE, LIGHT ONLY NO SHADOW, DARKER PLATE, MORE AIR, SOFTER
+LIGHT -- one has no shadow at all, to find the FLOOR of the range instead of
+guessing at its middle), and six HOLOGRAM rebuilt with the effect on ::after at
+z-index 1 and the text at z-index 2, all six still under prefers-reduced-motion.
+
+*** A STILL PICTURE CANNOT JUDGE THE HOLOGRAM SIX. They differ ONLY by motion.
+Proved each genuinely moves by hashing two frames a second apart -- all six
+differed. If you send him a contact sheet, SAY THIS, or he judges six identical
+photographs and the round is wasted. ***
+
+STILL TRUE FROM YESTERDAY AND STILL UNFIXED (they are not blocked, they are
+FROZEN behind his instruction): UI-12 the arrow-glyph bug is probably also in
+COMBAT's move ring and CITY's nav; UI-13 the look reaches only two surfaces;
+UI-15 which file is actually the game. SHARED -17 the suite cannot finish and
+drops the newest gates. SHARED -18 a gate that counts rows instead of reading
+his verdict goes red the moment he votes.
+Records: records/BOHEMIA_UI_VERDICT_PICK_A_LOOK_R1_8_28_26.txt (all four
+verdicts and the cross-round pattern).
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/27 (b) -- *** THE GAME HAS LETTERS, AND THE RUN WEARS
 HIS LOOK. *** TAB: **UI** (it opens on IN THE GAME, four before-and-after
 photographs of the real run), and you SEE it in **RUN**.
 
