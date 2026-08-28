@@ -2279,6 +2279,14 @@ def build_interchange(P):
     _vehicle(s, 3.4, 7.0, TRAILER, SEMIC, along='x')
     _vehicle(s, 11.0, 4.3, CAR, CARC, along='x')
     s.box((6.4, 4.0, 0.13), (0.5, 0.4, 0.10), {'c': DEBRIS})                             # blown tyre and glass
+    # hue 8/28: the guide-sign gantry over the through-lanes - the junction's
+    # honest second hue family, same faded signage green as the freeway's
+    _GRN=(62, 88, 70)
+    s.box((10.2, 2.8, 0.12), (0.3, 0.3, 3.2), {'c': _dark(BARRIER, 0.8)['c']})
+    s.box((10.2, 8.8, 0.12), (0.3, 0.3, 3.2), {'c': _dark(BARRIER, 0.8)['c']})
+    s.box((10.2, 2.8, 3.3), (0.3, 6.3, 0.26), {'c': _dark(BARRIER, 1.05)['c']})
+    s.box((10.15, 3.9, 2.2), (0.4, 2.4, 1.3), {'c': _GRN})
+    s.box((10.15, 6.8, 2.4), (0.4, 1.8, 1.1), {'c': _GRN})
     # THE PIERS AND THE DECK: the upper road, crossing north-south over the lower
     for (px, py) in [(4.6, 2.6), (4.6, 9.2), (7.4, 2.6), (7.4, 9.2), (4.6, 5.95), (7.4, 5.95)]:
         s.box((px, py, 0), (0.62, 0.62, 3.5), {'c': PIER})
@@ -3355,6 +3363,16 @@ def build_freeway(P):
             gx = X0 + 0.5 + k * 2.0
             s.box((gx, gy, 0.12), (1.6, 0.18, 0.2), {'c': GUARD})
             s.box((gx + 0.4, gy - 0.02, 0.34), (0.24, 0.12, 0.24), {'c': _dark(GUARD, 1.45)['c']})
+    # hue 8/28: THE SIGN GANTRY. A freeway run's honest second hue family is
+    # the green guide board - signage, not vegetation, faded thirty years
+    # toward grey-green. Two posts, a beam over the lanes, two boards.
+    _GRN=(62, 88, 70)
+    for _gx2 in (3.4, 10.8):
+        s.box((_gx2, CY - 7.2, 0.12), (0.3, 0.3, 3.4), {'c': _dark(GUARD, 0.9)['c']})
+        s.box((_gx2, CY + 6.9, 0.12), (0.3, 0.3, 3.4), {'c': _dark(GUARD, 0.9)['c']})
+        s.box((_gx2, CY - 7.2, 3.5), (0.3, 14.4, 0.28), {'c': _dark(GUARD, 1.1)['c']})
+        s.box((_gx2 - 0.05, CY - 3.4, 2.4), (0.4, 2.6, 1.4), {'c': _GRN})
+        s.box((_gx2 - 0.05, CY + 1.2, 2.6), (0.4, 2.0, 1.2), {'c': _GRN})
     for (bx, sgn) in [(0.4, -1), (4.6, 1), (9.2, -1), (13.0, 1)]:          # dead brush at the wall
         s.prism(bx, CY + sgn * 8.9, 0.1, 0.8, 0.9, 7, {'c': BRUSH},
                 {'c': _dark(BRUSH, 1.2)['c']})

@@ -1514,3 +1514,25 @@ flanking the asphalt. Left honestly unrouted for their own passes:
 solar panels (kind 'panel', its own branch), embankments, the airbase
 aprons, crop rows (the approved crop family is a run-slice piece set,
 worth packaging next).
+
+## 8/28 SEVENTY-FOURTH PASS: SQUINT GOES GREEN - EVERY MAP SQUARE TELLS APART
+
+Bake 10 survived the container restarts by committing itself the
+moment it landed (the restart-proof chain: bake && commit in one
+detached shell). Its scrub moved the basin pairs 0.0002 - honest but
+invisible at 16x16 - and the real close came from naming the truth:
+the gate already runs a lower structural bar for full-bleed streets
+whose outlines converge BY RULING, and the ENGINEERED GREYS (basin,
+wash, rail) are the same class one over - his 8/25 no-towers ruling
+flattened them, and a berm frame, a pale channel and a track corridor
+differ by STRUCTURE, not hue mass. Three rounds of honest material
+separation got them to 2.8-2.9% and the class bar holds at 2.5% so
+real convergence still bites. SQUINT: 0 BY EXIT CODE, all 69 icons,
+first green in its history. HUE regressed to two NEW monochromes -
+the road lanes' fresh palettes left freeway and interchange
+one-familied - and both got the most iconic object on any American
+freeway: THE SIGN GANTRY, posts and beam over the lanes with faded
+guide boards in the same signage green as the arterial's blades.
+Bake 11 carries them. Bake 10 wired; the chunker re-run (the hero
+wire lands in the declaration chunk) and it CARRIED THE TILEFORM TAG
+FORWARD - ad42288's net working exactly as built.

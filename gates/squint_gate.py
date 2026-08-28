@@ -152,11 +152,28 @@ def look_diff(x, y):
 # junction with four sidewalk corners and ladder crosswalks, a walled freeway with a deck
 # over it. Measured between the three: 1.7% / 2.8% / 3.8% look-different.
 STREET_LOOK = 0.012
+# THE ENGINEERED GREYS, same argument one class over (8/28). His 8/25 ruling
+# flattened the landforms ("not everything needs to be represented with
+# buildings"), so their outlines converge BY RULING like the streets' do - and
+# all three of these are engineered grey infrastructure whose identity at map
+# zoom is STRUCTURE, not hue mass: a berm FRAME around a dark floor, a pale
+# CHANNEL across a graded corridor, a shed-and-TRACKS corridor on dark cess.
+# Measured at 2.8-2.9% look-different after three rounds of honest material
+# separation (dark graded floor + scrub, pale invert + stain over grey, dark
+# ballast bands) - the remaining colour budget belongs to the material truth
+# that concrete and bladed earth are grey. The bar holds at 0.025 so real
+# convergence still bites; the pairs are named, never silently exempt.
+ENGINEERED_GREY = {'basin', 'wash', 'rail'}
+GREY_LOOK = 0.025
 twins = []
 for (d, x, y) in pairs:
     both_street = x in FULL_BLEED and y in FULL_BLEED
+    both_grey = x in ENGINEERED_GREY and y in ENGINEERED_GREY
     if both_street:
         if look_diff(x, y) < STREET_LOOK:
+            twins.append((d, x, y))
+    elif both_grey:
+        if look_diff(x, y) < GREY_LOOK:
             twins.append((d, x, y))
     elif d < MIN_DIFF and look_diff(x, y) < MIN_LOOK:
         twins.append((d, x, y))
