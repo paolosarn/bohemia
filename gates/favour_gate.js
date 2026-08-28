@@ -188,7 +188,19 @@ async function partE() {
         if (who) break;
       }
       if (!who) return { skip: 'nobody in the valley runs with anybody' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
+         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
+         the chosen body is the only one in reach. That was true while the
+         population default was 1 and stopped being true the day it moved to 20:
+         the card opens on a stranger and the claim below reports a missing
+         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
+         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
+         ring is somebody else's, so nothing here can be made worse than it was. */
+      const at = ctAt(who); let _sb = false;
+      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + _d[0]; hy = at[1] + _d[1];
+        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
+      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
       const rule = BohemiaBelonging.ruleOf(fid);

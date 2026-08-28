@@ -296,7 +296,19 @@ async function partD() {
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.gave[fid] = 5;
       sv.meta.commit = {};
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
+         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
+         the chosen body is the only one in reach. That was true while the
+         population default was 1 and stopped being true the day it moved to 20:
+         the card opens on a stranger and the claim below reports a missing
+         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
+         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
+         ring is somebody else's, so nothing here can be made worse than it was. */
+      const at = ctAt(who); let _sb = false;
+      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + _d[0]; hy = at[1] + _d[1];
+        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
+      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
       ctSawCell(); ctOpen();
       r.atWall = document.getElementById('ctcard').innerText;
       r.buttons = [...document.querySelectorAll('#ctcard button')].map(x => x.textContent);
@@ -378,15 +390,70 @@ async function partWall() {
          THE WALL on the real surface, so for three days the wall was a sign:
          nine presses reached 9 against a ceiling of 5 with no commitment made.
          "The card shows the right thing" is not "the thing is enforced". */
+      /* *** IT NEEDS A PERSON WHOSE ACT CAN REPEAT, NOT THE FIRST AFFILIATED
+         BODY IT TRIPS OVER. *** This took whoever came first and assumed their
+         card offered the repeatable act. MEASURED 8/28, when the population
+         default moved from 1 to 20 and "first affiliated person" became a
+         DIFFERENT person: on main it found a Cartel member whose card offers
+         ctfavour and nine presses reached the ceiling; here it found a Caravans
+         member whose card offers ctgive, which correctly disappears after one
+         press, and the wall test reported 1 of 5 as an off-by-one in the wall.
+         The claim under test is about THE CEILING, so the person has to be one
+         whose act can actually climb to it. Two presses is the whole check:
+         somebody who can give twice can give five times. */
       const bases = ctBases() || {};
-      let who = null, fid = null;
+      let who = null, fid = null, tried = 0;
+      const RING0 = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
+      outer:
       for (const b of Object.values(bases)) {
         hx = b.x * FN + 2; hy = b.y * FN + 2;
-        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
-        if (who) break;
+        for (const p of ctEveryone()) {
+          const f = ctFactionOf(p); if (!f) continue;
+          tried++;
+          const at0 = ctAt(p);
+          let beside = false;
+          for (const d of RING0) {
+            hx = at0[0] + d[0]; hy = at0[1] + d[1];
+            const a = ctAdjacent(); if (a && a.id === p.id) { beside = true; break; }
+          }
+          if (!beside) continue;
+          /* CLIMB THE WALL WITH THEM, THEN LOOK FOR THE DOOR. Two conditions, and
+             both are in the claim itself: the act has to REPEAT (some cards offer
+             a once-only give, which cannot climb to a ceiling of five), and the
+             commitment is only offered ON THEIR GROUND. Qualifying on the thing
+             under test is the only honest way to pick a subject for it. */
+          const probe = ctBelongSave();
+          const ceil0 = BohemiaCommitment.wallOf('none', 0).ceiling;
+          probe.meta.gave = {}; probe.meta.owed = {}; probe.meta.claims = {}; probe.meta.commit = {};
+          let landed = 0;
+          for (let t = 0; t < ceil0; t++) {
+            T.day = t + 1; probe.meta.gaveDay = {};
+            ctClose(); ctSawCell(); ctOpen();
+            const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
+            if (g) { g.click(); landed++; }
+          }
+          ctClose(); ctOpen();
+          const doorThere = !!document.getElementById('ctcommit');
+          ctClose();
+          probe.meta.gave = {}; probe.meta.owed = {}; probe.meta.claims = {}; probe.meta.commit = {};
+          if (landed === ceil0 && doorThere) { who = p; fid = f; break outer; }
+        }
       }
-      if (!who) return { skip: 'nobody in the valley runs with anybody' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      if (!who) return { skip: 'none of the ' + tried + ' affiliated people reachable from a '
+        + 'base offers an act that can be repeated, so the wall cannot be climbed to' };
+      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
+         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
+         the chosen body is the only one in reach. That was true while the
+         population default was 1 and stopped being true the day it moved to 20:
+         the card opens on a stranger and the claim below reports a missing
+         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
+         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
+         ring is somebody else's, so nothing here can be made worse than it was. */
+      const at = ctAt(who); let _sb = false;
+      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + _d[0]; hy = at[1] + _d[1];
+        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
+      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
       const ceiling = BohemiaCommitment.wallOf('none', 0).ceiling;
@@ -394,6 +461,19 @@ async function partWall() {
       /* press whatever writer the card offers, once a "day", well past the wall */
       for (let i = 0; i < 9; i++) {
         T.day = i + 1; sv.meta.gaveDay = {};
+        /* RE-ESTABLISH THE PERSON BEFORE EVERY PRESS (8/28). Standing once and
+           re-opening nine times assumes the card comes back to the same body,
+           which is only guaranteed while nobody else is within reach. The player
+           is not moving between presses, so re-checking costs nothing.
+           (Traced first, and it was NOT the cause of the red this was written
+           during: the card stayed on the right person all nine times and the
+           BUTTON was gone from the second press on. Kept anyway, because the
+           assumption it removes is a real one, and the note is corrected rather
+           than quietly left saying something the trace disproved.) */
+        for (const _d of [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+          hx = at[0] + _d[0]; hy = at[1] + _d[1];
+          const _a = ctAdjacent(); if (_a && _a.id === who.id) break;
+        }
         ctClose(); ctOpen();
         const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
         if (g) g.click();

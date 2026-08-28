@@ -62,7 +62,21 @@ async function tapTarget() {
         if (who) break;
       }
       if (!who) return false;
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* SAME FIX AS THE BLOCK BELOW, and it crashed here first: standing at
+         at[0]+1 and calling ctOpen() trusts that the chosen person is the only
+         body in reach. True at a population default of 1, false from 8/28. When
+         the card opened on somebody unaffiliated there was no fold row at all
+         and this waited thirty seconds for an element that was never coming. */
+      const at = ctAt(who);
+      const RING = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
+      let agreed = false;
+      for (const d of RING) {
+        hx = at[0] + d[0]; hy = at[1] + d[1];
+        try { ctClose(); } catch (e) {}
+        try { ctSawCell(); ctOpen(); } catch (e) { continue; }
+        if (typeof CT_OPEN !== 'undefined' && CT_OPEN && CT_OPEN.id === who.id) { agreed = true; break; }
+      }
+      if (!agreed) return false;
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
       ctSawCell(); ctOpen(); for (let i = 0; i < 3; i++) { ctClose(); ctOpen(); }
@@ -114,29 +128,45 @@ async function busiestReachable() {
     const out = await page.evaluate(() => {
       const R = ctValleyRoster();
       /* NO STUB: a real Mob member with a real same-outfit tie, or nothing. */
-      let target = null;
-      for (const m of R.filter(a => String(a.faction || '').toUpperCase() === 'MOB')) {
-        const ties = BohemiaTies.tiesOf(ctVKey(m), R, ctCell(), ctVKey);
-        if (ties.some(t => {
-          const w = R.filter(a => ctVKey(a) === t.key)[0];
-          return w && String(w.faction || '').toUpperCase() === 'MOB';
-        })) { target = m; break; }
+      /* *** EVERY QUALIFYING TARGET, NOT THE FIRST ONE. *** This took the first
+         Mob member with a Mob tie and gave up if it could not stand next to
+         them. That was fine while the valley held one person a block; from 8/28
+         it holds twenty, so the nearest body is routinely somebody else and the
+         whole check skipped itself while nothing was wrong with the card.
+         A CHECK THAT GIVES UP IS NOT A CHECK THAT PASSED. */
+      const candidates = R.filter(a => String(a.faction || '').toUpperCase() === 'MOB')
+        .filter(m => {
+          const ties = BohemiaTies.tiesOf(ctVKey(m), R, ctCell(), ctVKey);
+          return ties.some(t => {
+            const w = R.filter(a => ctVKey(a) === t.key)[0];
+            return w && String(w.faction || '').toUpperCase() === 'MOB';
+          });
+        });
+      if (!candidates.length) return { skip: 'no Mob member in the valley has a Mob acquaintance' };
+      const span = BohemiaPopulation.NB * FN;
+      const RING = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
+      let target = null, rec = null, placed = false, tried = 0;
+      for (const cand of candidates) {
+        tried++;
+        const parts = String(cand.__id).split(':');
+        hx = (+parts[0]) * span + 4; hy = (+parts[1]) * span + 4;
+        CT_SPAWN = null; ctSpawn();
+        const r0 = ctEveryone().filter(q => q.id === cand.__id)[0];
+        if (!r0) continue;
+        const at0 = ctAt(r0);
+        for (const d of RING) {
+          hx = at0[0] + d[0]; hy = at0[1] + d[1];
+          const adj = ctAdjacent();
+          if (adj && adj.id === r0.id) { target = cand; rec = r0; placed = true; break; }
+        }
+        if (placed) break;
       }
-      if (!target) return { skip: 'no Mob member in the valley has a Mob acquaintance' };
-      const parts = String(target.__id).split(':'), span = BohemiaPopulation.NB * FN;
-      hx = (+parts[0]) * span + 4; hy = (+parts[1]) * span + 4;
-      CT_SPAWN = null; ctSpawn();
-      const rec = ctEveryone().filter(q => q.id === target.__id)[0];
-      if (!rec) return { skip: 'the target is not on their own block' };
+      if (!placed) return { skip: 'none of the ' + tried + ' qualifying targets could be '
+        + 'stood next to; the nearest body was always somebody else' };
       /* PROVE IT IS THEM. ctOpen shows whoever is NEAREST, which has produced a
          false finding in this lane before. */
-      const at = ctAt(rec); let placed = false;
-      for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-        hx = at[0] + d[0]; hy = at[1] + d[1];
-        const adj = ctAdjacent();
-        if (adj && adj.id === rec.id) { placed = true; break; }
-      }
-      if (!placed) return { skip: 'could not stand next to the target' };
+      /* the player is already standing next to `rec` and the game agrees it is
+         them: the search above only stops when ctAdjacent() names the same id. */
       R.forEach(a => { CT_MET.meet('P:city:' + a.__id, 1); CT_MET.ask('P:city:' + a.__id, 1); });
       const fid = ctFactionOf(rec), sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
@@ -308,7 +338,28 @@ async function busiestReachable() {
         if (who) break;
       }
       if (!who) return { skip: 'nobody in the valley runs with anybody' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* *** STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS. *** This used to be
+         `hx = at[0] + 1` and a straight ctOpen(), which trusted that the only
+         body within reach was the one it had just chosen. That was true while
+         the population default was 1 and stopped being true on 8/28 when it
+         moved to 20: the card opened on WHOEVER ELSE was closer, so every claim
+         below was reading a stranger's card and reporting it as a missing fold.
+         A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE SAME ONE
+         IS TESTING THE CROWD. Try the eight cells around them and keep the one
+         where the game agrees; if none does, say so instead of measuring
+         somebody else. */
+      const at = ctAt(who);
+      const RING = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
+      let agreed = false;
+      for (const d of RING) {
+        hx = at[0] + d[0]; hy = at[1] + d[1];
+        try { ctClose(); } catch (e) {}
+        try { ctSawCell(); ctOpen(); } catch (e) { continue; }
+        if (typeof CT_OPEN !== 'undefined' && CT_OPEN && CT_OPEN.id === who.id) { agreed = true; break; }
+      }
+      try { ctClose(); } catch (e) {}
+      if (!agreed) return { skip: 'the card would not open on the person this test chose '
+        + '(' + who.id + '); it opened on somebody nearer every time' };
       const sv = ctBelongSave();
       const r = { fid };
       const snap = () => {

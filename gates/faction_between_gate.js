@@ -550,7 +550,22 @@ async function onTheCard() {
         let who = null, fid = null;
         for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
         if (!who) continue;
-        const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+        /* *** STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS. *** This was
+           `hx = at[0] + 1` and a straight ctOpen(). It trusts that the body it
+           just chose is the only one in reach, which was true while the valley
+           held one person a block and stopped being true on 8/28 when the
+           population default moved to 20. The card then opens on whoever is
+           NEARER, and three claims below read a stranger's card and reported it
+           as a missing enemies row. A TEST THAT PICKS A PERSON AND THEN TRUSTS
+           THE GAME TO PICK THE SAME ONE IS TESTING THE CROWD. */
+        const at = ctAt(who);
+        let stood = false;
+        for (const d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+          hx = at[0] + d[0]; hy = at[1] + d[1];
+          const adj = ctAdjacent();
+          if (adj && adj.id === who.id) { stood = true; break; }
+        }
+        if (!stood) continue;
         const sv = ctBelongSave();
         sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
         ctSawCell(); ctOpen(); for (let i = 0; i < 3; i++) { ctClose(); ctOpen(); }
@@ -739,7 +754,22 @@ async function onTheBoard() {
           if (f && BohemiaBetween.ripples(f).some(r => r.sign === 'hostile')) { who = p; fid = f; break; }
         }
         if (!who) continue;
-        const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+        /* *** STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS. *** This was
+           `hx = at[0] + 1` and a straight ctOpen(). It trusts that the body it
+           just chose is the only one in reach, which was true while the valley
+           held one person a block and stopped being true on 8/28 when the
+           population default moved to 20. The card then opens on whoever is
+           NEARER, and three claims below read a stranger's card and reported it
+           as a missing enemies row. A TEST THAT PICKS A PERSON AND THEN TRUSTS
+           THE GAME TO PICK THE SAME ONE IS TESTING THE CROWD. */
+        const at = ctAt(who);
+        let stood = false;
+        for (const d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+          hx = at[0] + d[0]; hy = at[1] + d[1];
+          const adj = ctAdjacent();
+          if (adj && adj.id === who.id) { stood = true; break; }
+        }
+        if (!stood) continue;
         const sv = ctBelongSave();
         sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
         sv.meta.commit = {}; sv.meta.between = {};
@@ -1322,7 +1352,19 @@ async function onTheVouch() {
         if (who) break;
       }
       if (!who) return { err: 'no unaffiliated person anywhere' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
+         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
+         the chosen body is the only one in reach. That was true while the
+         population default was 1 and stopped being true the day it moved to 20:
+         the card opens on a stranger and the claim below reports a missing
+         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
+         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
+         ring is somebody else's, so nothing here can be made worse than it was. */
+      const at = ctAt(who); let _sb = false;
+      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + _d[0]; hy = at[1] + _d[1];
+        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
+      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
       sv.meta.commit = {}; sv.meta.vouched = {};
@@ -1465,7 +1507,19 @@ async function onYourProblem() {
         if (who) break;
       }
       if (!who) return { err: 'nobody unaffiliated' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
+         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
+         the chosen body is the only one in reach. That was true while the
+         population default was 1 and stopped being true the day it moved to 20:
+         the card opens on a stranger and the claim below reports a missing
+         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
+         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
+         ring is somebody else's, so nothing here can be made worse than it was. */
+      const at = ctAt(who); let _sb = false;
+      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + _d[0]; hy = at[1] + _d[1];
+        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
+      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
       sv.meta.commit = {}; sv.meta.vouched = {};

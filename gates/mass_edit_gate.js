@@ -167,7 +167,15 @@ ok('every archetype is one of the four agents.js defines',
 
       /* E) THE EDIT MUST REACH THE SCREEN, through the cache */
       T.min = 3 * 60; render();
-      const looksBefore = BohemiaPopulation.peopleIn(om, POWER, nx, ny, seed, FN, pplStandable, 24).map(p => p.look);
+      /* *** THE SAME DOOR AS "AFTER", WHICH IT WAS NOT. *** This read the census
+         directly with a HARD-CODED cap of 24 while the two readings below come
+         through pplPeople, whose cap RIDES THE DIAL (24 at dial 1, 480 at dial
+         20). At the old default both happened to cap at 24 and the comparison
+         worked by coincidence; the day the population default moved (8/28) the
+         claim went red comparing 24 people against 21 and reported it as the
+         surface failing to restore. COMPARING TWO READINGS TAKEN THROUGH
+         DIFFERENT DOORS IS NOT A COMPARISON. Same door now, both sides. */
+      const looksBefore = pplPeople(nx, ny).map(p => p.look);
       BohemiaPopulation.addRule({ name: 'gate:all-look-1', where: () => true, set: { look: 1 } });
       render();
       const looksAfter = pplPeople(nx, ny).map(p => p.look);   /* the CACHED path, on purpose */

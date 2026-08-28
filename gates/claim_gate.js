@@ -269,7 +269,22 @@ async function partF() {
         if (who) break;
       }
       if (!who) return { skip: 'nobody in the valley runs with anybody' };
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      /* *** STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS. *** This was
+         `hx = at[0] + 1` and a straight ctOpen(), which trusts that the body it
+         just chose is the only one within reach. True while the population
+         default was 1; false from 8/28, when it moved to 20. The card opened on
+         whoever was nearer and four claims below reported a stranger's card as
+         a missing claim. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO
+         PICK THE SAME ONE IS TESTING THE CROWD. */
+      const at = ctAt(who);
+      let stood = false;
+      for (const d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        hx = at[0] + d[0]; hy = at[1] + d[1];
+        const adj = ctAdjacent();
+        if (adj && adj.id === who.id) { stood = true; break; }
+      }
+      if (!stood) return { skip: 'could not get the card to open on the chosen person; '
+        + 'the nearest body was always somebody else' };
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.gave[fid] = 6;      // COUNTED
       sv.meta.commit = {}; sv.meta.commit[fid] = 'sided';

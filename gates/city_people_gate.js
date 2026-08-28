@@ -99,10 +99,25 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
     }
     /* NOW step him deliberately ONTO a resident's cell. Placement is cached and
        cannot know where he will walk, so draw time is the only honest place to
-       enforce one-body-per-cell - and the proof is that the count DROPS. */
+       enforce one-body-per-cell.
+       *** AND THE PROOF IS NOT THAT THE COUNT DROPS. *** It was, and that claim
+       went red the day the population default moved from 1 to 20 (8/28): moving
+       the player MOVES THE CAMERA, so stepping onto one body brings others into
+       view, and the total went 147 -> 148 while the law was being obeyed
+       perfectly. A CLAIM THAT COUNTS THE THING INSTEAD OF READING IT is a claim
+       that measures the crowd. So this reads the ONE BODY: is that person still
+       in what the pass actually blitted? Strictly stronger, and it no longer
+       cares how many neighbours they have. */
     const onCell = homes.find(h => h[0] !== hx || h[1] !== hy);
     hx = onCell[0]; hy = onCell[1]; render();
-    const onPlayer = (window.__PPL_DRAWN === drawn - 1) ? 0 : 1;
+    const drewHere = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+    let bodyOnPlayerCell = 0;
+    for (let i = 0; i < drewHere.length; i++) {
+      const rec = drewHere[i], q = (rec && rec.p) ? rec.p : rec;
+      const at = q && q.home ? pplAt(q) : null;
+      if (at && at[0] === hx && at[1] === hy) bodyOnPlayerCell++;
+    }
+    const onPlayer = bodyOnPlayerCell;
     return { cell: best, homes: homes.length, drawn: drawn, after: window.__PPL_DRAWN,
              cv: [cv.width, cv.height], unwalkable, onPlayer };
   });
@@ -114,7 +129,7 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
     /* 4) and 5) */
     ok(`nobody stands where the player cannot walk (${clus.unwalkable} bad cells of ${clus.homes})`,
        clus.unwalkable === 0);
-    ok(`stepping onto a resident's cell removes exactly that body (${clus.drawn} -> ${clus.after}, OCCUPANCY LAW)`, clus.onPlayer === 0);
+    ok(`stepping onto a resident's cell draws NO body on the player's own cell (${clus.onPlayer} there, ${clus.drawn} -> ${clus.after} on screen, OCCUPANCY LAW)`, clus.onPlayer === 0);
   }
 
   /* 7) FACING IS DERIVED FROM TRAVEL, not stored (7/31). Every person carries

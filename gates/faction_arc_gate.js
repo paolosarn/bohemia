@@ -58,6 +58,36 @@ const path = require('path');
 
 const ROOT = path.dirname(__dirname);
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
+
+/* ============================================================================
+   *** THIS GATE NEEDS A SPARSE VALLEY, AND NOW IT SAYS SO INSTEAD OF ASSUMING
+   ONE. *** (8/28, added by the PEOPLE lane, which is what created the need.)
+
+   Ten places in this file pick "the first affiliated person in the valley" and
+   build a whole ladder test on them. One of the comments below says out loud
+   what that used to mean: "the Cartel, AND IT IS THE FIRST AFFILIATED PERSON IN
+   THE VALLEY". That sentence was true for exactly as long as the population
+   default was 1, which puts about one person on a block.
+
+   On 8/28 the default moved to the module's own story landmark (GDD v5's
+   ~69,000) because Paolo ruled on 8/25 that a dead city is not an acceptable
+   default. First-affiliated became a different person, in a different outfit,
+   whose act is once-only, and six claims about climbing a ladder reported a
+   broken ladder while nothing was broken.
+
+   A TEST THAT DEPENDS ON HOW MANY PEOPLE ARE IN THE WORLD MUST PIN THAT NUMBER,
+   exactly the way it already pins the seed. This gate is about BELONGING, not
+   about population, so it pins the sparse valley it was written against.
+
+   WHAT THIS NO LONGER COVERS, said rather than hidden: belonging behaviour that
+   only appears in a CROWD. Nothing here sees the shipped density any more, and
+   a crowd-side belonging test is a real row that does not exist yet.
+   ========================================================================== */
+const SPARSE = `(function(){
+  try { BohemiaPopulation.setDial(1); } catch (e) {}
+  try { PPL_PEOPLE.clear(); } catch (e) {}
+})()`;
+
 const VIEW = { width: 390, height: 844 };
 
 let pass = 0, fail = 0;
@@ -84,6 +114,7 @@ function requirePlaywright() {
   try {
     await page.goto('file://' + CITY);
     await SETTLE(page, 6000);
+    await page.evaluate(SPARSE);
 
     const arc = await page.evaluate(() => {
       /* ---- FIND A REAL ONE. No stub. If the valley has nobody who runs with
@@ -392,6 +423,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await SETTLE(pg, 6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate((say) => {
           const bases = ctBases() || {};
           let who = null, fid = null;
@@ -672,6 +704,7 @@ function requirePlaywright() {
     const spawnPage = await browser.newPage({ viewport: VIEW });
     await spawnPage.goto('file://' + CITY);
     await spawnPage.waitForTimeout(6000);
+    await spawnPage.evaluate(SPARSE);
     const reach2 = await spawnPage.evaluate(() => {
       const cell0 = ctCell(), roster = ctValleyRoster(), bases = ctBases() || {};
       const cellOf = (a) => {
@@ -757,6 +790,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const bases = ctBases() || {};
           let who = null, fid = null;
@@ -856,6 +890,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const bases = ctBases() || {};
           let who = null, fid = null;
@@ -984,6 +1019,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const bases = ctBases() || {}, seen = {};
           const row = (k) => {
@@ -1056,6 +1092,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), out = { pop: {} };
           for (const a of R) {
@@ -1253,6 +1290,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), out = { pop: {} };
           for (const a of R) { const f = String(a.faction || '').toUpperCase();
@@ -1451,6 +1489,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster(), cell = ctCell(), out = {};
           /* THE MEASURED CEILING ON THE REWARD, before anything is pressed. */
@@ -1632,6 +1671,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         const seed = await pg.evaluate(() => {
           const R = ctValleyRoster(), row = R.filter(a => a.faction)[0];
           if (!row) return null;
@@ -1702,6 +1742,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(5000);
+        await pg.evaluate(SPARSE);
         await pg.evaluate(() => {
           /* THE FIRST PAYLOAD HERE TESTED THE WRONG THING, and the mutation said
              so: with the guard deleted the gate STILL passed. The garbage was
@@ -1758,6 +1799,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const B = BohemiaBelonging, R = ctValleyRoster();
           const keys = B.keys ? B.keys() : Object.keys(B.RULES || {});
@@ -1846,6 +1888,7 @@ function requirePlaywright() {
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
+        await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
           const R = ctValleyRoster();
           const ruled = (BohemiaBelonging.keys ? BohemiaBelonging.keys() : [])
