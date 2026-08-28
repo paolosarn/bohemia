@@ -1128,3 +1128,171 @@ solvable by looking at a different studio rather than a different query.
   Players Skip?"; PC Gamer, "Do you listen to dialogue, or read it and skip
   ahead?"
 - Failbetter Games, "Narrative Snippets: Pacing"
+
+---
+
+# ROUND 7 — 8/27/26. A correction to the whole training, and the last debt paid.
+
+## 52. REAL AND MEMORABLE ARE NOT THE SAME THING, AND I HAVE ONLY CHASED ONE
+Six rounds of research aimed at making lines sound REAL. That is half a target
+and I had not noticed.
+
+Real speech is repetitive, hedged, circular and boring. **Memorable speech is
+compressed and surprising.** The craft literature on quotability is blunt about
+it: succinct is more memorable; **"audiences don't always remember complexity,
+but they remember specificity"**; and great dialogue **"works the opposites and
+surprises."**
+
+**SO REALISM IS THE FLOOR, NOT THE CEILING.** A line that merely sounds like a
+person is not yet a good line. It also has to land.
+And Terkel is the reconciliation, again: he did not INVENT memorable speech, he
+**SELECTED** the real utterances that happened to also be surprising. Which is
+why the method is write-long-then-cut rather than write-cleverly.
+
+One more technique I had never considered: **a line becomes quotable when the
+characters treat it as quotable.** Write a versatile line, then have other people
+in the world repeat it. That is how a phrase becomes the valley's own idiom, and
+it is exactly what "Today's my Friday" is in real Vegas.
+
+## 53. HOW CLOSE YOU WERE TO THE DEAD IS MEASURED IN EUPHEMISM
+A precise, testable dial I did not have. **The amount of euphemism correlates
+with closeness to the person who died.** A distant figure "died". Somebody's own
+person "passed", "is gone", "we lost him".
+
+So the ladder, coldest to closest:
+1. **"He died."** — a stranger, a clerk, a bounty list
+2. **"She passed." / "He's gone."** — somebody who knew them
+3. **doesn't name the death at all**, talks about the hole instead — close
+4. **can't finish the sentence** — closest
+
+**AND PAOLO'S OWN LINE SITS AT THE BOTTOM OF THAT LADDER.**
+> "I miss them so much, I can't."
+No euphemism, no naming of the death, no completed sentence. He is not describing
+a loss; he is failing to describe it, out loud. **That is rung four, and he wrote
+it by instinct.** More evidence for §30, and now I can say WHY it works instead of
+just admiring it.
+
+## 54. THE QUEST LOG IS WHAT FREES DIALOGUE TO BE DIALOGUE
+Counterintuitive and I had it backwards. In games WITHOUT a quest log, developers
+report writing hints into the dialogue — **about a third of the text or more** —
+because quest-givers must keep reminding you and recognising partial progress.
+**A quest log absorbs the navigation, and the writing gets its freedom back.**
+
+**SO OUR @OBJ / @LOG SPLIT IS RIGHT, AND NOW I KNOW WHY:**
+- **@OBJ is the functional tracker.** "Find why the block browns out."
+- **@LOG is the diary.** "Nobody knows it was me."
+They are two different voices doing two different jobs and it is correct that
+they are separate.
+**THE AUDIT THIS OPENS:** how much of our DIALOGUE is still doing navigation the
+objective already carries. "It splits somewhere past the dead storefronts, follow
+the cable that runs warm" is directions — defensible, because a tradesman giving
+directions is in character, but it is the thing to watch for. Every sentence of
+navigation in a mouth is a sentence not spent on the person.
+
+## 55. NO VOICE ACTING IS A STRUCTURAL ADVANTAGE AND I HAVE NEVER NAMED IT
+Studios keep player dialogue options few **because voicing them is expensive** —
+a fully-voiced protagonist means a tight leash on how many things you can say.
+**Bohemia is text. We pay none of that cost.** We can afford four or five real
+options at every node, forever, and most games cannot. That is a genuine
+advantage of our format and I had never once counted it as one.
+
+**AND THE TERM I NEEDED: MODULAR CHARACTERIZATION** — the player builds who they
+are out of a vague backstory plus the choices they make. Bohemia is exactly this:
+he builds the face, and the choices build the person.
+
+**WHICH SHARPENS §24 INTO SOMETHING WORSE THAN I SAID.** It is not only that our
+player is never allowed to be a fool. It is that **558 composed, capable lines
+ASSIGN the player a personality they never chose.** Look at a typical node of
+ours: agree / question / refuse / stay silent. That is a spread of **ACTIONS**.
+All four are spoken by the same even-tempered competent person.
+**THE FIX IS NOT DUMBER CHOICES. IT IS THAT THE SET AT A NODE SHOULD SPAN
+PERSONALITIES**, so that picking one is choosing who you are, not just what you
+do.
+
+## 56. VENEZUELA — THE LAST DEBT, AND THE SHAPE OF COLLAPSE SPEECH IS AN INVENTORY
+Named in four rounds, attempted in none until now.
+
+Karina Camacho, 56, verbatim:
+> **"No one can put up with this. We spend almost all day without electricity.
+> There's been no water since (last) Monday, you can't call by phone, we can't
+> pay with cards or even eat."**
+
+That is not a lament and not an argument. **IT IS A LIST OF SYSTEMS THAT ARE
+DOWN, AND IT ENDS ON THE MOST BASIC THING.** Power, then water, then phone, then
+money, then eating. **The inventory, descending to the floor.** That is the shape.
+
+And Karelis Aristiguieta, a janitor, gives the other half — the general complaint
+lands only when it arrives at one specific object: everything in her fridge
+spoiled, including **the hard-to-find milk for her two-year-old granddaughter.**
+Not "we lost food". The milk, the toddler, the difficulty of getting it.
+
+**AND THE DETAIL THAT MATTERS MOST TO BOHEMIA:**
+> people play **dominoes by the light of a cell phone** during a blackout.
+
+**THEY ARE PLAYING GAMES IN THE DARK.** Not enduring, not mourning: playing. That
+is §17 proved with an image — nobody living in a ruin behaves like it is a ruin.
+**Our valley should have people playing something at night**, and if it does not,
+we have written a documentary about suffering instead of a place where people
+live.
+
+## 57. THREE COLLAPSES, ONE CONSTANT
+Argentina 2001, Greece 2012, Venezuela now. Three different countries, decades
+apart, and **THE ELECTRICITY IS THE CENTRE OF THE EXPERIENCE IN ALL THREE.**
+- Argentina: the accounts froze and the barter clubs came, and what people traded
+  was the physical inventory of a life
+- Greece: the property tax was collected through the power bill, and the threat
+  was the dark
+- Venezuela: five to ten hours a day without power, the water pumps stop, the
+  fridge spoils, and people play dominoes by phone light
+
+**BOHEMIA'S 12% CLUSTERED GRID, LIGHT=TERRITORY, AND A FIRST QUEST ABOUT A
+BROWNING-OUT BLOCK ARE NOT A THEME HE PICKED. THEY ARE WHAT ACTUALLY HAPPENS.**
+I did not know this a week ago and it is the strongest confirmation of his
+instincts I have found.
+
+---
+
+## 58. WHAT I NOW KNOW I DID NOT KNOW — ROUND 7 ADDITIONS
+17. **I have been optimising for REAL and never for MEMORABLE.** Realism is the
+    floor. (§52)
+18. **Euphemism density is a measurable proxy for grief-closeness**, and his one
+    line is at the far end of that ladder. (§53)
+19. **A quest log is what frees dialogue from doing navigation** — without one, a
+    third of the writing is directions in disguise. (§54)
+20. **Having no voice acting is an advantage worth spending**, and I never
+    counted it. (§55)
+21. **Our choice sets span actions, not personalities**, which quietly assigns
+    the player a character. (§55)
+22. **People in a collapse play games in the dark.** (§56)
+
+## 59. STILL OPEN
+**Paid this round:** Venezuela. The journal-voice question (answered: the split we
+already have is correct).
+**Still owed, and two of these now need HIM rather than another search:**
+- Terkel's *Hard Times*, real WPA pages, Failbetter's guidelines in full, Emily
+  Short's "Conversation", Ruskin's GDC talk. **All five are unfetchable from this
+  environment** (§48). A text file in the repo solves all of them at once.
+- Conversation PACING: how many beats before a choice. Still nothing but
+  Failbetter's word budgets, which measure length rather than rhythm.
+- **NEW:** how a writer finds and breaks their OWN tics. Six rounds of hunting
+  the machine's tells and I have never asked what MY repeated moves are. I can
+  see them in this very file — I open sections with a bolded thesis and close on
+  a reversal, constantly. That is a tell.
+- **NEW:** what people in a collapse do for FUN, beyond the dominoes detail. If
+  §56 is right, this is a whole missing register in our valley and I have one
+  image and no research.
+
+## SOURCES, ROUND 7
+- Script Magazine, "How to Write Dialogue: Walking The Talk"; Network ISA,
+  "Crafting Dialogue That Pops"; School of Plot, "How to Write Quotable
+  Dialogue"; Fiveable, "Catchphrases and quotable lines"
+- Listen & Learn USA, "Speaking Ill of the Dead: Obituary Euphemisms"; Funeral
+  Guide, "Death Euphemisms"; "Nobody Dies Anymore: Euphemisms and Death"
+- Greg Lobanov, "Game musings: quest logs pt 2"; Game Developer, "Creating
+  Character Depth With Diaries"
+- University Observer, "Silent Protagonists: A Noiseless Revolution"; GameDev.net,
+  "Writing a RPG Protagonist: Pre-Defined or Blank Slate?"; Game Rant, "The Silent
+  Protagonist Trend"
+- Al Jazeera, "Venezuelans struggle to find water in the aftermath of blackouts";
+  Americas Quarterly, "Venezuela's Overwhelming Electricity Crisis"; Reuters via
+  KELO, "Beaten Venezuelans brace for more severe power, water cuts"
