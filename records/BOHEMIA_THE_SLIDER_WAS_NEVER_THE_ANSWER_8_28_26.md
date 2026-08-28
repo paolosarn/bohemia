@@ -190,6 +190,34 @@ and it is named in the handoff.
 
 ---
 
+## AND A POPULATED VALLEY FOUND EIGHT TESTS THAT WERE MEASURING AN EMPTY ONE
+
+Moving the default turned eight gates red that were green on main. Every one was
+mine to fix, every one is now stronger, and **not one was exempted.**
+
+**ONE BUG IN SIX PLACES, and it deserves its own sentence: A TEST THAT PICKS A
+PERSON AND THEN TRUSTS THE GAME TO PICK THE SAME ONE IS TESTING THE CROWD.** Six
+gates stood at `hx = at[0] + 1` beside a chosen body and called `ctOpen()`, which
+shows whoever is NEAREST. Correct while the valley held one person a block. The
+moment it held twenty, the card opened on a stranger and the claims reported
+missing features that were never missing.
+
+| gate | what it was really measuring |
+|---|---|
+| CITY PEOPLE 18/0 | the occupancy claim compared TOTAL DRAWN before and after a step (147 to 148) while the law was obeyed perfectly, because moving the player moves the camera. **A claim that counts the thing instead of reading it.** It reads the one body on the player's own cell now. |
+| MASS EDIT 30/0 | "clearing the rules restores the surface exactly" took BEFORE through the census at a hard-coded cap of 24 and BACK through the dial-scaled path. At the old default both capped at 24 and it worked by coincidence. **Comparing two readings taken through different doors is not a comparison.** |
+| CARD FOLD 18/0 | the identity bug, plus: it took the FIRST qualifying target and skipped the whole check if it could not reach them. **A check that gives up is not a check that passed.** |
+| CLAIM 45/0 | the identity bug |
+| FACTION BETWEEN 108/0 | the identity bug, two sites |
+| FAVOUR 31/0 | the identity bug |
+| COMMITMENT 72/0 | it assumed the first affiliated body's card offered the REPEATABLE act. At 20 that became a Caravans member whose give is once-only, so nine presses landed one and the wall test reported an off-by-one in the wall. **Traced, not guessed:** the card stayed on the right person all nine times and the BUTTON was gone from the second press. It qualifies candidates on the thing under test now. |
+| FACTION ARC 91/0 | ten selection sites across thirteen browser pages, and its own comment said the quiet part: *"the Cartel, AND IT IS THE FIRST AFFILIATED PERSON IN THE VALLEY."* **A test that depends on how many people are in the world must pin that number, exactly the way it already pins the seed.** It pins the sparse valley it was written against, in one place, with the reason, and says what that no longer covers: belonging behaviour that only appears in a crowd, which is a real row that does not exist yet. |
+
+**THE FINDING UNDER ALL OF IT: an empty world was hiding a whole class of test
+bug, and it only surfaced because the world got populated.**
+
+---
+
 ## MUTATION
 
 Putting the default back to `today` (1): **six claims red**, headline reading

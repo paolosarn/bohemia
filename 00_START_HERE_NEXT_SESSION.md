@@ -2181,6 +2181,41 @@ The one real cost is ART, and REUSE-FIRST says check banks/ before cooking a
 pixel: measured today, the city prop bank has bag/barrel/bin/dumpster and no
 animal at all.
 
+*** AND A POPULATED VALLEY FOUND EIGHT TESTS THAT WERE MEASURING AN EMPTY ONE. ***
+Moving the default turned eight gates red that were green on main. All eight are
+mine, all eight are FIXED and stronger, and NOT ONE WAS EXEMPTED.
+ONE BUG IN SIX PLACES: *** A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO
+PICK THE SAME ONE IS TESTING THE CROWD. *** Six gates stood at `hx = at[0] + 1`
+beside a chosen body and called ctOpen(), which shows whoever is NEAREST. Right
+while the valley held one person a block; the moment it held twenty the card
+opened on a stranger and the claims reported missing features that were never
+missing. They check the identity over the eight-cell ring now.
+  CITY PEOPLE 18/0   the occupancy claim compared TOTAL DRAWN before and after a
+                     step (147 -> 148) while the law was obeyed perfectly,
+                     because moving the player moves the camera. A CLAIM THAT
+                     COUNTS THE THING INSTEAD OF READING IT.
+  MASS EDIT 30/0     "restores the surface exactly" took BEFORE through a
+                     hard-coded cap of 24 and BACK through the dial-scaled path.
+                     COMPARING TWO READINGS TAKEN THROUGH DIFFERENT DOORS IS NOT
+                     A COMPARISON.
+  CARD FOLD 18/0     identity, plus it took the FIRST qualifying target and
+                     skipped if it could not reach them. A CHECK THAT GIVES UP IS
+                     NOT A CHECK THAT PASSED.
+  CLAIM 45/0 - FACTION BETWEEN 108/0 - FAVOUR 31/0    identity.
+  COMMITMENT 72/0    it assumed the first affiliated body's card offered the
+                     REPEATABLE act; at 20 that became somebody whose give is
+                     once-only, so nine presses landed one and the wall test
+                     reported an off-by-one in the wall. TRACED, not guessed.
+  FACTION ARC 91/0   ten selection sites over thirteen pages, and its own comment
+                     said the quiet part: "the Cartel, AND IT IS THE FIRST
+                     AFFILIATED PERSON IN THE VALLEY". A TEST THAT DEPENDS ON HOW
+                     MANY PEOPLE ARE IN THE WORLD MUST PIN THAT NUMBER, the way
+                     it already pins the seed. Pinned, with the reason, and it
+                     says what that no longer covers: belonging in a CROWD, which
+                     is a real row that does not exist yet.
+THE FINDING UNDER ALL OF IT: an empty world was hiding a whole class of test bug,
+and it only surfaced because the world got populated.
+
   GATE: gates/alive_gate.js, ALIVE, 16 claims, 0 red. Mutation: the default put
   back to 1 turns SIX claims red, headline "0 of 32 walks, 0 different people".
   RECORD: records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md
