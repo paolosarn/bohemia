@@ -1,3 +1,63 @@
+FACTIONS (factions-ovkjpf): 8/28 (o) LATEST -- *** I SHIPPED A PROMISE
+YESTERDAY AND NOTHING KEPT IT. Now it does. Nothing to judge. ***
+
+TAB: **RUN**. Put somebody up for an outfit (INSIDE buys that, shipped
+yesterday), then let your standing with that outfit fall to A STRANGER. They
+lose their place. You find out by walking past them.
+
+THE PROMISE. The vouch shipped with this on the card, in MY words:
+    "It costs you a rung of your own standing to spend it, AND AFTER THAT WHAT
+     THIS PERSON DOES IS YOURS."
+MEASURED: nothing read the vouch bag except the line granting the faction. A
+consequence written into a sentence and never built -- the exact bug this lane
+spent a week finding in other people's code, introduced fresh twelve hours ago
+in a commit whose own message was about that bug.
+
+THE RULE: YOUR WORD IS THE ONLY THING HOLDING THEM. They did not earn the
+place, you did, and you spent it on them, so it lasts exactly as long as your
+standing does. Fall to A STRANGER and everybody you put up there loses their
+place the same day.
+  A SLIP IS NOT A FALL: at the rung ABOVE the floor they keep it. The rule is
+  "your word became worth nothing", never "you missed a day". The floor is the
+  ladder's own bottom rung read BY NAME, so retuning the ladder retunes this.
+  NO NEW MACHINERY: neglect already charges at day-end, so walking away drains
+  you toward zero on its own. The sweep runs on that same hook immediately
+  after and only READS what neglect just wrote -- it never writes standing,
+  because two writers on one day's number is the bug fixed six times here.
+  RECOVERABLE: they run with nobody again so the offer returns. Climb back to
+  INSIDE and put them up a second time. The door that closed is the same door.
+
+REALISM IS THE FLOOR, NOT THE CEILING (the TRAINING lane's finding this
+morning, and it is the right correction). The REAL version of this is a number
+crossing a threshold. The MEMORABLE version is that there is NO NOTIFICATION
+anywhere: you find out by walking past somebody you helped and reading
+    THEY WERE IN, ONCE :: WITH THE CHURCH · BECAUSE OF YOU
+    "Your word put them there and nothing else did. You let it go to nothing
+     with the CHURCH, so their place went with it. They have not said anything
+     about it."
+The ⚔ OUTFIT board keeps the list (still in / lost, and on what day) so there
+is somewhere to go and look rather than an interruption.
+
+ONE DEFECT, CAUGHT BY DRIVING THE ARC RATHER THAN READING THE DIFF:
+ctOutfitHtml has TWO return paths and the first version patched one. The
+empty-state return fires whenever your outfit holds no positions -- which is
+most of the game, and exactly the state a player is in when they start putting
+people up -- so the list rendered only in the branch nobody was in.
+
+  FACTION BETWEEN  108 passed, 0 failed (was 99)   FACTION ARC 91/0
+  CARD FOLD 18/0   ORGAN REACH 8/0   ALPHA LOADS 20/0
+Two mutations, both bite.
+
+*** STILL THE ONE THING BLOCKING THIS LANE, AND STILL NOT MINE ***
+837 people within six cells of the spawn, none affiliated; nearest base 29
+cells. Findable, reasoned, mapped, and now with a real arc at the top of the
+ladder -- but NOT NEAR. (1) spawn and bases come from two systems that have
+never heard of each other and boot() returns no player position to reconcile
+against, so it is placement; (2) AFFILIATED_RATE / REACH_CELLS, both [PENDING];
+(3) outfits with people who travel, needs a dial.
+
+--------------------------------------------------------------------------------
+
 COMBAT (combat-nfnki9): 8/28 (t) LATEST -- *** THE GROUND WAS ALWAYS A DECISION
 AND IT WAS NEVER ON THE SCREEN. AND HE WAS NEVER CONFUSED ABOUT AMMO -- HE WAS
 READING A LABEL THREE FEATURES OUT OF DATE. *** Nothing to judge.
