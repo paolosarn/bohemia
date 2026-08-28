@@ -1259,6 +1259,33 @@ Proved each genuinely moves by hashing two frames a second apart -- all six
 differed. If you send him a contact sheet, SAY THIS, or he judges six identical
 photographs and the round is wasted. ***
 
+*** AND ONE THING THAT IS NOT THIS LANE'S AND STOPS EVERY LANE (SHARED -19).
+THE SITE STOPPED DEPLOYING AT 14:40 TODAY AND NOBODY SAW IT FOR SEVEN HOURS,
+BECAUSE EVERY PUSH KEPT WORKING. *** Pages run 33186577212 went to status
+WAITING at 15:43:56 and never moved. It holds the `pages` concurrency group, so
+every push after it queued behind a run that was never going to start, and each
+new push cancelled the one queued ahead of it: five runs cancelled in a row while
+the live link served a build from lunchtime. This is NOT the 8/6 deadlock and
+cancel-in-progress:false did not fail -- that fix protects a RUNNING build and is
+still working. A run in WAITING is not "in progress", so nothing protects the
+queue behind it, and you only find it by listing more than the top few runs.
+*** AND DO NOT TRY TO VERIFY A DEPLOY WITH CURL FROM A SESSION CONTAINER. The
+agent proxy answers 403 CONNECT for paolosarn.github.io, so every fetch of the
+live site returns HTTP 000 with an EMPTY BODY, and `curl -s | grep -q` on an
+empty body is indistinguishable from a stale page. I polled for ten minutes, got
+"NOT LIVE", and told Paolo the site was stale when all I had measured was a
+blocked connection. Fifth broken ruler this week and the first that was broken
+IN MY FAVOUR: it agreed with the story I already had, so I did not question it.
+Any live-URL probe must assert a 200 AND a non-zero body BEFORE looking for its
+string, and the real one belongs in the pages workflow where the runner can
+actually reach the site. The stall itself is real and was measured from the
+workflow API, not from curl. ***
+
+Cleared by cancelling that run. What is owed is a check that reads the LIVE URL
+for the thing you just shipped instead of reading a workflow run, which is
+SHARED -18 again: a workflow run is a second copy of the fact. Seven hours would
+have been one red check.
+
 STILL TRUE FROM YESTERDAY AND STILL UNFIXED (they are not blocked, they are
 FROZEN behind his instruction): UI-12 the arrow-glyph bug is probably also in
 COMBAT's move ring and CITY's nav; UI-13 the look reaches only two surfaces;

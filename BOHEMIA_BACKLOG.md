@@ -8074,6 +8074,56 @@ SHARED -18. A NUMBER IS NOT A RULE, AND IT ROTS THE DAY HE ANSWERS. Measured 8/2
    THE TEST FOR ANY GATE: if he changed his mind tomorrow, would this go red on a
    correct page? Then it is holding a number, not a rule.
 
+SHARED -19. *** THE SITE STOPPED DEPLOYING AT 14:40 AND NOBODY NOTICED FOR SEVEN
+   HOURS, BECAUSE EVERY PUSH KEPT WORKING. *** Measured 8/28 21:55 on the pages
+   workflow: run 33186577212 (sha 6932bb4a) went to status WAITING at 15:43:56,
+   its updated_at never moved off 15:43:58, and it sat there. It holds the `pages`
+   concurrency group, so every push after it queued behind a run that was never
+   going to start, and each new push then cancelled the one queued ahead of it.
+   FIVE CONSECUTIVE RUNS CANCELLED. Last SUCCESS was 14:40. During those seven
+   hours the lanes pushed happily and the live link served a build from lunchtime.
+   THIS IS NOT THE 8/6 DEADLOCK AND cancel-in-progress:false DID NOT FAIL. That
+   fix stops a RUNNING build being killed and it is still doing its job. This is a
+   different failure one level up: a run in WAITING (blocked on the github-pages
+   environment, not on the runner) is not "in progress", so nothing protects the
+   queue behind it. The 8/6 law tells you to watch for CANCELLED as the symptom;
+   the cause this time was a single WAITING run six hours upstream of the
+   cancellations, which you only see if you list more than the top few runs.
+   CLEARED IT by cancelling 33186577212, which drained the queue.
+   WHAT IS ACTUALLY OWED, and it is not this lane's system:
+     (a) A GATE OR A CHECK THAT READS THE LIVE URL, not the workflow. Every lane
+         currently proves the deploy by reading a workflow run, and a workflow run
+         is a second copy of the fact (SHARED -18 exactly). The only true test is
+         fetching the published file and looking for the thing you just shipped.
+         The whole seven hours would have been one red check.
+     (b) Decide whether a run stuck in WAITING should be auto-cancelled, or
+         whether the github-pages environment has a protection rule on it that
+         nobody meant to add. Not guessed at here.
+   *** AND THE CHECK I RECOMMENDED IN (a) CANNOT BE RUN FROM A SESSION CONTAINER,
+   WHICH I FOUND BY WRITING IT AND BELIEVING IT. *** The agent proxy answers 403
+   CONNECT for paolosarn.github.io, so every curl of the live site returns HTTP
+   000 with a zero-byte body -- and `curl -s | grep -q` on a zero-byte body is
+   INDISTINGUISHABLE FROM A STALE PAGE. I polled the live URL for ten minutes,
+   got "NOT LIVE", and reported the site stale to Paolo when what I had actually
+   measured was a blocked connection. A CHECK THAT CANNOT REACH ITS TARGET
+   REPORTS FAILURE, AND FAILURE LOOKS EXACTLY LIKE THE BUG YOU WENT LOOKING FOR.
+   Fifth broken ruler this week and the first one that was broken in my favour:
+   it agreed with the story I already had.
+   SO THE LIVE-URL CHECK BELONGS IN THE PAGES WORKFLOW, not in a lane's shell --
+   it runs on a GitHub runner, which can reach the site. And any live-URL probe
+   anywhere must ASSERT A 200 AND A NON-ZERO BODY FIRST, then look for its
+   string; without that first assertion it cannot tell "wrong content" from "no
+   content".
+   THE STALL ITSELF IS STILL REAL and was never measured with curl: it comes from
+   the workflow API, which the proxy does allow. Last success 14:40, five runs
+   cancelled, one run WAITING and untouched for six hours. Cancelling it drained
+   the queue and the next run succeeded.
+   THE SHAPE OF THIS IS THE 8/6 SENTENCE VERBATIM: "The push worked every single
+   time, which is exactly why nobody could see it from inside their own lane."
+   Same sentence, new cause, seven weeks later. | the site is what he taps |
+   look = shared, not UI's system | open. TAB: every tab, they all come off the
+   one link.
+
 UI-12. THE EIGHT ARROWS ARE DRAWN SHAPES NOW, AND THE LESSON IS BIGGER THAN THE
    ARROWS. The nav ring was eight arrow GLYPHS and no font carries all eight in
    one weight, so the cardinals arrived thin and the diagonals arrived heavy: one
