@@ -926,7 +926,18 @@
   // MAX RAISED 8/1 from 4 to 32, and 32 is CONFIRMED CORRECT by the 8/16 sweep
   // below: it reaches ~96,885 people, above every answer anybody has proposed.
   var DIAL_MIN = 0, DIAL_MAX = 32;
-  var DIAL = 1;                    // "leave the world exactly as it was"
+  /* *** THE DEFAULT MOVED 8/28, BECAUSE HE MOVED IT (PLAYTEST DISPATCH, 8/25).
+     "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE
+     HAVE A SLIDER AND SHIT BUT YEAH MAN." A slider existing is not an answer.
+     The old comment here read "leave the world exactly as it was", which was
+     right on 8/1 and is a ruling he has since overturned in his own words.
+     IT IS NOT A NUMBER I PICKED. It is LANDMARK.story, which this file already
+     computed off its own 8/16 sweep: GDD v5's ~69,000 people, about 3% of the
+     real valley's 2.3M. The shipped default was ~4,194. His design document and
+     his game disagreed by a factor of sixteen, and a live document contradicted
+     by live code is a bug, not a taste question.
+     TIED TO THE TABLE BELOW, never retyped, so the two can never drift. */
+  var DIAL = 1;                    // set to LANDMARK.story the moment it exists
   var ACT_DIAL = {};               // act -> dial. HIS. EMPTY.
   // ==========================================================================
   // WHERE THE DIAL ACTUALLY LANDS -- MEASURED, and it corrects this file.
@@ -964,6 +975,25 @@
     scale:  1.1,   // the 96x96 scale model's ~4,723 survivors
     story:  20     // GDD v5's ~69,000 (~3% of ~2.3M), read off the sweep above
   };
+  /* AND THE DEFAULT IS ONE OF THEM, BY REFERENCE. A retyped constant is how this
+     file's own dial note said 19 when the measurement said 1.1. */
+  DIAL = LANDMARK.story;
+  /* *** AND SAY OUT LOUD WHAT THIS DOES NOT FIX, because the next session will
+     otherwise turn this knob again and call the job done. MEASURED 8/28 on the
+     real demo, thirty-two walks of up to 800 steps, eight starts, four
+     directions, at the fullest hour of the day, counting only strangers:
+         dial  1 (the old default)   0 of 32 walks met anybody
+         dial 20 (this)              6 of 32,  median 323 steps
+         dial 26                     8 of 32,  median 261
+         dial 32 (the ceiling)       9 of 32,  median 261
+         frame cost across all of it  0.5 ms -> 0.8 ms
+     AT THE TOP OF THE SLIDER YOU STILL WALK TWO CITY BLOCKS BETWEEN STRANGERS,
+     and twenty-three walks in thirty-two still meet nobody. The valley is 151
+     square kilometres and a step is about a metre; ~97,000 people spread over it
+     IS that sparse, and no value of this number changes that. What is left is
+     not a count, it is WHERE: this module already sorts people into cluster /
+     spread / loner and the demo walks a SPREAD suburb.
+     records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md */
   // ==========================================================================
   // PER-DISTRICT DIALS — the plumbing for REPAIRING A DISTRICT
   // (Paolo 8/1: "when you fully repair a district, kind of like Stardew Valley -

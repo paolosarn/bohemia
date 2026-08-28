@@ -883,8 +883,15 @@ async function partE() {
       const k = A.agentsForPlot(world, x, y).length; n += k; if (k) c++; }
     return { n, c }; };
 
-  ok('E1 the dial defaults to 1 — nothing in the world moved until he moves it',
-    POP.dial() === 1);
+  /* *** REPOINTED 8/28. HE MOVED IT. *** This claim said the dial defaults to 1
+     and that "nothing in the world moved until he moves it", which was exactly
+     right on 8/1 and became a gate demanding the bug he complained about on
+     8/25: "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT."
+     A GATE MUST NEVER OUTRANK A RULING. What is actually worth holding is that
+     the default is one of the module's OWN named landmarks and never a number
+     somebody typed in, so it stays his to move in one edit. */
+  ok('E1 the dial defaults to one of the module\'s own landmarks, not a typed-in number',
+    POP.dial() === POP.LANDMARK.story && POP.LANDMARK.story === 20);
 
   POP.setDial(0);
   const zero = count();

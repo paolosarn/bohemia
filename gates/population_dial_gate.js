@@ -68,7 +68,17 @@ function pw() {
   global.window = global;
   const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
 
-  ok('A1 the dial still ships at 1 -- nothing moved until he moves it', POP.dial() === 1);
+  /* *** REPOINTED 8/28, BECAUSE HE MOVED IT. *** This read "the dial still ships
+     at 1 -- nothing moved until he moves it". That was the correct thing to hold
+     on 8/1 and it became a gate demanding the exact default he complained about
+     on 8/25: "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I
+     KNOW WE HAVE A SLIDER AND SHIT BUT YEAH MAN." A GATE MUST NEVER OUTRANK A
+     RULING, and this one outranked one for three days.
+     THE CLAIM IS STRICTLY STRONGER NOW: the shipped default must be one of the
+     module's own named landmarks, so it can never become a number somebody typed
+     into this file, and it stays his to move by naming a different landmark. */
+  ok('A1 the shipped default IS one of the module\'s own landmarks (story = GDD v5\'s ~69,000)',
+    POP.dial() === POP.LANDMARK.story, 'dial ' + POP.dial());
 
   const LM = POP.LANDMARK || {};
   ok('A2 the landmarks are the module\'s, derived, not retyped in the panel',

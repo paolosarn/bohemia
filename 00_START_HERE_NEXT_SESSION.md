@@ -2087,7 +2087,107 @@ recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
 exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
 promised.
 
-PEOPLE (people-7h9sfy): 8/27 (b) LATEST -- *** THE DEMO CAN BE HANDED TO
+PEOPLE (people-7h9sfy): 8/28 LATEST -- *** THE CITY IS DEAD AND THE SLIDER WAS
+NEVER THE ANSWER. Measured, fixed as far as a number can fix it, and the half
+that is left is NAMED. TAB: RUN, walk out of the house and look. Nothing to
+judge. ***
+
+THE ROW: ALIVE-1, item 5 of his 8/25 playtest dispatch, the loudest complaint on
+it. "I THINK I SAW ONE WATCH PERSON ON ACCIDENT ... THE CITY SEEMS DEAD ASF AND
+I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A SLIDER AND SHIT BUT YEAH
+MAN." The row's own test is a sentence and not a head count: "he walks one block
+and sees somebody WITHOUT HUNTING FOR IT." So the measurement WALKS.
+
+MEASURED ON THE REAL DEMO. Thirty-two walks: eight starts around the spawn, four
+directions each, up to 800 steps a walk, counting bodies the surface actually
+blitted, excluding the one authored neighbour pinned to the spawn:
+    dial  1 (what shipped)   0 of 32 walks met a single stranger
+    dial  8                  2 of 32
+    dial 20 (now)            6 of 32, median 323 steps, closest 9
+    dial 26                  8 of 32
+    dial 32 (the ceiling)    9 of 32, median 261
+    frame cost 1 -> 32       0.5 ms -> 0.8 ms
+TWENTY-FIVE THOUSAND STEPS AT THE SHIPPED DEFAULT AND NOBODY IS THERE. And the
+one body he did see is id 12:12:900, archetype WATCH. He said he saw one watch
+person. IT IS THE SAME BODY.
+
+IT WAS NONE OF THE THINGS IT LOOKED LIKE, each checked alone: not the draw path
+(stand two cells from anybody and they are drawn, three at a time), not the
+census (the dial scales it exactly, 1/9/21/29 per block), not the hour (same at
+08:00, 13:00, 18:00), not the draw budget (24 per neighbourhood against a census
+of 1), and NOT PERFORMANCE, which is the reason people usually give for keeping a
+world empty: 28x the population costs 0.2 milliseconds.
+
+TWO PROBE MISTAKES, BOTH WORTH KEEPING:
+  A PROBE THAT CHANGES AN INPUT THE CACHE DOES NOT WATCH IS MEASURING THE CACHE.
+  The first sweep moved the dial 1 -> 20 and got the identical number five times;
+  PPL_PEOPLE is busted by rulesVersion() only and the dial does not clear it.
+  AND I MEASURED AT THE EMPTIEST HOUR OF THE DAY and nearly concluded the
+  schedule was broken. 13:00 is the middle of the heat window and 3 of 61 people
+  are out. At 10:00 it is 41 of 61.
+
+AND THE SCHEDULE WAS NEVER THE BUG, WHICH IS NOW A GATE CLAIM so nobody goes
+hunting for one: 0% outdoors at 02:00, 48% at 08:00, 67% at 10:00, 5% at 13:00
+when the heat rule fires, 66% at 17:00, 7% after dark. That is a real day, and
+nobody wrote a schedule for a single person to get it.
+
+WHAT SHIPPED
+  1. THE DEFAULT COMES OFF THE MODULE'S OWN LANDMARK TABLE, by reference, never
+     a number typed twice: LANDMARK.story = GDD v5's ~69,000, about 3% of the
+     real valley's 2.3M. The shipped default was 4,194. HIS DESIGN DOCUMENT AND
+     HIS GAME DISAGREED BY A FACTOR OF SIXTEEN, and a live document contradicted
+     by live code is a bug, not a taste question.
+  2. THE ONES WHO ARE OUT STAND SOMEWHERE OPEN. pplOutSpot walked 4 to 10 cells
+     from the doorstep and took the FIRST STANDABLE CELL, which on this world's
+     scale does not clear the plot: the side of the house, the gap between two
+     walls, the back yard. The ray reaches past the block now and stops at the
+     most OPEN cell along it (openness COUNTED: how many of the 24 cells around a
+     candidate are walkable; a street scores near 24, a gap between houses four).
+     THEIR DIRECTION IS UNTOUCHED, so the 7/31 address book still makes them
+     individuals. Worth 6 of 32 -> 7 of 32 on its own. Small, and said to be.
+  3. TWO GATE CLAIMS REPOINTED, NOT EXEMPTED. people_gate E1 and
+     population_dial A1 both asserted "the dial still ships at 1, nothing moved
+     until he moves it". Right on 8/1. On 8/25 he moved it in his own words, and
+     from that moment those two were GATES DEMANDING THE BUG HE COMPLAINED
+     ABOUT. They held it for three days. A GATE MUST NEVER OUTRANK A RULING.
+     Both now hold something stronger: the default must be one of the module's
+     own named landmarks and can never become a typed-in number.
+
+*** AND WHAT THIS DOES NOT FIX, WHICH IS THE IMPORTANT HALF. *** At the TOP of
+the slider, ~96,885 people, 23 of 32 walks STILL meet nobody. The valley is ~151
+square kilometres and a step is about a metre. NO VALUE OF THIS NUMBER MAKES A
+STREET FEEL INHABITED, and the gate prints that sentence on every run so the
+next session does not turn the knob again and call the job done.
+WHAT IS LEFT IS NOT A COUNT, IT IS WHERE. Two leads, both already built, both
+already approved:
+  1. the module sorts people CLUSTER / SPREAD / LONER (13 / 208 / 141 on the
+     canon seed) and the demo walks a SPREAD suburb. Survivors cluster.
+  2. *** THE AMBIENT ENCOUNTER DIRECTOR HAS NEVER FIRED FOR ANYBODY ON FOOT. ***
+     engine/bohemia_encounters.js is the 12-item act-1 roster he approved on
+     7/26 ("Approve all") with the 70/20/10 pacing package, and it has a COYOTE
+     SHADOW in it. It is wired into stepOnce's CITY branch, which is OVERMAP
+     TRAVEL. The walked surface, which is the demo, has never called it. Same
+     shape as every other organ this repo has found: finished, correct, unwired.
+
+NEXT BUILD, AND IT IS THE CHEAPEST FIX ON THE WHOLE DISPATCH FOR THE LOUDEST
+COMPLAINT ON IT: TIER 1 LIFE. The 8/25 bestiary research already says it in its
+own words -- "the reason the city feels dead is not that we lack enemies. It is
+that we lack ANIMALS. Ravens on a roofline, rats at a bin, a coyote crossing the
+wash three blocks away and not caring about you ... set dressing that moves."
+AMBIENCE DOES NOT NEED A CENSUS: a raven is placed near the PLAYER, so the
+valley's 151 square kilometres stop mattering. Roster is sourced and banked in
+records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md section 2.
+The one real cost is ART, and REUSE-FIRST says check banks/ before cooking a
+pixel: measured today, the city prop bank has bag/barrel/bin/dumpster and no
+animal at all.
+
+  GATE: gates/alive_gate.js, ALIVE, 16 claims, 0 red. Mutation: the default put
+  back to 1 turns SIX claims red, headline "0 of 32 walks, 0 different people".
+  RECORD: records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md
+  Row ALIVE-1 marked half done in BOHEMIA_BACKLOG.md with the redirect.
+
+--------------------------------------------------------------------------------
+PEOPLE (people-7h9sfy): 8/27 (b) -- *** THE DEMO CAN BE HANDED TO
 SOMEBODY NOW. The last row on the critical path is built: BUILD, DOOR, ENDING,
 INSTRUMENT all exist, and INVITE is his. TAB RUN in the demo build (the card
 under the ending, and the save drawer any time). Nothing to judge. ***

@@ -2402,7 +2402,45 @@ WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DI
    into the dispatch addendum itself, beside the sentence that was wrong. ***
 
 
-ALIVE-1. *** THE CITY IS DEAD AND DEAD IS NOT THE DEFAULT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+ALIVE-1. *** HALF DONE 8/28 (PEOPLE lane), AND THE MEASUREMENT REDIRECTS THE
+   OTHER HALF. records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md
+   Gate: gates/alive_gate.js (ALIVE, 16 claims). Tab: RUN.
+   MEASURED FIRST, thirty-two walks on the real demo, eight starts, four
+   directions, up to 800 steps each, strangers only:
+       dial  1 (what shipped)   0 of 32 walks met ANYBODY
+       dial 20 (now)            6 of 32, median 323 steps, closest 9
+       dial 32 (the ceiling)    9 of 32, median 261
+       frame cost 1 -> 32       0.5ms -> 0.8ms
+   And the one body he DID see is id 12:12:900, archetype WATCH. He said he
+   saw one watch person. It is the same body.
+   SHIPPED: (a) the default now comes off the module's OWN landmark table
+   (story = GDD v5's ~69,000, ~3% of the real 2.3M) by reference, never a
+   typed number -- his design document said 69,000 and his game shipped
+   4,194; (b) people who go out now stand at the most OPEN cell on their own
+   ray instead of the first legal one, which was routinely the side of their
+   own house (their DIRECTION is untouched, so the 7/31 address book still
+   makes them individuals); (c) people_gate E1 and population_dial A1 both
+   demanded "the dial still ships at 1" and were REPOINTED, not exempted --
+   a gate must never outrank a ruling, and those two held his own bug for
+   three days.
+   AND THE SCHEDULE WAS NEVER BROKEN, which is now a gate claim so nobody
+   goes hunting: 0% of the valley outdoors at 02:00, 67% at 10:00, 5% at
+   13:00 when the heat rule fires, 66% at 17:00. A real day.
+   *** WHAT IS STILL OPEN, AND IT IS NOT A NUMBER. *** At the TOP of the
+   slider 23 of 32 walks STILL meet nobody, because the valley is ~151 km2
+   and a step is a metre. The remaining fix is WHERE, and there are two
+   leads, both already built and both already approved:
+     1. the module sorts people cluster/spread/loner (13/208/141 on the canon
+        seed) and the demo walks a SPREAD suburb. Survivors cluster.
+     2. *** THE AMBIENT ENCOUNTER DIRECTOR HAS NEVER FIRED FOR ANYBODY ON
+        FOOT. *** engine/bohemia_encounters.js is the 12-item act-1 roster he
+        approved 7/26 ("Approve all") with the 70/20/10 package, and it has a
+        COYOTE SHADOW in it. It is wired into stepOnce's CITY branch, which is
+        overmap travel. The walked surface never calls it.
+   AND THE ANIMALS HALF IS UNTOUCHED AND IS THE CHEAPEST FIX ON THE WHOLE
+   DISPATCH -- see the original row below. AMBIENCE DOES NOT NEED A CENSUS:
+   a raven is placed near the player, so the valley's scale stops mattering. ***
+   *** ORIGINAL ROW: THE CITY IS DEAD AND DEAD IS NOT THE DEFAULT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT... THE CITY
    SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A
    SLIDER AND SHIT BUT YEAH MAN." A SLIDER EXISTING IS NOT AN ANSWER. A
