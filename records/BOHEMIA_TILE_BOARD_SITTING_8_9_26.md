@@ -1497,3 +1497,20 @@ with working aisles at the radio site, the pale jointed invert with
 its stain fragments and weep-streaked banks at the wash. 2C remains:
 guy wires (mast bearings), planter rims (overlay pass), and the
 boxcar polish.
+
+## 8/28 SEVENTY-THIRD PASS: PHASE 2C - THE CENSUS PAYS ITS FIRST DIVIDEND
+
+The migrated era got its ranking instrument: a walked-world census
+that reads every tile's kit and legend directly (no navigation - 676
+names over the full FN=128 grid). First sweep, three of the biggest
+unrouted names fit ALREADY-APPROVED pools with zero new pixels:
+'landscape strip' x3.4M - the arterial parkway - IS Vegas xeriscape,
+so it wears the police station's approved granite mulch (the water
+rules pushed the whole county to rock decades before the crash);
+'cracked silt' x163K at the lake IS the drought bed; and 'talus /
+scree' x2.2M on the mountain is the wash's armor rock fallen instead
+of dumped. Verified on foot at an arterial: mulch parkway bands
+flanking the asphalt. Left honestly unrouted for their own passes:
+solar panels (kind 'panel', its own branch), embankments, the airbase
+aprons, crop rows (the approved crop family is a run-slice piece set,
+worth packaging next).

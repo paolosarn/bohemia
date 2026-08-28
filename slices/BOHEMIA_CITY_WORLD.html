@@ -28076,7 +28076,16 @@ function realizeCell(gx,gy){
         'quarry floor':['tf_qf',3],'entry plaza':['tf_pz',3],
         'forecourt ground':['tf_pz',3],'courtyard':['tf_pz',3],
         'terrace / plinth':['tf_tp',3],
-        'landscaping':['tf_ls',3],'tank roof':['tf_tr',3]};
+        'landscaping':['tf_ls',3],'tank roof':['tf_tr',3],
+        /* PHASE 2C (8/28, the walked-world census): three of the biggest
+           unrouted names fit already-approved pools with zero new pixels.
+           An arterial's parkway strip IS Vegas xeriscape (the water rules
+           pushed the whole county to rock mulch decades before the crash);
+           the lake district's cracked silt IS the drought bed; talus is
+           the rock the wash's armor is made of, fallen instead of dumped. */
+        'landscape strip':['tf_ls',3],'landscape island':['tf_ls',3],
+        'cracked silt':['tf_bed',3],
+        'talus / scree':['tf_rip',3],'riprap':['tf_rip',3]};
       const _tf=_TF[_nm];
       if(_tf){ c.gArtPool=_tf[0];
         c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%_tf[1];

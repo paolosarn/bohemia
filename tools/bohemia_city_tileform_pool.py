@@ -88,6 +88,10 @@ POOLS = {
                ['pp_0', 'pp_1']),
     'tf_pps': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json',
                ['pp_soil_0', 'pp_soil_1', 'pp_soil_2']),
+    # PHASE 2C: the wash's armor rock, which the walked world also names as
+    # the mountain's talus - dumped rock and rockfall are the same read
+    'tf_rip': ('banks/tileforms/TF-ART-023_CANDIDATES_8_25_26.json',
+               ['rip_0', 'rip_1', 'rip_2']),
 }
 
 # PHASE 2A: the railyard's rolling stock through the post path. The city's
