@@ -1,4 +1,4 @@
-CHARACTER (character-0lurbs): 8/28 LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
+CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
 IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
 TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
 
