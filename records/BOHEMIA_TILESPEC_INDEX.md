@@ -42,7 +42,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [cityhall](tilespec/BOHEMIA_TILESPEC_cityhall.md) | civic | 28 | yes |
 | [battery](tilespec/BOHEMIA_TILESPEC_battery.md) | infrastructure | 14 | yes |
 | [terminal](tilespec/BOHEMIA_TILESPEC_terminal.md) | infrastructure | 23 | yes |
-| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 22 | yes |
+| [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 23 | yes |
 | [freeway](tilespec/BOHEMIA_TILESPEC_freeway.md) | infrastructure | 20 | yes |
 | [desert](tilespec/BOHEMIA_TILESPEC_desert.md) | terrain | 14 | yes |
 | [mountain](tilespec/BOHEMIA_TILESPEC_mountain.md) | terrain | 10 | — |
@@ -56,7 +56,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [ballpark](tilespec/BOHEMIA_TILESPEC_ballpark.md) | leisure | 15 | yes |
 | [airbase](tilespec/BOHEMIA_TILESPEC_airbase.md) | infrastructure | 18 | yes |
 | [arsenal](tilespec/BOHEMIA_TILESPEC_arsenal.md) | industrial | 15 | yes |
-| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 22 | yes |
+| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 23 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
 | [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 16 | yes |
 | [convention](tilespec/BOHEMIA_TILESPEC_convention.md) | civic | 16 | yes |
@@ -75,7 +75,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [reclaim](tilespec/BOHEMIA_TILESPEC_reclaim.md) | infrastructure | 15 | yes |
 | [reservoir](tilespec/BOHEMIA_TILESPEC_reservoir.md) | infrastructure | 18 | yes |
 | [resort](tilespec/BOHEMIA_TILESPEC_resort.md) | gaming_resort | 16 | yes |
-| [strip](tilespec/BOHEMIA_TILESPEC_strip.md) | gaming_resort | 22 | yes |
-| [strip_x](tilespec/BOHEMIA_TILESPEC_strip_x.md) | (uncategorized) | 22 | yes |
+| [strip](tilespec/BOHEMIA_TILESPEC_strip.md) | gaming_resort | 23 | yes |
+| [strip_x](tilespec/BOHEMIA_TILESPEC_strip_x.md) | (uncategorized) | 23 | yes |
 
 WHEN A DISTRICT IS APPROVED: it exposes a LEGEND (code -> {name, kind, act1}); this generator writes its sheet; `gates/tilespec_gate.js` fails if any tile code ships undocumented. That is the standing "record everything you built" flow.

@@ -38,7 +38,7 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:2db0b5d904feacaf74a253518930f9fd -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:f4908e676076464da836b5b771597558 -->
-<!-- engine-md5:engine/bohemia_arterial.js:4f67c3c39509e3b307880450ef975102 -->
+<!-- engine-md5:engine/bohemia_arterial.js:2b31309dba099fab6261c6a296c89746 -->
 <!-- engine-md5:engine/bohemia_freeway.js:85d6c9c096e6337fae6e88f2a0df5e42 -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
 <!-- engine-md5:engine/bohemia_airfield.js:4e2fd12f16f7044e02f5e6571eeae884 -->
@@ -53,7 +53,7 @@
 <!-- engine-md5:engine/bohemia_water.js:2e6d79c5e71f82b61438cc8b2e09e954 -->
 <!-- engine-md5:engine/bohemia_resort.js:ae973be63f4bda6eeae1f34ad42c3ce5 -->
 <!-- engine-md5:engine/bohemia_casino.js:d709e2aabe16b9e44d54ec19ae952c4d -->
-<!-- engine-md5:engine/bohemia_strip.js:2922a0e885ebd85e9cf3aa1f458aa95e -->
+<!-- engine-md5:engine/bohemia_strip.js:12ac87c4c0a4c02360b85a3edc8de2a5 -->
 <!-- engine-md5:engine/bohemia_overmap.js:09c858b19dc83d879acdefdf7e715970 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
@@ -8261,7 +8261,10 @@
             var cur = g[py][px];
             if (cur === 1 || cur === 2 || cur === 3 || cur === 15 || cur === 24) continue;
             var isWalkBand = (b > AMEN && b <= WALK);
-            g[py][px] = isWalkBand ? 22 : 20;
+            /* THE WALK BAND ALWAYS KEEPS ITS APRON TILE even on a dirt turnout, because
+               that tile is what holds the 4 km of continuous pavement together; only the
+               surface beyond the walk changes with what is actually out there. */
+            g[py][px] = isWalkBand ? 22 : (sv.wild ? 23 : 20);
           }
         }
       }
@@ -8427,7 +8430,11 @@
        colour; the apron is asphalt gone grey (lighter and flatter than the roadway, which
        is how you tell a parking lot from a street from across it); the stall stripe is the
        same worn white every other marking on this street already uses. REUSE-FIRST. */
-    19: '#5a5140', 20: '#4a4a50', 21: '#b3ab97', 22: '#8f8f96'
+    19: '#5a5140', 20: '#4a4a50', 21: '#b3ab97', 22: '#8f8f96',
+    /* THE GRADED TURNOUT. Not asphalt and not the granite either: where a two-track meets a
+       state route the county graded a short dirt apron and the wheels packed it paler and
+       harder than the ground beside it. */
+    23: '#7a6f56'
   };
 
   var LEGEND = {
@@ -8490,7 +8497,15 @@
        `gate` is the kit's own word for exactly that: "A GATE IS THE HOLE YOU DRIVE THROUGH",
        already a drive conductor and already standable ground. One tile, both jobs, no new
        concept invented. */
-    22: { name: 'driveway apron',     kind: 'gate',     act1: 'the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels', solid: false }
+    22: { name: 'driveway apron',     kind: 'gate',     act1: 'the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels', solid: false },
+    /* A DIRT TRACK MEETING A HIGHWAY IS NOT A DRIVEWAY, AND MEASURING IT SAID SO (8/28).
+       576 seams -- the single biggest shape left in the valley after the shops were
+       connected -- are a desert two-track running up to a mile-grid arterial and stopping
+       in the frontage. Out there the county grades a short apron at every one of those,
+       because a truck leaving the blacktop at 60 mph has to have somewhere to put its
+       wheels. It is graded dirt, NOT the concrete a shopping plaza gets: giving a
+       two-track a poured apron would be the same lie as giving a dead lawn a green. */
+    23: { name: 'graded turnout',     kind: 'drive',    act1: 'the graded dirt apron where a two-track leaves the blacktop, washboarded and packed pale by every truck that ever used it' }
   };
 
   var NOTES = {
@@ -12948,6 +12963,53 @@
     if (vert) dressWalk('v', coverV);
     if (horiz) dressWalk('h', coverH);
 
+    /* ---- THE RESORT'S OWN DRIVE, MET BY THE BOULEVARD (8/28) -------------------------
+       The arterial got this the same day, for the same measured reason: every district in
+       this valley obeys the STREET-AWARE ACCESS LAW and puts its car entrance at the kerb,
+       and the road never cut its kerb to meet one. On the Strip it is 57 seams of
+       `strip <-> resort` -- the biggest resorts on Las Vegas Boulevard, each with a
+       porte-cochere drive running out to its property line, and a boulevard that presents
+       an unbroken 12 m promenade and a kerb in front of every one of them.
+       The world measures where the neighbour's drive actually arrives, off that
+       neighbour's own built grid, and hands the list over. This runs the approach from the
+       roadway across the kerb, the promenade, the paver band and the property line, out to
+       the cell edge, at exactly those tiles.
+       THE THREE THINGS THE ARTERIAL'S VERSION COST, ALREADY PAID FOR HERE:
+         match the run EXACTLY, never widen it -- the district owns its own entrance;
+         run to 64, not 63, because C-63 lands on tile 1 and misses the north and west
+           edges entirely while C+63 lands on 127 and works;
+         a run wider than a real approach is FRONTAGE, not a door, so it gets a proper
+           entrance at its centre instead of paving the whole promenade. */
+    function serveApron(alongAxis) {
+      var list = opts.serve || [];
+      for (var si = 0; si < list.length; si++) {
+        var sv = list[si], dd = String(sv.dir || '').toUpperCase().charAt(0);
+        var perp = (alongAxis === 'v') ? (dd === 'E' || dd === 'W') : (dd === 'N' || dd === 'S');
+        if (!perp) continue;                        // a drive leaves the boulevard sideways
+        var lo = Math.max(0, sv.lo | 0), hi = Math.min(127, sv.hi | 0);
+        if (hi - lo > 15) { var mid = (lo + hi) >> 1; lo = mid - 8; hi = mid + 7; }
+        lo = Math.max(2, lo); hi = Math.min(125, hi);
+        if (hi < lo) continue;
+        var sign = (dd === 'E' || dd === 'S') ? 1 : -1;
+        for (var t = lo; t <= hi; t++) {
+          for (var b = PAVE + 1; b <= 64; b++) {
+            var o = sign * b;
+            var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+            if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+            /* A DRIVE DOES NOT ERASE A CROSSING STREET. On a junction cell the cross arm's
+               roadway, its paint and its junction box reach past PAVE on this very axis,
+               and writing over them cost the arterial 5 seams on a ceiling of zero. */
+            var cur = g[py][px];
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 15 || cur === 23 || cur === 24) continue;
+            if (cur === 18 || cur === 19 || cur === 20) continue;   // and never the bridge or its towers
+            g[py][px] = 25;
+          }
+        }
+      }
+    }
+    if (vert) serveApron('v');
+    if (horiz) serveApron('h');
+
     /* THE MARQUEE PYLON. The tallest thing on the street that is not a building, standing
        at the property line where the resort meets the walk. ONE per cell, deterministic,
        and its face is BLANK — whose resort this is, and what its name is, is Paolo's
@@ -13029,7 +13091,10 @@
     7: '#4a4030', 9: '#8f8676', 11: '#4d4a38', 12: '#6a6a72', 14: '#55555f',
     15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
     18: '#7c8390', 19: '#6d7280', 20: '#5c5648',
-    21: '#7e7e86', 22: '#584f3f',   /* GROUND, not a third grey: granite and drifted sand */ 23: '#2e2e36', 24: '#3b3b44'
+    21: '#7e7e86', 22: '#584f3f',   /* GROUND, not a third grey: granite and drifted sand */ 23: '#2e2e36', 24: '#3b3b44',
+    /* THE PORTE-COCHERE DRIVE. Concrete, not asphalt: a resort's entrance drive is a poured
+       apron the coaches sat on, and it reads lighter than the boulevard it leaves. */
+    25: '#6f6a5e'
   };
 
   var LEGEND = {
@@ -13058,7 +13123,12 @@
        palms -- so it is ground, and it looks like ground. */
     22: { name: 'building-line margin',kind: 'ground',  act1: 'the resort frontage at the property line: decomposed granite and sand drifted deep, the palm row along it dead on its feet' },
     23: { name: 'junction box',       kind: 'drive',    act1: 'the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing' },
-    24: { name: 'bus / taxi lane',    kind: 'drive',    act1: 'the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day' }
+    24: { name: 'bus / taxi lane',    kind: 'drive',    act1: 'the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day' },
+    /* KIND `gate`, WHICH IS THE WHOLE POINT: a body walks straight through a resort's
+       entrance drive and a car drives across it, so the promenade -- the widest continuous
+       pedestrian surface in the valley -- is not cut in half by every porte-cochere on the
+       boulevard. Same shape as the arterial's driveway apron, for the same reason. */
+    25: { name: 'resort drive approach', kind: 'gate', act1: 'the porte-cochere approach crossing the promenade, poured concrete worn into two ruts where every wheel went', solid: false }
   };
 
   var NOTES = {

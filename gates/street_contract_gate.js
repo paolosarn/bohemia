@@ -138,8 +138,17 @@ const CROSS_CLASS_DEBT = 129;
    which broke five arterial-to-arterial seams. A ninety-metre yard has ONE GATE, so a run
    wider than a real drive approach now gets a proper 12 m entrance at its centre instead,
    and seven of those stop matching the yard tile for tile. That is the truthful state of
-   the valley, not a rounding: arterial is back to 0 of 2594 with no allowance. */
-const REACH_DEBT = 1616;
+   the valley, not a rounding: arterial is back to 0 of 2594 with no allowance.
+   *** 1616 -> 700 THE NEXT TURN, three things (8/28). *** The metric stopped calling a
+   driveway feeding onto a road a break (231). LAS VEGAS BOULEVARD got the same treatment
+   the arterial had, so a resort's porte-cochere reaches the kerb (57). And OPEN GROUND
+   turned out to own a door after all: `desert <-> arterial` was the single biggest shape
+   left in the valley at 576, all of them two-tracks two and three tiles wide running out
+   of an empty lot at a mile-grid arterial and stopping in its frontage. Out there the
+   county grades an apron at every one, so the road lays one -- graded DIRT, not the poured
+   concrete a shopping plaza gets, because giving a two-track an apron would be the same
+   lie as giving a dead lawn a green. 2,668 -> 700 over two turns, 36.3% -> 9.5%. */
+const REACH_DEBT = 700;
 
 const SAME_CLASS_DEBT = {
   interchange: 3,
@@ -300,9 +309,24 @@ const SAME_CLASS_DEBT = {
             const aHas = A.lo >= 0, bHas = B.lo >= 0;
             if (!aHas && !bHas) continue;            // no street here: nothing is owed
             out.looked++;
+            /* *** A DRIVEWAY IS NOT REQUIRED TO BE AS WIDE AS THE ROAD IT JOINS (8/28). ***
+               The first cut of this demanded the two corridors be the SAME TILES, which is
+               exactly right where two arterials meet and plainly wrong where a shop's drive
+               approach feeds onto one: `commercial 47..57` against `arterial 47..81` is a
+               correct junction and it was being counted as a break. 231 of them were.
+               A road-to-road seam is a CONTINUATION and must match tile for tile. A
+               road-to-city seam is a JUNCTION and only has to be CONTAINED -- the smaller
+               mouth wholly inside the larger, nothing hanging off the side. Partial overlap
+               and disjoint are still broken: that is a driveway that half-misses the road,
+               which is the thing that actually looks wrong on the ground. */
+            const bothRoad = !!RD[t.district] && !!RD[u.district];
             let verdict = 'OK';
             if (!aHas || !bHas) verdict = 'ONE_SIDE';
-            else if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET';
+            else if (bothRoad) { if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET'; }
+            else {
+              const inside = (A.lo >= B.lo && A.hi <= B.hi) || (B.lo >= A.lo && B.hi <= A.hi);
+              if (!inside) verdict = 'OFFSET';
+            }
             if (verdict === 'OK') { out.ok++; continue; }
             if ((!aHas && WILD[t.district]) || (!bHas && WILD[u.district])) { out.atWild++; continue; }
             if (verdict === 'ONE_SIDE') out.oneSide++; else out.offset++;

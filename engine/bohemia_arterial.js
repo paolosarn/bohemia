@@ -604,7 +604,10 @@
             var cur = g[py][px];
             if (cur === 1 || cur === 2 || cur === 3 || cur === 15 || cur === 24) continue;
             var isWalkBand = (b > AMEN && b <= WALK);
-            g[py][px] = isWalkBand ? 22 : 20;
+            /* THE WALK BAND ALWAYS KEEPS ITS APRON TILE even on a dirt turnout, because
+               that tile is what holds the 4 km of continuous pavement together; only the
+               surface beyond the walk changes with what is actually out there. */
+            g[py][px] = isWalkBand ? 22 : (sv.wild ? 23 : 20);
           }
         }
       }
@@ -770,7 +773,11 @@
        colour; the apron is asphalt gone grey (lighter and flatter than the roadway, which
        is how you tell a parking lot from a street from across it); the stall stripe is the
        same worn white every other marking on this street already uses. REUSE-FIRST. */
-    19: '#5a5140', 20: '#4a4a50', 21: '#b3ab97', 22: '#8f8f96'
+    19: '#5a5140', 20: '#4a4a50', 21: '#b3ab97', 22: '#8f8f96',
+    /* THE GRADED TURNOUT. Not asphalt and not the granite either: where a two-track meets a
+       state route the county graded a short dirt apron and the wheels packed it paler and
+       harder than the ground beside it. */
+    23: '#7a6f56'
   };
 
   var LEGEND = {
@@ -833,7 +840,15 @@
        `gate` is the kit's own word for exactly that: "A GATE IS THE HOLE YOU DRIVE THROUGH",
        already a drive conductor and already standable ground. One tile, both jobs, no new
        concept invented. */
-    22: { name: 'driveway apron',     kind: 'gate',     act1: 'the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels', solid: false }
+    22: { name: 'driveway apron',     kind: 'gate',     act1: 'the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels', solid: false },
+    /* A DIRT TRACK MEETING A HIGHWAY IS NOT A DRIVEWAY, AND MEASURING IT SAID SO (8/28).
+       576 seams -- the single biggest shape left in the valley after the shops were
+       connected -- are a desert two-track running up to a mile-grid arterial and stopping
+       in the frontage. Out there the county grades a short apron at every one of those,
+       because a truck leaving the blacktop at 60 mph has to have somewhere to put its
+       wheels. It is graded dirt, NOT the concrete a shopping plaza gets: giving a
+       two-track a poured apron would be the same lie as giving a dead lawn a green. */
+    23: { name: 'graded turnout',     kind: 'drive',    act1: 'the graded dirt apron where a two-track leaves the blacktop, washboarded and packed pale by every truck that ever used it' }
   };
 
   var NOTES = {

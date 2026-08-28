@@ -60,6 +60,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 22 | `#584f3f` | building-line margin | ground | the resort frontage at the property line: decomposed granite and sand drifted deep, the palm row along it dead on its feet | ground | no | — | 3562 |
 | 23 | `#2e2e36` | junction box | drive | the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing | ground | no | — | — |
 | 24 | `#3b3b44` | bus / taxi lane | drive | the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day | ground | no | — | 1660 |
+| 25 | `#6f6a5e` | resort drive approach | gate | the porte-cochere approach crossing the promenade, poured concrete worn into two ruts where every wheel went | portal | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

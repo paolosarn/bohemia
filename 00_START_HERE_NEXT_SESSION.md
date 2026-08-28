@@ -1,3 +1,88 @@
+WORLD (world-9lfjtf): 8/28 (u) LATEST -- *** 36.3% OF THIS VALLEY'S STREET EDGES
+DID NOT CONNECT WHEN HE COMPLAINED. NOW 9.5%. The road learned to meet things
+that are not roads: shops, resorts, and the desert. Nothing to judge. ***
+
+TAB: RUN. Walk up to any shop, any resort, any empty lot beside a road.
+Build 8/28u - THE ROAD MEETS THE DESERT.
+
+THE NUMBER OVER TWO TURNS
+  edges where a street reaches one      7,562
+  broken when first measured            2,668   36.3%
+  after the arterial cut its kerb       1,616   22.0%
+  NOW                                     700    9.5%
+
+1. THE METRIC WAS COUNTING A CORRECT JUNCTION AS A BREAK -- 231
+   OFFSET commercial(37,91) -S-> arterial(37,92)  47..57 vs 47..81
+   That is a shop's driveway feeding onto a road and it is RIGHT. A DRIVEWAY IS
+   NOT REQUIRED TO BE AS WIDE AS THE ROAD IT JOINS. So: road-to-road is a
+   CONTINUATION and matches tile for tile, no allowance; road-to-city is a
+   JUNCTION and only has to be CONTAINED, the smaller mouth wholly inside the
+   larger with nothing hanging off the side. Partial overlap and disjoint are
+   still broken -- that is a driveway that half-misses the road, which is what
+   actually looks wrong standing there. Reading four samples fixed 231 seams
+   that were never broken.
+
+2. LAS VEGAS BOULEVARD GOT WHAT THE ARTERIAL GOT -- 57
+   Every big resort builds a porte-cochere drive to its property line and the
+   boulevard presented an unbroken promenade and a kerb in front of all of them.
+   New code 25, KIND `gate`: a body walks through it, a car drives across it, so
+   the widest pedestrian surface in the valley is not cut in half by every
+   entrance on it. All three lessons the arterial's version cost were already
+   paid for and none recurred (match exactly, run to 64 not 63, a wide run is
+   frontage not a door).
+
+3. THE DESERT OWNS A DOOR AFTER ALL -- 576, THE BIGGEST SHAPE LEFT
+   The first cut skipped open ground outright, and then `desert <-> arterial`
+   came back as the single biggest shape in the valley once the shops were
+   connected. They are TWO-TRACKS, two and three tiles wide, running out of an
+   empty lot at a mile-grid arterial and stopping in its frontage. The county
+   grades an apron at every one of those. New code 23, GRADED TURNOUT, kind
+   drive, DIRT -- not the poured concrete a shopping plaza gets, because giving
+   a two-track an apron would be the same lie as giving a dead lawn a green.
+   Runs wider than 8 tiles out there are a wash or a quarry floor, not a door.
+
+AND THE ONE I FAILED FOR THE THIRD TIME AND THEN STOPPED
+  The 40 freeway-to-freeway seams. Guessed as a MAP fact. Guessed as the
+  beltway's corners (built, ran, changed nothing, reverted). SO THIS TIME I
+  PHOTOGRAPHED ONE, which is what the last handoff said I would do.
+  THE PICTURE: two carriageways abreast and THE OVERPASS DECKS DO NOT LINE UP
+  ACROSS THEM. One half carries a bridge at rows 47..81, the half beside it has
+  bare embankment there. `47..81 vs -1..-1` is every one of the 40 profiles.
+  A bridge over an eight-lane freeway that stops half way across.
+  THE CAUSE IS THE GUARD `if(!cross.length)`: a carriageway with a crossing of
+  its own never asks whether its sibling is carrying a bridge across it. The
+  8/27 note already found that removing the guard made it worse (40 -> 192) and
+  drew the wrong conclusion, that the guard should stay. THE GUARD WAS NEVER THE
+  PROBLEM, THE TEST INSIDE IT WAS: "my sibling touches ANY road of another
+  district anywhere" is true almost everywhere on a valley-length ribbon.
+  A LOOSE TEST BEHIND A TIGHT GUARD LOOKS LIKE A TIGHT TEST, and the day you
+  remove the guard you find out it never was one.
+  I replaced it with the real question -- does my sibling have a cross street --
+  and measured 40 -> 199. WORSE. REVERTED.
+  WHY: a boolean is not enough. Both halves must build the deck AT THE SAME
+  POSITION along the run, and a spanning-through cell does not know where its
+  sibling's bridge is. NEXT ATTEMPT PASSES THE DECK'S POSITION, NOT A FLAG --
+  the same "world measures the neighbour and tells the module" shape that closed
+  576 desert turnouts an hour later. Three attempts, one photograph, one honest
+  revert; the photograph is the only one of the four that produced a fact.
+
+WHAT IS LEFT, MEASURED, 700 ACROSS 166 SHAPES, NONE BIGGER THAN 99
+   99  arterial <-> freeway offset -- a RAMP, a piece that does not exist yet
+   40  freeway <-> freeway -- the deck position, above
+   47  desert <-> freeway -- an interstate has no turnouts, these may be correct
+   35  solar <-> desert
+
+GATES
+  street_contract_gate 19/19, REACH_DEBT ratcheted 1616 -> 700. Arterial 0/2594
+  and rail 0/86 still zero with no allowance. The 4 km sidewalk walk still
+  unbroken both sides. Drive network, occupancy, sidewalk sanctity, district
+  kit, walkable-land, road cell, tilespec, dead valley all green. Legend codes
+  1064 -> 1066 with the dead count unchanged at 16, so BOTH NEW CODES ARE DRAWN.
+  Tool: tools/bohemia_street_reach_probe.js, --worst N and --pair <shape>.
+
+RECORD: records/BOHEMIA_THE_ROAD_MEETS_WHAT_IS_NOT_A_ROAD_8_28_26.md
+
+================================================================================
 FACTIONS (factions-ovkjpf): 8/28 (o) LATEST -- *** I SHIPPED A PROMISE
 YESTERDAY AND NOTHING KEPT IT. Now it does. Nothing to judge. ***
 

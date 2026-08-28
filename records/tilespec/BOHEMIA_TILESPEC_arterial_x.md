@@ -65,6 +65,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 20 | `#4a4a50` | pad-site apron | drive | the parking apron of the pad site fronting the street, asphalt gone grey and split at the joints | ground | no | — | 2066 |
 | 21 | `#b3ab97` | stall stripe | marking | a parking stall stripe on the apron, worn down to a ghost of itself | ground | no | — | 192 |
 | 22 | `#8f8f96` | driveway apron | gate | the concrete drive approach where the parking lot crosses the walk, cracked in a fan from thirty years of turning wheels | portal | no | — | 48 |
+| 23 | `#7a6f56` | graded turnout | drive | the graded dirt apron where a two-track leaves the blacktop, washboarded and packed pale by every truck that ever used it | ground | no | — | — |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

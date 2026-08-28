@@ -89,7 +89,7 @@ function requirePlaywright() {
 
       const out = { edges: 0, looked: 0, ok: 0, oneSide: 0, offset: 0,
                     atWild: 0, roadToRoad: 0, roadToCity: 0, cityToCity: 0,
-                    byPair: {}, worst: [], noGrid: 0 };
+                    byPair: {}, perShape: {}, worst: [], noGrid: 0 };
 
       for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) {
         const t = om.at(tx, ty); if (!t) continue;
@@ -107,9 +107,24 @@ function requirePlaywright() {
           else if (aRoad || bRoad) out.roadToCity++;
           else out.cityToCity++;
 
+          /* *** A DRIVEWAY IS NOT REQUIRED TO BE AS WIDE AS THE ROAD IT JOINS. ***
+             The first cut of this demanded the two corridors be the SAME TILES, which is
+             exactly right where two arterials meet and plainly wrong where a shop's drive
+             approach feeds onto one: commercial 47..57 against arterial 47..81 is a
+             correct junction and it was being filed as a break. A road-to-road seam is a
+             CONTINUATION and must match tile for tile; a road-to-city seam is a JUNCTION
+             and only has to be CONTAINED -- the smaller mouth entirely inside the larger
+             one, with nothing hanging off the side.
+             Partial overlap is still broken, and so is disjoint: those are a driveway that
+             half-misses the road, which is the thing that actually looks wrong. */
+          const bothRoad = !!RD[t.district] && !!RD[u.district];
           let verdict = 'OK';
           if (!aHas || !bHas) verdict = 'ONE_SIDE';
-          else if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET';
+          else if (bothRoad) { if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET'; }
+          else {
+            const inside = (A.lo >= B.lo && A.hi <= B.hi) || (B.lo >= A.lo && B.hi <= A.hi);
+            if (!inside) verdict = 'OFFSET';
+          }
           if (verdict === 'OK') { out.ok++; continue; }
 
           /* a road dying against the valley rim is honest and is counted apart */
@@ -120,7 +135,12 @@ function requirePlaywright() {
           const key = verdict + '  ' + t.district + ' -' + edge + '-> ' + u.district;
           out.byPair[key] = (out.byPair[key] || 0) + 1;
           if (window.__PAIR && key.indexOf(window.__PAIR) < 0) continue;
-          if (out.worst.length < 40)
+          /* THREE SAMPLES PER SHAPE, NOT FORTY OF WHICHEVER SHAPE THE SCAN HIT FIRST.
+             The first version filled its whole list with row-0 solar cells, so seeing any
+             other shape cost a second eight-minute run with a filter. A sample list sorted
+             by scan order is a list about the scan, not about the valley. */
+          out.perShape[key] = (out.perShape[key] || 0) + 1;
+          if (out.perShape[key] <= 3)
             out.worst.push(verdict + '  ' + t.district + '(' + tx + ',' + ty + ') -' + edge +
                            '-> ' + u.district + '(' + (tx + dx) + ',' + (ty + dy) + ')   ' +
                            A.lo + '..' + A.hi + '  vs  ' + B.lo + '..' + B.hi);
@@ -146,8 +166,8 @@ function requirePlaywright() {
     console.log('  BY WHAT MEETS WHAT, worst first:');
     for (const [k, v] of pairs.slice(0, WORST)) console.log('    ' + String(v).padStart(5) + '  ' + k);
     if (pairs.length > WORST) console.log('    ... and ' + (pairs.length - WORST) + ' more shapes');
-    console.log('\n  SAMPLES TO GO AND LOOK AT:');
-    for (const w of R.worst.slice(0, 12)) console.log('    ' + w);
+    console.log('\n  SAMPLES TO GO AND LOOK AT, up to three per shape:');
+    for (const w of R.worst) console.log('    ' + w);
     console.log('');
     if (errs.length) console.log('  page errors: ' + errs.slice(0, 3).join(' | '));
   } finally {
