@@ -185,11 +185,23 @@ ok(`clusters carry the majority of the people (${canon.zones.cluster * P.HEADS.c
 /* ---- 7) IT FEEDS THE EXISTING SIM, IT DOES NOT FORK IT ------------------- */
 {
   const rates = {};
+  /* *** READ THE ZONE MAP ON ITS OWN SCALE, WITH THE POPULATION DIAL OUT OF THE
+     WAY. *** occupiedRateFor ends in applyDial(), so what comes back is the
+     zone map MULTIPLIED BY however full the valley currently is. The threshold
+     three claims below is "beats the old flat 0.30 placeholder", a number from
+     before the dial existed, so on 8/28 -- when the default moved from 1 to 20
+     because Paolo ruled a dead city is not an acceptable default -- it went red
+     reporting the zone map as flat while the zone map had not changed at all.
+     THIS SECTION IS ABOUT THE SHAPE OF THE MAP, NOT ABOUT HOW MANY PEOPLE ARE
+     IN IT, so it pins the scale it is written in and puts the dial back. */
+  const dial0 = P.dial();
+  P.setDial(1);
   for (let ty = 0; ty < OM.OVER_N; ty++) for (let tx = 0; tx < OM.OVER_N; tx++) {
     const c = W0.om.at(tx, ty); if (!c || !P.RESIDENTIAL[c.district]) continue;
     const z = P.zoneAt(W0.om, W0.POWER, tx, ty, W0.seed);
     (rates[z] = rates[z] || []).push(P.occupiedRateFor(W0.om, W0.POWER, tx, ty, W0.seed, 6));
   }
+  P.setDial(dial0);
   const mean = k => rates[k] ? rates[k].reduce((a, b) => a + b, 0) / rates[k].length : -1;
   ok(`empty ground yields occupiedRate 0 (${mean('empty').toFixed(4)})`, mean('empty') === 0);
   ok(`a cluster's rate is far above a spread neighbourhood's (${mean('cluster').toFixed(3)} vs ${mean('spread').toFixed(4)})`,

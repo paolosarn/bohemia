@@ -213,6 +213,8 @@ missing features that were never missing.
 | COMMITMENT 72/0 | it assumed the first affiliated body's card offered the REPEATABLE act. At 20 that became a Caravans member whose give is once-only, so nine presses landed one and the wall test reported an off-by-one in the wall. **Traced, not guessed:** the card stayed on the right person all nine times and the BUTTON was gone from the second press. It qualifies candidates on the thing under test now. |
 | FACTION ARC 91/0 | ten selection sites across thirteen browser pages, and its own comment said the quiet part: *"the Cartel, AND IT IS THE FIRST AFFILIATED PERSON IN THE VALLEY."* **A test that depends on how many people are in the world must pin that number, exactly the way it already pins the seed.** It pins the sparse valley it was written against, in one place, with the reason, and says what that no longer covers: belonging behaviour that only appears in a crowd, which is a real row that does not exist yet. |
 
+| ZONE MAP 74/0 | "the ruling moved the dial off the flat 0.30 placeholder" read a rate that ends in applyDial(), so it was comparing a DIAL-SCALED number against a threshold from before the dial existed. It reported the zone map as flat while the zone map had not changed at all. That section is about the SHAPE of the map, so it pins the scale it is written in. |
+
 **THE FINDING UNDER ALL OF IT: an empty world was hiding a whole class of test
 bug, and it only surfaced because the world got populated.**
 

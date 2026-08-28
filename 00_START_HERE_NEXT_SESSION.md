@@ -2213,8 +2213,14 @@ missing. They check the identity over the eight-cell ring now.
                      it already pins the seed. Pinned, with the reason, and it
                      says what that no longer covers: belonging in a CROWD, which
                      is a real row that does not exist yet.
+  ZONE MAP 74/0     "the ruling moved the dial off the flat 0.30 placeholder"
+                     read a rate that ends in applyDial(), comparing a
+                     DIAL-SCALED number against a threshold from before the dial
+                     existed. It called the zone map flat while the zone map had
+                     not changed at all. Pinned to the scale it is written in.
 THE FINDING UNDER ALL OF IT: an empty world was hiding a whole class of test bug,
-and it only surfaced because the world got populated.
+and it only surfaced because the world got populated. NINE GATES, all repaired,
+none exempted.
 
   GATE: gates/alive_gate.js, ALIVE, 16 claims, 0 red. Mutation: the default put
   back to 1 turns SIX claims red, headline "0 of 32 walks, 0 different people".
