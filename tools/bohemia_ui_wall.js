@@ -89,252 +89,264 @@ const FACES = bank.faces.map((f) =>
    BUTTON, because a comparison where the content moves is not a comparison.
    Ordered roughly from cheapest to build to most expensive, but that is not why
    he should pick one and it is not shown to him. ------------------------- */
-/* ROUND SIX. HE ASKED FOR THREE MASTERS, ONE PER ACT, AND SAID TWO ARE DONE.
-   HIS WORDS, 8/29 17:31:
-     "Awesome keep cooking well probably have 3 sets of master ui people can
-      choose from type shit looking good one for each act we got 2 squared away"
+/* ROUND SEVEN. ALL EIGHT GLASS CARDS DIED, AND I PICKED THAT DIRECTION MYSELF.
+   HIS WORDS, 8/29 18:23:
+     "Keep cooking I feel like the holographic shit would be at three and
+      they're still looking one will be act two"
 
-   *** THE THIRD ONE IS ALREADY APPROVED AND NOBODY EVER NARROWED IT. *** Round
-   two was twelve ways of BEHIND GLASS and his answer was "consider all of them
-   saved". That is a whole banked family, approved five rounds ago, never taken
-   past twelve options to one look. So the hunt for a third master is not a hunt.
-   Going and cooking a brand new family while a blanket-approved one sits
-   unfinished is exactly the waste this lane keeps proving it cannot afford.
+   *** MY ROUND-SIX FINDING WAS WRONG AND IT COST A WHOLE ROUND. *** I found that
+   round two had blanket-approved twelve BEHIND GLASS looks and concluded the
+   third master was "already approved, just never narrowed". Eight glass cards,
+   zero survivors. A BLANKET SAVE IS NOT A PICK. "Consider all of them saved"
+   five rounds ago meant nothing was thrown away yet, and I read it as a standing
+   yes -- which is the same mistake as reading the middle of the graveyard and
+   acting on it, one day after that lesson was written down.
+   The glass is dead now. NEWEST DATE WINS and this is the newest date.
 
-   WHAT ROUND FIVE ACTUALLY SAID, read off the six kept and the six killed and
-   not off what I hoped it said:
+   AND THE REASON IS MEASURABLE, WHICH IS THE USEFUL PART. He asked for a 2D game
+   with a 3D interface, so the question was never taste, it was whether the thing
+   is dimensional at all. Measured on the button of every card, in rendered
+   pixels, sampling the strip just under it against the clean strip further down:
+     THE METAL       throws a real cast shadow  (near/far luminance 1.45)
+     THE HOLOGRAM    throws none                (0.96 - 1.00)
+     ALL EIGHT GLASS throw none                 (0.83 - 0.95)
+   THE METAL IS AN OBJECT: it occludes, its button sits up on a hard 5px lip, the
+   light lands on one edge. THE HOLOGRAM IS NOT AN OBJECT AND IS RIGHT NOT TO BE:
+   light does not occlude, and that missing shadow is the whole reason it reads as
+   light instead of matter. Both of them COMMIT.
+   THE GLASS COMMITTED TO NEITHER. It did not occlude, so it was not an object,
+   and it did not glow into the space around it, so it was not light. Its only
+   depth cue was an inner shadow, and this same session had already proved that a
+   soft wash reads as a vignette, which is to say as nothing. IT WAS A DARK
+   RECTANGLE WITH A HAIRLINE ON IT.
 
-   THE METAL. Killed LESS SHADOW (1px plus a 1px blur at .55), killed NO SHADOW
-   AT ALL, kept BARELY THERE (1px, no blur, .45). So THE SHADOW HAS A FLOOR AND
-   IT IS NOT ZERO: above it the type reads doubled, below it the plate goes flat
-   and stops being raised. One pixel, no blur. He also killed MORE AIR, which
-   was the only one of the six that changed neither the light nor the material
-   -- it changed letter-spacing, which is dressing the rectangle, and five rounds
-   say he does not want the rectangle dressed. The other two he kept, DARKER
-   PLATE and SOFTER LIGHT, do not touch the shadow question at all. He answered
-   it and moved the conversation to the plate and the lamp.
-   THOSE THREE ARE INDEPENDENT DIALS -- shadow, plate colour, highlight softness
-   -- and all three passed, so they combine into ONE settled look rather than
-   competing. That is MASTER ONE and it needs no further picking.
+   SO THE RULE FOR THIS ROUND, AND IT IS A HARD ONE: EVERY LOOK COMMITS. Either it
+   is an OBJECT -- it throws a shadow onto what is behind it and its button sits at
+   a visibly different height -- or it is LIGHT, which throws nothing and glows into
+   the space around it. Halfway is a dark rectangle. Six of each.
 
-   THE LIGHT. Kept DRIFTING BANDS, ONE SLOW SWEEP, SLOW ROLL. Killed BREATHING,
-   RARE TEAR, FAINT STATIC. Every survivor is TRANSLATION: something travels
-   across the panel, slowly, continuously, in one direction. Every casualty is
-   not: a pulse changing brightness in place, a discrete event that fires and
-   stops, and directionless grain.
-   LIGHT MOVES ACROSS. IT DOES NOT BLINK, GLITCH OR BUZZ. And that is the same
-   taste the first three rounds already proved wearing different clothes -- a
-   pulse and a tear are a projector MISBEHAVING, which is machinery, and static
-   is noise, which is decoration, and he has killed machinery and decoration in
-   every single round. A band travelling across a surface is just light doing
-   what light does.
-   All three passed, but a master takes one motion, so three cards here differ
-   ONLY by the motion and nothing else.
+   AND THE BRIEF IS A HUNT AGAIN, NOT A NARROWING. Round two narrowed and got 12
+   of 12 because HE had named the direction. Round six narrowed and got 0 of 8
+   because I had. He has not named a direction for the one that is missing, so
+   this is twelve different ideas, the way round three was.
+   Metal owns OBJECT and the hologram owns LIGHT, so the territory worth hunting
+   is objects that are not metal, and light that is not a hologram.
 
-   SO THIS ROUND IS 1 + 3 + 8: master one settled, master two narrowed to one
-   motion, master three narrowed out of the banked glass.
+   MOTION IS DELIBERATELY OFF HERE. He settled motion for the hologram this round
+   (kept DRIFTING BANDS and SLOW ROLL, killed ONE SLOW SWEEP -- which is the
+   quietest of the three and the only one that goes still between events, so
+   CONTINUOUS beats occasional, and that is the second time he has killed a thing
+   that fires and stops, after RARE TEAR). Adding movement to a hunt round would
+   put two questions on one card.
 
-   AND THE GLASS IS BUILT AS GLASS, NOT AS A MONITOR, because his round-two note
-   in the same breath as banking it was "find more 3d ways to display ui that
-   arent ol computer screen". So the phosphor, the bezel and the housing from
-   that round are not what gets pushed forward. What gets pushed forward is the
-   PANE: thickness, an edge that catches light, depth behind the surface. Every
-   one of these obeys the two rules round five just established -- anything that
-   moves TRAVELS, and it travels BEHIND the words, never across them.
+   WHICH ACT WEARS WHICH IS STILL HIS. His sentence reads two ways -- the hologram
+   is act three and either the metal is act two with act one still missing, or the
+   metal is act one with act two still missing. BOTH READINGS NEED THE SAME WORK:
+   one more master that is neither metal nor hologram. So it does not need
+   answering to build this, and it is not guessed at. */
 
-   WHICH ACT WEARS WHICH MASTER IS HIS. Three masters is the mechanism and the
-   mechanism is mine; the mapping is canon and it is not guessed at here. Nor is
-   whether the player picks one or the act picks it for them -- he said both in
-   one sentence and neither reading changes a line of this. */
-
-const PLATE = `
-  .L .pnl{ background:linear-gradient(158deg,#544d43,#2e2923); border-radius:2px;
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.24), inset 0 -3px 9px rgba(0,0,0,.6),
-      0 9px 18px rgba(0,0,0,.72); }
-  .L .rd,.L .ttl,.L .bd{ color:#b3a894;
-    text-shadow:0 -1px 2px rgba(255,253,246,.5), 0 1px 0 rgba(0,0,0,.45); }
-  .L .rd{ color:#9adfd0; text-shadow:0 -1px 2px rgba(225,255,250,.45), 0 1px 0 rgba(0,0,0,.45); }
-  .L .btn{ background:linear-gradient(158deg,#5f5747,#332e26); border:0; border-radius:2px;
-    color:#bfb49e; text-shadow:0 -1px 2px rgba(255,253,246,.55), 0 1px 0 rgba(0,0,0,.5);
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.26), 0 5px 0 #191510, 0 9px 13px rgba(0,0,0,.62); }
-  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.65); }`;
-
-/* UNCHANGED FROM ROUND FIVE ON PURPOSE. He approved this field three times over
-   and the only open question is which motion rides on it, so changing anything
-   else here would be answering a question he did not ask. */
-const LIGHT = `
-  .L .stage{ padding-bottom:34px; }
-  .L .pnl{ position:relative; overflow:hidden; border:0;
-    border-top:1px solid rgba(150,245,225,.5); border-bottom:1px solid rgba(150,245,225,.28);
-    background:linear-gradient(rgba(97,168,159,.10),rgba(97,168,159,.025));
-    box-shadow:0 0 26px rgba(97,168,159,.22), 0 0 56px rgba(97,168,159,.10); }
-  .L .pnl > *{ position:relative; z-index:2; }
-  .L .rd{ color:#7fd8c8; text-shadow:0 0 6px rgba(97,168,159,.7); }
-  .L .ttl,.L .bd{ color:#dcfff7; text-shadow:0 0 6px rgba(97,168,159,.75); }
-  .L .btn{ background:rgba(97,168,159,.10); border:1px solid rgba(150,245,225,.5); color:#e6fffa;
-    border-radius:0; text-shadow:0 0 7px rgba(97,168,159,.8); }
-  .L .btn:active{ background:rgba(150,245,225,.42); color:#04100d; text-shadow:none; }`;
-
-/* THE PANE. A slab of real glass over a dark recess: a lit top edge where the
-   light lands, a dim bottom edge where it leaves, and depth read as the inner
-   shadow at the sides. No frame, no bezel, no housing -- that was the monitor,
-   and he said not the monitor. */
-const GLASS = `
-  .L .stage{ padding-bottom:30px; }
-  .L .pnl{ position:relative; overflow:hidden; border:0; border-radius:3px;
-    background:linear-gradient(158deg,rgba(33,41,43,.94),rgba(13,17,18,.97));
-    box-shadow:
-      inset 0 1px 0 rgba(226,246,255,.34),
-      inset 0 -1px 0 rgba(226,246,255,.09),
-      inset 0 0 30px rgba(0,0,0,.55),
-      0 10px 22px rgba(0,0,0,.72); }
-  .L .pnl > *{ position:relative; z-index:2; }
-  .L .rd{ color:#8ecfd8; }
-  .L .ttl,.L .bd{ color:#d4e7eb; }
-  .L .btn{ background:linear-gradient(158deg,rgba(226,246,255,.11),rgba(226,246,255,.03));
-    border:1px solid rgba(226,246,255,.26); border-radius:2px; color:#e3f2f6;
-    box-shadow:inset 0 1px 0 rgba(226,246,255,.32); }
-  .L .btn:active{ background:rgba(226,246,255,.30); color:#0b1113; box-shadow:none; }`;
+const OBJECT_BTN = (face, lip, under) => `
+  .L .btn{ background:${face}; border:0; border-radius:2px;
+    box-shadow:inset 0 2px 0 ${lip}, 0 5px 0 ${under}, 0 9px 13px rgba(0,0,0,.6); }
+  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.6); }`;
 
 const LOOKS = [
-  { id: 'm_plate', name: 'MASTER ONE: THE PLATE', from: 'your three metal yeses, combined',
-    say: 'Your three are three different dials, not three rival looks, so they all fit in one panel: the shadow at one pixel with no blur, the plate darker, the light broad instead of sharp. This one is settled unless you say otherwise.',
-    css: PLATE },
+  /* ---- SIX OBJECTS. Each one occludes: a real cast shadow under the panel, and
+     a button standing on a hard lip. None of them is metal. ---- */
 
-  { id: 'm_drift', name: 'MASTER TWO, THE LIGHT: DRIFTING BANDS', from: 'motion 1 of 3',
-    say: 'Fine bands sliding steadily upward behind the words. The busiest of your three, and the most obviously alive.',
-    css: LIGHT + `
-  @keyframes bohDrift{ from{ background-position:0 0 } to{ background-position:0 -40px } }
-  .L .pnl::after{ content:''; position:absolute; inset:-40px 0; z-index:1; pointer-events:none;
-    background:repeating-linear-gradient(rgba(160,250,232,.11) 0 2px,transparent 2px 7px);
-    animation:bohDrift 5.5s linear infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
-
-  { id: 'm_sweep', name: 'MASTER TWO, THE LIGHT: ONE SLOW SWEEP', from: 'motion 2 of 3',
-    say: 'Nearly still. One soft bar crosses the panel every seven seconds and the rest of the time there is nothing. The quietest of your three.',
-    css: LIGHT + `
-  @keyframes bohSweep{ 0%{ transform:translateY(-120%) } 100%{ transform:translateY(320%) } }
-  .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:34%; z-index:1;
-    pointer-events:none;
-    background:linear-gradient(transparent,rgba(170,255,238,.16) 45%,rgba(170,255,238,.16) 55%,transparent);
-    animation:bohSweep 7s linear infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:.5 } }` },
-
-  { id: 'm_roll', name: 'MASTER TWO, THE LIGHT: SLOW ROLL', from: 'motion 3 of 3',
-    say: 'One wide soft band rolling up forever. Always moving like the first one, but one big shape instead of many small ones. The middle of your three.',
-    css: LIGHT + `
-  @keyframes bohRoll{ from{ transform:translateY(100%) } to{ transform:translateY(-100%) } }
-  .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:100%; z-index:1;
-    pointer-events:none;
-    background:linear-gradient(transparent 0 30%,rgba(170,255,238,.13) 45%,rgba(170,255,238,.13) 55%,transparent 70% 100%);
-    animation:bohRoll 9s linear infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
-
-  { id: 'g_pane', name: 'MASTER THREE, GLASS: THE PANE', from: 'the one you kept in round two',
-    say: 'The glass on its own, with the monitor stripped off it. Lit top edge, dark bottom edge, the words sitting back inside. This is the baseline the other seven move away from.',
-    css: GLASS },
-
-  { id: 'g_deep', name: 'MASTER THREE, GLASS: THICKER', from: 'more glass between you and it',
-    say: 'Same pane, more of it. The words sit further back and the sides go darker, so you read the thickness before you read the text.',
-    css: GLASS + `
-  .L .pnl{ box-shadow:
-      inset 0 2px 0 rgba(226,246,255,.38),
-      inset 0 -2px 0 rgba(226,246,255,.10),
-      inset 0 0 54px rgba(0,0,0,.78),
-      inset 26px 0 34px rgba(0,0,0,.42),
-      inset -26px 0 34px rgba(0,0,0,.42),
-      0 12px 26px rgba(0,0,0,.75); }
-  .L .ttl,.L .bd{ color:#bdd3d8; }` },
-
-  { id: 'g_edge', name: 'MASTER THREE, GLASS: LIT FROM THE EDGE', from: 'light going in at the side',
-    say: 'The light enters at the edges and leaks inward, which is how a real slab of glass with a lamp on its rim behaves. The middle stays dark and the words are the brightest thing in it.',
-    css: GLASS + `
-  .L .pnl{ background:linear-gradient(158deg,rgba(27,35,37,.96),rgba(10,13,14,.98));
-    box-shadow:
-      inset 0 2px 0 rgba(226,246,255,.5),
-      inset 0 -2px 0 rgba(226,246,255,.22),
-      inset 3px 0 0 rgba(226,246,255,.16),
-      inset -3px 0 0 rgba(226,246,255,.16),
-      inset 0 0 40px rgba(0,0,0,.7),
-      0 0 22px rgba(150,220,235,.14),
-      0 10px 22px rgba(0,0,0,.72); }
-  .L .ttl{ color:#e8f7fb; }` },
-
-  { id: 'g_curve', name: 'MASTER THREE, GLASS: CURVED', from: 'the pane bowing toward you',
-    say: 'The surface bows out in the middle, so the highlight bends with it instead of running straight. Same trick the rest of the game art uses, where bands curve toward the viewer.',
-    css: GLASS + `
-  .L .pnl::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    border-radius:3px;
+  { id: 'o_conc', name: 'OBJECT: POURED CONCRETE', from: 'a slab somebody poured',
+    say: 'A heavy grey slab with the stones still showing in it. The light rakes across it from the top so the surface has grain instead of being smooth.',
+    css: `
+  .L .pnl{ position:relative; border-radius:1px;
     background:
-      radial-gradient(150% 62% at 50% -6%,
-        rgba(226,246,255,.26) 0 40%,
-        rgba(226,246,255,.13) 40% 47%,
-        rgba(226,246,255,.04) 47% 51%,
-        transparent 51%),
-      radial-gradient(150% 58% at 50% 106%,
-        rgba(0,0,0,.55) 0 42%,
-        rgba(0,0,0,.24) 42% 50%,
-        transparent 50%),
-      linear-gradient(90deg,rgba(0,0,0,.42) 0,transparent 16%,transparent 84%,rgba(0,0,0,.42) 100%); }` },
+      radial-gradient(circle 1px at 21% 34%,rgba(255,255,255,.05),transparent),
+      radial-gradient(circle 2px at 68% 71%,rgba(0,0,0,.22),transparent),
+      radial-gradient(circle 1px at 44% 86%,rgba(255,255,255,.04),transparent),
+      linear-gradient(168deg,#6d6b66,#3c3a37);
+    background-size:37px 31px,53px 47px,41px 43px,auto;
+    box-shadow:inset 0 2px 0 rgba(255,255,252,.20), inset 0 -4px 10px rgba(0,0,0,.5),
+      0 11px 20px rgba(0,0,0,.74); }
+  .L .rd{ color:#93cfc4; } .L .ttl,.L .bd{ color:#cbc7bf; }
+  .L .rd,.L .ttl,.L .bd{ text-shadow:0 1px 0 rgba(0,0,0,.4); }
+  .L .btn{ color:#d3cfc6; text-shadow:0 1px 0 rgba(0,0,0,.45); }`
+    + OBJECT_BTN('linear-gradient(168deg,#77746e,#43413d)','rgba(255,255,252,.22)','#211f1d') },
 
-  { id: 'g_travel', name: 'MASTER THREE, GLASS: A REFLECTION THAT TRAVELS', from: 'your motion rule, on glass',
-    say: 'One soft reflection slides slowly across the pane and never stops, behind the words. This is the exact kind of movement you kept three times on the hologram, put on glass instead.',
-    css: GLASS + `
-  @keyframes bohGlide{ from{ transform:translateX(-130%) } to{ transform:translateX(230%) } }
-  .L .pnl::after{ content:''; position:absolute; top:-30%; bottom:-30%; left:0; width:42%; z-index:1;
-    pointer-events:none; transform:rotate(0deg);
-    background:linear-gradient(100deg,transparent,rgba(226,246,255,.10) 45%,rgba(226,246,255,.10) 55%,transparent);
-    animation:bohGlide 11s linear infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:.45 } }` },
-
-  { id: 'g_dust', name: 'MASTER THREE, GLASS: DUST ON IT', from: 'nobody has cleaned it',
-    say: 'Fine dust sitting still on the surface, catching the light. It does not move and it is not noise. It is the one card here about the glass being an object somebody owns and never wipes.',
-    css: GLASS + `
-  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.55;
+  { id: 'o_ply', name: 'OBJECT: BARE PLYWOOD', from: 'the board over the window',
+    say: 'A sheet of cheap wood, the kind nailed over a window. You can see the grain running one way and the edge is worn light.',
+    css: `
+  .L .pnl{ position:relative; border-radius:1px;
     background:
-      radial-gradient(circle 1px at 14% 22%,rgba(226,246,255,.42),transparent),
-      radial-gradient(circle 1px at 63% 41%,rgba(226,246,255,.34),transparent),
-      radial-gradient(circle 1px at 33% 77%,rgba(226,246,255,.30),transparent),
-      radial-gradient(circle 1px at 84% 69%,rgba(226,246,255,.38),transparent);
-    background-size:59px 47px,71px 61px,53px 67px,83px 43px; }` },
+      linear-gradient(91deg,transparent 0 17%,rgba(0,0,0,.13) 17% 18%,transparent 18% 41%,
+        rgba(0,0,0,.09) 41% 42%,transparent 42% 73%,rgba(0,0,0,.15) 73% 74%,transparent 74%),
+      repeating-linear-gradient(93deg,rgba(0,0,0,.07) 0 1px,transparent 1px 9px),
+      repeating-linear-gradient(89deg,rgba(255,240,215,.045) 0 1px,transparent 1px 23px),
+      repeating-linear-gradient(94deg,rgba(0,0,0,.05) 0 2px,transparent 2px 31px),
+      linear-gradient(168deg,#7a6244,#412f1e);
+    box-shadow:inset 0 2px 0 rgba(255,236,204,.26), inset 0 -4px 11px rgba(0,0,0,.55),
+      0 11px 20px rgba(0,0,0,.74); }
+  .L .rd{ color:#9ad6c6; } .L .ttl,.L .bd{ color:#e0cfb2; }
+  .L .rd,.L .ttl,.L .bd{ text-shadow:0 1px 0 rgba(0,0,0,.5); }
+  .L .btn{ color:#e6d6ba; text-shadow:0 1px 0 rgba(0,0,0,.5); }`
+    + OBJECT_BTN('linear-gradient(168deg,#8a704e,#4a3623)','rgba(255,236,204,.28)','#241a11') },
 
-  { id: 'g_cold', name: 'MASTER THREE, GLASS: COLD AND CLEAR', from: 'the tint taken out',
-    say: 'Almost no colour in the glass at all. Everything you read as glass here is the highlight and the depth, nothing is the tint. The most severe of the eight.',
-    css: GLASS + `
-  .L .pnl{ background:linear-gradient(158deg,rgba(24,26,27,.95),rgba(11,12,13,.98));
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.36),
-      inset 0 -1px 0 rgba(255,255,255,.09),
-      inset 0 0 32px rgba(0,0,0,.6),
-      0 10px 22px rgba(0,0,0,.74); }
-  .L .rd{ color:#9fc9cf; }
-  .L .ttl,.L .bd{ color:#dededd; }
-  .L .btn{ background:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
-    border-color:rgba(255,255,255,.24); color:#efefee; }` },
+  { id: 'o_rub', name: 'OBJECT: THICK RUBBER', from: 'cut out of a tyre',
+    say: 'Matte black rubber, soft at the corners, and it eats the light instead of bouncing it. The heaviest looking one here.',
+    css: `
+  .L .pnl{ position:relative; border-radius:7px;
+    background:linear-gradient(168deg,#3d3d3f,#171718);
+    box-shadow:inset 0 2px 0 rgba(255,255,255,.30), inset 0 -6px 16px rgba(0,0,0,.72),
+      0 14px 26px rgba(0,0,0,.85); }
+  .L .rd{ color:#7fc9bd; } .L .ttl,.L .bd{ color:#c8c8c6;
+    text-shadow:0 -1px 0 rgba(255,255,255,.10), 0 1px 0 rgba(0,0,0,.55); }
+  .L .btn{ color:#d4d3d0; text-shadow:0 -1px 0 rgba(255,255,255,.12), 0 1px 0 rgba(0,0,0,.6); }`
+    + OBJECT_BTN('linear-gradient(168deg,#50504f,#232324)','rgba(255,255,255,.34)','#000000') },
 
-  { id: 'g_over', name: 'MASTER THREE, GLASS: OVER THE PLATE', from: 'masters one and three, same object',
-    say: 'The glass laid straight onto the metal from master one, so two of your three are the same thing seen twice. The catch sits in the top corner and stays off the words. If you like this, the three acts read as one game instead of three skins.',
-    css: PLATE + `
-  .L .pnl{ position:relative; overflow:hidden; border-radius:3px;
-    background:linear-gradient(158deg,#4a443b,#26221c);
-    box-shadow:
-      inset 0 1px 0 rgba(226,246,255,.40),
-      inset 0 -3px 9px rgba(0,0,0,.62),
-      inset 0 0 30px rgba(0,0,0,.46),
-      0 10px 22px rgba(0,0,0,.74); }
-  .L .rd,.L .ttl,.L .bd{ color:#c7bda9; }
-  .L .rd{ color:#a8e5d7; }
+  { id: 'o_tarp', name: 'OBJECT: A STRETCHED TARP', from: 'canvas pulled tight',
+    say: 'Heavy cloth pulled tight across a frame. It sags a little in the middle and the weave catches the light.',
+    css: `
+  .L .pnl{ position:relative; border-radius:2px;
+    background:
+      repeating-linear-gradient(45deg,rgba(0,0,0,.07) 0 1px,transparent 1px 4px),
+      repeating-linear-gradient(-45deg,rgba(255,250,235,.05) 0 1px,transparent 1px 4px),
+      radial-gradient(120% 90% at 50% 44%,rgba(0,0,0,.24),transparent 70%),
+      linear-gradient(168deg,#8d8067,#584d3c);
+    box-shadow:inset 0 2px 0 rgba(255,250,235,.26), inset 0 -4px 12px rgba(0,0,0,.42),
+      0 11px 21px rgba(0,0,0,.7); }
+  .L .rd{ color:#8fd2c2; } .L .ttl,.L .bd{ color:#eadcc2; }
+  .L .rd,.L .ttl,.L .bd{ text-shadow:0 1px 0 rgba(0,0,0,.4); }
+  .L .btn{ color:#eee1c8; text-shadow:0 1px 0 rgba(0,0,0,.42); }`
+    + OBJECT_BTN('linear-gradient(168deg,#9a8c71,#615544)','rgba(255,250,235,.28)','#312a20') },
+
+  { id: 'o_clay', name: 'OBJECT: FIRED CLAY', from: 'baked out of the ground',
+    say: 'A slab of baked earth. Warm, dusty, a little uneven, and it belongs to the desert more than anything else here.',
+    css: `
+  .L .pnl{ position:relative; border-radius:3px;
+    background:
+      radial-gradient(circle 2px at 28% 26%,rgba(0,0,0,.16),transparent),
+      radial-gradient(circle 1px at 74% 63%,rgba(255,236,206,.08),transparent),
+      linear-gradient(168deg,#9a7355,#5a3f2c);
+    background-size:47px 39px,61px 51px,auto;
+    box-shadow:inset 0 2px 0 rgba(255,236,206,.28), inset 0 -4px 12px rgba(0,0,0,.46),
+      0 11px 20px rgba(0,0,0,.72); }
+  .L .rd{ color:#9bd9c6; } .L .ttl,.L .bd{ color:#f0dcc4; }
+  .L .rd,.L .ttl,.L .bd{ text-shadow:0 1px 0 rgba(0,0,0,.42); }
+  .L .btn{ color:#f4e2cc; text-shadow:0 1px 0 rgba(0,0,0,.45); }`
+    + OBJECT_BTN('linear-gradient(168deg,#a88062,#654833)','rgba(255,236,206,.3)','#33231a') },
+
+  { id: 'o_sand', name: 'OBJECT: PACKED SAND', from: 'a filled bag, flattened',
+    say: 'Sand packed flat and hard. Almost no shine at all, so everything you read is the shape and the shadow.',
+    css: `
+  .L .pnl{ position:relative; border-radius:5px;
+    background:
+      radial-gradient(circle 1px at 17% 41%,rgba(0,0,0,.13),transparent),
+      radial-gradient(circle 1px at 59% 78%,rgba(0,0,0,.11),transparent),
+      linear-gradient(168deg,#9d9075,#605645);
+    background-size:23px 19px,29px 27px,auto;
+    box-shadow:inset 0 2px 0 rgba(255,248,228,.22), inset 0 -5px 13px rgba(0,0,0,.42),
+      0 12px 22px rgba(0,0,0,.72); }
+  .L .rd{ color:#8ecfbe; } .L .ttl,.L .bd{ color:#efe6d0; }
+  .L .rd,.L .ttl,.L .bd{ text-shadow:0 1px 0 rgba(0,0,0,.38); }
+  .L .btn{ color:#f2ead6; text-shadow:0 1px 0 rgba(0,0,0,.4); }`
+    + OBJECT_BTN('linear-gradient(168deg,#a89b80,#6a5f4d)','rgba(255,248,228,.24)','#38322a') },
+
+  /* ---- SIX LIGHTS. None of these occludes anything. Each one puts light INTO the
+     space around it, which is the cue the hologram earns its read from. And none
+     is the hologram: that one is light with nothing behind it, these are light
+     meeting something. ---- */
+
+  { id: 'l_back', name: 'LIGHT: THROUGH A SLAB', from: 'lit from behind',
+    say: 'A thick pale block with a lamp behind it. The light is inside the material instead of on top of it, brightest in the middle where the slab is thinnest.',
+    css: `
+  .L .pnl{ position:relative; border:0; border-radius:2px;
+    background:
+      radial-gradient(120% 100% at 50% 50%,rgba(226,238,224,.22),rgba(226,238,224,.06) 62%,transparent 82%),
+      linear-gradient(168deg,rgba(140,160,150,.13),rgba(90,105,98,.07));
+    box-shadow:0 0 34px rgba(210,232,220,.16), 0 0 78px rgba(210,232,220,.07),
+      inset 0 0 40px rgba(226,238,224,.10); }
+  .L .rd{ color:#9fe0cd; } .L .ttl,.L .bd{ color:#f0f7f0; }
+  .L .btn{ background:rgba(226,238,224,.13); border:1px solid rgba(226,238,224,.34);
+    border-radius:2px; color:#f4faf4; box-shadow:0 0 16px rgba(210,232,220,.18); }
+  .L .btn:active{ background:rgba(226,238,224,.42); color:#10161a; }` },
+
+  { id: 'l_wall', name: 'LIGHT: THROWN ON A WALL', from: 'a projector and a rough wall',
+    say: 'The words are light landing on a real wall, so the wall shows straight through them. Nothing is floating, but nothing is solid either.',
+    css: `
+  .L .pnl{ position:relative; border:0; border-radius:0;
+    background:
+      radial-gradient(circle 2px at 23% 37%,rgba(0,0,0,.20),transparent),
+      radial-gradient(circle 1px at 66% 72%,rgba(0,0,0,.16),transparent),
+      radial-gradient(115% 96% at 50% 34%,rgba(180,235,220,.16),rgba(180,235,220,.05) 58%,transparent 78%),
+      linear-gradient(168deg,#3b3c38,#232421);
+    background-size:43px 37px,51px 49px,auto,auto;
+    box-shadow:0 0 30px rgba(160,220,205,.10); }
+  .L .rd{ color:#9adecb; } .L .ttl,.L .bd{ color:#e2f2ea; text-shadow:0 0 8px rgba(150,225,205,.5); }
+  .L .btn{ background:rgba(170,230,215,.07); border:1px dashed rgba(180,235,220,.42);
+    border-radius:0; color:#eaf7f0; text-shadow:0 0 8px rgba(150,225,205,.55); }
+  .L .btn:active{ background:rgba(180,235,220,.4); color:#0d1512; text-shadow:none; }` },
+
+  { id: 'l_slot', name: 'LIGHT: OUT OF A SLOT', from: 'a gap in something heavy',
+    say: 'All the light comes out of one narrow gap along the top and spills down. Everything lower is darker because it is further from the opening.',
+    css: `
+  .L .pnl{ position:relative; border:0; border-radius:0;
+    border-top:2px solid rgba(196,246,232,.85);
+    background:linear-gradient(rgba(150,228,210,.20),rgba(150,228,210,.05) 42%,transparent 76%),
+      linear-gradient(#1c211f,#0e1211);
+    box-shadow:0 -3px 26px rgba(150,228,210,.35), 0 0 60px rgba(150,228,210,.12); }
+  .L .rd{ color:#a8ead6; } .L .ttl{ color:#eefaf4; } .L .bd{ color:#c3ded4; }
+  .L .btn{ background:rgba(150,228,210,.06); border:1px solid rgba(150,228,210,.3);
+    border-radius:0; color:#d8efe6; }
+  .L .btn:active{ background:rgba(196,246,232,.42); color:#08100e; }` },
+
+  { id: 'l_punch', name: 'LIGHT: THROUGH PUNCHED HOLES', from: 'drilled plate, lamp behind',
+    say: 'A metal sheet with holes drilled in it and a light behind. The dots sit behind the words, never across them, so the plate is doing the talking and the message stays clean.',
+    css: `
+  .L .pnl{ position:relative; overflow:hidden; border:0; border-radius:1px;
+    background:linear-gradient(168deg,#2a2f2d,#151918);
+    box-shadow:0 0 30px rgba(150,228,210,.16), 0 0 66px rgba(150,228,210,.07); }
   .L .pnl > *{ position:relative; z-index:2; }
   .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
-      linear-gradient(118deg,
-        transparent 0 6%,
-        rgba(226,246,255,.20) 6% 17%,
-        rgba(226,246,255,.05) 17% 21%,
-        transparent 21% 27%,
-        rgba(226,246,255,.11) 27% 32%,
-        transparent 32%),
-      radial-gradient(72% 46% at 86% 110%,rgba(0,0,0,.34),transparent 62%); }` }
+      radial-gradient(circle 1.5px at 30% 28%,rgba(178,242,226,.44),transparent 70%),
+      radial-gradient(circle 1.2px at 74% 61%,rgba(178,242,226,.34),transparent 70%),
+      radial-gradient(circle 1.6px at 47% 83%,rgba(178,242,226,.30),transparent 70%);
+    background-size:13px 12px,17px 15px,19px 21px; }
+  .L .rd{ color:#a3e6d2; } .L .ttl,.L .bd{ color:#eaf8f2;
+    text-shadow:0 0 3px #151918,0 0 7px #151918,0 0 12px rgba(150,228,210,.5); }
+  .L .btn{ background:rgba(150,228,210,.08); border:1px solid rgba(178,242,226,.44);
+    border-radius:1px; color:#f0fbf6;
+    text-shadow:0 0 3px #151918,0 0 9px rgba(150,228,210,.6); }
+  .L .btn:active{ background:rgba(178,242,226,.44); color:#08100e; text-shadow:none; }` },
+
+  { id: 'l_ember', name: 'LIGHT: STILL WARM', from: 'the thing itself is glowing',
+    say: 'Nothing is shining on it. The panel is making its own light, faintly, the way something does after it has been hot for a long time.',
+    css: `
+  .L .pnl{ position:relative; border:0; border-radius:2px;
+    background:
+      radial-gradient(130% 100% at 30% 82%,rgba(180,238,220,.17),transparent 62%),
+      radial-gradient(110% 90% at 78% 22%,rgba(180,238,220,.10),transparent 58%),
+      linear-gradient(168deg,#20262a,#0f1315);
+    box-shadow:0 0 26px rgba(150,228,210,.13), 0 0 70px rgba(150,228,210,.06),
+      inset 0 0 34px rgba(150,228,210,.07); }
+  .L .rd{ color:#9fe2ce; } .L .ttl,.L .bd{ color:#dff0e9; }
+  .L .btn{ background:radial-gradient(120% 140% at 50% 120%,rgba(180,238,220,.22),rgba(180,238,220,.04) 70%);
+    border:1px solid rgba(180,238,220,.26); border-radius:2px; color:#eaf7f1;
+    box-shadow:0 0 18px rgba(150,228,210,.16); }
+  .L .btn:active{ background:rgba(180,238,220,.4); color:#0a1210; }` },
+
+  { id: 'l_cloth', name: 'LIGHT: THROUGH CLOTH', from: 'a lamp behind fabric',
+    say: 'A lamp sitting behind a sheet. The weave shows up dark against the glow and everything has a soft edge because cloth does not have hard ones.',
+    css: `
+  .L .pnl{ position:relative; border:0; border-radius:9px;
+    background:
+      repeating-linear-gradient(90deg,rgba(0,0,0,.13) 0 1px,transparent 1px 4px),
+      repeating-linear-gradient(0deg,rgba(0,0,0,.13) 0 1px,transparent 1px 4px),
+      radial-gradient(110% 96% at 50% 42%,rgba(206,240,226,.24),rgba(206,240,226,.07) 62%,transparent 84%),
+      linear-gradient(168deg,#242a28,#121615);
+    box-shadow:0 0 40px rgba(180,235,218,.18), 0 0 90px rgba(180,235,218,.08); }
+  .L .rd{ color:#a6e5d3; } .L .ttl,.L .bd{ color:#eef8f3; text-shadow:0 0 7px rgba(160,230,212,.45); }
+  .L .btn{ background:rgba(206,240,226,.10); border:1px solid rgba(206,240,226,.3);
+    border-radius:7px; color:#f2fbf7; box-shadow:0 0 20px rgba(180,235,218,.16); }
+  .L .btn:active{ background:rgba(206,240,226,.42); color:#0b1311; }` }
 ];
 
 for (const L of LOOKS) {
@@ -364,7 +376,7 @@ const card = (L, i) => `
 
 const html = `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BOHEMIA &middot; THREE MASTERS</title>
+<title>BOHEMIA &middot; THE THIRD ONE</title>
 <style>
 ${FACES}
 :root{ --bg:${C.bg}; --surface:${C.surface}; --ink:${C.ink}; --dim:${C.dim};
@@ -429,10 +441,10 @@ ${LOOKS.map((L) => L.css.replace(/\.L /g, '.L.' + L.id + ' ')).join('\n')}
 </style>
 
 <header>
-  <h1>THREE MASTERS &middot; ROUND 6</h1>
+  <h1>THE THIRD ONE &middot; ROUND 7</h1>
   <button class="sun" id="sun">SUN MODE</button>
 </header>
-<p class="lede"><b>You said three masters, one for each act, and two are done.</b> Number 1 is the metal, settled: your three yeses were three separate dials so they all fit in one panel. Numbers 2 to 4 are the light, identical except for the movement, so you only have to pick the movement. Numbers 5 to 12 are the third one, and you already approved it in round two and nobody ever narrowed it down: <b>the glass.</b> Say yes to as many as you want.</p>
+<p class="lede"><b>The glass is dead, all eight, and I picked that one so that is on me.</b> Here is what I measured afterwards: the metal throws a real shadow underneath it, so it is an object. The hologram throws none at all, which is exactly why it reads as light and not as a thing. The glass did neither, so it was just a dark rectangle. <b>So every one of these twelve picks a side.</b> Numbers 1 to 6 are solid objects that are not metal. Numbers 7 to 12 are light, but never the hologram. Nothing here moves on purpose, because you already settled the movement.</p>
 
 ${LOOKS.map(card).join('\n')}
 
@@ -445,7 +457,7 @@ ${LOOKS.map(card).join('\n')}
 
 <script>
 (function(){
-  var KEY='bohemia_ui_r6';
+  var KEY='bohemia_ui_r7';
   var NAMES=${JSON.stringify(LOOKS.map((L) => ({ id: L.id, name: L.name })))};
   var st={up:{},down:{},all:''};
   try{ var raw=localStorage.getItem(KEY); if(raw) st=JSON.parse(raw); }catch(e){}
@@ -474,7 +486,7 @@ ${LOOKS.map(card).join('\n')}
   document.getElementById('sun').addEventListener('click',function(){
     document.body.classList.toggle('sun'); });
   document.getElementById('exp').addEventListener('click',function(){
-    var L=[]; L.push('BOHEMIA - THREE MASTERS, ROUND 6 - PAOLO\\'S PICKS');
+    var L=[]; L.push('BOHEMIA - THE THIRD ONE, ROUND 7 - PAOLO\\'S PICKS');
     L.push('exported '+new Date().toISOString().slice(0,16).replace('T',' '));
     L.push('');
     var yes=[],no=[],non=[];
@@ -487,8 +499,8 @@ ${LOOKS.map(card).join('\n')}
     L.push(''); L.push('ANYTHING ELSE:'); L.push(st.all||'(nothing)');
     var b=new Blob([L.join('\\n')],{type:'text/plain'});
     var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-    a.download='BOHEMIA_UI_R6.txt'; a.click();
-    document.getElementById('done').textContent='saved as BOHEMIA_UI_R6.txt';
+    a.download='BOHEMIA_UI_R7.txt'; a.click();
+    document.getElementById('done').textContent='saved as BOHEMIA_UI_R7.txt';
   });
   apply();
 })();

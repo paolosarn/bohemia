@@ -306,3 +306,141 @@ ROUND SIX, BUILT 8/29: 1 SETTLED + 3 TO NARROW + 8 TO NARROW
   not a defect, it is the arithmetic of what he approved -- a darker plate, a
   barely-there shadow and a softer light all reduce contrast, and he picked all
   three. It reads, and it is the squintiest of the three masters.
+
+===============================================================================
+ROUND SIX, 8/29 18:23: THREE OF TWELVE, AND ALL EIGHT GLASS CARDS DIED
+===============================================================================
+
+  ALIVE:  MASTER ONE: THE PLATE . THE LIGHT: DRIFTING BANDS . THE LIGHT: SLOW ROLL
+  DEAD:   THE LIGHT: ONE SLOW SWEEP . and ALL EIGHT GLASS
+
+  HIS WORDS: "Keep cooking I feel like the holographic shit would be at three and
+  they're still looking one will be act two"
+
+-------------------------------------------------------------------------------
+*** MY ROUND-SIX FINDING WAS WRONG AND IT COST A WHOLE ROUND ***
+-------------------------------------------------------------------------------
+
+  I found that round two blanket-approved twelve BEHIND GLASS looks ("consider all
+  of them saved") and concluded the third master was already picked and merely
+  never narrowed. Eight glass cards, zero survivors.
+
+  A BLANKET SAVE IS NOT A PICK. "Saved" five rounds ago meant nothing had been
+  thrown away yet. I read it as a standing yes. That is the same error as reading
+  the middle of the graveyard and acting on it -- ONE DAY after that exact lesson
+  was written down on the haircut lane. THE GLASS IS DEAD NOW; newest date wins.
+
+-------------------------------------------------------------------------------
+AND THE REASON IS MEASURABLE, WHICH IS THE PART WORTH KEEPING
+-------------------------------------------------------------------------------
+
+  He asked for a 2D game with a 3D interface, so the question was never taste, it
+  was whether the thing is dimensional at all. Measured in rendered pixels on
+  every card's button, sampling the band just under it INSIDE the button's span
+  against the same band BESIDE it:
+
+    THE METAL        2.7   throws a real, local shadow -> it is an OBJECT
+    THE HOLOGRAM     1.0   throws none at all          -> it is LIGHT
+    ALL EIGHT GLASS  ~1.0  throws none                 -> it is NEITHER
+
+  THE METAL COMMITS: it occludes, its button stands on a hard lip, the light lands
+  on one edge. THE HOLOGRAM COMMITS TOO, in the opposite direction, and is right
+  to: light does not occlude, and that missing shadow is the entire reason it
+  reads as light instead of matter.
+  THE GLASS COMMITTED TO NEITHER. It did not occlude, so it was not an object, and
+  it did not glow into the space around it, so it was not light. Its only depth
+  cue was an inner shadow, and this same session had already proved a soft wash
+  reads as a vignette, which is to say as nothing. IT WAS A DARK RECTANGLE WITH A
+  HAIRLINE ON IT.
+
+-------------------------------------------------------------------------------
+AND ONE SLOW SWEEP DYING SHARPENS THE MOTION RULE
+-------------------------------------------------------------------------------
+
+  He kept DRIFTING BANDS and SLOW ROLL and killed ONE SLOW SWEEP, which was the
+  quietest of the three and the only one that goes completely still between
+  events. So the rule is not just that light travels, it is that IT NEVER STOPS.
+  Second time he has killed something that fires and then stops, after RARE TEAR.
+  CONTINUOUS BEATS OCCASIONAL.
+
+-------------------------------------------------------------------------------
+THE ACT MAPPING, AND WHY IT NEEDED NO QUESTION
+-------------------------------------------------------------------------------
+
+  The hologram is ACT THREE. His words are garbled after that and read two ways:
+  either the metal is act two with act one still missing, or the metal is act one
+  with act two still missing. BOTH READINGS NEED IDENTICAL WORK -- one more master
+  that is neither metal nor hologram -- so it does not need answering to build,
+  and it is not guessed at here. The mapping stays his.
+
+===============================================================================
+ROUND SEVEN, BUILT 8/29: TWELVE THAT EACH PICK A SIDE
+===============================================================================
+
+  A HUNT, NOT A NARROWING, and that distinction now has evidence behind it. Round
+  two narrowed and got 12 of 12 because HE had named the direction. Round six
+  narrowed and got 0 of 8 because I had. He has not named a direction for the one
+  that is missing, so this is twelve different ideas the way round three was.
+
+  Metal owns OBJECT and the hologram owns LIGHT, so the open territory is objects
+  that are not metal, and light that is not a hologram.
+
+  SIX OBJECTS   poured concrete . bare plywood . thick rubber . a stretched tarp .
+                fired clay . packed sand
+  SIX LIGHTS    through a slab . thrown on a wall . out of a slot . through
+                punched holes . still warm . through cloth
+
+  NOTHING MOVES, on purpose. He settled motion for the hologram in this same
+  export; putting movement on a hunt round would ask two questions on one card.
+
+  MEASURED, WITH THE RULER THAT FINALLY WORKS: all six objects throw a local
+  shadow (2.37 to 4.50), all six lights throw none (0.54 to 1.00). No overlap in
+  the middle, which is what a real separation looks like. No text below 3.0
+  contrast anywhere. 12 cards, 0 page errors, 0 overflow, 0 controls under 44px,
+  no purple.
+
+-------------------------------------------------------------------------------
+*** THREE THINGS CAUGHT BY LOOKING, AND ALL THREE ARE OLD LESSONS REPEATING ***
+-------------------------------------------------------------------------------
+
+  1. THE PLYWOOD GRAIN WAS A RULED BARCODE -- two repeating-linear-gradients, dead
+     regular, and it read as corduroy. That is the loc parting from 8/28 in
+     different clothes, and 8/1 clause 3 underneath it. Rebuilt from stacked
+     gradients at different angles with coprime spacings plus a few individual
+     long lines, so the pattern never lands on itself.
+  2. THE PUNCHED HOLES RAN ACROSS THE LETTERS, breaking the rule he himself set in
+     round five: the effect goes BEHIND the words. And a dead-regular dot grid
+     reads as a punched card, which died in round three, and which a braid built
+     as a grid of holes also became on 8/28. Third time for that shape. Moved to
+     its own layer under the text and the spacing broken up.
+  3. THE RUBBER WAS FLAT and measured worst of the six. A BLACK SHADOW ON A BLACK
+     PANEL SAYS NOTHING -- on a dark object the LIT edge has to carry the
+     dimension. Lit lip brightened, panel lifted further off the page: 1.12 -> 4.50.
+
+-------------------------------------------------------------------------------
+*** AND FOUR BROKEN RULERS, WHICH IS THE REAL STORY OF THIS TURN ***
+-------------------------------------------------------------------------------
+
+  THE CONTRAST RULER, twice (recorded above under round six).
+
+  THE CAST-SHADOW RULER, twice more, and both were asking a question next to the
+  right one:
+    CUT 1 compared the band under the button to a band further down. On a card
+      with little padding "further down" falls OFF the panel onto the dark page,
+      so two PALE cards came back looking shadowless while the one card that
+      genuinely was flat passed.
+    CUT 2 compared under-the-button to clean panel ABOVE it. That is brighter on
+      any panel lit from the top, which is all six of the light ones, so it called
+      a top-lit glow a missing shadow.
+    CUT 3 asks what actually defines a cast shadow: IT IS LOCAL TO THE OBJECT.
+      Same Y band, inside the button's span versus beside it. A shadow sits under
+      the thing and nowhere else; a vertical gradient darkens the whole row
+      equally. Clean separation, first time.
+
+  AND ONE PROCESS BUG THAT PRODUCED A FLATLY FALSE PICTURE: I ran the render
+  script as `node shot.js | head -4`. HEAD CLOSES THE PIPE AND KILLS THE SCRIPT,
+  and the script writes its file list LAST, so it died before writing anything --
+  and the next step happily rebuilt the contact sheet from the PREVIOUS ROUND'S
+  tiles. I sat and judged round six while believing it was round seven. Nothing
+  errored, nothing was empty, and every number was real, just about the wrong
+  build. NEVER PIPE A SCRIPT THAT HAS TO RUN TO COMPLETION INTO head.

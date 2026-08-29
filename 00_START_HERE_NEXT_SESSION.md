@@ -1197,7 +1197,75 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/29 LATEST -- *** SIX OF TWELVE, AND HE NAMED THE SHAPE OF THE
+UI (ui-kmqmrf): 8/29 (b) LATEST -- *** ALL EIGHT GLASS CARDS DIED AND I HAD PICKED
+THAT DIRECTION MYSELF. A BLANKET SAVE IS NOT A PICK. *** TAB: **3D**. The game is
+STILL UNTOUCHED.
+
+READ THIS BEFORE YOU TRUST ANY OLD APPROVAL IN THIS REPO. Round two blanket-saved
+twelve BEHIND GLASS looks -- his words were "consider all of them saved" -- and I
+concluded the third master was already approved and merely never narrowed. Eight
+glass cards, ZERO survivors. "Saved" meant nothing had been thrown away yet, not
+that anything had been chosen. Same error as reading the middle of the graveyard
+and acting on it, ONE DAY after that lesson was written on the haircut lane. The
+glass is dead now; newest date wins.
+
+*** AND THE REASON IS MEASURABLE, WHICH IS THE PART THAT TRANSFERS. *** He asked
+for a 2D game with a 3D interface, so the question was never taste, it was whether
+the thing is dimensional at all. Measured in rendered pixels on every button, the
+band just under it INSIDE the button's span against the same band BESIDE it:
+    THE METAL        2.7   throws a real local shadow  -> an OBJECT
+    THE HOLOGRAM     1.0   throws none                 -> LIGHT
+    ALL EIGHT GLASS  ~1.0  throws none                 -> NEITHER
+The metal commits. The hologram commits in the opposite direction and is RIGHT to:
+light does not occlude, and that missing shadow is the whole reason it reads as
+light instead of matter. The glass committed to neither, so it was a dark
+rectangle with a hairline on it. EVERY LOOK MUST PICK A SIDE.
+
+MOTION IS SETTLED FOR THE HOLOGRAM: he kept DRIFTING BANDS and SLOW ROLL, killed
+ONE SLOW SWEEP -- the only one that goes still between events. So light does not
+just travel, IT NEVER STOPS. Second time he has killed a thing that fires and
+stops, after RARE TEAR. CONTINUOUS BEATS OCCASIONAL.
+
+THE ACTS: the hologram is ACT THREE, his ruling. The rest of his sentence is
+garbled and reads two ways (metal is act two and act one is missing, or metal is
+act one and act two is missing). BOTH NEED IDENTICAL WORK -- one more master that
+is neither metal nor hologram -- so it needed no question. The mapping stays his.
+
+ROUND SEVEN IS ON THE WALL: six OBJECTS that are not metal (poured concrete, bare
+plywood, thick rubber, a stretched tarp, fired clay, packed sand) and six LIGHTS
+that are not the hologram (through a slab, thrown on a wall, out of a slot,
+through punched holes, still warm, through cloth). A HUNT, not a narrowing, and
+that distinction now has evidence: round two narrowed and got 12 of 12 because HE
+named the direction; round six narrowed and got 0 of 8 because I did.
+
+*** FOUR BROKEN RULERS IN TWO TURNS AND ONE PROCESS BUG. THIS IS THE REAL STORY.
+    The contrast ruler twice (it took a button's top HIGHLIGHT as the ink, then I
+    used the fixed version to answer whether a SHAPE was visible, which it cannot
+    see). The cast-shadow ruler twice: cut 1 sampled "further down" which falls OFF
+    a low-padding panel onto the dark page, so PALE cards read as shadowless; cut 2
+    sampled clean panel ABOVE, which is brighter on anything lit from the top, so it
+    called a glow a missing shadow. Cut 3 asks what actually defines a cast shadow:
+    IT IS LOCAL TO THE OBJECT -- same Y band, inside the button's span versus beside
+    it. Clean separation first time, objects 2.37-4.50 and lights 0.54-1.00 with
+    nothing in the middle.
+    AND THE PROCESS BUG PRODUCED A FLATLY FALSE PICTURE: `node shot.js | head -4`.
+    HEAD CLOSES THE PIPE AND KILLS THE SCRIPT, and that script writes its file list
+    LAST, so it died before writing and the next step rebuilt the contact sheet from
+    the PREVIOUS ROUND'S tiles. I sat and judged round six believing it was round
+    seven. Nothing errored, nothing was empty, every number was real -- about the
+    wrong build. NEVER PIPE A SCRIPT THAT MUST RUN TO COMPLETION INTO head. ***
+
+ALSO CAUGHT BY LOOKING, all three old lessons repeating: the plywood grain was a
+RULED BARCODE (the loc parting again, 8/1 clause 3 underneath); the punched holes
+ran ACROSS the letters, breaking the rule he set himself in round five, and a
+dead-regular dot grid reads as a punched card, which died in round three and which
+a braid became on 8/28 -- third time for that shape; and the rubber was flat
+because A BLACK SHADOW ON A BLACK PANEL SAYS NOTHING, so on a dark object the LIT
+edge has to carry the dimension (1.12 -> 4.50).
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/29 (a) -- *** SIX OF TWELVE, AND HE NAMED THE SHAPE OF THE
 WHOLE LANE: THREE MASTER UIs, ONE PER ACT, TWO ALREADY DONE. *** TAB: **3D**.
 The game is STILL UNTOUCHED and that is still on purpose.
 
