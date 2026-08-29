@@ -1536,3 +1536,18 @@ guide boards in the same signage green as the arterial's blades.
 Bake 11 carries them. Bake 10 wired; the chunker re-run (the hero
 wire lands in the declaration chunk) and it CARRIED THE TILEFORM TAG
 FORWARD - ad42288's net working exactly as built.
+
+## 8/28 SEVENTY-FIFTH PASS: HUE AND SQUINT GREEN TOGETHER - THE ICON BOARD CLOSES
+
+Bake 11 outran its third container restart on the self-commit chain
+and landed the sign gantries: the freeway carries two (posts, beam
+over the lanes, faded green guide boards in the same signage green as
+the arterial's blades) and the interchange one over its through
+lanes. HUE: 0. SQUINT: 0. Both colour-and-shape gates green on the
+same bank for the FIRST TIME IN EITHER GATE'S HISTORY - all 69
+icons, every map square its own place, every square carrying at
+least two honest hue families. Wired, re-chunked (the tileform tag
+carried forward again), every icon gate 0 by exit code. What began
+8/25 with 44 NOs and 'ITS MOSTLY BAD' closes here: the whole
+verdict board answered, the ovens cured, and the two rulers that
+measured the board both green.
