@@ -2554,3 +2554,236 @@ Amended, with numbers replacing my guesses:
   617 films, 304,446 speaker-labelled lines. Fetched from a GitHub mirror.
 - Mosteller and Wallace (1964), function-word stylometry on the Federalist
   Papers: style lives in function words, subject lives in content words.
+
+# THE FOUR-CORPUS ROUND -- 8/28/26
+# Last round I got one control group and immediately over-trusted it. This round
+# gets two more: a BioWare RPG, and REAL HUMAN CONVERSATION. The film numbers I
+# handed him yesterday turn out to describe a stylised medium, not people, and I
+# said them as if they were the truth about how humans talk.
+
+## 106. WHAT I GOT, AND FROM WHERE
+Both on GitHub, which is the one host this machine can reach.
+- **KOTOR**, Star Wars: Knights of the Old Republic, from the Utrecht video-game
+  text corpora paper: 29,213 speaker-labelled dialogue nodes, 538 speakers,
+  branching player and NPC lines. A shipped BioWare RPG. Our actual genre.
+- **Switchboard**, processed to plain text: 199,740 utterances of **real
+  spontaneous telephone conversation**, speaker-labelled and, crucially,
+  **dialogue-act tagged**. 2,438 calls, 520 native speakers, recorded 1990.
+
+Switchboard's units are intonation-sized, not turns, so I merged consecutive
+same-speaker utterances into 99,479 turns before comparing. A film line and a
+game node are turns; comparing a turn to a breath would have been a fake result.
+
+## 107. THE TABLE. FOUR CORPORA, ONE SET OF RULERS.
+
+    corpus                  lines   w/line  contr  rhythm  QUES   EXCL   "uh"  "y'know"  <=5w   <=3w   maxim
+    BOHEMIA npc speech       1,657   13.1    85%    0.78    4.8%   0.0%  0.00   0.11    10.8%   2.8%   44.0%
+      quest scenes only        527   21.1    93%    0.78    1.5%   0.0%  0.01   0.08     4.9%   2.5%   55.5%
+      player choices           557    5.3    97%    0.55    9.0%   0.0%  0.00   0.00    55.5%  17.1%   17.4%
+    KOTOR npc speech        19,409   19.5    67%    0.67   20.5%  19.1%  0.08   0.13     6.6%   3.3%   32.8%
+      player choices         9,295    7.1    82%    0.52   32.3%   9.9%  0.05   0.32    31.9%  11.6%   26.1%
+    FILM, 617 movies        59,986   10.5    92%    0.83   31.5%   8.9%  0.12   0.30    40.7%  23.7%   31.1%
+    REAL SPEECH, turns      99,479   14.6    89%    1.17    7.7%   0.1%  3.80   1.44    42.9%  36.0%   42.7%
+
+## 108. I WAS WRONG YESTERDAY AND THIS IS THE CORRECTION
+Yesterday's headline: film asks questions 31% of the time, we ask 4.8%, therefore
+target 15%. I wrote that as though 31% were a fact about how people talk.
+
+**Real human beings ask questions 7.7% of the time.** Film quadruples it.
+
+We are at 4.8%. **We are closer to real conversation than film is.** The number I
+told him was a shortfall is mostly a number about screenwriting.
+
+And I did not want to lean on punctuation for something this important, so I used
+the dialogue-act tags, which are hand-annotated by linguists rather than inferred
+from a question mark. Utterances whose tagged act is a question: **4.7%.**
+Utterances containing a question mark: 4.0%. The punctuation is a slight
+undercount and otherwise honest. Real conversation is not made of questions.
+
+## 109. AND THEN THE REAL FINDING, WHICH IS BIGGER THAN THE ONE I GOT WRONG
+The dialogue-act tags let me count what people actually DO with a turn. The top
+of the list, over 199,740 real utterances:
+
+    sd   statement, opinion-free      37.6%
+    b    BACKCHANNEL ("uh-huh")       19.2%
+    sv   statement with an opinion    13.2%
+    %    abandoned or uninterpretable  7.6%
+    aa   agreement / accept            5.6%
+    ba   appreciation ("that's nice")  2.4%
+    qy   yes-no question               2.4%
+
+Add every backchannel and acknowledgement act together:
+
+    ***  40.0% OF EVERYTHING A HUMAN SAYS IS ACKNOWLEDGEMENT.  ***
+
+Two in five turns are not content at all. They are one person telling another
+person "I am still here, I heard that, go on". Backchannel alone is **the second
+most common thing humans do with their mouths**, ahead of stating an opinion.
+
+Yesterday I concluded from film that we were missing an acknowledgement layer. I
+had the right answer from the wrong evidence. Here it is from the right evidence,
+and it is far larger than I guessed: not a missing garnish, **two fifths of human
+speech.**
+
+## 110. AND NOW THE QUESTION GAP EXPLAINS ITSELF
+Film cannot spend 40% of its screen time on "uh-huh". It is unwatchable. So what
+does film do instead?
+
+    real speech:  4.7% questions, 40.0% acknowledgement
+    film:        31.5% questions, backchannel largely cut
+
+**Film substitutes questions for backchannel.** On screen a question does the job
+"uh-huh" does in life: it proves the listener is listening, and it hands the turn
+back. That is why film's question rate is four times life's. It is not
+exaggeration for drama, it is a compression of a real thing into a watchable
+form.
+
+I did not read that anywhere. It falls out of putting the two tables side by
+side, and it is the most useful thing this round produced, because it converts my
+question target from a number I copied into a mechanism I can reason with.
+
+**So the 15% question target survives, for a completely different reason than the
+one I gave him.** Not "professionals do 31% so do half". Rather: a game cannot
+run 40% backchannel any more than a film can, and questions are the known,
+proven, watchable substitute. 15% is the exchange rate.
+
+## 111. THE STYLISATION RECIPE, MEASURED
+Written dialogue is not a transcript with the boring parts removed. It is a
+specific set of exaggerations and suppressions, and now I can put numbers on
+every one. Film against real speech:
+
+    questions            x 4.1   EXAGGERATED
+    exclamation marks    x 89    EXAGGERATED (0.1% to 8.9%)
+    filled pauses        / 32    SUPPRESSED (3.80 to 0.12 per 100 words)
+    "you know", "I mean" / 4.8   SUPPRESSED
+    rhythm variety       / 1.4   FLATTENED (1.17 to 0.83)
+    fragments <=3 words  / 1.5   REDUCED (36.0% to 23.7%)
+    general-truth ending / 1.4   REDUCED (42.7% to 31.1%)
+
+Read the disfluency line carefully, because it settles something I have been
+circling for three rounds. Real speech runs 3.80 "uh"s per 100 words. **Film
+keeps three percent of that.** So the answer to "should our people stumble" is
+not "add six per hundred like the psycholinguistics says", and it is not "zero".
+It is **about 0.1 per 100 words**, which across our whole game is roughly twenty
+stumbles total. Twenty. That is a countable, shippable target and I have been
+arguing with myself about it since round one.
+
+## 112. THE MAXIM RULE IS A CRAFT RULE, NOT A REALISM RULE, AND I HAD THAT BACKWARDS
+The very first diagnosis said a third of our multi-sentence speeches end on a
+general truth and that everybody in Bohemia is wise. Measured now:
+
+    REAL SPEECH  42.7%      BOHEMIA  44.0%      FILM  31.1%
+
+**Real people end on a general statement at almost exactly our rate.** We are not
+unrealistic. Film is the outlier, and it is low on purpose, because a general
+truth in a script reads as the writer talking.
+
+His realism-first law would say leave it. His 8/25 ruling says fun carries the
+tie. So the rule stands, but I have to stop justifying it with "people do not
+talk like that", because they demonstrably do. **The honest justification is: a
+maxim is cheap on the page and expensive on the ear, and film cut it for that
+reason.** I have been selling a taste judgement as a fact, which is exactly the
+thing the voice card is supposed to say out loud that it cannot do.
+
+## 113. AND MY SHORT-LINE TARGET WAS A FILM TARGET THAT NO GAME MEETS
+
+    lines of 3 words or fewer:  REAL 36.0%   FILM 23.7%   KOTOR 3.3%   BOHEMIA 2.8%
+
+Games are the outlier, not us. **We match our genre almost exactly.** The reason
+is structural and not a failing: in a film, a turn is a live exchange and a
+person can just say "What?". In an RPG an NPC line is a delivered node, written
+to be worth the click, and BioWare wrote to that too.
+
+So yesterday's "target 25% short lines" was me holding a game to a film's shape.
+Revised: **our fragment rate is genre-correct.** What is NOT genre-correct is our
+quest scenes at 21.1 words a line against KOTOR's 19.5, with 4.9% short against
+their 6.6%. We are the long end of an already long genre. That is a real finding
+and it is much smaller than the one I reported.
+
+## 114. THE OTHER TWO GAPS ARE REAL AND ONE OF THEM IS HIS QUESTION
+- **RHYTHM. We are the flattest of all four.** Real speech 1.17, film 0.83,
+  KOTOR 0.67, Bohemia 0.78. Real conversation is enormously more varied in
+  sentence length than anything written, which is the strongest support the
+  rhythm rule has ever had, and our street barks at 0.57 are the flattest thing
+  in the whole comparison.
+- **SHOUTING, which is the open question I put to him.** Now it has data:
+  real speech **0.1%**, film **8.9%**, KOTOR **19.1%**, Bohemia **0.0%**. Games
+  shout twice as much as films and nearly two hundred times as much as people.
+  So zero is a defensible realist position and it is far outside our genre. Still
+  his call, but he is now choosing between "the most restrained RPG ever written"
+  and "normal", not between right and wrong.
+- **CONTRACTIONS. KOTOR is at 67%.** Film 92%, real speech 89%, us 85%. That 67%
+  is the fantasy register, and it is the one number where I think BioWare is
+  simply worse than life. Our 85% should go to 89, which is where humans are, and
+  the ratchet toward 92 was chasing film again.
+
+## 115. SPEAKER SEPARABILITY, AND I CAUGHT MY OWN INFLATED NUMBER
+Ran yesterday's classifier on BioWare. First result, all 305 KOTOR speakers with
+12 or more lines:
+
+    KOTOR 55.7%   BOHEMIA 31.2%   FILM 21.3%     (chance 10%)
+
+I nearly wrote "BioWare is twice as good as us at distinct voices". Then I looked
+at what the sample actually was. Ten speakers drawn at random from 305 across a
+whole galaxy means a Wookiee, a droid, a Sith and a shopkeeper on four different
+planets. Our ten are all in one valley. Cornell's ten are all in one film. **The
+KOTOR arm was not the same experiment.**
+
+So I ran the fair one: KOTOR's actual crew, the nine companions who travel
+together, against our valley, same K, same 12 lines each.
+
+    signal            BOHEMIA valley    KOTOR party (one crew)    KOTOR whole galaxy
+    all words             32.4%                36.1%                    57.7%
+    function words        21.1%                21.5%                    35.8%
+
+**On pure style, stripped of subject matter, we are level with BioWare's party.
+21.1 against 21.5.** Nine of the most loved characters in RPG history, including
+a murder droid, and the style signal is the same size as ours.
+
+The 57.7% was never about writing. It was about **casting**: put a Wookiee next
+to a droid and the machine does not need any craft to tell them apart. Third time
+in three rounds the same conclusion has landed from a different direction:
+**distinct voices are mostly a casting and situation problem, not a word-choice
+problem.** Which means the largest lever on this in Bohemia is not mine.
+
+## 116. WHAT I NOW KNOW I DIDN'T KNOW
+50. **Real people ask questions 4.7% of the time**, hand-annotated, not inferred.
+    Film's 31% is a compression device, not a fact about humans. (§108)
+51. **40% of everything a human says is acknowledgement**, and backchannel is the
+    second most common speech act there is. (§109)
+52. **Film swaps questions in for backchannel**, which is why its question rate is
+    four times life's, and it is the exchange rate a game should use too. (§110)
+53. **Written dialogue keeps 3% of real disfluency.** Our target is about twenty
+    stumbles in the whole game, not six per hundred words. (§111)
+54. **Real people end on a general truth 42.7% of the time**, at our rate, so the
+    no-maxims rule is craft and I have been justifying it with a false fact.
+    (§112)
+55. **Our fragment rate is genre-correct** and yesterday's 25% target was a film
+    number. (§113)
+56. **We are the flattest-rhythm corpus of the four**, which is the strongest
+    evidence the rhythm rule has. (§114)
+57. **Games shout at 19.1%, films at 8.9%, people at 0.1%.** (§114)
+58. **We are level with BioWare's party on pure style**, and their headline
+    advantage was casting, which I nearly reported as craft. (§115)
+
+## 117. STILL OPEN, AND ONE OF THESE IS A REAL WEAKNESS
+- **Switchboard is strangers on the telephone with an assigned topic.** That is a
+  genre, and it is one that produces long explanatory turns and few questions. It
+  is the best real-speech data I can reach and it is not a bar in the Mojave. The
+  4.7% could be higher among people who know each other. I checked what I could
+  (the act tags agree with the punctuation) and I cannot check this one.
+- Cornell strips stage direction, so film's 8.9% exclamation rate may be partly a
+  screenwriting convention.
+- KOTOR is one BioWare game from 2003 with a fantasy register. One game is not
+  the genre.
+- I still cannot measure whether a line is good, and three corpora have not moved
+  that one inch.
+
+## SOURCES, THIS ROUND
+- van Stegeren and Theune, "Fantastic Strings and Where to Find Them: The Quest
+  for High-Quality Video Game Text Corpora", INT 2020. KOTOR branching dialogue,
+  29,213 rows.
+- Switchboard Dialogue Act Corpus (Jurafsky, Shriberg and Biasca, SWBD-DAMSL),
+  processed to plain text: 199,740 utterances, 2,438 telephone calls, 520
+  speakers, 41 dialogue-act tags.
+- Cornell Movie-Dialogs Corpus, 617 films, as the previous round.
