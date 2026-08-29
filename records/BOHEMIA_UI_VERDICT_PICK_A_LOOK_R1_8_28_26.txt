@@ -172,3 +172,137 @@ ROUND FIVE, BUILT FROM THOSE THREE NOTES
   *** A STILL PICTURE CANNOT JUDGE THE HOLOGRAM SIX. They differ ONLY by how
   they move. Verified each genuinely animates by hashing two frames a second
   apart: all six changed. He has to open the tab to judge them. ***
+
+===============================================================================
+ROUND FIVE, 8/29 17:31: SIX OF TWELVE, AND A NEW RULING ABOUT THE WHOLE LANE
+===============================================================================
+
+  ALIVE:  RAISED: BARELY THERE . RAISED: DARKER PLATE . RAISED: SOFTER LIGHT
+          HOLOGRAM: DRIFTING BANDS . HOLOGRAM: ONE SLOW SWEEP . HOLOGRAM: SLOW ROLL
+  DEAD:   RAISED: LESS SHADOW . RAISED: LIGHT ONLY NO SHADOW . RAISED: MORE AIR
+          HOLOGRAM: BREATHING . HOLOGRAM: RARE TEAR . HOLOGRAM: FAINT STATIC
+
+  HIS WORDS: "Awesome keep cooking well probably have 3 sets of master ui people
+  can choose from type shit looking good one for each act we got 2 squared away"
+
+-------------------------------------------------------------------------------
+THE METAL: THE SHADOW HAS A FLOOR AND IT IS NOT ZERO
+-------------------------------------------------------------------------------
+
+  Killed LESS SHADOW (1px plus a 1px blur at .55). Killed NO SHADOW AT ALL. Kept
+  BARELY THERE (1px, no blur, .45). Those three are a bracket and he closed it:
+  above that floor the type reads DOUBLED, below it the plate goes flat and stops
+  being raised at all. One pixel, no blur.
+
+  AND MORE AIR IS THE CLEANEST DATA POINT OF THE SIX. It was the only card that
+  changed neither the light nor the material -- it changed letter-spacing. Five
+  rounds now say the same thing: HE DOES NOT WANT THE RECTANGLE DRESSED.
+
+  The other two survivors, DARKER PLATE and SOFTER LIGHT, do not touch the shadow
+  question at all. He answered it and moved the conversation to the plate and the
+  lamp. THOSE THREE ARE INDEPENDENT DIALS, not rival looks, so they combine into
+  one settled panel rather than competing. That is master one and it is done.
+
+-------------------------------------------------------------------------------
+THE LIGHT: IT MOVES ACROSS. IT DOES NOT BLINK, GLITCH OR BUZZ.
+-------------------------------------------------------------------------------
+
+  Kept DRIFTING BANDS, ONE SLOW SWEEP, SLOW ROLL. Every one is TRANSLATION:
+  something travels across the panel, slowly, continuously, in one direction.
+  Killed BREATHING (brightness pulsing in place), RARE TEAR (a discrete event
+  that fires and stops), FAINT STATIC (directionless grain). Not one casualty
+  travels anywhere.
+
+  THIS IS THE SAME TASTE THE FIRST THREE ROUNDS ALREADY PROVED, WEARING DIFFERENT
+  CLOTHES. A pulse and a tear are a projector MISBEHAVING, which is machinery.
+  Static is noise, which is decoration. He has killed machinery and decoration in
+  every single round since round one. A band travelling across a surface is not a
+  machine doing anything; it is light doing what light does.
+
+-------------------------------------------------------------------------------
+*** THE THIRD MASTER WAS APPROVED FIVE ROUNDS AGO AND NOBODY EVER NARROWED IT ***
+-------------------------------------------------------------------------------
+
+  He wants three masters, one per act, and says two are squared away. THE THIRD
+  IS NOT A HUNT. Round two was twelve ways of BEHIND GLASS and his answer was
+  "consider all of them saved" -- a whole family, blanket-approved on 8/28, taken
+  from twelve options to zero. It has sat banked ever since.
+
+  Cooking a brand new family while an approved one sits unfinished is the exact
+  waste this lane has proved twice it cannot afford. Round six narrows the glass.
+
+  AND IT IS BUILT AS GLASS, NOT AS A MONITOR, because his round-two note in the
+  same breath as banking it was "find more 3d ways to display ui that arent ol
+  computer screen". So the phosphor, the bezel and the housing do not come
+  forward. What comes forward is the PANE: thickness, an edge that catches the
+  light, depth behind the surface.
+
+-------------------------------------------------------------------------------
+WHAT IS HIS AND IS NOT GUESSED AT HERE
+-------------------------------------------------------------------------------
+
+  WHICH ACT WEARS WHICH MASTER. Three masters is the mechanism and the mechanism
+  is mine; the mapping is canon and it is his.
+
+  WHETHER THE PLAYER PICKS ONE OR THE ACT PICKS IT FOR THEM. He said both in one
+  sentence ("people can choose from" and "one for each act") and neither reading
+  changes a single line of what got built, so it does not need answering yet.
+
+===============================================================================
+ROUND SIX, BUILT 8/29: 1 SETTLED + 3 TO NARROW + 8 TO NARROW
+===============================================================================
+
+  1  MASTER ONE: THE PLATE -- his three metal yeses combined into one panel.
+  2-4  MASTER TWO, THE LIGHT -- identical in every respect except the motion,
+       so the only thing he is picking is which of his three approved motions
+       a master carries.
+  5-12 MASTER THREE, GLASS -- the pane, thicker, lit from the edge, curved, a
+       reflection that travels, dust on it, cold and clear, and over the plate.
+       Every one obeys the two rules round five just established: anything that
+       moves TRAVELS, and it travels BEHIND the words.
+
+  VERIFIED: 12 cards, 0 page errors, 0 horizontal overflow, 0 controls under
+  44px, no purple. 4 cards move and 8 are perfectly still, confirmed by hashing
+  each card at two moments; 12 of 12 hold still under reduced motion. Every
+  variant differs in rendered pixels from its own family baseline.
+
+-------------------------------------------------------------------------------
+*** THREE BROKEN RULERS IN ONE TURN, AND THE THIRD ONE WAS MY OWN EYE ***
+-------------------------------------------------------------------------------
+
+  1. THE CONTRAST RULER WAS MEASURING A HIGHLIGHT. Its first cut screenshotted a
+     button and took the 97th-percentile pixel as the ink -- but on a raised
+     button the brightest thing is the top HIGHLIGHT, not the letters. It
+     reported every card in the round FAILING, including the three he had
+     already approved. A ruler that fails what he already said yes to is the
+     broken part. Fixed by shooting each element twice, once with the text
+     turned transparent, so the pixels that CHANGE are the glyphs and nothing
+     else. The numbers went from nonsense to coherent: the light and the glass
+     sit at 11 to 16, the metal at 4.1 to 4.8.
+
+  2. AND THEN I USED THE FIXED RULER TO ANSWER A QUESTION IT CANNOT ANSWER. The
+     curved pane looked flat, so I strengthened it, watched the contrast number
+     move, and called it fixed. A CONTRAST RULER MEASURES WHETHER YOU CAN READ
+     THE WORDS. IT CANNOT SEE WHETHER A SHAPE IS VISIBLE. The curve was still
+     invisible and the number had no opinion about that.
+
+  3. THE LAYOUT I WAS LOOKING AT COULD NOT SHOW ME THE ANSWER. Twice I compared
+     two cards in a 2x2 at half scale with 700 pixels of gap between them and
+     wrote down "identical". Measured: 11.6% of pixels changed, max delta 206 of
+     255. THEY WERE NEVER IDENTICAL. Stacking the same two cards tight, at full
+     size, one directly above the other, made the difference obvious instantly.
+     JUDGING TWO PICTURES THAT SIT FAR APART AND SMALL IS NOT COMPARING THEM,
+     and this is the same sentence as his own 8/28 ruling that a haircut cell
+     must be bigger than the game draws it.
+
+  THE REAL FIX FOR BOTH SHAPES WAS THE SAME AND IT IS WORTH KEEPING: SOFT
+  GRADIENTS READ AS NOTHING. A wash reads as a vignette, which is to say as
+  nothing at all. What makes a curve read is AN EDGE THAT BENDS, and what makes
+  glass-over-metal read is a specular streak with BOUNDARIES, like a window.
+  Hard colour stops, not more opacity.
+
+  MEASURED SIDE EFFECT WORTH RECORDING: the metal master is by far the lowest
+  contrast of the three (4.1 to 4.8 against 11 to 16 for the other two). That is
+  not a defect, it is the arithmetic of what he approved -- a darker plate, a
+  barely-there shadow and a softer light all reduce contrast, and he picked all
+  three. It reads, and it is the squintiest of the three masters.

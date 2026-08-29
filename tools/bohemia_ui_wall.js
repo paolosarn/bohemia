@@ -89,31 +89,80 @@ const FACES = bank.faces.map((f) =>
    BUTTON, because a comparison where the content moves is not a comparison.
    Ordered roughly from cheapest to build to most expensive, but that is not why
    he should pick one and it is not shown to him. ------------------------- */
-/* ROUND FIVE. Two survivors again, and THREE NOTES that change how both are built.
-   HIS WORDS, 8/28 21:38:
-     "Number nine the shadow has to be a lot less of the letter"
-     "if you're gonna have that effect it'll be less"
-     "honestly maybe it should be moving in the background, potentially"
-   THE THIRD NOTE IS THE BIG ONE AND IT IS BETTER DESIGN THAN WHAT I BUILT. I had
-   the glitch ON THE LETTERS, which fights the words for legibility every second
-   it is running. He wants it BEHIND them and MOVING. That keeps the text solid
-   and puts the life in the field, which is what a real projection does anyway:
-   the signal degrades, the message does not move.
-   So every hologram here has CRISP TEXT and a moving backdrop, and the effect is
-   dialled well under where round four had it.
-   REDUCED MOTION: every animation has a still fallback. A loop he cannot stop is
-   not a style, it is a problem. */
+/* ROUND SIX. HE ASKED FOR THREE MASTERS, ONE PER ACT, AND SAID TWO ARE DONE.
+   HIS WORDS, 8/29 17:31:
+     "Awesome keep cooking well probably have 3 sets of master ui people can
+      choose from type shit looking good one for each act we got 2 squared away"
 
-const RAISED = `
-  .L .pnl{ background:linear-gradient(158deg,#7f7768,#4f483e); border-radius:2px;
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.34), inset 0 -3px 8px rgba(0,0,0,.55),
-      0 9px 18px rgba(0,0,0,.7); }
-  .L .rd{ color:#97dccf; }
-  .L .btn{ background:linear-gradient(158deg,#8b8272,#544d42); border:0; border-radius:2px;
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.36), 0 5px 0 #2b2620, 0 9px 13px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.6); }`;
+   *** THE THIRD ONE IS ALREADY APPROVED AND NOBODY EVER NARROWED IT. *** Round
+   two was twelve ways of BEHIND GLASS and his answer was "consider all of them
+   saved". That is a whole banked family, approved five rounds ago, never taken
+   past twelve options to one look. So the hunt for a third master is not a hunt.
+   Going and cooking a brand new family while a blanket-approved one sits
+   unfinished is exactly the waste this lane keeps proving it cannot afford.
 
-const HOLO = `
+   WHAT ROUND FIVE ACTUALLY SAID, read off the six kept and the six killed and
+   not off what I hoped it said:
+
+   THE METAL. Killed LESS SHADOW (1px plus a 1px blur at .55), killed NO SHADOW
+   AT ALL, kept BARELY THERE (1px, no blur, .45). So THE SHADOW HAS A FLOOR AND
+   IT IS NOT ZERO: above it the type reads doubled, below it the plate goes flat
+   and stops being raised. One pixel, no blur. He also killed MORE AIR, which
+   was the only one of the six that changed neither the light nor the material
+   -- it changed letter-spacing, which is dressing the rectangle, and five rounds
+   say he does not want the rectangle dressed. The other two he kept, DARKER
+   PLATE and SOFTER LIGHT, do not touch the shadow question at all. He answered
+   it and moved the conversation to the plate and the lamp.
+   THOSE THREE ARE INDEPENDENT DIALS -- shadow, plate colour, highlight softness
+   -- and all three passed, so they combine into ONE settled look rather than
+   competing. That is MASTER ONE and it needs no further picking.
+
+   THE LIGHT. Kept DRIFTING BANDS, ONE SLOW SWEEP, SLOW ROLL. Killed BREATHING,
+   RARE TEAR, FAINT STATIC. Every survivor is TRANSLATION: something travels
+   across the panel, slowly, continuously, in one direction. Every casualty is
+   not: a pulse changing brightness in place, a discrete event that fires and
+   stops, and directionless grain.
+   LIGHT MOVES ACROSS. IT DOES NOT BLINK, GLITCH OR BUZZ. And that is the same
+   taste the first three rounds already proved wearing different clothes -- a
+   pulse and a tear are a projector MISBEHAVING, which is machinery, and static
+   is noise, which is decoration, and he has killed machinery and decoration in
+   every single round. A band travelling across a surface is just light doing
+   what light does.
+   All three passed, but a master takes one motion, so three cards here differ
+   ONLY by the motion and nothing else.
+
+   SO THIS ROUND IS 1 + 3 + 8: master one settled, master two narrowed to one
+   motion, master three narrowed out of the banked glass.
+
+   AND THE GLASS IS BUILT AS GLASS, NOT AS A MONITOR, because his round-two note
+   in the same breath as banking it was "find more 3d ways to display ui that
+   arent ol computer screen". So the phosphor, the bezel and the housing from
+   that round are not what gets pushed forward. What gets pushed forward is the
+   PANE: thickness, an edge that catches light, depth behind the surface. Every
+   one of these obeys the two rules round five just established -- anything that
+   moves TRAVELS, and it travels BEHIND the words, never across them.
+
+   WHICH ACT WEARS WHICH MASTER IS HIS. Three masters is the mechanism and the
+   mechanism is mine; the mapping is canon and it is not guessed at here. Nor is
+   whether the player picks one or the act picks it for them -- he said both in
+   one sentence and neither reading changes a line of this. */
+
+const PLATE = `
+  .L .pnl{ background:linear-gradient(158deg,#544d43,#2e2923); border-radius:2px;
+    box-shadow:inset 0 2px 0 rgba(255,252,240,.24), inset 0 -3px 9px rgba(0,0,0,.6),
+      0 9px 18px rgba(0,0,0,.72); }
+  .L .rd,.L .ttl,.L .bd{ color:#b3a894;
+    text-shadow:0 -1px 2px rgba(255,253,246,.5), 0 1px 0 rgba(0,0,0,.45); }
+  .L .rd{ color:#9adfd0; text-shadow:0 -1px 2px rgba(225,255,250,.45), 0 1px 0 rgba(0,0,0,.45); }
+  .L .btn{ background:linear-gradient(158deg,#5f5747,#332e26); border:0; border-radius:2px;
+    color:#bfb49e; text-shadow:0 -1px 2px rgba(255,253,246,.55), 0 1px 0 rgba(0,0,0,.5);
+    box-shadow:inset 0 2px 0 rgba(255,252,240,.26), 0 5px 0 #191510, 0 9px 13px rgba(0,0,0,.62); }
+  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.65); }`;
+
+/* UNCHANGED FROM ROUND FIVE ON PURPOSE. He approved this field three times over
+   and the only open question is which motion rides on it, so changing anything
+   else here would be answering a question he did not ask. */
+const LIGHT = `
   .L .stage{ padding-bottom:34px; }
   .L .pnl{ position:relative; overflow:hidden; border:0;
     border-top:1px solid rgba(150,245,225,.5); border-bottom:1px solid rgba(150,245,225,.28);
@@ -126,75 +175,44 @@ const HOLO = `
     border-radius:0; text-shadow:0 0 7px rgba(97,168,159,.8); }
   .L .btn:active{ background:rgba(150,245,225,.42); color:#04100d; text-shadow:none; }`;
 
+/* THE PANE. A slab of real glass over a dark recess: a lit top edge where the
+   light lands, a dim bottom edge where it leaves, and depth read as the inner
+   shadow at the sides. No frame, no bezel, no housing -- that was the monitor,
+   and he said not the monitor. */
+const GLASS = `
+  .L .stage{ padding-bottom:30px; }
+  .L .pnl{ position:relative; overflow:hidden; border:0; border-radius:3px;
+    background:linear-gradient(158deg,rgba(33,41,43,.94),rgba(13,17,18,.97));
+    box-shadow:
+      inset 0 1px 0 rgba(226,246,255,.34),
+      inset 0 -1px 0 rgba(226,246,255,.09),
+      inset 0 0 30px rgba(0,0,0,.55),
+      0 10px 22px rgba(0,0,0,.72); }
+  .L .pnl > *{ position:relative; z-index:2; }
+  .L .rd{ color:#8ecfd8; }
+  .L .ttl,.L .bd{ color:#d4e7eb; }
+  .L .btn{ background:linear-gradient(158deg,rgba(226,246,255,.11),rgba(226,246,255,.03));
+    border:1px solid rgba(226,246,255,.26); border-radius:2px; color:#e3f2f6;
+    box-shadow:inset 0 1px 0 rgba(226,246,255,.32); }
+  .L .btn:active{ background:rgba(226,246,255,.30); color:#0b1113; box-shadow:none; }`;
+
 const LOOKS = [
-  { id: 'r_less', name: 'RAISED: LESS SHADOW', from: 'your note, applied',
-    say: 'Your note straight in: the shadow was most of the letter and now it is a fraction of it. The letters still stand up, you just are not reading the shadow instead of the word.',
-    css: RAISED + `
-  .L .rd,.L .ttl,.L .bd{ color:#b6ac99;
-    text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 1px rgba(0,0,0,.55); }
-  .L .rd{ color:#9fdfd2; text-shadow:0 -1px 0 rgba(220,255,250,.5), 0 1px 1px rgba(0,0,0,.55); }
-  .L .btn{ color:#c1b6a1; text-shadow:0 -1px 0 rgba(255,253,246,.65), 0 1px 1px rgba(0,0,0,.6); }` },
+  { id: 'm_plate', name: 'MASTER ONE: THE PLATE', from: 'your three metal yeses, combined',
+    say: 'Your three are three different dials, not three rival looks, so they all fit in one panel: the shadow at one pixel with no blur, the plate darker, the light broad instead of sharp. This one is settled unless you say otherwise.',
+    css: PLATE },
 
-  { id: 'r_hair', name: 'RAISED: BARELY THERE', from: 'one pixel of shadow',
-    say: 'As little as it can have and still look raised. One pixel under each letter, nothing more.',
-    css: RAISED + `
-  .L .rd,.L .ttl,.L .bd{ color:#c3b9a5;
-    text-shadow:0 -1px 0 rgba(255,253,246,.55), 0 1px 0 rgba(0,0,0,.45); }
-  .L .rd{ color:#a9e6d9; text-shadow:0 -1px 0 rgba(220,255,250,.45), 0 1px 0 rgba(0,0,0,.45); }
-  .L .btn{ color:#cec2ac; text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 0 rgba(0,0,0,.5); }` },
-
-  { id: 'r_top', name: 'RAISED: LIGHT ONLY, NO SHADOW', from: 'the shadow removed entirely',
-    say: 'No shadow at all. The letters only have a lit top edge, so the whole effect is the light and nothing else.',
-    css: RAISED + `
-  .L .rd,.L .ttl,.L .bd{ color:#b0a693; text-shadow:0 -1px 0 rgba(255,253,246,.85); }
-  .L .rd{ color:#9fdfd2; text-shadow:0 -1px 0 rgba(225,255,250,.75); }
-  .L .btn{ color:#bcb19c; text-shadow:0 -1px 0 rgba(255,253,246,.9); }` },
-
-  { id: 'r_dark', name: 'RAISED: DARKER PLATE', from: 'contrast instead of shadow',
-    say: 'The plate goes darker so the letters separate on their own. Less shadow needed because the difference is doing the work.',
-    css: `
-  .L .pnl{ background:linear-gradient(158deg,#4d473e,#2a2620); border-radius:2px;
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.22), inset 0 -3px 8px rgba(0,0,0,.6),
-      0 9px 18px rgba(0,0,0,.72); }
-  .L .rd,.L .ttl,.L .bd{ color:#a79c88;
-    text-shadow:0 -1px 0 rgba(255,253,246,.5), 0 1px 1px rgba(0,0,0,.5); }
-  .L .rd{ color:#8fd8cc; text-shadow:0 -1px 0 rgba(220,255,250,.4), 0 1px 1px rgba(0,0,0,.5); }
-  .L .btn{ background:linear-gradient(158deg,#57503f,#312c24); border:0; border-radius:2px;
-    color:#b3a893; text-shadow:0 -1px 0 rgba(255,253,246,.55), 0 1px 1px rgba(0,0,0,.55);
-    box-shadow:inset 0 2px 0 rgba(255,252,240,.24), 0 5px 0 #17140f, 0 9px 13px rgba(0,0,0,.6); }
-  .L .btn:active{ transform:translateY(5px); box-shadow:inset 0 3px 7px rgba(0,0,0,.65); }` },
-
-  { id: 'r_wide', name: 'RAISED: MORE AIR', from: 'letters given room',
-    say: 'Same light shadow, but the letters are spaced further apart. Raised type needs air around it or the highlights start touching.',
-    css: RAISED + `
-  .L .rd,.L .ttl,.L .bd{ color:#b6ac99; letter-spacing:2.2px;
-    text-shadow:0 -1px 0 rgba(255,253,246,.6), 0 1px 1px rgba(0,0,0,.5); }
-  .L .rd{ color:#9fdfd2; letter-spacing:2.6px; }
-  .L .btn{ color:#c1b6a1; letter-spacing:3.2px;
-    text-shadow:0 -1px 0 rgba(255,253,246,.65), 0 1px 1px rgba(0,0,0,.55); }` },
-
-  { id: 'r_soft', name: 'RAISED: SOFTER LIGHT', from: 'a bigger, duller lamp',
-    say: 'The light hitting it is broader, so the top edge glows instead of flashing. Everything gets gentler without going flat.',
-    css: RAISED + `
-  .L .pnl{ background:linear-gradient(158deg,#6f6759,#443e35); }
-  .L .rd,.L .ttl,.L .bd{ color:#b9af9c;
-    text-shadow:0 -1px 2px rgba(255,253,246,.55), 0 2px 3px rgba(0,0,0,.4); }
-  .L .rd{ color:#a2e0d3; text-shadow:0 -1px 2px rgba(225,255,250,.5), 0 2px 3px rgba(0,0,0,.4); }
-  .L .btn{ background:linear-gradient(158deg,#7b7263,#484238); color:#c4b9a4;
-    text-shadow:0 -1px 2px rgba(255,253,246,.6), 0 2px 3px rgba(0,0,0,.45); }` },
-
-  { id: 'h_drift', name: 'HOLOGRAM: DRIFTING BANDS', from: 'moving, behind the words',
-    say: 'The bands slide slowly upward behind the text and the letters never move. All the life is in the field, none of it is in the message.',
-    css: HOLO + `
+  { id: 'm_drift', name: 'MASTER TWO, THE LIGHT: DRIFTING BANDS', from: 'motion 1 of 3',
+    say: 'Fine bands sliding steadily upward behind the words. The busiest of your three, and the most obviously alive.',
+    css: LIGHT + `
   @keyframes bohDrift{ from{ background-position:0 0 } to{ background-position:0 -40px } }
   .L .pnl::after{ content:''; position:absolute; inset:-40px 0; z-index:1; pointer-events:none;
     background:repeating-linear-gradient(rgba(160,250,232,.11) 0 2px,transparent 2px 7px);
     animation:bohDrift 5.5s linear infinite; }
   @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
 
-  { id: 'h_sweep', name: 'HOLOGRAM: ONE SLOW SWEEP', from: 'a single bar, every few seconds',
-    say: 'Almost completely still. One soft bar travels down the panel every seven seconds and that is the whole effect.',
-    css: HOLO + `
+  { id: 'm_sweep', name: 'MASTER TWO, THE LIGHT: ONE SLOW SWEEP', from: 'motion 2 of 3',
+    say: 'Nearly still. One soft bar crosses the panel every seven seconds and the rest of the time there is nothing. The quietest of your three.',
+    css: LIGHT + `
   @keyframes bohSweep{ 0%{ transform:translateY(-120%) } 100%{ transform:translateY(320%) } }
   .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:34%; z-index:1;
     pointer-events:none;
@@ -202,30 +220,9 @@ const LOOKS = [
     animation:bohSweep 7s linear infinite; }
   @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:.5 } }` },
 
-  { id: 'h_breathe', name: 'HOLOGRAM: BREATHING', from: 'the field, not the letters',
-    say: 'The glow behind the words swells and fades, slowly, like the projector is not quite holding steady. Nothing tears and nothing jumps.',
-    css: HOLO + `
-  @keyframes bohBreathe{ 0%,100%{ opacity:.5 } 50%{ opacity:1 } }
-  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:radial-gradient(ellipse at 50% 50%,rgba(97,168,159,.20),transparent 72%);
-    animation:bohBreathe 4.5s ease-in-out infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
-
-  { id: 'h_rare', name: 'HOLOGRAM: RARE TEAR', from: 'clean, then once in a while it slips',
-    say: 'Clean nearly all the time. Every six seconds a band slides across the background for a fraction of a second and then it is gone. You notice it, you never fight it.',
-    css: HOLO + `
-  @keyframes bohTear{ 0%,88%,100%{ opacity:0; transform:translateY(30%) }
-    90%{ opacity:1; transform:translateY(28%) } 93%{ opacity:1; transform:translateY(52%) }
-    95%{ opacity:0; transform:translateY(56%) } }
-  .L .pnl::after{ content:''; position:absolute; left:-6%; right:-6%; top:0; height:16%; z-index:1;
-    pointer-events:none;
-    background:linear-gradient(rgba(170,255,238,.22),rgba(0,0,0,.34));
-    animation:bohTear 6s steps(1,end) infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:0 } }` },
-
-  { id: 'h_roll', name: 'HOLOGRAM: SLOW ROLL', from: 'a signal not quite locked',
-    say: 'A wide soft band rolls up the background forever, like a picture that never fully tunes in. Continuous, gentle, and the text stays hard.',
-    css: HOLO + `
+  { id: 'm_roll', name: 'MASTER TWO, THE LIGHT: SLOW ROLL', from: 'motion 3 of 3',
+    say: 'One wide soft band rolling up forever. Always moving like the first one, but one big shape instead of many small ones. The middle of your three.',
+    css: LIGHT + `
   @keyframes bohRoll{ from{ transform:translateY(100%) } to{ transform:translateY(-100%) } }
   .L .pnl::after{ content:''; position:absolute; left:0; right:0; top:0; height:100%; z-index:1;
     pointer-events:none;
@@ -233,17 +230,111 @@ const LOOKS = [
     animation:bohRoll 9s linear infinite; }
   @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` },
 
-  { id: 'h_static', name: 'HOLOGRAM: FAINT STATIC', from: 'noise in the field only',
-    say: 'A quiet grain crawling behind the words. The least structured of the six, and the closest to something simply not being solid.',
-    css: HOLO + `
-  @keyframes bohStat{ 0%{ background-position:0 0,0 0 } 100%{ background-position:37px -23px,-29px 31px } }
-  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.5;
+  { id: 'g_pane', name: 'MASTER THREE, GLASS: THE PANE', from: 'the one you kept in round two',
+    say: 'The glass on its own, with the monitor stripped off it. Lit top edge, dark bottom edge, the words sitting back inside. This is the baseline the other seven move away from.',
+    css: GLASS },
+
+  { id: 'g_deep', name: 'MASTER THREE, GLASS: THICKER', from: 'more glass between you and it',
+    say: 'Same pane, more of it. The words sit further back and the sides go darker, so you read the thickness before you read the text.',
+    css: GLASS + `
+  .L .pnl{ box-shadow:
+      inset 0 2px 0 rgba(226,246,255,.38),
+      inset 0 -2px 0 rgba(226,246,255,.10),
+      inset 0 0 54px rgba(0,0,0,.78),
+      inset 26px 0 34px rgba(0,0,0,.42),
+      inset -26px 0 34px rgba(0,0,0,.42),
+      0 12px 26px rgba(0,0,0,.75); }
+  .L .ttl,.L .bd{ color:#bdd3d8; }` },
+
+  { id: 'g_edge', name: 'MASTER THREE, GLASS: LIT FROM THE EDGE', from: 'light going in at the side',
+    say: 'The light enters at the edges and leaks inward, which is how a real slab of glass with a lamp on its rim behaves. The middle stays dark and the words are the brightest thing in it.',
+    css: GLASS + `
+  .L .pnl{ background:linear-gradient(158deg,rgba(27,35,37,.96),rgba(10,13,14,.98));
+    box-shadow:
+      inset 0 2px 0 rgba(226,246,255,.5),
+      inset 0 -2px 0 rgba(226,246,255,.22),
+      inset 3px 0 0 rgba(226,246,255,.16),
+      inset -3px 0 0 rgba(226,246,255,.16),
+      inset 0 0 40px rgba(0,0,0,.7),
+      0 0 22px rgba(150,220,235,.14),
+      0 10px 22px rgba(0,0,0,.72); }
+  .L .ttl{ color:#e8f7fb; }` },
+
+  { id: 'g_curve', name: 'MASTER THREE, GLASS: CURVED', from: 'the pane bowing toward you',
+    say: 'The surface bows out in the middle, so the highlight bends with it instead of running straight. Same trick the rest of the game art uses, where bands curve toward the viewer.',
+    css: GLASS + `
+  .L .pnl::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    border-radius:3px;
     background:
-      radial-gradient(circle 1px at 20% 30%,rgba(190,255,244,.5),transparent),
-      radial-gradient(circle 1px at 70% 65%,rgba(190,255,244,.45),transparent);
-    background-size:44px 38px,52px 46px;
-    animation:bohStat 2.6s linear infinite; }
-  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none } }` }
+      radial-gradient(150% 62% at 50% -6%,
+        rgba(226,246,255,.26) 0 40%,
+        rgba(226,246,255,.13) 40% 47%,
+        rgba(226,246,255,.04) 47% 51%,
+        transparent 51%),
+      radial-gradient(150% 58% at 50% 106%,
+        rgba(0,0,0,.55) 0 42%,
+        rgba(0,0,0,.24) 42% 50%,
+        transparent 50%),
+      linear-gradient(90deg,rgba(0,0,0,.42) 0,transparent 16%,transparent 84%,rgba(0,0,0,.42) 100%); }` },
+
+  { id: 'g_travel', name: 'MASTER THREE, GLASS: A REFLECTION THAT TRAVELS', from: 'your motion rule, on glass',
+    say: 'One soft reflection slides slowly across the pane and never stops, behind the words. This is the exact kind of movement you kept three times on the hologram, put on glass instead.',
+    css: GLASS + `
+  @keyframes bohGlide{ from{ transform:translateX(-130%) } to{ transform:translateX(230%) } }
+  .L .pnl::after{ content:''; position:absolute; top:-30%; bottom:-30%; left:0; width:42%; z-index:1;
+    pointer-events:none; transform:rotate(0deg);
+    background:linear-gradient(100deg,transparent,rgba(226,246,255,.10) 45%,rgba(226,246,255,.10) 55%,transparent);
+    animation:bohGlide 11s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .L .pnl::after{ animation:none; opacity:.45 } }` },
+
+  { id: 'g_dust', name: 'MASTER THREE, GLASS: DUST ON IT', from: 'nobody has cleaned it',
+    say: 'Fine dust sitting still on the surface, catching the light. It does not move and it is not noise. It is the one card here about the glass being an object somebody owns and never wipes.',
+    css: GLASS + `
+  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.55;
+    background:
+      radial-gradient(circle 1px at 14% 22%,rgba(226,246,255,.42),transparent),
+      radial-gradient(circle 1px at 63% 41%,rgba(226,246,255,.34),transparent),
+      radial-gradient(circle 1px at 33% 77%,rgba(226,246,255,.30),transparent),
+      radial-gradient(circle 1px at 84% 69%,rgba(226,246,255,.38),transparent);
+    background-size:59px 47px,71px 61px,53px 67px,83px 43px; }` },
+
+  { id: 'g_cold', name: 'MASTER THREE, GLASS: COLD AND CLEAR', from: 'the tint taken out',
+    say: 'Almost no colour in the glass at all. Everything you read as glass here is the highlight and the depth, nothing is the tint. The most severe of the eight.',
+    css: GLASS + `
+  .L .pnl{ background:linear-gradient(158deg,rgba(24,26,27,.95),rgba(11,12,13,.98));
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.36),
+      inset 0 -1px 0 rgba(255,255,255,.09),
+      inset 0 0 32px rgba(0,0,0,.6),
+      0 10px 22px rgba(0,0,0,.74); }
+  .L .rd{ color:#9fc9cf; }
+  .L .ttl,.L .bd{ color:#dededd; }
+  .L .btn{ background:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+    border-color:rgba(255,255,255,.24); color:#efefee; }` },
+
+  { id: 'g_over', name: 'MASTER THREE, GLASS: OVER THE PLATE', from: 'masters one and three, same object',
+    say: 'The glass laid straight onto the metal from master one, so two of your three are the same thing seen twice. The catch sits in the top corner and stays off the words. If you like this, the three acts read as one game instead of three skins.',
+    css: PLATE + `
+  .L .pnl{ position:relative; overflow:hidden; border-radius:3px;
+    background:linear-gradient(158deg,#4a443b,#26221c);
+    box-shadow:
+      inset 0 1px 0 rgba(226,246,255,.40),
+      inset 0 -3px 9px rgba(0,0,0,.62),
+      inset 0 0 30px rgba(0,0,0,.46),
+      0 10px 22px rgba(0,0,0,.74); }
+  .L .rd,.L .ttl,.L .bd{ color:#c7bda9; }
+  .L .rd{ color:#a8e5d7; }
+  .L .pnl > *{ position:relative; z-index:2; }
+  .L .pnl::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(118deg,
+        transparent 0 6%,
+        rgba(226,246,255,.20) 6% 17%,
+        rgba(226,246,255,.05) 17% 21%,
+        transparent 21% 27%,
+        rgba(226,246,255,.11) 27% 32%,
+        transparent 32%),
+      radial-gradient(72% 46% at 86% 110%,rgba(0,0,0,.34),transparent 62%); }` }
 ];
 
 for (const L of LOOKS) {
@@ -273,7 +364,7 @@ const card = (L, i) => `
 
 const html = `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BOHEMIA &middot; YOUR TWO, FIXED</title>
+<title>BOHEMIA &middot; THREE MASTERS</title>
 <style>
 ${FACES}
 :root{ --bg:${C.bg}; --surface:${C.surface}; --ink:${C.ink}; --dim:${C.dim};
@@ -338,10 +429,10 @@ ${LOOKS.map((L) => L.css.replace(/\.L /g, '.L.' + L.id + ' ')).join('\n')}
 </style>
 
 <header>
-  <h1>YOUR TWO, FIXED &middot; ROUND 5</h1>
+  <h1>THREE MASTERS &middot; ROUND 6</h1>
   <button class="sun" id="sun">SUN MODE</button>
 </header>
-<p class="lede"><b>Your three notes are all in here.</b> The shadow on the raised letters is a fraction of what it was. The hologram effect is dialled way down. And it MOVES, in the background, with the words held completely still. <b>You can say yes to more than one.</b></p>
+<p class="lede"><b>You said three masters, one for each act, and two are done.</b> Number 1 is the metal, settled: your three yeses were three separate dials so they all fit in one panel. Numbers 2 to 4 are the light, identical except for the movement, so you only have to pick the movement. Numbers 5 to 12 are the third one, and you already approved it in round two and nobody ever narrowed it down: <b>the glass.</b> Say yes to as many as you want.</p>
 
 ${LOOKS.map(card).join('\n')}
 
@@ -354,7 +445,7 @@ ${LOOKS.map(card).join('\n')}
 
 <script>
 (function(){
-  var KEY='bohemia_ui_r5';
+  var KEY='bohemia_ui_r6';
   var NAMES=${JSON.stringify(LOOKS.map((L) => ({ id: L.id, name: L.name })))};
   var st={up:{},down:{},all:''};
   try{ var raw=localStorage.getItem(KEY); if(raw) st=JSON.parse(raw); }catch(e){}
@@ -383,7 +474,7 @@ ${LOOKS.map(card).join('\n')}
   document.getElementById('sun').addEventListener('click',function(){
     document.body.classList.toggle('sun'); });
   document.getElementById('exp').addEventListener('click',function(){
-    var L=[]; L.push('BOHEMIA - YOUR TWO FIXED, ROUND 5 - PAOLO\\'S PICKS');
+    var L=[]; L.push('BOHEMIA - THREE MASTERS, ROUND 6 - PAOLO\\'S PICKS');
     L.push('exported '+new Date().toISOString().slice(0,16).replace('T',' '));
     L.push('');
     var yes=[],no=[],non=[];
@@ -396,8 +487,8 @@ ${LOOKS.map(card).join('\n')}
     L.push(''); L.push('ANYTHING ELSE:'); L.push(st.all||'(nothing)');
     var b=new Blob([L.join('\\n')],{type:'text/plain'});
     var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-    a.download='BOHEMIA_UI_R5.txt'; a.click();
-    document.getElementById('done').textContent='saved as BOHEMIA_UI_R5.txt';
+    a.download='BOHEMIA_UI_R6.txt'; a.click();
+    document.getElementById('done').textContent='saved as BOHEMIA_UI_R6.txt';
   });
   apply();
 })();

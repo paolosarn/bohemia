@@ -1197,7 +1197,75 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/28 LATEST -- *** HE STOPPED THE LANE FROM IMPLEMENTING AND
+UI (ui-kmqmrf): 8/29 LATEST -- *** SIX OF TWELVE, AND HE NAMED THE SHAPE OF THE
+WHOLE LANE: THREE MASTER UIs, ONE PER ACT, TWO ALREADY DONE. *** TAB: **3D**.
+The game is STILL UNTOUCHED and that is still on purpose.
+
+HIS WORDS: "Awesome keep cooking well probably have 3 sets of master ui people can
+choose from type shit looking good one for each act we got 2 squared away"
+
+TWO RULES CAME OUT OF THE ROUND-FIVE VOTE AND BOTH ARE LOAD-BEARING:
+
+  THE SHADOW HAS A FLOOR AND IT IS NOT ZERO. He killed the version with more
+  shadow AND the version with none, and kept one pixel with no blur. Above that
+  the type reads doubled, below it the plate stops being raised. He also killed
+  MORE AIR, the only card of six that changed neither light nor material (it
+  changed letter-spacing), which is five rounds saying the same thing: HE DOES
+  NOT WANT THE RECTANGLE DRESSED.
+
+  LIGHT MOVES ACROSS. IT DOES NOT BLINK, GLITCH OR BUZZ. All three motions he
+  kept are TRANSLATION -- something travelling slowly in one direction. All three
+  he killed are not: a pulse in place, a discrete tear, directionless grain. Same
+  taste as rounds one to three in different clothes, because a pulse and a tear
+  are a projector MISBEHAVING (machinery) and static is noise (decoration), and he
+  has killed machinery and decoration every single round.
+
+*** AND THE THIRD MASTER WAS APPROVED FIVE ROUNDS AGO AND NOBODY EVER NARROWED
+IT. *** Round two was twelve ways of BEHIND GLASS and he said "consider all of
+them saved". A blanket-approved family, taken from twelve options to zero, sitting
+banked ever since. So round six is not a hunt for a third family, it is the
+narrowing that never happened. Built as GLASS not as a monitor, because his
+round-two note in the same breath was "arent ol computer screen" -- so the
+phosphor, bezel and housing do not come forward, only the pane.
+
+ROUND SIX IS ON THE WALL: 1 settled metal master (his three yeses are three
+independent dials, so they combine rather than compete), 3 light cards identical
+except the motion, 8 glass cards to narrow.
+
+WHAT IS HIS AND IS NOT GUESSED AT: which act wears which master. And whether the
+player picks one or the act picks it for them -- he said both in one sentence and
+neither reading changes a line of what got built, so it does not need answering.
+
+*** THREE BROKEN RULERS IN ONE TURN AND THE THIRD WAS MY OWN EYE. READ THIS. ***
+  1. The contrast ruler took the brightest pixel in a button as the ink, but on a
+     raised button the brightest thing is the top HIGHLIGHT. It reported every
+     card failing INCLUDING THE THREE HE HAD ALREADY APPROVED. A ruler that fails
+     what he already said yes to is the broken part. Fixed by shooting each
+     element twice, once with the text transparent, so the pixels that CHANGE are
+     the glyphs and nothing else.
+  2. Then I used the fixed ruler to answer a question it cannot answer. A curved
+     pane looked flat, I strengthened it, the contrast number moved, I called it
+     fixed. A CONTRAST RULER MEASURES WHETHER YOU CAN READ THE WORDS. IT CANNOT
+     SEE WHETHER A SHAPE IS VISIBLE.
+  3. Twice I compared two cards in a 2x2 at half scale with 700px of gap and wrote
+     down "identical". Measured: 11.6% of pixels changed, max delta 206 of 255.
+     Stacking them tight at full size made it obvious instantly. JUDGING TWO
+     PICTURES THAT SIT FAR APART AND SMALL IS NOT COMPARING THEM -- the same
+     sentence as his 8/28 ruling that a haircut cell must be bigger than the game
+     draws it.
+  AND THE FIX FOR BOTH SHAPES WAS ONE SENTENCE: SOFT GRADIENTS READ AS NOTHING. A
+  wash reads as a vignette, which is nothing. A curve reads because of AN EDGE
+  THAT BENDS; glass over metal reads because of a streak with BOUNDARIES. Hard
+  colour stops, not more opacity.
+
+MEASURED AND WORTH KNOWING: the metal master is the lowest-contrast of the three
+by a factor of three (4.1-4.8 against 11-16). Not a defect -- a darker plate, a
+barely-there shadow and a softer light all reduce contrast and he approved all
+three. It reads; it is just the squintiest of the three.
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/28 -- *** HE STOPPED THE LANE FROM IMPLEMENTING AND
 TURNED IT INTO A WALL OF PICTURES. FIVE ROUNDS OF TWELVE LOOKS, HE THUMBS THEM,
 NOTHING GOES IN THE GAME UNTIL HE PICKS. *** TAB: **3D** (the wall). The game is
 UNTOUCHED and that is on purpose.
