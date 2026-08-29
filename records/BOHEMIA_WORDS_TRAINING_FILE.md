@@ -2787,3 +2787,219 @@ problem.** Which means the largest lever on this in Bohemia is not mine.
   processed to plain text: 199,740 utterances, 2,438 telephone calls, 520
   speakers, 41 dialogue-act tags.
 - Cornell Movie-Dialogs Corpus, 617 films, as the previous round.
+
+# THE FINGERPRINT ROUND -- 8/28/26
+# Three rounds of measuring one metric at a time, and I never once asked the
+# question the whole lane is named after: CAN A MACHINE TELL OUR WRITING FROM
+# PROFESSIONAL WRITING? It can, and this round is what it uses to do it.
+
+## 118. THE TEST I SHOULD HAVE RUN FIRST
+Build a detector. Show it a line with no label and ask which corpus it came from.
+50% means indistinguishable. Higher means we have a fingerprint.
+
+Two things had to be right or the answer would have been a lie:
+- **LENGTH-MATCHED.** Our lines are 13.1 words, film's are 10.5. Uncontrolled, the
+  detector would just learn "long means Bohemia" and I would have reported a
+  style finding that was a word count. So every arm samples equal numbers from
+  each corpus **inside each four-word length band.**
+- **A NULL AND A CEILING.** Split Cornell in half by movie and run the detector on
+  film against film: that is the floor. Run KOTOR against film: two professional
+  corpora in different media, which is the most "different" two good writers get.
+- **MATCHED SAMPLE SIZE.** My first run gave KOTOR-vs-film 17,406 lines a side and
+  us 1,669, and more data makes a detector stronger, so that comparison was
+  rigged in our favour. Capped every arm at 1,669 a side. It moved KOTOR-vs-film
+  from 70.4% to 67.6% and changed nothing about the conclusion, but the first
+  version of that table was not a fair fight and I nearly published it.
+
+Features are style only, no subject matter: the rate of 180 function words, every
+punctuation mark, average word length, capital letters, and sentences per word.
+Logistic regression, five-fold cross-validation, scored on held-out lines.
+
+## 119. THE RESULT
+
+    FILM-A vs FILM-B   (null, same corpus)              50.7%
+    KOTOR vs FILM      (professional vs professional)   67.6%
+    ---
+    BOHEMIA vs FILM                                     81.0%
+    BOHEMIA vs KOTOR   (our own genre)                  85.8%
+    ---
+    FILM vs REAL SPEECH (written vs spoken, the big gap) 86.9%
+    BOHEMIA vs REAL SPEECH                               86.4%
+
+The null lands at 50.7% so the detector is honest. Two professionals in different
+media separate at 67.6%. **We separate from film at 81.0% and from a real RPG at
+85.8%.** That excess above 67.6 is the machine tell, and it is the first time in
+this whole training I have measured the thing the lane exists for instead of a
+proxy for it.
+
+One number I like: we are 86.4% from real speech and film is 86.9%. **We are
+exactly as "written" as the movies are.** Our problem is not that we are stiff in
+general. It is that we are stiff in a way nobody else is.
+
+## 120. AND HERE IS WHAT GIVES US AWAY
+The detector's own weights, ranked. Positive means we overuse it.
+
+    vs FILM,  what marks a line as ours:
+      sentences-per-word +1.14, "it" +0.43, "two" +0.24, "and" +0.24, "them" +0.22,
+      "while" +0.21, "before" +0.21, "once" +0.20, "not" +0.20, "then" +0.16, "." +0.16
+
+    vs FILM,  what we are missing:
+      CAPITALS -1.16, "!" -1.09, "..." -1.06, "?" -0.86, "I" -0.68, "to" -0.48,
+      apostrophes -0.43, "," -0.39, "we" -0.39, "but" -0.35, word length -0.34,
+      "my" -0.34, "you" -0.33, quotation marks -0.33
+
+The same top feature appears with the identical weight against KOTOR:
+**sentences per word, +1.14 both times.** One feature, twice, and it is the
+largest in the model by three times.
+
+**Our fingerprint is that we chop a line into more sentences than anybody, and we
+punctuate none of them with feeling.**
+
+## 121. THE RAW NUMBERS BEHIND THAT WEIGHT
+
+    corpus          sentences/line   words/sentence   commas/100w   "..."/100w   quotes/100w
+    BOHEMIA              1.97             6.7            3.47         0.03         0.00
+      quest scenes       2.40             8.8            4.17         0.03         0.00
+    KOTOR                2.44             8.2            4.21         1.25         0.05
+    FILM                 1.76             6.0            5.34         1.65         0.32
+    REAL SPEECH          1.43            10.3           16.18         0.01         0.01
+
+**Commas are the story.** Real conversation puts 16.18 commas per hundred words
+because people speak in run-ons that never resolve. Film uses 5.34. We use 3.47,
+the fewest of anybody. Every one of those missing commas is a full stop instead,
+which is where the sentences-per-word weight comes from. **We do not write
+sentences that hesitate; we write two sentences where a person would have written
+one and kept going.**
+
+And nobody in this game has ever trailed off (0.03 per 100 words against film's
+1.65) or quoted another human being out loud (0.00 against 0.32).
+
+## 122. THE EVIDENCE IS OUR OWN LINES AND IT IS UNARGUABLE
+I asked the detector which of our lines it was surest about. Top eight, all at
+0.999 or above, meaning "certain this did not come from a movie":
+
+    Once.
+    Where then.
+    Before five. Not after.
+    Say it again.
+    Then leave it there.
+    Somebody come here before. One year before.
+
+And the eight it could not tell from film at all:
+
+    No. No, you don't get to do that.
+    All right.
+    One of these years it'll be safe enough to be bored.
+    Shoes off, mija, I just swept.
+    You didn't ask him.
+    Buscas a alguien?
+    You get your tools back?
+    Well.
+
+Read **"Where then."** It is a question. It ends in a full stop. That single line
+is the entire fingerprint: no question mark, no comma, no contraction, no
+pronoun, chopped short, and it sounds like an inscription.
+
+Now read "Shoes off, mija, I just swept." Comma, comma, contraction, a person, a
+name. The machine cannot tell it from a movie because there is nothing to tell.
+
+**Both of those are mine. I wrote both. The difference is not talent, it is a
+habit I did not know I had**, and I have now watched a machine find it in a list
+of two thousand lines without being told what to look for.
+
+## 123. THREE DEVICES WE DO NOT HAVE, AND ONE OF THEM IS ENORMOUS
+
+    device, share of lines            BOHEMIA   KOTOR    FILM    REAL SPEECH
+    calling somebody by name/title      10.3%   20.6%   21.7%      45.7%
+    swearing                             0.0%    0.5%    4.0%       0.1%
+    quoting somebody out loud            0.0%    0.4%    1.4%       0.1%
+
+**Nearly half of real conversational turns address the other person directly.**
+"Man." "Boss." "Hermano." "Sir." We do it a quarter as often as real people and
+half as often as either professional corpus. That is not a garnish, it is the
+same acknowledgement layer from last round wearing a different coat: **saying
+somebody's name IS acknowledgement.** It is the cheapest possible version of it,
+it costs one word, and it is the single most under-used device we have.
+
+Swearing at exactly zero is worth flagging without arguing for it. Film runs 4%.
+Real transcribed telephone conversation runs 0.1%, which is a fact about strangers
+on a recorded line rather than about people. In a valley after an economic
+collapse, zero is a decision nobody consciously made.
+
+## 124. AND TWO THINGS WE DO FAR TOO MUCH, BOTH OF WHICH I CAUSED
+
+    device, share of lines            BOHEMIA   KOTOR    FILM    REAL SPEECH
+    negation (not/never/no/nothing)     44.9%   42.4%   26.4%      20.9%
+    a spoken number                     19.7%    8.8%    7.2%       9.9%
+
+**Almost half our lines are phrased as a denial, more than double real speech.**
+Nobody has ever flagged this and it is a bigger deal than the maxims, because a
+negation is a shape as well as a meaning: "the meter does not lie", "nothing runs
+after nine", "he never came back". String forty of those together and the whole
+game reads as one voice refusing things.
+
+And **we say numbers twice as often as anybody in any corpus.** That one is
+directly traceable. This repo's house style says numbers over adjectives and it is
+right about reports to him. **It leaked into the characters.** A repo convention
+became a speech habit for four hundred people, and the tell is that every person
+in the valley talks like an engineer filing a measurement.
+
+## 125. WHAT THIS CHANGES
+The card gets its first rules that came out of a machine finding them rather than
+me deciding them:
+
+9. **COMMA, NOT FULL STOP.** When a line splits into two short sentences, ask
+   whether a person would have kept going. We are at 3.47 commas per hundred
+   words against film's 5.34 and life's 16.18. **This is our number one tell** and
+   it is bigger in the model than everything else combined.
+10. **SOMEBODY'S NAME.** Real turns address the listener 45.7% of the time. We do
+    10.3%. Target film and KOTOR's ~21%, which is half of life and double us.
+11. **STOP DENYING.** 44.9% of our lines carry a negation against real speech's
+    20.9%. Rewrite one denial in three as a statement of what IS.
+12. **THE NUMBERS ARE A HOUSE HABIT, NOT A CHARACTER TRAIT.** 19.7% against
+    everybody else's 7 to 10. A character who quotes a figure should be a
+    character who quotes figures, not the default.
+
+And the target for the whole thing is now a single number I can watch: **get
+BOHEMIA-vs-FILM from 81.0% down toward 67.6%,** which is where a professional
+game sits against film. Not 50, because a game should not be a movie. 67.6 is
+what "as different from film as a good RPG is" looks like, and it is the first
+honest goal this lane has ever had.
+
+## 126. WHAT I NOW KNOW I DIDN'T KNOW
+59. **A machine can spot our writing at 81% against film**, where a professional
+    game only reaches 67.6%. (§119)
+60. **We are exactly as far from real speech as film is**, 86.4% against 86.9%, so
+    we are not generally stiff, we are specifically odd. (§119)
+61. **Sentences per word is our fingerprint**, three times larger than any other
+    feature and identical against both professional corpora. (§120)
+62. **We use the fewest commas of any corpus measured**, 3.47 against life's
+    16.18. (§121)
+63. **"Where then."** is the whole tell in one line, and I wrote it. (§122)
+64. **45.7% of real turns call the other person something** and we do 10.3%. The
+    cheapest acknowledgement there is and we do not use it. (§123)
+65. **Almost half our lines are negations**, double real speech, and nobody had
+    ever measured it. (§124)
+66. **Our numbers habit came from this repo's own style guide** and leaked from
+    my reports into four hundred people's mouths. (§124)
+67. **I nearly published a rigged comparison** by giving the professional arm ten
+    times the data. (§118)
+
+## 127. STILL OPEN
+- The detector proves a difference exists. It does not prove the difference is
+  BAD. A style can be a signature. What it does prove is that the difference is
+  **mechanical and unintentional**, because I can point at the exact punctuation
+  producing it and I did not choose any of it.
+- Real speech from strangers on a telephone still under-represents swearing,
+  shouting and people who know each other. That caveat has survived two rounds
+  and I have not found a corpus that fixes it.
+- Everything here is style. A detector at 50% would mean our lines look
+  professional, not that they are good, and nothing in three rounds of corpora
+  has moved that wall an inch.
+
+## SOURCES, THIS ROUND
+- All four corpora as established in the previous two rounds: our own words book,
+  KOTOR, Cornell Movie-Dialogs, Switchboard.
+- Method is standard stylometry: length-controlled sampling, function-word and
+  punctuation features, cross-validated linear model, with a same-corpus null and
+  a professional-versus-professional ceiling. No new source, one new question.
