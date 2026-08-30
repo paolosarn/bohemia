@@ -1,0 +1,104 @@
+{
+ "_meta": {
+  "what": "Bohemia voice shapes against three reference corpora",
+  "cannot": "say whether a line is good"
+ },
+ "reference": {
+  "FILM": {
+   "source": "Cornell Movie-Dialogs, 617 films",
+   "lines": 304446,
+   "words_per_line": 10.5,
+   "sentences_per_line": 1.76,
+   "commas_per_100w": 5.34,
+   "rhythm_cv": 0.83,
+   "question_pct": 31.1,
+   "exclaim_pct": 8.9,
+   "vocative_pct": 22.8,
+   "negation_pct": 26.5,
+   "number_pct": 7.0,
+   "short5_pct": 40.7
+  },
+  "KOTOR": {
+   "source": "KOTOR NPC dialogue (van Stegeren 2020)",
+   "lines": 17406,
+   "words_per_line": 19.5,
+   "sentences_per_line": 2.44,
+   "commas_per_100w": 4.21,
+   "rhythm_cv": 0.67,
+   "question_pct": 21.5,
+   "exclaim_pct": 19.1,
+   "vocative_pct": 23.9,
+   "negation_pct": 42.4,
+   "number_pct": 8.8,
+   "short5_pct": 6.6
+  },
+  "REAL_SPEECH": {
+   "source": "Switchboard, merged to turns",
+   "lines": 99478,
+   "words_per_line": 14.6,
+   "sentences_per_line": 1.43,
+   "commas_per_100w": 16.18,
+   "rhythm_cv": 1.17,
+   "question_pct": 7.7,
+   "exclaim_pct": 0.1,
+   "vocative_pct": 31.4,
+   "negation_pct": 20.9,
+   "number_pct": 10.0,
+   "short5_pct": 42.9
+  }
+ },
+ "bohemia": {
+  "DEMO_SCENES": {
+   "lines": 88,
+   "words_per_line": 19.2,
+   "sentences_per_line": 2.31,
+   "commas_per_100w": 7.87,
+   "rhythm_cv": 0.773,
+   "question_pct": 19.3,
+   "exclaim_pct": 1.1,
+   "vocative_pct": 27.3,
+   "negation_pct": 47.7,
+   "number_pct": 21.6,
+   "short5_pct": 3.4
+  },
+  "ALL_QUEST_SPEECH": {
+   "lines": 527,
+   "words_per_line": 21.08,
+   "sentences_per_line": 2.32,
+   "commas_per_100w": 4.77,
+   "rhythm_cv": 0.766,
+   "question_pct": 3.6,
+   "exclaim_pct": 0.2,
+   "vocative_pct": 8.9,
+   "negation_pct": 53.1,
+   "number_pct": 30.9,
+   "short5_pct": 4.9
+  },
+  "STREET_BARKS": {
+   "lines": 546,
+   "words_per_line": 8.47,
+   "sentences_per_line": 1.71,
+   "commas_per_100w": 3.14,
+   "rhythm_cv": 0.567,
+   "question_pct": 4.8,
+   "exclaim_pct": 0.0,
+   "vocative_pct": 3.7,
+   "negation_pct": 38.1,
+   "number_pct": 18.1,
+   "short5_pct": 11.4
+  },
+  "AMBIENT": {
+   "lines": 436,
+   "words_per_line": 11.26,
+   "sentences_per_line": 2.04,
+   "commas_per_100w": 2.69,
+   "rhythm_cv": 0.609,
+   "question_pct": 5.3,
+   "exclaim_pct": 0.0,
+   "vocative_pct": 3.2,
+   "negation_pct": 50.2,
+   "number_pct": 14.7,
+   "short5_pct": 9.9
+  }
+ }
+}

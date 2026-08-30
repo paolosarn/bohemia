@@ -63,8 +63,8 @@
 @OBJ 10  "Help the neighbor make his place solid"   target=neighbor
 
 @TALK ask  speaker=neighbor  entry=stage>=10
-  @SAY Front and side. Before dark. Boards, nails, whatever you've got in that pack. #tired
-  @SAY The back I do myself. Always have. And don't, uh. Don't go round back. I'm not being rude to you. Careful is all.
+  @SAY Front and side, before dark. Boards, nails, whatever you've got in that pack. #tired
+  @SAY The back I do myself, always have. And don't, uh. Don't go round back. I'm not being rude to you, friend, careful is all.
   @OPT "Front and side. You got it."   [gate: none]  -> work  @DO learn respects_the_boundary
   @OPT "What's in the back?"               [gate: none]  -> back
   @OPT (head around back to look)           [gate: none]  -> pry
@@ -72,33 +72,33 @@
 @END
 
 @TALK back  speaker=neighbor
-  @SAY Look. It's mine. That's it. You can ask again and I'll say it slower. #dread
-  @SAY Front's got a gap by the hinge you could put your arm through. Start there.
+  @SAY Look. It's mine, that's it. You can ask again and I'll say it slower. #dread
+  @SAY Front's got a gap by the hinge you could put your arm through. Start there? Please.
   @OPT "Fair. Front and side."             [gate: none]  -> work  @DO learn respects_the_boundary
   @OPT (go look anyway)                     [gate: none]  -> pry
 @END
 
 @TALK work  speaker=neighbor
   @SAY (you take the front, he takes the back, and for two hours neither of you says anything at all.)
-  @SAY Solid. Feels solid. First time in a while. And you didn't ask twice about the back, that's. Yeah. Thanks.
+  @SAY Solid. Feels solid, first time in a while. And you didn't ask twice about the back, that's. Yeah. Thanks, man.
   @OPT "That's what neighbors are for."    [gate: none]  -> END  @DO set_stage 20
   @OPT "Someday you'll tell me."          [gate: none]  -> END  @DO set_stage 20
   @OPT "Let's make it a thing. Get some others out."  [gate: none]  -> loud
 @END
 
 @TALK pry  speaker=neighbor
-  @SAY Hey. HEY. I told you the back was mine, I told you plain. Get away from that door. #dread
+  @SAY Hey. HEY. I told you the back was mine, I told you plain! Get away from that door!
   @OPT "Okay. Okay. Backing off."      [gate: none]  -> work
   @OPT "What are you so scared of?"         [gate: none]  -> fold
 @END
 
 @TALK fold  speaker=neighbor
-  @SAY Scared. Yeah. Okay. Go home. I'll do the front myself. #dread
+  @SAY Scared. Yeah. Okay, go home. I'll do the front myself. #dread
   @OPT "I'm sorry. That was over the line."      [gate: none]  -> END  @DO set_stage 22
 @END
 
 @TALK loud  speaker=neighbor
-  @SAY No. No, no. I said front and side. Not a block party at my door. #tired
-  @SAY Work's good. I'm not saying it isn't. But eyes on my place is the one thing I asked you not to do. Send them home.
+  @SAY No. No, no, I said front and side, man, not a block party at my door. #tired
+  @SAY Work's good, I'm not saying it isn't. But eyes on my place is the one thing I asked you about. Send them home, yeah?
   @OPT "Right. Sorry. Just us."             [gate: none]  -> END  @DO set_stage 21
 @END

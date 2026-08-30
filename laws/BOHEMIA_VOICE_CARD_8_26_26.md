@@ -1,7 +1,11 @@
 # BOHEMIA -- THE VOICE CARD (Paolo 8/26/26, the WORDS lane)
-# SIX RULES. ONE PAGE. If you are writing a line in this game, this is the page.
+# SEVEN RULES. ONE PAGE. If you are writing a line in this game, this is the page.
 # Diagnosis it comes from: records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md
-# Gate (the three a machine can see): gates/voice_gate.js
+# EVERY NUMBER ON THIS PAGE IS NOW MEASURED AGAINST THREE REAL CORPORA (8/28):
+#   617 films, a shipped BioWare RPG, and 99,478 turns of real recorded human
+#   conversation. Tool: tools/bohemia_voice_fingerprint.py. Where a rule quotes
+#   a target, that target is somebody else's actual number, not my taste.
+# Gate: gates/voice_gate.js
 
 ## THE FRAME, BEFORE THE RULES
 The writer is a machine, and machines have tells. The most probable next word is
@@ -16,12 +20,10 @@ them; it is never what they say.
 ---
 
 ## 1. THEY TALK LIKE THEY ARE IN A HURRY
-Contract it. "I'll", "don't", "it's", "you're", "could've". Our quest scenes
-contract 2.2% of the time and our street barks contract 75% of the time, which
-means the story sounds like scripture and the street sounds like people.
-Spelling a phrase out in full is a CHOICE you make once in a scene, for weight
-(a threat, a vow, a man being formal because he is furious). It is not the
-default. **The default is fast.**
+Contract it. "I'll", "don't", "it's", "you're", "could've". Our scenes contracted
+2.2% and our barks 75%, so the story sounded like scripture and the street
+sounded like people. Real speech runs 89%, film 92%. **FLOOR 85%.** Spelling a
+phrase out in full is a CHOICE, once in a scene, for weight. The default is fast.
 
 ## 2. CUT THE LAST SENTENCE
 A third of our speeches end on a general truth, sitting where a punchline goes.
@@ -43,6 +45,13 @@ stumbles. Every scene now carries at least one of each:
   than the person who is.
 A conversation is two people trying to find something out. A menu of statements
 with replies underneath is a vending machine with a face on it.
+MEASURED TARGETS, and they are lower than film on purpose. Film asks a question
+in 31% of lines; REAL PEOPLE ONLY ASK IN 7.7%, because in life the listening is
+carried by "yeah" and "right" and a game cannot spend 40% of its lines on that.
+So a game splits the difference: **ASK IN 15% OF LINES, FLOOR 12%.**
+AND SAY WHO YOU ARE TALKING TO. Film 22.8%, KOTOR 23.9%, real speech 31.4%, and
+our street barks 3.7%. "Man." "Boss." "Hermano." One word, and it is the
+cheapest acknowledgement there is. **FLOOR 12%.**
 **AND NOBODY LEADS WITH A NO.** This is science, not taste: a yes lands in about
 269 ms and a no in about 561, and the gap gets FILLED -- a breath, a preface, an
 appreciation, the reason before the refusal, often a trail-off that means no
@@ -66,10 +75,8 @@ And the register comes from the PERSON -- where they learned English, who raised
 them, who they are talking to. It is a fact about them, never seasoning
 sprinkled on a scene. Spanglish is a skill. It never gates required information.
 **CLASS AND REGION LIVE IN SYNTAX, NEVER IN SPELLING.** Never respell a word to
-show an accent, for any language, ever: it makes the reader work for nothing and
-it has a long history of making the speaker look stupid. Carry it in grammar
-("I seen him", "I been waiting", a double negative), in what they call things,
-and in rhythm. Not one respelled word.
+show an accent, in any language, ever. Carry it in grammar ("I seen him", a
+double negative), in what they call things, and in rhythm.
 
 ## 6. THE LINE IS NOT THE POINT
 Everybody wants something they will not say out loud. The best line in this game
@@ -77,6 +84,25 @@ might be somebody refusing to answer, and the second best might be a prop.
 People talk PAST each other. They answer the question they wish you had asked.
 They use the polite word for the ugly thing and dare you to say the ugly one.
 A line whose whole meaning sits on its surface is usually the weak one.
+
+## 7. PUT A COMMA WHERE YOU WANT TO PUT A FULL STOP
+This is the number one machine tell in our writing and it was found by a
+detector, not by taste. Trained to tell our lines from 617 films, the single
+largest feature in the model, three times bigger than anything else and
+identical against a real RPG, is SENTENCES PER WORD. We chop.
+Commas per hundred words: **real people 16.2, film 5.3, KOTOR 4.2, us 3.5.**
+The fewest of anybody. Every comma we do not write is a full stop instead, and a
+person mid-thought does not stop, they keep going and let it run.
+> OURS:  Where then.
+> A PERSON: Where, then?
+That line is the whole tell: a question, punctuated as an inscription. When a
+line splits into two short sentences, ask whether a person would have kept going.
+TWO HOUSE HABITS THAT LEAKED IN AND ARE NOT CHARACTER TRAITS:
+- **NEGATION.** 48% of our lines are a denial against real speech's 21%. Not,
+  never, nothing, nobody. Say what IS one time in three.
+- **NUMBERS.** We quote a figure in 22% of lines, everybody else in 7 to 10. That
+  came from this repo's own "numbers over adjectives" rule for REPORTS. It is
+  not how four hundred people talk.
 
 ---
 
@@ -89,21 +115,16 @@ A line whose whole meaning sits on its surface is usually the weak one.
 - "nobody ever ___" / "most people never ___"
 - em dashes. Anywhere. Ever.
 
-## WHERE THIS CAME FROM
-The six rules answer eight measured tells in
-records/BOHEMIA_VOICE_DIAGNOSIS_8_26_26.md. The craft under them, with sources,
-is records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md -- the layer the
-questbook does not hold, because 3,672 findings are about WHAT HAPPENS and none
-of them are about how a sentence sounds.
-
-## WHAT THE GATE CAN AND CANNOT SEE
-gates/voice_gate.js measures RHYTHM (spread of sentence lengths in a scene),
-REPEATED OPENERS, and the BANNED LIST, because those are the only three a machine
-can honestly see. **IT CANNOT TELL YOU IF A LINE IS GOOD.** A green gate is not a
-good scene and it never will be. Read it out loud; that is still the only test.
+## WHERE THIS CAME FROM, AND WHAT THE GATE CANNOT SEE
+Rules 1-6 answer eight measured tells in the diagnosis; rule 7 was found by a
+detector trained on 617 films. The craft under them is in
+records/BOHEMIA_RESEARCH_HOW_A_SENTENCE_SOUNDS_8_27_26.md and the corpus work in
+records/BOHEMIA_WORDS_TRAINING_FILE.md.
+gates/voice_gate.js measures SHAPES: rhythm, repeated openers, the banned list,
+and the rule-7 numbers. **IT CANNOT TELL YOU IF A LINE IS GOOD.** A green gate is
+not a good scene and never will be. Read it out loud; that is still the only test.
 
 ## WHAT IS HIS
-Every word, forever. Nothing on this page is put to him for approval -- lines
-ship written, playable and tagged `draft:true`, and he edits them in the WORDS
-tab whenever he wants. The job of this card is that the draft he edits does not
-sound like a robot wrote it, so editing is a pleasure instead of a rescue.
+Every word, forever. Nothing here is put to him for approval: lines ship written,
+playable and tagged `draft:true`, and he edits them in the WORDS tab. The job of
+this card is that the draft he edits does not sound like a robot wrote it.

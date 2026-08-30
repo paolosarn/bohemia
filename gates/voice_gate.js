@@ -80,12 +80,23 @@ const RULES = [
   'NINE WORDS, THEN TWO',
   'NAME THE ONE THING ONLY THIS PERSON WOULD NAME',
   'THE LINE IS NOT THE POINT',
+  'PUT A COMMA WHERE YOU WANT TO PUT A FULL STOP',
 ];
 RULES.forEach((r, i) => ok('card carries rule ' + (i + 1) + ': ' + r, card.indexOf(r) >= 0));
 /* "one page, short enough to hold in your head" was the ask. A card that grows
    into a manual is a card nobody holds in their head, so the length is gated. */
-ok('the card is still ONE PAGE (<=110 lines) — his ask, and a manual is not a card',
-  card.split('\n').length <= 110);
+/* The cap was 110 for six rules. It is 135 for seven, and the extra 25 lines are
+   NOT slack: they are the measured targets. Every number on the card is now
+   somebody else's real corpus (617 films, a shipped RPG, 99,478 turns of recorded
+   human conversation) instead of my taste, and a target without its number is a
+   preference wearing a number's clothes. The cap still exists because a card that
+   grows into a manual is a card nobody holds in their head. */
+ok('the card is still ONE PAGE (<=135 lines) — a manual is not a card',
+  card.split('\n').length <= 135);
+ok('the card says every number on it is measured against real corpora',
+  /MEASURED AGAINST THREE REAL CORPORA/i.test(card));
+ok('and it names the tool that measured them',
+  card.indexOf('tools/bohemia_voice_fingerprint.py') >= 0);
 ok('the card says out loud that a gate cannot tell you if a line is good',
   /CANNOT TELL YOU IF A LINE IS GOOD/i.test(card));
 ok('the card states the frame: nobody in Bohemia is wise',
@@ -480,6 +491,94 @@ ok('the payload is not an empty shell', page.indexOf('"changed": true') >= 0
 const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
 ok('the WORDS tab in the alpha still loads that page',
   alpha.indexOf('BOHEMIA_WORDS_CURRENT.html') >= 0 && alpha.indexOf('data-p="words"') >= 0);
+
+/* ---- 8. THE FINGERPRINT (8/28). THE ONE A DETECTOR FOUND, NOT A PREFERENCE ---
+ * A logistic model trained to tell our lines from 617 films, length-matched
+ * inside four-word bands so word count cannot be the signal, put ONE feature
+ * three times above every other and identical against a shipped RPG:
+ * SENTENCES PER WORD. We chop. Commas per 100 words: real speech 16.18, film
+ * 5.34, KOTOR 4.21, us 3.47 before this pass, the fewest of any corpus measured.
+ *
+ * These floors are held on THE DEMO'S FIVE SCENES, because that is every word a
+ * stranger reads. They are somebody else's real numbers, softened toward the
+ * game's own genre where the genre disagrees with film. Regenerate the measured
+ * row with: python3 tools/bohemia_voice_fingerprint.py
+ *
+ * WHAT THIS STILL CANNOT DO: say whether a line is good. A scene can hit every
+ * number on this list and be dead on the page. */
+const FP_FILE = 'records/BOHEMIA_VOICE_FINGERPRINT.json';
+ok('the fingerprint tool is on disk', fs.existsSync('tools/bohemia_voice_fingerprint.py'));
+ok('the fingerprint record is baked', fs.existsSync(FP_FILE));
+if (fs.existsSync(FP_FILE)) {
+  const fp = JSON.parse(fs.readFileSync(FP_FILE, 'utf8'));
+  const d = fp.bohemia && fp.bohemia.DEMO_SCENES;
+  const R = fp.reference || {};
+  ok('the record carries all three reference corpora, not one',
+    !!(R.FILM && R.KOTOR && R.REAL_SPEECH));
+  ok('and the reference numbers are the measured ones (film asks in 31.1% of lines)',
+    !!R.FILM && Math.abs(R.FILM.question_pct - 31.1) < 0.05);
+  ok('and real speech is on the record as asking FAR less than film (7.7%), because'
+    + ' the film number is a compression device, not a fact about people',
+    !!R.REAL_SPEECH && Math.abs(R.REAL_SPEECH.question_pct - 7.7) < 0.05);
+  ok('the demo scenes were measured at all', !!d && d.lines >= 80);
+  if (d) {
+    /* RULE 7, the detector's own finding. KOTOR's floor is 4.21. */
+    ok('DEMO: commas per 100 words >= 4.2 (KOTOR 4.21, film 5.34, life 16.18) — was 3.93',
+      d.commas_per_100w >= 4.2);
+    ok('DEMO: sentences per line <= 2.5 (KOTOR 2.44, film 1.76) — was 2.76',
+      d.sentences_per_line <= 2.5);
+    /* RULE 3, and the target is BELOW film on purpose: film's 31% is a swap for
+       backchannel, which a game cannot spend 40% of its lines on either. */
+    ok('DEMO: a question in >=12% of lines (film 31.1, KOTOR 21.5, life 7.7) — was 6.8',
+      d.question_pct >= 12);
+    ok('DEMO: somebody is addressed in >=12% of lines (film 22.8, KOTOR 23.9, life 31.4) — was 12.5 by a broken ruler',
+      d.vocative_pct >= 12);
+    /* RHYTHM: real speech is 1.17, the most varied thing measured. Ours is the
+       flattest of four corpora, so this is a floor and never a ceiling. */
+    ok('DEMO: rhythm spread >= 0.65 (life 1.17, film 0.83, KOTOR 0.67)',
+      d.rhythm_cv >= 0.65);
+    /* RATCHETS. Two house habits that leaked in from this repo's own style and
+       are still out of band. They may not get WORSE while they are being fixed. */
+    ok('DEMO: denials do not climb back past 50% (film 26.5, KOTOR 42.4, life 20.9)',
+      d.negation_pct <= 50);
+    ok('DEMO: quoted figures do not climb back past 24% (everybody else 7 to 10)',
+      d.number_pct <= 24);
+  }
+  const bark = fp.bohemia && fp.bohemia.STREET_BARKS;
+  ok('the barks are measured too, so the next lane knows where the hole is',
+    !!bark && bark.lines >= 400);
+}
+/* THE RULER THAT WAS WRONG TWICE IN ONE TURN, pinned so it cannot go loose again.
+   A vocative counter that matches any leading comma clause reads 45.7% on real
+   speech; one that demands an address noun reads 0.4%. The one in the tool reads
+   22.8 / 23.9 / 31.4 across three independent corpora, and it is trusted for that
+   reason and no other. If those three ever disagree wildly, the ruler broke. */
+if (fs.existsSync(FP_FILE)) {
+  const R = JSON.parse(fs.readFileSync(FP_FILE, 'utf8')).reference || {};
+  const v = [R.FILM, R.KOTOR, R.REAL_SPEECH].filter(Boolean).map(x => x.vocative_pct);
+  ok('the vocative ruler still agrees across three corpora (spread < 15 points)',
+    v.length === 3 && (Math.max.apply(null, v) - Math.min.apply(null, v)) < 15);
+}
+
+/* A QUESTION PUNCTUATED AS AN INSCRIPTION. "Where then." was the single most
+   fingerprinted line in the whole build. A tag question ending in a full stop is
+   the tell in one line, and it is cheap to catch. */
+{
+  const TAG = /,\s*(isn['’]t it|aren['’]t you|don['’]t you|right|yeah|no)\s*\.(?!\.)/i;
+  let tagged = [];
+  const DEMO_FILES = ['quests/bq/S01_THE_METER_READER.bq', 'quests/bq/S09_THE_BACK_DOOR.bq',
+    'quests/bq/S02_THE_SAME_CRATE_TWICE.bq', 'quests/bq/S22_THE_COLD_ROOM.bq',
+    'quests/bq/S25_THE_PRESSURE_GOES_BACKWARD.bq'];
+  ok('all five demo scene files are on disk', DEMO_FILES.every(f => fs.existsSync(f)));
+  DEMO_FILES.forEach(f => {
+    if (!fs.existsSync(f)) return;
+    fs.readFileSync(f, 'utf8').split('\n').forEach((L, i) => {
+      if (/^\s*@(SAY|OPT)/.test(L) && TAG.test(L)) tagged.push(f + ':' + (i + 1));
+    });
+  });
+  ok('no demo line writes a tag question and ends it with a full stop'
+    + (tagged.length ? ' [' + tagged.join(', ') + ']' : ''), tagged.length === 0);
+}
 
 console.log('');
 console.log('VOICE GATE: ' + pass + ' passed, ' + fail + ' failed');

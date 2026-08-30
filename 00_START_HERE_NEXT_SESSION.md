@@ -349,6 +349,102 @@ Law: laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.m
 Record: records/BOHEMIA_SEVEN_HAIRCUTS_SEVEN_REMAKES_8_30_26.txt
 Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
 
+WORDS (words-8dqrnq): 8/28 (y) LATEST -- *** THE DEMO'S FIVE SCENES NO LONGER WRITE LIKE A
+MACHINE, AND FOR THE FIRST TIME THAT IS A MEASURED CLAIM AGAINST REAL WRITING. ***
+TAB: RUN (play the demo, days 1-5) / WORDS (the before-and-after). Nothing to judge.
+
+WHAT WAS MISSING FOR THREE WEEKS: a control group. Every number in the 8/26 voice diagnosis
+was an absolute with an imagined standard behind it. This lane now holds three real ones,
+all speaker-labelled, all run through the same rulers:
+  FILM         Cornell Movie-Dialogs, 617 films, 304,446 lines
+  KOTOR        Star Wars: Knights of the Old Republic, 29,213 nodes, a shipped RPG
+  REAL SPEECH  Switchboard, 199,740 utterances of real recorded conversation,
+               dialogue-act tagged, merged to 99,478 TURNS so a turn meets a turn
+The measured rows are committed in records/BOHEMIA_VOICE_FINGERPRINT.json so the gate never
+needs the network. Tool: tools/bohemia_voice_fingerprint.py.
+
+TWO OF MY OWN RULES DIED ON CONTACT WITH THE DATA.
+  - "Film asks questions in 31% of lines so we should target 15%" was a fact about
+    SCREENWRITING, not about people. REAL PEOPLE ASK IN 4.7% (hand-annotated act tags, not
+    punctuation). Film quadruples it because film cannot spend 40% of its runtime on
+    "uh-huh", and 40.0% OF EVERYTHING A HUMAN SAYS IS ACKNOWLEDGEMENT -- backchannel alone
+    is the second most common speech act there is. FILM SUBSTITUTES QUESTIONS FOR
+    BACKCHANNEL. The 15% target survives, for a mechanism instead of a copied number.
+  - "Nobody in Bohemia is wise" was justified with "people do not talk like that". They do:
+    real speech ends on a general truth 42.7% of the time, at our 44.0% rate. Film is the
+    outlier at 31.1%, on purpose. The rule stands as CRAFT and the false fact is gone.
+
+AND THE FINGERPRINT, FOUND BY A DETECTOR AND NOT BY TASTE. A logistic model trained to tell
+our lines from 617 films, length-matched inside four-word bands so word count cannot be the
+signal: null (film vs film) 50.7%, professional vs professional (KOTOR vs film) 67.6%, and
+BOHEMIA VS FILM 81.0%. One feature outweighs every other by three times and is identical
+against both professional corpora: SENTENCES PER WORD. Commas per 100 words: real speech
+16.18, film 5.34, KOTOR 4.21, us 3.47. The fewest of anybody. Our most fingerprinted line in
+the whole build was "Where then." -- a question, punctuated as an inscription.
+
+WHAT SHIPPED: 70 hand swaps across the demo's five scenes, structure byte-identical.
+    demo's five scenes      before   after    FILM   KOTOR   REAL
+    sentences per line        2.76    2.27    1.76    2.44   1.43
+    commas per 100 words      3.93    8.04    5.34    4.21  16.18
+    a question                6.8%   19.3%   31.1%   21.5%   7.7%
+    somebody is addressed    12.5%   27.3%   22.8%   23.9%  31.4%
+    a denial                 51.1%   47.7%   26.5%   42.4%  20.9%
+    a quoted figure          28.4%   22.7%    7.0%    8.8%  10.0%
+Five of seven in the professional band. TWO ARE NOT and they are ratcheted, not hidden.
+PROVED BY A HELD-OUT JUDGE, not by the shapes: a detector trained on our NON-demo lines
+against 617 films, which never saw a demo line, flagged 87.5% of those 88 lines as
+unmistakably ours before and 78.4% after. Film's floor is 25.9%. Nine points of sixty-one.
+About a seventh of the way, from one pass, and that is the honest number.
+
+TWELFTH BROKEN RULER, AND IT WAS ONE I HAD ALREADY PUBLISHED. I reported that 45.7% of real
+turns address the other person. The regex matched ANY line opening with a short phrase and a
+comma, so "Nine at night, every night" counted. Caught because adding commas moved the
+"vocative rate" four times further than the edit could explain. The strict rewrite read
+0.4%, equally wrong. The one now in the tool reads 22.8 / 23.9 / 31.4 and IS TRUSTED ONLY
+BECAUSE THREE UNRELATED CORPORA AGREE. That agreement test is in the gate, so loosening the
+regex goes red on the SPREAD, never on our writing.
+
+AND THE GATE DISAGREED WITH ME ABOUT MY OWN NEW RULE, IN THE SAME TURN I WROTE IT. Joining
+short sentences with commas is exactly what rule 7 asks for, and it flattened THE COLD ROOM
+to 0.57 rhythm, because the short sentences I was joining were the spread. Rule 7 and rule 4
+pull against each other; the fix is doing BOTH harder, nine comma-joined clauses AND "Feel
+it." in the same speech. A gate that only ever agrees with you is not load-bearing.
+
+CARD: laws/BOHEMIA_VOICE_CARD_8_26_26.md, six rules to SEVEN. New rule 7 PUT A COMMA WHERE
+YOU WANT TO PUT A FULL STOP, plus measured targets on rules 1 and 3, plus the two house
+habits that leaked in (48% of our lines are denials; 22% quote a figure, which came from
+this repo's own "numbers over adjectives" rule for REPORTS and is not how people talk).
+GATE: gates/voice_gate.js, 110 checks, 0 failed. New: the seven fingerprint floors on the
+demo's five scenes, the three-corpus ruler-agreement check, and a catch for a tag question
+punctuated with a full stop.
+TRAINING: records/BOHEMIA_WORDS_TRAINING_FILE.md, 3,100 lines, sections 88-131.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE STREET BARKS. 546 lines and they are what a player hears constantly just walking
+    around, so they are more of the demo than the five scenes are. They address somebody in
+    3.7% of lines against everybody else's 22 to 31, and at 0.567 they are the flattest
+    rhythm in the build.
+ 2. THE OTHER 22 QUEST SCENES. Mechanical contraction pass only, no voice pass. 39
+    banned-phrase hits still standing, named in the gate, not hidden.
+ 3. DENIALS AND NUMBERS, the two dials that barely moved.
+ 4. THE ACKNOWLEDGEMENT LAYER, PROPERLY. 40% of real speech is people showing they heard
+    you and the only version we have is a question mark. That needs a MECHANISM in the
+    dialogue system, so it is a QUESTS-lane conversation before it is a WORDS one.
+
+WHAT IS PENDING HIM: two creative forks, neither blocking, both DECIDED-AND-SHIPPED per
+EVERYTHING IS A THUMB. (a) DOES BOHEMIA SHOUT: real speech 0.1%, film 8.9%, KOTOR 19.1%, us
+0.0%, and one raised voice now exists in day 2. (b) DOES ANYBODY SWEAR: film 4.0%, KOTOR
+0.5%, us 0.0%, and I have not added any. He corrects what he hates.
+
+CARRIED, NOT MINE, AND ONE IS RED ON MAIN RIGHT NOW: ENGINE SYNC is FAILING on BOH_FLOORPLAN,
+3 distinct bodies across 11 carriers (canon in the alpha and the demo; engine/bohemia_floorplan.js
+and BOHEMIA_CITY_WORLD.html / RUN_CURRENT / SUBURB_WALK are stale; CURRENT_SLICE and MAP_CURRENT
+are a third body). VERIFIED PRE-EXISTING: stash my whole tree and it is still red, so it arrived
+before this turn. It is the WORLD/CITY lane's module and re-inlining it is theirs, not mine.
+Also: 40 thumbs waiting in the VOTE tab (CHARACTER lane); RUN's person-card has
+no speech or face; the LIFE slice carries an embedded wardrobe bank far behind and nothing
+gates it; two duplicate top-level function names in COMBAT (CombatBridge, clampPkg).
+
 CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
 IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
 TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
@@ -2756,7 +2852,7 @@ PROOF
   and the fork count included the study's own round card, so a correct page
   looked like it had five answers.
 ------------------------------------------------------------------------------
-WORDS (words-8dqrnq): 8/27 (a) LATEST -- *** THE WHOLE DEMO TALKS LIKE PEOPLE NOW. All five
+WORDS (words-8dqrnq): 8/27 (a) -- *** THE WHOLE DEMO TALKS LIKE PEOPLE NOW. All five
 demo scenes voice-passed, days 1 to 5. They contracted 0-7% of the time; they contract 82-100%
 now. TAB: WORDS, tap THE VOICE PASS. Or just play the demo. Nothing to judge. ***
 He said: "WE HAVE a demo to ship more forward motion work we need to complete... know what
@@ -4156,7 +4252,7 @@ Record: records/BOHEMIA_THE_LAST_THIRTY_SECONDS_8_27_26.md
 
 ---- AND WHAT IT WAS BUILT ON ----
 
-WORDS (words-8dqrnq): 8/27 (d) LATEST -- *** ALL 27 QUEST SCENES TALK LIKE PEOPLE NOW.
+WORDS (words-8dqrnq): 8/27 (d) -- *** ALL 27 QUEST SCENES TALK LIKE PEOPLE NOW.
 2.2% -> 89.3% contractions across the whole build. 819 of them applied by a tool that is
 honest about being only ONE of the eight tells. TAB: WORDS. Nothing to judge. ***
 

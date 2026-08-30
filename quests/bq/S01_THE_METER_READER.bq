@@ -80,9 +80,9 @@
 # THE ASK. The theme is in the FIRST line, not a missable node (W3).
 # =====================================================================
 @TALK open  speaker=lineman  entry=stage>=10
-  @SAY Nine at night. Every night, nine, and half this block goes brown. #tired
-  @SAY I tested it myself. Line's clean. Clean and browning out means somebody upstream is on my feed drinking before we do.
-  @SAY So walk it back for me. Past the dead storefronts, follow whatever cable's running warm. You any good at quiet?
+  @SAY Nine at night, every night, and half this block goes brown. #tired
+  @SAY I tested it myself, line's clean, and clean plus browning out means somebody upstream's on my feed drinking before we do.
+  @SAY So walk it back for me, past the dead storefronts, follow whatever cable's running warm. You any good at quiet?
   @OPT "I'll walk it."                 [gate: none]  -> walk  @DO learn line_is_clean
   @OPT "Why not you?"                  [gate: none]  -> why
   @OPT "Not my block."                 [gate: none]  -> refuse
@@ -91,15 +91,15 @@
 @END
 
 @TALK why  speaker=lineman
-  @SAY Because everybody on this block knows my face. I've got a kid. #dread
-  @SAY Whoever's drinking that current doesn't like being looked at. You're new. Nobody comes asking if you don't come back.
+  @SAY Because everybody on this block knows my face, man. I've got a kid. #dread
+  @SAY Whoever's drinking that current likes being invisible, and you're new. Nobody comes asking if you don't come back.
   @OPT "Comforting."                   [gate: none]  -> walk  @DO learn line_is_clean
   @OPT "Who doesn't like being looked at?"  [gate: none]  -> why2
 @END
 
 @TALK why2  speaker=lineman
-  @SAY If I knew, I wouldn't need you. I asked my foreman about it once. He just looked at his hands till I stopped talking.
-  @SAY Follow the split. Don't make a show of it. Please.
+  @SAY If I knew, I wouldn't need you, would I? I asked my foreman about it once and he just looked at his hands till I stopped talking.
+  @SAY Follow the split, and don't make a show of it. Please.
   @DO set_stage 20
 @END
 
@@ -110,7 +110,7 @@
 @END
 
 @TALK walk  speaker=lineman
-  @SAY Good. Splits somewhere past the dead storefronts. Warm cable. You'll feel it before you see it. #tired
+  @SAY Good. Splits somewhere past the dead storefronts, warm cable, you'll feel it before you see it. #tired
   @DO set_stage 20
 @END
 
@@ -133,29 +133,29 @@
 # It goes DOWN, toward the water — the reclaim plant, per canon. Looking is the
 # danger, not fighting. This sets the unrecorded flag the fold reads later.
 @TALK whose  speaker=fixer
-  @SAY Huh. That's the one question, isn't it. I don't know whose. Never have. #dread
-  @SAY It runs down. Not up. Down, toward the water. That's where I quit asking and you should quit there too.
-  @SAY I told you nothing. Understand me. Put it back or don't, it's your block and it's your face they'll remember.
+  @SAY Huh. That's the one question, isn't it? I don't know whose. Never have. #dread
+  @SAY It runs down, not up. Down, toward the water, and that's where I quit asking. You should quit there too.
+  @SAY I told you nothing, understand me? Put it back or don't. It's your block and it's your face they'll remember.
   @OPT "Put it back. Quietly."          [gate: none]  SILENCE -> put  @DO learn it_goes_down
   @OPT "Cut it. Let them see."           [gate: none]  -> cut          @DO learn it_goes_down  @DO set_flag looked_under_the_rock
 @END
 
 @TALK put  speaker=lineman
   @SAY Light's back. I'm not going to ask how. #tired
-  @SAY You didn't make a show of it. I noticed. Not going to say anything else about it.
+  @SAY You didn't make a show of it, and I noticed. Not going to say anything else about it.
   @OPT "Just fixed a line."             [gate: none]  -> END  @DO set_stage 30
   @NOVERB "It was the network"
 @END
 
 @TALK report  speaker=lineman
   @SAY You brought it to us. Could've kept it to yourself and you didn't. #tired
-  @SAY We patch it in daylight. Names on the work order, mine first, then the crew, then yours if you want it up there.
+  @SAY We patch it in daylight, names on the work order, mine first, then the crew, then yours if you want it up there.
   @OPT "Do it in daylight."             [gate: none]  -> END  @DO set_stage 31
 @END
 
 @TALK cut  speaker=lineman
   @SAY You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was. #dread
-  @SAY They felt that upstream. Somebody up there has your face now. I don't know what else to tell you.
+  @SAY They felt that upstream, and somebody up there has your face now. I don't know what else to tell you, man.
   @OPT "Let them know my face."          [gate: none]  -> END  @DO set_stage 32
   @OPT (say nothing)                     [gate: none]  SILENCE -> END  @DO set_stage 32
 @END
