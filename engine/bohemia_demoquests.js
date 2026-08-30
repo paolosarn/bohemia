@@ -118,6 +118,15 @@
     var RT = cfg.BQRuntime || root.BQRuntime;
     var SRC = cfg.sources || {};          // file stem -> raw .bq text
     var loop = cfg.loop || null;
+    /* WHO ACTUALLY SAW IT (8/28, FACTIONS lane). The host passes this in; the
+       module never reaches for a world. His `faction REDS +10` used to move a
+       number in a ledger, valley-wide and instantly, with nobody watching --
+       which is KARMA, the design New Vegas shipped beside reputation and which
+       is remembered as "almost completely irrelevant". Reputation is the half
+       that moves when somebody CATCHES you, and it is the half that game is
+       built on. This is the seam that lets a resolved stage reach it.
+       Signature: witness(questFileStem, stageN, questId) -> anything. */
+    var witness = (typeof cfg.witness === 'function') ? cfg.witness : null;
     var shared = cfg.shared || { bonds: {} };
 
     /* lastNarrated: the stage the JOURNAL has already been told about. It exists
@@ -213,10 +222,37 @@
       return null;
     };
 
+    /* IDEMPOTENT PER (QUEST, STAGE), AND THAT IS NOT DEFENSIVE PROGRAMMING -- IT
+       IS THE ONLY WAY BOTH CALLERS CAN BE CORRECT. A chosen @OPT can carry
+       `@DO set_stage 20`, which runs the stage's verbs through the canonical
+       Runtime.setStage BEFORE the UI ever asks what happened; D.spoke exists to
+       report exactly that, and its own comment below warns that re-entering the
+       stage there would pay every bond twice and double every faction move. So
+       BOTH paths call this one function, and a resolution can only ever be
+       witnessed once, however it was reached. The guard lives in the module
+       because the double-entry hazard is the module's own. */
+    D._seen = {};
+    D._witness = function (n) {
+      if (!witness || !D.spec || n == null) return null;
+      var key = D.spec.id + ':' + n;
+      if (D._seen[key]) return null;
+      D._seen[key] = 1;
+      try { return witness(D.spec.file, n, D.spec.id); }
+      catch (_e) {
+        if (!D._witness.__warned) { D._witness.__warned = 1;
+          try { console.error('BOHEMIA: a resolved quest stage was never witnessed '
+            + 'by anybody, so no outfit can have learned about it. ' + _e.message); }
+          catch (_x) {}
+        }
+        return null;
+      }
+    };
+
     D._toStage = function (n) {
       D.rt.setStage(n);
       var log = stageLog(D.Q, n);
       if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      D._witness(n);
       D.lastNarrated = n;
       var out = { stage: n, log: log, objectives: D.rt.objectives() };
       if (D.spec.choiceAt === n) { D.pending = D.choiceCard(); out.card = D.pending; }
@@ -242,6 +278,7 @@
       D.lastNarrated = n;
       var log = stageLog(D.Q, n);
       if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      D._witness(n);            /* idempotent; see D._witness */
       var out = { stage: n, log: log, objectives: D.rt.objectives(), spoke: true };
       if (D.spec.choiceAt === n && !D.rt.state.done) { D.pending = D.choiceCard(); out.card = D.pending; }
       return out;

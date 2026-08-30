@@ -201,9 +201,27 @@ function ctWhyTheyThinkThat(fid, limit){
   } catch(_e){ return []; }
   var out = [];
   for (var i = 0; i < rows.length; i++){
-    var w = CT_DEED_WORDS[rows[i].kind]; if (!w) continue;
+    var w = CT_DEED_WORDS[rows[i].kind];
+    if (w){
+      out.push({ kind: rows[i].kind, force: rows[i].force, heard: rows[i].heard,
+                 say: rows[i].heard ? w.heard : w.saw });
+      continue;
+    }
+    /* __CITY_QUESTDEEDS__ -- AND A QUEST DEED SAYS IT IN HIS OWN SENTENCE.
+       CT_DEED_WORDS only ever held the four kinds the CITY witnesses. A deed
+       published from a quest has a `q:<quest>:<stage>@<FACTION>` kind, so it
+       fell through this loop and vanished: the outfit's view moved and the card
+       could not say why. bohemia_deeds already solved this and nothing called
+       it -- loadCorpus stores each stage's @LOG line in LABELS, which is the
+       line Paolo already wrote for exactly this moment, and labels() is one of
+       the functions organ_reach reported as reached by NOTHING ANYWHERE.
+       So no words are invented here: an authored deed is described by its
+       author's own sentence, and only the eyewitness/hearsay split is mine. */
+    var lab = null;
+    try { lab = BohemiaDeeds.labels()[rows[i].kind] || null; } catch(_e){}
+    if (!lab) continue;
     out.push({ kind: rows[i].kind, force: rows[i].force, heard: rows[i].heard,
-               say: rows[i].heard ? w.heard : w.saw });
+               say: (rows[i].heard ? 'heard what you did: ' : 'watched it: ') + lab });
   }
   return out;
 }
