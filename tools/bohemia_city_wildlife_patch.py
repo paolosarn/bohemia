@@ -2,6 +2,15 @@
 """BOHEMIA THE VALLEY HAS ANIMALS IN IT (8/28/26, PEOPLE lane) -- ALIVE-1's other
 half, and the half a number could never fix.
 
+REUSE CHECK: this file makes canvases, so it owes one. It opened
+slices/BOHEMIA_CITY_PROPS.js and read every prop id in it -- bag, barrel,
+barricade, bench, bin, bollard, car, cone, dumpster, firebarrel, lamp,
+lighttower, mailbox, pallet, pole, rubble, tyre -- and swept banks/ for raven,
+coyote, pigeon and rat. THERE IS NOT ONE ANIMAL IN THE REPO. So it draws NO
+pixels of its own: every pixel it puts on the glass comes out of
+banks/BOHEMIA_WILDLIFE_SPRITES.js, which tools/bohemia_wildlife_factory.py cooks
+and which carries its own REUSE CHECK for the same sweep.
+
 MEASURED 8/28: at the TOP of the population slider, ~96,885 people, twenty-three
 walks in thirty-two still meet nobody, because the valley is ~151 square
 kilometres and a step is a metre. AMBIENCE DOES NOT NEED A CENSUS. A resident has
@@ -175,11 +184,15 @@ function peoplePass(ox, oy, C) {"""
 CALL_ANCHOR = """  peoplePass(ox,oy,C);
   try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */"""
 CALL_NEW = """  peoplePass(ox,oy,C);
-  /* __CITY_WILDLIFE__ -- and then whatever else lives here. After the people on
-     purpose: a bird on a wall is behind nobody, and if this ever throws the
-     valley keeps its residents. */
-  try { wildPass(ox, oy, C); } catch(_e){}
-  try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */"""
+  try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */
+  /* __CITY_WILDLIFE__ -- and then whatever else lives here. AFTER THE WITNESS
+     PASS, not before it: ctWitnessPass reads what peoplePass just drew, and
+     city_memory_gate holds those two ADJACENT on purpose. The first cut of this
+     patch sat between them and turned that claim red -- a witness organ is about
+     PEOPLE seeing things, and a pigeon has no business standing in the middle of
+     it. After the people for the drawing too: a bird on a wall is behind nobody,
+     and if this ever throws the valley keeps its residents. */
+  try { wildPass(ox, oy, C); } catch(_e){}"""
 
 
 def module_body():

@@ -37805,11 +37805,15 @@ function renderHuman(){
      BEFORE the player, so somebody standing north of you is occluded by the
      same facade you are, and the front pass then covers everybody equally. */
   peoplePass(ox,oy,C);
-  /* __CITY_WILDLIFE__ -- and then whatever else lives here. After the people on
-     purpose: a bird on a wall is behind nobody, and if this ever throws the
-     valley keeps its residents. */
-  try { wildPass(ox, oy, C); } catch(_e){}
   try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */
+  /* __CITY_WILDLIFE__ -- and then whatever else lives here. AFTER THE WITNESS
+     PASS, not before it: ctWitnessPass reads what peoplePass just drew, and
+     city_memory_gate holds those two ADJACENT on purpose. The first cut of this
+     patch sat between them and turned that claim red -- a witness organ is about
+     PEOPLE seeing things, and a pigeon has no business standing in the middle of
+     it. After the people for the drawing too: a bird on a wall is behind nobody,
+     and if this ever throws the valley keeps its residents. */
+  try { wildPass(ox, oy, C); } catch(_e){}
   try{ ctGossipPass(); }catch(_e){}    /* __CITY_DEEDS__ */
   try{ barkPass(ox,oy,C); }catch(_e){}   /* __CITY_BARKS__ */
   sigPass(ox,oy,C);   /* __TRAFFIC_SIGNALS__ */
