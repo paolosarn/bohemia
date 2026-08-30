@@ -32,7 +32,11 @@
 //                                hops retune with them on the next boot, for free.
 //   engine/bohemia_standing.js — the witness/gossip/decay organ. Already built, already
 //                                gated at 35 claims. This adds NO reputation math.
-//   quests/bq/*.bq             — the 59 authored faction deltas and the 69 clout tags.
+//   quests/bq/*.bq             — the 82 authored faction deltas and their clout tags.
+//                                (Said 59 and 69 until 8/28, when it was counted through
+//                                scanQuest itself: 82 deltas across 25 of 27 quests, every
+//                                one of them tagged -- notable 28, reckless 23, quiet 16,
+//                                risky 15. He kept writing; the banner did not.)
 // Nothing was cooked. Every number below is either his, or derived from his with the
 // derivation written down.
 //
@@ -116,7 +120,7 @@
 
   /* ---- THE UNITS CONVERSION, AND WHY IT IS NOT A KNOB ---------------------
      His quest deltas run on the quest scale (the corpus's biggest single act is
-     |18|). standing.js's rungs run on the opinion scale (HOSTILE/-3, COLD/-1,
+     |20|, measured 8/28; this said |18|). standing.js's rungs run on the opinion scale (HOSTILE/-3, COLD/-1,
      NEUTRAL/1, WARM/3 — boundaries two apart). Something has to convert, and a
      conversion factor picked by feel is an invented constant pretending to be
      mechanism. So it is DERIVED, from a rule you can argue with in English:
@@ -125,7 +129,11 @@
        MOVES YOU EXACTLY ONE RUNG.
 
      divisor = (largest |delta| in the corpus) / (rung step)
-     Today: 18 / 2 = 9. It is measured from his files at load, so if he ever writes
+     Today: 20 / 2 = 10. (This comment said 18 until 8/28, when the corpus was
+     measured through this very function and answered 20 -- he wrote a bigger
+     deed at some point and the prose did not follow. The number is DERIVED at
+     load and was never wrong; only the sentence describing it was, which is the
+     exact rot that makes a stale comment worse than no comment.) It is measured from his files at load, so if he ever writes
      a bigger deed the whole scale re-normalises itself and the rule still holds.
      Nothing to retune by hand, ever. */
   var RUNG_STEP = (function () {
@@ -203,6 +211,21 @@
 
      Nothing is stored anywhere else. There is still no faction ledger; a faction's
      view of you remains the average of what its people actually saw. */
+  /* WHOSE PEOPLE THIS TOUCHED, AND WHY IT IS NOT `===`.
+     MEASURED 8/28 over the whole corpus, before this existed: of the 82 faction
+     deltas Paolo has authored across quests/bq, a strict === matched TWENTY-THREE.
+     The other FIFTY-NINE named a real faction in a different case -- he writes
+     `faction TRADES +8` and the canon id in BOHEMIA_faction_graph.json is
+     `Trades` -- so the witness predicate below answered false for every person
+     alive and the deed went into nobody's head. Silently: publish() would return
+     witnesses:0, which is indistinguishable from "nobody was standing there."
+     ZERO of the 82 name a faction that does not exist, so this is a matcher that
+     was too strict, never content that was wrong. Folding case rescues 59 lines
+     of his writing and invents nothing: the name still has to BE a faction. */
+  function sameFaction(a, b) {
+    if (a == null || b == null) return false;
+    return String(a).toUpperCase() === String(b).toUpperCase();
+  }
   function publish(minds, turn, actorId, rows, x, y, where, factionOfOwner) {
     var seen = [], total = 0;
     for (var i = 0; i < rows.length; i++) {
@@ -211,7 +234,7 @@
       var n = S.witness(minds, turn, actorId, r.kind, x, y, where, {
         range: reachOf(r.clout),
         maxHops: hopsFor(r.clout),
-        only: function (owner) { return factionOfOwner(owner) === faction; },
+        only: function (owner) { return sameFaction(factionOfOwner(owner), faction); },
       });
       seen.push({ faction: faction, kind: r.kind, clout: r.clout, delta: r.delta,
                   reach: reachOf(r.clout), maxHops: hopsFor(r.clout), witnesses: n });
@@ -243,6 +266,7 @@
     reachOf: reachOf, hopsFor: hopsFor, cloutWeight: cloutWeight,
     scanQuest: scanQuest, loadCorpus: loadCorpus,
     publish: publish, publishStage: publishStage, sayWhy: sayWhy,
+    sameFaction: sameFaction,
     RUNG_STEP: RUNG_STEP,
     labels: function () { return LABELS; },
   };
