@@ -1289,7 +1289,72 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/29 (b) LATEST -- *** ALL EIGHT GLASS CARDS DIED AND I HAD PICKED
+UI (ui-kmqmrf): 8/30 LATEST -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
+LEFT THE WALL ALONE AND WENT AT THE DEMO. A STANDING LAW HAD NEVER BEEN CHECKED AND
+IT WAS FAILING 92%. *** TAB: RUN (the demo's only screen).
+
+MEASURED ON slices/BOHEMIA_DEMO.html -- the file a stranger gets -- over a REAL HTTP
+ORIGIN at 390x844. Not on the workshop.
+
+THE HEADLINE: THE THUMB (44px, iPhone portrait) is a standing law in CLAUDE.md, this
+game ships on ONE device, and NOTHING IN ~453 GATES HAD EVER MEASURED A CONTROL.
+Twelve of thirteen tappable controls on the demo's first city screen were under 44px:
+the top chips at 30px (68% of target) and the eight walk arrows -- THE GAME'S ONLY
+MOVEMENT INPUT -- at 42. Fixed demo-side to 0 of 14 under. gates/thumb_gate.js, 9
+claims, registered THE THUMB, mutation-proved four ways.
+
+*** HOW TO FIND A CONTROL, BECAUSE THREE OBVIOUS WAYS ALL RETURN ZERO ON A SCREEN
+WITH EIGHT BUTTONS ON IT. *** `[onclick]` matches only the ATTRIBUTE and this codebase
+wires with addEventListener. The `onclick` PROPERTY misses them too. CDP's
+getEventListeners can see them but its object handles do not cross cleanly into a
+child frame. WHAT WORKS: wrap addEventListener in an init script BEFORE the page runs
+and let the page announce every handler as it registers it.
+
+*** AND NEVER PROBE A DEMO BEHAVIOUR OVER file://. *** The demo hides the city's
+builder drawer (PEOPLE / REROLL / UNDER / KEY / SLIDE -- a stranger tapping REROLL
+regenerates the world under their own session) by same-origin injection. file://
+denies that access and the catch swallows it, so the drawer is WIDE OPEN under
+file:// and correctly hidden over http. I confirmed the "leak", tapped it, got the
+full menu, and was about to file a bug against another session's correct work. FIFTH
+BROKEN RULER IN TWO DAYS AND THE FIRST THAT WOULD HAVE BLAMED SOMEBODY ELSE.
+
+BUT THERE WAS A REAL WINDOW AND IT IS NOW CLOSED. The hide ran on a 400ms interval;
+sampling from the first readable frame, the builder button was on screen AND returned
+by elementFromPoint 149ms after entering the city. A poll cannot close that. Now a
+MutationObserver on the panel that receives the frame, dressed on creation and load,
+plus every animation frame for two seconds, interval kept underneath. 0 of 6 samples
+tappable after.
+
+*** AND I BROKE THAT FIX WITH THE THUMB FIX, WHICH IS THE LESSON OF THE TURN. *** The
+thumb rule sets display:flex on every child of #topbar and #devbtn IS a child of
+#topbar. Two !important declarations at equal specificity are settled by ORDER, so the
+later thumb rule beat the earlier hide and the builder button came back 44x44 and
+tappable FOR THE WHOLE SESSION -- worse than the 149ms window it was written to close.
+A RULE CAN BE INDIVIDUALLY CORRECT AND WRONG BECAUSE OF WHERE IT SITS (the 8/16 border
+lesson, third hat). The hide goes LAST now and carries a compound selector so it wins
+on specificity as well as order. Only a check that reads BOTH at once catches it,
+which is why the gate does.
+
+ALSO WORTH KNOWING, AND I WAS WRONG BEFORE I WAS RIGHT: the 8/25 gap list says "THE
+DEMO BUILD DOES NOT EXIST". It exists; the pages workflow cuts it every deploy. And I
+thought 70% of the demo was an unreachable dev tool, because the biggest script block
+is 3,076 KB and opens `const RIG_B64=`. RIG_B64 IS 125 KB. The block holds several
+blobs and I attributed it to the first declaration in it; COMBAT_B64 is the 1.68 MB
+and the demo needs the fight. THE CUTTER'S OWN HEADER ALREADY SAID SO and was right.
+
+WHAT IS STILL OPEN AND IS NOT THIS LANE'S: the WORKSHOP's chrome is still 30px (city's
+file, filed as UI-16 with the exact three lines and the proof they do not move the pad);
+weight, 4.38 MB in one request, which the cutter says explicitly is RUN's; and the
+ending, gap G, the day still ends by going to bed.
+
+THE WALL IS UNCHANGED AND ROUND 7 IS STILL WAITING ON HIM: six OBJECTS that are not
+metal and six LIGHTS that are not the hologram, in the 3D tab. Nothing from the wall
+has gone into the game and nothing should until he picks.
+Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/29 (b) -- *** ALL EIGHT GLASS CARDS DIED AND I HAD PICKED
 THAT DIRECTION MYSELF. A BLANKET SAVE IS NOT A PICK. *** TAB: **3D**. The game is
 STILL UNTOUCHED.
 
