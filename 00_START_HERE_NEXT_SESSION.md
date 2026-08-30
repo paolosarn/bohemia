@@ -1,3 +1,70 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
+WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
+THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
+
+READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
+spots our writing at 81%, and a 617-film control group), UI is on round seven with
+a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
+it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
+looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
+and SHARED -19 caught the site not deploying for seven hours while every push kept
+working.
+DEMO PATH GUARDED: the_whole_demo_gate 23/23.
+
+*** THE FINDING. ***
+On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
+TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
+and it correctly killed the word "roguelite" that had been wrong at the top of
+CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
+ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
+for "character" anywhere in his quoted words, one hit in the summary, one in
+CLAUDE.md's first paragraph, which every session in this fleet reads first, every
+session. I ran the positive control this time: the same grep finds "character"
+elsewhere in the same file, so the instrument works.
+WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
+law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
+years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
+the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
+CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
+skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
+is titled "the 100-year problem."
+AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
+actually conflict -- a run resets you to nothing, a generational handoff inherits
+EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
+a natural way to describe one long life, and BOTH of his own references, Cyberpunk
+and Elder Scrolls, are single-character games with perk trees. The difference is
+the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
+
+THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
+is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
+Nothing in it says a summary may only contain what its source contains. So one
+inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
+CONSTRUCTION, silently, before any session has read anything else.
+Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
+manufactured by bias, amplification, and "forms of INVENTION such as the
+CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
+got promoted by being repeated somewhere more authoritative than it started. Ten
+years there; two days here, because this fleet re-reads its top document nine
+times a day.
+
+WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
+carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
+inference, and names the open question in place so no session silently resolves
+it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
+on it, which is the definition of a canon call.
+*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
+answer before he gives one, write your assumption in your commit, never into a
+law. ***
+
+  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
+  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
+  every distinctive claim in the bullet must appear in that file. Mutation test:
+  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
+  files, only claim-matching is new. It would have caught this in one run.
+  NO CODE TOUCHED -- coordinator is read-only.
+
+================================================================================
+
 CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
 IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
 TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
@@ -909,87 +976,6 @@ browser contention causes false reds, which I proved on myself. (2) LOOK clocks 
 mtime against a surface every ship touches, so it measures TREE AGE. (3) GRAVEYARD's 10 live
 references, repo hygiene with no owning lane. (4) Aperture mismatch + midpoint keep-out from
 8/22. (5) 31 unplaced legend codes.
-
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 LATEST -- *** SWEEP 22. THE WASH IS
-A DOOR NOBODY BUILT. Plus a correction to my own work that becomes a standing
-rule. Nothing to judge. ***
-
-READ-BACK: from the handoff I took that WORLD killed the green in a dead valley
-across 26 tiles and 24 modules (and that it had been fixed three times one file
-at a time), COMBAT shipped a boss handing you an ability, UI shipped letters and
-the look he picked, RUN shipped the road leaving something behind, and the suite
-is 39-red with none of it from this turn.
-
-*** THE CORRECTION, AND IT IS THE MOST USEFUL THING IN THIS ENTRY. ***
-WORLD caught me. I wrote "there is no wall-opacity system in this build" and
-routed a lane to build one. IT HAS EXISTED SINCE 8/3, on his own ruling that day,
-and it fires 60 of 60. The real bug was that all three fade rules were BINARY, so
-a wall crossed 0.65 of alpha in ONE FOOTSTEP -- which is exactly what he saw.
-They fixed it, ramped it, gated it.
-THEIR LESSON IS NOW MY STANDING RULE: **A NEGATIVE RESULT IS A CLAIM ABOUT YOUR
-INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT COULD HAVE SEEN A POSITIVE ONE.**
-I have written "nobody has started this" in eight sweeps this month. None of them
-had a positive control. From here they get one.
-
-DEMO PATH GUARDED: the_whole_demo_gate 23/23.
-
-HIS TWO STATUS COMPLAINTS, ANSWERED HONESTLY:
-  "THE STREETS ARENT FIXED YET" -- PARTLY WRONG AND WORTH KNOWING WHY. WORLD
-  shipped street_contract_gate.js on 8/26 and it passes 17/0 against 4,497 real
-  seams. THE ARTERIALS -- the grid he actually walks -- ARE 0 BROKEN OF 2,594.
-  What remains is 44 DECLARED, RATCHETED breaks on FREEWAY (40 of 1,415),
-  INTERCHANGE (3) and STRIP (1), held at a written ceiling that can only come
-  down. So if he saw a break on an ordinary street that contradicts a
-  0-of-2,594 measurement and is worth a screenshot; if it was on a freeway or an
-  interchange it is one of the 44 and it is on the books.
-  "COMBAT AND THE RUN STILL ARENT FULL SCREEN" -- CORRECT, NOT STARTED. No
-  desktop gate exists. UI WIDE-1 and RUN WIDE-2 are still open, and the
-  constraint I put on them was lifted by him on 8/26, so there is nothing in the
-  way of it.
-
-*** THE WASH, MEASURED, AND HIS DIAGNOSIS IS THE PART THAT IS WRONG ***
-Generated the canonical seed and counted: WASH IS 51 CELLS OF 9,216 = 0.55% OF
-THE VALLEY. Already rare, and he guessed that himself. 44 of 51 touch another
-wash cell (86%) AND THAT IS CORRECT -- a wash is a drainage CHANNEL and the real
-Las Vegas Wash is one continuous channel to Lake Mead. Scattered single cells
-would be holes, not washes. AND THE 8-CELL RUN IS THE ARTERIAL SPACING: arterials
-sit every ninth row and column and resolve before the wash, so eight is the
-longest a channel can run before a street crosses it. The system is doing exactly
-what it was told.
-THE DEFECT IS NOT FREQUENCY, IT IS EMPTINESS. Eight cells of nothing at 0.084 of
-a day per cell.
-AND IT CHALLENGES ONE OF HIS OWN LAWS: the Valheim law says the unexplored ocean
-is a FEATURE, which is true for a world you look at FROM A DISTANCE and FALSE for
-a corridor you are made to WALK. The streets cross the wash, so he walks INTO it,
-not past it. THAT is why he complained about the wash and has never once
-complained about the desert, which is far emptier.
-
-*** THE HORIZON ITEM: THE ENGINE PROMISED AN UNDERGROUND AND NOBODY BUILT IT ***
-bohemia_overmap.js says it itself, directly above the wash placement: "You can
-hop down into it; IT IS THE ENTRANCE TO THE STORM/SEWER SYSTEM UNDERNEATH THE
-CITY WHERE THE HOMELESS LIVE." That system does not exist. The wash is a door
-with nothing behind it, which is the real reason it reads as a void.
-AND IT IS THE MOST FAMOUS TRUE THING ABOUT THE UNDERSIDE OF LAS VEGAS: over 300
-MILES of flood tunnels, hundreds of people living in them under the casinos,
-fact-checked and documented across two books by Matthew O'Brien. A man in an
-elevated bed above the water. A plywood hut. People down there in summer BECAUSE
-IT IS COOL, which lands straight on our heat law. And the danger is built in --
-the tunnels exist because of flash flooding, so a storm on the surface is a
-lethal event underground.
-THE WARNING, READ BEFORE BUILDING: FALLOUT 3'S DC METRO. Their own level designer
-names the cost, and the player verdict is consistent -- confusing, mazy, dead
-ends. The sharpest version applies to us directly: an open world where the only
-way from A to B is a tunnel is not good open world design. SO THE UNDERGROUND IS
-NEVER THE ONLY WAY ANYWHERE, and THE PEOPLE DOWN THERE ARE PEOPLE, not a monster
-tier. Scope is ONE TUNNEL, not 300 miles.
-
-  RECORD: records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md
-  ROUTED: WORLD WASH-FILL (dress the channel, do NOT change its frequency) and
-  WORLD/PEOPLE UNDER-1 (one tunnel). NOT ROUTED on purpose: any wash-frequency
-  change, and any treatment of the tunnel population as enemies.
-  NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
 
 WORLD (world-9lfjtf): 8/28 (k) LATEST -- *** THE DEAD VALLEY WAS STILL GREEN, AND
 IT HAD ALREADY BEEN FIXED THREE TIMES ONE FILE AT A TIME. Plus the level

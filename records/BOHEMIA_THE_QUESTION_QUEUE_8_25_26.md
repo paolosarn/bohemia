@@ -44,6 +44,31 @@ COORDINATOR'S READ: A is the safest and B is the one that would make a
 stranger say "what IS that." Both beat C. But this is exactly the fork
 where his taste is the whole answer.
 
+## 1b. *** DOES THE DYNASTY LIVE? [ASKED 8/28 — JUMPS THE QUEUE] ***
+Bigger than both items below, so it goes first. Full record:
+records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md.
+His 8/26 ruling said "THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL TAKE
+YOU 100 HOURS TO COMPLETE." The summary of it added "one character" --
+words he never said -- and that phrase went to the top of CLAUDE.md.
+52 live laws describe a dynasty: three generations, Animal / Human /
+Angel, "the player lives all three", and the game's ending is the gen-3
+Angel heir leaving one-way.
+THE TWO READINGS ARE BOTH AVAILABLE AND I HAVE ARGUED BOTH: a run resets
+you to nothing and a generational handoff inherits EVERYTHING, so his
+ruling does not require killing the dynasty. But "a full game you complete
+in 100 hours" is a natural way to describe one long life, and both of his
+own references -- Cyberpunk and Elder Scrolls -- are single-character
+games with perk trees.
+  **A — THE DYNASTY LIVES.** Three generations, one continuous world, and
+  the perk tree carries across the fold. Fifty-two laws stay true and the
+  Act 3 moonshot ending stands.
+  **B — ONE LIFE.** One character, ~100 hours, and the generational
+  structure gets retired to the archive with a post-mortem. Cleaner and
+  smaller, and the ending has to be re-answered.
+COORDINATOR'S READ: A costs nothing to keep and B throws away the ending,
+so A unless he wants B. But this is the shape of the whole game and it is
+not mine.
+
 ## 2. DOES THE PLAYER SPEAK SPANISH?  [NOT ASKED YET]
 His 8/25 Spanglish law made language a real thing about people. The one
 piece that stays reserved is the PLAYER: identity is his, always. It

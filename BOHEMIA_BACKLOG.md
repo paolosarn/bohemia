@@ -8159,6 +8159,42 @@ UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+FIDELITY-1. *** A SUMMARY THAT ADDS A FACT ITS SOURCE DOES NOT CONTAIN IS
+   A BUG, NOT A PARAPHRASE (sweep 23, 8/28 — records/BOHEMIA_A_SUMMARY_
+   DELETED_THE_ENDING_8_28_26.md).
+   WHAT HAPPENED: his 8/26 ruling was recorded well and correctly killed
+   the word "roguelite" that had been wrong at the top of CLAUDE.md since
+   day one. Its SUMMARY added two words he never said -- "one character"
+   -- and that summary went to the top of the truth hierarchy, which every
+   session reads first, every session. MEASURED: zero hits for "character"
+   in his quoted words; one hit in the summary; one in CLAUDE.md.
+   WHY IT IS EXPENSIVE: 52 live law files describe a DYNASTY, 162 mentions
+   of the word. The 7/1 law lists under "hard constraints, NOT NEGOTIABLE":
+   "Three generations, ~100 years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel.
+   THE PLAYER LIVES ALL THREE." The Act 3 moonshot is the GEN-3 ANGEL HEIR
+   going one-way. READ LITERALLY, "ONE CHARACTER" DELETES THE ENDING OF
+   THE GAME. And the two hundreds are one skim apart: his is 100 HOURS to
+   complete, the 7/1 law's is 100 YEARS.
+   THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth
+   hierarchy. It is -- and it is a SUMMARY, and the hierarchy ranks
+   DOCUMENTS, NOT FIDELITY. Nothing in it says a summary may only contain
+   what its source contains. So one inferred phrase at position 1 outranks
+   52 correct laws at positions 2 and 3 BY CONSTRUCTION, silently, before
+   any session has read anything else.
+   THE OUTSIDE NAMES IT WORD FOR WORD. Greenberg's BMJ 2009 citation-
+   network study (242 papers, 675 citations, 220,553 paths) found
+   manufactured authority came from bias, amplification, and "forms of
+   INVENTION such as the CONVERSION OF HYPOTHESIS INTO FACT THROUGH
+   CITATION ALONE." Nobody lied; the claim got promoted by being repeated
+   somewhere more authoritative than it started. It took ten years there
+   and two days here, because this fleet re-reads its top document nine
+   times a day.
+   BUILD: every law bullet in CLAUDE.md names the law file it summarises,
+   and every distinctive claim in the bullet must appear in that file.
+   Mutation test: add a phrase to a bullet that is absent from its law ->
+   red. CHEAP, because ~100% of bullets already cite their file; only the
+   claim-matching is new.
+   | the gate catches a planted phrase | — | no. NOT IN A TAB -- machine. ***
 -16. *** CLOSED 8/27: THERE IS A REAL WEBKIT IN THIS REPO NOW. *** He said
    "download whatever you need to download", and the wall turned out to have a
    way round it: playwright's own webkit build is 403 from the egress proxy, BUT
