@@ -3156,3 +3156,38 @@ TWO ORDERING RULES OUT OF IT:
    silently, and exactly one gate looks.
 2. **A PIN MUST DIE WHEN ITS LINE DIES.** If a rewrite of the pinned sentence does
    not turn the check red, the check is not attached to the thing it names.
+
+## 134. THE GAME WAS STILL SAYING THE OLD LINES. THIRD BAKE STEP, AND THE WORST MISS.
+`conversation_gate` failed on: *** AND EVERY ONE OF THEM IS IN THE .bq FILE, WORD
+FOR WORD *** and quoted back "Nine at night. Every night, nine," which is the line
+this turn REPLACED.
+
+The `.bq` file was correct. The words book was correct. The WORDS tab was correct.
+The alpha's quest snapshot was correct. **And the game was still speaking yesterday's
+dialogue**, because `slices/BOHEMIA_CITY_WORLD.html` inlines a `DEMO_BQ` blob holding
+the FULL TEXT of all five demo quest files, and that blob is what the RUN actually
+plays from. **All five were stale, not just day one.**
+
+So a `.bq` edit has THREE bake steps and I knew about two:
+1. `tools/bohemia_words_book.py` -> the words book and the WORDS tab
+2. `tools/bohemia_direct_tab_patch.py` -> `BOHEMIA_QUESTS` in the alpha (the DIRECT tab)
+3. **`DEMO_BQ` in `BOHEMIA_CITY_WORLD.html` -> what the player actually hears**
+and then the demo is cut from the alpha, LAST.
+
+I had verified my new words were "in the alpha and in the demo" with a grep and
+called that reaching the player. **The grep was true and the claim was false**: the
+string was present in the DIRECT tab's data, which is an authoring surface, while
+the surface that speaks reads a different blob in a different file. That is VERIFY
+ON THE REAL SURFACE exactly, and a grep is a side-door probe.
+
+**AND MY FIRST FIX MADE IT MUCH WORSE.** I ran `bohemia_city_dayloop_patch.py`,
+which does rebuild `DEMO_BQ` from disk, and conversation_gate went from 38/1 to
+**25/14**: zero spoken lines, zero choices, the module's own delimiters gone. Three
+separate tools write that same block, and running one alone clobbers the other two.
+Reverted, then did it surgically: parse the blob, replace only the five quest
+strings, assert every byte outside the blob is identical. 3,370,009 bytes to
+3,370,088, and nothing else moved. **39 passed, 0 failed.**
+
+THE RULE: when a generated block has more than one writer, do not regenerate it,
+EDIT IT. And the tell that I was about to break something was available before I
+broke it: three tools grep-matched `DEMO_BQ`, and I ran one of them anyway.
