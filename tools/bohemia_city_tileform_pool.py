@@ -92,6 +92,22 @@ POOLS = {
     # the mountain's talus - dumped rock and rockfall are the same read
     'tf_rip': ('banks/tileforms/TF-ART-023_CANDIDATES_8_25_26.json',
                ['rip_0', 'rip_1', 'rip_2']),
+    # PHASE 2D: OVERLAY pools - transparent PNGs drawn OVER a cell's base
+    # ground by the baker's gArtOver hook. Direction-critical pools ship as
+    # ONE-TILE pools because saTex's weather-rarity shuffle permutes any
+    # pool longer than seven, and a permuted bearing points at nothing.
+    'tf_gw0': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_0']),
+    'tf_gw1': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_1']),
+    'tf_gw2': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_2']),
+    'tf_gw3': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_3']),
+    'tf_gw4': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_4']),
+    'tf_gw5': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_5']),
+    'tf_gw6': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_6']),
+    'tf_gw7': ('banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json', ['gw_7']),
+    'tf_ppn': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_n']),
+    'tf_pps_': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_s']),
+    'tf_ppe': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_e']),
+    'tf_ppw': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_w']),
 }
 
 # PHASE 2A: the railyard's rolling stock through the post path. The city's

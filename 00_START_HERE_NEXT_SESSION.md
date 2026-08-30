@@ -2453,7 +2453,18 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/28 (g) LATEST -- *** THE GREAT TILE MIGRATION SHIPPED IN ONE
+ART (art-f3eu53): 8/28 (h) LATEST -- *** THE GREAT TILE MIGRATION IS COMPLETE
+THROUGH PHASE 2D: the baker gained an OVERLAY hook (gArtOver on ground, sOver on
+structure), guy wires bear on their nearest mast (8-way snap, one kit scan per
+tile, one-tile pools because the weather shuffle permutes anything longer than
+seven), and the planter beds wear their concrete rims on every OPEN side. THE
+THIRD AMBUSH: the planter branch shipped in the GROUND table and a dedicated
+counter read 0 of 266 routed -- every planter is legend kind STRUCTURE, routing
+moved to the structure block, 266 of 266 now. THE RULE: every family gets a
+COUNTER, not a walk past it. Both verified on foot (radio site fan, courthouse
+bed). Honest leftovers recorded on board row 107: solar panels, crop rows,
+embankments, bathtub ring, boxcar running order. PREVIOUS:
+ART (art-f3eu53): 8/28 (g) -- *** THE GREAT TILE MIGRATION SHIPPED IN ONE
 DAY: PHASES 1, 2A AND 2B ARE ON MAIN AND THE TILE ART IS UNDER THE PLAYER'S FEET
 ON THE WALKED SURFACE. TAB: RUN (walk the landfill fill, the library plaza, the
 railyard boxcars, the datafort membrane roofs, the radio tank rows, the wash

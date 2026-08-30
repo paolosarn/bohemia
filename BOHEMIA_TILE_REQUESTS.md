@@ -415,7 +415,7 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
    rust) | structure layer over yard ground, 44px corpus cell | see
    form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
-107. PHASE 1 SHIPPED 8/28 | THE GREAT TILE MIGRATION (every exterior
+107. PHASES 1-2D SHIPPED 8/28 | THE GREAT TILE MIGRATION (every exterior
    family to the walked surface) | CITY - measured 8/27: all 32 wired
    families drew only in the legacy run slice, which the alpha stopped
    downloading on 8/21. PHASE 1 (8/28): the walked page resolves every
@@ -438,8 +438,25 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    the wash's centreline stain and the blob-aware planter ride the kit's
    own runs. Verified on foot: the datafort membrane underfoot, tank
    rows with aisles at the radio site, the stained invert at the wash.
-   REMAINING (2C): guy wires (need mast bearings), planter bed rims
-   (need an overlay pass), boxcar running-order polish | full finding:
+   PHASE 2C SHIPPED same day (the walked-world census): the 676-name
+   census ranked every unrouted name; parkway xeriscape, cracked silt
+   and talus joined already-approved pools by routing alone, ~5.8M
+   cells upgraded with zero new pixels. PHASE 2D SHIPPED same day: the
+   baker gains an OVERLAY hook (gArtOver on ground, sOver on structure)
+   and the direction-critical pools ship as ONE-TILE pools because the
+   weather-rarity shuffle permutes anything longer than seven; the guy
+   wires bear on their nearest mast (one kit scan per tile, 8-way
+   snap - verified on foot at the radio site), and the planter bed
+   rims close the recorded debt (lone box / edge-to-edge soil / a
+   concrete rim per OPEN side, corners wearing two). THE 2D AMBUSH,
+   third of its kind: the planter branch first shipped in the GROUND
+   name table and a dedicated counter read 0 of 266 cells routed -
+   every planter in the game is legend kind STRUCTURE, so the routing
+   moved to the structure block (sPool + sOver) and the counter reads
+   266 of 266. A COUNTER PER FAMILY, not a walk past it: the walk
+   showed a plaza; the count showed the branch never ran. REMAINING
+   (recorded, not urgent): solar panel family, crop rows, embankments,
+   bathtub ring, boxcar running-order polish | full finding:
    records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
    | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |
