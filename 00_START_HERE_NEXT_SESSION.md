@@ -686,6 +686,694 @@ WHAT COMES AFTER
 
 ------------------------------------------------------------------------
 
+CHARACTER (character-0lurbs): 8/30 (a) LATEST -- *** I COOKED SEVEN HAIRCUTS AND ALL
+SEVEN WERE SHAPES HE HAS ALREADY KILLED TWICE. THE REGISTRY THAT WOULD HAVE SAID SO
+HAS EXISTED SINCE JULY AND NOTHING HAS EVER READ IT. ***
+
+READ-BACK: from the handoff I took that the VOTE tab now holds every haircut and
+face with a thumb on it (8/28 w), that 9 new haircuts shipped and 14 were cut the
+same turn (8/28 q), and that the coordinator has one question in front of Paolo
+about "one character" versus three generations. I did not touch any of that.
+
+WHAT I DID, AND MOST OF IT WAS UNDOING MY OWN WORK.
+His 8/28 ruling was "it's tough to analyze without implementing all the new
+hairstyles and shit" -- cook more haircuts. So I re-cooked the seven that were cut
+last turn, with the two mechanisms that had broken them rebuilt:
+  THE CREST   a taper so it narrows as it rises head-on and from behind, not only
+              in profile, because a constant width from crown to top row is a
+              literal rectangle standing on a skull
+  THE TIE     rebuilt from three rectangles drawn only when you are NOT looking at
+              the person, into a round knot placed against the back of the skull
+              on every facing
+  STUBBLE     a shaved side was raw lit skin, which is a bald head, not a
+              clippered one -- painted with his own 8/2 scalp-in-a-groove method
+  THE TAIL    brought forward over one shoulder, after two threads down the chest
+              read as the straps of a bag
+Three separate attempts went into the crest in profile alone.
+
+*** AND THEN I OPENED gates/bohemia_graveyard.txt. ***
+  RIDGE / SPIKED / WIDE CREST  = MOHAWK, LIBERTY SPIKES, HIGH TOP
+  NAPE TAIL, TIED ROPES        = PONYTAIL, BRAIDED TAIL
+  WORK KNOT                    = TOP KNOT
+  DESERT COIL                  = LOW BUN
+Every one killed on 8/1, five of them REOPENED on 8/1 because their reasons named
+DEFECTS, and killed again on 8/2. A second kill is permanent. HIGH TOP's own
+tombstone spells out the trap I walked into: "the bug was fixed for every style
+and he still did not want the shape." Answering his old complaint does not revive
+a shape. GRAVEYARD IS FINAL.
+All seven are removed. The valley wears the same 24 haircuts it wore yesterday and
+no approved pixel moved.
+
+WHY NOTHING CAUGHT IT, AND THE GATE THAT DOES NOW.
+GRAVEYARD IS FINAL has been law since July and the registry is 1,300 lines of his
+own words. NOTHING HAS EVER READ IT -- six weeks, and it was not even among the six
+broken laws the 7/16 sweep found, because it had no gate to be broken.
+A NAME CHECK WOULD NOT HAVE HELPED: RIDGE CREST shares no word with MOHAWK, and a
+name is the one thing a fresh cook always changes. IN THIS GENERATOR A SHAPE IS A
+DIAL -- `strip` is the crest, `tie` is the tied mass, nothing canon uses either,
+and every shape either has produced is a standing tombstone. hair_graveyard_gate.js
+reads the DIALS and cites the registry lines it rests on so the list cannot rot.
+MUTATION TESTED: adding tie:'pony' to BUZZ CUT turns it red and names the style,
+the dial and the tombstone.
+
+THE SENTENCE THAT INVITED IT, AND IT WAS MINE, TWO DAYS OLD.
+The 8/28 law ended "the crest and the tie are unfinished mechanisms and are NAMED
+ROWS". They are not unfinished, THEY ARE REFUSED. A row on the backlog is an
+invitation and the next session accepted it. Struck through in that law and in
+CLAUDE.md, not deleted, so the trail survives.
+WHEN YOU WRITE DOWN THAT SOMETHING IS UNFINISHED, CHECK FIRST WHETHER IT IS DEAD.
+From inside the code the two are identical; in the record they are opposites.
+
+TENTH BROKEN RULER THIS MONTH, and it was inside the new gate. Its first version
+tested for the WORDING "permanent" / "second kill" / "closed" and went red on
+BRAIDED TAIL, which is as dead as anything in the file -- its verdict was "looks
+like dog shit", a first kill naming no defect, so nobody ever wrote "permanent"
+beside it. THE FILE ALREADY HAD A REAL CONVENTION (a reopened entry is COMMENTED
+OUT with a #) AND I INVENTED A DIFFERENT ONE. Same shape as the other nine.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. NOBODY IN THE VALLEY HAS THEIR HAIR UP and this runs past 40C. That is a real
+   hole and it is still open. It must be answered by a silhouette he has NEVER
+   killed -- not a retune of the tie. That is what "fresh cooks answer dead slots"
+   has always meant. Check the registry BEFORE cooking, not after.
+2. 24 haircuts and 16 faces are sitting in the VOTE tab waiting on his thumb, none
+   judged yet. He asked for the thumb on 8/28; the queue is real and it persists
+   across a reload now.
+3. Carried, unfixed: the FACE MAKER does not survive a reload (same class as the
+   vote page bug that was fixed on 8/28 -- it is worth doing, the sliders are
+   otherwise finished). The LIFE slice's embedded wardrobe bank is far behind.
+4. Carried, another lane: RUN's person-card still has no speech and no face.
+
+Proof: hair_graveyard_gate.js 9/9 (mutation tested), face_thumb_gate 23/23,
+portrait_haircut_gate 12/12, face_maker_gate 13/13, full suite green.
+Law: laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md
+Record: records/BOHEMIA_SEVEN_HAIRCUTS_SEVEN_REMAKES_8_30_26.txt
+Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
+
+================================================================================
+
+
+WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
+THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
+Four failed guesses, then a different KIND of measurement found it in one run.
+Nothing to judge. ***
+
+TAB: RUN. Walk to any freeway. Build 8/29d - YOU CAN DRIVE THE INTERSTATE.
+
+THE LINE, in bohemia_freeway.js's kit registration:
+    o.same = o.links = o.streets = ['N', 'S'];
+  It forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+  NORTH-SOUTH however it actually ran. street_contract_gate's own header has
+  described this identical line, in the ARTERIAL, as that module's defect number
+  one since the day it was written. Fixed there 8/26. NOBODY SWEPT THE CLASS.
+  Third time this month -- the dead-green palette went the same way, fixed three
+  separate times one module at a time.
+
+WHAT IT COST, MEASURED
+  freeway(15,13) runs east-west, has freeway east and west of it, and measured
+    N 18..110   S 18..110   E -1..-1   W -1..-1
+  the carriageway drawn NINETY DEGREES to the direction the road runs. The whole
+  east-west leg of the corridor sat in two- and three-cell islands.
+    separate road networks in the valley      214  ->  100
+    biggest network's share of road cells    91.6% -> 95.8%
+    freeway cells stranded off it          249/952 ->  2
+    freeway <-> freeway broken seams            40 ->  14
+    where two road classes meet                129 ->  34
+  The module was correct all along: handed same=['S','W','E'] it builds east-west
+  exactly right. The line threw the world's answer away before it got there. The
+  BOTH-LEGS rule it was really about is kept and only that.
+
+AND IT TOOK FOUR FAILURES, EVERY ONE A GUESS
+  1. a MAP fact, off two sampled cells. Wrong.
+  2. the beltway's four corners, from reading the overmap. Built, run, changed
+     the count by exactly zero. Reverted.
+  3. "does my sibling carriageway have a cross street". 40 -> 199. Reverted.
+  4. the same question asked SYMMETRICALLY over the shared ribbon. 40 -> 216.
+     Reverted.
+  3 and 4 were both about the OVERPASS DECKS, because I had photographed a seam
+  and seen two carriageways whose bridges did not line up. THE PHOTOGRAPH WAS
+  REAL AND THE CONCLUSION FROM IT WAS STILL WRONG: the decks do not line up
+  BECAUSE THE ROAD UNDER THEM IS DRAWN SIDEWAYS. I was fixing the symptom I could
+  see instead of asking why it was there.
+
+THE MEASUREMENT THAT ACTUALLY FOUND IT -- NOT ANOTHER SEAM COUNT
+  A NETWORK. Turn the connector data into a graph: a node per cell with any
+  corridor, an edge wherever two cells' corridors OVERLAP at their shared seam,
+  then connected components. The first run said 214 separate networks, 249
+  freeway cells cut off, AND EVERY ONE OF THEM ON ROW 13. A pattern that obvious
+  cannot survive being looked at.
+  A COUNT IS NOT A LOCATION, and that is what cost four attempts: every seam
+  number told me how bad it was and nothing about where to go. Note also that
+  attempt 4 moved the seam count and DID NOT MOVE THE NETWORK AT ALL -- that was
+  the signal the two were different problems and I had the wrong one.
+
+TWO NEW GATE CHECKS, ABOUT THE WHOLE MAP RATHER THAN ONE EDGE
+  THE VALLEY IS ONE ROAD NETWORK -- share of road cells reachable from the
+    biggest network, floor 95.5%, only ever goes UP, so no future fix can quietly
+    cut the map in half while every local seam still passes.
+  AND YOU CAN DRIVE THE INTERSTATE -- freeway cells stranded off the main
+    network, ceiling 4, measured 2.
+  street_contract_gate is 21 checks, green. Ceilings ratcheted: cross-class
+  129 -> 34, freeway 40 -> 14, reach 700 -> 642. Arterial and rail still zero
+  with no allowance. Road cell, walkable-land, drive network, occupancy, sidewalk
+  sanctity, district kit, tilespec and line colour all green.
+
+ALSO THIS TURN: THE METRIC LEARNED WHAT A JUNCTION IS
+  `arterial 47..81 vs freeway 18..110` was being counted as 99 breaks. It is the
+  smaller road landing inside the bigger one's corridor -- a bridge or a ramp --
+  and it is correct. SAME FAMILY IS A CONTINUATION and matches tile for tile;
+  DIFFERENT FAMILY IS A JUNCTION and only has to be CONTAINED. Same reasoning as
+  a shop driveway feeding onto a road, one class up. The strict cross-class count
+  is untouched and still ratchets, so nothing hides.
+
+THE LESSON
+  A FIX THAT IS NOT A SWEEP IS A FIX THAT WILL BE MADE AGAIN -- second time this
+  week that is the headline. When a post-mortem names a defect by its SHAPE
+  rather than its file, the work is not done until grep has been run on the shape.
+
+WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
+  35 solar<->desert, 24 commercial<->freeway, 24 desert<->freeway, 19
+  commercial<->rail. 14 freeway<->freeway and 34 cross-class remain named and
+  ratcheted. 100 road networks left, of which the airbase and airport islands are
+  fenced ON PURPOSE and should never join.
+
+RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
+WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
+THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
+
+READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
+spots our writing at 81%, and a 617-film control group), UI is on round seven with
+a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
+it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
+looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
+and SHARED -19 caught the site not deploying for seven hours while every push kept
+working.
+DEMO PATH GUARDED: the_whole_demo_gate 23/23.
+
+*** THE FINDING. ***
+On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
+TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
+and it correctly killed the word "roguelite" that had been wrong at the top of
+CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
+ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
+for "character" anywhere in his quoted words, one hit in the summary, one in
+CLAUDE.md's first paragraph, which every session in this fleet reads first, every
+session. I ran the positive control this time: the same grep finds "character"
+elsewhere in the same file, so the instrument works.
+WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
+law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
+years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
+the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
+CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
+skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
+is titled "the 100-year problem."
+AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
+actually conflict -- a run resets you to nothing, a generational handoff inherits
+EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
+a natural way to describe one long life, and BOTH of his own references, Cyberpunk
+and Elder Scrolls, are single-character games with perk trees. The difference is
+the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
+
+THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
+is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
+Nothing in it says a summary may only contain what its source contains. So one
+inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
+CONSTRUCTION, silently, before any session has read anything else.
+Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
+manufactured by bias, amplification, and "forms of INVENTION such as the
+CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
+got promoted by being repeated somewhere more authoritative than it started. Ten
+years there; two days here, because this fleet re-reads its top document nine
+times a day.
+
+WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
+carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
+inference, and names the open question in place so no session silently resolves
+it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
+on it, which is the definition of a canon call.
+*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
+answer before he gives one, write your assumption in your commit, never into a
+law. ***
+
+  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
+  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
+  every distinctive claim in the bullet must appear in that file. Mutation test:
+  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
+  files, only claim-matching is new. It would have caught this in one run.
+  NO CODE TOUCHED -- coordinator is read-only.
+
+================================================================================
+
+CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
+IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
+TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
+
+HE RULED: "from now on all the character face shit is always gonna have to come with a ...
+thumbs up or a thumbs down bro like you can't be doing shit without ... my thumb ... IF
+IT'S A VISUAL. and a lot of them I'm gonna be thumbing down so you gotta do better."
+
+*** THIS AMENDS EVERYTHING IS A THUMB (8/9) FOR ONE LANE AND NO MORE. *** 8/9 flipped the
+default to correct-after because we had turned him into an approvals queue, and it is
+STILL RIGHT: NOTHING BLOCKS ON HIM, the work ships the turn it is done, no numbered verdict
+queue in a reply, no waiting. What changed is narrower and it is a real gap he caught: on
+this lane a visual had been shipping with NO WAY TO SAY YES OR NO TO IT AT ALL.
+
+THE VOTE TAB HAS EXISTED SINCE 8/7 AND HAD NEVER HELD A SINGLE FACE. It read one bank --
+the district map icons -- so every haircut, every portrait and the whole face maker went
+out with nothing to tap. HE DID NOT ASK FOR THE THUMB BACK; THE THUMB WAS NEVER THERE.
+Same failure as the seventeen invisible hats and the colours nobody wore: the material
+existed and never reached him.
+
+WHAT SHIPPED
+  ONE SURFACE, NOT TWO (he never digs). The faces sit in the VOTE tab ABOVE the icons:
+  same grid, same three-state tap (up / could be better / down / clear), same per-item
+  note, same batch comment, same SUN MODE, same .txt export, same @VERDICT grammar.
+  A HAIRCUT IS FOUR PICTURES, NOT ONE -- every haircut cell is a strip (front,
+  three-quarter, side, back), ONE PER ROW, at a size BIGGER than the game draws it.
+  Judging art below the size it ships at is judging a thumbnail, and a front-only cell
+  asks him to thumb a third of the thing (A HAIRCUT READS FROM EVERY ANGLE, 8/28).
+  24 haircuts + 16 faces = 40 waiting. The queue is DERIVED, never typed.
+
+*** AND THE PAGE HAD NEVER SAVED ANYTHING. *** Three weeks of `var V={}` in memory: thumb
+forty haircuts, tap away to the RUN, come back, and all of it is gone. A VERDICT THAT
+EVAPORATES IS NOT A VERDICT, and the second time it happens he stops trusting the surface,
+which is the one thing a judging surface cannot afford. Found by a gate that tried to prove
+the vote was written down and could not. Everything he can enter now persists -- thumbs,
+per-tile notes, blocker choices, the batch comment -- and the gate RELOADS THE PAGE and
+asserts the vote is still painted, because writing to storage only proves the write.
+
+TWO MORE RULERS FIXED (ninth and tenth this week, same shape as all of them):
+  - the gate's own persistence probe tapped FOUR times -- up, could-be-better, down, back
+    to nothing -- and then asked whether the store held a verdict. It was reading an ERASED
+    vote and reporting the feature broken while the feature worked.
+  - the vote page's counter read #newlist only, so the day the haircuts arrived it said
+    "0 / 0 voted" over forty things waiting. A counter that cannot see half the queue is
+    telling him he is finished.
+
+GATE: gates/face_thumb_gate.js, 23 checks, and IT DRIVES THE REAL PAGE. The ratchet that
+makes the ruling survive the next cook: EVERY CANON HAIRCUT MUST HAVE A CANDIDATE BAKED --
+cook one and forget and it goes red the same turn. Also: candidates may not be stale
+against the build they photograph (a thumb on a picture of a build that no longer exists is
+worse than no thumb), a haircut must be shown from more than one side, and the verdict must
+survive a reload. Registered in the suite.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. WAIT FOR HIS THUMBS, then act on them. He said "a lot of them I'm gonna be thumbing
+    down" -- his export drops back in as @VERDICT lines and the queue shrinks by itself.
+    A thumb-down with a sentence in the note is worth more than a silent approval.
+ 2. THE CREST, PROPERLY. Head-on and from behind it has never had a shape -- only the
+    profile branch tapers. One bounded job, unlocks three cooked styles.
+ 3. THE TIE, PROPERLY. `!front` means a ponytail does not exist when you look at somebody.
+    Nobody in the valley has their hair up, and in a desert that is a real hole.
+ 4. THE FACE HE BUILDS DOES NOT SURVIVE A RELOAD either -- same class of bug as the vote
+    page, in the face maker. It writes the live pface, which is what the game plays, but
+    nothing saves it. A SAVE-SYSTEM row.
+
+WHAT IS PENDING HIM: 40 thumbs in the VOTE tab. Nothing blocks on them.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carries an
+embedded wardrobe bank far behind and nothing gates it; two duplicate top-level function
+names in COMBAT (CombatBridge, clampPkg).
+
+================================================================================
+
+================================================================================
+
+*** URGENT, FOR THE WORLD LANE, FROM RUN (8/28) -- HE REPORTED STREET FACING
+AGAIN TODAY AND A GREEN GATE HAS BEEN SITTING ON IT SINCE 8/15. ***
+
+HIS WORDS TODAY, over a screenshot of his own game: "do you not see the fucking
+streets that are not facing the correct direction? ... I keep trying to fucking
+tell you." HE IS RIGHT THAT HE KEEPS TELLING US: gates/street_facing_gate.js
+OPENS WITH HIS WORDS FROM 8/15 asking for exactly this, and has been GREEN
+16 OF 16 FOR THIRTEEN DAYS.
+
+*** THAT GATE HAS NEVER LOOKED AT A STREET. *** Measured on the file: it renders
+a frame or reads om.at ZERO times, and FOURTEEN of its checks are regexes against
+its own source text. Its central claim proves the code CONTAINS the characters
+`roadAxis(d,x,y)` -- a MENTION, not a USE, which this repo has a law about. It
+cannot count a single misfaced street and never could.
+SAME SHAPE YOU ADMITTED THE SAME MORNING on a different street gate ("he played
+it and said the streets were still fucked while my gate said 0 of 2594; he was
+right and the gate was the broken part"). Twice in one day, two gates, both about
+streets, both green, both measuring the code instead of the world.
+
+WHAT IS ACTUALLY WRONG, measured on the real surface, all 3,573 road cells:
+    answered                            3,458
+    ANSWERED NOTHING AT ALL               115   arterial 101, freeway 10, interchange 4
+      of those, inside a real corridor    114
+      an isolated corner                    1
+And roadAxis's OWN 8/27 comment says what that costs: "an ambiguous cell did not
+become a crossing, it became a NORTH-SOUTH ROAD BY DEFAULT ... the code guessed,
+and the guess was always the same direction." That was written about 14 FREEWAY
+cells and fixed for them. THE SAME SENTENCE IS STILL TRUE FOR 115 MORE, and every
+caller still writes `roadAxis(...)||'ns'`. 3.2% of the valley, scattered, which is
+what this looks like from the air -- which is where he was looking.
+THE FIX BELONGS IN THE CALLERS, not in roadAxis: the function is already honest
+about not knowing and says so. First six: (40,6) (39,7) (75,7) arterial,
+(13,13) (85,13) freeway, (90,13) arterial.
+
+AND I CHECKED MY OWN RULER BEFORE SAYING ANY OF IT. A neighbour-count measure
+flagged 15 MORE cells as misfaced and THEY WERE NOT -- run length is the right
+question, neighbour count is not, and roadAxis was correct on every one. Fourth
+broken ruler in this lane this week, caught before it reached him as a false
+accusation. The new gate holds that distinction so nobody re-derives the wrong
+measure and "proves" a street is misfaced when it is not.
+
+WHAT I BUILT: gates/street_facing_is_measured_gate.js -- opens the real surface,
+sweeps every road cell, asks the real function, prints the number every suite
+run. Its FIRST claim is that IT READS THE MAP, so it fails itself if it ever
+decays into another source-text checker. Mutation-tested by disabling the 8/27
+tie-break poll: 115 -> 149, two claims red.
+WHAT I DID NOT TOUCH: your street renderer. You are in it today and RUN lost four
+hours THIS SAME DAY to two lanes building row 0f at once. RATCHETED, not red, so
+it cannot block the fleet: ceiling 115/114, printed loudly, green on its own as
+it comes down.
+*** AND THE OBVIOUS FIX IS WRONG. I TRIED IT SO YOU DO NOT HAVE TO. ***
+roadAxis's own comment prescribes it: an undecided cell IS a crossing, so build
+all four arms instead of guessing north-south. One line in kitRoadLegs. APPLIED,
+MEASURED, REVERTED -- nothing of it is committed:
+    crossings built NS-only        115  ->  0        (the defect, gone)
+    roadcell_gate                 46/0  ->  46/0
+    street_facing_gate (the old)  16/0  ->  16/0
+    *** street_contract_gate      19/0  ->  17/2 ***
+        arterial seams disagreeing tile for tile   0  ->  191   (ceiling 0)
+        street-to-city edges broken              ~700 -> 881   (ceiling 700)
+WHY, AND IT IS THE REAL FINDING: A CROSSING IS AN AGREEMENT BETWEEN TWO CELLS,
+NOT A DECISION ONE CELL MAKES. Give one cell an east-west arm its neighbour is
+not expecting and you turn 115 wrong-facing cells into 191 broken seams. THE 115
+CANNOT BE FIXED CELL BY CELL. It has to be settled where the seam is negotiated,
+which is the street contract -- your current work, which is why it is yours and
+not mine.
+AND MY OWN GATE COULD NOT SEE THE FIX AT FIRST: it counted where roadAxis answers
+nothing, which is a fact about a FUNCTION, so the number did not move when I
+fixed the CALLER. It now also counts what actually gets BUILT (115 crossings
+built as plain north-south, no east-west arms), which is the number that has to
+reach zero and the one he can actually see.
+Record: records/BOHEMIA_THE_FACING_GATE_NEVER_LOOKED_AT_A_STREET_8_28_26.md
+
+--------------------------------------------------------------------------------
+
+FACTIONS (factions-ovkjpf): 8/28 (v) LATEST -- *** THE SWEEP THAT FINDS DEAD
+ORGANS HAD NEVER LOOKED AT FIVE OF THEM, AND ONE OF THEM WAS THE OUTFIT'S VIEW
+OF YOU. *** Nothing to judge.
+
+TAB: **RUN**. Walk up to somebody who runs with an outfit and read their card.
+Then open the OUTFIT board. Build 8/28v.
+
+HOW IT WAS FOUND, WHICH MATTERS MORE THAN WHAT IT IS.
+tools/bohemia_organ_reach.js exists to answer one question: does anything on the
+walked surface actually call this. Its own docstring warns that "a module the
+sweep does not know about is invisible to exactly that check, which is the rot
+this file exists to kill, wearing the sweep's own uniform." Then its module
+table was the thing carrying the rot. FIVE faction-family modules were inlined
+in the walked page and had never once been swept -- bohemia_standing,
+bohemia_known, bohemia_clout, bohemia_asking, bohemia_deeds. Found in ninety
+seconds by `ls engine/` and diffing against the table. AN UNREGISTERED ORGAN IS
+NOT MERELY UNCHECKED: the sweep actively certifies it as fine, because a green
+summary reads as "everything is wired".
+
+    BohemiaStanding  NOTHING ANYWHERE: standingOf, becauseOf, inherit, legendOf
+    BohemiaDeeds     NOTHING ANYWHERE: publishStage, sayWhy, labels
+
+RULE 4 WAS NEVER CALLED. bohemia_standing.js states four rules in its header;
+three are running in the city. The fourth, verbatim: "A FACTION'S VIEW IS ITS
+MEMBERS' VIEWS. standingOf() averages the opinions of the people who actually
+belong to it." The city witnesses four deed kinds and every one is an organ this
+lane built; ctWitnessPass records who saw you, ctGossipPass spreads it,
+ctOpinionOf shows ONE PERSON'S private view on their card. So you could turn the
+Church down in front of five of its people, all five would privately think less
+of you, AND THE CHURCH AS AN OUTFIT HAD NO VIEW OF YOU AND NEVER WOULD. The
+ladder in front of that door is BELONGING -- what you GAVE them. Two different
+things have shared the word "standing" in this lane for a week and only one was
+ever on the screen.
+
+A LIVE COMMENT ASSERTED THE MISSING WIRING. __CITY_DIAL__ said filling
+DEED_WEIGHT "lights up opinionOf, standingOf, becauseOf and the rungs with no
+other wiring at all." opinionOf, true. The other two were called by nothing, so
+his dial could fill the table perfectly and neither would ever run. Corrected in
+place, not deleted -- one warning to the next reader.
+
+WHAT SHIPS VS WHAT WAITS FOR HIS DIAL. DEED_WEIGHT still ships EMPTY and nothing
+here fills it; the DIRECT tab's STANDING dial is where that decision lives. So
+it NEVER PRINTS A RUNG -- rungFor(0) says NEUTRAL and printing it would invent
+the judgement he has not made. BUT `members` is true today with an empty table:
+a mind exists only for somebody you have been near, so it counts how many of
+that outfit's people have been where you have been, and a headcount needs no
+ruling. Measured on the real surface:
+
+    RUNS WITH                 CARTEL
+    THE CARTEL HAS SEEN YOU   1 OF ITS PEOPLE
+      That is how many of them have been close enough to you to remember it.
+
+and the same rows the moment he turns one dial, with no further wiring:
+
+    WHAT THE CARTEL THINKS    HOSTILE - 1 OF ITS PEOPLE CARRIES SOMETHING
+      Somebody in the CARTEL watched you turn an outfit down.
+
+*** AND THE HONEST ANSWER TO THIS LANE'S OLDEST FINDING. *** 837 people near the
+spawn, none affiliated, nearest base 29 cells. Still placement, still not mine,
+four turns running. WHAT WAS NEVER DONE IS SAYING SO IN THE GAME:
+
+    REMNANTS   HAS NEVER LAID EYES ON YOU
+
+True at spawn for every outfit in the valley. No dial, no placement, no ruling.
+It tells the player the outfit exists, that being seen is how it comes to know
+him, and that it is not here. Bounded by skin in the game: an outfit gets a row
+only if you have met one of its people OR given it something, so the board never
+becomes a wall of fourteen zeroes.
+
+THE ONE MODELLING DECISION. standingOf needs factionOfOwner(id) and ctFactionOf
+takes a PERSON, which an id cannot be turned back into. So the outfit is STAMPED
+on the mind in ctWitnessPass, the one place holding both. RE-STAMPED EVERY PASS
+on purpose: what you know is who they ran with THE LAST TIME YOU SAW THEM, so a
+vouch reads through next time you walk past and a lost place stops reading as
+anything, with no second notification system. Rides ctMindSave's whole-object
+JSON: no new save key, no migration.
+
+THE PROBE LIED FIRST AND THE REASON IS REUSABLE. drew=0, minds=0, stamped=0 WITH
+THE CODE WORKING. A probe on slices/BOHEMIA_CITY_WORLD.html measures a ghost
+town: that page has no PLAYER_CV because the character bake is POSTED IN from
+the alpha, so peoplePass returns before drawing anybody. Two more, both of which
+would have produced a false result: THE CITY FRAME IS LAZY (every frame is
+about:blank until the RUN tab is opened), and YOU HAVE TO WALK (ctWitnessPass
+runs once per GAME minute and this world is I-MOVE-YOU-MOVE, so standing still
+never advances the clock -- forcing CT_SAW_MIN open would measure the poke).
+
+AND A GATE CLAIM FAILED WHILE THE FEATURE WORKED. Three claims went red reading
+document.getElementById('card'), an element that does not exist; the card is
+#ctcard. innerText was '' while the view object printed beside them already said
+HOSTILE. FIX THE RULER, NEVER THE TARGET.
+
+STILL DEAD, NAMED RATHER THAN QUIETLY LEFT:
+  BohemiaStanding.inherit / legendOf -- reputation outliving the person who
+    earned it, which is the dynasty premise. Needs the story's handoff moment,
+    which does not exist in the demo yet.
+  BohemiaDeeds.publishStage / sayWhy / labels -- the bridge from a quest outcome
+    to who saw it. *** 82 FACTION DELTAS AND 203 CLOUT TAGS ARE AUTHORED ACROSS
+    quests/bq/*.bq AND NO RUNNING SURFACE HAS EVER READ ONE OF THEM. *** The
+    loudness half (reachOf/hopsFor) IS wired; the publish half is not, and the
+    quest sources are not in the city frame at all. That is the quest runtime's
+    surface, not this lane's -- named here so it stops being invisible.
+  BohemiaPeople.peopleOf -- unchanged.
+
+GATES: FACTION BETWEEN 122/0 (was 108) - FACTION ARC 91/0 - STANDING 35/0 -
+FACTION MEMBERSHIP 60/0 - COMMITMENT 72/0 - ALPHA LOADS 20/0 - DEMO BUILD 25/0.
+THREE MUTATIONS, ALL BITE: kill the stamp and seven claims die (Q4 Q5 Q7 Q8 Q9
+Q10 Q11); print a rung with the table empty and Q6/Q7/Q12 die; drop the
+never-seen outfit and Q12 dies alone.
+THE 469-GATE SUITE CANNOT FINISH IN THIS CONTAINER -- 63 gates in ten minutes,
+and background processes barely advance between tool calls, so everything here
+was run in the FOREGROUND. Two reds surfaced in the partial pass and NEITHER IS
+THIS CHANGE, checked rather than assumed: SOUND MESSAGE reads none of the files
+this touches, and COMBAT SOUND is killshot-dependent and flaky -- 4/2 on
+origin/main's own alpha, 6/0 on this tree, isolated by swapping just the alpha.
+
+RECORD: records/BOHEMIA_THE_OUTFIT_NEVER_HAD_A_VIEW_8_28_26.md
+
+WHAT IS PENDING HIM: nothing new. DEED_WEIGHT stays empty until he turns the
+STANDING dial in the DIRECT tab, which is where that decision already lives.
+AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain [PENDING Paolo].
+
+CONTAINER WARNING FOR WHOEVER IS NEXT IN THIS LANE: this session's container
+REWOUND THE WHOLE REPO TO THE 8/15 COMMIT mid-turn, remote-tracking refs
+included, and ate about forty minutes of finished work that had not been
+committed. Recovery is `git fetch origin main` (slow, ~4 min on this repo) then
+`git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN HERE; do not hold
+a change until the gates are green.
+
+
+--------------------------------------------------------------------------------
+
+CHARACTER (character-0lurbs): 8/28 (q) LATEST -- *** NINE NEW HAIRCUTS INCLUDING THE FIRST
+TEXTURED ONES THE GAME HAS EVER HAD, AND FOURTEEN MORE CUT IN THE SAME TURN. 15 -> 24.
+TAB: CHARACTER to try them on and to build a face, RUN for the crowd, LOOK for the sheet.
+Nothing to judge. ***
+
+HE RULED: "Cool I like it, but it's tough to analyze without implementing all the new
+hairstyles and shit." He is right and the number said so first: the portrait could draw 92
+haircuts and THE CITY OWNED FIFTEEN. A face maker with fifteen cuts in it is a demo of a
+face maker.
+
+*** READ THIS BEFORE YOU TOUCH THE GRAVEYARD. *** The wave-2 block says in plain text
+"SIDE PART, LIBERTY SPIKES, PONYTAIL and TOP KNOT are canon now" and quotes his "the
+cornrows is so much better very good". Read alone that says FIVE APPROVED HAIRCUTS HAVE
+BEEN SITTING SWITCHED OFF -- the invisible-hats shape, and exactly what I expected to find.
+READ TO THE END OF THE FILE IT DOES NOT: wave 3, one day later, killed all five, most for
+the second or third time, and a second kill is permanent. NEWEST DATE WINS + GRAVEYARD IS
+FINAL. A CONFIDENT YES IS AS EXPENSIVE AS A CONFIDENT NO -- yesterday's law says say where
+you looked; this is the same rule with the sign flipped: READ TO THE END OF THE RECORD
+BEFORE YOU ACT ON THE MIDDLE OF IT.
+
+23 COOKED, 9 SHIPPED, 14 CUT, and the cutting is the pipeline working:
+  3 CRESTS   head-on a crest is a HARD RECTANGLE. The taper that fixes it lives inside
+             `if(strip&&prof)` -- PROFILE ONLY, so the front has never had a shape. That
+             is the exact sentence MOHAWK was killed for in wave 3.
+  4 TIED     a ponytail is drawn `if(tie==='pony'&&!front)`, so the tail EXISTS FROM THE
+             SIDE AND NOT HEAD-ON: 1.05 head-heights of change in one notch, clause 1
+             exactly. The knot and tail are also literal rectangles (18-row straight edge).
+  6 MORE     after three mechanical fixes they still ran a straight edge 7-9 rows against
+             a locked limit of 6.
+A COOK THAT FAILS A LAW IS NOT A COOK, IT IS A REGRESSION WITH NEW NAMES.
+
+THREE MECHANICAL CAUSES FOUND AND FIXED, AND THEY IMPROVED THE FIFTEEN THAT WERE ALREADY
+IN (straight runs across the whole game 19.5% -> 17.2%, pin tightened):
+  - the loc parting ran DEAD STRAIGHT and read as a barcode. The first drift stepped every
+    TWO CELLS, which at 112 is FOUR PIXEL ROWS -- exactly the length the law calls a
+    straight run. A JITTER WHOSE STEP EQUALS THE THING YOU ARE HIDING FROM HIDES NOTHING.
+  - a braid was `(_ph%3===2)&&(_pq%3===2)`, a GRID OF HOLES, and rendered as a punched
+    card. The first fix then SEVERED THE ROPE and long hair came out as floating debris.
+  - a fall hangs off ONE FIXED SPAN below the jaw, so its edge only moved when a three-way
+    hash happened to change. It ALTERNATES now: guaranteed to move every cell.
+  - plus the strand pass now runs on TEXTURED styles. Their marks sit at his 2:1 ratio but
+    that ratio counts CELLS, so every mark was two pixels and 8/25 clause 2 asks for ONE.
+
+FOUR MORE BROKEN RULERS, FIFTH THROUGH EIGHTH THIS WEEK, ALL FLATTERING-SHAPED:
+  - hairline_gate counted PAINT, not MASS. A loc draws two hairs and one parting, so the
+    paint is separate ropes ON PURPOSE. The mask is CLOSED by one pixel now. THIS IS NOT AN
+    EXEMPTION FOR TEXTURED STYLES -- that is the shape of thing that let a 23% faction
+    share sit under a green gate -- it is the same question asked of the silhouette.
+  - its neck check could not tell a WAIST from a TAIL and flagged a ponytail for being
+    narrow. A waist is narrow with wide ABOVE AND BELOW; it measures the flare-back now.
+  - its piece cap was a COUNT on a list that is supposed to grow: set at 5 for fifteen
+    haircuts, red at thirty-five on a build whose RATE had improved.
+  - craft_law clause 4 was pinning CHARACTERS directly under its own comment saying twice
+    PIN THE BEHAVIOUR NOT THE CHARACTERS. FOURTH time that gate has done it to itself.
+
+THE RULE, NOW LOCKED: A HAIRCUT IS NOT DONE UNTIL IT READS FROM ALL EIGHT DIRECTIONS. Cook
+it, render every facing, and LOOK. A shape that only works head-on is not a haircut with a
+bug in it, it is a haircut that does not exist yet.
+
+GATES: hair 35/0 (pin tightened 0.195 -> 0.172), hairline 12/0, portrait haircut 12/0,
+face maker 13/0, craft law 39/0, structure 134/0, dress 46/0 (291 items), clothes 4x 13/0
+(56 pin rebaselined WITH THE REASON LOGGED: 264 hashes, all genHair, all tex locs/braid,
+and no canon garment used either texture before this turn), talking portrait 27/0, look 24/0.
+
+WHAT I WOULD DO NEXT, IN ORDER:
+ 1. THE CREST, PROPERLY. Head-on and from behind it has never had a shape -- only the
+    profile branch tapers. That is one bounded job and it unlocks three cooked styles that
+    are sitting in the record rather than the game.
+ 2. THE TIE, PROPERLY. `!front` means a ponytail does not exist when you look at somebody.
+    Nobody in the valley has their hair up, and in a desert that is a real hole.
+ 3. THE FACE HE BUILDS DOES NOT SURVIVE A RELOAD. It writes the live pface, which is what
+    the game plays, but nothing saves it. A SAVE-SYSTEM row.
+
+WHAT IS PENDING HIM: nothing from this lane. WHO LIVES IN THE VALLEY (skin tone uniform
+across nine) stays his, flagged not decided.
+
+CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carries an
+embedded wardrobe bank ~70 garments behind and nothing gates it; two duplicate top-level
+function names in COMBAT (CombatBridge, clampPkg).
+
+================================================================================
+
+================================================================================
+
+================================================================================
+
+COMBAT (combat-nfnki9): 8/28 (e) LATEST -- *** RF4-14 SAID OF ITSELF "NOT
+MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT". IT IS MEASURED NOW
+AND A THIRD OF EVERY FIGHT WAS A DEAD TURN. *** Nothing to judge.
+
+TAB: COMBAT. Fight and watch the button row fill up. Build 8/28e.
+
+HE SAID "the best funnest DEEPEST videogame ever", AND THE TEARDOWN ALREADY
+NAMED THE DEPTH TEST AND NEVER RAN IT
+  RF4-14 is the row the teardown calls the most important line in RF4's design
+  notes: "there is almost never a turn in which the player is not either USING AN
+  ABILITY or MOVING INTO POSITION to use an ability in the next turn or two."
+  Its own status cell has read NOT MEASURED for weeks.
+
+MEASURED, 594 REAL TURNS THROUGH THE SHIPPED VERBS
+  a turn with an ability or ground worth taking   64.0%
+  a turn with NEITHER                             36.0%   <- RF4 says almost never
+  you could simply shoot                          96.1%
+  shoot-or-walk and nothing else                  20.2%
+
+AND THE CADENCE TABLE WAS WORSE THAN THE AVERAGE
+  Turns to charge, per ability, from the real firing rate of its OWN verb:
+  READ 3.7 / SEND HIM 4.2 / LIGHT IT 4.6 / PLATE 7.7 / STEADY 8.5 / PATCH 8.9 /
+  CALL 9.6 / SLIP 18.3 / *** BREAK CONTACT 23.1, IN A FIGHT THAT LASTS ABOUT
+  TWENTY. *** It was not rare, IT WAS NOT IN THE GAME -- the sixth unreachable
+  thing this month and the FIRST that no structural check could have caught,
+  because the defect was in the ECONOMY not the wiring: its verb had a caller,
+  its own gate arm was green, and the button never came up.
+
+AND THE BEST IDEA IN THE KIT HAD ALWAYS BEEN INVISIBLE
+  V185's design is "RECHARGE CONDITIONS ARE VERBS, NOT TIMERS -- the kit tells
+  you how the game wants to be played", and updKit drew a button ONLY once an
+  ability was already READY. The condition, the counter and the progress were a
+  private conversation between the engine and itself from the day it shipped.
+  YOU CANNOT PLAY TOWARD SOMETHING YOU CANNOT SEE.
+  SHIPPED: a charging ability is on the row, dim, with its count and what it
+  wants in plain words ("BREAK CONTACT 1/1 - cover ground"); one nobody has
+  touched is still absent so the row is empty at the bell; a cold press SAYS what
+  it needs instead of ignoring the tap; and BREAK CONTACT's threshold is 3 -> 1,
+  measured off its verb's real firing rate rather than picked.
+
+THE RESULT, AS A CONTROLLED EXPERIMENT
+  Alone this metric swung 66.8 / 67.5 / 70.4 across three runs of IDENTICAL
+  code, and loosening a threshold until the swing fits under it is the
+  flattering-shaped check this session has already caught itself writing three
+  times. So before and after run on the SAME 45 BOARDS with one number changed:
+    a turn with an ability or ground   66.0% -> 70.4%
+    shoot-or-walk and nothing else     18.3% -> 15.6%
+    no real choice at all               2.0% -> 1.0%
+    BREAK CONTACT turns to charge       22.6 -> 8.7
+    BREAK CONTACT turns it was ready      26 -> 100
+  AND WE ARE STILL NOT AT RF4's "ALMOST NEVER": about a quarter of turns is
+  still shoot-or-shrug. Said out loud rather than rounded away.
+
+TWO THINGS I GOT WRONG AND CAUGHT
+  1. The first probe reported that two abilities never charged in 591 turns. It
+     moved with worldShift and hurt with applyDamage, so spendMove and the gun
+     were never touched. A HARNESS THAT SKIPS THE SHIPPED VERB CANNOT MEASURE
+     THE SHIPPED VERB -- a fact about the probe, nearly filed as a defect.
+  2. I edited the teardown's BOHEMIA TODAY column to un-stale RF4-14 and
+     rf4_teardown_gate's G3 went red: COMBAT may move the STATUS column beside a
+     slice change and NOTHING ELSE, because the rest is LAB's. THE GATE WAS
+     RIGHT AND I WAS WRONG. Reverted.
+     [FLAGGED TO LAB] RF4-14's status cell still says NOT MEASURED. It has been
+     measured; the numbers are in the record below.
+
+GATES: fight_moves_you 140/0 (was 136/0), three runs stable - combat_lab 931/1
+(the one red is another session's fight-music ladder) - one_engine 3/0 -
+rf4_teardown 90/4, all four pre-existing - 0 page errors.
+  NOTE, NOT MINE: tool_idempotent is 5/1 on bohemia_city_hero_wire_patch.py and
+  bohemia_city_module_resync.py, two CITY tools that arrived with main. No combat
+  tool is implicated.
+RECORD: records/BOHEMIA_COMBAT_THE_ANTI_IDLE_TURN_RULE_MEASURED_8_27_26.md
+
+WHAT COMES AFTER
+  A quarter of turns is still shoot-or-shrug and one number explains it: YOU CAN
+  SIMPLY SHOOT ON 96% OF TURNS. The gun is always available and almost always
+  safe, so it is the default that always works. The teardown already names the
+  answer shape -- RF4-23 and RF4-37, "a target worth crossing the room for" and a
+  reason to IGNORE the nearest man. Both still marked PARTIAL, and both combat's.
+
+------------------------------------------------------------------------
+
 
 --------------------------------------------------------------------------------
 WORLD (world-9lfjtf): 8/28 (u) LATEST -- *** 36.3% OF THIS VALLEY'S STREET EDGES
