@@ -419,6 +419,33 @@ demo's five scenes, the three-corpus ruler-agreement check, and a catch for a ta
 punctuated with a full stop.
 TRAINING: records/BOHEMIA_WORDS_TRAINING_FILE.md, 3,100 lines, sections 88-131.
 
+*** A .bq EDIT HAS THREE BAKE STEPS AND THE DEMO IS CUT LAST. THIS COST THREE
+DEFECTS IN ONE TURN, ALL CAUGHT BY GATES, NONE BY ME. ***
+  1. tools/bohemia_words_book.py           -> the words book and the WORDS tab
+  2. tools/bohemia_direct_tab_patch.py     -> BOHEMIA_QUESTS in the alpha (DIRECT tab)
+  3. the DEMO_BQ blob in BOHEMIA_CITY_WORLD.html -> WHAT THE PLAYER ACTUALLY HEARS
+  then node tools/bohemia_cut_the_demo.js, LAST, after every workshop edit.
+DEFECT 1: I stamped the workshop after cutting the demo, so the demo shipped a build
+behind (8/28x under an 8/28y workshop). demo_build_gate caught it.
+DEFECT 2: I never knew step 3 existed. The .bq, the words book, the WORDS tab and the
+alpha snapshot were all correct AND THE GAME WAS SPEAKING YESTERDAY'S LINES, all five
+scenes. I had grepped the alpha, found my new lines, and called that proof: the grep
+was TRUE and the claim was FALSE, because the hit was in the DIRECT tab's authoring
+data while the speaking surface reads a different blob in a different file. Do not
+regenerate that blob with bohemia_city_dayloop_patch.py -- THREE tools write it and
+running one alone clobbers the other two (it took conversation_gate 38/1 -> 25/14,
+zero spoken lines). Parse the blob, replace the five quest strings, assert every byte
+outside it identical.
+DEFECT 3, and it is the dangerous shape: voice_gate's five pinned strings prove the
+new words reached the built demo, and TWO OF THEM WERE THE PREVIOUS PASS'S WORDS. This
+turn rewrote both of those exact lines and both checks STAYED GREEN, because they were
+reading a stale demo. A PIN THAT SURVIVES A REWRITE OF THE LINE IT PINS IS NOT
+MEASURING THE BUILD. Repinned; the reason is written above them in the gate.
+AND ON REBASE: --theirs during a rebase is YOUR commit, --ours is upstream, the reverse
+of a merge. Using --theirs for "main's" kept my alpha and silently dropped another
+lane's 8/30 work in a built file. Generated slices are never hand-merged: reset all
+three to origin/main, then re-derive from source in the order above.
+
 WHAT I WOULD DO NEXT, IN ORDER:
  1. THE STREET BARKS. 546 lines and they are what a player hears constantly just walking
     around, so they are more of the demo than the five scenes are. They address somebody in
