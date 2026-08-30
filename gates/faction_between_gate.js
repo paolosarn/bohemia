@@ -1739,6 +1739,18 @@ async function onQuestDeeds() {
       'inlined=' + T.corpusKeys + '/' + files.length + ' max=' + T.maxAbs + ' corpus=' + corpusMax);
 
     /* ---- NOW PLAY ONE, AND SEE WHETHER ANYBODY NOTICES ------------------ */
+    /* THE DAY HAS TO BE STARTED FIRST, and the first cut of this did not do it:
+       the day card blocks the sim, so nothing rendered, ctWitnessPass never ran,
+       and it measured minds=0 -- a world with no people in it, which would have
+       failed or passed for reasons that have nothing to do with the feature.
+       Same family as the ghost-town trap city_barks_gate names. */
+    await city.evaluate(() => {
+      const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click();
+    });
+    await SETTLE(page, 800);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 1000);
+
     const P = await city.evaluate(() => {
       const out = {};
       const spec = DQ.specForDay(1);
@@ -1749,28 +1761,45 @@ async function onQuestDeeds() {
       const pick = rows[0]; if (!pick) return out;
       out.pick = pick;
 
+      /* AND YOU HAVE TO GO WHERE THEY ARE. The spawn has 837 people inside six
+         cells and NOT ONE of them is affiliated -- the nearest base is
+         twenty-nine cells out. Standing at the spawn and publishing a Trades
+         deed measures the placement gap, not the bridge. */
       let placed = false;
-      for (const p of ctEveryone()) {
-        const f = ctFactionOf(p);
-        if (f && String(f).toUpperCase() === String(pick.faction).toUpperCase()) {
-          const at = ctAt(p); hx = at[0] + 1; hy = at[1]; placed = true; break;
+      const bases = ctBases() || {};
+      for (const [k, bse] of Object.entries(bases)) {
+        if (String(k).toUpperCase() !== String(pick.faction).toUpperCase()) continue;
+        hx = bse.x * FN + 2; hy = bse.y * FN + 2;
+        for (const per of ctEveryone()) {
+          const f = ctFactionOf(per);
+          if (f && String(f).toUpperCase() === String(k).toUpperCase()) {
+            const at = ctAt(per); hx = at[0] + 1; hy = at[1]; placed = true; break;
+          }
         }
+        if (placed) { out.baseFaction = k; break; }
       }
       out.placed = placed;
+
       const m0 = ctMinuteNow();
-      for (let i = 0; i < 24 && ctMinuteNow() === m0; i++) {
+      for (let i = 0; i < 30 && ctMinuteNow() === m0; i++) {
         try { stepOnce(i % 2 ? 6 : 2); } catch (_e) {}
         try { renderHuman(); } catch (_e) {}
       }
+      out.minutesMoved = ctMinuteNow() !== m0;
       out.minds = Object.keys(CT_MINDS).length;
-      out.before = ctTheirView(pick.faction);
+      out.fidsHeld = {};
+      for (const k in CT_MINDS) { const f = CT_MINDS[k].fid; if (f) out.fidsHeld[f] = (out.fidsHeld[f] || 0) + 1; }
+      /* the view is asked with the CITY's id, which is the spelling the minds
+         carry; the quest writes its own. That gap is the bug R3 measures. */
+      out.cityFid = out.baseFaction || pick.faction;
+      out.before = ctTheirView(out.cityFid);
 
       DQ.openDay(1);
       window.__QUEST_DEEDS = 0; window.__QUEST_WITNESSES = 0;
       out.pub = DQ._witness ? DQ._witness(pick.stage) : null;
       out.deeds = window.__QUEST_DEEDS; out.wit = window.__QUEST_WITNESSES;
-      out.after = ctTheirView(pick.faction);
-      out.why = ctWhyTheyThinkThat(pick.faction, 3);
+      out.after = ctTheirView(out.cityFid);
+      out.why = ctWhyTheyThinkThat(out.cityFid, 3);
 
       out.again = DQ._witness(pick.stage);
       out.deedsAfterRepeat = window.__QUEST_DEEDS;
@@ -1790,7 +1819,8 @@ async function onQuestDeeds() {
 
     ok('R11 AND SOMEBODY ACTUALLY SAW IT. witnesses:0 is the answer that used to '
       + 'be indistinguishable from the bug, so it is the number this claim is on',
-      P.wit > 0, 'witnesses=' + P.wit + ' minds=' + P.minds + ' placed=' + P.placed);
+      P.wit > 0, 'witnesses=' + P.wit + ' minds=' + P.minds + ' placed=' + P.placed
+        + ' held=' + JSON.stringify(P.fidsHeld) + ' quest says ' + (P.pick||{}).faction);
 
     ok('R12 *** SO THE OUTFIT\'S VIEW OF YOU MOVED, ON THE SURFACE HE OPENS. *** '
       + 'The card and the OUTFIT board read standingOf, which reads the minds '
@@ -1996,11 +2026,24 @@ async function onTheirView() {
       !!R.viewEmpty && R.viewEmpty.members > 0,
       JSON.stringify(R.viewEmpty));
 
-    ok('Q6 WITH HIS TABLE EMPTY IT NEVER PRINTS A RUNG. rungFor(0) answers '
-      + 'NEUTRAL, which reads as "they took your measure and shrugged" when the '
-      + 'truth is nobody has ruled what anything is worth. MECHANISM-MINE / '
-      + 'CONTENTS-PAOLO\'S: the table ships empty and nothing here fills it',
-      R.ruledBefore === false && R.viewEmpty.rung === null
+    /* THIS CLAIM WAS REWRITTEN ON 8/28 BECAUSE THE DESIGN MOVED UNDER IT, and
+       that is worth saying plainly rather than quietly editing. It used to read
+       "with his table EMPTY it never prints a rung", and it was enforcing
+       MECHANISM-MINE / CONTENTS-PAOLO'S: do not invent a judgement he has not
+       made. That principle is untouched. What changed is where his judgement
+       comes from -- DEED_WEIGHT is no longer empty on the walked surface,
+       because his own 82 authored `faction NAME +N` lines now fill it from
+       quests/bq at boot. The table being empty was never the point; the point
+       is that NOBODY IS JUDGED FOR SOMETHING NOBODY SAW. So the emptiness this
+       claim is on is now the one that actually means something: an outfit whose
+       people have witnessed nothing about you shows NO RUNG, however full the
+       weight table is. A gate that had been left asserting the old shape would
+       have gone red for the right reason and been "fixed" by loosening it. */
+    ok('Q6 AN OUTFIT THAT HAS WITNESSED NOTHING IS NOT JUDGED. rungFor(0) '
+      + 'answers NEUTRAL, which reads as "they took your measure and shrugged" '
+      + 'when the truth is that not one of them has seen you do anything. No '
+      + 'rung on the card, no rung on the board, whatever his weights say',
+      R.viewEmpty.whoSaw === 0 && R.viewEmpty.rung === null
         && !/WHAT THE .* THINKS/.test(R.cardEmpty)
         && !/NEUTRAL/.test(R.boardEmpty));
 

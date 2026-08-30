@@ -187,10 +187,28 @@ NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources
      was reached); this owns WHO WAS THERE. Neither knows the other's job. */
   witness: function(file, stageN, questId){
     if (typeof BohemiaDeeds === 'undefined') return null;
-    if (typeof ctMindsList !== 'function' || typeof ctFactionOfMind !== 'function') return null;
+    if (typeof ctFactionOfMind !== 'function') return null;
+    /* THE WITNESS SET IS BARK_DREW, EXACTLY AS ctDeed BUILDS IT.
+       REUSE-FIRST: ctDeed is the city's existing single-deed publisher and this
+       is its witness set, not a second idea about who can see you -- who the
+       game actually DREW this frame, with the position it drew them at.
+       AND `where` IS A FUNCTION, owner -> {x,y}. The first cut passed the string
+       '@' for it, which is truthy, so bohemia_standing's `where && where(owner)`
+       called it and threw "where is not a function" -- swallowed by the catch
+       below, reported as witnesses:0, which is indistinguishable from nobody
+       having been there. That is the exact ambiguity this whole bridge exists to
+       remove, reintroduced one argument to the left. */
+    var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+    var pos = {}, minds = [];
+    for (var i = 0; i < drew.length; i++) {
+      var d = drew[i]; if (!d || !d.p || !d.at) continue;
+      pos[d.p.id] = { x: d.at[0], y: d.at[1] };
+      minds.push(ctMind(d.p.id));
+    }
+    if (!minds.length) return null;
     var res = BohemiaDeeds.publishStage(
-      ctMindsList(), ctMinuteNow(), '@', DEMO_BQ[file], stageN,
-      hx, hy, '@', ctFactionOfMind, questId);
+      minds, ctMinuteNow(), '@', DEMO_BQ[file], stageN,
+      hx, hy, function(o){ return pos[o] || null; }, ctFactionOfMind, questId);
     if (res && res.rows && res.rows.length) {
       window.__QUEST_DEEDS = (window.__QUEST_DEEDS || 0) + res.rows.length;
       window.__QUEST_WITNESSES = (window.__QUEST_WITNESSES || 0) + (res.witnesses || 0);
@@ -208,18 +226,25 @@ NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources
    the table stayed empty, every opinion weighed zero, and the reputation organ was
    inert in a game whose whole spine is factions. */
 var CT_DEED_ROWS = 0;
-(function(){
+function ctCorpusLoad(){
   try {
-    if (typeof BohemiaDeeds === 'undefined') return;
+    if (typeof BohemiaDeeds === 'undefined' || typeof DEMO_BQ === 'undefined') return 0;
     var srcs = [];
     for (var k in DEMO_BQ) srcs.push({ id: k, src: DEMO_BQ[k] });
     var r = BohemiaDeeds.loadCorpus(srcs);
     CT_DEED_ROWS = (r && r.deeds) ? r.deeds.length : 0;
+    return CT_DEED_ROWS;
   } catch(_e){
-    console.error('BOHEMIA: the quest corpus did not load, so no deed weighs '
-      + 'anything and every faction stays blank. ' + _e.message);
+    /* DEMO_BQ is a const declared below the dial's boot restore, so the first
+       call lands in its temporal dead zone and throws. That is expected and it
+       is why this is a no-op rather than a warning: the corpus load that counts
+       is the one at the bottom of this file, after the const exists. */
+    return 0;
   }
-})();"""
+}
+ctCorpusLoad();
+if (!CT_DEED_ROWS) console.error('BOHEMIA: the quest corpus did not load, so no '
+  + 'deed weighs anything and every faction in the game stays blank.');"""
 
 
 # ------------------------------ 3. THE PEOPLE STANDING THERE ACTUALLY SEE IT
@@ -233,6 +258,40 @@ var CT_DEED_ROWS = 0;
 # module owns the idempotence (the double-entry hazard is its own) and knows
 # nothing about the city; the city owns the minds and the position and knows
 # nothing about stages.
+
+
+# ---------------------- 4. THE DIAL MAY NOT WIPE THE ROWS IT DOES NOT OWN
+# MEASURED, and it is why this looked broken in the alpha while working perfectly
+# on the standalone city page: boot table 82 standing alone, 0 inside the alpha.
+#
+# ctDialApply deletes EVERY row in DEED_WEIGHT before writing the dial's, and its
+# comment gives the right reason -- "a kind he has cleared must actually clear...
+# taking it back is half of a dial". True, for THE FOUR CITY KINDS THE DIAL OWNS
+# (claim:met, claim:refused, commit, favour). The 82 `q:` rows come from his .bq
+# files, the dial cannot name them and cannot put them back, and the DIRECT tab
+# pushes its weights into the frame at alpha boot -- so his quest corpus was
+# being wiped by an empty dial before he ever touched anything.
+#
+# The fix keeps both halves honest: clear, RELOAD THE CORPUS, then apply the dial
+# ON TOP. A cleared dial kind still clears. A quest row survives. And if he ever
+# dials a `q:` kind by hand, his dial wins, which is the correct precedence.
+OLD_DIAL = """  for (var k in T0) if (Object.prototype.hasOwnProperty.call(T0, k)) delete T0[k];
+  for (var j in w) {"""
+NEW_DIAL = """  for (var k in T0) if (Object.prototype.hasOwnProperty.call(T0, k)) delete T0[k];
+  /* """ + MARKER + """ -- AND HIS QUESTS GO STRAIGHT BACK IN.
+     The clear above is right about the kinds THIS DIAL OWNS and wrong about the
+     82 rows that come from his .bq files: the dial cannot name them, so it can
+     never put them back. Measured before this line existed: the corpus loaded
+     82 rows on the standalone city page and 0 inside the alpha, because the
+     DIRECT tab posts its weights across the frame at boot and an EMPTY dial was
+     wiping his whole quest corpus before he had touched a thing.
+     Reloading here rather than skipping the delete keeps the dial's own
+     property intact -- a kind he clears really does clear -- while the quest
+     rows, which are derived from his files and not from this table, come back.
+     His dial then lands ON TOP, so a hand-set weight still wins. */
+  if (typeof ctCorpusLoad === 'function') ctCorpusLoad();
+  for (var j in w) {"""
+
 
 def main():
     if not os.path.exists(CITY):
@@ -253,7 +312,8 @@ def main():
         sys.exit('FAIL: the city carries a pre-8/28 bohemia_demoquests with no '
                  'witness seam; run tools/bohemia_city_module_resync.py first')
     s = patch_corpus(s)
-    for old, new, what in ((OLD_MAKE, NEW_MAKE, 'the corpus load'),):
+    for old, new, what in ((OLD_MAKE, NEW_MAKE, 'the corpus load'),
+                           (OLD_DIAL, NEW_DIAL, 'the dial clear')):
         if old not in s:
             sys.exit('FAIL: could not find ' + what)
         s = s.replace(old, new, 1)

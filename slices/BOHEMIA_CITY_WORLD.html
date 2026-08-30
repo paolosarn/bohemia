@@ -33701,6 +33701,18 @@ function ctDialApply(w, save){
      the old rows go before the new ones land. Merging instead would make a
      weight impossible to take back, and taking it back is half of a dial. */
   for (var k in T0) if (Object.prototype.hasOwnProperty.call(T0, k)) delete T0[k];
+  /* __CITY_QUESTDEEDS__ -- AND HIS QUESTS GO STRAIGHT BACK IN.
+     The clear above is right about the kinds THIS DIAL OWNS and wrong about the
+     82 rows that come from his .bq files: the dial cannot name them, so it can
+     never put them back. Measured before this line existed: the corpus loaded
+     82 rows on the standalone city page and 0 inside the alpha, because the
+     DIRECT tab posts its weights across the frame at boot and an EMPTY dial was
+     wiping his whole quest corpus before he had touched a thing.
+     Reloading here rather than skipping the delete keeps the dial's own
+     property intact -- a kind he clears really does clear -- while the quest
+     rows, which are derived from his files and not from this table, come back.
+     His dial then lands ON TOP, so a hand-set weight still wins. */
+  if (typeof ctCorpusLoad === 'function') ctCorpusLoad();
   for (var j in w) {
     if (!Object.prototype.hasOwnProperty.call(w, j)) continue;
     var v = Number(w[j]);
@@ -38314,10 +38326,28 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
      was reached); this owns WHO WAS THERE. Neither knows the other's job. */
   witness: function(file, stageN, questId){
     if (typeof BohemiaDeeds === 'undefined') return null;
-    if (typeof ctMindsList !== 'function' || typeof ctFactionOfMind !== 'function') return null;
+    if (typeof ctFactionOfMind !== 'function') return null;
+    /* THE WITNESS SET IS BARK_DREW, EXACTLY AS ctDeed BUILDS IT.
+       REUSE-FIRST: ctDeed is the city's existing single-deed publisher and this
+       is its witness set, not a second idea about who can see you -- who the
+       game actually DREW this frame, with the position it drew them at.
+       AND `where` IS A FUNCTION, owner -> {x,y}. The first cut passed the string
+       '@' for it, which is truthy, so bohemia_standing's `where && where(owner)`
+       called it and threw "where is not a function" -- swallowed by the catch
+       below, reported as witnesses:0, which is indistinguishable from nobody
+       having been there. That is the exact ambiguity this whole bridge exists to
+       remove, reintroduced one argument to the left. */
+    var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+    var pos = {}, minds = [];
+    for (var i = 0; i < drew.length; i++) {
+      var d = drew[i]; if (!d || !d.p || !d.at) continue;
+      pos[d.p.id] = { x: d.at[0], y: d.at[1] };
+      minds.push(ctMind(d.p.id));
+    }
+    if (!minds.length) return null;
     var res = BohemiaDeeds.publishStage(
-      ctMindsList(), ctMinuteNow(), '@', DEMO_BQ[file], stageN,
-      hx, hy, '@', ctFactionOfMind, questId);
+      minds, ctMinuteNow(), '@', DEMO_BQ[file], stageN,
+      hx, hy, function(o){ return pos[o] || null; }, ctFactionOfMind, questId);
     if (res && res.rows && res.rows.length) {
       window.__QUEST_DEEDS = (window.__QUEST_DEEDS || 0) + res.rows.length;
       window.__QUEST_WITNESSES = (window.__QUEST_WITNESSES || 0) + (res.witnesses || 0);
@@ -38335,18 +38365,25 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
    the table stayed empty, every opinion weighed zero, and the reputation organ was
    inert in a game whose whole spine is factions. */
 var CT_DEED_ROWS = 0;
-(function(){
+function ctCorpusLoad(){
   try {
-    if (typeof BohemiaDeeds === 'undefined') return;
+    if (typeof BohemiaDeeds === 'undefined' || typeof DEMO_BQ === 'undefined') return 0;
     var srcs = [];
     for (var k in DEMO_BQ) srcs.push({ id: k, src: DEMO_BQ[k] });
     var r = BohemiaDeeds.loadCorpus(srcs);
     CT_DEED_ROWS = (r && r.deeds) ? r.deeds.length : 0;
+    return CT_DEED_ROWS;
   } catch(_e){
-    console.error('BOHEMIA: the quest corpus did not load, so no deed weighs '
-      + 'anything and every faction stays blank. ' + _e.message);
+    /* DEMO_BQ is a const declared below the dial's boot restore, so the first
+       call lands in its temporal dead zone and throws. That is expected and it
+       is why this is a no-op rather than a warning: the corpus load that counts
+       is the one at the bottom of this file, after the const exists. */
+    return 0;
   }
-})();
+}
+ctCorpusLoad();
+if (!CT_DEED_ROWS) console.error('BOHEMIA: the quest corpus did not load, so no '
+  + 'deed weighs anything and every faction in the game stays blank.');
 let DAYOPEN=null;
 
 function dayWhere(){
@@ -47425,9 +47462,27 @@ function ctWhyTheyThinkThat(fid, limit){
   } catch(_e){ return []; }
   var out = [];
   for (var i = 0; i < rows.length; i++){
-    var w = CT_DEED_WORDS[rows[i].kind]; if (!w) continue;
+    var w = CT_DEED_WORDS[rows[i].kind];
+    if (w){
+      out.push({ kind: rows[i].kind, force: rows[i].force, heard: rows[i].heard,
+                 say: rows[i].heard ? w.heard : w.saw });
+      continue;
+    }
+    /* __CITY_QUESTDEEDS__ -- AND A QUEST DEED SAYS IT IN HIS OWN SENTENCE.
+       CT_DEED_WORDS only ever held the four kinds the CITY witnesses. A deed
+       published from a quest has a `q:<quest>:<stage>@<FACTION>` kind, so it
+       fell through this loop and vanished: the outfit's view moved and the card
+       could not say why. bohemia_deeds already solved this and nothing called
+       it -- loadCorpus stores each stage's @LOG line in LABELS, which is the
+       line Paolo already wrote for exactly this moment, and labels() is one of
+       the functions organ_reach reported as reached by NOTHING ANYWHERE.
+       So no words are invented here: an authored deed is described by its
+       author's own sentence, and only the eyewitness/hearsay split is mine. */
+    var lab = null;
+    try { lab = BohemiaDeeds.labels()[rows[i].kind] || null; } catch(_e){}
+    if (!lab) continue;
     out.push({ kind: rows[i].kind, force: rows[i].force, heard: rows[i].heard,
-               say: rows[i].heard ? w.heard : w.saw });
+               say: (rows[i].heard ? 'heard what you did: ' : 'watched it: ') + lab });
   }
   return out;
 }
