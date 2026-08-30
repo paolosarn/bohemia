@@ -48,15 +48,8 @@ already built, already gated, and already on the card.
 ==========================================================================
 WHAT IT DOES
 ==========================================================================
-1. THE FULL CORPUS IS INLINED, not the five that were there.
-   loadCorpus normalises every weight by the LARGEST DEED IN THE CORPUS -- the
-   module's rule is that the biggest thing a quest can do, done in front of the
-   whole faction, moves you exactly one rung. Measured: the full 27 answer 20;
-   the five that were inlined answer 12. Loading only those five would have
-   inflated every weight in the game by 20/12 and quietly moved every rung
-   boundary. Inlining the sources rather than baking a weight table means the
-   numbers are re-derived from his files at every boot and can never drift from
-   what he wrote.
+1. THE FULL CORPUS IS INLINED, not the five that were there, AND IT IS MOVED
+   OUT OF THE MODULE BODY IT WAS HIDING IN (see patch_corpus).
 
 2. loadCorpus() IS CALLED, so DEED_WEIGHT gets its 82 rows.
    MECHANISM-MINE / CONTENTS-PAOLO'S is kept exactly: this file names no faction
@@ -64,34 +57,48 @@ WHAT IT DOES
    that fills it is a scan of his .bq files, and every row traces to a line in
    one of them.
 
-3. A RESOLVED STAGE IS PUBLISHED INTO THE HEADS OF THE PEOPLE STANDING THERE.
-   Hooked at D._toStage, which is the one place every stage entry goes through
-   -- a choice, a world event, and nightfall's fail branch all land there.
+3. A RESOLVED STAGE IS PUBLISHED INTO THE HEADS OF THE PEOPLE STANDING THERE,
+   through a `witness` seam THIS FILE ONLY FILLS IN. The hook itself lives in
+   engine/bohemia_demoquests.js, because the first cut of this patched the
+   INLINED COPY of that module in the page and the resync then reported it STALE
+   against its own canon file -- the exact drift ENGINE SYNC LAW exists to kill,
+   and the same drift that meant nobody in Las Vegas had a faction for thirteen
+   days in August with every gate green.
 
-   AND AT D.spoke, WHICH IS THE TRAP. A chosen @OPT can carry `@DO set_stage
-   20`, which runs the stage's verbs through the canonical Runtime.setStage
-   BEFORE the UI ever asks what happened; D.spoke exists to report that, and its
-   own comment warns that calling _toStage there would run everything twice.
-   So both paths call ONE publisher and it is IDEMPOTENT per (quest, stage):
-   the same resolution can never be witnessed twice, however it was reached.
+   The split: the MODULE owns WHEN a resolution counts, the HOST owns WHO WAS
+   THERE. The module fires on D._toStage (a choice, a world event and
+   nightfall's fail branch all land there) AND on D.spoke, which is the trap --
+   a chosen @OPT can carry `@DO set_stage 20`, which runs the stage's verbs
+   through the canonical Runtime.setStage before the UI ever asks what happened,
+   and D.spoke's own comment warns that re-entering the stage there would pay
+   every bond twice. So both paths call one guarded function, IDEMPOTENT per
+   (quest, stage): a resolution can only ever be witnessed once, however it was
+   reached. That guard lives in the module because the hazard is the module's.
 
 ==========================================================================
-THE BUG THIS FOUND ON THE WAY, WHICH IS BIGGER THAN THE WIRING
+TWO BUGS THIS FOUND ON THE WAY, BOTH BIGGER THAN THE WIRING
 ==========================================================================
-publish() picked its witnesses with `factionOfOwner(owner) === faction`, a
-strict string compare between the CITY's faction id and the QUEST's spelling of
-it. Measured across the corpus before anything was wired:
+A. publish() picked its witnesses with `factionOfOwner(owner) === faction`, a
+   strict string compare between the CITY's faction id and the QUEST's spelling
+   of it. Measured across the corpus before anything was wired:
 
-    82 authored deltas
-    23 matched
-    59 named a real faction IN A DIFFERENT CASE and matched nothing
+       82 authored deltas
+       23 matched
+       59 named a real faction IN A DIFFERENT CASE and matched nothing
 
-He writes `faction TRADES +8`; the canon id in BOHEMIA_faction_graph.json is
-`Trades`. ZERO of the 82 name a faction that does not exist. So fifty-nine lines
-of his writing would have gone into nobody's head, and publish() would have
-returned witnesses:0 -- indistinguishable from "nobody was standing there".
-Fixed in engine/bohemia_deeds.js (sameFaction) and resynced into this page, so
-it is one canonical body per ENGINE SYNC LAW rather than a patch on a copy.
+   He writes `faction TRADES +8`; the canon id in BOHEMIA_faction_graph.json is
+   `Trades`. ZERO of the 82 name a faction that does not exist. So fifty-nine
+   lines of his writing would have gone into nobody's head, and publish() would
+   have returned witnesses:0 -- indistinguishable from "nobody was standing
+   there". Fixed in engine/bohemia_deeds.js (sameFaction) and resynced.
+
+B. scanQuest called LOOP.cloutTagFrom directly, and the walked city loads
+   BohemiaClout, NOT the 75 KB BohemiaLoop. So LOOP was null there and the
+   function threw on its first line. THAT IS WHY THIS BRIDGE HAD NEVER RUN
+   ANYWHERE A PLAYER COULD REACH: loadCorpus could not fill the table and
+   publishStage could not publish, on the one surface all of it was for.
+   cloutWeight had been given exactly this fallback on 8/21; scanQuest was
+   missed. The half-applied fix was the whole bug.
 
 REUSE CHECK: cooks no graphic pixels. Opens no art bank and draws nothing. It
 reads quests/bq/*.bq (his), engine/bohemia_deeds.js and engine/bohemia_standing.js
@@ -100,7 +107,6 @@ this lane added on 8/28.
 """
 import json
 import os
-import re
 import sys
 
 CITY = 'slices/BOHEMIA_CITY_WORLD.html'
@@ -112,36 +118,85 @@ def build_corpus():
     """Every .bq he has written, keyed by the stem the demo spec already uses."""
     out = {}
     for f in sorted(os.listdir(BQDIR)):
-        if not f.endswith('.bq'):
-            continue
-        out[f[:-3]] = open(os.path.join(BQDIR, f), encoding='utf-8').read()
+        if f.endswith('.bq'):
+            out[f[:-3]] = open(os.path.join(BQDIR, f), encoding='utf-8').read()
     return out
 
 
-# ------------------------------------------------------ 1. THE WHOLE CORPUS
+LIFT_NOTE = ('/* ' + MARKER + ': the quest text used to be declared HERE, inside the\n'
+             '   demoquests module body, which is exactly where a module resync cuts.\n'
+             '   It is declared whole beside the code that uses it instead. */\n')
+
+CORPUS_HEAD = (
+    '/* ' + MARKER + ' -- ALL {n} OF HIS QUESTS, NOT THE FIVE THE DEMO PLAYS.\n'
+    '   loadCorpus normalises every deed weight by the LARGEST DEED IN THE CORPUS,\n'
+    '   so the set that is loaded decides the whole scale. Measured 8/28: the full\n'
+    '   corpus answers 20, the five that used to be here answer 12. Loading only\n'
+    '   those five inflated every weight in the game by 20/12 and moved every rung\n'
+    '   boundary with it. The SOURCES are inlined rather than a baked weight table\n'
+    '   on purpose: the numbers are re-derived from his files at every boot, so they\n'
+    '   cannot drift from what he actually wrote.\n'
+    '   AND IT IS DECLARED HERE, OUTSIDE EVERY MODULE BANNER. A resync cuts from a\n'
+    '   module banner to the next one, so 250 KB of quest text parked inside a 17 KB\n'
+    '   module body makes tools/bohemia_city_module_resync.py refuse to run -- and\n'
+    '   that resync is the only thing keeping 99 inlined engine copies from drifting\n'
+    '   a week behind canon, which is the bug that cost this lane thirteen days. */\n'
+    'const DEMO_BQ=')
+
+
 def patch_corpus(s):
-    i = s.find('const DEMO_BQ=')
-    if i < 0:
-        sys.exit('FAIL: no DEMO_BQ in the city')
-    j = s.find('\n', i)
+    """Lift the quest text OUT of the demoquests module body, then re-declare it
+    whole, next to the code that uses it.
+
+    IT HAS TO MOVE, AND THE TOOL THAT CAUGHT THAT IS RIGHT TO EXIST.
+    `const DEMO_BQ=` sat INSIDE the `==== engine/bohemia_demoquests.js ====`
+    banner, which has no closing banner, so a module resync cuts from that banner
+    to the next one and swallows the quest text with it. At five quests nobody
+    noticed. At twenty-seven, tools/bohemia_city_module_resync.py refused:
+    "278742 bytes against a 17216 byte module -- that is not one module, it is
+    this one plus whatever follows it. NOTHING WAS WRITTEN."
+
+    That refusal is the tool working as designed. The fix is to stop hiding a
+    250 KB data blob inside a 17 KB module body, never to loosen the check.
+    """
     corpus = build_corpus()
     if not corpus:
         sys.exit('FAIL: no .bq files found')
-    head = ('/* ' + MARKER + ' -- ALL ' + str(len(corpus)) + ' OF HIS QUESTS, NOT THE FIVE THE DEMO PLAYS.\n'
-            '   loadCorpus normalises every deed weight by the LARGEST DEED IN THE CORPUS,\n'
-            '   so the set that is loaded decides the whole scale. Measured 8/28: the full\n'
-            '   corpus answers 20, the five that used to be here answer 12. Loading only\n'
-            '   those five inflated every weight in the game by 20/12 and moved every rung\n'
-            '   boundary with it. The SOURCES are inlined rather than a baked weight table\n'
-            '   on purpose: the numbers are re-derived from his files at every boot, so they\n'
-            '   cannot drift from what he actually wrote. */\n'
-            'const DEMO_BQ=')
-    return s[:i] + head + json.dumps(corpus) + ';' + s[j:]
+
+    i = s.find('const DEMO_BQ=')
+    if i < 0:
+        sys.exit('FAIL: no DEMO_BQ in the city')
+    if 'engine/bohemia_demoquests.js' not in s[:i]:
+        sys.exit('FAIL: DEMO_BQ is not where this tool expects it')
+    j = s.find('\n', i)
+    s = s[:i] + LIFT_NOTE + s[j + 1:]
+
+    anchor = 'const DQ=BohemiaDemoQuests.make('
+    k = s.find(anchor)
+    if k < 0:
+        sys.exit('FAIL: no DQ make call to declare the corpus in front of')
+    head = CORPUS_HEAD.replace('{n}', str(len(corpus)))
+    return s[:k] + head + json.dumps(corpus) + ';\n' + s[k:]
 
 
 # ------------------------------------------- 2. FILL HIS TABLE FROM HIS FILES
 OLD_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:DAY});"""
-NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:DAY});
+NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:DAY,
+  /* """ + MARKER + """ -- THE WORLD, HANDED TO THE QUEST MODULE.
+     The module owns WHEN a resolution counts (once per quest+stage, however it
+     was reached); this owns WHO WAS THERE. Neither knows the other's job. */
+  witness: function(file, stageN, questId){
+    if (typeof BohemiaDeeds === 'undefined') return null;
+    if (typeof ctMindsList !== 'function' || typeof ctFactionOfMind !== 'function') return null;
+    var res = BohemiaDeeds.publishStage(
+      ctMindsList(), ctMinuteNow(), '@', DEMO_BQ[file], stageN,
+      hx, hy, '@', ctFactionOfMind, questId);
+    if (res && res.rows && res.rows.length) {
+      window.__QUEST_DEEDS = (window.__QUEST_DEEDS || 0) + res.rows.length;
+      window.__QUEST_WITNESSES = (window.__QUEST_WITNESSES || 0) + (res.witnesses || 0);
+    }
+    return res;
+  }});
 /* """ + MARKER + """ -- HIS OWN FILES FILL HIS OWN TABLE.
    bohemia_standing.js ships DEED_WEIGHT EMPTY and its gate asserts that it does.
    This is the ONLY thing in the codebase that puts a row in it, and every row it
@@ -168,70 +223,16 @@ var CT_DEED_ROWS = 0;
 
 
 # ------------------------------ 3. THE PEOPLE STANDING THERE ACTUALLY SEE IT
-OLD_TOSTAGE = """    D._toStage = function (n) {
-      D.rt.setStage(n);
-      var log = stageLog(D.Q, n);
-      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
-      D.lastNarrated = n;"""
-NEW_TOSTAGE = """    /* """ + MARKER + """ -- SOMEBODY DID SOMETHING AND THE PEOPLE THERE SAW IT.
-       His `faction REDS +10` used to move a number in a ledger, valley-wide and
-       instantly, with nobody watching. That is KARMA, and the game everybody
-       measures this corpus against shipped karma next to reputation and proved
-       which one matters: its karma is "almost completely irrelevant", while its
-       reputation -- which moves when somebody CATCHES you -- is the half the
-       whole game is built on. This puts his numbers on the reputation path.
-
-       IDEMPOTENT PER (QUEST, STAGE), AND THAT IS NOT DEFENSIVE PROGRAMMING, IT
-       IS THE ONLY WAY BOTH CALLERS CAN BE CORRECT. A chosen @OPT can carry
-       `@DO set_stage 20`, which runs the stage's verbs through the canonical
-       Runtime.setStage before the UI ever asks what happened -- D.spoke exists
-       to report exactly that, and its own comment warns that re-entering the
-       stage there would pay every bond twice and double every faction move. So
-       both paths call this, and a resolution can only ever be witnessed once,
-       however it was reached. */
-    D._seen = {};
-    D._witness = function (n) {
-      if (!D.Q || !D.spec || n == null) return null;
-      var key = D.spec.id + ':' + n;
-      if (D._seen[key]) return null;
-      D._seen[key] = 1;
-      if (typeof BohemiaDeeds === 'undefined') return null;
-      if (typeof ctMindsList !== 'function' || typeof ctFactionOfMind !== 'function') return null;
-      try {
-        var res = BohemiaDeeds.publishStage(
-          ctMindsList(), ctMinuteNow(), '@', DEMO_BQ[D.spec.file], n,
-          hx, hy, '@', ctFactionOfMind, D.spec.id);
-        if (res && res.rows && res.rows.length) {
-          D.lastWitness = res;
-          window.__QUEST_DEEDS = (window.__QUEST_DEEDS || 0) + res.rows.length;
-          window.__QUEST_WITNESSES = (window.__QUEST_WITNESSES || 0) + (res.witnesses || 0);
-        }
-        return res;
-      } catch(_e){
-        if (!D._witness.__warned){ D._witness.__warned = 1;
-          console.error('BOHEMIA: a resolved quest stage was never witnessed by '
-            + 'anybody, so no outfit can have learned about it. ' + _e.message); }
-        return null;
-      }
-    };
-
-    D._toStage = function (n) {
-      D.rt.setStage(n);
-      var log = stageLog(D.Q, n);
-      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
-      D._witness(n);
-      D.lastNarrated = n;"""
-
-OLD_SPOKE = """      D.lastNarrated = n;
-      var log = stageLog(D.Q, n);
-      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
-      var out = { stage: n, log: log, objectives: D.rt.objectives(), spoke: true };"""
-NEW_SPOKE = """      D.lastNarrated = n;
-      var log = stageLog(D.Q, n);
-      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
-      D._witness(n);          /* """ + MARKER + """: idempotent, see _witness */
-      var out = { stage: n, log: log, objectives: D.rt.objectives(), spoke: true };"""
-
+# THE HOOK ITSELF LIVES IN engine/bohemia_demoquests.js, NOT HERE, AND THAT IS
+# ENGINE SYNC LAW rather than taste. The first cut of this patched the INLINED
+# COPY of the module in the page; tools/bohemia_city_module_resync.py then
+# reported the module STALE against its own canon file, which is exactly the
+# drift that law exists to kill -- and the same drift that meant NOBODY in Las
+# Vegas had a faction for thirteen days in August with every gate green.
+# So the module got a `witness` seam and the host passes the world in. The
+# module owns the idempotence (the double-entry hazard is its own) and knows
+# nothing about the city; the city owns the minds and the position and knows
+# nothing about stages.
 
 def main():
     if not os.path.exists(CITY):
@@ -246,12 +247,13 @@ def main():
     if 'sameFaction' not in s:
         sys.exit('FAIL: the city carries a pre-8/28 bohemia_deeds; run '
                  'tools/bohemia_city_module_resync.py first, or 59 of his 82 '
-                 'deltas will match nobody')
+                 'deltas will match nobody and scanQuest will throw on LOOP')
 
+    if 'cfg.witness' not in s:
+        sys.exit('FAIL: the city carries a pre-8/28 bohemia_demoquests with no '
+                 'witness seam; run tools/bohemia_city_module_resync.py first')
     s = patch_corpus(s)
-    for old, new, what in ((OLD_MAKE, NEW_MAKE, 'the corpus load'),
-                           (OLD_TOSTAGE, NEW_TOSTAGE, 'the stage hook'),
-                           (OLD_SPOKE, NEW_SPOKE, 'the spoken-stage hook')):
+    for old, new, what in ((OLD_MAKE, NEW_MAKE, 'the corpus load'),):
         if old not in s:
             sys.exit('FAIL: could not find ' + what)
         s = s.replace(old, new, 1)
@@ -260,7 +262,7 @@ def main():
     n = len(build_corpus())
     print('CITY QUEST DEEDS: his ' + str(n) + ' quests are loaded and a resolved')
     print('  stage is now witnessed by the people standing there.')
-    print('  TAB: RUN. Finish a day\'s quest, then read the card of anybody who')
+    print("  TAB: RUN. Finish a day's quest, then read the card of anybody who")
     print('  runs with the outfit it touched, or open the OUTFIT board.')
 
 

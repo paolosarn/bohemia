@@ -72,6 +72,25 @@
   }
   function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
 
+  /* WHICH TAG A STAGE CARRIES -- AND THE SAME FALLBACK cloutWeight ALREADY HAD.
+     (8/28.) cloutWeight was taught to prefer the standalone bohemia_clout.js on
+     8/21, precisely so a surface wanting four numbers would not have to drag in
+     75 KB of bohemia_loop.js. scanQuest was not: it went on calling
+     LOOP.cloutTagFrom directly.
+
+     THAT IS WHY THIS BRIDGE HAD NEVER RUN ANYWHERE A PLAYER COULD REACH. The
+     walked city loads BohemiaClout and NOT BohemiaLoop, so LOOP is null there
+     and scanQuest threw `Cannot read properties of null (reading
+     'cloutTagFrom')` on its first line -- which means loadCorpus could never
+     have filled the table, and publishStage could never have published, on the
+     one surface any of it was for. Both modules export the same function; the
+     half-applied fix is the whole bug. */
+  function cloutTagFrom(tags) {
+    var src = CLOUT || LOOP;
+    if (!src) throw new Error('bohemia_deeds needs the CLOUT scale (bohemia_clout.js, or bohemia_loop.js which reads it); there is no second copy of that table on purpose');
+    return src.cloutTagFrom(tags);
+  }
+
   /* ---- REACH: HOW FAR A THING CARRIES ------------------------------------
      The only genuinely new math in this file, and it is one line with a real
      reason under it.
@@ -159,7 +178,7 @@
     var out = [];
     for (var i = 0; i < q.stages.length; i++) {
       var st = q.stages[i];
-      var tag = LOOP.cloutTagFrom(st.tags);
+      var tag = cloutTagFrom(st.tags);
       for (var j = 0; j < st.dos.length; j++) {
         var m = /^faction\s+([A-Za-z_]+)\s+([-+]?\d+)\s*$/.exec(st.dos[j].text);
         if (!m) continue;

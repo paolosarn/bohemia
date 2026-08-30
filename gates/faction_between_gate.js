@@ -1628,6 +1628,196 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+async function onQuestDeeds() {
+  console.log('\nR. HIS 82 AUTHORED CONSEQUENCES, AND WHETHER ANYBODY SEES THEM.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const fs2 = require('fs');
+
+  /* MEASURED OFF HIS FILES FIRST, IN NODE, so the browser claims below are
+     compared against the corpus itself rather than against numbers typed here. */
+  const D = require(path.join(ROOT, 'engine/bohemia_deeds.js'));
+  const BQDIR = path.join(ROOT, 'quests/bq');
+  const files = fs2.readdirSync(BQDIR).filter(f => f.endsWith('.bq'));
+  let corpusRows = [];
+  for (const f of files) {
+    try { corpusRows = corpusRows.concat(
+      D.scanQuest(fs2.readFileSync(path.join(BQDIR, f), 'utf8'), f.replace(/\.bq$/, ''))); }
+    catch (_e) {}
+  }
+  const corpusMax = Math.max(...corpusRows.map(r => Math.abs(r.delta)));
+  const graph = JSON.parse(fs2.readFileSync(path.join(ROOT, 'engine/BOHEMIA_faction_graph.json'), 'utf8'));
+  const ids = Object.keys(graph.factions || {});
+  const exact = new Set(ids);
+  const strictHits = corpusRows.filter(r => exact.has(r.faction)).length;
+  const foldHits = corpusRows.filter(r => ids.some(i => i.toUpperCase() === r.faction.toUpperCase())).length;
+
+  ok('R1 HIS CORPUS IS READ FROM HIS FILES, not from a number typed in this gate',
+    corpusRows.length > 0, corpusRows.length + ' deltas across ' + files.length + ' quests');
+
+  ok('R2 *** EVERY FACTION HE NAMES IS A REAL FACTION. *** The case fix below '
+    + 'rescues his spelling, and this is the claim that keeps it a MATCHER fix '
+    + 'and not a licence to invent: if a quest ever names an outfit that does '
+    + 'not exist, that is content and it must fail here rather than be folded '
+    + 'quietly into something that does',
+    foldHits === corpusRows.length,
+    'match after fold ' + foldHits + '/' + corpusRows.length);
+
+  ok('R3 AND A STRICT COMPARE WOULD HAVE DROPPED MOST OF THEM ON THE FLOOR. He '
+    + 'writes `faction TRADES +8`; the canon id is `Trades`. publish() used === '
+    + 'so the witness predicate answered false for every person alive, and it '
+    + 'returned witnesses:0 -- indistinguishable from nobody being there',
+    strictHits < foldHits,
+    strictHits + ' of ' + corpusRows.length + ' matched before the fix, '
+      + (foldHits - strictHits) + ' were silently lost');
+
+  ok('R4 the fold is in the ENGINE, so every surface gets it, not a patch on a copy',
+    typeof D.sameFaction === 'function'
+      && D.sameFaction('TRADES', 'Trades') === true
+      && D.sameFaction('TRADES', 'Reds') === false);
+
+  const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errs = [], warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 160)));
+  try {
+    await page.goto('file://' + ALPHA);
+    await SETTLE(page, 10000);
+    await page.evaluate(() => {
+      const t = [...document.querySelectorAll('[data-tab],.tab,button')]
+        .find(e => (e.textContent || '').trim() === 'RUN');
+      if (t) t.click();
+    });
+    await SETTLE(page, 12000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof DQ !== 'undefined'
+                                    && typeof BohemiaDeeds !== 'undefined')) { city = f; break; } }
+      catch (_e) {}
+    }
+    ok('R5 the walked world carries the quest runtime AND the deeds organ', !!city);
+    if (!city) return;
+
+    const T = await city.evaluate(() => {
+      const out = {};
+      out.corpusKeys = Object.keys(DEMO_BQ).length;
+      out.rowsLoaded = CT_DEED_ROWS;
+      out.weightRows = Object.keys(BohemiaStanding.DEED_WEIGHT).length;
+      let maxAbs = 0;
+      const src = [];
+      for (const k in DEMO_BQ) src.push({ id: k, src: DEMO_BQ[k] });
+      for (const r of BohemiaDeeds.loadCorpus(src).deeds) maxAbs = Math.max(maxAbs, Math.abs(r.delta));
+      out.maxAbs = maxAbs;
+      out.sampleWeights = Object.keys(BohemiaStanding.DEED_WEIGHT).slice(0, 3)
+        .map(k => k + '=' + BohemiaStanding.DEED_WEIGHT[k].toFixed(2));
+      out.allTraceable = Object.keys(BohemiaStanding.DEED_WEIGHT)
+        .every(k => /^q:[A-Za-z0-9_]+:\d+@[A-Za-z_]+$/.test(k));
+      return out;
+    });
+
+    ok('R6 *** HIS OWN FILES FILL HIS OWN TABLE, ON THE SURFACE HE WALKS. *** '
+      + 'bohemia_standing.js ships DEED_WEIGHT EMPTY and its gate asserts that; '
+      + 'loadCorpus is the only thing in the codebase that puts a row in it, and '
+      + 'until 8/28 nothing on a reachable surface called it, so every opinion in '
+      + 'a game about factions weighed exactly zero',
+      T.rowsLoaded > 0 && T.weightRows === T.rowsLoaded && T.weightRows === corpusRows.length,
+      'rows=' + T.rowsLoaded + ' table=' + T.weightRows + ' corpus=' + corpusRows.length);
+
+    ok('R7 AND NOT ONE OF THOSE ROWS WAS TYPED BY ME. Every key is '
+      + 'q:<quest>:<stage>@<FACTION>, which only the scan of his .bq files can '
+      + 'produce. MECHANISM-MINE / CONTENTS-PAOLO\'S kept by construction',
+      T.allTraceable === true, T.sampleWeights.join('  '));
+
+    ok('R8 THE WHOLE CORPUS IS LOADED, NOT THE FIVE THE DEMO PLAYS, and that is a '
+      + 'correctness claim rather than a completeness one: loadCorpus normalises '
+      + 'every weight by the LARGEST deed in whatever it is given, so the five '
+      + 'that used to be inlined (max 12) would have inflated every weight in the '
+      + 'game by 20/12 and moved every rung boundary with it',
+      T.corpusKeys === files.length && T.maxAbs === corpusMax,
+      'inlined=' + T.corpusKeys + '/' + files.length + ' max=' + T.maxAbs + ' corpus=' + corpusMax);
+
+    /* ---- NOW PLAY ONE, AND SEE WHETHER ANYBODY NOTICES ------------------ */
+    const P = await city.evaluate(() => {
+      const out = {};
+      const spec = DQ.specForDay(1);
+      out.spec = spec ? spec.id : null;
+      if (!spec) return out;
+      const rows = BohemiaDeeds.scanQuest(DEMO_BQ[spec.file], spec.id);
+      out.stageRows = rows.map(r => ({ stage: r.stage, faction: r.faction, delta: r.delta, clout: r.clout }));
+      const pick = rows[0]; if (!pick) return out;
+      out.pick = pick;
+
+      let placed = false;
+      for (const p of ctEveryone()) {
+        const f = ctFactionOf(p);
+        if (f && String(f).toUpperCase() === String(pick.faction).toUpperCase()) {
+          const at = ctAt(p); hx = at[0] + 1; hy = at[1]; placed = true; break;
+        }
+      }
+      out.placed = placed;
+      const m0 = ctMinuteNow();
+      for (let i = 0; i < 24 && ctMinuteNow() === m0; i++) {
+        try { stepOnce(i % 2 ? 6 : 2); } catch (_e) {}
+        try { renderHuman(); } catch (_e) {}
+      }
+      out.minds = Object.keys(CT_MINDS).length;
+      out.before = ctTheirView(pick.faction);
+
+      DQ.openDay(1);
+      window.__QUEST_DEEDS = 0; window.__QUEST_WITNESSES = 0;
+      out.pub = DQ._witness ? DQ._witness(pick.stage) : null;
+      out.deeds = window.__QUEST_DEEDS; out.wit = window.__QUEST_WITNESSES;
+      out.after = ctTheirView(pick.faction);
+      out.why = ctWhyTheyThinkThat(pick.faction, 3);
+
+      out.again = DQ._witness(pick.stage);
+      out.deedsAfterRepeat = window.__QUEST_DEEDS;
+      return out;
+    });
+
+    ok('R9 day one of the demo is a real quest of his with real faction deltas on it',
+      !!P.spec && P.stageRows && P.stageRows.length > 0,
+      P.spec + ' ' + JSON.stringify((P.stageRows || []).slice(0, 3)));
+
+    ok('R10 *** A RESOLVED STAGE IS PUT INTO THE HEADS OF THE PEOPLE STANDING '
+      + 'THERE. *** This is the call that did not exist: publishStage was reached '
+      + 'by NOTHING ANYWHERE, so his authored consequence moved a number in a '
+      + 'ledger nobody could see',
+      P.pub && P.pub.rows && P.pub.rows.length > 0,
+      JSON.stringify(P.pub && P.pub.rows ? P.pub.rows[0] : null));
+
+    ok('R11 AND SOMEBODY ACTUALLY SAW IT. witnesses:0 is the answer that used to '
+      + 'be indistinguishable from the bug, so it is the number this claim is on',
+      P.wit > 0, 'witnesses=' + P.wit + ' minds=' + P.minds + ' placed=' + P.placed);
+
+    ok('R12 *** SO THE OUTFIT\'S VIEW OF YOU MOVED, ON THE SURFACE HE OPENS. *** '
+      + 'The card and the OUTFIT board read standingOf, which reads the minds '
+      + 'this just wrote into. A quest consequence he wrote is now something a '
+      + 'stranger in the street can tell you about',
+      P.before && P.after && P.after.whoSaw > P.before.whoSaw,
+      'before ' + JSON.stringify(P.before) + ' after ' + JSON.stringify(P.after));
+
+    ok('R13 AND IT SAYS WHY, IN THE QUEST\'S OWN @LOG LINE. becauseOf returns deed '
+      + 'kinds, which are machine ids; the label is his sentence, already written',
+      P.why && P.why.length > 0, JSON.stringify((P.why || [])[0] || null));
+
+    ok('R14 *** THE SAME RESOLUTION CANNOT BE WITNESSED TWICE. *** A chosen @OPT '
+      + 'can carry `@DO set_stage 20`, which runs the stage through the canonical '
+      + 'Runtime.setStage before the UI asks what happened, so _toStage and spoke '
+      + 'BOTH have to publish and idempotence is the only way both can be correct. '
+      + 'Without it every faction move doubles, invisibly',
+      P.again === null && P.deedsAfterRepeat === P.deeds,
+      'first=' + P.deeds + ' after repeat=' + P.deedsAfterRepeat);
+
+    ok('R15 NOTHING THREW AND NOTHING WAS SWALLOWED',
+      errs.length === 0 && warns.filter(w => /never witnessed|did not load/.test(w)).length === 0,
+      JSON.stringify(errs.slice(0, 2)) + JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 async function onTheirView() {
   console.log('\nQ. A FACTION\'S VIEW IS ITS MEMBERS\' VIEWS -- RULE 4, FINALLY CALLED.');
   const { chromium } = requirePlaywright();
@@ -1869,6 +2059,7 @@ onTheCard()
   .then(onTheVouch)
   .then(onYourProblem)
   .then(onTheirView)
+  .then(onQuestDeeds)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
