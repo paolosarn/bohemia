@@ -1,9 +1,9 @@
-WORLD (world-9lfjtf): 8/29 (c) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
+WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
 Four failed guesses, then a different KIND of measurement found it in one run.
 Nothing to judge. ***
 
-TAB: RUN. Walk to any freeway. Build 8/29c - YOU CAN DRIVE THE INTERSTATE.
+TAB: RUN. Walk to any freeway. Build 8/29d - YOU CAN DRIVE THE INTERSTATE.
 
 THE LINE, in bohemia_freeway.js's kit registration:
     o.same = o.links = o.streets = ['N', 'S'];
