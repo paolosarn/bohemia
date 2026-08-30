@@ -14044,6 +14044,34 @@ const BOH_FLOORPLAN=(function(){
     institutional:{roles:['ward','ward','office','service','bath'],bulk:'ward',minRoom:5},
     warehouse:  {roles:['floor_open','dock','office','bath'],bulk:'floor_open',minRoom:8},
     landmark:   {roles:['atrium','gallery','service','bath'],bulk:'gallery',minRoom:6},
+    /* *** THREE ZONES SPLIT OUT OF `institutional` (8/28). ***
+       Fixing the bathroom flood left `ward` as the COMMONEST ROOM IN THE VALLEY at 20.7%,
+       because one zone was carrying eleven different building types -- medical, school,
+       campus, firestation, policestation, jail, prison, terminal, airport, airbase, cemetery
+       -- and a ward is only right for the first of them. A school of hospital wards, a fire
+       station of hospital wards, an airport terminal of hospital wards.
+       EVERY ROLE NAME BELOW IS ONE THE FLOOR POOL ALREADY CARRIES (measured: it maps 36 names
+       and the floorplan was only assigning 25, so `garage`, `study`, `exam`, `plant`,
+       `corridor`, `dining` and five more were sitting there unused). REUSE-FIRST -- nothing
+       here reaches into the ART lane's map, which is what stopped this fix yesterday.
+       GROUNDED, not guessed:
+         school   - schools put 65-70% of gross floor area into INSTRUCTION and 30-35% into
+                    ancillary, so the bulk room is the classroom and `study` is the mapped
+                    name for it.
+         transit  - "in smaller airports the terminal and concourse are one and the same
+                    building", which is exactly Bohemia's scale: check-in, security and gates
+                    sharing one space. The bulk room is the concourse.
+         firehouse- the apparatus bay is the dominant volume of a fire station: bays run 15-18
+                    ft wide and 40 ft deep for a single, 80 for a double, and everything else
+                    (watch, bunks, office) is fitted around them. `garage` is the mapped name.
+       POLICE STATIONS ARE NOT FIREHOUSES and are moved to `civic` instead: a police station is
+       mostly desks and interview rooms with a motor pool attached, not a hall of vehicle bays.
+       WHAT STAYS `institutional`: medical, where a ward is exactly right, and prison/jail,
+       where a cellblock is a genuine ward-shaped repeated unit. Cemetery stays too -- its
+       buildings are a chapel and an office and it is too small to be worth a zone. */
+    school:     {roles:['hall','office','study','study','bath'],bulk:'study',minRoom:5},
+    transit:    {roles:['concourse','counter','office','locker','bath'],bulk:'concourse',minRoom:6},
+    firehouse:  {roles:['garage','office','locker','bath'],bulk:'garage',minRoom:6},
     // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
     // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
     // silently falling through to the nameless 'default' grammar — 46 buildings
@@ -15891,9 +15919,30 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // street on its south side" -- meaningless for a freeway, and it is why the top third
     // of the freeway grid was bare dirt with a hard edge across it: one leg stopped the
     // roadbed half a cell short. Nothing dead-ends on a freeway.
+    /* *** AND IT FORCED THE AXIS TOO, WHICH IS THE ARTERIAL'S 8/26 BUG VERBATIM (8/28). ***
+       The paragraph above is right about BOTH LEGS and it was implemented as
+           o.same = o.links = o.streets = ['N', 'S'];
+       which forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+       NORTH-SOUTH however it actually ran. The street contract gate's own header describes
+       this identical line, in the arterial, as that module's defect number one -- "EVERY
+       ARTERIAL IN THE VALLEY WAS BUILT NORTH-SOUTH. The registration forced
+       `o.links = ['N','S']`, axis included. 921 cells". It was fixed there on 8/26 and
+       NOBODY SWEPT THE CLASS. Third time this month: the dead-green palette went the same
+       way, fixed three times one module at a time.
+       MEASURED: `freeway(15,13)` runs east-west, has freeway to its east and west, and its
+       edge profiles came back N 18..110, S 18..110, E -1..-1, W -1..-1 -- the carriageway
+       drawn ninety degrees to the direction the road runs. The whole east-west leg of the
+       corridor was in TWO-CELL ISLANDS: 249 of 952 freeway cells cut off from the valley's
+       road network, and a car could not drive the length of the interstate.
+       The module itself was correct all along; handed same=['S','W','E'] it builds E/W
+       exactly right. This one line threw the world's answer away before it got there.
+       THE BOTH-LEGS RULE IS KEPT AND ONLY IT: a caller that says nothing, or says one leg
+       ("fronts a street on its south side", which really is meaningless for a freeway),
+       still gets a through-running north-south cell exactly as before. */
     generate: function (seed, opts) {
       var o = {}; for (var k in (opts || {})) o[k] = opts[k];
-      o.same = o.links = o.streets = ['N', 'S'];
+      var ans = (opts && opts.same) || (opts && opts.links) || (opts && opts.streets) || null;
+      if (!ans || ans.length < 2) o.same = o.links = o.streets = ['N', 'S'];
       return generate(seed, o);
     },
     body: function (c) { return c === 8 || c === 4; },
@@ -20210,8 +20259,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        neighbours like the wash (which is a line, and turns corners). */
     stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure', cluster:true },
     truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
-    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
-    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
+    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'school' },
+    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'firehouse' },
     swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
     storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' },
     /* ONE PLANT PER BLOB (8/27): four cells built four treatment plants, four fences, four
@@ -20219,7 +20268,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        real one adds capacity -- see engine/bohemia_watertreat.js. */
     watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
+    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'civic' },
     library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
     landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse', cluster:true },
     /* ONE YARD, NOT SIX (8/26). The valley's railyard is a 3x2 blob and each of its six
@@ -20243,10 +20292,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
     cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
     battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'transit' },
     // THE LANDMARK SET (7/27): the biggest two of the 88 buildable cells that were
     // still flat. Both are real districts on the kit, street-aware and drivable.
-    campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
+    campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'school' },
     /* ONE OVAL, NOT SIX (8/26). And the size was the real insult: a single cell draws an
        81 m oval, which is a GO-KART CIRCUIT. A short track -- the smallest thing anyone calls
        a speedway -- is a half-mile lap, about 250 m across. Across the blob it is 200 m. */
@@ -20316,8 +20365,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // THE AIRFIELDS (7/26): a blob, not a cell. Surfaces, not districts, for the same
     // reason the roads are: nothing should be able to base a faction on a runway until
     // Paolo rules that an airfield is claimable ground.
-    airport:  { mod:AIR, zone:'institutional' },
-    airbase:  { mod:AIR, zone:'institutional' },
+    airport:  { mod:AIR, zone:'transit' },
+    airbase:  { mod:AIR, zone:'transit' },
     /* THE RAILWAY AND THE STACK (7/27). The last two network surfaces in the valley: one
        unbroken 90-cell mainline down column 54, and the 16-cell block where the two
        interstates cross. The interchange is CLUSTER-BUILT for the same reason the

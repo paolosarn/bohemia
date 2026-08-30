@@ -1,0 +1,148 @@
+# THE THUMB HAS NEVER BEEN CHECKED, AND THE DEMO HAD A DOOR IN IT
+### 8/30/26, UI lane. Measured on the built demo, over a real http origin, at 390x844.
+
+Paolo, 8/29: *"do big brain online research if you need to then execute ... WE HAVE
+a demo to ship more forward motion work we need to complete."*
+
+So this turn left the wall alone and went at the demo. Everything below is measured
+on `slices/BOHEMIA_DEMO.html` — the file a stranger gets — not on the workshop.
+
+---
+
+## 1. WHAT I EXPECTED TO FIND, AND WHY I WAS WRONG TWICE BEFORE FINDING ANYTHING
+
+**The 8/25 gap list says "THE DEMO BUILD DOES NOT EXIST."** It exists. The pages
+workflow cuts it on every deploy. A five-day-old gap list is a second copy of a
+fact, and the fact had moved.
+
+**I then thought 70% of the demo was a dev tool.** The biggest script block in the
+file is 3,076 KB and opens with `const RIG_B64=` — a whole dev-tool HTML page in
+base64, whose only consumer is `if(t.dataset.p==='rig')`, a tab the demo deletes.
+Unreachable weight, 70% of the download.
+
+**That was wrong.** RIG_B64 is **125 KB**. The 3,076 KB is the whole script block,
+which holds several blobs, and I had attributed it to the first declaration in it.
+COMBAT_B64 is the 1.68 MB, and the demo genuinely needs the fight. **The cutter's
+own header already said exactly this** ("Cutting tabs saves 125 KB of RIG_B64 at
+most") and it was right and I was not. Measuring before cutting is the only reason
+this is a paragraph and not a bug.
+
+---
+
+## 2. THE FIRST REAL FINDING, AND A RULER THAT NEARLY MADE ME REPORT A FALSE ONE
+
+The city's toolbar carries a 🛠 that opens a builder drawer: **PEOPLE, REROLL,
+UNDER, KEY, SLIDE.** The cutter's own words: a stranger tapping REROLL
+*"regenerates the world under their own session ... not a cosmetic leak, it is a
+destroyed playthrough."* It injects a stylesheet to hide it.
+
+**Under `file://` the drawer is wide open.** I confirmed it, tapped it, and got the
+full menu. That looked like a demo-breaking leak sitting under a green gate.
+
+**It is not.** The injection is same-origin, and `file://` denies that access. The
+catch swallows it exactly as the cutter's comment predicts. Served over real http,
+`#devbtn` is `display:none` in the demo and visible in the workshop, precisely as
+designed. **My test surface was the broken part** — the fifth broken ruler in two
+days, and the first one that would have had me file a bug against another session's
+correct work.
+
+**But there IS a window, and it is real.** The hide runs on a 400ms `setInterval`.
+Sampling from the moment the city frame becomes readable, over http, on the built
+demo:
+
+    the builder button was on screen AND returned by elementFromPoint
+    149ms after the tap into the city.
+
+A thumb landing in the top-right corner in the first half second opens REROLL. A
+poll cannot close that; only watching for the frame the instant it is created can.
+**Fixed:** a MutationObserver on the panel that receives the frame, dressed on
+creation and on load, plus every animation frame for the first two seconds, with
+the original interval kept underneath as the belt to that pair of braces. Measured
+after: **0 of 6 samples tappable, from the first frame.**
+
+---
+
+## 3. THE HEADLINE: A STANDING LAW WITH NO GATE, FAILING 92%
+
+THE THUMB — 44px minimum, iPhone portrait — is a standing law in CLAUDE.md. This
+game ships on one device. **Nothing in ~453 gates had ever measured a control.**
+
+Measured on the demo's first city screen:
+
+| | |
+|---|---|
+| tappable controls | 13 |
+| **under 44px** | **12 (92%)** |
+| the top chips | 30px tall — 68% of target |
+| the eight walk arrows | 42px — and they are the game's ONLY movement input |
+
+**Three ways of finding those controls each confidently returned ZERO on a screen
+with eight visible buttons on it.** `[onclick]` matches only the attribute. The
+`onclick` property misses `addEventListener` too. CDP's `getEventListeners` can see
+them, but its object handles do not cross cleanly into a child frame. What works is
+**wrapping `addEventListener` before the page runs** and letting the page announce
+every handler as it registers it: it cannot miss one and needs no debugger.
+
+**Fixed, demo-side only.** `slices/BOHEMIA_CITY_WORLD.html` is another lane's file
+and this lane does not reach into it — same rule the cutter already set for the
+drawer. The workshop keeps exactly the sizes it has and those rows are **filed, not
+silently patched.**
+
+**The arrows grow without moving.** The pad is a 180px radial layout of eight 42px
+boxes at fixed offsets around an 80px centre. Growing them to 44 with a `-1px`
+margin expands each by one pixel in every direction and leaves every centre exactly
+where it was: 44+80+44 = 168 inside 180, widest pair still clearing by 3px. **The
+geometry he plays with is untouched.**
+
+Result: **0 of 14 controls under 44px. No overlap, nothing off screen.**
+
+---
+
+## 4. AND I BROKE THE DRAWER FIX WITH THE THUMB FIX
+
+The thumb rule sets `display:flex` on every child of `#topbar`. **`#devbtn` is a
+child of `#topbar`.** Two `!important` declarations at equal specificity are settled
+by ORDER, so the later thumb rule beat the earlier hide and the builder button came
+back — 44x44 and tappable for the **whole session**, which is worse than the 149ms
+window it was written to close.
+
+A rule can be individually correct and wrong because of where it sits. That is the
+8/16 border lesson and the 8/27 hairline lesson wearing a third hat. The hide now
+goes **last** and carries a **compound selector**, so it wins on specificity as well
+as on order and cannot be undone by anything added above it later.
+
+**Only a check that reads both at once catches that**, which is why the gate does.
+
+---
+
+## 5. THE GATE
+
+`gates/thumb_gate.js`, 9 claims, registered as **THE THUMB**. It:
+
+- **serves the slices over a real http origin**, because a `file://` probe reports a
+  leak production does not have and would miss one it did;
+- **wraps `addEventListener` before the page runs**, because three document-side
+  methods each found zero;
+- **judges the drawer by `elementFromPoint`**, not by visibility, because a control
+  can be on screen and under a modal, and because a poll leaves a window;
+- **proves holding an arrow still WALKS him**, against a still control — a world
+  that animated on its own would make any two frames differ and the check would
+  pass no matter what.
+
+**Mutation-proved four ways, all caught, all restored:** remove the chip minimum;
+remove the drawer hide; shrink the arrows back to 42; and — the one that matters —
+leave the arrows at a correct-looking 44px but set `pointer-events:none`, so the
+demo measures perfectly and cannot move. That last mutation is the reason the walk
+leg exists.
+
+Other lanes' demo gates re-run clean: demo_build 25/25, demo, demo_blockers,
+demo_day, the_whole_demo, touch_guard — all green.
+
+---
+
+## 6. WHAT IS STILL OPEN AND IS NOT MINE
+
+- **The workshop's own chrome is still 30px.** Filed, not patched. Another lane's file.
+- **Weight.** 4.38 MB in one request, 1.68 MB of it COMBAT_B64, which the demo needs.
+  Blocker F (24s to first play) is RUN's, and the cutter says so explicitly.
+- **The ending.** Gap G. The day still ends by going to bed.

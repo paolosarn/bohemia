@@ -72,10 +72,30 @@
    "kind": "ATMOSPHERE",
    "label": "BOOTS GOING SOMEWHERE"
   },
+  "buzz_more": {
+   "inherits": "phone_buzz",
+   "kind": "INFORMATION",
+   "label": "THE PHONE \u2014 MORE",
+   "msg": "A JOB ARRIVED",
+   "twin": "SUSPECTED (an unread badge on the phone button)",
+   "why": "the coordinator is right that this is a message and right that the badge is weak, and sweep 14 already found the badge is the ONLY other pointer at the day's work. So the twin exists but is thin: this is a STRENGTHEN job, not a draw-from-nothing job, and that distinction is worth RUN's time."
+  },
   "casing": {
    "group": "the fight, which is a VISUAL event",
    "kind": "ATMOSPHERE",
    "label": "BRASS HITS THE FLOOR"
+  },
+  "chip_more": {
+   "group": "the fight, which is a VISUAL event",
+   "inherits": "stone_bite",
+   "kind": "ATMOSPHERE",
+   "label": "COVER LOSES A PIECE \u2014 MORE"
+  },
+  "cloth_more": {
+   "group": "the body",
+   "inherits": "cloth_on",
+   "kind": "ATMOSPHERE",
+   "label": "CLOTH ON \u2014 MORE"
   },
   "cloth_on": {
    "group": "the body",
@@ -106,6 +126,12 @@
    "group": "things he does to the world",
    "kind": "ATMOSPHERE",
    "label": "THE DOOR DRAGS OPEN"
+  },
+  "door_more": {
+   "group": "things he does to the world",
+   "inherits": "door_drag",
+   "kind": "ATMOSPHERE",
+   "label": "THE DOOR DRAGS \u2014 MORE"
   },
   "drink": {
    "group": "the body",
@@ -179,6 +205,13 @@
    "kind": "ATMOSPHERE",
    "label": "THE SHOT MISSES"
   },
+  "parts_pass": {
+   "kind": "INFORMATION",
+   "label": "PARTS CHANGE HANDS",
+   "msg": "YOU GOT PAID",
+   "twin": "SUSPECTED (the day-end reckoning reports what the day paid, so the information arrives -- at nightfall, not at the moment)",
+   "why": "fires inside payForToday, one sound per payday. In a game whose spine is ownership, parts arriving is the state change the day was for. NO PAPER NO COINS is his 8/20 ruling and this is the moment that ruling re-pointed the wire at."
+  },
   "phone_buzz": {
    "kind": "INFORMATION",
    "label": "PHONE BUZZES",
@@ -212,6 +245,12 @@
    "group": "things he does to the world",
    "kind": "ATMOSPHERE",
    "label": "IT GOES DOWN"
+  },
+  "seton_more": {
+   "group": "things he does to the world",
+   "inherits": "set_down",
+   "kind": "ATMOSPHERE",
+   "label": "SET IT DOWN \u2014 MORE"
   },
   "shot": {
    "group": "the fight, which is a VISUAL event",
@@ -273,6 +312,18 @@
    "kind": "ATMOSPHERE",
    "label": "YOU SWING AND MISS"
   },
+  "swing_more": {
+   "group": "the fight, which is a VISUAL event",
+   "inherits": "swing_air",
+   "kind": "ATMOSPHERE",
+   "label": "SWING THROUGH AIR \u2014 MORE"
+  },
+  "tape_more": {
+   "group": "the body",
+   "inherits": "tape_pull",
+   "kind": "ATMOSPHERE",
+   "label": "TAPE PULL \u2014 MORE"
+  },
   "tape_pull": {
    "group": "the body",
    "kind": "ATMOSPHERE",
@@ -282,6 +333,12 @@
    "group": "things he does to the world",
    "kind": "ATMOSPHERE",
    "label": "HOURS GO BY"
+  },
+  "tread_more": {
+   "group": "the body",
+   "inherits": "boots_go",
+   "kind": "ATMOSPHERE",
+   "label": "BOOTS \u2014 MORE"
   },
   "ui_back": {
    "group": "the interface answering a touch",
@@ -324,6 +381,12 @@
    "group": "the world",
    "kind": "ATMOSPHERE",
    "label": "A GUST COMES THROUGH"
+  },
+  "wind_more": {
+   "group": "the world",
+   "inherits": "wind_gust",
+   "kind": "ATMOSPHERE",
+   "label": "WIND GUST \u2014 MORE"
   },
   "wood_more": {
    "group": "the ground under him",

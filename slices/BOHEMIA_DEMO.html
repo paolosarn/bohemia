@@ -29626,6 +29626,36 @@ window.__BOHEMIA_DEMO_BUILD = true;
    The frame is same-origin on the published site. If a browser ever
    refuses (a file:// load without --allow-file-access-from-files), the
    catch leaves the page exactly as it is today rather than breaking it. */
+/* THE THUMB: 44px MINIMUM, iPHONE PORTRAIT. Measured on the built demo over
+   http at 390x844: TWELVE OF THIRTEEN tappable controls on the first city
+   screen were under 44px -- the top chips at 30px tall, which is 68% of the
+   target, and the eight walk arrows at 42. THE LAW HAS NEVER HAD A GATE, so
+   nothing was ever going to notice. gates/thumb_gate.js does now.
+   APPLIED FROM THE DEMO SIDE ONLY, like the drawer above: the city file is
+   another lane's and this tool does not reach into it. The workshop keeps
+   exactly the sizes it has and those rows are filed, not silently patched.
+   THE ARROWS GROW WITHOUT MOVING. The pad is a 180px radial layout of eight
+   42px boxes at fixed offsets around an 80px centre. Growing them to 44 with
+   a -1px margin expands each by one pixel in every direction and leaves every
+   centre exactly where it was, so the geometry he plays with is untouched:
+   44+80+44 = 168 inside 180, and the widest pair still clears by 3px. */
+/* ORDER AND SPECIFICITY, AND I BROKE THE DRAWER HIDE PROVING IT. The thumb
+   rule below sets display:flex on every child of #topbar, and #devbtn IS a
+   child of #topbar. Two !important declarations at equal specificity are
+   settled by ORDER, so the later thumb rule beat the earlier hide and the
+   builder button came back -- 44x44 and tappable for the whole session, which
+   is worse than the 149ms window it was meant to close. A rule can be
+   individually correct and wrong because of where it sits.
+   THE HIDE NOW GOES LAST AND CARRIES A COMPOUND SELECTOR, so it wins on
+   specificity as well as on order and cannot be undone by anything added
+   above it later. */
+var DEMO_CITY_CSS = [
+  '#topbar>*,#blstack>*{min-height:44px !important;min-width:44px !important;'
+    + 'display:flex !important;align-items:center !important;justify-content:center !important}',
+  '.pb{width:44px !important;height:44px !important;margin:-1px !important}',
+  '#topbar #devbtn,#devbtn,#topbar #devtray,#devtray{display:none !important}'
+].join('\n');
+
 (function(){
   var last = null;
   function dress(f){
@@ -29633,10 +29663,37 @@ window.__BOHEMIA_DEMO_BUILD = true;
       var d = f.contentDocument;
       if(!d || !d.head || d.getElementById('demo-cut-city')) return;
       var st = d.createElement('style'); st.id = 'demo-cut-city';
-      st.textContent = '#devbtn,#devtray{display:none !important}';
+      st.textContent = DEMO_CITY_CSS;
       d.head.appendChild(st);
     }catch(_e){}
   }
+  /* THE POLL WAS 400ms AND THAT IS A WINDOW, NOT A GUARD. Measured over http
+     on the built demo: the builder button was on screen AND returned by
+     elementFromPoint 149ms after the tap into the city -- so a thumb landing
+     in the top-right corner in the first half second opens REROLL, which is
+     the exact thing this block exists to prevent. A poll cannot close that;
+     only watching for the frame the instant it is created can. So: a
+     MutationObserver on the panel that receives it, dressed on creation, on
+     load, and on every frame for the first two seconds, with the interval
+     kept underneath as the belt to that pair of braces. */
+  function watch(){
+    var host = document.getElementById('p-city');
+    if(!host) return;
+    try{
+      new MutationObserver(function(){
+        var f = document.getElementById('cityFrame');
+        if(f){ dress(f); try{ f.addEventListener('load', function(){ dress(f); }); }catch(_e){} }
+      }).observe(host, {childList:true, subtree:true});
+    }catch(_e){}
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
+  else watch();
+  var until = 0;
+  (function spin(){
+    var f = document.getElementById('cityFrame');
+    if(f){ if(!until) until = Date.now() + 2000; dress(f); }
+    if(!until || Date.now() < until) requestAnimationFrame(spin);
+  })();
   setInterval(function(){
     var f = document.getElementById('cityFrame');
     if(!f) return;

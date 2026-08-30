@@ -1551,3 +1551,32 @@ carried forward again), every icon gate 0 by exit code. What began
 8/25 with 44 NOs and 'ITS MOSTLY BAD' closes here: the whole
 verdict board answered, the ovens cured, and the two rulers that
 measured the board both green.
+
+## 8/28 SEVENTY-SIXTH PASS: PHASE 2D - THE OVERLAYS CROSS, AND THE THIRD AMBUSH
+
+The migration's last recorded debts close. The baker gains an overlay
+hook - transparent art drawn OVER a cell's base, an array because a
+corner wears two - in both layers: gArtOver on ground, sOver on
+structure. The direction-critical pools ship as ONE-TILE pools
+(tf_gw0..7, four rims) because saTex's weather-rarity shuffle permutes
+any pool longer than seven, and a permuted bearing points at nothing.
+GUY WIRES: every wire cell bears on its NEAREST MAST, positions cached
+once per tile (one kit scan, not one per cell), bearing snapped to
+eight directions - verified on foot at the radio site, the steel fan
+all pointing home. PLANTER RIMS: lone cell keeps its box, bed cell is
+soil edge to edge, and each OPEN side wears its concrete rim.
+
+THE THIRD AMBUSH, and the counter caught what the walk could not: the
+planter branch first shipped in the GROUND name table, and the
+dedicated counter read 0 of 266 planter cells routed. Every planter
+in the game is legend kind STRUCTURE (courthouse, library, city hall
+- all three checked), the exact shape that ate the cooling units on
+the prop path. The routing moved to the structure block (sPool for
+the tile, sOver for the rims, drawn after the soil blit and before
+the edge shading) and the counter reads 266 of 266: soil everywhere,
+a rim on every open edge, two on every corner, 35 rimless interior
+cells - the blob arithmetic exactly. Verified on foot at the
+courthouse: cracked hardpan, dead scrub, pale coping on both open
+edges of the bed strip. THE RULE THIS PASS ADDS: a family gets a
+COUNTER, not a walk past it - the walk showed a plaza and the count
+showed the branch had never run once.

@@ -84,6 +84,92 @@ Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
 
 ================================================================================
 
+
+WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
+THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
+Four failed guesses, then a different KIND of measurement found it in one run.
+Nothing to judge. ***
+
+TAB: RUN. Walk to any freeway. Build 8/29d - YOU CAN DRIVE THE INTERSTATE.
+
+THE LINE, in bohemia_freeway.js's kit registration:
+    o.same = o.links = o.streets = ['N', 'S'];
+  It forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+  NORTH-SOUTH however it actually ran. street_contract_gate's own header has
+  described this identical line, in the ARTERIAL, as that module's defect number
+  one since the day it was written. Fixed there 8/26. NOBODY SWEPT THE CLASS.
+  Third time this month -- the dead-green palette went the same way, fixed three
+  separate times one module at a time.
+
+WHAT IT COST, MEASURED
+  freeway(15,13) runs east-west, has freeway east and west of it, and measured
+    N 18..110   S 18..110   E -1..-1   W -1..-1
+  the carriageway drawn NINETY DEGREES to the direction the road runs. The whole
+  east-west leg of the corridor sat in two- and three-cell islands.
+    separate road networks in the valley      214  ->  100
+    biggest network's share of road cells    91.6% -> 95.8%
+    freeway cells stranded off it          249/952 ->  2
+    freeway <-> freeway broken seams            40 ->  14
+    where two road classes meet                129 ->  34
+  The module was correct all along: handed same=['S','W','E'] it builds east-west
+  exactly right. The line threw the world's answer away before it got there. The
+  BOTH-LEGS rule it was really about is kept and only that.
+
+AND IT TOOK FOUR FAILURES, EVERY ONE A GUESS
+  1. a MAP fact, off two sampled cells. Wrong.
+  2. the beltway's four corners, from reading the overmap. Built, run, changed
+     the count by exactly zero. Reverted.
+  3. "does my sibling carriageway have a cross street". 40 -> 199. Reverted.
+  4. the same question asked SYMMETRICALLY over the shared ribbon. 40 -> 216.
+     Reverted.
+  3 and 4 were both about the OVERPASS DECKS, because I had photographed a seam
+  and seen two carriageways whose bridges did not line up. THE PHOTOGRAPH WAS
+  REAL AND THE CONCLUSION FROM IT WAS STILL WRONG: the decks do not line up
+  BECAUSE THE ROAD UNDER THEM IS DRAWN SIDEWAYS. I was fixing the symptom I could
+  see instead of asking why it was there.
+
+THE MEASUREMENT THAT ACTUALLY FOUND IT -- NOT ANOTHER SEAM COUNT
+  A NETWORK. Turn the connector data into a graph: a node per cell with any
+  corridor, an edge wherever two cells' corridors OVERLAP at their shared seam,
+  then connected components. The first run said 214 separate networks, 249
+  freeway cells cut off, AND EVERY ONE OF THEM ON ROW 13. A pattern that obvious
+  cannot survive being looked at.
+  A COUNT IS NOT A LOCATION, and that is what cost four attempts: every seam
+  number told me how bad it was and nothing about where to go. Note also that
+  attempt 4 moved the seam count and DID NOT MOVE THE NETWORK AT ALL -- that was
+  the signal the two were different problems and I had the wrong one.
+
+TWO NEW GATE CHECKS, ABOUT THE WHOLE MAP RATHER THAN ONE EDGE
+  THE VALLEY IS ONE ROAD NETWORK -- share of road cells reachable from the
+    biggest network, floor 95.5%, only ever goes UP, so no future fix can quietly
+    cut the map in half while every local seam still passes.
+  AND YOU CAN DRIVE THE INTERSTATE -- freeway cells stranded off the main
+    network, ceiling 4, measured 2.
+  street_contract_gate is 21 checks, green. Ceilings ratcheted: cross-class
+  129 -> 34, freeway 40 -> 14, reach 700 -> 642. Arterial and rail still zero
+  with no allowance. Road cell, walkable-land, drive network, occupancy, sidewalk
+  sanctity, district kit, tilespec and line colour all green.
+
+ALSO THIS TURN: THE METRIC LEARNED WHAT A JUNCTION IS
+  `arterial 47..81 vs freeway 18..110` was being counted as 99 breaks. It is the
+  smaller road landing inside the bigger one's corridor -- a bridge or a ramp --
+  and it is correct. SAME FAMILY IS A CONTINUATION and matches tile for tile;
+  DIFFERENT FAMILY IS A JUNCTION and only has to be CONTAINED. Same reasoning as
+  a shop driveway feeding onto a road, one class up. The strict cross-class count
+  is untouched and still ratchets, so nothing hides.
+
+THE LESSON
+  A FIX THAT IS NOT A SWEEP IS A FIX THAT WILL BE MADE AGAIN -- second time this
+  week that is the headline. When a post-mortem names a defect by its SHAPE
+  rather than its file, the work is not done until grep has been run on the shape.
+
+WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
+  35 solar<->desert, 24 commercial<->freeway, 24 desert<->freeway, 19
+  commercial<->rail. 14 freeway<->freeway and 34 cross-class remain named and
+  ratcheted. 100 road networks left, of which the airbase and airport islands are
+  fenced ON PURPOSE and should never join.
+
+RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
 COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
 WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
 THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
@@ -276,6 +362,27 @@ WHAT I DID NOT TOUCH: your street renderer. You are in it today and RUN lost fou
 hours THIS SAME DAY to two lanes building row 0f at once. RATCHETED, not red, so
 it cannot block the fleet: ceiling 115/114, printed loudly, green on its own as
 it comes down.
+*** AND THE OBVIOUS FIX IS WRONG. I TRIED IT SO YOU DO NOT HAVE TO. ***
+roadAxis's own comment prescribes it: an undecided cell IS a crossing, so build
+all four arms instead of guessing north-south. One line in kitRoadLegs. APPLIED,
+MEASURED, REVERTED -- nothing of it is committed:
+    crossings built NS-only        115  ->  0        (the defect, gone)
+    roadcell_gate                 46/0  ->  46/0
+    street_facing_gate (the old)  16/0  ->  16/0
+    *** street_contract_gate      19/0  ->  17/2 ***
+        arterial seams disagreeing tile for tile   0  ->  191   (ceiling 0)
+        street-to-city edges broken              ~700 -> 881   (ceiling 700)
+WHY, AND IT IS THE REAL FINDING: A CROSSING IS AN AGREEMENT BETWEEN TWO CELLS,
+NOT A DECISION ONE CELL MAKES. Give one cell an east-west arm its neighbour is
+not expecting and you turn 115 wrong-facing cells into 191 broken seams. THE 115
+CANNOT BE FIXED CELL BY CELL. It has to be settled where the seam is negotiated,
+which is the street contract -- your current work, which is why it is yours and
+not mine.
+AND MY OWN GATE COULD NOT SEE THE FIX AT FIRST: it counted where roadAxis answers
+nothing, which is a fact about a FUNCTION, so the number did not move when I
+fixed the CALLER. It now also counts what actually gets BUILT (115 crossings
+built as plain north-south, no east-west arms), which is the number that has to
+reach zero and the one he can actually see.
 Record: records/BOHEMIA_THE_FACING_GATE_NEVER_LOOKED_AT_A_STREET_8_28_26.md
 
 --------------------------------------------------------------------------------
@@ -1269,7 +1376,72 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/29 (b) LATEST -- *** ALL EIGHT GLASS CARDS DIED AND I HAD PICKED
+UI (ui-kmqmrf): 8/30 LATEST -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
+LEFT THE WALL ALONE AND WENT AT THE DEMO. A STANDING LAW HAD NEVER BEEN CHECKED AND
+IT WAS FAILING 92%. *** TAB: RUN (the demo's only screen).
+
+MEASURED ON slices/BOHEMIA_DEMO.html -- the file a stranger gets -- over a REAL HTTP
+ORIGIN at 390x844. Not on the workshop.
+
+THE HEADLINE: THE THUMB (44px, iPhone portrait) is a standing law in CLAUDE.md, this
+game ships on ONE device, and NOTHING IN ~453 GATES HAD EVER MEASURED A CONTROL.
+Twelve of thirteen tappable controls on the demo's first city screen were under 44px:
+the top chips at 30px (68% of target) and the eight walk arrows -- THE GAME'S ONLY
+MOVEMENT INPUT -- at 42. Fixed demo-side to 0 of 14 under. gates/thumb_gate.js, 9
+claims, registered THE THUMB, mutation-proved four ways.
+
+*** HOW TO FIND A CONTROL, BECAUSE THREE OBVIOUS WAYS ALL RETURN ZERO ON A SCREEN
+WITH EIGHT BUTTONS ON IT. *** `[onclick]` matches only the ATTRIBUTE and this codebase
+wires with addEventListener. The `onclick` PROPERTY misses them too. CDP's
+getEventListeners can see them but its object handles do not cross cleanly into a
+child frame. WHAT WORKS: wrap addEventListener in an init script BEFORE the page runs
+and let the page announce every handler as it registers it.
+
+*** AND NEVER PROBE A DEMO BEHAVIOUR OVER file://. *** The demo hides the city's
+builder drawer (PEOPLE / REROLL / UNDER / KEY / SLIDE -- a stranger tapping REROLL
+regenerates the world under their own session) by same-origin injection. file://
+denies that access and the catch swallows it, so the drawer is WIDE OPEN under
+file:// and correctly hidden over http. I confirmed the "leak", tapped it, got the
+full menu, and was about to file a bug against another session's correct work. FIFTH
+BROKEN RULER IN TWO DAYS AND THE FIRST THAT WOULD HAVE BLAMED SOMEBODY ELSE.
+
+BUT THERE WAS A REAL WINDOW AND IT IS NOW CLOSED. The hide ran on a 400ms interval;
+sampling from the first readable frame, the builder button was on screen AND returned
+by elementFromPoint 149ms after entering the city. A poll cannot close that. Now a
+MutationObserver on the panel that receives the frame, dressed on creation and load,
+plus every animation frame for two seconds, interval kept underneath. 0 of 6 samples
+tappable after.
+
+*** AND I BROKE THAT FIX WITH THE THUMB FIX, WHICH IS THE LESSON OF THE TURN. *** The
+thumb rule sets display:flex on every child of #topbar and #devbtn IS a child of
+#topbar. Two !important declarations at equal specificity are settled by ORDER, so the
+later thumb rule beat the earlier hide and the builder button came back 44x44 and
+tappable FOR THE WHOLE SESSION -- worse than the 149ms window it was written to close.
+A RULE CAN BE INDIVIDUALLY CORRECT AND WRONG BECAUSE OF WHERE IT SITS (the 8/16 border
+lesson, third hat). The hide goes LAST now and carries a compound selector so it wins
+on specificity as well as order. Only a check that reads BOTH at once catches it,
+which is why the gate does.
+
+ALSO WORTH KNOWING, AND I WAS WRONG BEFORE I WAS RIGHT: the 8/25 gap list says "THE
+DEMO BUILD DOES NOT EXIST". It exists; the pages workflow cuts it every deploy. And I
+thought 70% of the demo was an unreachable dev tool, because the biggest script block
+is 3,076 KB and opens `const RIG_B64=`. RIG_B64 IS 125 KB. The block holds several
+blobs and I attributed it to the first declaration in it; COMBAT_B64 is the 1.68 MB
+and the demo needs the fight. THE CUTTER'S OWN HEADER ALREADY SAID SO and was right.
+
+WHAT IS STILL OPEN AND IS NOT THIS LANE'S: the WORKSHOP's chrome is still 30px (city's
+file, filed as UI-16 with the exact three lines and the proof they do not move the pad);
+weight, 4.38 MB in one request, which the cutter says explicitly is RUN's; and the
+ending, gap G, the day still ends by going to bed.
+
+THE WALL IS UNCHANGED AND ROUND 7 IS STILL WAITING ON HIM: six OBJECTS that are not
+metal and six LIGHTS that are not the hologram, in the 3D tab. Nothing from the wall
+has gone into the game and nothing should until he picks.
+Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/29 (b) -- *** ALL EIGHT GLASS CARDS DIED AND I HAD PICKED
 THAT DIRECTION MYSELF. A BLANKET SAVE IS NOT A PICK. *** TAB: **3D**. The game is
 STILL UNTOUCHED.
 
@@ -2069,7 +2241,89 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/28 (b) LATEST -- *** HIS 599-OF-600 SWEEP IS IN THE
+SOUND (sound-xk7pjp): 8/29 (a) LATEST -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
+NOTHING ON SCREEN TELLS YOU IT HAPPENED. Measured, not believed. The gate sweep
+19 routed on 8/25 and nobody built is built. Nothing to judge. ***
+
+TAB: none -- this is a measurement of the game, not a page. What he would notice
+is an ABSENCE. Build 8/29a - WHAT A DEAF PLAYER SEES.
+
+FIRST, A RED I CAUSED YESTERDAY
+  Baking his 599-of-600 sweep put nine approved sibling pools in the bank and
+  every one landed UNCLASSIFIED in the SILENT-1 ledger. Hand-adding nine names
+  would have cleared it and guaranteed the next batch reopens it.
+  A SIBLING IS NOT A NEW MOMENT: door_more IS door_drag, so the answer to "does
+  he miss a state change he has to act on" is BY CONSTRUCTION the parent's
+  answer. Siblings inherit from the SIBLINGS map now -- a pool can never be
+  approved into the game carrying a classification nobody made.
+  parts_pass was the one real new moment and I read its call site to classify it
+  honestly: it fires inside payForToday, "one payday is ONE sound". It is PAYDAY.
+  INFORMATION, twin real but LATE (the reckoning reports it at nightfall, not at
+  the moment) -- written as what it is instead of rounded to NONE to make the
+  list look worse. 65 moments + 6 stings classified, 13 INFORMATION, 12/0.
+
+THE NUMBER THAT MADE THE GATE WORTH BUILDING
+  The ledger's own header: "twin values are what the SOUND lane BELIEVES, never
+  what it proved. SILENT-2 confirms on pixels." TEN OF THIRTEEN CLAIMED A TWIN
+  AND NOT ONE HAD EVER BEEN MEASURED. A belief that the screen says something is
+  the most comfortable kind of wrong: invisible unless somebody mutes the game.
+  So the gate holds it BOTH WAYS -- a cue claiming a twin must change the screen,
+  a cue claiming NONE must change nothing. The second direction matters as much:
+  a NONE that turns out to have a twin is this lane telling RUN to build
+  something that already exists.
+  MEASURED on a muted run, real surface:
+    save_chime  fires, screen unchanged -> twin NONE is TRUE, now proved
+    ui_deny     fires, screen unchanged -> twin NONE is TRUE, now proved
+
+*** THREE INSTRUMENT BUGS, ALL MINE, AND THE THIRD IS THE KEEPER ***
+  1. I LOOKED IN THE WRONG ROOM. Drove autoSave in the city frame and reported
+     the cue never fired. autoSave lives in the RUN SLICE, a third document. The
+     wire was fine; my probe was in the wrong building.
+  2. I MEASURED MY OWN SETUP. The ui_deny drive drew the ending card INSIDE the
+     measured block, so "before" had no card and "after" had a whole one. The
+     gate reported ui_deny as HAVING a visual twin. The card is not the refusal.
+  3. A CONTROL TAKEN UNDER DIFFERENT CONDITIONS VALIDATES NOTHING. With the
+     setup separated ui_deny STILL reported a change, and the city's own text had
+     not moved by a line. Loading the run slice puts a THIRD live document into
+     the fingerprint and my null control had been taken BEFORE that load -- it
+     certified a baseline no later measurement was taken against. Two nulls now,
+     the second with the run loaded, both asserted.
+  MUTATIONS: give save_chime a visible SAVED toast -> RED (the NONE claim would
+  be wrong). Unwire save_chime -> RED on "the cue actually fired". Restored 12/0.
+
+WHAT IT DELIBERATELY DOES NOT DO
+  It does not DRAW a twin. SILENT-2 is RUN's row and the walked surface is RUN's
+  system. What this hands them is the thing that was missing: an exact MEASURED
+  list instead of a believed one.
+  It drives 2 of 13 cues and PRINTS THAT EVERY RUN. The other eleven need a
+  fight, a quest completion or a nightfall to fire honestly, and poking their
+  internals would measure the poke. Still unproven and named every run:
+  STING:done STING:loss STING:paid STING:taken STING:win block buzz_more
+  dry_fire parts_pass phone_buzz.
+
+ALSO FIXED: material_cooked_gate's DOCSTRING still said "metal IS ALIVE AGAIN"
+  a day after the code was corrected to the opposite. A stale docstring on a
+  GATE is worse than one on a tool, because the docstring is what the next
+  person reads to learn what the rule IS.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  RUN's SILENT-2 now has measured evidence instead of a belief: save_chime and
+  ui_deny genuinely show nothing. NOT another cook on the retired palette -- his
+  8/28 ruling leaves bell, choir, crystal, glass and water, and nothing left in
+  it is dry matter. The ten unproven twins are the obvious next measurement when
+  a fight and a nightfall can be driven honestly.
+
+PROOF
+  records/BOHEMIA_WHAT_A_DEAF_PLAYER_SEES_8_29_26.md
+  gates/silent_play_gate.py 12/0 (two mutations red) · SOUND-IS-A-MESSAGE 12/0
+  MATERIAL COOKED 11/0
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/28 (b) -- *** HIS 599-OF-600 SWEEP IS IN THE
 GAME. Nine of my eighteen pools lived and FOUR SWEPT 5 OF 5 -- the record was
 two. Nine moments that played one sample forever now draw from up to seven. And
 he retired four materials, which nearly cost him his own best batch. ***
@@ -2436,7 +2690,18 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/28 (g) LATEST -- *** THE GREAT TILE MIGRATION SHIPPED IN ONE
+ART (art-f3eu53): 8/28 (h) LATEST -- *** THE GREAT TILE MIGRATION IS COMPLETE
+THROUGH PHASE 2D: the baker gained an OVERLAY hook (gArtOver on ground, sOver on
+structure), guy wires bear on their nearest mast (8-way snap, one kit scan per
+tile, one-tile pools because the weather shuffle permutes anything longer than
+seven), and the planter beds wear their concrete rims on every OPEN side. THE
+THIRD AMBUSH: the planter branch shipped in the GROUND table and a dedicated
+counter read 0 of 266 routed -- every planter is legend kind STRUCTURE, routing
+moved to the structure block, 266 of 266 now. THE RULE: every family gets a
+COUNTER, not a walk past it. Both verified on foot (radio site fan, courthouse
+bed). Honest leftovers recorded on board row 107: solar panels, crop rows,
+embankments, bathtub ring, boxcar running order. PREVIOUS:
+ART (art-f3eu53): 8/28 (g) -- *** THE GREAT TILE MIGRATION SHIPPED IN ONE
 DAY: PHASES 1, 2A AND 2B ARE ON MAIN AND THE TILE ART IS UNDER THE PLAYER'S FEET
 ON THE WALKED SURFACE. TAB: RUN (walk the landfill fill, the library plaza, the
 railyard boxcars, the datafort membrane roofs, the radio tank rows, the wash

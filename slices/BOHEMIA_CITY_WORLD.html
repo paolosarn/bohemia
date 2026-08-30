@@ -22241,9 +22241,30 @@ const BEAT=500; // 120BPM law
     // street on its south side" -- meaningless for a freeway, and it is why the top third
     // of the freeway grid was bare dirt with a hard edge across it: one leg stopped the
     // roadbed half a cell short. Nothing dead-ends on a freeway.
+    /* *** AND IT FORCED THE AXIS TOO, WHICH IS THE ARTERIAL'S 8/26 BUG VERBATIM (8/28). ***
+       The paragraph above is right about BOTH LEGS and it was implemented as
+           o.same = o.links = o.streets = ['N', 'S'];
+       which forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+       NORTH-SOUTH however it actually ran. The street contract gate's own header describes
+       this identical line, in the arterial, as that module's defect number one -- "EVERY
+       ARTERIAL IN THE VALLEY WAS BUILT NORTH-SOUTH. The registration forced
+       `o.links = ['N','S']`, axis included. 921 cells". It was fixed there on 8/26 and
+       NOBODY SWEPT THE CLASS. Third time this month: the dead-green palette went the same
+       way, fixed three times one module at a time.
+       MEASURED: `freeway(15,13)` runs east-west, has freeway to its east and west, and its
+       edge profiles came back N 18..110, S 18..110, E -1..-1, W -1..-1 -- the carriageway
+       drawn ninety degrees to the direction the road runs. The whole east-west leg of the
+       corridor was in TWO-CELL ISLANDS: 249 of 952 freeway cells cut off from the valley's
+       road network, and a car could not drive the length of the interstate.
+       The module itself was correct all along; handed same=['S','W','E'] it builds E/W
+       exactly right. This one line threw the world's answer away before it got there.
+       THE BOTH-LEGS RULE IS KEPT AND ONLY IT: a caller that says nothing, or says one leg
+       ("fronts a street on its south side", which really is meaningless for a freeway),
+       still gets a through-running north-south cell exactly as before. */
     generate: function (seed, opts) {
       var o = {}; for (var k in (opts || {})) o[k] = opts[k];
-      o.same = o.links = o.streets = ['N', 'S'];
+      var ans = (opts && opts.same) || (opts && opts.links) || (opts && opts.streets) || null;
+      if (!ans || ans.length < 2) o.same = o.links = o.streets = ['N', 'S'];
       return generate(seed, o);
     },
     body: function (c) { return c === 8 || c === 4; },
@@ -27976,6 +27997,24 @@ function realizeCell(gx,gy){
             c.sPool={p:'tf_pt',v:_tv};
           }
         }
+        else if(_snm==='plaza planter'){
+          /* PHASE 2D: the 8/27 blob-aware planter. FOUND BY A COUNTER, NOT
+             A WALK: this branch first shipped in the GROUND name table and
+             counted zero of 266 planter cells, because every planter in the
+             game is legend kind STRUCTURE - the same ambush that ate the
+             cooling units on the prop path. A lone cell keeps its full box;
+             a bed cell is soil edge to edge and wears a concrete rim
+             overlay on each OPEN side (the recorded rim debt, closed). */
+          const _nN=ly>0&&m.kit[(ly-1)*FN+lx]===code, _nS=ly<FN-1&&m.kit[(ly+1)*FN+lx]===code;
+          const _nW=lx>0&&m.kit[ly*FN+lx-1]===code, _nE=lx<FN-1&&m.kit[ly*FN+lx+1]===code;
+          const _pn=_nN||_nS||_nW||_nE;
+          c.sPool={p:_pn?'tf_pps':'tf_pp',
+            v:((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%(_pn?3:2)};
+          if(_pn){ const _rims=[];
+            if(!_nN)_rims.push('tf_ppn'); if(!_nS)_rims.push('tf_pps_');
+            if(!_nE)_rims.push('tf_ppe'); if(!_nW)_rims.push('tf_ppw');
+            if(_rims.length)c.sOver=_rims; }
+        }
       }
       /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile
          on this branch was given the ROOF pool tinted to its palette, which is right
@@ -28210,15 +28249,28 @@ function realizeCell(gx,gy){
         c.gArtPool=_cen?(_wax==='h'?'tf_ivh':'tf_ivv'):'tf_iv';
         c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2;
         _pool=null; }
-      else if(_nm==='plaza planter'){
-        /* PHASE 2B: the 8/27 blob-aware planter - a lone cell keeps its
-           full box, a bed cell is soil edge to edge (the bed's concrete
-           edge rims are a recorded debt: one texture per cell here). */
-        const _pn=(ly>0&&m.kit[(ly-1)*FN+lx]===code)||(ly<FN-1&&m.kit[(ly+1)*FN+lx]===code)
-                ||(lx>0&&m.kit[ly*FN+lx-1]===code)||(lx<FN-1&&m.kit[ly*FN+lx+1]===code);
-        c.gArtPool=_pn?'tf_pps':'tf_pp';
-        c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%(_pn?3:2);
-        _pool=null; }
+      else if(_nm==='guy wire'){
+        /* PHASE 2D: the rigging fan crosses over with its 8/27 method -
+           every wire cell BEARS ON ITS NEAREST MAST, snapped to eight
+           directions, drawn as an overlay on the site's own ground. Mast
+           positions cached once per tile (one kit scan, not one per cell). */
+        if(!window.__GW_MASTS)window.__GW_MASTS=new Map();
+        const _mk=tx+','+ty;
+        let _gml=window.__GW_MASTS.get(_mk);
+        if(!_gml){ _gml=[];
+          let _mc=-1; const _lg=m.kitSpec.legend;
+          for(const _cd in _lg){ const _e2=_lg[_cd];
+            if(_e2&&String(_e2.name||'').toLowerCase()==='guyed mast'){_mc=+_cd;break;} }
+          if(_mc>=0){ for(let _my=0;_my<FN;_my++)for(let _mx=0;_mx<FN;_mx++){
+            if(m.kit[_my*FN+_mx]===_mc)_gml.push([_mx,_my]); } }
+          window.__GW_MASTS.set(_mk,_gml); }
+        if(_gml.length){ let _bi=0,_bd=1e9;
+          for(let _gi=0;_gi<_gml.length;_gi++){
+            const _dd=(_gml[_gi][0]-lx)*(_gml[_gi][0]-lx)+(_gml[_gi][1]-ly)*(_gml[_gi][1]-ly);
+            if(_dd<_bd){_bd=_dd;_bi=_gi;} }
+          const _ga=Math.atan2(_gml[_bi][1]-ly,_gml[_bi][0]-lx);
+          const _gk=((Math.round(_ga/(Math.PI/8))%8)+8)%8;
+          c.gArtOver=['tf_gw'+_gk]; } }
       else if(_nm==='channel bank'){
         /* the bank's weep streaks run DOWN the slope, so the piece follows
            the run's own axis - the kit row answers it the same way the car
@@ -31071,6 +31123,11 @@ function chunkCanvas(cx,cy){
        WHAT the material is without erasing the grain that says it is a material at all. */
     if(_gt&&c.gTint){ x.globalAlpha=0.38; x.fillStyle=c.gTint;
                       x.fillRect(i2*TPX,y*TPX,TPX,TPX); x.globalAlpha=1; }
+    /* __TILEFORM_POOL__ PHASE 2D: transparent overlays ON the base ground -
+       a guy wire's line, a planter bed's edge rims. An array, because a bed
+       corner wears two rims at once. */
+    if(c.gArtOver){ for(let _oi=0;_oi<c.gArtOver.length;_oi++){
+      const _ot=saTex(c.gArtOver[_oi],0); if(_ot)x.drawImage(_ot,i2*TPX,y*TPX); } }
     if(c.s){ let _ht2=null;
       if(c.face&&c.artPool_face) _ht2=saTex(c.artPool_face,v);
       /* __TILEFORM_POOL__ PHASE 2B: the NAME-specific approved pool outranks
@@ -31088,6 +31145,11 @@ function chunkCanvas(cx,cy){
          procedural default, which for every concrete mass in the game was ROOF. */
       else if(c.sTex) x.drawImage(texForKind(c.sTex,c.s,v),i2*TPX,y*TPX);
       else x.drawImage(texFor(c.s,true,v),i2*TPX,y*TPX);
+      /* __TILEFORM_POOL__ PHASE 2D: transparent overlays ON a structure cell -
+         a planter bed's concrete rims ride on top of the soil blit, one per
+         open side, so a corner wears two at once. */
+      if(c.sOver){ for(let _oi=0;_oi<c.sOver.length;_oi++){
+        const _ot=saTex(c.sOver[_oi],0); if(_ot)x.drawImage(_ot,i2*TPX,y*TPX); } }
       x.fillStyle='rgba(255,255,255,0.10)'; x.fillRect(i2*TPX,y*TPX,TPX,1);
       x.fillStyle='rgba(0,0,0,0.22)'; x.fillRect(i2*TPX,y*TPX+TPX-1,TPX,1);
       ch2.lamps.push([i2,y]); }
@@ -40667,6 +40729,30 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
     locker:    { pieces: [P('locker_bank', 4, 1, COVER, true), P('bench', 3, 1, LOW, false)],
                  per25: 5 },
     restroom:  { pieces: [P('stall_run', 3, 1, COVER, true)], per25: 3 },
+    /* school / firehouse (8/28). Two roles the floorplan started assigning when
+       `institutional` was split -- it was carrying eleven building types with `ward` as its
+       bulk room, so schools and fire stations were full of hospital beds. Splitting it fixed
+       the NAMES and left these two falling through to ROLES.room, which is a shelf and a
+       table: a classroom furnished like a spare bedroom. Caught by asking the same question
+       of THIS table that had just been asked of the floor pool. */
+    study:     { /* A CLASSROOM IS THE DENSEST ROOM IN A SCHOOL and it is dense with the same
+                    object repeated -- student desks in rows, which is exactly the shape that
+                    makes a room fightable: lots of LOW cover, nothing you can hide behind.
+                    The cupboards along the back wall are the only real COVER, which is where
+                    anyone in a classroom fight ends up. Act-1 dead: desks shoved out of their
+                    rows, cupboards already emptied. */
+                 pieces: [P('desk_row', 3, 1, LOW, false), P('cupboard', 2, 1, COVER, true),
+                          P('teacher_desk', 2, 1, LOW, false)], per25: 5 },
+    garage:    { /* AN APPARATUS BAY IS MOSTLY EMPTY FLOOR ON PURPOSE -- it is the shape of a
+                    fire engine, 15-18 ft wide and 40 ft deep for a single bay, 80 for a
+                    double, and everything else in the building is fitted around that hole.
+                    In a dead valley the engines are GONE; nobody leaves a working truck
+                    behind. So what is left is the wall: turnout gear on racks, hose on a
+                    drying rack, a workbench, and a stained slab in the middle where the
+                    truck stood. EVERY PIECE IS AGAINST A WALL, which makes this the opposite
+                    fight to a classroom -- a big open room with cover only at the edges. */
+                 pieces: [P('gear_rack', 3, 1, COVER, true), P('hose_rack', 2, 1, COVER, true),
+                          P('workbench', 3, 1, COVER, true)], per25: 2 },
     /* default */
     room:      { pieces: [P('shelf_unit', 2, 1, COVER, true), P('table', 2, 2, LOW, false)],
                  per25: 3 }

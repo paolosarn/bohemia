@@ -211,6 +211,21 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('THE THUMB',      ['node', 'gates/thumb_gate.js'],
+     'THE THUMB (44px, iPhone portrait) has been a standing law with NO GATE, and the day one '
+     'was written TWELVE OF THIRTEEN tappable controls on the demo\'s first city screen were '
+     'under it -- the top chips at 30px, 68% of target, and the eight walk arrows, the game\'s '
+     'ONLY movement input, at 42. Three obvious ways to find controls each confidently reported '
+     'ZERO on a screen with eight buttons on it ([onclick] matches only the attribute; the '
+     'onclick property misses addEventListener too; CDP handles do not cross into a child '
+     'frame), so this wraps addEventListener BEFORE the page runs and lets the page announce '
+     'every handler. It serves the slices over a REAL http origin because the demo hides the '
+     'builder drawer by same-origin injection, which silently does nothing under file:// -- so a '
+     'file:// probe reports a leak that production does not have and would miss one it did. It '
+     'judges the drawer by elementFromPoint, not by visibility, because a poll-based hide leaves '
+     'a window and the window IS the bug (measured tappable at 149ms). And it proves holding an '
+     'arrow still WALKS him against a still control, because a resize that looks right and moves '
+     'the hit target off the handler is a demo that cannot move.', True),
     ('COLD BOOT',      ['node', 'gates/cold_boot_gate.js'],
      'TWO regressions no gate could see. (1) A render-blocking <link> to fonts.googleapis.com '
      'sat on a connection timeout: the city took 16.0s to become playable with the host '
@@ -1268,6 +1283,17 @@ GATES = [
      "now has five physics (modal / FM / PhISEM particle / friction / turbulence) and "
      "this gate renders a CONTROLLED PROBE -- every parameter fixed, only the method "
      "changed -- so two methods sharing one body cannot pass under two names", True),
+    ('SILENT PLAY',   ['python3', 'gates/silent_play_gate.py'],
+     "WHAT A MUTED PLAYER ACTUALLY SEES. Routed by sweep 19 on 8/25 and never "
+     "built: drive the game with audio off and assert every INFORMATION cue "
+     "produced a visible change IN PIXELS, not a function having been called. "
+     "The SILENT-1 ledger classified 13 cues as INFORMATION and its own header "
+     "says every `twin` is what this lane BELIEVES, never what it proved -- ten "
+     "claimed a twin and none had been measured. Holds it in BOTH directions: a "
+     "cue claiming a twin must change the screen, one claiming NONE must change "
+     "nothing. Carries two NULL controls, one of them taken after the run slice "
+     "loads, because a control taken under different conditions validates "
+     "nothing", True),
     ('MATERIAL COOKED',['python3', 'gates/material_cooked_gate.py'],
      "Paolo 8/28 LOCKED at the bottom of a 599-of-600 sweep: 'no more wood "
      "stone ash bone shit its COOKED'. Four materials retired for NEW cooks; "
