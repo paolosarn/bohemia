@@ -2004,7 +2004,89 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/28 (b) LATEST -- *** HIS 599-OF-600 SWEEP IS IN THE
+SOUND (sound-xk7pjp): 8/29 (a) LATEST -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
+NOTHING ON SCREEN TELLS YOU IT HAPPENED. Measured, not believed. The gate sweep
+19 routed on 8/25 and nobody built is built. Nothing to judge. ***
+
+TAB: none -- this is a measurement of the game, not a page. What he would notice
+is an ABSENCE. Build 8/29a - WHAT A DEAF PLAYER SEES.
+
+FIRST, A RED I CAUSED YESTERDAY
+  Baking his 599-of-600 sweep put nine approved sibling pools in the bank and
+  every one landed UNCLASSIFIED in the SILENT-1 ledger. Hand-adding nine names
+  would have cleared it and guaranteed the next batch reopens it.
+  A SIBLING IS NOT A NEW MOMENT: door_more IS door_drag, so the answer to "does
+  he miss a state change he has to act on" is BY CONSTRUCTION the parent's
+  answer. Siblings inherit from the SIBLINGS map now -- a pool can never be
+  approved into the game carrying a classification nobody made.
+  parts_pass was the one real new moment and I read its call site to classify it
+  honestly: it fires inside payForToday, "one payday is ONE sound". It is PAYDAY.
+  INFORMATION, twin real but LATE (the reckoning reports it at nightfall, not at
+  the moment) -- written as what it is instead of rounded to NONE to make the
+  list look worse. 65 moments + 6 stings classified, 13 INFORMATION, 12/0.
+
+THE NUMBER THAT MADE THE GATE WORTH BUILDING
+  The ledger's own header: "twin values are what the SOUND lane BELIEVES, never
+  what it proved. SILENT-2 confirms on pixels." TEN OF THIRTEEN CLAIMED A TWIN
+  AND NOT ONE HAD EVER BEEN MEASURED. A belief that the screen says something is
+  the most comfortable kind of wrong: invisible unless somebody mutes the game.
+  So the gate holds it BOTH WAYS -- a cue claiming a twin must change the screen,
+  a cue claiming NONE must change nothing. The second direction matters as much:
+  a NONE that turns out to have a twin is this lane telling RUN to build
+  something that already exists.
+  MEASURED on a muted run, real surface:
+    save_chime  fires, screen unchanged -> twin NONE is TRUE, now proved
+    ui_deny     fires, screen unchanged -> twin NONE is TRUE, now proved
+
+*** THREE INSTRUMENT BUGS, ALL MINE, AND THE THIRD IS THE KEEPER ***
+  1. I LOOKED IN THE WRONG ROOM. Drove autoSave in the city frame and reported
+     the cue never fired. autoSave lives in the RUN SLICE, a third document. The
+     wire was fine; my probe was in the wrong building.
+  2. I MEASURED MY OWN SETUP. The ui_deny drive drew the ending card INSIDE the
+     measured block, so "before" had no card and "after" had a whole one. The
+     gate reported ui_deny as HAVING a visual twin. The card is not the refusal.
+  3. A CONTROL TAKEN UNDER DIFFERENT CONDITIONS VALIDATES NOTHING. With the
+     setup separated ui_deny STILL reported a change, and the city's own text had
+     not moved by a line. Loading the run slice puts a THIRD live document into
+     the fingerprint and my null control had been taken BEFORE that load -- it
+     certified a baseline no later measurement was taken against. Two nulls now,
+     the second with the run loaded, both asserted.
+  MUTATIONS: give save_chime a visible SAVED toast -> RED (the NONE claim would
+  be wrong). Unwire save_chime -> RED on "the cue actually fired". Restored 12/0.
+
+WHAT IT DELIBERATELY DOES NOT DO
+  It does not DRAW a twin. SILENT-2 is RUN's row and the walked surface is RUN's
+  system. What this hands them is the thing that was missing: an exact MEASURED
+  list instead of a believed one.
+  It drives 2 of 13 cues and PRINTS THAT EVERY RUN. The other eleven need a
+  fight, a quest completion or a nightfall to fire honestly, and poking their
+  internals would measure the poke. Still unproven and named every run:
+  STING:done STING:loss STING:paid STING:taken STING:win block buzz_more
+  dry_fire parts_pass phone_buzz.
+
+ALSO FIXED: material_cooked_gate's DOCSTRING still said "metal IS ALIVE AGAIN"
+  a day after the code was corrected to the opposite. A stale docstring on a
+  GATE is worse than one on a tool, because the docstring is what the next
+  person reads to learn what the rule IS.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  RUN's SILENT-2 now has measured evidence instead of a belief: save_chime and
+  ui_deny genuinely show nothing. NOT another cook on the retired palette -- his
+  8/28 ruling leaves bell, choir, crystal, glass and water, and nothing left in
+  it is dry matter. The ten unproven twins are the obvious next measurement when
+  a fight and a nightfall can be driven honestly.
+
+PROOF
+  records/BOHEMIA_WHAT_A_DEAF_PLAYER_SEES_8_29_26.md
+  gates/silent_play_gate.py 12/0 (two mutations red) · SOUND-IS-A-MESSAGE 12/0
+  MATERIAL COOKED 11/0
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/28 (b) -- *** HIS 599-OF-600 SWEEP IS IN THE
 GAME. Nine of my eighteen pools lived and FOUR SWEPT 5 OF 5 -- the record was
 two. Nine moments that played one sample forever now draw from up to seven. And
 he retired four materials, which nearly cost him his own best batch. ***

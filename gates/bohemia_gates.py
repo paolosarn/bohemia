@@ -1268,6 +1268,17 @@ GATES = [
      "now has five physics (modal / FM / PhISEM particle / friction / turbulence) and "
      "this gate renders a CONTROLLED PROBE -- every parameter fixed, only the method "
      "changed -- so two methods sharing one body cannot pass under two names", True),
+    ('SILENT PLAY',   ['python3', 'gates/silent_play_gate.py'],
+     "WHAT A MUTED PLAYER ACTUALLY SEES. Routed by sweep 19 on 8/25 and never "
+     "built: drive the game with audio off and assert every INFORMATION cue "
+     "produced a visible change IN PIXELS, not a function having been called. "
+     "The SILENT-1 ledger classified 13 cues as INFORMATION and its own header "
+     "says every `twin` is what this lane BELIEVES, never what it proved -- ten "
+     "claimed a twin and none had been measured. Holds it in BOTH directions: a "
+     "cue claiming a twin must change the screen, one claiming NONE must change "
+     "nothing. Carries two NULL controls, one of them taken after the run slice "
+     "loads, because a control taken under different conditions validates "
+     "nothing", True),
     ('MATERIAL COOKED',['python3', 'gates/material_cooked_gate.py'],
      "Paolo 8/28 LOCKED at the bottom of a 599-of-600 sweep: 'no more wood "
      "stone ash bone shit its COOKED'. Four materials retired for NEW cooks; "

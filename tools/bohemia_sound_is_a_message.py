@@ -62,6 +62,24 @@ OUT = 'records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json'
 # the strongest candidate for a twin; SUSPECTED means something plausibly already
 # says it and RUN should check before drawing anything.
 INFORMATION = {
+    # PARTS_PASS IS PAYDAY, and I had to read its call site to know that. The
+    # label says "PARTS CHANGE HANDS" and the wire fires it inside payForToday
+    # with the comment "one payday is ONE sound". Applying this file's own test
+    # -- if he cannot hear it, does he miss a state change he has to act on --
+    # getting paid is the state change the whole day was for.
+    # THE TWIN IS REAL BUT IT IS LATE. The day-end reckoning reports what the
+    # day paid, so a muted player does find out; they find out at nightfall
+    # rather than at the moment. That is a weaker failure than save_chime's
+    # (which has no twin at all) and it is written down as what it is instead of
+    # being rounded to NONE to make the list look worse.
+    'parts_pass': dict(
+        msg='YOU GOT PAID',
+        twin='SUSPECTED (the day-end reckoning reports what the day paid, so '
+             'the information arrives -- at nightfall, not at the moment)',
+        why='fires inside payForToday, one sound per payday. In a game whose '
+            'spine is ownership, parts arriving is the state change the day was '
+            'for. NO PAPER NO COINS is his 8/20 ruling and this is the moment '
+            'that ruling re-pointed the wire at.'),
     'save_chime': dict(
         msg='THE RUN WAS WRITTEN',
         twin='NONE',
@@ -154,16 +172,46 @@ def main():
         for n in names.split():
             atmos[n] = group
 
+    # ---- A SIBLING INHERITS ITS PARENT'S CLASSIFICATION (8/29) ------------
+    # SFX-11 put nine approved sibling pools into the bank and every one landed
+    # here UNCLASSIFIED, because this file only knew the moments that existed
+    # when it was written. Hand-adding nine names would have cleared the red and
+    # guaranteed the next batch reopens it.
+    # A SIBLING IS NOT A NEW MOMENT. door_more IS door_drag -- same event, same
+    # information content, one more take of it. So the answer to "does he miss a
+    # state change he has to act on" is by construction THE PARENT'S ANSWER, and
+    # deriving it from the SIBLINGS map means a pool can never be approved into
+    # the game carrying a classification nobody made.
+    sibparent = {}
+    try:
+        wp = open('tools/bohemia_sfx_wire_patch.py', encoding='utf8').read()
+        blk = re.search(r'var SIBLINGS=\{(.*?)\};', wp, re.S).group(1)
+        for line in blk.split('\n'):
+            mm = re.match(r"\s*([a-z_]+):\s*\[(.*?)\]", line)
+            if mm:
+                for kid in re.findall(r"'([a-z_]+)'", mm.group(2)):
+                    sibparent[kid] = mm.group(1)
+    except Exception:
+        pass
+
     rows, unclassified = {}, []
     for ev in sorted(bank):
-        if ev in INFORMATION:
+        src = ev
+        inherited = None
+        if ev not in INFORMATION and ev not in atmos and ev in sibparent:
+            src = sibparent[ev]
+            inherited = src
+        if src in INFORMATION:
             rows[ev] = dict(kind='INFORMATION', label=labels.get(ev, '?'),
-                            **INFORMATION[ev])
-        elif ev in atmos:
+                            **INFORMATION[src])
+        elif src in atmos:
             rows[ev] = dict(kind='ATMOSPHERE', label=labels.get(ev, '?'),
-                            group=atmos[ev])
+                            group=atmos[src])
         else:
             unclassified.append(ev)
+            continue
+        if inherited:
+            rows[ev]['inherits'] = inherited
 
     for fig, d in STINGS.items():
         rows['STING:' + fig] = dict(kind='INFORMATION', label='(sting) ' + d['msg'],

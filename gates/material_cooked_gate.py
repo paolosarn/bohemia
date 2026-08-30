@@ -8,8 +8,8 @@ HIS RULING, 8/28, LOCKED, at the bottom of a 599-of-600 sweep:
     "Im tired of all these voices they ran their course no more wood stone ash
      bone shit its COOKED"
 
-So: NO NEW CANDIDATE IS COOKED ON wood, stone, ash OR bone. The legal palette is
-what is left -- bell, choir, crystal, glass, metal, water.
+So: NO NEW CANDIDATE IS COOKED ON wood, stone, ash OR bone. `metal` was already
+dead. The legal palette is what is left -- bell, choir, crystal, glass, water.
 
 *** AND THE OBVIOUS GATE WOULD HAVE BEEN A DISASTER. *** Banning the four
 materials outright goes red on 80 OF 120 RECIPES on the day it ships, INCLUDING
@@ -28,12 +28,19 @@ So the 120 recipes that existed at the moment of the ruling are GRANDFATHERED BY
 NAME in records/BOHEMIA_MATERIALS_GRANDFATHERED_8_28_26.txt. They are his canon.
 Anything cooked AFTER that line has to use the legal palette.
 
-AND `metal` IS ALIVE AGAIN. The engine's ENVELOPE still carries
-`dead: ['metal']` from 8/12 (3 UP / 22 DOWN, "the only stable finding"). This
-sweep approved SIX metal candidates -- block.2, phone_buzz.2, phone_buzz.4,
-mag_home.4, sign_alive.4, parts_pass.4. Newest date wins. That is not a
-convenience: with four materials retired, metal is one of only six left, and a
-stale dead flag would quietly cut the legal palette to five.
+AND `metal` STAYS DEAD, WHICH THIS DOCSTRING GOT WRONG FIRST. It used to say
+metal was alive again, because his sweep approved six metal candidates and
+newest date wins. THE SAME SWEEP CONTAINED FIFTY-FOUR METAL REJECTIONS. Counted
+across every verdict file metal is 6 UP / 54 DOWN = 10%, the worst material in
+the game on sixty judgements. I had cherry-picked the thumbs that agreed with me
+out of evidence running nine to one the other way, and sfx_envelope_gate went
+red and said so.
+THE CODE WAS FIXED AND THIS PARAGRAPH WAS NOT, FOR A DAY. That is the doc rot
+the truth hierarchy exists to kill, in a file whose whole job is enforcing a
+ruling -- and it is the third time this week I have left a correct comment
+standing over corrected code. A stale docstring on a gate is worse than one on a
+tool, because the docstring is what the next person reads to learn what the rule
+IS.
 
     python3 gates/material_cooked_gate.py
 """
@@ -114,7 +121,7 @@ def main():
     # is 6 UP / 54 DOWN = 10%, the worst material in the game on sixty
     # judgements. I had cherry-picked the thumbs that agreed with me, and
     # sfx_envelope_gate went red and said so.
-    # SO THE PALETTE IS FIVE, NOT SIX, and the leg now holds the opposite claim.
+    # SO THE PALETTE IS FIVE, NOT SIX, and the leg holds the opposite claim.
     code = re.sub(r'/\*.*?\*/', '', src, flags=re.S)
     code = re.sub(r'//[^\n]*', '', code)
     m = re.search(r"dead:\s*\[(.*?)\]", code, re.S)
