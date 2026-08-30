@@ -141,3 +141,49 @@ gate went green on 8/15. He said it again on 8/28.
 A GATE MUST NEVER OUTRANK A RULING is already law in this repo. This is what it
 looks like when it happens: nobody lied, nobody skipped a step, and the machine
 answered a question he never asked.
+
+---
+
+## ADDENDUM, SAME DAY: I TRIED THE OBVIOUS FIX AND IT IS WRONG
+
+`roadAxis`'s own comment prescribes it: an undecided cell **is a crossing**, so
+build all four arms instead of guessing north-south. One line in `kitRoadLegs`.
+
+**Applied, measured, reverted. None of it is committed.**
+
+```
+crossings built NS-only         115  ->  0        the defect, gone
+roadcell_gate                  46/0  ->  46/0
+street_facing_gate (the old)   16/0  ->  16/0
+street_contract_gate           19/0  ->  17/2     *** BROKEN ***
+    arterial seams disagreeing tile for tile   0  ->  191   (ceiling 0)
+    street-to-city edges broken              ~700 -> 881   (ceiling 700)
+```
+
+### WHY, AND THIS IS THE REAL FINDING
+
+**A CROSSING IS AN AGREEMENT BETWEEN TWO CELLS, NOT A DECISION ONE CELL MAKES.**
+
+Give one cell an east-west arm its neighbour is not expecting and the shared edge
+stops matching. 115 wrong-facing cells become 191 broken seams. The 115 cannot be
+fixed cell by cell at all — it has to be settled where the seam is negotiated,
+which is the street contract, which is the WORLD lane's live work.
+
+So the handover is not "here is a bug". It is: **here is the defect, here is the
+fix everybody will reach for, and here is the proof that it costs 191 arterial
+seams** — so nobody spends a turn rediscovering it.
+
+### AND MY OWN GATE COULD NOT SEE THE FIX
+
+The first version counted the cells where `roadAxis` answers nothing. That is a
+fact about a FUNCTION. I applied the candidate fix and **the number did not
+move**, because the fix changes what the CALLER does with the blank, not whether
+the blank happens.
+
+**A gate that cannot tell you whether a fix worked is measuring the wrong end of
+the pipe.** It now also counts what gets BUILT — 115 crossings built as a plain
+north-south street with no east-west arms — which is what a wrong-facing street
+actually is, and the number that has to reach zero.
+
+That is the fifth broken ruler in this lane this week, and the first one I found
+by trying to use it rather than by mutating it.

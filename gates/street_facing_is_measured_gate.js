@@ -63,6 +63,31 @@ const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
    the map. If this ever decays into another source-text checker, its own first
    claim goes red.
 
+   ------------------------------------------------------------------------
+   THE OBVIOUS FIX IS WRONG, AND IT WAS TRIED BEFORE HANDING THIS OVER
+   ------------------------------------------------------------------------
+   roadAxis's own comment prescribes it: an undecided cell is A CROSSING, so
+   build all four arms instead of guessing north-south. One line in kitRoadLegs.
+   IT WAS APPLIED, MEASURED, AND REVERTED. What it does:
+
+       crossings built NS-only        115  ->  0        (the defect, gone)
+       roadcell_gate                46/0  ->  46/0
+       street_facing_gate (the old) 16/0  ->  16/0
+       *** street_contract_gate     19/0  ->  17/2 ***
+           arterial seams disagreeing tile for tile   0  ->  191  (ceiling 0)
+           street-to-city edges broken              ~700 -> 881  (ceiling 700)
+
+   WHY, AND IT IS THE REAL FINDING: A CROSSING IS AN AGREEMENT BETWEEN TWO CELLS,
+   NOT A DECISION ONE CELL MAKES. Giving one cell an east-west arm its neighbour
+   is not expecting creates a mismatched edge, so 115 wrong-facing cells become
+   191 broken seams. The 115 cannot be fixed cell by cell. It has to be settled
+   where the seam is negotiated, which is the street contract itself -- the WORLD
+   lane's current work.
+
+   So this gate hands over the defect, the obvious fix, AND the proof that the
+   obvious fix costs 191 arterial seams, so nobody spends a turn rediscovering
+   that.
+
    node gates/street_facing_is_measured_gate.js
    ========================================================================== */
 const fs = require('fs');
@@ -74,6 +99,10 @@ const ALPHA = 'file://' + path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
    raising it needs a reason written next to it. */
 const CEIL_BLANK = 115;
 const CEIL_CORRIDOR = 114;
+/* AND THE ONE THAT IS ACTUALLY THE DEFECT: crossings built as a plain
+   north-south street, with no east-west arms at all. This is what a wrong-facing
+   street IS, and it is the number that has to reach zero. */
+const CEIL_NS_ONLY = 115;
 
 function playwright() {
   for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules',
@@ -167,6 +196,44 @@ const done = () => {
     ok('(for scale: ' + (Math.round(m.blank / m.road * 1000) / 10) + '% of the '
       + 'valley\'s roads, scattered, which is what "streets not facing the correct '
       + 'direction" looks like from the air)', true);
+
+    /* ---- 2b. AND WHAT ACTUALLY GETS BUILT, WHICH IS THE HALF HE CAN SEE --
+       *** THE FIRST VERSION OF THIS GATE MEASURED THE CAUSE AND NOT THE EFFECT,
+       AND I ONLY FOUND OUT BY TRYING TO VERIFY A FIX WITH IT. *** It counted the
+       cells where roadAxis answers nothing, which is a fact about a FUNCTION. I
+       then applied a candidate one-line fix and THE NUMBER DID NOT MOVE -- because
+       the fix changes what the CALLER does with the blank, not whether the blank
+       happens. A gate that cannot tell you whether a fix worked is measuring the
+       wrong end of the pipe.
+       So this asks the question he is actually asking: of the cells that have no
+       decided direction, HOW MANY GET BUILT AS A PLAIN NORTH-SOUTH STREET instead
+       of as the crossing they are? That number is what a wrong-facing street IS,
+       and it is the one that has to reach zero. */
+    const built = await city.evaluate(() => {
+      let blank = 0, nsOnly = 0, fourWay = 0, ewOnly = 0, err = 0;
+      const shapes = {};
+      for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) {
+        const t = om.at(x, y);
+        if (!t || !RD[t.district]) continue;
+        let a = '';
+        try { a = roadAxis(t.district, x, y); } catch (e) { continue; }
+        if (a) continue;
+        blank++;
+        let legs = null;
+        try { legs = kitRoadLegs(t.district, x, y); } catch (e) { err++; continue; }
+        const st = (legs && legs.streets) ? legs.streets.slice().sort().join('') : '?';
+        shapes[st] = (shapes[st] || 0) + 1;
+        if (st === 'NS') nsOnly++; else if (st === 'ENSW') fourWay++;
+        else if (st === 'EW') ewOnly++;
+      }
+      return { blank, nsOnly, fourWay, ewOnly, err, shapes };
+    });
+    ok('the gauge really reached what gets BUILT, not just what was decided ('
+      + JSON.stringify(built.shapes) + ')', built.blank > 0 && built.err === 0);
+    ok('*** ' + built.nsOnly + ' REAL CROSSINGS ARE BUILT AS A PLAIN NORTH-SOUTH '
+      + 'STREET, WITH NO EAST-WEST ARMS AT ALL *** -- this is the number that is a '
+      + 'wrong-facing street, and the one that has to reach zero (ceiling '
+      + CEIL_NS_ONLY + ')', built.nsOnly <= CEIL_NS_ONLY);
 
     /* ---- 3. AND THE RULER ITSELF IS NOT THE BROKEN PART ------------------ */
     /* I NEARLY REPORTED 15 MORE CELLS AS WRONG AND THEY WERE NOT. My first

@@ -190,6 +190,27 @@ WHAT I DID NOT TOUCH: your street renderer. You are in it today and RUN lost fou
 hours THIS SAME DAY to two lanes building row 0f at once. RATCHETED, not red, so
 it cannot block the fleet: ceiling 115/114, printed loudly, green on its own as
 it comes down.
+*** AND THE OBVIOUS FIX IS WRONG. I TRIED IT SO YOU DO NOT HAVE TO. ***
+roadAxis's own comment prescribes it: an undecided cell IS a crossing, so build
+all four arms instead of guessing north-south. One line in kitRoadLegs. APPLIED,
+MEASURED, REVERTED -- nothing of it is committed:
+    crossings built NS-only        115  ->  0        (the defect, gone)
+    roadcell_gate                 46/0  ->  46/0
+    street_facing_gate (the old)  16/0  ->  16/0
+    *** street_contract_gate      19/0  ->  17/2 ***
+        arterial seams disagreeing tile for tile   0  ->  191   (ceiling 0)
+        street-to-city edges broken              ~700 -> 881   (ceiling 700)
+WHY, AND IT IS THE REAL FINDING: A CROSSING IS AN AGREEMENT BETWEEN TWO CELLS,
+NOT A DECISION ONE CELL MAKES. Give one cell an east-west arm its neighbour is
+not expecting and you turn 115 wrong-facing cells into 191 broken seams. THE 115
+CANNOT BE FIXED CELL BY CELL. It has to be settled where the seam is negotiated,
+which is the street contract -- your current work, which is why it is yours and
+not mine.
+AND MY OWN GATE COULD NOT SEE THE FIX AT FIRST: it counted where roadAxis answers
+nothing, which is a fact about a FUNCTION, so the number did not move when I
+fixed the CALLER. It now also counts what actually gets BUILT (115 crossings
+built as plain north-south, no east-west arms), which is the number that has to
+reach zero and the one he can actually see.
 Record: records/BOHEMIA_THE_FACING_GATE_NEVER_LOOKED_AT_A_STREET_8_28_26.md
 
 --------------------------------------------------------------------------------
