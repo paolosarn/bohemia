@@ -3124,3 +3124,35 @@ lines is never the change you think you made.
 And while I was in there: two older WORDS blocks still said LATEST, so three
 blocks in my own lane claimed to be the current one. Demoted, and now exactly one
 does. NEWEST DATE WINS is not self-enforcing when the marker is typed by hand.
+
+## 133. THE DEMO WAS A BUILD BEHIND, AND MY OWN GATE WAS GREEN BECAUSE OF IT
+I changed the workshop's build stamp AFTER the last time I cut the demo. So the
+demo carried BUILD 8/28x and the workshop carried 8/28y, and `demo_build_gate`
+caught it: **a demo must be a cut of the CURRENT workshop.** Out of fourteen
+failures the suite surfaced, that was the one that was mine.
+
+**But the second-order failure is worse and it is the one worth keeping.**
+voice_gate holds five pinned strings, one per demo day, whose whole job is to
+prove the rewritten words reached the BUILT demo. Two of them were the 8/27
+pass's words: "Careful is all" and "It's on, it's wet". **This turn rewrote both
+of those exact lines, and both checks stayed green.**
+
+They stayed green because they were reading a demo file that still held
+yesterday's text. The moment I re-cut the demo they went red, correctly, and
+voice_gate dropped 110/0 to 108/2.
+
+**A PIN THAT SURVIVES A REWRITE OF THE LINE IT PINS IS NOT MEASURING THE BUILD,
+IT IS MEASURING A STALE FILE.** For one turn I had a check that asserted "the new
+words reached the demo" and was satisfied by the old words being there. That is
+the thirteenth broken ruler and the first one whose failure mode was
+**passing when it should have failed**, which is the only kind that is genuinely
+dangerous: every other broken ruler this month made me chase a number, and this
+one would have let a stale demo ship under a green gate.
+
+Repinned to five strings that exist only in this pass. Back to 110/0.
+
+TWO ORDERING RULES OUT OF IT:
+1. **CUT THE DEMO LAST.** Any workshop edit after the cut forks the two surfaces
+   silently, and exactly one gate looks.
+2. **A PIN MUST DIE WHEN ITS LINE DIES.** If a rewrite of the pinned sentence does
+   not turn the check red, the check is not attached to the thing it names.

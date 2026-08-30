@@ -287,11 +287,19 @@ ok('and the fallback brief in the table still matches its quest'
 const demoFile = 'slices/BOHEMIA_DEMO.html';
 ok('the demo build exists', fs.existsSync(demoFile));
 const demoHtml = fs.existsSync(demoFile) ? fs.readFileSync(demoFile, 'utf8') : '';
+/* REPINNED 8/28 (y), AND THE REPIN IS THE FINDING. These five strings prove the
+   current words reached the BUILT demo. Two of them ("Careful is all", "It's on,
+   it's wet") were the 8/27 pass's words, and they went on passing after the 8/28
+   pass rewrote both lines -- because the demo on disk was A BUILD BEHIND and the
+   check was reading yesterday's text. Re-cutting the demo turned them red, which
+   is the check finally doing its job. A PIN THAT SURVIVES A REWRITE OF THE LINE
+   IT PINS IS NOT MEASURING THE BUILD, IT IS MEASURING A STALE FILE.
+   Every string below is new in the 8/28 (y) pass and appears in no earlier one. */
 const NEW_IN_DEMO = [
-  [1, 'Nine at night, every night'],
-  [2, 'Careful is all'],
-  [3, "Who's going to tell them"],
-  [4, "It's on, it's wet"],
+  [1, 'Nine at night, every night, and half'],
+  [2, 'not being rude to you, friend'],
+  [3, "Who's going to tell them, boss"],
+  [4, 'hotter in there than out here'],
   [5, "What's that face"],
 ];
 const OLD_IN_DEMO = [
