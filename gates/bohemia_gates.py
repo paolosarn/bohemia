@@ -211,6 +211,21 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('THE THUMB',      ['node', 'gates/thumb_gate.js'],
+     'THE THUMB (44px, iPhone portrait) has been a standing law with NO GATE, and the day one '
+     'was written TWELVE OF THIRTEEN tappable controls on the demo\'s first city screen were '
+     'under it -- the top chips at 30px, 68% of target, and the eight walk arrows, the game\'s '
+     'ONLY movement input, at 42. Three obvious ways to find controls each confidently reported '
+     'ZERO on a screen with eight buttons on it ([onclick] matches only the attribute; the '
+     'onclick property misses addEventListener too; CDP handles do not cross into a child '
+     'frame), so this wraps addEventListener BEFORE the page runs and lets the page announce '
+     'every handler. It serves the slices over a REAL http origin because the demo hides the '
+     'builder drawer by same-origin injection, which silently does nothing under file:// -- so a '
+     'file:// probe reports a leak that production does not have and would miss one it did. It '
+     'judges the drawer by elementFromPoint, not by visibility, because a poll-based hide leaves '
+     'a window and the window IS the bug (measured tappable at 149ms). And it proves holding an '
+     'arrow still WALKS him against a still control, because a resize that looks right and moves '
+     'the hit target off the handler is a demo that cannot move.', True),
     ('COLD BOOT',      ['node', 'gates/cold_boot_gate.js'],
      'TWO regressions no gate could see. (1) A render-blocking <link> to fonts.googleapis.com '
      'sat on a connection timeout: the city took 16.0s to become playable with the host '
@@ -1490,6 +1505,19 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('HAIR GRAVEYARD', ['node', 'gates/hair_graveyard_gate.js'],
+     'GRAVEYARD IS FINAL, ENFORCED FOR HAIR AT LAST (8/30). The registry has existed '
+     'since July and NOTHING HAS EVER READ IT -- six weeks of an unenforced law. On '
+     '8/30 seven haircuts were cooked in one turn and all seven were remakes of shapes '
+     'Paolo has killed twice: three crests (MOHAWK, LIBERTY SPIKES, HIGH TOP), two '
+     'tails (PONYTAIL, BRAIDED TAIL), a knot (TOP KNOT) and a bun (LOW BUN). Half a '
+     'turn went into rebuilding the crest and the tie so they would read from every '
+     'angle, three attempts at the crest alone, and the answer was one grep away in a '
+     'file written for exactly this. THE NAMES WERE NEW AND THE SHAPES WERE NOT, so '
+     'the gate cannot match on names: in this generator A SHAPE IS A DIAL, and strip '
+     'and tie are dead mechanisms whose every product is a standing tombstone. It '
+     'checks its own citations against the registry so the list cannot rot, and '
+     'reopening one needs a dated ruling from him newer than 8/2/26.', False),
     ('FACE THUMB',    ['node', 'gates/face_thumb_gate.js'],
      'EVERY CHARACTER FACE COMES WITH A THUMB (Paolo 8/28): "from now on all the '
      'character face shit is always gonna have to come with a thumbs up or a thumbs '

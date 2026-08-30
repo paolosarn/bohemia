@@ -6901,7 +6901,9 @@ P0-PROFILE. *** CLEARED 8/25 BY PAOLO HIMSELF: "the side view is a lot
    candidates worth judging, THAT is the finding and the generator is the
    turn's work.
    NOTE ON THE FOUR FADES in that held list (LOW/HIGH/SHAVED FADE, FADED
-   CROP): the fade-to-skin blend IS BUILT (his 8/1 law, "BUILT 8/1/26").
+   CROP): ALL FOUR ARE DEAD -- killed 8/1/26, standing tombstones, they are
+   not held candidates and never were. Corrected 8/30. The mechanism they
+   named lives; the shapes do not. The fade-to-skin blend IS BUILT (his 8/1 law, "BUILT 8/1/26").
    CLAUDE.md's summary line still said [UNBUILT] — stale, corrected 8/20.
    They are held by the E/W defect like everything else, not by the fade.
    | the profile view fixed and PROVEN on the real surface, all eight
@@ -8140,6 +8142,39 @@ SHARED -19. *** THE SITE STOPPED DEPLOYING AT 14:40 AND NOBODY NOTICED FOR SEVEN
    Same sentence, new cause, seven weeks later. | the site is what he taps |
    look = shared, not UI's system | open. TAB: every tab, they all come off the
    one link.
+
+UI-16. *** THE WORKSHOP'S OWN CHROME IS STILL UNDER THE THUMB, AND IT IS THE CITY
+   LANE'S FILE. *** THE THUMB (44px, iPhone portrait) had never been machine-checked
+   in ~453 gates. Measured 8/30 on the built demo at 390x844 over a real http origin:
+   TWELVE OF THIRTEEN tappable controls on the first city screen were under 44px --
+   the top chips at 30px (68% of target) and the eight walk arrows, THE GAME'S ONLY
+   MOVEMENT INPUT, at 42.
+   FIXED FOR THE DEMO ONLY, from the demo side, the same way the cutter already hides
+   the builder drawer: slices/BOHEMIA_CITY_WORLD.html is another lane's file and this
+   lane does not reach into it. The workshop still has 30px chips and 42px arrows.
+   THE ARROWS CAN GROW WITHOUT MOVING: the pad is a 180px radial layout of eight 42px
+   boxes at fixed offsets around an 80px centre, so width/height 44 with a -1px margin
+   expands each by one pixel in every direction and leaves EVERY CENTRE EXACTLY WHERE
+   IT WAS (44+80+44 = 168 inside 180, widest pair still clearing by 3px). Proved on the
+   demo: no overlap, nothing off screen, and holding an arrow still walks him.
+   The city lane can take the same three lines into the file itself and the demo-side
+   injection becomes a no-op. | every control 44px on both surfaces | look = city's
+   file, measurement = UI's | open for CITY. TAB: RUN.
+
+UI-17. HOW TO FIND A CONTROL, BECAUSE THREE OBVIOUS WAYS ALL RETURN ZERO. Any lane
+   auditing tap targets will hit this. On a screen with eight visible buttons:
+   `document.querySelectorAll('[onclick]')` -> 0, because that matches the ATTRIBUTE
+   and this codebase wires with addEventListener. Checking the `onclick` PROPERTY -> 0,
+   same reason. CDP `DOMDebugger.getEventListeners` CAN see them but its object handles
+   do not cross cleanly into a child frame -> 0. WHAT WORKS: wrap
+   EventTarget.prototype.addEventListener in an init script BEFORE the page runs and
+   let the page announce every handler as it registers it. It cannot miss one and needs
+   no debugger. gates/thumb_gate.js carries the working version.
+   AND: never probe a demo behaviour over file://. The demo hides the builder drawer by
+   same-origin injection into the city frame, which file:// denies and the catch
+   swallows -- so a file:// probe reports a leak production does not have, and would
+   equally miss a real one. Serve the slices over a real origin. | nobody re-derives
+   this | - | reference row, nothing to do. TAB: any.
 
 UI-12. THE EIGHT ARROWS ARE DRAWN SHAPES NOW, AND THE LESSON IS BIGGER THAN THE
    ARROWS. The nav ring was eight arrow GLYPHS and no font carries all eight in

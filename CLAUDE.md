@@ -465,11 +465,40 @@ research partner. He DECIDES, you PRODUCE.
   went red at 35 styles on a build whose RATE had improved; and craft_law clause 4 was
   pinning CHARACTERS directly under its own comment saying twice PIN THE BEHAVIOUR NOT THE
   CHARACTERS -- fourth time that gate has done it to itself. THE RULE: A HAIRCUT IS NOT
-  DONE UNTIL IT READS FROM ALL EIGHT DIRECTIONS. Cook it, render every facing, LOOK. The
-  crest and the tie are unfinished mechanisms and are NAMED ROWS, not silent omissions.
+  DONE UNTIL IT READS FROM ALL EIGHT DIRECTIONS. Cook it, render every facing, LOOK.
+  ~~The crest and the tie are unfinished mechanisms and are NAMED ROWS.~~ CORRECTED 8/30 --
+  see the next bullet: they are not unfinished, THEY ARE DEAD, and that sentence is what
+  invited seven remakes.
   Tab: CHARACTER / RUN / LOOK. Full law:
   laws/BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md  Gates: hair_gate.js,
   hairline_gate.js, portrait_haircut_gate.js, craft_law_gate.js
+- A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME (8/30/26): GRAVEYARD IS FINAL has been law
+  since July, the registry is 1,300 lines of his own words, and NOTHING HAS EVER READ IT --
+  six weeks of an unenforced law, and this one was not even in the 7/16 sweep because it had
+  no gate to be broken. *** WHAT IT COST: he asked for more haircuts, SEVEN WERE COOKED IN ONE
+  TURN AND ALL SEVEN WERE REMAKES OF SHAPES HE HAS KILLED TWICE. Three crests = MOHAWK,
+  LIBERTY SPIKES, HIGH TOP ("it's like a rectangle on someone's head", third strike). Two
+  tails = PONYTAIL, BRAIDED TAIL ("looks like dog shit"). A knot = TOP KNOT. A bun = LOW BUN.
+  Half a turn went into rebuilding the crest and the tie so they would read from every angle
+  -- THREE separate attempts at the crest in profile -- and the answer was one grep away in a
+  file written for exactly this. *** THE NAMES WERE NEW AND THE SHAPES WERE NOT, which is why
+  a name check would have passed all seven and taught the next session the registry had been
+  consulted: A NAME IS THE ONE THING A FRESH COOK ALWAYS CHANGES. IN THIS GENERATOR A SHAPE IS
+  A DIAL -- `strip` is the crest, `tie` is the tied mass, nothing canon uses either, and every
+  shape they have ever produced is a standing tombstone. So the gate reads the DIALS and cites
+  the registry lines it rests on, and its own first ruler broke the same way everything has
+  this month: it tested for the WORDING "permanent" and went red on BRAIDED TAIL (dead 8/1), whose first
+  kill named no defect so nobody ever wrote that word beside it -- THE FILE ALREADY HAD A REAL
+  CONVENTION (a reopened entry is COMMENTED OUT) AND I INVENTED A DIFFERENT ONE. Reopening is
+  HIS: a dated ruling newer than 8/2/26, written into the gate's REBASELINE. AND THE LESSON
+  THAT GENERALISES BEYOND HAIR: WHEN YOU WRITE DOWN THAT SOMETHING IS UNFINISHED, CHECK FIRST
+  WHETHER IT IS DEAD -- from inside the code the two look identical, in the record they are
+  opposites, and "unfinished" reads as an invitation. BEFORE COOKING ANY ART, READ THE
+  GRAVEYARD FOR THAT LANE: not the summary bullets, the registry. Nothing shipped to the
+  wardrobe; the valley still wears the same 24 haircuts and no approved pixel moved.
+  Tab: CHARACTER / VOTE / RUN. Full law:
+  laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md
+  Gate: hair_graveyard_gate.js
 - THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28, finishing his 8/26 "eye colors
   matching the portrait again"): ONE ID ONE WHOLE PERSON fixed skin, hair COLOUR and eyes on
   8/27 and its record says "same person on both sides now, every time". THE HAIRCUT ITSELF

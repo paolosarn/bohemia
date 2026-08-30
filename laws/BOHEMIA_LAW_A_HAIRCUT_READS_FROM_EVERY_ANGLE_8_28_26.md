@@ -131,9 +131,29 @@ CELLS, so every one of those marks is two pixels wide, and 8/25 clause 2 asks fo
 > facing, and look. A shape that only works head-on is not a haircut with a bug in it, it
 > is a haircut that does not exist yet, and the batch ships without it.
 
-The two mechanisms that are not finished — **the crest** and **the tie** — are named rows,
+~~The two mechanisms that are not finished — **the crest** and **the tie** — are named rows,
 not silent omissions. Nobody in the valley has their hair up, and in a desert that is a
-real hole.
+real hole.~~
+
+> **CORRECTED 8/30/26. THE SENTENCE ABOVE IS WRONG AND IT COST HALF A TURN.**
+> The crest and the tie are not *unfinished*. They are **dead**. `strip` builds MOHAWK,
+> LIBERTY SPIKES and HIGH TOP; `tie` builds PONYTAIL, BRAIDED TAIL, TOP KNOT and LOW BUN.
+> Every one of those is a standing tombstone in `gates/bohemia_graveyard.txt`, most of them
+> killed twice, and GRAVEYARD IS FINAL.
+>
+> Written as a named row, that line read as *work not yet done*, which is an invitation. The
+> next session accepted it: seven haircuts cooked, all seven remakes, three attempts at the
+> crest in profile before anyone opened the registry.
+>
+> **WHEN YOU WRITE DOWN THAT SOMETHING IS UNFINISHED, CHECK FIRST WHETHER IT IS DEAD.** From
+> inside the code the two look identical; in the record they are opposites.
+>
+> Full law: `laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md`
+> Gate: `hair_graveyard_gate.js` (it reads the DIALS, because a name is the one thing a
+> fresh cook always changes).
+>
+> Hair up in a hot valley is still a real hole. It has to be answered by a shape he has
+> never killed, which is what *fresh cooks answer dead slots* has always meant.
 
 ---
 Tab: **CHARACTER** (try them on, and the face maker picks from all 24) / **RUN** (the

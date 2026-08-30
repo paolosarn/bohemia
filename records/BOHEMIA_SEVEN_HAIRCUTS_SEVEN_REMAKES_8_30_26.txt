@@ -1,0 +1,150 @@
+SEVEN HAIRCUTS, SEVEN REMAKES -- AND THE REGISTRY THAT NOTHING HAD EVER READ
+8/30/26, CHARACTER lane. Written before the cleanup, so the trail is honest.
+
+================================================================================
+WHAT HAPPENED
+================================================================================
+
+Paolo, 8/28: "Cool I like it, but it's tough to analyze without implementing all
+the new hairstyles and shit."
+
+Last turn 23 haircuts were cooked, 9 shipped and 14 were cut for craft reasons
+(a crest reads as a rectangle head-on; a ponytail exists from the side and not
+head-on; six ran straight edges past the limit). This turn began by re-cooking
+seven of those fourteen with the two broken mechanisms rebuilt.
+
+  RIDGE CREST      SPIKED CREST     WIDE CREST
+  NAPE TAIL        TIED ROPES       WORK KNOT        DESERT COIL
+
+The mechanism work was real and it measured better every round:
+
+  THE CREST, head-on   a taper so it narrows as it rises, instead of a constant
+                       width from crown to top row (a literal rectangle standing
+                       on a skull, which is the exact sentence MOHAWK died for)
+  THE TIE              rebuilt from three `for(y)for(x)` rectangles drawn only
+                       when you are NOT looking at the person, into a round knot
+                       placed against the back of the skull on every facing
+  THE SHAVED SIDE      stubble, using his 8/2 scalp-in-a-groove method, because
+                       a crest left the rest of the head as raw lit skin, which
+                       is the sentence HIGH TOP died for
+  THE FRONT TAIL       brought forward over one shoulder with real width, after
+                       two threads down the chest read as the straps of a bag
+
+Three separate attempts went into the crest in profile alone.
+
+================================================================================
+AND ALL SEVEN WERE SHAPES HE HAS ALREADY KILLED
+================================================================================
+
+  cooked as                            is really              killed
+  ---------------------------------    -------------------    ------------------
+  RIDGE / SPIKED / WIDE CREST          MOHAWK                 8/1, again 8/2
+                                       LIBERTY SPIKES         8/1, again 8/2
+                                       HIGH TOP               8/1, again 8/1
+  NAPE TAIL, TIED ROPES                PONYTAIL (dead)        8/1, again 8/2
+                                       BRAIDED TAIL (dead)    8/1
+  WORK KNOT                            TOP KNOT               8/1, again 8/2
+  DESERT COIL                          LOW BUN                8/1, again 8/1
+
+His words, off the registry:
+
+  MOHAWK w3       killed: "it's like a rectangle on someone's head." Third strike.
+  BRAIDED TAIL    killed: "looks like dog shit."
+  TOP KNOT        "it's the same from the front and the backside and there
+                   needs to be more hair."
+  PONYTAIL        "all fucked up like there's no hair in between the top and
+                   then the ponytail when it's the back so it's pretty creepy."
+  HIGH TOP        "there's part of the head that's not even with hair. It's
+                   kind of creepy."
+
+Every complaint above was answered by this turn's mechanism work. That does not
+matter. laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md already ran that
+experiment: five of these were reopened on 8/1 BECAUSE the reasons named defects,
+the defects were fixed, and HE KILLED THEM AGAIN THE NEXT DAY. A second kill is
+permanent. HIGH TOP's own tombstone spells it out: "the bug was fixed for every
+style and he still did not want the shape."
+
+================================================================================
+WHY NOTHING CAUGHT IT
+================================================================================
+
+GRAVEYARD IS FINAL has been law since July. gates/bohemia_graveyard.txt is 1,300
+lines. NOTHING HAS EVER READ IT. It was not among the six broken laws the 7/16
+sweep found, because it had no gate to be broken.
+
+And a name check would not have helped. RIDGE CREST shares no word with MOHAWK.
+A NAME IS THE ONE THING A FRESH COOK ALWAYS CHANGES, so a name-matching gate
+would have passed all seven and taught the next session the registry had been
+consulted.
+
+IN THIS GENERATOR A SHAPE IS A DIAL:
+
+    strip   ->  the crest        MOHAWK / LIBERTY SPIKES / HIGH TOP
+    tie     ->  the tied mass    PONYTAIL / BRAIDED TAIL / TOP KNOT / LOW BUN
+
+Nothing canon uses either dial. Every shape either has ever produced is a
+standing tombstone. That makes them DEAD MECHANISMS, and cooking with one is a
+remake however it is named. The gate reads the dials.
+
+MUTATION TESTED, because a gate that reads what you handed it is not a gate:
+adding `tie:'pony'` to BUZZ CUT turns it red and names the style, the dial and
+the graveyard entry.
+
+================================================================================
+THE SENTENCE THAT INVITED IT
+================================================================================
+
+laws/BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md, written two days
+ago, by me, ended:
+
+    "The two mechanisms that are not finished -- the crest and the tie -- are
+     named rows, not silent omissions."
+
+That is wrong in the most expensive direction available. It calls two REFUSED
+things UNFINISHED. A row on the backlog is an invitation, and the next session
+accepted it.
+
+WHEN YOU WRITE DOWN THAT SOMETHING IS UNFINISHED, CHECK FIRST WHETHER IT IS DEAD.
+From inside the code the two are identical. In the record they are opposites.
+
+Corrected in that file and in CLAUDE.md today, struck through rather than
+deleted, so the trail survives.
+
+================================================================================
+AND THE GATE'S OWN RULER BROKE FIRST
+================================================================================
+
+Its first version asked whether each cited tombstone carried permanent wording
+-- "permanent", "second kill", "closed" -- and went red on BRAIDED TAIL, which is
+as dead as anything in the file. Its verdict was "looks like dog shit": a first
+kill naming NO defect, so the reopening addendum never applied and nobody ever
+needed to write "permanent" beside it.
+
+THE FILE ALREADY HAD A REAL CONVENTION AND I INVENTED A DIFFERENT ONE. A reopened
+entry is COMMENTED OUT with a #; a live tombstone is not.
+
+Tenth broken ruler this month, same shape as the other nine: reading what I
+expected instead of what is there.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+
+  canon haircuts       24  (unchanged -- no approved pixel moved)
+  removed              7 remakes, before they ever reached him
+  new gate             hair_graveyard_gate.js, 9 checks, registered in the suite
+  law                  BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_
+                       NAME_8_30_26.md
+  corrected            the 8/28 law and the CLAUDE.md bullet that invited it
+  vote bank            rebaked at 24 haircuts + 16 faces, all still waiting on
+                       his thumb
+
+The honest total for the turn is one gate and one law. It is worth more than
+seven haircuts he would have thumbed down: the next session that reaches for a
+dead shape hits a red gate on the first one, BEFORE the rebuild, not after it.
+
+A STILL-OPEN HOLE, and it has to be answered with a shape he has never killed:
+nobody in the valley has their hair up, and this runs past 40C. Fresh cooks
+answer dead slots. A retune of a rejected silhouette is not a fresh cook.
+
+Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
