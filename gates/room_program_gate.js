@@ -121,6 +121,43 @@ if (fs.existsSync(FLOORS)) {
   }
 }
 
+/* AND EVERY ROLE HAS FURNITURE, WHICH IS THE SAME QUESTION AGAIN AND I ONLY ASKED IT
+   BECAUSE A5 EXISTED (8/28). A5 checks the FLOOR pool. engine/bohemia_furnish.js is the
+   OTHER downstream table -- role -> what is really in the room -- and splitting
+   `institutional` into school/transit/firehouse started assigning `study` and `garage`,
+   neither of which it had an entry for. Both fell through to ROLES.room: a shelf and a
+   table. A CLASSROOM FURNISHED LIKE A SPARE BEDROOM, and a fire station's apparatus bay
+   likewise, in a change whose whole purpose was to stop those buildings being generic.
+   Nothing crashed and nothing looked wrong from the outside, which is the entire reason this
+   leg is here: A ROLE WITH NO FURNITURE IS AN EMPTY ROOM THAT REPORTS SUCCESS.
+   TWO TABLES DOWNSTREAM OF ONE VOCABULARY -- ask both, every time. */
+const FURN = path.join(ROOT, 'engine', 'bohemia_furnish.js');
+if (fs.existsSync(FURN)) {
+  let F = null;
+  try { F = require(FURN); } catch (e) {}
+  if (F && F.ROLES) {
+    const furnished = Object.keys(F.ROLES);
+    const assigned2 = new Set();
+    Object.keys(ZONES).forEach(z => {
+      ZONES[z].roles.forEach(r => assigned2.add(r));
+      if (ZONES[z].bulk) assigned2.add(ZONES[z].bulk);
+    });
+    const bare = [...assigned2].filter(r => furnished.indexOf(r) < 0);
+    ok('A6 and every role any zone assigns has FURNITURE of its own (' + furnished.length
+       + ' furnished)' + (bare.length ? ' -> ' + bare.join(', ')
+         + ' would fall through to the generic room: a shelf and a table' : ''),
+       bare.length === 0);
+    /* AND THE BULK ROOM ESPECIALLY, because it is most of the building. A generic bulk room
+       means a generic BUILDING however well the zone is named. */
+    const bulkBare = Object.keys(ZONES)
+      .filter(z => ZONES[z].bulk && furnished.indexOf(ZONES[z].bulk) < 0)
+      .map(z => z + ':' + ZONES[z].bulk);
+    ok('A7 and the BULK room especially -- it is most of the building, so a generic one makes '
+       + 'a generic building however well the zone is named'
+       + (bulkBare.length ? ' -> ' + bulkBare.join(', ') : ''), bulkBare.length === 0);
+  }
+}
+
 /* ---- AND THEN THE ACTUAL BUILDINGS, because a table can be right and the code wrong. ---- */
 fs.readdirSync(path.join(ROOT, 'engine'))
   .filter(f => /^bohemia_.*\.js$/.test(f))
