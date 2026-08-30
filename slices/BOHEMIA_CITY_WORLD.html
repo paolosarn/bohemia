@@ -40729,6 +40729,30 @@ try{ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'B
     locker:    { pieces: [P('locker_bank', 4, 1, COVER, true), P('bench', 3, 1, LOW, false)],
                  per25: 5 },
     restroom:  { pieces: [P('stall_run', 3, 1, COVER, true)], per25: 3 },
+    /* school / firehouse (8/28). Two roles the floorplan started assigning when
+       `institutional` was split -- it was carrying eleven building types with `ward` as its
+       bulk room, so schools and fire stations were full of hospital beds. Splitting it fixed
+       the NAMES and left these two falling through to ROLES.room, which is a shelf and a
+       table: a classroom furnished like a spare bedroom. Caught by asking the same question
+       of THIS table that had just been asked of the floor pool. */
+    study:     { /* A CLASSROOM IS THE DENSEST ROOM IN A SCHOOL and it is dense with the same
+                    object repeated -- student desks in rows, which is exactly the shape that
+                    makes a room fightable: lots of LOW cover, nothing you can hide behind.
+                    The cupboards along the back wall are the only real COVER, which is where
+                    anyone in a classroom fight ends up. Act-1 dead: desks shoved out of their
+                    rows, cupboards already emptied. */
+                 pieces: [P('desk_row', 3, 1, LOW, false), P('cupboard', 2, 1, COVER, true),
+                          P('teacher_desk', 2, 1, LOW, false)], per25: 5 },
+    garage:    { /* AN APPARATUS BAY IS MOSTLY EMPTY FLOOR ON PURPOSE -- it is the shape of a
+                    fire engine, 15-18 ft wide and 40 ft deep for a single bay, 80 for a
+                    double, and everything else in the building is fitted around that hole.
+                    In a dead valley the engines are GONE; nobody leaves a working truck
+                    behind. So what is left is the wall: turnout gear on racks, hose on a
+                    drying rack, a workbench, and a stained slab in the middle where the
+                    truck stood. EVERY PIECE IS AGAINST A WALL, which makes this the opposite
+                    fight to a classroom -- a big open room with cover only at the edges. */
+                 pieces: [P('gear_rack', 3, 1, COVER, true), P('hose_rack', 2, 1, COVER, true),
+                          P('workbench', 3, 1, COVER, true)], per25: 2 },
     /* default */
     room:      { pieces: [P('shelf_unit', 2, 1, COVER, true), P('table', 2, 2, LOW, false)],
                  per25: 3 }
