@@ -1,3 +1,89 @@
+CHARACTER (character-0lurbs): 8/30 (a) LATEST -- *** I COOKED SEVEN HAIRCUTS AND ALL
+SEVEN WERE SHAPES HE HAS ALREADY KILLED TWICE. THE REGISTRY THAT WOULD HAVE SAID SO
+HAS EXISTED SINCE JULY AND NOTHING HAS EVER READ IT. ***
+
+READ-BACK: from the handoff I took that the VOTE tab now holds every haircut and
+face with a thumb on it (8/28 w), that 9 new haircuts shipped and 14 were cut the
+same turn (8/28 q), and that the coordinator has one question in front of Paolo
+about "one character" versus three generations. I did not touch any of that.
+
+WHAT I DID, AND MOST OF IT WAS UNDOING MY OWN WORK.
+His 8/28 ruling was "it's tough to analyze without implementing all the new
+hairstyles and shit" -- cook more haircuts. So I re-cooked the seven that were cut
+last turn, with the two mechanisms that had broken them rebuilt:
+  THE CREST   a taper so it narrows as it rises head-on and from behind, not only
+              in profile, because a constant width from crown to top row is a
+              literal rectangle standing on a skull
+  THE TIE     rebuilt from three rectangles drawn only when you are NOT looking at
+              the person, into a round knot placed against the back of the skull
+              on every facing
+  STUBBLE     a shaved side was raw lit skin, which is a bald head, not a
+              clippered one -- painted with his own 8/2 scalp-in-a-groove method
+  THE TAIL    brought forward over one shoulder, after two threads down the chest
+              read as the straps of a bag
+Three separate attempts went into the crest in profile alone.
+
+*** AND THEN I OPENED gates/bohemia_graveyard.txt. ***
+  RIDGE / SPIKED / WIDE CREST  = MOHAWK, LIBERTY SPIKES, HIGH TOP
+  NAPE TAIL, TIED ROPES        = PONYTAIL, BRAIDED TAIL
+  WORK KNOT                    = TOP KNOT
+  DESERT COIL                  = LOW BUN
+Every one killed on 8/1, five of them REOPENED on 8/1 because their reasons named
+DEFECTS, and killed again on 8/2. A second kill is permanent. HIGH TOP's own
+tombstone spells out the trap I walked into: "the bug was fixed for every style
+and he still did not want the shape." Answering his old complaint does not revive
+a shape. GRAVEYARD IS FINAL.
+All seven are removed. The valley wears the same 24 haircuts it wore yesterday and
+no approved pixel moved.
+
+WHY NOTHING CAUGHT IT, AND THE GATE THAT DOES NOW.
+GRAVEYARD IS FINAL has been law since July and the registry is 1,300 lines of his
+own words. NOTHING HAS EVER READ IT -- six weeks, and it was not even among the six
+broken laws the 7/16 sweep found, because it had no gate to be broken.
+A NAME CHECK WOULD NOT HAVE HELPED: RIDGE CREST shares no word with MOHAWK, and a
+name is the one thing a fresh cook always changes. IN THIS GENERATOR A SHAPE IS A
+DIAL -- `strip` is the crest, `tie` is the tied mass, nothing canon uses either,
+and every shape either has produced is a standing tombstone. hair_graveyard_gate.js
+reads the DIALS and cites the registry lines it rests on so the list cannot rot.
+MUTATION TESTED: adding tie:'pony' to BUZZ CUT turns it red and names the style,
+the dial and the tombstone.
+
+THE SENTENCE THAT INVITED IT, AND IT WAS MINE, TWO DAYS OLD.
+The 8/28 law ended "the crest and the tie are unfinished mechanisms and are NAMED
+ROWS". They are not unfinished, THEY ARE REFUSED. A row on the backlog is an
+invitation and the next session accepted it. Struck through in that law and in
+CLAUDE.md, not deleted, so the trail survives.
+WHEN YOU WRITE DOWN THAT SOMETHING IS UNFINISHED, CHECK FIRST WHETHER IT IS DEAD.
+From inside the code the two are identical; in the record they are opposites.
+
+TENTH BROKEN RULER THIS MONTH, and it was inside the new gate. Its first version
+tested for the WORDING "permanent" / "second kill" / "closed" and went red on
+BRAIDED TAIL, which is as dead as anything in the file -- its verdict was "looks
+like dog shit", a first kill naming no defect, so nobody ever wrote "permanent"
+beside it. THE FILE ALREADY HAD A REAL CONVENTION (a reopened entry is COMMENTED
+OUT with a #) AND I INVENTED A DIFFERENT ONE. Same shape as the other nine.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. NOBODY IN THE VALLEY HAS THEIR HAIR UP and this runs past 40C. That is a real
+   hole and it is still open. It must be answered by a silhouette he has NEVER
+   killed -- not a retune of the tie. That is what "fresh cooks answer dead slots"
+   has always meant. Check the registry BEFORE cooking, not after.
+2. 24 haircuts and 16 faces are sitting in the VOTE tab waiting on his thumb, none
+   judged yet. He asked for the thumb on 8/28; the queue is real and it persists
+   across a reload now.
+3. Carried, unfixed: the FACE MAKER does not survive a reload (same class as the
+   vote page bug that was fixed on 8/28 -- it is worth doing, the sliders are
+   otherwise finished). The LIFE slice's embedded wardrobe bank is far behind.
+4. Carried, another lane: RUN's person-card still has no speech and no face.
+
+Proof: hair_graveyard_gate.js 9/9 (mutation tested), face_thumb_gate 23/23,
+portrait_haircut_gate 12/12, face_maker_gate 13/13, full suite green.
+Law: laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md
+Record: records/BOHEMIA_SEVEN_HAIRCUTS_SEVEN_REMAKES_8_30_26.txt
+Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
+
+================================================================================
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
 WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
 THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***

@@ -52,7 +52,10 @@ already know about. The 8/16 rule stands: if the generator cannot produce
 candidates worth judging, THAT is the finding, and the turn's work is the
 generator.
 NOTE ON THE FOUR FADES in the unjudged list (LOW FADE, HIGH FADE, SHAVED
-FADE, FADED CROP): the fade-to-skin blend IS built (his 8/1 law, "BUILT
+FADE, FADED CROP -- ALL FOUR ARE DEAD, killed 8/1/26, and this note should
+never have carried them as pending; corrected 8/30, see
+laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md):
+the fade-to-skin blend IS built (his 8/1 law, "BUILT
 8/1/26", a density ramp in the same texSkip that draws a cornrow, capped
 so it never becomes plain skin). CLAUDE.md's one-line summary still tags
 it [UNBUILT] — stale, corrected this turn. They are not blocked by the

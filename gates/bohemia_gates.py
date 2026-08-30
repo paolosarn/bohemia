@@ -1479,6 +1479,19 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('HAIR GRAVEYARD', ['node', 'gates/hair_graveyard_gate.js'],
+     'GRAVEYARD IS FINAL, ENFORCED FOR HAIR AT LAST (8/30). The registry has existed '
+     'since July and NOTHING HAS EVER READ IT -- six weeks of an unenforced law. On '
+     '8/30 seven haircuts were cooked in one turn and all seven were remakes of shapes '
+     'Paolo has killed twice: three crests (MOHAWK, LIBERTY SPIKES, HIGH TOP), two '
+     'tails (PONYTAIL, BRAIDED TAIL), a knot (TOP KNOT) and a bun (LOW BUN). Half a '
+     'turn went into rebuilding the crest and the tie so they would read from every '
+     'angle, three attempts at the crest alone, and the answer was one grep away in a '
+     'file written for exactly this. THE NAMES WERE NEW AND THE SHAPES WERE NOT, so '
+     'the gate cannot match on names: in this generator A SHAPE IS A DIAL, and strip '
+     'and tie are dead mechanisms whose every product is a standing tombstone. It '
+     'checks its own citations against the registry so the list cannot rot, and '
+     'reopening one needs a dated ruling from him newer than 8/2/26.', False),
     ('FACE THUMB',    ['node', 'gates/face_thumb_gate.js'],
      'EVERY CHARACTER FACE COMES WITH A THUMB (Paolo 8/28): "from now on all the '
      'character face shit is always gonna have to come with a thumbs up or a thumbs '

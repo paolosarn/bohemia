@@ -58,8 +58,17 @@ def scan(dirs):
         if not os.path.isdir(d):
             continue
         for fn in sorted(os.listdir(d)):
+            # *** 'LAWS' DOES NOT MATCH 'LAW'. (8/30/26.) *** Since 8/1 the lanes have
+            # been naming single laws BOHEMIA_LAW_<thing>_<date>.md, and this filter only
+            # matched the plural LAWS masters, so ALL SEVENTEEN of them were invisible to
+            # the map -- the boss ladder, walls, the one world tab, the whole hair and
+            # face stack. CLAUDE.md tells every session to consult this index BEFORE
+            # citing an addendum, so the map had a seventeen-file hole in it and said so
+            # nowhere. Found because a law written today did not appear in its own index.
+            # SAME SHAPE AS THE DAY'S OTHER FINDING: a record that exists and is never
+            # read is not a record.
             if not (fn.startswith('BOHEMIA_') and ('ADDENDUM' in fn or 'GDD' in fn
-                    or 'LAWS' in fn or 'STATE_OF_PLAY' in fn or 'CANON' in fn)):
+                    or 'LAW' in fn or 'STATE_OF_PLAY' in fn or 'CANON' in fn)):
                 continue
             if fn in seen:
                 continue

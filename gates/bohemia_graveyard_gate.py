@@ -68,7 +68,22 @@ def main():
                 for rx, token, when, replacement in dead:
                     if not rx.search(line):
                         continue
-                    if TOMBSTONE.search(line):
+                    # *** A TOMBSTONE IS A PARAGRAPH, NOT A LINE. (8/30/26.) ***
+                    # This tested the ONE line the token sat on, so a post-mortem
+                    # that says "killed 8/2" in its heading and then lists the
+                    # shapes underneath was read as twenty-one resurrections. That
+                    # is a checker that cannot tell a MENTION from a USE, which
+                    # CLAUDE.md names as the broken thing (8/1: fix the ruler,
+                    # never the target). It is also self-defeating: it punishes
+                    # exactly the writing-down this law depends on to be
+                    # remembered, so the cheapest way to go green is to document
+                    # a kill LESS.
+                    # Widened to the line plus two either side, which is where a
+                    # record puts its verdict and where a revival never does --
+                    # code pointing at a dead asset has no kill language anywhere
+                    # near it, so nothing that mattered got easier to sneak past.
+                    around = '\n'.join(lines[max(0, i - 2):i + 3])
+                    if TOMBSTONE.search(around):
                         tombs += 1
                     else:
                         live.append((p, i + 1, token, line.strip()[:88], replacement))

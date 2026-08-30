@@ -6884,7 +6884,9 @@ P0-PROFILE. *** CLEARED 8/25 BY PAOLO HIMSELF: "the side view is a lot
    candidates worth judging, THAT is the finding and the generator is the
    turn's work.
    NOTE ON THE FOUR FADES in that held list (LOW/HIGH/SHAVED FADE, FADED
-   CROP): the fade-to-skin blend IS BUILT (his 8/1 law, "BUILT 8/1/26").
+   CROP): ALL FOUR ARE DEAD -- killed 8/1/26, standing tombstones, they are
+   not held candidates and never were. Corrected 8/30. The mechanism they
+   named lives; the shapes do not. The fade-to-skin blend IS BUILT (his 8/1 law, "BUILT 8/1/26").
    CLAUDE.md's summary line still said [UNBUILT] — stale, corrected 8/20.
    They are held by the E/W defect like everything else, not by the fade.
    | the profile view fixed and PROVEN on the real surface, all eight
