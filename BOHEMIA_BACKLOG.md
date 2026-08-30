@@ -2437,9 +2437,26 @@ ALIVE-1. *** HALF DONE 8/28 (PEOPLE lane), AND THE MEASUREMENT REDIRECTS THE
         approved 7/26 ("Approve all") with the 70/20/10 package, and it has a
         COYOTE SHADOW in it. It is wired into stepOnce's CITY branch, which is
         overmap travel. The walked surface never calls it.
-   AND THE ANIMALS HALF IS UNTOUCHED AND IS THE CHEAPEST FIX ON THE WHOLE
-   DISPATCH -- see the original row below. AMBIENCE DOES NOT NEED A CENSUS:
-   a raven is placed near the player, so the valley's scale stops mattering. ***
+   *** AND THE ANIMALS HALF IS BUILT, SAME DAY. TIER 1 SHIPPED 8/28. ***
+   records/BOHEMIA_THE_VALLEY_HAS_ANIMALS_IN_IT_8_28_26.md
+   Gate: gates/wildlife_gate.js (WILDLIFE, 30 claims, 3 mutations caught).
+   MEASURED ON THE GLASS: something living is on screen in EIGHT STEPS,
+   against a median of 323 for a person. AMBIENCE DOES NOT NEED A CENSUS.
+   Five species, every one read back against the Clark County research file
+   by a gate claim so the roster cannot drift into invention: raven,
+   grackle, pigeon, rat, coyote.
+   AND THE REACTION IS THE FEATURE, which is ethology and not a design idea:
+   ALERT DISTANCE and FLIGHT INITIATION DISTANCE are measured separately in
+   urban corvids, so every animal NOTICES you at one range and LEAVES at a
+   shorter one. A BIRD THAT SITS THERE IS SCENERY. A feeding animal lets you
+   get closer (measured in hooded crows) -- built, and dormant until
+   something in the world is marked as food, which is tier 2.
+   AND EXACTLY ONE OF THEM IGNORES YOU, by claim: the coyote, because the
+   research wrote that animal down and its indifference only reads as
+   indifference because the others flush.
+   STILL OPEN on this row: TIER 2 (dog packs, coyote packs, pack AI, a den
+   with what they dragged home) and TIER 3 (whoever holds the worst blocks,
+   RESERVED AND HIS). And nothing in the world is marked as food yet. ***
    *** ORIGINAL ROW: THE CITY IS DEAD AND DEAD IS NOT THE DEFAULT (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT... THE CITY
    SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A

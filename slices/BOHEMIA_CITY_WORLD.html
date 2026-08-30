@@ -26176,6 +26176,266 @@ root.BQRuntime=API;
   };
 }));
 /* ==== engine/bohemia_blackbox.js ==== */
+/* ==== engine/bohemia_wildlife.js ==== */
+/* ============================================================================
+   BOHEMIA -- TIER 1: THE THINGS THAT LIVE HERE (8/28/26, PEOPLE lane)
+   Backlog row ALIVE-1, the half a number could never fix.
+
+   WHY THIS EXISTS AND NOT MORE PEOPLE. Measured 8/28 on the real demo: at the
+   TOP of the population slider, about 96,885 people, twenty-three walks in
+   thirty-two still meet nobody. The valley is ~151 square kilometres and a step
+   is about a metre. AMBIENCE DOES NOT NEED A CENSUS -- a resident has to live
+   somewhere in the whole valley and be found, a raven is placed NEXT TO THE
+   PLAYER -- so the scale that defeats the slider does not apply here at all.
+   records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md
+
+   And his own 8/25 bestiary research said so first, in its own words: "the
+   reason the city feels dead is not that we lack enemies. It is that we lack
+   ANIMALS ... Tier 1 is mostly not an enemy system at all. It is set dressing
+   that moves, and it is the cheapest fix on this list for the loudest complaint
+   on his list."
+
+   THE ROSTER IS SOURCED, NOT INVENTED. Every species here is in
+   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md section 2,
+   which is Nevada and Clark County material: coyotes thriving in the metro and
+   using the washes as corridors, the common raven first to a body, rats as the
+   urban constant, grackles and pigeons documented sifting trash in Las Vegas.
+   Nothing on this page is a creature somebody made up.
+
+   *** AND THE REACTION IS THE FEATURE, WHICH IS THE WHOLE CRAFT FINDING. ***
+   Researched 8/28. Ghost of Tsushima's lead systems designer on why animals are
+   not set dressing: "in just their ambient presence" they make a world feel
+   alive. But every write-up returns to the same detail, and it is not the
+   animal, it is what it does about YOU: small animals "scuttling away whenever
+   they hear anything bigger than them", cranes taking flight as you approach.
+   A BIRD THAT SITS THERE IS SCENERY. A BIRD THAT LEAVES WHEN YOU GET CLOSE IS
+   ALIVE, and it costs one distance check.
+
+   TWO DISTANCES, NOT ONE, and this is the ethology rather than a design idea.
+   The literature on urban corvids measures ALERT DISTANCE and FLIGHT INITIATION
+   DISTANCE separately: the bird notices you at one range and leaves at a
+   shorter one. So every species here looks up before it goes, and the looking
+   up is the half that reads as alive.
+   AND A FEEDING ANIMAL LETS YOU GET CLOSER -- measured in hooded crows, which
+   "alerted later and escaped at shorter distance if they were feeding during
+   approach". So an animal on food has both distances cut, which hands us
+   per-situation variation for nothing.
+
+   AND ONE OF THEM DOES NOT CARE, ON PURPOSE. The research wrote that animal
+   down already: "a coyote crossing the wash three blocks away and not caring
+   about you". Its indifference only reads as indifference because the ravens
+   flush. A ROSTER WHERE EVERYTHING REACTS THE SAME WAY HAS NO CHARACTER IN IT.
+
+   WHAT IS RESERVED AND SHIPS EMPTY, per section 5 of the research: which
+   animals are actually canon, anything supernatural, names, and every number
+   that is a difficulty rather than a fact. The distances below are MINE, taken
+   from the shape the literature gives, and they are one table so he can move
+   them in one edit.
+
+   NO COMBAT, NO HEALTH, NO LOOT. Tier 1 is what is alive around you. A carcass
+   as a resource, a dog pack with a den, a hive as a hazard are TIER 2 AND 3 and
+   are not this.
+
+     node gates/wildlife_gate.js
+   ============================================================================ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.BohemiaWildlife = factory();
+}(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var VERSION = 'bohwild-1.0.0';
+
+  /* ---- THE CLOCK, IN MINUTES ---------------------------------------------
+     Dawn and dusk are when the desert moves, which is why the coyote owns them
+     and why the birds do not own the middle of the afternoon. Same heat window
+     the population module already uses, so the valley's animals and its people
+     are hiding from the same sun. */
+  var DAWN = [4 * 60, 8 * 60];
+  var DUSK = [17 * 60, 20 * 60];
+  var NIGHT = [20 * 60, 5 * 60];        /* wraps midnight */
+  var HEAT = [11 * 60, 16 * 60];
+
+  function inWin(min, w) {
+    return w[0] <= w[1] ? (min >= w[0] && min < w[1]) : (min >= w[0] || min < w[1]);
+  }
+
+  /* ---- WHAT LIVES HERE ----------------------------------------------------
+     `wants` is read off the ground the surface reports, never off a district
+     name, so a species lands anywhere the valley happens to look right.
+       open   how many of the 24 cells around it can be walked on
+       edge   there is something solid within one cell (a wall, a bin, a car)
+     `alert` and `flush` are in cells. `feedCut` is what being on food does to
+     both, which is the measured crow finding and not a preference. */
+  var SPECIES = [
+    { id: 'raven', name: 'raven', flock: [1, 3],
+      when: function (m) { return !inWin(m, NIGHT); },
+      wants: { edge: true, openMin: 4, openMax: 20 },
+      alert: 9, flush: 5, feedCut: 0.45, reacts: true,
+      /* first to a body, and a documented beneficiary of human landscapes.
+         Perches on the EDGE of things because that is where height is. */
+      note: 'on a roofline or a wall, and it sees you coming' },
+    { id: 'grackle', name: 'grackles', flock: [2, 6],
+      when: function (m) { return !inWin(m, NIGHT) && !inWin(m, HEAT); },
+      wants: { edge: false, openMin: 16, openMax: 24 },
+      alert: 6, flush: 3, feedCut: 0.4, reacts: true,
+      note: 'sifting the open ground, and up all at once when you get close' },
+    { id: 'pigeon', name: 'pigeons', flock: [2, 5],
+      when: function (m) { return !inWin(m, NIGHT); },
+      wants: { edge: true, openMin: 12, openMax: 24 },
+      alert: 5, flush: 3, feedCut: 0.4, reacts: true,
+      note: 'the ledge and the pavement under it' },
+    { id: 'rat', name: 'rat', flock: [1, 2],
+      when: function (m) { return inWin(m, NIGHT); },
+      wants: { edge: true, openMin: 2, openMax: 12 },
+      alert: 4, flush: 2, feedCut: 0.5, reacts: true,
+      note: 'against the wall, and gone into it' },
+    /* *** AND THIS ONE DOES NOT CARE. *** The research wrote the sentence:
+       "a coyote crossing the wash three blocks away and not caring about you".
+       It is the only row with reacts:false and that is the entire point of it
+       being here. Dawn and dusk, on a long open run, moving through. */
+    { id: 'coyote', name: 'coyote', flock: [1, 1],
+      when: function (m) { return inWin(m, DAWN) || inWin(m, DUSK); },
+      wants: { edge: false, openMin: 20, openMax: 24 },
+      alert: 0, flush: 0, feedCut: 1, reacts: false,
+      note: 'crossing, and it has already decided you are not worth it' }
+  ];
+
+  function speciesFor(id) {
+    for (var i = 0; i < SPECIES.length; i++) if (SPECIES[i].id === id) return SPECIES[i];
+    return null;
+  }
+
+  /* ---- THE ROLL, WHICH IS NOT A ROLL --------------------------------------
+     Deterministic off the world seed, the cell and the hour. The same roofline
+     has the same two ravens for the same hour of the same day, so a place has an
+     identity and nothing shimmers when you turn around. The valley's own hash
+     shape, kept here rather than imported so this module has no dependencies. */
+  function h(a, b, c, d) {
+    var x = (a | 0) * 374761393 + (b | 0) * 668265263 + (c | 0) * 2246822519 + (d | 0) * 3266489917;
+    x = (x ^ (x >>> 13)) >>> 0;
+    x = (Math.imul(x, 1274126177)) >>> 0;
+    return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
+  }
+
+  /* ONE PATCH OF GROUND IS ONE SIGHTING AT MOST. The world is quantised into
+     patches so that walking two cells does not re-roll the whole street, which
+     is what would make ambience read as a slot machine instead of a place. */
+  var PATCH = 12;
+
+  /* ---- WHAT IS ALIVE AROUND HERE RIGHT NOW --------------------------------
+     opts:
+       seed     the world seed
+       at       [x, y], the player's fine cell
+       minute   minute of the day
+       radius   how far out to look, in cells
+       probe    function(x, y) -> { walk, open, edge, food }  from the surface
+       density  0..1, how full the roster is allowed to make a screen. HIS.
+     returns a list of sightings, each already told what it thinks of you. */
+  function near(opts) {
+    opts = opts || {};
+    var at = opts.at || [0, 0], min = (opts.minute | 0), seed = (opts.seed | 0);
+    var R = opts.radius == null ? 24 : opts.radius;
+    var probe = opts.probe || function () { return null; };
+    var density = opts.density == null ? 1 : opts.density;
+    var out = [];
+    var px0 = Math.floor((at[0] - R) / PATCH), px1 = Math.floor((at[0] + R) / PATCH);
+    var py0 = Math.floor((at[1] - R) / PATCH), py1 = Math.floor((at[1] + R) / PATCH);
+    var hour = Math.floor(min / 60);
+    for (var py = py0; py <= py1; py++) for (var px = px0; px <= px1; px++) {
+      /* ONE ROLL DECIDES WHETHER THIS PATCH HAS ANYTHING AT ALL, so an empty
+         street stays empty and a busy corner stays busy. */
+      var r0 = h(seed, px, py, hour);
+      if (r0 > density * 0.55) continue;
+      /* WHICH SPECIES, out of the ones the clock allows here. */
+      var live = [];
+      for (var s = 0; s < SPECIES.length; s++) if (SPECIES[s].when(min)) live.push(SPECIES[s]);
+      if (!live.length) continue;
+      var sp = live[Math.floor(h(seed ^ 0x51ed, px, py, hour) * live.length) % live.length];
+      /* WHERE IN THE PATCH, and the ground has to agree with what it wants. */
+      var bx = px * PATCH, by = py * PATCH, spot = null;
+      for (var t = 0; t < 8 && !spot; t++) {
+        var ox = Math.floor(h(seed ^ 0x9e37, px * 31 + t, py, hour) * PATCH);
+        var oy = Math.floor(h(seed ^ 0x85eb, px, py * 31 + t, hour) * PATCH);
+        var cx = bx + ox, cy = by + oy;
+        var g = probe(cx, cy);
+        if (!g || !g.walk) continue;
+        if (g.open < sp.wants.openMin || g.open > sp.wants.openMax) continue;
+        if (sp.wants.edge && !g.edge) continue;
+        if (!sp.wants.edge && g.edge) continue;
+        spot = [cx, cy, g];
+      }
+      if (!spot) continue;
+      var n = sp.flock[0] + Math.floor(h(seed ^ 0xc2b2, px, py, hour + 7)
+                * (sp.flock[1] - sp.flock[0] + 1));
+      if (n > sp.flock[1]) n = sp.flock[1];
+      /* A FEEDING ANIMAL LETS YOU GET CLOSER. Measured in hooded crows, not
+         chosen: they alert later and flush at a shorter distance while eating. */
+      var fed = !!spot[2].food;
+      /* rounded to whole cells: the world is a grid, and a flush distance of
+         2.4000000000000004 is a number nobody can act on or read. */
+      var alert = Math.round(sp.alert * (fed ? sp.feedCut : 1) * 10) / 10;
+      var flush = Math.round(sp.flush * (fed ? sp.feedCut : 1) * 10) / 10;
+      var d = Math.max(Math.abs(spot[0] - at[0]), Math.abs(spot[1] - at[1]));
+      var state = 'settled';
+      if (sp.reacts) {
+        if (d <= flush) state = 'gone';
+        else if (d <= alert) state = 'alert';
+      }
+      out.push({ species: sp.id, name: sp.name, at: [spot[0], spot[1]], count: n,
+                 feeding: fed, dist: d, alertAt: alert, flushAt: flush,
+                 reacts: sp.reacts, state: state, note: sp.note,
+                 /* which way it is facing: at you if it has noticed you, else
+                    its own way, so a settled bird is not a compass needle. */
+                 facing: state === 'settled'
+                   ? Math.floor(h(seed ^ 0x27d4, spot[0], spot[1], hour) * 8)
+                   : bearing8(spot[0], spot[1], at[0], at[1]) });
+    }
+    return out;
+  }
+
+  /* which of the eight ways one cell is from another */
+  function bearing8(fx, fy, tx, ty) {
+    var dx = tx - fx, dy = ty - fy;
+    var a = Math.atan2(dy, dx) / Math.PI * 4;   /* -4..4 */
+    var i = Math.round(a) & 7;
+    return i;
+  }
+
+  /* WHAT THE PLAYER IS TOLD, if anything. Tier 1 says nothing out loud most of
+     the time -- it is set dressing -- but the one that does not react is worth a
+     line, because a coyote ignoring you IS the sentence. draft:true. */
+  function lineFor(sighting) {
+    if (!sighting) return null;
+    if (sighting.species === 'coyote') return 'a coyote crossing, three blocks off';  /* draft:true */
+    if (sighting.state === 'gone' && sighting.species === 'raven')
+      return 'the ravens go up';                                                     /* draft:true */
+    return null;
+  }
+
+  /* WHAT THIS TIER CANNOT DO, printed rather than implied. */
+  var CANNOT = [
+    'it is not danger: nothing here can hurt you and nothing here can be hurt',
+    'it is not loot: a carcass as a resource is tier 2 and does not exist yet',
+    'and it does not know what a roof is, only what the ground reports'
+  ];
+
+  return {
+    VERSION: VERSION, SPECIES: SPECIES, PATCH: PATCH, CANNOT: CANNOT,
+    DAWN: DAWN, DUSK: DUSK, NIGHT: NIGHT, HEAT: HEAT,
+    inWin: inWin, speciesFor: speciesFor, near: near, bearing8: bearing8,
+    lineFor: lineFor, hash: h
+  };
+}));
+/* ==== engine/bohemia_wildlife.js ==== */
+/* ==== banks/BOHEMIA_WILDLIFE_SPRITES.js ==== */
+/* GENERATED by tools/bohemia_wildlife_factory.py -- do not hand edit.
+   The first animals in this valley. Roster sourced to
+   records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md
+   section 2 (Nevada and Clark County material), never invented. */
+(function(r){var B={"perspective":"the 45 DEGREE ART LAW, held in the shape a creature has: you are ABOVE it, so the back is the biggest lit surface, the far side falls into shadow, and nothing here is left-right symmetrical","w":16,"h":16,"palette":[null,"#0a0a0c","#1d1f26","#343a4a","#5b6478","#26301f","#3d4d31","#6f8257","#3f4147","#63666e","#8d9099","#c9ccd2","#3a2f26","#584838","#7a6650","#a08a6e","#5b4a33","#8a7050","#ac9068","#d8c9a8","#d7c04a","#2a2a2a"],"frames":["rest","look","go"],"animals":[{"id":"raven","source":"common raven, first to a body, a documented beneficiary of human landscapes","frames":{"rest":[0,84,20,1,3,1,0,12,21,1,3,1,4,2,0,10,21,2,0,1,3,3,0,16,3,6,0,10,4,2,3,4,0,10,1,1,2,1,4,3,3,1,1,1,0,10,1,5,3,2,1,1,0,8,21,1,0,1,21,1,0,3,1,1,0,50],"look":[0,52,20,1,4,1,0,11,21,2,3,1,4,2,0,10,21,1,0,3,3,2,0,16,3,1,0,32,3,5,0,10,4,2,3,4,0,10,1,1,2,1,4,3,3,1,1,1,0,10,1,5,3,2,1,1,0,8,21,1,0,1,21,1,0,3,1,1,0,50],"go":[0,2,3,1,1,2,0,8,4,2,1,1,0,4,3,1,1,1,0,6,4,1,1,1,0,6,20,1,3,1,1,1,0,4,4,1,1,1,0,5,21,1,3,1,4,2,3,1,1,1,0,2,4,1,1,1,0,4,21,2,0,1,3,3,0,1,3,1,1,1,4,1,1,1,0,11,3,6,0,10,4,2,3,4,0,10,1,1,2,1,4,3,3,1,1,1,0,10,1,5,3,2,1,1,0,14,1,1,0,98]}},{"id":"grackle","source":"great-tailed grackle, documented sifting Las Vegas trash for scraps","frames":{"rest":[0,99,21,1,6,1,20,1,7,1,0,11,21,1,0,1,6,1,7,1,6,1,0,14,6,2,0,1,6,2,0,13,6,1,7,1,6,3,0,11,1,2,7,1,1,1,6,1,1,1,0,10,21,1,0,1,1,1,0,1,1,1,6,2,0,9,21,1,0,1,21,1,0,54],"look":[0,67,21,1,6,1,20,1,7,1,0,11,21,1,0,1,6,3,0,14,6,2,0,16,6,1,0,16,6,2,0,13,7,2,6,3,0,11,1,2,7,1,1,1,6,1,1,1,0,10,21,1,0,1,1,1,0,1,1,1,6,2,0,9,21,1,0,1,21,1,0,54],"go":[0,2,6,1,1,2,0,8,7,2,1,1,0,4,6,1,1,1,0,6,7,1,1,1,0,7,6,1,1,1,0,4,7,1,1,1,0,6,21,1,6,1,20,1,6,1,1,1,0,2,7,1,1,1,0,6,21,1,0,1,6,1,7,1,6,2,1,1,7,1,1,1,0,10,6,2,0,1,6,2,0,13,6,1,7,1,6,3,0,11,1,2,7,1,1,1,6,1,1,1,0,12,1,1,0,1,1,1,6,2,0,114]}},{"id":"pigeon","source":"pigeon, the same urban roster","frames":{"rest":[0,99,21,1,10,1,20,1,11,1,0,11,21,1,0,1,10,1,11,1,10,1,0,14,10,2,0,1,10,2,0,13,10,1,11,1,10,3,0,11,8,2,11,1,8,1,10,1,8,1,0,10,21,1,0,1,8,1,0,1,8,1,10,2,0,9,21,1,0,1,21,1,0,54],"look":[0,67,21,1,10,1,20,1,11,1,0,11,21,1,0,1,10,3,0,14,10,2,0,16,10,1,0,16,10,2,0,13,11,2,10,3,0,11,8,2,11,1,8,1,10,1,8,1,0,10,21,1,0,1,8,1,0,1,8,1,10,2,0,9,21,1,0,1,21,1,0,54],"go":[0,2,10,1,8,2,0,8,11,2,8,1,0,4,10,1,8,1,0,6,11,1,8,1,0,7,10,1,8,1,0,4,11,1,8,1,0,6,21,1,10,1,20,1,10,1,8,1,0,2,11,1,8,1,0,6,21,1,0,1,10,1,11,1,10,2,8,1,11,1,8,1,0,10,10,2,0,1,10,2,0,13,10,1,11,1,10,3,0,11,8,2,11,1,8,1,10,1,8,1,0,12,8,1,0,1,8,1,10,2,0,114]}},{"id":"rat","source":"the urban constant: unlimited food, no sanitation","frames":{"rest":[0,119,13,1,0,10,15,2,14,7,0,6,20,1,14,8,13,2,0,5,14,3,12,7,0,1,12,1,0,10,12,1,0,5,13,1,12,1,0,16,13,1,0,48],"look":[0,98,15,2,0,13,20,1,14,2,0,3,13,1,0,9,14,10,0,8,13,1,14,6,13,2,0,8,12,7,0,1,12,1,0,10,12,1,0,5,13,1,12,1,0,16,13,1,0,48],"go":[0,119,13,1,0,7,13,1,0,2,15,2,14,7,0,1,12,1,13,1,12,1,0,2,20,1,14,8,13,2,0,5,14,3,12,7,0,12,12,1,0,72]}},{"id":"coyote","source":"thrived in Las Vegas despite rapid urban development; the washes are its highway","frames":{"rest":[0,101,18,6,0,5,18,1,0,1,18,11,0,3,20,1,19,1,18,11,17,1,0,2,19,2,18,1,17,2,18,6,17,2,16,1,17,1,0,1,18,3,19,1,16,7,19,2,0,1,16,1,17,1,0,4,16,1,19,5,16,1,0,9,21,1,0,5,21,1,0,9,21,1,0,5,21,1,0,37],"look":[0,80,18,1,0,1,18,1,0,13,20,1,19,1,18,1,0,2,18,6,0,5,19,2,18,11,0,3,18,13,17,1,0,4,17,3,18,6,17,2,16,1,17,1,0,4,19,1,16,7,19,2,0,1,16,1,17,1,0,4,16,1,19,5,16,1,0,9,21,1,0,5,21,1,0,9,21,1,0,5,21,1,0,37],"go":[0,101,18,6,0,5,18,1,0,1,18,11,0,3,20,1,19,1,18,11,17,1,0,2,19,2,18,1,17,2,18,6,17,2,16,1,17,1,0,1,18,3,19,1,16,1,21,1,16,5,21,1,19,1,0,1,16,1,17,1,0,4,16,1,21,1,19,4,16,1,21,1,0,9,21,1,0,5,21,1,0,9,21,1,0,5,21,1,0,36]}}]};
+if(typeof module==="object"&&module.exports)module.exports=B;else r.BOHEMIA_WILDLIFE_SPRITES=B;})(typeof self!=="undefined"?self:this);
+/* ==== banks/BOHEMIA_WILDLIFE_SPRITES.js ==== */
 /* ==== engine/bohemia_demoquests.js ==== */
 // BOHEMIA DEMO QUESTS (8/11/26) — SCAFFOLDING, AND IT SAYS SO.
 //
@@ -36734,6 +36994,122 @@ function animalPass(ox, oy, C) {
   return drawn;
 }
 
+/* ==== __CITY_WILDLIFE__ : TIER 1, THE THINGS THAT LIVE HERE ==================
+   ALIVE-1's other half. The population slider cannot make a street feel
+   inhabited -- measured, twenty-three walks in thirty-two meet nobody even at
+   the top of it -- because the valley is 151 square kilometres. THIS DOES NOT
+   HAVE THAT PROBLEM: a raven is placed next to the player, not somewhere in the
+   valley to be found.
+   ========================================================================== */
+var WILD_SPR = null, WILD_CV = {}, WILD_GONE = {}, WILD_DREW = [];
+
+/* WHAT ONE CELL IS LIKE, answered by the surface because only the surface
+   knows. The module is pure and asks; it never reads a canvas itself. */
+function wildProbe(x, y) {
+  var c = cellAt(x, y);
+  if (!c || !c.walk || c.enter) return null;
+  var open = 0, edge = false;
+  for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) {
+    if (!dx && !dy) continue;
+    var n = cellAt(x + dx, y + dy);
+    if (n && n.walk && !n.enter) open++;
+    else if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) edge = true;
+  }
+  /* FOOD IS NOT WIRED YET AND THE GATE SAYS SO. The measured crow finding (a
+     feeding bird alerts later and flushes closer) is built into the module and
+     dormant here, because nothing in this world is marked as food. When a
+     carcass exists -- tier 2 -- this is the one line that turns it on. */
+  return { walk: true, open: open, edge: edge, food: false };
+}
+
+function wildSprites() {
+  if (WILD_SPR) return WILD_SPR;
+  if (typeof BOHEMIA_WILDLIFE_SPRITES === 'undefined') return null;
+  WILD_SPR = BOHEMIA_WILDLIFE_SPRITES;
+  return WILD_SPR;
+}
+
+/* ONE CANVAS PER ANIMAL PER FRAME, built once. The bank is palette-indexed
+   run-length, which is small in the file and has to be unpacked exactly once. */
+function wildCanvas(id, frame) {
+  var k = id + ':' + frame, got = WILD_CV[k];
+  if (got !== undefined) return got;
+  var B = wildSprites(); if (!B) return (WILD_CV[k] = null);
+  var an = null;
+  for (var i = 0; i < B.animals.length; i++) if (B.animals[i].id === id) an = B.animals[i];
+  if (!an || !an.frames[frame]) return (WILD_CV[k] = null);
+  var rle = an.frames[frame], flat = [], j;
+  for (j = 0; j < rle.length; j += 2) for (var n = 0; n < rle[j + 1]; n++) flat.push(rle[j]);
+  var cv2 = document.createElement('canvas');
+  cv2.width = B.w; cv2.height = B.h;
+  var g2 = cv2.getContext('2d');
+  var img = g2.createImageData(B.w, B.h), d = img.data;
+  for (j = 0; j < flat.length; j++) {
+    var v = flat[j]; if (!v) continue;
+    var hex = B.palette[v]; if (!hex) continue;
+    d[j * 4] = parseInt(hex.substr(1, 2), 16);
+    d[j * 4 + 1] = parseInt(hex.substr(3, 2), 16);
+    d[j * 4 + 2] = parseInt(hex.substr(5, 2), 16);
+    d[j * 4 + 3] = 255;
+  }
+  g2.putImageData(img, 0, 0);
+  return (WILD_CV[k] = cv2);
+}
+
+/* HOW MANY OF THEM THE VALLEY IS ALLOWED. His to move, printed by the gate, and
+   deliberately the only number in this feature that is not read off ethology. */
+var WILD_DENSITY = 1.0;
+
+function wildPass(ox, oy, C) {
+  WILD_DREW = [];
+  var B = wildSprites(); if (!B) return 0;
+  if (typeof BohemiaWildlife === 'undefined') return 0;
+  var min = 0; try { min = T.min | 0; } catch (_e) {}
+  var hour = Math.floor(min / 60);
+  var seeR = Math.ceil(Math.max(cv.width, cv.height) / C / 2) + 4;
+  var list;
+  try {
+    list = BohemiaWildlife.near({ seed: (typeof seed !== 'undefined' ? seed : 0),
+      at: [hx, hy], minute: min, radius: seeR, probe: wildProbe,
+      density: WILD_DENSITY });
+  } catch (_e) { return 0; }
+  var drawn = 0;
+  for (var i = 0; i < list.length; i++) {
+    var s = list[i];
+    /* AND THEY STAY GONE. A flushed animal that reappeared the moment you
+       stepped back would make the street a fruit machine instead of a place. */
+    var gk = s.at[0] + ',' + s.at[1] + ',' + hour;
+    if (s.state === 'gone') { WILD_GONE[gk] = 1; continue; }
+    if (WILD_GONE[gk]) continue;
+    var frame = s.state === 'alert' ? 'look' : 'rest';
+    var spr = wildCanvas(s.species, frame); if (!spr) continue;
+    var sx = ox + s.at[0] * C, sy = oy + s.at[1] * C;
+    if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
+    /* THE SIZE LADDER, the same one the player and the residents use: never a
+       fractional scale, so nothing in this world is ever resampled. */
+    var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    var onGlass = false;
+    for (var k = 0; k < s.count; k++) {
+      /* a flock is spread deterministically, so the same three ravens sit in
+         the same three places every time you come round that corner */
+      var jx = (BohemiaWildlife.hash(seed, s.at[0], s.at[1], k) * 2 - 1) * C * 0.8;
+      var jy = (BohemiaWildlife.hash(seed, s.at[1], s.at[0], k + 9) * 2 - 1) * C * 0.5;
+      var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
+      g.drawImage(spr, dx0, dy0, lad, lad);
+      drawn++;
+      /* *** RECORD ONLY WHAT LANDED ON THE GLASS. *** The cull above allows a
+         three-tile margin so nothing pops into existence at the edge, which is
+         right for DRAWING and wrong for a record: the first cut pushed every
+         sighting into WILD_DREW, so a probe walking the street reported a flock
+         it could not see, seven cells past the right edge. A CLAIM THAT COUNTS
+         THE THING INSTEAD OF READING IT, in the newest code in the file. */
+      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < cv.width && dy0 < cv.height) onGlass = true;
+    }
+    if (onGlass) WILD_DREW.push(s);
+  }
+  return drawn;
+}
+
 function peoplePass(ox, oy, C) {
   BARK_DREW = [];   /* __CITY_BARKS__ */
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
@@ -37429,6 +37805,10 @@ function renderHuman(){
      BEFORE the player, so somebody standing north of you is occluded by the
      same facade you are, and the front pass then covers everybody equally. */
   peoplePass(ox,oy,C);
+  /* __CITY_WILDLIFE__ -- and then whatever else lives here. After the people on
+     purpose: a bird on a wall is behind nobody, and if this ever throws the
+     valley keeps its residents. */
+  try { wildPass(ox, oy, C); } catch(_e){}
   try{ ctWitnessPass(); }catch(_e){}   /* __CITY_MEMORY__ */
   try{ ctGossipPass(); }catch(_e){}    /* __CITY_DEEDS__ */
   try{ barkPass(ox,oy,C); }catch(_e){}   /* __CITY_BARKS__ */

@@ -2770,6 +2770,96 @@ recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
 exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
 promised.
 
+PEOPLE (people-7h9sfy): 8/28 (b) LATEST -- *** THE VALLEY HAS ANIMALS IN IT.
+Ravens, grackles, pigeons, rats and a coyote, and the whole point is that they
+LOOK AT YOU AND THEN THEY GO. TAB: RUN, walk out of the house. Nothing to
+judge. ***
+
+THE ROW: ALIVE-1's other half, and the half a number could never fix. Yesterday
+I measured that at the TOP of the population slider (~96,885 people) twenty-three
+walks in thirty-two still meet nobody, because the valley is ~151 square km and a
+step is a metre. AMBIENCE DOES NOT NEED A CENSUS: a resident has to live
+somewhere in all of that and be FOUND, a raven is placed NEXT TO THE PLAYER.
+MEASURED ON THE GLASS: something living is on screen in EIGHT STEPS, against a
+median of 323 for a person.
+
+His own 8/25 bestiary research called it first: "the reason the city feels dead
+is not that we lack enemies. It is that we lack ANIMALS ... set dressing that
+moves, and the cheapest fix on this list for the loudest complaint on it."
+
+FIVE SPECIES, AND A GATE CLAIM READS EVERY ONE BACK AGAINST THE CLARK COUNTY
+RESEARCH FILE, so the roster cannot drift off its sources into invention:
+  RAVEN    a roofline or a wall, day        flushes at 5 cells, alert at 9
+  GRACKLE  open ground, not the afternoon    up all at once at 3
+  PIGEON   a ledge and the pavement under it hops off at 3
+  RAT      against a wall, NIGHT only        gone into it at 2
+  COYOTE   a long open run, dawn and dusk    NOTHING. Keeps walking.
+
+*** AND THE REACTION IS THE FEATURE. *** Researched 8/28: every write-up of why
+game animals work lands not on the animal but on what it does about YOU, and the
+ethology gives the shape. ALERT DISTANCE and FLIGHT INITIATION DISTANCE are
+measured SEPARATELY in urban corvids, so the bird notices you at one range and
+leaves at a shorter one. A BIRD THAT SITS THERE IS SCENERY. A BIRD THAT LEAVES
+WHEN YOU GET CLOSE IS ALIVE, and it costs one distance check.
+AND A FEEDING ANIMAL LETS YOU GET CLOSER -- measured in hooded crows, which
+"alerted later and escaped at shorter distance if they were feeding". Built, and
+dormant until something in the world is marked as food, which is tier 2. The
+module says so in its own CANNOT list.
+AND EXACTLY ONE OF THEM IGNORES YOU, by gate claim: the coyote, because the
+research wrote that animal down ("crossing the wash three blocks away and not
+caring about you") and its indifference only reads as indifference BECAUSE THE
+OTHERS FLUSH. A ROSTER WHERE EVERYTHING REACTS THE SAME WAY HAS NO CHARACTER.
+They also STAY GONE once flushed, or the street is a fruit machine.
+
+THE ART TOOK THREE PASSES AND THEN ONE REVERSAL, and the reversal is the lesson:
+  cut 1  a tall oval with the head on top -- THREE BOWLING PINS WITH A YELLOW EYE
+  cut 2  laid down on a diagonal -- the body swallowed the head, beak and tail
+  cut 3  shrink the body, let the head, beak and tail LEAVE the silhouette. At
+         sixteen pixels a bird is four marks in the right relationship, and
+         anything that does not leave the silhouette is invisible.
+*** THEN I JUDGED THEM ON THE WRONG SURFACE AND NEARLY KILLED THEM. *** On a 7x
+contact sheet they read as lizards and I had written down that the art failed.
+Put them IN THE GAME at 1:1 on a 44px tile and they read as birds on a wall. A
+contact sheet at seven times size is a magnifying glass held to something meant
+to be seen at one. VERIFY ON THE REAL SURFACE is a law about art and it caught
+me judging a cook on a bench instead of in the game.
+AND THE 45 DEGREE LAW IS HELD IN THE SHAPE A CREATURE HAS. This bank is
+deliberately NOT registered in art_45_gate, whose proxies are an ellipse stack at
+the BASE and a lit top face over wall rows -- A RAVEN HAS NO BASE, and running
+that ruler on a bird is a broken ruler pointed at the wrong subject. Held
+instead as: you are above it, the top is sky-lit, three tones minimum, and not
+left-right symmetrical because a three-quarter view never is.
+
+THREE RULERS BROKE AND ALL THREE ARE THE SAME MISTAKE:
+  the lighting check split the CANVAS in half and called the rat lit from
+  underneath. The rat is a LOW animal in rows 7-12 of a 16-row sprite, so the
+  canvas midline put one pixel in "upper". Its own halves are 310 against 185.
+  IT WAS MEASURING WHERE THE ANIMAL SAT IN THE BOX.
+  the real-surface check read "far" at twelve cells, which is off the top of a
+  390x844 screen, so it could not tell "it has not noticed me" from "it is not
+  on the screen". A CLAIM THAT CANNOT TELL ITS TWO ANSWERS APART IS NOT A CLAIM.
+  and the draw pass recorded every sighting INCLUDING the ones drawn into the
+  three-tile cull margin, so a probe reported a flock seven cells past the right
+  edge. It records only what landed on the glass now.
+
+  GATE: gates/wildlife_gate.js, WILDLIFE, 30 claims, 0 red. Mutations: the coyote
+  made to care 1 red, one distance instead of two 1 red, a species out at every
+  hour 1 red.
+  engine/bohemia_wildlife.js  tools/bohemia_wildlife_factory.py (REUSE CHECK: the
+  prop bank has bag/barrel/bin/dumpster and NOT ONE ANIMAL)
+  tools/bohemia_city_wildlife_patch.py  banks/BOHEMIA_WILDLIFE_SPRITES.js
+  RECORD: records/BOHEMIA_THE_VALLEY_HAS_ANIMALS_IN_IT_8_28_26.md
+
+WHAT COMES AFTER ON THIS ROW: TIER 2, which the same research already lays out --
+DOG PACKS and coyote packs, pack AI that flanks and breaks off and comes back,
+which is where the RF4 "the fight has to move you" work lands with teeth instead
+of a rule. And a den has what the dogs dragged home, which is the first loot idea
+this game has ever had (dispatch item 8c: "right now there is not one loot idea
+in the build"). TIER 3 is whoever holds the worst blocks and is RESERVED AND HIS.
+Also still open and named: nothing in the world is marked as FOOD yet, so the
+measured feeding effect is built and dormant.
+
+--------------------------------------------------------------------------------
 PEOPLE (people-7h9sfy): 8/28 LATEST -- *** THE CITY IS DEAD AND THE SLIDER WAS
 NEVER THE ANSWER. Measured, fixed as far as a number can fix it, and the half
 that is left is NAMED. TAB: RUN, walk out of the house and look. Nothing to
