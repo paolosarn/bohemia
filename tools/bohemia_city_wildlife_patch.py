@@ -206,6 +206,43 @@ def module_body():
             + BANK_BANNER + '\n' + bank + BANK_BANNER + '\n')
 
 
+def refresh_block(html, banner, src):
+    """Replace one banner-delimited inlined block with what is on disk NOW.
+
+    *** ADDED 8/30 AFTER THE TIER 2 TOOL WAS BITTEN BY THIS TWICE IN ONE HOUR.
+    *** repair() only puts a block back when it is MISSING. It has never noticed
+    a block that is PRESENT AND STALE, so editing engine/bohemia_wildlife.js or
+    re-cooking the sprite bank changed the file on disk and changed nothing the
+    player sees, and the tool printed "already applied" while it happened. The
+    edit is right, the file is right, and the game is old: that is the
+    invisible-hats shape. A source of truth has to be copied forward EVERY RUN,
+    not once."""
+    a = html.find(banner)
+    if a < 0:
+        return html, False
+    b = html.find(banner, a + len(banner))
+    if b < 0:
+        return html, False
+    cur = html[a + len(banner):b]
+    fresh = '\n' + open(src, encoding='utf-8').read()
+    if not fresh.endswith('\n'):
+        fresh += '\n'
+    if cur == fresh:
+        return html, False
+    return html[:a + len(banner)] + fresh + html[b:], True
+
+
+def refresh_all(html):
+    notes = []
+    html, a = refresh_block(html, MOD_BANNER, MOD_SRC)
+    if a:
+        notes.append('the inlined wildlife module, which was older than the file')
+    html, b = refresh_block(html, BANK_BANNER, BANK_SRC)
+    if b:
+        notes.append('the inlined sprite bank, which was older than the cook')
+    return html, notes
+
+
 def repair(html):
     """PUT THE MODULE BACK IF SOMETHING TOOK IT OUT, checked on its own banner
     rather than on the patch marker, because a one-shot patch that no-ops on its
@@ -225,6 +262,8 @@ def main():
     html = open(CITY, encoding='utf-8').read()
     if MARK in html:
         html, healed = repair(html)
+        html, notes = refresh_all(html)
+        healed += notes
         if healed:
             open(CITY, 'w', encoding='utf-8').write(html)
             print('  REPAIRED  ' + CITY + '  -- put back: ' + '; '.join(healed))
@@ -243,8 +282,10 @@ def main():
     html = html.replace(MOD_ANCHOR, module_body() + MOD_ANCHOR, 1)
     for _name, anchor, rep in steps:
         html = html.replace(anchor, rep, 1)
+    html, notes = refresh_all(html)
     open(CITY, 'w', encoding='utf-8').write(html)
-    print('  patched  ' + CITY + '  (the valley has animals in it)')
+    print('  patched  ' + CITY + '  (the valley has animals in it)'
+          + ('  [+ ' + '; '.join(notes) + ']' if notes else ''))
 
 
 if __name__ == '__main__':

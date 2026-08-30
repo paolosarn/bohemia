@@ -67,6 +67,23 @@ PAL = [
     '#d8c9a8',   # 19 coyote throat + underside
     '#d7c04a',   # 20 an eye
     '#2a2a2a',   # 21 a beak / a leg
+    # ---- TIER 2: THE DOGS (8/30/26) -----------------------------------------
+    # Three street dogs, and they are three SIZES as well as three coats,
+    # because a recolour is never progress (STRUCTURE-NOT-COLOR, 7/19). The
+    # picker that reads these is WEIGHTED, not uniform: a list is not a
+    # distribution, and this repo has paid for that three times.
+    '#3b2f24',   # 22 sandy dog shadow
+    '#6f5a3e',   # 23 sandy dog body
+    '#957a55',   # 24 sandy dog back, sky-lit
+    '#cbb68e',   # 25 sandy dog underside
+    '#141416',   # 26 black dog shadow
+    '#26241f',   # 27 black dog body
+    '#3b382f',   # 28 black dog back, sky-lit
+    '#7a6a48',   # 29 black dog tan points
+    '#5a5346',   # 30 pale dog shadow
+    '#8f887a',   # 31 pale dog body
+    '#b8b2a4',   # 32 pale dog back, sky-lit
+    '#e2ddd2',   # 33 pale dog underside
 ]
 
 # ---- THE SPEC ----------------------------------------------------------------
@@ -86,6 +103,19 @@ SPEC = [
     {'id': 'coyote',  'tones': (16, 17, 18, 19),  'len': 12, 'wide': 6, 'tail': 5,
      'legs': 4, 'beak': 0, 'source': 'thrived in Las Vegas despite rapid urban '
      'development; the washes are its highway'},
+    # ---- TIER 2 ----------------------------------------------------------
+    # Free-ranging dogs, the animal the pack row is actually about. Same
+    # generator as the coyote, three geometries: the common street dog, a
+    # bigger heavier one, and a small light one.
+    {'id': 'dogsandy', 'tones': (22, 23, 24, 25), 'len': 11, 'wide': 6, 'tail': 4,
+     'legs': 4, 'beak': 0, 'source': 'free-ranging dog, primarily a scavenger '
+     'dependent on human-generated waste'},
+    {'id': 'dogblack', 'tones': (26, 27, 28, 29), 'len': 12, 'wide': 7, 'tail': 4,
+     'legs': 4, 'beak': 0, 'source': 'free-ranging dog, the heavier end of a '
+     'group of two to six adults'},
+    {'id': 'dogpale',  'tones': (30, 31, 32, 33), 'len': 10, 'wide': 5, 'tail': 5,
+     'legs': 4, 'beak': 0, 'source': 'free-ranging dog, the light small one that '
+     'is in most groups'},
 ]
 
 
@@ -216,7 +246,28 @@ def draw_beast(sp, frame):
     # THE HEAD, low and forward: it is going somewhere and not looking at you
     hx = cx - L / 2.0 - 1.0
     hy = cy + (0.6 if frame != 'look' else -1.4)
+    # *** THE NECK, AND IT WAS MISSING UNTIL 8/30. *** Only LOOKING found this:
+    # the 'look' frame lifts the head two rows and this drawing had nothing
+    # joining it to the barrel, so a dog raising its head left the head FLOATING
+    # with a gap under it and a yellow eye hanging in the air above the body.
+    # The bird has had a neck since the first cut and the beast never did. It is
+    # the same failure as the hair letting go of itself at the jaw on 8/27: THE
+    # MASS HAS TO STAY ONE MASS, and no number in this file could have said so.
+    # AND THE FIRST NECK WAS GUESSED AND MISSED. It laid four pixels along a
+    # slope I worked out on paper, and every one landed on a pixel that was
+    # already painted, so the gap it was written to close was still there and
+    # the head still floated. A BRIDGE HAS TO BE MEASURED FROM THE TWO BANKS,
+    # NOT ESTIMATED FROM THE MIDDLE: this one draws the head first and then
+    # fills whatever is still empty between the head and the body on each of
+    # the rows they share, so it cannot leave a hole whatever the frame does.
     ell(px, hx, hy, 2.0, 1.7, back)
+    for row in range(max(0, int(hy) - 1), min(H, int(hy) + 3)):
+        painted = [x for x in range(W) if px[row][x]]
+        if len(painted) < 2:
+            continue
+        for x in range(painted[0], painted[-1]):
+            if not px[row][x]:
+                px[row][x] = back if row <= int(hy) else body
     ell(px, hx - 0.4, hy - 0.5, 1.3, 1.0, det)
     # THE MUZZLE. Looking at the first batch, the coyote was a blob with legs
     # because its head had no snout: a canid IS its muzzle at this size.
@@ -232,7 +283,10 @@ def draw_beast(sp, frame):
             px[y][x] = back
         if 0 <= x < W and 0 <= y + 1 < H and not px[y + 1][x]:
             px[y + 1][x] = det
-    ex, ey = int(hx - 0.4), int(hy - 0.3)
+    # THE EYE, ONE PIXEL IN FROM THE EDGE. It was at int(hx - 0.4), which is the
+    # OUTERMOST pixel of the head, so on a dark animal it read as a yellow dot
+    # floating beside the body rather than as an eye in a face.
+    ex, ey = int(hx + 0.1), int(hy - 0.3)
     if 0 <= ex < W and 0 <= ey < H:
         px[ey][ex] = 20
     # THE TAIL, down and behind
@@ -243,16 +297,32 @@ def draw_beast(sp, frame):
             px[y][x] = body if i % 2 else sh
     # LEGS: near pair long and dark, far pair SHORTER, which is the whole
     # signature of standing above something rather than beside it
+    # AND THE LEGS ARE THE ANIMAL'S OWN COLOUR, NOT NEAR-BLACK. In the game at
+    # 1:1 the old legs read as four black sticks under a blob -- a table, or a
+    # spider. Index 21 is a BIRD'S leg, which is a thin dark scaly thing, and a
+    # dog's leg is furred and the same colour as the dog. Shorter too: the near
+    # pair was four rows under a six-row body, which is a stilt.
+    # *** AND THE FAR PAIR LANDED ON THE NEAR PAIR'S OWN TWO COLUMNS. *** Read
+    # off the sprite: cx - L/4 and cx - L/4 + L/2 with NO offset for distance,
+    # so legs two and four drew over legs one and three, in shadow, and every
+    # four-legged animal in this game has had TWO dark sticks under it since the
+    # coyote was cooked. That is why they read as a table. A FAR LEG THAT IS AT
+    # THE SAME PLACE AS A NEAR LEG IS NOT A FAR LEG. Further away means higher
+    # on the screen and offset across, which is the whole signature of standing
+    # above something, so the 45 law fixes the bug on its own. Far pair first,
+    # near pair over it, because near is in front.
     step = 1 if frame == 'go' else 0
-    for i in range(4):
+    for i in (2, 3, 0, 1):
         near = i < 2
-        x = int(cx - L / 4.0 + (i % 2) * (L / 2.0) + (step if near else 0))
-        y0 = int(cy + Wd / 2.0 - 1)
-        span = 4 if near else 2
+        x = int(cx - L / 4.0 + (i % 2) * (L / 2.0) + (step if near else 1))
+        y0 = int(cy + Wd / 2.0 - 1) - (0 if near else 1)
+        span = 3 if near else 2
         for k in range(span):
             y = y0 + k
             if 0 <= x < W and 0 <= y < H:
-                px[y][x] = 21 if near else sh
+                # near legs in the body tone so they belong to the animal, and
+                # the last row of each in shadow so it meets the ground
+                px[y][x] = (sh if k == span - 1 else body) if near else sh
     return px
 
 
@@ -289,7 +359,11 @@ def draw_rat(sp, frame):
 
 
 DRAW = {'raven': draw_bird, 'grackle': draw_bird, 'pigeon': draw_bird,
-        'rat': draw_rat, 'coyote': draw_beast}
+        'rat': draw_rat, 'coyote': draw_beast,
+        # TIER 2: the same generator the coyote uses. ONE drawing of a
+        # four-legged canid, three spec rows. A second generator for the same
+        # animal shape is how two things that should be one drift apart.
+        'dogsandy': draw_beast, 'dogblack': draw_beast, 'dogpale': draw_beast}
 
 
 def rle(px):

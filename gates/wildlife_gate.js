@@ -66,11 +66,29 @@ ok('*** EVERY SPECIES IS IN THE SOURCED CLARK COUNTY ROSTER ***',
   unsourced.length === 0,
   unsourced.length ? unsourced.map(function (s) { return s.id; }).join(', ')
     : W.SPECIES.map(function (s) { return s.id; }).join(', '));
-ok('and the sprite bank draws exactly the roster, no more and no less',
-  BANK.animals.length === W.SPECIES.length
-  && W.SPECIES.every(function (s) {
-    return BANK.animals.some(function (a) { return a.id === s.id; }); }),
-  BANK.animals.length + ' cooked');
+/* *** REPOINTED 8/30, NOT LOOSENED. *** This asked for the bank to hold EXACTLY
+   the tier 1 roster, which was true while tier 1 was the only thing in it. Tier
+   2 then cooked three dogs into the SAME bank on purpose -- one generator for a
+   four-legged canid, not two, because a second drawing of the same animal shape
+   is the two-mechanisms mistake -- and the count went to eight.
+   THE CLAIM THAT MATTERS HAS NOT CHANGED AND IS NOT WEAKER: nothing may sit in
+   this bank that no module claims. Every tier 1 species is drawn, and every
+   EXTRA animal has to be named by another live tier, so an id cannot be cooked
+   in and quietly belong to nobody. */
+var TIER2 = (function () {
+  try { return require(path.join(ROOT, 'engine/bohemia_packs.js')); } catch (_e) { return null; }
+})();
+var claimed = {};
+W.SPECIES.forEach(function (s) { claimed[s.id] = 'tier 1'; });
+if (TIER2) Object.keys(TIER2.COATS).forEach(function (k) {
+  TIER2.COATS[k].forEach(function (c) { claimed[c.id] = claimed[c.id] || 'tier 2'; }); });
+var orphan = BANK.animals.filter(function (a) { return !claimed[a.id]; });
+ok('the sprite bank draws every species in the roster, and NOTHING no module claims',
+  W.SPECIES.every(function (s) {
+    return BANK.animals.some(function (a) { return a.id === s.id; }); })
+  && orphan.length === 0,
+  BANK.animals.length + ' cooked, ' + Object.keys(claimed).length + ' claimed'
+    + (orphan.length ? ', ORPHANS: ' + orphan.map(function (a) { return a.id; }).join(',') : ''));
 ok('every cooked animal carries the sentence it came from',
   BANK.animals.every(function (a) { return a.source && a.source.length > 20; }));
 
