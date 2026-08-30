@@ -22241,9 +22241,30 @@ const BEAT=500; // 120BPM law
     // street on its south side" -- meaningless for a freeway, and it is why the top third
     // of the freeway grid was bare dirt with a hard edge across it: one leg stopped the
     // roadbed half a cell short. Nothing dead-ends on a freeway.
+    /* *** AND IT FORCED THE AXIS TOO, WHICH IS THE ARTERIAL'S 8/26 BUG VERBATIM (8/28). ***
+       The paragraph above is right about BOTH LEGS and it was implemented as
+           o.same = o.links = o.streets = ['N', 'S'];
+       which forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+       NORTH-SOUTH however it actually ran. The street contract gate's own header describes
+       this identical line, in the arterial, as that module's defect number one -- "EVERY
+       ARTERIAL IN THE VALLEY WAS BUILT NORTH-SOUTH. The registration forced
+       `o.links = ['N','S']`, axis included. 921 cells". It was fixed there on 8/26 and
+       NOBODY SWEPT THE CLASS. Third time this month: the dead-green palette went the same
+       way, fixed three times one module at a time.
+       MEASURED: `freeway(15,13)` runs east-west, has freeway to its east and west, and its
+       edge profiles came back N 18..110, S 18..110, E -1..-1, W -1..-1 -- the carriageway
+       drawn ninety degrees to the direction the road runs. The whole east-west leg of the
+       corridor was in TWO-CELL ISLANDS: 249 of 952 freeway cells cut off from the valley's
+       road network, and a car could not drive the length of the interstate.
+       The module itself was correct all along; handed same=['S','W','E'] it builds E/W
+       exactly right. This one line threw the world's answer away before it got there.
+       THE BOTH-LEGS RULE IS KEPT AND ONLY IT: a caller that says nothing, or says one leg
+       ("fronts a street on its south side", which really is meaningless for a freeway),
+       still gets a through-running north-south cell exactly as before. */
     generate: function (seed, opts) {
       var o = {}; for (var k in (opts || {})) o[k] = opts[k];
-      o.same = o.links = o.streets = ['N', 'S'];
+      var ans = (opts && opts.same) || (opts && opts.links) || (opts && opts.streets) || null;
+      if (!ans || ans.length < 2) o.same = o.links = o.streets = ['N', 'S'];
       return generate(seed, o);
     },
     body: function (c) { return c === 8 || c === 4; },

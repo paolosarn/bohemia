@@ -1,3 +1,88 @@
+WORLD (world-9lfjtf): 8/29 (c) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
+THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
+Four failed guesses, then a different KIND of measurement found it in one run.
+Nothing to judge. ***
+
+TAB: RUN. Walk to any freeway. Build 8/29c - YOU CAN DRIVE THE INTERSTATE.
+
+THE LINE, in bohemia_freeway.js's kit registration:
+    o.same = o.links = o.streets = ['N', 'S'];
+  It forces both legs AND THE AXIS, so EVERY FREEWAY IN THIS VALLEY WAS BUILT
+  NORTH-SOUTH however it actually ran. street_contract_gate's own header has
+  described this identical line, in the ARTERIAL, as that module's defect number
+  one since the day it was written. Fixed there 8/26. NOBODY SWEPT THE CLASS.
+  Third time this month -- the dead-green palette went the same way, fixed three
+  separate times one module at a time.
+
+WHAT IT COST, MEASURED
+  freeway(15,13) runs east-west, has freeway east and west of it, and measured
+    N 18..110   S 18..110   E -1..-1   W -1..-1
+  the carriageway drawn NINETY DEGREES to the direction the road runs. The whole
+  east-west leg of the corridor sat in two- and three-cell islands.
+    separate road networks in the valley      214  ->  100
+    biggest network's share of road cells    91.6% -> 95.8%
+    freeway cells stranded off it          249/952 ->  2
+    freeway <-> freeway broken seams            40 ->  14
+    where two road classes meet                129 ->  34
+  The module was correct all along: handed same=['S','W','E'] it builds east-west
+  exactly right. The line threw the world's answer away before it got there. The
+  BOTH-LEGS rule it was really about is kept and only that.
+
+AND IT TOOK FOUR FAILURES, EVERY ONE A GUESS
+  1. a MAP fact, off two sampled cells. Wrong.
+  2. the beltway's four corners, from reading the overmap. Built, run, changed
+     the count by exactly zero. Reverted.
+  3. "does my sibling carriageway have a cross street". 40 -> 199. Reverted.
+  4. the same question asked SYMMETRICALLY over the shared ribbon. 40 -> 216.
+     Reverted.
+  3 and 4 were both about the OVERPASS DECKS, because I had photographed a seam
+  and seen two carriageways whose bridges did not line up. THE PHOTOGRAPH WAS
+  REAL AND THE CONCLUSION FROM IT WAS STILL WRONG: the decks do not line up
+  BECAUSE THE ROAD UNDER THEM IS DRAWN SIDEWAYS. I was fixing the symptom I could
+  see instead of asking why it was there.
+
+THE MEASUREMENT THAT ACTUALLY FOUND IT -- NOT ANOTHER SEAM COUNT
+  A NETWORK. Turn the connector data into a graph: a node per cell with any
+  corridor, an edge wherever two cells' corridors OVERLAP at their shared seam,
+  then connected components. The first run said 214 separate networks, 249
+  freeway cells cut off, AND EVERY ONE OF THEM ON ROW 13. A pattern that obvious
+  cannot survive being looked at.
+  A COUNT IS NOT A LOCATION, and that is what cost four attempts: every seam
+  number told me how bad it was and nothing about where to go. Note also that
+  attempt 4 moved the seam count and DID NOT MOVE THE NETWORK AT ALL -- that was
+  the signal the two were different problems and I had the wrong one.
+
+TWO NEW GATE CHECKS, ABOUT THE WHOLE MAP RATHER THAN ONE EDGE
+  THE VALLEY IS ONE ROAD NETWORK -- share of road cells reachable from the
+    biggest network, floor 95.5%, only ever goes UP, so no future fix can quietly
+    cut the map in half while every local seam still passes.
+  AND YOU CAN DRIVE THE INTERSTATE -- freeway cells stranded off the main
+    network, ceiling 4, measured 2.
+  street_contract_gate is 21 checks, green. Ceilings ratcheted: cross-class
+  129 -> 34, freeway 40 -> 14, reach 700 -> 642. Arterial and rail still zero
+  with no allowance. Road cell, walkable-land, drive network, occupancy, sidewalk
+  sanctity, district kit, tilespec and line colour all green.
+
+ALSO THIS TURN: THE METRIC LEARNED WHAT A JUNCTION IS
+  `arterial 47..81 vs freeway 18..110` was being counted as 99 breaks. It is the
+  smaller road landing inside the bigger one's corridor -- a bridge or a ramp --
+  and it is correct. SAME FAMILY IS A CONTINUATION and matches tile for tile;
+  DIFFERENT FAMILY IS A JUNCTION and only has to be CONTAINED. Same reasoning as
+  a shop driveway feeding onto a road, one class up. The strict cross-class count
+  is untouched and still ratchets, so nothing hides.
+
+THE LESSON
+  A FIX THAT IS NOT A SWEEP IS A FIX THAT WILL BE MADE AGAIN -- second time this
+  week that is the headline. When a post-mortem names a defect by its SHAPE
+  rather than its file, the work is not done until grep has been run on the shape.
+
+WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
+  35 solar<->desert, 24 commercial<->freeway, 24 desert<->freeway, 19
+  commercial<->rail. 14 freeway<->freeway and 34 cross-class remain named and
+  ratcheted. 100 road networks left, of which the airbase and airport islands are
+  fenced ON PURPOSE and should never join.
+
+RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
 COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
 WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
 THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***

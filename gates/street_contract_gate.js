@@ -97,8 +97,11 @@ function requirePlaywright() {
    were the arterial's numbers on the day somebody typed them, and the arterial moved to
    17/19 on 8/26. A street 35 tiles wide ran up to the railway, crossed on a 43-tile
    crossing and came off 35 wide again. It reads ART.PAVE_HALF now. 37 seams, and the
-   FIFTH time this month a constant moved and its dependent stayed behind. */
-const CROSS_CLASS_DEBT = 129;
+   FIFTH time this month a constant moved and its dependent stayed behind.
+   RATCHETED AGAIN 8/28: 129 -> 34 when the FREEWAY stopped being built north-south
+   however it actually ran. See the freeway note below; one line in its registration was
+   throwing away the world's answer before the module ever saw it. */
+const CROSS_CLASS_DEBT = 34;
 
 /* AND THE TWO SAME-CLASS CAUSES STILL STANDING, EACH NAMED AND EACH COUNTED. Paolo's
    wording is "fails on a single mismatched edge", and that is exactly what ARTERIAL --
@@ -148,7 +151,16 @@ const CROSS_CLASS_DEBT = 129;
    county grades an apron at every one, so the road lays one -- graded DIRT, not the poured
    concrete a shopping plaza gets, because giving a two-track an apron would be the same
    lie as giving a dead lawn a green. 2,668 -> 700 over two turns, 36.3% -> 9.5%. */
-const REACH_DEBT = 700;
+const REACH_DEBT = 642;
+
+/* HOW MUCH OF THE VALLEY'S ROAD A CAR CAN ACTUALLY REACH, and how many freeway cells are
+   stranded off it. These are FLOORS AND CEILINGS ON THE WHOLE MAP rather than on one seam,
+   and they exist because four attempts were spent fixing seams that were not what was
+   cutting the interstate in half. Measured 8/28 after the freeway stopped being built
+   north-south: 95.8% of road cells on one network, up from 91.6%, and 2 stranded freeway
+   cells, down from 249. */
+const NET_FLOOR = 0.955;
+const FWY_ORPHAN_DEBT = 4;
 
 const SAME_CLASS_DEBT = {
   interchange: 3,
@@ -172,7 +184,16 @@ const SAME_CLASS_DEBT = {
      carrying a 35-tile road (a literal that stopped tracking when the arterial moved), and
      the deck axis was taken from the freeway's FAMILY neighbours instead of the axis it
      runs on, so corner and tied cells chose no axis and built no bridge at all. */
-  freeway: 40
+  /* FREEWAY 40 -> 14 (8/28). The 40 were never a map fact and never the beltway's corners
+     -- both of those were guesses, and the second was built, run and reverted for changing
+     the count by zero. They were ONE LINE in the freeway's kit registration:
+         o.same = o.links = o.streets = ['N', 'S'];
+     which forces both legs AND THE AXIS, so every freeway in the valley was built
+     north-south however it actually ran. This gate's own header calls that identical line,
+     in the arterial, that module's defect number one. It was fixed there on 8/26 and
+     nobody swept the class. `freeway(15,13)` runs east-west and measured N 18..110,
+     S 18..110, E -1..-1, W -1..-1: the carriageway drawn ninety degrees to the road. */
+  freeway: 14
 };
 
 (async () => {
@@ -282,6 +303,15 @@ const SAME_CLASS_DEBT = {
         const N = om.n;
         /* THE VALLEY RIM. A street really does end at these. Counted APART so the headline
            can never be padded with roads that stop at a mountain. */
+        /* SAME ROAD OR A DIFFERENT ONE, WHICH IS NOT THE SAME QUESTION AS "BOTH ARE ROADS".
+           An arterial running into another arterial is a CONTINUATION and must match tile for
+           tile. An arterial arriving at a FREEWAY is a JUNCTION -- it bridges over on a deck
+           or it ramps on, and either way `arterial 47..81 vs freeway 18..110` is the smaller
+           road landing inside the bigger one's corridor, which is correct and was being
+           counted as 99 breaks. Same reasoning as a shop's driveway feeding onto a road, one
+           class up. The gate's own header has said this since the day it was written: "a
+           freeway is not an arterial and the place they meet is an interchange." */
+        const rfam = d => d === 'arterial_x' ? 'arterial' : d === 'beltway' ? 'freeway' : d;
         const WILD = { desert: 1, mountain: 1, water: 1, wash: 1 };
         function conn(tx, ty, edge) {
           let m; try { m = tileMeta(tx, ty); } catch (e) { return null; }
@@ -319,7 +349,7 @@ const SAME_CLASS_DEBT = {
                mouth wholly inside the larger, nothing hanging off the side. Partial overlap
                and disjoint are still broken: that is a driveway that half-misses the road,
                which is the thing that actually looks wrong on the ground. */
-            const bothRoad = !!RD[t.district] && !!RD[u.district];
+            const bothRoad = !!RD[t.district] && !!RD[u.district] && rfam(t.district) === rfam(u.district);
             let verdict = 'OK';
             if (!aHas || !bHas) verdict = 'ONE_SIDE';
             else if (bothRoad) { if (A.lo !== B.lo || A.hi !== B.hi) verdict = 'OFFSET'; }
@@ -444,6 +474,85 @@ const SAME_CLASS_DEBT = {
       ok('and it really did look outside the road network — this sweep sees more edges than ' +
          'the road-to-road one it was added to correct',
          RE.looked > R.seams * 1.4);
+    }
+
+    /* ── AND THE QUESTION UNDERNEATH EVERY SEAM COUNT: CAN A CAR GET ANYWHERE ─────────
+       Every check above is LOCAL -- does this one edge line up. None of them asks the thing
+       a player asks, which is whether the road outside your door reaches the road you want.
+       It cost four failed attempts on the freeway decks to learn the difference: the seam
+       count and the connectivity are not the same measurement, and I was chasing the wrong
+       one. When the real cause finally turned up, the seam count moved a little and the
+       NETWORK moved enormously -- 214 islands to 100, and 703 of 952 freeway cells on the
+       valley's main road network to 950.
+       Same connector data, turned into a graph: a node per cell that has any corridor, an
+       edge where two cells' corridors OVERLAP at the seam they share, then components.
+       Cell resolution on purpose: 96x96 cells of 128x128 tiles is 150 million tiles and a
+       flood over that in a browser is a hang, not a measurement. Overlap at the seam is
+       exactly the condition a car needs to cross a boundary, which is the only thing cell
+       resolution has to get right. */
+    const NET = await p.evaluate(() => {
+      const N = om.n;
+      function conn2(tx, ty, edge) {
+        let m; try { m = tileMeta(tx, ty); } catch (e) { return null; }
+        const g = m.kit; if (!g) return null;
+        const L = deadLegendFor(m); if (!L) return null;
+        let lo = -1, hi = -1;
+        for (let i = 0; i < FN; i++) {
+          const lx = edge === 'W' ? 0 : edge === 'E' ? FN - 1 : i;
+          const ly = edge === 'N' ? 0 : edge === 'S' ? FN - 1 : i;
+          const e = L[g[ly * FN + lx]]; if (!e) continue;
+          const k = e.kind;
+          const over = BohemiaDistrictKit.tileLayer(e).layer === 'overhead';
+          if (k === 'drive' || k === 'marking' || k === 'gate' || over) { if (lo < 0) lo = i; hi = i; }
+        }
+        return lo >= 0 ? { lo: lo, hi: hi } : null;
+      }
+      const idx = (x, y) => y * N + x;
+      const has = new Map(), prof = new Map();
+      for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) {
+        const t = om.at(tx, ty); if (!t) continue;
+        const e = {}; let any = false;
+        for (const ed of ['N', 'S', 'E', 'W']) { const c = conn2(tx, ty, ed); if (c) { e[ed] = c; any = true; } }
+        if (any) { has.set(idx(tx, ty), t.district); prof.set(idx(tx, ty), e); }
+      }
+      const par = new Map();
+      const find = a => { while (par.get(a) !== a) { par.set(a, par.get(par.get(a))); a = par.get(a); } return a; };
+      for (const k of has.keys()) par.set(k, k);
+      for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) {
+        const k = idx(tx, ty); if (!has.has(k)) continue;
+        for (const [ed, dx, dy, opp] of [['S', 0, 1, 'N'], ['E', 1, 0, 'W']]) {
+          const k2 = idx(tx + dx, ty + dy); if (!has.has(k2)) continue;
+          const A = prof.get(k)[ed], B = prof.get(k2)[opp];
+          if (!A || !B) continue;
+          if (A.lo <= B.hi && B.lo <= A.hi) { const a = find(k), b = find(k2); if (a !== b) par.set(a, b); }
+        }
+      }
+      const cnt = new Map();
+      for (const k of has.keys()) { const r = find(k); cnt.set(r, (cnt.get(r) || 0) + 1); }
+      let root = null, big = -1;
+      for (const [r, n] of cnt) if (n > big) { big = n; root = r; }
+      let fwy = 0, fwyBig = 0;
+      for (const [k, d] of has) {
+        if (d !== 'freeway' && d !== 'beltway') continue;
+        fwy++; if (find(k) === root) fwyBig++;
+      }
+      return { cells: has.size, components: cnt.size, biggest: big, fwy: fwy, fwyBig: fwyBig };
+    });
+    {
+      const pct = NET.cells ? NET.biggest / NET.cells : 0;
+      console.log('       ' + NET.cells + ' cells carry road, in ' + NET.components +
+                  ' separate networks; the biggest is ' + NET.biggest + ' (' +
+                  (100 * pct).toFixed(1) + '%), and ' + NET.fwyBig + ' of ' + NET.fwy +
+                  ' freeway cells are on it.');
+      ok('THE VALLEY IS ONE ROAD NETWORK — the share of road cells a car can reach from the ' +
+         'biggest network only ever goes UP, so no fix may quietly cut the map in half ' +
+         '(' + (100 * pct).toFixed(1) + '%, floor ' + (100 * NET_FLOOR).toFixed(1) + '%)',
+         pct >= NET_FLOOR);
+      ok('AND YOU CAN DRIVE THE INTERSTATE — freeway cells stranded off the main network ' +
+         '(' + (NET.fwy - NET.fwyBig) + ', ceiling ' + FWY_ORPHAN_DEBT + ')',
+         (NET.fwy - NET.fwyBig) <= FWY_ORPHAN_DEBT);
+      if (pct > NET_FLOOR + 0.002)
+        console.log('       RATCHET: connectivity is up to ' + (100 * pct).toFixed(1) + '%; raise NET_FLOOR.');
     }
 
     ok('there IS a three-cell straight run of street in the valley to walk',
