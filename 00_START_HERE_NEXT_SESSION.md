@@ -71,6 +71,57 @@ PROOF
 
 ================================================================================
 
+--------------------------------------------------------------------------------
+RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
+three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
+
+WORLD's own 8/29 post-mortem, after finding EVERY FREEWAY IN THE VALLEY BUILT
+SIDEWAYS: "it was fixed there on 8/26 and NOBODY SWEPT THE CLASS. Third time this
+month." The cost of that third time: 249 of 952 freeway cells cut off from the
+network, 214 separate road networks, a car that could not drive the interstate.
+AND HE HAS BEEN REPORTING THE VISIBLE HALF SINCE 8/15, and again on 8/28. Three
+reports, three fixes, one module at a time, and the class never swept.
+
+*** THE CLASS HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN LOOKED FOR. ***
+  SHAPE A, THE MODULE FORCES IT: o.same=o.links=o.streets=['N','S'] in a kit
+    registration, which throws the caller's answer away before the module sees
+    it. Arterial 8/26 (921 cells). Then, unswept, freeway 8/29. NOW 0 PLACES AND
+    HELD THERE.
+  SHAPE B, THE CALLER DEFAULTS IT: roadAxis(...)||'ns', turning "I do not know"
+    into a north-south road. Fixed for 14 freeway cells 8/27. STILL TRUE FOR 115
+    MORE and NEVER SWEPT. 2 places, ratcheted so it cannot grow.
+gates/nobody_swept_the_class_gate.js, 6/0. Mutation-tested by reintroducing the
+exact 8/29 freeway line: it names the file and the line, 1 red.
+
+NOT FIXED HERE, AND THE PROOF IS FROM 8/28: a crossing is an AGREEMENT BETWEEN
+TWO CELLS, not a decision one cell makes. The obvious one-line fix takes
+street_contract from 19/0 to 17/2 -- 115 wrong-facing cells become 191 broken
+seams. It has to be settled where the seam is negotiated, which is WORLD's live
+work, and they are moving fast on it.
+
+WHY THIS IS A SOURCE SWEEP AND IS NOT ASHAMED OF IT: the 8/15 facing gate was
+worthless because it used source text to answer a question about BEHAVIOUR. This
+one asks "does the pattern exist anywhere", which IS a question about source,
+while street_facing_is_measured_gate renders the real surface and counts real
+cells. THE BEHAVIOUR GATE SAYS HOW BAD, THIS ONE SAYS WHERE ELSE. Neither alone
+is enough and they are not substitutes. It strips comments first, because this
+class is documented by quoting the broken line verbatim and a naive grep reports
+the bug it just fixed; and it SELF-TESTS ITS OWN PATTERN against the historical
+line, because a sweep that finds nothing because its regex is wrong looks exactly
+like a clean codebase.
+
+  SWEPT THE CLASS 6/0 (new) · STREET FACING IS MEASURED 11/0 · both ratcheted
+  STILL 115 crossings built north-south with no east-west arms. That number is
+  WORLD's to move and it prints every suite run until it does.
+
+NEXT IN THIS LANE: the walked world. The road interrupts, leaves salvage and asks
+real questions -- but ONLY ON THE MAP. Most of the demo is WALKED, and nothing
+from that system touches it. Dispatch item 5, DEAD IS NOT THE DEFAULT, is still
+open where he actually spends his time. Then TIER 2 THE PACK (blocked on AR-006,
+the dog body, still OPEN in the art queue while feral_dog_pack FIRES).
+
+--------------------------------------------------------------------------------
+
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
 Four failed guesses, then a different KIND of measurement found it in one run.

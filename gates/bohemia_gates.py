@@ -752,6 +752,36 @@ GATES = [
      'day): it holds the number as a ceiling, prints it every run, and goes green on its own '
      'as it comes down. Mutation-tested by disabling the 8/27 tie-break poll: 115 -> 149, two '
      'claims red', True),
+    # 8/29 -- the WORLD lane's own post-mortem: "NOBODY SWEPT THE CLASS. Third time
+    # this month." This is the sweep.
+    ('SWEPT THE CLASS', ['node', 'gates/nobody_swept_the_class_gate.js'],
+     'NOBODY SWEPT THE CLASS -- a road is never handed an axis the world did not give it. The '
+     'WORLD lane wrote its own post-mortem on 8/29 after finding EVERY FREEWAY IN THE VALLEY '
+     'BUILT SIDEWAYS: "the street contract gate\'s own header describes this identical line, '
+     'in the arterial, as that module\'s defect number one ... it was fixed there on 8/26 and '
+     'NOBODY SWEPT THE CLASS. Third time this month." The cost of that third time, measured: '
+     '249 of 952 freeway cells cut off from the road network, 214 separate road networks, and '
+     'a car that could not drive the length of the interstate. AND PAOLO HAS BEEN REPORTING '
+     'THE VISIBLE HALF SINCE 8/15 and again on 8/28 -- he is not reporting three bugs, he is '
+     'reporting ONE CLASS THREE TIMES, because it gets fixed one module at a time. THE CLASS '
+     'HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN SWEPT. Shape A, THE MODULE FORCES IT: '
+     'o.same=o.links=o.streets=[\'N\',\'S\'] in a kit registration, throwing the caller\'s '
+     'answer away before the module sees it -- arterial (8/26, 921 cells), then unswept, '
+     'freeway (8/29). Now 0 places and held there. Shape B, THE CALLER DEFAULTS IT: '
+     'roadAxis(...)||\'ns\', turning "I do not know" into a north-south road -- fixed for 14 '
+     'freeway cells on 8/27, STILL TRUE FOR 115 MORE, and never swept. 2 places, ratcheted. '
+     'NOT FIXED HERE because a crossing is an agreement between two cells and not a decision '
+     'one cell makes: the one-line fix was tried 8/28 and took street_contract 19/0 -> 17/2, '
+     'turning 115 wrong-facing cells into 191 broken seams. THIS IS A SOURCE SWEEP AND IS NOT '
+     'ASHAMED OF IT: the 8/15 facing gate was worthless because it used source text to answer '
+     'a question about BEHAVIOUR; this one asks "does the pattern exist anywhere", which IS a '
+     'question about source, while street_facing_is_measured_gate renders the real surface and '
+     'counts real cells. The behaviour gate says HOW BAD, this one says WHERE ELSE. It strips '
+     'comments first (the class is documented by quoting the broken line verbatim, so a naive '
+     'grep reports the bug it just fixed) and SELF-TESTS ITS OWN PATTERN against the '
+     'historical line, because a sweep that finds nothing because its regex is wrong looks '
+     'exactly like a clean codebase. Mutation-tested by reintroducing the 8/29 freeway line: '
+     'names the file and line, 1 red', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
