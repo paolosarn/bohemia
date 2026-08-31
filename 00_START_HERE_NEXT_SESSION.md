@@ -89,6 +89,14 @@ FOUND AND NOT FIXED, NAMED SO IT IS NOT INVISIBLE:
   [PENDING PAOLO] on whether the dynasty lives at all. Not for a session to resolve in
   passing.
 
+ALSO FOUND ON THE MERGED TREE AND NOT MINE TO FIX: the city carries STALE inlined
+copies of engine/bohemia_watertreat.js and engine/bohemia_speedway.js (and railyard
+on origin/main itself). ENGINE SYNC LAW: one canonical body per module, and a stale
+inlined snapshot is the bug that meant nobody in Las Vegas had a faction for thirteen
+days in August with every gate green. `python3 tools/bohemia_city_module_resync.py`
+fixes it in one run. Left alone because those are WORLD's modules and a resync mid-
+flight would move a system this session does not own -- ONE SYSTEM, ONE SESSION.
+
 WHAT IS PENDING HIM: nothing new.
 
 CONTAINER WARNING: this container has REWOUND THE WHOLE REPO to an older snapshot
