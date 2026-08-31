@@ -3157,7 +3157,80 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/29 (a) LATEST -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
+SOUND (sound-xk7pjp): 8/30 (a) LATEST -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
+UP IN SILENCE. The tree and the fifty-three bosses -- the entire progression of
+the game he described on 8/26 -- had ZERO sound calls between them. 7 moments,
+35 candidates, 5 wired the same turn. TAB: MUSIC. ***
+
+Build 8/30e - THE TREE MAKES A SOUND.
+
+MEASURED
+  tools/bohemia_combat_the_tree_patch.py         sfx references: 0
+  tools/bohemia_combat_the_mini_bosses_patch.py  sfx references: 0
+  You earn experience, cross a level, spend a point, a perk comes on, a boss
+  goes down and hands you a NEW VERB -- all silent. That is his own 8/26
+  sentence, the spine of the hundred hours, making no sound.
+
+SEVEN MOMENTS, FIVE WIRED IN THE SAME TURN
+  xp_lands treeEarn · level_up the V189 crossing · perk_taken treeBuy ·
+  key_taken keyWin · held_back the already-hold branch     WIRED
+  boss_here / boss_falls                                   NOT WIRED, reason
+  written: rollBoss RETURNS a boss long before the player is told there is one,
+  and a boss dies through the same kill path as everybody else with no branch
+  that knows he was named. Both want a hook combat does not have, and inventing
+  one would be this lane writing combat rather than wiring it.
+  A COOK WITHOUT A CALLER IS A CANDIDATE ON A JUDGING SHEET, not a shipped
+  sound -- this lane wrote that rule after shipping six callerless moments.
+
+THE PALETTE AND THE SUBJECT AGREED, WHICH IS THE BEST SIGN NEITHER IS FORCED
+  His 8/28 ruling left bell, choir, crystal, glass, water. It was made about a
+  rack whose centre of gravity was dry gritty desert matter. PROGRESSION IS THE
+  ONE SUBJECT THAT NEVER WANTED DRY MATTER: a level is a RING, a perk coming on
+  is a RING, a man's key passing to you is a BELL.
+
+*** TWO THINGS I HAD WRONG, BOTH CAUGHT BY READING THE REAL BUILD ***
+  1. A PATCH TOOL IS NOT THE BUILD. I wrote "a level-up is not even an event
+     yet", off the tree's patch tool. Decoding COMBAT_B64 showed the shipped
+     module is four versions newer: V189 already added the crossing, comment and
+     all -- "a level is a MOMENT, not a number that quietly ticks over". The
+     moment existed; it had no sound. A patch tool tells you what a thing looked
+     like the day it was written. The wire got smaller and invents nothing.
+  2. SEVEN MOMENTS DOES NOT CLOSE THE DIVERSITY RED, and I only learned that by
+     running it. The gate said "35 more non-instrument candidates" so I cooked
+     35. It moved 58.1% -> 55.6% and asked for 25 more: its `fresh` list is
+     [r for r in rows if r['synth'] != 'modal'] -- MODAL IS EXCLUDED FROM THE
+     DENOMINATOR, because modal IS the stale baseline he complained about. Five
+     of seven are modal so 25 of 35 were never going to count.
+     NOTHING WAS CHANGED TO CHASE THE NUMBER. A level-up is a bell and a bell is
+     modal; picking the method to satisfy a gate instead of the physics is what
+     killed batch 25. The red needs five more moments that genuinely WANT
+     friction, and progression is not where those live. Reported, not padded.
+
+AND THE GATE CAUGHT A REAL RECIPE FAULT
+  All five xp_lands rendered at peak 0.144, under the judgeable band. I wrote it
+  "nearly nothing" because it fires on every body -- but HE CANNOT THUMB WHAT HE
+  CANNOT HEAR, and a candidate too quiet to judge is a wasted slot, not a
+  restrained sound. Quiet is a MIX decision and belongs in the mix.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  His thumbs on 35 candidates. SFX DIVERSITY stays red at 55.6% and closing it
+  honestly needs five more moments that genuinely want FRICTION -- not modal,
+  not instrument, and not padding. boss_here and boss_falls get their callers
+  the day combat has a hook for "a named man is here" and "the named man died".
+
+PROOF
+  records/BOHEMIA_THE_TREE_MAKES_A_SOUND_8_30_26.md
+  tools/bohemia_sfx_batch12.py · tools/bohemia_the_tree_makes_a_sound.py
+  SFX RENDER 635 candidates 0 FAILED · SFX WIRED · SFX SHUFFLE · SFX ENVELOPE ·
+  SOUND MESSAGE · SILENT PLAY · SILENT MOMENTS · GRAVEYARD · ALPHA LOADS ·
+  MATERIAL COOKED 11/0 -- all GREEN
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/29 (a) -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
 NOTHING ON SCREEN TELLS YOU IT HAPPENED. Measured, not believed. The gate sweep
 19 routed on 8/25 and nobody built is built. Nothing to judge. ***
 

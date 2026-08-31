@@ -352,6 +352,16 @@ def main():
         # the graveyard entry is the record and this list is the reason.
         'dry_more', 'eat_more', 'lungs_more', 'mag_more', 'sign_more',
         'down_more', 'quit_more', 'power_more', 'hunker_more',
+        # ---- SFX-12 (8/30): TWO OF SEVEN HAVE NO SINGLE CALL SITE ---------
+        # The other five are wired at treeEarn, the V189 level crossing,
+        # treeBuy and keyWin. These two are not, and the reason is real rather
+        # than a placeholder: rollBoss RETURNS a boss long before the player is
+        # ever told there is one, so there is no instant that means "he is
+        # here"; and a boss dies through the same kill path as everybody else,
+        # with no branch that knows the man was named. Both want a hook combat
+        # does not have, and inventing one would be the SOUND lane writing
+        # combat rather than wiring it.
+        'boss_here', 'boss_falls',
         # THE SHUT STAYS SILENT, ON PURPOSE, and it is a RULING not an
         # oversight: he killed all five door_clack candidates in the same 7/30
         # export where door_drag.0 lived. Playing the drag backwards for the
