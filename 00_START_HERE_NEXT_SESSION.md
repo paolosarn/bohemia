@@ -397,13 +397,39 @@ WHAT COMES AFTER, IN ORDER:
   4. The night is still the interesting half (V196): the priority-target puzzle only
      exists after dark, and how many pips it takes to cross a room at night has never
      been measured.
+  5. AND THE LAB ROUTED THREE THINGS TO THIS LANE THE SAME DAY
+     (records/BOHEMIA_BATTLE_BROTHERS_LANE_DISPATCH_8_18_26.md sec 04):
+       * THE DESTRUCTIBLE ARMOUR LAYER, a TWO-REFERENCE convergence (RF4's Protection
+         Points and Battle Brothers' armour points are the same mechanic from two
+         studios), and the `armor` field is already on every body in our fight WITH A
+         ZERO IN EVERY ONE. Take RF4's absolute version, not BB's 10%-leak one.
+       * MORALE, which the lab calls the cheapest aliveness in either reference: its
+         triggers are "slaying an enemy, seeing an enemy slain by an ally, SEEING AN
+         ALLY FALL, seeing an ally flee, being wounded, being outnumbered" -- every one
+         already detected here, and AS OF TODAY "seeing an ally fall" is a thing that
+         can happen on YOUR side too.
+       * REFUSED there and worth keeping refused: the d100 to-hit and damage that
+         always leaks. Take the layer, not the leak.
 Still open and still combat's: "it could be more hardcore if you wanted it to be."
 [FLAGGED TO LAB, not mine to edit] RF4-14's STATUS cell still reads "NOT MEASURED".
 
 Law: laws/BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md
 Record: records/BOHEMIA_COMBAT_TWO_OF_YOU_8_31_26.md
 Gates: fight_moves_you 155/0, combat_lab 931/1 (the red is another lane's, pre-existing),
-one_engine 3/0, boss_ladder 87/0, 0 page errors.
+one_engine 3/0, boss_ladder 87/0, pages_publish 18/0, demo_build 25/0, 0 page errors.
+
+*** AND ONE THING EVERY LANE NEEDS TO KNOW, FOUND RUNNING THE FULL SUITE FOR THIS SHIP:
+THE SUITE CAN NO LONGER FINISH INSIDE ITS OWN TIME BUDGET. *** It measured 9.4s a gate
+against 477 gates -- about 4471s of work against a 2700s budget -- and stopped with 82
+GATES NEVER RUN, listed as "NOT GREEN AND NOT RED: UNFINISHED". Among the ones that never
+ran are BOSS LADDER, RF4 TEARDOWN, BATTLE BROS, ART 45, LEAF PIXEL, PURITY and REUSE
+FIRST. "A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED" is the oldest rule in the file, and
+a gate that never runs is a law without a gate. The suite itself prints the workaround:
+  python3 gates/bohemia_gates.py --shard 1/3   (and 2/3, 3/3)
+The 37 confirmed reds it did report are the repo's standing state across every lane, NOT
+this turn's: ENGINE SYNC, COMBAT RUNS, MOTION VISIBLE, RENDER PIXEL, THE RUN and WALK
+DEADLOCK were each run alone on origin/main AND on this tree and came back with
+IDENTICAL pass/fail counts (22/2, 3/2, 124/2, 22/1). Nothing here turned anything red.
 
 --------------------------------------------------------------------------------
 
