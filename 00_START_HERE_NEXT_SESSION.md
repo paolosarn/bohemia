@@ -2246,7 +2246,53 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/30 LATEST -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
+UI (ui-kmqmrf): 8/30 (b) LATEST -- *** EVERY WALK BUTTON WAS DRAWING TWO ARROWS, AND
+MY OWN EYE WAS WRONG ABOUT THOSE ARROWS FOR THE THIRD TIME IN THIS PROJECT. ***
+TAB: RUN. The game's look is still untouched; round 7 is still waiting on his thumb.
+
+FIRST, THE TOP ROW IN THIS LANE WAS ALREADY DONE BY SOMEBODY ELSE. UI-2 is his own
+8/25 dispatch ("I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON") and it SHIPPED
+8/27 -- the city's own source says so: "before THE ACTION BUTTON DOES ACTIONS you had
+to press DROP IN on purpose ... Making zoom the way in and out -- his ruling, and
+correct." Row closed. Building it again would have been the fourth-version failure
+STOP PRODUCING names. READ THE OTHER LANE'S FILE BEFORE BUILDING YOUR OWN ROW.
+
+THE REAL DEFECT, found by reading padMode() on the way past: the city already carries
+UI-12's fix -- the direction is DRAWN, a CSS border triangle on .pb::before, rotations
+measured at exactly 0/45/90/135/180/225/270/315, correct for all eight -- BUT THE
+ORIGINAL TEXT GLYPH WAS NEVER REMOVED. Still the button's textContent at 15px, so every
+control renders a correct triangle WITH A STRAY ARROW STUCK TO IT. 8 of 8, proved by
+hiding only the text and diffing. Same shape as the 8/27 hairline bugs: a half-finished
+fix that left the old thing standing beside the new one. Fixed demo-side, gated,
+mutation-proved. Checked in BOTH pad modes rather than assumed.
+
+*** AND THEN I NEARLY FILED A SECOND BUG THAT DOES NOT EXIST. READ THIS BEFORE YOU
+MEASURE ANY ROTATED SHAPE. *** The four diagonals read to me as pointing INWARD, and
+two of my own rulers agreed. Both were broken. The first measured ink as "brighter than
+the median" -- but the buttons are DARK CIRCLES ON A LIGHT BACKGROUND, so it was
+measuring the corners of the background. The second modelled the tip as opposite the
+centroid offset, which holds for an axis-aligned triangle and INVERTS at 45 degrees; it
+reported all four diagonals EXACTLY 178 degrees off, all four identical, AND THAT
+TIDINESS IS THE TELL -- a real bug is never that clean.
+WHAT SETTLED IT WAS ARITHMETIC WITH NO MODEL IN IT: if the pad is one shape and eight
+rotations, the UP button's own shipped pixels turned 45 degrees clockwise must equal the
+NE button's pixels. Overlap 58-76% across all seven. THE ROTATIONS WERE RIGHT THE WHOLE
+TIME. Third time I have been wrong about these same eight arrows.
+STANDING LESSON, now earned three times: WHEN A SHAPE SITS AT 45 DEGREES, NEITHER A
+BOUNDING BOX NOR YOUR OWN EYE CAN BE TRUSTED ABOUT WHICH WAY IT POINTS. Turn the
+known-good one and compare pixels. Filed as UI-19 with both working methods.
+
+One honest observation left in it and it is TASTE, not a bug, so it was NOT acted on: a
+wide triangle is genuinely hard to read at a diagonal. He is mid-way through choosing
+the whole UI look and a shape change now answers a question he has not been asked.
+
+gates/thumb_gate.js is 11 claims now, mutation-proved five ways. Nine gates green
+including four other lanes' demo gates.
+Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md (part two)
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/30 (a) -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
 LEFT THE WALL ALONE AND WENT AT THE DEMO. A STANDING LAW HAD NEVER BEEN CHECKED AND
 IT WAS FAILING 92%. *** TAB: RUN (the demo's only screen).
 

@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/28e - A LANDFILL WITH NO RUBBISH IN IT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/30f - THE LAKE SHOWS ITS RING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -29653,6 +29653,21 @@ var DEMO_CITY_CSS = [
   '#topbar>*,#blstack>*{min-height:44px !important;min-width:44px !important;'
     + 'display:flex !important;align-items:center !important;justify-content:center !important}',
   '.pb{width:44px !important;height:44px !important;margin:-1px !important}',
+  /* EVERY WALK BUTTON WAS DRAWING TWO ARROWS. The city already carries UI-12's
+     fix -- the direction is a CSS border triangle on .pb::before, and its eight
+     rotations measure exactly 0/45/90/135/180/225/270/315, correct for all
+     eight. But the ORIGINAL TEXT GLYPH was never removed: it is still the
+     button's textContent at 15px, so each control renders a correct triangle
+     with a stray arrow stuck to it. Proved by hiding the text and diffing:
+     8 of 8 buttons changed, and what is left is a clean triangle.
+     A HALF-FINISHED FIX THAT LEAVES THE OLD THING STANDING BESIDE THE NEW ONE,
+     which is the same shape as the two hairline bugs on 8/27.
+     SAFE IN BOTH OF THE PAD'S MODES, checked rather than assumed: padMode()
+     swaps the text between dataset.walk and dataset.mapmove, and the drawn
+     triangles are present in BOTH (one triangle walking, two for map-move), so
+     the glyph is redundant in both. In map mode it was even rendering in a
+     different colour from the triangles it sat on. */
+  '.pb{color:transparent !important;text-shadow:none !important}',
   '#topbar #devbtn,#devbtn,#topbar #devtray,#devtray{display:none !important}'
 ].join('\n');
 
