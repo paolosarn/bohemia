@@ -124,8 +124,37 @@
        line up with the neighbour's, and a single tumbleweed on the boundary row is enough to
        make one cell's ballast meet the next cell's desert -- the same thing that broke seven
        of the wash's forty-four seams before it was inset. */
-    for(i=0;i<14;i++){ var bx2=cx+1+Math.floor(r()*(W-2)), by2=cy+1+Math.floor(r()*(H-2));
-      if(vget(bx2,by2)===12) vset(bx2,by2,3); }
+    /* FOURTEEN DARTS AT A TARGET THAT IS 1.5% OF THE CELL (8/28). This threw 14 points into
+       16384 tiles and kept only the ones landing on the fence line -- about 255 tiles -- so
+       the expected number of tumbleweeds per cell was 0.22, and MEASURED ACROSS A 2x2 BLOB IT
+       PLACED NONE AT ALL. legend_kept_gate had `railyard(3)` listed as a promise the world
+       does not keep, and this loop is why: not a missing call, a call whose odds were never
+       run. A COUNT THAT WAS TUNED AGAINST A WHOLE CELL DOES NOT SURVIVE BEING AIMED AT A LINE.
+       Walk the fence instead of throwing at it, and decide each tile with the BLOB's hash so
+       two cells sharing a fence run agree about which tiles have weeds -- brush that
+       disagreed across a seam is exactly what the inset note below was written for. */
+    /* AND THIS PASS DOES NOT INSET, WHICH IS THE OPPOSITE OF THE NOTE BELOW AND DELIBERATE.
+       The inset exists so scattered confetti does not disagree across a seam. THE DISTRICT
+       FENCE IS ITSELF ON THE SEAM -- measured: the 255 fence tiles in an edge cell are its
+       row 0 and column 0 -- so an inset-1 loop can never touch it, which is why the previous
+       version placed nothing and why my first fix placed nothing either. I wrote the inset
+       loop, diagnosed that exact trap in the speedway ten minutes earlier, and then walked
+       into it again. What makes it safe here is the blob hash: both cells sharing a fence
+       tile ask the SAME valley coordinate and get the SAME answer, so the agreement the inset
+       was protecting is guaranteed by construction instead of by avoidance. */
+    for(var wy=cy; wy<=cy+H-1; wy++) for(var wx=cx; wx<=cx+W-1; wx++){
+      if(vget(wx,wy)!==12) continue;
+      if(yrnd(wx*3+7,wy*5+2)<0.06) vset(wx,wy,3);
+    }
+    /* AND POLE LIGHTS ALONG THE FENCE, not only on the four district corners. Four points
+       across a whole blob is one light per cell at best and MEASURED ZERO in every cell of a
+       2x2 -- a yard this size is lit from a line of masts, not from its corners. Every 40
+       tiles down the fence, off the blob hash so the spacing continues across a seam instead
+       of restarting at each cell. */
+    for(var py2=cy; py2<=cy+H-1; py2++) for(var px2=cx; px2<=cx+W-1; px2++){
+      if(vget(px2,py2)!==12) continue;
+      if((px2%40===0 && py2%7===0) || (py2%40===0 && px2%7===0)) vset(px2,py2,9);
+    }
 
     /* ---- THE SERVICE ROADS, AND WHY THERE IS A RING ----
        The first cut ran ONE lane along the yard's south front, which is what a single-cell

@@ -137,6 +137,21 @@
     for(i=1;i<bw;i++) lane(i*K.SZ-1, 30, i*K.SZ+1, H-9);
     for(j=1;j<bh;j++) lane(7, j*K.SZ-1, W-8, j*K.SZ+1);
     lane(7, H-14, W-8, H-11);                                   // the lane along the front fence
+    /* POLE LIGHTS, WHICH THE CLUSTER PATH DROPPED (8/28). The lone plant plants five of them
+       and this path planted NONE -- measured 5 -> 0 on a 2x2 blob -- so code 9 was declared in
+       this district's legend and never built anywhere a plant happens to span more than one
+       cell. legend_kept_gate calls that class "a promise the world does not keep", and it is
+       the invisible-hats shape again: the art exists, the author wrote it down, and nothing
+       put it on the ground.
+       A BIGGER SITE HAS MORE OF THEM, and on the same reasoning as the haul roads: lighting a
+       yard is a per-area job, not a per-plant one. Corners of the whole plant, then one at
+       each internal cell junction, which is where a real yard puts them -- at the crossings,
+       not in the middle of a basin. Placed on soft surface only so a mast never stands inside
+       a clarifier wall. */
+    function pole(px,py){ var c=G.get(px,py); if(c===0||c===3||c===4||c===1) G.set(px,py,9); }
+    pole(8,32); pole(W-9,32); pole(8,H-12); pole(W-9,H-12); pole((W>>1)|0,(H>>1)|0);
+    for(i=1;i<bw;i++) for(j=1;j<=bh;j++) pole(i*K.SZ, Math.min(j*K.SZ-8, H-12));
+    for(j=1;j<bh;j++) pole(Math.min(8, W-9), j*K.SZ);
     // ONE car gate, on the DISTRICT's south edge
     var gx=(W>>1)|0;
     for(i=-2;i<=2;i++) G.set(gx+i,H-1,5);
