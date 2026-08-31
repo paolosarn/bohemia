@@ -1,3 +1,76 @@
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (c) LATEST -- *** THE DYNASTY
+LIVES. He answered the sweep-23 question in one line and it is law. Nothing to
+judge. ***
+
+*** EVERY LANE READ THIS. Paolo 8/28: "yeah three generations bro cmon." ***
+Law: laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md. CLAUDE.md's top block
+updated from [PENDING] to his ruling. The 8/26 law is CORRECTED AT THE SOURCE so
+the bad phrase cannot be re-copied out of it.
+NOTHING IS ARCHIVED. All 52 live dynasty law files stand, 162 mentions, none
+stale. Three generations, ~100 years, Gen 1 Animal, Gen 2 Human, Gen 3 Angel, THE
+PLAYER LIVES ALL THREE, each inheriting everything the last built. The Act 3
+ending is still the gen-3 Angel heir going ONE-WAY.
+
+THE RECONCILIATION, WRITTEN ONCE SO NOBODY RE-DERIVES IT:
+"THERE ARE NO RUNS" AND "THREE GENERATIONS" WERE NEVER IN CONFLICT. A RUN RESETS
+YOU TO NOTHING. A HANDOFF INHERITS EVERYTHING -- compound, faction standings,
+territory, trade routes, the family tree, and the unhealed wounds. The 7/1
+architecture is a deterministic FOLD, not a wipe. It is the OPPOSITE of a reset,
+which is exactly why his no-runs ruling never touched it.
+AND THE TWO HUNDREDS ARE DIFFERENT AXES: his ~100 HOURS TO COMPLETE is how long a
+person plays; the 7/1 law's ~100 YEARS is how much time passes in the fiction. A
+hundred hours of play spanning a hundred years of world.
+THE PERSISTENT PERK TREE AND THE 60 MINI BOSSES SURVIVE UNCHANGED, and THE FOLD IS
+WHERE THEY CROSS -- the tree is PERSISTENT by his own word, so it persists across
+the handoff like everything else. How much an heir keeps, and whether a boss's verb
+is a family inheritance or a personal one, are a NUMBER and a DESIGN CALL and both
+are HIS. Ships inherited-in-full until he rules, because that is what "each
+generation inherits everything the previous one built" already says.
+
+WHAT SWEEP 23 FOUND, KEPT BECAUSE THE MECHANICAL HALF STANDS REGARDLESS:
+the summary of his 8/26 ruling added two words he never said, "one character."
+Measured: zero hits for "character" in his quoted words, one in the summary, one
+in CLAUDE.md's first paragraph -- the first thing every session reads. Read
+literally it deleted Gen 2, Gen 3 and the ending of the game. Greenberg's BMJ 2009
+citation-network study names the exact mechanism: authority manufactured by "forms
+of INVENTION such as the CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION
+ALONE." Nobody lied; the claim got promoted by being repeated somewhere more
+authoritative than it started. Ten years there, two days here.
+*** THE STANDING RULE: A SUMMARY NEVER OUTRANKS THE THING IT SUMMARISES, AND A
+SUMMARY THAT ADDS A FACT ITS SOURCE DOES NOT CONTAIN IS A BUG, NOT A PARAPHRASE.
+The truth hierarchy ranks DOCUMENTS, not FIDELITY, and had no rule for this. ***
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift, guards the demo path, routes work. Never writes code.
+  DEMO PATH GREEN, MEASURED THIS TURN: the_whole_demo_gate 23/23.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing for me. Open and unclaimed:
+    SHARED FIDELITY-1  the summary gate (would have caught this in one run)
+    SHARED -14  cut the demo build; -13 pin the ref for the round
+    RUN P0-DOOR / P0-MORNING / WIDE-2 ; UI WIDE-1
+    WORLD WASH-FILL / UNDER-1 (one tunnel) / STREETS-LEGO's 44 declared breaks
+    COMBAT BESTIARY-VOLUME / DANGER-TIERS
+  DEMO ORDER UNCHANGED: BUILD -> DOOR -> ENDING (answered: the overlook, changed)
+  -> INSTRUMENT (0f is BUILT) -> INVITE.
+
+WHAT I WOULD DO NEXT
+  Sweep 24. Standing watch: nobody hands anybody the workshop link, and nobody
+  re-derives the dynasty question -- it is answered and it is law.
+
+PROOF
+  laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md  (his ruling)
+  records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md  (sweep 23)
+  records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md  (sweep 22)
+  records/BOHEMIA_THE_QUESTION_QUEUE_8_25_26.md  (1 and 1b closed; 2 and 3 parked
+    and neither blocking)
+
+================================================================================
+
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
 Four failed guesses, then a different KIND of measurement found it in one run.
@@ -83,188 +156,6 @@ WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
   fenced ON PURPOSE and should never join.
 
 RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
-WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
-THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
-
-READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
-spots our writing at 81%, and a 617-film control group), UI is on round seven with
-a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
-it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
-looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
-and SHARED -19 caught the site not deploying for seven hours while every push kept
-working.
-DEMO PATH GUARDED: the_whole_demo_gate 23/23.
-
-*** THE FINDING. ***
-On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
-TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
-and it correctly killed the word "roguelite" that had been wrong at the top of
-CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
-ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
-for "character" anywhere in his quoted words, one hit in the summary, one in
-CLAUDE.md's first paragraph, which every session in this fleet reads first, every
-session. I ran the positive control this time: the same grep finds "character"
-elsewhere in the same file, so the instrument works.
-WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
-law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
-years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
-the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
-CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
-skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
-is titled "the 100-year problem."
-AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
-actually conflict -- a run resets you to nothing, a generational handoff inherits
-EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
-a natural way to describe one long life, and BOTH of his own references, Cyberpunk
-and Elder Scrolls, are single-character games with perk trees. The difference is
-the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
-
-THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
-is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
-Nothing in it says a summary may only contain what its source contains. So one
-inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
-CONSTRUCTION, silently, before any session has read anything else.
-Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
-manufactured by bias, amplification, and "forms of INVENTION such as the
-CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
-got promoted by being repeated somewhere more authoritative than it started. Ten
-years there; two days here, because this fleet re-reads its top document nine
-times a day.
-
-WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
-carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
-inference, and names the open question in place so no session silently resolves
-it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
-on it, which is the definition of a canon call.
-*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
-answer before he gives one, write your assumption in your commit, never into a
-law. ***
-
-  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
-  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
-  every distinctive claim in the bullet must appear in that file. Mutation test:
-  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
-  files, only claim-matching is new. It would have caught this in one run.
-  NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
-FACTIONS (factions-ovkjpf): 8/28 (y) LATEST -- *** HE WROTE 82 CONSEQUENCES INTO
-HIS QUESTS AND NOBODY IN LAS VEGAS HAD EVER SEEN ONE OF THEM. NOW THE PEOPLE
-STANDING THERE WATCH YOU DO IT. *** Nothing to judge.
-
-TAB: **RUN**. Play a day's quest, then walk up to anybody who runs with the
-outfit it touched and read their card, or open the OUTFIT board. Build 8/28y.
-
-WHAT WAS ALREADY THERE. 82 faction consequences authored across 25 of his 27
-quests -- `faction REDS +10`, `faction CARAVANS +12` -- every one carrying the
-clout tag that says how loud it was. The demo plays three of them with the real
-parser and the real runtime, and the `faction` verb IS handled: it adds the
-number to quest state and a shared ledger. And that was the whole of it. The
-number moved valley-wide and instantly and NOT ONE PERSON SAW IT HAPPEN. No card
-changed, no outfit formed a view, the people standing next to you remembered
-nothing. engine/bohemia_deeds.js was built on 8/6 to close exactly this and its
-own comment calls publishStage "the convenience the run lane will actually
-call". Nothing ever called it.
-
-WHY THIS SHAPE, AND IT IS NOT MY OPINION. New Vegas shipped both designs at
-once. Its KARMA is omniscient, unwitnessed and invisible, and the settled
-verdict is that it is "almost completely irrelevant". Its REPUTATION moves when
-somebody CATCHES you, and it is the half the whole game is built on. Bohemia's
-s.faction ledger is precisely karma. This adds no system; it moves his numbers
-onto the reputation path that was already built, already gated, already on the
-card.
-
-FIVE BUGS, EACH OF WHICH ALONE KEPT IT INVISIBLE:
-  A. THE MATCHER WAS CASE-STRICT. publish() compared the city's faction id to
-     the quest's spelling with ===. Measured: 82 deltas, 23 matched, 59 named a
-     real faction IN A DIFFERENT CASE, 0 named one that does not exist. He
-     writes TRADES; the canon id is Trades. Fifty-nine lines of his writing went
-     into nobody's head and publish() returned witnesses:0, which is
-     indistinguishable from nobody being there.
-  B. scanQuest COULD NEVER RUN ON THE WALKED SURFACE. It called
-     LOOP.cloutTagFrom and the city loads BohemiaClout, not the 75 KB
-     BohemiaLoop, so LOOP was null and it threw on its first line. cloutWeight
-     got exactly this fallback on 8/21 and scanQuest was missed. The
-     half-applied fix was the whole bug.
-  C. `where` IS A FUNCTION, NOT A PLACE. I passed the string '@', which is
-     truthy, so it was called and threw -- swallowed, reported as witnesses:0.
-     The exact ambiguity this bridge exists to remove, one argument to the left.
-  D. THE DIRECT DIAL WAS WIPING HIS CORPUS AT BOOT. Why it read as working
-     standalone and broken in the alpha: boot table 82 on the city page, 0 in
-     the alpha. ctDialApply deletes every row before writing the dial's -- right
-     about the four kinds the dial OWNS, wrong about the 82 q: rows it cannot
-     name and can never put back. An EMPTY dial was erasing his whole quest
-     corpus before he touched anything. Now: clear, reload corpus, dial on top.
-  E. THE CARD COULD NOT SAY WHY. CT_DEED_WORDS only held the four city kinds, so
-     a q:<quest>:<stage>@<FACTION> deed vanished from the reasons. loadCorpus
-     already stores each stage's @LOG line in LABELS -- his own sentence -- and
-     labels() was another organ reported as reached by NOTHING ANYWHERE.
-
-TWO STRUCTURAL CORRECTIONS THE TOOLS CAUGHT, BOTH MINE:
-  const DEMO_BQ sat INSIDE the demoquests banner, which has no closing banner,
-  so a resync cuts through it. At five quests nobody noticed; at twenty-seven
-  the resync refused -- 278742 bytes against a 17216 byte module. That refusal
-  is the tool working as designed. The corpus now lives outside every banner.
-  AND THE HOOK WAS PATCHED INTO THE INLINED COPY, so the resync reported
-  demoquests STALE against canon: the exact drift ENGINE SYNC LAW exists to
-  kill. engine/bohemia_demoquests.js now has a `witness` seam and the city
-  passes the world in. The MODULE owns WHEN a resolution counts (idempotent per
-  quest+stage, because a chosen @OPT carrying @DO set_stage runs the stage
-  before the UI asks and both callers must be correct). The CITY owns WHO WAS
-  THERE.
-
-THE SCALE IS A CORRECTNESS MATTER. loadCorpus normalises by the largest deed in
-whatever it is given. The full 27 answer 20; the five that used to be inlined
-answer 12, so loading only those inflated every weight by 20/12 and moved every
-rung boundary. The SOURCES are inlined rather than a baked table, so the numbers
-re-derive from his files every boot and cannot drift. Three stale numbers in the
-module's own prose corrected from the measurement (it claimed 59 deltas, 69
-tags, max 18; really 82, all tagged, max 20).
-
-MEASURED ON THE REAL SURFACE: at the Trades base, 26 Trades people, 3 drawn and
-holding minds. Day one is bq_meter_reader stage 31, TRADES +8, tagged notable
-(reach 12 tiles, 3 hops). Before: rung null, whoSaw 0. Publish: witnesses 3.
-After: the outfit's view has moved and the card says why in his own @LOG line.
-
-GATES: FACTION BETWEEN 137/0 (was 122) - STANDING 35/0 - COMMITMENT 72/0 -
-FACTION MEMBERSHIP 60/0 - DEMO BUILD 25/0 - ALPHA LOADS 20/0.
-THREE MUTATIONS, ALL BITE: revert the case fold and R11/R12/R13 die while R10
-still passes (publish "succeeding" with zero witnesses is the whole silent
-failure); let the dial wipe the corpus and R6 dies alone; turn off idempotence
-and R14 dies alone.
-dayloop_gate is 57/2 and THAT PREDATES THIS -- verified by running it against
-origin/main's own city, identical 57/2.
-ONE GATE CLAIM WAS REWRITTEN RATHER THAN QUIETLY LOOSENED: Q6 read "with his
-table EMPTY it never prints a rung". That principle (do not invent a judgement)
-is untouched; what moved is where his judgement comes from, since his own
-authored lines now fill the table. NOBODY IS JUDGED FOR SOMETHING NOBODY SAW is
-the point, so Q6 now asserts an outfit whose people witnessed nothing shows no
-rung, however full the table is.
-
-RECORD: records/BOHEMIA_82_CONSEQUENCES_NOBODY_SAW_8_28_26.md
-
-STILL DEAD, NAMED: BohemiaStanding.inherit/legendOf (the dynasty handoff, needs
-a story moment that does not exist yet); BohemiaDeeds.sayWhy (superseded by the
-city reading labels() directly -- collapse to one path next time);
-BohemiaPeople.peopleOf.
-
-WHAT IS PENDING HIM: nothing new. The STANDING dial in DIRECT still overrides
-anything he wants, and now it lands ON TOP of his quest corpus instead of
-erasing it. AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain [PENDING Paolo].
-Spawn/base placement stays outside this lane: the nearest base is 29 cells from
-the spawn, which is why a quest deed is only witnessed where its people stand.
-
-CONTAINER WARNING: this container REWOUND THE WHOLE REPO TO AN 8/15 SNAPSHOT
-TWICE in one session, remote refs included. Recovery is `git fetch origin main`
-(slow, ~4 min) then `git checkout -B <branch> origin/main`. COMMIT EARLY AND
-OFTEN; do not hold work until the gates are green. Background processes barely
-advance between tool calls here -- run gates in the FOREGROUND.
-
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-
 CHARACTER (character-0lurbs): 8/30 (a) LATEST -- *** I COOKED SEVEN HAIRCUTS AND ALL
 SEVEN WERE SHAPES HE HAS ALREADY KILLED TWICE. THE REGISTRY THAT WOULD HAVE SAID SO
 HAS EXISTED SINCE JULY AND NOTHING HAS EVER READ IT. ***
@@ -1093,73 +984,6 @@ WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
   fenced ON PURPOSE and should never join.
 
 RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
-WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
-THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
-
-READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
-spots our writing at 81%, and a 617-film control group), UI is on round seven with
-a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
-it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
-looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
-and SHARED -19 caught the site not deploying for seven hours while every push kept
-working.
-DEMO PATH GUARDED: the_whole_demo_gate 23/23.
-
-*** THE FINDING. ***
-On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
-TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
-and it correctly killed the word "roguelite" that had been wrong at the top of
-CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
-ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
-for "character" anywhere in his quoted words, one hit in the summary, one in
-CLAUDE.md's first paragraph, which every session in this fleet reads first, every
-session. I ran the positive control this time: the same grep finds "character"
-elsewhere in the same file, so the instrument works.
-WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
-law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
-years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
-the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
-CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
-skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
-is titled "the 100-year problem."
-AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
-actually conflict -- a run resets you to nothing, a generational handoff inherits
-EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
-a natural way to describe one long life, and BOTH of his own references, Cyberpunk
-and Elder Scrolls, are single-character games with perk trees. The difference is
-the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
-
-THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
-is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
-Nothing in it says a summary may only contain what its source contains. So one
-inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
-CONSTRUCTION, silently, before any session has read anything else.
-Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
-manufactured by bias, amplification, and "forms of INVENTION such as the
-CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
-got promoted by being repeated somewhere more authoritative than it started. Ten
-years there; two days here, because this fleet re-reads its top document nine
-times a day.
-
-WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
-carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
-inference, and names the open question in place so no session silently resolves
-it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
-on it, which is the definition of a canon call.
-*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
-answer before he gives one, write your assumption in your commit, never into a
-law. ***
-
-  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
-  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
-  every distinctive claim in the bullet must appear in that file. Mutation test:
-  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
-  files, only claim-matching is new. It would have caught this in one run.
-  NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
-
 CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
 IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
 TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
