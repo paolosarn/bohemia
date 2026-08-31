@@ -121,6 +121,17 @@ GATES = [
      'its own built tiles, and every one of the valley\'s 4,497 road-to-road seams '
      'must agree tile for tile within a road class. Carries a mutation test: nudge '
      'one piece one tile sideways and this gate goes red.', False),
+    ('WALK THE WORLD', ['node', 'gates/walkable_valley_gate.js'],
+     'the demo is a person ON FOOT and nothing in this repo had ever asked whether '
+     'he can walk anywhere. Every other reachability check in here is about ROADS '
+     '(street contract), one district (walkable-land) or one plot (drive network). '
+     'This one starts where the game starts him and floods the standable ground: '
+     '95.7% of the valley is reachable on foot from the opening cell, and every '
+     'cell that is not is MOUNTAIN except eighteen pockets against the rim. Floors '
+     'the share and ceilings the pockets, so nothing may wall him into a corner '
+     'while every local seam still lines up. Asks realizeCell rather than a copy of '
+     'it -- the first draft read the district kit and was blind to the SUBURB, the '
+     'one district the demo opens in, and reported 0.0%.', True),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
     ('VERDICT FROZEN', ['python3', 'gates/verdict_frozen_gate.py'],
@@ -752,6 +763,36 @@ GATES = [
      'day): it holds the number as a ceiling, prints it every run, and goes green on its own '
      'as it comes down. Mutation-tested by disabling the 8/27 tie-break poll: 115 -> 149, two '
      'claims red', True),
+    # 8/29 -- the WORLD lane's own post-mortem: "NOBODY SWEPT THE CLASS. Third time
+    # this month." This is the sweep.
+    ('SWEPT THE CLASS', ['node', 'gates/nobody_swept_the_class_gate.js'],
+     'NOBODY SWEPT THE CLASS -- a road is never handed an axis the world did not give it. The '
+     'WORLD lane wrote its own post-mortem on 8/29 after finding EVERY FREEWAY IN THE VALLEY '
+     'BUILT SIDEWAYS: "the street contract gate\'s own header describes this identical line, '
+     'in the arterial, as that module\'s defect number one ... it was fixed there on 8/26 and '
+     'NOBODY SWEPT THE CLASS. Third time this month." The cost of that third time, measured: '
+     '249 of 952 freeway cells cut off from the road network, 214 separate road networks, and '
+     'a car that could not drive the length of the interstate. AND PAOLO HAS BEEN REPORTING '
+     'THE VISIBLE HALF SINCE 8/15 and again on 8/28 -- he is not reporting three bugs, he is '
+     'reporting ONE CLASS THREE TIMES, because it gets fixed one module at a time. THE CLASS '
+     'HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN SWEPT. Shape A, THE MODULE FORCES IT: '
+     'o.same=o.links=o.streets=[\'N\',\'S\'] in a kit registration, throwing the caller\'s '
+     'answer away before the module sees it -- arterial (8/26, 921 cells), then unswept, '
+     'freeway (8/29). Now 0 places and held there. Shape B, THE CALLER DEFAULTS IT: '
+     'roadAxis(...)||\'ns\', turning "I do not know" into a north-south road -- fixed for 14 '
+     'freeway cells on 8/27, STILL TRUE FOR 115 MORE, and never swept. 2 places, ratcheted. '
+     'NOT FIXED HERE because a crossing is an agreement between two cells and not a decision '
+     'one cell makes: the one-line fix was tried 8/28 and took street_contract 19/0 -> 17/2, '
+     'turning 115 wrong-facing cells into 191 broken seams. THIS IS A SOURCE SWEEP AND IS NOT '
+     'ASHAMED OF IT: the 8/15 facing gate was worthless because it used source text to answer '
+     'a question about BEHAVIOUR; this one asks "does the pattern exist anywhere", which IS a '
+     'question about source, while street_facing_is_measured_gate renders the real surface and '
+     'counts real cells. The behaviour gate says HOW BAD, this one says WHERE ELSE. It strips '
+     'comments first (the class is documented by quoting the broken line verbatim, so a naive '
+     'grep reports the bug it just fixed) and SELF-TESTS ITS OWN PATTERN against the '
+     'historical line, because a sweep that finds nothing because its regex is wrong looks '
+     'exactly like a clean codebase. Mutation-tested by reintroducing the 8/29 freeway line: '
+     'names the file and line, 1 red', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '
@@ -1505,6 +1546,21 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('BECOME', ['node', 'gates/become_gate.js'],
+     'THE CUT ASKS WHO YOU BECAME (8/30). The face maker shipped 8/28 answering item 10 '
+     'of his own playtest dispatch -- 14 shape sliders, every haircut the city wears -- '
+     'INTO THE CHARACTER TAB, which is a dev tab the demo cut strips out, so the panel '
+     'shipped inside the demo file WITH NO DOOR TO IT and no player could reach the '
+     'feature. Same shape as the seventeen invisible hats and the colours nobody wore. '
+     'WHERE IT GOES IS HIS, FROM JULY: the 7/19 locked opening turns on a match-cut, "the '
+     'SAME table, ~10 years later ... you are 20-something", and the one thing that cut '
+     'cannot show is what ten years did to YOU. The scene now HOLDS on the first frame of '
+     'the adult and asks. It DRIVES THE DEMO, because the workshop was never the problem. '
+     'Three lessons pinned: ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE (hold/'
+     'resume were written into the alpha and the cutscene patch wiped them, silently, with '
+     'the scene playing on BEHIND the creator and every other check green); THE OPENING '
+     'SCENE HAS THREE COPIES AND ONLY ONE IS PLAYED (a hand-edit to the wrong one looks '
+     'exactly like working); and A GUARD BELONGS INSIDE THE THING IT GUARDS.', False),
     ('HAIR GRAVEYARD', ['node', 'gates/hair_graveyard_gate.js'],
      'GRAVEYARD IS FINAL, ENFORCED FOR HAIR AT LAST (8/30). The registry has existed '
      'since July and NOTHING HAS EVER READ IT -- six weeks of an unenforced law. On '
@@ -3553,6 +3609,8 @@ GATES = [
      'nine sessions write canon in parallel across 583 law/record files that cite each other constantly, and NOTHING had ever checked those citations resolve -- a law pointing at a file that does not exist is worse than no citation, because a session follows it, finds nothing, and concludes the thing was never built. Hard-fails extension drift, ratchets pre-existing debt so no lane is blocked by another lane, and SELF-TESTS its own regex first because the first run of this audit was wrong in exactly that way', False),
     ('BOSS LADDER',    ['node', 'gates/boss_ladder_gate.js'],
      'ONE BOSS = ONE LOCK = ONE THING THAT WAS IMPOSSIBLE AND NOW IS NOT, and no two bosses may open the same door. Built 8/7 because Paolo read the ladder and said "THE STRIPPER / THE WRECKER / THE TOLL -- these are the exact same bro" and he was right: three bosses, one verb, sitting there for four days past a 131-check gate that only ever asked whether the list was well-FORMED and never whether two entries were the SAME THING. Holds the locks distinct, forces every lock to be an impossibility rather than a noun somebody owns, keeps the five killed bosses dead, and checks his rulings actually landed. It caught me committing the identical duplicate INSIDE the fix for it on its first run -- and again on the v3 pass, where two bosses shared a verb and eight locks were written as nouns. EXTENDED TWICE MORE on 8/7: he demoted the spare column as slop (so two checks RETIRED with it -- a gate must never outrank a ruling), ruled ACT 3 SLIGHTLY FUTURISTIC / early Night City, and called transport thin (now a seven-boss spine, because the rebuilding research says you cannot have metallurgy without transport networks). 53 candidates, 53 distinct locks, 53 distinct grant verbs, declared a POOL TO CUT FROM. EXTENDED AGAIN 8/7 with PART L, the GDD AUDIT half: I read the ladder against GDD v5 and SEVEN bosses were fighting canon, SIX of them my fault, because I kept inventing locks without checking whether canon had already opened that door. FOUR DIED OF IT, and the headline is that THE VOICE failed approval five passes running because the radio station is already BUILT + LOCKED in the Life-Support Trio, so it was a boss for a capability the valley already has and there was never anything to unlock. THE SPOKE died because the vehicle ladder already STARTS on man-powered bikes; THE RECLAIM because the reclaim plant kept running and is THE survival event of the backstory; THE EXCHANGE because it and THE CREDITOR were the reserved GUARANTOR seat described twice. Four more were REFRAMED rather than killed, and the gate pins the facts canon states into them (2GW at the dam, and water is not the binding constraint because soil and labour are). His two rulings both pass: THE PUMP is act 2 ("this is act 2 fs") and ACT 1 GETS RAIN COLLECTION, so THE CISTERN is boss 17 and its grant is INDEPENDENCE from whoever owns the water rather than thirst, because rooftop rain was illegal in Nevada until 2017 and catching the monsoon is an act of secession. TWO CHECKS ADDED AFTER 85 GREEN CHECKS SHIPPED A FILE WHOSE OWN HEADERS LIED: every act header must spell out a count that matches the rows under it, and no star note may address a boss by ROW NUMBER, because renumbering 56 down to 53 left ten notes pointing at the wrong bosses and the gate had only ever read the tables, never the prose around them. It also holds his lore rulings (3D printed meat is canon so THE VAT has BIOREACTOR CAPACITY as its lock, not animals; plastic pyrolysis is the fuel path and Las Vegas is the oil field; people already come to Vegas so THE MARQUEE only accelerates it) and the TWO KILL-RULES that have now killed thirteen bosses between them: if you cannot name the wall without inventing it there is no boss, and if the grant does not fit on a button it is not a grant. Its act lookup was rewritten 8/7 because it located a boss by its FIRST PROSE MENTION rather than its table row, which silently put two bosses in act 0. He also called bullshit on my shoe research (correctly -- I generalised PU-midsole hydrolysis into every shoe) so THE BOOT died by my own rule, and TWO CHECKS WERE REVERSED on his rulings rather than defended. Earlier ruling kept: BESTING IS NOT KILLING, so every one of the 34 bosses declares a KILL route (you take the thing) and a SPARE route (you gain the person), the gate fails if a spare route is the kill route reworded, and every boss declares one of four grant KINDS because he named gear and customization as the missing ones', False),
+    ('BATTLE BROS',    ['node', 'gates/battle_brothers_gate.js'],
+     "Paolo 8/18: \"fucking look up battle brothers right now right now.\" LAB's charter is one session = one system = ONE NAMED GAME, and he named it. THE HEADLINE, and it is not about combat: BATTLE BROTHERS IS THE GAME BOHEMIA'S STRUCTURE ACTUALLY IS, and Rogue Fable IV is not. RF4 is a one-hour run with a fresh character, which is why the first line of CLAUDE.md has to shout THERE ARE NO RUNS every session to stop that premise leaking in. Battle Brothers has no runs at all: one continuous campaign, one company you keep forever, the dead stay dead, injuries that persist for days and can turn permanent, a daily wage per head that comes due whether you fought or not, and a strategic map over the tactical battles. That is the half of Bohemia -- the dynasty, the compound, the crash economy -- that had no named reference at all. THE CONVERGENCE FINDINGS ARE WORTH MORE THAN EITHER GAME ALONE: BB's two-zone armour, where armour points absorb instead of hitpoints and the piece is DESTROYED when it reaches zero, is RF4's Protection Points arriving from a second studio for a different audience -- and it lands on the `armor` field we measured on all 320 bodies with a 0 in every one of them. BB's FATIGUE is RF4's Speed Points INVERTED (accrue instead of spend, and it costs you your place in the turn order), and the transferable part is its FLOOR: any character can always swing once no matter how fatigued, so the resource takes your options and never your turn -- the same instinct as our own the-game-never-punishes-taking-your-time. And MORALE answers the RF4 teardown's biggest gap from a different angle: it is enemies reading each other with NO AI coordination at all, every one of its triggers is an event our combat already detects, and people in a gunfight in a dead city do break. THE REFUSAL IS THE CHECK THAT MATTERS MOST HERE: Battle Brothers is pure d100 dice with hit chance floored at 5%, and \"perfect play = zero damage at any enemy count\" is LOCKED -- those are arithmetically incompatible, so the study must keep saying DO NOT TAKE IT, and the gate fails if that refusal is ever softened. A reference study that forgets what it refused is how a locked law dies quietly. It also pulls the holes, because a study that only praises is useless: BB's most-named flaw is that it HAS NO ENDGAME GOAL (\"it is all for naught\"), which is precisely what Bohemia already has in the Act 3 gen-3 Angel heir going one-way -- the dynasty is not decoration, it is the fix for this game's biggest failure. Plus the difficulty curve breaking at both ends as a perk-tree warning, and armies materialising against the worldmap's own rules pointed straight at our LIGHT=TERRITORY laws. The three real forks (a morale state, a daily per-head wage, injuries that RE-ROLE a person instead of retiring them) stay [PENDING, Paolo's call], the gate fails if LAB answers them, and it fails if LAB's diff touches any engine module or slice.", False),
     ('RF4 TEARDOWN',   ['node', 'gates/rf4_teardown_gate.js'],
      "Paolo 8/17: \"I really need you to re-create rogue fable four holy shit please.\" THE SEAM FILE the 8/16 RECREATE-RF4-FIRST law demands, because he put TWO CHATS ON ONE SYSTEM: LAB owns the numbered spec and WRITES NO COMBAT CODE, COMBAT owns the implementation and the STATUS column, neither edits the other's. 68 numbered items, each SPECED or BUILT or DIFFERS-ON-PURPOSE, every BOHEMIA-TODAY number RE-DERIVED off the running fight so no status rests on a sentence somebody typed. MEASURED: 320 bodies across 40 arenas, and NINE OF RF4's PILLARS ARE ALREADY BUILT -- cover and line of fire, the environment genuinely fighting back (cover chews away under fire, cars cook off, decks, darkness), field readouts, ranges, target selection, the way out, armor 0 on all 320 bodies so there is no stat mitigation, and juice. THE AUTHORITY STACK IS WHY THIS GATE EXISTS: Paolo captured 83 RF4 tutorial screens HIMSELF, and the 8/17 LIFT law says his research REPLACES ours -- LAB does not re-search RF4, it turns his corpus into the spec. An 8/18 search pass ran anyway because that law had not been read first, so the gate now enforces the four-tier sourcing scheme with his CAPTURE on top, keeps the admission that the re-search was the wrong call, and holds both corrections it forced: RF4-15 wrongly said do not import the resource tax when the law had already ruled TAKE IT because SP is UPSIDE-ONLY, and RF4-10's PP regen number is FLAGGED as possibly an SP fact mis-attributed to PP. It carries his ONE SENTENCE -- RF4 is not a damage game, it is a POSITION game with a damage readout, and almost every system exists to make geometry more powerful than statistics -- and his NINE MACHINES as the build order: the free-movement budget on a GLOBAL clock (a global clock tests timing, a per-use cooldown tests only patience), vision as ONE variable gating FIVE enemy systems, movement asymmetry instead of stat inflation, environmental kills that keep a bad-item run solvable, bounded 50-100% damage variance so breakpoints are plannable, and status effects as TURN DENIAL rather than damage. Plus the six contradictions the law resolved, above all C4: RF4 is melee-and-spell and we are guns, so distance is not safety here -- BREAKING LINE OF SIGHT is our kite verb, cover is our corridor. And the fleet-wide A/B/C teaching register: tell them what they cannot derive, hint at what they could, NEVER EXPLAIN SOMETHING THE FLOOR COULD HAVE SHOWN. It does NOT demand RF4's numbers -- eight enemies a fight is not his ruling and neither is 3-6 -- it demands the divergence stay MEASURED AND DECLARED and goes red when COMBAT lands the encounter curve. It also fails if LAB's diff touches any engine module or slice, if any RF4-NN cross-reference dangles, or if a [PENDING Paolo] fork gets answered by LAB.", False),
     ('DOMINANCE SWEEP', ['node', 'gates/dominance_sweep_gate.js'],

@@ -987,6 +987,14 @@ const BOH_SFX = (function () {
     { ev: 'tread_more',  label: 'BOOTS — MORE',            why: 'a boot on a hard floor, on a two-beat pattern under a 120 BPM clock' },
     { ev: 'hunker_more', label: 'GETTING BEHIND IT — MORE', why: 'cover_more is what BLOCK draws from, and it is two deep for the thing a whole firefight is made of' },
     { ev: 'seton_more',  label: 'SET IT DOWN — MORE',      why: 'placing a thing, twice, forever' },
+    /* ---- BATCH SFX-12 EVENTS (8/30/26) ---- */
+    { ev: 'xp_lands',   label: 'EXPERIENCE LANDS',        why: 'experience off a body, his 8/25 ruling. the small one, and it fires often, so it has to be nearly nothing' },
+    { ev: 'level_up',   label: 'YOU LEVEL UP',            why: 'the biggest recurring reward in a hundred-hour game, and until this batch it was not even an event -- a number quietly getting bigger behind a label' },
+    { ev: 'perk_taken', label: 'A PERK COMES ON',         why: 'you spent a point and the fight you are standing in changes. cyberpunk/elder scrolls, his own reference' },
+    { ev: 'key_taken',  label: 'A BOSS HANDS YOU A VERB', why: 'fifty-three named men and each one gives you a new way to interact with Bohemia. the largest single reward in the game' },
+    { ev: 'boss_here',  label: 'A NAMED MAN IS IN THIS',  why: 'the fight has somebody in it who holds something you do not. it should land before you see him' },
+    { ev: 'boss_falls', label: 'THE BOSS GOES DOWN',      why: '2.2x health and one job, and he is finished. a normal kill sound cannot carry this' },
+    { ev: 'held_back',  label: 'SOMEBODY ELSE HOLDS THIS', why: 'the stairs and the grenade are locked until you beat the man who has them, and pressing one NAMES HIM. a refusal that is a signpost' },
 
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
@@ -2677,6 +2685,132 @@ const BOH_SFX = (function () {
               transHz: [1150, 2400], damp: [1.8, 2.6], width: [0.54, 0.86],
               dark: [1400, 2700] },
       hitSets: [[0], [0], [0, 0.09375], [0], [0]]
+    },
+    /* ---- BATCH SFX-12 RECIPES (8/30/26) ---- */
+    /* FIVE modal, TWO friction. NO instrument -- sfx_diversity has been red for
+       weeks on instrument owning 58.1% of living candidates, and it says in its
+       own failure text that closing it needs non-instrument candidates THE GAME
+       ACTUALLY WANTS rather than padding. These seven were silent before that
+       gate was opened.
+       MATERIALS ARE HIS 8/28 PALETTE: bell, choir, crystal, glass, water. The
+       ruling retired dry matter and progression never wanted dry matter, so the
+       constraint and the subject agree.
+       EVERY space <= 0.2. A level-up chime traditionally lives in a big room;
+       his four whole-batch deaths on 8/15 said DO NOT ANNOUNCE THE ROOM and both
+       5/5 sweeps sat at 0.14 and 0.16. That costs this batch something real and
+       his data still wins. */
+
+    /* ---- MODAL: things that RING ------------------------------------ */
+    xp_lands: {
+      /* NEARLY NOTHING. It fires on every body, so anything with a tail turns a
+         firefight into a slot machine. Short, high, one strike. */
+      base: { synth: 'modal', mat: 'glass', hz: 660, modes: 5, bright: 1.2,
+              decay: 0.0625, damp: 2.6, warble: 0.4, atk: 0, trans: 0.5,
+              transHz: 4200, transQ: 1.8, grit: 0.1, gritHz: 2600,
+              space: 0.06, room: 0.0625, refl: 0, dark: 4200, width: 0.44,
+              /* LOUDER THAN I WANTED IT, AND THE GATE WAS RIGHT. I wrote this
+                 one to be "nearly nothing" because it fires on every body, and
+                 all five candidates came out at peak 0.144 -- under the
+                 judgeable band. He cannot thumb what he cannot hear, and a
+                 candidate too quiet to judge is not a restrained sound, it is a
+                 wasted slot. Quiet is a MIX decision and it belongs in the mix,
+                 not in a candidate he is being asked to rule on. */
+              drive: 0.04, mkup: 0.95, gain: 0.32 },
+      jit:  { hz: [500, 880], decay: [0.0625, 0.09375], bright: [1, 1.5],
+              transHz: [3200, 5800], damp: [2.2, 2.7], width: [0.34, 0.6],
+              dark: [3200, 5600] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    level_up: {
+      /* THE ONE. Two strikes a beat apart, so it reads as an ARRIVAL rather than
+         a tick -- and a bell, because that is what crossing a threshold sounds
+         like in every game he has named as a reference. */
+      base: { synth: 'modal', mat: 'bell', hz: 330, modes: 10, bright: 0.95,
+              decay: 0.75, damp: 1.1, warble: 1.4, atk: 0, slide: 2,
+              trans: 0.4, transHz: 3200, transQ: 1.5, grit: 0.08, gritHz: 2000,
+              space: 0.18, room: 0.1875, refl: 1, dark: 3000, width: 0.72,
+              drive: 0.04, mkup: 0.7, gain: 0.3,
+              hits: [0, 0.25] },
+      jit:  { hz: [262, 440], decay: [0.625, 1], slide: [0, 4],
+              bright: [0.78, 1.3], damp: [0.9, 1.4], warble: [1, 2],
+              width: [0.6, 0.92], dark: [2400, 4200] },
+      hitSets: [[0, 0.25], [0, 0.1875], [0, 0.3125], [0, 0.25, 0.5], [0, 0.21875]]
+    },
+    perk_taken: {
+      /* IT LANDS IN THE FIGHT YOU ARE STANDING IN -- the tree's own comment. So
+         it is sharper and shorter than the level, and it is crystal, not bell:
+         a level is an arrival, a perk is a thing switching on. */
+      base: { synth: 'modal', mat: 'crystal', hz: 520, modes: 8, bright: 1.25,
+              decay: 0.3125, damp: 1.5, warble: 1.1, atk: 0, slide: 3,
+              trans: 0.55, transHz: 6200, transQ: 2.1, grit: 0, gritHz: 2000,
+              space: 0.12, room: 0.125, refl: 1, dark: 4600, width: 0.6,
+              drive: 0.03, mkup: 0.66, gain: 0.28 },
+      jit:  { hz: [400, 700], decay: [0.25, 0.4375], slide: [1, 5],
+              bright: [1, 1.6], damp: [1.2, 1.8], width: [0.5, 0.8],
+              dark: [3600, 6000] },
+      hitSets: [[0], [0, 0.0625], [0], [0, 0.125], [0]]
+    },
+    key_taken: {
+      /* THE LARGEST REWARD IN THE GAME, and the key is on his body -- you walked
+         to it. Lower and longer than the level-up, three strikes, and it is the
+         only thing in this batch allowed to take its time. */
+      base: { synth: 'modal', mat: 'bell', hz: 196, modes: 11, bright: 0.8,
+              decay: 1.25, damp: 0.9, warble: 1.8, atk: 0, slide: -2,
+              trans: 0.45, transHz: 2400, transQ: 1.4, grit: 0.12, gritHz: 1400,
+              space: 0.2, room: 0.25, refl: 1, dark: 2400, width: 0.8,
+              drive: 0.05, mkup: 0.72, gain: 0.31,
+              hits: [0, 0.375, 0.75] },
+      jit:  { hz: [147, 262], decay: [1, 1.625], slide: [-5, 0],
+              bright: [0.65, 1.1], damp: [0.75, 1.2], warble: [1.3, 2.4],
+              width: [0.68, 1], dark: [1900, 3400] },
+      hitSets: [[0, 0.375, 0.75], [0, 0.5], [0, 0.3125, 0.625, 0.9375],
+                [0, 0.4375, 0.875], [0, 0.25, 0.5625]]
+    },
+    boss_falls: {
+      /* A NORMAL KILL SOUND CANNOT CARRY THIS. 2.2x health and one job, and he
+         is finished. Lowest thing in the batch, and it falls instead of rising:
+         every other bell here goes up. */
+      base: { synth: 'modal', mat: 'bell', hz: 110, modes: 11, bright: 0.62,
+              decay: 1.5, damp: 0.85, warble: 2.1, atk: 0, slide: -5,
+              trans: 0.5, transHz: 1600, transQ: 1.2, grit: 0.2, gritHz: 1000,
+              space: 0.2, room: 0.25, refl: 1, dark: 1700, width: 0.85,
+              drive: 0.08, mkup: 0.78, gain: 0.32,
+              hits: [0, 0.5] },
+      jit:  { hz: [88, 165], decay: [1.25, 2], slide: [-9, -2],
+              bright: [0.5, 0.9], damp: [0.7, 1.1], warble: [1.5, 2.8],
+              width: [0.72, 1], dark: [1300, 2600] },
+      hitSets: [[0, 0.5], [0, 0.375], [0, 0.625], [0, 0.4375, 0.9375], [0]]
+    },
+
+    /* ---- FRICTION: things that are HELD ----------------------------- */
+    boss_here: {
+      /* IT SHOULD LAND BEFORE YOU SEE HIM. A voice, held, with no strike in it
+         at all -- the only way to say "somebody is in this" without saying
+         where. choir, because a named man arriving is a person, not an object. */
+      base: { synth: 'friction', mat: 'choir', hz: 82, rough: 7, modes: 6,
+              bright: 0.4, decay: 1.125, damp: 1.4, warble: 2.2, atk: 0.4375,
+              slide: -3, trans: 0.06, transHz: 620, transQ: 0.6, grit: 0.5,
+              gritHz: 480, space: 0.19, room: 0.25, refl: 1, dark: 900,
+              width: 0.82, drive: 0.04, mkup: 0.88, gain: 0.27 },
+      jit:  { hz: [62, 124], rough: [4, 12], decay: [0.875, 1.5],
+              atk: [0.3125, 0.5625], slide: [-6, -1], warble: [1.6, 2.9],
+              bright: [0.3, 0.58], width: [0.7, 1], dark: [720, 1500] },
+      hitSets: [[0], [0], [0], [0], [0]]
+    },
+    held_back: {
+      /* A REFUSAL THAT IS A SIGNPOST. Pressing it NAMES THE MAN WHO HAS IT, so
+         the sound must not read as a fault -- short, flat, and made of water
+         rather than glass so it lands softer than ui_deny. Nothing rings: this
+         is the one moment in the batch that must not feel like a reward. */
+      base: { synth: 'friction', mat: 'water', hz: 190, rough: 14, modes: 4,
+              bright: 0.55, decay: 0.125, damp: 2.4, warble: 0.5, atk: 0.03125,
+              slide: -2, trans: 0.3, transHz: 1300, transQ: 0.9, grit: 0.6,
+              gritHz: 900, space: 0.07, room: 0.0625, refl: 0, dark: 1400,
+              width: 0.42, drive: 0.07, mkup: 0.85, gain: 0.33 },
+      jit:  { hz: [150, 265], rough: [9, 20], decay: [0.09375, 0.1875],
+              slide: [-4, 0], bright: [0.42, 0.75], gritHz: [700, 1300],
+              width: [0.32, 0.58], dark: [1100, 2100] },
+      hitSets: [[0], [0], [0, 0.0625], [0], [0]]
     },
 
     /* ---- end batch SFX-08 recipes ---- */

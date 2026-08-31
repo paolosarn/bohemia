@@ -108,26 +108,12 @@ const ok = (n, c, d) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n + (d 
    after they were wrongly added, by the honesty check below -- which is the check
    earning its keep on its author. 55 -> 49.                                          */
 const DEBT = {
-  'arsenal':             [11, 13, 14],
-  'basin':               [11, 13, 14],
-  'reservoir':           [9, 11, 14],
   'freeway':             [16, 17],
-  'radio':               [6, 11],
-  'reclaim':             [11, 14],
-  'substation':          [3, 11],
-  'watertreat':          [3, 11],
-  'boneyard':            [9],
   'casino':              [7],
   'convention':          [5],
   'downtown':            [0],
-  'gypsum':              [11],
   'industrial':          [0],
-  'interchange':         [14],
-  'jail':                [3],
-  'quarry':              [11],
-  'railyard':            [3],
   'resort':              [9],
-  'warehouse':           [10],
 };
 
 /* IT GENERATES THE REAL WORLD. NOT SYNTHETIC MODES -- THE ACTUAL VALLEY.

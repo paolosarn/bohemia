@@ -146,3 +146,104 @@ demo_day, the_whole_demo, touch_guard — all green.
 - **Weight.** 4.38 MB in one request, 1.68 MB of it COMBAT_B64, which the demo needs.
   Blocker F (24s to first play) is RUN's, and the cutter says so explicitly.
 - **The ending.** Gap G. The day still ends by going to bed.
+
+---
+---
+
+# PART TWO, SAME DAY: EVERY WALK BUTTON WAS DRAWING TWO ARROWS
+### and my own eye was wrong about these arrows for the third time in this project
+
+Paolo: *"keep building ill vote next round."* So: the top unblocked row in this lane.
+
+## 7. THE TOP ROW WAS ALREADY DONE BY SOMEBODY ELSE
+
+**UI-2** is his own 8/25 dispatch, LOCKED: *"I HATE THAT THE ACTION BUTTON IS THE
+CITY BUTTON ... I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE ACTION
+BUTTON."* It is filed as UI-owned and open.
+
+**It shipped on 8/27.** The city's own source says so in a comment written by the
+lane that did it: *"before THE ACTION BUTTON DOES ACTIONS you had to press DROP IN
+on purpose to come through here. Making zoom the way in and out -- his ruling, and
+correct."* My row was stale. Building it again would have been the fourth-version
+failure that STOP PRODUCING names.
+
+## 8. BUT THE PAD ITSELF HAD A REAL ONE, AND IT IS UI-12's
+
+Reading `padMode()` to understand the swap turned up the actual defect.
+
+The city already carries UI-12's fix: the direction is drawn, not typed — a CSS
+border triangle on `.pb::before`. **Its eight rotations measure exactly
+0 / 45 / 90 / 135 / 180 / 225 / 270 / 315**, correct for all eight.
+
+**The original text glyph was never removed.** It is still the button's
+`textContent` at 15px, so every control renders a correct triangle **with a stray
+arrow stuck to it.** Proved by shooting each button, hiding only the text, and
+shooting again: **8 of 8 changed**, and what is left is a clean triangle.
+
+That is a half-finished fix that left the old thing standing beside the new one —
+the same shape as the two hairline bugs on 8/27, where a correct comment sat over
+incorrect code.
+
+**Checked in both of the pad's modes rather than assumed.** `padMode()` swaps the
+text between `dataset.walk` (↑) and `dataset.mapmove` (⇑). The drawn triangles are
+present in **both** — one triangle for walking, two stacked for map-move — so the
+glyph is redundant in both. In map mode it was rendering in a **different colour**
+from the triangles it sat on.
+
+Fixed demo-side, one line. Gated. Mutation-proved: put the glyph back, gate goes red.
+
+## 9. AND THEN I NEARLY FILED A SECOND BUG THAT DOES NOT EXIST
+
+Looking at the cleaned pad, the four diagonals read to me as pointing **inward**,
+toward the centre of the ring. That would be a serious bug on the game's only
+movement control.
+
+**Two of my own rulers agreed with me, and both were wrong.**
+
+- **Ruler A** measured ink as "anything brighter than the median." The buttons are
+  **dark circles on a light background**, so it was measuring the tan background in
+  the corners, not the arrow. Every number it produced was noise.
+- **Ruler B** cropped inside the circle — correct — but modelled the tip as
+  *opposite the centroid offset*, on the theory that a filled arrow piles its mass
+  at the base. That holds for an axis-aligned triangle and **inverts for one sitting
+  at 45 degrees**. It reported all four diagonals **exactly 178 degrees off**, all
+  four identical. *A real bug is never that tidy.* The tell was in the number.
+
+**Ruler C**, which works, uses no model of where mass sits: sweep every direction,
+take the leading 18% of the ink along it, and find the direction where that leading
+slice is **narrowest**. A triangle is narrow at its tip whatever angle it sits at.
+Validated on the four cardinals first, where the answer is not in doubt: 0° error on
+all four. It says **all eight point correctly, max error 7°.**
+
+**And then a check with no model at all**, because after three disagreements I did
+not want a cleverer instrument, I wanted arithmetic. If the pad is "one shape, eight
+rotations", then the UP button's own shipped pixels rotated 45° clockwise must equal
+the NE button's pixels:
+
+    UP turned  -45°  vs  ↗   overlap 76%
+    UP turned  -90°  vs  →   overlap 64%
+    UP turned -135°  vs  ↘   overlap 63%
+    UP turned  180°  vs  ↓   overlap 58%
+    UP turned  135°  vs  ↙   overlap 63%
+    UP turned   90°  vs  ←   overlap 64%
+    UP turned   45°  vs  ↖   overlap 76%
+
+Every button is the up arrow, correctly turned. **The rotations were right the whole
+time and I was wrong three times about the same eight arrows** — twice in August with
+a squat triangle, and again today.
+
+**THE STANDING LESSON, now earned three times over: when a shape sits at 45 degrees,
+neither a bounding box nor my own eye can be trusted about which way it points. Turn
+the known-good one and compare pixels.**
+
+There is one honest observation left in it, and it is taste, not a bug: **a wide
+triangle is genuinely hard to read at a diagonal.** Not acted on — he is mid-way
+through choosing the whole UI look, and a shape change now would be answering a
+question he has not been asked.
+
+## 10. WHERE THIS LEAVES THE ROWS
+
+- **UI-2** — closed, done by another lane on 8/27, verified in their source.
+- **UI-12 for CITY** — the drawn triangle was already there and correct; what was
+  open was the leftover glyph, now fixed demo-side and gated. Filed for the city lane.
+- `gates/thumb_gate.js` is 11 claims now, mutation-proved five ways.

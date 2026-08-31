@@ -44,7 +44,14 @@ COORDINATOR'S READ: A is the safest and B is the one that would make a
 stranger say "what IS that." Both beat C. But this is exactly the fork
 where his taste is the whole answer.
 
-## 1b. *** DOES THE DYNASTY LIVE? [ASKED 8/28 — JUMPS THE QUEUE] ***
+## 1b. *** DOES THE DYNASTY LIVE? ANSWERED 8/28: "YEAH THREE GENERATIONS
+## BRO CMON." A. CLOSED. ***
+The dynasty lives, all 52 laws stand, nothing archived, and the Act 3
+ending is still the gen-3 Angel heir going one-way. Law:
+laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md. The reconciliation is
+written down there so nobody re-derives it: a handoff is not a run,
+because a run resets you to nothing and a handoff inherits everything.
+THE QUESTION AS IT WAS ASKED, kept for the record:
 Bigger than both items below, so it goes first. Full record:
 records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md.
 His 8/26 ruling said "THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL TAKE

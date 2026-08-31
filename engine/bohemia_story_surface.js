@@ -494,21 +494,50 @@
                                             names: this.names });
   };
 
+  /* ONE TICK BODY. It used to live inline inside start(), which was fine while
+     start() was the only thing that could run the clock. hold()/resume() below
+     need the same body, and TWO COPIES OF A CLOCK is the ENGINE SYNC mistake
+     this repo keeps paying for -- so there is one, and both callers use it. */
+  Story.prototype._tick = function () {
+    var r = this.player_.step();
+    this.apply(r.beat);
+    if (this.o.onBeat) this.o.onBeat(r, this);
+    if (r.done) { this.stop(); this.ended = true; if (this.o.onEnd) this.o.onEnd(this); }
+  };
   Story.prototype.start = function () {
     var self = this;
     this.stop();
     this.reset();
     this.player_ = this._mkPlayer();
-    this.beatTimer = setInterval(function () {
-      var r = self.player_.step();
-      self.apply(r.beat);
-      if (self.o.onBeat) self.o.onBeat(r, self);
-      if (r.done) { self.stop(); self.ended = true; if (self.o.onEnd) self.o.onEnd(self); }
-    }, this.RT.BEAT_MS);
+    this.beatTimer = setInterval(function () { self._tick(); }, this.RT.BEAT_MS);
     this.animTimer = setInterval(function () { self.phase++; self.draw(); }, 125);
     this.draw();
   };
+  /* *** A SCENE CAN BE HELD. (8/30.) ***
+     start() RESETS -- it rebuilds the player from beat zero -- so it has never
+     been able to resume anything, and stop() is final. That was enough while the
+     only thing a scene handed control to was the raid, which happens at the END.
+     It is not enough for a beat that hands the player a DECISION in the middle of
+     a scene, which is what the match-cut does now: `become` on a beat stops the
+     scene there and asks who you grew up into.
+     THE ROOM KEEPS BREATHING. hold() stops the BEAT clock and deliberately leaves
+     animTimer running -- a frozen room reads as a crash, a room still moving while
+     nobody speaks reads as a held breath, which is the effect a cut wants. */
+  Story.prototype.hold = function () {
+    if (this.beatTimer) clearInterval(this.beatTimer);
+    this.beatTimer = null;
+    this.held = true;
+    return true;
+  };
+  Story.prototype.resume = function () {
+    if (this.beatTimer || !this.player_ || this.ended) return false;
+    var self = this;
+    this.held = false;
+    this.beatTimer = setInterval(function () { self._tick(); }, this.RT.BEAT_MS);
+    return true;
+  };
   Story.prototype.stop = function () {
+    this.held = false;
     if (this.beatTimer) clearInterval(this.beatTimer);
     if (this.animTimer) clearInterval(this.animTimer);
     this.beatTimer = this.animTimer = null;

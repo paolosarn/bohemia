@@ -1580,3 +1580,53 @@ courthouse: cracked hardpan, dead scrub, pale coping on both open
 edges of the bed strip. THE RULE THIS PASS ADDS: a family gets a
 COUNTER, not a walk past it - the walk showed a plaza and the count
 showed the branch had never run once.
+
+## 8/30 SEVENTY-SEVENTH PASS: PHASE 2E - FIVE MILLION CELLS BY ROUTING, AND THE LOOK TAB CATCHES UP
+
+The census's four biggest remaining names join families Paolo already
+approved, zero new pixels. THE HEADLINE IS THE SOLAR FIELD: 1.4M
+panel cells - the single biggest name in the walked world after
+embankment - were wearing HOUSE SHINGLES, because kind 'panel' fell
+through to the hroof structure fallback. They draw TF-ART-016's dark
+diagonal-sheen glass now, with the legacy slice's own row contract
+ported: the row piece is the count of panel cells ABOVE capped at
+three, the phase is the column mod three (ordered pools stay ordered
+under the weather shuffle at len<=7), end caps ride sOver where the
+run stops, and the run check crosses tile seams BY NAME because a
+neighbouring tile numbers its legend differently - a per-tile check
+would rule a seam across the whole field every 128 cells. The farm
+ports the 8/11 furrow contract verbatim (family per PLOT so a field
+reads as one field), and the freeway's 2.6M embankment cells take
+the berm on the run's own axis, the talus=riprap precedent. Counters
+first, per the 2D rule: 100% routed on every family's biggest tile,
+rows cycling 1290/1204/1204/1204. Then looked, on foot, at all three.
+
+AND THE RED GATE THIS LANE OWNS WENT GREEN: all 51 LOOK tab pictures
+were stale - some photographing surfaces that have moved MASSIVELY
+(the whole migration happened since they were taken). All 30 shooter
+tools re-ran clean, 24 of 24 checks green, and the LOOK tab now
+photographs the game as it is, tile art included. Bathtub ring is
+the one honest leftover with NO approved art; it needs its own form
+and cook, not a wiring pass.
+
+## 8/30 SEVENTY-EIGHTH PASS: PHASE 2F - THE RING GETS ITS OWN COOK
+
+The one leftover with no approved art gets the full factory pass: form
+TF-ART-033, a cook harvesting only the approved kerb pale (lifted one
+step - carbonate and caliche are one mineral family) and the approved
+riprap rock, four tiles (two per axis). THE EDGE RULE IS THE CRAFT
+HERE: the stand lines sit at CANONICAL rows shared by every variant,
+wander +/-1 mid-tile in 3-5 cell steps (never a fixed 2 - the loc-part
+lesson) and are PINNED back to the canonical row at both tile edges,
+so any two ring cells join without a jump - proven on a rendered
+h0|h1|h0 strip BEFORE wiring, not after. Measured before shipping:
+ring mean value 150.5 against the bed's 117.5, a full step brighter,
+because a band that is not brighter than what it borders is not a
+band. Wired on the walked surface both ways the name appears: the
+shoreline ground takes the axis branch, the intake's structure name
+rides c.sPool. Counters 100% on both names' biggest tiles (6,128
+shoreline cells, 1,274 intake cells); walked the water shoreline and
+the band steps along the dead lake exactly like the satellite photo.
+Board row 108. THE MIGRATION HAS NO LEFTOVERS WITHOUT ART LEFT - what
+remains is polish (boxcar running order) and the daily landmark
+re-probe cadence.

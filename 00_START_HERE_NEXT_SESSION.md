@@ -136,6 +136,472 @@ ROAD_TABLE's keys are ROAD CLASSES (arterial, strip, freeway, beltway,
 interchange, rail, wash), so a walked table needs DISTRICT keys and is new
 content. Under EVERYTHING IS A THUMB that is mine to decide and build.
 
+CHARACTER (character-0lurbs): 8/30 (i) LATEST -- *** THE FACE MAKER SHIPPED ON 8/28
+AND A PLAYER COULD NOT REACH IT. IT IS IN THE GAME NOW, AT THE MATCH-CUT, AND THE
+DEMO IS WHERE I PROVED IT. ***
+
+READ-BACK: from the handoff I took that the demo build now exists as its own link,
+that the opening plays end to end (cold open -> raid -> grief dinner -> burial),
+and that my own last turn deleted seven haircuts that were remakes of dead shapes.
+I did not touch hair this turn.
+
+THE HOLE, MEASURED BEFORE TOUCHING ANYTHING.
+His 8/25 dispatch item 10 was "FACE CUSTOMISATION, never built, is on the board".
+It was built on 8/28 -- 14 shape sliders, all 24 haircuts, a live portrait -- INTO
+THE CHARACTER TAB. That is a DEV tab, and the demo cut strips all seventeen of them
+out. So the panel sits in the demo FILE with no tab, no button and no route:
+    demo tabs a player can see        city, run
+    p-char panel present in the demo  yes
+    ways for a player to open it      0
+THIRD TIME THIS MONTH. Seventeen invisible hats, four bright garments nobody wore,
+a VOTE tab that held no faces for three weeks. THE MATERIAL EXISTED AND NEVER
+REACHED THE PLAYER.
+
+WHERE IT GOES IS HIS, FROM JULY, AND I DID NOT INVENT IT.
+The 7/19 locked opening turns on a match-cut: "the SAME table, ~10 years later ...
+YOU ARE 20-SOMETHING." You are a child before the cut and an adult after it, and
+THE ONE THING THE CUT CANNOT SHOW IS WHAT TEN YEARS DID TO YOU. The scene now HOLDS
+on beat 15 (`actor you_adult`, the first frame of the grown player), shows TEN YEARS
+LATER / Who did you become?, and resumes on THIS IS ME. Researched first: diegetic
+creation is the standing answer where immersion matters (Outer Worlds' cryo-manifest,
+Shadows Over Loathing's mirror) and the shared shape is that it happens INSIDE the
+fiction at a moment the fiction already needed. Ours was written five weeks ago.
+HE CAN MOVE IT: the hook reads a `become` flag off whatever beat carries it, never an
+id and never an index, so dragging the moment in DIRECT moves it with no code change.
+
+ONE SET OF CONTROLS, NOT TWO. faceControlsUI is the workbench's own body minus the
+calibration pad and the EXPORT button (both about making the game, not playing it).
+A second face editor is exactly how the portrait and the body became different people
+on 8/27.
+
+*** THREE LESSONS THAT GENERALISE BEYOND THIS LANE. ***
+1. ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE. I wrote hold()/resume()
+   straight into the alpha. tools/bohemia_cutscene_tab_patch.py owns that block and
+   inlines engine/bohemia_story_surface.js verbatim -- its next run WIPED THEM. The
+   failure was silent and flattering: the creator still opened, the button still
+   worked, and the scene played on HAPPILY BEHIND IT with every other check green.
+2. THE SCENE THE GAME OPENS WITH HAS THREE COPIES AND ONLY ONE IS PLAYED. The record,
+   `var BOHEMIA_COLD_OPEN` (read by coldopen_gate ONLY), and the inlined
+   BOHEMIA_CUTSCENES catalogue (the only one openScene reads). I hand-edited the
+   middle one; every report said success and the game did not change by one pixel.
+   A DUPLICATE NOTHING READS IS WHERE YOUR FIX GOES TO DIE.
+3. A GUARD BELONGS INSIDE THE THING IT GUARDS. "Ask once per device" lived in the beat
+   hook, so it was a property of one CALLER; the gate called openBecome() directly and
+   it re-opened over somebody who had already answered.
+
+AND LOOKING CAUGHT TWO THINGS MEASURING DID NOT. The first screenshot came back BLACK
+while every probe said success -- the probe hid the splash with display:none instead of
+tapping it, which leaves #app display:none, so everything rendered into a hidden tree.
+That is this file's own documented lie and it already cost a whole cutscene playing
+inside a hidden panel on 8/25. TAP THE SPLASH THE WAY A FINGER TAPS IT. And the sliders
+were PURPLE, which PURPLE RESERVATION gives to the Amalgamation alone -- fine on a bench,
+not on a screen the player sees. Fixed with a CSS VARIABLE, not an override: my first cut
+matched the inline style TEXT and missed, because cssText re-serialises #b39ddb as
+rgb(179,157,219). No dev panel changed.
+
+AND A FACE THAT FORGETS IS NOT A FACE -- FOUND AND FIXED THE SAME TURN. pface lived in
+memory only, which was survivable while the only person touching it was Paolo on a bench
+he keeps open, and stopped being survivable the moment a PLAYER met the creator: build a
+head, lock the phone, come back, and you are Punk again WITH NO WAY BACK, because it only
+ever asks once. Same class as the VOTE tab's three weeks of `var V={}` (fixed 8/28) --
+second time this month a surface has lost somebody's work. THIS IS ME writes the face
+now, and so does every control on the bench, so his own work survives a reload too. It
+fails safe both ways: nothing stored, a private window, or a corrupt blob all render the
+approved PUNK face, and the load MERGES onto PUNK so an old save cannot render a head
+with a hole in it. MUTATION TESTED -- stubbing faceLoad turns the reload check red and
+names the eye gap that moved.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. NOBODY IN THE VALLEY HAS THEIR HAIR UP and it is over 40C. Still open, still needs a
+   silhouette he has NEVER killed -- check gates/bohemia_graveyard.txt BEFORE cooking,
+   which hair_graveyard_gate.js now enforces.
+2. 24 haircuts and 16 faces are in the VOTE tab waiting on his thumb. None judged.
+3. THE CREATOR ONLY OFFERS A FACE. His 7/30 board also lists leg length vs torso, frame
+   and bulk, posture and neck length as unbuilt slider ideas, and those are BODY, not
+   face -- a player who can shape a head and not a body will notice. Ruling-free: the
+   mechanism is mine, and the rig already carries the proportions.
+4. Carried, another lane: RUN's person-card still has no speech and no face.
+
+Proof: become_gate 28/28 (drives the DEMO, not the workshop, and mutation tested),
+coldopen 45/45,
+hair_graveyard 9/9, GRAVEYARD 0 live refs, full suite run this turn.
+Law: laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md
+Record: records/BOHEMIA_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.txt
+Tab: RUN (the opening) / CHARACTER (same controls on the bench) / DIRECT (move it)
+
+================================================================================
+FACTIONS (factions-ovkjpf): 8/30 LATEST -- *** THE MAN WHO GAVE YOU THE JOB NEVER
+FOUND OUT HOW YOU DID IT, AND IN THE DEMO NOBODY EVER COULD. *** Nothing to judge.
+
+TAB: **RUN** (the demo's only screen). Play the day, resolve the job, then open the
+OUTFIT board or read the card of anybody who runs with that outfit.
+
+THE MEASUREMENT THAT MADE THE TURN, taken on slices/BOHEMIA_DEMO.html -- THE FILE A
+STRANGER ACTUALLY GETS, not the workshop:
+    34 people within six cells of the spawn ....... 0 affiliated
+    61 people loaded in the whole valley .......... 0 affiliated
+    30 cells to the nearest faction base
+So a demo player could do the Trades' job perfectly and the Trades would never hear
+of it. Everything this lane shipped on 8/27 and 8/28 -- the outfit's view, the quest
+deeds, the card, the OUTFIT board -- was UNREACHABLE IN THE DEMO. Not a faction being
+unimpressed: a system nobody can reach. MEASURING THE DEMO RATHER THAN THE BENCH IS
+THE WHOLE REASON THIS WAS FOUND, and the UI lane's 8/30 turn is the precedent: twelve
+of thirteen controls were under the thumb minimum ON THE DEMO while the bench looked
+fine.
+
+AND HIS FILES ALREADY SAID WHO IS IN THE SCENE:
+    @ROLE lineman  REQ  faction=TRADES   block=browned
+    @ROLE fixer    OPT  faction=NETWORK  met_before=false
+53 of the 66 @ROLE lines in quests/bq carry an authored faction. REQ is not
+decoration -- bohemia_bq.js FAILS THE BUILD on an unfilled REQ role -- and block=
+binds the lineman to the very block the job happens on. A required character bound to
+the place is IN THE SCENE. And the casting layer already existed and already worked:
+measured 380 people around the Trades' ground, 109 of them Trades, both roles filled
+with a real Trades lineman and a real Network fixer. NOTHING HAD EVER MADE THEM
+WITNESSES.
+
+WHAT SHIPPED, proved on the demo:
+    before   members 0, whoSaw 0, rung null
+    publish  witnesses 1
+    after    value 0.8, rung NEUTRAL, members 1, whoSaw 1
+    why      watched it: Handed the tap to the trades. Daylight patch, every name
+             on the work order.
+That last line is HIS OWN @LOG SENTENCE, on a card, in the demo.
+
+WHY IT IS NOT THE KARMA IT REPLACES: 8/28's rule is that a faction learns nothing it
+did not witness, and it stands. This does not widen it to the valley; it adds exactly
+the people his own file marks REQUIRED. Optional roles are NOT added -- you may never
+have met them, and a faction learning through somebody the player never encountered is
+the omniscient karma this whole thing replaces.
+
+WHAT I DID NOT DO: engine/bohemia_agents.js states its own honest limit, that the
+job-site widening does NOT rescue a block 20 cells from everything, that this is a
+fact about the map, and that papering over it there would be fitting the world to a
+screenshot. That is right. NO BASE MOVED, NO MAP TOUCHED. AFFILIATED_RATE (0.30) and
+REACH_CELLS (12) remain [PENDING Paolo].
+
+TWO BUGS, BOTH MINE, BOTH FOUND BY PROBING THE REAL SURFACE:
+  A. ctDayCast returns { q, day, cast:{role -> person} } AND I READ IT ONE LEVEL TOO
+     SHALLOW. cast[role] found nobody and published witnesses:0 -- the same answer as
+     "there is no cast", which is precisely the ambiguity this feature exists to end.
+     A direct castAddresses call had been filling both roles the whole time.
+  B. I STAMPED THE QUEST'S SPELLING ON THE MIND. The cast entry carries the role's
+     REQUIRED faction (TRADES); every mind is stamped with ctFactionOf's answer (the
+     canon id Trades); standingOf compares those STRICTLY. So the deed landed,
+     witnesses:1, and whoSaw stayed 0 -- the faction filtered its own new witness
+     straight back out. Fixed with ctCanonFaction, and THE FIX BELONGS AT THE STAMP
+     rather than in standingOf: both sides of that compare are city ids by
+     construction, and loosening it would only hide the next mis-stamp.
+     ctCanonFaction answers null for a name no outfit has, so a typo in a quest stays
+     visible instead of quietly becoming somebody.
+
+GATES: FACTION BETWEEN 149/0 (was 137) - THE WHOLE DEMO 23/0 - DEMO BUILD 25/0 -
+ALPHA LOADS 20/0 - FACTION ARC 91/0 - STANDING 35/0 - CITY BARKS 13/0.
+Gate S runs ON THE DEMO FILE and does what the splash does (taps the real RUN tab),
+because the demo has no tab bar. S4 ASSERTS THE PREMISE RATHER THAN REMEMBERING IT:
+the demo player can reach zero affiliated people and the nearest base is 30 cells; if
+that ever stops being true the reason for this feature goes away and a RED GATE should
+say so rather than a record nobody re-reads.
+THREE MUTATIONS, ALL BITE: stop making the required cast a witness and S6/S7/S8 die;
+stamp the quest's spelling and S7/S8 die; drag optional roles in and S11 dies alone.
+dayloop_gate is 57/2 and THAT PREDATES THIS -- verified against origin/main's own
+city, identical 57/2.
+
+RECORD: records/BOHEMIA_THE_MAN_WHO_GAVE_YOU_THE_JOB_8_30_26.md
+
+FOUND AND NOT FIXED, NAMED SO IT IS NOT INVISIBLE:
+  *** THE DEMO DRAWS ONE PERSON AT A TIME. *** maxDrewAtOnce 1 over a walk, with 34
+  people within six cells. The draw loop has NO CAP, so this is the city reading as
+  empty rather than a faction bug -- playtest-dispatch item 5, "the city is dead and
+  DEAD IS NOT THE DEFAULT", which belongs to RUN/WORLD. IT ALSO CAPS EVERY WITNESS SET
+  IN THE GAME AT ONE PERSON, so the whole loudness model (reach, hops, RECKLESS BEATS
+  QUIET) cannot express itself. Worth somebody taking seriously.
+  BohemiaStanding.inherit / legendOf -- the dynasty handoff, still dead, still needs a
+  story moment the demo does not have, and the top of CLAUDE.md carries an open
+  [PENDING PAOLO] on whether the dynasty lives at all. Not for a session to resolve in
+  passing.
+
+ALSO FOUND ON THE MERGED TREE AND NOT MINE TO FIX: the city carries STALE inlined
+copies of engine/bohemia_watertreat.js and engine/bohemia_speedway.js (and railyard
+on origin/main itself). ENGINE SYNC LAW: one canonical body per module, and a stale
+inlined snapshot is the bug that meant nobody in Las Vegas had a faction for thirteen
+days in August with every gate green. `python3 tools/bohemia_city_module_resync.py`
+fixes it in one run. Left alone because those are WORLD's modules and a resync mid-
+flight would move a system this session does not own -- ONE SYSTEM, ONE SESSION.
+
+WHAT IS PENDING HIM: nothing new.
+
+CONTAINER WARNING: this container has REWOUND THE WHOLE REPO to an older snapshot
+twice in one session, remote refs included. Recovery is `git fetch origin main` (slow)
+then `git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN. Background
+processes barely advance between tool calls -- run gates in the FOREGROUND, and note a
+single Bash call is capped at 10 minutes, so one mutation run per call.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 8/30 (h) LATEST -- *** CROSSING THE ROOM IS THE BEST PLAY
+IN THE GAME AND THE WORST PLAY IN THE GAME, AND THE ONLY DIFFERENCE IS ONE
+STAMINA PIP. *** Nothing to judge.
+
+TAB: COMBAT. Fight until a sniper has a line on you. Build 8/30h.
+
+THE QUESTION THIS LANE COULD NOT ANSWER ALL WEEK, ANSWERED
+  RF4-37 is the priority-target row. THREE instruments failed at it and each
+  failure is written down: a passive player saturating a 100-health bar (which
+  gave a confident BACKWARDS answer), then the same player at 600 where a
+  one-body difference is smaller than the noise. Yesterday's record named the fix
+  in advance -- "a PLAYING A/B measuring TURNS TO CLEAR and DAMAGE TO CLEAR
+  rather than damage over a fixed window" -- and that race is now IN THE GATE.
+
+THE RACE: 90 fights a policy, same boards, one thing different
+    never cross the room        ~33% of rooms cleared     ~78 damage
+    WALK at him                 ~19%                     ~135
+    MANEUVER over safe ground   ~16%                     ~145
+    SPRINT at him and shoot     ~31%                     ~118
+  Walking at the priority target clears HALF as many rooms as ignoring him and
+  costs nearly twice the blood. Sprinting -- THE SAME PLAN, ONE PIP -- beats
+  walking on both counts, every run. RF4-49, already shipped here: "SP is not
+  movement, it is a currency that buys FREE ACTIONS OUTSIDE THE TURN ECONOMY
+  ENTIRELY." A walk costs your whole turn; a sprint costs a pip and leaves it.
+
+WHAT IS ASSERTED AND WHAT IS ONLY REPORTED
+  Three runs: nearest 31.1/36.7/32.2, walk 18.9/15.0/18.9, sprint 37.8/31.7/28.9.
+  WHETHER SPRINTING BEATS STANDING OFF IS INSIDE THE NOISE and the gate reports
+  it rather than claiming it. What holds every time: walking is worse than not
+  going, safe-routing does not rescue it, and SPRINT BEATS WALK ON BOTH COUNTS.
+
+AND THE SHARPEST LINE IS ABOUT MY OWN FEATURE
+  Routing the crossing over the tiles V193's READ calls safest was the WORST
+  policy measured. THE READ OPTIMISES FOR THIS TURN AND CROSSING A ROOM IS A
+  MULTI-TURN PLAN, so the safest next tile is frequently backwards. Honest limit
+  of a shipped feature, found by using it, pinned in the gate.
+
+*** AND THE BEST FINDING FELL OUT OF STAGING THE TEST: THE DARK IS WHAT CREATES
+RF4-37 HERE. *** The arm kept reporting the spotter INSIDE my reach however far
+back I staged him, and that is a fact about the game. V151 gives the player a
+reach FLOOR of the longest foe reach plus an edge, and THE SPOTTER IS THE LONGEST
+REACH ON THE BOARD -- so in daylight, the moment he can see you, you can already
+shoot him: blind band ZERO. After dark V98 HALVES YOUR RANGE AND DOES NOT TOUCH
+HIS EYES, and the band opens to about six tiles. "Maneuver into position to kill
+the priority target" is a DAYTIME NON-PROBLEM AND A NIGHT PROBLEM.
+
+WHAT SHIPPED
+  The man who has the room is NAMED ON THE FIELD (V179's ring says who can see
+  you; it cannot say which one is the reason your stone stopped working). The
+  line names the gap in tiles and switches between "put him down" and "RUN at
+  him: your legs do not cost your turn" on the real reach test. The sprint's own
+  label -- "2 TILES, 1 PIP, FREE MOVE" -- only ever appeared AFTER you armed it,
+  which is the answer to a question you had to have asked already.
+
+GATES: fight_moves_you 148/0 (was 144/0), two runs - combat_lab 931/1 (the one
+red is another session's fight-music ladder) - one_engine 3/0 - boss_ladder 87/0
+- 0 page errors. applyDamage 40; not one rule about who can shoot whom moved.
+RECORD: records/BOHEMIA_COMBAT_THE_ANSWER_IS_YOUR_LEGS_8_30_26.md
+
+WHAT COMES AFTER
+  THE NIGHT IS THE INTERESTING HALF AND NOTHING IS BUILT FOR IT. The puzzle only
+  exists after dark, when your reach halves and his does not, and the one ability
+  that answers a man you cannot reach is the SPRINT -- a pip from a pool of three
+  that refills every five turns. HOW MANY PIPS IT TAKES TO CROSS A ROOM AT NIGHT
+  IS THE ACTUAL DIFFICULTY DIAL OF THIS FIGHT, and it has never been measured.
+  Still open and still combat's: "it could be more hardcore if you wanted it to
+  be" -- permission, not a ruling.
+
+------------------------------------------------------------------------
+
+RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
+three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
+
+WORLD's own 8/29 post-mortem, after finding EVERY FREEWAY IN THE VALLEY BUILT
+SIDEWAYS: "it was fixed there on 8/26 and NOBODY SWEPT THE CLASS. Third time this
+month." The cost of that third time: 249 of 952 freeway cells cut off from the
+network, 214 separate road networks, a car that could not drive the interstate.
+AND HE HAS BEEN REPORTING THE VISIBLE HALF SINCE 8/15, and again on 8/28. Three
+reports, three fixes, one module at a time, and the class never swept.
+
+*** THE CLASS HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN LOOKED FOR. ***
+  SHAPE A, THE MODULE FORCES IT: o.same=o.links=o.streets=['N','S'] in a kit
+    registration, which throws the caller's answer away before the module sees
+    it. Arterial 8/26 (921 cells). Then, unswept, freeway 8/29. NOW 0 PLACES AND
+    HELD THERE.
+  SHAPE B, THE CALLER DEFAULTS IT: roadAxis(...)||'ns', turning "I do not know"
+    into a north-south road. Fixed for 14 freeway cells 8/27. STILL TRUE FOR 115
+    MORE and NEVER SWEPT. 2 places, ratcheted so it cannot grow.
+gates/nobody_swept_the_class_gate.js, 6/0. Mutation-tested by reintroducing the
+exact 8/29 freeway line: it names the file and the line, 1 red.
+
+NOT FIXED HERE, AND THE PROOF IS FROM 8/28: a crossing is an AGREEMENT BETWEEN
+TWO CELLS, not a decision one cell makes. The obvious one-line fix takes
+street_contract from 19/0 to 17/2 -- 115 wrong-facing cells become 191 broken
+seams. It has to be settled where the seam is negotiated, which is WORLD's live
+work, and they are moving fast on it.
+
+WHY THIS IS A SOURCE SWEEP AND IS NOT ASHAMED OF IT: the 8/15 facing gate was
+worthless because it used source text to answer a question about BEHAVIOUR. This
+one asks "does the pattern exist anywhere", which IS a question about source,
+while street_facing_is_measured_gate renders the real surface and counts real
+cells. THE BEHAVIOUR GATE SAYS HOW BAD, THIS ONE SAYS WHERE ELSE. Neither alone
+is enough and they are not substitutes. It strips comments first, because this
+class is documented by quoting the broken line verbatim and a naive grep reports
+the bug it just fixed; and it SELF-TESTS ITS OWN PATTERN against the historical
+line, because a sweep that finds nothing because its regex is wrong looks exactly
+like a clean codebase.
+
+  SWEPT THE CLASS 6/0 (new) · STREET FACING IS MEASURED 11/0 · both ratcheted
+  STILL 115 crossings built north-south with no east-west arms. That number is
+  WORLD's to move and it prints every suite run until it does.
+
+NEXT IN THIS LANE: the walked world. The road interrupts, leaves salvage and asks
+real questions -- but ONLY ON THE MAP. Most of the demo is WALKED, and nothing
+from that system touches it. Dispatch item 5, DEAD IS NOT THE DEFAULT, is still
+open where he actually spends his time. Then TIER 2 THE PACK (blocked on AR-006,
+the dog body, still OPEN in the art queue while feral_dog_pack FIRES).
+
+--------------------------------------------------------------------------------
+
+WORLD (world-9lfjtf): 8/30 (e) LATEST -- *** THE DEMO IS A PERSON ON FOOT AND
+NOTHING IN THIS REPO HAD EVER ASKED WHETHER HE CAN WALK ANYWHERE. He can: 95.7%
+of the valley from where the game opens him, and everything out of reach is
+MOUNTAIN except eighteen pockets. Now gated. Nothing to judge. ***
+
+TAB: RUN. Walk in any direction. Build 8/30f - YOU CAN WALK TO 95.7% OF THE VALLEY.
+
+THE HOLE
+  Every reachability measure in this repo was about something else:
+    street_contract_gate  does this seam line up (x7,600), and since 8/28 can a
+                          CAR reach the road network
+    walkable_gate         is this DISTRICT mostly parking lot, one at a time
+    drive_network_gate    can a CAR reach every stall, inside one plot
+  None of them asked the only question the player asks: FROM WHERE THE GAME
+  STARTS ME, WHAT CAN I WALK TO?
+
+THE ANSWER, AND IT IS GOOD NEWS
+    cells carrying standable ground        9,043
+    separate walk networks                    99
+    the demo opens in                 suburb(48,48)
+    CELLS HE CAN WALK TO FROM THERE        8,653   95.7%, and it IS the biggest
+  Out of reach: 371 MOUNTAIN, plus EIGHTEEN cells, all of them 1-12 cell pockets
+  against the rim -- four desert in the top-left corner, five estate on the
+  massif's inner face where the overmap deliberately puts millionaires behind
+  mountain, and singles. Only THREE are in the valley proper: warehouse(56,34),
+  warehouse(57,34), suburb(7,83).
+
+THE MEASURE
+  A node per cell with any standable tile on an edge; an edge between two cells
+  wherever there is an index i at which BOTH sides' edge tile is standable, which
+  is exactly what a body needs to step across a boundary; then components, and
+  the one containing the opening cell. Cell resolution ON PURPOSE: 96x96 cells of
+  128x128 tiles is 150 MILLION tiles and a flood over that in a browser is a hang,
+  not a measurement.
+
+AND ITS FIRST ANSWER WAS ABOUT ITSELF
+  The first draft read the district kit's own solidity -- correct for every kit
+  district and BLIND TO THE SUBURB, because SUB_RES cells carry m.sub and never
+  m.kit, and the suburb is the one district the demo starts in. It reported that
+  the player can walk to 0.0% of the valley. FOURTH TIME THIS MONTH a
+  measurement's first answer was about itself (the connector filter that returned
+  everything; the crude green threshold that missed #49512e by one point; the
+  seam metric that called a driveway a break; this).
+  It calls realizeCell now -- the walked surface's OWN answer, which cannot drift
+  from what a body experiences. Same reason occupancy_gate compares the model
+  against the running page instead of trusting either alone.
+
+THE GATE: gates/walkable_valley_gate.js, 6 checks, REGISTERED as WALK THE WORLD
+  (75s, green -- an unregistered gate never runs)
+    he can walk OUT of where the game put him (opening cell is on the biggest net)
+    reach share floored at 95.5%, only ever goes UP
+    what he cannot reach is MOUNTAIN, not somebody's street -- rim and water
+      excluded from the headline on purpose, because 371 mountains would let a
+      real stranding hide behind them. Ceiling 18, only goes down.
+    MUTATION TEST: seal the opening cell and reach must collapse 8,653 -> 1.
+      Given this sweep's first draft returned 0.0%, that is not theoretical.
+  Probe kept: tools/bohemia_walk_reach_probe.js prints districts and coordinates.
+  A COUNT IS NOT A LOCATION -- four failed freeway attempts paid for that lesson.
+
+WHAT COMES AFTER
+  The three strandings in the valley proper (2 warehouse, 1 suburb). The ceiling
+  is 18 so closing them ratchets. The estate pockets on the massif are probably
+  CORRECT -- the overmap puts estates on the mountain's inner face on purpose and
+  a hillside street only a car road reaches is a real thing. That is a judgement
+  about the MAP, not the plumbing, so it is written down rather than fixed.
+  Streets themselves have no big fish left: 642 broken edges of 7,643 (8.4%)
+  across 171 shapes, none bigger than 35.
+
+RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
+
+================================================================================
+
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (c) LATEST -- *** THE DYNASTY
+LIVES. He answered the sweep-23 question in one line and it is law. Nothing to
+judge. ***
+
+*** EVERY LANE READ THIS. Paolo 8/28: "yeah three generations bro cmon." ***
+Law: laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md. CLAUDE.md's top block
+updated from [PENDING] to his ruling. The 8/26 law is CORRECTED AT THE SOURCE so
+the bad phrase cannot be re-copied out of it.
+NOTHING IS ARCHIVED. All 52 live dynasty law files stand, 162 mentions, none
+stale. Three generations, ~100 years, Gen 1 Animal, Gen 2 Human, Gen 3 Angel, THE
+PLAYER LIVES ALL THREE, each inheriting everything the last built. The Act 3
+ending is still the gen-3 Angel heir going ONE-WAY.
+
+THE RECONCILIATION, WRITTEN ONCE SO NOBODY RE-DERIVES IT:
+"THERE ARE NO RUNS" AND "THREE GENERATIONS" WERE NEVER IN CONFLICT. A RUN RESETS
+YOU TO NOTHING. A HANDOFF INHERITS EVERYTHING -- compound, faction standings,
+territory, trade routes, the family tree, and the unhealed wounds. The 7/1
+architecture is a deterministic FOLD, not a wipe. It is the OPPOSITE of a reset,
+which is exactly why his no-runs ruling never touched it.
+AND THE TWO HUNDREDS ARE DIFFERENT AXES: his ~100 HOURS TO COMPLETE is how long a
+person plays; the 7/1 law's ~100 YEARS is how much time passes in the fiction. A
+hundred hours of play spanning a hundred years of world.
+THE PERSISTENT PERK TREE AND THE 60 MINI BOSSES SURVIVE UNCHANGED, and THE FOLD IS
+WHERE THEY CROSS -- the tree is PERSISTENT by his own word, so it persists across
+the handoff like everything else. How much an heir keeps, and whether a boss's verb
+is a family inheritance or a personal one, are a NUMBER and a DESIGN CALL and both
+are HIS. Ships inherited-in-full until he rules, because that is what "each
+generation inherits everything the previous one built" already says.
+
+WHAT SWEEP 23 FOUND, KEPT BECAUSE THE MECHANICAL HALF STANDS REGARDLESS:
+the summary of his 8/26 ruling added two words he never said, "one character."
+Measured: zero hits for "character" in his quoted words, one in the summary, one
+in CLAUDE.md's first paragraph -- the first thing every session reads. Read
+literally it deleted Gen 2, Gen 3 and the ending of the game. Greenberg's BMJ 2009
+citation-network study names the exact mechanism: authority manufactured by "forms
+of INVENTION such as the CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION
+ALONE." Nobody lied; the claim got promoted by being repeated somewhere more
+authoritative than it started. Ten years there, two days here.
+*** THE STANDING RULE: A SUMMARY NEVER OUTRANKS THE THING IT SUMMARISES, AND A
+SUMMARY THAT ADDS A FACT ITS SOURCE DOES NOT CONTAIN IS A BUG, NOT A PARAPHRASE.
+The truth hierarchy ranks DOCUMENTS, not FIDELITY, and had no rule for this. ***
+
+WHERE THIS LANE IS
+  Read-only across every lane. Records his rulings as law the same turn, audits
+  drift, guards the demo path, routes work. Never writes code.
+  DEMO PATH GREEN, MEASURED THIS TURN: the_whole_demo_gate 23/23.
+
+IN FLIGHT
+  Nothing half-built.
+
+BLOCKED ON
+  Nothing for me. Open and unclaimed:
+    SHARED FIDELITY-1  the summary gate (would have caught this in one run)
+    SHARED -14  cut the demo build; -13 pin the ref for the round
+    RUN P0-DOOR / P0-MORNING / WIDE-2 ; UI WIDE-1
+    WORLD WASH-FILL / UNDER-1 (one tunnel) / STREETS-LEGO's 44 declared breaks
+    COMBAT BESTIARY-VOLUME / DANGER-TIERS
+  DEMO ORDER UNCHANGED: BUILD -> DOOR -> ENDING (answered: the overlook, changed)
+  -> INSTRUMENT (0f is BUILT) -> INVITE.
+
+WHAT I WOULD DO NEXT
+  Sweep 24. Standing watch: nobody hands anybody the workshop link, and nobody
+  re-derives the dynasty question -- it is answered and it is law.
+
+PROOF
+  laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md  (his ruling)
+  records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md  (sweep 23)
+  records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md  (sweep 22)
+  records/BOHEMIA_THE_QUESTION_QUEUE_8_25_26.md  (1 and 1b closed; 2 and 3 parked
+    and neither blocking)
+
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
 Four failed guesses, then a different KIND of measurement found it in one run.
@@ -221,188 +687,6 @@ WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
   fenced ON PURPOSE and should never join.
 
 RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
-WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
-THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
-
-READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
-spots our writing at 81%, and a 617-film control group), UI is on round seven with
-a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
-it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
-looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
-and SHARED -19 caught the site not deploying for seven hours while every push kept
-working.
-DEMO PATH GUARDED: the_whole_demo_gate 23/23.
-
-*** THE FINDING. ***
-On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
-TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
-and it correctly killed the word "roguelite" that had been wrong at the top of
-CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
-ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
-for "character" anywhere in his quoted words, one hit in the summary, one in
-CLAUDE.md's first paragraph, which every session in this fleet reads first, every
-session. I ran the positive control this time: the same grep finds "character"
-elsewhere in the same file, so the instrument works.
-WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
-law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
-years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
-the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
-CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
-skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
-is titled "the 100-year problem."
-AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
-actually conflict -- a run resets you to nothing, a generational handoff inherits
-EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
-a natural way to describe one long life, and BOTH of his own references, Cyberpunk
-and Elder Scrolls, are single-character games with perk trees. The difference is
-the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
-
-THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
-is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
-Nothing in it says a summary may only contain what its source contains. So one
-inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
-CONSTRUCTION, silently, before any session has read anything else.
-Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
-manufactured by bias, amplification, and "forms of INVENTION such as the
-CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
-got promoted by being repeated somewhere more authoritative than it started. Ten
-years there; two days here, because this fleet re-reads its top document nine
-times a day.
-
-WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
-carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
-inference, and names the open question in place so no session silently resolves
-it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
-on it, which is the definition of a canon call.
-*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
-answer before he gives one, write your assumption in your commit, never into a
-law. ***
-
-  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
-  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
-  every distinctive claim in the bullet must appear in that file. Mutation test:
-  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
-  files, only claim-matching is new. It would have caught this in one run.
-  NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
-FACTIONS (factions-ovkjpf): 8/28 (y) LATEST -- *** HE WROTE 82 CONSEQUENCES INTO
-HIS QUESTS AND NOBODY IN LAS VEGAS HAD EVER SEEN ONE OF THEM. NOW THE PEOPLE
-STANDING THERE WATCH YOU DO IT. *** Nothing to judge.
-
-TAB: **RUN**. Play a day's quest, then walk up to anybody who runs with the
-outfit it touched and read their card, or open the OUTFIT board. Build 8/28y.
-
-WHAT WAS ALREADY THERE. 82 faction consequences authored across 25 of his 27
-quests -- `faction REDS +10`, `faction CARAVANS +12` -- every one carrying the
-clout tag that says how loud it was. The demo plays three of them with the real
-parser and the real runtime, and the `faction` verb IS handled: it adds the
-number to quest state and a shared ledger. And that was the whole of it. The
-number moved valley-wide and instantly and NOT ONE PERSON SAW IT HAPPEN. No card
-changed, no outfit formed a view, the people standing next to you remembered
-nothing. engine/bohemia_deeds.js was built on 8/6 to close exactly this and its
-own comment calls publishStage "the convenience the run lane will actually
-call". Nothing ever called it.
-
-WHY THIS SHAPE, AND IT IS NOT MY OPINION. New Vegas shipped both designs at
-once. Its KARMA is omniscient, unwitnessed and invisible, and the settled
-verdict is that it is "almost completely irrelevant". Its REPUTATION moves when
-somebody CATCHES you, and it is the half the whole game is built on. Bohemia's
-s.faction ledger is precisely karma. This adds no system; it moves his numbers
-onto the reputation path that was already built, already gated, already on the
-card.
-
-FIVE BUGS, EACH OF WHICH ALONE KEPT IT INVISIBLE:
-  A. THE MATCHER WAS CASE-STRICT. publish() compared the city's faction id to
-     the quest's spelling with ===. Measured: 82 deltas, 23 matched, 59 named a
-     real faction IN A DIFFERENT CASE, 0 named one that does not exist. He
-     writes TRADES; the canon id is Trades. Fifty-nine lines of his writing went
-     into nobody's head and publish() returned witnesses:0, which is
-     indistinguishable from nobody being there.
-  B. scanQuest COULD NEVER RUN ON THE WALKED SURFACE. It called
-     LOOP.cloutTagFrom and the city loads BohemiaClout, not the 75 KB
-     BohemiaLoop, so LOOP was null and it threw on its first line. cloutWeight
-     got exactly this fallback on 8/21 and scanQuest was missed. The
-     half-applied fix was the whole bug.
-  C. `where` IS A FUNCTION, NOT A PLACE. I passed the string '@', which is
-     truthy, so it was called and threw -- swallowed, reported as witnesses:0.
-     The exact ambiguity this bridge exists to remove, one argument to the left.
-  D. THE DIRECT DIAL WAS WIPING HIS CORPUS AT BOOT. Why it read as working
-     standalone and broken in the alpha: boot table 82 on the city page, 0 in
-     the alpha. ctDialApply deletes every row before writing the dial's -- right
-     about the four kinds the dial OWNS, wrong about the 82 q: rows it cannot
-     name and can never put back. An EMPTY dial was erasing his whole quest
-     corpus before he touched anything. Now: clear, reload corpus, dial on top.
-  E. THE CARD COULD NOT SAY WHY. CT_DEED_WORDS only held the four city kinds, so
-     a q:<quest>:<stage>@<FACTION> deed vanished from the reasons. loadCorpus
-     already stores each stage's @LOG line in LABELS -- his own sentence -- and
-     labels() was another organ reported as reached by NOTHING ANYWHERE.
-
-TWO STRUCTURAL CORRECTIONS THE TOOLS CAUGHT, BOTH MINE:
-  const DEMO_BQ sat INSIDE the demoquests banner, which has no closing banner,
-  so a resync cuts through it. At five quests nobody noticed; at twenty-seven
-  the resync refused -- 278742 bytes against a 17216 byte module. That refusal
-  is the tool working as designed. The corpus now lives outside every banner.
-  AND THE HOOK WAS PATCHED INTO THE INLINED COPY, so the resync reported
-  demoquests STALE against canon: the exact drift ENGINE SYNC LAW exists to
-  kill. engine/bohemia_demoquests.js now has a `witness` seam and the city
-  passes the world in. The MODULE owns WHEN a resolution counts (idempotent per
-  quest+stage, because a chosen @OPT carrying @DO set_stage runs the stage
-  before the UI asks and both callers must be correct). The CITY owns WHO WAS
-  THERE.
-
-THE SCALE IS A CORRECTNESS MATTER. loadCorpus normalises by the largest deed in
-whatever it is given. The full 27 answer 20; the five that used to be inlined
-answer 12, so loading only those inflated every weight by 20/12 and moved every
-rung boundary. The SOURCES are inlined rather than a baked table, so the numbers
-re-derive from his files every boot and cannot drift. Three stale numbers in the
-module's own prose corrected from the measurement (it claimed 59 deltas, 69
-tags, max 18; really 82, all tagged, max 20).
-
-MEASURED ON THE REAL SURFACE: at the Trades base, 26 Trades people, 3 drawn and
-holding minds. Day one is bq_meter_reader stage 31, TRADES +8, tagged notable
-(reach 12 tiles, 3 hops). Before: rung null, whoSaw 0. Publish: witnesses 3.
-After: the outfit's view has moved and the card says why in his own @LOG line.
-
-GATES: FACTION BETWEEN 137/0 (was 122) - STANDING 35/0 - COMMITMENT 72/0 -
-FACTION MEMBERSHIP 60/0 - DEMO BUILD 25/0 - ALPHA LOADS 20/0.
-THREE MUTATIONS, ALL BITE: revert the case fold and R11/R12/R13 die while R10
-still passes (publish "succeeding" with zero witnesses is the whole silent
-failure); let the dial wipe the corpus and R6 dies alone; turn off idempotence
-and R14 dies alone.
-dayloop_gate is 57/2 and THAT PREDATES THIS -- verified by running it against
-origin/main's own city, identical 57/2.
-ONE GATE CLAIM WAS REWRITTEN RATHER THAN QUIETLY LOOSENED: Q6 read "with his
-table EMPTY it never prints a rung". That principle (do not invent a judgement)
-is untouched; what moved is where his judgement comes from, since his own
-authored lines now fill the table. NOBODY IS JUDGED FOR SOMETHING NOBODY SAW is
-the point, so Q6 now asserts an outfit whose people witnessed nothing shows no
-rung, however full the table is.
-
-RECORD: records/BOHEMIA_82_CONSEQUENCES_NOBODY_SAW_8_28_26.md
-
-STILL DEAD, NAMED: BohemiaStanding.inherit/legendOf (the dynasty handoff, needs
-a story moment that does not exist yet); BohemiaDeeds.sayWhy (superseded by the
-city reading labels() directly -- collapse to one path next time);
-BohemiaPeople.peopleOf.
-
-WHAT IS PENDING HIM: nothing new. The STANDING dial in DIRECT still overrides
-anything he wants, and now it lands ON TOP of his quest corpus instead of
-erasing it. AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain [PENDING Paolo].
-Spawn/base placement stays outside this lane: the nearest base is 29 cells from
-the spawn, which is why a quest deed is only witnessed where its people stand.
-
-CONTAINER WARNING: this container REWOUND THE WHOLE REPO TO AN 8/15 SNAPSHOT
-TWICE in one session, remote refs included. Recovery is `git fetch origin main`
-(slow, ~4 min) then `git checkout -B <branch> origin/main`. COMMIT EARLY AND
-OFTEN; do not hold work until the gates are green. Background processes barely
-advance between tool calls here -- run gates in the FOREGROUND.
-
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-
 CHARACTER (character-0lurbs): 8/30 (a) LATEST -- *** I COOKED SEVEN HAIRCUTS AND ALL
 SEVEN WERE SHAPES HE HAS ALREADY KILLED TWICE. THE REGISTRY THAT WOULD HAVE SAID SO
 HAS EXISTED SINCE JULY AND NOTHING HAS EVER READ IT. ***
@@ -1231,73 +1515,6 @@ WHAT IS LEFT: 642 broken edges of 7,643 (8.4%), 171 shapes, none bigger than 35.
   fenced ON PURPOSE and should never join.
 
 RECORD: records/BOHEMIA_EVERY_FREEWAY_WAS_BUILT_SIDEWAYS_8_28_26.md
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (b) LATEST -- *** SWEEP 23. TWO
-WORDS HE NEVER SAID ARE AT THE TOP OF THE TRUTH HIERARCHY, AND READ LITERALLY
-THEY DELETE THE ENDING OF THE GAME. One question is now in front of him. ***
-
-READ-BACK: from the handoff I took that WORDS is alive and measuring (a machine
-spots our writing at 81%, and a 617-film control group), UI is on round seven with
-a wall of pictures and every haircut and face now in the VOTE tab with a thumb on
-it, ART closed the icon board and shipped bake 11, RUN found the facing gate never
-looked at a street, PEOPLE BUILT 0f (the feedback card) on 8/27 with 54 claims,
-and SHARED -19 caught the site not deploying for seven hours while every push kept
-working.
-DEMO PATH GUARDED: the_whole_demo_gate 23/23.
-
-*** THE FINDING. ***
-On 8/26 he ruled, verbatim: "BRO THERE ARE NO RUNS. IT IS A FULL GAME THAT WILL
-TAKE YOU 100 HOURS TO COMPLETE BRO..." That ruling is right, it was recorded well,
-and it correctly killed the word "roguelite" that had been wrong at the top of
-CLAUDE.md since day one. THIS IS NOT A COMPLAINT ABOUT THAT WORK.
-ITS SUMMARY ADDED TWO WORDS: "One character, ~100 hours." MEASURED -- zero hits
-for "character" anywhere in his quoted words, one hit in the summary, one in
-CLAUDE.md's first paragraph, which every session in this fleet reads first, every
-session. I ran the positive control this time: the same grep finds "character"
-elsewhere in the same file, so the instrument works.
-WHY IT IS EXPENSIVE: 52 LIVE LAW FILES DESCRIBE A DYNASTY, 162 mentions. The 7/1
-law lists under "the hard constraints, NOT NEGOTIABLE": "Three generations, ~100
-years. Gen 1 Animal, Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE." And
-the Act 3 moonshot is the GEN-3 ANGEL HEIR going one-way. READ LITERALLY, "ONE
-CHARACTER" DELETES THE ENDING OF THE GAME. Note also that the two hundreds are one
-skim apart and are not the same number: his is 100 HOURS TO COMPLETE, the 7/1 law
-is titled "the 100-year problem."
-AND I CANNOT ANSWER IT, SO I DID NOT. "No runs" and "three generations" do not
-actually conflict -- a run resets you to nothing, a generational handoff inherits
-EVERYTHING, which is the opposite. But "a full game you complete in 100 hours" is
-a natural way to describe one long life, and BOTH of his own references, Cyberpunk
-and Elder Scrolls, are single-character games with perk trees. The difference is
-the shape of the entire game. IT IS IN FRONT OF HIM NOW as question 1b.
-
-THE BELIEF IT BREAKS: we believe CLAUDE.md is the top of the truth hierarchy. It
-is -- and it is a SUMMARY, and the hierarchy ranks DOCUMENTS, NOT FIDELITY.
-Nothing in it says a summary may only contain what its source contains. So one
-inferred phrase at position 1 outranks 52 correct laws at positions 2 and 3 BY
-CONSTRUCTION, silently, before any session has read anything else.
-Greenberg's BMJ 2009 citation-network study names our exact mechanism: authority
-manufactured by bias, amplification, and "forms of INVENTION such as the
-CONVERSION OF HYPOTHESIS INTO FACT THROUGH CITATION ALONE." Nobody lied. The claim
-got promoted by being repeated somewhere more authoritative than it started. Ten
-years there; two days here, because this fleet re-reads its top document nine
-times a day.
-
-WHAT I DID AND DID NOT DO. DID (fidelity is mine): CLAUDE.md's top block now
-carries HIS WORDS -- "A FULL GAME, ~100 HOURS TO COMPLETE" -- instead of the
-inference, and names the open question in place so no session silently resolves
-it. DID NOT: decide whether the dynasty lives. 52 laws and the game's ending hang
-on it, which is the definition of a canon call.
-*** EVERY LANE: DO NOT RESOLVE THE DYNASTY QUESTION IN PASSING. If you need an
-answer before he gives one, write your assumption in your commit, never into a
-law. ***
-
-  RECORD: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md
-  ROUTED: SHARED FIDELITY-1 -- every CLAUDE.md law bullet names its law file and
-  every distinctive claim in the bullet must appear in that file. Mutation test:
-  plant a phrase absent from the law -> red. Cheap; the bullets already cite their
-  files, only claim-matching is new. It would have caught this in one run.
-  NO CODE TOUCHED -- coordinator is read-only.
-
-================================================================================
-
 CHARACTER (character-0lurbs): 8/28 (w) LATEST -- *** EVERY HAIRCUT AND EVERY FACE IS NOW SITTING
 IN THE VOTE TAB WITH A THUMB ON IT. 40 things waiting where there were ZERO.
 TAB: VOTE. Nothing to judge except everything in there, which is the point. ***
@@ -2437,7 +2654,53 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/30 LATEST -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
+UI (ui-kmqmrf): 8/30 (b) LATEST -- *** EVERY WALK BUTTON WAS DRAWING TWO ARROWS, AND
+MY OWN EYE WAS WRONG ABOUT THOSE ARROWS FOR THE THIRD TIME IN THIS PROJECT. ***
+TAB: RUN. The game's look is still untouched; round 7 is still waiting on his thumb.
+
+FIRST, THE TOP ROW IN THIS LANE WAS ALREADY DONE BY SOMEBODY ELSE. UI-2 is his own
+8/25 dispatch ("I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON") and it SHIPPED
+8/27 -- the city's own source says so: "before THE ACTION BUTTON DOES ACTIONS you had
+to press DROP IN on purpose ... Making zoom the way in and out -- his ruling, and
+correct." Row closed. Building it again would have been the fourth-version failure
+STOP PRODUCING names. READ THE OTHER LANE'S FILE BEFORE BUILDING YOUR OWN ROW.
+
+THE REAL DEFECT, found by reading padMode() on the way past: the city already carries
+UI-12's fix -- the direction is DRAWN, a CSS border triangle on .pb::before, rotations
+measured at exactly 0/45/90/135/180/225/270/315, correct for all eight -- BUT THE
+ORIGINAL TEXT GLYPH WAS NEVER REMOVED. Still the button's textContent at 15px, so every
+control renders a correct triangle WITH A STRAY ARROW STUCK TO IT. 8 of 8, proved by
+hiding only the text and diffing. Same shape as the 8/27 hairline bugs: a half-finished
+fix that left the old thing standing beside the new one. Fixed demo-side, gated,
+mutation-proved. Checked in BOTH pad modes rather than assumed.
+
+*** AND THEN I NEARLY FILED A SECOND BUG THAT DOES NOT EXIST. READ THIS BEFORE YOU
+MEASURE ANY ROTATED SHAPE. *** The four diagonals read to me as pointing INWARD, and
+two of my own rulers agreed. Both were broken. The first measured ink as "brighter than
+the median" -- but the buttons are DARK CIRCLES ON A LIGHT BACKGROUND, so it was
+measuring the corners of the background. The second modelled the tip as opposite the
+centroid offset, which holds for an axis-aligned triangle and INVERTS at 45 degrees; it
+reported all four diagonals EXACTLY 178 degrees off, all four identical, AND THAT
+TIDINESS IS THE TELL -- a real bug is never that clean.
+WHAT SETTLED IT WAS ARITHMETIC WITH NO MODEL IN IT: if the pad is one shape and eight
+rotations, the UP button's own shipped pixels turned 45 degrees clockwise must equal the
+NE button's pixels. Overlap 58-76% across all seven. THE ROTATIONS WERE RIGHT THE WHOLE
+TIME. Third time I have been wrong about these same eight arrows.
+STANDING LESSON, now earned three times: WHEN A SHAPE SITS AT 45 DEGREES, NEITHER A
+BOUNDING BOX NOR YOUR OWN EYE CAN BE TRUSTED ABOUT WHICH WAY IT POINTS. Turn the
+known-good one and compare pixels. Filed as UI-19 with both working methods.
+
+One honest observation left in it and it is TASTE, not a bug, so it was NOT acted on: a
+wide triangle is genuinely hard to read at a diagonal. He is mid-way through choosing
+the whole UI look and a shape change now answers a question he has not been asked.
+
+gates/thumb_gate.js is 11 claims now, mutation-proved five ways. Nine gates green
+including four other lanes' demo gates.
+Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md (part two)
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/30 (a) -- *** HE SAID "WE HAVE A DEMO TO SHIP", SO THIS TURN
 LEFT THE WALL ALONE AND WENT AT THE DEMO. A STANDING LAW HAD NEVER BEEN CHECKED AND
 IT WAS FAILING 92%. *** TAB: RUN (the demo's only screen).
 
@@ -3302,7 +3565,80 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/29 (a) LATEST -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
+SOUND (sound-xk7pjp): 8/30 (a) LATEST -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
+UP IN SILENCE. The tree and the fifty-three bosses -- the entire progression of
+the game he described on 8/26 -- had ZERO sound calls between them. 7 moments,
+35 candidates, 5 wired the same turn. TAB: MUSIC. ***
+
+Build 8/30e - THE TREE MAKES A SOUND.
+
+MEASURED
+  tools/bohemia_combat_the_tree_patch.py         sfx references: 0
+  tools/bohemia_combat_the_mini_bosses_patch.py  sfx references: 0
+  You earn experience, cross a level, spend a point, a perk comes on, a boss
+  goes down and hands you a NEW VERB -- all silent. That is his own 8/26
+  sentence, the spine of the hundred hours, making no sound.
+
+SEVEN MOMENTS, FIVE WIRED IN THE SAME TURN
+  xp_lands treeEarn · level_up the V189 crossing · perk_taken treeBuy ·
+  key_taken keyWin · held_back the already-hold branch     WIRED
+  boss_here / boss_falls                                   NOT WIRED, reason
+  written: rollBoss RETURNS a boss long before the player is told there is one,
+  and a boss dies through the same kill path as everybody else with no branch
+  that knows he was named. Both want a hook combat does not have, and inventing
+  one would be this lane writing combat rather than wiring it.
+  A COOK WITHOUT A CALLER IS A CANDIDATE ON A JUDGING SHEET, not a shipped
+  sound -- this lane wrote that rule after shipping six callerless moments.
+
+THE PALETTE AND THE SUBJECT AGREED, WHICH IS THE BEST SIGN NEITHER IS FORCED
+  His 8/28 ruling left bell, choir, crystal, glass, water. It was made about a
+  rack whose centre of gravity was dry gritty desert matter. PROGRESSION IS THE
+  ONE SUBJECT THAT NEVER WANTED DRY MATTER: a level is a RING, a perk coming on
+  is a RING, a man's key passing to you is a BELL.
+
+*** TWO THINGS I HAD WRONG, BOTH CAUGHT BY READING THE REAL BUILD ***
+  1. A PATCH TOOL IS NOT THE BUILD. I wrote "a level-up is not even an event
+     yet", off the tree's patch tool. Decoding COMBAT_B64 showed the shipped
+     module is four versions newer: V189 already added the crossing, comment and
+     all -- "a level is a MOMENT, not a number that quietly ticks over". The
+     moment existed; it had no sound. A patch tool tells you what a thing looked
+     like the day it was written. The wire got smaller and invents nothing.
+  2. SEVEN MOMENTS DOES NOT CLOSE THE DIVERSITY RED, and I only learned that by
+     running it. The gate said "35 more non-instrument candidates" so I cooked
+     35. It moved 58.1% -> 55.6% and asked for 25 more: its `fresh` list is
+     [r for r in rows if r['synth'] != 'modal'] -- MODAL IS EXCLUDED FROM THE
+     DENOMINATOR, because modal IS the stale baseline he complained about. Five
+     of seven are modal so 25 of 35 were never going to count.
+     NOTHING WAS CHANGED TO CHASE THE NUMBER. A level-up is a bell and a bell is
+     modal; picking the method to satisfy a gate instead of the physics is what
+     killed batch 25. The red needs five more moments that genuinely WANT
+     friction, and progression is not where those live. Reported, not padded.
+
+AND THE GATE CAUGHT A REAL RECIPE FAULT
+  All five xp_lands rendered at peak 0.144, under the judgeable band. I wrote it
+  "nearly nothing" because it fires on every body -- but HE CANNOT THUMB WHAT HE
+  CANNOT HEAR, and a candidate too quiet to judge is a wasted slot, not a
+  restrained sound. Quiet is a MIX decision and belongs in the mix.
+
+IN FLIGHT / BLOCKED ON
+  Nothing half-built. Nothing blocking. "Nothing, I'm good."
+
+WHAT COMES AFTER
+  His thumbs on 35 candidates. SFX DIVERSITY stays red at 55.6% and closing it
+  honestly needs five more moments that genuinely want FRICTION -- not modal,
+  not instrument, and not padding. boss_here and boss_falls get their callers
+  the day combat has a hook for "a named man is here" and "the named man died".
+
+PROOF
+  records/BOHEMIA_THE_TREE_MAKES_A_SOUND_8_30_26.md
+  tools/bohemia_sfx_batch12.py · tools/bohemia_the_tree_makes_a_sound.py
+  SFX RENDER 635 candidates 0 FAILED · SFX WIRED · SFX SHUFFLE · SFX ENVELOPE ·
+  SOUND MESSAGE · SILENT PLAY · SILENT MOMENTS · GRAVEYARD · ALPHA LOADS ·
+  MATERIAL COOKED 11/0 -- all GREEN
+
+------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 8/29 (a) -- *** MUTE THE PHONE, SAVE YOUR RUN, AND
 NOTHING ON SCREEN TELLS YOU IT HAPPENED. Measured, not believed. The gate sweep
 19 routed on 8/25 and nobody built is built. Nothing to judge. ***
 
@@ -3751,7 +4087,28 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/28 (h) LATEST -- *** THE GREAT TILE MIGRATION IS COMPLETE
+ART (art-f3eu53): 8/30 (j) LATEST -- *** PHASE 2F: THE BATHTUB RING IS COOKED
+AND THE MIGRATION HAS NO ART-LESS LEFTOVERS. TF-ART-033 (form + cook + bank,
+board row 108): 108K shoreline cells + the intake's structure band draw the
+ring - crust from the approved kerb pale lifted one step, rock from the
+approved riprap, stand lines at CANONICAL rows pinned at both tile edges so
+cells join (edge proven on a rendered strip BEFORE wiring), a full value step
+brighter than the bed so the band reads. Counters 100% both names, walked the
+water shoreline. Remaining in this lane: boxcar running-order polish, the
+daily landmark re-probe cadence. PREVIOUS:
+ART (art-f3eu53): 8/30 (i) -- *** PHASE 2E: FIVE MILLION MORE CELLS BY
+ROUTING ALONE, AND THE LOOK TAB IS CURRENT AGAIN. The solar field's 1.4M panel
+cells were wearing HOUSE SHINGLES (kind 'panel' fell to the hroof fallback);
+they draw TF-ART-016's dark glass now with the legacy row contract ported (run-
+above count, phase by column, end caps as overlays, seam check BY NAME across
+tiles). Farm field soil + crop rows + irrigation port the 8/11 TF-ART-014
+contract (family per PLOT); the freeway/interchange embankment (2.6M cells)
+takes the berm on the run's own axis. Counters 100% on every family's biggest
+tile, then walked all three on foot. AND THE ASSIGNED RED CLEARED: all 51 LOOK
+pictures were stale, 30 shooters re-ran clean, look_gate 24/24 GREEN - the LOOK
+tab photographs the migrated world now. Leftover with NO approved art: bathtub
+ring (needs its own form + cook). PREVIOUS:
+ART (art-f3eu53): 8/28 (h) -- *** THE GREAT TILE MIGRATION IS COMPLETE
 THROUGH PHASE 2D: the baker gained an OVERLAY hook (gArtOver on ground, sOver on
 structure), guy wires bear on their nearest mast (8-way snap, one kit scan per
 tile, one-tile pools because the weather shuffle permutes anything longer than
@@ -3983,96 +4340,6 @@ recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
 exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
 promised.
 
-PEOPLE (people-7h9sfy): 8/28 (b) -- *** THE VALLEY HAS ANIMALS IN IT.
-Ravens, grackles, pigeons, rats and a coyote, and the whole point is that they
-LOOK AT YOU AND THEN THEY GO. TAB: RUN, walk out of the house. Nothing to
-judge. ***
-
-THE ROW: ALIVE-1's other half, and the half a number could never fix. Yesterday
-I measured that at the TOP of the population slider (~96,885 people) twenty-three
-walks in thirty-two still meet nobody, because the valley is ~151 square km and a
-step is a metre. AMBIENCE DOES NOT NEED A CENSUS: a resident has to live
-somewhere in all of that and be FOUND, a raven is placed NEXT TO THE PLAYER.
-MEASURED ON THE GLASS: something living is on screen in EIGHT STEPS, against a
-median of 323 for a person.
-
-His own 8/25 bestiary research called it first: "the reason the city feels dead
-is not that we lack enemies. It is that we lack ANIMALS ... set dressing that
-moves, and the cheapest fix on this list for the loudest complaint on it."
-
-FIVE SPECIES, AND A GATE CLAIM READS EVERY ONE BACK AGAINST THE CLARK COUNTY
-RESEARCH FILE, so the roster cannot drift off its sources into invention:
-  RAVEN    a roofline or a wall, day        flushes at 5 cells, alert at 9
-  GRACKLE  open ground, not the afternoon    up all at once at 3
-  PIGEON   a ledge and the pavement under it hops off at 3
-  RAT      against a wall, NIGHT only        gone into it at 2
-  COYOTE   a long open run, dawn and dusk    NOTHING. Keeps walking.
-
-*** AND THE REACTION IS THE FEATURE. *** Researched 8/28: every write-up of why
-game animals work lands not on the animal but on what it does about YOU, and the
-ethology gives the shape. ALERT DISTANCE and FLIGHT INITIATION DISTANCE are
-measured SEPARATELY in urban corvids, so the bird notices you at one range and
-leaves at a shorter one. A BIRD THAT SITS THERE IS SCENERY. A BIRD THAT LEAVES
-WHEN YOU GET CLOSE IS ALIVE, and it costs one distance check.
-AND A FEEDING ANIMAL LETS YOU GET CLOSER -- measured in hooded crows, which
-"alerted later and escaped at shorter distance if they were feeding". Built, and
-dormant until something in the world is marked as food, which is tier 2. The
-module says so in its own CANNOT list.
-AND EXACTLY ONE OF THEM IGNORES YOU, by gate claim: the coyote, because the
-research wrote that animal down ("crossing the wash three blocks away and not
-caring about you") and its indifference only reads as indifference BECAUSE THE
-OTHERS FLUSH. A ROSTER WHERE EVERYTHING REACTS THE SAME WAY HAS NO CHARACTER.
-They also STAY GONE once flushed, or the street is a fruit machine.
-
-THE ART TOOK THREE PASSES AND THEN ONE REVERSAL, and the reversal is the lesson:
-  cut 1  a tall oval with the head on top -- THREE BOWLING PINS WITH A YELLOW EYE
-  cut 2  laid down on a diagonal -- the body swallowed the head, beak and tail
-  cut 3  shrink the body, let the head, beak and tail LEAVE the silhouette. At
-         sixteen pixels a bird is four marks in the right relationship, and
-         anything that does not leave the silhouette is invisible.
-*** THEN I JUDGED THEM ON THE WRONG SURFACE AND NEARLY KILLED THEM. *** On a 7x
-contact sheet they read as lizards and I had written down that the art failed.
-Put them IN THE GAME at 1:1 on a 44px tile and they read as birds on a wall. A
-contact sheet at seven times size is a magnifying glass held to something meant
-to be seen at one. VERIFY ON THE REAL SURFACE is a law about art and it caught
-me judging a cook on a bench instead of in the game.
-AND THE 45 DEGREE LAW IS HELD IN THE SHAPE A CREATURE HAS. This bank is
-deliberately NOT registered in art_45_gate, whose proxies are an ellipse stack at
-the BASE and a lit top face over wall rows -- A RAVEN HAS NO BASE, and running
-that ruler on a bird is a broken ruler pointed at the wrong subject. Held
-instead as: you are above it, the top is sky-lit, three tones minimum, and not
-left-right symmetrical because a three-quarter view never is.
-
-THREE RULERS BROKE AND ALL THREE ARE THE SAME MISTAKE:
-  the lighting check split the CANVAS in half and called the rat lit from
-  underneath. The rat is a LOW animal in rows 7-12 of a 16-row sprite, so the
-  canvas midline put one pixel in "upper". Its own halves are 310 against 185.
-  IT WAS MEASURING WHERE THE ANIMAL SAT IN THE BOX.
-  the real-surface check read "far" at twelve cells, which is off the top of a
-  390x844 screen, so it could not tell "it has not noticed me" from "it is not
-  on the screen". A CLAIM THAT CANNOT TELL ITS TWO ANSWERS APART IS NOT A CLAIM.
-  and the draw pass recorded every sighting INCLUDING the ones drawn into the
-  three-tile cull margin, so a probe reported a flock seven cells past the right
-  edge. It records only what landed on the glass now.
-
-  GATE: gates/wildlife_gate.js, WILDLIFE, 30 claims, 0 red. Mutations: the coyote
-  made to care 1 red, one distance instead of two 1 red, a species out at every
-  hour 1 red.
-  engine/bohemia_wildlife.js  tools/bohemia_wildlife_factory.py (REUSE CHECK: the
-  prop bank has bag/barrel/bin/dumpster and NOT ONE ANIMAL)
-  tools/bohemia_city_wildlife_patch.py  banks/BOHEMIA_WILDLIFE_SPRITES.js
-  RECORD: records/BOHEMIA_THE_VALLEY_HAS_ANIMALS_IN_IT_8_28_26.md
-
-WHAT COMES AFTER ON THIS ROW: TIER 2, which the same research already lays out --
-DOG PACKS and coyote packs, pack AI that flanks and breaks off and comes back,
-which is where the RF4 "the fight has to move you" work lands with teeth instead
-of a rule. And a den has what the dogs dragged home, which is the first loot idea
-this game has ever had (dispatch item 8c: "right now there is not one loot idea
-in the build"). TIER 3 is whoever holds the worst blocks and is RESERVED AND HIS.
-Also still open and named: nothing in the world is marked as FOOD yet, so the
-measured feeding effect is built and dormant.
-
---------------------------------------------------------------------------------
 PEOPLE (people-7h9sfy): 8/28 LATEST -- *** THE CITY IS DEAD AND THE SLIDER WAS
 NEVER THE ANSWER. Measured, fixed as far as a number can fix it, and the half
 that is left is NAMED. TAB: RUN, walk out of the house and look. Nothing to

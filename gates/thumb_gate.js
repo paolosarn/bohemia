@@ -222,6 +222,42 @@ function serve() {
        + 'off the handler', held !== a2);
   }
 
+  /* AND NO CONTROL MAY DRAW TWO ARROWS. The city already carries the drawn-triangle
+     fix -- .pb::before is a CSS border triangle whose eight rotations measure exactly
+     0/45/90/135/180/225/270/315 -- but the ORIGINAL TEXT GLYPH was left in the
+     button's textContent at 15px, so every control rendered a correct triangle with a
+     stray arrow stuck to it, in both of the pad's modes.
+     THE TEST IS A DIFFERENCE, NOT A LOOK: shoot each button, hide only the text, shoot
+     it again. If anything changed, the text was drawing. That cannot be fooled by a
+     glyph that happens to sit behind the triangle, and it needs no opinion about what
+     the shape should be -- which matters, because two separate attempts to measure
+     which way these arrows POINT both came back confidently wrong (a bounding-box
+     model inverts on a 45-degree triangle, and it reported all four diagonals exactly
+     178 degrees off, which is the tell: a real bug is never that tidy). */
+  const shots = {};
+  const pbs = await city.evaluate(() => [...document.querySelectorAll('.pb')].map(n => {
+    const r = n.getBoundingClientRect();
+    return { w: n.dataset.walk, x: r.left, y: r.top, W: r.width, H: r.height };
+  }));
+  ok('the eight-way pad is on screen to be checked', pbs.length === 8);
+  for (const bx of pbs) shots[bx.w] = md5(await p.screenshot({
+    clip: { x: fb.x + bx.x, y: fb.y + bx.y, width: bx.W, height: bx.H } }));
+  await city.evaluate(() => {
+    const st = document.createElement('style');
+    st.textContent = '.pb{color:transparent !important;text-shadow:none !important}';
+    document.head.appendChild(st);
+  });
+  await p.waitForTimeout(400);
+  let doubled = [];
+  for (const bx of pbs) {
+    const now = md5(await p.screenshot({
+      clip: { x: fb.x + bx.x, y: fb.y + bx.y, width: bx.W, height: bx.H } }));
+    if (now !== shots[bx.w]) doubled.push(bx.w);
+  }
+  ok('no walk button draws a second arrow on top of its triangle'
+     + (doubled.length ? ' -- ' + doubled.length + ' of ' + pbs.length + ' do: ' + doubled.join(' ') : ''),
+     doubled.length === 0);
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
 
   await b.close();

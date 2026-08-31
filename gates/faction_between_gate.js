@@ -1628,6 +1628,178 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+async function onTheJobWitness() {
+  console.log('\nS. THE MAN WHO GAVE YOU THE JOB FINDS OUT HOW YOU DID IT.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const fs2 = require('fs');
+
+  /* HIS FILES FIRST, IN NODE. The browser claims below are measured against the
+     corpus itself rather than against numbers typed into this gate. */
+  const BQDIR = path.join(ROOT, 'quests/bq');
+  const files = fs2.readdirSync(BQDIR).filter(f => f.endsWith('.bq'));
+  let roleLines = 0, withFaction = 0, reqWithFaction = 0;
+  for (const f of files) {
+    const src = fs2.readFileSync(path.join(BQDIR, f), 'utf8');
+    for (const line of src.split('\n')) {
+      const m = /^@ROLE\s+(\S+)\s+(REQ|OPT)\s*(.*)$/i.exec(line.trim());
+      if (!m) continue;
+      roleLines++;
+      if (/faction=/.test(m[3])) { withFaction++; if (/^REQ$/i.test(m[2])) reqWithFaction++; }
+    }
+  }
+  ok('S1 HE HAS ALREADY WRITTEN WHO EVERY QUEST CHARACTER RUNS WITH. Read off '
+    + 'his files, not asserted here: an @ROLE line carries the outfit the part '
+    + 'belongs to, and this is the content the casting layer exists to honour',
+    withFaction > 0 && withFaction >= roleLines * 0.5,
+    withFaction + ' of ' + roleLines + ' @ROLE lines carry faction=, '
+      + reqWithFaction + ' of them REQUIRED');
+
+  /* *** THE DEMO, NOT THE WORKSHOP. *** The claim is about what a stranger who
+     opens the link actually experiences, and the demo is a different file with
+     a different entry path. The UI lane's 8/30 turn is the precedent: twelve of
+     thirteen controls were under the thumb minimum ON THE DEMO while the
+     workshop looked fine. A faction claim measured on the bench is not a claim
+     about the game anybody plays. */
+  const DEMO = path.join(ROOT, 'slices/BOHEMIA_DEMO.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errs = [], warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 160)));
+  try {
+    await page.goto('file://' + DEMO);
+    await SETTLE(page, 12000);
+    /* the demo has no tab bar: its splash opens the game by tapping the real RUN
+       tab, which is also what builds the city frame. Do what the splash does. */
+    await page.evaluate(() => {
+      const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click();
+    });
+    await SETTLE(page, 14000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof DQ !== 'undefined'
+                                    && typeof ctTheirView === 'function')) { city = f; break; } }
+      catch (_e) {}
+    }
+    ok('S2 THE DEMO OPENS ON THE GAME and the walked world carries the faction '
+      + 'organ', !!city);
+    if (!city) return;
+
+    await city.evaluate(() => {
+      const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click();
+    });
+    await SETTLE(page, 900);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 1500);
+
+    const R = await city.evaluate(() => {
+      const out = {};
+      if (!DQ.Q) { try { DQ.openDay(1); } catch (_e) {} }
+      out.haveQ = !!DQ.Q;
+      if (!DQ.Q) return out;
+      out.quest = (DQ.spec || {}).id;
+
+      /* *** THE MEASUREMENT THAT MADE THIS TURN. *** How much of this valley can
+         a demo player actually reach? Taken before anything is published. */
+      let loaded = 0, aff = 0;
+      for (const p of ctEveryone()) { loaded++; if (ctFactionOf(p)) aff++; }
+      out.valley = { loaded: loaded, affiliated: aff };
+      const cellOf = [Math.floor(hx / FN), Math.floor(hy / FN)];
+      let nearest = 1e9;
+      for (const b of Object.values(ctBases() || {}))
+        nearest = Math.min(nearest, Math.abs(b.x - cellOf[0]) + Math.abs(b.y - cellOf[1]));
+      out.nearestBaseCells = nearest === 1e9 ? null : nearest;
+
+      const rows = BohemiaDeeds.scanQuest(DEMO_BQ[DQ.spec.file], DQ.spec.id);
+      const pick = rows[0]; if (!pick) return out;
+      out.deed = { stage: pick.stage, faction: pick.faction, delta: pick.delta, clout: pick.clout };
+
+      const dc = ctDayCast();
+      out.cast = Object.keys((dc && dc.cast) || {})
+        .map(k => ({ role: k, faction: dc.cast[k].faction, key: dc.cast[k].key }));
+      out.reqRoles = (DQ.Q.roles || []).filter(r => r.req).map(r => r.name);
+
+      out.canon = ctCanonFaction(pick.faction);
+      out.canonJunk = ctCanonFaction('NOTAFACTION');
+      out.before = ctTheirView(out.canon);
+
+      window.__QUEST_DEEDS = 0; window.__QUEST_WITNESSES = 0;
+      out.pub = DQ._witness ? DQ._witness(pick.stage) : null;
+      out.wit = window.__QUEST_WITNESSES;
+      out.after = ctTheirView(out.canon);
+      out.why = ctWhyTheyThinkThat(out.canon, 2);
+
+      /* AND AN OPTIONAL ROLE IS NOT DRAGGED IN. */
+      const optRoles = (DQ.Q.roles || []).filter(r => !r.req).map(r => r.name);
+      out.optRoles = optRoles;
+      out.optStamped = optRoles.filter(function (rn) {
+        const c = (dc && dc.cast) ? dc.cast[rn] : null; if (!c || !c.key) return false;
+        const pid = String(c.key).replace(/^P:city:/, '');
+        return !!(CT_MINDS[pid] && CT_MINDS[pid].fid);
+      }).length;
+      return out;
+    });
+
+    ok('S3 the demo really does open a day of his with a faction consequence on it',
+      R.haveQ === true && !!R.deed, R.quest + ' ' + JSON.stringify(R.deed));
+
+    ok('S4 *** AND THE DEMO PLAYER CANNOT REACH A SINGLE AFFILIATED PERSON ON '
+      + 'THEIR OWN. *** This is the measurement the turn is built on and it is '
+      + 'asserted rather than remembered: if it ever stops being true the reason '
+      + 'for the cast-witness goes away and somebody should know',
+      R.valley.affiliated === 0 && R.nearestBaseCells >= 12,
+      JSON.stringify(R.valley) + ' nearest base ' + R.nearestBaseCells + ' cells');
+
+    ok('S5 THE CASTING LAYER FILLS HIS ROLES WITH REAL PEOPLE. ctDayCast searches '
+      + 'the outfit\'s own ground because searching outward from the player finds '
+      + 'nobody -- its own comment measured that before this turn existed',
+      R.cast.length > 0 && R.cast.every(c => !!c.key),
+      JSON.stringify(R.cast));
+
+    ok('S6 *** THE REQUIRED CAST WITNESSES THE RESOLUTION. *** REQ means the '
+      + 'quest cannot be cast without them -- bohemia_bq.js fails the BUILD on an '
+      + 'unfilled REQ role -- and the role is bound to the block the job happens '
+      + 'on. A required character bound to the place is in the scene',
+      R.wit > 0 && R.pub && R.pub.rows && R.pub.rows[0].witnesses > 0,
+      'witnesses=' + R.wit + ' req=' + JSON.stringify(R.reqRoles));
+
+    ok('S7 SO THE OUTFIT THAT HIRED YOU HAS A VIEW OF YOU, IN THE DEMO. Before '
+      + 'this the answer was permanently nobody: 0 affiliated people reachable, '
+      + 'nearest base 30 cells, so the job could be done perfectly and never land',
+      R.before && R.after && R.after.whoSaw > R.before.whoSaw && R.after.members > 0,
+      'before ' + JSON.stringify(R.before) + ' after ' + JSON.stringify(R.after));
+
+    ok('S8 AND THE CARD SAYS WHY IN HIS OWN SENTENCE, not a machine id and not a '
+      + 'line I wrote', R.why.length > 0 && /watched it: /.test(R.why[0].say),
+      JSON.stringify(R.why[0] || null));
+
+    ok('S9 THE MIND IS STAMPED WITH THE CITY\'S NAME FOR THE OUTFIT, NEVER THE '
+      + 'QUEST\'S. He writes TRADES, the canon id is Trades, and standingOf '
+      + 'compares STRICTLY -- so a mind stamped with the quest\'s spelling is '
+      + 'filtered straight back out of that faction\'s own standing. Measured '
+      + 'exactly that before the fix: the deed landed, witnesses:1, whoSaw 0',
+      !!R.canon && R.canon !== R.deed.faction
+        && String(R.canon).toUpperCase() === String(R.deed.faction).toUpperCase(),
+      'quest says ' + R.deed.faction + ', city says ' + R.canon);
+
+    ok('S10 AND AN OUTFIT THAT DOES NOT EXIST STAYS NOT EXISTING. ctCanonFaction '
+      + 'answers null rather than guessing, so a typo in a quest is visible '
+      + 'instead of quietly becoming somebody',
+      R.canonJunk === null);
+
+    ok('S11 AN OPTIONAL ROLE IS NOT DRAGGED INTO THE SCENE. OPT means you may '
+      + 'never have met them, and a faction learning things through a person the '
+      + 'player never encountered is the omniscient karma this all replaces',
+      R.optStamped === 0, 'opt=' + JSON.stringify(R.optRoles));
+
+    ok('S12 NOTHING THREW AND NOTHING WAS SWALLOWED',
+      errs.length === 0 && warns.filter(w => /could not be made witnesses/.test(w)).length === 0,
+      JSON.stringify(errs.slice(0, 2)) + JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 async function onQuestDeeds() {
   console.log('\nR. HIS 82 AUTHORED CONSEQUENCES, AND WHETHER ANYBODY SEES THEM.');
   const { chromium } = requirePlaywright();
@@ -2103,6 +2275,7 @@ onTheCard()
   .then(onYourProblem)
   .then(onTheirView)
   .then(onQuestDeeds)
+  .then(onTheJobWitness)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');

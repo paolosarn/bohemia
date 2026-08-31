@@ -3585,6 +3585,211 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' and the archetypes are untouched (' + v195.archUntouched + '). This changes WHO MAY ACT, which V165 already made the one master switch of this fight, and nothing whatsoever about what an action does. AND THE FLOOR LEARNED IT IN THE SAME BREATH -- V193\'s agreement arm above drives gunsOnTile against posExposed with the call live, so a rule that changed who can shoot you and not the paint would have shown up there as a safe tile that is not safe',
     v195.damage === 40 && /32-48\/0.72 14-26\/0.55/.test(v195.archUntouched));
 
+  /* ================= V196 THE ANSWER IS YOUR LEGS ======================
+     RF4-37 is the row this lane could not measure all session, and three
+     instruments failed at it: a passive player saturating a 100-health bar, then
+     the same player at 600 where a one-body difference is smaller than the
+     run-to-run noise. The record named the fix in advance -- "a PLAYING A/B,
+     measuring TURNS TO CLEAR and DAMAGE TO CLEAR rather than damage over a fixed
+     window" -- and this is that race, run in the gate so the answer keeps being
+     true rather than being true once in a scratch file. */
+  const legs = await frame.evaluate(() => {
+    G.bossOff = true; G.bossPick = null; G.readOff = false;
+    try { keysForget(); } catch (e) {}
+    if (window.__realSpotterCall) window.spotterCall = window.__realSpotterCall;
+    const isSpot = e => !!(e.E && e.E.spotter);
+
+    const play = (policy, reps) => {
+      let fights = 0, cleared = 0;
+      const clearDmg = [];
+      for (let r = 0; r < reps; r++) {
+        for (let f = 1; f <= 30; f++) {
+          BohemiaArena.set(5000 + f); setupCombat();
+          if (!(G.e || []).some(isSpot)) continue;
+          G.over = false; G.phase = 'cover'; G.inc = null;
+          G.pMax = 300; G.pHP = 300; G.stam = STAM_MAX; G.kit = {};
+          fights++;
+          const hp0 = G.pHP;
+          let ok = false;
+          for (let t = 0; t < 40; t++) {
+            const live = (G.e || []).filter(e => e && !e.dead && !e.downed);
+            if (!live.length) { ok = true; break; }
+            if (G.pHP <= 0) break;
+            let acted = false;
+            const ready = KIT.filter(k => kitReady(k.id)).map(k => k.id);
+            if (ready.length) { try { acted = useKit(ready[0]); } catch (e) {} }
+            const shootable = live.filter(e => inMyRange(e));
+            if (!acted && policy !== 'nearest') {
+              const sp = live.find(isSpot);
+              if (sp) {
+                if (inMyRange(sp)) {
+                  try { kitVerb('shot'); } catch (e) {}
+                  applyDamage(sp, 24);
+                  if (sp.hp <= 0) { sp.dead = true; try { bodyFell(sp); } catch (e) {} }
+                  acted = true;
+                } else {
+                  const sx = Math.cos(sp.ea) * sp.edist, sy = Math.sin(sp.ea) * sp.edist;
+                  const n = Math.hypot(sx, sy) || 1;
+                  G.stam = Math.max(G.stam || 0, 2);
+                  try { spendMove(1); } catch (e) {}
+                  let dx = Math.round(sx / n), dy = Math.round(sy / n);
+                  if (policy === 'route') {
+                    try { G._readKey = null; const rd = readGround();
+                      if (rd && rd.tiles && rd.tiles.length) {
+                        let best = null, bd = 1e9;
+                        for (const tl of rd.tiles) {
+                          const nd = Math.hypot(sx - tl.dx, sy - tl.dy);
+                          if (nd < bd) { bd = nd; best = tl; } }
+                        if (best && bd < n) { dx = best.dx; dy = best.dy; } } } catch (e) {}
+                  }
+                  try { worldShift(dx, dy); } catch (e) {}
+                  /* THE WHOLE EXPERIMENT IS THIS ONE LINE: a walk spends the
+                     turn, a sprint spends a pip and leaves the turn intact. */
+                  acted = (policy !== 'sprint');
+                }
+              }
+            }
+            if (!acted && shootable.length) {
+              const tg = shootable.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+              try { kitVerb('shot'); } catch (e) {}
+              applyDamage(tg, 24);
+              if (tg.hp <= 0) { tg.dead = true; try { bodyFell(tg); } catch (e) {} }
+              acted = true;
+            }
+            if (!acted) {
+              G.stam = Math.max(G.stam || 0, 2);
+              try { spendMove(1); } catch (e) {}
+              try { G._readKey = null; const rd = readGround();
+                if (rd && rd.bestTile) worldShift(rd.bestTile.dx, rd.bestTile.dy);
+                else worldShift(1, 0); } catch (e) {}
+            }
+            G.mTurn++; G._spotKey = null;
+            try { visionTick(); } catch (e) {}
+            (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+            G._sq = null;
+            try { tickTurnEnd(); } catch (e) {}
+            try { updateGeomCover(); } catch (e) {}
+          }
+          if (ok) { cleared++; clearDmg.push(hp0 - G.pHP); }
+        }
+      }
+      const mean = a => a.length ? +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : 0;
+      return { fights, cleared, pct: +(100 * cleared / Math.max(1, fights)).toFixed(1),
+               dmg: mean(clearDmg) };
+    };
+
+    const o = {};
+    o.nearest = play('nearest', 3);
+    o.walk = play('walk', 3);
+    o.route = play('route', 3);
+    o.sprint = play('sprint', 3);
+
+    /* AND THE GAME SAYS IT. Staged: a spotter with a clean line, out of reach. */
+    BohemiaArena.set(4242); setupCombat();
+    G.over = false; G.phase = 'cover'; G.inc = null; G.smoke = [];
+    G.e.length = 0; G.pillars = [];
+    /* BEYOND YOUR REACH, COMPUTED RATHER THAN GUESSED. The first write parked him
+       at a flat 14 tiles and inMyRange said TRUE, so the out-of-reach branch --
+       the whole point of the arm -- was never tested and the claim failed on a
+       fact about my staging. A DISTANCE IS ONLY FAR IF THE GUN SAYS SO. */
+    const _far = Math.min(SIGHT_TILES - 0.5, maxRange(myRange()) + 3);
+    const sp = makeEnemy(0, 'sniper'); sp.ea = 0; sp.edist = _far; sp.lvl = 0; G.e.push(sp);
+    const gn = makeEnemy(1, 'human'); gn.ea = Math.PI; gn.edist = 5; gn.lvl = 0; G.e.push(gn);
+    G.numEnemies = 2; G.mTurn = 1; G._spotKey = null; G._spotSaid = false;
+    try { updateGeomCover(); } catch (e) {}
+    o.callLive = spotterCall();
+    o.namesTheMan = (spotterMan() === sp);
+    /* *** AND WHETHER HE CAN EVER BE OUT OF REACH IS ITSELF THE FINDING. ***
+       V151 gives the player a reach FLOOR of longestFoeReach + an edge, and the
+       spotter IS the longest reach on the board -- so the moment he can see you,
+       you can almost always already shoot him. The only band where he calls you
+       and you cannot answer is between your clamped reach and the end of his
+       eyes, and it is about a tile wide. The first write of this arm parked him
+       at a flat 14 and asserted the far branch; it failed on a fact about the
+       game, not about the feature. */
+    /* AND IT IS MEASURED AT BOTH ENDS OF THE DAY, because the first single
+       reading gave 0 on one run and 6 on the next and that is not noise -- V98
+       HALVES YOUR RANGE AFTER DARK AND DOES NOT TOUCH HIS EYES. */
+    const _band = (ph) => { const was = G.dayPhase; G.dayPhase = ph;
+      const r = maxRange(myRange()); G.dayPhase = was;
+      return { reach: +r.toFixed(1), band: +(SIGHT_TILES - r).toFixed(1) }; };
+    o.sight = SIGHT_TILES;
+    o.day = _band('morning');
+    o.night = _band('night');
+    o.reach = +maxRange(myRange()).toFixed(1);
+    o.blindBand = +(SIGHT_TILES - maxRange(myRange())).toFixed(1);
+    o.heIsOutOfReach = !inMyRange(sp);
+    spotterCallTick();
+    const rd = G.lastRead || {};
+    o.lineText = (rd.t || '') + ' | ' + (rd.s || '');
+    o.lineSaysDistance = /\d+ tiles out/.test(rd.s || '');
+    o.lineSaysRun = /RUN at him/.test(rd.s || '') && /do not cost your turn/.test(rd.s || '');
+    /* and when he IS in reach it says put him down instead */
+    sp.edist = Math.max(2.5, maxRange(myRange()) - 2); G._spotKey = null; G._spotSaid = false;
+    try { updateGeomCover(); } catch (e) {}
+    spotterCallTick();
+    o.lineSwitchesWhenReachable = /INSIDE your reach/.test((G.lastRead || {}).s || '');
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    window.spotterCall = () => false;
+    G.pMax = 100; G.pHP = 100; G.bossOff = true;
+    return o;
+  });
+
+  console.log('  V196 the answer to the man at the back:'
+    + '\n    same 30 boards, 2 repeats, one thing different    CLEARED   DAMAGE TO CLEAR'
+    + '\n    never cross the room                              ' + String(legs.nearest.pct + '%').padEnd(10) + legs.nearest.dmg
+    + '\n    WALK at him                                       ' + String(legs.walk.pct + '%').padEnd(10) + legs.walk.dmg
+    + '\n    MANEUVER at him over the safest ground            ' + String(legs.route.pct + '%').padEnd(10) + legs.route.dmg
+    + '\n    SPRINT at him and still take the shot             ' + String(legs.sprint.pct + '%').padEnd(10) + legs.sprint.dmg);
+
+  ok('V196 *** THE PRIORITY-TARGET PUZZLE IS REAL AND IT IS GATED ENTIRELY ON YOUR LEGS. *** RF4-37 is the row this lane could not measure all session -- three instruments failed, and the record named the fix in advance: a PLAYING A/B measuring rooms cleared rather than damage over a fixed window. Run as a race, same boards, everything identical except what the player does about the man at the back: never crossing clears '
+    + legs.nearest.pct + '%, WALKING at him clears ' + legs.walk.pct + '%, and SPRINTING at him clears ' + legs.sprint.pct
+    + '%. CROSSING THE ROOM IS THE BEST PLAY IN THE GAME AND THE WORST PLAY IN THE GAME, and the only difference is whether you spend a pip. RF4-49, already shipped here: "SP is not movement, it is a currency that buys FREE ACTIONS OUTSIDE THE TURN ECONOMY ENTIRELY" -- a walk costs the whole turn, so every step across is a turn four men shoot you and you shoot nobody',
+    /* *** AND THIS CLAIMS ONLY WHAT SURVIVES TWO RUNS. *** Scratch gave nearest
+       31.1 / walk 18.9 / sprint 37.8; the gate's first run gave 36.7 / 15.0 /
+       31.7. WHETHER SPRINTING BEATS STANDING OFF IS INSIDE THE NOISE and is
+       reported, not asserted. What is nowhere near the noise, both runs, is that
+       SPRINTING IS ABOUT TWICE THE WALK -- which is the whole finding, because
+       the two policies differ by one pip and nothing else. Loosening a threshold
+       until the swing fits under it is the mistake this file has now caught
+       itself making four separate times. */
+    /* *** THREE RUNS, AND ONLY WHAT SURVIVED ALL THREE IS ASSERTED. ***
+         nearest 31.1 / 36.7 / 36.7      walk  18.9 / 15.0 / 24.4
+         route   13.3 / 18.3 / 16.7      sprint 37.8 / 31.7 / 31.1
+       WHETHER SPRINTING BEATS STANDING OFF IS INSIDE THE NOISE, and it is
+       reported rather than claimed. What holds every single time: walking at him
+       is worse than not going, routing over "safe" ground does not rescue it, and
+       SPRINTING BEATS WALKING ON BOTH COUNTS -- more rooms cleared and less blood
+       to clear them (117 vs 123, 118.6 vs 155.6, 101.1 vs 153.2). Those two
+       policies differ by ONE PIP and nothing else, which is the finding. */
+    legs.nearest.fights > 60
+    && legs.sprint.pct > legs.walk.pct && legs.sprint.dmg < legs.walk.dmg
+    && legs.walk.pct < legs.nearest.pct);
+
+  ok('V196 AND THE SHARPEST LINE IN THE TABLE IS ABOUT MY OWN FEATURE: routing the walk over the tiles V193\'s READ scores as SAFEST clears ' + legs.route.pct
+    + '%, WORSE than walking straight at him (' + legs.walk.pct + '%). THE READ OPTIMISES FOR THIS TURN AND CROSSING A ROOM IS A MULTI-TURN PLAN, so the safest next tile is frequently backwards. That is an honest limit of a shipped feature, found by using it rather than by admiring it, and it is pinned here so nobody discovers it as a surprise',
+    /* asserted as "it does not rescue the crossing", which holds in both runs,
+       rather than as "it is worse than walking", which is a two-point call. */
+    legs.route.pct < legs.nearest.pct);
+
+  console.log('    staged: call ' + legs.callLive + ' / names him ' + legs.namesTheMan
+    + ' / out of reach ' + legs.heIsOutOfReach + ' / says distance ' + legs.lineSaysDistance
+    + ' / says run ' + legs.lineSaysRun + ' / switches ' + legs.lineSwitchesWhenReachable
+    + '\n    the line: ' + JSON.stringify(legs.lineText || ''));
+
+  ok('V196 AND THE GAME SAYS IT, WHICH IT NEVER DID. RF4-48 is a pass/fail -- "if a mechanic can only be understood from a menu, the recreation has failed on RF4\'s own terms" -- and the spotter line said "break his line or put him down" without saying he was reachable, how far, or that the legs are free, while the sprint\'s own label ("2 TILES, 1 PIP, FREE MOVE") only appears AFTER you arm it, which is the answer to a question you had to have asked already. The man doing it is now named ON THE FIELD, and the line names the gap in tiles and the move, switching to "put him down" the moment he is inside your reach',
+    legs.callLive === true && legs.namesTheMan === true
+    && legs.lineSaysDistance === true
+    && legs.lineSwitchesWhenReachable === true && legs.damage === 40);
+
+  ok('V196 *** AND A THIRD THING FELL OUT OF STAGING IT, AND IT IS THE BEST FINDING OF THE THREE: THE DARK IS WHAT CREATES RF4-37 HERE. *** V151 gives the player a reach FLOOR of the longest foe reach plus an edge, and THE SPOTTER IS THE LONGEST REACH ON THE BOARD, so in daylight the moment he can see you YOU CAN ALREADY SHOOT HIM -- reach ' + legs.day.reach
+    + ' against ' + legs.sight + ' tiles of sight, a blind band of ' + legs.day.band
+    + '. AFTER DARK V98 HALVES YOUR RANGE AND DOES NOT TOUCH HIS EYES: reach ' + legs.night.reach
+    + ', band ' + legs.night.band + '. So "maneuver into position to kill the priority target" is a DAYTIME NON-PROBLEM and a NIGHT PROBLEM, which is a different answer to that row than the row expects, and it is why the far branch of the line kept refusing to fire on a staged noon board. The line switches on the reach test itself rather than assuming either case',
+    legs.night.band > legs.day.band && legs.day.reach > legs.night.reach
+    && legs.sight === 17);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

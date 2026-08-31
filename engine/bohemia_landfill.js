@@ -74,6 +74,30 @@
       for(var fx=A.firstAt(f.x0+16,CW,A.c.x0-CW); fx<=Math.min(f.x1-24,A.c.x1+CW); fx+=CW){
         A.vrect(fx,fy,fx+CW-8,fy+CH-8,7);               // the berm
         A.vrect(fx+3,fy+3,fx+CW-11,fy+CH-11,6);         // the waste inside it
+        /* AND THE WASTE IS SPECKLED, WHICH IS THE WHOLE POINT OF A LANDFILL (8/28).
+           The lone build fills every compartment with a chaotic multicolour sea -- cover
+           soil, dark rot, blue junk, rust junk, scum, pale debris -- because that is what
+           makes this district read as GARBAGE from above rather than as grey compartments.
+           This path drew the flat block and stopped. MEASURED: a 2x2 landfill had 298 tiles
+           of `debris (plastic/appliance)` and 289 of `debris (rust/wood)` in the lone build
+           and ZERO as a blob. A LANDFILL WITH NO RUBBISH IN IT.
+           legend_kept_gate had been calling codes 14 and 15 "promises the world does not
+           keep" the whole time, and it was right about the cause being here.
+           A.rnd IS THE BLOB'S HASH, NOT THE CELL'S, which matters more here than anywhere: a
+           compartment straddles cell boundaries by construction, so the speckle has to give
+           the same answer from either side or the seam appears as a colour change down the
+           middle of a heap.
+           0.34 and not the lone build's 0.42: that loop throws 42% of the area as ATTEMPTS
+           with repeats, which lands about 34% of the tiles. Same look, stated as coverage. */
+        (function(){ var wx0=fx+3, wy0=fy+3, wx1=fx+CW-11, wy1=fy+CH-11, px, py;
+          for(py=Math.max(wy0,A.c.y0); py<=Math.min(wy1,A.c.y1); py++)
+            for(px=Math.max(wx0,A.c.x0); px<=Math.min(wx1,A.c.x1); px++){
+              if(A.vget(px,py)!==6) continue;
+              var q=A.rnd(px,py); if(q>=0.34) continue;
+              var d=A.rnd(px*7+1,py*13+5);
+              A.vset(px,py, d<0.34?4 : d<0.52?3 : d<0.68?14 : d<0.82?15 : d<0.92?8 : 11);
+            }
+        })();
         if(A.rnd(fx,fy)<0.55) A.vset(fx+((CW-8)>>1),fy+((CH-8)>>1),13);   // a gas well in the cap
       }
 

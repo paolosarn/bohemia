@@ -79,7 +79,31 @@ RF4's own tutorial *contradicts itself* on exactly this point — one screen imp
 a later screen corrects it to the global clock. **I may have attached an SP fact to PP.** The item is
 now flagged rather than trusted, and **COMBAT should take the cadence from RF4-49, not from RF4-10.**
 
-**MEASURED 8/18 on `slices/BOHEMIA_ALPHA_0_9.html`:** 40 arenas, 320 bodies, 0 page errors.
+**RE-MEASURED 8/18 (later the same day):** 40 arenas, **202 bodies**, 0 page errors.
+
+### ★★★ COMBAT BUILT IT. THE HEADLINE FINDING OF THIS FILE IS CLOSED.
+
+Both of the gaps this spec was written to name have been acted on, and the gate went **red on
+its own finding** — which is exactly what it was built to do rather than a failure:
+
+| WAS (8/18 morning) | IS NOW | ITEM |
+|---|---|---|
+| encounter size **8.0 every fight**, min 8, max 8, **0 of 40** inside RF4's band | **min 3, max 8, mean 5.0, 32 of 40 INSIDE the band** | RF4-24 |
+| **5 enemy types**, none reading any other | **16 types**, including **MEDIC (19 bodies)** — the support archetype | RF4-25/27/38 |
+| `power` **absent** | **`power` exists** | RF4-07 |
+| 8 HP tiers, 40 elite | **11 HP tiers, 48 elite** | RF4-26 |
+| no named bosses in the fight | **THE SOIL, THE SURVEYOR, THE MARQUEE, THE ROAD, THE FILTER, THE WARD, THE TOWER, THE DRAIN** | — |
+
+**THE ENCOUNTER CURVE EXISTS NOW**, and the cheapest-way-in this file recommended (RF4-38, one
+support body) is in the fight as the MEDIC. **STILL ABSENT:** the ability system (RF4-11) and
+`armor` is *still* 0 on all bodies (RF4-04's unification smell, and RF4-05's opening).
+
+**A NOTE ON THE COLUMN RULE, so the seam does not erode quietly.** COMBAT wrote a measured answer
+into RF4-29's BOHEMIA TODAY cell, which the seam assigns to LAB. **It is kept, in full, because the
+content is exactly right** — real numbers, honestly reported, closing an item LAB had marked NOT
+MEASURED. So the rule is clarified rather than enforced: **a MEASUREMENT is welcome from either lane
+as long as it is dated and says how it was taken.** What stays one-way is *interpretation* — LAB does
+not move a STATUS to BUILT, and COMBAT does not rewrite what RF4 does.
 
 ---
 
@@ -104,7 +128,7 @@ around, requiring you to actually do something to take advantage of them."* **[S
 |---|---|---|---|
 | **RF4-05** | **PROTECTION POINTS — a second HP bar with a hard BLOCK rule.** *"Protection Points act as a separate HP bar which sits atop your regular HP bar."* **A single attack can never break through PP into HP — while you hold even 1 PP you shrug off the largest blow.** Armor, shields **and talents** all grant PP. So you deliberately tank a huge hit, then avoid damage to rebuild. This merged 4-5 separate defensive stats into one. **[SOURCED, confirmed twice]** | **NOTHING LIKE IT.** No PP, no block-on-last-point, no rebuild-by-not-being-hit. `armor` exists and is 0 on all 320 bodies. | SPECED |
 | **RF4-06** | **The trinity applies to ENEMIES TOO.** *"Buffs that raise, restore, or modify Protection, Power or Speed Points can affect both the player and NPCs."* Armored enemies are not a special case — same system, both sides. **[SOURCED]** | Not applicable yet. Note the shape: **one system, both sides.** That is RF4-04 in action, and it is why the trinity is cheap to extend once built. | SPECED |
-| **RF4-07** | **POWER — one unified offensive stat**, replacing a pile of one-off damage boosts. Wang's *"single go-freaking-nuts effect."* It is **restorable mid-run** (Power Shrooms work like potions) and **grantable by positioning** (see RF4-18). **[PRIMARY on the unification, SOURCED on restore]** | **ABSENT.** No `power`/`pow` in combat state. | SPECED |
+| **RF4-07** | **POWER — one unified offensive stat**, replacing a pile of one-off damage boosts. Wang's *"single go-freaking-nuts effect."* It is **restorable mid-run** (Power Shrooms work like potions) and **grantable by positioning** (see RF4-18). **[PRIMARY on the unification, SOURCED on restore]** | **BUILT 8/18 BY COMBAT — `power` now exists in combat state** (measured, not claimed). This item was ABSENT when the spec was written this morning. What the unification still asks (RF4-42) is that *anything* modifying it modifies ALL of it. | SPECED |
 | **RF4-08** | **SPEED POINTS — mobility as a spendable resource that BUYS ACTIONS.** Sprint burns the speed bar. *"Abilities like lunge and disengage can let you perform 3+ actions per turn, often keeping multiple speed points."* Different abilities cost different SP. *"Increased mobility doesn't inherently make the player stronger but rather opens up more tactical possibilities."* **[SOURCED]** | PARTIAL. `stam`, `dashArm`, `sprintArm` exist — movement is resourced, but SP does not buy extra actions. | SPECED |
 | **RF4-09** | **SP IS DELIBERATELY HARD TO STACK.** Wang nerfed it on purpose: many items went 2SP→1SP because *"Speed Points should be harder to stack up, similar to Block Points"*, and the Athletics talent went 2SP→1SP because *"it should not be so easy to stack a ton of SP."* **[SOURCED]** | N/A. **NO DAMAGE BEFORE THE DIAL** — LAB sets no combat numbers. This item exists so whoever tunes SP knows the failure mode Wang already hit: a stackable action-buying resource breaks the game. | SPECED |
 | **RF4-10** | **Fine granularity on purpose.** 1.36's stated win: *"drastically easier to tune... previously 0BP => 1BP => 2BP were enormous jumps."* **[PRIMARY]** | **⚠ FLAGGED 8/18 — SEE C-B.** This item previously asserted *"PP regenerates 5 points every 5 turns"* from a search summary. His capture documents a 5-turn **global** cadence for **SPEED POINTS**, and records that RF4's own tutorial contradicts itself on it. **I may have attached an SP fact to PP. Do not build the PP cadence off this item — take the clock from RF4-49.** The granularity lesson (avoid coarse integer tiers on a defensive resource) stands on its own. | SPECED |
@@ -142,7 +166,7 @@ around, requiring you to actually do something to take advantage of them."* **[S
 
 | # | RF4 MECHANIC | BOHEMIA TODAY (measured) | STATUS |
 |---|---|---|---|
-| **RF4-24** | **★★★ THE ENCOUNTER-SIZE RULE, IN HIS OWN DESIGN NOTES:** *"The typical encounter should have **3-4 enemies** with **5-6 being very hard** and **anything above that being reserved for boss fights or very challenging vaults**."* Fights *"become messy when there are more than about 5-6"* and *"devolve into messy kiting and choke-point abuse."* **[SOURCED, confirmed by two independent queries]** | **MEASURED: 8.0 per fight. min 8, max 8, across 40 arenas. INSIDE RF4's 3-6 BAND: 0 OF 40.** By RF4's own rule, **every fight in Bohemia is boss-fight sizing.** See the note below — **eight is not a ruling.** | BUILT |
+| **RF4-24** | **★★★ THE ENCOUNTER-SIZE RULE, IN HIS OWN DESIGN NOTES:** *"The typical encounter should have **3-4 enemies** with **5-6 being very hard** and **anything above that being reserved for boss fights or very challenging vaults**."* Fights *"become messy when there are more than about 5-6"* and *"devolve into messy kiting and choke-point abuse."* **[SOURCED, confirmed by two independent queries]** | **RE-MEASURED 8/18: min 3, max 8, mean 5.0 across 40 arenas. INSIDE RF4's 3-6 BAND: 32 OF 40** (was 0 of 40 the same morning). **COMBAT BUILT THE CURVE.** 8 is now the ceiling it was always meant to be rather than the constant, which is what the 6/27 stress case actually asked for. **CLOSED.** It was true this morning that every fight in Bohemia was boss-fight sizing by RF4's own rule; it is not true now. See the note below — **eight is not a ruling.** | BUILT |
 | **RF4-25** | **★★★ COMPLEXITY COMES FROM SYNERGY, NOT COUNT.** *"Enemies synergize when in groups, with each new enemy treated differently depending on what group it spawns with, creating **exponential growth in complexity**... **the same enemy added to 5 very different groups should produce 5 very different combat encounters**."* **[SOURCED]** | **ABSENT.** 5 real types exist and **none of them read each other.** This is the actual answer to "why does the fight feel flat" — see the note below. | BUILT |
 | **RF4-26** | **Fewer, stronger, MIXED.** *"Enemies should generally be more individually powerful, come in mixed groups and be designed to work together, support and compliment each other."* **[SOURCED]** | HALF BUILT, better than expected: 5 types (GOON 139 / SEC-BOT 71 / SNIPER 40 / SHIV 35 / BAT 35), **8 HP tiers 45-200**, 70 of 320 melee, **40 elite**, 2 reach values, 2 cadences. The bodies are differentiated; the *groups* are not composed. | BUILT |
 | **RF4-27** | **SUPPORT ARCHETYPES EXIST.** *"Support archetypes include any monster that heals or buffs his allies."* **[SOURCED]** | **ABSENT.** No enemy affects another enemy in any way. A single healer or buffer turns a crowd into a priority-target puzzle — this is the cheapest possible entry into RF4-25. | BUILT |

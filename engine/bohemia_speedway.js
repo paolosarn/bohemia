@@ -242,7 +242,24 @@
     }
 
     A.dress(14, 30, 1);                                                // dead race cars in the lots
-    A.dress(3, 200, 0);                                                // dead brush on the margins
+    /* DEAD BRUSH ON THE FENCE LINE, not "on the margins" (8/28). `A.dress(3, 200, 0)` was a
+       GUARANTEED NO-OP here and had been since this district was clustered: dress throws its
+       darts one tile in from the cell edge -- deliberately, so confetti never lands on a seam
+       -- and MEASURED, the only code-0 ground left in a blob speedway is EXACTLY that one-tile
+       border, 255 tiles of it and not one inside. 200 darts, 0 hits, in all four cells of a
+       2x2. Two correct rules pointing at each other: the dressing keeps off the seam, and the
+       only thing left to dress is the seam.
+       At blob scale that is the right layout -- an interior cell of a mile-round speedway IS
+       all apron, and desert scrub in the middle of it would be wrong. What a speedway in the
+       Mojave really collects is tumbleweed piled against the PERIMETER FENCE, which is ground
+       that exists here, so the brush goes there. Off the blob hash, so two cells sharing a
+       fence run agree on which tiles have weeds without needing the inset to keep them apart. */
+    (function(){ var bx, by;
+      for(by=A.c.y0; by<=A.c.y1; by++) for(bx=A.c.x0; bx<=A.c.x1; bx++){
+        if(A.vget(bx,by)!==12) continue;
+        if(A.rnd(bx*3+11,by*5+4)<0.07) A.vset(bx,by,3);
+      }
+    })();
 
     var gates = A.gates(streets, 5, 1, [0, 3, 1], 12);
     return { g: A.g, W: A.W, H: A.H, streets: streets, gates: gates, bounds: b,

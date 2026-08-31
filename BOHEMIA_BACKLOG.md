@@ -8164,6 +8164,42 @@ SHARED -19. *** THE SITE STOPPED DEPLOYING AT 14:40 AND NOBODY NOTICED FOR SEVEN
    look = shared, not UI's system | open. TAB: every tab, they all come off the
    one link.
 
+UI-18. *** EVERY WALK BUTTON DRAWS TWO ARROWS, AND ONE OF THEM IS A LEFTOVER. ***
+   The city already carries UI-12's fix: the direction is DRAWN, not typed -- a CSS
+   border triangle on .pb::before whose eight rotations measure exactly
+   0/45/90/135/180/225/270/315, correct for all eight, in both of the pad's modes.
+   THE ORIGINAL TEXT GLYPH WAS NEVER REMOVED. It is still the button's textContent at
+   15px, so every control renders a correct triangle WITH A STRAY ARROW STUCK TO IT.
+   Proved by shooting each button, hiding only the text, and shooting again: 8 of 8
+   changed, and what is left is a clean triangle. In map mode the leftover even renders
+   in a DIFFERENT COLOUR from the triangles it sits on.
+   A half-finished fix that left the old thing standing beside the new one, which is the
+   same shape as the two hairline bugs on 8/27.
+   FIXED DEMO-SIDE, one line (`.pb{color:transparent}`), gated and mutation-proved. The
+   city lane can delete the textContent (or add the same line) in the file itself and the
+   demo-side rule becomes a no-op. SAFE IN BOTH MODES, checked not assumed: padMode()
+   swaps the text between dataset.walk and dataset.mapmove and the drawn triangles are
+   present in both -- one triangle walking, two stacked for map-move.
+   | one arrow per button on both surfaces | look = city's file | open for CITY. TAB: RUN.
+
+UI-19. A SHAPE AT 45 DEGREES DEFEATS BOTH A BOUNDING BOX AND YOUR OWN EYE. Reference row,
+   earned three times on the SAME EIGHT ARROWS. Twice in August a squat triangle's base
+   corners sat further from its centroid than its apex and a rotation that was already
+   correct looked wrong; on 8/30 the diagonals read as pointing INWARD and two separate
+   rulers agreed with that reading. Both rulers were broken: the first measured ink as
+   "brighter than the median" on DARK BUTTONS SITTING ON A LIGHT BACKGROUND, so it was
+   measuring the corners of the background; the second modelled the tip as opposite the
+   centroid offset, which holds for an axis-aligned triangle and INVERTS at 45 degrees --
+   it reported all four diagonals EXACTLY 178 degrees off, all four identical, and that
+   tidiness is the tell that it is an artifact and not a bug.
+   WHAT WORKS, in order of preference:
+     (1) NO MODEL AT ALL. Rotate the known-good button's own shipped pixels and compare.
+         UP turned 45 clockwise must equal NE. Overlap came back 58-76% across all seven.
+     (2) A triangle is NARROW AT ITS TIP whatever angle it sits at: sweep every direction,
+         take the leading 18% of ink, find where that slice is narrowest. Validate on the
+         cardinals first, where the answer is not in doubt.
+   | nobody re-derives this a fourth time | - | reference row, nothing to do. TAB: any.
+
 UI-16. *** THE WORKSHOP'S OWN CHROME IS STILL UNDER THE THUMB, AND IT IS THE CITY
    LANE'S FILE. *** THE THUMB (44px, iPhone portrait) had never been machine-checked
    in ~453 gates. Measured 8/30 on the built demo at 390x844 over a real http origin:
@@ -8214,7 +8250,12 @@ UI-13. THE LOOK IS ONLY ON TWO SURFACES. engine/bohemia_look.css is stamped into
    is mine alone. | one look on every tab | which lane pulls when = coordination |
    not blocked, not started. TAB: all of them. 
 
-UI-2. *** THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
+UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
+   The city's own source says it: "before THE ACTION BUTTON DOES ACTIONS you had to press
+   DROP IN on purpose to come through here. Making zoom the way in and out -- his ruling,
+   and correct." Verified in their file before building anything. Building it again would
+   have been the fourth-version failure STOP PRODUCING names. Original row below. ***
+   THE ACTION BUTTON IS NOT THE CITY BUTTON (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON I WANT TO
    CHANGE THAT I SCROLL OUT AND SCROLL INTO THE CITY NOT BY CLICKING THE
    ACTION BUTTON."

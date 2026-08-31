@@ -19,10 +19,17 @@ ending of the game. NOTE ALSO that his 100 is HOURS TO COMPLETE and the 7/1 law'
 NO RUNS AND THREE GENERATIONS DO NOT ACTUALLY CONFLICT -- a run resets you to
 nothing, a generational handoff inherits EVERYTHING, which is the opposite -- but
 he may have meant one life, and that is the shape of the whole game.
-*** [PENDING PAOLO] DOES THE DYNASTY LIVE? NO SESSION RESOLVES THIS IN PASSING.
-If you need an answer before he gives one, write your assumption in your commit,
-never into a law. *** Record:
-records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md The tree, the abilities and the bosses are ONE system, not three.
+*** ANSWERED BY PAOLO 8/28: "YEAH THREE GENERATIONS BRO CMON." THE DYNASTY
+LIVES. *** All 52 dynasty laws stand. Gen 1 Animal, Gen 2 Human, Gen 3 Angel, THE
+PLAYER LIVES ALL THREE, and the Act 3 ending is still the gen-3 Angel heir going
+one-way. NOTHING IS ARCHIVED.
+AND BOTH RULINGS ARE TRUE AT ONCE -- write this down once so nobody re-derives it:
+A GENERATIONAL HANDOFF IS NOT A RUN. A run resets you to nothing; a handoff
+INHERITS EVERYTHING the last life built (compound, standings, territory, the
+family tree, and the unhealed wounds). It is the opposite of a reset, which is why
+"THERE ARE NO RUNS" never touched it. The perk tree carries across the fold.
+Records: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md and
+laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md The tree, the abilities and the bosses are ONE system, not three.
 Anything that assumes a run resets is built on a premise that does not exist.
 Full law: laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md
 *** AND THE BOSSES ARE IN THE GAME AS OF 8/27. A BOSS DOES NOT DROP A TROPHY, IT
@@ -526,6 +533,42 @@ research partner. He DECIDES, you PRODUCE.
   changed -- THIRD BROKEN RULER IN A WEEK, so the gate reads RENDERED PIXELS and never a
   spec field. Tab: RUN (talk to anybody) / CHARACTER / LOOK. Full law:
   laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md  Gate: portrait_haircut_gate.js
+- THE CUT ASKS WHO YOU BECAME (8/30/26, finishing his 8/25 dispatch item 10): the face maker
+  shipped on 8/28 and A PLAYER COULD NOT REACH IT. It went into the CHARACTER tab, which is a
+  DEV tab, and tools/bohemia_cut_the_demo.js strips all seventeen of them out of the demo --
+  so the panel sits in the demo FILE (id="p-char" is right there) with no tab, no button and
+  NO ROUTE. Measured: 2 tabs a player can see, 0 ways to open it. THIRD TIME THIS MONTH after
+  the seventeen invisible hats and the four bright garments nobody wore -- THE MATERIAL
+  EXISTED AND NEVER REACHED THE PLAYER. *** WHERE IT GOES IS HIS AND HE WROTE IT IN JULY. ***
+  The 7/19 locked opening turns on a match-cut: "the SAME table, ~10 years later ... YOU ARE
+  20-SOMETHING." You are a child before the cut and an adult after it, and THE ONE THING THE
+  CUT CANNOT SHOW IS WHAT TEN YEARS DID TO YOU -- which is exactly what a character creator
+  asks. So the scene HOLDS on the first frame of the adult and asks it. Not a menu bolted to
+  the front of the game: the beat the opening already needed. Researched first (diegetic
+  creation is the standing answer where immersion matters -- Outer Worlds' cryo-manifest,
+  Shadows Over Loathing's mirror) and the moment is DATA: a `become` flag on whatever beat
+  carries it, never an id and never an index, so he moves it in DIRECT with no code change.
+  ONE SET OF CONTROLS: faceControlsUI is the workbench's own body minus the calibration pad
+  and the EXPORT button, because a second face editor is how the portrait and the body became
+  different people on 8/27. *** AND A FACE THAT FORGETS IS NOT A FACE: pface lived in memory
+  only, fine on a bench Paolo keeps open, fatal the moment a PLAYER meets a creator that only
+  asks ONCE -- build a head, lock the phone, come back, and you are Punk with no way back. It
+  saves now, merging onto PUNK so an old save cannot render a head with a hole in it, and
+  failing safe to the approved face on a private window or a corrupt blob. ***
+  THREE LESSONS THAT GENERALISE: (1) ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE
+  -- hold()/resume() were written into the alpha and bohemia_cutscene_tab_patch.py, which
+  inlines engine/bohemia_story_surface.js verbatim, WIPED THEM, silently and flatteringly,
+  with the scene playing on behind the creator and every other check green. (2) THE SCENE THE
+  GAME OPENS WITH HAS THREE COPIES AND ONLY ONE IS PLAYED (the record; `var BOHEMIA_COLD_OPEN`,
+  read by coldopen_gate ONLY; and the inlined BOHEMIA_CUTSCENES, the only one openScene reads)
+  -- I hand-edited the middle one and every report said success while the game did not change
+  by one pixel. A DUPLICATE NOTHING READS IS WHERE YOUR FIX GOES TO DIE. (3) A GUARD BELONGS
+  INSIDE THE THING IT GUARDS. Plus: the first screenshot came back BLACK while every probe
+  said success, because the probe hid the splash with display:none, which leaves #app
+  display:none -- TAP THE SPLASH THE WAY A FINGER TAPS IT.
+  Tab: RUN (the opening) / CHARACTER (same controls on the bench) / DIRECT (move the moment).
+  Full law: laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md
+  Gate: become_gate.js -- it drives the DEMO, because the workshop was never the problem.
 - HE CAN BUILD HIS OWN FACE (Paolo 8/25, THE PLAYTEST DISPATCH item 10: "FACE CUSTOMISATION,
   never built, is on the board"; built 8/28): there WAS a thing called a face editor -- five
   swatch rows and a nudge pad -- and NOT ONE CONTROL TOUCHED THE SHAPE OF THE HEAD. At 64
