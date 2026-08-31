@@ -59,6 +59,29 @@ function pw() {
     const page = await b.newPage({ viewport: { width: 390, height: 844 } });
     const errs = [];
     page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
+    /* *** THE SEQUENCE ASKS THE PLAYER A QUESTION NOW, SO THIS GATE HAS TO ANSWER IT.
+       (8/30, THE CUT ASKS WHO YOU BECAME.) *** The face maker sits on the match-cut: the
+       scene HOLDS on the first frame of the adult and waits for THIS IS ME. That is right
+       for a person -- they may spend five minutes on a head -- and it hangs a headless
+       run forever, because a gate is the one player who never taps. Answering it is not
+       weakening the proof, it is the gate learning a step that is now part of the
+       sequence it exists to prove.
+       IT IS AN INIT SCRIPT, NOT A PATCH AT EACH WAIT. This file plays the opening from
+       several places, and a fix applied at one of them leaves the others hanging -- which
+       is exactly what the first two attempts did. One standing rule on the page, applied
+       to every play-through, is the honest simulation: A PLAYER WHO ALWAYS PRESSES THE
+       BUTTON. If the beat is ever moved or removed in DIRECT this simply never fires.
+       (Two earlier attempts are worth remembering. Putting the tap inside SETTLE's extra
+       condition did nothing, because hold() deliberately leaves the room ANIMATING and
+       SETTLE polls for STILLNESS -- A WAIT THAT POLLS FOR STILLNESS CANNOT WAIT FOR
+       SOMETHING THAT MOVES. And a bounded loop that also polled "has the last scene
+       played" exited on ITERATION ZERO whenever lastId was null, because the check reads
+       `!id || ...` -- A LOOP THAT CAN EXIT ON A NULL IS NOT A WAIT.) */
+    await page.addInitScript(() => {
+      setInterval(function () {
+        var b = document.getElementById('becomeDone'); if (b) b.click();
+      }, 400);
+    });
     await page.goto('file://' + ALPHA);
     await page.evaluate(seed || (() => {
       localStorage.removeItem('bohemia.opening.seen.v1');

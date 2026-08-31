@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/30h - THE ANSWER IS YOUR LEGS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/30i - TEN YEARS LATER, WHO DID YOU BECOME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3536,6 +3536,48 @@ const SK_DEF=[[233,210,192],[194,164,142],[150,118,98]];
 let pface=JSON.parse(JSON.stringify(PUNK));   // live clone of the punk
 let skinTone=SKIN_TONES[1];                    // ["fair",...] default
 let hairColor=null;
+/* *** A FACE THAT FORGETS IS NOT A FACE. (8/30.) ***
+   pface lived in memory only. That was survivable while the only person who ever
+   touched it was Paolo on a bench he keeps open -- and it stopped being survivable
+   the moment a PLAYER met the creator in the opening: build a head, lock the phone,
+   come back tomorrow, and you are Punk again with no way back to the creator, because
+   it only ever asks once. Same class as the VOTE tab holding three weeks of verdicts
+   in `var V={}` (fixed 8/28), and the second time a surface has lost somebody's work
+   this month. A CHOICE THAT EVAPORATES IS NOT A CHOICE.
+   IT FAILS SAFE IN BOTH DIRECTIONS. Nothing stored, storage refused (private window),
+   or a corrupt blob: the approved PUNK face is what renders, exactly as before. And it
+   only ever writes fields PUNK already has, so a save from an older build cannot inject
+   a shape the clamps have never seen. */
+const FACE_KEY='bohemia.face.v1';
+function faceSave(){
+  try{
+    localStorage.setItem(FACE_KEY, JSON.stringify({
+      v:1, face:pface,
+      skin:(skinTone&&skinTone[0])||null,
+      hair:hairColor
+    }));
+    return true;
+  }catch(_e){ return false; }
+}
+function faceLoad(){
+  try{
+    var raw=localStorage.getItem(FACE_KEY); if(!raw) return false;
+    var d=JSON.parse(raw); if(!d||!d.face) return false;
+    /* MERGE ONTO PUNK, never replace it. A stored face missing a field a later build
+       added would otherwise render a head with a hole in it. */
+    var base=JSON.parse(JSON.stringify(PUNK));
+    for(var part in base){
+      if(!d.face[part]||typeof d.face[part]!=='object') continue;
+      for(var k in base[part]) if(d.face[part][k]!==undefined) base[part][k]=d.face[part][k];
+    }
+    pface=base;
+    if(d.skin){ var st=SKIN_TONES.find(function(s){return s[0]===d.skin;}); if(st) skinTone=st; }
+    if(d.hair!==undefined) hairColor=d.hair;
+    if(typeof faceClamp==='function') faceClamp();
+    return true;
+  }catch(_e){ return false; }
+}
+try{ faceLoad(); }catch(_e){}
 /* FACE-FEATURE PLACEMENT (Paolo 7/4/26): portrait + face-customization are ONE.
    Per-direction pixel offsets for each feature, so Paolo can slide eyes/nose/
    lips/ears per head facing. Modular: eyeColor + skinTone ride alongside so a
@@ -15081,14 +15123,35 @@ MUS.load();
 
 /* ===== face editor (click portrait) ===== */
 let faceOpen=false;
+/* *** THE FACE CONTROLS HAVE TWO HOMES NOW, AND THEY ARE ONE SET OF CONTROLS. ***
+   The workbench in the CHARACTER tab, and THE CREATOR THE PLAYER MEETS IN THE STORY
+   (8/30). Every rebuild call in here used to name buildFaceEditor() directly, which
+   hard-wired the controls to the dev panel's own div -- so a second surface would
+   have had to be a second implementation, and a second implementation of a face is
+   exactly how the portrait and the body ended up being different people on 8/27.
+   FACE_REBUILD names whichever surface is currently showing them. */
+let FACE_REBUILD=null;
+function faceRebuild(){ (FACE_REBUILD||buildFaceEditor)(); }
 function swRowUI(parent,label,arr,curJson,cb){
   const row=document.createElement('div');row.className='row';
   const l=document.createElement('b');l.textContent=label.toUpperCase();row.appendChild(l);
   arr.forEach(col=>{const s=document.createElement('button');s.className='opt'+(JSON.stringify(col)===curJson?' on':'');
     s.style.background=col?('rgb('+col[0]+','+col[1]+','+col[2]+')'):'linear-gradient(135deg,#e9e4d6,#3a3340)';
     s.textContent=col?' ':'def';s.style.width='30px';
-    s.onclick=()=>{cb(col);refresh();buildFaceEditor();};row.appendChild(s);});
+    s.onclick=()=>{cb(col);if(typeof faceSave==='function')faceSave();refresh();faceRebuild();};row.appendChild(s);});
   parent.appendChild(row);
+}
+/* THE FIVE COLOUR ROWS PLUS THE SHAPE SLIDERS: everything a PLAYER touches, and
+   nothing a player should not. The calibration pad stays behind in the workbench,
+   because nudging the eye offset per facing is a job for whoever bakes the art. */
+function faceControlsUI(host,dev){
+  swRowUI(host,'Skin',SKIN_TONES.map(s=>s[1][0]),JSON.stringify(skinTone[1][0]),
+    (c)=>{skinTone=SKIN_TONES.find(s=>JSON.stringify(s[1][0])===JSON.stringify(c));});
+  swRowUI(host,'Hair',HAIR_COLORS.map(h=>h[1]),JSON.stringify(hairColor),(c)=>{hairColor=c;});
+  swRowUI(host,'Eyes',IRIS,JSON.stringify(pface.eyes.iris),(c)=>{pface.eyes.iris=c.slice();});
+  swRowUI(host,'Lips',LIPS,JSON.stringify(pface.mouth.color),(c)=>{pface.mouth.color=c.slice();});
+  swRowUI(host,'Brows',BROWC,JSON.stringify(pface.brows.color),(c)=>{pface.brows.color=c.slice();});
+  faceSliderUI(host,dev);
 }
 /* ===== THE FACE MAKER (Paolo 8/25, THE PLAYTEST DISPATCH item 10: "FACE CUSTOMISATION,
    never built, is on the board"; built 8/28) ===============================
@@ -15159,11 +15222,16 @@ function faceClamp(){
   pface.mouth.w=Math.max(5,Math.min(f.jawW-6,pface.mouth.w));
   pface.eyes.gap=Math.max(3,Math.min(11,pface.eyes.gap));
 }
-function faceSliderUI(parent){
+function faceSliderUI(parent,dev){
   const box=document.createElement('div');
   box.style.cssText='margin-top:10px;border-top:1px solid #241c12;padding-top:8px';
   const t=document.createElement('div');
-  t.style.cssText='font:800 12px system-ui;letter-spacing:1px;color:#b39ddb;margin-bottom:2px';
+  /* ONE ACCENT, NAMED. The workbench keeps its lilac; the creator a player meets sets
+     --faceAcc to the game's gold, because PURPLE RESERVATION gives purple to the
+     Amalgamation alone and a player-facing screen is the game, not the bench.
+     A variable rather than an override: my first cut matched on the inline style TEXT
+     and missed, because cssText re-serialises #b39ddb as rgb(179,157,219). */
+  t.style.cssText='font:800 12px system-ui;letter-spacing:1px;color:var(--faceAcc,#b39ddb);margin-bottom:2px';
   t.textContent='THE FACE ITSELF';box.appendChild(t);
   const sub=document.createElement('div');
   sub.style.cssText='font:11px system-ui;color:#8a7d68;margin-bottom:6px;line-height:1.4';
@@ -15181,7 +15249,7 @@ function faceSliderUI(parent){
     l.textContent=label;row.appendChild(l);
     const s=document.createElement('input');s.type='range';
     s.min=mn;s.max=mx;s.step=1;s.value=_fget(key);
-    s.style.cssText='flex:1;accent-color:#b39ddb';
+    s.style.cssText='flex:1;accent-color:var(--faceAcc,#b39ddb)';
     const v=document.createElement('span');
     v.style.cssText='font:11px monospace;color:#9a8a6a;min-width:22px;text-align:right';
     v.textContent=_fget(key);
@@ -15189,7 +15257,7 @@ function faceSliderUI(parent){
     /* a released slider REBUILDS the panel, because clamping may have moved a neighbour
        and a slider showing a number the face does not have is the dead-dial bug wearing
        a different hat. */
-    s.onchange=()=>{buildFaceEditor();};
+    s.onchange=()=>{if(typeof faceSave==='function')faceSave();faceRebuild();};
     row.appendChild(s);row.appendChild(v);box.appendChild(row);
   });
   /* THE HAIRCUT, from the same fifteen the body wears (8/28). Picking one here writes the
@@ -15206,7 +15274,7 @@ function faceSliderUI(parent){
       pface.hair.front=d.front!=null?d.front:null;
       pface.hair.vol  =d.vol  !=null?d.vol  :null;
       pface.hair.flare=d.flare!=null?d.flare:null;
-      refresh();buildFaceEditor();};
+      refresh();faceRebuild();};
     hr.appendChild(bt);});
   box.appendChild(hr);
   const tr=document.createElement('div');tr.className='row';
@@ -15214,7 +15282,7 @@ function faceSliderUI(parent){
   [['wave','wavy'],['coils','coiled'],['locs','locs'],['solid','smooth']].forEach(([k,lab])=>{
     const bt=document.createElement('button');
     bt.className='opt'+(((pface.hair.tex||'wave')===k)?' on':'');
-    bt.textContent=lab;bt.onclick=()=>{pface.hair.tex=k;refresh();buildFaceEditor();};
+    bt.textContent=lab;bt.onclick=()=>{pface.hair.tex=k;refresh();faceRebuild();};
     tr.appendChild(bt);});
   box.appendChild(tr);
   /* ROLL A FACE. The same faceFor every stranger in the valley is rolled from, so the
@@ -15231,7 +15299,7 @@ function faceSliderUI(parent){
       for(const k2 in sp[k]){ if(k2==='color'||k2==='iris')continue; pface[k][k2]=sp[k][k2]; }
     for(const k2 of ['name','side','front','vol','flare','tex','part','len','style'])
       if(sp.hair[k2]!==undefined)pface.hair[k2]=sp.hair[k2];
-    faceClamp();refresh();buildFaceEditor();};
+    faceClamp();refresh();faceRebuild();};
   const rst=document.createElement('button');rst.className='opt';rst.style.flex='1';
   rst.textContent='BACK TO PUNK';
   rst.onclick=()=>{const keep={hair:{color:pface.hair.color,roots:pface.hair.roots},
@@ -15239,8 +15307,12 @@ function faceSliderUI(parent){
     pface=JSON.parse(JSON.stringify(PUNK));
     pface.hair.color=keep.hair.color;pface.hair.roots=keep.hair.roots;
     pface.eyes.iris=keep.eyes.iris;pface.mouth.color=keep.mouth.color;pface.brows.color=keep.brows.color;
-    refresh();buildFaceEditor();};
+    refresh();faceRebuild();};
   br.appendChild(roll);br.appendChild(rst);box.appendChild(br);
+  /* EXPORT IS FOR THE WORKBENCH, NOT FOR A PLAYER. 'EXPORT THIS FACE (to Claude)'
+     is a sentence about how this game gets made, and the creator the player meets
+     in the story is the game, not the making of it. */
+  if(dev===false){ parent.appendChild(box); return; }
   const ex=document.createElement('button');ex.className='opt';ex.style.cssText='width:100%;margin-top:6px';
   ex.textContent='EXPORT THIS FACE (to Claude)';
   ex.onclick=()=>{const L=['=== BOHEMIA FACE (Paolo) ==='];
@@ -15259,13 +15331,8 @@ function faceSliderUI(parent){
 }
 function buildFaceEditor(){
   const fe=document.getElementById('faceEd');fe.innerHTML='';
-  swRowUI(fe,'Skin',SKIN_TONES.map(s=>s[1][0]),JSON.stringify(skinTone[1][0]),
-    (c)=>{skinTone=SKIN_TONES.find(s=>JSON.stringify(s[1][0])===JSON.stringify(c));});
-  swRowUI(fe,'Hair',HAIR_COLORS.map(h=>h[1]),JSON.stringify(hairColor),(c)=>{hairColor=c;});
-  swRowUI(fe,'Eyes',IRIS,JSON.stringify(pface.eyes.iris),(c)=>{pface.eyes.iris=c.slice();});
-  swRowUI(fe,'Lips',LIPS,JSON.stringify(pface.mouth.color),(c)=>{pface.mouth.color=c.slice();});
-  swRowUI(fe,'Brows',BROWC,JSON.stringify(pface.brows.color),(c)=>{pface.brows.color=c.slice();});
-  faceSliderUI(fe);
+  FACE_REBUILD=buildFaceEditor;
+  faceControlsUI(fe,true);
   /* FACE CALIBRATION (Paolo 7/19): nudge the eye/nose/lip POSITIONS per facing.
      Mechanism mine, placement his -- offsets ship all-zero until he rules them.
      The live character (above) shows the chosen facing; the shades re-cook once
@@ -26117,14 +26184,64 @@ window.CLO=(function(){
 const BOH_FLOORPLAN=(function(){
   function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
   // zone -> ordered room roles (public first) + minimum room dimension
+  /* *** WHAT A BIGGER BUILDING HAS MORE OF (`bulk`, 8/28). ***
+     Rooms are named by RANK -- distance from the street door, public first -- and the line
+     that did it was `Z.roles[Math.min(rank, Z.roles.length-1)]`. That CLAMPS: every room past
+     the end of the list takes the LAST role, and in seven of these nine zones the last role is
+     `bath`, because the list runs public-to-private and a toilet is the most private thing in
+     it. So every building with more rooms than its zone has roles filled up with toilets.
+     MEASURED ACROSS 277 BUILDINGS FROM THE REAL GENERATORS BEFORE THE FIX: 1213 of 2287 rooms
+     in the valley were bathrooms -- FIFTY-THREE PERCENT. The convention centre had 50 of 54.
+     The library 50 of 54. The chapel 49 of 53, which is a chapel that is 92% toilet. City hall
+     48, the courthouse 48, the school 43. You walked into the Las Vegas library and found fifty
+     lavatories.
+     THE FIX IS NOT A CAP ON BATHROOMS, it is naming the room a bigger building actually gets
+     more of, which is a different question and the one the clamp was silently answering wrong.
+     A bigger house has more BEDROOMS. A bigger shop is more SALES FLOOR. A bigger hospital is
+     more WARDS. A bigger warehouse is more OPEN FLOOR -- and that one is not taste: building
+     code puts occupant load at 100-150 sq ft per person in an office and 500 in a warehouse,
+     so a warehouse holds a fifth of the people and needs a fifth of the fixtures, while this
+     was giving a 60x31 pump station EIGHT toilets. Restrooms are CORE space in the same
+     bracket as stairs and risers; net-to-gross runs 60-80%, so they are a slice of the 20-40%
+     that is left, never half the plan.
+     Each list still runs public-to-private for the rooms it names, and `bath` still appears
+     exactly once in each -- which is why no cap is needed. The flood was entirely the clamp. */
   const ZONES={
-    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
-    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
-    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
-    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
-    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
-    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
-    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    residential:{roles:['living','kitchen','bed','bed','bath'],bulk:'bed',minRoom:4},
+    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],bulk:'shopfloor',minRoom:5},
+    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],bulk:'office',minRoom:4},
+    civic:      {roles:['hall','reception','office','records','bath'],bulk:'office',minRoom:5},
+    institutional:{roles:['ward','ward','office','service','bath'],bulk:'ward',minRoom:5},
+    warehouse:  {roles:['floor_open','dock','office','bath'],bulk:'floor_open',minRoom:8},
+    landmark:   {roles:['atrium','gallery','service','bath'],bulk:'gallery',minRoom:6},
+    /* *** THREE ZONES SPLIT OUT OF `institutional` (8/28). ***
+       Fixing the bathroom flood left `ward` as the COMMONEST ROOM IN THE VALLEY at 20.7%,
+       because one zone was carrying eleven different building types -- medical, school,
+       campus, firestation, policestation, jail, prison, terminal, airport, airbase, cemetery
+       -- and a ward is only right for the first of them. A school of hospital wards, a fire
+       station of hospital wards, an airport terminal of hospital wards.
+       EVERY ROLE NAME BELOW IS ONE THE FLOOR POOL ALREADY CARRIES (measured: it maps 36 names
+       and the floorplan was only assigning 25, so `garage`, `study`, `exam`, `plant`,
+       `corridor`, `dining` and five more were sitting there unused). REUSE-FIRST -- nothing
+       here reaches into the ART lane's map, which is what stopped this fix yesterday.
+       GROUNDED, not guessed:
+         school   - schools put 65-70% of gross floor area into INSTRUCTION and 30-35% into
+                    ancillary, so the bulk room is the classroom and `study` is the mapped
+                    name for it.
+         transit  - "in smaller airports the terminal and concourse are one and the same
+                    building", which is exactly Bohemia's scale: check-in, security and gates
+                    sharing one space. The bulk room is the concourse.
+         firehouse- the apparatus bay is the dominant volume of a fire station: bays run 15-18
+                    ft wide and 40 ft deep for a single, 80 for a double, and everything else
+                    (watch, bunks, office) is fitted around them. `garage` is the mapped name.
+       POLICE STATIONS ARE NOT FIREHOUSES and are moved to `civic` instead: a police station is
+       mostly desks and interview rooms with a motor pool attached, not a hall of vehicle bays.
+       WHAT STAYS `institutional`: medical, where a ward is exactly right, and prison/jail,
+       where a cellblock is a genuine ward-shaped repeated unit. Cemetery stays too -- its
+       buildings are a chapel and an office and it is too small to be worth a zone. */
+    school:     {roles:['hall','office','study','study','bath'],bulk:'study',minRoom:5},
+    transit:    {roles:['concourse','counter','office','locker','bath'],bulk:'concourse',minRoom:6},
+    firehouse:  {roles:['garage','office','locker','bath'],bulk:'garage',minRoom:6},
     // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
     // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
     // silently falling through to the nameless 'default' grammar — 46 buildings
@@ -26132,8 +26249,12 @@ const BOH_FLOORPLAN=(function(){
     // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
     // the projection room behind"; stadium: "the ring corridor under the stands,
     // boarded concession windows + restrooms"). Roles read off those dossiers.
-    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
-    'default':  {roles:['room','room','service'],minRoom:4},
+    /* These two ended in 'service' rather than 'bath', so they were never part of the
+       bathroom flood -- but they were still answering the wrong question, filling a big
+       stadium with plant rooms. A bigger leisure building is more CONCOURSE; that is what
+       a concourse is for. */
+    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],bulk:'concourse',minRoom:5},
+    'default':  {roles:['room','room','service'],bulk:'room',minRoom:4},
   };
   // union-find for the door spanning tree
   function UF(n){const p=Array.from({length:n},(_,i)=>i);
@@ -26168,7 +26289,9 @@ const BOH_FLOORPLAN=(function(){
         const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
         const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
         return da-db;});
-      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+      /* PAST THE END OF THE LIST, A ROOM IS THE ZONE'S BULK ROOM -- not the last one
+         named. See the note on ZONES: clamping here made 53% of the valley bathrooms. */
+      order.forEach((ri,rank)=>{const role=rank<Z.roles.length?Z.roles[rank]:(Z.bulk||Z.roles[Z.roles.length-1]);
         rooms[ri].role=role;
         for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
     };
@@ -27164,21 +27287,50 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
                                             names: this.names });
   };
 
+  /* ONE TICK BODY. It used to live inline inside start(), which was fine while
+     start() was the only thing that could run the clock. hold()/resume() below
+     need the same body, and TWO COPIES OF A CLOCK is the ENGINE SYNC mistake
+     this repo keeps paying for -- so there is one, and both callers use it. */
+  Story.prototype._tick = function () {
+    var r = this.player_.step();
+    this.apply(r.beat);
+    if (this.o.onBeat) this.o.onBeat(r, this);
+    if (r.done) { this.stop(); this.ended = true; if (this.o.onEnd) this.o.onEnd(this); }
+  };
   Story.prototype.start = function () {
     var self = this;
     this.stop();
     this.reset();
     this.player_ = this._mkPlayer();
-    this.beatTimer = setInterval(function () {
-      var r = self.player_.step();
-      self.apply(r.beat);
-      if (self.o.onBeat) self.o.onBeat(r, self);
-      if (r.done) { self.stop(); self.ended = true; if (self.o.onEnd) self.o.onEnd(self); }
-    }, this.RT.BEAT_MS);
+    this.beatTimer = setInterval(function () { self._tick(); }, this.RT.BEAT_MS);
     this.animTimer = setInterval(function () { self.phase++; self.draw(); }, 125);
     this.draw();
   };
+  /* *** A SCENE CAN BE HELD. (8/30.) ***
+     start() RESETS -- it rebuilds the player from beat zero -- so it has never
+     been able to resume anything, and stop() is final. That was enough while the
+     only thing a scene handed control to was the raid, which happens at the END.
+     It is not enough for a beat that hands the player a DECISION in the middle of
+     a scene, which is what the match-cut does now: `become` on a beat stops the
+     scene there and asks who you grew up into.
+     THE ROOM KEEPS BREATHING. hold() stops the BEAT clock and deliberately leaves
+     animTimer running -- a frozen room reads as a crash, a room still moving while
+     nobody speaks reads as a held breath, which is the effect a cut wants. */
+  Story.prototype.hold = function () {
+    if (this.beatTimer) clearInterval(this.beatTimer);
+    this.beatTimer = null;
+    this.held = true;
+    return true;
+  };
+  Story.prototype.resume = function () {
+    if (this.beatTimer || !this.player_ || this.ended) return false;
+    var self = this;
+    this.held = false;
+    this.beatTimer = setInterval(function () { self._tick(); }, this.RT.BEAT_MS);
+    return true;
+  };
   Story.prototype.stop = function () {
+    this.held = false;
     if (this.beatTimer) clearInterval(this.beatTimer);
     if (this.animTimer) clearInterval(this.animTimer);
     this.beatTimer = this.animTimer = null;
@@ -27422,7 +27574,8 @@ var BOHEMIA_COLD_OPEN = {
    "age": "adult",
    "at": "table_seat_player",
    "pose": "seated",
-   "why": "'you are 20-something' - same seat, same framing, different person."
+   "why": "'you are 20-something' - same seat, same framing, different person. *** AND THIS IS WHERE YOU DECIDE WHO YOU BECAME. (8/30.) *** The 7/19 locked shape says \"the SAME table, ~10 years later ... you are 20-something\". The cut shows the whole apocalypse without a word, and the ONE thing it cannot show is what ten years did to YOU. So the scene holds here, on the first frame of the adult, and hands the player the face maker -- item 10 of his 8/25 playtest dispatch, which had shipped on 8/28 into a DEV TAB that the demo build strips out, so no player could reach it. It is not a menu bolted to the front of the game; it is the beat the opening already needed. MOVE IT FREELY: the hook reads the `become` flag off whatever beat carries it, so dragging it in the DIRECT tab moves the moment with no code change.",
+   "become": true
   },
   {
    "kind": "actor",
@@ -27785,7 +27938,8 @@ var BOHEMIA_CUTSCENES = [
    "age": "adult",
    "at": "table_seat_player",
    "pose": "seated",
-   "why": "'you are 20-something' - same seat, same framing, different person."
+   "why": "'you are 20-something' - same seat, same framing, different person. *** AND THIS IS WHERE YOU DECIDE WHO YOU BECAME. (8/30.) *** The 7/19 locked shape says \"the SAME table, ~10 years later ... you are 20-something\". The cut shows the whole apocalypse without a word, and the ONE thing it cannot show is what ten years did to YOU. So the scene holds here, on the first frame of the adult, and hands the player the face maker -- item 10 of his 8/25 playtest dispatch, which had shipped on 8/28 into a DEV TAB that the demo build strips out, so no player could reach it. It is not a menu bolted to the front of the game; it is the beat the opening already needed. MOVE IT FREELY: the hook reads the `become` flag off whatever beat carries it, so dragging it in the DIRECT tab moves the moment with no code change.",
+   "become": true
   },
   {
    "kind": "actor",
@@ -29493,6 +29647,124 @@ function openStart(){
    IT FAILS SAFE. No seam, no tab, or a throw anywhere in it, and this returns
    false so the opening simply ends the way it did yesterday. The demo can never
    be worse off than before this existed. */
+/* ===== TEN YEARS. WHO DID YOU BECOME? ====================================
+   *** THE FACE MAKER SHIPPED ON 8/28 AND A PLAYER COULD NOT REACH IT. ***
+   It answers item 10 of his own 8/25 playtest dispatch ("FACE CUSTOMISATION,
+   never built, is on the board"), it has fourteen shape sliders and every
+   haircut the city wears, and it lives in the CHARACTER tab -- which is a DEV
+   tab, stripped out of the demo build by tools/bohemia_cut_the_demo.js. So in
+   the thing an actual player opens, the panel is still in the file and there is
+   no door to it. SAME FAILURE AS THE SEVENTEEN INVISIBLE HATS AND THE COLOURS
+   NOBODY WORE: the material existed and never reached the player.
+
+   WHERE IT GOES, AND IT IS HIS, NOT MINE. The 7/19 locked opening is three
+   beats, and beat 1 turns on a match-cut: "the SAME table, ~10 years later, now
+   in a dingy post-apocalypse house, YOU ARE 20-SOMETHING." You are a child
+   before the cut and an adult after it. WHO YOU BECAME IN THOSE TEN YEARS IS
+   THE ONE THING THE CUT DOES NOT SAY, and it is exactly the question a
+   character creator asks. So the creator is not a menu bolted to the front of
+   the game -- it is the beat itself, and the scene holds its breath for it.
+
+   RESEARCHED, NOT GUESSED. Diegetic character creation is the standing answer
+   in games that care about immersion: The Outer Worlds picks you off a
+   cryo-manifest, Shadows Over Loathing sets your appearance in front of a
+   mirror during its prologue. The common shape is that the creator happens
+   INSIDE the fiction at a moment the fiction already needed. Ours already had
+   one written down since July.
+
+   IT IS ONE SET OF CONTROLS. faceControlsUI is the workbench's own body, minus
+   the calibration pad and the export button, which are about making the game
+   rather than playing it. A second face editor is how the portrait and the body
+   became different people on 8/27, and that is not happening twice. */
+var OPEN_BECAME=false;
+function openBecomeShown(){ try{ return !!localStorage.getItem('bohemia.became.v1'); }catch(_e){ return false; } }
+function openBecomeMark(){ try{ localStorage.setItem('bohemia.became.v1','1'); }catch(_e){} }
+function openBecome(){
+  if(OPEN_BECAME) return false;
+  /* ONCE PER DEVICE, AND THE GUARD LIVES HERE. The first cut kept it in the beat hook,
+     so the rule was a property of ONE CALLER rather than of the thing it protects --
+     and the second caller (a gate, today; a DIRECT-tab preview tomorrow) would have
+     re-opened it over somebody who had already answered. A guard outside the function
+     it guards is a guard that only holds until somebody else calls in. */
+  if(openBecomeShown()) return false;
+  if(typeof faceControlsUI!=='function' || typeof pface==='undefined') return false;
+  var w=document.getElementById('openWrap'); if(!w) return false;
+  OPEN_BECAME=true;
+  /* HOLD THE SCENE. Not stop -- stop is final and start() rewinds to beat zero,
+     which would replay the whole childhood behind them. */
+  try{ if(OPEN_PLAYER && OPEN_PLAYER.hold) OPEN_PLAYER.hold(); }catch(_e){}
+
+  var sh=document.createElement('div');
+  sh.id='becomeWrap';
+  sh.style.cssText='--faceAcc:#d8b45a;position:absolute;inset:0;z-index:44;background:#0a0906;display:flex;'+
+    'flex-direction:column;align-items:center;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 12px 18px';
+  /* *** PURPLE RESERVATION. *** The workbench's controls are lilac (#b39ddb) and that
+     is fine on a dev bench, but this is a screen A PLAYER SEES, and purple belongs to
+     the Amalgamation alone. Same controls, scoped to the game's own gold, and not one
+     dev panel is touched -- the override lives inside this element. */
+  var st=document.createElement('style');
+  st.textContent='#becomeWrap b{color:#c9bda4!important}'+
+    '#becomeWrap .row{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0}'+
+    '#becomeWrap .opt{background:#171309;border:1px solid #35291a;color:#cdbd8a;'+
+    'border-radius:4px;padding:4px 8px;font:11px ui-monospace,monospace}'+
+    '#becomeWrap .opt.on{border-color:#d8b45a;color:#f0e0b4}';
+  sh.appendChild(st);
+  var ttl=document.createElement('div');
+  ttl.style.cssText='font:700 11px ui-monospace,monospace;letter-spacing:3px;color:#d8b45a;margin-bottom:2px';
+  ttl.textContent='TEN YEARS LATER';
+  var sub=document.createElement('div');
+  sub.style.cssText='font:13px/1.5 ui-monospace,monospace;color:#9a8a6a;margin-bottom:10px;text-align:center';
+  /* draft:true. ALWAYS MAKE AN ATTEMPT (8/11) -- real words, editable in WORDS. */
+  sub.textContent='Who did you become?';
+  sh.appendChild(ttl); sh.appendChild(sub);
+
+  /* THE PORTRAIT THEY ARE BUILDING, at the size it pops up when somebody talks.
+     Its own canvas, painted by the same renderFace the whole valley uses. */
+  var pc=document.createElement('canvas'); pc.width=pc.height=64;
+  pc.style.cssText='width:192px;height:192px;image-rendering:pixelated;'+
+    'border:1px solid #2a2114;border-radius:5px;background:#141109;flex:0 0 auto';
+  sh.appendChild(pc);
+  var paint=function(){
+    try{
+      var sp=(typeof buildSpec==='function')?buildSpec():null; if(!sp)return;
+      var buf=renderFace(sp,{ramp:(typeof faceRampFor==='function')?faceRampFor(sp):null});
+      var g=pc.getContext('2d'), im=g.createImageData(64,64); im.data.set(buf); g.putImageData(im,0,0);
+    }catch(_e){}
+  };
+
+  var box=document.createElement('div');
+  box.style.cssText='width:100%;max-width:430px;margin-top:12px';
+  sh.appendChild(box);
+
+  var done=document.createElement('button');
+  done.id='becomeDone';
+  done.style.cssText='margin-top:14px;width:100%;max-width:430px;padding:11px;border:1px solid #d8b45a;'+
+    'border-radius:5px;background:#d8b45a;color:#191308;font:700 12px ui-monospace,monospace;letter-spacing:2px';
+  done.textContent='THIS IS ME';
+  sh.appendChild(done);
+
+  /* REBUILD THIS SURFACE, not the workbench's. Restored on the way out so the
+     CHARACTER tab keeps working exactly as it did. */
+  var prev=FACE_REBUILD;
+  var build=function(){ box.innerHTML=''; faceControlsUI(box,false); paint(); };
+  FACE_REBUILD=build;
+  build();
+
+  done.onclick=function(){
+    FACE_REBUILD=prev;
+    openBecomeMark();
+    faceSave();                 /* the head they just built has to be there tomorrow */
+    if(sh.parentElement) sh.parentElement.removeChild(sh);
+    /* AND THE FACE HAS TO SURVIVE THE ROOM. pface is what buildSpec clones for
+       every portrait, so writing it is the whole persistence -- but the frames
+       the cutscene already baked are stale for the player's body, so the cache
+       is dropped and the next draw is theirs. */
+    try{ if(typeof refresh==='function') refresh(); }catch(_e){}
+    try{ if(OPEN_PLAYER && OPEN_PLAYER.resume) OPEN_PLAYER.resume(); }catch(_e){}
+  };
+  w.appendChild(sh);
+  return true;
+}
 function openHandoff(h, fromId){
   if(!h) return false;
   if(h.to === 'scene' && h.scene){
@@ -29596,7 +29868,17 @@ function openPlay(sc){
     stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
     paintBody:cutPaintBody, speak:cutVoice,
     playerSex:(typeof G!=='undefined' && G && G.sex) ? G.sex : 'male',
-    onBeat:function(r,s){ openCaption(s); },
+    /* A BEAT MAY ASK WHO YOU ARE. `become` on a beat means the scene stops there
+       and hands the player the creator; the scene resumes when they are done.
+       Read off the BEAT rather than off a beat id, so Paolo can move the moment
+       in the DIRECT tab without anybody touching this file. Once per device --
+       coming back to the opening later does not ask you again. */
+    onBeat:function(r,s){
+      openCaption(s);
+      try{
+        if(r && r.beat && r.beat.become && !OPEN_BECAME && !openBecomeShown()) openBecome();
+      }catch(_e){}
+    },
     /* THE SEQUENCE DECIDES WHAT HAPPENS AT THE END, NOT THE SCENE. If the
        scene that just finished names another SCENE, play it. If it hands off
        to something this runner cannot call -- the raid -- stop here rather

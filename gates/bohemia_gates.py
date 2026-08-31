@@ -1546,6 +1546,21 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('BECOME', ['node', 'gates/become_gate.js'],
+     'THE CUT ASKS WHO YOU BECAME (8/30). The face maker shipped 8/28 answering item 10 '
+     'of his own playtest dispatch -- 14 shape sliders, every haircut the city wears -- '
+     'INTO THE CHARACTER TAB, which is a dev tab the demo cut strips out, so the panel '
+     'shipped inside the demo file WITH NO DOOR TO IT and no player could reach the '
+     'feature. Same shape as the seventeen invisible hats and the colours nobody wore. '
+     'WHERE IT GOES IS HIS, FROM JULY: the 7/19 locked opening turns on a match-cut, "the '
+     'SAME table, ~10 years later ... you are 20-something", and the one thing that cut '
+     'cannot show is what ten years did to YOU. The scene now HOLDS on the first frame of '
+     'the adult and asks. It DRIVES THE DEMO, because the workshop was never the problem. '
+     'Three lessons pinned: ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE (hold/'
+     'resume were written into the alpha and the cutscene patch wiped them, silently, with '
+     'the scene playing on BEHIND the creator and every other check green); THE OPENING '
+     'SCENE HAS THREE COPIES AND ONLY ONE IS PLAYED (a hand-edit to the wrong one looks '
+     'exactly like working); and A GUARD BELONGS INSIDE THE THING IT GUARDS.', False),
     ('HAIR GRAVEYARD', ['node', 'gates/hair_graveyard_gate.js'],
      'GRAVEYARD IS FINAL, ENFORCED FOR HAIR AT LAST (8/30). The registry has existed '
      'since July and NOTHING HAS EVER READ IT -- six weeks of an unenforced law. On '

@@ -203,7 +203,8 @@
    "age": "adult",
    "at": "table_seat_player",
    "pose": "seated",
-   "why": "'you are 20-something' - same seat, same framing, different person."
+   "why": "'you are 20-something' - same seat, same framing, different person. *** AND THIS IS WHERE YOU DECIDE WHO YOU BECAME. (8/30.) *** The 7/19 locked shape says \"the SAME table, ~10 years later ... you are 20-something\". The cut shows the whole apocalypse without a word, and the ONE thing it cannot show is what ten years did to YOU. So the scene holds here, on the first frame of the adult, and hands the player the face maker -- item 10 of his 8/25 playtest dispatch, which had shipped on 8/28 into a DEV TAB that the demo build strips out, so no player could reach it. It is not a menu bolted to the front of the game; it is the beat the opening already needed. MOVE IT FREELY: the hook reads the `become` flag off whatever beat carries it, so dragging it in the DIRECT tab moves the moment with no code change.",
+   "become": true
   },
   {
    "kind": "actor",

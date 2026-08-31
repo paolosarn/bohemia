@@ -1,3 +1,98 @@
+CHARACTER (character-0lurbs): 8/30 (i) LATEST -- *** THE FACE MAKER SHIPPED ON 8/28
+AND A PLAYER COULD NOT REACH IT. IT IS IN THE GAME NOW, AT THE MATCH-CUT, AND THE
+DEMO IS WHERE I PROVED IT. ***
+
+READ-BACK: from the handoff I took that the demo build now exists as its own link,
+that the opening plays end to end (cold open -> raid -> grief dinner -> burial),
+and that my own last turn deleted seven haircuts that were remakes of dead shapes.
+I did not touch hair this turn.
+
+THE HOLE, MEASURED BEFORE TOUCHING ANYTHING.
+His 8/25 dispatch item 10 was "FACE CUSTOMISATION, never built, is on the board".
+It was built on 8/28 -- 14 shape sliders, all 24 haircuts, a live portrait -- INTO
+THE CHARACTER TAB. That is a DEV tab, and the demo cut strips all seventeen of them
+out. So the panel sits in the demo FILE with no tab, no button and no route:
+    demo tabs a player can see        city, run
+    p-char panel present in the demo  yes
+    ways for a player to open it      0
+THIRD TIME THIS MONTH. Seventeen invisible hats, four bright garments nobody wore,
+a VOTE tab that held no faces for three weeks. THE MATERIAL EXISTED AND NEVER
+REACHED THE PLAYER.
+
+WHERE IT GOES IS HIS, FROM JULY, AND I DID NOT INVENT IT.
+The 7/19 locked opening turns on a match-cut: "the SAME table, ~10 years later ...
+YOU ARE 20-SOMETHING." You are a child before the cut and an adult after it, and
+THE ONE THING THE CUT CANNOT SHOW IS WHAT TEN YEARS DID TO YOU. The scene now HOLDS
+on beat 15 (`actor you_adult`, the first frame of the grown player), shows TEN YEARS
+LATER / Who did you become?, and resumes on THIS IS ME. Researched first: diegetic
+creation is the standing answer where immersion matters (Outer Worlds' cryo-manifest,
+Shadows Over Loathing's mirror) and the shared shape is that it happens INSIDE the
+fiction at a moment the fiction already needed. Ours was written five weeks ago.
+HE CAN MOVE IT: the hook reads a `become` flag off whatever beat carries it, never an
+id and never an index, so dragging the moment in DIRECT moves it with no code change.
+
+ONE SET OF CONTROLS, NOT TWO. faceControlsUI is the workbench's own body minus the
+calibration pad and the EXPORT button (both about making the game, not playing it).
+A second face editor is exactly how the portrait and the body became different people
+on 8/27.
+
+*** THREE LESSONS THAT GENERALISE BEYOND THIS LANE. ***
+1. ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE. I wrote hold()/resume()
+   straight into the alpha. tools/bohemia_cutscene_tab_patch.py owns that block and
+   inlines engine/bohemia_story_surface.js verbatim -- its next run WIPED THEM. The
+   failure was silent and flattering: the creator still opened, the button still
+   worked, and the scene played on HAPPILY BEHIND IT with every other check green.
+2. THE SCENE THE GAME OPENS WITH HAS THREE COPIES AND ONLY ONE IS PLAYED. The record,
+   `var BOHEMIA_COLD_OPEN` (read by coldopen_gate ONLY), and the inlined
+   BOHEMIA_CUTSCENES catalogue (the only one openScene reads). I hand-edited the
+   middle one; every report said success and the game did not change by one pixel.
+   A DUPLICATE NOTHING READS IS WHERE YOUR FIX GOES TO DIE.
+3. A GUARD BELONGS INSIDE THE THING IT GUARDS. "Ask once per device" lived in the beat
+   hook, so it was a property of one CALLER; the gate called openBecome() directly and
+   it re-opened over somebody who had already answered.
+
+AND LOOKING CAUGHT TWO THINGS MEASURING DID NOT. The first screenshot came back BLACK
+while every probe said success -- the probe hid the splash with display:none instead of
+tapping it, which leaves #app display:none, so everything rendered into a hidden tree.
+That is this file's own documented lie and it already cost a whole cutscene playing
+inside a hidden panel on 8/25. TAP THE SPLASH THE WAY A FINGER TAPS IT. And the sliders
+were PURPLE, which PURPLE RESERVATION gives to the Amalgamation alone -- fine on a bench,
+not on a screen the player sees. Fixed with a CSS VARIABLE, not an override: my first cut
+matched the inline style TEXT and missed, because cssText re-serialises #b39ddb as
+rgb(179,157,219). No dev panel changed.
+
+AND A FACE THAT FORGETS IS NOT A FACE -- FOUND AND FIXED THE SAME TURN. pface lived in
+memory only, which was survivable while the only person touching it was Paolo on a bench
+he keeps open, and stopped being survivable the moment a PLAYER met the creator: build a
+head, lock the phone, come back, and you are Punk again WITH NO WAY BACK, because it only
+ever asks once. Same class as the VOTE tab's three weeks of `var V={}` (fixed 8/28) --
+second time this month a surface has lost somebody's work. THIS IS ME writes the face
+now, and so does every control on the bench, so his own work survives a reload too. It
+fails safe both ways: nothing stored, a private window, or a corrupt blob all render the
+approved PUNK face, and the load MERGES onto PUNK so an old save cannot render a head
+with a hole in it. MUTATION TESTED -- stubbing faceLoad turns the reload check red and
+names the eye gap that moved.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. NOBODY IN THE VALLEY HAS THEIR HAIR UP and it is over 40C. Still open, still needs a
+   silhouette he has NEVER killed -- check gates/bohemia_graveyard.txt BEFORE cooking,
+   which hair_graveyard_gate.js now enforces.
+2. 24 haircuts and 16 faces are in the VOTE tab waiting on his thumb. None judged.
+3. THE CREATOR ONLY OFFERS A FACE. His 7/30 board also lists leg length vs torso, frame
+   and bulk, posture and neck length as unbuilt slider ideas, and those are BODY, not
+   face -- a player who can shape a head and not a body will notice. Ruling-free: the
+   mechanism is mine, and the rig already carries the proportions.
+4. Carried, another lane: RUN's person-card still has no speech and no face.
+
+Proof: become_gate 28/28 (drives the DEMO, not the workshop, and mutation tested),
+coldopen 45/45,
+hair_graveyard 9/9, GRAVEYARD 0 live refs, full suite run this turn.
+Law: laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md
+Record: records/BOHEMIA_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.txt
+Tab: RUN (the opening) / CHARACTER (same controls on the bench) / DIRECT (move it)
+
+================================================================================
+
 COMBAT (combat-nfnki9): 8/30 (h) LATEST -- *** CROSSING THE ROOM IS THE BEST PLAY
 IN THE GAME AND THE WORST PLAY IN THE GAME, AND THE ONLY DIFFERENCE IS ONE
 STAMINA PIP. *** Nothing to judge.

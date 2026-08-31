@@ -1,0 +1,188 @@
+THE CUT ASKS WHO YOU BECAME
+8/30/26, CHARACTER lane. Character creation is in the game now, at the match-cut,
+and a demo player can reach it.
+
+================================================================================
+THE HOLE
+================================================================================
+
+Paolo, 8/25 PLAYTEST DISPATCH item 10: "FACE CUSTOMISATION, never built, is on
+the board."
+
+Built 8/28: fourteen shape sliders, all 24 canon haircuts, four hair textures,
+eleven skin tones, a live 64x64 portrait, ROLL A FACE, BACK TO PUNK. Every
+slider re-clamps against the rules faceFor obeys, so he cannot build a head that
+is not a head.
+
+IT SHIPPED INTO THE CHARACTER TAB.
+
+The CHARACTER tab is a DEV tab. tools/bohemia_cut_the_demo.js strips seventeen of
+them out of the demo build. So the panel is still in the demo FILE -- the DOM is
+right there, id="p-char" -- and there is no tab, no button, no route to it. A
+player opening the demo link could not customise anything.
+
+MEASURED, before touching anything:
+    demo `data-p` tabs               city, run          (2)
+    p-char panel present in demo     yes
+    ways for a player to open it     0
+
+SAME FAILURE AS:
+    the seventeen invisible hats     cooked, never reachable
+    the four bright garments (7/21)  three worn by nobody for five weeks
+    the VOTE tab (8/7 - 8/28)        existed three weeks, never held a face
+THE MATERIAL EXISTED AND NEVER REACHED THE PLAYER. Third time this month.
+
+================================================================================
+WHERE IT GOES, AND HE WROTE IT DOWN IN JULY
+================================================================================
+
+laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md, beat 1:
+
+  "Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy
+   post-apocalypse house, YOU ARE 20-SOMETHING. The single cut shows the entire
+   apocalypse without a word."
+
+You are a child before the cut and an adult after it. THE ONE THING THE CUT
+CANNOT SHOW IS WHAT TEN YEARS DID TO YOU, and that is the question a character
+creator asks. The creator is not a menu bolted to the front of the game; it is
+the beat the opening already needed.
+
+The scene HOLDS on beat 15 -- `actor you_adult`, the first frame of the grown
+player -- shows TEN YEARS LATER / Who did you become?, and resumes on THIS IS ME.
+
+RESEARCHED RATHER THAN GUESSED. Diegetic character creation is the standing
+answer where immersion matters: The Outer Worlds picks the player off a
+cryo-manifest with Phineas Welles reading the manifest aloud; Shadows Over
+Loathing sets class and motivation through prologue dialogue and appearance at a
+mirror. The shared shape is that creation happens INSIDE the fiction at a moment
+the fiction already needed. Ours was written five weeks before anybody looked.
+
+AND HE CAN MOVE IT. The hook reads a `become` flag off whatever beat carries it,
+never a beat id and never an index, so dragging the moment in the DIRECT tab
+moves it with no code change (HE MUST BE ABLE TO DIRECT IT, 8/12).
+
+================================================================================
+ONE SET OF CONTROLS
+================================================================================
+
+faceControlsUI(host, dev) is the workbench's own body. The creator calls it with
+dev=false, which drops the calibration pad and the "EXPORT THIS FACE (to Claude)"
+button -- both about MAKING the game rather than playing it.
+
+FACE_REBUILD names whichever surface is showing the controls. Before this, every
+refresh inside them called buildFaceEditor() BY NAME, hard-wiring them to the dev
+panel's own div, so a second surface would have HAD to be a second implementation.
+
+A second face editor is exactly how the portrait and the body became different
+people on 8/27. Not twice.
+
+================================================================================
+THREE THINGS THIS COST, AND ALL THREE GENERALISE
+================================================================================
+
+1. ANYTHING A PATCH TOOL OWNS MUST BE EDITED AT ITS SOURCE.
+
+   Story.prototype.hold/resume were written straight into the alpha. They worked.
+   Then tools/bohemia_cutscene_tab_patch.py -- which OWNS that script block and
+   inlines engine/bohemia_story_surface.js VERBATIM -- ran, and wiped them.
+
+   The failure was silent and FLATTERING: the creator still appeared, the DONE
+   button still worked, the portrait still painted, and the scene played on
+   HAPPILY BEHIND THE CREATOR with every other check green. Only a probe that
+   asked "is the beat clock actually stopped" caught it.
+
+   Fixed in the engine file. The gate now asserts the capability lives there.
+
+2. THE SCENE THE GAME OPENS WITH HAS THREE COPIES AND ONLY ONE IS PLAYED.
+
+     records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json    the canon source
+     var BOHEMIA_COLD_OPEN (alpha)                read by coldopen_gate.js ONLY
+     BOHEMIA_CUTSCENES[..].scene (alpha)          the ONLY one openScene() reads
+
+   I edited the middle one by hand. Every report said success. The game did not
+   change by one pixel, because nothing playing reads that variable.
+
+   The patch tool writes all three from the record, which is the correct pipeline.
+   The trap is that hand-editing any single copy LOOKS EXACTLY LIKE WORKING.
+   A DUPLICATE NOTHING READS IS WORSE THAN NO DUPLICATE: it is where your fix goes
+   to die.
+
+3. A GUARD BELONGS INSIDE THE THING IT GUARDS.
+
+   "Ask once per device" was written into the beat hook -- a property of ONE
+   CALLER rather than of the function. The gate called openBecome() directly and
+   it re-opened over somebody who had already answered. Moved inside. A guard
+   outside the function it guards holds only until somebody else calls in.
+
+================================================================================
+AND ONE MORE, ON LOOKING
+================================================================================
+
+The first screenshot came back BLACK while every probe reported success. Cause:
+the probe hid the front splash with display:none instead of tapping it, which
+leaves #app display:none, so the whole creator rendered into a hidden tree --
+this file's own documented lie (a flex child of a display:none parent still
+computes display:flex), which had already cost a whole cutscene playing inside a
+hidden panel on 8/25.
+
+TAP THE SPLASH THE WAY A FINGER TAPS IT. Fixed in the probe and in the gate.
+
+LOOKING ALSO CAUGHT THE PURPLE. The workbench's sliders are lilac (#b39ddb) and
+PURPLE RESERVATION gives purple to the Amalgamation alone. Tolerable on a dev
+bench; not on a screen the player sees. The accent is a CSS VARIABLE now
+(--faceAcc), not an override -- the first cut matched on the inline style TEXT
+and missed, because cssText re-serialises #b39ddb as rgb(179, 157, 219). Not one
+dev panel changed.
+
+================================================================================
+WHAT A PLAYER GETS, MEASURED ON THE DEMO BUILD
+================================================================================
+
+  demo has a CHARACTER tab            no
+  creator appears in the demo         yes, at beat 16
+  on screen (not just in the DOM)     yes
+  scene held, beat clock stopped      yes
+  shape sliders                       14
+  colour rows + haircut + texture     7
+  haircuts offered                    24
+  live portrait                       4096 of 4096 px painted
+  moving a control moves pface        yes
+  EXPORT / calibration on screen      no / no
+  purple elements                     0
+  resumes and advances on THIS IS ME  yes
+  remembered, never asked twice       yes
+
+================================================================================
+AND A FACE THAT FORGETS IS NOT A FACE
+================================================================================
+
+pface lived in memory only. That was survivable while the only person who ever
+touched it was Paolo on a bench he keeps open. It stopped being survivable the
+moment a PLAYER met the creator in the opening: build a head, lock the phone,
+come back tomorrow, and you are Punk again -- WITH NO WAY BACK, because the
+creator only ever asks once.
+
+Same class as the VOTE tab holding three weeks of verdicts in `var V={}` (fixed
+8/28). Second time this month a surface has lost somebody's work. A CHOICE THAT
+EVAPORATES IS NOT A CHOICE, and the second time it happens they stop trusting
+the surface.
+
+Now: THIS IS ME writes the face, and so does every control on the bench, so his
+own work survives a reload too. IT FAILS SAFE IN BOTH DIRECTIONS -- nothing
+stored, storage refused (a private window), or a corrupt blob, and the approved
+PUNK face is what renders, exactly as before. The load MERGES onto PUNK rather
+than replacing it, so a save from an older build cannot render a head with a hole
+in it, and it only ever restores fields PUNK already has, so it cannot inject a
+shape the clamps have never seen.
+
+MUTATION TESTED, because a check that reads what you handed it is not a check:
+stubbing faceLoad to return false turns the reload check red and names the eye
+gap that moved (8 before, 6 after).
+
+================================================================================
+
+Gate: gates/become_gate.js -- 28 checks, and it drives the DEMO, because the
+workshop was never the problem.
+Law: laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md
+Tab: RUN (the opening) / CHARACTER (the same controls on the bench) / DIRECT
+     (move the moment)
