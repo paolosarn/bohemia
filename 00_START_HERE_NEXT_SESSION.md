@@ -1,3 +1,73 @@
+COMBAT (combat-nfnki9): 8/30 (h) LATEST -- *** CROSSING THE ROOM IS THE BEST PLAY
+IN THE GAME AND THE WORST PLAY IN THE GAME, AND THE ONLY DIFFERENCE IS ONE
+STAMINA PIP. *** Nothing to judge.
+
+TAB: COMBAT. Fight until a sniper has a line on you. Build 8/30h.
+
+THE QUESTION THIS LANE COULD NOT ANSWER ALL WEEK, ANSWERED
+  RF4-37 is the priority-target row. THREE instruments failed at it and each
+  failure is written down: a passive player saturating a 100-health bar (which
+  gave a confident BACKWARDS answer), then the same player at 600 where a
+  one-body difference is smaller than the noise. Yesterday's record named the fix
+  in advance -- "a PLAYING A/B measuring TURNS TO CLEAR and DAMAGE TO CLEAR
+  rather than damage over a fixed window" -- and that race is now IN THE GATE.
+
+THE RACE: 90 fights a policy, same boards, one thing different
+    never cross the room        ~33% of rooms cleared     ~78 damage
+    WALK at him                 ~19%                     ~135
+    MANEUVER over safe ground   ~16%                     ~145
+    SPRINT at him and shoot     ~31%                     ~118
+  Walking at the priority target clears HALF as many rooms as ignoring him and
+  costs nearly twice the blood. Sprinting -- THE SAME PLAN, ONE PIP -- beats
+  walking on both counts, every run. RF4-49, already shipped here: "SP is not
+  movement, it is a currency that buys FREE ACTIONS OUTSIDE THE TURN ECONOMY
+  ENTIRELY." A walk costs your whole turn; a sprint costs a pip and leaves it.
+
+WHAT IS ASSERTED AND WHAT IS ONLY REPORTED
+  Three runs: nearest 31.1/36.7/32.2, walk 18.9/15.0/18.9, sprint 37.8/31.7/28.9.
+  WHETHER SPRINTING BEATS STANDING OFF IS INSIDE THE NOISE and the gate reports
+  it rather than claiming it. What holds every time: walking is worse than not
+  going, safe-routing does not rescue it, and SPRINT BEATS WALK ON BOTH COUNTS.
+
+AND THE SHARPEST LINE IS ABOUT MY OWN FEATURE
+  Routing the crossing over the tiles V193's READ calls safest was the WORST
+  policy measured. THE READ OPTIMISES FOR THIS TURN AND CROSSING A ROOM IS A
+  MULTI-TURN PLAN, so the safest next tile is frequently backwards. Honest limit
+  of a shipped feature, found by using it, pinned in the gate.
+
+*** AND THE BEST FINDING FELL OUT OF STAGING THE TEST: THE DARK IS WHAT CREATES
+RF4-37 HERE. *** The arm kept reporting the spotter INSIDE my reach however far
+back I staged him, and that is a fact about the game. V151 gives the player a
+reach FLOOR of the longest foe reach plus an edge, and THE SPOTTER IS THE LONGEST
+REACH ON THE BOARD -- so in daylight, the moment he can see you, you can already
+shoot him: blind band ZERO. After dark V98 HALVES YOUR RANGE AND DOES NOT TOUCH
+HIS EYES, and the band opens to about six tiles. "Maneuver into position to kill
+the priority target" is a DAYTIME NON-PROBLEM AND A NIGHT PROBLEM.
+
+WHAT SHIPPED
+  The man who has the room is NAMED ON THE FIELD (V179's ring says who can see
+  you; it cannot say which one is the reason your stone stopped working). The
+  line names the gap in tiles and switches between "put him down" and "RUN at
+  him: your legs do not cost your turn" on the real reach test. The sprint's own
+  label -- "2 TILES, 1 PIP, FREE MOVE" -- only ever appeared AFTER you armed it,
+  which is the answer to a question you had to have asked already.
+
+GATES: fight_moves_you 148/0 (was 144/0), two runs - combat_lab 931/1 (the one
+red is another session's fight-music ladder) - one_engine 3/0 - boss_ladder 87/0
+- 0 page errors. applyDamage 40; not one rule about who can shoot whom moved.
+RECORD: records/BOHEMIA_COMBAT_THE_ANSWER_IS_YOUR_LEGS_8_30_26.md
+
+WHAT COMES AFTER
+  THE NIGHT IS THE INTERESTING HALF AND NOTHING IS BUILT FOR IT. The puzzle only
+  exists after dark, when your reach halves and his does not, and the one ability
+  that answers a man you cannot reach is the SPRINT -- a pip from a pool of three
+  that refills every five turns. HOW MANY PIPS IT TAKES TO CROSS A ROOM AT NIGHT
+  IS THE ACTUAL DIFFICULTY DIAL OF THIS FIGHT, and it has never been measured.
+  Still open and still combat's: "it could be more hardcore if you wanted it to
+  be" -- permission, not a ruling.
+
+------------------------------------------------------------------------
+
 RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
 three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
 
