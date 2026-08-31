@@ -379,6 +379,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="daycard"><div id="daycardIn"></div></div>
   <div id="sleepbtn">🛏 SLEEP</div>
   <div id="rungbtn">◆ STANDING</div><!-- __WHERE_YOU_STAND__ -->
+  <!-- __CITY_PACKS_BUTTON__ : the only way to do the thing this tier is about -->
+  <div id="packline"></div>
+  <div id="packbtn">✋ BACK OFF</div>
   <div id="mktbtn">🧺 MARKET</div><!-- __THE_TRADING_HUB__ -->
   <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
@@ -530,6 +533,13 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* ==== mandate face css ==== */
 /* __WHERE_YOU_STAND__ -- sits in the same left column as SLEEP and MARKET, above both,
    and borrows #mktbtn's rule rather than copying it so the two can never drift apart. */
+#packbtn{position:absolute;left:6px;bottom:193px;z-index:7;padding:7px 11px;border-radius:9px;
+  display:none;background:#241a12;border:1px solid #6b4a22;color:#e6b877;font-weight:700;
+  font:600 12px ui-monospace,monospace;letter-spacing:1px;cursor:pointer}
+#packbtn:active{background:#3a2a18}
+#packline{position:absolute;left:6px;bottom:229px;z-index:7;max-width:62%;
+  display:none;padding:5px 9px;border-radius:6px;background:rgba(12,10,8,0.88);
+  border:1px solid var(--line);color:#cbb68e;font:11px ui-monospace,monospace;letter-spacing:0.5px}
 #rungbtn{position:absolute;left:6px;bottom:74px;z-index:7;padding:7px 11px;border-radius:9px;
   background:var(--face);border:1px solid var(--line);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px}
@@ -37499,7 +37509,7 @@ var WILD_DENSITY = 1.0;
    about ninety-six times in a hundred it will leave if you push it. The other
    four times it will not, and at a den it never will.
    ========================================================================== */
-var PACK_DREW = [], PACK_LEFT = {};
+var PACK_DREW = [], PACK_LEFT = {}, PACK_NEAR = null, PACK_SAID = 0;
 
 /* HOW MANY OF THEM THE VALLEY IS ALLOWED. His to move. */
 var PACK_DENSITY = 1.0;
@@ -37533,6 +37543,8 @@ function packPass(ox, oy, C) {
     var sx = ox + p.at[0] * C, sy = oy + p.at[1] * C;
     if (sx < -C * 4 || sy < -C * 5 || sx > cv.width + C * 4 || sy > cv.height + C * 4) continue;
     var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    var ringCells = null;
+    if (st === 'warn') { try { ringCells = BohemiaPacks.ring(p, [hx, hy], wildProbe); } catch (_e) {} }
     var onGlass = false;
     for (var k = 0; k < p.count; k++) {
       var coat = BohemiaPacks.coatFor(p, k);
@@ -37543,6 +37555,14 @@ function packPass(ox, oy, C) {
       var jx = (BohemiaPacks.hash(p.at[0], p.at[1], k, 1) * 2 - 1) * C * 1.4;
       var jy = (BohemiaPacks.hash(p.at[1], p.at[0], k, 2) * 2 - 1) * C * 0.9;
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
+      /* AND WHEN IT IS WARNING YOU, IT CLOSES. The ring is the open cells around
+         you, one per animal, and it is EMPTY when you are in a narrow place, so
+         backing into an alley visibly stops them coming. Without this the whole
+         tactical layer existed only in the module. */
+      if (st === 'warn' && ringCells && ringCells[k]) {
+        dx0 = Math.round(ox + ringCells[k][0] * C + C / 2 - lad / 2);
+        dy0 = Math.round(oy + ringCells[k][1] * C + C - lad);
+      }
       g.drawImage(spr, dx0, dy0, lad, lad);
       drawn++;
       /* RECORD ONLY WHAT LANDED ON THE GLASS, never what was drawn into the
@@ -37552,7 +37572,34 @@ function packPass(ox, oy, C) {
     }
     if (onGlass) PACK_DREW.push(p);
   }
+  /* __CITY_PACKS_BUTTON__ -- the control appears here or the feature is a
+     mechanism nothing can reach, which is what ORGAN REACH caught. */
+  try { packButton(); } catch (_e) {}
   return drawn;
+}
+
+/* SHOW THE BUTTON ONLY WHILE SOMETHING IS WARNING YOU, and say what it is.
+   Called at the end of every pack pass, so it can never disagree with what is
+   drawn: it reads PACK_DREW, which records only what landed on the glass. */
+function packButton() {
+  var b = document.getElementById('packbtn');
+  var l = document.getElementById('packline');
+  if (!b) return;
+  var near = null, nd = 1e9;
+  for (var i = 0; i < PACK_DREW.length; i++) {
+    var p = PACK_DREW[i];
+    if (p.state !== 'warn') continue;
+    var d = Math.max(Math.abs(p.at[0] - hx), Math.abs(p.at[1] - hy));
+    if (d < nd) { nd = d; near = p; }
+  }
+  PACK_NEAR = near;
+  b.style.display = near ? 'block' : 'none';
+  if (l) {
+    if (near && !PACK_SAID) {
+      var line = BohemiaPacks.lineFor(near, 'warn');
+      if (line) { l.textContent = line; l.style.display = 'block'; }
+    } else if (!near) { l.style.display = 'none'; PACK_SAID = 0; }
+  }
 }
 
 /* YOU PUSH THE NEAREST ONE. The Edmonton finding, on the glass: shout, and 22
@@ -37572,6 +37619,36 @@ function packAssert() {
   if (r === 'backs-off') PACK_LEFT[best.at[0] + ',' + best.at[1] + ',' + best.kind] = 1;
   return { pack: best, result: r, line: BohemiaPacks.lineFor(best, best.state) };
 }
+
+/* THE PRESS. draft:true on every word, per the 8/11 rule: a real attempt,
+   written as if it ships, edited later in the WORDS tab. Nobody in Bohemia is
+   wise, so none of these is a lesson about dogs. */
+(function () {
+  function wire() {
+    var b = document.getElementById('packbtn');
+    if (!b || b.__wired) return;
+    b.__wired = 1;
+    b.addEventListener('click', function () {
+      var out = null;
+      try { out = packAssert(); } catch (_e) {}
+      var l = document.getElementById('packline');
+      if (l) {
+        l.textContent = !out ? 'nothing there now.'                      /* draft:true */
+          : out.result === 'backs-off'
+            ? 'they back off. not fast.'                                 /* draft:true */
+            : (out.pack && out.pack.den
+                ? 'that one is not going anywhere.'                      /* draft:true */
+                : 'that one does not move.');                            /* draft:true */
+        l.style.display = 'block';
+      }
+      PACK_SAID = 1;
+      try { render(); } catch (_e) {}
+    });
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', wire);
+  else wire();
+})();
 
 function wildPass(ox, oy, C) {
   WILD_DREW = [];

@@ -218,12 +218,196 @@ def repair(html):
     return html, healed
 
 
+# ============================================================================
+# SECTION TWO: THE BUTTON, ADDED AFTER A GATE CALLED THE FEATURE DEAD.
+#
+# *** ORGAN REACH WENT RED AND IT WAS RIGHT. *** "An organ no line in this repo
+# calls is dead." Two of them, and they were the HEADLINE: packAssert() was
+# defined and never called, so the player could not push a pack and the 22-in-23
+# finding this whole tier is built on had no way to happen; and BohemiaPacks.ring
+# was never called, so the alley rule -- the thing that makes a narrow street a
+# real out -- ran nowhere. THE MECHANISM EXISTED AND NOTHING COULD REACH IT.
+# That is the invisible-hats shape, in the same turn as a record about the
+# invisible-hats shape, and only a machine check found it.
+#
+# THE BUTTON ONLY EXISTS WHEN IT MEANS SOMETHING. Paolo 8/16: "the run has a lot
+# of bullshit buttons still around from the early days." So it is not another
+# permanent control: it appears when a pack is actually warning you and goes away
+# when it is not, which is also the only time pressing it would do anything.
+# ============================================================================
+MARK2 = '__CITY_PACKS_BUTTON__'
+
+# THE POSITIONS ARE MEASURED, NOT GUESSED. The first cut put the button at
+# CSS bottom 108 by counting the other rules in this file, and on the real
+# page it landed ON TOP of the caption and the STANDING button, with the
+# d-pad over its right edge. The container is inset 49px from the viewport
+# bottom, which no rule in this file says. Measured on the page: the caption
+# occupies y 657-683, STANDING 689-720, BIKE 763-795, SLEEP 801-832 and the
+# d-pad is a 180x180 square at x198,y658. So the only free left-hand space is
+# ABOVE y=657, and these two numbers put the line at 590-614 and the button at
+# 620-651, six pixels clear of the caption.
+# AND THE FIRST CORRECTION WAS STILL 49 PIXELS OUT, because it assumed the
+# container's inset instead of reading it. Measured again on the page and
+# corrected against the rendered boxes, not against the rules: the check is a
+# NINE-POINT one, because a control is reachable when EVERY part of it is, not
+# when its middle happens to be. Its middle row passed while the top row was
+# under the caption and the bottom row under STANDING.
+CSS_ANCHOR = """#rungbtn{position:absolute;left:6px;bottom:74px"""
+CSS_NEW = """#packbtn{position:absolute;left:6px;bottom:193px;z-index:7;padding:7px 11px;border-radius:9px;
+  display:none;background:#241a12;border:1px solid #6b4a22;color:#e6b877;font-weight:700;
+  font:600 12px ui-monospace,monospace;letter-spacing:1px;cursor:pointer}
+#packbtn:active{background:#3a2a18}
+#packline{position:absolute;left:6px;bottom:229px;z-index:7;max-width:62%;
+  display:none;padding:5px 9px;border-radius:6px;background:rgba(12,10,8,0.88);
+  border:1px solid var(--line);color:#cbb68e;font:11px ui-monospace,monospace;letter-spacing:0.5px}
+#rungbtn{position:absolute;left:6px;bottom:74px"""
+
+DOM_ANCHOR = """  <div id="rungbtn">◆ STANDING</div><!-- __WHERE_YOU_STAND__ -->"""
+DOM_NEW = """  <div id="rungbtn">◆ STANDING</div><!-- __WHERE_YOU_STAND__ -->
+  <!-- __CITY_PACKS_BUTTON__ : the only way to do the thing this tier is about -->
+  <div id="packline"></div>
+  <div id="packbtn">✋ BACK OFF</div>"""
+
+JS_ANCHOR = """/* YOU PUSH THE NEAREST ONE."""
+JS_NEW = r"""/* SHOW THE BUTTON ONLY WHILE SOMETHING IS WARNING YOU, and say what it is.
+   Called at the end of every pack pass, so it can never disagree with what is
+   drawn: it reads PACK_DREW, which records only what landed on the glass. */
+function packButton() {
+  var b = document.getElementById('packbtn');
+  var l = document.getElementById('packline');
+  if (!b) return;
+  var near = null, nd = 1e9;
+  for (var i = 0; i < PACK_DREW.length; i++) {
+    var p = PACK_DREW[i];
+    if (p.state !== 'warn') continue;
+    var d = Math.max(Math.abs(p.at[0] - hx), Math.abs(p.at[1] - hy));
+    if (d < nd) { nd = d; near = p; }
+  }
+  PACK_NEAR = near;
+  b.style.display = near ? 'block' : 'none';
+  if (l) {
+    if (near && !PACK_SAID) {
+      var line = BohemiaPacks.lineFor(near, 'warn');
+      if (line) { l.textContent = line; l.style.display = 'block'; }
+    } else if (!near) { l.style.display = 'none'; PACK_SAID = 0; }
+  }
+}
+
+/* YOU PUSH THE NEAREST ONE."""
+
+WIRE_ANCHOR = """    if (onGlass) PACK_DREW.push(p);
+  }
+  return drawn;
+}"""
+WIRE_NEW = """    if (onGlass) PACK_DREW.push(p);
+  }
+  /* __CITY_PACKS_BUTTON__ -- the control appears here or the feature is a
+     mechanism nothing can reach, which is what ORGAN REACH caught. */
+  try { packButton(); } catch (_e) {}
+  return drawn;
+}"""
+
+# THE RING, which was the other dead organ. A pack that is WARNING you closes on
+# the open cells around you, one per animal, and takes NONE of them if you are in
+# a narrow place -- which is the whole reason an alley is worth anything.
+RING_ANCHOR = """      var jx = (BohemiaPacks.hash(p.at[0], p.at[1], k, 1) * 2 - 1) * C * 1.4;
+      var jy = (BohemiaPacks.hash(p.at[1], p.at[0], k, 2) * 2 - 1) * C * 0.9;
+      var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);"""
+RING_NEW = """      var jx = (BohemiaPacks.hash(p.at[0], p.at[1], k, 1) * 2 - 1) * C * 1.4;
+      var jy = (BohemiaPacks.hash(p.at[1], p.at[0], k, 2) * 2 - 1) * C * 0.9;
+      var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
+      /* AND WHEN IT IS WARNING YOU, IT CLOSES. The ring is the open cells around
+         you, one per animal, and it is EMPTY when you are in a narrow place, so
+         backing into an alley visibly stops them coming. Without this the whole
+         tactical layer existed only in the module. */
+      if (st === 'warn' && ringCells && ringCells[k]) {
+        dx0 = Math.round(ox + ringCells[k][0] * C + C / 2 - lad / 2);
+        dy0 = Math.round(oy + ringCells[k][1] * C + C - lad);
+      }"""
+
+RINGCALC_ANCHOR = """    var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    var onGlass = false;
+    for (var k = 0; k < p.count; k++) {
+      var coat = BohemiaPacks.coatFor(p, k);"""
+RINGCALC_NEW = """    var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    var ringCells = null;
+    if (st === 'warn') { try { ringCells = BohemiaPacks.ring(p, [hx, hy], wildProbe); } catch (_e) {} }
+    var onGlass = false;
+    for (var k = 0; k < p.count; k++) {
+      var coat = BohemiaPacks.coatFor(p, k);"""
+
+STATE_ANCHOR = """var PACK_DREW = [], PACK_LEFT = {};"""
+STATE_NEW = """var PACK_DREW = [], PACK_LEFT = {}, PACK_NEAR = null, PACK_SAID = 0;"""
+
+CLICK_ANCHOR = """  return { pack: best, result: r, line: BohemiaPacks.lineFor(best, best.state) };
+}"""
+CLICK_NEW = """  return { pack: best, result: r, line: BohemiaPacks.lineFor(best, best.state) };
+}
+
+/* THE PRESS. draft:true on every word, per the 8/11 rule: a real attempt,
+   written as if it ships, edited later in the WORDS tab. Nobody in Bohemia is
+   wise, so none of these is a lesson about dogs. */
+(function () {
+  function wire() {
+    var b = document.getElementById('packbtn');
+    if (!b || b.__wired) return;
+    b.__wired = 1;
+    b.addEventListener('click', function () {
+      var out = null;
+      try { out = packAssert(); } catch (_e) {}
+      var l = document.getElementById('packline');
+      if (l) {
+        l.textContent = !out ? 'nothing there now.'                      /* draft:true */
+          : out.result === 'backs-off'
+            ? 'they back off. not fast.'                                 /* draft:true */
+            : (out.pack && out.pack.den
+                ? 'that one is not going anywhere.'                      /* draft:true */
+                : 'that one does not move.');                            /* draft:true */
+        l.style.display = 'block';
+      }
+      PACK_SAID = 1;
+      try { render(); } catch (_e) {}
+    });
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', wire);
+  else wire();
+})();"""
+
+
+
+def section_two(html):
+    """Apply the button section on its own marker, so it can land on a tree that
+    already carries section one. EACH SECTION CHECKS ITS OWN MARKER: a patch tool
+    that gates everything on the FIRST marker can never add anything later, which
+    is how the button came to be missing in the first place."""
+    if MARK2 in html:
+        return html, []
+    steps = [('the button style', CSS_ANCHOR, CSS_NEW),
+             ('the button markup', DOM_ANCHOR, DOM_NEW),
+             ('the pack state vars', STATE_ANCHOR, STATE_NEW),
+             ('the ring lookup', RINGCALC_ANCHOR, RINGCALC_NEW),
+             ('the ring draw', RING_ANCHOR, RING_NEW),
+             ('the button updater', JS_ANCHOR, JS_NEW),
+             ('the button call site', WIRE_ANCHOR, WIRE_NEW),
+             ('the press handler', CLICK_ANCHOR, CLICK_NEW)]
+    for name, anchor, _rep in steps:
+        if html.count(anchor) != 1:
+            sys.exit('FAILED: %s resolves %d times, expected 1.'
+                     % (name, html.count(anchor)))
+    for _name, anchor, rep in steps:
+        html = html.replace(anchor, rep, 1)
+    return html, ['the BACK OFF button and the ring, which nothing could reach before']
+
+
 def main():
     html = open(CITY, encoding='utf-8').read()
     if MARK in html:
         html, healed = repair(html)
         html, notes = refresh_all(html)
         healed += notes
+        html, n2 = section_two(html)
+        healed += n2
         if healed:
             open(CITY, 'w', encoding='utf-8').write(html)
             print('  REPAIRED  ' + CITY + '  -- put back: ' + '; '.join(healed))
@@ -244,6 +428,8 @@ def main():
     for _name, anchor, rep in steps:
         html = html.replace(anchor, rep, 1)
     html, notes = refresh_all(html)
+    html, n2 = section_two(html)
+    notes += n2
     open(CITY, 'w', encoding='utf-8').write(html)
     print('  patched  ' + CITY + '  (the pack does not want to fight you)'
           + ('  [+ ' + '; '.join(notes) + ']' if notes else ''))

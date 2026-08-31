@@ -1,3 +1,141 @@
+PEOPLE (people-7h9sfy): 8/30 LATEST -- *** THE PACK DOES NOT WANT TO FIGHT YOU.
+Dogs and coyotes, and you can push them: 22 times in 23 they leave, and at a den
+they never do. TAB: RUN, walk out and keep going. Nothing to judge. ***
+
+TAB: RUN. Build 8/30e - THE PACK DOES NOT WANT TO FIGHT YOU.
+Walk out of the house and keep walking; a pack turns up in about 49 steps. When
+one is warning you a BACK OFF button appears on the left. Press it.
+
+THE ROW: ALIVE-2, tier 2, the tier his 8/25 dispatch called ENEMIES, LOOT and
+Valheim-style DANGER BY PLACE. Tier 1 (8/28) is what is alive around you. This is
+the first thing in the valley with an opinion about you.
+
+*** THE BACKLOG ROW WAS WRONG ABOUT DOGS AND THE RESEARCH SAYS SO. *** It reads
+"pack AI that flanks and breaks off", which is a WOLF. Free-ranging dogs forage
+singly most of the time, form "random uncorrelated groups", cooperate LESS than
+wild canids, hold ranges that "overlap substantially" with other packs, and their
+frequent intergroup conflict "rarely results in lethal aggression". So a city dog
+pack HOLDS A SPOT WITH FOOD ON IT AND THREATENS WHAT COMES FOR IT, and almost
+never follows through. That encounter is better than a hunt because it has a door
+in it: you can leave, and so can they.
+
+*** AND THE MEASURED NUMBER INVERTS THE CONVENTION. *** Edmonton, 120 volunteers,
+71 neighbourhoods, 1,598 patrols: coyotes "retreated before volunteers were
+within 40 m during 124 (71%) of the observations and retreated immediately from
+22 (96%) of the hazing events". ONE IN TWENTY-THREE DID NOT BACK DOWN. Nerve is
+rolled once per group per day, never per press, so the one that holds is ALWAYS
+the one that holds: a percentage re-rolled every press is a slot machine, a
+percentage rolled once per group is a character.
+
+MEASURED, NOT ASSERTED
+  back down when you push        95.6%  over 38,946 groups
+  back down AT A DEN             0 of 6,160
+  dog groups vs coyote groups    3,252 to 106 over 300 seeds
+  coats                          sandy 56%, black 27%, pale 16% (weighted)
+  steps to meet a pack           49, on the real surface
+
+THE DEN IS THE EXCEPTION, FROM BIOLOGY, WITH NO DIAL: urban canids den in dry
+culverts, storm drains and under sheds, and a den is the one place a pack CANNOT
+leave, so the four percent is a hundred percent there.
+
+THE ALLEY IS THE TACTICAL LAYER AND BROGUE PROVED IT: grouped monsters avoid
+corridors so they do not waste their numbers. One openness test, shared with tier
+1 so the two cannot drift.
+
+*** AND THE DISTANCES ARE BOUNDED BY THE SCREEN. *** First cut: dogs notice 14,
+warn 7, reasoned from the animal alone. The canvas is 378x785 at 44 pixel tiles,
+so the player sees about EIGHT cells: a dog that notices at fourteen has already
+noticed you before it is on screen, so ITS SETTLED STATE DOES NOT EXIST FOR
+ANYBODY PLAYING. A STATE THE CAMERA CANNOT CONTAIN IS NOT A STATE, IT IS A
+COMMENT. Ladder now reads, off the glass:
+  9:settled 8:settled 7:settled 6:notice 5:notice 4:notice 3:warn 2:warn 1:warn
+
+*** AND THEN A GATE CALLED THE WHOLE FEATURE DEAD, AND IT WAS RIGHT. *** ORGAN
+REACH rule 1: "an organ no line in this repo calls is dead." TWO of them, and
+they were THE HEADLINE. packAssert() was defined and NEVER CALLED, so the player
+could not push a pack and the 22-in-23 finding this tier is built on had no way
+to happen. BohemiaPacks.ring was NEVER CALLED, so the alley rule ran nowhere.
+THE MECHANISM EXISTED AND NOTHING COULD REACH IT -- the invisible-hats shape, in
+the same turn as a record about the invisible-hats shape, and no amount of
+looking at the screen finds it because what is missing is not on the screen.
+Fixed: a BACK OFF button that appears ONLY while something is warning you (a
+control always there is another bullshit button, 8/16; a control never there is a
+dead organ), and the ring is drawn, so a warning pack closes on the cells around
+you and takes NONE of them in a narrow place. pack_gate now asks that question of
+itself: every function the module exports must have a caller in the game.
+
+AND THE BUTTON WENT IN THE WRONG PLACE TWICE. Placed by counting CSS rules: it
+landed ON TOP of the caption and STANDING with the d-pad over its right edge.
+Corrected by arithmetic: still 49px out, because the container is inset by an
+amount no rule in the file states. Fixed by MEASURING the rendered boxes. The
+check is NINE POINTS, NOT THE CENTRE -- the middle row passed both times it was
+broken -- and the ruler itself needed a fix, because the exact corners of a
+rounded button are outside the shape on purpose.
+
+FIVE THINGS ONLY LOOKING FOUND, TWO ALREADY SHIPPED
+  1. THE FAR LEGS DREW ON THE NEAR LEGS' OWN TWO COLUMNS, in shadow. EVERY
+     four-legged animal has had two dark sticks under it since the coyote was
+     cooked on 8/28. Further away is higher and offset, so the 45 law fixes it.
+  2. THE HEAD FLOATED IN THE LOOK FRAME: the bird has had a neck since its first
+     cut and the beast never did. AND THE FIRST NECK WAS GUESSED along a slope
+     worked out on paper, and all four pixels landed on paint already there, so
+     the gap survived the fix. A BRIDGE IS MEASURED FROM THE TWO BANKS.
+  3. The eye sat on the OUTERMOST pixel of the head.
+  4. Legs used the bird's thin dark scaly leg colour, on a furred dog.
+  5. The button, twice.
+
+*** AND THE PATCH TOOLS COULD NOT SEE THEIR OWN STALENESS, TWICE IN ONE HOUR. ***
+A one-shot patch returns "already applied" the moment it sees its marker and
+never looks at whether the inlined block is PRESENT AND OLD. Re-cooking the bank
+and re-measuring the module each changed the file on disk and changed NOTHING the
+player sees, while the tool printed success. Both tools now copy module and bank
+forward EVERY run, and the pack tool's sections each check THEIR OWN marker,
+because a tool gated on the first marker can never add anything later -- which is
+how the button came to be missing.
+
+GATE LESSONS
+  THE DAMAGE CHECK ASKED THE WRONG QUESTION TWICE. It is a claim about a NUMBER
+  and both cuts asked whether a WORD appeared: first it flagged the module's own
+  header comment (A COMMENT IS A BLOCK, NOT A LINE), then the CANNOT string that
+  SAYS there is no damage (A WORD IS NOT A NUMBER).
+  THE ON-GLASS CHECK PASSED ON A FAILED MEASUREMENT: 20 and 10 cells are off the
+  top of the screen, it got "offscreen" twice and passed because offscreen is not
+  equal to warn. Same shape tier 1 had two days ago, in a gate written AFTER
+  fixing it there.
+  A TIER 1 CLAIM WAS REPOINTED, NOT LOOSENED: wildlife_gate asked the bank hold
+  EXACTLY the tier 1 five; the bank is now shared on purpose, so it checks every
+  tier 1 species is drawn AND that nothing in it is claimed by no module.
+
+FILES
+  engine/bohemia_packs.js                 the module
+  gates/pack_gate.js                      47 claims, 7 mutations caught
+  tools/bohemia_city_pack_patch.py        the wiring, the button, the staleness fix
+  tools/bohemia_wildlife_factory.py       three dogs, the legs, the neck, the eye
+  tools/bohemia_city_wildlife_patch.py    same staleness fix
+  gates/wildlife_gate.js                  roster claim repointed
+  records/BOHEMIA_WHAT_A_PACK_ACTUALLY_DOES_8_30_26.md
+
+WHAT THIS TIER STILL CANNOT DO, printed by its own gate
+  - nothing does damage and nothing has health: NO DAMAGE BEFORE THE DIAL
+  - a den is EMPTY until he says what is in one (who died is canon, and canon is his)
+  - nothing in the world is marked as FOOD yet, so a pack settles for an edge
+  - and it does not know what a roof or a storm drain is, only openness
+
+*** WHAT COMES NEXT FOR THIS LANE, AND HE ALREADY APPROVED IT ***
+Item one of the twelve street encounters he approved 7/26 with a plain "Approve
+all" is `feral_dog_pack`. Item two is `coyote_shadow`. THOSE ARE THE TWO ANIMALS
+THIS TIER SHIPS, and that list has NEVER FIRED FOR ANYBODY ON FOOT: the director
+is called from exactly one place, stepOnce's MODE==='city' branch, which is
+overmap travel at ten minutes a cell. Every reference checked.
+So the next row fires it while you WALK, and it is MANDATORY that his approved
+encounter and this tier's pack are ONE SYSTEM, not two things that both mean
+"dogs" -- ENGINE SYNC at the design level, the ONE ID ONE WHOLE PERSON mistake.
+When the director fires `feral_dog_pack` on foot it should hand you THE PACK THAT
+IS ACTUALLY STANDING THERE, with its own nerve, its own den and its own coats.
+ROAD_TABLE's keys are ROAD CLASSES (arterial, strip, freeway, beltway,
+interchange, rail, wash), so a walked table needs DISTRICT keys and is new
+content. Under EVERYTHING IS A THUMB that is mine to decide and build.
+
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.
 Four failed guesses, then a different KIND of measurement found it in one run.
@@ -3845,7 +3983,7 @@ recook: strip, strip_x, minigp, dam; casino/resort CBB frozen until the Strip
 exists. PENDING PAOLO: the act-one-approve vs other-act-approve explanation he
 promised.
 
-PEOPLE (people-7h9sfy): 8/28 (b) LATEST -- *** THE VALLEY HAS ANIMALS IN IT.
+PEOPLE (people-7h9sfy): 8/28 (b) -- *** THE VALLEY HAS ANIMALS IN IT.
 Ravens, grackles, pigeons, rats and a coyote, and the whole point is that they
 LOOK AT YOU AND THEN THEY GO. TAB: RUN, walk out of the house. Nothing to
 judge. ***

@@ -2402,6 +2402,27 @@ WALL-FADE. *** TWO THINGS, AND THE SECOND IS THE FINDING (Paolo 8/25 PLAYTEST DI
    into the dispatch addendum itself, beside the sentence that was wrong. ***
 
 
+ALIVE-2. *** DONE 8/30 (PEOPLE lane). THE PACK DOES NOT WANT TO FIGHT YOU. ***
+   records/BOHEMIA_WHAT_A_PACK_ACTUALLY_DOES_8_30_26.md
+   Gate: gates/pack_gate.js (PACK, 47 claims, 7 mutations caught). Tab: RUN.
+   Dogs and coyotes. The row said "pack AI that flanks and breaks off", which is
+   a WOLF; free-ranging dogs forage singly, cooperate LESS than wild canids, hold
+   overlapping ranges and fight without killing. So the pack HOLDS A SPOT AND
+   THREATENS, and the encounter has a door in it.
+   THE MEASURED NUMBER: Edmonton, 1,598 patrols, coyotes "retreated immediately
+   from 22 (96%) of the hazing events". ONE IN TWENTY-THREE DOES NOT BACK DOWN,
+   and at a DEN none of them do, because a den cannot be left. Nerve is rolled
+   once per group per day, so the one that holds is always the one that holds.
+   ORGAN REACH caught the headline DEAD: packAssert and BohemiaPacks.ring were
+   defined and never called, so the push and the alley rule could not happen.
+   Fixed with a BACK OFF button that exists only while something is warning you.
+   STILL OPEN AND IT IS THE NEXT ROW: item one of the twelve encounters he
+   approved 7/26 is `feral_dog_pack` and item two is `coyote_shadow`. That list
+   has NEVER FIRED ON FOOT -- one caller, stepOnce's MODE==='city' branch, which
+   is overmap travel. Wiring it to the walked surface must hand the player THE
+   PACK THAT IS ACTUALLY STANDING THERE, not a second thing that also means dogs.
+
+
 ALIVE-1. *** HALF DONE 8/28 (PEOPLE lane), AND THE MEASUREMENT REDIRECTS THE
    OTHER HALF. records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md
    Gate: gates/alive_gate.js (ALIVE, 16 claims). Tab: RUN.

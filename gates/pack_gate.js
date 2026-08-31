@@ -218,6 +218,29 @@ var bank = fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_WILDLIFE_SPRITES.js'),
 ok('and the three dogs were actually cooked into the bank',
   /dogsandy/.test(bank) && /dogblack/.test(bank) && /dogpale/.test(bank));
 
+head('K. NOTHING HERE IS AN ORGAN NOTHING CALLS');
+/* *** ORGAN REACH CAUGHT THIS FEATURE WITH ITS HEADLINE DEAD. *** packAssert()
+   was defined and never called, so the player could not push a pack and the
+   22-in-23 finding the whole tier is built on had no way to happen; and
+   BohemiaPacks.ring was never called, so the alley rule ran nowhere. THE
+   MECHANISM EXISTED AND NOTHING COULD REACH IT -- the invisible-hats shape, in
+   the same turn as a record about the invisible-hats shape. So this tier now
+   asks the question of itself, close to the code, instead of waiting for a
+   whole-repo sweep to notice. */
+var CITY = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+var exported = ['near', 'stateOf', 'assert', 'ring', 'coatFor', 'lineFor', 'hash'];
+var unreached = exported.filter(function (fn) {
+  return CITY.indexOf('BohemiaPacks.' + fn) < 0;
+});
+ok('*** EVERY FUNCTION THIS MODULE EXPORTS IS CALLED BY THE GAME ***',
+  unreached.length === 0,
+  unreached.length ? 'NOBODY CALLS: ' + unreached.join(', ') : exported.join(', '));
+/* and the two the city defines for itself */
+['packPass', 'packAssert', 'packButton'].forEach(function (fn) {
+  var calls = CITY.split(fn + '(').length - 1;   /* one is the definition */
+  ok(fn + ' is called, not just defined', calls >= 2, calls + ' occurrences');
+});
+
 head('J. WHAT THIS TIER CANNOT DO, SAID OUT LOUD');
 ok('it prints its own limits rather than implying them', P.CANNOT.length >= 3);
 P.CANNOT.forEach(function (c) { console.log('       - ' + c); });
@@ -291,6 +314,55 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
         o.far = stateFrom(0, 8);
         o.mid = stateFrom(0, 5);
         o.near = stateFrom(0, 2);
+        /* THE BUTTON. It must be ABSENT when nothing is warning you and PRESENT
+           when something is, because a control that is always there is another
+           bullshit button and a control that is never there is a dead organ. */
+        function disp(id) {
+          var e = document.getElementById(id);
+          return e ? getComputedStyle(e).display : 'NO ELEMENT';
+        }
+        stateFrom(0, 8);  o.btnFar = disp('packbtn');
+        stateFrom(0, 2);  o.btnNear = disp('packbtn');
+        o.warnLine = (document.getElementById('packline') || {}).textContent || '';
+        /* NINE POINTS, INSET BY THE CORNER RADIUS, plus a box-overlap test.
+           A CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS MIDDLE
+           HAPPENS TO BE -- the first placement passed on its middle row while
+           its top row sat under the caption and its bottom row under STANDING.
+           The exact corners of a rounded button are outside the shape ON
+           PURPOSE, so sampling them measures border-radius, not reach. */
+        o.reach = (function () {
+          var e = document.getElementById('packbtn');
+          if (!e) return 'NO ELEMENT';
+          var r = e.getBoundingClientRect();
+          if (!r.width) return 'ZERO SIZE';
+          var pad = (parseFloat(getComputedStyle(e).borderRadius) || 0) + 1, bad = [];
+          for (var iy = 0; iy < 3; iy++) for (var ix = 0; ix < 3; ix++) {
+            var x = r.left + pad + (r.width - 2 * pad) * ix / 2;
+            var y = r.top + pad + (r.height - 2 * pad) * iy / 2;
+            var t = document.elementFromPoint(x, y);
+            if (!t || !(t === e || e.contains(t))) bad.push(ix + ',' + iy);
+          }
+          var hits = [];
+          ['note', 'sleepbtn', 'rungbtn', 'mktbtn', 'bikebtn', 'fitbtn', 'footing', 'packline']
+            .forEach(function (id) {
+              var o2 = document.getElementById(id);
+              if (!o2 || o2 === e || getComputedStyle(o2).display === 'none') return;
+              var q = o2.getBoundingClientRect();
+              if (r.left < q.right && q.left < r.right && r.top < q.bottom && q.top < r.bottom) hits.push(id);
+            });
+          var pd = document.querySelector('#pad,#dpad,.pad');
+          if (pd) { var q2 = pd.getBoundingClientRect();
+            if (r.left < q2.right && q2.left < r.right && r.top < q2.bottom && q2.top < r.bottom) hits.push('dpad'); }
+          return (bad.length ? 'BLOCKED ' + bad.join(' ') : 'ok9')
+               + (hits.length ? ' OVERLAPS ' + hits.join(',') : '');
+        })();
+        /* AND PRESSING IT DOES THE THING. */
+        var bt = document.getElementById('packbtn');
+        if (bt) bt.click();
+        try { render(); } catch (e) {}
+        o.afterLine = (document.getElementById('packline') || {}).textContent || '';
+        o.left = (typeof PACK_LEFT !== 'undefined') ? Object.keys(PACK_LEFT).length : -1;
+        o.btnAfter = disp('packbtn');
       }
       return o;
     });
@@ -309,6 +381,16 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
     ok('*** SETTLED FAR OFF, HEADS UP CLOSER, POSTURING WHEN YOU ARE ON THEM ***',
       m.far === 'settled' && m.mid === 'notice' && m.near === 'warn',
       '8 cells: ' + m.far + '  |  5: ' + m.mid + '  |  2: ' + m.near);
+    ok('*** THE BUTTON IS NOT THERE UNTIL SOMETHING IS WARNING YOU ***',
+      m.btnFar === 'none' && m.btnNear === 'block',
+      '8 cells: ' + m.btnFar + '  |  2 cells: ' + m.btnNear);
+    ok('*** AND EVERY PART OF IT IS REACHABLE, NOT JUST ITS MIDDLE ***',
+      m.reach === 'ok9', String(m.reach));
+    ok('it says what is in front of you before you press it', !!m.warnLine, m.warnLine);
+    ok('*** PRESSING IT RESOLVES THE STANDOFF ON THE REAL SURFACE ***',
+      !!m.afterLine && m.afterLine !== m.warnLine, m.warnLine + '  ->  ' + m.afterLine);
+    ok('and a pack that backed off is remembered as gone',
+      m.left >= 0, m.left + ' group(s) left');
     ok('nothing threw on the page', errs.length === 0, errs.slice(0, 2).join(' | '));
     await page.close();
   } catch (e) {
