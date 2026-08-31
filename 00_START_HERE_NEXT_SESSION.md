@@ -1,5 +1,3 @@
-
---------------------------------------------------------------------------------
 RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
 three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
 
