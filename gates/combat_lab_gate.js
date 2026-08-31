@@ -5708,7 +5708,15 @@ ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter t
      asserted, not how many neighbours sit in front of it. Widened rather than
      rewritten, because a window this claim keeps outgrowing is measuring the
      wrong thing when it is tight, not when it is loose. */
-  /function tickTurnEnd\(\)\{ meleeTurnRun\(\);[\s\S]{0,120}?updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
+  /* V197 RE-POINTED, fourth time and the same reason as the third: allyTurn()
+     and allyIncoming() join the head of the function, which took the gap past
+     120. THE CLAIM IS UNCHANGED -- the scramble runs, then the press -- and it
+     is the ORDERING being asserted, never how many neighbours sit in front of
+     it. Widened rather than rewritten, exactly as the note above says. (The
+     function's HEAD LINE is still held byte-identical by V180's anchor below,
+     which is the check that would actually catch a rewrite; V197's first cut
+     split that line and V180 went red the same run, correctly.) */
+  /function tickTurnEnd\(\)\{ meleeTurnRun\(\);[\s\S]{0,240}?updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
 
 ok('V136 ONE MAN, ONE MOVE: coverSeekAI stamps whoever it moved with the turn number and the press skips him, so nobody ever gets a scramble AND a bound in the same turn (4 tiles from a 2.2 and a 1.8)',
   /e\._movedTurn=G\.mTurn\|\|0;/.test(demo) &&

@@ -32,6 +32,36 @@ Records: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md and
 laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md The tree, the abilities and the bosses are ONE system, not three.
 Anything that assumes a run resets is built on a premise that does not exist.
 Full law: laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md
+*** AND AS OF 8/31 THERE ARE TWO OF YOU. "OKAY NOW WHAT ABOUT 2 V 8 WHEN I HAVE A
+COMPANION. THIS GAME WILL ONLY WORK WHEN MULTIPLE PEOPLE CAN FIGHT AT THE SAME
+TIME!... I IMAGINE OUR COMBAT IS WAY MORE AUTOMATED YOU REALLY ONLY NEED TO CONTROL
+YOURSELF FOR REAL!!!" *** HIS INSTINCT WAS THE MEASUREMENT, taken before anything was
+built: one man at TRIPLE the shipping health, fifty turns, same 30 boards, clears 78%
+of three-man rooms and ZERO OF SIXTY at seven AND at eight. He does not even die in
+those, HE IS PINNED and the fight never ends. ENC_SIZES ships [3,4,5,6] for exactly
+that reason and RF4's notes reserve 7-8 for BOSS FIGHTS. With her: 8 foes 0% -> 60%,
+6 foes 3% -> 58%, and eight-with-her still clears worse than three-alone so the curve
+keeps its shape. SHE IS AUTOMATED -- a FIXED ladder (a blade on you, then the spotter,
+then the nearest-dead man she can reach, else one step onto the least-shot ground), no
+order menu, no gambits to edit; the whole instrument is ONE TOGGLE. AND THE MACHINERY
+WAS ALREADY BUILT AND HAD ONLY EVER BEEN GIVEN TO THE ENEMY: tickTurnEnd has run five
+automated actors every turn since this fight existed and ALL FIVE WERE THEIRS -- the
+medic already walks to a body and picks it up -- while V193's gunsOnTile is the
+fight's own exposure question ASKED FROM A TILE THAT IS NOT WHERE YOU STAND, gated at
+30/30, and a companion stands on one. ONE geometry, not two: gunsOnTile is now a count
+over hitsTile. THE FIRE SPLITS (Battle Brothers' measured rule: melee takes the
+weakest, RANGED FIRE DISPERSES to the nearer softer body) and THE COST IS NOT HIDDEN
+-- a man out of reach of your tile but in reach of hers is now shooting your side.
+The split is on the VOLLEY POOL and never on posExposed, which is a GEOMETRY question
+("who COULD line you up", its own words) or V193's arm becomes a lie. She authors NO
+NUMBER: ARCH.human, 60 hp, [14,26], the same distAccuracy read from her position.
+WHO SHE IS STAYS HIS -- the name is a draft:true attempt. LESSON, and it cost
+yesterday's art: AN EYEBALLED LABEL OFFSET LANDS INSIDE THE TORSO. drawHuman blits at
+ey-84*S, so a head top is 2.3 RINGS up and V196 shipped its label at 0.65 of a ring
+-- ON THE MAN'S CHEST -- and only looking at HERS found it. Tab: COMBAT (she is beside
+you at the bell; DEMO SETTINGS holds SHE FIGHTS WITH YOU: ON/OFF).
+Full law: laws/BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md
+Gate: fight_moves_you_gate.js (invariants asserted, rates reported)
 *** AND THE BOSSES ARE IN THE GAME AS OF 8/27. A BOSS DOES NOT DROP A TROPHY, IT
 HANDS YOU A VERB. *** His ladder held 53 of them -- name, hold, LOCK stated as an
 impossibility, GRANT -- for three weeks as a DOCUMENT nothing running had ever read.

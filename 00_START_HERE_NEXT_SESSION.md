@@ -339,7 +339,75 @@ single Bash call is capped at 10 minutes, so one mutation run per call.
 
 --------------------------------------------------------------------------------
 
-COMBAT (combat-nfnki9): 8/30 (h) LATEST -- *** CROSSING THE ROOM IS THE BEST PLAY
+COMBAT (combat-nfnki9): 8/31 (a) LATEST -- *** ONE MAN CLEARS ZERO EIGHT-MAN ROOMS
+OUT OF SIXTY. THERE ARE TWO OF YOU NOW. *** Nothing to judge.
+
+TAB: **COMBAT**. She is standing beside you when the bell rings. DEMO SETTINGS holds
+SHE FIGHTS WITH YOU: ON/OFF so the same fight can be seen without her.
+
+HIS WORDS, 8/31: "OKAY NOW WHAT ABOUT 2 V 8 WHEN I HAVE A COMPANION. THIS GAME WILL
+ONLY WORK WHEN MULTIPLE PEOPLE CAN FIGHT AT THE SAME TIME!... I IMAGINE OUR COMBAT IS
+WAY MORE AUTOMATED YOU REALLY ONLY NEED TO CONTROL YOURSELF FOR REAL!!!"
+
+THE MEASUREMENT, TAKEN BEFORE ANYTHING WAS BUILT. Same 30 boards, same policy, one
+man, TRIPLE the shipping health, fifty turns to finish. Rooms cleared:
+    3 foes 78.3%   4 foes 48.3%   5 foes 30.0%
+    6 foes  5.0%   7 foes  0.0%   8 foes  0.0%
+ZERO OF SIXTY, TWICE. And he mostly does not DIE in those -- he is PINNED and the
+fight never ends. ENC_SIZES has shipped [3,4,5,6] since V167 for exactly this, with
+RF4's own notes reserving 7-8 for BOSS FIGHTS. HIS INSTINCT IS THE MEASUREMENT.
+With her: 8 foes 0% -> 60%, 6 foes 3.3% -> 58.3%, 4 foes 55% -> 80%. She goes down in
+13.3% of eight-man rooms and 0% of four-man ones, so the danger scales with the room.
+And eight-with-her still clears WORSE than three-alone, so the curve keeps its shape.
+
+THE MACHINERY WAS ALREADY BUILT AND HAD ONLY EVER BEEN GIVEN TO THE ENEMY. tickTurnEnd
+has run meleeTurnRun, medicTurn, breachTurn, coverSeekAI and pressAI every turn since
+this fight existed -- five automated actors, ALL FIVE THEIRS, and the medic already
+walks to a body and picks it up. Nothing on your side had ever taken a turn. Same for
+the geometry: V193's gunsOnTile is the fight's own exposure question ASKED FROM A TILE
+THAT IS NOT WHERE YOU STAND, gated at 30/30 against posExposed, and a companion stands
+on one. So it ships as ONE geometry -- gunsOnTile is now a count over hitsTile.
+
+THE FIRE SPLITS, which is what separates a companion from a damage buff wearing a hat.
+Battle Brothers' own measured targeting: melee takes the weakest body, RANGED FIRE
+DISPERSES toward the nearer softer one, and its players' answer to being shot at is
+"keep weaker characters behind somebody else" -- a sentence that only means anything
+if there IS somebody else. AND THE COST IS NOT HIDDEN: a man out of reach of your tile
+but in reach of hers is now shooting your side. The split is on the VOLLEY POOL and
+NEVER on posExposed, which is a geometry question in its own words.
+
+FOUR BROKEN RULERS, AND ONE OF THEM WAS YESTERDAY'S SHIPPED ART:
+  * AN EYEBALLED LABEL OFFSET LANDS INSIDE THE TORSO. drawHuman blits the 112 art at
+    ey-84*S, so a head top is 2.3 rings up. V196 shipped its HAS THE ROOM label at
+    er*1.9 = 0.65 of a ring -- ON THE MAN'S CHEST -- and only looking at HERS found it.
+  * A CHECKER THAT REBUILDS THE CAMERA MEASURES ITS OWN ARITHMETIC (V193's pixel arm,
+    seven attempts). The frame writes down what it drew now.
+  * A CHECK THAT READS WHAT YOU HANDED IT IS NOT A CHECK: the down-vs-up arm drew zero
+    men on her and reported 0 -> 0 as a pass. It hunts for a live board now.
+  * V164 flaked RED on a green ship reporting "0 landings in 0 MOVES" -- twelve arenas
+    can produce no movement at all. It deals until it has movement to judge (needed 35).
+
+WHAT COMES AFTER, IN ORDER:
+  1. SHE CANNOT BE PICKED BACK UP. The enemy medic has done exactly that since it was
+     written, in the same function -- THEY HAVE A MECHANIC FOR THEIR FALLEN AND YOU DO
+     NOT.
+  2. THE BLADES DO NOT KNOW SHE IS A PERSON. meleeTurnRun still runs at the player
+     only; the split is on ranged fire.
+  3. SHE HAS NO AMMO AND NO RELOAD -- V149/V157's magazine economy does not touch her.
+  4. The night is still the interesting half (V196): the priority-target puzzle only
+     exists after dark, and how many pips it takes to cross a room at night has never
+     been measured.
+Still open and still combat's: "it could be more hardcore if you wanted it to be."
+[FLAGGED TO LAB, not mine to edit] RF4-14's STATUS cell still reads "NOT MEASURED".
+
+Law: laws/BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md
+Record: records/BOHEMIA_COMBAT_TWO_OF_YOU_8_31_26.md
+Gates: fight_moves_you 155/0, combat_lab 931/1 (the red is another lane's, pre-existing),
+one_engine 3/0, boss_ladder 87/0, 0 page errors.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 8/30 (h) -- *** CROSSING THE ROOM IS THE BEST PLAY
 IN THE GAME AND THE WORST PLAY IN THE GAME, AND THE ONLY DIFFERENCE IS ONE
 STAMINA PIP. *** Nothing to judge.
 

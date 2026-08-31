@@ -83,6 +83,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   try { await frame.evaluate(() => {
     window.__realSpotterCall = spotterCall;
     window.spotterCall = () => false; }); } catch (e) {}
+
+  /* *** AND EVERY ARM WRITTEN BEFORE V197 MEASURES A FIGHT WITH ONE PERSON IN
+     IT, for exactly the reason above. V197 puts a SECOND BODY ON YOUR SIDE and
+     splits the incoming fire between the two of you, so it moves every count of
+     who is shooting at you -- which is most of this file and none of it is
+     about companions. The arms that ARE about her turn her on themselves.
+     A DEFAULT IS NOT A WORKAROUND WHEN IT IS THE THING BEING MEASURED. */
+  try { await frame.evaluate(() => { G.allyOff = true; G.ally = null; }); } catch (e) {}
   if (!frame) {
     console.log('  FAIL could not reach the combat frame');
     console.log('=== FIGHT MOVES YOU GATE: 0 passed, 1 failed ===');
@@ -290,9 +298,19 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     /* and in a REAL arena, with the real roster, a flagged body never lands on
        a diagonal -- the chase above could pass while the flag leaked in the
        fights he actually plays */
-    let realMoves = 0, realDiag = 0, flagged = 0;
+    /* *** AND IT KEEPS DEALING ARENAS UNTIL IT HAS SOMETHING TO LOOK AT. ***
+       This was a fixed twelve, and twelve can come out with NOT ONE FLAGGED
+       BODY EVER MOVING -- pressAI only moves a man the fight has a reason to
+       press -- at which point the arm reported "0 diagonal landings in 0 moves"
+       AND WENT RED, which is a ruler that cannot tell a broken rule from an
+       empty sample. It refuses to pass vacuously, which is right, so the fix is
+       MORE DEALS rather than a looser claim: it stops the moment it has enough
+       movement to be worth judging, and still fails if sixty arenas cannot
+       produce any. (8/31, found when it flaked red on a green ship.) */
+    let realMoves = 0, realDiag = 0, flagged = 0, realArenas = 0;
     G.numEnemies = N0;
-    for (let a = 1; a <= 12; a++) {
+    for (let a = 1; a <= 60 && realMoves < 20; a++) {
+      realArenas++;
       BohemiaArena.set(a); setupCombat();
       flagged += (G.e||[]).filter(e => e && e.E && e.E.ortho).length;
       for (let t = 0; t < 20; t++) {
@@ -309,7 +327,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       }
     }
     return { n, gO: gO/n, gE: gE/n, mO: mO/n, mE: mE/n, dO, lost,
-             realMoves, realDiag, flagged, steps: STEPS };
+             realMoves, realDiag, flagged, realArenas, steps: STEPS };
   });
 
   console.log('  he runs diagonally 8 turns, ' + asym.n + ' trials: 8-way chaser ends '
@@ -341,7 +359,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
 
   ok('V164 A SLOW BODY NEVER LANDS ON A DIAGONAL, in the fights he actually plays: '
     + asym.realDiag + ' diagonal landings in ' + asym.realMoves + ' moves by '
-    + asym.flagged + ' flagged bodies',
+    + asym.flagged + ' flagged bodies, over ' + asym.realArenas + ' dealt arenas. IT DEALS UNTIL IT HAS MOVEMENT TO JUDGE: a fixed twelve arenas can come out with not one flagged body ever moving, and this arm then reported "0 landings in 0 moves" AND WENT RED -- a ruler that cannot tell a broken rule from an empty sample. It refuses to pass vacuously, which is right, so the fix was more deals and not a looser claim',
     asym.flagged > 0 && asym.realMoves > 0 && asym.realDiag === 0);
 
   ok('V164 AND THE CONTROL MOVES BOTH WAYS -- if the fast arm had frozen too, the flag would not be what did it ('
@@ -3789,6 +3807,291 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ', band ' + legs.night.band + '. So "maneuver into position to kill the priority target" is a DAYTIME NON-PROBLEM and a NIGHT PROBLEM, which is a different answer to that row than the row expects, and it is why the far branch of the line kept refusing to fire on a staged noon board. The line switches on the reach test itself rather than assuming either case',
     legs.night.band > legs.day.band && legs.day.reach > legs.night.reach
     && legs.sight === 17);
+
+  /* ================= V197 TWO OF YOU ==================================
+     Paolo: "OKAY NOW WHAT ABOUT 2 V 8 WHEN I HAVE A COMPANION. THIS GAME WILL
+     ONLY WORK WHEN MULTIPLE PEOPLE CAN FIGHT AT THE SAME TIME!... I IMAGINE OUR
+     COMBAT IS WAY MORE AUTOMATED YOU REALLY ONLY NEED TO CONTROL YOURSELF FOR
+     REAL!!!"
+     Same race shape as V196's: same boards, same policy, rooms cleared and
+     damage to clear, and ONE thing different between the arms. */
+  const two = await frame.evaluate(() => {
+    G.bossOff = true; G.bossPick = null; G.readOff = false;
+    try { keysForget(); } catch (e) {}
+    if (window.__realSpotterCall) window.spotterCall = window.__realSpotterCall;
+
+    const play = (N, withAlly, boards) => {
+      let fights = 0, cleared = 0, herDown = 0;
+      let herTurns = 0, herShots = 0, herMoves = 0, herThrew = 0;
+      const clearDmg = [];
+      for (let f = 1; f <= boards; f++) {
+        BohemiaArena.set(5000 + f);
+        G.allyOff = !withAlly;
+        G.encCurve = false; G.numEnemies = N;
+        setupCombat();
+        G.encCurve = false; G.numEnemies = N;
+        G.over = false; G.phase = 'cover'; G.inc = null;
+        G.pMax = 300; G.pHP = 300; G.stam = STAM_MAX; G.kit = {};
+        fights++;
+        const hp0 = G.pHP;
+        let t = 0, ok2 = false;
+        for (; t < 50; t++) {
+          const live = (G.e || []).filter(e => e && !e.dead && !e.downed);
+          if (!live.length) { ok2 = true; break; }
+          if (G.pHP <= 0) break;
+          let acted = false;
+          const ready = KIT.filter(k => kitReady(k.id)).map(k => k.id);
+          if (ready.length) { try { acted = useKit(ready[0]); } catch (e) {} }
+          const shootable = live.filter(e => inMyRange(e));
+          if (!acted && shootable.length) {
+            const tg = shootable.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+            try { kitVerb('shot'); } catch (e) {}
+            applyDamage(tg, 24);
+            if (tg.hp <= 0) { tg.dead = true; try { bodyFell(tg); } catch (e) {} }
+            acted = true;
+          }
+          if (!acted) {
+            G.stam = Math.max(G.stam || 0, 2);
+            try { spendMove(1); } catch (e) {}
+            try { G._readKey = null; const rd = readGround();
+              if (rd && rd.bestTile) worldShift(rd.bestTile.dx, rd.bestTile.dy);
+              else worldShift(1, 0); } catch (e) {}
+          }
+          G.mTurn++; G._spotKey = null; G._alKey = null;
+          try { visionTick(); } catch (e) {}
+          (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+          G._sq = null;
+          /* HER OWN TURN IS TAKEN SEPARATELY HERE ONLY TO SEE IT THROW. She is
+             called by tickTurnEnd in the game; this arm needs to know whether
+             she acted at all, because a silent throw inside a turn-end pass is
+             indistinguishable from a companion who is simply bad. */
+          if (withAlly && G.ally && !G.ally.downed) { herTurns++;
+            const wasSay = G.ally.say;
+            try { tickTurnEnd(); } catch (e) { herThrew++; }
+            const s2 = G.ally.say;
+            if (/FIRING|BLADE|SPOTTER/.test(s2 || '')) herShots++;
+            else if (/MOVING|COMING/.test(s2 || '')) herMoves++;
+            if (wasSay === undefined) herThrew += 0;
+          } else { try { tickTurnEnd(); } catch (e) {} }
+          try { updateGeomCover(); } catch (e) {}
+        }
+        if (ok2) { cleared++; clearDmg.push(hp0 - G.pHP); }
+        if (withAlly && G.ally && (G.ally.downed || G.ally.dead)) herDown++;
+      }
+      const mean = a => a.length ? +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : 0;
+      return { N, fights, pct: +(100 * cleared / Math.max(1, fights)).toFixed(1),
+               dmg: mean(clearDmg),
+               herDownPct: +(100 * herDown / Math.max(1, fights)).toFixed(1),
+               herTurns, herThrew,
+               herShotPct: herTurns ? +(100 * herShots / herTurns).toFixed(1) : 0,
+               herMovePct: herTurns ? +(100 * herMoves / herTurns).toFixed(1) : 0 };
+    };
+
+    const BO = 24;
+    const o = {
+      alone3: play(3, false, BO), alone6: play(6, false, BO), alone8: play(8, false, BO),
+      with8: play(8, true, BO), with6: play(6, true, BO)
+    };
+
+    /* ---- ONE GEOMETRY, TWO CALLERS (ENGINE SYNC) ---------------------
+       gunsOnTile is now a COUNT over hitsTile. If a second copy of the
+       geometry ever appears, these stop agreeing. */
+    G.allyOff = true; G.ally = null;
+    BohemiaArena.set(5011); G.encCurve = false; G.numEnemies = 6;
+    setupCombat(); G.over = false; G.phase = 'cover';
+    for (let i = 0; i < 3; i++) { G.mTurn++; try { visionTick(); tickTurnEnd(); } catch (e) {} }
+    let geomAgree = 0, geomTiles = 0;
+    for (let dx = -3; dx <= 3; dx++) for (let dy = -3; dy <= 3; dy++) {
+      geomTiles++;
+      const sp = spotsTile(dx, dy);
+      let n = 0; for (const e of (G.e || [])) if (hitsTile(e, dx, dy, sp)) n++;
+      if (n === gunsOnTile(dx, dy)) geomAgree++; }
+    o.geomTiles = geomTiles; o.geomAgree = geomAgree;
+    /* and the FLOOR is still the FIGHT: posExposed is a geometry question and
+       V193's agreement has to survive a second body standing on the board. */
+    o.posEqGunsAlone = (gunsOnTile(0, 0) === posExposed().length);
+
+    /* ---- THE FIRE ACTUALLY SPLITS -----------------------------------
+       Staged: the same board, read twice, once with nobody beside you. */
+    G.allyOff = false; allyMake(); G._alKey = null;
+    let splitBoards = 0, tookAny = 0, poolFell = 0, drewNew = 0, sumTaken = 0;
+    /* HARD INVARIANTS, checked on every board rather than a rate with a
+       threshold under it. A rate needs a number picked in advance and this file
+       has caught itself four times picking one loose enough to fit the swing.
+       These three either hold on all twenty boards or the split is wrong:
+         DISJOINT     nobody shoots both of you on the same turn
+         REACHABLE    every man on her can actually reach her tile
+         CONSERVED    the men taken off your pool are exactly the men on her */
+    let disjoint = 0, reachable = 0, conserved = 0;
+    for (let f = 1; f <= 20; f++) {
+      BohemiaArena.set(5100 + f); G.allyOff = true; G.ally = null;
+      G.encCurve = false; G.numEnemies = 6;
+      setupCombat(); G.over = false; G.phase = 'cover';
+      for (let i = 0; i < 4; i++) { G.mTurn++; G._spotKey = null;
+        try { visionTick(); } catch (e) {}
+        (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+        try { tickTurnEnd(); } catch (e) {} }
+      const wasPool = exposedToMe().length;
+      const wasPos = posExposed().length;
+      G.allyOff = false; allyMake(); G._alKey = null;
+      /* park her somewhere real and out from behind you */
+      putCell(G.ally, 2, -2); G._alKey = null;
+      const taken = (G.e || []).filter(e => allyTakes(e));
+      const nowPoolArr = exposedToMe();
+      const nowPool = nowPoolArr.length;
+      splitBoards++;
+      sumTaken += taken.length;
+      if (taken.length) tookAny++;
+      if (nowPool < wasPool) poolFell++;
+      /* the honest cost: men who could NOT have reached your tile, now on her */
+      const spM = spotsTile(0, 0);
+      if (taken.some(e => !hitsTile(e, 0, 0, spM))) drewNew++;
+      /* --- the three invariants --- */
+      if (!nowPoolArr.some(e => allyTakes(e))) disjoint++;
+      const ax2 = allyXY()[0], ay2 = allyXY()[1], spA2 = spotsTile(ax2, ay2);
+      if (taken.every(e => hitsTile(e, ax2, ay2, spA2))) reachable++;
+      /* every man the pool lost is a man she took: no fire evaporates */
+      const lost = wasPool - nowPool;
+      const takenIds = {}; taken.forEach(e => { takenIds[e.i] = 1; });
+      G.allyOff = true; G._alKey = null;
+      const bareArr = exposedToMe();
+      G.allyOff = false; G._alKey = null;
+      const vanished = bareArr.filter(e => !takenIds[e.i] && exposedToMe().indexOf(e) < 0).length;
+      if (lost >= 0 && vanished === 0) conserved++;
+    }
+    o.splitBoards = splitBoards; o.tookAny = tookAny; o.poolFell = poolFell;
+    o.drewNew = drewNew; o.takenPerBoard = +(sumTaken / Math.max(1, splitBoards)).toFixed(2);
+    o.disjoint = disjoint; o.reachable = reachable; o.conserved = conserved;
+    o.sumTaken = sumTaken;
+
+    /* ---- AND SHE STOPS BEING A SHIELD THE MOMENT SHE IS DOWN --------- */
+    /* AND IT HAS TO BE STAGED ON A BOARD WHERE SHE ACTUALLY HAS MEN ON HER.
+       The first cut of this pinned one seed, drew zero men on her, and reported
+       0 -> 0 as a pass: A CHECK THAT READS WHAT YOU HANDED IT IS NOT A CHECK,
+       which is the exact defect that made bodyTakesAFace vacuous on 8/27. It
+       hunts for a live board now, and says so if it cannot find one. */
+    o.upTaken = 0; o.downTaken = -1; o.upPool = 0; o.downPool = 0; o.stagedSeed = 0;
+    for (let f = 1; f <= 40 && o.upTaken === 0; f++) {
+      BohemiaArena.set(5100 + f); G.allyOff = false; G.encCurve = false; G.numEnemies = 6;
+      setupCombat(); G.over = false; G.phase = 'cover';
+      for (let i = 0; i < 4; i++) { G.mTurn++; G._spotKey = null;
+        try { visionTick(); } catch (e) {}
+        (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+        try { tickTurnEnd(); } catch (e) {} }
+      putCell(G.ally, 2, -2); G._alKey = null;
+      const up = (G.e || []).filter(e => allyTakes(e)).length;
+      if (!up) continue;
+      o.stagedSeed = 5100 + f;
+      o.upTaken = up;
+      o.upPool = exposedToMe().length;
+      G.ally.downed = true; G._alKey = null;
+      o.downTaken = (G.e || []).filter(e => allyTakes(e)).length;
+      o.downPool = exposedToMe().length;
+      G.ally.downed = false; G._alKey = null; }
+
+    /* ---- SHE IS A PERSON, NOT A NEW NUMBER --------------------------- */
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    o.archUntouched = ARCH.sniper.dmg.join('-') + '/' + ARCH.sniper.acc
+      + ' ' + ARCH.human.dmg.join('-') + '/' + ARCH.human.acc;
+    o.sheIsAGoon = !!(G.ally && G.ally.E === ARCH.human
+      && G.ally.max === ARCH.human.hp && G.ally.armor === 0);
+    o.herNameIsDraft = !!(G.ally && G.ally.draft === true);
+
+    /* ---- AND SHE IS ON THE FIELD, NAMED, AT AN ANCHOR THAT IS DERIVED -
+       drawHuman blits the 112 art at ey-84*S, so a head top is exactly
+       84*bodyScale() above the field position. Every eyeballed label in this
+       file has landed inside the torso -- V196's did, and it is fixed in the
+       same pass. This counts the REAL text the field paints. */
+    const cvs = Array.from(document.querySelectorAll('canvas'))
+      .sort((a, b) => (b.width * b.height) - (a.width * a.height))[0];
+    const cx2 = cvs.getContext('2d');
+    const realText = cx2.fillText.bind(cx2);
+    const said = [];
+    cx2.fillText = function (t, x2, y2) { said.push([String(t), x2, y2]); return realText(t, x2, y2); };
+    return new Promise(res => setTimeout(() => {
+      cx2.fillText = realText;
+      const hers = said.filter(s => /ROSA/.test(s[0]));
+      o.paintedHerName = hers.length;
+      /* THE FRAME WROTE DOWN WHAT IT DID (G._allyDraw), because a checker that
+         recomputes fieldPos with a camera centre and a pixel ratio it does not
+         have is measuring its own arithmetic -- V193's pixel arm burned seven
+         attempts on exactly that, and the first cut of THIS arm made the same
+         mistake and reported a correct label broken. */
+      const dr = G._allyDraw || null;
+      o.headTopUp = +(84 * bodyScale()).toFixed(1);
+      o.drewHer = !!dr;
+      /* the label must sit ABOVE the head top, and the ring ON the soles */
+      o.labelAboveHead = !!(dr && hers.length && hers.every(s => s[2] <= dr.top + 1)
+        && dr.label <= dr.top && (dr.sole - dr.top) > 100 * dr.S * 0.9);
+      G.allyOff = true; G.ally = null;
+      G.pMax = 100; G.pHP = 100; G.bossOff = true; G.bossPick = null;
+      window.spotterCall = () => false;
+      res(o);
+    }, 700));
+  });
+
+  console.log('  V197 two of you -- rooms cleared, ' + two.alone3.fights + ' boards a policy, 300 health, 50 turns:'
+    + '\n                        ALONE      WITH HER'
+    + '\n    3 foes            ' + String(two.alone3.pct + '%').padEnd(11) + '-'
+    + '\n    6 foes            ' + String(two.alone6.pct + '%').padEnd(11) + two.with6.pct + '%'
+    + '\n    8 foes            ' + String(two.alone8.pct + '%').padEnd(11) + two.with8.pct + '%'
+    + '\n    damage to clear 8 ' + String(two.alone8.dmg).padEnd(11) + two.with8.dmg
+    + '\n    she goes down     -          ' + two.with8.herDownPct + '% of eight-man rooms'
+    + '\n    her own turns     ' + two.with8.herTurns + ', threw ' + two.with8.herThrew
+    + ', shot on ' + two.with8.herShotPct + '%, moved on ' + two.with8.herMovePct + '%'
+    + '\n    geometry agrees   ' + two.geomAgree + '/' + two.geomTiles + ' tiles, posExposed==gunsOnTile(0,0) ' + two.posEqGunsAlone
+    + '\n    the split         ' + two.tookAny + '/' + two.splitBoards + ' boards, ' + two.takenPerBoard + ' men on her, pool fell on ' + two.poolFell
+    + '\n    down vs up        taken ' + two.upTaken + '->' + two.downTaken + ', pool ' + two.upPool + '->' + two.downPool
+    + '\n    her name painted  ' + two.paintedHerName + ' times, above the head ' + two.labelAboveHead + ' (head top ' + two.headTopUp + 'px up)');
+
+  ok('V197 *** ONE MAN CLEARS ZERO EIGHT-MAN ROOMS, AND THAT IS THE WHOLE FEATURE IN ONE NUMBER. *** Paolo: "OKAY NOW WHAT ABOUT 2 V 8 WHEN I HAVE A COMPANION. THIS GAME WILL ONLY WORK WHEN MULTIPLE PEOPLE CAN FIGHT AT THE SAME TIME!" Measured before building anything, same boards and same policy at TRIPLE the shipping health with fifty turns to finish: '
+    + two.alone3.pct + '% of three-man rooms cleared, ' + two.alone6.pct + '% of six, and '
+    + two.alone8.pct + '% of eight. And he mostly does not DIE in those, he is PINNED -- the fight simply never ends. ENC_SIZES ships [3,4,5,6] for exactly this reason and RF4\'s own notes reserve 7-8 for BOSS FIGHTS. HIS INSTINCT IS THE MEASUREMENT: eight is not a fight for one person',
+    two.alone8.pct === 0 && two.alone3.pct > 40);
+
+  ok('V197 AND A SECOND BODY IS WHAT MAKES IT A FIGHT: ' + two.alone8.pct + '% -> ' + two.with8.pct
+    + '% of eight-man rooms cleared, and six goes ' + two.alone6.pct + '% -> ' + two.with6.pct
+    + '%. SHE IS STILL NOT A GET-OUT: eight-with-her (' + two.with8.pct + '%) stays below three-alone (' + two.alone3.pct
+    + '%), so the curve keeps its shape and the reserved size stays the hard one. She is DOWN in ' + two.with8.herDownPct
+    + '% of eight-man rooms, so the danger scales with the room rather than being paid by you alone. She takes ' + two.with8.herTurns
+    + ' turns of her own across the arm and throws on ' + two.with8.herThrew
+    + ' of them, shooting on ' + two.with8.herShotPct + '% and moving on ' + two.with8.herMovePct
+    + '%. *** THE ABSOLUTE RATES HERE SIT BELOW A CLEAN PAGE (53-60% at eight) AND THE REASON IS THIS HARNESS, NOT THE GAME: *** the policy spends any ability the instant it is ready, and by this point in the file more of them are unlocked, so more turns go to abilities instead of shooting. BOTH ARMS PAY IT EQUALLY, which is why this arm compares and does not calibrate',
+    two.with8.pct > two.alone8.pct && two.with6.pct > two.alone6.pct
+    && two.with8.pct <= two.alone3.pct && two.with8.herThrew === 0);
+
+  ok('V197 *** THE MACHINERY FOR AN AUTOMATED BODY ALREADY EXISTED AND HAD ONLY EVER BEEN GIVEN TO THE ENEMY. *** tickTurnEnd has run meleeTurnRun, medicTurn, breachTurn, coverSeekAI and pressAI since this fight was built -- five actors making their own decisions every turn, all five on the other side, and the MEDIC ALREADY WALKS TO A BODY AND PICKS IT UP. Nothing on your side had ever taken a turn. Same for the geometry: V193\'s gunsOnTile is the fight\'s own exposure question ASKED FROM A TILE THAT IS NOT WHERE YOU STAND, and a companion stands on one. So it ships as ONE geometry, not two -- gunsOnTile is now a COUNT over hitsTile, agreeing on '
+    + two.geomAgree + ' of ' + two.geomTiles + ' tiles, and posExposed still equals gunsOnTile(0,0) (' + two.posEqGunsAlone + ') because the split is on the VOLLEY POOL and never on the positional read',
+    two.geomAgree === two.geomTiles && two.posEqGunsAlone === true);
+
+  ok('V197 AND THE FIRE ACTUALLY SPLITS, WHICH IS THE DIFFERENCE BETWEEN A COMPANION AND A DAMAGE BUFF WEARING A HAT. Battle Brothers\' own measured targeting -- melee takes the weakest body while RANGED FIRE DISPERSES toward the softer, nearer target rather than concentrating, and its players\' answer to being shot at is "keep weaker characters behind somebody else", a sentence that only means anything if there IS somebody else. *** THIS ARM ASSERTS THREE INVARIANTS AND REPORTS THE RATES, RATHER THAN THE OTHER WAY ROUND: *** over ' + two.splitBoards
+    + ' staged boards, nobody ever shoots both of you on the same turn (DISJOINT ' + two.disjoint + '/' + two.splitBoards
+    + '), every man on her can actually reach her tile (REACHABLE ' + two.reachable + '/' + two.splitBoards
+    + '), and no fire evaporates in the handover (CONSERVED ' + two.conserved + '/' + two.splitBoards
+    + '). The rates, reported: ' + two.sumTaken + ' men on her across the boards, at least one on ' + two.tookAny
+    + ', and the volley pool on YOU falls on ' + two.poolFell
+    + '. *** AND THE COST IS NOT HIDDEN: on ' + two.drewNew + ' of those boards she is drawing fire from men who could not have reached your tile at all *** -- a second body is a second target, and that is the trade. A rate needs a threshold picked in advance, and this file has four times caught itself picking one loose enough to fit its own swing',
+    two.disjoint === two.splitBoards && two.reachable === two.splitBoards
+    && two.conserved === two.splitBoards && two.sumTaken > 0 && two.poolFell > 0);
+
+  ok('V197 AND SHE STOPS BEING A SHIELD THE MOMENT SHE IS DOWN: staged on arena #' + two.stagedSeed
+    + ', a board HUNTED FOR because it actually has men on her, ' + two.upTaken
+    + ' are on her while she is up and ' + two.downTaken + ' when she is down, and the guns on YOU go '
+    + two.upPool + ' -> ' + two.downPool + '. Losing her is a real loss on the same turn it happens, and the read says so in those words. The first cut of this arm pinned one seed, drew zero men on her, and reported 0 -> 0 AS A PASS: a check that reads what you handed it is not a check, which is the same defect that made the 8/27 face arm vacuous',
+    two.upTaken > 0 && two.downTaken === 0 && two.downPool >= two.upPool);
+
+  ok('V197 AND NO DAMAGE BEFORE THE DIAL SURVIVES A WHOLE NEW BODY: applyDamage is ' + two.damage
+    + ', the archetypes are untouched (' + two.archUntouched + '), and SHE AUTHORS NO NUMBER AT ALL -- she is ARCH.human, the same 60 hp and the same [14,26] every goon in the valley carries, shooting through the same distAccuracy model read from her position (' + two.sheIsAGoon
+    + '). WHO SHE IS STAYS PAOLO\'S: the name ships as a real attempt tagged draft (' + two.herNameIsDraft + '), per the 8/11 words rule, so there is somebody to meet instead of a blank field',
+    two.damage === 40 && /32-48\/0.72 14-26\/0.55/.test(two.archUntouched)
+    && two.sheIsAGoon === true && two.herNameIsDraft === true);
+
+  ok('V197 AND SHE IS ON THE FIELD WITH HER NAME OVER HER HEAD, AT AN ANCHOR THAT IS DERIVED RATHER THAN EYEBALLED. drawHuman blits the 112 art at ey-84*S, so a body\'s head top is exactly ' + two.headTopUp
+    + 'px above its field position and its soles are 28*S below -- numbers that were in the code the whole time. Her name is painted ' + two.paintedHerName
+    + ' times a frame and every one of them sits above the head (' + two.labelAboveHead
+    + '). *** AND LOOKING AT HERS IS WHAT CAUGHT V196\'S: that label shipped yesterday at er*1.9, which is 0.65 of a ring when a head top is 2.3 rings up, SO IT WAS PAINTED ON THE MAN\'S CHEST. Same derived anchor, fixed in the same pass ***',
+    two.paintedHerName > 0 && two.labelAboveHead === true);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
