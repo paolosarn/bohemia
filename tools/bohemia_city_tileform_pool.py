@@ -108,6 +108,40 @@ POOLS = {
     'tf_pps_': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_s']),
     'tf_ppe': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_e']),
     'tf_ppw': ('banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json', ['pp_rim_w']),
+    # PHASE 2E: the solar field (TF-ART-016) - the panel glass is FOUR ROW
+    # pieces (a rack reads top-to-bottom: back rail, glass, glass, under-slot)
+    # so each row is its OWN pool with the three phase variants in order; the
+    # page picks the row by counting the run of panel cells above (the legacy
+    # slice's own contract, ported). End caps are one-tile overlay pools.
+    'tf_s0': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+              ['sol_r0_p0', 'sol_r0_p1', 'sol_r0_p2']),
+    'tf_s1': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+              ['sol_r1_p0', 'sol_r1_p1', 'sol_r1_p2']),
+    'tf_s2': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+              ['sol_r2_p0', 'sol_r2_p1', 'sol_r2_p2']),
+    'tf_s3': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+              ['sol_r3_p0', 'sol_r3_p1', 'sol_r3_p2']),
+    'tf_sew': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json', ['sol_end_w']),
+    'tf_see': ('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json', ['sol_end_e']),
+    # PHASE 2E: the farm (TF-ART-014, the 8/11 furrow family) - the family
+    # holds per PLOT so a field reads as one field, the variant shuffles per
+    # cell; ports the legacy contract. Plus the freeway's embankment: a
+    # graded earth ridge IS the berm, on the run's own axis (the talus=riprap
+    # precedent - same material, same read, zero new pixels).
+    'tf_fp': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+              ['field_plain_0', 'field_plain_1', 'field_plain_2']),
+    'tf_fw': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+              ['field_windrow_0', 'field_windrow_1']),
+    'tf_fb': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+              ['field_bald_0', 'field_bald_1']),
+    'tf_bp': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+              ['bare_plot_0', 'bare_plot_1']),
+    'tf_di': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+              ['ditch_earth_silted', 'ditch_earth_scoured']),
+    'tf_bew': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+               ['berm_ew_0', 'berm_ew_1']),
+    'tf_bns': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
+               ['berm_ns_0', 'berm_ns_1']),
 }
 
 # PHASE 2A: the railyard's rolling stock through the post path. The city's

@@ -415,7 +415,7 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
    rust) | structure layer over yard ground, 44px corpus cell | see
    form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
-107. PHASES 1-2D SHIPPED 8/28 | THE GREAT TILE MIGRATION (every exterior
+107. PHASES 1-2E SHIPPED 8/28-8/30 | THE GREAT TILE MIGRATION (every exterior
    family to the walked surface) | CITY - measured 8/27: all 32 wired
    families drew only in the legacy run slice, which the alpha stopped
    downloading on 8/21. PHASE 1 (8/28): the walked page resolves every
@@ -454,9 +454,24 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    every planter in the game is legend kind STRUCTURE, so the routing
    moved to the structure block (sPool + sOver) and the counter reads
    266 of 266. A COUNTER PER FAMILY, not a walk past it: the walk
-   showed a plaza; the count showed the branch never ran. REMAINING
-   (recorded, not urgent): solar panel family, crop rows, embankments,
-   bathtub ring, boxcar running-order polish | full finding:
+   showed a plaza; the count showed the branch never ran. PHASE 2E
+   SHIPPED 8/30: the census's four biggest remaining names join their
+   ALREADY-APPROVED families, ~5.3M more cells, zero new pixels. The
+   solar field's 1.4M panel cells were wearing HOUSE SHINGLES (the
+   hroof structure fallback); they now draw TF-ART-016's dark glass
+   with the legacy row contract ported (row = run-above count capped
+   at 3, phase = column mod 3, end caps as sOver overlays, and the
+   run check crosses tile seams BY NAME because a neighbouring tile
+   numbers its legend differently). The farm's field soil (950K),
+   crop rows (273K, family-per-plot so a field reads as ONE field)
+   and irrigation (65K) port the 8/11 TF-ART-014 contract verbatim;
+   the freeway/interchange embankment (2.6M) takes the berm on the
+   run's own axis (talus=riprap precedent - same material, same
+   read). Counters: 100% routed on every family's biggest tile,
+   solar rows cycling 1290/1204/1204/1204 with balanced end caps.
+   Verified on foot: solar, farm, freeway. REMAINING (recorded, not
+   urgent): bathtub ring (NO approved art - needs its own form),
+   boxcar running-order polish | full finding:
    records/BOHEMIA_FINDING_THE_TILES_RIDE_A_SURFACE_NOBODY_WALKS_8_27_26.md
    | ART lane (fifth audit follow-through, 8/27) | HIGH | FORM: —
 106. SHIPPED | WASH CHANNEL (invert + banks, the riprap's promised half) |

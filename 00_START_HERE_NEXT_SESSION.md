@@ -3488,7 +3488,19 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/28 (h) LATEST -- *** THE GREAT TILE MIGRATION IS COMPLETE
+ART (art-f3eu53): 8/30 (i) LATEST -- *** PHASE 2E: FIVE MILLION MORE CELLS BY
+ROUTING ALONE, AND THE LOOK TAB IS CURRENT AGAIN. The solar field's 1.4M panel
+cells were wearing HOUSE SHINGLES (kind 'panel' fell to the hroof fallback);
+they draw TF-ART-016's dark glass now with the legacy row contract ported (run-
+above count, phase by column, end caps as overlays, seam check BY NAME across
+tiles). Farm field soil + crop rows + irrigation port the 8/11 TF-ART-014
+contract (family per PLOT); the freeway/interchange embankment (2.6M cells)
+takes the berm on the run's own axis. Counters 100% on every family's biggest
+tile, then walked all three on foot. AND THE ASSIGNED RED CLEARED: all 51 LOOK
+pictures were stale, 30 shooters re-ran clean, look_gate 24/24 GREEN - the LOOK
+tab photographs the migrated world now. Leftover with NO approved art: bathtub
+ring (needs its own form + cook). PREVIOUS:
+ART (art-f3eu53): 8/28 (h) -- *** THE GREAT TILE MIGRATION IS COMPLETE
 THROUGH PHASE 2D: the baker gained an OVERLAY hook (gArtOver on ground, sOver on
 structure), guy wires bear on their nearest mast (8-way snap, one kit scan per
 tile, one-tile pools because the weather shuffle permutes anything longer than
