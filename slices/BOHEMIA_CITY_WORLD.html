@@ -28081,6 +28081,15 @@ function realizeCell(gx,gy){
           if(!_isP(gx+1,gy))_caps.push('tf_see');
           if(_caps.length)c.sOver=_caps;
         }
+        else if(_snm==='bathtub ring / roof'){
+          /* PHASE 2F: the intake wears the same crust the shoreline
+             does (TF-ART-033) - one mineral, one look, the band's own
+             axis read from the kit run. */
+          let _bx=0; if(lx>0&&m.kit[ly*FN+lx-1]===code)_bx++; if(lx<FN-1&&m.kit[ly*FN+lx+1]===code)_bx++;
+          let _by=0; if(ly>0&&m.kit[(ly-1)*FN+lx]===code)_by++; if(ly<FN-1&&m.kit[(ly+1)*FN+lx]===code)_by++;
+          c.sPool={p:(_bx>=_by)?'tf_brh':'tf_brv',
+            v:((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2};
+        }
       }
       /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile
          on this branch was given the ROOF pool tinted to its palette, which is right
@@ -28328,6 +28337,16 @@ function realizeCell(gx,gy){
         const _fam=[['tf_fp',3],['tf_fw',2],['tf_fb',2]][_ph2];
         c.gArtPool=_fam[0];
         c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%_fam[1];
+        _pool=null; }
+      else if(_nm==='bathtub ring'){
+        /* PHASE 2F: the ring the lake left (TF-ART-033, cooked 8/30 -
+           the census's last family with no art). The stand lines run
+           along the shoreline, so the piece follows the band's own
+           axis, read from the kit like the channel bank. */
+        let _rx=0; if(lx>0&&m.kit[ly*FN+lx-1]===code)_rx++; if(lx<FN-1&&m.kit[ly*FN+lx+1]===code)_rx++;
+        let _ry=0; if(ly>0&&m.kit[(ly-1)*FN+lx]===code)_ry++; if(ly<FN-1&&m.kit[(ly+1)*FN+lx]===code)_ry++;
+        c.gArtPool=(_rx>=_ry)?'tf_brh':'tf_brv';
+        c.gArtVariant=((Math.imul(gx,2654435761)^Math.imul(gy,40503))>>>0)%2;
         _pool=null; }
       else if(_nm==='embankment'){
         /* PHASE 2E: the freeway's graded shoulder slope IS the berm - same

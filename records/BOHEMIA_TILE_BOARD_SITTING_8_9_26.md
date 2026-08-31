@@ -1608,3 +1608,25 @@ tools re-ran clean, 24 of 24 checks green, and the LOOK tab now
 photographs the game as it is, tile art included. Bathtub ring is
 the one honest leftover with NO approved art; it needs its own form
 and cook, not a wiring pass.
+
+## 8/30 SEVENTY-EIGHTH PASS: PHASE 2F - THE RING GETS ITS OWN COOK
+
+The one leftover with no approved art gets the full factory pass: form
+TF-ART-033, a cook harvesting only the approved kerb pale (lifted one
+step - carbonate and caliche are one mineral family) and the approved
+riprap rock, four tiles (two per axis). THE EDGE RULE IS THE CRAFT
+HERE: the stand lines sit at CANONICAL rows shared by every variant,
+wander +/-1 mid-tile in 3-5 cell steps (never a fixed 2 - the loc-part
+lesson) and are PINNED back to the canonical row at both tile edges,
+so any two ring cells join without a jump - proven on a rendered
+h0|h1|h0 strip BEFORE wiring, not after. Measured before shipping:
+ring mean value 150.5 against the bed's 117.5, a full step brighter,
+because a band that is not brighter than what it borders is not a
+band. Wired on the walked surface both ways the name appears: the
+shoreline ground takes the axis branch, the intake's structure name
+rides c.sPool. Counters 100% on both names' biggest tiles (6,128
+shoreline cells, 1,274 intake cells); walked the water shoreline and
+the band steps along the dead lake exactly like the satellite photo.
+Board row 108. THE MIGRATION HAS NO LEFTOVERS WITHOUT ART LEFT - what
+remains is polish (boxcar running order) and the daily landmark
+re-probe cadence.

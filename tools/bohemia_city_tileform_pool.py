@@ -142,6 +142,12 @@ POOLS = {
                ['berm_ew_0', 'berm_ew_1']),
     'tf_bns': ('banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json',
                ['berm_ns_0', 'berm_ns_1']),
+    # PHASE 2F: the bathtub ring (TF-ART-033, cooked 8/30 - the census's
+    # last named family with no art). Axis pieces on the shoreline's run.
+    'tf_brh': ('banks/tileforms/TF-ART-033_CANDIDATES_8_30_26.json',
+               ['br_h_0', 'br_h_1']),
+    'tf_brv': ('banks/tileforms/TF-ART-033_CANDIDATES_8_30_26.json',
+               ['br_v_0', 'br_v_1']),
 }
 
 # PHASE 2A: the railyard's rolling stock through the post path. The city's

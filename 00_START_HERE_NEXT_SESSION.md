@@ -3560,7 +3560,16 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/30 (i) LATEST -- *** PHASE 2E: FIVE MILLION MORE CELLS BY
+ART (art-f3eu53): 8/30 (j) LATEST -- *** PHASE 2F: THE BATHTUB RING IS COOKED
+AND THE MIGRATION HAS NO ART-LESS LEFTOVERS. TF-ART-033 (form + cook + bank,
+board row 108): 108K shoreline cells + the intake's structure band draw the
+ring - crust from the approved kerb pale lifted one step, rock from the
+approved riprap, stand lines at CANONICAL rows pinned at both tile edges so
+cells join (edge proven on a rendered strip BEFORE wiring), a full value step
+brighter than the bed so the band reads. Counters 100% both names, walked the
+water shoreline. Remaining in this lane: boxcar running-order polish, the
+daily landmark re-probe cadence. PREVIOUS:
+ART (art-f3eu53): 8/30 (i) -- *** PHASE 2E: FIVE MILLION MORE CELLS BY
 ROUTING ALONE, AND THE LOOK TAB IS CURRENT AGAIN. The solar field's 1.4M panel
 cells were wearing HOUSE SHINGLES (kind 'panel' fell to the hroof fallback);
 they draw TF-ART-016's dark glass now with the legacy row contract ported (run-

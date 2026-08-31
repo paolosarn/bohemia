@@ -415,6 +415,20 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    TANK cylinders (lit crown, shadowed belly, saddle shadows, weld
    rust) | structure layer over yard ground, 44px corpus cell | see
    form | ART lane (radio measure, 8/27) | MED | FORM: TF-ART-031
+108. SHIPPED | BATHTUB RING (the white band the lake left) | CITY -
+   108,559 ground cells at water + dam and 1,274 structure cells at the
+   intake of the most photographed drought mark on earth drew the
+   generic fallback - the census's LAST named family with no approved
+   art. Crust from the approved kerb pale lifted one step, worn holes
+   from the approved riprap rock; stand lines at CANONICAL rows shared
+   across variants, wandering +/-1 mid-tile and PINNED at both edges so
+   any two ring cells join (edge proven on a rendered h0|h1|h0 strip
+   before wiring); axis follows the kit's own run like the channel
+   bank. Measured a full value step brighter than the bed it borders
+   (150.5 vs 117.5) so the band READS. Counters 100% on both names;
+   walked at the water shoreline | ground layer (+ intake structure via
+   sPool), 44px corpus cell | see form | ART lane (the 8/28 census,
+   8/30) | MED | FORM: TF-ART-033
 107. PHASES 1-2E SHIPPED 8/28-8/30 | THE GREAT TILE MIGRATION (every exterior
    family to the walked surface) | CITY - measured 8/27: all 32 wired
    families drew only in the legacy run slice, which the alpha stopped
