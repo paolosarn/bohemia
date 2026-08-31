@@ -11,7 +11,7 @@
     "y": 11493,
     "zoom": 22
    },
-   "kb": 246.6,
+   "kb": 246.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-way-in"
@@ -26,7 +26,7 @@
     "y": 2956,
     "zoom": 26
    },
-   "kb": 208.1,
+   "kb": 209.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-yards-lit"
@@ -41,7 +41,7 @@
     "y": 789,
     "zoom": 26
    },
-   "kb": 268.6,
+   "kb": 268.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-spawn-sidewalk"
@@ -126,7 +126,7 @@
     "y": 3352,
     "zoom": 44
    },
-   "kb": 296.4,
+   "kb": 296.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-suburb"
@@ -137,11 +137,11 @@
    "caption": "The exodus road. Remains on the asphalt where people stopped walking. RUN tab.",
    "file": "look/dead-road.png",
    "at": {
-    "x": 3458,
-    "y": 3195,
+    "x": 3467,
+    "y": 3100,
     "zoom": 44
    },
-   "kb": 141.6,
+   "kb": 89.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-road"
@@ -156,7 +156,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 198,
+   "kb": 207.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-desert"
@@ -167,11 +167,11 @@
    "caption": "A wider view of the same ground, so the density reads. Too many, too few, or about right is the only call needed. RUN tab.",
    "file": "look/dead-density.png",
    "at": {
-    "x": 6543,
-    "y": 3364,
+    "x": 6534,
+    "y": 3391,
     "zoom": 22
    },
-   "kb": 215.3,
+   "kb": 292.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-density"
@@ -182,7 +182,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 531.5,
+   "kb": 532.3,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only vista"
@@ -208,11 +208,11 @@
    "caption": "The dead come in groups now, not sprinkled one by one. This is what you find in an abandoned block. RUN tab.",
    "file": "look/dead-cluster.png",
    "at": {
-    "x": 5568,
-    "y": 4305,
+    "x": 5517,
+    "y": 4313,
     "zoom": 30
    },
-   "kb": 92.7,
+   "kb": 217.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only dead-cluster"
@@ -227,7 +227,7 @@
     "y": 953,
     "zoom": 26
    },
-   "kb": 223,
+   "kb": 223.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-pit-dug"
@@ -238,7 +238,7 @@
    "caption": "Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.",
    "file": "look/the-wall.png",
    "at": null,
-   "kb": 247.9,
+   "kb": 352.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-wall"
@@ -249,7 +249,7 @@
    "caption": "Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.",
    "file": "look/the-claim.png",
    "at": null,
-   "kb": 227.7,
+   "kb": 352.7,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-claim"
@@ -260,7 +260,7 @@
    "caption": "The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.",
    "file": "look/the-favour.png",
    "at": null,
-   "kb": 169.9,
+   "kb": 352.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-favour"
@@ -271,7 +271,7 @@
    "caption": "This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.",
    "file": "look/the-collection.png",
    "at": null,
-   "kb": 208.2,
+   "kb": 352.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-collection"
@@ -282,7 +282,7 @@
    "caption": "Five different systems write onto a person now and the card had quietly grown to 96 percent of your screen -- one more thing and it would have run off the bottom. So the stuff that is true of the WHOLE outfit and never changes (what they want, what they hold, what they pay in) collapses to one line the moment you have done anything for them, because you have already read it. Tap that line and it all comes back. Down to 84 percent. CITY tab, tap somebody you have helped.",
    "file": "look/the-terms-fold.png",
    "at": null,
-   "kb": 213.7,
+   "kb": 352.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-terms-fold"
@@ -308,7 +308,7 @@
     "y": 5266,
     "zoom": 30
    },
-   "kb": 314,
+   "kb": 314.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-hole"
@@ -323,7 +323,7 @@
     "y": 770,
     "zoom": 22
    },
-   "kb": 413.9,
+   "kb": 475.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-bad-footing"
@@ -338,7 +338,7 @@
     "y": 576,
     "zoom": 26
    },
-   "kb": 408.7,
+   "kb": 408.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-signals-are-back"
@@ -373,7 +373,7 @@
     "y": 780,
     "zoom": 26
    },
-   "kb": 281.5,
+   "kb": 285,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-proper-sidewalk"
@@ -478,7 +478,7 @@
     "y": 1294,
     "zoom": 16
    },
-   "kb": 221.3,
+   "kb": 222.2,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only everything-metal"
@@ -493,7 +493,7 @@
     "y": 5002,
     "zoom": 12
    },
-   "kb": 263.3,
+   "kb": 264.9,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only you-can-see-through-it"
@@ -556,7 +556,7 @@
    "stamp": "8/27/26",
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_trenchcoat_rule.js",
-   "kb": 210.0
+   "kb": 210
   },
   {
    "id": "the-portrait-pops-up",
