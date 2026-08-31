@@ -229,7 +229,13 @@ NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources
        ctWitnessPass stamps it, because standingOf asks factionOfOwner(id) and
        an unstamped mind answers null and is filtered straight back out. */
     try {
-      var cast = (typeof ctDayCast === 'function') ? ctDayCast() : null;
+      /* ctDayCast returns { q, day, cast:{role -> person} } -- THE ROLES ARE
+         NESTED. The first cut read cast[role] one level too shallow, found
+         nobody, and published witnesses:0, which is the same answer as "the
+         cast does not exist" and the same answer this whole feature exists to
+         stop being ambiguous. A probe on the real demo caught it. */
+      var dc = (typeof ctDayCast === 'function') ? ctDayCast() : null;
+      var cast = dc && dc.cast;
       var qroles = (typeof DQ !== 'undefined' && DQ && DQ.Q && DQ.Q.roles) ? DQ.Q.roles : [];
       for (var r = 0; r < qroles.length; r++) {
         var rl = qroles[r]; if (!rl || !rl.req) continue;      /* REQ only */
@@ -237,7 +243,18 @@ NEW_MAKE = """const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources
         var pid = String(c.key).replace(/^P:city:/, '');
         if (!pid || seenIds[pid]) continue;                    /* already an eyewitness */
         var m = ctMind(pid); if (!m) continue;
-        if (c.faction) m.fid = c.faction;
+        /* STAMP THE CITY'S OWN SPELLING, NEVER THE QUEST'S. The cast entry
+           carries the ROLE's required faction, which is his `faction=TRADES`.
+           Every mind in this city is stamped with ctFactionOf's answer, which is
+           the canon id `Trades`, and standingOf compares those STRICTLY -- so a
+           mind stamped TRADES is filtered straight back out of the Trades'
+           standing and the view does not move. Measured exactly that: the deed
+           landed, witnesses:1, and whoSaw stayed 0.
+           Same case gap as publish(), one layer up, and the fix belongs HERE
+           rather than in standingOf: both sides of that compare are city ids by
+           construction, and loosening it would hide the next mis-stamp. */
+        var cf = ctCanonFaction(c.faction);
+        if (cf) m.fid = cf;
         pos[pid] = { x: hx, y: hy };                           /* in the scene */
         minds.push(m); seenIds[pid] = 1;
       }

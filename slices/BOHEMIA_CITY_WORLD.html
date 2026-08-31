@@ -38438,7 +38438,13 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
        ctWitnessPass stamps it, because standingOf asks factionOfOwner(id) and
        an unstamped mind answers null and is filtered straight back out. */
     try {
-      var cast = (typeof ctDayCast === 'function') ? ctDayCast() : null;
+      /* ctDayCast returns { q, day, cast:{role -> person} } -- THE ROLES ARE
+         NESTED. The first cut read cast[role] one level too shallow, found
+         nobody, and published witnesses:0, which is the same answer as "the
+         cast does not exist" and the same answer this whole feature exists to
+         stop being ambiguous. A probe on the real demo caught it. */
+      var dc = (typeof ctDayCast === 'function') ? ctDayCast() : null;
+      var cast = dc && dc.cast;
       var qroles = (typeof DQ !== 'undefined' && DQ && DQ.Q && DQ.Q.roles) ? DQ.Q.roles : [];
       for (var r = 0; r < qroles.length; r++) {
         var rl = qroles[r]; if (!rl || !rl.req) continue;      /* REQ only */
@@ -38446,7 +38452,18 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
         var pid = String(c.key).replace(/^P:city:/, '');
         if (!pid || seenIds[pid]) continue;                    /* already an eyewitness */
         var m = ctMind(pid); if (!m) continue;
-        if (c.faction) m.fid = c.faction;
+        /* STAMP THE CITY'S OWN SPELLING, NEVER THE QUEST'S. The cast entry
+           carries the ROLE's required faction, which is his `faction=TRADES`.
+           Every mind in this city is stamped with ctFactionOf's answer, which is
+           the canon id `Trades`, and standingOf compares those STRICTLY -- so a
+           mind stamped TRADES is filtered straight back out of the Trades'
+           standing and the view does not move. Measured exactly that: the deed
+           landed, witnesses:1, and whoSaw stayed 0.
+           Same case gap as publish(), one layer up, and the fix belongs HERE
+           rather than in standingOf: both sides of that compare are city ids by
+           construction, and loosening it would hide the next mis-stamp. */
+        var cf = ctCanonFaction(c.faction);
+        if (cf) m.fid = cf;
         pos[pid] = { x: hx, y: hy };                           /* in the scene */
         minds.push(m); seenIds[pid] = 1;
       }
@@ -46241,6 +46258,19 @@ function ctPeopleAt(bx, by){
    at all -- 23 people within 3 blocks of the waking block and not one of them
    runs with anybody. A role with no outfit is looked for where you are, because
    a neighbour is a neighbour. */
+/* THE CITY'S OWN NAME FOR AN OUTFIT. His quests write TRADES, the canon id in
+   BOHEMIA_faction_graph.json is Trades, and every strict compare in the standing
+   organ is between city ids. This is the one place that translation happens, and
+   it answers null for a name no outfit has rather than inventing one -- so a typo
+   in a quest stays visible instead of quietly becoming somebody. */
+function ctCanonFaction(name){
+  if (!name) return null;
+  var want = String(name).toUpperCase().replace(/[\s_]/g,'');
+  var bases = null; try { bases = ctBases(); } catch(_e){ return null; }
+  for (var k in (bases || {}))
+    if (String(k).toUpperCase().replace(/[\s_]/g,'') === want) return k;
+  return null;
+}
 function ctOriginFor(role){
   try {
     var want = BohemiaPeople.roleFaction(role);
