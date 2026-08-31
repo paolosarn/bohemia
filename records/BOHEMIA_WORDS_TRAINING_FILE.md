@@ -3191,3 +3191,160 @@ strings, assert every byte outside the blob is identical. 3,370,009 bytes to
 THE RULE: when a generated block has more than one writer, do not regenerate it,
 EDIT IT. And the tell that I was about to break something was available before I
 broke it: three tools grep-matched `DEMO_BQ`, and I ran one of them anyway.
+
+# THE MEMORABILITY ROUND -- 8/30/26
+# Every round so far ended with the same sentence: I CANNOT TELL YOU IF A LINE IS
+# GOOD. This round attacks that wall with the only thing that could break it: a
+# corpus where somebody else already labelled which lines are good.
+
+## 135. A LABELLED SET OF GOOD LINES, AND THE CONTROL IS BUILT IN
+Danescu-Niculescu-Mizil et al., "You had me at hello: How phrasing affects
+memorability" (2012). **2,197 memorable movie quotes, each paired with a
+NON-memorable line spoken by the SAME CHARACTER at roughly the SAME POINT in the
+SAME FILM.** Character, film, era, genre and story position are all controlled by
+the design of the corpus, which is the thing I have been building by hand for
+four rounds. Humans score about 75% at picking the memorable one; their model
+about 64%.
+
+**AND THE LENGTH CONTROL DOES NOT SURVIVE INTO THE SCRIPT.** The paper matches
+the quotes, but the version that appears in the screenplay runs longer: 12.32
+words against 9.64. Had I skipped that, every finding this round would have been
+"longer is better", which is exactly the trap the classifier round caught me in.
+Kept only pairs whose two lines are within two words of each other: **1,579 pairs,
+9.10 words against 9.12.**
+
+## 136. WHAT ACTUALLY SEPARATES A MEMORABLE LINE FROM AN ORDINARY ONE
+
+    feature                    MEMORABLE   ordinary    lift
+    talks about him/her/them      12.7%      20.5%    0.62x
+    indefinite "a/an"             26.6%      19.6%    1.35x
+    an exclamation                12.9%       6.5%    1.98x
+    swearing                       9.7%       4.1%    2.35x
+    present tense                 22.3%      17.1%    1.30x
+    past tense                     6.6%      11.7%    0.57x
+    a generalisation              16.3%      11.5%    1.42x
+    hedges (maybe, I think)        2.8%       4.7%    0.60x
+    would / could / might         11.7%      14.8%    0.79x
+    ---
+    questions, contractions, "you", "the", vague nouns: NO DIFFERENCE
+
+A memorable line is **now, not then. Here, not elsewhere. Between you and me, not
+about them. Unhedged. And it will swear.** The biggest single effect is the one
+nobody talks about: **memorable lines do not discuss absent third parties.**
+
+## 137. AND IT CONTRADICTS RULE 2 OF MY OWN CARD, WITH DATA
+The card says CUT THE LAST SENTENCE, and the whole frame says NOBODY IN BOHEMIA IS
+WISE. **Generalisation is 1.42x MORE common in memorable lines.** I tried to save
+the rule by splitting the two shapes apart, guessing that a generalisation works
+as the WHOLE line and fails as a moral tacked on the end. It does not save it:
+
+    general as the whole line   MEMORABLE 15.2%   ordinary 11.5%
+    general only in the CODA    MEMORABLE  8.0%   ordinary  5.1%
+
+Both directions favour the maxim. **My rule, as written, is contradicted.**
+
+THE RESOLUTION IS A RATE, NOT A BAN, and the numbers give it:
+
+    a generalisation, per line:  ordinary film 11.5%   MEMORABLE film 16.3%
+                                 BOHEMIA 18.9%   (and 44% of our multi-sentence
+                                 speeches end on one)
+
+**We generalise MORE OFTEN THAN THE MOST QUOTABLE LINES IN CINEMA.** A memorable
+line is memorable partly BY CONTRAST with the forty ordinary lines around it.
+Wisdom is the spice that marks the one line meant to be remembered, and we are
+using it as the house seasoning, so nothing is marked. That is his "everybody is
+wise" complaint with a mechanism under it, and the rule should read: **be wise at
+16% of lines, and make the other 84% concrete so the one lands.** Not never.
+
+## 138. I BUILT A JUDGE, AND IT SCORES WHERE THE PUBLISHED ONE DOES
+Logistic model on 20 style features. Cross-validated with **pairs kept whole**, so
+a pair never straddles train and test, and scored on the paper's own task: shown
+both lines, pick the memorable one.
+
+    FORCED-CHOICE ACCURACY: 65.7%     (chance 50, published model ~64, humans ~75)
+
+    toward memorable: word length +0.30, exclamation +0.26, indefinite +0.25,
+                      swearing +0.19, general +0.15, present +0.11
+    away:             past -0.16, third person -0.14, contraction -0.12,
+                      modal -0.10, hedge -0.07
+
+This is the first thing in the whole training that ranks a line by something other
+than its shape. It is not a measure of GOOD. It is a measure of QUOTABLE, and the
+next section is why that distinction is the whole ballgame.
+
+## 139. POINTED AT OUR OWN LINES, IT FOUND THE REAL PROBLEM, AND IT IS NOT THE MEAN
+
+    mean score    MEMORABLE film +0.168    ordinary film -0.168    BOHEMIA -0.076
+    SPREAD (sd)   MEMORABLE  0.651         ordinary  0.539         BOHEMIA 0.476
+                                                        our demo scenes  0.326
+
+Our average is fine, sitting between the two. **Our SPREAD is the smallest of
+everything measured, and the demo's is half of memorable film's.** Every line we
+write sits in the same narrow band of quotability.
+
+That is the machine tell stated more precisely than I have managed in nine rounds:
+**not that our lines are bad, but that they are all the same distance from great.**
+A memorable line needs ordinary lines around it to be memorable against. We do not
+write ordinary lines. We write forty pretty-good ones in a row, and the effect is
+that none of them lands.
+
+Our own top of the list is the proof, and it is his complaint in our own words:
+
+    +1.46  Nobody say nothing. Everybody say it loud.
+    +1.43  Take the hinges. People always forget hinges.
+    +1.35  Everybody's a good neighbour on a full stomach.
+
+## 140. AND THE TRAP, WHICH IS THE MOST IMPORTANT PARAGRAPH IN THIS ROUND
+Here is the bottom of the list:
+
+    -1.71  What did you tell them?
+    -2.08  Did you tell them?
+    -2.19  He say he come. He say.
+    -1.51  He said he'd be here. Pues, he said.
+    -1.54  Your abuela did it this way and she was right.
+
+**The judge penalises plain questions and it penalises Spanglish.** Both are
+LOCKED RULINGS: he ordered the registers in on 8/25, and the acknowledgement work
+of the last rounds is built on asking more questions, not fewer.
+
+**So if I used this score as a target I would delete two things he explicitly
+ruled in, and I would do it while showing him a rising number.** That is the
+purest version of the failure this lane exists to prevent: a metric that is real,
+published, cross-validated, and would make the game worse.
+
+THE RULE: **this judge measures SPREAD, never a line.** The question it may be
+asked is "does this scene have a peak and a floor", never "is this line good
+enough". Raising any individual line's score is forbidden. And it does not go in a
+gate as a floor, because a floor on this number is an instruction to write every
+line like a poster.
+
+## 141. WHAT I NOW KNOW I DIDN'T KNOW
+68. **A labelled set of good lines exists**, with character, film and position
+    controlled by construction. (§135)
+69. **The paper's length control does not survive into the screenplay** and I had
+    to rebuild it. (§135)
+70. **Memorable lines do not talk about absent people** -- the largest effect in
+    the data and one no craft book I have read mentions. (§136)
+71. **Rule 2 of my own card is contradicted by the data.** Generalisation helps.
+    (§137)
+72. **The fix is a rate: 16%, not zero**, and we run 18.9% per line and 44% as a
+    closing move. (§137)
+73. **A judge at 65.7% forced choice** is buildable and matches the published
+    model. (§138)
+74. **Our spread is the smallest of any corpus measured**, and the demo's is half
+    of memorable film's. That is the tell. (§139)
+75. **Optimising the judge would delete his Spanglish and our questions.** A real,
+    validated metric can still be the wrong target. (§140)
+
+## 142. STILL OPEN
+- QUOTABLE is not GOOD. A great line in a game can be a man failing to finish a
+  sentence, and no memorability model will ever score that. This round moved the
+  wall; it did not remove it.
+- The corpus is 1990s-2000s Hollywood. What is quotable there is not neutral.
+- 11 spoken lines in the build appear twice ("Take the hinges" among them). Small,
+  probably deliberate for shared barks, and worth one pass to confirm.
+
+## SOURCES, THIS ROUND
+- Danescu-Niculescu-Mizil, Cheng, Kleinberg and Lee, "You had me at hello: How
+  phrasing affects memorability", ACL 2012. 2,197 matched pairs, fetched from a
+  GitHub mirror of the Cornell Movie-Quotes Corpus.
