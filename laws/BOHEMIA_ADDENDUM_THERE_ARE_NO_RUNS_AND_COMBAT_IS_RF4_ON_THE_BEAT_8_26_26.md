@@ -98,7 +98,16 @@ them, feeding a tree that persists — that is a 100-hour game's economy, not a 
 1. Combat is **Rogue Fable 4 with everything on the 120 BPM beat.** One sentence.
 2. **All three bars** ship: Protection, Power, Speed.
 3. **A real kit of abilities**, recharged by verbs.
-4. **There are no runs.** One character, ~100 hours, a persistent perk tree, and
+4. **There are no runs.** ~100 hours to complete, a persistent perk tree, and
+   *** CORRECTION 8/28: THIS LINE READ "One character, ~100 hours" AND HE NEVER
+   SAID "ONE CHARACTER" -- grep his quoted words above for "character": zero
+   hits. It was an inference, it was copied to the top of CLAUDE.md where every
+   session reads it first, and read literally it deleted Gen 2, Gen 3 and the
+   ending of the game. HE RULED ON IT 8/28: "yeah three generations bro cmon."
+   THE DYNASTY LIVES; all 52 dynasty laws stand. A GENERATIONAL HANDOFF IS NOT A
+   RUN -- a run resets you to nothing, a handoff inherits EVERYTHING -- so this
+   ruling never touched it. Law: laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md
+   Record: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md ***
    60 mini bosses that each hand you a new way to interact with the world.
 
 ## WHAT IS STILL HIS AND NOT DECIDED HERE

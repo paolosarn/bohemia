@@ -19,10 +19,17 @@ ending of the game. NOTE ALSO that his 100 is HOURS TO COMPLETE and the 7/1 law'
 NO RUNS AND THREE GENERATIONS DO NOT ACTUALLY CONFLICT -- a run resets you to
 nothing, a generational handoff inherits EVERYTHING, which is the opposite -- but
 he may have meant one life, and that is the shape of the whole game.
-*** [PENDING PAOLO] DOES THE DYNASTY LIVE? NO SESSION RESOLVES THIS IN PASSING.
-If you need an answer before he gives one, write your assumption in your commit,
-never into a law. *** Record:
-records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md The tree, the abilities and the bosses are ONE system, not three.
+*** ANSWERED BY PAOLO 8/28: "YEAH THREE GENERATIONS BRO CMON." THE DYNASTY
+LIVES. *** All 52 dynasty laws stand. Gen 1 Animal, Gen 2 Human, Gen 3 Angel, THE
+PLAYER LIVES ALL THREE, and the Act 3 ending is still the gen-3 Angel heir going
+one-way. NOTHING IS ARCHIVED.
+AND BOTH RULINGS ARE TRUE AT ONCE -- write this down once so nobody re-derives it:
+A GENERATIONAL HANDOFF IS NOT A RUN. A run resets you to nothing; a handoff
+INHERITS EVERYTHING the last life built (compound, standings, territory, the
+family tree, and the unhealed wounds). It is the opposite of a reset, which is why
+"THERE ARE NO RUNS" never touched it. The perk tree carries across the fold.
+Records: records/BOHEMIA_A_SUMMARY_DELETED_THE_ENDING_8_28_26.md and
+laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md The tree, the abilities and the bosses are ONE system, not three.
 Anything that assumes a run resets is built on a premise that does not exist.
 Full law: laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md
 *** AND THE BOSSES ARE IN THE GAME AS OF 8/27. A BOSS DOES NOT DROP A TROPHY, IT
