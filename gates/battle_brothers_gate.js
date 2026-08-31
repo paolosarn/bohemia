@@ -184,6 +184,110 @@ ok('H6 A GATE MUST NEVER OUTRANK A RULING: this gate asserts no adoption',
    /it does not assert that any of this should be built/i
      .test(fs.readFileSync(__filename, 'utf8').replace(/\s+/g, ' ')));
 
+/* ============================================================================
+   J. THE LANE DISPATCH (8/18, Paolo: "ROUNDS OF BIG BRAIN RESEARCH FOR ALL THESE
+   CHATS... WHAT WE CAN IMPLEMENT AND WHAT WONT WORK")
+
+   He asked for a per-lane routing, so the study got a companion file with a
+   STEAL THIS / WON'T WORK HERE pair for each of the twelve lanes he listed.
+
+   ★ THE CHECKS THAT MATTER MOST HERE ARE THE ADMISSIONS OF IGNORANCE. Two lanes
+   -- UI and SOUNDS -- have almost no reachable material, because the developers'
+   own blog is policy-blocked. A dispatch that quietly fills those sections with
+   plausible-sounding guesses is worse than one that leaves them empty, because a
+   lane would plan off it. So the gate FAILS if either lane stops saying it is
+   thin. Padding is the failure mode of a research deliverable, and it is
+   invisible to every other kind of check.
+   ========================================================================== */
+const DISPATCH = 'records/BOHEMIA_BATTLE_BROTHERS_LANE_DISPATCH_8_18_26.md';
+ok('J1 the lane dispatch exists', fs.existsSync(path.join(ROOT, DISPATCH)));
+if (!fs.existsSync(path.join(ROOT, DISPATCH))) { report(); }
+const dRaw = fs.readFileSync(path.join(ROOT, DISPATCH), 'utf8');
+const d = dRaw.replace(/\s+/g, ' ');
+
+/* every lane he listed on screen must be routed -- a dispatch that skips a lane
+   silently is how a lane finds out last. */
+const LANES = ['04. COMBAT', '09. PEOPLE', '10. FACTIONS', '01. THE RUN', '03. LIFE + CITY',
+               '02. WORLD MODEL', '05. CHARACTER', '06. ART DIRECTION', '11. UI', '12. WORDS',
+               '08. SOUNDS', '07. REFERENCE LAB', '00 MASTER COORDINATOR'];
+const missing = LANES.filter(L => !d.includes(L));
+ok(`J2 ★ all ${LANES.length} lanes he listed are routed` + (missing.length ? ' -> MISSING: ' + missing.join(', ') : ''),
+   missing.length === 0);
+ok('J3 every routed lane carries BOTH halves of what he asked for',
+   (d.match(/STEAL THIS/g) || []).length >= 10 && (d.match(/WON'T WORK HERE/g) || []).length >= 9);
+ok('J4 it routes the study rather than duplicating it',
+   /BOHEMIA_BATTLE_BROTHERS_REFERENCE_STUDY_8_18_26/.test(d));
+
+/* the hard limit is restated once for every lane, because it is a locked law */
+ok('J5 ★★ the d100 refusal is restated up front for all twelve lanes',
+   /steal the structure, refuse the dice/i.test(d) &&
+   /arithmetically impossible/i.test(d));
+ok('J6 ★ and the refusal is marked NOT pending, unlike the real forks',
+   /The refusal is not pending/i.test(d));
+
+/* ★★★ THE ANTI-PADDING CHECKS. */
+ok('J7 ★★★ the UI lane still says its material is TOO THIN to plan off',
+   /THE MATERIAL FOR THIS LANE IS THIN and I am not padding it/i.test(d) &&
+   /UI should not plan off this section/i.test(d));
+ok('J8 ★★★ the SOUNDS lane still admits it has almost nothing',
+   /I HAVE ALMOST NOTHING, AND I AM NOT GOING TO INVENT IT/i.test(d) &&
+   /would be me guessing/i.test(d));
+ok('J9 ★★ and the coordinator section names those two lanes as do-not-plan',
+   /Two lanes should NOT plan off this file/i.test(d));
+ok('J10 the iPhone-portrait mismatch is why UI cannot copy their density',
+   /there is no hover on a\s*phone|there is no hover on a phone/i.test(d));
+
+/* the findings that carry the most weight per lane */
+ok('J11 ★★ PEOPLE: a background drives stats, WAGE, traits and events off one word',
+   /THE WAGE IS PART OF THE IDENTITY/i.test(d) && /three times/i.test(d));
+ok('J12 ★★ FACTIONS: three separate measures, and renown is an EARNED difficulty dial',
+   /Renown, Reputation & Relations/i.test(d) &&
+   /renown is a difficulty dial the player\s*earns rather than picks/i.test(d));
+ok('J13 ★ FACTIONS: the complicity beat (a friendly house points you at a third party)',
+   /attack a\s*\*\*neutral settlement\*\*|attack a neutral settlement/i.test(d) &&
+   /makes you complicit/i.test(d));
+ok('J14 ★★★ THE RUN: the Hedge Knight is tied to the gen-3 Angel ending, not to runs',
+   /can't be fired, and if he dies, your campaign ends/i.test(d) &&
+   /is a Hedge Knight ending/i.test(d));
+ok('J15 ★ THE RUN: origins-as-a-menu is refused because THERE ARE NO RUNS',
+   /there is no new-game screen/i.test(d));
+ok('J16 ★★ LIFE+CITY: the daily bill, and why it beats a resource-node economy',
+   /payroll is due/i.test(d) && /permanent liability instead of a free upgrade/i.test(d));
+ok('J17 ★ LIFE+CITY: desertion refused, because family does not quit',
+   /Employees quit; \*\*family does not\.\*\*|family does not/i.test(d) &&
+   /resentment that persists into the next generation/i.test(d));
+ok('J18 ★ WORLD: contracts change world state, and their spawner bug is gated against',
+   /freshly supplied/i.test(d) && /If the map has rules, the spawner obeys them/i.test(d));
+ok('J19 ★★ CHARACTER: a permanent injury RE-ROLES rather than deletes',
+   /can become a backliner/i.test(d) && /how a family absorbs a hundred years of damage/i.test(d));
+ok('J20 ★ CHARACTER: their injury LENGTH is refused as a frustration engine',
+   /frustration engine/i.test(d));
+ok('J21 ★★ ART: they break real proportions deliberately FOR LEGIBILITY',
+   /exaggerated iconic features/i.test(d) && /stubby\s*but tight|stubby but tight/i.test(d));
+ok('J22 ★ ART: the cute register is refused while the principle is kept',
+   /Borderline cute is not Bohemia/i.test(d));
+ok('J23 WORDS: noun plus one flaw, and the folk-grim register refused',
+   /Noun plus one flaw/i.test(d) && /refuse the voice/i.test(d));
+ok('J24 ★★ LAB: three independent sources now agree on difficulty-without-inflation',
+   /THREE INDEPENDENT SOURCES NOW SAY THE SAME THING/i.test(d));
+ok('J25 ★★ LAB: the process lesson from today is written down, not hidden',
+   /READ THE LAWS FOR YOUR LANE BEFORE YOU DO THE WORK/i.test(d));
+ok('J26 ★ COORDINATOR: the two-references-one-codebase collision is flagged',
+   /land in \*\*the same combat code\*\*|land in the same combat code/i.test(d) &&
+   /not handed two shopping lists/i.test(d));
+ok('J27 ★ COORDINATOR: what can proceed in parallel TODAY is listed',
+   /can proceed in parallel today/i.test(d));
+ok('J28 ★★ the demo is explicitly NOT displaced by any of this',
+   /NONE OF THIS IS DEMO-BLOCKING/i.test(d));
+ok('J29 ★ a short list exists so the file is actionable, not just long',
+   /IF ONLY THREE THINGS EVER GET BUILT/i.test(d));
+ok('J30 ★★ and those three stay Paolo\'s call, not LAB\'s',
+   /All three are \*\*\[PENDING, Paolo's call\]\*\*|All three are \[PENDING, Paolo's call\]/i.test(d));
+ok('J31 the dispatch declares its own sourcing limit and says he beats it',
+   /blocked by this environment.s egress proxy as organization policy/i.test(d) &&
+   /One evening of him playing it beats this whole file/i.test(d));
+ok('J32 ★ LAB writes no code here either', /LAB WRITES NO CODE\. Nothing here is canon/i.test(d));
+
 report();
 
 function report() {
