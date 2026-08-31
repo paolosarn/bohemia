@@ -99,23 +99,29 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
   /* ---- C. RF4-20, THE BIG DIVERGENCE ------------------------------------ */
   ok(`C1 ★ encounter size MEASURED: min ${m.encMin} max ${m.encMax} mean ${m.encMean}, `
      + `inside RF4's ${RF4_LO}-${RF4_HI}: ${m.inBand}/${m.arenas}`, true);
-  ok(`C2 the spec states the SAME measured numbers it was written from`,
-     new RegExp('MEASURED: ' + m.encMean + '\\.0 per fight\\. min ' + m.encMin
-                + ', max ' + m.encMax, 'i').test(flat)
-     || new RegExp('min ' + m.encMin + ', max ' + m.encMax + ', across ' + m.arenas + ' arenas', 'i').test(flat));
-  ok(`C3 and the SAME in-band count (${m.inBand} of ${m.arenas})`,
+  /* ★★★ C2..C7 WERE REWRITTEN 8/18 BECAUSE COMBAT CLOSED THE FINDING.
+     This gate was built to go RED when the encounter curve landed, so the spec
+     would be rewritten rather than quietly becoming false. It did exactly that:
+     encounter size went 8/8/8 with 0 of 40 in RF4's band to min 3 / max 8 /
+     mean 5 with 32 of 40 in band, in the same day. The checks now assert the NEW
+     reality and that the OLD one is preserved as history, because a finding that
+     gets fixed must not be able to vanish from the record as if it never was. */
+  ok(`C2 the spec carries the CURRENT measured numbers (min ${m.encMin} max ${m.encMax} mean ${m.encMean})`,
+     new RegExp('min ' + m.encMin + ', max ' + m.encMax + ', mean ' + m.encMean, 'i').test(flat));
+  ok(`C3 and the CURRENT in-band count (${m.inBand} of ${m.arenas})`,
      new RegExp('INSIDE RF4.S ' + RF4_LO + '-' + RF4_HI + ' BAND: ' + m.inBand + ' OF ' + m.arenas, 'i').test(flat));
-  const diverges = m.inBand < m.arenas;
-  ok('C4 while the fight diverges from RF4, the spec DECLARES it rather than smoothing it',
-     !diverges || (/every fight in Bohemia is boss-fight sizing/i.test(flat) &&
-                   /the ceiling shipped as the constant/i.test(flat)));
-  ok('C5 and it PROVES eight was never a ruling before anyone is blamed for it',
-     !diverges || (/STRESS CASE/i.test(flat) && /One enemy or eight/i.test(flat) &&
-                   /explicit design axis/i.test(flat)));
+  const mostlyInBand = m.inBand >= Math.floor(m.arenas * 0.6);
+  ok(`C4 ★★ the fight is now MOSTLY inside RF4's band (${m.inBand}/${m.arenas}) and the spec says COMBAT built the curve`,
+     !mostlyInBand || /COMBAT BUILT THE CURVE/i.test(flat));
+  ok('C5 ★ the ORIGINAL finding is preserved as history, not deleted',
+     /encounter size \*\*8\.0 every fight\*\*|8\.0 every fight/i.test(flat) &&
+     /was 0 of 40/i.test(flat));
   ok('C6 A GATE MUST NEVER OUTRANK A RULING: this gate does not demand 3-6',
      /does not demand RF4.s NUMBERS/i.test(fs.readFileSync(__filename, 'utf8')));
-  ok('C7 the spec hands the encounter CURVE to COMBAT rather than picking it',
+  ok('C7 the encounter CURVE was COMBAT\'s call, and the spec still says so',
      /WHAT COMBAT DECIDES HERE, AND LAB MUST NOT/i.test(flat) && /the curve is design/i.test(flat));
+  ok(`C8 ★ 8 is now a CEILING not a constant (min ${m.encMin} < max ${m.encMax})`,
+     m.encMin < m.encMax && /8 is now the ceiling it was always meant to be/i.test(flat));
 
   /* ---- D. THE BUILT ITEMS ARE ACTUALLY BUILT ---------------------------- */
   /* A status of BUILT has to correspond to something in the running fight, or
@@ -131,14 +137,25 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
      /a stat that exists and never does anything/i.test(flat));
 
   /* ---- E. THE GAPS STAY GAPS, AND ARE NOT OVERSTATED -------------------- */
-  ok('E1 RF4-07 POWER really is absent', m.powerStat.length === 0 && /\*\*ABSENT\.\*\*/i.test(flat));
+  /* ★ E1 FLIPPED 8/18: power was ABSENT when the spec was written and COMBAT
+     built it the same day. The check now proves it is really there, by reading
+     combat state rather than trusting the word BUILT in a cell. */
+  ok(`E1 ★ RF4-07 POWER now genuinely exists in combat state (${m.powerStat.join(', ') || 'NONE'})`,
+     m.powerStat.length > 0 && /BUILT 8\/18 BY COMBAT/i.test(flat));
   ok('E2 RF4-11 there really is no ability system', m.abilityFns.length === 0);
   ok(`E3 but RF4-16 credits the verbs that DO exist, so the gap is not overstated (${m.verbs.length})`,
      m.verbs.length >= 6 && /The gap is a \*system\*, not a blank slate/i.test(flat));
   ok(`E4 RF4-26 credits the roster depth: ${m.types} types, ${m.hpTiers} hp tiers, ${m.elite} elite`,
      m.types >= 5 && m.hpTiers >= 8 && m.elite > 0 && /better than expected/i.test(flat));
-  ok('E5 RF4-29 is marked NOT MEASURED instead of guessed',
-     /\*\*NOT MEASURED\.\*\*/i.test(flat) && /Flagged, not guessed/i.test(flat));
+  /* ★ E5 FLIPPED 8/18: RF4-29 was the one item LAB marked NOT MEASURED rather
+     than guessing at. COMBAT measured it and wrote real numbers in -- 0 fights
+     ended on the opener, none over inside two turns, a perfect player clearing
+     7 of 10 in a median of 20 turns. The check now requires the ANSWER, and
+     requires that it is reported with numbers rather than an assurance. */
+  ok('E5 ★ RF4-29 is now ANSWERED with measured numbers, not guessed',
+     /0 fights ended on the opener/i.test(flat) && /median of 20 turns/i.test(flat));
+  ok('E5b ★ and the 6/30 one-turn-clear inversion is reported as NOT in the game',
+     /THE 6\/30 INVERSION IS NOT IN THE GAME/i.test(flat));
 
   /* ---- F. RESEARCH HONESTY: THE BLOCKED SOURCES ------------------------- */
   /* COMBAT is about to build off this file. The three items at the heart of the
@@ -251,8 +268,11 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
   ok('F13 ★★ RF4-24 the encounter rule is quoted, so 8 is measured against HIS words not mine',
      /typical encounter should have \*\*3-4 enemies\*\*|typical encounter should have 3-4 enemies/i.test(flat) &&
      /reserved for boss fights or very challenging vaults/i.test(flat));
-  ok('F14 ★★ and the consequence is stated plainly: every Bohemia fight is boss sizing',
-     /every fight in Bohemia is boss-fight sizing/i.test(flat));
+  /* ★ F14 FLIPPED 8/18: the consequence was true in the morning and is not true
+     now. The spec must say CLOSED rather than silently dropping the claim. */
+  ok('F14 ★★ the boss-sizing consequence is marked CLOSED, not silently dropped',
+     /\*\*CLOSED\.\*\* It was true this morning/i.test(flat) &&
+     /it is not true now/i.test(flat));
   ok('F15 ★★★ RF4-25 names the REAL gap: synergy compounds, count only adds',
      /exponential growth in complexity/i.test(flat) &&
      /same enemy added to 5 very different groups/i.test(flat) &&
@@ -340,6 +360,10 @@ const ok = (n, c) => { if (c) { pass++; console.log('  PASS ' + n); } else { fai
      /DAMAGE STILL OPEN/i.test(flat) && /STILL OPEN/i.test(flat));
 
   /* ---- G. THE LANE SEAM ------------------------------------------------- */
+  ok('G0 ★ the column-rule clarification is recorded (a MEASUREMENT may come from either lane)',
+     /a MEASUREMENT is welcome from either lane/i.test(flat) &&
+     /LAB does\s*\n?\s*not move a STATUS to BUILT/i.test(flat.replace(/\s+/g,' ')) ||
+     /What stays one-way is \*interpretation\*/i.test(flat));
   ok('G1 the spec states LAB WROTE NO COMBAT CODE', /LAB WROTE NO COMBAT CODE/i.test(flat));
   ok('G2 and cites the law that assigns the fight to COMBAT',
      /COMBAT owns this/i.test(flat) && fs.existsSync(path.join(ROOT, MOVES)));

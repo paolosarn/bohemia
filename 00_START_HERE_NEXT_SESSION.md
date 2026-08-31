@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CHARACTER (character-0lurbs): 8/30 (i) LATEST -- *** THE FACE MAKER SHIPPED ON 8/28
 AND A PLAYER COULD NOT REACH IT. IT IS IN THE GAME NOW, AT THE MATCH-CUT, AND THE
 DEMO IS WHERE I PROVED IT. ***
@@ -92,6 +93,116 @@ Record: records/BOHEMIA_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.txt
 Tab: RUN (the opening) / CHARACTER (same controls on the bench) / DIRECT (move it)
 
 ================================================================================
+=======
+FACTIONS (factions-ovkjpf): 8/30 LATEST -- *** THE MAN WHO GAVE YOU THE JOB NEVER
+FOUND OUT HOW YOU DID IT, AND IN THE DEMO NOBODY EVER COULD. *** Nothing to judge.
+
+TAB: **RUN** (the demo's only screen). Play the day, resolve the job, then open the
+OUTFIT board or read the card of anybody who runs with that outfit.
+
+THE MEASUREMENT THAT MADE THE TURN, taken on slices/BOHEMIA_DEMO.html -- THE FILE A
+STRANGER ACTUALLY GETS, not the workshop:
+    34 people within six cells of the spawn ....... 0 affiliated
+    61 people loaded in the whole valley .......... 0 affiliated
+    30 cells to the nearest faction base
+So a demo player could do the Trades' job perfectly and the Trades would never hear
+of it. Everything this lane shipped on 8/27 and 8/28 -- the outfit's view, the quest
+deeds, the card, the OUTFIT board -- was UNREACHABLE IN THE DEMO. Not a faction being
+unimpressed: a system nobody can reach. MEASURING THE DEMO RATHER THAN THE BENCH IS
+THE WHOLE REASON THIS WAS FOUND, and the UI lane's 8/30 turn is the precedent: twelve
+of thirteen controls were under the thumb minimum ON THE DEMO while the bench looked
+fine.
+
+AND HIS FILES ALREADY SAID WHO IS IN THE SCENE:
+    @ROLE lineman  REQ  faction=TRADES   block=browned
+    @ROLE fixer    OPT  faction=NETWORK  met_before=false
+53 of the 66 @ROLE lines in quests/bq carry an authored faction. REQ is not
+decoration -- bohemia_bq.js FAILS THE BUILD on an unfilled REQ role -- and block=
+binds the lineman to the very block the job happens on. A required character bound to
+the place is IN THE SCENE. And the casting layer already existed and already worked:
+measured 380 people around the Trades' ground, 109 of them Trades, both roles filled
+with a real Trades lineman and a real Network fixer. NOTHING HAD EVER MADE THEM
+WITNESSES.
+
+WHAT SHIPPED, proved on the demo:
+    before   members 0, whoSaw 0, rung null
+    publish  witnesses 1
+    after    value 0.8, rung NEUTRAL, members 1, whoSaw 1
+    why      watched it: Handed the tap to the trades. Daylight patch, every name
+             on the work order.
+That last line is HIS OWN @LOG SENTENCE, on a card, in the demo.
+
+WHY IT IS NOT THE KARMA IT REPLACES: 8/28's rule is that a faction learns nothing it
+did not witness, and it stands. This does not widen it to the valley; it adds exactly
+the people his own file marks REQUIRED. Optional roles are NOT added -- you may never
+have met them, and a faction learning through somebody the player never encountered is
+the omniscient karma this whole thing replaces.
+
+WHAT I DID NOT DO: engine/bohemia_agents.js states its own honest limit, that the
+job-site widening does NOT rescue a block 20 cells from everything, that this is a
+fact about the map, and that papering over it there would be fitting the world to a
+screenshot. That is right. NO BASE MOVED, NO MAP TOUCHED. AFFILIATED_RATE (0.30) and
+REACH_CELLS (12) remain [PENDING Paolo].
+
+TWO BUGS, BOTH MINE, BOTH FOUND BY PROBING THE REAL SURFACE:
+  A. ctDayCast returns { q, day, cast:{role -> person} } AND I READ IT ONE LEVEL TOO
+     SHALLOW. cast[role] found nobody and published witnesses:0 -- the same answer as
+     "there is no cast", which is precisely the ambiguity this feature exists to end.
+     A direct castAddresses call had been filling both roles the whole time.
+  B. I STAMPED THE QUEST'S SPELLING ON THE MIND. The cast entry carries the role's
+     REQUIRED faction (TRADES); every mind is stamped with ctFactionOf's answer (the
+     canon id Trades); standingOf compares those STRICTLY. So the deed landed,
+     witnesses:1, and whoSaw stayed 0 -- the faction filtered its own new witness
+     straight back out. Fixed with ctCanonFaction, and THE FIX BELONGS AT THE STAMP
+     rather than in standingOf: both sides of that compare are city ids by
+     construction, and loosening it would only hide the next mis-stamp.
+     ctCanonFaction answers null for a name no outfit has, so a typo in a quest stays
+     visible instead of quietly becoming somebody.
+
+GATES: FACTION BETWEEN 149/0 (was 137) - THE WHOLE DEMO 23/0 - DEMO BUILD 25/0 -
+ALPHA LOADS 20/0 - FACTION ARC 91/0 - STANDING 35/0 - CITY BARKS 13/0.
+Gate S runs ON THE DEMO FILE and does what the splash does (taps the real RUN tab),
+because the demo has no tab bar. S4 ASSERTS THE PREMISE RATHER THAN REMEMBERING IT:
+the demo player can reach zero affiliated people and the nearest base is 30 cells; if
+that ever stops being true the reason for this feature goes away and a RED GATE should
+say so rather than a record nobody re-reads.
+THREE MUTATIONS, ALL BITE: stop making the required cast a witness and S6/S7/S8 die;
+stamp the quest's spelling and S7/S8 die; drag optional roles in and S11 dies alone.
+dayloop_gate is 57/2 and THAT PREDATES THIS -- verified against origin/main's own
+city, identical 57/2.
+
+RECORD: records/BOHEMIA_THE_MAN_WHO_GAVE_YOU_THE_JOB_8_30_26.md
+
+FOUND AND NOT FIXED, NAMED SO IT IS NOT INVISIBLE:
+  *** THE DEMO DRAWS ONE PERSON AT A TIME. *** maxDrewAtOnce 1 over a walk, with 34
+  people within six cells. The draw loop has NO CAP, so this is the city reading as
+  empty rather than a faction bug -- playtest-dispatch item 5, "the city is dead and
+  DEAD IS NOT THE DEFAULT", which belongs to RUN/WORLD. IT ALSO CAPS EVERY WITNESS SET
+  IN THE GAME AT ONE PERSON, so the whole loudness model (reach, hops, RECKLESS BEATS
+  QUIET) cannot express itself. Worth somebody taking seriously.
+  BohemiaStanding.inherit / legendOf -- the dynasty handoff, still dead, still needs a
+  story moment the demo does not have, and the top of CLAUDE.md carries an open
+  [PENDING PAOLO] on whether the dynasty lives at all. Not for a session to resolve in
+  passing.
+
+ALSO FOUND ON THE MERGED TREE AND NOT MINE TO FIX: the city carries STALE inlined
+copies of engine/bohemia_watertreat.js and engine/bohemia_speedway.js (and railyard
+on origin/main itself). ENGINE SYNC LAW: one canonical body per module, and a stale
+inlined snapshot is the bug that meant nobody in Las Vegas had a faction for thirteen
+days in August with every gate green. `python3 tools/bohemia_city_module_resync.py`
+fixes it in one run. Left alone because those are WORLD's modules and a resync mid-
+flight would move a system this session does not own -- ONE SYSTEM, ONE SESSION.
+
+WHAT IS PENDING HIM: nothing new.
+
+CONTAINER WARNING: this container has REWOUND THE WHOLE REPO to an older snapshot
+twice in one session, remote refs included. Recovery is `git fetch origin main` (slow)
+then `git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN. Background
+processes barely advance between tool calls -- run gates in the FOREGROUND, and note a
+single Bash call is capped at 10 minutes, so one mutation run per call.
+
+--------------------------------------------------------------------------------
+>>>>>>> origin/main
 
 COMBAT (combat-nfnki9): 8/30 (h) LATEST -- *** CROSSING THE ROOM IS THE BEST PLAY
 IN THE GAME AND THE WORST PLAY IN THE GAME, AND THE ONLY DIFFERENCE IS ONE

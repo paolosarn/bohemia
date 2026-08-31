@@ -38408,11 +38408,69 @@ const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:
        having been there. That is the exact ambiguity this whole bridge exists to
        remove, reintroduced one argument to the left. */
     var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
-    var pos = {}, minds = [];
+    var pos = {}, minds = [], seenIds = {};
     for (var i = 0; i < drew.length; i++) {
       var d = drew[i]; if (!d || !d.p || !d.at) continue;
       pos[d.p.id] = { x: d.at[0], y: d.at[1] };
-      minds.push(ctMind(d.p.id));
+      minds.push(ctMind(d.p.id)); seenIds[d.p.id] = 1;
+    }
+    /* __CITY_JOBWITNESS__ -- AND THE MAN WHO GAVE YOU THE JOB FINDS OUT HOW YOU
+       DID IT. HIS OWN FILE SAYS SO, and this reads it rather than deciding it:
+
+           @ROLE lineman  REQ  faction=TRADES  block=browned
+
+       REQ means the quest cannot be cast without him -- bohemia_bq.js fails the
+       BUILD on an unfilled REQ role -- and `block=browned` binds him to the very
+       block the job happens on. A required character bound to the place is IN
+       THE SCENE. Optional roles are not added: you may never have met them.
+
+       *** WHY THIS IS NOT THE KARMA IT REPLACES. *** The whole point of 8/28 was
+       that a faction learns nothing it did not witness. This does not widen that
+       to the valley -- it adds exactly the people the job WAS FOR, whom his own
+       file marks required. Measured on the demo before it existed: 0 of 61
+       loaded people affiliated, nearest base 30 cells, so you could do the
+       Trades' job perfectly and the Trades would never hear of it. That is not
+       a faction being unimpressed, it is a system nobody can reach.
+
+       ctDayCast already casts these roles onto REAL people -- 380 people around
+       the Trades' ground, 109 of them Trades, both roles filled -- and nothing
+       had ever made them witnesses. The fid is stamped the same way
+       ctWitnessPass stamps it, because standingOf asks factionOfOwner(id) and
+       an unstamped mind answers null and is filtered straight back out. */
+    try {
+      /* ctDayCast returns { q, day, cast:{role -> person} } -- THE ROLES ARE
+         NESTED. The first cut read cast[role] one level too shallow, found
+         nobody, and published witnesses:0, which is the same answer as "the
+         cast does not exist" and the same answer this whole feature exists to
+         stop being ambiguous. A probe on the real demo caught it. */
+      var dc = (typeof ctDayCast === 'function') ? ctDayCast() : null;
+      var cast = dc && dc.cast;
+      var qroles = (typeof DQ !== 'undefined' && DQ && DQ.Q && DQ.Q.roles) ? DQ.Q.roles : [];
+      for (var r = 0; r < qroles.length; r++) {
+        var rl = qroles[r]; if (!rl || !rl.req) continue;      /* REQ only */
+        var c = cast && cast[rl.name]; if (!c || !c.key) continue;
+        var pid = String(c.key).replace(/^P:city:/, '');
+        if (!pid || seenIds[pid]) continue;                    /* already an eyewitness */
+        var m = ctMind(pid); if (!m) continue;
+        /* STAMP THE CITY'S OWN SPELLING, NEVER THE QUEST'S. The cast entry
+           carries the ROLE's required faction, which is his `faction=TRADES`.
+           Every mind in this city is stamped with ctFactionOf's answer, which is
+           the canon id `Trades`, and standingOf compares those STRICTLY -- so a
+           mind stamped TRADES is filtered straight back out of the Trades'
+           standing and the view does not move. Measured exactly that: the deed
+           landed, witnesses:1, and whoSaw stayed 0.
+           Same case gap as publish(), one layer up, and the fix belongs HERE
+           rather than in standingOf: both sides of that compare are city ids by
+           construction, and loosening it would hide the next mis-stamp. */
+        var cf = ctCanonFaction(c.faction);
+        if (cf) m.fid = cf;
+        pos[pid] = { x: hx, y: hy };                           /* in the scene */
+        minds.push(m); seenIds[pid] = 1;
+      }
+    } catch(_e){
+      if (!window.__JOBWITNESS_WARNED){ window.__JOBWITNESS_WARNED = 1;
+        console.error('BOHEMIA: the quest cast could not be made witnesses, so '
+          + 'the outfit that hired you learns nothing. ' + _e.message); }
     }
     if (!minds.length) return null;
     var res = BohemiaDeeds.publishStage(
@@ -46200,6 +46258,19 @@ function ctPeopleAt(bx, by){
    at all -- 23 people within 3 blocks of the waking block and not one of them
    runs with anybody. A role with no outfit is looked for where you are, because
    a neighbour is a neighbour. */
+/* THE CITY'S OWN NAME FOR AN OUTFIT. His quests write TRADES, the canon id in
+   BOHEMIA_faction_graph.json is Trades, and every strict compare in the standing
+   organ is between city ids. This is the one place that translation happens, and
+   it answers null for a name no outfit has rather than inventing one -- so a typo
+   in a quest stays visible instead of quietly becoming somebody. */
+function ctCanonFaction(name){
+  if (!name) return null;
+  var want = String(name).toUpperCase().replace(/[\s_]/g,'');
+  var bases = null; try { bases = ctBases(); } catch(_e){ return null; }
+  for (var k in (bases || {}))
+    if (String(k).toUpperCase().replace(/[\s_]/g,'') === want) return k;
+  return null;
+}
 function ctOriginFor(role){
   try {
     var want = BohemiaPeople.roleFaction(role);
