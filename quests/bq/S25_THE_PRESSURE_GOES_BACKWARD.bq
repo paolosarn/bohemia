@@ -99,9 +99,9 @@
 # what makes it land.
 # =====================================================================
 @TALK sick  speaker=nurse  entry=stage>=10,stage<20
-  @SAY Nine houses. Same thing in all of them, and it isn't food, because two of those houses haven't shared a meal with anybody in a year. #wary
-  @SAY It's the water. I know it's the water. What I can't tell you is why it's THOSE nine and not the ones between them.
-  @SAY Here's the list. Look at where they are before you look at anything else.
+  @SAY Nine houses, same thing in all of them, and it isn't food, because two of those houses haven't shared a meal with anybody in a year. #wary
+  @SAY It's the water, I know it's the water. What I can't tell you is why it's THOSE nine and not the ones between them. You see it?
+  @SAY Here's the list. Look at where they are before you look at anything else, please.
   @OPT "Show me on the street."          [gate: none]  -> map
   @OPT "Which way does the ground fall?" [gate: none]  -> fall
   @OPT "Anybody NOT sick who should be?" [gate: none]  -> map
@@ -109,23 +109,23 @@
 @END
 
 @TALK map  speaker=nurse
-  @SAY Top of the rise, mostly. Two on the flat. Nothing at all in the eight houses at the bottom end, and the bottom end is where I'd have put everything I own. #wary
+  @SAY Top of the rise, mostly, a couple on the flat. Nothing at all down at the bottom end, and the bottom end is where I'd have put everything I own. #wary
   @OPT "The sick ones are uphill of the well ones." [gate: none]  -> fall
   @OPT "Then it's not coming down the street."     [gate: none]  -> fall
   @OPT "Must be the tank at the top."               [gate: none]  TRAP -> tank
 @END
 
 @TALK fall  speaker=nurse
-  @SAY Falls south, hard. Always has. Everything in this valley runs south eventually. #wary
-  @SAY Which is why nobody's got anywhere in eleven days. Every one of us has been walking downhill looking for it.
+  @SAY Falls south, hard, always has. Everything in this valley runs south eventually. #wary
+  @SAY Which is why we're all still standing here after eleven days. Every one of us walking downhill, looking for it.
   @OPT "Then I want the fitter. Now."   [gate: none]  -> fitter  @DO set_stage 20
   @OPT (turn and walk uphill)           [gate: none]  SILENCE -> fitter  @DO set_stage 20
 @END
 
 # THE TRAP: the intuitive answer. Chasing the tank costs the week.
 @TALK tank  speaker=nurse
-  @SAY We drained it. Scrubbed it. Three of us, two days, and I haven't slept since. #wary
-  @SAY Two more houses went bad while we were in there. Whatever this is, it didn't care that we were cleaning the tank.
+  @SAY We drained it, scrubbed it, three of us, two days, and I haven't slept since. #wary
+  @SAY Two more houses went bad while we were in there. Whatever this is, it carried on right through us cleaning the tank.
   @OPT "Then it's not the tank."       [gate: none]  -> fall
   @OPT "Do it again properly."          [gate: none]  -> END  @DO set_stage 33
 @END
@@ -136,9 +136,9 @@
 # the same as knowing whose hose.
 # =====================================================================
 @TALK fitter  speaker=fitter  entry=stage>=20
-  @SAY A main keeps muck out by PUSHING. That's all it does. There's no valve in the world doing that job, it's just pressure, all day, every day. #wary
+  @SAY A main keeps muck out by PUSHING, that's all it does. There's no valve in the world doing that job, it's just pressure, all day, every day. #wary
   @SAY Take the pressure off and every place somebody's joined something to that pipe stops being an outlet and becomes an inlet. It sucks. Backward. Up the hill, if that's where the pipe goes.
-  @SAY So stop asking what's downhill of the sick houses. Ask what's CONNECTED to them, and then ask what's been sitting in a barrel.
+  @SAY So stop asking what's downhill of the sick houses, kid. Ask what's CONNECTED to them, and then ask what's been sitting in a barrel.
   @OPT "What dropped the pressure?"     [gate: none]  -> pressure  @DO learn backsiphonage
   @OPT "Who's added a pump lately?"   [gate: none]  -> pump  @DO learn backsiphonage
   @OPT "Boil notice. Whole block. Now." [gate: none]  -> boil
@@ -148,8 +148,8 @@
 # THE IMPLICATION, said flatly and early rather than saved as a twist.
 @TALK pressure  speaker=fitter
   @SAY You did. #wary
-  @SAY Not you personally, don't make a face. This block's been drawing harder than that main was ever asked to carry, since the day we all started keeping our own tanks. Every one of us fills at once at six and the line goes soft for an hour.
-  @SAY Nobody did this on purpose. It's a street full of people being sensible one at a time.
+  @SAY Not you personally, don't make a face. This block's been drawing harder than that main was ever asked to carry, since the day we all started keeping our own tanks. We all fill at once in the evening and the line goes soft for an hour.
+  @SAY Nobody did this on purpose, it's a street full of people being sensible one at a time.
   @OPT "Then find me the connection."   [gate: none]  -> pump
   @OPT "We've been poisoning ourselves at six o'clock." [gate: none]  -> pump
 @END
@@ -157,7 +157,7 @@
 # THE LATERAL FACT. It arrives as somebody else's unrelated complaint.
 @TALK pump  speaker=pumper
   @SAY My pump? My pump's been running rough since about the time the water went funny, since you ask, which is the least of my problems. #wary
-  @SAY I put it on the bathroom line to get some head into the upstairs. And I run the garden hose off the same tee into the barrel out back so it's not just sitting there.
+  @SAY I put it on the bathroom line to get some head into the upstairs, and I run the garden hose off the same tee into the barrel out back so it's doing something.
   @SAY What. What's that face.
   @OPT "Is the hose IN the barrel? Under the water?"  [gate: knows:backsiphonage]  -> hose
   @OPT "Show me the tee."                              [gate: none]  -> hose

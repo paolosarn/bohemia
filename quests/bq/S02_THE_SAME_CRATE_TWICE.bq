@@ -79,8 +79,8 @@
 @OBJ 20  "Decide who gets the batteries"      target=blue_boss
 
 @TALK hire  speaker=red_boss  entry=stage>=10
-  @SAY Batteries. Real ones, charged, not that swollen junk. My block's been dark four nights. #tired
-  @SAY Get it to my door by dark and you eat for a month. Don't open it. Don't weigh it.
+  @SAY Batteries. Real ones, charged, not that swollen junk. My block's been dark since the weekend. #tired
+  @SAY Get it to my door by dark and you eat for a month. Don't open it, don't weigh it. We clear?
   @OPT "It's already moving."          [gate: none]  -> road  @DO learn carrying_batteries
   @OPT "What's really in it?"          [gate: none]  -> what
   @OPT (pick it up and go)              [gate: none]  SILENCE -> road  @DO learn carrying_batteries
@@ -88,16 +88,16 @@
 @END
 
 @TALK what  speaker=red_boss
-  @SAY Light. That's what's in it. My people sit in the dark and listen to each other breathe.
-  @SAY So stop asking and start walking.
+  @SAY Light, that's what's in it. My people sit in the dark and listen to each other breathe.
+  @SAY So stop asking and start walking, hermano.
   @OPT "Walking."                       [gate: none]  -> road  @DO learn carrying_batteries
 @END
 
 # THE INTERCEPT. The other buyer. Reputation is about to start traveling.
 @TALK road  speaker=blue_boss  entry=stage>=10 and knows:carrying_batteries
-  @SAY Heavy crate. Charged cells hum a little. Hear it? From here. #wary
-  @SAY Those are going to a block that lets its own elders freeze so it looks tough. Bring them to mine.
-  @SAY Two cases of water and a full tank, tonight, in your hands. And nobody has to know it was you. Who's going to tell them? Me?
+  @SAY Heavy crate. Charged cells hum a little, you hear it? From here. #wary
+  @SAY Those are going to a block that lets its own elders freeze so it looks tough. Bring them to mine instead.
+  @SAY Water and a full tank, tonight, in your hands, and it stays between us. Who's going to tell them, boss? Me?
   @OPT "A deal is a deal. This goes to the reds."   [gate: none]  -> deliver_red   @DO set_flag chose
   @OPT "Fine. Your block gets the light."           [gate: none]  TRAP -> deliver_blue  @DO set_flag chose
   @OPT "Neither. My block has elders too."          [gate: none]  -> keep_it       @DO set_flag chose
@@ -106,26 +106,26 @@
 @END
 
 @TALK deliver_red  speaker=red_boss
-  @SAY On time. Still closed. And I know what they put in front of you on that road. #tired
-  @SAY Word travels. By Thursday the blues'll know you're somebody who finishes what he picks up.
+  @SAY On time, still closed, and I know what they put in front of you on that road. #tired
+  @SAY Word travels, and by Thursday the blues'll know you're somebody who finishes what he picks up.
   @OPT "Just a delivery."               [gate: none]  -> END  @DO set_stage 30
 @END
 
 @TALK deliver_blue  speaker=blue_boss
-  @SAY Smart. Quiet's better. Water's by the door, take it and go home the long way. #wary
-  @SAY But listen. The ones you crossed tonight are going to spend a year learning your face.
+  @SAY Smart. Quiet's better, and the water's by the door, so take it and go home the long way. #wary
+  @SAY But listen, friend. The ones you crossed tonight are going to spend a year learning your face.
   @OPT "Let them learn it."   [gate: none]  -> END  @DO set_stage 31
   @OPT (take the water, say nothing)    [gate: none]  SILENCE -> END  @DO set_stage 31
 @END
 
 @TALK keep_it  speaker=blue_boss
-  @SAY You're keeping it. For your own block. And you're standing here telling us both, to our faces. #dread
-  @SAY That's either the bravest thing I've seen this year or the last dumb thing you do. Two enemies in one night. Huh.
+  @SAY You're keeping it, for your own block, and you're standing here telling us both to our faces. #dread
+  @SAY That's either the bravest thing I've seen this year or the last dumb thing you do. Two enemies in one night, huh?
   @OPT "My block. My light."            [gate: none]  -> END  @DO set_stage 32
 @END
 
 @TALK walk_off  speaker=blue_boss
-  @SAY You're going to set it down and walk. I can see it in your hands. #wary
+  @SAY You're going to set it down and walk, aren't you? I can see it in your hands. #wary
   @OPT "Not my fight."                  [gate: none]  -> END  @DO set_stage 33
   @OPT "No. I'm choosing."             [gate: none]  -> road
 @END

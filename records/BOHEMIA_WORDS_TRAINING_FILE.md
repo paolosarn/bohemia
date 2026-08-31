@@ -3003,3 +3003,191 @@ honest goal this lane has ever had.
 - Method is standard stylometry: length-controlled sampling, function-word and
   punctuation features, cross-validated linear model, with a same-corpus null and
   a professional-versus-professional ceiling. No new source, one new question.
+
+# CORRECTION AND EXECUTION -- 8/28/26
+# The freeze lifted ("then execute"). Two things go in this section: a number I
+# told him that was wrong, and what actually shipped.
+
+## 128. THE VOCATIVE NUMBER I GAVE HIM WAS AN ARTIFACT. TWELFTH BROKEN RULER.
+Last round I wrote, and told him out loud, that **45.7% of real conversational
+turns address the other person directly** and we do 10.3%. Both numbers came from
+this regex:
+
+    ^[^,]{0,20},\s|,\s(sir|man|kid|boss|friend|brother|hermano|mija|mijo)\b
+
+Read the left half. It matches **any line that opens with a short phrase and a
+comma.** "Nine at night, every night" is not a vocative. The moment I started
+adding commas to fix rule 7, our "vocative rate" leapt from 12.5% to 47.7% in one
+pass without a single name being added, which is how I caught it: **a dial moved
+four times further than the edit that moved it.**
+
+So I built a strict one, address nouns only, and it read **0.4% on real speech**,
+which is just as wrong in the other direction: Switchboard is strangers on a
+telephone who do not know each other's names, and film addresses people by NAME
+constantly, which an address-noun list never sees.
+
+The third one counts an address term OR a proper name in address position, and it
+is the one I trust, **for one reason only: it agrees across three corpora that
+have nothing to do with each other.**
+
+    vocative rate    FILM 22.8%    KOTOR 23.9%    REAL SPEECH 31.4%
+
+Two rulers, two wrong answers, in the same hour. **THE TEST THAT CAUGHT IT WAS
+NOT INSPECTION, IT WAS DISAGREEMENT:** a measure that reads 45.7 / 0.4 / 22.8 on
+the same corpus depending on how you spell it is not measuring anything, and the
+only defence I have found that works is running the ruler on three independent
+bodies of text and refusing to believe it until they line up. That test is now
+IN the gate, so the day somebody loosens that regex the gate goes red on the
+spread and not on our writing.
+
+WHAT SURVIVES: our street barks address somebody in **3.7%** of lines against
+everybody else's 22 to 31. That hole is real and it was real under all three
+rulers. The 45.7% headline was not.
+
+## 129. WHAT SHIPPED
+70 hand swaps across the demo's five scenes, structure byte-identical (the gate
+diffs every non-@SAY byte against the pre-pass commit).
+
+    DEMO'S FIVE SCENES        before    after     FILM    KOTOR    REAL SPEECH
+    sentences per line          2.76     2.27     1.76     2.44      1.43
+    commas per 100 words        3.93     8.04     5.34     4.21     16.18
+    a question                  6.8%    19.3%    31.1%    21.5%      7.7%
+    somebody is addressed      12.5%    27.3%    22.8%    23.9%     31.4%
+    rhythm spread               0.75    0.763     0.83     0.67      1.17
+    a denial                   51.1%    47.7%    26.5%    42.4%     20.9%
+    a quoted figure            28.4%    22.7%     7.0%     8.8%     10.0%
+
+Five of seven are in the band the two professional corpora define. Two are not,
+and I am not going to dress that up: **denials and numbers barely moved.** They
+are ratcheted in the gate so they cannot climb back while they get fixed.
+
+AND THE PROOF IS A HELD-OUT JUDGE, not the shapes. I trained the detector on our
+NON-demo lines against 617 films, so it has never seen a demo line, then showed it
+the same 88 lines before and after:
+
+    flagged as unmistakably ours    BEFORE 87.5%    AFTER 78.4%
+    the floor, for scale            FILM 25.9%      KOTOR 16.9%
+
+Nine points of the sixty-one available. **About one seventh of the way**, from
+one pass over 88 lines, and I would rather write that sentence than round it up.
+
+## 130. AND MY OWN FIX BROKE A RULE THE GATE CAUGHT IN NINETY SECONDS
+Joining short sentences with commas is exactly what rule 7 asks for, and it
+**flattened the rhythm of THE COLD ROOM from above the floor to 0.57**, because
+every short sentence I joined was one of the short ones the spread was made of.
+Rule 7 and rule 4 pull against each other and I did not notice until the gate
+went red on a scene I had just "improved".
+
+The fix is not a compromise between them, it is doing both harder: nine long
+comma-joined clauses AND "Feel it." AND "Not a pad." in the same speech. Back to
+0.65 and the demo's overall spread is unchanged at 0.763.
+
+**A GATE THAT ONLY EVER AGREES WITH YOU IS NOT LOAD-BEARING.** This one disagreed
+with the author about the author's own new rule, in the same turn the rule was
+written, which is the first time any gate in this lane has done that.
+
+## 131. WHAT COMES AFTER, IN ORDER
+1. **THE STREET BARKS.** 546 lines, and they are what a player hears constantly
+   just walking around, so they are more of the demo than the five scenes are.
+   They address somebody in 3.7% of lines against everybody else's 22 to 31, and
+   they are the flattest rhythm in the build at 0.567.
+2. **THE OTHER 22 QUEST SCENES**, which have had the mechanical contraction pass
+   and no voice pass. 39 banned-phrase hits still standing, named in the gate.
+3. **DENIALS AND NUMBERS**, the two dials that barely moved.
+4. **THE ACKNOWLEDGEMENT LAYER, PROPERLY.** 40% of real speech is people showing
+   they heard you, and the only version of it we have is a question mark. That
+   needs a mechanism in the dialogue system, not more writing, and it is a
+   QUESTS-lane conversation before it is a WORDS one.
+
+## 132. AND I ALMOST DELETED EVERY OTHER LANE'S HANDOFF
+CLAUDE.md says the handoff file is rewritten by every session and that there is
+only ever ONE. I read that as "replace the file", wrote my 90 lines, and only
+caught it because `git diff --stat` said **75,748 deletions.**
+
+The file is not a page. It is an **append-only log with 1,103 lane blocks in it,
+newest on top**, and it holds the live state of CHARACTER, WORLD, COMBAT, CITY,
+FACTIONS, UI and the coordinator. My "rewrite" would have deleted every one of
+them and the gate suite would have gone green over it, because no gate counts
+blocks.
+
+Two things went wrong and only one of them is the law's fault:
+- **The instruction is ambiguous** and I picked the destructive reading.
+- **I did not look at the file I was about to overwrite.** It is 75,662 lines. I
+  read the first seventy, saw another lane's block, and replaced the whole thing
+  anyway, which means I knew it contained somebody else's work at the moment I
+  deleted it.
+
+WHAT SAVED IT WAS THE DIFF STAT, not a gate and not a review. **Read the number
+of deleted lines before every commit.** A diff that deletes seventy-five thousand
+lines is never the change you think you made.
+
+And while I was in there: two older WORDS blocks still said LATEST, so three
+blocks in my own lane claimed to be the current one. Demoted, and now exactly one
+does. NEWEST DATE WINS is not self-enforcing when the marker is typed by hand.
+
+## 133. THE DEMO WAS A BUILD BEHIND, AND MY OWN GATE WAS GREEN BECAUSE OF IT
+I changed the workshop's build stamp AFTER the last time I cut the demo. So the
+demo carried BUILD 8/28x and the workshop carried 8/28y, and `demo_build_gate`
+caught it: **a demo must be a cut of the CURRENT workshop.** Out of fourteen
+failures the suite surfaced, that was the one that was mine.
+
+**But the second-order failure is worse and it is the one worth keeping.**
+voice_gate holds five pinned strings, one per demo day, whose whole job is to
+prove the rewritten words reached the BUILT demo. Two of them were the 8/27
+pass's words: "Careful is all" and "It's on, it's wet". **This turn rewrote both
+of those exact lines, and both checks stayed green.**
+
+They stayed green because they were reading a demo file that still held
+yesterday's text. The moment I re-cut the demo they went red, correctly, and
+voice_gate dropped 110/0 to 108/2.
+
+**A PIN THAT SURVIVES A REWRITE OF THE LINE IT PINS IS NOT MEASURING THE BUILD,
+IT IS MEASURING A STALE FILE.** For one turn I had a check that asserted "the new
+words reached the demo" and was satisfied by the old words being there. That is
+the thirteenth broken ruler and the first one whose failure mode was
+**passing when it should have failed**, which is the only kind that is genuinely
+dangerous: every other broken ruler this month made me chase a number, and this
+one would have let a stale demo ship under a green gate.
+
+Repinned to five strings that exist only in this pass. Back to 110/0.
+
+TWO ORDERING RULES OUT OF IT:
+1. **CUT THE DEMO LAST.** Any workshop edit after the cut forks the two surfaces
+   silently, and exactly one gate looks.
+2. **A PIN MUST DIE WHEN ITS LINE DIES.** If a rewrite of the pinned sentence does
+   not turn the check red, the check is not attached to the thing it names.
+
+## 134. THE GAME WAS STILL SAYING THE OLD LINES. THIRD BAKE STEP, AND THE WORST MISS.
+`conversation_gate` failed on: *** AND EVERY ONE OF THEM IS IN THE .bq FILE, WORD
+FOR WORD *** and quoted back "Nine at night. Every night, nine," which is the line
+this turn REPLACED.
+
+The `.bq` file was correct. The words book was correct. The WORDS tab was correct.
+The alpha's quest snapshot was correct. **And the game was still speaking yesterday's
+dialogue**, because `slices/BOHEMIA_CITY_WORLD.html` inlines a `DEMO_BQ` blob holding
+the FULL TEXT of all five demo quest files, and that blob is what the RUN actually
+plays from. **All five were stale, not just day one.**
+
+So a `.bq` edit has THREE bake steps and I knew about two:
+1. `tools/bohemia_words_book.py` -> the words book and the WORDS tab
+2. `tools/bohemia_direct_tab_patch.py` -> `BOHEMIA_QUESTS` in the alpha (the DIRECT tab)
+3. **`DEMO_BQ` in `BOHEMIA_CITY_WORLD.html` -> what the player actually hears**
+and then the demo is cut from the alpha, LAST.
+
+I had verified my new words were "in the alpha and in the demo" with a grep and
+called that reaching the player. **The grep was true and the claim was false**: the
+string was present in the DIRECT tab's data, which is an authoring surface, while
+the surface that speaks reads a different blob in a different file. That is VERIFY
+ON THE REAL SURFACE exactly, and a grep is a side-door probe.
+
+**AND MY FIRST FIX MADE IT MUCH WORSE.** I ran `bohemia_city_dayloop_patch.py`,
+which does rebuild `DEMO_BQ` from disk, and conversation_gate went from 38/1 to
+**25/14**: zero spoken lines, zero choices, the module's own delimiters gone. Three
+separate tools write that same block, and running one alone clobbers the other two.
+Reverted, then did it surgically: parse the blob, replace only the five quest
+strings, assert every byte outside the blob is identical. 3,370,009 bytes to
+3,370,088, and nothing else moved. **39 passed, 0 failed.**
+
+THE RULE: when a generated block has more than one writer, do not regenerate it,
+EDIT IT. And the tell that I was about to break something was available before I
+broke it: three tools grep-matched `DEMO_BQ`, and I ran one of them anyway.

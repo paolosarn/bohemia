@@ -100,9 +100,9 @@
 # whole problem, she just does not have the word for it.
 # =====================================================================
 @TALK warm  speaker=keeper  entry=stage>=10,stage<20
-  @SAY It's on. That's what I keep telling people and that's what makes me sound stupid. It's on, it's wet, and the room is ninety-one. #wary
-  @SAY Eleven in there. Four of them aren't walking anywhere else, and there's nowhere else on this block with a working anything.
-  @SAY If you know coolers, say so. If you don't know coolers, say that too. I've had three men this month tell me they knew.
+  @SAY It's on. That's what I keep telling people, and that's what makes me sound stupid. On, wet, and hotter in there than out here. Feel it. #wary
+  @SAY Eleven in there. Four of them aren't walking anywhere else, and this is the only block on the street with a working anything.
+  @SAY If you know coolers, say so. If you don't, say that too. I've had men in here this month tell me they knew.
   @OPT "Let me look at it."                    [gate: none]  -> look
   @OPT "I don't know coolers."                [gate: none]  -> honest
   @OPT "I know coolers."                       [gate: none]  TRAP -> claim
@@ -116,8 +116,8 @@
 # the quest. A cooler with a dead pump is DRY. This one is wet.
 # =====================================================================
 @TALK look  speaker=keeper
-  @SAY Pump's turning, you can hear it. Float's fine. There's water coming down the sides, you can see the dark line on the frame. #wary
-  @SAY Air comes out. Comes out the same temperature it went in, near enough. Hot, and now damp, which is somehow worse.
+  @SAY Pump's turning. You can hear it, and the float's fine. Water's coming down the sides, see the dark line on the frame? #wary
+  @SAY Air comes out the same temperature it went in. Near enough. Hot, and now damp, which is somehow worse.
   @OPT "Show me a pad. Just one."             [gate: none]  -> pads
   @OPT "Then it's the pump. I'll swap it." [gate: none]  TRAP -> pump
   @OPT "I'm getting somebody who knows."     [gate: none]  -> fetch
@@ -128,15 +128,15 @@
 # THE RIGHT READ. Not rewarded with a speech; rewarded by the pad being
 # exactly what he said it would be. The game never tells him he was right.
 @TALK pads  speaker=keeper
-  @SAY It doesn't bend. I thought they were meant to be like that. #wary
-  @SAY That's not a pad any more, that's a tile. And the other five are the same, and the water's been running down the OUTSIDE of them for I don't know how long.
+  @SAY It doesn't bend. I thought they were meant to be like that, honestly. #wary
+  @SAY That's a tile now, boss. Not a pad. And the rest are the same, and the water's been running down the OUTSIDE of them for who knows how long.
   @OPT "Water this hard turns them to stone in a month."  [gate: none]  -> soak  @DO learn scale_kills_pads
   @OPT (start pulling the frame apart)  [gate: none]  SILENCE -> soak  @DO learn scale_kills_pads
 @END
 
 @TALK soak  speaker=keeper
-  @SAY There's half a case of spare pads in the back that nobody knew what they were for. #wary
-  @SAY I've been running a machine that couldn't work for three weeks and telling people to be patient. Go on. Before I sit down about it.
+  @SAY There's half a case of spare pads in the back, and nobody knew what they were for. #wary
+  @SAY I've been running a machine that couldn't work for three weeks and telling people to be patient. Go on, before I sit down about it.
   @OPT "New pads in, old ones in the vinegar."  [gate: none]  -> END  @DO set_stage 30
   @OPT (get to work)                            [gate: none]  SILENCE -> END  @DO set_stage 30
 @END
@@ -149,7 +149,7 @@
 # =====================================================================
 @TALK pump  speaker=keeper
   @SAY You're sure. #wary
-  @SAY I'm not arguing. You're the first person who's touched it instead of squinting at it. There's a pump in the box by the door.
+  @SAY I'm not arguing, man. You're the first person who's touched it instead of squinting at it. There's a pump in the box by the door.
   @OPT "Swapping it now."                  [gate: none]  -> END  @DO set_stage 33
   @OPT "Wait. Show me a pad first."        [gate: none]  -> pads
   @OPT (fit the new pump and close it up)  [gate: none]  SILENCE -> END  @DO set_stage 33
@@ -168,15 +168,15 @@
 # THE HONEST ROAD. It costs something real and public, and the quest does
 # not pretend otherwise.
 @TALK honest  speaker=keeper
-  @SAY Thank you. That's the second time this month and the first one was me. #wary
-  @SAY There's somebody two streets over with the tools and the knowledge and a very long memory about favours. You'd be asking in front of people.
+  @SAY Thank you. That's the second time this month, and the first one was me. #wary
+  @SAY There's a woman two streets over. Tools, knowledge, and a very long memory about favours. You'd be asking in front of people, understand?
   @OPT "I'll go ask."                    [gate: none]  -> fetch
   @OPT "Let me look at it first, at least." [gate: none]  -> look
 @END
 
 @TALK fetch  speaker=fixer
-  @SAY Cold room. Right. Everybody remembers the cold room in July. Nobody remembers it in January when I'm the one knocking. #wary
-  @SAY It'll be the pads. It's always the pads. Water here eats them and everybody blames the pump because the pump's the part that makes a noise.
+  @SAY Cold room. Right. Everybody remembers the cold room in July, and nobody remembers it in January when I'm the one knocking. #wary
+  @SAY The pads. It's always the pads. Water here eats them, and everybody blames the pump because the pump's the part that makes a noise.
   @OPT "Come do it properly. I'll owe you."  [gate: none]  -> END  @DO set_stage 31
   @OPT "Tell me and I'll do it."                 [gate: none]  -> soak  @DO learn scale_kills_pads
   @OPT (hold the door open and wait)               [gate: none]  SILENCE -> END  @DO set_stage 31
@@ -188,16 +188,16 @@
 # new address they did not authorise.
 # =====================================================================
 @TALK feed  speaker=line  entry=stage>=10
-  @SAY There's a feed. There's always a feed. Do you want this room on a list? #cold
-  @SAY We don't mind people being cool. We mind not knowing where the current went. Put a compressor on that line and the room stops being a room and starts being a load.
+  @SAY There's a feed, there's always a feed. Do you want this room on a list? #cold
+  @SAY We don't mind people being cool, we mind losing track of where the current went. Put a compressor on that line and the room stops being a room and starts being a load.
   @OPT "Do it. They're dying in there."   [gate: none]  -> END  @DO set_stage 32
   @OPT "What happens to a room on a list?" [gate: none]  -> list
   @OPT "Forget it. I'll fix the cooler." [gate: none]  -> look
 @END
 
 @TALK list  speaker=line
-  @SAY Nothing. For a while. Somebody comes and reads it, and then it has a number, and then the number belongs to somebody. #cold
-  @SAY That's all. We're not going to do anything to your old people. We're just going to know exactly where they are and exactly what they can't do without.
+  @SAY Nothing, for a while. Somebody comes and reads it, and then it has a number, and then the number belongs to somebody. #cold
+  @SAY That's all. We'll leave your old people exactly where they are. And we'll know exactly what they can't do without. Every one of them.
   @OPT "Then no."                          [gate: none]  -> look
   @OPT "Cut it in anyway."                 [gate: none]  -> END  @DO set_stage 32
   @OPT (say nothing and reach for the line) [gate: none]  SILENCE -> END  @DO set_stage 32
