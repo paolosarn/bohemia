@@ -56,7 +56,7 @@ NOTHING IN THIS REPO HAD EVER ASKED WHETHER HE CAN WALK ANYWHERE. He can: 95.7%
 of the valley from where the game opens him, and everything out of reach is
 MOUNTAIN except eighteen pockets. Now gated. Nothing to judge. ***
 
-TAB: RUN. Walk in any direction. Build 8/30e - YOU CAN WALK TO 95.7% OF THE VALLEY.
+TAB: RUN. Walk in any direction. Build 8/30f - YOU CAN WALK TO 95.7% OF THE VALLEY.
 
 THE HOLE
   Every reachability measure in this repo was about something else:
