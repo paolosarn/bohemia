@@ -1,3 +1,128 @@
+
+--------------------------------------------------------------------------------
+RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
+three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
+
+WORLD's own 8/29 post-mortem, after finding EVERY FREEWAY IN THE VALLEY BUILT
+SIDEWAYS: "it was fixed there on 8/26 and NOBODY SWEPT THE CLASS. Third time this
+month." The cost of that third time: 249 of 952 freeway cells cut off from the
+network, 214 separate road networks, a car that could not drive the interstate.
+AND HE HAS BEEN REPORTING THE VISIBLE HALF SINCE 8/15, and again on 8/28. Three
+reports, three fixes, one module at a time, and the class never swept.
+
+*** THE CLASS HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN LOOKED FOR. ***
+  SHAPE A, THE MODULE FORCES IT: o.same=o.links=o.streets=['N','S'] in a kit
+    registration, which throws the caller's answer away before the module sees
+    it. Arterial 8/26 (921 cells). Then, unswept, freeway 8/29. NOW 0 PLACES AND
+    HELD THERE.
+  SHAPE B, THE CALLER DEFAULTS IT: roadAxis(...)||'ns', turning "I do not know"
+    into a north-south road. Fixed for 14 freeway cells 8/27. STILL TRUE FOR 115
+    MORE and NEVER SWEPT. 2 places, ratcheted so it cannot grow.
+gates/nobody_swept_the_class_gate.js, 6/0. Mutation-tested by reintroducing the
+exact 8/29 freeway line: it names the file and the line, 1 red.
+
+NOT FIXED HERE, AND THE PROOF IS FROM 8/28: a crossing is an AGREEMENT BETWEEN
+TWO CELLS, not a decision one cell makes. The obvious one-line fix takes
+street_contract from 19/0 to 17/2 -- 115 wrong-facing cells become 191 broken
+seams. It has to be settled where the seam is negotiated, which is WORLD's live
+work, and they are moving fast on it.
+
+WHY THIS IS A SOURCE SWEEP AND IS NOT ASHAMED OF IT: the 8/15 facing gate was
+worthless because it used source text to answer a question about BEHAVIOUR. This
+one asks "does the pattern exist anywhere", which IS a question about source,
+while street_facing_is_measured_gate renders the real surface and counts real
+cells. THE BEHAVIOUR GATE SAYS HOW BAD, THIS ONE SAYS WHERE ELSE. Neither alone
+is enough and they are not substitutes. It strips comments first, because this
+class is documented by quoting the broken line verbatim and a naive grep reports
+the bug it just fixed; and it SELF-TESTS ITS OWN PATTERN against the historical
+line, because a sweep that finds nothing because its regex is wrong looks exactly
+like a clean codebase.
+
+  SWEPT THE CLASS 6/0 (new) · STREET FACING IS MEASURED 11/0 · both ratcheted
+  STILL 115 crossings built north-south with no east-west arms. That number is
+  WORLD's to move and it prints every suite run until it does.
+
+NEXT IN THIS LANE: the walked world. The road interrupts, leaves salvage and asks
+real questions -- but ONLY ON THE MAP. Most of the demo is WALKED, and nothing
+from that system touches it. Dispatch item 5, DEAD IS NOT THE DEFAULT, is still
+open where he actually spends his time. Then TIER 2 THE PACK (blocked on AR-006,
+the dog body, still OPEN in the art queue while feral_dog_pack FIRES).
+
+--------------------------------------------------------------------------------
+
+=======
+WORLD (world-9lfjtf): 8/30 (e) LATEST -- *** THE DEMO IS A PERSON ON FOOT AND
+NOTHING IN THIS REPO HAD EVER ASKED WHETHER HE CAN WALK ANYWHERE. He can: 95.7%
+of the valley from where the game opens him, and everything out of reach is
+MOUNTAIN except eighteen pockets. Now gated. Nothing to judge. ***
+
+TAB: RUN. Walk in any direction. Build 8/30e - YOU CAN WALK TO 95.7% OF THE VALLEY.
+
+THE HOLE
+  Every reachability measure in this repo was about something else:
+    street_contract_gate  does this seam line up (x7,600), and since 8/28 can a
+                          CAR reach the road network
+    walkable_gate         is this DISTRICT mostly parking lot, one at a time
+    drive_network_gate    can a CAR reach every stall, inside one plot
+  None of them asked the only question the player asks: FROM WHERE THE GAME
+  STARTS ME, WHAT CAN I WALK TO?
+
+THE ANSWER, AND IT IS GOOD NEWS
+    cells carrying standable ground        9,043
+    separate walk networks                    99
+    the demo opens in                 suburb(48,48)
+    CELLS HE CAN WALK TO FROM THERE        8,653   95.7%, and it IS the biggest
+  Out of reach: 371 MOUNTAIN, plus EIGHTEEN cells, all of them 1-12 cell pockets
+  against the rim -- four desert in the top-left corner, five estate on the
+  massif's inner face where the overmap deliberately puts millionaires behind
+  mountain, and singles. Only THREE are in the valley proper: warehouse(56,34),
+  warehouse(57,34), suburb(7,83).
+
+THE MEASURE
+  A node per cell with any standable tile on an edge; an edge between two cells
+  wherever there is an index i at which BOTH sides' edge tile is standable, which
+  is exactly what a body needs to step across a boundary; then components, and
+  the one containing the opening cell. Cell resolution ON PURPOSE: 96x96 cells of
+  128x128 tiles is 150 MILLION tiles and a flood over that in a browser is a hang,
+  not a measurement.
+
+AND ITS FIRST ANSWER WAS ABOUT ITSELF
+  The first draft read the district kit's own solidity -- correct for every kit
+  district and BLIND TO THE SUBURB, because SUB_RES cells carry m.sub and never
+  m.kit, and the suburb is the one district the demo starts in. It reported that
+  the player can walk to 0.0% of the valley. FOURTH TIME THIS MONTH a
+  measurement's first answer was about itself (the connector filter that returned
+  everything; the crude green threshold that missed #49512e by one point; the
+  seam metric that called a driveway a break; this).
+  It calls realizeCell now -- the walked surface's OWN answer, which cannot drift
+  from what a body experiences. Same reason occupancy_gate compares the model
+  against the running page instead of trusting either alone.
+
+THE GATE: gates/walkable_valley_gate.js, 6 checks, REGISTERED as WALK THE WORLD
+  (75s, green -- an unregistered gate never runs)
+    he can walk OUT of where the game put him (opening cell is on the biggest net)
+    reach share floored at 95.5%, only ever goes UP
+    what he cannot reach is MOUNTAIN, not somebody's street -- rim and water
+      excluded from the headline on purpose, because 371 mountains would let a
+      real stranding hide behind them. Ceiling 18, only goes down.
+    MUTATION TEST: seal the opening cell and reach must collapse 8,653 -> 1.
+      Given this sweep's first draft returned 0.0%, that is not theoretical.
+  Probe kept: tools/bohemia_walk_reach_probe.js prints districts and coordinates.
+  A COUNT IS NOT A LOCATION -- four failed freeway attempts paid for that lesson.
+
+WHAT COMES AFTER
+  The three strandings in the valley proper (2 warehouse, 1 suburb). The ceiling
+  is 18 so closing them ratchets. The estate pockets on the massif are probably
+  CORRECT -- the overmap puts estates on the mountain's inner face on purpose and
+  a hillside street only a car road reaches is a real thing. That is a judgement
+  about the MAP, not the plumbing, so it is written down rather than fixed.
+  Streets themselves have no big fish left: 642 broken edges of 7,643 (8.4%)
+  across 171 shapes, none bigger than 35.
+
+RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
+
+================================================================================
+
 COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (c) LATEST -- *** THE DYNASTY
 LIVES. He answered the sweep-23 question in one line and it is law. Nothing to
 judge. ***
@@ -68,59 +193,6 @@ PROOF
   records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md  (sweep 22)
   records/BOHEMIA_THE_QUESTION_QUEUE_8_25_26.md  (1 and 1b closed; 2 and 3 parked
     and neither blocking)
-
-================================================================================
-
---------------------------------------------------------------------------------
-RUN (run-eak241): 8/29 LATEST -- *** THE CLASS IS SWEPT NOW. He is not reporting
-three street bugs, he is reporting ONE CLASS THREE TIMES. Nothing to judge. ***
-
-WORLD's own 8/29 post-mortem, after finding EVERY FREEWAY IN THE VALLEY BUILT
-SIDEWAYS: "it was fixed there on 8/26 and NOBODY SWEPT THE CLASS. Third time this
-month." The cost of that third time: 249 of 952 freeway cells cut off from the
-network, 214 separate road networks, a car that could not drive the interstate.
-AND HE HAS BEEN REPORTING THE VISIBLE HALF SINCE 8/15, and again on 8/28. Three
-reports, three fixes, one module at a time, and the class never swept.
-
-*** THE CLASS HAS TWO SHAPES AND ONLY ONE HAD EVER BEEN LOOKED FOR. ***
-  SHAPE A, THE MODULE FORCES IT: o.same=o.links=o.streets=['N','S'] in a kit
-    registration, which throws the caller's answer away before the module sees
-    it. Arterial 8/26 (921 cells). Then, unswept, freeway 8/29. NOW 0 PLACES AND
-    HELD THERE.
-  SHAPE B, THE CALLER DEFAULTS IT: roadAxis(...)||'ns', turning "I do not know"
-    into a north-south road. Fixed for 14 freeway cells 8/27. STILL TRUE FOR 115
-    MORE and NEVER SWEPT. 2 places, ratcheted so it cannot grow.
-gates/nobody_swept_the_class_gate.js, 6/0. Mutation-tested by reintroducing the
-exact 8/29 freeway line: it names the file and the line, 1 red.
-
-NOT FIXED HERE, AND THE PROOF IS FROM 8/28: a crossing is an AGREEMENT BETWEEN
-TWO CELLS, not a decision one cell makes. The obvious one-line fix takes
-street_contract from 19/0 to 17/2 -- 115 wrong-facing cells become 191 broken
-seams. It has to be settled where the seam is negotiated, which is WORLD's live
-work, and they are moving fast on it.
-
-WHY THIS IS A SOURCE SWEEP AND IS NOT ASHAMED OF IT: the 8/15 facing gate was
-worthless because it used source text to answer a question about BEHAVIOUR. This
-one asks "does the pattern exist anywhere", which IS a question about source,
-while street_facing_is_measured_gate renders the real surface and counts real
-cells. THE BEHAVIOUR GATE SAYS HOW BAD, THIS ONE SAYS WHERE ELSE. Neither alone
-is enough and they are not substitutes. It strips comments first, because this
-class is documented by quoting the broken line verbatim and a naive grep reports
-the bug it just fixed; and it SELF-TESTS ITS OWN PATTERN against the historical
-line, because a sweep that finds nothing because its regex is wrong looks exactly
-like a clean codebase.
-
-  SWEPT THE CLASS 6/0 (new) · STREET FACING IS MEASURED 11/0 · both ratcheted
-  STILL 115 crossings built north-south with no east-west arms. That number is
-  WORLD's to move and it prints every suite run until it does.
-
-NEXT IN THIS LANE: the walked world. The road interrupts, leaves salvage and asks
-real questions -- but ONLY ON THE MAP. Most of the demo is WALKED, and nothing
-from that system touches it. Dispatch item 5, DEAD IS NOT THE DEFAULT, is still
-open where he actually spends his time. Then TIER 2 THE PACK (blocked on AR-006,
-the dog body, still OPEN in the art queue while feral_dog_pack FIRES).
-
---------------------------------------------------------------------------------
 
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
 THE VALLEY SIDEWAYS. YOU CAN DRIVE THE INTERSTATE NOW; YOU COULD NOT BEFORE.

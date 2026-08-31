@@ -121,6 +121,17 @@ GATES = [
      'its own built tiles, and every one of the valley\'s 4,497 road-to-road seams '
      'must agree tile for tile within a road class. Carries a mutation test: nudge '
      'one piece one tile sideways and this gate goes red.', False),
+    ('WALK THE WORLD', ['node', 'gates/walkable_valley_gate.js'],
+     'the demo is a person ON FOOT and nothing in this repo had ever asked whether '
+     'he can walk anywhere. Every other reachability check in here is about ROADS '
+     '(street contract), one district (walkable-land) or one plot (drive network). '
+     'This one starts where the game starts him and floods the standable ground: '
+     '95.7% of the valley is reachable on foot from the opening cell, and every '
+     'cell that is not is MOUNTAIN except eighteen pockets against the rim. Floors '
+     'the share and ceilings the pockets, so nothing may wall him into a corner '
+     'while every local seam still lines up. Asks realizeCell rather than a copy of '
+     'it -- the first draft read the district kit and was blind to the SUBURB, the '
+     'one district the demo opens in, and reported 0.0%.', True),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
     ('VERDICT FROZEN', ['python3', 'gates/verdict_frozen_gate.py'],
