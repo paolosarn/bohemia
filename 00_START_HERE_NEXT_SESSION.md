@@ -1,4 +1,73 @@
-PEOPLE (people-7h9sfy): 8/30 LATEST -- *** THE PACK DOES NOT WANT TO FIGHT YOU.
+PEOPLE (people-7h9sfy): 8/31 LATEST -- *** HIS TWELVE APPROVED STREET ENCOUNTERS
+FIRE ON FOOT FOR THE FIRST TIME, AND WHERE ONE NAMES AN ANIMAL IT POINTS AT THE
+ANIMAL THAT IS ACTUALLY THERE. TAB: RUN. Nothing to judge. ***
+
+TAB: RUN. Build 8/31b - THE STREET HAS THINGS HAPPENING IN IT.
+Walk. Things start happening to you that never happened before.
+
+THE ROW: ALIVE-3, which ALIVE-1 named as lead 2 and ALIVE-2's record named as
+mandatory.
+
+*** HE APPROVED TWELVE ENCOUNTERS ON 7/26 WITH A PLAIN "Approve all" AND NOT ONE
+HAD EVER FIRED FOR A PLAYER ON FOOT. *** roadInterrupt is called from exactly ONE
+place, stepOnce's MODE==='city' branch, which is overmap travel at ten minutes a
+cell. The walked surface had never called it. HIS OWN APPROVED CONTENT, never
+reaching him -- the seventeen invisible hats, the four bright garments nobody
+wore, the face maker with no route in, and now this, which is the biggest of them
+because he actually approved it out loud.
+
+AND ITEM ONE IS `feral_dog_pack`, ITEM TWO IS `coyote_shadow` -- the two animals
+ALIVE-2 shipped the day before. So this is ENGINE SYNC AT THE DESIGN LEVEL, not a
+content add: a director announcing dogs while this tier's dogs stand somewhere
+else is two mechanisms that both mean "dogs", the ONE ID ONE WHOLE PERSON mistake
+with a different noun.
+THE DIRECTOR NEVER INVENTS AN ANIMAL. IT POINTS AT THE ONE THAT IS THERE. The
+hook is tableFor(district, phase), which is MINE and which the module asks "what
+can happen here" -- so it answers what can happen here RIGHT NOW. Measured
+walking: coyote_shadow -> coyotes@6865,6302, feral_dog_pack -> dogs@6914,6312,
+and the BACK OFF button already works on it.
+
+ONE OPINION PER PLACE: a road class keeps the row ROAD_TABLE already authored.
+NO GLOBAL SPAWNS EVER: a district with no row spawns nothing, no fallback.
+
+*** AND A GATE CLAIM FOUND A REAL HOLE IN HIS ROSTER, NOT A TEST BUG. *** The mix
+is 70% AMBIENT and only THREE of the twelve are ambient: coyote_shadow,
+ghost_robotaxi, and patrols_collide which needs a seam. Because the table will not
+offer an animal that is not on the glass, a district with no coyote had NO ambient
+token at all and went silent seven beats in ten. The module is RIGHT to refuse a
+substitute (a forced fight standing in for an ambient beat breaks the promise
+70/20/10 makes), so the fix is SUPPLY: his approved ghost_robotaxi now sits in
+every row with a street in it. WHERE an approved thing happens is mine; a
+THIRTEENTH encounter would be his and there is not one here.
+THE THIN AMBIENT BENCH IS A FINDING FOR HIM: seven beats in ten want an ambient
+encounter and the roster has three, one a car and one needing a seam.
+
+TWO BROKEN RULERS IN MY OWN GATE, BOTH FOUND BY IT GOING RED
+  1. A WALKER THAT CANNOT TURN IS NOT MEASURING WALKING, IT IS MEASURING A WALL.
+     The first cut hammered one direction 1,400 times; the player walked SIX CELLS
+     into a wall and the gate called the feature dead while it worked. It turns
+     when blocked now and covers 3,418 cells.
+  2. The never-lies claim was NONSENSE THAT COULD NOT FAIL: it built an array,
+     never called tableFor, and reported 0 because 0 is what an empty loop gives.
+     Rewritten it leaned on walkInterrupt, which reads dayWhere(), so it was really
+     asking WHERE THE WALKER HAPPENED TO STOP -- and it stopped somewhere with no
+     row. A CHECK THAT DEPENDS ON WHERE THE TEST ENDED IS MEASURING THE TEST.
+
+FILES
+  tools/bohemia_city_walk_encounters_patch.py   the table and the wiring
+  gates/walk_encounter_gate.js                  15 claims, 3 mutations caught
+  records/BOHEMIA_WHAT_A_PACK_ACTUALLY_DOES_8_30_26.md   (ALIVE-3 section)
+
+*** WHAT COMES NEXT FOR THIS LANE ***
+THE ENCOUNTERS ANNOUNCE AND DO NOT YET RESOLVE. Only the dogs resolve, through
+the BACK OFF button. rattlesnake, the_snatcher, scavenger_shakedown and the rest
+print their line and pass. Giving each a real resolution is the next row, and the
+pack is the worked example of what "real" means: a decision with two answers and
+a cost. NOTE the roster's own kinds when doing it -- three of the twelve are
+`forced` and two of those are fights, which is where NO DAMAGE BEFORE THE DIAL
+will finally bite.
+
+PEOPLE (people-7h9sfy): 8/30 -- *** THE PACK DOES NOT WANT TO FIGHT YOU.
 Dogs and coyotes, and you can push them: 22 times in 23 they leave, and at a den
 they never do. TAB: RUN, walk out and keep going. Nothing to judge. ***
 

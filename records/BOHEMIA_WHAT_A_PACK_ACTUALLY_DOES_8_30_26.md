@@ -313,3 +313,77 @@ nerve, its own den and its own coats.
 interchange, rail, wash), so a walked table needs district keys and is new
 content. Under EVERYTHING IS A THUMB that is mine to decide and build, because it
 is not a name he reserved and there is a defensible default.
+
+---
+
+# ALIVE-3, 8/31/26: HIS TWELVE APPROVED ENCOUNTERS FIRE ON FOOT
+## Gate: gates/walk_encounter_gate.js (15 claims, 0 red, 3 mutations caught)
+## Tab: RUN (walk, and the street starts having things in it)
+
+**HE APPROVED TWELVE STREET ENCOUNTERS ON 7/26 WITH A PLAIN "Approve all" AND NOT
+ONE HAD EVER FIRED FOR A PLAYER ON FOOT.** The director that owns them is built by
+`roadDirector()` and pulled by `roadInterrupt()`, and `roadInterrupt` is called
+from exactly one place: `stepOnce`'s `MODE==='city'` branch, which is overmap
+travel at ten minutes a cell. The walked surface has never called it.
+
+His own approved content, never reaching him. Same shape as the seventeen
+invisible hats, the four bright garments nobody wore, and the face maker with no
+route into it.
+
+## AND ITEM ONE IS THE FERAL DOG PACK
+
+Item one is `feral_dog_pack`. Item two is `coyote_shadow`. Those are the two
+animals ALIVE-2 shipped the day before, which makes this **ENGINE SYNC at the
+design level** rather than a content add: a director announcing a dog pack while
+this tier's dogs stand somewhere else would be two mechanisms that both mean
+"dogs", which is the ONE ID ONE WHOLE PERSON mistake with a different noun.
+
+**THE DIRECTOR NEVER INVENTS AN ANIMAL. IT POINTS AT THE ONE THAT IS THERE.** The
+hook is `tableFor(district, phase)`, which is mine and which the module asks
+"what can happen here" -- so it answers what can happen here **right now**: the
+two animal tokens are offered only while that animal is drawn on the glass. When
+one fires it carries the real pack, with its own nerve, its own den and its own
+coats, and the BACK OFF button already works on it.
+
+Measured walking: `coyote_shadow` -> coyotes@6865,6302 and `feral_dog_pack` ->
+dogs@6914,6312.
+
+## AND A GATE CLAIM FOUND A REAL HOLE IN THE ROSTER
+
+The mix is **70% ambient** and only **three** of his twelve are ambient:
+`coyote_shadow`, `ghost_robotaxi`, and `patrols_collide` which needs a seam.
+Because the table will not offer an animal that is not on the glass, a district
+with no coyote in it had **no ambient token at all** and went silent for seven
+beats in ten.
+
+The module is right to refuse a substitute -- a forced fight standing in for an
+ambient beat breaks the promise 70/20/10 makes -- so the fix is **supply, not
+substitution**: his approved `ghost_robotaxi` now sits in every row with a street
+in it, doing exactly what its own line says. **WHERE an approved thing happens is
+mine; a thirteenth encounter would be his, and there is not one here.**
+
+**THE THIN AMBIENT BENCH IS A FINDING FOR HIM, NOT A THING TO INVENT AROUND:**
+seven beats in ten want an ambient encounter and the roster has three, one of
+which is a car and one of which needs a seam.
+
+## TWO BROKEN RULERS IN MY OWN GATE, BOTH FOUND BY IT GOING RED
+
+1. **A WALKER THAT CANNOT TURN IS NOT MEASURING WALKING, IT IS MEASURING A WALL.**
+   The first cut hammered one direction 1,400 times. The player walked **six
+   cells** into a wall and the gate reported the feature dead while it worked. It
+   turns when blocked now, and covers 3,418 cells.
+2. The never-lies claim was **nonsense that could not fail**: it built an array,
+   never called the director's `tableFor`, and reported 0 because 0 is what an
+   empty loop produces. Rewritten, it then leaned on `walkInterrupt`, which reads
+   `dayWhere()` -- so it was really asking **where the walker happened to stop**,
+   and it stopped somewhere with no row. **A CHECK THAT DEPENDS ON WHERE THE TEST
+   ENDED IS MEASURING THE TEST.** It asks the director directly now with districts
+   the gate chooses: 30 encounters fired with nothing drawn, 0 of them animals.
+
+## WHAT COMES AFTER
+
+The encounters **announce** themselves and do not yet **resolve** into anything
+except the dogs, which resolve through the BACK OFF button. `rattlesnake`,
+`the_snatcher`, `scavenger_shakedown` and the rest print their line and pass.
+Giving each one a real resolution is the next row, and the pack is the worked
+example of what "real" means: a decision with two answers and a cost.
