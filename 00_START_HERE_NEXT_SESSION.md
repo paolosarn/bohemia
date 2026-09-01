@@ -53,6 +53,15 @@ TWO BROKEN RULERS IN MY OWN GATE, BOTH FOUND BY IT GOING RED
      asking WHERE THE WALKER HAPPENED TO STOP -- and it stopped somewhere with no
      row. A CHECK THAT DEPENDS ON WHERE THE TEST ENDED IS MEASURING THE TEST.
 
+*** AND A SHIP-ROUTINE FACT WORTH NOT PAYING FOR TWICE. *** Changing ANY shared
+surface makes every one of the 51 LOOK pictures stale by that gate's own rule
+(picture older than the surface it photographs by six hours). Rebuilding them is
+51 separate shooter tools and about twenty minutes. It happened twice in two
+features today. IT BELONGS IN THE SHIP ROUTINE NEXT TO THE BUILD STAMP AND THE
+DEMO CUT, not in the debugging loop where it keeps getting rediscovered. The gate
+prints the exact command per picture, so the whole set is:
+  node gates/look_gate.js  ->  run every 'RETAKE IT WITH' line it prints
+
 FILES
   tools/bohemia_city_walk_encounters_patch.py   the table and the wiring
   gates/walk_encounter_gate.js                  15 claims, 3 mutations caught
