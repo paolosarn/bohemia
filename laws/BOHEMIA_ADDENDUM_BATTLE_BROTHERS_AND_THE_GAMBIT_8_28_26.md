@@ -5,8 +5,12 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-Five days, five records, driven by his own two-word trigger "bb study,
-next day". WHAT IT SETTLED, in one block, so nobody re-derives it:
+SIX days, six records, driven by his own two-word trigger "bb study, next
+day". The plan was five; HE SENT THE TRIGGER AGAIN AND THE SIXTH DAY
+FOUND THE PILLAR THE PLAN HAD MISSED — his own "CITY-STATE SYSTEM...
+different parts of Vegas as different faction holdings", which days 1 and
+2 never covered. A PLAN IS NOT A LAW.
+WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
   you. NO DAMAGE BEFORE THE DIAL is untouched by the whole system.
@@ -27,9 +31,28 @@ next day". WHAT IT SETTLED, in one block, so nobody re-derives it:
   The standing graph, the price model, the anti-turtle kit and the
   go-back-for-a-body behaviour ALL EXIST AND ARE ALL AIMED AWAY FROM THE
   PLAYER. The work is mostly wiring.
-- **ROUTED:** thirteen rows tagged `BB-` across COMBAT, WORLD, PEOPLE,
-  QUESTS, WORDS, UI and SHARED. Two jump the queue; the rest queue behind
-  the demo, because none of the study is demo-critical.
+- **NOBODY HOLDS ANY GROUND (day 6).** The faction world — an owner map,
+  standings, and a cheap deterministic claim/defend/expand territory AI —
+  has existed since 6/30 and NONE OF IT RUNS WHERE HE WALKS. Ten of our 27
+  canon quests fire `@DO advance_territory` into a flag nothing reads. On
+  the walked surface **a faction is a label people wear, not ground
+  anybody holds.** AND THE FIX IS SMALL: the valley already has an
+  ownership map made of ELECTRICITY (LIGHT=TERRITORY is live code there,
+  circuits carry owners, the game computes seams), and the owner is a
+  category with no name. **TERRITORY IS A NAMING JOB, NOT A PORTING JOB.**
+- **AND WHY ANYBODY BOTHERS TO HOLD GROUND (day 6):** holding must cost
+  something and pay something, and what it pays the people under it is why
+  it stays held. A faction that holds a block and does nothing for it is a
+  roving bandit standing still.
+- **WEB OR TURF IS NOT A CHOICE, IT IS A POPULATION SIZE (day 6, and it
+  corrects day 1).** A reputation order works while everyone knows
+  everyone; past that, order goes territorial. Our valley runs both at
+  once: small settlement, somebody vouches for you; dense district,
+  somebody holds the block.
+- **ROUTED:** twenty rows tagged `BB-` across COMBAT, WORLD, PEOPLE,
+  QUESTS, WORDS, UI and SHARED. Two jump the queue and day 6 adds a third
+  worth taking early (WORLD BB-TURF); the rest queue behind the demo,
+  because none of the study is demo-critical.
 - **COLLISIONS FLAGGED, HIS DIALS:** the rewind can undo a scar (§5.1 of
   the synthesis), and "one system drives everybody" versus the companion's
   fixed ladder, which reconcile cleanly (§5.2) and are written down once.

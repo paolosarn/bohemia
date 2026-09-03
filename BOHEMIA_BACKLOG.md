@@ -2282,6 +2282,37 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
+   WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
+   He asked for "different parts of Vegas as different faction holdings" by name.
+   The walked city ALREADY HAS AN OWNERSHIP MAP AND IT IS MADE OF ELECTRICITY.
+   Live code, answering whether a scene can spawn: "A SEAM IS TWO OWNERS
+   TOUCHING. LIGHT=TERRITORY: a live circuit's owner is who holds that ground, so
+   a seam is where two different live owners are adjacent. NOT A METAPHOR, THE
+   GRID'S OWN DATA." Every live circuit carries an owner and the game already
+   computes BORDERS from it.
+   THE GAP IS THAT THE OWNER HAS NO NAME. It is a CATEGORY -- {settlement:0.55,
+   faction:0.2, network:0.15, solar_lone:0.1}, defaulting to 'settlement' -- so
+   one circuit in five is owned by the generic word "faction".
+   THE ROW: give that owner a real faction id out of engine/BOHEMIA_faction_
+   graph.json, which is his own GDD §9 canon. No loop, no engine migration, no
+   new system. And it is diegetic: you SEE who holds a block, at night, from the
+   street, because his 12%-lit law already made light the tell.
+   WHO HOLDS WHAT IS HIS. Ships empty of canon. Read: records/BOHEMIA_BB_STUDY_
+   DAY_6_WHO_HOLDS_THE_GROUND_8_28_26.md.
+
+BB-SUPPLY-FIRST. *** QUEUED (BB study day 6). ***
+   YOU TAKE A PLACE BY TAKING WHAT FEEDS IT, NOT BY A STACK FIGHT AT THE GATES.
+   In the game he named, raiders hit the OUTLYING SUPPORT LOCATIONS first -- the
+   towers, the lumber yards, the copper mines, the vineyards -- before the town.
+   WE ARE BUILT FOR THIS AND DID NOT NOTICE: engine/bohemia_utility.js already
+   models the real Las Vegas water system (84 reservoirs and tanks, nearly a
+   billion gallons, 400,000+ homes) and the flood basins; the power grid already
+   has owners and seams; and his own boss ladder has THE CISTERN, whose grant is
+   "catch the monsoon off the rooftops, and stop asking anybody for water."
+   THE VALLEY'S SUPPLY LINES ARE ALREADY MODELLED AND NOTHING CAN CUT ONE.
+   Start with ONE cuttable supply line, not a war.
+
 BB-PRICE-PLACE. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
    PRICE GETS A PLACE. engine/bohemia_economy.js is already serious, grounded
    work -- fiat dies, barter, then commodity money; hyperbolic scarcity pricing
@@ -5262,6 +5293,36 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-ENCOMPASSING. *** QUEUED (BB study day 6). ***
+   HOLDING GROUND MUST COST SOMETHING AND PAY SOMETHING, AND WHAT IT PAYS THE
+   PEOPLE UNDER IT IS WHY IT STAYS HELD.
+   The standard account of where government comes from: a ROVING BANDIT steals
+   everything and moves on, bearing almost none of the cost of what he wrecks. A
+   bandit who settles and monopolises the theft becomes a STATIONARY BANDIT and
+   acquires an ENCOMPASSING INTEREST -- he takes a regular cut instead of
+   everything, provides protection as a public good, and starts wanting the block
+   to do WELL, because a richer block pays a bigger cut.
+   SO: A FACTION THAT HOLDS GROUND AND DOES NOTHING FOR IT IS A ROVING BANDIT
+   STANDING STILL, and the people under it have no reason not to switch.
+   NO MONEY EXISTS, so a cut is taken in RESOURCES, ELECTRICITY or CLOUT --
+   EVERYTHING COSTS ONE, already law. Every number is his.
+
+BB-POPULATION-RULE. *** QUEUED (BB study day 6). IT SHARPENS BB-OFFER-GATE
+   RATHER THAN COMPETING WITH IT. ***
+   HOW YOU GET WORK DEPENDS ON HOW BIG THE PLACE IS.
+   Day 1 concluded reputation is a WEB, not a bar, on evidence from a small,
+   closed, mutually-known group. Day 6's challenge: the prison-gang governance
+   literature finds a reputation order works ONLY while everyone knows everyone
+   and knows the code -- California prisons had NO gangs before the 1950s -- and
+   that when the population exploded, the code stopped working and was replaced
+   by gangs supplying contract enforcement, security and dispute resolution.
+   SO WEB VERSUS TURF IS NOT A DESIGN PREFERENCE. IT IS A FUNCTION OF HOW MANY
+   PEOPLE ARE IN THE ROOM, and our valley holds both regimes at once. Small
+   settlement: somebody vouches for you. Dense district: somebody holds the block
+   and takes a cut. It also explains why day 1's hole (nobody has an opinion about
+   you) and day 6's hole (nobody holds anything) are THE SAME HOLE at two
+   population sizes.
+
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
    MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
@@ -7834,6 +7895,19 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
+   HANDS AND NOTHING IS LISTENING. ***
+   There is a PACING LAW (Paolo 7/24) in the walked surface: the territory AI's
+   advanceRound "is never a tick -- it fires when the narrative calls for it, a
+   quest resolves, a story beat lands." The lever is the quest verb
+   `@DO advance_territory`, opt-in per quest, so everyday errands never move the
+   map. THAT IS A GOOD DESIGN AND IT IS HIS.
+   MEASURED 8/28: 10 OF OUR 27 CANON QUESTS USE THE VERB. On the walked surface
+   it is parsed and sets `s.advanceTerritory=true`, and the ONLY code that reads
+   that flag lives in the RETIRED slice. The flag is set and dropped on the floor.
+   Either it moves ground, or those ten quests are telling the player something
+   that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
+
 BB-OFFER-GATE. *** QUEUED BEHIND THE DEMO (BB study day 1, composes with day 2). ***
    THE FEED GATES OFFERS ON WHO VOUCHES FOR YOU -- not only on who owns a phone.
    Measured: the ONE thing that currently decides a quest's channel is PHONELESS.
@@ -8546,6 +8620,37 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-LOOPLESS. *** DAY 6. THE ROW THE OTHER BB- ROWS DEPEND ON, AND IT IS AN
+   EXPLICIT DECISION SOMEBODY HAS TO MAKE, NOT A BUG TO FIX QUIETLY. ***
+   THE WALKED SURFACE DOES NOT LOAD BohemiaLoop, SO THE FACTION WORLD, THE
+   STANDING GRAPH AND THE QUEST CASTING BRIDGE ARE ALL DARK THERE. This is not an
+   inference -- the alpha says it in its own comment: "walked city loads
+   BohemiaClout and NOT BohemiaLoop, so LOOP is null there."
+   MEASURED across the slices: factionAdjacency city=0 / legacy=7; factionTurn
+   city=0 / legacy=4; FactionWorld, shiftStanding, ownerOf all ZERO on the walked
+   surface. And line 2150 there says "every faction on real worldMap.factionSlots
+   coordinates via bootFactions" -- a correct comment standing over absent code,
+   the hairline lesson again.
+   DECIDE IT EXPLICITLY: load the loop on the walked surface, or write down which
+   pieces are DEAD there so no lane routes work against them again.
+
+BB-MIGRATION-AUDIT. *** DAY 6, AND THE STANDING RULE IT PRODUCED: A MIGRATION
+   LIST IS A DELETION LIST FOR EVERYTHING NOT ON IT. ***
+   THE 8/14 ONE WALKED SURFACE DECISION WAS THE COORDINATOR'S, AND ITS MIGRATION
+   LIST NAMED WHAT WOULD MOVE ("demo-critical wiring migrates -- SOUNDS P0-WALK,
+   RUN 00's fight/pay") AND ASSUMED THE REST WOULD KEEP. It did not. The faction
+   world and the quest casting bridge stayed on the ship we abandoned, and the
+   casting bridge is playtest dispatch item 2's mechanical cause -- six weeks old
+   when he complained about it.
+   NAMING WHAT MOVES IS NOT A PLAN. NAMING WHAT DOES NOT MOVE, AND SAYING OUT
+   LOUD THAT IT IS NOW DARK, IS.
+   AUDIT WHAT ELSE THE MOVE STRANDED. Already checked and CLEAN: the save (the
+   iPhone-proof save lives in the PARENT shell, root.BohemiaSave / CITYSAVE =
+   BohemiaSave.make, and the frame reports state up via citySnapshot -- correct
+   design, not a hole; recorded so nobody re-raises it). Already checked and
+   BROKEN: the faction world, the casting bridge. UNCHECKED, do not guess:
+   bohemia_crypt, bohemia_rooms, bohemia_overmap_bridge.
+
 BB-ALPHA-DECODE. *** A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT. Write
    this into whatever audits or documents the build, because it has now nearly
    produced one false finding. ***

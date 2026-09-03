@@ -53,7 +53,8 @@ HIS AND ONLY HIS — Battle Brothers, Rogue Fable 4, Final Fantasy XII.
 Research anything; bring back a MECHANIC in plain words; never add a
 reference game he has not named. ***
 
-## 3. THE FIVE DAYS, ONE QUESTION EACH
+## 3. THE DAYS, ONE QUESTION EACH (FIVE WERE PLANNED; HE ASKED FOR A
+## SIXTH AND IT FOUND THE PILLAR THE PLAN MISSED — SEE DAY 6)
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -129,6 +130,34 @@ IN THE STUDY IS DEMO-CRITICAL and the demo path still keeps the fleet.***
 One document: what we take,
 what we refuse, what it costs, and a row per lane. Nothing before day 5
 gets routed as work.
+
+**DAY 6 — WHO HOLDS THE GROUND. *** DONE: records/BOHEMIA_BB_STUDY_DAY_6_
+WHO_HOLDS_THE_GROUND_8_28_26.md. AND IT EXISTS BECAUSE THIS PLAN WAS
+SHORT BY A PILLAR. *** He named THREE things in the message that started
+the study -- "the world, the caravan system, THE CITY-STATE SYSTEM... 
+different parts of Vegas as different faction holdings." Day 1 did the
+WORK, day 2 did the MONEY, and NOBODY DID THE GROUND. Five days closed
+with his third pillar untouched and he sent the trigger a sixth time.
+**A PLAN IS NOT A LAW: day 5 was the end of my outline, not the end of
+his question.**
+FOUND: the faction world (owner map, standings, a cheap deterministic
+claim/defend/expand territory AI) has existed since 6/30 and NONE OF IT
+RUNS WHERE HE WALKS -- the alpha's own comment says "walked city loads
+BohemiaClout and NOT BohemiaLoop, so LOOP is null there." 10 of 27 canon
+quests use `@DO advance_territory` and the flag is set and dropped on the
+floor. On the walked surface A FACTION IS A LABEL PEOPLE WEAR, NOT GROUND
+ANYBODY HOLDS.
+**AND I AM THE ONE WHO STRANDED IT:** the 8/14 ONE WALKED SURFACE
+decision was the coordinator's, its migration list named what would move,
+and everything else stayed on the ship we abandoned -- including the quest
+casting bridge, which is playtest dispatch item 2's mechanical cause.
+NEW STANDING RULE: **A MIGRATION LIST IS A DELETION LIST FOR EVERYTHING
+NOT ON IT.**
+THE GOOD NEWS, and it is the best in the study: THE VALLEY ALREADY HAS AN
+OWNERSHIP MAP AND IT IS MADE OF ELECTRICITY. LIGHT=TERRITORY is live code
+on the walked surface -- every circuit has an owner and the game computes
+seams from it -- and the owner is a CATEGORY with no name. Territory there
+is A NAMING JOB, NOT A PORTING JOB. Seven more rows routed.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

@@ -703,7 +703,63 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (h) LATEST -- *** THE BATTLE
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (i) LATEST -- *** DAY 6 OF THE BB
+STUDY: NOBODY IN THIS VALLEY HOLDS ANY GROUND, AND THE COORDINATOR IS THE ONE WHO
+STRANDED IT. Twenty BB- rows now routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_6_WHO_HOLDS_THE_GROUND_8_28_26.md
+
+WHY THERE IS A DAY 6: he named THREE pillars when he started this ("the world,
+the caravan system, THE CITY-STATE SYSTEM... different parts of Vegas as
+different faction holdings"). Day 1 did the work, day 2 did the money, NOBODY DID
+THE GROUND, and the five-day plan closed anyway. He sent the trigger again. A
+PLAN IS NOT A LAW.
+
+*** WHAT IT FOUND, AND IT IS THE FIFTH TIME THIS STUDY HAS FOUND THE SAME SHAPE:
+THE FACTION WORLD HAS EXISTED SINCE 6/30 AND NONE OF IT RUNS WHERE HE WALKS. ***
+An owner map (districtId -> factionId), standings on a named ladder with
+spillover, playerMandate for the Mayor Arc, and a cheap deterministic
+claim/defend/expand TERRITORY AI. It is created in BohemiaLoop, and THE ALPHA'S
+OWN COMMENT SAYS "walked city loads BohemiaClout and NOT BohemiaLoop, so LOOP is
+null there." Measured: factionAdjacency city=0 / legacy=7, factionTurn city=0 /
+legacy=4, FactionWorld + shiftStanding + ownerOf all ZERO on the walked surface.
+There is a PACING LAW (Paolo 7/24) saying the territory AI fires on a story beat
+and never on a tick, its lever is the quest verb `@DO advance_territory`, TEN OF
+OUR 27 CANON QUESTS USE IT, and on the walked surface the flag is set and dropped
+on the floor. ON THE SURFACE HE WALKS, A FACTION IS A LABEL PEOPLE WEAR, NOT
+GROUND ANYBODY HOLDS.
+
+*** AND I STRANDED IT. *** The 8/14 ONE WALKED SURFACE decision was the
+coordinator's; its migration list named what would move ("demo-critical wiring
+migrates") and assumed the rest would keep. The faction world and the QUEST
+CASTING BRIDGE stayed on the ship we abandoned -- and that bridge is playtest
+dispatch item 2's mechanical cause, six weeks old when he complained.
+NEW STANDING RULE, FOR EVERY LANE: **A MIGRATION LIST IS A DELETION LIST FOR
+EVERYTHING NOT ON IT.** Naming what moves is not a plan; naming what does NOT
+move, and saying out loud that it is now dark, is.
+
+*** THE GOOD NEWS, AND IT IS THE BEST FINDING IN THE STUDY: THE VALLEY ALREADY
+HAS AN OWNERSHIP MAP AND IT IS MADE OF ELECTRICITY. *** Live code on the walked
+surface: "A SEAM IS TWO OWNERS TOUCHING. LIGHT=TERRITORY: a live circuit's owner
+is who holds that ground... NOT A METAPHOR, THE GRID'S OWN DATA." Circuits carry
+owners and the game already computes BORDERS. The gap is that the owner is a
+CATEGORY with no name ({settlement:0.55, faction:0.2, network:0.15,
+solar_lone:0.1}). SO TERRITORY IS A NAMING JOB, NOT A PORTING JOB -- give the
+owner a real id from his own faction graph and the valley has holdings, borders
+and seams, visible from the street at night because his 12%-lit law already made
+light the tell. That is WORLD BB-TURF and it is the third row worth taking early.
+
+CORRECTION I MADE TO MY OWN DRAFT BEFORE SHIPPING, so nobody repeats it: quests
+DO have addresses on the walked surface now (castAddresses, deterministic, a miss
+returns NULL). That work is done and good. The accurate complaint is narrower --
+it casts against PEOPLE WHO RUN WITH AN OUTFIT, not GROUND AN OUTFIT HOLDS.
+
+CHECKED AND CLEAN, recorded so nobody re-raises it: THE SAVE IS FINE. The
+iPhone-proof save lives in the PARENT shell (root.BohemiaSave, CITYSAVE =
+BohemiaSave.make) and the frame reports state up via citySnapshot. UNCHECKED and
+do not guess: bohemia_crypt, bohemia_rooms, bohemia_overmap_bridge.
+
+COORDINATOR: 8/28 (h) -- *** THE BATTLE
 BROTHERS STUDY IS FINISHED AND ROUTED. All five days written; THIRTEEN ROWS went
 out to seven lanes, tagged BB-. Nothing to judge. ***
 

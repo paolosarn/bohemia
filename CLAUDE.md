@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY IS FINISHED (8/28). ALL FIVE DAYS ARE WRITTEN AND
+- *** THE BATTLE BROTHERS STUDY IS FINISHED (8/28). SIX DAYS, WRITTEN AND
   ROUTED. *** He drove it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -227,10 +227,30 @@ research partner. He DECIDES, you PRODUCE.
   turns. Same shape as the seventeen invisible hats and the face maker with no
   door, except in the systems layer, four times, unnoticed because each lane
   could only see its own corner. THE WORK IS MOSTLY WIRING, NOT INVENTION. ***
-  ROUTED: thirteen rows tagged `BB-` in the backlog across COMBAT, WORLD, PEOPLE,
-  QUESTS, WORDS, UI and SHARED. Two jump the queue (guns bad in close; you can go
-  back for her) and the rest queue BEHIND THE DEMO, because nothing in the study
-  is demo-critical.
+  *** AND DAY 6 IS THE FIFTH INSTANCE, EXCEPT THIS ONE WAS STRANDED BY THE
+  COORDINATOR'S OWN DECISION. NOBODY HOLDS ANY GROUND. *** The faction world --
+  an owner map, standings on a named ladder, and a cheap deterministic
+  claim/defend/expand territory AI -- has existed since 6/30 and NONE OF IT RUNS
+  WHERE HE WALKS, because the walked city does not load BohemiaLoop (the alpha
+  says so in its own comment). Ten of our 27 canon quests fire `@DO
+  advance_territory` into a flag nothing reads. ON THE WALKED SURFACE A FACTION
+  IS A LABEL PEOPLE WEAR, NOT GROUND ANYBODY HOLDS -- which is his own
+  "CITY-STATE SYSTEM... parts of Vegas as faction holdings", missing. The 8/14
+  ONE WALKED SURFACE migration named what would move and assumed the rest would
+  keep; it did not, and the quest casting bridge it stranded is playtest dispatch
+  item 2's mechanical cause. NEW STANDING RULE: **A MIGRATION LIST IS A DELETION
+  LIST FOR EVERYTHING NOT ON IT.** THE GOOD NEWS: the valley ALREADY has an
+  ownership map and IT IS MADE OF ELECTRICITY -- LIGHT=TERRITORY is live code on
+  the walked surface, every circuit carries an owner, the game already computes
+  seams, and the owner is a CATEGORY WITH NO NAME. Territory there is a NAMING
+  JOB, NOT A PORTING JOB, and you can see who holds a block at night from the
+  street. WHO HOLDS WHAT IS HIS. Day 6 also corrects day 1: web versus turf is
+  not a design choice, it is A FUNCTION OF POPULATION SIZE, and the valley runs
+  both regimes at once.
+  ROUTED: twenty rows tagged `BB-` in the backlog across COMBAT, WORLD, PEOPLE,
+  QUESTS, WORDS, UI and SHARED. Three are worth taking early (guns bad in close;
+  you can go back for her; name the circuit owner) and the rest queue BEHIND THE
+  DEMO, because nothing in the study is demo-critical.
   AND A MEASUREMENT NOTE THAT WILL SAVE SOMEBODY A FALSE FINDING: **A PLAIN
   SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.** The combat demo is base64 inside
   `COMBAT_B64`, decoded into an iframe by `ensureCombatFrame()`, so `gunsOnTile`,
