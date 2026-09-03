@@ -28,22 +28,30 @@ Same lesson as the WORDS lane: check the shelf before booking a month.
 **SO THE NEW GROUND IS NARROW AND NAMED: the BB campaign layer, the
 gambit, and how both land on what we already have.**
 
-## 2b. *** NARROWED THE SAME DAY BY HIM. READ THIS BEFORE THE DAY LIST. ***
-laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md. Three things changed
-and they make the study smaller and sharper, not bigger:
-1. **THE PLAYER CONTROLS EXACTLY ONE CHARACTER. ALWAYS. AND THERE IS NO
-   MANUAL-CONTROL BUTTON** — FF12 allowed it, he explicitly does not want
-   it. That one word is what keeps 20v20 from being twenty decisions a
-   turn.
-2. **THE SCALE IS 20 VERSUS 20.** Forty bodies.
-3. **GUNS ARE THE HARD PROBLEM AND HE NAMED IT HIMSELF.** Battle Brothers
-   is chess because it is MELEE — front line, adjacency, zone of control,
-   a reason to close. Guns delete the front line.
-**THE ONE-SENTENCE DESIGN IS NOW WRITABLE:** Mount & Blade's control at
-Battle Brothers' depth, with FF12's gambits as the order language, on our
-beat. Mount & Blade is the shipped precedent for being one body in a
-forty-body fight while giving formation-level orders and being able to
-hand command to sergeants when it gets loud.
+## 2b. *** NARROWED TWICE BY HIM THE SAME DAY. READ THIS BEFORE THE DAY
+## LIST. *** laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md.
+1. **THE PLAYER CONTROLS EXACTLY ONE CHARACTER. ALWAYS. NO MANUAL-CONTROL
+   BUTTON FOR ANYBODY ELSE, EVER.**
+2. **THE SCALE IS 20 VERSUS 20**, and the acceptance test for the whole
+   tactical layer is his sentence: **"every time it's ONE FUCKING BATTLE,
+   it's not a 40 MINUTE LONG CHESS MATCH."**
+3. **THE ORDERS ARE DUMB ON PURPOSE.** Not FF12's grammar. **"A GO, SLOW
+   DOWN TYPE OF VIBE"** — a handful of plain words, so simple he "barely
+   wanted it to be kind of like the gambit system." THE SIMPLICITY IS THE
+   FEATURE. The deep understanding of Battle Brothers goes UNDERNEATH it,
+   never into the interface.
+4. **ONE SYSTEM DRIVES EVERYBODY** — your company, the enemies, the
+   factions. His idea and the best structural one in the direction: the
+   player learns to read the enemy by writing his own orders, there is one
+   system to build and balance and gate instead of three, and it scales
+   off the battlefield, so "the Reds are pushing" becomes a real state of
+   a real system.
+5. **GUNS ARE THE HARD PROBLEM** and he named it himself.
+*** AND A CORRECTION THAT IS A STANDING RULE NOW: an earlier draft of this
+plan built the design around a game he never named. THE REFERENCE SET IS
+HIS AND ONLY HIS — Battle Brothers, Rogue Fable 4, Final Fantasy XII.
+Research anything; bring back a MECHANIC in plain words; never add a
+reference game he has not named. ***
 
 ## 3. THE FIVE DAYS, ONE QUESTION EACH
 Each day ends as a record with numbers, both aisles, one finding that
@@ -66,8 +74,7 @@ HE NAMED.
 THE BIGGEST DAY AND IT MAY NEED TWO. *** Two halves.
 (a) THE GAMBIT AS AN ORDER LANGUAGE for 19 bodies you never touch:
 FF12's grammar (target, action, priority; top-down, first match wins), how
-gambits are ACQUIRED and why that pacing matters, and Mount & Blade's
-formation orders as the layer above them. AND THE TWO COSTS OF NO MANUAL
+gambits are ACQUIRED and why that pacing matters,. AND THE TWO COSTS OF NO MANUAL
 CONTROL: when a squadmate does something stupid it is entirely the
 player's fault with no recourse mid-fight -- THE ANSWER IS NOT MANUAL
 CONTROL, IT IS AN ORDER, one shout that overrides everybody for a beat,

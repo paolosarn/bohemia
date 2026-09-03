@@ -97,6 +97,26 @@ BB-STUDY. *** THE BATTLE BROTHERS STUDY. FIVE DAYS OF RESEARCH, THEN
    the turn and into the loadout. THE KNOWN CRITICISM IS THE CONSTRAINT,
    NOT A REASON TO SKIP IT: "gambits make the game play itself." If a fight
    can be won with the phone face-down, it went wrong.
+   *** NARROWED TWICE BY HIM 8/28 -- READ laws/BOHEMIA_ADDENDUM_YOU_ARE_
+   THE_LEAD_8_28_26.md BEFORE ANYTHING ELSE. *** The player controls
+   EXACTLY ONE character, always, no manual-control button for anybody
+   else ever. Scale is 20 VERSUS 20. THE ORDERS ARE DUMB ON PURPOSE --
+   not FF12's grammar, "A GO, SLOW DOWN TYPE OF VIBE", so simple he
+   "barely wanted it to be kind of like the gambit system", and THE
+   SIMPLICITY IS THE FEATURE because the Battle Brothers depth goes
+   UNDERNEATH it and never into the interface. ONE SYSTEM DRIVES
+   EVERYBODY -- your company, the enemies, the factions -- which is his
+   idea and the best structural one here: the player learns to read the
+   enemy by writing his own orders, there is one system to build and
+   balance and gate instead of three, and it scales off the battlefield.
+   THE ACCEPTANCE TEST FOR THE WHOLE TACTICAL LAYER IS HIS SENTENCE:
+   "every time it's ONE FUCKING BATTLE, it's not a 40 MINUTE LONG CHESS
+   MATCH."
+   *** AND A STANDING RULE, FROM A CORRECTION HE MADE TO ME: THE REFERENCE
+   SET IS HIS AND ONLY HIS. Battle Brothers, Rogue Fable 4, Final Fantasy
+   XII. An earlier draft built the design around a game he never named and
+   he killed it on sight. Research anything, bring back a MECHANIC in
+   plain words, NEVER ADD A REFERENCE GAME HE HAS NOT NAMED. ***
    THE FIVE DAYS, one question each: (1) the contract economy -- renown as
    a gate on what you are OFFERED, moral reputation as a separate axis;
    the BB dev blogs on contracts are written by the designers. (2) the map

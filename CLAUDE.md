@@ -194,6 +194,16 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
+- NEVER ADD A REFERENCE GAME HE HAS NOT NAMED (Paolo 8/28, LOCKED): "I never
+  told you to add [that] bullshit, I never fucking told you that... I don't want
+  it referenced." A coordinator draft built his whole combat design sentence
+  around a game he had never mentioned. THE REFERENCE SET IS HIS AND ONLY HIS --
+  today it is ROGUE FABLE 4, BATTLE BROTHERS and FINAL FANTASY XII, and that list
+  changes only when he changes it. This is MECHANISM-MINE / CONTENTS-PAOLO'S
+  applied to INSPIRATION: research anything, bring back a MECHANIC in plain words
+  with no borrowed name attached, and never let a game he did not name into the
+  design, the prompt or the vocabulary. Full law:
+  laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md
 - MECHANISM-MINE / CONTENTS-PAOLO'S: build tables and whitelists EMPTY except
   what has a ruling. Never fill in canon he reserved.
   AMENDED 8/11 FOR WORDS (Paolo, LOCKED): "FOR ANY TEXT JUST HAVE PLACEHOLDING
