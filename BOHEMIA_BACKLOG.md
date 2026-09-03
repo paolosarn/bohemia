@@ -78,8 +78,19 @@ BB-STUDY. *** OWNERSHIP CORRECTED 8/28: THIS IS THE COORDINATOR'S OWN
    WORK, NOT THIS LANE'S. He asked that session for it by name ("I need
    you to do just days worth of research"). Left here so LAB knows it
    exists and does not duplicate it; LAB still owns the RF4 teardown spec.
-   DAY 1 IS DONE: records/BOHEMIA_BB_STUDY_DAY_1_THE_CONTRACT_ECONOMY_
-   8_28_26.md. ***
+   *** CLOSED 8/28. ALL FIVE DAYS ARE DONE AND THE STUDY IS ROUTED. ***
+   Days 1-5 are five records; the synthesis and the routing are in
+   records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md.
+   THIRTEEN ROWS WENT OUT, tagged BB-, to COMBAT (4), WORLD (3), PEOPLE (2),
+   QUESTS (1), WORDS (1), UI (1) and SHARED (1). ONLY TWO JUMP THE QUEUE --
+   COMBAT BB-GUNS-CLOSE and COMBAT BB-PICKUP -- and everything else queues
+   BEHIND THE DEMO, because not one row in the study is demo-critical and
+   pretending otherwise would slip the demo again.
+   THE STUDY'S OWN HEADLINE, and it is a cross-lane finding no single lane
+   could see: FOUR DAYS FOUND THE SAME FAILURE FOUR TIMES -- the standing
+   graph, the price model, the anti-turtle kit and the go-back-for-a-body
+   behaviour ALL EXIST AND ARE ALL POINTED AWAY FROM THE PLAYER. The cost of
+   this study is mostly WIRING, not invention. ***
    *** THE BATTLE BROTHERS STUDY. FIVE DAYS OF RESEARCH, THEN
    ROUTING. NOTHING SHIPS AS WORK UNTIL DAY 5 (Paolo 8/28 — law:
    laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md, plan:
@@ -2267,6 +2278,43 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-PRICE-PLACE. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
+   PRICE GETS A PLACE. engine/bohemia_economy.js is already serious, grounded
+   work -- fiat dies, barter, then commodity money; hyperbolic scarcity pricing
+   anchored on real siege data; real Mojave water and calorie numbers. What it
+   does not have is GEOGRAPHY. Measured with positive controls: no priceAt, no
+   localPrice, no per-district price, and the walked surface reaches trade
+   through `nearestHub` -- NEAREST, not best.
+   SO WE HAVE PRICES WITHOUT GEOGRAPHY: a 33-square-mile valley where every
+   point quotes the same number. That is the missing "city soul" he named,
+   stated mechanically. No new economics. One new argument on an existing model.
+   NUMERAIRE IS STILL [PENDING Paolo]; this row does not touch it.
+
+BB-WANTS. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
+   DISTRICTS PRODUCE AND WANT DIFFERENT THINGS. The canonical study of an
+   economy with no state, no money and no law says trade started because people
+   had EQUAL MEANS AND UNEQUAL PREFERENCES -- difference in WANTS, not wealth,
+   is what creates a market. The deep casino dry stores downtown are already
+   canon and are already the reason downtown matters.
+   MUST NOT invent what a district holds where he has ruled. MECHANISM MINE,
+   CONTENTS HIS.
+
+BB-CARAVANS. *** QUEUED BEHIND THE DEMO (BB study day 2, and it is a naming
+   contradiction as much as a feature). ***
+   THERE IS A CARAVANS FACTION AND THERE ARE NO CARAVANS. "Caravan" in this repo
+   is a faction NAME -- in the graph and in the people module's line pools,
+   Spanish and Spanglish registers included -- named after a thing the game does
+   not simulate.
+   GOODS MOVE, on real roads, slowly, and can be interfered with. AND FRICTION IS
+   PROTECTED: no fast, safe, universal route, ever. The moment goods flow freely
+   the map goes flat. Whether the PLAYER ever runs one is his, and a caravan of
+   hired strangers is not automatically legal under the dynasty law -- WHO WALKS
+   WITH YOU IS HIS.
+
 WASH-FILL. *** HE SAID THE WASHES ARE BACK TO BACK AND BAD. I MEASURED IT
    AND HE IS RIGHT ABOUT WHAT HE SEES AND WRONG ABOUT WHY (8/28 —
    records/BOHEMIA_THE_WASH_IS_A_DOOR_NOBODY_BUILT_8_28_26.md).
@@ -4886,6 +4934,83 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
+   IT IS A CONSTRAINT, NOT A FEATURE, IT COSTS NOTHING TODAY, AND EVERY WEAPON
+   WRITTEN BEFORE IT IS WRITTEN IS REWORK. ***
+   GUNS ARE BAD IN CLOSE. Forever, on every weapon.
+   WHY, and it is history not taste (day 3): guns and melee coexisted for two
+   centuries and it ONLY ended when the bayonet let a gun fight up close. If our
+   guns are good in close we lose the positional game entirely and the fight
+   becomes stand-and-shoot. The genre's usual answer -- cover plus hold-fire --
+   is REFUSED, because its documented result is turtling: "matches take longer
+   than optimal... less interesting, often un-interactive early on, and endgames
+   tend to be a huge sudden cascade that involves little decision-making." That
+   is his own acceptance test failing in someone else's game: "not a 40 MINUTE
+   LONG CHESS MATCH."
+   A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so this row includes ITS GATE:
+   an invariant over every weapon, not a habit. NO DAMAGE BEFORE THE DIAL still
+   holds -- the gate asserts the SHAPE (a gun's effectiveness falls off close),
+   never a number. Read: records/BOHEMIA_BB_STUDY_DAY_3_DUMB_ORDERS_AND_THE_GUN_
+   PROBLEM_8_28_26.md.
+
+BB-PICKUP. *** JUMPS THE QUEUE. THE SMALLEST ROW IN THE STUDY AND THE HIGHEST
+   FEELING PER LINE, AND THE MACHINERY IS ALREADY WRITTEN ON THE OTHER SIDE OF
+   THE BOARD. ***
+   YOU CAN GO BACK FOR HER.
+   MEASURED 8/28 in the decoded combat source: their medic has a scoring rule
+   whose own comment reads "A BODY ON THE FLOOR OUTRANKS HIS OWN SKIN, AND THAT
+   IS THE WHOLE FIGHT WITH HIM" -- he breaks cover to reach a downed man, gets
+   him back up, and has a second verb for a man who lost his nerve, HE TALKS HIM
+   ROUND. Your side has neither. `ALLY_DOWN_TURNS=99` and the comment beside it
+   ("picking him up is not built yet and is not pretended") are the exact spot.
+   WHY IT MATTERS MORE THAN IT LOOKS (day 4): permadeath does not create
+   attachment, it cashes in a bond that already exists, so with permadeath ruled
+   out the bond has to be built by other channels. The measured channels are
+   interdependence (already true: 8 foes alone 0/60 rooms, with her 60%),
+   responsiveness, marks that persist, and BEING MISSED. This is being missed,
+   and it is the one that costs the least.
+   MUST NOT: become a heal button, make her invulnerable, or add a control
+   surface (8/31 law: no order menu). Read: records/BOHEMIA_BB_STUDY_DAY_4_
+   ATTACHMENT_WITHOUT_PERMADEATH_8_28_26.md.
+
+BB-ORDERS. *** QUEUED BEHIND THE DEMO. DO NOT START THIS BEFORE THE DEMO SHIPS
+   -- it is the biggest build in the study and it touches the fight, the enemies
+   and the factions at once. ***
+   ORDERS ARE INTENTS: a handful of plain words, ONE system driving your side,
+   the enemy, and the factions off-screen (his ruling 4, 8/28).
+   DAY 3'S FINDING, AND IT REVERSES WHAT WE ASSUMED: simple intent orders are not
+   a concession to make things easy. Decentralised intent is the STRONGER system
+   when a fight is fast and confusing, because the body at the edge has better
+   information than the commander. At twenty a side, detailed orders would be
+   WORSE orders. And it answers his no-manual-control ruling without bending it:
+   you never take the wheel, you CHANGE THE INTENT, one word, one beat, which
+   sits exactly on 120 BPM.
+   READ §5.2 OF THE DAY 5 SYNTHESIS FIRST: this does NOT conflict with the 8/31
+   companion law's fixed ladder. Her ladder IS her default intent; an intent
+   SWAPS WHICH LADDER SHE RUNS. No menu, no condition list, no priority table to
+   sort. The control surface does not grow.
+   MUST NOT: become a gambit editor. "I barely wanted it to be kind of like the
+   gambit system" -- THE SIMPLICITY IS THE FEATURE.
+
+BB-SCAR. *** QUEUED, AND PARTLY BLOCKED ON A DIAL THAT IS HIS. ***
+   A LOSS THAT IS NOT A DEATH: a mark that persists past the bell -- a limp, a
+   scar, a hand. It cannot be reloaded away and it does not delete the person.
+   The game he named spent a whole feature on NOT DYING for exactly this reason.
+   *** THE COLLISION, FLAGGED NOT DECIDED (day 5 §5.1): THE REWIND CAN UNDO A
+   SCAR. ~200 moves of take-back (8/15) versus a permanent mark. Three shapes:
+   (a) the mark lands AFTER the bell, outside the window the rewind reaches;
+   (b) the rewind restores position and health but never identity-level state;
+   (c) rewinding past a mark costs something real. (a) is cheapest and most
+   honest AND IT IS STILL HIS DIAL. ***
+   Also measured and needed first: the companion carries NOTHING between fights.
+   `allyMake()` rebuilds her at full health at every bell, she cannot lose her
+   nerve (`broken=true` is set on enemies only), and she does not ride the save.
+   A mark needs somewhere to live.
+
 BESTIARY-VOLUME. *** HE ASKED FOR VOLUME: "OKAY BRO WE NEED A BUNCH MORE
    ENEMIES SO TELL WHATEVER CHAT" (Paolo 8/25). THIS IS THE ORDER TO COOK,
    AND IT IS A FACTORY ORDER, NOT A LIST.
@@ -5133,6 +5258,30 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
+   THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
+   MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
+   and rich -- his own GDD §9 data, 14 factions on real generated districts,
+   permanent canon constraints, every write wrapped so no raw call can break
+   canon. And `shiftStanding(aId,bId,...)` is faction-to-faction. THE PLAYER IS
+   NOT IN IT. Factions have opinions about each other and NOBODY IN THE VALLEY
+   HAS AN OPINION ABOUT YOU.
+   THE SHAPE, from day 1: it is A WEB, NOT A BAR. A job comes from a PERSON, and
+   that person heard about you from someone. The question a favour answers is not
+   "did my bar go up" but "who will vouch for me now."
+   MUST GO THROUGH THE WRAPPED WRITER. Canon constraints untouched. Adding a node
+   must not let this lane invent a standing he never ruled.
+
+BB-KNOWN-FOR. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
+   TWO AXES, NOT ONE. Who TRUSTS you is separate from what you are KNOWN TO DO.
+   The game he named keeps moral reputation on its own axis, apart from whether a
+   given faction likes you, and the separation is what makes it readable.
+   MECHANISM ONLY. What counts as which is his.
+
 LANG-1. *** A PERSON HAS A LANGUAGE, AND RIGHT NOW NOBODY DOES (sweep 15,
    8/25 — records/BOHEMIA_EVERYBODY_IN_THIS_VALLEY_SPEAKS_PERFECT_ENGLISH_
    8_25_26.md. Coordinator DECISION under EVERYTHING IS A THUMB, not a
@@ -7681,6 +7830,24 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 ##    see it, and he was right).
 
 ## QUESTS — HEADER WAS STALE, CORRECTED 8/15 BY THE COORDINATOR. The
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-OFFER-GATE. *** QUEUED BEHIND THE DEMO (BB study day 1, composes with day 2). ***
+   THE FEED GATES OFFERS ON WHO VOUCHES FOR YOU -- not only on who owns a phone.
+   Measured: the ONE thing that currently decides a quest's channel is PHONELESS.
+   That is a good rule and it is his; it is just not an opinion about the player.
+   *** RENOWN GATES THE OFFER, NOT THE DIFFICULTY. *** This is the cleanest idea
+   in the whole study: the world's opinion changes WHAT YOU ARE ALLOWED TO
+   ATTEMPT and what it pays, and NEVER how hard the world hits you. The usual
+   approach quietly scales enemy power with reputation, which players experience
+   as being PUNISHED for succeeding. NO DAMAGE BEFORE THE DIAL stays untouched,
+   which means this whole system builds with ZERO balance numbers.
+   AND WITH DAY 2: a job is somebody's problem with the map. Once districts want
+   different things, the work generates itself instead of being sprinkled on top.
+   Depends on PEOPLE BB-STANDING-PLAYER.
+
 QW. *** A QUEST THAT IS NOT ATTACHED TO A PLACE AND A PERSON IS NOT A
    QUEST (Paolo 8/25 PLAYTEST DISPATCH, LOCKED — laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md)
    HIS WORDS: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY LOCATIONS OR
@@ -7797,6 +7964,27 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 ## structure, stages, effects, consequence. WORDS owns HOW IT SOUNDS —
 ## the line, the voice, the register, the craft. Neither writes the
 ## other's half.)
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-RESPONSIVE. *** QUEUED BEHIND THE DEMO (BB study day 4). ***
+   THE ONLY PERSON WHO FIGHTS BESIDE YOU SAYS FOUR THINGS AND NONE OF THEM ARE
+   ABOUT YOU. Measured in the decoded combat source: CLEAR / GOT THE BLADE / ON
+   THE SPOTTER / FIRING. All four are status reports about the enemy.
+   THE SPECIFICATION IS FROM THE REAL RESEARCH, NOT FROM TASTE: closeness is
+   built by PERCEIVED PARTNER RESPONSIVENESS, and it has three named parts --
+   feeling UNDERSTOOD, VALIDATED, CARED FOR. Disclosure alone does not do it;
+   disclosure that is RESPONDED TO does. So a line fires off SOMETHING THE PLAYER
+   JUST DID. A line on a timer is noise.
+   AND THE CHEAP HALF, from the companion game he named himself (7/26): what made
+   those characters read as people was SMALL HABITS AND THE DISTANCE EACH ONE
+   KEEPS, not volume of dialogue. One person who always stands too close and one
+   who never does is characterful before anybody speaks.
+   ANTI-GOAL, and every source in day 4 agrees: MORE WRITTEN BACKSTORY IS NOT THE
+   FIX. "The narrative is created by the gameplay." Voice card applies, she ships
+   draft:true, and NOBODY IN BOHEMIA IS WISE.
+
 W-0. *** THE HONEST REASON THIS LANE EXISTS: THE WRITER IS A MACHINE AND
    MACHINES HAVE TELLS. Not a put-down, a working condition. Every line in
    this game is written by something trained to produce the most probable
@@ -7856,6 +8044,20 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
 ## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
 ## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
 ## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-WHY. *** QUEUED BEHIND THE DEMO (BB study day 3). ***
+   THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE DID WHAT IT DID.
+   This is the documented failure mode that actually kills automated-ally
+   systems: not that the AI is bad, but that when the player cannot tell WHY it
+   chose what it chose, the whole system reads as broken instead of clever. With
+   no manual control (his ruling 1) there is no recourse mid-fight, so legibility
+   is not polish here, it is the safety rail.
+   Pairs with COMBAT BB-ORDERS. It is a LOOK problem: what does an intent look
+   like on screen, and how do you show one body's reason without a debug dump.
+
 WIDE-1. *** ON A LAPTOP THE WHOLE GAME IS A 640-PIXEL COLUMN, AND HE IS
    SICK OF IT (Paolo 8/26: "I'm sick and tired of the run and the combat
    not being full screen and still being like phone screen while I'm on my
@@ -8340,6 +8542,24 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
+    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
+    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+    THE_ROUTING_8_28_26.md ***
+BB-ALPHA-DECODE. *** A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT. Write
+   this into whatever audits or documents the build, because it has now nearly
+   produced one false finding. ***
+   Measured 8/28: `gunsOnTile` 0, `hitsTile` 0, `ENC_SIZES` 0, `ALLY_NAME` 0,
+   `BohemiaArena` 0 -- in BOTH slices. Every one of those reads as ZERO because
+   THE COMBAT DEMO IS BASE64 inside `COMBAT_B64` and is decoded into an iframe by
+   `ensureCombatFrame()`. Decoded it is 1,343,843 characters and every token is
+   there. I was three minutes from writing "the companion he ruled in on 8/31 was
+   never shipped." SHE IS SHIPPED.
+   THE STANDING RULE THAT CAUGHT IT, THIRD TIME THIS MONTH: A NEGATIVE RESULT IS
+   A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT COULD HAVE
+   SEEN A POSITIVE ONE. The positive control is one line: grep for a token the
+   fight certainly has, get zero, and stop.
+
 FIDELITY-1. *** A SUMMARY THAT ADDS A FACT ITS SOURCE DOES NOT CONTAIN IS
    A BUG, NOT A PARAPHRASE (sweep 23, 8/28 — records/BOHEMIA_A_SUMMARY_
    DELETED_THE_ENDING_8_28_26.md).

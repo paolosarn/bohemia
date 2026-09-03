@@ -115,7 +115,18 @@ squad? Injuries that persist, names, history, mutual knowledge, being
 missed. Both aisles: BB and XCOM on one side, and the real psychology of
 attachment and loss on the other. **THIS IS THE HARDEST DAY AND THE MOST
 IMPORTANT ONE.**
-**DAY 5 — THE SYNTHESIS AND THE ROUTING.** One document: what we take,
+**DAY 5 — THE SYNTHESIS AND THE ROUTING. *** DONE. THE STUDY IS CLOSED:
+records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md.
+THE HEADLINE IS A CROSS-LANE FINDING NO SINGLE LANE COULD SEE: four days
+measured four different corners and found THE SAME FAILURE FOUR TIMES --
+the standing graph, the price model, the anti-turtle kit and the
+go-back-for-a-body behaviour ALL EXIST AND ARE ALL POINTED AWAY FROM THE
+PLAYER. So the study's real cost is WIRING, not invention. Ten takes, ten
+refusals, four collisions between his own laws, and THIRTEEN ROUTED ROWS
+tagged BB- across COMBAT/WORLD/PEOPLE/QUESTS/WORDS/UI/SHARED. Only two
+jump the queue (guns bad in close, and you can go back for her); NOTHING
+IN THE STUDY IS DEMO-CRITICAL and the demo path still keeps the fleet.***
+One document: what we take,
 what we refuse, what it costs, and a row per lane. Nothing before day 5
 gets routed as work.
 

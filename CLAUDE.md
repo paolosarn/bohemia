@@ -194,15 +194,48 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- "BB STUDY, NEXT DAY" IS A COMPLETE INSTRUCTION. If his first words are "bb
-  study", that is the trigger for the Battle Brothers research and it needs
-  nothing else from him. READ IN THIS ORDER:
-  laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md (the fixed points),
-  laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md (the direction),
-  records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md (the plan and the standing
-  rules), then pick up at the next unfinished day and write it to records/.
-  THE STUDY IS THE COORDINATOR'S OWN WORK, not a lane's -- he asked this session
-  for it by name. Nothing routes as work until day 5.
+- *** THE BATTLE BROTHERS STUDY IS FINISHED (8/28). ALL FIVE DAYS ARE WRITTEN AND
+  ROUTED. *** He drove it with two words, "bb study, next day", and it was the
+  COORDINATOR'S own work, not a lane's. If you are about to build anything it
+  touches, READ THE SYNTHESIS FIRST:
+  records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+  (ten takes, ten refusals, the collisions, and the routing). The direction it
+  serves is laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md and
+  the fixed points are laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md.
+  WHAT IT SETTLED, so nobody re-derives it: RENOWN GATES THE OFFER, NOT THE
+  DIFFICULTY (reputation changes what you are offered and what it pays, never how
+  hard the world hits you, so the whole system builds with ZERO balance numbers
+  and NO DAMAGE BEFORE THE DIAL is untouched). WE HAVE PRICES WITHOUT GEOGRAPHY,
+  and difference in WANTS is what starts a market, and FRICTION IS PROTECTED --
+  no fast safe universal route, ever. HIS "GO, SLOW DOWN" ORDER SET IS THE
+  STRONGER DESIGN, NOT THE EASIER ONE: decentralised intent beats detailed
+  instruction when a fight is fast, because the body at the edge has the better
+  information -- you never take the wheel, you CHANGE THE INTENT, one word, one
+  beat. GUNS ARE BAD IN CLOSE, FOREVER, and cover-and-hold is REFUSED because its
+  documented result is the 40-minute match he named. AND PERMADEATH DOES NOT
+  CREATE ATTACHMENT, IT CASHES IT IN -- the measured effect runs through grief and
+  is stronger for players who were ALREADY attached -- so his no-permadeath ruling
+  is safe and the bond must be built from INTERDEPENDENCE, RESPONSIVENESS, MARKS
+  THAT PERSIST, and BEING MISSED.
+  *** AND THE ONE FINDING NO SINGLE LANE COULD HAVE SEEN, WHICH IS WHY IT TOOK
+  FIVE DAYS OF READING ACROSS ALL OF THEM: FOUR DAYS FOUND THE SAME FAILURE FOUR
+  TIMES. The faction standing graph, the scarcity price model, the whole
+  anti-turtle kit, and the break-cover-for-a-body-on-the-floor behaviour ALL
+  EXIST AND ARE ALL AIMED AWAY FROM THE PLAYER -- the player is not a node, no
+  price takes a place, the pressure was never joined, and the going-back-for-your
+  -wounded verb belongs to the ENEMY MEDIC while your companion lies there for 99
+  turns. Same shape as the seventeen invisible hats and the face maker with no
+  door, except in the systems layer, four times, unnoticed because each lane
+  could only see its own corner. THE WORK IS MOSTLY WIRING, NOT INVENTION. ***
+  ROUTED: thirteen rows tagged `BB-` in the backlog across COMBAT, WORLD, PEOPLE,
+  QUESTS, WORDS, UI and SHARED. Two jump the queue (guns bad in close; you can go
+  back for her) and the rest queue BEHIND THE DEMO, because nothing in the study
+  is demo-critical.
+  AND A MEASUREMENT NOTE THAT WILL SAVE SOMEBODY A FALSE FINDING: **A PLAIN
+  SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.** The combat demo is base64 inside
+  `COMBAT_B64`, decoded into an iframe by `ensureCombatFrame()`, so `gunsOnTile`,
+  `ENC_SIZES`, `ALLY_NAME` and `BohemiaArena` all read ZERO in both slices while
+  being present. Decode first, then measure.
 - NEVER ADD A REFERENCE GAME HE HAS NOT NAMED (Paolo 8/28, LOCKED): "I never
   told you to add [that] bullshit, I never fucking told you that... I don't want
   it referenced." A coordinator draft built his whole combat design sentence

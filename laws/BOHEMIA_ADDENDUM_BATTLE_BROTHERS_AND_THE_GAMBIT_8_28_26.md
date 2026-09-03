@@ -2,6 +2,38 @@
 ### Paolo, 8/28/26. LOCKED as direction. The reference set is now three
 ### games, and he named the exact problem to solve.
 
+## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
+## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+## THE_ROUTING_8_28_26.md ***
+Five days, five records, driven by his own two-word trigger "bb study,
+next day". WHAT IT SETTLED, in one block, so nobody re-derives it:
+- **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
+  work you are offered and what it pays, never how hard the world hits
+  you. NO DAMAGE BEFORE THE DIAL is untouched by the whole system.
+- **PRICES NEED A PLACE.** The scarcity model is grounded and has no
+  geography; difference in WANTS is what starts a market; friction is
+  protected and there is never a fast safe universal route.
+- **HIS "GO, SLOW DOWN" ORDER SET IS THE STRONGER DESIGN, NOT THE EASIER
+  ONE.** Decentralised intent beats detailed instruction when a fight is
+  fast, because the body at the edge has the better information. You never
+  take the wheel; you change the intent, one word, one beat.
+- **GUNS ARE BAD IN CLOSE, FOREVER.** Cover-and-hold is REFUSED: its
+  documented result is the 40-minute match he named.
+- **PERMADEATH DOES NOT CREATE ATTACHMENT, IT CASHES IT IN.** His
+  no-permadeath ruling is safe and better founded than the argument
+  against it; the bond has to be built from interdependence,
+  responsiveness, marks that persist, and being missed.
+- **THE CROSS-LANE FINDING:** four days found the same failure four times.
+  The standing graph, the price model, the anti-turtle kit and the
+  go-back-for-a-body behaviour ALL EXIST AND ARE ALL AIMED AWAY FROM THE
+  PLAYER. The work is mostly wiring.
+- **ROUTED:** thirteen rows tagged `BB-` across COMBAT, WORLD, PEOPLE,
+  QUESTS, WORDS, UI and SHARED. Two jump the queue; the rest queue behind
+  the demo, because none of the study is demo-critical.
+- **COLLISIONS FLAGGED, HIS DIALS:** the rewind can undo a scar (§5.1 of
+  the synthesis), and "one system drives everybody" versus the companion's
+  fixed ladder, which reconcile cleanly (§5.2) and are written down once.
+
 ## HIS WORDS
 > "I'm playing this game Battle Brothers and it really is one of the
 > deepest, most rewarding games I've ever played... I'm not a fan of the

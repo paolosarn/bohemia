@@ -703,7 +703,55 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (g) LATEST -- *** THE BATTLE
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (h) LATEST -- *** THE BATTLE
+BROTHERS STUDY IS FINISHED AND ROUTED. All five days written; THIRTEEN ROWS went
+out to seven lanes, tagged BB-. Nothing to judge. ***
+
+READ BEFORE POPPING A BB- ROW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
+THE_ROUTING_8_28_26.md -- ten takes, ten refusals, four collisions between his own
+laws, and the running order.
+
+*** THE FINDING THAT MATTERS TO EVERY LANE, AND NO LANE COULD HAVE SEEN IT ALONE:
+FOUR DAYS MEASURED FOUR DIFFERENT CORNERS AND FOUND THE SAME FAILURE FOUR TIMES.
+The faction standing graph exists and THE PLAYER IS NOT A NODE. The scarcity price
+model exists and NO PRICE TAKES A PLACE. The whole anti-turtle kit exists (the 50%
+shout, the priority target at the back, backline AI that flees your line, the day
+clock) and WAS NEVER JOINED INTO ONE PRESSURE. And breaking cover to get a body
+off the floor exists AND BELONGS TO THE ENEMY MEDIC while your companion lies
+there for 99 turns. WE BUILT THE ENGINE AND AIMED IT AT THE SCENERY, four times,
+unnoticed, because each lane could only see its own corner. That is the invisible
+hats in the systems layer. THE COST OF THIS STUDY IS MOSTLY WIRING. ***
+
+WHAT IT SETTLED (do not re-derive): RENOWN GATES THE OFFER, NOT THE DIFFICULTY --
+so the whole reputation system builds with ZERO balance numbers and NO DAMAGE
+BEFORE THE DIAL is untouched. FRICTION IS PROTECTED: no fast, safe, universal
+route, ever. HIS "GO, SLOW DOWN" ORDER SET IS THE STRONGER DESIGN, NOT THE EASIER
+ONE, and you never take the wheel, you change the intent. GUNS ARE BAD IN CLOSE,
+FOREVER; cover-and-hold is REFUSED. PERMADEATH DOES NOT CREATE ATTACHMENT, IT
+CASHES IT IN, so his ruling is safe and the bond gets built from interdependence,
+responsiveness, marks that persist, and being missed.
+
+THE RUNNING ORDER (coordinator's call, and it is deliberately small): THE DEMO
+PATH STILL KEEPS THE FLEET. Only TWO rows jump the queue -- COMBAT BB-GUNS-CLOSE
+(a constraint that costs nothing today and makes every weapon written before it
+into rework) and COMBAT BB-PICKUP (smallest row in the study, machinery already
+written on the enemy's side, best feeling per line we found in five days).
+EVERYTHING ELSE QUEUES BEHIND THE DEMO. AND DO NOT START BB-ORDERS BEFORE THE DEMO
+SHIPS: it is the biggest build in the study and it touches the fight, the enemies
+and the factions at once.
+
+COLLISIONS FLAGGED, DIALS ARE HIS: (1) THE REWIND CAN UNDO A SCAR -- ~200 moves of
+take-back versus a mark meant to be permanent; three shapes exist, none chosen.
+(2) "One system drives everybody" versus the 8/31 companion's FIXED LADDER -- these
+reconcile and it is written down once in §5.2: her ladder IS her default intent,
+and an intent SWAPS WHICH LADDER SHE RUNS. No menu. The control surface does not
+grow.
+
+STILL TRUE FROM DAY 4, AND IT IS A MEASUREMENT NOTE FOR ANY AUDIT: A PLAIN SEARCH
+OF THE ALPHA CANNOT SEE THE FIGHT (base64 in COMBAT_B64, decoded by
+ensureCombatFrame). Decode first, then measure.
+
+COORDINATOR: 8/28 (g) -- *** THE BATTLE
 BROTHERS STUDY, DAYS 1-4 ARE DONE. Day 5 (synthesis + routing) is the only one
 left, and NOTHING ROUTES AS WORK UNTIL IT LANDS -- his order. Nothing to judge. ***
 
