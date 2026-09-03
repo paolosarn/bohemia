@@ -74,7 +74,13 @@
 
 ## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
 ## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
-BB-STUDY. *** THE BATTLE BROTHERS STUDY. FIVE DAYS OF RESEARCH, THEN
+BB-STUDY. *** OWNERSHIP CORRECTED 8/28: THIS IS THE COORDINATOR'S OWN
+   WORK, NOT THIS LANE'S. He asked that session for it by name ("I need
+   you to do just days worth of research"). Left here so LAB knows it
+   exists and does not duplicate it; LAB still owns the RF4 teardown spec.
+   DAY 1 IS DONE: records/BOHEMIA_BB_STUDY_DAY_1_THE_CONTRACT_ECONOMY_
+   8_28_26.md. ***
+   *** THE BATTLE BROTHERS STUDY. FIVE DAYS OF RESEARCH, THEN
    ROUTING. NOTHING SHIPS AS WORK UNTIL DAY 5 (Paolo 8/28 — law:
    laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md, plan:
    records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md).

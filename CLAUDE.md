@@ -194,6 +194,15 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
+- "BB STUDY, NEXT DAY" IS A COMPLETE INSTRUCTION. If his first words are "bb
+  study", that is the trigger for the Battle Brothers research and it needs
+  nothing else from him. READ IN THIS ORDER:
+  laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md (the fixed points),
+  laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md (the direction),
+  records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md (the plan and the standing
+  rules), then pick up at the next unfinished day and write it to records/.
+  THE STUDY IS THE COORDINATOR'S OWN WORK, not a lane's -- he asked this session
+  for it by name. Nothing routes as work until day 5.
 - NEVER ADD A REFERENCE GAME HE HAS NOT NAMED (Paolo 8/28, LOCKED): "I never
   told you to add [that] bullshit, I never fucking told you that... I don't want
   it referenced." A coordinator draft built his whole combat design sentence
