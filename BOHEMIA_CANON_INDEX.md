@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-355 canon files indexed across 2 locations.
+356 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -283,13 +283,14 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (197) — add keywords to DOMAINS
+### UNCLASSIFIED (198) — add keywords to DOMAINS
 - `BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md`
 - `BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md`
 - `BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md`
 - `BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md`
 - `BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md`
 - `BOHEMIA_ADDENDUM_THE_MATERIALS_ARE_COOKED_8_28_26.md`
+- `BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md`
 - `BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md`
 - `BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md`
 - `BOHEMIA_LAW_A_BOSS_HANDS_YOU_A_VERB_8_27_26.md`

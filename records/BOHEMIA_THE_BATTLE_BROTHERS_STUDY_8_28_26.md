@@ -28,6 +28,23 @@ Same lesson as the WORDS lane: check the shelf before booking a month.
 **SO THE NEW GROUND IS NARROW AND NAMED: the BB campaign layer, the
 gambit, and how both land on what we already have.**
 
+## 2b. *** NARROWED THE SAME DAY BY HIM. READ THIS BEFORE THE DAY LIST. ***
+laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md. Three things changed
+and they make the study smaller and sharper, not bigger:
+1. **THE PLAYER CONTROLS EXACTLY ONE CHARACTER. ALWAYS. AND THERE IS NO
+   MANUAL-CONTROL BUTTON** — FF12 allowed it, he explicitly does not want
+   it. That one word is what keeps 20v20 from being twenty decisions a
+   turn.
+2. **THE SCALE IS 20 VERSUS 20.** Forty bodies.
+3. **GUNS ARE THE HARD PROBLEM AND HE NAMED IT HIMSELF.** Battle Brothers
+   is chess because it is MELEE — front line, adjacency, zone of control,
+   a reason to close. Guns delete the front line.
+**THE ONE-SENTENCE DESIGN IS NOW WRITABLE:** Mount & Blade's control at
+Battle Brothers' depth, with FF12's gambits as the order language, on our
+beat. Mount & Blade is the shipped precedent for being one body in a
+forty-body fight while giving formation-level orders and being able to
+hand command to sergeants when it gets loud.
+
 ## 3. THE FIVE DAYS, ONE QUESTION EACH
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
@@ -45,7 +62,29 @@ ground and fight each other without the player. **LANDS ON:** our
 districts, the market ledger, faction posture and territory — all of which
 exist and have never been wired into one economy. THIS IS THE "CITY SOUL"
 HE NAMED.
-**DAY 3 — THE GAMBIT, PROPERLY.** FF12's actual grammar: target, action,
+**DAY 3 — THE GAMBIT, PROPERLY, AND THE GUN PROBLEM.** *** THIS IS NOW
+THE BIGGEST DAY AND IT MAY NEED TWO. *** Two halves.
+(a) THE GAMBIT AS AN ORDER LANGUAGE for 19 bodies you never touch:
+FF12's grammar (target, action, priority; top-down, first match wins), how
+gambits are ACQUIRED and why that pacing matters, and Mount & Blade's
+formation orders as the layer above them. AND THE TWO COSTS OF NO MANUAL
+CONTROL: when a squadmate does something stupid it is entirely the
+player's fault with no recourse mid-fight -- THE ANSWER IS NOT MANUAL
+CONTROL, IT IS AN ORDER, one shout that overrides everybody for a beat,
+which sits perfectly on 120 BPM. And LEGIBILITY, which is what actually
+kills systems like this: if he cannot tell WHY his squad did what it did,
+the gambits read as broken instead of clever.
+(b) *** WHAT GUNS DO TO A MELEE CHESS GAME. *** The real world spent two
+centuries on this and the answer is PIKE AND SHOT: musketeers deliver
+massed fire, pikemen keep cavalry and chargers off them, muskets flanking
+the pike block. THE TWO ARMS PROTECT EACH OTHER. AND THE PUNCHLINE IS OUR
+DESIGN RULE: the pike died when the BAYONET arrived, because a musket that
+could also fight up close no longer needed protecting. SO IF OUR GUNS ARE
+GOOD IN CLOSE, WE LOSE THE POSITIONAL GAME ENTIRELY. Guns being bad up
+close is not flavour, it is the load-bearing wall. Games side: how XCOM,
+Jagged Alliance and Phoenix Point replace the front line with COVER and
+overwatch, and what that costs.
+**DAY 3, THE OLD TEXT:** FF12's actual grammar: target, action,
 priority; top-down evaluation, first match wins; how gambits are ACQUIRED
 and why that pacing matters; what the "it plays itself" criticism is
 really about and what stops it. **LANDS ON:** RF4's five archetypes and
