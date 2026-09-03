@@ -74,6 +74,47 @@
 
 ## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
 ## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
+BB-STUDY. *** THE BATTLE BROTHERS STUDY. FIVE DAYS OF RESEARCH, THEN
+   ROUTING. NOTHING SHIPS AS WORK UNTIL DAY 5 (Paolo 8/28 — law:
+   laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md, plan:
+   records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md).
+   HIS TARGET: "IMAGINE IF ROGUE FABLE 4 AND BATTLE BROTHERS HAD A BABY",
+   plus a FINAL FANTASY XII GAMBIT SYSTEM, because "I feel like every time
+   you enter combat it's a fucking chess match and I don't think normal
+   people would like that."
+   *** THE SPLIT THAT MAKES IT TRACTABLE IS IN HIS OWN MESSAGE. *** What he
+   loves and calls slow is the TACTICAL layer. What he loves and never
+   called slow is the CAMPAIGN layer -- "the world, the caravan system, the
+   city-state system... different parts of Vegas as different faction
+   holdings." SO WE TAKE BB'S CAMPAIGN WHOLESALE AND NOT ITS TACTICAL PACE.
+   The strategic layer costs a player nothing per turn. The tactical layer
+   stays RF4, which is fast by design.
+   *** AND THE GAMBIT ANSWERS HIS OWN COMPLAINT. *** FF12 gambits are
+   if-then rules with a target, an action and a PRIORITY, top-down, first
+   match wins -- programming without knowing you are programming. A CHESS
+   MATCH ASKS YOU TO THINK HARD EVERY TURN; A GAMBIT ASKS YOU TO THINK HARD
+   ONCE AND THEN WATCH IT PAY OFF. The depth does not leave, it moves off
+   the turn and into the loadout. THE KNOWN CRITICISM IS THE CONSTRAINT,
+   NOT A REASON TO SKIP IT: "gambits make the game play itself." If a fight
+   can be won with the phone face-down, it went wrong.
+   THE FIVE DAYS, one question each: (1) the contract economy -- renown as
+   a gate on what you are OFFERED, moral reputation as a separate axis;
+   the BB dev blogs on contracts are written by the designers. (2) the map
+   as an economy -- settlements that want things, caravans, prices by
+   place, factions fighting without the player. THIS IS THE "CITY SOUL" HE
+   NAMED. (3) the gambit, properly. (4) ATTACHMENT WITHOUT PERMADEATH --
+   the hardest and most important, because BB gets its attachment from
+   permadeath plus no save-scumming and WE RULED PERMADEATH OUT and ruled
+   THE REWIND in (8/15). (5) synthesis and routing.
+   CHECK THE SHELF FIRST: RF4 is dossiered twice, the bestiary is done, 16
+   faction dossiers exist, the three currencies and the payday bridge
+   exist, 244 questbook files exist. The NEW ground is narrow and named.
+   TENSIONS TO HOLD: BB runs on COIN and we have three currencies and NO
+   MONEY; BB is a mercenary company and we are one person then a family
+   across three generations; BB is slow on purpose and our beat is 120 BPM.
+   | five records, one per day, each with numbers and both aisles and one
+   finding that challenges us | every design call = HIS after day 5 | no,
+   not until day 5. ***
 RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    (Paolo 8/16, LOCKED, direction-class — laws/BOHEMIA_ADDENDUM_RECREATE_
    RF4_FIRST_8_16_26.md: "the reference lab and the combat chats are
