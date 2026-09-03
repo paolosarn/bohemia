@@ -5,11 +5,13 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-SIX days, six records, driven by his own two-word trigger "bb study, next
-day". The plan was five; HE SENT THE TRIGGER AGAIN AND THE SIXTH DAY
-FOUND THE PILLAR THE PLAN HAD MISSED — his own "CITY-STATE SYSTEM...
-different parts of Vegas as different faction holdings", which days 1 and
-2 never covered. A PLAN IS NOT A LAW.
+SEVEN days, seven records, driven by his own two-word trigger "bb study,
+next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
+STUDYING BATTLE BROTHERS"), AND DAYS 6 AND 7 EACH FOUND A PILLAR THE PLAN
+HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of Vegas
+as different faction holdings", which days 1 and 2 never covered. Day 7:
+the motor, meaning why a player gets up tomorrow at all. A PLAN IS NOT A
+LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -31,8 +33,8 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   The standing graph, the price model, the anti-turtle kit and the
   go-back-for-a-body behaviour ALL EXIST AND ARE ALL AIMED AWAY FROM THE
   PLAYER. The work is mostly wiring.
-- **NOBODY HOLDS ANY GROUND (day 6).** The faction world — an owner map,
-  standings, and a cheap deterministic claim/defend/expand territory AI —
+- **NOBODY HOLDS ANY GROUND (day 6).** The faction world (an owner map,
+  standings, and a cheap deterministic claim/defend/expand territory AI)
   has existed since 6/30 and NONE OF IT RUNS WHERE HE WALKS. Ten of our 27
   canon quests fire `@DO advance_territory` into a flag nothing reads. On
   the walked surface **a faction is a label people wear, not ground
@@ -49,10 +51,27 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   everyone; past that, order goes territorial. Our valley runs both at
   once: small settlement, somebody vouches for you; dense district,
   somebody holds the block.
-- **ROUTED:** twenty rows tagged `BB-` across COMBAT, WORLD, PEOPLE,
-  QUESTS, WORDS, UI and SHARED. Two jump the queue and day 6 adds a third
-  worth taking early (WORLD BB-TURF); the rest queue behind the demo,
-  because none of the study is demo-critical.
+- **THE MOTOR IS PAYROLL, NOT SURVIVAL, AND ITS PUNISHMENT IS LONELINESS
+  (day 7).** BB makes you leave the house with a daily wage-and-food bill
+  whose penalty is mood, then DESERTION. You do not die of poverty there,
+  you end up alone. One number, scaling with what you own, punished
+  socially. **SO OUR STAKES TABLE GETS OBLIGATIONS TO PEOPLE, NOT HUNGER
+  AND THIRST METERS**. The desert is the setting, not the scoreboard, and
+  survival meters are the genre's most reliably hated mechanic. AND WE
+  ALREADY BUILT THE RIGHT ONE AND HID IT: the only daily cost in the
+  walked game charges you for not showing up for people you gave your word
+  to, and it fires on the tap that dismisses the card that could have told
+  you, with its answer thrown away. **A SOCIAL BURN IS NOT DAMAGE, so the
+  motor ships without him ruling a single number.**
+- **AND CUTTING A FACTION'S INCOME RELEASES IT (day 7, closing day 6).**
+  An armed group that stops being paid does not disappear, it goes
+  roving. Taking somebody's lights is not a free win.
+- **ROUTED:** twenty-four rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+  QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
+  WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
+  effort-to-effect row in the study: one line on a card he already reads.
+  The rest queue behind the demo, because none of the study is
+  demo-critical.
 - **COLLISIONS FLAGGED, HIS DIALS:** the rewind can undo a scar (§5.1 of
   the synthesis), and "one system drives everybody" versus the companion's
   fixed ladder, which reconcile cleanly (§5.2) and are written down once.

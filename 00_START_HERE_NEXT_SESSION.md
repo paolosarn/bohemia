@@ -703,7 +703,60 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (i) LATEST -- *** DAY 6 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (j) LATEST -- *** DAY 7 OF THE BB
+STUDY: THE MOTOR IS PAYROLL, NOT SURVIVAL, AND ITS PUNISHMENT IS LONELINESS. We
+already built the right mechanic and hid it. Twenty-four BB- rows routed. Nothing
+to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md
+
+THE QUESTION NOBODY HAD ASKED: days 1, 2 and 6 covered what work is offered, what
+it costs and who holds the ground. NOBODY ASKED WHY THE PLAYER GETS UP TOMORROW.
+
+BB'S MOTOR IS NOT COMBAT, IT IS PAYROLL: wages daily at noon rising with each
+level, 2 food per man per day, tools and medicine burning in the background. AND
+THE PUNISHMENT IS NOT DAMAGE, IT IS MOOD AND THEN DESERTION. You do not die of
+poverty in that game, YOU END UP ALONE. One number, scaling with what you own,
+punished socially.
+
+*** THE CHALLENGE, AND IT SHOULD CHANGE WHAT ANY LANE PUTS IN THE STAKES TABLE:
+our day loop's own header says the table is "empty on purpose" and names the
+candidates as "hunger, exhaustion, rent, a debt clock". Survival meters are the
+genre's most reliably hated mechanic and the complaint is BUSYWORK, not
+difficulty, while the most punishing campaign anybody has shipped HAS NO HUNGER
+METER ON THE PLAYER AT ALL. SO THE STAKES TABLE GETS OBLIGATIONS TO PEOPLE, NOT
+METERS. The desert is the setting, not the scoreboard. ***
+
+*** AND THE SIXTH INSTANCE OF THIS STUDY'S SHAPE, except this one is not wiring,
+it is ONE LINE OF TEXT ON A CARD HE ALREADY READS. *** There is exactly ONE daily
+cost in the walked game and it is not food or rent: `ctNeglectFor` charges you
+standing for not showing up for people you gave your word to ("nothing said,
+nothing owed"). MEASURED: it has two mentions in the file, its definition and its
+one call; the call sits in the SLEEP-tap callback inside a try/catch AND ITS
+RETURN VALUE IS THROWN AWAY. It hands back {faction, lost, now} and nobody reads
+it. Worse, showReckoning builds and shows the card FIRST and the charge happens ON
+THE TAP THAT DISMISSES IT. The card lists steps, districts, buildings entered, the
+job and the pay, and NEVER SAYS WHO YOU LET DOWN. That is RUN BB-WHAT-YOU-OWE and
+it is the best effort-to-effect row in seven days of study.
+
+THE UNLOCK EVERY LANE SHOULD KNOW: A SOCIAL BURN IS NOT DAMAGE. Standing is not
+health, so the whole motor ships WITHOUT PAOLO RULING ONE NUMBER, which is what
+has blocked every stakes conversation since NO DAMAGE BEFORE THE DIAL. Hunger
+needs a rate. "Three people are waiting on you" needs nothing but the truth.
+
+ALSO MEASURED: THE VALLEY BURNS AND THE PLAYER DOES NOT. mktAdvanceDay runs every
+nightfall (stock produced, EATEN, shortfall logged) and BohemiaEconomy.daysLeft
+can already say how many days of a good are left. The market has a metabolism and
+the player is a tourist in it. That is WORLD BB-DAYS-LEFT.
+AND DAY 7 CLOSES DAY 6: an armed group that stops being paid does not disappear,
+IT GOES ROVING (the historical free companies "regularly made a living by plunder
+when they were not employed"). So engine/bohemia_mandate.js's income rule (a
+district pays only while it is yours AND lit AND patrolled) is ALSO the aggression
+rule, and taking a faction's lights is not a free win. NOTE FOR WORLD BB-TURF:
+income(holdings) is ALREADY the landlord rule and already keyed to
+LIGHT=TERRITORY. Do not write a second one.
+
+COORDINATOR: 8/28 (i) -- *** DAY 6 OF THE BB
 STUDY: NOBODY IN THIS VALLEY HOLDS ANY GROUND, AND THE COORDINATOR IS THE ONE WHO
 STRANDED IT. Twenty BB- rows now routed. Nothing to judge. ***
 

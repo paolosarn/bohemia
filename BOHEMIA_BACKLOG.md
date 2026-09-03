@@ -1473,6 +1473,34 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+*** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
+    READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+BB-WHAT-YOU-OWE. *** THE SMALLEST ROW IN SEVEN DAYS OF STUDY AND THE BEST
+   EFFORT-TO-EFFECT ONE ON THE WHOLE BB BOARD. IT IS ONE LINE ON A CARD HE IS
+   ALREADY READING. ***
+   THE RECKONING CARD MUST NAME WHO YOU LET DOWN.
+   MEASURED 8/28: there is exactly ONE daily cost in the walked game, and it is
+   not food, rent or fuel -- it is PEOPLE YOU SAID YOU WOULD SHOW UP FOR.
+   `ctNeglectFor()` walks every outfit you made a commitment to and takes standing
+   away if you did not turn up ("nothing said, nothing owed", so it only bills
+   what you actually promised). THAT IS THE RIGHT MECHANIC AND THE PLAYER IS
+   NEVER TOLD IT HAPPENED.
+   `ctNeglectFor` has exactly TWO mentions in the file: its definition and its one
+   call. The call sits in the SLEEP-tap callback inside a try/catch AND ITS RETURN
+   VALUE IS THROWN AWAY -- it hands back a list of {faction, lost, now} and nobody
+   reads it. Worse, the timing: showReckoning builds and shows the card FIRST, and
+   the charge happens ON THE TAP THAT DISMISSES IT. The card lists steps,
+   districts, buildings entered, the job outcome and what you were paid, and NEVER
+   SAYS WHO YOU LET DOWN -- and the bill is rung up at the exact moment the card
+   that could have told you is already gone.
+   THE ROW: move the charge to BEFORE the card is built, read its return instead
+   of discarding it, and put it on the card. It already computes exactly what to
+   say. AND ADD THE FORWARD HALF -- who is expecting you TOMORROW -- because a
+   bill you only see after it is charged teaches nothing and motivates nothing.
+   WHY IT MATTERS MORE THAN ITS SIZE: this is the game's motor. The game he named
+   makes you leave the house through PAYROLL, and its punishment is not death, it
+   is people leaving. We already built our version of that and hid it.
+
 FT-JOURNEY. *** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED).
    He named the shape exactly: "fun organ trail type of fast travel" and then
    Frontier (Armor Games, Oct 2009) with its Enforcers/Buccaneers axis. This
@@ -2312,6 +2340,17 @@ BB-SUPPLY-FIRST. *** QUEUED (BB study day 6). ***
    "catch the monsoon off the rooftops, and stop asking anybody for water."
    THE VALLEY'S SUPPLY LINES ARE ALREADY MODELLED AND NOTHING CAN CUT ONE.
    Start with ONE cuttable supply line, not a war.
+
+BB-DAYS-LEFT. *** QUEUED (BB study day 7). ***
+   THE VALLEY ALREADY KNOWS HOW MANY DAYS OF A THING ARE LEFT AND THE PLAYER
+   CANNOT SEE IT ANYWHERE. `BohemiaEconomy.daysLeft(ledger, good)` exists and
+   `mktAdvanceDay()` runs at every nightfall -- stock produced, EATEN, shortfall
+   logged. THE MARKET HAS A METABOLISM AND THE PLAYER IS A TOURIST IN IT.
+   A shortage the valley can feel coming should be visible BEFORE it is a crisis.
+   That is the whole difference between a price and a DECISION: water at four
+   days does not cost what water at thirty days costs, and the model already
+   knows which one it is.
+   Read: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md.
 
 BB-PRICE-PLACE. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
    PRICE GETS A PLACE. engine/bohemia_economy.js is already serious, grounded
@@ -5322,6 +5361,43 @@ BB-POPULATION-RULE. *** QUEUED (BB study day 6). IT SHARPENS BB-OFFER-GATE
    and takes a cut. It also explains why day 1's hole (nobody has an opinion about
    you) and day 6's hole (nobody holds anything) are THE SAME HOLE at two
    population sizes.
+
+BB-OBLIGATION-BURN. *** DAY 7, AND IT IS THE MOTOR. ***
+   THE STAKES TABLE GETS ITS FIRST ENTRY AND IT IS AN OBLIGATION, NOT A METER.
+   The day loop's own header says the socket is built and empty on purpose: "NO
+   DAMAGE BEFORE THE DIAL. The reckoning REPORTS; it does not starve you, drain
+   you, or kill you... any of them drops in as one entry in a STAKES table that
+   is empty on purpose."
+   THE FINDING THAT DECIDES WHAT GOES IN IT: the placeholder list in that comment
+   is "hunger, exhaustion, rent, a debt clock", and survival meters are the most
+   reliably hated mechanic in the genre -- the criticism is not that they are
+   hard, it is that they are BUSYWORK. AND THE GAME HE NAMED, one of the most
+   punishing campaigns ever shipped, HAS NO HUNGER METER ON THE PLAYER AT ALL.
+   Its burn is PAYROLL and its punishment is LONELINESS: miss wages or food and
+   mood drops, keep missing and men DESERT. You do not die of poverty in that
+   game, YOU END UP ALONE.
+   THE SHAPE TO COPY: ONE thing not five meters; it SCALES WITH SUCCESS so a
+   bigger operation is a bigger obligation; the punishment is a person walking
+   away, not a bar draining.
+   *** AND THE UNLOCK: A SOCIAL BURN IS NOT DAMAGE. Standing is not health, so
+   this whole motor ships WITHOUT PAOLO RULING ONE NUMBER -- which is the thing
+   that has blocked every stakes conversation since NO DAMAGE BEFORE THE DIAL was
+   written. Hunger needs a rate. "Three people are waiting on you" needs nothing
+   but the truth. ***
+
+BB-UNPAID-TURNS-PREDATORY. *** QUEUED (BB study day 7, and it closes day 6). ***
+   AN ARMED GROUP THAT STOPS BEING PAID DOES NOT DISAPPEAR. IT BECOMES SOMEBODY
+   ELSE'S PROBLEM. The historical free companies "regularly made a living by
+   plunder when they were not employed"; the White Company kept notaries and
+   treasurers and signed binding contracts AND was known for widespread pillaging
+   at the same time; Caferro on the medieval mercenary: "notoriously difficult to
+   control and prone to desertion if not paid regularly."
+   DAY 6 SAID a bandit who settles acquires an interest in his block prospering.
+   DAY 7 SAYS THE REVERSE IS ALSO TRUE: cut a stationary bandit's income and he
+   GOES ROVING AGAIN. So engine/bohemia_mandate.js's income rule (a district pays
+   only while it is yours AND lit AND patrolled) is ALSO THE AGGRESSION RULE.
+   TAKE A FACTION'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE RELEASED
+   THEM. That turns a free win into a decision.
 
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.

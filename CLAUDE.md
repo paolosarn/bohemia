@@ -194,8 +194,8 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY IS FINISHED (8/28). SIX DAYS, WRITTEN AND
-  ROUTED. *** He drove it with two words, "bb study, next day", and it was the
+- *** THE BATTLE BROTHERS STUDY: SEVEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+  MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
   records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
@@ -247,10 +247,31 @@ research partner. He DECIDES, you PRODUCE.
   street. WHO HOLDS WHAT IS HIS. Day 6 also corrects day 1: web versus turf is
   not a design choice, it is A FUNCTION OF POPULATION SIZE, and the valley runs
   both regimes at once.
-  ROUTED: twenty rows tagged `BB-` in the backlog across COMBAT, WORLD, PEOPLE,
-  QUESTS, WORDS, UI and SHARED. Three are worth taking early (guns bad in close;
-  you can go back for her; name the circuit owner) and the rest queue BEHIND THE
-  DEMO, because nothing in the study is demo-critical.
+  *** AND DAY 7 IS THE SIXTH INSTANCE, EXCEPT THIS ONE IS NOT EVEN WIRING, IT IS
+  ONE LINE OF TEXT. THE MOTOR IS PAYROLL, NOT SURVIVAL. *** Nobody had asked WHY
+  A PLAYER GETS UP TOMORROW. BB's answer is a daily wage-and-food bill whose
+  punishment is mood, then DESERTION: you do not die of poverty in that game, YOU
+  END UP ALONE. One number, scaling with what you own, punished socially. THE
+  CHALLENGE TO US: our day loop's own header says its STAKES table is "empty on
+  purpose" and lists "hunger, exhaustion, rent, a debt clock" as the candidates,
+  and survival meters are the genre's most reliably hated mechanic (the complaint
+  is BUSYWORK, not difficulty) while the most punishing campaign ever shipped has
+  NO HUNGER METER ON THE PLAYER AT ALL. **SO THE STAKES TABLE GETS OBLIGATIONS TO
+  PEOPLE, NOT METERS. The desert is the SETTING, not the scoreboard.** AND WE
+  ALREADY BUILT THE RIGHT ONE AND HID IT: `ctNeglectFor` is the ONLY daily cost in
+  the walked game, it charges you for not showing up for people you gave your word
+  to, and it is called once inside a try/catch ON THE TAP THAT DISMISSES THE
+  RECKONING CARD, with its `{faction, lost, now}` return THROWN AWAY. The card
+  lists steps, districts and pay and never says who you let down. **THE UNLOCK: A
+  SOCIAL BURN IS NOT DAMAGE, so the motor ships without him ruling one number,
+  which is what has blocked every stakes conversation since NO DAMAGE BEFORE THE
+  DIAL.** Day 7 also closes day 6: cut an armed group's income and it does not
+  fade out, IT GOES ROVING, so taking somebody's lights is not a free win.
+  ROUTED: twenty-four rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
+  close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
+  the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,
+  because nothing in the study is demo-critical.
   AND A MEASUREMENT NOTE THAT WILL SAVE SOMEBODY A FALSE FINDING: **A PLAIN
   SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.** The combat demo is base64 inside
   `COMBAT_B64`, decoded into an iframe by `ensureCombatFrame()`, so `gunsOnTile`,

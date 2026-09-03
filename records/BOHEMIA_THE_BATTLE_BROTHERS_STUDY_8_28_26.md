@@ -159,6 +159,32 @@ on the walked surface -- every circuit has an owner and the game computes
 seams from it -- and the owner is a CATEGORY with no name. Territory there
 is A NAMING JOB, NOT A PORTING JOB. Seven more rows routed.**
 
+**DAY 7 — WHY YOU LEAVE THE HOUSE. *** DONE: records/BOHEMIA_BB_STUDY_
+DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md. He sent the trigger with five
+words attached: "YOU ARE NOT DONE WITH STUDYING BATTLE BROTHERS." ***
+THE QUESTION UNDER ALL THE OTHERS: days 1, 2 and 6 asked what work is
+offered, what it costs and who holds the ground. NOBODY ASKED WHY YOU GET
+UP TOMORROW.
+BB'S MOTOR IS PAYROLL, NOT COMBAT: wages daily at noon, rising with each
+level; 2 food per man per day; tools and medicine burning in the
+background. AND ITS PUNISHMENT IS NOT DEATH, IT IS DESERTION -- you do
+not die of poverty in that game, YOU END UP ALONE. One number, scaling
+with what you own, punished socially.
+THE CHALLENGE: our own stakes-table placeholder says "hunger, exhaustion,
+rent, a debt clock", and survival meters are the most reliably hated
+mechanic in the genre (the complaint is busywork, not difficulty). The
+most punishing campaign anybody has shipped HAS NO HUNGER METER ON THE
+PLAYER AT ALL. **SO THE STAKES TABLE SHOULD BE FILLED WITH OBLIGATIONS TO
+PEOPLE, NOT METERS.**
+AND THE SIXTH INSTANCE, except this one is not even wiring: WE ALREADY
+BUILT THE RIGHT MECHANIC AND HID IT. `ctNeglectFor` charges you daily for
+not showing up for people you gave your word to -- the ONLY daily cost in
+the game -- and it is called once, inside a try/catch, ON THE TAP THAT
+DISMISSES THE CARD THAT COULD HAVE TOLD YOU, WITH ITS RETURN VALUE THROWN
+AWAY. THE UNLOCK: a social burn is NOT DAMAGE, so the whole motor ships
+without him ruling one number. Four more rows; BB-WHAT-YOU-OWE is the best
+effort-to-effect row in the study.**
+
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
    and move on.
